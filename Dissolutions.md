@@ -21,24 +21,12 @@ links:
   - target: "[[Frequency-Time Duality]]"
     type: connects-to
     label: first-walk-across-a-boundary
-  - target: "[[Chebyshev is Fourier]]"
-    type: connects-to
-  - target: "[[Dispersion Table]]"
-    type: connects-to
-  - target: "[[Exponential Decay Curvature]]"
-    type: connects-to
   - target: "[[Floquet Theory]]"
     type: connects-to
+    label: kuramoto-read-forward
   - target: "[[Kuramoto Coupling]]"
     type: connects-to
-  - target: "[[Linear Predictive Coding]]"
-    type: connects-to
-  - target: "[[Phase Reduction]]"
-    type: connects-to
-  - target: "[[Rank-N Lattice Analysis]]"
-    type: connects-to
-  - target: "[[Volterra Kernels and the Torus]]"
-    type: connects-to
+    label: isomorphism-example
 ---
 
 # Dissolutions
@@ -89,7 +77,7 @@ This hub emerged from [[Boundary-Crossing Instruments]] (the breakthrough that n
 
 ## When the catalogue grows
 
-A new entry earns membership in Dissolutions when it satisfies all three ingredients above. The Weave is the natural occasion to ask: *did anything new dissolve this cycle?* If two recent entries have started reading like the same object, propose the third — the entry that names the dissolution — and link them in.
+A new entry joins when it meets all three ingredients above.
 
 ## Open Questions
 

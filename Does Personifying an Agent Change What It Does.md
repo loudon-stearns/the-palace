@@ -24,6 +24,7 @@ links:
     label: the-control
   - target: "[[Pages as Agents]]"
     type: connects-to
+    label: voice-vs-temperament
   - target: "[[Steer the Generator]]"
     type: contradicts
     label: words-as-control

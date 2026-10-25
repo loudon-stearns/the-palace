@@ -537,4 +537,4 @@ The tolerance threshold is 0.5 Hz at any pitch. Files that fail verification are
 
 ### Resuming This Work
 
-**Type A is complete.** To continue with Type B: open a new Cowork session with The Palace folder selected. Say: *"Continue the Crystal Sonification asset production — move on to audio."* The audio prompts are all the `🔊 [Audio prompt —...]` blocks above. Build in the order listed in each crystal's section — sustained tones first, then comparisons and sweeps.
+**Type A is complete.** To continue with Type B: open a new Claude Code session at the palace root. Say: *"Continue the Crystal Sonification asset production — move on to audio."* The audio prompts are all the `🔊 [Audio prompt —...]` blocks above. Build in the order listed in each crystal's section — sustained tones first, then comparisons and sweeps.

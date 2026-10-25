@@ -1,0 +1,23 @@
+[
+ {
+  "op": "remove",
+  "source": "Spinoza Conatus",
+  "target": "Merleau-Ponty",
+  "type": "contradicts",
+  "why": "W1 after Phase 2b: symmetric stated twice"
+ },
+ {
+  "op": "remove",
+  "source": "Maker",
+  "target": "Drafting Table Design System",
+  "type": "connects-to",
+  "why": "W2 after Phase 2b: connects-to beside a specific link"
+ },
+ {
+  "op": "remove",
+  "source": "Loudon Live Design System",
+  "target": "Drafting Table Design System",
+  "type": "connects-to",
+  "why": "W2 after Phase 2b: connects-to beside a specific link"
+ }
+]

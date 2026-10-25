@@ -16,10 +16,7 @@ links:
     type: spawned
   - target: "[[Hyperdimensional Prism]]"
     type: connects-to
-  - target: "[[Cooperation Yields Agency]]"
-    type: connects-to
-  - target: "[[Spinoza Conatus]]"
-    type: mirrors
+    label: categories-as-projections
   - target: "[[Palace Ceremonies]]"
     type: enables
   - target: "[[Resonant Link Labels]]"

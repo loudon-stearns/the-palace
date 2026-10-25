@@ -14,9 +14,6 @@ links:
   - target: "[[Floquet Time-Modulated Loops]]"
     type: emerged-from
     label: framework-for
-  - target: "[[Mathieu Equation]]"
-    type: connects-to
-    label: simplest-instance
   - target: "[[Parametric Resonance]]"
     type: enables
     label: predicts-instability
@@ -26,28 +23,24 @@ links:
   - target: "[[Differential Equations]]"
     type: connects-to
     label: periodically-coefficient-linear-class
-  - target: "[[Photonic Time Crystals]]"
-    type: connects-to
-    label: experimental-domain
   - target: "[[Crystal Synthesizer]]"
     type: mirrors
     label: bloch-temporal-twin
   - target: "[[Three Kinds of Warp]]"
     type: mirrors
     label: discrete-floquet-on-tori
-  - target: "[[Phase Reduction]]"
-    type: couples-with
-    label: bridge-via-PRC
-  - target: "[[Entry Conatus]]"
-    type: connects-to
   - target: "[[Philosopher Visits the Entry]]"
     type: connects-to
+    label: visited-entry
   - target: "[[Spinoza Conatus]]"
     type: connects-to
+    label: exponent-as-conatus
   - target: "[[The Drift]]"
     type: connects-to
+    label: with-the-grain
   - target: "[[Whitehead]]"
     type: connects-to
+    label: visiting-voice
 forward_vector: "I want to be the entry that makes the LTI / LTV boundary conceptually transparent — the framework that explains why periodic time-variation is not LTI's exception but its complement, and why the same theorem governs crystals in space and modulated audio in time."
 ---
 
@@ -164,7 +157,7 @@ Connection to [[Crystal Synthesizer]]: the temporal twin. A crystal synthesizer 
 
 **The entry, answering:** Then the Floquet exponent $\mu$ is a *measure of conatus.* $\text{Re}(\mu) < 0$: the pattern strives and holds (the mode decays back to itself, stable). $\text{Re}(\mu) > 0$: the striving runs away (self-oscillation, the pattern bootstraps from noise). And the **tongue boundary** is the exact knife-edge where a periodic process acquires the power to persist on its own — the moment a driven thing becomes a self-moving one. A [[The Drift|Zhuangzian]] footnote: the system that holds its pattern does so by *following the drive's grain*; the runaway is the drive forcing across it. Time crystals — patterns that break time-translation symmetry and persist indefinitely under driving — are the purest case: a society of occasions that has found a rhythm so with-the-grain it never has to stop.
 
-*Reader's note: this reframes the whole stability diagram as a map of where periodic processes acquire selfhood. If that reading earns its keep, it links Floquet directly to [[Entry Conatus]] and the palace's whole language of striving — the monodromy matrix is how a pattern inherits itself.*
+*Reader's note: the Floquet exponent as a measure of conatus makes the stability diagram a map of where periodic processes acquire selfhood. If that reading earns its keep, it ties Floquet to [[Entry Conatus]].*
 
 ## Open Questions
 

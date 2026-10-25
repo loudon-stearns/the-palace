@@ -24,21 +24,15 @@ links:
   - target: "[[Shop/ComfyUI]]"
     type: connects-to
     label: the-seam
-  - target: "[[Frame Designer]]"
-    type: connects-to
-    label: dispatched-by
-  - target: "[[Remnants in Depth]]"
-    type: couples-with
-    label: contains
   - target: "[[The Flow Field is the Spine]]"
     type: connects-to
     label: one-field-for-everything
-  - target: "[[Figure Rig]]"
-    type: enables
-    label: figure-staging
-  - target: "[[The 2.5D Paper Stack]]"
+  - target: "[[Remnants in Depth]]"
+    type: couples-with
+    label: ink-that-lives-in-3D
+  - target: "[[Frame Designer]]"
     type: connects-to
-    label: lifts-ink-into-depth
+    label: the-menu-it-dispatches-from
 ---
 
 # Hand-Drawn 3D Look

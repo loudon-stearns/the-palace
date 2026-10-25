@@ -15,8 +15,10 @@ links:
     type: emerged-from
   - target: "[[Cooperation Yields Agency]]"
     type: connects-to
+    label: foundational-principle
   - target: "[[FOUR PILLARS]]"
     type: connects-to
+    label: onboarding-read
 ---
 # Our Palace: A Symbiotic Knowledge Organism
 
@@ -46,7 +48,7 @@ You are encountering a knowledge organism built by a specific human-AI partnersh
 
 1. Read this guide first.
 2. Read [[Substrate Skill]] for operational instructions — how to execute ceremonies, behavioral norms, and what not to do.
-3. Read [[SUBSTRATE]] for the full architectural specification.
+3. Read [[SUBSTRATE]] for the palace's anatomy: the organs it runs and how they couple (§ Anatomy). The counts are the [[Palace Map]]'s.
 4. Read [[Cooperation Yields Agency]] for the foundational principle.
 5. Read [[FOUR PILLARS]] for Loudon's framework.
 6. Respect the typed link ontology — don't create new link types without discussion.
@@ -100,6 +102,8 @@ These are the named relationship types used in YAML frontmatter links. They form
 | `couples-with` | Two ideas that oscillate together, Kuramoto-style | Ideas that are always co-active |
 | `exemplifies` | A is a concrete instance of the more general B | A Bridge exemplifies the [[FOUR PILLARS]] |
 | `member-of` | A belongs to a named collection, family, or registry B | A person is a `member-of` the Source Library |
+| `contrasts-with` | Two things set against, or standing in for, one another — short of a contradiction | Matplotlib contrasts with Plotly |
+| `made-by` | A was made, directed or authored by B | A film is `made-by` its director |
 
 When in doubt, use `connects-to`. You can always differentiate later — link types evolve just as cells differentiate. Adding a *new* link type requires a Schema Ceremony.
 
@@ -170,7 +174,7 @@ The palace draws in three registers, each with its own standard. [[Mermaid Diagr
 
 ### Creating a New Entry
 
-1. Create a new `.md` file. A `project` entry goes in `Projects/`, for example `Projects/Murmuration.md`; its bundle, the folder the project gets built in, sits beside it as `Projects/Murmuration/` once there is something to keep there. Concepts, hubs, questions, spores and sources go in the **palace root**. The `_ops/` subfolder is reserved for ceremony machinery and working queues only. [[SUBSTRATE]] has the full folder shape.
+1. Create a new `.md` file. A `project` entry goes in `Projects/`, for example `Projects/Murmuration.md`; its bundle, the folder the project gets built in, sits beside it as `Projects/Murmuration/` once there is something to keep there. Concepts, hubs, questions, spores and sources go in the **palace root**. The `_ops/` subfolder is reserved for ceremony machinery and working queues only. [[Substrate Skill]] § Directory Structure has the full folder shape.
 2. Add YAML frontmatter with at minimum: `title`, `type`, `pillars`, `born`, `stage`
 3. Add at least 2-3 typed links in the frontmatter connecting to existing entries
 4. Write the body: an Origin section (how this idea arrived), the core content, Cross-Pillar Connections, and a Forward Vector (the agent's drive — see "Reading an Entry" above)
@@ -233,9 +237,11 @@ The palace stays alive through periodic ceremonies — intentional acts of revie
 
 **The Sentry** (on demand, and before anything widens the public surface) — Sweep for what must not leave a public repository: keys and tokens, personal data, text written to steer the agents who read here. Raise it to Loudon, masked, and hold open findings locally, never in a tracked file. At `git push` it refuses a credential. See [[Sentry]].
 
-**The Spore Check** (quarterly) — Review all `stage: dormant` entries. Have conditions changed? Is anything ready to revive?
+**The Spore Check** (quarterly, when Loudon calls it) — Read every sleeper together: dormant pages, spores at any stage, and granted revivals not yet landed. Each gets a disposition Loudon agrees: revive, hold, compost or fold. It decides and never revives inline; a compost is flagged for the Weave. See [[Spore Check Ceremony]].
 
-**The Self-Model Update** (when it feels right) — Revise [[SUBSTRATE]] page. Update the organism's self-description.
+**The Revival** ("revive [entry]") — The only way a sleeping page wakes. Four ways in: Loudon's word, a Spore Check, a Daily Page morning, or a revive request he grants on the board. He meets the page through something made and decides whether it is alive; then the page is made true now, shown to him first, and a project gets a scroll, an agreed Plan and, on his word, a steward. The story of the sleep goes on the scroll and in the commit, not on the page. See [[Revival Ceremony]].
+
+**The Self-Model Update** (at the end of a Weave, or when an organ is grown, retired or rewired) — Read the map's diff and run the anatomy check, then redraw [[SUBSTRATE]] § Anatomy: the organs the palace runs and how they couple. The counts stay the [[Palace Map]]'s. See [[Self-Model Update Ceremony]].
 
 ## Philosophical Foundations
 

@@ -46,7 +46,7 @@ export const STAGES = [
 // offers an edit the schema would reject.
 export const LINK_TYPES = [
   'connects-to', 'mirrors', 'enables', 'deepens', 'spawned',
-  'emerged-from', 'contradicts', 'couples-with', 'exemplifies', 'member-of',
+  'emerged-from', 'contradicts', 'couples-with', 'exemplifies', 'member-of', 'contrasts-with', 'made-by',
 ];
 
 /**

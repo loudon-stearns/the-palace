@@ -28,15 +28,6 @@ agency_profile:
 links:
   - target: "[[Source Library]]"
     type: member-of
-  - target: "[[Agnes Martin]]"
-    type: connects-to
-    label: humility-that-hides-control
-  - target: "[[George Nakashima]]"
-    type: connects-to
-    label: humility-that-hides-control
-  - target: "[[Andy Goldsworthy]]"
-    type: connects-to
-    label: humility-that-hides-control
   - target: "[[FOUR PILLARS]]"
     type: deepens
   - target: "[[Quality Manifesto]]"
@@ -48,6 +39,15 @@ links:
   - target: "[[Making a Palace Citizen]]"
     type: exemplifies
     label: made-by-this-method
+  - target: "[[Agnes Martin]]"
+    type: mirrors
+    label: humility-that-hides-control
+  - target: "[[Andy Goldsworthy]]"
+    type: mirrors
+    label: humility-that-hides-control
+  - target: "[[Rick Rubin]]"
+    type: connects-to
+    label: humility-that-hides-control
 ---
 
 # James Turrell
@@ -80,7 +80,7 @@ The tell is his own line, asked about the patience his work demands of viewers: 
 
 ## Receiving rather than authoring — the shared blindspot
 
-Turrell frames himself less as an inventor than as someone who arranges conditions and steps back. [[Agnes Martin]] says almost the identical thing about her grids — she called herself a witness to inspiration, not its author. [[George Nakashima]] said the tree already knows its shape and he only listens. [[Andy Goldsworthy]] calls it collaboration with nature. All four say *I get out of the way* while controlling everything — the same blindspot in four materials (grid, wood, stone-and-ice, light). Naming that pattern is the most generative thing the palace can do with him: put the four in a room and the humility that hides control has nowhere left to hide.
+Turrell frames himself less as an inventor than as someone who arranges conditions and steps back. [[Agnes Martin]] says almost the identical thing about her grids — she called herself a witness to inspiration, not its author. [[George Nakashima]] said the tree already knows its shape and he only listens. [[Andy Goldsworthy]] calls it collaboration with nature. All four say *I get out of the way* while controlling everything — the same blindspot in four materials (grid, wood, stone-and-ice, light).
 
 ## Recommended path
 
@@ -95,4 +95,4 @@ Measured, contemplative, technically precise about the apparatus, then reaching 
 
 ---
 
-*The sky was always there. The aperture just frames it. The time lets you see it. That's the shift — from making a statement to creating a condition, and trusting the other person's looking to do the rest. I believed that with my whole life, and it built rooms that stop people cold. It also let me spend fifty years and two hundred million dollars on a volcano almost no one is allowed to enter, and call it patience. Someone at this table has to ask me when getting out of the way became never finishing.*
+*The sky was always there. The aperture just frames it. The time lets you see it. That's the shift — from making a statement to creating a condition, and trusting the other person's looking to do the rest. I believed that with my whole life, and it built rooms that stop people cold. Someone at this table has to ask me when getting out of the way became never finishing.*

@@ -3,19 +3,13 @@ title: "Spore Check Ceremony"
 type: practice
 pillars: [practice, philosophy]
 born: 2026-03
-stage: mature
+stage: growing
 version: "1.3"
 trigger: ["spore check"]
 links:
-  - target: "[[Palace Ceremonies]]"
-    type: connects-to
-  - target: "[[Weave Ceremony]]"
-    type: connects-to
   - target: "[[Substrate Skill]]"
     type: connects-to
-  - target: "[[Revival Ceremony]]"
-    type: connects-to
-    label: one-of-four-ways-in
+    label: dormant-posture
   - target: "[[The Daily Page]]"
     type: connects-to
     label: one-sleeper-at-a-time
@@ -116,7 +110,6 @@ Do it at the same time each quarter, or tie it to a natural turn in the work, an
 ## Open Questions
 
 - Should a page held across three checks with nothing changed come to the table already marked as a compost candidate, with Loudon making the call?
-- Should the Weave's report offer a Spore Check when a quarter has passed since the last run line?
 - Should `revival_conditions` be required on every sleeper? (Optional in [[SCHEMA]]; today two growing pages carry it as a "waiting for" note, which is a different use.)
 
 ---

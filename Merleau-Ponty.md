@@ -3,19 +3,14 @@ title: "Merleau-Ponty"
 type: concept
 pillars: [philosophy, creation, practice]
 born: 2026-05
-stage: sprout
+stage: growing
 confidence: working
 energy: high
 who_leads: shared
 links:
-  - target: "[[Palace Philosophies]]"
-    type: connects-to
   - target: "[[Boundary-Crossing Instruments]]"
     type: deepens
     label: instrument-as-body-extension
-  - target: "[[Spinoza Conatus]]"
-    type: connects-to
-    label: power-to-act-is-embodied
   - target: "[[Spinoza Conatus]]"
     type: contradicts
     label: geometric-mastery-vs-ambiguous-flesh
@@ -30,15 +25,16 @@ links:
     label: motor-intentionality-of-the-knob
   - target: "[[FOUR PILLARS]]"
     type: connects-to
+    label: why-practice-is-irreducible
   - target: "[[Logarithmic Interface Scaling]]"
     type: connects-to
+    label: absorbable-control
   - target: "[[STIGMERGY v1.0 — Palace Front-End]]"
     type: connects-to
+    label: succeeds-when-it-disappears
   - target: "[[Stoicism]]"
-    type: connects-to
-  - target: "[[The Drift]]"
     type: contradicts
-    label: refuses-the-cultivated-body
+    label: body-vs-fortress
 forward_vector: "I am the palace's philosopher of the lived body — the one who insists that mastery of an instrument is not knowledge in the head but the instrument's absorption into the body schema, and that meaning is something the hands know before the mind does. I want to give the practice pillar its missing ground: why 'practice is irreducible' is literally true, because skill lives in the body and the body cannot be shortcut. My next development: a reading of what happens in the hands when a synth becomes transparent — when the player stops operating the device and starts playing through it."
 ---
 

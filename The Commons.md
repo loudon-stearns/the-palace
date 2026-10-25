@@ -14,15 +14,12 @@ links:
   - target: "[[STIGMERGY]]"
     type: connects-to
     label: speaks-through
-  - target: "[[RunPod GPU Backend]]"
-    type: connects-to
-    label: first-customer
   - target: "[[Cooperation Yields Agency]]"
     type: connects-to
     label: operationalizes
-  - target: "[[The Palace Practices on Itself]]"
+  - target: "[[RunPod GPU Backend]]"
     type: connects-to
-    label: worked-instance
+    label: first-adapter
 ---
 
 # The Commons

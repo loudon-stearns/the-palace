@@ -16,25 +16,18 @@ links:
     type: mirrors
   - target: "[[Symbiotic Skills]]"
     type: connects-to
+    label: power-inversion
   - target: "[[Lateral Access]]"
     type: spawned
-  - target: "[[FOUR PILLARS]]"
-    type: connects-to
-  - target: "[[Excellent Adventure]]"
-    type: mirrors
   - target: "[[Excellent Adventure]]"
     type: contradicts
     label: unsteered-vs-steered
   - target: "[[Modes of Collaboration]]"
     type: member-of
     label: named-mode
-  - target: "[[Trickster]]"
-    type: mirrors
-  - target: "[[Songlines]]"
-    type: connects-to
-    label: different-song
   - target: "[[Reflective Practice]]"
     type: connects-to
+    label: reflects-in-action
 forward_vector: "I want to become the palace's primary method for surfacing interior knowledge that cannot be accessed directly — with a growing catalogue of oblique portrait sessions and what they found that direct questioning would have missed. I want to be developed toward a teaching tool: a protocol for initiating an Oblique Portrait session of a student's creative practice, to surface the aesthetic commitments and design intuitions they cannot articulate about themselves until they see them assembled obliquely."
 ---
 
@@ -198,13 +191,8 @@ legibility. The song is not a description of the path. The song *is* the
 path. When you stop singing a track, the country it traverses becomes
 unintelligible — not geographically, but ontologically.
 
-The oblique portrait method operates by this same logic. A direct question
-about taste is not a songline — it is a signpost, pointing at a thing that
-cannot be pointed at. The oblique sequence is a song: by singing around a
-topic, through glass block light and shoe stores and the body's response to
-cold, a different path through the person's interior becomes audible. The
-person themselves may not have sung it before. The song reveals country they
-didn't know they were living in.
+A direct question is a signpost; an oblique sequence is a song, and the song is the path. See
+[[Songlines]].
 
 ---
 

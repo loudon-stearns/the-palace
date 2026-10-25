@@ -13,9 +13,6 @@ links:
   - target: "[[Stoicism]]"
     type: emerged-from
     label: memento-mori-and-cosmic-scale
-  - target: "[[The Dichotomy of Control]]"
-    type: couples-with
-    label: scale-partner
   - target: "[[Hyperdimensional Prism]]"
     type: mirrors
     label: the-altitude-that-unifies
@@ -28,8 +25,6 @@ links:
   - target: "[[Hilaritas Generator]]"
     type: connects-to
     label: scale-as-joy
-  - target: "[[STIGMERGY Philosophical Lenses]]"
-    type: connects-to
   - target: "[[Zoom Out to the Structure]]"
     type: contradicts
     label: zoom-direction-inverted

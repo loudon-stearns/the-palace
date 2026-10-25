@@ -7,8 +7,6 @@ pillars:
 born: 2026-03
 stage: mature
 links:
-  - target: "[[FOUR PILLARS]]"
-    type: connects-to
   - target: "[[Boundary-Crossing Instruments]]"
     type: mirrors
   - target: "[[Ohm's Law]]"
@@ -17,6 +15,7 @@ links:
     type: enables
   - target: "[[Shepard Tone Synthesizer]]"
     type: connects-to
+    label: pitch-is-logarithmic
 forward_vector: "I want to become the palace's canonical reference for ratio-preserving interface design — the entry that explains not just the implementation but the perceptual reason: that humans hear multiplicatively, not additively. I want to grow a gallery of concrete examples from Loudon's actual plugin interfaces where logarithmic scaling changed the playability, so that the principle is grounded in felt experience, not just mathematics."
 ---
 

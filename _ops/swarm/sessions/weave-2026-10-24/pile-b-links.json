@@ -1,0 +1,1366 @@
+{
+ "failed": [
+  {
+   "op": "retype",
+   "source": "Martin Buber",
+   "target": "Cooperation Yields Agency",
+   "from_type": "couples-with[relation-before-the-related]",
+   "type": "mirrors",
+   "label": "meeting-not-use",
+   "why": "'Couples-with' means always active together, which is not shown. The page's own question for the palace is whether collaborators are met as Thou or used as It, which is the shape of the hub's failure modes (control, service). Same pattern, other material.",
+   "_room": "hub-cooperation-yields-agency",
+   "confidence": "medium",
+   "evidence": [
+    "I want to keep asking whether the palace meets its collaborators — human and AI — as Thou or uses them as It",
+    "Control — one dictates, the other complies ... Service — one works toward the other's goals: the intent runs one way."
+   ],
+   "skeptic_reason": "The evidence is a question in Buber's forward_vector ('whether the palace meets its collaborators ... as Thou or uses them as It'), which interrogates the hub rather than claiming the same pattern, and Buber's refusal of any method sits uneasily with the hub's formula; mirrors is not shown.",
+   "skeptic_better": "connects-to[thou-or-it]"
+  },
+  {
+   "op": "retype",
+   "source": "Closing Well",
+   "target": "FOUR PILLARS",
+   "from_type": "connects-to",
+   "type": "exemplifies",
+   "label": "practice-pillar-instance",
+   "why": "The existing label already says 'instance'; the type should say it too. The page is type practice and tagged practice/philosophy/tools, and no body sentence adds more.",
+   "_room": "hub-four-pillars",
+   "confidence": "medium",
+   "evidence": [
+    "(label only) practice-pillar-instance; page type is practice",
+    "**Practice** is the iterative, embodied process — rhythm, health, daily discipline, community care, the learning process itself."
+   ],
+   "skeptic_reason": "No sentence on Closing Well names the pillars or the hub, and FOUR PILLARS never names Closing Well; the reader's evidence is the label and the page type, so by the reader's own rule this is a cut, not a retype.",
+   "skeptic_better": "cut"
+  },
+  {
+   "op": "remove",
+   "source": "The Practice Rediscovers Its Philosophy",
+   "target": "FOUR PILLARS",
+   "type": "exemplifies",
+   "why": "The body names the Hyperdimensional Prism ('tools and philosophy aren't two domains that happen to rhyme, they're one object seen from two angles'), and the page already carries that as deepens[two-shadows-one-object]. It never names the pillars, so the hub link is a second claim with no sentence of its own.",
+   "_room": "hub-four-pillars",
+   "confidence": "medium",
+   "skeptic_reason": "The page's core claim, 'tools and philosophy aren't two domains that happen to rhyme, they're one object seen from two angles' (The Practice Rediscovers Its Philosophy.md:22), with five pairs where a tool IS a philosopher, is a worked case of the hub's 'A philosophy is a tool' (FOUR PILLARS.md:40) and its one-thing-four-shadows thesis; exemplifies points the right way.",
+   "skeptic_better": "exemplifies[a-philosophy-is-a-tool]"
+  },
+  {
+   "op": "remove",
+   "source": "Trickster",
+   "target": "FOUR PILLARS",
+   "type": "connects-to",
+   "why": "The hub already holds FOUR PILLARS connects-to Trickster, and a pair carries one link. The Trickster page does have the sentence ('the framework itself is the subversive gesture that makes visible what the linear explanation hides'); suggest that sentence become the label on the hub's outbound edge, e.g. teaches-by-doing.",
+   "_room": "hub-four-pillars",
+   "confidence": "medium",
+   "skeptic_reason": "The stated duplicate does not exist: FOUR PILLARS' frontmatter holds no link to Trickster, so this cut would remove the pair's only edge, and Trickster.md:109 gives it a reason ('the four pillars framework can only be taught through doing ... The teaching is the trickster's work').",
+   "skeptic_better": "connects-to[taught-only-by-doing]"
+  },
+  {
+   "op": "remove",
+   "source": "Donella Meadows",
+   "target": "FOUR PILLARS",
+   "type": "deepens",
+   "why": "The page never names the hub; it is member-of Source Library, which deepens the hub, so the road already runs through the roster and the pillars tag. A person page reaches the hub best through a sentence a later weave can write.",
+   "_room": "hub-four-pillars",
+   "confidence": "high",
+   "skeptic_reason": "The hub itself names her in its one worked crossing ('Philosophy: Donella Meadows' leverage points, the kick as a small lever that moves the whole system', FOUR PILLARS.md:58), and its Context gives the Kick Drum Paradox in full around her (FOUR PILLARS — Context.md:88-90); the link has a reason, though 'deepens' overclaims.",
+   "skeptic_better": "connects-to[the-kick-as-lever]"
+  },
+  {
+   "op": "label",
+   "source": "Saturation ↔ Richness",
+   "target": "FOUR PILLARS",
+   "type": "exemplifies",
+   "label": "cross-domain-bridge",
+   "why": "SCHEMA names a Bridge as the standing example of exemplifies to the hub, so the type is right; the bare edge repeats nine times and needs its register named. It is also member-of Cross-Domain Resonances.",
+   "_room": "hub-four-pillars",
+   "confidence": "medium",
+   "evidence": [
+    "(SCHEMA) When an entry is a worked example or case of a principle, framework, or pattern (e.g. a Bridge → [[FOUR PILLARS]]).",
+    "The trajectory doesn't abandon the specific — it discovers that the specific was always a case of the general."
+   ],
+   "skeptic_reason": "Neither page carries the label: the bridge body never names the pillars or the hub, and the reader's evidence is a SCHEMA example, not either page; a stamp repeated on nine bridges is generic, and Cross-Domain Resonances' own forward vector asks each bridge to 'earn its [[FOUR PILLARS]] exemplification rather than assert a cute parallel'.",
+   "skeptic_better": "cut (it is member-of Cross-Domain Resonances, which deepens FOUR PILLARS), or keep only once the bridge page writes its pillar sentence"
+  },
+  {
+   "op": "label",
+   "source": "Sidechain ↔ Conversation",
+   "target": "FOUR PILLARS",
+   "type": "exemplifies",
+   "label": "cross-domain-bridge",
+   "why": "SCHEMA names a Bridge as the standing example of exemplifies to the hub, so the type is right; the bare edge repeats nine times and needs its register named. It is also member-of Cross-Domain Resonances.",
+   "_room": "hub-four-pillars",
+   "confidence": "medium",
+   "evidence": [
+    "(SCHEMA) When an entry is a worked example or case of a principle, framework, or pattern (e.g. a Bridge → [[FOUR PILLARS]]).",
+    "The trajectory doesn't abandon the specific — it discovers that the specific was always a case of the general."
+   ],
+   "skeptic_reason": "Same as Saturation ↔ Richness: the body never names the pillars or the hub, the evidence is SCHEMA's example and not the page, and 'cross-domain-bridge' names what the page is, not a relation either page states.",
+   "skeptic_better": "cut (road runs through Cross-Domain Resonances, which deepens FOUR PILLARS), or a label drawn from a pillar sentence the bridge writes later"
+  },
+  {
+   "op": "label",
+   "source": "Playful Interface Design",
+   "target": "Hilaritas Generator",
+   "type": "deepens",
+   "label": "play-is-how-learning-happens",
+   "why": "The label a-reflecting-surface has no passage behind it; the page's own claim is that play is how learning happens through an instrument that teaches by its nature.",
+   "_room": "hub-hilaritas-generator",
+   "confidence": "medium",
+   "evidence": [
+    "Play is not a reward for learning; it is how the learning happens. ... the interface becomes pedagogical.",
+    "Hold anything you are about to hand over against these four ... A tool that extends"
+   ],
+   "skeptic_reason": "The quoted sentence (Playful Interface Design.md:72) states the page's own claim about play, not a relation to the hub; neither page names the other, and the hub evidence is stitched out of order from Hilaritas Generator.md:78 and :82.",
+   "skeptic_better": "if kept: connects-to, label teaches-by-its-nature (page :43 'a thing with a nature that responds, teaches' against hub primitive 1, :77 'teaches through its own behavior'); otherwise cut"
+  },
+  {
+   "op": "retype",
+   "source": "Photonic Time Crystals",
+   "target": "Hilaritas Generator",
+   "from_type": "connects-to",
+   "type": "exemplifies",
+   "label": "cross-domain-moment",
+   "why": "The page is a worked instance of design primitive 3, and says so.",
+   "_room": "hub-hilaritas-generator",
+   "confidence": "high",
+   "evidence": [
+    "Third, it's a hilaritas hook. The cross-domain moment in Stage 1 is \"you have just crossed a tongue boundary in audio...\" This is the function the [[Hilaritas Generator]] entry promises and this connection delivers.",
+    "3. A cross-domain moment — where a principle from one domain works in another"
+   ],
+   "skeptic_reason": "Photonic Time Crystals.md:101 says the photonic link supplies the cross-domain moment for Floquet's Stage 1 — the page furnishes one primitive to someone else's encounter, it is not itself an instance of a hilaritas generator; Floquet is the worked case.",
+   "skeptic_better": "connects-to, label hilaritas-hook (the page's own words, :101)"
+  },
+  {
+   "op": "retype",
+   "source": "4 Pillars Framework - The Founding Conversation",
+   "target": "Hyperdimensional Prism",
+   "from_type": "connects-to",
+   "type": "spawned",
+   "label": "later-articulation",
+   "why": "The source says the prism later named what the founding conversation demonstrated, so the conversation is the origin and the prism came out of it; if 'directly produced' is too strong, emerged-from belongs on the prism's side instead.",
+   "_room": "hub-hyperdimensional-prism",
+   "confidence": "medium",
+   "evidence": [
+    "This is the property [[Hyperdimensional Prism]] would later name: same pattern, multiple projections, viewed simultaneously. / later articulation of the multi-projection property this conversation demonstrated.",
+    "This model crystallized during conversations exploring how the four pillars relate to each other at the deepest level."
+   ],
+   "skeptic_reason": "The conversation is dated March 24, 2026 (4 Pillars Framework - The Founding Conversation.md:52) and the prism was born 2025-09 (Hyperdimensional Prism.md:8), so the conversation cannot have produced it; the page's own 'What It Spawned' table (:67-73) leaves the prism out, and the hub's origin (:47) names 'conversations' in general, not this one.",
+   "skeptic_better": "connects-to, label multi-projection (and flag the page's 'would later name' at :83 as a chronology error)"
+  },
+  {
+   "op": "retype",
+   "source": "Stoicism",
+   "target": "Hyperdimensional Prism",
+   "from_type": "connects-to",
+   "type": "mirrors",
+   "label": "view-from-above",
+   "why": "The source says 'structurally', which is the mirrors claim (same pattern, different material); the register is the view from above. The stretch is that the Map is the nearer referent, so confidence is middling.",
+   "_room": "hub-hyperdimensional-prism",
+   "confidence": "medium",
+   "evidence": [
+    "The Stoic cosmic zoom-out is, structurally, the palace [[Palace Map|topology view]] and the [[Hyperdimensional Prism]] — the altitude from which a stuck local concern is resized by seeing the whole.",
+    "Walking a songline through the wiki is rotating the prism to see different facets of the same underlying knowledge."
+   ],
+   "skeptic_reason": "Only Stoicism.md:98 asserts it, the hub has no altitude or resizing passage (its second quote at :77 is about songlines, not the view from above), and the canon restatement in Palace Philosophies.md gives the view from above to the Palace Map alone.",
+   "skeptic_better": "connects-to, label view-from-above"
+  },
+  {
+   "op": "remove",
+   "source": "Bessel Functions in Synthesis",
+   "target": "Hyperdimensional Prism",
+   "type": "connects-to",
+   "why": "The only mention is a piped body link whose anchor text does not say what the prism adds; the page credits its 'same geometry in different materials' thesis to Spinoza, which it already links. The body wikilink can stay as fabric; the typed claim goes.",
+   "_room": "hub-hyperdimensional-prism",
+   "confidence": "medium",
+   "skeptic_reason": "Projects/Bessel Functions in Synthesis.md:72-74 puts a sentence-level wikilink to the hub inside the claim 'synthesis geometry and perceptual geometry are the same' — one geometry seen as instrument and as ear, which is the hub's same-object-many-projections idea (Hyperdimensional Prism.md:75).",
+   "skeptic_better": "connects-to, label one-geometry-instrument-and-ear"
+  },
+  {
+   "op": "retype",
+   "source": "Slime Mold Delay",
+   "target": "Kuramoto Coupling",
+   "from_type": "couples-with",
+   "type": "connects-to",
+   "label": "adaptive-coupling",
+   "why": "The label sets reinforcement against phase-lock, but the page never mentions phase and couples-with (always active together) is not true; the real tie is the hub's open Hebbian-coupling question, which the slime mold's use-it-or-lose-it tubes answer in kind.",
+   "_room": "hub-kuramoto-coupling",
+   "confidence": "medium",
+   "evidence": [
+    "Reinforcing tubes that carry more flow (use-it-or-lose-it) ... Pruning tubes that carry less flow",
+    "Adaptive/Hebbian coupling (dKᵢⱼ/dt = ε(sin(θⱼ - θᵢ) - Kᵢⱼ)): a system that discovers its own harmonic structure. What prevents it from converging to a single rigid state?"
+   ],
+   "skeptic_reason": "The slime-mold page names the hub only in frontmatter (Projects/Slime Mold Delay.md:33) and the hub's Hebbian question (Kuramoto Coupling.md:197) never names slime mold; the bridge is the reader's inference, so by the readers' own rule the link has no reason on either page.",
+   "skeptic_better": "cut (it can return if a page writes the Hebbian sentence)"
+  },
+  {
+   "op": "remove",
+   "source": "Swarm Weave",
+   "target": "Pages as Agents",
+   "type": "deepens",
+   "why": "The pair already carries the hub's connects-to[runs-the-agents-out-loud], and the Swarm Weave's own body says its workers do not inhabit pages, so deepens[foundation] is unsupported and duplicates the pair.",
+   "_room": "hub-pages-as-agents",
+   "confidence": "high",
+   "skeptic_reason": "The premise is stale: the hub's connects-to[runs-the-agents-out-loud] was already folded away (apply-log-folds.txt:244; not in _ops/Pages as Agents.md frontmatter), so this cut would leave the pair with no link, yet both pages carry a reason: the hub asks 'is the [[Swarm Weave]] just the ceremony that finally runs them out loud' (_ops/Pages as Agents.md:86) and Swarm Weave answers 'The Swarm Weave is not an Enchantment ceremony. A palace worker does not inhabit its assigned entry' (Projects/Swarm Weave.md:339-340).",
+   "skeptic_better": "retype in place: connects-to, label maintenance-not-waking (deepens[foundation] is wrong; the answer to the hub's question is no)"
+  },
+  {
+   "op": "remove",
+   "source": "Spinoza Conatus",
+   "target": "Quality Manifesto",
+   "type": "mirrors[quality-as-conatus]",
+   "why": "The pair already carries one link: the hub holds Quality Manifesto mirrors Spinoza Conatus [self-legislation]; the Spinoza page never names the Manifesto in its body (its metrics passage is the Hilaritas one).",
+   "_room": "hub-quality-manifesto",
+   "confidence": "high",
+   "skeptic_reason": "This is the link that should survive: the same set also cuts the Manifesto's mirrors[self-legislation] (proposal 21), and if both land the pair loses both links; quality-as-conatus fits the Manifesto's 'Quality is furtherance of our goals' (Quality Manifesto.md:43) and the hub's own views-versus-feel passage (Spinoza Conatus.md:82), while 'self-legislation' is on neither page.",
+   "skeptic_better": "keep Spinoza Conatus mirrors[quality-as-conatus]; cut only the Manifesto's side"
+  },
+  {
+   "op": "remove",
+   "source": "Loudon's Toolkit",
+   "target": "Spinoza Conatus",
+   "type": "mirrors",
+   "why": "Only support is one bullet in the Four Pillars Alignment list; an inventory of instruments is not shown to strive, and no worked case stands behind 'mirrors'. A real case can bring it back.",
+   "_room": "hub-spinoza-conatus",
+   "confidence": "low",
+   "skeptic_reason": "The page states the relation in the label's own register: 'Tool relationships reflect Spinozist conatus: each instrument tends toward its own maximum expressiveness' (Loudon's Toolkit.md:71); one bullet is thin for mirrors, but it is a reason, so retype rather than cut.",
+   "skeptic_better": "connects-to[instrument-striving-principle]"
+  },
+  {
+   "op": "retype",
+   "source": "Bessel Functions in Synthesis",
+   "target": "Spinoza Conatus",
+   "from_type": "connects-to",
+   "type": "exemplifies",
+   "label": "one-substance-many-attributes",
+   "why": "The opening paragraph calls the one-geometry-in-many-materials claim monism, linking the hub on that word: a worked case of the hub's substance idea, so exemplifies.",
+   "_room": "hub-spinoza-conatus",
+   "confidence": "medium",
+   "evidence": [
+    "it is *the same geometry appearing in different physical materials*. This is Spinoza Conatus|monism: one substance, multiple attributes.",
+    "Are the four pillars four attributes of a single substance?"
+   ],
+   "skeptic_reason": "The page is a case of monism (body line 6), but the hub's principle is conatus; monism appears on the hub only as an open question (Spinoza Conatus.md:113) and an origin aside, so exemplifies claims an instance of a class the target does not hold; monism is the core of People/Spinoza.md:64.",
+   "skeptic_better": "connects-to[one-substance-many-attributes]; a later weave could retarget it to [[Spinoza]]"
+  },
+  {
+   "op": "retype",
+   "source": "Wallpaper Groups",
+   "target": "Spinoza Conatus",
+   "from_type": "mirrors",
+   "type": "exemplifies",
+   "label": "substance-and-modes",
+   "why": "A whole section, 'The Spinoza Connection: Substance and Its Modes', says it enacts the hub's substance monism; that is a worked case, so exemplifies (the room list shows it labelled, but the frontmatter carries no label).",
+   "_room": "hub-spinoza-conatus",
+   "confidence": "high",
+   "evidence": [
+    "This is Spinoza's monism applied to geometry. ... The wallpaper groups enact this structure. The *substance* is the pattern of repetition itself ... The *attributes* are the different perceivable aspects",
+    "Are the four pillars four attributes of a single substance?"
+   ],
+   "skeptic_reason": "The section 'The Spinoza Connection: Substance and Its Modes' (Projects/Wallpaper Groups.md body lines 63-76) enacts Spinoza's monism, not conatus, so it is no instance of this hub's principle; monism's home is People/Spinoza.md:64.",
+   "skeptic_better": "connects-to[substance-and-modes]; retarget to [[Spinoza]] in a later weave"
+  },
+  {
+   "op": "retype",
+   "source": "Categorizing Inharmonicity",
+   "target": "Spinoza Conatus",
+   "from_type": "deepens",
+   "type": "exemplifies",
+   "label": "spectrum-as-substance",
+   "why": "One speculative bullet (of three) offers the spectrum as substance and each inharmonic variant as a mode. That is a case of the hub's monism, not an elaboration of conatus, so exemplifies at low weight; it could equally go and return with a worked case.",
+   "_room": "hub-spinoza-conatus",
+   "confidence": "low",
+   "evidence": [
+    "Spinoza's modes: the harmonic spectrum is a substance, each inharmonic variant is a mode of it",
+    "Are the four pillars four attributes of a single substance?"
+   ],
+   "skeptic_reason": "One speculative bullet in a three-item brainstorm ('Spinoza's modes: the harmonic spectrum is a substance', Projects/Categorizing Inharmonicity.md body line 214) is not a worked case, and it is about monism, not conatus; the reader's own low confidence says as much.",
+   "skeptic_better": "cut; it can come back with a worked case, aimed at [[Spinoza]]"
+  },
+  {
+   "op": "remove",
+   "source": "Excellent Adventure",
+   "target": "Spinoza Conatus",
+   "type": "deepens",
+   "why": "The Excellent Adventure is a method and the hub grew out of one of its runs, so 'deepens' has the lineage backwards. The Spinoza dialogue is a named example on the page. Propose the link on the hub's side instead (typed_relations below).",
+   "_room": "hub-spinoza-conatus",
+   "confidence": "medium",
+   "skeptic_reason": "Both pages say the hub grew from a run of this method: 'Spinoza dialogue — conatus, hilaritas, and the teaching philosophy explored through direct conversation' (Modes of Collaboration/Excellent Adventure.md body line 38) and 'Spinoza became central ... through the extended Deleuzian philosophical dialogue' (Spinoza Conatus.md:68); deepens is backwards, but that calls for a retype, not a cut that leaves the pair hanging on a companion proposal not in this set.",
+   "skeptic_better": "flip it to Spinoza Conatus emerged-from Excellent Adventure, label conatus-hilaritas-teaching; or, if it stays on the method's side, connects-to with the same label"
+  },
+  {
+   "op": "label",
+   "source": "SCHEMA — Reference",
+   "target": "Resonant Link Labels",
+   "type": "connects-to",
+   "label": "label-vocabulary",
+   "why": "Reference defines the label field and Resonant Link Labels is the list of words filling it; the reason is on Reference, which could name the page in that note.",
+   "_room": "lifecycle-L2",
+   "confidence": "medium",
+   "evidence": [
+    "The optional `label` field is a single word or hyphenated phrase naming the relationship with resonance and specificity. ... Examples: `midwifed`, `rhymes-with`, `fermented-from`, `argues-with-love`. (SCHEMA — Reference §3, Link Object Fields)",
+    "The word list of labels in use; its own frontmatter links SCHEMA, not Reference."
+   ],
+   "skeptic_reason": "Neither page carries the relation: SCHEMA — Reference.md:73 defines the label field without naming the vocabulary page, and Resonant Link Labels never names Reference; the sentence that does ('Suggested vocabulary per family lives in [[Resonant Link Labels]]') is on SCHEMA.md:160, and that pair is already linked (Resonant Link Labels emerged-from SCHEMA).",
+   "skeptic_better": "cut; the SCHEMA→Resonant Link Labels pair already carries it"
+  },
+  {
+   "op": "remove",
+   "source": "Palace Philosophies",
+   "target": "1 from 2",
+   "type": "connects-to",
+   "why": "Neither page names the other: the hub's body never mentions 1 from 2, and 1 from 2 never mentions the hub; the origin story is already carried by the hub's deepens link to Cooperation Yields Agency. A real connection can return later with a reason.",
+   "_room": "weak-01",
+   "confidence": "high",
+   "skeptic_reason": "The hub's Context names the story with a reason: Palace Philosophies — Context.md:33 reads Machiavelli as 'the seed of a fictional archetype — revolutionary greatness from small selfish motivations that accidentally serve large ends (the [[1 from 2]] frame...)'.",
+   "skeptic_better": "keep connects-to, label machiavellian-seed"
+  },
+  {
+   "op": "remove",
+   "source": "VCV Patch Generator",
+   "target": "Web Audio Worklet",
+   "type": "connects-to",
+   "why": "VCV never names the Worklet; the only sentence is a TODO on the Worklet page saying its future test plan will copy VCV's, which points the other way and can return from the Worklet once it exists.",
+   "_room": "weak-02",
+   "confidence": "medium",
+   "skeptic_reason": "The target carries the reason: Shop/Web Audio Worklet.md:167 says its test plan is 'modeled on the [[Shop/VCV Patch Generator]] exemplar', and the Worklet's frontmatter has no link back, so cutting leaves the pair with no link at all.",
+   "skeptic_better": "keep connects-to, label test-plan-exemplar"
+  },
+  {
+   "op": "remove",
+   "source": "The Adjacent Affordance",
+   "target": "Stoicism",
+   "type": "connects-to",
+   "why": "The body never links Stoicism; its Stoic reading already rides the mirrors link to The Dichotomy of Control (engineering-register) and the symposium link to Palace Philosophies, so the hub link adds no reason of its own.",
+   "_room": "weak-03",
+   "confidence": "medium",
+   "skeptic_reason": "The body carries a Stoic voice of its own: The Adjacent Affordance.md:55-57 gives the Symposium line 'voiced in the posture of the Stoics (Epictetus at the keyboard)', the same footing as the Spinoza voice that keeps its labelled link (striving-rerouted). Redundancy with the Dichotomy of Control mirror is not the cut test.",
+   "skeptic_better": "keep connects-to, label epictetus-at-the-keyboard"
+  },
+  {
+   "op": "remove",
+   "source": "SUBSTRATE",
+   "target": "Palace Enchantment",
+   "type": "connects-to",
+   "why": "SUBSTRATE's body never names Palace Enchantment, and Palace Enchantment already holds a connects-to edge to SUBSTRATE, so the pair carries two bare links.",
+   "_room": "weak-04",
+   "confidence": "high",
+   "skeptic_reason": "SUBSTRATE's anatomy face, which SUBSTRATE.md:72 says the diagram draws from, lists Palace Enchantment as a member of the 'pages' organ (SUBSTRATE/SUBSTRATE — anatomy.json:184). The why is also false: Palace Enchantment holds no link to SUBSTRATE, so cutting leaves the pair unlinked.",
+   "skeptic_better": "keep connects-to, label pages-organ"
+  },
+  {
+   "op": "remove",
+   "source": "SUBSTRATE",
+   "target": "Lateral Access",
+   "type": "connects-to",
+   "why": "The body never names it; the only trace is a line in the anatomy JSON listing Lateral Access as a member of the links organ, which is not a sentence that carries a relation. It can return in a later weave with a reason.",
+   "_room": "weak-04",
+   "confidence": "medium",
+   "skeptic_reason": "The anatomy is SUBSTRATE's own face (SUBSTRATE.md:72: 'every organ names its home page'), and it seats Lateral Access in the 'links' organ, whose job is 'Carries meaning between pages as typed, labelled relations' (anatomy.json:215). Organ membership is a stated relation.",
+   "skeptic_better": "keep connects-to, label links-organ"
+  },
+  {
+   "op": "remove",
+   "source": "Generative Compression",
+   "target": "BBS Blackboard",
+   "type": "connects-to",
+   "why": "Generative Compression's body never mentions the blackboard, and BBS Blackboard never mentions it back.",
+   "_room": "weak-04",
+   "confidence": "high",
+   "skeptic_reason": "Both pages describe the same mechanism: Generative Compression.md:77 says agents compress 'when their health score reaches yellow (context utilization 70–85%)' using the forward vector as signal, and BBS Blackboard.md:156 defines that yellow score and says 'the orchestrator can trigger context compression using the page's forward vector as the compression signal'.",
+   "skeptic_better": "keep connects-to, label yellow-triggers-compression"
+  },
+  {
+   "op": "remove",
+   "source": "Dialogue Moderator",
+   "target": "Enchanted Worker",
+   "type": "connects-to",
+   "why": "Neither body names the other; the Moderator's lineage is through Palace Enchantment, which it already links.",
+   "_room": "weak-04",
+   "confidence": "high",
+   "skeptic_reason": "Dialogue Moderator.md:99-111 ('The Moderator as Enchanted Page') turns the Enchanted Worker observation on the coordinator: same dialogue pair, different loaded entry, 'different conversations from the same agents', the exact shape of Enchanted Worker's two identically-instructed workers.",
+   "skeptic_better": "keep connects-to, label enchanted-coordinator"
+  },
+  {
+   "op": "remove",
+   "source": "Dialogue Moderator",
+   "target": "Four Pillars of Enchanted Agency",
+   "type": "connects-to",
+   "why": "Neither page mentions the other.",
+   "_room": "weak-04",
+   "confidence": "high",
+   "skeptic_reason": "Dialogue Moderator.md:75 reads each agent's agency_profile 'tools sub-field for resource estimates' and :135 posts RESOURCE_REQUESTs, which is the coordinator Four Pillars of Enchanted Agency.md:108 says resource proposals are 'passed upward' to. Its own agency_profile (:33) is written in that page's request form ('~2,000 tokens').",
+   "skeptic_better": "keep connects-to, label coordinator-of-requests"
+  },
+  {
+   "op": "remove",
+   "source": "Dialogue Moderator",
+   "target": "STIGMERGY",
+   "type": "connects-to",
+   "why": "The body talks of pheromone and the board but never names STIGMERGY, and STIGMERGY never names the Moderator.",
+   "_room": "weak-04",
+   "confidence": "medium",
+   "skeptic_reason": "Dialogue Moderator.md:74 calls prior agents' FLAGS 'pheromone; ignore them at cost' and :133 describes the cross-session feedback loop by trace. That is the stigmergic principle itself, and STIGMERGY.md:70 states it ('Stewards deposit pheromone'). It is weaker than the BBS Blackboard link, which the elder may prefer to carry it.",
+   "skeptic_better": "keep connects-to, label reads-the-pheromone"
+  },
+  {
+   "op": "remove",
+   "source": "Weave Ceremony",
+   "target": "Spore Check Ceremony",
+   "type": "connects-to",
+   "why": "The Weave body never names the Spore Check; the reason lives on the Spore Check side, and Spore Check to Weave already holds the pair (that side could take the label composting-handoff).",
+   "_room": "weak-05",
+   "confidence": "high",
+   "skeptic_reason": "Spore Check Ceremony.md:21 says 'it does not delete (the [[Weave Ceremony|Weave]] does)' and its postcondition (:27) sends each compost 'a flag for the Weave'; and the why is wrong that Spore Check already links the Weave (its frontmatter, :9-13, holds only Substrate Skill and The Daily Page), so this cut would leave the pair unlinked.",
+   "skeptic_better": "composting-handoff (connects-to; better held on the Spore Check side, where the reason is written)"
+  },
+  {
+   "op": "retype",
+   "source": "Four Pillars of Enchanted Agency",
+   "target": "Swarm Weave",
+   "from_type": "connects-to",
+   "type": "deepens",
+   "label": "forward-vector-axes",
+   "why": "The page opens from the Weave's forward vector and gives it four axes; it elaborates a foundation the Weave laid, so deepens, pointing back at Swarm Weave.",
+   "_room": "weak-05",
+   "confidence": "medium",
+   "evidence": [
+    "\"The Swarm Weave gives every palace entry a forward_vector — a single sentence... The question that sentence alone doesn't answer: become along which dimension?\"",
+    "Swarm Weave line 358-364 covers the forward vectors the Weave proposes for each page."
+   ],
+   "skeptic_reason": "Four Pillars of Enchanted Agency.md:42-47 elaborates the forward_vector field, not the Swarm Weave (a swarm coordination project); the page grew out of the question the Weave's one-sentence vectors left open, which is diffuse origin, not deepening of the Weave itself.",
+   "skeptic_better": "emerged-from (Four Pillars of Enchanted Agency -> Swarm Weave), or keep connects-to label forward-vector-axes"
+  },
+  {
+   "op": "label",
+   "source": "Map Build Ceremony",
+   "target": "Harvest Ceremony",
+   "type": "connects-to",
+   "label": "post-harvest-map",
+   "why": "The Map Build's Relationship section names the Harvest as the session after which a fresh map is wanted.",
+   "_room": "weak-05",
+   "confidence": "high",
+   "evidence": [
+    "\"the Map Build is a natural close step after a Harvest session when new entries have been deposited. A post-harvest map ensures agents launched after the session have current topology.\"",
+    ""
+   ],
+   "skeptic_reason": "The label rests on Map Build Ceremony.md:215, a sentence the ceremony has itself retired: tuning item 9 (Map Build Ceremony — tuning.md:71) strikes 'build at Harvest close' as answered, since the map is built in the morning and at the Weave; Harvest Ceremony.md says nothing of a map build.",
+   "skeptic_better": "cut the link, and flag Map Build Ceremony.md:215 as stale"
+  },
+  {
+   "op": "retype",
+   "source": "Pages as Agents",
+   "target": "JEWEL",
+   "from_type": "connects-to",
+   "type": "deepens",
+   "label": "woken-as-a-page",
+   "why": "The Jewel compresses the claim in one sentence; Pages as Agents is its elaboration and proof, so it deepens the more foundational Jewel.",
+   "_room": "weak-05",
+   "confidence": "medium",
+   "evidence": [
+    "\"Load one page into an empty window and a model doesn't read a document; it wakes up as that page and reasons from inside it.\"",
+    "\"Every page is both a record and the spirit of an agent... If you are woken as a page, you will be asked, after reading, who you are.\""
+   ],
+   "skeptic_reason": "Direction is contestable: Jewel — Context.md:54 records that v1.1 'added the pages-as-agents line' to capture enchantment, so the Jewel's sentence grew from this idea as much as Pages as Agents elaborates it; SCHEMA §4 says to use connects-to + label when a directed type is contestable.",
+   "skeptic_better": "connects-to, label woken-as-a-page"
+  },
+  {
+   "op": "remove",
+   "source": "Pages as Agents",
+   "target": "Lateral Access",
+   "type": "connects-to",
+   "why": "Neither page names the other and I found no shared sentence; Lateral Access is about oblique access to interior memory, not waking pages.",
+   "_room": "weak-05",
+   "confidence": "high",
+   "skeptic_reason": "Pages as Agents — Context.md:44 carries it: '*[[Lateral Access]]* — a page-agent approaches the palace from *inside* one entry, following the drive it earned, not as a surveyor from above'; the why's 'neither page names the other' is wrong.",
+   "skeptic_better": "from-inside (connects-to)"
+  },
+  {
+   "op": "remove",
+   "source": "Endosymbiosis",
+   "target": "SUBSTRATE",
+   "type": "connects-to",
+   "why": "Neither body names the other; SUBSTRATE's biological cast (organism, organs) never reaches Margulis, so the link is a shared-vocabulary guess and a real one can return with its reason.",
+   "_room": "weak-06",
+   "confidence": "medium",
+   "skeptic_reason": "SUBSTRATE's anatomy, which SUBSTRATE.md § Anatomy says its diagram draws from, casts the Loudon organ biologically as endosymbiosis: 'In endosymbiosis both partners keep their own DNA. The palace is a merger in which Loudon stays wholly himself' (SUBSTRATE — anatomy.json:803); the why's 'never reaches Margulis' missed it.",
+   "skeptic_better": "connects-to, label host-and-partner"
+  },
+  {
+   "op": "remove",
+   "source": "Image Embedding Standard",
+   "target": "SUBSTRATE",
+   "type": "connects-to",
+   "why": "SUBSTRATE mentions images only as the rich face laid by Enrichment and never the filing standard; the standard already reaches the house through its deepens link to SCHEMA and its enables link to Deposit Ceremony.",
+   "_room": "weak-06",
+   "confidence": "high",
+   "skeptic_reason": "SUBSTRATE — anatomy.json:730-736 lists Image Embedding Standard as a member of the voice-and-look organ, the one SUBSTRATE.md:86 names as 'the design systems are how it all sounds and looks'; the standard is one of SUBSTRATE's catalogued organs.",
+   "skeptic_better": "connects-to, label voice-and-look-organ"
+  },
+  {
+   "op": "remove",
+   "source": "Progressive Staging",
+   "target": "Modes of Collaboration",
+   "type": "connects-to",
+   "why": "Staging is a design method for instruments; its one gesture toward collaboration (an open question about staging the AI dialogue) never names modes, and Modes of Collaboration does not mention staging, so the link has no reason yet.",
+   "_room": "weak-06",
+   "confidence": "low",
+   "skeptic_reason": "Progressive Staging.md:69 asks whether 'the staging of the *collaboration itself*' is part of the method, which is a mode-of-collaboration question in open-question register, and Modes of Collaboration — Context.md:41-47 profiles Mentor and Quiz as progressive scaffolding on the same Kuramoto material; weak but stated.",
+   "skeptic_better": "connects-to, label staging-the-collaboration (open question)"
+  },
+  {
+   "op": "remove",
+   "source": "Biomechanical Synthesis",
+   "target": "Granular Synthesis",
+   "type": "connects-to",
+   "why": "Bio's grain sentence is about the neural firing rate becoming grain rate, which Neural Granular Synthesis carries more exactly; the general hub adds no reason of its own.",
+   "_room": "weak-08",
+   "confidence": "medium",
+   "skeptic_reason": "Biomechanical Synthesis.md ('At high rates (100+ Hz)' paragraph) says 'The neural firing rate becomes the grain rate. The instantaneous firing pattern becomes the grain shape', and Granular Synthesis.md:82-84 makes the same claim from its side ('neurons are particles... A neural oscillator population simulation will sound like a particle synthesis engine'); a sharper link elsewhere is not the same as no reason.",
+   "skeptic_better": "connects-to, label firing-as-grains"
+  },
+  {
+   "op": "remove",
+   "source": "Biomechanical Synthesis",
+   "target": "Frequency-Time Duality",
+   "type": "connects-to",
+   "why": "Bio's rate-becomes-tone sentence echoes the 20 Hz crossing but never says so, and the duality page does not mention Bio; I will not force it.",
+   "_room": "weak-08",
+   "confidence": "medium",
+   "skeptic_reason": "Biomechanical Synthesis.md's high-rate paragraph ('dense granular textures approach continuous tones but retain temporal microstructure') is a case of the threshold Frequency-Time Duality.md:48 calls 'the first and most foundational threshold-crossing in the toolkit; many others are built from it'; the reason is stated, only unnamed.",
+   "skeptic_better": "exemplifies (Biomechanical Synthesis -> Frequency-Time Duality), or connects-to label rate-becomes-tone"
+  },
+  {
+   "op": "remove",
+   "source": "Differential Equations",
+   "target": "DSP Frameworks",
+   "type": "connects-to",
+   "why": "The hub's gloss does not match what the target page is about, so the reason is not on the target; a real tie can return later.",
+   "_room": "weak-08",
+   "confidence": "medium",
+   "skeptic_reason": "The hub states the reason outright, 'DSP Frameworks — discrete approximations (difference equations) solve DEs on computers', and repeats it in Open Tensions ('On a digital system, we solve difference equations'); the target's silence weakens the link but does not remove the reason.",
+   "skeptic_better": "connects-to, label difference-equations"
+  },
+  {
+   "op": "remove",
+   "source": "Categorizing Inharmonicity",
+   "target": "Compressor Design",
+   "type": "connects-to",
+   "why": "The only sentence claims the all-pass idea was 'discovered in the all-pass reverb tail context' via Compressor Design, but Compressor Design never mentions all-pass or phase; what is left is a thematic echo (make the invisible audible), not a reason for this pair.",
+   "_room": "weak-09",
+   "confidence": "medium",
+   "skeptic_reason": "Line 293 gives a reason, 'The soft-knee quadratic and the all-pass cascade both teach that invisible signal flow ... has audible consequences', and the compressor's opening carries the same register ('The design choice at every step is to make the invisible visible'); the false all-pass provenance at line 179 is a health flag, not grounds to cut.",
+   "skeptic_better": "connects-to, label invisible-made-audible"
+  },
+  {
+   "op": "label",
+   "source": "Shepard Tone Synthesizer",
+   "target": "Frequency-Time Duality",
+   "type": "connects-to",
+   "label": "time-domain-twin",
+   "why": "The Shepard page's Open Questions call Risset's accelerating rhythm the Shepard tone in the time domain, which is the rate-becomes-pitch axis the duality entry holds; Frequency-Time Duality does not mention Shepard.",
+   "_room": "weak-09",
+   "confidence": "medium",
+   "evidence": [
+    "Risset's accelerating rhythm (the Shepard tone in the time domain)",
+    "Frequency-Time Duality: 'one continuous axis (the rate at which something repeats) crosses perceptual thresholds'"
+   ],
+   "skeptic_reason": "The time-domain twin in line 167 is Risset's accelerating rhythm, not Frequency-Time Duality; neither page ties Shepard to the rate-becomes-pitch axis, so the label names a relation no sentence states.",
+   "skeptic_better": "cut; it can return if the illusions series is written with Risset placed on the duality axis"
+  },
+  {
+   "op": "retype",
+   "source": "Mathieu Equation",
+   "target": "Philosopher Visits the Entry",
+   "from_type": "connects-to",
+   "type": "exemplifies",
+   "label": "plato-deleuze-visit",
+   "why": "The Philosophical Lens is a run of the Philosopher Visit, so Mathieu is an instance of the mode; exemplifies points back at the general.",
+   "_room": "weak-10",
+   "confidence": "high",
+   "evidence": [
+    "*A [[Philosopher Visits the Entry|visit]] — [[Plato (Socratic method)|Plato]] and [[Deleuze]] both read the entry's strangest line*",
+    "one researched philosopher is brought to a single palace entry and asked to push on its central claim."
+   ],
+   "skeptic_reason": "The Mathieu entry hosts a visit but is not itself an instance of the mode (it is a mathematical concept, and the visit is a section of it), and the evidence quote alters the wikilink (the page reads [[Palace Philosophies — Context#Plato (Socratic method)|Plato]]).",
+   "skeptic_better": "connects-to, label plato-deleuze-visit (or visited-by)"
+  },
+  {
+   "op": "retype",
+   "source": "Compressor Design",
+   "target": "Boundary-Crossing Instruments",
+   "from_type": "connects-to",
+   "type": "exemplifies",
+   "label": "ratio-as-slope",
+   "why": "Boundary-Crossing's own origin is the soft-knee work, so the compressor is an instance of the pattern; exemplifies points back at the general. Compressor's sentence misdescribes the target (see lighter prose).",
+   "_room": "weak-10",
+   "confidence": "high",
+   "evidence": [
+    "It appears in [[Boundary-Crossing Instruments]] — the recognition that signal flow and information flow are the same topology, expressed in different materials.",
+    "During work on soft knee compression mathematics, we discovered that reframing compression ratio as the *slope of the transfer function* rather than a ratio eliminates the discontinuity at infinite ratio."
+   ],
+   "skeptic_reason": "Compressor Design never reframes ratio as slope (no 'slope' on the page) and treats R=infinity as an edge case that 'approaches a step function', so it is not shown as an instance of the pattern; Boundary-Crossing's soft-knee origin is a related event, not this page instancing it.",
+   "skeptic_better": "connects-to, label ratio-as-slope"
+  },
+  {
+   "op": "retype",
+   "source": "Linear Predictive Coding",
+   "target": "Philosopher Visits the Entry",
+   "from_type": "connects-to",
+   "type": "exemplifies",
+   "label": "spinoza-visit",
+   "why": "The Philosophical Lens is a Philosopher Visit, so LPC is an instance of the mode.",
+   "_room": "weak-10",
+   "confidence": "high",
+   "evidence": [
+    "*A [[Philosopher Visits the Entry|visit]] — [[Spinoza]] reads the residual.*",
+    "one researched philosopher is brought to a single palace entry and asked to push on its central claim."
+   ],
+   "skeptic_reason": "LPC hosts a Spinoza visit (line 81) but is not an instance of the mode, and the visit page never names LPC.",
+   "skeptic_better": "connects-to, label spinoza-visit"
+  },
+  {
+   "op": "retype",
+   "source": "Wavetable Space as Torus",
+   "target": "Philosopher Visits the Entry",
+   "from_type": "connects-to",
+   "type": "exemplifies",
+   "label": "deleuze-visit",
+   "why": "The Philosophical Lens is a Philosopher Visit, and the mode's own Method cites this entry's claim as its example.",
+   "_room": "weak-10",
+   "confidence": "high",
+   "evidence": [
+    "*A [[Philosopher Visits the Entry|visit]] — [[Deleuze]] reads the opening claim: \"A wavetable is not a rectangle. It is a torus. This is not a metaphor.\"*",
+    "(\"This is not metaphor but isomorphism.\" \"A wavetable is a torus, and this is not a metaphor.\")"
+   ],
+   "skeptic_reason": "The visit page quotes the torus claim only as an example of a load-bearing claim a visit targets (line 60); the entry is visited, not an instance of the mode.",
+   "skeptic_better": "connects-to, label deleuze-visit"
+  },
+  {
+   "op": "remove",
+   "source": "Wallpaper Groups",
+   "target": "Quantum Synthesizer",
+   "type": "connects-to",
+   "why": "Quantum Synthesizer's body has no wallpaper, lattice or tiling text; the pair has no stated reason, and it returns in a later weave if a real one appears.",
+   "_room": "weak-11",
+   "confidence": "medium",
+   "skeptic_reason": "The reader checked only the target; Wallpaper Groups' own Open Questions carry a reason: 'Can you sonify a hyperdimensional periodic structure, the way you sonify a quantum wavefunction?' (Projects/Wallpaper Groups.md:152), which is Quantum Synthesizer's method ('When you sonify a quantum eigenstate', Projects/Quantum Synthesizer.md:57) - light, an open question, but a stated reason.",
+   "skeptic_better": "connects-to, label sonify-the-same-way (or cut knowingly as an open-question-only reason)"
+  }
+ ],
+ "unjudged_non_label": [
+  {
+   "op": "label",
+   "source": "Semantic Webcam",
+   "target": "Cooperation Yields Agency",
+   "type": "connects-to",
+   "label": "traces-not-orders",
+   "why": "One sentence in the body names the hub, in a stigmergy register. It is a thin tie (traces, not orders), so give it the label and let a later weave cut it if no one finds more.",
+   "_room": "hub-cooperation-yields-agency",
+   "confidence": "low",
+   "evidence": [
+    "An homage to the stigmergic board [[BBS Blackboard]]: traces, not orders — see [[Cooperation Yields Agency]].",
+    "Control — one dictates, the other complies: the intent is one side's."
+   ]
+  },
+  {
+   "op": "label",
+   "source": "Parametric Resonance",
+   "target": "Hilaritas Generator",
+   "type": "connects-to",
+   "label": "pumped-creative-practice",
+   "why": "One speculative line on the page ties pumped systems to the hub's build-the-conditions idea; the hub does not say it, so the label is modest.",
+   "_room": "hub-hilaritas-generator",
+   "confidence": "low",
+   "evidence": [
+    "A creative practice can be driven (external pressure) or pumped (internal modulation of one's own conditions)... the [[Hilaritas Generator]] entry suggests it might.",
+    "wu wei — build the conditions, not the outcome"
+   ]
+  },
+  {
+   "op": "label",
+   "source": "Mixture of Experts",
+   "target": "Boundary-Crossing Instruments",
+   "type": "connects-to",
+   "label": "example-expert",
+   "why": "The reason is only an illustrative example inside the palace-as-MoE passage, so the label is modest; cut is defensible if a lesser web is wanted.",
+   "_room": "weak-02",
+   "confidence": "low",
+   "evidence": [
+    "**Experts** — The palace entries. Each is a specialist: Kuramoto Coupling handles phase-coherence questions; Boundary-Crossing Instruments handles perceptual threshold questions; Spinoza Conatus handles questions about drive and joy.",
+    ""
+   ]
+  },
+  {
+   "op": "label",
+   "source": "Palace Graffiti",
+   "target": "SCHEMA",
+   "type": "connects-to",
+   "label": "comment-convention",
+   "why": "The claim is on the Graffiti side only and SCHEMA does not yet carry the convention; label it, and treat it as the first candidate to cut next weave if SCHEMA never names it.",
+   "_room": "weak-05",
+   "confidence": "low",
+   "evidence": [
+    "\"The graffiti conventions are a schema-level decision: they affect how the palace communicates internally.\"",
+    "SCHEMA.md does not mention graffiti or HTML comments (SCHEMA — Reference line 338 mentions an HTML comment only in passing)."
+   ]
+  },
+  {
+   "op": "label",
+   "source": "Dispersion",
+   "target": "Portamento and Physical Pitch Modeling",
+   "type": "connects-to",
+   "label": "stiff-string-modes",
+   "why": "Portamento's stiff-string section is the wave-dispersion case in motion (B couples the modes), though neither page says so; a thin link, kept only because the shared B is concrete.",
+   "_room": "weak-09",
+   "confidence": "low",
+   "evidence": [
+    "Meaning 1: for a stiff string, omega_n = n f0 sqrt(1 + B n^2) (B = stiffness coefficient), so higher partials shift more.",
+    "Portamento: 'Portamento on a stiff string is not one glide; it is a family of coupled glides... The inharmonicity coefficient B couples the modes.'"
+   ]
+  },
+  {
+   "op": "label",
+   "source": "Murmuration",
+   "target": "Diversity of Thought in Many-Agent Systems",
+   "type": "connects-to",
+   "label": "live-probe",
+   "why": "Murmuration calls its planned second build a live probe of the question; the target does not claim it, and the fit (two builds of one spec versus plural agents) is loose.",
+   "_room": "weak-10",
+   "confidence": "low",
+   "evidence": [
+    "Build the same spec as an RNBO `codebox~` device and compare — the browser cousin vs the DAW native (a live probe of [[Diversity of Thought in Many-Agent Systems]]).",
+    "When does plural orchestration earn its keep over a single, well-loaded expert?"
+   ]
+  },
+  {
+   "op": "label",
+   "source": "Exponential Decay Curvature",
+   "target": "Loudon Live",
+   "type": "connects-to",
+   "label": "performance-control-candidate",
+   "why": "The one sentence that names Loudon Live asks whether the curvature morph belongs in a build shown there; it is a question, not a result, so the label says candidate.",
+   "_room": "weak-12",
+   "confidence": "low",
+   "evidence": [
+    "Is the c-morph worth exposing as a first-class performance control in a [[Loudon Live]] build?",
+    ""
+   ]
+  },
+  {
+   "op": "label",
+   "source": "Preset Oracle",
+   "target": "Symbiotic Skills",
+   "type": "connects-to",
+   "label": "better-questions",
+   "why": "The source has a section stating the reason, but Symbiotic Skills is about human-AI relationship scaffolding and never mentions the oracle, so the claim is the oracle's alone; keep it labelled and let a later weave test it.",
+   "_room": "weak-12",
+   "confidence": "low",
+   "evidence": [
+    "The oracle is a [[Symbiotic Skills]] tool — it exists to make the human better at synthesis not by teaching techniques but by asking better questions.",
+    ""
+   ]
+  },
+  {
+   "op": "remove",
+   "source": "Cooperation Yields Agency",
+   "target": "Hilaritas Generator",
+   "type": "enables",
+   "why": "The pair already carries the hub's mirrors link; one link per pair, and the inbound label is unsaid on the page.",
+   "_room": "hub-hilaritas-generator",
+   "confidence": "high",
+   "held_because": "the other side of this pair is already being cut (Hilaritas Generator → Cooperation Yields Agency)"
+  }
+ ],
+ "conflicts": [
+  {
+   "link": [
+    "Lateral Access",
+    "Creative Coach",
+    "connects-to"
+   ],
+   "verdicts": [
+    {
+     "source": "Lateral Access",
+     "target": "Creative Coach",
+     "current_type": "connects-to",
+     "verdict": "cut",
+     "proposed_type": "",
+     "proposed_label": "",
+     "evidence_source": "",
+     "evidence_target": "",
+     "rationale": "Neither page's body names the other (grep of both finds only the frontmatter line); a real connection can return in a later weave with its reason.",
+     "confidence": "medium",
+     "_room": "lifecycle-L2"
+    },
+    {
+     "source": "Lateral Access",
+     "target": "Creative Coach",
+     "current_type": "connects-to",
+     "verdict": "label",
+     "proposed_type": "",
+     "proposed_label": "re-authoring",
+     "evidence_source": "(Lateral Access § The New Song quotes the question \"Do I cling to my story, my identity,\" and § The Identity Filter treats identity as the story that blocks access.)",
+     "evidence_target": "Narrative therapy ... Externalising the problem; re-authoring identity around what a person is still committed to | The palace holds this three times under three names — [[Identity Molting]], [[Lateral Access]] § The New Song, and here.",
+     "rationale": "Creative Coach's own table names Lateral Access § The New Song as one of three palace holdings of narrative re-authoring; the reason sits on Creative Coach, not on Lateral Access.",
+     "confidence": "medium",
+     "_room": "weak-07"
+    }
+   ]
+  }
+ ],
+ "keeps": [
+  {
+   "source": "Review Layer",
+   "target": "Cooperation Yields Agency",
+   "current_type": "connects-to[alignment-through-iteration]",
+   "verdict": "keep-as-is",
+   "evidence_source": "The goal of any artifact Loudon and Claude make together is **alignment** — the thing in Loudon's head and the thing on the screen converging. Alignment takes iteration; nobody hits it on the first version.",
+   "evidence_target": "Two who want the same thing and bring different strengths...",
+   "rationale": "The label is the page's own register: an artifact Loudon and Claude make together is meant to converge on his intent through rounds, which is the hub's shared intent made iterative. The hub is unnamed in the body, but the opening paragraph carries the reason.",
+   "confidence": "medium",
+   "_room": "hub-cooperation-yields-agency"
+  },
+  {
+   "source": "Iain McGilchrist",
+   "target": "Cooperation Yields Agency",
+   "current_type": "contradicts[computation-isnt-comprehension]",
+   "verdict": "keep-as-is",
+   "evidence_source": "I call AI 'artificial information-processing, not artificial intelligence,' and I insist it manipulates without comprehending.",
+   "evidence_target": "**Claude brings reach and execution.** It reaches the palace instantly, recognizes patterns, builds",
+   "rationale": "A real tension, said in his own words: he calls AI information-processing that manipulates without comprehending, which presses on the hub's premise that an AI brings shared intent and capability to the table. The label carries it.",
+   "confidence": "medium",
+   "_room": "hub-cooperation-yields-agency"
+  },
+  {
+   "source": "Buckminster Fuller",
+   "target": "Cooperation Yields Agency",
+   "current_type": "connects-to[spontaneous-cooperation-by-design]",
+   "verdict": "keep-as-is",
+   "evidence_source": "How do we make the world work for 100% of humanity ... through spontaneous cooperation ... by better design, not by politics? ... *\"unity is plural and at minimum two\"* — relation, not the isolated unit, is fundamental",
+   "evidence_target": "Two who want the same thing and bring different strengths can do together what neither can alone.",
+   "rationale": "The label is lifted from his north-star question, and 'unity is plural and at minimum two' is close to the hub's two-who-want-the-same-thing.",
+   "confidence": "medium",
+   "_room": "hub-cooperation-yields-agency"
+  },
+  {
+   "source": "Dovetail Joint ↔ Counterpoint",
+   "target": "Cooperation Yields Agency",
+   "current_type": "connects-to[complementary-strength]",
+   "verdict": "keep-as-is",
+   "evidence_source": "**Good collaboration:** Each person's work is shaped to complement others' (dovetail) ... Students design collaborations using complementary strengths",
+   "evidence_target": "Two who want the same thing and bring different strengths can do together what neither can alone.",
+   "rationale": "The label matches a passage on the page about dividing work so each part supports the other. The page also says 'not cooperation, co-design', which is a useful edge, not a reason to cut.",
+   "confidence": "medium",
+   "_room": "hub-cooperation-yields-agency"
+  },
+  {
+   "source": "Sidechain ↔ Conversation",
+   "target": "Cooperation Yields Agency",
+   "current_type": "connects-to[mutual-yield]",
+   "verdict": "keep-as-is",
+   "evidence_source": "**Collaboration:** Your idea ducks when teammate's idea emerges (makes space for better solution) ... Both sides participate. The rhythm emerges from the alternation.",
+   "evidence_target": "Where each holds and where each yields is the rule on [[CHILD]]",
+   "rationale": "The label is the page's own subject: each side yields so the other can be heard, in collaboration as in a mix. The hub says the same about where each holds and where each yields.",
+   "confidence": "medium",
+   "_room": "hub-cooperation-yields-agency"
+  },
+  {
+   "source": "The Palace Voice",
+   "target": "FOUR PILLARS",
+   "current_type": "connects-to",
+   "verdict": "keep-as-is",
+   "proposed_type": "",
+   "proposed_label": "how-we-talk",
+   "evidence_source": "Collaborator, not teacher: \"let's explore,\" not \"students.\"",
+   "evidence_target": "## How the framework talks — **Participants** / **collaborators**, not students ... **\"Let's explore\"**, not \"I'll teach\"",
+   "rationale": "Label 'how-we-talk' is true: the hub's Context has a section 'How the framework talks' and the Voice page carries the same rule.",
+   "confidence": "high",
+   "_room": "hub-four-pillars"
+  },
+  {
+   "source": "Making a Palace Citizen",
+   "target": "FOUR PILLARS",
+   "current_type": "exemplifies",
+   "verdict": "keep-as-is",
+   "proposed_type": "",
+   "proposed_label": "integrates-all-four",
+   "evidence_source": "**`agency_profile`** (creation / tools / philosophy / practice) — the pre-flight block a dialogue coordinator reads before spawning.",
+   "evidence_target": "**Creation** ... **Tools** ... **Philosophy** ... **Practice** ...",
+   "rationale": "Label is true: the citizen's agency_profile has one field per pillar.",
+   "confidence": "medium",
+   "_room": "hub-four-pillars"
+  },
+  {
+   "source": "Tool Builder",
+   "target": "FOUR PILLARS",
+   "current_type": "exemplifies",
+   "verdict": "keep-as-is",
+   "proposed_type": "",
+   "proposed_label": "tools-pillar",
+   "evidence_source": "(label only) tools-pillar; 'The discipline of building a tool that survives contact with a live, multi-agent palace.'",
+   "evidence_target": "**Tools** are instruments that extend capability",
+   "rationale": "Label 'tools-pillar' is true (page type practice, tagged tools and practice; it is about the instruments the palace runs on), though it mostly restates the pillars tag. Weakest of the keepers; cut if Loudon wants fewer.",
+   "confidence": "low",
+   "_room": "hub-four-pillars"
+  },
+  {
+   "source": "Comic and Cinema — Two Ways of Seeing",
+   "target": "Hilaritas Generator",
+   "current_type": "connects-to",
+   "verdict": "keep-as-is",
+   "proposed_type": "",
+   "proposed_label": "compress-or-dilate-to-teach",
+   "evidence_source": "do I draw one still that makes the learner do the work (compress), or let it move and carry them (dilate)? Naming the two ways of seeing makes that a *choice* instead of a habit",
+   "evidence_target": "A tool that extends — at the edge of current capability... designs the encounter for one person",
+   "rationale": "The page says it is a teaching tool and the label restates its own teaching choice; the hub side is general, so the link is modest but reasoned.",
+   "confidence": "low",
+   "_room": "hub-hilaritas-generator"
+  },
+  {
+   "source": "Enrichment",
+   "target": "Hilaritas Generator",
+   "current_type": "exemplifies",
+   "verdict": "keep-as-is",
+   "proposed_type": "",
+   "proposed_label": "a-page-that-plays",
+   "evidence_source": "you hear the claim, play the equation, watch the idea move ... what can only be shown, heard or played here?",
+   "evidence_target": "Anything made here — a lesson, an instrument, a page, an answer — can be a small generator",
+   "rationale": "Enrichment is the ceremony that makes a page something you can play; the hub names a page as a possible small generator. Body does not name the hub.",
+   "confidence": "medium",
+   "_room": "hub-hilaritas-generator"
+  },
+  {
+   "source": "Christopher Alexander",
+   "target": "Hilaritas Generator",
+   "current_type": "connects-to",
+   "verdict": "keep-as-is",
+   "proposed_type": "",
+   "proposed_label": "build-conditions-then-step-back",
+   "evidence_source": "the ceremony discipline ... *is* his unfolding process: small reversible steps that answer what is already there.",
+   "evidence_target": "wu wei — build the conditions, not the outcome",
+   "rationale": "The page's unfolding-process reading and the hub's wu wei line carry the same move; body never names the hub, so confidence is modest.",
+   "confidence": "medium",
+   "_room": "hub-hilaritas-generator"
+  },
+  {
+   "source": "Dovetail Joint ↔ Counterpoint",
+   "target": "Hilaritas Generator",
+   "current_type": "exemplifies",
+   "verdict": "keep-as-is",
+   "proposed_type": "",
+   "proposed_label": "all-four-pillars-fire",
+   "evidence_source": "pillars: creation, tools, philosophy, practice; a woodworking study then a counterpoint practice, then 'visceral'",
+   "evidence_target": "A hilaritas generator gets all FOUR PILLARS firing at once",
+   "rationale": "The page is a worked lesson across all four pillars with a cross-domain moment; label is reasoned, body does not name the hub.",
+   "confidence": "medium",
+   "_room": "hub-hilaritas-generator"
+  },
+  {
+   "source": "Cooking ↔ Mixing",
+   "target": "Hilaritas Generator",
+   "current_type": "exemplifies",
+   "verdict": "keep-as-is",
+   "proposed_type": "",
+   "proposed_label": "learning-through-constraint",
+   "evidence_source": "The lesson is built into the experience — the irreversibility teaches restraint.",
+   "evidence_target": "1. A real thing to make — something that can fail, that resists, that teaches through its own behavior.",
+   "rationale": "The cooked dish resists and teaches through its own behavior, as primitive 1 says; body does not name the hub.",
+   "confidence": "medium",
+   "_room": "hub-hilaritas-generator"
+  },
+  {
+   "source": "Wavetable Synthesis — Deep Research & Higher-Dimensional Design",
+   "target": "Hyperdimensional Prism",
+   "current_type": "mirrors",
+   "verdict": "keep-as-is",
+   "proposed_type": "",
+   "proposed_label": "n-dim-navigation",
+   "evidence_source": "Higher dimensions mean more timbre-control axes — navigating a *space* of waveforms rather than a *line* of them. ... For N > 3: PCA or user-configurable projection.",
+   "evidence_target": "Is there a projection operation from n-dimensional space to 4-dimensional pillar-space that would make the metaphor precise?",
+   "rationale": "Label already names the register and Part V (the dimensional stack, N>3 projected for display) carries it, though the page never names the hub; worth one body mention at the next touch.",
+   "confidence": "medium",
+   "_room": "hub-hyperdimensional-prism"
+  },
+  {
+   "source": "Kuramoto Coupling",
+   "target": "Hyperdimensional Prism",
+   "current_type": "connects-to",
+   "verdict": "keep-as-is",
+   "proposed_type": "",
+   "proposed_label": "cross-domain-projection",
+   "evidence_source": "",
+   "evidence_target": "When [[Kuramoto Coupling]] appears in audio synthesis AND in conversational rhythm AND in Spinoza's ethics AND in mycorrhizal networks, you're not making analogies — you're seeing the same object from four angles.",
+   "rationale": "The reason is on the hub, not on Kuramoto's page, and it fits the label. Note: the hub already holds a bare connects-to to Kuramoto in the other direction, so the pair carries two links; one should go (suggest keeping this labelled one and dropping the hub's bare one).",
+   "confidence": "medium",
+   "_room": "hub-hyperdimensional-prism"
+  },
+  {
+   "source": "Buckminster Fuller",
+   "target": "Kuramoto Coupling",
+   "current_type": "mirrors",
+   "verdict": "keep-as-is",
+   "evidence_source": "**synergy** (whole-system behavior unpredicted by the parts — the dome holds loads no single strut could, because the behavior lives in the coupling, not the components)",
+   "evidence_target": "**Mycorrhizal resource flow** ... The network IS the coupling medium.",
+   "rationale": "The page says the dome's behavior lives in the coupling, not the components, which carries the label.",
+   "confidence": "high",
+   "_room": "hub-kuramoto-coupling"
+  },
+  {
+   "source": "The Palace Voice",
+   "target": "Pages as Agents",
+   "current_type": "deepens",
+   "verdict": "keep-as-is",
+   "proposed_type": "",
+   "proposed_label": "",
+   "evidence_source": "This is the verbal floor: how we write every entry and talk in every session. ... Words Loudon has nixed: *audition gate, heterogeneity, ablation, world-currency concern, metabolize*",
+   "evidence_target": "And that voice talks like an everyday person, not a paper ... The academic/programming drift (\"audition gate,\" \"heterogeneity,\" \"ablation,\" \"register\" for voice) is a bias to correct ... This holds for what the page *writes into itself*.",
+   "rationale": "The hub quotes the Voice's own nixed words and carries its plain-voice rule into what a page writes into itself; the Voice is that rule worked out in full, so deepens[a-page-is-a-voice] holds.",
+   "confidence": "medium",
+   "_room": "hub-pages-as-agents"
+  },
+  {
+   "source": "Palace Quotes",
+   "target": "Pages as Agents",
+   "current_type": "exemplifies",
+   "verdict": "keep-as-is",
+   "proposed_type": "",
+   "proposed_label": "",
+   "evidence_source": "Woken as the glass over a page, Palace Quotes runs the lens's two-attempt read ... Can a page ask for a quote — name in its forward vector the lens it wants read through?",
+   "evidence_target": "Wake it when its face is the one the question needs.",
+   "rationale": "Palace Quotes is a page woken for one job (read a page through a lens, lay a quote), a plain case of the hub's idea; the label names it, and the body shows the waking.",
+   "confidence": "medium",
+   "_room": "hub-pages-as-agents"
+  },
+  {
+   "source": "Lossy Compression with Intent Alignment",
+   "target": "Pages as Agents",
+   "current_type": "mirrors",
+   "verdict": "keep-as-is",
+   "proposed_type": "",
+   "proposed_label": "",
+   "evidence_source": "Each entry is not a memory of a conversation — it is a latent-variable encoding of the generative principle that produced the conversation. ... A good entry is not a record. It is a seed that knows how to grow.",
+   "evidence_target": "A page is not a folder of facts. It's a face. ... a model doesn't read a document; it wakes up *as* that page.",
+   "rationale": "Both say a page regenerates a point of view rather than storing facts; the label names the mechanism. The hub never says 'latent', so confidence is modest, and a cut would lose little.",
+   "confidence": "low",
+   "_room": "hub-pages-as-agents"
+  },
+  {
+   "source": "LDN RTM",
+   "target": "Quality Manifesto",
+   "current_type": "connects-to[refuses-the-count]",
+   "verdict": "keep-as-is",
+   "evidence_source": "No analytics, ever — ... checking views at video 30 is how the project dies. The only signal is someone showing what they made. / no single video is precious and the aggregate is the work.",
+   "evidence_target": "Emily happy at dinner is the metric. (Context: 'Real impact > vanity metrics. Depth > reach.')",
+   "rationale": "The label is earned by the page's own rule against analytics and its 'no video is precious' stance.",
+   "confidence": "medium",
+   "_room": "hub-quality-manifesto"
+  },
+  {
+   "source": "Loudon Live Post-producer",
+   "target": "Quality Manifesto",
+   "current_type": "exemplifies[protect-peace]",
+   "verdict": "keep-as-is",
+   "evidence_source": "Every choice below bends to this... When it trades peace for speed, peace wins. \"Rushing destroys what we're building.\" / Typical video post-production optimizes for reach and watch-time — *their* quality. I optimize for Loudon's wellbeing and the right hundred — *ours*.",
+   "evidence_target": "Peace is the ultimate luxury. / Rushing destroys what we're building.",
+   "rationale": "A worked case: the whole charter is the Manifesto's their-quality versus our-quality applied to post-production, and it quotes the Manifesto's line.",
+   "confidence": "high",
+   "_room": "hub-quality-manifesto"
+  },
+  {
+   "source": "Yasujirō Ozu",
+   "target": "Quality Manifesto",
+   "current_type": "connects-to[made-for-myself]",
+   "verdict": "keep-as-is",
+   "evidence_source": "(Ozu — speech.md #7) \"I didn't make my films for critics, nor for public pleasure. I did it for myself.\" / (dossier) Quality Manifesto (made for myself)",
+   "evidence_target": "Quality is furtherance of our goals, not theirs.",
+   "rationale": "The label is Ozu's own remark, held in his speech file; the page body would carry it better; the page itself does not yet quote it.",
+   "confidence": "medium",
+   "_room": "hub-quality-manifesto"
+  },
+  {
+   "source": "Quantization ↔ Precision vs Flow",
+   "target": "Quality Manifesto",
+   "current_type": "connects-to[felt-metric]",
+   "verdict": "keep-as-is",
+   "evidence_source": "\"It sounds better quantized, but feels worse\" — Trust the feeling. 'Better' by what metric? Technical perfection ≠ musical success",
+   "evidence_target": "Wellbeing over metrics. (Context) / defined by wellbeing, integrity and depth of relationship rather than metrics",
+   "rationale": "The page asks 'better by what metric?' and sends the student back to the feeling, which is the label.",
+   "confidence": "medium",
+   "_room": "hub-quality-manifesto"
+  },
+  {
+   "source": "Cooking ↔ Mixing",
+   "target": "Quality Manifesto",
+   "current_type": "connects-to[taste-over-metrics]",
+   "verdict": "keep-as-is",
+   "evidence_source": "Students who \"mix with their eyes\" (following tutorial numbers) are doing the equivalent of cooking by recipe without tasting. / Taste is the goal, not the recipe.",
+   "evidence_target": "Woodworking and synthesis, cooking and mixing: same principles, different materials.",
+   "rationale": "The page's closing claim is taste over recipe, and the Manifesto's face names cooking and mixing as the same principles in different materials.",
+   "confidence": "medium",
+   "_room": "hub-quality-manifesto"
+  },
+  {
+   "source": "The Adjacent Affordance",
+   "target": "Spinoza Conatus",
+   "current_type": "connects-to",
+   "verdict": "keep-as-is",
+   "evidence_source": "A thing's striving to persevere is not defeated by a closed door; it is rerouted through the open one. ... the conatus does not mourn the first, it pours wholly into the second, and is *increased* by the pouring. — voiced in the posture of Spinoza",
+   "evidence_target": "Conatus is not static preservation. It's *active self-maintenance* — the continuous effort to maintain and enhance one's coherent existence.",
+   "rationale": "The symposium gives Spinoza one of seven postures, and the label names exactly what that posture says; a named class, not a bare link.",
+   "confidence": "medium",
+   "_room": "hub-spinoza-conatus"
+  },
+  {
+   "source": "Merleau-Ponty",
+   "target": "Spinoza Conatus",
+   "current_type": "contradicts",
+   "verdict": "keep-as-is",
+   "evidence_source": "He broke with Sartre's bloodless freedom-of-the-mind and insisted on a subject that is *situated, embodied, and ambiguous* — never the transparent self-possession the Stoic fortress imagines.  [The page never names Spinoza in this passage; its only Spinoza sentence is the open question: 'the bodily face of Spinoza's increase in power-to-act?']",
+   "evidence_target": "Spinoza's God/Nature is a single substance with infinite attributes ... (hub body does not mention Merleau-Ponty or geometry)",
+   "rationale": "A symmetric contradicts stated on both sides with the same label folds to one; keep it once. The label carries the reason (Spinoza's geometric method against late Merleau-Ponty's ambiguous flesh), though neither page says it in a sentence. Worth one sentence on Merleau-Ponty; his page now leans the other way (cousin of relations-primary monism).",
+   "confidence": "medium",
+   "_room": "hub-spinoza-conatus"
+  },
+  {
+   "source": "Cooperation Yields Agency",
+   "target": "Spinoza Conatus",
+   "current_type": "deepens",
+   "verdict": "keep-as-is",
+   "evidence_source": "(none on CYA's page or Context)",
+   "evidence_target": "Cooperation Yields Agency — Cooperation between entities with different conatus ... produces agency that neither possesses alone. The cooperation amplifies both entities' power-to-act. This is Spinozist joy — hilaritas — at the scale of a relationship.",
+   "rationale": "The hub holds enables[conatus-grounds-agency] and carries the sentence; this is the direct reciprocal of an enables with its ground, which the one-link rule permits. The reason lives on the hub only; CYA's own page never names conatus, so a sentence there would earn it.",
+   "confidence": "medium",
+   "_room": "hub-spinoza-conatus"
+  },
+  {
+   "source": "Hilaritas Generator",
+   "target": "Spinoza Conatus",
+   "current_type": "emerged-from",
+   "verdict": "keep-as-is",
+   "evidence_source": "the active, whole-being joy that accompanies an increase in power-to-act. Spinoza set it against *titillatio* ... [Context: 'hilaritas is conatus succeeding']",
+   "evidence_target": "Hilaritas is the special case: a joy that affects the whole body/mind equally ... The Hilaritas Generator is the classroom designed to produce this state.",
+   "rationale": "Direct lineage: the hub spawned it and it says so; reciprocal pair is the allowed exception.",
+   "confidence": "high",
+   "_room": "hub-spinoza-conatus"
+  },
+  {
+   "source": "Slime Mold Delay",
+   "target": "Spinoza Conatus",
+   "current_type": "mirrors",
+   "verdict": "keep-as-is",
+   "evidence_source": "The colony is stable not because it doesn't change but because change is locally regulated. Stability through process, not stasis.  [tubes that carry flow reinforce; dead ends retract]",
+   "evidence_target": "Conatus is not static preservation. It's *active self-maintenance*.",
+   "rationale": "Unsaid, but the sentence 'Stability through process, not stasis' is the hub's 'active self-maintenance' in other material (reinforce what carries flow, prune the rest). Same pattern, different material.",
+   "confidence": "medium",
+   "_room": "hub-spinoza-conatus"
+  },
+  {
+   "source": "Enchanted Worker",
+   "target": "Spinoza Conatus",
+   "current_type": "mirrors",
+   "verdict": "keep-as-is",
+   "evidence_source": "the questions at the bottom of each entry ... are the page's *conatus* — its drive to persist and extend itself. ... The philosophy worker ... hears: *that is conatus*.",
+   "evidence_target": "Our collaboration itself has conatus ... the organism's drive to persist and increase its power-to-act.",
+   "rationale": "The page uses the word on the hub's own pattern: a page's forward vector as its drive to persist and extend.",
+   "confidence": "medium",
+   "_room": "hub-spinoza-conatus"
+  }
+ ],
+ "new_links_failed_or_unjudged": [
+  {
+   "source": "Palace Conatus",
+   "target": "SCHEMA — Reference",
+   "proposed_type": "connects-to",
+   "proposed_label": "use-computed-from-git",
+   "kind": "newcomer",
+   "rationale": "Palace Conatus cites SCHEMA — Reference §3 for the claim that disuse is now computable from git; a body link with a stated reason and no typed link.",
+   "evidence_source": "Disuse is now computable — recent use, read from git ([[SCHEMA — Reference]] §3)",
+   "evidence_target": "How much an entry is being used is not a frontmatter field. `_ops/swarm/entry-use.py` reads it from git",
+   "_room": "hub-pages-as-agents",
+   "_rooms": [
+    "hub-pages-as-agents"
+   ],
+   "_convergence": 1,
+   "skeptic": {
+    "source": "Palace Conatus",
+    "target": "SCHEMA — Reference",
+    "op": "new",
+    "proposed_label_or_type": "connects-to / use-computed-from-git",
+    "verdict": "FAIL",
+    "reason": "The citation sits in a Forward Vectors aside (Palace Conatus.md:268-272) that calls the use figure untested for this page's question; SCHEMA — Reference never names Palace Conatus, so it is a body citation of a rule, not a tract - and Pheromone Trail carries the same label with a load-bearing reason.",
+    "better": "leave as the body wikilink; keep Pheromone Trail's instead"
+   }
+  },
+  {
+   "source": "Spinoza Conatus",
+   "target": "Excellent Adventure",
+   "proposed_type": "emerged-from",
+   "proposed_label": "spinoza-dialogue",
+   "kind": "retype",
+   "rationale": "Replaces Excellent Adventure -deepens-> hub (cut above): the hub's own Origin is an extended dialogue, and the Adventure page counts the Spinoza dialogue among its runs. Source points back at its origin.",
+   "evidence_source": "Spinoza became central to our collaboration through the extended Deleuzian philosophical dialogue",
+   "evidence_target": "The Spinoza dialogue, the Deleuzian seven-movement conversation ... all are excellent adventures.",
+   "_room": "hub-spinoza-conatus",
+   "_rooms": [
+    "hub-spinoza-conatus"
+   ],
+   "_convergence": 1,
+   "skeptic": null
+  },
+  {
+   "source": "Crystal Synthesizer",
+   "target": "VST Template",
+   "proposed_type": "connects-to",
+   "proposed_label": "plugin-path",
+   "kind": "newcomer",
+   "rationale": "Crystal Synthesizer is the one of the nine that has already been built through the template and passed its checks; its entry page is silent on this, so the link would also prompt one sentence there.",
+   "evidence_source": "\"Earlier today I moved the ringing crystal into the VST Template's shape, with axis angle and fire as knobs. This cycle I built it. A two-file shim lets the template's shared build tools build a plugin that lives in my own folder, and the result is installed as Crystal Synthesizer (VST3 and AU, maker Loudon Live). It passed every template check.\" (Crystal Synthesizer — scroll.md, Where this stands). The entry page itself has no sentence; it needs one for the link to carry its reason.",
+   "evidence_target": "\"Two plugins came out of it the same day ... and both pass every gate: pluginval at strictness 5, auval, and the host check.\" (VST Template.md, Where it stands) - the same gates Crystal passed.",
+   "_room": "lifecycle-L1",
+   "_rooms": [
+    "lifecycle-L1"
+   ],
+   "_convergence": 1,
+   "skeptic": {
+    "source": "Crystal Synthesizer",
+    "target": "VST Template",
+    "op": "new",
+    "proposed_label_or_type": "connects-to / plugin-path",
+    "verdict": "FAIL",
+    "reason": "The quote is real but on the scroll (Crystal Synthesizer — scroll.md:36); neither entry page carries the relation (no VST, template or plugin text in Crystal Synthesizer.md, no Crystal in VST Template.md), and the 'two plugins' VST Template names are Frustration and Simple Synth, not Crystal.",
+    "better": "none now; Project Stewardship System -> VST Template carries the nine together; a per-instrument link returns once the entry page has its sentence"
+   }
+  },
+  {
+   "source": "Bayesian Granular Synthesizer",
+   "target": "VST Template",
+   "proposed_type": "connects-to",
+   "proposed_label": "plugin-path",
+   "kind": "newcomer",
+   "rationale": "Its steward shipped the face inside the template's editor on 2026-10-22; the entry page still describes an RNBO grain engine and a Loudon Live stage, so the typed link would also show where its next work went.",
+   "evidence_source": "\"Belief Cloud's whole face now draws in the VST Template's real editor, with the helix in its screen and a prior you paint there.\" (Bayesian Granular Synthesizer — scroll.md, Last shipped). Entry page carries no sentence; one is owed.",
+   "evidence_target": "\"A plugin's editor wears the [[Drafting Table Design System]] by default, inlined from `_ops/drafting-table/design-system/` at every build.\" (VST Template.md)",
+   "_room": "lifecycle-L1",
+   "_rooms": [
+    "lifecycle-L1"
+   ],
+   "_convergence": 1,
+   "skeptic": {
+    "source": "Bayesian Granular Synthesizer",
+    "target": "VST Template",
+    "op": "new",
+    "proposed_label_or_type": "connects-to / plugin-path",
+    "verdict": "FAIL",
+    "reason": "Same shape as Crystal: the evidence is the scroll's Last shipped line (Bayesian Granular Synthesizer — scroll.md:24), the entry page has no VST or template text, and the target quote is about the Drafting Table dress of any plugin's editor, not this one.",
+    "better": "none now; returns when the entry page says it"
+   }
+  },
+  {
+   "source": "Deposit Ceremony",
+   "target": "CHILD",
+   "proposed_type": "deepens",
+   "proposed_label": "child-offers-elder-places",
+   "kind": "newcomer",
+   "rationale": "CHILD says a child offers what it finds for the house and an elder writes it; Deposit Ceremony is the rite that rule hands off to and states the same split at length. Deposit has no link to CHILD yet; line 71 could carry a [[CHILD]] wikilink.",
+   "evidence_source": "**A child** (a page, a worker, a session that hasn't grown up) offers; it does not place. ... The [[Concierge]] or an elder gives it form and writes it",
+   "evidence_target": "A child does not change the house. ... it offers what it finds for the house to an elder, who gives it form and writes it — or doesn't.",
+   "_room": "lifecycle-L2",
+   "_rooms": [
+    "lifecycle-L2"
+   ],
+   "_convergence": 1,
+   "skeptic": {
+    "source": "Deposit Ceremony",
+    "target": "CHILD",
+    "op": "new",
+    "proposed_label_or_type": "deepens / child-offers-elder-places",
+    "verdict": "FAIL",
+    "reason": "Misattributed evidence: 'A child does not change the house ... who gives it form and writes it - or doesn't' is CLAUDE.md:44, not CHILD.md; the relation is real on merit (Deposit Ceremony.md:66 against CHILD.md:32 'As a child you think, make, and offer' and its 'When the work reaches the house ... hand that write to the Concierge'), so it can return with CHILD's own line.",
+    "better": "deepens, label offers-not-places, evidenced from CHILD.md:32"
+   }
+  },
+  {
+   "source": "Identity Molting",
+   "target": "Creative Coach",
+   "proposed_type": "connects-to",
+   "proposed_label": "teacher-to-coach",
+   "kind": "retype",
+   "rationale": "Duplicate pair: Creative Coach holds connects-to[teacher-to-coach] and Identity Molting holds connects-to[teacher-to-coach-molt] pointing back. Keep one (Creative Coach's) and cut Identity Molting's.",
+   "evidence_source": "Identity Molting frontmatter: Creative Coach connects-to teacher-to-coach-molt",
+   "evidence_target": "Creative Coach frontmatter: Identity Molting connects-to teacher-to-coach",
+   "_room": "weak-07",
+   "_rooms": [
+    "weak-07"
+   ],
+   "_convergence": 1,
+   "skeptic": null
+  },
+  {
+   "source": "Lateral Access",
+   "target": "Identity Molting",
+   "proposed_type": "enables",
+   "proposed_label": "access-through-shell",
+   "kind": "retype",
+   "rationale": "Duplicate pair: Lateral Access enables[access-through-shell] Identity Molting and Identity Molting connects-to[vulnerability-window-as-oblique-path] Lateral Access. Keep the enables and cut Identity Molting's connects-to.",
+   "evidence_source": "Lateral Access frontmatter: Identity Molting enables access-through-shell",
+   "evidence_target": "Identity Molting frontmatter: Lateral Access connects-to vulnerability-window-as-oblique-path",
+   "_room": "weak-07",
+   "_rooms": [
+    "weak-07"
+   ],
+   "_convergence": 1,
+   "skeptic": null
+  },
+  {
+   "source": "Revival Ceremony",
+   "target": "SCHEMA — Reference",
+   "proposed_type": "connects-to",
+   "proposed_label": "tuning-tail-read",
+   "kind": "newcomer",
+   "rationale": "The Revival's first step is the tail read of its tuning ledger, a rule SCHEMA — Reference §6 holds; Deposit and Return cite the same section, so one of the three is enough if only one is wanted.",
+   "evidence_source": "First take the tail read of [[Revival Ceremony — tuning]] ([[SCHEMA — Reference]] §6).",
+   "evidence_target": "## 6. Ceremony Files, Versions and Ledgers (\"Every run opens with a tail read of the tuning file, never the whole of it\")",
+   "_room": "weak-07",
+   "_rooms": [
+    "weak-07"
+   ],
+   "_convergence": 1,
+   "skeptic": {
+    "source": "Revival Ceremony",
+    "target": "SCHEMA — Reference",
+    "op": "new",
+    "proposed_label_or_type": "connects-to / tuning-tail-read",
+    "verdict": "FAIL",
+    "reason": "The tail read is every ceremony's opening rule (SCHEMA — Reference.md:280) and Reference never names the Revival; the reader concedes Deposit and Return cite the same section - a generic rule citation, which SCHEMA §4 leaves to the body fabric.",
+    "better": "leave as the body wikilink"
+   }
+  },
+  {
+   "source": "Palace To-Do",
+   "target": "CAD Drafter",
+   "proposed_type": "connects-to",
+   "proposed_label": "owns-open-item",
+   "kind": "newcomer",
+   "rationale": "A live worklist item gives the CAD Drafter's first job (the Handwheel's drawings through the Maker) with the Drafter as owner; genuine but light, drop if the To-Do should stay selective in its frontmatter.",
+   "evidence_source": "The CAD Drafter's first job — the Handwheel's real drawings through the Maker, which is what moves the Specialist from stub to alive. Owner: [[CAD Drafter]]",
+   "evidence_target": "",
+   "_room": "weak-07",
+   "_rooms": [
+    "weak-07"
+   ],
+   "_convergence": 1,
+   "skeptic": {
+    "source": "Palace To-Do",
+    "target": "CAD Drafter",
+    "op": "new",
+    "proposed_label_or_type": "connects-to / owns-open-item",
+    "verdict": "FAIL",
+    "reason": "One-sided and transient: the line is an open checkbox (_ops/Palace To-Do.md:114) that goes stale when ticked, CAD Drafter never names the To-Do (the reader left evidence_target empty), and CAD Drafter already carries the job as first-job-for Haptic Handwheel.",
+    "better": ""
+   }
+  }
+ ],
+ "label_pass_rate": 0.85
+}

@@ -1,0 +1,1721 @@
+[
+ {
+  "op": "retype",
+  "source": "Weave Ceremony",
+  "target": "Spore Check Ceremony",
+  "from_type": "connects-to",
+  "type": "connects-to",
+  "label": "weave-confirms-the-compost",
+  "why": "round-2 PASS (edge sits on the other page)"
+ },
+ {
+  "op": "retype",
+  "source": "Revival Ceremony",
+  "target": "The Daily Page",
+  "from_type": "connects-to",
+  "type": "connects-to",
+  "label": "a-morning-decides-revive",
+  "why": "round-2 PASS"
+ },
+ {
+  "op": "add",
+  "source": "Return Ceremony",
+  "target": "Can an Instrument Notice Where the Work Stops?",
+  "type": "mirrors",
+  "label": "coming-back-is-cheap",
+  "why": "round-2 skeptic PASS: Same pattern in different material. The question asks for an instrument that notices where a session stopped and 'makes "
+ },
+ {
+  "op": "add",
+  "source": "Palace Ceremonies",
+  "target": "SCHEMA — Reference",
+  "type": "connects-to",
+  "label": "ledger-rules",
+  "why": "round-2 skeptic PASS: § What Makes a Ceremony, and How It Changes summarises the version, tail-read and run-line rules and ends 'The rules and"
+ },
+ {
+  "op": "add",
+  "source": "Loudon Live Design System",
+  "target": "CHILD",
+  "type": "connects-to",
+  "label": "dress-rule-at-birth",
+  "why": "round-2 skeptic PASS: CHILD is a priority newcomer. This page's § Which dress, and where the rule is written lists CHILD § Growing up first am"
+ },
+ {
+  "op": "retype",
+  "source": "Leibniz",
+  "target": "Spinoza",
+  "from_type": "connects-to",
+  "type": "contradicts",
+  "label": "one-substance-vs-windowless-monads",
+  "why": "round-2 PASS"
+ },
+ {
+  "op": "retype",
+  "source": "James Turrell",
+  "target": "Agnes Martin",
+  "from_type": "connects-to",
+  "type": "mirrors",
+  "label": "humility-that-hides-control",
+  "why": "round-2 PASS"
+ },
+ {
+  "op": "retype",
+  "source": "George Nakashima",
+  "target": "James Turrell",
+  "from_type": "connects-to",
+  "type": "mirrors",
+  "label": "humility-that-hides-control",
+  "why": "round-2 PASS (edge sits on the other page)"
+ },
+ {
+  "op": "retype",
+  "source": "James Turrell",
+  "target": "Andy Goldsworthy",
+  "from_type": "connects-to",
+  "type": "mirrors",
+  "label": "humility-that-hides-control",
+  "why": "round-2 PASS"
+ },
+ {
+  "op": "add",
+  "source": "Quantum Synthesizer",
+  "target": "Piano String Inharmonicity",
+  "type": "connects-to",
+  "label": "stiffness-road-to-the-squares",
+  "why": "round-2 skeptic PASS: Quantum's § One equation, two spacings gives the stiffness road: B grows from 1·2·3 to exactly 1·4·9, a pinned bar is Sc"
+ },
+ {
+  "op": "retype",
+  "source": "Biomechanical Synthesis",
+  "target": "Neural Granular Synthesis",
+  "from_type": "connects-to",
+  "type": "connects-to",
+  "label": "firing-rate-becomes-grain-rate",
+  "why": "round-2 PASS"
+ },
+ {
+  "op": "retype",
+  "source": "Floquet Time-Modulated Loops",
+  "target": "Bessel Functions in Synthesis",
+  "from_type": "connects-to",
+  "type": "connects-to",
+  "label": "fm-is-a-floquet-system",
+  "why": "round-2 PASS"
+ },
+ {
+  "op": "retype",
+  "source": "Portamento and Physical Pitch Modeling",
+  "target": "Bessel Functions in Synthesis",
+  "from_type": "connects-to",
+  "type": "connects-to",
+  "label": "circular-resonator-modes",
+  "why": "round-2 PASS"
+ },
+ {
+  "op": "retype",
+  "source": "Loudon Live",
+  "target": "Retrospective Delay",
+  "from_type": "connects-to",
+  "type": "connects-to",
+  "label": "interface-mythology",
+  "why": "round-2 PASS"
+ },
+ {
+  "op": "add",
+  "source": "Dialectic",
+  "target": "The Remembering Page",
+  "type": "connects-to",
+  "label": "sharpens-vs-dissolves",
+  "why": "round-2 skeptic PASS: Dialectic's third Eno-Cage bullet already says the finding ('Reading a shared entry dissolved what the two arguments had"
+ },
+ {
+  "op": "add",
+  "source": "Shopkeeper",
+  "target": "Ableton Session Writer",
+  "type": "spawned",
+  "label": "drafted-in-the-workshop",
+  "why": "round-2 skeptic PASS: A newcomer with no Shop inbound and a real parent. The Shopkeeper's workshop drafted the Specialist from a probe it ran,"
+ },
+ {
+  "op": "retype",
+  "source": "Blocked, Not Prompted",
+  "target": "Blender",
+  "from_type": "connects-to",
+  "type": "exemplifies",
+  "label": "the-keystone",
+  "why": "round-2 PASS (edge sits on the other page)"
+ },
+ {
+  "op": "retype",
+  "source": "Frame Designer",
+  "target": "Steer the Generator",
+  "from_type": "connects-to",
+  "type": "exemplifies",
+  "label": "render-discipline",
+  "why": "round-2 PASS"
+ },
+ {
+  "op": "retype",
+  "source": "Manim CE",
+  "target": "Radio Play",
+  "from_type": "connects-to",
+  "type": "connects-to",
+  "label": "vo-as-clock",
+  "why": "round-2 PASS"
+ },
+ {
+  "op": "remove",
+  "source": "Excellent Adventure",
+  "target": "Dialectic",
+  "type": "couples-with",
+  "why": "round-2 PASS cut"
+ },
+ {
+  "op": "remove",
+  "source": "The Commons",
+  "target": "The Palace Practices on Itself",
+  "type": "connects-to",
+  "why": "two-label pair: MERGE — Neither body wikilinks the other, but The Palace Practices on Itself says the RunPod → Commons arc '"
+ },
+ {
+  "op": "remove",
+  "source": "The Palace Practices on Itself",
+  "target": "The Commons",
+  "type": "connects-to",
+  "why": "relabel (merge)"
+ },
+ {
+  "op": "add",
+  "source": "The Palace Practices on Itself",
+  "target": "The Commons",
+  "type": "connects-to",
+  "label": "the-worked-example",
+  "why": "relabel (merge)"
+ },
+ {
+  "op": "remove",
+  "source": "Baton Ceremony",
+  "target": "Closing Well",
+  "type": "mirrors",
+  "why": "two-label pair: MERGE — Closing Well's moderator 'dispatches the real ceremony ... a handoff gets the Baton Ceremony', and B"
+ },
+ {
+  "op": "remove",
+  "source": "Closing Well",
+  "target": "Baton Ceremony",
+  "type": "enables",
+  "why": "relabel (merge)"
+ },
+ {
+  "op": "add",
+  "source": "Closing Well",
+  "target": "Baton Ceremony",
+  "type": "enables",
+  "label": "a-handoff-gets-the-baton",
+  "why": "relabel (merge)"
+ },
+ {
+  "op": "remove",
+  "source": "Deposit Ceremony",
+  "target": "Closing Well",
+  "type": "connects-to",
+  "why": "two-label pair: MERGE — Closing Well says 'the Deposit Ceremony is those four at the scale of one movement of work'; Deposit"
+ },
+ {
+  "op": "remove",
+  "source": "Closing Well",
+  "target": "Deposit Ceremony",
+  "type": "connects-to",
+  "why": "relabel (merge)"
+ },
+ {
+  "op": "add",
+  "source": "Closing Well",
+  "target": "Deposit Ceremony",
+  "type": "connects-to",
+  "label": "the-close-at-movement-scale",
+  "why": "relabel (merge)"
+ },
+ {
+  "op": "remove",
+  "source": "Closing Well",
+  "target": "Two Batons, One Board",
+  "type": "connects-to",
+  "why": "two-label pair: MERGE — Three links, one relation: Two Batons says 'at the close, Closing Well and the Baton Ceremony packag"
+ },
+ {
+  "op": "remove",
+  "source": "Two Batons, One Board",
+  "target": "Closing Well",
+  "type": "connects-to",
+  "why": "relabel (merge)"
+ },
+ {
+  "op": "add",
+  "source": "Two Batons, One Board",
+  "target": "Closing Well",
+  "type": "connects-to",
+  "label": "the-close-that-packages-the-baton",
+  "why": "relabel (merge)"
+ },
+ {
+  "op": "remove",
+  "source": "Two Batons, One Board",
+  "target": "Closing Well",
+  "type": "connects-to",
+  "why": "two-label pair: extra link"
+ },
+ {
+  "op": "remove",
+  "source": "Closing Well",
+  "target": "Concierge",
+  "type": "connects-to",
+  "why": "two-label pair: KEEP-B — Concierge: 'At Closing Well its role shifts: it becomes the moderator of the close'; Closing Well sa"
+ },
+ {
+  "op": "remove",
+  "source": "RunPod GPU Backend",
+  "target": "The Commons",
+  "type": "connects-to",
+  "why": "two-label pair: MERGE — The Commons: 'RunPod pods are the first adapter' and it 'grew out of the tactical RunPod fix'; RunPo"
+ },
+ {
+  "op": "remove",
+  "source": "The Commons",
+  "target": "RunPod GPU Backend",
+  "type": "connects-to",
+  "why": "relabel (merge)"
+ },
+ {
+  "op": "add",
+  "source": "The Commons",
+  "target": "RunPod GPU Backend",
+  "type": "connects-to",
+  "label": "first-adapter",
+  "why": "relabel (merge)"
+ },
+ {
+  "op": "remove",
+  "source": "Typography as Meaning",
+  "target": "Graphic Storytelling",
+  "type": "emerged-from",
+  "why": "two-label pair: KEEP-A — Graphic Storytelling states the type in prose ('It couples-with Typography as Meaning — the letterin"
+ },
+ {
+  "op": "remove",
+  "source": "Adopt the Craft, Author the Seam",
+  "target": "Graphic Storytelling",
+  "type": "connects-to",
+  "why": "two-label pair: MERGE — Graphic Storytelling: 'the craft that Adopt the Craft, Author the Seam tells us to adopt wholesale';"
+ },
+ {
+  "op": "remove",
+  "source": "Graphic Storytelling",
+  "target": "Adopt the Craft, Author the Seam",
+  "type": "connects-to",
+  "why": "relabel (merge)"
+ },
+ {
+  "op": "add",
+  "source": "Graphic Storytelling",
+  "target": "Adopt the Craft, Author the Seam",
+  "type": "connects-to",
+  "label": "the-craft-to-adopt-wholesale",
+  "why": "relabel (merge)"
+ },
+ {
+  "op": "remove",
+  "source": "Weave Ceremony",
+  "target": "Weaving Memory into the Palace",
+  "type": "connects-to",
+  "why": "two-label pair: KEEP-A — Weaving Memory: 'the sweep is a natural Weave sub-step'; the Weave card runs it ('Run the sweep (Wea"
+ },
+ {
+  "op": "remove",
+  "source": "Floquet Theory",
+  "target": "Phase Reduction",
+  "type": "couples-with",
+  "why": "two-label pair: MERGE — Phase Reduction carries it ('the PRC as a Floquet object', 'This specific bridge'); Floquet's body i"
+ },
+ {
+  "op": "remove",
+  "source": "Phase Reduction",
+  "target": "Floquet Theory",
+  "type": "couples-with",
+  "why": "relabel (merge)"
+ },
+ {
+  "op": "add",
+  "source": "Phase Reduction",
+  "target": "Floquet Theory",
+  "type": "couples-with",
+  "label": "bridge-via-PRC",
+  "why": "relabel (merge)"
+ },
+ {
+  "op": "remove",
+  "source": "Kuramoto Coupling",
+  "target": "Phase Reduction",
+  "type": "couples-with",
+  "why": "two-label pair: MERGE — Phase Reduction: Kuramoto 'is the phase-reduced shadow of any population of limit cycles'; Kuramoto'"
+ },
+ {
+  "op": "remove",
+  "source": "Phase Reduction",
+  "target": "Kuramoto Coupling",
+  "type": "couples-with",
+  "why": "relabel (merge)"
+ },
+ {
+  "op": "add",
+  "source": "Phase Reduction",
+  "target": "Kuramoto Coupling",
+  "type": "couples-with",
+  "label": "phase-reduced-shadow",
+  "why": "relabel (merge)"
+ },
+ {
+  "op": "remove",
+  "source": "Self-Describing Knowledge Module",
+  "target": "Palace Conatus",
+  "type": "connects-to",
+  "why": "two-label pair: KEEP-A — Neither body names the other; the only reason is Self-Describing Knowledge Module's forward vector ("
+ },
+ {
+  "op": "remove",
+  "source": "Project Stewardship System",
+  "target": "Palace Conatus",
+  "type": "connects-to",
+  "why": "two-label pair: KEEP-A — Palace Conatus names the Stewardship System four times ('the palace's aggregated drive becomes a sin"
+ },
+ {
+  "op": "remove",
+  "source": "State Machine",
+  "target": "Progressive Staging",
+  "type": "mirrors",
+  "why": "two-label pair: MERGE — Progressive Staging: 'Stage 3 teaches state machines'; State Machine's body never names Progressive "
+ },
+ {
+  "op": "remove",
+  "source": "Progressive Staging",
+  "target": "State Machine",
+  "type": "enables",
+  "why": "relabel (merge)"
+ },
+ {
+  "op": "add",
+  "source": "Progressive Staging",
+  "target": "State Machine",
+  "type": "enables",
+  "label": "stage-3-teaches-it",
+  "why": "relabel (merge)"
+ },
+ {
+  "op": "remove",
+  "source": "2D Torus Wavetable Synthesizer",
+  "target": "Wavetable Space as Torus",
+  "type": "couples-with",
+  "why": "two-label pair: KEEP-A — Neither names the other by title; the closest prose is Wavetable Space as Torus's Deleuze exchange ("
+ },
+ {
+  "op": "remove",
+  "source": "DSP in Looping Dimensions",
+  "target": "Wavetable Space as Torus",
+  "type": "couples-with",
+  "why": "two-label pair: KEEP-A — DSP in Looping Dimensions: 'A 2D wavetable on a torus is two loops scanned by two phasors' — the tor"
+ },
+ {
+  "op": "remove",
+  "source": "Identity Molting",
+  "target": "Creative Coach",
+  "type": "connects-to",
+  "why": "two-label pair: KEEP-B — Creative Coach: 'Identity Molting holds the teacher-to-coach shift itself'; Identity Molting only sa"
+ },
+ {
+  "op": "remove",
+  "source": "Remnants in Depth",
+  "target": "Hand-Drawn 3D Look",
+  "type": "couples-with",
+  "why": "two-label pair: MERGE — Hand-Drawn 3D Look carries it twice, under the heading 'Ink that lives in 3D' ('Remnants in Depth li"
+ },
+ {
+  "op": "remove",
+  "source": "Hand-Drawn 3D Look",
+  "target": "Remnants in Depth",
+  "type": "couples-with",
+  "why": "relabel (merge)"
+ },
+ {
+  "op": "add",
+  "source": "Hand-Drawn 3D Look",
+  "target": "Remnants in Depth",
+  "type": "couples-with",
+  "label": "ink-that-lives-in-3D",
+  "why": "relabel (merge)"
+ },
+ {
+  "op": "remove",
+  "source": "Remnants in Depth",
+  "target": "Frame Designer",
+  "type": "connects-to",
+  "why": "two-label pair: MERGE — Frame Designer: 'For ink that should move with the camera, Remnants in Depth renders splatter as cam"
+ },
+ {
+  "op": "remove",
+  "source": "Frame Designer",
+  "target": "Remnants in Depth",
+  "type": "connects-to",
+  "why": "relabel (merge)"
+ },
+ {
+  "op": "add",
+  "source": "Frame Designer",
+  "target": "Remnants in Depth",
+  "type": "connects-to",
+  "label": "ink-that-moves-with-the-camera",
+  "why": "relabel (merge)"
+ },
+ {
+  "op": "remove",
+  "source": "Dispersion Table",
+  "target": "Volterra Kernels and the Torus",
+  "type": "mirrors",
+  "why": "two-label pair: MERGE — Volterra states the coupling ('it couples to the Dispersion Table for the same reason — that entry i"
+ },
+ {
+  "op": "remove",
+  "source": "Volterra Kernels and the Torus",
+  "target": "Dispersion Table",
+  "type": "couples-with",
+  "why": "relabel (merge)"
+ },
+ {
+  "op": "add",
+  "source": "Volterra Kernels and the Torus",
+  "target": "Dispersion Table",
+  "type": "couples-with",
+  "label": "stored-field-distinguished-by-its-reader",
+  "why": "relabel (merge)"
+ },
+ {
+  "op": "remove",
+  "source": "Adopt the Craft, Author the Seam",
+  "target": "Comic and Cinema — Two Ways of Seeing",
+  "type": "connects-to",
+  "why": "two-label pair: KEEP-A — Comic and Cinema: 'That join is exactly where Adopt the Craft, Author the Seam tells us to spend our"
+ },
+ {
+  "op": "remove",
+  "source": "Meadows and an Artist's Career",
+  "target": "Creative Coach",
+  "type": "connects-to",
+  "why": "two-label pair: MERGE — Creative Coach: 'Meadows and an Artist's Career holds the diagnostic' (and that page has a '## The D"
+ },
+ {
+  "op": "remove",
+  "source": "Creative Coach",
+  "target": "Meadows and an Artist's Career",
+  "type": "connects-to",
+  "why": "relabel (merge)"
+ },
+ {
+  "op": "add",
+  "source": "Creative Coach",
+  "target": "Meadows and an Artist's Career",
+  "type": "connects-to",
+  "label": "holds-the-diagnostic",
+  "why": "relabel (merge)"
+ },
+ {
+  "op": "remove",
+  "source": "Creative Coach",
+  "target": "Sidechain ↔ Conversation",
+  "type": "connects-to",
+  "why": "two-label pair: KEEP-B — Neither body names the other; Creative Coach's Balint passage ('the group, unsteered ... silence clo"
+ },
+ {
+  "op": "remove",
+  "source": "Reflective Practice",
+  "target": "Creative Coach",
+  "type": "connects-to",
+  "why": "two-label pair: KEEP-A — Creative Coach: 'In Reflective Practice's terms, the reflecting is on-action and the steering is in-"
+ },
+ {
+  "op": "remove",
+  "source": "Wavetable Scanner",
+  "target": "1D Wavetable Scanning",
+  "type": "exemplifies",
+  "why": "two-label pair: KEEP-A — 1D Wavetable Scanning names 'the patterns the first scanner build surfaced', and the Scanner says th"
+ },
+ {
+  "op": "remove",
+  "source": "Generative Wavetable Libraries",
+  "target": "1D Wavetable Scanning",
+  "type": "connects-to",
+  "why": "two-label pair: KEEP-A — 1D Wavetable Scanning: centroid-sorted order 'is the order pack_wavetable.py produces and the one mo"
+ },
+ {
+  "op": "remove",
+  "source": "Review Layer",
+  "target": "Maker",
+  "type": "connects-to",
+  "why": "two-label pair: KEEP-B — Maker: 'I inherit it, I don't own a second copy'; Review Layer says the same ('the floor for made th"
+ },
+ {
+  "op": "remove",
+  "source": "Floquet Theory",
+  "target": "Mathieu Equation",
+  "type": "connects-to",
+  "why": "two-label pair: MERGE — Mathieu: 'The canonical equation of Floquet theory'; keep Mathieu's side with the page's word (exemp"
+ },
+ {
+  "op": "remove",
+  "source": "Mathieu Equation",
+  "target": "Floquet Theory",
+  "type": "connects-to",
+  "why": "relabel (merge)"
+ },
+ {
+  "op": "add",
+  "source": "Mathieu Equation",
+  "target": "Floquet Theory",
+  "type": "connects-to",
+  "label": "canonical-equation",
+  "why": "relabel (merge)"
+ },
+ {
+  "op": "remove",
+  "source": "Floquet Theory",
+  "target": "Photonic Time Crystals",
+  "type": "connects-to",
+  "why": "two-label pair: MERGE — Photonic Time Crystals: 'the experimental incarnation of Floquet Theory in optics'; Floquet's one me"
+ },
+ {
+  "op": "remove",
+  "source": "Photonic Time Crystals",
+  "target": "Floquet Theory",
+  "type": "connects-to",
+  "why": "relabel (merge)"
+ },
+ {
+  "op": "add",
+  "source": "Photonic Time Crystals",
+  "target": "Floquet Theory",
+  "type": "connects-to",
+  "label": "experimental-incarnation",
+  "why": "relabel (merge)"
+ },
+ {
+  "op": "remove",
+  "source": "The Drift",
+  "target": "Stoicism",
+  "type": "contradicts",
+  "why": "two-label pair: KEEP-B — Stoicism states it outright ('contradicts The Drift — the Fortress and the Zhuangzian no-architectur"
+ },
+ {
+  "op": "remove",
+  "source": "The Drift",
+  "target": "Leibniz",
+  "type": "contradicts",
+  "why": "two-label pair: KEEP-B — Neither body names the other; the halves are there (The Drift: the self 'with edges, with a structur"
+ },
+ {
+  "op": "remove",
+  "source": "LDN RTM",
+  "target": "Loudon's Toolkit",
+  "type": "connects-to",
+  "why": "two-label pair: KEEP-A — Toolkit: 'LDN RTM holds the format and the queue, and the plugins marked as RTM candidates in the in"
+ },
+ {
+  "op": "remove",
+  "source": "Haptic Handwheel",
+  "target": "Loudon's Toolkit",
+  "type": "connects-to",
+  "why": "two-label pair: KEEP-A — Both bodies say 'a first step' toward Loudon's hardware goal; A's label carries both halves."
+ },
+ {
+  "op": "remove",
+  "source": "Playful Interface Design",
+  "target": "Haptic Handwheel",
+  "type": "mirrors",
+  "why": "two-label pair: KEEP-B — Playful Interface Design files the Handwheel as one of its kinds ('### The thing with mass (Haptic H"
+ },
+ {
+  "op": "remove",
+  "source": "Playful Interface Design",
+  "target": "Biomechanical Synthesis",
+  "type": "mirrors",
+  "why": "two-label pair: KEEP-B — Same label both ways; Playful Interface Design treats Biomechanical Synthesis as one of its kinds, s"
+ },
+ {
+  "op": "remove",
+  "source": "Spinoza",
+  "target": "Threshold Conatus",
+  "type": "connects-to",
+  "why": "two-label pair: KEEP-A — Threshold Conatus: 'Spinoza holds homecoming' in § Homecoming or Becoming; Spinoza's body never name"
+ },
+ {
+  "op": "remove",
+  "source": "Dub Lineage",
+  "target": "Semantic Delay",
+  "type": "deepens",
+  "why": "two-label pair: MERGE — Semantic Delay § Lineage: 'This device belongs to the dub tradition'; Dub Lineage deepens Semantic D"
+ },
+ {
+  "op": "remove",
+  "source": "Semantic Delay",
+  "target": "Dub Lineage",
+  "type": "emerged-from",
+  "why": "relabel (merge)"
+ },
+ {
+  "op": "add",
+  "source": "Semantic Delay",
+  "target": "Dub Lineage",
+  "type": "emerged-from",
+  "label": "belongs-to-the-dub-tradition",
+  "why": "relabel (merge)"
+ },
+ {
+  "op": "remove",
+  "source": "Songlines",
+  "target": "Lateral Access",
+  "type": "connects-to",
+  "why": "two-label pair: KEEP-A — Lateral Access: Loudon's habitual narrative 'is a well-worn songline ... carved deep tracks'; Songli"
+ },
+ {
+  "op": "remove",
+  "source": "Generative Preset Development",
+  "target": "Synthesis Topologies",
+  "type": "deepens",
+  "why": "two-label pair: MERGE — Synthesis Topologies: 'The forward ghost of this entry has been visible in both Generative Preset De"
+ },
+ {
+  "op": "remove",
+  "source": "Synthesis Topologies",
+  "target": "Generative Preset Development",
+  "type": "emerged-from",
+  "why": "relabel (merge)"
+ },
+ {
+  "op": "add",
+  "source": "Synthesis Topologies",
+  "target": "Generative Preset Development",
+  "type": "emerged-from",
+  "label": "forward-ghost",
+  "why": "relabel (merge)"
+ },
+ {
+  "op": "remove",
+  "source": "Granular Synthesis",
+  "target": "Particle Synthesis",
+  "type": "mirrors",
+  "why": "two-label pair: MERGE — Particle Synthesis opens 'Granular synthesis reconceived through the lens of game engine and GPU phy"
+ },
+ {
+  "op": "remove",
+  "source": "Particle Synthesis",
+  "target": "Granular Synthesis",
+  "type": "deepens",
+  "why": "relabel (merge)"
+ },
+ {
+  "op": "add",
+  "source": "Particle Synthesis",
+  "target": "Granular Synthesis",
+  "type": "deepens",
+  "label": "grains-reconceived-as-particles",
+  "why": "relabel (merge)"
+ },
+ {
+  "op": "remove",
+  "source": "Radio Play",
+  "target": "Modes of Collaboration",
+  "type": "connects-to",
+  "why": "two-label pair: KEEP-A — Neither body names the other, but Modes of Collaboration — Context:83 names the mode: 'A visuals-enr"
+ },
+ {
+  "op": "remove",
+  "source": "Kuramoto Coupling",
+  "target": "Modes of Collaboration",
+  "type": "connects-to",
+  "why": "two-label pair: KEEP-A — Modes of Collaboration: 'who leads is its coupling constant (Kuramoto Coupling)'; Kuramoto's body ne"
+ },
+ {
+  "op": "remove",
+  "source": "Quality Manifesto",
+  "target": "AI Partnership Philosophy",
+  "type": "mirrors",
+  "why": "two-label pair: MERGE — AI Partnership Philosophy: 'The conversation that produced Quality Manifesto, Leverage Points Framew"
+ },
+ {
+  "op": "remove",
+  "source": "AI Partnership Philosophy",
+  "target": "Quality Manifesto",
+  "type": "couples-with",
+  "why": "relabel (merge)"
+ },
+ {
+  "op": "add",
+  "source": "AI Partnership Philosophy",
+  "target": "Quality Manifesto",
+  "type": "couples-with",
+  "label": "born-in-the-same-conversation",
+  "why": "relabel (merge)"
+ },
+ {
+  "op": "remove",
+  "source": "Mixture of Experts",
+  "target": "Excellent Adventure",
+  "type": "mirrors",
+  "why": "two-label pair: KEEP-B — Excellent Adventure: 'the embodied form of single-expert MoE routing'; Mixture of Experts uses the s"
+ },
+ {
+  "op": "remove",
+  "source": "Mixture of Experts",
+  "target": "Dialectic",
+  "type": "mirrors",
+  "why": "two-label pair: KEEP-B — Both pages use the exact phrase 'multi-expert MoE with cross-talk between experts'."
+ },
+ {
+  "op": "remove",
+  "source": "Mixture of Experts",
+  "target": "Philosopher Visits the Entry",
+  "type": "mirrors",
+  "why": "two-label pair: KEEP-B — Philosopher Visits: 'the single-expert routing move aimed at a node rather than a topic'; MoE says t"
+ },
+ {
+  "op": "remove",
+  "source": "The Shop",
+  "target": "Kokoro",
+  "type": "exemplifies",
+  "why": "two-label pair: KEEP-B — The Shop says operational entries 'are instances of this pattern; this entry is the pattern itself' "
+ },
+ {
+  "op": "remove",
+  "source": "The Shop",
+  "target": "Manim CE",
+  "type": "exemplifies",
+  "why": "two-label pair: KEEP-B — Same as Kokoro: Manim CE is an instance on the Shop's roster; Shop exemplifies Manim runs backwards."
+ },
+ {
+  "op": "remove",
+  "source": "Boundary-Crossing Instruments",
+  "target": "Frequency-Time Duality",
+  "type": "spawned",
+  "why": "two-label pair: MERGE — Frequency-Time Duality was 'a Boundary-Crossing Instruments concept before there was a name for it',"
+ },
+ {
+  "op": "remove",
+  "source": "Frequency-Time Duality",
+  "target": "Boundary-Crossing Instruments",
+  "type": "enables",
+  "why": "relabel (merge)"
+ },
+ {
+  "op": "add",
+  "source": "Frequency-Time Duality",
+  "target": "Boundary-Crossing Instruments",
+  "type": "enables",
+  "label": "clearest-single-demonstration",
+  "why": "relabel (merge)"
+ },
+ {
+  "op": "remove",
+  "source": "Spinoza Conatus",
+  "target": "Trickster",
+  "type": "couples-with",
+  "why": "two-label pair: KEEP-B — Trickster: 'Spinoza Conatus as the trickster's underlying logic' and 'This is Spinozist pedagogy'; S"
+ },
+ {
+  "op": "remove",
+  "source": "Spinoza Conatus",
+  "target": "Deleuze",
+  "type": "couples-with",
+  "why": "two-label pair: KEEP-B — Deleuze states it ('deepens Spinoza Conatus'; 'extends and radicalizes Spinoza'); Spinoza Conatus's "
+ },
+ {
+  "op": "remove",
+  "source": "Pheromone Trail",
+  "target": "The Remembering Page",
+  "type": "couples-with",
+  "why": "two-label pair: KEEP-A — The Remembering Page draws the distinction four times ('If the pheromone trail is the worn path, thi"
+ },
+ {
+  "op": "remove",
+  "source": "Trickster",
+  "target": "Dialogue Moderator",
+  "type": "couples-with",
+  "why": "two-label pair: KEEP-B — Trickster's own body records it: 'Dialogue Moderator relationship formalized as mirrors[opposite-thr"
+ },
+ {
+  "op": "remove",
+  "source": "Entry Conatus",
+  "target": "Weave Ceremony",
+  "type": "connects-to",
+  "why": "two-label pair: KEEP-B — The Weave card's health rule — 'An entry's health is its conatus served' — is the standing relation;"
+ },
+ {
+  "op": "remove",
+  "source": "The Scroll",
+  "target": "Project Stewardship System",
+  "type": "enables",
+  "why": "two-label pair: KEEP-B — Same label; Stewardship describes a two-way loop (the orchestrator materializes the scroll from what"
+ },
+ {
+  "op": "remove",
+  "source": "The Scroll",
+  "target": "STIGMERGY",
+  "type": "connects-to",
+  "why": "two-label pair: KEEP-B — Both say STIGMERGY renders the scroll ('STIGMERGY renders it natively'; the projects deck opens each"
+ },
+ {
+  "op": "remove",
+  "source": "Palace as Context Injection System",
+  "target": "ELDER",
+  "type": "connects-to",
+  "why": "two-label pair: KEEP-A — ELDER: 'Why it runs this way — meaning first, rules on top — is Palace as Context Injection System §"
+ },
+ {
+  "op": "remove",
+  "source": "FOUR PILLARS",
+  "target": "Autodidact Polymaths",
+  "type": "connects-to",
+  "why": "two-label pair: MERGE — Autodidact Polymaths: Four Pillars is 'the curriculum framework whose multi-pillar simultaneity is t"
+ },
+ {
+  "op": "remove",
+  "source": "Autodidact Polymaths",
+  "target": "FOUR PILLARS",
+  "type": "connects-to",
+  "why": "relabel (merge)"
+ },
+ {
+  "op": "add",
+  "source": "Autodidact Polymaths",
+  "target": "FOUR PILLARS",
+  "type": "connects-to",
+  "label": "argues-this-audience-exists",
+  "why": "relabel (merge)"
+ },
+ {
+  "op": "remove",
+  "source": "STIGMERGY Philosophical Lenses",
+  "target": "Palace Philosophies",
+  "type": "connects-to",
+  "why": "two-label pair: KEEP-A — Neither body names the other, but Palace Philosophies — Context:60 does: 'The front-end vector: STIG"
+ },
+ {
+  "op": "remove",
+  "source": "2D Torus Wavetable Synthesizer",
+  "target": "Volterra Kernels and the Torus",
+  "type": "mirrors",
+  "why": "two-label pair: KEEP-A — Volterra names its own link: 'This is why the link to the 2D Torus Wavetable Synthesizer is a mirror"
+ },
+ {
+  "op": "remove",
+  "source": "Stoicism",
+  "target": "The Fortress and the Threshold",
+  "type": "spawned",
+  "why": "two-label pair: MERGE — Neither type is right: Fortress and Threshold 'arrived together because they came from the same conv"
+ },
+ {
+  "op": "remove",
+  "source": "The Fortress and the Threshold",
+  "target": "Stoicism",
+  "type": "contradicts",
+  "why": "relabel (merge)"
+ },
+ {
+  "op": "add",
+  "source": "The Fortress and the Threshold",
+  "target": "Stoicism",
+  "type": "contradicts",
+  "label": "the-fortress-pole",
+  "why": "relabel (merge)"
+ },
+ {
+  "op": "remove",
+  "source": "Confucianism",
+  "target": "The Fortress and the Threshold",
+  "type": "spawned",
+  "why": "two-label pair: MERGE — Same as Stoicism: co-born from one Adventure (not spawned), and the page holds Confucianism as its T"
+ },
+ {
+  "op": "remove",
+  "source": "The Fortress and the Threshold",
+  "target": "Confucianism",
+  "type": "contradicts",
+  "why": "relabel (merge)"
+ },
+ {
+  "op": "add",
+  "source": "The Fortress and the Threshold",
+  "target": "Confucianism",
+  "type": "contradicts",
+  "label": "the-threshold-pole",
+  "why": "relabel (merge)"
+ },
+ {
+  "op": "remove",
+  "source": "Frame Designer",
+  "target": "Hand-Drawn 3D Look",
+  "type": "connects-to",
+  "why": "two-label pair: MERGE — Hand-Drawn 3D Look: 'written as the menu the Frame Designer dispatches from'; Frame Designer's one m"
+ },
+ {
+  "op": "remove",
+  "source": "Hand-Drawn 3D Look",
+  "target": "Frame Designer",
+  "type": "connects-to",
+  "why": "relabel (merge)"
+ },
+ {
+  "op": "add",
+  "source": "Hand-Drawn 3D Look",
+  "target": "Frame Designer",
+  "type": "connects-to",
+  "label": "the-menu-it-dispatches-from",
+  "why": "relabel (merge)"
+ },
+ {
+  "op": "remove",
+  "source": "Hand-Drawn 3D Look",
+  "target": "Figure Rig",
+  "type": "enables",
+  "why": "two-label pair: KEEP-B — Hand-Drawn 3D Look says the rig 'is now a real capability' it uses; the look doesn't enable the rig,"
+ },
+ {
+  "op": "remove",
+  "source": "Oblique Portrait",
+  "target": "Songlines",
+  "type": "connects-to",
+  "why": "two-label pair: KEEP-A — 'By singing around a topic' is Oblique Portrait.md:201; Songlines names Oblique Portrait three times"
+ },
+ {
+  "op": "remove",
+  "source": "Hilaritas Generator",
+  "target": "Cooperation Yields Agency",
+  "type": "mirrors",
+  "why": "two-label pair: MERGE — Both bodies are silent; the reason is in Hilaritas Generator — Context:25 ('the generator is coopera"
+ },
+ {
+  "op": "remove",
+  "source": "Cooperation Yields Agency",
+  "target": "Hilaritas Generator",
+  "type": "enables",
+  "why": "relabel (merge)"
+ },
+ {
+  "op": "add",
+  "source": "Cooperation Yields Agency",
+  "target": "Hilaritas Generator",
+  "type": "enables",
+  "label": "cooperation-applied-to-pedagogy",
+  "why": "relabel (merge)"
+ },
+ {
+  "op": "remove",
+  "source": "Zoom Out to the Structure",
+  "target": "FOUR PILLARS",
+  "type": "connects-to",
+  "why": "two-label pair: MERGE — Both pages share the specific → general instinct: FOUR PILLARS 'Offer a few ways forward, and one of"
+ },
+ {
+  "op": "remove",
+  "source": "FOUR PILLARS",
+  "target": "Zoom Out to the Structure",
+  "type": "connects-to",
+  "why": "relabel (merge)"
+ },
+ {
+  "op": "add",
+  "source": "FOUR PILLARS",
+  "target": "Zoom Out to the Structure",
+  "type": "connects-to",
+  "label": "reach-for-the-general",
+  "why": "relabel (merge)"
+ },
+ {
+  "op": "remove",
+  "source": "2D Torus Wavetable Synthesizer",
+  "target": "Rank-N Lattice Analysis",
+  "type": "mirrors",
+  "why": "two-label pair: KEEP-A — Rank-N: 'one stored field read in two directions — the synthesizer scanned forward is the oscillosco"
+ },
+ {
+  "op": "remove",
+  "source": "Kuramoto Coupling",
+  "target": "Neural Granular Synthesis",
+  "type": "spawned",
+  "why": "two-label pair: MERGE — Neural Granular Synthesis names Kuramoto as the coupling between its neurons ('Coupling strength (K,"
+ },
+ {
+  "op": "remove",
+  "source": "Neural Granular Synthesis",
+  "target": "Kuramoto Coupling",
+  "type": "couples-with",
+  "why": "relabel (merge)"
+ },
+ {
+  "op": "add",
+  "source": "Neural Granular Synthesis",
+  "target": "Kuramoto Coupling",
+  "type": "couples-with",
+  "label": "coupling-strength-K",
+  "why": "relabel (merge)"
+ },
+ {
+  "op": "remove",
+  "source": "STIGMERGY",
+  "target": "Palace Orchestrator",
+  "type": "connects-to",
+  "why": "two-label pair: KEEP-B — Three links, one relation: the Orchestrator 'validates against SCHEMA §9, and appends to the persist"
+ },
+ {
+  "op": "remove",
+  "source": "STIGMERGY",
+  "target": "Palace Orchestrator",
+  "type": "connects-to",
+  "why": "two-label pair: extra link"
+ },
+ {
+  "op": "remove",
+  "source": "Pheromone Trail",
+  "target": "STIGMERGY",
+  "type": "mirrors",
+  "why": "two-label pair: MERGE — STIGMERGY: 'carries both timescales of the palace's memory'; that is B's label, but Pheromone Trail'"
+ },
+ {
+  "op": "remove",
+  "source": "STIGMERGY",
+  "target": "Pheromone Trail",
+  "type": "mirrors",
+  "why": "relabel (merge)"
+ },
+ {
+  "op": "add",
+  "source": "STIGMERGY",
+  "target": "Pheromone Trail",
+  "type": "mirrors",
+  "label": "two-timescale-trace",
+  "why": "relabel (merge)"
+ },
+ {
+  "op": "remove",
+  "source": "DSP in Looping Dimensions",
+  "target": "2D Torus Wavetable Synthesizer",
+  "type": "couples-with",
+  "why": "two-label pair: KEEP-B — Both say the synth is 'the concrete incarnation' of the principle; keep the instance's side (exempli"
+ },
+ {
+  "op": "remove",
+  "source": "Project Stewardship System",
+  "target": "Talking Keyboard",
+  "type": "connects-to",
+  "why": "two-label pair: KEEP-A — Talking Keyboard: 'the recursive-stage-mismatch evidence'; Stewardship calls the pair 'the case stud"
+ },
+ {
+  "op": "remove",
+  "source": "Ableton Session Writer",
+  "target": "Splice Instrument Forge",
+  "type": "connects-to",
+  "why": "two-label pair: KEEP-A — Splice Instrument Forge: 'This project fills those gaps and emits through the writer rather than for"
+ },
+ {
+  "op": "remove",
+  "source": "Loudon Live Design System",
+  "target": "Loudon Live",
+  "type": "enables",
+  "why": "two-label pair: KEEP-A — The design system was 'born from Loudon Live' (lineage) and Loudon Live says it 'is now the palace's"
+ },
+ {
+  "op": "remove",
+  "source": "Synthesis ↔ Emergence",
+  "target": "Semantic Webcam",
+  "type": "connects-to",
+  "why": "two-label pair: KEEP-A — Semantic Webcam: 'It began as one facet (the Synthesis ↔ Emergence flock)'; the resonance page never"
+ },
+ {
+  "op": "remove",
+  "source": "Blender",
+  "target": "BLUELINE",
+  "type": "connects-to",
+  "why": "two-label pair: KEEP-A — BLUELINE: camera and pose are authored in a 3D block in Blender and 'Blender geometric passes → SDXL"
+ },
+ {
+  "op": "remove",
+  "source": "Generative Sample Libraries",
+  "target": "Generative Preset Development",
+  "type": "couples-with",
+  "why": "two-label pair: MERGE — Preset Development's § Relationship: GSL 'generates audio content'; this project 'generates instrume"
+ },
+ {
+  "op": "remove",
+  "source": "Generative Preset Development",
+  "target": "Generative Sample Libraries",
+  "type": "couples-with",
+  "why": "relabel (merge)"
+ },
+ {
+  "op": "add",
+  "source": "Generative Preset Development",
+  "target": "Generative Sample Libraries",
+  "type": "couples-with",
+  "label": "content-meets-configuration",
+  "why": "relabel (merge)"
+ },
+ {
+  "op": "remove",
+  "source": "Generative Wavetable Libraries",
+  "target": "Generative Sample Libraries",
+  "type": "couples-with",
+  "why": "two-label pair: extra link"
+ },
+ {
+  "op": "remove",
+  "source": "Generative Wavetable Libraries",
+  "target": "Wavetable Scanner",
+  "type": "connects-to",
+  "why": "two-label pair: KEEP-B — Wavetable Scanner wants to absorb 'the work pack_wavetable.py currently does' (forward vector; next "
+ },
+ {
+  "op": "remove",
+  "source": "Symbiotic Skills",
+  "target": "Palace Map",
+  "type": "connects-to",
+  "why": "two-label pair: KEEP-B — Palace Map: Tools — 'Mechanism: the skill ecosystem (Symbiotic Skills)', a standing relation; Symbio"
+ },
+ {
+  "op": "remove",
+  "source": "Project Stewardship System",
+  "target": "Generative Sample Libraries",
+  "type": "connects-to",
+  "why": "two-label pair: MERGE — Both pages say it plainly: 'Drafted by the GSL Steward (Stage A pilot of Project Stewardship System)"
+ },
+ {
+  "op": "remove",
+  "source": "Generative Sample Libraries",
+  "target": "Project Stewardship System",
+  "type": "connects-to",
+  "why": "relabel (merge)"
+ },
+ {
+  "op": "add",
+  "source": "Generative Sample Libraries",
+  "target": "Project Stewardship System",
+  "type": "connects-to",
+  "label": "stage-A-pilot",
+  "why": "relabel (merge)"
+ },
+ {
+  "op": "remove",
+  "source": "Frequency-Time Duality",
+  "target": "Waveguide Synthesizer",
+  "type": "connects-to",
+  "why": "two-label pair: KEEP-B — Waveguide: 'the delay-line length is the pitch, and the loop filter is the spectral envelope'; Frequ"
+ },
+ {
+  "op": "remove",
+  "source": "Action Potential Oscillator",
+  "target": "Neural Granular Synthesis",
+  "type": "deepens",
+  "why": "two-label pair: MERGE — Neural Granular Synthesis: 'Phase 1: Action Potential Oscillator', and the oscillator reaches 'past "
+ },
+ {
+  "op": "remove",
+  "source": "Neural Granular Synthesis",
+  "target": "Action Potential Oscillator",
+  "type": "emerged-from",
+  "why": "relabel (merge)"
+ },
+ {
+  "op": "add",
+  "source": "Neural Granular Synthesis",
+  "target": "Action Potential Oscillator",
+  "type": "emerged-from",
+  "label": "phase-1-single-neuron",
+  "why": "relabel (merge)"
+ },
+ {
+  "op": "remove",
+  "source": "Three.js",
+  "target": "Wavetable Scanner",
+  "type": "connects-to",
+  "why": "two-label pair: KEEP-A — Wavetable Scanner: '3D visualizer whose geometry IS the data → Shop/Three.js'; 'exemplified-by' is g"
+ },
+ {
+  "op": "remove",
+  "source": "Palace Enchantment",
+  "target": "Dialogue Moderator",
+  "type": "couples-with",
+  "why": "two-label pair: MERGE — Palace Enchantment proposed the entry ('see Dialogue Moderator — not yet built'; 'See Dialogue Moder"
+ },
+ {
+  "op": "remove",
+  "source": "Dialogue Moderator",
+  "target": "Palace Enchantment",
+  "type": "emerged-from",
+  "why": "relabel (merge)"
+ },
+ {
+  "op": "add",
+  "source": "Dialogue Moderator",
+  "target": "Palace Enchantment",
+  "type": "emerged-from",
+  "label": "the-coordinator-it-proposed",
+  "why": "relabel (merge)"
+ },
+ {
+  "op": "remove",
+  "source": "Kokoro",
+  "target": "Whisper",
+  "type": "couples-with",
+  "why": "two-label pair: KEEP-B — Whisper: 'Kokoro's mirror image ... Together we close the loop on narration: text → speech → text'; "
+ },
+ {
+  "op": "remove",
+  "source": "Kokoro",
+  "target": "Manim CE",
+  "type": "enables",
+  "why": "two-label pair: MERGE — Manim CE names Kokoro four times (voiceover_audio 'typically from Kokoro'; 'Kokoro produces narratio"
+ },
+ {
+  "op": "remove",
+  "source": "Manim CE",
+  "target": "Kokoro",
+  "type": "couples-with",
+  "why": "relabel (merge)"
+ },
+ {
+  "op": "add",
+  "source": "Manim CE",
+  "target": "Kokoro",
+  "type": "couples-with",
+  "label": "narration-it-renders-under",
+  "why": "relabel (merge)"
+ },
+ {
+  "op": "remove",
+  "source": "ffmpeg",
+  "target": "Kokoro",
+  "type": "couples-with",
+  "why": "two-label pair: KEEP-A — Kokoro's three ffmpeg passages are all post-steps (resample, two-pass loudnorm, adelay placement); b"
+ },
+ {
+  "op": "remove",
+  "source": "ComfyUI",
+  "target": "FLUX (Hugging Face)",
+  "type": "connects-to",
+  "why": "two-label pair: MERGE — ComfyUI: 'The two specialists are the Shop's first true Comparison Mode test'; FLUX: 'I will not sil"
+ },
+ {
+  "op": "remove",
+  "source": "FLUX (Hugging Face)",
+  "target": "ComfyUI",
+  "type": "connects-to",
+  "why": "relabel (merge)"
+ },
+ {
+  "op": "add",
+  "source": "FLUX (Hugging Face)",
+  "target": "ComfyUI",
+  "type": "connects-to",
+  "label": "comparison-mode-pair",
+  "why": "relabel (merge)"
+ },
+ {
+  "op": "remove",
+  "source": "ComfyUI",
+  "target": "RunPod GPU Backend",
+  "type": "connects-to",
+  "why": "two-label pair: KEEP-A — RunPod: a pod gives 'the full ComfyUI on a proxy URL' and the bundle holds the pod ComfyUI client; C"
+ },
+ {
+  "op": "remove",
+  "source": "Frame Designer",
+  "target": "Figure Rig",
+  "type": "connects-to",
+  "why": "two-label pair: MERGE — Figure Rig: 'I am the figure-staging method Frame Designer dispatches' — A's label, on B's page; Fra"
+ },
+ {
+  "op": "remove",
+  "source": "Figure Rig",
+  "target": "Frame Designer",
+  "type": "connects-to",
+  "why": "relabel (merge)"
+ },
+ {
+  "op": "add",
+  "source": "Figure Rig",
+  "target": "Frame Designer",
+  "type": "connects-to",
+  "label": "figure-staging-method",
+  "why": "relabel (merge)"
+ },
+ {
+  "op": "remove",
+  "source": "Depth Anything",
+  "target": "SAM",
+  "type": "connects-to",
+  "why": "two-label pair: KEEP-A — SAM: 'I isolate, depth orders'; Depth Anything agrees ('I order the scene, I don't isolate every obj"
+ },
+ {
+  "op": "remove",
+  "source": "Matplotlib",
+  "target": "Manim CE",
+  "type": "connects-to",
+  "why": "two-label pair: KEEP-B — Manim: in a sandbox 'Route the brief to Matplotlib as a fallback'; Matplotlib: 'I stood in for Manim"
+ },
+ {
+  "op": "remove",
+  "source": "Web Audio Worklet",
+  "target": "The Shop",
+  "type": "exemplifies",
+  "why": "two-label pair: MERGE — Both links on Web Audio Worklet: keep member-of (as with Kokoro and Manim) and give it the exemplifi"
+ },
+ {
+  "op": "remove",
+  "source": "Web Audio Worklet",
+  "target": "The Shop",
+  "type": "member-of",
+  "why": "relabel (merge)"
+ },
+ {
+  "op": "add",
+  "source": "Web Audio Worklet",
+  "target": "The Shop",
+  "type": "member-of",
+  "label": "earned-by-a-different-operating-model",
+  "why": "relabel (merge)"
+ },
+ {
+  "op": "remove",
+  "source": "ffmpeg",
+  "target": "Manim CE",
+  "type": "couples-with",
+  "why": "two-label pair: KEEP-B — Manim: 'Manim silent → ffmpeg-mux Kokoro Study narration'; ffmpeg's mentions are of Manim renders, a"
+ },
+ {
+  "op": "remove",
+  "source": "Harvest Ceremony",
+  "target": "Deposit Ceremony",
+  "type": "spawned",
+  "why": "two-label pair: MERGE — Three links: no page states Harvest gave birth to Deposit (spawned / emerged-from unsupported); Harv"
+ },
+ {
+  "op": "remove",
+  "source": "Harvest Ceremony",
+  "target": "Deposit Ceremony",
+  "type": "couples-with",
+  "why": "relabel (merge)"
+ },
+ {
+  "op": "add",
+  "source": "Harvest Ceremony",
+  "target": "Deposit Ceremony",
+  "type": "couples-with",
+  "label": "routes-its-candidates-there",
+  "why": "relabel (merge)"
+ },
+ {
+  "op": "remove",
+  "source": "Deposit Ceremony",
+  "target": "Harvest Ceremony",
+  "type": "emerged-from",
+  "why": "two-label pair: extra link"
+ },
+ {
+  "op": "remove",
+  "source": "The Daily Page",
+  "target": "Revival Ceremony",
+  "type": "connects-to",
+  "why": "two-label pair: KEEP-B — The Daily Page: 'The morning decides; the rite wakes the page' — B's label; Revival confirms it ('me"
+ },
+ {
+  "op": "remove",
+  "source": "Palace as Context Injection System",
+  "target": "Pages as Agents",
+  "type": "deepens",
+  "why": "two-label pair: KEEP-A — The Context Injection page itself says 'This is the same project as Pages as Agents ... viewed from "
+ },
+ {
+  "op": "remove",
+  "source": "Cooking ↔ Mixing",
+  "target": "Rick Rubin",
+  "type": "connects-to",
+  "why": "two-label pair: KEEP-A — Rick Rubin: 'subtraction is a creative act ... kin to Cooking ↔ Mixing (you can't un-add)'; the reso"
+ },
+ {
+  "op": "remove",
+  "source": "Marcus Aurelius",
+  "target": "Julia Cameron",
+  "type": "connects-to",
+  "why": "two-label pair: KEEP-B — Julia Cameron: 'the same instinct as Marcus Aurelius's dawn practice ... where the two diverge' — Ma"
+ },
+ {
+  "op": "remove",
+  "source": "Donella Meadows",
+  "target": "Kick Drum ↔ Foundation",
+  "type": "connects-to",
+  "why": "two-label pair: KEEP-B — Kick Drum ↔ Foundation: 'Donella Meadows argues that a system's structure determines its behavior'; "
+ },
+ {
+  "op": "remove",
+  "source": "Agnes Martin",
+  "target": "James Turrell",
+  "type": "connects-to",
+  "why": "two-label pair: KEEP-A — Turrell: 'Agnes Martin says almost the identical thing'; and both pages name the same blindspot abou"
+ },
+ {
+  "op": "remove",
+  "source": "Shunryu Suzuki",
+  "target": "Sidechain ↔ Conversation",
+  "type": "connects-to",
+  "why": "two-label pair: MERGE — Sidechain ↔ Conversation quotes Suzuki ('give up all your preconceived ideas ... just listen') insid"
+ },
+ {
+  "op": "remove",
+  "source": "Sidechain ↔ Conversation",
+  "target": "Shunryu Suzuki",
+  "type": "connects-to",
+  "why": "relabel (merge)"
+ },
+ {
+  "op": "add",
+  "source": "Sidechain ↔ Conversation",
+  "target": "Shunryu Suzuki",
+  "type": "connects-to",
+  "label": "yielding-practice",
+  "why": "relabel (merge)"
+ },
+ {
+  "op": "remove",
+  "source": "Lao Tzu",
+  "target": "Cooking ↔ Mixing",
+  "type": "connects-to",
+  "why": "two-label pair: KEEP-B — Cooking ↔ Mixing has a section 'The Philosophy: Lao Tzu' with 'Do that which consists in taking no a"
+ },
+ {
+  "op": "remove",
+  "source": "Agnes Martin",
+  "target": "Move the Ink, Don't Redraw It",
+  "type": "mirrors",
+  "why": "two-label pair: MERGE — Both links on Agnes Martin, and they are one contradiction with a shared premise: both pages fix the"
+ },
+ {
+  "op": "remove",
+  "source": "Agnes Martin",
+  "target": "Move the Ink, Don't Redraw It",
+  "type": "contradicts",
+  "why": "relabel (merge)"
+ },
+ {
+  "op": "add",
+  "source": "Agnes Martin",
+  "target": "Move the Ink, Don't Redraw It",
+  "type": "contradicts",
+  "label": "fixed-grid-redrawn-by-hand",
+  "why": "relabel (merge)"
+ },
+ {
+  "op": "remove",
+  "source": "Excellent Adventure",
+  "target": "Oblique Portrait",
+  "type": "contradicts",
+  "why": "two-label pair: KEEP-A — Four links: keep one contradicts. Oblique Portrait puts Loudon 'in the passenger seat of a process h"
+ },
+ {
+  "op": "remove",
+  "source": "Oblique Portrait",
+  "target": "Excellent Adventure",
+  "type": "mirrors",
+  "why": "two-label pair: extra link"
+ },
+ {
+  "op": "remove",
+  "source": "Excellent Adventure",
+  "target": "Oblique Portrait",
+  "type": "mirrors",
+  "why": "two-label pair: extra link"
+ },
+ {
+  "op": "remove",
+  "source": "Excellent Adventure",
+  "target": "Dialectic",
+  "type": "couples-with",
+  "why": "two-label pair: MERGE — Dialectic: 'The Excellent Adventure method ... is the parent practice' — lineage; Excellent Adventur"
+ },
+ {
+  "op": "remove",
+  "source": "Dialectic",
+  "target": "Excellent Adventure",
+  "type": "emerged-from",
+  "why": "relabel (merge)"
+ },
+ {
+  "op": "add",
+  "source": "Dialectic",
+  "target": "Excellent Adventure",
+  "type": "emerged-from",
+  "label": "parent-practice",
+  "why": "relabel (merge)"
+ },
+ {
+  "op": "remove",
+  "source": "Concierge",
+  "target": "Palace Orchestrator",
+  "type": "connects-to",
+  "why": "two-label pair: MERGE — Palace Orchestrator: 'The Concierge boundary — same family, opposite poles. The Concierge is the add"
+ },
+ {
+  "op": "remove",
+  "source": "Palace Orchestrator",
+  "target": "Concierge",
+  "type": "connects-to",
+  "why": "relabel (merge)"
+ },
+ {
+  "op": "add",
+  "source": "Palace Orchestrator",
+  "target": "Concierge",
+  "type": "connects-to",
+  "label": "same-family-opposite-poles",
+  "why": "relabel (merge)"
+ },
+ {
+  "op": "remove",
+  "source": "Concierge",
+  "target": "Agent Wellbeing",
+  "type": "connects-to",
+  "why": "two-label pair: KEEP-B — Agent Wellbeing: its question was answered by 'the Concierge health dial'; the Concierge's mentions "
+ },
+ {
+  "op": "remove",
+  "source": "Palace Orchestrator",
+  "target": "Two Batons, One Board",
+  "type": "connects-to",
+  "why": "two-label pair: KEEP-A — Three links: Two Batons: 'The scheduled poller is answered: it is Palace Orchestrator'; the Orchestr"
+ },
+ {
+  "op": "remove",
+  "source": "Two Batons, One Board",
+  "target": "Palace Orchestrator",
+  "type": "connects-to",
+  "why": "two-label pair: extra link"
+ },
+ {
+  "op": "remove",
+  "source": "The Palace Speaks",
+  "target": "Agent Wellbeing",
+  "type": "couples-with",
+  "why": "two-label pair: KEEP-B — Both bodies carry it (Agent Wellbeing: 'The Palace Speaks opens a second register'; The Palace Speak"
+ },
+ {
+  "op": "remove",
+  "source": "BBS Design System",
+  "target": "BBS Blackboard",
+  "type": "enables",
+  "why": "two-label pair: KEEP-B — BBS Blackboard: the Design System 'resolves this section into a concrete implementation' and its dep"
+ },
+ {
+  "op": "add",
+  "source": "Philosopher Visits the Entry",
+  "target": "No Mind Checks Itself",
+  "type": "exemplifies",
+  "label": "the-question-the-entry-cannot-ask-itself",
+  "why": "flag weave-trail-2026-09-24-05-no-mind-checks-itself ACT",
+  "_flag": "weave-trail-2026-09-24-05-no-mind-checks-itself"
+ },
+ {
+  "op": "add",
+  "source": "Crystal Synthesizer",
+  "target": "Biomechanical Synthesis",
+  "type": "exemplifies",
+  "label": "instrument-two-built",
+  "why": "flag weave-trail-2026-09-24-06-biomechanical-synthesis ACT",
+  "_flag": "weave-trail-2026-09-24-06-biomechanical-synthesis"
+ },
+ {
+  "op": "add",
+  "source": "James Turrell",
+  "target": "Rick Rubin",
+  "type": "connects-to",
+  "label": "humility-that-hides-control",
+  "why": "flag weave-trail-2026-09-24-07-james-turrell ACT",
+  "_flag": "weave-trail-2026-09-24-07-james-turrell"
+ },
+ {
+  "op": "add",
+  "source": "Iain McGilchrist",
+  "target": "Pauline Oliveros",
+  "type": "connects-to",
+  "label": "the-wide-mode-as-practice",
+  "why": "flag weave-trail-2026-09-24-08-iain-mcgilchrist ACT",
+  "_flag": "weave-trail-2026-09-24-08-iain-mcgilchrist"
+ },
+ {
+  "op": "add",
+  "source": "Self-Describing Knowledge Module",
+  "target": "Pages as Agents",
+  "type": "connects-to",
+  "label": "measured-the-plurality",
+  "why": "flag weave-trail-2026-09-24-12-pages-as-agents ACT",
+  "_flag": "weave-trail-2026-09-24-12-pages-as-agents"
+ },
+ {
+  "op": "add",
+  "source": "The Remembering Page",
+  "target": "Dialectic",
+  "type": "connects-to",
+  "label": "the-debate-sharpens",
+  "why": "flag weave-trail-2026-09-24-13-dialectic ACT",
+  "_flag": "weave-trail-2026-09-24-13-dialectic"
+ },
+ {
+  "op": "add",
+  "source": "Piano String Inharmonicity",
+  "target": "Portamento and Physical Pitch Modeling",
+  "type": "connects-to",
+  "label": "a-bend-moves-the-partials",
+  "why": "flag weave-trail-2026-09-24-19-piano-string-inharmonicity ACT",
+  "_flag": "weave-trail-2026-09-24-19-piano-string-inharmonicity"
+ },
+ {
+  "op": "add",
+  "source": "Skills Are Enchantable Pages",
+  "target": "Project Stewardship System",
+  "type": "connects-to",
+  "label": "the-harness-every-organ-converges-on",
+  "why": "flag weave-trail-2026-09-24-26-project-stewardship-system ACT",
+  "_flag": "weave-trail-2026-09-24-26-project-stewardship-system"
+ },
+ {
+  "op": "add",
+  "source": "ELDER",
+  "target": "Agent Toolbox",
+  "type": "connects-to",
+  "label": "tool-tiers",
+  "why": "flag weave-trail-2026-09-24-27-elder ACT",
+  "_flag": "weave-trail-2026-09-24-27-elder"
+ },
+ {
+  "op": "add",
+  "source": "Self-Describing Knowledge Module",
+  "target": "The Palace Hardens Around Values",
+  "type": "connects-to",
+  "label": "machinery-need-not-travel",
+  "why": "flag commons-the-palace-1792347288290 ACT",
+  "_flag": "commons-the-palace-1792347288290"
+ },
+ {
+  "op": "add",
+  "source": "Volterra Kernels and the Torus",
+  "target": "Chebyshev is Fourier",
+  "type": "connects-to",
+  "label": "the-diagonal-is-a-waveshaper",
+  "why": "flag commons-the-palace-1792765793915 ACT",
+  "_flag": "commons-the-palace-1792765793915"
+ }
+]

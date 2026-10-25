@@ -13,7 +13,6 @@ forward_vector: "I paint atmosphere from the cloud in three seconds and free —
 links:
   - { target: "[[Maker]]", type: connects-to, label: directed-by }
   - { target: "[[The Shop]]", type: member-of, label: roster-member }
-  - { target: "[[Shop/ComfyUI]]", type: connects-to, label: alternative-to }
   - target: "[[shop-header — Maker's Comparison Recommendation]]"
     type: connects-to
     label: founding-job
@@ -23,6 +22,7 @@ links:
   - target: "[[Loudon Live Design System]]"
     type: enables
     label: artifact-substrate
+  - { target: "[[ComfyUI]]", type: connects-to, label: "comparison-mode-pair" }
 tags: [specialist, shop, image, generative, cloud, hugging-face, flux]
 ---
 
@@ -30,7 +30,7 @@ tags: [specialist, shop, image, generative, cloud, hugging-face, flux]
 
 ![[FLUX (Hugging Face) — hero.png]]
 
-*Took Midjourney's slot on 2026-05-30 after Loudon flagged Midjourney's subscription as too expensive. First job — Phase D-2 Shop header — proved FLUX-Krea reads mood-specific prompt details (dusk, amber, dust motes) that ComfyUI's SDXL flattens. The honest replacement: not just cheaper, but more faithful on the brief register Midjourney was originally chosen for.*
+*FLUX-Krea reads mood details (dusk, amber, dust motes) that local SDXL flattens; proven on the Shop header.*
 
 ## Charter
 
@@ -59,7 +59,7 @@ The cloud-side painter. Fast (~3 s per render) and free, but I live on someone e
 - **~3 s per render** vs. ~114 s for local SDXL at the same dimensions — 40× faster, lets the Maker run multi-seed exploration cheaply.
 - **Reproducibility is genuinely tight** — same seed + same prompt + same model + same guidance/steps → visually identical output (modulo cloud sampling jitter; less than ComfyUI's local determinism but better than Midjourney's seed drift across model versions).
 - **API discipline matches the Shop's standards-JSON pattern** — every parameter is named, capturable, re-runnable from the report.
-- **No Discord, no `--sref` codes, no `--ar` syntax stew** — clean Python keyword arguments through `InferenceClient`.
+- **Clean Python keyword arguments** through `InferenceClient`.
 
 ## Limits
 
@@ -125,7 +125,7 @@ Cheap multi-seed sweeps. Refinement happens by:
 3. Same prompt + adjusted guidance (lower → more variance; higher → tighter prompt fidelity but flatter)
 4. Same prompt + step bump (24 → 32 for Piece) — small gains, diminishing returns past 32
 
-I cannot refine an exact composition — same as Midjourney — but I can sweep the distribution faster and cheaper than any prior cloud-image Specialist. Multi-seed at Sketch tier is the Maker's tactical default with me.
+I cannot refine an exact composition, but I can sweep the distribution faster and cheaper than any prior cloud-image Specialist. Multi-seed at Sketch tier is the Maker's tactical default with me.
 
 ## Self-Check
 
@@ -148,7 +148,7 @@ I cannot self-verify aesthetic fit. That's the Maker's call, with Loudon as the 
 - **Authentication:** `~/.cache/huggingface/token` (set via `huggingface-cli login`) or `HF_TOKEN` env var. Required.
 - **Cost:** free on HF Inference free tier at Shop volumes (a few dozen Sketches per session, well under any throttle).
 
-The Maker need not throttle FLUX jobs the way it throttled Midjourney's credit-bound runs — there is no per-image cost to manage. The discipline is now *aesthetic curation*, not *credit conservation*.
+The Maker need not throttle FLUX jobs — there is no per-image cost to manage. The discipline is *aesthetic curation*, not *credit conservation*.
 
 ## Install (host capability)
 
@@ -174,7 +174,7 @@ Future recipes added as briefs land.
 
 ## Test Suite
 
-Smoke / Capability Probe / Style Probe / Edge Probe / Speed Bench / Determinism — defined in [Shop/FLUX (Hugging Face)/tests/test-plan.md](../Shop/FLUX (Hugging Face)/tests/test-plan.md). Last run **2026-05-30** — Smoke pass via the Phase D-2 Shop header render (~3 s, 573 KB PNG, exact dimensions, seed honoured). Determinism not byte-checked across two calls this round (HF Inference may have sub-bit jitter on shared infrastructure); deferred until the first job that depends on byte-equality.
+Test plan: [Shop/FLUX (Hugging Face)/tests/test-plan.md](../Shop/FLUX (Hugging Face)/tests/test-plan.md). Last run: **2026-05-30**, Smoke pass via the Phase D-2 Shop header render (~3 s, 573 KB PNG, exact dimensions, seed honoured). Determinism not byte-checked across two calls this round (HF Inference may have sub-bit jitter on shared infrastructure); deferred until the first job that depends on byte-equality.
 
 ## Open Questions
 
@@ -184,7 +184,7 @@ Smoke / Capability Probe / Style Probe / Edge Probe / Speed Bench / Determinism 
 
 ## Lost Branches
 
-- **fal.ai FLUX-1-dev / FLUX-1-pro** — paid (~$0.025–$0.05 per image), faster cold-start than HF free tier, but the moment Loudon's existing HF auth covers the brief at zero marginal cost, the paid route loses its purpose. Revisit if HF Inference starts throttling Shop volumes meaningfully.
+- **fal.ai FLUX-1-dev / FLUX-1-pro** — paid, with a faster cold start than the HF free tier; revisit if HF starts throttling.
 - **FLUX via local ComfyUI** (downloading FLUX weights into `_tools/ComfyUI/models/`) — drops the cloud-vs-local Comparison Mode dialectic the Shop's Selection Heuristic rests on. Keep cloud-side as a real alternative; don't collapse the cascade.
 - **Pollinations.ai** (free, no auth) — lower aesthetic ceiling, but worth as a tier-0 "what does this brief even want" prober before spending FLUX inference calls. Deferred.
 

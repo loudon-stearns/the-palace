@@ -24,9 +24,6 @@ links:
   - target: "[[Substrate Skill]]"
     type: couples-with
     label: stage-conditional-build
-  - target: "[[Spinoza Conatus]]"
-    type: deepens
-    label: vessel-as-conatus
   - target: "[[Leibniz]]"
     type: contradicts
     label: causal-loop-vs-windowless-monad
@@ -103,7 +100,7 @@ This builds on the [[Compressor Design]] retrospective's three pedagogical momen
 
 ## What This Entry Is and Isn't
 
-**Is**: the design specification — biological mapping, DSP architecture, interface mythology, pedagogical framing. Promotes Blood Compressor from a one-line entry in the [[Biomechanical Synthesis]] hub to a project with a stage and a forward vector.
+**Is**: the design specification — biological mapping, DSP architecture, interface mythology, pedagogical framing.
 
 **Isn't**: a built device. Stage 1 (this) → Stage 2 (Max prototype) is the next concrete advancement.
 
@@ -111,7 +108,9 @@ This builds on the [[Compressor Design]] retrospective's three pedagogical momen
 
 - Should the heart-pulse audio (a subtle thump synced to RMS) be a feature or hidden? Default off, optional on?
 - The "vessel age" parameter is medically loaded — is the metaphor productive or alienating? Probably keep, but with care
+  - Progressed (2026-10-24): the plugin keeps it, as "a stiffer wall" (`plugin/README.md`); the steward's proposed canon words for it wait on Loudon in [[Blood Compressor — tuning]], item 5.
 - Should sidechain HPF default at 80 Hz (audio convention) or at 0.1 Hz (biological convention)?
+  - Answered in the plugin (`plugin/README.md`, 2026-10-24): the sidechain high-pass is a knob from 1 to 500 Hz, default 80, so the player chooses.
 
 ## Palace Connections
 

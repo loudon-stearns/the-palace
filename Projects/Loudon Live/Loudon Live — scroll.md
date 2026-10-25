@@ -15,16 +15,17 @@ forward_vector: "I am Loudon Live's scroll — the one page that always opens on
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-09-23T04:36:43.543Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — steer the project in **Standing Orders** below, never here._
+> _Regenerated 2026-10-25T01:29:17.653Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
 - **Status:** active · **Stage:** sprout · **Steward:** none — this project has no permanent steward yet
+- **Plan:** none agreed yet — the work leans on the forward vector
 - **Waiting on you:** nothing
-- **Last shipped:** nothing on the board yet — but the bundle holds 2 media files (see the making trail)
-- **Last commit touching this project:** 2026-09-22 `2488e3d` — deposit(D-2026-09-06-HARVEST): Environments That Hold lands: Creative Coach, Objects to Think With
+- **Last shipped:** nothing on the board yet — but the bundle holds 3 media files (see the making trail)
+- **Last commit touching this project:** 2026-10-21 `036f9a27` — ops(rich-face): the pins: 57 CDN script tags in 35 pages load their library from the shelf, at an exact version with its integrity hash, on Loudon's yes
 
 ### Where this stands
 
-_No steward has spoken for this project. Its direction is the `forward_vector` in [[Loudon Live]]'s frontmatter; enchant a steward to start the trail._
+**note:** When you next touch Blood Compressor — spec — visuals.md, change only the closing card's footer (about line 173) from "Loudon Live · Autodidact Polymaths" to the bare Loud'n Live wordmark, the current convention (_ops/loudon-live/design-system/README.md:9). Nothing else in the spec changes, and no hand edit was made. Loudon's word, via the 2026-10-14 deposit map D-2026-10-14-LOUDLIVE.
 
 ### Open asks
 
@@ -35,6 +36,12 @@ _None — nothing is waiting on you._
 _Nothing decided on the board yet._
 
 <!-- scroll:now:end -->
+
+## Plan
+
+<!-- scroll:plan:start -->
+_No plan agreed yet. Until there is one, the work leans on the page's forward vector. A plan is agreed with Loudon — he writes it here, or a steward proposes one as an ask and it lands here when he says yes._
+<!-- scroll:plan:end -->
 
 ## Standing Orders
 

@@ -25,13 +25,15 @@ links:
     label: pdl-as-intent-compression
   - target: "[[VCV Patch Generator — spec — PDL generation prompt]]"
     type: connects-to
-  - target: "[[Registry Pattern]]"
-    type: connects-to
+    label: generation-prompt
   - target: "[[Web Audio Worklet]]"
     type: connects-to
   - target: "[[Audition Gate]]"
     type: exemplifies
     label: proves-structure-not-feel
+  - target: "[[Registry Pattern]]"
+    type: exemplifies
+    label: first-registry
 tags: [specialist, shop, sound, modular, generative, registry]
 ---
 
@@ -166,7 +168,7 @@ The Determinism test is straightforward and load-bearing: same PDL + same regist
 ## Open Questions
 
 - Registry expansion priorities — which VCV plugins after Fundamental + Core? Audible Instruments, Bogaudio, Befaco are likely candidates. The Maker's call per brief
-- ~~Coupling between this Specialist and the natural-language → PDL prompt (T6)~~ **Resolved 2026-05-29; moved 2026-09-26:** the prompt first stood as its own entry, and on Loudon's word it now lives in this bundle as [[VCV Patch Generator — spec — PDL generation prompt]], because it is a tool rather than an idea and it names VCV's module keys and ports. The Maker runs it (description → 2–3 candidate PDL blocks), then hands a chosen PDL to this Specialist for emission/audition. T6 was verified by fresh-agent runs through the real emitter (9/9 clean) — see the T6 entry in [[Generative Audio Devices]] and the fixtures under `t6-runs/`.
+- The natural-language → PDL prompt lives in this bundle: [[VCV Patch Generator — spec — PDL generation prompt]]; the Maker runs it and hands me a chosen PDL.
 - Audition automation — currently audition requires loading in Rack manually. A headless Rack render path would close the loop on Piece-tier audio capture; threshold for building it: when audition becomes the bottleneck
 
 ## Lost Branches
@@ -177,3 +179,5 @@ The Determinism test is straightforward and load-bearing: same PDL + same regist
 ## Forward Vector
 
 First job ran 2026-05-29 — the T7b archetype audition, Piece-tier: kick / warm_pad / pluck at `#seed=1`, emitted through the real code path, structurally verified, staged in the bundle. The one piece it couldn't close itself is the audio audition; I keep that open as the standing reminder that I prove structure, not sound. **Next, in order:** (1) close the audition — load the three on a Mac, confirm they're distinct on first load, write the gotcha that surfaces. (2) Take a brief expressed in natural language through the upstream T6 prompt and feed me the PDL it produces, calibrating the prompt-to-PDL boundary and surfacing the first registry-coverage gaps. (3) Keep growing the archetype library as the registry grows — a noise module unlocks `noise_hit` and `hat`, which I deliberately withheld from v1 because Fundamental has no noise source. My standing question: the natural-language → PDL prompt now lives in my bundle — does the Maker keep running it and handing me PDL, or do I eventually run it myself?
+
+— progressed: step (1) happened — Loudon's first Rack audition on 2026-05-29; the three `(2026-05-29, audition)` gotchas above record what it found, and [[Generative Audio Devices]] built T7c from it. What stays open is the standing seam: I prove structure, not sound (2026-10-24)

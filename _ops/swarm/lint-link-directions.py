@@ -10,7 +10,7 @@ Rules (SCHEMA §4):
   E1  Reciprocal contradiction — an asymmetric type used in BOTH directions between
       a pair (A type B AND B type A). Impossible: A can't be derived-from B and B
       derived-from A at once. Asymmetric types: deepens, emerged-from, exemplifies,
-      member-of, enables, spawned.
+      member-of, enables, spawned, made-by.
   E2  Hub emits member-of — a `type: hub` entry pointing member-of at another entry.
       Collections never declare their own membership; members point in.
   W1  Ground emits lineage link — an entry that is a strong `deepens`/`emerged-from`
@@ -26,7 +26,7 @@ from __future__ import annotations
 import json, sys, glob, os
 from collections import defaultdict
 
-ASYMMETRIC = {"deepens", "emerged-from", "exemplifies", "member-of", "enables", "spawned"}
+ASYMMETRIC = {"deepens", "emerged-from", "exemplifies", "member-of", "enables", "spawned", "made-by"}
 LINEAGE = {"deepens", "emerged-from"}
 GROUND_INBOUND_THRESHOLD = 3   # inbound lineage links that mark an entry as a "ground"
 

@@ -18,18 +18,16 @@ links:
   - target: "[[Deposit Ceremony]]"
     type: mirrors
     label: "shares-show-before-write"
-  - target: "[[Closing Well]]"
-    type: mirrors
-    label: "every-baton-closes-well"
   - target: "[[SCHEMA]]"
     type: connects-to
     label: "governed-by"
   - target: "[[SUBSTRATE]]"
     type: connects-to
-  - target: "[[Palace Ceremonies]]"
-    type: connects-to
+    label: sleep-and-waking
   - target: "[[Baton Ceremony — Context]]"
     type: spawned
+  - target: "[[Palace Ceremonies]]"
+    type: member-of
 ---
 
 # Baton Ceremony
@@ -40,11 +38,9 @@ links:
 
 ---
 
-> This ceremony produces a **baton**: a document that lets one Claude continue work another Claude started — across a context limit, a surface change, or a deliberate pause. You likely have a general notion of a "handoff document." Start there, but read on, because the palace baton is more specific than a generic handoff, and the differences are the whole point.
+> This ceremony produces a **baton**: a document that lets one Claude continue work another Claude started — across a context limit, a surface change, or a deliberate pause.
 >
-> A generic handoff *summarizes* — it recounts what was done so the reader is caught up. The baton does the opposite. It is a *generative compression* of the session (see [[Generative Compression]]): lossy on purpose, in one direction — keep only what the next Claude needs in order to *act*, and drop everything they can recover by other means. The next Claude already knows the palace and already knows Loudon, so re-explaining either is wasted space. The entry being worked on already records its own content, so summarizing it is wasted space. What the next Claude *cannot* recover — the specific move underway, the approaches already tried and ruled out this session, the small calibrations Loudon gave along the way — that, and only that, is the baton.
->
-> Three things separate the baton from the handoff you might assume:
+> A baton is a generative compression of the session ([[Generative Compression]]): keep only what the next Claude needs to act and cannot recover, and drop the rest. Three rules:
 >
 > 1. **It compresses, it doesn't summarize.** The test for every line is "could the next Claude recover this without me?" If yes, cut it.
 > 2. **It is written toward a single move.** Name the move first — it is the signal that decides what's kept and what's dropped. Without it, the baton bloats, because everything looks worth keeping.
@@ -68,8 +64,6 @@ Two occasions call a baton, and the second is the common one:
 **A baton that points at the plan restates the move** in plain words and where it sits in the whole — never "step 3" alone — and names the plan it was written against (the newest `plan-` section on the scroll's trail). A catcher who finds a newer one is in the case the pickup checklist's step 2 already covers: the project moved on since the baton was written.
 
 **Only skip a baton** when the next step is trivially reconstructable from the entry (or its scroll's Plan) alone — genuinely small enough that a fresh Claude needs nothing this session knew (§ Pace Obligations).
-
-*(A rarer variant — the **cold-start / commissioning baton**, for genuinely un-started work with no prior state — carries framing instead of momentum; its full treatment is being worked separately. Do not call a continuation "cold-start": the difference is whether real state travels with it.)*
 
 ---
 
@@ -98,13 +92,13 @@ If a section is uncertain whether to include, exclude it. The baton is the baton
 
 Most batons transfer *momentum* — the residue of work already underway. A **cold-start baton** carries the opposite: work that hasn't begun. Its payload is *setup, not residue* — the framing captured while an idea is hot, so a later session can start cold without re-deriving it. It is a commissioning brief, and the move it names is an *entry point, not a scope limit*: a cold-start baton can commission the start of something large — a whole build, a new entry cluster, a project — just as readily as one small step. Everything else still holds — name the move, compress toward it, stay disposable — but "Tried and rejected" and "Current state" have nothing to carry yet, so instead of being omitted they are **labeled "cold start"** and their emptiness reads as *intent, not loss*. A cold-start baton also drifts stale faster (un-started ideas change), so its on-pickup freshness check matters more than usual.
 
-Reach for one whenever an idea is worth commissioning but not worth starting now — it is how the palace hands *future* work to a future session, the same way a momentum baton hands *live* work to the next one. (This spec's own cold-start variant was itself commissioned by a cold-start baton — the technique dogfooding itself.)
+Reach for one whenever an idea is worth commissioning but not worth starting now — it is how the palace hands *future* work to a future session, the same way a momentum baton hands *live* work to the next one. A continuation is not a cold start; the difference is whether real state travels with it.
 
 ## Trigger
 
 **Primary — the official baton (unambiguous; run the ceremony):** "baton", "pass the baton", "baton this", "baton it to [surface]", "drop a baton for [X]", "drop a cold-start baton for [X]" (commission un-started work — see § The Scope, The cold-start variant).
 
-**Secondary — ambiguous (ask first):** "handoff" / "hand this off". Loudon uses "handoff" loosely and sometimes means an informal, non-ceremony pass. So when he says "handoff," do not assume — ask: *"Baton ceremony, or an informal handoff?"* and proceed on his answer. This ask is deliberate and temporary — a training wheel while the "baton" habit sets in. Retire it once "baton" is the reliable word.
+**Secondary — ambiguous (ask first):** "handoff" / "hand this off". Loudon uses "handoff" loosely and sometimes means an informal, non-ceremony pass. Ask first: *"Baton ceremony, or an informal handoff?"* and proceed on his answer.
 
 ## Pace Obligations
 
@@ -114,7 +108,7 @@ Reach for one whenever an idea is worth commissioning but not worth starting now
 
 ## Where the Baton Lives
 
-A baton's location and lifecycle depend on the work it continues. Several shapes have come up so far; this list is **open, not exhaustive** — new ones will appear as the palace grows (the Maker and the Shop may grow their own; Loudon may write one). What doesn't flex is the discipline: carry the move, the negative space, the receiving surface, and what the catcher loads first. When a baton doesn't fit a known shape, place it where its work lives, say so in the baton, and let the shape be named later.
+A baton's location and lifecycle depend on the work it continues. The list is open. What doesn't flex: carry the move, the negative space, the receiving surface, and what the catcher loads first. When a baton doesn't fit a known shape, place it where its work lives, say so in the baton, and let the shape be named later.
 
 Shapes seen so far:
 
@@ -196,9 +190,7 @@ Tiered list of what the next Claude should read before doing anything. Most-load
 
 *Cold-start variant:* when the baton commissions un-started work (§ The Scope, The cold-start variant), replace the **Tried and rejected** and **Current state** sections with a single **`## Cold start`** block that says so plainly — *"COLD START — this work has not begun; no prior state, no tried-and-rejected"* — and carry the captured framing under **Move / Why this move matters / Next move**. Never leave the two sections blank: a blank reads as lost residue, the label reads as intent. Everything else in the template is unchanged, and the freshness check in the On-pickup footer becomes *more* load-bearing, not less.
 
-*Why the last section is fixed, not authored:* the **author** runs this ceremony — you triggered it by saying "baton," so the authoring discipline lives in this spec. The **catcher** does not — it arrives on a work invocation and reads only the baton and the entry, never this file. So the one half of the ceremony the catcher must obey has to travel inside the artifact it actually opens. Everything else still compresses toward the move; this rides along.
-
-*And why it lives in its own file rather than inline here:* it has two authors — a Claude running this ceremony by hand, and `_ops/closing-well/baton-executor.mjs`, which writes batons at a [[Closing Well]] close. Both used to carry their own copy of the text, and they drifted: the three-state lifecycle landed in this spec on 2026-07-07 and never reached the executor, so for seven weeks every machine-written baton shipped a checklist telling the catcher to delete the baton at pickup and never post a close — which silently retires the card with no commit cited. One file, read at write time, is the repair. **Edit [[Baton Ceremony — on-pickup]]; never paste a second copy anywhere.** `_ops/swarm/lint-baton-footer.py` fails if one reappears.
+The On-pickup section is fixed boilerplate in one file, [[Baton Ceremony — on-pickup]]; paste it verbatim, never retype it. The catcher reads only the baton, never this spec, and `_ops/closing-well/baton-executor.mjs` writes batons too, so one file read at write time keeps every copy alike. `_ops/swarm/lint-baton-footer.py` fails if a second copy appears.
 
 **Step 3: Show**
 

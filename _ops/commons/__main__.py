@@ -89,7 +89,7 @@ def cmd_weave_flag(args):
     The one write path for a weave flag. Ceremonies (Deposit step 7, the Closing Well
     executor) call this instead of hand-appending a line: `make_message` supplies the
     stub-health block the validator's exempt set expects, and the arg parser enforces
-    the payload keys the Weave's Step 1c reader looks for. Hand-rolling both is how
+    the payload keys the Weave's Step 0c reader looks for. Hand-rolling both is how
     malformed flags reached the board (2026-09-02).
     """
     payload = {
@@ -123,7 +123,7 @@ def cmd_propagate(args):
     """Post one propagate flag: a decision the next Weave carries to every page it reaches.
 
     A weave_flag with flag_type `propagate` and no source entries, so no touch can close it
-    (Weave Ceremony Step 1c). It closes by `Palace-Resolves: <id>` once its check is clean.
+    (Weave Ceremony Step 0c). It closes by `Palace-Resolves: <id>` once its check is clean.
     The decision is written into its home page first; the flag points at it.
     """
     if args.rhythm == "by-touch" and not args.pattern:

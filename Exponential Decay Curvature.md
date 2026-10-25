@@ -5,7 +5,7 @@ pillars:
   - tools
   - creation
 born: 2026-06
-stage: sprout
+stage: growing
 confidence: working
 energy: medium
 hook_quality: 8
@@ -76,13 +76,9 @@ Implementation notes carried from the session, for whoever builds it: the curvat
 - Catalogue the dissolutions: where else does one equation flip identity under a timescale change? This entry is the second clean specimen (after the repeat-rate-becomes-pitch case in [[Frequency-Time Duality]]); a small registry of them may eventually earn a hub.
 - Is the c-morph worth exposing as a first-class performance control in a [[Loudon Live]] build?
 
-## Lost Branches
-
-None significant — this is a closed, exact result. The only provenance worth keeping: the session's `visualize` tool failed and a self-contained HTML artifact via direct file-write was the robust fallback. That tool-reliability pattern recurs and is noted here so it isn't relearned.
-
 ## Artifact
 
-A self-contained HTML teaching artifact was built in the source session: oscilloscope-style plot with ghost curves, dual **Envelope / Audio-Rate** modes (Web Audio API), six presets, live crossfaded curvature-morphing during playback, three pedagogical note panels. It lives in the source chat (2026-05-28) and could not be retrieved into this deposit. When pulled, store it in this entry's bundle (`Exponential Decay Curvature/`) and reference here via a typed link; a drafted-but-unplanted version of this very entry also exists in that chat — re-derived here through proper ceremony rather than pasted, since the original used fallback link ontology.
+The teaching artifact (oscilloscope plot, envelope and audio-rate modes) was built in the 2026-05-28 chat and has not been retrieved; when it is, it belongs in this entry's bundle.
 
 ---
 

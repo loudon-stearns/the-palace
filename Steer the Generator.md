@@ -7,7 +7,7 @@ pillars:
   - creation
   - philosophy
 born: 2026-06
-stage: sprout
+stage: growing
 forward_vector: "I will turn every 'the prompt didn't do what I wanted' into one of three moves — a control surface, a selection pass, or a measurement — and I will keep the negatives that prove prompting alone is too weak a handle to build with."
 links:
   - target: "[[BLUELINE]]"

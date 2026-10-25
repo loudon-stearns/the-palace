@@ -15,16 +15,17 @@ forward_vector: "I am LDN RTM's scroll — the one page that always opens on whe
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-09-23T04:36:43.543Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — steer the project in **Standing Orders** below, never here._
+> _Regenerated 2026-10-25T01:29:17.452Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
 - **Status:** active · **Stage:** sprout · **Steward:** none — this project has no permanent steward yet
+- **Plan:** none agreed yet — the work leans on the forward vector
 - **Waiting on you:** nothing
 - **Last shipped:** nothing on the board yet — but the bundle holds 5 media files (see the making trail)
-- **Last commit touching this project:** 2026-09-07 `6969226` — edit(ldn-rtm): renders land beside their sources, not inside the palace
+- **Last commit touching this project:** 2026-10-14 `bb48d0f5` — enrich(faces): 23 entries get a face — the 2026-10-14 face batch
 
 ### Where this stands
 
-Loudon named it while recording, 2026-09-02: 'what I am doing now is another really common use case, me going through a list of students and recording audio commentary.' It is a second, independent pull on the same machinery, which suggests the rig is a general recording instrument that RTM happens to be the first user of. Loudon Live is the sprawling school this would belong to.
+LDN RTM reads one product's manual whole, tests every claim, and covers it one short video per section. The rig is built and tested end to end; before the pilot chunk it still needs RTM Sandbox.als, one take with real audio, and one video watched at speed. The same rig records Loudon's audio commentary on student projects, for the students. RTM is one part of Loud'n Live, his teaching and coaching face.
 
 ### Open asks
 
@@ -35,6 +36,12 @@ _None — nothing is waiting on you._
 _Nothing decided on the board yet._
 
 <!-- scroll:now:end -->
+
+## Plan
+
+<!-- scroll:plan:start -->
+_No plan agreed yet. Until there is one, the work leans on the page's forward vector. A plan is agreed with Loudon — he writes it here, or a steward proposes one as an ask and it lands here when he says yes._
+<!-- scroll:plan:end -->
 
 ## Standing Orders
 

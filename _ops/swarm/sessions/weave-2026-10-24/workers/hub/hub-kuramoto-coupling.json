@@ -1,0 +1,336 @@
+{
+ "room": "hub-kuramoto-coupling",
+ "lens": "hub-nutrition",
+ "pages_read": [
+  "Kuramoto Coupling",
+  "Closing Well",
+  "Progressive Staging",
+  "Dissolutions",
+  "Differential Equations",
+  "Latent Error",
+  "Striatum",
+  "Endosymbiosis",
+  "Palace Philosophies",
+  "FOUR PILLARS",
+  "Simondon",
+  "The Multilinear Self",
+  "Projects/Shepard Tone Synthesizer",
+  "Projects/Bessel Functions in Synthesis",
+  "Projects/Slime Mold Delay",
+  "Projects/Wallpaper Groups",
+  "Projects/Inharmonic Wavetable Synthesis",
+  "Projects/Symbiotic Skills",
+  "Projects/Frequency-Time Duality",
+  "Projects/Retrospective Delay",
+  "Shop/Hero and Avatar Maker (and its tuning ledger)",
+  "_ops/Pages as Agents",
+  "People/Buckminster Fuller",
+  "Palace development/Walk That Weaves",
+  "Cross-Domain Resonances/Synthesis ↔ Emergence"
+ ],
+ "weak_links": [
+  {
+   "source": "Closing Well",
+   "target": "Kuramoto Coupling",
+   "current_type": "connects-to",
+   "verdict": "cut",
+   "evidence_source": "Round 1 stragglers from [[Kuramoto Coupling]] belong in that hub's bundle, not here.",
+   "evidence_target": "",
+   "rationale": "The page names the hub once, as one example of where a lost branch should be parked; the rule is about branches in general, so the hub is incidental.",
+   "confidence": "medium"
+  },
+  {
+   "source": "Progressive Staging",
+   "target": "Kuramoto Coupling",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "proposed_label": "natural-staging",
+   "evidence_source": "[[Kuramoto Coupling]] has a natural staging: single oscillator → two coupled oscillators → N coupled oscillators → heterogeneous populations.",
+   "evidence_target": "Studied across an 8-lesson progressive series, building from the simplest case (two oscillators) to populations, phase portraits, and the order parameter.",
+   "rationale": "The open question names Kuramoto as a natural candidate for the staging method, and the hub's own Origin is a staged series.",
+   "confidence": "high"
+  },
+  {
+   "source": "Dissolutions",
+   "target": "Kuramoto Coupling",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "proposed_label": "isomorphism-example",
+   "evidence_source": "The same [[Kuramoto Coupling]] equations describe fireflies flashing in a tree and metronomes on a shared board; whatever is proved for one holds for the other, but the insects are still not the metronomes.",
+   "evidence_target": "The Kuramoto model describes how populations of oscillators with different natural frequencies can spontaneously synchronize when coupling strength exceeds a critical threshold.",
+   "rationale": "The Isomorphism entry uses the Kuramoto equations as its worked example, and the catalogue says Floquet Theory is Kuramoto read forward.",
+   "confidence": "high"
+  },
+  {
+   "source": "Differential Equations",
+   "target": "Kuramoto Coupling",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "proposed_label": "coupled-ODEs",
+   "evidence_source": "[[Kuramoto Coupling]] — coupled ODEs (differential equations of oscillators)",
+   "evidence_target": "The coupling constant **K** is the key parameter: it determines how strongly each oscillator influences its neighbors.",
+   "rationale": "The page files Kuramoto under driven DE applications as coupled ODEs.",
+   "confidence": "high"
+  },
+  {
+   "source": "Latent Error",
+   "target": "Kuramoto Coupling",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "proposed_label": "latent-error-in-coupling",
+   "evidence_source": "Coupled oscillators (like [[Kuramoto Coupling|Kuramoto systems]] ...) have latent errors in their coupling strength and frequency distribution. A coupling that works for one regime ... fails in another",
+   "evidence_target": "K too low → independence, no cooperation. K too high → one oscillator dominates, the rest follow (control, not cooperation).",
+   "rationale": "The page reads Kuramoto systems as having latent errors in coupling strength and frequency spread.",
+   "confidence": "high"
+  },
+  {
+   "source": "Striatum",
+   "target": "Kuramoto Coupling",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "proposed_label": "neural-phase-locking",
+   "evidence_source": "the striatum may be part of the biological implementation of the phase-locking dynamics that Kuramoto describes mathematically.",
+   "evidence_target": "Real systems (forests, brains, our wiki) have sparse, structured coupling.",
+   "rationale": "The page proposes the striatum as the biological implementation of the phase-locking Kuramoto describes, and repeats it as an open question.",
+   "confidence": "high"
+  },
+  {
+   "source": "Endosymbiosis",
+   "target": "Kuramoto Coupling",
+   "current_type": "connects-to",
+   "verdict": "retype",
+   "proposed_type": "mirrors",
+   "proposed_label": "merger-as-lock",
+   "evidence_source": "[[Kuramoto Coupling]] at the evolutionary scale: two oscillators (two metabolic rhythms) coupled so strongly that they became one system with a new natural frequency.",
+   "evidence_target": "The coupling constant isn't just a mathematical parameter — it's a *relationship descriptor*. It quantifies how much two entities influence each other's rhythm.",
+   "rationale": "The page reads the merger as two oscillators coupled so strongly they became one system: the same pattern in different material, so mirrors, not general proximity.",
+   "confidence": "medium"
+  },
+  {
+   "source": "Palace Philosophies",
+   "target": "Kuramoto Coupling",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "proposed_label": "picture-of-harmony",
+   "evidence_source": "[[Kuramoto Coupling]] began as a synthesis model and became the palace's picture of harmony — too little coupling and nothing cooperates, too much and one voice dominates",
+   "evidence_target": "K too low → independence, no cooperation. K too high → one oscillator dominates, the rest follow (control, not cooperation).",
+   "rationale": "The page says Kuramoto became the palace's picture of harmony, in the living-and-physical philosophy section.",
+   "confidence": "high"
+  },
+  {
+   "source": "FOUR PILLARS",
+   "target": "Kuramoto Coupling",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "proposed_label": "specific-to-general",
+   "evidence_source": "[[Kuramoto Coupling]] was learned through audio synthesis but helps describe all systems seeking coherence",
+   "evidence_target": "This made it immediately applicable far beyond audio synthesis.",
+   "rationale": "The trajectory section uses Kuramoto as its case of the specific turning general.",
+   "confidence": "high"
+  },
+  {
+   "source": "Simondon",
+   "target": "Kuramoto Coupling",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "proposed_label": "coupling-is-transduction",
+   "evidence_source": "[[Kuramoto Coupling|Coupling]] is transduction; [[Cooperation Yields Agency|cooperation]] is transduction across a boundary.",
+   "evidence_target": "The coupling constant isn't just a mathematical parameter — it's a *relationship descriptor*. It quantifies how much two entities influence each other's rhythm.",
+   "rationale": "The Transduction paragraph says coupling is transduction.",
+   "confidence": "high"
+  },
+  {
+   "source": "The Multilinear Self",
+   "target": "Kuramoto Coupling",
+   "current_type": "connects-to",
+   "verdict": "cut",
+   "evidence_source": "",
+   "evidence_target": "",
+   "rationale": "The label 'selves-as-coupled-oscillators' is not backed anywhere on the page; the body argues from the Prism, projection and the Stoic counterweight, with no oscillators or coupling, and the hub does not speak of selves.",
+   "confidence": "medium"
+  },
+  {
+   "source": "Shepard Tone Synthesizer",
+   "target": "Kuramoto Coupling",
+   "current_type": "connects-to",
+   "verdict": "cut",
+   "evidence_source": "Because all octaves of a *single pitch* need to be in sync.",
+   "evidence_target": "",
+   "rationale": "Neither page gives a reason; the page's 'in sync' voices are about one shared glide, not coupling.",
+   "confidence": "high"
+  },
+  {
+   "source": "Bessel Functions in Synthesis",
+   "target": "Kuramoto Coupling",
+   "current_type": "connects-to",
+   "verdict": "cut",
+   "evidence_source": "",
+   "evidence_target": "",
+   "rationale": "Neither page gives a reason; the nearest thing is FM as rotation in phase space, which is not coupling, and the page already links Harmonicity and Inharmonicity, which the hub couples with.",
+   "confidence": "high"
+  },
+  {
+   "source": "Slime Mold Delay",
+   "target": "Kuramoto Coupling",
+   "current_type": "couples-with",
+   "verdict": "retype",
+   "proposed_type": "connects-to",
+   "proposed_label": "adaptive-coupling",
+   "evidence_source": "Reinforcing tubes that carry more flow (use-it-or-lose-it) ... Pruning tubes that carry less flow",
+   "evidence_target": "Adaptive/Hebbian coupling (dKᵢⱼ/dt = ε(sin(θⱼ - θᵢ) - Kᵢⱼ)): a system that discovers its own harmonic structure. What prevents it from converging to a single rigid state?",
+   "rationale": "The label sets reinforcement against phase-lock, but the page never mentions phase and couples-with (always active together) is not true; the real tie is the hub's open Hebbian-coupling question, which the slime mold's use-it-or-lose-it tubes answer in kind.",
+   "confidence": "medium"
+  },
+  {
+   "source": "Wallpaper Groups",
+   "target": "Kuramoto Coupling",
+   "current_type": "connects-to",
+   "verdict": "cut",
+   "evidence_source": "",
+   "evidence_target": "",
+   "rationale": "Neither page gives a reason; polyrhythm as incommensurate periodicities is a nearby idea but the page does not name the hub.",
+   "confidence": "high"
+  },
+  {
+   "source": "Inharmonic Wavetable Synthesis",
+   "target": "Kuramoto Coupling",
+   "current_type": "enables",
+   "verdict": "retype",
+   "proposed_type": "deepens",
+   "proposed_label": "coupling-edge",
+   "evidence_source": "Is there a Wavetable B profile that produces beating patterns isomorphic to Kuramoto frustration — where adjacent partials fight each other? ... Partly answered (2026-10-20): add the pull, and a stretched profile frustrates audibly and under control",
+   "evidence_target": "**Inharmonic phase-locking** — When the attractor frequencies are inharmonic ... Is there a critical inharmonicity below which locking still works cleanly?",
+   "rationale": "The wavetable instrument does not enable Kuramoto; its 'At the Coupling Edge' study answers the hub's open question on frustrated coupling, so it deepens the hub.",
+   "confidence": "medium"
+  },
+  {
+   "source": "Symbiotic Skills",
+   "target": "Kuramoto Coupling",
+   "current_type": "connects-to",
+   "verdict": "cut",
+   "evidence_source": "Commit 1 was already 27 markdown files ... [[Kuramoto Coupling]], [[Hilaritas Generator]] ...",
+   "evidence_target": "",
+   "rationale": "The hub appears only in a list of files that existed at commit 1; that is history, not a relation.",
+   "confidence": "high"
+  },
+  {
+   "source": "Frequency-Time Duality",
+   "target": "Kuramoto Coupling",
+   "current_type": "connects-to",
+   "verdict": "cut",
+   "evidence_source": "",
+   "evidence_target": "",
+   "rationale": "Neither page gives a reason; the 20 Hz threshold is a perceptual crossing, not a coupling threshold.",
+   "confidence": "high"
+  },
+  {
+   "source": "Retrospective Delay",
+   "target": "Kuramoto Coupling",
+   "current_type": "connects-to",
+   "verdict": "cut",
+   "evidence_source": "",
+   "evidence_target": "",
+   "rationale": "Neither page gives a reason; the only trace is a reused image-render script in its character probe, which is workshop, not relation.",
+   "confidence": "high"
+  },
+  {
+   "source": "Hero and Avatar Maker",
+   "target": "Kuramoto Coupling",
+   "current_type": "connects-to",
+   "verdict": "cut",
+   "evidence_source": "Kuramoto's near-black hero vanished under the backdrop veil. (tuning ledger, 'From the first faces')",
+   "evidence_target": "",
+   "rationale": "The label 'first-subject' rests on one ledger line that Kuramoto's hero was among the first faces; that is history the git log holds, not a relation of ideas.",
+   "confidence": "medium"
+  },
+  {
+   "source": "Pages as Agents",
+   "target": "Kuramoto Coupling",
+   "current_type": "mirrors",
+   "verdict": "cut",
+   "evidence_source": "",
+   "evidence_target": "",
+   "rationale": "No sentence on either page ties a pool of distinct page-voices to phase-locking; the mixture-of-experts mirror is the page's real tie and the hub already holds that one. (The frontmatter I read carries no label here, though the brief lists one.)",
+   "confidence": "medium"
+  },
+  {
+   "source": "Buckminster Fuller",
+   "target": "Kuramoto Coupling",
+   "current_type": "mirrors",
+   "verdict": "keep-as-is",
+   "evidence_source": "**synergy** (whole-system behavior unpredicted by the parts — the dome holds loads no single strut could, because the behavior lives in the coupling, not the components)",
+   "evidence_target": "**Mycorrhizal resource flow** ... The network IS the coupling medium.",
+   "rationale": "The page says the dome's behavior lives in the coupling, not the components, which carries the label.",
+   "confidence": "high"
+  },
+  {
+   "source": "Walk That Weaves",
+   "target": "Kuramoto Coupling",
+   "current_type": "connects-to",
+   "verdict": "cut",
+   "evidence_source": "",
+   "evidence_target": "",
+   "rationale": "Neither page gives a reason; the page is about a ceremony shape and its pheromone-trail walk, with no oscillators or coupling.",
+   "confidence": "high"
+  },
+  {
+   "source": "Synthesis ↔ Emergence",
+   "target": "Kuramoto Coupling",
+   "current_type": "mirrors",
+   "verdict": "label",
+   "proposed_label": "oscillators-as-agents",
+   "evidence_source": "Oscillators = Components | Agents = Components ... Interaction. Neither oscillator had them. The relationship created them.",
+   "evidence_target": "The Kuramoto model describes how populations of oscillators with different natural frequencies can spontaneously synchronize when coupling strength exceeds a critical threshold.",
+   "rationale": "The structural-identity table sets oscillators as components and interaction as the source of emergent behavior; 'phase-coupling' overstates it, since the page's interaction is modulation, not phase locking.",
+   "confidence": "medium"
+  }
+ ],
+ "typed_relations": [],
+ "entry_health_flags": [
+  {
+   "entry": "Kuramoto Coupling",
+   "stage_current": "mature",
+   "stage_proposed": null,
+   "vector_issue": null,
+   "note": "The agency_profile practice line says 'more than eighty pages have linked to me'; the room count is 71 inbound, and this room proposes cutting about nine of its 24 weak ones. The line wants a fresh count after the weave. The hub's Open Questions also do not yet record that Inharmonic Wavetable Synthesis's coupling-edge study (2026-10-20) partly answers its inharmonic phase-locking question."
+  },
+  {
+   "entry": "Pages as Agents",
+   "stage_current": "growing",
+   "stage_proposed": null,
+   "vector_issue": null,
+   "note": "Its Kuramoto link is a bare mirrors in the file I read, while the room brief calls it labelled; the brief and the file disagree. Proposed cut either way."
+  }
+ ],
+ "lighter_prose": [
+  {
+   "entry": "Kuramoto Coupling",
+   "where": "Open Questions",
+   "passage": "Coupling to [[Harmonicity and Inharmonicity|inharmonic partials]] creates frustrated coupling — incommensurate forces on a single degree of freedom. Is there a threshold of inharmonicity below which coupling still works cleanly?",
+   "proposal": "delete",
+   "words": ""
+  },
+  {
+   "entry": "Kuramoto Coupling",
+   "where": "Asymmetric Coupling: Stubbornness Parameter",
+   "passage": "(Found while building this section's piece for the rich face, 2026-09-24.)",
+   "proposal": "delete",
+   "words": ""
+  },
+  {
+   "entry": "Kuramoto Coupling",
+   "where": "Asymmetric Coupling: Stubbornness Parameter",
+   "passage": "The parameter name is open; the principle is solid. Stubbornness, inertia, resistance, anchor-strength—each name illuminates a different facet of the same physics.",
+   "proposal": "simplify",
+   "words": "The name is open: stubbornness, inertia, resistance, anchor-strength."
+  },
+  {
+   "entry": "Kuramoto Coupling",
+   "where": "under the mermaid diagram",
+   "passage": "*Three regimes of the order parameter R as K crosses the critical threshold. Mermaid Sketch via [[Mermaid|Mermaid]]; palette matches the arc's indigo / amber pair.*",
+   "proposal": "simplify",
+   "words": "*Three regimes of the order parameter R as K crosses the critical threshold.*"
+  }
+ ],
+ "summary": "I read the hub whole and all 24 source pages, plus the Inharmonic Wavetable and Hero and Avatar Maker bundles where a reason might hide. The pattern: where a source names the hub in a sentence about its idea (Progressive Staging, Dissolutions, Differential Equations, Latent Error, Striatum, Palace Philosophies, FOUR PILLARS, Simondon) a one-to-two word label carries it; Endosymbiosis is a true mirror; Inharmonic Wavetable's enables was backwards and is really a deepening of the hub's open frustrated-coupling question; Fuller already holds a reason on the page and stays. Ten bare or unsaid links to a floor hub (Closing Well, Multilinear Self, Shepard, Bessel, Wallpaper, Symbiotic Skills, Frequency-Time Duality, Retrospective Delay, Walk That Weaves, Pages as Agents) plus Hero and Avatar Maker are cuts, none a loss. What I could not settle: Slime Mold Delay (my adaptive-coupling retype leans on the hub's Hebbian open question, not on the slime-mold page naming coupling; low-medium) and whether Synthesis-Emergence should keep a mirror at all. I found no genuine inbound link to propose from a newcomer in this room, so typed_relations is empty."
+}

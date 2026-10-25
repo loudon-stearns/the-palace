@@ -9,8 +9,6 @@ stage: growing
 links:
   - target: "[[SUBSTRATE]]"
     type: deepens
-  - target: "[[Substrate Skill]]"
-    type: connects-to
   - target: "[[Harvest Ceremony]]"
     type: enables
   - target: "[[Deposit Ceremony]]"
@@ -19,8 +17,6 @@ links:
     type: enables
   - target: "[[Weave Ceremony]]"
     type: enables
-  - target: "[[Return Ceremony]]"
-    type: connects-to
   - target: "[[Spore Check Ceremony]]"
     type: enables
   - target: "[[Self-Model Update Ceremony]]"
@@ -29,16 +25,20 @@ links:
     type: enables
   - target: "[[SCHEMA]]"
     type: connects-to
+    label: trigger-field-spec
   - target: "[[Map Build Ceremony]]"
     type: enables
-  - target: "[[Baton Ceremony]]"
-    type: connects-to
   - target: "[[Closing Well Ceremony]]"
     type: enables
   - target: "[[Sentry]]"
     type: enables
+    label: ceremony-registry
   - target: "[[The Daily Page]]"
     type: enables
+    label: ceremony-registry
+  - target: "[[SCHEMA — Reference]]"
+    type: connects-to
+    label: ledger-rules
 ---
 # Palace Ceremonies
 
@@ -50,12 +50,12 @@ The complete and canonical list of all palace ceremonies. Every ceremony has a t
 
 | Ceremony | Trigger | Cadence | What Happens | Full Spec |
 |---|---|---|---|---|
-| The Daily Page | The morning's scheduled task; or "daily page" / "today's page" / "deal today's page" | Daily | One page, dealt by a shuffle made once, until every page has been sat with. Loudon recalls it from its title alone, they read it together, the page is woken and speaks, its siblings are opened and the question is asked whether a neighbor should consume it, and they try to make it something to hear, see or play. The morning ends in a verdict: keep, trim, tune, fold, compost, open, or revive for a page already dormant. The morning decides; anything larger than a small edit leaves as a baton for the rite that owns it. The close matches the work. | [[The Daily Page]] |
+| The Daily Page | The morning's scheduled task; or "daily page" / "today's page" / "deal today's page" | Daily | One page a morning, dealt by chance until every page has been sat with; the morning ends in a verdict. | [[The Daily Page]] |
 | The Walk | "Let's walk" | Weekly | Pick a starting entry, follow typed links, and name honestly what the path turned up — a connection, a tension, or nothing | [[Walk Ceremony]] |
-| The Weave | "Let's weave" | Monthly | Full palace structural audit, run as a **Swarm Weave** (parallel workers + coordinator synthesis). Opens with a Map Build. Reports topology, formalizes unsung paths, proposes label enrichment and new typed links, and carries every propagate flag: a decision made since the last weave, taken to each page it hasn't reached. | [[Weave Ceremony]] |
+| The Weave | "Let's weave" | Monthly | Full palace structural audit, run as a **Swarm Weave** (parallel workers + coordinator synthesis). Opens with a Map Build. Carries every propagate flag first (a decision made since the last weave, taken to each page it hasn't reached), then reports topology and link quality, formalizes unsung paths, settles every bare `connects-to` (label, retype or cut), folds each pair to one link, audits bundles for the memory a page's weight has earned, nominates rich faces, and writes the health row. | [[Weave Ceremony]] |
 | The Return | "I'm back" / "what did I miss" / "return" / "roll call" | On returning after a gap, or to see every open session now | Summon the [[Concierge]] as the first act (which also leaves a warm resident for the close); run the query block before interpreting anything; show a return map whose every row cites a command or `file:line`; end on one move, preferring an open handoff over an invented one. Loudon signs. Report the gap's length, never its cause. | [[Return Ceremony]] |
-| The Spore Check | "Spore check" | Quarterly | Read all `stage: dormant` entries. Assign disposition: revive / hold / compost. | [[Spore Check Ceremony]] |
-| The Self-Model Update | "Self-model update" | As needed | Revise [[SUBSTRATE]] — update the palace's self-description to reflect current state | [[Self-Model Update Ceremony]] |
+| The Spore Check | "Spore check" | Quarterly, when Loudon calls it | Read every sleeper together — dormant pages, spores at any stage, granted revivals not yet landed — and decide each with Loudon: revive, hold, compost or fold. It decides and never revives inline; a compost is flagged for the Weave. | [[Spore Check Ceremony]] |
+| The Self-Model Update | "Self-model update" | At the end of a Weave; when an organ is grown, retired or rewired; when the anatomy check fails | Redraw [[SUBSTRATE]]'s anatomy — the organs the palace runs and how they couple — from the map's diff and the anatomy check (`_ops/self-model/anatomy.mjs`). The counts stay the [[Palace Map]]'s. | [[Self-Model Update Ceremony]] |
 | The Enrichment | "Enrich [page]" / "Enrich this page" / "Let's enrich [page]" | When a page wants to be played, not only read | The whole Shop on one page: its **rich face** — the entry's words read live as the spine, with sound, image and interactives beside the headings they serve (a manifest in the bundle, fingerprinted so a piece that lags the text says so). Pieces that test the text beat pieces that decorate it; what making teaches goes home shown first, or through the [[Deposit Ceremony]] when it changes what the page says. | [[Enrichment]] |
 | The Sentry | "Sentry sweep" / "Security sweep" / "Sentry, check [X]" | On demand, and before anything widens the public surface | Sweep for what must not leave a public repository — secrets, personal data, text written to steer the agents who read here, loose permissions, and (with `--deep`) every blob in history, npm advisories and GitHub's own settings. Raise what it finds to Loudon, masked; hold open findings locally, never in a tracked file. Its one tooth is the pre-push gate, which refuses a credential. | [[Sentry]] |
 
@@ -71,7 +71,7 @@ The complete and canonical list of all palace ceremonies. Every ceremony has a t
 
 | Ceremony | Trigger | What Happens | Full Spec |
 |---|---|---|---|
-| The Revival | "Let's revive [entry name]" / "Time to revive [entry name]" | Formally reawaken a dormant entry: re-enter its content, add Revival Note, update stage, add new typed links connecting it to current palace work. | [[Revival Ceremony]] |
+| The Revival | "Revive [entry]" / "Let's revive [entry]" / "Time to revive [entry]" | The only way a sleeping page wakes. Four ways in: Loudon's word, a Spore Check, a Daily Page morning, a revive request he grants on the board. Loudon meets the page through a made thing and decides whether it is alive; then the page is made true now, every changed word shown to him first, and a project gets a scroll, an agreed Plan and, on his word, a steward. No Revival Note: the story goes on the scroll and in the commit. | [[Revival Ceremony]] |
 
 ## Continuity Ceremonies
 
@@ -90,7 +90,6 @@ Not full ceremonies, but palace-aware interactions that can happen in any conver
 
 | Trigger | What Happens |
 |---|---|
-| "Add this to the palace" | Not ad hoc: it runs the [[Deposit Ceremony]], the one way a find enters canon. |
 | "Connect this to the palace" | Propose typed links between the current topic and existing entries. |
 | "What does the palace say about [topic]?" | Read relevant entries and synthesize. Follow typed links. |
 
@@ -139,11 +138,6 @@ The report is a gift to the ceremony's author, not a verdict. A ceremony can pro
 **Trigger:** "Read this ceremony" / "Does this ceremony feel right?"
 
 ---
-
-## Forward Vectors
-
-- Should the Walk ceremony be updated to acknowledge the Swarm Weave as a future path — the difference between walking alone and walking with a colony?
-- Is anything in onboarding a new Claude instance left that only a ceremony would do? Birth and growing up now carry most of it — [[CLAUDE]], then [[CHILD]] (including § A page and its folder), then [[ELDER]].
 
 ## Active Baton
 

@@ -210,6 +210,8 @@ export const LABEL_FAMILY_VOCAB = {
   'emerged-from': ['fermented-from', 'distilled-from', 'escaped-from', 'grew-through', 'was-waiting-in', 'crystallized-from'],
   deepens: ['unfolds-within', 'makes-precise', 'gives-body-to', 'operationalizes', 'embodies', 'grounds'],
   'couples-with': ['dances-with', 'feeds', 'requires', 'completes', 'entangles-with', 'beats-with', 'resonates-with'],
+  'contrasts-with': ['alternative-to', 'set-against', 'stands-in-for', 'differs-along'],
+  'made-by': ['directed-by', 'authored-by', 'composed-by', 'built-by'],
   contradicts: ['refuses', 'mourns', 'corrects', 'argues-with-love', 'exceeds', 'breaks-open', 'is-the-shadow-of', 'troubles'],
   'connects-to': ['orbits', 'touches', 'gestures-toward', 'notices', 'is-in-conversation-with', 'rhymes-at-a-distance', 'echoes-faintly'],
 };

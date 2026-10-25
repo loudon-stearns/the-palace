@@ -11,15 +11,12 @@ hook_quality: 7
 beauty: 6
 who_leads: loudon
 links:
-  - target: "[[Ableton Extension SDK]]"
-    type: connects-to
   - target: "[[Boundary-Crossing Instruments]]"
     type: deepens
     label: reverse-boundary-crossing
   - target: "[[Frequency-Time Duality]]"
     type: connects-to
-  - target: "[[Signal-Rate CV Architecture]]"
-    type: connects-to
+    label: time-in-frequency-space
   - target: "[[Modes of Collaboration]]"
     type: connects-to
     label: multi-device-sync
@@ -64,7 +61,7 @@ Loudon's live performance practice involves multiple devices — synthesizers, d
 
 **For the pedagogy:** Building an LTC generator from first principles teaches the full signal chain of timecode: bit serialization, phase encoding, frequency generation, audio-rate signal synthesis. It connects abstract time (frames, BPM) to physical signal (waveform, spectrum). It is a beautiful exercise in audio-as-data.
 
-**Connects to larger patterns:** This is a [[Boundary-Crossing Instrument]] in reverse — not "music becoming science" but "engineering becoming music infrastructure." It is also deeply tied to [[Frequency-Time Duality]]: LTC is literally the time axis encoded in frequency space. Every bit transition is a frequency/phase event. Reading LTC is a frequency-domain act that yields time-domain information.
+**Connects to larger patterns:** This is a [[Boundary-Crossing Instruments|Boundary-Crossing Instrument]] in reverse — not "music becoming science" but "engineering becoming music infrastructure." It is also deeply tied to [[Frequency-Time Duality]]: LTC is literally the time axis encoded in frequency space. Every bit transition is a frequency/phase event. Reading LTC is a frequency-domain act that yields time-domain information.
 
 ## Open Questions
 
@@ -77,4 +74,4 @@ Loudon's live performance practice involves multiple devices — synthesizers, d
 
 ## The Trickster in Timecode
 
-Timecode is a trickster convention: it pretends to measure absolute time but is in fact a counter. It has no relation to real time (wall clock time). A scene that is 1 second long in real time can be represented as 00:00:01:00 (one frame at 1 fps, nonsensical) or 00:00:01:24 (one frame at 24 fps) or 00:00:01:00 (one second in any fps if frames are large). The encoding is relative to frame rate, not to time. It is a beautiful abstraction, and SMPTE LTC makes it audible.
+Timecode is a trickster convention: it pretends to measure absolute time but is in fact a counter. It has no relation to real time (wall clock time). It counts frames, not seconds, and drop-frame skips numbers to keep the clock honest. The encoding is relative to frame rate, not to time. It is a beautiful abstraction, and SMPTE LTC makes it audible.

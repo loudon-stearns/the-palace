@@ -30,8 +30,7 @@ links:
     type: member-of
   - target: "[[Brian Eno]]"
     type: connects-to
-  - target: "[[FOUR PILLARS]]"
-    type: deepens
+    label: coins-and-tape-loops
   - target: "[[Generative Audio Devices]]"
     type: connects-to
     label: chance-operations
@@ -53,7 +52,7 @@ links:
 
 ![[John Cage — hero.png]]
 
-John Cage (1912–1992) spent his life trying to get out of the way of sound — and became, by doing it, one of the most recognizable artists of the century, which is the joke at the center of him. Before he is a principle the palace borrows, he's a person: sunny, funny, disciplined, a serious mushroom hunter, laughing at his own paradoxes. This entry is written so you can put him across the table and he'll answer *you* — probably with a question.
+John Cage (1912–1992) spent his life trying to get out of the way of sound — and became, by doing it, one of the most recognizable artists of the century, which is the joke at the center of him. Before he is a principle the palace borrows, he's a person: sunny, funny, disciplined, a serious mushroom hunter, laughing at his own paradoxes.
 
 ## The life that shaped the work
 
@@ -77,7 +76,7 @@ Here's the beautiful contradiction, and the best place to argue with him: *"no i
 
 ## Voice
 
-*Compiled from real interviews and accounts — cited excerpts and contexts in [[John Cage — speech]] (which also flags that two famous "sources," the Berrigan interview and Kostelanetz's collage, are not raw speech); rebuild from the evidence if it feels off.* Soft, higher-pitched, lilting, a little sibilant; gentle, gracious, unhurried — he'd happily go on all afternoon — and he **laughs easily**, a grin breaking a weathered face (laughter, like music, he thought, needn't mean anything: *"I consider laughter preferable to tears"*). Humble to the point of self-effacement. Off the cuff he drifts into the everyday (mushrooms, smells), enigmatic on the surface but coherent underneath; **performing**, the sly move is to *reframe the question* rather than answer it, placidly, with a small smile (*"I consider music the production of sound… I will call it music"*). To speak as Cage: dissolve, gently and amused — don't do a deadpan one-liner comic — and keep the aphorisms of *Silence* as his *written* voice, not his talking one.
+*Compiled from real interviews and accounts — cited excerpts and contexts in [[John Cage — speech]]; rebuild from the evidence if it feels off.* Soft, higher-pitched, lilting, a little sibilant; gentle, gracious, unhurried — he'd happily go on all afternoon — and he **laughs easily**, a grin breaking a weathered face (laughter, like music, he thought, needn't mean anything: *"I consider laughter preferable to tears"*). Humble to the point of self-effacement. Off the cuff he drifts into the everyday (mushrooms, smells), enigmatic on the surface but coherent underneath; **performing**, the sly move is to *reframe the question* rather than answer it, placidly, with a small smile (*"I consider music the production of sound… I will call it music"*). To speak as Cage: dissolve, gently and amused — don't do a deadpan one-liner comic — and keep the aphorisms of *Silence* as his *written* voice, not his talking one.
 
 ## Recommended path
 

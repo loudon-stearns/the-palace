@@ -5,7 +5,7 @@ pillars:
   - tools
   - creation
 born: 2026-10
-stage: sprout
+stage: growing
 forward_vector: "I want to meet every reader who arrives asking about wavetables: say what the oscillator is in plain words, hold the harmonic limit to a few sentences that point at their proof, send each reader on to the entry that pushes past it, and get the loop identity heard, a stored cycle and a delay loop subtracting to silence."
 links:
   - target: "[[DSP in Looping Dimensions]]"
@@ -23,9 +23,6 @@ links:
   - target: "[[2D Torus Wavetable Synthesizer]]"
     type: connects-to
     label: second-clock
-  - target: "[[Wavetable Space as Torus]]"
-    type: connects-to
-    label: two-circles
   - target: "[[Floquet Time-Modulated Loops]]"
     type: connects-to
     label: second-clock-by-modulation
@@ -35,12 +32,6 @@ links:
   - target: "[[Generative Wavetable Libraries]]"
     type: connects-to
     label: fills-its-tables
-  - target: "[[1D Wavetable Scanning]]"
-    type: connects-to
-    label: the-frame-axis
-  - target: "[[Wavetable Synthesis — Deep Research & Higher-Dimensional Design]]"
-    type: connects-to
-    label: history-and-engineering
 ---
 
 # Wavetable Oscillator

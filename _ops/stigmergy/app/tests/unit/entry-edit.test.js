@@ -365,8 +365,8 @@ describe('entry-edit', () => {
     it('exposes 4 pillars from §3', () => {
       expect(PILLARS.length).toBe(4);
     });
-    it('exposes 10 link types from §4', () => {
-      expect(LINK_TYPES.length).toBe(10);
+    it('exposes 12 link types from §4', () => {
+      expect(LINK_TYPES.length).toBe(12);
     });
   });
 });

@@ -19,15 +19,13 @@ links:
     type: member-of
   - target: "[[FOUR PILLARS]]"
     type: exemplifies
+    label: cross-domain-bridge
   - target: "[[Frequency-Time Duality]]"
     type: mirrors
     label: distance-as-delay
   - target: "[[Granular Synthesis]]"
     type: connects-to
     label: room-as-grain
-  - target: "[[Martin Heidegger]]"
-    type: connects-to
-    label: dwelling-makes-space
 ---
 
 # Reverb ↔ Space-Time
@@ -47,7 +45,7 @@ This isn't metaphor—it's **physics**. Reverb is space-time made audible.
 
 ## The Physics
 
-Each room reflection arrives at a time proportional to the distance it traveled: `t = d / 343 m/s`. A wall 10 meters away returns its reflection 29 milliseconds late. Your brain reads those arrival times as geometry — a cathedral's first reflection at 50–100ms signals large space; a bathroom's at 5–10ms signals small space. You are literally **hearing geometry**.
+Each room reflection arrives at a time proportional to the distance it traveled: `t = d / 343 m/s`. A wall 10 meters away returns its reflection 29 milliseconds late. Your brain reads those arrival times as geometry — a cathedral's first reflection at 50–100ms signals large space; a bathroom's at 5–10ms signals small space. You are literally **hearing geometry**. The Sabine equation (`RT60 = 0.161 × V / A`) makes the same equivalence formal for the whole room: bigger volume, longer decay.
 
 Pre-delay makes this manipulable: add 50ms of pre-delay and you've pushed the virtual wall back, moving the source forward in a space that now exists behind it. <!-- show and tell --> <!-- Help me understand how defining room dimensions and room size work together, and how well they can represent real spaces. -->
 
@@ -97,18 +95,6 @@ Answer: **Time between reflections tells you distance to walls.**
 **The question:** "Are you adding 'wetness' or are you adding 'space'?"
 
 Answer: **You're adding SPACE. The wetness IS the space.**
-
-### Part 3: The Physics Connection
-
-**Reading:** Einstein's special relativity (simplified explanation)
-
-**Key concept:** Spacetime as unified fabric
-
-**The parallel:**
-- Reverb: Time and space unified through sound
-- Relativity: Time and space unified through light
-
-Different domains, same principle: **space and time are interchangeable**.
 
 ## Advanced Applications
 
@@ -225,20 +211,9 @@ When a student says: **"I stopped thinking about 'how wet' and started thinking 
 
 They're thinking spatially, not parametrically. They're placing sounds in **space**, not adding **wetness**.
 
-## The Mathematical Beauty
-
-Time and space translate freely through speed of sound: 30ms delay = 10.3 meters; a 5-meter wall returns its reflection in 14.6ms. The Sabine equation (`RT60 = 0.161 × V / A`) makes the same equivalence formal: bigger volume means longer decay time. Space (volume) equals time (decay) — not metaphorically, mathematically.
-
 ## Success Metrics (By Our Definition)
 
-**Not:** "Students can use reverb plugins"
-**But:**
-- Students think about reverb as space, not effect
-- Students understand time-space relationship in other contexts
-- Students can "hear" room geometry
-- Students make spatial decisions, not just sonic ones
-
-When reverb becomes a spatial design tool, not an effect—**the resonance succeeded**.
+It worked when reverb becomes a spatial design tool, not an effect.
 
 ---
 

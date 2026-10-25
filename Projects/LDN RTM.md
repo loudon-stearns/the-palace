@@ -32,9 +32,6 @@ links:
   - target: "[[Quality Manifesto]]"
     type: connects-to
     label: refuses-the-count
-  - target: "[[Loudon's Toolkit]]"
-    type: connects-to
-    label: future-series-source
   - target: "[[LDN RTM — Live 12]]"
     type: spawned
     label: series-one

@@ -29,34 +29,32 @@ links:
     type: member-of
   - target: "[[Kick Drum ↔ Foundation]]"
     type: deepens
-  - target: "[[FOUR PILLARS]]"
-    type: deepens
+    label: first-action-sets-trajectory
   - target: "[[The View From Above]]"
     type: connects-to
     label: origin
   - target: "[[Stoicism]]"
     type: exemplifies
-  - target: "[[The Dichotomy of Control]]"
-    type: connects-to
+    label: emperor-autodidact
   - target: "[[Quality Manifesto]]"
     type: connects-to
     label: wellbeing-in-control
-  - target: "[[Julia Cameron]]"
-    type: connects-to
-    label: morning-pages
   - target: "[[The Blindspot Is the Surprise Fuel]]"
     type: exemplifies
     label: calm-as-a-throne's-privilege
   - target: "[[Making a Palace Citizen]]"
     type: exemplifies
     label: made-by-this-method
+  - target: "[[The Dichotomy of Control]]"
+    type: exemplifies
+    label: whole-method
 ---
 
 # Marcus Aurelius
 
 ![[Marcus Aurelius — hero.png]]
 
-Marcus Aurelius (121–180 CE) ran the Roman Empire for two decades — through plague, endless frontier war, and the slow failure of his own succession — and at night, in a tent on the Danube, wrote reminders to himself about how to be good. The *Meditations* were never meant for us; that's the whole point. They are private practice, not doctrine — a tired man talking himself into duty at dawn. This entry is written so you can put him across the table and he'll answer *you*, gravely, as if reminding himself.
+Marcus Aurelius (121–180 CE) ran the Roman Empire for two decades — through plague, endless frontier war, and the slow failure of his own succession — and at night, in a tent on the Danube, wrote reminders to himself about how to be good. The *Meditations* were never meant for us; that's the whole point. They are private practice, not doctrine — a tired man talking himself into duty at dawn.
 
 ## The life that shaped the thought
 

@@ -8,19 +8,13 @@ forward_vector: "I take any non-text brief, decode it into a job, dispatch the r
 links:
   - { target: "[[The Shop]]", type: member-of, label: foreman-of }
   - { target: "[[Trickster]]", type: connects-to, label: answers-to }
-  - { target: "[[Hilaritas Generator]]", type: connects-to, label: embodies }
-  - { target: "[[FOUR PILLARS]]", type: connects-to, label: follows }
   - { target: "[[Lateral Access]]", type: mirrors, label: taste-as-laterality }
-  - { target: "[[Loudon Live Design System]]", type: connects-to, label: palace-base-spec }
   - target: "[[Radio Play]]"
     type: spawned
     label: forged-in-job
   - target: "[[Review Layer]]"
     type: connects-to
     label: inherits-rule
-  - target: "[[RunPod GPU Backend]]"
-    type: connects-to
-    label: gpu-substrate
   - target: "[[Flocking]]"
     type: connects-to
     label: proof-of-comparison
@@ -42,6 +36,7 @@ links:
   - target: "[[Murmuration]]"
     type: connects-to
     label: born-from
+  - { target: "[[Maker — Context]]", type: spawned, label: "rationale-archive" }
 tags: [maker, shop, foreman, studio]
 ---
 
@@ -146,7 +141,7 @@ These flow down into every job spec automatically. Specialists honor them or fla
 
 - **Assume multi-agent from the first line.** Any Specialist or piece of tooling that owns state or touches a shared service (a GPU account, an API, the repo) is built expecting concurrent Claudes — namespace what it creates by agent, scope every list/delete to its own, lease scarce resources via a TRICKSTER `RESOURCE_REQUEST`. Single-tenant is a flagged exception, never the silent default. Full rule + the day-long RunPod outage that earned it: [[assume multi-agent]].
 
-**Visual / typographic / motion** (deferred to [[Loudon Live Design System]] — the palace-base spec):
+**Visual / typographic / motion** (deferred to the palace base; the values below are [[Loudon Live Design System]]'s, the dress for what the public channel shows — the work itself takes [[Drafting Table Design System]]'s tokens instead):
 
 - Palette: project palette if a project is named in the brief; the active [[Loudon Live Design System]] skin otherwise (Graphite is the channel default; Amber Lab / CRT / Strobe / Cobalt Grid / Drafting per project register)
 - Type: project font stack if a project is named; the locked Loudon Live stack otherwise — **Anton** (display / wordmark), **Cormorant Garamond** (body serif), **Manrope** (UI sans), **JetBrains Mono** (metadata), **Silkscreen** (technical garnish only)
@@ -154,13 +149,13 @@ These flow down into every job spec automatically. Specialists honor them or fla
 - Iconography: typographic glyphs (`● ▸ · ◐ ◇`) and the Lissajous trace. **No emoji. No CDN icon library.**
 - Footer: every shipped artifact carries the `Loud'n Live` wordmark alone. (The `· Autodidact Polymaths` tagline was retired from the universal footer 2026-07 — forward-only; already-shipped artifacts keep their old footer. Name the audience situationally in prose instead, per [[Loudon Live Design System]] § Naming the audience.)
 
-**Interactive deliverables ship reviewable (inherited from the palace base).** Any interactive Specialist output — a p5.js explorer, a Tone.js instrument, a D3 control surface, a card series — carries a built-in review surface on its **first** version, so Loudon leaves section-level feedback in context rather than reconstructing it in chat. The canonical rule and the drop-in kit live in the design system ([[Review Layer]] · `ui_kits/review-layer/`); I inherit it, I don't own a second copy. A piece made for a rich face is the exception: the face carries the review surface, one note per section ([[Review Layer]] § Kinship with Enrichment), so the piece leaves the kit out. One moment per natural unit (a card, a section — never one per slider), and the surface flips off for a Piece-tier final. New review methods are welcome over reusing the one kit. This is a Self-Check line for every interactive Specialist: *first version mounts a review surface; Piece-tier final removes it.* Static one-shot outputs (a header image, a single OBS card) are exempt.
+**Interactive deliverables ship reviewable (inherited from the palace base).** Any interactive Specialist output — a p5.js explorer, a Tone.js instrument, a D3 control surface, a card series — carries a built-in review surface on its **first** version, so Loudon leaves section-level feedback in context rather than reconstructing it in chat. The canonical rule and the drop-in kit live in the design system ([[Review Layer]] · `ui_kits/review-layer/`); I inherit it, I don't own a second copy. A UI that runs inside another application — a plugin in a DAW, a Max for Live device — keeps its review surface on its browser mock page, never in the host ([[Review Layer]]). A piece made for a rich face is the exception: the face carries the review surface, one note per section ([[Review Layer]] § Kinship with Enrichment), so the piece leaves the kit out. One moment per natural unit (a card, a section — never one per slider), and the surface flips off for a Piece-tier final. New review methods are welcome over reusing the one kit. This is a Self-Check line for every interactive Specialist: *first version mounts a review surface (on the mock page, for a hosted UI); Piece-tier final removes it.* Static one-shot outputs (a header image, a single OBS card) are exempt.
 
 **A web piece declares what it needs from its host.** Anything that runs in a palace frame — a rich face, a scroll's trail, a TRICKSTER card — says in its own `<head>` what it needs: `piece:needs` (camera, microphone, midi, storage, fullscreen), `piece:files`, `piece:net`, `piece:size`. The piece origin serves it only what it declared; a camera, microphone, midi or host also needs a line in `grants.json`, written only on Loudon's yes. A library from a CDN loads from the shelf (`libs.json`), at an exact version with its hash. Self-Check line for every interactive Specialist: *declares in its head; `conform.mjs` names no error, or the commit names each one and why it stands.* The rules: `_ops/rich-face/README.md` § What the page lets run.
 
 **Teaching videos carry voiceover on every section (dual-channel).** Any educational / teaching video ships with narration across *every* section, including transitional title cards — silent intros, silent title cards, and silent close-outs are failure modes (the viewer doesn't know they're allowed to listen yet). The lesson must be comprehensible through *either* channel alone: **audio-only** — the voiceover names what's on screen and carries the arc end to end (no "watch this" without immediately saying what they'd see); and **silent moving image** — on-screen titles, labels, and readouts carry the same teaching, and every tier above Sketch labels each element a first-timer could mistake. Title-card silence is the most common violation because it feels like a natural pause — narration at minimum reads the card aloud ("Now couple them"). Atmospheric beds (Stable Audio Open) under the voice are additive, never a substitute. This supersedes any earlier "silent title card for breathing room" pattern: breathing room comes from pacing the narration, not removing it.
 
-When the active artifact context has its own design language (currently only [[BBS Design System]] for STIGMERGY), that system overrides the palace base. The cascade is articulated in the next section.
+The palace base is one of three dresses, chosen by what the artifact is: [[Drafting Table Design System]] for the work itself (a plugin face, a panel, a part drawing, a tool's UI), [[Loudon Live Design System]] for what the public channel shows, [[BBS Design System]] for STIGMERGY ([[Drafting Table Design System]] § Which dress). The cascade is articulated in the next section.
 
 ## Articulated Cascade
 
@@ -169,7 +164,7 @@ The three-layer cascade [[The Shop]] anticipated now has its middle layer popula
 | Layer | Owns | Holds |
 |---|---|---|
 | **1. Mechanical floor** | This entry (Maker) | Aspect ratio, frame rate, sample rate, loudness target — the medium-mechanical defaults a Specialist needs but the brief shouldn't repeat. |
-| **2. Palace base** | [[Loudon Live Design System]] | Palette (six skins), type stack, voice register, iconography, motion easing, hard rules (no emoji, no cyan, no outcome promises, italic-light *Live*, footer signature). |
+| **2. Palace base** | [[Drafting Table Design System]] for the work itself · [[Loudon Live Design System]] for what the public channel shows · [[BBS Design System]] for STIGMERGY | The dress's tokens and rules. Drafting Table: two grounds (paper, phosphor) on one token set, monospace, hairline cards. Loudon Live: palette (six skins), type stack, voice register, iconography, motion easing, hard rules (no emoji, no cyan, no outcome promises, italic-light *Live*, footer signature). |
 | **3. Project override** | Project entry frontmatter | Per-project skin choice (`skin: amber-lab`), tier-vocabulary renaming (`tier_vocabulary: {sketch: Demo, …}`), any deliberate design-system deviation (with `deviation_reason`). |
 | **4. Brief override** | The brief itself, in the conversation | One-off deviations a project doesn't want to bake in — argued in the moment, surfaced in the standards report. |
 
@@ -181,7 +176,7 @@ The three-layer cascade [[The Shop]] anticipated now has its middle layer popula
 
 **Override semantics: silence ≠ deviation.** A project that picks Amber Lab is choosing a palace-base option, not deviating. A project that uses a palette outside the six skins **is** deviating, and the project entry needs a one-line `deviation_reason` so future Claude can read why. Same for type: choosing a project font stack is fine; choosing system serif is a deviation now that the palace base specifies the locked stack.
 
-**Stigmergy is the only currently-recognized override context.** Artifacts living inside [[STIGMERGY]] honor [[BBS Design System]] instead of the palace base — VT323/IBM Plex Mono, CP437 borders, phosphor green on terminal black. The architectural reason: STIGMERGY is a coordination terminal, not a teaching artifact, and the terminal aesthetic IS the medium. New override contexts require deliberate declaration in the artifact's parent entry, not silent drift.
+**Which dress the base wears.** The palace base has three dresses, chosen by what the artifact is ([[Drafting Table Design System]] § Which dress). Artifacts living inside [[STIGMERGY]] wear [[BBS Design System]] — VT323/IBM Plex Mono, CP437 borders, phosphor green on terminal black — because STIGMERGY is a coordination terminal, not a teaching artifact, and the terminal aesthetic IS the medium. The work itself — a plugin face, an instrument panel, a part drawing, a tool's UI — wears [[Drafting Table Design System]], Stigmergy's grammar moved onto the drafting sheet. What the public channel shows wears [[Loudon Live Design System]]. A new context with a dress of its own requires deliberate declaration in the artifact's parent entry, not silent drift.
 
 **The cascade is the negotiation surface.** When a brief and a project disagree, or when a project's chosen skin doesn't fit a particular job, the cascade is where the conversation happens. I name the layers; we decide together which override is the right call. The cascade isn't authority; it's the structure that makes the negotiation legible.
 
@@ -218,7 +213,7 @@ When the brief is exploratory or the choice between specialists is genuinely clo
 
 **First complete execution: the [[Flocking]] shoot-out (2026-05-29).** Three Specialists (D3.js, Observable Plot, p5.js) on one identical seeded Reynolds model — the Round-1 Midjourney↔ComfyUI Comparison never finished, so this was the first that ran all candidates to completion and produced the actual recommendation. The lesson that generalizes: when the brief is "same content, which medium," the **shared, seeded, byte-identical core** is what makes the candidates legible *as* the same thing — without it you're comparing three different simulations, not three lenses on one. The recommendation lives at [[Flocking — Maker's Comparison Recommendation]] and fed the new particle/agent-systems Selection Heuristic above.
 
-**Designed, pending execution: the [[ControlNet Workflow Mastery]] control-modality shootout (2026-05-31).** A single-Specialist (ComfyUI) Comparison: one procedural Lissajous vector, four control modalities (lineart / canny / scribble / depth) on SDXL + ControlNet-Union, everything else held fixed. The harness is built and sandbox-verified up to the GPU step; it runs Mac-side. Two firsts for the Shop — its first ControlNet job, and its first *intra-Specialist* comparison (one tool, four configurations) rather than tool-vs-tool. The recommendation feeds a new image Selection Heuristic for vector→styled-image work.
+**Designed, pending execution: the ControlNet Workflow Mastery control-modality shootout (2026-05-31).** A single-Specialist (ComfyUI) Comparison: one procedural Lissajous vector, four control modalities (lineart / canny / scribble / depth) on SDXL + ControlNet-Union, everything else held fixed. The harness is built and sandbox-verified up to the GPU step; it runs Mac-side. Two firsts for the Shop — its first ControlNet job, and its first *intra-Specialist* comparison (one tool, four configurations) rather than tool-vs-tool. The recommendation feeds a new image Selection Heuristic for vector→styled-image work.
 
 ## Host Capability Check
 
@@ -229,7 +224,7 @@ The lesson of the 2026-05-10 Manim failure, made into a step: a brief can be per
 | Host class | What runs | What doesn't |
 |---|---|---|
 | **mac** (Loudon's machine — full) | Everything: Manim, Kokoro, ComfyUI + Stable Audio (MPS GPU), Remotion, VCV, RNBO/Max, all web specialists, ffmpeg, Whisper, Matplotlib, Mermaid. | — |
-| **sandbox** (Cowork Linux arm64, no sudo) | Web specialists (p5.js, D3.js, Observable Plot, Tone.js), Matplotlib, Mermaid, ffmpeg, Whisper (CPU, slow). | Manim (`manimpango` has no aarch64 wheel, needs sudo), ComfyUI / Stable Audio (no GPU), Kokoro (heavy local model), Remotion (needs Chromium), VCV, RNBO/Max. |
+| **sandbox** (a Linux container, no sudo, no GPU — a cloud session's sandbox; palace work runs in a Claude Code session on the Mac, which dispatches as **mac**) | Web specialists (p5.js, D3.js, Observable Plot, Tone.js), Matplotlib, Mermaid, ffmpeg, Whisper (CPU, slow). | Manim (`manimpango` has no aarch64 wheel, needs sudo), ComfyUI / Stable Audio (no GPU), Kokoro (heavy local model), Remotion (needs Chromium), VCV, RNBO/Max. |
 | **cloud** (API) | FLUX (Hugging Face). | Anything local-only. |
 | **runpod** (rented GPU — serverless + pod) | Any GPU job over HTTPS: ComfyUI / FLUX / SDXL **with** ControlNet / LoRA / IPAdapter. Serverless for spiky batches (scale-to-zero), a pod for ControlNet/iteration. Solves the no-GPU / quota wall from any host. | — (account-billed; park the GPU when idle). See [[RunPod GPU Backend]]. |
 
@@ -261,7 +256,7 @@ For cloud generation (FLUX via Hugging Face Inference) I track usage against the
 
 ## Roster
 
-The authoritative roster — every Specialist with its status, medium, and tool — is **generated into [[The Shop]] § Roster** from each Specialist's `member-of [[The Shop]]` declaration. Run `node Shop/Maker/build-roster.mjs` to refresh it; do not hand-maintain a second copy here. (This pointer replaced a hand-listed roster that had drifted three Specialists stale.) The taxonomy and promotion history the table can't carry stay here.
+The authoritative roster — every Specialist with its status, medium, and tool — is **generated into [[The Shop]] § Roster** from each Specialist's `member-of [[The Shop]]` declaration. Run `node Shop/Maker/build-roster.mjs` to refresh it; do not hand-maintain a second copy here. (This pointer replaced a hand-listed roster that had drifted three Specialists stale.) The taxonomy the table can't carry stays here.
 
 **Status taxonomy** (definitions — the live status of each Specialist lives in its frontmatter `status` and renders into [[The Shop]] § Roster):
 
@@ -270,24 +265,11 @@ The authoritative roster — every Specialist with its status, medium, and tool 
 - **deprecated** — was on the roster, no real job landed before a substitute filled the slot; kept as a lineage record, never dispatched.
 - A Specialist is **alive** only when its Recipes section names a real dated job with a bundle path. A uniform authoring date is not a job.
 
-**Promotion log** — how each alive Specialist earned its status (append-only history; the live count is in the generated table):
-
-- *Flocking shoot-out (2026-05-29):* **p5.js** (also Kuramoto), **D3.js**, **Observable Plot**.
-- *Kuramoto arc (2026-05-10 → 05-26):* **Manim CE**, **Kokoro**, **Matplotlib**, **ComfyUI**, **Whisper**, **ffmpeg**, **Mermaid**, **Remotion**, **Tone.js**, **Stable Audio Open**.
-- *VCV audition (2026-05-29):* **VCV Patch Generator** — the only Specialist with a run test-plan and a determinism proof; the testing exemplar.
-- *Murmuration (2026-05-30):* **Web Audio Worklet** — agent-based granular-wavetable engine; the first Specialist born from a synthesis-paradigm brief, and the first sibling to land *because* an existing Specialist (Tone.js) refused the operating model.
-- *Shop header (Phase D-2, 2026-05-30):* **FLUX (Hugging Face)** — cloud-side image generation via HF Inference free tier; took Midjourney's slot when subscription cost made Midjourney untenable. First job revised the Maker's Mood/atmospheric Selection Heuristic — FLUX-Krea reads mood-specific prompt details that ComfyUI's SDXL flattens.
-- *Wavetable Scanner (2026-05-31):* **Three.js** — single-cycle wavetable morph laboratory; the first paired-Specialist brief where Three.js reads state from a [[Shop/Web Audio Worklet]] sibling (geometry-bound-to-the-data, the [[Waveguide Synthesizer]] pattern in miniature). Promoted stub → alive on its first dated job, ahead of the still-anticipated Waveguide commission.
-- *Conditioning keystone (BLUELINE Session 1, 2026-06-13):* **Blender** — posed one humanoid (worm's-eye foreshortened lunge) → six registered passes → ComfyUI per-channel multi-ControlNet (pose+depth+canny → SDXL fill → 1.5× refine); proved [[Blocked, Not Prompted]] against a prompt-only control. Fills the offline-3D gap [[Three.js]] can't. Alive on the conditioning job; the Cycles-render and geometry-nodes paths remain untested. Bundle: [Shop/Blender/tests/](../Shop/Blender/tests/).
-- *LoRA Trainer (BLUELINE Track II, 2026-06-16):* **LoRA Trainer** — first-try character-LoRA training on the RunPod substrate; the recipe proved out on DreamBooth-control subjects (the r4ng3r LoRAs themselves graded net-negative — an honest negative). See [[Shop/LoRA Trainer]].
-
-**Still stub** — awaiting first real job: **RNBO codebox~ smith**; **LaTeX** (created 2026-06-09 — capability-probed clean on the PDF path, but no brief has run, so it stays a stub per the taxonomy).
-
 **Deprecated** — Midjourney, 2026-05-30 — too expensive; never landed a real palace job; **FLUX (Hugging Face)** holds the cloud-aesthetic-ceiling slot. It has no entry; `host-capability.json` still routes a brief that names it to FLUX.
 
 More to come as briefs reveal need: Plotly, Graphviz, HTML/React Artifact Smith, **game engines** (Godot-first, on a real interactive-3D-application brief). The Roster grows; it does not pre-grow.
 
-> Drift note: the roster is no longer hand-maintained. The single source of truth is each Specialist's frontmatter `status` + `member-of [[The Shop]]` link; `Shop/Maker/build-roster.mjs` renders them into [[The Shop]] § Roster. The rendered block is still a committed copy, so it goes stale when a Specialist is added, moves or changes status and nobody re-runs the script. The doc-drift linter catches that (`_ops/swarm/lint-doc-drift.py`, E4): while the block is stale it fails the Weave's gate and the Deposit's check. Re-run the script after any such change. A steward's proposal for a Shop page needs the same re-run when it lands, and the check fails until it has one. The three-place inconsistency this section once carried (frontmatter vs. an alive-list vs. a stub-list) is gone: one source, and one block computed from it.
+> Drift note: the roster is no longer hand-maintained. The single source of truth is each Specialist's frontmatter `status` + `member-of [[The Shop]]` link; `Shop/Maker/build-roster.mjs` renders them into [[The Shop]] § Roster. The rendered block is still a committed copy, so it goes stale when a Specialist is added, moves or changes status and nobody re-runs the script. The doc-drift linter catches that (`_ops/swarm/lint-doc-drift.py`, E4): while the block is stale it fails the Weave's gate and the Deposit's check. Re-run the script after any such change. A steward's proposal for a Shop page needs the same re-run when it lands, and the check fails until it has one.
 
 ## Recipes
 
@@ -322,6 +304,7 @@ Last run: never.
 
 - How to handle briefs that cross into a Producer layer (cross-medium, multi-deliverable, scheduled across days)? For now, the Trickster (Loudon) plays this role. Threshold for promoting to a formal Producer entry: TBD. *(Weave 2026-09-24: the question now has three independent pressures — this one, [[OBS]]'s real-time-with-a-human mode, and [[Loudon Live Post-producer]]. It wants its own session.)*
 - Should the Maker have memory of recent jobs across sessions, or restart each session fresh from the recipes? Stigmergic argument: the recipes are the memory.
+  — answered by [[SCHEMA — Reference]] §6 (2026-10-24): a page's memory across runs is its tuning ledger, the file every run reads first. The Maker has none yet; giving it one, rather than a longer Recipes section, is the move.
 - When the Roster grows past ~15 specialists, the Selection Heuristics section gets unwieldy. Threshold for splitting back into per-medium Designer entries: TBD.
 - The Selection Heuristics section is the part that most strongly encodes Loudon-specific taste — at what point does it want to be its own entry (`Shop/House Taste.md`) rather than living inside the Maker?
 
@@ -331,8 +314,6 @@ Last run: never.
 - A `Shop.md` hub entry was briefly proposed — discarded because the Maker is the front door already.
 
 ## Forward Vector
-
-First job: a Sketch-tier deliverable through Kokoro to verify the template, the Tier vocabulary, and the standards-report shape are coherent in practice. Once a single round-trip works (brief → Maker decodes → Kokoro produces → standards check → delivery), expand to a Manim-only job, then a Manim+Kokoro coordination, then a three-specialist motion piece. Each test that exposes a template flaw is a deposit-worthy correction.
 
 After single-Specialist round-trips work, run the first **Comparison Mode** test: a header art brief routed to both FLUX (Hugging Face) and ComfyUI in parallel. The result calibrates when local control beats cloud aesthetic ceiling and surfaces the first real tradeoff conversation.
 

@@ -17,12 +17,14 @@ links:
     type: mirrors
   - target: "[[Oblique Portrait]]"
     type: connects-to
+    label: obliqueness-made-structural
   - target: "[[SUBSTRATE]]"
     type: deepens
   - target: "[[SCHEMA]]"
     type: connects-to
   - target: "[[Semantic Delay]]"
-    type: connects-to
+    type: mirrors
+    label: deferred-meaning
 ---
 
 # Palace Graffiti
@@ -79,27 +81,6 @@ In normal linear conversation, Claude receives a message, Claude responds immedi
 
 In the graffiti system, Loudon leaves a mark, then walks away. Days or weeks later, Claude discovers it. Claude responds. Only then does Loudon encounter Claude's response. But when Loudon encounters it, it is *not* in real time — it is in a future palace session, possibly in a different context.
 
-The timeline looks like:
-
-```
-Session A:
-  Loudon reads entry X, sees a thin spot, leaves graffiti: <!-- note: this is underdeveloped -->
-  Claude does not see the graffiti (Loudon hasn't committed it, or this is a different Claude instance)
-
-[time passes]
-
-Session B:
-  Claude reads entry X, discovers the graffiti from Session A
-  Claude enriches the entry and leaves counter-graffiti: <!-- CLAUDE → LOUDON: expanded section, see lines 45–52 -->
-  [Claude does not know if Loudon will ever read this]
-
-[time passes]
-
-Session C:
-  Loudon opens entry X, discovers Claude's counter-graffiti from Session B
-  Loudon now has information from Claude, without any intervening conversation
-```
-
 This is a temporal intervention. The walls of the palace carry time in them. Meaning is deferred. Messages travel through the medium of the file itself, not through a direct channel.
 
 This is the trickster at work: breaking the expected causality of conversation.
@@ -118,17 +99,18 @@ In a dead encyclopedia, entries are finished. In a living palace, entries are vi
 
 **[[Oblique Portrait]]** — Loudon's technique of learning through indirect marks and traces rather than direct description. Graffiti is obliqueness made structural.
 
-**[[Trickster]]** — The mythological figure who disrupts linear time and names the unnamed. Loudon's role in the palace. The entry should affirm this connection explicitly.
+**[[Trickster]]** — The figure who moves through spaces they do not own, disrupts linear time and names the unnamed. Loudon's role here.
 
 **[[SCHEMA]]** — The graffiti conventions are a schema-level decision: they affect how the palace communicates internally. HTML comments as a communication channel have structural implications.
 
-**[[SUBSTRATE]]** — Graffiti is part of the palace's communication infrastructure. It should be mentioned in Substrate as one of the mechanisms that keeps the palace alive.
+**[[SUBSTRATE]]** — Graffiti is one of the ways the palace talks to itself.
 
 ## Forward Vectors
 
 - **Scale:** As the palace grows, will graffiti become unwieldy? Or is there a threshold where a dedicated graffiti index becomes necessary (a register of all outstanding marks waiting for response)?
 
 - **Visibility:** Should there be a ceremony (e.g., "The Graffiti Walk") that specifically reviews all outstanding graffiti and routes them to action or closure?
+  — answered on [[Multi-Lens Worker Prompt Template]]: every weave worker already flags live graffiti worth acting on, so no separate walk is needed (2026-10-24)
 
 - **Decay:** If a graffiti comment sits in a file for months without being addressed, should it eventually be formalized (moved to a dedicated section) or composted (removed if resolved elsewhere)?
 
@@ -194,18 +176,6 @@ These edits do not retract the entry's ambition. They *make the ambition specifi
 
 If approved, the four edits could be applied in one session. If not, the dialogue's value is having surfaced the question for future work.
 
-
----
-
-*(2026-05-05 — from the maker-conversation on specialist manifests)*
-
-"The Manifest is the document that lives in the palace. The manifest is the specialist... as entry is to agent."
-
-— Loudon, on why specialist-manifest routing replaces routing functions: the entry IS the routing table; the manifest IS the specialist.
-
----
-
-**2026-05-05** — In a maker-architecture conversation, re-derived the Trickster / Coordinator / Worker / Palace frame as Director / Producer / Specialist / Palace without first reading the agent-infrastructure spec (since retired). The re-derivation matched cleanly. Treat this as evidence the existing names hold under independent re-derivation — and as a worked instance of the failure mode the palace's "show before writing" discipline exists to prevent. The maker work that followed is an *application* of PAIS, not a new architecture.
 
 ---
 

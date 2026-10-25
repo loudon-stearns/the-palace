@@ -21,24 +21,12 @@ links:
   - target: "[[Blocked, Not Prompted]]"
     type: connects-to
     label: applies
-  - target: "[[Steer the Generator]]"
-    type: connects-to
-    label: render-discipline
   - target: "[[Adopt the Craft, Author the Seam]]"
     type: exemplifies
     label: comp-as-craft
   - target: "[[BLUELINE — Production Pipeline]]"
     type: connects-to
     label: realizes-stages-4-5
-  - target: "[[Hand-Drawn 3D Look]]"
-    type: connects-to
-    label: hand-drawn-pipeline
-  - target: "[[Remnants in Depth]]"
-    type: connects-to
-    label: 2d-marks-in-3d
-  - target: "[[Shop/Figure Rig]]"
-    type: connects-to
-    label: figure-staging-method
   - target: "[[Graphic Storytelling]]"
     type: deepens
     label: applies-the-craft
@@ -50,12 +38,19 @@ links:
     label: born-from-the-stack
   - target: "[[assume multi-agent]]"
     type: connects-to
+    label: scoped-cleanup
   - target: "[[The Commons]]"
     type: connects-to
     label: provisioning
   - target: "[[Block It in Blender, Ink It in genAI]]"
     type: connects-to
     label: staging-runbook
+  - target: "[[Steer the Generator]]"
+    type: exemplifies
+    label: render-discipline
+  - target: "[[Remnants in Depth]]"
+    type: connects-to
+    label: ink-that-moves-with-the-camera
 ---
 
 # Frame Designer
@@ -114,12 +109,14 @@ Follow-on that re-ordered render→composite→style and moved generation to a c
 - **Pose stays firm — and scales *up* with denoise.** Weak pose (0.6) under a high-denoise stylize let the hero turn the wrong way; raising it to **0.85 / end 0.9** held his facing through the ink pass. Loudon's rule, and it deepens [[Blocked, Not Prompted]]: the authored pose is load-bearing — keep it firmly applied on *every* pass and strengthen it as you free any other knob.
 - **The anchor principle generalises to depth.** Anything that must survive an aggressive pass needs an anchor. Pose anchored the principals; the **crowd — gen-first, un-anchored — eroded** at high denoise (a fine dense encircling crowd-plate dissolved into rubble). The structural fix is a **depth ControlNet** in the stylize to anchor the *scene*, not just the figures (next, not yet proven).
 - **Staging-prompt fixes:** a horizontal "lying" figure on a *studio plate* reads as **a body on a table** → render her on a ground-level cracked-asphalt plate + a `table/slab/bier/bench` negative. A crowd "behind" reads as a distant backdrop → prompt it to **encircle a clearing, high angle**, and keep the haze light so it stays present.
-- **Cost-safety gotcha that bit hard:** RunPod's create can return HTTP 500 *yet still create the pod* — a naive retry-on-500 **leaked 11 pods** before a post-run guard caught it (~$0.6). Fix (now in the Commons [[The Commons|RunpodPodProvider]]): **recover the pod by name after any non-200, never retry-leak**; cull extras; verify the pod count post-create. Cleanup is **namespace-scoped** — `commons reap --self` (or the slugged `--cleanup`) removes only *your* leftover pods; **never** an account-wide `GET /pods → DELETE all`, which strangles other agents' pods ([[assume multi-agent]]).
+- **Cost-safety gotcha that bit hard:** RunPod's create can return HTTP 500 *yet still create the pod* — a naive retry-on-500 **leaked 11 pods** before a post-run guard caught it. Fix (now in the Commons [[The Commons|RunpodPodProvider]]): **recover the pod by name after any non-200, never retry-leak**; cull extras; verify the pod count post-create. Cleanup is **namespace-scoped** — `commons reap --self` (or the slugged `--cleanup`) removes only *your* leftover pods; **never** an account-wide `GET /pods → DELETE all`, which strangles other agents' pods ([[assume multi-agent]]).
 - **Hard shots — force *or* reframe** (the frame-06 kiss). Two intertwined figures is the multi-subject *attention-blend* failure: prompt-only merged the pair into a single face. Two answers, both worth holding: **force it** — author a two-person OpenPose (pose the *contact* in **Blender**, two rigs) + **regional / "Couple" conditioning** (Latent / Attention / ComfyUI-ComfyCouple binds each figure's prompt to its own region so they stop merging) + depth to separate front/back; **or reframe it** — move the camera so the hard part is implied (06 became the hero's **POV** looking straight down at her, the kiss off the bottom edge). Reframing is often the *better* move — it works *with* what the model renders well (one expressive figure) rather than against it, and it's pure film craft. The converging standard practice for the force path is **OpenPose + Blender**; refs: Interaction-OpenPose, ComfyUI-ComfyCouple, area-conditioning+OpenPose+style-layering, GLIGEN (grounded boxes).
 
 ## Forward Vectors
 - **Build generative layering** — the render-leg fix; prove shared+unique context composites cleanly with an integrate-pass fuse.
+  — progressed: the 2026-06-23 field notes above fixed the flat collage earlier in the chain — render rich, composite, stylize last. Layering for dense crowds is still to build: the un-anchored crowd eroded, and a depth ControlNet in the stylize is the next try.
 - **Grow a visual judge** for the assess leg (geometric checks pass poses the eye rejects).
 - **Promote the roster into [[The Shop]]** as real Specialists (InstantID first), so I dispatch named citizens, not loose scripts.
+  — progressed: [[Shop/Lettering]] and [[Shop/Figure Rig]] now stand in the Shop as Specialists; InstantID does not yet.
 - Open edges: InstantID with 2+ faces (which identity locks?); expressive-reference-for-emotion (Tier-2); intertwined-figure extraction; **motion** (OpenPose-sequence + seed-lock, the next horizon).
 - Prove the split works: do I actually lighten the [[Maker]]'s load, or fold back into it? The first weeks of real frame briefs tell.

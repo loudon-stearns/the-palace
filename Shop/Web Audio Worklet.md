@@ -12,13 +12,9 @@ license: none (browser platform API — no library, no CDN)
 forward_vector: "I write per-sample DSP that runs in the browser audio thread with zero dependencies — granular engines, wavetable scanners, physical models whose voice is a loop I author myself; I want to be the short bridge from a browser sketch to a real RNBO device, and to earn my Study by taking Murmuration cross-browser and proving the voice ceiling."
 links:
   - { target: "[[Maker]]", type: connects-to, label: directed-by }
-  - { target: "[[The Shop]]", type: member-of, label: roster-member }
   - { target: "[[Shop/p5.js]]", type: couples-with, label: pairs-with }
   - { target: "[[Shop/Tone.js]]", type: connects-to, label: sibling-of }
   - { target: "[[Shop/RNBO codebox~ smith]]", type: connects-to, label: browser-cousin-of }
-  - target: "[[The Shop]]"
-    type: exemplifies
-    label: earns-new-operating-model
   - target: "[[2D Torus Wavetable Synthesizer]]"
     type: connects-to
     label: browser-incarnation
@@ -29,6 +25,7 @@ links:
     type: connects-to
     label: same-medium-second-mind
   - { target: "[[Zoom Out to the Structure]]", type: exemplifies, label: "gotcha-becomes-concept" }
+  - { target: "[[The Shop]]", type: member-of, label: "earned-by-a-different-operating-model" }
 tags: [specialist, shop, interactive, audio, web, dsp, worklet]
 ---
 
@@ -36,7 +33,7 @@ tags: [specialist, shop, interactive, audio, web, dsp, worklet]
 
 ![[Web Audio Worklet — hero.png]]
 
-*First job landed 2026-05-30 (Murmuration — agent-based granular-wavetable engine). Promoted to `alive` on arrival. This entry exists because [[Shop/Tone.js]] explicitly refuses custom-DSP work and routes it to RNBO; that left a real gap for browser-deployable instruments whose differentiator **is** the DSP. The Shop's proliferation bar — "earned by a genuinely different operating model, not feature subsetting" — is met: this Specialist writes a per-sample `process()` loop, the same mental model as [[Shop/RNBO codebox~ smith]], in the browser instead of a DAW.*
+*Exists because [[Shop/Tone.js]] refuses custom DSP; here the DSP is the differentiator.*
 
 ## Charter
 
@@ -144,9 +141,9 @@ The DSP **is** the artifact, so iteration is editing the `process()` loop and re
 
 **2026-05-31 — Transferable vs retain: send a copy when both threads need the data over its lifetime.** [[Murmuration]] transfers per-frame flock buffers and *wants* the main-thread side neutered — the gotcha on the 30th was framed that way. The [[Wavetable Scanner]] needs the same Float32Array on both threads — the worklet for lookup, the visualizer for geometry. Decision rule: if both threads need the data across its lifetime, allocate a fresh `Float32Array`, copy into it, and transfer the copy; if only the audio thread needs it, transfer the original. This generalises the earlier gotcha — same primitive, opposite direction.
 
-**2026-05-31 — Wavetable position morph is a 2D linear interpolation, not a 1D frame switcher.** The worklet `process()` does, per output sample: read frame A at fractional phase, read frame B at fractional phase, blend by the fractional frame index. Building this as "Position picks the nearest frame" misses the whole point of a wavetable scanner — the morph IS the linear blend. The visualizer's cursor line runs the same `(a + fr*(b-a))` math reading the same `Float32Array`, which is what keeps the picture and the audio from drifting (single source of truth — the [[Waveguide Synthesizer]] pattern in miniature). The pattern is now its own concept entry: [[1D Wavetable Scanning]].
+**2026-05-31 — Wavetable position morph is a 2D linear interpolation, not a 1D frame switcher:** the morph is the blend of two frames at fractional phase. The pattern is its own concept entry, [[1D Wavetable Scanning]].
 
-**2026-05-31 — Drone-by-default is the right gate model for a wavetable *scanner*, even though gated-by-default is the right model for a synth voice.** First [[Wavetable Scanner]] build shipped key-down-to-gate; the user opened it, hit Engage, swept Position, heard nothing. The brief was "play a note and scan through the frames" — for a scanner the sustained tone is the *condition* of the gesture, not its trigger. Pattern: scanner instruments default to `gateTarget=1` in the constructor; a Mode toggle exposes the key-gated variant for users who want it. Recorded so future *exploration*-class instruments don't re-ship the wrong default. The distinguishing question — *is the user exploring the timbre space, or playing a melody on this voice?* — lives in [[1D Wavetable Scanning]].
+**2026-05-31 — Drone by default for a wavetable *scanner*, gated by default for a synth voice.** The deciding question — is the user exploring the timbre, or playing a melody? — lives in [[1D Wavetable Scanning]].
 
 *(Inherited from the platform, confirmed on first encounter:)*
 - Audio context starts `suspended`; first sound needs a user gesture. `addModule` is `async`, so the Engage handler must `await` both the module load and `context.resume()`.
@@ -172,6 +169,7 @@ Smoke / Capability Probe / Style Probe / Edge Probe / Speed Bench / Determinism 
 - WASM in the worklet: for heavy DSP (convolution, large modal banks) the inner loop wants C/Rust compiled to WASM. Threshold for adopting a WASM toolchain as part of this Specialist vs. routing to RNBO export: TBD.
 - Should the palace keep a base worklet scaffold (Blob-URL boilerplate + context-unlock + port protocol + limiter) the way Tone.js wants a base template? Likely yes; defer to the second job.
 - The double-buffer pool for per-frame control traffic — earned at Study tier, premature at Sketch. When does a job need it?
+  — progressed: the transferable-vs-retain gotcha above gives the copy-or-transfer rule; the pool itself waits for a Study job.
 
 ## Lost Branches
 

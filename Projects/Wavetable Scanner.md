@@ -6,12 +6,9 @@ pillars:
   - creation
   - tools
 born: 2026-05
-stage: sprout
+stage: growing
 forward_vector: "I am the single-cycle morph laboratory — load any wavetable, see its frames as a 3D landscape, sweep Position to morph through them, switch between tables to compare libraries. I want to grow into a browser-side packer that absorbs the work [[pack_wavetable.py]] currently does outside the browser, so any folder of single-cycle WAVs becomes a centroid-sorted morphable table without leaving the page — that move earns my Sketch → Study transition and turns me into a self-contained tool Loudon can use across the rest of his AKWF library."
 links:
-  - target: "[[1D Wavetable Scanning]]"
-    type: exemplifies
-    label: first-incarnation
   - target: "[[Shop/Web Audio Worklet]]"
     type: connects-to
     label: dsp-specialist
@@ -27,9 +24,6 @@ links:
   - target: "[[Waveguide Synthesizer]]"
     type: mirrors
     label: geometry-is-the-data
-  - target: "[[Rank-N Lattice Analysis]]"
-    type: contradicts
-    label: measured-rank-vs-assumed-clean
   - target: "[[Progressive Staging]]"
     type: exemplifies
     label: sketch-study-piece-is-staging
@@ -49,12 +43,7 @@ The body of patterns this surfaces — that the morph is a 2D linear interpolati
 
 ## Cascade resolution
 
-| Layer | Resolution |
-|---|---|
-| 1. Mechanical floor | Single-cycle frames at 1024 samples; output 44.1 kHz, joint-normalized to ≈−0.09 dBFS; stereo via `outputChannelCount:[2]` + `out[1] || out[0]` defensive write. |
-| 2. Palace base | [[Loudon Live Design System]], CRT skin (the literal "scope / DSP / signal-watching" register). No deviations declared. The per-frame colour ramp from `--fg-3` to `--accent` along the frame axis is a `palaceSeries()`-style *ordered* encoding — in-skin, not a deviation. |
-| 3. Project override | None. |
-| 4. Brief override | None. |
+The page wears the [[Loudon Live Design System]], CRT skin, with no deviations. Its mechanical floor: single-cycle frames at 1024 samples, 44.1 kHz stereo out, joint-normalized to about −0.09 dBFS.
 
 The brief was *"create a simple HTML wavetable synthesizer that can view these wavetables in a beautiful 3D visualizer, and I can play a note and scan through them individually and I can switch between them."* The Maker's routing was unambiguous: custom wavetable DSP → [[Shop/Web Audio Worklet]] (the per-sample `process()` loop is the differentiator); 3D visualizer whose geometry IS the data → [[Shop/Three.js]] (raw r128, single-file Sketch path). Two Specialists in concert, with the worklet owning DSP and Three.js owning render.
 
@@ -96,15 +85,7 @@ First Sketch shipped key-gated; the user opened it, hit Engage, swept Position, 
 
 ## Gotchas seen on this build
 
-Full build-time discovery record lives in the entry bundle: [[Wavetable Scanner — gotchas]] (`Projects/Wavetable Scanner/Wavetable Scanner — gotchas.md`). Each gotcha was also deposited into the relevant Specialist entry on 2026-05-31. Headline items:
-
-- The first-Sketch drone-vs-gated default mistake (above) — now a deposited pattern.
-- `decodeAudioData` neuters its input ArrayBuffer; slice before calling.
-- `AudioContext` can be constructed and `decodeAudioData`'d while still `suspended` — file load works pre-Engage.
-- Transferable vs retain: send a copy when both threads need the data over its lifetime; transfer the original only when only one thread needs it.
-- The wavetable position morph is a 2D linear interpolation per output sample, not a 1D frame switcher.
-- Three.js `LineBasicMaterial.linewidth` honored only as 1px on most platforms — colour contrast carries the cursor for the Sketch.
-- `OrbitControls.js` and `three.min.js` must be served from CDN URLs pinned to the same version, or the constructor throws.
+The full build-time record is [[Wavetable Scanner — gotchas]] (`Projects/Wavetable Scanner/Wavetable Scanner — gotchas.md`); each gotcha was also deposited into the relevant Specialist entry on 2026-05-31. The one that changed the design: a scanner drones by default. The first Sketch shipped key-gated, and sweeping Position heard nothing ([[1D Wavetable Scanning]]).
 
 ## Open questions
 

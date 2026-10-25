@@ -20,9 +20,6 @@ links:
     label: the-stance-never-turned-inward
   - target: "[[Cross-Domain Resonances]]"
     type: member-of
-  - target: "[[Shunryu Suzuki]]"
-    type: connects-to
-    label: informed-by
   - target: "[[FOUR PILLARS]]"
     type: exemplifies
   - target: "[[Cooperation Yields Agency]]"
@@ -37,6 +34,9 @@ links:
   - target: "[[Quality Manifesto]]"
     type: exemplifies
     label: self-defined-metric
+  - target: "[[Shunryu Suzuki]]"
+    type: connects-to
+    label: yielding-practice
 ---
 
 # Sidechain ↔ Conversation
@@ -167,32 +167,6 @@ Students find it in:
 - Teaching (waiting for student understanding)
 - Sports (passing the ball)
 
-## Why This Resonance Works
-
-### 1. Bidirectional Teaching
-You can teach it either direction:
-
-**Music → Life:**
-- Learn sidechain compression
-- Notice it feels like conversation
-- Apply to actual conversations
-- Become a better listener
-
-**Life → Music:**
-- Learn about active listening
-- Notice bass and kick can't both talk
-- Apply sidechain compression
-- Understand why it creates rhythm
-
-### 2. Immediate Application
-Unlike abstract philosophy, this has instant practical value:
-- **Better mixes** (you understand WHY sidechain works, not just HOW)
-- **Better conversations** (you recognize when you're not yielding)
-- **Better relationships** (making space becomes conscious practice)
-
-### 3. Memorable Hook
-"The kick and bass are having a conversation" isn't just poetic—it's technically accurate. Students never forget it.
-
 ## Advanced Applications
 
 ### In Music Production
@@ -253,6 +227,8 @@ Yes—but recognizing it as a **pattern** makes it transferable.
 
 ## Teaching Notes
 
+"The kick and bass are having a conversation" isn't just poetic — it's technically accurate. Students never forget it.
+
 ### The Breakthrough Moment
 When a student says: **"I tried to have a conversation yesterday and I realized I wasn't sidechaining—I was just waiting to talk."**
 
@@ -267,14 +243,7 @@ Encourage these connections. Pattern recognition is the skill being developed.
 
 ## Success Metrics (By Our Definition)
 
-**Not:** "Students can set up sidechain compression"
-**But:**
-- Students recognize when they're not yielding in conversation
-- Students use production language to describe life patterns
-- Students find this pattern in domains we didn't mention
-- Students report being better listeners
-
-When production technique improves life skill—**the resonance succeeded**.
+It worked when a production technique improves a life skill.
 
 ---
 

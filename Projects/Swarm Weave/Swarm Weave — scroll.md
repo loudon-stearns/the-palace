@@ -15,12 +15,13 @@ forward_vector: "I am Swarm Weave's scroll — the one page that always opens on
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-09-23T04:36:43.543Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — steer the project in **Standing Orders** below, never here._
+> _Regenerated 2026-10-25T01:29:18.499Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
 - **Status:** active · **Stage:** growing · **Steward:** none — this project has no permanent steward yet
+- **Plan:** none agreed yet — the work leans on the forward vector
 - **Waiting on you:** nothing
 - **Last shipped:** nothing on the board yet
-- **Last commit touching this project:** 2026-09-03 `509a123` — edit(close-2026-09-02): the counter-discipline gets its proof; the deposit sheds what it grew
+- **Last commit touching this project:** 2026-10-14 `02e8a535` — edit(Weave Ceremony, Hero and Avatar Maker): every canon entry wears a face; the face audit prints one list
 
 ### Where this stands
 
@@ -35,6 +36,12 @@ _None — nothing is waiting on you._
 _Nothing decided on the board yet._
 
 <!-- scroll:now:end -->
+
+## Plan
+
+<!-- scroll:plan:start -->
+_No plan agreed yet. Until there is one, the work leans on the page's forward vector. A plan is agreed with Loudon — he writes it here, or a steward proposes one as an ask and it lands here when he says yes._
+<!-- scroll:plan:end -->
 
 ## Standing Orders
 

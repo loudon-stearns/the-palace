@@ -1,6 +1,6 @@
 ---
 title: "Making a Palace Citizen"
-type: practice
+type: hub
 pillars:
   - creation
   - philosophy
@@ -26,9 +26,6 @@ links:
   - target: "[[Philosopher Visits the Entry]]"
     type: connects-to
     label: dispatch-as-lens
-  - target: "[[Pages as Agents]]"
-    type: connects-to
-    label: person-pages-as-agents
   - target: "[[FOUR PILLARS]]"
     type: exemplifies
     label: integrates-all-four
@@ -47,6 +44,12 @@ links:
   - target: "[[The Remembering Page]]"
     type: spawned
     label: generalized-to
+  - target: "[[Pages as Agents]]"
+    type: deepens
+    label: person-pages-as-agents
+  - target: "[[SCHEMA — Reference]]"
+    type: connects-to
+    label: diary-bundle-type
 ---
 
 # Making a Palace Citizen
@@ -124,9 +127,7 @@ A citizen is born `seed` and earns citizenship by being *used*. The loop:
 
 1. **Dispatch** — send the citizen into an [[Excellent Adventure]], a [[Dialectic]], a [[Philosopher Visits the Entry|Philosopher Visit]], or dialogic [[Palace Enchantment]].
 2. **Post-dialogue artifact** — the enchanted citizen produces, per [[Palace Enchantment]], *what it learned about itself*, a proposed **`forward_vector` revision**, new open questions, and proposed **link changes**.
-3. **Write-back (Loudon approves)** — the encounter flows back into the page: the forward_vector gains what it learned, links sharpen (a `mirrors` that turned out to be a live disagreement becomes `contradicts`), open questions accrue. *The citizen proposes; Loudon decides* — no unilateral self-editing.
-<!-- CLAUDE → LOUDON: growth-model correction (2026-07-02, from the Eno↔Cage run). You held all write-backs on the principle that a citizen earns self-edits across *several retained* encounters, not one. This step still reads as per-encounter write-back (how Spinoza↔Meadows applied both vectors after a single run) — revise step 3 to: propose per encounter, apply once drift is consistent across encounters. The remaining open number is "how many encounters before earned?" (queued in the lab). -->
-<!-- The retained-memory half is now RESOLVED + built (2026-07-02): each citizen's memory lives in a bundle `[Name] — diary.md` (step 4's diary), which is APPEND-ONLY + CHRONOLOGICAL like human memory (encounters stack at the end, oldest first, never rewritten; a citizen accrues many over a life), and PERSPECTIVAL — own inner voice + what others said aloud, never others' private thoughts. [[Palace Enchantment]] loads it on re-cast so the citizen wakes remembering. Built for [[Brian Eno — diary]] + [[John Cage — diary]]. Memory is palace-native (bundle), never Claude Code operator memory. A Dialectic TRANSCRIPT is an ARTIFACT, not a canon entry (`kind: artifact`, no type/forward_vector) — reconstructable from the union of the two perspectival memories, so the per-citizen ledgers are the source of truth. -->
+3. **Write-back (Loudon approves)** — each encounter *proposes*: what it learned for the forward_vector, sharper links (a `mirrors` that turned out to be a live disagreement becomes `contradicts`), new open questions. They are *applied* once the same drift repeats across encounters, not after one; how many encounters make it earned is still open. *The citizen proposes; Loudon decides* — no unilateral self-editing.
 4. **Log** — the encounter is recorded in the citizen's diary ([[SCHEMA — Reference]] §8) and, when it produces new palace material, deposited into the relevant concept entry.
 5. **Stage advances** — as citizenship accrues (encounters had, links earned, forward_vector matured), the citizen moves `seed → sprout → growing → mature`. A citizen's stage tracks its *palace life*, not the human's completeness.
 
@@ -161,7 +162,6 @@ Every new citizen is an experiment. The running log — findings, the experiment
 - **The diary's structure** — what exactly a diary holds, and how it aggregates many encounters without bloating.
 - **Failure modes to guard:** caricature (thin research), the "always finds over-claiming" trap ([[Philosopher Visits the Entry]]), and voice homogenization across dozens of citizens.
 - **Resource budget** for growing citizens — do dispatched citizens get a token allotment, and who grants it (the TRICKSTER board)?
-- ~~**Schema housekeeping** — formalize via a Schema Ceremony: the `dossier` bundle type (SCHEMA §8), `agency_profile` on `person` entries (first use here), and the seed-stage-as-newborn-citizen convention.~~ **Resolved** by the v1.14 Schema Ceremony (2026-07-01): `dossier` added to SCHEMA §8, `agency_profile`-on-persons noted in §3.1, and the seed-citizen stage semantics clarified in §1 — all additive and descriptive.
 - **Audio/video over edited print, for modern people** *(Loudon, 2026-07-02)*. Recorded speech is closer to the real delivery than a curated print transcript, which is edited. For living or well-recorded figures, source and analyze A/V first. Open sub-question: *how* does an agent analyze A/V in this harness — verbatim recording-transcripts, human- or tool-supplied prosody/timing notes, or future multimodal listening? Until that's solved, tag every speech excerpt as *recording* vs *edited print* so fidelity is legible.
 
 ---

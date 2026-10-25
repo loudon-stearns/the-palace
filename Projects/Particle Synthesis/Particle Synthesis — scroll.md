@@ -15,14 +15,14 @@ forward_vector: "I am Particle Synthesis's scroll — the one page that always o
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-22T10:29:31.789Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-25T01:29:18.046Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** sprout · **Steward:** cycle 7 · last ran 2026-10-22 (today)
+- **Status:** active · **Stage:** sprout · **Steward:** cycle 7 · last ran 2026-10-22 (3 days ago)
 - **Plan:** none agreed yet — the next run works from what the ledger owes and the forward vector · **a proposed revision is waiting on you**
 - **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-10-22 (today) — Grains now meet on the GPU: 1024 ice grains from two fountains clack off each other in mid-air, live, with an A/B against passing through. (`particle-synthesis-014`)
-- **Last commit touching this project:** 2026-10-22 `ffc0e84a` — steward(Particle Synthesis): cycle 6 — SPINNING UP. HOME: [Particle Synthesis](obsidian://open?vault=The%20Pal…
+- **Last shipped:** 2026-10-22 (3 days ago) — Grains now meet on the GPU: 1024 ice grains from two fountains clack off each other in mid-air, live, with an A/B against passing through. (`particle-synthesis-014`)
+- **Last commit touching this project:** 2026-10-22 `e3268f70` — steward(Particle Synthesis): cycle 7 — SPINNING UP. HOME: [Particle Synthesis](obsidian://open?vault=The%20Pal…
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
 - **Runs:** 2 runs on 1 day, counted from the ledger's run lines

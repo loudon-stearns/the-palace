@@ -26,13 +26,12 @@ agency_profile:
 links:
   - target: "[[Source Library]]"
     type: member-of
-  - target: "[[FOUR PILLARS]]"
-    type: connects-to
-    label: informs
   - target: "[[Stoicism]]"
     type: exemplifies
+    label: statesman-philosopher
   - target: "[[The Dichotomy of Control]]"
     type: connects-to
+    label: run-forward-in-time
   - target: "[[Quality Manifesto]]"
     type: connects-to
     label: time-consciousness

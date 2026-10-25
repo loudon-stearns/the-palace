@@ -8,12 +8,12 @@ of `_ops/stigmergy/list-handoffs.mjs`.
 Why this exists: postcondition 2b ("the weave_flag inbox has been read and every
 open flag acted on or explicitly declined") was honour-system — the sibling
 postconditions 2d/2e/2f each have a linter that gates the commit, but 2b did not,
-so a Weave launched by a side door (e.g. a baton whose move-list omits Step 1c)
+so a Weave launched by a side door (e.g. a baton whose move-list omits Step 0c)
 could silently skip it. This makes 2b mechanical, so it can no longer be missed
 regardless of how the Weave was launched. (The Palace Hardens Around Values: a
 rule earns a gate once its check proves mechanical — and this one is.)
 
-Two kinds of flag (Weave Ceremony Step 1c):
+Two kinds of flag (Weave Ceremony Step 0c):
 
   - An ENTRY flag names its `source_entries` and asks for something done to them.
   - A PROPAGATE flag (`flag_type: propagate`) carries a decision to every page it
@@ -116,6 +116,28 @@ def resolution_lines(text):
             if re.match(r"\s*Palace-Resolves:", l) or re.search(r"\b[Dd]eclined? flag\b", l)]
 
 
+def closing_ids(lines):
+    """The flag ids those lines close, read the way the deck reads them (queue-model.js resolvesId /
+    commit-parse.js parseFlagLines): a Palace-Resolves line yields each whitespace- or comma-separated
+    token, trailing punctuation stripped; a Declined line yields the one token after 'flag'. An id that
+    merely appears inside another flag's reason text ('Declined flag A: superseded by B') closes nothing.
+    Before 2026-10-24 the linter tested `fid in text`, a substring match, and counted flags the deck did
+    not grey (Weave tuning, Loudon's one-shot order of 2026-10-18)."""
+    ids = set()
+    for l in lines:
+        m = re.match(r"\s*Palace-Resolves:\s*(.*)$", l)
+        if m:
+            for tok in re.split(r"[\s,]+", m.group(1)):
+                tok = tok.strip().rstrip(".;:)]}'\"")
+                if tok: ids.add(tok[4:] if tok.startswith("msg-") else tok)
+            continue
+        m = re.search(r"\b[Dd]eclined? flag\s+([^\s:]+)", l)
+        if m:
+            tok = m.group(1).rstrip(".;:)]}'\"")
+            ids.add(tok[4:] if tok.startswith("msg-") else tok)
+    return ids
+
+
 def still_matching(p):
     """Pages a propagate flag's pattern still finds, or None when it carries no pattern."""
     pattern = p.get("pattern")
@@ -168,8 +190,9 @@ def main():
     from datetime import datetime, timezone
     commits = commit_log(datetime.fromtimestamp(oldest, timezone.utc).isoformat()) if (stamps or since) else []
     # explicit ids may predate the oldest flag's clock, so read every commit's closing lines
-    closing = "\n".join(resolution_lines(git(["log", "--format=%B"])))
-    resolves = "\n".join(l for l in closing.splitlines() if re.match(r"\s*Palace-Resolves:", l))
+    closing_lines = resolution_lines(git(["log", "--format=%B"]))
+    closing = closing_ids(closing_lines)
+    resolves = closing_ids([l for l in closing_lines if re.match(r"\s*Palace-Resolves:", l)])
     carried_lines = []
     if since is not None:
         carried_lines = [l for c in commits if c[0] is not None and c[0] >= since

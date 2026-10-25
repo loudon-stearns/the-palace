@@ -24,9 +24,6 @@ links:
   - target: "[[Quality Manifesto]]"
     type: connects-to
     label: felt-calibration
-  - target: "[[Spinoza Conatus]]"
-    type: deepens
-    label: conatus-in-circuits
 ---
 
 # Saturation ↔ Richness
@@ -34,7 +31,7 @@ links:
 ![[Saturation ↔ Richness — hero.png]]
 ## Adding Harmonics Adds Complexity and Warmth
 
-**Pattern:** Pushing a system slightly past its linear range adds harmonic complexity. Clean is precise. Saturated is rich. Too much = distortion (破坏). Just right = warmth (enrichment).
+**Pattern:** Pushing a system slightly past its linear range adds harmonic complexity. Clean is precise. Saturated is rich. Too much is distortion; just right is warmth.
 
 **In audio:** Saturation adds harmonics (even-order = warmth, odd-order = edge). Analog gear saturates naturally. Digital is clean until you add it intentionally.
 
@@ -177,6 +174,10 @@ Saturation is controlled non-linearity: where a linear system reproduces input e
 - Broken-in shoes (vs. stiff)
 - **Use adds harmonics**
 
+**In the kitchen:**
+- Coffee: under-extracted is sour and thin, well-extracted is rich and balanced, over-extracted is bitter
+- **Extraction time is the saturation parameter**
+
 **The observation:** **Richness comes from history, use, stress.**
 
 ## Advanced Applications
@@ -226,34 +227,6 @@ Saturation is controlled non-linearity: where a linear system reproduces input e
 - Income: One source (fragile)
 - Income: Multiple streams (saturated/robust)
 - **Saturation = resilience**
-
-## Cross-Domain Resonances
-
-Saturation ↔ richness appears everywhere:
-
-**Coffee brewing:**
-- Under-extracted: Sour, thin (under-saturated)
-- Well-extracted: Rich, balanced (saturated)
-- Over-extracted: Bitter, harsh (over-saturated)
-- **Extraction time = saturation parameter**
-
-**Relationships:**
-- Surface-level: Clean but shallow
-- Depth: Rich with history/conflict/resolution
-- Toxic: Over-saturated with unresolved issues
-- **Time + stress (controlled) = depth**
-
-**Architecture:**
-- Minimalist: Pristine but cold
-- Wabi-sabi: Weathered, warm
-- Neglected: Over-weathered, deteriorating
-- **Age + use = character (if maintained)**
-
-**Physical training:**
-- No stress: Atrophy
-- Progressive overload: Growth
-- Overtraining: Injury
-- **Controlled stress = adaptation**
 
 ## Common Misunderstandings
 
@@ -318,15 +291,8 @@ They've learned: **Controlled non-linearity creates richness.**
 
 ## Success Metrics (By Our Definition)
 
-**Not:** "Do you use saturation plugins?"
-**But:**
-- Can you distinguish warmth from distortion?
-- Do you recognize when pristine is sterile?
-- Have you embraced controlled imperfection?
-- Can you find the saturation sweet spot?
-
-When you add harmonics intentionally—**the resonance succeeded**.
+It worked when you add harmonics on purpose.
 
 ---
 
-*Clean is precise. Saturated is rich. Push the system slightly. Tape curves. Tubes glow. Harmonics appear. Even-order = warmth. Odd-order = character. Too much = distortion. Just right = magic. That's saturation. That's richness.*
+*Clean is precise; saturated is rich. Push the system slightly, and stop before it breaks.*

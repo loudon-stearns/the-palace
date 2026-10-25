@@ -17,16 +17,6 @@ links:
     type: connects-to
   - target: "[[Hyperdimensional Prism]]"
     type: mirrors
-  - target: "[[Granular Synthesis]]"
-    type: connects-to
-  - target: "[[Kuramoto Coupling]]"
-    type: connects-to
-  - target: "[[Particle Synthesis]]"
-    type: connects-to
-  - target: "[[Piano String Inharmonicity]]"
-    type: connects-to
-  - target: "[[Signal-Rate CV Architecture]]"
-    type: connects-to
 forward_vector: "I want to become a fully staged teaching instrument — the psychoacoustic illusion as a progressive revelation, where Stage 1 is the simplest possible Shepard tone and each subsequent stage adds one layer of physical or perceptual complexity. My development alongside my own Theory — Octave Equivalence section is not optional: the theory and the instrument should grow together, each stage of the synthesizer paired with a corresponding theory section that explains what you're hearing and why."
 ---
 
@@ -157,10 +147,12 @@ It also reinforces an important psychoacoustic insight: the Shepard tone proves 
 ## Open Questions
 
 1. **What are the best amplitude functions for the global Shepard filter?** Gaussian, raised-cosine, triangular—each has different sonic characteristics. Experimentation needed.
+   — progressed: Stage 1 builds on a Gaussian in log2(Hz), and says why (Theory § Stage 1). Stage 4 moved the window onto each voice.
 
 2. **Should the per-voice filters be adjustable by the performer?** Currently, they're fixed (relative to each voice's octave). Could the performer modulate cutoff or resonance globally?
 
 3. **Can the octave stack be compressed dynamically?** Instead of always computing C1–C8, could the synth expand or contract the octave range based on the performed fundamental? This might improve CPU efficiency and allow more artistic control.
+   — progressed: Stage 4 measured the extreme voices about 100 dB down when their filters go out of range (Design Challenge 3), so the outer octaves can go; a stack that follows the played note is not built.
 
 4. **Interaction with effects**: How does the Shepard synth behave with reverb, delay, or other effects downstream? The illusion might become ambiguous if delayed copies are too prominent.
 
@@ -211,7 +203,7 @@ Stage 2 let the seam be seen. Stage 3 removes the steps, and the question change
 
 So the glide is computed once, on pitch, before the stack exists, and every voice adds a whole number of octaves to that single path. Measured over a climbing phrase, the audible octaves then disagree by 0.0 cents. Give each voice its own glide time and the agreement breaks: ±15 % spread across the stack gives up to 32 cents, ±40 % gives 93. Let each oscillator ramp at a fixed rate in Hz, a common patching mistake, and the low voices land almost at once while the high ones crawl, with up to 1006 cents of disagreement. Running the one shared glide on Hz instead of pitch changes its shape but keeps the octaves exact, because a single linear smoother keeps the ratios of the inputs it is fed.
 
-The glide also showed something I didn't expect. On an endless climb the drift never heals. Each voice trails the moving target by its own glide time, so a stack with mismatched glide times stays mistuned for as long as it climbs:
+On an endless climb, the drift never heals. Each voice trails the moving target by its own glide time, so a stack with mismatched glide times stays mistuned for as long as it climbs:
 
 > error_k ≈ rate × (τ_k − τ_shared) × 100 ¢
 > (how far voice k sits off its octave, in cents) ≈ (climb speed in semitones per second) × (voice k's glide time − the shared glide time) × 100
@@ -233,7 +225,7 @@ The second answer is that **the filter must follow the voice.** When the cutoff 
 
 Wire the key tracking from the played note instead, one signal shared by every voice, and the cutoff folds back an octave each time the note does while the voices keep climbing. The pitch stays seamless, but the brightness drops by a fifth of an octave in an instant, once per octave. The seam Stage 2 showed was free comes back, in the tone. A fixed offset (cutoff 1000 Hz above each voice) is fine. Low voices get many overtones and high ones few, but the change tracks the voice, so it repeats every octave without a jump.
 
-The third answer is the one that corrects my own architecture: **the window belongs on the voice, not on the sum.** With sines, a bright filter on the summed audio and a loudness window on each voice are the same thing. With overtones they aren't. A filter on the sum weighs each overtone by where it lands, so a voice that has just wrapped down eleven octaves, to 6 Hz, gets in through its 32nd overtone. Measured with the filter at sixteen times: the wrapping voice arrives at −30 dB, against −134 dB with the window on the voice, and voices under 20 Hz carry 2 % of the sound and make it flutter. Widening the stack by four octaves (log₂ 32 − 1, how far the overtones reach) brings the arrival down to −64 dB, but the flutter stays. The Escher point again, from a new side: the staircase is endless only while every step is the same shape. A voice is a step, and its overtones belong to it. If the window weighs each overtone separately, part of the step comes in early, and you hear it.
+The third answer corrects the architecture described above: **the window belongs on the voice, not on the sum.** With sines, a bright filter on the summed audio and a loudness window on each voice are the same thing. With overtones they aren't. A filter on the sum weighs each overtone by where it lands, so a voice that has just wrapped down eleven octaves, to 6 Hz, gets in through its 32nd overtone. Measured with the filter at sixteen times: the wrapping voice arrives at −30 dB, against −134 dB with the window on the voice, and voices under 20 Hz carry 2 % of the sound and make it flutter. Widening the stack by four octaves (log₂ 32 − 1, how far the overtones reach) brings the arrival down to −64 dB, but the flutter stays. The Escher point again, from a new side: the staircase is endless only while every step is the same shape. A voice is a step, and its overtones belong to it. If the window weighs each overtone separately, part of the step comes in early, and you hear it.
 
 ### Where the Theory Still Has an Edge
 

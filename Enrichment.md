@@ -25,9 +25,6 @@ links:
   - target: "[[SCHEMA]]"
     type: connects-to
     label: face-not-canon
-  - target: "[[Review Layer]]"
-    type: connects-to
-    label: section-notes
   - target: "[[Hilaritas Generator]]"
     type: exemplifies
     label: a-page-that-plays
@@ -97,3 +94,7 @@ The manifest's sections all read *in step* under `fingerprint.mjs`; every made p
 ---
 
 *The version and what each run taught the ceremony: [[Enrichment — tuning]]. The first rich face: [[Kuramoto Coupling]].*
+
+## Active Baton
+
+[[Enrichment — baton — rich-face nominations 2026-10]] — drafted 2026-10-25

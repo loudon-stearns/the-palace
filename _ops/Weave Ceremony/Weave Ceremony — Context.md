@@ -100,14 +100,45 @@ Loudon decided on 2026-09-24 that ceremonies should change in plain view, and th
 
 **v1.1 (2026-09-24) — open by reading the ledger.** Tuning item 38. 1.0 asked every run what it taught and never pointed the next run at the answer, so the four owed changes sat where no weave would meet them. Step 0 now reads the tuning file — owed items first, then anything after the version the last weave ran under — and those are the run's first candidates for a spec change. Schema v1.21 made the same rule general; the Weave took it first because its ledger was the one already holding debts.
 
+**v1.2 (2026-09-25) — every run marks its ledger.** Schema v1.23 asked each run to leave a run line in its tuning ledger, but the card still said a lesson goes there only when the spec changes, so no run would have written one. Step 7 now says it: the run marks the tuning file, and a lesson that changes the spec is also a numbered item. No weave run forced it; the reason is in `033f5da5`.
+
+**v1.3 (2026-09-26) — use is read from git.** Schema v1.26 retired `activation_count` and `last_activated`, which measured who remembered to bump them. The new-arrival step, the use line, stale metadata and the dormancy proposal now read `entry-use.py`. No weave run forced it (`32cb19ed`).
+
+**v1.4 (2026-10-14) — the sweep reads the trunk.** Tuning item 40. Step 2.5 runs `trunk-state.mjs` as its sixth command, and its rows take recover, discard or leave like the rest.
+
+**v1.5 (2026-10-14) — every canon entry wears a face.** Tuning item 41; see § The Weave's Widened Charter, *Faces on every entry*.
+
 **v1.6 (2026-10-18) — a stale generated block fails the gate.** Tuning item 42. [[The Shop]]'s roster is computed by `Shop/Maker/build-roster.mjs` but committed as text, so it goes stale whenever a Specialist is added, moved or re-statused and nobody re-runs the builder. Two weaves found it stale and fixed it by hand, and both filed the fix as mechanical, which is the proof a hard gate waits for (Protocol, the note on judgment). So `lint-doc-drift.py` gained E4: it runs each generated block's own builder with `--check`, and postcondition 2e fails while a block is stale. W3 passes the builder's own warnings through for review. The linter already ran in the Deposit's check, the Return's map and the Schema Ceremony, so one check reaches a session's drift wherever someone next looks, not only at the monthly weave. A steward cycle that edits a Shop page refreshes the block itself.
 
 **v1.7 (2026-10-18) — decisions reach every page.** Tuning item 43. A propagate flag (`flag_type: propagate`) names no source entries, so no touch closes it; it carries a scope, a check, an optional pattern and a rhythm, and closes by `Palace-Resolves:` once its check is clean. Step 1c now has two kinds of flag: entry flags close by trailer or decline, with a touch read by hand (paying items 21 and 24); propagate flags are carried first, and an unfinished one leaves a `Carried flag` line for the next weave to start from. Postcondition 2b, the commit line and the report count them, and the linter gates them with `--since`. See § Decisions Reach Every Page.
+
+**v1.8 (2026-10-21) — the report names proposals owed.** Step 2's report lists the pages whose stewards have proposals waiting on Loudon's ledger review (`list-proposals.mjs --line`); the weave names them and settles none. No weave run forced it (`e559e64b`).
+
+**v1.9 (2026-10-22) — the opening builds the map and reads the diff.** Tuning item 46. The opening runs `build-map.py` and diffs against the last weave's map; Step 6.5 diffs open against close, and the report carries both.
+
+## Fewer, Better Links (2026-10-24)
+
+The October weave opened on a map that was dense and healthy by every old measure — no orphans, every page reachable, median degree 13 — and Loudon's read was that it had grown too connected and not nuanced enough. The scans agreed, in three shapes: 410 pairs carried the same relation twice (a symmetric link written on both sides, or a bare `connects-to` beside a specific link); 558 links were bare `connects-to`; and 1,028 of the 2,943 frontmatter links the scan reads pointed at a page the body never named, 354 of them with no label either. A third of the graph was saying "near" and giving no reason.
+
+Loudon's word, 2026-10-24: "I agree that all the 'connect to' links are weak, labels or removal is fine, there will be more weaves so if we remove a connection it could come back later. lets bias toward making the links high quality and lesser, and if some come back later, great." That became the Standing Order on the scroll and the turn in the card: the weave takes links away as well as adding them. A typed link is a claim with a reason — type, label, or a sentence in the body — and one without any is cut, because the palace is re-read every weave and a real connection returns with its reason. The old guard against this was the slow-metabolism rule for *new* introductions, which still holds; pruning is the exhale that rule never had.
+
+**The labels propose the types.** Once every `connects-to` carries a label, the labels are a corpus: a few hundred words the palace has used to say how two pages meet. Clustered fuzzily, the large coherent clusters are the relations the ten types never named. Loudon, 2026-10-24: "our original collection of link types was never meant to be eternal." The harvest (Step 3f) proposes; the Schema Ceremony still decides, because a type is a permanent commitment and the register ([[Resonant Link Labels]]) already warned that label inflation cheapens the types.
+
+**The unsaid link.** The unsung path had a scan since the first weave; its inverse had none. A frontmatter link whose target the body never mentions is a relation the page asserts and cannot explain. `unsaid-links.py` finds them; the disposition stays judgment — write the sentence, add the label, or cut.
+
+**Memory keeps pace with faces.** v1.5 put a hero and an icon on every canon entry; by October 316 of 325 wore both, while 20 of 324 had a Context and 3 a rich face. The pages pointed at most — Kuramoto Coupling, Spinoza Conatus, The Shop, Maker — carried no account of why they are shaped as they are. The bundle audit (Step 5d) names the memory a page's weight has earned, with a threshold low enough to catch the heavy pages and high enough to leave a small mature page alone. The rich-face nomination (Step 5e) is the weave reading the same list for Enrichment, which makes; the weave only names.
+
+**Health as a trend.** Every weave had reported numbers and none had kept them, so no weave could say whether the palace was healthier than the last one left it. The health ledger answers the Context's old question about a persistent report: not a report entry, a ledger row, the same columns every time, written at the open and the close.
+
+**Decisions first.** v1.7 put the propagate flags in Step 1c, after the full read. In practice the read should happen on pages the palace has already brought in line with what it decided, so v2.0 moves the carrying to Step 0c, before the fan-out, and has the weave close by posting flags for the standards it set itself.
+
+**v2.0 (2026-10-24) — fewer, better links; memory keeps pace with faces; health as a trend.** Tuning items 47–57. One link per pair becomes a step (3d) with a linter (`lint-link-pairs.py`), paying item 29; the hub bar moves to the top inbound decile, paying item 30; the unsaid-links scan joins the unsung-path audit (3e); label enrichment stops being a handful and settles every bare `connects-to`; the bundle audit (5d) and rich-face nominations (5e) are new steps with a script; the health ledger (6.6) is a new ledger kind; decisions move to Step 0c; workers are `palace-reader` children born with the real Jewel (item 44), a skeptic stage sits before synthesis (item 28), the worker template asks for lighter prose (item 39), and the card and the ghost linter cite the Jewel for its own line (item 45). See § Fewer, Better Links.
 
 ## Open Questions
 
 - Is median link-degree the right proxy for a new entry's catch-up target, or should it weight body-length and cross-pillar reach so a deeply-linked-but-shallow entry isn't mistaken for a healthy one?
 - The bundle-frontmatter and ghost-link checks are judgment scans today; at what point do repeated Weaves prove their mechanical core sharp enough to earn a script (the values-primary "optimize once proven" step)?
 - At what palace size should the Weave split into two passes — one for topology, one for link proposals?
-- Should the Weave produce a persistent `Weave Report — [date].md` entry as a record of each Weave? This would make the palace's growth history traversable.
-- Is there a minimum Weave that can be done in under 15 minutes for maintenance during an active work period, distinct from the full monthly Weave?
+- Answered in v2.0: the record of each weave is a row in the health ledger, not a report entry; the HTML report stays in the session folder.
+- Is there a minimum Weave that can be done in under 15 minutes for maintenance during an active work period, distinct from the full monthly Weave? v2.0 sketches one without naming it: Step 0c (decisions), the link-pairs and unsaid scans with their mechanical folds, the face audit and the linters — no fan-out. Not yet run.
+- When do `lint-link-pairs.py` and `unsaid-links.py` earn a gate? The rule: two clean runs prove the fold mechanical. The October weave is the first.

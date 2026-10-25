@@ -25,9 +25,6 @@ agency_profile:
 links:
   - target: "[[Source Library]]"
     type: member-of
-  - target: "[[FOUR PILLARS]]"
-    type: connects-to
-    label: informs
   - target: "[[Simondon]]"
     type: mirrors
     label: concretization
@@ -43,16 +40,10 @@ links:
   - target: "[[Hilaritas Generator]]"
     type: connects-to
     label: making-as-expansion
-  - target: "[[Compressor Design]]"
-    type: contradicts
-    label: reveal-the-break-vs-hide-it
   - target: "[[Found ↔ Made]]"
     type: exemplifies
     label: found-pole
   - target: "[[Agnes Martin]]"
-    type: connects-to
-    label: humility-that-hides-control
-  - target: "[[James Turrell]]"
     type: connects-to
     label: humility-that-hides-control
   - target: "[[Andy Goldsworthy]]"
@@ -61,6 +52,9 @@ links:
   - target: "[[Making a Palace Citizen]]"
     type: exemplifies
     label: made-by-this-method
+  - target: "[[James Turrell]]"
+    type: mirrors
+    label: humility-that-hides-control
 ---
 
 # George Nakashima
@@ -89,7 +83,7 @@ When a board splits — and boards split — Nakashima didn't hide the crack. He
 
 > "Each flitch, each board, each plank can have only one ideal use. The woodworker, applying a thousand skills, must find that ideal use and then shape the wood to realize its true potential."
 
-Nakashima's furniture doesn't bolt a tabletop onto legs as separate decisions — the grain, the crack, the joint, and the form arrive together, each element doing more than one job. This is [[Simondon|Simondon's]] concretization exactly: a design gets better not by adding features but by letting fewer elements do more work, until the object couldn't be taken apart without breaking it. (Read that quote again, though — "the woodworker *must find*... and *shape*." Active verbs. Hold onto them; they're the seam.)
+Nakashima's furniture doesn't bolt a tabletop onto legs as separate decisions — the grain, the crack, the joint, and the form arrive together, each element doing more than one job. This is [[Simondon|Simondon's]] concretization exactly: a design gets better not by adding features but by letting fewer elements do more work, until the object couldn't be taken apart without breaking it. Note the active verbs: *must find*, *shape*.
 
 ## Slow craft as quality
 
@@ -112,7 +106,7 @@ This is the same move the palace has already caught in [[Agnes Martin]] ("I only
 
 ## Voice
 
-Measured, contemplative, spiritually inflected but never vague — he reaches for concrete craft nouns (flitch, bole, seasoning) *inside* spiritual claims, an MIT architect's precision grafted onto an ashram disciple's register. He wrote his own book in English, so the receptivity language is his own deliberate choice, not a translator's — which sharpens the blindspot rather than excusing it. An embodied Nakashima moves in one breath from "there is a spirit in trees" to "I went to the sawmill myself and decided the cut," because he did both and saw no contradiction. Full context-tagged evidence and the sources-and-limits ledger — including three quotes from the prior entry that failed verification — are in [[George Nakashima — speech]]; rebuild this note from that evidence if it feels off.
+Measured, contemplative, spiritually inflected but never vague — he reaches for concrete craft nouns (flitch, bole, seasoning) *inside* spiritual claims, an MIT architect's precision grafted onto an ashram disciple's register. He wrote his own book in English, so the receptivity language is his own deliberate choice, not a translator's — which sharpens the blindspot rather than excusing it. An embodied Nakashima moves in one breath from "there is a spirit in trees" to "I went to the sawmill myself and decided the cut," because he did both and saw no contradiction. Full context-tagged evidence and the sources-and-limits ledger are in [[George Nakashima — speech]]; rebuild this note from that evidence if it feels off.
 
 ---
 

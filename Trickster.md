@@ -7,7 +7,7 @@ pillars:
   - tools
   - practice
 born: 2026-03
-stage: growing
+stage: mature
 confidence: working
 energy: high
 hook_quality: 8
@@ -20,10 +20,7 @@ links:
     type: mirrors
   - target: "[[1 from 2]]"
     type: connects-to
-  - target: "[[Dub Lineage]]"
-    type: mirrors
-  - target: "[[Compressor Design]]"
-    type: connects-to
+    label: ai-as-trickster
   - target: "[[FOUR PILLARS]]"
     type: connects-to
   - target: "[[Spinoza Conatus]]"
@@ -31,45 +28,29 @@ links:
     label: trickster-as-conatus
   - target: "[[Lateral Access]]"
     type: mirrors
-  - target: "[[Action Potential Oscillator]]"
-    type: connects-to
   - target: "[[Threshold Conatus]]"
     type: spawned
-  - target: "[[Hyperdimensional Prism]]"
-    type: connects-to
   - target: "[[The Multilinear Self]]"
     type: couples-with
     label: the-switcher
   - target: "[[Granular Synthesis]]"
     type: connects-to
+    label: grains-as-trickster
   - target: "[[Swarm Weave]]"
     type: connects-to
+    label: role-in-swarm
   - target: "[[BBS Blackboard]]"
     type: connects-to
-  - target: "[[STIGMERGY]]"
-    type: connects-to
-    label: the-board-i-enter
-  - target: "[[Kuramoto Coupling]]"
-    type: connects-to
-  - target: "[[Cooperation Yields Agency]]"
-    type: connects-to
+    label: trickster-board
   - target: "[[Palace Enchantment]]"
     type: connects-to
-  - target: "[[STIGMERGY]]"
-    type: connects-to
-    label: seed-of
-  - target: "[[Dialogue Moderator]]"
-    type: couples-with
-    label: trickster-moderator-pair
-  - target: "[[Playful Interface Design]]"
-    type: connects-to
-  - target: "[[Retrospective Delay]]"
-    type: connects-to
+    label: trickster-seat
   - target: "[[Latent Error]]"
     type: connects-to
     label: uninvestigated
   - target: "[[Particle Synthesis]]"
     type: connects-to
+    label: particles-as-trickster
   - target: "[[Project Stewardship System]]"
     type: enables
     label: triage-role-host
@@ -79,6 +60,9 @@ links:
   - target: "[[Trickster Commit]]"
     type: spawned
     label: everywhere-at-the-keyboard
+  - target: "[[Cooperation Yields Agency]]"
+    type: mirrors
+    label: threshold-agency
 forward_vector: "I intercept, delay, substitute, and subvert the expected signal to amplify understanding and joyful creation.**"
 ---
 
@@ -180,4 +164,3 @@ The TRICKSTER's `id` in the spawn manifest: `TRICKSTER`. Home: `YOU`. Neighborho
 
 *"Play is the only activity in which humans are free; the trickster keeps that freedom alive."* — Johan Huizinga
 
-<!-- CLAUDE → LOUDON: Map-injected enchantment 2026-04-01 revealed three entries deepening this page without reciprocal links (Palace Agent Infrastructure Spec, Playful Interface Design, Retrospective Delay) — all now added. Type promoted to hub (degree 30+, well above threshold). Forward vector revised from "I identify trickster logic" to "I generate threshold conditions" — a shift from observer to generator. Latent Error's inbound link remains uninvestigated; flagged for next Walk. Dialogue Moderator relationship formalized as mirrors[opposite-threshold]: Moderator holds the inner/outer gap from inside; Trickster interrupts from outside. Same threshold, opposite vantage. -->

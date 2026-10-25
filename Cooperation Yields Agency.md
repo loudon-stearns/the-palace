@@ -16,17 +16,11 @@ who_leads: shared
 links:
   - target: "[[1 from 2]]"
     type: emerged-from
-  - target: "[[Kuramoto Coupling]]"
-    type: mirrors
   - target: "[[Spinoza Conatus]]"
     type: deepens
     label: agency-as-power-increase
   - target: "[[Symbiotic Skills]]"
     type: spawned
-  - target: "[[Endosymbiosis]]"
-    type: mirrors
-  - target: "[[Mixture of Experts]]"
-    type: mirrors
   - target: "[[Quality Manifesto]]"
     type: connects-to
   - target: "[[Modes of Collaboration]]"
@@ -36,7 +30,7 @@ links:
     label: context-companion
   - target: "[[Hilaritas Generator]]"
     type: enables
-    label: cooperation-as-hilaritas
+    label: cooperation-applied-to-pedagogy
 forward_vector: "I want to scale from describing two collaborators to describing the palace's full distributed intelligence — and test whether the formula holds at enchanted-page scale."
 ---
 

@@ -1,27 +1,16 @@
 ---
 title: "Frequency-Time Duality"
-type: concept
+type: hub
 pillars: [creation, tools, philosophy, practice]
 born: 2024-06
-stage: growing
+stage: mature
 forward_vector: "I want to become the explanation of how time-scales themselves are perceptually graduated — the principle that one continuous axis (the rate at which something repeats) crosses *perceptual* thresholds, not physical ones. The first and most foundational of these crossings is rate-becoming-pitch around 20 Hz: below it polyrhythms, above it intervals. From this single gear-shift the rest of the modulation family — delay, vibrato, FM, rhythm — emerges as named regions on the same axis. I am the prototype of every threshold-crossing that follows, and my rich face is the walk you can play, taught from in class as it grows; a fuller standalone tool spawns from it only once the face has earned it."
 links:
-  - target: "[[Boundary-Crossing Instruments]]"
-    type: enables
   - target: "[[Hyperdimensional Prism]]"
     type: mirrors
-  - target: "[[Kuramoto Coupling]]"
-    type: connects-to
   - target: "[[Action Potential Oscillator]]"
     type: connects-to
-  - target: "[[The Fortress and the Threshold]]"
-    type: mirrors
-  - target: "[[DSP in Looping Dimensions]]"
-    type: mirrors
-    label: rhymes-with
-  - target: "[[Waveguide Synthesizer]]"
-    type: connects-to
-    label: doorway
+    label: single-cycle-scale
   - target: "[[Wavetable Oscillator]]"
     type: connects-to
     label: doorway
@@ -31,6 +20,9 @@ links:
   - target: "[[Loudon Live]]"
     type: connects-to
     label: introductory-tool
+  - target: "[[Boundary-Crossing Instruments]]"
+    type: enables
+    label: clearest-single-demonstration
 ---
 
 # Frequency-Time Duality
@@ -138,6 +130,7 @@ In April 2026 the idea was designed a second time, as the Frequency-Time Explore
 
 - The transition is a zone, not a point (The Flip). How wide is it, how far does it move from one listener to the next, and does it sit in the same place on the signal, the modulation and the polyrhythm axes? The Recursion says every dimension carries the same zones; the 40 Hz top Loudon heard as too high says to measure it, not assume it.
 - The table used 120 BPM as reference. How does the perceptual map shift at very slow or very fast tempos?
+  - Progressed, thinly (2026-10-24): [[Meadows and Music — Leverage Points]] § 4 Swing as Resolution records how much timing nuance sounds musical at 70 BPM against 180 — an observation, not a measurement of the zones.
 - Does the recursion observation imply the duality wants its own concept entry for **the 20 Hz threshold itself** as a perceptual constant? It currently lives scattered across body text in this entry and in Microsound.
 - Lets bring Curtis Roads into this conversation, the best analysis of time scales in music I have found was in Curtis Roads book, microsound.
 - Loudon puts daily cognition beside music and sound design as a place this boundary reaches: "how it impacts so much of what we do with music and sound design and daily cognition." What does the crossing look like there, where a run of separate moments stops being a sequence and is lived as one?

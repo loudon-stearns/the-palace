@@ -6,7 +6,7 @@ pillars:
   - practice
   - tools
 born: 2026-07
-stage: sprout
+stage: growing
 energy: very high
 hook_quality: 9
 beauty: 8
@@ -40,6 +40,9 @@ links:
   - target: "[[Identity Molting]]"
     type: couples-with
     label: continuity-across-the-molt
+  - target: "[[Dialectic]]"
+    type: connects-to
+    label: the-debate-sharpens
 ---
 
 # The Remembering Page

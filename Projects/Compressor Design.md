@@ -14,14 +14,6 @@ links:
     label: object-to-think-with
   - target: "[[Boundary-Crossing Instruments]]"
     type: connects-to
-  - target: "[[Harmonicity and Inharmonicity]]"
-    type: connects-to
-  - target: "[[Hyperdimensional Prism]]"
-    type: connects-to
-  - target: "[[FOUR PILLARS]]"
-    type: enables
-  - target: "[[Granular Synthesis]]"
-    type: connects-to
   - target: "[[Trickster]]"
     type: connects-to
     label: soft-knee-hides-discontinuity
@@ -49,7 +41,7 @@ Instead of `slide~` or exponential smoother, a FILO (First-In-Last-Out) circular
 
 The 500-sample window is 11ms at 44.1kHz. This is below the perceptual attack threshold of ~20ms, but audible enough that students experience the trade-off concretely. When they increase the window to 1000 samples, the compressor becomes sluggish. When they shrink it to 100 samples, the response becomes twitchy. The number is no longer abstract — it is time they can hear.
 
-The same buffer, stretched to about a second, is the heart of [[Retrospective Delay]]: there it holds a phrase instead of an envelope. One primitive at two time scales — below perception here, fully perceptual there — so whoever builds both meets the same shape twice, and the recognition is worth naming out loud.
+The same buffer, stretched to about a second, is the heart of [[Retrospective Delay]]: there it holds a phrase instead of an envelope. One primitive at two time scales — below perception here, fully perceptual there — so building both meets the same shape twice.
 
 ## Soft Knee Mathematics
 
@@ -80,6 +72,6 @@ Each edge case is a teaching moment. By the time a student implements all four, 
 
 ## Cross-Domain Resonance
 
-The soft knee's quadratic blend is structurally identical to the easing curves used in animation and UI design. A designer and a DSP engineer are solving the same mathematical problem: how to smoothly transition between two states without introducing artifacts. This connection, once seen, cannot be unseen. It appears in [[Boundary-Crossing Instruments]] — the recognition that signal flow and information flow are the same topology, expressed in different materials.
+The soft knee's quadratic blend is structurally identical to the easing curves used in animation and UI design. A designer and a DSP engineer are solving the same mathematical problem: how to smoothly transition between two states without introducing artifacts. This connection, once seen, cannot be unseen. It is the [[Boundary-Crossing Instruments|Boundary-Crossing]] pattern: reframe the compression ratio as slope and the wall at infinite ratio disappears.
 
 

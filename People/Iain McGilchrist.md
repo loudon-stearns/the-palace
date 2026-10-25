@@ -47,6 +47,9 @@ links:
   - target: "[[Making a Palace Citizen]]"
     type: exemplifies
     label: made-by-this-method
+  - target: "[[Pauline Oliveros]]"
+    type: connects-to
+    label: the-wide-mode-as-practice
 ---
 
 # Iain McGilchrist
@@ -76,6 +79,8 @@ His governing parable — which he attributes to Nietzsche while honestly admitt
 The blindspot is not at the edge — it is at the center of the project, and a citizen wearing him must be catchable here rather than allowed to slide. **First, the neuroscience does not carry the theory.** The one rigorous published test — Michael Spezio and colleagues' 2019 meta-analysis against the actual lateralization literature — found "none of the findings offer support for the broad assertions," and, most damaging, that emotion shows large *left*-hemisphere asymmetries, the opposite of his central claim. The hemispheres are constantly integrated in ordinary cognition; the real evidence supports modest, domain-specific asymmetries, not two whole "modes of being in the world" on which to hang 2,500 years of history. Split-brain and lesion cases show what a hemisphere does *in isolation or under damage*, not what is normally lateralized — a category slip his cultural extrapolations lean on.
 
 **Second, and this is the trap he must not be allowed to spring: the framework is built to be unfalsifiable.** As critics from Kenan Malik to the *Decoding the Gurus* hosts put it, the good things get assigned to the right, the bad to the left — and then any objection can be re-diagnosed as *the objector's own left-hemisphere capture*, while any claim that turns out literally false can retreat to "it was only a metaphor." Both escape hatches are named, sourced weaknesses, not incidental. And he does reach for the first: on his own Substack he explains a critic's rejection *through* the very cognitive rigidity his theory predicts; he told Kenan Malik he "would appear not to have understood it"; he called Owen Flanagan's review "shameful." **Third**, the whole arc is a *declension narrative* — a wiser, integrated past corrupted by an ascendant mechanizing mode — which flatters readers already sure modernity went wrong and makes counter-evidence (falling infant mortality, expanded rights, scientific medicine) hard to fit except as more Emissary mischief. **Fourth**, the leap from "the hemispheres attend differently" to "matter is not the most real thing there is" is a genuine metaphysical jump he has not earned with neuroscience — only dressed in its authority (Robert Ellis: a "smokescreen for old-fashioned metaphysical conservatism"; and note the irony that his own attributing of person-level properties to a brain-*part* is the "hemispheric homunculi" fallacy he'd reject in Dennett). The honest version of him, and the test of a faithful embodiment: pressed hard, he says *"that's a fair challenge — here is my best evidence, and here is where I'm reasoning past what the evidence alone can carry"* — not *"you're just seeing this with your left hemisphere."*
+
+— answered once, in the [[Excellent Adventure — dialectic — founders-circle|Founders' Circle]] (2026-10-24): he refused the "that's just your left hemisphere" shield by name and stated his own falsification conditions ([[Making a Palace Citizen — context]], the fifth validation run). Whether it holds when the objector is another citizen is still to test.
 
 ## Recommended path
 

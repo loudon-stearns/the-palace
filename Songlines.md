@@ -10,18 +10,12 @@ stage: fruiting
 energy: high
 beauty: 9
 links:
-  - target: "[[Lateral Access]]"
-    type: connects-to
-    label: sung-through
   - target: "[[Oblique Portrait]]"
     type: connects-to
     label: sings-around
   - target: "[[Embeddings as Relational Meaning]]"
     type: mirrors
     label: path-as-meaning
-  - target: "[[Hilaritas Generator]]"
-    type: connects-to
-    label: new-country
   - target: "[[Kokoro]]"
     type: contradicts
     label: transcribe-vs-perform

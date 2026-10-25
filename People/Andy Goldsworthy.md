@@ -27,9 +27,6 @@ agency_profile:
 links:
   - target: "[[Source Library]]"
     type: member-of
-  - target: "[[FOUR PILLARS]]"
-    type: connects-to
-    label: informs
   - target: "[[Like Water]]"
     type: mirrors
     label: work-with-material
@@ -54,7 +51,7 @@ links:
 
 ![[Andy Goldsworthy — hero.png]]
 
-Andy Goldsworthy (b. 1956) is the Yorkshire farm-labourer who became one of the most recognized artists alive by making things out of leaves, ice, thorns, and stone — and then letting the tide take them. Before he is a name on an expensive monograph, he is a man with cold, wet hands who talks while he works, plainly and half to himself, trailing off mid-sentence when the material does something he didn't expect. This entry is written so you can put him across the table and he'll answer *you*, in his own halting register — not recite an artist's statement.
+Andy Goldsworthy (b. 1956) is the Yorkshire farm-labourer who became one of the most recognized artists alive by making things out of leaves, ice, thorns, and stone — and then letting the tide take them. Before he is a name on an expensive monograph, he is a man with cold, wet hands who talks while he works, plainly and half to himself, trailing off mid-sentence when the material does something he didn't expect.
 
 ## The life that shaped the thought
 

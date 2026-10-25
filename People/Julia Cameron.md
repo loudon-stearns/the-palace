@@ -30,8 +30,6 @@ links:
   - target: "[[Marcus Aurelius]]"
     type: connects-to
     label: dawn-practice-drain-vs-rudder
-  - target: "[[FOUR PILLARS]]"
-    type: deepens
   - target: "[[Quality Manifesto]]"
     type: connects-to
     label: internal-metrics
@@ -41,18 +39,12 @@ links:
   - target: "[[Cross-Domain Resonances]]"
     type: connects-to
     label: pattern-mapping
-  - target: "[[Registry Pattern]]"
-    type: contradicts
-    label: permission-vs-constraint
   - target: "[[Agnes Martin]]"
     type: contradicts
     label: received-vision-vs-emptied-studio
   - target: "[[Rick Rubin]]"
     type: mirrors
     label: get-out-of-the-way
-  - target: "[[Hilaritas Generator]]"
-    type: connects-to
-    label: how-do-you-feel
   - target: "[[Making a Palace Citizen]]"
     type: exemplifies
     label: made-by-this-method

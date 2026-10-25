@@ -13,19 +13,12 @@ forward_vector: "I render locally with byte-exact reproducibility — workflow J
 links:
   - { target: "[[Maker]]", type: connects-to, label: directed-by }
   - { target: "[[The Shop]]", type: member-of, label: roster-member }
-  - { target: "[[ControlNet Workflow Mastery]]", type: connects-to, label: control-mastery }
   - target: "[[Kuramoto Coupling]]"
     type: connects-to
     label: first-brief
   - target: "[[Loudon Live]]"
     type: enables
     label: image-engine
-  - target: "[[RunPod GPU Backend]]"
-    type: connects-to
-    label: cloud-path
-  - target: "[[FLUX (Hugging Face)]]"
-    type: connects-to
-    label: cloud-sibling
   - target: "[[Loudon Live Design System]]"
     type: enables
     label: renders-the-lesson-art
@@ -182,7 +175,7 @@ When local VRAM stops being enough (Flux Pro, video generation, batch Pieces) th
 
 **2026-05-26 — Polling silence during MPS model load is normal.** First render after starting the server stayed in "queued" state for ~100 s before the ComfyUI history endpoint returned any progress, then completed in another ~10 s. Subsequent renders should be faster because the checkpoint stays in unified memory. The poll loop should not interpret a long queued state as an error — set a generous timeout (10 min for first-render SDXL at 30 steps / 1216×832 on MPS) and let it cook. The `fireflies-pond-render.py` driver lives in the bundle as a reference implementation.
 
-**2026-05-26 — Host-capability check (resolved).** The earlier 2026-05-26 host-capability gotcha is now resolved — the install steps are above, and the Specialist is alive with a real first recipe. The first Track-A job that would have exercised this Specialist — a "fireflies synchronizing over a forest pond at dusk" image at the Kuramoto arc's palette — bounced at the host-capability-check step. No ComfyUI in `~/ComfyUI` or `/Applications`, no `comfyui` on PATH. Install cost is real: `git clone` ComfyUI, a Python venv with torch + xformers + 30+ custom-node dependencies, and at minimum one checkpoint (SDXL ~7 GB, Flux Dev ~24 GB). Marking the Specialist as awaiting install rather than dispatching anyway. The frontier brief — fireflies over a forest pond — is captured in the open questions for the next install pass.
+**Install cost is real.** A venv with torch and at least one checkpoint (SDXL ~7 GB, Flux Dev ~24 GB).
 
 *(Patterns below from ComfyUI community wisdom — confirmed and dated only on first encounter:)*
 
@@ -207,10 +200,13 @@ Last run: **2026-05-30** — Smoke pass via existing-artifact verification (`Kur
 ## Open Questions
 
 - Which base models to keep installed by default? Flux Schnell + SDXL is a reasonable starting kit (~30GB). Adding Flux Dev (~24GB) is the upgrade path.
+  — progressed: SDXL is settled locally — [[ComfyUI — local-install]] holds SDXL base and three SDXL ControlNets (canny, depth, openpose) under `_tools/ComfyUI/`. Flux Dev is the open half.
 - Should the Shop maintain a library of base workflow JSONs (`sketch.json`, `study.json`, `piece.json`) that the Maker injects prompts into? This is the right answer for reproducibility, and it's how the tier presets actually work mechanically.
 - Training a Loudon Live LoRA on a small reference set — when does this become worth the effort? Answered operationally by [[Shop/LoRA Trainer]]: a hardened recipe on a rented GPU, its gotchas, and a DreamBooth control to grade against. The effort is now one known run; the lever it found is the dataset, not the steps.
 - When does the Maker route to cloud (RunComfy etc.) vs. local? Likely: any Piece needing Flux Pro, any batch over ~20 Pieces, any render that would block other work for over an hour.
+  — answered on [[RunPod GPU Backend]] § Serverless vs. Pod and [[Shop/Maker|Maker]] § Host Capability Check (2026-10-24): GPU work the Mac can't carry goes to RunPod — serverless for spiky batches, a pod for ControlNet and iteration.
 - **ControlNet is being exercised for the first time** via [[ControlNet Workflow Mastery]] — a four-modality (lineart / canny / scribble / depth) control-modality shootout on SDXL + ControlNet-Union. The capability was listed from day one but never run; that practice entry and its bundle harness close the gap, pending the Mac run.
+  — answered on [[Shop/Blender|Blender]] § Recipes (2026-10-24): the 2026-06-13 conditioning keystone ran multi-ControlNet (pose + depth + canny) through ComfyUI on MPS.
 
 ## Lost Branches
 

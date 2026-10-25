@@ -14,9 +14,6 @@ links:
   - target: "[[Generative Audio Devices]]"
     type: couples-with
     label: eventual-convergence
-  - target: "[[Generative Preset Development]]"
-    type: couples-with
-    label: content-meets-configuration
   - target: "[[Generative Wavetable Libraries]]"
     type: spawned
     label: split-off
@@ -29,16 +26,12 @@ links:
   - target: "[[Substrate Skill]]"
     type: connects-to
     label: stage-conditional-posture-source
-  - target: "[[Project Stewardship System]]"
-    type: connects-to
-    label: stage-mismatch-case-study
-  - target: "[[Retrospective Delay]]"
-    type: connects-to
   - target: "[[Shepard Tone Synthesizer]]"
     type: deepens
     label: timbral-source
   - target: "[[Neural Granular Synthesis]]"
     type: connects-to
+    label: sample-source
   - target: "[[Modes of Collaboration]]"
     type: connects-to
     label: interview-as-mode
@@ -48,6 +41,9 @@ links:
   - target: "[[Splice Instrument Forge]]"
     type: spawned
     label: splice-arm
+  - target: "[[Project Stewardship System]]"
+    type: connects-to
+    label: stage-A-pilot
 forward_vector: "I will become a chat-driven generator of multisampled instruments — Claude conducts the interview, draws audio from any source (palace synthesis, the web, AI sub-agents), and renders a playable sample library in any open sampler format requested."
 ---
 
@@ -231,7 +227,7 @@ The plan — what comes next, agreed with Loudon — lives on [[Generative Sampl
 
 2. **Audition cycle before full batch.** The interview ends with: render the smallest unit that exercises every voice, source, and parameter combination. Pause. Wait for explicit user "good" or "fix this." Only after acceptance does the full batch proceed. This is not a courtesy — it is the only verification path for sensory deliverables (TTS pronunciation, timbral character, motion easing, anything where correctness is experienced rather than inspected).
 
-**Why both gates are mandatory:** The Phase 1 Talking Keyboard build (May 2026) demonstrated the cost. We had a working test mode that produced four valid WAVs — but we treated *files exist* as *files are right* and committed to the full 352-file batch without auditioning the test output. Kokoro pronounced the letter "A" as the indefinite article ("uh") rather than the letter name; the bug was inaudible to code review and invisible to spec review, but obvious in the first second of listening. Only sensory verification catches sensory bugs. The audition cycle exists specifically to make this catch automatic. See also [[Substrate Skill]] § Stage as Alignment Confidence for the underlying principle.
+**Why both gates are mandatory:** the Phase 1 lesson above — files that exist are not files that are right, and only listening caught Kokoro's "A".
 
 **Why this is Phase 2 and not later:** Without it, the interview reinvents itself every session and Claude's questions drift in quality. Codifying early means the next instrument benefits from everything learned in Phase 1. This is also where the [[Modes of Collaboration]] entry's open question — can modes be combined deliberately — gets a concrete test: the Build Session enters through the Interview.
 
@@ -264,24 +260,11 @@ Wavetable formats moved to [[Generative Wavetable Libraries]] on 2026-05-02.
 
 ---
 
-## Palace Connections
-
-- **[[Crystal Synthesizer]]** — first real palace-synthesis source the pipeline integrates with; phonon mode synthesis becomes the sample source
-- **[[Shepard Tone Synthesizer]]** — Shepard tones become a perpetual-tone sustain instrument when multisampled
-- **[[Neural Granular Synthesis]]** — neural synthesis audio becomes a granular sample bank
-- **[[Generative Audio Devices]]** — eventual convergence: this project generates the content; that project generates the shells
-- **[[Generative Wavetable Libraries]]** — sister project carrying the wavetable thread; same backbone, different format family
-- **[[Talking Keyboard]]** — Phase 1 pilot; canonical case for the audition-cycle hard gate
-- **[[Phoneme Choir]]** — Phase 1.x percussive pilot; canonical case for the responsive-onset pipeline step and for Kokoro's syllabification constraint
-- **[[Modes of Collaboration]]** — the interview pattern in this project is itself a Mode of Collaboration; Phase 2 makes it durable
-- **[[Four Pillars]]** — student-deployable instruments via DecentSampler align with the pedagogical scaffold
-
----
-
 ## Open Questions
 
 - What is the minimum number of samples across the keyboard before a multisample instrument sounds natural? Depends on timbre consistency: more for sources whose timbre shifts strongly with pitch, fewer for sources whose timbre stretches well.
 - For AI-audio sub-agents specifically: does Claude critique the candidate audio before regenerating, or does Loudon? Probably Loudon-led with Claude offering analysis. Worth testing both in Phase 3.
+  — progressed: on the [[Generative Sample Libraries — scroll|scroll]], pitch detection screens the takes and Loudon judges by ear (`gsl-steward-047`: "Musicgen is ok, the violin has an odd attack …"); `gsl-steward-077` asks him which keys give the violin away, so only those re-render.
 - When we generate sample libraries for student use, what is the right licensing model? Original synthesis is owned outright. Sampled or AI-generated content has more complex provenance.
 - ~~Where does the Interview skill (Phase 2) live in the palace's skill ecosystem?~~ **Settled 2026-05-03:** project-local at `_ops/sample-libraries/skills/interview/SKILL.md`. Promotion to user-skill space deferred until Phase 3 multi-source validation (see Phase 2 § Home).
 
@@ -294,7 +277,5 @@ This page is tended by a permanent steward and **may lag its live state** — th
 - **Scroll (the live front door):** [[Generative Sample Libraries — scroll]] — where it stands now, standing orders, and everything shipped, newest first; open it on STIGMERGY's PROJECTS deck
 - **Steward state + history:** `_ops/agents/permanent/generative-sample-libraries/`
 - **Live thread (BBS):** session `permanent-stewardship-2026-05-03` — open in STIGMERGY
-- **As of last consolidation:** cycle 17 (2026-06-23) · no blocking auditions · Phase 3 sources one and two shipped (Crystal Hexagonal · Shepard-tone) · Interview skill `status: active`, user-skill-space deposit still pending
-- **Not yet folded in here:** the full Crystal (Hexagonal) instrument lives at `Projects/Generative Sample Libraries/crystal-instrument/` (88 notes A0–C8 × 2 velocity layers, 176-region SFZ); the Shepard-tone instrument lives at `Projects/Generative Sample Libraries/shepard-instrument/` (12 octave-class WAVs, 191-line SFZ, interior-loop seam <0.07 dB by measurement) coordinated with the [[Shepard Tone Synthesizer]] steward via `gsl-steward-017` SECOND-PALACE; the Interview skill at `_ops/sample-libraries/skills/interview/SKILL.md` has been `status: active` since `gsl-steward-012` APPROVE (cycle 9) with a deposit proposal drafted at `Projects/Generative Sample Libraries/interview-skill-promotion-proposal.md` to move it to `/skills/sample-library-interview/SKILL.md` — not yet committed; the F1 12.7-cent bottom-octave wrinkle is FFT-bin quantization in the verifier, not a synthesis artifact; Phase 3 source three (local WAV folder via librosa pitch detect) is the next named direction in the steward's baton but not yet scaffolded.
 
 This footer is placed at enchantment and pruned at consolidation. See [[Drift and Consolidation]].

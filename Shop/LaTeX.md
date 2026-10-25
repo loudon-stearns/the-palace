@@ -145,7 +145,7 @@ Capability probe, **2026-06-09**: (1) **PDF path PASS** — minimal `amsmath` do
 ## Open Questions
 
 - A `palace.sty` shared preamble — the Loudon Live type stack (`fontspec` Anton / Cormorant Garamond / Manrope / JetBrains Mono), the six-skin palette as `xcolor` definitions, microtype defaults — so every document inherits the design system the way charts inherit `palaceTokens()`. Defer to first real job.
-- ~~Should the `TEXPSHEADERS` export live in a shared shim that both this Specialist and Manim source, rather than as tribal knowledge in two gotchas?~~ **Resolved 2026-06-09** — it lives in `Shop/Maker/tex-env.sh` (Shop machinery, beside `host-capability.json`). Open sub-question: move it to `_ops` if a non-Shop caller ever needs it.
+- Should `Shop/Maker/tex-env.sh`, the shared `TEXPSHEADERS` shim, move to `_ops` if a non-Shop caller ever needs it?
 - `beamer` vs. Remotion vs. an HTML deck for Loudon Live slides — when does typeset-static win over web-motion? The boundary is probably "math density and print fidelity."
 
 ## Lost Branches

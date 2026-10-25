@@ -178,7 +178,7 @@ export function buildQueue(messages) {
     }
 
     // A propagate flag is a decision Loudon already made; a GRANT/DENY on the
-    // board neither finishes nor retires it (Weave Ceremony Step 1c), so it stays.
+    // board neither finishes nor retires it (Weave Ceremony Step 0c), so it stays.
     if (p.kind === 'weave_flag' && (p.flag_type === 'propagate' || !responded.has(m.id))) {
       // source_entries is an array of entry titles. We expose it as `entries`
       // on the queue item so reconcileQueue's array-aware entry-touch path
@@ -538,7 +538,7 @@ export function reconcileQueue(items, commits) {
 }
 
 // The weave flags' own close rules, the ones `_ops/swarm/lint-weave-flags.py`
-// gates the Weave with (Weave Ceremony Step 1c), and nothing else:
+// gates the Weave with (Weave Ceremony Step 0c), and nothing else:
 //   - a commit carrying `Palace-Resolves: <id>` closes any weave flag;
 //   - a `Declined flag <id>: <reason>` line closes an entry flag, never a
 //     propagate flag (only Loudon retires one, by a trailer on his word);

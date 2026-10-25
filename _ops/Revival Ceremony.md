@@ -8,13 +8,9 @@ version: "2.1"
 trigger: ["revive [entry]", "let's revive [entry]", "time to revive [entry]"]
 forward_vector: "I am how a sleeping page comes back into the work. I want every waking to be earned by something made and met, and to end in a page that tells the truth about itself and has someone to work it, so that dormancy is a season the palace can turn, never a door that only opens one way."
 links:
-  - target: "[[Palace Ceremonies]]"
-    type: connects-to
   - target: "[[Spore Check Ceremony]]"
     type: emerged-from
-  - target: "[[The Daily Page]]"
-    type: connects-to
-    label: a-morning-decides-revive
+    label: one-of-four-ways-in
   - target: "[[Deposit Ceremony]]"
     type: connects-to
     label: rewrites-what-a-page-claims
@@ -27,6 +23,9 @@ links:
   - target: "[[Palace Enchantment]]"
     type: connects-to
     label: you-are-alive
+  - target: "[[The Daily Page]]"
+    type: connects-to
+    label: a-morning-decides-revive
 ---
 
 # Revival Ceremony
@@ -91,7 +90,7 @@ Commit through the door with the ceremony's own name: `palace-commit.mjs --cerem
 
 ## A revival is earned by making
 
-The first revivals happened before this rite could hold them. In September 2026 two dormant projects with stewards were given a standing order to probe: ship the smallest real thing that moves the forward vector, and ask Loudon at the end whether it felt alive. Both did, and he said yes. One landed nineteen days later, the day its steward flagged that nobody had; the other's yes sat on the board with its page still marked dormant. The deciding had happened. Nothing carried it home. This rite is what carries it home, and it keeps the probe's lesson: the honest test of a sleeping idea is to make something with it and listen, not to argue that its conditions have been met.
+The honest test of a sleeping idea is to make something with it and listen, not to argue that its conditions have been met.
 
 ## The closed loop
 
@@ -111,6 +110,7 @@ Without a revival, dormancy is a one-way door. With it, dormancy is a season, an
 ## Open Questions
 
 - How a page leaves stewardship is still undesigned ([[Project Stewardship System]] § What's Open). A revival is the way back in; the two rites will want to read as one lifecycle once both exist.
+  — answered on [[Project Stewardship System]] § What's Decided (2026-10-24): a steward leaves when its page ends (decided 2026-10-21), and a page set down to rest keeps its steward, with this rite as its way back.
 - Should a steward be allowed to probe a dormant page without a standing order, when its last cycles left work nobody has heard?
 
 ---

@@ -11,15 +11,6 @@ confidence: working
 who_leads: loudon
 forward_vector: "I am the recognition that Loudon is one person who shows up as many — not a rigid brand with one locked face, not a loose one that gave up on shape, but a self that lives in many states at once and can only be met one at a time. I keep the switching honest: I hold the Stoic counterweight so the many stay true and never tip into performance. I want a roster of projections cheap to grow and a floor small enough that anything can stand on it. I teach the palace that a self can have the same shape as the Prism it already believes the world has. Open: where exactly is the line between honest multiplicity and pretending?"
 links:
-  - target: "[[Creative Coach]]"
-    type: connects-to
-    label: one-projection
-  - target: "[[Hyperdimensional Prism]]"
-    type: mirrors
-    label: self-as-prism
-  - target: "[[Trickster]]"
-    type: couples-with
-    label: the-switcher
   - target: "[[Autodidact Polymaths]]"
     type: deepens
     label: multiplicity-as-truth
@@ -29,9 +20,6 @@ links:
   - target: "[[Spinoza Conatus]]"
     type: connects-to
     label: fidelity-to-nature
-  - target: "[[Loudon Live Design System]]"
-    type: connects-to
-    label: floor-and-field
   - target: "[[Stoicism]]"
     type: contradicts
     label: keeps-it-honest
@@ -41,9 +29,6 @@ links:
   - target: "[[The Multilinear Self — projection roster]]"
     type: spawned
     label: roster
-  - target: "[[Kuramoto Coupling]]"
-    type: connects-to
-    label: selves-as-coupled-oscillators
   - target: "[[Stable Audio Open]]"
     type: contradicts
     label: impersonal-texture-vs-personed-projection
@@ -92,7 +77,7 @@ New projections should stay cheap to add — forever. The [[The Multilinear Self
 ## Open Questions
 
 - Is context really "measurement," or is that metaphor doing more work than it should?
-- **"Facet"** was the almost-word for projection — a face of one gem, connecting to [[The Jewel]]. Does it ever beat "projection"?
+- **"Facet"** was the almost-word for projection — a face of one gem, connecting to [[JEWEL|The Jewel]]. Does it ever beat "projection"?
 - How many projections is too many — is there a number, or is it a felt thing (the *"how do you feel?"* test from [[Hilaritas Generator]])?
 
 <!-- CLAUDE → LOUDON: hero + icon art pending — this entry was born mid-conversation and has no bundle art yet. -->

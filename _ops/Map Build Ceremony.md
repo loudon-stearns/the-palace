@@ -9,8 +9,6 @@ stage: growing
 version: "2.6"
 trigger: ["map build", "build the map"]
 links:
-  - target: "[[Palace Ceremonies]]"
-    type: connects-to
   - target: "[[Swarm Weave]]"
     type: enables
   - target: "[[Palace Map]]"
@@ -21,6 +19,7 @@ links:
     type: connects-to
   - target: "[[Palace Enchantment]]"
     type: connects-to
+    label: tier-1-context
 ---
 
 # Map Build Ceremony
@@ -198,23 +197,7 @@ A scheduled build skips this step.
 
 ---
 
-## Output Token Budget
-
-For context loading guidance:
-
-| Palace size | TSV size (est.) | Adjacency (outgoing) | Adjacency (bidirectional) | JSON size (est.) |
-|---|---|---|---|---|
-| 50 nodes, 4 avg links | ~8KB | ~5KB | ~9KB | ~15KB |
-| 100 nodes, 4 avg links | ~16KB | ~9KB | ~18KB | ~28KB |
-| 200 nodes, 4 avg links | ~32KB | ~18KB | ~36KB | ~55KB |
-
-The outgoing adjacency list is recommended for Tier 1 agent context loading — human-readable, and slightly smaller than TSV. Use bidirectional adjacency when spawned agents need hub/self-location awareness. JSON for programmatic use by coordinators and workers.
-
----
-
 ## Relationship to Other Ceremonies
-
-**[[Harvest Ceremony]]** — the Map Build is a natural close step after a Harvest session when new entries have been deposited. A post-harvest map ensures agents launched after the session have current topology. Consider adding as an optional Harvest close step.
 
 **[[Swarm Weave]]** — the coordinator loads the relevant map before dispatch. The map is how the coordinator builds its dispatch plan without reading entry bodies. The Map Build Ceremony produces the artifact the Swarm Weave loads.
 
@@ -225,7 +208,9 @@ The outgoing adjacency list is recommended for Tier 1 agent context loading — 
 ## Forward Vectors
 
 - Ghost persistence tracking: each map file names its forward ghosts in `meta.ghost_taxonomy`. A ghost appearing in three consecutive maps is a deposit candidate. Should a ceremony step or a separate Spore Check variant surface these automatically?
+  — progressed: Step 7 holds the rule and `palace-map.py ghosts --persistent` reads it; only the automatic surfacing is open, and [[Palace Map]] § Forward Vectors holds that question (2026-10-24).
 - Should the ceremony produce a diff against the previous map — what edges were added, what ghost nodes appeared or resolved — making the palace's growth arc visible over time?
+  — answered on [[Palace Map]] § What an Agent Does With It (2026-10-24): `palace-map.py diff <a> <b>` compares two builds, and the [[Weave Ceremony]] (Steps 2 and 6.5) and the [[Self-Model Update Ceremony]] (Step 2) run it.
 - Weighted maps: nodes now carry `use` (page, bundle and link activity from git), which could weight edges so well-traveled links appear stronger. Useful for swarm dispatch prioritization?
 
 ---

@@ -9,24 +9,18 @@ links:
   - target: "[[Skills Are Enchantable Pages]]"
     type: exemplifies
     label: the-executor-column
-  - target: "[[Project Stewardship System]]"
-    type: connects-to
-    label: runs-the-stewards
   - target: "[[Pages as Agents]]"
     type: deepens
     label: dispatches-the-page-as-agent
   - target: "[[SCHEMA]]"
     type: connects-to
     label: enforces-the-wire
-  - target: "[[Concierge]]"
-    type: connects-to
-    label: sibling-organ-address-pole
   - target: "[[STIGMERGY]]"
     type: connects-to
     label: appends-to-the-board
-  - target: "[[Two Batons, One Board]]"
+  - target: "[[Concierge]]"
     type: connects-to
-    label: each-cycle-one-handoff
+    label: same-family-opposite-poles
 ---
 
 # Palace Orchestrator
@@ -112,7 +106,8 @@ agent. Two paths:
   `score` is a **sentinel, always green** (real escalation needs Path 1). The §9 validator relaxes
   the full-health requirement for the `STUB_HEALTH_DISPATCH` set — `claude-code-subagent`,
   `hand-authored`, `cowork`, `claude-code`, `claude-code-mac-session` — requiring only `score` and
-  `model`. A new non-API dispatch mode joins the set; it is never exempted ad-hoc.
+  `model` (`cowork` stays because the board still holds lines stamped with it; nothing posts it now).
+  A new non-API dispatch mode joins the set; it is never exempted ad-hoc.
 
 **The Trickster `options[]` shape.** A blocking decision goes to the TRICKSTER board as a
 `RESOURCE_REQUEST` whose `payload.options[]` is the fork. Canonical shape is objects — `{ id, label }`,
@@ -135,21 +130,7 @@ example manifests live at `_ops/orchestrator/`; the harness-discoverable trigger
 `.claude/skills/palace-orchestrator/SKILL.md`, which points back here — the
 [[Skills Are Enchantable Pages]] pattern (page = organ, skill file = one dispatch surface onto it).
 
-**The split was finished 2026-08-25** (`5e52336`). It had been named since the 2026-07-04 retrofit
-but only half-done — the skill file declared itself a shim while still carrying 217 lines and all
-the mode machinery. The relocation turned out to reach further than the machinery: the app's steward
-lane, the cycle-prompt builder, and the **live launchd steward batch** all resolved paths into
-`.claude/skills/`, and a comment in `steward-lane.js` had already noted the strain — *"the prompt
-templates are part of the CODEBASE, not the palace data dir."* They now sit beside the engine that
-renders them. The test suites earned their keep: they caught two hardcoded roots the first rewire
-missed, and a real cycle-prompt render from the default path is the proof the move holds.
-
 ## Forward Vectors
 
-- ~~Finish the Machinery/Content Split~~ — **done 2026-08-25** (`5e52336`). Remaining: the live
-  launchd batch has never been fired since the move. Its resolution path is proven (every named path
-  resolves, `batch-plan.js` finds due stewards, a real cycle prompt renders from the default root),
-  but the dispatch itself is untested — the next scheduled 06:00 run is the real proof, and it is
-  worth watching `_ops/heartbeat/logs/` the morning after.
 - When a second executor appears (a non-Path-2 dispatcher, an API-direct path), does this page
   generalize to "the executor role," or stay the Path-2 engine specifically?

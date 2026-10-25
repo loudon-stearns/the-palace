@@ -1,0 +1,307 @@
+{
+ "room": "hub-quality-manifesto",
+ "lens": "hub-nutrition",
+ "pages_read": [
+  "Quality Manifesto.md",
+  "Quality Manifesto/Quality Manifesto — Context.md",
+  "The Four Virtues.md",
+  "Cross-Domain Resonances.md",
+  "The Shop.md",
+  "Audition Gate.md",
+  "Spinoza Conatus.md",
+  "Cooperation Yields Agency.md",
+  "Cooperation Yields Agency/Cooperation Yields Agency — Context.md",
+  "Simondon.md",
+  "Stoicism.md",
+  "Projects/LDN RTM.md",
+  "Shop/Loudon Live Post-producer.md",
+  "People/Donella Meadows.md",
+  "People/Brian Eno.md",
+  "People/Annie Dillard.md",
+  "People/Seneca.md",
+  "People/Seneca/Seneca — dossier.md",
+  "People/Yasujirō Ozu.md",
+  "People/Yasujirō Ozu/Yasujirō Ozu — dossier.md",
+  "People/Yasujirō Ozu/Yasujirō Ozu — speech.md (grep)",
+  "People/John Cage.md",
+  "Cross-Domain Resonances/Quantization ↔ Precision vs Flow.md",
+  "Cross-Domain Resonances/Saturation ↔ Richness.md",
+  "Cross-Domain Resonances/Cooking ↔ Mixing.md",
+  "Cross-Domain Resonances/Compression ↔ Intimacy.md",
+  "Cross-Domain Resonances/Sidechain ↔ Conversation.md"
+ ],
+ "weak_links": [
+  {
+   "source": "The Four Virtues",
+   "target": "Quality Manifesto",
+   "current_type": "deepens[virtue-is-the-only-good]",
+   "verdict": "retype",
+   "proposed_type": "connects-to",
+   "proposed_label": "metric-as-indifferent",
+   "evidence_source": "Wisdom = the agent reads what the task actually requires before acting; it does not chase a metric (an indifferent) as if it were the goal. / Not for your reputation, not for outcomes — for the *quality of your chosen responses*",
+   "evidence_target": "Defined by wellbeing, integrity and depth of relationship rather than metrics, reach and status",
+   "rationale": "The page never names the Manifesto and does not elaborate it (so deepens is wrong, and 'virtue is the only good' is not the Manifesto's claim); the one real shared sentence is that a metric is an indifferent, not the goal.",
+   "confidence": "medium"
+  },
+  {
+   "source": "Cross-Domain Resonances",
+   "target": "Quality Manifesto",
+   "current_type": "connects-to[applies-to]",
+   "verdict": "label",
+   "proposed_type": "connects-to",
+   "proposed_label": "same-principles-different-materials",
+   "evidence_source": "This hub catalogs the surprising connections that make the 4 Pillars approach work. Each bridge demonstrates that music production, composition, technology, philosophy, and physical craft all operate on shared principles. / ## Success Metrics (By Our Definition) — Not: 'Students can list 10 cross-domain connections'",
+   "evidence_target": "The furniture maker and the synthesist speak the same language. Woodworking and synthesis, cooking and mixing: same principles, different materials.",
+   "rationale": "'applies-to' says nothing; the Manifesto's own line about same principles in different materials is what the hub catalogues, and the hub ends in its own 'Success Metrics (By Our Definition)'.",
+   "confidence": "medium"
+  },
+  {
+   "source": "The Shop",
+   "target": "Quality Manifesto",
+   "current_type": "connects-to[tier-as-quality-boundary]",
+   "verdict": "label",
+   "proposed_type": "connects-to",
+   "proposed_label": "studio-register",
+   "evidence_source": "The naming carries values the architecture needs: depth-over-coverage, slow when slow is right, pieces hung when they earn it. Commercial-production language (deliverable / sprint / asset / pipeline) imports values that pull against [[Hilaritas Generator]] — the Shop is for joyful making, not for shipping volume.",
+   "evidence_target": "Rushing destroys what we're building. / Learning deeply is never wasted time.",
+   "rationale": "The word 'quality' on the Shop is cost-quality tiering; the passage that matches the Manifesto is the studio register, which names depth-over-coverage and slow-when-slow-is-right as the values the architecture carries.",
+   "confidence": "medium"
+  },
+  {
+   "source": "Audition Gate",
+   "target": "Quality Manifesto",
+   "current_type": "connects-to[listening-as-quality-gate]",
+   "verdict": "cut",
+   "evidence_source": "Before a sound-medium deliverable is accepted, the Maker plays it back and listens... It is not a review of the spec; it is a check that the spec's intent landed in the audio.",
+   "evidence_target": "Quality is furtherance of our goals, not theirs.",
+   "rationale": "The page uses 'quality' only in the sense of checking a deliverable by ear; nothing on either page speaks of quality as furtherance of our own goals, so the label rides on a shared word.",
+   "confidence": "medium"
+  },
+  {
+   "source": "Spinoza Conatus",
+   "target": "Quality Manifesto",
+   "current_type": "mirrors[quality-as-conatus]",
+   "verdict": "cut",
+   "evidence_source": "",
+   "evidence_target": "",
+   "rationale": "The pair already carries one link: the hub holds Quality Manifesto mirrors Spinoza Conatus [self-legislation]; the Spinoza page never names the Manifesto in its body (its metrics passage is the Hilaritas one).",
+   "confidence": "high"
+  },
+  {
+   "source": "Cooperation Yields Agency",
+   "target": "Quality Manifesto",
+   "current_type": "connects-to (bare)",
+   "verdict": "label",
+   "proposed_type": "connects-to",
+   "proposed_label": "measure-of-collaboration",
+   "evidence_source": "(Cooperation Yields Agency — Context.md, 'AI Collaboration as Public Modeling') See [[Quality Manifesto]] — the collaboration is measured by wellbeing, integrity, and depth of relationship, not output volume. / (face footer) the [[Quality Manifesto]] measure ... live in [[Cooperation Yields Agency — Context]]",
+   "evidence_target": "Defined by wellbeing, integrity and depth of relationship rather than metrics, reach and status",
+   "rationale": "The face footer and the Context both name the Manifesto as the measure of the collaboration; the link only lacks the word.",
+   "confidence": "high"
+  },
+  {
+   "source": "Simondon",
+   "target": "Quality Manifesto",
+   "current_type": "connects-to[concretization-as-quality]",
+   "verdict": "cut",
+   "evidence_source": "Concretization is what 'elegant design' actually means — and it gives Loudon a precise, non-arbitrary criterion for a good instrument.",
+   "evidence_target": "Quality is furtherance of our goals, not theirs.",
+   "rationale": "Concretization is Simondon's criterion for a good technical object; the Manifesto's quality is a refusal of borrowed metrics. The Simondon page never names the Manifesto and the shared word 'quality' is the only bridge.",
+   "confidence": "medium"
+  },
+  {
+   "source": "Stoicism",
+   "target": "Quality Manifesto",
+   "current_type": "deepens (bare)",
+   "verdict": "cut",
+   "evidence_source": "Virtue is not a feeling or an outcome; it is the *quality of one's chosen responses*",
+   "evidence_target": "",
+   "rationale": "The body never names the Manifesto, the only echo is the lower-case phrase 'the quality of one's chosen responses', and the direction is wrong (the hub does not elaborate on the Manifesto); the Stoic relation is better carried by The Four Virtues.",
+   "confidence": "high"
+  },
+  {
+   "source": "LDN RTM",
+   "target": "Quality Manifesto",
+   "current_type": "connects-to[refuses-the-count]",
+   "verdict": "keep-as-is",
+   "evidence_source": "No analytics, ever — ... checking views at video 30 is how the project dies. The only signal is someone showing what they made. / no single video is precious and the aggregate is the work.",
+   "evidence_target": "Emily happy at dinner is the metric. (Context: 'Real impact > vanity metrics. Depth > reach.')",
+   "rationale": "The label is earned by the page's own rule against analytics and its 'no video is precious' stance.",
+   "confidence": "medium"
+  },
+  {
+   "source": "Loudon Live Post-producer",
+   "target": "Quality Manifesto",
+   "current_type": "exemplifies[protect-peace]",
+   "verdict": "keep-as-is",
+   "evidence_source": "Every choice below bends to this... When it trades peace for speed, peace wins. \"Rushing destroys what we're building.\" / Typical video post-production optimizes for reach and watch-time — *their* quality. I optimize for Loudon's wellbeing and the right hundred — *ours*.",
+   "evidence_target": "Peace is the ultimate luxury. / Rushing destroys what we're building.",
+   "rationale": "A worked case: the whole charter is the Manifesto's their-quality versus our-quality applied to post-production, and it quotes the Manifesto's line.",
+   "confidence": "high"
+  },
+  {
+   "source": "Donella Meadows",
+   "target": "Quality Manifesto",
+   "current_type": "enables (bare)",
+   "verdict": "label",
+   "proposed_type": "enables",
+   "proposed_label": "paradigm-lever",
+   "evidence_source": "the real levers (the system's goal, the paradigm the goal came from) are exactly the ones everyone flinches away from.",
+   "evidence_target": "it is a Meadows leverage point at level #2: the paradigm the system arises from.",
+   "rationale": "The Manifesto calls itself a Meadows leverage point at level #2, and the Meadows page says the real levers are the goal and the paradigm; the link only lacks that reason.",
+   "confidence": "medium"
+  },
+  {
+   "source": "Brian Eno",
+   "target": "Quality Manifesto",
+   "current_type": "connects-to[depth-over-reach]",
+   "verdict": "cut",
+   "evidence_source": "",
+   "evidence_target": "",
+   "rationale": "Nothing on the page, its dossier, or the Manifesto speaks of depth over reach for Eno; his page is about constraint and the generative frame, and the Context's witness list names him without a passage.",
+   "confidence": "medium"
+  },
+  {
+   "source": "Annie Dillard",
+   "target": "Quality Manifesto",
+   "current_type": "connects-to[attention-as-practice]",
+   "verdict": "label",
+   "proposed_type": "connects-to",
+   "proposed_label": "days-are-the-life",
+   "evidence_source": "the schedule is sacred architecture, because \"how we spend our days is, of course, how we spend our lives\" — a line the palace already keeps close as attention-as-practice.",
+   "evidence_target": "Life and work are one practice. Cooking is the work. Walking Haha is the work.",
+   "rationale": "The Manifesto has no attention idea; the sentence the Dillard page keeps close is the one that matches 'Life and work are one practice'.",
+   "confidence": "medium"
+  },
+  {
+   "source": "Seneca",
+   "target": "Quality Manifesto",
+   "current_type": "connects-to[time-consciousness]",
+   "verdict": "label",
+   "proposed_type": "connects-to",
+   "proposed_label": "time-on-our-own-goals",
+   "evidence_source": "most people don't actually run short of time; they spend it on things that were never theirs to spend it on — other people's errands, borrowed anxieties, postponement dressed as patience. (Seneca — dossier: 'Quality Manifesto's internal-metrics argument, stated two millennia early')",
+   "evidence_target": "Quality is furtherance of our goals, not theirs.",
+   "rationale": "'time-consciousness' is a topic; the dossier ties Seneca to the Manifesto as the internal-metrics argument, and the Seneca page says most people spend time on what was never theirs.",
+   "confidence": "medium"
+  },
+  {
+   "source": "Yasujirō Ozu",
+   "target": "Quality Manifesto",
+   "current_type": "connects-to[made-for-myself]",
+   "verdict": "keep-as-is",
+   "evidence_source": "(Ozu — speech.md #7) \"I didn't make my films for critics, nor for public pleasure. I did it for myself.\" / (dossier) Quality Manifesto (made for myself)",
+   "evidence_target": "Quality is furtherance of our goals, not theirs.",
+   "rationale": "The label is Ozu's own remark, held in his speech file; the page body would carry it better; the page itself does not yet quote it.",
+   "confidence": "medium"
+  },
+  {
+   "source": "John Cage",
+   "target": "Quality Manifesto",
+   "current_type": "connects-to[shared-release-from-metric]",
+   "verdict": "cut",
+   "evidence_source": "a philosophy where every sound is equally music has quietly surrendered the ability to say why one piece is better than another. / whether that leaves me able to say what's good is the argument I most need to have.",
+   "evidence_target": "Quality begets quality—when we define quality ourselves.",
+   "rationale": "The page speaks of releasing ego and taste, not metrics; the one sentence near the Manifesto is Cage's open worry that he cannot say what is good, which is a tension (contradicts) the Manifesto does not hold and I will not force.",
+   "confidence": "medium"
+  },
+  {
+   "source": "Quantization ↔ Precision vs Flow",
+   "target": "Quality Manifesto",
+   "current_type": "connects-to[felt-metric]",
+   "verdict": "keep-as-is",
+   "evidence_source": "\"It sounds better quantized, but feels worse\" — Trust the feeling. 'Better' by what metric? Technical perfection ≠ musical success",
+   "evidence_target": "Wellbeing over metrics. (Context) / defined by wellbeing, integrity and depth of relationship rather than metrics",
+   "rationale": "The page asks 'better by what metric?' and sends the student back to the feeling, which is the label.",
+   "confidence": "medium"
+  },
+  {
+   "source": "Saturation ↔ Richness",
+   "target": "Quality Manifesto",
+   "current_type": "connects-to[felt-calibration]",
+   "verdict": "cut",
+   "evidence_source": "## Success Metrics (By Our Definition) — Not: 'Do you use saturation plugins?'",
+   "evidence_target": "",
+   "rationale": "The only Manifesto-shaped passage is the 'Success Metrics (By Our Definition)' section that every resonance page carries, and the hub's own link holds that; nothing here is specific to this pair.",
+   "confidence": "medium"
+  },
+  {
+   "source": "Cooking ↔ Mixing",
+   "target": "Quality Manifesto",
+   "current_type": "connects-to[taste-over-metrics]",
+   "verdict": "keep-as-is",
+   "evidence_source": "Students who \"mix with their eyes\" (following tutorial numbers) are doing the equivalent of cooking by recipe without tasting. / Taste is the goal, not the recipe.",
+   "evidence_target": "Woodworking and synthesis, cooking and mixing: same principles, different materials.",
+   "rationale": "The page's closing claim is taste over recipe, and the Manifesto's face names cooking and mixing as the same principles in different materials.",
+   "confidence": "medium"
+  },
+  {
+   "source": "Compression ↔ Intimacy",
+   "target": "Quality Manifesto",
+   "current_type": "connects-to[felt-metric]",
+   "verdict": "cut",
+   "evidence_source": "Play three versions of the same vocal... ask: \"Which felt most intimate?\" / ## Success Metrics (By Our Definition)",
+   "evidence_target": "",
+   "rationale": "'Which felt most intimate?' is a teaching question, not the Manifesto's idea; the only Manifesto-shaped section is the shared 'Success Metrics (By Our Definition)' template.",
+   "confidence": "medium"
+  },
+  {
+   "source": "Sidechain ↔ Conversation",
+   "target": "Quality Manifesto",
+   "current_type": "exemplifies[self-defined-metric]",
+   "verdict": "cut",
+   "evidence_source": "## Success Metrics (By Our Definition) — Not: 'Students can set up sidechain compression' But: Students report being better listeners",
+   "evidence_target": "",
+   "rationale": "A resonance page is not an instance of the Manifesto, and the 'Success Metrics (By Our Definition)' section it cites is the template shared by every resonance page, so the hub's link already carries it.",
+   "confidence": "medium"
+  }
+ ],
+ "typed_relations": [],
+ "entry_health_flags": [
+  {
+   "entry": "Quality Manifesto — Context",
+   "stage_current": "n/a (companion)",
+   "stage_proposed": null,
+   "vector_issue": null,
+   "note": "Its Witnesses list names 13 People pages as 'verified by git grep' links, but Brian Eno and John Cage carry no passage about the Manifesto (links proposed cut), and Donella Meadows, Annie Dillard and Seneca carry only a loose one. If the cuts land, trim the list to the pages with a passage, or the Context will claim witnesses the graph no longer holds."
+  },
+  {
+   "entry": "Cross-Domain Resonances",
+   "stage_current": "growing",
+   "stage_proposed": null,
+   "vector_issue": null,
+   "note": "Body counts '10 established resonances' while frontmatter spawns 11 bridges plus Found ↔ Made; the count is stale. Every resonance page carries the same 'Success Metrics (By Our Definition)' template, which is why single resonance-to-Manifesto links read as boilerplate; the hub's one link carries it."
+  },
+  {
+   "entry": "Quality Manifesto",
+   "stage_current": "mature",
+   "stage_proposed": null,
+   "vector_issue": null,
+   "note": "Hub is cited by 40 pages but its Context says 53; of 21 inbound links I read, 5 hold and 7 can be given a reason, 9 are cut. The best-evidenced inbound pages are the Post-producer, Cooperation, LDN RTM, Ozu and Cooking ↔ Mixing."
+  }
+ ],
+ "lighter_prose": [
+  {
+   "entry": "Quality Manifesto — Context",
+   "where": "Cross-Domain Resonance",
+   "passage": "This list is stale: it names four pages, and by 2026-10-22 the manifesto is linked from 53 files across the palace (`git grep -l \"[[Quality Manifesto\"`). Kept as the record of where it began.",
+   "proposal": "delete",
+   "words": ""
+  },
+  {
+   "entry": "Cross-Domain Resonances",
+   "where": "The Growing Web",
+   "passage": "This hub connects to: **10 established resonances** (individual bridge entries) / **40 weekly themes** (each demonstrates multiple resonances) / **Source library** ... / **4 Pillars practice** (the integration method)",
+   "proposal": "delete",
+   "words": "The bridge entries and the Source Library are linked in frontmatter; the stale counts and the list of what the hub connects to can go."
+  },
+  {
+   "entry": "The Shop",
+   "where": "Origin",
+   "passage": "This pattern emerged in May 2026 across several conversations exploring lightweight palace additions for asset creation. ... The architecture is downstream of that act of attention — the bandwidth-vs-formative-shape distinction the question forced into the open. The deposit happened immediately after, while the conversation was still warm.",
+   "proposal": "simplify",
+   "words": "The pattern emerged in May 2026, when Loudon asked whether AI changes the equation that justifies plural creative roles; the singular Maker came from that question."
+  }
+ ],
+ "summary": "I read the Manifesto and its Context, and all 21 source pages (People dossiers and speech files by grep where the page itself was silent). Pattern: almost none of the 21 name the Manifesto in their body; the labels were mostly keywords ('quality', 'metric') rather than reasons. Verdict counts: 6 label (Cross-Domain Resonances, The Shop, Cooperation Yields Agency, Donella Meadows, Annie Dillard, Seneca), 1 retype (The Four Virtues, deepens to connects-to), 9 cut (Audition Gate, Spinoza Conatus as a duplicate of the hub's own mirrors, Simondon, Stoicism, Brian Eno, John Cage, and the Saturation, Compression and Sidechain resonances), 5 keep (LDN RTM, Loudon Live Post-producer, Yasujiro Ozu, Quantization, Cooking). The five resonance pages share an identical 'Success Metrics (By Our Definition)' template, so I kept the two with their own passage and cut the rest, leaving the hub link to carry the group. Unsettled: John Cage may be a real contradiction (he cannot say what is good) but it would be forced from the Manifesto side, so I cut it; the Ozu line sits in his speech file, not on his page; Dillard is the weakest of the labels. I proposed no inbound links to the new entries, since none of the pages I read carry a genuine, unowned reason (LDN RTM already holds its pair with the Post-producer)."
+}

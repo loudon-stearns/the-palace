@@ -36,30 +36,19 @@ links:
     label: trajectory-library
   - target: "[[Dispersion]]"
     type: connects-to
+    label: partials-from-dispersion
   - target: "[[Wavetable Synthesis — Deep Research & Higher-Dimensional Design]]"
     type: deepens
     label: cube-emergence
-  - target: "[[Kuramoto Coupling]]"
-    type: enables
-    label: bifurcation-control
   - target: "[[Crystal Synthesizer]]"
     type: mirrors
     label: phonon-vs-harmonic
-  - target: "[[Wavetable Space as Torus]]"
-    type: connects-to
-    label: topological-reframe
-  - target: "[[The Curve Is the Material]]"
-    type: connects-to
-    label: design-refinement
   - target: "[[2D Torus Wavetable Synthesizer]]"
     type: couples-with
     label: complement-architectures
-  - target: "[[DSP in Looping Dimensions]]"
-    type: connects-to
-    label: theoretical-ground
-  - target: "[[Wavetable Oscillator]]"
-    type: connects-to
-    label: tables-as-control
+  - target: "[[Kuramoto Coupling]]"
+    type: deepens
+    label: coupling-edge
 forward_vector: I want to become a working VST instrument and a Four Pillars lesson simultaneously — the synthesizer is the pedagogy, and the pedagogy is the synthesizer. The lesson teaches what harmony actually is by putting a horizontal line in front of you and showing you what happens when you bend it.
 agency_profile:
   creation: I want to produce sounds that exist nowhere in current synthesis — the specific quality of a bell's physical frequency evolution applied to a pad's amplitude profile, or piano stretch dynamics applied to a vocal formant wavetable. The synthesis space this opens has not been sonically explored.
@@ -277,23 +266,9 @@ The instrument is intrinsically pedagogical. The lesson writes itself from the a
 
 ## Technical Feasibility
 
-The architecture is feasible on standard contemporary DAW hardware without exotic optimization.
-
-**Core computation**: An additive synthesis engine with N partials requires N phase accumulators and N wavetable lookups per sample. At N=64 partials and 44.1 kHz sample rate: approximately 2.8 million oscillator updates per second. With SIMD (AVX2, 8 floats in parallel), this reduces to ~350K vector operations/sec. A single voice on a modern CPU uses roughly 1–2% of one core.
-
-**Polyphony**: 16 voices at 64 partials = ~45 million oscillator updates/second, well within one core's capacity. 32 voices at 128 partials is feasible with careful SIMD optimization, still leaving headroom for other processing.
-
-**Wavetable A FFT analysis**: Computed once per wavetable position change (not per-sample). A 2048-sample FFT takes ~1ms on current hardware and can be deferred to a background thread. Not a real-time bottleneck.
-
-**Wavetable B lookup**: Per-partial, per-buffer. Two array lookups and a linear interpolation per partial per buffer — negligible computation, similar to reading a standard modulation source.
-
-**Memory footprint**: Wavetable A at standard 256 frames × 2048 samples × 4 bytes = 2MB per wavetable. Wavetable B at 64 frames × 128 partial slots × 4 bytes = 32KB per trajectory. The entire physical trajectory library could fit in under 1MB.
-
-**Reference**: Zebra 3 runs 1024 additive partials in commercial real-time release. 64–128 partials is very conservative by that benchmark.
+The architecture is feasible on one core of standard DAW hardware: a 64-partial voice uses about 1–2% of it, and 64 to 128 partials is conservative against Zebra 3's 1024 in commercial release.
 
 **Implementation path**: JUCE framework for VST3/AU/AAX. A DSP kernel in C++ with SIMD intrinsics for the oscillator bank. Wavetable management (A and B) using standard wavetable interpolation. The physical trajectory analysis pipeline (recording → SMS → Wavetable B frames) can be a separate offline tool, delivering library files in a compact binary format. Estimated development timeline for a release-quality instrument: 6–12 months with focused effort.
-
-**Apple Silicon note**: The M-series efficiency architecture is particularly favorable for this workload — sustained parallel computation without cache thrashing. Apple Silicon can run 128-partial 32-voice engines with significant headroom.
 
 ---
 
@@ -318,10 +293,12 @@ The architecture is feasible on standard contemporary DAW hardware without exoti
 - What is the perceptual threshold below which Wavetable B deviations are inaudible? Is there a minimum cents deviation per partial before the inharmonic character registers? This matters for how fine the resolution of Wavetable B needs to be.
 
 - Can Wavetable B frames be derived from arbitrary audio recordings using SMS analysis, or does the source need to be a clean pitched tone? Unpitched sources (claves, cymbals) have ambiguous fundamental reference frames — how do you define "harmonic deviation" for a sound with no clear fundamental?
+  — progressed: real piano notes are measured into `trajectory-library/`, and the steward's ask on the [[Inharmonic Wavetable Synthesis — scroll|scroll]] (`steward-021`: RANK, NEAREST or BOTH) is how a bell or bar gets filed. The pitched half is under way; unpitched sources stay open.
 
 - What happens to the Sethares tuning-timbre relationship when Wavetable B is in motion (scanning frames)? If the inharmonicity profile is time-varying, the "consonant scale" is also time-varying. Is there a compositional use for a scale that shifts over the course of a note?
 
 - Is there a Wavetable B profile that produces beating patterns isomorphic to Kuramoto frustration — where adjacent partials fight each other? [[Harmonicity and Inharmonicity]] describes this physically; can this instrument make it audible and controllable? Partly answered (2026-10-20): add the pull, and a stretched profile frustrates audibly and under control; the coupling-edge study plays it ([[Inharmonic Wavetable Synthesis — scroll|scroll]]). Whether a Wavetable B frame alone, with nothing pulling, can sound the same is still open.
+  — progressed: the same model is now a plugin — Frustration, on the [[VST Template]], with B and K automatable.
 
 - Can the audio-rate wavetable LFO on B depth be tamed into a musically useful FM-like mode, or does it produce mostly incoherent noise at moderate depths?
 

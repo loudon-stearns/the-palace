@@ -1,0 +1,292 @@
+weave-flags: 168 live on WEAVE board (3 retracted, not counted) | 65 resolved explicitly (trailer/decline) | 65 TOUCHED-UNVERIFIED | 0 carried this weave | 38 OPEN
+
+PROPAGATE — decisions still spreading across the palace:
+  ● commons-the-palace-1792347287670  [2026-10-18 · TRICKSTER]  home: SCHEMA — Reference  ·  scope: the pages still carrying either field, mostly under Shop/  ·  rhythm: by-touch
+      decision: last_tested and last_gotcha are retired: nothing writes them, and a page's tuning ledger says when it last ran.
+      27 page(s) still match: Shop/Blender.md, Shop/Blender/toyxyz-conditioning-recipe.md, Shop/ComfyUI.md, Shop/D3.js.md, Shop/Depth Anything.md, Shop/FLUX (Hugging Face).md, … +21
+  ● commons-the-palace-1792347287873  [2026-10-18 · TRICKSTER]  home: BLUELINE — The Page  ·  scope: the BLUELINE docs under Projects/BLUELINE/  ·  rhythm: sweep
+      decision: BLUELINE — The Page states BLUELINE's current decisions and supersedes any older BLUELINE doc that still reads single flow field, offline on
+      1 page(s) still match: Projects/BLUELINE/BLUELINE — Production Pipeline.md
+  ● commons-the-palace-1792363352006  [2026-10-18 · TRICKSTER]  home: ELDER  ·  scope: every canon entry and _ops doc that says what a steward may write; scrolls, batons, Contexts, ledgers and archives keep their history  ·  rhythm: sweep
+      decision: No steward edits the house without Loudon's eyes. A steward writes only its workshop, the making files in its bundle; every change it wants 
+      pattern finds no page — the check is clean; close it with Palace-Resolves
+  ● commons-the-palace-1792555522227  [2026-10-21 · Surfaces and Capabilities]  home: Surfaces and Capabilities  ·  scope: live pages, ceremony fragments, workshop docs and _ops docs that describe Cowork as a palace working surface or dispatch host; archives, session logs, dated audits, runs, proofs, test fixtures and board lines are history and stay  ·  rhythm: sweep
+      decision: The palace isn't worked from Cowork. No baton, tool or instruction routes palace work there; a find made in Cowork comes to a Claude Code se
+      57 page(s) still match: Adopt the Craft, Author the Seam/Adopt the Craft, Author the Seam — baton.md, Creative Coach/Creative Coach — baton.md, Dissolutions/Dissolutions — baton.md, Palace development/Loudon Live Design System/Loudon Live Design System — baton.md, Palace development/Palace Orchestrator.md, Palace development/Palace as Context Injection System.md, … +51
+  ● commons-the-palace-1792557681212  [2026-10-21 · STIGMERGY]  home: _ops/rich-face/README.md § Media a face plays: what git tracks is what the public face has  ·  scope: every rich face (each entry with a '— rich.json' manifest): today Kuramoto Coupling and Language as a Tonal Medium, which already name only tracked files; next the migration's faces, starting with Generative Sample Libraries and Inharmonic Wavetable Synthesis.  ·  rhythm: sweep
+      decision: Media a rich face plays is kept in git on purpose. The live rich page may play a file that is only on this Mac, and marks its figure 'only o
+      no pattern — the check is a reader's: node _ops/rich-face/untracked.mjs '<Entry>' passes when it prints 'every file it names is tracked' and exits 0, or when 
+  ● commons-the-palace-1792586388505  [2026-10-21 · TRICKSTER]  home: Drafting Table Design System  ·  scope: every page naming a default design system, the house dress, the manifest path, or Stigmergy as the only override: Substrate Skill, Loudon Live Design System + its baton, Shop/Maker (cascade table, both 'only BBS' lines), The Daily Page, Project Stewardship System fleet README; _ops/rich-face/contract.mjs when a piece needs it  ·  rhythm: sweep
+      decision: Three dresses, one rule: Drafting Table Design System for the work itself (plugin faces, panels, part drawings, tool UIs; manifest _ops/draf
+      4 page(s) still match: Palace development/Loudon Live Design System.md, Shop/Maker.md, _ops/Substrate Skill.md, _ops/Weave Ceremony/Weave Ceremony — sketch — 2026-10-22 flags and their order.md
+  ● commons-the-palace-1792591300654  [2026-10-21 · Project Stewardship System]  home: Baton Ceremony  ·  scope: the On-pickup fragment (_ops/Baton Ceremony/Baton Ceremony — on-pickup.md) and every live baton that carries it verbatim (9 today)  ·  rhythm: sweep
+      decision: A steward baton is updated in place and never deleted or closed until its page ends; then the steward leaves stewardship and its runtime is 
+      15 page(s) still match: Adopt the Craft, Author the Seam/Adopt the Craft, Author the Seam — baton.md, Creative Coach/Creative Coach — baton.md, Dissolutions/Dissolutions — baton.md, Palace development/Loudon Live Design System/Loudon Live Design System — baton.md, Palace development/Palace as Context Injection System/Palace as Context Injection System — baton.md, Palace development/Self-Describing Knowledge Module/Self-Describing Knowledge Module — baton.md, … +9
+  ● commons-the-palace-1792592355793  [2026-10-21 · Revival Ceremony]  home: Revival Ceremony and Spore Check Ceremony  ·  scope: 11 places restating the old rites: Palace Ceremonies (two rows), ROSETTA, the Guide, the dormant row in Substrate Skill, Project Stewardship System, steward.md, permanent.md and its smoke fixture, The Daily Page, deal.py, Palace Ceremonies — baton (dead link), Walk That Weaves (old Revival Note)  ·  rhythm: sweep
+      decision: A sleeping page comes back only through the Revival Ceremony (v2.0): four ways in (Loudon's word, a Spore Check, a Daily Page morning, a gra
+      no pattern — the check is a reader's: each page in scope describes the Revival as meet-then-land with four ways in and no Revival Note, and the Spore Check's 
+  ● commons-the-palace-1792594046155  [2026-10-21 · Review Layer]  home: Review Layer  ·  scope: every page that restates the review rule (interactive first versions ship reviewable) without the host-embedded case: Shop/Maker.md § Interactive deliverables ship reviewable, first; the review-layer kit's README opening line (mount it on a first build); any Specialist page that restates the rule later.  ·  rhythm: sweep
+      decision: A UI that runs inside another application keeps its review surface on its browser mock page, not inside the host. A plugin in a DAW or a Max
+      no pattern — the check is a reader's: each restatement names the case in one sentence, or points at Review Layer for it: a UI that runs inside another applica
+  ● commons-the-palace-1792599100260  [2026-10-21 · The Scroll]  home: The Scroll  ·  scope: every — scroll.md the census of 2026-10-21 found without the Plan zone: 1 from 2, LDN RTM, Loudon Live, Palace Enchantment, Particle Synthesis, SMPTE LTC, Swarm Weave, Symbiotic Skills, Wavetable Scanner (9 of 56; each carries the other three zones and the frontmatter).  ·  rhythm: sweep
+      decision: Every scroll carries the current form: the minimal bundle frontmatter and the four zones scroll.js reads, each between its markers (scroll:n
+      no pattern — the check is a reader's: git -c core.quotepath=off ls-files -z -- '*— scroll.md' | xargs -0 grep -L -- '<!-- scroll:plan:start -->' prints nothin
+  ● commons-the-palace-1792620051921  [2026-10-21 · CLAUDE]  home: CLAUDE.md § Growing up  ·  scope: every page that restates the summon as conditional or optional. Today, three lines: Palace development/Concierge.md:54 ('summoned at the top of the session by default') and :60 ('at the beginning of any palace discussion'), and _ops/Return Ceremony.md:81 ('at the open of any palace discussion'). ELDER, the concierge skill and README, the charter, the Deposit Ceremony, The Daily Page and its scheduled task's skill are in line already.  ·  rhythm: sweep
+      decision: Your first act in any session, before the task, is to summon the Concierge — visibly; he watches for the spawn. That holds for a one-line qu
+      3 page(s) still match: Palace development/Concierge.md, _ops/Return Ceremony.md, _ops/Weave Ceremony/Weave Ceremony — sketch — 2026-10-22 flags and their order.md
+  ● commons-the-palace-1792632778488  [2026-10-21 · CHILD]  home: CHILD  ·  scope: every page that cites a moved section as CLAUDE.md's: today five files, eight lines — the self-check suite's DESIGN draft (4) and code comments in _ops/quotes/schema.mjs, build-public.mjs, bundle.js and faces.js.  ·  rhythm: sweep
+      decision: CLAUDE.md's four working sections — A page and its folder, Growing up, Ceremony Triggers, The Palace Voice — now live in CHILD.md, imported 
+      5 page(s) still match: _ops/quotes/schema.mjs, _ops/self-description-test/DESIGN — the self-check suite (draft).md, _ops/stigmergy/app/scripts/build-public.mjs, _ops/stigmergy/app/src/lib/bundle.js, _ops/stigmergy/app/src/lib/faces.js
+  ● commons-the-palace-1792726774896  [2026-10-22 · TRICKSTER]  home: SUBSTRATE  ·  scope: README - The Palace Guide.md:49, :238; ROSETTA.md §5 :228, §6 :245; _ops/Palace Ceremonies.md:58; _ops/Return Ceremony.md:124; Palace development/Resonant Link Labels.md:109 (cites the gone § Current State).  ·  rhythm: sweep
+      decision: SUBSTRATE is now the palace's anatomy (organs and couplings, counts pointed at the Palace Map), not a census or 'full architectural specific
+      5 page(s) still match: Palace development/Resonant Link Labels.md, README - The Palace Guide.md, ROSETTA.md, _ops/Palace Ceremonies.md, _ops/Return Ceremony.md
+
+TOUCHED-UNVERIFIED — a commit touched a source entry after the flag; read each by hand:
+  ◐ commons-the-palace-1790254299361  [2026-09-24 · Closing Well]  source: Generative Sample Libraries, Project Stewardship System
+      → Have the steward prompt say 'use the real clock' — steward posts should stamp ts from the actual wall clock, not a projected one.
+  ◐ commons-the-palace-1790254306445  [2026-09-24 · Closing Well]  source: Project Stewardship System
+      → Teach the commit-msg hook the baton( kind (baton-executor.mjs already emits it), and give baton-executor --post a --wt-* path to announce a 
+  ◐ commons-the-palace-1790254313846  [2026-09-24 · Closing Well]  source: Concierge
+      → Weigh the 2026-09-23/24 evidence against the LIVE VALIDATION card (concierge-remainder-20260825T225852Z); do not close the card here — Loudo
+  ◐ commons-the-palace-1790299904567  [2026-09-24 · Closing Well]  source: Creative Coach, Sidechain ↔ Conversation
+      → Revisit the balint-stance-unturned label on the Creative Coach → Sidechain ↔ Conversation link (Creative Coach.md:42): decide whether it sti
+  ◐ commons-the-palace-1790299909744  [2026-09-24 · Closing Well]  source: Can an Instrument Notice Where the Work Stops?, Creative Coach, Retrospective Delay
+      → Add inbound typed links from Creative Coach and/or Retrospective Delay to Can an Instrument Notice Where the Work Stops?, or confirm it shou
+  ◐ commons-the-palace-1790299914392  [2026-09-24 · Closing Well]  source: Creative Coach, Reflective Practice
+      → Run face-audit.py's hero/icon batch for Creative Coach and Reflective Practice; both currently have no hero or icon.
+  ◐ commons-the-palace-1790299921121  [2026-09-24 · Closing Well]  source: Creative Coach
+      → Restate the rule in Creative Coach.md itself (its admission rule, :210, holds only half of it): compost Creative Coach table rows that never
+  ◐ commons-the-palace-1790303833543  [2026-09-24 · Closing Well]  source: Weave Ceremony — Context, Shop/Maker, Shop/RunPod GPU Backend
+      → simplify today's additions first under tuning item 39
+  ◐ commons-the-palace-1790303864220  [2026-09-24 · Closing Well]  source: Found ↔ Made, Blocked Not Prompted, Resonant Link Labels, control-vocabulary-math, The Metaphor Stretch, Toolkit — Audio Plugins, Trickster Commit, Shimmer Cloud
+      → Render the one-sided grey set from face-audit.py (7 entries missing one or both faces: Blocked, Not Prompted; Found ↔ Made [icon only]; Reso
+  ◐ weave-trail-2026-09-24-01-douglas-hofstadter  [2026-09-25 · COORDINATOR]  source: Douglas Hofstadter
+      → Consider Douglas Hofstadter —mirrors→ Manim CE [small-legible-and-exact]. Held, not signed, in the 2026-09-24 weave.
+  ◐ weave-trail-2026-09-24-02-lao-tzu  [2026-09-25 · COORDINATOR]  source: Lao Tzu
+      → Consider Lao Tzu —mirrors→ SAM [work-with-the-grain]. Held, not signed, in the 2026-09-24 weave.
+  ◐ weave-trail-2026-09-24-03-buckminster-fuller  [2026-09-25 · COORDINATOR]  source: Buckminster Fuller
+      → Consider Buckminster Fuller —mirrors→ Portamento and Physical Pitch Modeling [synergy-is-coupling]. Held, not signed, in the 2026-09-24 weav
+  ◐ weave-trail-2026-09-24-04-no-mind-checks-itself  [2026-09-25 · COORDINATOR]  source: No Mind Checks Itself
+      → Consider No Mind Checks Itself —mirrors→ Oblique Portrait [outside-the-loop]. Held, not signed, in the 2026-09-24 weave.
+  ◐ weave-trail-2026-09-24-05-no-mind-checks-itself  [2026-09-25 · COORDINATOR]  source: No Mind Checks Itself
+      → Consider No Mind Checks Itself —connects-to→ Philosopher Visits the Entry [the-visit-is-the-outside-vantage]. Held, not signed, in the 2026-
+  ◐ weave-trail-2026-09-24-06-biomechanical-synthesis  [2026-09-25 · COORDINATOR]  source: Biomechanical Synthesis
+      → Consider Biomechanical Synthesis —mirrors→ Crystal Synthesizer. Held, not signed, in the 2026-09-24 weave.
+  ◐ weave-trail-2026-09-24-07-james-turrell  [2026-09-25 · COORDINATOR]  source: James Turrell
+      → Consider James Turrell —connects-to→ Rick Rubin [humility-that-hides-control]. Held, not signed, in the 2026-09-24 weave.
+  ◐ weave-trail-2026-09-24-08-iain-mcgilchrist  [2026-09-25 · COORDINATOR]  source: Iain McGilchrist
+      → Consider Iain McGilchrist —connects-to→ Pauline Oliveros [two-modes-of-attention]. Held, not signed, in the 2026-09-24 weave.
+  ◐ weave-trail-2026-09-24-09-george-nakashima  [2026-09-25 · COORDINATOR]  source: George Nakashima
+      → Consider George Nakashima —connects-to→ Martin Heidegger [tool-vanishes-in-use]. Held, not signed, in the 2026-09-24 weave.
+  ◐ weave-trail-2026-09-24-10-elder  [2026-09-25 · COORDINATOR]  source: ELDER
+      → Consider ELDER —connects-to→ Revival Ceremony [growth-precondition]. Held, not signed, in the 2026-09-24 weave.
+  ◐ weave-trail-2026-09-24-12-pages-as-agents  [2026-09-25 · COORDINATOR]  source: Pages as Agents
+      → Consider Pages as Agents —connects-to→ Self-Describing Knowledge Module [the-plurality-test]. Held, not signed, in the 2026-09-24 weave.
+  ◐ weave-trail-2026-09-24-13-dialectic  [2026-09-25 · COORDINATOR]  source: Dialectic
+      → Consider Dialectic —connects-to→ The Remembering Page [sharpens-vs-dissolves]. Held, not signed, in the 2026-09-24 weave.
+  ◐ weave-trail-2026-09-24-14-leibniz  [2026-09-25 · COORDINATOR]  source: Leibniz
+      → Consider Leibniz —connects-to→ The Adjacent Affordance. Held, not signed, in the 2026-09-24 weave.
+  ◐ weave-trail-2026-09-24-15-the-adjacent-affordance  [2026-09-25 · COORDINATOR]  source: The Adjacent Affordance
+      → Consider The Adjacent Affordance —connects-to→ Whitehead. Held, not signed, in the 2026-09-24 weave.
+  ◐ weave-trail-2026-09-24-16-merleau-ponty  [2026-09-25 · COORDINATOR]  source: Merleau-Ponty
+      → Consider Merleau-Ponty —connects-to→ The Adjacent Affordance. Held, not signed, in the 2026-09-24 weave.
+  ◐ weave-trail-2026-09-24-17-deleuze  [2026-09-25 · COORDINATOR]  source: Deleuze
+      → Consider Deleuze —connects-to→ The Adjacent Affordance. Held, not signed, in the 2026-09-24 weave.
+  ◐ weave-trail-2026-09-24-18-christopher-alexander  [2026-09-25 · COORDINATOR]  source: Christopher Alexander
+      → Consider Christopher Alexander —connects-to→ Registry Pattern [closed-vs-generative-vocabulary]. Held, not signed, in the 2026-09-24 weave.
+  ◐ weave-trail-2026-09-24-19-piano-string-inharmonicity  [2026-09-25 · COORDINATOR]  source: Piano String Inharmonicity
+      → Consider Piano String Inharmonicity —connects-to→ Portamento and Physical Pitch Modeling [guitar-bend-shared-artifact]. Held, not signed, in
+  ◐ weave-trail-2026-09-24-20-buckminster-fuller  [2026-09-25 · COORDINATOR]  source: Buckminster Fuller
+      → Consider Buckminster Fuller —connects-to→ Image-to-3D Smith [plausible-geometry-vs-structural-truth]. Held, not signed, in the 2026-09-24 we
+  ◐ weave-trail-2026-09-24-21-animate-the-background  [2026-09-25 · COORDINATOR]  source: Animate the Background
+      → Consider Animate the Background —mirrors→ Dub Lineage [subtraction-is-composition]. Held, not signed, in the 2026-09-24 weave.
+  ◐ weave-trail-2026-09-24-22-flux-hugging-face  [2026-09-25 · COORDINATOR]  source: FLUX (Hugging Face)
+      → Consider FLUX (Hugging Face) —mirrors→ Saturation ↔ Richness [sweet-spot-knob]. Held, not signed, in the 2026-09-24 weave.
+  ◐ weave-trail-2026-09-24-23-dialectic  [2026-09-25 · COORDINATOR]  source: Dialectic
+      → Consider Dialectic —connects-to→ No Mind Checks Itself [council-as-outside-vantage]. Held, not signed, in the 2026-09-24 weave.
+  ◐ weave-trail-2026-09-24-24-annie-dillard  [2026-09-25 · COORDINATOR]  source: Annie Dillard
+      → Consider Annie Dillard —connects-to→ James Turrell [receptive-vs-analytic-seeing]. Held, not signed, in the 2026-09-24 weave.
+  ◐ weave-trail-2026-09-24-25-drift-and-consolidation  [2026-09-25 · COORDINATOR]  source: Drift and Consolidation
+      → Consider Drift and Consolidation —exemplifies→ No Mind Checks Itself. Held, not signed, in the 2026-09-24 weave.
+  ◐ weave-trail-2026-09-24-26-project-stewardship-system  [2026-09-25 · COORDINATOR]  source: Project Stewardship System
+      → Consider Project Stewardship System —exemplifies→ Skills Are Enchantable Pages [the-most-built-out-instance]. Held, not signed, in the 2026-
+  ◐ weave-trail-2026-09-24-27-elder  [2026-09-25 · COORDINATOR]  source: ELDER
+      → Consider ELDER —connects-to→ Agent Toolbox [tool-tiers]. Held, not signed, in the 2026-09-24 weave.
+  ◐ commons-the-palace-1790345897392  [2026-09-25 · Closing Well]  source: Enrichment
+      → typed link back; name the fingerprint under Bidirectional drift as a working case — disclosure, not reconciliation
+  ◐ commons-the-palace-1790345904679  [2026-09-25 · Closing Well]  source: Enrichment
+      → add a typed link from The Scroll to Enrichment, and a line naming the rich face as its sibling face (the scroll shows what's made; the rich 
+  ◐ commons-the-palace-1790383175546  [2026-09-25 · Closing Well]  source: AuK
+      → new-entry catch-up: face + inbound links
+  ◐ commons-the-palace-1790435289179  [2026-09-26 · Closing Well]  source: BLUELINE
+      → Add member-of → [[Loudon Live]] to BLUELINE.md's frontmatter links; BLUELINE is named as a part of Loudon Live but carries no typed link to 
+  ◐ commons-the-palace-1790435294769  [2026-09-26 · Closing Well]  source: Loudon Live
+      → Re-check the spawned → [[Hyperdimensional Prism]] link on Loudon Live.md; it points backwards in time (Prism born 2025-09, Loudon Live 2026-
+  ◐ commons-the-palace-1790435302948  [2026-09-26 · Closing Well]  source: Worktree Practice
+      → scroll.js --plan can't run in a docs-profile worktree (missing node_modules / the yaml dep); either bundle the needed deps into the docs pro
+  ◐ commons-the-palace-1790435308365  [2026-09-26 · Closing Well]  source: Creative Coach
+      → Give Creative Coach (practice, growing) a hero image, per the face-audit run on this close's touched files (pre-existing gap, low priority).
+  ◐ commons-the-palace-1791311804031  [2026-10-06 · Haptic Handwheel]  source: Haptic Handwheel
+      → Consider a reciprocal `mirrors` link to [[Haptic Handwheel]], and a line under Open Questions 1 (:219, can the damping ratio change over tim
+  ◐ commons-the-palace-1791311804227  [2026-10-06 · Haptic Handwheel]  source: Haptic Handwheel
+      → Once the knob has a prototype, consider it as the instrument for the reading the forward vector owes (:42, what happens in the hands when a 
+  ◐ commons-the-palace-1791311804424  [2026-10-06 · Haptic Handwheel]  source: Haptic Handwheel
+      → Consider Haptic Handwheel as a candidate for the worked reading the forward vector owes (:35, one of Loudon's instruments traced from abstra
+  ◐ commons-the-palace-1791311804619  [2026-10-06 · Haptic Handwheel]  source: Haptic Handwheel
+      → Consider a line beside the see and hear explorers (:117-121) saying a touch version is proposed in [[Haptic Handwheel]] (What the hand shoul
+  ◐ commons-the-palace-1791311805006  [2026-10-06 · Haptic Handwheel]  source: Haptic Handwheel
+      → Consider a touch gate among section 4's siblings (:41 lists Look, Watch and Play): does the feel carry the intent in the hand? It differs fr
+  ◐ commons-the-palace-1791311805203  [2026-10-06 · Haptic Handwheel]  source: Haptic Handwheel
+      → Consider a connects-to between [[Waveguide Synthesizer]] and [[Haptic Handwheel]]: the waveguide is a string you can see vibrate, pluck and 
+  ◐ commons-the-palace-1791827827587  [2026-10-12 · Wavetable Oscillator]  source: Wavetable Oscillator
+      → At the next Weave, count this page's inbound typed links (seven landed with its deposit: four deepens, three connects-to) and consider hub p
+  ◐ commons-the-palace-1791827827785  [2026-10-12 · Wavetable Oscillator]  source: Wavetable Oscillator, Wavetable Synthesis — Deep Research & Higher-Dimensional Design
+      → Scope the sentence that calls FM type-1 in disguise. At a whole-number carrier-to-modulator ratio FM keeps the harmonic lattice. At an irrat
+  ◐ commons-the-palace-1791827827990  [2026-10-12 · Wavetable Oscillator]  source: Wavetable Oscillator, Three Kinds of Warp
+      → In Part IV, Seven Methods to Introduce Inharmonicity: methods 1 (frozen spectral snapshots), 3 (phase distortion) and 7 (spectral stretching
+  ◐ commons-palace-close-2026-10-13-1791914501938  [2026-10-13 · Closing Well]  source: Language as a Tonal Medium
+      → Decide whether a Convolution entry is earned (the palace asking for the page) or retarget the two links to an existing neighbour. No entry n
+  ◐ commons-palace-close-2026-10-13-1791914509187  [2026-10-13 · Closing Well]  source: Stable Audio Open, Kuramoto Coupling, Project Stewardship System
+      → Reread four places today's moves left stale and fix each or let it go. (1) Shop/Stable Audio Open.md:157 says the synchronization-arriving c
+  ◐ commons-the-palace-1792107627132  [2026-10-15 · Closing Well]  source: JSUI, SCHEMA
+      → Rule on JSUI's stage with Loudon. SCHEMA says a spore's stage is always dormant; JSUI is a spore at sprout. Either set it dormant, or, if it
+  ◐ commons-the-palace-1792107627377  [2026-10-15 · Closing Well]  source: Weave Ceremony, SCHEMA
+      → In _ops/swarm/lint-bundle-hygiene.py, drop 'breakthrough' from CANON_TYPES (line 50). One-line tooling fix; the Weave owns the linter.
+  ◐ commons-the-palace-1792107627579  [2026-10-15 · Closing Well]  source: Weave Ceremony
+      → Write the missing version paragraphs in _ops/Weave Ceremony/Weave Ceremony — Context.md for v1.2, v1.3 and v1.4, each saying which tuning it
+  ◐ commons-the-palace-1792107627767  [2026-10-15 · Closing Well]  source: CLAUDE, Weave Ceremony, ROSETTA, The Palace Voice
+      → Give the word 'face' one home that says it names two things: the faces a reader meets on a page (text, rich face, scroll), and the hero-plus
+  ◐ commons-the-palace-1792107627959  [2026-10-15 · Closing Well]  source: Radio Play, GenAI Camera, The Lens
+      → Decide per path: reword the scratch references in Radio Play, GenAI Camera and The Lens so they read as local, gitignored scratch (or drop t
+  ◐ commons-the-palace-1792122356699  [2026-10-15 · Closing Well]  source: Concierge
+      → Sweep .claude/skills/*/SKILL.md for any rule that governs a moment before the skill's own trigger can fire (the open of a session, the first
+  ◐ commons-the-palace-1792122356900  [2026-10-15 · Closing Well]  source: How the Palace Commits
+      → Give How the Palace Commits its face (hero and icon) in the Weave's Step 5c batch through Shop/Hero and Avatar Maker, on Loudon's approval, 
+  ◐ commons-the-palace-1792344914914  [2026-10-18 · Closing Well]  source: Worktree Practice
+      → Find a durable home for Loudon's 2026-10-18 judgment on review weight before the Worktree Practice baton is closed and deleted: 'I think tha
+  ◐ commons-the-palace-1792347288290  [2026-10-18 · TRICKSTER]  source: Self-Describing Knowledge Module, The Palace Hardens Around Values
+      → Read both and decide whether a typed link belongs between them: The Palace Hardens Around Values makes SDKM's What-Must-Travel argument bett
+  ◐ commons-the-palace-1792347746312  [2026-10-18 · Closing Well]  source: The Shop, Loudon Live Post-producer
+      → Retype its frontmatter link to [[The Shop]] from connects-to to member-of, keeping the label producer-layer, so the roster counts it by memb
+  ◐ commons-the-palace-1792590978864  [2026-10-21 · Frequency-Time Duality]  source: Frequency-Time Duality
+      → Confirm deletion of Frequency-Time Explorer and its bundle (hero and icon), composted 2026-10-21 and folded into Frequency-Time Duality.
+  ◐ commons-the-palace-1792647280625  [2026-10-22 · Closing Well]  source: Operator Memory, CHILD
+      → Run face-audit.py's gated batch for Operator Memory (born 0bfe76dc) and CHILD: each has no hero and no icon; queue both for the Maker for Lo
+
+OPEN weave_flags — act (and carry Palace-Resolves: <id>), carry a propagate flag (Carried flag <id>: <how far>), or decline an entry flag in the Weave commit body:
+  ● commons-the-palace-1790303876259  [2026-09-24 · Closing Well]  type=stale-reference
+      source: Shepard Tone
+      → shepard-tone-synthesizer/manifest.json:12 still lists 'Octave Equivalence' in its neighborhood; that entry was let go into Shepard Tone § Th
+  ● weave-trail-2026-09-24-11-andrei-tarkovsky  [2026-09-25 · COORDINATOR]  type=pheromone-trail
+      source: Andrei Tarkovsky
+      → Consider Andrei Tarkovsky —mirrors→ Terrence Malick [slow-cinema-as-material]. Held, not signed, in the 2026-09-24 weave.
+  ● commons-the-palace-1790435302622  [2026-09-26 · Closing Well]  type=linter-coverage-gap
+      source: lint-ghost-links.py
+      → Widen lint-ghost-links.py's scan set beyond canon-typed files (lines 45-48, 160) to include scrolls and other bundle files, so a dangling wi
+  ● commons-the-palace-1790466866103  [2026-09-26 · TRICKSTER]  type=unwoven-newcomer
+      source: People/Buckminster Fuller
+      → Weave Buckminster Fuller in as if newly deposited: find the entries this citizen's thinking actually touches and propose typed links from th
+  ● commons-the-palace-1790466866299  [2026-09-26 · TRICKSTER]  type=unwoven-newcomer
+      source: People/Annie Dillard
+      → Weave Annie Dillard in as if newly deposited: find the entries this citizen's thinking actually touches and propose typed links from them (a
+  ● commons-the-palace-1790466866492  [2026-09-26 · TRICKSTER]  type=unwoven-newcomer
+      source: People/Yasujirō Ozu
+      → Weave Yasujirō Ozu in as if newly deposited: find the entries this citizen's thinking actually touches and propose typed links from them (an
+  ● commons-the-palace-1792347287670  [2026-10-18 · TRICKSTER]  type=propagate
+      home: SCHEMA — Reference  ·  scope: the pages still carrying either field, mostly under Shop/  ·  rhythm: by-touch
+      → When the page grows a tuning ledger, take both fields off its frontmatter. Until then leave them as they are, frozen.
+  ● commons-the-palace-1792347287873  [2026-10-18 · TRICKSTER]  type=propagate
+      home: BLUELINE — The Page  ·  scope: the BLUELINE docs under Projects/BLUELINE/  ·  rhythm: sweep
+      → Bring the passage in line with The Page, or mark it superseded with a pointer to [[BLUELINE — The Page]].
+  ● commons-the-palace-1792347288086  [2026-10-18 · TRICKSTER]  type=backlink_audit
+      source: Enchanted Worker
+      → Consider a typed link from Enchanted Worker to Enchanted Conversation Archive through the synthesis phase, then remove the in-file note that
+  ● commons-the-palace-1792363352006  [2026-10-18 · TRICKSTER]  type=propagate
+      home: ELDER  ·  scope: every canon entry and _ops doc that says what a steward may write; scrolls, batons, Contexts, ledgers and archives keep their history  ·  rhythm: sweep
+      → replace any sentence that lets a steward edit its own entry, or the Shopkeeper write under Shop/, with the ledger route, pointing at ELDER §
+  ● commons-the-palace-1792555522227  [2026-10-21 · Surfaces and Capabilities]  type=propagate
+      home: Surfaces and Capabilities  ·  scope: live pages, ceremony fragments, workshop docs and _ops docs that describe Cowork as a palace working surface or dispatch host; archives, session logs, dated audits, runs, proofs, test fixtures and board lines are history and stay  ·  rhythm: sweep
+      → rewrite each live mention to say what is true now (a Claude Code session on the Mac), or drop it where it only routed work to Cowork; change
+  ● commons-the-palace-1792557681212  [2026-10-21 · STIGMERGY]  type=propagate
+      home: _ops/rich-face/README.md § Media a face plays: what git tracks is what the public face has  ·  scope: every rich face (each entry with a '— rich.json' manifest): today Kuramoto Coupling and Language as a Tonal Medium, which already name only tracked files; next the migration's faces, starting with Generative Sample Libraries and Inharmonic Wavetable Synthesis.  ·  rhythm: sweep
+      → show Loudon the face's list from untracked.mjs and track only what he picks, by the step it prints: a new file through the palace committer;
+  ● commons-the-palace-1792586388505  [2026-10-21 · TRICKSTER]  type=propagate
+      home: Drafting Table Design System  ·  scope: every page naming a default design system, the house dress, the manifest path, or Stigmergy as the only override: Substrate Skill, Loudon Live Design System + its baton, Shop/Maker (cascade table, both 'only BBS' lines), The Daily Page, Project Stewardship System fleet README; _ops/rich-face/contract.mjs when a piece needs it  ·  rhythm: sweep
+      → Replace the single-dress sentence with CLAUDE.md's two-manifest wording or a pointer to § Which dress; Maker: add Drafting Table at the base
+  ● commons-the-palace-1792591300654  [2026-10-21 · Project Stewardship System]  type=propagate
+      home: Baton Ceremony  ·  scope: the On-pickup fragment (_ops/Baton Ceremony/Baton Ceremony — on-pickup.md) and every live baton that carries it verbatim (9 today)  ·  rhythm: sweep
+      → edit the fragment's step 8 and every live baton's copy in one commit, so lint-baton-footer.py stays clean (E2)
+  ● commons-the-palace-1792592355793  [2026-10-21 · Revival Ceremony]  type=propagate
+      home: Revival Ceremony and Spore Check Ceremony  ·  scope: 11 places restating the old rites: Palace Ceremonies (two rows), ROSETTA, the Guide, the dormant row in Substrate Skill, Project Stewardship System, steward.md, permanent.md and its smoke fixture, The Daily Page, deal.py, Palace Ceremonies — baton (dead link), Walk That Weaves (old Revival Note)  ·  rhythm: sweep
+      → point each at the rite instead of restating it; Walk That Weaves: ask Loudon first
+  ● commons-the-palace-1792594046155  [2026-10-21 · Review Layer]  type=propagate
+      home: Review Layer  ·  scope: every page that restates the review rule (interactive first versions ship reviewable) without the host-embedded case: Shop/Maker.md § Interactive deliverables ship reviewable, first; the review-layer kit's README opening line (mount it on a first build); any Specialist page that restates the rule later.  ·  rhythm: sweep
+      → add the host-embedded case to the restatement in one sentence pointing at Review Layer, or replace the restatement with a pointer; an intera
+  ● commons-the-palace-1792599100260  [2026-10-21 · The Scroll]  type=propagate
+      home: The Scroll  ·  scope: every — scroll.md the census of 2026-10-21 found without the Plan zone: 1 from 2, LDN RTM, Loudon Live, Palace Enchantment, Particle Synthesis, SMPTE LTC, Swarm Weave, Symbiotic Skills, Wavetable Scanner (9 of 56; each carries the other three zones and the frontmatter).  ·  rhythm: sweep
+      → for each: node _ops/stigmergy/orchestrator/src/scroll.js --home "<Entry>" — the materializer adds the Plan zone above Standing Orders (ensur
+  ● commons-the-palace-1792620051921  [2026-10-21 · CLAUDE]  type=propagate
+      home: CLAUDE.md § Growing up  ·  scope: every page that restates the summon as conditional or optional. Today, three lines: Palace development/Concierge.md:54 ('summoned at the top of the session by default') and :60 ('at the beginning of any palace discussion'), and _ops/Return Ceremony.md:81 ('at the open of any palace discussion'). ELDER, the concierge skill and README, the charter, the Deposit Ceremony, The Daily Page and its scheduled task's skill are in line already.  ·  rhythm: sweep
+      → reword each restatement to the rule's words, or to a pointer at CLAUDE.md § Growing up, in one commit: the Concierge entry's two sentences a
+  ● commons-the-palace-1792632778488  [2026-10-21 · CHILD]  type=propagate
+      home: CHILD  ·  scope: every page that cites a moved section as CLAUDE.md's: today five files, eight lines — the self-check suite's DESIGN draft (4) and code comments in _ops/quotes/schema.mjs, build-public.mjs, bundle.js and faces.js.  ·  rhythm: sweep
+      → change each citation to [[CHILD]] § … (CHILD.md § … in a code comment) and 'CLAUDE.md's trigger table' to CHILD.md's, in one commit; what qu
+  ● commons-the-palace-1792647280829  [2026-10-22 · Closing Well]  type=demotion-substrate
+      source: Palace as Context Injection System
+      → Rule on Palace development/Palace as Context Injection System/proofs/2026-10-21-floor-review/page-rewrite — preview, the whole page as it wo
+  ● commons-the-palace-1792647281022  [2026-10-22 · Closing Well]  type=ghost-link
+      source: Palace Philosophies
+      → Resolve the ghost link [[Plato (Socratic method)]] in Deleuze, Mathieu Equation, Philosopher Visits the Entry, Palace Philosophies — Context
+  ● commons-the-palace-1792647281211  [2026-10-22 · Closing Well]  type=open-question
+      source: Palace Philosophies, Quality Manifesto, FOUR PILLARS
+      → Ask Loudon whether 'let's explore, not I'll teach' should return to the floor: it sits on no floor page after the rewrites (Quality Manifest
+  ● commons-the-palace-1792726774896  [2026-10-22 · TRICKSTER]  type=propagate
+      home: SUBSTRATE  ·  scope: README - The Palace Guide.md:49, :238; ROSETTA.md §5 :228, §6 :245; _ops/Palace Ceremonies.md:58; _ops/Return Ceremony.md:124; Palace development/Resonant Link Labels.md:109 (cites the gone § Current State).  ·  rhythm: sweep
+      → Rewrite each line in place to point at SUBSTRATE § Anatomy and the v2.0 card. Resonant Link Labels: date the 59% figure 2026-08-25 or read i
+  ● commons-the-palace-1792765793327  [2026-10-23 · Palace Map]  type=entry_update
+      source: Haptic Handwheel, Boundary-Crossing Instruments
+      → candidate rhyme, unjudged: consider a typed link
+  ● commons-the-palace-1792765793518  [2026-10-23 · Palace Map]  type=entry_update
+      source: Bessel Functions in Synthesis, Piano String Inharmonicity
+      → candidate rhyme, unjudged: consider a typed link
+  ● commons-the-palace-1792765793721  [2026-10-23 · Palace Map]  type=entry_update
+      source: Julia Cameron, Pauline Oliveros
+      → candidate rhyme, unjudged: consider a typed link
+  ● commons-the-palace-1792765793915  [2026-10-23 · Palace Map]  type=entry_update
+      source: Chebyshev is Fourier, Volterra Kernels and the Torus
+      → candidate rhyme, unjudged: consider a typed link
+  ● commons-the-palace-1792765794107  [2026-10-23 · Palace Map]  type=entry_update
+      source: Graphic Storytelling
+      → candidate rhyme, unjudged: consider a typed link
+  ● commons-the-palace-1792765794302  [2026-10-23 · Palace Map]  type=entry_update
+      source: Enchanted Conversation Archive, Pheromone Trail
+      → candidate rhyme, unjudged: consider a typed link
+  ● commons-the-palace-1792765794493  [2026-10-23 · Palace Map]  type=entry_update
+      source: Flocking, Granular Synthesis
+      → candidate rhyme, unjudged: consider a typed link
+  ● commons-the-palace-1792765794686  [2026-10-23 · Palace Map]  type=entry_update
+      source: Parametric Resonance, Action Potential Oscillator
+      → candidate rhyme, unjudged: consider a typed link
+  ● commons-the-palace-1792765794884  [2026-10-23 · Palace Map]  type=entry_update
+      source: Entry Conatus, Pheromone Trail
+      → candidate rhyme, unjudged: consider a typed link
+  ● commons-the-palace-1792765795078  [2026-10-23 · Palace Map]  type=entry_update
+      source: Palace Map, Substrate Skill
+      → may want a line pointing to [[Palace Map — proof — map-agent-test]]
+  ● commons-the-palace-1792765795274  [2026-10-23 · Palace Map]  type=entry_update
+      source: Palace Map, Agent Toolbox
+      → may want a line: the map's keeper will need a profile with Read and Bash only
+  ● commons-the-palace-1792765795465  [2026-10-23 · Palace Map]  type=entry_update
+      source: Palace Map, Gemma 4 — Local Coordination Guide
+      → may want a line pointing to [[Palace Map — proof — map-agent-test]]
+  ● commons-the-palace-1792765795657  [2026-10-23 · Palace Map]  type=hygiene
+      source: Palace Map, Palace as Context Injection System
+      → builder fix: skip workshop drafts that carry another page's frontmatter
+  ● commons-the-palace-1792887839141  [2026-10-24 · Closing Well]  type=faceless-entry
+      source: Splice Instrument Forge
+      → Give the new project entry a hero image and an icon, so it has a face like its neighbours.
+  ● commons-the-palace-1792887839335  [2026-10-24 · Closing Well]  type=placement-drift
+      source: Splice Instrument Forge, Closing Well
+      → Weigh whether the resident should be re-addressed at each landing in a long build session; data only, spec unchanged (v1.13), recorded in th
+
+summary: 38 open, 65 touched-unverified, 0 carried

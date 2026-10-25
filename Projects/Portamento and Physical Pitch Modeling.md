@@ -11,16 +11,19 @@ hook_quality: 8
 beauty: 8
 who_leads: shared
 links:
-  - target: "[[Action Potential Oscillator]]"
-    type: connects-to
   - target: "[[Frequency-Time Duality]]"
     type: deepens
   - target: "[[Kuramoto Coupling]]"
     type: couples-with
-  - target: "[[Bessel Functions in Synthesis]]"
-    type: connects-to
   - target: "[[Biomechanical Synthesis]]"
     type: connects-to
+    label: voice-biomechanics
+  - target: "[[Action Potential Oscillator]]"
+    type: mirrors
+    label: threshold-overshoot
+  - target: "[[Bessel Functions in Synthesis]]"
+    type: connects-to
+    label: circular-resonator-modes
 forward_vector: "I want to become a fully implemented and staged teaching instrument — where overdamped, critically damped, and underdamped portamento are not just equations but audible, feelable distinctions that any student can identify by ear after a single session. I want to develop concrete listening exercises: pairs of portamento examples where the student identifies the damping regime and explains what physical system would produce that trajectory. The physics is already here; the pedagogy needs its exercises."
 ---
 
@@ -193,22 +196,12 @@ This is a high-dimensional coupled system, but it too can be modeled as coupled 
 
 ## Artifacts and Interactive Exploration
 
-Ten interactive HTML tools have been extracted from an extended conversation on wavelet analysis and portamento (January 6, 2026). These artifacts are located at:
+The bundle holds:
 
-`Projects/Portamento and Physical Pitch Modeling/portamento-tool-01.html` through `portamento-tool-10.html`
-
-Each tool demonstrates a specific aspect:
-
-1. **Basic Overdamped/Critically Damped/Underdamped Comparison** — Direct visualization of the three regimes. Slider controls ζ. Real-time frequency trajectory and sonic output.
-2. **Wavelet Spectrogram of Portamento** — Real-time CWT of a pitch glide. See the main ridge (frequency trajectory) and ringing (overshoot oscillation).
-3. **String Length → Frequency Mapping** — As a slider moves (finger position), the frequency changes. Shows inharmonicity coefficient effect on mode spreading.
-4. **Vocal Glide with Formants** — Two tracks: one for pitch (underdamped), one for formants (quasi-static). Shows pitch-formant interaction during a glide.
-5. **Bell Mode Analyzer** — Input a bell strike. The tool decomposes it into modes, shows mode frequencies and damping constants, visualizes the multi-modal decay.
-6. **Guitar String Bend Physics** — Finger bends a string; tension increases, inharmonicity decreases. See partials compress toward ideal harmonic positions.
-7. **Kuramoto Coupling in a 5-Mode String** — Five modes with weak coupling. Watch them desynchronize during a fast glide, then re-sync as they settle.
-8. **Overshoot Calculator** — Input f₀, f_target, ζ, ω_n. Returns peak frequency, settling time, character description.
-9. **Wavelet Ridge Extractor** — Upload an audio file. Tool extracts the wavelet ridge (main frequency trajectory) and plots it. Useful for analyzing real instrument recordings.
-10. **Damping Regime Ear Training** — Four randomized portamento transitions: one from each regime (overdamped, critically damped, underdamped, and a complex multi-modal case). Listener identifies which.
+- `portamento-tool-01.html` … `portamento-tool-10.html` — ten interactive teaching tools from the 2026-01-06 conversation: the three damping regimes, a wavelet spectrogram and ridge extractor, string and vocal glides, a bell mode analyzer, a string bend, five Kuramoto-coupled modes, an overshoot calculator and a regime ear-training quiz.
+- `curated-ear-set/` — twelve rendered glides, each with its regime, a physical motivation and a spectrogram, played through a quiz, paired A-vs-B exercises and the single-session reel.
+- `multi-mode/` — the multi-mode study: a bowed string whose partials lock or slip during a glide, with renders and listening pages for mode locking, bow strength and tone colour.
+- `model-fitter/` — the model run backward: it recovers ζ and ωₙ from a recorded glide, validated on the twelve ear-set examples.
 
 **Usage note:** These tools are designed for *teaching*. They make the physics tangible and audible. They are not synthesis plugins; they are exploratory instruments.
 
@@ -216,11 +209,13 @@ Each tool demonstrates a specific aspect:
 
 ### Composition and Control
 
-1. **Portamento as a compositional parameter:** Can damping ratio ζ be modulated over time within a piece? What does ζ(t) sound like if it varies smoothly? If it jumps?
+1. **Portamento as a compositional parameter:** Can damping ratio ζ be modulated over time within a piece? What does ζ(t) sound like if it varies smoothly? If it jumps? *A proposal, not built:* [[Haptic Handwheel]]'s struck spring would let a finger damp the knob while it rings, which is ζ changed over time, by hand.
 
 2. **Overshoot aesthetics:** Is there a perceptual threshold for underdamped overshoot? At what overshoot amount does a glide feel "energetic" vs. "out of tune"?
+   - Progressed (2026-10-14, the scroll's cycle 11): on a bowed string the multi-mode study measured what an overshoot does to the tone — a soft bow's slipping overtone makes about one slow beat, likely inaudible; a firm bow's partial 5 beats as the pitch crests — and the reel's round three puts it to the ear. Nobody has listened yet.
 
 3. **Mode selection in complex instruments:** For an instrument with many modes (piano, prepared piano, vibraphone), which modes should be controlled during a portamento? Can selective mode modulation create new timbral landscapes?
+   - Progressed (2026-10-14, the scroll's cycle 10): for a bowed string the bow chooses. A harder bow holds more partials in tune, and on an overshoot the slipping partial climbs the series as the bow firms (partial 2 soft, 3 medium, 6 loud).
 
 ### Analysis and Listening
 
@@ -229,6 +224,7 @@ Each tool demonstrates a specific aspect:
 5. **Formant-pitch interaction:** In singing, how much does the dynamic between pitch and formants during a glide affect the emotional character of the phrase?
 
 6. **Real vs. modeled:** How well does the second-order physical model predict actual portamento trajectories in human singing and instrumental playing?
+   - Progressed: `model-fitter/` turns this into a measurement — it fits ζ and ωₙ to any recorded glide. Its validation so far is on the twelve synthetic ear-set examples.
 
 ### Synthesis Integration
 

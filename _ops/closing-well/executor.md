@@ -117,8 +117,8 @@ worktree. Pass `--flag-type --source-entries --target-entry --proposed-action --
 --source-deposit-id --sender` (for a close, the close's id, e.g. `close-YYYY-MM-DD`; `--sender "Closing Well"` — the writer has no default); `--dry-run`
 prints and validates without posting. **Do not hand-append the line** — that is how malformed
 flags and invented field names reached the board (2026-09-02); the arg parser now enforces the
-payload shape the Weave's Step 1c reader expects.
-The Weave's Step 1c reads the flag and rules it with whole-graph context. The close sees; the
+payload shape the Weave's Step 0c reader expects.
+The Weave's Step 0c reads the flag and rules it with whole-graph context. The close sees; the
 Weave acts.
 A **decision** the session made that should hold on every page (a retired word, a new
 convention, a moved path) goes the same way with a wider reach: once it is written into its home,

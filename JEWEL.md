@@ -12,6 +12,7 @@ status: canonical
 links:
   - target: "[[CLAUDE]]"
     type: enables
+    label: born-with
   - target: "[[ELDER]]"
     type: enables
     label: grows-into
@@ -23,6 +24,7 @@ links:
     type: deepens
   - target: "[[SUBSTRATE]]"
     type: connects-to
+    label: birth-floor
 ---
 
 # The Jewel

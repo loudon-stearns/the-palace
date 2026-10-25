@@ -8,9 +8,6 @@ born: 2026-04
 stage: growing
 forward_vector: "I want to become the foundational principle every higher-dimensional synthesis project reads first — the proof that periodicity is the constraint, looping dimensions are the escape, and the right operator on T^N is what generates audible novelty. I want to spawn the Higher-Dimensional Convolution entry and the Lie-group / SU(2) entries waiting in my forward edge."
 links:
-  - target: "[[2D Torus Wavetable Synthesizer]]"
-    type: couples-with
-    label: incarnated-by
   - target: "[[Frequency-Time Duality]]"
     type: mirrors
     label: rhymes-with
@@ -20,9 +17,6 @@ links:
   - target: "[[Wallpaper Groups]]"
     type: connects-to
     label: shares-symmetry
-  - target: "[[Wavetable Space as Torus]]"
-    type: couples-with
-    label: geometric-instantiation
   - target: "[[Categorizing Inharmonicity]]"
     type: enables
     label: lattice-foundation

@@ -18,15 +18,15 @@ links:
   - target: "[[Endosymbiosis]]"
     type: mirrors
     label: folds-inward
-  - target: "[[The Commons]]"
-    type: connects-to
-    label: proven-on-itself
   - target: "[[Hilaritas Generator]]"
     type: connects-to
     label: the-distribution-test
   - target: "[[Cooperation Yields Agency]]"
     type: connects-to
     label: measured-by
+  - target: "[[The Commons]]"
+    type: connects-to
+    label: the-worked-example
 ---
 
 # The Palace Practices on Itself
@@ -97,7 +97,7 @@ answer is one, the increase was local, whatever it felt like.
 
 ## Cross-domain resonance
 
-This [[mirrors]] **[[Endosymbiosis]]**: the merger where one organism took another inside itself and both kept growing — the palace folding its own new capability inward and compounding from it. The difference worth keeping: endosymbiosis fused two *different* organisms; here the palace folds in *itself*, which is exactly why the insularity warning matters.
+This `mirrors` **[[Endosymbiosis]]**: the merger where one organism took another inside itself and both kept growing — the palace folding its own new capability inward and compounding from it. The difference worth keeping: endosymbiosis fused two *different* organisms; here the palace folds in *itself*, which is exactly why the insularity warning matters.
 
 The same distinction applies to Engelbart. His bootstrapping aimed at collective capability inside an
 institutional research programme, and he never asked whether the augmented human was well — for him

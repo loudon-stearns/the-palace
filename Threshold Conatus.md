@@ -18,6 +18,7 @@ links:
     label: threshold-as-force
   - target: "[[Kuramoto Coupling]]"
     type: mirrors
+    label: critical-K-as-threshold
   - target: "[[Action Potential Oscillator]]"
     type: couples-with
     label: scale-partners
@@ -29,8 +30,10 @@ links:
     label: threshold-instantiation
   - target: "[[Lateral Access]]"
     type: connects-to
+    label: pre-threshold-readiness
   - target: "[[Hilaritas Generator]]"
     type: connects-to
+    label: practiced-crossing
   - target: "[[Progressive Staging]]"
     type: connects-to
     label: staged-threshold

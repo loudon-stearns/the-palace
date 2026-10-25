@@ -2,7 +2,7 @@
 
 A two-tier ComfyUI pipeline for turning authored storyboard control into a consistent
 animatic (cheap, fast) and then re-rendering the approved boards at high fidelity
-(expensive, slow). Built to run on RunPod and be driven from Cowork.
+(expensive, slow). Built to run on RunPod and be driven from a Claude Code session on the Mac.
 
 The governing idea: **the board record is the source of truth, not the pixels.**
 Each board is a small record — control images + identity reference + descriptor + seed.
@@ -70,7 +70,7 @@ not set per board — that is the whole point of putting the axes on wires.
 2. Expose HTTP port **8188**. Your endpoint is `https://<podId>-8188.proxy.runpod.net`.
 3. Install custom nodes via ComfyUI Manager (see `models_manifest.md` for the list) and
    download models to the volume. They persist across pod restarts.
-4. In Cowork, set the endpoint:
+4. On the Mac, set the endpoint:
    ```bash
    export COMFY_URL="https://<podId>-8188.proxy.runpod.net"
    pip install -r requirements.txt
@@ -80,7 +80,7 @@ not set per board — that is the whole point of putting the axes on wires.
 > Cost-shape: keep the Study volume on a cheap card for all iteration. Only spin up the
 > big card (or attach the FLUX volume) for the final Piece batch.
 
-## Driving it from Cowork
+## Driving it from the Mac
 
 ```bash
 # Study tier — render a whole scene's boards from the template

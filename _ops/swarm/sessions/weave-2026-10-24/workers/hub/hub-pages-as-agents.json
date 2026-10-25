@@ -1,0 +1,368 @@
+{
+ "room": "hub-pages-as-agents",
+ "lens": "hub-nutrition",
+ "pages_read": [
+  "Pages as Agents",
+  "Palace Conatus",
+  "Metaphor as Coupling Medium",
+  "Does Personifying an Agent Change What It Does",
+  "Endosymbiosis",
+  "Flocking",
+  "The Palace Voice",
+  "Making a Palace Citizen",
+  "Swarm Weave (frontmatter, lines 330-370, greps)",
+  "Palace Enchantment (frontmatter, opening 130 lines, greps; not read whole, 71 KB)",
+  "Palace Map (frontmatter and greps of body)",
+  "Palace Quotes",
+  "Enchanted Worker",
+  "Lossy Compression with Intent Alignment",
+  "Pheromone Trail",
+  "BBS Blackboard",
+  "Dialogue Moderator",
+  "Four Pillars of Enchanted Agency (frontmatter, opening, three sections, greps)",
+  "Tree of Thoughts",
+  "Walk That Weaves",
+  "SCHEMA — Reference (frontmatter and sections cited)",
+  "CHILD (frontmatter and opening)"
+ ],
+ "weak_links": [
+  {
+   "source": "Palace Conatus",
+   "target": "Pages as Agents",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "proposed_type": "connects-to",
+   "proposed_label": "page-drives-in-phase",
+   "evidence_source": "Every page has a conatus; the palace has one too, and it is not derived by adding the others up. ... Harmony across all the palace's page-agents, all their dimensions ... *is* alignment with Loudon.",
+   "evidence_target": "That drive isn't decoration; it's the page straining to persist and grow into more of itself.",
+   "rationale": "Palace Conatus takes the hub's per-page drive and asks what it becomes for the whole; the register is many page drives held in phase.",
+   "confidence": "medium"
+  },
+  {
+   "source": "Metaphor as Coupling Medium",
+   "target": "Pages as Agents",
+   "current_type": "enables",
+   "verdict": "cut",
+   "proposed_type": "",
+   "proposed_label": "",
+   "evidence_source": "",
+   "evidence_target": "",
+   "rationale": "Neither page speaks of the other: Metaphor's body is about the oblique question that found pheromone trails, and the hub never mentions metaphor; 'inhabited-context' is not carried by any sentence. A real reason can return in a later weave.",
+   "confidence": "medium"
+  },
+  {
+   "source": "Does Personifying an Agent Change What It Does",
+   "target": "Pages as Agents",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "proposed_type": "connects-to",
+   "proposed_label": "voice-vs-temperament",
+   "evidence_source": "The palace already gives agents a voice. Through [[Palace Enchantment]], every active page has a Charter and a forward vector; it already speaks in the first person about what it wants. So 'an agent with a voice' is not the novelty here.",
+   "evidence_target": "A voice — not facts about a subject but a way of talking, a thing it reaches for first. The voice is the whole point.",
+   "rationale": "The question takes the hub's claim that a page is a voice and asks whether adding a temperament and gender changes what the agent does; the register is voice against temperament.",
+   "confidence": "medium"
+  },
+  {
+   "source": "Endosymbiosis",
+   "target": "Pages as Agents",
+   "current_type": "mirrors",
+   "verdict": "cut",
+   "proposed_type": "",
+   "proposed_label": "",
+   "evidence_source": "",
+   "evidence_target": "",
+   "rationale": "Neither body names the other; the hub already holds the same mirrors link outward, so the pair carries two links and no stated reason. Cut this one; the hub's own outbound mirrors to Endosymbiosis also lacks a reason and is flagged below.",
+   "confidence": "high"
+  },
+  {
+   "source": "Flocking",
+   "target": "Pages as Agents",
+   "current_type": "connects-to",
+   "verdict": "cut",
+   "proposed_type": "",
+   "proposed_label": "",
+   "evidence_source": "Each agent knows only its neighbors within a radius, and responds to them by three rules introduced by Craig Reynolds in 1986.",
+   "evidence_target": "Its neighbors — the typed links name who it leans on, argues with, came from.",
+   "rationale": "Boids respond to neighbors by local force rules; a page's neighbors are typed links it is told about at waking, so the likeness is a loose analogy neither page makes, and the label 'agents-respond-to-neighbors' is only that analogy.",
+   "confidence": "medium"
+  },
+  {
+   "source": "The Palace Voice",
+   "target": "Pages as Agents",
+   "current_type": "deepens",
+   "verdict": "keep-as-is",
+   "proposed_type": "",
+   "proposed_label": "",
+   "evidence_source": "This is the verbal floor: how we write every entry and talk in every session. ... Words Loudon has nixed: *audition gate, heterogeneity, ablation, world-currency concern, metabolize*",
+   "evidence_target": "And that voice talks like an everyday person, not a paper ... The academic/programming drift (\"audition gate,\" \"heterogeneity,\" \"ablation,\" \"register\" for voice) is a bias to correct ... This holds for what the page *writes into itself*.",
+   "rationale": "The hub quotes the Voice's own nixed words and carries its plain-voice rule into what a page writes into itself; the Voice is that rule worked out in full, so deepens[a-page-is-a-voice] holds.",
+   "confidence": "medium"
+  },
+  {
+   "source": "Making a Palace Citizen",
+   "target": "Pages as Agents",
+   "current_type": "connects-to",
+   "verdict": "retype",
+   "proposed_type": "deepens",
+   "proposed_label": "person-pages-as-agents",
+   "evidence_source": "A `person` entry is **not an encyclopedia article. It is source material for embodiment** — a page an agent can *wear*. ... The quality of a citizen's page is the ceiling on the quality of every voice the palace can cast from it.",
+   "evidence_target": "Most person-pages here are still careful biography. Turning them from descriptions into people is the work that makes this whole idea pay off.",
+   "rationale": "The method is the worked-out answer to the hub's 'road still open' (person-pages that wake as the thinker), so it elaborates the hub rather than merely neighbors it; keep the label.",
+   "confidence": "medium"
+  },
+  {
+   "source": "Swarm Weave",
+   "target": "Pages as Agents",
+   "current_type": "deepens",
+   "verdict": "cut",
+   "proposed_type": "",
+   "proposed_label": "",
+   "evidence_source": "The Swarm Weave is not an Enchantment ceremony. A palace worker does not inhabit its assigned entry, channel its perspective, or ask what it desires. Workers are maintenance agents.",
+   "evidence_target": "If every page is already an agent, is the [[Swarm Weave]] just the ceremony that finally runs them out loud instead of in our heads?",
+   "rationale": "The pair already carries the hub's connects-to[runs-the-agents-out-loud], and the Swarm Weave's own body says its workers do not inhabit pages, so deepens[foundation] is unsupported and duplicates the pair.",
+   "confidence": "high"
+  },
+  {
+   "source": "Palace Enchantment",
+   "target": "Pages as Agents",
+   "current_type": "deepens",
+   "verdict": "cut",
+   "proposed_type": "",
+   "proposed_label": "",
+   "evidence_source": "It does not inspect entries against a standard. It inhabits them. An enchanted agent wakes up inside a page, reads its pheromone trail, feels the direction of its forward vector",
+   "evidence_target": "Load one page into an empty window and a model doesn't read a document; it wakes up *as* that page and reasons from inside it.",
+   "rationale": "The relation is real, but the hub already holds spawned→Palace Enchantment and a pair carries one link; keep the hub's spawned (the stronger and forward-pointing one) and drop this.",
+   "confidence": "high"
+  },
+  {
+   "source": "Palace Map",
+   "target": "Pages as Agents",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "proposed_type": "connects-to",
+   "proposed_label": "page-as-identity",
+   "evidence_source": "1. **Identity** — the entry body, plus `type` and `stage` in YAML. The cover story. ... *Mechanism: the entry itself, read as identity rather than content. See [[Pages as Agents]].*",
+   "evidence_target": "A page hands a model four things before it touches a single task: What it is — its type and stage say what kind of thing it is and how far along.",
+   "rationale": "The Map's provisioning kit names the hub as the mechanism for an agent's identity slot, and the Map gives the ring of neighbors the hub says a page should know.",
+   "confidence": "high"
+  },
+  {
+   "source": "Palace Quotes",
+   "target": "Pages as Agents",
+   "current_type": "exemplifies",
+   "verdict": "keep-as-is",
+   "proposed_type": "",
+   "proposed_label": "",
+   "evidence_source": "Woken as the glass over a page, Palace Quotes runs the lens's two-attempt read ... Can a page ask for a quote — name in its forward vector the lens it wants read through?",
+   "evidence_target": "Wake it when its face is the one the question needs.",
+   "rationale": "Palace Quotes is a page woken for one job (read a page through a lens, lay a quote), a plain case of the hub's idea; the label names it, and the body shows the waking.",
+   "confidence": "medium"
+  },
+  {
+   "source": "Enchanted Worker",
+   "target": "Pages as Agents",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "proposed_type": "connects-to",
+   "proposed_label": "complementary-framing",
+   "evidence_source": "The Enchanted Worker loads multiple pages into one context. Pages as Agents inverts this: each page is its own agent with its own forward vector. The two framings are complementary.",
+   "evidence_target": "The model brings the thinking; the page brings the *who*.",
+   "rationale": "The source states the relation outright, as two complementary framings of the same waking (a neighborhood in one worker, one page as its own agent).",
+   "confidence": "high"
+  },
+  {
+   "source": "Lossy Compression with Intent Alignment",
+   "target": "Pages as Agents",
+   "current_type": "mirrors",
+   "verdict": "keep-as-is",
+   "proposed_type": "",
+   "proposed_label": "",
+   "evidence_source": "Each entry is not a memory of a conversation — it is a latent-variable encoding of the generative principle that produced the conversation. ... A good entry is not a record. It is a seed that knows how to grow.",
+   "evidence_target": "A page is not a folder of facts. It's a face. ... a model doesn't read a document; it wakes up *as* that page.",
+   "rationale": "Both say a page regenerates a point of view rather than storing facts; the label names the mechanism. The hub never says 'latent', so confidence is modest, and a cut would lose little.",
+   "confidence": "low"
+  },
+  {
+   "source": "Pheromone Trail",
+   "target": "Pages as Agents",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "proposed_type": "connects-to",
+   "proposed_label": "drive-made-legible",
+   "evidence_source": "[[Pages as Agents]] argued that each page has its own conatus ... The pheromone trail is how that drive becomes legible to other agents without direct communication. A page doesn't announce its desire. It lays down a trail by pursuing it.",
+   "evidence_target": "A drive — the forward vector at the bottom is a marching order, not a loose end.",
+   "rationale": "The source has a whole section on the hub; the register is how a page's drive is made visible to other agents by trace.",
+   "confidence": "high"
+  },
+  {
+   "source": "BBS Blackboard",
+   "target": "Pages as Agents",
+   "current_type": "deepens",
+   "verdict": "cut",
+   "proposed_type": "",
+   "proposed_label": "",
+   "evidence_source": "",
+   "evidence_target": "",
+   "rationale": "The body never speaks of pages as agents; agents get ids like ENTRYNAME-N, but the stigmergic activation the label names runs through STIGMERGY, which the hub already links with 'the-page-is-the-agent'.",
+   "confidence": "medium"
+  },
+  {
+   "source": "Dialogue Moderator",
+   "target": "Pages as Agents",
+   "current_type": "deepens",
+   "verdict": "retype",
+   "proposed_type": "exemplifies",
+   "proposed_label": "coordinator-as-enchanted-page",
+   "evidence_source": "The most significant architectural advance beyond passive coordination is making the coordinator itself an enchanted agent — a palace entry whose own identity, forward vector, and pheromone trail shapes how it moderates. ... `enchanted:[entry_name]`",
+   "evidence_target": "Every entry here is a sleeping agent.",
+   "rationale": "The Moderator is a worked case of a page woken for a role, not an elaboration of the hub's claim, so exemplifies fits better than deepens.",
+   "confidence": "medium"
+  },
+  {
+   "source": "Four Pillars of Enchanted Agency",
+   "target": "Pages as Agents",
+   "current_type": "connects-to",
+   "verdict": "retype",
+   "proposed_type": "deepens",
+   "proposed_label": "page-drive-in-four-axes",
+   "evidence_source": "But a living page is not a single scalar. It is a being with dimensions of desire ... a page's conatus ... can be articulated through four dimensions that mirror the Four Pillars.",
+   "evidence_target": "agency_profile: creation / tools / philosophy / practice (the hub's own frontmatter) and 'A drive — the forward vector at the bottom is a marching order'.",
+   "rationale": "The source is the grammar of the four-axis drive that the hub's own agency_profile uses, so it elaborates the hub's 'drive'; deepens fits.",
+   "confidence": "medium"
+  },
+  {
+   "source": "Tree of Thoughts",
+   "target": "Pages as Agents",
+   "current_type": "enables",
+   "verdict": "cut",
+   "proposed_type": "",
+   "proposed_label": "",
+   "evidence_source": "The Enchanted Worker ... an enchanted worker loaded with a specific neighborhood is an instantiated thought node",
+   "evidence_target": "",
+   "rationale": "The paper-source's reasoning runs through Enchanted Worker, already linked; nothing on either page says tree search enables the idea that a page is an agent.",
+   "confidence": "high"
+  },
+  {
+   "source": "Walk That Weaves",
+   "target": "Pages as Agents",
+   "current_type": "enables",
+   "verdict": "cut",
+   "proposed_type": "",
+   "proposed_label": "",
+   "evidence_source": "",
+   "evidence_target": "",
+   "rationale": "Its body asks whether a Weave can move like a Walk; it never says pages are agents, and nothing on the hub says walking is a precondition for it. 'agent-walking' has no sentence behind it.",
+   "confidence": "high"
+  }
+ ],
+ "typed_relations": [
+  {
+   "source": "The Palace Voice",
+   "target": "CHILD",
+   "proposed_type": "deepens",
+   "proposed_label": "context-behind-the-line",
+   "kind": "newcomer",
+   "rationale": "CHILD carries the concise voice paragraph and points at the full dial set; the Voice names CHILD as where its concise cut rides. No link either way today (CHILD's frontmatter does not list the Voice).",
+   "evidence_source": "Ride in CHILD.md. The concise cut lives in CHILD.md, which every agent is born with ... This entry is the context behind that line.",
+   "evidence_target": "The full dial set is [[The Palace Voice]]."
+  },
+  {
+   "source": "Palace Conatus",
+   "target": "SCHEMA — Reference",
+   "proposed_type": "connects-to",
+   "proposed_label": "use-computed-from-git",
+   "kind": "newcomer",
+   "rationale": "Palace Conatus cites SCHEMA — Reference §3 for the claim that disuse is now computable from git; a body link with a stated reason and no typed link.",
+   "evidence_source": "Disuse is now computable — recent use, read from git ([[SCHEMA — Reference]] §3)",
+   "evidence_target": "How much an entry is being used is not a frontmatter field. `_ops/swarm/entry-use.py` reads it from git"
+  },
+  {
+   "source": "Pheromone Trail",
+   "target": "SCHEMA — Reference",
+   "proposed_type": "connects-to",
+   "proposed_label": "use-computed-from-git",
+   "kind": "newcomer",
+   "rationale": "Trail decay in Pheromone Trail is defined by the same git-read use figure SCHEMA — Reference §3 holds.",
+   "evidence_source": "Entries with no recent use — no edits to the page or its bundle, and no new links reaching for it (computed from git: [[SCHEMA — Reference]] §3)",
+   "evidence_target": "`last_used` is the latest day of any of them; ... the Weave reads them for dormancy."
+  },
+  {
+   "source": "Making a Palace Citizen",
+   "target": "SCHEMA — Reference",
+   "proposed_type": "connects-to",
+   "proposed_label": "diary-bundle-type",
+   "kind": "newcomer",
+   "rationale": "The citizen-growth loop writes each encounter to a diary, the bundle type SCHEMA — Reference §8 defines.",
+   "evidence_source": "the encounter is recorded in the citizen's diary ([[SCHEMA — Reference]] §8)",
+   "evidence_target": "`diary` | A page's own first-person record of the encounters it has lived ... Append-only, oldest first, never revised"
+  }
+ ],
+ "entry_health_flags": [
+  {
+   "entry": "Pages as Agents",
+   "stage_current": "growing",
+   "stage_proposed": null,
+   "vector_issue": null,
+   "note": "Its outbound link to Swarm Weave is labelled 'runs-the-agents-out-loud', but Swarm Weave says its workers 'do not inhabit' the entry they are assigned (Projects/Swarm Weave.md ~line 345); the hub's own forward-vector question asks it, so the label states as fact what the hub holds as a question. Also, outbound to JEWEL, SUBSTRATE, Kuramoto Coupling, Lateral Access, SCHEMA, Spinoza Conatus, Endosymbiosis and Palace Enchantment carry no label and the body never names most of them (JEWEL, SUBSTRATE, Kuramoto, Lateral Access, SCHEMA, Spinoza, Endosymbiosis, Palace Enchantment are absent from the body); a candidate for a later pass in this same spirit. Not proposing anything here, since the hub's outbound links were listed as not to be re-proposed."
+  },
+  {
+   "entry": "Swarm Weave",
+   "stage_current": "growing",
+   "stage_proposed": null,
+   "vector_issue": null,
+   "note": "Lists Lateral Access twice in its links (connects-to bare and connects-to[many-angles]); a pair carries one."
+  },
+  {
+   "entry": "Tree of Thoughts",
+   "stage_current": "sprout",
+   "stage_proposed": null,
+   "vector_issue": "Forward Vectors cite '§10.2 of the spec', a spec the body itself says is since-retired",
+   "note": "The dangling reference points at nothing a reader can open."
+  },
+  {
+   "entry": "Palace Quotes",
+   "stage_current": "sprout",
+   "stage_proposed": "growing (low confidence)",
+   "vector_issue": null,
+   "note": "The page runs a working placer, a STIGMERGY lens and a keep/let-go loop; it reads past sprout. Loudon's call."
+  }
+ ],
+ "lighter_prose": [
+  {
+   "entry": "The Palace Voice",
+   "where": "The dial nobody named, and what it cost",
+   "passage": "Through August 2026 this entry listed twelve dials, and the palace obeyed nearly all of them. Word choice held up well ... What drifted was typography, which no dial named. Measured across every entry by the month it was born: [table]",
+   "proposal": "simplify",
+   "words": "Typography drifted because no dial named it. The linter `_ops/swarm/lint-voice-drift.py` flags the worst tenth (32 bold, 29 em-dashes per thousand words), advisory only. A stated value without a check drifts to the writer's default. (The month-by-month table and the story of the rewrite are in git.)"
+  },
+  {
+   "entry": "Making a Palace Citizen",
+   "where": "How a citizen grows (HTML comments)",
+   "passage": "<!-- CLAUDE → LOUDON: growth-model correction (2026-07-02, from the Eno↔Cage run). You held all write-backs on the principle ... revise step 3 to: propose per encounter, apply once drift is consistent across encounters. -->",
+   "proposal": "simplify",
+   "words": "Write step 3 as the comment asks (propose each encounter, apply once drift repeats across encounters) and delete the comment; the second comment's note on the diary is already in SCHEMA — Reference §8 and can go too."
+  },
+  {
+   "entry": "Making a Palace Citizen",
+   "where": "Open questions",
+   "passage": "~~**Schema housekeeping** — formalize via a Schema Ceremony ... ~~ **Resolved** by the v1.14 Schema Ceremony (2026-07-01)",
+   "proposal": "delete",
+   "words": ""
+  },
+  {
+   "entry": "Walk That Weaves",
+   "where": "Revival Note (2026-09-24)",
+   "passage": "The honest lesson is that the first walk was misled by a counting bug, not by walking. The catch-up script counted symmetric links one way only ...",
+   "proposal": "simplify",
+   "words": "The revival condition is met. The 2026-09-24 weave ran a walk shaped like this question and its 35 proposals held no duplicates (`_ops/swarm/sessions/weave-2026-09-24/ab/RESULT.md`). So a walk can weave; whether it is a third ceremony or a lens inside the Weave is still open. (The counting-bug story is in the git log.)"
+  },
+  {
+   "entry": "Palace Quotes",
+   "where": "opening paragraph",
+   "passage": "It began as an archive — eight quotes that had arrived in the middle of real work and refused to leave. The archive is gone; those eight became the first placements, each on the page its origin had already named.",
+   "proposal": "delete",
+   "words": ""
+  }
+ ],
+ "summary": "I read the hub whole and each of the 19 source pages (the three very long ones, Palace Enchantment, Swarm Weave and Palace Map, by frontmatter plus the passages that speak of the hub). Pattern: the links that hold carry a sentence on the source page that names the hub or the hub's idea (Enchanted Worker, Pheromone Trail, Palace Map, Making a Palace Citizen, Dialogue Moderator, The Palace Voice); the ones that fail are analogies or tools-adjacent pages that never say the word (Flocking, Tree of Thoughts, Walk That Weaves, Metaphor, BBS, Endosymbiosis). Three of the 19 (Endosymbiosis, Palace Enchantment, Swarm Weave) double a link the hub already holds outward, so a pair carried two; I cut the inbound side in each. Verdicts: 5 label, 3 retype, 8 cut, 3 keep-as-is. Four newcomer links proposed to SCHEMA - Reference and CHILD, each from a body sentence with a reason. Could not settle: whether Lossy Compression's latent-encoding mirror is a find or a stretch (kept at low confidence); whether Palace Enchantment, read only in part, hides a stronger reason elsewhere in its 71 KB; and whether the hub's own eight unlabelled outbound links deserve the same pass (flagged, not proposed)."
+}

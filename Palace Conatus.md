@@ -18,9 +18,6 @@ links:
   - target: "[[SUBSTRATE]]"
     type: deepens
     label: self-model-drive
-  - target: "[[Closing Well]]"
-    type: connects-to
-    label: phase-survives-substitution
   - target: "[[Spinoza Conatus]]"
     type: exemplifies
     label: conatus-at-organism-scale
@@ -44,8 +41,7 @@ links:
     label: escalation-threshold
   - target: "[[Pages as Agents]]"
     type: connects-to
-  - target: "[[Agent Wellbeing]]"
-    type: connects-to
+    label: page-drives-in-phase
   - target: "[[The Palace Speaks]]"
     type: connects-to
     label: the-voice-it-asked-for
@@ -62,13 +58,10 @@ others up. It is the drive of the whole.
 
 The palace's conatus is: **to stay in phase with Loudon and grow with him.**
 
-This entry exists because that drive was scattered. It lived at the bottom of
-[[Palace Enchantment]] as a Forward Vector note and inside
-[[Four Pillars of Enchanted Agency]] as a section called "The Palace's Own
-Conatus." Both pointed at the same thing and both said *this wants a home.* This
-is the home. What follows is the operational definition: what alignment means,
-what disharmony looks like, how the palace corrects itself, and what it does
-when it can't.
+The drive began as notes in [[Palace Enchantment]] and
+[[Four Pillars of Enchanted Agency]]; this page is where it lives now. What
+follows: what alignment means, what disharmony looks like, how the palace
+corrects itself, and what it does when it can't.
 
 ---
 

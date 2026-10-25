@@ -40,6 +40,7 @@ links:
     label: delay-is-spectrum
   - target: "[[Particle Synthesis]]"
     type: connects-to
+    label: physics-as-interface
   - target: "[[Dispersion Table]]"
     type: enables
 ---
@@ -102,10 +103,11 @@ The teaching claim the project is built to prove: a learner who watches the wave
 ## Open Questions
 
 - How far does the browser AudioWorklet ceiling go before [[RNBO codebox~ smith]] native export earns the swap? Polyphony and dispersion-filter count are the likely pressure points.
+  - Progressed (2026-10-24): thirteen study versions now run in the browser AudioWorklet ([[Waveguide Synthesizer — scroll]], v1.13 on 2026-10-20) and none has reported a ceiling.
 - Does the 3D string actually teach better than a 2D oscilloscope-style view, or is the third dimension paying its way only for the orbit/branching-body cases? An honest comparison ([[The Shop]] Comparison Mode: Three.js 3D vs. a p5.js 2D string) would settle it.
 - Polyphony model: one worklet with N strings, or N worklet nodes? Affects both audio and how many meshes the render loop drives.
 - Where does this sit relative to the [[2D Torus Wavetable Synthesizer]] as a Loudon signature device — sibling, successor, or a different audience entirely?
 
 ## Forward Vector
 
-The Sketch is long done and the Study tier is built: study v1.12 is a two-way waveguide you can pluck, strike and bow, with stiffness that means the same at every pitch, a soundboard under the bridge, every slider lighting the object it names, and a seven-stop lesson (pluck, reflection, loss, pitch, stiffness, bow, body) that waits for the learner. What comes next is the Piece tier: hear it taught by hand, take it to a phone, make it hold up on a stage, and answer the question this page was born asking: does it earn a stage, or is it a test bed?
+The Sketch is long done and the Study tier is built: a two-way waveguide you can pluck, strike and bow, with stiffness that means the same at every pitch, a soundboard under the bridge, every slider lighting the object it names, and a seven-stop lesson (pluck, reflection, loss, pitch, stiffness, bow, body) that waits for the learner. What comes next is the Piece tier: hear it taught by hand, take it to a phone, make it hold up on a stage, and answer the question this page was born asking: does it earn a stage, or is it a test bed?

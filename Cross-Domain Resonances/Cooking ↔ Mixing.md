@@ -22,15 +22,13 @@ links:
     label: wu-wei
   - target: "[[FOUR PILLARS]]"
     type: exemplifies
+    label: cross-domain-bridge
   - target: "[[Quality Manifesto]]"
     type: connects-to
     label: taste-over-metrics
   - target: "[[Like Water]]"
     type: connects-to
     label: emptiness-as-design
-  - target: "[[Rick Rubin]]"
-    type: connects-to
-    label: subtraction-as-trust
   - target: "[[Hilaritas Generator]]"
     type: exemplifies
     label: learning-through-constraint
@@ -210,14 +208,7 @@ The cooking/mixing resonance teaches **general decision-making strategy** for ir
 
 ## Success Metrics (By Our Definition)
 
-**Not:** "Students can cook and mix"
-**But:**
-- Students process conservatively by default
-- Students recognize irreversible processes in daily life
-- Students apply subtraction-first thinking beyond music
-- Students trust their taste/ears over tutorials/recipes
-
-When production thinking improves both cooking AND life decisions—**the resonance succeeded**.
+It worked when production thinking improves cooking and life decisions too.
 
 ---
 

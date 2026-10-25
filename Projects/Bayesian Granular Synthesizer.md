@@ -70,6 +70,7 @@ The session grounded the design in foundational statistics, all braided back to 
 
 - Build it as a [[Loudon Live]] stage: RNBO grain engine + MIDI-evidence posterior, V8 as the reference voicing.
 - Expose the **prior itself as a paintable distribution** — the player sets the "belief" the held notes then update, so the instrument's resting character is composed, not fixed.
+  - Progressed (2026-10-22, [[Bayesian Granular Synthesizer — scroll]]): Belief Cloud's face draws in the [[VST Template]]'s editor with a prior you paint on its screen, and Loudon's 2026-10-21 standing order makes the work a VST to play in Live rather than an RNBO stage.
 - Wire the optional grain-entrainment coupling and audition whether population-locking adds to the condensation or muddies it.
 
 ## Lost Branches
@@ -79,6 +80,8 @@ The session grounded the design in foundational statistics, all braided back to 
 ## Artifact
 
 Eight audio renders (V1–V8) across three code generations; **V7/V8 confirmed good.** The V8 synthesis code lives in the source chat (2026-05-08) and could not be retrieved into this deposit — when pulled, store the code in the entry's bundle `[Entry]/` and, if audio examples are wanted in the palace, render V8 and place the files there too.
+
+— progressed: the V8 code was never retrieved. `bayes_engine.js` in the bundle is a reconstruction from this entry's spec (its header says so), and it runs both the offline render (`render_chord_belief.js`) and the playable page (`build_instrument.js`).
 
 ---
 

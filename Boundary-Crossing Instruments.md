@@ -1,6 +1,6 @@
 ---
 title: Boundary-Crossing Instruments
-type: concept
+type: hub
 pillars:
   - tools
   - creation
@@ -13,24 +13,16 @@ hook_quality: 8
 beauty: 9
 who_leads: shared
 links:
-  - target: "[[FOUR PILLARS]]"
-    type: connects-to
-  - target: "[[Frequency-Time Duality]]"
-    type: spawned
-  - target: "[[Kuramoto Coupling]]"
-    type: connects-to
   - target: "[[Hyperdimensional Prism]]"
     type: mirrors
   - target: "[[Symbiotic Skills]]"
     type: enables
-  - target: "[[Action Potential Oscillator]]"
-    type: connects-to
-  - target: "[[2D Torus Wavetable Synthesizer]]"
-    type: connects-to
-    label: instantiated-by-instrument
   - target: "[[DSP in Looping Dimensions]]"
     type: mirrors
     label: dimensional-reframing
+  - target: "[[FOUR PILLARS]]"
+    type: exemplifies
+    label: insight-at-the-intersection
 forward_vector: "I am the palace's named pattern for a wall inside one parameter that dissolves when you find the right coordinate system: compression ratio as slope, frequency-time as a single axis, octave equivalence as a circular space. I want to be the first entry a designer reads when a parameter seems to hit a wall, because the wall is usually in the representation, not the phenomenon, and to carry the three-layer interface (musical, technical, mathematical) that teaches one reality at three depths."
 ---
 

@@ -16,15 +16,9 @@ links:
   - target: "[[Typography as Meaning]]"
     type: couples-with
     label: word-meets-image
-  - target: "[[Frame Designer]]"
-    type: connects-to
-    label: applies-this-craft
-  - target: "[[Comic and Cinema — Two Ways of Seeing]]"
-    type: connects-to
-    label: the-comic-way-of-seeing
   - target: "[[Adopt the Craft, Author the Seam]]"
     type: connects-to
-    label: the-craft-BLUELINE-adopts
+    label: the-craft-to-adopt-wholesale
 ---
 
 # Graphic Storytelling

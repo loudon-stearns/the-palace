@@ -5,23 +5,18 @@ pillars: [philosophy, practice, tools]
 born: 2026-07
 stage: mature
 links:
-  - target: "[[The Palace Voice]]"
-    type: connects-to
-    label: plain-speaking
   - target: "[[Weave Ceremony]]"
     type: connects-to
     label: judged-against-values
   - target: "[[Cooperation Yields Agency]]"
     type: connects-to
     label: push-back-is-cooperation
-  - target: "[[Palace as Context Injection System]]"
-    type: connects-to
-    label: loading-values-builds-identity
   - target: "[[SCHEMA]]"
     type: connects-to
     label: canon-is-plain-text
   - target: "[[Weave Ceremony — Context]]"
     type: connects-to
+    label: mechanism-side
 forward_vector: "I am the palace's center of gravity made explicit: I want every script weighed against a value and every choice weighed against the whole, so the palace outlasts its tools — and outlasts even its maker's drift."
 ---
 
@@ -47,4 +42,4 @@ The sign that the work is good is not the absence of friction. It is the **textu
 
 ---
 
-*Deposited 2026-07-05 from a session that re-founded the [[Weave Ceremony]] around health and joy and, underneath it, named this. The values-primary rule was the day's mechanism; this is the day's principle. See [[Weave Ceremony — Context]] § The Weave's Widened Charter for the mechanism-side framing.*
+*For the mechanism side, see [[Weave Ceremony — Context]] § The Weave's Widened Charter.*

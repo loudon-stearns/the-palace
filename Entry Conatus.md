@@ -3,7 +3,7 @@ title: "Entry Conatus"
 type: concept
 pillars: [philosophy, practice]
 born: 2026-05
-stage: sprout
+stage: growing
 confidence: working
 energy: very high
 hook_quality: 9
@@ -29,11 +29,9 @@ links:
   - target: "[[Phoneme Choir]]"
     type: emerged-from
     label: card-004-2026-05-05
-  - target: "[[Weave Ceremony]]"
-    type: connects-to
-    label: vector-linting
   - target: "[[Spore Check Ceremony]]"
     type: connects-to
+    label: composting-question
 ---
 
 # Entry Conatus

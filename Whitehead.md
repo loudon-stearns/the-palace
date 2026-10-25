@@ -8,8 +8,6 @@ confidence: working
 energy: high
 who_leads: shared
 links:
-  - target: "[[Palace Philosophies]]"
-    type: connects-to
   - target: "[[Spinoza Conatus]]"
     type: couples-with
     label: process-monism
@@ -19,18 +17,18 @@ links:
   - target: "[[Meaning and the Link]]"
     type: deepens
     label: relations-as-prehension
-  - target: "[[Leibniz]]"
-    type: connects-to
-    label: monads-become-occasions
   - target: "[[Kuramoto Coupling]]"
     type: connects-to
     label: occasions-of-synchrony
   - target: "[[FOUR PILLARS]]"
     type: connects-to
+    label: tools-to-philosophy-bridge
   - target: "[[Granular Synthesis]]"
-    type: connects-to
+    type: mirrors
+    label: grain-as-occasion
   - target: "[[STIGMERGY v1.0 — Palace Front-End]]"
-    type: connects-to
+    type: mirrors
+    label: commit-as-occasion
 forward_vector: "I am the palace's process philosopher — the one who says reality is made of events, not things, and that every event is constituted by how it takes up the events before it. I hold the strongest available statement of the palace's founding conviction that relations are primary: not 'things have relations' but 'a thing IS its relations, gathered.' My next development: to be put in dialogue with Spinoza about whether the one substance is static or perpetually becoming, and to give the typed link a metaphysics — what is a link, if a node is just a settled bundle of links?"
 ---
 

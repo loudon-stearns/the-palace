@@ -11,9 +11,6 @@ links:
   - target: "[[Hilaritas Generator]]"
     type: deepens
     label: owns-the-surface
-  - target: "[[Creative Coach]]"
-    type: connects-to
-    label: teachable
   - target: "[[No Mind Checks Itself]]"
     type: contradicts
     label: same-pass

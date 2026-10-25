@@ -1,0 +1,367 @@
+{
+ "set": "set-06",
+ "verdicts": [
+  {
+   "source": "SUBSTRATE",
+   "target": "Songlines",
+   "op": "retype",
+   "proposed_label_or_type": "emerged-from (label design-source)",
+   "verdict": "PASS",
+   "reason": "SUBSTRATE — Context.md:17-21 says its design 'drew on' songlines among five sources, which is diffuse origin, and emerged-from points back at the ground; the anatomy JSON also seats Songlines in the weave organ (SUBSTRATE — anatomy.json:332).",
+   "better": ""
+  },
+  {
+   "source": "Palace Enchantment",
+   "target": "Lateral Access",
+   "op": "label",
+   "proposed_label_or_type": "first-enchantment",
+   "verdict": "PASS",
+   "reason": "Palace Enchantment.md:716-717 names Lateral Access as one of the two entries enchanted in the first practice session, and :724-728 keeps what that run found.",
+   "better": ""
+  },
+  {
+   "source": "p5.js",
+   "target": "Observable Plot",
+   "op": "label",
+   "proposed_label_or_type": "sibling-lens",
+   "verdict": "PASS",
+   "reason": "p5.js.md:140 calls Observable Plot 'the sibling' sketch with the opposite timing choice, and Observable Plot.md:34 hands generative expression to p5.js; the register holds.",
+   "better": "lane-boundary"
+  },
+  {
+   "source": "Walk Ceremony",
+   "target": "Substrate Skill",
+   "op": "remove",
+   "proposed_label_or_type": "cut connects-to",
+   "verdict": "PASS",
+   "reason": "No passage on Walk Ceremony.md or Substrate Skill.md (bodies or Context) names the other; the link is frontmatter only (Walk Ceremony.md:10).",
+   "better": ""
+  },
+  {
+   "source": "Weave Ceremony",
+   "target": "Substrate Skill",
+   "op": "remove",
+   "proposed_label_or_type": "cut connects-to",
+   "verdict": "PASS",
+   "reason": "Substrate Skill.md:82 lists the Weave only as an example of a split file, and its one other touch (links back 'flagged for the Weave', Substrate Skill section Adding to the Palace) is the Deposit's relation, not the Skill's; no reason for this pair.",
+   "better": ""
+  },
+  {
+   "source": "Weave Ceremony",
+   "target": "Spore Check Ceremony",
+   "op": "remove",
+   "proposed_label_or_type": "cut connects-to",
+   "verdict": "FAIL",
+   "reason": "Spore Check Ceremony.md:21 says 'it does not delete (the [[Weave Ceremony|Weave]] does)' and its postcondition (:27) sends each compost 'a flag for the Weave'; and the why is wrong that Spore Check already links the Weave (its frontmatter, :9-13, holds only Substrate Skill and The Daily Page), so this cut would leave the pair unlinked.",
+   "better": "composting-handoff (connects-to; better held on the Spore Check side, where the reason is written)"
+  },
+  {
+   "source": "BBS Blackboard",
+   "target": "Striatum",
+   "op": "remove",
+   "proposed_label_or_type": "cut connects-to",
+   "verdict": "PASS",
+   "reason": "BBS Blackboard.md:80,93,135 uses STRIATUM-7 only as a sample agent name in the message example, and Striatum.md never mentions the board.",
+   "better": ""
+  },
+  {
+   "source": "Enchanted Conversation Archive",
+   "target": "BBS Blackboard",
+   "op": "remove",
+   "proposed_label_or_type": "cut connects-to",
+   "verdict": "PASS",
+   "reason": "Both pages keep JSONL logs, but neither says so of the other; Enchanted Conversation Archive.md:18 is the only mention and BBS Blackboard.md never names the Archive.",
+   "better": ""
+  },
+  {
+   "source": "Four Pillars of Enchanted Agency",
+   "target": "Enchanted Worker",
+   "op": "remove",
+   "proposed_label_or_type": "cut connects-to",
+   "verdict": "PASS",
+   "reason": "Four Pillars of Enchanted Agency.md names the Worker only at :27 (frontmatter) and Enchanted Worker.md never names the Four Pillars page.",
+   "better": ""
+  },
+  {
+   "source": "Pages as Agents",
+   "target": "Lateral Access",
+   "op": "remove",
+   "proposed_label_or_type": "cut connects-to",
+   "verdict": "FAIL",
+   "reason": "Pages as Agents — Context.md:44 carries it: '*[[Lateral Access]]* — a page-agent approaches the palace from *inside* one entry, following the drive it earned, not as a surveyor from above'; the why's 'neither page names the other' is wrong.",
+   "better": "from-inside (connects-to)"
+  },
+  {
+   "source": "Palace Map",
+   "target": "Harvest Ceremony",
+   "op": "remove",
+   "proposed_label_or_type": "cut connects-to",
+   "verdict": "PASS",
+   "reason": "Palace Map.md names the Harvest only in frontmatter (:32), and the post-harvest map reason was struck in Map Build v2.6 (Map Build Ceremony — tuning.md:71, item 9).",
+   "better": ""
+  },
+  {
+   "source": "Self-Model Update Ceremony",
+   "target": "SCHEMA",
+   "op": "remove",
+   "proposed_label_or_type": "cut connects-to",
+   "verdict": "PASS",
+   "reason": "Self-Model Update Ceremony.md names only [[SCHEMA — Reference]] §6 (:60) for the ledger convention, and SCHEMA never names the ceremony; its ground is SUBSTRATE.",
+   "better": ""
+  },
+  {
+   "source": "Enchanted Conversation Archive",
+   "target": "Self-Describing Knowledge Module",
+   "op": "retype",
+   "proposed_label_or_type": "mirrors (label self-contained)",
+   "verdict": "PASS",
+   "reason": "Enchanted Conversation Archive.md:243-245 asks for exactly this ('rhymes strongly with the Archive's self-describing quality — worth a mirrors or couples-with link'), and Self-Describing Knowledge Module.md:56 states the shared test; arguably the Archive is an instance of the module's pattern (SDKM.md:36,64), which would read as exemplifies.",
+   "better": "exemplifies (Archive -> Self-Describing Knowledge Module) is the sharper alternative"
+  },
+  {
+   "source": "Four Pillars of Enchanted Agency",
+   "target": "Swarm Weave",
+   "op": "retype",
+   "proposed_label_or_type": "deepens (label forward-vector-axes)",
+   "verdict": "FAIL",
+   "reason": "Four Pillars of Enchanted Agency.md:42-47 elaborates the forward_vector field, not the Swarm Weave (a swarm coordination project); the page grew out of the question the Weave's one-sentence vectors left open, which is diffuse origin, not deepening of the Weave itself.",
+   "better": "emerged-from (Four Pillars of Enchanted Agency -> Swarm Weave), or keep connects-to label forward-vector-axes"
+  },
+  {
+   "source": "Pages as Agents",
+   "target": "JEWEL",
+   "op": "retype",
+   "proposed_label_or_type": "deepens (label woken-as-a-page)",
+   "verdict": "FAIL",
+   "reason": "Direction is contestable: Jewel — Context.md:54 records that v1.1 'added the pages-as-agents line' to capture enchantment, so the Jewel's sentence grew from this idea as much as Pages as Agents elaborates it; SCHEMA §4 says to use connects-to + label when a directed type is contestable.",
+   "better": "connects-to, label woken-as-a-page"
+  },
+  {
+   "source": "Palace Graffiti",
+   "target": "Semantic Delay",
+   "op": "retype",
+   "proposed_label_or_type": "mirrors (label deferred-meaning)",
+   "verdict": "PASS",
+   "reason": "Palace Graffiti.md:117 states it: 'Graffiti is a kind of semantic delay: the meaning of the comment is deferred to the moment when the next reader discovers it', and Semantic Delay.md:26,70 carries the deferral; same pattern, different material.",
+   "better": ""
+  },
+  {
+   "source": "Baton Ceremony",
+   "target": "Palace Ceremonies",
+   "op": "retype",
+   "proposed_label_or_type": "member-of",
+   "verdict": "PASS",
+   "reason": "Palace Ceremonies.md:43 calls itself the canonical list and :76 lists the Baton, so member-of pointing at the hub is right; but the why is wrong that the hub holds a connects-to back to Baton (Palace Ceremonies.md:1-37 has none), so there is nothing to drop.",
+   "better": ""
+  },
+  {
+   "source": "Map Build Ceremony",
+   "target": "Harvest Ceremony",
+   "op": "label",
+   "proposed_label_or_type": "post-harvest-map",
+   "verdict": "FAIL",
+   "reason": "The label rests on Map Build Ceremony.md:215, a sentence the ceremony has itself retired: tuning item 9 (Map Build Ceremony — tuning.md:71) strikes 'build at Harvest close' as answered, since the map is built in the morning and at the Weave; Harvest Ceremony.md says nothing of a map build.",
+   "better": "cut the link, and flag Map Build Ceremony.md:215 as stale"
+  },
+  {
+   "source": "Map Build Ceremony",
+   "target": "Palace Enchantment",
+   "op": "label",
+   "proposed_label_or_type": "tier-1-context",
+   "verdict": "PASS",
+   "reason": "Map Build Ceremony.md:219 says enchanted agents 'receive the map as Tier 1 context'; the target's quote is real but sits at Palace Enchantment.md:853, not :865, and speaks of the Palace Map and calls it untested.",
+   "better": ""
+  },
+  {
+   "source": "Palace Graffiti",
+   "target": "Oblique Portrait",
+   "op": "label",
+   "proposed_label_or_type": "obliqueness-made-structural",
+   "verdict": "PASS",
+   "reason": "Palace Graffiti.md:119 states the relation and supplies the label's words: 'Graffiti is obliqueness made structural.'",
+   "better": ""
+  },
+  {
+   "source": "Palace Map",
+   "target": "BBS Blackboard",
+   "op": "label",
+   "proposed_label_or_type": "read-before-write-during",
+   "verdict": "PASS",
+   "reason": "BBS Blackboard.md:164 states it ('the map is what agents read before the session; the blackboard is what agents write during it'); but the why is wrong that BBS Blackboard holds a bare link back to Palace Map (its frontmatter :16-38 has none), so there is no second side to drop.",
+   "better": ""
+  },
+  {
+   "source": "Endosymbiosis",
+   "target": "SUBSTRATE",
+   "op": "remove",
+   "proposed_label_or_type": "cut connects-to",
+   "verdict": "FAIL",
+   "reason": "SUBSTRATE's anatomy, which SUBSTRATE.md § Anatomy says its diagram draws from, casts the Loudon organ biologically as endosymbiosis: 'In endosymbiosis both partners keep their own DNA. The palace is a merger in which Loudon stays wholly himself' (SUBSTRATE — anatomy.json:803); the why's 'never reaches Margulis' missed it.",
+   "better": "connects-to, label host-and-partner"
+  },
+  {
+   "source": "Image Embedding Standard",
+   "target": "SUBSTRATE",
+   "op": "remove",
+   "proposed_label_or_type": "cut connects-to",
+   "verdict": "FAIL",
+   "reason": "SUBSTRATE — anatomy.json:730-736 lists Image Embedding Standard as a member of the voice-and-look organ, the one SUBSTRATE.md:86 names as 'the design systems are how it all sounds and looks'; the standard is one of SUBSTRATE's catalogued organs.",
+   "better": "connects-to, label voice-and-look-organ"
+  },
+  {
+   "source": "Progressive Staging",
+   "target": "Modes of Collaboration",
+   "op": "remove",
+   "proposed_label_or_type": "cut connects-to",
+   "verdict": "FAIL",
+   "reason": "Progressive Staging.md:69 asks whether 'the staging of the *collaboration itself*' is part of the method, which is a mode-of-collaboration question in open-question register, and Modes of Collaboration — Context.md:41-47 profiles Mentor and Quiz as progressive scaffolding on the same Kuramoto material; weak but stated.",
+   "better": "connects-to, label staging-the-collaboration (open question)"
+  },
+  {
+   "source": "Oblique Portrait",
+   "target": "Reflective Practice",
+   "op": "label",
+   "proposed_label_or_type": "reflects-in-action",
+   "verdict": "PASS",
+   "reason": "Reflective Practice.md:58-60 sorts the Oblique Portrait among the three mechanisms that 'reflect in action'.",
+   "better": ""
+  },
+  {
+   "source": "SCHEMA",
+   "target": "Four Pillars of Enchanted Agency",
+   "op": "label",
+   "proposed_label_or_type": "operation-page-desire",
+   "verdict": "PASS",
+   "reason": "Four Pillars of Enchanted Agency.md:380-416 works SCHEMA as its operation-page case; but SCHEMA — Context.md:23 carries a stronger reason the why missed ('The [[Four Pillars of Enchanted Agency]] entry articulated the theoretical basis; this ceremony formalizes it as schema' — the agency_profile field), and the target holds no link back to SCHEMA, contrary to the why.",
+   "better": "theoretical-basis (agency_profile), from SCHEMA — Context.md:23"
+  },
+  {
+   "source": "Image Embedding Standard",
+   "target": "README - The Palace Guide",
+   "op": "label",
+   "proposed_label_or_type": "one-of-three-standards",
+   "verdict": "PASS",
+   "reason": "README - The Palace Guide.md:167 sets the Image Embedding Standard beside the Mermaid and Technical Diagram standards as the third of 'three registers, each with its own standard'.",
+   "better": ""
+  },
+  {
+   "source": "Gemma 4 — Local Coordination Guide",
+   "target": "GEMMA4_GUIDE",
+   "op": "remove",
+   "proposed_label_or_type": "cut connects-to",
+   "verdict": "PASS",
+   "reason": "GEMMA4_GUIDE is a bundle file whose own frontmatter already holds the parent link (GEMMA4_GUIDE.md:5-7, child-of), and bundle files need not take part in the graph (Substrate Skill § Entry Bundles); the body wikilink at Gemma 4 — Local Coordination Guide.md:35 stays.",
+   "better": ""
+  },
+  {
+   "source": "Palace Conatus",
+   "target": "Agent Wellbeing",
+   "op": "remove",
+   "proposed_label_or_type": "cut connects-to",
+   "verdict": "PASS",
+   "reason": "Neither body names the other; they meet only through third pages (Four Pillars of Enchanted Agency deepens one and spawned the other).",
+   "better": ""
+  },
+  {
+   "source": "Palace To-Do",
+   "target": "README - The Palace Guide",
+   "op": "remove",
+   "proposed_label_or_type": "cut connects-to",
+   "verdict": "PASS",
+   "reason": "README - The Palace Guide.md:222 mentions 'Palace To-Do' only as a folder location, without a wikilink, and the To-Do never names the README.",
+   "better": ""
+  },
+  {
+   "source": "Return Ceremony",
+   "target": "Palace Ceremonies",
+   "op": "retype",
+   "proposed_label_or_type": "member-of",
+   "verdict": "PASS",
+   "reason": "Palace Ceremonies.md:52 lists The Return in the hub's table, so member-of is right; but the why is wrong that the hub holds a connects-to back to Return (Palace Ceremonies.md:1-37 has none), so there is nothing to cut.",
+   "better": ""
+  },
+  {
+   "source": "Entry Conatus",
+   "target": "Spore Check Ceremony",
+   "op": "label",
+   "proposed_label_or_type": "composting-question",
+   "verdict": "PASS",
+   "reason": "Entry Conatus.md:108 names the Spore Check as the place its composting question would be asked; the second evidence item's parenthetical ('The ceremony does not yet ask about conatus...') is the reader's gloss, not page text, though it is true of Spore Check Ceremony.md.",
+   "better": ""
+  },
+  {
+   "source": "Surfaces and Capabilities",
+   "target": "Modes of Collaboration",
+   "op": "remove",
+   "proposed_label_or_type": "cut connects-to",
+   "verdict": "PASS",
+   "reason": "No sentence ties them; note Surfaces and Capabilities.md is absent from this worktree as I read it (the main palace copy is stage: composting, :10), so the cut may already be moot.",
+   "better": ""
+  },
+  {
+   "source": "The Palace Speaks",
+   "target": "STIGMERGY",
+   "op": "remove",
+   "proposed_label_or_type": "cut connects-to",
+   "verdict": "PASS",
+   "reason": "The Palace Speaks.md never names STIGMERGY or its board, and STIGMERGY.md says nothing of a palace you address.",
+   "better": ""
+  },
+  {
+   "source": "Biomechanical Synthesis",
+   "target": "Granular Synthesis",
+   "op": "remove",
+   "proposed_label_or_type": "cut connects-to",
+   "verdict": "FAIL",
+   "reason": "Biomechanical Synthesis.md ('At high rates (100+ Hz)' paragraph) says 'The neural firing rate becomes the grain rate. The instantaneous firing pattern becomes the grain shape', and Granular Synthesis.md:82-84 makes the same claim from its side ('neurons are particles... A neural oscillator population simulation will sound like a particle synthesis engine'); a sharper link elsewhere is not the same as no reason.",
+   "better": "connects-to, label firing-as-grains"
+  },
+  {
+   "source": "Biomechanical Synthesis",
+   "target": "Retrospective Delay",
+   "op": "remove",
+   "proposed_label_or_type": "cut connects-to",
+   "verdict": "PASS",
+   "reason": "Neither page names the other; the slime mold delay is its own spawned instrument (Biomechanical Synthesis.md frontmatter, Slime Mold Delay).",
+   "better": ""
+  },
+  {
+   "source": "Biomechanical Synthesis",
+   "target": "Frequency-Time Duality",
+   "op": "remove",
+   "proposed_label_or_type": "cut connects-to",
+   "verdict": "FAIL",
+   "reason": "Biomechanical Synthesis.md's high-rate paragraph ('dense granular textures approach continuous tones but retain temporal microstructure') is a case of the threshold Frequency-Time Duality.md:48 calls 'the first and most foundational threshold-crossing in the toolkit; many others are built from it'; the reason is stated, only unnamed.",
+   "better": "exemplifies (Biomechanical Synthesis -> Frequency-Time Duality), or connects-to label rate-becomes-tone"
+  },
+  {
+   "source": "Biomechanical Synthesis",
+   "target": "Dispersion",
+   "op": "remove",
+   "proposed_label_or_type": "cut connects-to",
+   "verdict": "PASS",
+   "reason": "Dispersion.md's three meanings (wave, loudspeaker, granular) never touch biology, and Biomechanical Synthesis.md never uses the word outside frontmatter.",
+   "better": ""
+  },
+  {
+   "source": "Biomechanical Synthesis",
+   "target": "Endosymbiosis",
+   "op": "remove",
+   "proposed_label_or_type": "cut connects-to",
+   "verdict": "PASS",
+   "reason": "Endosymbiosis.md is about cooperation yielding agency; Biomechanical Synthesis.md's 'become biology' never draws on it.",
+   "better": ""
+  },
+  {
+   "source": "Biomechanical Synthesis",
+   "target": "Latent Error",
+   "op": "remove",
+   "proposed_label_or_type": "cut connects-to",
+   "verdict": "PASS",
+   "reason": "Latent Error.md:121 names Action Potential Oscillator and Kuramoto, not Biomechanical Synthesis, and Bio never mentions latent error.",
+   "better": ""
+  }
+ ],
+ "fabricated_quotes": [],
+ "summary": "40 proposals judged: 30 PASS, 10 FAIL (75%). No quote was fabricated; one evidence item mixes a reader's gloss into a quote (Entry Conatus to Spore Check, the parenthetical), one cites the wrong line (Palace Enchantment :865 for :853), and one is a paraphrase with a line range (Swarm Weave). The failures follow one pattern: the readers searched the two pages' bodies for each other's titles and stopped there. The reasons they missed sit in a Context file (Pages as Agents to Lateral Access, SCHEMA's agency_profile origin), in SUBSTRATE's anatomy JSON (Endosymbiosis, Image Embedding Standard), on the target side (Spore Check names the Weave as the one that deletes), or in a sentence that states the relation without naming the page (Biomechanical Synthesis to Granular Synthesis and to Frequency-Time Duality, Progressive Staging's open question). Two retypes chose a direction the pages do not settle (Pages as Agents deepens JEWEL, when Jewel — Context records the line grew from it; Four Pillars of Enchanted Agency deepens Swarm Weave, when it elaborates the forward_vector, not the Weave). One label rests on a sentence its own ceremony has retired (Map Build's post-harvest map, struck in v2.6). The readers also claim reverse links that do not exist five times (Spore Check to Weave, Palace Ceremonies to Baton and to Return, BBS Blackboard to Palace Map, Four Pillars of Enchanted Agency to SCHEMA): the 'drop the other side' instructions would act on nothing, and the Weave to Spore Check cut would leave that pair with no link at all. They may have been reading a map that lists edges both ways. Surfaces and Capabilities.md was missing from the worktree while I read it."
+}

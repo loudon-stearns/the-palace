@@ -18,13 +18,14 @@ links:
     type: mirrors
   - target: "[[Frequency-Time Duality]]"
     type: deepens
-  - target: "[[FOUR PILLARS]]"
-    type: connects-to
   - target: "[[Semantic Delay]]"
     type: emerged-from
   - target: "[[Wallpaper Groups]]"
     type: deepens
     label: temporal-tiling
+  - target: "[[FOUR PILLARS]]"
+    type: exemplifies
+    label: all-four-in-one-technique
 ---
 
 # Metric Modulation
@@ -136,13 +137,13 @@ Some practical friction points:
 - Ableton's tempo automation doesn't "know" about metric ratios; you have to set target tempos manually and time the transition ramps by hand
 - Syncing MIDI clip playback to the modulated tempo requires care (MIDI timing should follow the new tempo, but visual representation lags)
 - Rendering/export can expose misalignments between the automated tempo curve and the actual tempo grid
-- Graphics rendering issues on Mac (Unicode musical note symbols from the Musical Symbols block have poor font support; text-based labels are more reliable)
 
 ## Open Questions
 
 - **Audience receptivity:** How should a metric modulation moment be telegraphed? Does it need a visual cue (strobe lighting, lyrical cue) or can it live entirely in the audio?
 - **Frequency of use:** Is this a once-per-song feature (a moment of departure and return) or can multiple metric modulations create a longer narrative arc?
 - **Polyrhythmic extensions:** Can metric modulation create stable polyrhythms where two different sections run at metrically-related tempos simultaneously?
+  — progressed (2026-10-24): [[Frequency-Time Duality]] § Polyrhythms Become Intervals holds this page's ratios — 3:2, 4:3 — as polyrhythms heard first as groove, then buzz, then interval. Whether two sections can run at related tempos and stay stable in a set is still open.
 - **Live performance:** How would a DJ or live performer trigger metric modulations without extensive preparation?
 
 ---

@@ -12,14 +12,13 @@ who_leads: loudon
 links:
   - target: "[[Hyperdimensional Prism]]"
     type: connects-to
+    label: unifying-icon
   - target: "[[Categorizing Inharmonicity]]"
     type: connects-to
+    label: dispersion-to-inharmonicity
   - target: "[[Granular Synthesis]]"
     type: connects-to
-  - target: "[[Compressor Design]]"
-    type: connects-to
-  - target: "[[Bessel Functions in Synthesis]]"
-    type: connects-to
+    label: granular-dispersion
   - target: "[[Crystal Synthesizer]]"
     type: enables
   - target: "[[Particle Synthesis]]"
@@ -28,6 +27,7 @@ links:
     type: connects-to
   - target: "[[Shimmer Cloud]]"
     type: connects-to
+    label: reverb-dispersion
 forward_vector: "I want to become the palace's teachable demonstration that one word can do three distinct jobs across audio domains — and that distinguishing them is both pedagogically powerful and practically essential for instrument design. I want each of my three meanings (wave, statistical, and reverb dispersion) to accumulate a worked synthesis example, so I become a hub that actively generates instrument ideas rather than just naming a vocabulary problem."
 ---
 

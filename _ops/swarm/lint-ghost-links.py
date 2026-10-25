@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """
-Ghost-Link Linter - the Weave's flag for dead body wikilinks.
+Ghost-Link Linter - the Weave's flag for dead body wikilinks, in canon entries and,
+reported apart, in bundle files.
 
 Fourth mechanical scan alongside lint-link-directions.py (graph directionality),
 lint-doc-drift.py (foundational-prose consistency), and lint-entry-naming.py
@@ -8,7 +9,7 @@ lint-doc-drift.py (foundational-prose consistency), and lint-entry-naming.py
 `[[wikilinks]]` whose target resolves to no file in the vault.
 
 Detection is mechanical; the DISPOSITION is judgment and belongs to the Weave. A dead
-wikilink is not always a bug - CLAUDE.md holds that "missing connections are invitations":
+wikilink is not always a bug - the Jewel (JEWEL.md) holds that "a missing connection is an invitation":
 a forward-ghost (a deliberate pointer to an entry that should exist but doesn't yet) reads
 identically to a typo or a stale link. So every finding is a WARNING, never an error, and
 this linter never gates a commit. The mind running the Weave decides per finding:
@@ -25,6 +26,11 @@ their `[[wikilinks]]` are typed-link targets or documentation examples, not body
 Mechanical, deterministic, no API calls, reads markdown directly.
 Exit code 0 always (flag-only, never a gate). Warnings are the review list.
 
+Canon entries (a SCHEMA section 1 `type`) are counted in the summary line the Weave reads.
+Markdown with no canon type - bundle files, specs, working drafts - is scanned too, and
+its ghosts print in their own block headed `ghost link (bundle)` before the summary, at
+the same W level, never in the summary count, so the canon number stays comparable.
+
 Usage: python3 _ops/swarm/lint-ghost-links.py [palace-root]
        (defaults to the palace root two levels above this script)
 """
@@ -40,10 +46,10 @@ SKIP_DIRS = {".git", ".obsidian", ".claude", "node_modules", ".venvs", "_tools",
 SKIP_SCAN_PREFIXES = ("_ops/stigmergy/app/", "_ops/stigmergy/orchestrator/",
                       "_ops/stigmergy/trickster-auto/", "_ops/swarm/")
 
-# Only canon entries (SCHEMA §1 type) are scanned - the graph the reader traverses.
-# Bundle files / working drafts carry a title but no canon type; their stray wikilinks
-# are noise, and they are exempt (same line the naming linter draws).
-CANON_TYPES = {"concept", "hub", "project", "breakthrough", "source", "meta",
+# Canon entries (SCHEMA §1 type) are the graph the reader traverses; their ghosts are the
+# counted warnings. Bundle files / working drafts carry a title but no canon type; they
+# are scanned as well, and their ghosts are reported in a separate block (see check()).
+CANON_TYPES = {"concept", "hub", "project", "source", "meta",
                "practice", "person", "question", "spore", "specialist", "maker"}
 
 PALACE_DEFAULT = os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", ".."))
@@ -135,7 +141,8 @@ def link_target(raw):
 
 def check(root):
     stems, names = build_target_index(root)
-    findings = []  # (rel, lineno, kind, target)
+    findings = []  # canon pages: (rel, lineno, kind, target)
+    bundle_findings = []  # files with no canon type, same tuple shape
     for dp, dns, fns in os.walk(root):
         dns[:] = [d for d in dns if d not in SKIP_DIRS]
         for fn in fns:
@@ -153,8 +160,7 @@ def check(root):
             except OSError:
                 continue
             fm, body = split_frontmatter(text)
-            if entry_type(fm) not in CANON_TYPES:
-                continue
+            sink = findings if entry_type(fm) in CANON_TYPES else bundle_findings
             # line offset of body within file, so reported line numbers match the file
             body_start_line = text[:len(text) - len(body)].count("\n") + 1 if body else 1
             # Match per line by design: Obsidian does not resolve a wikilink whose brackets
@@ -179,8 +185,8 @@ def check(root):
                         if low in stems:
                             continue
                         kind = "link"
-                    findings.append((rel, body_start_line + i, kind, tgt))
-    return findings
+                    sink.append((rel, body_start_line + i, kind, tgt))
+    return findings, bundle_findings
 
 
 def main():
@@ -188,7 +194,9 @@ def main():
     if not os.path.isdir(root):
         sys.exit(f"not a directory: {root}")
 
-    findings = sorted(set(check(root)))
+    canon, bundle = check(root)
+    findings = sorted(set(canon))
+    bundle_findings = sorted(set(bundle))
     print(f"ghost-link lint - root: {root}\n")
     if findings:
         print(f"WARNINGS ({len(findings)}) - dead body wikilinks; the Weave decides "
@@ -198,6 +206,12 @@ def main():
         print()
     else:
         print("clean - every body wikilink resolves to a file.\n")
+    if bundle_findings:
+        print(f"ghost link (bundle) ({len(bundle_findings)}) - dead body wikilinks in bundle "
+              f"files and other non-canon markdown; not in the count below:")
+        for rel, ln, kind, tgt in bundle_findings:
+            print(f'  W  ghost {kind} in {rel}:{ln}:  [[{tgt}]]  (resolves to no file)')
+        print()
     print(f"summary: 0 errors, {len(findings)} warnings")
     sys.exit(0)  # flag-only: ghosts never gate a commit (a ghost may be an invitation)
 

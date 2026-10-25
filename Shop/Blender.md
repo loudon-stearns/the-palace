@@ -15,10 +15,7 @@ links:
   - { target: "[[The Shop]]", type: member-of, label: roster-member }
   - { target: "[[Shop/ComfyUI]]", type: enables, label: feeds }
   - { target: "[[Shop/Three.js]]", type: connects-to, label: complement-to }
-  - { target: "[[BLUELINE]]", type: connects-to, label: commissioned-by }
   - { target: "[[Shop/Blender/toyxyz-conditioning-recipe]]", type: connects-to, label: recipe }
-  - target: "[[Blocked, Not Prompted]]"
-    type: connects-to
 tags: [specialist, shop, 3d, blender, blocking, render, local]
 ---
 
@@ -59,7 +56,7 @@ The shop's sculptor and gaffer. Patient, tactile, opinionated about staging. Spe
 
 ## Limits
 
-- **GPU / Mac-resident.** Not a Cowork-sandbox tool; runs on the Mac. Heavy scenes are VRAM- and time-bound.
+- **GPU / Mac-resident.** Runs on the Mac. Heavy scenes are VRAM- and time-bound.
 - Learning curve is real; the bench rewards patience, punishes haste.
 - Offline render times are minutes-to-hours at fidelity — this is the slow surface by design.
 - Not real-time and not a browser deliverable — wrong tool for interactive.
@@ -138,8 +135,4 @@ Smoke / Capability Probe / Style Probe / Edge Probe / Speed Bench / Determinism 
 Last run **2026-06-13** — Smoke + capability PASS (Blender 5.1.2 on MPS emits all passes; the
 multi-ControlNet fill defeats the front-on default). Speed bench: pose+passes ~8 s; blocked two-pass
 ~9 min on this Mac.
-
-<!-- CLAUDE → LOUDON: promoted stub → alive 2026-06-13 (Session 1 of the BLUELINE Claude Code job).
-     Still owed: the offline Cycles render path (tier=piece) and the geometry-nodes math-world path
-     have not been exercised yet — alive on the conditioning job, untested on those two capabilities. -->
 

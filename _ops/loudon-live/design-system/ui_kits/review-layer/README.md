@@ -1,6 +1,6 @@
 # Review Layer — drop-in kit
 
-A toggle-able per-moment commenting surface for early-version artifacts. Mount it on a first build so Loudon can leave section-level feedback **in context**, then export it as the next round's brief. Flip it off to ship clean.
+A toggle-able per-moment commenting surface for early-version artifacts. Mount it on a first build so Loudon can leave section-level feedback **in context**, then export it as the next round's brief. Flip it off to ship clean. A UI that runs inside another application — a plugin in a DAW, a Max for Live device — mounts it on its browser mock page, never in the host ([[Review Layer]]).
 
 Concept and rationale: [[Review Layer]]. This kit is **one method** — the DOM-anchored one (inline pins + docked panel) — and it is *not* the definition of the layer. New review methods are wanted, not this one reused: for slides, video, generated images, sound, or anything else, inventing a fresh anchoring is the point. This file only covers HTML artifacts with stable DOM.
 

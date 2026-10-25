@@ -1,0 +1,367 @@
+{
+ "set": "set-01",
+ "verdicts": [
+  {
+   "source": "Flocking",
+   "target": "Cooperation Yields Agency",
+   "op": "remove",
+   "proposed_label_or_type": "mirrors[2D-formalization]",
+   "verdict": "PASS",
+   "reason": "No sentence on either page names the pair; the nearest, Flocking.md:132 ('could prove the palace's \"emergent agency\" principle ... not just asserted'), is a deferred next move that never names the hub, and the 2D label belongs to the Kuramoto Tie (Flocking.md:70).",
+   "better": ""
+  },
+  {
+   "source": "Confucianism",
+   "target": "Cooperation Yields Agency",
+   "op": "remove",
+   "proposed_label_or_type": "connects-to",
+   "verdict": "PASS",
+   "reason": "Confucianism ties ren ('increases when shared') to Hilaritas Generator and Symbiotic Skills in its Cross-Domain Resonance section and never names the hub; the hub never names Confucianism.",
+   "better": ""
+  },
+  {
+   "source": "Meaning and the Link",
+   "target": "Cooperation Yields Agency",
+   "op": "remove",
+   "proposed_label_or_type": "connects-to",
+   "verdict": "PASS",
+   "reason": "The page's Connections to the Palace section names Embeddings, SUBSTRATE and Hyperdimensional Prism only; nothing on either page gives the hub tie a reason.",
+   "better": ""
+  },
+  {
+   "source": "Hilaritas Generator",
+   "target": "Cooperation Yields Agency",
+   "op": "remove",
+   "proposed_label_or_type": "mirrors[shared-emergence]",
+   "verdict": "PASS",
+   "reason": "The pair already carries Cooperation Yields Agency enables[cooperation-as-hilaritas] (Cooperation Yields Agency.md:31); the surviving edge has its sentence in Hilaritas Generator — Context.md:25 ('the generator is cooperation applied to pedagogy'), which a later weave may read as exemplifies rather than enables.",
+   "better": ""
+  },
+  {
+   "source": "Embeddings as Relational Meaning",
+   "target": "Cooperation Yields Agency",
+   "op": "remove",
+   "proposed_label_or_type": "enables",
+   "verdict": "PASS",
+   "reason": "Embeddings' Cross-Pillar section never reaches shared intent, the hub never names Embeddings, and 'enables' has no sentence behind it.",
+   "better": ""
+  },
+  {
+   "source": "Symbiotic Skills",
+   "target": "Cooperation Yields Agency",
+   "op": "remove",
+   "proposed_label_or_type": "emerged-from",
+   "verdict": "PASS",
+   "reason": "Duplicate of the hub's spawned link (Cooperation Yields Agency.md:22), whose reason stands in the hub Context:17 ('anchors the [[Symbiotic Skills]] framework'); the reverse emerged-from adds nothing.",
+   "better": ""
+  },
+  {
+   "source": "Harvest Ceremony",
+   "target": "Cooperation Yields Agency",
+   "op": "remove",
+   "proposed_label_or_type": "connects-to",
+   "verdict": "PASS",
+   "reason": "No passage on the Harvest Ceremony speaks of cooperation, shared intent or the hub, and the hub does not name the ceremony.",
+   "better": ""
+  },
+  {
+   "source": "Deposit Ceremony",
+   "target": "Cooperation Yields Agency",
+   "op": "remove",
+   "proposed_label_or_type": "connects-to",
+   "verdict": "PASS",
+   "reason": "'Whoever brings the find' (Deposit Ceremony.md:54) is about the gate's fairness, not the hub's formula; neither page names the other in prose.",
+   "better": ""
+  },
+  {
+   "source": "Return Ceremony",
+   "target": "Cooperation Yields Agency",
+   "op": "remove",
+   "proposed_label_or_type": "connects-to",
+   "verdict": "PASS",
+   "reason": "'Coupling is two-sided' (Return Ceremony.md:159) is argued against Palace Conatus and already carried there as exemplifies[coupling-is-two-sided]; the hub is never named.",
+   "better": ""
+  },
+  {
+   "source": "Walk Ceremony",
+   "target": "Cooperation Yields Agency",
+   "op": "remove",
+   "proposed_label_or_type": "mirrors",
+   "verdict": "PASS",
+   "reason": "The Walk body names only The Cooperation Path (Walk Ceremony.md:79), which has its own link; the bare mirrors to the hub has no sentence.",
+   "better": ""
+  },
+  {
+   "source": "Excellent Adventure",
+   "target": "Cooperation Yields Agency",
+   "op": "remove",
+   "proposed_label_or_type": "connects-to",
+   "verdict": "PASS",
+   "reason": "Excellent Adventure's 'thinking partner' line (Excellent Adventure.md:65) is about the encounter, not shared intent, and the page reaches the hub through its exemplifies[flagship-mode] to Modes of Collaboration.",
+   "better": ""
+  },
+  {
+   "source": "Self-Describing Knowledge Module",
+   "target": "Cooperation Yields Agency",
+   "op": "remove",
+   "proposed_label_or_type": "connects-to",
+   "verdict": "PASS",
+   "reason": "'Symbiotic partner' (Self-Describing Knowledge Module.md:99) and 'agency work together' (line 74) are passing words, not a stated relation to the hub; the transfer question rides the-transfer-bet to Symbiotic Skills.",
+   "better": ""
+  },
+  {
+   "source": "page-rewrite — preview, the whole page as it would read",
+   "target": "Cooperation Yields Agency",
+   "op": "remove",
+   "proposed_label_or_type": "couples-with",
+   "verdict": "PASS",
+   "reason": "A proof copy in a workshop folder should not carry a hub link; the entry itself carries the same couples-with, though note the preview's frontmatter is not identical to the entry's (it holds Pheromone Trail and The Palace Speaks links the entry does not).",
+   "better": ""
+  },
+  {
+   "source": "Trickster",
+   "target": "Cooperation Yields Agency",
+   "op": "retype",
+   "proposed_label_or_type": "connects-to -> mirrors[threshold-agency]",
+   "verdict": "PASS",
+   "reason": "Trickster.md:115 says it outright ('This mirrors [[Cooperation Yields Agency]]'), and the not-command/not-surrender shape matches the hub's control and service failures; quote verified.",
+   "better": ""
+  },
+  {
+   "source": "FOUR PILLARS",
+   "target": "Cooperation Yields Agency",
+   "op": "retype",
+   "proposed_label_or_type": "enables -> connects-to[public-demonstration]",
+   "verdict": "PASS",
+   "reason": "Both quotes verified (FOUR PILLARS — Context.md:104, Cooperation Yields Agency — Context.md:25); neither page says the pillars are a precondition, so connects-to with the public-demonstration label is the honest type.",
+   "better": ""
+  },
+  {
+   "source": "Martin Buber",
+   "target": "Cooperation Yields Agency",
+   "op": "retype",
+   "proposed_label_or_type": "couples-with[relation-before-the-related] -> mirrors[meeting-not-use]",
+   "verdict": "FAIL",
+   "reason": "The evidence is a question in Buber's forward_vector ('whether the palace meets its collaborators ... as Thou or uses them as It'), which interrogates the hub rather than claiming the same pattern, and Buber's refusal of any method sits uneasily with the hub's formula; mirrors is not shown.",
+   "better": "connects-to[thou-or-it]"
+  },
+  {
+   "source": "Palace as Context Injection System",
+   "target": "Cooperation Yields Agency",
+   "op": "retype",
+   "proposed_label_or_type": "couples-with -> connects-to[relationship-stored-in-the-palace]",
+   "verdict": "PASS",
+   "reason": "The section 'The Relationship Is Stored in the Palace' (Palace as Context Injection System.md:108-110) gives the reason without claiming co-activation; both quotes verified, and the label is the page's own heading.",
+   "better": ""
+  },
+  {
+   "source": "Diversity of Thought in Many-Agent Systems",
+   "target": "FOUR PILLARS",
+   "op": "remove",
+   "proposed_label_or_type": "connects-to",
+   "verdict": "PASS",
+   "reason": "The Cross-Pillar Connections section (Diversity of Thought.md:69-71) applies the pillar lens, which the pillars tag already carries, and points its philosophical tension at Cooperation Yields Agency instead.",
+   "better": ""
+  },
+  {
+   "source": "Registry Pattern",
+   "target": "FOUR PILLARS",
+   "op": "remove",
+   "proposed_label_or_type": "connects-to",
+   "verdict": "PASS",
+   "reason": "Registry Pattern's resonances go to BBS Blackboard, Actor Model and Lateral Access; nothing names the pillars or the hub.",
+   "better": ""
+  },
+  {
+   "source": "Metaphor as Coupling Medium",
+   "target": "FOUR PILLARS",
+   "op": "remove",
+   "proposed_label_or_type": "connects-to",
+   "verdict": "PASS",
+   "reason": "Metaphor's teaching passage (Metaphor as Coupling Medium.md:113-121) points at Lateral Access, not the pillars; neither page names the other.",
+   "better": ""
+  },
+  {
+   "source": "The Practice Rediscovers Its Philosophy",
+   "target": "FOUR PILLARS",
+   "op": "remove",
+   "proposed_label_or_type": "exemplifies",
+   "verdict": "FAIL",
+   "reason": "The page's core claim, 'tools and philosophy aren't two domains that happen to rhyme, they're one object seen from two angles' (The Practice Rediscovers Its Philosophy.md:22), with five pairs where a tool IS a philosopher, is a worked case of the hub's 'A philosophy is a tool' (FOUR PILLARS.md:40) and its one-thing-four-shadows thesis; exemplifies points the right way.",
+   "better": "exemplifies[a-philosophy-is-a-tool]"
+  },
+  {
+   "source": "Lateral Access",
+   "target": "FOUR PILLARS",
+   "op": "remove",
+   "proposed_label_or_type": "connects-to",
+   "verdict": "PASS",
+   "reason": "The Teaching philosophy passage (Lateral Access.md:213-217) echoes make-to-learn but sends its reader to Hilaritas Generator; it never names the pillars.",
+   "better": ""
+  },
+  {
+   "source": "Modes of Collaboration",
+   "target": "FOUR PILLARS",
+   "op": "remove",
+   "proposed_label_or_type": "deepens",
+   "verdict": "PASS",
+   "reason": "Modes of Collaboration grounds itself in Cooperation Yields Agency; the only pillar mention is an open question in its Context ('Do these modes map to the [[FOUR PILLARS]]?', Modes of Collaboration — Context.md:122), not a deepening.",
+   "better": ""
+  },
+  {
+   "source": "Radio Play",
+   "target": "FOUR PILLARS",
+   "op": "remove",
+   "proposed_label_or_type": "connects-to",
+   "verdict": "PASS",
+   "reason": "'Sound-leads' names the radio play's audio-first craft rule; the body never names the hub or the music-tech entry point.",
+   "better": ""
+  },
+  {
+   "source": "SUBSTRATE",
+   "target": "FOUR PILLARS",
+   "op": "remove",
+   "proposed_label_or_type": "connects-to",
+   "verdict": "PASS",
+   "reason": "SUBSTRATE.md:41 lists the hub in a count of leading hubs; its four-way casting (line 9) is credited to The Multilinear Self, not the hub.",
+   "better": ""
+  },
+  {
+   "source": "Trickster",
+   "target": "FOUR PILLARS",
+   "op": "remove",
+   "proposed_label_or_type": "connects-to",
+   "verdict": "FAIL",
+   "reason": "The stated duplicate does not exist: FOUR PILLARS' frontmatter holds no link to Trickster, so this cut would remove the pair's only edge, and Trickster.md:109 gives it a reason ('the four pillars framework can only be taught through doing ... The teaching is the trickster's work').",
+   "better": "connects-to[taught-only-by-doing]"
+  },
+  {
+   "source": "Speak Like a Person, Log Like a Protocol",
+   "target": "FOUR PILLARS",
+   "op": "remove",
+   "proposed_label_or_type": "connects-to",
+   "verdict": "PASS",
+   "reason": "The label restates the pillars tag; the body never names the hub or a pillar crossing.",
+   "better": ""
+  },
+  {
+   "source": "Logarithmic Interface Scaling",
+   "target": "FOUR PILLARS",
+   "op": "remove",
+   "proposed_label_or_type": "connects-to",
+   "verdict": "PASS",
+   "reason": "Logarithmic Interface Scaling.md:149 ('Tools pillar: universal interface design principle') only restates the tag, unlike Ohm's Law.md:97, which adds 'for learning'.",
+   "better": ""
+  },
+  {
+   "source": "1 from 2",
+   "target": "FOUR PILLARS",
+   "op": "remove",
+   "proposed_label_or_type": "connects-to",
+   "verdict": "PASS",
+   "reason": "1 from 2 never names the pillars, and the hub never names the story; its real tie is the origin of Cooperation Yields Agency.",
+   "better": ""
+  },
+  {
+   "source": "Compressor Design",
+   "target": "FOUR PILLARS",
+   "op": "remove",
+   "proposed_label_or_type": "enables",
+   "verdict": "PASS",
+   "reason": "Compressor Design never names the hub, its Cross-Domain Resonance goes to easing curves, and 'enables' would claim the framework depends on the compressor.",
+   "better": ""
+  },
+  {
+   "source": "Action Potential Oscillator",
+   "target": "FOUR PILLARS",
+   "op": "remove",
+   "proposed_label_or_type": "connects-to",
+   "verdict": "PASS",
+   "reason": "No pillar or hub mention in the body; its isomorphisms and pedagogy are carried elsewhere.",
+   "better": ""
+  },
+  {
+   "source": "Quantum Synthesizer",
+   "target": "FOUR PILLARS",
+   "op": "remove",
+   "proposed_label_or_type": "connects-to",
+   "verdict": "PASS",
+   "reason": "No pillar or hub mention in the body.",
+   "better": ""
+  },
+  {
+   "source": "Biomechanical Synthesis",
+   "target": "FOUR PILLARS",
+   "op": "remove",
+   "proposed_label_or_type": "connects-to",
+   "verdict": "PASS",
+   "reason": "'Body horror is pedagogy' (Biomechanical Synthesis.md:6, 50) is a teaching claim that never names the pillars or the hub.",
+   "better": ""
+  },
+  {
+   "source": "Shopkeeper",
+   "target": "FOUR PILLARS",
+   "op": "remove",
+   "proposed_label_or_type": "connects-to",
+   "verdict": "PASS",
+   "reason": "Shopkeeper is type maker, which skips pillars (SCHEMA.md:95), and the body never names the hub; the label is the tag in disguise.",
+   "better": ""
+  },
+  {
+   "source": "Maker",
+   "target": "FOUR PILLARS",
+   "op": "remove",
+   "proposed_label_or_type": "connects-to",
+   "verdict": "PASS",
+   "reason": "Maker (type maker, SCHEMA.md:95) carries connects-to[follows] in flow-style frontmatter (Maker.md:12) with no sentence behind it; the hub's 'turned on the maker' (FOUR PILLARS.md:58) is the common noun, not this page.",
+   "better": ""
+  },
+  {
+   "source": "Andy Goldsworthy",
+   "target": "FOUR PILLARS",
+   "op": "remove",
+   "proposed_label_or_type": "connects-to",
+   "verdict": "PASS",
+   "reason": "Goldsworthy's body never names the hub or the pillars; the actual label on the link is 'informs', which has no sentence either.",
+   "better": ""
+  },
+  {
+   "source": "Rick Rubin",
+   "target": "FOUR PILLARS",
+   "op": "remove",
+   "proposed_label_or_type": "deepens",
+   "verdict": "PASS",
+   "reason": "Rubin's body never names the hub or the pillars, and the hub never names Rubin.",
+   "better": ""
+  },
+  {
+   "source": "Marcus Aurelius",
+   "target": "FOUR PILLARS",
+   "op": "remove",
+   "proposed_label_or_type": "deepens",
+   "verdict": "PASS",
+   "reason": "Marcus's body points at Kick Drum ↔ Foundation (People/Marcus Aurelius.md:75), not the hub; the hub never names him.",
+   "better": ""
+  },
+  {
+   "source": "Christopher Alexander",
+   "target": "FOUR PILLARS",
+   "op": "remove",
+   "proposed_label_or_type": "connects-to",
+   "verdict": "PASS",
+   "reason": "Alexander's body mirrors the palace's pattern language, not the pillars, and 'fifteen-properties-checklist' touches nothing on the hub.",
+   "better": ""
+  },
+  {
+   "source": "Donella Meadows",
+   "target": "FOUR PILLARS",
+   "op": "remove",
+   "proposed_label_or_type": "deepens",
+   "verdict": "FAIL",
+   "reason": "The hub itself names her in its one worked crossing ('Philosophy: Donella Meadows' leverage points, the kick as a small lever that moves the whole system', FOUR PILLARS.md:58), and its Context gives the Kick Drum Paradox in full around her (FOUR PILLARS — Context.md:88-90); the link has a reason, though 'deepens' overclaims.",
+   "better": "connects-to[the-kick-as-lever]"
+  }
+ ],
+ "fabricated_quotes": [],
+ "summary": "40 judged: 36 PASS, 4 FAIL (90%). Every evidence quote was found on the page it claims; none fabricated. The failures share one pattern: the readers searched the source body for the target's exact title and stopped there, missing a reason that lives under another name or on the hub's side. Donella Meadows is named in FOUR PILLARS' own worked crossing; Trickster names the pillars through a piped alias, and the 'hub already holds this link' claim is false; The Practice Rediscovers Its Philosophy states the pillar thesis in lowercase through the Hyperdimensional Prism. The fourth (Martin Buber) is the reverse error: a question in a forward vector was promoted to a mirrors claim. The cuts of bare connects-to links on ceremonies, makers and person pages are sound."
+}

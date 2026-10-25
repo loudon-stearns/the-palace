@@ -18,10 +18,6 @@ links:
   - target: "[[Actor Model]]"
     type: connects-to
     label: "governs-messages"
-  - target: "[[Lossy Compression with Intent Alignment]]"
-    type: connects-to
-  - target: "[[FOUR PILLARS]]"
-    type: connects-to
   - target: "[[Lateral Access]]"
     type: contradicts
     label: "generative-tension"

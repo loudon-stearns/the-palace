@@ -4,48 +4,23 @@ type: project
 status: active
 pillars: [creation, tools, philosophy]
 born: 2026-03
-stage: growing
+stage: mature
 confidence: working
 energy: high
 links:
   - target: "[[Objects to Think With]]"
     type: exemplifies
     label: object-to-think-with
-  - target: "[[Kuramoto Coupling]]"
-    type: couples-with
   - target: "[[Boundary-Crossing Instruments]]"
     type: mirrors
-  - target: "[[Signal-Rate CV Architecture]]"
-    type: connects-to
-  - target: "[[Spinoza Conatus]]"
-    type: connects-to
-  - target: "[[Frequency-Time Duality]]"
-    type: connects-to
-  - target: "[[Hyperdimensional Prism]]"
-    type: connects-to
-  - target: "[[Striatum]]"
-    type: connects-to
-  - target: "[[Neural Granular Synthesis]]"
-    type: deepens
-  - target: "[[Biomechanical Synthesis]]"
-    type: connects-to
-  - target: "[[State Machine]]"
-    type: connects-to
   - target: "[[Progressive Staging]]"
     type: emerged-from
-  - target: "[[FOUR PILLARS]]"
-    type: connects-to
-  - target: "[[Bessel Functions in Synthesis]]"
-    type: connects-to
   - target: "[[Compressor Design]]"
     type: connects-to
+    label: shared-smoother
   - target: "[[Piano String Inharmonicity]]"
     type: connects-to
-  - target: "[[Threshold Conatus]]"
-    type: couples-with
-    label: scale-partners
-  - target: "[[Scale-Stratified Identity]]"
-    type: connects-to
+    label: artifact-pattern
   - target: "[[Neural Granular Synthesis — spec — control-vocabulary-math]]"
     type: enables
 forward_vector: "Stages 1–4 are built and playable — the single neuron proved the isomorphism (ion channel = knob, membrane phase = teachable stage, biological constraint = compositional invitation). I keep reaching past the proof toward the artifact I haven't built yet: a population-dynamics instrument of N Kuramoto-coupled neurons, where individual spike shape averages out and coupling itself becomes timbre. The open question I carry is where Hodgkin-Huxley detail stops mattering sonically. Next outputs: the Faust par() population layer, and an H90 port via RNBO."
@@ -86,9 +61,9 @@ Faust remains a candidate for the production population-dynamics instrument (Neu
 
 A complete Gen~ development plan with per-sample pseudocode, input guards, testing criteria, and citation verification lives at `Projects/Action Potential Oscillator/neural_oscillator_dev_plan.md`.
 
-## Implementation Status (March 2026)
+## Implementation Status
 
-Stages 1–4 are implemented and playable. Stages 1–3 were built in Gen~ modules (visual dataflow); Stage 4 moved to Gen~ codebox as a deliberate pedagogical transition — the 4-state [[State Machine]] exceeded the visual paradigm's complexity threshold. The complete Stage 4 codebox code and educational interface text (intro paragraph, 4 phase descriptions, 8 parameter descriptions with biological ranges) are archived at `Projects/Action Potential Oscillator/`.
+Stages 1–4 are built and playable in Gen~: stages 1–3 as visual modules, stage 4 in codebox, because its four-state [[State Machine]] outgrew the visual paradigm. Since 14 October a crowd of 32 slightly different neurons runs in Faust (`neuropulse.dsp`); the scroll holds where it stands. The Stage 4 codebox and its interface text are in this page's folder.
 
 Key implementation decisions documented during the build:
 - **Frequency compensation**: spike and refractory durations are subtracted from the target period before computing drive current, so the `freq` input behaves as true pitch control regardless of spike_peak or refractory_ms settings.
@@ -103,8 +78,6 @@ The primary research artifact is `Projects/Action Potential Oscillator/neuron_os
 
 The Stage 2 interactive shows the LIF waveform with τ and drive sliders — drive below 1.0× rheobase enters subthreshold regime (neuron goes silent). The Stage 4 interactive exposes all four phases (charge, spike rise, spike fall, refractory recovery) with τ, spike peak, hyperpolarization depth, recovery damping, and frequency controls. Both show real-time Hz / MIDI note readout. The biological maximum firing rate ceiling is visualized when frequency exceeds the spike+refractory duration.
 
-The source of truth for this artifact is the Claude project "Neural synthesizer" where iterative development happens. Palace copy is a periodic snapshot.
-
 ## Cross-Domain Isomorphisms
 
 These are not metaphors — they are structural identities:
@@ -116,13 +89,7 @@ These are not metaphors — they are structural identities:
 
 ## Roadmap Connections to Palace
 
-The next stages of this project connect directly to existing palace entries:
-
-**[[Kuramoto Coupling]]** — Two-oscillator coupling with asymmetric influence parameters ("stubbornness" / "influence"). This is the direct application of Kuramoto mathematics to neural oscillator pairs, building toward population dynamics.
-
-**[[Boundary-Crossing Instruments]]** — The oscillator's parameters cross biological-to-sonic boundaries: τ crosses from membrane physics to waveshape, refractory period crosses from biology to frequency ceiling, recovery damping crosses from ion channel balance to harmonic content.
-
-**[[Frequency-Time Duality]]** — The refractory period defines a minimum period and therefore a maximum frequency. The fixed spike duration creates a timbre-pitch coupling as frequency rises. These are frequency-time duality effects operating at the single-cycle scale.
+The refractory period defines a minimum period and therefore a maximum frequency: [[Frequency-Time Duality]] at the single-cycle scale. Each parameter crosses a boundary — membrane physics to waveshape, biology to frequency ceiling, ion-channel balance to harmonic content — the way [[Boundary-Crossing Instruments]] do. And coupling these neurons in pairs, then crowds, is [[Kuramoto Coupling]] applied directly (§ Population Dynamics).
 
 ## The Refractory Period as Threshold Conatus
 
@@ -146,18 +113,16 @@ A single neuron oscillator is the building block, but the brain does not operate
 
 A population of slightly different neurons — variations in leak constant τ, variations in threshold voltage, variations in channel kinetics — coupled via Kuramoto dynamics produces emergent rhythms that no single neuron contains. This is the principle of symmetry breaking through heterogeneity. A homogeneous population locks to a trivial state; a heterogeneous population diversifies.
 
-**Raster plots** make population-level patterns visible. Plot each neuron's spike events as a dot: neuron number on the Y axis, time on the X axis. Single-neuron behavior is a vertical line of dots (regular firing). Synchronized firing appears as diagonal lines cutting across neuron indices (the population spiking in phase). Waves of activity trace as diagonal bands (a refractory wave propagating through the population). Noise or incoherence becomes a diffuse cloud. The plot reveals emergent behavior that single-neuron equations cannot show.
-
-The connection to [[Neural Granular Synthesis]] is direct: if each neuron IS a grain, then neural population dynamics IS granular synthesis. A population of neurons with Kuramoto coupling between them is a granular synthesis engine. The emergence of harmonic locking, chimera states (some neurons synchronized, others drifting), and wave patterns are all granular phenomena. The synthesis architecture is already there in the neurobiology.
+This section is the ground of [[Neural Granular Synthesis]], where each neuron is a grain; the raster plot that shows a population's coherence and the Faust `par()` layer that runs N neurons at once are developed there.
 
 **Hodgkin-Huxley vs. simplified models** represents a design choice. The full Hodgkin-Huxley model with complete gating variable ODEs is biologically accurate but computationally expensive. The integrate-and-fire model is a simplification — it loses spike shape detail. For population synthesis purposes, the question is not accuracy but *where does the detail matter sonically*. Hypothesis: HH detail matters most for individual spike SHAPE (which determines spectral content and transient character), less for population dynamics (which operate at a statistical level where individual spike shape averages out). A population of idealized integrate-and-fire neurons coupled via Kuramoto dynamics may be sonically equivalent to a population of detailed HH neurons, because the population behavior is determined by coupling and heterogeneity, not individual spike precision.
-
-**Faust par() primitive**: A population of N neurons in Faust is a single parallel expression: `par(i, N, neuron(i))`. The population is first-class. All N neurons execute in parallel at every sample; the Kuramoto coupling terms create the interdependencies. This is vastly different from serial iterative approaches. The parallel architecture maps naturally to audio block processing — each audio sample, all neurons update simultaneously.
 
 ## Open Questions
 
 - When does the oscillator become Hodgkin-Huxley? Full gating variable ODE integration is the next stage — at what point does simulation become indistinguishable from the biological original?
+  — progressed (2026-10-24): [[Neural Granular Synthesis]] built its crowd on prescribed-spike neurons and measured it — synchrony and brightness fall on one curve against coupling over spread — which supports this page's hypothesis that population behaviour is set by coupling and heterogeneity. Still open for single-neuron spike shape.
 - Stochastic channel gating (probabilistic opening/closing) adds pitch jitter and noise whose character depends on simulated channel count. What does a "noisy" neuron sound like when N=10 vs N=10,000 channels?
 - ~~The Faust → VST3 plugin (NeuroPulse) is the production instrument. The HTML document is the educational artifact. Should they diverge or stay isomorphic?~~ *Resolved March 2026:* Gen~ is the educational/development environment; Faust is the production candidate for population dynamics. They serve different purposes and may diverge. The single-neuron oscillator is isomorphic across both; the population layer is where they fork.
 - Consciousness as timbre — where does this metaphor break down, and is the breakdown itself interesting?
 - The [[Signal-Rate CV Architecture]] principle governs this oscillator's implementation. At what population size does the per-sample cost of signal-rate everything force compromises — and can those compromises be biologically motivated?
+  — progressed (2026-10-24): [[Neural Granular Synthesis]]'s RNBO crowd runs 512 neurons; this page's Faust crowd is 32. The cost per sample is not stated on either page yet.

@@ -5,7 +5,7 @@ pillars:
   - tools
   - philosophy
 born: 2026-05
-stage: seed
+stage: growing
 forward_vector: "I want a side-by-side experiment — multiple specialist agents vs. a single multi-medium Maker on the same brief — that records cost, speed, complexity, transparency, and the felt-difference Loudon notices in the work. I want the formative-shape axis (a mind grown up making sound vs. one grown up making image) named precisely enough that the experiment can ask whether LLM context-shaping reproduces that axis or only its surface."
 links:
   - target: "[[BBS Blackboard]]"
@@ -14,8 +14,6 @@ links:
   - target: "[[Cooperation Yields Agency]]"
     type: connects-to
     label: "interrogates"
-  - target: "[[FOUR PILLARS]]"
-    type: connects-to
   - target: "[[The Shop]]"
     type: emerged-from
     label: architectural-collapse-provoked-question

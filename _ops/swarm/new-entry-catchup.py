@@ -112,7 +112,7 @@ def compute(map_path, since, added_set=None, rule="born >= since", born_floor=No
     # holds BOTH ways (SCHEMA §4), so it reaches its source as well as its target. Counting it one
     # way told the 2026-09-24 weave that 25 newcomers were under-reached when 5 were; its walk
     # workers dutifully re-proposed the reverse of links that already existed.
-    SYM = {"connects-to", "mirrors", "contradicts", "couples-with"}
+    SYM = {"connects-to", "mirrors", "contradicts", "couples-with", "contrasts-with"}
     ids = {n["id"] for n in data["nodes"]}
     reach = {i: set() for i in ids}
     for e in data.get("edges", []):

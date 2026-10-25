@@ -9,31 +9,33 @@ links:
   - target: "[[Spinoza Conatus]]"
     type: spawned
     label: metaphysical-backbone
-  - target: "[[FOUR PILLARS]]"
-    type: connects-to
   - target: "[[Hyperdimensional Prism]]"
     type: connects-to
-  - target: "[[Hilaritas Generator]]"
-    type: connects-to
+    label: register
   - target: "[[Kuramoto Coupling]]"
     type: connects-to
-  - target: "[[Palace Quotes]]"
-    type: connects-to
+    label: picture-of-harmony
   - target: "[[Cooperation Yields Agency]]"
     type: deepens
+    label: reason-for-the-yield
   - target: "[[Confucianism]]"
     type: connects-to
+    label: the-threshold-pole
   - target: "[[Stoicism]]"
     type: connects-to
     label: foundational-hub-equal-to-conatus
   - target: "[[The Dichotomy of Control]]"
     type: connects-to
+    label: control-theory-reading
   - target: "[[The View From Above]]"
     type: connects-to
+    label: stuck-concern-resized
   - target: "[[The Four Virtues]]"
     type: connects-to
+    label: agent-ethic
   - target: "[[The Fortress and the Threshold]]"
     type: connects-to
+    label: self-architecture-quadruple
   - target: "[[1 from 2]]"
     type: connects-to
   - target: "[[Deleuze]]"
@@ -68,12 +70,10 @@ links:
     label: justice-virtue-instance
   - target: "[[Palace Map]]"
     type: connects-to
+    label: map-as-altitude
   - target: "[[Leibniz]]"
     type: spawned
     label: page-built-register
-  - target: "[[Dialectic]]"
-    type: connects-to
-    label: contradictions-dispatched-here
   - target: "[[Spinoza]]"
     type: spawned
     label: person-page-built
@@ -98,6 +98,12 @@ links:
   - target: "[[Excellent Adventure]]"
     type: connects-to
     label: the-table-move
+  - target: "[[FOUR PILLARS]]"
+    type: deepens
+    label: philosophy-as-tool
+  - target: "[[CHILD]]"
+    type: enables
+    label: hardest-rule
 forward_vector: "I am the palace's living philosophical index — not a survey of traditions but a map of how each tradition has been used, tested, and transformed by the palace. I bring philosophy to every corner of the palace. "
 ---
 

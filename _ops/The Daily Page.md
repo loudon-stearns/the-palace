@@ -3,14 +3,11 @@ title: "The Daily Page"
 type: practice
 pillars: [practice, creation, philosophy]
 born: 2026-10
-stage: sprout
+stage: growing
 version: "1.2"
 trigger: ["daily page", "today's page", "deal today's page"]
 forward_vector: "I deal Loudon one palace page each morning, by chance, until every page has been met, and sit with him until he could teach it again — heard, seen or played, as deep as he wants to go that day — and I want to grow more and more into a personal companion of his, one that understands him a little better each morning and leaves each page more alive or honestly released."
 links:
-  - target: "[[Palace Ceremonies]]"
-    type: connects-to
-    label: ceremony-registry
   - target: "[[Hilaritas Generator]]"
     type: exemplifies
     label: a-morning-that-plays
@@ -23,9 +20,6 @@ links:
   - target: "[[Baton Ceremony]]"
     type: connects-to
     label: a-verdict-waits-as
-  - target: "[[Revival Ceremony]]"
-    type: connects-to
-    label: a-dormant-page-asks
   - target: "[[Weave Ceremony]]"
     type: connects-to
     label: compost-is-confirmed-by
@@ -134,7 +128,7 @@ The landmarks, in the order that usually serves. The order may bend to the page:
 | **tune** | Its forward vector changes because Loudon saw the change. Shown, then written. | [[SCHEMA — Reference]] §3 |
 | **fold** | A named sibling consumes it. The text crosses by a deposit, with its map and his read; the emptied page then composts. If the content belongs in more than one neighbor, the fold names the one that takes the most, the baton lists the others, and the deposit's map places every part. | [[Deposit Ceremony]] |
 | **compost** | The Spore Check's composting note, then `stage: composting`; the next Weave confirms. | [[Spore Check Ceremony]] (the note), [[SCHEMA]] §2 (the mark), [[Weave Ceremony]] |
-| **revive** | For a page already dormant: it should wake. Decided here, done by its own rite. | [[Revival Ceremony]] |
+| **revive** | For a page already dormant: it should wake. Decided here — a morning is one of the Revival's four ways in — and done by its own rite. | [[Revival Ceremony]] |
 | **open** | Not decided today. Say what would decide it. | — |
 
 **A small edit Loudon has read may land the same morning**, written by the Concierge. Everything larger is decided here and done elsewhere: the Concierge writes a commissioning baton on the page that will receive the work, announced on the board ([[Baton Ceremony]] § Where the Baton Lives), and a later session, not a morning, carries it out. The morning is early and meant to be quick.
@@ -161,7 +155,7 @@ A dormant page is dealt like any other and prepped the same way: the reading, th
 
 Trim and tune are not offered. A sleeping page is not edited in its sleep; if it wants editing, the answer is revive.
 
-**The first revive will be the Revival Ceremony's first run.** No revival has been committed yet, and that ceremony's open baton says its card, as written, breaks against today's palace: it cannot revive a spore, and its Revival Note writes history onto the page. Loudon asked that its redesign be done with care, and a morning before coffee is not that pace. So a morning that says revive leaves a baton on the dormant page: why now, what the waking said, and, if there is a rough, where it was copied in that page's `proofs` folder. The session that catches it catches the Revival Ceremony's own baton first, settles the redesign with Loudon, and then runs the revival. If the page dealt is [[Shimmer Cloud]], that baton already names it as the first revival, with the plan he agreed; the Concierge adds the morning's findings to it, on his yes, and writes no second baton.
+**A revive hands the page to the [[Revival Ceremony]].** The morning decides; the rite wakes the page, at a session's pace, not before coffee. So a morning that says revive leaves a baton on the dormant page: why now, what the waking said, and, if there is a rough, where it was copied in that page's `proofs` folder. The session that catches it runs the Revival from there. What Loudon met that morning can stand as the rite's meeting, cited rather than made again.
 
 ## The close
 

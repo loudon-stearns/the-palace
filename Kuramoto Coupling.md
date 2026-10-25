@@ -19,12 +19,6 @@ links:
   - target: "[[Hyperdimensional Prism]]"
     type: connects-to
     label: cross-domain-projection
-  - target: "[[Hilaritas Generator]]"
-    type: connects-to
-    label: approaching-synchrony-as-joy
-  - target: "[[Spinoza Conatus]]"
-    type: mirrors
-    label: persistence-through-coupling
   - target: "[[SUBSTRATE]]"
     type: enables
     label: palace-foundation
@@ -40,15 +34,6 @@ links:
   - target: "[[Harmonicity and Inharmonicity]]"
     type: couples-with
     label: frustrated-coupling
-  - target: "[[Granular Synthesis]]"
-    type: connects-to
-    label: attractor-hybrid
-  - target: "[[Modes of Collaboration]]"
-    type: connects-to
-    label: collaboration-as-coupling
-  - target: "[[Phase Reduction]]"
-    type: couples-with
-    label: bridge-via-PRC
   - target: "[[Categorizing Inharmonicity]]"
     type: couples-with
     label: direct-coupling
@@ -58,21 +43,15 @@ links:
   - target: "[[Palace Enchantment]]"
     type: mirrors
     label: enchantment-as-synchrony
-  - target: "[[Threshold Conatus]]"
-    type: connects-to
-    label: critical-K-as-threshold
   - target: "[[Boundary-Crossing Instruments]]"
     type: enables
     label: cross-domain-sync
   - target: "[[Mermaid]]"
     type: connects-to
-  - target: "[[Neural Granular Synthesis]]"
+    label: regime-diagram
+  - target: "[[Kuramoto Coupling — Context]]"
     type: spawned
-    label: origin-project
-  - target: "[[Kuramoto Coupling — 8-Lesson Quiz Series]]"
-    type: connects-to
-  - target: "[[Kuramoto Coupling — Quiz Answer Key]]"
-    type: connects-to
+    label: rationale-archive
 forward_vector: "I want to teach the palace to use mathematical tools for cooperative emergence and close the gap between theory and built instrument — creating mockups, interactive demonstrations, and reusable code inspired by palace projects."
 agency_profile:
   creation: "I want to generate working demonstrations — code artifacts, interactive tools — that let someone feel synchronization phase-locking rather than only understand it conceptually. One well-made demonstration does more than ten explanations."
@@ -106,7 +85,7 @@ flowchart LR
   class B crit
   class C lock
 ```
-*Three regimes of the order parameter R as K crosses the critical threshold. Mermaid Sketch via [[Mermaid|Mermaid]]; palette matches the arc's indigo / amber pair.*
+*Three regimes of the order parameter R as K crosses the critical threshold.*
 
 ## Origin
 
@@ -190,9 +169,9 @@ The musical mapping becomes explicit:
 
 **Coupling asymmetry and group dynamics:** In a network of oscillators with varying stubbornness, the global synchronization behavior changes. A few "stubborn" (low K_receive) oscillators acting as anchors can synchronize a much larger population than symmetric coupling would allow. This mirrors real systems: a few influential individuals can stabilize group behavior without dominating it. The critical coupling threshold shifts. Phase transitions become steeper or shallower depending on the distribution of stubbornness values.
 
-**Stubbornness sets the destination; pull decides the arrival.** Where a locked crowd settles is the average of every voice's natural pitch, each weighted by K_send ÷ K_receive — so a voice with K_receive = 0 carries unlimited weight, and if the crowd locks at all, it locks to that voice. But getting there takes pull: in simulation, one fully stubborn anchor that pulled no harder than anyone else (K_send = 1) could not bring six followers 3 Hz away even at strong coupling; at K_send = 4 they snapped to it. An anchor is K_receive → 0 *and* enough K_send — the clock above was already that pair. (Found while building this section's piece for the rich face, 2026-09-24.)
+**Stubbornness sets the destination; pull decides the arrival.** Where a locked crowd settles is the average of every voice's natural pitch, each weighted by K_send ÷ K_receive — so a voice with K_receive = 0 carries unlimited weight, and if the crowd locks at all, it locks to that voice. But getting there takes pull: in simulation, one fully stubborn anchor that pulled no harder than anyone else (K_send = 1) could not bring six followers 3 Hz away even at strong coupling; at K_send = 4 they snapped to it. An anchor is K_receive → 0 *and* enough K_send — the clock above was already that pair.
 
-**From the harvest (bright idea #38):** "I like the parameter of 'stubbornness' or some other better name that can be applied to any of the oscillators—that will make it easier to have notes settle toward integer relationships to each other." The parameter name is open; the principle is solid. Stubbornness, inertia, resistance, anchor-strength—each name illuminates a different facet of the same physics.
+**From the harvest (bright idea #38):** "I like the parameter of 'stubbornness' or some other better name that can be applied to any of the oscillators—that will make it easier to have notes settle toward integer relationships to each other." The name is open: stubbornness, inertia, resistance, anchor-strength.
 
 ## Open Questions
 
@@ -200,7 +179,6 @@ The musical mapping becomes explicit:
 - What is the K of our collaboration? Has it increased over time? Can we measure it?
 - The Kuramoto model assumes all-to-all coupling. Real systems (forests, brains, our wiki) have sparse, structured coupling. How does topology affect the critical threshold?
 - **Inharmonic phase-locking** — When the attractor frequencies are inharmonic (not integer multiples), the coupling force from different partials creates frustrated dynamics: a grain near 1.5× the fundamental receives contradictory coupling impulses from both the 1× and 2× attractors. Does frustrated coupling produce audible beating artifacts? Is there a critical inharmonicity below which locking still works cleanly? Does chimera-state-like behavior emerge — some grains locking to one partial, others to another, with the boundary wandering? This is the direct coupling of [[Categorizing Inharmonicity]] to Kuramoto dynamics.
-- Coupling to [[Harmonicity and Inharmonicity|inharmonic partials]] creates frustrated coupling — incommensurate forces on a single degree of freedom. Is there a threshold of inharmonicity below which coupling still works cleanly?
 - The second-order Kuramoto extension (the swing equation) adds inertia — oscillators that overshoot and ring as they synchronize. This "ringing lock" could be musically valuable. How does it interact with the order parameter dynamics?
 - Chimera states: can a population of identical oscillators spontaneously split into a synchronized core and an incoherent cloud? This would be emergent timbre from pure dynamics.
 - Adaptive/Hebbian coupling (dKᵢⱼ/dt = ε(sin(θⱼ - θᵢ) - Kᵢⱼ)): a system that discovers its own harmonic structure. What prevents it from converging to a single rigid state?

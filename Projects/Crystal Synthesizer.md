@@ -11,12 +11,8 @@ hook_quality: 9
 beauty: 10
 who_leads: loudon
 links:
-  - target: "[[Hyperdimensional Prism]]"
-    type: connects-to
   - target: "[[Wallpaper Groups]]"
     type: deepens
-  - target: "[[Bessel Functions in Synthesis]]"
-    type: connects-to
   - target: "[[Quantum Synthesizer]]"
     type: mirrors
   - target: "[[Boundary-Crossing Instruments]]"
@@ -35,6 +31,12 @@ links:
   - target: "[[Crystal Sonification Reference]]"
     type: spawned
     label: mineral-palette
+  - target: "[[Hyperdimensional Prism]]"
+    type: exemplifies
+    label: prism-machine
+  - target: "[[Biomechanical Synthesis]]"
+    type: exemplifies
+    label: instrument-two-built
 forward_vector: "I will become a synthesizer that makes audible the optical properties of crystals."
 ---
 
@@ -155,10 +157,14 @@ Eight named crystals — diamond, ruby, amethyst, fluorite, emerald, topaz, labr
 ## Open Questions
 
 - How do you auralize a phonon dispersion curve directly? Is the dispersion relation itself a "timbre" parameter?
+  — progressed: `dispersion-filter/` in the bundle makes dispersion audible as time, a click fanned out by frequency through diamond, with beryl rendered along its c-axis and across its basal plane; the plugin's Fire knob carries the same idea (2026-10-24)
 - Can you map anharmonic mode coupling (mode-mode interactions) into real-time parameter modulation?
 - Do crystals with high optical birefringence also have pronounced acoustic anisotropy? If so, what do birefringent crystals *sound* like?
+  — progressed: `birefringence-proof/` makes ruby's two polarization families audible as an 8.8 Hz beat, and the plugin's Axis angle turns them apart; acoustic anisotropy itself is still unmeasured (2026-10-24)
 - The triclinic lattice generates the most inharmonic phonon structure. Is there a triclinic "timbre" that is uniquely chaotic or bell-like?
+  — progressed: `crystal-rings/` found diamond is the only bell; labradorite, the triclinic case, rings as a dull knock with a bright tick, not a chaotic bell, if its estimated line width holds. `triclinic-proof/` strikes the two through the same synth (2026-10-24)
 - How would a performer interface with this? Choosing a crystal, a direction, an excitation pattern—these feel like the controls. What is the performance gesture?
+  — progressed: the Crystal Synthesizer is now a VST3 and AU, installed and played in Live; its hero knobs are Axis angle and Fire (2026-10-24)
 
 ## Forward Vectors
 - Implement a prototype crystallographic oscillator bank in Gen~ where symmetry group determines partial relationships

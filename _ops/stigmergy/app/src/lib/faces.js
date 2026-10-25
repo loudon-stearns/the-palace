@@ -1,4 +1,4 @@
-// An entry's faces (CLAUDE.md § A page and its folder) — the text, the rich
+// An entry's faces (CHILD.md § A page and its folder) — the text, the rich
 // face, the scroll — as the reader's face switch sees them. The server reads
 // which faces a bundle carries (src/lib/bundle.js facesFor); this module orders
 // them, cycles them, and names where each one opens. Live, every page has a

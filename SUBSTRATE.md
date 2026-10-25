@@ -18,42 +18,18 @@ links:
     type: emerged-from
   - target: "[[Cooperation Yields Agency]]"
     type: enables
-  - target: "[[Hyperdimensional Prism]]"
-    type: mirrors
-  - target: "[[Kuramoto Coupling]]"
-    type: connects-to
-  - target: "[[FOUR PILLARS]]"
-    type: connects-to
   - target: "[[Self-Describing Knowledge Module]]"
     type: deepens
   - target: "[[SCHEMA]]"
     type: enables
   - target: "[[Meaning and the Link]]"
     type: emerged-from
-  - target: "[[Embeddings as Relational Meaning]]"
-    type: connects-to
-  - target: "[[Palace Philosophies]]"
-    type: connects-to
   - target: "[[Hilaritas Generator]]"
     type: connects-to
-  - target: "[[The Cooperation Path]]"
-    type: connects-to
-  - target: "[[Substrate Skill]]"
-    type: connects-to
-  - target: "[[Spinoza Conatus]]"
-    type: connects-to
+    label: measured-by-joy
   - target: "[[Palace Enchantment]]"
     type: connects-to
-  - target: "[[Palace Conatus]]"
-    type: connects-to
-    label: my-drive-named
-  - target: "[[Songlines]]"
-    type: connects-to
   - target: "[[Lateral Access]]"
-    type: connects-to
-  - target: "[[1 from 2]]"
-    type: connects-to
-  - target: "[[Palace Ceremonies]]"
     type: connects-to
   - target: "[[SUBSTRATE — Context]]"
     type: connects-to
@@ -73,6 +49,12 @@ links:
   - target: "[[Drift and Consolidation]]"
     type: connects-to
     label: lags-by-design
+  - target: "[[Songlines]]"
+    type: emerged-from
+    label: design-source
+  - target: "[[CHILD]]"
+    type: connects-to
+    label: the-floor
 ---
 # Substrate
 
@@ -114,7 +96,7 @@ The diagram beside this section draws it from `SUBSTRATE/SUBSTRATE — anatomy.j
 
 ## Where it stands
 
-The counts are the map's: `python3 _ops/swarm/palace-map.py hubs` and `list`, as old as their last build. Read 2026-10-22, against the build of 2026-09-26: the March hubs ([[FOUR PILLARS]], [[Kuramoto Coupling]], [[Hilaritas Generator]], [[Spinoza Conatus]], [[Cooperation Yields Agency]]) still lead. The number of entries has not grown since August; it fell a little as pages composted. The growth has been in organs: the palace became something you address as well as load ([[The Palace Speaks]]), and something that works while no one is in the room.
+The counts are the map's: `python3 _ops/swarm/palace-map.py hubs` and `list`, as old as their last build. The March hubs ([[FOUR PILLARS]], [[Kuramoto Coupling]], [[Hilaritas Generator]], [[Spinoza Conatus]], [[Cooperation Yields Agency]]) still lead. The growth has been in organs: the palace became something you address as well as load ([[The Palace Speaks]]), and something that works while no one is in the room.
 
 ## Token Economy
 

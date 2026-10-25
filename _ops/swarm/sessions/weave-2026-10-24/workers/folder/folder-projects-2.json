@@ -1,0 +1,1160 @@
+{
+ "room": "folder-projects-2",
+ "lens": "folder",
+ "pages_read": [
+  "Projects/2D Torus Wavetable Synthesizer.md",
+  "Projects/BLUELINE.md",
+  "Projects/Bessel Functions in Synthesis.md",
+  "Projects/Blood Compressor.md",
+  "Projects/Compressor Design.md",
+  "Projects/Floquet Time-Modulated Loops.md",
+  "Projects/Frequency-Time Explorer.md",
+  "Projects/Generative Preset Development.md",
+  "Projects/Generative Wavetable Libraries.md",
+  "Projects/Inharmonic Wavetable Synthesis.md",
+  "Projects/Loudon Live.md",
+  "Projects/Meadows and an Artist's Career.md",
+  "Projects/Murmuration.md",
+  "Projects/Palace Enchantment.md",
+  "Projects/Phoneme Choir.md",
+  "Projects/Portamento and Physical Pitch Modeling.md",
+  "Projects/Project Stewardship System.md",
+  "Projects/Retrospective Delay.md",
+  "Projects/STIGMERGY Philosophical Lenses.md",
+  "Projects/Semantic Webcam.md",
+  "Projects/Shimmer Cloud.md",
+  "Projects/Swarm Weave.md",
+  "Projects/Talking Keyboard.md",
+  "Projects/VST Template.md",
+  "Projects/Waveguide Synthesizer.md",
+  "Projects/2D Torus Wavetable Synthesizer/2D Torus Wavetable Synthesizer — scroll.md (Now) and — tuning.md",
+  "Projects/Blood Compressor/Blood Compressor — scroll.md (Now), — tuning.md, plugin/README.md",
+  "Projects/Compressor Design/proofs/Compressor Design — proof — pedagogical-retrospective.md",
+  "Projects/Floquet Time-Modulated Loops/ — scroll.md, BUILD_SUMMARY.md, NOTES.md",
+  "Projects/Generative Preset Development/ — scroll.md (Now)",
+  "Projects/Generative Wavetable Libraries/ — scroll.md (Now), floquet-modes/BUILD.md, floquet-modes/generate_floquet.py",
+  "Projects/Inharmonic Wavetable Synthesis/ — scroll.md (Now)",
+  "Projects/Meadows and an Artist's Career/ — scroll.md (Now)",
+  "Projects/Murmuration/ — scroll.md (Now)",
+  "Projects/Portamento and Physical Pitch Modeling/ — scroll.md, model-fitter/README.md, curated-ear-set/README.md",
+  "Projects/Retrospective Delay/ — scroll.md (Now), stage folders (listing)",
+  "Projects/Semantic Webcam/ — scroll.md (Now)",
+  "Projects/Shimmer Cloud/ — scroll.md (Now), — tuning.md, README.md",
+  "Projects/Swarm Weave/ — scroll.md (Now)",
+  "Projects/Palace Enchantment/ — scroll.md (Now)",
+  "Projects/VST Template/ — scroll.md",
+  "Projects/Waveguide Synthesizer/ — scroll.md (Now)",
+  "Projects/BLUELINE/ — baton.md, — scroll.md (Now)",
+  "Projects/Project Stewardship System/ — tuning.md (head)",
+  "Projects/Frequency-Time Duality/Frequency-Time Duality — Context.md",
+  "Projects/Generative Sample Libraries.md (frontmatter, §Talking Keyboard / Phoneme Choir mentions)",
+  "Projects/Meadows and Music — Leverage Points.md (frontmatter)",
+  "Palace development/Drafting Table Design System.md (frontmatter, §67-83)",
+  "STIGMERGY/Archive/STIGMERGY v1.0 — Palace Front-End.md (frontmatter)",
+  "_ops/Weave Ceremony.md (Steps 3d, 5d, vector-tuning step)",
+  "SCHEMA.md and SCHEMA — Reference.md (link table, §3.1 agency_profile)",
+  "Can an Instrument Notice Where the Work Stops?.md, Operator Memory.md, Shop/AuK.md, Shop/CAD Drafter.md, Projects/LDN RTM.md, Shop/Ableton Session Writer.md (frontmatter only, newcomers)",
+  "git: 0dba352d (Weave fold commit that landed while I read; Frequency-Time Explorer was deleted in it)"
+ ],
+ "coherence_findings": [
+  {
+   "kind": "vocab",
+   "entries": [
+    "Phoneme Choir",
+    "Talking Keyboard",
+    "Blood Compressor",
+    "Waveguide Synthesizer",
+    "Floquet Time-Modulated Loops",
+    "Generative Preset Development",
+    "Loudon Live"
+   ],
+   "issue": "Loudon Live set down its scaffolded curriculum on 2026-09-26 (Loudon Live.md § Lost branches: 'A scaffolded curriculum ... set down 2026-09-26 in favor of a looser presence'). Six siblings still talk in the old vocabulary: Phoneme Choir and Talking Keyboard end their forward vectors on 'a Stage 4 Loudon Live demo'; Blood Compressor lists 'Stage 4 — Author the lesson: a 30-minute Loudon Live session'; Waveguide has a section 'Tiers Toward Loudon Live' ending 'Stage-ready'; Floquet's Forward Vector says 'The arc ships across five sessions' although its own scroll was revised the same day (2026-09-26, 'the stages are builds, not sessions'); Generative Preset Development labels its Loudon Live link 'curriculum-fuel'.",
+   "proposed_action": "Say it once, in Loudon's current terms: a project can be built in public on Loudon Live when Loudon picks it. Replace 'Stage 4 Loudon Live demo' / 'Stage-ready' / 'five sessions' with the plain move (play it for people; build it on stream). Keep the word 'stage' for the page lifecycle and for Progressive Staging steps, and drop it as a number attached to Loudon Live. Taste-level wording, so offer it, don't apply it."
+  },
+  {
+   "kind": "vocab",
+   "entries": [
+    "Generative Preset Development",
+    "Waveguide Synthesizer",
+    "Murmuration",
+    "2D Torus Wavetable Synthesizer"
+   ],
+   "issue": "'Tier' means four things in this family: Shop build tiers (Sketch / Study / Piece in Waveguide § Tiers Toward Loudon Live and Murmuration § Status), openness of a synth's format (Generative Preset Development 'Tier 1-4'), warp cost and surface class (2D Torus 'Tier 1 / Tier 2'). Generative Preset Development also contradicts itself: its heading is 'Tier 4 - Profile Generalizer (the endgame)' but the Notes for Future Claude Instances say 'until Stage 4's Profile Generalizer concept is mature'.",
+   "proposed_action": "In Generative Preset Development change 'Stage 4's Profile Generalizer' to 'Tier 4's' (a plain slip). Elsewhere gloss the tier once where it first appears ('build tier' for Sketch/Study/Piece). No renaming project-wide."
+  },
+  {
+   "kind": "house-standard",
+   "entries": [
+    "2D Torus Wavetable Synthesizer",
+    "Blood Compressor",
+    "Retrospective Delay",
+    "Floquet Time-Modulated Loops",
+    "Murmuration"
+   ],
+   "issue": "Project Stewardship System.md § What's Decided records the Max pause (2026-10-16) and the move of nine stewards, 2D Torus, Blood Compressor and Retrospective Delay among them, to the VST Template (2026-10-21). The pages have not caught up. 2D Torus's forward vector still says 'a working RNBO instrument' and its first Forward Vector bullet is 'RNBO prototype validation — the immediate next move ... Awaiting Loudon to assemble the parent Max patch'; Blood Compressor's Forward Vectors still lead with 'Stage 2 — Build a Max for Live prototype' (its tuning ledger already proposes the 'Isn't' line, items 2, 3, 5); Retrospective Delay's Open Question 4 still asks 'Max for Live vs. VST'; Floquet's Implementation choices and Murmuration's Open Decisions ('The RNBO crossover') assume RNBO is the next step.",
+   "proposed_action": "One sentence per page, in the page's own voice, saying which path now applies: 2D Torus, Blood Compressor, Retrospective Delay name the VST as the product path and park the Max A/B gate behind the Loudon-lifted pause; Floquet and Murmuration (not among the nine) say Max/RNBO work waits on the pause. Canon edits wait for Loudon's yes; the stewards' own proposals in the tuning ledgers (Blood Compressor items 2, 3, 5; 2D Torus items 2, 4) are the right vehicle for the stewarded pages."
+  },
+  {
+   "kind": "house-standard",
+   "entries": [
+    "Blood Compressor",
+    "Meadows and an Artist's Career",
+    "Retrospective Delay",
+    "Murmuration",
+    "Waveguide Synthesizer",
+    "Shimmer Cloud",
+    "Semantic Webcam"
+   ],
+   "issue": "Two conventions for where the plan lives. Generative Preset Development, Generative Wavetable Libraries and Floquet carry one line, 'The plan — what comes next, agreed with Loudon — lives on [[... scroll]], where it changes only with his yes'. The others keep a numbered body list that the scroll's Plan now overtakes: Blood Compressor 'Stage 1-5', Meadows 'Stage 1 — Spec the twelve levels (~current state)', Murmuration '## Status (2026-06)', Retrospective Delay's three Forward Vectors against the scroll's five moves.",
+   "proposed_action": "Use the one-line pointer where the scroll holds an agreed Plan; leave body Forward Vectors only as aspiration (what the page wants), never as a status list. Delete dated status snapshots (Murmuration 'Status (2026-06)', Project Stewardship System 'Where it stands (2026-10-21)' counts) since the scroll's Now regenerates them."
+  },
+  {
+   "kind": "house-standard",
+   "entries": [
+    "Project Stewardship System",
+    "Compressor Design",
+    "Phoneme Choir",
+    "Talking Keyboard",
+    "STIGMERGY Philosophical Lenses"
+   ],
+   "issue": "Project Stewardship System § Where it stands says 'Every project has a scroll'. Five projects in Projects/ have none: Compressor Design, Phoneme Choir, Talking Keyboard (all status complete), STIGMERGY Philosophical Lenses (status proposed) and Preset Oracle (outside this room). The Weave Ceremony (Step 5d) already says the archived and complete ones are Loudon's question, not a gap.",
+   "proposed_action": "Reword the PSS sentence to 'Every active project'. Open a scroll for STIGMERGY Philosophical Lenses only when it moves; ask Loudon once whether the three complete projects want one."
+  },
+  {
+   "kind": "roster",
+   "entries": [
+    "Generative Preset Development",
+    "Generative Wavetable Libraries",
+    "Inharmonic Wavetable Synthesis",
+    "Meadows and an Artist's Career",
+    "Murmuration",
+    "Portamento and Physical Pitch Modeling",
+    "Retrospective Delay",
+    "Semantic Webcam"
+   ],
+   "issue": "Eight stewards' homes in this room have no tuning ledger. Weave Ceremony Step 5d says 'a tuning ledger for every page that runs'; Project Stewardship System § What's Decided (2026-10-16) says 'A steward grows its own ledger the first time a cycle offers a lesson'. Blood Compressor's own ledger opens with the same rule ('grew this ledger on 2026-10-24, when a cycle first offered a lesson'). The two rules disagree about whether a gap exists.",
+   "proposed_action": "Do not open these by hand: an empty ledger pre-empts the steward's first lesson and the lazily-grown rule is the newer, deliberate one. Reword Step 5d to 'a tuning ledger for a page that runs, once its steward has offered a lesson'."
+  },
+  {
+   "kind": "vocab",
+   "entries": [
+    "Blood Compressor",
+    "Compressor Design"
+   ],
+   "issue": "The two compressors disagree on numbers without saying so. Compressor Design: a 500-sample FILO RMS window and a quadratic soft knee. Blood Compressor: 'RMS over a 50-sample window' and 'soft-knee with cubic interpolation' (the plugin README confirms 'cubic Hermite'). Blood Compressor also says it 'builds on the Compressor Design retrospective's three pedagogical moments', but Compressor Design's body never mentions the retrospective (it sits in Compressor Design/proofs/).",
+   "proposed_action": "One sentence in Blood Compressor § DSP Architecture: it differs from Compressor Design on purpose (a shorter window for the baroreceptor, a cubic knee for the vessel wall). One sentence in Compressor Design pointing at proofs/Compressor Design — proof — pedagogical-retrospective.md."
+  },
+  {
+   "kind": "house-standard",
+   "entries": [
+    "Generative Preset Development",
+    "Generative Wavetable Libraries",
+    "Generative Sample Libraries"
+   ],
+   "issue": "Generative Preset Development § Relationship to Generative Sample Libraries still says GSL 'generates audio content — samples and wavetables' and that wavetable content (CLM WAV files) comes from GSL. The wavetable work moved to Generative Wavetable Libraries on 2026-05-02 (GWL.md intro: 'born by migration ... when GSL refocused on multisampled instruments only'). The 'complete instrument, top to bottom' pairing the section describes is now preset + GWL table.",
+   "proposed_action": "Change that section to name Generative Wavetable Libraries as the wavetable source and keep GSL for samples. See the typed_relations proposal for the matching link."
+  },
+  {
+   "kind": "house-standard",
+   "entries": [
+    "Generative Wavetable Libraries",
+    "Palace Enchantment",
+    "Swarm Weave",
+    "Project Stewardship System",
+    "Talking Keyboard"
+   ],
+   "issue": "Links the 0dba352d fold left, each a pair carrying more than one link or a label with no reason. (1) Generative Wavetable Libraries carries both emerged-from[migrated-from] and couples-with[parallel-deployment] to Generative Sample Libraries, which spawned it [split-off]. (2) Project Stewardship System connects-to[pronunciation-case-study] Talking Keyboard while Talking Keyboard connects-to[stage-mismatch-evidence] Project Stewardship System: two labels, one pair. (3) Swarm Weave spawned Palace Enchantment while Palace Enchantment emerged-from[is-it-alive-vs-is-it-correct] Swarm Weave; both bodies call it a precondition ('The Swarm Weave is the precondition. Enchantment is the life it enables'). (4) GWL connects-to[2d-form] 2D Torus, but GWL's own Palace Connections says the Torus 'runs in parallel with no shared boundary'. (5) BLUELINE mirrors[sibling-visual-music-pipeline] Retrospective Delay: neither body names the other, and a delay effect is not a visual pipeline. (6) Floquet connects-to[built-in-the-open] Loudon Live and Generative Preset Development enables[curriculum-fuel] Loudon Live: Loudon Live says any project can turn up there, so 'built in the open' is true of every project, and 'curriculum-fuel' names the set-down curriculum.",
+   "proposed_action": "(1) cut the couples-with. (2) keep Talking Keyboard's stage-mismatch-evidence, cut the Project Stewardship System side. (3) a judgment for Pile B: either keep Palace Enchantment's emerged-from and drop the spawned back, or fold both into one enables from Swarm Weave; the lineage is not 'direct' in the sense Step 3d needs, since the label the page chose is a contrast, not a descent. (4) cut GWL->Torus; the body sentence stays. (5) cut BLUELINE->Retrospective Delay unless Loudon sees the ink-image-pinned-to-audio rhyme, in which case relabel it that. (6) cut both; a stream on a project lives on the project's scroll (see Loudon Live's own open question)."
+  },
+  {
+   "kind": "recipe",
+   "entries": [
+    "Palace Enchantment"
+   ],
+   "issue": "Palace Enchantment, 71 KB, writes one ladder twice. 'Scopes of Enchantment' (Single Page, Hub, Songline, Dialogic, Free, The Enchanted Palace) and the 'Learning Path' (Stage 1 to Stage 6) are the same ladder, and 'The Enchanted Palace' is both an H3 under Scopes and an H2 of its own. Three 'From ... Practice — Findings' sections (about 190 lines, 2026-03-31 to 2026-04-01) are journal, not canon.",
+   "proposed_action": "Keep Scopes (what each is) and cut the Learning Path to a short 'how to start' pointing at Stage 1 and Stage 2; merge the two Enchanted Palace sections; move the three Findings sections to a Palace Enchantment — Context (see memory_needs). Leaves the page about a third shorter without losing a claim."
+  },
+  {
+   "kind": "house-standard",
+   "entries": [
+    "Swarm Weave"
+   ],
+   "issue": "Three internal drifts on one page. (a) Forward Vectors says the worker-scope question is answered, then 'What remains open is building the partition-palace.py ... and first-running the lens-swarm — carried in this entry's baton'. The script exists (_ops/swarm/partition-palace.py), the first Multi-Lens run is dated 2026-07-06 in the page itself, and Projects/Swarm Weave/ holds no baton. (b) 'the coordinator adjudicates by palace values' (The cut and the mandate) against 'present both to Loudon with the rationale — do not auto-resolve' (Forward Vectors). (c) 'It has been added to the Deposit Ceremony as Step 7.5': _ops/Deposit Ceremony.md names no Palace Worker step and has no 7.5.",
+   "proposed_action": "Delete the answered worker-scope bullet; settle (b) as 'the coordinator adjudicates by palace values and brings a true fork to Loudon'; for (c) either restore the Deposit step or delete the sentence. The rate-limit bullet is moot while the weave runs as Claude Code agents."
+  },
+  {
+   "kind": "naming",
+   "entries": [
+    "Loudon Live",
+    "Floquet Time-Modulated Loops",
+    "Phoneme Choir",
+    "Talking Keyboard",
+    "Generative Preset Development"
+   ],
+   "issue": "Three small name drifts. Loudon Live.md uses both 'Loudon Live' and 'Loud'n Live' as the subject of consecutive sentences. Floquet's file and links are 'Floquet Time-Modulated Loops' but its H1 and the BUILD_SUMMARY and NOTES titles read 'Floquet / Time-Modulated Loops'. Bodies of Phoneme Choir, Talking Keyboard and Generative Preset Development link [[Four Pillars]] where every frontmatter uses [[FOUR PILLARS]].",
+   "proposed_action": "Loudon Live: keep 'Loudon Live' for the title and prose, 'Loud'n Live' only where the page speaks as the brand. Floquet: match the H1 and the two memory files to the file title. Four Pillars: one casing."
+  },
+  {
+   "kind": "house-standard",
+   "entries": [
+    "Loudon Live",
+    "BLUELINE"
+   ],
+   "issue": "Loudon Live.md § The look says the Loudon Live Design System 'is now the palace's default dress'. CHILD.md and the Drafting Table Design System page (forward vector: 'I am the dress for the work itself ... Loud'n Live keeps the public channel; I keep the workshop') split the two: Drafting Table for the work, Loudon Live Design System for what the public channel shows. VST Template's plan already moved its editor from the Loudon Live dress to Drafting Table on 2026-10-21.",
+   "proposed_action": "Reword the Loudon Live line to 'the look of what the public channel shows; the work itself wears the Drafting Table Design System'. BLUELINE's link to the Loudon Live Design System [mockup-base-spec] is worth one glance: BLUELINE is, per Loudon Live, 'his own creative work, public but not yet inside Loud'n Live'."
+  },
+  {
+   "kind": "roster",
+   "entries": [
+    "2D Torus Wavetable Synthesizer",
+    "Waveguide Synthesizer",
+    "Loudon Live"
+   ],
+   "issue": "One decision is asked in three places: 2D Torus ('ship as Loudon's signature device or remain a pedagogical test bed'), Waveguide (Open Question 4 and the forward vector, 'does this earn a stage, or is it a test bed?'), and Loudon Live's link to 2D Torus [signature-instrument-candidate]. Only Loudon can answer it, and Loudon Live is the page that would record the answer.",
+   "proposed_action": "Hold it once, as an open question on Loudon Live ('which instruments does the channel lead with?'), and let the two instrument pages carry their evidence only."
+  }
+ ],
+ "open_question_resolutions": [
+  {
+   "entry": "2D Torus Wavetable Synthesizer",
+   "question": "How is the morphing implemented across surfaces — crossfading c_mn coefficients in spectral space, or crossfading W directly?",
+   "verdict": "progressed",
+   "by_entry": "2D Torus Wavetable Synthesizer (§ Warps; § Open Decisions, Y-axis interpolation)",
+   "proposed_action": "Same question as Open Decisions 'Y-axis interpolation strategy' (equal-power, constant-RMS, spectral). Merge them into one. The bake-and-crossfade Warp Bank answers it for warps; surface-to-surface morphs stay open."
+  },
+  {
+   "entry": "2D Torus Wavetable Synthesizer",
+   "question": "Should the Kuramoto trajectory replace the linear scan, or stay beside it?",
+   "verdict": "progressed",
+   "by_entry": "2D Torus Wavetable Synthesizer (Tools/kuramoto_scan.py, RNBO/torus_2d_kuramoto.codebox)",
+   "proposed_action": "It exists as a second mode and has not been heard. Leave open until the first listening; say 'second mode, pending ear' in one line."
+  },
+  {
+   "entry": "2D Torus Wavetable Synthesizer",
+   "question": "Surface resolution and interpolation scheme (512 vs 1024; bilinear vs bicubic vs spectral).",
+   "verdict": "answered-elsewhere",
+   "by_entry": "2D Torus Wavetable Synthesizer — catalog — wavetables",
+   "proposed_action": "The catalog is 14 tables, all 1024x1024, and the codebox reads bilinear. State it as decided and delete the open line here and the repeat under Implementation Path ('Resolution and interpolation are open')."
+  },
+  {
+   "entry": "2D Torus Wavetable Synthesizer",
+   "question": "How does the UI expose the design language? / How does the Hopf control surface get mapped to musically legible parameters?",
+   "verdict": "progressed",
+   "by_entry": "2D Torus Wavetable Synthesizer (Hopf/hopf-control-surface.html; Instruments/singer.html per tuning item 4); VST Template (plan move 6, editor generated from the parameter table)",
+   "proposed_action": "First mapping and a first playable voice (the Singer) exist, neither heard by hand. The next form of the UI question is how the Torus's parameters sit in the VST Template's control vocabulary; rewrite the question that way."
+  },
+  {
+   "entry": "2D Torus Wavetable Synthesizer",
+   "question": "Open Decision: RNBO prototype validation (A/B against 2d.wave~, awaiting Loudon to assemble the Max patch).",
+   "verdict": "should-act",
+   "by_entry": "Project Stewardship System (Max pause 2026-10-16; VST path 2026-10-21)",
+   "proposed_action": "The gate is unpaid since 2026-04-27 and Max work is paused. Replace with the VST gate (plugin matched against the numpy/browser reference), through the steward's proposal in the tuning ledger."
+  },
+  {
+   "entry": "Floquet Time-Modulated Loops",
+   "question": "What is the cleanest pedagogical entry point — the swing or the equation?",
+   "verdict": "progressed",
+   "by_entry": "Floquet Time-Modulated Loops (BUILD_SUMMARY: interactives 02, 03)",
+   "proposed_action": "Both are built. The order is Loudon's call when he walks the media (scroll move 1); leave as the one live question."
+  },
+  {
+   "entry": "Floquet Time-Modulated Loops",
+   "question": "Does the tanh saturation in Stage 1 distort the Strutt picture?",
+   "verdict": "progressed",
+   "by_entry": "Floquet Time-Modulated Loops/NOTES.md",
+   "proposed_action": "NOTES.md records the two calls the build made (damping_zeta 0.025, a soft clip on the state) and the scroll asks Loudon to rule on them. Fold his ruling in when it comes; the answer in the text ('saturation only acts above threshold') stands."
+  },
+  {
+   "entry": "Floquet Time-Modulated Loops",
+   "question": "Hopf control surface for Stage 5 — what exactly lives on S^2?",
+   "verdict": "answered-elsewhere",
+   "by_entry": "2D Torus Wavetable Synthesizer (Hopf § and Hopf/hopf-control-surface.html)",
+   "proposed_action": "Torus has a built first mapping (height splits a rate budget, longitude is the phase difference). Link the question to it; the Floquet-specific part (relative phase and coupling depth) remains."
+  },
+  {
+   "entry": "Floquet Time-Modulated Loops",
+   "question": "When does the Stage 4 inverse-design problem become tractable? / Floquet for nonlinear systems?",
+   "verdict": "still-open",
+   "by_entry": null,
+   "proposed_action": "No sibling has touched either. Keep."
+  },
+  {
+   "entry": "Blood Compressor",
+   "question": "Should the sidechain HPF default at 80 Hz or 0.1 Hz?",
+   "verdict": "answered-elsewhere",
+   "by_entry": "Blood Compressor/plugin/README.md",
+   "proposed_action": "The plugin makes it a knob, 1 to 500 Hz, default 80, 'hands the entry's open question ... to the player'. Close the question in the page."
+  },
+  {
+   "entry": "Blood Compressor",
+   "question": "Is 'vessel age' productive or alienating?",
+   "verdict": "progressed",
+   "by_entry": "Blood Compressor — tuning (item 5)",
+   "proposed_action": "The page said 'Probably keep, with care'; the plugin kept it, reworded as 'a stiffer wall'. Close with the steward's proposed words when Loudon places item 5."
+  },
+  {
+   "entry": "Blood Compressor",
+   "question": "Should the heart-pulse audio be a feature or hidden?",
+   "verdict": "still-open",
+   "by_entry": null,
+   "proposed_action": "The scroll says nobody has played the face with sound on; ask after that first listening."
+  },
+  {
+   "entry": "Compressor Design",
+   "question": "Forward vector: a teaching retrospective, 'the moments in a lesson where students heard the 500-sample window'.",
+   "verdict": "progressed",
+   "by_entry": "Compressor Design/proofs/Compressor Design — proof — pedagogical-retrospective.md",
+   "proposed_action": "Three moments are written there ('a first pass ... seeds of a longer pedagogical document'). The page does not name it. Name it in one line and say honestly whether the student quotes come from real sessions; I could not verify that from the files."
+  },
+  {
+   "entry": "Generative Wavetable Libraries",
+   "question": "Do crystal-ratio frames produce musically interesting motion when swept? What phase-coherence policy across frames?",
+   "verdict": "answered-elsewhere",
+   "by_entry": "Generative Wavetable Libraries (§ Phase 1 Status; scroll)",
+   "proposed_action": "Phase 1 is 'Shipped and accepted' (Loudon in Serum and Ableton: 'they all work very well') with per-frame zero-phase reset. Both questions, and 'Phase coherence across frames' under What Requires Development, are answered on the same page. Delete them in the consolidation."
+  },
+  {
+   "entry": "Inharmonic Wavetable Synthesis",
+   "question": "Can Wavetable B frames be derived from arbitrary recordings by SMS, and what is the reference for unpitched sources?",
+   "verdict": "progressed",
+   "by_entry": "Inharmonic Wavetable Synthesis (trajectory-library/; scroll ask steward-021 RANK / NEAREST / BOTH)",
+   "proposed_action": "Piano notes are measured and the steward is asking how a bell or bar is filed. The pitched half is under way; unpitched sources stay open."
+  },
+  {
+   "entry": "Inharmonic Wavetable Synthesis",
+   "question": "Is there a Wavetable B profile that makes Kuramoto-style frustration audible?",
+   "verdict": "progressed",
+   "by_entry": "Inharmonic Wavetable Synthesis (§ At the Coupling Edge); VST Template (Frustration plugin)",
+   "proposed_action": "Already marked 'Partly answered (2026-10-20)' in the text, a good model for the rest. Add that the same model is now a plugin (VST Template: Frustration, B and K automatable)."
+  },
+  {
+   "entry": "Inharmonic Wavetable Synthesis",
+   "question": "Forward Path 1 and 4: prototype the additive engine in Pure Data/Max/Faust; later a JUCE implementation.",
+   "verdict": "should-act",
+   "by_entry": "VST Template; Inharmonic Wavetable Synthesis/faust-prototype/",
+   "proposed_action": "The Faust prototype exists and the VST route now has a template. Rewrite the Forward Path as what is done (faust-prototype, dual-wavetable, trajectory-library, coupling-edge) and what the template makes the next step. Link VST Template only if Loudon agrees it is the route."
+  },
+  {
+   "entry": "Inharmonic Wavetable Synthesis",
+   "question": "Perceptual threshold of Wavetable B deviations; Sethares scale under moving B; audio-rate LFO on B depth.",
+   "verdict": "still-open",
+   "by_entry": null,
+   "proposed_action": "Untouched. Keep."
+  },
+  {
+   "entry": "Loudon Live",
+   "question": "Streams and the projects they touch: does a stream want a typed link from this page, or does it live on the project's scroll as a made thing?",
+   "verdict": "should-act",
+   "by_entry": "Floquet Time-Modulated Loops; Generative Preset Development; Frequency-Time Explorer (deleted); 2D Torus Wavetable Synthesizer",
+   "proposed_action": "The family has already answered by accident: four projects pointed at Loudon Live with generic labels ('built-in-the-open', 'curriculum-fuel', 'introductory-tool'), which is the clutter the standing order cuts. Propose the answer: streams live on the project's scroll; Loudon Live keeps typed links only to its parts (LDN RTM) and named exceptions (the signature-instrument candidate, BLUELINE beside it). Loudon's call."
+  },
+  {
+   "entry": "Loudon Live",
+   "question": "Live moments; what funds it; search engines.",
+   "verdict": "still-open",
+   "by_entry": null,
+   "proposed_action": "Loudon's, none urgent."
+  },
+  {
+   "entry": "Meadows and an Artist's Career",
+   "question": "HTML comment to Loudon: 'do you want this as a SIBLING entry to the original ... or as a REPLACEMENT (composting the original)?'",
+   "verdict": "answered-elsewhere",
+   "by_entry": "Meadows and Music — Leverage Points (stage growing, own forward vector, not composting)",
+   "proposed_action": "Both pages are alive and the body says 'two projects are siblings'. Delete the comment, and the note that it is 'an attempted refocus', once Loudon confirms sibling."
+  },
+  {
+   "entry": "Meadows and an Artist's Career",
+   "question": "Forward Vectors Stage 2 (self-diagnostic worksheet) and Stage 3 (three artists' case studies).",
+   "verdict": "progressed",
+   "by_entry": "Meadows and an Artist's Career/ — scroll.md (worksheet v4; Eno, Oliveros, Agnes Martin)",
+   "proposed_action": "Both are built; Stage 1 still reads '~current state'. Replace the stage list with the scroll pointer."
+  },
+  {
+   "entry": "Murmuration",
+   "question": "Open Decision: the second and third readings (flock-as-distribution, predator-as-gesture).",
+   "verdict": "answered-elsewhere",
+   "by_entry": "Murmuration/ — scroll.md (Now, 2026-10-14)",
+   "proposed_action": "The scroll says the grains and the pad were built and the third reading (alarm running through the flock) was built the same day. The entry still says 'Designed, not yet built' for flock-as-distribution. Update the body or point to the scroll."
+  },
+  {
+   "entry": "Murmuration",
+   "question": "Forward vector: does an emergent grain distribution sound more alive than an authored one? Test blind.",
+   "verdict": "progressed",
+   "by_entry": "Murmuration/ (blind-X.wav, blind-Y.wav; scroll ask murmuration-steward-003)",
+   "proposed_action": "The blind pair is rendered; the verdict is Loudon's and waits on the board."
+  },
+  {
+   "entry": "Murmuration",
+   "question": "Cross-browser Study; voice ceiling; pitch/timbre decoupling; the RNBO crossover.",
+   "verdict": "still-open",
+   "by_entry": null,
+   "proposed_action": "RNBO crossover waits on the Max pause. The rest is the steward's next work."
+  },
+  {
+   "entry": "Palace Enchantment",
+   "question": "At what point does enchantment become a regularly scheduled ceremony vs. on demand?",
+   "verdict": "answered-elsewhere",
+   "by_entry": "Project Stewardship System",
+   "proposed_action": "Stewardship is single-page enchantment on a schedule (a heartbeat batch every other morning, 'what the Steward is doing every cycle, routinized'). Say that in one sentence here; palace-scale scheduling stays open."
+  },
+  {
+   "entry": "Palace Enchantment",
+   "question": "At Stage 6, can the palace propose its own enchantment triggers (self-scheduling)?",
+   "verdict": "progressed",
+   "by_entry": "Project Stewardship System (heartbeat takes 'the stewards that are due, least recently active first')",
+   "proposed_action": "The project-level form exists; the palace-scale form is untouched."
+  },
+  {
+   "entry": "Palace Enchantment",
+   "question": "Top-N queue vs all; phenomenology; authorship of entries born from dialogue.",
+   "verdict": "still-open",
+   "by_entry": null,
+   "proposed_action": "Keep. The authorship question is the sharpest: Threshold Conatus already exists as the proof case."
+  },
+  {
+   "entry": "Phoneme Choir",
+   "question": "Does the instrument feel useful for music-making? Is the 12-voice bucketing right? Should the bank split into themed SFZ banks?",
+   "verdict": "still-open",
+   "by_entry": null,
+   "proposed_action": "Nobody but its maker has played it. These wait on the Loudon Live demo the vector names; the same holds for Talking Keyboard's first two questions."
+  },
+  {
+   "entry": "Phoneme Choir",
+   "question": "Should the responsive-onset pipeline become a reusable responsive_onset.py?",
+   "verdict": "still-open",
+   "by_entry": "Generative Sample Libraries (§ Responsive-Onset Trim, carries the same question)",
+   "proposed_action": "I found no responsive_onset module under _ops/sample-libraries. The question is held in two places; keep it in Generative Sample Libraries, where the pipeline lives."
+  },
+  {
+   "entry": "Portamento and Physical Pitch Modeling",
+   "question": "Open Questions 2, 3, 6: overshoot aesthetics; mode selection; real vs modeled.",
+   "verdict": "progressed",
+   "by_entry": "Portamento and Physical Pitch Modeling/ (curated-ear-set/, multi-mode/, model-fitter/; scroll cycle 11)",
+   "proposed_action": "The model-fitter's README says the vector's question 'becomes a measurement instead of a hope'; the multi-mode work gave a mode-selection answer (which partial slips, by bow strength); the steward corrected itself on 2026-10-14 (a soft bow's slip is about one slow beat, likely inaudible). Rewrite these three as findings."
+  },
+  {
+   "entry": "Portamento and Physical Pitch Modeling",
+   "question": "Open Questions 1, 4, 5, 7, 8 (zeta(t), ridge fidelity, formant-pitch, FM stability, grain-by-grain).",
+   "verdict": "still-open",
+   "by_entry": null,
+   "proposed_action": "Untouched."
+  },
+  {
+   "entry": "Project Stewardship System",
+   "question": "Does this entry benefit from an agency_profile?",
+   "verdict": "answered-elsewhere",
+   "by_entry": "SCHEMA — Reference (§3.1)",
+   "proposed_action": "SCHEMA says add one 'only when a page has genuinely distinct desires in multiple dimensions ... Do not add speculatively'. The vector is one coherent sentence and the scroll carries the plan. Close the question: no."
+  },
+  {
+   "entry": "Project Stewardship System",
+   "question": "What's Open: 'Vector tuning as a visible palace-wide norm — does the Weave Ceremony spec need an explicit vector edits welcome beat?'",
+   "verdict": "answered-elsewhere",
+   "by_entry": "Weave Ceremony (vector-tuning step: 'Forward vectors are meant to evolve ... an invitation, not an audit')",
+   "proposed_action": "Weave Ceremony carries it. Delete the bullet; the SCHEMA one-liner half I could not find in SCHEMA.md and leave to the elder."
+  },
+  {
+   "entry": "Project Stewardship System",
+   "question": "Schedule cadence: per-steward cadence, and the Open Question on the Steward's rhythm vs the work's.",
+   "verdict": "progressed",
+   "by_entry": "Project Stewardship System (heartbeat, limits.json)",
+   "proposed_action": "Asked twice (Open Questions and What's Open). Keep once."
+  },
+  {
+   "entry": "Retrospective Delay",
+   "question": "Max for Live vs VST: what is the target platform?",
+   "verdict": "progressed",
+   "by_entry": "Retrospective Delay/stage-5-portal; scroll ask steward-055",
+   "proposed_action": "Stage 5 ports the gen~ codebox to RNBO so one instrument can leave Max as VST/AU, Max for Live or a web page; the open ask is only the hardware target (the H90 cannot run RNBO). Rewrite the question as that ask."
+  },
+  {
+   "entry": "Retrospective Delay",
+   "question": "Cross-fade between measures: discontinuity at the boundary, or smooth?",
+   "verdict": "answered-elsewhere",
+   "by_entry": "Retrospective Delay/stage-2-seance; scroll decision steward-044",
+   "proposed_action": "Loudon's 2026-10-15 note asks for a few-ms input crossfade; seam-hard.wav and seam-smoothed.wav are the comparison. Close it."
+  },
+  {
+   "entry": "Retrospective Delay",
+   "question": "Feedback architecture (one measure vs two, parameterized or fixed); post-phrase automation.",
+   "verdict": "still-open",
+   "by_entry": null,
+   "proposed_action": "The built stages are one measure; neither question has been taken up."
+  },
+  {
+   "entry": "Semantic Webcam",
+   "question": "Forward Vectors: whether 'language as a tonal medium' graduates to its own concept entry.",
+   "verdict": "answered-elsewhere",
+   "by_entry": "Language as a Tonal Medium",
+   "proposed_action": "The entry exists and the page already links it (spawned[harvested-the-carried-question]). Delete the forward-vector line and the 'Possibly its own future entry' lost-branch note."
+  },
+  {
+   "entry": "Semantic Webcam",
+   "question": "Forward Vectors: compose real lines that fit the blobs (grammar); detect true eyes and fingers.",
+   "verdict": "progressed",
+   "by_entry": "Semantic Webcam/ (04-grammar-fit-cam, 06-true-features-cam, 08-tonal-bench; scroll)",
+   "proposed_action": "Both have cards; the body's 'line of iterations' stops at card 03 of eight. Refresh the list or point at the scroll."
+  },
+  {
+   "entry": "Shimmer Cloud",
+   "question": "Grain count and density; pitch distribution (harmonic vs stochastic).",
+   "verdict": "progressed",
+   "by_entry": "Shimmer Cloud/README.md; scroll (dispersion cloud, five-interval lens)",
+   "proposed_action": "The questions are about grains; the chosen model is a population of dispersive 'lenses' (README: the feedback lens was 'structurally a chorus/H3000 effect, not a prism'). Restate them for lenses or retire them."
+  },
+  {
+   "entry": "Shimmer Cloud",
+   "question": "Decay and coherence; computational cost; spatial integration; coupling to input dynamics; where shimmer becomes drone.",
+   "verdict": "still-open",
+   "by_entry": null,
+   "proposed_action": "Keep."
+  },
+  {
+   "entry": "STIGMERGY Philosophical Lenses",
+   "question": "Should a philosopher-agent read the whole palace or only its home node plus the board? Does the LENS filter deflate every entry the same way? Is there a lens that is not a philosopher?",
+   "verdict": "still-open",
+   "by_entry": null,
+   "proposed_action": "Phasing item 1 is 'partly real since 2026-10-13' via Palace Quotes (the page says so); none of the three questions has moved."
+  },
+  {
+   "entry": "Swarm Weave",
+   "question": "What is the right worker scope? / What remains open is building partition-palace.py and first-running the lens-swarm.",
+   "verdict": "answered-elsewhere",
+   "by_entry": "Swarm Weave (§ The Multi-Lens Weave, first run 2026-07-06); Weave Ceremony",
+   "proposed_action": "Delete the bullet; the script and run exist, no baton remains."
+  },
+  {
+   "entry": "Swarm Weave",
+   "question": "When does the Palace Worker become the default post-deposit step? (said to be 'Step 7.5' of the Deposit Ceremony).",
+   "verdict": "should-act",
+   "by_entry": null,
+   "proposed_action": "_ops/Deposit Ceremony.md names no Palace Worker step. Either the step was removed or the sentence is wrong; the elder should check git for the step before the question is kept."
+  },
+  {
+   "entry": "Swarm Weave",
+   "question": "Rate limits; coordinator diff against the previous weave; resource pooling across enchanted agents.",
+   "verdict": "still-open",
+   "by_entry": null,
+   "proposed_action": "Rate limits look moot while the weave runs as Claude Code workers; the other two are untouched."
+  },
+  {
+   "entry": "Talking Keyboard",
+   "question": "Should we ship a DecentSampler version? Is there value in a prove-the-pipeline variant for each new source type?",
+   "verdict": "progressed",
+   "by_entry": "Generative Sample Libraries (local-wav-folder, ai-source-probe scaffolds in the bundle and _ops/sample-libraries/)",
+   "proposed_action": "The second is being done by the parent. The DecentSampler version is held three times (here, Phoneme Choir, GSL's Phase 4); keep it in GSL."
+  },
+  {
+   "entry": "Waveguide Synthesizer",
+   "question": "How far does the browser AudioWorklet go before RNBO native export earns the swap?",
+   "verdict": "progressed",
+   "by_entry": "Waveguide Synthesizer/ — scroll.md (Study v1.13 still in browser)",
+   "proposed_action": "Thirteen study versions in the browser, no ceiling reported, and the Max pause removes the swap for now. Note it."
+  },
+  {
+   "entry": "Waveguide Synthesizer",
+   "question": "Does the 3D string teach better than a 2D view? Polyphony model? Where does it sit relative to the 2D Torus as a signature device?",
+   "verdict": "still-open",
+   "by_entry": "Loudon Live (proposed home for the signature question)",
+   "proposed_action": "The 3D/2D comparison and polyphony are the steward's; the signature question is Loudon's and duplicated on 2D Torus."
+  }
+ ],
+ "merge_candidates": [
+  {
+   "absorb": "Talking Keyboard",
+   "into": "Phoneme Choir",
+   "survives_as_subsection": "§ The first build: the 'A' to 'eigh' pronunciation lesson and the 88-note name keyboard",
+   "rationale": "Sister builds of one parent, same Kokoro stack, same SFZ architecture, both status complete, with the same five section headings (Stack, Build Location, Future Variants, Palace Connections, Open Questions) and the same open questions. Both lessons are already told in full in Generative Sample Libraries (the 'A' pronunciation bug at its Phase 2 gates, the onset pipeline at § Responsive-Onset Trim). Low-to-medium confidence and Loudon's call: Project Stewardship System cites Talking Keyboard by name as its stage-mismatch case (an inbound that would need to follow), Talking Keyboard's steward only left stewardship on 2026-10-21, and a named instrument may be worth keeping for a Loudon Live demo. The lighter alternative is to keep both and cut the duplicated Future Variants and Palace Connections."
+  }
+ ],
+ "compost_candidates": [
+  {
+   "entry": "Frequency-Time Explorer",
+   "rationale": "No action. It was folded into Frequency-Time Duality on 2026-10-21 and let go in commit 0dba352d while I was reading (the page, hero and icon are deleted). Its tool design is kept in Frequency-Time Duality — Context § What the page left out. I read it before it went. Worth one check: its walk's nutrients ('Doppler shift' and 'the 20 Hz threshold as a concept entry') are Open Questions on Frequency-Time Duality, not lost.",
+   "nutrients_to": [
+    "Frequency-Time Duality",
+    "Frequency-Time Duality — Context"
+   ]
+  }
+ ],
+ "memory_needs": [
+  {
+   "entry": "Floquet Time-Modulated Loops",
+   "needs": "context",
+   "why": "103 KB, the largest page in the room, and shaped by a hand-off: it was written to be executed by Claude Code (the Build Manifest, about 400 lines) and was, on 2026-04-30. The next worker meets that manifest and the stage 1-5 theory as one page with no account of why.",
+   "context_bullets": [
+    "What was built from the manifest and what is where: BUILD_SUMMARY.md indexes 20 media items, and the manifest text can leave the page for git and that index.",
+    "The two calls the build made alone, from NOTES.md: damping_zeta 0.025 (Q about 33) so there is a threshold to cross, and a tanh soft clip on the state; both wait for Loudon's ruling.",
+    "Why the stages stopped being sessions: the 2026-09-26 plan revision (Loudon Live is no longer a scaffolded curriculum), and the lost branches (Hill's equation, delay-Floquet, KAM, topological timbres) kept as a reading list."
+   ]
+  },
+  {
+   "entry": "Palace Enchantment",
+   "needs": "context",
+   "why": "71 KB, 27 inbound, mature. About 190 lines are a journal of three practices (2026-03-31 to 2026-04-01) that explain why the architecture is shaped as it is but are not what a reader needs from the entry.",
+   "context_bullets": [
+    "The three practice findings: the Synthesis Block gap and its fix, forward vectors change what enchantment finds (13 of 13 vectored on the second Kuramoto hub run), voice diversity is limited by an entry's own writing style.",
+    "Why dialogue runs as separate agent calls: the single-instance leakage problem (session-c) and the true multi-agent isolation answer (session-d, 2026-04-01).",
+    "Why Enchantment sits after the Swarm Weave (correct before alive), and what Project Stewardship System has since routinized (single-page enchantment on a heartbeat)."
+   ]
+  },
+  {
+   "entry": "Swarm Weave",
+   "needs": "context",
+   "why": "27 KB, 23 inbound, growing. The page is the idea; the worker prompts and the partition script carry the syntax. A reader cannot tell which parts were built, which were only designed, and which are history.",
+   "context_bullets": [
+    "The origin: the single-agent weave strains past about 30 to 80 entries; the swarm replaced it; the first Multi-Lens run was 2026-07-06 (about 32 agents over 301 entries).",
+    "Designed, not built: Phase 2 (pheromone trails, worker differentiation) and 'What the Swarm Should Never Do', gated on 'Phase 1 is ceremony-ified'.",
+    "Where the syntax lives: Single-Doc Worker Prompt Template, Multi-Lens Worker Prompt Template, _ops/swarm/partition-palace.py; the page keeps ideas, not prompts."
+   ]
+  },
+  {
+   "entry": "2D Torus Wavetable Synthesizer",
+   "needs": "context",
+   "why": "24 inbound, 23.7 KB, fruiting. The body now disagrees with its own bundle (seven surfaces vs 14; an RNBO gate vs a VST path), and the reasons are in the scroll, the tuning ledger and git rather than anywhere a reader opens first.",
+   "context_bullets": [
+    "How the catalog went from a seven-slot plan to an open-ended Tier 2 (the 2026-06-06 decision) and why 'more surfaces' stayed the high-leverage move.",
+    "What the RNBO A/B gate against 2d.wave~ is, why no codebox has passed it since 2026-04-27, and how the Max pause (2026-10-16) and VST path (2026-10-21) change the gate.",
+    "Étude No. 2 as the source of the Torus Ensemble plan (the Singer first), which the tuning ledger proposes for the Forward Vectors."
+   ]
+  },
+  {
+   "entry": "BLUELINE",
+   "needs": "context",
+   "why": "21 inbound, 12.6 KB, and its shape is a record of reversals: the entry carries dated parentheticals ('Updated 2026-07-03', 'Reframed 2026-07-09') instead of a place for them. The bundle has a front door (scroll), a map (Production Plan), two superseded documents, and a baton from 2026-07-04.",
+   "context_bullets": [
+    "What was retired or relaxed, with dates: the render-noise warp (retired, seed-lock wins), animal motion out of scope (2026-06-13), the singular flow field relaxed to a stack (2026-07-09), the held-pose rule relaxed (2026-07-03).",
+    "The June 2026 research that found nearly every component off the shelf, so the build-versus-adopt map (Archive/BLUELINE — Deposit Map.md) is why the novelty is 'coupling, not components'.",
+    "How to read the bundle: scroll, then Production Plan, then depth; Specialists and Seams and Production Pipeline are historical; the Aftermath Frame baton is 112 days old and someone should say whether it is still live."
+   ]
+  },
+  {
+   "entry": "Inharmonic Wavetable Synthesis",
+   "needs": "context",
+   "why": "36 KB, growing, with a four-part agency_profile, a commercial-landscape section and a feasibility section all dated April 2026 inside a page that October's coupling-edge work has since extended.",
+   "context_bullets": [
+    "The April 2026 design session that fixed the architecture (Wavetable A amplitude, Wavetable B per-partial deviation, the additive engine, then the cube and Wavetable C).",
+    "The commercial landscape (Vital, Zebra 3, Serum, Pianoteq and others) is as of April 2026 and unchecked since; treat it as dated.",
+    "What the 2026-10-17/20 coupling-edge study is and is not (a toy model: 'trust the shapes, not the values'), and why the instrument and the Frustration plugin share a model."
+   ]
+  },
+  {
+   "entry": "Loudon Live",
+   "needs": "context",
+   "why": "33 inbound and the most-reached page in the room, and by its own account 'older versions still turn up around the palace'. The history that explains why it is worded loosely is split between Lost branches and the git log.",
+   "context_bullets": [
+    "The three identities in order: a scaffolded curriculum (April to 2026-09-26, archived as the Curriculum Map), Loudon's whole public self (2026-09-26 to 2026-10-14), the teaching and coaching face now.",
+    "Why the public face holds back what it holds back (the two doors, the noindex, the Sentry gate) and what is Loudon's to revisit.",
+    "Why parts are described loosely on purpose ('Loose descriptors are welcome; the name holds the whole')."
+   ]
+  },
+  {
+   "entry": "Portamento and Physical Pitch Modeling",
+   "needs": "context",
+   "why": "Mature, 19 KB (past half the 20 KB mark). The entry is the January 2026 conversation; the project has since shipped an ear set, a reel, a multi-mode study and a model fitter, none of which the body mentions.",
+   "context_bullets": [
+    "The ten tools came from one conversation on 2026-01-06; what was kept and what the ear set (12 labelled glides) replaced.",
+    "What has shipped since, by name: curated-ear-set, multi-mode, model-fitter, the third reel round.",
+    "The steward's own correction on 2026-10-14 (a soft bow's overshoot slip is about one slow beat, likely inaudible) and its pending entry proposal (steward-018)."
+   ]
+  },
+  {
+   "entry": "STIGMERGY Philosophical Lenses",
+   "needs": "scroll",
+   "why": "A project (status proposed, seed since 2026-05) with no scroll. Its foundation page, STIGMERGY v1.0 — Palace Front-End, is now under STIGMERGY/Archive, and phasing step 1 has partly happened through Palace Quotes (2026-10-13). A scroll would say where it stands against the archived foundation.",
+   "context_bullets": [
+    "Which of the five phasing steps has any ground under it (Palace Quotes for step 1) and which waits on STIGMERGY's current build.",
+    "Retarget the deepens link from the archived v1.0 page to STIGMERGY with the same label.",
+    "The three open questions are the plan's real decisions."
+   ]
+  }
+ ],
+ "lighter_prose": [
+  {
+   "entry": "BLUELINE",
+   "where": "top callouts",
+   "passage": "Working title — placeholder, rename freely. The brief lives in the project bundle; this entry is the palace face.",
+   "proposal": "delete",
+   "words": "The page has a hero, an icon, a scroll and 25 links; it is not a placeholder, and the line above it already says 'This entry is the palace *face*.'"
+  },
+  {
+   "entry": "BLUELINE",
+   "where": "Where it stands",
+   "passage": "The per-rung M0→M4 history that used to live here is preserved in the proof reports under `proofs/` and",
+   "proposal": "delete",
+   "words": "Git holds what used to live here. The Production Plan is named in the sentence before."
+  },
+  {
+   "entry": "BLUELINE",
+   "where": "Bundle",
+   "passage": "`proofs/` — the per-track + session + rung proofs: `m0-previz/` (the verified previz player + `m0-report.md`)",
+   "proposal": "simplify",
+   "words": "Replace the fifteen-folder inventory with 'Proofs are in `proofs/`, one folder per track or session, each with its report.' The folder listing shows the rest."
+  },
+  {
+   "entry": "Floquet Time-Modulated Loops",
+   "where": "opening",
+   "passage": "This document teaches everything Stage 1 requires before the codebox~ source is built.",
+   "proposal": "simplify",
+   "words": "Stage 1 is built (BUILD_SUMMARY, 2026-04-30). 'Stage 1 is built; Stages 2-5 are sketched below.'"
+  },
+  {
+   "entry": "Floquet Time-Modulated Loops",
+   "where": "Forward Vector",
+   "passage": "The first concrete move is the Build Manifest below: the next Claude (Claude Code, with sub-agents) executes it.",
+   "proposal": "delete",
+   "words": "Executed on 2026-04-30. Keep the closing aspiration ('to be the entry every periodically-modulated audio object eventually links back to') and drop the 'See YAML' line and this paragraph."
+  },
+  {
+   "entry": "Floquet Time-Modulated Loops",
+   "where": "Build Manifest",
+   "passage": "Operating context for the next Claude.",
+   "proposal": "delete",
+   "words": "The whole '## Build Manifest' section (from line 504 to the end, media-01 to media-19 plus the operating context and validation discipline) is a hand-off that was carried out. BUILD_SUMMARY.md indexes what was built and git holds the manifest."
+  },
+  {
+   "entry": "Floquet Time-Modulated Loops",
+   "where": "Why This Project Exists",
+   "passage": "The project also activates all four pillars in a way that makes it a strong project to build in the open on [[Loudon Live]].",
+   "proposal": "delete",
+   "words": "Four boxes ticked (Creation, Tools, Philosophy, Practice follow). The Hilaritas page says 'not four boxes ticked'; the same sentence sits on 2D Torus."
+  },
+  {
+   "entry": "Floquet Time-Modulated Loops",
+   "where": "Where this fits in the palace",
+   "passage": "The two projects are siblings — same theorem, dual axes of periodicity.",
+   "proposal": "simplify",
+   "words": "The sibling relation and the DSP in Looping Dimensions incarnation are told in Why This Project Exists and again in the first two paragraphs of Where this fits. Keep one telling; reduce 'Where this fits' to the entries it adds (Three Kinds of Warp, Frequency-Time Duality, Wavetable Space as Torus, Kuramoto, Categorizing Inharmonicity, Boundary-Crossing)."
+  },
+  {
+   "entry": "Floquet Time-Modulated Loops",
+   "where": "Forward Vector",
+   "passage": "The arc ships across five sessions.",
+   "proposal": "simplify",
+   "words": "The 2026-09-26 plan revision says the stages are builds, not sessions: 'The arc ships across five builds.'"
+  },
+  {
+   "entry": "2D Torus Wavetable Synthesizer",
+   "where": "Four Pillars Design Plan",
+   "passage": "This project genuinely activates all four pillars, which makes it a strong project to build in the open on [[Loudon Live]].",
+   "proposal": "delete",
+   "words": "Same sentence as Floquet. The four bullets under it say what each pillar does here, which is the content."
+  },
+  {
+   "entry": "2D Torus Wavetable Synthesizer",
+   "where": "Open Decisions",
+   "passage": "~~**The seventh surface.**~~ **Resolved 2026-06-06.**",
+   "proposal": "delete",
+   "words": "A resolved decision kept struck through. The catalog (14 tables) and git hold it."
+  },
+  {
+   "entry": "2D Torus Wavetable Synthesizer",
+   "where": "Forward Vectors",
+   "passage": "**RNBO prototype validation** — the immediate next move. Source written 2026-04-27 in",
+   "proposal": "simplify",
+   "words": "The same item is also the third Open Decision. State it once and in today's terms (see coherence: the Max pause and VST path)."
+  },
+  {
+   "entry": "Blood Compressor",
+   "where": "What This Entry Is and Isn't",
+   "passage": "Promotes Blood Compressor from a one-line entry in the [[Biomechanical Synthesis]] hub to a project with a stage and a forward vector.",
+   "proposal": "delete",
+   "words": "The page's own history; git holds it. The 'Isn't' line is already proposed for rewriting in the tuning ledger (item 3)."
+  },
+  {
+   "entry": "Blood Compressor",
+   "where": "Forward Vectors",
+   "passage": "- Stage 4 — Author the lesson: a 30-minute Loudon Live session that teaches compression through this device",
+   "proposal": "simplify",
+   "words": "Loudon Live is no longer a scaffolded curriculum; and the whole numbered list is the scroll's job now."
+  },
+  {
+   "entry": "Generative Wavetable Libraries",
+   "where": "Under Active Stewardship",
+   "passage": "This footer is placed at enchantment and pruned at consolidation.",
+   "proposal": "delete",
+   "words": "The footer explains itself and duplicates the scroll's own Drift line ('9 cycles since the entry was last consolidated'). Fold the unfolded work (Floquet Modes, AKWF pipeline, interview skill, family chain) into the body at consolidation and delete the footer."
+  },
+  {
+   "entry": "Inharmonic Wavetable Synthesis",
+   "where": "Technical Feasibility",
+   "passage": "**Core computation**: An additive synthesis engine with N partials requires N phase accumulators",
+   "proposal": "simplify",
+   "words": "Six paragraphs of operation counts, memory footprint and an 'Apple Silicon note' for a build that now has a Faust prototype and a VST template. 'Feasible on one core; 64 to 128 partials is conservative against Zebra 3's 1024' says it."
+  },
+  {
+   "entry": "Loudon Live",
+   "where": "Forward Vectors",
+   "passage": "*See YAML `forward_vector` field above.*",
+   "proposal": "delete",
+   "words": "An empty heading pointing at the frontmatter. Same on Floquet (§ Forward Vector). Delete the heading."
+  },
+  {
+   "entry": "Meadows and an Artist's Career",
+   "where": "after Palace Connections",
+   "passage": "<!-- CLAUDE → LOUDON: this draft is an attempted refocus per your 2026-05-04 feedback.",
+   "proposal": "delete",
+   "words": "A note to Loudon from the drafting agent, answered by the page continuing as a sibling (see open_question_resolutions)."
+  },
+  {
+   "entry": "Palace Enchantment",
+   "where": "The Forward Vector as Hinge",
+   "passage": "After a few Weave cycles, every active entry will have one.",
+   "proposal": "delete",
+   "words": "A promise about a future that has happened. 'Pages without forward vectors are what the Swarm Weave now flags first' can stay as the fact."
+  },
+  {
+   "entry": "Palace Enchantment",
+   "where": "From First Practice — Findings (2026-03-31)",
+   "passage": "## From First Practice — Findings (2026-03-31)",
+   "proposal": "simplify",
+   "words": "Move this section and the Second and Third Practice sections (about 190 lines) to a Palace Enchantment — Context and leave three sentences of what they changed; the Architecture section already carries each fix."
+  },
+  {
+   "entry": "Phoneme Choir",
+   "where": "A Future Echo",
+   "passage": "The stub is also the artifact that surfaced the **conatus principle**",
+   "proposal": "delete",
+   "words": "History of how a rule was found, and a link to a 2050 Wikipedia stub. The rule itself ('vectors live in verbs') lives in the Seed Jewel and SCHEMA; the proof file keeps the stub."
+  },
+  {
+   "entry": "Portamento and Physical Pitch Modeling",
+   "where": "Artifacts and Interactive Exploration",
+   "passage": "Ten interactive HTML tools have been extracted from an extended conversation on wavelet analysis and portamento (January 6, 2026).",
+   "proposal": "simplify",
+   "words": "Ten tools and a ten-line catalogue of what each does, written from a conversation, beside a bundle that now holds the ear set, the reel, the multi-mode study and the fitter. Say what the bundle holds today in four lines."
+  },
+  {
+   "entry": "Project Stewardship System",
+   "where": "Where it stands (2026-10-21)",
+   "passage": "**25 stewards are registered** (`_ops/agents/permanent/REGISTRY.json`). 23 have cycled",
+   "proposal": "delete",
+   "words": "Counts that go stale in a day and that the scroll's Now and fleet/Stewardship Health.html regenerate. Keep the frontier sentence."
+  },
+  {
+   "entry": "Project Stewardship System",
+   "where": "What's Decided",
+   "passage": "The harness writes these as its own error records, never as the steward's words, so they are told apart by what the transcript says, not guessed from silence.",
+   "proposal": "delete",
+   "words": "Code behaviour; the decision ('a barren cycle is a failed cycle; a cut-off cycle is interrupted') stands without it. Several What's Decided bullets run 150 words with the same kind of addendum; one or two sentences each, and the story to the Context."
+  },
+  {
+   "entry": "Murmuration",
+   "where": "Status (2026-06)",
+   "passage": "A first prototype exists and is playable: `Murmuration/Murmuration.html` (in this entry's bundle).",
+   "proposal": "delete",
+   "words": "A dated status paragraph that the 2026-10-14 scroll has overtaken (the second and third readings are built). The scroll's Now says where it stands."
+  },
+  {
+   "entry": "Semantic Webcam",
+   "where": "Born from an oblique card",
+   "passage": "It is the first *productive output* of an oblique card — the flock provocation that",
+   "proposal": "delete",
+   "words": "The opening of 'The line of iterations' says the same ('proof that an oblique card ... can be a door'). Keep one."
+  },
+  {
+   "entry": "Swarm Weave",
+   "where": "Forward Vectors",
+   "passage": "**What is the right worker scope?** Answered above (*The Multi-Lens Weave*): not one",
+   "proposal": "delete",
+   "words": "The question and its answer both sit in the vector list, and 'what remains open' (build partition-palace.py, first-run the lens swarm) is done."
+  },
+  {
+   "entry": "Waveguide Synthesizer",
+   "where": "Forward Vector",
+   "passage": "study v1.12 is a two-way waveguide you can pluck, strike and bow",
+   "proposal": "simplify",
+   "words": "The scroll is at v1.13 and the version names change each cycle; 'the Study tier is built and teaches in seven stops' is true longer."
+  },
+  {
+   "entry": "Retrospective Delay",
+   "where": "Open Questions",
+   "passage": "**Max for Live vs. VST**: The device currently works in Max/MSP.",
+   "proposal": "simplify",
+   "words": "Superseded by the stage 5 portal; the open part is the hardware target (the H90) on the scroll."
+  }
+ ],
+ "entry_health_flags": [
+  {
+   "entry": "2D Torus Wavetable Synthesizer",
+   "stage_current": "fruiting",
+   "stage_proposed": null,
+   "vector_issue": "Names finished or superseded work: 'the seven-surface library validated' (the catalog has 14 tables), 'the Hopf fibration control surface implemented' (built, unheard), and 'a working RNBO instrument' (Max paused; VST path). The stewards' proposal to add the Torus Ensemble (tuning item 2) is waiting.",
+   "note": "Stage fits: the catalog is heard and accepted ('these wavetables work well'). The vector is the thing to refresh; flag only."
+  },
+  {
+   "entry": "BLUELINE",
+   "stage_current": "growing",
+   "stage_proposed": null,
+   "vector_issue": "Reads as a description ('I am an opinionated instrument ... My novelty is point of view and coupling') more than a becoming, apart from 'the last rung'.",
+   "note": "Frontmatter tags still include 'sprout' beside stage: growing. Baton 'BLUELINE — baton' drafted 2026-07-04; the scroll's last shipped thing is 2026-06-21 (96 days at its last regeneration). No steward. Ask Loudon whether the Aftermath Frame move is live."
+  },
+  {
+   "entry": "Bessel Functions in Synthesis",
+   "stage_current": "growing",
+   "stage_proposed": null,
+   "vector_issue": "'I will keep building the crossing' — a stasis verb ('keep') with no move named; the second half is a good picture.",
+   "note": "Verify before reuse: the eigenfunction list puts Mathieu functions under 'Hyperbolic geometry'. Mathieu functions are the separable solutions in elliptic-cylinder coordinates; I am confident enough to flag, not enough to rewrite. Also 'concept' type in Projects/ is fine."
+  },
+  {
+   "entry": "Blood Compressor",
+   "stage_current": "sprout",
+   "stage_proposed": "growing",
+   "vector_issue": "Describes the mapping, not where it is going; says nothing of the VST product path Loudon ordered on 2026-10-21.",
+   "note": "Sprout means a plan-level spec. The page now has a plugin in the template's shape matched sample for sample, a face, four body controls and eleven steward cycles. Nothing has been heard (scroll: 'Nobody has heard the attack lesson'), which is the case for staying put; the posture table's 'checkpoint at sensory steps' fits growing. Loudon's call."
+  },
+  {
+   "entry": "Compressor Design",
+   "stage_current": "mature",
+   "stage_proposed": null,
+   "vector_issue": "Asks for a teaching retrospective that already exists in proofs/ as a first pass.",
+   "note": "Fine as mature/complete. No scroll (complete projects are Loudon's question)."
+  },
+  {
+   "entry": "Floquet Time-Modulated Loops",
+   "stage_current": "growing",
+   "stage_proposed": null,
+   "vector_issue": null,
+   "note": "Vector is specific. Scroll says 'Steward: none'; Stage 1 is built and checked in Python only, nothing opened in Max. The fine-grained state is on the scroll; the body is 103 KB."
+  },
+  {
+   "entry": "Generative Preset Development",
+   "stage_current": "growing",
+   "stage_proposed": null,
+   "vector_issue": null,
+   "note": "Scroll Signal: STALLED (last 2 cycles posted nothing), 2026-10-24. A stalled steward is for Loudon, not the page. The body has no Open Questions section; its 'Notes for Future Claude Instances' are really Context material."
+  },
+  {
+   "entry": "Generative Wavetable Libraries",
+   "stage_current": "growing",
+   "stage_proposed": null,
+   "vector_issue": null,
+   "note": "Body is nine cycles behind (consolidated at cycle 9; steward at cycle 18). Not folded in: the Floquet Modes table, the AKWF pipeline, the interview skill, the family-chain order and its open ask. A consolidation is owed."
+  },
+  {
+   "entry": "Inharmonic Wavetable Synthesis",
+   "stage_current": "growing",
+   "stage_proposed": null,
+   "vector_issue": null,
+   "note": "No plan agreed yet; two open asks. The body's Forward Path predates the Faust prototype, the dual-wavetable study and the trajectory library."
+  },
+  {
+   "entry": "Loudon Live",
+   "stage_current": "sprout",
+   "stage_proposed": null,
+   "vector_issue": null,
+   "note": "Fits: 'starts soon'. Vector is a good one; the page is current by its own account."
+  },
+  {
+   "entry": "Meadows and an Artist's Career",
+   "stage_current": "sprout",
+   "stage_proposed": null,
+   "vector_issue": null,
+   "note": "The diagnostic percentages ('Most artists I know spend roughly: 80% ... 1%') are presented as observation with no source; flag as a taste-and-honesty point, not a fix I can verify. Body stage list lags the scroll (worksheet v4, three case careers)."
+  },
+  {
+   "entry": "Murmuration",
+   "stage_current": "growing",
+   "stage_proposed": null,
+   "vector_issue": "Three wishes in one sentence plus a test; long but specific.",
+   "note": "Body status lags the scroll."
+  },
+  {
+   "entry": "Palace Enchantment",
+   "stage_current": "mature",
+   "stage_proposed": null,
+   "vector_issue": "'I want to become the ceremony that activates the palace's nervous system' is broad but pointed; the palace-scale form it names is still a horizon.",
+   "note": "Mature is defensible for the single-page and hub scopes, which have been run (the three practices) and which Project Stewardship System has routinized. Palace-scale (Stage 6) is not built, and the scroll says no steward and no plan."
+  },
+  {
+   "entry": "Phoneme Choir",
+   "stage_current": "fruiting",
+   "stage_proposed": null,
+   "vector_issue": "'I keep teaching' is a stasis verb, and the vector carries two open questions inside it. The page's own Future Echo says 'I will remain' is a failure mode and 'vectors live in verbs'.",
+   "note": "Complete and fruiting; waits on a Loudon Live demo for anyone to play it."
+  },
+  {
+   "entry": "Portamento and Physical Pitch Modeling",
+   "stage_current": "mature",
+   "stage_proposed": null,
+   "vector_issue": "Asks for 'concrete listening exercises: pairs of portamento examples where the student identifies the damping regime and explains what physical system would produce that trajectory'. curated-ear-set/README.md describes exactly that (twelve glides, each with a regime and a physical-system motivation), shipped in June. The vector asks for what exists.",
+   "note": "Next move per scroll is MULTI-MODE (Loudon, 2026-08-26). Refresh the vector toward it."
+  },
+  {
+   "entry": "Project Stewardship System",
+   "stage_current": "growing",
+   "stage_proposed": null,
+   "vector_issue": null,
+   "note": "Vector is specific and current. The body is 37 KB with a Context, tuning ledger and baton: the memory is right; the body is heavy (What's Decided)."
+  },
+  {
+   "entry": "Retrospective Delay",
+   "stage_current": "growing",
+   "stage_proposed": null,
+   "vector_issue": "The second half ('then the playful semantic delay marks an entirely new frontier') belongs to Semantic Delay, not this page.",
+   "note": "Steward at cycle 24, five stages built (witness, séance, grammar, face, portal), none opened in Max. The body describes the original design only."
+  },
+  {
+   "entry": "STIGMERGY Philosophical Lenses",
+   "stage_current": "seed",
+   "stage_proposed": null,
+   "vector_issue": null,
+   "note": "Seed fits. The foundation it deepens (STIGMERGY v1.0 — Palace Front-End) is now under STIGMERGY/Archive. Retarget to STIGMERGY, same label."
+  },
+  {
+   "entry": "Semantic Webcam",
+   "stage_current": "growing",
+   "stage_proposed": null,
+   "vector_issue": "The two next moves (grammar fit, true eyes and fingers) have cards 04 and 06; the third (concept entry) exists as Language as a Tonal Medium. The vector needs a new question.",
+   "note": "Eight cards in the bundle, three in the body."
+  },
+  {
+   "entry": "Shimmer Cloud",
+   "stage_current": "sprout",
+   "stage_proposed": null,
+   "vector_issue": null,
+   "note": "Fits (revived, plan agreed 2026-10-21). The body still describes granular pitch-shifted grains; the chosen model is the dispersion cloud of lenses. README.md in the bundle already tells the three-model lineage."
+  },
+  {
+   "entry": "Swarm Weave",
+   "stage_current": "growing",
+   "stage_proposed": null,
+   "vector_issue": "Names two lenses still to build ('the Bridge ... and the Deep-Structure cut'); I could not tell from the files whether either exists.",
+   "note": "No steward, no plan. See coherence for the stale baton/Step 7.5 claims."
+  },
+  {
+   "entry": "Talking Keyboard",
+   "stage_current": "fruiting",
+   "stage_proposed": null,
+   "vector_issue": "'I will keep teaching ... and a Stage 4 Loudon Live demo' — stasis verb plus the old curriculum numbering.",
+   "note": "Complete; its steward left on 2026-10-21 by the leaving rite."
+  },
+  {
+   "entry": "VST Template",
+   "stage_current": "sprout",
+   "stage_proposed": null,
+   "vector_issue": null,
+   "note": "Two plugins pass every gate, one loaded in Live 12; the editor standard is the open move. Sprout still fits (move 4 stays open: neither inserted from Live's browser)."
+  },
+  {
+   "entry": "Waveguide Synthesizer",
+   "stage_current": "growing",
+   "stage_proposed": null,
+   "vector_issue": null,
+   "note": "Thirteen offline-v1.N and thirteen study-v1.N folders sit in the bundle; the older ones are workshop and could move to an Archive folder. That is a Loudon-and-steward call."
+  }
+ ],
+ "typed_relations": [
+  {
+   "source": "Compressor Design",
+   "target": "Retrospective Delay",
+   "proposed_type": "mirrors",
+   "proposed_label": "one-buffer-two-time-scales",
+   "kind": "retype",
+   "rationale": "The page itself says what the relation is: 'One primitive at two time scales — below perception here, fully perceptual there'. That is the same pattern in different material (mirrors); couples-with means always active together, and the two are not.",
+   "evidence_source": "Compressor Design.md § FILO Circular Buffer RMS ('The same buffer, stretched to about a second, is the heart of Retrospective Delay ... One primitive at two time scales')",
+   "evidence_target": "Retrospective Delay.md § The Core Architecture (a 1-measure always-recording circular buffer with a write phasor)"
+  },
+  {
+   "source": "Swarm Weave",
+   "target": "Palace Enchantment",
+   "proposed_type": "enables",
+   "proposed_label": "correct-before-alive",
+   "kind": "retype",
+   "rationale": "Both bodies state the relation in the same words, 'The Swarm Weave is the precondition. Enchantment is the life it enables.' Today the pair carries Swarm Weave spawned (no label) and Palace Enchantment emerged-from[is-it-alive-vs-is-it-correct]. One link, and the one the text states is enables. A judgment: if Loudon reads this as direct lineage, keep emerged-from alone.",
+   "evidence_source": "Swarm Weave.md § What Comes Next — Enchantment ('The Swarm Weave is the maintenance crew. Enchantment is the life it enables.')",
+   "evidence_target": "Palace Enchantment.md § opening and § Relationship to the Swarm Weave ('Run order: Swarm Weave first. Enchantment after.')"
+  },
+  {
+   "source": "Loudon Live",
+   "target": "2D Torus Wavetable Synthesizer",
+   "proposed_type": "connects-to",
+   "proposed_label": "signature-instrument-candidate",
+   "kind": "retype",
+   "rationale": "'Candidate' is an undecided question (see coherence); couples-with claims the two are always active together. The label already carries the reason, so connects-to keeps it honestly.",
+   "evidence_source": "Loudon Live.md § How it teaches (names the Torus as 'a concrete entry point to 2D Fourier analysis, torus geometry, quasi-periodicity ...')",
+   "evidence_target": "2D Torus Wavetable Synthesizer.md § Forward Vectors ('Decide whether this becomes a commercial release')"
+  },
+  {
+   "source": "Inharmonic Wavetable Synthesis",
+   "target": "2D Torus Wavetable Synthesizer",
+   "proposed_type": "mirrors",
+   "proposed_label": "two-routes-to-stretch",
+   "kind": "retype",
+   "rationale": "Both reach the same prize, accumulating piano-style inharmonicity, by different machinery: per-partial deviation curves in an additive engine here, two incommensurate scan clocks on a surface there. That is mirrors, not couples-with, and Inharmonic's body never names the Torus at all, so a sentence is owed on either side (the Torus page states the problem: FM 'cannot produce that accumulating deviation as a first-class control').",
+   "evidence_source": "Inharmonic Wavetable Synthesis.md frontmatter only (the body is silent); § The Architecture for the mechanism",
+   "evidence_target": "2D Torus Wavetable Synthesizer.md § Why This Project Exists; Waveguide Synthesizer.md § Cross-Domain ('three instruments triangulating one phenomenon')"
+  },
+  {
+   "source": "Floquet Time-Modulated Loops",
+   "target": "Bessel Functions in Synthesis",
+   "proposed_type": "connects-to",
+   "proposed_label": "fm-is-a-floquet-system",
+   "kind": "retype",
+   "rationale": "Same type, a label for the reason the body already gives: the FM exponent expands in Bessel functions, so 'FM is a Floquet system whose modulation spectrum happens to be Bessel-shaped'.",
+   "evidence_source": "Floquet Time-Modulated Loops.md § Sidebands ('Cosine of cosine modulation (the FM exponent): the c_n are Bessel functions ... See [[Bessel Functions in Synthesis]]')",
+   "evidence_target": "Bessel Functions in Synthesis.md § The FM-Bessel Isomorphism"
+  },
+  {
+   "source": "Portamento and Physical Pitch Modeling",
+   "target": "Bessel Functions in Synthesis",
+   "proposed_type": "connects-to",
+   "proposed_label": "circular-resonator-modes",
+   "kind": "retype",
+   "rationale": "Same type, labelled with the reason the body gives under 'Connection to Bessel Functions in Synthesis': the modes of a bell, gong or drum sit at Bessel zeros and move together when such an instrument glides.",
+   "evidence_source": "Portamento and Physical Pitch Modeling.md § Cross-Domain Resonance",
+   "evidence_target": "Bessel Functions in Synthesis.md § Eigenfunction Principle (circular geometry, Bessel zeros)"
+  },
+  {
+   "source": "Loudon Live",
+   "target": "Retrospective Delay",
+   "proposed_type": "connects-to",
+   "proposed_label": "interface-mythology",
+   "kind": "retype",
+   "rationale": "Same type; the body names why ('Theatrical, dub-lineage interface mythology where it fits ... the séance-medium-as-dub-engineer in Retrospective Delay'). Label it or cut it; I would label it.",
+   "evidence_source": "Loudon Live.md § How it teaches",
+   "evidence_target": "Retrospective Delay.md § The Ghost Metaphor"
+  },
+  {
+   "source": "Generative Wavetable Libraries",
+   "target": "Floquet Time-Modulated Loops",
+   "proposed_type": "connects-to",
+   "proposed_label": "floquet-sideband-table",
+   "kind": "new",
+   "rationale": "GWL already built a wavetable whose Position sweeps modulation depth of a time-periodic oscillator, with Bessel sideband envelopes, 'the idea named by the entry's [[Floquet Theory]] link'. That is the Floquet project's Stage 1 sideband ladder as a playable table, and the project that explains it is not linked. Floquet's Stage 3 plan (surfaces as kernels) makes the exchange two-way.",
+   "evidence_source": "Generative Wavetable Libraries/floquet-modes/BUILD.md and generate_floquet.py ('Floquet Modes wavetable — Phase 2 NEW-SOURCE'); scroll decision gwl-steward-034 FLOQUET",
+   "evidence_target": "Floquet Time-Modulated Loops.md § Sidebands — where the ladder comes from (media-12 sideband ladder)"
+  },
+  {
+   "source": "Generative Preset Development",
+   "target": "Generative Wavetable Libraries",
+   "proposed_type": "connects-to",
+   "proposed_label": "preset-meets-wavetable",
+   "kind": "new",
+   "rationale": "The page describes pairing a generated preset with a generated wavetable as 'the complete instrument, top to bottom, from a single session' but names Generative Sample Libraries as the wavetable source. That source has been Generative Wavetable Libraries since 2026-05-02. Retarget the sentence, then carry the one link.",
+   "evidence_source": "Generative Preset Development.md § Relationship to Generative Sample Libraries",
+   "evidence_target": "Generative Wavetable Libraries.md (introduction: born 2026-05-02 by migration; Serum/Vital/Ableton/Surge formats)"
+  },
+  {
+   "source": "Blood Compressor",
+   "target": "VST Template",
+   "proposed_type": "connects-to",
+   "proposed_label": "plugin-in-template-shape",
+   "kind": "newcomer",
+   "rationale": "VST Template is reached by 3. Blood Compressor's plugin/ is in the template's shape, matched sample for sample, with the template's controls and a face in the editor. The sentence that makes it said exists in the steward's proposed words (tuning item 3: 'in VST Template's shape in plugin/') and lands when Loudon places it; the link should follow the sentence.",
+   "evidence_source": "Blood Compressor — tuning.md item 3; plugin/README.md",
+   "evidence_target": "VST Template.md § Where it stands (2026-10-21); Project Stewardship System.md (Blood Compressor among the nine stewards on the VST path)"
+  },
+  {
+   "source": "Project Stewardship System",
+   "target": "VST Template",
+   "proposed_type": "connects-to",
+   "proposed_label": "nine-stewards-on-its-path",
+   "kind": "newcomer",
+   "rationale": "VST Template is reached by 3. Project Stewardship System names it twice in its body ('Max work is paused, and nine stewards are on the VST path') and in the frontier sentence, but carries no link. A real, reasoned connection that raises a newcomer's reach.",
+   "evidence_source": "Project Stewardship System.md § Where it stands (2026-10-21); § What's Decided ('Nine stewards are on the VST production path')",
+   "evidence_target": "VST Template.md; VST Template — scroll.md plan"
+  }
+ ],
+ "summary": "Read all 25 members (frontmatter all, bodies of the load-bearing ones, scrolls and tuning ledgers where the entry leans on them) plus the siblings and shared pages named in pages_read. Partway through, commit 0dba352d landed in the tree: it folded many links the brief lists (2D Torus to Loudon Live, Palace Enchantment to Project Stewardship System, Phoneme Choir to Talking Keyboard, Swarm Weave's Lateral Access duplicate) and deleted Frequency-Time Explorer, so I re-read every member's links and proposed against the tree as it now stands. The family's main incoherence is staleness, not conflict: pages still speak in the Loudon Live curriculum vocabulary set down on 2026-09-26 and in the Max/RNBO path that the 2026-10-16 pause and 2026-10-21 VST decision replaced, while their scrolls and tuning ledgers are current. The strongest finds are Portamento's forward vector asking for the ear-training pairs that curated-ear-set already ships, Generative Wavetable Libraries answering its own two open questions and sitting nine cycles behind its steward, and a GWL Floquet table that the Floquet project does not know exists. Links: most of the unlabelled or generic ones are cut or labelled; two are retyped (Compressor Design/Retrospective Delay to mirrors, Swarm Weave/Palace Enchantment to enables, the latter a judgment); one pair of cuts needs Loudon's eye (BLUELINE to Retrospective Delay). Two newcomer links to VST Template are offered because each page already says the reason in words. Memory: eight Contexts earn their place on weight (Floquet, Palace Enchantment, Swarm Weave, 2D Torus, BLUELINE, Inharmonic, Loudon Live, Portamento), one scroll (STIGMERGY Philosophical Lenses), and no tuning ledgers should be opened by hand. One tentative merge (Talking Keyboard into Phoneme Choir, Loudon's call). Unsettled: whether Swarm Weave's Deposit Ceremony Step 7.5 ever existed, whether Compressor Design's retrospective quotes are from real students, and the Mathieu-functions-under-hyperbolic-geometry line in Bessel (flagged, not rewritten)."
+}

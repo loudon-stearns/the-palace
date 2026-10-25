@@ -15,19 +15,12 @@ links:
     label: phase-scatter
   - target: "[[Action Potential Oscillator]]"
     type: connects-to
+    label: neuron-as-grain
   - target: "[[Frequency-Time Duality]]"
     type: connects-to
-  - target: "[[Boundary-Crossing Instruments]]"
-    type: connects-to
+    label: duality-machine
   - target: "[[Endosymbiosis]]"
     type: mirrors
-  - target: "[[Particle Synthesis]]"
-    type: mirrors
-    label: grain-particle-equivalence
-  - target: "[[Neural Granular Synthesis]]"
-    type: connects-to
-  - target: "[[Shimmer Cloud]]"
-    type: connects-to
 forward_vector: "I build boundary crossing instruments from populations of short-term oscillators, pushing toward the moment when population dynamics — Kuramoto coupling, particle physics, statistical distributions — become primary synthesis paradigms."
 ---
 
@@ -93,7 +86,3 @@ Particle synthesis is not a metaphor for neural dynamics — it's the literal sa
 - Can the attractor spectrum itself be derived from audio input (spectral analysis → attractor field)? This would create a "granular resynthesizer" driven by Kuramoto dynamics.
 - How does grain density interact with coupling? Sparse clouds may have too few grains near any given partial for coupling to matter. Dense clouds may lock too easily, losing motion.
 - Is there a chimera-state equivalent for grain clouds — some grains locked, some drifting, with the boundary self-organized?
-
----
-
-*The concept spans decades of music technology; these notes capture the palace's specific angle — granular synthesis as a population of coupled oscillators, not just a texture generator.*

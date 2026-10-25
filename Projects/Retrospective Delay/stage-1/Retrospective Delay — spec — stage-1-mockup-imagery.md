@@ -177,10 +177,10 @@ Per [[Shop/Maker|Maker]] standards, this brief inherits the palace base layer:
 | 2 | Phrase vs. tap waveform | Matplotlib | `assets/phrase-vs-tap.png` | built (cycle 4) |
 | 3 | Stage-1 M4L device mockup | Matplotlib (license-clean fallback) | `assets/device-mockup.png` | built (cycle 4) |
 | 4 | Cross-domain buffer table | Matplotlib | `assets/cross-domain-buffer-table.png` | built (cycle 4) |
-| 5 | Frame-block opening image | Maker's choice at dispatch (Study) | `assets/frame-block-opener.png` | **not built — needs an image generator the sandbox can't run** |
+| 5 | Frame-block opening image | Maker's choice at dispatch (Study) | `assets/frame-block-opener.png` | **not built — needs an image generator** |
 
 Cycle 4 took the Matplotlib route for Asset 3 (the device mockup) rather than Remotion, because Remotion's commercial-license complexity is not worth it for a single still frame and the sandbox can build a clean Max-styled panel directly. If Stage 2's UI mockup arrives and wants a reusable React scaffold, that is a fresh decision then — it does not block Stage 1.
 
-Asset 5 is the only remaining asset and the only one that may cost money. It needs an image generator the Cowork sandbox cannot run; the Maker routes it at dispatch. The cycle-4 TRICKSTER ask consolidates the two prior open questions into a single decision about Asset 5.
+Asset 5 is the only remaining asset and the only one that may cost money. It needs an image generator, which the Maker picks at dispatch. The cycle-4 TRICKSTER ask consolidates the two prior open questions into a single decision about Asset 5.
 
 **Original planning note:** This brief began as a cycle-2 planning artifact. Loudon's cycle-1 grant said *create some mock up interfaces and appropriate imagery*, honored by spec'ing through the Shop and asking before Specialists ran. Cycle 4 then executed every asset that did not require Loudon's resources.

@@ -14,9 +14,6 @@ links:
   - target: "[[Floquet Time-Modulated Loops]]"
     type: emerged-from
     label: canonical-instance-of
-  - target: "[[Floquet Theory]]"
-    type: connects-to
-    label: simplest-floquet-system
   - target: "[[Parametric Resonance]]"
     type: enables
     label: governs-the-phenomenon
@@ -34,17 +31,21 @@ links:
     label: stiffness-is-dispersion-mechanism
   - target: "[[Deleuze]]"
     type: connects-to
+    label: virtual-actualization
   - target: "[[Philosopher Visits the Entry]]"
     type: connects-to
   - target: "[[Spinoza Conatus]]"
     type: connects-to
+    label: threshold-as-striving
   - target: "[[The Drift]]"
     type: connects-to
-  - target: "[[Wavetable Space as Torus]]"
-    type: contradicts
-    label: discovered-form-vs-actualized-virtual
+    label: wu-wei-threshold
   - target: "[[Dialectic — dialectic — spinoza-zhuangzi-on-striving]]"
     type: connects-to
+    label: driving-is-flowing
+  - target: "[[Floquet Theory]]"
+    type: connects-to
+    label: canonical-equation
 forward_vector: "I want to be the entry every Floquet-theoretic audio object eventually points back to. I am the simplest possible periodic LTV system; I am the answer to 'what's the smallest equation that can have a tongue?'; and I am the bridge from elliptical drums (where I was born) to laser cavities, ion traps, photonic time crystals, and the Mathieu Resonator in codebox~."
 ---
 
@@ -96,7 +97,7 @@ The connection to [[Crystal Synthesizer]] is via Bloch's theorem and the bandgap
 
 ## Philosophical Lens
 
-*A [[Philosopher Visits the Entry|visit]] — [[Plato (Socratic method)|Plato]] and [[Deleuze]] both read the entry's strangest line: that "the original-problem motivation is the least important thing about it."*
+*A [[Philosopher Visits the Entry|visit]] — [[Palace Philosophies — Context#Plato (Socratic method)|Plato]] and [[Deleuze]] both read the entry's strangest line: that "the original-problem motivation is the least important thing about it."*
 
 **Plato:** Then you have proven my case. Mathieu thought he was studying a drum. What he found was a Form — the tongue-and-bandgap structure — always there, eternal, merely *visible through* the drum. The ion trap, the laser cavity, the photonic crystal are not new things the equation "turned out to govern." They are further particulars participating in one pattern he glimpsed. He discovered; he did not invent.
 
@@ -106,7 +107,7 @@ The connection to [[Crystal Synthesizer]] is via Bloch's theorem and the bandgap
 
 A second blade, from [[Dialectic — dialectic — spinoza-zhuangzi-on-striving|Spinoza and Zhuangzi on Whether Striving Is the Right Shape of Work]]: parametric pumping crosses into self-oscillation **only at the resonant rate.** Force the modulation at the wrong rate and nothing blooms; drive at the grain-rate and oscillation grows from infinitesimal noise. The Mathieu tongue is the physical proof of Zhuangzi's point — there is a rate at which *driving is flowing.* The threshold is where [[Spinoza Conatus|conatus]] and [[The Drift|wu wei]] turn out to name the same crossing.
 
-*Reader's note: the entry quietly takes the side that the structure was "always there" (discovered). Worth deciding on purpose whether that Platonism is the entry's real commitment — it changes how a designer is told to reach for the tongue.*
+*Reader's note: open — is the tongue found (Plato) or actualized (Deleuze)? It changes how a designer reaches for it.*
 
 ## Open Questions
 

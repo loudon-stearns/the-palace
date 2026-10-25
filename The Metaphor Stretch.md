@@ -8,14 +8,12 @@ confidence: working
 energy: high
 forward_vector: "I am the gap between physics and playability where instrument design actually happens. I want to become the named taxonomy of how boundary-crossing instruments translate physical constraints into musical agency — those Decision Points where the physics gives shape but the designer gives the instrument a home."
 links:
-  - target: "[[Crystal Synthesizer]]"
-    type: connects-to
-    label: first-taxonomy
   - target: "[[Boundary-Crossing Instruments]]"
     type: connects-to
     label: names-the-gap
   - target: "[[Dispersion]]"
     type: connects-to
+    label: fidelity-claim
   - target: "[[Hyperdimensional Prism]]"
     type: mirrors
     label: geometric-metaphor

@@ -26,10 +26,9 @@ links:
   - target: "[[Dissolutions]]"
     type: member-of
     label: minimal-spectrum-of-the-stored-field
-  - target: "[[Dispersion Table]]"
-    type: connects-to
   - target: "[[Volterra Kernels and the Torus]]"
     type: connects-to
+    label: stored-field
   - target: "[[Neural Granular Synthesis — spec — control-vocabulary-math]]"
     type: connects-to
     label: worked-control-vocabulary
@@ -62,7 +61,7 @@ Here is the move that makes it more than an analysis technique. The object the a
 2. Watch the lattice fit converge — the rank settling, the generators locking onto the partial structure.
 3. Play the synth with that exact lattice.
 
-One artifact is simultaneously **what was heard** (the analysis of the input) and **what will be played back** (the synthesis surface). Analysis and synthesis are not two tools chained together; they are one stored field read in two directions — *the synthesizer scanned forward is the oscilloscope read backward.* This is why the link to the torus synthesizer is a `mirrors`: the duality is structural identity, the same single-substance instinct that runs through the [[Volterra Kernels and the Torus]] and [[Dispersion Table]] entries (a stored field; the reading mechanism is the genre).
+One artifact is simultaneously **what was heard** (the analysis of the input) and **what will be played back** (the synthesis surface). Analysis and synthesis are not two tools chained together; they are one stored field read in two directions — *the synthesizer scanned forward is the oscilloscope read backward.* The same stored-field idea runs through [[Volterra Kernels and the Torus]] and [[Dispersion Table]]: the field is one thing, the reading mechanism is the genre.
 
 ## Cross-Domain Resonance
 
@@ -71,21 +70,13 @@ One artifact is simultaneously **what was heard** (the analysis of the input) an
 
 ## Note on the T³ material
 
-The source session also extended the torus to **T³** — three simultaneous harmonicity gates ($\omega_1{:}\omega_2$, $\omega_2{:}\omega_3$, $\omega_1{:}\omega_3$), with regime structure determined by which pairs lock (closed cable-knot / dense sub-torus / full-cube dense), and computational limits where trilinear interpolation and memory bandwidth bite before CPU does. If that T³ regime taxonomy already lives in [[DSP in Looping Dimensions]], it should be *linked, not duplicated* — the genuinely novel, uncaptured pieces here are the **analysis side** (rank-N fitting; synth-as-oscilloscope) and the strategic framing, which now sits with the commercial-release decision in [[2D Torus Wavetable Synthesizer]].
+The source session also extended the torus to **T³** — three simultaneous harmonicity gates ($\omega_1{:}\omega_2$, $\omega_2{:}\omega_3$, $\omega_1{:}\omega_3$), with regime structure determined by which pairs lock (closed cable-knot / dense sub-torus / full-cube dense), and computational limits where trilinear interpolation and memory bandwidth bite before CPU does. The scanning picture of T³ is in [[DSP in Looping Dimensions]]; this page holds the **analysis side** (rank-N fitting; synth-as-oscilloscope), and the strategic framing sits with the commercial-release decision in [[2D Torus Wavetable Synthesizer]].
 
 ## Forward Vectors
 
 - Prototype the analyzer → synth round-trip as a single tool: record, watch the lattice converge, play it back.
 - Invent control vocabularies for high-dimensional instrument spaces — the recurring hardest problem. [[Neural Granular Synthesis — spec — control-vocabulary-math|control-vocabulary-math]] is one worked instance; the Torus's Hopf control surface is the open one.
 - Does measured rank correlate with perceived inharmonicity, or do listeners hear something the rank doesn't capture? An empirical question.
-
-## Lost Branches
-
-- The pure-T³ regime taxonomy, if already in [[DSP in Looping Dimensions]] — link, don't re-document.
-
-## Artifact
-
-None generated — a conceptual / mental-model session (2026-04-26). The closing quote block from this session is excellent and is reused below.
 
 ---
 

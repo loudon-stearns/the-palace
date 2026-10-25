@@ -8,9 +8,6 @@ born: 2026-05
 stage: seed
 energy: high
 links:
-  - target: "[[Generative Preset Development]]"
-    type: emerged-from
-    label: profile-concept-asks-for-this
   - target: "[[Generative Audio Devices]]"
     type: connects-to
     label: topology-emergent-counterpart
@@ -22,8 +19,13 @@ links:
     label: topology-as-prior
   - target: "[[The Curve Is the Material]]"
     type: connects-to
+    label: sub-topology-question
   - target: "[[Three Kinds of Warp]]"
     type: connects-to
+    label: preserve-or-change-topology
+  - target: "[[Generative Preset Development]]"
+    type: emerged-from
+    label: forward-ghost
 forward_vector: "I keep naming the ontology of synthesis as a topology question — fixed architectures (wavetable, Serum2, Vital) are topology-first instruments where the architecture decides what is reachable, and modular synthesis is the topology-emergent counterpart where the patcher decides. I want to expose the trade — fixed topology buys a large legible parameter space; free topology buys composability at the cost of legibility — and name the in-betweens (PDL-constrained generation, profile registries, fixed-skeleton-variable-flesh designs)."
 ---
 

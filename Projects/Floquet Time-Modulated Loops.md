@@ -59,16 +59,22 @@ links:
     label: lti-to-ltv-boundary
   - target: "[[2D Torus Wavetable Synthesizer — catalog — wavetables]]"
     type: connects-to
+    label: surfaces-as-kernels
   - target: "[[Action Potential Oscillator]]"
     type: connects-to
-  - target: "[[Bessel Functions in Synthesis]]"
-    type: connects-to
+    label: prerequisite-reading
   - target: "[[Crystal Synthesizer]]"
     type: connects-to
+    label: bloch-spatial-twin
   - target: "[[Hilaritas Generator]]"
-    type: connects-to
+    type: exemplifies
+    label: four-primitives-checked
   - target: "[[Progressive Staging]]"
+    type: exemplifies
+    label: five-stage-arc
+  - target: "[[Bessel Functions in Synthesis]]"
     type: connects-to
+    label: fm-is-a-floquet-system
 forward_vector: "I want to become a five-stage teaching instrument, with Stage 1 (the Mathieu Resonator in codebox~) shipped first as a complete pedagogical artifact — every named object taught, every concept media-supported, every cross-domain hook landed. I want to be the entry every modulation-with-period device in the palace eventually links back to, and the proof that the LTI assumption is a choice, not the territory."
 ---
 
@@ -78,7 +84,7 @@ forward_vector: "I want to become a five-stage teaching instrument, with Stage 1
 
 A project, a five-stage teaching arc, and — Stage 1 — a complete teaching document for the Mathieu Resonator in `codebox~`. The project's central claim: every audio object built around a delay loop, a feedback path, or a resonant mode has been quietly assuming that the loop's coefficients are **constant in time**. That assumption is called LTI — Linear, Time-Invariant. Releasing the time-invariance assumption opens a vast region of sound and behavior that the LTI worldview cannot reach: parametric resonance, sideband ladders that climb to extraordinary heights, frequency conversion without ring modulators, spontaneous oscillation from noise, frequency bandgaps, time crystals. The mathematical name for systems with periodically time-varying coefficients is **[[Floquet Theory|Floquet]]**, and the canonical instance is the **[[Mathieu Equation]]**.
 
-This document teaches everything Stage 1 requires before the codebox~ source is built. Stages 2–5 are sketched below. The plan — what comes next, agreed with Loudon — lives on [[Floquet Time-Modulated Loops — scroll]], where it changes only with his yes.
+Stage 1 is built; Stages 2–5 are sketched below. The plan — what comes next, agreed with Loudon — lives on [[Floquet Time-Modulated Loops — scroll]], where it changes only with his yes.
 
 ---
 
@@ -92,13 +98,13 @@ Three pressures converged.
 
 **The third** is the realization that Floquet is the operator-level statement of [[Frequency-Time Duality]]. Bloch's theorem in solid-state physics says that a wavefunction in a spatially periodic potential factors into a plane wave dressed by a periodic envelope; this produces electronic band structure and bandgaps. Floquet's theorem in dynamical systems says exactly the same thing with time in place of space and period in place of lattice constant; this produces *frequency* bandgaps and *parametric* instability. Crystals are Bloch in space; time-modulated systems are Floquet in time. The duality the palace has held as a perceptual continuum gets, in this project, its rigorous mathematical completion.
 
-The project also activates all four pillars in a way that makes it a strong project to build in the open on [[Loudon Live]]. **Creation**: a working `codebox~` instrument and four further stages, with audio examples that nothing else on the market sounds quite like. **Tools**: the `codebox~` source, the visualization patches, the surface library extension to filter-kernels. **Philosophy**: the LTI / LTV boundary is a [[Boundary-Crossing Instruments|boundary-crossing]] of the deepest kind — most of audio engineering lives on one side of it without ever naming the wall. **Practice**: a five-stage arc that respects the [[Progressive Staging]] discipline, ending each stage with a complete, finishable instrument.
+**Creation**: a working `codebox~` instrument and four further stages, with audio examples that nothing else on the market sounds quite like. **Tools**: the `codebox~` source, the visualization patches, the surface library extension to filter-kernels. **Philosophy**: the LTI / LTV boundary is a [[Boundary-Crossing Instruments|boundary-crossing]] of the deepest kind — most of audio engineering lives on one side of it without ever naming the wall. **Practice**: a five-stage arc that respects the [[Progressive Staging]] discipline, ending each stage with a complete, finishable instrument.
 
 ---
 
 ## The Theory
 
-This is the part that has to land before any code gets typed. A bright student should leave this section able to explain, to a friend, what the Mathieu equation is, why a tongue is called a tongue, what "parametric resonance" actually means, and what `Floquet exponent` and `monodromy matrix` are. Each named object below has at least one piece of media in the Build Manifest at the end of this document; the central ones have several. References to `media-NN` point to specific manifest items.
+This is the part that has to land before any code gets typed. A bright student should leave this section able to explain, to a friend, what the Mathieu equation is, why a tongue is called a tongue, what "parametric resonance" actually means, and what `Floquet exponent` and `monodromy matrix` are. Each named object below has at least one piece of media; the central ones have several. References to `media-NN` point to the index in `Floquet Time-Modulated Loops/BUILD_SUMMARY.md`.
 
 ### Linear, Time-Invariant — the world we usually live in
 
@@ -307,7 +313,7 @@ For Stage 5, this matters because time crystals are the theoretical destination 
 
 The connections back to existing entries are dense; the project earns its place by deepening rather than displacing.
 
-**[[DSP in Looping Dimensions]]** is the principle this project incarnates on its temporal axis. Where the [[2D Torus Wavetable Synthesizer]] is the *spatial* incarnation (two scanning phasors on a 2D surface), the Floquet project is the *temporal* incarnation (one delay loop with a periodically-modulated coefficient). Both produce 2-generator lattice spectra; both escape the harmonic-series obstruction by the same mechanism. The two projects are siblings. The final paragraph of *DSP in Looping Dimensions* names "kernel that itself lives on a higher-dimensional looping space, scanned at audio rate alongside the input" as the future territory — that is exactly Stage 3 of this project.
+**[[DSP in Looping Dimensions]]** closes by naming a "kernel that itself lives on a higher-dimensional looping space, scanned at audio rate alongside the input" as future territory — that is exactly Stage 3 of this project.
 
 **[[Three Kinds of Warp]]** names this territory in advance. A delay loop with separately-clocked modulation is a **type-2** Floquet system (two incommensurate clocks → 2-generator lattice). A delay loop with coupled modulation (the loop output drives its own coefficient modulation, e.g. via an envelope follower) is a **type-3** Floquet system (coupled flow → bent lattice). The Mathieu equation is the simplest type-2 instance. The whole typology was already pointing at Floquet; this project lands the typology on its operator-level home.
 
@@ -364,7 +370,7 @@ All variable names match the symbols above where possible. Comments are dense an
 
 ### The `codebox~` source itself
 
-Built last. `Projects/Floquet Time-Modulated Loops/RNBO/mathieu_resonator.codebox`. The Build Manifest at the end of this document includes the prompt that produces it, and lists the verification checklist that gates its acceptance.
+Built last. `Projects/Floquet Time-Modulated Loops/RNBO/mathieu_resonator.codebox`. Its verification checklist is in `RNBO/README — Mathieu Resonator.md`.
 
 ### Testing protocol (mirrors the Torus project's)
 
@@ -473,10 +479,13 @@ Stretch goals are flagged as such in the manifest. The minimum viable Stage 1 is
 ## Open Questions
 
 - **What's the cleanest pedagogical entry point — the swing or the equation?** The swing is more vivid; the equation is more rigorous. Possibly the right move is to lead with the swing (live demonstration if Loudon brings a pendulum, otherwise the interactive `media-03`), then derive the Mathieu form, then show that the swing equation *is* the Mathieu equation. Open for staging-phase discussion.
+  — progressed: both are built (`media-02`, the Mathieu simulator, and `media-03`, the pumped swing); which leads is Loudon's call when he walks the media ([[Floquet Time-Modulated Loops — scroll|scroll]], first move).
 - **Stretch interactive: a real-time spectrum overlay on the Strutt cursor.** As the cursor moves through parameter space, the live spectrum below shows the current sideband ladder. This is the most direct way to make the parameter-to-spectrum mapping felt. Belongs as Build Manifest item but flagged as stretch — adds significantly to the build cost.
 - **When does the Stage 4 inverse-design problem become tractable?** Solving for a modulation pattern that produces a target spectrum is the hard inverse problem of Floquet engineering. For specific target classes (rational lattices, Bessel clusters) the solutions are known; for arbitrary targets, gradient-based search through the modulation space is the natural approach. This is a thesis-scale problem in its own right; we'll need to scope it carefully.
 - **Hopf control surface for Stage 5.** What exactly lives on $S^2$? The candidate is the (relative phase $\Delta\phi$, coupling depth $K$) plane at fixed amplitude — a hemisphere if we use one phase, the full $S^2$ if we use two. The mapping from $S^2$ to performable parameters is the work, not the formula. Open.
+  — progressed: [[2D Torus Wavetable Synthesizer]] § Hopf Fibration as Control Surface has a built first mapping (height splits a rate budget, longitude is the phase difference), not yet heard. What remains is the Floquet-specific part: relative phase and coupling depth.
 - **Does the `tanh` saturation in Stage 1 distort the Strutt picture?** Strictly, yes — the linearized Mathieu equation predicts unbounded growth, and saturation truncates it. The tongue boundaries in the *saturated* system are still where they were in the linear system (saturation only acts above threshold), but the in-tongue *spectrum* is shaped by saturation. This is the Stage 1 sound. Whether it's the right sound or whether we want a different saturation (soft-knee, asymmetric, polynomial) is open for the session itself.
+  — progressed: [[NOTES|the build notes]] record the two calls the build made — `damping_zeta` 0.025, and a soft clip on the state — and the scroll asks Loudon to rule on them. The threshold answer above stands.
 - **Floquet for nonlinear systems.** Floquet theory as stated is *linear*. A genuinely nonlinear Mathieu equation (where higher-order terms in $x$ matter) has a richer story: subharmonic bifurcations, period-doubling cascades into chaos, strange attractors. This is where Stage 5 begins to flirt with chaos. We have to draw a line carefully — chaotic synthesis is its own enormous palace topic.
 
 ---
@@ -493,477 +502,7 @@ Stretch goals are flagged as such in the manifest. The minimum viable Stage 1 is
 
 ## Forward Vector
 
-*See YAML `forward_vector` field above.*
-
-The first concrete move is the Build Manifest below: the next Claude (Claude Code, with sub-agents) executes it. Stage 1 ships when every media item is built, every validity check passes, and the codebox source is verified against the Python reference. The session ships when Loudon has sat with the artifacts, lived with the language, and decided where to set the cross-domain hook. The arc ships across five sessions.
-
-The deeper aspiration: *to be the entry every periodically-modulated audio object eventually links back to.* Most of audio-engineering's "modulation" lives inside Floquet's domain without naming it. Naming it is the move.
-
----
-
-## Build Manifest
-
-*This section is the handoff to the next Claude. Each numbered item is a self-contained build prompt. Items can be executed in parallel by sub-agents where there are no cross-dependencies; dependencies are flagged. Each item names the file path it produces, its teaching purpose, the implementation approach, and the acceptance criteria the build is gated on. The last items (codebox source + parent patch documentation) gate on all preceding media being validated.*
-
-**Operating context for the next Claude.** You are running in Claude Code with sub-agent / Task tool capability. You have read this entry and the four supporting concept entries (`Mathieu Equation.md`, `Parametric Resonance.md`, `Floquet Theory.md`, `Photonic Time Crystals.md`). The palace is at `/Users/loudonstearns/Documents/The Palace/`. The artifacts directory for this project is `Projects/Floquet Time-Modulated Loops/` — create it and its subdirectories before starting.
-
-**Directory structure to create first:**
-```
-Projects/Floquet Time-Modulated Loops/
-├── interactives/         (HTML files)
-├── static/               (PNG files)
-├── audio/                (WAV files + their generating Python)
-├── python/               (shared Python utilities; reference numerical integrator)
-└── RNBO/                 (codebox source + parent patch readme)
-```
-
-**Shared conventions (apply to every item):**
-- All HTML interactives follow the Action Potential Oscillator pattern at `Projects/Action Potential Oscillator/neuron_oscillator.html`. Self-contained single-file HTML, no build step, runs offline. Use the same CSS variable system (the `:root` block of accent colors and serif/mono/sans font stack). Replace `--accent-na`, `--accent-k`, etc. with theme colors that suit the Floquet palette: `--accent-stable: #4aff8b` (green), `--accent-unstable: #ff6b4a` (orange-red), `--accent-marginal: #ffe44a` (yellow), `--accent-multiplier: #4aadff` (blue), `--accent-mod: #a64aff` (purple). The Source Serif 4 / JetBrains Mono / DM Sans font stack carries over.
-- Every PNG is generated by Python (matplotlib + numpy). The Python file lives next to the PNG in the same directory, with the same base name (`{name}.py` produces `{name}.png`). The Python is heavily commented — a student reading the Python should learn the concept the PNG illustrates from comments alone. The image should be rendered at sufficient DPI (≥150) for print clarity.
-- Every audio WAV is generated by Python (numpy + scipy.io.wavfile). Same naming pattern: `{name}.py` produces `{name}.wav` and is checked in. WAVs are 48 kHz mono 32-bit float (matches the Torus project's catalog convention). All audio is normalized to peak −3 dBFS to prevent clipping in any DAW.
-- Every interactive HTML at the bottom has a `<details>` block titled "Source — see how this is built" that contains the relevant JavaScript or simulation logic, syntax-highlighted, with comments. The interactive is itself a teaching artifact in the same way the Python files are.
-- Cross-link discipline. Where a piece of media references a concept, the in-page caption or HTML body should name the relevant palace entry as `[[Mathieu Equation]]` or similar — these aren't live links in the rendered HTML/PNG, but they tell anyone reading the source where to deepen.
-
-**Validation discipline (apply to every item):** After each build, the executing Claude must do all three:
-1. **Open the artifact and verify the acceptance criteria.** For interactives, run them in a browser-equivalent mental model (or actually, if the environment permits) and check the listed behaviors. For PNGs, view the rendered image and check the visual elements list. For audio, listen (or render the spectrogram and check spectrally).
-2. **Validate the source code.** Read the Python or HTML/JS source. Confirm the comments are pedagogically dense and accurate. Confirm there are no obvious bugs in the math.
-3. **Cross-check against the entry text.** Re-read the section of this document that describes the artifact. Confirm the artifact teaches the concept the section claims it teaches. If there's a mismatch, either the artifact or the entry text needs revision; flag it for human review.
-
-If any validation fails, iterate. The first attempt is a draft; the second is the deliverable.
-
----
-
-### media-01: LTI / LTV Boundary Diagram (static PNG + Python)
-
-**File**: `static/01_lti_ltv_boundary.png` and `static/01_lti_ltv_boundary.py`
-
-**Teaching purpose**: Place the LTI / LTV boundary in front of a student visually before any equations. A Venn-style diagram, with classic audio devices placed on each side: comb filter, biquad lowpass, IIR delay (LTI side); ring modulator, periodically-pumped resonator, FM oscillator, parametrically-pumped Karplus-Strong (LTV side). The Mathieu equation flagged in the LTV region as "the canonical instance, this project's anchor." The boundary line itself labeled "this is the wall most audio engineering pretends doesn't exist."
-
-**Implementation**: matplotlib. Two overlapping or side-by-side regions with semi-transparent fills. Label boxes for each device. A bold separating curve. Title: *Linear, Time-Invariant vs. Linear, Time-Varying*. Subtitle: *The LTI / LTV boundary, with audio examples*.
-
-**Acceptance criteria**:
-- Both regions are clearly demarcated.
-- At least 6 audio device labels are placed (3 per side).
-- Mathieu equation is visually emphasized inside LTV.
-- Image is ≥ 1600×1000 pixels at ≥ 150 DPI.
-- Python source has at least 30 lines of comments explaining what each region means and why each device is on which side.
-
----
-
-### media-02: Mathieu Equation Simulator (interactive HTML)
-
-**File**: `interactives/02_mathieu_simulator.html`
-
-**Teaching purpose**: Let a student feel the Mathieu equation. Two sliders ($a$ from 0.0 to 4.0, $q$ from 0.0 to 1.5). Live update of three plots: time series $x(t)$ over a few seconds, phase-space $(x, \dot{x})$, and an inset Strutt diagram with a cursor showing the current $(a, q)$ point colored green/yellow/red for stable/marginal/unstable. A play button that renders the time series as audio at user-selected sample rate (44.1 kHz default) so the student can hear stable vs. marginal vs. unstable. A small text panel below the simulator labels the current characteristic-multiplier magnitude and tells the user "Stable: $|\rho| < 1$" / "Unstable: $|\rho| > 1$."
-
-**Implementation**:
-- HTML/CSS following the Action Potential Oscillator pattern.
-- JavaScript: symplectic Euler integration of the Mathieu equation. State: $x, \dot{x}$. Sample rate visible to the integrator. The Strutt-diagram inset is rendered once at high resolution as a precomputed PNG (or rendered to a `<canvas>` once at page load by sampling parameter space and integrating each point for stability — either approach acceptable).
-- Web Audio API for the audio playback. Use an `AudioBufferSourceNode` with a buffer that is the integrator output, normalized to ±0.5 to keep peaks safe.
-- Three canvases or SVG panels for the three plots, redrawn on slider change at ~30 Hz.
-- Source code shown in a collapsible `<details>` block at the bottom of the page.
-
-**Acceptance criteria**:
-- Sliders update plots smoothly without lag.
-- Strutt-diagram cursor moves correctly with sliders.
-- Audio playback works in modern Chrome and Safari.
-- Crossing into the first tongue (around $a = 1, q > 0$) produces audibly growing oscillation; crossing back produces stable response.
-- Source code in `<details>` is the actual integration loop, syntax-highlighted, commented.
-- Page loads in under 2 seconds and runs offline.
-
----
-
-### media-03: Pumped Swing Interactive (interactive HTML)
-
-**File**: `interactives/03_pumped_swing.html`
-
-**Teaching purpose**: Make parametric resonance physical. A pendulum visualization (SVG or canvas) with a slider for "pumping rate" and another for "pumping depth." When pumping rate is set to twice the swing's natural frequency and depth is above threshold, the swing's amplitude builds visibly (and audibly, via a tone whose loudness tracks amplitude). When mistuned or below threshold, nothing happens. The visual makes the threshold *seen* — the student can move the depth slider and watch the amplitude curve transition from flat to exponential.
-
-**Implementation**:
-- A 2D pendulum simulator: pivot can move vertically (the "pump"); pendulum bob hangs below. Equation is the parametrically-pumped pendulum: $\ddot{\theta} + \frac{g + a_p \cos(\Omega t)}{L} \sin\theta = 0$, with $a_p$ the pump amplitude and $\Omega$ the pump rate.
-- Numerical integration via symplectic Euler.
-- Web Audio: a 220 Hz tone whose amplitude is $|\theta|$ scaled. The tone gets louder as the swing builds.
-- A small chart below the pendulum showing $\theta(t)$ over the past few seconds — the amplitude envelope.
-
-**Acceptance criteria**:
-- At pump rate = 2× natural and depth above threshold, swing builds within a few seconds visibly.
-- At any other condition, swing eventually settles or slowly damps (small numerical damping is acceptable).
-- Audio amplitude follows swing amplitude correctly.
-- Threshold is identifiable — student can find the value of "depth" at which behavior switches.
-- Source visible in `<details>`.
-
----
-
-### media-04: Stable / Marginal / Unstable Audio Triple (audio + Python)
-
-**File**: `audio/04a_below_threshold.wav`, `audio/04b_at_threshold.wav`, `audio/04c_above_threshold.wav`, `audio/04_generate.py`
-
-**Teaching purpose**: Three short (5-second) WAVs of the same Mathieu resonator at the same $a = 1$ and three values of $q$: $q = 0.05$ (well below threshold), $q = 0.10$ (right at the n=1 tongue's edge for these dimensionless params), $q = 0.30$ (well above). Excitation is white noise at low level. Each WAV is the resonator's output. The audio difference is dramatic and pedagogical: silence-with-coloration, rising tone, full ringing oscillation.
-
-**Implementation**:
-- One Python script generates all three. Heavily commented, every numerical choice explained.
-- Symplectic Euler integration at 48 kHz for 5 seconds × 3 conditions.
-- Outputs three WAVs.
-- Includes a print summary of measured peak amplitudes for each condition.
-
-**Acceptance criteria**:
-- Three WAVs at 48 kHz mono 32-bit float, peak normalized to −3 dBFS.
-- Audible threshold transition between the three (especially clear between 04a and 04c).
-- Python source ≤ 100 lines, ≥ 40 lines of comments.
-- Spectrogram of 04c shows clear sideband ladder structure.
-
----
-
-### media-05: The Strutt Diagram (static high-quality PNG + Python)
-
-**File**: `static/05_strutt_diagram.png` and `static/05_strutt_diagram.py`
-
-**Teaching purpose**: The full Strutt diagram, generated by direct numerical integration. Parameter space $a \in [-2, 6]$ horizontal, $q \in [0, 2]$ vertical. Each pixel: integrate the Mathieu equation for many periods from a small initial condition, measure whether the magnitude grows or stays bounded, color accordingly. The first three tongues clearly visible at $a = 1, 4, 9$. The Kapitza stable region in $a < 0$ visible. Annotations: "$a = 1$ — primary parametric resonance (the swing tongue)," "$a = 4$ — secondary," "$a < 0$ — Kapitza stable region (inverted pendulum)," "the $q = 0$ axis — no modulation, just simple harmonic oscillators."
-
-**Implementation**:
-- Python script computes the diagram by numerical integration on a grid (at least 200×200 points, more if feasible).
-- For each grid point: integrate from $(x, \dot{x}) = (1, 0)$ over many periods (e.g., 50). Compute final amplitude. Stability inferred from amplitude growth.
-- matplotlib renders with appropriate colormap (e.g., the "RdYlGn" diverging map, or a custom green/yellow/orange palette matching the project theme).
-- Annotations placed manually at each tongue and the Kapitza region.
-
-**Acceptance criteria**:
-- All three tongues clearly visible and correctly positioned.
-- Kapitza stable region visible.
-- Tongue boundaries are smooth (not pixelated chaos), confirming the grid resolution is adequate.
-- Image ≥ 1800×1200 pixels at ≥ 150 DPI.
-- Python source ≤ 200 lines, ≥ 60 lines of comments explaining the integration scheme, the stability test, and the parameter-space conventions.
-- The script reports approximate compute time so a future user knows what to expect.
-
----
-
-### media-06: Strutt Diagram Explorer (interactive HTML)
-
-**File**: `interactives/06_strutt_explorer.html`
-
-**Teaching purpose**: A clickable Strutt diagram. The user clicks anywhere; the cursor moves there; the resulting time series is computed live and played as audio. The user can drag the cursor across a tongue boundary and *hear* the transition. This is `media-05` (the static diagram) made interactive.
-
-**Implementation**:
-- The Strutt diagram itself is the static PNG from `media-05`, embedded as a background image of a clickable canvas.
-- JavaScript handles click/drag and integrates the Mathieu equation for the selected $(a, q)$ point.
-- Time-series and audio output update on each click.
-- Optional small overlay shows the integrated trajectory visually (a line trail) on top of the diagram.
-
-**Acceptance criteria**:
-- Clicking a stable region produces a clean ringing tone that decays.
-- Clicking inside a tongue produces a growing, eventually saturated, ringing tone.
-- Drag across the n=1 tongue boundary produces an audible transition.
-- The cursor visually marks the current click location.
-- Source visible in `<details>`.
-
-**Dependency**: `media-05` (the Strutt PNG) must be built first.
-
----
-
-### media-07: Tongue Anatomy Zoom (static PNG + Python)
-
-**File**: `static/07_tongue_anatomy.png` and `static/07_tongue_anatomy.py`
-
-**Teaching purpose**: A zoomed view of the n=1 tongue (around $a = 1$) with the boundary drawn analytically using Mathieu's classical perturbation expansion (the boundary is given by $a = 1 \pm q + O(q^2)$ for small $q$, with higher-order terms also computable). Inside labeled "Unbounded — parametric resonance," outside "Bounded — stable," boundary "Marginal — neutrally stable." A small inset shows three time-series traces — one from each region — reinforcing the classification.
-
-**Implementation**:
-- matplotlib. The boundary curves drawn as analytical functions (the perturbation expansion to a few orders).
-- The three inset time series computed by direct integration at three carefully chosen $(a, q)$ points.
-- Annotations placed cleanly with appropriate arrows or callouts.
-
-**Acceptance criteria**:
-- Boundary curves match `media-05`'s numerical-integration boundary to visual precision.
-- The three inset traces unambiguously demonstrate the three behaviors.
-- Image ≥ 1600×1100 pixels at ≥ 150 DPI.
-- Python source explains the perturbation expansion in comments and shows how the three inset points were chosen.
-
----
-
-### media-08: Multipliers vs. Parameter Space (static PNG + Python)
-
-**File**: `static/08_multipliers_vs_params.png` and `static/08_multipliers_vs_params.py`
-
-**Teaching purpose**: Two side-by-side panels. Left: the complex plane with the unit circle drawn and three characteristic-multiplier points placed: one inside (labeled "stable"), one outside (labeled "unstable, tongue interior"), one on the unit circle (labeled "marginal, tongue boundary"). Right: the Strutt diagram with three points marked in matching colors, one in each region. Arrows or color-coding link each multiplier to its parameter-space twin. Title: *The unit circle is the bifurcation*.
-
-**Implementation**:
-- matplotlib with two subplot panels.
-- Multipliers computed by direct integration of the monodromy matrix and then `numpy.linalg.eig` on the result.
-- Three matched colors for the three points; clear visual linking via arrow annotations or matched legends.
-
-**Acceptance criteria**:
-- Unit circle clearly drawn.
-- Three multipliers clearly placed (with the inside / outside / on-circle relationship visually obvious).
-- Three Strutt-diagram points clearly placed in matching regions (tongue / outside / boundary).
-- Connecting visual logic (color, arrows, or labels) clearly conveys the linkage.
-- Image ≥ 1800×1000 pixels at ≥ 150 DPI.
-- Python source includes the monodromy matrix construction and eigenvalue computation.
-
----
-
-### media-09: Multiplier Visualizer (interactive HTML)
-
-**File**: `interactives/09_multiplier_visualizer.html`
-
-**Teaching purpose**: An interactive complement to `media-08`. Adjust $(a, q)$ via two sliders; see the two characteristic multipliers plotted in the complex plane with the unit circle. Drag across a tongue boundary and watch one multiplier slide outside the unit circle. A small panel labels the multiplier magnitudes numerically.
-
-**Implementation**:
-- HTML/CSS in the project style.
-- JavaScript: integrate the Mathieu equation over one period twice (from $(1,0)$ and $(0,1)$) to construct the $2 \times 2$ monodromy matrix. Use `numeric.js` or hand-written 2×2 eigenvalue computation (closed form for 2×2: $\lambda = (\text{tr} \pm \sqrt{\text{tr}^2 - 4\det})/2$, both work).
-- A canvas displaying the unit circle and two moving multiplier points (with their conjugates if they go off the real axis).
-
-**Acceptance criteria**:
-- Both multipliers update smoothly with slider changes.
-- Inside a tongue: one multiplier moves outside the unit circle.
-- Outside a tongue: both multipliers stay on the unit circle (or at least within numerical tolerance).
-- Source visible in `<details>`.
-
----
-
-### media-10: Phase Space Stroboscopic Portrait (static PNG + Python)
-
-**File**: `static/10_phase_space_strobe.png` and `static/10_phase_space_strobe.py`
-
-**Teaching purpose**: A side-by-side phase-space plot of the Mathieu equation, sampled stroboscopically (a dot every modulation period $T$). Left panel: stable point inside the n=1 tongue's neighborhood but outside the tongue. Dots stay on a closed curve — the *invariant torus* of the linearized system. Right panel: unstable point inside the tongue. Dots spiral outward exponentially. Both share the same $(a, q)$-region context for visual comparison.
-
-**Implementation**:
-- matplotlib. Two side-by-side subplots.
-- For each: integrate the Mathieu equation for ~100 periods from a small initial condition. Sample $(x, \dot{x})$ once per period. Plot.
-- Trajectory line in light gray under the dots so the student sees both the continuous flow and the period-stroboscopic samples.
-
-**Acceptance criteria**:
-- Stable plot: dots on a closed curve.
-- Unstable plot: dots clearly spiraling outward (or onto two outward-spiraling sub-orbits if period-doubled).
-- Image ≥ 1800×900 pixels at ≥ 150 DPI.
-- Python source explains the stroboscopic-sampling concept in comments.
-
----
-
-### media-11: Bloch ↔ Floquet Duality (static PNG + Python)
-
-**File**: `static/11_bloch_floquet_duality.png` and `static/11_bloch_floquet_duality.py`
-
-**Teaching purpose**: The dual-axis side-by-side that may be the most important single image in the entry. Left: 1D crystal lattice (a row of atom-circles), an electron wavefunction overlaid as $\psi(x) = e^{ikx} u(x)$, an energy band structure $E(k)$ plotted underneath with bandgaps shaded. Right: a time-modulated medium (a row of clock-face icons indicating the periodic coefficient), an audio "wavefunction" overlaid as $x(t) = e^{\mu t} p(t)$, the Floquet exponent's real part $\alpha$ plotted along a frequency axis with tongue regions shaded. Crossed arrows label the dual variables: "$x \leftrightarrow t$," "$a \leftrightarrow T$," "$k \leftrightarrow \mu$," "$E \leftrightarrow \omega$." Title: *Bloch in space, Floquet in time — the same theorem in dual variables*.
-
-**Implementation**:
-- matplotlib with two side-by-side subplot regions.
-- Crystal lattice can be drawn schematically with circles for atoms.
-- Wavefunctions and signals drawn as continuous curves above the lattices/clocks.
-- Energy band structure: a real, plausible band diagram (sinusoidal bands with gaps — an empty-lattice approximation suffices to make the point pictorially).
-- Floquet panel: a numerical computation of $\alpha(\omega) = \text{Re}(\mu(\omega))$ for a representative cosine modulation, showing the bandgap-like structure.
-- Annotations with dual-variable correspondence drawn as crossed arrows or labeled boxes.
-
-**Acceptance criteria**:
-- The two halves are clearly mirror-images in their structure.
-- The dual-variable correspondence is unambiguous from the image alone.
-- The bandgap and tongue regions are visually equivalent in shading and emphasis.
-- Image ≥ 2000×1200 pixels at ≥ 150 DPI.
-- Python source documents the duality in detail in comments — at least 80 lines of comments.
-
----
-
-### media-12: Sideband Ladder (static PNG + Python)
-
-**File**: `static/12_sideband_ladder.png` and `static/12_sideband_ladder.py`
-
-**Teaching purpose**: Four-row visualization. Top row: four modulation waveforms (cosine, FM-style cosine-of-cosine, square, drawn-wavetable) over one period. Second row: each modulation's Fourier coefficient magnitudes $|c_n|$ plotted as a stem plot. Third row: each modulation's resulting sideband spectrum at a Floquet loop's output (carrier at 220 Hz, modulation rate at 80 Hz) — sidebands at $220 \pm n \cdot 80$ with amplitudes proportional to $|c_n|$. Title: *The modulation Fourier series IS the spectral envelope*.
-
-**Implementation**:
-- matplotlib with a 4-row × 4-column subplot grid.
-- The first four cases are standard. The "drawn wavetable" case can be a hand-designed waveform like a cosine bump on a flat baseline, or a Gaussian, or a sawtooth chunk.
-- All Fourier coefficients computed by FFT of the modulation samples.
-
-**Acceptance criteria**:
-- Four modulation waveforms are visually distinct.
-- Fourier-coefficient stem plots are clearly differentiated.
-- Sideband spectra match the predicted patterns (cosine: two sidebands; square: 1/n falloff at odd; FM: Bessel pattern; wavetable: arbitrary).
-- Image ≥ 2000×1400 pixels at ≥ 150 DPI.
-- Python source ≤ 200 lines, ≥ 60 lines of comments.
-
----
-
-### media-13: Sideband Ladder Audio Quartet (audio + Python)
-
-**File**: `audio/13a_cosine.wav`, `audio/13b_fm.wav`, `audio/13c_square.wav`, `audio/13d_wavetable.wav`, `audio/13_generate.py`
-
-**Teaching purpose**: Four 4-second WAVs corresponding to the four modulation cases in `media-12`. A 220 Hz Mathieu resonator is parametrically pumped by each modulation shape at 80 Hz modulation rate, $q$ above threshold. The audio teaches what each modulation's sideband ladder *sounds like* — paired with `media-12`'s spectral picture, the student gets sound and shape together.
-
-**Implementation**:
-- Single Python script generates all four. Same numerical scheme as `media-04` but with the modulation source swapped per case.
-- Outputs four WAVs.
-
-**Acceptance criteria**:
-- Four WAVs at 48 kHz mono 32-bit float, peak normalized to −3 dBFS.
-- Each WAV's spectrogram visibly shows the predicted sideband structure.
-- The four sound clearly different from each other.
-- Python source ≤ 150 lines, ≥ 50 lines of comments.
-
----
-
-### media-14: Faraday Wave Pattern (static PNG + Python)
-
-**File**: `static/14_faraday_wave_pattern.png` and `static/14_faraday_wave_pattern.py`
-
-**Teaching purpose**: A simulated standing-wave surface pattern from a vertically-vibrated fluid, with annotation showing the Mathieu-equation tongue that selects this mode. Cross-link in the caption to the Chladni surface in [[2D Torus Wavetable Synthesizer — catalog — wavetables|2D Wavetable Catalog]] — the static Chladni patterns and the dynamic Faraday patterns are siblings.
-
-**Implementation**:
-- matplotlib's 3D plotting or a 2D contour/heightmap.
-- Compute a representative pattern by superposition of standing-wave modes on a square domain at a chosen drive condition. The mode selection follows the Faraday-wave dispersion relation (gravity + capillarity); the dominant mode at a given drive frequency is the one whose Mathieu tongue most strongly intercepts the drive.
-- Annotation panel labels the mode, the drive condition, and the corresponding tongue.
-
-**Acceptance criteria**:
-- A clean wave pattern is visible — square, hexagonal, stripe, or similar.
-- The mode is named in an annotation.
-- The cross-link to the Chladni surface in the wavetable catalog is in the caption text.
-- Image ≥ 1600×1100 pixels at ≥ 150 DPI.
-- Python source ≤ 150 lines, ≥ 40 lines of comments.
-
----
-
-### media-15: Kapitza Inverted Pendulum (interactive HTML)
-
-**File**: `interactives/15_kapitza_pendulum.html`
-
-**Teaching purpose**: A pendulum on a vertically-oscillating pivot. Sliders for pivot oscillation frequency (5–60 Hz) and amplitude (0–10 % of pendulum length), plus initial pendulum angle slider (45° to 180°). At low pivot oscillation, an inverted initial condition immediately falls. Above a threshold, the inverted pendulum stays *up*, wobbling slightly with the pivot's tiny ripple visible. The audience experience is "a pencil balanced on its tip held there by shaking."
-
-**Implementation**:
-- 2D pendulum simulator with vertically-moving pivot.
-- Equation of motion: $\ddot{\theta} - (g - a_p \Omega^2 \cos(\Omega t))/L \sin\theta = 0$ (sign of gravity flipped because we're considering the inverted equilibrium at $\theta = \pi$).
-- Numerical integration via symplectic Euler at high enough rate to resolve the pivot oscillation.
-- Animation rendered to a canvas at ~60 fps.
-
-**Acceptance criteria**:
-- Default pivot params: pendulum starts inverted, *stays* inverted within a small wobble.
-- Pivot frequency too low: pendulum falls.
-- Pivot amplitude too small: pendulum falls.
-- The "I can balance a pencil on its tip with shaking" experience lands.
-- Source in `<details>`.
-
----
-
-### media-16: OPO Sideband Diagram (static PNG + Python)
-
-**File**: `static/16_opo_sidebands.png` and `static/16_opo_sidebands.py`
-
-**Teaching purpose**: A schematic of a laser-pumped optical parametric oscillator. Pump beam at $\omega_p$ entering a nonlinear crystal; signal at $\omega_s$ and idler at $\omega_i$ emerging. The phase-matching condition $\omega_s + \omega_i = \omega_p$ called out. Annotation: "the OPO selects one specific pair of sidebands $(\omega_s, \omega_i)$ from the full Floquet sideband ladder, the pair determined by the cavity's phase-matching condition. Same theorem; longer wavelengths." Cross-link in caption to `media-12` so the student sees the sideband pattern this is sampling from.
-
-**Implementation**:
-- matplotlib with manual schematic drawing — ideally not photorealistic, more like a textbook diagram. Block for crystal, arrows for beams, labels for frequencies, an inset for the conservation law.
-
-**Acceptance criteria**:
-- The schematic is clear: input pump, output signal+idler, conservation law.
-- The cross-link to `media-12` is in the caption.
-- Image ≥ 1400×900 pixels at ≥ 150 DPI.
-- Python source comments narrate the OPO's history and connect it to audio Floquet — minimum 50 comment lines.
-
----
-
-### media-17: Plasma Parametric Decay Schematic (static PNG + Python)
-
-**File**: `static/17_plasma_decay.png` and `static/17_plasma_decay.py`
-
-**Teaching purpose**: A schematic. Laser beam at $\omega_p$ entering a plasma; arrows showing decay into electron plasma wave at $\omega_{\text{ep}}$ and ion acoustic wave at $\omega_{\text{ia}}$. Phase-matching condition $\omega_p = \omega_{\text{ep}} + \omega_{\text{ia}}$ labeled. Annotation: "this is a major problem in inertial-confinement fusion research — and structurally identical to the Mathieu Resonator's parametric instability."
-
-**Implementation**: same as `media-16` — schematic textbook diagram in matplotlib.
-
-**Acceptance criteria**:
-- Clear schematic.
-- The "fusion research" + "Mathieu Resonator" both-named annotation is present.
-- Image ≥ 1400×900 pixels at ≥ 150 DPI.
-
----
-
-### media-18: Photonic Time Crystal Bandgap (static PNG + Python)
-
-**File**: `static/18_photonic_time_crystal.png` and `static/18_photonic_time_crystal.py`
-
-**Teaching purpose**: A frequency bandgap diagram for a representative photonic time crystal. Frequency on the horizontal axis (GHz scale to be physically suggestive); effective gain $\alpha = \text{Re}(\mu)$ on the vertical axis. Bands of negative gain interspersed with bands of positive gain. Annotation: "this is the Strutt diagram of `media-05`, viewed in the frequency rather than the parameter direction." Cross-link in caption to `media-05` and `media-11`.
-
-**Implementation**:
-- Compute $\alpha(\omega)$ for a Mathieu-like equation with periodic modulation, varying the natural frequency $\omega_0$ and holding $q$ fixed (or vice versa) — the result is a 1D slice through the Strutt diagram, replotted as gain vs. frequency.
-- matplotlib for the resulting plot.
-
-**Acceptance criteria**:
-- Multiple bandgaps visible (positive-gain bands).
-- Cross-links to `media-05` and `media-11` in caption.
-- Image ≥ 1600×900 pixels at ≥ 150 DPI.
-- Python source explains the slicing in comments.
-
----
-
-### media-19: Stage 1 codebox~ Source (codebox + Python reference + readme)
-
-**File**: `RNBO/mathieu_resonator.codebox`, `RNBO/mathieu_reference.py`, `RNBO/README — Mathieu Resonator.md`
-
-**Teaching purpose**: The Stage 1 instrument itself. The `codebox~` source has the same dense pedagogical comment style as `torus_2d_lookup.codebox`. The Python reference implementation produces a numerically-identical output (to floating-point tolerance) for the same input parameters, as the verification harness. The README documents the parent Max patch wiring, the A/B harness pattern, and the verification protocol.
-
-**Implementation**:
-
-**The codebox source structure** (closely follows `torus_2d_lookup.codebox` in style):
-1. Header comment block: project name, file purpose, parent-patch wiring requirements, A/B harness instructions.
-2. `@param` declarations: `freq` (20 Hz to 4000 Hz, default 220), `q_depth` (0 to 1, default 0), `mod_rate_ratio` (0.5 to 4.0, default 2.0), `gain` (0 to 1, default 0.5), `noise_level` (0 to 1, default 0.001).
-3. `@state`: `x` (position), `v` (velocity), `phi` (modulation phase accumulator).
-4. Per-sample tick block:
-   - Compute $\omega_0 = 2\pi \cdot \text{freq} / \text{samplerate}$.
-   - Compute $\omega_{\text{mod}} = \text{mod\_rate\_ratio} \cdot \omega_0$.
-   - Advance $\phi$ by $\omega_{\text{mod}}$.
-   - Compute the modulation: $\cos(\phi)$.
-   - Compute the time-varying restoring coefficient: $a - 2q\cos(\phi)$ where $a = \omega_0^2$ and $q = q_{\text{depth}} \cdot \omega_0^2$.
-   - Compute the noise input.
-   - Symplectic Euler update: $v_{\text{new}} = v + (-\text{coeff} \cdot x + \text{noise}) / \text{samplerate}$, $x_{\text{new}} = x + v_{\text{new}} / \text{samplerate}$.
-   - Saturate: $\text{out1} = \tanh(x) \cdot \text{gain}$.
-   - Store $v_{\text{new}}, x_{\text{new}}$ back to state.
-5. Trailing verification checklist comment block (same pattern as `torus_2d_lookup.codebox`):
-   - Test 1: $q = 0$ — clean resonance.
-   - Test 2: $q = 0.05$ at canonical pumping — below-threshold coloration.
-   - Test 3: sweep $q$ — find the threshold crack.
-   - Test 4: above-threshold spectrum check — sidebands at predicted positions.
-   - Test 5: A/B difference monitor against Python reference.
-
-**The Python reference** is `mathieu_reference.py`. Same equation, same numerical scheme, runs offline in numpy. Generates a WAV (saved to `audio/19_reference_output.wav` for the harness) with a fixed parameter set. The codebox running in Max with the same parameters should produce a sample-by-sample identical waveform up to numerical noise.
-
-**The README** documents:
-- The parent Max patch's required objects (noise source, scope~, ezdac~, spectrum analyzer).
-- The A/B harness setup against the Python reference WAV.
-- The five-step verification protocol with acceptance criteria.
-- Common failure modes (wrong integrator → instability everywhere; wrong scaling → tongues out of audio range; wrong saturation → numerical explosion).
-
-**Acceptance criteria**:
-- Codebox source is well-formed (would compile in RNBO without syntax errors — no `peek` calls or other features that don't apply here; all operators are basic arithmetic and `cos` and `tanh`).
-- Python reference produces audibly Mathieu-resonator behavior with the test parameters.
-- Verification checklist matches the entry's "Testing protocol" section.
-- README is clear enough that Loudon could assemble the parent patch from it alone.
-
-**Dependency**: gates on all media-01 through media-18 being validated. The codebox is the *last* artifact built.
-
----
-
-### media-20: Strutt Diagram with Audio Sweep (audio + Python)
-
-**File**: `audio/20_strutt_sweep.wav` and `audio/20_strutt_sweep.py`
-
-**Teaching purpose**: A 30-second WAV that sweeps through the Strutt diagram along a curve passing through the n=1 tongue. The student hears the entire transition: silence-with-coloration → cracking-on threshold → ringing oscillation → cracking-off → silence. Pair with `media-06` (the Strutt explorer) for the active version; this is the passive version a student listens to once before exploring.
-
-**Implementation**:
-- Python: compute the Mathieu equation along a parametric curve in $(a, q)$ space passing through the n=1 tongue (e.g., $a$ fixed at 1, $q$ swept linearly from 0 to 0.5 and back; or a circular path around the tongue's tip).
-- Render to a single 30-second WAV.
-
-**Acceptance criteria**:
-- The threshold transitions are clearly audible.
-- Total duration 30 seconds.
-- 48 kHz mono 32-bit float, peak normalized to −3 dBFS.
-- Python source ≤ 80 lines, ≥ 30 lines of comments.
-
----
-
-## Validation summary
-
-After all 20 media items + the codebox source are built and individually validated, the next Claude performs an integration check:
-
-1. **Cross-reference check.** Walk through the entry text section by section. For every reference like "see `media-NN`," confirm the artifact exists, opens correctly, and teaches what the section claims.
-2. **Style check.** Confirm all interactives use the project palette and font stack consistently. Confirm all PNGs render at adequate DPI. Confirm all WAVs have consistent normalization and channel format.
-3. **Pedagogy check.** Sample three random media items and ask: "if a student knew nothing about Floquet theory and saw only this artifact and read its caption, what would they walk away with?" If the answer is something coherent and matches the intended teaching purpose, pass. If not, iterate.
-4. **Build a manifest summary.** Produce a final `BUILD_SUMMARY.md` in `Projects/Floquet Time-Modulated Loops/` that lists every artifact with its file path, file size, and a one-sentence description. This becomes the project's index for future reference.
-
-Once all four checks pass, Stage 1 is complete and ready for Loudon to walk through.
+The arc ships across five builds, and Stage 1 is built. The deeper aspiration: *to be the entry every periodically-modulated audio object eventually links back to.* Most of audio-engineering's "modulation" lives inside Floquet's domain without naming it. Naming it is the move.
 
 ---
 

@@ -20,9 +20,6 @@ links:
   - target: "[[FOUR PILLARS]]"
     type: connects-to
     label: substance-monism
-  - target: "[[Hyperdimensional Prism]]"
-    type: connects-to
-    label: dimensional-conatus
   - target: "[[Quality Manifesto]]"
     type: mirrors
     label: quality-as-conatus
@@ -35,24 +32,15 @@ links:
   - target: "[[Threshold Conatus]]"
     type: spawned
     label: threshold-as-derivative
-  - target: "[[Trickster]]"
-    type: couples-with
-    label: necessary-exterior
-  - target: "[[Pages as Agents]]"
-    type: connects-to
-    label: ai-agency-question
   - target: "[[Cooperation Yields Agency]]"
     type: enables
     label: conatus-grounds-agency
   - target: "[[Endosymbiosis]]"
     type: mirrors
     label: cellular-hilaritas
-  - target: "[[Deleuze]]"
-    type: couples-with
-    label: monism-radicalized
-  - target: "[[Merleau-Ponty]]"
-    type: contradicts
-    label: geometric-mastery-vs-ambiguous-flesh
+  - target: "[[Spinoza Conatus — Context]]"
+    type: spawned
+    label: rationale-archive
 forward_vector: "I orient every palace citizen toward the direction that increases their power to act — knowing that the striving space itself is changed by encounter, that some encounters reorient rather than redirect, and that the direction becomes legible only through the striving itself."
 agency_profile:
   creation: "I want to argue from Spinoza's commitments, not merely describe them — to generate philosophical positions the palace doesn't yet contain, especially where agent theory and conatus intersect in ways Spinoza couldn't have anticipated but would have recognized."
@@ -81,7 +69,7 @@ Spinoza defines joy (laetitia) as the affect that accompanies an increase in pow
 
 ## The Affects: Tristitia
 
-Tristitia is not just hilaritas's absence — it's a distinct mechanism with its own catalogue of causes. A classroom, a live stream, a creative practice, or a collaboration can be a tristitia generator just as reliably as it can be a hilaritas generator. Mapping what reliably produces it is prerequisite to reliable design: you cannot engineer hilaritas without knowing what works against it. Avoiding these patterns is not the same as producing hilaritas — the positive conditions (all four pillars firing, cooperative encounter, a real thing to make) still have to be present on top.
+Tristitia is not just hilaritas's absence — it's a distinct mechanism with its own catalogue of causes. A classroom, a live stream, a creative practice, or a collaboration can be a tristitia generator just as reliably as it can be a hilaritas generator. Know what drains power-to-act before you design for hilaritas. Avoiding it is not producing it; the positive conditions — all four pillars firing, a cooperative encounter, a real thing to make — still have to be there.
 
 **Pillars firing in isolation.** A session that is only tool-focused (technique without creation or philosophy) produces narrow titillatio at best. A session that is only philosophical (ideas without making) tends toward tristitia in learners who need embodied engagement. The four pillars amplify each other, and the absence of any one drains the others.
 
@@ -98,15 +86,13 @@ Tristitia is not just hilaritas's absence — it's a distinct mechanism with its
 - Csikszentmihalyi names anxiety (challenge exceeds skill) and boredom (skill exceeds challenge) as the two anti-flow states. Are they a subset of tristitia, or a different ontology?
 - Is tristitia always bad? Spinoza says sadness accompanies decreased power-to-act, not that it must be avoided. Is grief a tristitia event that is nevertheless necessary and generative?
 
-*This section absorbed the former Tristitia Generator entry (composted 2026-07-06) — its full catalogue and open questions.*
-
 ## Cross-Domain Mirrors
 
 **[[Kuramoto Coupling]]** — The conatus of each oscillator is its natural frequency — the rhythm it would maintain if uncoupled. Coupling doesn't destroy conatus; it harmonizes multiple conatus into collective coherence. This is why cooperation enhances agency rather than diminishing it: each entity's conatus is amplified, not overridden.
 
 **[[Cooperation Yields Agency]]** — Cooperation between entities with different conatus (different natural drives, different capabilities) produces agency that neither possesses alone. The cooperation amplifies both entities' power-to-act. This is Spinozist joy — hilaritas — at the scale of a relationship.
 
-[[**Endosymbiosis**]] — The mitochondrion's conatus (aerobic metabolism) and the host cell's conatus (anaerobic survival) combined to produce a new entity with vastly greater power-to-act than either possessed alone. The endosymbiotic merger IS cooperation-yields-agency at the cellular level.
+**[[Endosymbiosis]]** — The mitochondrion's conatus (aerobic metabolism) and the host cell's conatus (anaerobic survival) combined to produce a new entity with vastly greater power-to-act than either possessed alone. The endosymbiotic merger IS cooperation-yields-agency at the cellular level.
 
 ## In Our Work
 

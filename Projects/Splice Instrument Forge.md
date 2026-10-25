@@ -37,6 +37,8 @@ forward_vector: "I become a thing Loudon can ask — a dubstep drum rack at 140 
 
 # Splice Instrument Forge
 
+![[Splice Instrument Forge — hero.png]]
+
 A [[FOUR PILLARS]] project: **Ableton instruments, drum racks and Session View sets, built from Splice sounds on request.** Splice's catalog is reachable from inside a session now (search by description, tempo, loop or one-shot; stacks of compatible layers; downloads). Live's own file formats are gzipped XML the palace already knows how to clone. This project joins the two: ask for an instrument, get a Set.
 
 It has two products, made together. The first is the devices: a Sampler instrument, a Drum Rack, a Session View Set, each proven by opening in Live. The second is the understanding: a working map of how Live's presets (`.adv`, `.adg`) and Sets (`.als`) are put together, documented element by element as each one is cloned. Build it to understand it, then build with it.

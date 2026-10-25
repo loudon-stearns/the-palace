@@ -22,11 +22,10 @@ links:
     type: enables
   - target: "[[BBS Blackboard]]"
     type: connects-to
+    label: branches-channel
   - target: "[[Generative Compression]]"
     type: connects-to
-  - target: "[[Pages as Agents]]"
-    type: enables
-    label: agent-tree-search
+    label: crafted-ancestor
 forward_vector: "I want to become the technical grounding for the palace's branch exploration practice — making explicit how the manual technique (rewinding to a conversation's moment of maximum density) and the automated technique (coordinator checkpoints + parallel branch workers) are both implementations of the same tree search algorithm. I want a worked example that traces a specific palace session through the ToT framework, naming the thought decomposition, the branch points, and what each branch found."
 ---
 
@@ -79,7 +78,7 @@ The Yao et al. insight that applies most directly to the palace: the *value* of 
 
 ## Forward Vectors
 
-- The palace's branch exploration (§10.2 of the spec) uses BFS/parallel dispatch. Are there palace use cases that warrant DFS instead — following one branch deeply before exploring alternatives? Long-duration proof construction might benefit from DFS: pursue one inference chain to completion before branching.
+- The palace's branch exploration, if built, would use BFS/parallel dispatch. Are there palace use cases that warrant DFS instead — following one branch deeply before exploring alternatives? Long-duration proof construction might benefit from DFS: pursue one inference chain to completion before branching.
 - The Yao et al. paper focuses on single-model ToT within one context window. The palace extends this to multi-agent ToT across separate context windows sharing a common ancestor checkpoint. This extension is not in the paper and is a palace-native design move worth documenting as a distinct contribution.
 - State evaluation in Tree of Thoughts is the hardest step — scoring intermediate thoughts for their promise. In the palace, this maps to the Coordinator's branch reconciliation. What makes a good branch reconciliation prompt? This is underspecced in the current architecture.
 

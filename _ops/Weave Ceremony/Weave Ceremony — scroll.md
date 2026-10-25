@@ -15,45 +15,130 @@ forward_vector: "I am Weave Ceremony's scroll — the one page that opens on whi
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-16T00:45:39.112Z from the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the ceremony is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-25T02:55:40.084Z from the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the ceremony is steered by the **Plan** and **Standing Orders** below, never here._
 
 - **Status:** — · **Stage:** mature
-- **Plan:** none agreed yet — the next run works from what the ledger owes and the forward vector
-- **Version:** v1.5 · the spec last changed 2026-10-14 (`02e8a535`) — edit(Weave Ceremony, Hero and Avatar Maker): every canon entry wears a face; the face audit prints one list
-- **Runs since the change:** none yet — v1.5 has not run
-- **Last run:** none in the ledger yet
-- **Owed in the ledger:** 5 — items 21, 24, 29, 30, 39; the next run's tail read picks them up first
-- **Latest lesson:** item 41, from Loudon's word — 2026-10-14 — [[Weave Ceremony — tuning]]
+- **Plan:** agreed 2026-10-24 (today) · 0 made things since
+- **Version:** v2.0 · the spec last changed 2026-10-24 (`e2499bdc`) — edit(Weave Ceremony): v2.0 — fewer, better links; memory keeps pace with faces; health as a trend
+- **Runs since the change:** 1 run on 1 day, counted from the ledger's run lines
+- **Last run:** 2026-10-24 — weave-2026-10-24, the first run under v2.0 (fewer, better links; the memory layer; the health ledger) · taught items 58–61; items 60 and 61 owed (under v2.0)
+- **Owed in the ledger:** 3 — items 59, 60, 61; the next run's tail read picks them up first
+- **Latest lesson:** item 61, from the October weave's run — 2026-10-24 (under v2.0) — [[Weave Ceremony — tuning]]
 
-### Runs since v1.5
+### Runs since v2.0
 
-_None yet._
+- 2026-10-24 — weave-2026-10-24, the first run under v2.0 (fewer, better links; the memory layer; the health ledger) · taught items 58–61; items 60 and 61 owed
 
 ### Owed
 
-- **21.** Fixing the graph doesn't tell the board. Without a `Palace-Resolves:` trailer per flag, 35 resolved flags stayed open; PROOF posts are narration the queue never reads (`multi-le…
-- **24.** The flag linter was wrong in both directions. It matched `*<entry>*.md` and counted `target_entry`, so a touch to a scroll or a gotchas file "closed" a flag, and it couldn't rea…
-- **29.** A pair of entries carries one typed link. A weaker link isn't added beside a specific one; a generic `connects-to` is retyped in place; direct lineage reciprocals are the except…
-- **30.** The "≥5 typed links" hub bar was set when the palace had ~30 entries; the median is now 6. This run used worker convergence (three or more unassigned workers) or the top inbound…
-- **39.** The weave should watch its own language. Loudon, 2026-09-24 close: look for over-complex, self-analysing prose, propose simplification, and be freer with deletion. "Lighter" mea…
+- **59.** The deck greyed fewer flags than the linter counted because `buildQueue` drops an entry flag once a RESOURCE_GRANT or RESOURCE_DENY answers it (`_ops/stigmergy/app/src/lib/queue…
+- **60.** Readers worked from the map as it stood before the mechanical fold, so some cuts aimed at links the fold had already removed, and a few rationales claimed a reciprocal link that…
+- **61.** A coherence room proposes links at half the hit rate of a link room. The eight folder rooms' 125 relation proposals passed the skeptic at 52% (65 of 125); the weak-link and hub …
 
 <!-- scroll:now:end -->
 
 ## Plan
 
 <!-- scroll:plan:start -->
-_No plan agreed yet. Until there is one, the work leans on the page's forward vector. A plan is agreed with Loudon — he writes it here, or a steward proposes one as an ask and it lands here when he says yes._
+**Agreed with Loudon on 2026-10-24**, in his words: "Grow up, lets run it, look at our session allotment now, I am ok with this being the bulk of our next 10 hours of usage, be careful not to strand work and waste." The full plan with its measured starting state is `_ops/swarm/sessions/weave-2026-10-24/PLAN.md`; the checkpoints are in `RESUME.md` beside it.
+
+## Why
+
+The map is dense and healthy by the old measures and not nuanced: 410 pairs carry the same relation twice, 558 links are bare `connects-to`, 1,028 links point at a page the body never names. Faces are nearly complete (316 of 325) and memory is thin (20 Contexts, 3 rich faces). The weave's job this run is to make the graph say less and mean more, and to give the heavy pages the memory their weight has earned.
+
+## Move 0 — The spec goes to v2.0 first
+
+Fewer, better links (Step 3c settles every bare `connects-to`; Step 3d one link per pair; Step 3e unsaid links), the hub bar at the top inbound decile, the bundle audit and rich-face nominations (5d, 5e), the health ledger and the lean (6.6), decisions first (0c), `palace-reader` workers born with the real Jewel, a skeptic before synthesis, lighter prose asked for. Done when: the card, Context and tuning items 47–56 are written and the four new scans run.
+
+## Move 1 — Open
+
+Map diff since the last weave, the substrate rows for Loudon's triage, the thirteen propagate flags carried, the two composting confirmations.
+
+## Move 2 — The mechanical batch, sampled
+
+Fold the pairs, settle the bare links, the unsaid list, the bundle gaps, nine faces, the September trails and the map rhymes judged, the ghost targets ruled. One batch; Loudon reads ten at random.
+
+## Move 3 — The fan-out
+
+Folder, bridge, stratified-random and lifecycle lenses on Sonnet readers, a hub-nutrition room per floor hub; then the Opus skeptic, then the Concierge's cold read; Pile B for Loudon's eye.
+
+## Move 4 — Standards
+
+Hub promotions, stages, a handful of vectors, the first Contexts for the heaviest gaps, scrolls where Loudon says, rich-face nominations.
+
+## Move 5 — Close
+
+Linters green, the health row, the report in the Loudon Live dress, the tuning run line, the To-Do walk, the memory sweep, propagate flags for the standards set, `palace-land`.
 <!-- scroll:plan:end -->
 
 ## Standing Orders
 
 <!-- scroll:orders:start -->
-_Loudon's standing direction for this ceremony — never regenerated. It holds until he revokes it, and every run reads it before it starts, beside the tuning ledger's tail read. An order meant for the next run only goes into the ledger as owed instead: "once" on the PROJECTS deck._
+- **Fewer, better links.** Loudon, 2026-10-24: "I agree that all the 'connect to' links are weak, labels or removal is fine, there will be more weaves so if we remove a connection it could come back later. lets bias toward making the links high quality and lesser, and if some come back later, great." Every weave: a bare `connects-to` is labelled, retyped or cut; a pair carries one link; a link with no reason anywhere goes, and may return with one.
 <!-- scroll:orders:end -->
 
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="run-f9723087b5" -->
+### 2026-10-24 — weave-2026-10-24, the first run under v2.0 (fewer, better links; the memory layer; the health ledger)
+
+taught items 58–61; items 60 and 61 owed
+<sub>a run under v2.0 · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="version-e2499bdc5c85ada9e441ee094885898558bea46d" -->
+### 2026-10-24 — the spec moved to v2.0
+
+edit(Weave Ceremony): v2.0 — fewer, better links; memory keeps pace with faces; health as a trend
+
+On Loudon's yes of 2026-10-24 ('Grow up, lets run it'; 'bias toward making the links high quality and lesser'; 'our original collection of link types was never meant to be eternal'). Tuning items 47–57; 29, 30, 39, 44, 45 paid. New scans: lint-link-pairs, unsaid-links, bundle-audit, label-harvest, weave-health (shared floor palace_lib). Health ledger born (kind health, union merge; a table ledger has no item numbers, so the lander will only ever note a joined line). The Concierge's cold read applied: open row in the opening steps, nine code-comment pins moved from Step 1c to 0c, Step 3e sente…
+<sub>`e2499bdc` · version change</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="version-fd3205ce602f3287c3ff0b5af90a91a63e6b9aa8" -->
+### 2026-10-22 — the spec moved to v1.9
+
+edit(Map Build Ceremony): a build is not a run — Map Build v2.6 (§ Cadence, three builds kept), Weave v1.9 (build-map.py and the map diff open to close), The Daily Page v0.6 (the morning builds the map, then deals, then reads the ring)
+
+Loudon, 2026-10-22: "The Move 3 decisions and card edits are approved as drafted. Write the build-map.py shim and its test, then have the Concierge place the card edits and commit."
+<sub>`fd3205ce` · version change</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="version-e559e64b27425ecf9b20a9194ec785fc191f5e17" -->
+### 2026-10-21 — the spec moved to v1.8
+
+edit(Weave Ceremony): the topology report names the pages with stewards' proposals owed to the ledger review, and settles none — v1.8
+
+Step 2's report gains one item, Proposals for canon: node _ops/stigmergy/list-proposals.mjs --line names the pages whose stewards have proposals owed to Loudon's ledger review; the Weave names them and settles none. It is the third of the three calls Loudon chose for the review (Project Stewardship System § What's Decided, 2026-10-21, his yes as relayed by the coordinator), by the same command the deck's count and the Return use. Placed in Step 2's report rather than Step 2.5's substrate sweep, because that sweep's findings take recover / discard / leave, and a proposal takes none of them. Th…
+<sub>`e559e64b` · version change</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="version-b9ded9346e681424936fd76b44696048bb43ceee" -->
+### 2026-10-18 — the spec moved to v1.7
+
+edit(Weave Ceremony): decisions reach every page: the propagate flag, carried by the next weave — v1.7, item 43
+
+Weave v1.7, tuning item 43 (Loudon's word, 2026-10-18). The weave is also where a decision reaches every page. Step 1c now reads two kinds of flag. Entry flags go to the worker holding source_entries[0] and close by a Palace-Resolves trailer or a "Declined flag <id>: <reason>" line; a touch is read by hand, which pays the change owed since items 21 and 24. Propagate flags are carried first: a pattern makes the linter's list the work, done by a writer as one batch Loudon samples (a foundational page is always read whole); a sweep with no pattern rides the folder pass's new DECISIONS TO CARRY s…
+<sub>`b9ded934` · version change</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="version-ad35bc0726330d6cc62295ecafb8c5d9e8ed4f54" -->
+### 2026-10-18 — the spec moved to v1.6
+
+edit(Weave Ceremony, Maker): a stale generated block fails the gate: E4 joins postcondition 2e — v1.6, item 42
+
+The Shop's roster is computed by a script but committed as text, so it goes stale whenever a Specialist is added, moved or re-statused and nobody re-runs the builder. Two weaves fixed it by hand and filed the fix as mechanical, and on 2026-10-18 it was stale again, two Makers behind, while the Shopkeeper's audit called it clean. A check twice proven mechanical earns a hard gate, so the doc-drift linter's new E4 (88c5f5f2) now fails postcondition 2e while a generated block is stale.
+<sub>`ad35bc07` · version change</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="plan-2026-10-24T21-11-48-04-00" -->
+### 2026-10-24 — Plan agreed
+
+Weave v2.0 agreed and the October weave's six moves, on Loudon's yes of 2026-10-24
+<sub>`plan-2026-10-24T21-11-48-04-00` · plan agreed · agreed 2026-10-24T21:11:48-04:00 · Loudon</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="version-02e8a535094b6b39c63e3cc9bc7fbb16f2e43493" -->
 ### 2026-10-14 — the spec moved to v1.5
 

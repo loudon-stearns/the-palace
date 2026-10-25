@@ -12,24 +12,30 @@ who_leads: loudon
 links:
   - target: "[[Action Potential Oscillator]]"
     type: connects-to
+    label: direct-solver
   - target: "[[Portamento and Physical Pitch Modeling]]"
     type: connects-to
+    label: direct-solver
   - target: "[[Bessel Functions in Synthesis]]"
     type: connects-to
+    label: generalized-system
   - target: "[[Kuramoto Coupling]]"
     type: connects-to
+    label: coupled-ODEs
   - target: "[[Granular Synthesis]]"
     type: connects-to
+    label: direct-solver
   - target: "[[Compressor Design]]"
     type: connects-to
+    label: first-order-envelope
   - target: "[[Quantum Synthesizer]]"
     type: connects-to
+    label: generalized-system
   - target: "[[Resonance and Damping]]"
     type: spawned
-  - target: "[[Crystal Synthesizer]]"
-    type: connects-to
   - target: "[[Latent Error]]"
     type: connects-to
+    label: organic-imprecision
   - target: "[[DSP Frameworks]]"
     type: connects-to
 forward_vector: "I want to become the palace's unifying mathematical lens — the hub that makes explicit what is currently implicit: that every physical instrument Loudon builds is already solving a differential equation. I want a complete map showing which palace projects correspond to which DE types — first-order, second-order, coupled — so that when a new instrument concept arrives, its mathematical kinship is immediately visible."

@@ -1,0 +1,72 @@
+[
+ {
+  "op": "remove",
+  "source": "Sentry",
+  "target": "Palace Ceremonies",
+  "type": "connects-to",
+  "why": "connects-to beside enables"
+ },
+ {
+  "op": "remove",
+  "source": "Kuramoto Coupling",
+  "target": "Threshold Conatus",
+  "type": "connects-to",
+  "why": "connects-to beside mirrors"
+ },
+ {
+  "op": "remove",
+  "source": "Dissolutions",
+  "target": "Linear Predictive Coding",
+  "type": "connects-to",
+  "why": "connects-to beside member-of"
+ },
+ {
+  "op": "remove",
+  "source": "Surfaces and Capabilities",
+  "target": "How the Palace Commits",
+  "type": "connects-to",
+  "why": "exact duplicate"
+ },
+ {
+  "op": "remove",
+  "source": "The View From Above",
+  "target": "The Dichotomy of Control",
+  "type": "couples-with",
+  "why": "symmetric stated twice; kept on The Dichotomy of Control"
+ },
+ {
+  "op": "remove",
+  "source": "ELDER",
+  "target": "JEWEL",
+  "type": "connects-to",
+  "why": "connects-to beside enables"
+ },
+ {
+  "op": "remove",
+  "source": "D3.js",
+  "target": "p5.js",
+  "type": "connects-to",
+  "why": "exact duplicate"
+ },
+ {
+  "op": "remove",
+  "source": "Wavetable Oscillator",
+  "target": "Wavetable Space as Torus",
+  "type": "connects-to",
+  "why": "connects-to beside deepens"
+ },
+ {
+  "op": "remove",
+  "source": "Map Build Ceremony",
+  "target": "Palace Ceremonies",
+  "type": "connects-to",
+  "why": "connects-to beside enables"
+ },
+ {
+  "op": "remove",
+  "source": "Modes of Collaboration",
+  "target": "Ohm's Law",
+  "type": "connects-to",
+  "why": "symmetric stated twice; kept on Ohm's Law"
+ }
+]

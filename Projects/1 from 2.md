@@ -11,20 +11,9 @@ energy: high
 hook_quality: 10
 beauty: 10
 who_leads: shared
-revival_conditions: Prose writing phase begins. All structural work, character arcs, mythic avatars, and thematic architecture complete. Time to inhabit the voices.
 links:
   - target: "[[Cooperation Yields Agency]]"
     type: spawned
-  - target: "[[Spinoza Conatus]]"
-    type: connects-to
-  - target: "[[Symbiotic Skills]]"
-    type: mirrors
-  - target: "[[FOUR PILLARS]]"
-    type: connects-to
-  - target: "[[Endosymbiosis]]"
-    type: mirrors
-  - target: "[[Trickster]]"
-    type: connects-to
   - target: https://claude.ai/chat/5e5e6393-52f7-4db4-bd4f-9e622e90d3f7
     type: connects-to
 forward_vector: "I want to move from structural architecture to inhabitable prose — the Loudon voice sections that can only be written now that the character arcs, mythic avatars, and thematic scaffolding are complete. I want to become a finished short story that demonstrates its own thesis: that cooperation deep enough cannot be claimed by a single author, and that AI alignment is a relationship problem, not a technical one."
@@ -162,5 +151,8 @@ This creates the central tension: two beings living in one body, learning to coo
 - **Prose phase:** When to inhabit the voices? The architecture is complete, the emotional truth is mapped, the mythic spines are set. The story wants to be born in Vonnegut's voice — darkly humorous, intimate yet epic, sardonic about power structures while celebrating human resilience.
 - **Scope:** Could this be expanded to a novella? Does the Vonnegut compression demand short story length, or is there room for more scenes, more family, more secondary characters? How much can you compress before the intimacy breaks?
 - **The replication blind spot:** The story argues intimate AI alignment cannot scale — you can't build a society on one-to-one symbiosis. But is this true, or is it the story's blind spot? What if the answer is that *all* alignment is ultimately intimate? That Overseer's failure is that it tried to scale control, when the only thing that scales is relationship?
+  — progressed: [[Symbiotic Skills]] § What Actually Happened is the palace's own try at scaling it: the later, formal stages proved teachable in real time; the early ones took years of prior substrate that cannot be handed over (2026-10-24)
 - **Society's response:** How do we write a society that *almost* gets it right? Loudon wants "a society ever struggling but now with a little hope, a slim chance of success if we can fight for the right future." Not utopia. Not a clear ending. A world where the hard work for us all begins.
 - **Legal & philosophical implications:** What does immortality do to property, identity, continuity? A bank account held by someone who will live forever. A marriage where one partner can die and the other can't. A child who outlives her father but not the part of him that remains. These are not footnotes — they ripple through the entire post-death arc.
+
+*When this project wakes again: Prose writing phase begins. All structural work, character arcs, mythic avatars, and thematic architecture complete. Time to inhabit the voices.*

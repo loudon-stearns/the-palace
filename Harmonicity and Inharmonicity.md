@@ -10,23 +10,14 @@ hook_quality: 8
 beauty: 8
 who_leads: shared
 links:
-  - target: "[[Kuramoto Coupling]]"
-    type: couples-with
   - target: "[[Boundary-Crossing Instruments]]"
     type: connects-to
-  - target: "[[Action Potential Oscillator]]"
-    type: connects-to
-  - target: "[[Frequency-Time Duality]]"
-    type: connects-to
+    label: candidate-family
   - target: "[[Categorizing Inharmonicity]]"
     type: spawned
   - target: "[[Piano String Inharmonicity]]"
     type: emerged-from
     label: b-coefficient-anchor
-  - target: "[[Compressor Design]]"
-    type: connects-to
-  - target: "[[Hyperdimensional Prism]]"
-    type: connects-to
   - target: "[[Portamento and Physical Pitch Modeling]]"
     type: connects-to
     label: mode-locking-built-there
@@ -41,7 +32,7 @@ The relationship between harmonic and inharmonic spectra — how partials relate
 
 ## Origin
 
-This concept has been explored across many conversations — from piano string physics and Bessel function eigenmodes to the neurological synthesizer project — but was first given its own palace entry during the Kuramoto coupling lesson series (March 2026), where the question "what happens when you couple to inharmonic partials?" produced a key insight about frustrated coupling.
+It got its own entry in the March 2026 Kuramoto lesson series, when the question "what happens when you couple to inharmonic partials?" turned up frustrated coupling.
 
 ## The Frustrated Coupling Insight
 

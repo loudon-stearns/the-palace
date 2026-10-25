@@ -1,0 +1,315 @@
+{
+ "room": "weak-11",
+ "lens": "weak-links",
+ "pages_read": [
+  "Projects/Generative Wavetable Libraries.md",
+  "JSUI.md",
+  "Latent Error.md",
+  "Projects/Neural Granular Synthesis.md",
+  "Phase Reduction.md",
+  "Playful Interface Design.md",
+  "Rank-N Lattice Analysis.md",
+  "State Machine.md",
+  "Projects/Wallpaper Groups.md",
+  "Dispersion Table.md",
+  "Boundary-Crossing Instruments.md",
+  "Projects/Inharmonic Wavetable Synthesis.md (frontmatter)",
+  "Drift and Consolidation.md",
+  "Projects/Preset Oracle.md",
+  "Projects/Action Potential Oscillator.md (frontmatter, grep)",
+  "Harmonicity and Inharmonicity.md (grep)",
+  "Projects/Semantic Delay.md",
+  "Volterra Kernels and the Torus.md",
+  "DSP Frameworks.md (frontmatter, grep)",
+  "Signal-Rate CV Architecture.md (frontmatter, grep)",
+  "Projects/Quantum Synthesizer.md",
+  "Granular Synthesis.md",
+  "Projects/Loudon Live.md (frontmatter, grep)"
+ ],
+ "weak_links": [
+  {
+   "source": "Generative Wavetable Libraries",
+   "target": "Inharmonic Wavetable Synthesis",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "proposed_type": "connects-to",
+   "proposed_label": "adjacent-research",
+   "evidence_source": "Palace Connections: '[[Inharmonic Wavetable Synthesis]] — adjacent palace research on inharmonic wavetable design'",
+   "evidence_target": "",
+   "rationale": "The source names the target as neighbouring research on the same material (wavetable design); the target never names the source, and no stronger relation (feeds, builds on) is stated anywhere.",
+   "confidence": "medium"
+  },
+  {
+   "source": "Generative Wavetable Libraries",
+   "target": "Drift and Consolidation",
+   "current_type": "connects-to",
+   "verdict": "retype",
+   "proposed_type": "exemplifies",
+   "proposed_label": "stewarded-page",
+   "evidence_source": "Under Active Stewardship: 'This page is tended by a permanent steward and may lag its live state... This footer is placed at enchantment and pruned at consolidation. See [[Drift and Consolidation]].' It also lists what is 'Not yet folded in here'.",
+   "evidence_target": "'A stewarded entry carries a standing footer, placed when the page is first enchanted, that discloses this page is under active stewardship and may lag its live state, and links to the live state.'",
+   "rationale": "The page is a live instance of the mechanism the concept describes (footer, lag disclosure, a named not-yet-folded list), so exemplifies with the source pointing at its general ground; if the weave prefers fewer, it is one of many stewarded pages and could be a body link only.",
+   "confidence": "medium"
+  },
+  {
+   "source": "JSUI",
+   "target": "Preset Oracle",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "proposed_type": "connects-to",
+   "proposed_label": "candidate-interface",
+   "evidence_source": "'the [[Preset Oracle]] has a glitchy, chaotic aesthetic that demands a custom interface... ' and 'could use JSUI for a glitchy, divination-themed preset browser'",
+   "evidence_target": "Interface Aesthetic: 'Glitchy-romantic visual design. Intentionally unreliable interface elements.' (does not name JSUI)",
+   "rationale": "JSUI says Oracle is a device that could take a JSUI interface; it is a candidate, not a built use, so not enables.",
+   "confidence": "high"
+  },
+  {
+   "source": "Latent Error",
+   "target": "Action Potential Oscillator",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "proposed_type": "connects-to",
+   "proposed_label": "coupled-oscillators",
+   "evidence_source": "'Coupled oscillators (like Kuramoto systems or neural-inspired oscillators) have latent errors in their coupling strength and frequency distribution.' (piped link [[Action Potential Oscillator|neural-inspired oscillators]])",
+   "evidence_target": "",
+   "rationale": "The source uses the oscillator as its worked case of a design assumption that fails outside one regime; the reference is brief, so the label is modest.",
+   "confidence": "medium"
+  },
+  {
+   "source": "Neural Granular Synthesis",
+   "target": "Boundary-Crossing Instruments",
+   "current_type": "connects-to",
+   "verdict": "cut",
+   "proposed_type": "",
+   "proposed_label": "",
+   "evidence_source": "",
+   "evidence_target": "",
+   "rationale": "Neither page names the other or gives a reason; the shared shape (a new control coordinate, the population instead of the grain) would be a stretch, not a stated find. Granular Synthesis, Action Potential Oscillator and Semantic Delay already carry BCI links of their own in the neighbourhood.",
+   "confidence": "medium"
+  },
+  {
+   "source": "Neural Granular Synthesis",
+   "target": "Harmonicity and Inharmonicity",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "proposed_type": "connects-to",
+   "proposed_label": "coherence-as-harmonicity",
+   "evidence_source": "Cross-Domain Resonance: '[[Harmonicity and Inharmonicity]]: population synchrony relates directly to spectral coherence; incoherent populations sound inharmonic'",
+   "evidence_target": "",
+   "rationale": "The source states the relation in one sentence: crowd synchrony is read as harmonic or inharmonic spectrum; the target does not mention the source.",
+   "confidence": "high"
+  },
+  {
+   "source": "Phase Reduction",
+   "target": "Wallpaper Groups",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "proposed_type": "connects-to",
+   "proposed_label": "symmetric-coupling",
+   "evidence_source": "Tie-home to the instrument: 'Wallpaper symmetries map onto symmetric coupling configurations: a symmetry constraint on the surface becomes a symmetry constraint on which oscillators couple to which.'",
+   "evidence_target": "",
+   "rationale": "A sentence on the source carries a specific claim: the symmetry group constrains which oscillators couple; Wallpaper Groups does not name Phase Reduction (it has a Kuramoto link only).",
+   "confidence": "high"
+  },
+  {
+   "source": "Playful Interface Design",
+   "target": "Semantic Delay",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "proposed_type": "connects-to",
+   "proposed_label": "trickster-spirits-kind",
+   "evidence_source": "'### The trickster spirits (Semantic Delay)... Each spirit has its own look and its own way of moving... Lives in [[Semantic Delay]]; the mythology in [[Trickster]].'",
+   "evidence_target": "Semantic Delay: 'The unit is a beat-up tape machine haunted by trickster spirits'; it never names Playful Interface Design.",
+   "rationale": "The catalogue of interface kinds uses Semantic Delay as the worked case of the character kind.",
+   "confidence": "high"
+  },
+  {
+   "source": "Playful Interface Design",
+   "target": "Preset Oracle",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "proposed_type": "connects-to",
+   "proposed_label": "oracle-kind",
+   "evidence_source": "'### The oracle (Preset Oracle)... The instrument has agency. It is a partner that challenges you. Lives in [[Preset Oracle]].'",
+   "evidence_target": "Preset Oracle: 'The interface performs instability — appropriate for an oracle.' (does not name Playful Interface Design)",
+   "rationale": "The catalogue uses Preset Oracle as the worked case of the instrument-with-agency kind; the pair carries one link and the JSUI-Oracle link is a separate pair.",
+   "confidence": "high"
+  },
+  {
+   "source": "Rank-N Lattice Analysis",
+   "target": "Volterra Kernels and the Torus",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "proposed_type": "connects-to",
+   "proposed_label": "stored-field",
+   "evidence_source": "'the same single-substance instinct that runs through the [[Volterra Kernels and the Torus]] and [[Dispersion Table]] entries (a stored field; the reading mechanism is the genre)'",
+   "evidence_target": "'a toroidal wavetable and a Volterra kernel are the same N-dimensional mathematical object... distinguished only by their reading mechanism.'",
+   "rationale": "Both pages treat one stored field read in different directions; the source says so in a sentence and the target's thesis matches. Not a mirrors: neither page claims the stronger identity between these two.",
+   "confidence": "medium"
+  },
+  {
+   "source": "State Machine",
+   "target": "DSP Frameworks",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "proposed_type": "connects-to",
+   "proposed_label": "framework-choice",
+   "evidence_source": "'DSP Frameworks: choosing a framework partly determines how naturally state machines can be expressed — Faust's functional approach requires threading state through feedback; Gen~ codebox allows imperative branching; JUCE/C++ gives full object-oriented state encapsulation.'",
+   "evidence_target": "",
+   "rationale": "A sentence names exactly what the framework decision changes for state machines.",
+   "confidence": "high"
+  },
+  {
+   "source": "State Machine",
+   "target": "Signal-Rate CV Architecture",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "proposed_type": "connects-to",
+   "proposed_label": "per-sample-guards",
+   "evidence_source": "Best Practices, Guard every input: 'This is especially important in [[Signal-Rate CV Architecture]] where inputs change every sample.'",
+   "evidence_target": "",
+   "rationale": "Source states why signal-rate inputs raise the stakes for guarding state-machine inputs; the target does not name the source.",
+   "confidence": "medium"
+  },
+  {
+   "source": "Wallpaper Groups",
+   "target": "Quantum Synthesizer",
+   "current_type": "connects-to",
+   "verdict": "cut",
+   "proposed_type": "",
+   "proposed_label": "",
+   "evidence_source": "Only a faint pointer in Open Questions: 'Can you sonify a hyperdimensional periodic structure, the way you sonify a quantum wavefunction?' - it does not name the entry or say how the two touch.",
+   "evidence_target": "",
+   "rationale": "Quantum Synthesizer's body has no wallpaper, lattice or tiling text; the pair has no stated reason, and it returns in a later weave if a real one appears.",
+   "confidence": "medium"
+  },
+  {
+   "source": "Wallpaper Groups",
+   "target": "Granular Synthesis",
+   "current_type": "connects-to",
+   "verdict": "cut",
+   "proposed_type": "",
+   "proposed_label": "",
+   "evidence_source": "",
+   "evidence_target": "",
+   "rationale": "Wallpaper Groups never mentions granular synthesis in its body, and Granular Synthesis has no symmetry or tiling text; no reason on either page.",
+   "confidence": "high"
+  },
+  {
+   "source": "Dispersion Table",
+   "target": "Loudon Live",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "proposed_type": "connects-to",
+   "proposed_label": "candidate-build",
+   "evidence_source": "Forward Vectors: 'Is there a clean RNBO codebox~ implementation of the FFT-phase-warp loop for a [[Loudon Live]] build?'",
+   "evidence_target": "",
+   "rationale": "The source names Loudon Live as the venue for a possible build of the idea; it is a question, so a candidate, and Loudon Live does not name the source.",
+   "confidence": "medium"
+  }
+ ],
+ "typed_relations": [],
+ "entry_health_flags": [
+  {
+   "entry": "Wallpaper Groups",
+   "stage_current": "growing",
+   "stage_proposed": null,
+   "vector_issue": "The frontmatter forward_vector (the palace's entry to the discovered ceilings of symmetry, teaching through making) and the closing '## Forward Vector' section ('I am driven to create a library of code with visual and audio applications...') say different things.",
+   "note": "Two vectors on one page; the frontmatter one is the fuller. Also a factual claim to check: 'In 1985, crystallographer M.C. Escher and mathematician H.S.M. Coxeter established what scholars later confirmed: the Alhambra's tilings contain all 17 wallpaper groups.' Escher died in 1972 and was not a crystallographer, and from memory (not verified here) that all 17 groups appear in the Alhambra is disputed in the literature. Worth a source check before the page keeps 'Not mostly. Not about. All 17.'"
+  },
+  {
+   "entry": "Phase Reduction",
+   "stage_current": "sprout",
+   "stage_proposed": null,
+   "vector_issue": null,
+   "note": "The Reconciliation note still reads as a planting instruction ('Confirm against both entries before planting'); the page is planted and already carries couples-with links to both hubs, so the note is stale."
+  },
+  {
+   "entry": "Neural Granular Synthesis",
+   "stage_current": "growing",
+   "stage_proposed": null,
+   "vector_issue": null,
+   "note": "Its link to Boundary-Crossing Instruments is the only one without a stated reason; the page is otherwise well tied (Kuramoto, Granular Synthesis, APO, Shimmer Cloud all carry sentences)."
+  }
+ ],
+ "lighter_prose": [
+  {
+   "entry": "Phase Reduction",
+   "where": "Reconciliation note",
+   "passage": "The palace already holds [[Floquet Theory]] and [[Kuramoto Coupling]] (both mature hubs)... The recommended landing is a standalone entry (this one) that both existing hubs gain a `couples-with` link to... Confirm against both entries before planting; if either already states the PRC-as-Floquet-object result, fold instead and downgrade this to a deepening link.",
+   "proposal": "delete",
+   "words": ""
+  },
+  {
+   "entry": "Phase Reduction",
+   "where": "Lost Branches / Artifact",
+   "passage": "None major — the bridge is tight and self-contained. / None generated (2026-05-08).",
+   "proposal": "delete",
+   "words": ""
+  },
+  {
+   "entry": "Phase Reduction",
+   "where": "opening, second paragraph",
+   "passage": "This entry began as an intuition: Floquet and Kuramoto *felt* like they should be connected. The session's job was to make the feeling precise. That pattern — intuition first, formalization confirming rather than correcting — recurs across the DSP-theory cluster... and it is itself worth naming: these structural-kinship hunches have a high hit rate.",
+   "proposal": "simplify",
+   "words": "Loudon's hunch that Floquet and Kuramoto were kin turned out to be a derivation; the same has happened with Chebyshev is Fourier and the Volterra unification."
+  },
+  {
+   "entry": "Rank-N Lattice Analysis",
+   "where": "Note on the T3 material / Lost Branches / Artifact",
+   "passage": "If that T³ regime taxonomy already lives in [[DSP in Looping Dimensions]], it should be *linked, not duplicated*... / The pure-T³ regime taxonomy, if already in [[DSP in Looping Dimensions]] — link, don't re-document. / None generated — a conceptual / mental-model session (2026-04-26). The closing quote block from this session is excellent and is reused below.",
+   "proposal": "simplify",
+   "words": "The T³ extension (three harmonicity gates, regimes set by which pairs lock) lives in [[DSP in Looping Dimensions]]; this page holds the analysis side. Delete Lost Branches and the Artifact line."
+  },
+  {
+   "entry": "Rank-N Lattice Analysis",
+   "where": "The synth as its own oscilloscope",
+   "passage": "This is why the link to the torus synthesizer is a `mirrors`: the duality is structural identity, the same single-substance instinct that runs through the [[Volterra Kernels and the Torus]] and [[Dispersion Table]] entries (a stored field; the reading mechanism is the genre).",
+   "proposal": "simplify",
+   "words": "The same stored-field idea runs through [[Volterra Kernels and the Torus]] and [[Dispersion Table]]: the field is one thing, the reading mechanism is the genre."
+  },
+  {
+   "entry": "Dispersion Table",
+   "where": "From one curve to a table",
+   "passage": "the same control under two descriptions, which is why the link to the torus is a `mirrors`, not a mere `connects-to`.",
+   "proposal": "simplify",
+   "words": "the same control under two descriptions."
+  },
+  {
+   "entry": "Dispersion Table",
+   "where": "Lost Branches",
+   "passage": "The full waveguide-synthesis scaffolding... belongs to [[Waveguide Synthesizer]] and the forthcoming [[Linear Predictive Coding]] entry — link rather than re-document. / The frontier tail... overlaps the existing Floquet entries — link, don't duplicate.",
+   "proposal": "delete",
+   "words": ""
+  },
+  {
+   "entry": "State Machine",
+   "where": "The Textual Transition (HTML comment)",
+   "passage": "<!-- FLAG: The 4 code blocks above are kept in full per task instructions. The JS and Python blocks are condensed single-state excerpts... -->",
+   "proposal": "delete",
+   "words": ""
+  },
+  {
+   "entry": "Wallpaper Groups",
+   "where": "World Music mapping (HTML comment and italic preamble)",
+   "passage": "<!-- CLAUDE → LOUDON: This section is seeded from an enrichment card. Loudon noted it is 'an exciting direction for the entry to go'... --> / *This section emerged from a direct question: have practitioners of Carnatic rhythm... Short answer: yes, at least three mappings appear non-metaphorical. This section is a starting point; it wants deep research and expansion.*",
+   "proposal": "simplify",
+   "words": "Three mappings that look non-metaphorical: Carnatic tāla, West African bell patterns, Afro-Cuban clave. A starting point that wants deeper research. (Delete the HTML comment; the open invitations below already say it.)"
+  },
+  {
+   "entry": "JSUI",
+   "where": "Connection to Four Pillars",
+   "passage": "JSUI touches all four: - **Creation**: The interface is a creative artifact... - **Tools**: ... - **Philosophy**: ... - **Practice**: Building with JSUI is hands-on, iterative, involves friction and discovery",
+   "proposal": "delete",
+   "words": ""
+  },
+  {
+   "entry": "Generative Wavetable Libraries",
+   "where": "opening, second paragraph",
+   "passage": "This entry was born 2026-05-02 by migration: the wavetable material previously housed inside [[Generative Sample Libraries]] split off into its own home when GSL refocused on multisampled instruments only. The two projects share philosophical backbone but diverge enough in format work, mathematics of frame generation, and use case that one entry was conflating them.",
+   "proposal": "simplify",
+   "words": "Split off from [[Generative Sample Libraries]] in May 2026: same backbone, different formats, different mathematics, different use."
+  }
+ ],
+ "summary": "Read all 14 members and the 12 link targets (frontmatter plus the passages naming the other page, with grep for the unsaid ones). Pattern: most bare links are real but unlabelled, and the source's body already carries the reason in a sentence (Playful Interface Design's catalogue of kinds, State Machine's cross-references, Phase Reduction's tie-home, JSUI's use cases), so 11 get a label, 1 is retyped to exemplifies, and 3 are cut (Neural Granular Synthesis to Boundary-Crossing Instruments, Wallpaper Groups to Quantum Synthesizer, Wallpaper Groups to Granular Synthesis) because neither page gives a reason. The Wallpaper Groups to Quantum Synthesizer cut leans on one faint question about sonifying a quantum wavefunction, which does not name the entry. I proposed no new typed relations and no inbound links for the newcomer entries, as nothing in this room genuinely reaches them. Could not settle: whether Generative Wavetable Libraries to Drift and Consolidation deserves a typed link at all, since every stewarded page carries the same footer (I kept it as exemplifies, medium confidence); and the Alhambra claim on Wallpaper Groups, which I flagged from memory and did not verify."
+}

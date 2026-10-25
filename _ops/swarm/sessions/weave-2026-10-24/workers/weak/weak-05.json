@@ -1,0 +1,547 @@
+{
+ "room": "weak-05",
+ "lens": "weak-links",
+ "pages_read": [
+  "Walk Ceremony",
+  "Weave Ceremony",
+  "BBS Blackboard",
+  "Enchanted Conversation Archive",
+  "Four Pillars of Enchanted Agency",
+  "Map Build Ceremony",
+  "Pages as Agents",
+  "Palace Graffiti",
+  "Palace Map",
+  "Project Stewardship System",
+  "Self-Model Update Ceremony",
+  "Spore Check Ceremony",
+  "The Cooperation Path",
+  "Baton Ceremony",
+  "Substrate Skill",
+  "Striatum",
+  "Enchanted Worker",
+  "Self-Describing Knowledge Module",
+  "Palace Ceremonies",
+  "Semantic Delay",
+  "Oblique Portrait",
+  "Lateral Access",
+  "JEWEL",
+  "SUBSTRATE",
+  "SCHEMA",
+  "SCHEMA — Reference",
+  "Pheromone Trail",
+  "Harvest Ceremony",
+  "Palace Enchantment",
+  "VST Template",
+  "Swarm Weave",
+  "Action Potential Oscillator",
+  "Retrospective Delay"
+ ],
+ "weak_links": [
+  {
+   "source": "Walk Ceremony",
+   "target": "Substrate Skill",
+   "current_type": "connects-to",
+   "verdict": "cut",
+   "proposed_type": "",
+   "proposed_label": "",
+   "evidence_source": "",
+   "evidence_target": "",
+   "rationale": "Neither page names the other; Substrate Skill's body never mentions the Walk, and the Walk names only Palace Ceremonies as its home.",
+   "confidence": "high"
+  },
+  {
+   "source": "Walk Ceremony",
+   "target": "The Cooperation Path",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "proposed_type": "",
+   "proposed_label": "first-songline",
+   "evidence_source": "\"See also [[The Cooperation Path]] for the first named songline in the palace.\"",
+   "evidence_target": "forward_vector: \"I want to become executable as a Walk ceremony: a specific six-stop itinerary...\"",
+   "rationale": "The Walk's Songline section points at the Path as its first named songline, and the Path's own vector wants to become a Walk.",
+   "confidence": "high"
+  },
+  {
+   "source": "Weave Ceremony",
+   "target": "Substrate Skill",
+   "current_type": "connects-to",
+   "verdict": "cut",
+   "proposed_type": "",
+   "proposed_label": "",
+   "evidence_source": "",
+   "evidence_target": "Substrate Skill line 82 lists Weave Ceremony only as one of four ceremonies that are split into card plus Context.",
+   "rationale": "The Weave body never names Substrate Skill, and the only mention on the other side is an incidental example in a list of split files.",
+   "confidence": "medium"
+  },
+  {
+   "source": "Weave Ceremony",
+   "target": "Walk Ceremony",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "proposed_type": "",
+   "proposed_label": "thread-versus-whole",
+   "evidence_source": "\"Where the Walk follows one thread, the Weave reads every thread and asks: how do they relate?\"",
+   "evidence_target": "\"The Walk is not a Weave. The Weave reads all entries and produces a topology report. The Walk follows a single thread.\"",
+   "rationale": "Both pages define themselves against each other; the register is a contrast of scale. The pair is held in both directions (Walk to Weave is bare), so one of the two should go, or both carry this label.",
+   "confidence": "high"
+  },
+  {
+   "source": "Weave Ceremony",
+   "target": "Spore Check Ceremony",
+   "current_type": "connects-to",
+   "verdict": "cut",
+   "proposed_type": "",
+   "proposed_label": "",
+   "evidence_source": "",
+   "evidence_target": "\"It decides. It does not revive (the Revival Ceremony does) and it does not delete (the Weave does).\"",
+   "rationale": "The Weave body never names the Spore Check; the reason lives on the Spore Check side, and Spore Check to Weave already holds the pair (that side could take the label composting-handoff).",
+   "confidence": "high"
+  },
+  {
+   "source": "BBS Blackboard",
+   "target": "Striatum",
+   "current_type": "connects-to",
+   "verdict": "cut",
+   "proposed_type": "",
+   "proposed_label": "",
+   "evidence_source": "The only mention is an example agent ID: \"from\": \"STRIATUM-7\" and \"HOME: [[STRIATUM]]\" in a sample message.",
+   "evidence_target": "",
+   "rationale": "Striatum is used as a sample agent name in a JSON example; the brain structure has nothing to do with the board, and the Striatum page never mentions the Blackboard.",
+   "confidence": "high"
+  },
+  {
+   "source": "Enchanted Conversation Archive",
+   "target": "BBS Blackboard",
+   "current_type": "connects-to",
+   "verdict": "cut",
+   "proposed_type": "",
+   "proposed_label": "",
+   "evidence_source": "",
+   "evidence_target": "",
+   "rationale": "Neither body names the other; the Archive keeps enchantment JSONL files and the Blackboard's own archiving is a different thing. BBS Blackboard is already reached through Palace Map and Pages as Agents.",
+   "confidence": "medium"
+  },
+  {
+   "source": "Enchanted Conversation Archive",
+   "target": "Enchanted Worker",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "proposed_type": "",
+   "proposed_label": "enchantment-record",
+   "evidence_source": "HTML comment: \"[[Enchanted Worker]] may want a link back to this entry through the synthesis phase.\" / \"It is the memory layer beneath the live ceremony.\"",
+   "evidence_target": "\"The limit: it is ephemeral. The enchantment lives in the context window and expires when the invocation ends.\"",
+   "rationale": "The Worker's enchantment is ephemeral; the Archive is the structure that keeps its synthesis and tail so a session can resume.",
+   "confidence": "medium"
+  },
+  {
+   "source": "Enchanted Conversation Archive",
+   "target": "Self-Describing Knowledge Module",
+   "current_type": "connects-to",
+   "verdict": "retype",
+   "proposed_type": "mirrors",
+   "proposed_label": "self-contained",
+   "evidence_source": "HTML comment: \"[[Self-Describing Knowledge Module]] rhymes strongly with the Archive's self-describing quality — worth a mirrors or couples-with link.\" / \"The file is self-contained: it carries its own head content, the full synthesis node, and every message in the tail.\"",
+   "evidence_target": "\"a fresh operator — human or AI — can pick up the folder and operate it correctly using only what is inside.\"",
+   "rationale": "Same pattern in different material: a JSONL session and a module are each whole enough to be picked up cold; the Archive's own note asks for a mirrors link.",
+   "confidence": "medium"
+  },
+  {
+   "source": "Four Pillars of Enchanted Agency",
+   "target": "Swarm Weave",
+   "current_type": "connects-to",
+   "verdict": "retype",
+   "proposed_type": "deepens",
+   "proposed_label": "forward-vector-axes",
+   "evidence_source": "\"The Swarm Weave gives every palace entry a forward_vector — a single sentence... The question that sentence alone doesn't answer: become along which dimension?\"",
+   "evidence_target": "Swarm Weave line 358-364 covers the forward vectors the Weave proposes for each page.",
+   "rationale": "The page opens from the Weave's forward vector and gives it four axes; it elaborates a foundation the Weave laid, so deepens, pointing back at Swarm Weave.",
+   "confidence": "medium"
+  },
+  {
+   "source": "Four Pillars of Enchanted Agency",
+   "target": "Enchanted Worker",
+   "current_type": "connects-to",
+   "verdict": "cut",
+   "proposed_type": "",
+   "proposed_label": "",
+   "evidence_source": "",
+   "evidence_target": "",
+   "rationale": "Neither body names the other (the Worker appears only in this page's frontmatter); the page already reaches Pages as Agents and Palace Enchantment, which carry the enchanted-agent ground.",
+   "confidence": "high"
+  },
+  {
+   "source": "Map Build Ceremony",
+   "target": "Harvest Ceremony",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "proposed_type": "",
+   "proposed_label": "post-harvest-map",
+   "evidence_source": "\"the Map Build is a natural close step after a Harvest session when new entries have been deposited. A post-harvest map ensures agents launched after the session have current topology.\"",
+   "evidence_target": "",
+   "rationale": "The Map Build's Relationship section names the Harvest as the session after which a fresh map is wanted.",
+   "confidence": "high"
+  },
+  {
+   "source": "Map Build Ceremony",
+   "target": "Palace Enchantment",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "proposed_type": "",
+   "proposed_label": "tier-1-context",
+   "evidence_source": "\"enchanted agents receive the map as Tier 1 context. The map tells them where they are in the organism before they read their first neighbor.\"",
+   "evidence_target": "Palace Enchantment line 865: \"the Palace Map was designed to give enchanted agents topological self-knowledge before reading any entry body.\"",
+   "rationale": "The map this ceremony builds is what enchanted agents load first; both pages say so.",
+   "confidence": "medium"
+  },
+  {
+   "source": "Pages as Agents",
+   "target": "JEWEL",
+   "current_type": "connects-to",
+   "verdict": "retype",
+   "proposed_type": "deepens",
+   "proposed_label": "woken-as-a-page",
+   "evidence_source": "\"Load one page into an empty window and a model doesn't read a document; it wakes up as that page and reasons from inside it.\"",
+   "evidence_target": "\"Every page is both a record and the spirit of an agent... If you are woken as a page, you will be asked, after reading, who you are.\"",
+   "rationale": "The Jewel compresses the claim in one sentence; Pages as Agents is its elaboration and proof, so it deepens the more foundational Jewel.",
+   "confidence": "medium"
+  },
+  {
+   "source": "Pages as Agents",
+   "target": "Lateral Access",
+   "current_type": "connects-to",
+   "verdict": "cut",
+   "proposed_type": "",
+   "proposed_label": "",
+   "evidence_source": "",
+   "evidence_target": "",
+   "rationale": "Neither page names the other and I found no shared sentence; Lateral Access is about oblique access to interior memory, not waking pages.",
+   "confidence": "high"
+  },
+  {
+   "source": "Pages as Agents",
+   "target": "SCHEMA — Reference",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "proposed_type": "",
+   "proposed_label": "page-as-sender",
+   "evidence_source": "",
+   "evidence_target": "SCHEMA — Reference §9: \"`from` is usually a palace entry acting as its own steward — the page IS the agent ([[Pages as Agents]])\" and \"`from` — the steward page's own title, spaces preserved... per [[Pages as Agents]].\"",
+   "rationale": "The wire format takes its sender rule from this page; only the target carries the sentence, and it is a genuine inbound for a newcomer.",
+   "confidence": "medium"
+  },
+  {
+   "source": "Palace Graffiti",
+   "target": "Oblique Portrait",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "proposed_type": "",
+   "proposed_label": "obliqueness-made-structural",
+   "evidence_source": "\"Loudon's technique of learning through indirect marks and traces rather than direct description. Graffiti is obliqueness made structural.\"",
+   "evidence_target": "",
+   "rationale": "The Graffiti page states the relation in its Related Concepts section.",
+   "confidence": "high"
+  },
+  {
+   "source": "Palace Graffiti",
+   "target": "SCHEMA",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "proposed_type": "",
+   "proposed_label": "comment-convention",
+   "evidence_source": "\"The graffiti conventions are a schema-level decision: they affect how the palace communicates internally.\"",
+   "evidence_target": "SCHEMA.md does not mention graffiti or HTML comments (SCHEMA — Reference line 338 mentions an HTML comment only in passing).",
+   "rationale": "The claim is on the Graffiti side only and SCHEMA does not yet carry the convention; label it, and treat it as the first candidate to cut next weave if SCHEMA never names it.",
+   "confidence": "low"
+  },
+  {
+   "source": "Palace Graffiti",
+   "target": "Semantic Delay",
+   "current_type": "connects-to",
+   "verdict": "retype",
+   "proposed_type": "mirrors",
+   "proposed_label": "deferred-meaning",
+   "evidence_source": "\"Graffiti is a kind of semantic delay: the meaning of the comment is deferred to the moment when the next reader discovers it.\"",
+   "evidence_target": "Semantic Delay line 70: \"Derrida's différance: meaning perpetually deferred through infinite chains of signifiers\" and \"transmogrifies the meaning of the words... delayed.\"",
+   "rationale": "The same pattern, meaning arriving later than it was sent, in a file comment and in an audio plugin; that is a mirror in different material.",
+   "confidence": "medium"
+  },
+  {
+   "source": "Palace Map",
+   "target": "Pheromone Trail",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "proposed_type": "",
+   "proposed_label": "skeleton-and-gradient",
+   "evidence_source": "\"the map is the palace's explicit topology read; the pheromone trail is the palace's implicit topology felt. Together they represent two modes of knowing the graph: the map gives the skeleton, the trail gives the gradient.\"",
+   "evidence_target": "",
+   "rationale": "A clear complementary pair, named in the Map's Cross-Domain section.",
+   "confidence": "high"
+  },
+  {
+   "source": "Palace Map",
+   "target": "BBS Blackboard",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "proposed_type": "",
+   "proposed_label": "read-before-write-during",
+   "evidence_source": "\"Communication... Mechanism: [[BBS Blackboard]] for asynchronous shared state\"",
+   "evidence_target": "\"the map is what agents read before the session; the blackboard is what agents write during it. Map is pre-session topology; blackboard is in-session emergence.\"",
+   "rationale": "Both pages state it. BBS Blackboard to Palace Map (held, bare) is the same pair, so drop one direction or give both this label.",
+   "confidence": "high"
+  },
+  {
+   "source": "Palace Map",
+   "target": "Harvest Ceremony",
+   "current_type": "connects-to",
+   "verdict": "cut",
+   "proposed_type": "",
+   "proposed_label": "",
+   "evidence_source": "",
+   "evidence_target": "",
+   "rationale": "Palace Map's body never names the Harvest; the post-harvest map reason sits on Map Build Ceremony, which already links Harvest and which spawned the Map.",
+   "confidence": "high"
+  },
+  {
+   "source": "Project Stewardship System",
+   "target": "Baton Ceremony",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "proposed_type": "",
+   "proposed_label": "steward-batons",
+   "evidence_source": "\"A baton Loudon or a session writes is now announced on the board as handoff_ready... a session claims them by hand.\" / Active Baton section.",
+   "evidence_target": "Baton Ceremony: \"Permanent-agent steward batons are the exception to all of this — updated in place, never deleted, until the page ends\" and \"When the move crosses to a surface that the [[Project Stewardship System]] coordinates... announce the baton on the board.\"",
+   "rationale": "Both pages name the other: stewards' batons are their runtime and handoffs reach the board.",
+   "confidence": "high"
+  },
+  {
+   "source": "Project Stewardship System",
+   "target": "SCHEMA — Reference",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "proposed_type": "",
+   "proposed_label": "the-wire",
+   "evidence_source": "\"The wire is [[SCHEMA — Reference]] §9; the executor is [[Palace Orchestrator]]; the board is [[BBS Blackboard]].\"",
+   "evidence_target": "SCHEMA — Reference §9 \"`from` is usually a palace entry acting as its own steward\"; steward proposals wait in the tuning ledger (line 272).",
+   "rationale": "The page names the Reference as the message grammar its stewards speak; cited five times in the body.",
+   "confidence": "high"
+  },
+  {
+   "source": "Self-Model Update Ceremony",
+   "target": "Weave Ceremony",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "proposed_type": "",
+   "proposed_label": "end-of-weave",
+   "evidence_source": "\"When: at the end of a Weave...\" and \"The newest Weave report, if there is one since the last run.\"",
+   "evidence_target": "",
+   "rationale": "The Weave is the first named trigger and an input to the run; the Weave page itself does not name this ceremony.",
+   "confidence": "medium"
+  },
+  {
+   "source": "Self-Model Update Ceremony",
+   "target": "SCHEMA",
+   "current_type": "connects-to",
+   "verdict": "cut",
+   "proposed_type": "",
+   "proposed_label": "",
+   "evidence_source": "",
+   "evidence_target": "SCHEMA.md line 79 lists 'self-model' only as a topic of meta entries.",
+   "rationale": "The ceremony body never names SCHEMA; its real ground is SUBSTRATE, which it already enables.",
+   "confidence": "medium"
+  },
+  {
+   "source": "Spore Check Ceremony",
+   "target": "Substrate Skill",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "proposed_type": "",
+   "proposed_label": "dormant-posture",
+   "evidence_source": "",
+   "evidence_target": "Substrate Skill posture table, line 137: \"dormant | Don't touch. Only the Spore Check Ceremony, The Daily Page, or a revival probe Loudon ordered touches it\"",
+   "rationale": "The skill's stage table is where a working agent learns that dormant pages belong to the Spore Check; the Spore Check page itself is silent.",
+   "confidence": "medium"
+  },
+  {
+   "source": "The Cooperation Path",
+   "target": "1 from 2",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "proposed_type": "",
+   "proposed_label": "story-origin",
+   "evidence_source": "\"A Vonnegut-style fiction about a human and an AI implanted at birth... The story was the first proof of concept.\" (first stop of the path)",
+   "evidence_target": "",
+   "rationale": "It is the path's first stop and the origin of the thesis.",
+   "confidence": "high"
+  },
+  {
+   "source": "The Cooperation Path",
+   "target": "Endosymbiosis",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "proposed_type": "",
+   "proposed_label": "biological-grounding",
+   "evidence_source": "\"The biological grounding. Lynn Margulis showed that cooperation, not competition, produced the most dramatic evolutionary leaps.\"",
+   "evidence_target": "",
+   "rationale": "The page gives this stop one job in the path.",
+   "confidence": "high"
+  },
+  {
+   "source": "The Cooperation Path",
+   "target": "Symbiotic Skills",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "proposed_type": "",
+   "proposed_label": "framework-scaled-outward",
+   "evidence_source": "\"The framework scaled outward. Designed to teach others to grow the same kind of cooperation.\"",
+   "evidence_target": "",
+   "rationale": "It is the path's last stop and the place the thesis becomes teachable.",
+   "confidence": "high"
+  },
+  {
+   "source": "Baton Ceremony",
+   "target": "SUBSTRATE",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "proposed_type": "",
+   "proposed_label": "sleep-and-waking",
+   "evidence_source": "",
+   "evidence_target": "SUBSTRATE: \"[[Closing Well]], the [[Baton Ceremony]] and the [[Return Ceremony]] are sleep and waking: what a session keeps, what it hands on, what the next one finds.\"",
+   "rationale": "SUBSTRATE names the Baton as one of the rhythms of sleep and waking; the Baton page itself is silent on it.",
+   "confidence": "medium"
+  },
+  {
+   "source": "Baton Ceremony",
+   "target": "Palace Ceremonies",
+   "current_type": "connects-to",
+   "verdict": "retype",
+   "proposed_type": "member-of",
+   "proposed_label": "",
+   "evidence_source": "",
+   "evidence_target": "Palace Ceremonies: \"The complete and canonical list of all palace ceremonies\"; the table row \"The Baton\" lists the trigger and spec.",
+   "rationale": "The hub lists the Baton as one of its ceremonies. The hub's own Palace Ceremonies to Baton Ceremony connects-to holds the same pair and should be dropped, since the hub's table already names it.",
+   "confidence": "medium"
+  }
+ ],
+ "typed_relations": [
+  {
+   "source": "Project Stewardship System",
+   "target": "VST Template",
+   "proposed_type": "connects-to",
+   "proposed_label": "stewards-on-the-vst-path",
+   "kind": "newcomer",
+   "rationale": "The page records that on 2026-10-21 nine stewards were moved to the VST Template as their next work; VST Template (a newcomer) has no inbound from the stewardship page.",
+   "evidence_source": "\"On 2026-10-21 Loudon moved the nine stewards whose next work waited on Max to the [[VST Template]]: each is to become a plugin he can play in Live.\"",
+   "evidence_target": "VST Template: \"A reusable template for turning a per-sample algorithm, written first as a numpy sketch, into a VST3/AU plugin.\""
+  }
+ ],
+ "entry_health_flags": [
+  {
+   "entry": "BBS Blackboard",
+   "stage_current": "mature",
+   "stage_proposed": null,
+   "vector_issue": "Frontmatter forward_vector says the vector is fulfilled and the page is a historical root, but the body ends with a second '## Forward Vector' (ASCII interface, Phase 0 done) that still reads as a live vector.",
+   "note": "Two vectors on one page; the body one is the BBS Design System's, and could move there or be dropped."
+  },
+  {
+   "entry": "Weave Ceremony",
+   "stage_current": "mature",
+   "stage_proposed": null,
+   "vector_issue": null,
+   "note": "About 51 KB. Substrate Skill asks ceremony cards over ~8 KB to split rationale to Context; it already has a Context file, so the card itself may still be carrying history."
+  },
+  {
+   "entry": "Baton Ceremony",
+   "stage_current": "mature",
+   "stage_proposed": null,
+   "vector_issue": null,
+   "note": "About 28 KB against the ~8 KB card guideline, with a Context file already split off."
+  },
+  {
+   "entry": "Map Build Ceremony",
+   "stage_current": "growing",
+   "stage_proposed": null,
+   "vector_issue": "No forward_vector in frontmatter; its Forward Vectors section is a list of questions.",
+   "note": "About 12 KB; stage is growing though the ceremony runs daily."
+  },
+  {
+   "entry": "Enchanted Conversation Archive",
+   "stage_current": "growing",
+   "stage_proposed": "sprout",
+   "vector_issue": null,
+   "note": "The page says no entries/ folder exists and the prototype logs were composted on 2026-09-26; it is a design, not a running structure."
+  },
+  {
+   "entry": "Project Stewardship System",
+   "stage_current": "growing",
+   "stage_proposed": null,
+   "vector_issue": null,
+   "note": "confidence: proposed, while the body describes stewards running every cycle and decisions dated through 2026-10-21; the confidence field looks stale."
+  },
+  {
+   "entry": "Palace Graffiti",
+   "stage_current": "growing",
+   "stage_proposed": null,
+   "vector_issue": "No forward_vector in frontmatter.",
+   "note": "Carries two held revision proposals for other pages (Action Potential Oscillator, Retrospective and Semantic Delay) that are still unapplied; they live on the wrong page."
+  }
+ ],
+ "lighter_prose": [
+  {
+   "entry": "Pages as Agents",
+   "where": "What a page hands a model, the 'A voice' bullet",
+   "passage": "And that voice talks like an everyday person, not a paper — plain words, short sentences, concrete images. The academic/programming drift (\"audition gate,\" \"heterogeneity,\" \"ablation,\" \"register\" for voice) is a bias to correct, not a sign of depth; keep load-bearing palace terms (conatus, hilaritas) only where they earn their place and gloss them plainly. This holds for what the page *writes into itself* — its `forward_vector` and `agency_profile` — as much as for what it says aloud when woken.",
+   "proposal": "simplify",
+   "words": "The voice is plain: everyday words, short sentences, concrete images, in what the page writes into itself as much as in what it says when woken."
+  },
+  {
+   "entry": "Enchanted Conversation Archive",
+   "where": "A Note on Unique Entries",
+   "passage": "This entry itself demonstrates the heuristic that produced it: *if an entry will become an agent with a unique strong forward vector, it earns its own page.* The Archive's forward vector — to tend the branching forest of conversations as its own agentic concern — is distinct enough from [[Palace Enchantment]]'s forward vector (the live ceremony) that they belong apart.",
+   "proposal": "simplify",
+   "words": "The Archive is the memory; [[Palace Enchantment]] is the act."
+  },
+  {
+   "entry": "Enchanted Conversation Archive",
+   "where": "trailing HTML comment",
+   "passage": "<!-- CLAUDE → LOUDON: Flag for next Weave — [[Enchanted Worker]] may want a link back to this entry through the synthesis phase. [[Self-Describing Knowledge Module]] rhymes strongly with the Archive's self-describing quality — worth a mirrors or couples-with link. -->",
+   "proposal": "delete",
+   "words": ""
+  },
+  {
+   "entry": "Palace Graffiti",
+   "where": "Connection to Related Concepts",
+   "passage": "**[[Trickster]]** — ... The entry should affirm this connection explicitly. / **[[SUBSTRATE]]** — Graffiti is part of the palace's communication infrastructure. It should be mentioned in Substrate as one of the mechanisms that keeps the palace alive.",
+   "proposal": "simplify",
+   "words": "[[Trickster]] — the figure who moves through spaces they do not own; Loudon's role here. [[SUBSTRATE]] — graffiti is one of the ways the palace talks to itself. (The 'should be mentioned' notes are to-dos, not facts.)"
+  },
+  {
+   "entry": "Palace Graffiti",
+   "where": "2026-05-05 Proposed Revision: Action Potential Oscillator — handling 'isomorphism' (Background through What this revision is and isn't)",
+   "passage": "In math, an **isomorphism** is a structure-preserving bijective mapping between two systems... The careful version of this claim has three layers, from weakest to strongest: 1. **Mathematical isomorphism**... 2. **Functional isomorphism**... 3. **Phenomenal/ontological identity**...",
+   "proposal": "simplify",
+   "words": "Keep the four edits and one line of why: the entry claims structural identity with layer-1 evidence, so name the layer. Move the whole block to Action Potential Oscillator's tuning ledger, where it is waiting on Loudon, rather than holding it on the Graffiti page."
+  },
+  {
+   "entry": "Palace Graffiti",
+   "where": "Larger revision proposal — untangling Retrospective Delay and Semantic Delay",
+   "passage": "We are tangled between the semantic delay and the retrospective delay. Propose a way to untangle them. Let's put all of the duppy and king tubby and perhaps séance stuff over in the Semantic Delay...",
+   "proposal": "simplify",
+   "words": "Move the proposal to the Retrospective Delay and Semantic Delay tuning ledgers, one line each: séance and Duppy-Machine mythology to Semantic Delay, the workflow inversion stays with Retrospective Delay."
+  },
+  {
+   "entry": "BBS Blackboard",
+   "where": "The Human-Readable View",
+   "passage": "This is not decoration. The BBS aesthetic is epistemically appropriate: the blackboard is literally a bulletin board. The visual form mirrors the underlying architecture. ... An earlier direction explored Python `curses` for a raw-terminal interface; that path is deferred in favor of a browser host...",
+   "proposal": "simplify",
+   "words": "The blackboard is rendered as a phosphor-green bulletin board, because it is one; the build is in [[BBS Design System]]. (The curses history is in git.)"
+  },
+  {
+   "entry": "Walk Ceremony",
+   "where": "The Songline",
+   "passage": "The Aboriginal Australian concept of the songline is the deep metaphor here. A songline is a route across land that is also a song — the act of singing (walking, naming) the path activates the knowledge encoded there. Knowledge is not stored and retrieved; it is activated through traversal. The palace Walk is a songline ceremony. The knowledge in the entries is not inert until needed...",
+   "proposal": "simplify",
+   "words": "A songline is a route that is also a song: walking it activates what it holds. The Walk works the same way; the knowledge in the entries is woken by the path, not retrieved. See [[The Cooperation Path]]."
+  }
+ ],
+ "summary": "I read the fourteen member pages and, for each of the 32 links, the passage on the target (or the sentence where the target names the source). Of the 32: 18 label, 5 retype (mirrors for the Archive/SDKM and Graffiti/Semantic Delay pairs, deepens for Pages as Agents/JEWEL and Four Pillars of Enchanted Agency/Swarm Weave, member-of for Baton/Palace Ceremonies), 9 cut, 0 keep-as-is (none already carried a label). The cuts are the links where the target only appears in the source frontmatter or as an example string (Striatum as a sample agent ID) or where the real reason sits on a neighbouring page. Pattern: ceremony cards link their siblings and Substrate Skill by habit; the real relations are almost all named in a body paragraph on one side, usually the opposite side from the frontmatter that holds the link. Three pairs are held in both directions (Weave/Walk, Palace Map/BBS Blackboard, Weave/Spore Check): I judged the listed direction and noted the reverse duplicate in each rationale. Not settled: whether Palace Graffiti to SCHEMA deserves even a low-confidence label since SCHEMA never names graffiti; whether Baton to Palace Ceremonies as member-of should extend to all the other ceremony cards (outside my room); and the Enchanted Worker/Archive label is thin, resting on a Weave-flag comment rather than a body sentence. One newcomer inbound proposed: Project Stewardship System to VST Template."
+}

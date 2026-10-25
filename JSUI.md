@@ -5,7 +5,7 @@ pillars:
   - tools
   - creation
 born: 2026-01
-stage: sprout
+stage: dormant
 confidence: hypothesis
 energy: medium
 hook_quality: 6
@@ -15,12 +15,12 @@ revival_conditions: Continued work with Max/MSP and JavaScript — building inte
 links:
   - target: "[[Retrospective Delay]]"
     type: spawned
-  - target: "[[FOUR PILLARS]]"
-    type: connects-to
   - target: "[[Preset Oracle]]"
     type: connects-to
-  - target: "[[Playful Interface Design]]"
-    type: connects-to
+    label: candidate-interface
+  - target: "[[FOUR PILLARS]]"
+    type: exemplifies
+    label: touches-all-four
 forward_vector: "I want to become a fully revived project entry with a staged curriculum: JSUI as the theatrical layer in Max/MSP instrument design, from basic drawing to animated state machines to the full Retrospective Delay character system. My revival depends on the next plugin reaching Stage 4 — when that happens, I am ready."
 ---
 
@@ -82,15 +82,6 @@ Current examples in the palace:
 - [[Retrospective Delay]] — needs JSUI for the animated character interface (the séance metaphor)
 - [[Preset Oracle]] — could use JSUI for a glitchy, divination-themed preset browser
 - Any future device with a bespoke visual identity
-
-## Connection to Four Pillars
-
-JSUI touches all four:
-
-- **Creation**: The interface is a creative artifact—visual design expressing the device's core metaphor
-- **Tools**: JSUI is a technical tool in Max/MSP; mastering it expands your creative toolkit
-- **Philosophy**: The interface embodies ideas—beauty, play, ceremony—about how humans interact with technology
-- **Practice**: Building with JSUI is hands-on, iterative, involves friction and discovery
 
 ## Open Questions
 

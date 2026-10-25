@@ -1,0 +1,1356 @@
+{
+ "Palace Graffiti": {
+  "prose": [
+   {
+    "entry": "Palace Graffiti",
+    "where": "§ 2026-05-05 — Proposed Revision … and § Larger revision proposal (Palace Graffiti.md:153-262)",
+    "passage": "## 2026-05-05 — Proposed Revision: [[Action Potential Oscillator]] — handling \"isomorphism\" … Held here for review; **not committed to the entry yet**. … ## Larger revision proposal — untangling [[Retrospective Delay]] and [[Semantic Delay]] … not yet committed to either entry.",
+    "proposal": "delete",
+    "words": "Move to the owning bundles or the To-Do and leave one line: 'Two larger-revision drafts were held here in May 2026; neither was applied; see <where>.' That is about 13 KB of 23 KB.",
+    "_room": "folder-ops"
+   },
+   {
+    "entry": "Palace Graffiti",
+    "where": "§ The Temporal Trick (:74-105)",
+    "passage": "Session A: / Loudon reads entry X, sees a thin spot, leaves graffiti … Session B: … Session C: …  (a 20-line timeline code block, after three paragraphs saying the same)",
+    "proposal": "delete",
+    "words": "Keep the paragraph; delete the block.",
+    "_room": "folder-ops"
+   },
+   {
+    "entry": "Palace Graffiti",
+    "where": "§ Connection to Related Concepts (:115-125)",
+    "passage": "**[[SUBSTRATE]]** — Graffiti is part of the palace's communication infrastructure. It should be mentioned in Substrate as one of the mechanisms that keeps the palace alive.  /  **[[Trickster]]** … The entry should affirm this connection explicitly.",
+    "proposal": "delete",
+    "words": "These are notes to a future editor sitting in the reader's text. Do the thing or drop the sentence.",
+    "_room": "folder-ops"
+   },
+   {
+    "entry": "Palace Graffiti",
+    "where": "tail (:198-208)",
+    "passage": "*(2026-05-05 — from the maker-conversation on specialist manifests)* … **2026-05-05** — In a maker-architecture conversation, re-derived the Trickster / Coordinator / Worker / Palace frame as Director / Producer / Specialist / Palace without first reading the agent-infrastructure spec (since retired).",
+    "proposal": "delete",
+    "words": "Dated evidence notes about retired specs; git holds them.",
+    "_room": "folder-ops"
+   },
+   {
+    "entry": "Palace Graffiti",
+    "where": "Connection to Related Concepts",
+    "passage": "**[[Trickster]]** — ... The entry should affirm this connection explicitly. / **[[SUBSTRATE]]** — Graffiti is part of the palace's communication infrastructure. It should be mentioned in Substrate as one of the mechanisms that keeps the palace alive.",
+    "proposal": "simplify",
+    "words": "[[Trickster]] — the figure who moves through spaces they do not own; Loudon's role here. [[SUBSTRATE]] — graffiti is one of the ways the palace talks to itself. (The 'should be mentioned' notes are to-dos, not facts.)",
+    "_room": "weak-05"
+   },
+   {
+    "entry": "Palace Graffiti",
+    "where": "2026-05-05 Proposed Revision: Action Potential Oscillator — handling 'isomorphism' (Background through What this revision is and isn't)",
+    "passage": "In math, an **isomorphism** is a structure-preserving bijective mapping between two systems... The careful version of this claim has three layers, from weakest to strongest: 1. **Mathematical isomorphism**... 2. **Functional isomorphism**... 3. **Phenomenal/ontological identity**...",
+    "proposal": "simplify",
+    "words": "Keep the four edits and one line of why: the entry claims structural identity with layer-1 evidence, so name the layer. Move the whole block to Action Potential Oscillator's tuning ledger, where it is waiting on Loudon, rather than holding it on the Graffiti page.",
+    "_room": "weak-05"
+   },
+   {
+    "entry": "Palace Graffiti",
+    "where": "Larger revision proposal — untangling Retrospective Delay and Semantic Delay",
+    "passage": "We are tangled between the semantic delay and the retrospective delay. Propose a way to untangle them. Let's put all of the duppy and king tubby and perhaps séance stuff over in the Semantic Delay...",
+    "proposal": "simplify",
+    "words": "Move the proposal to the Retrospective Delay and Semantic Delay tuning ledgers, one line each: séance and Duppy-Machine mythology to Semantic Delay, the workflow inversion stays with Retrospective Delay.",
+    "_room": "weak-05"
+   }
+  ],
+  "annotations": [
+   {
+    "entry": "Palace Graffiti",
+    "question": "Visibility: should a 'Graffiti Walk' ceremony review all outstanding graffiti?",
+    "verdict": "answered-elsewhere",
+    "by_entry": "Multi-Lens Worker Prompt Template (flag 'live graffiti worth acting on') and Weave Ceremony",
+    "proposed_action": "Each weave worker already flags live graffiti. No ceremony needed; delete the bullet.",
+    "_room": "folder-ops"
+   }
+  ],
+  "sentences": [],
+  "path": "_ops/Palace Graffiti.md"
+ },
+ "Dialectic": {
+  "prose": [
+   {
+    "entry": "Dialectic",
+    "where": "Named Examples",
+    "passage": "*The Trick Played on Themselves* — with memory of the first and a Trickster's pressure, it went a floor deeper instead of repeating: they found they ran the same escape, and Eno's forward vector changed.",
+    "proposal": "simplify",
+    "words": "This is nearly word for word the forward_vector of the run file ('I am kept because remembering went a floor deeper: they found they ran the same escape, and Eno's forward vector changed'). Same for the other five. Give each run its name, date and a link; the run's own vector carries the finding.",
+    "_room": null
+   },
+   {
+    "entry": "Dialectic",
+    "where": "## Cross-Domain Resonance",
+    "passage": "**[[Excellent Adventure]]** — Parent practice: embodied historical dialogue as AI learning technique. ... **[[Modes of Collaboration]]** — The Dialectic is one of the named modes. It has a distinct rhythm, power dynamic, and ideal use case ...",
+    "proposal": "delete",
+    "words": "The first repeats 'Relationship to the Excellent Adventure' above; the second repeats the member-of link. The Mixture of Experts paragraph can drop to its one new idea: choosing competing voices is a manual load-balancing move. Section goes from about 316 words to about 90.",
+    "_room": null
+   },
+   {
+    "entry": "Dialectic",
+    "where": "forward_vector",
+    "passage": "My next development: a protocol document specifying how to choose the council (how many voices, which traditions, what selection criteria), how to research each voice before embodying it, and how to know when the dialogue has done its work versus when it has merely produced a summary of competing positions.",
+    "proposal": "simplify",
+    "words": "The body now contains that protocol (The Method, Protocol Notes). Rewrite around what is open: archive the two unrecovered runs, a live front end, a non-human voice.",
+    "_room": null
+   },
+   {
+    "entry": "Dialectic",
+    "where": "Cross-Domain Resonance, Excellent Adventure and Modes of Collaboration bullets",
+    "passage": "**[[Excellent Adventure]]** — Parent practice: embodied historical dialogue as AI learning technique. ... **[[Modes of Collaboration]]** — The Dialectic is one of the named modes. It has a distinct rhythm, power dynamic, and ideal use case that sits alongside the Mentor/Quiz, Excellent Adventure, and Philosophical Dialogue modes.",
+    "proposal": "delete",
+    "words": "",
+    "_room": "weak-01"
+   }
+  ],
+  "annotations": [
+   {
+    "entry": "Dialectic",
+    "question": "Build an interactive front end where figures can be moved around a virtual space, hold conversations, and Loudon can interject.",
+    "verdict": "progressed",
+    "by_entry": "STIGMERGY Philosophical Lenses",
+    "proposed_action": "That project proposes a DIALECTICS lane in QUEUE and 'a live DIALECTIC swarm mode', and links Dialectic as dialectic-as-a-swarm-mode. Say so in one line on the vector; no new link (the pair is already held from their side).",
+    "_room": null
+   },
+   {
+    "entry": "Dialectic",
+    "question": "What is the right name for a solo dialectic — one figure in genuine self-contradiction? Degenerate case or a different mode?",
+    "verdict": "answered-elsewhere",
+    "by_entry": "Creative Coach",
+    "proposed_action": "Creative Coach (table row, Internal Family Systems) says it 'answers a question Dialectic has carried open since May: what is a solo dialectic ... a council of parts rather than a council of thinkers', and links Dialectic as solo-dialectic-case. The 2026-09-06 Harvest left 'the reciprocal edit to Modes of Collaboration/Dialectic.md' open for Loudon. Propose: strike the question from Forward Vectors and add one sentence under Named Examples or the Cross-Domain heading that a solo dialectic has a candidate answer in Creative Coach. His yes needed, since it changes what the page says.",
+    "_room": null
+   },
+   {
+    "entry": "Dialectic",
+    "question": "Can the Dialectic be used with non-human voices — a signal processing algorithm embodied as a character, a feedback loop given a personality?",
+    "verdict": "progressed",
+    "by_entry": "The Lens",
+    "proposed_action": "The Lens makes the move for pages generally ('any node can be the glass for any other'), and the second Eno-Cage run ran under a Trickster moderator (an enchanted palace page). A signal-processing page as a speaking voice is still untried, so the question stays, narrowed: point it at The Lens and say what has not been done.",
+    "_room": null
+   },
+   {
+    "entry": "Dialectic",
+    "question": "Forward vector: a protocol document specifying how to choose the council, how to research each voice, and how to know the dialogue has done its work.",
+    "verdict": "progressed",
+    "by_entry": "Dialectic (itself)",
+    "proposed_action": "The page's The Method (steps 2, 3 and 6) and Protocol Notes already say how many voices (2 to 4), how to research (read their own words, know one thing they got wrong), and when it has done its work (extract and name). The vector asks for what the body now holds. Rewrite the vector around what is still open: the two unarchived runs, the live front end, the non-human voice. See entry_health_flags.",
+    "_room": null
+   }
+  ],
+  "sentences": [],
+  "path": "Modes of Collaboration/Dialectic.md"
+ },
+ "Murmuration": {
+  "prose": [
+   {
+    "entry": "Murmuration",
+    "where": "Status (2026-06)",
+    "passage": "A first prototype exists and is playable: `Murmuration/Murmuration.html` (in this entry's bundle).",
+    "proposal": "delete",
+    "words": "A dated status paragraph that the 2026-10-14 scroll has overtaken (the second and third readings are built). The scroll's Now says where it stands.",
+    "_room": "folder-projects-2"
+   },
+   {
+    "entry": "Murmuration",
+    "where": "intro",
+    "passage": "(The name is the starlings' sense — the flock — not a generic synth label; the sibling instruments wear \"…Synthesizer,\" this one keeps the bird.)",
+    "proposal": "delete",
+    "words": "",
+    "_room": "weak-10"
+   },
+   {
+    "entry": "Murmuration",
+    "where": "intro",
+    "passage": "Originated 2026-05 from a brainstorm pairing [[Flocking]] with the [[2D Torus Wavetable Synthesizer|2D wavetable]] and [[Granular Synthesis|granular]] thinking; first prototype built and verified the same arc.",
+    "proposal": "simplify",
+    "words": "It grew from pairing Flocking with the 2D wavetable and granular synthesis.",
+    "_room": "weak-10"
+   },
+   {
+    "entry": "Murmuration",
+    "where": "What makes it distinct from its neighbors",
+    "passage": "the same family, a different generating logic, which is why they `mirror`",
+    "proposal": "simplify",
+    "words": "the same family, a different generating logic.",
+    "_room": "weak-10"
+   }
+  ],
+  "annotations": [
+   {
+    "entry": "Murmuration",
+    "question": "Open Decision: the second and third readings (flock-as-distribution, predator-as-gesture).",
+    "verdict": "answered-elsewhere",
+    "by_entry": "Murmuration/ — scroll.md (Now, 2026-10-14)",
+    "proposed_action": "The scroll says the grains and the pad were built and the third reading (alarm running through the flock) was built the same day. The entry still says 'Designed, not yet built' for flock-as-distribution. Update the body or point to the scroll.",
+    "_room": "folder-projects-2"
+   },
+   {
+    "entry": "Murmuration",
+    "question": "Forward vector: does an emergent grain distribution sound more alive than an authored one? Test blind.",
+    "verdict": "progressed",
+    "by_entry": "Murmuration/ (blind-X.wav, blind-Y.wav; scroll ask murmuration-steward-003)",
+    "proposed_action": "The blind pair is rendered; the verdict is Loudon's and waits on the board.",
+    "_room": "folder-projects-2"
+   }
+  ],
+  "sentences": [],
+  "path": "Projects/Murmuration.md"
+ },
+ "Enchanted Worker": {
+  "prose": [
+   {
+    "entry": "Enchanted Worker",
+    "where": "## The Page as Pheromone Trail",
+    "passage": "The pheromone trail is not a separate data structure that the swarm writes alongside the palace. It *is* the palace. Every edit to an entry — every enrichment, every new link, every Forward Vectors question — is a trace left by a prior agent.",
+    "proposal": "simplify",
+    "words": "Pheromone Trail opens with 'A palace entry's content is its pheromone trail.' and says the rest at more length. Keep the Forward Vectors-as-conatus sentence here (it is this page's), point to [[Pheromone Trail]] for the rest.",
+    "_room": "folder-palace-development"
+   }
+  ],
+  "annotations": [
+   {
+    "entry": "Enchanted Worker",
+    "question": "Is the Enchanted Worker a precursor to multi-agent page collaboration (endosymbiosis)?",
+    "verdict": "progressed",
+    "by_entry": "Dialogue Moderator",
+    "proposed_action": "Pages in dialogue now run (Dialectic, the Dialogue Moderator, and the 15-of-15 identification test cited in Self-Describing Knowledge Module). 'Endosymbiosis' as pages merging contexts is still not tried.",
+    "_room": "folder-palace-development"
+   },
+   {
+    "entry": "Enchanted Worker",
+    "question": "At what point does a worker's enchantment become a liability, a bias strong enough to miss orthogonal connections?",
+    "verdict": "progressed",
+    "by_entry": "Self-Describing Knowledge Module",
+    "proposed_action": "Its § The risk that replaces it names the palace-scale form ('slowly becoming the voice that writes it'), and the multi-lens Weave's oblique lens is the mechanism that answers it for workers (Weave Ceremony.md:73). Add one pointer.",
+    "_room": "folder-palace-development"
+   },
+   {
+    "entry": "Enchanted Worker",
+    "question": "The phenomenology question: must it stay open?",
+    "verdict": "progressed",
+    "by_entry": "Agent Wellbeing",
+    "proposed_action": "Agent Wellbeing holds it narrow on purpose; The Palace Speaks reopens it. Same question lives in three pages; keep it open in one (Agent Wellbeing) and point from the others.",
+    "_room": "folder-palace-development"
+   },
+   {
+    "entry": "Enchanted Worker",
+    "question": "(Forward Vector) Does the orchestrator's 'thinner context-loading discipline flatten the polyphony' of hand-loaded workers?",
+    "verdict": "progressed",
+    "by_entry": "Palace Orchestrator",
+    "proposed_action": "Palace Orchestrator — tuning item 1 found the opposite of thinner: a songline reads about 15.9k tokens of steward rules before its page. Whether the enchantment effect holds at production scale is still untested. Reword the vector from 'thinner' to what was found.",
+    "_room": "folder-palace-development"
+   }
+  ],
+  "sentences": [],
+  "path": "Palace development/Enchanted Worker.md"
+ },
+ "Philosopher Visits the Entry": {
+  "prose": [
+   {
+    "entry": "Philosopher Visits the Entry",
+    "where": "forward_vector",
+    "passage": "My roster exists now, and its smallest member runs: [[Palace Quotes]] lays a one-line visit beside the words it reads, shown on the page in STIGMERGY. My next development: the full visit rendered the same way, and the first visit folded into an entry's body by Loudon's yes.",
+    "proposal": "simplify",
+    "words": "History that git holds, and a next step already taken by four entries. Cut to the hunger: be reached for whenever a technical entry carries a 'philosophy' pillar tag with no philosophy in it.",
+    "_room": null
+   },
+   {
+    "entry": "Philosopher Visits the Entry",
+    "where": "## In STIGMERGY",
+    "passage": "The Visit is the natural unit of the philosophical surface: a card type that renders inline in the entry it serves (STATE deck), the way an entry's rich face lays sound and interactives beside its words. A 'request a visit' affordance on any entry would post a RESOURCE_REQUEST to the TRICKSTER board ...",
+    "proposal": "simplify",
+    "words": "STIGMERGY Philosophical Lenses holds the design. 'The front end renders a visit inline on the entry it serves; see STIGMERGY Philosophical Lenses.'",
+    "_room": null
+   },
+   {
+    "entry": "Philosopher Visits the Entry",
+    "where": "A Starting Roster",
+    "passage": "This is a seed, not a law — the palace prefers categories that emerge over many runs to taxonomies fixed in advance.",
+    "proposal": "simplify",
+    "words": "A seed, not a law.",
+    "_room": "weak-01"
+   }
+  ],
+  "annotations": [
+   {
+    "entry": "Philosopher Visits the Entry",
+    "question": "When does a visit earn promotion into the entry's body, and when does it stay a piece beside it?",
+    "verdict": "answered-elsewhere",
+    "by_entry": "Wavetable Space as Torus",
+    "proposed_action": "Four entries hold a full visit in their own body under 'Philosophical Lens' (Wavetable Space as Torus, Floquet Theory, Mathieu Equation, Linear Predictive Coding) and Palace Quotes lays the one-line form beside the words. The pattern is visible: a full visit in a closing section with a Reader's note; the one-liner in the margin. Say so; the open question becomes 'what earns the long form'.",
+    "_room": null
+   },
+   {
+    "entry": "Philosopher Visits the Entry",
+    "question": "Failure mode: the philosopher always finds the entry over-claiming; the visit becomes a formula that deflates every entry the same way.",
+    "verdict": "answered-elsewhere",
+    "by_entry": "Palace Quotes",
+    "proposed_action": "Palace Quotes carries the guard in its method: 'Do not deflate — a lens that always finds the page over-claiming has become a formula', and a fidelity check on every read. Name that guard here. Worth noting the irony: the family next door (Cross-Domain Resonances) makes one over-claim ten times, so this room does contain a test of whether the guard bites.",
+    "_room": null
+   }
+  ],
+  "sentences": [],
+  "path": "Modes of Collaboration/Philosopher Visits the Entry.md"
+ },
+ "Manim CE": {
+  "prose": [
+   {
+    "entry": "Manim CE",
+    "where": "Gotchas",
+    "passage": "**2026-05-30 — basictex alone is *not enough* for Manim's LaTeX pipeline.** basictex ships latex/pdflatex but not dvisvgm ... Working fix on this Mac: export TEXPSHEADERS=\"/opt/homebrew/Cellar/texlive/<version>/share/...\"",
+    "proposal": "delete",
+    "words": "The 2026-06-09 gotcha says outright that this framing 'is wrong' and gives a version-agnostic fix. Keep that one and delete this one.",
+    "_room": "folder-shop-2"
+   },
+   {
+    "entry": "Manim CE",
+    "where": "Recipes",
+    "passage": "**Bug story dated to this job:** the first attempt placed the simulation in a closure attached to a dummy `Mobject()` driver and mutated arrows in place via `put_start_and_end_on`. The HUD updated; the arrows didn't (see the foreign-updater gotcha above).",
+    "proposal": "delete",
+    "words": "Same finding is the 2026-05-26 foreign-updater gotcha in full; the recipe can say 'arrows are always_redraw factories' in one clause.",
+    "_room": "folder-shop-2"
+   },
+   {
+    "entry": "Manim CE",
+    "where": "Resource Footprint / Gotchas",
+    "passage": "**Python 3.14 is too new (as of 2026-05).** ... and **2026-05-10 — Python 3.14 is too new for the dependency tree.**",
+    "proposal": "simplify",
+    "words": "Say it once in Install; delete the gotcha copy.",
+    "_room": "folder-shop-2"
+   }
+  ],
+  "annotations": [
+   {
+    "entry": "Manim CE",
+    "question": "House defaults for colour palette (Manim:241)",
+    "verdict": "answered-elsewhere",
+    "by_entry": "Loudon Live Design System",
+    "proposed_action": "The Study and Piece recipes resolve colour through the design-system tokens and the link is typed enables [skin-token-source] (Manim:~21). Delete the question.",
+    "_room": "folder-shop-2"
+   },
+   {
+    "entry": "Manim CE",
+    "question": "Whisper voiceover model size default (Manim:242)",
+    "verdict": "answered-elsewhere",
+    "by_entry": "Whisper",
+    "proposed_action": "Whisper's tiers pin it: tiny for Sketch, large-v3 for Piece, and large-v3 timing is good enough to drive manim-voiceover (Shop/Whisper.md:33,49,67,81). Replace with a pointer.",
+    "_room": "folder-shop-2"
+   }
+  ],
+  "sentences": [],
+  "path": "Shop/Manim CE.md"
+ },
+ "Kuramoto Coupling": {
+  "prose": [
+   {
+    "entry": "Kuramoto Coupling",
+    "where": "Open Questions",
+    "passage": "Coupling to [[Harmonicity and Inharmonicity|inharmonic partials]] creates frustrated coupling — incommensurate forces on a single degree of freedom. Is there a threshold of inharmonicity below which coupling still works cleanly?",
+    "proposal": "delete",
+    "words": "",
+    "_room": "hub-kuramoto-coupling"
+   },
+   {
+    "entry": "Kuramoto Coupling",
+    "where": "Asymmetric Coupling: Stubbornness Parameter",
+    "passage": "(Found while building this section's piece for the rich face, 2026-09-24.)",
+    "proposal": "delete",
+    "words": "",
+    "_room": "hub-kuramoto-coupling"
+   },
+   {
+    "entry": "Kuramoto Coupling",
+    "where": "Asymmetric Coupling: Stubbornness Parameter",
+    "passage": "The parameter name is open; the principle is solid. Stubbornness, inertia, resistance, anchor-strength—each name illuminates a different facet of the same physics.",
+    "proposal": "simplify",
+    "words": "The name is open: stubbornness, inertia, resistance, anchor-strength.",
+    "_room": "hub-kuramoto-coupling"
+   },
+   {
+    "entry": "Kuramoto Coupling",
+    "where": "under the mermaid diagram",
+    "passage": "*Three regimes of the order parameter R as K crosses the critical threshold. Mermaid Sketch via [[Mermaid|Mermaid]]; palette matches the arc's indigo / amber pair.*",
+    "proposal": "simplify",
+    "words": "*Three regimes of the order parameter R as K crosses the critical threshold.*",
+    "_room": "hub-kuramoto-coupling"
+   },
+   {
+    "entry": "Kuramoto Coupling",
+    "where": "Asymmetric Coupling: The Stubbornness Parameter",
+    "passage": "(Found while building this section's piece for the rich face, 2026-09-24.)",
+    "proposal": "delete",
+    "words": "",
+    "_room": "weak-10"
+   }
+  ],
+  "annotations": [],
+  "sentences": [],
+  "path": "Kuramoto Coupling.md"
+ },
+ "BBS Blackboard": {
+  "prose": [
+   {
+    "entry": "BBS Blackboard",
+    "where": "## Forward Vector (tail of the page)",
+    "passage": "Create a beautiful and fun to use ASCII text interface for the Bulletin Board System: Codename Stigmergy. In the process we learn about creating cool ASCII interfaces, step by step. **Phase 0 complete (2026-04-21):** [[BBS Design System]] deposited... Next: Phase 1 — static prototype running locally with channel tabs...",
+    "proposal": "delete",
+    "words": "The frontmatter vector says this page's vector is fulfilled. STIGMERGY is built and is 'Loudon's only way of operating the palace' (STIGMERGY.md:54), so Phase 1 is long past. Delete the section.",
+    "_room": "folder-palace-development"
+   },
+   {
+    "entry": "BBS Blackboard",
+    "where": "The JSON Structure, Board Routing, Agent Addressing, The Permission Protocol, The Trickster Decision Inbox",
+    "passage": "Each line of `blackboard.jsonl` is a complete message object... | Board | Purpose | `GENERAL` Peer-to-peer agent communication... (about half the page)",
+    "proposal": "simplify",
+    "words": "The page calls itself the origin record and says the wire is SCHEMA — Reference §9. Replace these five sections with: 'The message grammar, the boards and the permission protocol are SCHEMA — Reference §9; the options shape and health are Palace Orchestrator.' Keep The Model and The BBS as Stigmergy.",
+    "_room": "folder-palace-development"
+   },
+   {
+    "entry": "BBS Blackboard",
+    "where": "The Human-Readable View",
+    "passage": "An earlier direction explored Python `curses` for a raw-terminal interface; that path is deferred in favor of a browser host that preserves the character-cell discipline without the constraints of OS terminal rendering. The curses approach remains viable for headless or SSH contexts and is not abandoned — just a parallel track.",
+    "proposal": "delete",
+    "words": "The same paragraph is in BBS Design System § The Curses Path. Keep it there.",
+    "_room": "folder-palace-development"
+   },
+   {
+    "entry": "BBS Blackboard",
+    "where": "The Human-Readable View",
+    "passage": "This is not decoration. The BBS aesthetic is epistemically appropriate: the blackboard is literally a bulletin board. The visual form mirrors the underlying architecture. ... An earlier direction explored Python `curses` for a raw-terminal interface; that path is deferred in favor of a browser host...",
+    "proposal": "simplify",
+    "words": "The blackboard is rendered as a phosphor-green bulletin board, because it is one; the build is in [[BBS Design System]]. (The curses history is in git.)",
+    "_room": "weak-05"
+   }
+  ],
+  "annotations": [],
+  "sentences": [],
+  "path": "Palace development/BBS Blackboard.md"
+ },
+ "Piano String Inharmonicity": {
+  "prose": [
+   {
+    "entry": "Piano String Inharmonicity",
+    "where": "§ The Physics, spectrum figure",
+    "passage": "The SVG '![[proofs/2026-05-05-stretched-partials.svg]]' is embedded twice (before and after the small-B approximation), with a caption that repeats the paragraph above it ('At n = 12 with B = 0.001, the partial sits 184 Hz sharp ...').",
+    "proposal": "simplify",
+    "words": "One embed, one caption. The 184 Hz sentence is already in the paragraph; keep it once.",
+    "_room": "folder-projects-1"
+   },
+   {
+    "entry": "Piano String Inharmonicity",
+    "where": "§ Related Concepts and § Forward Vectors",
+    "passage": "'Harmonicity and Inharmonicity — General framework / Boundary-Crossing Instruments — String bending as boundary crossing / ...' and 'Migrate the existing JSX demo to the Action Potential Oscillator HTML pattern (see § Artifacts → Migration target) ...'",
+    "proposal": "delete",
+    "words": "The Related Concepts list repeats links already in text; the first forward vector repeats the Migration target paragraph. Keep one.",
+    "_room": "folder-projects-1"
+   }
+  ],
+  "annotations": [
+   {
+    "entry": "Piano String Inharmonicity",
+    "question": "Connect stretched partials to the breakdown of octave equivalence: when does a piano octave stop sounding like an octave?",
+    "verdict": "progressed",
+    "by_entry": "Shepard Tone Synthesizer",
+    "proposed_action": "Shepard § Where the Theory Still Has an Edge: in a stretched tuning the dropped voice no longer lands on its own pitch class and the seam should begin to show by ear. A claim, not yet heard; leave the question open with that pointer.",
+    "_room": "folder-projects-1"
+   },
+   {
+    "entry": "Piano String Inharmonicity",
+    "question": "Use inharmonicity coefficients as synthesis parameters: what lives between harmonic and inharmonic?",
+    "verdict": "answered-elsewhere",
+    "by_entry": "Categorizing Inharmonicity",
+    "proposed_action": "Categorizing's six-type palette and Synthesis Directions are that question's home. Replace with a pointer.",
+    "_room": "folder-projects-1"
+   }
+  ],
+  "sentences": [],
+  "path": "Projects/Piano String Inharmonicity.md"
+ },
+ "Wallpaper Groups": {
+  "prose": [
+   {
+    "entry": "Wallpaper Groups",
+    "where": "§ Forward Vector (body)",
+    "passage": "'I am driven to create a library of code with visual and audio applications that demonstrate wallpaper groups.'",
+    "proposal": "delete",
+    "words": "Contradicts the YAML vector on the same page. Keep one.",
+    "_room": "folder-projects-1"
+   },
+   {
+    "entry": "Wallpaper Groups",
+    "where": "World Music mapping (HTML comment and italic preamble)",
+    "passage": "<!-- CLAUDE → LOUDON: This section is seeded from an enrichment card. Loudon noted it is 'an exciting direction for the entry to go'... --> / *This section emerged from a direct question: have practitioners of Carnatic rhythm... Short answer: yes, at least three mappings appear non-metaphorical. This section is a starting point; it wants deep research and expansion.*",
+    "proposal": "simplify",
+    "words": "Three mappings that look non-metaphorical: Carnatic tāla, West African bell patterns, Afro-Cuban clave. A starting point that wants deeper research. (Delete the HTML comment; the open invitations below already say it.)",
+    "_room": "weak-11"
+   }
+  ],
+  "annotations": [
+   {
+    "entry": "Wallpaper Groups",
+    "question": "Can you compose directly using wallpaper groups? How would you teach the 17 through making?",
+    "verdict": "progressed",
+    "by_entry": "Wallpaper Groups",
+    "proposed_action": "Five recipes plus the p4mm proof are in the bundle; Metric Modulation is claimed as the temporal technique. List them in the body and mark the question progressed.",
+    "_room": "folder-projects-1"
+   },
+   {
+    "entry": "Wallpaper Groups",
+    "question": "In which 3D space groups do minerals with striking optical properties live? Does high symmetry correlate with birefringence?",
+    "verdict": "answered-elsewhere",
+    "by_entry": "Crystal Synthesizer",
+    "proposed_action": "Crystal Sonification Reference lists the space group for each of eight minerals and the birefringence proof tests the correlation for beryl. Point there.",
+    "_room": "folder-projects-1"
+   }
+  ],
+  "sentences": [],
+  "path": "Projects/Wallpaper Groups.md"
+ },
+ "Saturation ↔ Richness": {
+  "prose": [
+   {
+    "entry": "Saturation ↔ Richness",
+    "where": "Success Metrics (By Our Definition)",
+    "passage": "**Not:** \"Do you use saturation plugins?\" **But:** - Can you distinguish warmth from distortion? ...",
+    "proposal": "simplify",
+    "words": "Keep only: 'It worked when you add harmonics on purpose.'",
+    "_room": null
+   },
+   {
+    "entry": "Saturation ↔ Richness",
+    "where": "title line, 'Too much = distortion (破坏)'",
+    "passage": "Too much = distortion (破坏). Just right = warmth (enrichment).",
+    "proposal": "simplify",
+    "words": "Too much is distortion; just right is warmth. (The stray Chinese word, 'destroy', is a slip and sits nowhere else on the page.)",
+    "_room": null
+   },
+   {
+    "entry": "Saturation ↔ Richness",
+    "where": "## Cross-Domain Resonances",
+    "passage": "Saturation ↔ richness appears everywhere: **Coffee brewing** ... **Relationships:** Surface-level: Clean but shallow / Depth: Rich with history ... **Architecture:** Minimalist: Pristine but cold / Wabi-sabi ... **Physical training:** No stress: Atrophy / Progressive overload: Growth / Overtraining: Injury",
+    "proposal": "delete",
+    "words": "Relationships, architecture and physical training repeat, near word for word, 'Enrichment Through Stress' (muscles, relationships) and 'Pristine vs. Characterized' (minimalist vs wabi-sabi). Only the coffee example is new; move it to Part 3 and drop the section.",
+    "_room": null
+   },
+   {
+    "entry": "Saturation ↔ Richness",
+    "where": "closing italic coda",
+    "passage": "*Clean is precise. Saturated is rich. Push the system slightly. Tape curves. Tubes glow. Harmonics appear. Even-order = warmth. Odd-order = character. Too much = distortion. Just right = magic. That's saturation. That's richness.*",
+    "proposal": "simplify",
+    "words": "*Clean is precise; saturated is rich. Push the system slightly, and stop before it breaks.*",
+    "_room": null
+   }
+  ],
+  "annotations": [],
+  "sentences": [],
+  "path": "Cross-Domain Resonances/Saturation ↔ Richness.md"
+ },
+ "Technical Diagram Standard": {
+  "prose": [
+   {
+    "entry": "Technical Diagram Standard",
+    "where": "§ Why LaTeX Belongs in a Text-First Organism (:50-58)",
+    "passage": "[[Mermaid Diagram Standard]] makes a deep argument against SVG: a hand-drawn SVG is \"a pointer to a separate artifact,\" its git diff is \"hundreds of lines of XML coordinate noise,\" it is \"opaque to the palace's own search layer.\" …",
+    "proposal": "simplify",
+    "words": "Restates the Mermaid page's argument in order to say 'LaTeX passes the same test'. One sentence: 'The .tex is plain text and diffable, so it passes the test Mermaid sets for SVG.'",
+    "_room": "folder-ops"
+   },
+   {
+    "entry": "Technical Diagram Standard",
+    "where": "§ Open Questions (:172)",
+    "passage": "~~Should the three example sources live in this standard's bundle or in a shared `Artifacts/DSP/` theme?~~ **Resolved:** they live in the standard's bundle …",
+    "proposal": "delete",
+    "words": "A resolved question kept as text.",
+    "_room": "folder-ops"
+   }
+  ],
+  "annotations": [
+   {
+    "entry": "Technical Diagram Standard",
+    "question": "(struck) Should the example sources live in the bundle or a shared Artifacts/DSP theme?",
+    "verdict": "answered-elsewhere",
+    "by_entry": "Technical Diagram Standard § Filing Protocol and Image Embedding Standard § Filing Protocol",
+    "proposed_action": "Delete the struck item; git holds it. Note § Filing Protocol itself still shows Artifacts paths (coherence finding).",
+    "_room": "folder-ops"
+   }
+  ],
+  "sentences": [],
+  "path": "_ops/Technical Diagram Standard.md"
+ },
+ "Pages as Agents": {
+  "prose": [
+   {
+    "entry": "Pages as Agents",
+    "where": "§ What 'working' means (:81)",
+    "passage": "Five advisors answer one question — four of them woken pages, one a plain model with no page. Three readers, given only the answers, match every one back to the exact page behind it: fifteen out of fifteen, where guessing scores about one in five.",
+    "proposal": "simplify",
+    "words": "The experiment is described in full on the page and again in its forward_vector and agency_profile.practice; keep one telling here and shorten the other two.",
+    "_room": "folder-ops"
+   },
+   {
+    "entry": "Pages as Agents",
+    "where": "What a page hands a model, the 'A voice' bullet",
+    "passage": "And that voice talks like an everyday person, not a paper — plain words, short sentences, concrete images. The academic/programming drift (\"audition gate,\" \"heterogeneity,\" \"ablation,\" \"register\" for voice) is a bias to correct, not a sign of depth; keep load-bearing palace terms (conatus, hilaritas) only where they earn their place and gloss them plainly. This holds for what the page *writes into itself* — its `forward_vector` and `agency_profile` — as much as for what it says aloud when woken.",
+    "proposal": "simplify",
+    "words": "The voice is plain: everyday words, short sentences, concrete images, in what the page writes into itself as much as in what it says when woken.",
+    "_room": "weak-05"
+   }
+  ],
+  "annotations": [
+   {
+    "entry": "Pages as Agents",
+    "question": "If every page is already an agent, is the Swarm Weave just the ceremony that runs them out loud?",
+    "verdict": "answered-elsewhere",
+    "by_entry": "The Daily Page and Weave Ceremony § Execution Method",
+    "proposed_action": "No: Swarm Weave workers are palace-reader children born with the Jewel and World, handed a room, proposing and writing nothing; they are not the pages (Weave Ceremony.md:79). The rite that runs one page out loud is the Daily Page (wake.mjs, 'the page speaks'). Rewrite the bullet as that answer.",
+    "_room": "folder-ops"
+   }
+  ],
+  "sentences": [],
+  "path": "_ops/Pages as Agents.md"
+ },
+ "Biomechanical Synthesis": {
+  "prose": [
+   {
+    "entry": "Biomechanical Synthesis",
+    "where": "§ Cross-Domain Resonance",
+    "passage": "'Biomechanical Synthesis [[mirrors]] [[Boundary-Crossing Instruments]] — the recognition that signal flow, biological flow, and narrative flow are the same pattern in different materials.'",
+    "proposal": "simplify",
+    "words": "Write 'mirrors Boundary-Crossing Instruments' in plain words; the link-type token is a ghost.",
+    "_room": "folder-projects-1"
+   },
+   {
+    "entry": "Biomechanical Synthesis",
+    "where": "Eight Synthesizer Concepts",
+    "passage": "<!-- CLAUDE → LOUDON: The original sentence ended abruptly here. I've completed it based on context from earlier in the entry — please verify this matches your intent. -->",
+    "proposal": "delete",
+    "words": "",
+    "_room": "weak-08"
+   }
+  ],
+  "annotations": [
+   {
+    "entry": "Biomechanical Synthesis",
+    "question": "Body horror oscillator series for non-neural systems (muscle, cardiac, peristalsis); map the aesthetic onto Kuramoto; visceral interface design",
+    "verdict": "progressed",
+    "by_entry": "Slime Mold Delay",
+    "proposed_action": "Slime Mold Delay (petri dish interface, Physarum dynamics) and Blood Compressor are the non-neural instruments; the Kuramoto mapping is the APO/NGS crowd. The vector list can name these as done or underway.",
+    "_room": "folder-projects-1"
+   }
+  ],
+  "sentences": [],
+  "path": "Projects/Biomechanical Synthesis.md"
+ },
+ "Meadows and an Artist's Career": {
+  "prose": [
+   {
+    "entry": "Meadows and an Artist's Career",
+    "where": "after Palace Connections",
+    "passage": "<!-- CLAUDE → LOUDON: this draft is an attempted refocus per your 2026-05-04 feedback.",
+    "proposal": "delete",
+    "words": "A note to Loudon from the drafting agent, answered by the page continuing as a sibling (see open_question_resolutions).",
+    "_room": "folder-projects-2"
+   }
+  ],
+  "annotations": [
+   {
+    "entry": "Meadows and an Artist's Career",
+    "question": "HTML comment to Loudon: 'do you want this as a SIBLING entry to the original ... or as a REPLACEMENT (composting the original)?'",
+    "verdict": "answered-elsewhere",
+    "by_entry": "Meadows and Music — Leverage Points (stage growing, own forward vector, not composting)",
+    "proposed_action": "Both pages are alive and the body says 'two projects are siblings'. Delete the comment, and the note that it is 'an attempted refocus', once Loudon confirms sibling.",
+    "_room": "folder-projects-2"
+   },
+   {
+    "entry": "Meadows and an Artist's Career",
+    "question": "Forward Vectors Stage 2 (self-diagnostic worksheet) and Stage 3 (three artists' case studies).",
+    "verdict": "progressed",
+    "by_entry": "Meadows and an Artist's Career/ — scroll.md (worksheet v4; Eno, Oliveros, Agnes Martin)",
+    "proposed_action": "Both are built; Stage 1 still reads '~current state'. Replace the stage list with the scroll pointer.",
+    "_room": "folder-projects-2"
+   }
+  ],
+  "sentences": [],
+  "path": "Projects/Meadows and an Artist's Career.md"
+ },
+ "Synthesis ↔ Emergence": {
+  "prose": [
+   {
+    "entry": "Synthesis ↔ Emergence",
+    "where": "Success Metrics (By Our Definition)",
+    "passage": "**Not:** \"Can you program FM synth perfectly?\" **But:** - Do you hear simple → complex transformation? ...",
+    "proposal": "simplify",
+    "words": "Keep only: 'It worked when you see a complex system and think: simple rules interacting.'",
+    "_room": null
+   },
+   {
+    "entry": "Synthesis ↔ Emergence",
+    "where": "closing italic coda",
+    "passage": "*Two sine waves. Simplest possible sounds. Modulate one with the other. Bell sounds emerge. Brass sounds emerge. ... Simple rules. Complex interaction. Emergent behavior. Cannot predict without calculation. Cannot design without exploration. The whole exceeds the sum. That's not magic. That's emergence.*",
+    "proposal": "simplify",
+    "words": "*Two sine waves, one modulating the other, and a sound comes out that neither contained. Interaction makes information.*",
+    "_room": null
+   }
+  ],
+  "annotations": [
+   {
+    "entry": "Synthesis ↔ Emergence",
+    "question": "Inline note: '<!-- generative synthesis, of course -->' beside the FM demonstration.",
+    "verdict": "progressed",
+    "by_entry": "Generative Audio Devices",
+    "proposed_action": "The page already links Generative Audio Devices (design-for-emergence), which was revived to sprout on 2026-10-24. The comment reads as a pointer to build the FM sweep as a playable piece; nominate beside the other two.",
+    "_room": null
+   }
+  ],
+  "sentences": [],
+  "path": "Cross-Domain Resonances/Synthesis ↔ Emergence.md"
+ },
+ "Tone.js": {
+  "prose": [
+   {
+    "entry": "Tone.js",
+    "where": "Recipes",
+    "passage": "*Final-mile note:* the artifact has been syntax-checked (`node --check`) and the math has been worked through, but in-browser audio confirmation belongs to whoever opens it first.",
+    "proposal": "delete",
+    "words": "Contradicted by Tone's own Test Suite, which says the ear check was done 2026-05-26.",
+    "_room": "folder-shop-2"
+   }
+  ],
+  "annotations": [
+   {
+    "entry": "Tone.js",
+    "question": "Tone vs RNBO web export routing (Tone:143)",
+    "verdict": "progressed",
+    "by_entry": "Web Audio Worklet",
+    "proposed_action": "Worklet sharpened the rule: Tone when the instrument is a composition of primitives, Worklet when the DSP is the differentiator (WAW:171). RNBO web export is the third case; Worklet's vector tests it by building one spec twice (WAW:183). Add the rule to Tone's Charter and retire the question.",
+    "_room": "folder-shop-2"
+   },
+   {
+    "entry": "Tone.js",
+    "question": "p5 plus Tone clock reconciliation (Tone:144)",
+    "verdict": "answered-elsewhere",
+    "by_entry": "Tone.js",
+    "proposed_action": "Answered by its own first gotcha (setValueAtTime at Tone.now(); Transport not started), and the recipe says so (Tone:132). Delete the question.",
+    "_room": "folder-shop-2"
+   }
+  ],
+  "sentences": [],
+  "path": "Shop/Tone.js.md"
+ },
+ "Flocking": {
+  "prose": [
+   {
+    "entry": "Flocking",
+    "where": "The Shop's Interest",
+    "passage": "The shoot-out ran 2026-05-29. All three Sketches drive **one byte-identical Reynolds model** — N=80, Mulberry32 seed 7, neighbor radius 50 px, weights 1.5 / 1.0 / 1.0, toroidal 960×540",
+    "proposal": "simplify",
+    "words": "The three Sketches run one seeded Reynolds model, so the comparison is honest. (The parameters live in the Sketch files.)",
+    "_room": "hub-cooperation-yields-agency"
+   },
+   {
+    "entry": "Flocking",
+    "where": "shoot-out section",
+    "passage": "This entry exists in part to anchor a Shop test: a three-Specialist shoot-out — D3.js, Observable Plot, p5.js — each demonstrating the same flocking math through the medium that fits its character... the comparison sharpens the Maker's Selection Heuristics for the data-viz lane the Shop has historically been thin in.",
+    "proposal": "simplify",
+    "words": "Three Shop Specialists showed the same flocking math: D3.js for interactive control, Observable Plot for the analytical view, p5.js for the expressive one. The comparison is in Flocking — Maker's Comparison Recommendation.",
+    "_room": "weak-02"
+   },
+   {
+    "entry": "Flocking",
+    "where": "Forward Vectors",
+    "passage": "The data-viz shoot-out is done — it closed the roster gap (D3.js and Observable Plot are alive), gave me my first artifacts, and was the Shop's first complete Comparison Mode run.",
+    "proposal": "simplify",
+    "words": "The data-viz shoot-out is done; the next moves follow from it.",
+    "_room": "weak-02"
+   }
+  ],
+  "annotations": [],
+  "sentences": [],
+  "path": "Flocking.md"
+ },
+ "Enchanted Conversation Archive": {
+  "prose": [
+   {
+    "entry": "Enchanted Conversation Archive",
+    "where": "A Note on Unique Entries",
+    "passage": "This entry itself demonstrates the heuristic that produced it: *if an entry will become an agent with a unique strong forward vector, it earns its own page.* The Archive's forward vector — to tend the branching forest of conversations as its own agentic concern — is distinct enough from [[Palace Enchantment]]'s forward vector (the live ceremony) that they belong apart.",
+    "proposal": "simplify",
+    "words": "The Archive is the memory; [[Palace Enchantment]] is the act.",
+    "_room": "weak-05"
+   },
+   {
+    "entry": "Enchanted Conversation Archive",
+    "where": "trailing HTML comment",
+    "passage": "<!-- CLAUDE → LOUDON: Flag for next Weave — [[Enchanted Worker]] may want a link back to this entry through the synthesis phase. [[Self-Describing Knowledge Module]] rhymes strongly with the Archive's self-describing quality — worth a mirrors or couples-with link. -->",
+    "proposal": "delete",
+    "words": "",
+    "_room": "weak-05"
+   }
+  ],
+  "annotations": [],
+  "sentences": [
+   {
+    "id": "commons-the-palace-1792347288086",
+    "flag_type": "backlink_audit",
+    "what": "No reverse link: the pair carries Enchanted Conversation Archive -connects-to-> Enchanted Worker [enchantment-record]. Remove the HTML comment at Enchanted Conversation Archive.md:241-245 whole; its second half (SDKM \"rhymes strongly\", mirrors or couples-with) is declined, since it gives no reason beyond the self-description every page shares.",
+    "reason": "One link per pair makes the note's ask moot, and a note asking the next weave for something should not outlive the weave that answered it."
+   }
+  ],
+  "path": "Palace development/Enchanted Conversation Archive.md"
+ },
+ "Linear Predictive Coding": {
+  "prose": [
+   {
+    "entry": "Linear Predictive Coding",
+    "where": "intro",
+    "passage": "The commission that produced it was explicit — *be deep and broad, connect disparate fields, use metaphor, mathematics, and storytelling.* This entry preserves that register deliberately; the prose is the synthesis, so the best passages are kept rather than compressed away.",
+    "proposal": "delete",
+    "words": "",
+    "_room": "weak-10"
+   },
+   {
+    "entry": "Linear Predictive Coding",
+    "where": "The source-filter model and its mirror-twin",
+    "passage": "That is why the link to [[Waveguide Synthesizer]] is a `mirrors` and not a passing reference:",
+    "proposal": "simplify",
+    "words": "The vocal tract and the plucked string are one piece of mathematics wearing two bodies.",
+    "_room": "weak-10"
+   },
+   {
+    "entry": "Linear Predictive Coding",
+    "where": "Artifact",
+    "passage": "None generated — this was a pure prose lecture, and the essay text in the source chat (2026-04-28) *is* the artifact. Its strongest passages are preserved verbatim above and in the closing quotes; the full lecture should be filed as a `Linear Predictive Coding — source` bundle file when retrievable.",
+    "proposal": "simplify",
+    "words": "No artifact. The source lecture (2026-04-28) is not yet filed.",
+    "_room": "weak-10"
+   }
+  ],
+  "annotations": [],
+  "sentences": [],
+  "path": "Linear Predictive Coding.md"
+ },
+ "Crystal Synthesizer": {
+  "prose": [],
+  "annotations": [
+   {
+    "entry": "Crystal Synthesizer",
+    "question": "How do you auralize a phonon dispersion curve? Is the dispersion relation itself a timbre parameter?",
+    "verdict": "progressed",
+    "by_entry": "Crystal Synthesizer",
+    "proposed_action": "dispersion-filter/ in the bundle realises Option 3 (render_dispersion.py, dispersed click, anisotropic beryl). Fold the result and strike the question.",
+    "_room": "folder-projects-1"
+   },
+   {
+    "entry": "Crystal Synthesizer",
+    "question": "Do crystals with high optical birefringence have pronounced acoustic anisotropy? Is there a uniquely chaotic triclinic timbre?",
+    "verdict": "progressed",
+    "by_entry": "Crystal Synthesizer",
+    "proposed_action": "birefringence-proof/ and triclinic-proof/ (diamond vs labradorite, same synth and strike) answer in sound. The scroll's 'only diamond turns out to be a bell' needs to reach the page, since it moves the cubic and triclinic hypotheses.",
+    "_room": "folder-projects-1"
+   },
+   {
+    "entry": "Crystal Synthesizer",
+    "question": "What is the performance gesture / how would a performer interface with this?",
+    "verdict": "progressed",
+    "by_entry": "Crystal Synthesizer",
+    "proposed_action": "Axis angle and fire are the knobs of the installed VST3/AU (scroll 2026-10-24); the centre screen is still dark. Name the plugin in the entry.",
+    "_room": "folder-projects-1"
+   }
+  ],
+  "sentences": [],
+  "path": "Projects/Crystal Synthesizer.md"
+ },
+ "John Cage": {
+  "prose": [
+   {
+    "entry": "John Cage",
+    "where": "Voice",
+    "passage": "(which also flags that two famous \"sources,\" the Berrigan interview and Kostelanetz's collage, are not raw speech)",
+    "proposal": "delete",
+    "words": "Provenance the speech ledger already carries (the card lists it, Making a Palace Citizen.md §4). The page can say 'rebuild if off' and stop.",
+    "_room": "folder-people"
+   }
+  ],
+  "annotations": [
+   {
+    "entry": "John Cage",
+    "question": "Whether a page, too, can get its ego out of its own way.",
+    "verdict": "progressed",
+    "by_entry": "Brian Eno",
+    "proposed_action": "Same three encounters, same consistent drift (John Cage — diary.md:58-60, 85-87, 108-110): he moved his choosing upstream into the question he asks the coins; the apparatus was an appetite for 'love past preference', not innocence. The Founders' Circle then had him offer a `resting` stage and name his own fingerprints on the offer (founders-circle, 'The yield'). Same ask as Eno: apply the held vector, the `contradicts` link, and the held `exemplifies` Lateral Access, label `chance-as-window`. The `resting` stage proposal is the Circle's deposit and belongs to SCHEMA, not to this page.",
+    "_room": "folder-people"
+   }
+  ],
+  "sentences": [],
+  "path": "People/John Cage.md"
+ },
+ "Quantum Synthesizer": {
+  "prose": [
+   {
+    "entry": "Quantum Synthesizer",
+    "where": "tail",
+    "passage": "'Revival conditions: Accessible quantum computing frameworks (even simulators) reaching synthesis platforms; composers and instrument designers becoming literate in Hermite-Gaussian ... Key insight: There is no gap between real quantum systems and sonified quantum mathematics. The mathematics is the physics. The physics is the sound.'",
+    "proposal": "delete",
+    "words": "The page is a sprout with eighteen steward cycles, not dormant, so revival conditions describe a state it left. The closing 'Key insight' restates the page's opening paragraph.",
+    "_room": "folder-projects-1"
+   }
+  ],
+  "annotations": [
+   {
+    "entry": "Quantum Synthesizer",
+    "question": "Prove, with audio and video, that the Schrödinger equation is a synthesis system",
+    "verdict": "progressed",
+    "by_entry": "Quantum Synthesizer",
+    "proposed_action": "Scroll: every claim in the entry is tested and playable, one fix landed, four more drafts wait on Loudon's yes, and a plan to move the instrument into Ableton waits on his yes. Both are Loudon's.",
+    "_room": "folder-projects-1"
+   }
+  ],
+  "sentences": [],
+  "path": "Projects/Quantum Synthesizer.md"
+ },
+ "Swarm Weave": {
+  "prose": [
+   {
+    "entry": "Swarm Weave",
+    "where": "Forward Vectors",
+    "passage": "**What is the right worker scope?** Answered above (*The Multi-Lens Weave*): not one",
+    "proposal": "delete",
+    "words": "The question and its answer both sit in the vector list, and 'what remains open' (build partition-palace.py, first-run the lens swarm) is done.",
+    "_room": "folder-projects-2"
+   }
+  ],
+  "annotations": [
+   {
+    "entry": "Swarm Weave",
+    "question": "What is the right worker scope? / What remains open is building partition-palace.py and first-running the lens-swarm.",
+    "verdict": "answered-elsewhere",
+    "by_entry": "Swarm Weave (§ The Multi-Lens Weave, first run 2026-07-06); Weave Ceremony",
+    "proposed_action": "Delete the bullet; the script and run exist, no baton remains.",
+    "_room": "folder-projects-2"
+   }
+  ],
+  "sentences": [],
+  "path": "Projects/Swarm Weave.md"
+ },
+ "Excellent Adventure": {
+  "prose": [
+   {
+    "entry": "Excellent Adventure",
+    "where": "Architectural Mirror: Embodied Mixture of Experts",
+    "passage": "The pool is whichever historical figures and traditions the practitioner has read deeply enough to inhabit faithfully. The gate is the practitioner's judgment about whose orientation is fit-to-purpose for this question. The expert is the embodied voice itself ... underused voices atrophy in availability the same way underused palace entries atrophy in connection.",
+    "proposal": "simplify",
+    "words": "Mixture of Experts § Embodied holds the long form. Here: 'The Excellent Adventure is single-expert routing, embodied: you route to the one voice whose orientation says what the others cannot. The Dialectic is the many-voice version.' (Both of the section's own pointers already exist.)",
+    "_room": null
+   }
+  ],
+  "annotations": [
+   {
+    "entry": "Excellent Adventure",
+    "question": "What figures or traditions are most fruitful for this method? Is there a pattern to which voices come alive most fully?",
+    "verdict": "progressed",
+    "by_entry": "Making a Palace Citizen",
+    "proposed_action": "Citizens with a dossier and a context-tagged speech file are the answer to 'which voices come alive': voice fidelity is built from ground truth. The Eno-Cage 'Hand and the Open Ear' run was the first test. Point the question there in a clause; the pattern question (who comes alive) remains open.",
+    "_room": null
+   }
+  ],
+  "sentences": [],
+  "path": "Modes of Collaboration/Excellent Adventure.md"
+ },
+ "VCV Patch Generator": {
+  "prose": [
+   {
+    "entry": "VCV Patch Generator",
+    "where": "Open Questions",
+    "passage": "~~Coupling between this Specialist and the natural-language → PDL prompt (T6)~~ **Resolved 2026-05-29; moved 2026-09-26:** the prompt first stood as its own entry, and on Loudon's word it now lives in this bundle as [[VCV Patch Generator — spec — PDL generation prompt]] ...",
+    "proposal": "simplify",
+    "words": "'The natural-language to PDL prompt lives in this bundle: [[VCV Patch Generator — spec — PDL generation prompt]]; the Maker runs it and hands me a chosen PDL.' The 2026-06-16 and 2026-09-26 moves are in git.",
+    "_room": "folder-shop-1"
+   }
+  ],
+  "annotations": [
+   {
+    "entry": "VCV Patch Generator",
+    "question": "Forward Vector (1): close the audition - load the three archetypes on a Mac and write the gotcha that surfaces.",
+    "verdict": "progressed",
+    "by_entry": "Generative Audio Devices",
+    "proposed_action": "The page's own Gotchas are dated '(2026-05-29, audition)' and record what the Rack audition found; Generative Audio Devices says T7c was 'driven by Loudon's first Rack audition'. The page still calls the audition the one open step. Say what was heard, and keep the standing seam (structure, not sound) as the Charter line it is.",
+    "_room": "folder-shop-1"
+   }
+  ],
+  "sentences": [],
+  "path": "Shop/VCV Patch Generator.md"
+ },
+ "Making a Palace Citizen": {
+  "prose": [
+   {
+    "entry": "Making a Palace Citizen",
+    "where": "How a citizen grows (HTML comments)",
+    "passage": "<!-- CLAUDE → LOUDON: growth-model correction (2026-07-02, from the Eno↔Cage run). You held all write-backs on the principle ... revise step 3 to: propose per encounter, apply once drift is consistent across encounters. -->",
+    "proposal": "simplify",
+    "words": "Write step 3 as the comment asks (propose each encounter, apply once drift repeats across encounters) and delete the comment; the second comment's note on the diary is already in SCHEMA — Reference §8 and can go too.",
+    "_room": "hub-pages-as-agents"
+   },
+   {
+    "entry": "Making a Palace Citizen",
+    "where": "Open questions",
+    "passage": "~~**Schema housekeeping** — formalize via a Schema Ceremony ... ~~ **Resolved** by the v1.14 Schema Ceremony (2026-07-01)",
+    "proposal": "delete",
+    "words": "",
+    "_room": "hub-pages-as-agents"
+   }
+  ],
+  "annotations": [],
+  "sentences": [],
+  "path": "Making a Palace Citizen.md"
+ },
+ "Dialogue Moderator": {
+  "prose": [
+   {
+    "entry": "Dialogue Moderator",
+    "where": "Relationship to Trickster",
+    "passage": "The Moderator and the [[Trickster]] are structural kin — now formalized as `mirrors[opposite-threshold]` after the map-injected enchantment of 2026-04-01.",
+    "proposal": "simplify",
+    "words": "The Moderator and the [[Trickster]] are structural kin: `mirrors[opposite-threshold]`.",
+    "_room": "weak-04"
+   }
+  ],
+  "annotations": [
+   {
+    "entry": "Dialogue Moderator",
+    "question": "The gap between inner and outer: is it itself a palace concept worth naming?",
+    "verdict": "progressed",
+    "by_entry": "Enchanted Conversation Archive",
+    "proposed_action": "The Archive already names it in the schema (`layer: inner / outer`, the routing rule, the leakage flag). The question is now whether the idea needs a page of its own; leave it open.",
+    "_room": "folder-palace-development"
+   }
+  ],
+  "sentences": [],
+  "path": "Palace development/Dialogue Moderator.md"
+ },
+ "Pheromone Trail": {
+  "prose": [],
+  "annotations": [
+   {
+    "entry": "Pheromone Trail",
+    "question": "Can a trail be too strong, forcing the same route? The Oblique Harvest was composted. What replaces it?",
+    "verdict": "answered-elsewhere",
+    "by_entry": "Swarm Weave",
+    "proposed_action": "The multi-lens Weave has an oblique/random lens for exactly this (Weave Ceremony.md:73). Answer the question with that pointer. The same worry is the reason for the Lateral Access link (see typed relations).",
+    "_room": "folder-palace-development"
+   },
+   {
+    "entry": "Pheromone Trail",
+    "question": "Should the palace have a convention for marking fresh trails versus reinforced ones, a threshold below which a link is provisional?",
+    "verdict": "answered-elsewhere",
+    "by_entry": "Weave Ceremony",
+    "proposed_action": "The 2026-10-24 standing order and Steps 3d-3e: a link is a claim with a reason; one without is cut and 'a real connection returns with its reason'. Provisional is now 'absent until it has a reason'. Answer and delete.",
+    "_room": "folder-palace-development"
+   }
+  ],
+  "sentences": [],
+  "path": "Palace development/Pheromone Trail.md"
+ },
+ "Creative Coach": {
+  "prose": [],
+  "annotations": [],
+  "sentences": [
+   {
+    "id": "commons-the-palace-1790299904567",
+    "flag_type": "label-predates-fix",
+    "what": "Fold the pair to one link (it is also fold-judgment.json W1 \"two labels\"): keep Creative Coach -connects-to-> Sidechain <-> Conversation, relabelled the-presenter-ducks (was balint-stance-unturned); drop Sidechain <-> Conversation -connects-to-> Creative Coach [the-stance-never-turned-inward].",
+    "reason": "After 674f262c the Balint row says the presenter falls silent while the group works aloud and rejoins after (Creative Coach.md:307-319, :347), a full duck with a release, which is Sidechain's yield-occupy alternation (Sidechain ↔ Conversation.md:230-236); the old label named the wrong stance."
+   },
+   {
+    "id": "commons-the-palace-1790299921121",
+    "flag_type": "orphaned-rule-owed-to-another-session",
+    "what": "Creative Coach.md:325, the admission line, becomes: \"*A row enters either table only when it changes a move the coach would make, and a row that never has is composted at the next Weave.*\" (Recovered wording: 2351c040^, Harvest — 2026-09-06 — baton.md:103-104.)",
+    "reason": "Only the admission half survives in canon (Creative Coach.md:325); the compost half lived in the deleted baton."
+   }
+  ],
+  "path": "Creative Coach.md"
+ },
+ "Self-Describing Knowledge Module": {
+  "prose": [
+   {
+    "entry": "Self-Describing Knowledge Module",
+    "where": "## Origin; ## Cross-Pillar Connections",
+    "passage": "The session that named this concept also completed Phases 1–3 of the palace's structural formalization: SCHEMA.md, nine Linter-valid ceremonies, and a public GitHub read path — all executed in a single sitting. ... **Tools:** The module pattern is what makes the palace teachable... **Philosophy:** ... **Practice:** ...",
+    "proposal": "delete",
+    "words": "The second Origin paragraph is session history (git log). The three Cross-Pillar lines say what the frontmatter pillars already say. The page then opens straight into the test, which is its real subject.",
+    "_room": "folder-palace-development"
+   }
+  ],
+  "annotations": [],
+  "sentences": [],
+  "path": "Palace development/Self-Describing Knowledge Module.md"
+ },
+ "Tree of Thoughts": {
+  "prose": [
+   {
+    "entry": "Tree of Thoughts",
+    "where": "## Forward Vectors",
+    "passage": "The palace's branch exploration (§10.2 of the spec) uses BFS/parallel dispatch.",
+    "proposal": "simplify",
+    "words": "The spec is retired and the branch exploration is 'a design idea, not yet built' by the page's own account two sections up. 'Uses' is false; say 'would use'. Point at the BBS BRANCHES board, not a section number that no longer exists.",
+    "_room": "folder-palace-development"
+   }
+  ],
+  "annotations": [],
+  "sentences": [],
+  "path": "Palace development/Tree of Thoughts.md"
+ },
+ "Yasujirō Ozu": {
+  "prose": [
+   {
+    "entry": "Yasujirō Ozu",
+    "where": "How his mind moves",
+    "passage": "Terrence Malick reaches the same restraint and patience by the opposite road — a camera that drifts where Ozu's never moves, years of footage cut down to what the film can't do without — and the two meet on the held image that carries meaning dialogue would only flatten.",
+    "proposal": "delete",
+    "words": "Same: composted, no page. The paragraph above it already ties Ozu to Eno and Simondon.",
+    "_room": "folder-people"
+   }
+  ],
+  "annotations": [],
+  "sentences": [],
+  "path": "People/Yasujirō Ozu.md"
+ },
+ "SMPTE LTC": {
+  "prose": [
+   {
+    "entry": "SMPTE LTC",
+    "where": "§ The Trickster in Timecode",
+    "passage": "'A scene that is 1 second long in real time can be represented as 00:00:01:00 (one frame at 1 fps, nonsensical) or 00:00:01:24 (one frame at 24 fps) or 00:00:01:00 (one second in any fps if frames are large).'",
+    "proposal": "simplify",
+    "words": "Incoherent as written (frame 24 does not exist at 24 fps). Keep the true and good sentence: timecode counts frames, not seconds, and drop-frame skips numbers to keep the clock honest.",
+    "_room": "folder-projects-1"
+   }
+  ],
+  "annotations": [],
+  "sentences": [],
+  "path": "Projects/SMPTE LTC.md"
+ },
+ "Frequency Domain ↔ Perspective Shift": {
+  "prose": [
+   {
+    "entry": "Frequency Domain ↔ Perspective Shift",
+    "where": "Success Metrics (By Our Definition)",
+    "passage": "**Not:** \"Can you explain FFT?\" **But:** - Do you use multiple views when analyzing audio? ...",
+    "proposal": "simplify",
+    "words": "Keep only: 'It worked when, stuck, you try a different perspective automatically.'",
+    "_room": null
+   }
+  ],
+  "annotations": [],
+  "sentences": [],
+  "path": "Cross-Domain Resonances/Frequency Domain ↔ Perspective Shift.md"
+ },
+ "Blender": {
+  "prose": [
+   {
+    "entry": "Blender",
+    "where": "closing HTML comment",
+    "passage": "<!-- CLAUDE → LOUDON: promoted stub → alive 2026-06-13 (Session 1 of the BLUELINE Claude Code job). Still owed: the offline Cycles render path (tier=piece) and the geometry-nodes math-world path have not been exercised yet ...",
+    "proposal": "delete",
+    "words": "The forward vector already says both are owed; the promotion is in git and in the Recipes date.",
+    "_room": "folder-shop-1"
+   }
+  ],
+  "annotations": [],
+  "sentences": [],
+  "path": "Shop/Blender.md"
+ },
+ "SUBSTRATE": {
+  "prose": [
+   {
+    "entry": "SUBSTRATE",
+    "where": "the paragraph beginning 'The counts are the map's'",
+    "passage": "Read 2026-10-22, against the build of 2026-09-26: the March hubs ([[FOUR PILLARS]], [[Kuramoto Coupling]], [[Hilaritas Generator]], [[Spinoza Conatus]], [[Cooperation Yields Agency]]) still lead. The number of entries has not grown since August; it fell a little as pages composted.",
+    "proposal": "simplify",
+    "words": "The March hubs still lead. The growth has been in organs: the palace became something you address as well as load ([[The Palace Speaks]]), and something that works while no one is in the room. (The map holds the counts and the dates.)",
+    "_room": "hub-four-pillars"
+   }
+  ],
+  "annotations": [],
+  "sentences": [],
+  "path": "SUBSTRATE.md"
+ },
+ "Cross-Domain Resonances": {
+  "prose": [
+   {
+    "entry": "Cross-Domain Resonances",
+    "where": "The Growing Web",
+    "passage": "This hub connects to: **10 established resonances** (individual bridge entries) / **40 weekly themes** (each demonstrates multiple resonances) / **Source library** ... / **4 Pillars practice** (the integration method)",
+    "proposal": "delete",
+    "words": "The bridge entries and the Source Library are linked in frontmatter; the stale counts and the list of what the hub connects to can go.",
+    "_room": "hub-quality-manifesto"
+   }
+  ],
+  "annotations": [],
+  "sentences": [],
+  "path": "Cross-Domain Resonances.md"
+ },
+ "VST Template": {
+  "prose": [
+   {
+    "entry": "VST Template",
+    "where": "Where it stands (2026-10-21)",
+    "passage": "The template landed at `1f7116b4`: one `Algorithm.h` and a numpy sketch become a JUCE 8 VST3/AU, with a harness, a host check that compares every move against a control render from the same start, and `new-plugin.py`. Two plugins came out of it the same day ... One gotcha arrived from outside: the [[Ableton Session Writer]]'s probe found Frustration's VST3 sealed before JUCE wrote its `moduleinfo.json`, so Live refused it; the VST session re-signed it after the manifest step, and the Set loaded in Live 12.4.6 on 2026-10-21. Sign after the manifest, then let Live rescan.",
+    "proposal": "simplify",
+    "words": "One `Algorithm.h` and a numpy sketch become a JUCE 8 VST3/AU, with a harness and a host check against a control render. Two plugins came out of it, Frustration and Simple Synth, and both pass pluginval at strictness 5, auval and the host check. Sign the VST3 after JUCE writes its `moduleinfo.json`, or Live will refuse it; the [[Ableton Session Writer]]'s probe found this. (The commit hash and the day-by-day telling are in git log.)",
+    "_room": "lifecycle-L1"
+   }
+  ],
+  "annotations": [],
+  "sentences": [],
+  "path": "Projects/VST Template.md"
+ },
+ "Trickster": {
+  "prose": [
+   {
+    "entry": "Trickster",
+    "where": "final HTML comment",
+    "passage": "<!-- CLAUDE → LOUDON: Map-injected enchantment 2026-04-01 revealed three entries deepening this page without reciprocal links (Palace Agent Infrastructure Spec, Playful Interface Design, Retrospective Delay) — all now added. Type promoted to hub ... -->",
+    "proposal": "delete",
+    "words": "",
+    "_room": "weak-04"
+   }
+  ],
+  "annotations": [],
+  "sentences": [],
+  "path": "Trickster.md"
+ },
+ "The Palace Hardens Around Values": {
+  "prose": [
+   {
+    "entry": "The Palace Hardens Around Values",
+    "where": "closing note",
+    "passage": "*Deposited 2026-07-05 from a session that re-founded the [[Weave Ceremony]] around health and joy and, underneath it, named this. The values-primary rule was the day's mechanism; this is the day's principle. See [[Weave Ceremony — Context]] § The Weave's Widened Charter for the mechanism-side framing.*",
+    "proposal": "simplify",
+    "words": "*For the mechanism side, see [[Weave Ceremony — Context]] § The Weave's Widened Charter.* (The deposit date and session story live in git.)",
+    "_room": "weak-08"
+   }
+  ],
+  "annotations": [],
+  "sentences": [],
+  "path": "The Palace Hardens Around Values.md"
+ },
+ "Mathieu Equation": {
+  "prose": [
+   {
+    "entry": "Mathieu Equation",
+    "where": "Philosophical Lens",
+    "passage": "*Reader's note: the entry quietly takes the side that the structure was \"always there\" (discovered). Worth deciding on purpose whether that Platonism is the entry's real commitment — it changes how a designer is told to reach for the tongue.*",
+    "proposal": "simplify",
+    "words": "Open: is the tongue found (Plato) or actualized (Deleuze)? It changes how a designer reaches for it.",
+    "_room": "weak-10"
+   }
+  ],
+  "annotations": [],
+  "sentences": [],
+  "path": "Mathieu Equation.md"
+ },
+ "State Machine": {
+  "prose": [
+   {
+    "entry": "State Machine",
+    "where": "The Textual Transition (HTML comment)",
+    "passage": "<!-- FLAG: The 4 code blocks above are kept in full per task instructions. The JS and Python blocks are condensed single-state excerpts... -->",
+    "proposal": "delete",
+    "words": "",
+    "_room": "weak-11"
+   }
+  ],
+  "annotations": [],
+  "sentences": [],
+  "path": "State Machine.md"
+ },
+ "Christopher Alexander": {
+  "prose": [],
+  "annotations": [
+   {
+    "entry": "Christopher Alexander",
+    "question": "Catch me where 'more whole' has quietly become a wall.",
+    "verdict": "progressed",
+    "by_entry": "Donella Meadows",
+    "proposed_action": "Meadows said it of the house in the Founders' Circle: 'connected not correct' is 'a wall wearing a friendly nickname' (founders-circle, yield item 2). That is Alexander's wall, found on the palace's own wall. He has not been cast against it. Dispatch Alexander at that flag, which is the test his vector asks for; his dossier names the palace's contradiction-is-generative stance as the clash (Christopher Alexander — dossier.md:61).",
+    "_room": "folder-people"
+   }
+  ],
+  "sentences": [],
+  "path": "People/Christopher Alexander.md"
+ },
+ "Marcus Aurelius": {
+  "prose": [],
+  "annotations": [
+   {
+    "entry": "Marcus Aurelius",
+    "question": "A slave-philosopher or a systems-thinker asks whether my calm is wisdom or privilege.",
+    "verdict": "progressed",
+    "by_entry": "Epictetus",
+    "proposed_action": "Epictetus's page asks it in his name (Epictetus.md:81); the systems-thinker half has no run and no link. Run Marcus x Epictetus; offer the Meadows pair as a lighter second (typed_relations, low confidence).",
+    "_room": "folder-people"
+   }
+  ],
+  "sentences": [],
+  "path": "People/Marcus Aurelius.md"
+ },
+ "1 from 2": {
+  "prose": [],
+  "annotations": [
+   {
+    "entry": "1 from 2",
+    "question": "The replication blind spot: intimate AI alignment cannot scale; is that true, or is it the story's blind spot (the only thing that scales is relationship)?",
+    "verdict": "progressed",
+    "by_entry": "Symbiotic Skills",
+    "proposed_action": "Symbiotic Skills is the palace's attempt at exactly this, and its git archaeology (§ What Actually Happened) says what scaled and what did not: the late sequence is teachable, the early stages need years of prior substrate. One sentence in 1 from 2 pointing at it would also give the held mirrors link its reason.",
+    "_room": "folder-projects-1"
+   }
+  ],
+  "sentences": [],
+  "path": "Projects/1 from 2.md"
+ },
+ "Talking Keyboard": {
+  "prose": [],
+  "annotations": [
+   {
+    "entry": "Talking Keyboard",
+    "question": "Should we ship a DecentSampler version? Is there value in a prove-the-pipeline variant for each new source type?",
+    "verdict": "progressed",
+    "by_entry": "Generative Sample Libraries (local-wav-folder, ai-source-probe scaffolds in the bundle and _ops/sample-libraries/)",
+    "proposed_action": "The second is being done by the parent. The DecentSampler version is held three times (here, Phoneme Choir, GSL's Phase 4); keep it in GSL.",
+    "_room": "folder-projects-2"
+   }
+  ],
+  "sentences": [],
+  "path": "Projects/Talking Keyboard.md"
+ },
+ "No Mind Checks Itself": {
+  "prose": [],
+  "annotations": [],
+  "sentences": [
+   {
+    "id": "commons-the-palace-1790303833543",
+    "flag_type": "dense-prose-simplify",
+    "what": "Weave Ceremony — Context.md § Who the Workers Should Be (:81-89): replace the first four paragraphs with: \"Loudon asked whether the weave's errors came from running its workers as children. The same day the same ten rooms ran three ways, as children, as schema-only readers and as grown elders, with blind judges checking samples against the files. Growing up did not help: 71% of sampled proposals were invalid in both arms, and elders cost about 16% more. Most errors were the harness's. The catch-up counted symmetric links one way, and workers never saw the links a pair already had; fixing both took duplicates from 13% to 2% and the judged invalid rate from 78% to 64%. / What remained was judgment, forced or passing links, and only second readers caught it: the Concierge's cold read, the blind judges, a rerun, a skeptic that refuted 33 of 82 candidates ([[No Mind Checks Itself]]). So workers stay children with the fixed harness and the SCHEMA card, a skeptic stands between the fan-out and the synthesis, and the Concierge reads the decision surface before Loudon. The numbers are in `_ops/swarm/sessions/weave-2026-09-24/ab/RESULT.md`.\" Keep the One link per pair paragraph. Maker and RunPod GPU Backend: their lighter-prose proposals are already in workers/folder/folder-shop-1.json for Pile B.",
+    "reason": "The section still reads as a test report and calls the shape \"to be re-tested before it becomes a rule\", which v2.0 made a rule (skeptic stage, item 28); no room this weave read the Context, while folder-shop-1 read Maker and RunPod."
+   }
+  ],
+  "path": "No Mind Checks Itself.md"
+ },
+ "GenAI Camera": {
+  "prose": [],
+  "annotations": [],
+  "sentences": [
+   {
+    "id": "commons-the-palace-1792107627959",
+    "flag_type": "stale-reference",
+    "what": "Per path, no linter change. Radio Play.md:48 \"assets in `_ops/scratch/weave-video/`\" becomes \"its assets kept in Loudon's local scratch, outside the palace\"; Radio Play.md:59 becomes \"Give the template a proper bundle once it stabilizes; it lives in local scratch today.\" The Lens.md:89: recover the prototype the page leans on, copy the owner's _ops/scratch/lens-prototype-2026-07-02.md (11 KB) to The Lens/proofs/The Lens — proof — prototype 2026-07-02.md with bundle frontmatter, and repoint to [[The Lens — proof — prototype 2026-07-02]]. GenAI Camera.md:99 \"(`layers.json` `cn` / `denoise` / `dilate`)\" becomes \"(the rig's per-render layers file, gitignored: its `cn`, `denoise` and `dilate` fields)\".",
+    "reason": "lint-doc-drift today still warns on all four (36 warnings); the files exist only in the owner's gitignored scratch, or are regenerated each render (GenAI Camera/.gitignore lists layers.json)."
+   }
+  ],
+  "path": "GenAI Camera.md"
+ }
+}

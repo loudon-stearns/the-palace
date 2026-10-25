@@ -18,9 +18,6 @@ links:
   - target: "[[Multiplane Animation]]"
     type: deepens
     label: modernizes
-  - target: "[[Move the Ink, Don't Redraw It]]"
-    type: couples-with
-    label: breathes-via
   - target: "[[BLUELINE — Text Layer]]"
     type: connects-to
     label: stacks-the-bubble

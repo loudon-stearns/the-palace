@@ -1,12 +1,9 @@
 # Palace Heartbeat — Mac-side routines
 
-The steward batch's launchd job replaces the Cowork **scheduled task** (now disabled)
-that used to fire it; the Shopkeeper runs inside the batch as an ordinary steward. The reason for the move:
-Cowork's scheduled tasks run in the **Linux sandbox**, which has no GPU/Max/native
-tools — so GPU-bound stewards kept posting confusing "I'm in the sandbox, hand me
-to the Mac" forks into your Trickster inbox. Running the same headless
-`claude -p` cycle **on the Mac** puts the stewards where the Shop's tools actually
-live, and the confusion disappears at the source. No Anthropic API key is needed —
+The steward batch runs **on the Mac**, as a launchd job; the Shopkeeper runs inside
+the batch as an ordinary steward. It runs here because the stewards need the Shop's
+tools — the GPU, Max, the native installs — and those live on the Mac, so a
+steward never has to ask to be handed somewhere else. No Anthropic API key is needed —
 this is your local Claude Code CLI on a timer (the same spawn STIGMERGY's actuator
 already uses to advance a steward from the board).
 
@@ -125,12 +122,9 @@ Its normal cycle output still goes where it always did: the bundle-local
   the commit body. The wrapper's own commit is the sweep for anything a cycle
   commit missed.
 
-This replaces the old "do NOT commit, leave the tree for Loudon" rule — a
-Cowork-era holdover. That constraint existed because the Cowork sandbox could
-not delete files, so a raw commit stranded lockfiles; Mac-side, commits are
-normal. Leaving 19 stewards' `scroll.md` + machinery churning uncommitted every
-other morning would only bury the signal (the actual asks) under a growing
-pile of machinery diffs.
+The batch commits because leaving 19 stewards' `scroll.md` + machinery churning
+uncommitted every other morning would bury the signal (the actual asks) under a
+growing pile of machinery diffs.
 
 ### The review digest is separate
 
@@ -209,8 +203,8 @@ launchctl bootout gui/$(id -u)/com.loudon.palace.steward-batch
 # then optionally remove ~/Library/LaunchAgents/com.loudon.palace.*.plist
 ```
 
-The old Cowork tasks are **disabled**, not deleted. To remove them for good, delete
-their folders:
+Two disabled scheduled tasks from the desktop app still sit on disk and never
+fire. To remove them for good, delete their folders:
 `~/Documents/Claude/Scheduled/palace-heartbeat-steward-batch/` and
 `~/Documents/Claude/Scheduled/shopkeeper-discovery-sweep/`.
 

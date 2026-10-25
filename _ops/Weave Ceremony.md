@@ -4,17 +4,12 @@ type: practice
 pillars: [practice, tools, philosophy]
 born: 2026-03
 stage: mature
-version: "1.9"
+version: "2.0"
 trigger: ["weave", "let's weave"]
 links:
-  - target: "[[Palace Ceremonies]]"
-    type: connects-to
-  - target: "[[Substrate Skill]]"
-    type: connects-to
   - target: "[[Walk Ceremony]]"
     type: connects-to
-  - target: "[[Spore Check Ceremony]]"
-    type: connects-to
+    label: thread-versus-whole
   - target: "[[Kuramoto Coupling]]"
     type: mirrors
   - target: "[[Weave Ceremony — Context]]"
@@ -36,12 +31,18 @@ links:
   - target: "[[Entry Conatus]]"
     type: connects-to
     label: serves-conatus
-  - target: "[[Weaving Memory into the Palace]]"
-    type: connects-to
-    label: memory-home
   - target: "[[Hero and Avatar Maker]]"
     type: connects-to
     label: face-batch
+  - target: "[[Enrichment]]"
+    type: connects-to
+    label: nominates-for
+  - target: "[[No Mind Checks Itself]]"
+    type: connects-to
+    label: skeptic-stage
+  - target: "[[Spore Check Ceremony]]"
+    type: connects-to
+    label: weave-confirms-the-compost
 ---
 
 # Weave Ceremony
@@ -56,9 +57,11 @@ A weave is more than links — it is the palace's periodic tending of its own **
 - **Agents** — a clean board, honest handoffs, memory kept as a cache not a rival truth, and work *trusted to judgment* rather than caged in scripts. The linters only flag; the mind of the moment decides. That trust is [[Cooperation Yields Agency|cooperation]] turned on our own workers — their [[Agent Wellbeing|wellbeing]].
 - **Humans** — the palace stays legible and uncluttered, *grabs* you in the state view, and hands you the signing, not the toil. The measure is [[Hilaritas Generator|hilaritas]]: "how do you feel," not "how many links."
 
-Links are one instrument of entry-health. The weave tends all three bodies; it is done well when each leaves more able to act than before.
+Links are one instrument of entry-health, and the weave also takes them away: a typed link is a claim with a reason — its type, its label, or a sentence in the body — a pair carries one link, and a link with no reason anywhere is cut (Steps 3c–3e; the Standing Order on [[Weave Ceremony — scroll]]). The weave tends all three bodies; it is done well when each leaves more able to act than before.
 
-The weave is also where a decision reaches every page. When a session settles something that should hold across the palace (a retired word, a new convention, a moved path), it writes the decision into its home and posts a **propagate flag**; the next weave carries it to every page it hasn't reached yet (Step 1c). That is coherence too: the palace agreeing with what it has already decided.
+Memory keeps pace with faces. Every canon entry wears a hero and an icon; the weave also asks whether a page's weight has earned the memory the next worker needs — a Context for why it is shaped so, a scroll for a project, a tuning ledger for a page that runs — and names the pages ready for a rich face. The same numbers are measured at every weave and kept in a health ledger, so health is a trend and not a snapshot.
+
+The weave is also where a decision reaches every page. When a session settles something that should hold across the palace (a retired word, a new convention, a moved path), it writes the decision into its home and posts a **propagate flag**; the next weave opens by carrying it to every page it hasn't reached yet (Step 0c), and closes by posting flags for the standards it set itself. That is coherence too: the palace agreeing with what it has already decided.
 
 For metaphor, cadence rationale, the widened-charter rationale, and swarm architecture history, see [[Weave Ceremony — Context]].
 
@@ -66,11 +69,13 @@ For metaphor, cadence rationale, the widened-charter rationale, and swarm archit
 
 The Weave now runs as a **Multi-Lens Swarm Weave** — the map cut by several lenses at once (folder · community · mirror · random/oblique), each lens carrying its own worker mandate (**the cut and the mandate are one choice**), a coordinator reporting cross-lens *convergence* (confidence) versus single-lens *sightings* (gems). This is the canonical execution path. See [[Swarm Weave]] § The Multi-Lens Weave for the full spec — the lens catalogue, the two-pool mandate (core vs segmentation-specific), the oblique lens, and the disjoint-file write-agent deployment. The partitioner is `_ops/swarm/partition-palace.py` (a lens is a `--lens` parameter); the worker mandate is `_ops/swarm/Multi-Lens Worker Prompt Template.md`.
 
-The single-agent protocol below remains valid for: palaces under ~20 entries, quick topological spot-checks, or situations where Claude Code sub-agent orchestration is unavailable. For the current palace (100+ entries), execute as a Swarm Weave.
+The Protocol below is the swarm's steps.
+
+**Who reads, who judges, who writes.** Workers are `palace-reader` children: born with the real Jewel and the World, handed the SCHEMA card and their room, proposing and writing nothing. Nothing a worker proposes is batched until a **skeptic** — a second, stronger reader (Opus) given the proposals and the pages, told to refute — has passed it, and the [[Concierge]] has read the decision surface cold before Loudon does. No first reader catches its own errors ([[No Mind Checks Itself]]; tuning item 28). Writes are the coordinator's and its write-agents', one per disjoint file set, through the palace's committer.
 
 **Ceremonies are woven too.** Since 2026-09-24 the map builder makes every `_ops/` ceremony card with a canon type a node, so ceremonies are read, linked and partitioned like any entry.
 
-**Standard opening steps:** Before dispatching workers, do two things in order. **First, load the foundation** (Protocol Step 0) — the Weave writes typed links and may promote or create entries, all of which [[SCHEMA]] governs; a Weave run without §4 in context is operating blind to the rules it is about to apply. **Second, build the map** — `python3 _ops/swarm/build-map.py` — for a fresh `palace-map-full-[date].json` (a build, not a ceremony run: [[Map Build Ceremony]] § Cadence). Workers use this map for neighbor resolution; the coordinator uses it for topology reporting. Then read what changed since the last Weave's map: `python3 _ops/swarm/palace-map.py diff <last weave's map date> <today>`. That diff is the shortest account of what the palace has been thinking since the last Weave, and Step 2 opens with it.
+**Standard opening steps:** Before dispatching workers, do two things in order. **First, load the foundation** (Protocol Step 0) — the Weave writes typed links and may promote or create entries, all of which [[SCHEMA]] governs; a Weave run without §4 in context is operating blind to the rules it is about to apply. **Second, build the map** — `python3 _ops/swarm/build-map.py` — for a fresh `palace-map-full-[date].json` (a build, not a ceremony run: [[Map Build Ceremony]] § Cadence). Workers use this map for neighbor resolution; the coordinator uses it for topology reporting. Then read what changed since the last Weave's map: `python3 _ops/swarm/palace-map.py diff <last weave's map date> <today>`. That diff is the shortest account of what the palace has been thinking since the last Weave, and Step 2 opens with it. Then write the open's health row: `python3 _ops/swarm/weave-health.py --append --label "open"` (Step 6.6 writes the close's beside it).
 
 ## Ceremony Contract
 
@@ -84,23 +89,28 @@ The single-agent protocol below remains valid for: palaces under ~20 entries, qu
 3. The foundation is loaded this session — [[SCHEMA]] (especially §4 typed-link ontology and directionality) has been read **before any link is written**. The Weave creates typed links and may promote or create entries; both are schema-governed. See Protocol Step 0.
 
 **Postconditions:**
-1. A topology report has been produced covering: total entry count, hub nodes, orphan entries, most-connected nodes, cross-pillar bridges, dormant entries, stale metadata
+1. A topology report has been produced covering: total entry count, hub nodes (the top inbound decile), orphan entries, most-connected nodes, cross-pillar bridges, dormant entries, stale metadata, and **link quality** — the labelled share, the bare `connects-to` count, the pairs carrying more than one link, the unsaid links
 2a. An **unsung paths** audit has been completed: all plain-text body references to known entry titles have been surfaced and formalized as YAML frontmatter links. Any that should NOT be formalized have been flagged with a one-line reason. Unsung paths are mandatory — the prose already asserts the connection; the YAML is simply catching up.
-2b. The **`weave_flag` inbox** has been read from the persistent board, and every open flag is settled. An entry flag is acted on (`Palace-Resolves: <id>`) or declined (`Declined flag <id>: <reason>`). A propagate flag is finished (`Palace-Resolves: <id>`) or carried as far as this weave could take it (`Carried flag <id>: <how far>`). **Verified mechanically by `_ops/swarm/lint-weave-flags.py --since <the date the weave began>`**, which exits 0 when no flag is open: each is closed, declined, carried, or touched and read by hand. It is the checkable backstop that makes 2b unmissable *however the Weave was launched*, the sibling of the 2d/2e/2f linters: a baton-launched weave once skipped the inbox read when it was honour-system ([[The Palace Hardens Around Values]]: a rule earns a gate once its check proves mechanical).
+2b. The **`weave_flag` inbox** has been read from the persistent board, and every open flag is settled. An entry flag is acted on (`Palace-Resolves: <id>`) or declined (`Declined flag <id>: <reason>`). A propagate flag is finished (`Palace-Resolves: <id>`) or carried as far as this weave could take it (`Carried flag <id>: <how far>`). **Verified mechanically by `_ops/swarm/lint-weave-flags.py --since <the date the weave began>`**, which exits 0 when no flag is open: each is closed, declined, carried, or touched and read by hand. It is the checkable backstop that makes 2b unmissable *however the Weave was launched*, the sibling of the 2d/2e/2f linters.
 2c. A **substrate sweep** has been completed: uncommitted edits, stashes, dangling commits, unmerged branches, and recent rewrites have been triaged per finding (recover / discard / leave). Recoveries are additive only; discards are recorded so the LOG stays honest.
-2d. The **link-direction linter** (`_ops/swarm/lint-link-directions.py`) has been run against a freshly rebuilt map. It reports **no link-direction errors introduced by this Weave** — E1 reciprocal contradictions for asymmetric types, E2 hubs emitting `member-of`. Pre-existing errors the Weave chose not to resolve are listed in the commit body with a one-line reason; a silent red linter violates the LOG. This is the checkable directional postcondition that the 2026-06-05 schema-compliance miss showed the Weave needed.
+2d. The **link-direction linter** (`_ops/swarm/lint-link-directions.py`) has been run against a freshly rebuilt map. It reports **no link-direction errors introduced by this Weave** — E1 reciprocal contradictions for asymmetric types, E2 hubs emitting `member-of`. Pre-existing errors the Weave chose not to resolve are listed in the commit body with a one-line reason; a silent red linter violates the LOG.
 2e. The **doc-drift linter** (`_ops/swarm/lint-doc-drift.py`) exits **0 on errors** (warnings reviewed). This is the prose-consistency counterpart to 2d: it catches foundational-doc drift — wrong-case refs, broken paths, dangling section pins, trigger-coverage gaps, and a generated block gone stale (E4: today [[The Shop]]'s roster, when a Specialist is added, moved or re-statused and nobody re-runs its builder; the error line names the command that refreshes it). Any warning left standing is a deliberate review-list item, not a silent miss.
-
-2g. The **voice-drift linter** (`_ops/swarm/lint-voice-drift.py`) has been run and its flagged entries reviewed. It measures markup density — bold spans and em-dashes per thousand words — against the ~p90 ceilings, catching the one [[The Palace Voice]] dial that has no other check. **Flag-only, never gates**: dense bolding can be legitimate structure (the `Cross-Domain Resonances/` family and the `_ops/swarm/` prompt templates trip it by design), so a flag asks for a read, not a rewrite. Added 2026-08-25 after the drift was measured — em-dashes up 41% and bold up 53% from the March baseline, in a palace whose *word choice* had held perfectly. The lesson it encodes: a stated value without a check drifts to whatever the writer's default is, and the palace had gated link direction, doc drift, bundle hygiene, and weave flags while leaving its own prose on the honour system.
-
 2f. The **entry-naming linter** (`_ops/swarm/lint-entry-naming.py`) exits **0 on errors** (warnings reviewed). It checks entry↔filesystem naming: E1 (error) a bundle folder that matches its entry only case-insensitively (the SCHEMA §8 exact-name rule, e.g. `Modes of collaboration/` beside `Modes of Collaboration.md`); W1 (warning) a canon entry whose `title:` ≠ its filename (SCHEMA §3). Both are masked by the case-insensitive FS until a case-sensitive reader breaks. No E1 may be introduced; the W1 list is triaged (real drift corrected, deliberate names left).
+2g. The **voice-drift linter** (`_ops/swarm/lint-voice-drift.py`) has been run and its flagged entries reviewed. It measures markup density — bold spans and em-dashes per thousand words — against the ~p90 ceilings, catching the one [[The Palace Voice]] dial that has no other check. **Flag-only, never gates**: dense bolding can be legitimate structure (the `Cross-Domain Resonances/` family and the `_ops/swarm/` prompt templates trip it by design), so a flag asks for a read, not a rewrite.
+2h. The **link-pairs linter** (`_ops/swarm/lint-link-pairs.py`) has been run: every pair carrying more than one link is folded to one (Step 3d) or named in the commit body with a one-line reason. Flag-only until two clean runs prove the fold mechanical.
+2i. The **unsaid-links scan** (`_ops/swarm/unsaid-links.py`) has been run and every bare unsaid link — no label, and a target the body never names — has been given its label, its sentence, or cut (Step 3e), or named in the commit body with a one-line reason. Labelled unsaid links are reviewed, not swept.
+2j. The **label harvest** (`_ops/swarm/label-harvest.py`) has run after the labelling passes, and any cluster coherent enough to be a link type is proposed to Loudon in the report (Step 3f); none is added without a Schema Ceremony.
 3. **New introductions** have been proposed — new typed links between entries that do not yet mention each other in prose. These are genuine growth events, curated deliberately rather than to a fixed quota (see Step 3b). **New entries born since the last Weave have been given priority integration** — their inbound links wired toward a catch-up target, the whole swarm primed to reach for them (Step 0b).
 4. **Vector tuning has been invited** for entries whose `forward_vector` has visibly drifted from the entry's current content, connections, or pace. Forward vectors are meant to evolve; the Weave is a natural occasion to surface drift and propose tweaks or full overhauls.
 5. Any confirmed metadata updates have been written to entry files
 5a. A **face audit** has run — every canon entry missing a hero or an icon is proposed for the gated [[Hero and Avatar Maker]] batch.
-5b. A **visual Weave report** (HTML, per the [[Loudon Live Design System]]) has been produced and saved to the session folder — the human-facing companion to the topology report, summarizing findings across lenses (cross-lens convergences, single-lens gems, the staged decision surface, and — after an oblique pass — what the randomness revealed and which segmentations to prioritize next). This is a standard Weave output, not a one-off. The studio floor applies (Graphite skin, the Lissajous sigil, the `Loud'n Live` footer, no cyan / emoji / hype); entry avatars may be embedded to reinforce the findings visually. Codified 2026-07-06.
+5b. A **visual Weave report** (HTML, per the [[Loudon Live Design System]]) has been produced and saved to the session folder — the human-facing companion to the topology report, summarizing findings across lenses (cross-lens convergences, single-lens gems, the staged decision surface, and — after an oblique pass — what the randomness revealed and which segmentations to prioritize next). This is a standard Weave output, not a one-off. The studio floor applies (Graphite skin, the Lissajous sigil, the `Loud'n Live` footer, no cyan / emoji / hype); entry avatars may be embedded to reinforce the findings visually.
 5c. The run report carries `ceremony_version` and ends with *What this run taught the ceremony*.
-6. Git commit made: `Weave — [date] — [N links added, N entries promoted, N orphans flagged, N vectors tuned, N flags closed, N decisions carried, N orphans recovered/discarded, N faces added]`
+5d. A **bundle audit** (`_ops/swarm/bundle-audit.py`) has run — every page whose weight has earned a Context, a scroll or a tuning ledger and lacks it is proposed, and the confirmed ones are opened (Step 5d).
+5e. **Rich-face nominations** — five to eight pages ready for [[Enrichment]] — are named in the report (Step 5e). The weave nominates; Enrichment makes.
+5f. The **health ledger** (`_ops/Weave Ceremony/Weave Ceremony — health.md`) carries a row for this weave's open and one for its close (`_ops/swarm/weave-health.py --append`).
+5g. The report ends with **the lean**: where the palace's forward vectors and recent use say it is heading, and which quiet pages revive or go dormant (Step 6.6).
+6. Git commit made: `Weave — [date] — [N links added, N links pruned, N labels added, N entries promoted, N vectors tuned, N flags closed, N decisions carried, N Contexts opened, N orphans recovered/discarded, N faces added]`
 
 **Failure mode:** If the palace is only partially readable (some files inaccessible), produce a partial topology report and note which entries were unreachable. A partial Weave is valid. Do not commit until all accessible files have been processed.
 
@@ -114,7 +124,7 @@ The single-agent protocol below remains valid for: palaces under ~20 entries, qu
 
 Before anything else — before the map build, before dispatching a single worker — read the foundational set into context if it is not already there this session: [[CLAUDE]], [[SCHEMA]], [[FOUR PILLARS]], [[ROSETTA]], [[SUBSTRATE]], [[README - The Palace Guide]], [[JEWEL]]. The Weave is a *write* ceremony: it formalizes typed links, proposes stage transitions, and may spawn hub entries. Every one of those is governed by SCHEMA. "Read before touching" is inviolable; a Weave that proposes links before SCHEMA §4 is in context is touching before reading. Link directionality is governed by §4; the `lint-link-directions.py` postcondition (2d) is the mechanical backstop.
 
-Then take the tail read of `_ops/Weave Ceremony/Weave Ceremony — tuning.md` ([[SCHEMA — Reference]] §6). Those are this run's first candidates for a spec change.
+Then read the Standing Orders on [[Weave Ceremony — scroll]] — Loudon's direction for every weave until he revokes it — and take the tail read of `_ops/Weave Ceremony/Weave Ceremony — tuning.md` ([[SCHEMA — Reference]] §6). Those are this run's first candidates for a spec change. Before the run goes wide, read the usage windows every open session shares and say where they stand ([[ELDER]] § The invariants).
 
 **Step 0b — New-entry induction (the catch-up)**
 
@@ -123,6 +133,24 @@ The youngest entries get the boldest care. A newborn entry is the least-alive no
 Identify the new arrivals: entries with `born` since the last Weave, or files git-added since the last Weave commit (`new-entry-catchup.py` with no arguments finds them). Then set a **catch-up target** — a guideline, not a gate: aim to close roughly **80% of each newcomer's gap** to a typical entry's connectedness (measured as *reach* — the entries that point at it, plus its partners on symmetric links, which hold both ways — against the median reach of established entries; `new-entry-catchup.py` computes it). These catch-up links are prioritized, not rationed — they don't count against the general introduction guideline (Step 3b), and in a Weave that welcomes new entries, widen that guideline by roughly a fifth to make room.
 
 Then prime the whole swarm toward them: thread the new-entry list and a directive into **every** worker prompt — *"These entries were born this cycle and are under-connected. As you audit your entry, actively consider whether it should link to one of them; propose inbound links generously, but only genuine ones."* Because inbound links live in the established entries, meeting a newcomer's catch-up target is work spent *by the old graph on the new* — integrating the newcomer and enriching the old in a single motion. Genuine links only; reachability is never faked to hit a target.
+
+**Step 0c — Decisions first: read the `weave_flag` inbox**
+
+Run `python3 _ops/swarm/lint-weave-flags.py` (from a worktree, add `--board` with the owner's live `_ops/swarm/persistent/blackboard.jsonl`). It reads the `weave_flag` BROADCASTs on the `WEAVE` board and lists what is still open. Flags come from deposits, closes, stewards, the last weave's trails, and decisions, most posted through `python3 -m commons weave-flag` or `python3 -m commons propagate`, the rest by the two tools named in [[SCHEMA — Reference]] §9. They are the Weave's first-class inputs, not free-form discoveries: someone has already seen the work, and the palace hasn't caught up.
+
+**Entry flags** name their `source_entries` and ask for something done to them. Pass each to the worker assigned to `source_entries[0]` as a directed prompt: *"a session asked you to do X — confirm, refuse, or refine."* An entry flag closes by a `Palace-Resolves: <id>` trailer on the commit that acts on it, or by a `Declined flag <id>: <reason>` line in the Weave's commit body. A commit that only touched a source entry shows as touched-unverified; entry files are high-traffic, so read the entry, and close the flag with a trailer if the work is there.
+
+**Propagate flags** (`flag_type: propagate`) carry a decision to every page it reaches. Each names its home (`target_entry`), its `scope`, a `check`, a `rhythm`, and, when the check is mechanical, a `pattern` whose matching pages the linter has already counted. They are carried before anything else is read, while the decision's home is fresh in mind:
+
+- Read the decision's home before touching any page.
+- **A pattern** makes the linter's list the work: the pages that still match. A writer carries them as one mechanical pass, examples and templates first, because drift rides stale examples. Loudon already said yes to the decision, so these edits go to him as one batch he samples (tuning item 34). A foundational page (CLAUDE, JEWEL, ELDER, SCHEMA) is always read whole.
+- **A sweep with no pattern** is a reader's question. Thread it into the folder pass, which holds every page once (the worker template's DECISIONS TO CARRY slot): *"these decisions were made since the last weave; does your page agree? If not, propose the edit."*
+- **`rhythm: by-touch`** means Loudon chose to let pages change as they are next edited for their own reasons. Don't sweep; report how far its pattern has spread (the poster refuses a by-touch flag without one).
+- Some arrive part-carried: the deciding session did what it could at once and posted the flag so a second reader confirms the decision reached everywhere. The check says what is left.
+- Finished, with the check clean: `Palace-Resolves: <id>`. Not finished: a `Carried flag <id>: <how far>` line in the commit body. The flag stays on the board, and the next weave starts where this one stopped.
+- A weave never declines a propagate flag. If a decision now looks wrong, ask Loudon. Only he retires one: on his word the weave writes `Palace-Resolves: <id>` and quotes him in the commit body.
+
+Flags with a `pattern` are carried by a writer here, before the fan-out; flags that are a reader's question ride the folder pass (Step 1).
 
 **Step 1: Read the full palace**
 
@@ -152,38 +180,25 @@ Collect all unsung paths and add them to the Topology Report. They are resolved 
 
 The Weave always runs with full filesystem access. No GitHub URL fallback.
 
-**Step 1c: Read the `weave_flag` inbox**
-
-Run `python3 _ops/swarm/lint-weave-flags.py` (from a worktree, add `--board` with the owner's live `_ops/swarm/persistent/blackboard.jsonl`). It reads the `weave_flag` BROADCASTs on the `WEAVE` board and lists what is still open. Flags come from deposits, closes, stewards, the last weave's trails, and decisions, most posted through `python3 -m commons weave-flag` or `python3 -m commons propagate`, the rest by the two tools named in [[SCHEMA — Reference]] §9. They are the Weave's first-class inputs, not free-form discoveries: someone has already seen the work, and the palace hasn't caught up.
-
-**Entry flags** name their `source_entries` and ask for something done to them. Pass each to the worker assigned to `source_entries[0]` as a directed prompt: *"a session asked you to do X — confirm, refuse, or refine."* An entry flag closes by a `Palace-Resolves: <id>` trailer on the commit that acts on it, or by a `Declined flag <id>: <reason>` line in the Weave's commit body. A commit that only touched a source entry shows as touched-unverified; entry files are high-traffic, so read the entry, and close the flag with a trailer if the work is there.
-
-**Propagate flags** (`flag_type: propagate`) carry a decision to every page it reaches. Each names its home (`target_entry`), its `scope`, a `check`, a `rhythm`, and, when the check is mechanical, a `pattern` whose matching pages the linter has already counted. Carry them first, while the decision's home is fresh in mind:
-
-- Read the decision's home before touching any page.
-- **A pattern** makes the linter's list the work: the pages that still match. A writer carries them as one mechanical pass, examples and templates first, because drift rides stale examples. Loudon already said yes to the decision, so these edits go to him as one batch he samples (tuning item 34). A foundational page (CLAUDE, JEWEL, ELDER, SCHEMA) is always read whole.
-- **A sweep with no pattern** is a reader's question. Thread it into the folder pass, which holds every page once (the worker template's DECISIONS TO CARRY slot): *"these decisions were made since the last weave; does your page agree? If not, propose the edit."*
-- **`rhythm: by-touch`** means Loudon chose to let pages change as they are next edited for their own reasons. Don't sweep; report how far its pattern has spread (the poster refuses a by-touch flag without one).
-- Some arrive part-carried: the deciding session did what it could at once and posted the flag so a second reader confirms the decision reached everywhere. The check says what is left.
-- Finished, with the check clean: `Palace-Resolves: <id>`. Not finished: a `Carried flag <id>: <how far>` line in the commit body. The flag stays on the board, and the next weave starts where this one stopped.
-- A weave never declines a propagate flag. If a decision now looks wrong, ask Loudon. Only he retires one: on his word the weave writes `Palace-Resolves: <id>` and quotes him in the commit body.
 
 **Step 2: Produce the topology report**
 
 Report on:
 - **Since the last map** — from `palace-map.py diff`: entries born and gone, edges formed and dissolved, stage changes, hubs whose inbound degree moved, ghosts closed and new. Read this before anything below; it is where the flags of the last Weave and the deposits since it show up as shape. A ghost closed is a deposit that answered a reach; a ghost new is the palace reaching again.
 - **Total entries** by type (concept, hub, practice, source, etc.)
-- **Hub nodes** — entries with ≥5 typed links. Are any that should be hubs not yet promoted?
+- **Hub nodes** — the top inbound decile (`weave-health.py` prints the cut). Any there not typed `hub` is proposed for promotion; any `hub` below the median inbound is proposed for retype. A hub is a role the graph has given a page, not a badge.
+- **Link quality** — labelled share, bare `connects-to`, pairs carrying more than one link (`lint-link-pairs.py`), unsaid links (`unsaid-links.py`), and the sources that carry the most of each. These are the numbers this weave is measured by; the health ledger keeps them run to run.
+- **Bundle health** — `bundle-audit.py`: the Contexts, scrolls and tuning ledgers owed, and the rich-face candidates (Steps 5d, 5e).
 - **Orphans** — entries with no typed links in either direction. Flag for connection or composting.
 - **Isolated entries** — entries no one links to. May be genuine roots or may be forgotten.
 - **Most-connected entries** — top 5 by total typed link count. These are the palace's centers of gravity.
 - **Cross-pillar bridges** — entries that link entries from different pillars. These are often the most generative nodes.
-- **Dormant entries** — `stage: dormant`. Have conditions changed? Any ready for revival?
+- **Dormant entries** — `stage: dormant`. Have conditions changed? Any ready for revival? If a quarter has passed since the Spore Check's last run line, or its ledger has none, offer one.
 - **Stale metadata** — entries whose stage seems wrong given their content.
 - **Composting candidates** — entries at `stage: composting` from a prior Weave. Confirm deletion or revive.
 - **Proposals for canon** — `node _ops/stigmergy/list-proposals.mjs` names the pages whose stewards have proposals owed to Loudon's ledger review, under the one line the Return says too (`--line`). The Weave names them and settles none ([[Project Stewardship System]] § What's Decided).
 - **Bundle-frontmatter health** — files carrying canon frontmatter (`type`/`pillars`/`stage`) that live *inside a bundle folder* (a folder with a twin `.md`, per [[SCHEMA]] §8), or carrying a `type:` not in §1. These are demotion candidates — probably entry-owned working substrate that should wear minimal §8 bundle frontmatter. Flag them; the mind rules substrate-vs-nested-canon (nested canon always exists — Shop specialists, catalogue sub-entries). Demote confirmed substrate; leave real entries; promotion (bundle → canon) is deferred to Loudon. Canon frontmatter inside an *organizational* folder (`Projects/`, `Shop/`, `_ops/`) is normal — the twin-`.md` test is what separates the two.
-- **Ghost wikilinks** — body `[[wikilinks]]` whose target resolves to no file. Flag every one; the mind decides invitation (a deliberate forward-reference, per [[CLAUDE]]'s "missing connections are invitations") vs. typo or stale link (fix or cut). Detection is mechanical and can later be scripted; the disposition is judgment.
+- **Ghost wikilinks** — body `[[wikilinks]]` whose target resolves to no file. Flag every one; the mind decides invitation (a deliberate forward-reference — the Jewel's "a missing connection is an invitation", [[JEWEL]]) vs. typo or stale link (fix or cut). Detection is mechanical and can later be scripted; the disposition is judgment.
 
 **Step 2.5: Substrate sweep**
 
@@ -232,9 +247,23 @@ Present to Loudon. Add confirmed links to the appropriate entry frontmatter.
 
 **Step 3c: Label enrichment**
 
-Review existing links that lack labels, prioritizing: (1) all `connects-to` links — these are the most semantically underweight; (2) `mirrors` and `contradicts` links where the nuance is high; (3) any link whose body text already names the relationship more specifically than the type does. For each candidate, propose a single-word or hyphenated label. Keep label proposals curated — a handful per Weave, not an exhaustive sweep; curation applies here too. A label is a permanent commitment to a specific register; choose deliberately.
+A bare `connects-to` is the palace's weakest claim: a type that says only "near", with no label and often no sentence. Every one is either given its label — the word the body already uses, or the one the worker who read both pages can stand behind — or retyped to the relation it really is, or cut (Step 3d). This is not a handful per weave. Labelled links of other types are enriched where the body names the relation more specifically than the type does; those stay curated. A label is a permanent commitment to a register; choose deliberately, and read [[Resonant Link Labels]] for the words already in use.
 
-Present all label proposals to Loudon before applying. Write confirmed labels to the appropriate entry frontmatter.
+Present label proposals to Loudon in one sampled batch (tuning item 34). Write confirmed labels to the appropriate entry frontmatter.
+
+**Step 3d: Prune and retype — one link per pair**
+
+A pair of entries carries one typed link. `lint-link-pairs.py` lists every pair carrying more than one: a symmetric link stated on both sides is kept once — mechanically when one side has a label and the other none, or both carry the same; when the two labels differ, the worker who read both pages says which holds, and that is a judgment; a `connects-to` beside a specific link is folded into it, its label carried if the specific link had none; two specific links on one pair are a judgment, and the worker who read both pages says which relation it is. The exception is a direct lineage reciprocal — `spawned` ↔ `emerged-from`, `enables` ↔ its ground — where the lineage is direct; a diffuse origin does not earn a `spawned` back. Beyond pairs, a link with no reason anywhere — bare, unsaid, and no worker can say why — is cut. A cut link is not lost: the palace is re-read every weave, and a real connection returns with its reason.
+
+The mechanical folds go to Loudon as one sampled batch; the judgments go in Pile B. Write confirmed changes to frontmatter.
+
+**Step 3e: Unsaid links**
+
+The inverse of an unsung path. `unsaid-links.py` lists every frontmatter link whose target the page's body never names — no wikilink, no title. The link asserts a relation the page gives no reason for. Disposition is judgment, per link: write the sentence (the connection is real and the page should say it), add the label (the type and label carry the reason), or cut it (Step 3d). Labels and cuts may ride the sampled batch; a new sentence changes what a page says, so it goes to Pile B for Loudon's eye, never the batch. A bare unsaid link — unlabelled too — is always settled this weave; a labelled one is reviewed where the lens that read the page had an opinion.
+
+**Step 3f: Label harvest — the labels propose the next link types**
+
+The ten link types were never meant to be eternal (Loudon, 2026-10-24). Once every `connects-to` carries a label, the labels are the palace's own proposal for what the next types should be. `label-harvest.py` gathers every `connects-to` label, normalises it (hyphens, plurals, stems) and clusters it fuzzily — shared stems, edit distance, then a reader's semantic grouping of the residue. A cluster that is large across many sources and coherent in meaning is proposed to Loudon as a candidate link type, with its members, its proposed name and the directionality it would carry; a proposal he accepts goes through a Schema Ceremony ([[SCHEMA — Reference]] §5), since a new type is a permanent structural commitment. Small clusters feed [[Resonant Link Labels]] as the register of words in use. The harvest runs after 3c–3e, so it reads labels, not gaps.
 
 **Step 4: Propose metadata updates**
 
@@ -270,15 +299,25 @@ For each candidate, present:
 
 Apply confirmed vector edits to entry frontmatter.
 
+Hub promotion and retype follow the decile rule in Step 2; show the list to Loudon with each page's inbound count.
+
 **Step 5c: Face audit**
 
 Every canon entry wears a face: a hero and an icon in its bundle folder ([[Hero and Avatar Maker]] § The convention). Faces are load-bearing — they are how [[STIGMERGY]]'s state view grabs the eye in search. Nothing exempts an entry, not its type, stage, links or use, and nothing takes a face away: spores, questions and composting entries keep theirs, and a face leaves only with its entry.
 
 `face-audit.py` lists every canon entry missing a hero, an icon or both. Each missing side gets a prompt in the Maker's locked art direction — the Single-Doc worker's FACE CHECK writes them, or the coordinator does when the workers leave faces to the scan. The list feeds the Maker as a gated batch, which Loudon approves because rendering costs money. Run it after the Weave's link and metadata writes, so an entry this Weave deletes or folds is never rendered.
 
-**Step 6: Deposit candidates + walk the To-Do**
+**Step 5d: Bundle audit**
 
-Flag any ideas currently living only in conversations that should be deposited; add them to [[Palace To-Do]] if not already there. Then walk the To-Do itself — it is the palace's toss-bucket for uncategorized thoughts, and the Weave is where they get revisited. For each open item ask: still a to-do? how important now? how easy to integrate? Act on the ripe ones, reprioritize the rest, and let go of what has quietly resolved — noting the release, so it doesn't resurface.
+`bundle-audit.py` reads every canon entry's bundle folder and lists the memory its weight has earned and lacks: a **Context** when the page is pointed at twenty times or more, runs over 20 KB, or is mature or fruiting past half those marks (a small mature page has little shape to explain); a **scroll** for every project (the archived and complete ones are Loudon's question, not a gap); a **tuning ledger** for every page that runs — a ceremony, or a steward's home. Propose the list; on Loudon's yes, open each file with its §8 frontmatter, and draft the first Contexts from the page, its git log and its Context's three questions — what the page left out, what was tried and dropped, why it is shaped as it is — by write-agents, one per file, reviewed before they land. A Context that only restates the page is worse than none.
+
+**Step 5e: Rich-face nominations**
+
+`bundle-audit.py` also ranks the pages ready for [[Enrichment]]: mature or fruiting, well pointed-at, wearing a face, with no rich-face manifest yet, and a body that names something that can only be shown, heard or played. The weave reads the top of that list and nominates five to eight — the forward vector is the brief, and the test is Enrichment's: a piece must test the text, not decorate it. Nominations go in the report and become one baton announced on the board for [[Enrichment]] to catch; the weave makes none.
+
+**Step 6: Deposit candidates + walk the open handoffs**
+
+Flag any ideas currently living only in conversations that should be deposited. Then walk the open handoffs — `node _ops/stigmergy/list-handoffs.mjs` lists every baton announced on the board in its three states ([[STIGMERGY]] § Handoff Lifecycle). For each open or long-claimed card ask: still wanted? how important now? how easy? Act on the ripe ones, re-baton the rest with a sharper move, and close what has quietly resolved, citing the commit that did it. The palace keeps no to-do list apart from its handoffs (Loudon, 2026-10-25: the To-Do retired in favour of handoffs); a thought with no mover becomes a baton or is let go.
 
 **Step 6b: Weave memory home**
 
@@ -302,33 +341,36 @@ python3 _ops/swarm/lint-weave-flags.py --since <weave start>     # weave_flag in
 python3 _ops/swarm/lint-ghost-links.py                           # dead body wikilinks — flag-only, never gates
 python3 _ops/swarm/lint-bundle-hygiene.py                        # frontmatter demotion candidates (invalid type gates)
 python3 _ops/swarm/lint-voice-drift.py                           # markup density vs the voice floor — flag-only, never gates
+node _ops/self-model/anatomy.mjs                                  # the self-model's organs still exist — flag-only; a miss offers a Self-Model Update
 python3 _ops/swarm/face-audit.py                                 # canon entries missing a hero or an icon (Step 5c)
+python3 _ops/swarm/lint-link-pairs.py                            # one link per pair (Step 3d) — flag-only until two clean runs
+python3 _ops/swarm/unsaid-links.py                               # links the body never explains (Step 3e) — flag-only
+python3 _ops/swarm/bundle-audit.py                               # Contexts, scrolls, ledgers owed; rich-face candidates (Steps 5d, 5e)
+python3 _ops/swarm/label-harvest.py                              # connects-to labels clustered; candidate link types (Step 3f)
+python3 _ops/swarm/weave-health.py --append --label "close"      # the health row for this weave's close (Step 6.6)
 ```
 
 Three of them are the health scans behind Steps 2 and 5c: `lint-ghost-links.py` surfaces dead body wikilinks (flag-only — a ghost may be an invitation, so it never gates), `lint-bundle-hygiene.py` flags demotion candidates (an invalid `type:` is a hard error; canon-frontmatter-in-a-bundle is a judgment warning), and `face-audit.py` lists the canon entries missing a face, for the face batch. The first two *detect* and the mind rules each finding; the face list asks for no ruling, only prompts and Loudon's yes to the batch.
 
 Routing note: session-level Weave artifacts (maps, reports) go to `_ops/swarm/sessions/[session-id]/`; per-entry artifacts go to that entry's bundle (`[Entry]/`, per [[SCHEMA]] §8).
 
-`lint-link-directions.py` is the Weave's mechanical check on §4 directionality — it catches what a hand audit of dozens of worker-proposed links misses. It reports:
-- **E1** — reciprocal contradiction (an asymmetric type used both ways between a pair). Always a bug.
-- **E2** — a `hub` entry emitting `member-of`. Always a bug (members declare membership; the hub never does).
-- **W1 / W2** — heuristic reviews (a ground emitting a lineage link; `member-of`/`exemplifies` toward a less-central target). Not all are bugs — `deepens`-chains legitimately trip W1.
+`lint-link-directions.py` (postcondition 2d): resolve every error this Weave introduced; name any pre-existing one in the commit body.
 
-Resolve every error this Weave introduced. Any pre-existing error left standing is named in the commit body with a one-line reason. Do not commit a Weave that *added* a directional error.
+`lint-entry-naming.py` (postcondition 2f): resolve every error this Weave introduced; name any pre-existing one in the commit body.
 
-`lint-entry-naming.py` is the naming check — the mechanical backstop for the two ways an entry drifts from the filesystem, both hidden by macOS's case-insensitive volume until a case-sensitive reader (git, Linux CI, the STIGMERGY tree) trips over them:
-- **E1** — a bundle folder that matches its entry only case-insensitively (`Modes of collaboration/` beside `Modes of Collaboration.md`). SCHEMA §8 matches bundles by *exact* name; the miscase silently splits the bundle. Always a bug — an **error** that gates the commit. Fix by renaming the folder (two-step `git mv` on a case-insensitive FS).
-- **W1** — a canon entry whose `title:` ≠ its filename (SCHEMA §3), e.g. `Oblique Portrait.md` titled "Oblique Portrait Method". A **warning**, reviewed every Weave and corrected where it's real drift; a few are deliberate (foundational stylized names like `ROSETTA`; source entries carrying a year). Correct by editing the title to match, or — when the filename is wrong — renaming the file and repointing its `[[wikilinks]]` (canonicalize on whichever the graph already points to). Titles differing only by a filesystem-illegal character (`?`, `/`) are not flagged.
+**Step 6.6: The health row and the lean**
 
-Resolve every E1 this Weave introduced (do not commit a Weave that added one); triage the W1 list, fixing real mismatches and leaving intentional ones.
+`weave-health.py --append` writes the close's row to `Weave Ceremony — health.md` beside the open's; the report carries both, and the four rows before them. Then the lean: read the forward vectors and the recent use together (`entry-use.py`, the map's use block) and say, in a paragraph, where the palace is heading — which neighbourhoods are being built, which vectors most pages lean toward, what wants making next — and name the quiet pages (high degree, no use in the window) for revival or dormancy.
 
 **Step 6.7: Stamp the version; say what the run taught**
 
 Stamp the run report with `ceremony_version` — in frontmatter when the report is markdown; for `report.html`, a `<meta name="ceremony_version">` tag and the header line. End the report with **"## What this run taught the ceremony"**. "Nothing" is a legal answer. Either way the run marks the tuning file with its run line; anything else also becomes the next numbered entry in `_ops/Weave Ceremony/Weave Ceremony — tuning.md`, naming the spec change it should force. If that change lands in this commit, move the version and give the Context its paragraph; if not, mark the entry owed.
 
-**Step 7: Commit**
+**Step 7: Commit, and post the standards**
 
-After all confirmed changes are written: `Weave — [date] — [N links added, N entries promoted, N orphans flagged, N vectors tuned, N flags closed, N decisions carried, N orphans recovered/discarded]`
+After all confirmed changes are written: `Weave — [date] — [N links added, N links pruned, N labels added, N entries promoted, N vectors tuned, N flags closed, N decisions carried, N Contexts opened, N orphans recovered/discarded, N faces added]`
+
+A standard the weave set this run — a rule every page should meet — is posted as a propagate flag (`python3 -m commons propagate`) with the rhythm Loudon chose, so the pages this weave did not reach are carried by the next.
 
 The commit body lists every substrate disposition (one line each), a `Palace-Resolves: <id>` trailer for every flag closed, every declined `weave_flag` with a one-line reason, and a `Carried flag <id>: <how far>` line for every propagate flag still spreading. The LOG is the record; silent discards violate it.
 
@@ -355,7 +397,11 @@ The commit body lists every substrate disposition (one line each), a `Palace-Res
 - Recent rewrites (reflog): [count in last N days]
 - Dispositions: [N recover · N discard · N leave]
 
-**Hubs:** [list entries with ≥5 links and their counts]
+**Health (open → close):** the two rows from `Weave Ceremony — health.md`, and the four before them
+
+**Link quality:** [labelled %, bare connects-to, multi-link pairs, unsaid links — open → close]
+
+**Hubs:** [the top inbound decile with counts; promotions and retypes proposed]
 
 **Orphans:** [list entries with no typed links — disposition needed]
 
@@ -369,6 +415,12 @@ The commit body lists every substrate disposition (one line each), a `Palace-Res
 
 **Unsung paths:** [N findings]
 1. [[Entry A]] body mentions "[phrase]" → propose [[Entry B]] as [link-type] — [structurally significant: yes/no]
+
+**Pruned and retyped:** [N pairs folded · N bare links labelled · N cut — one line each in the apply log]
+
+**Unsaid links:** [N found · N given a sentence · N labelled · N cut]
+
+**Label harvest:** [N connects-to labels · N clusters · candidate link types proposed, each with members and direction]
 
 **New introductions:** [curated]
 1. [[Entry A]] —[type]→ [[Entry B]] — [one-line rationale]
@@ -384,9 +436,15 @@ The commit body lists every substrate disposition (one line each), a `Palace-Res
 
 **Faces:** [N canon entries missing a hero or an icon → Hero and Avatar Maker batch]
 
+**Bundle audit:** [N Contexts owed → N opened · N scrolls · N tuning ledgers]
+
+**Rich-face nominations:** [5–8 pages, each with the claim a piece would test]
+
 **Bundle-frontmatter health:** [N demotion candidates — canon frontmatter in a bundle folder / invalid type]
 
 **Ghost wikilinks:** [N dead [[links]] — disposition: invitation / fix / cut]
 
-**What this Weave changed (map diff, open → close):** [edges formed, stage changes, ghosts closed]
+**What this Weave changed (map diff, open → close):** [edges formed and dissolved, stage changes, ghosts closed]
+
+**The lean:** [where the palace is heading; quiet pages revived or put to sleep]
 ```

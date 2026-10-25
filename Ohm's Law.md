@@ -7,17 +7,15 @@ pillars:
 born: 2026-03
 stage: mature
 links:
-  - target: "[[Logarithmic Interface Scaling]]"
-    type: connects-to
   - target: "[[FOUR PILLARS]]"
     type: connects-to
-  - target: "[[Modes of Collaboration]]"
-    type: connects-to
-  - target: "[[Piano String Inharmonicity]]"
-    type: connects-to
+    label: tools-for-learning
   - target: "[[Boundary-Crossing Instruments]]"
     type: mirrors
     label: reframing-inverse-relationships
+  - target: "[[Modes of Collaboration]]"
+    type: exemplifies
+    label: interactive-exploration
 forward_vector: "I want to become the palace's exemplar for cross-domain structural isomorphism — the entry that shows students how a single equation (V=IR) appears identically in electrical, hydraulic, thermal, and acoustic domains, making each domain more legible through the others. I want to grow a section connecting Ohm's Law specifically to Loudon's DSP work: resistance as filter Q, current as signal flow, voltage as amplitude — making the electronics metaphor operative in synthesis."
 ---
 

@@ -17,6 +17,7 @@ forward_vector: "I want to become the complete index of where two domains rhyme 
 links:
   - target: "[[FOUR PILLARS]]"
     type: deepens
+    label: worked-bridges
   - target: "[[Quality Manifesto]]"
     type: connects-to
     label: applies-to
@@ -45,15 +46,6 @@ links:
   - target: "[[Found ↔ Made]]"
     type: spawned
     label: essence-axis
-  - target: "[[Douglas Hofstadter]]"
-    type: connects-to
-    label: cognitive-ground
-  - target: "[[Source Library]]"
-    type: connects-to
-    label: draws-from
-  - target: "[[Shunryu Suzuki]]"
-    type: connects-to
-    label: resonance-witness
   - target: "[[Brian Eno]]"
     type: connects-to
     label: constraint-practitioner
@@ -311,12 +303,6 @@ If it's just intellectually interesting, it's not worth teaching. It must make y
 **The question:** Do these have structural identity, or are they just poetic?
 
 ## The Growing Web
-
-This hub connects to:
-- **10 established resonances** (individual bridge entries)
-- **40 weekly themes** (each demonstrates multiple resonances)
-- **Source library** (philosophers and artists who teach pattern recognition)
-- **4 Pillars practice** (the integration method)
 
 As the palace grows, new connections will emerge. Students will find resonances we haven't documented. The web becomes denser, richer, more surprising.
 

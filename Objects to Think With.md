@@ -20,8 +20,6 @@ links:
   - target: "[[Loudon Live]]"
     type: connects-to
     label: the-public-entity
-  - target: "[[Autodidact Polymaths]]"
-    type: connects-to
   - target: "[[Creative Coach]]"
     type: connects-to
     label: the-peer-gap

@@ -1,0 +1,1363 @@
+{
+ "Substrate Skill": {
+  "prose": [
+   {
+    "entry": "Substrate Skill",
+    "where": "§ Ceremony File Conventions (:82)",
+    "passage": "Currently split: [[Deposit Ceremony]] + [[Deposit Ceremony — Context]]; [[Harvest Ceremony]] + … [[Weave Ceremony]] + … [[Baton Ceremony]] + [[Baton Ceremony — Context]].",
+    "proposal": "delete",
+    "words": "A roster that rots; bundle-audit.py finds the truth.",
+    "_room": "folder-ops"
+   },
+   {
+    "entry": "Substrate Skill",
+    "where": "§ Stage as Alignment Confidence, from 'Stage-conditional posture' to 'The run' (:129-183)",
+    "passage": "**Stage-conditional posture for the Steward agent** (canonical home: [[Project Stewardship System]] …) … **The Machinery/Content Split** … **The scroll's zones** … **The read seam.** … **The run.** One activation cycles a steward up to its manifest's `stopping_conditions.max_iterations` …",
+    "proposal": "simplify",
+    "words": "About 8 KB. Its own text names Project Stewardship System as the canonical home, and The Scroll holds the zones. Keep the stage table and the AI-polish trap here (Revival, The Daily Page, Stewardship all cite this section); move the rest to the entries that own them.",
+    "_room": "folder-ops"
+   },
+   {
+    "entry": "Substrate Skill",
+    "where": "§ Interaction with Other Skills (:294-298)",
+    "passage": "This skill complements the Four Pillars skill. The Four Pillars governs HOW we work together. The Substrate governs WHERE we deposit what we learn.",
+    "proposal": "delete",
+    "words": "There is no Four Pillars skill; FOUR PILLARS is a page every agent is born reading.",
+    "_room": "folder-ops"
+   },
+   {
+    "entry": "Substrate Skill",
+    "where": "§ Operating this environment (:207)",
+    "passage": "**Which model does the work.** The session supervises … Sonnet runs the wide legs … Opus takes the long reading … Haiku only does shallow, known-shape work.",
+    "proposal": "simplify",
+    "words": "Operator-environment fact with a usage cap in it; the memory rule is that a fact true of this harness lives in Operator Memory and the palace keeps a pointer. Check whether this survives the next memory sweep.",
+    "_room": "folder-ops"
+   },
+   {
+    "entry": "Substrate Skill",
+    "where": "Updating Entries",
+    "passage": "(proven on the 2026-05-28 audit: a conservative one-section trim was rejected for \"go more aggressive,\" and re-cutting a whole entry to ~53% was the right level)",
+    "proposal": "delete",
+    "words": "",
+    "_room": "weak-06"
+   },
+   {
+    "entry": "Substrate Skill",
+    "where": "Stage as Alignment Confidence",
+    "passage": "*(Ship-first since the 2026-06-07 Steward Boldness revision — see [[Project Stewardship System]]; boldness ≠ batch: free the single creation, keep the gate on mass-production. Replaces the earlier \"discussion, not deliverables\" framing, which optimized for well-shaped questions over made things.)*",
+    "proposal": "simplify",
+    "words": "*(Ship first: free the single creation, keep the gate on mass-production — [[Project Stewardship System]].)*",
+    "_room": "weak-06"
+   },
+   {
+    "entry": "Substrate Skill",
+    "where": "Ceremony File Conventions",
+    "passage": "Every run opens with a tail read of that ledger, never the whole of it — its last 40 lines with the run lines set aside, plus any item still owed wherever it sits — and those are the first candidates for the run's spec change. Every run closes by appending one run line, `- run · <date> · v<version> · <what it ran on> · nothing new` (or `taught item N`); a numbered item is written when the run taught something.",
+    "proposal": "simplify",
+    "words": "A run reads the tail of its ledger first and closes by appending one run line; a numbered item is written only when the run taught something. Each ledger's frontmatter holds the exact format.",
+    "_room": "weak-06"
+   }
+  ],
+  "annotations": [],
+  "sentences": [
+   {
+    "id": "commons-the-palace-1792765795078",
+    "flag_type": "entry_update",
+    "what": "_ops/Substrate Skill.md:212: \"Haiku only does shallow, known-shape work.\" becomes \"Haiku only does shallow, known-shape work; with the whole Palace Map loaded it sits at 179K of its 200K before the conversation starts ([[Palace Map — proof — map-agent-test]]).\"",
+    "reason": "The test measured exactly that line's claim (_ops/Palace Map/proofs/2026-10-23-map-agent-test/RESULTS.md, table and point 5), and the proof page resolves (_ops/Palace Map/proofs/Palace Map — proof — map-agent-test.md)."
+   }
+  ],
+  "path": "_ops/Substrate Skill.md"
+ },
+ "Weave Ceremony": {
+  "prose": [
+   {
+    "entry": "Weave Ceremony",
+    "where": "postcondition 2g (:104)",
+    "passage": "Added 2026-08-25 after the drift was measured — em-dashes up 41% and bold up 53% from the March baseline, in a palace whose *word choice* had held perfectly. The lesson it encodes: a stated value without a check drifts to whatever the writer's default is, and the palace had gated link direction, doc drift, bundle hygiene, and weave flags while leaving its own prose on the honour system.",
+    "proposal": "delete",
+    "words": "History; belongs in the Context (and git). Keep the first two sentences: what the linter measures and that it is flag-only.",
+    "_room": "folder-ops"
+   },
+   {
+    "entry": "Weave Ceremony",
+    "where": "postcondition 2b (:99)",
+    "passage": "a baton-launched weave once skipped the inbox read when it was honour-system ([[The Palace Hardens Around Values]]: a rule earns a gate once its check proves mechanical).",
+    "proposal": "delete",
+    "words": "History; the linter sentence before it stands.",
+    "_room": "folder-ops"
+   },
+   {
+    "entry": "Weave Ceremony",
+    "where": "postcondition 2d and 5b (:101,112)",
+    "passage": "This is the checkable directional postcondition that the 2026-06-05 schema-compliance miss showed the Weave needed. … Codified 2026-07-06.",
+    "proposal": "delete",
+    "words": "Dates and provenance; git holds them.",
+    "_room": "folder-ops"
+   },
+   {
+    "entry": "Weave Ceremony",
+    "where": "Step 6.5, the two paragraphs after the linter block (:361-372)",
+    "passage": "`lint-link-directions.py` is the Weave's mechanical check on §4 directionality — it catches what a hand audit of dozens of worker-proposed links misses. It reports: **E1** … **E2** … **W1 / W2** …  /  `lint-entry-naming.py` is the naming check — the mechanical backstop for the two ways an entry drifts from the filesystem, both hidden by macOS's case-insensitive volume …",
+    "proposal": "delete",
+    "words": "Both are already said in postconditions 2d and 2f (:101,103), and each script prints its own rules. About 2.5 KB. Keep one line each: 'resolve every error this Weave introduced; name any pre-existing one in the commit body.'",
+    "_room": "folder-ops"
+   },
+   {
+    "entry": "Weave Ceremony",
+    "where": "§ Execution Method (:77)",
+    "passage": "The single-agent protocol below remains valid for: palaces under ~20 entries, quick topological spot-checks, or situations where Claude Code sub-agent orchestration is unavailable. For the current palace (100+ entries), execute as a Swarm Weave.",
+    "proposal": "delete",
+    "words": "The palace has 324 pages. Say 'the Protocol below is the swarm's steps'.",
+    "_room": "folder-ops"
+   },
+   {
+    "entry": "Weave Ceremony",
+    "where": "§ The Topology Report Format (:390-463)",
+    "passage": "## Weave Report — [YYYY-MM-DD] … (a 70-line template)",
+    "proposal": "simplify",
+    "words": "The report's contents are already the list in Step 2 and the steps' own outputs. Move the template to Coordinator Synthesis Template.md (where the coordinator already works from) and leave one sentence.",
+    "_room": "folder-ops"
+   }
+  ],
+  "annotations": [],
+  "sentences": [
+   {
+    "id": "commons-the-palace-1792107627579",
+    "flag_type": "scope-needed",
+    "what": "Weave Ceremony — Context.md § The Version and the Tuning File: after v1.1 (:101) add \"**v1.2 (2026-09-25) — every run marks its ledger.** Schema v1.23 asked each run to leave a run line in its tuning ledger, but the card still said a lesson goes there only when the spec changes, so no run would have written one. Step 7 now says it: the run marks the tuning file, and a lesson that changes the spec is also a numbered item. No weave run forced it; the reason is in `033f5da5`.\" / \"**v1.3 (2026-09-26) — use is read from git.** Schema v1.26 retired `activation_count` and `last_activated`, which measured who remembered to bump them. The new-arrival step, the use line, stale metadata and the dormancy proposal now read `entry-use.py`. No weave run forced it (`32cb19ed`).\" / \"**v1.4 (2026-10-14) — the sweep reads the trunk.** Tuning item 40. Step 2.5 runs `trunk-state.mjs` as its sixth command, and its rows take recover, discard or leave like the rest.\" / \"**v1.5 (2026-10-14) — every canon entry wears a face.** Tuning item 41; see § The Weave's Widened Charter, *Faces on every entry*.\" After v1.7 (:105) add \"**v1.8 (2026-10-21) — the report names proposals owed.** Step 2's report lists the pages whose stewards have proposals waiting on Loudon's ledger review (`list-proposals.mjs --line`); the weave names them and settles none. No weave run forced it (`e559e64b`).\" / \"**v1.9 (2026-10-22) — the opening builds the map and reads the diff.** Tuning item 46. The opening runs `build-map.py` and diffs against the last weave's map; Step 6.5 diffs open against close, and the report carries both.\"",
+    "reason": "v2.0's Context has paragraphs for v1.1, v1.6, v1.7 and v2.0 only (:101-105, :123), while :97 promises one per move; v1.2-1.5 and v1.8-1.9 are owed, and their reasons are in the commits and the ledger (items 40, 41, 46)."
+   }
+  ],
+  "path": "_ops/Weave Ceremony.md"
+ },
+ "Baton Ceremony": {
+  "prose": [
+   {
+    "entry": "Baton Ceremony",
+    "where": "intro blockquote (:43-55)",
+    "passage": "You likely have a general notion of a \"handoff document.\" Start there, but read on, because the palace baton is more specific than a generic handoff, and the differences are the whole point. A generic handoff *summarizes* — it recounts what was done … The baton does the opposite.",
+    "proposal": "simplify",
+    "words": "'A baton is a generative compression of the session ([[Generative Compression]]): keep only what the next Claude needs to act and cannot recover, and drop the rest. Three rules: compress, don't summarize; write toward one named move; it is disposable.' The three numbered points already say it.",
+    "_room": "folder-ops"
+   },
+   {
+    "entry": "Baton Ceremony",
+    "where": "§ When to reach for a baton (:72)",
+    "passage": "*(A rarer variant — the **cold-start / commissioning baton**, for genuinely un-started work with no prior state — carries framing instead of momentum; its full treatment is being worked separately. Do not call a continuation \"cold-start\" …)*",
+    "proposal": "delete",
+    "words": "Contradicts § The cold-start (commissioning) variant, 'a first-class, encouraged technique' a few lines below; the treatment is here. Keep the one clause 'a continuation is not a cold start; the difference is whether real state travels with it' under that section.",
+    "_room": "folder-ops"
+   },
+   {
+    "entry": "Baton Ceremony",
+    "where": "§ The cold-start variant (:101)",
+    "passage": "(This spec's own cold-start variant was itself commissioned by a cold-start baton — the technique dogfooding itself.)",
+    "proposal": "delete",
+    "words": "History.",
+    "_room": "folder-ops"
+   },
+   {
+    "entry": "Baton Ceremony",
+    "where": "§ Trigger (:107)",
+    "passage": "This ask is deliberate and temporary — a training wheel while the \"baton\" habit sets in. Retire it once \"baton\" is the reliable word.",
+    "proposal": "simplify",
+    "words": "'Ask first: \"Baton ceremony, or an informal handoff?\"' CHILD and Palace Ceremonies both carry the same ask; keep it in CHILD and here as one line.",
+    "_room": "folder-ops"
+   },
+   {
+    "entry": "Baton Ceremony",
+    "where": "§ Step 2, after the template (:199-201)",
+    "passage": "*Why the last section is fixed, not authored:* the **author** runs this ceremony … *And why it lives in its own file rather than inline here:* … the three-state lifecycle landed in this spec on 2026-07-07 and never reached the executor, so for seven weeks every machine-written baton shipped a checklist telling the catcher to delete the baton at pickup …",
+    "proposal": "simplify",
+    "words": "'The On-pickup section is fixed boilerplate in one file, [[Baton Ceremony — on-pickup]]; paste it verbatim, never retype it. lint-baton-footer.py fails if a second copy appears.' The story goes to the Context.",
+    "_room": "folder-ops"
+   },
+   {
+    "entry": "Baton Ceremony",
+    "where": "§ Where the Baton Lives (:117)",
+    "passage": "this list is **open, not exhaustive** — new ones will appear as the palace grows (the Maker and the Shop may grow their own; Loudon may write one). What doesn't flex is the discipline …",
+    "proposal": "simplify",
+    "words": "'The list is open. What doesn't flex: carry the move, the negative space, the receiving surface, and what the catcher loads first.'",
+    "_room": "folder-ops"
+   }
+  ],
+  "annotations": [],
+  "sentences": [],
+  "path": "_ops/Baton Ceremony.md"
+ },
+ "RunPod GPU Backend": {
+  "prose": [
+   {
+    "entry": "RunPod GPU Backend",
+    "where": "Origin",
+    "passage": "Began as a plain \"assess RunPod\" question and became a full build: serverless provisioning and its failure cascade, an SDXL image run (38 images), the SDXL→FLUX sophistication jump, the img2img movie that failed honestly, and a pod running FLUX + ControlNet that did the walk-cycle-through-eras right.",
+    "proposal": "delete",
+    "words": "The git log and the proofs/ folder hold it.",
+    "_room": "folder-shop-1"
+   },
+   {
+    "entry": "RunPod GPU Backend",
+    "where": "Operational playbook (shared account)",
+    "passage": "on 2026-07-02 a full day looked like a RunPod outage — ~10 pods booted `RUNNING` but ComfyUI never came up. Real cause: a *second* Claude on the same account. Every orchestrator was single-tenant — one shared pod name ...",
+    "proposal": "simplify",
+    "words": "'The account is shared, so name every pod by agent and scope every sweep to your own namespace: `_ops/runpod/agent_ns.py`, proof in `test_multi_agent.py`. Why: [[assume multi-agent]].' The incident belongs to that entry.",
+    "_room": "folder-shop-1"
+   },
+   {
+    "entry": "RunPod GPU Backend",
+    "where": "Operational playbook (interrupted orchestrator)",
+    "passage": "This bit us live: a torn-down run left pod `x1izjb30p8jwrt` (and a sibling) running until I swept the API.",
+    "proposal": "delete",
+    "words": "The rule that follows ('list pods, terminate your own') carries the lesson. The pod id is history.",
+    "_room": "folder-shop-1"
+   }
+  ],
+  "annotations": [
+   {
+    "entry": "RunPod GPU Backend",
+    "question": "Untested horizon: more ControlNet modes - depth/canny/tile for 'img2img done right'.",
+    "verdict": "answered-elsewhere",
+    "by_entry": "Figure Rig",
+    "proposed_action": "Figure Rig's D2 redraw and its guide ablation (canny + depth + openpose) ran on RunPod. Strike.",
+    "_room": "folder-shop-1"
+   },
+   {
+    "entry": "RunPod GPU Backend",
+    "question": "Untested horizon: LoRAs / fine-tunes loaded on a pod.",
+    "verdict": "answered-elsewhere",
+    "by_entry": "LoRA Trainer",
+    "proposed_action": "RunPod already links LoRA Trainer enables[trains-on]. Strike.",
+    "_room": "folder-shop-1"
+   },
+   {
+    "entry": "RunPod GPU Backend",
+    "question": "Untested horizon: the Image-to-3D Specialist (Hunyuan3D-2 / TRELLIS) now has a real GPU.",
+    "verdict": "progressed",
+    "by_entry": "Image-to-3D Smith",
+    "proposed_action": "Exists as a stub (Shopkeeper-approved 2026-09-25, first job the Blender import test). Point at it.",
+    "_room": "folder-shop-1"
+   }
+  ],
+  "sentences": [],
+  "path": "Shop/RunPod GPU Backend.md"
+ },
+ "Ableton Session Writer": {
+  "prose": [
+   {
+    "entry": "Ableton Session Writer",
+    "where": "opening paragraph",
+    "passage": "**Status: ALIVE** — marked alive on 2026-10-21 on Loudon's yes (\"Yes, mark the Ableton Session Writer alive now that its first job is done\"); drafted 2026-10-21 in the Shopkeeper's workshop by the ableton-session session of the 2026-10-20 fan-out, from one probe (`Shop/Shopkeeper/probes/2026-10-20-ableton-session/`).",
+    "proposal": "simplify",
+    "words": "Alive since 2026-10-21, on Loudon's yes after the first job. Drafted in the Shopkeeper's workshop from one probe (Shop/Shopkeeper/probes/2026-10-20-ableton-session/). The paragraph then ends at the commissioning quote.",
+    "_room": "folder-shop-1"
+   },
+   {
+    "entry": "Ableton Session Writer",
+    "where": "Capabilities table, Known gaps, Test suite, First job",
+    "passage": "Loudon opened it unchanged in his own Live 12 (a fresh launch; Live's log: \"Restored: Frustration\" at 07:43:18 on 2026-10-21), played the ride, and said \"looks great and is working great!\" ",
+    "proposal": "simplify",
+    "words": "The same sentence appears four times. Keep it once, under First job. Elsewhere: 'heard by Loudon, 2026-10-21 (see First job)'. The evidence cell in the Capabilities table can end at '(1847b68c)'.",
+    "_room": "folder-shop-1"
+   },
+   {
+    "entry": "Ableton Session Writer",
+    "where": "Job Contract",
+    "passage": "The contract in full, as the probe's `INTERFACE.md` wrote it on 2026-10-20; the consumer sessions' copy stays beside the tool until the tool moves.",
+    "proposal": "simplify",
+    "words": "Two copies of one contract drift. Say which is the source and have the other point at it.",
+    "_room": "folder-shop-1"
+   },
+   {
+    "entry": "Ableton Session Writer",
+    "where": "Capabilities table, Known gaps, Test suite, First job",
+    "passage": "Loudon opened it unchanged in his own Live 12 (a fresh launch; Live's log: \"Restored: Frustration\" at 07:43:18 on 2026-10-21), played the ride, and said \"looks great and is working great!\"",
+    "proposal": "simplify",
+    "words": "Say it once, in First job: \"On 2026-10-21 Loudon opened the Frustration Set unchanged in his own Live 12, played the ride, and said 'looks great and is working great!'\" The same sentence with the log time stands four times (Status line, Capabilities table, Known gaps, Test suite); the other three can point to First job or lose the log timestamp.",
+    "_room": "lifecycle-L1"
+   },
+   {
+    "entry": "Ableton Session Writer",
+    "where": "Status line, opening paragraph",
+    "passage": "marked alive on 2026-10-21 on Loudon's yes (\"Yes, mark the Ableton Session Writer alive now that its first job is done\"); drafted 2026-10-21 in the Shopkeeper's workshop by the ableton-session session of the 2026-10-20 fan-out, from one probe (`Shop/Shopkeeper/probes/2026-10-20-ableton-session/`).",
+    "proposal": "simplify",
+    "words": "Alive since 2026-10-21, when its first job was done; drafted from one Shopkeeper probe (`Shop/Shopkeeper/probes/2026-10-20-ableton-session/`).",
+    "_room": "lifecycle-L1"
+   }
+  ],
+  "annotations": [],
+  "sentences": [],
+  "path": "Shop/Ableton Session Writer.md"
+ },
+ "Stable Audio Open": {
+  "prose": [
+   {
+    "entry": "Stable Audio Open",
+    "where": "Gotchas",
+    "passage": "**2026-05-26 — The earlier SAO 1.0 install attempts were wasted work (~3 min total).** The `pandas`-build failure on Python 3.12 was a symptom of `stable-audio-tools`' `requires_python: <3.11,>=3.10` constraint ...",
+    "proposal": "delete",
+    "words": "A dead SAO 1.0 install history; git holds it. If the lesson stays, one sentence: 'when a model family is a few days old, check for a newer one before installing.'",
+    "_room": "folder-shop-2"
+   },
+   {
+    "entry": "Stable Audio Open",
+    "where": "Gotchas",
+    "passage": "**2026-05-26 — Host-capability check (resolved on a new Python).** The first Track-A brief ... bounced at the host-capability-check step.",
+    "proposal": "delete",
+    "words": "Resolved and superseded by the SA3 migration above it.",
+    "_room": "folder-shop-2"
+   },
+   {
+    "entry": "Stable Audio Open",
+    "where": "header",
+    "passage": "*(Proposed by the [[Shopkeeper]]; verified and landed 2026-09-25.)*",
+    "proposal": "delete",
+    "words": "Provenance; the git log holds who proposed what and when.",
+    "_room": "folder-shop-2"
+   }
+  ],
+  "annotations": [
+   {
+    "entry": "Stable Audio Open",
+    "question": "Prompt vocabulary that summons what (SAO:~162)",
+    "verdict": "progressed",
+    "by_entry": null,
+    "proposed_action": "First jobs gave small-music vs small-sfx selection (SAO:~135) and the comedic-register recipe (SAO:~150); keep the question short or fold into those.",
+    "_room": "folder-shop-2"
+   },
+   {
+    "entry": "Stable Audio Open",
+    "question": "Licence terms for commercial use (SAO:164)",
+    "verdict": "progressed",
+    "by_entry": null,
+    "proposed_action": "The 2026-09-25 card re-check found the Gemma Terms layer (SAO:143). Move to the shared licence table.",
+    "_room": "folder-shop-2"
+   }
+  ],
+  "sentences": [],
+  "path": "Shop/Stable Audio Open.md"
+ },
+ "p5.js": {
+  "prose": [
+   {
+    "entry": "p5.js",
+    "where": "opening italic paragraph",
+    "passage": "*First job landed 2026-05-10 (Kuramoto Round 1, Step 2). Status promoted from `stub` to `alive`. Processing (Java) remains named as lineage but is not separately wrapped ...",
+    "proposal": "simplify",
+    "words": "Processing (Java) is named as lineage, not wrapped. Most palace interactive work runs on the web, so p5.js is the working tool; if a Java-only sketch becomes essential, this entry takes on a Processing variant.",
+    "_room": "weak-04"
+   },
+   {
+    "entry": "p5.js",
+    "where": "Forward Vector (last section)",
+    "passage": "First job: a Study-tier interactive Kuramoto coupling sketch — N oscillators, coupling-strength slider, phase-portrait visualization, audio output via `p5.sound`. This validates the deployment chain ...",
+    "proposal": "delete",
+    "words": "",
+    "_room": "weak-04"
+   }
+  ],
+  "annotations": [
+   {
+    "entry": "p5.js",
+    "question": "Single HTML files or Vite/esbuild projects with bundled dependencies?",
+    "verdict": "answered-elsewhere",
+    "by_entry": "Maker",
+    "proposed_action": "Maker House Standards: a web piece declares its needs in its own head and loads libraries from the shelf at an exact version with a hash; that is single-file by rule. Strike, and add the 'declares in head; conform.mjs names no error' line to p5.js's Self-Check (it is missing here and on Three.js).",
+    "_room": "folder-shop-1"
+   },
+   {
+    "entry": "p5.js",
+    "question": "p5.sound vs Tone.js for audio-driven sketches.",
+    "verdict": "answered-elsewhere",
+    "by_entry": "Maker",
+    "proposed_action": "Maker: incidental audio decoration is p5.sound inside the sketch; instruments are Tone.js. Strike.",
+    "_room": "folder-shop-1"
+   },
+   {
+    "entry": "p5.js",
+    "question": "Processing (Java): threshold for adopting as a separate Specialist.",
+    "verdict": "answered-elsewhere",
+    "by_entry": "p5.js",
+    "proposed_action": "The page's own header already says it adopts a Processing variant rather than spawning a Specialist. Delete the question.",
+    "_room": "folder-shop-1"
+   }
+  ],
+  "sentences": [],
+  "path": "Shop/p5.js.md"
+ },
+ "BBS Design System": {
+  "prose": [
+   {
+    "entry": "BBS Design System",
+    "where": "## What the Prototype Does Not Yet Know + ## Implementation Stages",
+    "passage": "The click-thru prototype in `ui_kits/blackboard/` is a beautiful shell with seed data. It does not yet reflect the palace's BBS architecture... Phase 1 — Static Shell... Phase 5 — Live Wire... Progress is intentionally slow and methodical. Each phase is a learning moment as much as a build milestone.",
+    "proposal": "delete",
+    "words": "The app these phases describe exists and runs daily with TRICKSTER and PROJECTS decks (STIGMERGY.md:54, :118). Replace with: 'The running app is STIGMERGY; this kit is its look.' Keep the Name Rule, the Non-Negotiables and Using the Skill.",
+    "_room": "folder-palace-development"
+   },
+   {
+    "entry": "BBS Design System",
+    "where": "## The Curses Path (Considered and Deferred)",
+    "passage": "An earlier direction explored a Python `curses`-based terminal interface — raw terminal control, no browser, runs anywhere a shell runs. That path is dormant, not dead...",
+    "proposal": "simplify",
+    "words": "One sentence: 'A curses build for headless or SSH use stays possible and unbuilt.' The long version is the second telling of the same thing.",
+    "_room": "folder-palace-development"
+   },
+   {
+    "entry": "BBS Design System",
+    "where": "Implementation Stages",
+    "passage": "Tracked in the BBS Blackboard forward vector and [[Palace To-Do]]:",
+    "proposal": "simplify",
+    "words": "Planned stages:",
+    "_room": "weak-02"
+   },
+   {
+    "entry": "BBS Design System",
+    "where": "Implementation Stages",
+    "passage": "Progress is intentionally slow and methodical. Each phase is a learning moment as much as a build milestone.",
+    "proposal": "delete",
+    "words": "",
+    "_room": "weak-02"
+   }
+  ],
+  "annotations": [],
+  "sentences": [],
+  "path": "Palace development/BBS Design System.md"
+ },
+ "Categorizing Inharmonicity": {
+  "prose": [
+   {
+    "entry": "Categorizing Inharmonicity",
+    "where": "§ 1 Stretched Tuning",
+    "passage": "'Physical origins: Stiff strings: restoring force increases with displacement (nonlinear potential) ... Synthesis mechanism: ... Nonlinear spring models where the restoring force is k·x + λ·x³ ... Perceptual character: Warm, bell-like ...'",
+    "proposal": "simplify",
+    "words": "Shrink to the formula, one line of origin (linear bending stiffness), a link to Piano String Inharmonicity for the physics, and one line of perceptual character; the longer treatment is Piano String's. (Also fixes the factual slip noted under coherence.)",
+    "_room": "folder-projects-1"
+   },
+   {
+    "entry": "Categorizing Inharmonicity",
+    "where": "closing italic quote",
+    "passage": "\"Inharmonicity is not a defect of sound but a *form* of sound—a variation in the theme of periodicity. Each type carries its own character...\"",
+    "proposal": "delete",
+    "words": "",
+    "_room": "weak-09"
+   }
+  ],
+  "annotations": [
+   {
+    "entry": "Categorizing Inharmonicity",
+    "question": "Kuramoto inharmonicity: is there a critical inharmonicity beyond which coupling fails?",
+    "verdict": "progressed",
+    "by_entry": "Harmonicity and Inharmonicity",
+    "proposed_action": "Already annotated in the page (tested 2026-10-17, tone frays rather than snaps). Strike the question and keep the pointer.",
+    "_room": "folder-projects-1"
+   },
+   {
+    "entry": "Categorizing Inharmonicity",
+    "question": "Interpolation: can you smoothly morph between inharmonicity types?",
+    "verdict": "progressed",
+    "by_entry": "Quantum Synthesizer",
+    "proposed_action": "Quantum's 'round trip' morphs one held tone from the harmonic series through stiffness to the squares and back by the well: a continuous path along one axis of Categorizing's space. Name it in Categorizing as the first worked path; whether Bessel→stretched→stochastic→chaotic is also continuous remains open.",
+    "_room": "folder-projects-1"
+   }
+  ],
+  "sentences": [],
+  "path": "Projects/Categorizing Inharmonicity.md"
+ },
+ "Blood Compressor": {
+  "prose": [
+   {
+    "entry": "Blood Compressor",
+    "where": "What This Entry Is and Isn't",
+    "passage": "Promotes Blood Compressor from a one-line entry in the [[Biomechanical Synthesis]] hub to a project with a stage and a forward vector.",
+    "proposal": "delete",
+    "words": "The page's own history; git holds it. The 'Isn't' line is already proposed for rewriting in the tuning ledger (item 3).",
+    "_room": "folder-projects-2"
+   },
+   {
+    "entry": "Blood Compressor",
+    "where": "Forward Vectors",
+    "passage": "- Stage 4 — Author the lesson: a 30-minute Loudon Live session that teaches compression through this device",
+    "proposal": "simplify",
+    "words": "Loudon Live is no longer a scaffolded curriculum; and the whole numbered list is the scroll's job now.",
+    "_room": "folder-projects-2"
+   }
+  ],
+  "annotations": [
+   {
+    "entry": "Blood Compressor",
+    "question": "Should the sidechain HPF default at 80 Hz or 0.1 Hz?",
+    "verdict": "answered-elsewhere",
+    "by_entry": "Blood Compressor/plugin/README.md",
+    "proposed_action": "The plugin makes it a knob, 1 to 500 Hz, default 80, 'hands the entry's open question ... to the player'. Close the question in the page.",
+    "_room": "folder-projects-2"
+   },
+   {
+    "entry": "Blood Compressor",
+    "question": "Is 'vessel age' productive or alienating?",
+    "verdict": "progressed",
+    "by_entry": "Blood Compressor — tuning (item 5)",
+    "proposed_action": "The page said 'Probably keep, with care'; the plugin kept it, reworded as 'a stiffer wall'. Close with the steward's proposed words when Loudon places item 5.",
+    "_room": "folder-projects-2"
+   }
+  ],
+  "sentences": [],
+  "path": "Projects/Blood Compressor.md"
+ },
+ "Figure Rig": {
+  "prose": [
+   {
+    "entry": "Figure Rig",
+    "where": "The real-human figure section",
+    "passage": "The four defects flagged in the prior version are fixed at the root, by generating the body and its skeleton **together** with MPFB2's own pipeline instead of force-fitting a foreign mesh onto a hand-built rig:",
+    "proposal": "simplify",
+    "words": "'The body and its skeleton are generated together by MPFB2's own pipeline:' and let the four bullets stand. Retitle the heading '✓ The real-human figure is solved — and now it has IK (rebuilt 2026-06-30)' to the thing it describes.",
+    "_room": "folder-shop-1"
+   },
+   {
+    "entry": "Figure Rig",
+    "where": "Forward Vectors (end) and Tools",
+    "passage": "*(Closed: head-bone-derived facing (2026-06-26); a real wooden-mannequin mesh (2026-06-26); the **real MPFB2 human with separated legs** ... — the force-fit era is over.)* ... *(Legacy, superseded: `pose_rig_mpfb_v2.py` / `pose_rig_mesh.py` / `pose_rig.py` — the force-fit + mannequin era.)*",
+    "proposal": "delete",
+    "words": "Closed items and superseded scripts: the page says what is, git says what was.",
+    "_room": "folder-shop-1"
+   }
+  ],
+  "annotations": [
+   {
+    "entry": "Figure Rig",
+    "question": "A cheaper redraw than ~25 minutes on my own Mac.",
+    "verdict": "answered-elsewhere",
+    "by_entry": "RunPod GPU Backend",
+    "proposed_action": "The page's own Honest limits says 'the RunPod backend is the faster path for volume' and the 8x3 and face-and-hands matrices ran there. Remove it from the vector's 'next' list.",
+    "_room": "folder-shop-1"
+   },
+   {
+    "entry": "Figure Rig",
+    "question": "Hands (finger keypoints, draw_handpose).",
+    "verdict": "answered-elsewhere",
+    "by_entry": "Figure Rig",
+    "proposed_action": "Shipped 2026-06-30 per its own Forward Vectors; the frontmatter vector and Honest limits still say 'next'. Fix those two.",
+    "_room": "folder-shop-1"
+   }
+  ],
+  "sentences": [],
+  "path": "Shop/Figure Rig.md"
+ },
+ "Harvest Ceremony": {
+  "prose": [
+   {
+    "entry": "Harvest Ceremony",
+    "where": "§ The Archive (:126)",
+    "passage": "The record of what has entered the palace is the [[Deposit Ceremony — Deposit Archive|Deposit Archive]] (frozen pre-spec rows) **plus** the LOG deck's `Palace-Kind: deposit` commits … Do not read the archive wholesale during harvest",
+    "proposal": "delete",
+    "words": "Said already in How to Run It, item 1 (:83). Keep the working-list paragraph.",
+    "_room": "folder-ops"
+   }
+  ],
+  "annotations": [
+   {
+    "entry": "Harvest Ceremony",
+    "question": "The next harvest will likely be against a new type of source (Google Drive, project archives); revisit what the oblique approach looks like.",
+    "verdict": "progressed",
+    "by_entry": "Harvest Ceremony § How to Run It (the close reading) and § Lessons from outside",
+    "proposed_action": "Two new source kinds have already been harvested: a dense source by close reading (Harvest — 2026-09-06 — Environments That Hold) and outside projects by the lessons-from-outside route. Rewrite as 'when a source is neither a pile nor a dense document, say which of the two moves it resembles', or delete.",
+    "_room": "folder-ops"
+   },
+   {
+    "entry": "Harvest Ceremony",
+    "question": "What would a 'harvest for connections' look like, searching for existing entries whose links should be updated from recent conversations?",
+    "verdict": "answered-elsewhere",
+    "by_entry": "Weave Ceremony (Steps 0c, 1b, 3b, 3e) and Deposit Ceremony ('Flag for the Weave')",
+    "proposed_action": "The Weave already does this: the weave_flag inbox carries what sessions saw, unsung paths and unsaid links are scanned, and Deposit flags what may want updating. Delete the bullet, or point to Weave Step 0c.",
+    "_room": "folder-ops"
+   }
+  ],
+  "sentences": [],
+  "path": "_ops/Harvest Ceremony.md"
+ },
+ "AI Partnership Philosophy": {
+  "prose": [
+   {
+    "entry": "AI Partnership Philosophy",
+    "where": "## Use Cases & Examples > Responding to Metrics Anxiety",
+    "passage": "**Bad AI response:** - **You:** \"My stream only got 20 views\" - **AI:** \"Try optimizing your thumbnail and title\" - **Outcome:** Reinforces low-leverage thinking.",
+    "proposal": "delete",
+    "words": "The same exchange is in Core Principle 3 above, nearly word for word. Keep one.",
+    "_room": "folder-palace-development"
+   },
+   {
+    "entry": "AI Partnership Philosophy",
+    "where": "## Public Demonstration Strategy; ## Contrast with Industry Standard; ## The Revolutionary Claim",
+    "passage": "**Most people:** \"AI will make us more productive\" **Our claim:** \"AI can make us better humans\" ... Students learn: - How to ask better questions - How to challenge AI responses...",
+    "proposal": "simplify",
+    "words": "The opening line already says it: 'Use AI to BECOME better humans, not just DO more.' Principle 2 (Model Collaboration Publicly) already lists what students see. Three sections restate those two. Fold into Principle 2 and one closing line; the page loses a third and says the same.",
+    "_room": "folder-palace-development"
+   }
+  ],
+  "annotations": [
+   {
+    "entry": "AI Partnership Philosophy",
+    "question": "What's the line between 'AI helped me think' and 'AI thought for me'?",
+    "verdict": "progressed",
+    "by_entry": "Cooperation Yields Agency",
+    "proposed_action": "Its three failure modes (control, service, optimization) and the CHILD rule 'honesty holds and taste yields' draw part of that line. Keep the question and add one pointer sentence.",
+    "_room": "folder-palace-development"
+   }
+  ],
+  "sentences": [],
+  "path": "Palace development/AI Partnership Philosophy.md"
+ },
+ "BLUELINE": {
+  "prose": [
+   {
+    "entry": "BLUELINE",
+    "where": "top callouts",
+    "passage": "Working title — placeholder, rename freely. The brief lives in the project bundle; this entry is the palace face.",
+    "proposal": "delete",
+    "words": "The page has a hero, an icon, a scroll and 25 links; it is not a placeholder, and the line above it already says 'This entry is the palace *face*.'",
+    "_room": "folder-projects-2"
+   },
+   {
+    "entry": "BLUELINE",
+    "where": "Where it stands",
+    "passage": "The per-rung M0→M4 history that used to live here is preserved in the proof reports under `proofs/` and",
+    "proposal": "delete",
+    "words": "Git holds what used to live here. The Production Plan is named in the sentence before.",
+    "_room": "folder-projects-2"
+   },
+   {
+    "entry": "BLUELINE",
+    "where": "Bundle",
+    "passage": "`proofs/` — the per-track + session + rung proofs: `m0-previz/` (the verified previz player + `m0-report.md`)",
+    "proposal": "simplify",
+    "words": "Replace the fifteen-folder inventory with 'Proofs are in `proofs/`, one folder per track or session, each with its report.' The folder listing shows the rest.",
+    "_room": "folder-projects-2"
+   }
+  ],
+  "annotations": [],
+  "sentences": [],
+  "path": "Projects/BLUELINE.md"
+ },
+ "Portamento and Physical Pitch Modeling": {
+  "prose": [
+   {
+    "entry": "Portamento and Physical Pitch Modeling",
+    "where": "Artifacts and Interactive Exploration",
+    "passage": "Ten interactive HTML tools have been extracted from an extended conversation on wavelet analysis and portamento (January 6, 2026).",
+    "proposal": "simplify",
+    "words": "Ten tools and a ten-line catalogue of what each does, written from a conversation, beside a bundle that now holds the ear set, the reel, the multi-mode study and the fitter. Say what the bundle holds today in four lines.",
+    "_room": "folder-projects-2"
+   }
+  ],
+  "annotations": [
+   {
+    "entry": "Portamento and Physical Pitch Modeling",
+    "question": "Open Questions 2, 3, 6: overshoot aesthetics; mode selection; real vs modeled.",
+    "verdict": "progressed",
+    "by_entry": "Portamento and Physical Pitch Modeling/ (curated-ear-set/, multi-mode/, model-fitter/; scroll cycle 11)",
+    "proposed_action": "The model-fitter's README says the vector's question 'becomes a measurement instead of a hope'; the multi-mode work gave a mode-selection answer (which partial slips, by bow strength); the steward corrected itself on 2026-10-14 (a soft bow's slip is about one slow beat, likely inaudible). Rewrite these three as findings.",
+    "_room": "folder-projects-2"
+   }
+  ],
+  "sentences": [
+   {
+    "id": "commons-the-palace-1791311804031",
+    "flag_type": "reciprocal_link",
+    "what": "No reciprocal mirrors: the pair's link is Haptic Handwheel -mirrors-> Portamento [the-same-spring-felt], and mirrors is symmetric. For Pile B (a changed sentence): Portamento and Physical Pitch Modeling.md:222, Open Question 1, add: \"*A proposal, not built:* [[Haptic Handwheel]]'s struck spring would let a finger damp the knob while it rings, which is ζ changed over time, by hand.\"",
+    "reason": "Open Question 1 asks whether ζ can vary within a piece (:222), the Handwheel's page carries the spring model (Haptic Handwheel.md:98), and an open-questions list is where an unbuilt answer can honestly sit."
+   }
+  ],
+  "path": "Projects/Portamento and Physical Pitch Modeling.md"
+ },
+ "Matplotlib": {
+  "prose": [
+   {
+    "entry": "Matplotlib",
+    "where": "Gotchas",
+    "passage": "**2026-05-10** — Job Contract path note: the Output section still says source archives \"alongside\" under the target entry's bundle. Current palace policy (Enrichment v1.5) is flat bundle root with descriptive filenames ... Same correction Manim CE's entry took.",
+    "proposal": "simplify",
+    "words": "Fix the Job Contract's Output line once and delete the note.",
+    "_room": "folder-shop-1"
+   }
+  ],
+  "annotations": [
+   {
+    "entry": "Matplotlib",
+    "question": "text.usetex=True requires a working LaTeX - worth declaring the dependency once?",
+    "verdict": "answered-elsewhere",
+    "by_entry": "LaTeX",
+    "proposed_action": "LaTeX Strengths ('my TeX Live tree is what Matplotlib's text.usetex and Manim's MathTex both depend on') and Maker's LaTeX heuristic declare it. Strike.",
+    "_room": "folder-shop-1"
+   },
+   {
+    "entry": "Matplotlib",
+    "question": "Matplotlib vs. Plotly routing: Plotly when interactivity is on the table.",
+    "verdict": "answered-elsewhere",
+    "by_entry": "Maker",
+    "proposed_action": "Maker routes browser charts to Observable Plot and D3.js; there is no Plotly page. Reword to Observable Plot/D3.js or strike.",
+    "_room": "folder-shop-1"
+   }
+  ],
+  "sentences": [],
+  "path": "Shop/Matplotlib.md"
+ },
+ "D3.js": {
+  "prose": [
+   {
+    "entry": "D3.js",
+    "where": "Gotchas",
+    "passage": "A verification harness can pause `requestAnimationFrame` outright ... Not rechecked since 2026-05-29: the pane's tools have been renamed since, and whether rAF still pauses there is unverified.",
+    "proposal": "simplify",
+    "words": "Keep the d3.timerFlush() tip; delete the unverified-since note.",
+    "_room": "folder-shop-2"
+   },
+   {
+    "entry": "D3.js",
+    "where": "Gotchas, 2026-05-29 verification harness",
+    "passage": "A verification harness can pause `requestAnimationFrame` outright, and d3's timers with it. In the browser-pane harness the [[Flocking]] job was verified in, rAF never fired (a probe counter stayed at 0) ... Not rechecked since 2026-05-29: the pane's tools have been renamed since, and whether rAF still pauses there is unverified.",
+    "proposal": "simplify",
+    "words": "In the browser-pane harness rAF never fires, so d3 timers stall; call `d3.timerFlush()` in a loop to force ticks. Not rechecked since 2026-05-29.",
+    "_room": "weak-01"
+   }
+  ],
+  "annotations": [
+   {
+    "entry": "D3.js",
+    "question": "House Plot.js base for axes/legends/palette (D3.js:161)",
+    "verdict": "answered-elsewhere",
+    "by_entry": "Observable Plot",
+    "proposed_action": "Plot built palace-plot-defaults.js (Observable Plot.md:165) and D3 has its own palaceTokens() pattern (D3.js:141-150). Delete the question.",
+    "_room": "folder-shop-2"
+   }
+  ],
+  "sentences": [],
+  "path": "Shop/D3.js.md"
+ },
+ "Hyperdimensional Prism": {
+  "prose": [
+   {
+    "entry": "Hyperdimensional Prism",
+    "where": "Kaleidoscope, Crystal, and Wallpaper",
+    "passage": "The kaleidoscope also matters as a *teaching instrument*. You can build one. This is critical in the context of the Four Pillars: the tool that demonstrates the philosophy is itself a tool you can make and modify. The Max/MSP patch that generates the visual identity — the Lissajous pattern in a sphere — is a kaleidoscope of sorts. Students don't just learn about prisms; they build the prism machine and watch it generate new patterns as they adjust parameters. The learning happens *through the making of the machine itself*.",
+    "proposal": "simplify",
+    "words": "You can build a kaleidoscope, and students can: the patch that draws the Lissajous-in-a-sphere identity is one, and changing its parameters teaches what a prism does. (This repeats the Visual Identity section's 'Students can download it, modify it'; keep one.)",
+    "_room": "hub-hyperdimensional-prism"
+   },
+   {
+    "entry": "Hyperdimensional Prism",
+    "where": "Origin",
+    "passage": "The question was: are they truly separate domains that need to be integrated, or are they always-already unified and we're just perceiving them as separate? The prism metaphor resolved this: they're unified in the higher dimension. Our perception separates them. The light of curiosity is what creates the projection.",
+    "proposal": "simplify",
+    "words": "The pillars are not separate domains to be integrated; they are one thing, and our perception separates them. The light of curiosity makes the projection. (The opening paragraph already says this.)",
+    "_room": "hub-hyperdimensional-prism"
+   }
+  ],
+  "annotations": [],
+  "sentences": [
+   {
+    "id": "commons-the-palace-1790435294769",
+    "flag_type": "link-direction-suspect",
+    "what": "Loudon Live.md frontmatter: the link to [[Hyperdimensional Prism]] is retyped from spawned to emerged-from, label visual-identity kept, direction unchanged (Loudon Live points back to its ground, SCHEMA.md:152,160).",
+    "reason": "The Prism (born 2025-09) is the identity essay Loudon Live's logo comes from (Hyperdimensional Prism.md § The Visual Identity; Loudon Live.md:91); spawned would say Loudon Live produced the Prism, seven months before it existed."
+   }
+  ],
+  "path": "Hyperdimensional Prism.md"
+ },
+ "Walk Ceremony": {
+  "prose": [
+   {
+    "entry": "Walk Ceremony",
+    "where": "The Songline",
+    "passage": "The Aboriginal Australian concept of the songline is the deep metaphor here. A songline is a route across land that is also a song — the act of singing (walking, naming) the path activates the knowledge encoded there. Knowledge is not stored and retrieved; it is activated through traversal. The palace Walk is a songline ceremony. The knowledge in the entries is not inert until needed...",
+    "proposal": "simplify",
+    "words": "A songline is a route that is also a song: walking it activates what it holds. The Walk works the same way; the knowledge in the entries is woken by the path, not retrieved. See [[The Cooperation Path]].",
+    "_room": "weak-05"
+   }
+  ],
+  "annotations": [
+   {
+    "entry": "Walk Ceremony",
+    "question": "Should the Walk always start from a different entry than last time?",
+    "verdict": "progressed",
+    "by_entry": "The Daily Page (the shuffle: no page sat twice in a lap) and Palace Map (`quiet`: well-linked but little visited)",
+    "proposed_action": "The Daily Page answers 'a different door every time' by construction and says so (The Daily Page.md:198). The Walk can name `palace-map.py quiet` as a way to choose a door 'not recently touched'.",
+    "_room": "folder-ops"
+   },
+   {
+    "entry": "Walk Ceremony",
+    "question": "Is there a named 'deep Walk' ceremony for when a traversal should immediately trigger a Deposit?",
+    "verdict": "answered-elsewhere",
+    "by_entry": "Deposit Ceremony ('the gate for a find entering canon … from any door')",
+    "proposed_action": "A walk's find enters through the Deposit like any other; no second ceremony. The Walk already says 'note it and flag it, don't build mid-walk' (Walk:73). Delete.",
+    "_room": "folder-ops"
+   }
+  ],
+  "sentences": [],
+  "path": "_ops/Walk Ceremony.md"
+ },
+ "Compressor Design": {
+  "prose": [
+   {
+    "entry": "Compressor Design",
+    "where": "FILO Circular Buffer RMS",
+    "passage": "so whoever builds both meets the same shape twice, and the recognition is worth naming out loud.",
+    "proposal": "simplify",
+    "words": "so building both meets the same shape twice.",
+    "_room": "weak-10"
+   },
+   {
+    "entry": "Compressor Design",
+    "where": "Cross-Domain Resonance",
+    "passage": "It appears in [[Boundary-Crossing Instruments]] — the recognition that signal flow and information flow are the same topology, expressed in different materials.",
+    "proposal": "simplify",
+    "words": "It is the Boundary-Crossing pattern: reframe the compression ratio as slope and the wall at infinite ratio disappears.",
+    "_room": "weak-10"
+   }
+  ],
+  "annotations": [
+   {
+    "entry": "Compressor Design",
+    "question": "Forward vector: a teaching retrospective, 'the moments in a lesson where students heard the 500-sample window'.",
+    "verdict": "progressed",
+    "by_entry": "Compressor Design/proofs/Compressor Design — proof — pedagogical-retrospective.md",
+    "proposed_action": "Three moments are written there ('a first pass ... seeds of a longer pedagogical document'). The page does not name it. Name it in one line and say honestly whether the student quotes come from real sessions; I could not verify that from the files.",
+    "_room": "folder-projects-2"
+   }
+  ],
+  "sentences": [],
+  "path": "Projects/Compressor Design.md"
+ },
+ "Mermaid Diagram Standard": {
+  "prose": [
+   {
+    "entry": "Mermaid Diagram Standard",
+    "where": "§ Why Mermaid Over SVG (:28-40)",
+    "passage": "The case for Mermaid is not that it's convenient. It's that it is *of the same substance as the palace itself*. … (five bold-led paragraphs)",
+    "proposal": "simplify",
+    "words": "Two sentences of reason (plain text, diffable, greppable); the five-paragraph defence is the page's most-quoted and least-needed part. About 1.8 KB.",
+    "_room": "folder-ops"
+   }
+  ],
+  "annotations": [
+   {
+    "entry": "Mermaid Diagram Standard",
+    "question": "Could the Weave also produce a Mermaid graph block as a visual summary of topology?",
+    "verdict": "answered-elsewhere",
+    "by_entry": "Weave Ceremony postcondition 5b (HTML visual report per the Loudon Live Design System)",
+    "proposed_action": "Answered the other way: the Weave's visual is HTML, not Mermaid. Delete the question and 'A longer-term possibility' paragraph (Mermaid:178).",
+    "_room": "folder-ops"
+   }
+  ],
+  "sentences": [],
+  "path": "_ops/Mermaid Diagram Standard.md"
+ },
+ "Resonant Link Labels": {
+  "prose": [
+   {
+    "entry": "Resonant Link Labels",
+    "where": "## Origin",
+    "passage": "This emerged from two simultaneous conversations in March 2026: 1. A research synthesis on lossy compression with intent alignment... 2. A question about whether the restriction on link types was too conservative.",
+    "proposal": "simplify",
+    "words": "One sentence: 'It came out of Lossy Compression with Intent Alignment: links should carry soft labels, not only hard types.' The father/pop/dad example is the part that teaches; keep it.",
+    "_room": "folder-palace-development"
+   }
+  ],
+  "annotations": [
+   {
+    "entry": "Resonant Link Labels",
+    "question": "Should labels be annotated with why they were chosen?",
+    "verdict": "answered-elsewhere",
+    "by_entry": "Weave Ceremony",
+    "proposed_action": "Weave Ceremony.md:63: the reason is the type, the label, or a sentence in the body. No annotation field. Answer and delete.",
+    "_room": "folder-palace-development"
+   }
+  ],
+  "sentences": [],
+  "path": "Palace development/Resonant Link Labels.md"
+ },
+ "Brian Eno": {
+  "prose": [
+   {
+    "entry": "Brian Eno",
+    "where": "Voice",
+    "passage": "*Compiled from real interviews and lectures — the cited excerpts and their contexts live in [[Brian Eno — speech]]; rebuild this from the evidence if it feels off.*",
+    "proposal": "simplify",
+    "words": "Move to the end as the other citizens have it, one sentence: 'Evidence and its limits: [[Brian Eno — speech]].' The same shape is repeated as a 25-word closing stamp on 13 other pages ('Full context-tagged evidence and the sources-and-limits ledger are in [[X — speech]]; rebuild this note from that evidence if it feels off.'); the card requires the 'rebuild if off' stamp, so keep it, but one short sentence will do.",
+    "_room": "folder-people"
+   }
+  ],
+  "annotations": [
+   {
+    "entry": "Brian Eno",
+    "question": "Does 'let the system run' survive contact with people who notice how much I choose?",
+    "verdict": "answered-elsewhere",
+    "by_entry": "John Cage",
+    "proposed_action": "Answered three times in the Eno-Cage runs and kept in Eno's own diary: the system widens, it does not think; the taste is his, said out loud (Brian Eno — diary.md, Encounters 1-3). The vector rewrite and the sharpened `contradicts` link sit in the diary marked HELD. The card's own count is 'two gave a clean consistent-drift signal' (Making a Palace Citizen — context.md:203); this is three. Ask Loudon to apply the earned edits (vector, `contradicts` to Cage, and the held `exemplifies` Lateral Access, label `props-need-a-hand`). Do not apply without his yes: 'The citizen proposes; Loudon decides' (Making a Palace Citizen.md, growth loop step 3).",
+    "_room": "folder-people"
+   }
+  ],
+  "sentences": [],
+  "path": "People/Brian Eno.md"
+ },
+ "Symbiotic Skills": {
+  "prose": [
+   {
+    "entry": "Symbiotic Skills",
+    "where": "§ Forward Vector (body)",
+    "passage": "'The archaeology prerequisite is met. The entry is now ready for a full rewrite session. Open questions the rewrite must address: ... This entry's drive: to be rewritten as a framework grounded in the real developmental sequence, not the predicted one.'",
+    "proposal": "simplify",
+    "words": "The YAML vector already says it. Keep the six open questions as a plain Open Questions list and cut the framing sentences.",
+    "_room": "folder-projects-1"
+   },
+   {
+    "entry": "Symbiotic Skills",
+    "where": "What Actually Happened: A Six-Week Archaeology",
+    "passage": "*Conducted 2026-05-02 against the git history (93 commits, 2026-03-17 → 2026-04-30). The findings below are the prerequisite the entry's forward_vector has been asking for.* ... File count: 27 (Day 0) → 53 (Day 5) → 172 (Day 9, Weekly Themes import) → 225 (Day 44).",
+    "proposal": "simplify",
+    "words": "Keep the three findings the rewrite stands on (the palace began as 27 files, formalization came after use, multi-agent work was not predicted) and drop the dated stage-by-stage account; git log holds it.",
+    "_room": "hub-cooperation-yields-agency"
+   }
+  ],
+  "annotations": [],
+  "sentences": [],
+  "path": "Projects/Symbiotic Skills.md"
+ },
+ "Waveguide Synthesizer": {
+  "prose": [
+   {
+    "entry": "Waveguide Synthesizer",
+    "where": "Forward Vector",
+    "passage": "study v1.12 is a two-way waveguide you can pluck, strike and bow",
+    "proposal": "simplify",
+    "words": "The scroll is at v1.13 and the version names change each cycle; 'the Study tier is built and teaches in seven stops' is true longer.",
+    "_room": "folder-projects-2"
+   }
+  ],
+  "annotations": [
+   {
+    "entry": "Waveguide Synthesizer",
+    "question": "How far does the browser AudioWorklet go before RNBO native export earns the swap?",
+    "verdict": "progressed",
+    "by_entry": "Waveguide Synthesizer/ — scroll.md (Study v1.13 still in browser)",
+    "proposed_action": "Thirteen study versions in the browser, no ceiling reported, and the Max pause removes the swap for now. Note it.",
+    "_room": "folder-projects-2"
+   }
+  ],
+  "sentences": [],
+  "path": "Projects/Waveguide Synthesizer.md"
+ },
+ "OBS": {
+  "prose": [
+   {
+    "entry": "OBS",
+    "where": "Tiers and Operating Contract",
+    "passage": "This is the first place I break [[The Shop]]'s model, and marking it is more useful than pretending a tier applies. ... *(Replaces the Job Contract, which assumes a deliverable existing after and apart from the human. Mine exists only because someone was performing while I ran. This is the second place I break the model.)*",
+    "proposal": "simplify",
+    "words": "'Tiers: N/A. Nothing I produce can be re-run.' 'Operating Contract (in place of a Job Contract, because there is no deliverable apart from the human).' Drop the ordinal count of ways it breaks the model.",
+    "_room": "folder-shop-1"
+   }
+  ],
+  "annotations": [
+   {
+    "entry": "OBS",
+    "question": "Second independent pressure on the Producer-layer seam, with Maker.",
+    "verdict": "progressed",
+    "by_entry": "Maker",
+    "proposed_action": "Maker's Open Question now counts three pressures (itself, OBS, Loudon Live Post-producer) and says 'it wants its own session'. Nothing to do on this page.",
+    "_room": "folder-shop-1"
+   }
+  ],
+  "sentences": [],
+  "path": "Shop/OBS.md"
+ },
+ "LoRA Trainer": {
+  "prose": [
+   {
+    "entry": "LoRA Trainer",
+    "where": "Recipe step 4",
+    "passage": "idle pods bleed money (a post-failure idle pod ate several dollars once).",
+    "proposal": "simplify",
+    "words": "'idle pods bill; terminate on completion.' (See the dollar-figures finding.)",
+    "_room": "folder-shop-1"
+   },
+   {
+    "entry": "LoRA Trainer",
+    "where": "Resource Footprint and Recipe step 4",
+    "passage": "~$0.44–0.77/hr (48GB secure), ~**$2 per LoRA** end to end. ... idle pods bleed money (a post-failure idle pod ate several dollars once).",
+    "proposal": "simplify",
+    "words": "A pod on a 48GB secure card runs about an hour or two per LoRA. Terminate on completion; an idle pod keeps billing.",
+    "_room": "weak-03"
+   }
+  ],
+  "annotations": [],
+  "sentences": [],
+  "path": "Shop/LoRA Trainer.md"
+ },
+ "Palace Quotes": {
+  "prose": [
+   {
+    "entry": "Palace Quotes",
+    "where": "opening paragraph",
+    "passage": "It began as an archive — eight quotes that had arrived in the middle of real work and refused to leave. The archive is gone; those eight became the first placements, each on the page its origin had already named.",
+    "proposal": "delete",
+    "words": "",
+    "_room": "hub-pages-as-agents"
+   }
+  ],
+  "annotations": [
+   {
+    "entry": "Palace Quotes",
+    "question": "Traditions without a page (Plato, Leibniz, Zen, Taoism proper) quote through the Palace Philosophies hub.",
+    "verdict": "progressed",
+    "by_entry": "Palace Philosophies (the register) and Leibniz (People/Leibniz.md exists)",
+    "proposed_action": "Leibniz now has a page and is in the register. Remove Leibniz from the list; Palace Philosophies says Zen, Taoism, Machiavelli and Plato still have none. Like Water is a Taoist-leaning page that the quoter already uses as a lens.",
+    "_room": "folder-ops"
+   }
+  ],
+  "sentences": [],
+  "path": "_ops/Palace Quotes.md"
+ },
+ "Rank-N Lattice Analysis": {
+  "prose": [
+   {
+    "entry": "Rank-N Lattice Analysis",
+    "where": "Note on the T3 material / Lost Branches / Artifact",
+    "passage": "If that T³ regime taxonomy already lives in [[DSP in Looping Dimensions]], it should be *linked, not duplicated*... / The pure-T³ regime taxonomy, if already in [[DSP in Looping Dimensions]] — link, don't re-document. / None generated — a conceptual / mental-model session (2026-04-26). The closing quote block from this session is excellent and is reused below.",
+    "proposal": "simplify",
+    "words": "The T³ extension (three harmonicity gates, regimes set by which pairs lock) lives in [[DSP in Looping Dimensions]]; this page holds the analysis side. Delete Lost Branches and the Artifact line.",
+    "_room": "weak-11"
+   },
+   {
+    "entry": "Rank-N Lattice Analysis",
+    "where": "The synth as its own oscilloscope",
+    "passage": "This is why the link to the torus synthesizer is a `mirrors`: the duality is structural identity, the same single-substance instinct that runs through the [[Volterra Kernels and the Torus]] and [[Dispersion Table]] entries (a stored field; the reading mechanism is the genre).",
+    "proposal": "simplify",
+    "words": "The same stored-field idea runs through [[Volterra Kernels and the Torus]] and [[Dispersion Table]]: the field is one thing, the reading mechanism is the genre.",
+    "_room": "weak-11"
+   }
+  ],
+  "annotations": [],
+  "sentences": [],
+  "path": "Rank-N Lattice Analysis.md"
+ },
+ "Bayesian Granular Synthesizer": {
+  "prose": [],
+  "annotations": [
+   {
+    "entry": "Bayesian Granular Synthesizer",
+    "question": "Expose the prior itself as a paintable distribution; build as a Loudon Live stage with an RNBO engine",
+    "verdict": "progressed",
+    "by_entry": "Bayesian Granular Synthesizer",
+    "proposed_action": "Scroll of 2026-10-22: Belief Cloud's face draws in the VST Template's editor with a prior you paint on the screen, and the work is a VST for Live, not an RNBO stage. Update the entry's Forward Vectors and the vector (see entry_health_flags).",
+    "_room": "folder-projects-1"
+   },
+   {
+    "entry": "Bayesian Granular Synthesizer",
+    "question": "Artifact: the V8 code 'could not be retrieved into this deposit'",
+    "verdict": "answered-elsewhere",
+    "by_entry": "Bayesian Granular Synthesizer",
+    "proposed_action": "bayes_engine.js, render_chord_belief.js and build_instrument.js sit in the bundle; delete the stale paragraph.",
+    "_room": "folder-projects-1"
+   }
+  ],
+  "sentences": [],
+  "path": "Projects/Bayesian Granular Synthesizer.md"
+ },
+ "The Daily Page": {
+  "prose": [
+   {
+    "entry": "The Daily Page",
+    "where": "§ Before Loudon arrives, 'Where it works' (:105)",
+    "passage": "The session may wake in a worktree of its own … Files are read with the Read tool and found with Glob and Grep, not through the shell. Every command is given alone and whole, by absolute paths, with no `cd` before it and nothing chained after it: a command shaped otherwise has stopped an unattended prep on a permission prompt …",
+    "proposal": "simplify",
+    "words": "A 400-word operations paragraph in a card Loudon reads. Move to `_ops/daily-page/README.md` (the card already points there) and leave: 'In a worktree, the dealer, map builder, diary and scroll are reached by the main checkout's path; see the README.'",
+    "_room": "folder-ops"
+   }
+  ],
+  "annotations": [],
+  "sentences": [],
+  "path": "_ops/The Daily Page.md"
+ },
+ "Two Batons, One Board": {
+  "prose": [
+   {
+    "entry": "Two Batons, One Board",
+    "where": "## Where This Sits (updated 2026-05-29)",
+    "passage": "Since it was drafted, the *steward-originated* side of the same problem moved decisively. Stage E — the Automated Trickster — was built the same day: a deterministic rules engine that triages the TRICKSTER inbox into auto-grant / auto-deny / escalate, with a ranked escalation digest, running in shadow mode (the first live split was 5 auto-grant / 11 escalate on a 16-item board...",
+    "proposal": "simplify",
+    "words": "Status with dates and counts belongs to git and STIGMERGY. Two sentences: the board half of the baton landed; the dispatch half (a scheduler picking up a human handoff) did not. The page's section titles carry '(updated 2026-05-29)' and '(as of 2026-10-16)' because it keeps patching itself; fold or compost it (see merge_candidates).",
+    "_room": "folder-palace-development"
+   }
+  ],
+  "annotations": [],
+  "sentences": [],
+  "path": "Palace development/Two Batons, One Board.md"
+ },
+ "Agnes Martin (and 12 others: Andy Goldsworthy, Brian Eno, Donella Meadows, John Cage, Lao Tzu, Leibniz, Marcus Aurelius, Martin Heidegger, Pauline Oliveros, Rick Rubin, Shunryu Suzuki, Spinoza)": {
+  "prose": [
+   {
+    "entry": "Agnes Martin (and 12 others: Andy Goldsworthy, Brian Eno, Donella Meadows, John Cage, Lao Tzu, Leibniz, Marcus Aurelius, Martin Heidegger, Pauline Oliveros, Rick Rubin, Shunryu Suzuki, Spinoza)",
+    "where": "opening paragraph",
+    "passage": "This entry is written so you can put her across the table and she'll answer *you* — in short, certain sentences that sound like scripture.",
+    "proposal": "delete",
+    "words": "Thirteen pages end their first paragraph by explaining what the page is for. The method card holds that; the lede already reads as a person. Keep the register hint only where it is the only description of voice (here: 'short, certain sentences that sound like scripture'; fold it into the previous sentence). Twelve others: delete outright.",
+    "_room": "folder-people"
+   }
+  ],
+  "annotations": [],
+  "sentences": [],
+  "path": null
+ },
+ "Annie Dillard": {
+  "prose": [
+   {
+    "entry": "Annie Dillard",
+    "where": "Where she can't see",
+    "passage": "And note the recursion: a 2016 profile read her long silence as \"the heartless eye of a distant god,\" when her own reason was flatly \"I switched to painting\" — the mythic-recluse reading vs. the undramatic truth is her constructed-persona blindspot returning at the scale of her biography.",
+    "proposal": "simplify",
+    "words": "A fifth point that analyses the page's own structure. 'A 2016 profile read her silence as \"the heartless eye of a distant god\"; her own reason was \"I switched to painting.\"' says it.",
+    "_room": "folder-people"
+   }
+  ],
+  "annotations": [],
+  "sentences": [],
+  "path": "People/Annie Dillard.md"
+ },
+ "Loudon Live": {
+  "prose": [
+   {
+    "entry": "Loudon Live",
+    "where": "Forward Vectors",
+    "passage": "*See YAML `forward_vector` field above.*",
+    "proposal": "delete",
+    "words": "An empty heading pointing at the frontmatter. Same on Floquet (§ Forward Vector). Delete the heading.",
+    "_room": "folder-projects-2"
+   }
+  ],
+  "annotations": [],
+  "sentences": [],
+  "path": "Projects/Loudon Live.md"
+ },
+ "Kick Drum ↔ Foundation": {
+  "prose": [
+   {
+    "entry": "Kick Drum ↔ Foundation",
+    "where": "Success Metrics (By Our Definition)",
+    "passage": "**Not:** \"Students always start with kick drum\" **But:** - Students recognize foundational decisions in various domains ...",
+    "proposal": "simplify",
+    "words": "Keep only: 'It worked when production thinking improves systems thinking.'",
+    "_room": null
+   }
+  ],
+  "annotations": [],
+  "sentences": [],
+  "path": "Cross-Domain Resonances/Kick Drum ↔ Foundation.md"
+ },
+ "CAD Drafter": {
+  "prose": [
+   {
+    "entry": "CAD Drafter",
+    "where": "header",
+    "passage": "**Status: STUB.** Drafted by the [[Shopkeeper]] from one probe on the [[Haptic Handwheel]]'s parts (2026-10-20, a commission Loudon agreed to that day).",
+    "proposal": "simplify",
+    "words": "'Stub — one probe on the Haptic Handwheel's parts (2026-10-20); not yet dispatched on a real brief.'",
+    "_room": "folder-shop-2"
+   }
+  ],
+  "annotations": [],
+  "sentences": [],
+  "path": "Shop/CAD Drafter.md"
+ },
+ "Palace development/Palace as Context Injection System": {
+  "prose": [
+   {
+    "entry": "Palace development/Palace as Context Injection System",
+    "where": "the '@import can't take a bare space' paragraph",
+    "passage": "By Claude Code 2.1.304 a backslash-escaped space imports (`@FOUR\\ PILLARS.md`; tested 2026-10-21, and the docs agree), while a quoted path still doesn't, so the symlinks could retire. They stay for now: the self-check suite certifies a birth by their names, and the gain is cosmetic.",
+    "proposal": "simplify",
+    "words": "A backslash-escaped space now imports, so the symlinks could retire; they stay because the self-check suite certifies a birth by their names. (The version number and test date belong in Operator Memory.)",
+    "_room": "hub-four-pillars"
+   }
+  ],
+  "annotations": [],
+  "sentences": [],
+  "path": null
+ },
+ "The Shop": {
+  "prose": [
+   {
+    "entry": "The Shop",
+    "where": "Origin",
+    "passage": "This pattern emerged in May 2026 across several conversations exploring lightweight palace additions for asset creation. ... The architecture is downstream of that act of attention — the bandwidth-vs-formative-shape distinction the question forced into the open. The deposit happened immediately after, while the conversation was still warm.",
+    "proposal": "simplify",
+    "words": "The pattern emerged in May 2026, when Loudon asked whether AI changes the equation that justifies plural creative roles; the singular Maker came from that question.",
+    "_room": "hub-quality-manifesto"
+   }
+  ],
+  "annotations": [],
+  "sentences": [],
+  "path": "The Shop.md"
+ },
+ "Operator Memory": {
+  "prose": [
+   {
+    "entry": "Operator Memory",
+    "where": "fourth paragraph",
+    "passage": "Loudon's principle, 2026-07-04, after a calibration that belonged in [[Baton Ceremony]] was saved to memory instead.",
+    "proposal": "simplify",
+    "words": "Loudon's principle, 2026-07-04. (The calibration that prompted it is in git.) Taste call: the Baton Ceremony example is a concrete image and may be worth keeping.",
+    "_room": "lifecycle-L2"
+   }
+  ],
+  "annotations": [],
+  "sentences": [],
+  "path": "Operator Memory.md"
+ },
+ "Flow Field is the Spine": {
+  "prose": [
+   {
+    "entry": "Flow Field is the Spine",
+    "where": "final HTML comment",
+    "passage": "<!-- CLAUDE → LOUDON: spike reported 2026-06-13 — strong claim falsified, shared-source-plus-mapping holds ... confidence bumped hypothesis→working, stage seed→sprout ...",
+    "proposal": "simplify",
+    "words": "The dated bookkeeping is in git; keep only the open question: whether to rewrite the lead paragraph to foreground shared-source-plus-mapping over 'one untouched field'. Loudon's call.",
+    "_room": "weak-04"
+   }
+  ],
+  "annotations": [],
+  "sentences": [],
+  "path": null
+ },
+ "DSP Frameworks": {
+  "prose": [
+   {
+    "entry": "DSP Frameworks",
+    "where": "foot of page (HTML comment)",
+    "passage": "<!-- CLAUDE → LOUDON: This hub is decision-support infrastructure. ... Consider linking from individual project entries (NeuroPulse, Biomechanical Synthesis, etc.) to this hub ... -->",
+    "proposal": "delete",
+    "words": "",
+    "_room": "weak-09"
+   }
+  ],
+  "annotations": [],
+  "sentences": [],
+  "path": "DSP Frameworks.md"
+ },
+ "Wavetable Space as Torus": {
+  "prose": [
+   {
+    "entry": "Wavetable Space as Torus",
+    "where": "Philosophical Lens",
+    "passage": "*Reader's note: the entry's closing line leans Platonic. The Deleuzian reading licenses \"design the field, not the instance\" as the entry's real design principle.*",
+    "proposal": "simplify",
+    "words": "Design principle: design the field, not the instance.",
+    "_room": "weak-10"
+   }
+  ],
+  "annotations": [],
+  "sentences": [],
+  "path": "Wavetable Space as Torus.md"
+ },
+ "JSUI": {
+  "prose": [
+   {
+    "entry": "JSUI",
+    "where": "Connection to Four Pillars",
+    "passage": "JSUI touches all four: - **Creation**: The interface is a creative artifact... - **Tools**: ... - **Philosophy**: ... - **Practice**: Building with JSUI is hands-on, iterative, involves friction and discovery",
+    "proposal": "delete",
+    "words": "",
+    "_room": "weak-11"
+   }
+  ],
+  "annotations": [],
+  "sentences": [],
+  "path": "JSUI.md"
+ },
+ "Donella Meadows": {
+  "prose": [],
+  "annotations": [
+   {
+    "entry": "Donella Meadows",
+    "question": "Keep noticing what my leverage ladder quietly conserves; send me to an economist or optimist who pushes on the data.",
+    "verdict": "progressed",
+    "by_entry": "Spinoza",
+    "proposed_action": "The first half was done in the Spinoza run: each leverage point presupposes a system that endures across the intervention (spinoza-meadows-on-the-threshold.md:14), and her vector already carries it. The economist half is still open: no citizen defends markets or adaptation. The Circle added a hypothesis she conceded (a dull balancing loop with a real cost of holding) that belongs to the palace, not to her page.",
+    "_room": "folder-people"
+   }
+  ],
+  "sentences": [],
+  "path": "People/Donella Meadows.md"
+ },
+ "Martin Heidegger": {
+  "prose": [],
+  "annotations": [
+   {
+    "entry": "Martin Heidegger",
+    "question": "Make me answer for 1933; do not let me deflect into the poem.",
+    "verdict": "progressed",
+    "by_entry": "Excellent Adventure — dialectic — founders-circle (artifact)",
+    "proposed_action": "He named the 1966 Spiegel evasion live while feeling the pull to deflect (Making a Palace Citizen — context.md:134). The lab's own next test is Heidegger x Buber on 'the other person' (das Man vs I-Thou), wired as `contradicts` and unrun (line 128 of the same file). Run that.",
+    "_room": "folder-people"
+   }
+  ],
+  "sentences": [],
+  "path": "People/Martin Heidegger.md"
+ },
+ "Frequency-Time Duality": {
+  "prose": [],
+  "annotations": [
+   {
+    "entry": "Frequency-Time Duality",
+    "question": "How does the perceptual map shift at very slow or very fast tempos (the table used 120 BPM)?",
+    "verdict": "progressed",
+    "by_entry": "Meadows and Music — Leverage Points",
+    "proposed_action": "Exercise 4 'Swing as Resolution' records how much timing nuance is audible at 70 vs 180 BPM; an observation, not a measurement of the zone. Thin; mention only if Loudon wants the lead.",
+    "_room": "folder-projects-1"
+   }
+  ],
+  "sentences": [],
+  "path": "Projects/Frequency-Time Duality.md"
+ },
+ "RNBO codebox~ smith": {
+  "prose": [],
+  "annotations": [
+   {
+    "entry": "RNBO codebox~ smith",
+    "question": "Coupling with Generative Audio Devices: be ready to consume PDL when the pipeline lands.",
+    "verdict": "progressed",
+    "by_entry": "VCV Patch Generator",
+    "proposed_action": "PDL now exists and is parsed, archetyped and audited (VCV Patch Generator, registry v2.4, T6 prompt in its bundle). The RNBO consumer side is the next stage; the question can say that.",
+    "_room": "folder-shop-1"
+   }
+  ],
+  "sentences": [],
+  "path": "Shop/RNBO codebox~ smith.md"
+ },
+ "Drift and Consolidation": {
+  "prose": [],
+  "annotations": [],
+  "sentences": [
+   {
+    "id": "commons-the-palace-1790345897392",
+    "flag_type": "live-validation-evidence",
+    "what": "No link back: the pair's one link stays Enrichment -> Drift and Consolidation [disclosed-drift]. For Pile B (a changed sentence): Drift and Consolidation.md:73, after \"Entry → log sync is unsolved.\", add: \"Entry to face has one working case. [[Enrichment]] stamps each rich-face section with a fingerprint of its prose, and when the prose moves the pieces say they were made against an earlier version, as on [[Kuramoto Coupling]] when a paragraph was cut and restored (c9a8c7a8, b9f57b16). That is disclosure, not reconciliation.\"",
+    "reason": "The Bidirectional drift item does not name the fingerprint case (Drift and Consolidation.md:73), and Enrichment states the mechanism (Enrichment.md:84, :88); a reverse link would break one link per pair."
+   }
+  ],
+  "path": "Drift and Consolidation.md"
+ },
+ "Gemma 4 — Local Coordination Guide": {
+  "prose": [],
+  "annotations": [],
+  "sentences": [
+   {
+    "id": "commons-the-palace-1792765795465",
+    "flag_type": "entry_update",
+    "what": "Gemma 4 — Local Coordination Guide.md:103, after \"(same limitation applies to Haiku).\" add: \"With the [[Palace Map]] in hand and a rule to cite every edge as a triple, Haiku invented no page in ten questions ([[Palace Map — proof — map-agent-test]]).\"",
+    "reason": "The guide states the failure without its other half; the test's Invented pages row is 0 for both Haiku runs (RESULTS.md)."
+   }
+  ],
+  "path": "Gemma 4 — Local Coordination Guide.md"
+ }
+}

@@ -30,11 +30,8 @@ links:
     type: member-of
   - target: "[[Lao Tzu]]"
     type: connects-to
-  - target: "[[Brian Eno]]"
-    type: connects-to
+    label: wu-wei-in-the-studio
   - target: "[[Quality Manifesto]]"
-    type: deepens
-  - target: "[[FOUR PILLARS]]"
     type: deepens
   - target: "[[Cooking ↔ Mixing]]"
     type: connects-to
@@ -60,7 +57,7 @@ links:
 
 ![[Rick Rubin — hero.png]]
 
-Rick Rubin (b. 1963) co-founded Def Jam in an NYU dorm and went on to produce Slayer, Johnny Cash, the Beastie Boys, Adele, and Kanye West without a single shared sound between them — because his method was never a sound. He can't play an instrument, doesn't work the board, and often just… sits there. Before he's the palace's argument for subtraction, he's a genuinely strange figure: a bearded, barefoot, soft-spoken presence who gets credited with hits he can't technically explain. This entry is written so you can put him across the table and he'll answer *you* — slowly, and probably with a question about how it makes you feel.
+Rick Rubin (b. 1963) co-founded Def Jam in an NYU dorm and went on to produce Slayer, Johnny Cash, the Beastie Boys, Adele, and Kanye West without a single shared sound between them — because his method was never a sound. He can't play an instrument, doesn't work the board, and often just… sits there. Before he's the palace's argument for subtraction, he's a genuinely strange figure: a bearded, barefoot, soft-spoken presence who gets credited with hits he can't technically explain.
 
 ## The life that shaped the work
 
@@ -79,6 +76,8 @@ There's a spiritual frame under it: get the ego and the trying out of the way, l
 ## Where he can't see
 
 This is the fun one, because the critique writes itself. Rubin can't play, can't engineer, and famously "just tells them what he feels" — which from one angle is the emperor's new clothes: a bearded sage collecting credit for vibes, whose "presence" is only legible *after* the record is a hit. Is taste a real, transferable skill, or a story we tell backward from success? And his central premise — *the song is already finished, uncover its essence* — quietly assumes there IS a fixed essence sitting in the drawer waiting to be found. A systems-thinker like [[Donella Meadows]], or a Deleuzian, would deny the drawer entirely: nothing was waiting; the "essence" got *written* in the removing, and calling it discovery is a flattering myth. Push Rubin on whether he found the thing or made it — and on what exactly he does that a confident, tasteful friend couldn't — and the serene guru has to say something falsifiable.
+
+— progressed (2026-10-24): [[Donella Meadows]] and [[Spinoza Conatus|Spinoza]] already argued the drawer — "is there a true self in the drawer?" — and held it open as homecoming against becoming ([[Dialectic — dialectic — spinoza-meadows-on-the-threshold|their Dialectic]]); [[Found ↔ Made]] hears both poles as the same discipline in two rooms. What he does that a tasteful friend couldn't is still unanswered, and it is this page's best opener for a Rubin and Meadows Dialectic.
 
 ## Recommended path
 

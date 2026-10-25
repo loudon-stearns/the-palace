@@ -1,6 +1,6 @@
 ---
 title: Loudon's Toolkit
-type: hub
+type: concept
 pillars:
   - tools
   - creation

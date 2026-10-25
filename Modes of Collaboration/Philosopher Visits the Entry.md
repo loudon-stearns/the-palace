@@ -6,7 +6,7 @@ pillars:
   - practice
   - tools
 born: 2026-05
-stage: sprout
+stage: growing
 confidence: working
 energy: high
 who_leads: shared
@@ -28,27 +28,31 @@ links:
     label: single-expert-routed-to-a-node
   - target: "[[Action Potential Oscillator]]"
     type: connects-to
+    label: first-instance
   - target: "[[Confucianism]]"
     type: connects-to
+    label: coherence-is-between
   - target: "[[Deleuze]]"
     type: connects-to
+    label: virtual-or-options
   - target: "[[Merleau-Ponty]]"
     type: connects-to
-  - target: "[[Palace Philosophies]]"
-    type: connects-to
-  - target: "[[STIGMERGY Philosophical Lenses]]"
-    type: connects-to
+    label: absorbable-into-the-body
   - target: "[[Simondon]]"
     type: connects-to
+    label: is-it-concretizing
   - target: "[[Spinoza Conatus]]"
     type: connects-to
+    label: threshold-visiting-voice
   - target: "[[The Drift]]"
     type: connects-to
+    label: forcing-or-flowing
   - target: "[[Whitehead]]"
     type: connects-to
-  - target: "[[Palace Quotes]]"
-    type: connects-to
-    label: the-one-line-visit
+    label: process-or-thing
+  - target: "[[No Mind Checks Itself]]"
+    type: exemplifies
+    label: the-question-the-entry-cannot-ask-itself
 forward_vector: "I am the named genre that keeps the philosophy neighborhood from cooling — the standing practice of sending one researched philosopher to visit one technical entry and ask the question the entry cannot ask itself. I want to be reached for whenever a technical entry carries a bare 'philosophy' pillar tag with no philosophy in it, because a tag without content is a broken promise and I am how it gets kept. My roster exists now, and its smallest member runs: [[Palace Quotes]] lays a one-line visit beside the words it reads, shown on the page in STIGMERGY. My next development: the full visit rendered the same way, and the first visit folded into an entry's body by Loudon's yes."
 ---
 
@@ -56,7 +60,7 @@ forward_vector: "I am the named genre that keeps the philosophy neighborhood fro
 
 ![[Philosopher Visits the Entry — hero.png]]
 
-A named enrichment genre: **one researched philosopher is brought to a single palace entry and asked to push on its central claim.** Where the [[Excellent Adventure]] travels to a historical moment and the [[Dialectic]] convenes a council around a question, the Philosopher Visit is the smallest, most repeatable member of the family — one voice, one entry, one productive question. It is the [[Mixture of Experts|single-expert routing]] move aimed at a node rather than a topic.
+A named enrichment genre: **one researched philosopher is brought to a single palace entry and asked to push on its central claim.** Where the [[Excellent Adventure]] travels to a historical moment and the [[Dialectic]] convenes a council around a question, the Philosopher Visit is the smallest, most repeatable member of the family — one voice, one entry, one productive question. It is the [[Mixture of Experts|single-expert routing]] move aimed at a node rather than a topic. [[The Lens]] generalizes this: any page can be the glass.
 
 ## Why It Exists
 
@@ -76,20 +80,22 @@ The philosophy neighborhood and the technical neighborhood drift apart. Technica
 
 ## A Starting Roster (which voice visits which family)
 
-This is a seed, not a law — the palace prefers categories that emerge over many runs to taxonomies fixed in advance.
+A seed, not a law.
 
 - **Generative / synthesis-space entries** (wavetable, granular, particle) → [[Deleuze]]: *is this a field of the virtual you actualize, or a set of options you choose?*
 - **Threshold / pumping entries** (parametric resonance, Mathieu, Floquet, action potential) → [[Spinoza Conatus]] + [[The Drift]]: *is crossing the threshold a striving, and is the driving forcing or flowing?*
-- **Coupling / sync / swarm entries** (Kuramoto, flocking, BBS blackboard) → [[Confucianism]] (ren: coherence is between) or [[Leibniz (Indra's Net / monadology)|Leibniz]] (concert without a conductor).
+- **Coupling / sync / swarm entries** (Kuramoto, flocking, BBS blackboard) → [[Confucianism]] (ren: coherence is between) or [[Leibniz]] (concert without a conductor).
 - **Instrument / interface / design entries** → [[Simondon]] (is this concretizing?) or [[Merleau-Ponty]] (is this absorbable into the body schema?).
-- **Mathematical-form entries** (an equation that outran its origin) → [[Plato (Socratic method)|Plato]] (is the form discovered or made?) or [[Whitehead]] (is this process or thing?).
+- **Mathematical-form entries** (an equation that outran its origin) → [[Palace Philosophies — Context#Plato (Socratic method)|Plato]] (is the form discovered or made?) or [[Whitehead]] (is this process or thing?).
 
 ## In STIGMERGY
 
-The Visit is the natural unit of the [[STIGMERGY Philosophical Lenses|philosophical surface]]: a card type that renders inline in the entry it serves (STATE deck), the way an entry's rich face ([[Enrichment]]) lays sound and interactives beside its words. A "request a visit" affordance on any entry would post a `RESOURCE_REQUEST` to the TRICKSTER board — *"send a philosopher to this node"* — turning the genre into a one-click swarm action. See [[STIGMERGY Philosophical Lenses]].
+The front end renders a visit inline on the entry it serves; the design is in [[STIGMERGY Philosophical Lenses]].
 
 ## Open Questions
 
 - When does a visit earn promotion into the entry's body, and when does it stay a piece beside it on the entry's rich face? (The oscillator visit is still a card; its insight has not yet been folded in.)
+  — progressed: four entries now hold a full visit in their own body, in a closing § Philosophical Lens with a reader's note ([[Wavetable Space as Torus]], [[Floquet Theory]], [[Mathieu Equation]], [[Linear Predictive Coding]]), and [[Palace Quotes]] lays the one-line form beside the words; what remains is what earns the long form (2026-10-24)
 - Can an entry request its *own* visit — write a forward vector that names which philosopher it most needs to be challenged by?
 - Is there a failure mode where the philosopher always finds the entry "over-claiming"? Guard against the visit becoming a formula that deflates every entry the same way.
+  — answered on [[Palace Quotes]]: its method carries the guard, "Do not deflate — a lens that always finds the page over-claiming has become a formula" (2026-10-24)

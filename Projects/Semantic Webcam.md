@@ -50,13 +50,13 @@ The project *is* its build history — proof that an oblique card, [[Enrichment]
 come at sideways, can be a door. It began as one facet (the [[Synthesis ↔ Emergence]] flock)
 and we could not stop:
 
-- **Live STIGMERGY Cam** ([[01-live-stigmergy-cam.html]]) — the camera as an amber
+- **Live STIGMERGY Cam** (`01-live-stigmergy-cam.html`) — the camera as an amber
   CP437 terminal grid; your motion lights the cells. An homage to the stigmergic
   board [[BBS Blackboard]]: traces, not orders — see [[Cooperation Yields Agency]].
-- **Word Flock Cam** ([[02-word-flock-cam.html]]) — words as boids, flocking to
+- **Word Flock Cam** (`02-word-flock-cam.html`) — words as boids, flocking to
   detected eyes and fingertips. A branch set aside on the pivot to multiply, worth
   reviving.
-- **Character Multiply Cam** ([[03-character-multiply-cam.html]]) *(the anchor)* —
+- **Character Multiply Cam** (`03-character-multiply-cam.html`) *(the anchor)* —
   camera luminance × character ink; brightness picks the glyph (period → dash →
   your words → shade → white tile); whole words best-fit into the contiguous
   mid-tone runs and slide to hug each shape's left edge; highlights inverted to
@@ -71,11 +71,6 @@ shade, then a white tile. Words are typeset into each contiguous mid-tone run �
 whole words only, best-fit from a per-source bank, left-aligned to the run. The
 camera-luminance × character-ink multiply is literally a [[Convolution]]-flavored
 blend of two character layers.
-
-## Born from an oblique card
-
-It is the first *productive output* of an oblique card — the flock provocation that
-refused to stay a provocation.
 
 ## Cross-Domain Resonance
 
@@ -97,3 +92,8 @@ refused to stay a provocation.
 Compose real lines that fit the blobs (grammar, not length). Detect true eyes and
 fingers. Decide whether "language
 as a tonal medium" wants to graduate into its own concept entry.
+
+— progressed: real lines and true features both have cards now, `04-grammar-fit-cam.html`
+and `06-true-features-cam.html`; the line of iterations above stops at card 03 of eight,
+and the scroll holds the rest (2026-10-24).
+— answered (2026-10-24): it graduated, as [[Language as a Tonal Medium]].

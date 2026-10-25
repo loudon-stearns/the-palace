@@ -1,0 +1,104 @@
+[
+ {
+  "source": "Oblique Portrait",
+  "target": "Songlines",
+  "proposed_type": "connects-to",
+  "proposed_label": "sings-around",
+  "kind": "fold",
+  "current_type": "both ways, labels differ (different-song / sings-around)",
+  "rationale": "sings-around names what the method does (sings around a topic); different-song is vaguer. Keep Songlines' side.",
+  "keep_on": "Songlines",
+  "confidence": "medium",
+  "_room": null,
+  "existing": [
+   {
+    "source": "Songlines",
+    "type": "connects-to",
+    "target": "Oblique Portrait",
+    "label": "sings-around"
+   },
+   {
+    "source": "Oblique Portrait",
+    "type": "connects-to",
+    "target": "Songlines",
+    "label": "different-song"
+   }
+  ]
+ },
+ {
+  "source": "Oblique Portrait",
+  "target": "Symbiotic Skills",
+  "proposed_type": "connects-to",
+  "proposed_label": "default-power-structure",
+  "kind": "label",
+  "current_type": "connects-to (bare)",
+  "rationale": "The body says it: the method 'is one answer to ... subverting the default power structure of the Symbiotic Skills collaboration'. Needs only a label.",
+  "confidence": "high",
+  "_room": null,
+  "existing": [
+   {
+    "source": "Oblique Portrait",
+    "type": "connects-to",
+    "target": "Symbiotic Skills",
+    "label": "power-inversion"
+   }
+  ]
+ },
+ {
+  "source": "Philosopher Visits the Entry",
+  "target": "The Lens",
+  "proposed_type": null,
+  "proposed_label": null,
+  "kind": "body-sentence",
+  "current_type": null,
+  "rationale": "The Lens already holds generalizes-this-special-case -> this page. Do not add a second link; add the sentence ('The Lens generalizes this: any page can be the glass').",
+  "confidence": "high",
+  "_room": null,
+  "existing": [
+   {
+    "source": "The Lens",
+    "type": "connects-to",
+    "target": "Philosopher Visits the Entry",
+    "label": "generalizes-this-special-case"
+   }
+  ]
+ },
+ {
+  "source": "Cooperation Yields Agency",
+  "target": "CHILD",
+  "proposed_type": "enables",
+  "proposed_label": "holds-and-yields",
+  "kind": "newcomer",
+  "rationale": "The formula of shared intent plus combined capability is what CHILD's holds/yields rule applies; CYA already sends the reader there by sentence. Distinct register from the Palace Philosophies link (cooperation vs. Stoic control), but the two overlap; keep one if the weave wants fewer.",
+  "evidence_source": "Where each holds and where each yields is the rule on [[CHILD]]; its reason is on [[Palace Philosophies]].",
+  "evidence_target": "honesty holds and taste yields ... because it is his palace.",
+  "_room": "lifecycle-L2",
+  "existing": [
+   {
+    "source": "CHILD",
+    "type": "deepens",
+    "target": "Cooperation Yields Agency",
+    "label": "who-holds-who-yields"
+   }
+  ]
+ },
+ {
+  "source": "Deposit Ceremony",
+  "target": "SCHEMA — Reference",
+  "proposed_type": "connects-to",
+  "proposed_label": "bundle-rules",
+  "kind": "newcomer",
+  "rationale": "Step 6 sends the drafter to SCHEMA — Reference §8 for where owned files go in an entry's bundle; a genuine pointer to an under-reached newcomer.",
+  "evidence_source": "Owned files go in the entry's bundle ([[SCHEMA — Reference]] §8)",
+  "evidence_target": "## 8. Entry Bundles",
+  "_room": "weak-07",
+  "existing": [
+   {
+    "source": "SCHEMA — Reference",
+    "type": "enables",
+    "target": "Deposit Ceremony",
+    "label": null
+   }
+  ]
+ }
+]

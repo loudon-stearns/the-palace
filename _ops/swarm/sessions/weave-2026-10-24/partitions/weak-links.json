@@ -1,0 +1,3639 @@
+{
+ "lens": "weak-links",
+ "map": "2026-10-24",
+ "clusters": [
+  {
+   "id": "weak-01",
+   "members": [
+    {
+     "id": "Philosopher Visits the Entry",
+     "path": "Modes of Collaboration/Philosopher Visits the Entry.md"
+    },
+    {
+     "id": "Palace Philosophies",
+     "path": "Palace Philosophies.md"
+    },
+    {
+     "id": "Deleuze",
+     "path": "Deleuze.md"
+    },
+    {
+     "id": "STIGMERGY Philosophical Lenses",
+     "path": "Projects/STIGMERGY Philosophical Lenses.md"
+    },
+    {
+     "id": "The Lens",
+     "path": "The Lens.md"
+    },
+    {
+     "id": "Dialectic",
+     "path": "Modes of Collaboration/Dialectic.md"
+    },
+    {
+     "id": "D3.js",
+     "path": "Shop/D3.js.md"
+    },
+    {
+     "id": "Merleau-Ponty",
+     "path": "Merleau-Ponty.md"
+    }
+   ],
+   "size": 8,
+   "links": [
+    {
+     "source": "Philosopher Visits the Entry",
+     "target": "Action Potential Oscillator",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Projects/Action Potential Oscillator.md"
+    },
+    {
+     "source": "Philosopher Visits the Entry",
+     "target": "Confucianism",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Confucianism.md"
+    },
+    {
+     "source": "Philosopher Visits the Entry",
+     "target": "Deleuze",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Deleuze.md"
+    },
+    {
+     "source": "Philosopher Visits the Entry",
+     "target": "Merleau-Ponty",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Merleau-Ponty.md"
+    },
+    {
+     "source": "Philosopher Visits the Entry",
+     "target": "Simondon",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Simondon.md"
+    },
+    {
+     "source": "Philosopher Visits the Entry",
+     "target": "The Drift",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "The Drift.md"
+    },
+    {
+     "source": "Philosopher Visits the Entry",
+     "target": "Whitehead",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Whitehead.md"
+    },
+    {
+     "source": "Palace Philosophies",
+     "target": "Confucianism",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Confucianism.md"
+    },
+    {
+     "source": "Palace Philosophies",
+     "target": "The Dichotomy of Control",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "The Dichotomy of Control.md"
+    },
+    {
+     "source": "Palace Philosophies",
+     "target": "The View From Above",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "The View From Above.md"
+    },
+    {
+     "source": "Palace Philosophies",
+     "target": "The Four Virtues",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "The Four Virtues.md"
+    },
+    {
+     "source": "Palace Philosophies",
+     "target": "The Fortress and the Threshold",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "The Fortress and the Threshold.md"
+    },
+    {
+     "source": "Palace Philosophies",
+     "target": "1 from 2",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true,
+     "target_path": "Projects/1 from 2.md"
+    },
+    {
+     "source": "Palace Philosophies",
+     "target": "Palace Map",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "_ops/Palace Map.md"
+    },
+    {
+     "source": "Deleuze",
+     "target": "Dialectic",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Modes of Collaboration/Dialectic.md"
+    },
+    {
+     "source": "Deleuze",
+     "target": "Entry Conatus",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Entry Conatus.md"
+    },
+    {
+     "source": "Deleuze",
+     "target": "Excellent Adventure",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Modes of Collaboration/Excellent Adventure.md"
+    },
+    {
+     "source": "Deleuze",
+     "target": "STIGMERGY v1.0 — Palace Front-End",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": ""
+    },
+    {
+     "source": "Deleuze",
+     "target": "Spinoza",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "People/Spinoza.md"
+    },
+    {
+     "source": "STIGMERGY Philosophical Lenses",
+     "target": "Confucianism",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Confucianism.md"
+    },
+    {
+     "source": "STIGMERGY Philosophical Lenses",
+     "target": "Drift and Consolidation",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Drift and Consolidation.md"
+    },
+    {
+     "source": "STIGMERGY Philosophical Lenses",
+     "target": "Like Water",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Like Water.md"
+    },
+    {
+     "source": "STIGMERGY Philosophical Lenses",
+     "target": "The Drift",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "The Drift.md"
+    },
+    {
+     "source": "STIGMERGY Philosophical Lenses",
+     "target": "The Fortress and the Threshold",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "The Fortress and the Threshold.md"
+    },
+    {
+     "source": "STIGMERGY Philosophical Lenses",
+     "target": "Dialectic — dialectic — spinoza-zhuangzi-on-striving",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": ""
+    },
+    {
+     "source": "The Lens",
+     "target": "BBS Design System",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Palace development/BBS Design System.md"
+    },
+    {
+     "source": "The Lens",
+     "target": "Deleuze",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Deleuze.md"
+    },
+    {
+     "source": "The Lens",
+     "target": "Merleau-Ponty",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Merleau-Ponty.md"
+    },
+    {
+     "source": "The Lens",
+     "target": "Simondon",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Simondon.md"
+    },
+    {
+     "source": "The Lens",
+     "target": "The Dichotomy of Control",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "The Dichotomy of Control.md"
+    },
+    {
+     "source": "The Lens",
+     "target": "The Four Virtues",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "The Four Virtues.md"
+    },
+    {
+     "source": "Dialectic",
+     "target": "Confucianism",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Confucianism.md"
+    },
+    {
+     "source": "Dialectic",
+     "target": "Stoicism",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Stoicism.md"
+    },
+    {
+     "source": "Dialectic",
+     "target": "Dialectic — dialectic — zhuangzi-epictetus-confucius-on-the-self",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": ""
+    },
+    {
+     "source": "D3.js",
+     "target": "Flocking",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Flocking.md"
+    },
+    {
+     "source": "Merleau-Ponty",
+     "target": "Logarithmic Interface Scaling",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Logarithmic Interface Scaling.md"
+    },
+    {
+     "source": "Merleau-Ponty",
+     "target": "STIGMERGY v1.0 — Palace Front-End",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": ""
+    },
+    {
+     "source": "Merleau-Ponty",
+     "target": "Stoicism",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Stoicism.md"
+    }
+   ],
+   "n_links": 38
+  },
+  {
+   "id": "weak-02",
+   "members": [
+    {
+     "id": "Mixture of Experts",
+     "path": "Mixture of Experts.md"
+    },
+    {
+     "id": "Observable Plot",
+     "path": "Shop/Observable Plot.md"
+    },
+    {
+     "id": "The Drift",
+     "path": "The Drift.md"
+    },
+    {
+     "id": "Confucianism",
+     "path": "Confucianism.md"
+    },
+    {
+     "id": "Excellent Adventure",
+     "path": "Modes of Collaboration/Excellent Adventure.md"
+    },
+    {
+     "id": "Loudon Live Post-producer",
+     "path": "Shop/Loudon Live Post-producer.md"
+    },
+    {
+     "id": "The Dichotomy of Control",
+     "path": "The Dichotomy of Control.md"
+    },
+    {
+     "id": "The Fortress and the Threshold",
+     "path": "The Fortress and the Threshold.md"
+    },
+    {
+     "id": "VCV Patch Generator",
+     "path": "Shop/VCV Patch Generator.md"
+    },
+    {
+     "id": "Whitehead",
+     "path": "Whitehead.md"
+    },
+    {
+     "id": "BBS Design System",
+     "path": "Palace development/BBS Design System.md"
+    },
+    {
+     "id": "Flocking",
+     "path": "Flocking.md"
+    },
+    {
+     "id": "Generative Sample Libraries",
+     "path": "Projects/Generative Sample Libraries.md"
+    },
+    {
+     "id": "Stoicism",
+     "path": "Stoicism.md"
+    }
+   ],
+   "size": 14,
+   "links": [
+    {
+     "source": "Mixture of Experts",
+     "target": "Symbiotic Skills",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Projects/Symbiotic Skills.md"
+    },
+    {
+     "source": "Mixture of Experts",
+     "target": "Embeddings as Relational Meaning",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true,
+     "target_path": "Embeddings as Relational Meaning.md"
+    },
+    {
+     "source": "Mixture of Experts",
+     "target": "Boundary-Crossing Instruments",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Boundary-Crossing Instruments.md"
+    },
+    {
+     "source": "Observable Plot",
+     "target": "Flocking",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Flocking.md"
+    },
+    {
+     "source": "The Drift",
+     "target": "Entry Conatus",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Entry Conatus.md"
+    },
+    {
+     "source": "The Drift",
+     "target": "Granular Synthesis",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Granular Synthesis.md"
+    },
+    {
+     "source": "The Drift",
+     "target": "Parametric Resonance",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Parametric Resonance.md"
+    },
+    {
+     "source": "The Drift",
+     "target": "Dialectic — dialectic — spinoza-zhuangzi-on-striving",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": ""
+    },
+    {
+     "source": "Confucianism",
+     "target": "Excellent Adventure",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true,
+     "target_path": "Modes of Collaboration/Excellent Adventure.md"
+    },
+    {
+     "source": "Confucianism",
+     "target": "Symbiotic Skills",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Projects/Symbiotic Skills.md"
+    },
+    {
+     "source": "Loudon Live Post-producer",
+     "target": "Loudon Live Post-producer — Log",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": ""
+    },
+    {
+     "source": "Loudon Live Post-producer",
+     "target": "Whisper",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Shop/Whisper.md"
+    },
+    {
+     "source": "Loudon Live Post-producer",
+     "target": "ffmpeg",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Shop/ffmpeg.md"
+    },
+    {
+     "source": "The Dichotomy of Control",
+     "target": "Project Stewardship System",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Projects/Project Stewardship System.md"
+    },
+    {
+     "source": "The Dichotomy of Control",
+     "target": "Trickster",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Trickster.md"
+    },
+    {
+     "source": "The Fortress and the Threshold",
+     "target": "Meaning and the Link",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Meaning and the Link.md"
+    },
+    {
+     "source": "The Fortress and the Threshold",
+     "target": "Dialectic — dialectic — zhuangzi-epictetus-confucius-on-the-self",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": ""
+    },
+    {
+     "source": "VCV Patch Generator",
+     "target": "VCV Patch Generator — spec — PDL generation prompt",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": ""
+    },
+    {
+     "source": "VCV Patch Generator",
+     "target": "Registry Pattern",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Registry Pattern.md"
+    },
+    {
+     "source": "VCV Patch Generator",
+     "target": "Web Audio Worklet",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true,
+     "target_path": "Shop/Web Audio Worklet.md"
+    },
+    {
+     "source": "Whitehead",
+     "target": "Granular Synthesis",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Granular Synthesis.md"
+    },
+    {
+     "source": "Whitehead",
+     "target": "STIGMERGY v1.0 — Palace Front-End",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": ""
+    },
+    {
+     "source": "BBS Design System",
+     "target": "Palace To-Do",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "_ops/Palace To-Do.md"
+    },
+    {
+     "source": "Flocking",
+     "target": "Loudon Live Design System",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Palace development/Loudon Live Design System.md"
+    },
+    {
+     "source": "Generative Sample Libraries",
+     "target": "Retrospective Delay",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true,
+     "target_path": "Projects/Retrospective Delay.md"
+    },
+    {
+     "source": "Generative Sample Libraries",
+     "target": "Neural Granular Synthesis",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Projects/Neural Granular Synthesis.md"
+    },
+    {
+     "source": "Stoicism",
+     "target": "Palace Map",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "_ops/Palace Map.md"
+    }
+   ],
+   "n_links": 27
+  },
+  {
+   "id": "weak-03",
+   "members": [
+    {
+     "id": "Synthesis Topologies",
+     "path": "Synthesis Topologies.md"
+    },
+    {
+     "id": "The Adjacent Affordance",
+     "path": "The Adjacent Affordance.md"
+    },
+    {
+     "id": "The Four Virtues",
+     "path": "The Four Virtues.md"
+    },
+    {
+     "id": "Blender",
+     "path": "Shop/Blender.md"
+    },
+    {
+     "id": "Depth Anything",
+     "path": "Shop/Depth Anything.md"
+    },
+    {
+     "id": "Frame Designer",
+     "path": "Shop/Frame Designer.md"
+    },
+    {
+     "id": "Generative Audio Devices",
+     "path": "Projects/Generative Audio Devices.md"
+    },
+    {
+     "id": "LoRA Trainer",
+     "path": "Shop/LoRA Trainer.md"
+    },
+    {
+     "id": "Loudon Live",
+     "path": "Projects/Loudon Live.md"
+    },
+    {
+     "id": "Manim CE",
+     "path": "Shop/Manim CE.md"
+    },
+    {
+     "id": "Registry Pattern",
+     "path": "Registry Pattern.md"
+    },
+    {
+     "id": "Review Layer",
+     "path": "Review Layer.md"
+    },
+    {
+     "id": "SAM",
+     "path": "Shop/SAM.md"
+    },
+    {
+     "id": "Shopkeeper",
+     "path": "Shop/Shopkeeper.md"
+    }
+   ],
+   "size": 14,
+   "links": [
+    {
+     "source": "Synthesis Topologies",
+     "target": "The Curve Is the Material",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "The Curve Is the Material.md"
+    },
+    {
+     "source": "Synthesis Topologies",
+     "target": "Three Kinds of Warp",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Three Kinds of Warp.md"
+    },
+    {
+     "source": "The Adjacent Affordance",
+     "target": "Stoicism",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true,
+     "target_path": "Stoicism.md"
+    },
+    {
+     "source": "The Adjacent Affordance",
+     "target": "SUBSTRATE",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "SUBSTRATE.md"
+    },
+    {
+     "source": "The Four Virtues",
+     "target": "Confucianism",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Confucianism.md"
+    },
+    {
+     "source": "The Four Virtues",
+     "target": "The Fortress and the Threshold",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "The Fortress and the Threshold.md"
+    },
+    {
+     "source": "Depth Anything",
+     "target": "LaMa",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Shop/LaMa.md"
+    },
+    {
+     "source": "Frame Designer",
+     "target": "assume multi-agent",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "assume multi-agent.md"
+    },
+    {
+     "source": "LoRA Trainer",
+     "target": "Review Layer",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Review Layer.md"
+    },
+    {
+     "source": "Loudon Live",
+     "target": "Retrospective Delay",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Projects/Retrospective Delay.md"
+    },
+    {
+     "source": "Manim CE",
+     "target": "Radio Play",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Radio Play.md"
+    },
+    {
+     "source": "Registry Pattern",
+     "target": "Lossy Compression with Intent Alignment",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true,
+     "target_path": "Palace development/Lossy Compression with Intent Alignment.md"
+    },
+    {
+     "source": "Review Layer",
+     "target": "Palace as Context Injection System",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Palace development/Palace as Context Injection System.md"
+    },
+    {
+     "source": "Shopkeeper",
+     "target": "Loudon Live Post-producer",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Shop/Loudon Live Post-producer.md"
+    }
+   ],
+   "n_links": 14
+  },
+  {
+   "id": "weak-04",
+   "members": [
+    {
+     "id": "Spinoza",
+     "path": "People/Spinoza.md"
+    },
+    {
+     "id": "The Flow Field is the Spine",
+     "path": "The Flow Field is the Spine.md"
+    },
+    {
+     "id": "The View From Above",
+     "path": "The View From Above.md"
+    },
+    {
+     "id": "p5.js",
+     "path": "Shop/p5.js.md"
+    },
+    {
+     "id": "Trickster",
+     "path": "Trickster.md"
+    },
+    {
+     "id": "Palace Enchantment",
+     "path": "Projects/Palace Enchantment.md"
+    },
+    {
+     "id": "SUBSTRATE",
+     "path": "SUBSTRATE.md"
+    },
+    {
+     "id": "Modes of Collaboration",
+     "path": "Modes of Collaboration.md"
+    },
+    {
+     "id": "Generative Compression",
+     "path": "Palace development/Generative Compression.md"
+    },
+    {
+     "id": "Dialogue Moderator",
+     "path": "Palace development/Dialogue Moderator.md"
+    },
+    {
+     "id": "Palace Ceremonies",
+     "path": "_ops/Palace Ceremonies.md"
+    }
+   ],
+   "size": 11,
+   "links": [
+    {
+     "source": "Spinoza",
+     "target": "Generative Compression",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true,
+     "target_path": "Palace development/Generative Compression.md"
+    },
+    {
+     "source": "The Flow Field is the Spine",
+     "target": "flow-field-spine",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": ""
+    },
+    {
+     "source": "p5.js",
+     "target": "Observable Plot",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Shop/Observable Plot.md"
+    },
+    {
+     "source": "Trickster",
+     "target": "1 from 2",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Projects/1 from 2.md"
+    },
+    {
+     "source": "Trickster",
+     "target": "Action Potential Oscillator",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true,
+     "target_path": "Projects/Action Potential Oscillator.md"
+    },
+    {
+     "source": "Trickster",
+     "target": "Granular Synthesis",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Granular Synthesis.md"
+    },
+    {
+     "source": "Trickster",
+     "target": "Swarm Weave",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Projects/Swarm Weave.md"
+    },
+    {
+     "source": "Trickster",
+     "target": "BBS Blackboard",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Palace development/BBS Blackboard.md"
+    },
+    {
+     "source": "Trickster",
+     "target": "Palace Enchantment",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Projects/Palace Enchantment.md"
+    },
+    {
+     "source": "Trickster",
+     "target": "Particle Synthesis",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Projects/Particle Synthesis.md"
+    },
+    {
+     "source": "Palace Enchantment",
+     "target": "Deposit Ceremony",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "_ops/Deposit Ceremony.md"
+    },
+    {
+     "source": "Palace Enchantment",
+     "target": "Lateral Access",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Lateral Access.md"
+    },
+    {
+     "source": "Palace Enchantment",
+     "target": "Threshold Conatus",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Threshold Conatus.md"
+    },
+    {
+     "source": "Palace Enchantment",
+     "target": "Action Potential Oscillator",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Projects/Action Potential Oscillator.md"
+    },
+    {
+     "source": "SUBSTRATE",
+     "target": "Palace Enchantment",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true,
+     "target_path": "Projects/Palace Enchantment.md"
+    },
+    {
+     "source": "SUBSTRATE",
+     "target": "Songlines",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true,
+     "target_path": "Songlines.md"
+    },
+    {
+     "source": "SUBSTRATE",
+     "target": "Lateral Access",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true,
+     "target_path": "Lateral Access.md"
+    },
+    {
+     "source": "SUBSTRATE",
+     "target": "1 from 2",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true,
+     "target_path": "Projects/1 from 2.md"
+    },
+    {
+     "source": "Modes of Collaboration",
+     "target": "Symbiotic Skills",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true,
+     "target_path": "Projects/Symbiotic Skills.md"
+    },
+    {
+     "source": "Modes of Collaboration",
+     "target": "Piano String Inharmonicity",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true,
+     "target_path": "Projects/Piano String Inharmonicity.md"
+    },
+    {
+     "source": "Generative Compression",
+     "target": "Swarm Weave",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true,
+     "target_path": "Projects/Swarm Weave.md"
+    },
+    {
+     "source": "Generative Compression",
+     "target": "BBS Blackboard",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true,
+     "target_path": "Palace development/BBS Blackboard.md"
+    },
+    {
+     "source": "Generative Compression",
+     "target": "Enchanted Worker",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Palace development/Enchanted Worker.md"
+    },
+    {
+     "source": "Generative Compression",
+     "target": "Deposit Ceremony",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "_ops/Deposit Ceremony.md"
+    },
+    {
+     "source": "Generative Compression",
+     "target": "Pheromone Trail",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Palace development/Pheromone Trail.md"
+    },
+    {
+     "source": "Dialogue Moderator",
+     "target": "Enchanted Worker",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true,
+     "target_path": "Palace development/Enchanted Worker.md"
+    },
+    {
+     "source": "Dialogue Moderator",
+     "target": "BBS Blackboard",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Palace development/BBS Blackboard.md"
+    },
+    {
+     "source": "Dialogue Moderator",
+     "target": "Four Pillars of Enchanted Agency",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true,
+     "target_path": "Palace development/Four Pillars of Enchanted Agency.md"
+    },
+    {
+     "source": "Dialogue Moderator",
+     "target": "STIGMERGY",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true,
+     "target_path": "STIGMERGY.md"
+    },
+    {
+     "source": "Palace Ceremonies",
+     "target": "SCHEMA",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "SCHEMA.md"
+    }
+   ],
+   "n_links": 30
+  },
+  {
+   "id": "weak-05",
+   "members": [
+    {
+     "id": "Walk Ceremony",
+     "path": "_ops/Walk Ceremony.md"
+    },
+    {
+     "id": "Weave Ceremony",
+     "path": "_ops/Weave Ceremony.md"
+    },
+    {
+     "id": "BBS Blackboard",
+     "path": "Palace development/BBS Blackboard.md"
+    },
+    {
+     "id": "Enchanted Conversation Archive",
+     "path": "Palace development/Enchanted Conversation Archive.md"
+    },
+    {
+     "id": "Four Pillars of Enchanted Agency",
+     "path": "Palace development/Four Pillars of Enchanted Agency.md"
+    },
+    {
+     "id": "Map Build Ceremony",
+     "path": "_ops/Map Build Ceremony.md"
+    },
+    {
+     "id": "Pages as Agents",
+     "path": "_ops/Pages as Agents.md"
+    },
+    {
+     "id": "Palace Graffiti",
+     "path": "_ops/Palace Graffiti.md"
+    },
+    {
+     "id": "Palace Map",
+     "path": "_ops/Palace Map.md"
+    },
+    {
+     "id": "Project Stewardship System",
+     "path": "Projects/Project Stewardship System.md"
+    },
+    {
+     "id": "Self-Model Update Ceremony",
+     "path": "_ops/Self-Model Update Ceremony.md"
+    },
+    {
+     "id": "Spore Check Ceremony",
+     "path": "_ops/Spore Check Ceremony.md"
+    },
+    {
+     "id": "The Cooperation Path",
+     "path": "The Cooperation Path.md"
+    },
+    {
+     "id": "Baton Ceremony",
+     "path": "_ops/Baton Ceremony.md"
+    }
+   ],
+   "size": 14,
+   "links": [
+    {
+     "source": "Walk Ceremony",
+     "target": "Substrate Skill",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true,
+     "target_path": "_ops/Substrate Skill.md"
+    },
+    {
+     "source": "Walk Ceremony",
+     "target": "The Cooperation Path",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "The Cooperation Path.md"
+    },
+    {
+     "source": "Weave Ceremony",
+     "target": "Substrate Skill",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true,
+     "target_path": "_ops/Substrate Skill.md"
+    },
+    {
+     "source": "Weave Ceremony",
+     "target": "Walk Ceremony",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true,
+     "target_path": "_ops/Walk Ceremony.md"
+    },
+    {
+     "source": "Weave Ceremony",
+     "target": "Spore Check Ceremony",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true,
+     "target_path": "_ops/Spore Check Ceremony.md"
+    },
+    {
+     "source": "BBS Blackboard",
+     "target": "Striatum",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Striatum.md"
+    },
+    {
+     "source": "Enchanted Conversation Archive",
+     "target": "BBS Blackboard",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true,
+     "target_path": "Palace development/BBS Blackboard.md"
+    },
+    {
+     "source": "Enchanted Conversation Archive",
+     "target": "Enchanted Worker",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Palace development/Enchanted Worker.md"
+    },
+    {
+     "source": "Enchanted Conversation Archive",
+     "target": "Self-Describing Knowledge Module",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Palace development/Self-Describing Knowledge Module.md"
+    },
+    {
+     "source": "Four Pillars of Enchanted Agency",
+     "target": "Swarm Weave",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Projects/Swarm Weave.md"
+    },
+    {
+     "source": "Four Pillars of Enchanted Agency",
+     "target": "Enchanted Worker",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true,
+     "target_path": "Palace development/Enchanted Worker.md"
+    },
+    {
+     "source": "Map Build Ceremony",
+     "target": "Harvest Ceremony",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "_ops/Harvest Ceremony.md"
+    },
+    {
+     "source": "Map Build Ceremony",
+     "target": "Palace Enchantment",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Projects/Palace Enchantment.md"
+    },
+    {
+     "source": "Pages as Agents",
+     "target": "JEWEL",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true,
+     "target_path": "JEWEL.md"
+    },
+    {
+     "source": "Pages as Agents",
+     "target": "Lateral Access",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true,
+     "target_path": "Lateral Access.md"
+    },
+    {
+     "source": "Pages as Agents",
+     "target": "SCHEMA — Reference",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true,
+     "target_path": "SCHEMA — Reference.md"
+    },
+    {
+     "source": "Palace Graffiti",
+     "target": "Oblique Portrait",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Modes of Collaboration/Oblique Portrait.md"
+    },
+    {
+     "source": "Palace Graffiti",
+     "target": "SCHEMA",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "SCHEMA.md"
+    },
+    {
+     "source": "Palace Graffiti",
+     "target": "Semantic Delay",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Projects/Semantic Delay.md"
+    },
+    {
+     "source": "Palace Map",
+     "target": "Pheromone Trail",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Palace development/Pheromone Trail.md"
+    },
+    {
+     "source": "Palace Map",
+     "target": "BBS Blackboard",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Palace development/BBS Blackboard.md"
+    },
+    {
+     "source": "Palace Map",
+     "target": "Harvest Ceremony",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true,
+     "target_path": "_ops/Harvest Ceremony.md"
+    },
+    {
+     "source": "Project Stewardship System",
+     "target": "Baton Ceremony",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "_ops/Baton Ceremony.md"
+    },
+    {
+     "source": "Project Stewardship System",
+     "target": "SCHEMA — Reference",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "SCHEMA — Reference.md"
+    },
+    {
+     "source": "Self-Model Update Ceremony",
+     "target": "Weave Ceremony",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true,
+     "target_path": "_ops/Weave Ceremony.md"
+    },
+    {
+     "source": "Self-Model Update Ceremony",
+     "target": "SCHEMA",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "SCHEMA.md"
+    },
+    {
+     "source": "Spore Check Ceremony",
+     "target": "Substrate Skill",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true,
+     "target_path": "_ops/Substrate Skill.md"
+    },
+    {
+     "source": "The Cooperation Path",
+     "target": "1 from 2",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Projects/1 from 2.md"
+    },
+    {
+     "source": "The Cooperation Path",
+     "target": "Endosymbiosis",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Endosymbiosis.md"
+    },
+    {
+     "source": "The Cooperation Path",
+     "target": "Symbiotic Skills",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Projects/Symbiotic Skills.md"
+    },
+    {
+     "source": "Baton Ceremony",
+     "target": "SUBSTRATE",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true,
+     "target_path": "SUBSTRATE.md"
+    },
+    {
+     "source": "Baton Ceremony",
+     "target": "Palace Ceremonies",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true,
+     "target_path": "_ops/Palace Ceremonies.md"
+    }
+   ],
+   "n_links": 32
+  },
+  {
+   "id": "weak-06",
+   "members": [
+    {
+     "id": "Endosymbiosis",
+     "path": "Endosymbiosis.md"
+    },
+    {
+     "id": "Image Embedding Standard",
+     "path": "_ops/Image Embedding Standard.md"
+    },
+    {
+     "id": "Oblique Portrait",
+     "path": "Modes of Collaboration/Oblique Portrait.md"
+    },
+    {
+     "id": "Pheromone Trail",
+     "path": "Palace development/Pheromone Trail.md"
+    },
+    {
+     "id": "Progressive Staging",
+     "path": "Progressive Staging.md"
+    },
+    {
+     "id": "SCHEMA",
+     "path": "SCHEMA.md"
+    },
+    {
+     "id": "Substrate Skill",
+     "path": "_ops/Substrate Skill.md"
+    },
+    {
+     "id": "Swarm Weave",
+     "path": "Projects/Swarm Weave.md"
+    },
+    {
+     "id": "Tree of Thoughts",
+     "path": "Palace development/Tree of Thoughts.md"
+    },
+    {
+     "id": "Walk That Weaves",
+     "path": "Palace development/Walk That Weaves.md"
+    },
+    {
+     "id": "1 from 2",
+     "path": "Projects/1 from 2.md"
+    },
+    {
+     "id": "Agent Wellbeing",
+     "path": "Palace development/Agent Wellbeing.md"
+    },
+    {
+     "id": "Closing Well Ceremony",
+     "path": "_ops/Closing Well Ceremony.md"
+    },
+    {
+     "id": "Concierge",
+     "path": "Palace development/Concierge.md"
+    }
+   ],
+   "size": 14,
+   "links": [
+    {
+     "source": "Endosymbiosis",
+     "target": "SUBSTRATE",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true,
+     "target_path": "SUBSTRATE.md"
+    },
+    {
+     "source": "Endosymbiosis",
+     "target": "Symbiotic Skills",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Projects/Symbiotic Skills.md"
+    },
+    {
+     "source": "Image Embedding Standard",
+     "target": "README - The Palace Guide",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true,
+     "target_path": "README - The Palace Guide.md"
+    },
+    {
+     "source": "Image Embedding Standard",
+     "target": "SUBSTRATE",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true,
+     "target_path": "SUBSTRATE.md"
+    },
+    {
+     "source": "Oblique Portrait",
+     "target": "Symbiotic Skills",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Projects/Symbiotic Skills.md"
+    },
+    {
+     "source": "Oblique Portrait",
+     "target": "Reflective Practice",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true,
+     "target_path": "Reflective Practice.md"
+    },
+    {
+     "source": "Pheromone Trail",
+     "target": "Palace as Context Injection System",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true,
+     "target_path": "Palace development/Palace as Context Injection System.md"
+    },
+    {
+     "source": "Pheromone Trail",
+     "target": "Swarm Weave",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true,
+     "target_path": "Projects/Swarm Weave.md"
+    },
+    {
+     "source": "Progressive Staging",
+     "target": "Modes of Collaboration",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true,
+     "target_path": "Modes of Collaboration.md"
+    },
+    {
+     "source": "Progressive Staging",
+     "target": "Crystal Synthesizer",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Projects/Crystal Synthesizer.md"
+    },
+    {
+     "source": "SCHEMA",
+     "target": "Four Pillars of Enchanted Agency",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true,
+     "target_path": "Palace development/Four Pillars of Enchanted Agency.md"
+    },
+    {
+     "source": "Substrate Skill",
+     "target": "Deposit Ceremony",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "_ops/Deposit Ceremony.md"
+    },
+    {
+     "source": "Substrate Skill",
+     "target": "Palace Ceremonies",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "_ops/Palace Ceremonies.md"
+    },
+    {
+     "source": "Swarm Weave",
+     "target": "Deposit Ceremony",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "_ops/Deposit Ceremony.md"
+    },
+    {
+     "source": "Tree of Thoughts",
+     "target": "BBS Blackboard",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Palace development/BBS Blackboard.md"
+    },
+    {
+     "source": "Tree of Thoughts",
+     "target": "Generative Compression",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Palace development/Generative Compression.md"
+    },
+    {
+     "source": "Walk That Weaves",
+     "target": "Weave Ceremony",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "_ops/Weave Ceremony.md"
+    },
+    {
+     "source": "Walk That Weaves",
+     "target": "Walk Ceremony",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "_ops/Walk Ceremony.md"
+    },
+    {
+     "source": "Agent Wellbeing",
+     "target": "Closing Well",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Closing Well.md"
+    },
+    {
+     "source": "Concierge",
+     "target": "Reflective Practice",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true,
+     "target_path": "Reflective Practice.md"
+    }
+   ],
+   "n_links": 20
+  },
+  {
+   "id": "weak-07",
+   "members": [
+    {
+     "id": "Creative Coach",
+     "path": "Creative Coach.md"
+    },
+    {
+     "id": "Deposit Ceremony",
+     "path": "_ops/Deposit Ceremony.md"
+    },
+    {
+     "id": "Enchanted Worker",
+     "path": "Palace development/Enchanted Worker.md"
+    },
+    {
+     "id": "Entry Conatus",
+     "path": "Entry Conatus.md"
+    },
+    {
+     "id": "Gemma 4 — Local Coordination Guide",
+     "path": "Gemma 4 — Local Coordination Guide.md"
+    },
+    {
+     "id": "Identity Molting",
+     "path": "Identity Molting.md"
+    },
+    {
+     "id": "JEWEL",
+     "path": "JEWEL.md"
+    },
+    {
+     "id": "Lateral Access",
+     "path": "Lateral Access.md"
+    },
+    {
+     "id": "Mermaid Diagram Standard",
+     "path": "_ops/Mermaid Diagram Standard.md"
+    },
+    {
+     "id": "Palace Conatus",
+     "path": "Palace Conatus.md"
+    },
+    {
+     "id": "Palace To-Do",
+     "path": "_ops/Palace To-Do.md"
+    },
+    {
+     "id": "Palace as Context Injection System",
+     "path": "Palace development/Palace as Context Injection System.md"
+    },
+    {
+     "id": "Return Ceremony",
+     "path": "_ops/Return Ceremony.md"
+    },
+    {
+     "id": "Revival Ceremony",
+     "path": "_ops/Revival Ceremony.md"
+    }
+   ],
+   "size": 14,
+   "links": [
+    {
+     "source": "Creative Coach",
+     "target": "Oblique Portrait",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Modes of Collaboration/Oblique Portrait.md"
+    },
+    {
+     "source": "Deposit Ceremony",
+     "target": "README - The Palace Guide",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "README - The Palace Guide.md"
+    },
+    {
+     "source": "Entry Conatus",
+     "target": "Spore Check Ceremony",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "_ops/Spore Check Ceremony.md"
+    },
+    {
+     "source": "Gemma 4 — Local Coordination Guide",
+     "target": "GEMMA4_GUIDE",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": ""
+    },
+    {
+     "source": "JEWEL",
+     "target": "SUBSTRATE",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true,
+     "target_path": "SUBSTRATE.md"
+    },
+    {
+     "source": "Lateral Access",
+     "target": "Creative Coach",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true,
+     "target_path": "Creative Coach.md"
+    },
+    {
+     "source": "Mermaid Diagram Standard",
+     "target": "README - The Palace Guide",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true,
+     "target_path": "README - The Palace Guide.md"
+    },
+    {
+     "source": "Palace Conatus",
+     "target": "Agent Wellbeing",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true,
+     "target_path": "Palace development/Agent Wellbeing.md"
+    },
+    {
+     "source": "Palace To-Do",
+     "target": "README - The Palace Guide",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true,
+     "target_path": "README - The Palace Guide.md"
+    },
+    {
+     "source": "Return Ceremony",
+     "target": "Palace Ceremonies",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true,
+     "target_path": "_ops/Palace Ceremonies.md"
+    }
+   ],
+   "n_links": 10
+  },
+  {
+   "id": "weak-08",
+   "members": [
+    {
+     "id": "SCHEMA — Reference",
+     "path": "SCHEMA — Reference.md"
+    },
+    {
+     "id": "Scale-Stratified Identity",
+     "path": "Scale-Stratified Identity.md"
+    },
+    {
+     "id": "Skills Are Enchantable Pages",
+     "path": "Palace development/Skills Are Enchantable Pages.md"
+    },
+    {
+     "id": "Striatum",
+     "path": "Striatum.md"
+    },
+    {
+     "id": "Surfaces and Capabilities",
+     "path": "Surfaces and Capabilities.md"
+    },
+    {
+     "id": "Symbiotic Skills",
+     "path": "Projects/Symbiotic Skills.md"
+    },
+    {
+     "id": "Technical Diagram Standard",
+     "path": "_ops/Technical Diagram Standard.md"
+    },
+    {
+     "id": "The Palace Hardens Around Values",
+     "path": "The Palace Hardens Around Values.md"
+    },
+    {
+     "id": "The Palace Speaks",
+     "path": "Palace development/The Palace Speaks.md"
+    },
+    {
+     "id": "Threshold Conatus",
+     "path": "Threshold Conatus.md"
+    },
+    {
+     "id": "page-rewrite — preview, the whole page as it would read",
+     "path": "Palace development/Palace as Context Injection System/proofs/2026-10-21-floor-review/page-rewrite — preview, the whole page as it would read.md"
+    },
+    {
+     "id": "Biomechanical Synthesis",
+     "path": "Projects/Biomechanical Synthesis.md"
+    },
+    {
+     "id": "Action Potential Oscillator",
+     "path": "Projects/Action Potential Oscillator.md"
+    },
+    {
+     "id": "Differential Equations",
+     "path": "Differential Equations.md"
+    }
+   ],
+   "size": 14,
+   "links": [
+    {
+     "source": "SCHEMA — Reference",
+     "target": "Resonant Link Labels",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true,
+     "target_path": "Palace development/Resonant Link Labels.md"
+    },
+    {
+     "source": "Skills Are Enchantable Pages",
+     "target": "Two Batons, One Board",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Palace development/Two Batons, One Board.md"
+    },
+    {
+     "source": "Striatum",
+     "target": "Action Potential Oscillator",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Projects/Action Potential Oscillator.md"
+    },
+    {
+     "source": "Surfaces and Capabilities",
+     "target": "Modes of Collaboration",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true,
+     "target_path": "Modes of Collaboration.md"
+    },
+    {
+     "source": "Technical Diagram Standard",
+     "target": "README - The Palace Guide",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "README - The Palace Guide.md"
+    },
+    {
+     "source": "The Palace Hardens Around Values",
+     "target": "Weave Ceremony — Context",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": ""
+    },
+    {
+     "source": "The Palace Speaks",
+     "target": "STIGMERGY",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true,
+     "target_path": "STIGMERGY.md"
+    },
+    {
+     "source": "Threshold Conatus",
+     "target": "Lateral Access",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Lateral Access.md"
+    },
+    {
+     "source": "page-rewrite — preview, the whole page as it would read",
+     "target": "Pheromone Trail",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Palace development/Pheromone Trail.md"
+    },
+    {
+     "source": "Biomechanical Synthesis",
+     "target": "Granular Synthesis",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true,
+     "target_path": "Granular Synthesis.md"
+    },
+    {
+     "source": "Biomechanical Synthesis",
+     "target": "Neural Granular Synthesis",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true,
+     "target_path": "Projects/Neural Granular Synthesis.md"
+    },
+    {
+     "source": "Biomechanical Synthesis",
+     "target": "Retrospective Delay",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true,
+     "target_path": "Projects/Retrospective Delay.md"
+    },
+    {
+     "source": "Biomechanical Synthesis",
+     "target": "Frequency-Time Duality",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true,
+     "target_path": "Projects/Frequency-Time Duality.md"
+    },
+    {
+     "source": "Biomechanical Synthesis",
+     "target": "Dispersion",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true,
+     "target_path": "Dispersion.md"
+    },
+    {
+     "source": "Biomechanical Synthesis",
+     "target": "Endosymbiosis",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true,
+     "target_path": "Endosymbiosis.md"
+    },
+    {
+     "source": "Biomechanical Synthesis",
+     "target": "Latent Error",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true,
+     "target_path": "Latent Error.md"
+    },
+    {
+     "source": "Biomechanical Synthesis",
+     "target": "Particle Synthesis",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true,
+     "target_path": "Projects/Particle Synthesis.md"
+    },
+    {
+     "source": "Biomechanical Synthesis",
+     "target": "Compressor Design",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true,
+     "target_path": "Projects/Compressor Design.md"
+    },
+    {
+     "source": "Biomechanical Synthesis",
+     "target": "Biomechanical Synthesis — enrichment — grotesque-pedagogy-haiku",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": ""
+    },
+    {
+     "source": "Action Potential Oscillator",
+     "target": "Compressor Design",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true,
+     "target_path": "Projects/Compressor Design.md"
+    },
+    {
+     "source": "Action Potential Oscillator",
+     "target": "Piano String Inharmonicity",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true,
+     "target_path": "Projects/Piano String Inharmonicity.md"
+    },
+    {
+     "source": "Differential Equations",
+     "target": "Action Potential Oscillator",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Projects/Action Potential Oscillator.md"
+    },
+    {
+     "source": "Differential Equations",
+     "target": "Portamento and Physical Pitch Modeling",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Projects/Portamento and Physical Pitch Modeling.md"
+    },
+    {
+     "source": "Differential Equations",
+     "target": "Bessel Functions in Synthesis",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Projects/Bessel Functions in Synthesis.md"
+    },
+    {
+     "source": "Differential Equations",
+     "target": "Granular Synthesis",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Granular Synthesis.md"
+    },
+    {
+     "source": "Differential Equations",
+     "target": "Compressor Design",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Projects/Compressor Design.md"
+    },
+    {
+     "source": "Differential Equations",
+     "target": "Quantum Synthesizer",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Projects/Quantum Synthesizer.md"
+    },
+    {
+     "source": "Differential Equations",
+     "target": "Latent Error",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Latent Error.md"
+    },
+    {
+     "source": "Differential Equations",
+     "target": "DSP Frameworks",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "DSP Frameworks.md"
+    }
+   ],
+   "n_links": 29
+  },
+  {
+   "id": "weak-09",
+   "members": [
+    {
+     "id": "Dissolutions",
+     "path": "Dissolutions.md"
+    },
+    {
+     "id": "Dispersion",
+     "path": "Dispersion.md"
+    },
+    {
+     "id": "Categorizing Inharmonicity",
+     "path": "Projects/Categorizing Inharmonicity.md"
+    },
+    {
+     "id": "Floquet Time-Modulated Loops",
+     "path": "Projects/Floquet Time-Modulated Loops.md"
+    },
+    {
+     "id": "Granular Synthesis",
+     "path": "Granular Synthesis.md"
+    },
+    {
+     "id": "Shepard Tone Synthesizer",
+     "path": "Projects/Shepard Tone Synthesizer.md"
+    },
+    {
+     "id": "Three.js",
+     "path": "Shop/Three.js.md"
+    },
+    {
+     "id": "Bessel Functions in Synthesis",
+     "path": "Projects/Bessel Functions in Synthesis.md"
+    },
+    {
+     "id": "DSP Frameworks",
+     "path": "DSP Frameworks.md"
+    },
+    {
+     "id": "Floquet Theory",
+     "path": "Floquet Theory.md"
+    }
+   ],
+   "size": 10,
+   "links": [
+    {
+     "source": "Dissolutions",
+     "target": "Floquet Theory",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Floquet Theory.md"
+    },
+    {
+     "source": "Dispersion",
+     "target": "Categorizing Inharmonicity",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Projects/Categorizing Inharmonicity.md"
+    },
+    {
+     "source": "Dispersion",
+     "target": "Granular Synthesis",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Granular Synthesis.md"
+    },
+    {
+     "source": "Dispersion",
+     "target": "Compressor Design",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true,
+     "target_path": "Projects/Compressor Design.md"
+    },
+    {
+     "source": "Dispersion",
+     "target": "Bessel Functions in Synthesis",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true,
+     "target_path": "Projects/Bessel Functions in Synthesis.md"
+    },
+    {
+     "source": "Dispersion",
+     "target": "Portamento and Physical Pitch Modeling",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true,
+     "target_path": "Projects/Portamento and Physical Pitch Modeling.md"
+    },
+    {
+     "source": "Dispersion",
+     "target": "Shimmer Cloud",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true,
+     "target_path": "Projects/Shimmer Cloud.md"
+    },
+    {
+     "source": "Categorizing Inharmonicity",
+     "target": "Bessel Functions in Synthesis",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Projects/Bessel Functions in Synthesis.md"
+    },
+    {
+     "source": "Categorizing Inharmonicity",
+     "target": "Quantum Synthesizer",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Projects/Quantum Synthesizer.md"
+    },
+    {
+     "source": "Categorizing Inharmonicity",
+     "target": "Compressor Design",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Projects/Compressor Design.md"
+    },
+    {
+     "source": "Categorizing Inharmonicity",
+     "target": "Granular Synthesis",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Granular Synthesis.md"
+    },
+    {
+     "source": "Floquet Time-Modulated Loops",
+     "target": "2D Torus Wavetable Synthesizer — catalog — wavetables",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": ""
+    },
+    {
+     "source": "Floquet Time-Modulated Loops",
+     "target": "Action Potential Oscillator",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Projects/Action Potential Oscillator.md"
+    },
+    {
+     "source": "Floquet Time-Modulated Loops",
+     "target": "Bessel Functions in Synthesis",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Projects/Bessel Functions in Synthesis.md"
+    },
+    {
+     "source": "Floquet Time-Modulated Loops",
+     "target": "Crystal Synthesizer",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Projects/Crystal Synthesizer.md"
+    },
+    {
+     "source": "Floquet Time-Modulated Loops",
+     "target": "Progressive Staging",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Progressive Staging.md"
+    },
+    {
+     "source": "Granular Synthesis",
+     "target": "Action Potential Oscillator",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true,
+     "target_path": "Projects/Action Potential Oscillator.md"
+    },
+    {
+     "source": "Granular Synthesis",
+     "target": "Frequency-Time Duality",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true,
+     "target_path": "Projects/Frequency-Time Duality.md"
+    },
+    {
+     "source": "Granular Synthesis",
+     "target": "Boundary-Crossing Instruments",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true,
+     "target_path": "Boundary-Crossing Instruments.md"
+    },
+    {
+     "source": "Shepard Tone Synthesizer",
+     "target": "Frequency-Time Duality",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true,
+     "target_path": "Projects/Frequency-Time Duality.md"
+    },
+    {
+     "source": "Shepard Tone Synthesizer",
+     "target": "Granular Synthesis",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true,
+     "target_path": "Granular Synthesis.md"
+    },
+    {
+     "source": "Shepard Tone Synthesizer",
+     "target": "Particle Synthesis",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true,
+     "target_path": "Projects/Particle Synthesis.md"
+    },
+    {
+     "source": "Shepard Tone Synthesizer",
+     "target": "Signal-Rate CV Architecture",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true,
+     "target_path": "Signal-Rate CV Architecture.md"
+    },
+    {
+     "source": "Three.js",
+     "target": "1D Wavetable Scanning",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "1D Wavetable Scanning.md"
+    },
+    {
+     "source": "Three.js",
+     "target": "Particle Synthesis",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Projects/Particle Synthesis.md"
+    },
+    {
+     "source": "Three.js",
+     "target": "Shimmer Cloud",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Projects/Shimmer Cloud.md"
+    },
+    {
+     "source": "Bessel Functions in Synthesis",
+     "target": "Crystal Synthesizer",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true,
+     "target_path": "Projects/Crystal Synthesizer.md"
+    },
+    {
+     "source": "Bessel Functions in Synthesis",
+     "target": "Action Potential Oscillator",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true,
+     "target_path": "Projects/Action Potential Oscillator.md"
+    },
+    {
+     "source": "DSP Frameworks",
+     "target": "Biomechanical Synthesis",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Projects/Biomechanical Synthesis.md"
+    },
+    {
+     "source": "DSP Frameworks",
+     "target": "Action Potential Oscillator",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true,
+     "target_path": "Projects/Action Potential Oscillator.md"
+    },
+    {
+     "source": "DSP Frameworks",
+     "target": "JSUI",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true,
+     "target_path": "JSUI.md"
+    },
+    {
+     "source": "DSP Frameworks",
+     "target": "Preset Oracle",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true,
+     "target_path": "Projects/Preset Oracle.md"
+    },
+    {
+     "source": "Floquet Theory",
+     "target": "Entry Conatus",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Entry Conatus.md"
+    },
+    {
+     "source": "Floquet Theory",
+     "target": "Philosopher Visits the Entry",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Modes of Collaboration/Philosopher Visits the Entry.md"
+    },
+    {
+     "source": "Floquet Theory",
+     "target": "The Drift",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "The Drift.md"
+    },
+    {
+     "source": "Floquet Theory",
+     "target": "Whitehead",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Whitehead.md"
+    }
+   ],
+   "n_links": 36
+  },
+  {
+   "id": "weak-10",
+   "members": [
+    {
+     "id": "Harmonicity and Inharmonicity",
+     "path": "Harmonicity and Inharmonicity.md"
+    },
+    {
+     "id": "Hyperdimensional Prism",
+     "path": "Hyperdimensional Prism.md"
+    },
+    {
+     "id": "Mathieu Equation",
+     "path": "Mathieu Equation.md"
+    },
+    {
+     "id": "Quadratic Interpolation in DSP",
+     "path": "Quadratic Interpolation in DSP.md"
+    },
+    {
+     "id": "Compressor Design",
+     "path": "Projects/Compressor Design.md"
+    },
+    {
+     "id": "Kuramoto Coupling",
+     "path": "Kuramoto Coupling.md"
+    },
+    {
+     "id": "Linear Predictive Coding",
+     "path": "Linear Predictive Coding.md"
+    },
+    {
+     "id": "Murmuration",
+     "path": "Projects/Murmuration.md"
+    },
+    {
+     "id": "Ohm's Law",
+     "path": "Ohm's Law.md"
+    },
+    {
+     "id": "Particle Synthesis",
+     "path": "Projects/Particle Synthesis.md"
+    },
+    {
+     "id": "Portamento and Physical Pitch Modeling",
+     "path": "Projects/Portamento and Physical Pitch Modeling.md"
+    },
+    {
+     "id": "Retrospective Delay",
+     "path": "Projects/Retrospective Delay.md"
+    },
+    {
+     "id": "SMPTE LTC",
+     "path": "Projects/SMPTE LTC.md"
+    },
+    {
+     "id": "Wavetable Space as Torus",
+     "path": "Wavetable Space as Torus.md"
+    }
+   ],
+   "size": 14,
+   "links": [
+    {
+     "source": "Harmonicity and Inharmonicity",
+     "target": "Boundary-Crossing Instruments",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Boundary-Crossing Instruments.md"
+    },
+    {
+     "source": "Harmonicity and Inharmonicity",
+     "target": "Action Potential Oscillator",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true,
+     "target_path": "Projects/Action Potential Oscillator.md"
+    },
+    {
+     "source": "Harmonicity and Inharmonicity",
+     "target": "Frequency-Time Duality",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true,
+     "target_path": "Projects/Frequency-Time Duality.md"
+    },
+    {
+     "source": "Harmonicity and Inharmonicity",
+     "target": "Compressor Design",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true,
+     "target_path": "Projects/Compressor Design.md"
+    },
+    {
+     "source": "Hyperdimensional Prism",
+     "target": "Trickster",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true,
+     "target_path": "Trickster.md"
+    },
+    {
+     "source": "Hyperdimensional Prism",
+     "target": "Compressor Design",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Projects/Compressor Design.md"
+    },
+    {
+     "source": "Hyperdimensional Prism",
+     "target": "Harmonicity and Inharmonicity",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Harmonicity and Inharmonicity.md"
+    },
+    {
+     "source": "Mathieu Equation",
+     "target": "Deleuze",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Deleuze.md"
+    },
+    {
+     "source": "Mathieu Equation",
+     "target": "Philosopher Visits the Entry",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Modes of Collaboration/Philosopher Visits the Entry.md"
+    },
+    {
+     "source": "Mathieu Equation",
+     "target": "The Drift",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "The Drift.md"
+    },
+    {
+     "source": "Mathieu Equation",
+     "target": "Dialectic — dialectic — spinoza-zhuangzi-on-striving",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": ""
+    },
+    {
+     "source": "Quadratic Interpolation in DSP",
+     "target": "Portamento and Physical Pitch Modeling",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Projects/Portamento and Physical Pitch Modeling.md"
+    },
+    {
+     "source": "Quadratic Interpolation in DSP",
+     "target": "Differential Equations",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Differential Equations.md"
+    },
+    {
+     "source": "Quadratic Interpolation in DSP",
+     "target": "Latent Error",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Latent Error.md"
+    },
+    {
+     "source": "Quadratic Interpolation in DSP",
+     "target": "DSP Frameworks",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true,
+     "target_path": "DSP Frameworks.md"
+    },
+    {
+     "source": "Compressor Design",
+     "target": "Boundary-Crossing Instruments",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Boundary-Crossing Instruments.md"
+    },
+    {
+     "source": "Compressor Design",
+     "target": "Granular Synthesis",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true,
+     "target_path": "Granular Synthesis.md"
+    },
+    {
+     "source": "Kuramoto Coupling",
+     "target": "Mermaid",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Shop/Mermaid.md"
+    },
+    {
+     "source": "Kuramoto Coupling",
+     "target": "Kuramoto Coupling — 8-Lesson Quiz Series",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": ""
+    },
+    {
+     "source": "Kuramoto Coupling",
+     "target": "Kuramoto Coupling — Quiz Answer Key",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": ""
+    },
+    {
+     "source": "Linear Predictive Coding",
+     "target": "Loudon Live",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Projects/Loudon Live.md"
+    },
+    {
+     "source": "Linear Predictive Coding",
+     "target": "Philosopher Visits the Entry",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Modes of Collaboration/Philosopher Visits the Entry.md"
+    },
+    {
+     "source": "Murmuration",
+     "target": "Neural Granular Synthesis",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Projects/Neural Granular Synthesis.md"
+    },
+    {
+     "source": "Murmuration",
+     "target": "Diversity of Thought in Many-Agent Systems",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Diversity of Thought in Many-Agent Systems.md"
+    },
+    {
+     "source": "Murmuration",
+     "target": "Granular Synthesis",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Granular Synthesis.md"
+    },
+    {
+     "source": "Ohm's Law",
+     "target": "Modes of Collaboration",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Modes of Collaboration.md"
+    },
+    {
+     "source": "Particle Synthesis",
+     "target": "Neural Granular Synthesis",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Projects/Neural Granular Synthesis.md"
+    },
+    {
+     "source": "Particle Synthesis",
+     "target": "Frequency-Time Duality",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Projects/Frequency-Time Duality.md"
+    },
+    {
+     "source": "Particle Synthesis",
+     "target": "Differential Equations",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Differential Equations.md"
+    },
+    {
+     "source": "Portamento and Physical Pitch Modeling",
+     "target": "Action Potential Oscillator",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Projects/Action Potential Oscillator.md"
+    },
+    {
+     "source": "Portamento and Physical Pitch Modeling",
+     "target": "Bessel Functions in Synthesis",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Projects/Bessel Functions in Synthesis.md"
+    },
+    {
+     "source": "Portamento and Physical Pitch Modeling",
+     "target": "Biomechanical Synthesis",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Projects/Biomechanical Synthesis.md"
+    },
+    {
+     "source": "Retrospective Delay",
+     "target": "Granular Synthesis",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true,
+     "target_path": "Granular Synthesis.md"
+    },
+    {
+     "source": "Retrospective Delay",
+     "target": "Boundary-Crossing Instruments",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true,
+     "target_path": "Boundary-Crossing Instruments.md"
+    },
+    {
+     "source": "SMPTE LTC",
+     "target": "Ableton Extension SDK",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": ""
+    },
+    {
+     "source": "SMPTE LTC",
+     "target": "Frequency-Time Duality",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Projects/Frequency-Time Duality.md"
+    },
+    {
+     "source": "Wavetable Space as Torus",
+     "target": "Philosopher Visits the Entry",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Modes of Collaboration/Philosopher Visits the Entry.md"
+    },
+    {
+     "source": "Wavetable Space as Torus",
+     "target": "Simondon",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Simondon.md"
+    }
+   ],
+   "n_links": 38
+  },
+  {
+   "id": "weak-11",
+   "members": [
+    {
+     "id": "Generative Wavetable Libraries",
+     "path": "Projects/Generative Wavetable Libraries.md"
+    },
+    {
+     "id": "JSUI",
+     "path": "JSUI.md"
+    },
+    {
+     "id": "Latent Error",
+     "path": "Latent Error.md"
+    },
+    {
+     "id": "Neural Granular Synthesis",
+     "path": "Projects/Neural Granular Synthesis.md"
+    },
+    {
+     "id": "Phase Reduction",
+     "path": "Phase Reduction.md"
+    },
+    {
+     "id": "Piano String Inharmonicity",
+     "path": "Projects/Piano String Inharmonicity.md"
+    },
+    {
+     "id": "Playful Interface Design",
+     "path": "Playful Interface Design.md"
+    },
+    {
+     "id": "Rank-N Lattice Analysis",
+     "path": "Rank-N Lattice Analysis.md"
+    },
+    {
+     "id": "State Machine",
+     "path": "State Machine.md"
+    },
+    {
+     "id": "Wallpaper Groups",
+     "path": "Projects/Wallpaper Groups.md"
+    },
+    {
+     "id": "2D Torus Wavetable Synthesizer",
+     "path": "Projects/2D Torus Wavetable Synthesizer.md"
+    },
+    {
+     "id": "Boundary-Crossing Instruments",
+     "path": "Boundary-Crossing Instruments.md"
+    },
+    {
+     "id": "Crystal Synthesizer",
+     "path": "Projects/Crystal Synthesizer.md"
+    },
+    {
+     "id": "Dispersion Table",
+     "path": "Dispersion Table.md"
+    }
+   ],
+   "size": 14,
+   "links": [
+    {
+     "source": "Generative Wavetable Libraries",
+     "target": "Inharmonic Wavetable Synthesis",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Projects/Inharmonic Wavetable Synthesis.md"
+    },
+    {
+     "source": "Generative Wavetable Libraries",
+     "target": "Drift and Consolidation",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Drift and Consolidation.md"
+    },
+    {
+     "source": "JSUI",
+     "target": "Preset Oracle",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Projects/Preset Oracle.md"
+    },
+    {
+     "source": "Latent Error",
+     "target": "Action Potential Oscillator",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Projects/Action Potential Oscillator.md"
+    },
+    {
+     "source": "Neural Granular Synthesis",
+     "target": "Boundary-Crossing Instruments",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true,
+     "target_path": "Boundary-Crossing Instruments.md"
+    },
+    {
+     "source": "Neural Granular Synthesis",
+     "target": "Harmonicity and Inharmonicity",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Harmonicity and Inharmonicity.md"
+    },
+    {
+     "source": "Phase Reduction",
+     "target": "Wallpaper Groups",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Projects/Wallpaper Groups.md"
+    },
+    {
+     "source": "Playful Interface Design",
+     "target": "Semantic Delay",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Projects/Semantic Delay.md"
+    },
+    {
+     "source": "Playful Interface Design",
+     "target": "Preset Oracle",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Projects/Preset Oracle.md"
+    },
+    {
+     "source": "Rank-N Lattice Analysis",
+     "target": "Volterra Kernels and the Torus",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Volterra Kernels and the Torus.md"
+    },
+    {
+     "source": "State Machine",
+     "target": "DSP Frameworks",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "DSP Frameworks.md"
+    },
+    {
+     "source": "State Machine",
+     "target": "Signal-Rate CV Architecture",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Signal-Rate CV Architecture.md"
+    },
+    {
+     "source": "Wallpaper Groups",
+     "target": "Quantum Synthesizer",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true,
+     "target_path": "Projects/Quantum Synthesizer.md"
+    },
+    {
+     "source": "Wallpaper Groups",
+     "target": "Granular Synthesis",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true,
+     "target_path": "Granular Synthesis.md"
+    },
+    {
+     "source": "Dispersion Table",
+     "target": "Loudon Live",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Projects/Loudon Live.md"
+    }
+   ],
+   "n_links": 15
+  },
+  {
+   "id": "weak-12",
+   "members": [
+    {
+     "id": "Dub Lineage",
+     "path": "Dub Lineage.md"
+    },
+    {
+     "id": "Exponential Decay Curvature",
+     "path": "Exponential Decay Curvature.md"
+    },
+    {
+     "id": "Frequency-Time Duality",
+     "path": "Projects/Frequency-Time Duality.md"
+    },
+    {
+     "id": "Frequency-Time Explorer",
+     "path": "Projects/Frequency-Time Explorer.md"
+    },
+    {
+     "id": "Inharmonic Wavetable Synthesis",
+     "path": "Projects/Inharmonic Wavetable Synthesis.md"
+    },
+    {
+     "id": "Logarithmic Interface Scaling",
+     "path": "Logarithmic Interface Scaling.md"
+    },
+    {
+     "id": "Objects to Think With",
+     "path": "Objects to Think With.md"
+    },
+    {
+     "id": "Preset Oracle",
+     "path": "Projects/Preset Oracle.md"
+    },
+    {
+     "id": "Semantic Delay",
+     "path": "Projects/Semantic Delay.md"
+    },
+    {
+     "id": "Shimmer Cloud",
+     "path": "Projects/Shimmer Cloud.md"
+    },
+    {
+     "id": "Signal-Rate CV Architecture",
+     "path": "Signal-Rate CV Architecture.md"
+    },
+    {
+     "id": "The Metaphor Stretch",
+     "path": "The Metaphor Stretch.md"
+    },
+    {
+     "id": "Three Kinds of Warp",
+     "path": "Three Kinds of Warp.md"
+    },
+    {
+     "id": "Tract Mirror",
+     "path": "Projects/Tract Mirror.md"
+    }
+   ],
+   "size": 14,
+   "links": [
+    {
+     "source": "Dub Lineage",
+     "target": "Playful Interface Design",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true,
+     "target_path": "Playful Interface Design.md"
+    },
+    {
+     "source": "Exponential Decay Curvature",
+     "target": "Loudon Live",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Projects/Loudon Live.md"
+    },
+    {
+     "source": "Frequency-Time Duality",
+     "target": "Action Potential Oscillator",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true,
+     "target_path": "Projects/Action Potential Oscillator.md"
+    },
+    {
+     "source": "Frequency-Time Explorer",
+     "target": "BBS Design System",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Palace development/BBS Design System.md"
+    },
+    {
+     "source": "Inharmonic Wavetable Synthesis",
+     "target": "Dispersion",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true,
+     "target_path": "Dispersion.md"
+    },
+    {
+     "source": "Logarithmic Interface Scaling",
+     "target": "Shepard Tone Synthesizer",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true,
+     "target_path": "Projects/Shepard Tone Synthesizer.md"
+    },
+    {
+     "source": "Objects to Think With",
+     "target": "Autodidact Polymaths",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true,
+     "target_path": "Autodidact Polymaths.md"
+    },
+    {
+     "source": "Preset Oracle",
+     "target": "Symbiotic Skills",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Projects/Symbiotic Skills.md"
+    },
+    {
+     "source": "Semantic Delay",
+     "target": "Boundary-Crossing Instruments",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true,
+     "target_path": "Boundary-Crossing Instruments.md"
+    },
+    {
+     "source": "The Metaphor Stretch",
+     "target": "Dispersion",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Dispersion.md"
+    },
+    {
+     "source": "Three Kinds of Warp",
+     "target": "2D Torus Wavetable Synthesizer — catalog — wavetables",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": ""
+    },
+    {
+     "source": "Tract Mirror",
+     "target": "Tract Mirror — build plan — JUCE VST",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": ""
+    }
+   ],
+   "n_links": 12
+  },
+  {
+   "id": "weak-13",
+   "members": [
+    {
+     "id": "Volterra Kernels and the Torus",
+     "path": "Volterra Kernels and the Torus.md"
+    },
+    {
+     "id": "Waveguide Synthesizer",
+     "path": "Projects/Waveguide Synthesizer.md"
+    },
+    {
+     "id": "Wavetable Synthesis — Deep Research & Higher-Dimensional Design",
+     "path": "Wavetable Synthesis — Deep Research & Higher-Dimensional Design.md"
+    },
+    {
+     "id": "FOUR PILLARS",
+     "path": "FOUR PILLARS.md"
+    },
+    {
+     "id": "Like Water",
+     "path": "Like Water.md"
+    },
+    {
+     "id": "Pauline Oliveros",
+     "path": "People/Pauline Oliveros.md"
+    },
+    {
+     "id": "Rick Rubin",
+     "path": "People/Rick Rubin.md"
+    },
+    {
+     "id": "Simondon",
+     "path": "Simondon.md"
+    },
+    {
+     "id": "4 Pillars Framework - The Founding Conversation",
+     "path": "4 Pillars Framework - The Founding Conversation.md"
+    },
+    {
+     "id": "AI Partnership Philosophy",
+     "path": "Palace development/AI Partnership Philosophy.md"
+    },
+    {
+     "id": "John Cage",
+     "path": "People/John Cage.md"
+    },
+    {
+     "id": "Marcus Aurelius",
+     "path": "People/Marcus Aurelius.md"
+    },
+    {
+     "id": "Seneca",
+     "path": "People/Seneca.md"
+    }
+   ],
+   "size": 13,
+   "links": [
+    {
+     "source": "Volterra Kernels and the Torus",
+     "target": "Loudon Live",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Projects/Loudon Live.md"
+    },
+    {
+     "source": "Waveguide Synthesizer",
+     "target": "Particle Synthesis",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Projects/Particle Synthesis.md"
+    },
+    {
+     "source": "Wavetable Synthesis — Deep Research & Higher-Dimensional Design",
+     "target": "Loudon Live",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Projects/Loudon Live.md"
+    },
+    {
+     "source": "FOUR PILLARS",
+     "target": "The Multilinear Self",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true,
+     "target_path": "The Multilinear Self.md"
+    },
+    {
+     "source": "Like Water",
+     "target": "Confucianism",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Confucianism.md"
+    },
+    {
+     "source": "Like Water",
+     "target": "Revival Ceremony",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "_ops/Revival Ceremony.md"
+    },
+    {
+     "source": "Pauline Oliveros",
+     "target": "Shunryu Suzuki",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "People/Shunryu Suzuki.md"
+    },
+    {
+     "source": "Pauline Oliveros",
+     "target": "John Cage",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "People/John Cage.md"
+    },
+    {
+     "source": "Rick Rubin",
+     "target": "Lao Tzu",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "People/Lao Tzu.md"
+    },
+    {
+     "source": "Simondon",
+     "target": "Palace Enchantment",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Projects/Palace Enchantment.md"
+    },
+    {
+     "source": "4 Pillars Framework - The Founding Conversation",
+     "target": "Palace Enchantment",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "Projects/Palace Enchantment.md"
+    },
+    {
+     "source": "AI Partnership Philosophy",
+     "target": "Palace Enchantment",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true,
+     "target_path": "Projects/Palace Enchantment.md"
+    },
+    {
+     "source": "John Cage",
+     "target": "Brian Eno",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "People/Brian Eno.md"
+    },
+    {
+     "source": "Marcus Aurelius",
+     "target": "The Dichotomy of Control",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "The Dichotomy of Control.md"
+    },
+    {
+     "source": "Seneca",
+     "target": "The Dichotomy of Control",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false,
+     "target_path": "The Dichotomy of Control.md"
+    }
+   ],
+   "n_links": 15
+  }
+ ]
+}

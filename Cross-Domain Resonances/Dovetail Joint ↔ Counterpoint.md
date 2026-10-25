@@ -19,6 +19,7 @@ links:
     type: member-of
   - target: "[[FOUR PILLARS]]"
     type: exemplifies
+    label: cross-domain-bridge
   - target: "[[Endosymbiosis]]"
     type: mirrors
     label: co-design
@@ -34,9 +35,6 @@ links:
   - target: "[[Hilaritas Generator]]"
     type: exemplifies
     label: all-four-pillars-fire
-  - target: "[[Martin Buber]]"
-    type: connects-to
-    label: all-real-living-is-meeting
 ---
 
 # Dovetail Joint ↔ Counterpoint
@@ -137,28 +135,7 @@ Answer: Because the voices are written **for each other**. Each one makes the ot
 
 ## Why This Resonance Works
 
-### 1. Concrete to Abstract
-**Dovetail is visible:** You can see, touch, pull on it
-**Counterpoint is abstract:** Harmonic relationships aren't physical
-
-Teaching the concrete first gives students a **physical reference** for the abstract principle. When counterpoint gets confusing, return to the dovetail: "Shape one to receive the other."
-
-### 2. Aesthetic Parallel
-Both are considered **beautiful** in their domains:
-
-**Fine furniture:** Exposed dovetails are a mark of quality
-**Fine composition:** Clear counterpoint is a mark of sophistication
-
-Why? Because both reveal **elegant problem-solving**. The beauty isn't decorative—it's the beauty of a well-solved structural challenge.
-
-### 3. Transferable Thinking
-Once you understand the pattern, you can **design** with it:
-
-**In music:** "How can I shape this bass line to support the melody?"
-**In code:** "How can I design these functions to make each other stronger?"
-**In collaboration:** "How can we divide this work so each part supports the other?"
-
-The pattern becomes a **design tool**.
+Teach the dovetail first, because you can pull on it; when counterpoint gets abstract, return to the joint: "Shape one to receive the other."
 
 ## Advanced Applications
 
@@ -282,14 +259,7 @@ The whole emerges from the **quality of the connection**, not just the quality o
 
 ## Success Metrics (By Our Definition)
 
-**Not:** "Students can cut dovetails and write counterpoint"
-**But:**
-- Students recognize mutual support patterns in daily life
-- Students design collaborations using complementary strengths
-- Students understand that strength comes from relationship, not just parts
-- Students see beauty in elegant structural solutions
-
-When structural thinking transfers from wood to music to life—**the resonance succeeded**.
+It worked when structural thinking carries from wood to music to life.
 
 ---
 

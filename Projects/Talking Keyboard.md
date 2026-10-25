@@ -91,4 +91,6 @@ Not on a roadmap — noted as natural extensions if the use case arises:
 
 - Does the SFZ instrument feel useful for actual learning (e.g., a student naming notes by ear), or is it a curiosity?
 - Should we ship a DecentSampler version for student use (Phase 4 of the parent project)?
+  — progressed: [[Generative Sample Libraries]] § DecentSampler names it the format for student instruments; the question is held there (2026-10-24)
 - Is there value in a "prove-the-pipeline" instrument variant for each new source type the parent project adds (one for local-WAV-folder, one for AI-sub-agent, etc.) — making each Phase 3 sub-phase its own audible proof?
+  — progressed: the parent now builds one per source — `_ops/sample-libraries/local-wav-folder/` for the local-WAV source and `ai-source-probe/` in [[Generative Sample Libraries]]'s bundle for the AI source (2026-10-24)

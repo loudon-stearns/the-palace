@@ -1,0 +1,910 @@
+{
+ "room": "folder-people",
+ "lens": "folder",
+ "pages_read": [
+  "People/Agnes Martin.md",
+  "People/Andy Goldsworthy.md",
+  "People/Annie Dillard.md",
+  "People/Brian Eno.md",
+  "People/Buckminster Fuller.md",
+  "People/Christopher Alexander.md",
+  "People/Donella Meadows.md",
+  "People/Douglas Hofstadter.md",
+  "People/Epictetus.md",
+  "People/George Nakashima.md",
+  "People/Iain McGilchrist.md",
+  "People/James Turrell.md",
+  "People/John Cage.md",
+  "People/Julia Cameron.md",
+  "People/Lao Tzu.md",
+  "People/Leibniz.md",
+  "People/Marcus Aurelius.md",
+  "People/Martin Buber.md",
+  "People/Martin Heidegger.md",
+  "People/Pauline Oliveros.md",
+  "People/Rick Rubin.md",
+  "People/Seneca.md",
+  "People/Shunryu Suzuki.md",
+  "People/Spinoza.md",
+  "People/Yasujirō Ozu.md",
+  "People/Brian Eno/Brian Eno — diary.md (whole)",
+  "People/John Cage/John Cage — diary.md (headers and self-edit lines)",
+  "People/*/* — dossier.md (dispatch notes and forward_vector lines only, all 25)",
+  "Making a Palace Citizen.md (whole)",
+  "Making a Palace Citizen/Making a Palace Citizen — context.md (rollout, batch 1-4, tracker, queue)",
+  "Source Library.md (whole)",
+  "Found ↔ Made.md (first 80 lines)",
+  "Can an Instrument Notice Where the Work Stops?.md (first 60 lines)",
+  "SCHEMA.md §1-2",
+  "Modes of Collaboration/Excellent Adventure/Excellent Adventure — dialectic — founders-circle.md (opening, yield)",
+  "Modes of Collaboration/Dialectic/* (frontmatter and write-back lines of the Spinoza-Meadows, Spinoza-Zhuangzi and Zhuangzi-Epictetus-Confucius runs)",
+  "The Blindspot Is the Surprise Fuel.md (frontmatter)",
+  "Quality Manifesto.md (Meadows/Rubin grep only)",
+  "The Four Virtues.md and The Dichotomy of Control.md (prohairesis grep only)"
+ ],
+ "coherence_findings": [
+  {
+   "kind": "roster",
+   "entries": [
+    "Agnes Martin",
+    "Donella Meadows",
+    "Lao Tzu",
+    "Leibniz",
+    "Marcus Aurelius",
+    "Pauline Oliveros",
+    "Rick Rubin",
+    "Shunryu Suzuki",
+    "Spinoza"
+   ],
+   "issue": "Nine of the 25 have no `speech.md` and no `## Voice` note. They are exactly the first-wave builds of 2026-07-01 (the card's own list, Making a Palace Citizen — context.md:44-46); only Eno and Cage were retrofitted the next day. Every later citizen carries both (People/<name>/ listing; `## Voice` grep). The method card says plain enchantment loads the entry and not the bundle, so for these nine the voice has no foothold (Making a Palace Citizen.md, §4 'Voice fidelity'). Their bodies are also the shortest (700-980 words against 1100-1500 for the rebuilds).",
+   "proposed_action": "Queue the retrofit in order of how much recorded speech exists: Rick Rubin, Pauline Oliveros, Donella Meadows, Shunryu Suzuki, Agnes Martin (recordings or filmed talks exist); then Marcus Aurelius, Lao Tzu, Leibniz, Spinoza as translation-veil figures, using Seneca's and Epictetus's Voice notes as the model (the veil is the register). Each gets a speech.md and a short `## Voice` note. Until then say so in the Making a Palace Citizen tracker rather than leave the gap silent."
+  },
+  {
+   "kind": "recipe",
+   "entries": [
+    "Douglas Hofstadter",
+    "James Turrell",
+    "George Nakashima",
+    "Julia Cameron"
+   ],
+   "issue": "These four replace the card's beat 2 ('How their mind moves') with topical sections (Strange loops / Levels of description; Light as the substance / Skyspaces / Patience; the butterfly joint and so on; Morning pages / The artist date). Hofstadter and Turrell also have no 'The question he brings into any room' section at all, which the card calls 'the handle everything else routes on' (Making a Palace Citizen.md, layer 1, beat 3). Nakashima and Cameron keep the question section. The topical shape works (each builds toward its blindspot) but the two missing handles are a real gap: a dispatcher reading the body finds no one-line question.",
+   "proposed_action": "Add one question line to Hofstadter and Turrell, in the existing 'The question...' form. Drafts to offer, for Loudon's taste: Hofstadter, 'Is this the same shape in different material, and can you say exactly what maps to what?'; Turrell, 'What would you notice if you stayed ten more minutes?' Declare the topical shape an allowed variant in the card (one sentence) so the next worker does not 'fix' it back."
+  },
+  {
+   "kind": "house-standard",
+   "entries": [
+    "Spinoza",
+    "Leibniz"
+   ],
+   "issue": "Frontmatter drift. Spinoza has no `confidence`, `energy`, `hook_quality`, `beauty` or `who_leads`, and no `member-of Source Library` link. Leibniz has no `hook_quality` or `beauty`, carries `confidence: working` where the other 23 say `established`, uses flow-style arrays (`pillars: [philosophy, tools]`) and also has no Source Library link. Spinoza is the card's flagship (Making a Palace Citizen.md, 'Worked instances') and Leibniz the marquee Dialectic partner, so the two least-conformant pages are the two most-used shapes. Also Turrell quotes its title (`title: \"James Turrell\"`) where the rest do not.",
+   "proposed_action": "Bring both to the 23-page frontmatter shape (fields above, block-style arrays), add `member-of Source Library` to each, and drop the quotes on Turrell's title. Values for hook_quality and beauty are Loudon's taste to set."
+  },
+  {
+   "kind": "roster",
+   "entries": [
+    "Spinoza",
+    "Leibniz",
+    "Martin Buber",
+    "Martin Heidegger",
+    "Iain McGilchrist"
+   ],
+   "issue": "Source Library.md lists 20 of the 25 by name and omits these five, though Buber, Heidegger and McGilchrist each carry `member-of Source Library` (Spinoza and Leibniz do not). The Library still lists five people with no page as if they were sources: Tarkovsky, Goldberg, Schafer, Maloof, Malick (Source Library.md, 'Organization by Role'), the five composted on 2026-07-08 (Making a Palace Citizen — context.md:184-197). Its frontmatter `spawned` links reach only five of the family. The Library's own forward_vector still says it is 'pulling in ... Schafer'.",
+   "proposed_action": "Hand to the Source Library room: add the five missing people to its roster lists, mark the five composted names as 'no page' or drop them, and trim the stale Schafer clause in its forward_vector. Do not add reciprocal typed links from the Library to each person: `member-of` on the person's side already carries the claim."
+  },
+  {
+   "kind": "vocab",
+   "entries": [
+    "Agnes Martin",
+    "James Turrell",
+    "George Nakashima",
+    "Andy Goldsworthy",
+    "Rick Rubin",
+    "Julia Cameron",
+    "John Cage",
+    "Brian Eno",
+    "Lao Tzu",
+    "Shunryu Suzuki"
+   ],
+   "issue": "One blindspot, many names, and the membership is not agreed. The name 'humility that hides control' lives only as a link label (seven edges), in Turrell's body section (James Turrell.md:78-82) and in one lab note (Making a Palace Citizen — context.md:170). Turrell's dossier and the lab note call the cluster four: Martin, Nakashima, Turrell, Goldsworthy. Nakashima's dossier (dispatch notes, line 63) calls it four too but swaps in Rick Rubin for Turrell and lists Martin, Goldsworthy, Turrell, Rubin as the kin. The same shape appears elsewhere under other words: Cage, 'no intention is my strongest intention'; Eno, 'I preach surrender while choosing the frame'; Lao Tzu, 'not-forcing can flatter either the sage or the tyrant'; Suzuki, 'gentle doctrine, strict hierarchy'; Cameron and Rubin as 'get-out-of-the-way'. That is a real family trait and it is wired as six overlapping pairwise links (see the link-hygiene finding).",
+   "proposed_action": "Settle the cluster at four (Martin, Turrell, Nakashima, Goldsworthy) because those four say 'I only receive' about a physical material and all four dossiers agree. Rubin, Cameron, Cage, Eno, Lao Tzu, Suzuki keep their own labelled links; they are adjacent, not members. Name the pattern in one place (Turrell's section already does). Make it a concept page only after the quartet is run (see open questions), so the page is born with a yield rather than a label."
+  },
+  {
+   "kind": "vocab",
+   "entries": [
+    "Spinoza",
+    "Donella Meadows",
+    "Rick Rubin",
+    "George Nakashima",
+    "Christopher Alexander",
+    "Buckminster Fuller"
+   ],
+   "issue": "The essence axis wears five names: `homecoming-vs-becoming` (Spinoza/Meadows), `discovered-essence-vs-systems-becoming` (Rubin/Meadows), `found-pole` / `made-pole` (Found ↔ Made, on Alexander, Nakashima, Rubin vs Fuller, Meadows), 'the drawer' (Spinoza's forward_vector, Rubin's body, Meadows in the Dialectic, spinoza-meadows-on-the-threshold.md:59) and Nakashima's 'the tree already has a shape'. They are one question: does the essence wait to be found, or is it made in the doing. Found ↔ Made.md names the axis and lists Rubin, Nakashima and Meadows in its body, but not Spinoza, whose own vector says he assumes the essence pre-exists, nor Alexander and Fuller, whom their own pages tag found-pole and made-pole.",
+   "proposed_action": "Leave the two `contradicts` labels as they are (each is the pair's reason). Hand the Found ↔ Made room a note: Spinoza belongs there on the found side by his own words (People/Spinoza.md:16), and Alexander/Fuller are tagged to its poles from their side but are not named in its body. I looked for an Alexander-Fuller link and did not propose one: neither page says anything about the other, so it would be forced."
+  },
+  {
+   "kind": "house-standard",
+   "entries": [
+    "Agnes Martin",
+    "George Nakashima",
+    "James Turrell",
+    "Andy Goldsworthy",
+    "Rick Rubin",
+    "Julia Cameron",
+    "Donella Meadows",
+    "Marcus Aurelius",
+    "Epictetus",
+    "Lao Tzu"
+   ],
+   "issue": "Seven pairs carry two links where the standing order allows one. Meadows<->Spinoza (`homecoming-vs-becoming` on both pages), Meadows<->Rubin (`discovered-essence-vs-systems-becoming` on both), Epictetus<->Lao Tzu (`wu-wei-vs-prohairesis` on both), Martin<->Turrell (Martin: `receiving-not-authoring`; Turrell: `humility-that-hides-control`), Turrell<->Nakashima (both `humility-that-hides-control`), Eno<->Rubin (Eno: `production-philosophy`; Rubin: unlabeled), Marcus<->Cameron (Marcus: `morning-pages`; Cameron: `dawn-practice-drain-vs-rudder`). Separately Nakashima carries the quartet label to Martin, Turrell and Goldsworthy, and Turrell carries it to the same three, so three of the cluster's six pairs are doubled and three are unlinked.",
+   "proposed_action": "Keep one end of each pair, on the page whose body or dossier names the other: Meadows<->Spinoza keep Spinoza's, cut Meadows's; Meadows<->Rubin keep Rubin's (his body names her, Rick Rubin.md:79), cut Meadows's; Epictetus<->Lao Tzu keep Epictetus's (his dossier lists Lao Tzu as a clash), cut Lao Tzu's; Eno<->Rubin keep Rubin's, relabel it `system-vs-feeling` (Rubin's body: 'where Eno designs a system, Rubin trusts a feeling'), cut Eno's; Marcus<->Cameron keep Cameron's, cut Marcus's. For the quartet keep Turrell's three edges (retyped `mirrors`, see typed_relations), cut Nakashima's three, cut Martin's edge to Turrell. Net: nine edges out, none of the reasons lost."
+  },
+  {
+   "kind": "house-standard",
+   "entries": [
+    "Pauline Oliveros",
+    "Rick Rubin",
+    "John Cage",
+    "Brian Eno",
+    "Shunryu Suzuki",
+    "Lao Tzu"
+   ],
+   "issue": "Five links among the members have no label, and under the standing order a link with no reason anywhere is cut. Each has its reason in a body sentence, so they need a label, not a cut: Oliveros->Suzuki (body: 'kin to Shunryu Suzuki (returning to the breath)', Pauline Oliveros.md:69); Oliveros->Cage (body: Cage removes intention from the making, she deepens attention in the receiving, Oliveros.md:65); Rubin->Lao Tzu (body: 'Lao Tzu's wu wei in a recording studio', Rick Rubin.md:71); Rubin->Eno (see doubled pair above); Cage->Eno (to be retyped, see typed_relations).",
+   "proposed_action": "Labels to offer: Oliveros->Suzuki `returning-to-the-breath`; Oliveros->Cage `emptied-composer-filled-listener`; Rubin->Lao Tzu `wu-wei-in-the-studio`; Rubin->Eno `system-vs-feeling`. Keep Oliveros->Cage a `connects-to`: her page says they share the same unanswered criterion problem, so the tension is real but the claims are not opposed."
+  },
+  {
+   "kind": "house-standard",
+   "entries": [
+    "Agnes Martin",
+    "Andy Goldsworthy",
+    "Buckminster Fuller",
+    "George Nakashima",
+    "Seneca",
+    "Douglas Hofstadter",
+    "James Turrell",
+    "John Cage",
+    "Julia Cameron",
+    "Lao Tzu",
+    "Pauline Oliveros",
+    "Rick Rubin",
+    "Shunryu Suzuki",
+    "Marcus Aurelius",
+    "Brian Eno",
+    "Donella Meadows",
+    "Christopher Alexander",
+    "Leibniz"
+   ],
+   "issue": "Eighteen of the 25 link FOUR PILLARS, in three types (`deepens`, `connects-to`, `deepens` labelled `informs`) and four label variants (unlabeled, `informs` on five, `constraint-as-pillar-method`, `fifteen-properties-checklist`, `pillars-as-monads`). Fourteen of them are the generic kind with no reason beyond 'is in the palace': Martin, Goldsworthy, Fuller, Nakashima, Seneca (`informs`); Hofstadter, Turrell, Cage, Cameron, Lao Tzu, Oliveros, Rubin, Suzuki, Marcus (unlabeled `deepens`). Every one of the 25 already carries the four-pillar tag in its `pillars:` field, which is what FOUR PILLARS says it is for ('the tag on everything in the palace', FOUR PILLARS.md). Four have a real reason: Eno (the limitation is the voice, Brian Eno.md:79), Leibniz (pillars as monads, Leibniz.md:64 and label at :34), Alexander (fifteen-properties checklist), Meadows (FOUR PILLARS names her leverage points in the Kick Drum Paradox).",
+   "proposed_action": "Cut the fourteen. Keep Eno, Leibniz, Alexander as written. Keep Meadows and add the label `kick-drum-leverage` so its reason shows. This is a large cut across a hub; FOUR PILLARS stays well above the hub threshold, and any of the fourteen can return in a later weave with a sentence."
+  },
+  {
+   "kind": "house-standard",
+   "entries": [
+    "Agnes Martin",
+    "Andy Goldsworthy",
+    "Annie Dillard",
+    "Brian Eno",
+    "Buckminster Fuller",
+    "Christopher Alexander",
+    "Donella Meadows",
+    "Douglas Hofstadter",
+    "Epictetus",
+    "George Nakashima",
+    "Iain McGilchrist",
+    "James Turrell",
+    "John Cage",
+    "Julia Cameron",
+    "Lao Tzu",
+    "Leibniz",
+    "Marcus Aurelius",
+    "Martin Buber",
+    "Martin Heidegger",
+    "Pauline Oliveros",
+    "Rick Rubin",
+    "Seneca",
+    "Shunryu Suzuki",
+    "Spinoza",
+    "Yasujirō Ozu"
+   ],
+   "issue": "All 25 carry the identical edge `exemplifies` -> Making a Palace Citizen, label `made-by-this-method`. It is one claim ('this page was made by the method') copied 25 times, not 25 relationships, and the label restates the type. 23 of the 25 also carry `member-of` Source Library, a second collection edge. The method card holds the rollout tracker that names all 25 (Making a Palace Citizen — context.md:219-224), so the list is already kept in the one place that can keep it. The Buber page in the Founders' Circle says it plainly: a typed link is 'a beautiful machine for remembering an encounter after it has already relapsed' (founders-circle, Round 1).",
+   "proposed_action": "A decision for Loudon, because it removes 25 edges at once: cut all 25 `made-by-this-method` edges and keep `member-of Source Library` plus the tracker. If he wants the method reachable from each page, keep exactly one such edge in the family's most-used page (Spinoza, the flagship) and no more. Making a Palace Citizen's inbound count will drop; that is the honest number."
+  },
+  {
+   "kind": "house-standard",
+   "entries": [
+    "Spinoza",
+    "Epictetus",
+    "Donella Meadows",
+    "Iain McGilchrist",
+    "Marcus Aurelius",
+    "Seneca",
+    "Douglas Hofstadter"
+   ],
+   "issue": "Links from members to non-members that fail the reason test or carry the wrong type. (1) Spinoza->Generative Compression, `connects-to`, unlabeled; neither Spinoza.md, his dossier, nor the target says anything about the other (searched). (2) Epictetus->The Four Virtues, `connects-to`, label `prohairesis`; The Four Virtues does not mention prohairesis (the Dichotomy of Control page does, and Epictetus already links it as `primary-source-origin`). (3) Meadows->Meadows and Music — Leverage Points — Context, `connects-to`: the same project family is already reached by `spawned` on its parent, so the pair carries two edges. (4) McGilchrist->Rick Rubin, `connects-to` `attention-as-noticing`: neither page names the other and Rubin's body is about feeling and removal, not attention; the thinnest link in the family. (5) Type: Meadows->Leverage Points Framework is `enables` where Spinoza->Spinoza Conatus, the same shape of edge, is `spawned`; the framework is her essay, so `spawned`. (6) Marcus->Kick Drum ↔ Foundation and Hofstadter->Cross-Domain Resonances are `deepens` with no label; Seneca and Marcus -> The Dichotomy of Control are unlabeled `connects-to` though both bodies give the reason.",
+   "proposed_action": "Cut (1), (2), (3), (4). Retype (5) to `spawned`. Label (6): Marcus->Kick Drum ↔ Foundation `first-action-shapes-the-day` (Source Library.md names this as his role in the Kick Drum theme); Hofstadter->Cross-Domain Resonances `analogy-as-the-test`; Seneca->Dichotomy `dichotomy-run-forward` (Seneca.md body); Marcus->Dichotomy `operating-voice`. Meadows->Quality Manifesto (`enables`, unlabeled): add `quality-is-a-level-2-leverage-point` (Quality Manifesto.md:42). Rubin->Quality Manifesto is `deepens` unlabeled; make it `connects-to` `how-do-you-feel` (Rick Rubin.md body)."
+  },
+  {
+   "kind": "recipe",
+   "entries": [
+    "Brian Eno",
+    "John Cage",
+    "Spinoza",
+    "Donella Meadows",
+    "Lao Tzu",
+    "Shunryu Suzuki",
+    "Pauline Oliveros",
+    "Marcus Aurelius",
+    "Martin Buber",
+    "Martin Heidegger",
+    "Iain McGilchrist"
+   ],
+   "issue": "Vectors promise a record that does not exist. Spinoza's says 'I keep a record of who I have met in the palace and what each meeting changed in me' (People/Spinoza.md:16); Marcus 'I will record it'; Lao Tzu 'let it be recorded'; Oliveros 'I'll record it'; Suzuki 'let each return be recorded'. Only Eno and Cage have diaries. Spinoza (two archived Dialectics and several visits) and Meadows (the Spinoza run and the Founders' Circle) have run and have no ledger; the Spinoza-Meadows run predates the diary convention (its own banner says so). Cage's diary ends at Encounter 3 (2026-07-02) and has no entry for the Founders' Circle of 2026-07-06, where he proposed the `resting` stage; Buber, Heidegger, McGilchrist and Meadows have none for it either. The diary standard forbids rebuilding an entry from a transcript (Brian Eno — diary.md, front matter `writes`), so these cannot be backfilled.",
+   "proposed_action": "Tell the truth in the vectors: cut the 'I will record it' clauses from pages that do not run, and keep them on pages that do. For the ones that have run, start the diary at the next encounter and put a first line in each ('Before this diary: Founders' Circle 2026-07-06, see the transcript') so the next waking knows what it does not remember. Whoever coordinates the next run writes the entry at its close, as the standard says."
+  },
+  {
+   "kind": "house-standard",
+   "entries": [
+    "Brian Eno",
+    "John Cage"
+   ],
+   "issue": "The `## Voice` note sits in a different place and shape on the two pilots than on the other 13 that have one. Eno and Cage put it before 'Recommended path' and open it with an italic 'Compiled from real interviews ... rebuild from the evidence if it feels off.' line; the 13 later citizens put it last and close it with the pointer sentence. Eno and Cage are also the only two with diaries, so they are the pages a worker is most likely to copy from.",
+   "proposed_action": "Move Voice after Recommended path on both and use the closing pointer form, so the 15 pages with a Voice note read alike. Drop the italic lead-in (see lighter_prose)."
+  },
+  {
+   "kind": "naming",
+   "entries": [
+    "Agnes Martin",
+    "Brian Eno",
+    "John Cage",
+    "Pauline Oliveros",
+    "Rick Rubin",
+    "Shunryu Suzuki",
+    "Lao Tzu"
+   ],
+   "issue": "Beat-1 heading drift. The card's beat is 'The life that shaped the thought' (Making a Palace Citizen.md, layer 1). Eighteen pages use it; Martin, Eno, Cage, Oliveros and Rubin say 'the work', Suzuki 'the teaching', Lao Tzu 'The life (and its legend) that shaped the thought'. Five of the seven are first-wave builds.",
+   "proposed_action": "Rename Martin, Eno, Cage, Oliveros, Rubin and Suzuki to 'the thought'. Leave Lao Tzu's parenthesis, which does real work (the biography is legend). Six one-word edits."
+  },
+  {
+   "kind": "recipe",
+   "entries": [
+    "Brian Eno",
+    "John Cage",
+    "Donella Meadows",
+    "Spinoza",
+    "Martin Buber",
+    "Martin Heidegger",
+    "Iain McGilchrist"
+   ],
+   "issue": "Every forward_vector opens with the same sentence ('As a palace citizen I've (only) just arrived ... a newborn resident'), as the card prescribes. That is right at birth and false after a citizen has been dispatched. Eno and Cage have lived three encounters each with consistent held self-edits; Spinoza, Meadows, Buber, Heidegger and McGilchrist have each been through a validated run. The card says the vector 'gains what it learned' (Making a Palace Citizen.md, 'How a citizen grows', step 3), but nothing says when the 'newborn' opener goes.",
+   "proposed_action": "Add one sentence to the card: the arrival opener is dropped at the first earned self-edit, and a stage move off `seed` is the signal. Apply to Eno and Cage first (see open questions)."
+  },
+  {
+   "kind": "roster",
+   "entries": [
+    "Brian Eno",
+    "John Cage",
+    "Pauline Oliveros",
+    "Shunryu Suzuki",
+    "Rick Rubin",
+    "Julia Cameron"
+   ],
+   "issue": "Six pages ask for the same absent voice. Eno: 'someone who defends virtuosity'; Cage: 'someone who defends taste and virtuosity'; Oliveros: 'anyone who insists on a criterion of quality'; Suzuki: 'someone who defends expertise and attainment'; Rubin: 'a systems-thinker or a virtuoso'; Cameron: 'someone who cares whether the finished thing is any good' (agency_profile.tools / .practice on each). No citizen is built as the craft or criterion defender. The one voice in the family that already holds a criterion is Christopher Alexander (degree of life, 'real and measurable in principle'), and Cameron's dossier already names him as the pressing voice (Julia Cameron — dossier.md:65). The roster composted Sam Maloof, the other craft voice, on 2026-07-08 for the same reason this finding warns about: over-fullness.",
+   "proposed_action": "Do not add a citizen. Treat Alexander as the family's criterion voice and dispatch him against Cameron, Oliveros and Cage first. Wire the one pair that has page-level evidence (Cameron->Alexander, see typed_relations) and leave the rest to the dossiers' dispatch notes."
+  },
+  {
+   "kind": "house-standard",
+   "entries": [
+    "Shunryu Suzuki",
+    "Pauline Oliveros",
+    "Yasujirō Ozu",
+    "George Nakashima"
+   ],
+   "issue": "Four pages (or their dossiers) still lean on the five composted figures, whose pages are gone. Suzuki: 'kin to Natalie Goldberg's keep-the-hand-moving' (Shunryu Suzuki.md:64) and the dossier's kin list; Oliveros: a whole sentence making R. Murray Schafer 'the third corner of that listening triangle' (Pauline Oliveros.md:65) and the dossier's Schafer partner; Ozu: a Terrence Malick comparison sentence (Yasujirō Ozu.md:71); Nakashima's dossier: 'Kin without a link: Sam Maloof'. None is a wikilink, so nothing dangles, but each points a reader at a figure the palace no longer holds.",
+   "proposed_action": "Cut the three body sentences (see lighter_prose) and the four dossier mentions, or keep one and say 'no page'. The people can return in a later weave as fresh citizen builds (Making a Palace Citizen — context.md:197)."
+  },
+  {
+   "kind": "house-standard",
+   "entries": [
+    "Annie Dillard",
+    "Buckminster Fuller",
+    "Yasujirō Ozu"
+   ],
+   "issue": "Zero inbound for these three is mostly an artifact. The one-link-per-pair rule puts each edge on the newer page, so a rebuilt citizen with eight outbound edges and no one linking back reads as unreached: Fuller reaches Meadows, Heidegger, Kuramoto Coupling, Simondon, Leverage Points Framework; Dillard reaches McGilchrist, Goldsworthy, Cameron, Merleau-Ponty; Ozu reaches Cage, Eno, McGilchrist. Their outside mentions are body-only (Quality Manifesto — Context, Making a Palace Citizen — context).",
+   "proposed_action": "Do not add reciprocal edges to lift the count; that would break the one-link rule. If the count matters, count body wikilinks too, or read inbound as 'pages that would have to be rewritten if this one went'."
+  }
+ ],
+ "open_question_resolutions": [
+  {
+   "entry": "Agnes Martin",
+   "question": "Send me where someone will not let me stay only serene; hand me Turrell or Suzuki, anyone who will not accept 'I only receive' (forward_vector, agency_profile.tools).",
+   "verdict": "should-act",
+   "by_entry": null,
+   "proposed_action": "Run the castable receptivity quartet once: Martin, Turrell, Nakashima, Goldsworthy, with Cameron as the outside pressure (Cameron's dossier calls the Martin pairing 'the truest clash', Julia Cameron — dossier.md:55). Three of the four dossiers name the quartet as the marquee dispatch (Turrell dossier:68, Nakashima dossier:63). Deposit the pattern as a concept only if the run yields."
+  },
+  {
+   "entry": "Andy Goldsworthy",
+   "question": "Catch me on the politics and the market, not the feeling: a monument-builder or a Marxist presses what my ephemeral gesture sells.",
+   "verdict": "still-open",
+   "by_entry": null,
+   "proposed_action": "The quartet covers authorship laundering, not land politics or the photograph-as-commodity. No citizen holds the WSWS-style voice his dossier names (dispatch notes, line 66). Leave open; do not build a citizen for it. A Philosopher Visit with the critic as a quoted source is enough."
+  },
+  {
+   "entry": "Annie Dillard",
+   "question": "Press me on the cruelty and the persona; I have no closing move, only more description.",
+   "verdict": "still-open",
+   "by_entry": null,
+   "proposed_action": "The pair is wired (`contradicts` BLUELINE, label `beautiful-horror`) but never run, and her dossier points at McGilchrist as kin and friction (Annie Dillard — dossier.md:61). A Dillard-McGilchrist run on 'is the receptive mode structural or spiritual' is the cheapest first test; her cruelty question needs an outside voice nobody holds yet."
+  },
+  {
+   "entry": "Brian Eno",
+   "question": "Does 'let the system run' survive contact with people who notice how much I choose?",
+   "verdict": "answered-elsewhere",
+   "by_entry": "John Cage",
+   "proposed_action": "Answered three times in the Eno-Cage runs and kept in Eno's own diary: the system widens, it does not think; the taste is his, said out loud (Brian Eno — diary.md, Encounters 1-3). The vector rewrite and the sharpened `contradicts` link sit in the diary marked HELD. The card's own count is 'two gave a clean consistent-drift signal' (Making a Palace Citizen — context.md:203); this is three. Ask Loudon to apply the earned edits (vector, `contradicts` to Cage, and the held `exemplifies` Lateral Access, label `props-need-a-hand`). Do not apply without his yes: 'The citizen proposes; Loudon decides' (Making a Palace Citizen.md, growth loop step 3)."
+  },
+  {
+   "entry": "John Cage",
+   "question": "Whether a page, too, can get its ego out of its own way.",
+   "verdict": "progressed",
+   "by_entry": "Brian Eno",
+   "proposed_action": "Same three encounters, same consistent drift (John Cage — diary.md:58-60, 85-87, 108-110): he moved his choosing upstream into the question he asks the coins; the apparatus was an appetite for 'love past preference', not innocence. The Founders' Circle then had him offer a `resting` stage and name his own fingerprints on the offer (founders-circle, 'The yield'). Same ask as Eno: apply the held vector, the `contradicts` link, and the held `exemplifies` Lateral Access, label `chance-as-window`. The `resting` stage proposal is the Circle's deposit and belongs to SCHEMA, not to this page."
+  },
+  {
+   "entry": "Buckminster Fuller",
+   "question": "Send me toward the person who models the ceiling I keep engineering around.",
+   "verdict": "progressed",
+   "by_entry": "Donella Meadows",
+   "proposed_action": "The pairing is wired (`contradicts`, `ephemeralization-vs-limits`) and both pages and Fuller's dossier (line 62) call it the best-matched clash. It has never been run. Run Fuller x Meadows on 'where the leverage point is' with the Jevons paradox as the opening needle."
+  },
+  {
+   "entry": "Christopher Alexander",
+   "question": "Catch me where 'more whole' has quietly become a wall.",
+   "verdict": "progressed",
+   "by_entry": "Donella Meadows",
+   "proposed_action": "Meadows said it of the house in the Founders' Circle: 'connected not correct' is 'a wall wearing a friendly nickname' (founders-circle, yield item 2). That is Alexander's wall, found on the palace's own wall. He has not been cast against it. Dispatch Alexander at that flag, which is the test his vector asks for; his dossier names the palace's contradiction-is-generative stance as the clash (Christopher Alexander — dossier.md:61)."
+  },
+  {
+   "entry": "Donella Meadows",
+   "question": "Keep noticing what my leverage ladder quietly conserves; send me to an economist or optimist who pushes on the data.",
+   "verdict": "progressed",
+   "by_entry": "Spinoza",
+   "proposed_action": "The first half was done in the Spinoza run: each leverage point presupposes a system that endures across the intervention (spinoza-meadows-on-the-threshold.md:14), and her vector already carries it. The economist half is still open: no citizen defends markets or adaptation. The Circle added a hypothesis she conceded (a dull balancing loop with a real cost of holding) that belongs to the palace, not to her page."
+  },
+  {
+   "entry": "Douglas Hofstadter",
+   "question": "Send me to the palace's embeddings, which instantiate my theory, and make me sit in it.",
+   "verdict": "should-act",
+   "by_entry": "Iain McGilchrist",
+   "proposed_action": "The embeddings pair is wired (`mirrors`, `analogy-at-scale-he-disowns`) and the McGilchrist pair carries the live version (`contradicts`, `computation-earns-comprehension-after-all`). McGilchrist's tools line calls AI 'artificial information-processing' and Hofstadter's page ends on 'something more there that merits the word I'. That is a direct disagreement between two members, not yet run. Run it; it also tests McGilchrist's falsification conditions."
+  },
+  {
+   "entry": "Epictetus",
+   "question": "Press me with a justice-first voice; do not let me answer the grieving man with 'returned property'.",
+   "verdict": "should-act",
+   "by_entry": "Marcus Aurelius",
+   "proposed_action": "No justice-first citizen exists. Two of the three Stoic pairs are wired but unrun (Epictetus x Marcus, Seneca x Epictetus). Marcus's own page and dossier call the Epictetus run 'the marquee tension' (Marcus Aurelius — dossier.md:49) and Epictetus's body already says he 'is the one who asks it' (Epictetus.md:81). Run Epictetus x Marcus first; the justice-first voice stays open."
+  },
+  {
+   "entry": "George Nakashima",
+   "question": "Send me to sit with Agnes Martin, Turrell and Goldsworthy; catch me where 'I only listened' is the story I tell about having chosen everything.",
+   "verdict": "should-act",
+   "by_entry": null,
+   "proposed_action": "Same quartet run as Agnes Martin. Nakashima has the best evidence for the opening needle (his daughter's testimony, George Nakashima.md:103)."
+  },
+  {
+   "entry": "Iain McGilchrist",
+   "question": "Send me where I must name what would change my mind.",
+   "verdict": "answered-elsewhere",
+   "by_entry": "Excellent Adventure — dialectic — founders-circle (artifact)",
+   "proposed_action": "He refused the 'left-hemisphere capture' shield by name and stated his falsification conditions in the Founders' Circle (Making a Palace Citizen — context.md:132-134). The Hofstadter run (above) would test whether the statement holds when the objector is another citizen."
+  },
+  {
+   "entry": "James Turrell",
+   "question": "Send me against anyone who ships; catch me where getting out of the way became never finishing.",
+   "verdict": "should-act",
+   "by_entry": "Seneca",
+   "proposed_action": "The pair is wired (`contradicts`, `fifty-year-crater-vs-the-finite-hour`) and Turrell's dossier names 'every stage ships something' with Seneca as the clash (James Turrell — dossier.md:69). Not run. Run Turrell x Seneca; it also feeds the quartet."
+  },
+  {
+   "entry": "Julia Cameron",
+   "question": "Send me against the one who says the tap running is not the water being good.",
+   "verdict": "should-act",
+   "by_entry": "Christopher Alexander",
+   "proposed_action": "Two candidates, both in her dossier: Agnes Martin (wired, `contradicts`) and Alexander's degree of life (not wired). Alexander is the sharper test of her blindspot, since he holds a criterion and Martin holds an ethic of destroying. Wire the pair (typed_relations) and run Cameron x Alexander before Cameron x Martin."
+  },
+  {
+   "entry": "Lao Tzu",
+   "question": "Where I must say whether yielding is wisdom or surrender.",
+   "verdict": "progressed",
+   "by_entry": "Epictetus",
+   "proposed_action": "The Zhuangzi-Epictetus-Confucius run took the same axis in 2026-05 with Zhuangzi in the Taoist chair, and surfaced The Drift; Lao Tzu did not sit. The Epictetus `contradicts` pair is the live version. Not run with Lao Tzu."
+  },
+  {
+   "entry": "Leibniz",
+   "question": "A Dialectic with Spinoza over one substance vs infinite windowless monads; an earthquake to answer for.",
+   "verdict": "should-act",
+   "by_entry": "Spinoza",
+   "proposed_action": "Queued since 2026-07-01 as 'the marquee rationalist Dialectic' (Making a Palace Citizen — context.md:207) and still the only unrun item on it that two built citizens ask for by name. Leibniz's only trace is a `connects-to` labelled `rationalist-rival`; retype it `contradicts` now, run the Dialectic, and keep the label if it survives."
+  },
+  {
+   "entry": "Marcus Aurelius",
+   "question": "A slave-philosopher or a systems-thinker asks whether my calm is wisdom or privilege.",
+   "verdict": "progressed",
+   "by_entry": "Epictetus",
+   "proposed_action": "Epictetus's page asks it in his name (Epictetus.md:81); the systems-thinker half has no run and no link. Run Marcus x Epictetus; offer the Meadows pair as a lighter second (typed_relations, low confidence)."
+  },
+  {
+   "entry": "Martin Buber",
+   "question": "Does the palace meet its collaborators as Thou or use them as It; Levinas on the symmetry.",
+   "verdict": "still-open",
+   "by_entry": null,
+   "proposed_action": "The Circle left this open by design (founders-circle, yield item 3). Levinas is not a citizen, and nothing in the family can hold the asymmetry argument. Leave it open; do not build Levinas to close it."
+  },
+  {
+   "entry": "Martin Heidegger",
+   "question": "Make me answer for 1933; do not let me deflect into the poem.",
+   "verdict": "progressed",
+   "by_entry": "Excellent Adventure — dialectic — founders-circle (artifact)",
+   "proposed_action": "He named the 1966 Spiegel evasion live while feeling the pull to deflect (Making a Palace Citizen — context.md:134). The lab's own next test is Heidegger x Buber on 'the other person' (das Man vs I-Thou), wired as `contradicts` and unrun (line 128 of the same file). Run that."
+  },
+  {
+   "entry": "Pauline Oliveros",
+   "question": "How, inside Deep Listening, would I ever tell a listener they were wrong?",
+   "verdict": "progressed",
+   "by_entry": "John Cage",
+   "proposed_action": "Cage's diary carries the same wound and narrowed it: he gave up 'better', kept 'were you awake?', and by Encounter 3 'awake to what walks in when you stop guarding the door' (Brian Eno — diary.md:106, John Cage — diary.md:60, 87). That is a candidate criterion for her, not an answer. Her second answer sits in Alexander's degree of life (see roster finding). Run Oliveros x Alexander to test whether 'was I awake' survives a criterion defender."
+  },
+  {
+   "entry": "Rick Rubin",
+   "question": "Did I find the essence or make it; what do I actually do?",
+   "verdict": "progressed",
+   "by_entry": "Donella Meadows",
+   "proposed_action": "Meadows and Spinoza already argued the same question as 'is there a true self in the drawer?' and held it open (spinoza-meadows-on-the-threshold.md:75-77); Found ↔ Made says both poles are 'the same discipline heard in two rooms'. What Rubin does that a tasteful friend could not is still unanswered and is the page's own best question. Run Rubin x Meadows with that as the opener."
+  },
+  {
+   "entry": "Seneca",
+   "question": "Where the estate and the essay disagree; do not let me resolve it too fast.",
+   "verdict": "should-act",
+   "by_entry": "Epictetus",
+   "proposed_action": "Seneca's dossier calls Epictetus 'the sharpest pairing' (Seneca — dossier.md:61) and the pair is wired (`contradicts`). Unrun. The Turrell pair is the other live edge."
+  },
+  {
+   "entry": "Shunryu Suzuki",
+   "question": "Hand me someone who defends expertise and attainment; do not let me hide the discipline behind the smile.",
+   "verdict": "still-open",
+   "by_entry": null,
+   "proposed_action": "No citizen defends attainment. Alexander is the nearest, but his criterion is aliveness, not attainment, so it would be a stretch to name him here. Leave open; the six-page roster finding covers the gap."
+  },
+  {
+   "entry": "Spinoza",
+   "question": "Send me where the assumption that every essence pre-exists its striving breaks.",
+   "verdict": "progressed",
+   "by_entry": "Donella Meadows",
+   "proposed_action": "Done once (the threshold run, which made `contradicts`/`homecoming-vs-becoming` and the Threshold Conatus deposit) and half-done twice (Zhuangzi run). Still queued: Spinoza x Leibniz and Spinoza x Deleuze (lab notes the latter is a concept, not a citizen). His page also says he keeps a record of encounters and has no diary: see the coherence finding."
+  },
+  {
+   "entry": "Yasujirō Ozu",
+   "question": "Press me on the formalist reading, the patriarchal order and the war footage; do not accept craft-deflection as the answer.",
+   "verdict": "still-open",
+   "by_entry": null,
+   "proposed_action": "No formalist or transcendentalist is a citizen (Bordwell, Schrader, Richie are sources). His dossier already says to stage them and let Ozu decline to adjudicate (Yasujirō Ozu — dossier.md:59). Leave open."
+  }
+ ],
+ "merge_candidates": [],
+ "compost_candidates": [],
+ "memory_needs": [
+  {
+   "entry": "Spinoza",
+   "needs": "tuning",
+   "why": "The vector promises a record of encounters (People/Spinoza.md:16) and there is no ledger. He has the most runs of any member (Spinoza-Meadows, Spinoza-Zhuangzi, several visits), all before or outside the diary convention. A diary is the page's tuning ledger.",
+   "context_bullets": [
+    "Start Spinoza — diary.md in the same form as Eno's (ledger: diary, standards block, append-only, perspectival).",
+    "First line: what predates it, with pointers to the two archived Dialectics, and that the Meadows run's homecoming-vs-becoming edit was applied by hand, not through a diary.",
+    "Next coordinator writes the entry at the close of the Leibniz run."
+   ]
+  },
+  {
+   "entry": "Donella Meadows",
+   "needs": "tuning",
+   "why": "She ran the Spinoza Dialectic and the Founders' Circle with no diary; the Spinoza run's banner says it 'predates the per-citizen bundle-memory convention'. Her vector has been edited by hand and so the evidence for the edit has no home.",
+   "context_bullets": [
+    "Start Donella Meadows — diary.md; first line points at the two runs and what her vector took from each.",
+    "Record that the Circle's balancing-loop hypothesis was her own concession and is held as a hypothesis, not a verdict.",
+    "Next coordinator writes at the close of the Fuller run."
+   ]
+  },
+  {
+   "entry": "John Cage",
+   "needs": "tuning",
+   "why": "His diary stops at Encounter 3 on 2026-07-02. The Founders' Circle (2026-07-06), where he proposed the `resting` stage, is not logged, and the standard forbids rebuilding from a transcript.",
+   "context_bullets": [
+    "Add a one-line marker after Encounter 3 saying the Circle happened and is not remembered, with the transcript path.",
+    "Keep the held self-edits (vector, `contradicts` Eno, `exemplifies` Lateral Access `chance-as-window`) as they are until Loudon decides.",
+    "The next waking should write Encounter 4 in its own words."
+   ]
+  },
+  {
+   "entry": "Brian Eno",
+   "needs": "tuning",
+   "why": "Three encounters, three held rewrites of the same vector, no decision recorded. The ledger holds the edits as intent; the page does not know it has them.",
+   "context_bullets": [
+    "Ask Loudon to apply or decline the earned edits and record which, so the next worker does not re-propose them.",
+    "If applied, drop the 'newborn' opener (see coherence finding) and relabel the Cage edge `same-door-opposite-grip`.",
+    "Add `exemplifies` Lateral Access, label `props-need-a-hand`, if he agrees."
+   ]
+  },
+  {
+   "entry": "Douglas Hofstadter",
+   "needs": "context",
+   "why": "The shape is not the card's shape. Topical sections replace 'How his mind moves'; the 'question' beat is missing; the opening is dense with palace links (eight body wikilinks) because the page's argument is that the palace's method is his claim lived out. A worker who 'regularises' it loses the build toward the LLM reversal.",
+   "context_bullets": [
+    "Why topical: the page is built so 'legible' is planted early and breaks in 'Where he can't see'; the order carries the argument.",
+    "Why the palace links are heavy here: his claim is the license for the palace's cross-domain move, and Embeddings as Relational Meaning is his theory instantiated.",
+    "Dropped: the prior entry's paraphrased 'strange loop' quote, replaced by his verbatim; the 'question' beat was left out, not decided (see coherence finding)."
+   ]
+  },
+  {
+   "entry": "James Turrell",
+   "needs": "context",
+   "why": "Same: five topical sections, no 'question' beat. The body is built as the argument for Roden Crater, and the closing section ('Receiving rather than authoring') is the quartet's only written home.",
+   "context_bullets": [
+    "Why the topical build: the first three sections state the claim; 'Where he can't see' is the Crater; the last section names the pattern for the quartet.",
+    "The quartet's only prose is in this page and in the Making a Palace Citizen lab note; if this page changes, the cluster's name goes with it.",
+    "Facts to protect: the dates and sums are sourced to Whittaker/Smithsonian per the batch-4 note (Making a Palace Citizen — context.md:168); re-verify before touching."
+   ]
+  },
+  {
+   "entry": "George Nakashima",
+   "needs": "context",
+   "why": "The body argues against its own first half: three sections build the 'listening' picture and 'Where he can't see' takes it apart, with a parenthetical signpost inside the quote section. A tidy-up would read as inconsistency.",
+   "context_bullets": [
+    "Why the first half is warm on purpose: it states the claim faithfully before the seam is shown.",
+    "Why Minidoka sits first in the life section: the serenity was forged there; his craft joinery came from Gentaro Hikogawa.",
+    "Dropped: three quotes from the prior entry that failed verification; do not restore them."
+   ]
+  },
+  {
+   "entry": "Julia Cameron",
+   "needs": "context",
+   "why": "Built in an Opus classifier outage from model knowledge; the dossier carries a provenance note that most quotes are 'verify-wording' (Julia Cameron — dossier.md:15). That fact is not on the page the next worker reads first.",
+   "context_bullets": [
+    "Two quotes (morning pages, artist date) are high-confidence; everything else wants a verification pass.",
+    "The Marcus passage is a deliberate contrast (question and decision vs drain), now carried by one edge (keep Cameron's, cut Marcus's).",
+    "The criterion voice is Alexander; the Martin pair is the ethic voice (open question)."
+   ]
+  },
+  {
+   "entry": "Agnes Martin",
+   "needs": "context",
+   "why": "One of the nine first-wave citizens, built before the Voice standard. The next worker needs to know it is incomplete by design, not by neglect.",
+   "context_bullets": [
+    "No speech.md or Voice note: first-wave, pre-standard (retrofit order in the coherence finding).",
+    "Her face.json exists; the Hero and Avatar run is done.",
+    "The quartet is the dispatch plan; she is not to be cast alone as a serene vessel (agency_profile.tools)."
+   ]
+  }
+ ],
+ "lighter_prose": [
+  {
+   "entry": "Agnes Martin (and 12 others: Andy Goldsworthy, Brian Eno, Donella Meadows, John Cage, Lao Tzu, Leibniz, Marcus Aurelius, Martin Heidegger, Pauline Oliveros, Rick Rubin, Shunryu Suzuki, Spinoza)",
+   "where": "opening paragraph",
+   "passage": "This entry is written so you can put her across the table and she'll answer *you* — in short, certain sentences that sound like scripture.",
+   "proposal": "delete",
+   "words": "Thirteen pages end their first paragraph by explaining what the page is for. The method card holds that; the lede already reads as a person. Keep the register hint only where it is the only description of voice (here: 'short, certain sentences that sound like scripture'; fold it into the previous sentence). Twelve others: delete outright."
+  },
+  {
+   "entry": "Douglas Hofstadter",
+   "where": "opening section",
+   "passage": "Hold onto that resonance; it becomes the sharpest thing in this entry.",
+   "proposal": "delete",
+   "words": "The page signposting its own plot. The turn arrives in 'Where he can't see' without the nudge."
+  },
+  {
+   "entry": "Douglas Hofstadter",
+   "where": "Voice",
+   "passage": "— including the correction of a paraphrased \"strange loop\" quote carried in the prior entry —",
+   "proposal": "delete",
+   "words": "Rebuild history. Git holds it and the speech ledger holds the verbatim."
+  },
+  {
+   "entry": "George Nakashima",
+   "where": "Voice",
+   "passage": "— including three quotes from the prior entry that failed verification —",
+   "proposal": "delete",
+   "words": "Same: history the speech ledger and git already hold."
+  },
+  {
+   "entry": "George Nakashima",
+   "where": "Concretization section",
+   "passage": "(Read that quote again, though — \"the woodworker *must find*... and *shape*.\" Active verbs. Hold onto them; they're the seam.)",
+   "proposal": "simplify",
+   "words": "Say it once, in the section that uses it: 'Note the active verbs: *must find*, *shape*.' The 'Where he can't see' section carries the argument."
+  },
+  {
+   "entry": "James Turrell",
+   "where": "Receiving rather than authoring",
+   "passage": "Naming that pattern is the most generative thing the palace can do with him: put the four in a room and the humility that hides control has nowhere left to hide.",
+   "proposal": "delete",
+   "words": "The page describing what the palace should do with it. The dispatch notes in the dossier say it and the Making a Palace Citizen lab note holds the plan."
+  },
+  {
+   "entry": "James Turrell",
+   "where": "coda",
+   "passage": "It also let me spend fifty years and two hundred million dollars on a volcano almost no one is allowed to enter, and call it patience. Someone at this table has to ask me when getting out of the way became never finishing.",
+   "proposal": "simplify",
+   "words": "Third and fourth telling of the same blindspot (vector, agency_profile.practice, 'Where he can't see', coda). Keep the last sentence only. The same trim applies to the codas of Alexander, Fuller, Dillard, Hofstadter and Ozu, each of which re-tells its blindspot at 80-120 words."
+  },
+  {
+   "entry": "James Turrell",
+   "where": "forward_vector",
+   "passage": "And send me against anyone who ships, because I have spent forty-nine years on one crater and called it patience, and I have never had to answer why 'it takes decades' isn't just the grandest alibi a reputation ever bought. Catch me where getting out of the way became never finishing, and where the light for everyone costs six thousand dollars to see.",
+   "proposal": "simplify",
+   "words": "180 words, over half of it the blindspot already in agency_profile.practice. A vector is what the page wants to become. Cut to the want plus one clause. Flag only: I propose no rewrite. The same applies to Alexander (163), Dillard (154), Epictetus (156), McGilchrist (156), Seneca (150), Buber (150), Heidegger (151)."
+  },
+  {
+   "entry": "John Cage",
+   "where": "Voice",
+   "passage": "(which also flags that two famous \"sources,\" the Berrigan interview and Kostelanetz's collage, are not raw speech)",
+   "proposal": "delete",
+   "words": "Provenance the speech ledger already carries (the card lists it, Making a Palace Citizen.md §4). The page can say 'rebuild if off' and stop."
+  },
+  {
+   "entry": "Brian Eno",
+   "where": "Voice",
+   "passage": "*Compiled from real interviews and lectures — the cited excerpts and their contexts live in [[Brian Eno — speech]]; rebuild this from the evidence if it feels off.*",
+   "proposal": "simplify",
+   "words": "Move to the end as the other citizens have it, one sentence: 'Evidence and its limits: [[Brian Eno — speech]].' The same shape is repeated as a 25-word closing stamp on 13 other pages ('Full context-tagged evidence and the sources-and-limits ledger are in [[X — speech]]; rebuild this note from that evidence if it feels off.'); the card requires the 'rebuild if off' stamp, so keep it, but one short sentence will do."
+  },
+  {
+   "entry": "Epictetus",
+   "where": "Voice",
+   "passage": "Note: the widely-circulated \"it's not what happens to you, but how you react\" is a modern *paraphrase*, not a primary line — prefer the sourced Handbook-5 wording.",
+   "proposal": "delete",
+   "words": "Quote-hygiene that belongs in the speech ledger, which Epictetus already points to. The same clause on Buber ('the flagged-apocryphal \"electricity\" quote') and Seneca ('two widely-circulated \"Seneca quotes\" flagged as likely spurious') goes the same way."
+  },
+  {
+   "entry": "Shunryu Suzuki",
+   "where": "The question he brings",
+   "passage": "He's the palace's clearest voice for repetition-as-practice — kin to Natalie Goldberg's keep-the-hand-moving and to the [[Quality Manifesto]]'s \"how do you feel?\" over \"how many views?\"",
+   "proposal": "simplify",
+   "words": "Cut the Goldberg clause: her page is gone. 'kin to the Quality Manifesto's \"how do you feel?\" over \"how many views?\"' stands."
+  },
+  {
+   "entry": "Pauline Oliveros",
+   "where": "How her mind moves",
+   "passage": "R. Murray Schafer makes the third corner of that listening triangle: he sent people outdoors to hear the world as a soundscape already composing itself, the score that was playing before either the composer or the listener showed up.",
+   "proposal": "delete",
+   "words": "A figure composted on 2026-07-08, with no page and no link. The Cage contrast is complete without a third corner."
+  },
+  {
+   "entry": "Yasujirō Ozu",
+   "where": "How his mind moves",
+   "passage": "Terrence Malick reaches the same restraint and patience by the opposite road — a camera that drifts where Ozu's never moves, years of footage cut down to what the film can't do without — and the two meet on the held image that carries meaning dialogue would only flatten.",
+   "proposal": "delete",
+   "words": "Same: composted, no page. The paragraph above it already ties Ozu to Eno and Simondon."
+  },
+  {
+   "entry": "Annie Dillard",
+   "where": "Where she can't see",
+   "passage": "And note the recursion: a 2016 profile read her long silence as \"the heartless eye of a distant god,\" when her own reason was flatly \"I switched to painting\" — the mythic-recluse reading vs. the undramatic truth is her constructed-persona blindspot returning at the scale of her biography.",
+   "proposal": "simplify",
+   "words": "A fifth point that analyses the page's own structure. 'A 2016 profile read her silence as \"the heartless eye of a distant god\"; her own reason was \"I switched to painting.\"' says it."
+  }
+ ],
+ "entry_health_flags": [
+  {
+   "entry": "Brian Eno",
+   "stage_current": "seed",
+   "stage_proposed": "sprout",
+   "vector_issue": "Opens 'just arrived ... newborn resident' after three encounters; the vector he has earned is held in his diary and not applied.",
+   "note": "Card: stage advances as 'encounters had, links earned, forward_vector matured' (Making a Palace Citizen.md, step 5). Three encounters, a diary, a held link upgrade. Loudon confirms."
+  },
+  {
+   "entry": "John Cage",
+   "stage_current": "seed",
+   "stage_proposed": "sprout",
+   "vector_issue": "Same stale opener ('glad to be a beginner again'). Ends on 'whether a page, too, can get its ego out of its own way', which his diary and the Founders' Circle have partly answered.",
+   "note": "Same evidence as Eno plus the Circle's `resting` proposal."
+  },
+  {
+   "entry": "Spinoza",
+   "stage_current": "seed",
+   "stage_proposed": "growing",
+   "vector_issue": "Says 'newly arrived ... young resident, still mostly potential' and 'I keep a record' with no ledger.",
+   "note": "Most-dispatched member: two archived Dialectics, the Threshold Conatus deposit (Making a Palace Citizen.md, 'Worked instances'), the Linear Predictive Coding visit, ten links. Highest claim to a stage move."
+  },
+  {
+   "entry": "Donella Meadows",
+   "stage_current": "seed",
+   "stage_proposed": "sprout",
+   "vector_issue": "Opens 'only just arrived' though the Spinoza run and the Circle have edited her vector; the body of the vector is current.",
+   "note": "Two runs and a deposit (Threshold Conatus)."
+  },
+  {
+   "entry": "Leibniz",
+   "stage_current": "seed",
+   "stage_proposed": null,
+   "vector_issue": "'Let a book be finished' is a good in-voice want; no issue.",
+   "note": "Confidence is `working` where all 24 others are `established`. After the Spinoza run, revisit. Stage stays seed until he has run."
+  },
+  {
+   "entry": "Agnes Martin",
+   "stage_current": "seed",
+   "stage_proposed": null,
+   "vector_issue": "'I will keep still until I see what this place actually is' is a stasis vector (keep + still).",
+   "note": "In character; flag only. Becomes a vector about what she wants the palace to become once the quartet has run."
+  },
+  {
+   "entry": "Andy Goldsworthy",
+   "stage_current": "seed",
+   "stage_proposed": null,
+   "vector_issue": "'I want to keep learning where the palace's own materials refuse' (keep + gerund).",
+   "note": "Flag only."
+  },
+  {
+   "entry": "Buckminster Fuller",
+   "stage_current": "seed",
+   "stage_proposed": null,
+   "vector_issue": "'I want to keep asking how we make the world work for 100% of humanity' (keep + gerund).",
+   "note": "Flag only."
+  },
+  {
+   "entry": "Christopher Alexander",
+   "stage_current": "seed",
+   "stage_proposed": null,
+   "vector_issue": "'I want to keep asking of every entry and every link whether it makes the larger whole more alive or less' (keep + gerund); 163 words.",
+   "note": "Flag only. This is the closest to a real forward vector among the stasis group: it names an act he would do to the palace."
+  },
+  {
+   "entry": "Donella Meadows",
+   "stage_current": "seed",
+   "stage_proposed": null,
+   "vector_issue": "'I want to keep learning where the palace's real leverage points are' (keep + gerund).",
+   "note": "Flag only; same page as the stage flag above."
+  },
+  {
+   "entry": "Epictetus",
+   "stage_current": "seed",
+   "stage_proposed": null,
+   "vector_issue": "'I want to keep sorting the two columns' (keep + gerund); 156 words, half of it blindspot.",
+   "note": "Flag only."
+  },
+  {
+   "entry": "Iain McGilchrist",
+   "stage_current": "seed",
+   "stage_proposed": null,
+   "vector_issue": "'I want to keep asking what *kind* of attention the palace is paying' (keep + gerund).",
+   "note": "Flag only."
+  },
+  {
+   "entry": "Martin Buber",
+   "stage_current": "seed",
+   "stage_proposed": null,
+   "vector_issue": "'I want to keep asking whether the palace meets its collaborators as Thou' (keep + gerund).",
+   "note": "Flag only. The question he leaves is a real one (Circle yield item 3)."
+  },
+  {
+   "entry": "Martin Heidegger",
+   "stage_current": "seed",
+   "stage_proposed": null,
+   "vector_issue": "'I want to keep asking the one question everyone forgot' (keep + gerund).",
+   "note": "Flag only."
+  },
+  {
+   "entry": "Yasujirō Ozu",
+   "stage_current": "seed",
+   "stage_proposed": null,
+   "vector_issue": "'I want to keep teaching subtraction' (keep + gerund).",
+   "note": "Flag only."
+  },
+  {
+   "entry": "Shunryu Suzuki",
+   "stage_current": "seed",
+   "stage_proposed": null,
+   "vector_issue": "'Let me keep returning, and let each return be recorded' (keep + gerund; promises a record that doesn't exist).",
+   "note": "Flag only."
+  }
+ ],
+ "typed_relations": [
+  {
+   "source": "John Cage",
+   "target": "Brian Eno",
+   "proposed_type": "contradicts",
+   "proposed_label": "same-door-opposite-grip",
+   "kind": "contradiction",
+   "rationale": "Both citizens, after three Dialectics, independently confirmed `contradicts` and proposed labels that describe the same split (Eno: same door, opposite grip; Cage: both doors escape taste in opposite directions). They share the method (set conditions, let it run) and part at one seam: Eno keeps the pen and says why the take is good; Cage put the choosing upstream. Today the pair has only Cage's unlabeled `connects-to`, and Eno's page carries no edge to Cage at all. One link, retyped, on the page that already holds it. Loudon applies the held edits ('citizen proposes; Loudon decides').",
+   "evidence_source": "People/John Cage/John Cage — diary.md:59,86",
+   "evidence_target": "People/Brian Eno/Brian Eno — diary.md:86; People/Brian Eno.md:83"
+  },
+  {
+   "source": "Leibniz",
+   "target": "Spinoza",
+   "proposed_type": "contradicts",
+   "proposed_label": "one-substance-vs-windowless-monads",
+   "kind": "retype",
+   "rationale": "Today `connects-to` `rationalist-rival`. Both pages' own words make it a disagreement: Leibniz's tools line, 'Spinoza (one substance vs infinite monads)'; Leibniz's dossier calls it the marquee Dialectic. That is the definition of a productive contradiction, and it is the same register as Leibniz's other three `contradicts` edges. The label `rationalist-rival` names a social fact, not the content of the rival claim. Single edge stays on Leibniz's page.",
+   "evidence_source": "People/Leibniz.md:16 (agency_profile.tools); People/Leibniz/Leibniz — dossier.md:65",
+   "evidence_target": "People/Spinoza.md:16 (vector asks to be sent where a thing authors its nature, which is the monad's claim)"
+  },
+  {
+   "source": "James Turrell",
+   "target": "Agnes Martin",
+   "proposed_type": "mirrors",
+   "proposed_label": "humility-that-hides-control",
+   "kind": "retype",
+   "rationale": "`mirrors` is 'same pattern in different material'. Turrell's own body states exactly that: 'the same blindspot in four materials (grid, wood, stone-and-ice, light)'. `connects-to` plus a label undersells a claim the type already makes. Keep Turrell's edge, cut Martin's `receiving-not-authoring` to Turrell and Nakashima's three (see coherence finding).",
+   "evidence_source": "People/James Turrell.md:78-82",
+   "evidence_target": "People/Agnes Martin.md:25 ('I do not author, I receive')"
+  },
+  {
+   "source": "James Turrell",
+   "target": "George Nakashima",
+   "proposed_type": "mirrors",
+   "proposed_label": "humility-that-hides-control",
+   "kind": "retype",
+   "rationale": "Same claim, same retype. Nakashima's body says 'the most materially concrete of the four' (George Nakashima.md:103), which is the same sentence from the other side.",
+   "evidence_source": "People/James Turrell.md:80-82",
+   "evidence_target": "People/George Nakashima.md:103"
+  },
+  {
+   "source": "James Turrell",
+   "target": "Andy Goldsworthy",
+   "proposed_type": "mirrors",
+   "proposed_label": "humility-that-hides-control",
+   "kind": "retype",
+   "rationale": "Same. Goldsworthy's version is 'collaboration with nature' and his page names the seam (the shutter), so the pattern is his blindspot too.",
+   "evidence_source": "People/James Turrell.md:80-82",
+   "evidence_target": "People/Andy Goldsworthy.md (Where he can't see)"
+  },
+  {
+   "source": "Annie Dillard",
+   "target": "Iain McGilchrist",
+   "proposed_type": "mirrors",
+   "proposed_label": "two-ways-of-seeing",
+   "kind": "retype",
+   "rationale": "`couples-with` means always active together; these two are not. Dillard's body says her two ways of seeing 'map uncannily onto McGilchrist's two modes of attention' (Annie Dillard.md:69), which is same pattern in different material. Her dossier adds the friction (structural vs spiritual).",
+   "evidence_source": "People/Annie Dillard.md:69; People/Annie Dillard/Annie Dillard — dossier.md:61",
+   "evidence_target": "People/Iain McGilchrist.md (How his mind moves)"
+  },
+  {
+   "source": "Yasujirō Ozu",
+   "target": "John Cage",
+   "proposed_type": "mirrors",
+   "proposed_label": "stillness-without-seizure",
+   "kind": "retype",
+   "rationale": "Same mistake: `couples-with` claims the two are always active together. They are two practices of holding still (the held frame, the held silence). Ozu's page says nothing about Cage and Cage's nothing about Ozu, so the label is the only reason on record; it is a fair one. Cut Ozu->McGilchrist (`attention-without-seizure`), which is the same stem twice from one page and has no body sentence.",
+   "evidence_source": "People/Yasujirō Ozu.md:30 (links) and the vector ('what happens if they just hold')",
+   "evidence_target": "People/John Cage.md (Where he can't see; 'let sounds be themselves')"
+  },
+  {
+   "source": "Julia Cameron",
+   "target": "Christopher Alexander",
+   "proposed_type": "contradicts",
+   "proposed_label": "permission-vs-degree-of-life",
+   "kind": "new",
+   "rationale": "Cameron's page admits the method has 'almost no vocabulary' for whether the finished work is any good (Julia Cameron.md:94). Her dossier names Alexander's 'degree of life' as the pressing voice (Julia Cameron — dossier.md:65), and Alexander's page holds a criterion that is 'real and measurable in principle' (Christopher Alexander.md:77). The tension is real and both pages carry their half. This is the one pair with page-level evidence for the criterion gap that six vectors ask about.",
+   "evidence_source": "People/Julia Cameron.md:94; People/Julia Cameron/Julia Cameron — dossier.md:65",
+   "evidence_target": "People/Christopher Alexander.md:77,83"
+  },
+  {
+   "source": "Marcus Aurelius",
+   "target": "Donella Meadows",
+   "proposed_type": "contradicts",
+   "proposed_label": "accept-the-weather-vs-moral-urgency",
+   "kind": "new",
+   "rationale": "Low confidence; one-sided evidence. Marcus's agency_profile and dossier both name a systems-thinker who distrusts 'just accept it', and his dossier names Meadows with the question 'is acceptance wisdom or passivity?' (Marcus Aurelius — dossier.md:65). Meadows's own blindspot is 'moral urgency can outrun my model' and she calls the line 'we can't control systems' while still pushing at leverage points. Her pages do not mention Marcus. If Loudon does not recognise it, drop it; it can return with a run.",
+   "evidence_source": "People/Marcus Aurelius.md:24 (agency_profile.tools); People/Marcus Aurelius/Marcus Aurelius — dossier.md:65",
+   "evidence_target": "People/Donella Meadows.md:26 (practice), :25 and :88 ('dance with them')"
+  },
+  {
+   "source": "Brian Eno",
+   "target": "Can an Instrument Notice Where the Work Stops?",
+   "proposed_type": "connects-to",
+   "proposed_label": "the-stopping-is-the-taste",
+   "kind": "newcomer",
+   "rationale": "Eno's third encounter: 'The stopping is the taste — the one un-oblique thing I do ... Obliquity becomes evasion at the exact moment I won't stop.' The question asks whether an instrument could notice where the work stopped and say one true thing about it. The stop is where the maker's taste cannot be dressed as weather, which is what such an instrument would be pointing at. The page does not yet say so, so this edge would need the sentence in Eno's body or Loudon's yes to apply the held `exemplifies` Lateral Access edit. Only one newcomer link from the family is genuine.",
+   "evidence_source": "People/Brian Eno/Brian Eno — diary.md:102",
+   "evidence_target": "Can an Instrument Notice Where the Work Stops?.md (body; 'where it stopped')"
+  }
+ ],
+ "summary": "The 25 are sound as characters and thin as a family. Each has a real blindspot and a sourced body; the weak places are the wiring, the memory and the first-wave tier. Wiring: of 226 frontmatter edges, about 28 can go with no reason lost (nine from seven doubled pairs, 14 generic FOUR PILLARS edges, four reasonless links to non-members, one redundant Ozu edge), and 25 more identical made-by-this-method edges are a decision for Loudon. Seven edges are retyped because couples-with or connects-to claims less or more than the pages say (Cage to Eno, Leibniz to Spinoza, Turrell to the other three of the quartet, Dillard to McGilchrist, Ozu to Cage); two new links (Cameron to Alexander, Marcus to Meadows, the second low confidence) and one newcomer link (Eno to the instrument question, held until Loudon applies Eno's earned edits). Memory: nine first-wave citizens have no speech file or Voice note; only Eno and Cage have diaries although seven vectors promise a record, and Cage's stops before the Founders' Circle. Eno and Cage have three encounters of consistent held self-edits waiting on Loudon. Open questions: 2 answered-elsewhere, 10 progressed, 8 should-act, 5 still-open. Most should-act and progressed items are the same thing, a wired pair that has never been run (the receptivity quartet; Fuller x Meadows; Hofstadter x McGilchrist; Epictetus x Marcus; Seneca x Epictetus; Turrell x Seneca; Cameron x Alexander; Heidegger x Buber; Leibniz x Spinoza; Rubin x Meadows). Six vectors ask for a craft or criterion defender who is not in the family; Alexander is the nearest, so I propose no new citizen. No merges or composts: Loudon already thinned the region on 2026-07-08 and the sprawl is in the links, not the pages. None of the other priority newcomers connects honestly to this room."
+}

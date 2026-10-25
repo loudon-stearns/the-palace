@@ -18,15 +18,13 @@ links:
     type: member-of
   - target: "[[FOUR PILLARS]]"
     type: exemplifies
+    label: cross-domain-bridge
   - target: "[[Donella Meadows]]"
     type: connects-to
     label: informed-by
   - target: "[[Brian Eno]]"
     type: connects-to
     label: informed-by
-  - target: "[[Semantic Webcam]]"
-    type: connects-to
-    label: flock-made-visible
   - target: "[[Enrichment]]"
     type: connects-to
     label: emergence-as-provocation
@@ -65,7 +63,7 @@ This isn't metaphor—it's **emergent complexity**. The phenomenon is identical.
 
 ## The Technical Side
 
-Synthesis creates complex sounds from simple building blocks — oscillators, filters, envelopes, and modulation routing between them. FM synthesis is the clearest demonstration of emergence: a carrier sine wave at 400Hz, modulated in frequency by another sine at 200Hz, produces sidebands at `f_carrier ± (n × f_modulator)` for all integers n — an infinite series of new frequencies that existed in neither original wave. At modulation depth 0 you hear a sine; at depth 1 it sounds like brass; at depth 5 like a bell. Same two simplest-possible waveforms, wildly different timbres. **The interaction creates information neither part contained.** <!-- generative synthesis, of course --> The same principle drives every synthesis method: subtractive filtering reveals latent timbres in a sawtooth; granular playback generates textures that no single grain contains; wavetable morphing evolves through spaces between stored shapes.
+Synthesis creates complex sounds from simple building blocks — oscillators, filters, envelopes, and modulation routing between them. FM synthesis is the clearest demonstration of emergence: a carrier sine wave at 400Hz, modulated in frequency by another sine at 200Hz, produces sidebands at `f_carrier ± (n × f_modulator)` for all integers n — an infinite series of new frequencies that existed in neither original wave. At modulation depth 0 you hear a sine; at depth 1 it sounds like brass; at depth 5 like a bell. Same two simplest-possible waveforms, wildly different timbres. **The interaction creates information neither part contained.** <!-- generative synthesis, of course --> <!-- CLAUDE → LOUDON: progressed — this page links [[Generative Audio Devices]] (design for emergence), revived to sprout on 2026-10-24; that is where this FM sweep could become a playable piece (2026-10-24) --> The same principle drives every synthesis method: subtractive filtering reveals latent timbres in a sawtooth; granular playback generates textures that no single grain contains; wavetable morphing evolves through spaces between stored shapes.
 
 ## The Conceptual Side
 
@@ -320,15 +318,8 @@ They've experienced emergence. It's no longer abstract.
 
 ## Success Metrics (By Our Definition)
 
-**Not:** "Can you program FM synth perfectly?"
-**But:**
-- Do you hear simple → complex transformation?
-- Can you recognize emergence in other domains?
-- Do you explore parameter space vs trying to control it?
-- Can you design interactions vs designing outcomes?
-
-When you see a complex system and think "simple rules interacting"—**the resonance succeeded**.
+It worked when you see a complex system and think: simple rules interacting.
 
 ---
 
-*Two sine waves. Simplest possible sounds. Modulate one with the other. Bell sounds emerge. Brass sounds emerge. Sounds neither wave contained. Interaction creates information. Same in synthesis. Same in consciousness. Same in markets. Same in flocks. Simple rules. Complex interaction. Emergent behavior. Cannot predict without calculation. Cannot design without exploration. The whole exceeds the sum. That's not magic. That's emergence.*
+*Two sine waves, one modulating the other, and a sound comes out that neither contained. Interaction makes information.*

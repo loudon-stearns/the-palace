@@ -6,7 +6,7 @@ pillars:
   - tools
   - philosophy
 born: 2026-01
-stage: sprout
+stage: growing
 status: active
 forward_vector: "I will keep proving — through audio and video artifacts, not only prose — that the Schrödinger equation IS a synthesis system: testing boundary conditions as harmonic content with actual sound, testing potential shape as anharmonicity with actual visualization, until monism is something the ear has heard rather than something the page has claimed."
 links:
@@ -18,10 +18,9 @@ links:
     type: mirrors
   - target: "[[Harmonicity and Inharmonicity]]"
     type: deepens
-  - target: "[[Hyperdimensional Prism]]"
+  - target: "[[Piano String Inharmonicity]]"
     type: connects-to
-  - target: "[[FOUR PILLARS]]"
-    type: connects-to
+    label: stiffness-road-to-the-squares
 ---
 
 # Quantum Synthesizer
@@ -108,8 +107,3 @@ An interactive **Schrödinger Equation Synthesizer** was built in the conversati
 
 The artifact demonstrated that the Schrödinger equation is not a theoretical framework for sound—it is a *direct generative mechanism*. Feed the eigenfunction spatial structure into a bank of resonant filters (or a wavetable), and you synthesize directly from quantum mechanics.
 
----
-
-**Revival conditions:** Accessible quantum computing frameworks (even simulators) reaching synthesis platforms; composers and instrument designers becoming literate in Hermite-Gaussian and other eigenfunction bases as timbre palettes; physicists recognizing audio synthesis as a laboratory for testing anharmonic potentials and nonlinear resonance.
-
-**Key insight:** There is no gap between "real" quantum systems and sonified quantum mathematics. The mathematics is the physics. The physics is the sound.

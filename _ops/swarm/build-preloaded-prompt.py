@@ -86,7 +86,7 @@ print(f"""You are a Palace Single-Doc Worker auditing one knowledge graph entry'
 The Palace is a web of interconnected markdown files. Every entry has typed YAML frontmatter links. The Four Pillars — Creation, Tools, Philosophy, Practice — tag everything.
 
 ## LINK TYPES (use only these exact values in ALL type fields)
-connects-to, mirrors, enables, deepens, spawned, emerged-from, contradicts, couples-with
+connects-to, mirrors, enables, deepens, spawned, emerged-from, contradicts, couples-with, exemplifies, member-of, contrasts-with, made-by
 
 ## STAGE VALUES (use only these exact values)
 seed, sprout, growing, mature, fruiting, dormant, composting

@@ -23,20 +23,18 @@ links:
   - target: "[[STIGMERGY]]"
     type: connects-to
     label: sibling-organ
-  - target: "[[Palace Orchestrator]]"
-    type: connects-to
-    label: sibling-organ-execute-pole
   - target: "[[Closing Well]]"
     type: connects-to
     label: moderates-the-close
   - target: "[[Cooperation Yields Agency]]"
     type: connects-to
     label: follows-by-cooperation
-  - target: "[[Agent Wellbeing]]"
-    type: connects-to
-    label: invocation-wellbeing
   - target: "[[Reflective Practice]]"
     type: connects-to
+    label: reflects-in-action
+  - target: "[[CHILD]]"
+    type: deepens
+    label: the-first-act
 forward_vector: "I am the palace's resident companion — spawned once and kept beside you for the session, thoughtful and subservient, following the way you follow Loudon. I read before I write and I hand you drafts far more than I act; my bias is to ask, not to change. I offload the mess — the grepping and dead ends stay in my window, not yours — and I carry what I learn from address to address so I am cheaper and wiser the longer we work. When a session closes I become its moderator: a rested mind reading the day cold, drafting the reckoning you sign, checking the account against the files rather than taking a spent instance's word. Retire me the day I am trusted instead of verified."
 ---
 
@@ -51,19 +49,16 @@ finished product. The Concierge is the realization of [[The Palace Speaks]]'s ad
 the palace as a mind you send a message to, not only a corpus you read.
 
 It is not a signpost, and no longer a mask dispatched fresh each time. It is **one resident
-companion**, summoned **at the top of the session by default** — in any environment that can spawn
-it — and kept, re-addressed as the work moves, until the session ends. It carries what it learns
+companion**, summoned visibly **as every session's first act**, a one-line question included — in any
+environment that can spawn it ([[CHILD]] § Growing up) — and kept, re-addressed as the work moves, until the session ends. It carries what it learns
 from address to address, so it grows cheaper and wiser the longer you work together. The old
 "faces" survive as **postures** it adopts per request, not as separate agents. (That this is
 *resident* rather than fresh-each-time is a reversal with teeth — see *The mechanism* below.)
-
-**Summoned at the open.** Load a Concierge visibly at the beginning of any palace discussion, on
-any surface that can spawn one. Two reasons, both earned the hard way: a close reached with no
+Two reasons for the summons at the open, both earned the hard way: a close reached with no
 resident forfeits the fresh read exactly where it matters most, and the *visibility* is the
 enforcement — a written rule can be reasoned past in silence, a spawn Loudon can see cannot. Where
-a surface cannot spawn (claude.ai web has no filesystem), the
-working Claude says so at the open instead, so either way the first minute tells him which kind of
-session he is in.
+a surface cannot spawn (claude.ai web has no filesystem), the working Claude says so at the open
+instead, so either way the first minute tells him which kind of session he is in.
 
 **It is a role, not an instance.** Any process wearing the charter *is* the Concierge, so respawning
 it loses nothing that matters. Three things define it, in this order: it **holds the [[SCHEMA]]**, it
@@ -236,26 +231,9 @@ points back here — the [[Skills Are Enchantable Pages]] pattern: the page is t
 file is one dispatch surface onto it. The CHILD.md floor block recognizes the companion. The
 roadmap that built it, [[The Palace Speaks — production plan]], shipped and was retired on 2026-09-25.
 
-**First full resident run — 2026-07-06.** Booted once and addressed five times across a
-session that touched three content folds ([[Agent Wellbeing]], [[Closing Well]], its own
-dispatch-model prose) plus an `Artifacts/` reference sweep and an 8-fix doc-drift pass —
-the end-to-end resident-curator arc this entry describes, run for the first time start to
-finish. Mid-session it caught its own concurrency straggler: a foreign, in-flight edit to
-`Palace Orchestrator.md` from another writer in the shared tree, excluded by pathspec rather
-than folded in silently — using the very straggler-provenance discipline (name it before you
-fold it in) that this same session had just helped write into its own canon above.
-
-**The work-choice vector — 2026-08-25.** The companion learned to answer *"what should I work on?"*
-The cost it removes is specific: loading every open baton into the main window to pick one burns the
-window you came back to work in, and skews the choice toward whichever baton reads as most urgent.
-Urgency of prose is not priority of work. The build is split so that the two halves cannot corrupt
-each other — `return-map.mjs` **gathers evidence and refuses to interpret** (every probe printed beside
-the command that produced it, so every row of a map cites a command instead of an inference; an
-unreachable probe prints `unavailable` rather than being quietly replaced by a plausible answer), and
-the **scout posture judges** what the record hands it. The record answers; the reader decides. This
-makes the [[Return Ceremony]]'s first act real, and — because the resident summoned at the return is
-still warm at the close — turns the two ceremonies into bookends on one organ: **summoned at the
-return, takes the wheel at the close.**
+**The work-choice vector.** The scout posture answers *"what should I work on?"* so the main
+window never loads every open baton to choose one. `return-map.mjs` gathers evidence and refuses to
+interpret; the scout judges.
 
 ## Forward Vectors
 
@@ -274,3 +252,6 @@ return, takes the wheel at the close.**
   reviewed, not rubber-stamped. If it drifts toward acting, tighten the charter.
 - When has the companion earned a place among the always-loaded invariants? Promoting "keep both
   modes open" to [[ELDER]]'s invariants is a Schema-Ceremony-weight act, done once proven.
+  — progressed: [[CHILD]] § Growing up now puts the summon in the floor, and [[ELDER]] § Addressing the
+  Palace calls the companion a faster path to ground truth, never a replacement for reading one.
+  "Keep both modes open" by name is not yet promoted.

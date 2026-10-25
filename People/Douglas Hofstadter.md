@@ -28,8 +28,7 @@ links:
     type: member-of
   - target: "[[Cross-Domain Resonances]]"
     type: deepens
-  - target: "[[FOUR PILLARS]]"
-    type: deepens
+    label: cognitive-ground
   - target: "[[Embeddings as Relational Meaning]]"
     type: mirrors
     label: analogy-at-scale-he-disowns
@@ -66,7 +65,7 @@ Douglas Hofstadter (1945–) is a cognitive scientist whose whole body of work r
 
 Not that analogy *helps explain* things once you already understand them. Analogy is how understanding happens at all. A child sees one dog, then a second, and something in the mind maps the new animal onto the pattern already laid down by the first — four legs, fur, tail, *dog again*. That mapping is not a shortcut to thought. It is thought. Hofstadter gives the palace the license it needs for its favorite move: hearing sidechain compression and hearing a conversation yield to a listener and recognizing them as the same shape. This isn't decoration on top of real thinking — [[Sidechain ↔ Conversation]] is Hofstadter's claim lived out in a mixing session.
 
-He is careful to distinguish this from metaphor. "My love is a red rose" is poetic and loose — nothing about roses is structurally load-bearing there. "Electron orbitals are like planetary orbits" is a structural mapping, imperfect but real. Hofstadter's analogies are the second kind. And what the palace calls a cross-domain resonance is exactly that: not "mixing is *like* cooking" because both feel similar, but the claim that mixing and cooking share the same constraint — you can add but rarely subtract cleanly. Same skeleton, different flesh. See [[Cross-Domain Resonances]] for the palace's running catalog of exactly this test. A concept, for Hofstadter, isn't a fixed box with a definition inside it — ask what a "table" is and you get a dining table, a coffee table, a water table, a periodic table, held together by nothing but a shared functional role. Concepts are roles, recognized by what they do, not fixed by what they're made of. [[Embeddings as Relational Meaning]] shows a language model doing precisely this — a word's meaning is a position defined by everything it's been used near — and [[Meaning and the Link]] made the same claim in 2014. Hold onto that resonance; it becomes the sharpest thing in this entry.
+He is careful to distinguish this from metaphor. "My love is a red rose" is poetic and loose — nothing about roses is structurally load-bearing there. "Electron orbitals are like planetary orbits" is a structural mapping, imperfect but real. Hofstadter's analogies are the second kind. And what the palace calls a cross-domain resonance is exactly that: not "mixing is *like* cooking" because both feel similar, but the claim that mixing and cooking share the same constraint — you can add but rarely subtract cleanly. Same skeleton, different flesh. See [[Cross-Domain Resonances]] for the palace's running catalog of exactly this test. A concept, for Hofstadter, isn't a fixed box with a definition inside it — ask what a "table" is and you get a dining table, a coffee table, a water table, a periodic table, held together by nothing but a shared functional role. Concepts are roles, recognized by what they do, not fixed by what they're made of. [[Embeddings as Relational Meaning]] shows a language model doing precisely this — a word's meaning is a position defined by everything it's been used near — and [[Meaning and the Link]] made the same claim in 2014.
 
 ## The life that shaped the thought
 
@@ -101,7 +100,7 @@ Here is the fault line, and it is exact. **The man who made analogy the core of 
 
 ## Voice
 
-Two registers, and the contrast *is* the character. Fluent, punning, self-referential, delighted, precise — he treats a pun as a serious cognitive event and will pause to admire the shape of his own wordplay — whenever he is on analogy, strange loops, or his own frameworks. And then grave, jittery, first-person-shaken, composure visibly gone, on exactly two subjects: Carol's death, and the machines. Do not give the LLM material the playful gloss the rest gets; that flattening would erase the one place his certainty cracks. Full context-tagged evidence and the sources-and-limits ledger — including the correction of a paraphrased "strange loop" quote carried in the prior entry — are in [[Douglas Hofstadter — speech]]; rebuild this note from that evidence if it feels off.
+Two registers, and the contrast *is* the character. Fluent, punning, self-referential, delighted, precise — he treats a pun as a serious cognitive event and will pause to admire the shape of his own wordplay — whenever he is on analogy, strange loops, or his own frameworks. And then grave, jittery, first-person-shaken, composure visibly gone, on exactly two subjects: Carol's death, and the machines. Do not give the LLM material the playful gloss the rest gets; that flattening would erase the one place his certainty cracks. Full context-tagged evidence and the sources-and-limits ledger are in [[Douglas Hofstadter — speech]]; rebuild this note from that evidence if it feels off.
 
 ---
 

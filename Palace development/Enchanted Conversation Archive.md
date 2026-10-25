@@ -15,8 +15,6 @@ links:
   - target: "[[Tree of Thoughts]]"
     type: connects-to
     label: persists
-  - target: "[[BBS Blackboard]]"
-    type: connects-to
   - target: "[[Generative Compression]]"
     type: deepens
   - target: "[[Deposit Ceremony]]"
@@ -24,10 +22,12 @@ links:
     label: archaeologizes
   - target: "[[Enchanted Worker]]"
     type: connects-to
-  - target: "[[Self-Describing Knowledge Module]]"
-    type: connects-to
+    label: enchantment-record
   - target: "[[Lateral Access]]"
     type: emerged-from
+  - target: "[[Self-Describing Knowledge Module]]"
+    type: mirrors
+    label: self-contained
 ---
 
 # Enchanted Conversation Archive
@@ -227,7 +227,7 @@ The flat palace hierarchy is preserved and unaffected. The entries folder is pur
 
 ## A Note on Unique Entries
 
-This entry itself demonstrates the heuristic that produced it: *if an entry will become an agent with a unique strong forward vector, it earns its own page.* The Archive's forward vector — to tend the branching forest of conversations as its own agentic concern — is distinct enough from [[Palace Enchantment]]'s forward vector (the live ceremony) that they belong apart. The Archive is the memory. The Enchantment is the act. These are not the same thing.
+The Archive is the memory; [[Palace Enchantment]] is the act.
 
 ---
 
@@ -237,11 +237,6 @@ This entry itself demonstrates the heuristic that produced it: *if an entry will
 - Semantic significance threshold: when does a body change constitute a new head vs. a refinement? A one-word correction vs. a full rewrite are both body changes with the same hash delta. Is there a word-count or structural threshold worth defining?
 - Does a stage transition constitute a new head even when body content is similar? Stage is included in the hash — the answer is currently yes — but a growing page and its seed-stage predecessor may warrant being in the same JSONL rather than a new one. Worth revisiting after first real use.
 - How does the Archive interact with the [[Deposit Ceremony]] when the depositing agent is an enchanted page? The enchanted page's biases color what it finds worth preserving. This is a feature, not a bug — but the ceremony may need to name it explicitly.
-
-<!-- CLAUDE → LOUDON: Flag for next Weave —
-[[Enchanted Worker]] may want a link back to this entry through the synthesis phase.
-[[Self-Describing Knowledge Module]] rhymes strongly with the Archive's
-self-describing quality — worth a mirrors or couples-with link. -->
 
 ---
 

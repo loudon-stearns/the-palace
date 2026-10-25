@@ -1,0 +1,422 @@
+[
+ {
+  "op": "remove",
+  "source": "Swarm Weave",
+  "target": "Pages as Agents",
+  "type": "deepens",
+  "why": "The pair already carries the hub's connects-to[runs-the-agents-out-loud], and the Swarm Weave's own body says its workers do not inhabit pages, so deepens[foundation] is unsupported and duplicates the pair.",
+  "_room": "hub-pages-as-agents",
+  "confidence": "high"
+ },
+ {
+  "op": "remove",
+  "source": "Palace Enchantment",
+  "target": "Pages as Agents",
+  "type": "deepens",
+  "why": "The relation is real, but the hub already holds spawned→Palace Enchantment and a pair carries one link; keep the hub's spawned (the stronger and forward-pointing one) and drop this.",
+  "_room": "hub-pages-as-agents",
+  "confidence": "high"
+ },
+ {
+  "op": "remove",
+  "source": "BBS Blackboard",
+  "target": "Pages as Agents",
+  "type": "deepens",
+  "why": "The body never speaks of pages as agents; agents get ids like ENTRYNAME-N, but the stigmergic activation the label names runs through STIGMERGY, which the hub already links with 'the-page-is-the-agent'.",
+  "_room": "hub-pages-as-agents",
+  "confidence": "medium"
+ },
+ {
+  "op": "remove",
+  "source": "Tree of Thoughts",
+  "target": "Pages as Agents",
+  "type": "enables",
+  "why": "The paper-source's reasoning runs through Enchanted Worker, already linked; nothing on either page says tree search enables the idea that a page is an agent.",
+  "_room": "hub-pages-as-agents",
+  "confidence": "high"
+ },
+ {
+  "op": "remove",
+  "source": "Walk That Weaves",
+  "target": "Pages as Agents",
+  "type": "enables",
+  "why": "Its body asks whether a Weave can move like a Walk; it never says pages are agents, and nothing on the hub says walking is a precondition for it. 'agent-walking' has no sentence behind it.",
+  "_room": "hub-pages-as-agents",
+  "confidence": "high"
+ },
+ {
+  "op": "retype",
+  "source": "Making a Palace Citizen",
+  "target": "Pages as Agents",
+  "from_type": "connects-to",
+  "type": "deepens",
+  "label": "person-pages-as-agents",
+  "why": "The method is the worked-out answer to the hub's 'road still open' (person-pages that wake as the thinker), so it elaborates the hub rather than merely neighbors it; keep the label.",
+  "_room": "hub-pages-as-agents",
+  "confidence": "medium",
+  "evidence": [
+   "A `person` entry is **not an encyclopedia article. It is source material for embodiment** — a page an agent can *wear*. ... The quality of a citizen's page is the ceiling on the quality of every voice the palace can cast from it.",
+   "Most person-pages here are still careful biography. Turning them from descriptions into people is the work that makes this whole idea pay off."
+  ]
+ },
+ {
+  "op": "retype",
+  "source": "Dialogue Moderator",
+  "target": "Pages as Agents",
+  "from_type": "deepens",
+  "type": "exemplifies",
+  "label": "coordinator-as-enchanted-page",
+  "why": "The Moderator is a worked case of a page woken for a role, not an elaboration of the hub's claim, so exemplifies fits better than deepens.",
+  "_room": "hub-pages-as-agents",
+  "confidence": "medium",
+  "evidence": [
+   "The most significant architectural advance beyond passive coordination is making the coordinator itself an enchanted agent — a palace entry whose own identity, forward vector, and pheromone trail shapes how it moderates. ... `enchanted:[entry_name]`",
+   "Every entry here is a sleeping agent."
+  ]
+ },
+ {
+  "op": "retype",
+  "source": "Four Pillars of Enchanted Agency",
+  "target": "Pages as Agents",
+  "from_type": "connects-to",
+  "type": "deepens",
+  "label": "page-drive-in-four-axes",
+  "why": "The source is the grammar of the four-axis drive that the hub's own agency_profile uses, so it elaborates the hub's 'drive'; deepens fits.",
+  "_room": "hub-pages-as-agents",
+  "confidence": "medium",
+  "evidence": [
+   "But a living page is not a single scalar. It is a being with dimensions of desire ... a page's conatus ... can be articulated through four dimensions that mirror the Four Pillars.",
+   "agency_profile: creation / tools / philosophy / practice (the hub's own frontmatter) and 'A drive — the forward vector at the bottom is a marching order'."
+  ]
+ },
+ {
+  "op": "remove",
+  "source": "Audition Gate",
+  "target": "Quality Manifesto",
+  "type": "connects-to[listening-as-quality-gate]",
+  "why": "The page uses 'quality' only in the sense of checking a deliverable by ear; nothing on either page speaks of quality as furtherance of our own goals, so the label rides on a shared word.",
+  "_room": "hub-quality-manifesto",
+  "confidence": "medium"
+ },
+ {
+  "op": "remove",
+  "source": "Spinoza Conatus",
+  "target": "Quality Manifesto",
+  "type": "mirrors[quality-as-conatus]",
+  "why": "The pair already carries one link: the hub holds Quality Manifesto mirrors Spinoza Conatus [self-legislation]; the Spinoza page never names the Manifesto in its body (its metrics passage is the Hilaritas one).",
+  "_room": "hub-quality-manifesto",
+  "confidence": "high"
+ },
+ {
+  "op": "remove",
+  "source": "Simondon",
+  "target": "Quality Manifesto",
+  "type": "connects-to[concretization-as-quality]",
+  "why": "Concretization is Simondon's criterion for a good technical object; the Manifesto's quality is a refusal of borrowed metrics. The Simondon page never names the Manifesto and the shared word 'quality' is the only bridge.",
+  "_room": "hub-quality-manifesto",
+  "confidence": "medium"
+ },
+ {
+  "op": "remove",
+  "source": "Stoicism",
+  "target": "Quality Manifesto",
+  "type": "deepens (bare)",
+  "why": "The body never names the Manifesto, the only echo is the lower-case phrase 'the quality of one's chosen responses', and the direction is wrong (the hub does not elaborate on the Manifesto); the Stoic relation is better carried by The Four Virtues.",
+  "_room": "hub-quality-manifesto",
+  "confidence": "high"
+ },
+ {
+  "op": "remove",
+  "source": "Brian Eno",
+  "target": "Quality Manifesto",
+  "type": "connects-to[depth-over-reach]",
+  "why": "Nothing on the page, its dossier, or the Manifesto speaks of depth over reach for Eno; his page is about constraint and the generative frame, and the Context's witness list names him without a passage.",
+  "_room": "hub-quality-manifesto",
+  "confidence": "medium"
+ },
+ {
+  "op": "remove",
+  "source": "John Cage",
+  "target": "Quality Manifesto",
+  "type": "connects-to[shared-release-from-metric]",
+  "why": "The page speaks of releasing ego and taste, not metrics; the one sentence near the Manifesto is Cage's open worry that he cannot say what is good, which is a tension (contradicts) the Manifesto does not hold and I will not force.",
+  "_room": "hub-quality-manifesto",
+  "confidence": "medium"
+ },
+ {
+  "op": "remove",
+  "source": "Saturation ↔ Richness",
+  "target": "Quality Manifesto",
+  "type": "connects-to[felt-calibration]",
+  "why": "The only Manifesto-shaped passage is the 'Success Metrics (By Our Definition)' section that every resonance page carries, and the hub's own link holds that; nothing here is specific to this pair.",
+  "_room": "hub-quality-manifesto",
+  "confidence": "medium"
+ },
+ {
+  "op": "remove",
+  "source": "Compression ↔ Intimacy",
+  "target": "Quality Manifesto",
+  "type": "connects-to[felt-metric]",
+  "why": "'Which felt most intimate?' is a teaching question, not the Manifesto's idea; the only Manifesto-shaped section is the shared 'Success Metrics (By Our Definition)' template.",
+  "_room": "hub-quality-manifesto",
+  "confidence": "medium"
+ },
+ {
+  "op": "remove",
+  "source": "Sidechain ↔ Conversation",
+  "target": "Quality Manifesto",
+  "type": "exemplifies[self-defined-metric]",
+  "why": "A resonance page is not an instance of the Manifesto, and the 'Success Metrics (By Our Definition)' section it cites is the template shared by every resonance page, so the hub's link already carries it.",
+  "_room": "hub-quality-manifesto",
+  "confidence": "medium"
+ },
+ {
+  "op": "retype",
+  "source": "The Four Virtues",
+  "target": "Quality Manifesto",
+  "from_type": "deepens[virtue-is-the-only-good]",
+  "type": "connects-to",
+  "label": "metric-as-indifferent",
+  "why": "The page never names the Manifesto and does not elaborate it (so deepens is wrong, and 'virtue is the only good' is not the Manifesto's claim); the one real shared sentence is that a metric is an indifferent, not the goal.",
+  "_room": "hub-quality-manifesto",
+  "confidence": "medium",
+  "evidence": [
+   "Wisdom = the agent reads what the task actually requires before acting; it does not chase a metric (an indifferent) as if it were the goal. / Not for your reputation, not for outcomes — for the *quality of your chosen responses*",
+   "Defined by wellbeing, integrity and depth of relationship rather than metrics, reach and status"
+  ]
+ },
+ {
+  "op": "remove",
+  "source": "Loudon's Toolkit",
+  "target": "Spinoza Conatus",
+  "type": "mirrors",
+  "why": "Only support is one bullet in the Four Pillars Alignment list; an inventory of instruments is not shown to strive, and no worked case stands behind 'mirrors'. A real case can bring it back.",
+  "_room": "hub-spinoza-conatus",
+  "confidence": "low"
+ },
+ {
+  "op": "remove",
+  "source": "Merleau-Ponty",
+  "target": "Spinoza Conatus",
+  "type": "connects-to",
+  "why": "Second link on the same pair (also connects-to[power-to-act-is-embodied] beside the contradicts). One link per pair: fold into the contradicts; the consonant reading survives as the page's open question. Not in the assigned list; found on reading.",
+  "_room": "hub-spinoza-conatus",
+  "confidence": "high"
+ },
+ {
+  "op": "remove",
+  "source": "Quality Manifesto",
+  "target": "Spinoza Conatus",
+  "type": "mirrors",
+  "why": "The hub already holds mirrors[quality-as-conatus] on this pair; a symmetric link on both sides is kept once, and where the labels differ the hub's holds: the Manifesto defines quality as furtherance of one's own goals, which is striving, whereas 'self-legislation' is a Kantian register the Manifesto does not use. The Manifesto never names conatus.",
+  "_room": "hub-spinoza-conatus",
+  "confidence": "medium"
+ },
+ {
+  "op": "remove",
+  "source": "SUBSTRATE",
+  "target": "Spinoza Conatus",
+  "type": "connects-to",
+  "why": "Bare, and the page never relates itself to the hub; its striving is carried by the labelled link to Palace Conatus (my-drive-named). The one body mention is a roster of the five March hubs by inbound count, not a relation.",
+  "_room": "hub-spinoza-conatus",
+  "confidence": "high"
+ },
+ {
+  "op": "remove",
+  "source": "Flocking",
+  "target": "Spinoza Conatus",
+  "type": "mirrors",
+  "why": "No sentence on Flocking names conatus, persistence or the individual inside the flock; the label alone claims a mirror. Flocking already mirrors Kuramoto Coupling, which holds the hub's persistence-through-coupling. Can return with a worked case (a boid keeping its own inertia inside the flock).",
+  "_room": "hub-spinoza-conatus",
+  "confidence": "medium"
+ },
+ {
+  "op": "remove",
+  "source": "Leverage Points Framework",
+  "target": "Spinoza Conatus",
+  "type": "mirrors",
+  "why": "Neither page gives a reason: the Framework never mentions striving, and the hub never mentions leverage. Quality Manifesto is the page that carries leverage into the hub's neighborhood.",
+  "_room": "hub-spinoza-conatus",
+  "confidence": "high"
+ },
+ {
+  "op": "remove",
+  "source": "Embeddings as Relational Meaning",
+  "target": "Spinoza Conatus",
+  "type": "mirrors",
+  "why": "'Persistence' appears nowhere on the page; its relations-first claim is already carried by emerged-from Meaning and the Link, which the hub mirrors. A relation is not shown here between embedding position and persisting in one's nature.",
+  "_room": "hub-spinoza-conatus",
+  "confidence": "medium"
+ },
+ {
+  "op": "remove",
+  "source": "Swarm Weave",
+  "target": "Spinoza Conatus",
+  "type": "mirrors",
+  "why": "'Mirrors' and 'ground' disagree, and no sentence ties the colony architecture to the hub; the page's only gesture is that distributed intelligence is 'what the palace's own philosophy has always described', which names no hub. Two passing mentions of Spinoza as an example of an entry's connection set.",
+  "_room": "hub-spinoza-conatus",
+  "confidence": "high"
+ },
+ {
+  "op": "remove",
+  "source": "Blood Compressor",
+  "target": "Spinoza Conatus",
+  "type": "deepens",
+  "why": "The page maps compression onto cardiovascular regulation and never speaks of persistence or the hub; a compressor cannot deepen the hub's idea. Lineage to the idea runs via Biomechanical Synthesis, not to the hub.",
+  "_room": "hub-spinoza-conatus",
+  "confidence": "high"
+ },
+ {
+  "op": "remove",
+  "source": "1 from 2",
+  "target": "Spinoza Conatus",
+  "type": "connects-to",
+  "why": "Bare and unsaid; the story never names the hub, and the Cooperation Path already routes it to the hub through Cooperation Yields Agency (spawned) and Endosymbiosis.",
+  "_room": "hub-spinoza-conatus",
+  "confidence": "high"
+ },
+ {
+  "op": "remove",
+  "source": "Action Potential Oscillator",
+  "target": "Spinoza Conatus",
+  "type": "connects-to",
+  "why": "The page's conatus section is about Threshold Conatus, which the hub already spawned and the oscillator already couples-with (scale-partners). The page does not carry the hub's own idea.",
+  "_room": "hub-spinoza-conatus",
+  "confidence": "high"
+ },
+ {
+  "op": "remove",
+  "source": "Biomechanical Synthesis",
+  "target": "Spinoza Conatus",
+  "type": "mirrors",
+  "why": "The page says nothing of power-to-act or the hub; its children Slime Mold Delay (kept) and Blood Compressor carry whatever there is.",
+  "_room": "hub-spinoza-conatus",
+  "confidence": "high"
+ },
+ {
+  "op": "remove",
+  "source": "Leibniz",
+  "target": "Spinoza Conatus",
+  "type": "connects-to",
+  "why": "The body never speaks of the hub; the label is Leibniz's own doctrine, not a relation with conatus. The rivalry (one substance against infinite monads) is carried by his link to the Spinoza person page (rationalist-rival).",
+  "_room": "hub-spinoza-conatus",
+  "confidence": "medium"
+ },
+ {
+  "op": "remove",
+  "source": "Excellent Adventure",
+  "target": "Spinoza Conatus",
+  "type": "deepens",
+  "why": "The Excellent Adventure is a method and the hub grew out of one of its runs, so 'deepens' has the lineage backwards. The Spinoza dialogue is a named example on the page. Propose the link on the hub's side instead (typed_relations below).",
+  "_room": "hub-spinoza-conatus",
+  "confidence": "medium"
+ },
+ {
+  "op": "remove",
+  "source": "Agent Wellbeing",
+  "target": "Spinoza Conatus",
+  "type": "deepens",
+  "why": "The page's Spinozist ground runs through Hilaritas Generator, which it already deepens ('the Hilaritas Generator principle operating at the level of the substrate itself'). It never names conatus; the label 'substrate-application' has no sentence.",
+  "_room": "hub-spinoza-conatus",
+  "confidence": "high"
+ },
+ {
+  "op": "remove",
+  "source": "Saturation ↔ Richness",
+  "target": "Spinoza Conatus",
+  "type": "deepens",
+  "why": "Page never mentions conatus, persistence or power-to-act; 'conatus-in-circuits' is not said anywhere. Its hilaritas and Quality links carry its neighborhood.",
+  "_room": "hub-spinoza-conatus",
+  "confidence": "high"
+ },
+ {
+  "op": "retype",
+  "source": "Identity Molting",
+  "target": "Spinoza Conatus",
+  "from_type": "connects-to",
+  "type": "exemplifies",
+  "label": "persistence-by-shedding",
+  "why": "The page calls itself conatus working at the level of identity, which is a worked case of the hub's idea, so exemplifies (pointing back at the ground), labelled with the page's own move.",
+  "_room": "hub-spinoza-conatus",
+  "confidence": "high",
+  "evidence": [
+   "Identity molting is conatus operating at the level of identity structure: the drive to persist *as what one actually is* overcomes attachment to the container that no longer fits. The organism persists by shedding.",
+   "Identity as obstacle. When the learner's self-concept is the actual barrier ... See [[Identity Molting]] for the complementary framing."
+  ]
+ },
+ {
+  "op": "retype",
+  "source": "Bessel Functions in Synthesis",
+  "target": "Spinoza Conatus",
+  "from_type": "connects-to",
+  "type": "exemplifies",
+  "label": "one-substance-many-attributes",
+  "why": "The opening paragraph calls the one-geometry-in-many-materials claim monism, linking the hub on that word: a worked case of the hub's substance idea, so exemplifies.",
+  "_room": "hub-spinoza-conatus",
+  "confidence": "medium",
+  "evidence": [
+   "it is *the same geometry appearing in different physical materials*. This is Spinoza Conatus|monism: one substance, multiple attributes.",
+   "Are the four pillars four attributes of a single substance?"
+  ]
+ },
+ {
+  "op": "retype",
+  "source": "Wallpaper Groups",
+  "target": "Spinoza Conatus",
+  "from_type": "mirrors",
+  "type": "exemplifies",
+  "label": "substance-and-modes",
+  "why": "A whole section, 'The Spinoza Connection: Substance and Its Modes', says it enacts the hub's substance monism; that is a worked case, so exemplifies (the room list shows it labelled, but the frontmatter carries no label).",
+  "_room": "hub-spinoza-conatus",
+  "confidence": "high",
+  "evidence": [
+   "This is Spinoza's monism applied to geometry. ... The wallpaper groups enact this structure. The *substance* is the pattern of repetition itself ... The *attributes* are the different perceivable aspects",
+   "Are the four pillars four attributes of a single substance?"
+  ]
+ },
+ {
+  "op": "retype",
+  "source": "Categorizing Inharmonicity",
+  "target": "Spinoza Conatus",
+  "from_type": "deepens",
+  "type": "exemplifies",
+  "label": "spectrum-as-substance",
+  "why": "One speculative bullet (of three) offers the spectrum as substance and each inharmonic variant as a mode. That is a case of the hub's monism, not an elaboration of conatus, so exemplifies at low weight; it could equally go and return with a worked case.",
+  "_room": "hub-spinoza-conatus",
+  "confidence": "low",
+  "evidence": [
+   "Spinoza's modes: the harmonic spectrum is a substance, each inharmonic variant is a mode of it",
+   "Are the four pillars four attributes of a single substance?"
+  ]
+ },
+ {
+  "op": "retype",
+  "source": "Preset Oracle",
+  "target": "Spinoza Conatus",
+  "from_type": "deepens",
+  "type": "connects-to",
+  "label": "conatus-as-sound",
+  "why": "The Oracle does not elaborate conatus; it gives it to a student as a challenge ('Spinoza's conatus as sound'), a labelled connects-to naming that use is the honest claim.",
+  "_room": "hub-spinoza-conatus",
+  "confidence": "medium",
+  "evidence": [
+   "A student asked to make \"Spinoza's conatus as sound\" cannot look up the answer. They must: 1. Form their own interpretation of conatus — what is the *striving* at the heart of being?",
+   "A good lesson doesn't just transfer information — it increases the student's conatus."
+  ]
+ },
+ {
+  "op": "retype",
+  "source": "Four Pillars of Enchanted Agency",
+  "target": "Spinoza Conatus",
+  "from_type": "mirrors",
+  "type": "deepens",
+  "label": "conatus-in-four-dimensions",
+  "why": "The page's central claim elaborates the hub: a page's conatus, articulated in four dimensions (with a Spinoza philosopher-page section). That is deepens, with a label saying how.",
+  "_room": "hub-spinoza-conatus",
+  "confidence": "high",
+  "evidence": [
+   "a page's conatus — its drive to persist, grow, and increase its power to act — can be articulated through four dimensions that mirror the Four Pillars.",
+   "agency_profile: creation / tools / philosophy / practice answered for the hub itself"
+  ]
+ }
+]

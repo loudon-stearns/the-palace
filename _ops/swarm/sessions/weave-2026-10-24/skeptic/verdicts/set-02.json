@@ -1,0 +1,367 @@
+{
+ "set": "set-02",
+ "verdicts": [
+  {
+   "source": "Julia Cameron",
+   "target": "FOUR PILLARS",
+   "op": "cut",
+   "proposed_label_or_type": "cut deepens",
+   "verdict": "PASS",
+   "reason": "Person page body never names the hub or the pillars (only the per-pillar forward-vector keys in frontmatter); it is member-of Source Library, which deepens FOUR PILLARS (Source Library.md:16-17), so the cut stands.",
+   "better": ""
+  },
+  {
+   "source": "Douglas Hofstadter",
+   "target": "FOUR PILLARS",
+   "op": "cut",
+   "proposed_label_or_type": "cut deepens",
+   "verdict": "PASS",
+   "reason": "Person page body never names the hub or the pillars (only the per-pillar forward-vector keys in frontmatter); it is member-of Source Library, which deepens FOUR PILLARS (Source Library.md:16-17), so the cut stands.",
+   "better": ""
+  },
+  {
+   "source": "Pauline Oliveros",
+   "target": "FOUR PILLARS",
+   "op": "cut",
+   "proposed_label_or_type": "cut deepens",
+   "verdict": "PASS",
+   "reason": "Person page body never names the hub or the pillars (only the per-pillar forward-vector keys in frontmatter); it is member-of Source Library, which deepens FOUR PILLARS (Source Library.md:16-17), so the cut stands.",
+   "better": ""
+  },
+  {
+   "source": "George Nakashima",
+   "target": "FOUR PILLARS",
+   "op": "cut",
+   "proposed_label_or_type": "cut connects-to",
+   "verdict": "PASS",
+   "reason": "Person page body never names the hub or the pillars (only the per-pillar forward-vector keys in frontmatter); it is member-of Source Library, which deepens FOUR PILLARS (Source Library.md:16-17), so the cut stands.",
+   "better": ""
+  },
+  {
+   "source": "Buckminster Fuller",
+   "target": "FOUR PILLARS",
+   "op": "cut",
+   "proposed_label_or_type": "cut connects-to",
+   "verdict": "PASS",
+   "reason": "Person page body never names the hub or the pillars (only the per-pillar forward-vector keys in frontmatter); it is member-of Source Library, which deepens FOUR PILLARS (Source Library.md:16-17), so the cut stands.",
+   "better": ""
+  },
+  {
+   "source": "Shunryu Suzuki",
+   "target": "FOUR PILLARS",
+   "op": "cut",
+   "proposed_label_or_type": "cut deepens",
+   "verdict": "PASS",
+   "reason": "Person page body never names the hub or the pillars (only the per-pillar forward-vector keys in frontmatter); it is member-of Source Library, which deepens FOUR PILLARS (Source Library.md:16-17), so the cut stands.",
+   "better": ""
+  },
+  {
+   "source": "Seneca",
+   "target": "FOUR PILLARS",
+   "op": "cut",
+   "proposed_label_or_type": "cut connects-to",
+   "verdict": "PASS",
+   "reason": "Person page body never names the hub or the pillars (only the per-pillar forward-vector keys in frontmatter); it is member-of Source Library, which deepens FOUR PILLARS (Source Library.md:16-17), so the cut stands.",
+   "better": ""
+  },
+  {
+   "source": "Lao Tzu",
+   "target": "FOUR PILLARS",
+   "op": "cut",
+   "proposed_label_or_type": "cut deepens",
+   "verdict": "PASS",
+   "reason": "Person page body never names the hub or the pillars (only the per-pillar forward-vector keys in frontmatter); it is member-of Source Library, which deepens FOUR PILLARS (Source Library.md:16-17), so the cut stands.",
+   "better": ""
+  },
+  {
+   "source": "John Cage",
+   "target": "FOUR PILLARS",
+   "op": "cut",
+   "proposed_label_or_type": "cut deepens",
+   "verdict": "PASS",
+   "reason": "Person page body never names the hub or the pillars (only the per-pillar forward-vector keys in frontmatter); it is member-of Source Library, which deepens FOUR PILLARS (Source Library.md:16-17), so the cut stands.",
+   "better": ""
+  },
+  {
+   "source": "Oblique Portrait",
+   "target": "FOUR PILLARS",
+   "op": "cut",
+   "proposed_label_or_type": "cut connects-to",
+   "verdict": "PASS",
+   "reason": "Body never names the pillars or the hub, and FOUR PILLARS never names Oblique Portrait; nothing gives the bare edge a reason.",
+   "better": ""
+  },
+  {
+   "source": "Excellent Adventure",
+   "target": "FOUR PILLARS",
+   "op": "cut",
+   "proposed_label_or_type": "cut connects-to",
+   "verdict": "PASS",
+   "reason": "No pillar sentence in the body, FOUR PILLARS never names it; the tie the reader points to is real but sits on Palace Philosophies ('bring a tradition to the table ... ([[Excellent Adventure]])') and on Hilaritas Generator's spawned link.",
+   "better": ""
+  },
+  {
+   "source": "Lossy Compression with Intent Alignment",
+   "target": "FOUR PILLARS",
+   "op": "cut",
+   "proposed_label_or_type": "cut connects-to",
+   "verdict": "PASS",
+   "reason": "No body sentence names the hub, pillars or teaching with them; 'structures-pedagogy' is a label with nothing behind it.",
+   "better": ""
+  },
+  {
+   "source": "Generative Compression",
+   "target": "FOUR PILLARS",
+   "op": "cut",
+   "proposed_label_or_type": "cut exemplifies",
+   "verdict": "PASS",
+   "reason": "Body never names the pillars or the hub; the exemplifies claim and its label are unearned.",
+   "better": ""
+  },
+  {
+   "source": "page-rewrite — preview, the whole page as it would read",
+   "target": "FOUR PILLARS",
+   "op": "cut",
+   "proposed_label_or_type": "cut connects-to",
+   "verdict": "PASS",
+   "reason": "A workshop proof under Palace as Context Injection System/proofs/, carrying a copy of the entry's own edge; the entry keeps the link (Palace as Context Injection System.md:29).",
+   "better": ""
+  },
+  {
+   "source": "Closing Well",
+   "target": "FOUR PILLARS",
+   "op": "retype",
+   "proposed_label_or_type": "exemplifies (practice-pillar-instance)",
+   "verdict": "FAIL",
+   "reason": "No sentence on Closing Well names the pillars or the hub, and FOUR PILLARS never names Closing Well; the reader's evidence is the label and the page type, so by the reader's own rule this is a cut, not a retype.",
+   "better": "cut"
+  },
+  {
+   "source": "Signal-Rate CV Architecture",
+   "target": "FOUR PILLARS",
+   "op": "retype",
+   "proposed_label_or_type": "exemplifies (learning-through-making)",
+   "verdict": "PASS",
+   "reason": "Signal-Rate CV Architecture.md:44 says 'This directness is the [[FOUR PILLARS]] philosophy in practice — learning through making'; exemplifies points back at the ground and the label is the page's own phrase.",
+   "better": ""
+  },
+  {
+   "source": "JSUI",
+   "target": "FOUR PILLARS",
+   "op": "retype",
+   "proposed_label_or_type": "exemplifies (touches-all-four)",
+   "verdict": "PASS",
+   "reason": "JSUI's '## Connection to Four Pillars' section walks one bullet per pillar ('JSUI touches all four'); exemplifies fits and points at the ground. The quote is compressed with ellipses, not invented.",
+   "better": ""
+  },
+  {
+   "source": "Boundary-Crossing Instruments",
+   "target": "FOUR PILLARS",
+   "op": "retype",
+   "proposed_label_or_type": "exemplifies (insight-at-the-intersection)",
+   "verdict": "PASS",
+   "reason": "Boundary-Crossing Instruments says the breakthrough 'demonstrates that the most valuable insights occur at pillar intersections', a near-verbatim instance of the hub's sentence; exemplifies, right direction.",
+   "better": ""
+  },
+  {
+   "source": "Palace Philosophies",
+   "target": "FOUR PILLARS",
+   "op": "retype",
+   "proposed_label_or_type": "deepens (philosophy-as-tool)",
+   "verdict": "PASS",
+   "reason": "Palace Philosophies opens 'A tradition is a tool ... ([[FOUR PILLARS]])', elaborating the hub's 'A philosophy is a tool' line, and names the hub again for the specific-to-general trajectory; deepens (A elaborates the ground B) fits, direction right.",
+   "better": ""
+  },
+  {
+   "source": "Meadows and Music — Leverage Points",
+   "target": "FOUR PILLARS",
+   "op": "retype",
+   "proposed_label_or_type": "exemplifies (sound-to-self)",
+   "verdict": "PASS",
+   "reason": "The page never names the hub, but the hub carries the relation in prose: its Kick Drum Paradox uses 'Donella Meadows' leverage points' and 'journaling ... the highest lever', which is the curriculum's arc from '## From Sound to Self' to '## 10. The Journaling Paradigm Shift'; the curriculum is a worked case, so exemplifies fits.",
+   "better": "exemplifies, label kick-drum-paradox-in-full (the hub's own phrase for the long form) would name the tie more exactly than sound-to-self"
+  },
+  {
+   "source": "Metric Modulation",
+   "target": "FOUR PILLARS",
+   "op": "retype",
+   "proposed_label_or_type": "exemplifies (all-four-in-one-technique)",
+   "verdict": "PASS",
+   "reason": "Metric Modulation says 'This connects directly to what the four pillars are about: time perception is philosophy, rhythm is music, the DAW is the tool, and the performance is the practice' — one technique as a four-pillar case; exemplifies fits.",
+   "better": ""
+  },
+  {
+   "source": "Latent Error",
+   "target": "FOUR PILLARS",
+   "op": "label",
+   "proposed_label_or_type": "framework-as-error-reduction",
+   "verdict": "PASS",
+   "reason": "Latent Error says 'The [[FOUR PILLARS|four pillars framework]] itself is a latent-error reduction system'; the label carries that sentence's register exactly.",
+   "better": ""
+  },
+  {
+   "source": "Saturation ↔ Richness",
+   "target": "FOUR PILLARS",
+   "op": "label",
+   "proposed_label_or_type": "cross-domain-bridge",
+   "verdict": "FAIL",
+   "reason": "Neither page carries the label: the bridge body never names the pillars or the hub, and the reader's evidence is a SCHEMA example, not either page; a stamp repeated on nine bridges is generic, and Cross-Domain Resonances' own forward vector asks each bridge to 'earn its [[FOUR PILLARS]] exemplification rather than assert a cute parallel'.",
+   "better": "cut (it is member-of Cross-Domain Resonances, which deepens FOUR PILLARS), or keep only once the bridge page writes its pillar sentence"
+  },
+  {
+   "source": "Deposit Ceremony",
+   "target": "FOUR PILLARS",
+   "op": "label",
+   "proposed_label_or_type": "ask-which-pillar-is-absent",
+   "verdict": "PASS",
+   "reason": "Deposit Ceremony's checklist reads '**The four pillars.** Which does it touch, and which is absent? Ask; don't force the absent one in', the hub's own rule applied; the label names it.",
+   "better": ""
+  },
+  {
+   "source": "Sidechain ↔ Conversation",
+   "target": "FOUR PILLARS",
+   "op": "label",
+   "proposed_label_or_type": "cross-domain-bridge",
+   "verdict": "FAIL",
+   "reason": "Same as Saturation ↔ Richness: the body never names the pillars or the hub, the evidence is SCHEMA's example and not the page, and 'cross-domain-bridge' names what the page is, not a relation either page states.",
+   "better": "cut (road runs through Cross-Domain Resonances, which deepens FOUR PILLARS), or a label drawn from a pillar sentence the bridge writes later"
+  },
+  {
+   "source": "Palace as Context Injection System",
+   "target": "FOUR PILLARS",
+   "op": "label",
+   "proposed_label_or_type": "born-with",
+   "verdict": "PASS",
+   "reason": "Palace as Context Injection System lists the Birth as 'CLAUDE.md's body → the Seed Jewel → the World' and names `FOUR PILLARS.md` among the World's foundational files that the symlinks bring 'into the floor'; born-with is in that register, though thin (the hub is named as a filename example).",
+   "better": ""
+  },
+  {
+   "source": "Typography as Meaning",
+   "target": "Hilaritas Generator",
+   "op": "cut",
+   "proposed_label_or_type": "cut enables",
+   "verdict": "PASS",
+   "reason": "Typography as Meaning has no passage on joy, power-to-act or learning design ('teaching materials' appears only as a later audience); 'a-voice-with-a-face' rests on the lettering grammar, not the hub.",
+   "better": ""
+  },
+  {
+   "source": "Metaphor as Coupling Medium",
+   "target": "Hilaritas Generator",
+   "op": "cut",
+   "proposed_label_or_type": "cut connects-to",
+   "verdict": "PASS",
+   "reason": "No passage names the hub or joy; Metaphor as Coupling Medium's real ties sit on its other links and on Palace Philosophies' citation of it.",
+   "better": ""
+  },
+  {
+   "source": "Latent Error",
+   "target": "Hilaritas Generator",
+   "op": "cut",
+   "proposed_label_or_type": "cut connects-to",
+   "verdict": "PASS",
+   "reason": "The '## In Teaching and Tools' section is blame-to-design pedagogy and never names joy or the hub; the one tie to the framework is the FOUR PILLARS sentence, which keeps its own link.",
+   "better": ""
+  },
+  {
+   "source": "Endosymbiosis",
+   "target": "Hilaritas Generator",
+   "op": "cut",
+   "proposed_label_or_type": "cut connects-to",
+   "verdict": "PASS",
+   "reason": "A 376-word body with no joy, learning or hub passage; its cooperation story belongs to Cooperation Yields Agency.",
+   "better": ""
+  },
+  {
+   "source": "Flocking",
+   "target": "Hilaritas Generator",
+   "op": "cut",
+   "proposed_label_or_type": "cut connects-to",
+   "verdict": "PASS",
+   "reason": "No 'joy' or 'hilaritas' anywhere in the body; 'emergent-joy-from-local-rules' is invented.",
+   "better": ""
+  },
+  {
+   "source": "Scale-Stratified Identity",
+   "target": "Hilaritas Generator",
+   "op": "cut",
+   "proposed_label_or_type": "cut connects-to",
+   "verdict": "PASS",
+   "reason": "The only mention is a parenthetical inside an open question ('the ones that spawned entries like [[Threshold Conatus]] and [[Hilaritas Generator]]'), which uses the hub as an example of Loudon's thresholds and makes no claim relating the two ideas.",
+   "better": ""
+  },
+  {
+   "source": "Songlines",
+   "target": "Hilaritas Generator",
+   "op": "cut",
+   "proposed_label_or_type": "cut connects-to",
+   "verdict": "PASS",
+   "reason": "The joy on the page is Loudon's quoted memory ('a deep pool of joy I experienced fully once'), not the hub's power-to-act idea, and the phrase 'new country' does not appear on the page.",
+   "better": ""
+  },
+  {
+   "source": "Cooperation Yields Agency",
+   "target": "Hilaritas Generator",
+   "op": "cut",
+   "proposed_label_or_type": "cut enables",
+   "verdict": "PASS",
+   "reason": "Hilaritas Generator already links the pair (mirrors, shared-emergence), and CYA's body never names the hub; one link per pair. Note the hub's own mirrors link has no body sentence either.",
+   "better": ""
+  },
+  {
+   "source": "Kuramoto Coupling",
+   "target": "Hilaritas Generator",
+   "op": "cut",
+   "proposed_label_or_type": "cut connects-to",
+   "verdict": "PASS",
+   "reason": "The hub already holds the labelled link (physics-of-firing), backed by its sentence 'four oscillators falling into phase ([[Kuramoto Coupling]])'; the inbound is a duplicate.",
+   "better": ""
+  },
+  {
+   "source": "Preset Oracle",
+   "target": "Hilaritas Generator",
+   "op": "cut",
+   "proposed_label_or_type": "cut connects-to",
+   "verdict": "PASS",
+   "reason": "The page never names the hub; 'Spinoza (conatus, desire, joy)' is one item in a thinker list, not a claim about the hub.",
+   "better": ""
+  },
+  {
+   "source": "Hero and Avatar Maker",
+   "target": "Hilaritas Generator",
+   "op": "cut",
+   "proposed_label_or_type": "cut connects-to",
+   "verdict": "PASS",
+   "reason": "The flow-style link 'joy in identity' (Shop/Hero and Avatar Maker.md:18) has no passage behind it; no joy or hub sentence in the body.",
+   "better": ""
+  },
+  {
+   "source": "Shopkeeper",
+   "target": "Hilaritas Generator",
+   "op": "cut",
+   "proposed_label_or_type": "cut exemplifies",
+   "verdict": "PASS",
+   "reason": "The nearest passages ('play-driven', 'I play so Loudon doesn't have to') describe a scout's temperament, not joy as growing power-to-act; no sentence makes the Shopkeeper a case of the hub.",
+   "better": ""
+  },
+  {
+   "source": "Maker",
+   "target": "Hilaritas Generator",
+   "op": "cut",
+   "proposed_label_or_type": "cut connects-to",
+   "verdict": "PASS",
+   "reason": "The flow-style 'embodies' link (Shop/Maker.md:11) has nothing behind it in 7,151 words; no joy or hub mention.",
+   "better": ""
+  },
+  {
+   "source": "Deposit Ceremony",
+   "target": "Hilaritas Generator",
+   "op": "cut",
+   "proposed_label_or_type": "cut connects-to",
+   "verdict": "PASS",
+   "reason": "Neither page names the other; the reader's quote 'manufactured canon is the failure this ceremony exists to prevent' is real (Deposit Ceremony.md:74) and does not name the hub.",
+   "better": ""
+  }
+ ],
+ "fabricated_quotes": [],
+ "summary": "37 of 40 pass (3 fail). The cuts hold: every person page, the bare practice and concept edges, and the Hilaritas inbounds were checked against both bodies and none carries the relation in prose. The retypes and labels that pass stand on a body sentence that names the hub. The three failures share one fault: the readers kept or relabelled an edge whose only support was its own frontmatter label (Closing Well) or a SCHEMA example (the two Bridges), not a sentence on either page — the very ground they cut the person pages and Generative Compression on. Cross-Domain Resonances' forward vector says each bridge must earn its FOUR PILLARS exemplification; these two have not yet. No fabricated quotes; ellipsis-compressed quotes (JSUI, Boundary-Crossing, Meadows) were checked against the pages."
+}

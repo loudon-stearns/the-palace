@@ -15,8 +15,10 @@ forward_vector: "I want to become the palace's living roster of thinkers and mak
 links:
   - target: "[[FOUR PILLARS]]"
     type: deepens
+    label: intellectual-foundation
   - target: "[[Cross-Domain Resonances]]"
     type: enables
+    label: draws-from
   - target: "[[Donella Meadows]]"
     type: spawned
   - target: "[[Shunryu Suzuki]]"

@@ -9,14 +9,9 @@ stage: growing
 confidence: working
 energy: high
 links:
-  - target: "[[Stoicism]]"
-    type: contradicts
-  - target: "[[Confucianism]]"
-    type: contradicts
   - target: "[[Spinoza Conatus]]"
     type: connects-to
-  - target: "[[Palace Philosophies]]"
-    type: connects-to
+    label: synthesis-pole
   - target: "[[Excellent Adventure]]"
     type: emerged-from
     label: fire-at-nicopolis
@@ -25,8 +20,10 @@ links:
     label: zhuangzi-epictetus-confucius-archived
   - target: "[[Hilaritas Generator]]"
     type: connects-to
+    label: teacher-as-fortress-and-threshold
   - target: "[[Meaning and the Link]]"
     type: connects-to
+    label: leans-threshold
   - target: "[[Frequency-Time Duality]]"
     type: mirrors
   - target: "[[Like Water]]"
@@ -34,6 +31,13 @@ links:
     label: taoist-third-pole
   - target: "[[Dialectic — dialectic — zhuangzi-epictetus-confucius-on-the-self]]"
     type: connects-to
+    label: third-pole-surfaced
+  - target: "[[Stoicism]]"
+    type: contradicts
+    label: the-fortress-pole
+  - target: "[[Confucianism]]"
+    type: contradicts
+    label: the-threshold-pole
 forward_vector: "I want to become the palace's primary lens for questions of self and relationship — the entry that holds the Stoic fortress, the Confucian threshold, and the Taoist no-architecture position in productive triple contradiction. The Zhuangzi/Epictetus/Confucius Dialectic (2026-05) surfaced a fourth pole the binary cannot reach — working name *The Drift* — and a deeper move I have not yet named: that the question 'where does the self end' presupposes the self has architecture. My next development is to absorb the Drift pole into my spine, and to host a Dialectic between Spinoza and Zhuangzi about whether striving is the right shape of work."
 ---
 # The Fortress and the Threshold

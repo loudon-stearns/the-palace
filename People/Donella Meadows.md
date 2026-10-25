@@ -40,24 +40,15 @@ links:
   - target: "[[Meadows and Music — Leverage Points — Context]]"
     type: connects-to
     label: applied-to-music
-  - target: "[[Hilaritas Generator]]"
-    type: mirrors
-    label: leverage-points-as-hilaritas-infrastructure
   - target: "[[Spinoza Conatus]]"
     type: mirrors
     label: systems-strive
   - target: "[[Spinoza]]"
     type: contradicts
     label: homecoming-vs-becoming
-  - target: "[[Rick Rubin]]"
-    type: contradicts
-    label: discovered-essence-vs-systems-becoming
   - target: "[[Found ↔ Made]]"
     type: exemplifies
     label: made-pole
-  - target: "[[Kick Drum ↔ Foundation]]"
-    type: connects-to
-    label: leverage-in-the-low-end
   - target: "[[Sidechain ↔ Conversation]]"
     type: connects-to
     label: negative-feedback-as-dialogue
@@ -70,7 +61,7 @@ links:
 
 ![[Donella Meadows — hero.png]]
 
-Donella Meadows (1941–2001) — everyone called her Dana — was a biophysicist who became the clearest systems thinker of her generation, and who then went and lived on a farm to prove she meant it. Before she is a framework the palace quotes, she is a woman you can sit with: warm, blunt, funny, morally serious, and allergic to anyone who thinks they've finally figured a system out. This entry is written so you can put her across the table and she'll answer *you*, not recite her own essay.
+Donella Meadows (1941–2001) — everyone called her Dana — was a biophysicist who became the clearest systems thinker of her generation, and who then went and lived on a farm to prove she meant it. Before she is a framework the palace quotes, she is a woman you can sit with: warm, blunt, funny, morally serious, and allergic to anyone who thinks they've finally figured a system out.
 
 ## The life that shaped the thought
 

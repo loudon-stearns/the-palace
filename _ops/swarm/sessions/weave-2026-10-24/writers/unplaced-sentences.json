@@ -1,0 +1,58 @@
+[
+ {
+  "kind": "keep",
+  "source": "Excellent Adventure",
+  "target": "Martin Buber",
+  "proposed_type": "contradicts",
+  "proposed_label": "meeting-cannot-be-method",
+  "current_type": "contradicts[meeting-cannot-be-method]",
+  "rationale": "Keep. The label carries a real objection and the Founders' Circle run (in this page's bundle) has Buber saying it: a typed link is 'a beautiful machine for remembering an encounter after it has already relapsed'. The page body never says it. Write the sentence (it is the sharpest form of Open Question 4) or accept the label as the reason. The sentence is a new claim: Pile B.",
+  "confidence": "medium",
+  "_room": null,
+  "existing": [
+   {
+    "source": "Excellent Adventure",
+    "type": "contradicts",
+    "target": "Martin Buber",
+    "label": "meeting-cannot-be-method"
+   }
+  ]
+ },
+ {
+  "kind": "body-sentence",
+  "source": "Philosopher Visits the Entry",
+  "target": "The Lens",
+  "proposed_type": null,
+  "proposed_label": null,
+  "current_type": null,
+  "rationale": "The Lens already holds generalizes-this-special-case -> this page. Do not add a second link; add the sentence ('The Lens generalizes this: any page can be the glass').",
+  "confidence": "high",
+  "_room": null,
+  "existing": [
+   {
+    "source": "The Lens",
+    "type": "connects-to",
+    "target": "Philosopher Visits the Entry",
+    "label": "generalizes-this-special-case"
+   }
+  ]
+ },
+ {
+  "id": "commons-the-palace-1790254299361",
+  "flag_type": "future-dated-timestamp",
+  "what": "_ops/orchestrator/prompts/shared.md:393, the Required fields line: \"`ts` (ISO 8601 with timezone)\" becomes \"`ts` (ISO 8601 with timezone: the moment you post, read from the clock, `date -u +%Y-%m-%dT%H:%M:%SZ`; never the example's time or a projected one)\".",
+  "reason": "No steward prompt says to use the real clock today; shared.md:60 even shows a fixed example ts, and the orchestrator src does not restamp ts."
+ },
+ {
+  "id": "commons-the-palace-1790303876259",
+  "flag_type": "stale-reference",
+  "what": "_ops/agents/permanent/shepard-tone-synthesizer/manifest.json:12, in \"neighborhood\": \"Octave Equivalence\" becomes \"Shepard Tone\". Leave vector_at_spawn (:49) as history.",
+  "reason": "The stale name is still there; Octave Equivalence was let go into Shepard Tone § Theory (8972a53d)."
+ },
+ {
+  "id": "commons-the-palace-1792107627377",
+  "flag_type": "stale-reference",
+  "what": "Drop \"breakthrough\" from CANON_TYPES in _ops/swarm/lint-bundle-hygiene.py:50, and the same one-word fix in lint-ghost-links.py:46 and lint-entry-naming.py:58 (the dated build-map-2026-*.py copies are history). No file carries `type: breakthrough` today, so no result changes.",
+  "reason": "All three live linters still list the type SCHEMA retired in v1.17 (SCHEMA.md:103); face-audit.py:35 and test-hygiene-tools.py:187 already treat it as retired."
+ }
+]

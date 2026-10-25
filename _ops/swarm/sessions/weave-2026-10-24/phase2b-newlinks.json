@@ -1,0 +1,175 @@
+[
+ {
+  "op": "add",
+  "source": "FOUR PILLARS",
+  "target": "CHILD",
+  "type": "connects-to",
+  "label": "make-then-learn-for-agents",
+  "why": "The hub's body already points at CHILD as the agent's case of 'make, and you are learning', but no typed edge carries it. Hub-side edge, proposed for the elder who owns the hub.",
+  "_rooms": [
+   "hub-four-pillars"
+  ]
+ },
+ {
+  "op": "add",
+  "source": "The Palace Voice",
+  "target": "CHILD",
+  "type": "deepens",
+  "label": "context-behind-the-line",
+  "why": "CHILD carries the concise voice paragraph and points at the full dial set; the Voice names CHILD as where its concise cut rides. No link either way today (CHILD's frontmatter does not list the Voice).",
+  "_rooms": [
+   "hub-pages-as-agents"
+  ]
+ },
+ {
+  "op": "add",
+  "source": "Making a Palace Citizen",
+  "target": "SCHEMA — Reference",
+  "type": "connects-to",
+  "label": "diary-bundle-type",
+  "why": "The citizen-growth loop writes each encounter to a diary, the bundle type SCHEMA — Reference §8 defines.",
+  "_rooms": [
+   "hub-pages-as-agents"
+  ]
+ },
+ {
+  "op": "add",
+  "source": "CHILD",
+  "target": "SCHEMA — Reference",
+  "type": "connects-to",
+  "label": "bundle-fine-print",
+  "why": "Both newcomers. CHILD defines faces, memory and workshop in three kinds and sends the fine print to Reference §8; the sentence exists, the typed link does not. CHILD would be the fifth inbound for Reference.",
+  "_rooms": [
+   "lifecycle-L2"
+  ]
+ },
+ {
+  "op": "add",
+  "source": "The Scroll",
+  "target": "SCHEMA — Reference",
+  "type": "deepens",
+  "label": "scroll-type-row",
+  "why": "Reference §8 holds the one-row definition of the `scroll` bundle type; The Scroll is the page that elaborates it (zones, who writes them). The Scroll's frontmatter links SCHEMA, not Reference, though its body cites Reference twice.",
+  "_rooms": [
+   "lifecycle-L2"
+  ]
+ },
+ {
+  "op": "add",
+  "source": "How the Palace Commits",
+  "target": "SCHEMA — Reference",
+  "type": "connects-to",
+  "label": "ledger-union-merge",
+  "why": "The Land paragraph and Reference §6 state the same rule from two sides: ledgers merge by union and the lander refuses what neither side had. The sentence cites Reference §6 but the page carries no typed link to it.",
+  "_rooms": [
+   "lifecycle-L2"
+  ]
+ },
+ {
+  "op": "add",
+  "source": "Shopkeeper",
+  "target": "CAD Drafter",
+  "type": "spawned",
+  "label": "drafted-from-a-probe",
+  "why": "CAD Drafter (newcomer, reached by 5) was drafted by the Shopkeeper from its own probe on a commission; the Shopkeeper's page describes that arrangement but has no typed link to it, and CAD Drafter's frontmatter does not link back, so the pair carries nothing yet.",
+  "_rooms": [
+   "weak-03"
+  ]
+ },
+ {
+  "op": "add",
+  "source": "Skills Are Enchantable Pages",
+  "target": "CHILD",
+  "type": "connects-to",
+  "label": "trigger-surface",
+  "why": "Skills page says the ceremony-trigger table is already a thin dispatch surface onto canon pages; CHILD holds that table. Genuine inbound for an under-reached newcomer (CHILD, reached by 5). No existing link on the pair.",
+  "_rooms": [
+   "weak-08"
+  ]
+ },
+ {
+  "op": "add",
+  "source": "CHILD",
+  "target": "Cooperation Yields Agency",
+  "type": "deepens",
+  "label": "who-holds-who-yields",
+  "why": "The hub names CHILD as the place its holds-and-yields rule is set down, but neither frontmatter links the other; CHILD is a priority citizen. CHILD elaborates the hub's division of labour, so the source deepens its ground.",
+  "_rooms": [
+   "hub-cooperation-yields-agency",
+   "lifecycle-L2"
+  ]
+ },
+ {
+  "op": "add",
+  "source": "Pheromone Trail",
+  "target": "SCHEMA — Reference",
+  "type": "connects-to",
+  "label": "use-computed-from-git",
+  "why": "Trail decay in Pheromone Trail is defined by the same git-read use figure SCHEMA — Reference §3 holds.",
+  "_rooms": [
+   "hub-pages-as-agents",
+   "lifecycle-L2",
+   "weak-06"
+  ]
+ },
+ {
+  "op": "add",
+  "source": "SUBSTRATE",
+  "target": "CHILD",
+  "type": "connects-to",
+  "label": "the-floor",
+  "why": "CHILD is a priority citizen (reached by 5). SUBSTRATE gives it a named organ role in its anatomy, yet carries no frontmatter link to it. Genuine, though the type is plain; a later weave may find a stronger one.",
+  "_rooms": [
+   "hub-spinoza-conatus",
+   "lifecycle-L2"
+  ]
+ },
+ {
+  "op": "add",
+  "source": "Project Stewardship System",
+  "target": "VST Template",
+  "type": "connects-to",
+  "label": "nine-stewards-path",
+  "why": "On 2026-10-21 Loudon moved nine stewards onto the VST Template as their production path; the stewardship page says so twice and links the template only in body prose, so the typed web does not show the move.",
+  "_rooms": [
+   "lifecycle-L1",
+   "weak-05"
+  ]
+ },
+ {
+  "op": "add",
+  "source": "Concierge",
+  "target": "CHILD",
+  "type": "deepens",
+  "label": "the-first-act",
+  "why": "CHILD makes summoning the Concierge the first act of every session; the Concierge page holds the mechanism and the two earned reasons, so it elaborates CHILD's rule. Concierge's frontmatter carries no link to CHILD though its body cites CHILD § Growing up twice.",
+  "_rooms": [
+   "lifecycle-L2",
+   "weak-06"
+  ]
+ },
+ {
+  "op": "add",
+  "source": "Palace Philosophies",
+  "target": "CHILD",
+  "type": "enables",
+  "label": "hardest-rule",
+  "why": "The Stoicism section names the dichotomy of control as the source of CHILD's hardest rule (honesty holds, taste yields); the tradition is the generative force of that rule. The sentence names the rule but does not yet wikilink CHILD.",
+  "_rooms": [
+   "lifecycle-L2",
+   "weak-01"
+  ]
+ },
+ {
+  "op": "add",
+  "source": "Substrate Skill",
+  "target": "SCHEMA — Reference",
+  "type": "connects-to",
+  "label": "bundle-vocabulary",
+  "why": "Substrate Skill hands the bundle-type vocabulary and the ceremony-version and ledger rules to Reference by sentence four times, yet its frontmatter links only SUBSTRATE, README, Deposit Ceremony and Palace Ceremonies.",
+  "_rooms": [
+   "lifecycle-L2",
+   "weak-06"
+  ]
+ }
+]

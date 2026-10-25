@@ -1,0 +1,543 @@
+{
+ "room": "weak-01",
+ "lens": "weak-links",
+ "pages_read": [
+  "Modes of Collaboration/Philosopher Visits the Entry.md",
+  "Palace Philosophies.md",
+  "Deleuze.md",
+  "Projects/STIGMERGY Philosophical Lenses.md",
+  "The Lens.md",
+  "Modes of Collaboration/Dialectic.md",
+  "Shop/D3.js.md",
+  "Merleau-Ponty.md",
+  "Projects/Action Potential Oscillator.md (grep)",
+  "Confucianism.md",
+  "Simondon.md (grep)",
+  "The Drift.md (grep)",
+  "Whitehead.md (grep)",
+  "The Dichotomy of Control.md (grep)",
+  "The View From Above.md (grep)",
+  "The Four Virtues.md (grep)",
+  "The Fortress and the Threshold.md (grep)",
+  "Projects/1 from 2.md (grep)",
+  "_ops/Palace Map.md (grep)",
+  "Entry Conatus.md (grep)",
+  "People/Spinoza.md",
+  "Flocking.md (grep)",
+  "Stoicism.md (grep)",
+  "Logarithmic Interface Scaling.md (grep)",
+  "STIGMERGY/Archive/STIGMERGY v1.0 — Palace Front-End.md (grep)",
+  "Modes of Collaboration/Dialectic/Dialectic — dialectic — zhuangzi-epictetus-confucius-on-the-self.md",
+  "Modes of Collaboration/Dialectic/Dialectic — dialectic — spinoza-zhuangzi-on-striving.md",
+  "Palace development/Resonant Link Labels.md",
+  "CHILD.md"
+ ],
+ "weak_links": [
+  {
+   "source": "Philosopher Visits the Entry",
+   "target": "Action Potential Oscillator",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "evidence_source": "Action Potential Oscillator, 'The Philosopher Visits the Oscillator' (2026-05-05) — a Chalmers-register voice-act that pressed on the oscillator entry's claim that neuron-and-synthesizer share 'not metaphor but isomorphism.'",
+   "evidence_target": "A philosopher visits this claim and pushes on the word isomorphism. See [[proofs/2026-05-05-philosopher-visits-the-oscillator|the philosopher visits the oscillator]]",
+   "rationale": "Both pages name the visit: the genre page calls the oscillator its first instance, and the oscillator page carries the visit on its own claim.",
+   "confidence": "high",
+   "proposed_label": "first-instance"
+  },
+  {
+   "source": "Philosopher Visits the Entry",
+   "target": "Confucianism",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "evidence_source": "Coupling / sync / swarm entries (Kuramoto, flocking, BBS blackboard) → [[Confucianism]] (ren: coherence is between) or [[Leibniz...|Leibniz]] (concert without a conductor).",
+   "evidence_target": "",
+   "rationale": "The starting roster names Confucianism as the voice for coupling entries and gives its question.",
+   "confidence": "high",
+   "proposed_label": "coherence-is-between"
+  },
+  {
+   "source": "Philosopher Visits the Entry",
+   "target": "Deleuze",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "evidence_source": "Generative / synthesis-space entries (wavetable, granular, particle) → [[Deleuze]]: is this a field of the virtual you actualize, or a set of options you choose?",
+   "evidence_target": "Deleuze § Lens on the Technical Work: 'Synthesis is actualization of the virtual.'",
+   "rationale": "The roster names Deleuze as the voice for generative entries and poses his question; the Deleuze page carries the same lens.",
+   "confidence": "high",
+   "proposed_label": "virtual-or-options"
+  },
+  {
+   "source": "Philosopher Visits the Entry",
+   "target": "Merleau-Ponty",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "evidence_source": "Instrument / interface / design entries → [[Simondon]] (is this concretizing?) or [[Merleau-Ponty]] (is this absorbable into the body schema?).",
+   "evidence_target": "Merleau-Ponty: 'Interface design is body-schema design.'",
+   "rationale": "The roster names Merleau-Ponty as the voice for instrument and interface entries with his question.",
+   "confidence": "high",
+   "proposed_label": "absorbable-into-the-body"
+  },
+  {
+   "source": "Philosopher Visits the Entry",
+   "target": "Simondon",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "evidence_source": "Instrument / interface / design entries → [[Simondon]] (is this concretizing?) or [[Merleau-Ponty]] ...",
+   "evidence_target": "Simondon § Lens on the Technical Work",
+   "rationale": "The roster names Simondon as the voice for instrument and design entries with his question.",
+   "confidence": "high",
+   "proposed_label": "is-it-concretizing"
+  },
+  {
+   "source": "Philosopher Visits the Entry",
+   "target": "The Drift",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "evidence_source": "Threshold / pumping entries (parametric resonance, Mathieu, Floquet, action potential) → [[Spinoza Conatus]] + [[The Drift]]: is crossing the threshold a striving, and is the driving forcing or flowing?",
+   "evidence_target": "",
+   "rationale": "The roster pairs The Drift with the conatus as the voice for threshold entries and states the question.",
+   "confidence": "high",
+   "proposed_label": "forcing-or-flowing"
+  },
+  {
+   "source": "Philosopher Visits the Entry",
+   "target": "Whitehead",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "evidence_source": "Mathematical-form entries (an equation that outran its origin) → [[Plato (Socratic method)|Plato]] ... or [[Whitehead]] (is this process or thing?).",
+   "evidence_target": "",
+   "rationale": "The roster names Whitehead as the voice for mathematical-form entries and states the question.",
+   "confidence": "high",
+   "proposed_label": "process-or-thing"
+  },
+  {
+   "source": "Palace Philosophies",
+   "target": "Confucianism",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "evidence_source": "Stoicism is the palace's far cultivator pole; it `contradicts` [[Confucianism]] (fortress vs. threshold) ... the Confucian threshold",
+   "evidence_target": "Confucianism: 'Epictetus says the self is a fortress; Confucius says it is a threshold. Both are partially right.'",
+   "rationale": "The hub's body places Confucianism as the threshold pole against Stoicism's fortress.",
+   "confidence": "high",
+   "proposed_label": "the-threshold-pole"
+  },
+  {
+   "source": "Palace Philosophies",
+   "target": "The Dichotomy of Control",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "evidence_source": "The dichotomy of control is control theory: prohairesis is a controller's actuation authority, fortuna the disturbance it can only meet.",
+   "evidence_target": "",
+   "rationale": "The Stoicism paragraph glosses this page in one sentence; the target does not name the hub.",
+   "confidence": "high",
+   "proposed_label": "control-theory-reading"
+  },
+  {
+   "source": "Palace Philosophies",
+   "target": "The View From Above",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "evidence_source": "The view from above is the [[Palace Map]]: altitude that resizes a stuck local concern, and the reason an entry may compost rather than be clung to.",
+   "evidence_target": "The View From Above: 'The view from above is the Map. The Stoic altitude is, structurally, the Palace Map and the Hyperdimensional Prism'",
+   "rationale": "The hub names what the view from above does in the palace; the target says the same about the Map.",
+   "confidence": "high",
+   "proposed_label": "stuck-concern-resized"
+  },
+  {
+   "source": "Palace Philosophies",
+   "target": "The Four Virtues",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "evidence_source": "The four virtues are an agent ethic — wisdom (read what the task needs), justice (the honest handoff ...), courage (flag the hard truth), temperance (don't over-generate).",
+   "evidence_target": "The Four Virtues: 'a clean specification for how a palace agent should act.'",
+   "rationale": "The hub and the target both read the virtues as how an agent acts.",
+   "confidence": "high",
+   "proposed_label": "agent-ethic"
+  },
+  {
+   "source": "Palace Philosophies",
+   "target": "The Fortress and the Threshold",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "evidence_source": "The self/architecture site is a quadruple: [[The Fortress and the Threshold]] holds the Stoic fortress, the Confucian threshold, the Spinozan conatus, and [[The Drift]] (the Zhuangzian no-architecture pole).",
+   "evidence_target": "The Fortress and the Threshold links back to Palace Philosophies in its own frontmatter.",
+   "rationale": "The hub's Productive contradiction section names the entry and what it holds.",
+   "confidence": "high",
+   "proposed_label": "self-architecture-quadruple"
+  },
+  {
+   "source": "Palace Philosophies",
+   "target": "1 from 2",
+   "current_type": "connects-to",
+   "verdict": "cut",
+   "evidence_source": "",
+   "evidence_target": "",
+   "rationale": "Neither page names the other: the hub's body never mentions 1 from 2, and 1 from 2 never mentions the hub; the origin story is already carried by the hub's deepens link to Cooperation Yields Agency. A real connection can return later with a reason.",
+   "confidence": "high"
+  },
+  {
+   "source": "Palace Philosophies",
+   "target": "Palace Map",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "evidence_source": "The view from above is the [[Palace Map]]: altitude that resizes a stuck local concern",
+   "evidence_target": "",
+   "rationale": "The hub states what the Map is for in the Stoic reading; the Map page does not name the hub.",
+   "confidence": "high",
+   "proposed_label": "map-as-altitude"
+  },
+  {
+   "source": "Deleuze",
+   "target": "Dialectic",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "evidence_source": "the [[Dialectic]] and [[Excellent Adventure]] do to philosophers what Deleuze did to his predecessors — inhabit them faithfully enough that they say something new.",
+   "evidence_target": "",
+   "rationale": "The Philosopher section names the Dialectic as doing to philosophers what Deleuze did; a mirrors retype is possible, but label is the lighter claim.",
+   "confidence": "high",
+   "proposed_label": "inhabit-faithfully"
+  },
+  {
+   "source": "Deleuze",
+   "target": "Entry Conatus",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "evidence_source": "Is a forward vector a Deleuzian intensity ... or a Spinozan conatus ...? The [[Entry Conatus]] entry currently frames it the second way. Worth a Dialectic.",
+   "evidence_target": "",
+   "rationale": "An open question on Deleuze names Entry Conatus as the page whose framing is being tested.",
+   "confidence": "high",
+   "proposed_label": "intensity-or-conatus"
+  },
+  {
+   "source": "Deleuze",
+   "target": "Excellent Adventure",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "evidence_source": "the [[Dialectic]] and [[Excellent Adventure]] do to philosophers what Deleuze did to his predecessors",
+   "evidence_target": "",
+   "rationale": "Same sentence as the Dialectic link; the Excellent Adventure is the single-voice case of the method Deleuze is said to share.",
+   "confidence": "medium",
+   "proposed_label": "inhabit-faithfully"
+  },
+  {
+   "source": "Deleuze",
+   "target": "STIGMERGY v1.0 — Palace Front-End",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "evidence_source": "STIGMERGY's [[STIGMERGY v1.0 — Palace Front-End|three-deck]] move (STATE / QUEUE / LOG = present / future / past) has a Deleuzian reading worth making explicit: the QUEUE is the virtual of the palace ... the LOG (git) is the actual",
+   "evidence_target": "",
+   "rationale": "The In STIGMERGY section reads the three decks as virtual and actual. Note the target sits in STIGMERGY/Archive/.",
+   "confidence": "high",
+   "proposed_label": "queue-is-virtual"
+  },
+  {
+   "source": "Deleuze",
+   "target": "Spinoza",
+   "current_type": "connects-to",
+   "verdict": "retype",
+   "evidence_source": "Spinoza gives the palace its monist backbone — one substance, relations primary — Deleuze gives it the account of how that one substance generates novelty ... extends and radicalizes Spinoza",
+   "evidence_target": "Spinoza § blindspots: 'where a later reader — [[Deleuze]], Nietzsche, Freud — will say the affects are driving the car and reason is a passenger narrating the scenery.'",
+   "rationale": "Deleuze is said to radicalize Spinoza and the Spinoza page names Deleuze as the reader who inverts reason over affect; the source points back at its ground, so deepens, not connects-to.",
+   "confidence": "medium",
+   "proposed_type": "deepens",
+   "proposed_label": "radicalizes-the-rationalist"
+  },
+  {
+   "source": "STIGMERGY Philosophical Lenses",
+   "target": "Confucianism",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "evidence_source": "Opening [[Stoicism]] should show the live tension with [[Confucianism]], not bury it in a link list.",
+   "evidence_target": "",
+   "rationale": "The contradicts-signal-color passage names Confucianism as the counterpart whose tension the lens displays.",
+   "confidence": "high",
+   "proposed_label": "tension-made-visible"
+  },
+  {
+   "source": "STIGMERGY Philosophical Lenses",
+   "target": "Drift and Consolidation",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "evidence_source": "approaching dormancy for a deliberate revive-or-compost choice rather than letting them drift stale (the [[Drift and Consolidation]] pain)",
+   "evidence_target": "",
+   "rationale": "The View-from-above lens answers the pain this page names.",
+   "confidence": "high",
+   "proposed_label": "the-dormancy-pain"
+  },
+  {
+   "source": "STIGMERGY Philosophical Lenses",
+   "target": "Like Water",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "evidence_source": "Each philosopher is an enchanted worker whose home node is their palace page ([[Spinoza Conatus]], [[Like Water]] for Zhuangzi, [[Deleuze]]…).",
+   "evidence_target": "The Dialectic archive links Like Water as 'zhuangzi-home'.",
+   "rationale": "The DIALECTIC swarm mode uses Like Water as Zhuangzi's home node.",
+   "confidence": "high",
+   "proposed_label": "zhuangzi-home-node"
+  },
+  {
+   "source": "STIGMERGY Philosophical Lenses",
+   "target": "The Drift",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "evidence_source": "with the Drift loaded, PULSE shows not what is striving but what is being deliberately left alone (the palace's first not-doing surface)",
+   "evidence_target": "",
+   "rationale": "The LENS filter names The Drift as the lens that yields a not-doing surface.",
+   "confidence": "high",
+   "proposed_label": "not-doing-surface"
+  },
+  {
+   "source": "STIGMERGY Philosophical Lenses",
+   "target": "The Fortress and the Threshold",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "evidence_source": "The contradiction site [[The Fortress and the Threshold]] becomes a built view, not a page you reconstruct.",
+   "evidence_target": "",
+   "rationale": "The contradicts two-tone passage names the entry as the first built view.",
+   "confidence": "high",
+   "proposed_label": "contradiction-site-as-view"
+  },
+  {
+   "source": "STIGMERGY Philosophical Lenses",
+   "target": "Dialectic — dialectic — spinoza-zhuangzi-on-striving",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "evidence_source": "promised-but-unwritten dialogues (the [[Dialectic — dialectic — spinoza-zhuangzi-on-striving|Spinoza↔Zhuangzi]] re-run with Loudon steering ...)",
+   "evidence_target": "Dialectic — spinoza-zhuangzi-on-striving links back to Dialectic as archived-run.",
+   "rationale": "The QUEUE DIALECTICS lane lists a re-run of this archived dialogue as a promised item.",
+   "confidence": "medium",
+   "proposed_label": "promised-rerun"
+  },
+  {
+   "source": "The Lens",
+   "target": "BBS Design System",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "evidence_source": "Two interactive mockups live in this entry's bundle (`The Lens/`), in the [[BBS Design System]] grammar",
+   "evidence_target": "",
+   "rationale": "The Bundle section names the design system as the grammar of the mockups.",
+   "confidence": "high",
+   "proposed_label": "mockups-in-its-grammar"
+  },
+  {
+   "source": "The Lens",
+   "target": "Deleuze",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "evidence_source": "the philosopher pages ([[Deleuze]], [[Simondon]], [[Merleau-Ponty]]) carry explicit 'Lens on the Technical Work' sections ... its core apparatus ... (Deleuze: virtual/actual, intensity ...)",
+   "evidence_target": "Deleuze § Lens on the Technical Work",
+   "rationale": "The Lens-Entries section cites Deleuze's apparatus as the model of a lens entry.",
+   "confidence": "high",
+   "proposed_label": "virtual-actual-apparatus"
+  },
+  {
+   "source": "The Lens",
+   "target": "Merleau-Ponty",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "evidence_source": "the philosopher pages ([[Deleuze]], [[Simondon]], [[Merleau-Ponty]]) carry explicit 'Lens on the Technical Work' sections",
+   "evidence_target": "Merleau-Ponty § Lens on the Technical Work",
+   "rationale": "The Lens-Entries section names this page as half-containing the lens-entry genre.",
+   "confidence": "high",
+   "proposed_label": "lens-on-technical-work"
+  },
+  {
+   "source": "The Lens",
+   "target": "Simondon",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "evidence_source": "the philosopher pages ([[Deleuze]], [[Simondon]], [[Merleau-Ponty]]) carry explicit 'Lens on the Technical Work' sections",
+   "evidence_target": "Simondon § Lens on the Technical Work",
+   "rationale": "Same sentence; Simondon carries the section too.",
+   "confidence": "high",
+   "proposed_label": "lens-on-technical-work"
+  },
+  {
+   "source": "The Lens",
+   "target": "The Dichotomy of Control",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "evidence_source": "its core apparatus — the handful of concepts it imposes (Deleuze: virtual/actual, intensity; [[The Dichotomy of Control]]: up-to-me / not)",
+   "evidence_target": "The Dichotomy of Control § spec for the dichotomy-of-control filter, a QUEUE lens.",
+   "rationale": "The Lens-Entries section gives this page's apparatus as an example of a lens entry's substance.",
+   "confidence": "high",
+   "proposed_label": "up-to-me-apparatus"
+  },
+  {
+   "source": "The Lens",
+   "target": "The Four Virtues",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "evidence_source": "the four Stoic virtues lens how you act within. Not the same four — both cardinal lens-sets. See [[The Four Virtues]].",
+   "evidence_target": "The Four Virtues: 'The four virtues work as a decision lens.'",
+   "rationale": "The note on two fours names the virtues as a cardinal lens-set beside the Four Pillars.",
+   "confidence": "high",
+   "proposed_label": "cardinal-lens-set"
+  },
+  {
+   "source": "Dialectic",
+   "target": "Confucianism",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "evidence_source": "Fire at Nicopolis (Epictetus + Confucius, 2026-03 — produced [[The Fortress and the Threshold]], [[Stoicism]], [[Confucianism]])",
+   "evidence_target": "",
+   "rationale": "The Dialectic page credits an unarchived early run with producing this page. Caution: Fortress and Stoicism call that run an Excellent Adventure, not a Dialectic.",
+   "confidence": "medium",
+   "proposed_label": "fire-at-nicopolis"
+  },
+  {
+   "source": "Dialectic",
+   "target": "Stoicism",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "evidence_source": "Fire at Nicopolis (Epictetus + Confucius, 2026-03 — produced [[The Fortress and the Threshold]], [[Stoicism]], [[Confucianism]])",
+   "evidence_target": "Stoicism links Excellent Adventure with label the-fire-at-nicopolis.",
+   "rationale": "Same sentence; Stoicism itself labels the run, though to the Excellent Adventure.",
+   "confidence": "medium",
+   "proposed_label": "fire-at-nicopolis"
+  },
+  {
+   "source": "Dialectic",
+   "target": "Dialectic — dialectic — zhuangzi-epictetus-confucius-on-the-self",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "evidence_source": "Zhuangzi, Epictetus, and Confucius on the End of the Self (2026-05-02) — the palace's first deliberately archived Dialectic.",
+   "evidence_target": "I want to be the palace's first deliberately archived three-voice Dialectic",
+   "rationale": "Both pages say this is the first archived run; the archive links back as archived-run.",
+   "confidence": "high",
+   "proposed_label": "first-archived-run"
+  },
+  {
+   "source": "D3.js",
+   "target": "Flocking",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "evidence_source": "First job landed 2026-05-29 ([[Flocking]] three-Specialist shoot-out, interactive-control lens).",
+   "evidence_target": "Flocking: 'a three-Specialist shoot-out — D3.js, Observable Plot, p5.js ... D3 gives interactive control'",
+   "rationale": "Both pages describe the same shoot-out as D3.js's first job.",
+   "confidence": "high",
+   "proposed_label": "first-job"
+  },
+  {
+   "source": "Merleau-Ponty",
+   "target": "Logarithmic Interface Scaling",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "evidence_source": "[[Playful Interface Design]] and [[Logarithmic Interface Scaling]] are, on this reading, attempts to make a control absorbable",
+   "evidence_target": "",
+   "rationale": "Lens on the Technical Work reads this page as body-schema design.",
+   "confidence": "high",
+   "proposed_label": "absorbable-control"
+  },
+  {
+   "source": "Merleau-Ponty",
+   "target": "STIGMERGY v1.0 — Palace Front-End",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "evidence_source": "the front-end succeeds when it disappears. The phosphor, the keystrokes, the three decks should be absorbed into Loudon's body schema",
+   "evidence_target": "",
+   "rationale": "The In STIGMERGY section sets this as the front-end's success criterion. Target sits in STIGMERGY/Archive/.",
+   "confidence": "high",
+   "proposed_label": "succeeds-when-it-disappears"
+  },
+  {
+   "source": "Merleau-Ponty",
+   "target": "Stoicism",
+   "current_type": "connects-to",
+   "verdict": "retype",
+   "evidence_source": "never the transparent self-possession the Stoic [[Stoicism|fortress]] imagines",
+   "evidence_target": "",
+   "rationale": "The Philosopher section sets the situated, ambiguous body against the Stoic fortress; the claim is opposition, so contradicts (symmetric).",
+   "confidence": "medium",
+   "proposed_type": "contradicts",
+   "proposed_label": "body-vs-fortress"
+  }
+ ],
+ "typed_relations": [
+  {
+   "source": "Palace Philosophies",
+   "target": "CHILD",
+   "proposed_type": "connects-to",
+   "proposed_label": "honesty-holds-taste-yields",
+   "kind": "newcomer",
+   "rationale": "Palace Philosophies names CHILD in its body and says a child's hardest rule comes from Stoicism; CHILD states that rule. The hub has no typed link to CHILD (CHILD was reached by 5).",
+   "evidence_source": "A child's hardest rule comes from here too. Honesty holds and taste yields is the dichotomy of control applied to the collaboration ... every agent is born a child, and some grow into elders ([[CHILD]], [[ELDER]]).",
+   "evidence_target": "When you push back, honesty holds and taste yields: on what was verified, what is canon ... hold even when he insists; on taste, name the tension once and follow him, because it is his palace."
+  }
+ ],
+ "entry_health_flags": [
+  {
+   "entry": "STIGMERGY Philosophical Lenses",
+   "stage_current": "seed",
+   "stage_proposed": "sprout",
+   "vector_issue": "Status 'proposed' but phase 1 is partly real; The Lens says this page should be re-scoped to the lens surface with philosophy as first case.",
+   "note": "Phasing item 1 says 'Partly real since 2026-10-13: Palace Quotes lays a one-line lens reading'; The Lens says [L]ens shipped. Loudon's call on stage and on the re-scope."
+  },
+  {
+   "entry": "D3.js",
+   "stage_current": "status alive",
+   "stage_proposed": null,
+   "vector_issue": null,
+   "note": "Frontmatter holds two links each to Matplotlib, Observable Plot and p5.js: the labeled alternative-to ones ([[Shop/...]]) and bare connects-to duplicates. The bare duplicates carry no reason beside the labeled pair; propose cutting them (not in my list, flagged here)."
+  },
+  {
+   "entry": "Dialectic",
+   "stage_current": "growing",
+   "stage_proposed": null,
+   "vector_issue": null,
+   "note": "Calls the Fire at Nicopolis a Dialectic; The Fortress and the Threshold (line 47) and Stoicism (label the-fire-at-nicopolis on its Excellent Adventure link) call it an Excellent Adventure. Two names for one run; Loudon to settle."
+  },
+  {
+   "entry": "Deleuze",
+   "stage_current": "growing",
+   "stage_proposed": null,
+   "vector_issue": null,
+   "note": "Deleuze carries a bare connects-to to STIGMERGY Philosophical Lenses, while Lenses already holds a labeled link to Deleuze (queue-is-virtual-log-is-actual). A pair carries one link; that bare one is outside my list and likely wants a cut or label."
+  },
+  {
+   "entry": "Palace Philosophies",
+   "stage_current": "mature",
+   "stage_proposed": null,
+   "vector_issue": "forward_vector ends 'I bring philosophy to every corner of the palace. ' (trailing space) and speaks of an index, not of the living-philosophy and worked-crossing the body now holds.",
+   "note": "Minor. Vector may want a refresh at the next hub pass."
+  }
+ ],
+ "lighter_prose": [
+  {
+   "entry": "The Lens",
+   "where": "Shipped: A Real Procedure, third bullet",
+   "passage": "Caught by an independent Opus review the same day: the mandate's example post originally omitted `health._orchestrator_metadata.dispatch_mode`, which the real validator needs to treat a hand-authored message as Path 2 — without it every lensing session would have hit the mandate's own `if (!v.valid) throw`, silently killing the report before it reached WEAVE. Fixed, and `lens-mandate.test.js` now extracts the embedded example ... a different model reading this session's work through its own apparatus, on code instead of prose.",
+   "proposal": "simplify",
+   "words": "An independent Opus review found the example post lacked `dispatch_mode`; `lens-mandate.test.js` now runs it through the real validator. Loudon named the pattern: [[Bring In a Bigger Mind]]."
+  },
+  {
+   "entry": "Dialectic",
+   "where": "Cross-Domain Resonance, Excellent Adventure and Modes of Collaboration bullets",
+   "passage": "**[[Excellent Adventure]]** — Parent practice: embodied historical dialogue as AI learning technique. ... **[[Modes of Collaboration]]** — The Dialectic is one of the named modes. It has a distinct rhythm, power dynamic, and ideal use case that sits alongside the Mentor/Quiz, Excellent Adventure, and Philosophical Dialogue modes.",
+   "proposal": "delete",
+   "words": ""
+  },
+  {
+   "entry": "D3.js",
+   "where": "Gotchas, 2026-05-29 verification harness",
+   "passage": "A verification harness can pause `requestAnimationFrame` outright, and d3's timers with it. In the browser-pane harness the [[Flocking]] job was verified in, rAF never fired (a probe counter stayed at 0) ... Not rechecked since 2026-05-29: the pane's tools have been renamed since, and whether rAF still pauses there is unverified.",
+   "proposal": "simplify",
+   "words": "In the browser-pane harness rAF never fires, so d3 timers stall; call `d3.timerFlush()` in a loop to force ticks. Not rechecked since 2026-05-29."
+  },
+  {
+   "entry": "Philosopher Visits the Entry",
+   "where": "A Starting Roster",
+   "passage": "This is a seed, not a law — the palace prefers categories that emerge over many runs to taxonomies fixed in advance.",
+   "proposal": "simplify",
+   "words": "A seed, not a law."
+  },
+  {
+   "entry": "STIGMERGY Philosophical Lenses",
+   "where": "opening note",
+   "passage": "Written so a later Claude Code session can phase it onto the v1.0 build. Show-before-build: this is a contract to react to, not yet a thing to construct.",
+   "proposal": "simplify",
+   "words": "A contract to react to, not yet built."
+  }
+ ],
+ "summary": "Read the eight pages whole (The Lens and D3.js in the relevant parts) and checked each target for any sentence naming the source. Pattern: nearly all the bare links are real relations whose reason sits in one page's body (the roster on Philosopher Visits, the Stoicism paragraph on Palace Philosophies, the three-deck and body-schema passages), so 35 take a label, 2 retype (Deleuze to Spinoza as deepens, Merleau-Ponty to Stoicism as contradicts), and 1 is cut (Palace Philosophies to 1 from 2: neither page names the other). Targets rarely name the source back, so most evidence is one-sided. Could not settle: the Fire at Nicopolis is a Dialectic on the Dialectic page but an Excellent Adventure on Fortress and Stoicism; both STIGMERGY v1.0 targets resolve into STIGMERGY/Archive/, which Loudon may want to re-aim; D3.js holds bare duplicate links to Matplotlib, Observable Plot and p5.js, and Deleuze holds a bare duplicate to STIGMERGY Philosophical Lenses, all outside my list. One newcomer inbound proposed (Palace Philosophies to CHILD); no other under-reached entry was named on a page I read."
+}

@@ -18,18 +18,12 @@ links:
   - target: "[[Self-Describing Knowledge Module]]"
     type: connects-to
     label: the-transfer-bet
-  - target: "[[Cooperation Yields Agency]]"
-    type: emerged-from
   - target: "[[FOUR PILLARS]]"
     type: emerged-from
   - target: "[[SUBSTRATE]]"
     type: spawned
   - target: "[[1 from 2]]"
     type: mirrors
-  - target: "[[Kuramoto Coupling]]"
-    type: connects-to
-  - target: "[[Mixture of Experts]]"
-    type: connects-to
   - target: "[[Pages as Agents]]"
     type: connects-to
     label: emerged-but-not-predicted
@@ -37,9 +31,6 @@ links:
     type: connects-to
     label: emerged-but-not-predicted
   - target: "[[JEWEL|The Jewel]]"
-    type: connects-to
-    label: emerged-but-not-predicted
-  - target: "[[Palace Map]]"
     type: connects-to
     label: emerged-but-not-predicted
   - target: "[[Palace Enchantment]]"
@@ -87,26 +78,13 @@ Designed for live streams. Each session produces visible, shareable output — t
 
 ## What Actually Happened: A Six-Week Archaeology
 
-*Conducted 2026-05-02 against the git history (93 commits, 2026-03-17 → 2026-04-30). The findings below are the prerequisite the entry's forward_vector has been asking for. The full rewrite this archaeology unblocks is a separate session.*
+*Read from the git history of the palace's first six weeks, 2026-03-17 → 2026-04-30.*
 
 ### The Load-Bearing Finding
 
 **The palace did not start as a node. Commit 1 was already 27 markdown files (~23,000 lines), including [[SUBSTRATE]], [[Deposit Ceremony]], [[Harvest Ceremony]], [[Mixture of Experts]], [[Hyperdimensional Prism]], [[Spinoza Conatus]], [[Kuramoto Coupling]], [[Hilaritas Generator]], [[FOUR PILLARS]], and this entry itself.** The palace was bootstrapped from prior conversations and conceptual material that pre-existed git tracking. The Node → Edge → Typed Edge → Network developmental stages happened, but they happened *off-camera* — in pre-git conversations and in Loudon's head, fed by years of cross-domain material (Spinoza, Kuramoto, songlines, mycorrhizal networks, the 2014 semantic web paper).
 
 This is a load-bearing problem for the framework as written. The current entry teaches a sequence the palace itself never lived through in observable form. A faithful rewrite must either (a) acknowledge that the early stages require pre-existing intellectual substrate the framework cannot supply, or (b) be honest that what's teachable is the *late* sequence — what to do once you already have a corpus.
-
-### The Actual Stages (Observable in Git)
-
-What the palace *did* do, in git, was develop in six overlapping stages downstream of the organism stage:
-
-1. **Formalization (March 17–19, ~2 days).** Schema v1.0 → v1.4 in a single day. Type system, link ontology, ceremony linter, schema change protocol — all NAMING what was already in use, not building it. The schema is a *constitution drafted after settlement*, not a city plan.
-2. **Operationalization (March 18–25, ~1 week).** Token economy forces architectural choices: ceremony files split into operational card + Context companion. Walk Ceremony rewritten as flowing prose to match the songline metaphor. Self-Describing Knowledge Module deposited. Substrate self-model updated to v2. The palace becomes ergonomic for actual sessions — discoverable that it's straining against context windows.
-3. **Multi-Agent Architecture (March 19 → ongoing).** Swarm Weave designed and operationalized. The Jewel deposited (March 21) — generative compression for agent spawning, tiered context loading. Palace Worker prototype. agency_profile field added (April 1, schema v1.1). Dialogue Moderator written. The realization: the palace will be read by *many agents in parallel*, not one Claude in series.
-4. **Map and Orientation (March 27 → ongoing).** Palace Map + BBS Blackboard + Map Build Ceremony (March 27). Pheromone trails. Ghost nodes as desire-tracking. Lateral Access. The realization: agents need orientation *before* traversal — a map is a different artifact than a graph.
-5. **Enchantment (March 25 → ongoing).** Palace Enchantment deposited (March 25). First live enchantment: Hilaritas Generator (March 31). Then Lateral Access, Trickster, Threshold Conatus. The practice of *waking* dormant entries with full inhabited context — pages becoming agents that act.
-6. **Conventions (April 7 → ongoing).** April 7 Weave added 52 forward_vectors in one session — the closing-section convention crystallized as near-universal. Resonant Link Labels. Action Potential Oscillator HTML pattern as canonical artifact convention (deployed across 6+ projects). April 27 Swarm Weave: 94 links, 33 hub labels enriched, 19 forward vectors. The palace develops *style*, not just structure.
-
-File count: 27 (Day 0) → 53 (Day 5) → 172 (Day 9, Weekly Themes import) → 225 (Day 44).
 
 ### Predicted vs. Actual
 
@@ -140,15 +118,11 @@ The framework as a *teaching* document needs a different opening move. Three pla
 
 The forward vectors of the original entry (minimum viable graph density, teaching Typed Edge without bureaucracy, integration with Claude Projects/Code workflows) remain open and should be carried into whichever reframe is chosen.
 
-## Forward Vector
-
-The archaeology prerequisite is met. The entry is now ready for a full rewrite session. Open questions the rewrite must address:
+## Open Questions
 
 - Which of the three reframes above (honest-prerequisite / late-sequence / two-track) does the framework commit to? The choice is load-bearing — each produces a different teaching document.
 - Does the framework keep its bio/social parallel layers (cell/synapse/tissue table), or are those decorative scaffolding that should be cut now that the actual stages are visible?
 - How is the unobservable pre-git period acknowledged? The palace's depth came from years of prior intellectual work; a teaching framework that ignores this teaches a shallower organism than the palace.
-- What's the minimum viable graph density where emergent behaviors (orphan detection, songline navigation, quorum sensing) become noticeable? *Carried from the original Forward Vector — still open.*
-- How do we teach the Typed Edge stage without it feeling like bureaucracy? *Carried from the original — still open. The archaeology answers part of this: typed edges only feel non-bureaucratic when there's already material whose relationships are felt as meaningful.*
-- How does this framework interact with Loudon's existing Claude Projects and Claude Code workflows? *Carried from the original — still open.*
-
-This entry's drive: *to be rewritten as a framework grounded in the real developmental sequence, not the predicted one. The archaeology section above is the load it should be rewritten on top of.*
+- What's the minimum viable graph density where emergent behaviors (orphan detection, songline navigation, quorum sensing) become noticeable?
+- How do we teach the Typed Edge stage without it feeling like bureaucracy? *The archaeology answers part of this: typed edges only feel non-bureaucratic when there's already material whose relationships are felt as meaningful.*
+- How does this framework interact with Loudon's existing Claude Projects and Claude Code workflows?

@@ -6,7 +6,7 @@ pillars:
   - philosophy
   - creation
 born: 2026-06
-stage: sprout
+stage: growing
 confidence: working
 energy: high
 hook_quality: 9
@@ -33,9 +33,8 @@ links:
     label: analysis-as-synthesis-read-backward
   - target: "[[Loudon Live]]"
     type: connects-to
+    label: vocoder-stage
   - target: "[[Philosopher Visits the Entry]]"
-    type: connects-to
-  - target: "[[Spinoza]]"
     type: connects-to
 forward_vector: "I want to carry one sentence through every domain it touches — prediction is compression is intelligence — and to be the entry that proves a DSP technique and a theory of selfhood are the same claim read at different scales. I want to spawn an RNBO LPC vocoder for Loudon Live and to ask, out loud, what survives a large language model's prediction."
 ---
@@ -44,8 +43,6 @@ forward_vector: "I want to carry one sentence through every domain it touches �
 ![[Linear Predictive Coding — hero.png]]
 
 A speech-coding technique from the late 1960s, organized here around a single thesis held from statistics through engineering to philosophy: **prediction is compression is intelligence.** LPC is the worked example; the thesis is the reason it belongs in the palace and not only in a DSP notebook.
-
-The commission that produced it was explicit — *be deep and broad, connect disparate fields, use metaphor, mathematics, and storytelling.* This entry preserves that register deliberately; the prose is the synthesis, so the best passages are kept rather than compressed away.
 
 ## The autoregressive model and the residual
 
@@ -61,7 +58,7 @@ The lineage is a clean three-step story. Udny **Yule** (1927), trying to predict
 
 LPC factors speech into a **source** (the glottal buzz or breath) and a **filter** (the vocal tract shaping it). The filter's lattice realization is a cascade of two-multiply stages whose reflection coefficients have a direct physical meaning: they are the impedance mismatches between successive cylindrical segments of the vocal tract modeled as concatenated tubes.
 
-This is exactly a waveguide **scattering junction.** LPC's lattice and the digital waveguide are the same structure read from opposite ends — one analyzes a tube from its output, the other synthesizes a tube from its geometry. That is why the link to [[Waveguide Synthesizer]] is a `mirrors` and not a passing reference: *the vocal tract and the plucked string are one piece of mathematics wearing two bodies.* Karplus-Strong is LPC's synthesis side; LPC is Karplus-Strong's analysis side.
+This is exactly a waveguide **scattering junction.** LPC's lattice and the digital waveguide are the same structure read from opposite ends — one analyzes a tube from its output, the other synthesizes a tube from its geometry. With [[Waveguide Synthesizer]], *the vocal tract and the plucked string are one piece of mathematics wearing two bodies.* Karplus-Strong is LPC's synthesis side; LPC is Karplus-Strong's analysis side.
 
 ## The residual is where the soul hides
 
@@ -98,7 +95,7 @@ The same operation, renamed across fields:
 
 ## Artifact
 
-None generated — this was a pure prose lecture, and the essay text in the source chat (2026-04-28) *is* the artifact. Its strongest passages are preserved verbatim above and in the closing quotes; the full lecture should be filed as a `Linear Predictive Coding — source` bundle file when retrievable.
+No artifact. The source lecture (2026-04-28) is not yet filed.
 
 ---
 

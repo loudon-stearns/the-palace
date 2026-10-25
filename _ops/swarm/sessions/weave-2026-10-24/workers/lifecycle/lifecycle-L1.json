@@ -1,0 +1,142 @@
+{
+ "room": "lifecycle-L1",
+ "lens": "lifecycle",
+ "pages_read": [
+  "Shop/Ableton Session Writer.md",
+  "Shop/AuK.md",
+  "Shop/CAD Drafter.md",
+  "Projects/LDN RTM.md",
+  "Projects/VST Template.md",
+  "Projects/Splice Instrument Forge.md",
+  "Projects/Generative Audio Devices.md",
+  "Shop/Maker.md",
+  "The Shop.md",
+  "Radio Play.md",
+  "Projects/Haptic Handwheel.md",
+  "Projects/Project Stewardship System.md",
+  "Projects/Crystal Synthesizer.md",
+  "Projects/Bayesian Granular Synthesizer.md",
+  "Projects/Blood Compressor.md",
+  "Projects/Crystal Synthesizer/Crystal Synthesizer — scroll.md",
+  "Projects/Bayesian Granular Synthesizer/Bayesian Granular Synthesizer — scroll.md",
+  "Projects/Blood Compressor/Blood Compressor — scroll.md",
+  "scroll lines naming the VST Template in: Shepard Tone Synthesizer, Slime Mold Delay, Neural Granular Synthesis, Action Potential Oscillator, 2D Torus Wavetable Synthesizer, Retrospective Delay",
+  "grep passes (not full reads) over: Shop/Kokoro.md, Shop/Whisper.md, Shop/ffmpeg.md, Shop/Blender.md, Shop/Image-to-3D Smith.md, Shop/Loudon Live Post-producer.md, Projects/Loudon Live.md, Projects/Generative Sample Libraries.md, Shop/VCV Patch Generator.md, Audition Gate.md, Adopt the Craft, Author the Seam.md, Projects/Generative Preset Development.md",
+  "_ops/maps/palace-map-full-2026-10-24.json (neighbor lists for the five newcomers)"
+ ],
+ "weak_links": [],
+ "typed_relations": [
+  {
+   "source": "Project Stewardship System",
+   "target": "VST Template",
+   "proposed_type": "connects-to",
+   "proposed_label": "nine-stewards-path",
+   "kind": "newcomer",
+   "rationale": "On 2026-10-21 Loudon moved nine stewards onto the VST Template as their production path; the stewardship page says so twice and links the template only in body prose, so the typed web does not show the move.",
+   "evidence_source": "\"Nine stewards are on the VST production path (decided 2026-10-21; Loudon: 'All stuck behind max, move them to the VST production path ... lets make them products now.') ... Each is to become a VST prototype on the [[VST Template]] that he can play in Live: the controls in the template's interface, and a 'CRT' in the centre holding a visualizer drawn from that instrument's own metaphor.\" (Project Stewardship System.md, line 181; again line 54)",
+   "evidence_target": "\"A reusable template for turning a per-sample algorithm, written first as a numpy sketch, into a VST3/AU plugin for further exploration.\" (VST Template.md; the page does not yet say nine instruments are queued on it, a sentence it could take)"
+  },
+  {
+   "source": "Crystal Synthesizer",
+   "target": "VST Template",
+   "proposed_type": "connects-to",
+   "proposed_label": "plugin-path",
+   "kind": "newcomer",
+   "rationale": "Crystal Synthesizer is the one of the nine that has already been built through the template and passed its checks; its entry page is silent on this, so the link would also prompt one sentence there.",
+   "evidence_source": "\"Earlier today I moved the ringing crystal into the VST Template's shape, with axis angle and fire as knobs. This cycle I built it. A two-file shim lets the template's shared build tools build a plugin that lives in my own folder, and the result is installed as Crystal Synthesizer (VST3 and AU, maker Loudon Live). It passed every template check.\" (Crystal Synthesizer — scroll.md, Where this stands). The entry page itself has no sentence; it needs one for the link to carry its reason.",
+   "evidence_target": "\"Two plugins came out of it the same day ... and both pass every gate: pluginval at strictness 5, auval, and the host check.\" (VST Template.md, Where it stands) - the same gates Crystal passed."
+  },
+  {
+   "source": "Bayesian Granular Synthesizer",
+   "target": "VST Template",
+   "proposed_type": "connects-to",
+   "proposed_label": "plugin-path",
+   "kind": "newcomer",
+   "rationale": "Its steward shipped the face inside the template's editor on 2026-10-22; the entry page still describes an RNBO grain engine and a Loudon Live stage, so the typed link would also show where its next work went.",
+   "evidence_source": "\"Belief Cloud's whole face now draws in the VST Template's real editor, with the helix in its screen and a prior you paint there.\" (Bayesian Granular Synthesizer — scroll.md, Last shipped). Entry page carries no sentence; one is owed.",
+   "evidence_target": "\"A plugin's editor wears the [[Drafting Table Design System]] by default, inlined from `_ops/drafting-table/design-system/` at every build.\" (VST Template.md)"
+  }
+ ],
+ "entry_health_flags": [
+  {
+   "entry": "Ableton Session Writer",
+   "stage_current": "alive (Shop status)",
+   "stage_proposed": null,
+   "vector_issue": null,
+   "note": "Reach is already carried: nine outbound typed links, plus Splice Instrument Forge (typed, connects-to emits-through), VST Template.md (body sentence about the sealed VST3), Maker.md line 104 (routing sentence) and The Shop roster. Every neighbour in its two-hop ring is either already paired with it or has nothing to say about it (Generative Sample Libraries, Generative Preset Development, VCV Patch Generator, Audition Gate and Adopt the Craft do not mention it). I proposed no inbound link: a reverse link would double a pair, and the remaining candidates (Generative Audio Devices, the nine stewards) would be links I had to make up. Generative Audio Devices emits VCV patches, not Live Sets."
+  },
+  {
+   "entry": "AuK",
+   "stage_current": "stub",
+   "stage_proposed": null,
+   "vector_issue": null,
+   "note": "Reached only by The Shop roster table (The Shop.md line 138). Its three couplings (Kokoro, Whisper, ffmpeg) are typed from AuK's side and the pairs are filled, but none of those three pages mentions AuK. Whisper.md already says 'Kokoro's mirror image'; a sentence on Kokoro (\"AuK edits the recording this page makes\") and on Maker's narration line (Maker.md line 117, 'Narration -> Kokoro by default') would reach it honestly. I found no page that genuinely should point at AuK from a third side: Radio Play and Loudon Live say nothing about fixing a spoken line, and AuK has not yet had a real job, so a link there would be speculation."
+  },
+  {
+   "entry": "CAD Drafter",
+   "stage_current": "stub",
+   "stage_proposed": null,
+   "vector_issue": null,
+   "note": "Haptic Handwheel.md never names it (no mention of drawings, parts or the CAD probe), though CAD Drafter's vector and first job are that project's cap holes and mount block. The pair already carries CAD Drafter -> Haptic Handwheel (connects-to, first-job-for), so no new link; the reach gap is one sentence on the Handwheel page. Separately, CAD Drafter's charter refuses sculpted shapes and names Image-to-3D Smith and Blender in prose with no typed link to Image-to-3D Smith; if that boundary wants the web, the link belongs on CAD Drafter's side."
+  },
+  {
+   "entry": "LDN RTM",
+   "stage_current": "sprout",
+   "stage_proposed": null,
+   "vector_issue": null,
+   "note": "Reach is as it should be: Loudon Live, Loudon's Toolkit, OBS, Loudon Live Post-producer and the Live 12 series all name it, and the typed pairs are filled in both directions. The two-hop pages (ffmpeg, Kokoro, Manim CE, ComfyUI, FLUX, Flocking, Hero and Avatar Maker) share nothing with it beyond being Loudon Live neighbours; I proposed nothing. Its BBS Design System mention (the control panel override) is body prose only; it is an outbound question for another room, not a gap in its reach."
+  },
+  {
+   "entry": "VST Template",
+   "stage_current": "sprout",
+   "stage_proposed": null,
+   "vector_issue": null,
+   "note": "Its own links are four outbound connects-to. Its real traffic is elsewhere: nine stewards' scrolls say to build on it, Crystal Synthesizer built through it, Bayesian Granular Synthesizer shipped its face in it, and the page does not say so. The Ableton Session Writer pair is carried by ASW's link (hands-me-plugins). The page might name the stewards' path in one sentence."
+  },
+  {
+   "entry": "Maker",
+   "stage_current": "maker",
+   "stage_proposed": null,
+   "vector_issue": null,
+   "note": "Dispatch table routes CAD Drafter (line 102) and Ableton Session Writer (line 104) but has no line for AuK, and Narration (line 117) sends all speech to Kokoro. A stub with no job yet may belong there only as one sentence: a recorded line with a wrong word goes to AuK, unproven."
+  },
+  {
+   "entry": "Haptic Handwheel",
+   "stage_current": "seed",
+   "stage_proposed": null,
+   "vector_issue": null,
+   "note": "Silent about the CAD Drafter's drawings of its parts. One sentence would carry the pair already filled from CAD Drafter's side."
+  }
+ ],
+ "lighter_prose": [
+  {
+   "entry": "Ableton Session Writer",
+   "where": "Capabilities table, Known gaps, Test suite, First job",
+   "passage": "Loudon opened it unchanged in his own Live 12 (a fresh launch; Live's log: \"Restored: Frustration\" at 07:43:18 on 2026-10-21), played the ride, and said \"looks great and is working great!\"",
+   "proposal": "simplify",
+   "words": "Say it once, in First job: \"On 2026-10-21 Loudon opened the Frustration Set unchanged in his own Live 12, played the ride, and said 'looks great and is working great!'\" The same sentence with the log time stands four times (Status line, Capabilities table, Known gaps, Test suite); the other three can point to First job or lose the log timestamp."
+  },
+  {
+   "entry": "Ableton Session Writer",
+   "where": "Status line, opening paragraph",
+   "passage": "marked alive on 2026-10-21 on Loudon's yes (\"Yes, mark the Ableton Session Writer alive now that its first job is done\"); drafted 2026-10-21 in the Shopkeeper's workshop by the ableton-session session of the 2026-10-20 fan-out, from one probe (`Shop/Shopkeeper/probes/2026-10-20-ableton-session/`).",
+   "proposal": "simplify",
+   "words": "Alive since 2026-10-21, when its first job was done; drafted from one Shopkeeper probe (`Shop/Shopkeeper/probes/2026-10-20-ableton-session/`)."
+  },
+  {
+   "entry": "AuK",
+   "where": "Status line",
+   "passage": "drafted by the [[Shopkeeper]] from two probe sessions (2026-09-12, 2026-09-15); approved as a stub by Loudon and landed 2026-09-25, with the paper id, the endpoint and the duration rule checked against the model card and the Space. Not yet dispatched on a real brief.",
+   "proposal": "simplify",
+   "words": "Drafted by the [[Shopkeeper]] from two probes. Not yet dispatched on a real brief."
+  },
+  {
+   "entry": "VST Template",
+   "where": "Where it stands (2026-10-21)",
+   "passage": "The template landed at `1f7116b4`: one `Algorithm.h` and a numpy sketch become a JUCE 8 VST3/AU, with a harness, a host check that compares every move against a control render from the same start, and `new-plugin.py`. Two plugins came out of it the same day ... One gotcha arrived from outside: the [[Ableton Session Writer]]'s probe found Frustration's VST3 sealed before JUCE wrote its `moduleinfo.json`, so Live refused it; the VST session re-signed it after the manifest step, and the Set loaded in Live 12.4.6 on 2026-10-21. Sign after the manifest, then let Live rescan.",
+   "proposal": "simplify",
+   "words": "One `Algorithm.h` and a numpy sketch become a JUCE 8 VST3/AU, with a harness and a host check against a control render. Two plugins came out of it, Frustration and Simple Synth, and both pass pluginval at strictness 5, auval and the host check. Sign the VST3 after JUCE writes its `moduleinfo.json`, or Live will refuse it; the [[Ableton Session Writer]]'s probe found this. (The commit hash and the day-by-day telling are in git log.)"
+  }
+ ],
+ "summary": "I read the five newcomers whole (or the first nine thousand characters for the three longest), plus Splice Instrument Forge, Generative Audio Devices, Maker, The Shop, Radio Play, Haptic Handwheel, Project Stewardship System, the three stewarded projects and their scrolls, and grepped the rest of the two-hop ring. The pattern: every newcomer was written with its links pointing outward to the Shop, Maker and the tools it couples with, and the pairs on the other side are already filled or have nothing to say, so a reverse link would double a pair. The one place with real unlinked traffic is the VST Template: the nine VST-path stewards name it as their production path, and Crystal Synthesizer and Bayesian Granular Synthesizer have already built or dressed through it, so I propose three inbound links (Project Stewardship System, Crystal Synthesizer, Bayesian Granular Synthesizer), each connects-to with a label. For Ableton Session Writer, AuK, CAD Drafter and LDN RTM I propose none; the gaps are single sentences on Haptic Handwheel, Kokoro and Maker, listed in the health flags. Weak links: none met bare. Not settled: whether Blood Compressor (plugin folder exists, template build not yet run from it) and the six other stewards should take the same link now or when each has a plugin built; I held them back so the link arrives with its proof. Also not settled: whether the stewards' entry pages should take a body sentence before the typed link lands, since the scrolls carry the reason and the entries do not."
+}

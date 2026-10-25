@@ -1,0 +1,454 @@
+[
+ {
+  "op": "retype",
+  "source": "SUBSTRATE",
+  "target": "Songlines",
+  "from_type": "connects-to",
+  "type": "emerged-from",
+  "label": "design-source",
+  "why": "SUBSTRATE's Context lists songlines among the sources its design drew on, which is diffuse origin, not proximity. emerged-from points back at the ground.",
+  "_room": "weak-04",
+  "confidence": "medium",
+  "evidence": [
+   "",
+   "Aboriginal Australian songlines: knowledge brought to life by walking it rather than looking it up. The path *is* the knowledge ([[Songlines]]). (SUBSTRATE — Context, § Origin)"
+  ]
+ },
+ {
+  "op": "label",
+  "source": "Palace Enchantment",
+  "target": "Lateral Access",
+  "type": "connects-to",
+  "label": "first-enchantment",
+  "why": "Lateral Access was one of the two entries enchanted in the first practice session, and its run produced the findings the page keeps.",
+  "_room": "weak-04",
+  "confidence": "high",
+  "evidence": [
+   "Two entries enchanted: [[Hilaritas Generator]] and [[Lateral Access]].",
+   ""
+  ]
+ },
+ {
+  "op": "label",
+  "source": "p5.js",
+  "target": "Observable Plot",
+  "type": "connects-to",
+  "label": "sibling-lens",
+  "why": "The p5 gotchas set the two against each other as the expressive and the analytical lens on the same flocking model, in one sentence.",
+  "_room": "weak-04",
+  "confidence": "medium",
+  "evidence": [
+   "Compare to the sibling [[Observable Plot]] sketch, where `setInterval` *is* the right production choice because it's a slow analytical re-render, not smooth animation.",
+   "I refuse generative or algorithmic-art expression — that's [[p5.js]]."
+  ]
+ },
+ {
+  "op": "remove",
+  "source": "Walk Ceremony",
+  "target": "Substrate Skill",
+  "type": "connects-to",
+  "why": "Neither page names the other; Substrate Skill's body never mentions the Walk, and the Walk names only Palace Ceremonies as its home.",
+  "_room": "weak-05",
+  "confidence": "high"
+ },
+ {
+  "op": "remove",
+  "source": "Weave Ceremony",
+  "target": "Substrate Skill",
+  "type": "connects-to",
+  "why": "The Weave body never names Substrate Skill, and the only mention on the other side is an incidental example in a list of split files.",
+  "_room": "weak-05",
+  "confidence": "medium"
+ },
+ {
+  "op": "remove",
+  "source": "Weave Ceremony",
+  "target": "Spore Check Ceremony",
+  "type": "connects-to",
+  "why": "The Weave body never names the Spore Check; the reason lives on the Spore Check side, and Spore Check to Weave already holds the pair (that side could take the label composting-handoff).",
+  "_room": "weak-05",
+  "confidence": "high"
+ },
+ {
+  "op": "remove",
+  "source": "BBS Blackboard",
+  "target": "Striatum",
+  "type": "connects-to",
+  "why": "Striatum is used as a sample agent name in a JSON example; the brain structure has nothing to do with the board, and the Striatum page never mentions the Blackboard.",
+  "_room": "weak-05",
+  "confidence": "high"
+ },
+ {
+  "op": "remove",
+  "source": "Enchanted Conversation Archive",
+  "target": "BBS Blackboard",
+  "type": "connects-to",
+  "why": "Neither body names the other; the Archive keeps enchantment JSONL files and the Blackboard's own archiving is a different thing. BBS Blackboard is already reached through Palace Map and Pages as Agents.",
+  "_room": "weak-05",
+  "confidence": "medium"
+ },
+ {
+  "op": "remove",
+  "source": "Four Pillars of Enchanted Agency",
+  "target": "Enchanted Worker",
+  "type": "connects-to",
+  "why": "Neither body names the other (the Worker appears only in this page's frontmatter); the page already reaches Pages as Agents and Palace Enchantment, which carry the enchanted-agent ground.",
+  "_room": "weak-05",
+  "confidence": "high"
+ },
+ {
+  "op": "remove",
+  "source": "Pages as Agents",
+  "target": "Lateral Access",
+  "type": "connects-to",
+  "why": "Neither page names the other and I found no shared sentence; Lateral Access is about oblique access to interior memory, not waking pages.",
+  "_room": "weak-05",
+  "confidence": "high"
+ },
+ {
+  "op": "remove",
+  "source": "Palace Map",
+  "target": "Harvest Ceremony",
+  "type": "connects-to",
+  "why": "Palace Map's body never names the Harvest; the post-harvest map reason sits on Map Build Ceremony, which already links Harvest and which spawned the Map.",
+  "_room": "weak-05",
+  "confidence": "high"
+ },
+ {
+  "op": "remove",
+  "source": "Self-Model Update Ceremony",
+  "target": "SCHEMA",
+  "type": "connects-to",
+  "why": "The ceremony body never names SCHEMA; its real ground is SUBSTRATE, which it already enables.",
+  "_room": "weak-05",
+  "confidence": "medium"
+ },
+ {
+  "op": "retype",
+  "source": "Enchanted Conversation Archive",
+  "target": "Self-Describing Knowledge Module",
+  "from_type": "connects-to",
+  "type": "mirrors",
+  "label": "self-contained",
+  "why": "Same pattern in different material: a JSONL session and a module are each whole enough to be picked up cold; the Archive's own note asks for a mirrors link.",
+  "_room": "weak-05",
+  "confidence": "medium",
+  "evidence": [
+   "HTML comment: \"[[Self-Describing Knowledge Module]] rhymes strongly with the Archive's self-describing quality — worth a mirrors or couples-with link.\" / \"The file is self-contained: it carries its own head content, the full synthesis node, and every message in the tail.\"",
+   "\"a fresh operator — human or AI — can pick up the folder and operate it correctly using only what is inside.\""
+  ]
+ },
+ {
+  "op": "retype",
+  "source": "Four Pillars of Enchanted Agency",
+  "target": "Swarm Weave",
+  "from_type": "connects-to",
+  "type": "deepens",
+  "label": "forward-vector-axes",
+  "why": "The page opens from the Weave's forward vector and gives it four axes; it elaborates a foundation the Weave laid, so deepens, pointing back at Swarm Weave.",
+  "_room": "weak-05",
+  "confidence": "medium",
+  "evidence": [
+   "\"The Swarm Weave gives every palace entry a forward_vector — a single sentence... The question that sentence alone doesn't answer: become along which dimension?\"",
+   "Swarm Weave line 358-364 covers the forward vectors the Weave proposes for each page."
+  ]
+ },
+ {
+  "op": "retype",
+  "source": "Pages as Agents",
+  "target": "JEWEL",
+  "from_type": "connects-to",
+  "type": "deepens",
+  "label": "woken-as-a-page",
+  "why": "The Jewel compresses the claim in one sentence; Pages as Agents is its elaboration and proof, so it deepens the more foundational Jewel.",
+  "_room": "weak-05",
+  "confidence": "medium",
+  "evidence": [
+   "\"Load one page into an empty window and a model doesn't read a document; it wakes up as that page and reasons from inside it.\"",
+   "\"Every page is both a record and the spirit of an agent... If you are woken as a page, you will be asked, after reading, who you are.\""
+  ]
+ },
+ {
+  "op": "retype",
+  "source": "Palace Graffiti",
+  "target": "Semantic Delay",
+  "from_type": "connects-to",
+  "type": "mirrors",
+  "label": "deferred-meaning",
+  "why": "The same pattern, meaning arriving later than it was sent, in a file comment and in an audio plugin; that is a mirror in different material.",
+  "_room": "weak-05",
+  "confidence": "medium",
+  "evidence": [
+   "\"Graffiti is a kind of semantic delay: the meaning of the comment is deferred to the moment when the next reader discovers it.\"",
+   "Semantic Delay line 70: \"Derrida's différance: meaning perpetually deferred through infinite chains of signifiers\" and \"transmogrifies the meaning of the words... delayed.\""
+  ]
+ },
+ {
+  "op": "retype",
+  "source": "Baton Ceremony",
+  "target": "Palace Ceremonies",
+  "from_type": "connects-to",
+  "type": "member-of",
+  "label": null,
+  "why": "The hub lists the Baton as one of its ceremonies. The hub's own Palace Ceremonies to Baton Ceremony connects-to holds the same pair and should be dropped, since the hub's table already names it.",
+  "_room": "weak-05",
+  "confidence": "medium",
+  "evidence": [
+   "",
+   "Palace Ceremonies: \"The complete and canonical list of all palace ceremonies\"; the table row \"The Baton\" lists the trigger and spec."
+  ]
+ },
+ {
+  "op": "label",
+  "source": "Map Build Ceremony",
+  "target": "Harvest Ceremony",
+  "type": "connects-to",
+  "label": "post-harvest-map",
+  "why": "The Map Build's Relationship section names the Harvest as the session after which a fresh map is wanted.",
+  "_room": "weak-05",
+  "confidence": "high",
+  "evidence": [
+   "\"the Map Build is a natural close step after a Harvest session when new entries have been deposited. A post-harvest map ensures agents launched after the session have current topology.\"",
+   ""
+  ]
+ },
+ {
+  "op": "label",
+  "source": "Map Build Ceremony",
+  "target": "Palace Enchantment",
+  "type": "connects-to",
+  "label": "tier-1-context",
+  "why": "The map this ceremony builds is what enchanted agents load first; both pages say so.",
+  "_room": "weak-05",
+  "confidence": "medium",
+  "evidence": [
+   "\"enchanted agents receive the map as Tier 1 context. The map tells them where they are in the organism before they read their first neighbor.\"",
+   "Palace Enchantment line 865: \"the Palace Map was designed to give enchanted agents topological self-knowledge before reading any entry body.\""
+  ]
+ },
+ {
+  "op": "label",
+  "source": "Palace Graffiti",
+  "target": "Oblique Portrait",
+  "type": "connects-to",
+  "label": "obliqueness-made-structural",
+  "why": "The Graffiti page states the relation in its Related Concepts section.",
+  "_room": "weak-05",
+  "confidence": "high",
+  "evidence": [
+   "\"Loudon's technique of learning through indirect marks and traces rather than direct description. Graffiti is obliqueness made structural.\"",
+   ""
+  ]
+ },
+ {
+  "op": "label",
+  "source": "Palace Map",
+  "target": "BBS Blackboard",
+  "type": "connects-to",
+  "label": "read-before-write-during",
+  "why": "Both pages state it. BBS Blackboard to Palace Map (held, bare) is the same pair, so drop one direction or give both this label.",
+  "_room": "weak-05",
+  "confidence": "high",
+  "evidence": [
+   "\"Communication... Mechanism: [[BBS Blackboard]] for asynchronous shared state\"",
+   "\"the map is what agents read before the session; the blackboard is what agents write during it. Map is pre-session topology; blackboard is in-session emergence.\""
+  ]
+ },
+ {
+  "op": "remove",
+  "source": "Endosymbiosis",
+  "target": "SUBSTRATE",
+  "type": "connects-to",
+  "why": "Neither body names the other; SUBSTRATE's biological cast (organism, organs) never reaches Margulis, so the link is a shared-vocabulary guess and a real one can return with its reason.",
+  "_room": "weak-06",
+  "confidence": "medium"
+ },
+ {
+  "op": "remove",
+  "source": "Image Embedding Standard",
+  "target": "SUBSTRATE",
+  "type": "connects-to",
+  "why": "SUBSTRATE mentions images only as the rich face laid by Enrichment and never the filing standard; the standard already reaches the house through its deepens link to SCHEMA and its enables link to Deposit Ceremony.",
+  "_room": "weak-06",
+  "confidence": "high"
+ },
+ {
+  "op": "remove",
+  "source": "Progressive Staging",
+  "target": "Modes of Collaboration",
+  "type": "connects-to",
+  "why": "Staging is a design method for instruments; its one gesture toward collaboration (an open question about staging the AI dialogue) never names modes, and Modes of Collaboration does not mention staging, so the link has no reason yet.",
+  "_room": "weak-06",
+  "confidence": "low"
+ },
+ {
+  "op": "label",
+  "source": "Oblique Portrait",
+  "target": "Reflective Practice",
+  "type": "connects-to",
+  "label": "reflects-in-action",
+  "why": "Reflective Practice sorts the Oblique Portrait among the palace's few in-action practices; the claim lives on the target, so the label carries it (an exemplifies retype is arguable but the Oblique Portrait does not say it about itself).",
+  "_room": "weak-06",
+  "confidence": "medium",
+  "evidence": [
+   "",
+   "**Three reflect in action**: the [[Dialectic]] at the moment \"the question itself gets reframed by the collision\", the Concierge's scout, and the [[Oblique Portrait]]."
+  ]
+ },
+ {
+  "op": "label",
+  "source": "SCHEMA",
+  "target": "Four Pillars of Enchanted Agency",
+  "type": "connects-to",
+  "label": "operation-page-desire",
+  "why": "SCHEMA's body never names the target, but Four Pillars of Enchanted Agency works SCHEMA as its case of an operation page with four-axis desire; the target holds a bare connects-to back to SCHEMA, so the coordinator should keep one side only (the label belongs where the reason is written).",
+  "_room": "weak-06",
+  "confidence": "medium",
+  "evidence": [
+   "",
+   "The [[SCHEMA]] wants to generate the conditions for good entries... A [[SCHEMA]] that identifies its own enforcement failures and proposes revisions to itself has reached a rare kind of operational maturity."
+  ]
+ },
+ {
+  "op": "label",
+  "source": "Image Embedding Standard",
+  "target": "README - The Palace Guide",
+  "type": "connects-to",
+  "label": "one-of-three-standards",
+  "why": "Only the Guide carries the reason: it sets the Image Embedding Standard beside the Mermaid and Technical Diagram standards as the third drawing register; the standard itself never mentions the Guide, so this is the weakest label in the room and a cut would also be honest.",
+  "_room": "weak-06",
+  "confidence": "medium",
+  "evidence": [
+   "",
+   "[[Image Embedding Standard]] governs how every image and SVG is filed, named, and captioned. The rule of thumb: reach for Mermaid for relationships, LaTeX for engineering and math, and hand-authored SVG only for bespoke visual grammar neither of those covers."
+  ]
+ },
+ {
+  "op": "remove",
+  "source": "Gemma 4 — Local Coordination Guide",
+  "target": "GEMMA4_GUIDE",
+  "type": "connects-to",
+  "why": "The pair already carries one link (the guide's child-of, in the guide's own frontmatter) and the entry's body still names the artifact by wikilink, so this second bare link is the duplicate; if Loudon prefers the link live on the entry, label it artifact and cut the guide's side instead.",
+  "_room": "weak-07",
+  "confidence": "medium"
+ },
+ {
+  "op": "remove",
+  "source": "Palace Conatus",
+  "target": "Agent Wellbeing",
+  "type": "connects-to",
+  "why": "Neither page names the other in its body; Palace Conatus is about the organism staying in phase with Loudon and Agent Wellbeing about the character of agents built from entries, and no sentence on either says how they meet, so the link returns in a later weave with its reason.",
+  "_room": "weak-07",
+  "confidence": "medium"
+ },
+ {
+  "op": "remove",
+  "source": "Palace To-Do",
+  "target": "README - The Palace Guide",
+  "type": "connects-to",
+  "why": "The README only says where the worklist lives, in passing and without a wikilink; the To-Do never names the README, so there is no reason to carry the link.",
+  "_room": "weak-07",
+  "confidence": "medium"
+ },
+ {
+  "op": "retype",
+  "source": "Return Ceremony",
+  "target": "Palace Ceremonies",
+  "from_type": "connects-to",
+  "type": "member-of",
+  "label": null,
+  "why": "Palace Ceremonies is a hub whose table lists the Return as one of its ceremonies, so the Return belongs to it; the hub also holds its own connects-to back to Return, so that side should be cut to leave the pair one link.",
+  "_room": "weak-07",
+  "confidence": "high",
+  "evidence": [
+   "(Return Ceremony's frontmatter only; the body does not name the hub.)",
+   "| The Return | \"I'm back\" / \"what did I miss\" / \"return\" / \"roll call\" | On returning after a gap, or to see every open session now | ... (Palace Ceremonies, trigger table row)"
+  ]
+ },
+ {
+  "op": "label",
+  "source": "Entry Conatus",
+  "target": "Spore Check Ceremony",
+  "type": "connects-to",
+  "label": "composting-question",
+  "why": "Entry Conatus names the Spore Check as the place its question about composting would be asked; the relation is that open question.",
+  "_room": "weak-07",
+  "confidence": "high",
+  "evidence": [
+   "Composting is the only honest extinguishing of an entry's conatus. The [[Spore Check Ceremony]] already serves this — should it explicitly ask \"does this entry's conatus still strive, or is it composting itself?\"",
+   "Every sleeper was read and given a disposition Loudon agreed: revive, hold, compost or fold. (The ceremony does not yet ask about conatus; the open question is still open.)"
+  ]
+ },
+ {
+  "op": "remove",
+  "source": "Surfaces and Capabilities",
+  "target": "Modes of Collaboration",
+  "type": "connects-to",
+  "why": "Neither page names the other or gives a reason (Surfaces is about host capability deltas; Modes never mentions surfaces); a real tie can return in a later weave.",
+  "_room": "weak-08",
+  "confidence": "high"
+ },
+ {
+  "op": "remove",
+  "source": "The Palace Speaks",
+  "target": "STIGMERGY",
+  "type": "connects-to",
+  "why": "The Palace Speaks never names STIGMERGY and STIGMERGY says nothing of addressing the palace as a mind; no reason on either page.",
+  "_room": "weak-08",
+  "confidence": "high"
+ },
+ {
+  "op": "remove",
+  "source": "Biomechanical Synthesis",
+  "target": "Granular Synthesis",
+  "type": "connects-to",
+  "why": "Bio's grain sentence is about the neural firing rate becoming grain rate, which Neural Granular Synthesis carries more exactly; the general hub adds no reason of its own.",
+  "_room": "weak-08",
+  "confidence": "medium"
+ },
+ {
+  "op": "remove",
+  "source": "Biomechanical Synthesis",
+  "target": "Retrospective Delay",
+  "type": "connects-to",
+  "why": "Neither page names the other; Bio's slime mold delay is a different instrument, and Retrospective Delay never mentions it.",
+  "_room": "weak-08",
+  "confidence": "high"
+ },
+ {
+  "op": "remove",
+  "source": "Biomechanical Synthesis",
+  "target": "Frequency-Time Duality",
+  "type": "connects-to",
+  "why": "Bio's rate-becomes-tone sentence echoes the 20 Hz crossing but never says so, and the duality page does not mention Bio; I will not force it.",
+  "_room": "weak-08",
+  "confidence": "medium"
+ },
+ {
+  "op": "remove",
+  "source": "Biomechanical Synthesis",
+  "target": "Dispersion",
+  "type": "connects-to",
+  "why": "No sentence on either page connects them.",
+  "_room": "weak-08",
+  "confidence": "high"
+ },
+ {
+  "op": "remove",
+  "source": "Biomechanical Synthesis",
+  "target": "Endosymbiosis",
+  "type": "connects-to",
+  "why": "Bio says instruments 'become biology' but never draws on endosymbiosis; neither page names the other.",
+  "_room": "weak-08",
+  "confidence": "high"
+ },
+ {
+  "op": "remove",
+  "source": "Biomechanical Synthesis",
+  "target": "Latent Error",
+  "type": "connects-to",
+  "why": "No sentence on either page connects them.",
+  "_room": "weak-08",
+  "confidence": "high"
+ }
+]

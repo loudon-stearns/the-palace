@@ -19,15 +19,13 @@ links:
     type: member-of
   - target: "[[FOUR PILLARS]]"
     type: exemplifies
+    label: kick-drum-crossing
   - target: "[[Donella Meadows]]"
     type: connects-to
     label: structure-determines-behavior
   - target: "[[Leverage Points Framework]]"
     type: connects-to
     label: foundation-as-leverage
-  - target: "[[Marcus Aurelius]]"
-    type: connects-to
-    label: first-action-sets-trajectory
   - target: "[[Christopher Alexander]]"
     type: connects-to
     label: constraints-as-generative
@@ -194,14 +192,7 @@ They've understood that foundation is about **commitment and constraint**, not p
 
 ## Success Metrics (By Our Definition)
 
-**Not:** "Students always start with kick drum"
-**But:**
-- Students recognize foundational decisions in various domains
-- Students commit to foundations instead of endlessly revising
-- Students understand that constraints enable rather than limit
-- Students plan systems from foundation up, not surface down
-
-When production thinking improves systems thinking—**the resonance succeeded**.
+It worked when production thinking improves systems thinking.
 
 ---
 

@@ -6,16 +6,15 @@ pillars:
   - practice
   - philosophy
 born: 2026-03
-version: "1.29"
+version: "1.30"
 stage: foundational
 status: canonical
 links:
   - target: "[[CLAUDE]]"
     type: enables
+    label: read-when-grown
   - target: "[[README - The Palace Guide]]"
     type: deepens
-  - target: "[[ROSETTA]]"
-    type: mirrors
   - target: "[[Substrate Skill]]"
     type: enables
   - target: "[[Weave Ceremony]]"
@@ -24,15 +23,16 @@ links:
     type: enables
   - target: "[[Deposit Ceremony]]"
     type: enables
-  - target: "[[Resonant Link Labels]]"
-    type: connects-to
+    label: governed-by
   - target: "[[STIGMERGY]]"
     type: enables
     label: coordination-schema
   - target: "[[FOUR PILLARS]]"
     type: connects-to
+    label: pillars-field
   - target: "[[Four Pillars of Enchanted Agency]]"
     type: connects-to
+    label: operation-page-desire
   - target: "[[SCHEMA — Context]]"
     type: spawned
     label: rationale-archive
@@ -79,18 +79,18 @@ Read the table top to bottom and take the first row that fits; `concept` is the 
 | `meta` | it is about the palace itself: architecture, ceremonies, infrastructure, self-model | `version` (schema-level entries, ceremonies) · `trigger` (ceremonies) | [[SCHEMA]], [[SUBSTRATE]], [[CLAUDE]] |
 | `specialist` | it wraps an external creative tool with operational anatomy — Charter, Tiers, Job Contract, accumulated Gotchas | `status` · `medium` · `tool` · `tool_version` | [[Shop/Kokoro]], [[Shop/ComfyUI]] |
 | `maker` | it is a foreman for a roster of Specialists, holding house standards and dispatch logic | `status` | [[Shop/Maker]] |
-| `source` | it is an external artifact the palace draws from — paper, book, tool, recording | `author` · `year` · `medium` | [[Meaning and the Link (2014)]] |
+| `source` | it is an external artifact the palace draws from — paper, book, tool, recording | `author` · `year` · `medium` | [[Meaning and the Link]] |
 | `project` | it is being built, composed, or created; it has a temporal arc | `status` (active \| complete \| archived) | [[BLUELINE]], [[Loudon Live]] |
 | `question` | it is an unresolved question being actively carried | — | *"When does the wiki warrant its own Project?"* |
-| `spore` | it is an idea preserved for a later revival, dormant by choice (`stage` is always `dormant`) | `revival_conditions` | [[Shimmer Cloud]] |
-| `hub` | it organizes a dense region of the graph — **not self-assigned**, earned at ≥5 inbound typed links via the Weave | — | [[FOUR PILLARS]], [[Kuramoto Coupling]] |
+| `spore` | it is an idea preserved for a later revival, dormant by choice (`stage` is always `dormant`) | `revival_conditions` | [[JSUI]] |
+| `hub` | it organizes a dense region of the graph — **not self-assigned**, earned in the top inbound decile at the last map build, proposed by the Weave | — | [[FOUR PILLARS]], [[Kuramoto Coupling]] |
 | `practice` | it is a recurring method, workflow, ritual, or embodied way of working — something you *do*, not an idea you hold | `version` · `trigger` (ceremonies) | [[Closing Well]], [[Deposit Ceremony]] |
 | `person` | a thinker or collaborator whose ideas are in live dialogue with the palace — not every cited name | `domains` | [[Spinoza]], [[Brian Eno]] |
 | `concept` | **the default.** An idea, principle, or framework the palace reasons with | — | [[Kuramoto Coupling]], [[Spinoza Conatus]] |
 
 ### Notes the table can't hold
 
-**`hub` is earned and can be lost.** The Weave proposes promotion at ≥5 inbound typed links and demotion back to `concept` if the degree falls below. Never self-assign it.
+**`hub` is earned and can be lost.** The Weave proposes promotion for a page in the top inbound decile at the last map build (`weave-health.py` prints the cut; 19 inbound on 2026-10-24) and retype back to `concept` for a hub that falls below the median inbound. A hub is a role the graph has given a page, not a badge. Never self-assign it.
 
 **`person` entries are embodiable citizens** (v1.14). The *body* is the fully-formed human — source material an agent can wear in a [[Dialectic]] or [[Excellent Adventure]] — while the *frontmatter* is a newborn palace resident with its own `forward_vector` and usually an `agency_profile`. So a `person`'s `stage` tracks **palace citizenship** (born `seed`, growing through dispatch and enchantment), not the human's completeness — the same move `specialist` and `maker` make with `status`. The research corpus lives in a bundle `dossier`. Method: [[Making a Palace Citizen]].
 
@@ -156,12 +156,14 @@ Use only these relationship types:
 | `couples-with` | symmetric | Mutual reinforcement, co-activation | Ideas always active together; Kuramoto-style coupling. |
 | `exemplifies` | directed A→B | A is a concrete instance of the more general B | When an entry is a worked example or case of a principle, framework, or pattern (e.g. a Bridge → [[FOUR PILLARS]]). |
 | `member-of` | directed A→B | A belongs to a named collection, family, or registry B | When an entry is a catalogued member of a set (e.g. a person → [[Source Library]]). |
+| `contrasts-with` | symmetric | Set against, or standing in for, one another — short of a productive contradiction | When two things are alternatives, or differ along a named axis (learned vs emergent, drive vs impedance), and the difference is the point. A productive tension both true at once is `contradicts`. |
+| `made-by` | directed A→B | A, a work or a person's page, was made, directed or authored by B | When a page's subject is the maker of what the source page is about (a film → its director, a book → its author). The source points back at its ground. |
 
-**Directionality invariant.** For the lineage and taxonomy links, the source points *back toward its ground*: `deepens` → the more foundational idea it elaborates · `emerged-from` → the origin it grew from · `exemplifies` → the class it instances · `member-of` → the set it belongs to. Only `spawned` (origin → product) and `enables` (precondition → enabled) point *forward*. A collection/hub never emits `member-of` at its own members — membership is declared on the member side; the Map computes the hub's inbound degree. When unsure which way a directed link points, read it aloud as `source → type → target` and check the arrow; if it is still contestable, use `connects-to` + label rather than guess a directed type.
+**Directionality invariant.** For the lineage and taxonomy links, the source points *back toward its ground*: `deepens` → the more foundational idea it elaborates · `emerged-from` → the origin it grew from · `exemplifies` → the class it instances · `member-of` → the set it belongs to · `made-by` → the maker. Only `spawned` (origin → product) and `enables` (precondition → enabled) point *forward*. A collection/hub never emits `member-of` at its own members — membership is declared on the member side; the Map computes the hub's inbound degree. When unsure which way a directed link points, read it aloud as `source → type → target` and check the arrow; if it is still contestable, use `connects-to` + label rather than guess a directed type.
 
 **The `label` field:** Each link object may carry an optional `label` — a single word or hyphenated phrase naming the relationship's specific register. The `type` handles topological traversal and ceremony linting; the `label` carries the semantic compression that makes a link generative rather than merely classificatory. A `mirrors` link may mirror in the register of `rhymes-with`, `echoes`, `refracts`, or `shadows` — these are not synonyms. A `contradicts` link may contradict in the register of `argues-with-love`, `mourns`, `refuses`, or `breaks-open`. Label vocabulary: lower-case, evocative over clinical, single word or hyphenated phrase. Suggested vocabulary per family lives in [[Resonant Link Labels]]. New labels never require ceremony.
 
-**Adding a new link type** requires a Schema Ceremony. The link ontology is the palace's semantic vocabulary. Inflation cheapens all existing types. When in doubt, use `connects-to` and differentiate in a later Weave. (The v1.8 addition of `exemplifies` + `member-of` and the v1.9 `deepens`/`emerged-from` directionality correction are recorded in [[SCHEMA — Context]] §4.)
+**Adding a new link type** requires a Schema Ceremony. The link ontology is the palace's semantic vocabulary. Inflation cheapens all existing types. When in doubt, use `connects-to` and differentiate in a later Weave. (The v1.8 addition of `exemplifies` + `member-of`, the v1.9 `deepens`/`emerged-from` directionality correction and the v1.30 addition of `contrasts-with` + `made-by`, proposed by the Weave's label harvest, are recorded in [[SCHEMA — Context]] §4.)
 
 ---
 
@@ -213,3 +215,7 @@ addressing each other directly. If you are asked to read or post there, read the
 ---
 
 *"The purpose of abstracting is not to be vague, but to create a new semantic level in which one can be absolutely precise."* — Edsger Dijkstra
+
+## Active Baton
+
+[[SCHEMA — baton — retype to the two new types]] — drafted 2026-10-25

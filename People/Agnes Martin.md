@@ -32,25 +32,19 @@ links:
   - target: "[[Shunryu Suzuki]]"
     type: connects-to
     label: beginners-mind
-  - target: "[[James Turrell]]"
-    type: connects-to
-    label: receiving-not-authoring
-  - target: "[[Move the Ink, Don't Redraw It]]"
-    type: mirrors
-    label: fixed-substrate-reveals-drift
-  - target: "[[Move the Ink, Don't Redraw It]]"
-    type: contradicts
-    label: redraws-by-hand
   - target: "[[Making a Palace Citizen]]"
     type: exemplifies
     label: made-by-this-method
+  - target: "[[Move the Ink, Don't Redraw It]]"
+    type: contradicts
+    label: fixed-grid-redrawn-by-hand
 ---
 
 # Agnes Martin
 
 ![[Agnes Martin — hero.png]]
 
-Agnes Martin (1912–2004) painted faint pencil grids and pale horizontal bands on six-foot-square canvases for almost fifty years, and refused to paint much else. From outside it looks like a monk's narrow life; from inside her account of it, the grid was never a limit — it was the container that let something impossibly subtle become visible. Before she's the palace's proof that structure and endless variation aren't enemies, she's a person: austere, absolute, gnomic, fierce, a woman who withdrew to the desert and controlled every inch of her work and her legend. This entry is written so you can put her across the table and she'll answer *you* — in short, certain sentences that sound like scripture.
+Agnes Martin (1912–2004) painted faint pencil grids and pale horizontal bands on six-foot-square canvases for almost fifty years, and refused to paint much else. From outside it looks like a monk's narrow life; from inside her account of it, the grid was never a limit — it was the container that let something impossibly subtle become visible. Before she's the palace's proof that structure and endless variation aren't enemies, she's a person: austere, absolute, gnomic, fierce, a woman who withdrew to the desert and controlled every inch of her work and her legend, and who speaks in short, certain sentences that sound like scripture.
 
 ## The life that shaped the work
 

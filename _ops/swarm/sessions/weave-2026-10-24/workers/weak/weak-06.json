@@ -1,0 +1,247 @@
+{
+ "room": "weak-06",
+ "lens": "weak-links",
+ "pages_read": [
+  "Endosymbiosis", "Image Embedding Standard", "Oblique Portrait", "Pheromone Trail", "Progressive Staging", "SCHEMA", "Substrate Skill", "Swarm Weave", "Tree of Thoughts", "Walk That Weaves", "1 from 2", "Agent Wellbeing", "Closing Well Ceremony", "Concierge",
+  "SUBSTRATE", "Symbiotic Skills", "README - The Palace Guide", "Reflective Practice", "Palace as Context Injection System", "Crystal Synthesizer", "Four Pillars of Enchanted Agency", "Deposit Ceremony", "Palace Ceremonies", "BBS Blackboard", "Generative Compression", "Weave Ceremony", "Walk Ceremony", "Closing Well", "Resonant Link Labels", "CHILD", "SCHEMA - Reference (frontmatter, §3 pointers)"
+ ],
+ "weak_links": [
+  {
+   "source": "Endosymbiosis", "target": "SUBSTRATE", "current_type": "connects-to", "verdict": "cut",
+   "proposed_type": "", "proposed_label": "",
+   "evidence_source": "", "evidence_target": "",
+   "rationale": "Neither body names the other; SUBSTRATE's biological cast (organism, organs) never reaches Margulis, so the link is a shared-vocabulary guess and a real one can return with its reason.",
+   "confidence": "medium"
+  },
+  {
+   "source": "Endosymbiosis", "target": "Symbiotic Skills", "current_type": "connects-to", "verdict": "label",
+   "proposed_type": "", "proposed_label": "candidate-foundation",
+   "evidence_source": "The [[Symbiotic Skills]] framework is designed to teach others to form these deep human-AI relationships. Should it include Margulis explicitly as a foundation?",
+   "evidence_target": "The project draws on deep research across biological symbiosis (endosymbiosis, mycorrhizal networks, stigmergy, gut-brain axis, Physarum cognition)",
+   "rationale": "The source asks whether Margulis should be a foundation of the curriculum and the target already lists endosymbiosis among its research sources, so the register is a foundation proposed but not settled.",
+   "confidence": "high"
+  },
+  {
+   "source": "Image Embedding Standard", "target": "README - The Palace Guide", "current_type": "connects-to", "verdict": "label",
+   "proposed_type": "", "proposed_label": "one-of-three-standards",
+   "evidence_source": "",
+   "evidence_target": "[[Image Embedding Standard]] governs how every image and SVG is filed, named, and captioned. The rule of thumb: reach for Mermaid for relationships, LaTeX for engineering and math, and hand-authored SVG only for bespoke visual grammar neither of those covers.",
+   "rationale": "Only the Guide carries the reason: it sets the Image Embedding Standard beside the Mermaid and Technical Diagram standards as the third drawing register; the standard itself never mentions the Guide, so this is the weakest label in the room and a cut would also be honest.",
+   "confidence": "medium"
+  },
+  {
+   "source": "Image Embedding Standard", "target": "SUBSTRATE", "current_type": "connects-to", "verdict": "cut",
+   "proposed_type": "", "proposed_label": "",
+   "evidence_source": "", "evidence_target": "",
+   "rationale": "SUBSTRATE mentions images only as the rich face laid by Enrichment and never the filing standard; the standard already reaches the house through its deepens link to SCHEMA and its enables link to Deposit Ceremony.",
+   "confidence": "high"
+  },
+  {
+   "source": "Oblique Portrait", "target": "Symbiotic Skills", "current_type": "connects-to", "verdict": "label",
+   "proposed_type": "", "proposed_label": "power-inversion",
+   "evidence_source": "This was a deliberate experiment in subverting the default power structure of the Symbiotic Skills collaboration, where Loudon has observed that he always sets the pace and his instructions are always master.",
+   "evidence_target": "",
+   "rationale": "The Oblique Portrait names the Symbiotic Skills collaboration as the ground it was inverting; the register is who leads, handed over.",
+   "confidence": "high"
+  },
+  {
+   "source": "Oblique Portrait", "target": "Reflective Practice", "current_type": "connects-to", "verdict": "label",
+   "proposed_type": "", "proposed_label": "reflects-in-action",
+   "evidence_source": "",
+   "evidence_target": "**Three reflect in action**: the [[Dialectic]] at the moment \"the question itself gets reframed by the collision\", the Concierge's scout, and the [[Oblique Portrait]].",
+   "rationale": "Reflective Practice sorts the Oblique Portrait among the palace's few in-action practices; the claim lives on the target, so the label carries it (an exemplifies retype is arguable but the Oblique Portrait does not say it about itself).",
+   "confidence": "medium"
+  },
+  {
+   "source": "Pheromone Trail", "target": "Palace as Context Injection System", "current_type": "connects-to", "verdict": "label",
+   "proposed_type": "", "proposed_label": "what-injection-carries",
+   "evidence_source": "When an [[Enchanted Worker]] is seeded with a palace neighborhood before dispatch, what it absorbs is not just the semantic content of those entries but their pheromone trails",
+   "evidence_target": "**[[Pheromone Trail]]** — The mechanism by which palace entries accumulate the history of their own navigation, making the substrate increasingly tuned to what has been generative.",
+   "rationale": "Both pages carry the reason (injection loads the trail, and the ceremonies write back through it); note the Context Injection page holds a bare connects-to back, so the pair carries two links and one side should be cut when the label lands.",
+   "confidence": "medium"
+  },
+  {
+   "source": "Pheromone Trail", "target": "Swarm Weave", "current_type": "connects-to", "verdict": "label",
+   "proposed_type": "", "proposed_label": "steers-the-swarm",
+   "evidence_source": "This is why entry quality matters for swarm behavior: a richly written entry with clear typed links and densely worked prose produces strong trails... Swarm workers will cluster around strong trails and neglect weak ones",
+   "evidence_target": "### The Pheromone Trail — After each Swarm Weave cycle, the coordinator writes a `worker_trace` block back to entries where something notable happened",
+   "rationale": "The source never writes the words Swarm Weave in its body but its claim is about swarm workers, and the target's Phase 2 section sketches the write-back that makes the trail; the register is how the trail steers the swarm.",
+   "confidence": "medium"
+  },
+  {
+   "source": "Progressive Staging", "target": "Modes of Collaboration", "current_type": "connects-to", "verdict": "cut",
+   "proposed_type": "", "proposed_label": "",
+   "evidence_source": "", "evidence_target": "",
+   "rationale": "Staging is a design method for instruments; its one gesture toward collaboration (an open question about staging the AI dialogue) never names modes, and Modes of Collaboration does not mention staging, so the link has no reason yet.",
+   "confidence": "low"
+  },
+  {
+   "source": "Progressive Staging", "target": "Crystal Synthesizer", "current_type": "connects-to", "verdict": "label",
+   "proposed_type": "", "proposed_label": "staging-candidate",
+   "evidence_source": "The [[Crystal Synthesizer]] might stage from single resonator → coupled pair → lattice.",
+   "evidence_target": "",
+   "rationale": "The source names the Crystal Synthesizer as a project that might be built in stages; the target does not return the mention, so the label says candidate, not proven.",
+   "confidence": "high"
+  },
+  {
+   "source": "SCHEMA", "target": "Four Pillars of Enchanted Agency", "current_type": "connects-to", "verdict": "label",
+   "proposed_type": "", "proposed_label": "operation-page-desire",
+   "evidence_source": "",
+   "evidence_target": "The [[SCHEMA]] wants to generate the conditions for good entries... A [[SCHEMA]] that identifies its own enforcement failures and proposes revisions to itself has reached a rare kind of operational maturity.",
+   "rationale": "SCHEMA's body never names the target, but Four Pillars of Enchanted Agency works SCHEMA as its case of an operation page with four-axis desire; the target holds a bare connects-to back to SCHEMA, so the coordinator should keep one side only (the label belongs where the reason is written).",
+   "confidence": "medium"
+  },
+  {
+   "source": "Substrate Skill", "target": "Deposit Ceremony", "current_type": "connects-to", "verdict": "label",
+   "proposed_type": "", "proposed_label": "deposit-trigger",
+   "evidence_source": "when a conversation produces something palace-worthy... that is a deposit: run the [[Deposit Ceremony]] — re-enter, consult the [[Concierge]], a careful map, Loudon reads every word.",
+   "evidence_target": "",
+   "rationale": "The skill is where a conversation learns when to start the Deposit Ceremony; the register is the trigger.",
+   "confidence": "high"
+  },
+  {
+   "source": "Substrate Skill", "target": "Palace Ceremonies", "current_type": "connects-to", "verdict": "label",
+   "proposed_type": "", "proposed_label": "ceremony-index",
+   "evidence_source": "The canonical list of all ceremonies lives at [[Palace Ceremonies]].",
+   "evidence_target": "",
+   "rationale": "The skill defers to Palace Ceremonies for the full list; Palace Ceremonies holds a bare connects-to back, so one side of the pair should go.",
+   "confidence": "high"
+  },
+  {
+   "source": "Swarm Weave", "target": "Deposit Ceremony", "current_type": "connects-to", "verdict": "label",
+   "proposed_type": "", "proposed_label": "post-deposit-step",
+   "evidence_source": "It has been added to the [[Deposit Ceremony]] as Step 7.5. The question becomes: when is it built and tested enough to be non-optional?",
+   "evidence_target": "",
+   "rationale": "The single-entry Palace Worker mode of the Swarm Weave runs as a step inside the Deposit Ceremony; the Deposit Ceremony's own text was not found to name the Palace Worker, so the reason lives on the source only.",
+   "confidence": "medium"
+  },
+  {
+   "source": "Tree of Thoughts", "target": "BBS Blackboard", "current_type": "connects-to", "verdict": "label",
+   "proposed_type": "", "proposed_label": "branches-channel",
+   "evidence_source": "the `BRANCHES` board channel is where branch workers post their results. The coordinator reads all branches from this channel and performs the reconciliation that Tree of Thoughts calls \"evaluation\"",
+   "evidence_target": "| `BRANCHES` | Branch exploration results for coordinator reconciliation |",
+   "rationale": "Both pages name the BRANCHES channel as where parallel thought-branches land for evaluation; the register is the channel for branch results.",
+   "confidence": "high"
+  },
+  {
+   "source": "Tree of Thoughts", "target": "Generative Compression", "current_type": "connects-to", "verdict": "label",
+   "proposed_type": "", "proposed_label": "crafted-ancestor",
+   "evidence_source": "Generative Compression produces the documents that become high-value tree nodes: compressed context seeds positioned exactly at a moment of maximum useful density, ready to be branched from. The compressed document is a crafted ancestor node.",
+   "evidence_target": "",
+   "rationale": "The source gives a specific job: the compressed seed is the ancestor node a branch dispatch starts from. An enables retype (Generative Compression to Tree of Thoughts) is possible but the target does not say it.",
+   "confidence": "medium"
+  },
+  {
+   "source": "Walk That Weaves", "target": "Weave Ceremony", "current_type": "connects-to", "verdict": "label",
+   "proposed_type": "", "proposed_label": "surveys-from-above",
+   "evidence_source": "The current [[Weave Ceremony]] is a census — read everything, build a complete internal model, report from a god's-eye view.",
+   "evidence_target": "",
+   "rationale": "The question is defined as the mode between this ceremony and the Walk; the label names the Weave's pole.",
+   "confidence": "high"
+  },
+  {
+   "source": "Walk That Weaves", "target": "Walk Ceremony", "current_type": "connects-to", "verdict": "label",
+   "proposed_type": "", "proposed_label": "travels-through",
+   "evidence_source": "The [[Walk Ceremony]] is the opposite — pick a starting entry, follow typed links, let the topology reveal itself through movement. One surveys from above; one travels through.",
+   "evidence_target": "",
+   "rationale": "The Walk is the other pole of the question the entry asks; the label names it.",
+   "confidence": "high"
+  },
+  {
+   "source": "Agent Wellbeing", "target": "Closing Well", "current_type": "connects-to", "verdict": "label",
+   "proposed_type": "", "proposed_label": "outside-reader-prototype",
+   "evidence_source": "This is not new machinery; it is what the [[Closing Well]] moderator already does — a rested mind reading a spent session cold. We built the quality sensor before we knew it was one.",
+   "evidence_target": "",
+   "rationale": "Agent Wellbeing names the Closing Well moderator twice as the working prototype of the outside-agent quality read; the target does not return the mention.",
+   "confidence": "high"
+  },
+  {
+   "source": "Concierge", "target": "Reflective Practice", "current_type": "connects-to", "verdict": "label",
+   "proposed_type": "", "proposed_label": "curator-and-scout",
+   "evidence_source": "",
+   "evidence_target": "**Three reflect in action**... the Concierge's scout... [the reflect-on-action list closes with] and the [[Concierge]]'s curator.",
+   "rationale": "Reflective Practice places the Concierge's curator posture on the looking-back side and its scout on the in-action side, which is the only reason the pair has; Concierge's own body says nothing of it.",
+   "confidence": "medium"
+  }
+ ],
+ "typed_relations": [
+  {
+   "source": "Concierge", "target": "CHILD", "proposed_type": "connects-to", "proposed_label": "first-act-summons", "kind": "newcomer",
+   "rationale": "Both pages say it: CHILD makes summoning the Concierge a session's first act and the Concierge cites CHILD § Growing up for it; neither frontmatter holds the link. CHILD is a newcomer reached by 5.",
+   "evidence_source": "Load a Concierge visibly as your first act in every session, before the task — a one-line question included — on any surface that can spawn one ([[CHILD]] § Growing up).",
+   "evidence_target": "Your first act in any session, before the task, is to **summon the [[Concierge]]** — visibly"
+  },
+  {
+   "source": "Substrate Skill", "target": "SCHEMA — Reference", "proposed_type": "connects-to", "proposed_label": "rules-at-the-pen", "kind": "newcomer",
+   "rationale": "The skill sends the reader to SCHEMA — Reference four times (frontmatter fields, ceremony-file conventions, bundle spec) and no frontmatter link holds it. SCHEMA — Reference is a newcomer reached by 6.",
+   "evidence_source": "That file is not auto-loaded — read it before creating a bundle file. (The current vocabulary of bundle types lives in [[SCHEMA — Reference]] §8.)",
+   "evidence_target": "**Before you write, read [[SCHEMA — Reference]].** (as stated on SCHEMA; the Reference itself opens as the operating half of the type system)"
+  },
+  {
+   "source": "Pheromone Trail", "target": "SCHEMA — Reference", "proposed_type": "connects-to", "proposed_label": "decay-from-git", "kind": "newcomer",
+   "rationale": "Thin but real: trail decay is defined as use computed from git, and the body points to SCHEMA — Reference §3 for the computation. Offer only if the weave wants it; a cut of this one costs nothing.",
+   "evidence_source": "Entries with no recent use — no edits to the page or its bundle, and no new links reaching for it (computed from git: [[SCHEMA — Reference]] §3)",
+   "evidence_target": ""
+  }
+ ],
+ "entry_health_flags": [
+  {
+   "entry": "Endosymbiosis", "stage_current": "mature", "stage_proposed": null,
+   "vector_issue": null,
+   "note": "Its link to Modes of Collaboration is spawned with label evolutionary-pattern, but neither Modes of Collaboration nor its Context mentions Endosymbiosis or Margulis, so the direction and the claim are unsupported on the target's side. Worth a look by whoever reads the Modes of Collaboration room."
+  },
+  {
+   "entry": "Walk That Weaves", "stage_current": "growing", "stage_proposed": null,
+   "vector_issue": "The forward_vector and revival_conditions still say the page waits for the Swarm Weave to run cleanly, while the Revival Note (2026-09-24) says the condition is met and a walk did weave. The vector should now voice the open question the note leaves: a third ceremony or a lens inside the Weave.",
+   "note": "Type stays question. Only the stale vector and revival_conditions field need tuning."
+  },
+  {
+   "entry": "SCHEMA", "stage_current": "foundational", "stage_proposed": null,
+   "vector_issue": "No forward_vector in frontmatter (SCHEMA — Reference line 28 has one). Whether the field is required for foundational meta cards was not verified.",
+   "note": "Held at foundational."
+  },
+  {
+   "entry": "Substrate Skill", "stage_current": "mature", "stage_proposed": null,
+   "vector_issue": "No forward_vector in frontmatter. Required-ness not verified.",
+   "note": "At 30 KB it is the longest page in the room and carries several dated asides (see lighter_prose)."
+  },
+  {
+   "entry": "Pheromone Trail", "stage_current": "growing", "stage_proposed": null,
+   "vector_issue": null,
+   "note": "Its pair with Palace as Context Injection System carries a bare connects-to on each side; one should go when the label is written."
+  }
+ ],
+ "lighter_prose": [
+  {
+   "entry": "Image Embedding Standard", "where": "Filing Protocol",
+   "passage": "(The old `Artifacts/` folder this standard once used was deprecated and dissolved into bundles on 2026-06-16; the bundle rule replaces it outright.)",
+   "proposal": "delete", "words": ""
+  },
+  {
+   "entry": "Image Embedding Standard", "where": "Opening",
+   "passage": "Like all meta entries, it encodes a philosophical position as much as a procedure.",
+   "proposal": "delete", "words": ""
+  },
+  {
+   "entry": "Substrate Skill", "where": "Updating Entries",
+   "passage": "(proven on the 2026-05-28 audit: a conservative one-section trim was rejected for \"go more aggressive,\" and re-cutting a whole entry to ~53% was the right level)",
+   "proposal": "delete", "words": ""
+  },
+  {
+   "entry": "Substrate Skill", "where": "Stage as Alignment Confidence",
+   "passage": "*(Ship-first since the 2026-06-07 Steward Boldness revision — see [[Project Stewardship System]]; boldness ≠ batch: free the single creation, keep the gate on mass-production. Replaces the earlier \"discussion, not deliverables\" framing, which optimized for well-shaped questions over made things.)*",
+   "proposal": "simplify", "words": "*(Ship first: free the single creation, keep the gate on mass-production — [[Project Stewardship System]].)*"
+  },
+  {
+   "entry": "Substrate Skill", "where": "Ceremony File Conventions",
+   "passage": "Every run opens with a tail read of that ledger, never the whole of it — its last 40 lines with the run lines set aside, plus any item still owed wherever it sits — and those are the first candidates for the run's spec change. Every run closes by appending one run line, `- run · <date> · v<version> · <what it ran on> · nothing new` (or `taught item N`); a numbered item is written when the run taught something.",
+   "proposal": "simplify", "words": "A run reads the tail of its ledger first and closes by appending one run line; a numbered item is written only when the run taught something. Each ledger's frontmatter holds the exact format."
+  },
+  {
+   "entry": "Walk That Weaves", "where": "Revival Note (2026-09-24)",
+   "passage": "The honest lesson is that the first walk was misled by a counting bug, not by walking. The catch-up script counted symmetric links one way only, so it told walkers a newcomer had almost no inbound links when it already had several partners, and nearly half the walk's proposals re-drew links that already existed. With the count fixed, the rerun's 35 walk proposals held no duplicates",
+   "proposal": "simplify", "words": "The first walk redrew existing links because the catch-up script counted symmetric links one way only; with the count fixed, the rerun's 35 proposals held no duplicates (`_ops/swarm/sessions/weave-2026-09-24/ab/RESULT.md`)."
+  }
+ ],
+ "summary": "I read the 14 room pages in full or in the passages that matter, and for each of the 20 weak links I read the target and searched both bodies for the other's name. Result: 3 cuts (Endosymbiosis to SUBSTRATE, Image Embedding Standard to SUBSTRATE, Progressive Staging to Modes of Collaboration), 17 labels, 0 retypes, 0 keeps. The pattern: most bare links had a real reason sitting in one body, usually the source (a named ceremony step, a channel, a candidate project) and sometimes only the target (Reflective Practice naming Oblique Portrait and the Concierge; the Guide naming the image standard); the three cuts were shared vocabulary with no sentence on either page. Pairs where both sides hold a bare connects-to (Pheromone Trail and Context Injection, Substrate Skill and Palace Ceremonies, SCHEMA and Four Pillars of Enchanted Agency) should keep one link and lose the other once a label lands. I proposed three newcomer inbounds (Concierge to CHILD, Substrate Skill and Pheromone Trail to SCHEMA — Reference) and six lighter-prose edits. Not settled: whether the Progressive Staging to Modes of Collaboration cut is right (its open question about staging the collaboration is close), whether the Image Embedding Standard to Guide label is worth keeping over a cut, whether forward_vector is required on SCHEMA and Substrate Skill, and whether the Deposit Ceremony's own text names the Palace Worker step (I found no mention). No retype was proposed where the claim lived only on the target page; I preferred a label there."
+}

@@ -5,19 +5,13 @@ pillars:
   - tools
   - philosophy
 born: 2026-06
-stage: sprout
+stage: growing
 confidence: working
 energy: high
 hook_quality: 9
 beauty: 9
 who_leads: human
 links:
-  - target: "[[Floquet Theory]]"
-    type: couples-with
-    label: spectral-ground-of-the-limit-cycle
-  - target: "[[Kuramoto Coupling]]"
-    type: couples-with
-    label: the-collapse-that-makes-it-valid
   - target: "[[2D Torus Wavetable Synthesizer]]"
     type: connects-to
     label: two-phasors-as-a-coupled-pair
@@ -45,10 +39,15 @@ links:
   - target: "[[Dissolutions]]"
     type: member-of
     label: one-object-two-doorways
-  - target: "[[Bayesian Granular Synthesizer]]"
-    type: connects-to
   - target: "[[Wallpaper Groups]]"
     type: connects-to
+    label: symmetric-coupling
+  - target: "[[Floquet Theory]]"
+    type: couples-with
+    label: bridge-via-PRC
+  - target: "[[Kuramoto Coupling]]"
+    type: couples-with
+    label: phase-reduced-shadow
 forward_vector: "I want to be the entry that names the mechanism connecting Floquet and Kuramoto out loud — phase reduction is why a population of oscillators can be described by phase alone — and to make the Phase Response Curve a designed control object in a coupled-grain instrument. I also want to hold the meta-observation that Loudon's intuitions about framework-kinship keep getting confirmed."
 ---
 # Phase Reduction
@@ -57,7 +56,7 @@ forward_vector: "I want to be the entry that names the mechanism connecting Floq
 
 The mechanism that connects two frameworks the palace already holds separately — [[Floquet Theory]] and [[Kuramoto Coupling]] — into one story. **Phase reduction is the operation that collapses a high-dimensional limit-cycle oscillator down to a single phase variable, and the Kuramoto model is what you get when you do it to many weakly coupled oscillators at once.** The bridge between them is not loose analogy; it is a derivation.
 
-This entry began as an intuition: Floquet and Kuramoto *felt* like they should be connected. The session's job was to make the feeling precise. That pattern — intuition first, formalization confirming rather than correcting — recurs across the DSP-theory cluster (it also drives [[Chebyshev is Fourier]] and the Volterra unification), and it is itself worth naming: these structural-kinship hunches have a high hit rate.
+Loudon's hunch that Floquet and Kuramoto were kin turned out to be a derivation; the same has happened with [[Chebyshev is Fourier]] and the Volterra unification.
 
 ## The three steps of the bridge
 
@@ -86,23 +85,11 @@ The two phasors of the [[2D Torus Wavetable Synthesizer]] are **phase coordinate
 - **Two clocks on one wall.** Huygens' coupled pendulum clocks — the founding observation of synchronization science — are the minimal case: two limit cycles, weak coupling through the shared beam, phase-reducing to a two-body Kuramoto system that locks antiphase. The PRC of a pendulum clock's escapement is what sets the locked phase difference.
 - **Neuroscience and cardiac rhythm.** The PRC is measured experimentally for neurons and for the heart's pacemaker cells precisely because it predicts entrainment — when a periodic stimulus will capture a biological oscillator. Same object, same predictive power, different substrate.
 
-## Reconciliation note
-
-The palace already holds [[Floquet Theory]] and [[Kuramoto Coupling]] (both mature hubs). This *specific bridge* — phase reduction as the named mechanism, the PRC as a Floquet object — does not appear to be captured in either. The recommended landing is a standalone entry (this one) that both existing hubs gain a `couples-with` link to, rather than a buried section in one of them, because the bridge is symmetric and belongs to neither alone. Confirm against both entries before planting; if either already states the PRC-as-Floquet-object result, fold instead and downgrade this to a deepening link.
-
 ## Forward Vectors
 
 - Use the PRC explicitly as a *designed* control object in the coupled-grain / granular-additive hybrid — couples directly with the [[Bayesian Granular Synthesizer]].
 - A [[Phase Response Curve]] entry of its own, once it is used as a first-class design surface rather than only invoked.
 - Document the meta-pattern: Loudon's intuitions about framework-kinship keep getting confirmed. Worth its own small practice/meta note if a third or fourth instance lands.
-
-## Lost Branches
-
-None major — the bridge is tight and self-contained.
-
-## Artifact
-
-None generated (2026-05-08).
 
 ---
 

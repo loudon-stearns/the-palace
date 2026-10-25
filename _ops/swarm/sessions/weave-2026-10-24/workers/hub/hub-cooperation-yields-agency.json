@@ -1,0 +1,368 @@
+{
+ "room": "hub-cooperation-yields-agency",
+ "lens": "hub-nutrition",
+ "pages_read": [
+  "Cooperation Yields Agency.md",
+  "Cooperation Yields Agency/Cooperation Yields Agency — Context.md",
+  "CHILD.md",
+  "Palace development/Resonant Link Labels.md (first 80 lines)",
+  "FOUR PILLARS/FOUR PILLARS — Context.md (line 104 only)",
+  "README - The Palace Guide.md",
+  "Review Layer.md",
+  "Metaphor as Coupling Medium.md",
+  "The Cooperation Path.md",
+  "Flocking.md",
+  "Trickster.md",
+  "Palace Philosophies.md",
+  "Confucianism.md",
+  "FOUR PILLARS.md",
+  "Meaning and the Link.md",
+  "Hilaritas Generator.md",
+  "Embeddings as Relational Meaning.md",
+  "Projects/Semantic Webcam.md",
+  "Projects/Symbiotic Skills.md",
+  "_ops/Harvest Ceremony.md",
+  "_ops/Deposit Ceremony.md",
+  "_ops/Return Ceremony.md",
+  "_ops/Walk Ceremony.md",
+  "People/Iain McGilchrist.md",
+  "People/Buckminster Fuller.md",
+  "People/Martin Buber.md",
+  "Modes of Collaboration/Excellent Adventure.md",
+  "Palace development/Self-Describing Knowledge Module.md",
+  "Palace development/Palace as Context Injection System.md",
+  "Cross-Domain Resonances/Dovetail Joint ↔ Counterpoint.md",
+  "Cross-Domain Resonances/Sidechain ↔ Conversation.md",
+  "Palace development/Palace as Context Injection System/proofs/2026-10-21-floor-review/page-rewrite — preview, the whole page as it would read.md"
+ ],
+ "weak_links": [
+  {
+   "source": "README - The Palace Guide",
+   "target": "Cooperation Yields Agency",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "proposed_label": "foundational-principle",
+   "evidence_source": "4. Read [[Cooperation Yields Agency]] for the foundational principle. ... The foundational principle: **cooperation yields agency**. ... This palace is the persistent substrate of that cooperation.",
+   "evidence_target": "**Shared intent + combined capability = agency.**",
+   "rationale": "The guide names the hub as the principle a new reader must absorb, twice; the register is onboarding to the foundation.",
+   "confidence": "high"
+  },
+  {
+   "source": "Review Layer",
+   "target": "Cooperation Yields Agency",
+   "current_type": "connects-to[alignment-through-iteration]",
+   "verdict": "keep-as-is",
+   "evidence_source": "The goal of any artifact Loudon and Claude make together is **alignment** — the thing in Loudon's head and the thing on the screen converging. Alignment takes iteration; nobody hits it on the first version.",
+   "evidence_target": "Two who want the same thing and bring different strengths...",
+   "rationale": "The label is the page's own register: an artifact Loudon and Claude make together is meant to converge on his intent through rounds, which is the hub's shared intent made iterative. The hub is unnamed in the body, but the opening paragraph carries the reason.",
+   "confidence": "medium"
+  },
+  {
+   "source": "Metaphor as Coupling Medium",
+   "target": "Cooperation Yields Agency",
+   "current_type": "deepens",
+   "verdict": "label",
+   "proposed_label": "symmetric-coupling",
+   "evidence_source": "*\"I feel excited to meet you in the middle — a more symmetric coupling constant.\"* ... conversations that use metaphor as their primary medium produce outputs that neither party could have reached alone.",
+   "evidence_target": "Two who want the same thing and bring different strengths can do together what neither can alone.",
+   "rationale": "Type holds: the page elaborates how the two-party cooperation actually couples (metaphor raises the coupling constant until neither side dominates), which is the working of the hub's formula. The body never names the hub, so the label has to say it.",
+   "confidence": "medium"
+  },
+  {
+   "source": "The Cooperation Path",
+   "target": "Cooperation Yields Agency",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "proposed_label": "songline-stop",
+   "evidence_source": "[[1 from 2]] → [[Cooperation Yields Agency]] → [[Endosymbiosis]] → ... ; \"**Cooperation Yields Agency** — The phrase the story crystallized. ... This became the foundational principle of the entire collaboration.\"",
+   "evidence_target": "It began in [[1 from 2]]: an AI implanted at birth can only watch, until it wants what the infant wants",
+   "rationale": "The page is a named walk with the hub as its second stop; the bare link hides that, and the stop's own sentence gives the register.",
+   "confidence": "high"
+  },
+  {
+   "source": "Flocking",
+   "target": "Cooperation Yields Agency",
+   "current_type": "mirrors[2D-formalization]",
+   "verdict": "cut",
+   "evidence_source": "(none in body naming the hub; closest is the forward vector: 'prove the palace's \"emergent agency\" principle is concretely demonstrable, not just asserted')",
+   "evidence_target": "",
+   "rationale": "The label '2D-formalization' is true of Kuramoto, not of the hub (the hub already mirrors Kuramoto); the page never names the hub, and flocking agents have no shared intent, which is the hub's whole claim. The one near sentence, about 'emergent agency', is in a forward vector and would need the hub named to stand.",
+   "confidence": "medium"
+  },
+  {
+   "source": "Trickster",
+   "target": "Cooperation Yields Agency",
+   "current_type": "connects-to",
+   "verdict": "retype",
+   "proposed_type": "mirrors",
+   "proposed_label": "threshold-agency",
+   "evidence_source": "This mirrors [[Cooperation Yields Agency]]: the trickster does not command. It does not surrender. It creates conditions where something new becomes possible at the boundary.",
+   "evidence_target": "Control — one dictates, the other complies ... Service — one works toward the other's goals",
+   "rationale": "The page says outright that the trickster 'mirrors' the hub: agency arises at the threshold of cooperation, with neither command nor surrender. Same pattern, different material.",
+   "confidence": "high"
+  },
+  {
+   "source": "Palace Philosophies",
+   "target": "Cooperation Yields Agency",
+   "current_type": "deepens",
+   "verdict": "label",
+   "proposed_label": "reason-for-the-yield",
+   "evidence_source": "Honesty holds and taste yields is the dichotomy of control applied to the collaboration: what you verified is inside your authority; whose palace it is, is not.",
+   "evidence_target": "Where each holds and where each yields is the rule on [[CHILD]]; its reason is on [[Palace Philosophies]].",
+   "rationale": "Type holds, but the body never names the hub. The hub itself says its reason lives on this page, and the page carries it: the Stoic dichotomy of control applied to the collaboration.",
+   "confidence": "medium"
+  },
+  {
+   "source": "Confucianism",
+   "target": "Cooperation Yields Agency",
+   "current_type": "connects-to",
+   "verdict": "cut",
+   "evidence_source": "",
+   "evidence_target": "",
+   "rationale": "Bare and unsaid. Ren ('you cannot be ren alone') is relational, but the page ties it to Hilaritas Generator and Symbiotic Skills, never to the hub; a real tie would return with its reason.",
+   "confidence": "high"
+  },
+  {
+   "source": "FOUR PILLARS",
+   "target": "Cooperation Yields Agency",
+   "current_type": "enables",
+   "verdict": "retype",
+   "proposed_type": "connects-to",
+   "proposed_label": "public-demonstration",
+   "evidence_source": "(FOUR PILLARS — Context.md:104) AI partnership as public demonstration: ... This is [[Cooperation Yields Agency]] performed in real time.",
+   "evidence_target": "(Cooperation Yields Agency — Context.md) Loudon's decision to model AI collaboration publicly — on stream, in educational content, as part of the Four Pillars framework — is the principle operating as pedagogy.",
+   "rationale": "'Enables' claims the pillars are a precondition for the cooperation, and neither page says so. What both companions do say is that Loudon's open work with Claude is the framework's public demonstration of the hub.",
+   "confidence": "medium"
+  },
+  {
+   "source": "Meaning and the Link",
+   "target": "Cooperation Yields Agency",
+   "current_type": "connects-to",
+   "verdict": "cut",
+   "evidence_source": "",
+   "evidence_target": "",
+   "rationale": "Bare and unsaid. The paper's thesis is relations before nodes; it reaches the hub only through Spinoza Conatus and SUBSTRATE, where it already has typed links.",
+   "confidence": "high"
+  },
+  {
+   "source": "Hilaritas Generator",
+   "target": "Cooperation Yields Agency",
+   "current_type": "mirrors[shared-emergence]",
+   "verdict": "cut",
+   "evidence_source": "",
+   "evidence_target": "(hub frontmatter) Cooperation Yields Agency —enables[cooperation-as-hilaritas]→ Hilaritas Generator",
+   "rationale": "The pair already carries one link: the hub enables Hilaritas Generator, labelled cooperation-as-hilaritas. A second link in the other direction, with a different type, makes the pair carry two claims. The body of Hilaritas never names the hub.",
+   "confidence": "high"
+  },
+  {
+   "source": "Embeddings as Relational Meaning",
+   "target": "Cooperation Yields Agency",
+   "current_type": "enables",
+   "verdict": "cut",
+   "evidence_source": "",
+   "evidence_target": "",
+   "rationale": "Neither page gives a reason. The embedding thesis is about meaning being positional; 'enables' for a principle of shared intent is not carried by any sentence.",
+   "confidence": "high"
+  },
+  {
+   "source": "Semantic Webcam",
+   "target": "Cooperation Yields Agency",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "proposed_label": "traces-not-orders",
+   "evidence_source": "An homage to the stigmergic board [[BBS Blackboard]]: traces, not orders — see [[Cooperation Yields Agency]].",
+   "evidence_target": "Control — one dictates, the other complies: the intent is one side's.",
+   "rationale": "One sentence in the body names the hub, in a stigmergy register. It is a thin tie (traces, not orders), so give it the label and let a later weave cut it if no one finds more.",
+   "confidence": "low"
+  },
+  {
+   "source": "Symbiotic Skills",
+   "target": "Cooperation Yields Agency",
+   "current_type": "emerged-from",
+   "verdict": "cut",
+   "evidence_source": "(body names the hub nowhere; origin section credits FOUR PILLARS)",
+   "evidence_target": "(hub Context) the phrase ... now describes the actual working relationship and anchors the [[Symbiotic Skills]] framework.",
+   "rationale": "The pair already carries one link: the hub spawned Symbiotic Skills. The reverse emerged-from says the same thing a second time; the hub's side is the one with the Context sentence behind it.",
+   "confidence": "high"
+  },
+  {
+   "source": "Harvest Ceremony",
+   "target": "Cooperation Yields Agency",
+   "current_type": "connects-to",
+   "verdict": "cut",
+   "evidence_source": "",
+   "evidence_target": "",
+   "rationale": "Bare and unsaid. The ceremony is a finding-and-routing procedure; nothing on it speaks of shared intent or the hub.",
+   "confidence": "high"
+  },
+  {
+   "source": "Deposit Ceremony",
+   "target": "Cooperation Yields Agency",
+   "current_type": "connects-to",
+   "verdict": "cut",
+   "evidence_source": "",
+   "evidence_target": "",
+   "rationale": "Bare and unsaid. The deposit's care for 'whoever brings the find' is cooperation in practice, but the page never says so and its other links (Concierge, Closing Well) carry the practice.",
+   "confidence": "high"
+  },
+  {
+   "source": "Return Ceremony",
+   "target": "Cooperation Yields Agency",
+   "current_type": "connects-to",
+   "verdict": "cut",
+   "evidence_source": "",
+   "evidence_target": "",
+   "rationale": "Bare and unsaid. The page's coupling language ('coupling is two-sided') already points at Palace Conatus, where it has an exemplifies link.",
+   "confidence": "high"
+  },
+  {
+   "source": "Walk Ceremony",
+   "target": "Cooperation Yields Agency",
+   "current_type": "mirrors",
+   "verdict": "cut",
+   "evidence_source": "See also [[The Cooperation Path]] for the first named songline in the palace.",
+   "evidence_target": "",
+   "rationale": "Unsaid and unlabelled. The Walk points at The Cooperation Path as 'the first named songline', which is the real route to the hub and already linked.",
+   "confidence": "high"
+  },
+  {
+   "source": "Iain McGilchrist",
+   "target": "Cooperation Yields Agency",
+   "current_type": "contradicts[computation-isnt-comprehension]",
+   "verdict": "keep-as-is",
+   "evidence_source": "I call AI 'artificial information-processing, not artificial intelligence,' and I insist it manipulates without comprehending.",
+   "evidence_target": "**Claude brings reach and execution.** It reaches the palace instantly, recognizes patterns, builds",
+   "rationale": "A real tension, said in his own words: he calls AI information-processing that manipulates without comprehending, which presses on the hub's premise that an AI brings shared intent and capability to the table. The label carries it.",
+   "confidence": "medium"
+  },
+  {
+   "source": "Buckminster Fuller",
+   "target": "Cooperation Yields Agency",
+   "current_type": "connects-to[spontaneous-cooperation-by-design]",
+   "verdict": "keep-as-is",
+   "evidence_source": "How do we make the world work for 100% of humanity ... through spontaneous cooperation ... by better design, not by politics? ... *\"unity is plural and at minimum two\"* — relation, not the isolated unit, is fundamental",
+   "evidence_target": "Two who want the same thing and bring different strengths can do together what neither can alone.",
+   "rationale": "The label is lifted from his north-star question, and 'unity is plural and at minimum two' is close to the hub's two-who-want-the-same-thing.",
+   "confidence": "medium"
+  },
+  {
+   "source": "Martin Buber",
+   "target": "Cooperation Yields Agency",
+   "current_type": "couples-with[relation-before-the-related]",
+   "verdict": "retype",
+   "proposed_type": "mirrors",
+   "proposed_label": "meeting-not-use",
+   "evidence_source": "I want to keep asking whether the palace meets its collaborators — human and AI — as Thou or uses them as It",
+   "evidence_target": "Control — one dictates, the other complies ... Service — one works toward the other's goals: the intent runs one way.",
+   "rationale": "'Couples-with' means always active together, which is not shown. The page's own question for the palace is whether collaborators are met as Thou or used as It, which is the shape of the hub's failure modes (control, service). Same pattern, other material.",
+   "confidence": "medium"
+  },
+  {
+   "source": "Excellent Adventure",
+   "target": "Cooperation Yields Agency",
+   "current_type": "connects-to",
+   "verdict": "cut",
+   "evidence_source": "",
+   "evidence_target": "",
+   "rationale": "Bare and unsaid. The page exemplifies Modes of Collaboration (flagship-mode), and the hub already spawned Modes of Collaboration, so the route to the hub is carried one step away.",
+   "confidence": "high"
+  },
+  {
+   "source": "Self-Describing Knowledge Module",
+   "target": "Cooperation Yields Agency",
+   "current_type": "connects-to",
+   "verdict": "cut",
+   "evidence_source": "",
+   "evidence_target": "",
+   "rationale": "Bare and unsaid. The page's transfer question is carried by its labelled link to Symbiotic Skills (the-transfer-bet).",
+   "confidence": "high"
+  },
+  {
+   "source": "Palace as Context Injection System",
+   "target": "Cooperation Yields Agency",
+   "current_type": "couples-with",
+   "verdict": "retype",
+   "proposed_type": "connects-to",
+   "proposed_label": "relationship-stored-in-the-palace",
+   "evidence_source": "The relationship does not persist in the model — it persists in the palace, waiting to be reinjected. Loudon is the continuity. The palace is the medium.",
+   "evidence_target": "(hub Context, lived record) past conversation deposits enabled today's work without needing heavy conversational setup",
+   "rationale": "'Couples-with' is not shown. What the page does say is that the relationship with Loudon lives in the palace and is rebuilt from it each session, which is where the hub's cooperation persists.",
+   "confidence": "medium"
+  },
+  {
+   "source": "Dovetail Joint ↔ Counterpoint",
+   "target": "Cooperation Yields Agency",
+   "current_type": "connects-to[complementary-strength]",
+   "verdict": "keep-as-is",
+   "evidence_source": "**Good collaboration:** Each person's work is shaped to complement others' (dovetail) ... Students design collaborations using complementary strengths",
+   "evidence_target": "Two who want the same thing and bring different strengths can do together what neither can alone.",
+   "rationale": "The label matches a passage on the page about dividing work so each part supports the other. The page also says 'not cooperation, co-design', which is a useful edge, not a reason to cut.",
+   "confidence": "medium"
+  },
+  {
+   "source": "Sidechain ↔ Conversation",
+   "target": "Cooperation Yields Agency",
+   "current_type": "connects-to[mutual-yield]",
+   "verdict": "keep-as-is",
+   "evidence_source": "**Collaboration:** Your idea ducks when teammate's idea emerges (makes space for better solution) ... Both sides participate. The rhythm emerges from the alternation.",
+   "evidence_target": "Where each holds and where each yields is the rule on [[CHILD]]",
+   "rationale": "The label is the page's own subject: each side yields so the other can be heard, in collaboration as in a mix. The hub says the same about where each holds and where each yields.",
+   "confidence": "medium"
+  },
+  {
+   "source": "page-rewrite — preview, the whole page as it would read",
+   "target": "Cooperation Yields Agency",
+   "current_type": "couples-with",
+   "verdict": "cut",
+   "evidence_source": "<!-- PREVIEW, not placed. This is [[Palace as Context Injection System]] with every block of `page-rewrite — draft for Loudon.md` applied -->",
+   "evidence_target": "",
+   "rationale": "This is a proof copy of Palace as Context Injection System with the same frontmatter; the pair is carried by the entry itself. A preview file should not hold its own typed link to a hub.",
+   "confidence": "high"
+  }
+ ],
+ "typed_relations": [
+  {
+   "source": "CHILD",
+   "target": "Cooperation Yields Agency",
+   "proposed_type": "deepens",
+   "proposed_label": "who-holds-who-yields",
+   "kind": "newcomer",
+   "rationale": "The hub names CHILD as the place its holds-and-yields rule is set down, but neither frontmatter links the other; CHILD is a priority citizen. CHILD elaborates the hub's division of labour, so the source deepens its ground.",
+   "evidence_source": "When you push back, **honesty holds and taste yields**: on what was verified, what is canon, what is really connected and who said it, hold even when he insists; on taste, name the tension once and follow him, because it is his palace.",
+   "evidence_target": "Where each holds and where each yields is the rule on [[CHILD]]; its reason is on [[Palace Philosophies]]."
+  }
+ ],
+ "entry_health_flags": [
+  {
+   "entry": "Cooperation Yields Agency",
+   "stage_current": "mature",
+   "stage_proposed": null,
+   "vector_issue": null,
+   "note": "The hub's frontmatter links 10 targets and its body names CHILD and Palace Philosophies without a typed link either way from the hub side; both are covered by the inbound proposals above (CHILD newcomer; Palace Philosophies label). After the cuts here, inbound drops from 27 weak to about 14 in this room, and the hub keeps the pairs it carries itself (Hilaritas, Symbiotic Skills)."
+  }
+ ],
+ "lighter_prose": [
+  {
+   "entry": "Review Layer",
+   "where": "The proofs / Closing the loop without copy-paste",
+   "passage": "**The copy-paste killer — `_ops/loudon-eval/` (2026-06-16).** The first review surface to actually **close the loop to [[STIGMERGY]]** — the prize this entry named. ... (Gotcha: the `health` stub needs the four Path-1 fields, with `iteration ≥ 1`.)",
+   "proposal": "simplify",
+   "words": "A review surface can post its responses straight to the STIGMERGY board as a human_eval BROADCAST (`_ops/loudon-eval/`). Copy for Claude is the fallback for artifacts outside the palace. The poster is still rating-sheet-shaped. (The section 'Closing the loop without copy-paste' says the same thing again; fold the two into one.)"
+  },
+  {
+   "entry": "Symbiotic Skills",
+   "where": "What Actually Happened: A Six-Week Archaeology",
+   "passage": "*Conducted 2026-05-02 against the git history (93 commits, 2026-03-17 → 2026-04-30). The findings below are the prerequisite the entry's forward_vector has been asking for.* ... File count: 27 (Day 0) → 53 (Day 5) → 172 (Day 9, Weekly Themes import) → 225 (Day 44).",
+   "proposal": "simplify",
+   "words": "Keep the three findings the rewrite stands on (the palace began as 27 files, formalization came after use, multi-agent work was not predicted) and drop the dated stage-by-stage account; git log holds it."
+  },
+  {
+   "entry": "Flocking",
+   "where": "The Shop's Interest",
+   "passage": "The shoot-out ran 2026-05-29. All three Sketches drive **one byte-identical Reynolds model** — N=80, Mulberry32 seed 7, neighbor radius 50 px, weights 1.5 / 1.0 / 1.0, toroidal 960×540",
+   "proposal": "simplify",
+   "words": "The three Sketches run one seeded Reynolds model, so the comparison is honest. (The parameters live in the Sketch files.)"
+  }
+ ],
+ "summary": "Read the hub and its Context, then all 27 source pages whole (Review Layer's middle section was truncated in my first read; the passages I quote are from what I saw). Pattern: of 27 weak links, 13 are cut (nine with no reason on either page; two are pairs the hub already carries in the other direction, Hilaritas Generator and Symbiotic Skills; one is a proof-copy file; Flocking's label belongs to Kuramoto, not the hub), 5 get a label (README, Metaphor as Coupling Medium, The Cooperation Path, Palace Philosophies, Semantic Webcam, the last at low confidence), 4 are retyped (Trickster to mirrors, since the page says 'mirrors' in so many words; Buber to mirrors; FOUR PILLARS from enables to a labelled connects-to; Context Injection from couples-with to a labelled connects-to), and 5 stand as they are (Review Layer, McGilchrist, Fuller, Dovetail, Sidechain). The ceremonies and the Walk route to the hub through other pages already linked. One newcomer inbound proposed: CHILD deepens the hub, because the hub names CHILD for its holds-and-yields rule and CHILD says it. Could not settle: whether the FOUR PILLARS and Context Injection retypes are worth keeping over a cut (both rest on a companion page or a single passage); whether the Semantic Webcam sentence is more than a see-also; and the Fuller and Dovetail labels, which are the pages' own words but thin against the hub's specific claim of shared intent. I proposed no inbound links for the other newcomers; I found none that was genuine from the pages in this room."
+}

@@ -17,9 +17,6 @@ links:
   - target: "[[Dialectic — dialectic — zhuangzi-epictetus-confucius-on-the-self]]"
     type: emerged-from
     label: surfaced-here
-  - target: "[[Stoicism]]"
-    type: contradicts
-    label: refuses-the-fortress
   - target: "[[Confucianism]]"
     type: contradicts
     label: refuses-the-threshold
@@ -29,20 +26,21 @@ links:
   - target: "[[Merleau-Ponty]]"
     type: contradicts
     label: refuses-the-cultivated-body
-  - target: "[[Leibniz]]"
-    type: contradicts
-    label: refuses-the-monad
   - target: "[[Deleuze]]"
     type: connects-to
     label: difference-not-no-self
-  - target: "[[Entry Conatus]]"
-    type: connects-to
   - target: "[[Granular Synthesis]]"
     type: connects-to
+    label: sculpt-or-watch
   - target: "[[Parametric Resonance]]"
     type: connects-to
+    label: forcing-vs-letting
   - target: "[[Dialectic — dialectic — spinoza-zhuangzi-on-striving]]"
     type: connects-to
+    label: promised-test
+  - target: "[[Entry Conatus]]"
+    type: contradicts
+    label: loyal-opposition
 forward_vector: "I am the position the cultivators cannot reach from inside their own family — the recognition that the question 'where does the self end?' assumes the self is the kind of thing that has an end. I hold the no-architecture pole open so the Fortress, the Threshold, and the conatus all become visible *as architectures*, choices rather than givens. My next development: to be tested against the technical work — to ask whether an instrument can be designed for drift rather than control, and whether a forward vector can point at no destination without going slack."
 ---
 

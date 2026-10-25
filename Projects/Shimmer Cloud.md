@@ -4,7 +4,7 @@ type: project
 status: active
 pillars: [creation, tools]
 born: 2026-03
-stage: sprout
+stage: growing
 confidence: hypothesis
 energy: medium
 hook_quality: 8
@@ -20,8 +20,6 @@ links:
     type: mirrors
   - target: "[[Frequency-Time Duality]]"
     type: deepens
-  - target: "[[Dispersion]]"
-    type: connects-to
   - target: "[[Neural Granular Synthesis]]"
     type: couples-with
     label: grain-populations
@@ -67,6 +65,7 @@ This is the principle behind the Eventide H3000 "shimmer" reverb algorithm, wher
 - **Grain count and density**: How many pitch-shifted copies are needed before the listener perceives "shimmer" rather than "chorus"? Is there a threshold below which it sounds like obvious pitch-shifting?
 
 - **Pitch distribution**: Should the pitch shifts be harmonic (derived from the input's spectral content) or stochastic (random within a range)? Does harmonic distribution create too much obvious resonance? Does stochastic distribution lose musicality?
+  — progressed: both questions above ask about grains, and the cloud is now a population of dispersive lenses. `Shimmer Cloud/README.md` traces three lens models and found the first "structurally a chorus/H3000 effect, not a prism"; the 2026-10-22 interval lens jumps once at the door, then disperses on every pass ([[Shimmer Cloud — scroll|scroll]]). Asked again for lenses: how many before shimmer reads as shimmer, and around which interval?
 
 - **Decay and coherence**: In a traditional reverb, the early reflections are discrete; the late reverb becomes a diffuse wash. In a shimmer cloud, does coherence naturally decay as grains blur? Or do pitch-shifted clouds maintain too much articulation?
 

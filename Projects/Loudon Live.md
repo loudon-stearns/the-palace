@@ -7,7 +7,7 @@ pillars:
   - practice
   - philosophy
 born: 2026-04
-stage: sprout
+stage: growing
 status: active
 confidence: working
 energy: high
@@ -22,9 +22,6 @@ links:
   - target: "[[FOUR PILLARS]]"
     type: connects-to
     label: public-face
-  - target: "[[Autodidact Polymaths]]"
-    type: couples-with
-    label: in-the-background
   - target: "[[Hyperdimensional Prism]]"
     type: spawned
     label: visual-identity
@@ -40,14 +37,15 @@ links:
   - target: "[[Loudon Live Design System]]"
     type: spawned
     label: visual-system-now-palace-default
-  - target: "[[Retrospective Delay]]"
-    type: connects-to
   - target: "[[STIGMERGY]]"
     type: connects-to
     label: provenance-layer
   - target: "[[BLUELINE]]"
     type: connects-to
     label: beside-it
+  - target: "[[Retrospective Delay]]"
+    type: connects-to
+    label: interface-mythology
 ---
 
 # Loudon Live
@@ -117,7 +115,3 @@ Electronic musicians, to start; in time, creative coaching for people who learn 
 - **What funds it, if anything.** Ad revenue, membership, paid courses — not decided, and not urgent.
 - **Streams and the projects they touch.** Does a stream want a typed link from this page, or does it live on the project's scroll as a made thing?
 - **Search engines.** When does the read view drop its noindex?
-
-## Forward Vectors
-
-*See YAML `forward_vector` field above.*

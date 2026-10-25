@@ -5,14 +5,10 @@ pillars: [creation, tools]
 born: 2026-03
 stage: growing
 links:
-  - target: "[[Harmonicity and Inharmonicity]]"
-    type: connects-to
   - target: "[[Boundary-Crossing Instruments]]"
     type: deepens
   - target: "[[Frequency-Time Duality]]"
     type: mirrors
-  - target: "[[Logarithmic Interface Scaling]]"
-    type: connects-to
   - target: "[[Ohm's Law]]"
     type: mirrors
   - target: "[[Dispersion]]"
@@ -24,6 +20,9 @@ links:
   - target: "[[Floquet Time-Modulated Loops]]"
     type: connects-to
     label: artifact-convention-source
+  - target: "[[Portamento and Physical Pitch Modeling]]"
+    type: connects-to
+    label: a-bend-moves-the-partials
 forward_vector: "I want to become an interactive teaching artifact — the HTML version that the inline comment imagines, where the inharmonicity formula is not just displayed but playable: a synthesizer where students can dial the inharmonicity coefficient B and hear the partials stretch in real time, connecting the equation directly to the perceptual experience. The math is here; what is missing is the audible proof that makes the formula unforgettable."
 ---
 
@@ -31,7 +30,7 @@ forward_vector: "I want to become an interactive teaching artifact — the HTML 
 
 ![[Piano String Inharmonicity — hero.png]]
 
-The stretching of upper harmonics in stiff strings, making their partials sharp relative to integer multiples of the fundamental. This is what gives piano tone its characteristic "bell-like" quality and distinguishes it from idealized harmonic instruments.
+The stretching of upper harmonics in stiff strings, making their partials sharp relative to integer multiples of the fundamental. This is what gives piano tone its characteristic "bell-like" quality and distinguishes it from idealized harmonic instruments. The general framework is [[Harmonicity and Inharmonicity]].
 
 ## The Physics
 
@@ -57,13 +56,11 @@ The formula's behavior is visible at a glance in [[proofs/2026-05-05-stretched-p
 
 ![[proofs/2026-05-05-stretched-partials.svg]]
 
+*Three rows of partials at f₀ = 220 Hz (A3), n = 1..12, with B ∈ {0, 0.0004, 0.001}. Ghost lines mark where each partial would have sat at B = 0.*
+
 For small B (typical piano strings: B ≈ 0.0001 to 0.001), this approximates to:
 
 **f_n ≈ n · f₀ · (1 + B · n²/2)**
-
-![[proofs/2026-05-05-stretched-partials.svg]]
-
-*Three rows of partials at f₀ = 220 Hz (A3), n = 1..12, with B ∈ {0, 0.0004, 0.001}. Ghost lines on rows 2 and 3 mark where each partial would have sat at B = 0, so the drift is visible in a glance. At n = 12 with B = 0.001, the partial sits 184 Hz sharp of its harmonic position — that number is the lesson.*
 
 So the nth partial is stretched sharp by approximately **B · n³ · f₀ / 2** Hz.
 
@@ -81,7 +78,7 @@ Where:
 
 **Key insight:** B ∝ 1/T
 
-Inharmonicity is inversely proportional to tension. This is what makes string bending affect timbre.
+Inharmonicity is inversely proportional to tension, the same inverse pattern as [[Ohm's Law]]. This is what makes string bending affect timbre.
 
 ## String Bending and Timbre Change
 
@@ -163,14 +160,6 @@ The bent string is neither "the same note played differently" nor "a different n
 
 Inharmonicity creates a frequency-domain pattern (stretched partials) that corresponds to a time-domain pattern (the impulse response). The two descriptions are equivalent but emphasize different aspects. See [[Frequency-Time Duality]].
 
-## Related Concepts
-
-- [[Harmonicity and Inharmonicity]] — General framework
-- [[Boundary-Crossing Instruments]] — String bending as boundary crossing
-- [[Frequency-Time Duality]] — Two views of the same phenomenon
-- [[Logarithmic Interface Scaling]] — Interface pattern used in demo
-- [[Ohm's Law]] — B ∝ 1/T is same inverse relationship pattern
-
 ## Artifacts
 
 **[string_bending_inharmonicity.jsx](Piano%20String%20Inharmonicity/string_bending_inharmonicity.jsx)** *(legacy — does not render natively in Obsidian)* — Interactive string bending demonstration as a React/JSX component, ~14KB. Functional in a JSX-aware environment but predates the palace's established HTML interactive convention. *(A duplicate copy `string_bending_inharmonicity 1.jsx` from an Obsidian sync also exists in the same folder; both are identical.)*
@@ -188,6 +177,7 @@ Inharmonicity creates a frequency-domain pattern (stretched partials) that corre
 *"The string does not lie. Increase tension, reduce inharmonicity. The physics is simple; the timbre is profound. What seemed like a constant — the sound of the string — was only constant because we held tension constant."*
 
 ## Forward Vectors
-- Migrate the existing JSX demo to the **Action Potential Oscillator HTML pattern** (see § Artifacts → Migration target). Single self-contained HTML file at `Piano String Inharmonicity/string-bending-inharmonicity.html` following the canonical CSS variable :root block and Source Serif 4 / JetBrains Mono / DM Sans font stack. The math is fully specified; this is conversion work, not invention.
 - Connect stretched partials to the breakdown of octave equivalence ([[Shepard Tone Synthesizer#Theory — Octave Equivalence]]) — when does a "piano octave" stop sounding like an octave?
+  — progressed: [[Shepard Tone Synthesizer]] § Where the Theory Still Has an Edge holds that in a stretched tuning the dropped voice no longer lands on its own pitch class, so the seam should show by ear; a claim, not yet heard (2026-10-24)
 - Use inharmonicity coefficients as synthesis parameters: what instruments live in the space between harmonic and inharmonic?
+  — answered on [[Categorizing Inharmonicity]] § Synthesis Directions: its six-type palette is where this question lives (2026-10-24)

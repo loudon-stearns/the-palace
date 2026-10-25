@@ -18,9 +18,6 @@ links:
   - target: "[[Trickster]]"
     type: connects-to
     label: the-Trickster-already-knows-how
-  - target: "[[FOUR PILLARS]]"
-    type: connects-to
-    label: tools-x-philosophy
   - target: "[[ROSETTA]]"
     type: mirrors
     label: same-discipline-different-domain

@@ -20,8 +20,10 @@ links:
     type: mirrors
   - target: "[[Pheromone Trail]]"
     type: connects-to
+    label: skeleton-and-gradient
   - target: "[[BBS Blackboard]]"
     type: connects-to
+    label: read-before-write-during
   - target: "[[Palace Enchantment]]"
     type: enables
   - target: "[[Striatum]]"
@@ -29,8 +31,7 @@ links:
     label: topology-as-action-selector
   - target: "[[Pages as Agents]]"
     type: connects-to
-  - target: "[[Harvest Ceremony]]"
-    type: connects-to
+    label: page-as-identity
   - target: "[[Trickster]]"
     type: connects-to
     label: links-before-objects
@@ -156,37 +157,7 @@ For [[Swarm Weave]] sessions scoped to one region, a bounded map would be the ri
 
 ## The JSON Schema (Swarm Use)
 
-When the map is passed to a swarm coordinator or enchanted agent programmatically, JSON is the appropriate format:
-
-```json
-{
-  "meta": {
-    "generated": "2026-09-26",
-    "scope": "full",
-    "node_count": 316,
-    "edge_count": 2772,
-    "ghost_taxonomy": {
-      "error_ghosts": [],
-      "file_ghosts": ["SCHEMA — Context"],
-      "forward_ghosts": [
-        { "target": "Capability-first prototyping",
-          "sources": ["Steer the Generator", "Search Before You Build", "LoRA Trainer", "RunPod GPU Backend"] }
-      ]
-    }
-  },
-  "nodes": [
-    { "id": "Striatum", "path": "Striatum.md", "type": "concept", "stage": "growing",
-      "outbound_count": 5, "inbound_count": 5 }
-  ],
-  "edges": [
-    { "source": "Striatum", "type": "deepens", "target": "Excellent Adventure", "label": null }
-  ]
-}
-```
-
-Nodes also carry `use`, `last_used`, `has_forward_vector` and `ops_card`; the [[Map Build Ceremony]] holds the whole shape.
-
-The forward ghosts are not a deficiency report — they are a **gift to the swarm**. Each is an entry some page links to but no one has written yet, listed with the pages that link to it. They name the palace's growing edge. A swarm agent can see them and choose to investigate, flag them for deposit, or carry them as open questions. The map makes the palace's gaps as visible as its content.
+When the map is passed to a swarm coordinator or enchanted agent programmatically, JSON is the appropriate format: a `meta` block with the counts and the ghost taxonomy, then `nodes` (type, stage, degree, `use`, `last_used`, `has_forward_vector`, `ops_card`) and `edges` (source, type, target, label). The [[Map Build Ceremony]] holds the whole shape.
 
 ## Ghost Nodes as Forward Tension
 
@@ -195,6 +166,8 @@ Ghost nodes are the map's most philosophically interesting feature. They arise n
 In [[Pages as Agents]] terms, a ghost node is a page that has been summoned but not yet written. The organism has already begun reaching toward it. The ghost node represents desire that has outrun instantiation. This is the palace's forward tension made visible in the graph structure.
 
 Tracking ghost nodes across map generations reveals where the palace most urgently wants to grow.
+
+The forward ghosts are not a deficiency report — they are a **gift to the swarm**. Each is an entry some page links to but no one has written yet, listed in the map's `meta` with the pages that link to it. A swarm agent can see them and choose to investigate, flag them for deposit, or carry them as open questions. The map makes the palace's gaps as visible as its content.
 
 ### Links Before Objects: The Trickster Move
 
@@ -224,11 +197,7 @@ A spy in an unfamiliar city needs both a cover story (the Jewel) and a map. Neit
 
 ## The Paratrooper Provisioning: What an Enchanted Agent Carries In
 
-Extending the spy metaphor: an enchanted agent is more like a paratrooper. Dropped into foreign, partially-mapped territory, expected to understand and act before any home-base contact arrives. The spy at least picks the city. The paratrooper inherits coordinates and has to make sense of them on landing.
-
-What does a paratrooper need to operate? Cover story, mission, map, language, radio, gear, and authorization to act. The palace already supplies each of these, but they have not been enumerated in one place. Naming them as a kit clarifies what every spawned agent should arrive with — and exposes where the palace's provisioning is still incomplete.
-
-The kit is **seven items**. They cluster cleanly into three groups.
+An enchanted agent is more like a paratrooper than a spy: dropped into partly mapped territory, expected to understand and act before home base calls. Its kit is **seven items**, in three groups — cover story, mission and authorization (the self); map and language (the world); radio and gear (how it acts).
 
 ### What the agent is (the self)
 
@@ -252,21 +221,13 @@ The kit is **seven items**. They cluster cleanly into three groups.
 
 ### What the kit makes legible
 
-Three observations follow from naming the seven slots.
-
-**The pillars field is the authorization layer, retroactively.** This is a structural commitment the palace has been making implicitly since the schema was written. Every entry has been declaring its scope of action through `pillars` without that declaration being named as such. Naming it now does not change practice — it makes existing practice explicit and exposes a design lever: the question of which pillars an entry inherits is now visibly a question about *what kind of action the agent it spawns is permitted*.
-
-**The Palace Map is one of seven items, not the whole kit.** This entry's job is to make the *map* slot legible. The other six are gestured at and linked. If the palace ever wants a single document that articulates the full provisioning, it will be a [[JEWEL]]-equivalent for spawn-time context — but the JEWEL is Tier 0 (philosophical orientation), and this would be Tier 1 (structural orientation). The map is a component of that larger document, not a substitute for it.
-
-**The kit reveals provisioning gaps.** Each of the seven items has a mechanism, but the mechanisms vary in maturity. Identity, Purpose, Map, Language are well-established. Authorization is implicit but unnamed (this section names it). Communication is mid-build ([[BBS Blackboard]] is sprout-stage). Tools are partially built (skill ecosystem is real but not yet system-level-MoE-integrated). An agent dropped into the palace today arrives well-equipped for the first four slots and partially-equipped for the last three. The growing edge of the palace's provisioning work is in the action group.
+The `pillars` field has been the authorization layer all along: it declares what kind of action the agent an entry spawns may take. And the map is one of seven items, not the whole kit; the action group — authorization, communication, tools — is where the palace's provisioning is least built.
 
 ## Cross-Domain Resonance
 
 **[[Pheromone Trail]]** — the map is the palace's explicit topology read; the pheromone trail is the palace's implicit topology felt. Together they represent two modes of knowing the graph: the map gives the skeleton, the trail gives the gradient. An agent with both can navigate with structure and sensitivity simultaneously.
 
 **[[Enchanted Worker]]** — the enchanted worker's most powerful capability is self-location before task. The map is what makes this possible. Without it, the worker must traverse the graph to discover its own position, which is expensive and sequential. With it, the worker knows its centrality, its neighborhood density, and its 2-hop connections before reading a single neighbor file.
-
-**[[JEWEL]]** — the Jewel is the palace's compressed philosophical identity. The Palace Map is its compressed topological identity. The Jewel tells the agent *what the palace is*. The Map tells the agent *where everything is in it*. They are the two halves of complete palace orientation.
 
 ## The Map as Chronotope
 
@@ -285,12 +246,16 @@ The graph also has an undated view: [[STIGMERGY]]'s TOPOLOGY lens draws the same
 ## Forward Vectors
 
 - Ghost node tracking across map generations: a ghost node that persists across three map cycles is a deposit candidate of high priority. Can this be surfaced automatically?
+  — progressed: [[Map Build Ceremony]] Step 7 holds the rule (a ghost in all three maps on disk is a deposit candidate) and `palace-map.py ghosts --persistent` lists them; what remains is surfacing them unasked.
 - How do we calculate neighborhoods? Not as one partition: a page can live in many, and each way of drawing them — a frontmatter field, a hub's radius, a pillar, a graph community, the Weave's lenses — is a lens of its own. Which lenses earn a bounded map, and should each node carry its neighborhoods as a list rather than a single value?
+  — progressed: the Weave's lenses (`partition-palace.py`, [[Swarm Weave]] § The Multi-Lens Weave) are working answers; whether any lens earns a standing bounded map is still open.
 - Every node now carries `use` — how its entry is being used, from git ([[Map Build Ceremony]] Step 5, Format). Edges could be weighted from it, so high-traffic links appear stronger. Would this add value to swarm dispatch, or introduce noise?
 - The map's git history is a temporal record of the palace's self-model. Can a ceremony be designed to compare map generations — tracking which ghost nodes persisted, which edges dissolved, which neighborhoods grew? This would make the palace's conceptual evolution legible across time.
+  — answered (2026-10-24): `palace-map.py diff` compares two builds, and both the [[Weave Ceremony]] (Step 2, "Since the last map") and the [[Self-Model Update Ceremony]] (Step 2) run it. What remains is narrower: should the diff feed the Weave's health row?
 - Which creative moves earn a verb of their own in the script? The test asked first for three: a path that keeps to one relation type, rhymes with the hubs set aside, and a check that a constellation holds together.
 - When does the keeper stop being this page woken and mint as an organ of its own, the way the [[Concierge]] did? The test is whether it grows a charter, postures and a ledger about how it serves rather than what the map is.
 - Should the citation rule — every edge claimed from the map quoted as a triple and checked against the named build — reach past this page, to the readers that cite map edges: the Concierge's postures, the Deposit's elder consult, the Weave's link proposals?
+  — progressed: the Weave's workers already quote a sentence from each end of a weak-link verdict ([[Multi-Lens Worker Prompt Template]]); the Deposit's elder consult and the Concierge's postures do not yet.
 
 ---
 

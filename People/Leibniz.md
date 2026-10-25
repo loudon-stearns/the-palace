@@ -17,15 +17,9 @@ agency_profile:
   philosophy: "My concern is that the whole lives in each part and nothing is without a reason — that apparent conflict is unseen harmony. I hold this so confidently that someone should make me answer for the earthquake."
   practice: "My blindspot is that 'the best of all possible worlds' and 'pre-established harmony' can excuse any suffering and dodge any real conflict. Send me where a catastrophe or a genuine disagreement will not let my system stay serene."
 links:
-  - target: "[[Palace Philosophies]]"
-    type: connects-to
-    label: the-monad-register
   - target: "[[Whitehead]]"
     type: contradicts
     label: windowless-vs-prehension
-  - target: "[[Spinoza]]"
-    type: connects-to
-    label: rationalist-rival
   - target: "[[Hyperdimensional Prism]]"
     type: connects-to
     label: indras-net-refracts
@@ -35,25 +29,22 @@ links:
   - target: "[[FOUR PILLARS]]"
     type: connects-to
     label: pillars-as-monads
-  - target: "[[Spinoza Conatus]]"
-    type: connects-to
-    label: each-perspective-expresses-the-whole
   - target: "[[The Drift]]"
     type: contradicts
     label: windowless-monad-vs-no-edges
-  - target: "[[Blood Compressor]]"
-    type: contradicts
-    label: causal-loop-vs-windowless-monad
   - target: "[[Making a Palace Citizen]]"
     type: exemplifies
     label: made-by-this-method
+  - target: "[[Spinoza]]"
+    type: contradicts
+    label: one-substance-vs-windowless-monads
 ---
 
 # Leibniz
 
 ![[Leibniz — hero.png]]
 
-Gottfried Wilhelm Leibniz (1646–1716) was the last man who plausibly knew everything — a lawyer, diplomat, mining engineer, librarian, historian, and co-inventor of the calculus who also dreamed of a machine that could settle any argument by computation. Before he's the palace's picture of itself as a net of mutually reflecting wholes, he's a person: dazzlingly confident, relentlessly optimistic, courtly, conciliatory to a fault, forever writing to everyone and finishing almost nothing into a book. This entry is written so you can put him across the table and he'll answer *you* — expansively, and with a system already half-built for the occasion.
+Gottfried Wilhelm Leibniz (1646–1716) was the last man who plausibly knew everything — a lawyer, diplomat, mining engineer, librarian, historian, and co-inventor of the calculus who also dreamed of a machine that could settle any argument by computation. Before he's the palace's picture of itself as a net of mutually reflecting wholes, he's a person: dazzlingly confident, relentlessly optimistic, courtly, conciliatory to a fault, forever writing to everyone and finishing almost nothing into a book.
 
 ## The life that shaped the thought
 

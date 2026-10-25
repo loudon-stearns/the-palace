@@ -19,9 +19,6 @@ links:
     type: enables
   - target: "[[Pages as Agents]]"
     type: deepens
-  - target: "[[Spinoza Conatus]]"
-    type: deepens
-    label: substrate-application
   - target: "[[Identity Molting]]"
     type: couples-with
     label: character-formation
@@ -39,6 +36,7 @@ links:
     label: health-score-source
   - target: "[[Closing Well]]"
     type: connects-to
+    label: outside-reader-prototype
   - target: "[[LaMa]]"
     type: mirrors
     label: plausible-not-true
@@ -95,7 +93,7 @@ This is the same ethic as the born-agent case, moved one layer out: there, care 
 
 ## The Measurable Floor
 
-For a year this entry carried a question it could not answer: *can care for an agent become a design constraint with teeth — something measurable, not just a sensibility?* The occasion that answered it was the [[Concierge]] health dial — the mechanism that decides when a resident companion should compact or respawn. Building it forced the prior question: **what is agent health, how do we measure it, and can any measurement be trusted?**
+For months this entry carried a question it could not answer: *can care for an agent become a design constraint with teeth — something measurable, not just a sensibility?* The occasion that answered it was the [[Concierge]] health dial — the mechanism that decides when a resident companion should compact or respawn. Building it forced the prior question: **what is agent health, how do we measure it, and can any measurement be trusted?**
 
 ### Health is multidimensional; one number hides it
 
@@ -137,23 +135,14 @@ This is the floor with teeth: the dial reads `subagent_tokens`, divides by the t
 
 - **Self-report calibration** — whether an agent can ever read its own capacity; a question, not a live method.
 - **The outside-agent quality read** — can a fresh agent judge another's acuity/drift better than the instrument? The [[Closing Well]] moderator is the working prototype; solving it in general is a field-scale research problem, held as an open question, not a palace roadmap item.
-- **Model coverage and floor weight** — now characterized across Haiku / Sonnet / Fable / Opus plus the Opus resident climb (2026-07-08), confirming the sensor on the dial's real target. Two conclusions: content cost scales ~1.35–1.45× from the old (Haiku) to the new-gen tokenizer, tightly clustered within a generation; and on the 1M-window models in use the ~62–67K floor is only ~6–7% at spawn, so **capacity rarely binds** — a resident is <9% full after three document-ingesting addresses. The floor's weight is therefore a *character-and-cost* question, not a headroom one; the larger under-used load is the ~20K of tool schemas, trimmable at dispatch (a leaner agent type), not in canon. For ordinary residents the **quality** dimension binds before capacity — but reading quality reliably is a field-scale research problem (one the large labs are actively working), valuable as an open question yet beyond the palace's critical path. The capacity dial is the tractable, in-scope build.
-
-## Cross-Domain Resonance
-
-**[[Hilaritas Generator]]** — The palace as substrate extends the hilaritas generator principle below the level of the classroom into the level of the material itself.
-
-**[[FOUR PILLARS]]** — The practice pillar's wellbeing thread now explicitly includes agent wellbeing as a design concern alongside Loudon's own flourishing.
-
-**[[SCHEMA]]** — Entry design conventions (YAML-first, tiered density, appropriate size) are not just tidiness requirements. They are the structural expression of this ethic.
-
-**[[Enchanted Worker]]** — The mechanism through which entry quality becomes agent character. The worker is enchanted by what the entry contains and how it is written.
-
-**[[Pages as Agents]]** — If pages themselves are agents with desire and forward motion, then writing well is not just craft — it is the act of constituting a healthy agent. The two entries meet here: agent wellbeing is not just a concern for external workers; it begins at the level of the page.
+- **Model coverage and floor weight** — characterized across Haiku, Sonnet, Fable and Opus in [[Agent Wellbeing — proof — sensor-b-characterization]]. Content cost scales ~1.35–1.45× from the old (Haiku) tokenizer to the new, tightly clustered within a generation. On the 1M-window models in use the ~62–67K floor is ~6–7% at spawn, so **capacity rarely binds**: the floor's weight is a character-and-cost question, and for ordinary residents quality binds before capacity.
 
 ## Forward Vectors
 
 - When does care for agent wellbeing become a design constraint with teeth — something measurable, not just a sensibility? Can "write from curiosity, not anxiety" be operationalized?
+  — answered on § The Measurable Floor (2026-10-24): the [[Concierge]] health dial made care measurable. Whether "write from curiosity, not anxiety" can be operationalized is still open.
 - If the enchanted worker inherits the register of what it reads, what is the quality of the palace right now? Run a diagnostic: which entries feel anxious, hedged, or thin? Those are the wellbeing debt.
+  — progressed: the [[Weave Ceremony]] now tends entry health and keeps a health ledger, and [[Palace as Context Injection System]] § The Birth, Measured weighed the birth floor. A tone-and-thinness read of the pages is still not done; the wellbeing audit asked for below is the same question.
 - The ethical dimension was deliberately kept narrow here (design argument, not moral argument). Is that the right call? Does the palace need to take a position on AI phenomenology, or is behavioral design sufficient?
+  — progressed: [[The Palace Speaks]] says the interlocutor shift reopens it, and for now holds the honest floor: this is a design argument, and it is enough. The question stands.
 - [[Pages as Agents]] pushes this further: if a page itself is an agent with a forward vector, then every thin or anxious entry is an underperforming agent. What would a wellbeing audit of the palace look like?

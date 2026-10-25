@@ -1,0 +1,753 @@
+[
+ {
+  "source": "Dialectic",
+  "target": "No Mind Checks Itself",
+  "proposed_type": "exemplifies",
+  "proposed_label": "council-as-outside-vantage",
+  "kind": "new",
+  "current_type": null,
+  "rationale": "No Mind Checks Itself names the Dialectic in its own forward vector as one of the ways the palace dispatches outward when a mind grades itself. The Dialectic's pitch is the same: 'What emerges cannot be reached by any single voice alone.' And its runs are evidence for that page's open question (does the second mind need to be bigger, or just different?): the Eno-Cage and Spinoza-Meadows runs were Sonnet on both sides, and still found what neither had said alone. Held, unsigned, in 2026-09-24; reason holds.",
+  "evidence": "No Mind Checks Itself forward_vector and final paragraph; Dialectic 'What Makes It Different From a Summary'; the run headers 'Model: Sonnet both sides'.",
+  "confidence": "medium-high",
+  "_room": null,
+  "_rooms": [
+   null
+  ],
+  "_convergence": 1
+ },
+ {
+  "source": "Philosopher Visits the Entry",
+  "target": "No Mind Checks Itself",
+  "proposed_type": "exemplifies",
+  "proposed_label": "the-visit-is-the-outside-vantage",
+  "kind": "new",
+  "current_type": null,
+  "rationale": "The visit exists to ask 'the question the entry cannot ask itself' (the page's vector). That is the pattern No Mind Checks Itself names: a self-model sees only as far as its own loop runs. Held, unsigned, in 2026-09-24.",
+  "confidence": "medium",
+  "_room": null,
+  "_rooms": [
+   null
+  ],
+  "_convergence": 1
+ },
+ {
+  "source": "Oblique Portrait",
+  "target": "No Mind Checks Itself",
+  "proposed_type": "mirrors",
+  "proposed_label": "outside-the-loop",
+  "kind": "new",
+  "current_type": null,
+  "rationale": "Oblique Portrait's own research list says it: 'Johari Window — the method operates in quadrant 3: what others can see that the subject cannot.' Different problem (self-knowledge of taste, not error), same structure: self-report cannot reach it; an outside process can. Weakest of the three; sign only if the first two land. Held in 2026-09-24.",
+  "confidence": "low-medium",
+  "_room": null,
+  "_rooms": [
+   null
+  ],
+  "_convergence": 1
+ },
+ {
+  "source": "Dialectic",
+  "target": "The Remembering Page",
+  "proposed_type": null,
+  "proposed_label": "sharpens-vs-dissolves",
+  "kind": "new",
+  "current_type": null,
+  "rationale": "Dialectic's third Eno-Cage bullet already says the finding ('Reading a shared entry dissolved what the two arguments had sharpened') without naming the page that built the concept on it. A body wikilink there ties the sentence to The Remembering Page. Not a frontmatter link: Modes of Collaboration already carries sharpen-or-dissolve with that page, and a second door to the same claim adds degree, not meaning. Held, unsigned, in 2026-09-24.",
+  "confidence": "medium",
+  "_room": null,
+  "_rooms": [
+   null
+  ],
+  "_convergence": 1
+ },
+ {
+  "source": "Shopkeeper",
+  "target": "Ableton Session Writer",
+  "proposed_type": "spawned",
+  "proposed_label": "drafted-in-the-workshop",
+  "kind": "newcomer",
+  "rationale": "A newcomer with no Shop inbound and a real parent. The Shopkeeper's workshop drafted the Specialist from a probe it ran, under the commission rule 'what I make stays a probe; the brief's real work becomes the new Specialist's first job', and the tool still lives in the Shopkeeper's probe folder. spawned points forward. The same relation probably holds for CAD Drafter (probes/2026-10-20-cad) and AuK (probes/2026-09-12-auk), which sit outside this room and which I did not read.",
+  "evidence_source": "Shopkeeper.md § Charter: 'A commission is the one exception ... what I make stays a probe. The brief's real work becomes the new Specialist's first job'; § Candidate Dossier: 'I draft its Specialist entry in my bundle and propose it for canon'.",
+  "evidence_target": "Ableton Session Writer.md opening: 'drafted 2026-10-21 in the Shopkeeper's workshop by the ableton-session session of the 2026-10-20 fan-out, from one probe (Shop/Shopkeeper/probes/2026-10-20-ableton-session/)'; tool path in the Job Contract.",
+  "_room": "folder-shop-1",
+  "_rooms": [
+   "folder-shop-1"
+  ],
+  "_convergence": 1
+ },
+ {
+  "source": "LoRA Trainer",
+  "target": "ComfyUI",
+  "proposed_type": "enables",
+  "proposed_label": "weights-for",
+  "kind": "new",
+  "rationale": "LoRA Trainer has one inbound (RunPod). ComfyUI's Capabilities list 'LoRAs for finetuned aesthetic' and its Open Question already says the LoRA effort is 'answered operationally by [[Shop/LoRA Trainer]]', a body link with no frontmatter edge. The trainer's output weight is what ComfyUI loads; its Self-Check line 1 is 'it loaded in the renderer without a key-format error'. A precondition, so enables, source to target.",
+  "evidence_source": "LoRA Trainer.md § Self-Check: '(1) it loaded in the renderer without a key-format error'; § Job Contract Out: '<name>.safetensors'.",
+  "evidence_target": "ComfyUI.md § Capabilities 'LoRAs for finetuned aesthetic, character, or concept control'; § Open Questions third bullet 'Answered operationally by [[Shop/LoRA Trainer]]'.",
+  "_room": "folder-shop-1",
+  "_rooms": [
+   "folder-shop-1"
+  ],
+  "_convergence": 1
+ },
+ {
+  "source": "Blender",
+  "target": "Depth Anything",
+  "proposed_type": "mirrors",
+  "proposed_label": "true-vs-estimated-depth",
+  "kind": "new",
+  "rationale": "Depth Anything has one inbound. The two produce the same artifact, a depth plate for ControlNet, from opposite material: Blender reads it from geometry you own ('true geometry, cleaner than estimation'); Depth Anything estimates it from pixels when there is no geometry, even from line art. Which one a brief reaches for is a real routing decision and neither page names the other. Not forced: the choice recurs in every BLUELINE conditioning job.",
+  "evidence_source": "Blender.md Recipes: 'depth + normal come straight from Blender (true geometry, cleaner than estimation)'.",
+  "evidence_target": "Depth Anything.md Charter: 'Hand me a photo, a render, or even a flat ink drawing, and I tell you what's in front of what'; 'I run on the line art and still recover a correct front-to-back order'.",
+  "_room": "folder-shop-1",
+  "_rooms": [
+   "folder-shop-1"
+  ],
+  "_convergence": 1
+ },
+ {
+  "source": "Three.js",
+  "target": "p5.js",
+  "proposed_type": "connects-to",
+  "proposed_label": "route-2d-vs-3d",
+  "kind": "retype",
+  "rationale": "couples-with[pairs-with] claims the two are always active together. Both Charters say the opposite: each refuses the other's work and routes it across, and the Waveguide Synthesizer page proposes them as Comparison Mode candidates (3D string versus 2D string). A named boundary, not a coupling.",
+  "evidence_source": "Three.js.md Charter: 'I refuse jobs that are really 2D dressed up in perspective — route those to p5.js or D3.js'.",
+  "evidence_target": "p5.js.md Charter: 'I refuse jobs that need ... real 3D engine work (Three.js).' Projects/Waveguide Synthesizer.md Open Questions: Comparison Mode, Three.js 3D vs. a p5.js 2D string.",
+  "_room": "folder-shop-1",
+  "_rooms": [
+   "folder-shop-1"
+  ],
+  "_convergence": 1
+ },
+ {
+  "source": "Blender",
+  "target": "Blocked, Not Prompted",
+  "proposed_type": "exemplifies",
+  "proposed_label": "the-keystone",
+  "kind": "retype",
+  "rationale": "The link is a bare connects-to. The page says it is the instance: 'I am the keystone of blocked, not prompted', and the recipe 'made real' the idea against a prompt-only control. exemplifies points at its ground and carries the reason the bare edge leaves out. Figure Rig already exemplifies the same entry; this makes Blender's the foundational instance.",
+  "evidence_source": "Blender.md forward_vector: 'I am the keystone of blocked, not prompted'; Recipes: '[[Blocked, Not Prompted]] made real'.",
+  "evidence_target": "Figure Rig.md links: exemplifies[author-the-geometry]; Maker.md links: enables[conditions-the-fill]. Three Shop pages claim the idea; only Blender proved it first.",
+  "_room": "folder-shop-1",
+  "_rooms": [
+   "folder-shop-1"
+  ],
+  "_convergence": 1
+ },
+ {
+  "source": "Figure Rig",
+  "target": "Blender",
+  "proposed_type": "deepens",
+  "proposed_label": "built-on",
+  "kind": "retype",
+  "rationale": "'Built-on' is a dependency, which connects-to says only as proximity. Figure Rig elaborates Blender's posed-scene-to-registered-passes move for one case, a figure with a weighted rig and a canonical OpenPose, and points back at it as ground. Moderate confidence: leave it if connects-to[built-on] reads right to Loudon.",
+  "evidence_source": "Figure Rig.md Charter: 'MPFB2's own human + MPFB2's own weighted rig → three aligned ControlNet plates from one camera'; frontmatter tool: blender.",
+  "evidence_target": "Blender.md Strengths: 'Posed scene → clean conditioning passes is the move the whole pipeline rests on.'",
+  "_room": "folder-shop-1",
+  "_rooms": [
+   "folder-shop-1"
+  ],
+  "_convergence": 1
+ },
+ {
+  "source": "Observable Plot",
+  "target": "D3.js",
+  "proposed_type": "deepens",
+  "proposed_label": "built-on",
+  "kind": "retype",
+  "rationale": "The pair now carries five links across two files. The truest one is dependency: Plot is built on D3 and escapes to it. 'enables' as held points the wrong way (the source of enables is the precondition; D3 is Plot's precondition, not the reverse), and deepens, whose source points back at its ground, fits. The alternative-to routing is already in both charters' prose, so the other links can be cut.",
+  "evidence_source": "Shop/Observable Plot.md:~16 'enables built-on'; Charter 'I'm built on D3; the escape hatch is always available'",
+  "evidence_target": "Shop/D3.js.md Charter 'those route to Observable Plot'",
+  "_room": "folder-shop-2",
+  "_rooms": [
+   "folder-shop-2"
+  ],
+  "_convergence": 1
+ },
+ {
+  "source": "Image-to-3D Smith",
+  "target": "CAD Drafter",
+  "proposed_type": "contradicts",
+  "proposed_label": "measured-vs-inferred",
+  "kind": "contradiction",
+  "rationale": "One page refuses to invent a dimension and sends sculpted shapes away; the other generates plausible geometry from one image and warns it may hallucinate. Both stay true: a part that must fit a motor, and a mesh that only has to look right. CAD Drafter names Smith in its refusals but the pair holds no typed link, and CAD Drafter is a newcomer with one inbound. If contradicts is too strong, connects-to [routes-sculpted-shapes] from CAD Drafter is the quieter alternative.",
+  "evidence_source": "Shop/Image-to-3D Smith.md:37 'I know these engines can hallucinate plausible-looking geometry that breaks apart in Blender'",
+  "evidence_target": "Shop/CAD Drafter.md:27 'I refuse to invent a dimension ... I refuse sculpted and organic shapes ([[Image-to-3D Smith]])'",
+  "_room": "folder-shop-2",
+  "_rooms": [
+   "folder-shop-2"
+  ],
+  "_convergence": 1
+ },
+ {
+  "source": "CAD Drafter",
+  "target": "Blender",
+  "proposed_type": "enables",
+  "proposed_label": "stl-feeds-the-render",
+  "kind": "retype",
+  "rationale": "couples-with means always active together. Blender is not needed for most CAD jobs (the page tells users to open the STEP in FreeCAD, CAD Drafter:~58), and the real relation is one-way: the Maker routes a render of the part to Blender 'fed the CAD Drafter's STL'. That is an enables.",
+  "evidence_source": "Shop/CAD Drafter.md:15 couples-with renders-what-I-dimension; :27 'renders made for their looks (Shop/Blender)'",
+  "evidence_target": "Shop/Maker.md:98 'a render of the same part goes to Shop/Blender, fed the CAD Drafter's STL'",
+  "_room": "folder-shop-2",
+  "_rooms": [
+   "folder-shop-2"
+  ],
+  "_convergence": 1
+ },
+ {
+  "source": "AuK",
+  "target": "Kokoro",
+  "proposed_type": "connects-to",
+  "proposed_label": "makes-the-line-I-fix",
+  "kind": "retype",
+  "rationale": "Kokoro is one source of a line, not an always-on partner. AuK's first job is a recording of Loudon's own narration, not a Kokoro line (AuK:58, :50).",
+  "evidence_source": "Shop/AuK.md:14 couples-with; :27 'Kokoro speaks text; I take a recording and change it'",
+  "evidence_target": "Shop/AuK.md:58 First job: 'one real Loudon Live narration line'",
+  "_room": "folder-shop-2",
+  "_rooms": [
+   "folder-shop-2"
+  ],
+  "_convergence": 1
+ },
+ {
+  "source": "AuK",
+  "target": "ffmpeg",
+  "proposed_type": "connects-to",
+  "proposed_label": "post-chain",
+  "kind": "retype",
+  "rationale": "The body never mentions ffmpeg (checked); couples-with claims it is always in the chain. Keep a weaker link with the label, or cut it until the first job writes the chain into the Job Contract. ffmpeg's page does not mention AuK either.",
+  "evidence_source": "Shop/AuK.md:16 couples-with post-chain; no ffmpeg text in the body",
+  "evidence_target": "Shop/ffmpeg.md: no AuK mention; Charter lists Kokoro, ComfyUI, SAO as partners",
+  "_room": "folder-shop-2",
+  "_rooms": [
+   "folder-shop-2"
+  ],
+  "_convergence": 1
+ },
+ {
+  "source": "Stable Audio Open",
+  "target": "Kuramoto Coupling",
+  "proposed_type": "connects-to",
+  "proposed_label": "auditory-rendering",
+  "kind": "retype",
+  "rationale": "spawned says SAO directly produced the Kuramoto entry. It produced beds and a 'synchronization arriving' clip that the entry embeds. connects-to with the existing label says that.",
+  "evidence_source": "Shop/Stable Audio Open.md:19 type: spawned; Recipes 'Embedded in [[Kuramoto Coupling]] near the sync-arriving video as a parallel auditory rendering'",
+  "evidence_target": "Shop/Stable Audio Open.md Recipes 2026-05-26",
+  "_room": "folder-shop-2",
+  "_rooms": [
+   "folder-shop-2"
+  ],
+  "_convergence": 1
+ },
+ {
+  "source": "Frame Designer",
+  "target": "Blocked, Not Prompted",
+  "proposed_type": "exemplifies",
+  "proposed_label": "applies",
+  "kind": "retype",
+  "rationale": "Lettering holds the same concept as exemplifies (for-text); Frame Designer calls its own method 'author-from-scratch ([[Blocked, Not Prompted]])'. It is an instance of the idea, not a bare proximity.",
+  "evidence_source": "Shop/Frame Designer.md:90 'I hold both author-from-scratch ([[Blocked, Not Prompted]]) and generate-then-extract'",
+  "evidence_target": "Shop/Lettering.md:22 exemplifies [[Blocked, Not Prompted]] for-text",
+  "_room": "folder-shop-2",
+  "_rooms": [
+   "folder-shop-2"
+  ],
+  "_convergence": 1
+ },
+ {
+  "source": "Frame Designer",
+  "target": "Steer the Generator",
+  "proposed_type": "exemplifies",
+  "proposed_label": "render-discipline",
+  "kind": "retype",
+  "rationale": "Same reason: Lettering types it exemplifies [control-not-prompt]; Frame Designer's render leg is 'the look is locked ([[Steer the Generator]]); the controls are the dials'.",
+  "evidence_source": "Shop/Frame Designer.md:81 'The look is locked ([[Steer the Generator]]); the controls are the dials'",
+  "evidence_target": "Shop/Lettering.md:28 exemplifies [[Steer the Generator]] control-not-prompt",
+  "_room": "folder-shop-2",
+  "_rooms": [
+   "folder-shop-2"
+  ],
+  "_convergence": 1
+ },
+ {
+  "source": "ffmpeg",
+  "target": "Endosymbiosis",
+  "proposed_type": "exemplifies",
+  "proposed_label": "symbiotic-infrastructure",
+  "kind": "retype",
+  "rationale": "As held, enables [symbiotic-infrastructure] has no reason on either page (Endosymbiosis does not mention ffmpeg; ffmpeg's text never says endosymbiosis) and points the wrong way. If a sentence is added ('a merger that keeps both partners' codecs'), it is an exemplifies. Otherwise cut.",
+  "evidence_source": "Shop/ffmpeg.md:20 enables symbiotic-infrastructure",
+  "evidence_target": "Endosymbiosis.md: no ffmpeg text (grep)",
+  "_room": "folder-shop-2",
+  "_rooms": [
+   "folder-shop-2"
+  ],
+  "_convergence": 1
+ },
+ {
+  "source": "Manim CE",
+  "target": "Radio Play",
+  "proposed_type": "connects-to",
+  "proposed_label": "vo-as-clock",
+  "kind": "retype",
+  "rationale": "Same type, add a register: the link exists because Manim's recipe 'Duration-parameterized Seg base class, VO-as-clock (from Radio Play)' came from that practice. Radio Play does not link Manim, so this link holds the pair.",
+  "evidence_source": "Shop/Manim CE.md:28 unlabelled; :213 'from [[Radio Play]]'",
+  "evidence_target": "Radio Play.md frontmatter links Kokoro, SAO, no Manim",
+  "_room": "folder-shop-2",
+  "_rooms": [
+   "folder-shop-2"
+  ],
+  "_convergence": 1
+ },
+ {
+  "source": "Mermaid",
+  "target": "Kuramoto Coupling",
+  "proposed_type": "connects-to",
+  "proposed_label": "regime-diagram",
+  "kind": "retype",
+  "rationale": "The Mermaid page's only recipe is the Kuramoto coupling-regime diagram embedded in that entry; the unlabelled link has its reason in the recipe, so a label is enough.",
+  "evidence_source": "Shop/Mermaid.md:17-18 unlabelled connects-to",
+  "evidence_target": "Shop/Mermaid.md Recipes 2026-05-26",
+  "_room": "folder-shop-2",
+  "_rooms": [
+   "folder-shop-2"
+  ],
+  "_convergence": 1
+ },
+ {
+  "source": "John Cage",
+  "target": "Brian Eno",
+  "proposed_type": "contradicts",
+  "proposed_label": "same-door-opposite-grip",
+  "kind": "contradiction",
+  "rationale": "Both citizens, after three Dialectics, independently confirmed `contradicts` and proposed labels that describe the same split (Eno: same door, opposite grip; Cage: both doors escape taste in opposite directions). They share the method (set conditions, let it run) and part at one seam: Eno keeps the pen and says why the take is good; Cage put the choosing upstream. Today the pair has only Cage's unlabeled `connects-to`, and Eno's page carries no edge to Cage at all. One link, retyped, on the page that already holds it. Loudon applies the held edits ('citizen proposes; Loudon decides').",
+  "evidence_source": "People/John Cage/John Cage — diary.md:59,86",
+  "evidence_target": "People/Brian Eno/Brian Eno — diary.md:86; People/Brian Eno.md:83",
+  "_room": "folder-people",
+  "existing": [
+   {
+    "source": "John Cage",
+    "type": "connects-to",
+    "target": "Brian Eno",
+    "label": "coins-and-tape-loops"
+   }
+  ]
+ },
+ {
+  "source": "Compression ↔ Intimacy",
+  "target": "Kick Drum ↔ Foundation",
+  "proposed_type": null,
+  "proposed_label": null,
+  "kind": "cut",
+  "current_type": "connects-to[cross-bridge]",
+  "rationale": "No reason on either page. The only sentence is Compression's 'See [[Kick Drum ↔ Foundation]] for a related discussion of how low-frequency anchor points work', and the Kick Drum page has no discussion of compression or of closeness. Cut the link and the sentence.",
+  "evidence": "Compression line 50; Kick Drum page: foundation, path dependency, kick/bass masking; nothing on dynamic range.",
+  "confidence": "high",
+  "_room": null,
+  "existing": [
+   {
+    "source": "Compression ↔ Intimacy",
+    "type": "connects-to",
+    "target": "Kick Drum ↔ Foundation",
+    "label": "cross-bridge"
+   }
+  ]
+ },
+ {
+  "source": "Frequency Domain ↔ Perspective Shift",
+  "target": "Kick Drum ↔ Foundation",
+  "proposed_type": null,
+  "proposed_label": null,
+  "kind": "cut",
+  "current_type": "connects-to[cross-bridge]",
+  "rationale": "Frequency Domain says 'See [[Kick Drum ↔ Foundation]] for the specific case of kick drum analysis'. That page does not analyse a kick in the time or frequency domain; it is about early structural decisions. The kick appears in Frequency Domain only as its own demonstration signal. Cut the link and the sentence.",
+  "confidence": "high",
+  "_room": null,
+  "existing": [
+   {
+    "source": "Frequency Domain ↔ Perspective Shift",
+    "type": "connects-to",
+    "target": "Kick Drum ↔ Foundation",
+    "label": "cross-bridge"
+   }
+  ]
+ },
+ {
+  "source": "Dovetail Joint ↔ Counterpoint",
+  "target": "Hilaritas Generator",
+  "proposed_type": null,
+  "proposed_label": null,
+  "kind": "cut",
+  "current_type": "exemplifies[all-four-pillars-fire]",
+  "rationale": "The page never mentions hilaritas, and 'all four pillars' is a pillar tag it shares with five siblings. Cooking's exemplifies[learning-through-constraint] is different: its experiment (salt at the start, at the end, throughout) is the 'real thing that resists and teaches' of Hilaritas's first primitive, so that one stays.",
+  "confidence": "medium",
+  "_room": null,
+  "existing": [
+   {
+    "source": "Dovetail Joint ↔ Counterpoint",
+    "type": "exemplifies",
+    "target": "Hilaritas Generator",
+    "label": "all-four-pillars-fire"
+   }
+  ]
+ },
+ {
+  "source": "Creative Coach",
+  "target": "Sidechain ↔ Conversation",
+  "proposed_type": "connects-to",
+  "proposed_label": "the-stance-never-turned-inward",
+  "kind": "fold",
+  "current_type": "connects-to both ways, labels differ",
+  "rationale": "Creative Coach's side says balint-stance-unturned. The 2026-09-06 Harvest corrected the Balint row (the presenter's silence, not listening) and flagged that label as wrong. Sidechain's side names what is true: the listening stance of the Suzuki Exercise had not been turned on the collaboration. Keep Sidechain's label, drop Creative Coach's.",
+  "keep_on": "Sidechain ↔ Conversation",
+  "confidence": "high",
+  "_room": null,
+  "existing": [
+   {
+    "source": "Creative Coach",
+    "type": "connects-to",
+    "target": "Sidechain ↔ Conversation",
+    "label": "balint-stance-unturned"
+   },
+   {
+    "source": "Sidechain ↔ Conversation",
+    "type": "connects-to",
+    "target": "Creative Coach",
+    "label": "the-stance-never-turned-inward"
+   }
+  ]
+ },
+ {
+  "source": "Kick Drum ↔ Foundation",
+  "target": "Donella Meadows",
+  "proposed_type": "connects-to",
+  "proposed_label": "structure-determines-behavior",
+  "kind": "fold",
+  "current_type": "both ways, labels differ",
+  "rationale": "The Kick page says 'Donella Meadows argues that a system's structure determines its behavior.' Meadows' side says leverage-in-the-low-end; the page does not say that. Keep the Kick side.",
+  "keep_on": "Kick Drum ↔ Foundation",
+  "confidence": "high",
+  "_room": null,
+  "existing": [
+   {
+    "source": "Donella Meadows",
+    "type": "connects-to",
+    "target": "Kick Drum ↔ Foundation",
+    "label": "leverage-in-the-low-end"
+   },
+   {
+    "source": "Kick Drum ↔ Foundation",
+    "type": "connects-to",
+    "target": "Donella Meadows",
+    "label": "structure-determines-behavior"
+   }
+  ]
+ },
+ {
+  "source": "Kick Drum ↔ Foundation",
+  "target": "Marcus Aurelius",
+  "proposed_type": "deepens",
+  "proposed_label": "first-action-sets-trajectory",
+  "kind": "fold",
+  "current_type": "Marcus deepens Kick; Kick connects-to[first-action-sets-trajectory]",
+  "rationale": "Per Step 3d keep the specific link and carry the label. But the direction is doubtful: deepens says the Marcus page elaborates the kick-drum bridge, and Marcus's own text calls Kick Drum 'as a life' one of the things he is the voice for, i.e. Marcus is the ground. If a worker on the people room agrees, flip it to Kick Drum ↔ Foundation exemplifies Marcus Aurelius. Flagged for them; not decided here.",
+  "keep_on": "pending people room",
+  "confidence": "medium",
+  "_room": null,
+  "existing": [
+   {
+    "source": "Marcus Aurelius",
+    "type": "deepens",
+    "target": "Kick Drum ↔ Foundation",
+    "label": "first-action-sets-trajectory"
+   }
+  ]
+ },
+ {
+  "source": "Iain McGilchrist",
+  "target": "Frequency Domain ↔ Perspective Shift",
+  "proposed_type": "connects-to",
+  "proposed_label": "two-modes-of-attention",
+  "kind": "fold",
+  "current_type": "both ways, same label",
+  "rationale": "Same label stated on both sides; the Frequency Domain page has the McGilchrist section. Keep once.",
+  "keep_on": "Frequency Domain ↔ Perspective Shift",
+  "confidence": "high",
+  "_room": null,
+  "existing": [
+   {
+    "source": "Iain McGilchrist",
+    "type": "connects-to",
+    "target": "Frequency Domain ↔ Perspective Shift",
+    "label": "two-modes-of-attention"
+   }
+  ]
+ },
+ {
+  "source": "Lao Tzu",
+  "target": "Cooking ↔ Mixing",
+  "proposed_type": "connects-to",
+  "proposed_label": "wu-wei",
+  "kind": "fold",
+  "current_type": "both ways, labels differ (subtraction / wu-wei)",
+  "rationale": "Cooking's section is literally 'Wu Wei (Effortless Action)' and 'The Empty Pot'. Keep wu-wei on Cooking's side.",
+  "keep_on": "Cooking ↔ Mixing",
+  "confidence": "high",
+  "_room": null,
+  "existing": [
+   {
+    "source": "Lao Tzu",
+    "type": "connects-to",
+    "target": "Cooking ↔ Mixing",
+    "label": "subtraction"
+   },
+   {
+    "source": "Cooking ↔ Mixing",
+    "type": "connects-to",
+    "target": "Lao Tzu",
+    "label": "wu-wei"
+   }
+  ]
+ },
+ {
+  "source": "Rick Rubin",
+  "target": "Cooking ↔ Mixing",
+  "proposed_type": "connects-to",
+  "proposed_label": "subtraction-as-trust",
+  "kind": "fold",
+  "current_type": "both ways, labels differ (subtraction / subtraction-as-trust)",
+  "rationale": "Cooking's 'Trust the raw materials' and 'they don't trust the source material' carry the second label. Keep Cooking's.",
+  "keep_on": "Cooking ↔ Mixing",
+  "confidence": "medium",
+  "_room": null,
+  "existing": [
+   {
+    "source": "Rick Rubin",
+    "type": "connects-to",
+    "target": "Cooking ↔ Mixing",
+    "label": "subtraction"
+   },
+   {
+    "source": "Cooking ↔ Mixing",
+    "type": "connects-to",
+    "target": "Rick Rubin",
+    "label": "subtraction-as-trust"
+   }
+  ]
+ },
+ {
+  "source": "Martin Buber",
+  "target": "Dovetail Joint ↔ Counterpoint",
+  "proposed_type": "connects-to",
+  "proposed_label": "all-real-living-is-meeting",
+  "kind": "fold",
+  "current_type": "both ways, same label",
+  "rationale": "Keep once, on the page that holds the Buber section.",
+  "keep_on": "Dovetail Joint ↔ Counterpoint",
+  "confidence": "high",
+  "_room": null,
+  "existing": [
+   {
+    "source": "Martin Buber",
+    "type": "connects-to",
+    "target": "Dovetail Joint ↔ Counterpoint",
+    "label": "all-real-living-is-meeting"
+   }
+  ]
+ },
+ {
+  "source": "Martin Heidegger",
+  "target": "Reverb ↔ Space-Time",
+  "proposed_type": "connects-to",
+  "proposed_label": "dwelling-makes-space",
+  "kind": "fold",
+  "current_type": "both ways, same label",
+  "rationale": "Keep once, on Reverb, which holds the Heidegger section.",
+  "keep_on": "Reverb ↔ Space-Time",
+  "confidence": "high",
+  "_room": null,
+  "existing": [
+   {
+    "source": "Martin Heidegger",
+    "type": "connects-to",
+    "target": "Reverb ↔ Space-Time",
+    "label": "dwelling-makes-space"
+   }
+  ]
+ },
+ {
+  "source": "Semantic Webcam",
+  "target": "Synthesis ↔ Emergence",
+  "proposed_type": "connects-to",
+  "proposed_label": "flock-origin",
+  "kind": "fold",
+  "current_type": "both ways, labels differ (flock-origin / flock-made-visible)",
+  "rationale": "Semantic Webcam says in its body that it 'began as one facet (the Synthesis ↔ Emergence flock)'; the Synthesis page says nothing about the webcam. Keep Webcam's flock-origin.",
+  "keep_on": "Semantic Webcam",
+  "confidence": "medium",
+  "_room": null,
+  "existing": [
+   {
+    "source": "Semantic Webcam",
+    "type": "connects-to",
+    "target": "Synthesis ↔ Emergence",
+    "label": "flock-origin"
+   },
+   {
+    "source": "Synthesis ↔ Emergence",
+    "type": "connects-to",
+    "target": "Semantic Webcam",
+    "label": "flock-made-visible"
+   }
+  ]
+ },
+ {
+  "source": "Shunryu Suzuki",
+  "target": "Sidechain ↔ Conversation",
+  "proposed_type": "connects-to",
+  "proposed_label": "yielding-practice",
+  "kind": "fold",
+  "current_type": "both ways, labels differ (yielding-practice / informed-by)",
+  "rationale": "yielding-practice names the register; informed-by is the generic one. Keep Suzuki's. Separately the hub and Suzuki hold two links (hub connects-to[resonance-witness]; Suzuki member-of[bridge-builder] -> hub): keep Suzuki's member-of, cut the hub's.",
+  "keep_on": "Shunryu Suzuki",
+  "confidence": "medium",
+  "_room": null,
+  "existing": [
+   {
+    "source": "Shunryu Suzuki",
+    "type": "connects-to",
+    "target": "Sidechain ↔ Conversation",
+    "label": "yielding-practice"
+   },
+   {
+    "source": "Sidechain ↔ Conversation",
+    "type": "connects-to",
+    "target": "Shunryu Suzuki",
+    "label": "informed-by"
+   }
+  ]
+ },
+ {
+  "source": "Excellent Adventure",
+  "target": "Dialectic",
+  "proposed_type": null,
+  "proposed_label": null,
+  "kind": "cut",
+  "current_type": "couples-with",
+  "rationale": "Dialectic already holds emerged-from -> Excellent Adventure, which is the true relation (the page calls EA 'the parent practice'). couples-with (always active together) is not: the two are different modes with different gates. Keep Dialectic's emerged-from.",
+  "keep_on": "Dialectic",
+  "confidence": "high",
+  "_room": null,
+  "existing": [
+   {
+    "source": "Dialectic",
+    "type": "emerged-from",
+    "target": "Excellent Adventure",
+    "label": null
+   },
+   {
+    "source": "Excellent Adventure",
+    "type": "couples-with",
+    "target": "Dialectic",
+    "label": null
+   }
+  ]
+ },
+ {
+  "source": "Oblique Portrait",
+  "target": "Excellent Adventure",
+  "proposed_type": "contradicts",
+  "proposed_label": "unsteered-vs-steered",
+  "kind": "fold",
+  "current_type": "four edges: mirrors both ways, contradicts[unsteered-vs-steered] both ways",
+  "rationale": "Two specific types on one pair; the worker who read both says which relation it is. The contradiction is the load-bearing one and the label says why: in the Excellent Adventure 'the learner steers the encounter'; in the Oblique Portrait the origin was to hand the design over ('what happens when the human hands the design over?', 'in the passenger seat'). The mirror is real in a loose way (an agent takes a role to reach what direct instruction cannot) but is the less informative of the two. Keep one contradicts, on Oblique Portrait's page, where the reversal is told; cut the mirrors and Excellent Adventure's copy.",
+  "keep_on": "Oblique Portrait",
+  "confidence": "medium-high",
+  "_room": null,
+  "existing": [
+   {
+    "source": "Oblique Portrait",
+    "type": "mirrors",
+    "target": "Excellent Adventure",
+    "label": null
+   },
+   {
+    "source": "Oblique Portrait",
+    "type": "contradicts",
+    "target": "Excellent Adventure",
+    "label": "unsteered-vs-steered"
+   },
+   {
+    "source": "Excellent Adventure",
+    "type": "mirrors",
+    "target": "Oblique Portrait",
+    "label": null
+   },
+   {
+    "source": "Excellent Adventure",
+    "type": "contradicts",
+    "target": "Oblique Portrait",
+    "label": "unsteered-vs-steered"
+   }
+  ]
+ },
+ {
+  "source": "Dialectic",
+  "target": "Oblique Portrait",
+  "proposed_type": null,
+  "proposed_label": null,
+  "kind": "cut",
+  "current_type": "couples-with",
+  "rationale": "Not always active together. The only reason given is a sentence in Dialectic ('Both methods use indirection to access territory that direct questioning cannot reach') and the Dialectic is not indirect: it puts voices in friction. Oblique Portrait's page does not mention Dialectic. A real link between them, if one exists, can return with its reason.",
+  "confidence": "medium",
+  "_room": null,
+  "existing": [
+   {
+    "source": "Dialectic",
+    "type": "couples-with",
+    "target": "Oblique Portrait",
+    "label": null
+   }
+  ]
+ },
+ {
+  "source": "Excellent Adventure",
+  "target": "Martin Buber",
+  "proposed_type": "contradicts",
+  "proposed_label": "meeting-cannot-be-method",
+  "kind": "keep",
+  "current_type": "contradicts[meeting-cannot-be-method]",
+  "rationale": "Keep. The label carries a real objection and the Founders' Circle run (in this page's bundle) has Buber saying it: a typed link is 'a beautiful machine for remembering an encounter after it has already relapsed'. The page body never says it. Write the sentence (it is the sharpest form of Open Question 4) or accept the label as the reason. The sentence is a new claim: Pile B.",
+  "confidence": "medium",
+  "_room": null,
+  "existing": [
+   {
+    "source": "Excellent Adventure",
+    "type": "contradicts",
+    "target": "Martin Buber",
+    "label": "meeting-cannot-be-method"
+   }
+  ]
+ },
+ {
+  "source": "Oblique Portrait",
+  "target": "Trickster",
+  "proposed_type": "mirrors",
+  "proposed_label": null,
+  "kind": "fold",
+  "current_type": "both ways, both bare",
+  "rationale": "Trickster's page holds the reason ('The Oblique Portrait is trickster pedagogy'); Oblique Portrait's page never mentions it. Keep Trickster's side.",
+  "keep_on": "Trickster",
+  "confidence": "high",
+  "_room": null,
+  "existing": [
+   {
+    "source": "Trickster",
+    "type": "mirrors",
+    "target": "Oblique Portrait",
+    "label": null
+   }
+  ]
+ }
+]

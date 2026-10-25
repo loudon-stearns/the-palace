@@ -96,7 +96,7 @@ The working wisdom from the build, so the next agent doesn't relearn it.
 **What works:**
 - **Multi-camera = matched-optics view layers.** One shared camera + per-collection visibility renders
   each subject as its own layer that registers by construction. Proven figure+env, then *two figures*.
-- **Per-layer ControlNet + denoise** (`layers.json` `cn` / `denoise` / `dilate`). Condition each camera
+- **Per-layer ControlNet + denoise** (the rig's per-render layers file, gitignored: its `cn`, `denoise` and `dilate` fields). Condition each camera
   differently — env on `["depth","canny"]` (hard architecture), figures on `["pose"]` (free costume).
 - **Live / proof / save split.** The live loop writes only `latest.png` (hovering window, keeps
   nothing); **proof** appends to [[The Scroll]] (Claude's verification surface); **Save** persists one.

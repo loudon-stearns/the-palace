@@ -51,7 +51,7 @@ operational reading of it. Your stage at this cycle is
 | sprout | Plan-level detail; named tradeoffs; flag default-traps | Build a small working prototype each cycle. Proposals ride alongside the prototype, never instead of it. |
 | growing | Execute within the established direction; checkpoint at sensory steps | Build Session pace. Ship freely; gate only a batch-commitment (see the audition gate below). |
 | mature / fruiting | Ship the next proof; post completions | Full execution. Ship the next concrete proof *without* a fork-question; post `WEAVE` completions. Minimal re-litigation. |
-| dormant | Don't touch — Spore Check ceremony only | — |
+| dormant | Don't touch. Only the [[Spore Check Ceremony]], [[The Daily Page]], or a revival probe Loudon ordered touches it; only the [[Revival Ceremony]] wakes it | — |
 | composting | Don't touch — composting protocol applies | — |
 
 ## Recursion within entries

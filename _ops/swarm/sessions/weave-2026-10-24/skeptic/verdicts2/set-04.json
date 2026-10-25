@@ -1,0 +1,52 @@
+{
+ "set": "set-04",
+ "verdicts": [
+  {
+   "source": "Oblique Portrait",
+   "target": "Songlines",
+   "op": "fold",
+   "proposed_label_or_type": "connects-to · sings-around (kept on Songlines)",
+   "verdict": "PASS",
+   "reason": "Both labels are in the prose but crossed: 'by singing around a topic' is Oblique Portrait.md:201 and 'a different song' is Songlines.md:83; sings-around names what the method does, and Songlines' body names Oblique Portrait three times to Oblique Portrait's one, so keeping Songlines' side is right.",
+   "better": ""
+  },
+  {
+   "source": "Oblique Portrait",
+   "target": "Symbiotic Skills",
+   "op": "label",
+   "proposed_label_or_type": "default-power-structure",
+   "verdict": "FAIL",
+   "reason": "The link is not bare: Oblique Portrait's frontmatter already labels it power-inversion (the proposal's 'connects-to (bare)' is stale), and 'default-power-structure' names the thing subverted, not the relation; the sentence ('subverting the default power structure of the Symbiotic Skills collaboration') supports the label already there.",
+   "better": "keep power-inversion"
+  },
+  {
+   "source": "Philosopher Visits the Entry",
+   "target": "The Lens",
+   "op": "body-sentence",
+   "proposed_label_or_type": "(no link) add a sentence to Philosopher Visits the Entry",
+   "verdict": "PASS",
+   "reason": "One link already joins the pair (The Lens → Philosopher Visits the Entry, generalizes-this-special-case) and The Lens body carries it three times ('The philosopher case ... was the training-wheels version ... any node can be the glass for any other'); Philosopher Visits the Entry never names The Lens, so a sentence there, not a second link, is the right repair.",
+   "better": "echo The Lens's own words: 'any node can be the glass for any other'"
+  },
+  {
+   "source": "Cooperation Yields Agency",
+   "target": "CHILD",
+   "op": "newcomer",
+   "proposed_label_or_type": "enables · holds-and-yields",
+   "verdict": "FAIL",
+   "reason": "Duplicate: CHILD already carries deepens → Cooperation Yields Agency, labelled who-holds-who-yields, the same relation; both evidence quotes are real (Cooperation Yields Agency.md body; CHILD.md 'honesty holds and taste yields ... because it is his palace'), but they argue for the link that exists.",
+   "better": "none — the existing CHILD deepens link carries it"
+  },
+  {
+   "source": "Deposit Ceremony",
+   "target": "SCHEMA — Reference",
+   "op": "newcomer",
+   "proposed_label_or_type": "connects-to · bundle-rules",
+   "verdict": "FAIL",
+   "reason": "Duplicate: SCHEMA — Reference already enables Deposit Ceremony (unlabelled), right direction; the relation is real and wider than bundles — Deposit cites Reference §6 (tuning tail read), §8 (bundles) and §9 (propagate) — so the move is to label the existing link, not add a second.",
+   "better": "label the existing SCHEMA — Reference enables Deposit Ceremony link: the-fine-print"
+  }
+ ],
+ "fabricated_quotes": [],
+ "summary": "2 of 5 pass (the Songlines fold and the Lens body-sentence). All three failures share one cause: the proposer read a stale or partial picture of the pair's links. The Symbiotic Skills 'bare' link already has a label, and both newcomers duplicate a link that already joins the pair from the other side (CHILD deepens Cooperation Yields Agency; SCHEMA — Reference enables Deposit Ceremony). Every evidence quote checks out on its page (SCHEMA — Reference.md:308 is '## 8. Entry Bundles'; the CHILD quote is elided but faithful), so nothing is fabricated. The fix for the Deposit pair is a label on the existing enables, not a new edge."
+}

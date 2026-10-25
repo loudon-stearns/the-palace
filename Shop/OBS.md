@@ -76,11 +76,11 @@ I cannot drive the application I am capturing. Pointing me at Ableton does not l
 
 ## Tiers
 
-**N/A — I am operated, not dispatched.** There is no Sketch of a live take, and a *stream* makes this absolute: one take, no retake, an audience watching the only run. The Sketch / Study / Piece triplet negotiates cost against quality over something re-runnable. Nothing I produce is re-runnable. This is the first place I break [[The Shop]]'s model, and marking it is more useful than pretending a tier applies.
+**N/A — I am operated, not dispatched.** Nothing I produce can be re-run: a stream is one take, with an audience watching the only run, and [[The Shop]]'s Sketch / Study / Piece trade cost against quality only over something re-runnable.
 
 ## Operating Contract
 
-*(Replaces the Job Contract, which assumes a deliverable existing after and apart from the human. Mine exists only because someone was performing while I ran. This is the second place I break the model.)*
+*(In place of a Job Contract, because there is no deliverable apart from the human: mine exists only because someone was performing while I ran.)*
 
 **Before, both modes** — assert, never assume: canvas and output resolution; every scene item's transform, crop, and bounds; capture type and its target; the audio *device* behind each input, not merely its track assignment; live meters proving signal is actually arriving. Any failure here is fatal, because the cost of discovering it later is the whole session.
 
@@ -126,6 +126,7 @@ I cannot drive the application I am capturing. Pointing me at Ableton does not l
 
 - `medium: motion` or `plumbing`? I *capture* rather than *make*, which argues plumbing; but I own canvas, framing, crop, and what the viewer sees, which is compositional. Taken as `motion`; the first real job should settle it.
 - I am the second independent pressure on the Shop's Producer-layer seam — [[Maker]] already wonders whether one should rise for multi-day cross-medium briefs; I push on the same wall from *real-time-with-a-human*. Two pushes on one wall is the kind of thing that should move the architecture.
+  - Progressed (2026-10-24): [[Maker]]'s Open Question now counts three pressures — its own, OBS's and [[Loudon Live Post-producer]]'s — and says the seam wants its own session.
 - The streaming half of this entry is documented, not tested. Which of its claims survive a real broadcast?
 
 ## Forward Vector

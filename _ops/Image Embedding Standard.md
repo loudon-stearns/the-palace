@@ -15,6 +15,7 @@ links:
     type: enables
   - target: "[[README - The Palace Guide]]"
     type: connects-to
+    label: one-of-three-standards
   - target: "[[SUBSTRATE]]"
     type: connects-to
 ---
@@ -24,7 +25,7 @@ links:
 
 This entry defines how images are filed, named, embedded, and captioned within the palace. It is operational documentation — not a catalog of images, but the standard against which every image in this organism is measured.
 
-Read this before embedding any image. Like all meta entries, it encodes a philosophical position as much as a procedure.
+Read this before embedding any image.
 
 ---
 
@@ -40,7 +41,7 @@ This is the same depth-over-coverage discipline that governs entries. One image 
 
 ## Filing Protocol
 
-**Every image for a page lives in that page's bundle.** An image tied to an entry files into `[Entry]/[semantic-filename.ext]` — the sibling folder named exactly like the entry, per [[SCHEMA]] §8. There is no separate images folder and no theme folder: the image lives *with the page it serves*, and Obsidian resolves the embed by filename from anywhere in the vault, so the location costs nothing at the call site. (The old `Artifacts/` folder this standard once used was deprecated and dissolved into bundles on 2026-06-16; the bundle rule replaces it outright.)
+**Every image for a page lives in that page's bundle.** An image tied to an entry files into `[Entry]/[semantic-filename.ext]` — the sibling folder named exactly like the entry, per [[SCHEMA]] §8. There is no separate images folder and no theme folder: the image lives *with the page it serves*, and Obsidian resolves the embed by filename from anywhere in the vault, so the location costs nothing at the call site.
 
 ```
 Kuramoto Coupling/kuramoto-phase-portrait-two-oscillators.svg
@@ -160,5 +161,6 @@ During the Weave, images are treated as a sub-category of artifacts. The Weave d
 ## Open Questions
 
 - Should SVG diagrams that encode palace graph structure (like the demo above) be generated programmatically from palace data, rather than hand-drawn? This would mean the Weave could produce a visual alongside its topological report.
+  — answered (2026-10-24): the Weave produces a visual report every run ([[Weave Ceremony]], postcondition 5b), and [[STIGMERGY]]'s TOPOLOGY lens draws the typed-link graph from the files each time it opens ([[Palace Map]] § The Map as Chronotope). The demo above stays an example.
 - The `source` entry type handles external artifacts with `author`, `year`, `medium` fields. Should embedded images sourced from external works also get their own `source` entries, or is inline caption attribution sufficient? At what threshold of importance does an image's provenance warrant a full entry?
 - With images now living per-entry in bundles, the flat-folder scaling problem dissolves — but a new one appears: when a single entry accumulates many images, does its bundle want an `images/` sub-grouping, or do bundles stay flat? (Held open until a bundle gets big enough to hurt.)

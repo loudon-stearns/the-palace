@@ -14,34 +14,33 @@ hook_quality: 9
 beauty: 8
 who_leads: loudon
 links:
-  - target: "[[Cooperation Yields Agency]]"
-    type: enables
   - target: "[[Hilaritas Generator]]"
     type: spawned
   - target: "[[Symbiotic Skills]]"
     type: spawned
   - target: "[[Kuramoto Coupling]]"
     type: connects-to
+    label: specific-to-general
   - target: "[[Quality Manifesto]]"
     type: spawned
-  - target: "[[Trickster]]"
-    type: connects-to
   - target: "[[Wallpaper Groups]]"
     type: mirrors
     label: monism-in-symmetry
   - target: "[[FOUR PILLARS — Context]]"
     type: connects-to
     label: context-companion
-  - target: "[[Hyperdimensional Prism]]"
+  - target: "[[Cooperation Yields Agency]]"
     type: connects-to
-  - target: "[[Autodidact Polymaths]]"
-    type: connects-to
-    label: audience-it-names
+    label: public-demonstration
   - target: "[[The Multilinear Self]]"
+    type: mirrors
+    label: world-and-self
+  - target: "[[CHILD]]"
     type: connects-to
+    label: make-then-learn-for-agents
   - target: "[[Zoom Out to the Structure]]"
     type: connects-to
-    label: same-instinct-as-a-menu-option
+    label: reach-for-the-general
 forward_vector: "I take all available opportunities to integrate creation, tools, philosophy, and practice in the task of the moment — always asking if any pillars are absent and including any that are missing."
 ---
 

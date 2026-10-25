@@ -6,7 +6,7 @@ pillars:
   - tools
   - practice
 born: 2026-10
-stage: seed
+stage: sprout
 author: Loudon Stearns with Claude (claude.ai Design System artifact)
 year: 2026
 medium: tool
@@ -51,6 +51,8 @@ links:
 
 # Drafting Table Design System
 
+![[Drafting Table Design System — hero.png]]
+
 The dress for the work Loudon makes with his hands and ears: plugin faces, instrument panels, 3D parts, and the pages that document a build. It is the [[BBS Design System]]'s terminal grown up and moved onto the [[CAD Drafter]]'s sheet. The grammar stays: monospace everywhere, a hairline is the card, nothing is rounded unless it was turned on a lathe, every word is text you can grep. What changes is the ground and the mass. The sheet is paper by day and phosphor by night, and a control has a solid surface you could pick up.
 
 > Drawn, not rendered. Every surface is outlined in ink, every number says where it came from.
@@ -91,5 +93,4 @@ The Maker's own cascade table and the "only BBS" sentences in the Maker and the 
 ## Status
 
 - **2026-10-21.** Born as a Design System artifact from three sources read exactly; twelve components verified on both grounds in a local harness; the plain-JS controls, the alias sheet and the host binding (`get, set, begin, end, on`, every move inside a gesture) added at the VST Template session's request; exported to `_ops/drafting-table/design-system/`. Loudon: "grow up" and "the vst editor moves to drafting table."
-- **2026-10-21, later.** Landed on main (199bcddf) on Loudon's yes; the CLAUDE.md design-manifest line names both dresses (eb246c96); propagate flag commons-the-palace-1792586388505 carries the three-dress rule to the pages that restate the old one, for the next weave.
 - **Not yet.** A logo (the name in mono is the mark). JetBrains Mono as a file. A hero knob and an XY pad, described in the brand book but not built.

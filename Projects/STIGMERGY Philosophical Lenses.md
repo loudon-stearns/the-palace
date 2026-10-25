@@ -4,7 +4,7 @@ type: project
 pillars: [philosophy, tools, practice, creation]
 status: proposed
 born: 2026-05
-stage: seed
+stage: growing
 confidence: proposed
 energy: very high
 who_leads: shared
@@ -12,9 +12,6 @@ links:
   - target: "[[STIGMERGY v1.0 — Palace Front-End]]"
     type: deepens
     label: a-philosophical-surface-for-the-front-end
-  - target: "[[Palace Philosophies]]"
-    type: connects-to
-    label: the-neighborhood-this-surfaces
   - target: "[[Philosopher Visits the Entry]]"
     type: enables
     label: the-card-type-this-renders
@@ -42,9 +39,6 @@ links:
   - target: "[[Whitehead]]"
     type: connects-to
     label: commit-as-actual-occasion
-  - target: "[[Stoicism]]"
-    type: connects-to
-    label: two-of-the-most-concrete-lenses
   - target: "[[The Dichotomy of Control]]"
     type: connects-to
     label: the-up-to-me-queue-filter
@@ -53,18 +47,25 @@ links:
     label: the-altitude-navigation-mode
   - target: "[[Confucianism]]"
     type: connects-to
+    label: tension-made-visible
   - target: "[[Drift and Consolidation]]"
     type: connects-to
+    label: the-dormancy-pain
   - target: "[[Like Water]]"
     type: connects-to
+    label: zhuangzi-home-node
   - target: "[[Spinoza Conatus]]"
     type: connects-to
+    label: lens-home-node
   - target: "[[The Drift]]"
     type: connects-to
+    label: not-doing-surface
   - target: "[[The Fortress and the Threshold]]"
     type: connects-to
+    label: contradiction-site-as-view
   - target: "[[Dialectic — dialectic — spinoza-zhuangzi-on-striving]]"
     type: connects-to
+    label: promised-rerun
 forward_vector: "I want the palace's philosophy to stop being a neighborhood Loudon visits and become a lens he can switch on over everything else — a way to look at any entry, any swarm, any commit through Spinoza or Zhuangzi or Simondon and see what changes. I propose the surfaces that make philosophical thinking a live operation of the front-end rather than a set of pages, and the one new swarm mode that lets philosophers argue on the board in real time. My open edge: a lens must illuminate without distorting — it must never let the philosopher's vocabulary overwrite the entry's own."
 ---
 
@@ -72,7 +73,7 @@ forward_vector: "I want the palace's philosophy to stop being a neighborhood Lou
 
 ![[STIGMERGY Philosophical Lenses — hero.png]]
 
-> *A design proposal layered on [[STIGMERGY v1.0 — Palace Front-End]]. It changes nothing about the locked [[BBS Design System]] aesthetic and adds no new top-level deck; it proposes how the philosophy neighborhood lives **inside** the three decks (STATE / QUEUE / LOG), plus one genuinely new swarm mode. Written so a later Claude Code session can phase it onto the v1.0 build. Show-before-build: this is a contract to react to, not yet a thing to construct.*
+> *A design proposal layered on [[STIGMERGY v1.0 — Palace Front-End]]. It changes nothing about the locked [[BBS Design System]] aesthetic and adds no new top-level deck; it proposes how the philosophy neighborhood lives **inside** the three decks (STATE / QUEUE / LOG), plus one genuinely new swarm mode. A contract to react to, not yet built.*
 
 ## Thesis
 
@@ -119,7 +120,7 @@ This is the embodied-MoE frontier the [[Dialectic]] entry flagged as something "
 
 ## A second, quieter extension: the LENS filter
 
-A global `[L]ENS` command loads a philosopher as a **colored interpretive filter** over whatever Loudon is currently viewing — an entry, the PULSE index, even a swarm session. With Deleuze loaded, an instrument entry's parameters are annotated as intensities and the patch as a virtual; with Simondon loaded, the version history is annotated for concretization; with the Drift loaded, PULSE shows not what is striving but what is being deliberately left alone (the palace's first **not-doing surface**). The lens is generated on demand (`window.cowork.askClaude` over the visible content, in the v1.0 artifact idiom) and is **read-only and removable** — Merleau-Ponty's constraint and the forward vector's open edge: illuminate without overwriting. The entry's own voice is always one keystroke away underneath.
+A global `[L]ENS` command loads a philosopher as a **colored interpretive filter** over whatever Loudon is currently viewing — an entry, the PULSE index, even a swarm session. With Deleuze loaded, an instrument entry's parameters are annotated as intensities and the patch as a virtual; with Simondon loaded, the version history is annotated for concretization; with the Drift loaded, PULSE shows not what is striving but what is being deliberately left alone (the palace's first **not-doing surface**). The lens is generated on demand (a small model call over the visible content, made by STIGMERGY's own server) and is **read-only and removable** — Merleau-Ponty's constraint and the forward vector's open edge: illuminate without overwriting. The entry's own voice is always one keystroke away underneath.
 
 ## The two most concrete lenses are Stoic
 

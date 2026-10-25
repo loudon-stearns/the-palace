@@ -18,6 +18,7 @@ links:
     type: member-of
   - target: "[[FOUR PILLARS]]"
     type: exemplifies
+    label: cross-domain-bridge
   - target: "[[Brian Eno]]"
     type: connects-to
     label: informed-by
@@ -340,14 +341,7 @@ They've internalized: **Precision serves, not rules.**
 
 ## Success Metrics (By Our Definition)
 
-**Not:** "Do you always quantize?"
-**But:**
-- Can you articulate WHY you quantize (or don't)?
-- Do you experiment with different amounts?
-- Can you hear when quantization helps vs hurts?
-- Have you questioned your default setting?
-
-When quantization becomes conscious choice, not automatic habit—**the resonance succeeded**.
+It worked when quantizing becomes a conscious choice, not a habit.
 
 ## The Final Insight: Resolution Determines Expression
 

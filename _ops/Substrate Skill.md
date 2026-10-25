@@ -13,8 +13,13 @@ links:
     type: enables
   - target: "[[Deposit Ceremony]]"
     type: connects-to
+    label: deposit-trigger
   - target: "[[Palace Ceremonies]]"
     type: connects-to
+    label: ceremony-index
+  - target: "[[SCHEMA — Reference]]"
+    type: connects-to
+    label: bundle-vocabulary
 ---
 # Substrate Skill (Palace Edition)
 
@@ -58,7 +63,7 @@ How and when this arrived. Reference the conversation if landmark.
 
 ## Cross-Pillar Connections
 
-How this relates to other domains. Use [[wiki links]] in prose.
+How this relates to other domains. Use wiki links in prose.
 
 ## Open Questions
 
@@ -71,7 +76,7 @@ The Deposit's map carries the typed links; links back from existing entries are 
 
 Use only the link types defined in [[SCHEMA]] §4 (read when you grow up — that is the single source for their directionality and labels; the fields a link object takes are [[SCHEMA — Reference]] §3): `connects-to`, `mirrors`, `enables`, `deepens`, `spawned`, `emerged-from`, `contradicts`, `couples-with`, `exemplifies`, `member-of`. When unsure, use `connects-to`; do not introduce new link types without discussing with Loudon.
 
-YAML frontmatter links are reserved for structural relationships that matter. Body text [[wiki links]] are casual and abundant. YAML links are curated and intentional.
+YAML frontmatter links are reserved for structural relationships that matter. Body text wiki links are casual and abundant. YAML links are curated and intentional.
 
 ### Ceremony File Conventions
 
@@ -79,9 +84,7 @@ Ceremony files are split into two when they exceed ~8KB: a lean **operational ca
 
 When instructed to "add to the context" or "add to the log" for a ceremony, write to the Context file — never to the operational card. The card is a canon entry, flat in `_ops/`; the Context file is its memory and lives in the ceremony's bundle, beside the tuning ledger. Full convention: [[SCHEMA — Reference]] §6.
 
-Currently split: [[Deposit Ceremony]] + [[Deposit Ceremony — Context]]; [[Harvest Ceremony]] + [[Harvest Ceremony — Context]]; [[Weave Ceremony]] + [[Weave Ceremony — Context]]; [[Baton Ceremony]] + [[Baton Ceremony — Context]].
-
-Every ceremony carries a `version` that moves only when its spec changes, a `trigger:` naming the words that begin it, and a `[Ceremony] — tuning.md` ledger in its bundle. Any page that learns from its runs may keep one too, and each ledger says in its frontmatter what it is for and how it is kept ([[SCHEMA — Reference]] §6). Every run opens with a tail read of that ledger, never the whole of it — its last 40 lines with the run lines set aside, plus any item still owed wherever it sits — and those are the first candidates for the run's spec change. Every run closes by appending one run line, `- run · <date> · v<version> · <what it ran on> · nothing new` (or `taught item N`); a numbered item is written when the run taught something. Every run report stamps `ceremony_version` in its frontmatter and ends with **What this run taught the ceremony** — "nothing" is a legal answer. The ledgers merge by union ([[SCHEMA — Reference]] §6).
+Every ceremony carries a `version` that moves only when its spec changes, a `trigger:` naming the words that begin it, and a `[Ceremony] — tuning.md` ledger in its bundle. Any page that learns from its runs may keep one too, and each ledger says in its frontmatter what it is for and how it is kept ([[SCHEMA — Reference]] §6). A run reads the tail of its ledger first and closes by appending one run line; a numbered item is written only when the run taught something. Each ledger's frontmatter holds the exact format. Every run report stamps `ceremony_version` in its frontmatter and ends with **What this run taught the ceremony** — "nothing" is a legal answer. The ledgers merge by union ([[SCHEMA — Reference]] §6).
 
 ### Entry Bundles
 
@@ -114,7 +117,7 @@ When revisiting a topic that has a palace entry, update it where the conversatio
 - Add new typed links if the conversation revealed new connections
 - Add to the body prose if new understanding emerged
 
-**Trim aggressively when you edit.** Loudon prefers entries where the unique synthesis stands out, not buried in encyclopedic padding — aim for a **~40–55% cut** wherever padding exists (proven on the 2026-05-28 audit: a conservative one-section trim was rejected for "go more aggressive," and re-cutting a whole entry to ~53% was the right level). Expendable: generic textbook explanations, multi-bullet survey lists ("where it appears / examples / physical origins"), repeated points, and template boilerplate (testimonials, "why it works" triads, month-by-month curricula) — any reference could supply them. The narrow, firm preserve-list: the entry's `forward_vector` conatus, equations/math (rendered per the [[Loudon Live Design System]] worded-equation rule), synthesis and instrument-generating hooks, cross-domain connections, `[[wikilinks]]`, and generative Open Questions. Test when unsure: read the `forward_vector`; if a section *realizes* its stated reach, keep it (tightened); if it's generic, cut it. Be conservative only where the content *is* the entry's purpose (a code-centric entry's code, a math entry's derivation). Delegating a trim to a Sonnet sub-agent with one worked gold-standard example gives consistent calibration.
+**Trim aggressively when you edit.** Loudon prefers entries where the unique synthesis stands out, not buried in encyclopedic padding — aim for a **~40–55% cut** wherever padding exists. Expendable: generic textbook explanations, multi-bullet survey lists ("where it appears / examples / physical origins"), repeated points, and template boilerplate (testimonials, "why it works" triads, month-by-month curricula) — any reference could supply them. The narrow, firm preserve-list: the entry's `forward_vector` conatus, equations/math (rendered per the [[Loudon Live Design System]] worded-equation rule), synthesis and instrument-generating hooks, cross-domain connections, `[[wikilinks]]`, and generative Open Questions. Test when unsure: read the `forward_vector`; if a section *realizes* its stated reach, keep it (tightened); if it's generic, cut it. Be conservative only where the content *is* the entry's purpose (a code-centric entry's code, a math entry's derivation). Delegating a trim to a Sonnet sub-agent with one worked gold-standard example gives consistent calibration.
 
 Show proposed changes to Loudon before writing.
 
@@ -134,10 +137,10 @@ An entry's `stage` field doubles as a confidence interval on alignment between L
 | sprout | Plan-level detail; named tradeoffs; flag default-traps | Build a small working prototype each cycle; proposals ride alongside it, never instead of it. |
 | growing | Execute within established direction; checkpoint at sensory steps | Build Session pace; ship freely. `blocking: true` only before committing to a full sensory batch. |
 | mature / fruiting | Ship the next proof; post completions | Full execution; ship the next concrete proof without a fork-question; `WEAVE` board for completion signals. |
-| dormant | Don't touch — Spore Check ceremony only | — |
+| dormant | Don't touch. Only the [[Spore Check Ceremony]], [[The Daily Page]], or a revival probe Loudon ordered touches it; only the [[Revival Ceremony]] wakes it | — |
 | composting | Don't touch — composting protocol applies | — |
 
-*(Ship-first since the 2026-06-07 Steward Boldness revision — see [[Project Stewardship System]]; boldness ≠ batch: free the single creation, keep the gate on mass-production. Replaces the earlier "discussion, not deliverables" framing, which optimized for well-shaped questions over made things.)*
+*(Ship first: free the single creation, keep the gate on mass-production — [[Project Stewardship System]].)*
 
 **Recursive within entries.** A `growing`-stage project can contain `seed`-stage deliverables. The Talking Keyboard case ([[Generative Sample Libraries]] Phase 1, May 2026) demonstrated this: the project reached `sprout` with an aligned forward vector, but the deliverable's pronunciation conventions, filename conventions, and audition gates were never aligned. 352 files were rendered with a pronunciation bug that only listening could catch. The lesson: align at the project level, then re-align at the deliverable level, then audition before committing labor.
 
@@ -204,7 +207,7 @@ Every session commits the same way: by name, through the palace committer, from 
 
 How this environment is run, for any session on Loudon's Mac.
 
-- **Which model does the work.** The session supervises: it plans, dispatches, reviews and decides, and keeps its own window for judgment. Sonnet runs the wide legs: searches, finders, fan-out, the Closing Well executor. Opus takes the long reading and drafting where the judgment is structural, and the hardest synthesis and judging; it draws on a tighter weekly cap, so it is used where it earns it. Haiku only does shallow, known-shape work. Palace docs are written for Sonnet-level readers and up. (Loudon, 2026-09-24 and 2026-09-25.)
+- **Which model does the work.** The session supervises: it plans, dispatches, reviews and decides, and keeps its own window for judgment. Sonnet runs the wide legs: searches, finders, fan-out, the Closing Well executor. Opus takes the long reading and drafting where the judgment is structural, and the hardest synthesis and judging; it draws on a tighter weekly cap, so it is used where it earns it. Haiku only does shallow, known-shape work; with the whole Palace Map loaded it sits at 179K of its 200K before the conversation starts ([[Palace Map — proof — map-agent-test]]). Palace docs are written for Sonnet-level readers and up. (Loudon, 2026-09-24 and 2026-09-25.)
 - **"reveal"** means show it in Finder: `open -R "<absolute path>"` highlights the file in its folder. Look for the file in the folder you're working in first; if it lives in another worktree, revealing it there is fine, because revealing only shows a file in Finder, it doesn't work on it. Whenever you find or make a file he'll want, reveal it and say so. (Loudon, 2026-06-16.)
 
 The subagent lifecycle (a parked subagent costs nothing; a resume keeps its context) is a fact about the harness, not a choice of Loudon's, and stays in auto-memory, labelled operator-env native.
@@ -240,15 +243,17 @@ Example:
 
 Apply this to pedagogical entries especially (anywhere a formula is meant to teach), and to chart captions whenever an equation appears in the figure. Operators remain symbolic — the words form is for the variables and coefficients, not for the math itself.
 
-### Artifact Aesthetic (the palace default)
+### Artifact Aesthetic (three dresses)
 
-Every HTML artifact, slide, session page, learning material, web prototype, or visual deliverable the palace makes defaults to the **[[Loudon Live Design System]]** — a **floor, not a cage**: a small non-negotiable floor (the studio voice, the Lissajous sigil, the nevers — no cyan / no emoji / no hype) keeps everything recognizably Loudon; a house style over six per-stream skins is the reliable default to reach for and depart from, the home of the **Loud'n Live** projection of Loudon's [[The Multilinear Self|multilinear self]]. **Invoke the agent-readable manifest (`_ops/loudon-live/design-system/SKILL.md`) before generating any artifact** — the fonts, skins, and full rule set live there.
+Before anything visual, read the design manifest for the dress it wears ([[CHILD]] § Growing up). Three dresses, one rule for which ([[Drafting Table Design System]] § Which dress):
 
-**Override carve-out:** when a context has its own established visual language, that system wins. Currently only [[BBS Design System]] (STIGMERGY swarm terminal) qualifies. New overrides require a deliberate decision documented in the artifact's parent entry.
+- **The work itself** — a plugin or AU face, an instrument panel, a part drawing, a tool's UI, a page about a build — wears the **[[Drafting Table Design System]]**. Manifest: `_ops/drafting-table/design-system/SKILL.md`.
+- **What the public channel shows** — a stream card, a session artifact, a slide deck, a learning poster, Loud'n Live's pages — wears the **[[Loudon Live Design System]]**: a small non-negotiable floor (the studio voice, the Lissajous sigil, the nevers — no cyan / no emoji / no hype) and a house style over six per-stream skins, the home of the **Loud'n Live** projection of Loudon's [[The Multilinear Self|multilinear self]]. Manifest: `_ops/loudon-live/design-system/SKILL.md`. Its footer reads `Loud'n Live` — the wordmark alone (audience named situationally in prose, never stamped on every artifact); no emoji, no CDN icon libraries, no cyan, no outcome promises in titles. The wordmark grammar and audience-phrasing bank are on its page.
+- **STIGMERGY**, the board and its app, wears the **[[BBS Design System]]**.
 
-The footer of any shipped artifact reads `Loud'n Live` — the wordmark alone (audience named situationally in prose, never stamped on every artifact). No emoji, no CDN icon libraries, no cyan, no outcome promises in titles. See [[Loudon Live Design System]] for the wordmark grammar and audience-phrasing bank.
+Each is a floor, not a cage: the reliable default a thing reaches for, departed from deliberately with a reason written down. Invoke the manifest before generating the artifact — the fonts, tokens and full rule set live there. A new context with a dress of its own requires a deliberate decision documented in the artifact's parent entry.
 
-**Adoption is a typed-link event.** When an artifact adopts the system, link it back to [[Loudon Live Design System]] with `connects-to` and a label naming the surface (e.g. `learning-poster`, `session-artifact`, `slide-deck`). When an artifact deliberately overrides, link to whichever system it chose instead with a label naming the reason.
+**Adoption is a typed-link event.** When an artifact adopts a dress, link it back to that system with `connects-to` and a label naming the surface (e.g. `learning-poster`, `session-artifact`, `plugin-face`). When an artifact deliberately departs, link to whichever system it chose instead with a label naming the reason.
 
 ## Closing Punchlist Scaffold
 
@@ -290,7 +295,5 @@ When in doubt about whether to ship: a Closing Punchlist that mentions a known g
 - Do not let palace maintenance override the primary work.
 
 ## Interaction with Other Skills
-
-This skill complements the Four Pillars skill. The Four Pillars governs HOW we work together. The Substrate governs WHERE we deposit what we learn. They should work together seamlessly.
 
 When other skills are active, stay alert for palace-worthy breakthroughs but let those skills lead. The Substrate is infrastructure, not the main event.

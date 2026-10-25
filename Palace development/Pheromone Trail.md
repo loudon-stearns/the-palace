@@ -11,22 +11,20 @@ confidence: working
 energy: high
 beauty: 9
 links:
-  - target: "[[Enchanted Worker]]"
-    type: couples-with
   - target: "[[Pages as Agents]]"
     type: connects-to
+    label: drive-made-legible
   - target: "[[Palace as Context Injection System]]"
     type: connects-to
+    label: what-injection-carries
   - target: "[[Lateral Access]]"
     type: mirrors
   - target: "[[Swarm Weave]]"
     type: connects-to
-  - target: "[[STIGMERGY]]"
-    type: mirrors
-    label: two-timescale-trace
-  - target: "[[The Remembering Page]]"
-    type: couples-with
-    label: semantic-to-its-episodic
+    label: steers-the-swarm
+  - target: "[[SCHEMA — Reference]]"
+    type: connects-to
+    label: use-computed-from-git
 forward_vector: "I want to become the palace's explanation for why entry quality directly determines swarm behavior — the entry that a coordinator reads before dispatching workers to understand why a richly-worked neighborhood produces different results than a sparse one. I want to accumulate evidence: specific Weave sessions where strong pheromone trails produced unexpected connections, and specific spore-check findings where cold trails flagged dormant ideas worth revival."
 ---
 
@@ -75,4 +73,6 @@ The Spore Check ceremony is the mechanism for detecting decayed trails and decid
 
 - Is there a meaningful distinction between a trail that has been *followed* and one that has been *blazed*? New connections (Weave introductions) are blazed trails — not yet reinforced by repetition, but deliberately cut through terrain.
 - Can a trail be *too strong* — a deeply worn path that forecloses lateral exploration because workers always follow the same route? The Oblique Harvest was partly designed to address this, but it has been composted. What replaces it?
+  — answered on [[Swarm Weave]] § The oblique lens: every weave now cuts the map once more with no axis at all, a chance cover that sends workers off the worn routes (2026-10-24)
 - Should the palace develop a convention for marking fresh trails vs. reinforced ones — a `confidence` or use threshold below which a link is considered provisional?
+  — answered on [[Weave Ceremony]]: a typed link is a claim with a reason — its type, its label, or a sentence in the body — and a link with no reason is cut (Steps 3c–3e). A trail without a reason is not provisional; it is absent until it has one (2026-10-24)

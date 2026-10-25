@@ -25,6 +25,7 @@ links:
     label: source-filter-as-one-machine
   - target: "[[Tract Mirror — build plan — JUCE VST]]"
     type: connects-to
+    label: build-log
 ---
 
 # Tract Mirror

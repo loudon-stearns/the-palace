@@ -15,18 +15,17 @@ links:
     type: enables
   - target: "[[Boundary-Crossing Instruments]]"
     type: mirrors
-  - target: "[[FOUR PILLARS]]"
-    type: connects-to
   - target: "[[Biomechanical Synthesis]]"
     type: enables
-  - target: "[[Crystal Synthesizer]]"
-    type: connects-to
   - target: "[[SMPTE LTC]]"
     type: connects-to
     label: time-as-signal
   - target: "[[Progressive Staging]]"
     type: couples-with
     label: pedagogical-method
+  - target: "[[FOUR PILLARS]]"
+    type: exemplifies
+    label: learning-through-making
 ---
 
 # Signal-Rate CV Architecture

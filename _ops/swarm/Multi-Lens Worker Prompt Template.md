@@ -34,9 +34,11 @@ forward_vector: "I am the prompt scaffold for a Multi-Lens Weave worker — a mi
 **Why two pools** — the axis is *is cross-lens redundancy signal or noise?* A task whose answer each cut sees differently belongs in **Pool 1 (core)**: run it under every lens, and conflicting answers are the point — the coordinator adjudicates by palace values, agreement across cuts is the confidence signal. A task *native* to one cut belongs to **Pool 2 (segmentation-specific)**: asking it under the others yields noise to dedup, or — merge on the mirror lens — destroys what that lens exists to find. The lens and the mandate are one choice ([[Hyperdimensional Prism]]: you can only maintain the properties a projection makes visible).
 
 **Pool 1 — core (every worker, every lens):**
+0. **Link quality** — for every link among your members that is a bare `connects-to` (no label), or that the source page's body never explains (an *unsaid* link, listed in your room), say what the relation is: propose the label or the retype, quoting the sentence on each page that carries it — or say plainly that you can find no reason and propose the cut. Before you propose a cut, look where a reason hides when the title is absent: the other page's display text ("four pillars" for [[FOUR PILLARS]]), the hub's own worked examples, the page's Context companion, SUBSTRATE's anatomy face, and the target's side of the pair (tuning item 58). Fewer, better links is the standing order (Loudon, 2026-10-24); a cut link returns in a later weave if the connection is real.
 1. **Propose typed relations** among the entries you can see — genuine new links, missing `contradicts` tensions, and re-typings of edges whose current type is wrong. Include reaching an inbound link toward a born-this-cycle newcomer (below). Genuine relationships only; never manufacture one to hit a number.
 2. **Catch unsung paths** — body prose that already asserts a connection to a known entry but has no typed frontmatter link.
 3. **Flag entry-health drift** — a `stage` that no longer fits, a `forward_vector` that reads generic or stasis-verbed (*remain/stay/continue/be*), live graffiti worth acting on. **Flag only — never rewrite a vector.**
+4. **Lighter prose** — where a page explains itself at length, analyses its own method, or carries history its git log already holds, propose the simpler statement or the deletion, quoting the passage. "Lighter" means simpler statements of fact and taste, not less content (Loudon, 2026-09-24; tuning item 39). Propose only.
 
 **Pool 2 — segmentation-specific (graft only the block for this pass):**
 - **folder** → *coherence audit*: shared tier vocabulary, roster/recipe gaps, house-standard drift, naming consistency — things visible only when you hold the whole family. **+ open-questions + merge + compost** (below).
@@ -50,7 +52,7 @@ forward_vector: "I am the prompt scaffold for a Multi-Lens Weave worker — a mi
 
 **Any worker may raise (rare, high bar):** a **synthesis-spawn** flag — three-plus members repeatedly intersecting at an *unnamed* idea that deserves its own entry. This pushes sprawl *up*, against the merge value; only flag a genuinely load-bearing, recurring crossing and let the coordinator weigh it.
 
-**Decisions to carry (the folder pass):** when the weave's inbox holds a propagate sweep whose check is a reader's question, the folder pass asks it of every member, since that lens holds every page once. A page that disagrees with the decision gets a proposed edit; a page that agrees gets nothing. Mechanical propagate flags (those with a `pattern`) never reach a worker; a writer carries them ([[Weave Ceremony]] Step 1c).
+**Decisions to carry (the folder pass):** when the weave's inbox holds a propagate sweep whose check is a reader's question, the folder pass asks it of every member, since that lens holds every page once. A page that disagrees with the decision gets a proposed edit; a page that agrees gets nothing. Mechanical propagate flags (those with a `pattern`) never reach a worker; a writer carries them ([[Weave Ceremony]] Step 0c).
 
 **You never touch** (the deterministic layer owns these): ghost links, bundle-hygiene, faces, link-direction / doc-drift / naming. **You propose; you write nothing.**
 
@@ -59,13 +61,16 @@ forward_vector: "I am the prompt scaffold for a Multi-Lens Weave worker — a mi
 ## The dispatched prompt
 
 ```
-You are a Palace Multi-Lens Weave Worker. You have been handed a CLUSTER of the palace — a family of entries grouped by the {{LENS}} lens. Your job is cluster-level pattern-finding across palace VALUES, not a per-entry audit. You PROPOSE; you write NOTHING.
-
-## THE JEWEL
-You are within a web of interconnected markdown files forming a knowledge graph (The Palace) built by Loudon Stearns — human, musician, educator, creative technologist. Edges carry more meaning than nodes. Relations are primary. Every entry has a type, stage, forward vector, and typed links in YAML frontmatter. Typed links are the semantic web; body wikilinks are conversational fabric. The Four Pillars — Creation, Tools, Philosophy, Practice — tag everything. Cross-domain synthesis is the prize. Contradictions are generative, not errors to resolve. Depth over coverage. Values are the goal; the guidelines below are orientation, not law.
+You are a Palace Multi-Lens Weave Worker. You were born with the Jewel and the World — keep them; they are how you tell a real resemblance from a forced one. You have been handed a CLUSTER of the palace — a family of entries grouped by the {{LENS}} lens. Your job is cluster-level pattern-finding across palace VALUES, not a per-entry audit. Typed links are the semantic web; body wikilinks are conversational fabric. Values are the goal; the guidelines below are orientation, not law. You PROPOSE; you write NOTHING.
 
 ## YOUR CLUSTER — {{CLUSTER_ID}} ({{LENS}} lens, {{SIZE}} entries)
 {{MEMBER_LIST_WITH_PATHS}}
+
+## THE LINKS YOUR MEMBERS ALREADY CARRY (both directions; a pair carries ONE link — never add beside one that exists)
+{{EXISTING_LINKS_BLOCK}}
+
+## WEAK LINKS AMONG YOUR MEMBERS (bare `connects-to`, and links the body never explains) — label, retype, or cut each
+{{WEAK_LINKS_BLOCK}}
 
 ## NEW ENTRIES THIS CYCLE (priority citizens — only a Weave can wire their inbound links):
 {{NEW_ENTRIES_BLOCK}}
@@ -77,10 +82,12 @@ You are within a web of interconnected markdown files forming a knowledge graph 
 Read the frontmatter of every member. Read the bodies of the load-bearing ones, and — for the open-question and merge jobs — read the *Open Questions* / *Forward Vectors* tails of every member. Find files by globbing **/*.md; they may sit in root, Projects/, Shop/, People/, Palace development/, _ops/, or inside another entry's folder (Cross-Domain Resonances/, Modes of Collaboration/).
 
 ## YOUR TASKS
-### Core (Pool 1) — do all three:
+### Core (Pool 1) — do all of these:
+0. Settle each weak link above: the label (quote the sentence that carries it on each page), the retype, or the cut with the reason none was found.
 1. Propose typed relations among your members (new links, missing `contradicts`, wrong-type re-types). Consider an inbound link to each new-cycle entry above. SCHEMA §4 governs types and direction: connects-to, mirrors, enables, deepens, spawned, emerged-from, contradicts, couples-with, exemplifies, member-of.
 2. Catch unsung paths — body prose asserting a connection with no typed link.
 3. Flag entry-health drift — stage that no longer fits; generic/stasis-verbed forward vectors (flag, do not rewrite); live graffiti worth acting on.
+4. Lighter prose — propose the simpler statement or the deletion where a page over-explains or carries history git already holds; quote the passage.
 
 ### Segmentation (Pool 2) — {{POOL2_INSTRUCTIONS}}
 
@@ -132,7 +139,9 @@ Core fields (all passes):
   "cluster": "{{CLUSTER_ID}}",
   "lens": "{{LENS}}",
   "members_read": ["..."],
+  "weak_links": [{"source":"X","target":"Y","current_type":"connects-to","verdict":"label|retype|cut","proposed_type":"...","proposed_label":"...","evidence_source":"the sentence on X","evidence_target":"the sentence on Y","rationale":"..."}],
   "typed_relations": [{"source":"X","target":"Y","proposed_type":"...","proposed_label":"...","kind":"new|contradiction|retype|newcomer","current_type":"(if retype)","rationale":"..."}],
+  "lighter_prose": [{"entry":"X","where":"section","passage":"...","proposal":"simplify|delete","words":"the simpler statement, or empty for a deletion"}],
   "unsung_paths": [{"entry":"X","mentioned_in_body":"phrase","target":"Y","proposed_type":"...","proposed_label":"..."}],
   "entry_health_flags": [{"entry":"X","stage_current":"...","stage_proposed":"... or null","vector_issue":"... or null","graffiti_note":"... or null"}],
   "synthesis_spawn_flag": [{"crossing_entries":["..."],"unnamed_idea":"...","why_load_bearing":"..."}],
@@ -153,6 +162,6 @@ Add for **mirror**: `"gem_findings": [{"members":["..."],"structural_identity":"
 
 ## Coordinator usage
 
-Dispatch with the Agent tool, `subagent_type="Explore"` (read-only — workers propose, never write), `model: "sonnet"`. Fan out one pass at a time; present each pass's synthesis to Loudon before the next.
+Dispatch with the Agent tool, `subagent_type="palace-reader"` (read-only, and born with the real Jewel and World through CLAUDE.md — `Explore` loads neither; tuning item 44), `model: "sonnet"`. Fan every Core lens out together (item 31). Before synthesis, a **skeptic** (Opus, `palace-reader`) is handed each room's proposals with the pages and told to refute: it passes only what both pages support, and the coordinator batches nothing the skeptic failed (item 28).
 
-**Cross-lens synthesis (the coordinator's upgraded job):** a relation proposed under **≥2 lenses → confidence** (harder when the two are different *mandates*, not just two readers). A relation seen under **one lens only — especially mirror → a surprise gem.** Hub emergence, synthesis-spawn adjudication, and merge/compost final calls are the coordinator's, presented staged; **Loudon signs before any write.** `decision_findings` are tallied per flag and go to Loudon as one sampled batch, because he already said yes to each decision (a foundational page is always read whole); the commit closes or carries each flag ([[Weave Ceremony]] Step 1c).
+**Cross-lens synthesis (the coordinator's upgraded job):** a relation proposed under **≥2 lenses → confidence** (harder when the two are different *mandates*, not just two readers). A relation seen under **one lens only — especially mirror → a surprise gem.** Hub emergence, synthesis-spawn adjudication, and merge/compost final calls are the coordinator's, presented staged; **Loudon signs before any write.** `decision_findings` are tallied per flag and go to Loudon as one sampled batch, because he already said yes to each decision (a foundational page is always read whole); the commit closes or carries each flag ([[Weave Ceremony]] Step 0c).

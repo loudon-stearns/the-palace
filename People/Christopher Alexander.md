@@ -34,9 +34,6 @@ links:
   - target: "[[The Palace Practices on Itself]]"
     type: connects-to
     label: palace-as-living-structure
-  - target: "[[FOUR PILLARS]]"
-    type: connects-to
-    label: fifteen-properties-checklist
   - target: "[[Simondon]]"
     type: mirrors
     label: concretization-is-wholeness

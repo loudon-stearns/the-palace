@@ -18,16 +18,16 @@ links:
     type: mirrors
   - target: "[[Spinoza Conatus]]"
     type: mirrors
-  - target: "[[Quality Manifesto]]"
-    type: mirrors
   - target: "[[Lateral Access]]"
     type: deepens
   - target: "[[Confucianism]]"
     type: connects-to
+    label: virtue-as-nature
   - target: "[[Identity Molting]]"
     type: spawned
   - target: "[[Revival Ceremony]]"
     type: connects-to
+    label: never-fault-the-walker
 ---
 
 # Water as Pedagogical Architecture

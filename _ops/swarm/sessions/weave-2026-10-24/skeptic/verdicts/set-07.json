@@ -1,0 +1,377 @@
+{
+ "set": "set-07",
+ "verdicts": [
+  {
+   "source": "Biomechanical Synthesis",
+   "target": "Particle Synthesis",
+   "op": "remove",
+   "proposed_label_or_type": "cut",
+   "verdict": "PASS",
+   "reason": "Neither page names the other in prose; Biomechanical's only grain line (neural firing rate as grain rate, line 133) is about neurons, and Particle Synthesis has no biological text.",
+   "better": ""
+  },
+  {
+   "source": "Biomechanical Synthesis",
+   "target": "Biomechanical Synthesis — enrichment — grotesque-pedagogy-haiku",
+   "op": "remove",
+   "proposed_label_or_type": "cut",
+   "verdict": "PASS",
+   "reason": "The haiku carries the pair's link (connects-to, label child-of) and the opening paragraph's (haiku) wikilink keeps the road; the bare parent-side duplicate adds nothing.",
+   "better": ""
+  },
+  {
+   "source": "Differential Equations",
+   "target": "DSP Frameworks",
+   "op": "remove",
+   "proposed_label_or_type": "cut",
+   "verdict": "FAIL",
+   "reason": "The hub states the reason outright, 'DSP Frameworks — discrete approximations (difference equations) solve DEs on computers', and repeats it in Open Tensions ('On a digital system, we solve difference equations'); the target's silence weakens the link but does not remove the reason.",
+   "better": "connects-to, label difference-equations"
+  },
+  {
+   "source": "Differential Equations",
+   "target": "Granular Synthesis",
+   "op": "label",
+   "proposed_label_or_type": "direct-solver",
+   "verdict": "PASS",
+   "reason": "The hub files Granular under 'Direct DE Solvers' and says a sine grain with an exponential envelope 'is a second-order underdamped system'; the label is the hub's own heading.",
+   "better": ""
+  },
+  {
+   "source": "Differential Equations",
+   "target": "Quantum Synthesizer",
+   "op": "label",
+   "proposed_label_or_type": "generalized-system",
+   "verdict": "PASS",
+   "reason": "The hub files Quantum under 'Generalized Systems', and Quantum line 41 calls the Schrödinger equation 'the infinite-dimensional version of an RLC resonant circuit', a second-order system.",
+   "better": ""
+  },
+  {
+   "source": "Dispersion",
+   "target": "Compressor Design",
+   "op": "remove",
+   "proposed_label_or_type": "cut",
+   "verdict": "PASS",
+   "reason": "Dispersion never names the compressor in its body, and the compressor's only frequency-domain line is about the knee's Fourier content, not group delay or dispersion.",
+   "better": ""
+  },
+  {
+   "source": "Dispersion",
+   "target": "Bessel Functions in Synthesis",
+   "op": "remove",
+   "proposed_label_or_type": "cut",
+   "verdict": "PASS",
+   "reason": "Neither names the other in prose; Bessel's stiffness line (62) touches stiff-string physics but never says dispersion, and Bessel's subject is circular-boundary inharmonicity.",
+   "better": ""
+  },
+  {
+   "source": "Categorizing Inharmonicity",
+   "target": "Compressor Design",
+   "op": "remove",
+   "proposed_label_or_type": "cut",
+   "verdict": "FAIL",
+   "reason": "Line 293 gives a reason, 'The soft-knee quadratic and the all-pass cascade both teach that invisible signal flow ... has audible consequences', and the compressor's opening carries the same register ('The design choice at every step is to make the invisible visible'); the false all-pass provenance at line 179 is a health flag, not grounds to cut.",
+   "better": "connects-to, label invisible-made-audible"
+  },
+  {
+   "source": "Granular Synthesis",
+   "target": "Boundary-Crossing Instruments",
+   "op": "remove",
+   "proposed_label_or_type": "cut",
+   "verdict": "PASS",
+   "reason": "The only tie is the forward vector's 'I build boundary crossing instruments from populations of short-term oscillators', which claims the class without a reason; neither body says what wall granular dissolves.",
+   "better": ""
+  },
+  {
+   "source": "Shepard Tone Synthesizer",
+   "target": "Granular Synthesis",
+   "op": "remove",
+   "proposed_label_or_type": "cut",
+   "verdict": "PASS",
+   "reason": "No grain or granular text on the Shepard page outside frontmatter, and Granular never mentions Shepard or octave stacking.",
+   "better": ""
+  },
+  {
+   "source": "Shepard Tone Synthesizer",
+   "target": "Particle Synthesis",
+   "op": "remove",
+   "proposed_label_or_type": "cut",
+   "verdict": "PASS",
+   "reason": "No particle text on the Shepard page outside frontmatter; Particle Synthesis never mentions Shepard.",
+   "better": ""
+  },
+  {
+   "source": "Shepard Tone Synthesizer",
+   "target": "Signal-Rate CV Architecture",
+   "op": "remove",
+   "proposed_label_or_type": "cut",
+   "verdict": "PASS",
+   "reason": "Shepard stacks octaves in the MIDI layer with no CV text; Signal-Rate CV mentions pitch CV generically but never Shepard.",
+   "better": ""
+  },
+  {
+   "source": "Bessel Functions in Synthesis",
+   "target": "Action Potential Oscillator",
+   "op": "remove",
+   "proposed_label_or_type": "cut",
+   "verdict": "PASS",
+   "reason": "No neuron or membrane-voltage text on the Bessel page, and no Bessel text on the oscillator page.",
+   "better": ""
+  },
+  {
+   "source": "DSP Frameworks",
+   "target": "Biomechanical Synthesis",
+   "op": "remove",
+   "proposed_label_or_type": "cut",
+   "verdict": "PASS",
+   "reason": "The only mention is the closing HTML note to Loudon suggesting project entries link to the hub, which is a to-do running the other way, not a stated relation.",
+   "better": ""
+  },
+  {
+   "source": "DSP Frameworks",
+   "target": "JSUI",
+   "op": "remove",
+   "proposed_label_or_type": "cut",
+   "verdict": "PASS",
+   "reason": "The hub never names JSUI and JSUI never names the hub; 'interface IS the instrument' and 'making the interface meaningful' are a shared theme, not a stated tie.",
+   "better": ""
+  },
+  {
+   "source": "DSP Frameworks",
+   "target": "Preset Oracle",
+   "op": "remove",
+   "proposed_label_or_type": "cut",
+   "verdict": "PASS",
+   "reason": "Neither page names the other; Preset Oracle has no framework text.",
+   "better": ""
+  },
+  {
+   "source": "Floquet Theory",
+   "target": "Entry Conatus",
+   "op": "remove",
+   "proposed_label_or_type": "cut",
+   "verdict": "PASS",
+   "reason": "Line 167 is a reader's note whose condition is unmet ('If that reading earns its keep, it links Floquet directly to [[Entry Conatus]]'), the exponent-as-conatus reading is already carried by the Spinoza Conatus link, and Entry Conatus (a page's will) never mentions Floquet.",
+   "better": ""
+  },
+  {
+   "source": "Floquet Time-Modulated Loops",
+   "target": "Progressive Staging",
+   "op": "retype",
+   "proposed_label_or_type": "exemplifies (label five-stage-arc)",
+   "verdict": "PASS",
+   "reason": "Exemplifies points back at the method correctly, and the page is stronger than the reader said: line 95 reads 'a five-stage arc that respects the [[Progressive Staging]] discipline, ending each stage with a complete, finishable instrument'.",
+   "better": "exemplifies, label respects-the-discipline (from line 95)"
+  },
+  {
+   "source": "Shepard Tone Synthesizer",
+   "target": "Frequency-Time Duality",
+   "op": "label",
+   "proposed_label_or_type": "time-domain-twin",
+   "verdict": "FAIL",
+   "reason": "The time-domain twin in line 167 is Risset's accelerating rhythm, not Frequency-Time Duality; neither page ties Shepard to the rate-becomes-pitch axis, so the label names a relation no sentence states.",
+   "better": "cut; it can return if the illusions series is written with Risset placed on the duality axis"
+  },
+  {
+   "source": "Categorizing Inharmonicity",
+   "target": "Quantum Synthesizer",
+   "op": "label",
+   "proposed_label_or_type": "potential-shaping",
+   "verdict": "PASS",
+   "reason": "Line 289 says it ('Shape the potential, shape the spectrum'), and Quantum has a section headed 'Anharmonicity through Potential Shaping'.",
+   "better": ""
+  },
+  {
+   "source": "Harmonicity and Inharmonicity",
+   "target": "Action Potential Oscillator",
+   "op": "remove",
+   "proposed_label_or_type": "cut",
+   "verdict": "PASS",
+   "reason": "Harmonicity's only nearby line is a passing origin mention of 'the neurological synthesizer project' that does not name the oscillator or give a reason; the oscillator names only Piano String Inharmonicity.",
+   "better": ""
+  },
+  {
+   "source": "Harmonicity and Inharmonicity",
+   "target": "Frequency-Time Duality",
+   "op": "remove",
+   "proposed_label_or_type": "cut",
+   "verdict": "PASS",
+   "reason": "Neither names the other; Harmonicity's rhythm/pitch question is routed through Boundary-Crossing Instruments, not the duality.",
+   "better": ""
+  },
+  {
+   "source": "Harmonicity and Inharmonicity",
+   "target": "Compressor Design",
+   "op": "remove",
+   "proposed_label_or_type": "cut",
+   "verdict": "PASS",
+   "reason": "No reason on either page; but the why is wrong about one thing: Compressor Design has no link back to Harmonicity, so there is no reciprocal to cut.",
+   "better": ""
+  },
+  {
+   "source": "Quadratic Interpolation in DSP",
+   "target": "DSP Frameworks",
+   "op": "remove",
+   "proposed_label_or_type": "cut",
+   "verdict": "PASS",
+   "reason": "Neither page names the other in prose; DSP Frameworks has no interpolation text.",
+   "better": ""
+  },
+  {
+   "source": "Compressor Design",
+   "target": "Granular Synthesis",
+   "op": "remove",
+   "proposed_label_or_type": "cut",
+   "verdict": "PASS",
+   "reason": "No grain text on the compressor page and no compressor text on Granular.",
+   "better": ""
+  },
+  {
+   "source": "Kuramoto Coupling",
+   "target": "Kuramoto Coupling — 8-Lesson Quiz Series",
+   "op": "remove",
+   "proposed_label_or_type": "cut",
+   "verdict": "PASS",
+   "reason": "The child carries the pair (connects-to, label child-of) and Kuramoto's Artifacts list keeps the body wikilink at line 146.",
+   "better": ""
+  },
+  {
+   "source": "Kuramoto Coupling",
+   "target": "Kuramoto Coupling — Quiz Answer Key",
+   "op": "remove",
+   "proposed_label_or_type": "cut",
+   "verdict": "PASS",
+   "reason": "Same shape: the key carries child-of, and line 147 keeps the body wikilink.",
+   "better": ""
+  },
+  {
+   "source": "Retrospective Delay",
+   "target": "Granular Synthesis",
+   "op": "remove",
+   "proposed_label_or_type": "cut",
+   "verdict": "PASS",
+   "reason": "No grain text on Retrospective Delay; Granular never mentions it.",
+   "better": ""
+  },
+  {
+   "source": "Retrospective Delay",
+   "target": "Boundary-Crossing Instruments",
+   "op": "remove",
+   "proposed_label_or_type": "cut",
+   "verdict": "PASS",
+   "reason": "Neither names the other; the delay's 'discontinuity at the boundary' (line 83) is a buffer loop seam, not the representation wall Boundary-Crossing names.",
+   "better": ""
+  },
+  {
+   "source": "SMPTE LTC",
+   "target": "Ableton Extension SDK",
+   "op": "remove",
+   "proposed_label_or_type": "cut",
+   "verdict": "PASS",
+   "reason": "No page by this title exists under the worktree (find by filename, no alias hit); the link dangles, and the body's plain-text SDK mention stays.",
+   "better": ""
+  },
+  {
+   "source": "Mathieu Equation",
+   "target": "Philosopher Visits the Entry",
+   "op": "retype",
+   "proposed_label_or_type": "exemplifies (label plato-deleuze-visit)",
+   "verdict": "FAIL",
+   "reason": "The Mathieu entry hosts a visit but is not itself an instance of the mode (it is a mathematical concept, and the visit is a section of it), and the evidence quote alters the wikilink (the page reads [[Palace Philosophies — Context#Plato (Socratic method)|Plato]]).",
+   "better": "connects-to, label plato-deleuze-visit (or visited-by)"
+  },
+  {
+   "source": "Compressor Design",
+   "target": "Boundary-Crossing Instruments",
+   "op": "retype",
+   "proposed_label_or_type": "exemplifies (label ratio-as-slope)",
+   "verdict": "FAIL",
+   "reason": "Compressor Design never reframes ratio as slope (no 'slope' on the page) and treats R=infinity as an edge case that 'approaches a step function', so it is not shown as an instance of the pattern; Boundary-Crossing's soft-knee origin is a related event, not this page instancing it.",
+   "better": "connects-to, label ratio-as-slope"
+  },
+  {
+   "source": "Linear Predictive Coding",
+   "target": "Philosopher Visits the Entry",
+   "op": "retype",
+   "proposed_label_or_type": "exemplifies (label spinoza-visit)",
+   "verdict": "FAIL",
+   "reason": "LPC hosts a Spinoza visit (line 81) but is not an instance of the mode, and the visit page never names LPC.",
+   "better": "connects-to, label spinoza-visit"
+  },
+  {
+   "source": "Murmuration",
+   "target": "Granular Synthesis",
+   "op": "retype",
+   "proposed_label_or_type": "exemplifies (label flock-as-grains)",
+   "verdict": "PASS",
+   "reason": "Murmuration is a granular engine in which 'every boid is a grain' (line 46) and 'a true per-sample grain' (line 68), so it is a concrete case of the technique; the direction is right.",
+   "better": ""
+  },
+  {
+   "source": "Ohm's Law",
+   "target": "Modes of Collaboration",
+   "op": "retype",
+   "proposed_label_or_type": "exemplifies (label interactive-exploration)",
+   "verdict": "PASS",
+   "reason": "Ohm's Law line 98 names the mode, and the palace's own catalogue (Modes of Collaboration — Context line 55) lists it under 'Named examples'; but the why is wrong that Modes of Collaboration links back, since it has no Ohm's Law link to cut.",
+   "better": ""
+  },
+  {
+   "source": "Portamento and Physical Pitch Modeling",
+   "target": "Action Potential Oscillator",
+   "op": "retype",
+   "proposed_label_or_type": "mirrors (label threshold-overshoot)",
+   "verdict": "PASS",
+   "reason": "Portamento line 243 states the shared pattern ('threshold, overshoot, and undershoot ... mirrors the dynamics of neural recovery'), and the oscillator's Stage 4 carries the same three damping regimes in neural material (line 58); it is a same-shape-two-materials mirror, though only one page names the other.",
+   "better": ""
+  },
+  {
+   "source": "Wavetable Space as Torus",
+   "target": "Philosopher Visits the Entry",
+   "op": "retype",
+   "proposed_label_or_type": "exemplifies (label deleuze-visit)",
+   "verdict": "FAIL",
+   "reason": "The visit page quotes the torus claim only as an example of a load-bearing claim a visit targets (line 60); the entry is visited, not an instance of the mode.",
+   "better": "connects-to, label deleuze-visit"
+  },
+  {
+   "source": "Linear Predictive Coding",
+   "target": "Loudon Live",
+   "op": "label",
+   "proposed_label_or_type": "vocoder-stage",
+   "verdict": "PASS",
+   "reason": "Line 89 and the forward vector plan the RNBO LPC vocoder 'as a [[Loudon Live]] stage'; the label is the page's own word.",
+   "better": ""
+  },
+  {
+   "source": "Portamento and Physical Pitch Modeling",
+   "target": "Biomechanical Synthesis",
+   "op": "label",
+   "proposed_label_or_type": "voice-biomechanics",
+   "verdict": "PASS",
+   "reason": "Line 259, under a section headed with the target, says glide in voice and winds 'is biomechanically generated'; but the why is wrong that Biomechanical links back, since its frontmatter has no Portamento link.",
+   "better": ""
+  },
+  {
+   "source": "Hyperdimensional Prism",
+   "target": "Harmonicity and Inharmonicity",
+   "op": "label",
+   "proposed_label_or_type": "all-pass-inharmonic",
+   "verdict": "PASS",
+   "reason": "Prism line 93 carries it ('an all-pass-based reverb tail is an inharmonic synthesizer in disguise'), but the § it cites no longer exists on Harmonicity, which sends the mechanism on to Categorizing Inharmonicity §6, and Harmonicity has no reciprocal link to cut.",
+   "better": "all-pass-inharmonic, with the stale § pointer flagged for repair"
+  }
+ ],
+ "fabricated_quotes": [],
+ "quote_inexact": [
+  "Mathieu Equation: the evidence renders the Plato link as [[Plato (Socratic method)|Plato]]; the page has [[Palace Philosophies — Context#Plato (Socratic method)|Plato]]. Same visible text, altered target; not fabricated.",
+  "Floquet Time-Modulated Loops: the evidence is a stitched elision of line 79 and the forward vector; both fragments are on the page."
+ ],
+ "health_flags": [
+  "Categorizing Inharmonicity line 179 credits the all-pass discovery to [[Compressor Design]], which never mentions all-pass or phase (the section was moved off it per the To-Do archive).",
+  "Hyperdimensional Prism line 93 cites Harmonicity § All-Pass Networks as Inharmonic Resonators, a section that no longer exists.",
+  "Compressor Design line 79 misdescribes Boundary-Crossing Instruments ('signal flow and information flow are the same topology').",
+  "Four whys claim a reciprocal bare link that does not exist: Compressor Design→Harmonicity, Modes of Collaboration→Ohm's Law, Biomechanical Synthesis→Portamento, Harmonicity→Hyperdimensional Prism."
+ ],
+ "summary": "40 proposals judged: 33 PASS, 7 FAIL (82.5%). The cuts held up well (24 of 26), and the two that failed share a habit: the reader cut because the target page was silent, even though the source states a reason (Differential Equations on difference equations; Categorizing Inharmonicity on invisible signal flow, which the compressor echoes). The retypes are where the room overreached. It used exemplifies for every page that hosts a Philosopher Visit (Mathieu, LPC, Torus), but a page that is visited is not an instance of the mode. It also called Compressor Design an instance of the ratio-as-slope pattern, a reframing the compressor page never makes. The one failed label (Shepard to Frequency-Time Duality) took the Risset rhythm's time-domain twinship and moved it onto the wrong page. No quotes were fabricated. Separately from the verdicts, four whys invent reciprocal links that are not in the target's frontmatter, so any cut-the-reciprocal follow-up from this set should be checked before it runs."
+}

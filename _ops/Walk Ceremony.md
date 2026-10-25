@@ -3,20 +3,13 @@ title: "Walk Ceremony"
 type: practice
 pillars: [practice, philosophy]
 born: 2026-03
-stage: mature
+stage: growing
 version: "1.3"
 trigger: ["walk", "let's walk"]
 links:
-  - target: "[[Palace Ceremonies]]"
-    type: connects-to
-  - target: "[[Substrate Skill]]"
-    type: connects-to
-  - target: "[[Weave Ceremony]]"
-    type: connects-to
-  - target: "[[Cooperation Yields Agency]]"
-    type: mirrors
   - target: "[[The Cooperation Path]]"
     type: connects-to
+    label: first-songline
 ---
 
 # Walk Ceremony
@@ -76,17 +69,16 @@ The Walk is not a task. It has no output requirement beyond a named surprise. So
 
 ## The Songline
 
-The Aboriginal Australian concept of the songline is the deep metaphor here. A songline is a route across land that is also a song — the act of singing (walking, naming) the path activates the knowledge encoded there. Knowledge is not stored and retrieved; it is activated through traversal.
-
-The palace Walk is a songline ceremony. The knowledge in the entries is not inert until needed. It is activated by the act of walking — by the connections made in motion, by the surprise at the intersection of two ideas that haven't been held together in a while.
+A songline is a route that is also a song: walking it activates what it holds. The Walk works the same way; the knowledge in the entries is woken by the path, not retrieved.
 
 See also [[The Cooperation Path]] for the first named songline in the palace.
 
 ## Open Questions
 
 - Should the Walk always start from a different entry than last time? Or is it valuable to walk the same starting point at different life stages of the palace?
+  - Progressed (2026-10-24): [[The Daily Page]] gives a different door every time by construction — no page sat twice in a lap — and `palace-map.py quiet` lists well-linked pages little visited lately, a way to choose a door not recently touched.
 - Is there a named "deep Walk" ceremony for when the traversal produces a major unexpected connection that should immediately trigger a Deposit?
-- At what palace size does the Walk need a structured ending (a report) rather than just a named surprise?
+  - Answered on [[Deposit Ceremony]] (2026-10-24): a walk's find enters canon through the Deposit like any other, with Loudon's approval of the map as the gate; the Walk already says note it and flag it, don't build mid-walk.
 
 ---
 

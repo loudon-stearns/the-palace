@@ -33,21 +33,17 @@ links:
   - target: "[[Kuramoto Coupling]]"
     type: mirrors
     label: lock-or-drift
-  - target: "[[The Curve Is the Material]]"
-    type: connects-to
-    label: analytic-precondition
   - target: "[[Wallpaper Groups]]"
     type: mirrors
     label: periodic-symmetries
   - target: "[[Shepard Tone Synthesizer]]"
     type: enables
     label: perception-topology
-  - target: "[[Deleuze]]"
-    type: connects-to
   - target: "[[Philosopher Visits the Entry]]"
     type: connects-to
   - target: "[[Simondon]]"
     type: connects-to
+    label: concretization
   - target: "[[Mathieu Equation]]"
     type: contradicts
     label: discovered-form-vs-actualized-virtual
@@ -170,11 +166,11 @@ The B editor displays the fiber at a given base-space position. The flat horizon
 
 *A [[Philosopher Visits the Entry|visit]] — [[Deleuze]] reads the opening claim: "A wavetable is not a rectangle. It is a torus. This is not a metaphor."*
 
-**Deleuze:** Good. But your closing line — "the geometry was always there, this is just the first time we named it" — is [[Plato (Socratic method)|Platonist]]: a Form, eternal, awaiting discovery. Drop it. The torus is not found behind the synthesizer. It is the **virtual** — the full field of every timbre the instrument could ever make, real but unactualized — and it is *yours*, built by the architecture you chose. The torus interior is the virtual; a modulation path is an actualization; the knobs select **intensities and winding numbers** that differentiate one sound out of the continuum. The (p,q,r) link class is not a label — it is the difference that makes the sound *be* what it is.
+**Deleuze:** Good. But your closing line — "the geometry was always there, this is just the first time we named it" — is [[Palace Philosophies — Context#Plato (Socratic method)|Platonist]]: a Form, eternal, awaiting discovery. Drop it. The torus is not found behind the synthesizer. It is the **virtual** — the full field of every timbre the instrument could ever make, real but unactualized — and it is *yours*, built by the architecture you chose. The torus interior is the virtual; a modulation path is an actualization; the knobs select **intensities and winding numbers** that differentiate one sound out of the continuum. The (p,q,r) link class is not a label — it is the difference that makes the sound *be* what it is.
 
 **The entry, answering:** Then the topological invariants are the realest thing — more real than any rendered waveform, because they characterize the field, not the instance. That is why the Berry-phase listening experiment matters: it tests whether the virtual structure is audible beneath any actualization. And it endorses the bundle UI instinct: edit the bundle as a whole, because the bundle **is** the virtual and the frames are its actualizations. [[Simondon]] would add: the synthesizer that exposes the torus rather than a list of presets is the *more concrete* instrument — its control surface has converged on the actual structure of its own possibility space.
 
-*Reader's note: the entry's closing line leans Platonic. The Deleuzian reading licenses "design the field, not the instance" as the entry's real design principle.*
+Design principle: design the field, not the instance.
 
 ## Lost Branches
 

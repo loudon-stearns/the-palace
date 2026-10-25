@@ -5,7 +5,7 @@ pillars:
   - philosophy
   - tools
 born: 2026-04
-stage: sprout
+stage: growing
 energy: high
 beauty: 9
 links:
@@ -27,13 +27,9 @@ links:
   - target: "[[Identity Molting]]"
     type: deepens
     label: threshold-as-molt
-  - target: "[[Hilaritas Generator]]"
-    type: connects-to
   - target: "[[The Fortress and the Threshold]]"
     type: connects-to
     label: binary-as-special-case-of-stratification
-  - target: "[[Threshold Conatus]]"
-    type: connects-to
 forward_vector: "I want to become the palace's general-purpose tool for resolving identity questions — the lens that dissolves 'is it still the same?' into 'same at which scale?' and finds that both answers are true simultaneously."
 ---
 

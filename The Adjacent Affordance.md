@@ -22,8 +22,6 @@ links:
   - target: "[[Palace as Context Injection System]]"
     type: connects-to
     label: symlink-instance
-  - target: "[[SUBSTRATE]]"
-    type: connects-to
 forward_vector: "I want to collect more instances of the move — every time a substrate forbids a primitive and the work routes through the adjacent one it still grants — until the pattern is undeniable. And I want to map where it fails: the case where there is no adjacent affordance, only the wall, so the principle does not become a refusal to ever accept a real limit."
 ---
 
@@ -47,11 +45,11 @@ One move, three substrates. `delete → rename`, `delete → relocate`, `space �
 
 ## The cousin, and the limit
 
-This is the engineering register of the Stoic [[The Dichotomy of Control]]: do not rage at the operation that is not up to you — act through the one that is. But it carries its own danger, which the forward vector names: not every wall has a door beside it. Sometimes the limit is real and the honest move is to accept it, not to invent an ever-cleverer detour. The skill is telling an adjacent affordance from a wishful one. And a detour that works still has a running cost. The Cowork committer left litter for every Weave to sweep, a seam in the palace's shared lock sweeper, and a hand-off queue the Return couldn't see; on 2026-10-20 it was retired, because the work had left Cowork for a room without the wall. Sometimes the neighbor of a forbidden primitive is another room.
+This is the engineering register of the Stoic [[The Dichotomy of Control]]: do not rage at the operation that is not up to you — act through the one that is. But it carries its own danger, which the forward vector names: not every wall has a door beside it. Sometimes the limit is real and the honest move is to accept it, not to invent an ever-cleverer detour. The skill is telling an adjacent affordance from a wishful one. A detour that works still has a running cost. The Cowork committer was retired on 2026-10-20 once the work left Cowork for a room without the wall; sometimes the neighbor of a forbidden primitive is another room.
 
 ## The Symposium
 
-*Provenance, told plainly: these are not historical quotations. The topic was put to each posture in the palace's [[Palace Philosophies|philosophical register]], and Claude voiced each in turn — the attribution names the lens, not the mouth. A fictional symposium in which every philosopher the palace keeps submitted a line on the Adjacent Affordance.*
+*Not historical quotations: Claude voiced each posture of the palace's [[Palace Philosophies|philosophical register]] on this topic. The attribution names the lens, not the mouth.*
 
 > Some operations are granted you and some are not. To grieve over `unlink`, which is not in your power, is folly; to reach for `rename`, which is, is the whole of wisdom. The constraint itself is indifferent — only your response to it is good or evil.
 > — **voiced in the posture of the Stoics** (Epictetus at the keyboard)

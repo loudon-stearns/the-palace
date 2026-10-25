@@ -31,7 +31,7 @@ export const PILLARS = ['creation', 'tools', 'philosophy', 'practice'];
 
 export const LINK_TYPES = [
   'connects-to', 'mirrors', 'enables', 'deepens', 'spawned',
-  'emerged-from', 'contradicts', 'couples-with', 'exemplifies', 'member-of',
+  'emerged-from', 'contradicts', 'couples-with', 'exemplifies', 'member-of', 'contrasts-with', 'made-by',
 ];
 
 // Type-specific required fields (SCHEMA §3 "Type-Specific Required Fields").

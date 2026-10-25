@@ -116,7 +116,7 @@ export function parseLinks(text) {
   // Combined regex: markdown [text](url) OR bare URL.
   // Bare URL schemes recognized: obsidian://, computer://, http(s)://, file://.
   // - obsidian:// — palace files, opens in Obsidian (the canonical scheme for palace links)
-  // - computer:// — Cowork chat surface only; included so messages authored for chat
+  // - computer:// — a chat-surface scheme no palace surface opens; included so messages authored for chat
   //   still parse, but they will not click in Chrome
   // - http(s):// — standard web links
   // - file:// — direct filesystem URL (browser security may block)

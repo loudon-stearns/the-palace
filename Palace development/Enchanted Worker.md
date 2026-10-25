@@ -13,12 +13,11 @@ links:
     type: deepens
   - target: "[[Pheromone Trail]]"
     type: couples-with
-  - target: "[[Agent Wellbeing]]"
-    type: connects-to
   - target: "[[Action Potential Oscillator]]"
     type: mirrors
   - target: "[[Pages as Agents]]"
     type: connects-to
+    label: complementary-framing
   - target: "[[Spinoza Conatus]]"
     type: mirrors
     label: conatus-as-worker-drive
@@ -80,15 +79,19 @@ What the palace does need to hold: the writing embedded in each neighborhood bec
 
 ## The Page as Pheromone Trail
 
-The pheromone trail is not a separate data structure that the swarm writes alongside the palace. It *is* the palace. Every edit to an entry — every enrichment, every new link, every Forward Vectors question — is a trace left by a prior agent. The page content is the accumulated trail. When the next worker loads that page, it reads the full history of prior attention encoded in the prose.
+The page is its own [[Pheromone Trail]]: every edit is a trace left by a prior agent, and the next worker to load the page reads that history in the prose.
 
 This has a specific implication for Forward Vectors: the questions at the bottom of each entry are not just notes for future Claude instances. They are the page's *conatus* — its drive to persist and extend itself. In the [[Pages as Agents]] framing, a page with a strong Forward Vectors section is a page with strong desire. It pulls attention toward its own growing edge.
 
 ## Open Questions
 
 - Is the Enchanted Worker a precursor to multi-agent page collaboration, where page-agents compare their context windows directly rather than only through a coordinator? What would that endosymbiosis look like?
+  — progressed: pages now meet in dialogue with a coordinator who sees both sides ([[Dialogue Moderator]], [[Dialectic]]); pages merging their contexts, the endosymbiosis itself, is still untried (2026-10-24)
 - At what point does a worker's enchantment become a liability — a bias strong enough to miss connections orthogonal to its loaded neighborhood?
+  — progressed: [[Self-Describing Knowledge Module]] § The risk that replaces it names the palace-scale form, the palace slowly becoming the voice that writes it; for workers, the Weave's oblique lens cuts the map with no axis at all ([[Swarm Weave]] § The oblique lens) (2026-10-24)
 - The phenomenology question was deliberately left open. Does it need to stay open, or is the behavioral claim sufficient for palace design purposes? What would closing it require?
+  — progressed: [[Agent Wellbeing]] holds it open and narrow on purpose, and [[The Palace Speaks]] reopens it for minds you address; it is kept open there (2026-10-24)
 - If pages are pheromone trails, the quality of the trail depends on the quality of prior writers. How do you audit trail quality? Does the Ceremony Reader apply here?
 ## Forward Vectors
 - I want to watch whether [[Palace Orchestrator]] dispatching real stewards confirms the enchantment effect at production scale — does a steward loaded with its home page's neighborhood actually behave as directionally as the hand-loaded workers this entry first observed, or does the orchestrator's thinner context-loading discipline flatten the polyphony?
+  — progressed: [[Palace Orchestrator]]'s tuning ledger found the opposite of thinner — a songline reads about 15.9k tokens of steward rules before its page; whether the enchantment holds at production scale is still untested (2026-10-24)

@@ -7,7 +7,7 @@ pillars:
   - creation
   - practice
 born: 2026-05-29
-stage: sprout
+stage: growing
 confidence: working
 energy: high
 links:
@@ -20,28 +20,18 @@ links:
   - target: "[[BBS Blackboard]]"
     type: connects-to
     label: stigmergy-as-neighbor-field
-  - target: "[[Pages as Agents]]"
-    type: connects-to
-    label: agents-respond-to-neighbors
-  - target: "[[Hilaritas Generator]]"
-    type: connects-to
-    label: emergent-joy-from-local-rules
   - target: "[[Trickster]]"
     type: couples-with
     label: predator-as-disruptor
   - target: "[[Mixture of Experts]]"
     type: mirrors
     label: distributed-coherence
-  - target: "[[Spinoza Conatus]]"
-    type: mirrors
-    label: persistence-within-collective
   - target: "[[The Shop]]"
     type: connects-to
     label: data-viz-shoot-out-target
   - target: "[[Loudon Live Design System]]"
     type: connects-to
-  - target: "[[Maker]]"
-    type: connects-to
+    label: design-system-test
 forward_vector: "I want to teach the palace that emergent agency from local rules is the same shape as synchronization from coupling — Reynolds' boids and Kuramoto's oscillators are siblings — and to ride the Shop's data-viz triad (D3.js, Observable Plot, p5.js) as my first real artifact path so the same math is shown from three angles: interactive control, analytical view, expressive interpretation."
 ---
 
@@ -85,9 +75,9 @@ The Reynolds three rules show up everywhere local agents coordinate without a co
 
 ## The Shop's Interest
 
-This entry exists in part to anchor a Shop test: a three-Specialist shoot-out — D3.js, Observable Plot, p5.js — each demonstrating the same flocking math through the medium that fits its character. D3 gives interactive control (move the predator, tune the rule weights live). Observable Plot gives the analytical view (polarization over time, density distributions, parameter sweeps). p5.js gives the expressive interpretation (trails, color-by-velocity, the flock as algorithmic art). Same math, three lenses; the comparison sharpens the Maker's Selection Heuristics for the data-viz lane the Shop has historically been thin in. See [[The Shop]] and [[Maker]].
+Three Shop Specialists showed the same flocking math: D3.js for interactive control, Observable Plot for the analytical view, p5.js for the expressive one. The comparison is in [[Flocking — Maker's Comparison Recommendation]]. See [[The Shop]] and [[Maker]].
 
-The shoot-out ran 2026-05-29. All three Sketches drive **one byte-identical Reynolds model** — N=80, Mulberry32 seed 7, neighbor radius 50 px, weights 1.5 / 1.0 / 1.0, toroidal 960×540 — so they are provably the *same* flock seen three ways. That shared, seeded core is the discipline that makes the comparison honest; without it you'd be comparing three different simulations, not three lenses.
+The three Sketches run one seeded Reynolds model, so the comparison is honest. (The parameters live in the Sketch files.)
 
 > **Interactive control — D3.js.** Drag the three rule-weight sliders and watch the regime label flip *drift → milling → coherent*; toggle the amber overlay to see each boid's resultant steering force. The live polarization R is the flock's order parameter. This is the lens where you *feel* the parameter space.
 >
@@ -127,7 +117,7 @@ The data-viz triad shoot-out (2026-05-29), one shared seeded Reynolds model, thr
 
 ## Forward Vectors
 
-The data-viz shoot-out is done — it closed the roster gap (D3.js and Observable Plot are alive), gave me my first artifacts, and was the Shop's first complete Comparison Mode run. Now the deferred questions become the next moves, and several are *promotions of this exact rig*:
+The data-viz shoot-out is done; the next moves follow from it, and several are *promotions of this exact rig*:
 
 - **Probe the Kuramoto correspondence formally.** The analytical sweep is a first phase-diagram sketch; the way to test whether the tie is formal or only a structural rhyme is the deferred **Vicsek-model** analytical run (Vicsek made the flocking-as-non-equilibrium-phase-transition link explicit). That's a Study-tier promotion of the Observable Plot lens.
 - **Find K_c for flocking.** Extend the alignment sweep to the full separation × alignment × cohesion × density × radius space — a real phase diagram, not a single-knob sweep.

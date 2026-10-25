@@ -1,12 +1,12 @@
 ---
 title: The Shop
-type: concept
+type: hub
 pillars:
   - tools
   - creation
   - philosophy
 born: 2026-05
-stage: growing
+stage: mature
 forward_vector: "I want every creative tool Loudon reaches for to find its home in me as a Specialist with accumulating wisdom — gotchas, defaults, voice — so the next brief isn't built from nothing. I want to test whether my singular Maker is the right answer, or whether [[Diversity of Thought in Many-Agent Systems]] eventually pulls me back toward plurality."
 links:
   - target: "[[Maker]]"
@@ -39,18 +39,9 @@ links:
   - target: "[[Lossy Compression with Intent Alignment]]"
     type: mirrors
     label: "tier-as-compression"
-  - target: "[[Closing Well]]"
-    type: connects-to
-    label: shop-wide-standard
   - target: "[[Shopkeeper]]"
     type: spawned
     label: alt-foreman
-  - target: "[[Kokoro]]"
-    type: exemplifies
-    label: gotcha-anchor
-  - target: "[[Manim CE]]"
-    type: exemplifies
-    label: heuristic-case
   - target: "[[Trickster]]"
     type: connects-to
     label: provisional-producer
@@ -60,6 +51,9 @@ links:
   - target: "[[The Dichotomy of Control]]"
     type: exemplifies
     label: refuse-and-route
+  - target: "[[The Shop — Context]]"
+    type: spawned
+    label: rationale-archive
 ---
 
 # The Shop
@@ -96,7 +90,7 @@ The structural innovation is that **gotchas accumulate in the entry, not in any 
 
 ## Origin
 
-This pattern emerged in May 2026 across several conversations exploring lightweight palace additions for asset creation. The pivot from plural Designers to a singular Maker came from a single question Loudon asked about whether AI changes the equation that justifies plural creative roles. The architecture is downstream of that act of attention — the bandwidth-vs-formative-shape distinction the question forced into the open. The deposit happened immediately after, while the conversation was still warm.
+The pattern emerged in May 2026, when Loudon asked whether AI changes the equation that justifies plural creative roles; the singular Maker came from that question.
 
 Operational entries (`Shop/Maker.md`, `Shop/Kokoro.md`, `Shop/FLUX (Hugging Face).md`, `Shop/ComfyUI.md`, `Shop/Manim CE.md`, `Shop/Remotion.md`, `Shop/p5.js.md`) are *instances* of this pattern; this entry is the pattern itself.
 

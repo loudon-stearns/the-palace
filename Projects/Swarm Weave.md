@@ -20,29 +20,20 @@ links:
   - target: "[[Palace Ceremonies]]"
     type: enables
     label: replaces-single-agent
-  - target: "[[Lateral Access]]"
-    type: connects-to
   - target: "[[Metaphor as Coupling Medium]]"
     type: spawned
   - target: "[[Walk That Weaves]]"
     type: spawned
-  - target: "[[Endosymbiosis]]"
-    type: mirrors
   - target: "[[Palace Enchantment]]"
     type: spawned
   - target: "[[Palace Map]]"
     type: enables
   - target: "[[Deposit Ceremony]]"
     type: connects-to
-  - target: "[[Spinoza Conatus]]"
-    type: mirrors
-    label: philosophical-ground
+    label: post-deposit-step
   - target: "[[Pages as Agents]]"
     type: deepens
     label: foundation
-  - target: "[[STIGMERGY]]"
-    type: connects-to
-    label: coordinated-on
   - target: "[[Hero and Avatar Maker]]"
     type: connects-to
     label: face-check-dispatch
@@ -457,11 +448,6 @@ complex. They didn't. The swarm will find out.
 
 ## Forward Vectors
 
-- **What is the right worker scope?** Answered above (*The Multi-Lens Weave*): not one
-  worker per entry but one per *neighborhood*, and the palace divided by *several* lenses
-  at once so nexus entries are read in each family they belong to. What remains open is
-  building the `partition-palace.py` that cuts the map multiple ways (a lens as a parameter)
-  and first-running the lens-swarm — carried in this entry's baton.
 - **How should the coordinator handle disagreement between workers?** If worker A
   proposes A→B as `mirrors` and worker B proposes B→A as `deepens`, present both
   to Loudon with the rationale — do not auto-resolve.

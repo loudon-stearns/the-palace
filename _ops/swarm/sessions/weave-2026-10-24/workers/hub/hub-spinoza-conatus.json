@@ -1,0 +1,512 @@
+{
+ "room": "hub-spinoza-conatus",
+ "lens": "hub-nutrition",
+ "pages_read": [
+  "Spinoza Conatus",
+  "1 from 2",
+  "Action Potential Oscillator",
+  "Agent Wellbeing",
+  "Bessel Functions in Synthesis",
+  "Biomechanical Synthesis",
+  "Blood Compressor",
+  "Categorizing Inharmonicity",
+  "Confucianism",
+  "Cooperation Yields Agency",
+  "Embeddings as Relational Meaning",
+  "Enchanted Worker",
+  "Excellent Adventure",
+  "Flocking",
+  "Floquet Theory",
+  "Four Pillars of Enchanted Agency",
+  "Hilaritas Generator",
+  "Identity Molting",
+  "Leibniz",
+  "Leverage Points Framework",
+  "Loudon's Toolkit",
+  "Mathieu Equation",
+  "Merleau-Ponty",
+  "Mixture of Experts",
+  "Philosopher Visits the Entry",
+  "Preset Oracle",
+  "Quality Manifesto",
+  "STIGMERGY Philosophical Lenses",
+  "SUBSTRATE",
+  "Saturation ↔ Richness",
+  "Slime Mold Delay",
+  "Swarm Weave",
+  "The Adjacent Affordance",
+  "The Cooperation Path",
+  "The Fortress and the Threshold",
+  "Wallpaper Groups",
+  "People/Spinoza (existence only)",
+  "_ops/Weave Ceremony.md (Step 3d)",
+  "Hilaritas Generator — Context",
+  "Cooperation Yields Agency — Context"
+ ],
+ "weak_links": [
+  {
+   "source": "The Adjacent Affordance",
+   "target": "Spinoza Conatus",
+   "current_type": "connects-to",
+   "verdict": "keep-as-is",
+   "evidence_source": "A thing's striving to persevere is not defeated by a closed door; it is rerouted through the open one. ... the conatus does not mourn the first, it pours wholly into the second, and is *increased* by the pouring. — voiced in the posture of Spinoza",
+   "evidence_target": "Conatus is not static preservation. It's *active self-maintenance* — the continuous effort to maintain and enhance one's coherent existence.",
+   "rationale": "The symposium gives Spinoza one of seven postures, and the label names exactly what that posture says; a named class, not a bare link.",
+   "confidence": "medium"
+  },
+  {
+   "source": "Identity Molting",
+   "target": "Spinoza Conatus",
+   "current_type": "connects-to",
+   "verdict": "retype",
+   "proposed_type": "exemplifies",
+   "proposed_label": "persistence-by-shedding",
+   "evidence_source": "Identity molting is conatus operating at the level of identity structure: the drive to persist *as what one actually is* overcomes attachment to the container that no longer fits. The organism persists by shedding.",
+   "evidence_target": "Identity as obstacle. When the learner's self-concept is the actual barrier ... See [[Identity Molting]] for the complementary framing.",
+   "rationale": "The page calls itself conatus working at the level of identity, which is a worked case of the hub's idea, so exemplifies (pointing back at the ground), labelled with the page's own move.",
+   "confidence": "high"
+  },
+  {
+   "source": "Floquet Theory",
+   "target": "Spinoza Conatus",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "proposed_type": "connects-to",
+   "proposed_label": "exponent-as-conatus",
+   "evidence_source": "Then the Floquet exponent $\\mu$ is a *measure of conatus.* Re(mu) < 0: the pattern strives and holds ... Re(mu) > 0: the striving runs away",
+   "evidence_target": "Conatus is not static preservation. It's *active self-maintenance*.",
+   "rationale": "The Whitehead visit reads the Floquet exponent as a measure of conatus; the label carries that reading. The page itself calls it tentative ('If that reading earns its keep'), so the label stays modest.",
+   "confidence": "medium"
+  },
+  {
+   "source": "Loudon's Toolkit",
+   "target": "Spinoza Conatus",
+   "current_type": "mirrors",
+   "verdict": "cut",
+   "evidence_source": "Philosophy — Tool relationships reflect Spinozist conatus: each instrument tends toward its own maximum expressiveness. The signal chain is the ecology.",
+   "evidence_target": "(hub says nothing of instruments or tools)",
+   "rationale": "Only support is one bullet in the Four Pillars Alignment list; an inventory of instruments is not shown to strive, and no worked case stands behind 'mirrors'. A real case can bring it back.",
+   "confidence": "low"
+  },
+  {
+   "source": "Merleau-Ponty",
+   "target": "Spinoza Conatus",
+   "current_type": "contradicts",
+   "verdict": "keep-as-is",
+   "evidence_source": "He broke with Sartre's bloodless freedom-of-the-mind and insisted on a subject that is *situated, embodied, and ambiguous* — never the transparent self-possession the Stoic fortress imagines.  [The page never names Spinoza in this passage; its only Spinoza sentence is the open question: 'the bodily face of Spinoza's increase in power-to-act?']",
+   "evidence_target": "Spinoza's God/Nature is a single substance with infinite attributes ... (hub body does not mention Merleau-Ponty or geometry)",
+   "rationale": "A symmetric contradicts stated on both sides with the same label folds to one; keep it once. The label carries the reason (Spinoza's geometric method against late Merleau-Ponty's ambiguous flesh), though neither page says it in a sentence. Worth one sentence on Merleau-Ponty; his page now leans the other way (cousin of relations-primary monism).",
+   "confidence": "medium"
+  },
+  {
+   "source": "Merleau-Ponty",
+   "target": "Spinoza Conatus",
+   "current_type": "connects-to",
+   "verdict": "cut",
+   "evidence_source": "Can the whole-being joy of hilaritas be located — is it the felt signature of the body schema *expanding*, the bodily face of Spinoza's increase in power-to-act?",
+   "evidence_target": "",
+   "rationale": "Second link on the same pair (also connects-to[power-to-act-is-embodied] beside the contradicts). One link per pair: fold into the contradicts; the consonant reading survives as the page's open question. Not in the assigned list; found on reading.",
+   "confidence": "high"
+  },
+  {
+   "source": "The Cooperation Path",
+   "target": "Spinoza Conatus",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "proposed_type": "connects-to",
+   "proposed_label": "philosophical-depth",
+   "evidence_source": "Spinoza Conatus — The philosophical depth. Cooperation doesn't erase each entity's drive to persist — it amplifies both conatus into a new, more capable form.",
+   "evidence_target": "Cooperation Yields Agency — Cooperation between entities with different conatus ... produces agency that neither possesses alone. The cooperation amplifies both entities' power-to-act. This is Spinozist joy — hilaritas — at the scale of a relationship.",
+   "rationale": "The Path names the hub as its fourth stop and says what the stop is for; the page's own phrase is the label.",
+   "confidence": "high"
+  },
+  {
+   "source": "Quality Manifesto",
+   "target": "Spinoza Conatus",
+   "current_type": "mirrors",
+   "verdict": "cut",
+   "evidence_source": "Quality is furtherance of our goals, not theirs.",
+   "evidence_target": "(hub's own frontmatter: Quality Manifesto mirrors, label quality-as-conatus)",
+   "rationale": "The hub already holds mirrors[quality-as-conatus] on this pair; a symmetric link on both sides is kept once, and where the labels differ the hub's holds: the Manifesto defines quality as furtherance of one's own goals, which is striving, whereas 'self-legislation' is a Kantian register the Manifesto does not use. The Manifesto never names conatus.",
+   "confidence": "medium"
+  },
+  {
+   "source": "SUBSTRATE",
+   "target": "Spinoza Conatus",
+   "current_type": "connects-to",
+   "verdict": "cut",
+   "evidence_source": "Metaphysical: relations before things, each page a striving.  /  the March hubs (FOUR PILLARS, Kuramoto Coupling, Hilaritas Generator, Spinoza Conatus, Cooperation Yields Agency) still lead.",
+   "evidence_target": "",
+   "rationale": "Bare, and the page never relates itself to the hub; its striving is carried by the labelled link to Palace Conatus (my-drive-named). The one body mention is a roster of the five March hubs by inbound count, not a relation.",
+   "confidence": "high"
+  },
+  {
+   "source": "Mixture of Experts",
+   "target": "Spinoza Conatus",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "proposed_type": "connects-to",
+   "proposed_label": "expert-for-drive-and-joy",
+   "evidence_source": "Spinoza Conatus handles questions about drive and joy. They don't all activate for every question.",
+   "evidence_target": "(hub is a philosophy hub on drive and joy)",
+   "rationale": "The page uses the hub as its example of a palace expert, and again as the voice a learner internalizes; the label says what the hub is for there.",
+   "confidence": "medium"
+  },
+  {
+   "source": "Flocking",
+   "target": "Spinoza Conatus",
+   "current_type": "mirrors",
+   "verdict": "cut",
+   "evidence_source": "(none; the page's only mention of the agent's own persistence is 'an interaction with the agent's own inertia')",
+   "evidence_target": "Coupling doesn't destroy conatus; it harmonizes multiple conatus into collective coherence.",
+   "rationale": "No sentence on Flocking names conatus, persistence or the individual inside the flock; the label alone claims a mirror. Flocking already mirrors Kuramoto Coupling, which holds the hub's persistence-through-coupling. Can return with a worked case (a boid keeping its own inertia inside the flock).",
+   "confidence": "medium"
+  },
+  {
+   "source": "Mathieu Equation",
+   "target": "Spinoza Conatus",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "proposed_type": "connects-to",
+   "proposed_label": "threshold-as-striving",
+   "evidence_source": "The threshold is where conatus and wu wei turn out to name the same crossing.",
+   "evidence_target": "(hub spawned Threshold Conatus; no sentence on parametric resonance)",
+   "rationale": "A sentence in the Spinoza-Zhuangzi blade names the relation: the resonant-rate threshold is where conatus and wu wei name one crossing.",
+   "confidence": "high"
+  },
+  {
+   "source": "Leverage Points Framework",
+   "target": "Spinoza Conatus",
+   "current_type": "mirrors",
+   "verdict": "cut",
+   "evidence_source": "(none; page speaks of paradigms, feedback loops and goals)",
+   "evidence_target": "",
+   "rationale": "Neither page gives a reason: the Framework never mentions striving, and the hub never mentions leverage. Quality Manifesto is the page that carries leverage into the hub's neighborhood.",
+   "confidence": "high"
+  },
+  {
+   "source": "The Fortress and the Threshold",
+   "target": "Spinoza Conatus",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "proposed_type": "connects-to",
+   "proposed_label": "synthesis-pole",
+   "evidence_source": "Spinoza Conatus is the synthesis pole on the cultivator side, but Spinoza is also a cultivator (the conatus is a striving). / the interior drive expressing itself through the relational web.",
+   "evidence_target": "(palace-level: Palace Philosophies names the hub the Spinozan pole of the quadruple)",
+   "rationale": "The page names the hub the synthesis pole of the self/architecture map, and says why.",
+   "confidence": "high"
+  },
+  {
+   "source": "Confucianism",
+   "target": "Spinoza Conatus",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "proposed_type": "connects-to",
+   "proposed_label": "relational-flourishing",
+   "evidence_source": "Both Confucius and Spinoza ground flourishing in right relationship with other beings. Spinoza's monism provides the metaphysical frame Confucius never needed to build.",
+   "evidence_target": "(hub: 'increases its engagement with the world'; no Confucian sentence)",
+   "rationale": "Body gives the shared ground: flourishing in right relationship with other beings.",
+   "confidence": "medium"
+  },
+  {
+   "source": "Cooperation Yields Agency",
+   "target": "Spinoza Conatus",
+   "current_type": "deepens",
+   "verdict": "keep-as-is",
+   "evidence_source": "(none on CYA's page or Context)",
+   "evidence_target": "Cooperation Yields Agency — Cooperation between entities with different conatus ... produces agency that neither possesses alone. The cooperation amplifies both entities' power-to-act. This is Spinozist joy — hilaritas — at the scale of a relationship.",
+   "rationale": "The hub holds enables[conatus-grounds-agency] and carries the sentence; this is the direct reciprocal of an enables with its ground, which the one-link rule permits. The reason lives on the hub only; CYA's own page never names conatus, so a sentence there would earn it.",
+   "confidence": "medium"
+  },
+  {
+   "source": "Hilaritas Generator",
+   "target": "Spinoza Conatus",
+   "current_type": "emerged-from",
+   "verdict": "keep-as-is",
+   "evidence_source": "the active, whole-being joy that accompanies an increase in power-to-act. Spinoza set it against *titillatio* ... [Context: 'hilaritas is conatus succeeding']",
+   "evidence_target": "Hilaritas is the special case: a joy that affects the whole body/mind equally ... The Hilaritas Generator is the classroom designed to produce this state.",
+   "rationale": "Direct lineage: the hub spawned it and it says so; reciprocal pair is the allowed exception.",
+   "confidence": "high"
+  },
+  {
+   "source": "Embeddings as Relational Meaning",
+   "target": "Spinoza Conatus",
+   "current_type": "mirrors",
+   "verdict": "cut",
+   "evidence_source": "A word has no meaning alone. It is a coordinate in a space defined entirely by relation.  [Confucian aside: 'identity is not a substance that enters into relationships — it *is* those relationships']",
+   "evidence_target": "Loudon's 2014 semantic web paper argued that links are more ontologically fundamental than nodes.",
+   "rationale": "'Persistence' appears nowhere on the page; its relations-first claim is already carried by emerged-from Meaning and the Link, which the hub mirrors. A relation is not shown here between embedding position and persisting in one's nature.",
+   "confidence": "medium"
+  },
+  {
+   "source": "Bessel Functions in Synthesis",
+   "target": "Spinoza Conatus",
+   "current_type": "connects-to",
+   "verdict": "retype",
+   "proposed_type": "exemplifies",
+   "proposed_label": "one-substance-many-attributes",
+   "evidence_source": "it is *the same geometry appearing in different physical materials*. This is Spinoza Conatus|monism: one substance, multiple attributes.",
+   "evidence_target": "Are the four pillars four attributes of a single substance?",
+   "rationale": "The opening paragraph calls the one-geometry-in-many-materials claim monism, linking the hub on that word: a worked case of the hub's substance idea, so exemplifies.",
+   "confidence": "medium"
+  },
+  {
+   "source": "Slime Mold Delay",
+   "target": "Spinoza Conatus",
+   "current_type": "mirrors",
+   "verdict": "keep-as-is",
+   "evidence_source": "The colony is stable not because it doesn't change but because change is locally regulated. Stability through process, not stasis.  [tubes that carry flow reinforce; dead ends retract]",
+   "evidence_target": "Conatus is not static preservation. It's *active self-maintenance*.",
+   "rationale": "Unsaid, but the sentence 'Stability through process, not stasis' is the hub's 'active self-maintenance' in other material (reinforce what carries flow, prune the rest). Same pattern, different material.",
+   "confidence": "medium"
+  },
+  {
+   "source": "Wallpaper Groups",
+   "target": "Spinoza Conatus",
+   "current_type": "mirrors",
+   "verdict": "retype",
+   "proposed_type": "exemplifies",
+   "proposed_label": "substance-and-modes",
+   "evidence_source": "This is Spinoza's monism applied to geometry. ... The wallpaper groups enact this structure. The *substance* is the pattern of repetition itself ... The *attributes* are the different perceivable aspects",
+   "evidence_target": "Are the four pillars four attributes of a single substance?",
+   "rationale": "A whole section, 'The Spinoza Connection: Substance and Its Modes', says it enacts the hub's substance monism; that is a worked case, so exemplifies (the room list shows it labelled, but the frontmatter carries no label).",
+   "confidence": "high"
+  },
+  {
+   "source": "Swarm Weave",
+   "target": "Spinoza Conatus",
+   "current_type": "mirrors",
+   "verdict": "cut",
+   "evidence_source": "The colony's intelligence is distributed — which is exactly what the palace's own philosophy has always described.",
+   "evidence_target": "",
+   "rationale": "'Mirrors' and 'ground' disagree, and no sentence ties the colony architecture to the hub; the page's only gesture is that distributed intelligence is 'what the palace's own philosophy has always described', which names no hub. Two passing mentions of Spinoza as an example of an entry's connection set.",
+   "confidence": "high"
+  },
+  {
+   "source": "Categorizing Inharmonicity",
+   "target": "Spinoza Conatus",
+   "current_type": "deepens",
+   "verdict": "retype",
+   "proposed_type": "exemplifies",
+   "proposed_label": "spectrum-as-substance",
+   "evidence_source": "Spinoza's modes: the harmonic spectrum is a substance, each inharmonic variant is a mode of it",
+   "evidence_target": "Are the four pillars four attributes of a single substance?",
+   "rationale": "One speculative bullet (of three) offers the spectrum as substance and each inharmonic variant as a mode. That is a case of the hub's monism, not an elaboration of conatus, so exemplifies at low weight; it could equally go and return with a worked case.",
+   "confidence": "low"
+  },
+  {
+   "source": "Blood Compressor",
+   "target": "Spinoza Conatus",
+   "current_type": "deepens",
+   "verdict": "cut",
+   "evidence_source": "The lesson this compressor teaches is *the same one the body teaches you every time you climb stairs*. Your blood pressure rises; your vessels respond ...",
+   "evidence_target": "",
+   "rationale": "The page maps compression onto cardiovascular regulation and never speaks of persistence or the hub; a compressor cannot deepen the hub's idea. Lineage to the idea runs via Biomechanical Synthesis, not to the hub.",
+   "confidence": "high"
+  },
+  {
+   "source": "Preset Oracle",
+   "target": "Spinoza Conatus",
+   "current_type": "deepens",
+   "verdict": "retype",
+   "proposed_type": "connects-to",
+   "proposed_label": "conatus-as-sound",
+   "evidence_source": "A student asked to make \"Spinoza's conatus as sound\" cannot look up the answer. They must: 1. Form their own interpretation of conatus — what is the *striving* at the heart of being?",
+   "evidence_target": "A good lesson doesn't just transfer information — it increases the student's conatus.",
+   "rationale": "The Oracle does not elaborate conatus; it gives it to a student as a challenge ('Spinoza's conatus as sound'), a labelled connects-to naming that use is the honest claim.",
+   "confidence": "medium"
+  },
+  {
+   "source": "1 from 2",
+   "target": "Spinoza Conatus",
+   "current_type": "connects-to",
+   "verdict": "cut",
+   "evidence_source": "The AI, implanted at birth, is initially helpless ... when it aligns with the infant's desires and they want something *together*, agency emerges.",
+   "evidence_target": "",
+   "rationale": "Bare and unsaid; the story never names the hub, and the Cooperation Path already routes it to the hub through Cooperation Yields Agency (spawned) and Endosymbiosis.",
+   "confidence": "high"
+  },
+  {
+   "source": "Action Potential Oscillator",
+   "target": "Spinoza Conatus",
+   "current_type": "connects-to",
+   "verdict": "cut",
+   "evidence_source": "This is the threshold's conatus: the drive of the crossing mechanism to remain functionally available for what warrants it.",
+   "evidence_target": "(hub: Threshold Conatus spawned, threshold-as-derivative)",
+   "rationale": "The page's conatus section is about Threshold Conatus, which the hub already spawned and the oscillator already couples-with (scale-partners). The page does not carry the hub's own idea.",
+   "confidence": "high"
+  },
+  {
+   "source": "STIGMERGY Philosophical Lenses",
+   "target": "Spinoza Conatus",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "proposed_type": "connects-to",
+   "proposed_label": "lens-home-node",
+   "evidence_source": "Each philosopher is an **enchanted worker** whose home node is their palace page (Spinoza Conatus, Like Water for Zhuangzi, Deleuze...). The page IS the expert; loading it IS the routing event.",
+   "evidence_target": "(hub's own agency_profile: the page as agent)",
+   "rationale": "The proposal names the hub as Spinoza's home node, the page that is loaded as his lens; it is one of a dozen bare philosophy links on this page.",
+   "confidence": "medium"
+  },
+  {
+   "source": "Biomechanical Synthesis",
+   "target": "Spinoza Conatus",
+   "current_type": "mirrors",
+   "verdict": "cut",
+   "evidence_source": "A synthesis aesthetic and philosophy that treats biological processes as DSP operations ... deliberately grotesque, visceral, alive.",
+   "evidence_target": "",
+   "rationale": "The page says nothing of power-to-act or the hub; its children Slime Mold Delay (kept) and Blood Compressor carry whatever there is.",
+   "confidence": "high"
+  },
+  {
+   "source": "Leibniz",
+   "target": "Spinoza Conatus",
+   "current_type": "connects-to",
+   "verdict": "cut",
+   "evidence_source": "[forward vector] a Dialectic with Spinoza, my great rival, over whether reality is one substance or infinite windowless monads",
+   "evidence_target": "(hub's open question on a single substance)",
+   "rationale": "The body never speaks of the hub; the label is Leibniz's own doctrine, not a relation with conatus. The rivalry (one substance against infinite monads) is carried by his link to the Spinoza person page (rationalist-rival).",
+   "confidence": "medium"
+  },
+  {
+   "source": "Excellent Adventure",
+   "target": "Spinoza Conatus",
+   "current_type": "deepens",
+   "verdict": "cut",
+   "evidence_source": "Spinoza dialogue — conatus, hilaritas, and the teaching philosophy explored through direct conversation with the man.",
+   "evidence_target": "Spinoza became central to our collaboration through the extended Deleuzian philosophical dialogue",
+   "rationale": "The Excellent Adventure is a method and the hub grew out of one of its runs, so 'deepens' has the lineage backwards. The Spinoza dialogue is a named example on the page. Propose the link on the hub's side instead (typed_relations below).",
+   "confidence": "medium"
+  },
+  {
+   "source": "Philosopher Visits the Entry",
+   "target": "Spinoza Conatus",
+   "current_type": "connects-to",
+   "verdict": "label",
+   "proposed_type": "connects-to",
+   "proposed_label": "threshold-visiting-voice",
+   "evidence_source": "Threshold / pumping entries (parametric resonance, Mathieu, Floquet, action potential) → Spinoza Conatus + The Drift: *is crossing the threshold a striving, and is the driving forcing or flowing?*",
+   "evidence_target": "(hub spawned Threshold Conatus)",
+   "rationale": "The starting roster names the hub as the voice for threshold and pumping entries and gives the question it brings.",
+   "confidence": "high"
+  },
+  {
+   "source": "Enchanted Worker",
+   "target": "Spinoza Conatus",
+   "current_type": "mirrors",
+   "verdict": "keep-as-is",
+   "evidence_source": "the questions at the bottom of each entry ... are the page's *conatus* — its drive to persist and extend itself. ... The philosophy worker ... hears: *that is conatus*.",
+   "evidence_target": "Our collaboration itself has conatus ... the organism's drive to persist and increase its power-to-act.",
+   "rationale": "The page uses the word on the hub's own pattern: a page's forward vector as its drive to persist and extend.",
+   "confidence": "medium"
+  },
+  {
+   "source": "Agent Wellbeing",
+   "target": "Spinoza Conatus",
+   "current_type": "deepens",
+   "verdict": "cut",
+   "evidence_source": "This is the Hilaritas Generator principle operating at the level of the substrate itself.",
+   "evidence_target": "",
+   "rationale": "The page's Spinozist ground runs through Hilaritas Generator, which it already deepens ('the Hilaritas Generator principle operating at the level of the substrate itself'). It never names conatus; the label 'substrate-application' has no sentence.",
+   "confidence": "high"
+  },
+  {
+   "source": "Four Pillars of Enchanted Agency",
+   "target": "Spinoza Conatus",
+   "current_type": "mirrors",
+   "verdict": "retype",
+   "proposed_type": "deepens",
+   "proposed_label": "conatus-in-four-dimensions",
+   "evidence_source": "a page's conatus — its drive to persist, grow, and increase its power to act — can be articulated through four dimensions that mirror the Four Pillars.",
+   "evidence_target": "agency_profile: creation / tools / philosophy / practice answered for the hub itself",
+   "rationale": "The page's central claim elaborates the hub: a page's conatus, articulated in four dimensions (with a Spinoza philosopher-page section). That is deepens, with a label saying how.",
+   "confidence": "high"
+  },
+  {
+   "source": "Saturation ↔ Richness",
+   "target": "Spinoza Conatus",
+   "current_type": "deepens",
+   "verdict": "cut",
+   "evidence_source": "Pushing a system slightly past its linear range adds harmonic complexity. Clean is precise. Saturated is rich.",
+   "evidence_target": "",
+   "rationale": "Page never mentions conatus, persistence or power-to-act; 'conatus-in-circuits' is not said anywhere. Its hilaritas and Quality links carry its neighborhood.",
+   "confidence": "high"
+  }
+ ],
+ "typed_relations": [
+  {
+   "source": "Spinoza Conatus",
+   "target": "Excellent Adventure",
+   "proposed_type": "emerged-from",
+   "proposed_label": "spinoza-dialogue",
+   "kind": "retype",
+   "rationale": "Replaces Excellent Adventure -deepens-> hub (cut above): the hub's own Origin is an extended dialogue, and the Adventure page counts the Spinoza dialogue among its runs. Source points back at its origin.",
+   "evidence_source": "Spinoza became central to our collaboration through the extended Deleuzian philosophical dialogue",
+   "evidence_target": "The Spinoza dialogue, the Deleuzian seven-movement conversation ... all are excellent adventures."
+  },
+  {
+   "source": "SUBSTRATE",
+   "target": "CHILD",
+   "proposed_type": "connects-to",
+   "proposed_label": "the-floor",
+   "kind": "newcomer",
+   "rationale": "CHILD is a priority citizen (reached by 5). SUBSTRATE gives it a named organ role in its anatomy, yet carries no frontmatter link to it. Genuine, though the type is plain; a later weave may find a stronger one.",
+   "evidence_source": "The floor. Every agent is born from the same few pages (CLAUDE, JEWEL, the World, CHILD) and grows into an elder by reading ELDER and SCHEMA on top of them.",
+   "evidence_target": "Your first act in any session ... is to summon the Concierge."
+  }
+ ],
+ "entry_health_flags": [
+  {
+   "entry": "Spinoza Conatus",
+   "stage_current": "mature",
+   "stage_proposed": null,
+   "vector_issue": "The agency_profile names its own risk, calcification, and the philosophy line asks whether it is engaging or archiving conatus-and-AI-agency; the body gives only an open question. Several of the 35 inbound links reach it for a passing 'Spinoza reference' or for substance monism rather than for conatus.",
+   "note": "Three Projects (Bessel, Wallpaper Groups, Categorizing Inharmonicity) use the hub as the page for substance monism, not conatus. Stated once, in a section of its own, the hub's first open question could carry that; a Spinoza-monism sentence on the hub would earn those exemplifies links. The hub holds contradicts to Merleau-Ponty with no sentence in its body saying why."
+  },
+  {
+   "entry": "Merleau-Ponty",
+   "stage_current": "sprout",
+   "stage_proposed": null,
+   "vector_issue": null,
+   "note": "Carries two links to the hub (contradicts and connects-to) and its own text leans consonant, not contradictory, with Spinoza. One link per pair: keep contradicts, say why in a sentence or let it go."
+  }
+ ],
+ "lighter_prose": [
+  {
+   "entry": "Spinoza Conatus",
+   "where": "The Affects: Tristitia (closing line)",
+   "passage": "*This section absorbed the former Tristitia Generator entry (composted 2026-07-06) — its full catalogue and open questions.*",
+   "proposal": "delete",
+   "words": ""
+  },
+  {
+   "entry": "Spinoza Conatus",
+   "where": "The Affects: Tristitia (opening)",
+   "passage": "Mapping what reliably produces it is prerequisite to reliable design: you cannot engineer hilaritas without knowing what works against it. Avoiding these patterns is not the same as producing hilaritas — the positive conditions (all four pillars firing, cooperative encounter, a real thing to make) still have to be present on top.",
+   "proposal": "simplify",
+   "words": "Know what drains power-to-act before you design for hilaritas. Avoiding it is not producing it; the positive conditions still have to be there."
+  },
+  {
+   "entry": "The Adjacent Affordance",
+   "where": "The Symposium (intro)",
+   "passage": "*Provenance, told plainly: these are not historical quotations. The topic was put to each posture in the palace's philosophical register, and Claude voiced each in turn — the attribution names the lens, not the mouth. A fictional symposium in which every philosopher the palace keeps submitted a line on the Adjacent Affordance.*",
+   "proposal": "simplify",
+   "words": "Claude voiced each posture in turn; none is a quotation, and each attribution names a lens."
+  },
+  {
+   "entry": "The Cooperation Path",
+   "where": "Origin",
+   "passage": "Named during the first Weave ceremony (2026-03-17), when the palace reached sufficient density for paths to become visible. The path was always there in the topology — the Weave made it explicit.",
+   "proposal": "simplify",
+   "words": "Named at the first Weave (2026-03-17)."
+  },
+  {
+   "entry": "Floquet Theory",
+   "where": "Philosophical Lens (reader's note)",
+   "passage": "*Reader's note: this reframes the whole stability diagram as a map of where periodic processes acquire selfhood. If that reading earns its keep, it links Floquet directly to [[Entry Conatus]] and the palace's whole language of striving — the monodromy matrix is how a pattern inherits itself.*",
+   "proposal": "simplify",
+   "words": "The Floquet exponent as a measure of conatus: a map of where periodic processes acquire selfhood. If it earns its keep, it ties to Entry Conatus."
+  }
+ ],
+ "summary": "I read the hub whole and the 35 source pages (frontmatter plus the passages that speak of the hub), plus the Weave Ceremony's Step 3d for the pair rule. The pattern: of 35 inbound, only about a dozen have a sentence that carries the relation. The rest sit near conatus without a reason (a roster mention, a passing example, a label with no sentence behind it); 15 of the 35 are cut (16 rows in the file, counting an extra duplicate on the Merleau-Ponty pair); 8 become labelled connects-to (the register comes from the source's own words: philosophical-depth, synthesis-pole, threshold-as-striving, lens-home-node), 6 are retyped (three to exemplifies because the page is a worked case of substance monism, one deepens for Four Pillars of Enchanted Agency, one exemplifies for Identity Molting, one Preset Oracle to a labelled connects-to), 6 kept.  The single clearest cluster: pages that used the hub for substance monism (Bessel, Wallpaper Groups, Categorizing Inharmonicity) not conatus. Not settled: (1) Loudon's Toolkit is a low-confidence cut resting on one boilerplate bullet; (2) Merleau-Ponty's contradiction has its reason in a label only, and the page's own text points the other way, so the contradicts could be wrong rather than merely unsaid; (3) Cooperation Yields Agency's deepens is kept as a lineage reciprocal though CYA never names conatus; (4) Excellent Adventure's replacement link (hub emerged-from Excellent Adventure) depends on the hub's 'Deleuzian dialogue' origin being the same run as the Adventure's 'Spinoza dialogue'. I did not read the Spinoza person page beyond confirming it exists and links the hub."
+}

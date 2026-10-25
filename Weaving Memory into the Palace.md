@@ -49,7 +49,7 @@ This practice is the cure, run as a sweep: audit the whole memory against the pa
 
 ## Why it belongs to the Weave
 
-The [[Deposit Ceremony]] plants new tissue; the [[Weave Ceremony]] tends what exists and fixes what is mis-located or mis-linked. Operator memory is exactly a mis-located, mis-linked body of knowledge that accretes between Weaves — so the sweep is a natural Weave sub-step, run each cycle on the same cadence that catches unsung paths and stale links. It [[deepens]] [[Palace as Context Injection System]]: the palace stays a clean context-injection surface only if the *other* always-loaded surface — memory — is kept from quietly contradicting it. And it [[couples-with]] [[Closing Well]] — a memory reduced to an honest pointer is the same honesty as a handoff that names what it couldn't verify.
+The [[Deposit Ceremony]] plants new tissue; the [[Weave Ceremony]] tends what exists and fixes what is mis-located or mis-linked. Operator memory is exactly a mis-located, mis-linked body of knowledge that accretes between Weaves — so the sweep is a natural Weave sub-step, run each cycle on the same cadence that catches unsung paths and stale links. It `deepens` [[Palace as Context Injection System]]: the palace stays a clean context-injection surface only if the *other* always-loaded surface — memory — is kept from quietly contradicting it. And it `couples-with` [[Closing Well]] — a memory reduced to an honest pointer is the same honesty as a handoff that names what it couldn't verify.
 
 The first run (2026-07-03) took operator memory from **45 files to 6**, every removed piece verified into the palace first.
 

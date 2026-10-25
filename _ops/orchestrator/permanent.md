@@ -246,7 +246,7 @@ What does NOT survive:
 | RESOURCE_REQUEST with `blocking: true` posted | Cycle complete. State carries the pending request forward. Surface to Loudon: response needed before next cycle. |
 | forward_vector changed since last activation | Stop dispatch. Post DIRECTIVE_REQUEST. Loudon must respond. |
 | REGISTRY conflict on first activation | Stop. The agent_id is taken by a different directory. Either rename the agent or move the conflicting directory. |
-| Stage shifted to `dormant` or `composting` | Per [[Substrate Skill]] § Stage as Alignment Confidence: "Don't touch — Spore Check ceremony only" / composting protocol. Cycle should not run. Surface to Loudon. |
+| Stage shifted to `dormant` or `composting` | Per [[Substrate Skill]] § Stage as Alignment Confidence: a dormant page is touched only by the [[Spore Check Ceremony]], [[The Daily Page]], or a revival probe Loudon ordered, and woken only by the [[Revival Ceremony]]; a composting page, by the composting protocol. Cycle should not run unless Loudon ordered the probe. Surface to Loudon. |
 
 ## What this mode does NOT do (deferred to v0.2-orchestrator)
 

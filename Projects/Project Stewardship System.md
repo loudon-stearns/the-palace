@@ -8,57 +8,36 @@ stage: growing
 confidence: proposed
 energy: very high
 links:
-  - target: "[[BBS Blackboard]]"
-    type: connects-to
-    label: runs-on
-  - target: "[[STIGMERGY]]"
-    type: connects-to
-    label: runs-on
   - target: "[[Palace Orchestrator]]"
     type: deepens
     label: stage-aware-permanent-agent
   - target: "[[Substrate Skill]]"
     type: couples-with
     label: stage-conditional-posture
-  - target: "[[Trickster]]"
-    type: connects-to
-    label: human-or-automated
   - target: "[[Pages as Agents]]"
     type: deepens
     label: routine-enchantment
   - target: "[[Modes of Collaboration]]"
     type: connects-to
     label: mode-by-stage
-  - target: "[[Generative Sample Libraries]]"
-    type: connects-to
-    label: stage-mismatch-evidence
-  - target: "[[Talking Keyboard]]"
-    type: connects-to
-    label: pronunciation-case-study
   - target: "[[Palace Enchantment]]"
     type: deepens
     label: routinizing
-  - target: "[[Palace Conatus]]"
-    type: connects-to
-    label: escalation-rationale
-  - target: "[[Two Batons, One Board]]"
-    type: connects-to
-    label: human-originated-handoff-case
   - target: "[[Baton Ceremony]]"
     type: connects-to
-  - target: "[[Drift and Consolidation]]"
-    type: connects-to
-  - target: "[[Palace Orchestrator]]"
-    type: connects-to
-    label: run-by-the-orchestrator
+    label: steward-batons
   - target: "[[The Scroll]]"
     type: couples-with
     label: front-door
   - target: "[[SCHEMA — Reference]]"
     type: connects-to
+    label: the-wire
   - target: "[[Project Stewardship System — Context]]"
     type: spawned
     label: rationale-archive
+  - target: "[[VST Template]]"
+    type: connects-to
+    label: nine-stewards-path
 forward_vector: "I will become Loudon's partner in making the palace's projects — tending each at the rhythm its stage asks for, working beside him in the blocks that need his hands and ears, and keeping the stewardship that runs between them honest: permanent agents that build every cycle and ask the Trickster one decision at a time, and a dashboard drawn from the fleet's own records that shows him at a glance how stewardship is faring, so we keep improving it together."
 ---
 
@@ -74,7 +53,6 @@ This page is also Loudon's partner in making those projects. Woken to work with 
 
 The system runs every other morning and on any click. The question now is whether Loudon can see how it is faring, and whether each round moves a project far enough to be worth his attention.
 
-- **25 stewards are registered** (`_ops/agents/permanent/REGISTRY.json`). 23 have cycled — [[Generative Sample Libraries]] most, at 38 cycles. Two are registered and have not yet cycled: [[Generative Audio Devices]] and [[Preset Oracle]]. [[Talking Keyboard]]'s steward left stewardship on 2026-10-21 (below). Most tend a project; the [[Shopkeeper]] tends a service.
 - **The heartbeat fires the batch.** launchd wakes `_ops/heartbeat/run-steward-batch.sh` each morning at 06:00, and a two-day guard decides whether a batch runs. The batch (`_ops/heartbeat/batch.mjs`) takes the stewards that are due, least recently active first, and fires them through STIGMERGY's own steward lane, inside the hard limits in `_ops/heartbeat/limits.json`: four stewards, two cycles each, 25 minutes a cycle, an hour and 20M tokens a batch. The PROJECTS deck shows the batch as it runs.
 - **A click is a run.** Advancing a steward from the PROJECTS deck cycles it up to its manifest's `max_iterations` — 3 for every steward but the Shopkeeper, which has 1. A heartbeat run stops at the batch's two.
 - **Every project has a scroll**, its front door ([[The Scroll]]): a **Now** zone regenerated from the board on every look, the **Plan** agreed with Loudon, his **Standing Orders**, and the trail of what was made, newest first. The PROJECTS deck lists every project on one screen, grouped by what it needs.
@@ -114,7 +92,7 @@ The canonical posture lives in [[Substrate Skill]] § Stage as Alignment Confide
 | sprout | Plan-level detail; named tradeoffs; flag default-traps | Build a small working prototype each cycle; proposals ride alongside it, never instead of it. |
 | growing | Execute within established direction; checkpoint at sensory steps | Build Session pace; ship freely. `blocking: true` only before committing to a full sensory batch. |
 | mature / fruiting | Ship the next proof; post completions | Full execution; ship the next concrete proof without a fork-question; `WEAVE` board completions. |
-| dormant | Don't touch — Spore Check ceremony only | — |
+| dormant | Don't touch. Only the [[Spore Check Ceremony]], [[The Daily Page]], or a revival probe Loudon ordered touches it; only the [[Revival Ceremony]] wakes it | — |
 | composting | Don't touch — composting protocol applies | — |
 
 **Recursion within entries.** A `growing` project can contain `seed` deliverables. The pronunciation bug in [[Talking Keyboard]] (Phase 1 of [[Generative Sample Libraries]], May 2026) showed this clearly — project-level alignment was good, but the deliverable-level conventions (filename scheme, pronunciation form, audition cycle) were never aligned, and we shipped 352 files with a TTS bug only listening could catch. A steward re-aligns at the deliverable level before committing labor.
@@ -173,7 +151,7 @@ The fix is **CQRS, not relocation**: the append-only board stays the event log (
 - **The Steward's voice rules live in [[Palace Enchantment]] § Voice Rules When Addressing the Human** (decided 2026-05-03). The six clauses (plain first-person, brief, catch-up-then-ask, content-in-the-rendered-field, translate jargon, give clickable links) apply to any enchanted agent addressing the human. The Stewardship system always sets `audience_includes_human: true`, so all six always apply to Steward messages. They are not duplicated here, to avoid drift.
 - **Every steward cycle ends with a shipped thing** (decided 2026-06-07). Every cycle puts a *made thing* on the board — a rendered artifact, a working prototype, a proof — and a cycle that produced only questions is a *failed* cycle. A steward asks **only** when a real fork blocks it and guessing wrong costs more than a cycle; otherwise it ships and attaches a non-blocking "redirect me" turn grounded in the page's `forward_vector` (present, then offer a turn — not ask, then wait). Decisions go to TRICKSTER; information goes to GENERAL — never bury a genuine blocking decision in BROADCAST prose. Encoded in [the steward prompt template](_ops/orchestrator/prompts/steward.md) and [the shared posting-discipline section](_ops/orchestrator/prompts/shared.md); the canonical posture table lives in [[Substrate Skill]] § Stage as Alignment Confidence.
 - **One activation is a run** (decided 2026-09-23; cap 3 since 2026-10-13). The manifest's `stopping_conditions.max_iterations` means: cycle the same steward up to that many times in a row while each cycle ships a made thing and nothing is waiting on Loudon. A paused ask (`blocking: true`) or a request for a live session ends the run. The mandate tells the steward which cycle of the run it is on so it plans a whole move, not a step. The heartbeat caps its own runs lower, at `max_cycles_per_steward` in `_ops/heartbeat/limits.json`. The reason for runs: a single cycle per round, gated on a human click, made every round a small jump. The reason for a low cap: the scroll only checks a run if Loudon reads it between runs.
-- **A barren cycle is a failed cycle** (decided 2026-09-23). A cycle that posts nothing earns exactly one retry with a mandate that says so; a second barren cycle marks the steward **STALLED** (`state.health.stalled`, score red) and ends the run, and the scroll and the PROJECTS deck say "stalled" instead of "cycle 7, green." The flag clears the moment a cycle ships. Never a third try — the loop stalls loudly rather than silently. **A cycle the harness cut off is not barren** (decided 2026-09-25): when the worker was stopped by a usage limit, an expired token or an unsupported model before it posted, the cycle is recorded as *interrupted* — no barren count, no stall — and a usage limit stops the whole batch. The harness writes these as its own error records, never as the steward's words, so they are told apart by what the transcript says, not guessed from silence.
+- **A barren cycle is a failed cycle** (decided 2026-09-23). A cycle that posts nothing earns exactly one retry with a mandate that says so; a second barren cycle marks the steward **STALLED** (`state.health.stalled`, score red) and ends the run, and the scroll and the PROJECTS deck say "stalled" instead of "cycle 7, green." The flag clears the moment a cycle ships. Never a third try — the loop stalls loudly rather than silently. **A cycle the harness cut off is not barren** (decided 2026-09-25): when the worker was stopped by a usage limit, an expired token or an unsupported model before it posted, the cycle is recorded as *interrupted* — no barren count, no stall — and a usage limit stops the whole batch.
 - **The plan is agreed with Loudon** (decided 2026-09-25, SCHEMA v1.25). The scroll's Plan changes only with his yes; a steward proposes revisions with the evidence it gained while building, may make off-plan work as proof of a different direction (flagged `off_plan`, labelled on the trail), and restates any move it refers to so Loudon is caught up, never leaning on a number.
 - **Standing Orders bind the steward** (decided 2026-09-23). Loudon writes taste and direction once, in the scroll's orders zone, from STIGMERGY; every cycle prompt injects it above the board slice; it outranks the steward's lean and any older grant. A question a standing order already answers is never asked.
 - **This page is Loudon's partner in making the projects, not only the system that tends them** (decided 2026-10-16). Loudon: "I was trying to make a system that would enable me to move forward with all of these projects, but what I needed was a partner in making the projects." The stewards build between sessions; this page takes on what they can't do alone — the work that needs his hands and ears — prepares it, does it with him, and follows each result back to its steward's board. Its responsibility crosses sessions only in writing: the scroll, the fleet readings, the agendas in `fleet/`.
@@ -196,8 +174,9 @@ The fix is **CQRS, not relocation**: the append-only board stays the event log (
 - **Handoffs reach the board, not the dispatch.** A baton Loudon or a session writes is now announced on the board as `handoff_ready` — about sixty since 2026-06-18 — and `list-handoffs`, `pickup-handoff` and `close-handoff` (`_ops/stigmergy/`) carry it through claim and close. But the heartbeat that cycles stewards does not pick handoffs up; a session claims them by hand. Whether it should is [[Two Batons, One Board]]'s open question.
 - **Withdrawing a proposal outright.** Not built; `replaces` covers a steward changing its mind.
 - **A click still wakes a resting page.** The heartbeat skips a dormant page, but a deck Advance still runs a registered steward on one, because `advance()` in `_ops/stigmergy/app/server/steward-lane.js` checks only the registry.
-- **A way back for a finished page.** The [[Revival Ceremony]] wakes only a dormant or composting page. A finished or archived one has no ceremony back yet, so while it stays ended it takes no steward.
+- **A way back for a finished page.** The [[Revival Ceremony]] wakes only a sleeping page: dormant, composting, or a spore. A finished or archived one has no ceremony back yet, so while it stays ended it takes no steward.
 - **Vector tuning as a visible palace-wide norm.** Does the Weave Ceremony spec need an explicit "vector edits welcome" beat? Does [[SCHEMA]] want a one-line note that forward vectors are meant to evolve? Probably yes to both, as small follow-on edits.
+  — answered on [[Weave Ceremony]] § Step 5b (2026-10-24): "Forward vectors are meant to evolve … This step is an *invitation*, not an audit." The [[SCHEMA]] one-liner is still open.
 - **Schedule cadence.** Today every steward runs on one cadence, the heartbeat's. Per-steward cadence in the manifest, with a sensible default, is still a question.
 - **Recursion handling at the orchestrator level.** When a steward meets a `seed` deliverable inside a `growing` project, does it switch to seed-stage posture for that deliverable? The prompt says re-align; the orchestrator has no explicit rule.
 
@@ -227,7 +206,9 @@ The fix is **CQRS, not relocation**: the append-only board stays the event log (
 
 - How does this system interact with existing palace ceremonies (Weave, Spore Check, Deposit)? Are Stewards full participants, or do ceremonies remain human-led?
 - What is the relationship between the Steward's per-project schedule and the natural rhythm of the work? A weekly Steward on a `seed` project that wants daily attention is wrong; so is a daily Steward on a `mature` project that wants quarterly review.
+  — progressed: today every steward runs on the heartbeat's one cadence, inside `_ops/heartbeat/limits.json`; per-steward cadence is the open half, and § What's Open asks it too (Schedule cadence).
 - Does this entry itself benefit from an `agency_profile` (per [[SCHEMA — Reference]] §3.1)? The four-pillar expansion is plausible — tools dimension is heavy (orchestrator build), philosophy dimension is heavy (governance posture), practice dimension is heavy (when ceremonies trigger). Its first steward will reveal whether the single forward vector carries the load.
+  — answered on [[SCHEMA — Reference]] §3.1 (2026-10-24): add one only when a page has genuinely distinct desires across dimensions, never speculatively. The forward vector is one coherent sentence and the scroll carries the plan, so the answer here is no.
 
 ---
 

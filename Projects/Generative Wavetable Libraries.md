@@ -11,14 +11,12 @@ links:
   - target: "[[Generative Sample Libraries]]"
     type: emerged-from
     label: migrated-from
-  - target: "[[Generative Sample Libraries]]"
-    type: couples-with
-    label: parallel-deployment
   - target: "[[Wavetable Synthesis — Deep Research & Higher-Dimensional Design]]"
     type: mirrors
     label: wavetable-space
   - target: "[[Inharmonic Wavetable Synthesis]]"
     type: connects-to
+    label: adjacent-research
   - target: "[[2D Torus Wavetable Synthesizer]]"
     type: connects-to
     label: 2d-form
@@ -34,16 +32,8 @@ links:
     type: connects-to
     label: time-periodic-modulation
   - target: "[[Drift and Consolidation]]"
-    type: connects-to
-  - target: "[[Wavetable Oscillator]]"
-    type: connects-to
-    label: fills-its-tables
-  - target: "[[Wavetable Scanner]]"
-    type: connects-to
-    label: plays-its-packed-tables
-  - target: "[[1D Wavetable Scanning]]"
-    type: connects-to
-    label: what-position-means
+    type: exemplifies
+    label: stewarded-page
 forward_vector: "I will become a chat-driven generator of wavetables — Claude conducts the interview, sources partial structures from anywhere (palace synthesis, AI sub-agents, captured audio), and renders deployable wavetables in Serum/CLM, Ableton, Surge XT, and single-cycle formats."
 ---
 
@@ -53,7 +43,7 @@ forward_vector: "I will become a chat-driven generator of wavetables — Claude 
 
 A chat-driven pipeline for producing custom wavetables and single-cycle waveforms, deployable across the major wavetable synth ecosystems. Sister project to [[Generative Sample Libraries]] — same backbone (palace synthesis becomes deployable artifact, conversational interview, source-agnostic intake), different format family, different tooling, different musical use.
 
-This entry was born 2026-05-02 by migration: the wavetable material previously housed inside [[Generative Sample Libraries]] split off into its own home when GSL refocused on multisampled instruments only. The two projects share philosophical backbone but diverge enough in format work, mathematics of frame generation, and use case that one entry was conflating them.
+Split off from [[Generative Sample Libraries]] in May 2026: same backbone, different formats, different mathematics, different use.
 
 ---
 
@@ -172,7 +162,9 @@ Generalize the source: any palace synthesis ([[Shepard Tone Synthesizer]] partia
 ## Open Questions
 
 - Do wavetable frames synthesized from crystal partial ratios produce musically interesting motion when swept? Or does the spectral structure need additional processing (windowing, phase coherence) to read as intentional?
+  — answered in § Phase 1 above (2026-10-24): shipped and accepted — Loudon heard the crystal table in Serum and Ableton: "they all work very well."
 - What is the right phase-coherence policy across frames — per-frame zero-phase reset, or carry phase through?
+  — answered in § Phase 1 above (2026-10-24) for the crystal table: per-frame zero-phase reset, accepted. Arbitrary source cycles are still open under § What Requires Development.
 
 ---
 

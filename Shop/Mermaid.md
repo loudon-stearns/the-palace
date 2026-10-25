@@ -14,8 +14,6 @@ links:
   - { target: "[[Maker]]", type: connects-to, label: directed-by }
   - { target: "[[The Shop]]", type: member-of, label: roster-member }
   - { target: "[[Shop/Graphviz]]", type: connects-to, label: alternative-to }
-  - target: "[[Kuramoto Coupling]]"
-    type: connects-to
 tags: [specialist, shop, image, diagram]
 ---
 

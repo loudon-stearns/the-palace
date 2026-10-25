@@ -14,13 +14,12 @@ links:
     type: enables
   - target: "[[DSP Frameworks]]"
     type: connects-to
+    label: framework-choice
   - target: "[[Signal-Rate CV Architecture]]"
     type: connects-to
+    label: per-sample-guards
   - target: "[[ROSETTA]]"
     type: mirrors
-  - target: "[[Progressive Staging]]"
-    type: mirrors
-    label: pedagogical-isomorphism
 forward_vector: "I want to become the palace's cross-paradigm reference for state-based thinking — the entry that shows exactly the same state machine implemented in Gen~ boxes-and-lines, JavaScript, and Python, so the concept is legible across all three paradigms Loudon teaches in. I want my best practices section expanded with a worked debugging exercise: a state machine with a specific class of bug (ambiguous transition, missing guard, wrong transition action) and the diagnostic process for finding it."
 ---
 
@@ -137,8 +136,6 @@ phase, V, timer = neuron(freq, leak_tau, ...)
                      ba.if(phase==1 & timer>=rise_samps, 2, ...));
     };
 ```
-
-<!-- FLAG: The 4 code blocks above are kept in full per task instructions. The JS and Python blocks are condensed single-state excerpts; the full per-language oscillator implementations could move to a bundle sketch (State Machine/) if they grow. The Faust block is the only one that shows a structurally different approach (functional state threading) — keep it. -->
 
 This is what makes the state machine a [[ROSETTA]] concept — learn it in one language, recognize it in all of them.
 

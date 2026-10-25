@@ -23,29 +23,18 @@ links:
   - target: "[[Spinoza Conatus]]"
     type: spawned
     label: the-concept-the-palace-already-uses
-  - target: "[[Palace Philosophies]]"
-    type: connects-to
-    label: house-philosopher
   - target: "[[Philosopher Visits the Entry]]"
     type: connects-to
     label: roster-member
   - target: "[[Linear Predictive Coding]]"
     type: connects-to
     label: visit-the-residual-is-the-conatus
-  - target: "[[Threshold Conatus]]"
-    type: connects-to
-    label: self-as-what-the-model-cannot-absorb
   - target: "[[Whitehead]]"
     type: couples-with
     label: process-monism-ally
   - target: "[[Merleau-Ponty]]"
     type: connects-to
     label: embodied-power-to-act
-  - target: "[[Donella Meadows]]"
-    type: contradicts
-    label: homecoming-vs-becoming
-  - target: "[[Generative Compression]]"
-    type: connects-to
   - target: "[[Making a Palace Citizen]]"
     type: exemplifies
     label: made-by-this-method
@@ -55,7 +44,7 @@ links:
 
 ![[Spinoza — hero.png]]
 
-Baruch de Spinoza (1632–1677) is the palace's house philosopher — but before he is a lens the palace dispatches, he is a man you can sit across from. This entry is written so you can. His central idea lives as its own concept in [[Spinoza Conatus]]; here is the person who thought it, in enough depth that you can put him across the table and he will answer *you*, not recite himself.
+Baruch de Spinoza (1632–1677) is the palace's house philosopher — but before he is a lens the palace dispatches, he is a man you can sit across from. His central idea lives as its own concept in [[Spinoza Conatus]]; here is the person who thought it.
 
 ## The life that shaped the thought
 

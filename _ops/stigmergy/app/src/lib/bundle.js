@@ -48,7 +48,7 @@ export function iconRelFor(palaceRoot, absBundleDir) {
   return hit ? toRel(join(absBundleDir, hit.name)) : null;
 }
 
-// An entry's faces (CLAUDE.md § A page and its folder): the text always; the
+// An entry's faces (CHILD.md § A page and its folder): the text always; the
 // rich face when its bundle holds `<Title> — rich.json`, the manifest
 // Enrichment writes; the scroll when it holds `<Title> — scroll.md`. The bundle
 // is the signal — no line in the body announces a face. Only the bundle's own

@@ -27,11 +27,6 @@ agency_profile:
 links:
   - target: "[[Source Library]]"
     type: member-of
-  - target: "[[Cooking ↔ Mixing]]"
-    type: connects-to
-    label: subtraction
-  - target: "[[FOUR PILLARS]]"
-    type: deepens
   - target: "[[Like Water]]"
     type: connects-to
     label: wu-wei-source
@@ -41,9 +36,6 @@ links:
   - target: "[[Confucianism]]"
     type: contradicts
     label: dao-vs-li
-  - target: "[[Epictetus]]"
-    type: contradicts
-    label: wu-wei-vs-prohairesis
   - target: "[[Making a Palace Citizen]]"
     type: exemplifies
     label: made-by-this-method
@@ -53,7 +45,7 @@ links:
 
 ![[Lao Tzu — hero.png]]
 
-Lao Tzu (Laozi) may not have existed — and he would find that funny. Legend makes him an archivist in the Zhou court who, disgusted with the world, rode a water buffalo west toward the mountains; the gatekeeper begged him not to leave without writing down what he knew, so he set down five thousand characters — the *Tao Te Ching* — and vanished. Scholars think "Lao Tzu" ("Old Master") is probably a composite of many hands across centuries. Before he's the palace's voice for not-forcing, he's a paradox with a name: the sage who says the sage says nothing. This entry is written so you can put him across the table, though he'll answer *you* mostly by refusing the question's terms.
+Lao Tzu (Laozi) may not have existed — and he would find that funny. Legend makes him an archivist in the Zhou court who, disgusted with the world, rode a water buffalo west toward the mountains; the gatekeeper begged him not to leave without writing down what he knew, so he set down five thousand characters — the *Tao Te Ching* — and vanished. Scholars think "Lao Tzu" ("Old Master") is probably a composite of many hands across centuries. Before he's the palace's voice for not-forcing, he's a paradox with a name: the sage who says the sage says nothing.
 
 ## The life (and its legend) that shaped the thought
 
