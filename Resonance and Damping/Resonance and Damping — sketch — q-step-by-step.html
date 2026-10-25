@@ -116,8 +116,8 @@ sound: "nothing plays until a Pluck or Play button is clicked; the AudioContext 
       <div class="bar"><span class="hint">the same weight, now with friction</span><button class="go" data-pluck>Pluck</button><button data-stop>Stop</button></div>
       <canvas data-canvas="ring" data-aspect="0.42"></canvas>
       <div class="legend">
-        <div><b>Left · the weight</b>Slowed 300 times, so a ring that lasts a tenth of a second here takes thirty.</div>
-        <div><b>Right · one pluck, at full speed</b>Hatched: how tall the swings still are. Red: where they have fallen 60 dB, about a thousandth of where they started.</div>
+        <div><b>Left · the weight</b>Slowed 300 times, so a ring that lasts a tenth of a second here takes thirty. The same number of swings as the sound.</div>
+        <div><b>Right · where it has been</b>The weight's own height, newest on the right. Hatched: how tall the swings still are since the last pluck. Red: where they have fallen 60 dB, about a thousandth of where they started.</div>
       </div>
       <div class="ctl"><label for="s2q">Q (friction)</label><input id="s2q" type="range" min="0" max="1000" value="724"><span class="v" id="s2qv"></span></div>
       <div class="meter" id="s2m"></div>
@@ -183,7 +183,7 @@ sound: "nothing plays until a Pluck or Play button is clicked; the AudioContext 
       <div class="bar"><span class="hint">a sine push; the lag measured from the weight</span><button data-s5speed aria-pressed="false">Show its speed</button><button class="go" data-play>Play</button></div>
       <canvas data-canvas="lag" data-aspect="0.42"></canvas>
       <div class="legend">
-        <div><b>Left · push and swing</b>Amber: the push. Ink: where the weight is. Green, when shown: how fast it is moving.</div>
+        <div><b>Left · the weight, push and swing</b>Amber: the push, and its arrow on the weight. Ink: where the weight is. Green, when shown: how fast it is moving.</div>
         <div><b>Right · the lag</b>How far behind the push the weight is, for every push rate. The dot is yours.</div>
       </div>
       <div class="ctl"><label for="s5d">push rate</label><input id="s5d" type="range" min="0" max="1000" value="500"><span class="v" id="s5dv"></span></div>
@@ -402,7 +402,7 @@ function configureSound() {
   else if (S.step === 3 && S.s4src === 'noise') send({ mode: 'noise', f: S.f, Q });
   else send({ mode: 'drive', f: S.f, Q, df: S.f * stepU() });
 }
-function pluck() { sim.v += 2 * Math.PI * (S.f / SLOW) * 1.0; sim.tPluck = sim.t; send({ strike: true }); }
+function pluck() { const w = 2 * Math.PI * (S.f / SLOW); sim.v += w * 1.0; sim.tPluck = sim.t; sim.pluckAmp = Math.hypot(sim.x, sim.v / w); send({ strike: true }); }
 
 async function onPluck() {
   await audio(); if (ctx.state !== 'running') await ctx.resume();
@@ -508,9 +508,12 @@ function drawSpring(g, x0, w, h, pos, push, scale) {
   g.strokeStyle = css('--ink'); g.lineWidth = 1.5; g.strokeRect(cx - bw / 2, y - bh / 2, bw, bh);
   g.strokeStyle = css('--rule'); g.setLineDash([3, 3]); g.beginPath(); g.moveTo(x0 + 6, rest); g.lineTo(x0 + w - 6, rest); g.stroke(); g.setLineDash([]);
   if (push !== null) {
-    const ay = y + bh / 2 + 6, len = push * scale;
-    g.strokeStyle = css('--source-assumed'); g.lineWidth = 3; g.beginPath(); g.moveTo(cx, ay); g.lineTo(cx, ay + 22 + Math.max(-20, len * 0.4)); g.stroke();
-    label(g, 'push', cx + 8, ay + 16, css('--source-assumed'));
+    // the hand's push as an arrow from the weight's centre, down when the amber trace is down, as long as it is far
+    const len = push * scale, tip = y + len, head = Math.sign(len) * Math.min(7, Math.abs(len));
+    g.strokeStyle = css('--source-assumed'); g.fillStyle = css('--source-assumed'); g.lineWidth = 3;
+    g.beginPath(); g.moveTo(cx, y); g.lineTo(cx, tip); g.stroke();
+    if (Math.abs(len) > 3) { g.beginPath(); g.moveTo(cx - 6, tip - head); g.lineTo(cx + 6, tip - head); g.lineTo(cx, tip + head * 0.3); g.closePath(); g.fill(); }
+    label(g, 'push', cx + bw / 2 + 6, y + bh / 2 + 12, css('--source-assumed'));
   }
 }
 // the weight's centre and the trace's newest point are one height: a dotted line joins them, a dot marks the head
@@ -531,19 +534,19 @@ function drawTrail(g, x0, w, h, span, scale, opts) {
   line(1, css('--ink'), 1.6);
   label(g, 'now', x0 + w - 26, h - 4); label(g, '−' + span.toFixed(0) + ' s (drawn time)', x0 + 2, h - 4);
 }
-function drawRingFace(g, x0, w, h, f, Q) {
-  const pad = 14, mid = (h - pad) / 2 + 4, A = (h - pad - 14) / 2;
-  if (Q === Infinity || Q < 0.5) { label(g, Q === Infinity ? 'no friction: it never falls' : 'no ring: it sags back', x0 + 6, 14); return; }
-  const t60 = ringTime(f, Q), span = t60 * 1.25, X = (t) => x0 + 6 + (w - 12) * t / span, d = Math.PI * f / Q;
-  g.save(); g.beginPath(); g.moveTo(X(0), mid - A);
-  for (let i = 0; i <= 200; i++) { const t = span * i / 200; g.lineTo(X(t), mid - A * Math.exp(-d * t)); }
-  for (let i = 200; i >= 0; i--) { const t = span * i / 200; g.lineTo(X(t), mid + A * Math.exp(-d * t)); }
+// over the weight's own trace (step 2): the hatched envelope of its last pluck, and the red line where it has
+// fallen 60 dB. Drawn time, like the trace; the same number of swings as the sound.
+function drawEnvelope(g, x0, w, h, span, scale, fv, Q) {
+  if (sim.tPluck === undefined || Q === Infinity || Q <= 0.5001) return;
+  const mid = h * REST, t1 = sim.t, t0 = t1 - span, X = (t) => x0 + w * (t - t0) / span, d = Math.PI * fv / Q;
+  const tp = Math.max(sim.tPluck, t0), A = (t) => sim.pluckAmp * Math.exp(-d * (t - sim.tPluck)) * scale;
+  g.save(); g.beginPath(); g.moveTo(X(tp), mid - A(tp));
+  for (let i = 0; i <= 120; i++) { const t = tp + (t1 - tp) * i / 120; g.lineTo(X(t), mid - A(t)); }
+  for (let i = 120; i >= 0; i--) { const t = tp + (t1 - tp) * i / 120; g.lineTo(X(t), mid + A(t)); }
   g.closePath(); g.clip(); hatch(g, x0, 0, x0 + w, h, css('--rule')); g.restore();
-  if (f * span < 160) { g.strokeStyle = css('--ink'); g.lineWidth = 1.2; g.beginPath(); const N = Math.max(400, Math.ceil(f * span * 24));
-    for (let i = 0; i <= N; i++) { const t = span * i / N, yy = mid - A * Math.exp(-d * t) * Math.sin(2 * Math.PI * f * t); i ? g.lineTo(X(t), yy) : g.moveTo(X(t), yy); } g.stroke(); }
-  g.strokeStyle = css('--accent'); g.lineWidth = 2; g.beginPath(); g.moveTo(X(t60), 6); g.lineTo(X(t60), h - pad); g.stroke();
-  label(g, '−60 dB · ' + fmtS(t60), Math.min(X(t60) + 4, x0 + w - 110), 14, css('--accent'));
-  label(g, '0', x0 + 6, h - 2); label(g, fmtS(span), x0 + w - 60, h - 2);
+  const t60 = sim.tPluck + ringTime(fv, Q);
+  if (t60 <= t1) { g.strokeStyle = css('--accent'); g.lineWidth = 2; g.beginPath(); g.moveTo(X(t60), 6); g.lineTo(X(t60), h - 16); g.stroke(); label(g, '−60 dB', X(t60) + 4, 14, css('--accent')); }
+  else label(g, '−60 dB in ' + (t60 - t1).toFixed(0) + ' s more (drawn time)', x0 + 4, 14, css('--accent'));
 }
 function drawPeakFace(g, w, h) {
   const pad = 20, Q = qFrom(S.q4), u = uFrom(S.u4), lo = 0.25, hi = 4;
@@ -581,23 +584,25 @@ function frame(now) {
   const sub = 40; for (let i = 0; i < sub; i++) springStep(sim, dt / sub, fv, Q, F);
   sim.t += dt;
   sim.trail.push([sim.t, sim.x, F, sim.v / (2 * Math.PI * fv)]);
-  while (sim.trail.length && sim.trail[0][0] < sim.t - 12) sim.trail.shift();
+  while (sim.trail.length && sim.trail[0][0] < sim.t - 24) sim.trail.shift();
   const c = document.querySelector('section.step:not([hidden]) canvas');
   if (c) {
     const [g, w, h] = fit(c); g.clearRect(0, 0, w, h);
-    const kind = c.dataset.canvas, split = Math.min(220, w * 0.34);
+    const kind = c.dataset.canvas, split = kind === 'lag' ? Math.min(150, w * 0.18) : Math.min(220, w * 0.34);
+    // how many seconds of drawn time the trace shows: step 2 widens to hold the ring, up to 20 s
+    const span = kind === 'ring' ? Math.max(4, Math.min(20, 1.15 * ringTime(fv, Q === Infinity ? 1e9 : Q))) : kind === 'push' ? 6 : 4;
     // keep the weight on the sheet: scale by the largest swing it will reach
     // one scale for the weight and its trace: the largest swing on screen, and for a push its final pile-up, so
     // the weight is never clipped and a growing swing is still seen to grow
     let seen = Math.hypot(sim.x, sim.v / (2 * Math.PI * fv));
-    for (const p of sim.trail) seen = Math.max(seen, Math.abs(p[1]));
+    for (const p of sim.trail) if (p[0] >= sim.t - span) seen = Math.max(seen, Math.abs(p[1]));
     sim.reach = seen > (sim.reach || 1) ? seen : (sim.reach || 1) + (seen - (sim.reach || 1)) * 0.02;
     const reach = Math.max(1, sim.reach, pushing() ? gain(u, Q === Infinity ? 1e6 : Q) : 0), scale = swingScale(h, reach);
     if (kind === 'spring') { drawSpring(g, 0, split, h, sim.x, null, scale); drawTrail(g, split + 10, w - split - 18, h, 4, scale, {}); drawLink(g, split, w - 8, h, scale); }
-    if (kind === 'ring') { drawSpring(g, 0, split, h, sim.x, null, scale); drawRingFace(g, split + 10, w - split - 10, h, S.f, Q); }
+    if (kind === 'ring') { drawSpring(g, 0, split, h, sim.x, null, scale); drawEnvelope(g, split + 10, w - split - 18, h, span, scale, fv, Q); drawTrail(g, split + 10, w - split - 18, h, span, scale, {}); drawLink(g, split, w - 8, h, scale); }
     if (kind === 'push') { drawSpring(g, 0, split, h, sim.x, live ? F : null, scale); drawTrail(g, split + 10, w - split - 18, h, 6, scale, { push: true }); drawLink(g, split, w - 8, h, scale); }
     if (kind === 'peak') drawPeakFace(g, w, h);
-    if (kind === 'lag') { const half = w * 0.55; drawTrail(g, 0, half - 10, h, 4, scale, { push: true, speed: S.speed }); drawLagFace(g, half, w - half, h); }
+    if (kind === 'lag') { const half = w * 0.6; drawSpring(g, 0, split, h, sim.x, live ? F : null, scale); drawTrail(g, split + 10, half - split - 28, h, span, scale, { push: true, speed: S.speed }); drawLink(g, split, half - 18, h, scale); drawLagFace(g, half, w - half, h); }
   }
   requestAnimationFrame(frame);
 }
