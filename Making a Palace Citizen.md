@@ -1,6 +1,6 @@
 ---
 title: "Making a Palace Citizen"
-type: practice
+type: hub
 pillars:
   - creation
   - philosophy

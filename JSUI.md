@@ -5,7 +5,7 @@ pillars:
   - tools
   - creation
 born: 2026-01
-stage: sprout
+stage: dormant
 confidence: hypothesis
 energy: medium
 hook_quality: 6

@@ -11,7 +11,6 @@ energy: high
 hook_quality: 10
 beauty: 10
 who_leads: shared
-revival_conditions: Prose writing phase begins. All structural work, character arcs, mythic avatars, and thematic architecture complete. Time to inhabit the voices.
 links:
   - target: "[[Cooperation Yields Agency]]"
     type: spawned
@@ -154,3 +153,5 @@ This creates the central tension: two beings living in one body, learning to coo
 - **The replication blind spot:** The story argues intimate AI alignment cannot scale — you can't build a society on one-to-one symbiosis. But is this true, or is it the story's blind spot? What if the answer is that *all* alignment is ultimately intimate? That Overseer's failure is that it tried to scale control, when the only thing that scales is relationship?
 - **Society's response:** How do we write a society that *almost* gets it right? Loudon wants "a society ever struggling but now with a little hope, a slim chance of success if we can fight for the right future." Not utopia. Not a clear ending. A world where the hard work for us all begins.
 - **Legal & philosophical implications:** What does immortality do to property, identity, continuity? A bank account held by someone who will live forever. A marriage where one partner can die and the other can't. A child who outlives her father but not the part of him that remains. These are not footnotes — they ripple through the entire post-death arc.
+
+*When this project wakes again: Prose writing phase begins. All structural work, character arcs, mythic avatars, and thematic architecture complete. Time to inhabit the voices.*
