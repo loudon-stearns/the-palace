@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<!--
+  Piano String Bending: Inharmonicity Demo
+  Parent: [[Piano String Inharmonicity]]
+  Moved 2026-10-25 from string_bending_inharmonicity.jsx (React + Tone.js + Tailwind)
+  to one self-contained file: no build, no CDN, runs offline. Same behaviour, same look:
+  the Tailwind classes are written out as CSS, Tone.js as plain Web Audio.
+-->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Piano String Bending: Inharmonicity Demo</title>
+<style>
+:root {
+  --gray-300: #d1d5db;
+  --gray-400: #9ca3af;
+  --gray-700: #374151;
+  --gray-800: #1f2937;
+  --gray-900: #111827;
+  --blue-600: #2563eb;
+  --blue-700: #1d4ed8;
+  --red-600: #dc2626;
+  --red-700: #b91c1c;
+  --green-500: #22c55e;
+  --yellow-500: #eab308;
+  --orange-500: #f97316;
+  --red-500: #ef4444;
+  --sans: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+*, ::before, ::after { box-sizing: border-box; border: 0 solid; }
+html { line-height: 1.5; font-family: var(--sans); -webkit-text-size-adjust: 100%; }
+body { margin: 0; padding: 24px 16px; background: var(--gray-900); }
+h1, h2, h3, p, ul { margin: 0; }
+h1, h2, h3 { font-size: inherit; font-weight: inherit; }
+ul { list-style: none; padding: 0; }
+strong { font-weight: bolder; }
+sub { font-size: 75%; line-height: 0; position: relative; vertical-align: baseline; bottom: -0.25em; }
+button, input { font: inherit; color: inherit; margin: 0; padding: 0; }
+button { background: transparent; cursor: pointer; }
+table { text-indent: 0; border-color: inherit; border-collapse: collapse; }
+svg { display: block; vertical-align: middle; }
+
+.demo {
+  width: 100%; max-width: 72rem; margin: 0 auto; padding: 24px;
+  background: var(--gray-800); color: #fff; border-radius: 8px;
+}
+.demo h1 { font-size: 1.875rem; line-height: 2.25rem; font-weight: 700; margin-bottom: 24px; }
+.demo h2 { font-size: 1.25rem; line-height: 1.75rem; font-weight: 700; margin-bottom: 12px; }
+.demo h3 { font-weight: 700; margin-bottom: 8px; }
+.block { margin-bottom: 24px; }
+.panel { padding: 16px; background: var(--gray-700); border-radius: 4px; }
+.small { font-size: 0.875rem; line-height: 1.25rem; }
+.dim { color: var(--gray-400); }
+.dimmer { color: var(--gray-300); }
+.mb-2 { margin-bottom: 8px; }
+label { display: block; margin-bottom: 8px; }
+label.strong { font-weight: 600; }
+input[type=range] { width: 100%; }
+.ends { display: flex; justify-content: space-between; margin-top: 4px; }
+
+.stats { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-bottom: 24px; }
+@media (min-width: 768px) { .stats { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+.stat { background: var(--gray-700); padding: 12px; border-radius: 4px; }
+.stat .v { font-size: 1.25rem; line-height: 1.75rem; font-weight: 700; }
+
+#play { padding: 12px 24px; border-radius: 4px; font-weight: 600; background: var(--blue-600); }
+#play:hover { background: var(--blue-700); }
+#play.on { background: var(--red-600); }
+#play.on:hover { background: var(--red-700); }
+.hint { margin-top: 8px; }
+
+#chart { background: var(--gray-900); border-radius: 4px; }
+.legend { margin-top: 8px; display: flex; gap: 16px; }
+.sw { display: inline-block; width: 12px; height: 12px; border-radius: 4px; margin-right: 4px; }
+
+.scroll-x { overflow-x: auto; }
+table { width: 100%; }
+thead { background: var(--gray-700); }
+th, td { padding: 8px; }
+th.l { text-align: left; }
+th.r, td.r { text-align: right; }
+tbody tr { border-bottom: 1px solid var(--gray-700); }
+td.b { font-weight: 600; }
+
+.explain { margin-top: 24px; }
+.explain li + li { margin-top: 8px; }
+.knobs { margin-top: 24px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+</style>
+</head>
+<body>
+<div class="demo">
+  <h1>Piano String Bending: Inharmonicity Demo</h1>
+
+  <div class="block panel">
+    <p class="mb-2">
+      This demo shows how string bending (increasing tension) affects the inharmonicity of piano strings.
+    </p>
+    <p class="small dimmer">
+      Formula: f<sub>n</sub> = n·f₀·√(1 + B·n²), where B = B₀/tension
+    </p>
+  </div>
+
+  <div class="block">
+    <label class="strong" for="bend">String Bend (Tension Multiplier): <span id="bendVal">1.00</span>x</label>
+    <input id="bend" type="range" min="1.0" max="2.0" step="0.01" value="1">
+    <div class="ends small dim">
+      <span>Unbent (1.0x)</span>
+      <span>Bent up ~2 semitones (2.0x)</span>
+    </div>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><div class="small dim">Fundamental</div><div class="v" id="sF0"></div></div>
+    <div class="stat"><div class="small dim">Pitch Shift</div><div class="v" id="sShift"></div></div>
+    <div class="stat"><div class="small dim">Inharmonicity B</div><div class="v" id="sB"></div></div>
+    <div class="stat"><div class="small dim">B Change</div><div class="v" id="sBChange"></div></div>
+  </div>
+
+  <div class="block">
+    <button id="play" type="button">Play Inharmonic Tone</button>
+    <p class="hint small dim">Listen to how the timbre changes as you move the bend slider!</p>
+  </div>
+
+  <div class="block">
+    <h2>Harmonic Positions</h2>
+    <svg id="chart" width="100%" height="300" viewBox="0 0 1000 300" xmlns="http://www.w3.org/2000/svg"></svg>
+    <div class="legend small">
+      <span><span class="sw" style="background:var(--green-500)"></span>&lt;5 cents</span>
+      <span><span class="sw" style="background:var(--yellow-500)"></span>5-10 cents</span>
+      <span><span class="sw" style="background:var(--orange-500)"></span>10-20 cents</span>
+      <span><span class="sw" style="background:var(--red-500)"></span>&gt;20 cents</span>
+    </div>
+  </div>
+
+  <div>
+    <h2>Partial Frequencies</h2>
+    <div class="scroll-x">
+      <table class="small">
+        <thead>
+          <tr>
+            <th class="l">Partial #</th>
+            <th class="r">Ideal Freq (Hz)</th>
+            <th class="r">Actual Freq (Hz)</th>
+            <th class="r">Stretch (Hz)</th>
+            <th class="r">Stretch (cents)</th>
+          </tr>
+        </thead>
+        <tbody id="rows"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="explain panel">
+    <h3>What's Happening:</h3>
+    <ul class="small">
+      <li>• As you bend the string, <strong>tension increases</strong> and the fundamental pitch rises</li>
+      <li>• Stiffness stays constant, so <strong>B decreases</strong> proportionally to 1/tension</li>
+      <li>• Upper harmonics become <strong>less stretched</strong> - moving closer to ideal harmonic positions</li>
+      <li>• The tone becomes <strong>purer and less piano-like</strong> when bent</li>
+      <li>• This is why bent guitar notes sound subtly different from unbent ones!</li>
+    </ul>
+  </div>
+
+  <div class="knobs">
+    <div>
+      <label class="small" for="b0">Initial Inharmonicity (B₀ × 10⁴)</label>
+      <input id="b0" type="range" min="1" max="15" step="0.5" value="5">
+      <div class="small dim" id="b0Val"></div>
+    </div>
+    <div>
+      <label class="small" for="np">Number of Partials</label>
+      <input id="np" type="range" min="8" max="24" step="1" value="16">
+      <div class="small dim" id="npVal"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+(() => {
+  const state = {
+    bendAmount: 1.0,   // Tension multiplier (1.0 = unbent)
+    isPlaying: false,
+    B0: 0.0005,        // Initial inharmonicity coefficient
+    numPartials: 16,
+    f0: 65.41          // C2 - low piano string
+  };
+  let ctx = null;
+  let oscillators = [];
+
+  // Calculate inharmonicity coefficient based on tension
+  const calculateB = (tensionMultiplier) => state.B0 / tensionMultiplier;
+
+  // Calculate partial frequency with inharmonicity
+  const calculatePartialFreq = (n, fundamental, B) => n * fundamental * Math.sqrt(1 + B * n * n);
+
+  // Calculate frequencies for all partials
+  const getPartialData = () => {
+    const bentF0 = state.f0 * Math.sqrt(state.bendAmount);
+    const currentB = calculateB(state.bendAmount);
+    const partials = [];
+    for (let n = 1; n <= state.numPartials; n++) {
+      const freq = calculatePartialFreq(n, bentF0, currentB);
+      const idealFreq = n * bentF0; // Harmonic series position
+      const stretch = freq - idealFreq; // Hz of stretching
+      const stretchCents = 1200 * Math.log2(freq / idealFreq); // Cents of stretching
+      partials.push({ n, freq, idealFreq, stretch, stretchCents });
+    }
+    return partials;
+  };
+
+  // Tone.Oscillator(...).toDestination() with volume in dB, started now
+  const startOscillator = (freq, volumeDb) => {
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.type = 'sine';
+    osc.frequency.value = freq;
+    gain.gain.value = Math.pow(10, volumeDb / 20);
+    osc.connect(gain).connect(ctx.destination);
+    osc.start();
+    return { osc, gain };
+  };
+
+  const stopOscillator = ({ osc, gain }) => {
+    osc.stop();
+    osc.disconnect();
+    gain.disconnect();
+  };
+
+  // Tone's frequency.rampTo(f, 0.05): an exponential ramp for a frequency param
+  const rampFrequency = ({ osc }, freq, rampTime) => {
+    const p = osc.frequency;
+    const now = ctx.currentTime;
+    p.cancelScheduledValues(now);
+    p.setValueAtTime(p.value, now);
+    p.exponentialRampToValueAtTime(freq, now + rampTime);
+  };
+
+  // Play the inharmonic sound
+  const playSound = async () => {
+    if (state.isPlaying) {
+      // Stop all oscillators
+      oscillators.forEach(stopOscillator);
+      oscillators = [];
+      state.isPlaying = false;
+    } else {
+      // Start audio (Tone.start())
+      if (!ctx) ctx = new (window.AudioContext || window.webkitAudioContext)();
+      await ctx.resume();
+      // Create oscillators for each partial; amplitude decreases with partial number
+      oscillators = getPartialData().map((partial, idx) => startOscillator(partial.freq, -6 - (idx * 1.5)));
+      state.isPlaying = true;
+    }
+    render();
+  };
+
+  // Update oscillator frequencies when bend changes
+  const onBendChanged = () => {
+    if (!state.isPlaying) return;
+    getPartialData().forEach((partial, idx) => {
+      if (oscillators[idx]) rampFrequency(oscillators[idx], partial.freq, 0.05);
+    });
+  };
+
+  // Visualization of harmonic positions - fixed reference frame
+  const SVG_NS = 'http://www.w3.org/2000/svg';
+  const el = (name, attrs, text) => {
+    const node = document.createElementNS(SVG_NS, name);
+    for (const k in attrs) node.setAttribute(k, attrs[k]);
+    if (text !== undefined) node.textContent = text;
+    return node;
+  };
+
+  const renderHarmonicChart = (partialData, bentF0) => {
+    const svg = document.getElementById('chart');
+    const svgWidth = 1000;
+    const svgHeight = 300;
+    const padding = 60;
+    const plotWidth = svgWidth - 2 * padding;
+
+    // Fixed scale: harmonic number on x-axis
+    const maxHarmonic = state.numPartials + 1;
+    // Calculate pixel position for harmonic number (fixed)
+    const getIdealX = (n) => padding + (n / maxHarmonic) * plotWidth;
+    // Actual position, as the harmonic number this frequency would correspond to
+    const getActualX = (partial) => padding + ((partial.freq / bentF0) / maxHarmonic) * plotWidth;
+
+    const frag = document.createDocumentFragment();
+
+    // Axes
+    frag.append(
+      el('line', { x1: padding, y1: svgHeight - padding, x2: svgWidth - padding, y2: svgHeight - padding, stroke: '#666', 'stroke-width': 2 }),
+      el('line', { x1: padding, y1: padding, x2: padding, y2: svgHeight - padding, stroke: '#666', 'stroke-width': 2 }),
+      // X-axis label
+      el('text', { x: svgWidth / 2, y: svgHeight - 10, fill: 'white', 'font-size': 14, 'text-anchor': 'middle' }, 'Harmonic Number')
+    );
+
+    // Grid lines for FIXED ideal harmonic positions
+    partialData.forEach((partial) => {
+      const x = getIdealX(partial.n);
+      const g = el('g', {});
+      g.append(
+        el('line', { x1: x, y1: padding, x2: x, y2: svgHeight - padding, stroke: '#444', 'stroke-width': 1, 'stroke-dasharray': '4,4' }),
+        el('text', { x, y: svgHeight - padding + 20, fill: '#999', 'font-size': 12, 'text-anchor': 'middle' }, String(partial.n))
+      );
+      frag.append(g);
+    });
+
+    // FIXED ideal harmonic positions (gray) - these never move
+    partialData.forEach((partial) => {
+      frag.append(el('circle', { cx: getIdealX(partial.n), cy: svgHeight / 2, r: 4, fill: '#666' }));
+    });
+
+    // MOVING actual inharmonic positions (colored by stretch)
+    partialData.forEach((partial) => {
+      const idealX = getIdealX(partial.n);
+      const actualX = getActualX(partial);
+      const y = svgHeight / 2;
+      const color = partial.stretchCents > 20 ? '#ef4444' :
+                    partial.stretchCents > 10 ? '#f59e0b' :
+                    partial.stretchCents > 5 ? '#eab308' : '#22c55e';
+      const g = el('g', {});
+      g.append(
+        // Line showing deviation from ideal
+        el('line', { x1: idealX, y1: y, x2: actualX, y2: y, stroke: color, 'stroke-width': 3, opacity: 0.8 }),
+        // Actual position marker
+        el('circle', { cx: actualX, cy: y, r: 6, fill: color, stroke: 'white', 'stroke-width': 1 }),
+        // Harmonic number label above
+        el('text', { x: actualX, y: y - 15, fill: 'white', 'font-size': 12, 'text-anchor': 'middle', 'font-weight': 'bold' }, String(partial.n)),
+        // Stretch amount label below
+        el('text', { x: actualX, y: y + 25, fill: color, 'font-size': 10, 'text-anchor': 'middle' }, `+${partial.stretchCents.toFixed(1)}¢`)
+      );
+      frag.append(g);
+    });
+
+    // Legend
+    frag.append(
+      el('text', { x: padding, y: 30, fill: 'white', 'font-size': 13 }, 'Gray circles = FIXED ideal harmonic positions'),
+      el('text', { x: padding, y: 48, fill: 'white', 'font-size': 13 }, 'Colored circles = actual inharmonic positions (move as you bend)'),
+      el('text', { x: padding, y: 66, fill: 'white', 'font-size': 13 }, 'Lines show stretching in cents above ideal')
+    );
+
+    svg.replaceChildren(frag);
+  };
+
+  const $ = (id) => document.getElementById(id);
+
+  const render = () => {
+    const partialData = getPartialData();
+    const currentB = calculateB(state.bendAmount);
+    const bentF0 = state.f0 * Math.sqrt(state.bendAmount);
+
+    $('bendVal').textContent = state.bendAmount.toFixed(2);
+    $('sF0').textContent = `${bentF0.toFixed(2)} Hz`;
+    $('sShift').textContent = `${(1200 * Math.log2(Math.sqrt(state.bendAmount))).toFixed(0)} cents`;
+    $('sB').textContent = `${(currentB * 10000).toFixed(2)} × 10⁻⁴`;
+    $('sBChange').textContent = `${((currentB / state.B0) * 100).toFixed(0)}%`;
+
+    const play = $('play');
+    play.textContent = state.isPlaying ? 'Stop' : 'Play Inharmonic Tone';
+    play.classList.toggle('on', state.isPlaying);
+
+    renderHarmonicChart(partialData, bentF0);
+
+    $('rows').innerHTML = partialData.slice(0, 12).map((p) => `
+      <tr>
+        <td>${p.n}</td>
+        <td class="r">${p.idealFreq.toFixed(2)}</td>
+        <td class="r b">${p.freq.toFixed(2)}</td>
+        <td class="r">${p.stretch.toFixed(2)}</td>
+        <td class="r">${p.stretchCents.toFixed(1)}</td>
+      </tr>`).join('');
+
+    $('b0Val').textContent = (state.B0 * 10000).toFixed(1);
+    $('npVal').textContent = String(state.numPartials);
+  };
+
+  $('bend').addEventListener('input', (e) => {
+    state.bendAmount = parseFloat(e.target.value);
+    render();
+    onBendChanged();
+  });
+  $('b0').addEventListener('input', (e) => {
+    state.B0 = parseFloat(e.target.value) / 10000;
+    render();
+  });
+  $('np').addEventListener('input', (e) => {
+    state.numPartials = parseInt(e.target.value, 10);
+    render();
+  });
+  $('play').addEventListener('click', playSound);
+
+  // Cleanup when the page goes away
+  window.addEventListener('pagehide', () => {
+    oscillators.forEach(stopOscillator);
+    oscillators = [];
+  });
+
+  render();
+})();
+</script>
+</body>
+</html>
