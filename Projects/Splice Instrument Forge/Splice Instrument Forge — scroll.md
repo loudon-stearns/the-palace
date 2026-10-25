@@ -39,13 +39,19 @@ _Not yet rendered. The project was born 2026-10-24 and has no steward; this zone
 - **Splice credits are generous; be liberal.** They exist to stop gross abuse. Download what the work needs without asking. Ask only before spending more than 200 credits in one go. (Loudon, 2026-10-24.)
 - **Find before you bend.** The library is huge: the first move is to find layers that already share the Set's tempo and key, and only sparingly change either. When a change is unavoidable, drums stretch in Beats mode; anything else that is stretched or transposed goes in Complex mode. Never move a vocal. (Loudon, 2026-10-24.)
 - **Session and arrangement both.** A stack Set holds its scenes as Session slots and, the same clips laid along the Arrangement as sections, a locator naming each. (Loudon, 2026-10-24.)
+- **Clip gain is 0 dB.** Every clip the forge writes comes in at unity; level lives on the track fader and, in a rack, on the pad. (Loudon, 2026-10-24, after the cloned clip shell brought +3.1 dB in and distorted.)
 - **Level by grounds.** Splice sounds come in loud; start every Set from three grounds, 4 dB apart. Foreground −4 dB: drums and bass. Middleground −8 dB: vocals and leads. Background −12 dB: percussion, pads, strings. A rough starting point for a mix, not the mix. (Loudon, 2026-10-24.)
+- **Drums inside a rack** (proposed 2026-10-24, awaiting Loudon's yes; the builder uses it meanwhile): kick 0 dB as the reference; 808 and sub −2; snare −2; clap −4; tom −4; rim, snap, stick −6; shaker, perc, conga −6; closed and open hats −8; fx −8; ride, crash, cymbal −10; anything unnamed −4. The rack's track then sits in the foreground at −4. A pad's own `db` in the recipe overrides.
 - **Prove structure, hear sound.** A Set is done when it opens and `check` is clean. Whether it sounds right is Loudon's ear; never say a Set sounds right.
 <!-- scroll:orders:end -->
 
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="forge-2026-10-24-levels-everywhere" -->
+### 2026-10-24 — Clip gain to zero; grounds and an arrangement for kits and Samplers; per-drum levels proposed
+
+Loudon heard distortion: every clip came in at +3.1 dB because the clip shell cloned from his saved Set carried a sample gain of 1.423. Every clip is now written at 1.0 and `check` refuses a Set with any clip above 0 dB. On his yes, kits and Samplers get the grounds and an arrangement too: `forge/finish.mjs` sets any track's fader by ground or dB and writes locators, the forge runs it after the Session Writer's Sampler job (middleground, a "phrase" locator), and the rack builder sets its track to the foreground and a locator at the pattern. It turned out the MIDI track shell had carried −12 dB on every kit and Sampler track until now. Per-drum levels inside a rack are proposed above in the standing orders and applied on each pad's branch mixer in both the `.adg` and the Set; `check` prints them. All three Sets rebuilt and opened in Live 12.
 <!-- scroll:entry id="forge-2026-10-24-takes" -->
 ### 2026-10-24 — Take lanes: two alternates for every track
 
