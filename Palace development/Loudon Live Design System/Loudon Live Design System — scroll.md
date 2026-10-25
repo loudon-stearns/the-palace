@@ -34,6 +34,14 @@ _Loudon's standing direction for this page. Never regenerated; it holds until he
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="2026-10-25-drafting-table-cyan" -->
+### 2026-10-25 — Drafting Table retires "Never cyan" too, and the rethink closes
+
+Loudon: *"Retire Drafting Table's "Never cyan" too; Cyanotype already wears its grammar on cyan."* The rule came out of `_ops/drafting-table/design-system/README.md`, and the Design System artifact was brought level by hand in the same move. The last question the baton carried is answered, the handoff is closed complete, and the baton is gone. Nothing from the look rethink is left open.
+
+<sub>Look rethink, 2026-10-25 · close</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="2026-10-25-where-it-stands" -->
 ### 2026-10-25 — Where the look rethink stands
 
