@@ -37,7 +37,7 @@ import { processCycle, reconcilePendingRequests } from '../../orchestrator/src/p
 import { commitPathsAsync } from '../../orchestrator/src/cycle-commit.js';
 import { readRegistry, findAgent } from '../../orchestrator/src/registry.js';
 import { readEntryMeta } from '../../orchestrator/src/entry-frontmatter.js';
-import { dueForCycle } from '../../orchestrator/src/batch-due.js';
+import { dueForCycle, SKIP_STAGES } from '../../orchestrator/src/batch-due.js';
 import { readJsonl } from '@stigmergy/core/blackboard';
 import { resolveClaudeBin } from './claude-bin.js';
 import { resolveModel } from '../../../models/latest-opus.mjs';
@@ -564,9 +564,14 @@ export function createStewardLane(opts = {}) {
     return rows;
   }
 
-  /** Names of stewards with at least one grant waiting (the default batch set). */
+  /**
+   * Names of stewards with at least one grant waiting (the default batch set),
+   * less any resting by stage. The stage floor is the heartbeat's own set
+   * (batch-due.js SKIP_STAGES), the same one the deck's readyToAdvance reads, so
+   * "advance all" never wakes a dormant or composting page the deck left out.
+   */
   function readyNames() {
-    return list().filter((r) => !r.missing && r.grants_waiting > 0).map((r) => r.agent_id);
+    return list().filter((r) => !r.missing && r.grants_waiting > 0 && !SKIP_STAGES.has(r.stage)).map((r) => r.agent_id);
   }
 
   // A steward is "in flight" when it is the live worker or already queued.

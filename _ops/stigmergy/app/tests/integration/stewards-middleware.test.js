@@ -55,7 +55,7 @@ const HEALTH = { context_pct: 0, stop_reason: 'human_decision', iteration: 1, to
 
 // Seed one steward: REGISTRY entry, manifest, state with the ask pending, and
 // (optionally) the ask + a matching grant on the board.
-function seedSteward(root, { name, slug, requestId, withGrant = true }) {
+function seedSteward(root, { name, slug, requestId, withGrant = true, stage = 'sprout' }) {
   const dirRel = `_ops/agents/permanent/${slug}`;
   const agentDir = resolve(root, dirRel);
   mkdirSync(agentDir, { recursive: true });
@@ -70,14 +70,14 @@ function seedSteward(root, { name, slug, requestId, withGrant = true }) {
     agent_id: name, home: name, session_id: 'permanent-stewardship-test',
     mode: 'long_duration_background', model: { name: 'claude-opus-4-7' },
     blackboard_persistent_path: '_ops/swarm/persistent/blackboard.jsonl',
-    stewardship: { stage_at_spawn: 'sprout' },
+    stewardship: { stage_at_spawn: stage },
   }, null, 2), 'utf8');
 
   writeFileSync(join(agentDir, 'state.json'), JSON.stringify({
     iteration: 1,
     last_active: null,
     last_read_cursor: null,
-    stewardship: { stage_at_last_activation: 'sprout' },
+    stewardship: { stage_at_last_activation: stage },
     pending_requests: [{ request_id: requestId, resource: 'directional_decision', blocking: false, posted_at: '2026-06-03T00:00:00-04:00', options: ['A', 'B'] }],
     resolved_requests: [],
     health: { score: 'green' },
@@ -147,6 +147,31 @@ describe('GET /api/stewards', () => {
     const row = res.body.stewards.find((s) => s.agent_id === 'Quiet Steward');
     expect(row.grants_waiting).toBe(0);
     expect(row.pending_count).toBe(1);
+  });
+});
+
+// "advance all" fires readyNames(); the deck counts readyToAdvance(). Both read
+// the heartbeat's SKIP_STAGES, so a resting page with an answer waiting is in
+// neither (2026-10-25).
+describe('readyNames — the advance-all set skips the heartbeat\'s resting stages', () => {
+  let root, stewardLane;
+  beforeEach(() => { root = makeTempPalace(); ({ stewardLane } = makeServer(root)); });
+  afterEach(() => { rmSync(root, { recursive: true, force: true }); });
+
+  test('a dormant (or composting) steward with an answer waiting is not ready; an active one is', () => {
+    seedSteward(root, { name: 'Awake Steward', slug: 'awake-steward', requestId: 'awake-001', stage: 'active' });
+    seedSteward(root, { name: 'Resting Steward', slug: 'resting-steward', requestId: 'resting-001', stage: 'dormant' });
+    seedSteward(root, { name: 'Fading Steward', slug: 'fading-steward', requestId: 'fading-001', stage: 'composting' });
+    const rows = stewardLane.list();
+    expect(rows.find((r) => r.agent_id === 'Resting Steward').grants_waiting).toBe(1);
+    expect(rows.find((r) => r.agent_id === 'Fading Steward').grants_waiting).toBe(1);
+    expect(stewardLane.readyNames()).toEqual(['Awake Steward']);
+  });
+
+  test('the old gates still hold: no grant waiting is not ready, whatever the stage', () => {
+    seedSteward(root, { name: 'Quiet Steward', slug: 'quiet-steward', requestId: 'quiet-001', withGrant: false, stage: 'active' });
+    seedSteward(root, { name: 'Sprout Steward', slug: 'sprout-steward', requestId: 'sprout-001' });
+    expect(stewardLane.readyNames()).toEqual(['Sprout Steward']);
   });
 });
 
