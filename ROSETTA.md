@@ -160,6 +160,8 @@ Each link between entries carries a **predicate** — a named relationship type.
 | `couples-with` | symmetric | Mutual reinforcement, co-constitution | `owl:complementOf` (loose) |
 | `exemplifies` | directed | A is a concrete instance of the more general B | `rdf:type` |
 | `member-of` | directed | A belongs to a named collection or family B | `skos:member` |
+| `contrasts-with` | symmetric | Set against or standing in for one another, short of contradiction | `skos:related` (loose) |
+| `made-by` | directed | A was made, directed or authored by B | `dcterms:creator` |
 
 Each link object may carry an optional `label` field — a single word or hyphenated phrase naming the relationship's specific register. The `type` is the structural predicate (topological scaffold, traversal, ceremony linting). The `label` is the semantic compression (cultural nuance, emotional register, generative resonance). Examples: `midwifed`, `rhymes-with`, `fermented-from`, `argues-with-love`. In RDF terms, `label` functions like `skos:altLabel` applied to the predicate itself — it qualifies *how* the relationship holds, not *what kind* it is. Labels never require ceremony. See [[Resonant Link Labels]] for vocabulary per family.
 

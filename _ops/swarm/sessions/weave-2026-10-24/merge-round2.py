@@ -6,7 +6,7 @@ HERE = os.path.dirname(os.path.abspath(__file__)); ROOT = os.path.abspath(os.pat
 sys.path.insert(0, os.path.join(ROOT, "_ops", "swarm"))
 from palace_lib import load_map, split_frontmatter, link_targets
 M = load_map(ROOT); P = {n["id"]: os.path.join(ROOT, n["path"]) for n in M["nodes"] if n.get("path", "").endswith(".md")}
-TYPES = {"connects-to","mirrors","enables","deepens","spawned","emerged-from","contradicts","couples-with","exemplifies","member-of"}
+TYPES = {"connects-to","mirrors","enables","deepens","spawned","emerged-from","contradicts","couples-with","exemplifies","member-of","contrasts-with","made-by"}
 def links_of(e):
     p = P.get(e)
     if not p or not os.path.exists(p): return []

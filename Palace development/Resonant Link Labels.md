@@ -109,3 +109,8 @@ This concept lives at the intersection of several palace threads:
 - What label vocabulary do entries that are already in the palace want? — **half answered.** *How much* is measured: the [[Palace Map]] built 2026-10-24 has 67% of its 2,940 typed links carrying a resonant label (`python3 _ops/swarm/weave-health.py` reads the share from the newest map), so the second register is in real use, not aspirational. *Which* labels, and whether families are converging on a vocabulary, is still open.
 - Is there a distinction between labels that name *temperature* (cold/warm register) and labels that name *mechanism* (how the relationship works)? Or is that distinction doing real work?
 - The palace currently has no way to record *why* a label was chosen. Should labels be annotated, or is the word itself sufficient?
+
+## Labels that became types (2026-10-25)
+
+The October 2026 weave labelled every bare `connects-to` and then read the labels as a corpus (`_ops/swarm/label-harvest.py`, Weave Step 3f). Two clusters were coherent enough to become link types in Schema v1.30: `directed-by` (32 edges) became `made-by`, and the contrast cluster (`alternative-to`, the `-vs-` labels) became `contrasts-with`. The register this page keeps is where the next candidates will show first: a label that recurs across many sources, in one register, is a type waiting for a ceremony.
+

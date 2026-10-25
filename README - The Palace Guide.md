@@ -102,6 +102,8 @@ These are the named relationship types used in YAML frontmatter links. They form
 | `couples-with` | Two ideas that oscillate together, Kuramoto-style | Ideas that are always co-active |
 | `exemplifies` | A is a concrete instance of the more general B | A Bridge exemplifies the [[FOUR PILLARS]] |
 | `member-of` | A belongs to a named collection, family, or registry B | A person is a `member-of` the Source Library |
+| `contrasts-with` | Two things set against, or standing in for, one another — short of a contradiction | Matplotlib contrasts with Plotly |
+| `made-by` | A was made, directed or authored by B | A film is `made-by` its director |
 
 When in doubt, use `connects-to`. You can always differentiate later — link types evolve just as cells differentiate. Adding a *new* link type requires a Schema Ceremony.
 

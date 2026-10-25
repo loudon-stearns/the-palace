@@ -10,9 +10,9 @@ from __future__ import annotations
 import os, re, glob, json
 
 ROOT_DEFAULT = os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", ".."))
-SYMMETRIC = {"connects-to", "mirrors", "contradicts", "couples-with"}
+SYMMETRIC = {"connects-to", "mirrors", "contradicts", "couples-with", "contrasts-with"}
 FORWARD = {"spawned", "enables"}                       # origin → product, precondition → enabled
-BACKWARD = {"emerged-from", "exemplifies", "member-of", "deepens"}  # source points back at its ground
+BACKWARD = {"emerged-from", "exemplifies", "member-of", "deepens", "made-by"}  # source points back at its ground
 FM_RE = re.compile(r"^---\r?\n(.*?)\r?\n---\r?\n", re.S)
 
 def newest_map(root: str, explicit: str | None = None) -> str:
