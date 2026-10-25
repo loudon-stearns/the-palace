@@ -88,5 +88,27 @@ with tempfile.TemporaryDirectory() as tmp:
           a["recent"]["use"] == 2 and a["recent"]["page"] == 1 and a["recent"]["linked"] == 1)
     check("Gamma: one page day, nothing links to it", g["page"] == 1 and g["linked"] == 0)
 
+# Every worktree lives under `.claude/worktrees/`: the folders above the palace are not the
+# palace's own, and must not exclude it. A `.claude/` inside the palace still is excluded.
+with tempfile.TemporaryDirectory() as tmp:
+    root = Path(tmp) / ".claude" / "worktrees" / "wt"
+    root.mkdir(parents=True)
+    subprocess.run(["git", "-C", str(root), "init", "-q"], check=True)
+    subprocess.run(["git", "-C", str(root), "config", "user.email", "t@t"], check=True)
+    subprocess.run(["git", "-C", str(root), "config", "user.name", "t"], check=True)
+    entry(root, "Alpha.md", "Alpha.")
+    (root / "Alpha").mkdir()
+    (root / "Alpha" / "sketch.md").write_text("a sketch\n")
+    entry(root, ".claude/Hidden.md", "not a palace entry")
+    commit(root, "2026-01-05", "seed Alpha")
+    entry(root, "Beta.md", "Beta reaches for [[sketch]].")
+    commit(root, "2026-01-06", "Beta links to Alpha's sketch")
+
+    data = eu.compute(root, today="2026-01-10")
+    E = data["entries"]
+    print("== in a worktree ==")
+    check("a palace under .claude/worktrees/ finds its entries (Alpha, Beta)", set(E) == {"Alpha", "Beta"})
+    check("its bundle files resolve: a link to Alpha's sketch is a link to Alpha", E["Alpha"]["linked"] == 1)
+
 print("\nALL PASS" if not FAILS else f"\n{len(FAILS)} FAILED")
 sys.exit(1 if FAILS else 0)
