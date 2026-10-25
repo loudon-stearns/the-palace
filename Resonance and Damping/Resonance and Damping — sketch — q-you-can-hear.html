@@ -102,7 +102,7 @@ forward_vector: "I am a rough for Loudon's ears: one two-pole resonator you can 
     <div class="face">
       <h2>2 · the ring: how long</h2>
       <canvas id="ring"></canvas>
-      <p>What one strike leaves behind, drawn from the same two numbers. The red line is where the ring has fallen 60 dB: about 2.2 × Q ÷ f seconds.</p>
+      <p>What one strike leaves behind, drawn from the same two numbers. The red line is where the ring has fallen 60 dB: about 2.2 × Q ÷ f seconds. While it plays, it strikes again each time the ring dies.</p>
     </div>
     <div class="face">
       <h2>3 · the lag: how far behind</h2>
@@ -216,66 +216,86 @@ document.querySelectorAll('#modes button').forEach((b) => b.addEventListener('cl
   state.mode = b.dataset.mode;
   document.querySelectorAll('#modes button').forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
   send({ mode: state.mode, df: driveHz() });
-  if (state.mode === 'strike') send({ strike: true });
+  if (state.mode === 'strike') strike();
 }));
 
-async function start() {
-  ctx = new (window.AudioContext || window.webkitAudioContext)();
-  const comp = ctx.createDynamicsCompressor();
-  comp.threshold.value = -12; comp.ratio.value = 6;
-  master = ctx.createGain(); master.gain.value = 0.8;
-  anResp = ctx.createAnalyser(); anResp.fftSize = 4096;
-  anDrv = ctx.createAnalyser(); anDrv.fftSize = 4096;
-  const sink = ctx.createGain(); sink.gain.value = 0;
-  let resp, drv;                                                  // [node, output index] for the swing and the push
-  if (ctx.audioWorklet) {
-    const url = URL.createObjectURL(new Blob([WORKLET], { type: 'application/javascript' }));
-    await ctx.audioWorklet.addModule(url);
-    node = new AudioWorkletNode(ctx, 'resonator', { numberOfInputs: 0, numberOfOutputs: 2, outputChannelCount: [2, 1] });
-    resp = [node, 0]; drv = [node, 1];
-  } else {
-    // Opened somewhere that isn't a secure context (a data: or plain-http page): no AudioWorklet.
-    // Run the same processor class on a ScriptProcessor; channel 0 is the swing, channel 1 the push.
-    let Proc;
-    new Function('AudioWorkletProcessor', 'registerProcessor', 'sampleRate', WORKLET)(
-      class { constructor() { this.port = { postMessage() {} }; } }, (_, c) => { Proc = c; }, ctx.sampleRate);
-    const proc = new Proc();
-    const sp = ctx.createScriptProcessor(1024, 0, 2);
-    sp.onaudioprocess = (e) => proc.process([], [[e.outputBuffer.getChannelData(0)], [e.outputBuffer.getChannelData(1)]]);
-    const split = ctx.createChannelSplitter(2);
-    sp.connect(split);
-    node = { port: { postMessage: (data) => proc.port.onmessage({ data }) }, keep: sp };
-    resp = [split, 0]; drv = [split, 1];
-  }
-  resp[0].connect(comp, resp[1]); comp.connect(master); master.connect(ctx.destination);
-  resp[0].connect(anResp, resp[1]);
-  drv[0].connect(anDrv, drv[1]); anDrv.connect(sink); sink.connect(ctx.destination);
-  send({ f: state.f, Q: state.Q, mode: state.mode, df: driveHz() });
-  if (state.mode === 'strike') send({ strike: true });
-  ctx.onstatechange = () => {
-    const on = ctx.state === 'running';
-    $('go').dataset.on = String(on); $('go').textContent = on ? '■ stop' : '▶ play';
-    $('status').textContent = on ? 'playing' : 'silent';
-  };
-  readouts();
+// The worklet loads from a Blob URL. Opened from file:// (a link in Obsidian or Finder) Chrome refuses
+// that module, and a page that isn't a secure context has no audioWorklet at all. Either way the same
+// processor class runs on a ScriptProcessor instead, so the sketch always plays.
+async function workletEngine() {
+  if (!ctx.audioWorklet) throw new Error('no AudioWorklet here');
+  const url = URL.createObjectURL(new Blob([WORKLET], { type: 'application/javascript' }));
+  await ctx.audioWorklet.addModule(url);
+  node = new AudioWorkletNode(ctx, 'resonator', { numberOfInputs: 0, numberOfOutputs: 2, outputChannelCount: [2, 1] });
+  return { resp: [node, 0], drv: [node, 1], name: 'worklet' };
+}
+function scriptEngine() {
+  // channel 0 is the swing, channel 1 the push
+  let Proc;
+  new Function('AudioWorkletProcessor', 'registerProcessor', 'sampleRate', WORKLET)(
+    class { constructor() { this.port = { postMessage() {} }; } }, (_, c) => { Proc = c; }, ctx.sampleRate);
+  const proc = new Proc();
+  const sp = ctx.createScriptProcessor(1024, 0, 2);
+  sp.onaudioprocess = (e) => proc.process([], [[e.outputBuffer.getChannelData(0)], [e.outputBuffer.getChannelData(1)]]);
+  const split = ctx.createChannelSplitter(2);
+  sp.connect(split);
+  node = { port: { postMessage: (data) => proc.port.onmessage({ data }) }, keep: sp };
+  return { resp: [split, 0], drv: [split, 1], name: 'script' };
+}
+
+let starting = null, engineName = '', lastStrike = 0;
+function strike() { send({ strike: true }); lastStrike = performance.now(); }
+function showState() {
+  const on = !!ctx && ctx.state === 'running' && !!node;
+  $('go').dataset.on = String(on); $('go').textContent = on ? '■ stop' : '▶ play';
+  $('status').textContent = on ? 'playing · ' + engineName : 'silent';
+}
+
+function start() {
+  if (starting) return starting;
+  ctx = new (window.AudioContext || window.webkitAudioContext)();    // made inside the click, so it may sound
+  starting = (async () => {
+    const comp = ctx.createDynamicsCompressor();
+    comp.threshold.value = -12; comp.ratio.value = 6;
+    master = ctx.createGain(); master.gain.value = 0.8;
+    const an = ctx.createAnalyser(); an.fftSize = 4096;
+    const ad = ctx.createAnalyser(); ad.fftSize = 4096;
+    const sink = ctx.createGain(); sink.gain.value = 0;
+    let eng;
+    try { eng = await workletEngine(); } catch (e) { eng = scriptEngine(); }
+    engineName = eng.name;
+    const { resp, drv } = eng;                                     // [node, output index] for the swing and the push
+    resp[0].connect(comp, resp[1]); comp.connect(master); master.connect(ctx.destination);
+    resp[0].connect(an, resp[1]);
+    drv[0].connect(ad, drv[1]); ad.connect(sink); sink.connect(ctx.destination);
+    anResp = an; anDrv = ad;
+    send({ f: state.f, Q: state.Q, mode: state.mode, df: driveHz() });
+    if (state.mode === 'strike') strike();
+    ctx.onstatechange = showState;
+    if (ctx.state !== 'running') await ctx.resume();
+    readouts(); showState();
+  })().catch((e) => { $('status').textContent = 'could not start the sound: ' + e.message; throw e; });
+  return starting;
 }
 
 $('go').addEventListener('click', async () => {
-  if (!ctx) { await start(); }
-  else if (ctx.state === 'running') { await ctx.suspend(); }
-  else { await ctx.resume(); }
-  const on = ctx.state === 'running';
-  $('go').dataset.on = String(on);
-  $('go').textContent = on ? '■ stop' : '▶ play';
-  $('status').textContent = on ? 'playing' : 'silent';
+  if (!ctx) await start();
+  else { await starting; if (ctx.state === 'running') await ctx.suspend(); else { await ctx.resume(); if (state.mode === 'strike') strike(); } }
+  showState();
 });
 
 $('strike').addEventListener('click', async () => {
-  if (!ctx) { await start(); $('go').dataset.on = 'true'; $('go').textContent = '■ stop'; $('status').textContent = 'playing'; }
-  else if (ctx.state !== 'running') { await ctx.resume(); $('go').dataset.on = 'true'; $('go').textContent = '■ stop'; $('status').textContent = 'playing'; }
+  if (!ctx) await start(); else { await starting; if (ctx.state !== 'running') await ctx.resume(); }
   if (state.mode !== 'strike') document.querySelector('#modes button[data-mode=strike]').click();
-  else send({ strike: true });
+  else strike();
+  showState();
 });
+
+// While playing in strike mode, strike again once the last ring has fallen 60 dB, so play is never one blip.
+setInterval(() => {
+  if (!ctx || ctx.state !== 'running' || state.mode !== 'strike') return;
+  if (performance.now() - lastStrike > 1000 * Math.max(0.8, 2.2 * state.Q / state.f + 0.3)) strike();
+}, 100);
 
 function stopSweep() { if (sweepRaf) cancelAnimationFrame(sweepRaf); sweepRaf = 0; $('sweep').textContent = 'sweep the push through the peak'; }
 $('sweep').addEventListener('click', async () => {
@@ -372,7 +392,8 @@ function drawLag() {
   g.strokeStyle = css('--scope-grid'); g.lineWidth = 1;
   for (let i = 1; i < 4; i++) { g.beginPath(); g.moveTo(0, h * i / 4); g.lineTo(w, h * i / 4); g.stroke(); }
   for (let i = 1; i < 8; i++) { g.beginPath(); g.moveTo(w * i / 8, 0); g.lineTo(w * i / 8, h); g.stroke(); }
-  if (anResp && state.mode === 'drive') {
+  const live = !!anResp && ctx.state === 'running';
+  if (live && state.mode === 'drive') {
     anResp.getFloatTimeDomainData(bufR); anDrv.getFloatTimeDomainData(bufD);
     // trigger on a rising zero crossing of the push, then show two of its cycles
     let s = 1; for (; s < 2048; s++) if (bufD[s - 1] < 0 && bufD[s] >= 0) break;
@@ -394,7 +415,7 @@ function drawLag() {
     g.fillStyle = css('--scope-trace-2'); g.fillText('push ' + fmtHz(driveHz()) + ' · f ' + fmtHz(state.f), 8, h - 6);
   } else {
     g.fillStyle = css('--scope-trace'); g.font = '11px ' + css('--font-mono');
-    g.fillText(ctx ? 'choose "a sine push" to see the lag' : 'press play', 8, 14);
+    g.fillText(!ctx ? 'press play' : !live ? 'stopped: press play' : 'choose "a sine push" to see the lag', 8, 14);
   }
   if (state.mode === 'drive') drawPeak();
   requestAnimationFrame(drawLag);
