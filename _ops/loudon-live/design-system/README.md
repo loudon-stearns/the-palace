@@ -124,8 +124,9 @@ Loud'n Live wears complete looks, and there will be a few. A look is a whole dre
 | Look | File | What it is |
 |---|---|---|
 | **Worn Broadcast** (2026-10-25, the first) | `looks/worn-broadcast.html` | A signal wearing out on old hardware. STIGMERGY's phosphor and grammar carried most of the way; Anton, the amber LIVE and the Lissajous sigil keep it Loud'n Live. Ground `#040805`, phosphor `#33ff66`, amber `#ffb000` for LIVE alone, cyan `#7fdbff` on handles and links. Anton · IBM Plex Mono · VT323. Circuit board, tube face, scanlines, grain, one glitch every few seconds, never constant. |
+| **Cyanotype** (2026-10-25, the second) | `looks/cyanotype.html` | A blueprint print a careful hand has worked on: the Drafting Table grammar on a dark cyanotype ground, revised. Every line ruled; the hand shows in guidelines left in, an erased old name, a rubbed-out first sigil, a revision table, a checker's red pencil. Ground a generated paper plate tinted to `#1e5c88` (a tone map only), cream ink `#f3edd8`, amber `#ffc23a` outline on LIVE, ice-blue `#a9d4f0` dimensions, red pencil `#ef4a36`. Josefin Sans (the wordmark a thin-pen outline) · JetBrains Mono · Caveat. The sigil draws itself once; the on-air dot pulses. |
 
-The file's header comment is each look's spec. Worn Broadcast fills from its URL (`?session=…&topic=…&handle=…&title=…&link=…&status=…&ghost=…`), so it drops into OBS as a browser source.
+The file's header comment is each look's spec. Each fills from its URL, so it drops into OBS as a browser source: Worn Broadcast takes `?session=…&topic=…&handle=…&title=…&link=…&status=…&ghost=…`, Cyanotype `?sheet=…&title=…&subject=…&no=…&status=…&n1=…&n2=…&n3=…&check=…`.
 
 ### Spacing · radii · borders
 
