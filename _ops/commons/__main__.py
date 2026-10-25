@@ -102,7 +102,7 @@ def cmd_weave_flag(args):
         "source_deposit_id": args.source_deposit_id,
     }
     msg = _board.make_message("BROADCAST", "WEAVE", payload,
-                              from_=args.sender, session_id=args.session_id)
+                              from_=args.sender, session_id=args.session_id, model=args.model)
     if args.dry_run:
         print(json.dumps(msg, ensure_ascii=False, indent=2))
         res = _board.validate(msg)
@@ -147,7 +147,7 @@ def cmd_propagate(args):
     if args.paths:
         payload["paths"] = [p.strip() for p in args.paths.split(",") if p.strip()]
     msg = _board.make_message("BROADCAST", "WEAVE", payload,
-                              from_=args.sender, session_id=args.session_id)
+                              from_=args.sender, session_id=args.session_id, model=args.model)
     payload["stale_if"] = f"a commit carries Palace-Resolves: {msg['id']} once the check is clean"
     if args.dry_run:
         print(json.dumps(msg, ensure_ascii=False, indent=2))
@@ -163,6 +163,10 @@ def cmd_propagate(args):
         return 1
     print(f"posted {msg['id']} -> WEAVE (propagate; home: {args.home})")
     return 0
+
+
+MODEL_HELP = ("health.model: the posting agent's API model id. Default: loudon-trickster when "
+              "--sender TRICKSTER, else $COMMONS_MODEL, else the latest Opus")
 
 
 def main(argv=None):
@@ -193,6 +197,7 @@ def main(argv=None):
                     help="whose flag this is: the posting page's title, or TRICKSTER when Loudon asked for it. "
                          "Required — a default once signed every unsigned flag as RunPod GPU Backend.")
     wf.add_argument("--session-id", default=None)
+    wf.add_argument("--model", default=None, help=MODEL_HELP)
     wf.add_argument("--dry-run", action="store_true", help="print + validate the envelope, do not post")
     wf.set_defaults(func=cmd_weave_flag)
 
@@ -217,6 +222,7 @@ def main(argv=None):
                          "edited for their own reasons, and the weave only measures how far it has spread "
                          "(so a by-touch flag needs --pattern)")
     pg.add_argument("--session-id", default=None)
+    pg.add_argument("--model", default=None, help=MODEL_HELP)
     pg.add_argument("--dry-run", action="store_true", help="print + validate the envelope, do not post")
     pg.set_defaults(func=cmd_propagate)
 

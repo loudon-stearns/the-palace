@@ -7,7 +7,7 @@ silently written); and infra failure (bad core) surfaces as an error, never as
 silent success. All writes go to a TEMP board — the real persistent board is never
 touched. Exit 0 = pass.
 """
-import sys, tempfile
+import os, sys, tempfile
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))   # put _ops on sys.path
@@ -64,6 +64,31 @@ def main():
         bigres = board.validate(big)
         check("oversized payload is rejected by the atomic-append cap",
               bigres.get("ok") is False and any("payload" in e.get("path", "") for e in bigres.get("errors", [])))
+
+    # ── health.model says who wrote the line (SCHEMA §9: never a tool name) ──
+    saved = os.environ.pop("COMMONS_MODEL", None)
+    try:
+        human = board.make_message("BROADCAST", "WEAVE", {"kind": "weave_flag"}, from_="TRICKSTER")
+        check("a TRICKSTER line carries loudon-trickster", human["health"]["model"] == "loudon-trickster")
+        check("the human line validates", board.validate(human).get("ok") is True)
+        agent = board.make_message("BROADCAST", "WEAVE", {"kind": "weave_flag"}, from_="Deposit Ceremony")
+        check(f"an agent line names a Claude model ({agent['health']['model']!r})",
+              agent["health"]["model"].startswith("claude-") and agent["health"]["model"] != board.STUB_DISPATCH)
+        check("the agent line validates", board.validate(agent).get("ok") is True)
+        os.environ["COMMONS_MODEL"] = "claude-sonnet-5-5"
+        check("$COMMONS_MODEL names an agent's model",
+              board.make_message("BROADCAST", "GENERAL", {}, from_="Weave Executor")["health"]["model"] == "claude-sonnet-5-5")
+        check("$COMMONS_MODEL never relabels a TRICKSTER line",
+              board.make_message("BROADCAST", "WEAVE", {}, from_="TRICKSTER")["health"]["model"] == "loudon-trickster")
+        check("an explicit model wins",
+              board.make_message("BROADCAST", "GENERAL", {}, model="claude-haiku-5-5")["health"]["model"] == "claude-haiku-5-5")
+        check("no line stamps the tool name as its model",
+              all(board.make_message("BROADCAST", "GENERAL", {}, from_=f)["health"]["model"] != "claude-code"
+                  for f in ("TRICKSTER", "RunPod GPU Backend")))
+    finally:
+        os.environ.pop("COMMONS_MODEL", None)
+        if saved is not None:
+            os.environ["COMMONS_MODEL"] = saved
 
     # ── infra failure surfaces, never silent success ──
     orig = board.core_dir

@@ -20,6 +20,7 @@ Failure posture (two seams over one bridge):
 """
 import json
 import os
+import re as re_mod
 import subprocess
 from datetime import datetime
 from pathlib import Path
@@ -30,6 +31,9 @@ HERE = Path(__file__).resolve().parent
 BRIDGE = HERE / "board-post.mjs"
 STEWARD_DEFAULT = "RunPod GPU Backend"   # the real palace steward page for GPU resources
 STUB_DISPATCH = "claude-code"            # in the validator's stub-health exempt set
+HUMAN_SENDER = "TRICKSTER"               # Loudon's node on the board
+HUMAN_MODEL = "loudon-trickster"         # SCHEMA §9: health.model for the human node
+LATEST_OPUS = HERE.parent / "models" / "latest-opus.mjs"
 
 
 class BridgeError(RuntimeError):
@@ -75,6 +79,34 @@ def board_path(explicit: str | Path | None = None) -> Path:
 
 # ── message construction ─────────────────────────────────────────────────────
 
+def latest_opus() -> str:
+    """The palace's latest Opus id, asked of the one place that says it (latest-opus.mjs).
+    If node can't answer, read the file's FLOOR_OPUS rather than invent an id."""
+    try:
+        out = subprocess.run(["node", str(LATEST_OPUS)], capture_output=True, text=True, timeout=10)
+        mid = out.stdout.strip()
+        if out.returncode == 0 and mid:
+            return mid
+    except (FileNotFoundError, subprocess.TimeoutExpired):
+        pass
+    m = re_mod.search(r"FLOOR_OPUS\s*=\s*'([^']+)'", LATEST_OPUS.read_text())
+    return m.group(1)
+
+
+def sender_model(from_: str, model: str | None = None) -> str:
+    """Who wrote the line, as health.model says it (SCHEMA §9: an API model id, or
+    `loudon-trickster` for the human node — never a tool name).
+
+    An explicit model wins. A TRICKSTER line is Loudon's, so it says so even when an
+    agent session has $COMMONS_MODEL set. Any other sender is an agent: $COMMONS_MODEL,
+    else the latest Opus — the same default the handoff scripts stamp."""
+    if model:
+        return model
+    if from_ == HUMAN_SENDER:
+        return HUMAN_MODEL
+    return os.environ.get("COMMONS_MODEL") or latest_opus()
+
+
 def make_message(type: str, board: str, payload: dict, *,
                  from_: str = STEWARD_DEFAULT, to: str = "*",
                  session_id: str | None = None, model: str | None = None,
@@ -94,7 +126,7 @@ def make_message(type: str, board: str, payload: dict, *,
         "board": board,
         "health": {
             "score": "green",
-            "model": model or os.environ.get("COMMONS_MODEL", STUB_DISPATCH),
+            "model": sender_model(from_, model),
             "_orchestrator_metadata": {"dispatch_mode": STUB_DISPATCH,
                                        "note": "commons board bridge (path-2 tooling)"},
         },
