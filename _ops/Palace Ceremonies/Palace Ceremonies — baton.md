@@ -36,7 +36,7 @@ Canon says a ledger is a family any page may keep, and a ceremony is a page carr
 ## Next move
 0. ~~**The steward-ledger code**~~ Landed 2026-10-16 (`1921ee8b`): Now lists recurring left-rough notes, oldest first; the first design is backed out. Check it on GSL's next cycle (39).
 1. ~~**Wave 3a, the pilots**~~ Landed 2026-10-16: the Hero and Avatar Maker (`e36d8efd`) and GSL (`6d659dee`, simplified `9e8cb8c6`). Check each page's first run line by itself: the Maker's on its next face, GSL's on cycle 39. A steward now grows its own ledger at its first offered lesson (Loudon, 2026-10-16; the code session is restoring it from `73d06fa8`).
-2. **Wave 3b and 3c**, one ledger at a time, each on Loudon's yes; the test for each: would a worker who ignored the line today be wrong? If so it stays on the page.
+2. **Wave 3b and 3c**, one ledger at a time, each on Loudon's yes; the test for each: would a worker who ignored the line today be wrong? If so it stays on the page. This is the open card on the board, `palace-ceremonies-remainder-20261025T045722Z`; the claim that carried 3a was closed partial on 2026-10-25, citing `e36d8efd` and `6d659dee`, on Loudon's word.
 
 ## Still open (from 2026-10-14)
 - how many recurrences earn a change to what a page wants ([[The Remembering Page]]: a clean same-direction drift by the third, one pair, one topic);
