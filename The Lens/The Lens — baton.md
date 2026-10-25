@@ -29,6 +29,7 @@ Read the two proofs side by side with `lens-mandate.js`. Then draft the mandate 
 - **(d) Results flow back without retyping.** Whatever surface shows a lensing hands the user's answers back to the session. The second rough's path: opened in the browser pane, it keeps its answers on the page as `window.lensResults`, which the session checked it could read; he answered in chat that morning, so the path is proven to work, not yet used ([[The Daily Page — tuning]] item 71).
 - **(e) Redo The Lens's hero and icon through the faces pipeline.** The render cost needs Loudon's yes, as in `5972837f`. Loudon, of the current hand holding a glass globe: it "is weird the hand is not anatomically correct and just creepy". The new face shows today's learning: a glass that colors what it touches, and no hand.
 - **(f) Name what the bundle still lacks**: a Context ([[SCHEMA — Reference]] §8 `context`) and a rich face ([[Enrichment]]). Neither is made by this baton; say whether each is wanted.
+  - if the bold mandate holds, the same register move is the voice guidance enchanted pages lack, minus the veracity licence. (Carried from the Palace To-Do's entry-voice item at its retirement, on Loudon's call of 2026-10-25.)
 
 ## Calibrations from this session
 - Bold over careful, "even at the loss of veracity": "the lens should represent THEIR truth not actual truth". The frame stays honest. The reading is named as the glass's, and nothing it says becomes the subject's text without a deliberate commit (the agency_profile's line).
