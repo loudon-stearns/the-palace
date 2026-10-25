@@ -3,6 +3,8 @@
 // from GET /api/projects/scroll; these split the making trail into sections
 // and lift each section's artifacts so ArtifactSlot can render them inline.
 
+import { SKIP_STAGES } from '../../../orchestrator/src/batch-due.js';
+
 const ENTRY_RE = /<!--\s*scroll:entry id="([^"]+)"\s*-->([\s\S]*?)<!--\s*\/scroll:entry\s*-->/g;
 const MEDIA_EXT = /\.(png|jpe?g|gif|webp|svg|wav|mp3|ogg|m4a|flac|mp4|webm|mov|m4v|html?|pdf)$/i;
 
@@ -123,6 +125,17 @@ export function groupProjects(rows) {
     else g.untended.push(r);
   }
   return g;
+}
+
+/**
+ * The rows "advance all ready" counts: stewarded, an answer waiting, nothing
+ * running or queued, and not resting by stage. The stage floor is the
+ * heartbeat's own set (orchestrator batch-due.js SKIP_STAGES), imported so the
+ * deck never calls a dormant or composting page ready when dueForCycle would
+ * turn it away.
+ */
+export function readyToAdvance(rows) {
+  return (rows || []).filter((r) => r.stewarded && r.answered_unconsumed > 0 && !r.running && !r.queued && !SKIP_STAGES.has(r.stage));
 }
 
 // ── the trail as cards (2026-10-13) ─────────────────────────────────────────
