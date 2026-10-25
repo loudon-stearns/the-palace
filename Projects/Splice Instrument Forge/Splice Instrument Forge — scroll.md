@@ -42,12 +42,17 @@ _Not yet rendered. The project was born 2026-10-24 and has no steward; this zone
 - **Clip gain is 0 dB.** Every clip the forge writes comes in at unity; level lives on the track fader and, in a rack, on the pad. (Loudon, 2026-10-24, after the cloned clip shell brought +3.1 dB in and distorted.)
 - **Level by grounds.** Splice sounds come in loud; start every Set from three grounds, 4 dB apart. Foreground −4 dB: drums and bass. Middleground −8 dB: vocals and leads. Background −12 dB: percussion, pads, strings. A rough starting point for a mix, not the mix. (Loudon, 2026-10-24.)
 - **Drums inside a rack.** kick 0 dB as the reference; 808 and sub −2; snare −2; clap −4; tom −4; rim, snap, stick −6; shaker, perc, conga −6; closed and open hats −8; fx −8; ride, crash, cymbal −10; anything unnamed −4. The rack's track then sits in the foreground at −4. A pad's own `db` in the recipe overrides. (Proposed by the forge and adopted by Loudon, 2026-10-24: "very close to what I would propose".)
+- **No dead controls.** A rack carries no named macros and no Macro Variations until the forge maps them to something. (Loudon, 2026-10-24, on seeing the Slicing default's Hold/Play/Looped Slices in a kit.)
 - **Prove structure, hear sound.** A Set is done when it opens and `check` is clean. Whether it sounds right is Loudon's ear; never say a Set sounds right.
 <!-- scroll:orders:end -->
 
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="forge-2026-10-24-bare-macros" -->
+### 2026-10-24 — Bare macros
+
+The kit's rack showed eight named macros (Sample Start, Sample Length, Loop, Pitch…) and five Macro Variations (Hold, Play, Looped Slices, Percussive, Swell) that did nothing: they came with the Slicing default rack the builder clones, and our pads are plain Simplers with no mappings. The builder now blanks the names, values, annotations and snapshots on the rack device in both the `.adg` and the Set and hides the macro panel; `check` refuses a rack that still carries any. Standing order: no dead controls until the forge maps them. Spoiler Kit rebuilt and reopened.
 <!-- scroll:entry id="forge-2026-10-24-levels-everywhere" -->
 ### 2026-10-24 — Clip gain to zero; grounds and an arrangement for kits and Samplers; per-drum levels proposed
 

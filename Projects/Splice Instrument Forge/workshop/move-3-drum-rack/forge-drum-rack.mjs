@@ -30,6 +30,19 @@ const recv = (note) => 128 - note;
 const DRUM_DB = [[/kick/, 0], [/808|sub/, -2], [/snare/, -2], [/clap/, -4], [/rim|snap|stick/, -6], [/tom/, -4], [/closed|chh|hat/, -8], [/open|ohh/, -8], [/ride/, -10], [/crash|cymbal/, -10], [/shaker|perc|conga|bongo/, -6], [/fx|riser|impact/, -8]];
 const drumDb = (pad) => pad.db != null ? pad.db : (DRUM_DB.find(([re]) => re.test(pad.name.toLowerCase())) || [, -4])[1];
 const dbToAmp = (db) => Math.pow(10, db / 20);
+// The Slicing default rack comes with eight named macros and five Macro Variations (Hold, Play, Looped Slices…) that map to
+// nothing in our pads. Loudon, 2026-10-24: not in our racks until we implement them. Blank them on the rack device.
+function bareMacros(rack) {
+  for (let i = 0; i < 16; i++) {
+    rack = rack.replace(new RegExp('<MacroDisplayNames\\.' + i + ' Value="[^"]*" />'), '<MacroDisplayNames.' + i + ' Value="Macro ' + (i + 1) + '" />');
+    rack = rack.replace(new RegExp('<MacroAnnotations\\.' + i + ' Value="[^"]*" />'), '<MacroAnnotations.' + i + ' Value="" />');
+    rack = rack.replace(new RegExp('<MacroDefaults\\.' + i + ' Value="[^"]*" />'), '<MacroDefaults.' + i + ' Value="-1" />');
+    const mc = element(rack, 'MacroControls.' + i); if (mc) rack = replaceEl(rack, mc, mc.text.replace(/<Manual Value="[^"]*" \/>/, '<Manual Value="0" />'));
+  }
+  rack = rack.replace(/<MacroVariations>[\s\S]*?<\/MacroVariations>/, '<MacroVariations>\n<MacroSnapshots />\n</MacroVariations>');
+  rack = rack.replace(/<AreMacroControlsVisible Value="[^"]*" \/>/, '<AreMacroControlsVisible Value="false" />').replace(/<AreMacroVariationsControlsVisible Value="[^"]*" \/>/, '<AreMacroVariationsControlsVisible Value="false" />');
+  return rack;
+}
 const setMixerVolume = (branchXml, tag, db) => { const mix = element(branchXml, tag); const vol = element(mix.text, 'Volume'); return replaceEl(branchXml, mix, replaceEl(mix.text, vol, vol.text.replace(/<Manual Value="[^"]*" \/>/, '<Manual Value="' + Number(dbToAmp(db).toFixed(10)) + '" />'))); };
 const POINTEES = /<(AutomationTarget|[A-Za-z]*ModulationTarget|Pointee|ControllerTargets\.\d+) Id="(\d+)"/g;
 
@@ -102,6 +115,7 @@ function buildAdg(kit, pads, setDir) {
     return b;
   });
   adg = replaceEl(adg, presets, '<BranchPresets>\n' + branches.join('\n') + '\n</BranchPresets>');
+  { const dev = element(adg, 'DrumGroupDevice'); adg = replaceEl(adg, dev, bareMacros(dev.text)); }
   adg = adg.replace(/<UserName Value="Built-In" \/>/, '<UserName Value="' + esc(kit.name) + '" />').replace(/<Annotation Value="Created by: [^"]*" \/>/, '<Annotation Value="Splice Instrument Forge" />');
   return adg;
 }
@@ -124,6 +138,7 @@ function buildAls(kit, pads, setDir) {
   // the rack device: Live 12's DrumGroupDevice from the .adg (Branches empty), filled with Live 11-shaped DrumBranches
   let rack = element(readGz(path.join(LIVE, 'Slicing/Default.adg')), 'DrumGroupDevice').text;
   rack = rack.replace(/<LastPresetRef>[\s\S]*?<\/LastPresetRef>/, '<LastPresetRef>\n<Value />\n</LastPresetRef>');
+  rack = bareMacros(rack);
   rack = rack.replace(/<UserName Value="[^"]*" \/>/, '<UserName Value="' + esc(kit.name) + '" />').replace(/<Annotation Value="[^"]*" \/>/, '<Annotation Value="" />');
   const branchShell = fs.readFileSync(path.join(STUDY, 'Live12 DrumBranch shell.xml'), 'utf8').trim();
   const branches = pads.map((pad, i) => {
@@ -212,7 +227,9 @@ function check(file) {
     console.log('  Drum Rack "' + name + '": ' + pads.length + ' pads: ' + pads.join(', '));
     const trk = element(xml, 'MidiTrack'); const tamp = Number((element(element(trk.text, 'Mixer').text, 'Volume').text.match(/<Manual Value="([^"]*)" \/>/) || [, '1'])[1]);
     const locs = [...element(xml, 'Locators').text.matchAll(/<Name Value="([^"]*)" \/>/g)].map((m) => m[1]);
-    console.log('  track ' + (20 * Math.log10(tamp)).toFixed(1) + ' dB; locators: ' + (locs.join(', ') || 'none'));
+    const named = [...rack.matchAll(/<MacroDisplayNames\.\d+ Value="([^"]*)" \/>/g)].map((m) => m[1]).filter((n) => !/^Macro \d+$/.test(n)); const snaps = (rack.match(/<MacroSnapshot Id=/g) || []).length;
+    console.log('  track ' + (20 * Math.log10(tamp)).toFixed(1) + ' dB; locators: ' + (locs.join(', ') || 'none') + '; macros: ' + (named.length ? named.join(', ') : 'bare') + '; variations: ' + snaps);
+    if (named.length || snaps) problems.push('rack carries named macros or variations that map to nothing');
   }
   if (!racks.length) console.log('  no Drum Rack');
   console.log('  notes: ' + (element(xml, 'Tracks').text.match(/<MidiNoteEvent /g) || []).length + '; tempo ' + element(element(xml, 'MainTrack').text, 'Tempo').text.match(/<Manual Value="([^"]*)" \/>/)[1]);
