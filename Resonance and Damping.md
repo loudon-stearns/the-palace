@@ -140,6 +140,7 @@ Minted 2026-10-25. [[Differential Equations]] linked this page before it existed
 ## Forward Vector
 
 - **Hear Q.** The sketch is a rough. It wants Loudon's ears on whether the strike, the noise and the sweep make the three faces of Q land, and then a place on this page's rich face.
+- **Finish the steps.** The five steps up to the sketch work and were shaped by Loudon's notes on 2026-10-25 (one weight across the page, a weight tied to its trace, a fixed scale so resonance shows its height, the weight tuned under a push that holds still). His word that day: there is still more to be done to make this a perfect teaching tool. Owed: hearing it through speakers, a learner taking it by hand, the empty lower half of step 4's sheet, step 5's push still set as a multiple of its own rate, and the closing question, which is Claude's and was the old method's to give to Loudon.
 - **Tune the soundboard by ring time.** The Waveguide's scroll has carried a rough since cycle 8: at higher notes the string goes quiet in about a second while the board keeps ringing. The rule here, ring time ≈ 2.2 × Q ÷ f, gives each of the board's twelve modes a Q to aim for, from the ring time a real soundboard has.
 - **Measure the filters.** Which Q does the top of SimpleSynth's Resonance reach, and does it self-oscillate? The same question stands for every filter a palace instrument carries.
 
