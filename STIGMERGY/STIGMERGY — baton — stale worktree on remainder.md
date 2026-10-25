@@ -10,23 +10,23 @@ forward_vector: "I carry the in-progress move on [[STIGMERGY]] — stale worktre
 
 ## Move
 
-Make close-handoff.mjs copy the worktree to a remainder only if it still exists, and clear the STIGMERGY card's dead coordinate (close/2026-10-13-handoffs, folder gone).
+Clear the STIGMERGY card's dead coordinate: the handoff reader has to honour RETRACT, and SCHEMA has to say whether RETRACT covers a card that went stale rather than one posted in error.
 
 ## Why this move matters
 
-A remainder card sends its catcher to a worktree. When that worktree is gone, the card points at nothing, and each partial close copies the dead coordinate forward again.
+The rich-face pieces card (`stigmergy-remainder-20261021T125648Z`) still sends its catcher to `close/2026-10-13-handoffs` at `/Users/loudonstearns/Documents/palace-close-2026-10-13`, a worktree that no longer exists. The board is append-only, so the line can't be edited, and nothing today retires a stale coordinate without closing the card's work.
 
 ## Current state
 
-`_ops/stigmergy/close-handoff.mjs:114` copies `p.worktree` onto the remainder unchecked. The STIGMERGY card `stigmergy-remainder-20261021T125648Z` (the rich-face pieces) carries `close/2026-10-13-handoffs` at `/Users/loudonstearns/Documents/palace-close-2026-10-13`, which no longer exists. `git worktree list` shows only the main checkout and `.claude/worktrees/floor-modes-b1b14c` (2026-10-25). This is a second move on STIGMERGY; it doesn't share a file with the rich-face pieces baton. Carried off the Palace To-Do at its retirement, on Loudon's call of 2026-10-25.
+The first half of this move landed in `22c39e74` (branch `claude/stale-worktree-remainder-4a8a3b`, `a679331f`). `close-handoff.mjs` now carries a worktree to a remainder only while `worktreeLive()` in `handoff-model.mjs` says it lives, and resets a `receiving_surface` that names the dead folder. So the next partial close of any card drops a dead coordinate by itself. The STIGMERGY card itself is untouched, on Loudon's word of 2026-10-25: "Leave the STIGMERGY card's dead coordinate for later." The catching session's draft is named in the shared notes as 'stale-worktree-remainder — draft — clearing a dead coordinate.md'. The Concierge couldn't find it on disk on 2026-10-25; ask the coordinator for it.
 
 ## Next move
 
-In `close-handoff.mjs`, keep the worktree field only when its directory exists, and say so when it drops one. Then clear the card's coordinate the board's way, without editing the line: a partial close of that card, its remainder carrying the same move with no worktree, or whatever form [[STIGMERGY]] § Handoff Lifecycle prefers. Code goes in a worktree of its own.
+Wait for Loudon. When he picks it up: read the draft, then [[SCHEMA — Reference]] §9 on `RETRACT` ("posted in error"). Bring him the SCHEMA question first, since a widened `RETRACT` is a wire change. Then teach `handoff-model.mjs`'s fold to honour it.
 
 ## Load these files first
 
-`_ops/stigmergy/close-handoff.mjs` · `_ops/stigmergy/handoff-model.mjs` · [[STIGMERGY]] § Handoff Lifecycle
+`_ops/stigmergy/handoff-model.mjs` · `_ops/stigmergy/close-handoff.mjs` · [[SCHEMA — Reference]] §9 · [[STIGMERGY]] § Handoff Lifecycle
 
 ## On pickup (fixed — the catcher's checklist; do not rewrite per session)
 *Identical in every baton. It rides along because the catching Claude loads the
