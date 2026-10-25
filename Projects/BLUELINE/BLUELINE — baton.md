@@ -79,6 +79,8 @@ When he does:
    (rich-first/stylize-last). **The gen-AI render is RunPod and costs money — a quote and Loudon's yes before
    any pod.**
 
+When a pod script next runs, move it onto the resolver, `_ops/commons/runpod_config.py`, which knows where the RunPod key lives and falls back to the primary checkout. Eleven BLUELINE readers still find the key their own way: the ten pod and serverless orchestrators under `Projects/BLUELINE/proofs/` and `render-backend/serverless_runner.py`. Each points at the right path today, and each can only be proven with a live pod, so move it when it runs, not before. (Folded in from the Palace To-Do at its retirement, on Loudon's call of 2026-10-25.)
+
 ## Receiving environment
 Same surface (Claude Code, Mac). **This baton and all the session-11 work live on `main`**, the 2026-10-13
 guide experiment included. Catch it from the palace root `/Users/loudonstearns/Documents/The Palace`. If you
