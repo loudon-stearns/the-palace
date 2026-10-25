@@ -31,6 +31,9 @@ _Not yet rendered. The project was born 2026-10-24 and has no steward; this zone
 4. **Session View Set from a stack.** Turn a Splice stack into tracks, its layers into clip slots, and make eight scenes that vary which layers play. The Session View XML comes from GoButton's LTC generator and is documented as it is cloned. Done when the Set opens in Session View, the scenes launch, and `check` reads the slots.
 5. **One ask, one Set.** A single command or chat request that takes a description, runs the Splice search and the builds, and hands back a Set beside its samples. Done when Loudon asks for a kit in his words and opens what comes back. *Made 2026-10-24: `workshop/forge/`; the first ask was his melodic techno track.*
 6. **Key and level.** Every keyed layer transposed to one key by the shortest road, relative major and minor treated as one; every track's fader set by its ground (the standing order). Added on Loudon's yes of 2026-10-24 after the first ask came back in five keys at unity. Done when a stack's layers sit in one key and three grounds without a hand on a fader.
+7. **Own shells.** The forge builds its own clean Live 12 shells, thin at first and built up fresh, so no inherited cruft (the named macros, the clip gain, the −12 dB fader) comes along; this replaces cloning from Loudon's saved Sets. Added on Loudon's yes of 2026-10-24.
+8. **Taste and nuance.** In Loudon's words: "the sessions that were made, they were of questionable musical utility, we will need to build in more taste and nuance as we move forward… there is much skill and subtlety in musical creation that we can't get simply from looking at metadata and searches, but our approaches are starting to work well, and we have a solid foundation to build on." No first step is named yet; it is not invented here. Added on Loudon's yes of 2026-10-24.
+9. **Owed proofs.** Simpler's `PlaybackMode` enum; dragging the lifted `.adv` onto a track; velocity layers in the kit builder; a DrumCell pad inside a Set. Added on Loudon's yes of 2026-10-24.
 <!-- scroll:plan:end -->
 
 ## Standing Orders
@@ -49,6 +52,10 @@ _Not yet rendered. The project was born 2026-10-24 and has no steward; this zone
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="forge-2026-10-24-plan-moves-7-9" -->
+### 2026-10-24 — Plan: moves seven to nine
+
+The plan gained three moves on Loudon's yes, after he heard the Sets: own shells (clean Live 12 shells built fresh, replacing clones of his saved Sets), taste and nuance (he judges the Sets musically thin and the foundation solid; no first step named yet), and owed proofs (four open format questions). Why: the three bugs of the day (macros, clip gain, the −12 dB fader) all came in on cloned shells, and the ear says the next gap is musical, not structural.
 <!-- scroll:entry id="forge-2026-10-24-bare-macros" -->
 ### 2026-10-24 — Bare macros
 
