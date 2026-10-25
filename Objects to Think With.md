@@ -40,8 +40,8 @@ pattern is not a preference in this palace but a reflex.
 
 ## The palace named this three times before it had the name
 
-Twenty-one of the forty-one entries in `Projects/` are objects-to-think-with by Papert's strict
-criterion, and the palace invented a separate phrase for it each time it noticed:
+Twenty-two of the fifty-one entries in `Projects/` are objects-to-think-with by Papert's criterion,
+and the palace invented a separate phrase for it each time it noticed:
 
 - *"make the invisible visible"* — [[Compressor Design]], built as a pedagogical device where every
   design choice serves that end
