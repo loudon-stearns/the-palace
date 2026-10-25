@@ -190,3 +190,7 @@ off-plan work turns into adopted plans; and whether a busy
 project wants its trail split per making-thread (the GenAI Camera finding) once a run of ten
 cycles lands a dozen sections in one morning. The HTML export from the markdown source is not
 built yet; it is wanted the first time a scroll needs to travel outside the terminal.
+
+## Active Baton
+
+[[The Scroll — baton]] — drafted 2026-10-25
