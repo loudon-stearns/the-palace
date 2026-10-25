@@ -12,10 +12,9 @@ status: canonical
 links:
   - target: "[[CLAUDE]]"
     type: enables
+    label: read-when-grown
   - target: "[[README - The Palace Guide]]"
     type: deepens
-  - target: "[[ROSETTA]]"
-    type: mirrors
   - target: "[[Substrate Skill]]"
     type: enables
   - target: "[[Weave Ceremony]]"
@@ -24,8 +23,7 @@ links:
     type: enables
   - target: "[[Deposit Ceremony]]"
     type: enables
-  - target: "[[Resonant Link Labels]]"
-    type: connects-to
+    label: governed-by
   - target: "[[STIGMERGY]]"
     type: enables
     label: coordination-schema
@@ -79,18 +77,18 @@ Read the table top to bottom and take the first row that fits; `concept` is the 
 | `meta` | it is about the palace itself: architecture, ceremonies, infrastructure, self-model | `version` (schema-level entries, ceremonies) · `trigger` (ceremonies) | [[SCHEMA]], [[SUBSTRATE]], [[CLAUDE]] |
 | `specialist` | it wraps an external creative tool with operational anatomy — Charter, Tiers, Job Contract, accumulated Gotchas | `status` · `medium` · `tool` · `tool_version` | [[Shop/Kokoro]], [[Shop/ComfyUI]] |
 | `maker` | it is a foreman for a roster of Specialists, holding house standards and dispatch logic | `status` | [[Shop/Maker]] |
-| `source` | it is an external artifact the palace draws from — paper, book, tool, recording | `author` · `year` · `medium` | [[Meaning and the Link (2014)]] |
+| `source` | it is an external artifact the palace draws from — paper, book, tool, recording | `author` · `year` · `medium` | [[Meaning and the Link]] |
 | `project` | it is being built, composed, or created; it has a temporal arc | `status` (active \| complete \| archived) | [[BLUELINE]], [[Loudon Live]] |
 | `question` | it is an unresolved question being actively carried | — | *"When does the wiki warrant its own Project?"* |
 | `spore` | it is an idea preserved for a later revival, dormant by choice (`stage` is always `dormant`) | `revival_conditions` | [[Shimmer Cloud]] |
-| `hub` | it organizes a dense region of the graph — **not self-assigned**, earned at ≥5 inbound typed links via the Weave | — | [[FOUR PILLARS]], [[Kuramoto Coupling]] |
+| `hub` | it organizes a dense region of the graph — **not self-assigned**, earned in the top inbound decile at the last map build, proposed by the Weave | — | [[FOUR PILLARS]], [[Kuramoto Coupling]] |
 | `practice` | it is a recurring method, workflow, ritual, or embodied way of working — something you *do*, not an idea you hold | `version` · `trigger` (ceremonies) | [[Closing Well]], [[Deposit Ceremony]] |
 | `person` | a thinker or collaborator whose ideas are in live dialogue with the palace — not every cited name | `domains` | [[Spinoza]], [[Brian Eno]] |
 | `concept` | **the default.** An idea, principle, or framework the palace reasons with | — | [[Kuramoto Coupling]], [[Spinoza Conatus]] |
 
 ### Notes the table can't hold
 
-**`hub` is earned and can be lost.** The Weave proposes promotion at ≥5 inbound typed links and demotion back to `concept` if the degree falls below. Never self-assign it.
+**`hub` is earned and can be lost.** The Weave proposes promotion for a page in the top inbound decile at the last map build (`weave-health.py` prints the cut; 19 inbound on 2026-10-24) and retype back to `concept` for a hub that falls below the median inbound. A hub is a role the graph has given a page, not a badge. Never self-assign it.
 
 **`person` entries are embodiable citizens** (v1.14). The *body* is the fully-formed human — source material an agent can wear in a [[Dialectic]] or [[Excellent Adventure]] — while the *frontmatter* is a newborn palace resident with its own `forward_vector` and usually an `agency_profile`. So a `person`'s `stage` tracks **palace citizenship** (born `seed`, growing through dispatch and enchantment), not the human's completeness — the same move `specialist` and `maker` make with `status`. The research corpus lives in a bundle `dossier`. Method: [[Making a Palace Citizen]].
 

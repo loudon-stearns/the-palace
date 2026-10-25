@@ -7,15 +7,8 @@ stage: mature
 version: "1.3"
 trigger: ["spore check"]
 links:
-  - target: "[[Palace Ceremonies]]"
-    type: connects-to
-  - target: "[[Weave Ceremony]]"
-    type: connects-to
   - target: "[[Substrate Skill]]"
     type: connects-to
-  - target: "[[Revival Ceremony]]"
-    type: connects-to
-    label: one-of-four-ways-in
   - target: "[[The Daily Page]]"
     type: connects-to
     label: one-sleeper-at-a-time

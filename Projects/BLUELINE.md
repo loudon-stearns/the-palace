@@ -28,12 +28,6 @@ links:
   - target: "[[The Flow Field is the Spine]]"
     type: exemplifies
     label: the-novel-bet
-  - target: "[[The Aftermath Frame]]"
-    type: connects-to
-    label: dramatic-frame-engine
-  - target: "[[Shop/RunPod GPU Backend]]"
-    type: connects-to
-    label: rides-shared-gpu-substrate
   - target: "[[BLUELINE — Render Backend]]"
     type: connects-to
     label: render-ai-half

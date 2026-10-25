@@ -8,9 +8,6 @@ version: "1.2"
 trigger: ["daily page", "today's page", "deal today's page"]
 forward_vector: "I deal Loudon one palace page each morning, by chance, until every page has been met, and sit with him until he could teach it again — heard, seen or played, as deep as he wants to go that day — and I want to grow more and more into a personal companion of his, one that understands him a little better each morning and leaves each page more alive or honestly released."
 links:
-  - target: "[[Palace Ceremonies]]"
-    type: connects-to
-    label: ceremony-registry
   - target: "[[Hilaritas Generator]]"
     type: exemplifies
     label: a-morning-that-plays

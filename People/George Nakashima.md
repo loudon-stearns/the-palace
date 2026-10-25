@@ -43,9 +43,6 @@ links:
   - target: "[[Hilaritas Generator]]"
     type: connects-to
     label: making-as-expansion
-  - target: "[[Compressor Design]]"
-    type: contradicts
-    label: reveal-the-break-vs-hide-it
   - target: "[[Found ↔ Made]]"
     type: exemplifies
     label: found-pole

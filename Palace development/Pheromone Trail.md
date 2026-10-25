@@ -11,8 +11,6 @@ confidence: working
 energy: high
 beauty: 9
 links:
-  - target: "[[Enchanted Worker]]"
-    type: couples-with
   - target: "[[Pages as Agents]]"
     type: connects-to
   - target: "[[Palace as Context Injection System]]"

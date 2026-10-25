@@ -24,9 +24,6 @@ links:
     type: connects-to
   - target: "[[Trickster]]"
     type: deepens
-  - target: "[[Merleau-Ponty]]"
-    type: connects-to
-    label: body-schema-design
   - target: "[[Biomechanical Synthesis]]"
     type: mirrors
     label: the-organism-kind

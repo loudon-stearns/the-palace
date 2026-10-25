@@ -30,9 +30,6 @@ links:
   - target: "[[Rick Rubin]]"
     type: connects-to
     label: oblique-lens
-  - target: "[[Iain McGilchrist]]"
-    type: connects-to
-    label: two-modes-of-attention
 ---
 
 # Frequency Domain ↔ Perspective Shift

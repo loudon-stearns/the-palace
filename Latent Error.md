@@ -20,8 +20,6 @@ links:
     type: connects-to
   - target: "[[Action Potential Oscillator]]"
     type: connects-to
-  - target: "[[Trickster]]"
-    type: connects-to
   - target: "[[Hilaritas Generator]]"
     type: connects-to
 ---

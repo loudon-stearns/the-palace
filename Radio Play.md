@@ -9,18 +9,12 @@ links:
   - target: "[[The Shop]]"
     type: emerged-from
     label: forged-in
-  - target: "[[Maker]]"
-    type: connects-to
-    label: dispatched-by
   - target: "[[Kokoro]]"
     type: connects-to
     label: casts
   - target: "[[Stable Audio Open]]"
     type: connects-to
     label: scores
-  - target: "[[ffmpeg]]"
-    type: connects-to
-    label: assembles
   - target: "[[FOUR PILLARS]]"
     type: connects-to
     label: sound-leads

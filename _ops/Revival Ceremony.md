@@ -8,10 +8,9 @@ version: "2.1"
 trigger: ["revive [entry]", "let's revive [entry]", "time to revive [entry]"]
 forward_vector: "I am how a sleeping page comes back into the work. I want every waking to be earned by something made and met, and to end in a page that tells the truth about itself and has someone to work it, so that dormancy is a season the palace can turn, never a door that only opens one way."
 links:
-  - target: "[[Palace Ceremonies]]"
-    type: connects-to
   - target: "[[Spore Check Ceremony]]"
     type: emerged-from
+    label: one-of-four-ways-in
   - target: "[[The Daily Page]]"
     type: connects-to
     label: a-morning-decides-revive

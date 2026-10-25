@@ -155,3 +155,7 @@ Shop/RunPod GPU Backend/studio/config.json
 # Blender writes its wavelet-noise cache into whatever folder a smoke sim with
 # high-res noise runs from (BLUELINE smoke_sim.py --noise); it regenerates itself.
 waveletNoiseTile.bin
+
+# Plugin build outputs (Weave 2026-10-24, Loudon: discard from git's eye)
+Projects/*/plugin/check/engine_check
+Projects/*/plugin/out/_engine*

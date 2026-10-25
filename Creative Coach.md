@@ -12,9 +12,6 @@ links:
   - target: "[[FOUR PILLARS]]"
     type: emerged-from
     label: creative-coach-not-teacher
-  - target: "[[Loudon Live]]"
-    type: connects-to
-    label: worked-example
   - target: "[[Meadows and an Artist's Career]]"
     type: connects-to
     label: the-instrument

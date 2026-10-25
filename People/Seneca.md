@@ -31,6 +31,7 @@ links:
     label: informs
   - target: "[[Stoicism]]"
     type: exemplifies
+    label: statesman-philosopher
   - target: "[[The Dichotomy of Control]]"
     type: connects-to
   - target: "[[Quality Manifesto]]"

@@ -13,11 +13,7 @@ links:
     type: connects-to
   - target: "[[Hyperdimensional Prism]]"
     type: connects-to
-  - target: "[[Hilaritas Generator]]"
-    type: connects-to
   - target: "[[Kuramoto Coupling]]"
-    type: connects-to
-  - target: "[[Palace Quotes]]"
     type: connects-to
   - target: "[[Cooperation Yields Agency]]"
     type: deepens
@@ -71,9 +67,6 @@ links:
   - target: "[[Leibniz]]"
     type: spawned
     label: page-built-register
-  - target: "[[Dialectic]]"
-    type: connects-to
-    label: contradictions-dispatched-here
   - target: "[[Spinoza]]"
     type: spawned
     label: person-page-built

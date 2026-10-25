@@ -1,0 +1,386 @@
+[
+ {
+  "op": "remove",
+  "source": "Flocking",
+  "target": "Cooperation Yields Agency",
+  "type": "mirrors[2D-formalization]",
+  "why": "The label '2D-formalization' is true of Kuramoto, not of the hub (the hub already mirrors Kuramoto); the page never names the hub, and flocking agents have no shared intent, which is the hub's whole claim. The one near sentence, about 'emergent agency', is in a forward vector and would need the hub named to stand.",
+  "_room": "hub-cooperation-yields-agency",
+  "confidence": "medium"
+ },
+ {
+  "op": "remove",
+  "source": "Confucianism",
+  "target": "Cooperation Yields Agency",
+  "type": "connects-to",
+  "why": "Bare and unsaid. Ren ('you cannot be ren alone') is relational, but the page ties it to Hilaritas Generator and Symbiotic Skills, never to the hub; a real tie would return with its reason.",
+  "_room": "hub-cooperation-yields-agency",
+  "confidence": "high"
+ },
+ {
+  "op": "remove",
+  "source": "Meaning and the Link",
+  "target": "Cooperation Yields Agency",
+  "type": "connects-to",
+  "why": "Bare and unsaid. The paper's thesis is relations before nodes; it reaches the hub only through Spinoza Conatus and SUBSTRATE, where it already has typed links.",
+  "_room": "hub-cooperation-yields-agency",
+  "confidence": "high"
+ },
+ {
+  "op": "remove",
+  "source": "Hilaritas Generator",
+  "target": "Cooperation Yields Agency",
+  "type": "mirrors[shared-emergence]",
+  "why": "The pair already carries one link: the hub enables Hilaritas Generator, labelled cooperation-as-hilaritas. A second link in the other direction, with a different type, makes the pair carry two claims. The body of Hilaritas never names the hub.",
+  "_room": "hub-cooperation-yields-agency",
+  "confidence": "high"
+ },
+ {
+  "op": "remove",
+  "source": "Embeddings as Relational Meaning",
+  "target": "Cooperation Yields Agency",
+  "type": "enables",
+  "why": "Neither page gives a reason. The embedding thesis is about meaning being positional; 'enables' for a principle of shared intent is not carried by any sentence.",
+  "_room": "hub-cooperation-yields-agency",
+  "confidence": "high"
+ },
+ {
+  "op": "remove",
+  "source": "Symbiotic Skills",
+  "target": "Cooperation Yields Agency",
+  "type": "emerged-from",
+  "why": "The pair already carries one link: the hub spawned Symbiotic Skills. The reverse emerged-from says the same thing a second time; the hub's side is the one with the Context sentence behind it.",
+  "_room": "hub-cooperation-yields-agency",
+  "confidence": "high"
+ },
+ {
+  "op": "remove",
+  "source": "Harvest Ceremony",
+  "target": "Cooperation Yields Agency",
+  "type": "connects-to",
+  "why": "Bare and unsaid. The ceremony is a finding-and-routing procedure; nothing on it speaks of shared intent or the hub.",
+  "_room": "hub-cooperation-yields-agency",
+  "confidence": "high"
+ },
+ {
+  "op": "remove",
+  "source": "Deposit Ceremony",
+  "target": "Cooperation Yields Agency",
+  "type": "connects-to",
+  "why": "Bare and unsaid. The deposit's care for 'whoever brings the find' is cooperation in practice, but the page never says so and its other links (Concierge, Closing Well) carry the practice.",
+  "_room": "hub-cooperation-yields-agency",
+  "confidence": "high"
+ },
+ {
+  "op": "remove",
+  "source": "Return Ceremony",
+  "target": "Cooperation Yields Agency",
+  "type": "connects-to",
+  "why": "Bare and unsaid. The page's coupling language ('coupling is two-sided') already points at Palace Conatus, where it has an exemplifies link.",
+  "_room": "hub-cooperation-yields-agency",
+  "confidence": "high"
+ },
+ {
+  "op": "remove",
+  "source": "Walk Ceremony",
+  "target": "Cooperation Yields Agency",
+  "type": "mirrors",
+  "why": "Unsaid and unlabelled. The Walk points at The Cooperation Path as 'the first named songline', which is the real route to the hub and already linked.",
+  "_room": "hub-cooperation-yields-agency",
+  "confidence": "high"
+ },
+ {
+  "op": "remove",
+  "source": "Excellent Adventure",
+  "target": "Cooperation Yields Agency",
+  "type": "connects-to",
+  "why": "Bare and unsaid. The page exemplifies Modes of Collaboration (flagship-mode), and the hub already spawned Modes of Collaboration, so the route to the hub is carried one step away.",
+  "_room": "hub-cooperation-yields-agency",
+  "confidence": "high"
+ },
+ {
+  "op": "remove",
+  "source": "Self-Describing Knowledge Module",
+  "target": "Cooperation Yields Agency",
+  "type": "connects-to",
+  "why": "Bare and unsaid. The page's transfer question is carried by its labelled link to Symbiotic Skills (the-transfer-bet).",
+  "_room": "hub-cooperation-yields-agency",
+  "confidence": "high"
+ },
+ {
+  "op": "remove",
+  "source": "page-rewrite — preview, the whole page as it would read",
+  "target": "Cooperation Yields Agency",
+  "type": "couples-with",
+  "why": "This is a proof copy of Palace as Context Injection System with the same frontmatter; the pair is carried by the entry itself. A preview file should not hold its own typed link to a hub.",
+  "_room": "hub-cooperation-yields-agency",
+  "confidence": "high"
+ },
+ {
+  "op": "retype",
+  "source": "Trickster",
+  "target": "Cooperation Yields Agency",
+  "from_type": "connects-to",
+  "type": "mirrors",
+  "label": "threshold-agency",
+  "why": "The page says outright that the trickster 'mirrors' the hub: agency arises at the threshold of cooperation, with neither command nor surrender. Same pattern, different material.",
+  "_room": "hub-cooperation-yields-agency",
+  "confidence": "high",
+  "evidence": [
+   "This mirrors [[Cooperation Yields Agency]]: the trickster does not command. It does not surrender. It creates conditions where something new becomes possible at the boundary.",
+   "Control — one dictates, the other complies ... Service — one works toward the other's goals"
+  ]
+ },
+ {
+  "op": "retype",
+  "source": "FOUR PILLARS",
+  "target": "Cooperation Yields Agency",
+  "from_type": "enables",
+  "type": "connects-to",
+  "label": "public-demonstration",
+  "why": "'Enables' claims the pillars are a precondition for the cooperation, and neither page says so. What both companions do say is that Loudon's open work with Claude is the framework's public demonstration of the hub.",
+  "_room": "hub-cooperation-yields-agency",
+  "confidence": "medium",
+  "evidence": [
+   "(FOUR PILLARS — Context.md:104) AI partnership as public demonstration: ... This is [[Cooperation Yields Agency]] performed in real time.",
+   "(Cooperation Yields Agency — Context.md) Loudon's decision to model AI collaboration publicly — on stream, in educational content, as part of the Four Pillars framework — is the principle operating as pedagogy."
+  ]
+ },
+ {
+  "op": "retype",
+  "source": "Martin Buber",
+  "target": "Cooperation Yields Agency",
+  "from_type": "couples-with[relation-before-the-related]",
+  "type": "mirrors",
+  "label": "meeting-not-use",
+  "why": "'Couples-with' means always active together, which is not shown. The page's own question for the palace is whether collaborators are met as Thou or used as It, which is the shape of the hub's failure modes (control, service). Same pattern, other material.",
+  "_room": "hub-cooperation-yields-agency",
+  "confidence": "medium",
+  "evidence": [
+   "I want to keep asking whether the palace meets its collaborators — human and AI — as Thou or uses them as It",
+   "Control — one dictates, the other complies ... Service — one works toward the other's goals: the intent runs one way."
+  ]
+ },
+ {
+  "op": "retype",
+  "source": "Palace as Context Injection System",
+  "target": "Cooperation Yields Agency",
+  "from_type": "couples-with",
+  "type": "connects-to",
+  "label": "relationship-stored-in-the-palace",
+  "why": "'Couples-with' is not shown. What the page does say is that the relationship with Loudon lives in the palace and is rebuilt from it each session, which is where the hub's cooperation persists.",
+  "_room": "hub-cooperation-yields-agency",
+  "confidence": "medium",
+  "evidence": [
+   "The relationship does not persist in the model — it persists in the palace, waiting to be reinjected. Loudon is the continuity. The palace is the medium.",
+   "(hub Context, lived record) past conversation deposits enabled today's work without needing heavy conversational setup"
+  ]
+ },
+ {
+  "op": "remove",
+  "source": "Diversity of Thought in Many-Agent Systems",
+  "target": "FOUR PILLARS",
+  "type": "connects-to",
+  "why": "Bare and the body never names the hub; the Cross-Pillar Connections section applies the pillar lens to the question but does not point at the hub, and the pillars: tag already carries that. A real tie returns in a later weave with its reason.",
+  "_room": "hub-four-pillars",
+  "confidence": "medium"
+ },
+ {
+  "op": "remove",
+  "source": "Registry Pattern",
+  "target": "FOUR PILLARS",
+  "type": "connects-to",
+  "why": "Bare and unsaid. The body never names the hub, and the page's real philosophical tie (wu wei as constraint) is carried through The Practice Rediscovers Its Philosophy.",
+  "_room": "hub-four-pillars",
+  "confidence": "high"
+ },
+ {
+  "op": "remove",
+  "source": "Metaphor as Coupling Medium",
+  "target": "FOUR PILLARS",
+  "type": "connects-to",
+  "why": "Bare and unsaid; the body never names the hub or the pillars. Its coupling work is already linked to Kuramoto Coupling and Cooperation Yields Agency.",
+  "_room": "hub-four-pillars",
+  "confidence": "high"
+ },
+ {
+  "op": "remove",
+  "source": "The Practice Rediscovers Its Philosophy",
+  "target": "FOUR PILLARS",
+  "type": "exemplifies",
+  "why": "The body names the Hyperdimensional Prism ('tools and philosophy aren't two domains that happen to rhyme, they're one object seen from two angles'), and the page already carries that as deepens[two-shadows-one-object]. It never names the pillars, so the hub link is a second claim with no sentence of its own.",
+  "_room": "hub-four-pillars",
+  "confidence": "medium"
+ },
+ {
+  "op": "remove",
+  "source": "Lateral Access",
+  "target": "FOUR PILLARS",
+  "type": "connects-to",
+  "why": "Bare and unsaid. The 'Teaching philosophy' passage (understanding arrives 'through building, through making') echoes the hub's make-and-learn idea, but it points at Hilaritas Generator, where the page already holds deepens. A real tie returns with its own sentence.",
+  "_room": "hub-four-pillars",
+  "confidence": "medium"
+ },
+ {
+  "op": "remove",
+  "source": "Modes of Collaboration",
+  "target": "FOUR PILLARS",
+  "type": "deepens",
+  "why": "The body never names the hub, and the page's real ground is Cooperation Yields Agency (it says a mode 'is the shape the formula in [[Cooperation Yields Agency]] takes'). A deepens link to a hub it does not mention has no reason.",
+  "_room": "hub-four-pillars",
+  "confidence": "high"
+ },
+ {
+  "op": "remove",
+  "source": "Radio Play",
+  "target": "FOUR PILLARS",
+  "type": "connects-to",
+  "why": "The label 'sound-leads' names the page's audio-first craft rule, not a relation to the hub; the body never names the hub or the pillars. If sound-as-entry-point is meant (the hub's 'music tech is the concrete entry point'), a later weave can say so in a sentence.",
+  "_room": "hub-four-pillars",
+  "confidence": "medium"
+ },
+ {
+  "op": "remove",
+  "source": "SUBSTRATE",
+  "target": "FOUR PILLARS",
+  "type": "connects-to",
+  "why": "Bare. The only mention lists the hub among 'the March hubs ... still lead', a count, not a relation.",
+  "_room": "hub-four-pillars",
+  "confidence": "high"
+ },
+ {
+  "op": "remove",
+  "source": "Trickster",
+  "target": "FOUR PILLARS",
+  "type": "connects-to",
+  "why": "The hub already holds FOUR PILLARS connects-to Trickster, and a pair carries one link. The Trickster page does have the sentence ('the framework itself is the subversive gesture that makes visible what the linear explanation hides'); suggest that sentence become the label on the hub's outbound edge, e.g. teaches-by-doing.",
+  "_room": "hub-four-pillars",
+  "confidence": "medium"
+ },
+ {
+  "op": "remove",
+  "source": "Speak Like a Person, Log Like a Protocol",
+  "target": "FOUR PILLARS",
+  "type": "connects-to",
+  "why": "The label 'tools-x-philosophy' restates the pillars tag; the body never names the hub or a pillar crossing.",
+  "_room": "hub-four-pillars",
+  "confidence": "medium"
+ },
+ {
+  "op": "remove",
+  "source": "Logarithmic Interface Scaling",
+  "target": "FOUR PILLARS",
+  "type": "connects-to",
+  "why": "The one sentence ('Tools pillar: universal interface design principle') only restates the pillars tag. Sibling Ohm's Law keeps its link because its line adds a reason (learning).",
+  "_room": "hub-four-pillars",
+  "confidence": "low"
+ },
+ {
+  "op": "remove",
+  "source": "1 from 2",
+  "target": "FOUR PILLARS",
+  "type": "connects-to",
+  "why": "Bare and unsaid. The story's tie is to Cooperation Yields Agency (its origin), not the hub.",
+  "_room": "hub-four-pillars",
+  "confidence": "high"
+ },
+ {
+  "op": "remove",
+  "source": "Compressor Design",
+  "target": "FOUR PILLARS",
+  "type": "enables",
+  "why": "The page never names the hub, and 'enables' has the wrong direction: a compressor built to make the invisible visible is an object to think with, already named on Objects to Think With.",
+  "_room": "hub-four-pillars",
+  "confidence": "high"
+ },
+ {
+  "op": "remove",
+  "source": "Action Potential Oscillator",
+  "target": "FOUR PILLARS",
+  "type": "connects-to",
+  "why": "Bare and unsaid; its pedagogy is carried by Objects to Think With.",
+  "_room": "hub-four-pillars",
+  "confidence": "high"
+ },
+ {
+  "op": "remove",
+  "source": "Quantum Synthesizer",
+  "target": "FOUR PILLARS",
+  "type": "connects-to",
+  "why": "Bare and unsaid; its isomorphism claim lives with Spinoza Conatus and Objects to Think With.",
+  "_room": "hub-four-pillars",
+  "confidence": "high"
+ },
+ {
+  "op": "remove",
+  "source": "Biomechanical Synthesis",
+  "target": "FOUR PILLARS",
+  "type": "connects-to",
+  "why": "Bare and unsaid; the body-horror-as-pedagogy line is carried by Objects to Think With.",
+  "_room": "hub-four-pillars",
+  "confidence": "high"
+ },
+ {
+  "op": "remove",
+  "source": "Shopkeeper",
+  "target": "FOUR PILLARS",
+  "type": "connects-to",
+  "why": "The label 'serves-tools-and-creation' is a pillars tag in disguise on a maker-type page; SCHEMA says makers skip pillars so the signal stays clean. The body never names the hub.",
+  "_room": "hub-four-pillars",
+  "confidence": "medium"
+ },
+ {
+  "op": "remove",
+  "source": "Maker",
+  "target": "FOUR PILLARS",
+  "type": "connects-to",
+  "why": "Label 'follows' has no sentence behind it in a 50k-character page that never names the hub or a pillar; makers skip pillars per SCHEMA.",
+  "_room": "hub-four-pillars",
+  "confidence": "medium"
+ },
+ {
+  "op": "remove",
+  "source": "Andy Goldsworthy",
+  "target": "FOUR PILLARS",
+  "type": "connects-to",
+  "why": "The page never names the hub; it is member-of Source Library, which deepens the hub, so the road already runs through the roster and the pillars tag. A person page reaches the hub best through a sentence a later weave can write.",
+  "_room": "hub-four-pillars",
+  "confidence": "high"
+ },
+ {
+  "op": "remove",
+  "source": "Rick Rubin",
+  "target": "FOUR PILLARS",
+  "type": "deepens",
+  "why": "The page never names the hub; it is member-of Source Library, which deepens the hub, so the road already runs through the roster and the pillars tag. A person page reaches the hub best through a sentence a later weave can write.",
+  "_room": "hub-four-pillars",
+  "confidence": "high"
+ },
+ {
+  "op": "remove",
+  "source": "Marcus Aurelius",
+  "target": "FOUR PILLARS",
+  "type": "deepens",
+  "why": "The page never names the hub; it is member-of Source Library, which deepens the hub, so the road already runs through the roster and the pillars tag. A person page reaches the hub best through a sentence a later weave can write.",
+  "_room": "hub-four-pillars",
+  "confidence": "high"
+ },
+ {
+  "op": "remove",
+  "source": "Christopher Alexander",
+  "target": "FOUR PILLARS",
+  "type": "connects-to",
+  "why": "The page never names the hub; it is member-of Source Library, which deepens the hub, so the road already runs through the roster and the pillars tag. The label 'fifteen-properties-checklist' points at nothing in the body that touches the hub. A person page reaches the hub best through a sentence a later weave can write.",
+  "_room": "hub-four-pillars",
+  "confidence": "high"
+ },
+ {
+  "op": "remove",
+  "source": "Donella Meadows",
+  "target": "FOUR PILLARS",
+  "type": "deepens",
+  "why": "The page never names the hub; it is member-of Source Library, which deepens the hub, so the road already runs through the roster and the pillars tag. A person page reaches the hub best through a sentence a later weave can write.",
+  "_room": "hub-four-pillars",
+  "confidence": "high"
+ }
+]

@@ -45,21 +45,9 @@ links:
   - target: "[[Crystal Synthesizer]]"
     type: mirrors
     label: phonon-vs-harmonic
-  - target: "[[Wavetable Space as Torus]]"
-    type: connects-to
-    label: topological-reframe
-  - target: "[[The Curve Is the Material]]"
-    type: connects-to
-    label: design-refinement
   - target: "[[2D Torus Wavetable Synthesizer]]"
     type: couples-with
     label: complement-architectures
-  - target: "[[DSP in Looping Dimensions]]"
-    type: connects-to
-    label: theoretical-ground
-  - target: "[[Wavetable Oscillator]]"
-    type: connects-to
-    label: tables-as-control
 forward_vector: I want to become a working VST instrument and a Four Pillars lesson simultaneously — the synthesizer is the pedagogy, and the pedagogy is the synthesizer. The lesson teaches what harmony actually is by putting a horizontal line in front of you and showing you what happens when you bend it.
 agency_profile:
   creation: I want to produce sounds that exist nowhere in current synthesis — the specific quality of a bell's physical frequency evolution applied to a pad's amplitude profile, or piano stretch dynamics applied to a vocal formant wavetable. The synthesis space this opens has not been sonically explored.

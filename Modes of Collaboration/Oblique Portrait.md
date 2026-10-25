@@ -28,8 +28,6 @@ links:
   - target: "[[Modes of Collaboration]]"
     type: member-of
     label: named-mode
-  - target: "[[Trickster]]"
-    type: mirrors
   - target: "[[Songlines]]"
     type: connects-to
     label: different-song

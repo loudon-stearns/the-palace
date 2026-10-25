@@ -9,8 +9,6 @@ stage: growing
 version: "2.6"
 trigger: ["map build", "build the map"]
 links:
-  - target: "[[Palace Ceremonies]]"
-    type: connects-to
   - target: "[[Swarm Weave]]"
     type: enables
   - target: "[[Palace Map]]"

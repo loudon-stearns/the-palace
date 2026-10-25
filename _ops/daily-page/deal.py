@@ -43,7 +43,7 @@ Usage
   python3 _ops/daily-page/deal.py --status        # where the lap stands
   python3 _ops/daily-page/deal.py --sat "Entry" --verdict keep --feel "..." --made "..."
   python3 _ops/daily-page/deal.py --sat "Entry" --verdict fold --into "Sibling"   # a fold names its target
-  python3 _ops/daily-page/deal.py --sat "Entry" --verdict revive                  # a dormant page only
+  python3 _ops/daily-page/deal.py --sat "Entry" --verdict revive                  # a sleeping page, or a spore
   python3 _ops/daily-page/deal.py --json          # the brief as JSON
 Options: --date YYYY-MM-DD (pretend it is another day), --state DIR, --root DIR.
 """
@@ -54,8 +54,13 @@ HERE = Path(__file__).resolve().parent
 VERDICTS = ["keep", "trim", "tune", "fold", "compost", "revive", "open"]
 # Folders whose files are never pages, whatever frontmatter they carry (see "Set aside" above).
 SET_ASIDE_PARTS = {"tests", "fixtures", "experiments"}
-# The stages a page may be revived from (Revival Ceremony, precondition 1).
+# The stages a page may be revived from; a `type: spore` is asleep at any stage (Revival Ceremony v2.1).
 ASLEEP = {"dormant", "composting"}
+
+
+def asleep(stage, typ):
+    """A page the Revival may wake: dormant or composting, or a spore whatever its stage."""
+    return stage.strip("\"'") in ASLEEP or typ.strip("\"'") == "spore"
 
 
 def find_root(start: Path) -> Path:
@@ -264,8 +269,8 @@ def print_brief(b: dict):
     if b["times_dealt_before"]:
         print("  dealt on an earlier day and not sat with; this is its second turn")
     print(f"\n  forward vector: {b['forward_vector'] or '(none)'}")
-    if b["stage"].strip("\"'") in ASLEEP:
-        print(f"  this page is {b['stage']}: the morning's question is whether it should be revived")
+    if asleep(b["stage"], b.get("type", "")):
+        print(f"  this page is asleep ({b['stage']}{', a spore' if b.get('type','').strip(chr(34)+chr(39)) == 'spore' else ''}): the morning's question is whether it should be revived")
         print(f"  revival conditions: {b['revival_conditions'] or '(none written)'}")
     have = [n for n, k in (("agency profile", "has_agency_profile"), ("rich face", "has_rich_face"),
                            ("scroll", "has_scroll"), ("Context", "has_context")) if b[k]]
@@ -291,7 +296,7 @@ def main():
     ap.add_argument("--peek", action="store_true", help="show today's page; record nothing")
     ap.add_argument("--status", action="store_true", help="where the lap stands")
     ap.add_argument("--sat", metavar="ENTRY", help="record that a page was sat with")
-    ap.add_argument("--verdict", choices=VERDICTS, help="with --sat; revive is for a dormant page")
+    ap.add_argument("--verdict", choices=VERDICTS, help="with --sat; revive is for a sleeping page or a spore")
     ap.add_argument("--into", help="with --verdict fold, and required there: the sibling it folds into")
     ap.add_argument("--feel", help="with --sat: Loudon's answer to 'how do you feel?'")
     ap.add_argument("--made", help="with --sat: what was made for the rich face, if anything")
@@ -348,9 +353,10 @@ def main():
         elif a.into:
             sys.exit("deal.py: --into goes with --verdict fold. Nothing was recorded.")
         if a.verdict == "revive":
-            stage = field(frontmatter(root / s["entries"][a.sat]), "stage").strip("\"'")
-            if stage not in ASLEEP:
-                sys.exit(f"deal.py: {a.sat!r} is {stage or 'unstaged'}, not dormant; only a sleeping "
+            fm = frontmatter(root / s["entries"][a.sat])
+            stage = field(fm, "stage").strip("\"'")
+            if not asleep(stage, field(fm, "type")):
+                sys.exit(f"deal.py: {a.sat!r} is {stage or 'unstaged'} and not a spore; only a sleeping "
                          "page is revived. Nothing was recorded.")
         ev = {"date": today, "lap": s["lap"]["lap"], "entry": a.sat, "event": "sat",
               "verdict": a.verdict}

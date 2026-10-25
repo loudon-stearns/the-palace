@@ -27,9 +27,6 @@ links:
   - target: "[[Loudon Live Design System]]"
     type: enables
     label: the-lesson-voice
-  - target: "[[Songlines]]"
-    type: contradicts
-    label: transcribe-vs-perform
 tags: [specialist, shop, sound, narration, tts]
 ---
 

@@ -15,12 +15,6 @@ links:
   - target: "[[Floquet Time-Modulated Loops]]"
     type: emerged-from
     label: core-phenomenon-of
-  - target: "[[Mathieu Equation]]"
-    type: connects-to
-    label: governed-by
-  - target: "[[Floquet Theory]]"
-    type: connects-to
-    label: theoretical-framework
   - target: "[[Kuramoto Coupling]]"
     type: mirrors
     label: threshold-bifurcation

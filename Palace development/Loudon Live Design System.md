@@ -44,9 +44,6 @@ links:
   - target: "[[The Multilinear Self]]"
     type: exemplifies
     label: visual-expression
-  - target: "[[Trickster]]"
-    type: connects-to
-    label: one-nature-many-projections
   - target: "[[BBS Design System]]"
     type: mirrors
     label: sibling-system-different-register

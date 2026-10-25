@@ -125,4 +125,4 @@ The walk-cycle works but isn't smooth — frames are *independent* generations (
 
 Began as a plain "assess RunPod" question and became a full build: serverless provisioning and its failure cascade, an SDXL image run (38 images), the SDXL→FLUX sophistication jump, the img2img movie that failed honestly, and a pod running FLUX + ControlNet that did the walk-cycle-through-eras right. The artifacts (galleries, reports, the two movies) are in the bundle's `proofs/`, beside the reusable machinery, the Palace Studio app (`studio/`) and the prompt queue (`_prompts/`).
 
-<!-- CLAUDE → LOUDON: the ControlNet pose-locked restyle is strong enough to be its own [[breakthrough]] entry someday — left as a section here per the focused-deposit call. A Weave could elevate it and wire it to the Image-to-3D commission and [[Quality Manifesto]]. -->
+<!-- CLAUDE → LOUDON: the ControlNet pose-locked restyle is strong enough to be its own `breakthrough` entry someday — left as a section here per the focused-deposit call. A Weave could elevate it and wire it to the Image-to-3D commission and [[Quality Manifesto]]. -->

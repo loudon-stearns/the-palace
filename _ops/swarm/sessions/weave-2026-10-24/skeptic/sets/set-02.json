@@ -1,0 +1,429 @@
+[
+ {
+  "op": "remove",
+  "source": "Julia Cameron",
+  "target": "FOUR PILLARS",
+  "type": "deepens",
+  "why": "The page never names the hub; it is member-of Source Library, which deepens the hub, so the road already runs through the roster and the pillars tag. A person page reaches the hub best through a sentence a later weave can write.",
+  "_room": "hub-four-pillars",
+  "confidence": "high"
+ },
+ {
+  "op": "remove",
+  "source": "Douglas Hofstadter",
+  "target": "FOUR PILLARS",
+  "type": "deepens",
+  "why": "The page never names the hub; it is member-of Source Library, which deepens the hub, so the road already runs through the roster and the pillars tag. A person page reaches the hub best through a sentence a later weave can write.",
+  "_room": "hub-four-pillars",
+  "confidence": "high"
+ },
+ {
+  "op": "remove",
+  "source": "Pauline Oliveros",
+  "target": "FOUR PILLARS",
+  "type": "deepens",
+  "why": "The page never names the hub; it is member-of Source Library, which deepens the hub, so the road already runs through the roster and the pillars tag. A person page reaches the hub best through a sentence a later weave can write.",
+  "_room": "hub-four-pillars",
+  "confidence": "high"
+ },
+ {
+  "op": "remove",
+  "source": "George Nakashima",
+  "target": "FOUR PILLARS",
+  "type": "connects-to",
+  "why": "The page never names the hub; it is member-of Source Library, which deepens the hub, so the road already runs through the roster and the pillars tag. A person page reaches the hub best through a sentence a later weave can write.",
+  "_room": "hub-four-pillars",
+  "confidence": "high"
+ },
+ {
+  "op": "remove",
+  "source": "Buckminster Fuller",
+  "target": "FOUR PILLARS",
+  "type": "connects-to",
+  "why": "The page never names the hub; it is member-of Source Library, which deepens the hub, so the road already runs through the roster and the pillars tag. A person page reaches the hub best through a sentence a later weave can write.",
+  "_room": "hub-four-pillars",
+  "confidence": "high"
+ },
+ {
+  "op": "remove",
+  "source": "Shunryu Suzuki",
+  "target": "FOUR PILLARS",
+  "type": "deepens",
+  "why": "The page never names the hub; it is member-of Source Library, which deepens the hub, so the road already runs through the roster and the pillars tag. A person page reaches the hub best through a sentence a later weave can write.",
+  "_room": "hub-four-pillars",
+  "confidence": "high"
+ },
+ {
+  "op": "remove",
+  "source": "Seneca",
+  "target": "FOUR PILLARS",
+  "type": "connects-to",
+  "why": "The page never names the hub; it is member-of Source Library, which deepens the hub, so the road already runs through the roster and the pillars tag. A person page reaches the hub best through a sentence a later weave can write.",
+  "_room": "hub-four-pillars",
+  "confidence": "high"
+ },
+ {
+  "op": "remove",
+  "source": "Lao Tzu",
+  "target": "FOUR PILLARS",
+  "type": "deepens",
+  "why": "The page never names the hub; it is member-of Source Library, which deepens the hub, so the road already runs through the roster and the pillars tag. A person page reaches the hub best through a sentence a later weave can write.",
+  "_room": "hub-four-pillars",
+  "confidence": "high"
+ },
+ {
+  "op": "remove",
+  "source": "John Cage",
+  "target": "FOUR PILLARS",
+  "type": "deepens",
+  "why": "The page never names the hub; it is member-of Source Library, which deepens the hub, so the road already runs through the roster and the pillars tag. A person page reaches the hub best through a sentence a later weave can write.",
+  "_room": "hub-four-pillars",
+  "confidence": "high"
+ },
+ {
+  "op": "remove",
+  "source": "Oblique Portrait",
+  "target": "FOUR PILLARS",
+  "type": "connects-to",
+  "why": "Bare and unsaid; its ties are to Lateral Access and the modes.",
+  "_room": "hub-four-pillars",
+  "confidence": "high"
+ },
+ {
+  "op": "remove",
+  "source": "Excellent Adventure",
+  "target": "FOUR PILLARS",
+  "type": "connects-to",
+  "why": "Bare and unsaid; the hub-side idea (bring a tradition to the table) lives on Palace Philosophies, which cites Excellent Adventure.",
+  "_room": "hub-four-pillars",
+  "confidence": "high"
+ },
+ {
+  "op": "remove",
+  "source": "Lossy Compression with Intent Alignment",
+  "target": "FOUR PILLARS",
+  "type": "connects-to",
+  "why": "The label 'structures-pedagogy' has no sentence behind it; the body is about knowledge distillation and what a compressed entry should keep, and never mentions the hub or teaching with it.",
+  "_room": "hub-four-pillars",
+  "confidence": "medium"
+ },
+ {
+  "op": "remove",
+  "source": "Generative Compression",
+  "target": "FOUR PILLARS",
+  "type": "exemplifies",
+  "why": "The label 'compression-across-four-pillars' is not borne out: the body never names the pillars or the hub, and the page is tagged tools, practice, philosophy only. A real tie returns with its sentence.",
+  "_room": "hub-four-pillars",
+  "confidence": "medium"
+ },
+ {
+  "op": "remove",
+  "source": "page-rewrite — preview, the whole page as it would read",
+  "target": "FOUR PILLARS",
+  "type": "connects-to",
+  "why": "A workshop preview of Palace as Context Injection System ('PREVIEW, not placed'); its edge is a copy of the entry's own. Wiring a proof file into the graph duplicates the entry's link.",
+  "_room": "hub-four-pillars",
+  "confidence": "high"
+ },
+ {
+  "op": "retype",
+  "source": "Closing Well",
+  "target": "FOUR PILLARS",
+  "from_type": "connects-to",
+  "type": "exemplifies",
+  "label": "practice-pillar-instance",
+  "why": "The existing label already says 'instance'; the type should say it too. The page is type practice and tagged practice/philosophy/tools, and no body sentence adds more.",
+  "_room": "hub-four-pillars",
+  "confidence": "medium",
+  "evidence": [
+   "(label only) practice-pillar-instance; page type is practice",
+   "**Practice** is the iterative, embodied process — rhythm, health, daily discipline, community care, the learning process itself."
+  ]
+ },
+ {
+  "op": "retype",
+  "source": "Signal-Rate CV Architecture",
+  "target": "FOUR PILLARS",
+  "from_type": "connects-to",
+  "type": "exemplifies",
+  "label": "learning-through-making",
+  "why": "The page says the signal-rate design is the hub's philosophy at work, which is a worked case, not a neighbour.",
+  "_room": "hub-four-pillars",
+  "confidence": "high",
+  "evidence": [
+   "This directness is the [[FOUR PILLARS]] philosophy in practice — learning through making, at the speed of the underlying process.",
+   "Not *learn first, make later* ... Build it to understand it, then build with it."
+  ]
+ },
+ {
+  "op": "retype",
+  "source": "JSUI",
+  "target": "FOUR PILLARS",
+  "from_type": "connects-to",
+  "type": "exemplifies",
+  "label": "touches-all-four",
+  "why": "A section called 'Connection to Four Pillars' walks all four pillars through the instrument, so the page is a worked case of the hub's integration idea.",
+  "_room": "hub-four-pillars",
+  "confidence": "high",
+  "evidence": [
+   "## Connection to Four Pillars — JSUI touches all four: Creation ... Tools ... Philosophy ... Practice",
+   "The most valuable insights occur at intersections. Always ask which pillars are absent and how to include them"
+  ]
+ },
+ {
+  "op": "retype",
+  "source": "Boundary-Crossing Instruments",
+  "target": "FOUR PILLARS",
+  "from_type": "connects-to",
+  "type": "exemplifies",
+  "label": "insight-at-the-intersection",
+  "why": "The page says its breakthrough is an instance of the hub's intersection claim (insight lives where Tools, Creation and Philosophy cross).",
+  "_room": "hub-four-pillars",
+  "confidence": "medium",
+  "evidence": [
+   "The breakthrough lives at the intersection of Tools (the mathematics), Creation (the audio processing application), and Philosophy ... It demonstrates that the most valuable insights occur at pillar intersections",
+   "The most valuable insights occur at intersections."
+  ]
+ },
+ {
+  "op": "retype",
+  "source": "Palace Philosophies",
+  "target": "FOUR PILLARS",
+  "from_type": "connects-to",
+  "type": "deepens",
+  "label": "philosophy-as-tool",
+  "why": "The page elaborates the hub's Philosophy pillar (a tradition as a tool, philosophy as a practice) and names the hub twice for it; source points back at its ground.",
+  "_room": "hub-four-pillars",
+  "confidence": "high",
+  "evidence": [
+   "A tradition is a tool, applied to the problem in front of you the way a filter is applied to a signal ([[FOUR PILLARS]]).",
+   "A philosophy is a tool — applied to a problem the way you apply a bandpass filter."
+  ]
+ },
+ {
+  "op": "retype",
+  "source": "Meadows and Music — Leverage Points",
+  "target": "FOUR PILLARS",
+  "from_type": "connects-to",
+  "type": "exemplifies",
+  "label": "sound-to-self",
+  "why": "The curriculum climbs from the kick and the sidechain to journaling, which is the hub's Kick Drum Paradox grown into ten exercises (Meadows' lever, journaling as the highest lever).",
+  "_room": "hub-four-pillars",
+  "confidence": "medium",
+  "evidence": [
+   "## From Sound to Self ... ## 10. The Journaling Paradigm Shift",
+   "Practice: journaling about why you make — the highest lever, turned on the maker."
+  ]
+ },
+ {
+  "op": "retype",
+  "source": "Metric Modulation",
+  "target": "FOUR PILLARS",
+  "from_type": "connects-to",
+  "type": "exemplifies",
+  "label": "all-four-in-one-technique",
+  "why": "The page itself says its technique is a four-pillar case, one clause per pillar.",
+  "_room": "hub-four-pillars",
+  "confidence": "high",
+  "evidence": [
+   "This connects directly to what the four pillars are about: time perception is philosophy, rhythm is music, the DAW is the tool, and the performance is the practice.",
+   "The most valuable insights occur at intersections."
+  ]
+ },
+ {
+  "op": "label",
+  "source": "Latent Error",
+  "target": "FOUR PILLARS",
+  "type": "connects-to",
+  "label": "framework-as-error-reduction",
+  "why": "The page reads the hub as a latent-error reduction system, a specific claim about what the pillars do.",
+  "_room": "hub-four-pillars",
+  "confidence": "high",
+  "evidence": [
+   "The [[FOUR PILLARS|four pillars framework]] itself is a latent-error reduction system: it provides structural categories (creation, tools, philosophy, practice) that help students organize and retrieve learning.",
+   "The Palace framework for learning, and the tag on everything in the palace"
+  ]
+ },
+ {
+  "op": "label",
+  "source": "Saturation ↔ Richness",
+  "target": "FOUR PILLARS",
+  "type": "exemplifies",
+  "label": "cross-domain-bridge",
+  "why": "SCHEMA names a Bridge as the standing example of exemplifies to the hub, so the type is right; the bare edge repeats nine times and needs its register named. It is also member-of Cross-Domain Resonances.",
+  "_room": "hub-four-pillars",
+  "confidence": "medium",
+  "evidence": [
+   "(SCHEMA) When an entry is a worked example or case of a principle, framework, or pattern (e.g. a Bridge → [[FOUR PILLARS]]).",
+   "The trajectory doesn't abandon the specific — it discovers that the specific was always a case of the general."
+  ]
+ },
+ {
+  "op": "label",
+  "source": "Deposit Ceremony",
+  "target": "FOUR PILLARS",
+  "type": "connects-to",
+  "label": "ask-which-pillar-is-absent",
+  "why": "The ceremony's checklist applies the hub's own rule: ask which pillars the find touches and which is absent.",
+  "_room": "hub-four-pillars",
+  "confidence": "high",
+  "evidence": [
+   "**The four pillars.** Which does it touch, and which is absent? Ask; don't force the absent one in.",
+   "Always ask which pillars are absent and how to include them, but don't force it"
+  ]
+ },
+ {
+  "op": "label",
+  "source": "Sidechain ↔ Conversation",
+  "target": "FOUR PILLARS",
+  "type": "exemplifies",
+  "label": "cross-domain-bridge",
+  "why": "SCHEMA names a Bridge as the standing example of exemplifies to the hub, so the type is right; the bare edge repeats nine times and needs its register named. It is also member-of Cross-Domain Resonances.",
+  "_room": "hub-four-pillars",
+  "confidence": "medium",
+  "evidence": [
+   "(SCHEMA) When an entry is a worked example or case of a principle, framework, or pattern (e.g. a Bridge → [[FOUR PILLARS]]).",
+   "The trajectory doesn't abandon the specific — it discovers that the specific was always a case of the general."
+  ]
+ },
+ {
+  "op": "label",
+  "source": "Palace as Context Injection System",
+  "target": "FOUR PILLARS",
+  "type": "connects-to",
+  "label": "born-with",
+  "why": "The page names the hub's file as one of the World files the birth imports, a real functional tie (the hub is part of what every agent is born with).",
+  "_room": "hub-four-pillars",
+  "confidence": "medium",
+  "evidence": [
+   "In an Obsidian vault whose foundational files are titled for humans — `FOUR PILLARS.md`, `Substrate Skill.md` — the whole World was un-importable as written. The palace took the symlink path",
+   "The Palace framework for learning, and the tag on everything in the palace"
+  ]
+ },
+ {
+  "op": "remove",
+  "source": "Typography as Meaning",
+  "target": "Hilaritas Generator",
+  "type": "enables",
+  "why": "Neither page speaks of the other: no passage on joy, learning design or the primitives; a-voice-with-a-face has no body behind it, and 'enables' points the wrong way for a lettering grammar.",
+  "_room": "hub-hilaritas-generator",
+  "confidence": "high"
+ },
+ {
+  "op": "remove",
+  "source": "Metaphor as Coupling Medium",
+  "target": "Hilaritas Generator",
+  "type": "connects-to",
+  "why": "The page never names the hub; its teaching section is about Lateral Access and oblique approach, and it already links Excellent Adventure, Kuramoto and Cooperation Yields Agency where the real relations sit.",
+  "_room": "hub-hilaritas-generator",
+  "confidence": "high"
+ },
+ {
+  "op": "remove",
+  "source": "Latent Error",
+  "target": "Hilaritas Generator",
+  "type": "connects-to",
+  "why": "The page's teaching section redesigns a lesson around the student's mental model but never names the hub or joy; only the four-pillars sentence ties it to the framework, and that link already exists.",
+  "_room": "hub-hilaritas-generator",
+  "confidence": "medium"
+ },
+ {
+  "op": "remove",
+  "source": "Endosymbiosis",
+  "target": "Hilaritas Generator",
+  "type": "connects-to",
+  "why": "Bare and unsaid; the body never touches joy, learning or the hub, and Endosymbiosis already links Cooperation Yields Agency where its cooperation story lives.",
+  "_room": "hub-hilaritas-generator",
+  "confidence": "high"
+ },
+ {
+  "op": "remove",
+  "source": "Flocking",
+  "target": "Hilaritas Generator",
+  "type": "connects-to",
+  "why": "emergent-joy-from-local-rules has no joy in the body; the page is about boids and order parameters, and already mirrors Kuramoto and Cooperation Yields Agency.",
+  "_room": "hub-hilaritas-generator",
+  "confidence": "high"
+ },
+ {
+  "op": "remove",
+  "source": "Scale-Stratified Identity",
+  "target": "Hilaritas Generator",
+  "type": "connects-to",
+  "why": "The hub appears only inside an open question about Loudon's identity; no claim about the hub is made, and the hub already holds Identity Molting.",
+  "_room": "hub-hilaritas-generator",
+  "confidence": "medium"
+ },
+ {
+  "op": "remove",
+  "source": "Songlines",
+  "target": "Hilaritas Generator",
+  "type": "connects-to",
+  "why": "The joy there is Loudon's private memory, not the hub's idea; new-country has no passage tying it to hilaritas.",
+  "_room": "hub-hilaritas-generator",
+  "confidence": "medium"
+ },
+ {
+  "op": "remove",
+  "source": "Cooperation Yields Agency",
+  "target": "Hilaritas Generator",
+  "type": "enables",
+  "why": "The pair already carries the hub's mirrors link; one link per pair, and the inbound label is unsaid on the page.",
+  "_room": "hub-hilaritas-generator",
+  "confidence": "high"
+ },
+ {
+  "op": "remove",
+  "source": "Kuramoto Coupling",
+  "target": "Hilaritas Generator",
+  "type": "connects-to",
+  "why": "The pair already carries the hub's own labelled link; the inbound is a duplicate and the Kuramoto page never speaks of joy.",
+  "_room": "hub-hilaritas-generator",
+  "confidence": "high"
+ },
+ {
+  "op": "remove",
+  "source": "Preset Oracle",
+  "target": "Hilaritas Generator",
+  "type": "connects-to",
+  "why": "The page never names the hub; its pedagogy runs through the Oblique Portrait and the four pillars, which it already links.",
+  "_room": "hub-hilaritas-generator",
+  "confidence": "medium"
+ },
+ {
+  "op": "remove",
+  "source": "Hero and Avatar Maker",
+  "target": "Hilaritas Generator",
+  "type": "connects-to",
+  "why": "joy in identity has no passage; the page is about hero and avatar rendering and links Enrichment and STIGMERGY where its relations sit.",
+  "_room": "hub-hilaritas-generator",
+  "confidence": "high"
+ },
+ {
+  "op": "remove",
+  "source": "Shopkeeper",
+  "target": "Hilaritas Generator",
+  "type": "exemplifies",
+  "why": "A character page, not an instance of the hub's idea; no sentence ties its play to hilaritas, and the exemplifies claim goes unreasoned.",
+  "_room": "hub-hilaritas-generator",
+  "confidence": "medium"
+ },
+ {
+  "op": "remove",
+  "source": "Maker",
+  "target": "Hilaritas Generator",
+  "type": "connects-to",
+  "why": "embodies has no passage; the page is a foreman's dispatch spec, 7400 words, with no mention of joy or the hub.",
+  "_room": "hub-hilaritas-generator",
+  "confidence": "high"
+ },
+ {
+  "op": "remove",
+  "source": "Deposit Ceremony",
+  "target": "Hilaritas Generator",
+  "type": "connects-to",
+  "why": "Neither page speaks of the other; the tristitia guard sits on Closing Well, not here (Deposit says 'manufactured canon is the failure this ceremony exists to prevent', without naming the hub).",
+  "_room": "hub-hilaritas-generator",
+  "confidence": "medium"
+ }
+]

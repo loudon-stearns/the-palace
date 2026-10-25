@@ -15,8 +15,6 @@ links:
   - { target: "[[Maker]]", type: connects-to, label: directed-by }
   - { target: "[[Animate the Background]]", type: connects-to, label: the-Segment-skill-and-its-wall }
   - { target: "[[Depth Anything]]", type: connects-to, label: orders-what-I-isolate }
-  - target: "[[LaMa]]"
-    type: connects-to
 tags: [specialist, shop, perception, segmentation, decomposition, local]
 ---
 

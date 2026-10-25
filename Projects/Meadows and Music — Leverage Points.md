@@ -14,8 +14,6 @@ medium: paper
 links:
   - target: "[[FOUR PILLARS]]"
     type: connects-to
-  - target: "[[Hilaritas Generator]]"
-    type: connects-to
   - target: "[[Meadows and Music — Leverage Points — Context]]"
     type: couples-with
   - target: "[[Leverage Points Framework]]"

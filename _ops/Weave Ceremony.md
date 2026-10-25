@@ -7,8 +7,6 @@ stage: mature
 version: "2.0"
 trigger: ["weave", "let's weave"]
 links:
-  - target: "[[Palace Ceremonies]]"
-    type: connects-to
   - target: "[[Substrate Skill]]"
     type: connects-to
   - target: "[[Walk Ceremony]]"

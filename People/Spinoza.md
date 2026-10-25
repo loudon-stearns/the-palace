@@ -23,9 +23,6 @@ links:
   - target: "[[Spinoza Conatus]]"
     type: spawned
     label: the-concept-the-palace-already-uses
-  - target: "[[Palace Philosophies]]"
-    type: connects-to
-    label: house-philosopher
   - target: "[[Philosopher Visits the Entry]]"
     type: connects-to
     label: roster-member
@@ -41,9 +38,6 @@ links:
   - target: "[[Merleau-Ponty]]"
     type: connects-to
     label: embodied-power-to-act
-  - target: "[[Donella Meadows]]"
-    type: contradicts
-    label: homecoming-vs-becoming
   - target: "[[Generative Compression]]"
     type: connects-to
   - target: "[[Making a Palace Citizen]]"

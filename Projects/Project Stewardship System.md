@@ -8,21 +8,12 @@ stage: growing
 confidence: proposed
 energy: very high
 links:
-  - target: "[[BBS Blackboard]]"
-    type: connects-to
-    label: runs-on
-  - target: "[[STIGMERGY]]"
-    type: connects-to
-    label: runs-on
   - target: "[[Palace Orchestrator]]"
     type: deepens
     label: stage-aware-permanent-agent
   - target: "[[Substrate Skill]]"
     type: couples-with
     label: stage-conditional-posture
-  - target: "[[Trickster]]"
-    type: connects-to
-    label: human-or-automated
   - target: "[[Pages as Agents]]"
     type: deepens
     label: routine-enchantment
@@ -41,16 +32,8 @@ links:
   - target: "[[Palace Conatus]]"
     type: connects-to
     label: escalation-rationale
-  - target: "[[Two Batons, One Board]]"
-    type: connects-to
-    label: human-originated-handoff-case
   - target: "[[Baton Ceremony]]"
     type: connects-to
-  - target: "[[Drift and Consolidation]]"
-    type: connects-to
-  - target: "[[Palace Orchestrator]]"
-    type: connects-to
-    label: run-by-the-orchestrator
   - target: "[[The Scroll]]"
     type: couples-with
     label: front-door

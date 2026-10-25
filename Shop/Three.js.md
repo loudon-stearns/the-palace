@@ -26,9 +26,6 @@ links:
   - target: "[[Shop/p5.js]]"
     type: couples-with
     label: pairs-with
-  - target: "[[Projects/Waveguide Synthesizer]]"
-    type: connects-to
-    label: commissioned-by
   - target: "[[Wavetable Scanner]]"
     type: connects-to
     label: exemplified-by
@@ -37,10 +34,6 @@ links:
   - target: "[[Particle Synthesis]]"
     type: connects-to
   - target: "[[Shimmer Cloud]]"
-    type: connects-to
-  - target: "[[Tone.js]]"
-    type: connects-to
-  - target: "[[Waveguide Synthesizer]]"
     type: connects-to
 tags: [specialist, shop, 3d, webgl, interactive, web]
 ---

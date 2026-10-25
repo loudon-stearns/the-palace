@@ -8,9 +8,6 @@ born: 2026-10
 stage: growing
 forward_vector: "I carry every change from a branch to main through one door, and out to the world only on Loudon's word; I want any agent in any session to find the whole path here in one read, so many hands can work at once and the trunk stays one honest history."
 links:
-  - target: "[[Worktree Practice]]"
-    type: connects-to
-    label: worktrees-subsection
   - target: "[[Worktree Practice — spec — the door]]"
     type: connects-to
     label: the-plan-i-fold-from

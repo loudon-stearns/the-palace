@@ -10,14 +10,13 @@ stage: growing
 links:
   - target: "[[Excellent Adventure]]"
     type: emerged-from
-  - target: "[[Palace as Context Injection System]]"
-    type: connects-to
   - target: "[[Oblique Portrait]]"
     type: couples-with
   - target: "[[Hilaritas Generator]]"
     type: deepens
   - target: "[[Palace Philosophies]]"
     type: enables
+    label: contradictions-dispatched-here
   - target: "[[Modes of Collaboration]]"
     type: member-of
     label: named-mode
@@ -27,8 +26,6 @@ links:
   - target: "[[Confucianism]]"
     type: connects-to
   - target: "[[Stoicism]]"
-    type: connects-to
-  - target: "[[The Fortress and the Threshold]]"
     type: connects-to
   - target: "[[Dialectic — dialectic — zhuangzi-epictetus-confucius-on-the-self]]"
     type: connects-to

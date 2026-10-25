@@ -24,16 +24,12 @@ links:
     type: connects-to
   - target: "[[Quality Manifesto]]"
     type: spawned
-  - target: "[[Trickster]]"
-    type: connects-to
   - target: "[[Wallpaper Groups]]"
     type: mirrors
     label: monism-in-symmetry
   - target: "[[FOUR PILLARS — Context]]"
     type: connects-to
     label: context-companion
-  - target: "[[Hyperdimensional Prism]]"
-    type: connects-to
   - target: "[[Autodidact Polymaths]]"
     type: connects-to
     label: audience-it-names

@@ -25,9 +25,6 @@ links:
   - target: "[[SCHEMA]]"
     type: connects-to
     label: face-not-canon
-  - target: "[[Review Layer]]"
-    type: connects-to
-    label: section-notes
   - target: "[[Hilaritas Generator]]"
     type: exemplifies
     label: a-page-that-plays

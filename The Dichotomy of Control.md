@@ -13,9 +13,6 @@ links:
   - target: "[[Stoicism]]"
     type: emerged-from
     label: the-operating-discipline
-  - target: "[[The Four Virtues]]"
-    type: couples-with
-    label: control-plus-character
   - target: "[[The View From Above]]"
     type: couples-with
     label: scale-partner
@@ -32,8 +29,6 @@ links:
     type: connects-to
     label: own-the-act-not-the-outcome
   - target: "[[Project Stewardship System]]"
-    type: connects-to
-  - target: "[[STIGMERGY Philosophical Lenses]]"
     type: connects-to
   - target: "[[Trickster]]"
     type: connects-to

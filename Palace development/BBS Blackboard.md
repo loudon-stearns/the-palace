@@ -20,10 +20,6 @@ links:
     type: enables
   - target: "[[Pheromone Trail]]"
     type: mirrors
-  - target: "[[Trickster]]"
-    type: connects-to
-  - target: "[[Palace Map]]"
-    type: connects-to
   - target: "[[Enchanted Worker]]"
     type: enables
   - target: "[[Palace Enchantment]]"
@@ -42,9 +38,6 @@ links:
   - target: "[[Enrichment]]"
     type: connects-to
     label: review-surface-and-stigmergy-medium
-  - target: "[[Semantic Webcam]]"
-    type: connects-to
-    label: stigmergy-surface
   - target: "[[Palace Orchestrator]]"
     type: connects-to
     label: appends-through-this-engine

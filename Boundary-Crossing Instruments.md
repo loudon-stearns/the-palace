@@ -17,17 +17,10 @@ links:
     type: connects-to
   - target: "[[Frequency-Time Duality]]"
     type: spawned
-  - target: "[[Kuramoto Coupling]]"
-    type: connects-to
   - target: "[[Hyperdimensional Prism]]"
     type: mirrors
   - target: "[[Symbiotic Skills]]"
     type: enables
-  - target: "[[Action Potential Oscillator]]"
-    type: connects-to
-  - target: "[[2D Torus Wavetable Synthesizer]]"
-    type: connects-to
-    label: instantiated-by-instrument
   - target: "[[DSP in Looping Dimensions]]"
     type: mirrors
     label: dimensional-reframing

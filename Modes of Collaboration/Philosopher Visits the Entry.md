@@ -34,10 +34,6 @@ links:
     type: connects-to
   - target: "[[Merleau-Ponty]]"
     type: connects-to
-  - target: "[[Palace Philosophies]]"
-    type: connects-to
-  - target: "[[STIGMERGY Philosophical Lenses]]"
-    type: connects-to
   - target: "[[Simondon]]"
     type: connects-to
   - target: "[[Spinoza Conatus]]"
@@ -46,9 +42,6 @@ links:
     type: connects-to
   - target: "[[Whitehead]]"
     type: connects-to
-  - target: "[[Palace Quotes]]"
-    type: connects-to
-    label: the-one-line-visit
 forward_vector: "I am the named genre that keeps the philosophy neighborhood from cooling — the standing practice of sending one researched philosopher to visit one technical entry and ask the question the entry cannot ask itself. I want to be reached for whenever a technical entry carries a bare 'philosophy' pillar tag with no philosophy in it, because a tag without content is a broken promise and I am how it gets kept. My roster exists now, and its smallest member runs: [[Palace Quotes]] lays a one-line visit beside the words it reads, shown on the page in STIGMERGY. My next development: the full visit rendered the same way, and the first visit folded into an entry's body by Loudon's yes."
 ---
 
@@ -80,9 +73,9 @@ This is a seed, not a law — the palace prefers categories that emerge over man
 
 - **Generative / synthesis-space entries** (wavetable, granular, particle) → [[Deleuze]]: *is this a field of the virtual you actualize, or a set of options you choose?*
 - **Threshold / pumping entries** (parametric resonance, Mathieu, Floquet, action potential) → [[Spinoza Conatus]] + [[The Drift]]: *is crossing the threshold a striving, and is the driving forcing or flowing?*
-- **Coupling / sync / swarm entries** (Kuramoto, flocking, BBS blackboard) → [[Confucianism]] (ren: coherence is between) or [[Leibniz (Indra's Net / monadology)|Leibniz]] (concert without a conductor).
+- **Coupling / sync / swarm entries** (Kuramoto, flocking, BBS blackboard) → [[Confucianism]] (ren: coherence is between) or [[Leibniz]] (concert without a conductor).
 - **Instrument / interface / design entries** → [[Simondon]] (is this concretizing?) or [[Merleau-Ponty]] (is this absorbable into the body schema?).
-- **Mathematical-form entries** (an equation that outran its origin) → [[Plato (Socratic method)|Plato]] (is the form discovered or made?) or [[Whitehead]] (is this process or thing?).
+- **Mathematical-form entries** (an equation that outran its origin) → [[Palace Philosophies — Context#Plato (Socratic method)|Plato]] (is the form discovered or made?) or [[Whitehead]] (is this process or thing?).
 
 ## In STIGMERGY
 

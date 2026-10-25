@@ -104,7 +104,7 @@ Implementation needs a real graph evolving in real time over an audio engine.
 
 5. **Graph constraints**: maximum total tube length budget. As the colony grows, less efficient tubes are pruned to make room for new ones. This prevents unbounded growth and forces optimization.
 
-6. **Start dense, then thin**: the real plasmodium doesn't build its network strand by strand. It covers the dish first, and the flow carves that cover down to the roads that matter. Carving only works if roads have to compete. If thickness saturates with flow, two parallel roads that share a load both stay full and neither loses. So thickness grows as flow to a power above one, and the flakes take turns: the one that just sounded pushes, and the other sounding flakes listen alongside the listener. That puts pressure between neighbouring roads, so they can merge into trunks. Across 40 seeded dishes this brought a clustered dish from 1.73× to 1.28× the shortest straight-road network ([[Projects/Slime Mold Delay/headless/mesh_dish_check.mjs|the check]], 2026-10-18).
+6. **Start dense, then thin**: the real plasmodium doesn't build its network strand by strand. It covers the dish first, and the flow carves that cover down to the roads that matter. Carving only works if roads have to compete. If thickness saturates with flow, two parallel roads that share a load both stay full and neither loses. So thickness grows as flow to a power above one, and the flakes take turns: the one that just sounded pushes, and the other sounding flakes listen alongside the listener. That puts pressure between neighbouring roads, so they can merge into trunks. Across 40 seeded dishes this brought a clustered dish from 1.73× to 1.28× the shortest straight-road network (the check (`headless/mesh_dish_check.mjs`), 2026-10-18).
 
 ## Pedagogical Framing
 
@@ -128,7 +128,7 @@ The metaphor connects directly to [[Particle Synthesis]] — both are population
 
 **Is**: the design specification — biological mapping, DSP architecture, interface mythology, pedagogical framing. Promotes Slime Mold Delay from a one-line hub entry to a project with stage and forward vector.
 
-**Isn't**: a finished instrument. There is an offline renderer (`headless/physarum_flow.py`) and a playable browser dish ([[Projects/Slime Mold Delay/slime-mold-flow-dish.html|the flow dish]]), but nobody has listened to either yet, and the renderer runs an older law than the dish. The plan on the [[Slime Mold Delay — scroll|scroll]] holds the path from here.
+**Isn't**: a finished instrument. There is an offline renderer (`headless/physarum_flow.py`) and a playable browser dish (the flow dish (`slime-mold-flow-dish.html`)), but nobody has listened to either yet, and the renderer runs an older law than the dish. The plan on the [[Slime Mold Delay — scroll|scroll]] holds the path from here.
 
 ## Open Questions
 

@@ -27,9 +27,6 @@ links:
   - target: "[[Waveguide Synthesizer]]"
     type: mirrors
     label: geometry-is-the-data
-  - target: "[[Rank-N Lattice Analysis]]"
-    type: contradicts
-    label: measured-rank-vs-assumed-clean
   - target: "[[Progressive Staging]]"
     type: exemplifies
     label: sketch-study-piece-is-staging

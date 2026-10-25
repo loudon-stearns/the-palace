@@ -13,8 +13,6 @@ links:
     type: deepens
   - target: "[[Pheromone Trail]]"
     type: couples-with
-  - target: "[[Agent Wellbeing]]"
-    type: connects-to
   - target: "[[Action Potential Oscillator]]"
     type: mirrors
   - target: "[[Pages as Agents]]"

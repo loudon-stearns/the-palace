@@ -28,6 +28,7 @@ links:
     type: member-of
   - target: "[[Cross-Domain Resonances]]"
     type: deepens
+    label: cognitive-ground
   - target: "[[FOUR PILLARS]]"
     type: deepens
   - target: "[[Embeddings as Relational Meaning]]"

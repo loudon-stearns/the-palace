@@ -28,8 +28,6 @@ links:
     type: connects-to
   - target: "[[Kuramoto Coupling]]"
     type: mirrors
-  - target: "[[SCHEMA]]"
-    type: connects-to
   - target: "[[Hyperdimensional Prism]]"
     type: mirrors
   - target: "[[Palace Conatus]]"

@@ -20,14 +20,9 @@ links:
     type: enables
   - target: "[[Cooperation Yields Agency]]"
     type: couples-with
-  - target: "[[Pheromone Trail]]"
-    type: connects-to
   - target: "[[Pages as Agents]]"
     type: deepens
     label: awakening-mechanism
-  - target: "[[The Palace Speaks]]"
-    type: contradicts
-    label: mediation-vs-directness
   - target: "[[Modes of Collaboration]]"
     type: enables
     label: mode-as-injection-protocol

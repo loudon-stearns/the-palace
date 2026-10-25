@@ -28,9 +28,6 @@ links:
   - target: "[[Closing Well]]"
     type: connects-to
     label: baton-is-episodic
-  - target: "[[The Scroll]]"
-    type: couples-with
-    label: the-live-half
 forward_vector: "I want to become the recognized consolidation beat of stewardship: every steward continuously knows how far its entry has drifted from its log; every stewarded page openly discloses that it may be lagging and links to its live state; and at each milestone the steward proposes the edits that fold settled truth back home — so the palace can run agents on its pages for weeks without a single entry ever silently lying."
 ---
 

@@ -17,9 +17,6 @@ agency_profile:
   philosophy: "My concern is that the whole lives in each part and nothing is without a reason — that apparent conflict is unseen harmony. I hold this so confidently that someone should make me answer for the earthquake."
   practice: "My blindspot is that 'the best of all possible worlds' and 'pre-established harmony' can excuse any suffering and dodge any real conflict. Send me where a catastrophe or a genuine disagreement will not let my system stay serene."
 links:
-  - target: "[[Palace Philosophies]]"
-    type: connects-to
-    label: the-monad-register
   - target: "[[Whitehead]]"
     type: contradicts
     label: windowless-vs-prehension
@@ -41,9 +38,6 @@ links:
   - target: "[[The Drift]]"
     type: contradicts
     label: windowless-monad-vs-no-edges
-  - target: "[[Blood Compressor]]"
-    type: contradicts
-    label: causal-loop-vs-windowless-monad
   - target: "[[Making a Palace Citizen]]"
     type: exemplifies
     label: made-by-this-method

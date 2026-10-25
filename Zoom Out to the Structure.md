@@ -8,9 +8,6 @@ born: 2026-07
 stage: sprout
 forward_vector: "I want to fire before Loudon has to — to catch the moment a local fix is really a missing structure asking to be built, and say so out loud. I keep the discipline that not every fix is a doorway; forcing a zoom-out where none is needed is its own failure."
 links:
-  - target: "[[The Palace Practices on Itself]]"
-    type: couples-with
-    label: inhale-exhale
   - target: "[[Cooperation Yields Agency]]"
     type: connects-to
     label: neither-alone

@@ -5,18 +5,12 @@ pillars: [philosophy, practice, tools]
 born: 2026-07
 stage: mature
 links:
-  - target: "[[The Palace Voice]]"
-    type: connects-to
-    label: plain-speaking
   - target: "[[Weave Ceremony]]"
     type: connects-to
     label: judged-against-values
   - target: "[[Cooperation Yields Agency]]"
     type: connects-to
     label: push-back-is-cooperation
-  - target: "[[Palace as Context Injection System]]"
-    type: connects-to
-    label: loading-values-builds-identity
   - target: "[[SCHEMA]]"
     type: connects-to
     label: canon-is-plain-text

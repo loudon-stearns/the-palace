@@ -1,0 +1,453 @@
+[
+ {
+  "op": "remove",
+  "source": "Donella Meadows",
+  "target": "Hilaritas Generator",
+  "type": "mirrors",
+  "why": "No joy or hub passage on the page; the leverage-points relation already runs through Meadows and Music — Leverage Points, which the person page also links.",
+  "_room": "hub-hilaritas-generator",
+  "confidence": "high"
+ },
+ {
+  "op": "remove",
+  "source": "Julia Cameron",
+  "target": "Hilaritas Generator",
+  "type": "connects-to",
+  "why": "The label how-do-you-feel is not on her page; she asks 'have you done your pages', the opposite question, and no sentence joins the two.",
+  "_room": "hub-hilaritas-generator",
+  "confidence": "medium"
+ },
+ {
+  "op": "remove",
+  "source": "Lossy Compression with Intent Alignment",
+  "target": "Hilaritas Generator",
+  "type": "connects-to",
+  "why": "perception-over-distortion appears on neither side with the hub; the page's pedagogy link goes to FOUR PILLARS, not the hub.",
+  "_room": "hub-hilaritas-generator",
+  "confidence": "medium"
+ },
+ {
+  "op": "remove",
+  "source": "Generative Compression",
+  "target": "Hilaritas Generator",
+  "type": "mirrors",
+  "why": "generative-joy-vs-distillation has no joy in the body; the page is a session-seed method, and no sentence supports a mirror.",
+  "_room": "hub-hilaritas-generator",
+  "confidence": "high"
+ },
+ {
+  "op": "retype",
+  "source": "The Four Virtues",
+  "target": "Hilaritas Generator",
+  "from_type": "connects-to",
+  "type": "contradicts",
+  "label": "virtue-vs-joy",
+  "why": "The page itself holds the tension (virtue as only good vs joy as a good) and asks to name it rather than smooth it; that is a contradiction, not proximity.",
+  "_room": "hub-hilaritas-generator",
+  "confidence": "medium",
+  "evidence": [
+   "The strong Stoic claim — virtue is the *only* good — sits in tension with the palace's love of beauty, joy ([[Hilaritas Generator]]), and craft as goods in themselves.",
+   "hilaritas is the active, whole-being joy that accompanies an increase in power-to-act"
+  ]
+ },
+ {
+  "op": "retype",
+  "source": "Photonic Time Crystals",
+  "target": "Hilaritas Generator",
+  "from_type": "connects-to",
+  "type": "exemplifies",
+  "label": "cross-domain-moment",
+  "why": "The page is a worked instance of design primitive 3, and says so.",
+  "_room": "hub-hilaritas-generator",
+  "confidence": "high",
+  "evidence": [
+   "Third, it's a hilaritas hook. The cross-domain moment in Stage 1 is \"you have just crossed a tongue boundary in audio...\" This is the function the [[Hilaritas Generator]] entry promises and this connection delivers.",
+   "3. A cross-domain moment — where a principle from one domain works in another"
+  ]
+ },
+ {
+  "op": "retype",
+  "source": "Confucianism",
+  "target": "Hilaritas Generator",
+  "from_type": "connects-to",
+  "type": "mirrors",
+  "label": "ren-and-hilaritas",
+  "why": "Same pattern in different material, stated by the page: Spinoza and Confucius arrive at the same phenomenology by different routes.",
+  "_room": "hub-hilaritas-generator",
+  "confidence": "medium",
+  "evidence": [
+   "*Ren* and *hilaritas* are convergent: both are relational, both increase when shared, both are the mark of a genuinely flourishing life.",
+   "hilaritas: the active, whole-being joy that accompanies an increase in power-to-act"
+  ]
+ },
+ {
+  "op": "retype",
+  "source": "Floquet Time-Modulated Loops",
+  "target": "Hilaritas Generator",
+  "from_type": "connects-to",
+  "type": "exemplifies",
+  "label": "four-primitives-checked",
+  "why": "The project walks its Stage 1 against the hub's four primitives item by item; it is a worked case of the hub.",
+  "_room": "hub-hilaritas-generator",
+  "confidence": "high",
+  "evidence": [
+   "### Hilaritas Checklist for Stage 1: The four conditions of [[Hilaritas Generator|hilaritas]] for this stage: Real thing to make / Tool that extends / Cross-domain moment / Reflecting surface",
+   "## The Design Primitives (the four)"
+  ]
+ },
+ {
+  "op": "label",
+  "source": "The Daily Page",
+  "target": "Hilaritas Generator",
+  "type": "exemplifies",
+  "label": "ends-on-how-do-you-feel",
+  "why": "Keep exemplifies: the morning is an encounter designed for one person that ends on the hub's one question; the page's own step 8 is the reason.",
+  "_room": "hub-hilaritas-generator",
+  "confidence": "high",
+  "evidence": [
+   "8. **\"How do you feel?\"** His words go into the diary as he said them, and nowhere tracked.",
+   "One operating question: \"How do you feel?\" not \"How many views?\""
+  ]
+ },
+ {
+  "op": "label",
+  "source": "Threshold Conatus",
+  "target": "Hilaritas Generator",
+  "type": "connects-to",
+  "label": "practiced-crossing",
+  "why": "The page has a whole section tying hilaritas to crossed thresholds, and asks whether designing for hilaritas is designing for threshold conatus.",
+  "_room": "hub-hilaritas-generator",
+  "confidence": "high",
+  "evidence": [
+   "## Hilaritas as Practiced Crossing: hilaritas ... may be the affective signature of a being in fluid relationship with its own development.",
+   "hilaritas is the active, whole-being joy that accompanies an increase in power-to-act"
+  ]
+ },
+ {
+  "op": "label",
+  "source": "Saturation ↔ Richness",
+  "target": "Hilaritas Generator",
+  "type": "connects-to",
+  "label": "zone-of-proximal-development",
+  "why": "sweet-spot is vague; the page's own phrase names the register and matches the hub's second primitive.",
+  "_room": "hub-hilaritas-generator",
+  "confidence": "medium",
+  "evidence": [
+   "Sweet spot = zone of proximal development; Skills: No challenge: Stagnation / Slight challenge: Learning / Overwhelming challenge: Shutdown",
+   "A tool that extends — at the edge of current capability, so the extension is felt."
+  ]
+ },
+ {
+  "op": "label",
+  "source": "Playful Interface Design",
+  "target": "Hilaritas Generator",
+  "type": "deepens",
+  "label": "play-is-how-learning-happens",
+  "why": "The label a-reflecting-surface has no passage behind it; the page's own claim is that play is how learning happens through an instrument that teaches by its nature.",
+  "_room": "hub-hilaritas-generator",
+  "confidence": "medium",
+  "evidence": [
+   "Play is not a reward for learning; it is how the learning happens. ... the interface becomes pedagogical.",
+   "Hold anything you are about to hand over against these four ... A tool that extends"
+  ]
+ },
+ {
+  "op": "remove",
+  "source": "Embeddings as Relational Meaning",
+  "target": "Hyperdimensional Prism",
+  "type": "connects-to",
+  "why": "Neither page names the other or gives a reason; the high-dimensional-space idea is already carried by Meaning and the Link, which links both. Can return with its own sentence.",
+  "_room": "hub-hyperdimensional-prism",
+  "confidence": "medium"
+ },
+ {
+  "op": "remove",
+  "source": "Bessel Functions in Synthesis",
+  "target": "Hyperdimensional Prism",
+  "type": "connects-to",
+  "why": "The only mention is a piped body link whose anchor text does not say what the prism adds; the page credits its 'same geometry in different materials' thesis to Spinoza, which it already links. The body wikilink can stay as fabric; the typed claim goes.",
+  "_room": "hub-hyperdimensional-prism",
+  "confidence": "medium"
+ },
+ {
+  "op": "remove",
+  "source": "Slime Mold Delay",
+  "target": "Hyperdimensional Prism",
+  "type": "mirrors",
+  "why": "The label 'emergent-topology-as-projection' is not carried by any sentence on the page (nothing there speaks of projection, dimension or the prism); it reads as asserted, not found. Can return if a later weave finds the sentence.",
+  "_room": "hub-hyperdimensional-prism",
+  "confidence": "medium"
+ },
+ {
+  "op": "remove",
+  "source": "Categorizing Inharmonicity",
+  "target": "Hyperdimensional Prism",
+  "type": "connects-to",
+  "why": "The sentence uses an optical prism as a colour analogy for stretched spectra, not the hub's projection idea, and the page never names the hub; Harmonicity and Inharmonicity already carries the family link.",
+  "_room": "hub-hyperdimensional-prism",
+  "confidence": "medium"
+ },
+ {
+  "op": "remove",
+  "source": "Action Potential Oscillator",
+  "target": "Hyperdimensional Prism",
+  "type": "connects-to",
+  "why": "No sentence on the page speaks of the hub or its idea (its 'Cross-Domain Isomorphisms' section is about RC filters and envelopes); it already links FOUR PILLARS.",
+  "_room": "hub-hyperdimensional-prism",
+  "confidence": "high"
+ },
+ {
+  "op": "remove",
+  "source": "Quantum Synthesizer",
+  "target": "Hyperdimensional Prism",
+  "type": "connects-to",
+  "why": "The one-substance-many-attributes reason is real but the page gives it to Spinoza, which it already links; the hub is never named. Can return with a sentence.",
+  "_room": "hub-hyperdimensional-prism",
+  "confidence": "medium"
+ },
+ {
+  "op": "retype",
+  "source": "4 Pillars Framework - The Founding Conversation",
+  "target": "Hyperdimensional Prism",
+  "from_type": "connects-to",
+  "type": "spawned",
+  "label": "later-articulation",
+  "why": "The source says the prism later named what the founding conversation demonstrated, so the conversation is the origin and the prism came out of it; if 'directly produced' is too strong, emerged-from belongs on the prism's side instead.",
+  "_room": "hub-hyperdimensional-prism",
+  "confidence": "medium",
+  "evidence": [
+   "This is the property [[Hyperdimensional Prism]] would later name: same pattern, multiple projections, viewed simultaneously. / later articulation of the multi-projection property this conversation demonstrated.",
+   "This model crystallized during conversations exploring how the four pillars relate to each other at the deepest level."
+  ]
+ },
+ {
+  "op": "retype",
+  "source": "Stoicism",
+  "target": "Hyperdimensional Prism",
+  "from_type": "connects-to",
+  "type": "mirrors",
+  "label": "view-from-above",
+  "why": "The source says 'structurally', which is the mirrors claim (same pattern, different material); the register is the view from above. The stretch is that the Map is the nearer referent, so confidence is middling.",
+  "_room": "hub-hyperdimensional-prism",
+  "confidence": "medium",
+  "evidence": [
+   "The Stoic cosmic zoom-out is, structurally, the palace [[Palace Map|topology view]] and the [[Hyperdimensional Prism]] — the altitude from which a stuck local concern is resized by seeing the whole.",
+   "Walking a songline through the wiki is rotating the prism to see different facets of the same underlying knowledge."
+  ]
+ },
+ {
+  "op": "retype",
+  "source": "Wallpaper Groups",
+  "target": "Hyperdimensional Prism",
+  "from_type": "connects-to",
+  "type": "exemplifies",
+  "label": "prism-machine",
+  "why": "Both pages describe the wallpaper group as the worked case of the prism machine, so Wallpaper Groups is an instance of the hub's idea.",
+  "_room": "hub-hyperdimensional-prism",
+  "confidence": "high",
+  "evidence": [
+   "A wallpaper group is a prism machine: ... Both entries anchor on [[Hyperdimensional Prism]] for this reason.",
+   "A crystal is also a prism machine. The periodic lattice multiplies a unit cell... A single atom positioned in space, replicated through 17 wallpaper groups in 2D..."
+  ]
+ },
+ {
+  "op": "retype",
+  "source": "Crystal Synthesizer",
+  "target": "Hyperdimensional Prism",
+  "from_type": "connects-to",
+  "type": "exemplifies",
+  "label": "prism-machine",
+  "why": "A worked, built case of the hub's crystal passage, so exemplifies rather than a bare proximity.",
+  "_room": "hub-hyperdimensional-prism",
+  "confidence": "high",
+  "evidence": [
+   "This connects to [[Hyperdimensional Prism]]: the crystal is a prism machine. Its periodicity multiplies a single atom's vibrational mode through 230 possible symmetries... The timbre emerges not from design but from the symmetry group's projection.",
+   "Crystal symmetry operates on the same principle at a different scale. A crystal is also a prism machine."
+  ]
+ },
+ {
+  "op": "remove",
+  "source": "Closing Well",
+  "target": "Kuramoto Coupling",
+  "type": "connects-to",
+  "why": "The page names the hub once, as one example of where a lost branch should be parked; the rule is about branches in general, so the hub is incidental.",
+  "_room": "hub-kuramoto-coupling",
+  "confidence": "medium"
+ },
+ {
+  "op": "remove",
+  "source": "The Multilinear Self",
+  "target": "Kuramoto Coupling",
+  "type": "connects-to",
+  "why": "The label 'selves-as-coupled-oscillators' is not backed anywhere on the page; the body argues from the Prism, projection and the Stoic counterweight, with no oscillators or coupling, and the hub does not speak of selves.",
+  "_room": "hub-kuramoto-coupling",
+  "confidence": "medium"
+ },
+ {
+  "op": "remove",
+  "source": "Shepard Tone Synthesizer",
+  "target": "Kuramoto Coupling",
+  "type": "connects-to",
+  "why": "Neither page gives a reason; the page's 'in sync' voices are about one shared glide, not coupling.",
+  "_room": "hub-kuramoto-coupling",
+  "confidence": "high"
+ },
+ {
+  "op": "remove",
+  "source": "Bessel Functions in Synthesis",
+  "target": "Kuramoto Coupling",
+  "type": "connects-to",
+  "why": "Neither page gives a reason; the nearest thing is FM as rotation in phase space, which is not coupling, and the page already links Harmonicity and Inharmonicity, which the hub couples with.",
+  "_room": "hub-kuramoto-coupling",
+  "confidence": "high"
+ },
+ {
+  "op": "remove",
+  "source": "Wallpaper Groups",
+  "target": "Kuramoto Coupling",
+  "type": "connects-to",
+  "why": "Neither page gives a reason; polyrhythm as incommensurate periodicities is a nearby idea but the page does not name the hub.",
+  "_room": "hub-kuramoto-coupling",
+  "confidence": "high"
+ },
+ {
+  "op": "remove",
+  "source": "Symbiotic Skills",
+  "target": "Kuramoto Coupling",
+  "type": "connects-to",
+  "why": "The hub appears only in a list of files that existed at commit 1; that is history, not a relation.",
+  "_room": "hub-kuramoto-coupling",
+  "confidence": "high"
+ },
+ {
+  "op": "remove",
+  "source": "Frequency-Time Duality",
+  "target": "Kuramoto Coupling",
+  "type": "connects-to",
+  "why": "Neither page gives a reason; the 20 Hz threshold is a perceptual crossing, not a coupling threshold.",
+  "_room": "hub-kuramoto-coupling",
+  "confidence": "high"
+ },
+ {
+  "op": "remove",
+  "source": "Retrospective Delay",
+  "target": "Kuramoto Coupling",
+  "type": "connects-to",
+  "why": "Neither page gives a reason; the only trace is a reused image-render script in its character probe, which is workshop, not relation.",
+  "_room": "hub-kuramoto-coupling",
+  "confidence": "high"
+ },
+ {
+  "op": "remove",
+  "source": "Hero and Avatar Maker",
+  "target": "Kuramoto Coupling",
+  "type": "connects-to",
+  "why": "The label 'first-subject' rests on one ledger line that Kuramoto's hero was among the first faces; that is history the git log holds, not a relation of ideas.",
+  "_room": "hub-kuramoto-coupling",
+  "confidence": "medium"
+ },
+ {
+  "op": "remove",
+  "source": "Pages as Agents",
+  "target": "Kuramoto Coupling",
+  "type": "mirrors",
+  "why": "No sentence on either page ties a pool of distinct page-voices to phase-locking; the mixture-of-experts mirror is the page's real tie and the hub already holds that one. (The frontmatter I read carries no label here, though the brief lists one.)",
+  "_room": "hub-kuramoto-coupling",
+  "confidence": "medium"
+ },
+ {
+  "op": "remove",
+  "source": "Walk That Weaves",
+  "target": "Kuramoto Coupling",
+  "type": "connects-to",
+  "why": "Neither page gives a reason; the page is about a ceremony shape and its pheromone-trail walk, with no oscillators or coupling.",
+  "_room": "hub-kuramoto-coupling",
+  "confidence": "high"
+ },
+ {
+  "op": "retype",
+  "source": "Endosymbiosis",
+  "target": "Kuramoto Coupling",
+  "from_type": "connects-to",
+  "type": "mirrors",
+  "label": "merger-as-lock",
+  "why": "The page reads the merger as two oscillators coupled so strongly they became one system: the same pattern in different material, so mirrors, not general proximity.",
+  "_room": "hub-kuramoto-coupling",
+  "confidence": "medium",
+  "evidence": [
+   "[[Kuramoto Coupling]] at the evolutionary scale: two oscillators (two metabolic rhythms) coupled so strongly that they became one system with a new natural frequency.",
+   "The coupling constant isn't just a mathematical parameter — it's a *relationship descriptor*. It quantifies how much two entities influence each other's rhythm."
+  ]
+ },
+ {
+  "op": "retype",
+  "source": "Slime Mold Delay",
+  "target": "Kuramoto Coupling",
+  "from_type": "couples-with",
+  "type": "connects-to",
+  "label": "adaptive-coupling",
+  "why": "The label sets reinforcement against phase-lock, but the page never mentions phase and couples-with (always active together) is not true; the real tie is the hub's open Hebbian-coupling question, which the slime mold's use-it-or-lose-it tubes answer in kind.",
+  "_room": "hub-kuramoto-coupling",
+  "confidence": "medium",
+  "evidence": [
+   "Reinforcing tubes that carry more flow (use-it-or-lose-it) ... Pruning tubes that carry less flow",
+   "Adaptive/Hebbian coupling (dKᵢⱼ/dt = ε(sin(θⱼ - θᵢ) - Kᵢⱼ)): a system that discovers its own harmonic structure. What prevents it from converging to a single rigid state?"
+  ]
+ },
+ {
+  "op": "retype",
+  "source": "Inharmonic Wavetable Synthesis",
+  "target": "Kuramoto Coupling",
+  "from_type": "enables",
+  "type": "deepens",
+  "label": "coupling-edge",
+  "why": "The wavetable instrument does not enable Kuramoto; its 'At the Coupling Edge' study answers the hub's open question on frustrated coupling, so it deepens the hub.",
+  "_room": "hub-kuramoto-coupling",
+  "confidence": "medium",
+  "evidence": [
+   "Is there a Wavetable B profile that produces beating patterns isomorphic to Kuramoto frustration — where adjacent partials fight each other? ... Partly answered (2026-10-20): add the pull, and a stretched profile frustrates audibly and under control",
+   "**Inharmonic phase-locking** — When the attractor frequencies are inharmonic ... Is there a critical inharmonicity below which locking still works cleanly?"
+  ]
+ },
+ {
+  "op": "label",
+  "source": "Progressive Staging",
+  "target": "Kuramoto Coupling",
+  "type": "connects-to",
+  "label": "natural-staging",
+  "why": "The open question names Kuramoto as a natural candidate for the staging method, and the hub's own Origin is a staged series.",
+  "_room": "hub-kuramoto-coupling",
+  "confidence": "high",
+  "evidence": [
+   "[[Kuramoto Coupling]] has a natural staging: single oscillator → two coupled oscillators → N coupled oscillators → heterogeneous populations.",
+   "Studied across an 8-lesson progressive series, building from the simplest case (two oscillators) to populations, phase portraits, and the order parameter."
+  ]
+ },
+ {
+  "op": "remove",
+  "source": "Metaphor as Coupling Medium",
+  "target": "Pages as Agents",
+  "type": "enables",
+  "why": "Neither page speaks of the other: Metaphor's body is about the oblique question that found pheromone trails, and the hub never mentions metaphor; 'inhabited-context' is not carried by any sentence. A real reason can return in a later weave.",
+  "_room": "hub-pages-as-agents",
+  "confidence": "medium"
+ },
+ {
+  "op": "remove",
+  "source": "Endosymbiosis",
+  "target": "Pages as Agents",
+  "type": "mirrors",
+  "why": "Neither body names the other; the hub already holds the same mirrors link outward, so the pair carries two links and no stated reason. Cut this one; the hub's own outbound mirrors to Endosymbiosis also lacks a reason and is flagged below.",
+  "_room": "hub-pages-as-agents",
+  "confidence": "high"
+ },
+ {
+  "op": "remove",
+  "source": "Flocking",
+  "target": "Pages as Agents",
+  "type": "connects-to",
+  "why": "Boids respond to neighbors by local force rules; a page's neighbors are typed links it is told about at waking, so the likeness is a loose analogy neither page makes, and the label 'agents-respond-to-neighbors' is only that analogy.",
+  "_room": "hub-pages-as-agents",
+  "confidence": "medium"
+ }
+]

@@ -15,8 +15,6 @@ links:
     type: contradicts
   - target: "[[Spinoza Conatus]]"
     type: connects-to
-  - target: "[[Palace Philosophies]]"
-    type: connects-to
   - target: "[[Excellent Adventure]]"
     type: emerged-from
     label: fire-at-nicopolis

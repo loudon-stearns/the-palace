@@ -18,10 +18,6 @@ links:
     type: emerged-from
   - target: "[[Cooperation Yields Agency]]"
     type: enables
-  - target: "[[Hyperdimensional Prism]]"
-    type: mirrors
-  - target: "[[Kuramoto Coupling]]"
-    type: connects-to
   - target: "[[FOUR PILLARS]]"
     type: connects-to
   - target: "[[Self-Describing Knowledge Module]]"
@@ -30,30 +26,17 @@ links:
     type: enables
   - target: "[[Meaning and the Link]]"
     type: emerged-from
-  - target: "[[Embeddings as Relational Meaning]]"
-    type: connects-to
-  - target: "[[Palace Philosophies]]"
-    type: connects-to
   - target: "[[Hilaritas Generator]]"
-    type: connects-to
-  - target: "[[The Cooperation Path]]"
-    type: connects-to
-  - target: "[[Substrate Skill]]"
     type: connects-to
   - target: "[[Spinoza Conatus]]"
     type: connects-to
   - target: "[[Palace Enchantment]]"
     type: connects-to
-  - target: "[[Palace Conatus]]"
-    type: connects-to
-    label: my-drive-named
   - target: "[[Songlines]]"
     type: connects-to
   - target: "[[Lateral Access]]"
     type: connects-to
   - target: "[[1 from 2]]"
-    type: connects-to
-  - target: "[[Palace Ceremonies]]"
     type: connects-to
   - target: "[[SUBSTRATE — Context]]"
     type: connects-to

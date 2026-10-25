@@ -13,37 +13,18 @@ hook_quality: 8
 beauty: 7
 who_leads: shared
 links:
-  - target: "[[Creative Coach]]"
-    type: connects-to
-    label: repertoire-not-children
-  - target: "[[Excellent Adventure]]"
-    type: connects-to
-  - target: "[[Hilaritas Generator]]"
-    type: connects-to
   - target: "[[Symbiotic Skills]]"
     type: connects-to
   - target: "[[FOUR PILLARS]]"
     type: deepens
-  - target: "[[Ohm's Law]]"
-    type: connects-to
-  - target: "[[Dialectic]]"
-    type: connects-to
-  - target: "[[Palace Enchantment]]"
-    type: connects-to
   - target: "[[Piano String Inharmonicity]]"
     type: connects-to
   - target: "[[Radio Play]]"
     type: connects-to
     label: debrief-reel
-  - target: "[[The Scroll]]"
-    type: connects-to
-    label: expanding-artifact-mode
   - target: "[[Modes of Collaboration — Context]]"
     type: connects-to
     label: context-companion
-  - target: "[[Philosopher Visits the Entry]]"
-    type: connects-to
-    label: sibling-mode
   - target: "[[DSP Frameworks]]"
     type: connects-to
     label: exemplifies-domain
@@ -53,18 +34,12 @@ links:
   - target: "[[Swarm Weave]]"
     type: connects-to
     label: agent-to-agent-mode
-  - target: "[[Oblique Portrait]]"
-    type: connects-to
-    label: oblique-mode
   - target: "[[Brian Eno]]"
     type: connects-to
     label: oblique-line
   - target: "[[STIGMERGY]]"
     type: connects-to
     label: ant-colony-origin
-  - target: "[[The Remembering Page]]"
-    type: connects-to
-    label: sharpen-or-dissolve
   - target: "[[Kuramoto Coupling]]"
     type: connects-to
     label: who-leads-as-coupling

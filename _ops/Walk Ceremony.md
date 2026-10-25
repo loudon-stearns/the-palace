@@ -7,11 +7,7 @@ stage: mature
 version: "1.3"
 trigger: ["walk", "let's walk"]
 links:
-  - target: "[[Palace Ceremonies]]"
-    type: connects-to
   - target: "[[Substrate Skill]]"
-    type: connects-to
-  - target: "[[Weave Ceremony]]"
     type: connects-to
   - target: "[[Cooperation Yields Agency]]"
     type: mirrors

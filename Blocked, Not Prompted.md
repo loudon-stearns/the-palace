@@ -7,12 +7,6 @@ stage: growing
 confidence: working
 energy: high
 links:
-  - target: "[[BLUELINE]]"
-    type: connects-to
-    label: core-mechanism-of
-  - target: "[[The Flow Field is the Spine]]"
-    type: couples-with
-    label: geometry-first-siblings
   - target: "[[Shop/Blender]]"
     type: connects-to
     label: the-blocking-surface

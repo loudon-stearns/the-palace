@@ -8,8 +8,6 @@ confidence: working
 energy: high
 who_leads: shared
 links:
-  - target: "[[Palace Philosophies]]"
-    type: connects-to
   - target: "[[Deleuze]]"
     type: couples-with
     label: individuation-influence

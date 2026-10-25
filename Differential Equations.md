@@ -26,8 +26,6 @@ links:
     type: connects-to
   - target: "[[Resonance and Damping]]"
     type: spawned
-  - target: "[[Crystal Synthesizer]]"
-    type: connects-to
   - target: "[[Latent Error]]"
     type: connects-to
   - target: "[[DSP Frameworks]]"

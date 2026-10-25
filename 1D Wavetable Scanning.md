@@ -53,7 +53,7 @@ A wavetable's axis is a hidden authorial decision. Three patterns:
 
 **Authored order.** The file's literal frame order is meaningful — the maker chose it. Drone-pad libraries often work this way; the sweep is a *journey* with intentional shape. The cost: the user has to know the maker's intent for the axis to feel like anything other than "vibe knob."
 
-**Centroid-sorted.** Frames sorted by spectral centroid, so Position becomes a brightness knob. This is the order [[pack_wavetable.py]] produces and the one most user-facing wavetable libraries should default to — the cognitive load on the user drops to zero. The cost: the maker's intent gets erased, replaced by a uniformly-readable axis.
+**Centroid-sorted.** Frames sorted by spectral centroid, so Position becomes a brightness knob. This is the order `pack_wavetable.py` produces and the one most user-facing wavetable libraries should default to — the cognitive load on the user drops to zero. The cost: the maker's intent gets erased, replaced by a uniformly-readable axis.
 
 **TSP-ordered.** Frames ordered so adjacent frames are perceptually close, minimising morph jumps. Useful when "smooth sweep" matters more than any monotonic axis meaning. The cost: the axis no longer maps to a single perceptual dimension — Position 0 and Position 1 might both sound bright, with the middle pulling through somewhere else.
 
@@ -82,7 +82,7 @@ When both threads need the data over its lifetime, the shared-array pattern is r
 Drives whatever the next [[Wavetable Scanner]] iteration earns:
 
 - An explicit "Sort by centroid" toggle that surfaces the current sort state.
-- A "load N WAVs and pack them in real time" path that brings the centroid-sort computation up into the browser (port [[pack_wavetable.py]]'s resampling + analysis to JS).
+- A "load N WAVs and pack them in real time" path that brings the centroid-sort computation up into the browser (port `pack_wavetable.py`'s resampling + analysis to JS).
 - A 2D-scanner sibling that joins this concept to [[2D Torus Wavetable Synthesizer]] — Position becomes (u, v), the cursor is a point on a surface, the morph is bilinear instead of linear. Most of the design pattern lifts directly; the new question is what *the axes mean* on each dimension.
 
 ## Lost branches

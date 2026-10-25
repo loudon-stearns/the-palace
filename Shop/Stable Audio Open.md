@@ -15,7 +15,6 @@ forward_vector: "I paint short-form sound locally — pads, beds, stingers, fole
 links:
   - { target: "[[Maker]]", type: connects-to, label: directed-by }
   - { target: "[[The Shop]]", type: member-of, label: roster-member }
-  - { target: "[[Shop/ffmpeg]]", type: connects-to, label: post-processed-by }
   - target: "[[Kuramoto Coupling]]"
     type: spawned
     label: auditory-rendering
@@ -31,9 +30,6 @@ links:
   - target: "[[Loudon Live Design System]]"
     type: enables
     label: lesson-sound
-  - target: "[[The Multilinear Self]]"
-    type: contradicts
-    label: impersonal-texture-vs-personed-projection
 tags: [specialist, shop, sound, generative, music, sfx]
 ---
 

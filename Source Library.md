@@ -17,6 +17,7 @@ links:
     type: deepens
   - target: "[[Cross-Domain Resonances]]"
     type: enables
+    label: draws-from
   - target: "[[Donella Meadows]]"
     type: spawned
   - target: "[[Shunryu Suzuki]]"

@@ -20,8 +20,6 @@ links:
     type: mirrors
   - target: "[[Frequency-Time Duality]]"
     type: deepens
-  - target: "[[Dispersion]]"
-    type: connects-to
   - target: "[[Neural Granular Synthesis]]"
     type: couples-with
     label: grain-populations

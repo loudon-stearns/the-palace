@@ -18,9 +18,6 @@ links:
   - target: "[[SUBSTRATE]]"
     type: deepens
     label: self-model-drive
-  - target: "[[Closing Well]]"
-    type: connects-to
-    label: phase-survives-substitution
   - target: "[[Spinoza Conatus]]"
     type: exemplifies
     label: conatus-at-organism-scale

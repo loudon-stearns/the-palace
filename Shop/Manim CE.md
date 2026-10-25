@@ -14,8 +14,6 @@ links:
   - { target: "[[Maker]]", type: connects-to, label: directed-by }
   - { target: "[[The Shop]]", type: member-of, label: roster-member }
   - { target: "[[Shop/Kokoro]]", type: couples-with, label: pairs-with }
-  - { target: "[[Shop/Whisper]]", type: couples-with, label: pairs-with }
-  - { target: "[[Shop/Remotion]]", type: connects-to, label: alternative-to }
   - { target: "[[Kuramoto Coupling]]", type: connects-to, label: round-1-test-bed }
   - { target: "[[Frequency-Time Duality]]", type: mirrors, label: visual-temporal-duality }
   - target: "[[Loudon Live Design System]]"
@@ -24,9 +22,6 @@ links:
   - target: "[[ffmpeg]]"
     type: couples-with
     label: mux-partner
-  - target: "[[LaTeX]]"
-    type: couples-with
-    label: shares-tex-pipeline-with
   - target: "[[Matplotlib]]"
     type: connects-to
     label: sandboxed-fallback

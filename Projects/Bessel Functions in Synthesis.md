@@ -14,11 +14,7 @@ links:
     type: connects-to
   - target: "[[Hyperdimensional Prism]]"
     type: connects-to
-  - target: "[[Differential Equations]]"
-    type: connects-to
   - target: "[[Crystal Synthesizer]]"
-    type: connects-to
-  - target: "[[Quantum Synthesizer]]"
     type: connects-to
   - target: "[[Spinoza Conatus]]"
     type: connects-to

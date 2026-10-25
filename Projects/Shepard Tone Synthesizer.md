@@ -23,8 +23,6 @@ links:
     type: connects-to
   - target: "[[Particle Synthesis]]"
     type: connects-to
-  - target: "[[Piano String Inharmonicity]]"
-    type: connects-to
   - target: "[[Signal-Rate CV Architecture]]"
     type: connects-to
 forward_vector: "I want to become a fully staged teaching instrument — the psychoacoustic illusion as a progressive revelation, where Stage 1 is the simplest possible Shepard tone and each subsequent stage adds one layer of physical or perceptual complexity. My development alongside my own Theory — Octave Equivalence section is not optional: the theory and the instrument should grow together, each stage of the synthesizer paired with a corresponding theory section that explains what you're hearing and why."

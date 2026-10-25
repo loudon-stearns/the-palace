@@ -22,9 +22,6 @@ links:
   - target: "[[FOUR PILLARS]]"
     type: connects-to
     label: public-face
-  - target: "[[Autodidact Polymaths]]"
-    type: couples-with
-    label: in-the-background
   - target: "[[Hyperdimensional Prism]]"
     type: spawned
     label: visual-identity

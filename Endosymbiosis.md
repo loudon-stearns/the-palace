@@ -9,8 +9,6 @@ stage: mature
 links:
   - target: "[[Cooperation Yields Agency]]"
     type: mirrors
-  - target: "[[Spinoza Conatus]]"
-    type: mirrors
   - target: "[[Kuramoto Coupling]]"
     type: connects-to
   - target: "[[SUBSTRATE]]"
@@ -23,8 +21,6 @@ links:
     type: mirrors
   - target: "[[Symbiotic Skills]]"
     type: connects-to
-  - target: "[[Granular Synthesis]]"
-    type: mirrors
   - target: "[[Pages as Agents]]"
     type: mirrors
   - target: "[[Swarm Weave]]"

@@ -20,9 +20,6 @@ links:
   - target: "[[FOUR PILLARS]]"
     type: connects-to
     label: substance-monism
-  - target: "[[Hyperdimensional Prism]]"
-    type: connects-to
-    label: dimensional-conatus
   - target: "[[Quality Manifesto]]"
     type: mirrors
     label: quality-as-conatus
@@ -38,9 +35,6 @@ links:
   - target: "[[Trickster]]"
     type: couples-with
     label: necessary-exterior
-  - target: "[[Pages as Agents]]"
-    type: connects-to
-    label: ai-agency-question
   - target: "[[Cooperation Yields Agency]]"
     type: enables
     label: conatus-grounds-agency
@@ -106,7 +100,7 @@ Tristitia is not just hilaritas's absence — it's a distinct mechanism with its
 
 **[[Cooperation Yields Agency]]** — Cooperation between entities with different conatus (different natural drives, different capabilities) produces agency that neither possesses alone. The cooperation amplifies both entities' power-to-act. This is Spinozist joy — hilaritas — at the scale of a relationship.
 
-[[**Endosymbiosis**]] — The mitochondrion's conatus (aerobic metabolism) and the host cell's conatus (anaerobic survival) combined to produce a new entity with vastly greater power-to-act than either possessed alone. The endosymbiotic merger IS cooperation-yields-agency at the cellular level.
+**[[Endosymbiosis]]** — The mitochondrion's conatus (aerobic metabolism) and the host cell's conatus (anaerobic survival) combined to produce a new entity with vastly greater power-to-act than either possessed alone. The endosymbiotic merger IS cooperation-yields-agency at the cellular level.
 
 ## In Our Work
 

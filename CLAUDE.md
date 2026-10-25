@@ -13,18 +13,12 @@ last_schema_ceremony: 2026-10-18
 github: https://github.com/loudon-stearns/the-palace
 github_raw: https://raw.githubusercontent.com/loudon-stearns/the-palace/main
 links:
-  - target: "[[JEWEL]]"
-    type: connects-to
-    label: born-with
   - target: "[[CHILD]]"
     type: spawned
     label: born-with
   - target: "[[ELDER]]"
     type: spawned
     label: grows-into
-  - target: "[[SCHEMA]]"
-    type: connects-to
-    label: read-when-grown
   - target: "[[SUBSTRATE]]"
     type: connects-to
     label: self-model

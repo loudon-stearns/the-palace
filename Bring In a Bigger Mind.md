@@ -8,9 +8,6 @@ confidence: hypothesis
 energy: high
 who_leads: loudon
 links:
-  - target: "[[The Lens]]"
-    type: mirrors
-    label: a-model-reading-a-model
   - target: "[[Philosopher Visits the Entry]]"
     type: mirrors
     label: a-distinct-voice-challenges-a-claim

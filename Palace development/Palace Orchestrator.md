@@ -9,9 +9,6 @@ links:
   - target: "[[Skills Are Enchantable Pages]]"
     type: exemplifies
     label: the-executor-column
-  - target: "[[Project Stewardship System]]"
-    type: connects-to
-    label: runs-the-stewards
   - target: "[[Pages as Agents]]"
     type: deepens
     label: dispatches-the-page-as-agent

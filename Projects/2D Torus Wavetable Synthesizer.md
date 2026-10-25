@@ -32,31 +32,20 @@ links:
   - target: "[[2D Torus Wavetable Synthesizer — catalog — warps]]"
     type: spawned
     label: warps
-  - target: "[[Three Kinds of Warp]]"
-    type: connects-to
-    label: clarifies-mechanism
   - target: "[[Wavetable Space as Torus]]"
     type: couples-with
     label: inhabits-geometry
-  - target: "[[Categorizing Inharmonicity]]"
-    type: connects-to
-    label: exemplifies-taxonomy
   - target: "[[Boundary-Crossing Instruments]]"
     type: mirrors
     label: harmonic-inharmonic-continuum
   - target: "[[The Shop]]"
     type: spawned
     label: asset-library
-  - target: "[[Loudon Live]]"
-    type: connects-to
   - target: "[[Synthesis Topologies]]"
     type: exemplifies
   - target: "[[Neural Granular Synthesis — spec — control-vocabulary-math]]"
     type: connects-to
     label: worked-control-vocabulary
-  - target: "[[Wavetable Oscillator]]"
-    type: connects-to
-    label: second-clock
   - target: "[[Rank-N Lattice Analysis]]"
     type: mirrors
     label: its-own-oscilloscope

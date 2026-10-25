@@ -24,10 +24,6 @@ links:
   - target: "[[Particle Synthesis]]"
     type: mirrors
     label: grain-particle-equivalence
-  - target: "[[Neural Granular Synthesis]]"
-    type: connects-to
-  - target: "[[Shimmer Cloud]]"
-    type: connects-to
 forward_vector: "I build boundary crossing instruments from populations of short-term oscillators, pushing toward the moment when population dynamics — Kuramoto coupling, particle physics, statistical distributions — become primary synthesis paradigms."
 ---
 

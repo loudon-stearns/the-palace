@@ -1,0 +1,472 @@
+[
+ {
+  "op": "label",
+  "source": "The Fortress and the Threshold",
+  "target": "Spinoza Conatus",
+  "type": "connects-to",
+  "label": "synthesis-pole",
+  "why": "The page names the hub the synthesis pole of the self/architecture map, and says why.",
+  "_room": "hub-spinoza-conatus",
+  "confidence": "high",
+  "evidence": [
+   "Spinoza Conatus is the synthesis pole on the cultivator side, but Spinoza is also a cultivator (the conatus is a striving). / the interior drive expressing itself through the relational web.",
+   "(palace-level: Palace Philosophies names the hub the Spinozan pole of the quadruple)"
+  ]
+ },
+ {
+  "op": "label",
+  "source": "SCHEMA — Reference",
+  "target": "Resonant Link Labels",
+  "type": "connects-to",
+  "label": "label-vocabulary",
+  "why": "Reference defines the label field and Resonant Link Labels is the list of words filling it; the reason is on Reference, which could name the page in that note.",
+  "_room": "lifecycle-L2",
+  "confidence": "medium",
+  "evidence": [
+   "The optional `label` field is a single word or hyphenated phrase naming the relationship with resonance and specificity. ... Examples: `midwifed`, `rhymes-with`, `fermented-from`, `argues-with-love`. (SCHEMA — Reference §3, Link Object Fields)",
+   "The word list of labels in use; its own frontmatter links SCHEMA, not Reference."
+  ]
+ },
+ {
+  "op": "remove",
+  "source": "Palace Philosophies",
+  "target": "1 from 2",
+  "type": "connects-to",
+  "why": "Neither page names the other: the hub's body never mentions 1 from 2, and 1 from 2 never mentions the hub; the origin story is already carried by the hub's deepens link to Cooperation Yields Agency. A real connection can return later with a reason.",
+  "_room": "weak-01",
+  "confidence": "high"
+ },
+ {
+  "op": "retype",
+  "source": "Deleuze",
+  "target": "Spinoza",
+  "from_type": "connects-to",
+  "type": "deepens",
+  "label": "radicalizes-the-rationalist",
+  "why": "Deleuze is said to radicalize Spinoza and the Spinoza page names Deleuze as the reader who inverts reason over affect; the source points back at its ground, so deepens, not connects-to.",
+  "_room": "weak-01",
+  "confidence": "medium",
+  "evidence": [
+   "Spinoza gives the palace its monist backbone — one substance, relations primary — Deleuze gives it the account of how that one substance generates novelty ... extends and radicalizes Spinoza",
+   "Spinoza § blindspots: 'where a later reader — [[Deleuze]], Nietzsche, Freud — will say the affects are driving the car and reason is a passenger narrating the scenery.'"
+  ]
+ },
+ {
+  "op": "retype",
+  "source": "Merleau-Ponty",
+  "target": "Stoicism",
+  "from_type": "connects-to",
+  "type": "contradicts",
+  "label": "body-vs-fortress",
+  "why": "The Philosopher section sets the situated, ambiguous body against the Stoic fortress; the claim is opposition, so contradicts (symmetric).",
+  "_room": "weak-01",
+  "confidence": "medium",
+  "evidence": [
+   "never the transparent self-possession the Stoic [[Stoicism|fortress]] imagines",
+   ""
+  ]
+ },
+ {
+  "op": "label",
+  "source": "Deleuze",
+  "target": "Entry Conatus",
+  "type": "connects-to",
+  "label": "intensity-or-conatus",
+  "why": "An open question on Deleuze names Entry Conatus as the page whose framing is being tested.",
+  "_room": "weak-01",
+  "confidence": "high",
+  "evidence": [
+   "Is a forward vector a Deleuzian intensity ... or a Spinozan conatus ...? The [[Entry Conatus]] entry currently frames it the second way. Worth a Dialectic.",
+   ""
+  ]
+ },
+ {
+  "op": "label",
+  "source": "STIGMERGY Philosophical Lenses",
+  "target": "Dialectic — dialectic — spinoza-zhuangzi-on-striving",
+  "type": "connects-to",
+  "label": "promised-rerun",
+  "why": "The QUEUE DIALECTICS lane lists a re-run of this archived dialogue as a promised item.",
+  "_room": "weak-01",
+  "confidence": "medium",
+  "evidence": [
+   "promised-but-unwritten dialogues (the [[Dialectic — dialectic — spinoza-zhuangzi-on-striving|Spinoza↔Zhuangzi]] re-run with Loudon steering ...)",
+   "Dialectic — spinoza-zhuangzi-on-striving links back to Dialectic as archived-run."
+  ]
+ },
+ {
+  "op": "label",
+  "source": "Philosopher Visits the Entry",
+  "target": "The Drift",
+  "type": "connects-to",
+  "label": "forcing-or-flowing",
+  "why": "The roster pairs The Drift with the conatus as the voice for threshold entries and states the question.",
+  "_room": "weak-01",
+  "confidence": "high",
+  "evidence": [
+   "Threshold / pumping entries (parametric resonance, Mathieu, Floquet, action potential) → [[Spinoza Conatus]] + [[The Drift]]: is crossing the threshold a striving, and is the driving forcing or flowing?",
+   ""
+  ]
+ },
+ {
+  "op": "label",
+  "source": "Deleuze",
+  "target": "Dialectic",
+  "type": "connects-to",
+  "label": "inhabit-faithfully",
+  "why": "The Philosopher section names the Dialectic as doing to philosophers what Deleuze did; a mirrors retype is possible, but label is the lighter claim.",
+  "_room": "weak-01",
+  "confidence": "high",
+  "evidence": [
+   "the [[Dialectic]] and [[Excellent Adventure]] do to philosophers what Deleuze did to his predecessors — inhabit them faithfully enough that they say something new.",
+   ""
+  ]
+ },
+ {
+  "op": "label",
+  "source": "Palace Philosophies",
+  "target": "Confucianism",
+  "type": "connects-to",
+  "label": "the-threshold-pole",
+  "why": "The hub's body places Confucianism as the threshold pole against Stoicism's fortress.",
+  "_room": "weak-01",
+  "confidence": "high",
+  "evidence": [
+   "Stoicism is the palace's far cultivator pole; it `contradicts` [[Confucianism]] (fortress vs. threshold) ... the Confucian threshold",
+   "Confucianism: 'Epictetus says the self is a fortress; Confucius says it is a threshold. Both are partially right.'"
+  ]
+ },
+ {
+  "op": "remove",
+  "source": "Mixture of Experts",
+  "target": "Embeddings as Relational Meaning",
+  "type": "connects-to",
+  "why": "Neither page names the other and MoE never mentions embeddings in its body; a gate learning over embeddings is plausible but nobody wrote it.",
+  "_room": "weak-02",
+  "confidence": "high"
+ },
+ {
+  "op": "remove",
+  "source": "VCV Patch Generator",
+  "target": "Web Audio Worklet",
+  "type": "connects-to",
+  "why": "VCV never names the Worklet; the only sentence is a TODO on the Worklet page saying its future test plan will copy VCV's, which points the other way and can return from the Worklet once it exists.",
+  "_room": "weak-02",
+  "confidence": "medium"
+ },
+ {
+  "op": "remove",
+  "source": "BBS Design System",
+  "target": "Palace To-Do",
+  "type": "connects-to",
+  "why": "The sentence claims the phases are tracked on Palace To-Do, but that page carries nothing of the BBS Design System phases (the old STIGMERGY roadmaps sit in its archive); the claim is stale and the link carries no live reason.",
+  "_room": "weak-02",
+  "confidence": "medium"
+ },
+ {
+  "op": "remove",
+  "source": "Generative Sample Libraries",
+  "target": "Retrospective Delay",
+  "type": "connects-to",
+  "why": "Neither page names the other beyond the frontmatter line; no body sentence on either carries a reason.",
+  "_room": "weak-02",
+  "confidence": "high"
+ },
+ {
+  "op": "retype",
+  "source": "The Drift",
+  "target": "Entry Conatus",
+  "from_type": "connects-to",
+  "type": "contradicts",
+  "label": "loyal-opposition",
+  "why": "The Drift names itself the opposition to the striving discipline Entry Conatus holds; it is a productive tension, the same shape as its contradicts of Spinoza Conatus.",
+  "_room": "weak-02",
+  "confidence": "high",
+  "evidence": [
+   "For Entry Conatus: the Drift is the loyal opposition. If every entry is supposed to strive, the Drift asks whether an entry can be alive while pointing at no destination.",
+   "every palace entry has a will to be useful — a conatus that resists composting and reaches outward toward growth (forward_vector)."
+  ]
+ },
+ {
+  "op": "retype",
+  "source": "Confucianism",
+  "target": "Excellent Adventure",
+  "from_type": "connects-to",
+  "type": "emerged-from",
+  "label": "fire-at-nicopolis",
+  "why": "Confucianism's body never names the method, but the Excellent Adventure page says the Confucianism entry came out of it; source points back at ground. Excellent Adventure's own bare connects-to back to Confucianism should be cut so the pair holds one link, matching Fortress emerged-from[fire-at-nicopolis].",
+  "_room": "weak-02",
+  "confidence": "high",
+  "evidence": [
+   "",
+   "The Fire at Nicopolis (2026-03) — Epictetus and Confucius as old men beside a fire... Produced The Fortress and the Threshold, Confucianism, Stoicism as palace deposits."
+  ]
+ },
+ {
+  "op": "retype",
+  "source": "Confucianism",
+  "target": "Symbiotic Skills",
+  "from_type": "connects-to",
+  "type": "mirrors",
+  "label": "edge-prior-to-node",
+  "why": "Same pattern in different material, stated as a structural resemblance; Symbiotic Skills does not name Confucius, so the reason lives on one page only.",
+  "_room": "weak-02",
+  "confidence": "medium",
+  "evidence": [
+   "The node→edge→typed edge→network progression in Symbiotic Skills is structurally Confucian: the self becomes more fully itself as the relational web becomes more articulated. The edge is prior to the node.",
+   ""
+  ]
+ },
+ {
+  "op": "retype",
+  "source": "VCV Patch Generator",
+  "target": "Registry Pattern",
+  "from_type": "connects-to",
+  "type": "exemplifies",
+  "label": "first-registry",
+  "why": "The Specialist is the working instance of the general pattern, and the pattern page names VCV as its first registry.",
+  "_room": "weak-02",
+  "confidence": "high",
+  "evidence": [
+   "Coupled to a serious project (Generative Audio Devices) — first fruit of the Registry Pattern in palace use.",
+   "Emerged from Generative Audio Devices Stage 1 (VCV Rack). The first registry documented 7 modules from the VCV Fundamental plugin."
+  ]
+ },
+ {
+  "op": "retype",
+  "source": "Whitehead",
+  "target": "Granular Synthesis",
+  "from_type": "connects-to",
+  "type": "mirrors",
+  "label": "grain-as-occasion",
+  "why": "Same pattern in different material, and the sentence says so; Granular Synthesis never names Whitehead.",
+  "_room": "weak-02",
+  "confidence": "high",
+  "evidence": [
+   "Granular Synthesis is almost a literal model of Whitehead's ontology — the grain is the actual occasion, the cloud is the society, the timbre is the inherited pattern.",
+   ""
+  ]
+ },
+ {
+  "op": "retype",
+  "source": "Whitehead",
+  "target": "STIGMERGY v1.0 — Palace Front-End",
+  "from_type": "connects-to",
+  "type": "mirrors",
+  "label": "commit-as-occasion",
+  "why": "The commit is the occasion, same pattern in a different substance; note the target is archived (STIGMERGY/Archive), so a link to STIGMERGY itself may serve better, but that is a call for the Weave elder.",
+  "_room": "weak-02",
+  "confidence": "medium",
+  "evidence": [
+   "STIGMERGY's LOG deck is a Whiteheadian instrument by accident: each git commit is an actual occasion — it arises, gathers the whole prior state by prehending its parent commit... and perishes into the immutable past.",
+   ""
+  ]
+ },
+ {
+  "op": "retype",
+  "source": "Stoicism",
+  "target": "Palace Map",
+  "from_type": "connects-to",
+  "type": "mirrors",
+  "label": "view-from-above",
+  "why": "Same pattern in different material, stated on Stoicism and echoed on The View From Above; Palace Map itself does not name it.",
+  "_room": "weak-02",
+  "confidence": "high",
+  "evidence": [
+   "The view from above is the Map. The Stoic cosmic zoom-out is, structurally, the palace topology view and the Hyperdimensional Prism — the altitude from which a stuck local concern is resized by seeing the whole.",
+   "The View From Above (Stoicism's child) says the same: The view from above is the Map."
+  ]
+ },
+ {
+  "op": "label",
+  "source": "The Fortress and the Threshold",
+  "target": "Meaning and the Link",
+  "type": "connects-to",
+  "label": "leans-threshold",
+  "why": "The Fortress page reads the 2014 thesis as favoring the threshold; Meaning and the Link never mentions the Fortress.",
+  "_room": "weak-02",
+  "confidence": "medium",
+  "evidence": [
+   "Meaning and the Link 2014 paper: Meaning is formed by relationships between, not definition of. This feels like an endorsement of Confucius over Epictetus.",
+   "Sufficient associations between a pattern of symbols and a reality form meaning."
+  ]
+ },
+ {
+  "op": "remove",
+  "source": "The Adjacent Affordance",
+  "target": "Stoicism",
+  "type": "connects-to",
+  "why": "The body never links Stoicism; its Stoic reading already rides the mirrors link to The Dichotomy of Control (engineering-register) and the symposium link to Palace Philosophies, so the hub link adds no reason of its own.",
+  "_room": "weak-03",
+  "confidence": "medium"
+ },
+ {
+  "op": "remove",
+  "source": "The Adjacent Affordance",
+  "target": "SUBSTRATE",
+  "type": "connects-to",
+  "why": "The word 'substrate' on the source means any host environment that forbids a primitive (Cowork sandbox, Claude Code @import), not the palace self-model page; neither page names the other, so the match is the word, not the idea.",
+  "_room": "weak-03",
+  "confidence": "medium"
+ },
+ {
+  "op": "remove",
+  "source": "Registry Pattern",
+  "target": "Lossy Compression with Intent Alignment",
+  "type": "connects-to",
+  "why": "Neither page names the other and I could not state a specific shared mechanism without forcing it (Lossy Compression sits beside Synthesis Topologies' 'topology-as-prior', which is a better home for the prior idea); a real tie can return in a later weave with its reason.",
+  "_room": "weak-03",
+  "confidence": "medium"
+ },
+ {
+  "op": "label",
+  "source": "Review Layer",
+  "target": "Palace as Context Injection System",
+  "type": "connects-to",
+  "label": "plant-where-loaded",
+  "why": "Review Layer applies the target's principle to decide where its own rule lives.",
+  "_room": "weak-03",
+  "confidence": "high",
+  "evidence": [
+   "Per [[Palace as Context Injection System]], a habit only holds if it's planted where it gets loaded, not in a memory only Claude reads. The Review Layer is canon at three call surfaces",
+   "Context Injection System: \"An agent is built from what it reads before it knows who it is\" (and the Two Levers: how much, and when)"
+  ]
+ },
+ {
+  "op": "label",
+  "source": "The Four Virtues",
+  "target": "The Fortress and the Threshold",
+  "type": "connects-to",
+  "label": "under-credits-justice",
+  "why": "The source names one specific charge against the target (it undersells Stoic justice), and the target's fortress framing is exactly what is charged.",
+  "_room": "weak-03",
+  "confidence": "high",
+  "evidence": [
+   "The [[The Fortress and the Threshold]] site may under-credit Stoic *dikaiosyne*.",
+   "The Fortress and the Threshold: \"The Stoic retreats inward and calls it virtue.\""
+  ]
+ },
+ {
+  "op": "remove",
+  "source": "Spinoza",
+  "target": "Generative Compression",
+  "type": "connects-to",
+  "why": "Neither page names the other; the link has only ever been a bare edge from Spinoza's frontmatter, and Generative Compression's body and links never mention Spinoza.",
+  "_room": "weak-04",
+  "confidence": "high"
+ },
+ {
+  "op": "remove",
+  "source": "The Flow Field is the Spine",
+  "target": "flow-field-spine",
+  "type": "connects-to",
+  "why": "The pair already carries a reasoned link from the other side (flow-field-spine exemplifies The Flow Field is the Spine, label the-recipe-for), and the body wikilinks to the recipe stay; a second bare edge is a duplicate.",
+  "_room": "weak-04",
+  "confidence": "high"
+ },
+ {
+  "op": "remove",
+  "source": "Trickster",
+  "target": "Action Potential Oscillator",
+  "type": "connects-to",
+  "why": "Trickster's body never names the oscillator; the only reason anywhere is on Palace Enchantment's side, which carries its own edge to it.",
+  "_room": "weak-04",
+  "confidence": "high"
+ },
+ {
+  "op": "remove",
+  "source": "SUBSTRATE",
+  "target": "Palace Enchantment",
+  "type": "connects-to",
+  "why": "SUBSTRATE's body never names Palace Enchantment, and Palace Enchantment already holds a connects-to edge to SUBSTRATE, so the pair carries two bare links.",
+  "_room": "weak-04",
+  "confidence": "high"
+ },
+ {
+  "op": "remove",
+  "source": "SUBSTRATE",
+  "target": "Lateral Access",
+  "type": "connects-to",
+  "why": "The body never names it; the only trace is a line in the anatomy JSON listing Lateral Access as a member of the links organ, which is not a sentence that carries a relation. It can return in a later weave with a reason.",
+  "_room": "weak-04",
+  "confidence": "medium"
+ },
+ {
+  "op": "remove",
+  "source": "SUBSTRATE",
+  "target": "1 from 2",
+  "type": "connects-to",
+  "why": "Neither SUBSTRATE's body, Context nor anatomy names the story, and 1 from 2 never names SUBSTRATE.",
+  "_room": "weak-04",
+  "confidence": "high"
+ },
+ {
+  "op": "remove",
+  "source": "Modes of Collaboration",
+  "target": "Symbiotic Skills",
+  "type": "connects-to",
+  "why": "The body is silent; the Context only asks, as an open question, whether skill levels unlock modes, which is a question and not yet a relation.",
+  "_room": "weak-04",
+  "confidence": "medium"
+ },
+ {
+  "op": "remove",
+  "source": "Generative Compression",
+  "target": "Swarm Weave",
+  "type": "connects-to",
+  "why": "Neither page names the other as a reason; the body is about conversation seeds and the orchestrator's compression pass.",
+  "_room": "weak-04",
+  "confidence": "high"
+ },
+ {
+  "op": "remove",
+  "source": "Generative Compression",
+  "target": "BBS Blackboard",
+  "type": "connects-to",
+  "why": "Generative Compression's body never mentions the blackboard, and BBS Blackboard never mentions it back.",
+  "_room": "weak-04",
+  "confidence": "high"
+ },
+ {
+  "op": "remove",
+  "source": "Dialogue Moderator",
+  "target": "Enchanted Worker",
+  "type": "connects-to",
+  "why": "Neither body names the other; the Moderator's lineage is through Palace Enchantment, which it already links.",
+  "_room": "weak-04",
+  "confidence": "high"
+ },
+ {
+  "op": "remove",
+  "source": "Dialogue Moderator",
+  "target": "Four Pillars of Enchanted Agency",
+  "type": "connects-to",
+  "why": "Neither page mentions the other.",
+  "_room": "weak-04",
+  "confidence": "high"
+ },
+ {
+  "op": "remove",
+  "source": "Dialogue Moderator",
+  "target": "STIGMERGY",
+  "type": "connects-to",
+  "why": "The body talks of pheromone and the board but never names STIGMERGY, and STIGMERGY never names the Moderator.",
+  "_room": "weak-04",
+  "confidence": "medium"
+ },
+ {
+  "op": "retype",
+  "source": "Palace Enchantment",
+  "target": "Threshold Conatus",
+  "from_type": "connects-to",
+  "type": "spawned",
+  "label": "stage-4-deposit",
+  "why": "The Stage 4 enchanted dialogue deposited Threshold Conatus, so the ceremony produced it; Threshold Conatus says it was born from that dialogue. spawned points forward from the producer.",
+  "_room": "weak-04",
+  "confidence": "high",
+  "evidence": [
+   "**Deposit from this dialogue:** [[Threshold Conatus]] — a new palace entry capturing the synthesis. This is the first Stage 4 ceremony to produce a new palace entry.",
+   "Born from the Stage 4 enchanted dialogue between [[Trickster]] and [[Spinoza Conatus]], 2026-04-01."
+  ]
+ }
+]

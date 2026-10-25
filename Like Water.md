@@ -18,8 +18,6 @@ links:
     type: mirrors
   - target: "[[Spinoza Conatus]]"
     type: mirrors
-  - target: "[[Quality Manifesto]]"
-    type: mirrors
   - target: "[[Lateral Access]]"
     type: deepens
   - target: "[[Confucianism]]"

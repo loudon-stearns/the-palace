@@ -42,9 +42,6 @@ links:
   - target: "[[Whitehead]]"
     type: connects-to
     label: commit-as-actual-occasion
-  - target: "[[Stoicism]]"
-    type: connects-to
-    label: two-of-the-most-concrete-lenses
   - target: "[[The Dichotomy of Control]]"
     type: connects-to
     label: the-up-to-me-queue-filter

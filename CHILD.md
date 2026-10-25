@@ -8,9 +8,6 @@ pillars:
 born: 2026-10
 stage: foundational
 links:
-  - target: "[[CLAUDE]]"
-    type: connects-to
-    label: imported-by
   - target: "[[JEWEL]]"
     type: connects-to
     label: stands-on

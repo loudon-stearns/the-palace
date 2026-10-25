@@ -16,17 +16,11 @@ who_leads: shared
 links:
   - target: "[[1 from 2]]"
     type: emerged-from
-  - target: "[[Kuramoto Coupling]]"
-    type: mirrors
   - target: "[[Spinoza Conatus]]"
     type: deepens
     label: agency-as-power-increase
   - target: "[[Symbiotic Skills]]"
     type: spawned
-  - target: "[[Endosymbiosis]]"
-    type: mirrors
-  - target: "[[Mixture of Experts]]"
-    type: mirrors
   - target: "[[Quality Manifesto]]"
     type: connects-to
   - target: "[[Modes of Collaboration]]"

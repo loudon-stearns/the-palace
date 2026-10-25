@@ -8,8 +8,6 @@ links:
   - target: "[[Closing Well]]"
     type: exemplifies
     label: run-by-the-fresh-reader
-  - target: "[[Palace Ceremonies]]"
-    type: connects-to
   - target: "[[Baton Ceremony]]"
     type: couples-with
     label: sibling-close-species

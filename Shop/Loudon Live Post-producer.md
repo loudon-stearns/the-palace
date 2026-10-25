@@ -17,9 +17,6 @@ links:
   - target: "[[Maker]]"
     type: connects-to
     label: dispatches-through
-  - target: "[[Loudon Live Design System]]"
-    type: connects-to
-    label: house-style
   - target: "[[Loudon Live]]"
     type: connects-to
     label: serves-the-stream

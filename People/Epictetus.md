@@ -28,6 +28,7 @@ links:
     type: member-of
   - target: "[[Stoicism]]"
     type: exemplifies
+    label: slave-philosopher
   - target: "[[The Dichotomy of Control]]"
     type: connects-to
     label: primary-source-origin

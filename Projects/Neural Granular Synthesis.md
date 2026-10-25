@@ -17,9 +17,6 @@ links:
     type: connects-to
   - target: "[[Harmonicity and Inharmonicity]]"
     type: connects-to
-  - target: "[[Shimmer Cloud]]"
-    type: couples-with
-    label: grain-populations
 ---
 
 # Neural Granular Synthesis

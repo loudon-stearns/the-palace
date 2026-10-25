@@ -7,13 +7,9 @@ pillars:
 born: 2026-03
 stage: mature
 links:
-  - target: "[[Logarithmic Interface Scaling]]"
-    type: connects-to
   - target: "[[FOUR PILLARS]]"
     type: connects-to
   - target: "[[Modes of Collaboration]]"
-    type: connects-to
-  - target: "[[Piano String Inharmonicity]]"
     type: connects-to
   - target: "[[Boundary-Crossing Instruments]]"
     type: mirrors

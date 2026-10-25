@@ -14,10 +14,6 @@ links:
     label: object-to-think-with
   - target: "[[Boundary-Crossing Instruments]]"
     type: connects-to
-  - target: "[[Harmonicity and Inharmonicity]]"
-    type: connects-to
-  - target: "[[Hyperdimensional Prism]]"
-    type: connects-to
   - target: "[[FOUR PILLARS]]"
     type: enables
   - target: "[[Granular Synthesis]]"

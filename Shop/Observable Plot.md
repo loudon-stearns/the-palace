@@ -13,16 +13,10 @@ forward_vector: "I plot browser-deployable analytical charts with grammar-of-gra
 links:
   - { target: "[[Maker]]", type: connects-to, label: directed-by }
   - { target: "[[The Shop]]", type: member-of, label: roster-member }
-  - { target: "[[Shop/D3.js]]", type: connects-to, label: alternative-to }
-  - { target: "[[Shop/Matplotlib]]", type: connects-to, label: alternative-to }
   - { target: "[[Shop/D3.js]]", type: enables, label: built-on }
-  - target: "[[D3.js]]"
-    type: connects-to
   - target: "[[Flocking]]"
     type: connects-to
   - target: "[[Matplotlib]]"
-    type: connects-to
-  - target: "[[p5.js]]"
     type: connects-to
 tags: [specialist, shop, interactive, data-viz, web, charts]
 ---

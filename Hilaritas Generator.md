@@ -13,9 +13,6 @@ hook_quality: 9
 beauty: 8
 who_leads: loudon
 links:
-  - target: "[[Creative Coach]]"
-    type: contradicts
-    label: never-in-the-room
   - target: "[[Spinoza Conatus]]"
     type: emerged-from
     label: conatus-applied
@@ -49,9 +46,6 @@ links:
   - target: "[[Hilaritas Generator — Context]]"
     type: connects-to
     label: context-companion
-  - target: "[[Quality Manifesto]]"
-    type: connects-to
-    label: signal-redirector
   - target: "[[Modes of Collaboration]]"
     type: couples-with
     label: how-we-make-joy

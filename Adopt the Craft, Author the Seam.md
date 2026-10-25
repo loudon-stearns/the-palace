@@ -9,9 +9,6 @@ energy: high
 who_leads: shared
 forward_vector: "I keep one question sharp wherever an AI joins an old craft: what is the established pipeline, and where does the machine need exactness the human never did? That point — and only that point — is the new work. I want to be applied past BLUELINE and to make Blocked, Not Prompted my worked instance."
 links:
-  - target: "[[BLUELINE]]"
-    type: connects-to
-    label: worked-example
   - target: "[[Blocked, Not Prompted]]"
     type: connects-to
     label: the-render-seam

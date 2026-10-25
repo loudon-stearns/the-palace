@@ -28,8 +28,6 @@ links:
     type: mirrors
   - target: "[[Kuramoto Coupling]]"
     type: connects-to
-  - target: "[[Mixture of Experts]]"
-    type: connects-to
   - target: "[[Pages as Agents]]"
     type: connects-to
     label: emerged-but-not-predicted

@@ -24,6 +24,7 @@ links:
     type: emerged-from
   - target: "[[Hilaritas Generator]]"
     type: enables
+    label: signal-redirector
   - target: "[[Like Water]]"
     type: mirrors
   - target: "[[AI Partnership Philosophy]]"

@@ -58,7 +58,7 @@ How and when this arrived. Reference the conversation if landmark.
 
 ## Cross-Pillar Connections
 
-How this relates to other domains. Use [[wiki links]] in prose.
+How this relates to other domains. Use wiki links in prose.
 
 ## Open Questions
 
@@ -71,7 +71,7 @@ The Deposit's map carries the typed links; links back from existing entries are 
 
 Use only the link types defined in [[SCHEMA]] §4 (read when you grow up — that is the single source for their directionality and labels; the fields a link object takes are [[SCHEMA — Reference]] §3): `connects-to`, `mirrors`, `enables`, `deepens`, `spawned`, `emerged-from`, `contradicts`, `couples-with`, `exemplifies`, `member-of`. When unsure, use `connects-to`; do not introduce new link types without discussing with Loudon.
 
-YAML frontmatter links are reserved for structural relationships that matter. Body text [[wiki links]] are casual and abundant. YAML links are curated and intentional.
+YAML frontmatter links are reserved for structural relationships that matter. Body text wiki links are casual and abundant. YAML links are curated and intentional.
 
 ### Ceremony File Conventions
 

@@ -1,0 +1,445 @@
+[
+ {
+  "op": "remove",
+  "source": "Biomechanical Synthesis",
+  "target": "Particle Synthesis",
+  "type": "connects-to",
+  "why": "No sentence on either page connects them.",
+  "_room": "weak-08",
+  "confidence": "high"
+ },
+ {
+  "op": "remove",
+  "source": "Biomechanical Synthesis",
+  "target": "Biomechanical Synthesis — enrichment — grotesque-pedagogy-haiku",
+  "type": "connects-to",
+  "why": "The haiku already carries the pair's one link (child-of) and the body wikilink keeps the road open; the bare frontmatter duplicate goes.",
+  "_room": "weak-08",
+  "confidence": "high"
+ },
+ {
+  "op": "remove",
+  "source": "Differential Equations",
+  "target": "DSP Frameworks",
+  "type": "connects-to",
+  "why": "The hub's gloss does not match what the target page is about, so the reason is not on the target; a real tie can return later.",
+  "_room": "weak-08",
+  "confidence": "medium"
+ },
+ {
+  "op": "label",
+  "source": "Differential Equations",
+  "target": "Granular Synthesis",
+  "type": "connects-to",
+  "label": "direct-solver",
+  "why": "The hub carries the claim plainly, quoting Loudon.",
+  "_room": "weak-08",
+  "confidence": "high",
+  "evidence": [
+   "\"Granular Synthesis — grain envelopes ARE DE solutions\" and Loudon: \"Granular synthesis particles with sinusoidal envelopes are solving DEs.\"",
+   "Granular Synthesis never names differential equations"
+  ]
+ },
+ {
+  "op": "label",
+  "source": "Differential Equations",
+  "target": "Quantum Synthesizer",
+  "type": "connects-to",
+  "label": "generalized-system",
+  "why": "Both pages place the Schrödinger equation in the same family as resonant second-order systems.",
+  "_room": "weak-08",
+  "confidence": "high",
+  "evidence": [
+   "\"Quantum Synthesizer — the Schrödinger equation is a DE\"",
+   "\"The Schrödinger equation is the infinite-dimensional version of an RLC resonant circuit\""
+  ]
+ },
+ {
+  "op": "remove",
+  "source": "Dispersion",
+  "target": "Compressor Design",
+  "type": "connects-to",
+  "why": "Neither page gives a reason; Dispersion never names Compressor Design and Compressor Design never says dispersion, all-pass or phase.",
+  "_room": "weak-09",
+  "confidence": "high"
+ },
+ {
+  "op": "remove",
+  "source": "Dispersion",
+  "target": "Bessel Functions in Synthesis",
+  "type": "connects-to",
+  "why": "Neither page names the other or says dispersion/Bessel across the pair; the real bridge runs through Categorizing Inharmonicity, which already carries both.",
+  "_room": "weak-09",
+  "confidence": "medium"
+ },
+ {
+  "op": "remove",
+  "source": "Categorizing Inharmonicity",
+  "target": "Compressor Design",
+  "type": "connects-to",
+  "why": "The only sentence claims the all-pass idea was 'discovered in the all-pass reverb tail context' via Compressor Design, but Compressor Design never mentions all-pass or phase; what is left is a thematic echo (make the invisible audible), not a reason for this pair.",
+  "_room": "weak-09",
+  "confidence": "medium"
+ },
+ {
+  "op": "remove",
+  "source": "Granular Synthesis",
+  "target": "Boundary-Crossing Instruments",
+  "type": "connects-to",
+  "why": "Only the forward vector uses the phrase; neither body explains how granular crosses a boundary, and Boundary-Crossing Instruments has no grain text. It can return with a reason.",
+  "_room": "weak-09",
+  "confidence": "medium"
+ },
+ {
+  "op": "remove",
+  "source": "Shepard Tone Synthesizer",
+  "target": "Granular Synthesis",
+  "type": "connects-to",
+  "why": "Neither page names the other or gives a shared mechanism.",
+  "_room": "weak-09",
+  "confidence": "high"
+ },
+ {
+  "op": "remove",
+  "source": "Shepard Tone Synthesizer",
+  "target": "Particle Synthesis",
+  "type": "connects-to",
+  "why": "Neither page names the other or gives a shared mechanism.",
+  "_room": "weak-09",
+  "confidence": "high"
+ },
+ {
+  "op": "remove",
+  "source": "Shepard Tone Synthesizer",
+  "target": "Signal-Rate CV Architecture",
+  "type": "connects-to",
+  "why": "Neither page names the other; the Shepard architecture is MIDI-layer octave stacking with no CV text.",
+  "_room": "weak-09",
+  "confidence": "high"
+ },
+ {
+  "op": "remove",
+  "source": "Bessel Functions in Synthesis",
+  "target": "Action Potential Oscillator",
+  "type": "connects-to",
+  "why": "Neither page names the other; no Bessel text in the oscillator page and no neuron text in the Bessel page.",
+  "_room": "weak-09",
+  "confidence": "high"
+ },
+ {
+  "op": "remove",
+  "source": "DSP Frameworks",
+  "target": "Biomechanical Synthesis",
+  "type": "connects-to",
+  "why": "The hub never names it; only a stray note to Loudon suggests project entries link to the hub, which is the opposite direction, and Biomechanical Synthesis has no framework text.",
+  "_room": "weak-09",
+  "confidence": "medium"
+ },
+ {
+  "op": "remove",
+  "source": "DSP Frameworks",
+  "target": "JSUI",
+  "type": "connects-to",
+  "why": "The hub never names JSUI (it picks between Faust, Gen~, RNBO, Web Audio); JSUI never mentions the hub. It can return with a reason about the interface layer.",
+  "_room": "weak-09",
+  "confidence": "medium"
+ },
+ {
+  "op": "remove",
+  "source": "DSP Frameworks",
+  "target": "Preset Oracle",
+  "type": "connects-to",
+  "why": "Neither page names the other.",
+  "_room": "weak-09",
+  "confidence": "high"
+ },
+ {
+  "op": "remove",
+  "source": "Floquet Theory",
+  "target": "Entry Conatus",
+  "type": "connects-to",
+  "why": "The only line is conditional ('If that reading earns its keep, it links Floquet directly to Entry Conatus'), and Spinoza Conatus already carries the exponent-as-conatus reading; Entry Conatus never mentions Floquet.",
+  "_room": "weak-09",
+  "confidence": "medium"
+ },
+ {
+  "op": "retype",
+  "source": "Floquet Time-Modulated Loops",
+  "target": "Progressive Staging",
+  "from_type": "connects-to",
+  "type": "exemplifies",
+  "label": "five-stage-arc",
+  "why": "The project is a five-stage teaching arc whose Stage 1 ships as a complete artifact, which is the method Progressive Staging names; the page never says so, but it is an instance of the method, and the source points back at its ground.",
+  "_room": "weak-09",
+  "confidence": "medium",
+  "evidence": [
+   "A project, a five-stage teaching arc, and — Stage 1 — a complete teaching document... Stage 1 ... shipped first as a complete pedagogical artifact",
+   "Progressive Staging: 'build in stages where every stage is a complete, playable, useful artifact.'"
+  ]
+ },
+ {
+  "op": "label",
+  "source": "Shepard Tone Synthesizer",
+  "target": "Frequency-Time Duality",
+  "type": "connects-to",
+  "label": "time-domain-twin",
+  "why": "The Shepard page's Open Questions call Risset's accelerating rhythm the Shepard tone in the time domain, which is the rate-becomes-pitch axis the duality entry holds; Frequency-Time Duality does not mention Shepard.",
+  "_room": "weak-09",
+  "confidence": "medium",
+  "evidence": [
+   "Risset's accelerating rhythm (the Shepard tone in the time domain)",
+   "Frequency-Time Duality: 'one continuous axis (the rate at which something repeats) crosses perceptual thresholds'"
+  ]
+ },
+ {
+  "op": "label",
+  "source": "Categorizing Inharmonicity",
+  "target": "Quantum Synthesizer",
+  "type": "connects-to",
+  "label": "potential-shaping",
+  "why": "Both pages hold the same move: shape the potential, shape the spectrum.",
+  "_room": "weak-09",
+  "confidence": "high",
+  "evidence": [
+   "[[Quantum Synthesizer|Potential well shaping]]: The nonlinear potentials that produce anharmonic energy eigenvalues in quantum mechanics are the same nonlinear springs that produce stretched tuning in acoustic strings.",
+   "Quantum Synthesizer: '## Anharmonicity through Potential Shaping'"
+  ]
+ },
+ {
+  "op": "remove",
+  "source": "Harmonicity and Inharmonicity",
+  "target": "Action Potential Oscillator",
+  "type": "connects-to",
+  "why": "Neither page connects the two; the target mentions only Piano String Inharmonicity, and Kuramoto already carries the oscillator-to-coupling route.",
+  "_room": "weak-10",
+  "confidence": "high"
+ },
+ {
+  "op": "remove",
+  "source": "Harmonicity and Inharmonicity",
+  "target": "Frequency-Time Duality",
+  "type": "connects-to",
+  "why": "Neither page names the other; no reason on either side.",
+  "_room": "weak-10",
+  "confidence": "high"
+ },
+ {
+  "op": "remove",
+  "source": "Harmonicity and Inharmonicity",
+  "target": "Compressor Design",
+  "type": "connects-to",
+  "why": "Harmonicity's body never names Compressor Design and the compressor page says nothing of partials; the all-pass origin that ties them is carried on Hyperdimensional Prism's pages, not here. The reciprocal Compressor Design to Harmonicity link has no reason either and could go with it.",
+  "_room": "weak-10",
+  "confidence": "high"
+ },
+ {
+  "op": "remove",
+  "source": "Quadratic Interpolation in DSP",
+  "target": "DSP Frameworks",
+  "type": "connects-to",
+  "why": "Neither page names the other and DSP Frameworks says nothing of interpolation.",
+  "_room": "weak-10",
+  "confidence": "high"
+ },
+ {
+  "op": "remove",
+  "source": "Compressor Design",
+  "target": "Granular Synthesis",
+  "type": "connects-to",
+  "why": "Neither page names the other; the compressor has no grain content.",
+  "_room": "weak-10",
+  "confidence": "high"
+ },
+ {
+  "op": "remove",
+  "source": "Kuramoto Coupling",
+  "target": "Kuramoto Coupling — 8-Lesson Quiz Series",
+  "type": "connects-to",
+  "why": "The quiz series already links up to Kuramoto as child-of, so the pair is carried; the Artifacts section keeps the body wikilink. A later weave could retype the child's link as emerged-from.",
+  "_room": "weak-10",
+  "confidence": "medium"
+ },
+ {
+  "op": "remove",
+  "source": "Kuramoto Coupling",
+  "target": "Kuramoto Coupling — Quiz Answer Key",
+  "type": "connects-to",
+  "why": "Same as the series: the answer key links up as child-of and the Artifacts section keeps the body wikilink.",
+  "_room": "weak-10",
+  "confidence": "medium"
+ },
+ {
+  "op": "remove",
+  "source": "Retrospective Delay",
+  "target": "Granular Synthesis",
+  "type": "connects-to",
+  "why": "Neither page names the other; Retrospective Delay is a phrase-length circular buffer with no grain content.",
+  "_room": "weak-10",
+  "confidence": "high"
+ },
+ {
+  "op": "remove",
+  "source": "Retrospective Delay",
+  "target": "Boundary-Crossing Instruments",
+  "type": "connects-to",
+  "why": "Neither page names the other. Frequency-Time Duality, which the delay already links, carries the delay-time and frequency idea.",
+  "_room": "weak-10",
+  "confidence": "high"
+ },
+ {
+  "op": "remove",
+  "source": "SMPTE LTC",
+  "target": "Ableton Extension SDK",
+  "type": "connects-to",
+  "why": "No page by this name exists in the vault, so the link points at nothing. The body names the SDK only as plain text for Phase 1; if the page is born, the link can return with its reason.",
+  "_room": "weak-10",
+  "confidence": "high"
+ },
+ {
+  "op": "retype",
+  "source": "Mathieu Equation",
+  "target": "Philosopher Visits the Entry",
+  "from_type": "connects-to",
+  "type": "exemplifies",
+  "label": "plato-deleuze-visit",
+  "why": "The Philosophical Lens is a run of the Philosopher Visit, so Mathieu is an instance of the mode; exemplifies points back at the general.",
+  "_room": "weak-10",
+  "confidence": "high",
+  "evidence": [
+   "*A [[Philosopher Visits the Entry|visit]] — [[Plato (Socratic method)|Plato]] and [[Deleuze]] both read the entry's strangest line*",
+   "one researched philosopher is brought to a single palace entry and asked to push on its central claim."
+  ]
+ },
+ {
+  "op": "retype",
+  "source": "Compressor Design",
+  "target": "Boundary-Crossing Instruments",
+  "from_type": "connects-to",
+  "type": "exemplifies",
+  "label": "ratio-as-slope",
+  "why": "Boundary-Crossing's own origin is the soft-knee work, so the compressor is an instance of the pattern; exemplifies points back at the general. Compressor's sentence misdescribes the target (see lighter prose).",
+  "_room": "weak-10",
+  "confidence": "high",
+  "evidence": [
+   "It appears in [[Boundary-Crossing Instruments]] — the recognition that signal flow and information flow are the same topology, expressed in different materials.",
+   "During work on soft knee compression mathematics, we discovered that reframing compression ratio as the *slope of the transfer function* rather than a ratio eliminates the discontinuity at infinite ratio."
+  ]
+ },
+ {
+  "op": "retype",
+  "source": "Linear Predictive Coding",
+  "target": "Philosopher Visits the Entry",
+  "from_type": "connects-to",
+  "type": "exemplifies",
+  "label": "spinoza-visit",
+  "why": "The Philosophical Lens is a Philosopher Visit, so LPC is an instance of the mode.",
+  "_room": "weak-10",
+  "confidence": "high",
+  "evidence": [
+   "*A [[Philosopher Visits the Entry|visit]] — [[Spinoza]] reads the residual.*",
+   "one researched philosopher is brought to a single palace entry and asked to push on its central claim."
+  ]
+ },
+ {
+  "op": "retype",
+  "source": "Murmuration",
+  "target": "Granular Synthesis",
+  "from_type": "connects-to",
+  "type": "exemplifies",
+  "label": "flock-as-grains",
+  "why": "Murmuration is a granular instrument, each boid a grain voice, so it is an instance of granular synthesis.",
+  "_room": "weak-10",
+  "confidence": "medium",
+  "evidence": [
+   "A synthesis instrument where a **flock walks a 2D wavetable and every boid is a grain**.",
+   "I build boundary crossing instruments from populations of short-term oscillators"
+  ]
+ },
+ {
+  "op": "retype",
+  "source": "Ohm's Law",
+  "target": "Modes of Collaboration",
+  "from_type": "connects-to",
+  "type": "exemplifies",
+  "label": "interactive-exploration",
+  "why": "Modes of Collaboration's Context names Ohm's Law as a named example of the Interactive Exploration mode, so the page is an instance of the mode family. Modes of Collaboration's bare link back could be cut so the pair carries one.",
+  "_room": "weak-10",
+  "confidence": "high",
+  "evidence": [
+   "- [[Modes of Collaboration]] — Interactive exploration mode",
+   "**Named examples:** [[Ohm's Law]] interactive with lock mechanism (March 2026)"
+  ]
+ },
+ {
+  "op": "retype",
+  "source": "Portamento and Physical Pitch Modeling",
+  "target": "Action Potential Oscillator",
+  "from_type": "connects-to",
+  "type": "mirrors",
+  "label": "threshold-overshoot",
+  "why": "Same damped-recovery pattern in two materials, stated on both pages, which is a mirror.",
+  "_room": "weak-10",
+  "confidence": "medium",
+  "evidence": [
+   "Both portamento and nerve action potentials are systems with *threshold, overshoot, and undershoot*.",
+   "The recovery from this undershoot can be overdamped (smooth), critically damped, or underdamped (ringing oscillation that adds subharmonic growl)."
+  ]
+ },
+ {
+  "op": "retype",
+  "source": "Wavetable Space as Torus",
+  "target": "Philosopher Visits the Entry",
+  "from_type": "connects-to",
+  "type": "exemplifies",
+  "label": "deleuze-visit",
+  "why": "The Philosophical Lens is a Philosopher Visit, and the mode's own Method cites this entry's claim as its example.",
+  "_room": "weak-10",
+  "confidence": "high",
+  "evidence": [
+   "*A [[Philosopher Visits the Entry|visit]] — [[Deleuze]] reads the opening claim: \"A wavetable is not a rectangle. It is a torus. This is not a metaphor.\"*",
+   "(\"This is not metaphor but isomorphism.\" \"A wavetable is a torus, and this is not a metaphor.\")"
+  ]
+ },
+ {
+  "op": "label",
+  "source": "Linear Predictive Coding",
+  "target": "Loudon Live",
+  "type": "connects-to",
+  "label": "vocoder-stage",
+  "why": "The forward vector plans an LPC vocoder as a Loudon Live stage; the register is a planned build. Loudon Live does not mention LPC.",
+  "_room": "weak-10",
+  "confidence": "high",
+  "evidence": [
+   "Build the RNBO `codebox~` LPC vocoder as a [[Loudon Live]] stage — analysis lattice → residual codebook → resynthesis",
+   ""
+  ]
+ },
+ {
+  "op": "label",
+  "source": "Portamento and Physical Pitch Modeling",
+  "target": "Biomechanical Synthesis",
+  "type": "connects-to",
+  "label": "voice-biomechanics",
+  "why": "The source says glide in voice and winds comes from body mechanics. Biomechanical Synthesis links back bare, so the pair needs one reason only.",
+  "_room": "weak-10",
+  "confidence": "high",
+  "evidence": [
+   "Portamento in human voice and wind instruments is biomechanically generated.",
+   ""
+  ]
+ },
+ {
+  "op": "label",
+  "source": "Hyperdimensional Prism",
+  "target": "Harmonicity and Inharmonicity",
+  "type": "connects-to",
+  "label": "all-pass-inharmonic",
+  "why": "The prism page says the all-pass network is an inharmonic resonator and sends the reader to Harmonicity for it. Harmonicity's bare reciprocal could be cut; the section the prism cites no longer exists there (see health flags).",
+  "_room": "weak-10",
+  "confidence": "high",
+  "evidence": [
+   "an all-pass-based reverb tail is an inharmonic synthesizer in disguise (see [[Harmonicity and Inharmonicity]] § All-Pass Networks as Inharmonic Resonators for the mechanism)",
+   "Where inharmonic spectra come from (stiff strings, Bessel modes, scatter, all-pass phase accumulation and the rest) is mapped in [[Categorizing Inharmonicity]]"
+  ]
+ }
+]

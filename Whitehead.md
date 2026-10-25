@@ -8,8 +8,6 @@ confidence: working
 energy: high
 who_leads: shared
 links:
-  - target: "[[Palace Philosophies]]"
-    type: connects-to
   - target: "[[Spinoza Conatus]]"
     type: couples-with
     label: process-monism
@@ -19,9 +17,6 @@ links:
   - target: "[[Meaning and the Link]]"
     type: deepens
     label: relations-as-prehension
-  - target: "[[Leibniz]]"
-    type: connects-to
-    label: monads-become-occasions
   - target: "[[Kuramoto Coupling]]"
     type: connects-to
     label: occasions-of-synchrony

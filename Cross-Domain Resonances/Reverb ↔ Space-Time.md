@@ -25,9 +25,6 @@ links:
   - target: "[[Granular Synthesis]]"
     type: connects-to
     label: room-as-grain
-  - target: "[[Martin Heidegger]]"
-    type: connects-to
-    label: dwelling-makes-space
 ---
 
 # Reverb ↔ Space-Time

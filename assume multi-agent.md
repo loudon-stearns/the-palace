@@ -11,15 +11,9 @@ links:
   - target: "[[Tool Builder]]"
     type: member-of
     label: deepest-member
-  - target: "[[The Commons]]"
-    type: connects-to
-    label: made-real-by
   - target: "[[STIGMERGY]]"
     type: connects-to
     label: coordinates-on
-  - target: "[[RunPod GPU Backend]]"
-    type: connects-to
-    label: the-scar
   - target: "[[The Palace Practices on Itself]]"
     type: connects-to
     label: worked-instance

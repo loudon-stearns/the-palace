@@ -9,8 +9,6 @@ stage: growing
 links:
   - target: "[[SUBSTRATE]]"
     type: deepens
-  - target: "[[Substrate Skill]]"
-    type: connects-to
   - target: "[[Harvest Ceremony]]"
     type: enables
   - target: "[[Deposit Ceremony]]"
@@ -19,8 +17,6 @@ links:
     type: enables
   - target: "[[Weave Ceremony]]"
     type: enables
-  - target: "[[Return Ceremony]]"
-    type: connects-to
   - target: "[[Spore Check Ceremony]]"
     type: enables
   - target: "[[Self-Model Update Ceremony]]"
@@ -31,14 +27,14 @@ links:
     type: connects-to
   - target: "[[Map Build Ceremony]]"
     type: enables
-  - target: "[[Baton Ceremony]]"
-    type: connects-to
   - target: "[[Closing Well Ceremony]]"
     type: enables
   - target: "[[Sentry]]"
     type: enables
+    label: ceremony-registry
   - target: "[[The Daily Page]]"
     type: enables
+    label: ceremony-registry
 ---
 # Palace Ceremonies
 

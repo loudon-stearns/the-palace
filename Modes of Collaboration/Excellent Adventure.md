@@ -26,12 +26,6 @@ links:
   - target: "[[Oblique Portrait]]"
     type: contradicts
     label: unsteered-vs-steered
-  - target: "[[Confucianism]]"
-    type: connects-to
-  - target: "[[Stoicism]]"
-    type: connects-to
-  - target: "[[The Fortress and the Threshold]]"
-    type: connects-to
   - target: "[[Dialectic]]"
     type: couples-with
   - target: "[[Modes of Collaboration]]"

@@ -15,8 +15,6 @@ links:
     type: connects-to
   - target: "[[Wallpaper Groups]]"
     type: deepens
-  - target: "[[Bessel Functions in Synthesis]]"
-    type: connects-to
   - target: "[[Quantum Synthesizer]]"
     type: mirrors
   - target: "[[Boundary-Crossing Instruments]]"

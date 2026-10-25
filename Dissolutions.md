@@ -21,23 +21,9 @@ links:
   - target: "[[Frequency-Time Duality]]"
     type: connects-to
     label: first-walk-across-a-boundary
-  - target: "[[Chebyshev is Fourier]]"
-    type: connects-to
-  - target: "[[Dispersion Table]]"
-    type: connects-to
-  - target: "[[Exponential Decay Curvature]]"
-    type: connects-to
   - target: "[[Floquet Theory]]"
     type: connects-to
   - target: "[[Kuramoto Coupling]]"
-    type: connects-to
-  - target: "[[Linear Predictive Coding]]"
-    type: connects-to
-  - target: "[[Phase Reduction]]"
-    type: connects-to
-  - target: "[[Rank-N Lattice Analysis]]"
-    type: connects-to
-  - target: "[[Volterra Kernels and the Torus]]"
     type: connects-to
 ---
 

@@ -34,9 +34,6 @@ links:
   - target: "[[Hilaritas Generator]]"
     type: exemplifies
     label: all-four-pillars-fire
-  - target: "[[Martin Buber]]"
-    type: connects-to
-    label: all-real-living-is-meeting
 ---
 
 # Dovetail Joint ↔ Counterpoint

@@ -10,8 +10,6 @@ hook_quality: 8
 beauty: 8
 who_leads: shared
 links:
-  - target: "[[Kuramoto Coupling]]"
-    type: couples-with
   - target: "[[Boundary-Crossing Instruments]]"
     type: connects-to
   - target: "[[Action Potential Oscillator]]"
@@ -24,8 +22,6 @@ links:
     type: emerged-from
     label: b-coefficient-anchor
   - target: "[[Compressor Design]]"
-    type: connects-to
-  - target: "[[Hyperdimensional Prism]]"
     type: connects-to
   - target: "[[Portamento and Physical Pitch Modeling]]"
     type: connects-to

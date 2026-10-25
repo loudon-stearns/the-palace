@@ -31,9 +31,6 @@ links:
   - target: "[[Agnes Martin]]"
     type: connects-to
     label: humility-that-hides-control
-  - target: "[[George Nakashima]]"
-    type: connects-to
-    label: humility-that-hides-control
   - target: "[[Andy Goldsworthy]]"
     type: connects-to
     label: humility-that-hides-control

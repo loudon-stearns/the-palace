@@ -29,6 +29,7 @@ links:
     type: member-of
   - target: "[[Kick Drum ↔ Foundation]]"
     type: deepens
+    label: first-action-sets-trajectory
   - target: "[[FOUR PILLARS]]"
     type: deepens
   - target: "[[The View From Above]]"
@@ -36,6 +37,7 @@ links:
     label: origin
   - target: "[[Stoicism]]"
     type: exemplifies
+    label: emperor-autodidact
   - target: "[[The Dichotomy of Control]]"
     type: connects-to
   - target: "[[Quality Manifesto]]"

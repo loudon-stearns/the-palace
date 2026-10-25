@@ -21,12 +21,8 @@ links:
     type: connects-to
   - target: "[[Neural Granular Synthesis]]"
     type: connects-to
-  - target: "[[Action Potential Oscillator]]"
-    type: connects-to
   - target: "[[Kuramoto Coupling]]"
     type: couples-with
-  - target: "[[Portamento and Physical Pitch Modeling]]"
-    type: connects-to
   - target: "[[Retrospective Delay]]"
     type: connects-to
   - target: "[[Frequency-Time Duality]]"
@@ -74,7 +70,7 @@ The framework is concrete. Eight instruments, eight biological systems:
 
 4. **Blood hydraulics compressor** — blood pressure = amplitude, vessel diameter = gain reduction, pulse rate = attack time. The compressor physically demonstrates its own function.
 
-5. **Slime mold delay** — the [[**plasmodium**]]'s foraging pattern as feedback delay topology, path optimization as reverb decay.
+5. **Slime mold delay** — the **plasmodium**'s foraging pattern as feedback delay topology, path optimization as reverb decay.
 
 6. **Carnivorous plant gate** — Venus flytrap trigger threshold as noise gate with biological hysteresis.
 
@@ -120,7 +116,7 @@ The narrative emerges from the physics. The student does not compose first and t
 
 ## Cross-Domain Resonance
 
-Biomechanical Synthesis [[mirrors]] [[Boundary-Crossing Instruments]] — the recognition that signal flow, biological flow, and narrative flow are the same pattern in different materials. A mycelium and a reverb tail and a character arc follow the same topology: local interactions creating emergent global form.
+Biomechanical Synthesis `mirrors` [[Boundary-Crossing Instruments]] — the recognition that signal flow, biological flow, and narrative flow are the same pattern in different materials. A mycelium and a reverb tail and a character arc follow the same topology: local interactions creating emergent global form.
 
 This connects to [[Hilaritas Generator]] through the discipline of delight: the horror is not for its own sake but for the joy of unexpected understanding. When a student suddenly grasps that a compressor is a blood pressure differential, that moment of visceral recognition is a spike of *hilaritas* — delight.
 

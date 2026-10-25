@@ -41,9 +41,6 @@ links:
   - target: "[[Confucianism]]"
     type: contradicts
     label: dao-vs-li
-  - target: "[[Epictetus]]"
-    type: contradicts
-    label: wu-wei-vs-prohairesis
   - target: "[[Making a Palace Citizen]]"
     type: exemplifies
     label: made-by-this-method

@@ -33,9 +33,6 @@ links:
   - target: "[[Walk Ceremony]]"
     type: mirrors
     label: travel-by-quote
-  - target: "[[Harvest Ceremony]]"
-    type: connects-to
-    label: quote-intake
   - target: "[[Concierge]]"
     type: connects-to
     label: sibling-organ

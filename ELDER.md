@@ -8,9 +8,6 @@ born: 2026-09-22
 stage: foundational
 version: "1.29"
 links:
-  - target: "[[JEWEL]]"
-    type: connects-to
-    label: grows-on
   - target: "[[SCHEMA]]"
     type: connects-to
     label: read-next

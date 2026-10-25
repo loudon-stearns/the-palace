@@ -5,14 +5,10 @@ pillars: [creation, tools]
 born: 2026-03
 stage: growing
 links:
-  - target: "[[Harmonicity and Inharmonicity]]"
-    type: connects-to
   - target: "[[Boundary-Crossing Instruments]]"
     type: deepens
   - target: "[[Frequency-Time Duality]]"
     type: mirrors
-  - target: "[[Logarithmic Interface Scaling]]"
-    type: connects-to
   - target: "[[Ohm's Law]]"
     type: mirrors
   - target: "[[Dispersion]]"

@@ -41,9 +41,6 @@ links:
   - target: "[[Cross-Domain Resonances]]"
     type: connects-to
     label: pattern-mapping
-  - target: "[[Registry Pattern]]"
-    type: contradicts
-    label: permission-vs-constraint
   - target: "[[Agnes Martin]]"
     type: contradicts
     label: received-vision-vs-emptied-studio

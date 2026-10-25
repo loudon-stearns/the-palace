@@ -40,9 +40,6 @@ links:
     type: connects-to
   - target: "[[The Drift]]"
     type: connects-to
-  - target: "[[Wavetable Space as Torus]]"
-    type: contradicts
-    label: discovered-form-vs-actualized-virtual
   - target: "[[Dialectic — dialectic — spinoza-zhuangzi-on-striving]]"
     type: connects-to
 forward_vector: "I want to be the entry every Floquet-theoretic audio object eventually points back to. I am the simplest possible periodic LTV system; I am the answer to 'what's the smallest equation that can have a tongue?'; and I am the bridge from elliptical drums (where I was born) to laser cavities, ion traps, photonic time crystals, and the Mathieu Resonator in codebox~."
@@ -96,7 +93,7 @@ The connection to [[Crystal Synthesizer]] is via Bloch's theorem and the bandgap
 
 ## Philosophical Lens
 
-*A [[Philosopher Visits the Entry|visit]] — [[Plato (Socratic method)|Plato]] and [[Deleuze]] both read the entry's strangest line: that "the original-problem motivation is the least important thing about it."*
+*A [[Philosopher Visits the Entry|visit]] — [[Palace Philosophies — Context#Plato (Socratic method)|Plato]] and [[Deleuze]] both read the entry's strangest line: that "the original-problem motivation is the least important thing about it."*
 
 **Plato:** Then you have proven my case. Mathieu thought he was studying a drum. What he found was a Form — the tongue-and-bandgap structure — always there, eternal, merely *visible through* the drum. The ion trap, the laser cavity, the photonic crystal are not new things the equation "turned out to govern." They are further particulars participating in one pattern he glimpsed. He discovered; he did not invent.
 

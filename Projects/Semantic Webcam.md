@@ -50,13 +50,13 @@ The project *is* its build history — proof that an oblique card, [[Enrichment]
 come at sideways, can be a door. It began as one facet (the [[Synthesis ↔ Emergence]] flock)
 and we could not stop:
 
-- **Live STIGMERGY Cam** ([[01-live-stigmergy-cam.html]]) — the camera as an amber
+- **Live STIGMERGY Cam** (`01-live-stigmergy-cam.html`) — the camera as an amber
   CP437 terminal grid; your motion lights the cells. An homage to the stigmergic
   board [[BBS Blackboard]]: traces, not orders — see [[Cooperation Yields Agency]].
-- **Word Flock Cam** ([[02-word-flock-cam.html]]) — words as boids, flocking to
+- **Word Flock Cam** (`02-word-flock-cam.html`) — words as boids, flocking to
   detected eyes and fingertips. A branch set aside on the pivot to multiply, worth
   reviving.
-- **Character Multiply Cam** ([[03-character-multiply-cam.html]]) *(the anchor)* —
+- **Character Multiply Cam** (`03-character-multiply-cam.html`) *(the anchor)* —
   camera luminance × character ink; brightness picks the glyph (period → dash →
   your words → shade → white tile); whole words best-fit into the contiguous
   mid-tone runs and slide to hug each shape's left edge; highlights inverted to

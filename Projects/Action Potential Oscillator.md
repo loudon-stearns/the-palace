@@ -11,40 +11,21 @@ links:
   - target: "[[Objects to Think With]]"
     type: exemplifies
     label: object-to-think-with
-  - target: "[[Kuramoto Coupling]]"
-    type: couples-with
   - target: "[[Boundary-Crossing Instruments]]"
     type: mirrors
-  - target: "[[Signal-Rate CV Architecture]]"
-    type: connects-to
   - target: "[[Spinoza Conatus]]"
-    type: connects-to
-  - target: "[[Frequency-Time Duality]]"
     type: connects-to
   - target: "[[Hyperdimensional Prism]]"
     type: connects-to
-  - target: "[[Striatum]]"
-    type: connects-to
   - target: "[[Neural Granular Synthesis]]"
     type: deepens
-  - target: "[[Biomechanical Synthesis]]"
-    type: connects-to
-  - target: "[[State Machine]]"
-    type: connects-to
   - target: "[[Progressive Staging]]"
     type: emerged-from
   - target: "[[FOUR PILLARS]]"
     type: connects-to
-  - target: "[[Bessel Functions in Synthesis]]"
-    type: connects-to
   - target: "[[Compressor Design]]"
     type: connects-to
   - target: "[[Piano String Inharmonicity]]"
-    type: connects-to
-  - target: "[[Threshold Conatus]]"
-    type: couples-with
-    label: scale-partners
-  - target: "[[Scale-Stratified Identity]]"
     type: connects-to
   - target: "[[Neural Granular Synthesis — spec — control-vocabulary-math]]"
     type: enables

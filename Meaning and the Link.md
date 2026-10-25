@@ -18,8 +18,6 @@ links:
     type: connects-to
   - target: "[[Cooperation Yields Agency]]"
     type: connects-to
-  - target: "[[Spinoza Conatus]]"
-    type: mirrors
   - target: "[[Palace Ceremonies]]"
     type: enables
   - target: "[[Resonant Link Labels]]"

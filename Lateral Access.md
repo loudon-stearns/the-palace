@@ -18,8 +18,6 @@ links:
     type: connects-to
   - target: "[[Hilaritas Generator]]"
     type: deepens
-  - target: "[[Kuramoto Coupling]]"
-    type: mirrors
   - target: "[[Excellent Adventure]]"
     type: couples-with
   - target: "[[Confucianism]]"

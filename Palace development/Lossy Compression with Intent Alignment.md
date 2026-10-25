@@ -13,9 +13,6 @@ links:
   - target: "[[Deposit Ceremony]]"
     type: enables
     label: reframes
-  - target: "[[Generative Compression]]"
-    type: connects-to
-    label: makes-rigorous
   - target: "[[Meaning and the Link]]"
     type: mirrors
     label: rhymes-with

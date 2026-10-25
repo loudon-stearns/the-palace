@@ -22,9 +22,6 @@ links:
   - target: "[[Hilaritas Generator]]"
     type: connects-to
     label: approaching-synchrony-as-joy
-  - target: "[[Spinoza Conatus]]"
-    type: mirrors
-    label: persistence-through-coupling
   - target: "[[SUBSTRATE]]"
     type: enables
     label: palace-foundation
@@ -40,9 +37,6 @@ links:
   - target: "[[Harmonicity and Inharmonicity]]"
     type: couples-with
     label: frustrated-coupling
-  - target: "[[Granular Synthesis]]"
-    type: connects-to
-    label: attractor-hybrid
   - target: "[[Modes of Collaboration]]"
     type: connects-to
     label: collaboration-as-coupling
@@ -58,9 +52,6 @@ links:
   - target: "[[Palace Enchantment]]"
     type: mirrors
     label: enchantment-as-synchrony
-  - target: "[[Threshold Conatus]]"
-    type: connects-to
-    label: critical-K-as-threshold
   - target: "[[Boundary-Crossing Instruments]]"
     type: enables
     label: cross-domain-sync

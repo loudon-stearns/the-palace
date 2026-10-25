@@ -19,8 +19,6 @@ links:
     type: connects-to
   - target: "[[Biomechanical Synthesis]]"
     type: enables
-  - target: "[[Crystal Synthesizer]]"
-    type: connects-to
   - target: "[[SMPTE LTC]]"
     type: connects-to
     label: time-as-signal

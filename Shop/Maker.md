@@ -11,7 +11,6 @@ links:
   - { target: "[[Hilaritas Generator]]", type: connects-to, label: embodies }
   - { target: "[[FOUR PILLARS]]", type: connects-to, label: follows }
   - { target: "[[Lateral Access]]", type: mirrors, label: taste-as-laterality }
-  - { target: "[[Loudon Live Design System]]", type: connects-to, label: palace-base-spec }
   - { target: "[[Drafting Table Design System]]", type: connects-to, label: palace-base-for-the-work }
   - target: "[[Radio Play]]"
     type: spawned
@@ -19,9 +18,6 @@ links:
   - target: "[[Review Layer]]"
     type: connects-to
     label: inherits-rule
-  - target: "[[RunPod GPU Backend]]"
-    type: connects-to
-    label: gpu-substrate
   - target: "[[Flocking]]"
     type: connects-to
     label: proof-of-comparison
@@ -219,7 +215,7 @@ When the brief is exploratory or the choice between specialists is genuinely clo
 
 **First complete execution: the [[Flocking]] shoot-out (2026-05-29).** Three Specialists (D3.js, Observable Plot, p5.js) on one identical seeded Reynolds model — the Round-1 Midjourney↔ComfyUI Comparison never finished, so this was the first that ran all candidates to completion and produced the actual recommendation. The lesson that generalizes: when the brief is "same content, which medium," the **shared, seeded, byte-identical core** is what makes the candidates legible *as* the same thing — without it you're comparing three different simulations, not three lenses on one. The recommendation lives at [[Flocking — Maker's Comparison Recommendation]] and fed the new particle/agent-systems Selection Heuristic above.
 
-**Designed, pending execution: the [[ControlNet Workflow Mastery]] control-modality shootout (2026-05-31).** A single-Specialist (ComfyUI) Comparison: one procedural Lissajous vector, four control modalities (lineart / canny / scribble / depth) on SDXL + ControlNet-Union, everything else held fixed. The harness is built and sandbox-verified up to the GPU step; it runs Mac-side. Two firsts for the Shop — its first ControlNet job, and its first *intra-Specialist* comparison (one tool, four configurations) rather than tool-vs-tool. The recommendation feeds a new image Selection Heuristic for vector→styled-image work.
+**Designed, pending execution: the ControlNet Workflow Mastery control-modality shootout (2026-05-31).** A single-Specialist (ComfyUI) Comparison: one procedural Lissajous vector, four control modalities (lineart / canny / scribble / depth) on SDXL + ControlNet-Union, everything else held fixed. The harness is built and sandbox-verified up to the GPU step; it runs Mac-side. Two firsts for the Shop — its first ControlNet job, and its first *intra-Specialist* comparison (one tool, four configurations) rather than tool-vs-tool. The recommendation feeds a new image Selection Heuristic for vector→styled-image work.
 
 ## Host Capability Check
 

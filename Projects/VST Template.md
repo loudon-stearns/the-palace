@@ -15,9 +15,6 @@ links:
   - target: "[[Harmonicity and Inharmonicity]]"
     type: connects-to
     label: first-test-case
-  - target: "[[Drafting Table Design System]]"
-    type: connects-to
-    label: editor-dress
 forward_vector: "I turn an algorithm proven in a numpy sketch into a plugin Loudon can play in Ableton the same day, so an idea that sounded good in a render can be explored with hands, automation and a DAW around it."
 ---
 

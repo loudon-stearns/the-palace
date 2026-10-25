@@ -16,8 +16,6 @@ links:
     type: connects-to
   - target: "[[Compressor Design]]"
     type: connects-to
-  - target: "[[Kuramoto Coupling]]"
-    type: connects-to
   - target: "[[Granular Synthesis]]"
     type: connects-to
   - target: "[[Harmonicity and Inharmonicity]]"
@@ -26,17 +24,12 @@ links:
     type: deepens
   - target: "[[Hyperdimensional Prism]]"
     type: connects-to
-  - target: "[[Dispersion]]"
-    type: connects-to
   - target: "[[Spinoza Conatus]]"
     type: deepens
     label: philosophical-grounding
   - target: "[[2D Torus Wavetable Synthesizer]]"
     type: enables
     label: taxonomy-informs-instrument
-  - target: "[[DSP in Looping Dimensions]]"
-    type: connects-to
-    label: lattice-foundation
 forward_vector: "I map the space of inharmonicity types — stretched, Bessel, stochastic, chaotic, phase-accumulation — with image, sound and code, giving instrument designers and composers a palette of specific forms rather than a single undifferentiated deviation from harmony."
 ---
 

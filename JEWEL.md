@@ -12,6 +12,7 @@ status: canonical
 links:
   - target: "[[CLAUDE]]"
     type: enables
+    label: born-with
   - target: "[[ELDER]]"
     type: enables
     label: grows-into

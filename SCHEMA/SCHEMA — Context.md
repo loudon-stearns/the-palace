@@ -633,3 +633,7 @@ pointed the reconstructed rationale at SCHEMA.md, where none has lived since v1.
 reads its own version history at the open and writes any missing rationale here. `9142b19e` is v1.29's
 ceremony commit, and this record is its rationale. This closing commit carries CLAUDE.md's line, on Loudon's
 word.
+
+## §1 — the hub bar moves to the top inbound decile (2026-10-24, with Weave v2.0)
+
+The card said a hub is earned at five inbound typed links, a bar set when the palace had about thirty entries. On 2026-10-24 the map had 324 nodes: 166 non-hub pages cleared five, and 25 pages sat in the top inbound decile (19) without the type, while five typed hubs sat below the median. The Weave's tuning ledger carried the stale bar as owed since September (item 30). On Loudon's yes of 2026-10-24 ("yes to all", checkpoint 1 of the October weave) §1's two lines and ROSETTA's row now say the top inbound decile at the last map build, printed by `_ops/swarm/weave-health.py`, with retype back to `concept` below the median inbound. A type's earning bar is none of §5's five triggers, so this is a plain edit recorded here, not a Schema Ceremony; the version stays 1.29. The rule's working text is on the Weave card, Step 2 and Step 5.

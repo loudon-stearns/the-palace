@@ -8,14 +8,9 @@ confidence: working
 energy: very high
 who_leads: shared
 links:
-  - target: "[[Palace Philosophies]]"
-    type: connects-to
   - target: "[[Spinoza Conatus]]"
     type: deepens
     label: radicalizes-the-monism
-  - target: "[[Whitehead]]"
-    type: couples-with
-    label: process-allies
   - target: "[[Hyperdimensional Prism]]"
     type: connects-to
     label: virtual-projected
@@ -31,22 +26,14 @@ links:
   - target: "[[Mixture of Experts]]"
     type: connects-to
     label: virtual-weight-space
-  - target: "[[The Drift]]"
-    type: connects-to
-    label: difference-not-no-self
   - target: "[[Dialectic]]"
     type: connects-to
   - target: "[[Entry Conatus]]"
     type: connects-to
   - target: "[[Excellent Adventure]]"
     type: connects-to
-  - target: "[[STIGMERGY Philosophical Lenses]]"
-    type: connects-to
   - target: "[[STIGMERGY v1.0 — Palace Front-End]]"
     type: connects-to
-  - target: "[[Confucianism]]"
-    type: couples-with
-    label: anti-essentialist-allies
   - target: "[[Spinoza]]"
     type: connects-to
 forward_vector: "I want to become the palace's account of why the generative tools Loudon builds are not metaphorically but literally philosophies of difference — the page that earns the hub's repeated claim that 'LLM inference is Deleuzian' and 'synthesis is actualization of the virtual.' My next development: a worked reading of one specific instrument (the wavetable oscillator or the granular cloud) as an actualization machine, and a Dialectic with Spinoza testing whether the conatus is a striving toward identity or a difference that never resolves."
@@ -76,7 +63,7 @@ Deleuze read the history of philosophy as a series of "buggerings" — taking a 
 
 **`deepens` [[Spinoza Conatus]]** — Spinoza is the synthesis pole on the *cultivator* side: the conatus strives to persist in its nature and expand its power-to-act. Deleuze keeps the immanence and the relational primacy but distrusts the word *persist* — for him a thing is not a nature-to-be-maintained but a difference perpetually differentiating. The live question (a Dialectic candidate): is the conatus a striving *toward* identity, or a difference that never settles into one? See [[The Drift]] for the third position that refuses the question.
 
-**vs. [[Plato (Socratic method)|Plato]]** — Plato's Forms are the eternal pattern of which particulars are copies; Deleuze inverts this completely. There is no original the copy imitates — there is only difference producing the appearance of originals. The hub's open question (eternal Forms vs. difference-without-identity) lives here.
+**vs. [[Palace Philosophies — Context#Plato (Socratic method)|Plato]]** — Plato's Forms are the eternal pattern of which particulars are copies; Deleuze inverts this completely. There is no original the copy imitates — there is only difference producing the appearance of originals. The hub's open question (eternal Forms vs. difference-without-identity) lives here.
 
 ## Lens on the Technical Work
 

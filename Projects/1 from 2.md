@@ -17,13 +17,7 @@ links:
     type: spawned
   - target: "[[Spinoza Conatus]]"
     type: connects-to
-  - target: "[[Symbiotic Skills]]"
-    type: mirrors
   - target: "[[FOUR PILLARS]]"
-    type: connects-to
-  - target: "[[Endosymbiosis]]"
-    type: mirrors
-  - target: "[[Trickster]]"
     type: connects-to
   - target: https://claude.ai/chat/5e5e6393-52f7-4db4-bd4f-9e622e90d3f7
     type: connects-to

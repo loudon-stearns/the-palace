@@ -8,7 +8,6 @@ pillars:
 born: 2026-03
 stage: growing
 energy: high
-revival_conditions: Swarm Weave is ceremony-ified and running cleanly for two cycles. Revisit whether the Walk's single-agent, trail-following character suggests a third ceremony mode.
 links:
   - target: "[[Weave Ceremony]]"
     type: connects-to
@@ -23,7 +22,7 @@ links:
   - target: "[[Pages as Agents]]"
     type: enables
     label: agent-walking
-forward_vector: "I am a named question, not yet a ceremony. My direction is toward becoming one: a third ceremony mode that moves like the Walk but weaves like the Weave — starting from freshest pheromone trails and following links outward, producing connections through movement rather than survey. My revival condition is exactly what I name: the Swarm Weave running cleanly for two cycles. When that happens, I am ready to be designed."
+forward_vector: "I am a named question, not yet a ceremony. My direction is toward becoming one: a third ceremony mode that moves like the Walk but weaves like the Weave — starting from freshest pheromone trails and following links outward, producing connections through movement rather than survey. The Swarm Weave has run for many cycles and one of its lenses already walks; what I still want decided is whether that walk is a third ceremony or a lens inside the Weave."
 ---
 
 # Walk That Weaves
@@ -66,13 +65,13 @@ unresolved question.
 
 ---
 
-## Revival Note (2026-09-24)
+## A walk can weave
 
-The revival condition is met: the [[Swarm Weave]] is a ceremony and has run well past two cycles (sessions in `_ops/swarm/sessions/` from 2026-03-30 through September). And the 2026-09-24 weave ran a pass shaped like this question. Its lifecycle lens started workers from newcomers the palace barely reached and had them walk outward along typed links, proposing connections from what surfaced on the way rather than from a survey.
+The [[Swarm Weave]]'s lifecycle lens is this question in practice: workers start from the newcomers the palace barely reaches and walk outward along typed links, proposing connections from what surfaces on the way rather than from a survey. It runs every weave.
 
-The honest lesson is that the first walk was misled by a counting bug, not by walking. The catch-up script counted symmetric links one way only, so it told walkers a newcomer had almost no inbound links when it already had several partners, and nearly half the walk's proposals re-drew links that already existed. With the count fixed, the rerun's 35 walk proposals held no duplicates (`_ops/swarm/sessions/weave-2026-09-24/ab/RESULT.md`).
+The lesson the first walk left: count reach, not degree. The catch-up script once counted symmetric links one way only, so it sent walkers after newcomers that already had partners, and nearly half the proposals re-drew links that existed. With reach counted, the walk's proposals hold no duplicates (`_ops/swarm/sessions/weave-2026-09-24/ab/RESULT.md`).
 
-So a walk can weave. Whether it is a third ceremony, or a lens inside the Weave, is still open, and this entry stays a question.
+Whether the walk is a third ceremony or stays a lens inside the Weave is the open question, and this entry stays a question.
 
 ---
 

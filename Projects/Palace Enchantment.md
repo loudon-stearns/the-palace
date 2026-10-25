@@ -22,18 +22,12 @@ links:
     type: spawned
   - target: "[[Spinoza Conatus]]"
     type: mirrors
-  - target: "[[Kuramoto Coupling]]"
-    type: mirrors
   - target: "[[Pheromone Trail]]"
     type: deepens
     label: distributed-memory
   - target: "[[Endosymbiosis]]"
     type: mirrors
   - target: "[[Deposit Ceremony]]"
-    type: connects-to
-  - target: "[[SUBSTRATE]]"
-    type: connects-to
-  - target: "[[Enchanted Conversation Archive]]"
     type: connects-to
   - target: "[[Modes of Collaboration]]"
     type: connects-to
@@ -47,17 +41,11 @@ links:
   - target: "[[Dialogue Moderator]]"
     type: couples-with
     label: active-coordinator
-  - target: "[[Trickster]]"
-    type: connects-to
   - target: "[[Action Potential Oscillator]]"
     type: connects-to
   - target: "[[Palace Conatus]]"
     type: spawned
     label: palace-scale-conatus
-  - target: "[[Palace Map]]"
-    type: connects-to
-  - target: "[[Project Stewardship System]]"
-    type: connects-to
   - target: "[[The Remembering Page]]"
     type: enables
     label: loads-the-memory

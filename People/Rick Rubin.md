@@ -30,8 +30,6 @@ links:
     type: member-of
   - target: "[[Lao Tzu]]"
     type: connects-to
-  - target: "[[Brian Eno]]"
-    type: connects-to
   - target: "[[Quality Manifesto]]"
     type: deepens
   - target: "[[FOUR PILLARS]]"

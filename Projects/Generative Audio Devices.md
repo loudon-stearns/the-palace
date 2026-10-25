@@ -15,8 +15,6 @@ links:
   - target: "[[Registry Pattern]]"
     type: spawned
     label: "distilled-from"
-  - target: "[[Synthesis Topologies]]"
-    type: connects-to
   - target: "[[Loudon Live]]"
     type: enables
   - target: "[[VCV Patch Generator — spec — PDL generation prompt]]"
@@ -25,9 +23,6 @@ links:
   - target: "[[Generative Audio Devices — spec — synth archetypes]]"
     type: spawned
     label: "params-layer"
-  - target: "[[Generative Preset Development]]"
-    type: couples-with
-    label: eventual-convergence
   - target: "[[Preset Oracle]]"
     type: mirrors
     label: analysis-generation-duality

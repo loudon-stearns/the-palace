@@ -14,9 +14,6 @@ links:
   - target: "[[The Four Virtues]]"
     type: exemplifies
     label: flags-the-unwelcome-truth
-  - target: "[[Palace Ceremonies]]"
-    type: connects-to
-    label: ceremony-registry
   - target: "[[Concierge]]"
     type: connects-to
     label: sibling-organ

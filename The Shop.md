@@ -39,9 +39,6 @@ links:
   - target: "[[Lossy Compression with Intent Alignment]]"
     type: mirrors
     label: "tier-as-compression"
-  - target: "[[Closing Well]]"
-    type: connects-to
-    label: shop-wide-standard
   - target: "[[Shopkeeper]]"
     type: spawned
     label: alt-foreman

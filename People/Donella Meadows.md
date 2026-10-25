@@ -49,9 +49,6 @@ links:
   - target: "[[Spinoza]]"
     type: contradicts
     label: homecoming-vs-becoming
-  - target: "[[Rick Rubin]]"
-    type: contradicts
-    label: discovered-essence-vs-systems-becoming
   - target: "[[Found ↔ Made]]"
     type: exemplifies
     label: made-pole

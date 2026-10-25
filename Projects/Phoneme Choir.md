@@ -11,9 +11,6 @@ links:
   - target: "[[Generative Sample Libraries]]"
     type: emerged-from
     label: phase-1.x-percussive-pilot
-  - target: "[[Talking Keyboard]]"
-    type: mirrors
-    label: sister-build
   - target: "[[Substrate Skill]]"
     type: connects-to
     label: kokoro-syllabification-evidence

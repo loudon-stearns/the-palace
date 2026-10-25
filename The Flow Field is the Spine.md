@@ -7,9 +7,6 @@ stage: growing
 confidence: working
 energy: high
 links:
-  - target: "[[BLUELINE]]"
-    type: connects-to
-    label: the-novel-bet-of
   - target: "[[Blocked, Not Prompted]]"
     type: couples-with
     label: geometry-first-siblings

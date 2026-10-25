@@ -116,6 +116,28 @@ def resolution_lines(text):
             if re.match(r"\s*Palace-Resolves:", l) or re.search(r"\b[Dd]eclined? flag\b", l)]
 
 
+def closing_ids(lines):
+    """The flag ids those lines close, read the way the deck reads them (queue-model.js resolvesId /
+    commit-parse.js parseFlagLines): a Palace-Resolves line yields each whitespace- or comma-separated
+    token, trailing punctuation stripped; a Declined line yields the one token after 'flag'. An id that
+    merely appears inside another flag's reason text ('Declined flag A: superseded by B') closes nothing.
+    Before 2026-10-24 the linter tested `fid in text`, a substring match, and counted flags the deck did
+    not grey (Weave tuning, Loudon's one-shot order of 2026-10-18)."""
+    ids = set()
+    for l in lines:
+        m = re.match(r"\s*Palace-Resolves:\s*(.*)$", l)
+        if m:
+            for tok in re.split(r"[\s,]+", m.group(1)):
+                tok = tok.strip().rstrip(".;:)]}'\"")
+                if tok: ids.add(tok[4:] if tok.startswith("msg-") else tok)
+            continue
+        m = re.search(r"\b[Dd]eclined? flag\s+([^\s:]+)", l)
+        if m:
+            tok = m.group(1).rstrip(".;:)]}'\"")
+            ids.add(tok[4:] if tok.startswith("msg-") else tok)
+    return ids
+
+
 def still_matching(p):
     """Pages a propagate flag's pattern still finds, or None when it carries no pattern."""
     pattern = p.get("pattern")
@@ -168,8 +190,9 @@ def main():
     from datetime import datetime, timezone
     commits = commit_log(datetime.fromtimestamp(oldest, timezone.utc).isoformat()) if (stamps or since) else []
     # explicit ids may predate the oldest flag's clock, so read every commit's closing lines
-    closing = "\n".join(resolution_lines(git(["log", "--format=%B"])))
-    resolves = "\n".join(l for l in closing.splitlines() if re.match(r"\s*Palace-Resolves:", l))
+    closing_lines = resolution_lines(git(["log", "--format=%B"]))
+    closing = closing_ids(closing_lines)
+    resolves = closing_ids([l for l in closing_lines if re.match(r"\s*Palace-Resolves:", l)])
     carried_lines = []
     if since is not None:
         carried_lines = [l for c in commits if c[0] is not None and c[0] >= since

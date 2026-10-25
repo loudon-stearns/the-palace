@@ -18,26 +18,18 @@ links:
   - target: "[[Palace Orchestrator]]"
     type: connects-to
     label: orchestrated-by
-  - target: "[[SCHEMA]]"
-    type: connects-to
-    label: coordination-schema-home
   - target: "[[Project Stewardship System]]"
     type: enables
     label: the-substrate-stewardship-runs-on
   - target: "[[Swarm Weave]]"
     type: enables
-  - target: "[[Trickster]]"
-    type: connects-to
-    label: the-human-node
+    label: coordinated-on
   - target: "[[Pheromone Trail]]"
     type: mirrors
     label: the-trace-that-shapes-the-next-action
   - target: "[[Pages as Agents]]"
     type: connects-to
     label: the-page-is-the-agent
-  - target: "[[BBS Design System]]"
-    type: connects-to
-    label: locked-aesthetic
   - target: "[[STIGMERGY v2.0 — Consolidation & Primary Interface]]"
     type: spawned
     label: consolidation-and-roadmap

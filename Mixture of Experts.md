@@ -5,16 +5,12 @@ pillars: [tools, philosophy]
 born: 2024-06
 stage: mature
 links:
-  - target: "[[Hyperdimensional Prism]]"
-    type: mirrors
   - target: "[[Cooperation Yields Agency]]"
     type: mirrors
   - target: "[[Symbiotic Skills]]"
     type: connects-to
   - target: "[[Embeddings as Relational Meaning]]"
     type: connects-to
-  - target: "[[Kuramoto Coupling]]"
-    type: mirrors
   - target: "[[Weave Ceremony]]"
     type: mirrors
     label: load-balancing-audit
@@ -34,8 +30,6 @@ links:
   - target: "[[Pages as Agents]]"
     type: connects-to
     label: experts-as-pool
-  - target: "[[Swarm Weave]]"
-    type: connects-to
 forward_vector: "I map AI architectural patterns — routing, expert specialization, load balancing — onto palace ceremonies and collaboration structures, making visible the design principles they share across substrate."
 ---
 

@@ -17,8 +17,7 @@ links:
     type: deepens
   - target: "[[Spinoza Conatus]]"
     type: mirrors
-  - target: "[[Kuramoto Coupling]]"
-    type: connects-to
+    label: dimensional-conatus
   - target: "[[SUBSTRATE]]"
     type: mirrors
   - target: "[[Mixture of Experts]]"
@@ -28,8 +27,6 @@ links:
   - target: "[[Compressor Design]]"
     type: connects-to
   - target: "[[Harmonicity and Inharmonicity]]"
-    type: connects-to
-  - target: "[[Loudon Live]]"
     type: connects-to
   - target: "[[The Multilinear Self]]"
     type: mirrors

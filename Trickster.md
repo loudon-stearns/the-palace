@@ -20,10 +20,6 @@ links:
     type: mirrors
   - target: "[[1 from 2]]"
     type: connects-to
-  - target: "[[Dub Lineage]]"
-    type: mirrors
-  - target: "[[Compressor Design]]"
-    type: connects-to
   - target: "[[FOUR PILLARS]]"
     type: connects-to
   - target: "[[Spinoza Conatus]]"
@@ -35,8 +31,6 @@ links:
     type: connects-to
   - target: "[[Threshold Conatus]]"
     type: spawned
-  - target: "[[Hyperdimensional Prism]]"
-    type: connects-to
   - target: "[[The Multilinear Self]]"
     type: couples-with
     label: the-switcher
@@ -46,25 +40,13 @@ links:
     type: connects-to
   - target: "[[BBS Blackboard]]"
     type: connects-to
-  - target: "[[STIGMERGY]]"
-    type: connects-to
-    label: the-board-i-enter
-  - target: "[[Kuramoto Coupling]]"
-    type: connects-to
   - target: "[[Cooperation Yields Agency]]"
     type: connects-to
   - target: "[[Palace Enchantment]]"
     type: connects-to
-  - target: "[[STIGMERGY]]"
-    type: connects-to
-    label: seed-of
   - target: "[[Dialogue Moderator]]"
     type: couples-with
     label: trickster-moderator-pair
-  - target: "[[Playful Interface Design]]"
-    type: connects-to
-  - target: "[[Retrospective Delay]]"
-    type: connects-to
   - target: "[[Latent Error]]"
     type: connects-to
     label: uninvestigated

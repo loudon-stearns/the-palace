@@ -69,7 +69,7 @@ For the authoritative decision tree and full definitions, see [[SCHEMA]] §1; fo
 | Palace Type | What it is | OWL equivalent | DDD equivalent |
 |---|---|---|---|
 | `concept` | An idea, framework, or principle the Palace reasons with | Named class instance | Entity |
-| `hub` | High-connectivity node (≥5 typed links) organizing a graph region | Well-connected named individual | Aggregate root |
+| `hub` | High-connectivity node (the top inbound decile at the last map build) organizing a graph region | Well-connected named individual | Aggregate root |
 | `project` | Something being built or created, with a temporal arc | Named individual with temporal extent | Aggregate root |
 | `source` | An external artifact (paper, book, tool) the Palace draws from | Bibliographic assertion | External reference |
 | `meta` | An entry about the Palace itself — architecture, ceremonies, infrastructure | Ontology annotation | Context map document |

@@ -17,9 +17,6 @@ links:
   - target: "[[The Shop]]"
     type: connects-to
     label: specialists-as-dispatch-surface
-  - target: "[[Concierge]]"
-    type: connects-to
-    label: the-worked-example
   - target: "[[Palace as Context Injection System]]"
     type: connects-to
     label: enchant-is-invoke

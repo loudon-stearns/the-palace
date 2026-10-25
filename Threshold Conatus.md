@@ -18,6 +18,7 @@ links:
     label: threshold-as-force
   - target: "[[Kuramoto Coupling]]"
     type: mirrors
+    label: critical-K-as-threshold
   - target: "[[Action Potential Oscillator]]"
     type: couples-with
     label: scale-partners

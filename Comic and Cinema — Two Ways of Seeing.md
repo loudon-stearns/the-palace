@@ -14,9 +14,6 @@ links:
   - target: "[[BLUELINE]]"
     type: connects-to
     label: lives-on-the-seam
-  - target: "[[Frame Designer]]"
-    type: connects-to
-    label: stages-comic-renders-cinematic
   - target: "[[The Reader's Context Window]]"
     type: couples-with
     label: what-the-gap-asks-of-the-reader

@@ -14,11 +14,6 @@ links:
     type: connects-to
   - target: "[[Action Potential Oscillator]]"
     type: connects-to
-  - target: "[[The Fortress and the Threshold]]"
-    type: mirrors
-  - target: "[[DSP in Looping Dimensions]]"
-    type: mirrors
-    label: rhymes-with
   - target: "[[Waveguide Synthesizer]]"
     type: connects-to
     label: doorway

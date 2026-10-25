@@ -17,13 +17,8 @@ links:
     type: deepens
   - target: "[[README - The Palace Guide]]"
     type: connects-to
-  - target: "[[Endosymbiosis]]"
-    type: mirrors
   - target: "[[Deposit Ceremony — Context]]"
     type: spawned
-  - target: "[[SCHEMA]]"
-    type: connects-to
-    label: "governed-by"
   - target: "[[FOUR PILLARS]]"
     type: connects-to
   - target: "[[Cooperation Yields Agency]]"

@@ -1,0 +1,176 @@
+[
+ {
+  "op": "remove",
+  "source": "Neural Granular Synthesis",
+  "target": "Boundary-Crossing Instruments",
+  "type": "connects-to",
+  "why": "Neither page names the other or gives a reason; the shared shape (a new control coordinate, the population instead of the grain) would be a stretch, not a stated find. Granular Synthesis, Action Potential Oscillator and Semantic Delay already carry BCI links of their own in the neighbourhood.",
+  "_room": "weak-11",
+  "confidence": "medium"
+ },
+ {
+  "op": "remove",
+  "source": "Wallpaper Groups",
+  "target": "Quantum Synthesizer",
+  "type": "connects-to",
+  "why": "Quantum Synthesizer's body has no wallpaper, lattice or tiling text; the pair has no stated reason, and it returns in a later weave if a real one appears.",
+  "_room": "weak-11",
+  "confidence": "medium"
+ },
+ {
+  "op": "remove",
+  "source": "Wallpaper Groups",
+  "target": "Granular Synthesis",
+  "type": "connects-to",
+  "why": "Wallpaper Groups never mentions granular synthesis in its body, and Granular Synthesis has no symmetry or tiling text; no reason on either page.",
+  "_room": "weak-11",
+  "confidence": "high"
+ },
+ {
+  "op": "retype",
+  "source": "Generative Wavetable Libraries",
+  "target": "Drift and Consolidation",
+  "from_type": "connects-to",
+  "type": "exemplifies",
+  "label": "stewarded-page",
+  "why": "The page is a live instance of the mechanism the concept describes (footer, lag disclosure, a named not-yet-folded list), so exemplifies with the source pointing at its general ground; if the weave prefers fewer, it is one of many stewarded pages and could be a body link only.",
+  "_room": "weak-11",
+  "confidence": "medium",
+  "evidence": [
+   "Under Active Stewardship: 'This page is tended by a permanent steward and may lag its live state... This footer is placed at enchantment and pruned at consolidation. See [[Drift and Consolidation]].' It also lists what is 'Not yet folded in here'.",
+   "'A stewarded entry carries a standing footer, placed when the page is first enchanted, that discloses this page is under active stewardship and may lag its live state, and links to the live state.'"
+  ]
+ },
+ {
+  "op": "label",
+  "source": "Dispersion Table",
+  "target": "Loudon Live",
+  "type": "connects-to",
+  "label": "candidate-build",
+  "why": "The source names Loudon Live as the venue for a possible build of the idea; it is a question, so a candidate, and Loudon Live does not name the source.",
+  "_room": "weak-11",
+  "confidence": "medium",
+  "evidence": [
+   "Forward Vectors: 'Is there a clean RNBO codebox~ implementation of the FFT-phase-warp loop for a [[Loudon Live]] build?'",
+   ""
+  ]
+ },
+ {
+  "op": "label",
+  "source": "Playful Interface Design",
+  "target": "Semantic Delay",
+  "type": "connects-to",
+  "label": "trickster-spirits-kind",
+  "why": "The catalogue of interface kinds uses Semantic Delay as the worked case of the character kind.",
+  "_room": "weak-11",
+  "confidence": "high",
+  "evidence": [
+   "'### The trickster spirits (Semantic Delay)... Each spirit has its own look and its own way of moving... Lives in [[Semantic Delay]]; the mythology in [[Trickster]].'",
+   "Semantic Delay: 'The unit is a beat-up tape machine haunted by trickster spirits'; it never names Playful Interface Design."
+  ]
+ },
+ {
+  "op": "remove",
+  "source": "Dub Lineage",
+  "target": "Playful Interface Design",
+  "type": "connects-to",
+  "why": "Neither page names the other; Dub Lineage already reaches the character kind through Trickster, and Playful Interface Design reaches Semantic Delay and Retrospective Delay directly.",
+  "_room": "weak-12",
+  "confidence": "high"
+ },
+ {
+  "op": "remove",
+  "source": "Frequency-Time Explorer",
+  "target": "BBS Design System",
+  "type": "connects-to",
+  "why": "The only mention is an unanswered open question on an archived, composting page that was never built; BBS Design System is the STIGMERGY terminal kit and never mentions the Explorer, so there is no relation to name yet.",
+  "_room": "weak-12",
+  "confidence": "medium"
+ },
+ {
+  "op": "remove",
+  "source": "Objects to Think With",
+  "target": "Autodidact Polymaths",
+  "type": "connects-to",
+  "why": "Neither body names the other; both lean on Loudon Live, which is their real shared neighbour, and a constructionist learner is not the same claim as a self-taught polymath.",
+  "_room": "weak-12",
+  "confidence": "medium"
+ },
+ {
+  "op": "remove",
+  "source": "Semantic Delay",
+  "target": "Boundary-Crossing Instruments",
+  "type": "connects-to",
+  "why": "The page uses the word boundary once about speech and song and never names the pattern; the pair already meets through Frequency-Time Duality, which Semantic Delay mirrors and Boundary-Crossing Instruments names as its first instance.",
+  "_room": "weak-12",
+  "confidence": "medium"
+ },
+ {
+  "op": "label",
+  "source": "Three Kinds of Warp",
+  "target": "2D Torus Wavetable Synthesizer — catalog — wavetables",
+  "type": "connects-to",
+  "label": "stiff-string-surface",
+  "why": "The warp typology uses the catalog's Stiff String surface as its worked case of type-2 ratio gating approximating piano stretch.",
+  "_room": "weak-12",
+  "confidence": "high",
+  "evidence": [
+   "this is what the \"Stiff String\" surface in [[2D Torus Wavetable Synthesizer — catalog — wavetables|2D Wavetable Catalog]] does, and it is approximation rather than exact reproduction.",
+   "[[13 — Stiff String]] — Saw whose high partials are quadratically stretched as Y rises."
+  ]
+ },
+ {
+  "op": "remove",
+  "source": "AI Partnership Philosophy",
+  "target": "Palace Enchantment",
+  "type": "connects-to",
+  "why": "Neither body names the other (AI Partnership's only enchantment-adjacent link is Enchanted Worker, already held), and the Founding Conversation, its parent, already carries the Enchantment link; a real connection can return with its reason.",
+  "_room": "weak-13",
+  "confidence": "high"
+ },
+ {
+  "op": "retype",
+  "source": "FOUR PILLARS",
+  "target": "The Multilinear Self",
+  "from_type": "connects-to",
+  "type": "mirrors",
+  "label": "world-and-self",
+  "why": "FOUR PILLARS never names it, but The Multilinear Self carries the reason: the same one-into-many shape at the scale of the world and at the scale of a person, which is a mirror; the hub's own text is silent, so this is the target's claim only.",
+  "_room": "weak-13",
+  "confidence": "medium",
+  "evidence": [
+   "",
+   "it is the [[Hyperdimensional Prism]] turned on the person who made it. The palace already believes the *world* is one reality cast into many projections — that is the [[FOUR PILLARS]]. The multilinear self says **you have the same shape as your own way of seeing.**"
+  ]
+ },
+ {
+  "op": "retype",
+  "source": "Pauline Oliveros",
+  "target": "John Cage",
+  "from_type": "connects-to",
+  "type": "contradicts",
+  "label": "intention-vs-attention",
+  "why": "Her page calls Cage her \"elder and foil\" and her agency_profile pairs them for a Dialectic (\"remove intention vs deepen attention\"), which is productive tension, not mere proximity; Cage's page does not name her.",
+  "_room": "weak-13",
+  "confidence": "medium",
+  "evidence": [
+   "Cage worked to remove *intention* from the *making* ...; Oliveros worked to deepen *attention* in the *receiving*. Same avant-garde lineage, opposite end of the act — he emptied the composer, she filled the listener.",
+   ""
+  ]
+ },
+ {
+  "op": "retype",
+  "source": "Marcus Aurelius",
+  "target": "The Dichotomy of Control",
+  "from_type": "connects-to",
+  "type": "exemplifies",
+  "label": "whole-method",
+  "why": "Marcus is an instance of the general principle, and his page says it is his whole method; the Dichotomy page names Epictetus, not Marcus.",
+  "_room": "weak-13",
+  "confidence": "medium",
+  "evidence": [
+   "His whole method is the *dichotomy of control*. Yours: your intention, your effort, your response, your judgment of things.",
+   ""
+  ]
+ }
+]

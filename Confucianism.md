@@ -7,10 +7,6 @@ stage: growing
 confidence: working
 energy: high
 links:
-  - target: "[[Palace Philosophies]]"
-    type: connects-to
-  - target: "[[Stoicism]]"
-    type: contradicts
   - target: "[[The Fortress and the Threshold]]"
     type: spawned
   - target: "[[Excellent Adventure]]"

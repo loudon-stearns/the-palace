@@ -42,9 +42,6 @@ links:
   - target: "[[Chebyshev is Fourier]]"
     type: connects-to
     label: change-of-basis-reveals-the-lattice
-  - target: "[[Phase Reduction]]"
-    type: couples-with
-    label: spectral-ground-to-resonance-condition
   - target: "[[Dissolutions]]"
     type: member-of
     label: one-object-two-doorways

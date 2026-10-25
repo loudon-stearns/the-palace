@@ -23,9 +23,6 @@ links:
   - target: "[[2D Torus Wavetable Synthesizer]]"
     type: connects-to
     label: second-clock
-  - target: "[[Wavetable Space as Torus]]"
-    type: connects-to
-    label: two-circles
   - target: "[[Floquet Time-Modulated Loops]]"
     type: connects-to
     label: second-clock-by-modulation
@@ -35,12 +32,6 @@ links:
   - target: "[[Generative Wavetable Libraries]]"
     type: connects-to
     label: fills-its-tables
-  - target: "[[1D Wavetable Scanning]]"
-    type: connects-to
-    label: the-frame-axis
-  - target: "[[Wavetable Synthesis — Deep Research & Higher-Dimensional Design]]"
-    type: connects-to
-    label: history-and-engineering
 ---
 
 # Wavetable Oscillator

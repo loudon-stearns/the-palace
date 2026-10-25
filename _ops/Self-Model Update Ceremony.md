@@ -10,8 +10,6 @@ stage: mature
 version: "2.0"
 trigger: ["self-model update"]
 links:
-  - target: "[[Palace Ceremonies]]"
-    type: connects-to
   - target: "[[SUBSTRATE]]"
     type: enables
   - target: "[[Weave Ceremony]]"

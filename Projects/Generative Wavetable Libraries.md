@@ -35,9 +35,6 @@ links:
     label: time-periodic-modulation
   - target: "[[Drift and Consolidation]]"
     type: connects-to
-  - target: "[[Wavetable Oscillator]]"
-    type: connects-to
-    label: fills-its-tables
   - target: "[[Wavetable Scanner]]"
     type: connects-to
     label: plays-its-packed-tables

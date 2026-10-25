@@ -30,28 +30,15 @@ links:
     type: enables
   - target: "[[Spinoza Conatus]]"
     type: mirrors
-  - target: "[[Endosymbiosis]]"
-    type: mirrors
+    label: ai-agency-question
   - target: "[[Palace Enchantment]]"
     type: spawned
   - target: "[[Project Stewardship System]]"
     type: enables
     label: philosophical-foundation
-  - target: "[[Mixture of Experts]]"
-    type: connects-to
-    label: experts-as-pool
   - target: "[[Palace as Context Injection System]]"
     type: couples-with
     label: same-project-from-context-side
-  - target: "[[STIGMERGY]]"
-    type: connects-to
-    label: the-page-is-the-agent
-  - target: "[[Entry Conatus]]"
-    type: connects-to
-    label: grounds-the-drive
-  - target: "[[Swarm Weave]]"
-    type: connects-to
-    label: runs-the-agents-out-loud
   - target: "[[Donella Meadows]]"
     type: connects-to
     label: first-embodied-person-page

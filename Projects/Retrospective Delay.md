@@ -18,8 +18,6 @@ links:
     type: deepens
   - target: "[[Dub Lineage]]"
     type: emerged-from
-  - target: "[[Playful Interface Design]]"
-    type: connects-to
   - target: "[[Granular Synthesis]]"
     type: connects-to
   - target: "[[Frequency-Time Duality]]"

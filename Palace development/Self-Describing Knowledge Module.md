@@ -12,9 +12,6 @@ links:
     type: mirrors
   - target: "[[ROSETTA]]"
     type: enables
-  - target: "[[Symbiotic Skills]]"
-    type: connects-to
-    label: the-transfer-bet
   - target: "[[Cooperation Yields Agency]]"
     type: connects-to
   - target: "[[Progressive Staging]]"

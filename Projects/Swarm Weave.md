@@ -20,14 +20,10 @@ links:
   - target: "[[Palace Ceremonies]]"
     type: enables
     label: replaces-single-agent
-  - target: "[[Lateral Access]]"
-    type: connects-to
   - target: "[[Metaphor as Coupling Medium]]"
     type: spawned
   - target: "[[Walk That Weaves]]"
     type: spawned
-  - target: "[[Endosymbiosis]]"
-    type: mirrors
   - target: "[[Palace Enchantment]]"
     type: spawned
   - target: "[[Palace Map]]"
@@ -40,9 +36,6 @@ links:
   - target: "[[Pages as Agents]]"
     type: deepens
     label: foundation
-  - target: "[[STIGMERGY]]"
-    type: connects-to
-    label: coordinated-on
   - target: "[[Hero and Avatar Maker]]"
     type: connects-to
     label: face-check-dispatch

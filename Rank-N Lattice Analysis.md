@@ -26,8 +26,6 @@ links:
   - target: "[[Dissolutions]]"
     type: member-of
     label: minimal-spectrum-of-the-stored-field
-  - target: "[[Dispersion Table]]"
-    type: connects-to
   - target: "[[Volterra Kernels and the Torus]]"
     type: connects-to
   - target: "[[Neural Granular Synthesis — spec — control-vocabulary-math]]"
