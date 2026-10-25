@@ -74,6 +74,39 @@ if (chromium) {
   check('the last step reaches the proof', existsSync(join(HERE, decodeURIComponent(href))), decodeURIComponent(href));
   check('no page errors', errors.length === 0, errors.slice(0, 3).join(' | '));
 
+  // The weight and its trace are one motion: on step 1, plucked five times so the swing piles up, the red dot
+  // at the weight's centre and the red dot at the trace's head sit at one height, and stay on the sheet.
+  {
+    const pg = await b.newPage({ viewport: { width: 1130, height: 900 } });
+    await pg.route(/^https?:\/\//, (r) => r.abort());
+    await pg.goto(pathToFileURL(PAGE).href);
+    for (let k = 0; k < 5; k++) { await pg.click('section.step[data-step="0"] [data-pluck]'); await pg.waitForTimeout(170); }
+    let worst = 0, inside = true;
+    for (let k = 0; k < 8; k++) {
+      await pg.waitForTimeout(130);
+      const r = await pg.evaluate(() => {
+        const c = document.querySelector('section.step[data-step="0"] canvas'), g = c.getContext('2d'), W = c.width, H = c.height;
+        const d = g.getImageData(0, 0, W, H).data, red = (x, y) => { const i = (y * W + x) * 4; return d[i] > 170 && d[i + 1] < 80 && d[i + 2] < 70; };
+        const rowsAt = (x0, x1) => { const ys = []; for (let y = 0; y < H; y++) for (let x = x0; x <= x1; x++) if (red(x, y)) { ys.push(y); break; } return ys; };
+        const dpr = W / c.clientWidth, split = Math.min(220, c.clientWidth * 0.34);
+        const mean = (a) => a.length ? a.reduce((p, q) => p + q, 0) / a.length : NaN;
+        const atWeight = rowsAt(Math.round(split / 2 * dpr) - 1, Math.round(split / 2 * dpr) + 1);
+        const atHead = rowsAt(Math.round((c.clientWidth - 8) * dpr) - 1, Math.round((c.clientWidth - 8) * dpr) + 1);
+        return { weight: mean(atWeight) / dpr, head: mean(atHead) / dpr, h: H / dpr };
+      });
+      worst = Math.max(worst, Math.abs(r.weight - r.head));
+      if (!(r.weight > 0.15 * r.h && r.weight < 0.85 * r.h)) inside = false;
+    }
+    check('step 1: the weight\'s centre and the trace\'s head are one height', worst <= 1.5, `worst ${worst.toFixed(2)} px over 8 frames`);
+    check('step 1: five plucks later the weight is still on the sheet, not clipped', inside);
+    // a note survives a reload
+    await pg.fill('section.step[data-step="0"] textarea', 'a note that must survive');
+    await pg.reload(); await pg.waitForTimeout(300);
+    check('a note survives a reload', (await pg.inputValue('section.step[data-step="0"] textarea')) === 'a note that must survive');
+    await pg.evaluate(() => localStorage.clear());
+    await pg.close();
+  }
+
   // A hidden tab says nothing (Progressive Staging § Inside One Piece): playing, hide the tab, and the
   // sound stops; show it again, and it stays stopped until the next click. Both pages: the steps and the proof.
   const setHidden = (pg, hidden) => pg.evaluate((h) => {

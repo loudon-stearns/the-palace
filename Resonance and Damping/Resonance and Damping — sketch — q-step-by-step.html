@@ -88,20 +88,21 @@ sound: "nothing plays until a Pluck or Play button is clicked; the AudioContext 
   <section class="step" data-step="0" data-title="It rings">
     <div class="eyebrow">Step 1 of 6 · its own rate</div>
     <h2>A weight on a spring rings at one rate</h2>
-    <p class="say">Hang a weight on a spring and flick it. It bobs up and down at one rate, and the rate is its own: flick it harder and it bobs further, not faster. A stiffer spring pulls back harder, so it bobs faster. Here there is no friction at all, so once flicked it never stops.</p>
+    <p class="say">Hang a weight on a spring and flick it. It bobs up and down at one rate, and the rate is its own: flick it harder and it bobs further, not faster. A stiffer spring pulls back harder, so it bobs faster. A heavier weight is harder to turn round, so it bobs slower. Here there is no friction at all, so once flicked it never stops.</p>
     <div class="panel">
       <div class="bar"><span class="hint">the weight, flicked once, with nothing to slow it</span><button class="go" data-pluck>Pluck</button><button data-stop>Stop</button></div>
       <canvas data-canvas="spring" data-aspect="0.42"></canvas>
       <div class="legend">
-        <div><b>Left · the weight</b>Slowed down 300 times so the eye can follow it. The pitch you hear is the same motion at full speed.</div>
+        <div><b>Left · the weight</b>Slowed down 300 times so the eye can follow it. The pitch you hear is the same motion at full speed. The block grows with its weight; the wire thickens with its stiffness.</div>
         <div><b>Right · where it has been</b>Its height over the last few seconds, newest on the right. Every swing as tall as the last.</div>
       </div>
       <div class="ctl"><label for="s1k">spring stiffness</label><input id="s1k" type="range" min="0" max="1000" value="500"><span class="v" id="s1kv"></span></div>
+      <div class="ctl"><label for="s1w">weight</label><input id="s1w" type="range" min="0" max="1000" value="500"><span class="v" id="s1wv"></span></div>
       <div class="meter" id="s1m"></div>
       <div class="eq">f = √(k ÷ m) ÷ 2π</div>
       <div class="eq words">(how many bobs a second) = (the square root of stiffness over weight) ÷ (one turn of the circle)</div>
     </div>
-    <div class="try"><span class="eyebrow">Try</span>Make the spring four times as stiff and listen: one octave up. Then flick it a few times while it is already moving. The swing gets bigger or smaller, but the rate never changes.</div>
+    <div class="try"><span class="eyebrow">Try</span>Make the spring four times as stiff and listen: one octave up. Make the weight four times as heavy: one octave down. Do both and you are back where you started, because only stiffness over weight counts. Then flick it a few times while it is already moving. The swing gets bigger or smaller, but the rate never changes.</div>
     <textarea data-note placeholder="What your ear and eye say about its own rate"></textarea>
   </section>
 
@@ -227,6 +228,10 @@ const FS_DEFAULT = 48000;
 const SLOW = 300;                                               // the drawn weight runs 300 times slower than the sound
 function freqFromStiffness(k, m) { return Math.sqrt(k / m) / (2 * Math.PI); }
 function stiffnessFromFreq(f, m) { return m * Math.pow(2 * Math.PI * f, 2); }
+// the drawing's scale: the largest swing on screen, held push = 1, fits in 0.26 of the canvas height,
+// so the weight and its trace share one scale and neither is ever clipped
+const SWING_ROOM = 0.26;
+function swingScale(h, reach) { return SWING_ROOM * h / Math.max(1, reach); }
 function poleRadius(f, Q, fs) { return Q === Infinity ? 1 : Math.exp(-Math.PI * f / (Q * fs)); }
 function ringTime(f, Q) { return 3 * Math.LN10 / Math.PI * Q / f; }   // −60 dB: ln(1000)/(ζω) = (3 ln10 / π)·Q/f ≈ 2.2·Q/f
 // a held push moves the weight 1; a push at u times its own rate moves it gain(u, Q), lag(u, Q) degrees behind
@@ -263,6 +268,9 @@ function selfTest() {
   const out = [], near = (a, b, tol) => Math.abs(a - b) <= tol * Math.abs(b);
   const t = (step, name, a, b, tol) => out.push(`${near(a, b, tol) ? 'PASS' : 'FAIL'}  step ${step} · ${name}: ${a.toPrecision(4)} against ${b.toPrecision(4)}`);
   t(1, 'four times stiffer is an octave up', freqFromStiffness(4 * stiffnessFromFreq(220, 1), 1), 440, 1e-9);
+  t(1, 'four times heavier is an octave down', freqFromStiffness(stiffnessFromFreq(220, 1), 4), 110, 1e-9);
+  t(1, 'four times stiffer and four times heavier is where it started', freqFromStiffness(4 * stiffnessFromFreq(220, 1), 4), 220, 1e-9);
+  for (const a of [0.5, 1, 3, 40]) t(1, `a swing of ${a} fits the drawing, no clipping`, Math.min(a * swingScale(100, a), SWING_ROOM * 100), a * swingScale(100, a), 1e-9);
   t(1, 'no friction: the pole radius is 1', poleRadius(220, Infinity, FS_DEFAULT), 1, 0);
   t(2, 'ring time of the digital resonator, Q 20 at 220 Hz', measuredRing(220, 20, FS_DEFAULT), ringTime(220, 20), 0.03);
   t(2, 'ring time of the digital resonator, Q 5 at 1 kHz', measuredRing(1000, 5, FS_DEFAULT), ringTime(1000, 5), 0.03);
@@ -378,7 +386,7 @@ function fmtQ(Q) { return Q === Infinity ? 'none (no friction)' : Q < 10 ? Q.toF
 const S = {
   step: 0,
   f: 346.4,                                                      // the proof's default
-  k1: 500, q2: 724, u3: 250, u4: 250, q4: 450, u5: 500, q5: 450, s4src: 'sine', speed: false,
+  k1: 500, w1: 500, q2: 724, u3: 250, u4: 250, q4: 450, u5: 500, q5: 450, s4src: 'sine', speed: false,
 };
 let playing = null;                                              // which step's sound is on
 const sim = { x: 0, v: 0, t: 0, trail: [], tPush: 0 };          // the drawn weight
@@ -414,7 +422,10 @@ Q$('[data-stop]').forEach((b) => b.addEventListener('click', () => { silence(); 
 Q$('[data-play]').forEach((b) => b.addEventListener('click', onPlay));
 
 function bind(id, key, after) { $(id).value = S[key]; $(id).addEventListener('input', (e) => { S[key] = +e.target.value; if (after) after(); configureSound(); meters(); }); }
-bind('s1k', 'k1', () => { S.f = fFrom(S.k1); });
+const F0 = 346.4, mulFrom = (v) => Math.pow(4, (v - 500) / 500);   // the proof's default pitch; each slider ×¼ .. ×4
+function stepOneFreq() { return F0 * Math.sqrt(mulFrom(S.k1) / mulFrom(S.w1)); }
+bind('s1k', 'k1', () => { S.f = stepOneFreq(); });
+bind('s1w', 'w1', () => { S.f = stepOneFreq(); });
 bind('s2q', 'q2');
 bind('s3d', 'u3');
 bind('s4d', 'u4', () => stopSweep());
@@ -445,7 +456,8 @@ $('s4sweep').addEventListener('click', async () => {
 
 function meters() {
   const f = S.f, fv = f / SLOW;
-  $('s1kv').textContent = 'k × ' + (stiffnessFromFreq(f, 1) / stiffnessFromFreq(fFrom(500), 1)).toFixed(2);
+  $('s1kv').textContent = 'k × ' + mulFrom(S.k1).toFixed(2);
+  $('s1wv').textContent = 'm × ' + mulFrom(S.w1).toFixed(2);
   $('s1m').innerHTML = `rings at <b>${fmtHz(f)}</b> · one bob every ${fmtS(1 / f)} · drawn at ${fv.toFixed(2)} bobs a second`;
   const Q2 = qFrom(S.q2);
   $('s2qv').textContent = fmtQ(Q2);
@@ -482,11 +494,13 @@ function hatch(g, x0, y0, x1, y1, color) {
 }
 function label(g, text, x, y, color) { g.fillStyle = color || css('--ink-3'); g.font = '10.5px ' + css('--font-mono'); g.fillText(text, x, y); }
 
+const REST = 0.5;                                               // the weight's rest line and the trace's middle, as a share of the height
 // the weight on its spring, with the hand when pushing; scale: pixels per unit of "held push"
 function drawSpring(g, x0, w, h, pos, push, scale) {
-  const cx = x0 + w / 2, top = 18, rest = h * 0.55, y = rest + Math.max(-h * 0.28, Math.min(h * 0.38, pos * scale)), bw = Math.min(70, w * 0.4), bh = 34;
+  const big = Math.sqrt(mulFrom(S.w1));                          // block area grows with its weight
+  const cx = x0 + w / 2, top = 18, rest = h * REST, y = rest + pos * scale, bw = Math.min(70, w * 0.4) * big, bh = Math.min(34 * big, h * 0.15);
   hatch(g, cx - bw, 4, cx + bw, top, css('--rule')); g.strokeStyle = css('--ink'); g.lineWidth = 2; g.beginPath(); g.moveTo(cx - bw, top); g.lineTo(cx + bw, top); g.stroke();
-  const coils = 12, sy = top, ey = y - bh / 2; g.lineWidth = 1.5; g.beginPath(); g.moveTo(cx, sy);
+  const coils = 12, sy = top, ey = y - bh / 2; g.lineWidth = 0.6 + 1.1 * Math.sqrt(mulFrom(S.k1)); g.beginPath(); g.moveTo(cx, sy);
   for (let i = 1; i < coils * 2; i++) g.lineTo(cx + (i % 2 ? -14 : 14), sy + (ey - sy) * i / (coils * 2));
   g.lineTo(cx, ey); g.stroke();
   g.fillStyle = css('--slab-face'); g.fillRect(cx - bw / 2, y - bh / 2, bw, bh);
@@ -498,9 +512,16 @@ function drawSpring(g, x0, w, h, pos, push, scale) {
     label(g, 'push', cx + 8, ay + 16, css('--source-assumed'));
   }
 }
+// the weight's centre and the trace's newest point are one height: a dotted line joins them, a dot marks the head
+function drawLink(g, split, head, h, scale) {
+  const y = h * REST + sim.x * scale, bw = Math.min(70, split * 0.4) * Math.sqrt(mulFrom(S.w1));
+  g.strokeStyle = css('--accent'); g.lineWidth = 1; g.setLineDash([2, 3]);
+  g.beginPath(); g.moveTo(split / 2 + bw / 2, y); g.lineTo(head, y); g.stroke(); g.setLineDash([]);
+  g.fillStyle = css('--accent'); g.beginPath(); g.arc(split / 2, y, 2.5, 0, 7); g.fill(); g.beginPath(); g.arc(head, y, 3.5, 0, 7); g.fill();
+}
 // a trail of [t, x, push, speed] over the last span seconds
 function drawTrail(g, x0, w, h, span, scale, opts) {
-  const mid = h / 2, t1 = sim.t, t0 = t1 - span, X = (t) => x0 + w * (t - t0) / span;
+  const mid = h * REST, t1 = sim.t, t0 = t1 - span, X = (t) => x0 + w * (t - t0) / span;
   g.strokeStyle = css('--rule-soft'); g.lineWidth = 1; g.beginPath(); g.moveTo(x0, mid); g.lineTo(x0 + w, mid); g.stroke();
   const line = (idx, color, width, k) => { g.strokeStyle = color; g.lineWidth = width; g.beginPath(); let first = true;
     for (const p of sim.trail) { if (p[0] < t0) continue; const yy = Math.max(4, Math.min(h - 4, mid + p[idx] * scale * (k || 1))); first ? g.moveTo(X(p[0]), yy) : g.lineTo(X(p[0]), yy); first = false; } g.stroke(); };
@@ -565,10 +586,15 @@ function frame(now) {
     const [g, w, h] = fit(c); g.clearRect(0, 0, w, h);
     const kind = c.dataset.canvas, split = Math.min(220, w * 0.34);
     // keep the weight on the sheet: scale by the largest swing it will reach
-    const reach = pushing() ? Math.max(1.2, gain(u, Q === Infinity ? 1e6 : Q)) : 1.2, scale = (h * 0.32) / reach;
-    if (kind === 'spring') { drawSpring(g, 0, split, h, sim.x, null, h * 0.25); drawTrail(g, split + 10, w - split - 10, h, 4, h * 0.25, {}); }
-    if (kind === 'ring') { drawSpring(g, 0, split, h, sim.x, null, h * 0.25); drawRingFace(g, split + 10, w - split - 10, h, S.f, Q); }
-    if (kind === 'push') { drawSpring(g, 0, split, h, sim.x, live ? F : null, scale); drawTrail(g, split + 10, w - split - 10, h, 6, scale, { push: true }); }
+    // one scale for the weight and its trace: the largest swing on screen, and for a push its final pile-up, so
+    // the weight is never clipped and a growing swing is still seen to grow
+    let seen = Math.hypot(sim.x, sim.v / (2 * Math.PI * fv));
+    for (const p of sim.trail) seen = Math.max(seen, Math.abs(p[1]));
+    sim.reach = seen > (sim.reach || 1) ? seen : (sim.reach || 1) + (seen - (sim.reach || 1)) * 0.02;
+    const reach = Math.max(1, sim.reach, pushing() ? gain(u, Q === Infinity ? 1e6 : Q) : 0), scale = swingScale(h, reach);
+    if (kind === 'spring') { drawSpring(g, 0, split, h, sim.x, null, scale); drawTrail(g, split + 10, w - split - 18, h, 4, scale, {}); drawLink(g, split, w - 8, h, scale); }
+    if (kind === 'ring') { drawSpring(g, 0, split, h, sim.x, null, scale); drawRingFace(g, split + 10, w - split - 10, h, S.f, Q); }
+    if (kind === 'push') { drawSpring(g, 0, split, h, sim.x, live ? F : null, scale); drawTrail(g, split + 10, w - split - 18, h, 6, scale, { push: true }); drawLink(g, split, w - 8, h, scale); }
     if (kind === 'peak') drawPeakFace(g, w, h);
     if (kind === 'lag') { const half = w * 0.55; drawTrail(g, 0, half - 10, h, 4, scale, { push: true, speed: S.speed }); drawLagFace(g, half, w - half, h); }
   }
@@ -590,6 +616,12 @@ function go(i) {
 }
 $('back').addEventListener('click', () => go(S.step - 1));
 $('next').addEventListener('click', () => go(S.step + 1));
+// the notes boxes keep what is typed in this browser, so a reload or a closed tab loses nothing
+Q$('section.step').forEach((sec, i) => {
+  const ta = sec.querySelector('textarea'), key = 'resonance-and-damping/q-step-by-step/note-' + i;
+  try { const v = localStorage.getItem(key); if (v) ta.value = v; } catch (e) {}
+  ta.addEventListener('input', () => { try { localStorage.setItem(key, ta.value); } catch (e) {} });
+});
 $('copy').addEventListener('click', () => {
   const text = Q$('section.step').map((s, i) => (i + 1) + '. ' + s.dataset.title + ': ' + (s.querySelector('textarea').value || '—')).join('\n');
   const done = () => { $('copied').textContent = 'copied'; };
@@ -600,7 +632,7 @@ $('copy').addEventListener('click', () => {
 // again (no auto-resume). The house rule: Progressive Staging § Inside One Piece, _ops/rich-face/rich.js.
 document.addEventListener('visibilitychange', () => { if (document.hidden) { stopSweep(); silence(); } });
 
-S.f = fFrom(S.k1);
+S.f = stepOneFreq();
 Q$('button', rail)[0].setAttribute('aria-current', 'step'); Q$('button', rail)[0].classList.add('seen');
 $('back').disabled = true;
 meters();
