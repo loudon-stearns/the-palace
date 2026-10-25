@@ -7,7 +7,7 @@ first, then the batch.
 
   _tools/ComfyUI/venv/bin/python plates/make_plates.py --only 1     # one plate, look at it
   _tools/ComfyUI/venv/bin/python plates/make_plates.py              # all eight
-  _tools/ComfyUI/venv/bin/python plates/make_plates.py --init plates/reference/cyanotype-paper-init.png --denoise .6
+  _tools/ComfyUI/venv/bin/python plates/make_plates.py --init plates/reference/cyanotype-paper-init.png --denoise .55
       # img2img from Loudon's reference print's blank paper (2026-10-25): plate-r01 ... r08
 
 Needs ComfyUI running on 127.0.0.1:8188 (_tools/ComfyUI/main.py).
