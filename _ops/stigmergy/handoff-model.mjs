@@ -20,7 +20,7 @@
 //
 // Rungs 2–4 (lease/TTL, heartbeat→fade, dead-letter) are deferred by design.
 
-import { readFileSync } from 'node:fs';
+import { readFileSync, realpathSync } from 'node:fs';
 import { execSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { dirname, resolve } from 'node:path';
@@ -45,6 +45,29 @@ export function ownerRoot() {
     if (first) return first.slice('worktree '.length).trim();
   } catch { /* fall through */ }
   return resolve(HERE, '../..');
+}
+
+// Is a card's worktree coordinate still somewhere a catcher can go? Both must
+// hold: the directory is on disk, AND the owner's `git worktree list` names it
+// without a `prunable` mark. Neither alone is enough — a worktree deleted with
+// `rm -rf` instead of `git worktree remove` stays listed until a prune (git
+// marks it prunable), and a plain folder at the old path is not a worktree.
+// If git itself can't answer, the disk answers alone.
+export function worktreeLive(wt, root = ownerRoot()) {
+  if (!wt || typeof wt.dir !== 'string' || !wt.dir.trim()) return false;
+  const real = (d) => { try { return realpathSync(d); } catch { return null; } };
+  const dir = real(resolve(wt.dir));
+  if (!dir) return false;
+  let out;
+  try {
+    out = execSync('git worktree list --porcelain', { cwd: root, encoding: 'utf8', stdio: ['pipe', 'pipe', 'ignore'] });
+  } catch { return true; }
+  return out.split(/\n\s*\n/).some((block) => {
+    const lines = block.split('\n');
+    const head = lines.find((l) => l.startsWith('worktree '));
+    if (!head || lines.some((l) => l.startsWith('prunable'))) return false;
+    return real(head.slice('worktree '.length).trim()) === dir;
+  });
 }
 
 // The board to read/write: an explicit override (test scratch board), else the

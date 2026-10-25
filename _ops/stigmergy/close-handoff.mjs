@@ -35,7 +35,7 @@
 import { execSync } from 'node:child_process';
 import {
   ownerRoot, boardPath, loadBoard, foldHandoffs, resolveCard,
-  postMessage, slug, stamp, stubHealth, C,
+  postMessage, slug, stamp, stubHealth, worktreeLive, C,
 } from './handoff-model.mjs';
 
 // --- args -------------------------------------------------------------------
@@ -94,7 +94,19 @@ if (card.state === 'open') {
 
 // --- partial: build the remainder handoff_ready first (need its id) ----------
 let remainderMsg = null;
+let droppedWorktree = null;
 if (flags.partial) {
+  // The remainder lives where the work lives — but only while that worktree
+  // does. A coordinate copied forward unchecked sends the next catcher to a
+  // folder that is gone, and every later partial close copies it again.
+  const wt = p.worktree;
+  const keepWorktree = wt ? worktreeLive(wt, ROOT) : false;
+  if (wt && !keepWorktree) droppedWorktree = wt;
+  const deadLabel = droppedWorktree
+    ? `${droppedWorktree.branch || '(no branch)'} (${droppedWorktree.dir || 'no dir'})` : '';
+  // A receiving surface that names the dead worktree points at it too.
+  const surfaceNamesDead = droppedWorktree && p.receiving_surface
+    && [droppedWorktree.dir, droppedWorktree.branch].some((s) => s && p.receiving_surface.includes(s));
   remainderMsg = {
     schema_version: '1.0',
     id: `${slug(p.entry || selector)}-remainder-${stamp()}`,
@@ -109,10 +121,11 @@ if (flags.partial) {
       kind: 'handoff_ready',
       entry: p.entry,
       handoff_path: flags['remainder-baton'] || p.handoff_path,
-      receiving_surface: p.receiving_surface || 'Claude Code (Mac)',
+      receiving_surface: (!surfaceNamesDead && p.receiving_surface) || 'Claude Code (Mac)',
       move: flags.remainder,
-      worktree: p.worktree,                       // remainder lives where the work lives
-      note: `Spawned from the partial close of ${card.m.id}. The rest of that move remains.`,
+      worktree: keepWorktree ? wt : undefined,
+      note: `Spawned from the partial close of ${card.m.id}. The rest of that move remains.`
+        + (droppedWorktree ? ` Its worktree ${deadLabel} is gone, so this card names none.` : ''),
       invocation: p.entry ? `Read ${p.entry}.md and the baton, then pick up the remaining move.` : undefined,
     },
   };
@@ -167,6 +180,9 @@ console.log(`${C.G}✓ closed${C.R} — ${C.B}${p.entry}${C.R} (${completion}) r
 if (remainderMsg) {
   console.log(`${C.Y}◦ remainder re-batoned${C.R} — a fresh OPEN handoff for the rest: ${C.D}${remainderMsg.id}${C.R}`);
   console.log(`${C.D}  "${flags.remainder}"${C.R}`);
+}
+if (droppedWorktree) {
+  console.log(`${C.Y}◦ worktree dropped${C.R} — ${droppedWorktree.branch || '(no branch)'} (${droppedWorktree.dir || 'no dir'}) is gone; the remainder names no worktree.`);
 }
 
 // Housekeeping differs by completion, and getting it backwards strands the remainder:
