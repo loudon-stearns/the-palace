@@ -116,7 +116,3 @@ Without a revival, dormancy is a one-way door. With it, dormancy is a season, an
 ---
 
 *The version and what each revival taught the ceremony: [[Revival Ceremony — tuning]].*
-
-## Active Baton
-
-[[Revival Ceremony — baton]] — drafted 2026-10-25
