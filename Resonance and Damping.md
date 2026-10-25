@@ -147,3 +147,7 @@ Minted 2026-10-25. [[Differential Equations]] linked this page before it existed
 ---
 
 *"First of all one must observe that each pendulum has its own time of vibration so definite and determinate that it is not possible to make it move with any other period than that which nature has given it."* — Galileo Galilei, *Dialogues Concerning Two New Sciences* (1638; trans. Henry Crew and Alfonso de Salvio, 1914). Half right: see § Pushing it.
+
+## Active Baton
+
+[[Resonance and Damping — baton]] — drafted 2026-10-25
