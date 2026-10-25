@@ -66,11 +66,17 @@ def _frontmatter(p: Path):
     return None
 
 
+def _excluded(p: Path, root: Path):
+    """True when a folder under root is a system one. Only the parts below root are read: every
+    worktree lives under `.claude/worktrees/`, so the absolute path would exclude everything."""
+    return any(part in EXCLUDE_PARTS for part in p.relative_to(root).parts)
+
+
 def _entries(root: Path):
     """title -> relative path, for every .md carrying a canonical `type:` (the map's node rule)."""
     out = {}
     for p in root.rglob("*.md"):
-        if p.is_symlink() or any(part in EXCLUDE_PARTS for part in p.parts):
+        if p.is_symlink() or _excluded(p, root):
             continue
         fm = _frontmatter(p)
         if fm is None:
@@ -106,7 +112,7 @@ class _Resolver:
             bundle = page.parent if page.parent.name == title else page.with_suffix("")
             if bundle.is_dir():
                 for f in bundle.rglob("*"):
-                    if f.is_file() and not any(part in EXCLUDE_PARTS for part in f.parts):
+                    if f.is_file() and not _excluded(f, root):
                         self.bundle_file.setdefault(f.stem, title)
 
     def title(self, name: str):

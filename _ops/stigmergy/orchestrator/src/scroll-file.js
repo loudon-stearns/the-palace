@@ -348,10 +348,36 @@ export function existingEntryIds(text) {
   return ids;
 }
 
-/** Media files in a bundle (recursive, shallow-capped), palace-relative. */
+/**
+ * When each file under a folder was last committed: palace-relative path →
+ * author date (ISO), from one `git log` over the folder. A fresh checkout — a
+ * worktree — stamps every file with the day it was made, so the file's mtime
+ * says when the copy was written, not when the work was. Files git has not
+ * seen are absent; their mtime is the honest date. Never throws.
+ */
+export function gitLastTouchByPath(palaceRoot, dir) {
+  const dates = new Map();
+  try {
+    const out = execFileSync('git', ['-c', 'core.quotePath=false', 'log', '--format=%x1e%aI', '--name-only', '--relative', '--', relative(palaceRoot, dir) || '.'], {
+      cwd: palaceRoot, encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'], timeout: 10000, maxBuffer: 64 * 1024 * 1024,
+    });
+    for (const block of out.split('\x1e').slice(1)) {
+      const [ts, ...paths] = block.split('\n');
+      for (const p of paths) if (p && !dates.has(p)) dates.set(p, ts.trim()); // newest first: the first seen is the last touch
+    }
+  } catch { /* not a git checkout, or git is missing — mtime stands */ }
+  return dates;
+}
+
+/**
+ * Media files in a bundle (recursive, shallow-capped), palace-relative, newest
+ * first. Each is dated by its last commit, or by its mtime if it is not yet
+ * committed (gitLastTouchByPath says why).
+ */
 export function scanBundleMediaFiles(palaceRoot, bundleDir, { limit = 40 } = {}) {
   const out = [];
   if (!bundleDir || !existsSync(bundleDir)) return out;
+  const committed = gitLastTouchByPath(palaceRoot, bundleDir);
   const stack = [bundleDir];
   while (stack.length && out.length < limit) {
     const dir = stack.pop();
@@ -363,9 +389,10 @@ export function scanBundleMediaFiles(palaceRoot, bundleDir, { limit = 40 } = {})
       if (e.isDirectory()) { stack.push(abs); continue; }
       if (!MEDIA_EXT.has(extname(e.name).toLowerCase())) continue;
       if (/ — (hero|icon)\.png$/.test(e.name)) continue;
-      let mtime = null;
-      try { mtime = statSync(abs).mtime.toISOString(); } catch { /* ignore */ }
-      out.push({ path: relative(palaceRoot, abs), mtime });
+      const rel = relative(palaceRoot, abs);
+      let mtime = committed.has(rel) ? new Date(committed.get(rel)).toISOString() : null;
+      if (!mtime) try { mtime = statSync(abs).mtime.toISOString(); } catch { /* ignore */ }
+      out.push({ path: rel, mtime });
       if (out.length >= limit) break;
     }
   }
