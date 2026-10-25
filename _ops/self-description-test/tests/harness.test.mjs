@@ -120,7 +120,10 @@ test("due on a branch: owed until a birth holds the change, and never for a chan
     const runAt = (commit) => { fs.mkdirSync(s.runs, { recursive: true });
       for (const [n, id] of Object.keys(SCENARIOS).entries())
         fs.writeFileSync(path.join(s.runs, `2026-10-21 — birth-${7 + n} — ${id} — checks.json`), JSON.stringify({ run: { scenario: id, source_commit: commit } })); };
-    const due = () => node("due.mjs", ["--repo", s.repo, "--runs-dir", s.runs, "--since", "main"]);
+    // The floor measured at the change, so only the births decide here (floor.test.mjs covers the floor's own line).
+    const floor = path.join(s.root, "floor.json");
+    fs.writeFileSync(floor, JSON.stringify({ date: "2026-10-25", commit: after, dirty: [] }));
+    const due = () => node("due.mjs", ["--repo", s.repo, "--runs-dir", s.runs, "--floor", floor, "--since", "main"]);
 
     runAt(before);
     let r = due();
