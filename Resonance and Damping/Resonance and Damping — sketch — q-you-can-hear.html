@@ -421,6 +421,12 @@ function drawLag() {
   if (state.mode === 'drive') drawPeak();
   requestAnimationFrame(drawLag);
 }
+// A hidden tab says nothing: stop the sound and the sweep; the next play or strike starts it again (no auto-resume).
+document.addEventListener('visibilitychange', () => {
+  if (!document.hidden) return;
+  stopSweep();
+  if (ctx && ctx.state === 'running') ctx.suspend().then(showState);
+});
 window.addEventListener('resize', readouts);
 readouts(); drawLag();
 </script>

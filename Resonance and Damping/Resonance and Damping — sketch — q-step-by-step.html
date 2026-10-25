@@ -596,6 +596,10 @@ $('copy').addEventListener('click', () => {
   if (navigator.clipboard) navigator.clipboard.writeText(text).then(done, () => { $('copied').textContent = text; }); else $('copied').textContent = text;
 });
 
+// A hidden tab says nothing: stop the sound and the sweep, and wait for the next Pluck or Play to start
+// again (no auto-resume). The house rule: Progressive Staging § Inside One Piece, _ops/rich-face/rich.js.
+document.addEventListener('visibilitychange', () => { if (document.hidden) { stopSweep(); silence(); } });
+
 S.f = fFrom(S.k1);
 Q$('button', rail)[0].setAttribute('aria-current', 'step'); Q$('button', rail)[0].classList.add('seen');
 $('back').disabled = true;

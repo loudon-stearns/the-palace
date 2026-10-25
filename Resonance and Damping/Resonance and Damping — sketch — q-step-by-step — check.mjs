@@ -12,7 +12,8 @@
 // 2. The page, in headless Chromium, from file:// as a link from Obsidian or Finder opens it: no page
 //    errors, no AudioContext before a click, every step reached by Next with exactly one showing, every
 //    step's Pluck or Play makes sound, leaving a step silences it, and the last step's link reaches the
-//    proof. Pattern: the Dissolutions learning sequences' check-sequences.mjs.
+//    proof. Then, on this page and on the proof, a hidden tab stops the sound and showing it again does
+//    not restart it. Pattern: the Dissolutions learning sequences' check-sequences.mjs.
 
 import { readFileSync, existsSync, mkdirSync } from 'node:fs';
 import { join, dirname } from 'node:path';
@@ -72,6 +73,29 @@ if (chromium) {
   const href = await p.evaluate(() => document.querySelector('a.proof-link').getAttribute('href'));
   check('the last step reaches the proof', existsSync(join(HERE, decodeURIComponent(href))), decodeURIComponent(href));
   check('no page errors', errors.length === 0, errors.slice(0, 3).join(' | '));
+
+  // A hidden tab says nothing (Progressive Staging § Inside One Piece): playing, hide the tab, and the
+  // sound stops; show it again, and it stays stopped until the next click. Both pages: the steps and the proof.
+  const setHidden = (pg, hidden) => pg.evaluate((h) => {
+    Object.defineProperty(document, 'hidden', { configurable: true, get: () => h });
+    Object.defineProperty(document, 'visibilityState', { configurable: true, get: () => (h ? 'hidden' : 'visible') });
+    document.dispatchEvent(new Event('visibilitychange'));
+  }, hidden);
+  const hiddenCase = async (file, label, startSel) => {
+    const pg = await b.newPage();
+    await pg.route(/^https?:\/\//, (r) => r.abort());
+    await pg.goto(pathToFileURL(join(HERE, file)).href);
+    for (const sel of startSel) { await pg.click(sel); await pg.waitForTimeout(300); }
+    let running = false; for (let k = 0; k < 50 && !running; k++) { await pg.waitForTimeout(20); running = await pg.evaluate(() => !!ctx && ctx.state === 'running'); }
+    check(`${label}: playing before the tab is hidden`, running);
+    await setHidden(pg, true); await pg.waitForTimeout(400);
+    check(`${label}: hiding the tab stops the sound`, await pg.evaluate(() => ctx.state !== 'running'));
+    await setHidden(pg, false); await pg.waitForTimeout(600);
+    check(`${label}: showing it again does not start the sound`, await pg.evaluate(() => ctx.state !== 'running'));
+    await pg.close();
+  };
+  await hiddenCase('Resonance and Damping — sketch — q-step-by-step.html', 'the steps, step 3 pushing', ['#next', '#next', 'section.step[data-step="2"] [data-play]']);
+  await hiddenCase('Resonance and Damping — sketch — q-you-can-hear.html', 'the proof, sweeping', ['#sweep']);
   await b.close();
 }
 console.log(fails ? `\n${fails} FAILED` : '\nALL PASS');
