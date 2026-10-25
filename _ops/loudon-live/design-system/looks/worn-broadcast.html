@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Loud’n Live · Worn Broadcast</title>
+<!--
+  Loud'n Live · look: WORN BROADCAST  (the first complete look; Loudon, 2026-10-25)
+
+  A whole look, not a skin: palette, type, texture and motion travel together.
+  The signal is wearing out on old hardware. STIGMERGY's phosphor and grammar,
+  carried most of the way; Anton, the amber LIVE and the Lissajous sigil keep it
+  Loud'n Live and not the board.
+
+  Palette
+    ground      #040805   green-black, STIGMERGY's ground
+    fg          #eaf8ee   phosphor white
+    phosphor    #33ff66   structure, eyebrows, the trace
+    dim         #1f8a3c   metadata, frame, the board's secondary
+    board       #0e3d1d / #1f6b35 / #1b5f2e   circuit traces, pads, silkscreen
+    amber       #ffb000   LIVE alone, with bloom; the cursor
+    cyan        #7fdbff   handles, links, and the cyan side of the colour fringe
+    fringe red  rgba(255,40,90,.75)   the red side of the fringe
+    on air      #ff2a2a   the pulsing dot
+  Type
+    Anton (wordmark) · IBM Plex Mono (title, frame, labels) · VT323 (eyebrow,
+    strip, signal messages)
+  Texture
+    an old circuit board behind (op-amp, valve socket, silkscreen, scorch,
+    "REV B 1978"); the sigil on a round tube face with a graticule; a red
+    label-maker strip for the session; scanlines; film grain; a rolling hold
+    bar; a burned-in ghost; vignette
+  Motion
+    the trace with phosphor persistence; every few seconds one glitch: a tear
+    (a strip shifts sideways, the fringe widens) or a scramble of the title.
+    Never constant. The on-air dot pulses; the cursor blinks in steps().
+  Reduced motion: no glitches, no roll, the trace still.
+
+  Fill it from the URL (OBS browser source):
+    ?session=SESSION%2001&topic=WAVETABLE%20SCANNER&handle=@ldn
+    &title=live%20build%20·%20scanning%20a%20wavetable%20by%20hand
+    &link=→%20palace/wavetable-scanner&status=ON%20AIR&ghost=STARTING%20SOON
+-->
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Mono:wght@400;600&family=VT323&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --wb-ground: #040805; --wb-fg: #eaf8ee; --wb-phosphor: #33ff66; --wb-dim: #1f8a3c;
+    --wb-amber: #ffb000; --wb-cyan: #7fdbff; --wb-fringe-red: rgba(255,40,90,.75); --wb-onair: #ff2a2a;
+  }
+  * { box-sizing: border-box; margin: 0; }
+  html, body { height: 100%; background: #000; overflow: hidden; }
+  .stage { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; }
+  .slide { width: 1920px; height: 1080px; flex: none; position: relative; overflow: hidden; container-type: inline-size; isolation: isolate;
+           background: var(--wb-ground); color: var(--wb-fg); --split: .3cqw; transform-origin: center center; }
+  .slide > canvas, .slide > svg { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+  svg.pcb { z-index: 0; opacity: .9; }
+  canvas.trace { z-index: 1; }
+  .tube { position: absolute; z-index: 1; left: calc(72% - 23cqw); top: calc(46% - 23cqw); width: 46cqw; aspect-ratio: 1; border-radius: 50%;
+          border: .35cqw solid #16241a; box-shadow: inset 0 0 4cqw rgba(51,255,102,.07), 0 0 0 .5cqw #0a120c, 0 0 0 .62cqw #1f3a26; pointer-events: none; }
+  .burn { position: absolute; z-index: 1; right: 4cqw; bottom: 2cqw; font-family: 'VT323', monospace; font-size: 15cqw; line-height: 1; color: rgba(51,255,102,.035); pointer-events: none; white-space: nowrap; }
+  .layer, .tear { position: absolute; inset: 0; padding: 5.5cqw 6.5cqw; display: flex; flex-direction: column; z-index: 3; }
+  .tear { z-index: 4; pointer-events: none; visibility: hidden; background: var(--wb-ground); }
+  .tear.on { visibility: visible; }
+  .tag-row { display: flex; gap: 1.6cqw; align-items: center; }
+  .dymo { font-family: 'IBM Plex Mono', monospace; font-weight: 600; font-size: 1.5cqw; letter-spacing: .14em; color: #f2efe6; background: #b3241c;
+          padding: .45cqw 1cqw .4cqw; transform: rotate(-1.2deg); box-shadow: inset 0 -.15cqw 0 rgba(0,0,0,.35), 0 .12cqw 0 rgba(0,0,0,.6); }
+  .eyebrow { font-family: 'VT323', monospace; font-size: 2.3cqw; letter-spacing: .1em; color: var(--wb-phosphor); text-shadow: 0 0 .8cqw rgba(51,255,102,.55); }
+  .wordmark { font-family: 'Anton', sans-serif; font-size: 9cqw; line-height: .95; margin-top: auto; color: var(--wb-fg);
+              text-shadow: calc(var(--split) * -1) 0 var(--wb-fringe-red), var(--split) 0 rgba(127,219,255,.75), 0 0 2cqw rgba(51,255,102,.2); }
+  .wordmark .live { color: var(--wb-amber);
+              text-shadow: calc(var(--split) * -1) 0 rgba(255,40,90,.8), var(--split) 0 rgba(127,219,255,.8), 0 0 .7cqw rgba(255,176,0,.85), 0 0 2.6cqw rgba(255,176,0,.45), 0 0 5cqw rgba(255,176,0,.2); }
+  .title { font-family: 'IBM Plex Mono', monospace; font-size: 2.55cqw; line-height: 1.25; margin-top: 2cqw; max-width: 55%; }
+  .cursor { display: inline-block; width: .55em; height: 1em; vertical-align: -.12em; background: var(--wb-amber); margin-left: .15em; animation: blink 1.06s steps(1) infinite; }
+  .strip { margin-top: 3cqw; display: flex; align-items: center; gap: 1.1cqw; font-family: 'VT323', monospace; font-size: 2.1cqw; letter-spacing: .1em; color: var(--wb-dim); }
+  .strip .on { color: var(--wb-onair); }
+  .cyan { color: var(--wb-cyan); text-shadow: 0 0 .6cqw rgba(127,219,255,.5); }
+  .corner { position: absolute; z-index: 3; right: 3cqw; bottom: 2.4cqw; font-family: 'IBM Plex Mono', monospace; font-size: 1.35cqw; color: var(--wb-dim); white-space: pre; }
+  .dot { width: 1.05cqw; height: 1.05cqw; border-radius: 50%; background: var(--wb-onair); box-shadow: 0 0 .6cqw rgba(255,42,42,.9), 0 0 1.6cqw rgba(255,42,42,.5); animation: pulse 1.6s ease-in-out infinite; }
+  @keyframes pulse { 50% { opacity: .45; } }
+  @keyframes blink { 50% { opacity: 0; } }
+  canvas.grain { z-index: 5; mix-blend-mode: screen; opacity: .08; pointer-events: none; }
+  .slide::before { content: ''; position: absolute; inset: 0; z-index: 6; pointer-events: none; background: repeating-linear-gradient(180deg, rgba(0,0,0,.28) 0 1px, transparent 1px 3px); }
+  .slide::after { content: ''; position: absolute; left: 0; right: 0; height: 22%; top: -22%; z-index: 6; pointer-events: none;
+                  background: linear-gradient(180deg, transparent, rgba(180,255,200,.045) 45%, rgba(180,255,200,.07) 50%, transparent); animation: roll 7s linear infinite; }
+  @keyframes roll { to { transform: translateY(560%); } }
+  .vignette { position: absolute; inset: 0; z-index: 6; pointer-events: none; background: radial-gradient(120% 95% at 50% 50%, transparent 55%, rgba(0,0,0,.55) 100%); }
+  @media (prefers-reduced-motion: reduce) { .dot, .cursor, .slide::after { animation: none; } }
+</style>
+</head>
+<body>
+<div class="stage"><div class="slide" data-screen-label="Worn Broadcast">
+  <svg class="pcb" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <g fill="none" stroke="#0e3d1d" stroke-width="5" stroke-linejoin="round" stroke-linecap="round">
+      <path d="M-10 640 H210 L260 590 H520 L560 550 V430"/><path d="M-10 700 H300 L340 740 H640 L700 680 H880"/>
+      <path d="M120 900 V800 L170 750 H420"/><path d="M560 430 L610 380 H760"/>
+      <path d="M40 120 H260 L310 170 V300 L350 340 H480"/><path d="M40 160 H230 L270 200 V330"/>
+      <path d="M880 680 L930 630 V560"/><path d="M640 900 V820 L690 770 H900 L950 820 H1600"/>
+      <path d="M760 80 H1000 L1040 40 H1600"/><path d="M700 120 H900"/>
+    </g>
+    <g fill="none" stroke="#0b2f17" stroke-width="2.5">
+      <path d="M-10 610 H190 L240 560 H500"/><path d="M-10 730 H280 L320 770 H620"/><path d="M520 860 H760 L800 820"/>
+    </g>
+    <g fill="#04110a" stroke="#1f6b35" stroke-width="3">
+      <circle cx="560" cy="430" r="10"/><circle cx="760" cy="380" r="10"/><circle cx="480" cy="340" r="10"/>
+      <circle cx="270" cy="330" r="10"/><circle cx="880" cy="680" r="10"/><circle cx="930" cy="560" r="10"/>
+      <circle cx="420" cy="750" r="10"/><circle cx="900" cy="120" r="8"/><circle cx="700" cy="120" r="8"/>
+    </g>
+    <g fill="none" stroke="#1a5a2c" stroke-width="2.5">
+      <rect x="610" y="455" width="150" height="70"/><path d="M610 480 a10 10 0 0 1 0 20"/>
+      <circle cx="360" cy="470" r="62"/><circle cx="360" cy="470" r="44" stroke-dasharray="6 9"/>
+      <rect x="300" y="610" width="90" height="28"/><rect x="200" y="235" width="28" height="80"/><rect x="760" y="730" width="34" height="80"/>
+    </g>
+    <g fill="#1f6b35">
+      <circle cx="625" cy="455" r="5"/><circle cx="655" cy="455" r="5"/><circle cx="685" cy="455" r="5"/><circle cx="715" cy="455" r="5"/>
+      <circle cx="625" cy="525" r="5"/><circle cx="655" cy="525" r="5"/><circle cx="685" cy="525" r="5"/><circle cx="715" cy="525" r="5"/>
+    </g>
+    <g font-family="IBM Plex Mono, monospace" font-size="17" fill="#1b5f2e" letter-spacing="1">
+      <text x="615" y="550">U3  TL072</text><text x="300" y="560">V1  12AX7</text><text x="300" y="604">R12 100K</text>
+      <text x="236" y="250">R7 1K5</text><text x="804" y="760">C4 47n</text><text x="36" y="104">J1 IN</text>
+      <text x="1010" y="26">GND</text><text x="36" y="872">LL-01 REV B  1978</text>
+    </g>
+    <ellipse cx="300" cy="700" rx="120" ry="40" fill="rgba(40,22,6,.35)"/>
+  </svg>
+  <canvas class="trace"></canvas>
+  <div class="tube"></div>
+  <div class="burn" data-f="ghost">STARTING SOON</div>
+  <div class="layer">
+    <div class="tag-row"><span class="dymo" data-f="session">SESSION 01</span><span class="eyebrow">&gt; <span data-f="topic">WAVETABLE SCANNER</span> // <span class="cyan" data-f="handle">@ldn</span></span></div>
+    <div class="wordmark">LOUD’N <span class="live">LIVE</span></div>
+    <div class="title"><span class="scramble" data-f="title">live build · scanning a wavetable by hand</span><span class="cursor"></span></div>
+    <div class="strip"><span class="dot"></span><span class="on" data-f="status">ON AIR</span> · <span class="cyan" data-f="link">→ palace/wavetable-scanner</span></div>
+  </div>
+  <div class="tear"></div>
+  <div class="corner">CH 3 · 625 LINES</div>
+  <canvas class="grain" width="320" height="180"></canvas>
+  <div class="vignette"></div>
+</div></div>
+
+<script>
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const slide = document.querySelector('.slide');
+
+// fill from the URL
+const q = new URLSearchParams(location.search);
+document.querySelectorAll('[data-f]').forEach(n => { const v = q.get(n.dataset.f); if (v !== null) n.textContent = v; });
+
+// fit 1920×1080 to the window
+function fit() { slide.style.transform = `scale(${Math.min(innerWidth / 1920, innerHeight / 1080)})`; }
+fit(); addEventListener('resize', fit);
+
+// the trace: Lissajous 3:5 on the tube face, phosphor persistence
+const cv = document.querySelector('canvas.trace'), ctx = cv.getContext('2d');
+cv.width = 1920; cv.height = 1080;
+const W = 1920, H = 1080, R = H * .33, CX = W * .72, CY = H * .46;
+const pt = (s, ph) => [CX + R * Math.sin(3 * s + ph), CY + R * Math.sin(5 * s)];
+let t = Math.random() * 10;
+function trace() {
+  const ph = t * .12;
+  ctx.clearRect(0, 0, W, H);
+  ctx.strokeStyle = 'rgba(51,255,102,.10)'; ctx.lineWidth = 1.4;
+  for (let i = -4; i <= 4; i++) {
+    ctx.beginPath(); ctx.moveTo(CX + i * R / 4, CY - R * 1.15); ctx.lineTo(CX + i * R / 4, CY + R * 1.15); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(CX - R * 1.15, CY + i * R / 4); ctx.lineTo(CX + R * 1.15, CY + i * R / 4); ctx.stroke();
+  }
+  ctx.beginPath();
+  for (let i = 0; i <= 900; i++) { const [x, y] = pt(i / 900 * Math.PI * 2, ph); i ? ctx.lineTo(x, y) : ctx.moveTo(x, y); }
+  ctx.strokeStyle = '#33ff66'; ctx.globalAlpha = .14; ctx.stroke();
+  const head = t * .9, N = 160, span = Math.PI * 1.1;
+  ctx.lineCap = 'round'; ctx.lineWidth = 3.6; ctx.shadowColor = '#33ff66'; ctx.shadowBlur = 17;
+  let [px, py] = pt(head - span, ph);
+  for (let i = 1; i <= N; i++) {
+    const [x, y] = pt(head - span + span * i / N, ph);
+    ctx.globalAlpha = Math.pow(i / N, 2.2); ctx.beginPath(); ctx.moveTo(px, py); ctx.lineTo(x, y); ctx.stroke(); px = x; py = y;
+  }
+  ctx.shadowBlur = 0; ctx.globalAlpha = 1;
+}
+
+// grain
+const gcv = document.querySelector('canvas.grain'), gctx = gcv.getContext('2d'), img = gctx.createImageData(gcv.width, gcv.height);
+function grain() {
+  const d = img.data;
+  for (let i = 0; i < d.length; i += 4) { const v = Math.random() * 255; d[i] = v * .8; d[i + 1] = v; d[i + 2] = v * .85; d[i + 3] = 255; }
+  gctx.putImageData(img, 0, 0);
+}
+
+// one glitch every few seconds: a tear or a scramble
+const layer = slide.querySelector('.layer'), tear = slide.querySelector('.tear'), scr = slide.querySelector('.scramble');
+const GLYPHS = '▓▒░█▌▐#%&@$';
+function doTear() {
+  tear.innerHTML = layer.innerHTML;
+  const top = Math.random() * 85, h = 2 + Math.random() * 7, dx = (Math.random() - .5) * 4;
+  tear.style.clipPath = `inset(${top}% 0 ${Math.max(0, 100 - top - h)}% 0)`;
+  tear.style.transform = `translateX(${dx}cqw)`;
+  tear.style.filter = Math.random() < .5 ? 'hue-rotate(120deg) brightness(1.3)' : 'none';
+  tear.classList.add('on');
+  slide.style.setProperty('--split', `${.3 + Math.random() * .6}cqw`);
+  setTimeout(() => { tear.classList.remove('on'); slide.style.setProperty('--split', '.3cqw'); }, 60 + Math.random() * 90);
+}
+function doScramble() {
+  const original = scr.textContent; let n = 0;
+  const iv = setInterval(() => {
+    scr.textContent = [...original].map(ch => ch !== ' ' && Math.random() < .18 ? GLYPHS[Math.random() * GLYPHS.length | 0] : ch).join('');
+    if (++n > 5) { clearInterval(iv); scr.textContent = original; }
+  }, 45);
+}
+if (!reduce) (function loop() { Math.random() < .6 ? doTear() : doScramble(); setTimeout(loop, 2200 + Math.random() * 3200); })();
+
+let f = 0;
+(function frame() { t += .016; trace(); if (f++ % 3 === 0) grain(); if (!reduce) requestAnimationFrame(frame); })();
+</script>
+</body>
+</html>

@@ -66,7 +66,7 @@ To make adding a projection cheap *forever*, three things are fixed and one thin
 ### Loud'n Live
 - room:     the channel · public teaching
 - tone:     out loud · in progress
-- skin:     Graphite (its home)
+- skin:     Worn Broadcast (its first look, 2026-10-25); Graphite was its home before
 - wordmark: LOUD'N LIVE display / Loud'n Live prose (case-matches its run)
 - gloss:    The one with the pun. The projection with the most structure.
 - status:   active

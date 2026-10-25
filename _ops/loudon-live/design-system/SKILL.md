@@ -6,13 +6,17 @@ user-invocable: true
 
 # Loudon Live · design skill
 
-Loudon Live is Loudon's public self — streams and builds, the RTM series, the palace in public, his music — where instruments get built, sound gets studied, and music gets played. The visual system is a **floor, not a cage**: a tiny non-negotiable floor (the studio voice, the Lissajous sigil, the nevers — no cyan / no emoji / no hype) keeps everything recognizably Loudon, and a wide field above it is meant to vary. The **house style** below (Anton / Cormorant / Manrope / JetBrains type, six skins, the wordmark) is the reliable default to reach for — steady grammar, fresh skin per stream — but a projection may depart from it. Loudon presents as many projections (loudon, LDN, Loud'n Live, Professor Compressor, Sonic Sensei, TRICKSTER); the house style is the home of the **Loud'n Live** projection specifically. Hold the floor always; treat the house style as default, not law.
+Loudon Live is Loudon's public self — streams and builds, the RTM series, the palace in public, his music — where instruments get built, sound gets studied, and music gets played. The visual system is a **floor, not a cage**: a tiny non-negotiable floor (the studio voice, the Lissajous sigil, the nevers — no emoji / no hype) keeps everything recognizably Loudon, and a wide field above it is meant to vary. The **house style** below (Anton / Cormorant / Manrope / JetBrains type, six skins, the wordmark) is the reliable default to reach for — steady grammar, fresh skin per stream — but a projection may depart from it. Loudon presents as many projections (loudon, LDN, Loud'n Live, Professor Compressor, Sonic Sensei, TRICKSTER); the house style is the home of the **Loud'n Live** projection specifically. Hold the floor always; treat the house style as default, not law.
 
 ## How to use this skill
 
 1. Read `README.md` in full. It carries the **content fundamentals** (voice, casing, person, no-emoji rule, do/don't copy), the **visual foundations** (type, the six palettes, the six generative elements, spacing, radii, motion, hover/press/focus, transparency rules), and the **iconography** position (typographic glyphs + the Lissajous trace + the LL monogram — and explicitly no emoji and no CDN icon set).
 2. Read `colors_and_type.css`. It is the canonical source of every token used by every artifact. Switch palette by setting one of `skin-graphite | skin-amber-lab | skin-crt | skin-strobe | skin-cobalt-grid | skin-drafting` on the document root. Graphite is the default. (The CSS still honours the deprecated aliases `skin-teal-patch | skin-dusk-tape | skin-bone-synth`, but new artifacts use the canonical names.)
 3. Browse `assets/` (brand marks + per-stream generators), `slides/` (OBS card templates), `ui_kits/session-artifact/` (long-form session page) and `ui_kits/stream-overlay/` (live composite).
+
+## Looks
+
+Loud'n Live wears complete looks: palette, type, texture and motion travel together and are worn whole, unlike a skin. There will be a few. The first is **Worn Broadcast** (Loudon, 2026-10-25), `looks/worn-broadcast.html`: STIGMERGY's phosphor and grammar carried most of the way, with Anton, the amber LIVE and the Lissajous sigil keeping it Loud'n Live. Its header comment is the spec. Fill it from its URL for an OBS browser source (`?session=…&topic=…&handle=…&title=…&link=…&status=…&ghost=…`). When the artifact is Loud'n Live itself, reach for a look; the six-skin house style stays the default for everything else the public channel shows.
 
 ## What to make
 

@@ -12,7 +12,7 @@ energy: high
 forward_vector: >
   I am the floor beneath Loudon's many projections, not a cage around them. The small
   fixed nature I actually hold is tiny — the studio voice, the Lissajous sigil,
-  and a few nevers (no cyan, no emoji, no hype) — and that is enough to let
+  and a few nevers (no emoji, no hype) — and that is enough to let
   loudon, LDN, Loud'n Live, Professor Compressor, Sonic Sensei, and TRICKSTER all
   read as recognizably him. My six-skin house style is a reliable default to
   reach for, never a law to obey; a projection may wear it or depart from it. I keep
@@ -93,9 +93,9 @@ Loudon is not a rigid brand and not a *loose* one either — he is a **multiline
 
 - **The voice** — studio register, generous to makers, curious, playful through restraint, honesty as a light touch. The most durable thing here, and it isn't even visual. (Full rules under [Voice](#voice-the-heart-of-the-floor).)
 - **The sigil** — the [[Hyperdimensional Prism|Lissajous scope]], present on any projection. It needn't be big; it needs to be *there*.
-- **The nevers** — no cyan, no emoji / no CDN icon library, no hype (no outcome-promising titles). Negatives are the strongest invariant: they exclude the off-brand while permitting infinite on-brand.
+- **The nevers** — no emoji / no CDN icon library, no hype (no outcome-promising titles). Negatives are the strongest invariant: they exclude the off-brand while permitting infinite on-brand.
 
-**The field (open, encouraged).** Everything else. The six-skin house style below is the reliable *default* — the visual home of the **Loud'n Live** projection — but Loudon presents as many projections (loudon, LDN, Professor Compressor, Sonic Sensei, TRICKSTER…), each free to wear the house style or depart from it. The multiplicity is the message: shown together, the projections read as *range*, which is what [[Autodidact Polymaths|polymath]] looks like from outside. This is the [[The Multilinear Self|multilinear self]] made visual — one nature, many projections — of which this design system is the [[Trickster]]-switched surface. The living list is the [[The Multilinear Self — projection roster|projection roster]].
+**The field (open, encouraged).** Everything else. The six-skin house style below is the reliable *default* for what the public channel shows; the **Loud'n Live** projection itself wears its own complete looks ([§ Looks](#looks)). Loudon presents as many projections (loudon, LDN, Professor Compressor, Sonic Sensei, TRICKSTER…), each free to wear the house style or depart from it. The multiplicity is the message: shown together, the projections read as *range*, which is what [[Autodidact Polymaths|polymath]] looks like from outside. This is the [[The Multilinear Self|multilinear self]] made visual — one nature, many projections — of which this design system is the [[Trickster]]-switched surface. The living list is the [[The Multilinear Self — projection roster|projection roster]].
 
 **When in doubt:** hold the floor, reach for the house style, and depart from it deliberately when a projection wants its own look.
 
@@ -105,7 +105,7 @@ The system is named **Loudon Live** because it was built to express the channel'
 
 ## The house style (the default projection)
 
-This is the **default dress** for public work — the reliable go-to and the visual home of the **Loud'n Live** projection. It is a strong default, *not* a law: a projection may wear all of it, some of it, or depart entirely when it genuinely wants its own look. What's truly non-negotiable is the floor above; what follows is the house style below it. Within the house style, the grammar holds steady and the skin rotates.
+This is the **default dress** for public work — the reliable go-to for everything the public channel shows. The **Loud'n Live** projection wears its own looks instead ([§ Looks](#looks)). It is a strong default, *not* a law: a projection may wear all of it, some of it, or depart entirely when it genuinely wants its own look. What's truly non-negotiable is the floor above; what follows is the house style below it. Within the house style, the grammar holds steady and the skin rotates.
 
 **The house grammar** (steady default — depart only when a projection wants its own look):
 
@@ -131,6 +131,14 @@ This is the **default dress** for public work — the reliable go-to and the vis
 | **Drafting** | `#f0eee5` | engineering red `#c8261a` | schematic / build instructions |
 
 **Per-stream generative element** rotates from the six in `assets/generators/`: lissajous-bundle, modular-grid, particle-field, spectral-bands, waveform-stack, plus the canonical [[Hyperdimensional Prism|Lissajous trace]]. Each carries a conceptual handle — use them when relevant, not as decoration.
+
+## Looks
+
+A **look** is a complete dress for one projection. Palette, type, texture and motion travel together and are worn whole, where a skin swaps only the palette over a fixed grammar. Loud'n Live wears looks, and there will be a few. Loudon, 2026-10-25: *"lets commit the approved one as one complete look for Loud'N Live, with the recognition that there will be a few."*
+
+**Worn Broadcast** (2026-10-25) is the first: `looks/worn-broadcast.html` in the system's folder. A signal wearing out on old hardware. STIGMERGY's phosphor and grammar ([[BBS Design System]]) are carried most of the way; Anton, the amber LIVE and the Lissajous sigil keep it Loud'n Live and not the board. An old circuit board sits behind, the sigil glows on a round tube face, and every few seconds one glitch comes (a tear or a scramble, never constant). Cyan carries handles and links. On first sight Loudon said: *"E is the perfect hit, record that as a clear win."* The file's header comment is the look's spec (palette, type, texture, motion), and the file fills itself from its URL, so it drops into OBS as a browser source.
+
+The six-skin house style stays the public channel's default dress for everything else.
 
 ## Voice (the heart of the floor)
 
@@ -173,6 +181,7 @@ _ops/loudon-live/design-system/
 ├── README.md             ← full design rationale (read this first)
 ├── colors_and_type.css   ← canonical source of every token
 ├── index.html            ← system overview / cover page
+├── looks/                ← Loud'n Live's complete looks (worn-broadcast.html, the first)
 ├── assets/               ← Lissajous logos, wordmark, monogram, watermark, avatar
 │   └── generators/       ← six per-stream generative SVGs
 ├── preview/              ← specimen cards (type / colors / spacing / components)
@@ -255,7 +264,6 @@ Two lists, deliberately separated. The floor survives *every* projection, skin, 
 **The floor — non-negotiable, survives every projection:**
 
 - **No emoji. No CDN icon library.** Typographic glyphs and the Lissajous trace are the only iconography.
-- **No cyan.** Anywhere. Ever. The earlier teal callout is dead; change-notes use info-blue.
 - **No hype.** No outcome-promising titles or session names.
 - **First-person and collaborative voice.** Never "subscribe and hit the bell," never "students," never "audience."
 - **The Lissajous sigil is present** somewhere on the artifact — small is fine.
@@ -274,13 +282,13 @@ Arrived May 2026 as a Claude Design handoff bundle, Loudon's second design-syste
 
 ## What Comes Next
 
-The [[Loudon Live Design System — baton|baton]] of 2026-10-14 asks for a rethink of the Loud'n Live look with Loudon, so it stops resembling what many others online wear: pull in STIGMERGY's cyberpunk "loud" feeling, and blend toward the STIGMERGY look, but not all the way. The first conversation settles whether that changes the house style or gives Loud'n Live a look of its own, and whether "no cyan" holds. In the same files, the system's text catches up with the 2026-10-14 portrait of Loud'n Live.
+The rethink the [[Loudon Live Design System — baton|baton]] of 2026-10-14 asked for has its first answer: Loud'n Live wears looks of its own, Worn Broadcast is the first, and "no cyan" is retired ([§ Looks](#looks)). Two things are still open. A second look, the hand-drafted blueprint, is in the bundle's workshop. And the system's text still has to catch up with the 2026-10-14 portrait of Loud'n Live, here and in `SKILL.md` and `README.md`.
 
 ## Cross-Domain Resonances
 
 - **[[Hyperdimensional Prism]]** — the Lissajous-in-sphere essay is the visual identity's philosophical core. The patch that generates the logo is itself a pedagogical artifact.
 - **[[Progressive Staging]]** — locked grammar / fresh skin mirrors stage-by-stage release: the constant teaches recognition, the variant teaches recombination.
-- **[[Quality Manifesto]]** — the system's restraint (no cyan, no emoji, radii ≤ 4 px, one accent glow per view) is what taste-as-policy looks like in CSS.
+- **[[Quality Manifesto]]** — the system's restraint (no emoji, radii ≤ 4 px, one accent glow per view) is what taste-as-policy looks like in CSS.
 - **[[Playful Interface Design]]** — the italic-light *Live* trick, the typographic glyphs, the studio register: play through restraint, not through flourish.
 - **[[BBS Design System]]** — sibling system. Reading them side-by-side teaches the difference between editorial register and terminal register.
 - **[[The Shop]]** — the maker register (Sketch / Study / Piece, never MVP / v1 / final) is shop vocabulary.

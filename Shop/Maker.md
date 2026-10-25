@@ -164,7 +164,7 @@ The three-layer cascade [[The Shop]] anticipated now has its middle layer popula
 | Layer | Owns | Holds |
 |---|---|---|
 | **1. Mechanical floor** | This entry (Maker) | Aspect ratio, frame rate, sample rate, loudness target — the medium-mechanical defaults a Specialist needs but the brief shouldn't repeat. |
-| **2. Palace base** | [[Drafting Table Design System]] for the work itself · [[Loudon Live Design System]] for what the public channel shows · [[BBS Design System]] for STIGMERGY | The dress's tokens and rules. Drafting Table: two grounds (paper, phosphor) on one token set, monospace, hairline cards. Loudon Live: palette (six skins), type stack, voice register, iconography, motion easing, hard rules (no emoji, no cyan, no outcome promises, italic-light *Live*, footer signature). |
+| **2. Palace base** | [[Drafting Table Design System]] for the work itself · [[Loudon Live Design System]] for what the public channel shows · [[BBS Design System]] for STIGMERGY | The dress's tokens and rules. Drafting Table: two grounds (paper, phosphor) on one token set, monospace, hairline cards. Loudon Live: palette (six skins), type stack, voice register, iconography, motion easing, hard rules (no emoji, no outcome promises, italic-light *Live*, footer signature). |
 | **3. Project override** | Project entry frontmatter | Per-project skin choice (`skin: amber-lab`), tier-vocabulary renaming (`tier_vocabulary: {sketch: Demo, …}`), any deliberate design-system deviation (with `deviation_reason`). |
 | **4. Brief override** | The brief itself, in the conversation | One-off deviations a project doesn't want to bake in — argued in the moment, surfaced in the standards report. |
 

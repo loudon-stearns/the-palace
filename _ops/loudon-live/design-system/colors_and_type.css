@@ -13,7 +13,7 @@
      • Silkscreen      → pixel font for legends / smaller technical text only
                           (never main body — pixelation is a register, not a default)
 
-   No cyan. Pixel fonts only in small legends/dividers. Italic-light
+   Pixel fonts only in small legends/dividers. Italic-light
    "Live" is the only italicised word in the wordmark family.
    ───────────────────────────────────────────────────────────────────── */
 
@@ -77,7 +77,7 @@
   --fg-4:         #4a4a5a;
   --fg-on-accent: #0a0a0f;
 
-  /* signal/semantic — phosphor-saturated, no cyan */
+  /* signal/semantic — phosphor-saturated */
   --accent:       #e8b84a;
   --accent-dim:   #7a6030;
   --accent-soft:  rgba(232,184,74,0.10);
@@ -99,7 +99,7 @@
 
   /* ── data-viz · CATEGORICAL palette ───────────────────────────────────
      A qualitative set for distinguishing UNORDERED series in a chart (one
-     colour per category). Six well-separated hues, no cyan, tuned for the
+     colour per category). Six well-separated hues, tuned for the
      dark default ground. Read in JS via palaceTokens().categorical /
      palaceCategorical() — never hardcode.
        Usage rule:

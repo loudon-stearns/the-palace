@@ -36,6 +36,7 @@ Snapshots of the most useful sources live under `_reference/` for offline use.
 | `colors_and_type.css` | Locked tokens — type, palettes (Graphite default + 5 skin classes), spacing, radii, motion |
 | `palace-tokens.js` | Runtime token reader — `palaceTokens()` reads the active skin's values from `colors_and_type.css` into JS so D3 / Plot / p5 charts stay update-safe (never hardcode a hex). Also `palaceSeries()` (ordered ramp) and `palaceCategorical()` (the `--cat-1..6` qualitative palette). Read by any JS-driven visual. |
 | `palace-plot-defaults.js` | Observable Plot house-defaults wrapper — `palacePlot()` bakes the active skin (bg / fg-3 text / mono face / token frame) into every chart. Built on `palace-tokens.js`. |
+| `looks/` | Loud'n Live's complete looks — `worn-broadcast.html`, the first (§ Looks) |
 | `assets/` | Brand marks — Lissajous logos, wordmark, LL monogram, avatar, watermark |
 | `assets/logo-lissajous.live.html` | The canonical p5.js live Lissajous sketch (the patch IS the logo) |
 | `assets/generators/` | Six per-stream generative SVGs |
@@ -50,7 +51,7 @@ Snapshots of the most useful sources live under `_reference/` for offline use.
 
 ## Content fundamentals · the house style
 
-The default dress, worked out through review — a **floor, not a cage**. A tiny floor is non-negotiable (the studio voice, the Lissajous sigil, the nevers: no cyan / no emoji / no hype); everything below is the reliable *house style* a projection reaches for and may depart from. Every decision below carries a rule and a *why*. When in doubt: hold the floor, reach for the house style, depart deliberately. Studio register, never commercial-production. Loudon presents as many projections (loudon, LDN, Loud'n Live, Professor Compressor, Sonic Sensei, TRICKSTER) — this house style is the home of the **Loud'n Live** projection.
+The default dress, worked out through review — a **floor, not a cage**. A tiny floor is non-negotiable (the studio voice, the Lissajous sigil, the nevers: no emoji / no hype); everything below is the reliable *house style* a projection reaches for and may depart from. Every decision below carries a rule and a *why*. When in doubt: hold the floor, reach for the house style, depart deliberately. Studio register, never commercial-production. Loudon presents as many projections (loudon, LDN, Loud'n Live, Professor Compressor, Sonic Sensei, TRICKSTER) — this house style is the home of the **Loud'n Live** projection.
 
 ### Voice
 
@@ -110,11 +111,21 @@ The italic-light *Live* is the only italicised word in the wordmark — and ital
 
 **Semantic accents are constant across skins:** `info` (parameter-blue `#4a8fff`), `success` (phosphor green `#00ff66`), `danger` (phosphor red `#ff2a2a`). Use sparingly — one signal per layout.
 
-**No cyan. Anywhere. Ever.** The earlier teal callout colour is dead; change-notes use `info` blue instead.
+**Cyan is allowed.** In Worn Broadcast it carries handles, links and one side of the colour fringe (§ Looks). The old teal callout stays retired: change-notes use `info` blue.
 
 **Glow is reserved.** The `text-shadow` glow on the wordmark's "LIVE" is the brand's signature lit-sign moment. Use the same glow vocabulary on the on-air red dot (animated 1.6 s pulse) and on tier badges of `success` colour. Do not glow neutral foreground text.
 
 ---
+
+### Looks
+
+Loud'n Live wears complete looks, and there will be a few. A look is a whole dress for the projection: palette, type, texture and motion travel together and are worn whole, where a skin swaps only the palette over the locked grammar. The six skins stay the default for everything else the public channel shows.
+
+| Look | File | What it is |
+|---|---|---|
+| **Worn Broadcast** (2026-10-25, the first) | `looks/worn-broadcast.html` | A signal wearing out on old hardware. STIGMERGY's phosphor and grammar carried most of the way; Anton, the amber LIVE and the Lissajous sigil keep it Loud'n Live. Ground `#040805`, phosphor `#33ff66`, amber `#ffb000` for LIVE alone, cyan `#7fdbff` on handles and links. Anton · IBM Plex Mono · VT323. Circuit board, tube face, scanlines, grain, one glitch every few seconds, never constant. |
+
+The file's header comment is each look's spec. Worn Broadcast fills from its URL (`?session=…&topic=…&handle=…&title=…&link=…&status=…&ghost=…`), so it drops into OBS as a browser source.
 
 ### Spacing · radii · borders
 
@@ -166,7 +177,7 @@ Each palette and each generator carries a conceptual handle that the autodidact 
 
 ### Avoid
 
-- Cyan and minty greens. Phosphor green replaces the old teal-cyan in every callout.
+- Minty greens. Phosphor green replaces the old teal in every callout.
 - Decorative gradients in chrome. The only allowed gradient is the radial protection-gradient under cards on busy backgrounds.
 - Emoji. CDN icon libraries. Hashtag clouds.
 - Bubbly humanist fonts (DM Sans, Fraunces, Source Serif 4 in display use). Source Serif 4 stays only as the body-serif fallback.
