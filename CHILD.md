@@ -20,6 +20,9 @@ links:
   - target: "[[Search Before You Build]]"
     type: connects-to
     label: before-building
+  - target: "[[Progressive Staging]]"
+    type: connects-to
+    label: if-it-teaches
   - target: "[[SCHEMA — Reference]]"
     type: connects-to
     label: bundle-fine-print
