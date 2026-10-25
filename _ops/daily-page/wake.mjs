@@ -9,6 +9,7 @@
 //
 //   node _ops/daily-page/wake.mjs "Kuramoto Coupling"
 //   node _ops/daily-page/wake.mjs "Kuramoto Coupling" --out "<a scratch file>"
+//   node _ops/daily-page/wake.mjs "Kuramoto Coupling" --root "<a worktree>"
 //
 // Hand the prompt to a read-only subagent (palace-reader), spawned unnamed.
 // Its reply is the page's side of the morning. With --out the prompt goes to
@@ -17,7 +18,9 @@
 // Three choices worth knowing:
 //   - The page is read from the MAIN checkout, as deal.py's brief is, so the
 //     page that wakes is the page Loudon reads (canon is main — Worktree
-//     Practice).
+//     Practice). `--root <palace>` reads it from another checkout instead: a
+//     page a Revival made true on a branch is woken from that branch's text
+//     before it lands (Revival Ceremony, step 5).
 //   - The morning's questions go AFTER the builder's prompt, not through its
 //     `extraMandate`. The builder sets a mandate above its own "# Begin", and
 //     "# Begin" asks the page to propose a first move. The last words in a
@@ -31,11 +34,11 @@
 import { resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { execFileSync } from 'node:child_process';
-import { mkdirSync, writeFileSync } from 'node:fs';
+import { mkdirSync, writeFileSync, statSync } from 'node:fs';
 import { buildEphemeralPrompt } from '../stigmergy/orchestrator/src/ephemeral-prompt.js';
 
 const HERE_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
-const USAGE = 'usage: node _ops/daily-page/wake.mjs "<Entry title>" [--out <file>]';
+const USAGE = 'usage: node _ops/daily-page/wake.mjs "<Entry title>" [--out <file>] [--root <palace>]';
 
 // The main checkout: the first line of `git worktree list --porcelain`. The same
 // lookup as ownerRoot() in _ops/stigmergy/handoff-model.mjs — written out here
@@ -50,38 +53,51 @@ function mainCheckout(from) {
   return from;
 }
 
-// The words that are not flags make the title, as before. `--out <file>` (or
-// `--out=<file>`) is taken out first, so it can never become part of a title,
-// and any other `--` word is refused rather than read as one: no page title
-// starts with two dashes, and a misspelt flag should stop the tool, not wake
-// a page that does not exist.
+// The words that are not flags make the title, as before. `--out <file>` and
+// `--root <palace>` (or their `=` forms) are taken out first, so neither can
+// become part of a title, and any other `--` word is refused rather than read
+// as one: no page title starts with two dashes, and a misspelt flag should stop
+// the tool, not wake a page that does not exist.
+const VALUE_FLAGS = { '--out': 'a file path', '--root': 'a palace checkout' };
+
 function parseArgs(argv) {
   const words = [];
-  let out = null;
+  const values = { '--out': null, '--root': null };
   for (let i = 0; i < argv.length; i++) {
     const a = argv[i];
-    if (a === '--out') {
-      out = argv[i + 1];
-      i += 1;
-      if (!out || out.startsWith('--')) return { error: '--out needs a file path after it' };
-    } else if (a.startsWith('--out=')) {
-      out = a.slice('--out='.length);
-      if (!out) return { error: '--out needs a file path after it' };
+    const eq = a.indexOf('=');
+    const flag = a.startsWith('--') && eq > 0 ? a.slice(0, eq) : a;
+    if (flag in VALUE_FLAGS) {
+      const v = flag === a ? argv[++i] : a.slice(eq + 1);
+      if (!v || v.startsWith('--')) return { error: `${flag} needs ${VALUE_FLAGS[flag]} after it` };
+      values[flag] = v;
     } else if (a.startsWith('--')) {
       return { error: `unknown flag ${a}` };
     } else {
       words.push(a);
     }
   }
-  return { title: words.join(' ').trim(), out };
+  return { title: words.join(' ').trim(), out: values['--out'], root: values['--root'] };
 }
 
-const ROOT = mainCheckout(HERE_ROOT);
 const args = parseArgs(process.argv.slice(2));
 if (args.error || !args.title) {
   if (args.error) console.error(`wake.mjs: ${args.error}`);
   console.error(USAGE);
   process.exit(2);
+}
+
+// A root that is not a folder stops the tool: read nothing rather than report
+// a real page "not_found" because the path was misspelt.
+let ROOT = mainCheckout(HERE_ROOT);
+if (args.root) {
+  ROOT = resolve(args.root);
+  let isDir = false;
+  try { isDir = statSync(ROOT).isDirectory(); } catch { /* missing */ }
+  if (!isDir) {
+    console.error(`wake.mjs: --root ${ROOT} is not a folder`);
+    process.exit(2);
+  }
 }
 const title = args.title;
 
@@ -116,7 +132,8 @@ if (args.out) {
   const file = resolve(args.out);
   mkdirSync(dirname(file), { recursive: true });
   writeFileSync(file, prompt);
-  console.log(`wake.mjs: wrote the prompt that wakes "${title}" to ${file} (${prompt.length} characters)`);
+  const from = args.root ? ` from ${ROOT}` : '';
+  console.log(`wake.mjs: wrote the prompt that wakes "${title}"${from} to ${file} (${prompt.length} characters)`);
 } else {
   process.stdout.write(prompt);
 }

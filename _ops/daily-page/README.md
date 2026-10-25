@@ -7,7 +7,7 @@ The practice itself is a page: **[[The Daily Page]]**, `_ops/The Daily Page.md`.
 ## Files
 
 - `deal.py` — the dealer. One page a day, by a shuffle made once; its header explains the deck, the lap, a missed day, and what it sets aside.
-- `wake.mjs` — prints the prompt that wakes the day's page, built on the deck's own Enchant prompt; with `--out <file>` it writes the prompt there instead.
+- `wake.mjs` — prints the prompt that wakes the day's page, built on the deck's own Enchant prompt; with `--out <file>` it writes the prompt there instead. It reads the page from the main checkout; `--root <palace>` reads it from another checkout, so a page made true on a branch wakes from that branch's text.
 - `lap.json`, `visits.jsonl` — the dealer's state. Written by `deal.py`, never by hand. Tracked.
 - `roughs/` — playable roughs made before and during a sit, one folder per page. Ignored by git (`.gitignore` here). A rough worth keeping is copied into the `proofs/` folder of the page that will receive the work, and that page's baton names it.
 - `scheduled-task/SKILL.md` — the tracked copy of the scheduled task's shim. The live one is outside the palace, at `~/.claude/scheduled-tasks/daily-page/SKILL.md`; when this copy changes, the live one takes its text on Loudon's yes, pasted by him or pushed by a session with `update_scheduled_task`.
