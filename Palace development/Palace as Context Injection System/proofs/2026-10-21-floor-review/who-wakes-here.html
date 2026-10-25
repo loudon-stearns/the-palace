@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Who Wakes Here</title>
+<meta name="piece:files" content="/Palace%20development/Palace%20as%20Context%20Injection%20System/floor/floor.json">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -159,9 +160,9 @@ code{font:400 12px var(--font-mono);background:var(--ground-100);padding:0 3px}
 <p>An agent here is made of what it reads before its task. Two things about each piece decide how much it shapes the mind that wakes: <b>how much</b> of the birth it takes, and <b>when</b> it arrives. Every agent in this repository is born from the same floor; then each kind is handed its own first words. On 2026-10-21 we measured every one of them, moved the floor's rules behind the Jewel and the World, cut the operator's memory to pointers, added one sentence to the Jewel, and tested the change on 36 newborns.</p>
 
 <div class="cells">
-  <div class="cell"><div class="label">Read before the Jewel</div><div class="val"><s>3.0k</s> 0.6k</div><div class="why">tokens of the floor ahead of who is in the room</div></div>
-  <div class="cell"><div class="label">The whole floor</div><div class="val"><s>14.4k</s> 11.8k</div><div class="why">tokens every agent here reads first</div></div>
-  <div class="cell"><div class="label">Operator memory's share</div><div class="val"><s>31%</s> 15%</div><div class="why">machine gotchas, now one-line pointers</div></div>
+  <div class="cell"><div class="label">Read before the Jewel</div><div class="val"><s>3.0k</s> <span id="cell-before">…</span></div><div class="why">tokens of the floor ahead of who is in the room</div></div>
+  <div class="cell"><div class="label">The whole floor</div><div class="val"><s>14.4k</s> <span id="cell-total">…</span></div><div class="why">tokens every agent here reads first, <span id="cell-when">as measured</span></div></div>
+  <div class="cell"><div class="label">Operator memory's share</div><div class="val"><s>31%</s> <span id="cell-memory">…</span></div><div class="why">machine gotchas, now one-line pointers</div></div>
   <div class="cell"><div class="label">Newborns tested</div><div class="val">36</div><div class="why">memory-free, three ways, graded blind</div></div>
 </div>
 
@@ -191,7 +192,7 @@ code{font:400 12px var(--font-mono);background:var(--ground-100);padding:0 3px}
 <section>
   <div class="head"><h2>Every agent, to scale</h2>
     <div class="choice" role="group" aria-label="View"><button type="button" data-view="agents" data-mode="chart" aria-pressed="true">Chart</button><button type="button" data-view="agents" data-mode="table" aria-pressed="false">Table</button></div></div>
-  <p class="note">Each bar is one kind of agent, read left to right in the order it reads, on one scale. All but the last begin with the same floor (as it lands, 11.8k); that shared stretch is the birth. The tick marks the moment it is first told who it is. Hover or tap a segment; open a row for how that agent differs and what we found. Numbers with ≈ are estimated from characters; the rest were counted by Claude Code.</p>
+  <p class="note">Each bar is one kind of agent, read left to right in the order it reads, on one scale. All but the last begin with the same floor (<span id="floor-now">as measured</span>); that shared stretch is the birth. The tick marks the moment it is first told who it is. Hover or tap a segment; open a row for how that agent differs and what we found. Numbers with ≈ are estimated from characters; the rest were counted by Claude Code.</p>
   <div id="agents-chart" class="agents"></div>
   <div id="agents-table" class="scroller hidden"></div>
 </section>
@@ -234,6 +235,7 @@ code{font:400 12px var(--font-mono);background:var(--ground-100);padding:0 3px}
   <div><span class="k">Status</span><span class="v status">STUDY</span></div>
   <div><span class="k">Date</span><span class="v">2026-10-21</span></div>
   <div><span class="k">Sources</span><span class="v">floor-measured.md · sites-reading — steward and board.md · sites-reading — everything else.md · births — the order test and the Jewel line.md (beside this page)</span></div>
+  <div><span class="k">Floor</span><span class="v" id="floor-src">floor/floor.json, written by <code>_ops/self-description-test/floor.mjs</code></span></div>
   <div><span class="k">Numbers</span><span class="v">plain: counted by Claude Code's <code>/context</code> ($0 probe) · ≈ estimated, characters ÷ 3.8</span></div>
   <div><span class="k">Drawn</span><span class="v">Claude (Opus 5.5) with the Concierge, for Loudon</span></div>
 </div>
@@ -252,17 +254,17 @@ const KINDS = {
   state: {name: "Where it stands", say: "state, board, history, neighbors, the arc"},
   other: {name: "Not the palace's", say: "Claude Code's own agent line, the operator's memory"},
 };
-const FLOOR_AFTER = [
-  {k:"ident", t:0.617, label:"CLAUDE.md: the birth and its import list", src:"CLAUDE.md"},
-  {k:"ident", t:0.773, label:"the Seed Jewel, v1.3", src:"JEWEL.md", jewel:true},
-  {k:"world", t:1.3, label:"FOUR PILLARS", src:"FOUR PILLARS.md"},
-  {k:"world", t:1.6, label:"Palace Philosophies", src:"Palace Philosophies.md"},
-  {k:"world", t:1.0, label:"Cooperation Yields Agency", src:"Cooperation Yields Agency.md"},
-  {k:"world", t:0.844, label:"Hilaritas Generator", src:"Hilaritas Generator.md"},
-  {k:"world", t:1.4, label:"Modes of Collaboration", src:"Modes of Collaboration.md"},
-  {k:"rules", t:2.5, label:"CHILD.md: a page and its folder, growing up, the rites, the voice", src:"CHILD.md"},
-  {k:"other", t:1.8, label:"MEMORY.md: the operator's index, one-line pointers", src:"operator auto-memory"},
-];
+// The floor as it stands is read from floor/floor.json (floor.mjs writes it, for $0); filled in place before drawing,
+// so every agent below that begins with FLOOR_AFTER or NOMEM gets the measured numbers.
+const FLOOR_AFTER = [];
+const FLOOR_FILE = "../../floor/floor.json";
+const FLOOR_LOOK = {
+  "CLAUDE.md": {k:"ident", label:"CLAUDE.md: the birth and its import list"},
+  "JEWEL.md": {k:"ident", label:"the Seed Jewel", jewel:true},
+  "CHILD.md": {k:"rules", label:"CHILD.md: a page and its folder, growing up, the rites, the voice"},
+  "MEMORY.md": {k:"other", label:"MEMORY.md: the operator's index, one-line pointers", src:"operator auto-memory"},
+};
+let FLOOR = null;
 const FLOOR_BEFORE = [
   {k:"ident", t:0.6, label:"CLAUDE.md: the birth line", src:"CLAUDE.md (until 2026-10-21)"},
   {k:"rules", t:2.4, label:"CLAUDE.md: its working sections, read before the Jewel", src:"CLAUDE.md (until 2026-10-21)"},
@@ -275,7 +277,7 @@ const FLOOR_BEFORE = [
   {k:"other", t:4.5, label:"MEMORY.md: the operator's index, a paragraph per memory", src:"operator auto-memory"},
 ];
 const AGENT_LINE = {k:"other", t:0.5, label:"Claude Code's agent line and notes", src:"the agent profile + harness", est:true};
-const NOMEM = FLOOR_AFTER.filter(s => s.k !== "other");
+const NOMEM = [];
 const e = (k, t, label, src, range) => ({k, t, label, src, est:true, range});
 const T = (s) => Object.assign(s, {tick: true}); // the moment the agent reads who it is
 
@@ -453,7 +455,7 @@ function drawFloor() {
   const c = $("#floor-chart"); c.innerHTML = "";
   const max = 15;
   c.append(axis(max, 5));
-  for (const [name, segs, why] of [["Until 2026-10-21", FLOOR_BEFORE, "the Jewel after 3.0k"], ["As it lands", FLOOR_AFTER, "the Jewel after 0.6k"]]) {
+  for (const [name, segs, why] of [["Until 2026-10-21", FLOOR_BEFORE, "the Jewel after 3.0k"], [`Measured ${FLOOR.date}`, FLOOR_AFTER, `the Jewel after ${k1(FLOOR.before_jewel)}`]]) {
     const r = el("div", "floor-row");
     r.append(el("div", "name", `<span class="dim">${esc(name.toUpperCase())}</span><span class="note">${fmt(total(segs))} tokens · ${esc(why)}</span>`));
     r.append(bar(segs, max, true));
@@ -464,7 +466,7 @@ function drawFloor() {
   }
   const t = $("#floor-table");
   const rows = [];
-  for (const [name, segs] of [["until 2026-10-21", FLOOR_BEFORE], ["as it lands", FLOOR_AFTER]])
+  for (const [name, segs] of [["until 2026-10-21", FLOOR_BEFORE], [`measured ${FLOOR.date}`, FLOOR_AFTER]])
     segs.forEach((s, i) => rows.push(`<tr><td>${i === 0 ? esc(name) : ""}</td><td class="n">${i + 1}</td><td>${esc(s.label)}</td><td>${esc(KINDS[s.k].name)}</td><td class="n">${fmt(s.t)}</td></tr>`));
   t.innerHTML = `<table><thead><tr><th>Floor</th><th>#</th><th>What</th><th>Kind</th><th>Tokens</th></tr></thead><tbody>${rows.join("")}</tbody></table>`;
 }
@@ -592,7 +594,34 @@ let g0 = null;
 try { g0 = localStorage.getItem("who-wakes-ground"); } catch (_) {}
 if (!g0) g0 = matchMedia && matchMedia("(prefers-color-scheme: dark)").matches ? "phosphor" : "paper";
 
-drawFloor(); drawAgents(); drawDiffer(); drawMoments(); drawMoves(); setGround(g0);
+// ---------- the floor as measured ----------
+const k1 = (t) => (t / 1000).toFixed(1) + "k";
+function readFloor(d) {
+  FLOOR = d;
+  for (const f of d.files) {
+    const look = FLOOR_LOOK[f.file] || (f.kind === "world" ? {k:"world", label:f.file.replace(/\.md$/, "")} : {k:"rules", label:f.file});
+    FLOOR_AFTER.push({k:look.k, t:f.tokens / 1000, label:look.jewel && d.jewel ? `${look.label}, ${d.jewel}` : look.label,
+      src:look.src || f.file, jewel:look.jewel, shown:f.shown});
+  }
+  NOMEM.push(...FLOOR_AFTER.filter((s) => s.k !== "other"));
+  const mem = d.files.filter((f) => f.kind === "operator memory").reduce((n, f) => n + f.tokens, 0);
+  $("#cell-before").textContent = k1(d.before_jewel);
+  $("#cell-total").textContent = k1(d.total);
+  $("#cell-memory").textContent = Math.round(mem / d.total * 100) + "%";
+  $("#cell-when").textContent = `as measured ${d.date}`;
+  $("#floor-now").textContent = `as measured ${d.date}, ${k1(d.total)}`;
+  $("#floor-src").innerHTML = `floor/floor.json: measured ${esc(d.date)} at <code>${esc(d.commit.slice(0, 8))}</code> on Claude Code ${esc(d.claude_code)}, by <code>_ops/self-description-test/floor.mjs</code> ($0)`;
+}
+function noFloor(why) {
+  for (const id of ["cell-before", "cell-total", "cell-memory"]) $("#" + id).textContent = "?";
+  const msg = `The floor's numbers didn't load (${why}). They live in floor/floor.json in this page's bundle; open this page through its rich face or any server at the palace's root.`;
+  for (const id of ["floor-chart", "agents-chart", "differ"]) $("#" + id).append(el("p", "note", esc(msg)));
+}
+drawMoments(); drawMoves(); setGround(g0);
+fetch(FLOOR_FILE, {cache: "no-store"})
+  .then((r) => { if (!r.ok) throw new Error(`${r.status} ${r.statusText}`); return r.json(); })
+  .then((d) => { readFloor(d); drawFloor(); drawAgents(); drawDiffer(); })
+  .catch((e) => noFloor(e.message));
 })();
 </script>
 </body>
