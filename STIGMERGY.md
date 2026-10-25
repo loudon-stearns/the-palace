@@ -55,6 +55,7 @@ It is two things at once. Seen by a human, it is a **front-end** — a phosphor 
 ## Active Baton
 
 > **[[STIGMERGY — baton — rich-face pieces]]** (2026-10-13) — the piece origin: pieces run on an origin of their own, declare what they need, and a check keeps them honest. The plan is [[STIGMERGY — spec — rich-face pieces]]; the build landed in five steps, the last the migration on 2026-10-21 (`3b0744c8`). What is left is words and a decision: the design-system rule and pins for Loudon's own session, Enrichment tuning item 8, whether one propagate flag carries the new piece rule to the pages that restate the old one, three pre-existing checker errors in gathered proofs, and the spec page's retirement at the close.
+
 [[STIGMERGY — baton — stale worktree on remainder]] — drafted 2026-10-25
 
 ## The honesty discipline, made structural
