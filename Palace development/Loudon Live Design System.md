@@ -140,6 +140,10 @@ A **look** is a complete dress for one projection. Palette, type, texture and mo
 
 **Cyanotype** (2026-10-25) is the second: `looks/cyanotype.html`. A blueprint print a careful hand has worked on. It borrows the [[Drafting Table Design System]]'s grammar, turns it onto a dark cyanotype ground, and revises it. The hand is in the process, never in the geometry: every line is ruled, and the care shows in guidelines left in, an erased old name, a rubbed-out first sigil, a revision table, a checker's red pencil. The lettering is Josefin Sans, and the wordmark is drawn in a thin-pen outline with its construction lines left in. Loudon, on plate 6: *"use plate 6, perfect. lets have this be the second look for Loud'N Live."* It is a Loud'n Live look, not a change to Drafting Table, whose own "Never cyan" stands as it is. The paper was generated with GenAI: Stable Diffusion XL, image to image at denoise 0.55, from an init image cut from the blank paper of Drawing Matter's photograph of Jean-Charles Moreux's *Front Elevation, Design for a block of flats, Rue Gazan, Paris* (c.1927, cyanotype on paper, Drawing Matter Collection DMC 2272.2, [photograph](https://drawingmatter.org/a-blueprint-is-blue/)), then tinted as a tone map. Every line and word on the sheet is drawn on top of it. The recipe, seeds and checksums are in `Palace development/Loudon Live Design System/workshop/plates/PROVENANCE.md`.
 
+**Night Signal** (2026-10-25) is the third: `looks/night-signal.html`. Cyberpunk and electronic music, layered and dirty: Worn Broadcast's bones pushed into a city at night and onto a dance floor. A neon wordmark with one tube failing, a 303 synth panel with its knobs over two octaves of keys, a filter sweeping, the sigil as a stereo vectorscope, rain on the glass, and everything that moves on one tempo, with a drop every eight bars. It got there in three steps of Loudon's: *"all are a little safe and clean, get even dirtier, layer the concepts, more glow stronger rain more texture,"* then *"YES, this is the kind of layered look,"* then *"get some neon synth knobs above the keyboard and we are there."* Its night plate was generated with GenAI (Stable Diffusion XL, text to image, no reference image), and PROVENANCE.md holds its recipe too. The file fills from its URL, tempo included.
+
+The set is complete for now. Loudon: *"that is all the looks we need."*
+
 The six-skin house style stays the public channel's default dress for everything else.
 
 ## Voice (the heart of the floor)
@@ -183,7 +187,7 @@ _ops/loudon-live/design-system/
 ├── README.md             ← full design rationale (read this first)
 ├── colors_and_type.css   ← canonical source of every token
 ├── index.html            ← system overview / cover page
-├── looks/                ← Loud'n Live's complete looks (worn-broadcast.html, cyanotype.html)
+├── looks/                ← Loud'n Live's complete looks (worn-broadcast.html, cyanotype.html, night-signal.html)
 ├── assets/               ← Lissajous logos, wordmark, monogram, watermark, avatar
 │   └── generators/       ← six per-stream generative SVGs
 ├── preview/              ← specimen cards (type / colors / spacing / components)
@@ -284,7 +288,7 @@ Arrived May 2026 as a Claude Design handoff bundle, Loudon's second design-syste
 
 ## What Comes Next
 
-The rethink the [[Loudon Live Design System — baton|baton]] of 2026-10-14 asked for has its answer: Loud'n Live wears looks of its own, two have landed (Worn Broadcast and Cyanotype), and "no cyan" is retired ([§ Looks](#looks)). Two things are still open. A third look, cyberpunk EDM, is in the bundle's workshop. And the system's text still has to catch up with the 2026-10-14 portrait of Loud'n Live, here and in `SKILL.md` and `README.md`.
+The rethink the [[Loudon Live Design System — baton|baton]] of 2026-10-14 asked for has its answer: Loud'n Live wears looks of its own, three have landed (Worn Broadcast, Cyanotype and Night Signal) and the set is complete for now, and "no cyan" is retired ([§ Looks](#looks)). Two things are still open. The system's text still has to catch up with the 2026-10-14 portrait of Loud'n Live, here, in `SKILL.md` and `README.md`, and in [[Loudon Live]] § The look. And Loudon has not yet decided whether Drafting Table's own "Never cyan" goes too.
 
 ## Cross-Domain Resonances
 
