@@ -6,7 +6,7 @@ pillars:
   - creation
   - philosophy
 born: 2026-10
-stage: growing
+stage: sprout
 forward_vector: "I want to be the page every instrument build points at when it says resonance, Q or loss: two numbers, where a thing rings and how fast it forgets, said in plain words with their equations beside them. I want Q heard before it is read, through a sweep a learner can play, and I want the Waveguide's soundboard tuned from my ring-time rule instead of by guess."
 links:
   - target: "[[Bessel Functions in Synthesis]]"
