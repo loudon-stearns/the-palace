@@ -18,7 +18,7 @@ The rich-face pieces card (`stigmergy-remainder-20261021T125648Z`) still sends i
 
 ## Current state
 
-The first half of this move landed in `22c39e74` (branch `claude/stale-worktree-remainder-4a8a3b`, `a679331f`). `close-handoff.mjs` now carries a worktree to a remainder only while `worktreeLive()` in `handoff-model.mjs` says it lives, and resets a `receiving_surface` that names the dead folder. So the next partial close of any card drops a dead coordinate by itself. The STIGMERGY card itself is untouched, on Loudon's word of 2026-10-25: "Leave the STIGMERGY card's dead coordinate for later." The catching session's draft is named in the shared notes as 'stale-worktree-remainder — draft — clearing a dead coordinate.md'. The Concierge couldn't find it on disk on 2026-10-25; ask the coordinator for it.
+The first half of this move landed in `22c39e74` (branch `claude/stale-worktree-remainder-4a8a3b`, `a679331f`). `close-handoff.mjs` now carries a worktree to a remainder only while `worktreeLive()` in `handoff-model.mjs` says it lives, and resets a `receiving_surface` that names the dead folder. So the next partial close of any card drops a dead coordinate by itself. The STIGMERGY card itself is untouched, on Loudon's word of 2026-10-25: "Leave the STIGMERGY card's dead coordinate for later." The catching session's draft is in this bundle, copied verbatim on 2026-10-25: `STIGMERGY/STIGMERGY — sketch — clearing a dead coordinate.md` ([[STIGMERGY — sketch — clearing a dead coordinate]]). It recommends a RETRACT and a repost, with the fold taught to honour RETRACT, and names the canon question that comes first.
 
 ## Next move
 
