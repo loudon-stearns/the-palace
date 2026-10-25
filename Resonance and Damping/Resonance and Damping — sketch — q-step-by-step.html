@@ -135,7 +135,7 @@ sound: "nothing plays until a Pluck or Play button is clicked; the AudioContext 
     <p class="say">Stop flicking and start pushing, smoothly, up and down, at a rate that is not its own. For a moment it does both: its own ring, and your push. Then its own ring dies away, as step 2 said it would, and what is left moves at your rate. Galileo thought this was impossible. Thomas Young showed in 1807 that it is not.</p>
     <div class="panel">
       <div class="bar"><span class="hint">a steady push at half its own rate</span><button class="go" data-play>Play</button></div>
-      <canvas data-canvas="push" data-aspect="0.42"></canvas>
+      <canvas data-canvas="push" data-aspect="0.55"></canvas>
       <div class="legend">
         <div><b>Left · the weight and the hand</b>Slowed 300 times. Amber arrow: the push, from the rest line to where a push held still would put the weight, so its tip lines up with the amber trace.</div>
         <div><b>Right · push and swing</b>Amber: the push. Ink: where the weight is. Watch the first wobbly seconds settle into the push's rhythm.</div>
@@ -158,10 +158,10 @@ sound: "nothing plays until a Pluck or Play button is clicked; the AudioContext 
       <div class="bar"><span class="hint" id="s4hint">a sine push, swept by hand or by the button</span>
         <button data-s4src="sine" aria-pressed="true">A sine push</button><button data-s4src="noise" aria-pressed="false">Every push at once</button>
         <button class="go" data-play>Play</button></div>
-      <canvas data-canvas="peak" data-aspect="0.42"></canvas>
+      <canvas data-canvas="peak" data-aspect="0.55"></canvas>
       <div class="legend">
-        <div><b>The curve</b>How far it swings for each push rate, against the same push held still (the dashed line, 1×). The height is true here; the sound is held level to keep your ears safe.</div>
-        <div><b>The marks</b>Amber: your push. Hatched: the band f ÷ Q wide where it answers most.</div>
+        <div><b>Left · the weight</b>Pushed at your rate, slowed 300 times, on the same scale as steps 3 and 5. Red bar: the top of its swing over the last push.</div>
+        <div><b>Right · the curve</b>How high it swings for every push rate, in the weight's own units, measured up from its rest line. Once it settles, the red bar and the red dot are one height. Dashed: a push held still. Hatched: the band f ÷ Q wide. The sound is held level to keep your ears safe; the picture is not.</div>
       </div>
       <div class="ctl"><label for="s4d">push rate</label><input id="s4d" type="range" min="0" max="1000" value="250"><span class="v" id="s4dv"></span></div>
       <div class="ctl"><label for="s4q">Q (friction)</label><input id="s4q" type="range" min="0" max="990" value="450"><span class="v" id="s4qv"></span></div>
@@ -170,7 +170,7 @@ sound: "nothing plays until a Pluck or Play button is clicked; the AudioContext 
       <div class="eq">height at f = Q          width = f ÷ Q</div>
       <div class="eq words">(how many times further than a held push, at its own rate) = (Q)  ·  (the band it answers) = (its rate) ÷ (Q)</div>
     </div>
-    <div class="try"><span class="eyebrow">Try</span>Sweep at Q 4, then at Q 60. The higher Q, the taller and narrower the peak, and the longer the swell takes to build: the narrow peak and the long ring of step 2 are one number. Then choose every push at once and raise Q: a pitch comes out of the hiss.</div>
+    <div class="try"><span class="eyebrow">Try</span>Push at exactly its own rate and watch the red bar climb to the red dot: that climb is the swell. Sweep at Q 4, then at Q 9. The higher Q, the taller and narrower the peak, and the longer the swell takes to build: the narrow peak and the long ring of step 2 are one number. Push Q past 10 and the peak runs off the sheet; the sheet says how far. Then choose every push at once and raise Q: a pitch comes out of the hiss.</div>
     <textarea data-note placeholder="What your ear and eye say about the peak"></textarea>
   </section>
 
@@ -181,7 +181,7 @@ sound: "nothing plays until a Pluck or Play button is clicked; the AudioContext 
     <p class="say">Watch when the weight is highest against when you push hardest. Push slowly and they move together: the weight just follows your hand. Push fast and they move against each other. At its own rate the weight is a quarter cycle behind, and that is the moment it is moving fastest: you push it while it is already going your way, so every push adds and none takes back. That is why the push piles up.</p>
     <div class="panel">
       <div class="bar"><span class="hint">a sine push; the lag measured from the weight</span><button data-s5speed aria-pressed="false">Show its speed</button><button class="go" data-play>Play</button></div>
-      <canvas data-canvas="lag" data-aspect="0.42"></canvas>
+      <canvas data-canvas="lag" data-aspect="0.55"></canvas>
       <div class="legend">
         <div><b>Left · the weight, push and swing</b>Amber: the push, and its arrow on the weight. Ink: where the weight is. Green, when shown: how fast it is moving.</div>
         <div><b>Right · the lag</b>How far behind the push the weight is, for every push rate. The dot is yours.</div>
@@ -229,10 +229,12 @@ const FS_DEFAULT = 48000;
 const SLOW = 300;                                               // the drawn weight runs 300 times slower than the sound
 function freqFromStiffness(k, m) { return Math.sqrt(k / m) / (2 * Math.PI); }
 function stiffnessFromFreq(f, m) { return m * Math.pow(2 * Math.PI * f, 2); }
-// the drawing's scale: the largest swing on screen, held push = 1, fits in 0.26 of the canvas height,
-// so the weight and its trace share one scale and neither is ever clipped
-const SWING_ROOM = 0.26;
-function swingScale(h, reach) { return SWING_ROOM * h / Math.max(1, reach); }
+// the drawing's scale is fixed, never re-scaled while you watch, so a tall swing looks tall. Steps 1 and 2: one
+// pluck's swing is 1 and the sheet holds 2.5 of them. Steps 3 to 5: a push held still moves the weight 1 and the
+// sheet holds 10. Past the sheet the weight and its trace stop at the same edge, and the sheet says how far.
+const PLUCK_REACH = 2.5, PUSH_REACH = 10, ROOM = 0.34, EDGE = 0.42;
+function swingScale(h, reach) { return ROOM * h / reach; }
+function clampSwing(h, dy) { return Math.max(-EDGE * h, Math.min(EDGE * h, dy)); }
 function poleRadius(f, Q, fs) { return Q === Infinity ? 1 : Math.exp(-Math.PI * f / (Q * fs)); }
 function ringTime(f, Q) { return 3 * Math.LN10 / Math.PI * Q / f; }   // −60 dB: ln(1000)/(ζω) = (3 ln10 / π)·Q/f ≈ 2.2·Q/f
 // a held push moves the weight 1; a push at u times its own rate moves it gain(u, Q), lag(u, Q) degrees behind
@@ -271,7 +273,9 @@ function selfTest() {
   t(1, 'four times stiffer is an octave up', freqFromStiffness(4 * stiffnessFromFreq(220, 1), 1), 440, 1e-9);
   t(1, 'four times heavier is an octave down', freqFromStiffness(stiffnessFromFreq(220, 1), 4), 110, 1e-9);
   t(1, 'four times stiffer and four times heavier is where it started', freqFromStiffness(4 * stiffnessFromFreq(220, 1), 4), 220, 1e-9);
-  for (const a of [0.5, 1, 3, 40]) t(1, `a swing of ${a} fits the drawing, no clipping`, Math.min(a * swingScale(100, a), SWING_ROOM * 100), a * swingScale(100, a), 1e-9);
+  t(1, 'the scale is fixed: one pluck is the same height at any swing', swingScale(100, PLUCK_REACH), 34 / 2.5, 1e-9);
+  const qDefault = 0.5 * Math.pow(400, 450 / 990);              // steps 4 and 5 open at this Q
+  out.push(`${gain(1, qDefault) <= PUSH_REACH ? 'PASS' : 'FAIL'}  step 4 · at the opening Q (${qDefault.toFixed(2)}) the resonance fits the sheet: ${gain(1, qDefault).toFixed(2)} × against room for ${PUSH_REACH} ×`);
   t(1, 'no friction: the pole radius is 1', poleRadius(220, Infinity, FS_DEFAULT), 1, 0);
   t(2, 'ring time of the digital resonator, Q 20 at 220 Hz', measuredRing(220, 20, FS_DEFAULT), ringTime(220, 20), 0.03);
   t(2, 'ring time of the digital resonator, Q 5 at 1 kHz', measuredRing(1000, 5, FS_DEFAULT), ringTime(1000, 5), 0.03);
@@ -499,7 +503,7 @@ const REST = 0.5;                                               // the weight's 
 // the weight on its spring, with the hand when pushing; scale: pixels per unit of "held push"
 function drawSpring(g, x0, w, h, pos, push, scale) {
   const big = Math.sqrt(mulFrom(S.w1));                          // block area grows with its weight
-  const cx = x0 + w / 2, top = 18, rest = h * REST, y = rest + pos * scale, bw = Math.min(70, w * 0.4) * big, bh = Math.min(34 * big, h * 0.15);
+  const cx = x0 + w / 2, top = 18, rest = h * REST, y = rest + clampSwing(h, pos * scale), bw = Math.min(70, w * 0.4) * big, bh = Math.min(34 * big, h * 0.15);
   hatch(g, cx - bw, 4, cx + bw, top, css('--rule')); g.strokeStyle = css('--ink'); g.lineWidth = 2; g.beginPath(); g.moveTo(cx - bw, top); g.lineTo(cx + bw, top); g.stroke();
   const coils = 12, sy = top, ey = y - bh / 2; g.lineWidth = 0.6 + 1.1 * Math.sqrt(mulFrom(S.k1)); g.beginPath(); g.moveTo(cx, sy);
   for (let i = 1; i < coils * 2; i++) g.lineTo(cx + (i % 2 ? -14 : 14), sy + (ey - sy) * i / (coils * 2));
@@ -510,7 +514,7 @@ function drawSpring(g, x0, w, h, pos, push, scale) {
   if (push !== null) {
     // the push, measured from the rest line as the amber trace is: an arrow just right of the weight, from rest to
     // where a push held still would put the weight; drawLink joins its tip to the amber trace's head
-    const xa = pushX(cx, bw), len = push * scale, tip = rest + len, head = Math.sign(len) * Math.min(7, Math.abs(len));
+    const xa = pushX(cx, bw), len = clampSwing(h, push * scale), tip = rest + len, head = Math.sign(len) * Math.min(7, Math.abs(len));
     g.strokeStyle = css('--source-assumed'); g.fillStyle = css('--source-assumed'); g.lineWidth = 3;
     g.beginPath(); g.moveTo(xa, rest); g.lineTo(xa, tip); g.stroke();
     if (Math.abs(len) > 3) { g.beginPath(); g.moveTo(xa - 6, tip - head); g.lineTo(xa + 6, tip - head); g.lineTo(xa, tip + head * 0.3); g.closePath(); g.fill(); }
@@ -520,13 +524,15 @@ function drawSpring(g, x0, w, h, pos, push, scale) {
 // the weight's centre and the trace's newest point are one height: a dotted line joins them, a dot marks the head
 function pushX(cx, bw) { return cx + bw / 2 + 16; }
 function drawLink(g, split, head, h, scale, push) {
-  const y = h * REST + sim.x * scale, bw = Math.min(70, split * 0.4) * Math.sqrt(mulFrom(S.w1));
+  const y = h * REST + clampSwing(h, sim.x * scale), bw = Math.min(70, split * 0.4) * Math.sqrt(mulFrom(S.w1));
   if (push !== undefined && push !== null) {
     // the push's tip and the amber trace's head are one height, joined the same way as the weight's
-    const xa = pushX(split / 2, bw), yp = h * REST + push * scale;
+    const xa = pushX(split / 2, bw), yp = h * REST + clampSwing(h, push * scale);
     g.strokeStyle = css('--source-assumed'); g.lineWidth = 1; g.setLineDash([2, 3]);
     g.beginPath(); g.moveTo(xa, yp); g.lineTo(head, yp); g.stroke(); g.setLineDash([]);
-    g.fillStyle = css('--source-assumed'); g.beginPath(); g.arc(xa + 9, yp, 3, 0, 7); g.fill(); g.beginPath(); g.arc(head, yp, 3.5, 0, 7); g.fill();
+    g.fillStyle = css('--source-assumed'); g.beginPath(); g.arc(xa + 9, yp, 3, 0, 7); g.fill();
+    // the head as a ring, so it stays in view when the weight's red dot sits on it
+    g.strokeStyle = css('--source-assumed'); g.lineWidth = 2; g.beginPath(); g.arc(head, yp, 5.5, 0, 7); g.stroke();
   }
   g.strokeStyle = css('--accent'); g.lineWidth = 1; g.setLineDash([2, 3]);
   g.beginPath(); g.moveTo(split / 2 + bw / 2, y); g.lineTo(head, y); g.stroke(); g.setLineDash([]);
@@ -537,7 +543,7 @@ function drawTrail(g, x0, w, h, span, scale, opts) {
   const mid = h * REST, t1 = sim.t, t0 = t1 - span, X = (t) => x0 + w * (t - t0) / span;
   g.strokeStyle = css('--rule-soft'); g.lineWidth = 1; g.beginPath(); g.moveTo(x0, mid); g.lineTo(x0 + w, mid); g.stroke();
   const line = (idx, color, width, k) => { g.strokeStyle = color; g.lineWidth = width; g.beginPath(); let first = true;
-    for (const p of sim.trail) { if (p[0] < t0) continue; const yy = Math.max(4, Math.min(h - 4, mid + p[idx] * scale * (k || 1))); first ? g.moveTo(X(p[0]), yy) : g.lineTo(X(p[0]), yy); first = false; } g.stroke(); };
+    for (const p of sim.trail) { if (p[0] < t0) continue; const yy = mid + clampSwing(h, p[idx] * scale * (k || 1)); first ? g.moveTo(X(p[0]), yy) : g.lineTo(X(p[0]), yy); first = false; } g.stroke(); };
   if (opts.push) line(2, css('--source-assumed'), 2);
   if (opts.speed) line(3, css('--ok') || '#3a7d2c', 1.5);
   line(1, css('--ink'), 1.6);
@@ -557,19 +563,41 @@ function drawEnvelope(g, x0, w, h, span, scale, fv, Q) {
   if (t60 <= t1) { g.strokeStyle = css('--accent'); g.lineWidth = 2; g.beginPath(); g.moveTo(X(t60), 6); g.lineTo(X(t60), h - 16); g.stroke(); label(g, '−60 dB', X(t60) + 4, 14, css('--accent')); }
   else label(g, '−60 dB in ' + (t60 - t1).toFixed(0) + ' s more (drawn time)', x0 + 4, 14, css('--accent'));
 }
-function drawPeakFace(g, w, h) {
-  const pad = 20, Q = qFrom(S.q4), u = uFrom(S.u4), lo = 0.25, hi = 4;
-  const X = (uu) => pad + (w - 2 * pad) * Math.log(uu / lo) / Math.log(hi / lo);
-  const top = Math.max(2, Q === Infinity ? 200 : gain(1, Q) * 1.2), Y = (gg) => h - pad - (h - 2 * pad) * Math.log(Math.max(gg, 0.05) / 0.05) / Math.log(top / 0.05);
-  if (Q !== Infinity) { const half = 1 / (2 * Q); hatch(g, X(Math.max(lo, 1 - half)), pad, X(Math.min(hi, 1 + half)), h - pad, css('--rule')); }
-  g.strokeStyle = css('--rule'); g.setLineDash([4, 4]); g.beginPath(); g.moveTo(pad, Y(1)); g.lineTo(w - pad, Y(1)); g.stroke(); g.setLineDash([]);
-  label(g, '1 × (held push)', pad + 4, Y(1) - 4);
+// step 4's curve, drawn in the weight's own units and pixels and measured up from the weight's rest line, so how
+// high the weight swings and how tall the curve stands are one height
+function drawPeakFace(g, x0, w, h, scale) {
+  const Q = qFrom(S.q4), u = uFrom(S.u4), lo = 0.25, hi = 4, rest = h * REST;
+  const X = (uu) => x0 + w * Math.log(uu / lo) / Math.log(hi / lo), Y = (v) => rest - Math.min(EDGE * h, v * scale);
+  const half = 1 / (2 * Q); hatch(g, X(Math.max(lo, 1 - half)), rest - EDGE * h, X(Math.min(hi, 1 + half)), rest, css('--rule'));
+  g.strokeStyle = css('--rule-soft'); g.lineWidth = 1; g.beginPath(); g.moveTo(x0, rest); g.lineTo(x0 + w, rest); g.stroke();
+  g.strokeStyle = css('--rule'); g.setLineDash([4, 4]); g.beginPath(); g.moveTo(x0, Y(1)); g.lineTo(x0 + w, Y(1)); g.stroke(); g.setLineDash([]);
+  label(g, '1 × a push held still', x0 + 4, Y(1) - 4);
   g.strokeStyle = css('--ink'); g.lineWidth = 1.6; g.beginPath();
-  for (let i = 0; i <= 400; i++) { const uu = lo * Math.pow(hi / lo, i / 400), yy = Y(Q === Infinity ? Math.min(gain(uu, 1e6), top) : gain(uu, Q)); i ? g.lineTo(X(uu), yy) : g.moveTo(X(uu), yy); }
+  for (let i = 0; i <= 400; i++) { const uu = lo * Math.pow(hi / lo, i / 400), yy = Y(gain(uu, Q)); i ? g.lineTo(X(uu), yy) : g.moveTo(X(uu), yy); }
   g.stroke();
-  if (S.s4src === 'sine') { const gx = X(u), gy = Y(gain(u, Q === Infinity ? 1e6 : Q)); g.strokeStyle = css('--source-assumed'); g.lineWidth = 2; g.beginPath(); g.moveTo(gx, h - pad); g.lineTo(gx, Math.max(pad, gy)); g.stroke(); g.fillStyle = css('--source-assumed'); g.beginPath(); g.arc(gx, Math.max(pad, gy), 4, 0, 7); g.fill(); }
-  label(g, 'f/4', pad, h - 4); label(g, 'f', X(1) - 3, h - 4); label(g, '4f', w - pad - 12, h - 4);
-  label(g, 'at f: ' + (Q === Infinity ? '∞' : gain(1, Q).toFixed(1)) + ' ×', X(1) - 92, Math.max(pad + 10, Y(Q === Infinity ? top : gain(1, Q)) + 4));
+  const peak = gain(1, Q);
+  label(g, (peak * scale > EDGE * h ? '↑ off the sheet: ' : 'at f: ') + peak.toFixed(1) + ' ×', X(1) + 8, Math.max(12, Y(peak) + 4), peak * scale > EDGE * h ? css('--accent') : null);
+  label(g, 'f/4', X(lo), rest + 14); label(g, 'f', X(1) - 3, rest + 14); label(g, '4f', X(hi) - 14, rest + 14);
+  label(g, 'push rate →', x0 + w / 2 + 40, rest + 14);
+  if (S.s4src === 'sine') {
+    g.strokeStyle = css('--source-assumed'); g.lineWidth = 1.5; g.beginPath(); g.moveTo(X(u), rest); g.lineTo(X(u), Y(gain(u, Q))); g.stroke();
+    g.fillStyle = css('--accent'); g.beginPath(); g.arc(X(u), Y(gain(u, Q)), 4, 0, 7); g.fill();
+  }
+  return { X, Y };
+}
+// the top of the weight's swing over the last push, on the weight, joined to the curve's dot at the push rate
+function drawSwingTop(g, split, h, scale, faceXY, u, Q, fv) {
+  const bw = Math.min(70, split * 0.4) * Math.sqrt(mulFrom(S.w1)), cx = split / 2, period = 1 / (fv * u);
+  let up = 0; for (const p of sim.trail) if (p[0] >= sim.t - period) up = Math.max(up, -p[1]);
+  const y = h * REST - Math.min(EDGE * h, up * scale), xd = faceXY.X(u), yd = faceXY.Y(gain(u, Q));
+  g.strokeStyle = css('--accent'); g.lineWidth = 2; g.beginPath(); g.moveTo(cx - bw / 2 - 8, y); g.lineTo(cx + bw / 2 + 8, y); g.stroke();
+  label(g, 'top of its swing', cx - bw / 2 - 8, y - 5, css('--accent'));
+  g.lineWidth = 1; g.setLineDash([2, 3]); g.beginPath(); g.moveTo(cx + bw / 2 + 8, y); g.lineTo(xd, yd); g.stroke(); g.setLineDash([]);
+}
+// when the swing is bigger than the sheet, the sheet says so
+function drawOffSheet(g, x0, h, scale, span, unit, y) {
+  let big = 0; for (const p of sim.trail) if (p[0] >= sim.t - span) big = Math.max(big, Math.abs(p[1]));
+  if (big * scale > EDGE * h) label(g, '↕ the weight swings off the sheet: ' + big.toFixed(1) + ' × ' + unit, x0 + 4, y || 14, css('--accent'));
 }
 function drawLagFace(g, x0, w, h) {
   const pad = 16, Q = qFrom(S.q5), u = uFrom(S.u5), lo = 0.25, hi = 4;
@@ -589,7 +617,9 @@ function frame(now) {
   const dt = Math.min(0.05, (now - lastT) / 1000); lastT = now;
   const Q = stepQ(), fv = S.f / SLOW, u = stepU();
   const live = playing === S.step && ctx && ctx.state === 'running';
-  const F = (live && pushing() && S.step !== 3) ? Math.sin(2 * Math.PI * fv * u * (sim.t - sim.tPush)) : 0;
+  const noise = S.step === 3 && S.s4src === 'noise';
+  // a sine push; or, for every push at once, a fresh random push each frame
+  const F = !(live && pushing()) ? 0 : noise ? (Math.random() * 2 - 1) * 1.5 : Math.sin(2 * Math.PI * fv * u * (sim.t - sim.tPush));
   const sub = 40; for (let i = 0; i < sub; i++) springStep(sim, dt / sub, fv, Q, F);
   sim.t += dt;
   sim.trail.push([sim.t, sim.x, F, sim.v / (2 * Math.PI * fv)]);
@@ -597,21 +627,21 @@ function frame(now) {
   const c = document.querySelector('section.step:not([hidden]) canvas');
   if (c) {
     const [g, w, h] = fit(c); g.clearRect(0, 0, w, h);
-    const kind = c.dataset.canvas, split = kind === 'lag' ? Math.min(150, w * 0.18) : Math.min(220, w * 0.34);
+    const kind = c.dataset.canvas, split = kind === 'lag' ? Math.min(150, w * 0.18) : kind === 'peak' ? Math.min(200, w * 0.28) : Math.min(220, w * 0.34);
     // how many seconds of drawn time the trace shows: step 2 widens to hold the ring, up to 20 s
     const span = kind === 'ring' ? Math.max(4, Math.min(20, 1.15 * ringTime(fv, Q === Infinity ? 1e9 : Q))) : kind === 'push' ? 6 : 4;
-    // keep the weight on the sheet: scale by the largest swing it will reach
-    // one scale for the weight and its trace: the largest swing on screen, and for a push its final pile-up, so
-    // the weight is never clipped and a growing swing is still seen to grow
-    let seen = Math.hypot(sim.x, sim.v / (2 * Math.PI * fv));
-    for (const p of sim.trail) if (p[0] >= sim.t - span) seen = Math.max(seen, Math.abs(p[1]));
-    sim.reach = seen > (sim.reach || 1) ? seen : (sim.reach || 1) + (seen - (sim.reach || 1)) * 0.02;
-    const reach = Math.max(1, sim.reach, pushing() ? gain(u, Q === Infinity ? 1e6 : Q) : 0), scale = swingScale(h, reach);
-    if (kind === 'spring') { drawSpring(g, 0, split, h, sim.x, null, scale); drawTrail(g, split + 10, w - split - 18, h, 4, scale, {}); drawLink(g, split, w - 8, h, scale); }
-    if (kind === 'ring') { drawSpring(g, 0, split, h, sim.x, null, scale); drawEnvelope(g, split + 10, w - split - 18, h, span, scale, fv, Q); drawTrail(g, split + 10, w - split - 18, h, span, scale, {}); drawLink(g, split, w - 8, h, scale); }
-    if (kind === 'push') { drawSpring(g, 0, split, h, sim.x, live ? F : null, scale); drawTrail(g, split + 10, w - split - 18, h, 6, scale, { push: true }); drawLink(g, split, w - 8, h, scale, live ? F : null); }
-    if (kind === 'peak') drawPeakFace(g, w, h);
-    if (kind === 'lag') { const half = w * 0.6; drawSpring(g, 0, split, h, sim.x, live ? F : null, scale); drawTrail(g, split + 10, half - split - 28, h, span, scale, { push: true, speed: S.speed }); drawLink(g, split, half - 18, h, scale, live ? F : null); drawLagFace(g, half, w - half, h); }
+    // one fixed scale for the weight, its trace and step 4's curve: never re-scaled, so a tall swing looks tall
+    const scale = swingScale(h, pushing() ? PUSH_REACH : PLUCK_REACH), unit = pushing() ? 'a push held still' : 'one pluck';
+    if (kind === 'spring') { drawSpring(g, 0, split, h, sim.x, null, scale); drawTrail(g, split + 10, w - split - 18, h, 4, scale, {}); drawLink(g, split, w - 8, h, scale);  drawOffSheet(g, split + 14, h, scale, span, unit); }
+    if (kind === 'ring') { drawSpring(g, 0, split, h, sim.x, null, scale); drawEnvelope(g, split + 10, w - split - 18, h, span, scale, fv, Q); drawTrail(g, split + 10, w - split - 18, h, span, scale, {}); drawLink(g, split, w - 8, h, scale);  drawOffSheet(g, split + 14, h, scale, span, unit); }
+    if (kind === 'push') { drawSpring(g, 0, split, h, sim.x, live ? F : null, scale); drawTrail(g, split + 10, w - split - 18, h, 6, scale, { push: true }); drawLink(g, split, w - 8, h, scale, live ? F : null);  drawOffSheet(g, split + 14, h, scale, span, unit); }
+    if (kind === 'peak') {
+      drawSpring(g, 0, split, h, sim.x, live && !noise ? F : null, scale);
+      const face = drawPeakFace(g, split + 10, w - split - 18, h, scale);
+      if (live && !noise) drawSwingTop(g, split, h, scale, face, u, Q, fv);
+      drawOffSheet(g, split + 14, h, scale, 4, unit, h - 22);
+    }
+    if (kind === 'lag') { const half = w * 0.6; drawSpring(g, 0, split, h, sim.x, live ? F : null, scale); drawTrail(g, split + 10, half - split - 28, h, span, scale, { push: true, speed: S.speed }); drawLink(g, split, half - 18, h, scale, live ? F : null); drawLagFace(g, half, w - half, h);  drawOffSheet(g, split + 14, h, scale, span, unit); }
   }
   requestAnimationFrame(frame);
 }

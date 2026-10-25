@@ -107,15 +107,39 @@ if (chromium) {
                    push: rowsAt(xa + 9, amber).map((y) => y / dpr), pushHead: rowsAt(head + 2.5, amber).map((y) => y / dpr) };   // just right of the trace's end: the head dot alone
         }, [k.step, k.split.toString(), k.head.toString()]);
         worst = Math.max(worst, Math.abs(r.weight - r.head));
-        // the red head dot can sit over half the amber one when weight and push are near one height, so compare the
-        // two amber dots by whichever edge is in view: their tops, or their bottoms
-        if (k.act === 'play') pushWorst = Math.max(pushWorst, r.push.length && r.pushHead.length
-          ? Math.min(Math.abs(r.push[0] - r.pushHead[0]), Math.abs(r.push[r.push.length - 1] - r.pushHead[r.pushHead.length - 1])) : NaN);
-        if (!(r.weight > 0.15 * r.h && r.weight < 0.85 * r.h)) inside = false;
+        // the amber tip dot and the amber head ring (a ring, so the weight's red dot never hides it), by their centres
+        const centre = (a) => a.length ? (a[0] + a[a.length - 1]) / 2 : NaN;
+        if (k.act === 'play') pushWorst = Math.max(pushWorst, Math.abs(centre(r.push) - centre(r.pushHead)));
+        if (!(r.weight > 0.05 * r.h && r.weight < 0.95 * r.h)) inside = false;
       }
       check(`step ${k.step + 1}: the weight's centre and the trace's head are one height`, worst <= 1.5, `worst ${worst.toFixed(2)} px over 8 frames`);
       check(`step ${k.step + 1}: the weight stays on the sheet, not clipped`, inside);
       if (k.act === 'play') check(`step ${k.step + 1}: the push's tip and the amber trace's head are one height`, pushWorst <= 2, `worst ${pushWorst.toFixed(2)} px over 8 frames`);
+    }
+    // Step 4: the weight beside the curve, on one fixed scale. Pushed at exactly its own rate and given time to
+    // settle, the red bar at the top of its swing and the red dot on the curve are one height.
+    {
+      await pg.click('.rail button:nth-child(4)'); await pg.waitForTimeout(150);
+      await pg.evaluate(() => { const e = document.getElementById('s4d'); e.value = 500; e.dispatchEvent(new Event('input')); });
+      await pg.click('section.step[data-step="3"] [data-play]'); await pg.waitForTimeout(14000);
+      let worst = 0;
+      for (let n = 0; n < 6; n++) {
+        await pg.waitForTimeout(150);
+        const r = await pg.evaluate(() => {
+          const c = document.querySelector('section.step[data-step="3"] canvas'), g = c.getContext('2d'), W = c.width, H = c.height;
+          const d = g.getImageData(0, 0, W, H).data, dpr = W / c.clientWidth, cw = c.clientWidth;
+          const red = (x, y) => { const i = (y * W + x) * 4; return d[i] > 170 && d[i + 1] < 80 && d[i + 2] < 70; };
+          const rowsAt = (cx) => { const ys = []; const x0 = Math.round(cx * dpr) - 1; for (let y = 0; y < H; y++) for (let x = x0; x <= x0 + 2; x++) if (red(x, y)) { ys.push(y / dpr); break; } return ys; };
+          const split = Math.min(200, cw * 0.28), bw = Math.min(70, split * 0.4), x0 = split + 10, w = cw - split - 18;
+          const bar = rowsAt(split / 2 - bw / 2 - 4), dot = rowsAt(x0 + w / 2);      // the bar's left end; the dot at f
+          const mid = (a) => a.length ? (a[0] + a[a.length - 1]) / 2 : NaN;
+          // the bar is the lowest run of red in its column; its label sits just above it
+          const runs = []; for (const y of bar) { if (runs.length && y - runs[runs.length - 1].at(-1) <= 1) runs[runs.length - 1].push(y); else runs.push([y]); }
+          return { bar: mid(runs.length ? runs[runs.length - 1] : []), dot: mid(dot) };
+        });
+        worst = Math.max(worst, Math.abs(r.bar - r.dot));
+      }
+      check('step 4: settled at its own rate, the top of the swing and the curve are one height', worst <= 3, `worst ${worst.toFixed(2)} px over 6 frames`);
     }
     await pg.click('.rail button:nth-child(1)'); await pg.waitForTimeout(150);
     // a note survives a reload
