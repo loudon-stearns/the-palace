@@ -22,3 +22,6 @@
 # Hunt ledgers are append-only, one line per candidate tested (SCHEMA — Reference
 # §6): two branches that each add a line keep both.
 "* — hunt.md" merge=union
+
+# The Weave's health ledger (SCHEMA — Reference §6, kind `health`): one row per weave, both branches' rows kept.
+"* — health.md" merge=union

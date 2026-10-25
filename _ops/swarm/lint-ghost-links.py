@@ -8,7 +8,7 @@ lint-doc-drift.py (foundational-prose consistency), and lint-entry-naming.py
 `[[wikilinks]]` whose target resolves to no file in the vault.
 
 Detection is mechanical; the DISPOSITION is judgment and belongs to the Weave. A dead
-wikilink is not always a bug - CLAUDE.md holds that "missing connections are invitations":
+wikilink is not always a bug - the Jewel (JEWEL.md) holds that "a missing connection is an invitation":
 a forward-ghost (a deliberate pointer to an entry that should exist but doesn't yet) reads
 identically to a typo or a stale link. So every finding is a WARNING, never an error, and
 this linter never gates a commit. The mind running the Weave decides per finding:

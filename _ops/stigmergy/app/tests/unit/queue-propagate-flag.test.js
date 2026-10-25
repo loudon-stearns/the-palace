@@ -1,5 +1,5 @@
 // The deck tells the same truth about weave flags as _ops/swarm/lint-weave-flags.py
-// (Weave Ceremony Step 1c): a propagate flag is never hidden by a GRANT/DENY or
+// (Weave Ceremony Step 0c): a propagate flag is never hidden by a GRANT/DENY or
 // closed by a touch or a decline; a Palace-Resolves trailer closes any weave flag;
 // a Declined flag line closes an entry flag; a Carried flag line shows how far a
 // propagate flag has got.

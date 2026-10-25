@@ -2,7 +2,7 @@
 //
 // A weave holds back real but unsigned findings (single-reader, or crowded out of
 // the signing). Rather than lose them, it leaves them on the WEAVE board as
-// `weave_flag`s the NEXT weave reads first (Step 1c). Each trail carries its lens,
+// `weave_flag`s the NEXT weave reads first (Step 0c). Each trail carries its lens,
 // spark, whether two independent runs found it, and `expires_after` — a trail that
 // isn't picked up fades, so trails can't crowd out lateral search ([[Pheromone Trail]]).
 // `expires_after` is advisory today: nothing reads it yet (the next weave's linter should).

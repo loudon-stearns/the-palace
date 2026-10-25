@@ -8,12 +8,12 @@ of `_ops/stigmergy/list-handoffs.mjs`.
 Why this exists: postcondition 2b ("the weave_flag inbox has been read and every
 open flag acted on or explicitly declined") was honour-system — the sibling
 postconditions 2d/2e/2f each have a linter that gates the commit, but 2b did not,
-so a Weave launched by a side door (e.g. a baton whose move-list omits Step 1c)
+so a Weave launched by a side door (e.g. a baton whose move-list omits Step 0c)
 could silently skip it. This makes 2b mechanical, so it can no longer be missed
 regardless of how the Weave was launched. (The Palace Hardens Around Values: a
 rule earns a gate once its check proves mechanical — and this one is.)
 
-Two kinds of flag (Weave Ceremony Step 1c):
+Two kinds of flag (Weave Ceremony Step 0c):
 
   - An ENTRY flag names its `source_entries` and asks for something done to them.
   - A PROPAGATE flag (`flag_type: propagate`) carries a decision to every page it

@@ -133,7 +133,7 @@ export function parseTrailers(body) {
   return out;
 }
 
-// The two body lines a Weave writes about its flags (Weave Ceremony Step 1c), which
+// The two body lines a Weave writes about its flags (Weave Ceremony Step 0c), which
 // are not trailers: `Declined flag <id>: <reason>` closes an entry flag, and
 // `Carried flag <id>: <how far>` records a propagate flag this weave carried but
 // did not finish. An older decline names the id as `msg-<id>`; readers match both.
