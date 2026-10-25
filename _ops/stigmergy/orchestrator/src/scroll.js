@@ -11,10 +11,11 @@
 //        # write an agreed plan (only on Loudon's yes) — any page, a ceremony too; the change is logged on the trail
 //
 // `--all` walks every `type: project` entry whose status is `active` (or has
-// no status) — stewarded or not — and joins each to its steward via
-// REGISTRY.json when one exists. Dormant stewarded projects still get a scroll
-// (the trail is real even when the page sleeps); complete / archived /
-// composting projects are skipped unless named with --home.
+// no status) and whose stage isn't `composting` — stewarded or not — and joins
+// each to its steward via REGISTRY.json when one exists. Dormant stewarded
+// projects still get a scroll (the trail is real even when the page sleeps);
+// complete / archived / composting projects are skipped unless named with
+// --home (or the walk runs with --include-inactive).
 
 import { readFileSync, readdirSync } from 'node:fs';
 import { resolve, join, relative } from 'node:path';
@@ -72,6 +73,7 @@ export function scrollAll({ palaceRoot, dryRun = false, tsNow = new Date().toISO
   for (const p of listProjectEntries(palaceRoot)) {
     const active = p.status == null || p.status === 'active';
     if (!active && !includeInactive) { results.push({ home: p.title, skipped: `status_${p.status}` }); continue; }
+    if (p.stage === 'composting' && !includeInactive) { results.push({ home: p.title, skipped: 'stage_composting' }); continue; }
     const s = stewards.get(p.title);
     const r = summary(materializeScroll({ palaceRoot, home: p.title, agentDir: s ? s.dir : undefined, tsNow, dryRun }));
     results.push({ home: p.title, stewarded: !!s, ...r });
