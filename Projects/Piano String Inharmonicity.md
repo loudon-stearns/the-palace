@@ -181,3 +181,7 @@ Inharmonicity creates a frequency-domain pattern (stretched partials) that corre
   — progressed: [[Shepard Tone Synthesizer]] § Where the Theory Still Has an Edge holds that in a stretched tuning the dropped voice no longer lands on its own pitch class, so the seam should show by ear; a claim, not yet heard (2026-10-24)
 - Use inharmonicity coefficients as synthesis parameters: what instruments live in the space between harmonic and inharmonic?
   — answered on [[Categorizing Inharmonicity]] § Synthesis Directions: its six-type palette is where this question lives (2026-10-24)
+
+## Active Baton
+
+[[Piano String Inharmonicity — baton]] — drafted 2026-10-25
