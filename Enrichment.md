@@ -43,6 +43,9 @@ links:
   - target: "[[Deposit Ceremony]]"
     type: connects-to
     label: findings-gate
+  - target: "[[Progressive Staging]]"
+    type: connects-to
+    label: the-test-is-the-last-step
 ---
 
 # Enrichment
