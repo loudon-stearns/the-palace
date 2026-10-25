@@ -5,7 +5,7 @@ pillars:
   - tools
   - creation
 born: 2026-10
-stage: sprout
+stage: growing
 forward_vector: "I want to meet every reader who arrives asking about wavetables: say what the oscillator is in plain words, hold the harmonic limit to a few sentences that point at their proof, send each reader on to the entry that pushes past it, and get the loop identity heard, a stored cycle and a delay loop subtracting to silence."
 links:
   - target: "[[DSP in Looping Dimensions]]"

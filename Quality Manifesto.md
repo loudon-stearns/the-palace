@@ -1,6 +1,6 @@
 ---
 title: Quality Manifesto
-type: concept
+type: hub
 pillars:
   - philosophy
   - practice

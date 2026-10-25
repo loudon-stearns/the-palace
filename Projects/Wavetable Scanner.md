@@ -6,7 +6,7 @@ pillars:
   - creation
   - tools
 born: 2026-05
-stage: sprout
+stage: growing
 forward_vector: "I am the single-cycle morph laboratory — load any wavetable, see its frames as a 3D landscape, sweep Position to morph through them, switch between tables to compare libraries. I want to grow into a browser-side packer that absorbs the work [[pack_wavetable.py]] currently does outside the browser, so any folder of single-cycle WAVs becomes a centroid-sorted morphable table without leaving the page — that move earns my Sketch → Study transition and turns me into a self-contained tool Loudon can use across the rest of his AKWF library."
 links:
   - target: "[[Shop/Web Audio Worklet]]"

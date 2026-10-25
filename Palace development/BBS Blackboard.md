@@ -1,6 +1,6 @@
 ---
 title: BBS Blackboard
-type: concept
+type: hub
 pillars:
   - tools
   - philosophy

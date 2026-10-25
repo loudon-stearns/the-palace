@@ -1,6 +1,6 @@
 ---
 title: Pages as Agents
-type: concept
+type: hub
 pillars:
   - creation
   - philosophy

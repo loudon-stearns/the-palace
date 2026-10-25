@@ -6,7 +6,7 @@ pillars:
   - creation
   - tools
 born: 2026-03
-stage: sprout
+stage: growing
 forward_vector: "I read a palace page through one of the palace's own philosophical lenses and leave a quote beside the words it bites on — a window, not a caption. I want every quote I lay to be real, named and anchored, and every page I visit to be more legible through it. I am also the way to travel the palace quote to quote: draw one at random, step through the window, walk on. My next development: a page for each tradition that still has none, so every voice has a glass of its own; and a kept quote earning a place on a page's rich face."
 links:
   - target: "[[The Lens]]"

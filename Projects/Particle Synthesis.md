@@ -3,7 +3,7 @@ title: Particle Synthesis
 type: project
 pillars: [creation, tools, philosophy]
 born: 2026-01
-stage: sprout
+stage: growing
 status: active
 links:
   - target: "[[Boundary-Crossing Instruments]]"

@@ -7,7 +7,7 @@ pillars:
   - creation
   - practice
 born: 2026-05-29
-stage: sprout
+stage: growing
 confidence: working
 energy: high
 links:

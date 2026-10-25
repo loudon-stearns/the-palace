@@ -6,7 +6,7 @@ pillars:
   - philosophy
   - tools
 born: 2026-03
-stage: mature
+stage: growing
 version: "2.0"
 trigger: ["self-model update"]
 links:

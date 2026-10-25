@@ -7,7 +7,7 @@ pillars:
   - tools
   - practice
 born: 2026-03
-stage: growing
+stage: mature
 confidence: working
 energy: high
 hook_quality: 8

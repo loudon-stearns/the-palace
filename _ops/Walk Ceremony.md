@@ -3,7 +3,7 @@ title: "Walk Ceremony"
 type: practice
 pillars: [practice, philosophy]
 born: 2026-03
-stage: mature
+stage: growing
 version: "1.3"
 trigger: ["walk", "let's walk"]
 links:

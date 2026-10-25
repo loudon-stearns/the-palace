@@ -82,7 +82,7 @@ Read the table top to bottom and take the first row that fits; `concept` is the 
 | `source` | it is an external artifact the palace draws from — paper, book, tool, recording | `author` · `year` · `medium` | [[Meaning and the Link]] |
 | `project` | it is being built, composed, or created; it has a temporal arc | `status` (active \| complete \| archived) | [[BLUELINE]], [[Loudon Live]] |
 | `question` | it is an unresolved question being actively carried | — | *"When does the wiki warrant its own Project?"* |
-| `spore` | it is an idea preserved for a later revival, dormant by choice (`stage` is always `dormant`) | `revival_conditions` | [[Shimmer Cloud]] |
+| `spore` | it is an idea preserved for a later revival, dormant by choice (`stage` is always `dormant`) | `revival_conditions` | [[JSUI]] |
 | `hub` | it organizes a dense region of the graph — **not self-assigned**, earned in the top inbound decile at the last map build, proposed by the Weave | — | [[FOUR PILLARS]], [[Kuramoto Coupling]] |
 | `practice` | it is a recurring method, workflow, ritual, or embodied way of working — something you *do*, not an idea you hold | `version` · `trigger` (ceremonies) | [[Closing Well]], [[Deposit Ceremony]] |
 | `person` | a thinker or collaborator whose ideas are in live dialogue with the palace — not every cited name | `domains` | [[Spinoza]], [[Brian Eno]] |

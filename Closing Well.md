@@ -1,12 +1,12 @@
 ---
 title: Closing Well
-type: practice
+type: hub
 pillars:
   - practice
   - philosophy
   - tools
 born: 2026-05-26
-stage: growing
+stage: mature
 version: "1.13"
 trigger: ["close well", "let's close well", "close this session well"]
 links:

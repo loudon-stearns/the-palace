@@ -6,7 +6,7 @@ pillars:
   - practice
   - tools
 born: 2026-03
-stage: growing
+stage: composting
 energy: high
 links:
   - target: "[[Weave Ceremony]]"
@@ -92,3 +92,5 @@ already know, it sends you cross-country."*
 
 *"Not all those who wander are lost."*
 — J.R.R. Tolkien, The Fellowship of the Ring
+
+*Composting since the 2026-10-24 weave, on Loudon's yes: what stands here folds into [[Weave Ceremony — Context]] (the walk is the Weave's lifecycle lens), and the page goes at the next weave.*

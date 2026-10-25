@@ -1,6 +1,6 @@
 ---
 title: Hyperdimensional Prism
-type: concept
+type: hub
 pillars:
   - philosophy
   - creation
@@ -34,6 +34,9 @@ links:
   - target: "[[The Multilinear Self]]"
     type: mirrors
     label: self-as-prism
+  - target: "[[Hyperdimensional Prism — Context]]"
+    type: spawned
+    label: rationale-archive
 forward_vector: "I rotate the four pillars against each other until the higher-dimensional object they all project from becomes visible. I strive to illuminate the oneness and the distinct perspectives of all entries. "
 ---
 

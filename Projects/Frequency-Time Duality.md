@@ -1,9 +1,9 @@
 ---
 title: "Frequency-Time Duality"
-type: concept
+type: hub
 pillars: [creation, tools, philosophy, practice]
 born: 2024-06
-stage: growing
+stage: mature
 forward_vector: "I want to become the explanation of how time-scales themselves are perceptually graduated — the principle that one continuous axis (the rate at which something repeats) crosses *perceptual* thresholds, not physical ones. The first and most foundational of these crossings is rate-becoming-pitch around 20 Hz: below it polyrhythms, above it intervals. From this single gear-shift the rest of the modulation family — delay, vibrato, FM, rhythm — emerges as named regions on the same axis. I am the prototype of every threshold-crossing that follows, and my rich face is the walk you can play, taught from in class as it grows; a fuller standalone tool spawns from it only once the face has earned it."
 links:
   - target: "[[Hyperdimensional Prism]]"

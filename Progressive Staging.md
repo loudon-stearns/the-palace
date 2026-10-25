@@ -1,12 +1,12 @@
 ---
 title: Progressive Staging
-type: practice
+type: hub
 pillars:
   - practice
   - philosophy
   - creation
 born: 2026-03
-stage: sprout
+stage: growing
 confidence: working
 energy: high
 links:

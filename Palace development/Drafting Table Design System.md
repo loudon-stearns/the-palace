@@ -6,7 +6,7 @@ pillars:
   - tools
   - practice
 born: 2026-10
-stage: seed
+stage: sprout
 author: Loudon Stearns with Claude (claude.ai Design System artifact)
 year: 2026
 medium: tool

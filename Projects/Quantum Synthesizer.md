@@ -6,7 +6,7 @@ pillars:
   - tools
   - philosophy
 born: 2026-01
-stage: sprout
+stage: growing
 status: active
 forward_vector: "I will keep proving — through audio and video artifacts, not only prose — that the Schrödinger equation IS a synthesis system: testing boundary conditions as harmonic content with actual sound, testing potential shape as anharmonicity with actual visualization, until monism is something the ear has heard rather than something the page has claimed."
 links:

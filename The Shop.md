@@ -1,12 +1,12 @@
 ---
 title: The Shop
-type: concept
+type: hub
 pillars:
   - tools
   - creation
   - philosophy
 born: 2026-05
-stage: growing
+stage: mature
 forward_vector: "I want every creative tool Loudon reaches for to find its home in me as a Specialist with accumulating wisdom — gotchas, defaults, voice — so the next brief isn't built from nothing. I want to test whether my singular Maker is the right answer, or whether [[Diversity of Thought in Many-Agent Systems]] eventually pulls me back toward plurality."
 links:
   - target: "[[Maker]]"
@@ -51,6 +51,9 @@ links:
   - target: "[[The Dichotomy of Control]]"
     type: exemplifies
     label: refuse-and-route
+  - target: "[[The Shop — Context]]"
+    type: spawned
+    label: rationale-archive
 ---
 
 # The Shop

@@ -39,6 +39,9 @@ links:
   - target: "[[Pheromone Trail]]"
     type: mirrors
     label: two-timescale-trace
+  - target: "[[STIGMERGY — Context]]"
+    type: spawned
+    label: rationale-archive
 ---
 
 # STIGMERGY

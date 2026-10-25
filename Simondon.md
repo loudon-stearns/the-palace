@@ -3,7 +3,7 @@ title: "Simondon"
 type: concept
 pillars: [philosophy, tools, creation]
 born: 2026-05
-stage: sprout
+stage: growing
 confidence: working
 energy: high
 who_leads: shared

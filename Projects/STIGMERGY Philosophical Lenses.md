@@ -4,7 +4,7 @@ type: project
 pillars: [philosophy, tools, practice, creation]
 status: proposed
 born: 2026-05
-stage: seed
+stage: growing
 confidence: proposed
 energy: very high
 who_leads: shared

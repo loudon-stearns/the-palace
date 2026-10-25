@@ -36,6 +36,7 @@ links:
   - target: "[[Murmuration]]"
     type: connects-to
     label: born-from
+  - { target: "[[Maker — Context]]", type: spawned, label: "rationale-archive" }
 tags: [maker, shop, foreman, studio]
 ---
 

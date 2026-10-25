@@ -1,6 +1,6 @@
 ---
 title: Modes of Collaboration
-type: practice
+type: hub
 pillars:
   - practice
   - philosophy

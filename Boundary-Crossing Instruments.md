@@ -1,6 +1,6 @@
 ---
 title: Boundary-Crossing Instruments
-type: concept
+type: hub
 pillars:
   - tools
   - creation

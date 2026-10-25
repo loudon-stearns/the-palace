@@ -3,7 +3,7 @@ title: "Drift and Consolidation"
 type: concept
 pillars: [practice, philosophy, tools]
 born: 2026-05-27
-stage: sprout
+stage: growing
 confidence: proposed
 energy: high
 links:

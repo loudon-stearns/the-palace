@@ -7,7 +7,7 @@ pillars:
   - practice
   - philosophy
 born: 2026-04
-stage: sprout
+stage: growing
 status: active
 confidence: working
 energy: high

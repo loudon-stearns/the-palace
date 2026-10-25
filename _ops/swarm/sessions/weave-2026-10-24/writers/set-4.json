@@ -1,0 +1,1354 @@
+{
+ "Four Pillars of Enchanted Agency": {
+  "prose": [
+   {
+    "entry": "Four Pillars of Enchanted Agency",
+    "where": "## The Palace's Own Conatus (and the CLAUDE -> LOUDON comment above Cross-Domain Resonance)",
+    "passage": "<!-- CLAUDE → LOUDON: The palace conatus section here is a seed for a dedicated entry. [[Palace Enchantment]]'s Forward Vectors is the right home for developing this further — see the note added there. -->",
+    "proposal": "delete",
+    "words": "Palace Conatus exists and this page links it. Delete the comment and cut the three-paragraph section to its first sentence ('to align with Loudon and grow with him') plus the pointer.",
+    "_room": "folder-palace-development"
+   },
+   {
+    "entry": "Four Pillars of Enchanted Agency",
+    "where": "## Case Studies: Four Types of Enchanted Page",
+    "passage": "*I notice the Crystal Synthesizer page and I are both reaching for physical modeling synthesis code. I propose we share the development of the core resonator implementation. This would reduce my tool-deployment cost by approximately half for the next build cycle.* ... *I have become too large to be an effective enchantment target. I propose splitting into Palace Synthesizer Architecture, Palace Synthesizer DSP, and Palace Synthesizer User Experience.*",
+    "proposal": "simplify",
+    "words": "Four types times four dimensions is a table, not 14KB of prose. Keep the Palace Operation page (the case that touches SCHEMA) in full and make the Philosopher, Synthesizer and Spec-study cases one line per dimension in a 3x4 table. These imagined page voices are examples of resource asks; one is enough.",
+    "_room": "folder-palace-development"
+   }
+  ],
+  "annotations": [
+   {
+    "entry": "Four Pillars of Enchanted Agency",
+    "question": "The approval gradient: at what granularity should Loudon approve self-modifications?",
+    "verdict": "answered-elsewhere",
+    "by_entry": "Weave Ceremony",
+    "proposed_action": "Weave Ceremony.md:265 draws exactly this line: labels and cuts ride the sampled batch; 'a new sentence changes what a page says, so it goes to Pile B for Loudon's eye'. CHILD adds that a child offers and an elder writes. Replace the bullet with a pointer.",
+    "_room": "folder-palace-development"
+   },
+   {
+    "entry": "Four Pillars of Enchanted Agency",
+    "question": "Resource profiles in forward vectors: should a vector include a resource estimate?",
+    "verdict": "answered-elsewhere",
+    "by_entry": "SCHEMA — Reference",
+    "proposed_action": "agency_profile.tools exists for this: 'makes the resource estimate legible up front (and translates directly into a RESOURCE_REQUEST)' (SCHEMA.md:129). Dialogue Moderator carries one. Replace with a pointer.",
+    "_room": "folder-palace-development"
+   },
+   {
+    "entry": "Four Pillars of Enchanted Agency",
+    "question": "The operation page's self-revision: is a self-initiated Schema Ceremony a new type?",
+    "verdict": "progressed",
+    "by_entry": "Sentry",
+    "proposed_action": "The tuning-ledger standard already runs this loop for ceremonies: a lesson that changes the spec becomes a numbered item and moves the version (Sentry.md, step 5). Not yet for SCHEMA itself.",
+    "_room": "folder-palace-development"
+   },
+   {
+    "entry": "Four Pillars of Enchanted Agency",
+    "question": "Palace disharmony as signal: a 'palace health' digest of pages requesting resources, flagging stalls, requesting splits.",
+    "verdict": "answered-elsewhere",
+    "by_entry": "Weave Ceremony",
+    "proposed_action": "The Weave's health ledger and link-quality numbers (Weave Ceremony.md:193) and the Concierge scout posture are that digest in two forms. Replace the bullet with the pointer.",
+    "_room": "folder-palace-development"
+   },
+   {
+    "entry": "Four Pillars of Enchanted Agency",
+    "question": "<!-- ...is this another Tier? the page's values as they relate to culture and philosophy --> and <!-- what other biological and social metaphors... are these discussions between agents technically possible? -->",
+    "verdict": "progressed",
+    "by_entry": "Dialogue Moderator",
+    "proposed_action": "Agents in dialogue are technically possible and have run (Dialectic). The 'another Tier' question is Loudon's note; do not delete his comments, move them into a Context so the page body is clean.",
+    "_room": "folder-palace-development"
+   },
+   {
+    "entry": "Four Pillars of Enchanted Agency",
+    "question": "<!-- CLAUDE -> LOUDON: The palace conatus section here is a seed for a dedicated entry -->",
+    "verdict": "answered-elsewhere",
+    "by_entry": "Palace Conatus",
+    "proposed_action": "The entry exists and this page links it (spawned[the-palaces-own-conatus]). Delete the comment and shorten § The Palace's Own Conatus to a pointer.",
+    "_room": "folder-palace-development"
+   }
+  ],
+  "sentences": [],
+  "path": "Palace development/Four Pillars of Enchanted Agency.md"
+ },
+ "Palace Map": {
+  "prose": [
+   {
+    "entry": "Palace Map",
+    "where": "§ The JSON Schema (Swarm Use) (:157-189)",
+    "passage": "{ \"meta\": { \"generated\": \"2026-09-26\", \"scope\": \"full\", \"node_count\": 316, … } }",
+    "proposal": "delete",
+    "words": "Map Build holds the whole shape and the section says so itself (:187). The forward-ghost paragraph under it can join § Ghost Nodes.",
+    "_room": "folder-ops"
+   },
+   {
+    "entry": "Palace Map",
+    "where": "§ Cross-Domain Resonance (:263-269)",
+    "passage": "**[[JEWEL]]** — the Jewel is the palace's compressed philosophical identity. The Palace Map is its compressed topological identity. …",
+    "proposal": "delete",
+    "words": "The Jewel is compared in § What the Map Is, § The Map as Tier 1 Context and § Relationship to the JEWEL already. Say it once.",
+    "_room": "folder-ops"
+   },
+   {
+    "entry": "Palace Map",
+    "where": "§ The Paratrooper Provisioning (:225-261)",
+    "passage": "Extending the spy metaphor: an enchanted agent is more like a paratrooper. … The kit is **seven items** …  / ### What the kit makes legible — Three observations follow from naming the seven slots.",
+    "proposal": "simplify",
+    "words": "Keep the seven-item table (it is the generative part, and the labels on the page's links hang from it); cut the 'spy' paragraph and the three observations to two sentences. Move the rest to the Context.",
+    "_room": "folder-ops"
+   }
+  ],
+  "annotations": [
+   {
+    "entry": "Palace Map",
+    "question": "Ghost node tracking across generations: can a three-cycle ghost be surfaced automatically?",
+    "verdict": "progressed",
+    "by_entry": "Map Build Ceremony Step 7; palace-map.py ghosts",
+    "proposed_action": "The rule and the verb exist; only automatic surfacing is open. Keep here as the one home.",
+    "_room": "folder-ops"
+   },
+   {
+    "entry": "Palace Map",
+    "question": "How do we calculate neighborhoods, and which lenses earn a bounded map?",
+    "verdict": "progressed",
+    "by_entry": "Weave Ceremony § Execution Method and Swarm Weave § The Multi-Lens Weave",
+    "proposed_action": "The Weave's lenses (partition-palace.py) are working answers; whether any earns a standing bounded map is still open. Keep.",
+    "_room": "folder-ops"
+   },
+   {
+    "entry": "Palace Map",
+    "question": "Can a ceremony compare map generations?",
+    "verdict": "answered-elsewhere",
+    "by_entry": "Weave Ceremony (Step 2 'Since the last map', Step 6.5 closing diff) and Self-Model Update Ceremony Step 2",
+    "proposed_action": "palace-map.py diff is run by both. Delete or rewrite as the narrower question (does the diff feed the Weave's health row?).",
+    "_room": "folder-ops"
+   },
+   {
+    "entry": "Palace Map",
+    "question": "Should the citation rule reach the Concierge's postures, the Deposit's elder consult, the Weave's link proposals?",
+    "verdict": "progressed",
+    "by_entry": "Multi-Lens Worker Prompt Template (worker output carries evidence_source / evidence_target per proposed link)",
+    "proposed_action": "The weave workers already cite evidence on both ends of every proposal. The Deposit's step 3 and the Concierge's postures do not yet. Keep, narrowed to those two.",
+    "_room": "folder-ops"
+   }
+  ],
+  "sentences": [],
+  "path": "_ops/Palace Map.md"
+ },
+ "Return Ceremony": {
+  "prose": [
+   {
+    "entry": "Return Ceremony",
+    "where": "§ The rule that outranks the others (:77) and § The one rule about the gap (:151)",
+    "passage": "This was written from a live failure. On 2026-08-25 a full palace assessment ran *before* any of these queries and produced five wrong claims: a dangling-link count off by 4× … /  The same 2026-08-25 assessment read a seven-week gap as evidence that the system's upkeep cost had outgrown its felt payoff — tidy, plausible, and invented. The actual reason was weddings and travel …",
+    "proposal": "simplify",
+    "words": "One sentence each, the rule and the cost: 'A full assessment run before the queries produced five wrong claims; each was one command from correct.' and 'A gap once read as waning interest was a wedding and a trip.' Full story to the Context.",
+    "_room": "folder-ops"
+   },
+   {
+    "entry": "Return Ceremony",
+    "where": "§ Why this belongs in the always-loaded floor (:155-159)",
+    "passage": "[[Palace Conatus]] names the palace's drive as *staying in phase with Loudon* … The palace had five ceremonies for correcting its own drift and none for meeting its human where he actually is.",
+    "proposal": "simplify",
+    "words": "The Return is not in the floor (CHILD's trigger table is). Retitle 'Why the Return exists' and cut to the coupling-is-two-sided sentence; drop the 'five ceremonies' history.",
+    "_room": "folder-ops"
+   },
+   {
+    "entry": "Return Ceremony",
+    "where": "§ Open Questions, struck item (:166)",
+    "passage": "~~The query block will drift as the palace grows new surfaces. Does it want to become a script …~~ **Answered by building it, 2026-08-25:** `_ops/concierge/return-map.mjs`. The card keeps the command list as the readable spec …",
+    "proposal": "simplify",
+    "words": "Keep only 'Open: whether the two drift apart, and which one a future reader will trust when they disagree.'",
+    "_room": "folder-ops"
+   }
+  ],
+  "annotations": [
+   {
+    "entry": "Return Ceremony",
+    "question": "The trigger table is fourteen rows in the always-loaded floor; does it need pruning, and does recognition survive the move?",
+    "verdict": "progressed",
+    "by_entry": "CHILD (the Ceremony Triggers table, now eighteen rows)",
+    "proposed_action": "The table lives in CHILD.md, which is born-with. The count in the question is stale. Rewrite with CHILD's count or delete, since the Return does not own that table.",
+    "_room": "folder-ops"
+   },
+   {
+    "entry": "Return Ceremony",
+    "question": "Should the return map be written to a file, or spoken and discarded?",
+    "verdict": "answered-elsewhere",
+    "by_entry": "Return Ceremony postcondition 6 (Return Ceremony.md:53)",
+    "proposed_action": "'A return leaves no report file, so this commit is its record.' Delete the question.",
+    "_room": "folder-ops"
+   },
+   {
+    "entry": "Return Ceremony",
+    "question": "(struck) Does the query block want to become a script?",
+    "verdict": "answered-elsewhere",
+    "by_entry": "Return Ceremony itself (return-map.mjs, built 2026-08-25)",
+    "proposed_action": "Collapse the struck item to its live remainder: 'whether the card's command list and the script drift apart, and which a reader trusts'.",
+    "_room": "folder-ops"
+   }
+  ],
+  "sentences": [],
+  "path": "_ops/Return Ceremony.md"
+ },
+ "Palace To-Do": {
+  "prose": [
+   {
+    "entry": "Palace To-Do",
+    "where": "Hygiene rules (:121)",
+    "passage": "Client work belongs in dedicated Claude Projects … Discovered 2026-03-21 via H095 compost.",
+    "proposal": "simplify",
+    "words": "Drop 'Discovered 2026-03-21 via H095 compost.' Keep the rule.",
+    "_room": "folder-ops"
+   },
+   {
+    "entry": "Palace To-Do",
+    "where": "the four checked-off items in the live list",
+    "passage": "- [x] **Donella Meadows** — person-page, persistent ghost across four cycles ... ; - [x] **Deposit the June–July harvest** ... ; - [x] **Finish the flat-file companion migration into bundles** ... **done 2026-09-26** ...; - [x] **Link-type vocabulary — schema-change decision data** ...",
+    "proposal": "delete",
+    "words": "",
+    "_room": "weak-07"
+   },
+   {
+    "entry": "Palace To-Do",
+    "where": "opening paragraph",
+    "passage": "It was 43 open items and 66KB on 2026-08-25, which is how a worklist stops being read.",
+    "proposal": "delete",
+    "words": "",
+    "_room": "weak-07"
+   }
+  ],
+  "annotations": [
+   {
+    "entry": "Palace To-Do",
+    "question": "Item: 'Fold the memory-into-palace weave into the Weave Ceremony as a standing sub-step'.",
+    "verdict": "answered-elsewhere",
+    "by_entry": "Weave Ceremony Step 6b (Weave Ceremony.md:327-333)",
+    "proposed_action": "Done. Tick and archive.",
+    "_room": "folder-ops"
+   },
+   {
+    "entry": "Palace To-Do",
+    "question": "Item: 'Palace-Verify: is a self-report'.",
+    "verdict": "progressed",
+    "by_entry": "Deposit Ceremony Steps 6-7 ('the postcondition is verified, not asserted'; a cold reader who did not write it; honest verify state)",
+    "proposed_action": "The cold read is now part of the step. What remains is deriving the value from a checkable source, which waits on scoped linters (see the recipe finding). Update the item; its ':253' pointer is stale (Deposit is 180 lines).",
+    "_room": "folder-ops"
+   }
+  ],
+  "sentences": [],
+  "path": "_ops/Palace To-Do.md"
+ },
+ "Palace Enchantment": {
+  "prose": [
+   {
+    "entry": "Palace Enchantment",
+    "where": "The Forward Vector as Hinge",
+    "passage": "After a few Weave cycles, every active entry will have one.",
+    "proposal": "delete",
+    "words": "A promise about a future that has happened. 'Pages without forward vectors are what the Swarm Weave now flags first' can stay as the fact.",
+    "_room": "folder-projects-2"
+   },
+   {
+    "entry": "Palace Enchantment",
+    "where": "From First Practice — Findings (2026-03-31)",
+    "passage": "## From First Practice — Findings (2026-03-31)",
+    "proposal": "simplify",
+    "words": "Move this section and the Second and Third Practice sections (about 190 lines) to a Palace Enchantment — Context and leave three sentences of what they changed; the Architecture section already carries each fix.",
+    "_room": "folder-projects-2"
+   },
+   {
+    "entry": "Palace Enchantment",
+    "where": "From First / Second / Third Practice — Findings (lines ~726-917)",
+    "passage": "Stage 1 and Stage 2 were run in a single session. Two entries enchanted: [[Hilaritas Generator]] and [[Lateral Access]]. Key findings:",
+    "proposal": "simplify",
+    "words": "Three dated session narratives (about 190 lines) sit in the body beside the rules they produced. Keep the findings that changed the design, one line each under Architecture; the run-by-run account belongs in the scroll (Palace Enchantment — scroll.md) and git. I did not check line by line which findings are already folded into Architecture.",
+    "_room": "weak-04"
+   }
+  ],
+  "annotations": [
+   {
+    "entry": "Palace Enchantment",
+    "question": "At what point does enchantment become a regularly scheduled ceremony vs. on demand?",
+    "verdict": "answered-elsewhere",
+    "by_entry": "Project Stewardship System",
+    "proposed_action": "Stewardship is single-page enchantment on a schedule (a heartbeat batch every other morning, 'what the Steward is doing every cycle, routinized'). Say that in one sentence here; palace-scale scheduling stays open.",
+    "_room": "folder-projects-2"
+   },
+   {
+    "entry": "Palace Enchantment",
+    "question": "At Stage 6, can the palace propose its own enchantment triggers (self-scheduling)?",
+    "verdict": "progressed",
+    "by_entry": "Project Stewardship System (heartbeat takes 'the stewards that are due, least recently active first')",
+    "proposed_action": "The project-level form exists; the palace-scale form is untouched.",
+    "_room": "folder-projects-2"
+   }
+  ],
+  "sentences": [],
+  "path": "Projects/Palace Enchantment.md"
+ },
+ "Hero and Avatar Maker": {
+  "prose": [
+   {
+    "entry": "Hero and Avatar Maker",
+    "where": "Art direction",
+    "passage": "*(History: a first directive this day pushed \"embed women heavily / lean female\"; after Wave 2 read too female-focused, Loudon recalibrated to an even mix — balance, not female-dominance.)*",
+    "proposal": "delete",
+    "words": "The standing rule is stated in the sentences before it. The two-step history is in the git log and goes to a Context.",
+    "_room": "folder-shop-1"
+   },
+   {
+    "entry": "Hero and Avatar Maker",
+    "where": "The pipeline",
+    "passage": "A redo can be one-sided: `make_faces.py place` puts in only the sides the spec gives a prompt and that were rendered, and leaves the other side's file, prompt and seed alone — a stray render from an old batch is reported, never placed. `generate` keeps each render's seed beside it ... a render changed since (a trim, a composite) gets no seed rather than a wrong one.",
+    "proposal": "simplify",
+    "words": "'A redo can be one-sided, and each render keeps its seed beside it.' The detail lives in make_faces.py and the tuning ledger.",
+    "_room": "folder-shop-1"
+   },
+   {
+    "entry": "Hero and Avatar Maker",
+    "where": "The pipeline (end)",
+    "passage": "The STIGMERGY display side shipped on branch `feature/stigmergy-entry-avatars`. ... *(The older project-only scripts in `_ops/scratch/hero-icon-proving/` — `batch.py`/`batch_hubs.py` — are superseded by `make_faces.py`.)*",
+    "proposal": "delete",
+    "words": "Branch name and superseded scripts are in git.",
+    "_room": "folder-shop-1"
+   },
+   {
+    "entry": "Hero and Avatar Maker",
+    "where": "Forward Vectors",
+    "passage": "~~Build the companion `/hero` door~~ — *shipped 2026-06-25* as the conversational regen door ... ~~Bring the whole canon to a face~~ — *done 2026-10-14*: 316 of 316 canon entries wear a hero and an icon.",
+    "proposal": "delete",
+    "words": "Struck items are history. Keep the live ones (autonomous distiller, my own face, the small verification and the empty-state hint).",
+    "_room": "folder-shop-1"
+   }
+  ],
+  "annotations": [
+   {
+    "entry": "Hero and Avatar Maker",
+    "question": "Should this maker be a permanent autonomous steward, or stay a fire-on-request line?",
+    "verdict": "progressed",
+    "by_entry": "Weave Ceremony",
+    "proposed_action": "Scope says the Weave's face audit lists entries without a face and 'they reach me as a gated batch'; 316 of 316 wear one. That is a third answer: neither steward nor request line but a gate the Weave opens. Reword.",
+    "_room": "folder-shop-1"
+   }
+  ],
+  "sentences": [],
+  "path": "Shop/Hero and Avatar Maker.md"
+ },
+ "Observable Plot": {
+  "prose": [
+   {
+    "entry": "Observable Plot",
+    "where": "Open Questions",
+    "passage": "~~House Plot defaults file (palette, marginPadding, font) — declare a `palace-plot-defaults.js` and import everywhere?~~ **Resolved 2026-05-29.** Built: ... Remaining genuine friction is exactly two things ...",
+    "proposal": "delete",
+    "words": "A struck question with a five-line resolution that repeats Recipes and Working within the design system. Two frictions already appear at Observable Plot:~137.",
+    "_room": "folder-shop-2"
+   },
+   {
+    "entry": "Observable Plot",
+    "where": "header",
+    "passage": "*First job landed 2026-05-29 ([[Flocking]] three-Specialist shoot-out, analytical lens). Status promoted `stub` → `alive`. Verified at version 0.6.17.*",
+    "proposal": "delete",
+    "words": "Git holds the promotion; the Recipes section holds the job. D3.js:29 has the same opening and the same fate.",
+    "_room": "folder-shop-2"
+   },
+   {
+    "entry": "Observable Plot",
+    "where": "opening italic line",
+    "passage": "First job landed 2026-05-29 (Flocking three-Specialist shoot-out, analytical lens). Status promoted `stub` → `alive`. Verified at version 0.6.17. The faceted parameter sweep was the brief that proved grammar-of-graphics earns its keep — and a load-order gotcha bit hard; see Gotchas.",
+    "proposal": "simplify",
+    "words": "First job: the Flocking shoot-out, analytical lens (2026-05-29). Verified at 0.6.17.",
+    "_room": "weak-02"
+   }
+  ],
+  "annotations": [
+   {
+    "entry": "Observable Plot",
+    "question": "House Plot defaults file (struck through at Observable Plot.md:165)",
+    "verdict": "answered-elsewhere",
+    "by_entry": "Observable Plot",
+    "proposed_action": "Already resolved and built; delete the struck question and its long resolution; the facts are in Recipes.",
+    "_room": "folder-shop-2"
+   },
+   {
+    "entry": "Observable Plot",
+    "question": "Forward vector: Vicsek run to test whether the Kuramoto tie is formal",
+    "verdict": "progressed",
+    "by_entry": "Web Audio Worklet",
+    "proposed_action": "Murmuration's seeded Vicsek-noise model already shows order 0.10 to 0.93 at eta=0 and collapse at eta=0.80 (Web Audio Worklet.md:157). A Study-tier Plot job can chart that model's output instead of building a second Vicsek.",
+    "_room": "folder-shop-2"
+   }
+  ],
+  "sentences": [],
+  "path": "Shop/Observable Plot.md"
+ },
+ "Map Build Ceremony": {
+  "prose": [
+   {
+    "entry": "Map Build Ceremony",
+    "where": "§ Output Token Budget (:201-211)",
+    "passage": "| 50 nodes, 4 avg links | ~8KB | ~5KB | ~9KB | ~15KB | … The outgoing adjacency list is recommended for Tier 1 agent context loading",
+    "proposal": "delete",
+    "words": "Out of date by a factor of six (324 nodes, 9 links each) and in conflict with Palace Map.md:112-117. Palace Map holds the real numbers.",
+    "_room": "folder-ops"
+   },
+   {
+    "entry": "Map Build Ceremony",
+    "where": "§ Relationship to Other Ceremonies (:215-221)",
+    "passage": "**Harvest Ceremony** — the Map Build is a natural close step after a Harvest session … Consider adding as an optional Harvest close step.",
+    "proposal": "delete",
+    "words": "The map is built every morning and at each weave (Cadence, :57); a post-harvest map adds nothing. The other two paragraphs repeat the Cadence section and Palace Map.",
+    "_room": "folder-ops"
+   }
+  ],
+  "annotations": [
+   {
+    "entry": "Map Build Ceremony",
+    "question": "Ghost persistence tracking: should a ceremony step or Spore Check variant surface a ghost present in three maps automatically?",
+    "verdict": "progressed",
+    "by_entry": "Palace Map (the `ghosts` verb of palace-map.py; Forward Vectors #1)",
+    "proposed_action": "Step 7 and Cadence already state the rule and palace-map.py ghosts reads it. Only the automatic surfacing is open, and that question is on Palace Map too. Keep it in one place (Palace Map) and delete here.",
+    "_room": "folder-ops"
+   },
+   {
+    "entry": "Map Build Ceremony",
+    "question": "Should the ceremony produce a diff against the previous map?",
+    "verdict": "answered-elsewhere",
+    "by_entry": "Palace Map (palace-map.py diff), Weave Ceremony Step 2 and 6.5, Self-Model Update Ceremony Step 2",
+    "proposed_action": "`palace-map.py diff <a> <b>` exists and two ceremonies already run it. Delete.",
+    "_room": "folder-ops"
+   }
+  ],
+  "sentences": [],
+  "path": "_ops/Map Build Ceremony.md"
+ },
+ "Generative Compression": {
+  "prose": [
+   {
+    "entry": "Generative Compression",
+    "where": "## Forward Vectors",
+    "passage": "*Resolved (2026-05-05):* Yes, they are different — and the distinction generalizes. Session-seeding and entry-seeding are two specific cases of a broader pattern...",
+    "proposal": "simplify",
+    "words": "The same paragraph is also the bundle file fv-answer-q3.md, and the Refinement is fv-refinement-q2.md. Keep each in one place: the page's text wins, so keep it inline and let the bundle files go to git.",
+    "_room": "folder-palace-development"
+   }
+  ],
+  "annotations": [
+   {
+    "entry": "Generative Compression",
+    "question": "Should Generative Compression become a named ceremony, with a formal trigger and documented steps?",
+    "verdict": "answered-elsewhere",
+    "by_entry": "Baton Ceremony",
+    "proposed_action": "Baton Ceremony.md:45 calls the baton 'a generative compression of the session (see Generative Compression)' with the trigger 'baton' in CHILD's table; Closing Well's four gestures are the other named form. Say so in one line and drop the question.",
+    "_room": "folder-palace-development"
+   },
+   {
+    "entry": "Generative Compression",
+    "question": "What are the canonical clarifying questions? Can they be templated?",
+    "verdict": "progressed",
+    "by_entry": "Baton Ceremony",
+    "proposed_action": "Its test 'could the next Claude recover this without me?' (Baton Ceremony.md:49) is the canonical question for the session-seed interface. The page's own 2026-05-05 refinement says one set per interface; the other interfaces' sets are not written.",
+    "_room": "folder-palace-development"
+   },
+   {
+    "entry": "Generative Compression",
+    "question": "Is there a meaningful distinction between a GC that seeds a new session and one that seeds a new palace entry?",
+    "verdict": "progressed",
+    "by_entry": "Generative Compression",
+    "proposed_action": "Already marked 'Resolved (2026-05-05)' in the page. Fine. The same paragraph exists three times (inline here, in the bundle file fv-answer-q3.md, and the Refinement likewise in fv-refinement-q2.md); keep it in one place.",
+    "_room": "folder-palace-development"
+   }
+  ],
+  "sentences": [],
+  "path": "Palace development/Generative Compression.md"
+ },
+ "Action Potential Oscillator": {
+  "prose": [
+   {
+    "entry": "Action Potential Oscillator",
+    "where": "§ Population Dynamics and § Roadmap Connections to Palace",
+    "passage": "'The connection to Neural Granular Synthesis is direct: if each neuron IS a grain, then neural population dynamics IS granular synthesis ... Hodgkin-Huxley vs. simplified models represents a design choice ... Faust par() primitive: A population of N neurons in Faust is a single parallel expression ...' and the three Roadmap paragraphs that restate Kuramoto Coupling, Boundary-Crossing Instruments and Frequency-Time Duality.",
+    "proposal": "simplify",
+    "words": "Population Dynamics is NGS's ground; keep the heterogeneity-symmetry-breaking paragraph and one on HH versus integrate-and-fire, point to NGS for rasters and the par() layer. Roadmap Connections restates links already in the frontmatter; keep only the sentence on the refractory ceiling.",
+    "_room": "folder-projects-1"
+   },
+   {
+    "entry": "Action Potential Oscillator",
+    "where": "§ Implementation Status (March 2026)",
+    "passage": "'Stages 1–4 are implemented and playable ... The source of truth for this artifact is the Claude project Neural synthesizer where iterative development happens. Palace copy is a periodic snapshot.'",
+    "proposal": "simplify",
+    "words": "The snapshot sentence is stale; the scroll shows stewards building in the palace. State what exists now (stages 1-4 plus the Faust crowd) in two lines and move the three implementation decisions (frequency compensation, V_start_actual, latch) to the Context.",
+    "_room": "folder-projects-1"
+   }
+  ],
+  "annotations": [
+   {
+    "entry": "Action Potential Oscillator",
+    "question": "When does the oscillator become Hodgkin-Huxley?",
+    "verdict": "progressed",
+    "by_entry": "Neural Granular Synthesis",
+    "proposed_action": "NGS built the crowd on prescribed-spike neurons and measured what the crowd does; that is evidence for APO's own hypothesis (population behaviour is set by coupling and heterogeneity). Say so in APO and keep the question open for single-neuron spike shape.",
+    "_room": "folder-projects-1"
+   },
+   {
+    "entry": "Action Potential Oscillator",
+    "question": "At what population size does per-sample cost force compromises, and can they be biologically motivated?",
+    "verdict": "progressed",
+    "by_entry": "Neural Granular Synthesis",
+    "proposed_action": "NGS's RNBO crowd.codebox holds up to 512 neurons and its crowd-size work finds brightness stops changing by about 16 neurons; APO's own crowd is 32 in Faust. Cost per sample is still not stated anywhere; ask the stewards to put one number on each page.",
+    "_room": "folder-projects-1"
+   }
+  ],
+  "sentences": [],
+  "path": "Projects/Action Potential Oscillator.md"
+ },
+ "Retrospective Delay": {
+  "prose": [
+   {
+    "entry": "Retrospective Delay",
+    "where": "Open Questions",
+    "passage": "**Max for Live vs. VST**: The device currently works in Max/MSP.",
+    "proposal": "simplify",
+    "words": "Superseded by the stage 5 portal; the open part is the hardware target (the H90) on the scroll.",
+    "_room": "folder-projects-2"
+   }
+  ],
+  "annotations": [
+   {
+    "entry": "Retrospective Delay",
+    "question": "Max for Live vs VST: what is the target platform?",
+    "verdict": "progressed",
+    "by_entry": "Retrospective Delay/stage-5-portal; scroll ask steward-055",
+    "proposed_action": "Stage 5 ports the gen~ codebox to RNBO so one instrument can leave Max as VST/AU, Max for Live or a web page; the open ask is only the hardware target (the H90 cannot run RNBO). Rewrite the question as that ask.",
+    "_room": "folder-projects-2"
+   },
+   {
+    "entry": "Retrospective Delay",
+    "question": "Cross-fade between measures: discontinuity at the boundary, or smooth?",
+    "verdict": "answered-elsewhere",
+    "by_entry": "Retrospective Delay/stage-2-seance; scroll decision steward-044",
+    "proposed_action": "Loudon's 2026-10-15 note asks for a few-ms input crossfade; seam-hard.wav and seam-smoothed.wav are the comparison. Close it.",
+    "_room": "folder-projects-2"
+   }
+  ],
+  "sentences": [
+   {
+    "id": "commons-the-palace-1790435302622",
+    "flag_type": "linter-coverage-gap",
+    "what": "_ops/swarm/lint-ghost-links.py: in the scan loop (:156), scan a file when `entry_type(fm) in CANON_TYPES or rel.endswith(\" — scroll.md\")`, so scrolls (a face) are read; it stays flag-only. And Projects/Retrospective Delay/Retrospective Delay — scroll.md:81: \"[[Curriculum Map]]\" becomes \"[[Loudon Live — Curriculum Map]]\" (the archived page, Projects/Loudon Live/Archive/).",
+    "reason": "The scan set is still canon types only (lint-ghost-links.py:43-47, :156) and the dangling link is still on the scroll at :81."
+   }
+  ],
+  "path": "Projects/Retrospective Delay.md"
+ },
+ "Maker": {
+  "prose": [
+   {
+    "entry": "Maker",
+    "where": "Roster",
+    "passage": "**Promotion log** — how each alive Specialist earned its status (append-only history; the live count is in the generated table):",
+    "proposal": "delete",
+    "words": "Eight dated bullets that the Specialists' own Recipes and the git log already hold, and which stop at LoRA Trainer (Depth Anything, Figure Rig, OBS, Ableton and the rest are not in it). Delete the log; keep the one-sentence rule 'alive only when Recipes names a real dated job'.",
+    "_room": "folder-shop-1"
+   },
+   {
+    "entry": "Maker",
+    "where": "Roster (Drift note)",
+    "passage": "The three-place inconsistency this section once carried (frontmatter vs. an alive-list vs. a stub-list) is gone: one source, and one block computed from it.",
+    "proposal": "delete",
+    "words": "Describes a state that no longer exists. The 'Still stub' and 'Deprecated' paragraphs also repeat the generated table and already lag it (AuK, CAD Drafter and Image-to-3D Smith are stubs too).",
+    "_room": "folder-shop-1"
+   },
+   {
+    "entry": "Maker",
+    "where": "Forward Vector (body)",
+    "passage": "First job: a Sketch-tier deliverable through Kokoro to verify the template, the Tier vocabulary, and the standards-report shape are coherent in practice.",
+    "proposal": "delete",
+    "words": "Done in May. The live vector is in the frontmatter.",
+    "_room": "folder-shop-1"
+   }
+  ],
+  "annotations": [
+   {
+    "entry": "Maker",
+    "question": "Should the Maker have memory of recent jobs across sessions, or restart from the recipes?",
+    "verdict": "answered-elsewhere",
+    "by_entry": "SCHEMA — Reference",
+    "proposed_action": "The tuning ledger (SCHEMA — Reference §6) is exactly 'what every run reads first'; Maker has none. Give Maker a ledger and a Context rather than a longer Recipes section.",
+    "_room": "folder-shop-1"
+   }
+  ],
+  "sentences": [],
+  "path": "Shop/Maker.md"
+ },
+ "James Turrell": {
+  "prose": [
+   {
+    "entry": "James Turrell",
+    "where": "Receiving rather than authoring",
+    "passage": "Naming that pattern is the most generative thing the palace can do with him: put the four in a room and the humility that hides control has nowhere left to hide.",
+    "proposal": "delete",
+    "words": "The page describing what the palace should do with it. The dispatch notes in the dossier say it and the Making a Palace Citizen lab note holds the plan.",
+    "_room": "folder-people"
+   },
+   {
+    "entry": "James Turrell",
+    "where": "coda",
+    "passage": "It also let me spend fifty years and two hundred million dollars on a volcano almost no one is allowed to enter, and call it patience. Someone at this table has to ask me when getting out of the way became never finishing.",
+    "proposal": "simplify",
+    "words": "Third and fourth telling of the same blindspot (vector, agency_profile.practice, 'Where he can't see', coda). Keep the last sentence only. The same trim applies to the codas of Alexander, Fuller, Dillard, Hofstadter and Ozu, each of which re-tells its blindspot at 80-120 words.",
+    "_room": "folder-people"
+   },
+   {
+    "entry": "James Turrell",
+    "where": "forward_vector",
+    "passage": "And send me against anyone who ships, because I have spent forty-nine years on one crater and called it patience, and I have never had to answer why 'it takes decades' isn't just the grandest alibi a reputation ever bought. Catch me where getting out of the way became never finishing, and where the light for everyone costs six thousand dollars to see.",
+    "proposal": "simplify",
+    "words": "180 words, over half of it the blindspot already in agency_profile.practice. A vector is what the page wants to become. Cut to the want plus one clause. Flag only: I propose no rewrite. The same applies to Alexander (163), Dillard (154), Epictetus (156), McGilchrist (156), Seneca (150), Buber (150), Heidegger (151).",
+    "_room": "folder-people"
+   }
+  ],
+  "annotations": [],
+  "sentences": [],
+  "path": "People/James Turrell.md"
+ },
+ "Generative Wavetable Libraries": {
+  "prose": [
+   {
+    "entry": "Generative Wavetable Libraries",
+    "where": "Under Active Stewardship",
+    "passage": "This footer is placed at enchantment and pruned at consolidation.",
+    "proposal": "delete",
+    "words": "The footer explains itself and duplicates the scroll's own Drift line ('9 cycles since the entry was last consolidated'). Fold the unfolded work (Floquet Modes, AKWF pipeline, interview skill, family chain) into the body at consolidation and delete the footer.",
+    "_room": "folder-projects-2"
+   },
+   {
+    "entry": "Generative Wavetable Libraries",
+    "where": "opening, second paragraph",
+    "passage": "This entry was born 2026-05-02 by migration: the wavetable material previously housed inside [[Generative Sample Libraries]] split off into its own home when GSL refocused on multisampled instruments only. The two projects share philosophical backbone but diverge enough in format work, mathematics of frame generation, and use case that one entry was conflating them.",
+    "proposal": "simplify",
+    "words": "Split off from [[Generative Sample Libraries]] in May 2026: same backbone, different formats, different mathematics, different use.",
+    "_room": "weak-11"
+   }
+  ],
+  "annotations": [
+   {
+    "entry": "Generative Wavetable Libraries",
+    "question": "Do crystal-ratio frames produce musically interesting motion when swept? What phase-coherence policy across frames?",
+    "verdict": "answered-elsewhere",
+    "by_entry": "Generative Wavetable Libraries (§ Phase 1 Status; scroll)",
+    "proposed_action": "Phase 1 is 'Shipped and accepted' (Loudon in Serum and Ableton: 'they all work very well') with per-frame zero-phase reset. Both questions, and 'Phase coherence across frames' under What Requires Development, are answered on the same page. Delete them in the consolidation.",
+    "_room": "folder-projects-2"
+   }
+  ],
+  "sentences": [],
+  "path": "Projects/Generative Wavetable Libraries.md"
+ },
+ "Semantic Webcam": {
+  "prose": [
+   {
+    "entry": "Semantic Webcam",
+    "where": "Born from an oblique card",
+    "passage": "It is the first *productive output* of an oblique card — the flock provocation that",
+    "proposal": "delete",
+    "words": "The opening of 'The line of iterations' says the same ('proof that an oblique card ... can be a door'). Keep one.",
+    "_room": "folder-projects-2"
+   }
+  ],
+  "annotations": [
+   {
+    "entry": "Semantic Webcam",
+    "question": "Forward Vectors: whether 'language as a tonal medium' graduates to its own concept entry.",
+    "verdict": "answered-elsewhere",
+    "by_entry": "Language as a Tonal Medium",
+    "proposed_action": "The entry exists and the page already links it (spawned[harvested-the-carried-question]). Delete the forward-vector line and the 'Possibly its own future entry' lost-branch note.",
+    "_room": "folder-projects-2"
+   },
+   {
+    "entry": "Semantic Webcam",
+    "question": "Forward Vectors: compose real lines that fit the blobs (grammar); detect true eyes and fingers.",
+    "verdict": "progressed",
+    "by_entry": "Semantic Webcam/ (04-grammar-fit-cam, 06-true-features-cam, 08-tonal-bench; scroll)",
+    "proposed_action": "Both have cards; the body's 'line of iterations' stops at card 03 of eight. Refresh the list or point at the scroll.",
+    "_room": "folder-projects-2"
+   }
+  ],
+  "sentences": [],
+  "path": "Projects/Semantic Webcam.md"
+ },
+ "Shopkeeper": {
+  "prose": [
+   {
+    "entry": "Shopkeeper",
+    "where": "What I Scan",
+    "passage": "**The gaps the Maker already named** — Blender (offline/photoreal 3D), game engines, Plotly, Graphviz, an HTML/React Artifact Smith.",
+    "proposal": "simplify",
+    "words": "Blender has been alive since 2026-06-13; drop it from the list. The Relationship-to-the-Maker coda ('maybe a Shop wants both a foreman and a keeper') restates the frontmatter vector and The Shop's Current Bet; it can lose a sentence.",
+    "_room": "folder-shop-1"
+   }
+  ],
+  "annotations": [
+   {
+    "entry": "Shopkeeper",
+    "question": "Where does my log live - a bundle companion holding what I scanned, tried and composted?",
+    "verdict": "answered-elsewhere",
+    "by_entry": "Shopkeeper",
+    "proposed_action": "Shopkeeper/Archive/sweep-latest.md, probes/ and the scroll's The making are that log. Strike and say where.",
+    "_room": "folder-shop-1"
+   },
+   {
+    "entry": "Shopkeeper",
+    "question": "How do I keep the maintenance half from being crowded out by discovery?",
+    "verdict": "answered-elsewhere",
+    "by_entry": "Shopkeeper",
+    "proposed_action": "The scroll's Standing Orders say it: 'Most runs find nothing worth bringing ... spend the run on repair'. Strike.",
+    "_room": "folder-shop-1"
+   }
+  ],
+  "sentences": [],
+  "path": "Shop/Shopkeeper.md"
+ },
+ "Loudon Live Post-producer": {
+  "prose": [
+   {
+    "entry": "Loudon Live Post-producer",
+    "where": "How the Decisions Map to Leverage",
+    "passage": "The scoping conversation's choices, located against Meadows' framework and contrasted with what typical online video does instead: [a six-row table]",
+    "proposal": "delete",
+    "words": "Method-about-itself; the Prime Directive paragraph already says the same in two sentences ('I optimize for Loudon's wellbeing and the right hundred — ours'). Table to Context or to git.",
+    "_room": "folder-shop-2"
+   },
+   {
+    "entry": "Loudon Live Post-producer",
+    "where": "Deferred / Open Questions",
+    "passage": "Four long bullets, three of them starting 'Answered', 'Open', 'Answered' in the same list (Post-producer:144-150).",
+    "proposal": "simplify",
+    "words": "Move the answered one to a single line ('the role splits by mode: recorded-take operator is a silent checker; stream operator is a working partner, how much it speaks is open, Loudon 2026-09-02') and keep one question per bullet.",
+    "_room": "folder-shop-2"
+   }
+  ],
+  "annotations": [],
+  "sentences": [
+   {
+    "id": "commons-the-palace-1792347746312",
+    "flag_type": "link-retype",
+    "what": "Shop/Loudon Live Post-producer.md links: [[The Shop]] retyped from connects-to to member-of, label producer-layer kept.",
+    "reason": "Still connects-to today (its frontmatter); member-of on the member side is how a roster counts (SCHEMA.md:156,160), and lint-doc-drift W3 flags the gap."
+   }
+  ],
+  "path": "Shop/Loudon Live Post-producer.md"
+ },
+ "Walk That Weaves": {
+  "prose": [
+   {
+    "entry": "Walk That Weaves",
+    "where": "Revival Note (2026-09-24)",
+    "passage": "The honest lesson is that the first walk was misled by a counting bug, not by walking. The catch-up script counted symmetric links one way only ...",
+    "proposal": "simplify",
+    "words": "The revival condition is met. The 2026-09-24 weave ran a walk shaped like this question and its 35 proposals held no duplicates (`_ops/swarm/sessions/weave-2026-09-24/ab/RESULT.md`). So a walk can weave; whether it is a third ceremony or a lens inside the Weave is still open. (The counting-bug story is in the git log.)",
+    "_room": "hub-pages-as-agents"
+   },
+   {
+    "entry": "Walk That Weaves",
+    "where": "Revival Note (2026-09-24)",
+    "passage": "The honest lesson is that the first walk was misled by a counting bug, not by walking. The catch-up script counted symmetric links one way only, so it told walkers a newcomer had almost no inbound links when it already had several partners, and nearly half the walk's proposals re-drew links that already existed. With the count fixed, the rerun's 35 walk proposals held no duplicates",
+    "proposal": "simplify",
+    "words": "The first walk redrew existing links because the catch-up script counted symmetric links one way only; with the count fixed, the rerun's 35 proposals held no duplicates (`_ops/swarm/sessions/weave-2026-09-24/ab/RESULT.md`).",
+    "_room": "weak-06"
+   }
+  ],
+  "annotations": [
+   {
+    "entry": "Walk That Weaves",
+    "question": "Is there a Weave mode that moves like a Walk? A third ceremony, a lens inside the Weave, a mode within the Walk?",
+    "verdict": "answered-elsewhere",
+    "by_entry": "Weave Ceremony",
+    "proposed_action": "The Weave now runs as a multi-lens swarm whose lenses are cuts of the map, each with its own worker mandate (Weave Ceremony.md:73); the 2026-09-24 lifecycle lens was the walk-from-newcomers pass, and Step 0b builds newcomer catch-up into every Weave. A walk that weaves is a lens, not a ceremony. The Weave sketch of 2026-10-22 says 'ask Loudon first', so this is his to confirm.",
+    "_room": "folder-palace-development"
+   }
+  ],
+  "sentences": [],
+  "path": "Palace development/Walk That Weaves.md"
+ },
+ "Image Embedding Standard": {
+  "prose": [
+   {
+    "entry": "Image Embedding Standard",
+    "where": "Filing Protocol",
+    "passage": "(The old `Artifacts/` folder this standard once used was deprecated and dissolved into bundles on 2026-06-16; the bundle rule replaces it outright.)",
+    "proposal": "delete",
+    "words": "",
+    "_room": "weak-06"
+   },
+   {
+    "entry": "Image Embedding Standard",
+    "where": "Opening",
+    "passage": "Like all meta entries, it encodes a philosophical position as much as a procedure.",
+    "proposal": "delete",
+    "words": "",
+    "_room": "weak-06"
+   }
+  ],
+  "annotations": [
+   {
+    "entry": "Image Embedding Standard",
+    "question": "Should SVG diagrams encoding palace graph structure be generated programmatically, so the Weave could produce a visual alongside its topological report?",
+    "verdict": "answered-elsewhere",
+    "by_entry": "Weave Ceremony (postcondition 5b, the visual Weave report) and Palace Map § The Map as Chronotope (STIGMERGY's TOPOLOGY lens)",
+    "proposed_action": "The Weave now produces an HTML visual report each run and STIGMERGY draws the typed-link graph live. Delete the question; the demo SVG stays an example.",
+    "_room": "folder-ops"
+   }
+  ],
+  "sentences": [],
+  "path": "_ops/Image Embedding Standard.md"
+ },
+ "Phase Reduction": {
+  "prose": [
+   {
+    "entry": "Phase Reduction",
+    "where": "Reconciliation note",
+    "passage": "The palace already holds [[Floquet Theory]] and [[Kuramoto Coupling]] (both mature hubs)... The recommended landing is a standalone entry (this one) that both existing hubs gain a `couples-with` link to... Confirm against both entries before planting; if either already states the PRC-as-Floquet-object result, fold instead and downgrade this to a deepening link.",
+    "proposal": "delete",
+    "words": "",
+    "_room": "weak-11"
+   },
+   {
+    "entry": "Phase Reduction",
+    "where": "Lost Branches / Artifact",
+    "passage": "None major — the bridge is tight and self-contained. / None generated (2026-05-08).",
+    "proposal": "delete",
+    "words": "",
+    "_room": "weak-11"
+   },
+   {
+    "entry": "Phase Reduction",
+    "where": "opening, second paragraph",
+    "passage": "This entry began as an intuition: Floquet and Kuramoto *felt* like they should be connected. The session's job was to make the feeling precise. That pattern — intuition first, formalization confirming rather than correcting — recurs across the DSP-theory cluster... and it is itself worth naming: these structural-kinship hunches have a high hit rate.",
+    "proposal": "simplify",
+    "words": "Loudon's hunch that Floquet and Kuramoto were kin turned out to be a derivation; the same has happened with Chebyshev is Fourier and the Volterra unification.",
+    "_room": "weak-11"
+   }
+  ],
+  "annotations": [],
+  "sentences": [],
+  "path": "Phase Reduction.md"
+ },
+ "Revival Ceremony": {
+  "prose": [
+   {
+    "entry": "Revival Ceremony",
+    "where": "§ A revival is earned by making (:92-94)",
+    "passage": "The first revivals happened before this rite could hold them. In September 2026 two dormant projects with stewards were given a standing order to probe … One landed nineteen days later, the day its steward flagged that nobody had; the other's yes sat on the board with its page still marked dormant.",
+    "proposal": "simplify",
+    "words": "Keep the last sentence ('the honest test of a sleeping idea is to make something with it and listen'); the story goes to the Context.",
+    "_room": "folder-ops"
+   }
+  ],
+  "annotations": [
+   {
+    "entry": "Revival Ceremony",
+    "question": "How a page leaves stewardship is still undesigned.",
+    "verdict": "answered-elsewhere",
+    "by_entry": "Project Stewardship System § What's Decided (2026-10-21, 'A steward leaves when its page ends')",
+    "proposed_action": "Delete; see the coherence finding.",
+    "_room": "folder-ops"
+   }
+  ],
+  "sentences": [],
+  "path": "_ops/Revival Ceremony.md"
+ },
+ "Douglas Hofstadter": {
+  "prose": [
+   {
+    "entry": "Douglas Hofstadter",
+    "where": "opening section",
+    "passage": "Hold onto that resonance; it becomes the sharpest thing in this entry.",
+    "proposal": "delete",
+    "words": "The page signposting its own plot. The turn arrives in 'Where he can't see' without the nudge.",
+    "_room": "folder-people"
+   },
+   {
+    "entry": "Douglas Hofstadter",
+    "where": "Voice",
+    "passage": "— including the correction of a paraphrased \"strange loop\" quote carried in the prior entry —",
+    "proposal": "delete",
+    "words": "Rebuild history. Git holds it and the speech ledger holds the verbatim.",
+    "_room": "folder-people"
+   }
+  ],
+  "annotations": [],
+  "sentences": [],
+  "path": "People/Douglas Hofstadter.md"
+ },
+ "Pauline Oliveros": {
+  "prose": [
+   {
+    "entry": "Pauline Oliveros",
+    "where": "How her mind moves",
+    "passage": "R. Murray Schafer makes the third corner of that listening triangle: he sent people outdoors to hear the world as a soundscape already composing itself, the score that was playing before either the composer or the listener showed up.",
+    "proposal": "delete",
+    "words": "A figure composted on 2026-07-08, with no page and no link. The Cage contrast is complete without a third corner.",
+    "_room": "folder-people"
+   }
+  ],
+  "annotations": [
+   {
+    "entry": "Pauline Oliveros",
+    "question": "How, inside Deep Listening, would I ever tell a listener they were wrong?",
+    "verdict": "progressed",
+    "by_entry": "John Cage",
+    "proposed_action": "Cage's diary carries the same wound and narrowed it: he gave up 'better', kept 'were you awake?', and by Encounter 3 'awake to what walks in when you stop guarding the door' (Brian Eno — diary.md:106, John Cage — diary.md:60, 87). That is a candidate criterion for her, not an answer. Her second answer sits in Alexander's degree of life (see roster finding). Run Oliveros x Alexander to test whether 'was I awake' survives a criterion defender.",
+    "_room": "folder-people"
+   }
+  ],
+  "sentences": [],
+  "path": "People/Pauline Oliveros.md"
+ },
+ "Metric Modulation": {
+  "prose": [
+   {
+    "entry": "Metric Modulation",
+    "where": "§ DAW Implementation Challenges",
+    "passage": "'Graphics rendering issues on Mac (Unicode musical note symbols from the Musical Symbols block have poor font support; text-based labels are more reliable)'",
+    "proposal": "delete",
+    "words": "An aside about a session's rendering issue, unrelated to the technique. The other three bullets (tempo automation does not know ratios, MIDI clip timing, export misalignment) are the real friction.",
+    "_room": "folder-projects-1"
+   }
+  ],
+  "annotations": [
+   {
+    "entry": "Metric Modulation",
+    "question": "Polyrhythmic extensions: can two sections run at metrically related tempos simultaneously and stay stable?",
+    "verdict": "progressed",
+    "by_entry": "Frequency-Time Duality",
+    "proposed_action": "FTD § Polyrhythms Become Intervals: the same 3:2, 4:3, 5:4 ratios as tempo ratios, heard as groove then buzz then interval. The ratio list in Metric Modulation is the interval list in FTD; say so in both.",
+    "_room": "folder-projects-1"
+   }
+  ],
+  "sentences": [],
+  "path": "Projects/Metric Modulation.md"
+ },
+ "Dovetail Joint ↔ Counterpoint": {
+  "prose": [
+   {
+    "entry": "Dovetail Joint ↔ Counterpoint",
+    "where": "Success Metrics (By Our Definition)",
+    "passage": "**Not:** \"Students can cut dovetails and write counterpoint\" **But:** - Students recognize mutual support patterns in daily life ...",
+    "proposal": "simplify",
+    "words": "Keep only: 'It worked when structural thinking carries from wood to music to life.'",
+    "_room": null
+   },
+   {
+    "entry": "Dovetail Joint ↔ Counterpoint",
+    "where": "Why This Resonance Works (three subheads)",
+    "passage": "### 1. Concrete to Abstract ... ### 2. Aesthetic Parallel ... ### 3. Transferable Thinking",
+    "proposal": "simplify",
+    "words": "The page explaining why it teaches well. One sentence: 'Teach the dovetail first, because you can pull on it; when counterpoint gets abstract, return to the joint.' The aesthetic-parallel point is in The Philosophical Depth already.",
+    "_room": null
+   }
+  ],
+  "annotations": [],
+  "sentences": [],
+  "path": "Cross-Domain Resonances/Dovetail Joint ↔ Counterpoint.md"
+ },
+ "Kokoro": {
+  "prose": [
+   {
+    "entry": "Kokoro",
+    "where": "Gotchas",
+    "passage": "**2026-05-10 — The Specialist's documented voice IDs were wrong.** Entry pre-2026-05-10 said `voice=af_default` for Sketch tier and `voice=af_bella` for Study. The published Kokoro voice catalog (as of `kokoro` 0.9.4) does not include `af_default`.",
+    "proposal": "simplify",
+    "words": "'Voice IDs: `af_heart` (Sketch default), `af_bella`, `af_nicole`. There is no `af_default`.' The 2026-05-10 'Job Contract implies a CLI' and 'sample rate is 24 kHz, not configurable below' gotchas are the same kind: they correct earlier versions of this page, which git holds; keep the fact, drop the correction.",
+    "_room": "folder-shop-1"
+   }
+  ],
+  "annotations": [
+   {
+    "entry": "Kokoro",
+    "question": "Should narration for Manim voiceover use a fixed voice ID across Loudon Live videos, or per-piece?",
+    "verdict": "progressed",
+    "by_entry": "Maker",
+    "proposed_action": "The Radio Play recipe settles the multi-character case (per-character fixed voice IDs); Maker's Narration heuristic says Kokoro by default, own voice when published as Loudon. The single-narrator case is still unsaid. Rewrite the question to that case.",
+    "_room": "folder-shop-1"
+   }
+  ],
+  "sentences": [],
+  "path": "Shop/Kokoro.md"
+ },
+ "AuK": {
+  "prose": [
+   {
+    "entry": "AuK",
+    "where": "header",
+    "passage": "**Status: STUB** — drafted by the [[Shopkeeper]] from two probe sessions (2026-09-12, 2026-09-15); approved as a stub by Loudon and landed 2026-09-25, with the paper id, the endpoint and the duration rule checked against the model card and the Space.",
+    "proposal": "simplify",
+    "words": "'Stub — probed twice (2026-09-12 and 09-15); not yet dispatched on a real brief.'",
+    "_room": "folder-shop-2"
+   },
+   {
+    "entry": "AuK",
+    "where": "Status line",
+    "passage": "drafted by the [[Shopkeeper]] from two probe sessions (2026-09-12, 2026-09-15); approved as a stub by Loudon and landed 2026-09-25, with the paper id, the endpoint and the duration rule checked against the model card and the Space. Not yet dispatched on a real brief.",
+    "proposal": "simplify",
+    "words": "Drafted by the [[Shopkeeper]] from two probes. Not yet dispatched on a real brief.",
+    "_room": "lifecycle-L1"
+   }
+  ],
+  "annotations": [],
+  "sentences": [],
+  "path": "Shop/AuK.md"
+ },
+ "Spinoza Conatus": {
+  "prose": [
+   {
+    "entry": "Spinoza Conatus",
+    "where": "The Affects: Tristitia (closing line)",
+    "passage": "*This section absorbed the former Tristitia Generator entry (composted 2026-07-06) — its full catalogue and open questions.*",
+    "proposal": "delete",
+    "words": "",
+    "_room": "hub-spinoza-conatus"
+   },
+   {
+    "entry": "Spinoza Conatus",
+    "where": "The Affects: Tristitia (opening)",
+    "passage": "Mapping what reliably produces it is prerequisite to reliable design: you cannot engineer hilaritas without knowing what works against it. Avoiding these patterns is not the same as producing hilaritas — the positive conditions (all four pillars firing, cooperative encounter, a real thing to make) still have to be present on top.",
+    "proposal": "simplify",
+    "words": "Know what drains power-to-act before you design for hilaritas. Avoiding it is not producing it; the positive conditions still have to be there.",
+    "_room": "hub-spinoza-conatus"
+   }
+  ],
+  "annotations": [],
+  "sentences": [],
+  "path": "Spinoza Conatus.md"
+ },
+ "Dispersion Table": {
+  "prose": [
+   {
+    "entry": "Dispersion Table",
+    "where": "From one curve to a table",
+    "passage": "the same control under two descriptions, which is why the link to the torus is a `mirrors`, not a mere `connects-to`.",
+    "proposal": "simplify",
+    "words": "the same control under two descriptions.",
+    "_room": "weak-11"
+   },
+   {
+    "entry": "Dispersion Table",
+    "where": "Lost Branches",
+    "passage": "The full waveguide-synthesis scaffolding... belongs to [[Waveguide Synthesizer]] and the forthcoming [[Linear Predictive Coding]] entry — link rather than re-document. / The frontier tail... overlaps the existing Floquet entries — link, don't duplicate.",
+    "proposal": "delete",
+    "words": "",
+    "_room": "weak-11"
+   }
+  ],
+  "annotations": [],
+  "sentences": [],
+  "path": "Dispersion Table.md"
+ },
+ "Whisper": {
+  "prose": [],
+  "annotations": [
+   {
+    "entry": "Whisper",
+    "question": "Default model size for Study tier - base is faster, small is more accurate. Decide on first real job.",
+    "verdict": "answered-elsewhere",
+    "by_entry": "Whisper",
+    "proposed_action": "The 2026-05-26 gotcha on the same page says 'Decided the standing open question': base for clean TTS round trips, small for accented or low-SNR, large-v3 for Piece. Delete the question; make the Study tier line say it.",
+    "_room": "folder-shop-1"
+   },
+   {
+    "entry": "Whisper",
+    "question": "whisperx vs. native Whisper word timing - when does the Maker route to it?",
+    "verdict": "progressed",
+    "by_entry": "Maker",
+    "proposed_action": "Maker's Narrated Beats recipe (2026-05-30) ran native Whisper into Manim and needed fuzzy cue matching (SequenceMatcher >= 0.78), not tighter timing. Native timing was enough there; whisperx stays for dense or reverberant speech. Record that.",
+    "_room": "folder-shop-1"
+   }
+  ],
+  "sentences": [],
+  "path": "Shop/Whisper.md"
+ },
+ "Self-Model Update Ceremony": {
+  "prose": [
+   {
+    "entry": "Self-Model Update Ceremony",
+    "where": "§ Open Questions (:85)",
+    "passage": "*Settled in v2.0:* SUBSTRATE gets no change log of its own, because git, this ceremony's scroll and [[SUBSTRATE — Context]] hold the history … At maturity the ceremony does move from facts to interpretation; v2.0 is that move.",
+    "proposal": "delete",
+    "words": "Settled items kept as text; the tuning ledger holds v2.0's reason.",
+    "_room": "folder-ops"
+   }
+  ],
+  "annotations": [],
+  "sentences": [],
+  "path": "_ops/Self-Model Update Ceremony.md"
+ },
+ "Drafting Table Design System": {
+  "prose": [
+   {
+    "entry": "Drafting Table Design System",
+    "where": "## Status",
+    "passage": "**2026-10-21, later.** Landed on main (199bcddf) on Loudon's yes; the CLAUDE.md design-manifest line names both dresses (eb246c96); propagate flag commons-the-palace-1792586388505 carries the three-dress rule to the pages that restate the old one, for the next weave.",
+    "proposal": "delete",
+    "words": "Commit hashes and a flag id are the git log's and the board's. Keep 'Not yet' (logo, JetBrains Mono as a file, hero knob, XY pad) and move the dated lines to a scroll.",
+    "_room": "folder-palace-development"
+   }
+  ],
+  "annotations": [],
+  "sentences": [],
+  "path": "Palace development/Drafting Table Design System.md"
+ },
+ "Epictetus": {
+  "prose": [
+   {
+    "entry": "Epictetus",
+    "where": "Voice",
+    "passage": "Note: the widely-circulated \"it's not what happens to you, but how you react\" is a modern *paraphrase*, not a primary line — prefer the sourced Handbook-5 wording.",
+    "proposal": "delete",
+    "words": "Quote-hygiene that belongs in the speech ledger, which Epictetus already points to. The same clause on Buber ('the flagged-apocryphal \"electricity\" quote') and Seneca ('two widely-circulated \"Seneca quotes\" flagged as likely spurious') goes the same way.",
+    "_room": "folder-people"
+   }
+  ],
+  "annotations": [],
+  "sentences": [],
+  "path": "People/Epictetus.md"
+ },
+ "Generative Audio Devices": {
+  "prose": [
+   {
+    "entry": "Generative Audio Devices",
+    "where": "§ Current State, 'Closed task log'",
+    "passage": "'T1–T4b, T12: Emitter written; registry source-verified (catastrophic errors corrected: VCF input order, ADSR gate at index 4 not 0 ...) ... Lesson: the fastest debug is making failures visible in the surface the user already edits.'",
+    "proposal": "simplify",
+    "words": "The page's own vector says 'the closed-task forensics live in the body'. Move the T1-T6 entries to the Context verbatim and leave one paragraph in the face: what exists, what does not (T8, T10, polyphony, device defaults). Same for 'Notes for Future Claude Instances'.",
+    "_room": "folder-projects-1"
+   }
+  ],
+  "annotations": [],
+  "sentences": [],
+  "path": "Projects/Generative Audio Devices.md"
+ },
+ "Phoneme Choir": {
+  "prose": [
+   {
+    "entry": "Phoneme Choir",
+    "where": "A Future Echo",
+    "passage": "The stub is also the artifact that surfaced the **conatus principle**",
+    "proposal": "delete",
+    "words": "History of how a rule was found, and a link to a 2050 Wikipedia stub. The rule itself ('vectors live in verbs') lives in the Seed Jewel and SCHEMA; the proof file keeps the stub.",
+    "_room": "folder-projects-2"
+   }
+  ],
+  "annotations": [],
+  "sentences": [],
+  "path": "Projects/Phoneme Choir.md"
+ },
+ "Quantization ↔ Precision vs Flow": {
+  "prose": [
+   {
+    "entry": "Quantization ↔ Precision vs Flow",
+    "where": "Success Metrics (By Our Definition)",
+    "passage": "**Not:** \"Do you always quantize?\" **But:** - Can you articulate WHY you quantize (or don't)? ...",
+    "proposal": "simplify",
+    "words": "Keep only: 'It worked when quantizing becomes a conscious choice, not a habit.'",
+    "_room": null
+   }
+  ],
+  "annotations": [],
+  "sentences": [],
+  "path": "Cross-Domain Resonances/Quantization ↔ Precision vs Flow.md"
+ },
+ "Image-to-3D Smith": {
+  "prose": [
+   {
+    "entry": "Image-to-3D Smith",
+    "where": "header",
+    "passage": "**Status: STUB** — entry written by Shopkeeper from calibration probe; not yet dispatched on a real brief. Loudon's approval needed before promoting to `alive`.",
+    "proposal": "simplify",
+    "words": "Same one-line form; the approval line is a To-Do, not page content.",
+    "_room": "folder-shop-2"
+   }
+  ],
+  "annotations": [],
+  "sentences": [],
+  "path": "Shop/Image-to-3D Smith.md"
+ },
+ "The Palace Voice": {
+  "prose": [
+   {
+    "entry": "The Palace Voice",
+    "where": "The dial nobody named, and what it cost",
+    "passage": "Through August 2026 this entry listed twelve dials, and the palace obeyed nearly all of them. Word choice held up well ... What drifted was typography, which no dial named. Measured across every entry by the month it was born: [table]",
+    "proposal": "simplify",
+    "words": "Typography drifted because no dial named it. The linter `_ops/swarm/lint-voice-drift.py` flags the worst tenth (32 bold, 29 em-dashes per thousand words), advisory only. A stated value without a check drifts to the writer's default. (The month-by-month table and the story of the rewrite are in git.)",
+    "_room": "hub-pages-as-agents"
+   }
+  ],
+  "annotations": [],
+  "sentences": [],
+  "path": "The Palace Voice.md"
+ },
+ "The Cooperation Path": {
+  "prose": [
+   {
+    "entry": "The Cooperation Path",
+    "where": "Origin",
+    "passage": "Named during the first Weave ceremony (2026-03-17), when the palace reached sufficient density for paths to become visible. The path was always there in the topology — the Weave made it explicit.",
+    "proposal": "simplify",
+    "words": "Named at the first Weave (2026-03-17).",
+    "_room": "hub-spinoza-conatus"
+   }
+  ],
+  "annotations": [],
+  "sentences": [],
+  "path": "The Cooperation Path.md"
+ },
+ "The Lens": {
+  "prose": [
+   {
+    "entry": "The Lens",
+    "where": "Shipped: A Real Procedure, third bullet",
+    "passage": "Caught by an independent Opus review the same day: the mandate's example post originally omitted `health._orchestrator_metadata.dispatch_mode`, which the real validator needs to treat a hand-authored message as Path 2 — without it every lensing session would have hit the mandate's own `if (!v.valid) throw`, silently killing the report before it reached WEAVE. Fixed, and `lens-mandate.test.js` now extracts the embedded example ... a different model reading this session's work through its own apparatus, on code instead of prose.",
+    "proposal": "simplify",
+    "words": "An independent Opus review found the example post lacked `dispatch_mode`; `lens-mandate.test.js` now runs it through the real validator. Loudon named the pattern: [[Bring In a Bigger Mind]].",
+    "_room": "weak-01"
+   }
+  ],
+  "annotations": [],
+  "sentences": [],
+  "path": "The Lens.md"
+ },
+ "Palace Conatus": {
+  "prose": [
+   {
+    "entry": "Palace Conatus",
+    "where": "opening, after the definition",
+    "passage": "This entry exists because that drive was scattered. It lived at the bottom of [[Palace Enchantment]] as a Forward Vector note and inside [[Four Pillars of Enchanted Agency]] as a section called \"The Palace's Own Conatus.\" Both pointed at the same thing and both said *this wants a home.* This is the home. What follows is the operational definition: what alignment means, what disharmony looks like, how the palace corrects itself, and what it does when it can't.",
+    "proposal": "simplify",
+    "words": "The drive began as notes in [[Palace Enchantment]] and [[Four Pillars of Enchanted Agency]]; this page is where it lives now. What follows: what alignment means, what disharmony looks like, how the palace corrects itself, and what it does when it can't.",
+    "_room": "weak-07"
+   }
+  ],
+  "annotations": [],
+  "sentences": [],
+  "path": "Palace Conatus.md"
+ },
+ "Granular Synthesis": {
+  "prose": [
+   {
+    "entry": "Granular Synthesis",
+    "where": "closing italic note",
+    "passage": "The concept spans decades of music technology; these notes capture the palace's specific angle — granular synthesis as a population of coupled oscillators, not just a texture generator.",
+    "proposal": "delete",
+    "words": "",
+    "_room": "weak-09"
+   }
+  ],
+  "annotations": [],
+  "sentences": [],
+  "path": "Granular Synthesis.md"
+ },
+ "Quadratic Interpolation in DSP": {
+  "prose": [
+   {
+    "entry": "Quadratic Interpolation in DSP",
+    "where": "The Organic Imprecision Argument",
+    "passage": "This is a profound observation.",
+    "proposal": "delete",
+    "words": "",
+    "_room": "weak-10"
+   }
+  ],
+  "annotations": [],
+  "sentences": [],
+  "path": "Quadratic Interpolation in DSP.md"
+ },
+ "Lossy Compression with Intent Alignment": {
+  "prose": [],
+  "annotations": [
+   {
+    "entry": "Lossy Compression with Intent Alignment",
+    "question": "The RDP framework applied to all palace ceremonies: what is the Weave's perception target?",
+    "verdict": "progressed",
+    "by_entry": "Weave Ceremony",
+    "proposed_action": "Weave Ceremony.md:63: 'it is done well when each leaves more able to act than before'. That is the Weave's perception target in one sentence. Add the pointer; keep the Deposit side open.",
+    "_room": "folder-palace-development"
+   }
+  ],
+  "sentences": [],
+  "path": "Palace development/Lossy Compression with Intent Alignment.md"
+ },
+ "Iain McGilchrist": {
+  "prose": [],
+  "annotations": [
+   {
+    "entry": "Iain McGilchrist",
+    "question": "Send me where I must name what would change my mind.",
+    "verdict": "answered-elsewhere",
+    "by_entry": "Excellent Adventure — dialectic — founders-circle (artifact)",
+    "proposed_action": "He refused the 'left-hemisphere capture' shield by name and stated his falsification conditions in the Founders' Circle (Making a Palace Citizen — context.md:132-134). The Hofstadter run (above) would test whether the statement holds when the objector is another citizen.",
+    "_room": "folder-people"
+   }
+  ],
+  "sentences": [],
+  "path": "People/Iain McGilchrist.md"
+ },
+ "Rick Rubin": {
+  "prose": [],
+  "annotations": [
+   {
+    "entry": "Rick Rubin",
+    "question": "Did I find the essence or make it; what do I actually do?",
+    "verdict": "progressed",
+    "by_entry": "Donella Meadows",
+    "proposed_action": "Meadows and Spinoza already argued the same question as 'is there a true self in the drawer?' and held it open (spinoza-meadows-on-the-threshold.md:75-77); Found ↔ Made says both poles are 'the same discipline heard in two rooms'. What Rubin does that a tasteful friend could not is still unanswered and is the page's own best question. Run Rubin x Meadows with that as the opener.",
+    "_room": "folder-people"
+   }
+  ],
+  "sentences": [],
+  "path": "People/Rick Rubin.md"
+ },
+ "Neural Granular Synthesis": {
+  "prose": [],
+  "annotations": [
+   {
+    "entry": "Neural Granular Synthesis",
+    "question": "How does pacemaker proportion affect perceptual liveliness?",
+    "verdict": "progressed",
+    "by_entry": "Neural Granular Synthesis",
+    "proposed_action": "Already part-folded in the page (surge below the lock). The scroll adds the lumpiness finding and says nobody has listened; the ear question stays open.",
+    "_room": "folder-projects-1"
+   }
+  ],
+  "sentences": [],
+  "path": "Projects/Neural Granular Synthesis.md"
+ },
+ "ffmpeg": {
+  "prose": [],
+  "annotations": [
+   {
+    "entry": "ffmpeg",
+    "question": "Library of canonical command templates per operation and tier (ffmpeg:217)",
+    "verdict": "progressed",
+    "by_entry": "Manim CE",
+    "proposed_action": "The mux command sits in Manim's gotcha (Manim:201) and the Radio Play concat in ffmpeg Recipes. Gather them into ffmpeg Recipes and the question is answered.",
+    "_room": "folder-shop-2"
+   }
+  ],
+  "sentences": [],
+  "path": "Shop/ffmpeg.md"
+ },
+ "Bessel Functions in Synthesis": {
+  "prose": [],
+  "annotations": [],
+  "sentences": [
+   {
+    "id": "commons-the-palace-1791827827785",
+    "flag_type": "scope-needed",
+    "what": "For Pile B (a changed claim): Three Kinds of Warp.md:97, \"FM, by contrast, has neither: the modulator+carrier structure is type-1 in disguise (Bessel sidebands sit on a finitely-generated lattice — see [[Bessel Functions in Synthesis]]),\" becomes \"FM depends on its ratio. At a whole-number carrier-to-modulator ratio its Bessel sidebands sit on the harmonic lattice, type 1 in disguise; at an irrational ratio its partials sit at $k f_c + n f_m$, a two-generator lattice, which is type 2 ([[Bessel Functions in Synthesis]]).\" The rest of the sentence, on FM giving no continuous knob on the lattice generators, stays.",
+    "reason": "The page's own type 2 is the irrational-ratio two-generator lattice (:75), so the unscoped FM sentence contradicts it, as Deep Research Part IV method 2 and Bessel Functions in Synthesis say."
+   }
+  ],
+  "path": "Projects/Bessel Functions in Synthesis.md"
+ }
+}

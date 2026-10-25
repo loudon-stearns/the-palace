@@ -5,7 +5,7 @@ pillars:
   - tools
   - creation
 born: 2026-06
-stage: sprout
+stage: growing
 confidence: working
 energy: medium
 hook_quality: 8

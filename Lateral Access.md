@@ -1,6 +1,6 @@
 ---
 title: Lateral Access
-type: concept
+type: hub
 pillars:
   - philosophy
   - practice

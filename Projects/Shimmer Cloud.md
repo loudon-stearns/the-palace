@@ -4,7 +4,7 @@ type: project
 status: active
 pillars: [creation, tools]
 born: 2026-03
-stage: sprout
+stage: growing
 confidence: hypothesis
 energy: medium
 hook_quality: 8

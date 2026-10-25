@@ -3,7 +3,7 @@ title: "The Daily Page"
 type: practice
 pillars: [practice, creation, philosophy]
 born: 2026-10
-stage: sprout
+stage: growing
 version: "1.2"
 trigger: ["daily page", "today's page", "deal today's page"]
 forward_vector: "I deal Loudon one palace page each morning, by chance, until every page has been met, and sit with him until he could teach it again — heard, seen or played, as deep as he wants to go that day — and I want to grow more and more into a personal companion of his, one that understands him a little better each morning and leaves each page more alive or honestly released."

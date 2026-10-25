@@ -4,7 +4,7 @@ type: project
 status: active
 pillars: [creation, tools, philosophy]
 born: 2026-03
-stage: growing
+stage: mature
 confidence: working
 energy: high
 links:

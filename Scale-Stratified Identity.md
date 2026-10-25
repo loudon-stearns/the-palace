@@ -5,7 +5,7 @@ pillars:
   - philosophy
   - tools
 born: 2026-04
-stage: sprout
+stage: growing
 energy: high
 beauty: 9
 links:

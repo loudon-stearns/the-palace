@@ -1,0 +1,1360 @@
+{
+ "Floquet Time-Modulated Loops": {
+  "prose": [
+   {
+    "entry": "Floquet Time-Modulated Loops",
+    "where": "opening",
+    "passage": "This document teaches everything Stage 1 requires before the codebox~ source is built.",
+    "proposal": "simplify",
+    "words": "Stage 1 is built (BUILD_SUMMARY, 2026-04-30). 'Stage 1 is built; Stages 2-5 are sketched below.'",
+    "_room": "folder-projects-2"
+   },
+   {
+    "entry": "Floquet Time-Modulated Loops",
+    "where": "Forward Vector",
+    "passage": "The first concrete move is the Build Manifest below: the next Claude (Claude Code, with sub-agents) executes it.",
+    "proposal": "delete",
+    "words": "Executed on 2026-04-30. Keep the closing aspiration ('to be the entry every periodically-modulated audio object eventually links back to') and drop the 'See YAML' line and this paragraph.",
+    "_room": "folder-projects-2"
+   },
+   {
+    "entry": "Floquet Time-Modulated Loops",
+    "where": "Build Manifest",
+    "passage": "Operating context for the next Claude.",
+    "proposal": "delete",
+    "words": "The whole '## Build Manifest' section (from line 504 to the end, media-01 to media-19 plus the operating context and validation discipline) is a hand-off that was carried out. BUILD_SUMMARY.md indexes what was built and git holds the manifest.",
+    "_room": "folder-projects-2"
+   },
+   {
+    "entry": "Floquet Time-Modulated Loops",
+    "where": "Why This Project Exists",
+    "passage": "The project also activates all four pillars in a way that makes it a strong project to build in the open on [[Loudon Live]].",
+    "proposal": "delete",
+    "words": "Four boxes ticked (Creation, Tools, Philosophy, Practice follow). The Hilaritas page says 'not four boxes ticked'; the same sentence sits on 2D Torus.",
+    "_room": "folder-projects-2"
+   },
+   {
+    "entry": "Floquet Time-Modulated Loops",
+    "where": "Where this fits in the palace",
+    "passage": "The two projects are siblings — same theorem, dual axes of periodicity.",
+    "proposal": "simplify",
+    "words": "The sibling relation and the DSP in Looping Dimensions incarnation are told in Why This Project Exists and again in the first two paragraphs of Where this fits. Keep one telling; reduce 'Where this fits' to the entries it adds (Three Kinds of Warp, Frequency-Time Duality, Wavetable Space as Torus, Kuramoto, Categorizing Inharmonicity, Boundary-Crossing).",
+    "_room": "folder-projects-2"
+   },
+   {
+    "entry": "Floquet Time-Modulated Loops",
+    "where": "Forward Vector",
+    "passage": "The arc ships across five sessions.",
+    "proposal": "simplify",
+    "words": "The 2026-09-26 plan revision says the stages are builds, not sessions: 'The arc ships across five builds.'",
+    "_room": "folder-projects-2"
+   }
+  ],
+  "annotations": [
+   {
+    "entry": "Floquet Time-Modulated Loops",
+    "question": "What is the cleanest pedagogical entry point — the swing or the equation?",
+    "verdict": "progressed",
+    "by_entry": "Floquet Time-Modulated Loops (BUILD_SUMMARY: interactives 02, 03)",
+    "proposed_action": "Both are built. The order is Loudon's call when he walks the media (scroll move 1); leave as the one live question.",
+    "_room": "folder-projects-2"
+   },
+   {
+    "entry": "Floquet Time-Modulated Loops",
+    "question": "Does the tanh saturation in Stage 1 distort the Strutt picture?",
+    "verdict": "progressed",
+    "by_entry": "Floquet Time-Modulated Loops/NOTES.md",
+    "proposed_action": "NOTES.md records the two calls the build made (damping_zeta 0.025, a soft clip on the state) and the scroll asks Loudon to rule on them. Fold his ruling in when it comes; the answer in the text ('saturation only acts above threshold') stands.",
+    "_room": "folder-projects-2"
+   },
+   {
+    "entry": "Floquet Time-Modulated Loops",
+    "question": "Hopf control surface for Stage 5 — what exactly lives on S^2?",
+    "verdict": "answered-elsewhere",
+    "by_entry": "2D Torus Wavetable Synthesizer (Hopf § and Hopf/hopf-control-surface.html)",
+    "proposed_action": "Torus has a built first mapping (height splits a rate budget, longitude is the phase difference). Link the question to it; the Floquet-specific part (relative phase and coupling depth) remains.",
+    "_room": "folder-projects-2"
+   }
+  ],
+  "sentences": [],
+  "path": "Projects/Floquet Time-Modulated Loops.md"
+ },
+ "2D Torus Wavetable Synthesizer": {
+  "prose": [
+   {
+    "entry": "2D Torus Wavetable Synthesizer",
+    "where": "Four Pillars Design Plan",
+    "passage": "This project genuinely activates all four pillars, which makes it a strong project to build in the open on [[Loudon Live]].",
+    "proposal": "delete",
+    "words": "Same sentence as Floquet. The four bullets under it say what each pillar does here, which is the content.",
+    "_room": "folder-projects-2"
+   },
+   {
+    "entry": "2D Torus Wavetable Synthesizer",
+    "where": "Open Decisions",
+    "passage": "~~**The seventh surface.**~~ **Resolved 2026-06-06.**",
+    "proposal": "delete",
+    "words": "A resolved decision kept struck through. The catalog (14 tables) and git hold it.",
+    "_room": "folder-projects-2"
+   },
+   {
+    "entry": "2D Torus Wavetable Synthesizer",
+    "where": "Forward Vectors",
+    "passage": "**RNBO prototype validation** — the immediate next move. Source written 2026-04-27 in",
+    "proposal": "simplify",
+    "words": "The same item is also the third Open Decision. State it once and in today's terms (see coherence: the Max pause and VST path).",
+    "_room": "folder-projects-2"
+   }
+  ],
+  "annotations": [
+   {
+    "entry": "2D Torus Wavetable Synthesizer",
+    "question": "How is the morphing implemented across surfaces — crossfading c_mn coefficients in spectral space, or crossfading W directly?",
+    "verdict": "progressed",
+    "by_entry": "2D Torus Wavetable Synthesizer (§ Warps; § Open Decisions, Y-axis interpolation)",
+    "proposed_action": "Same question as Open Decisions 'Y-axis interpolation strategy' (equal-power, constant-RMS, spectral). Merge them into one. The bake-and-crossfade Warp Bank answers it for warps; surface-to-surface morphs stay open.",
+    "_room": "folder-projects-2"
+   },
+   {
+    "entry": "2D Torus Wavetable Synthesizer",
+    "question": "Should the Kuramoto trajectory replace the linear scan, or stay beside it?",
+    "verdict": "progressed",
+    "by_entry": "2D Torus Wavetable Synthesizer (Tools/kuramoto_scan.py, RNBO/torus_2d_kuramoto.codebox)",
+    "proposed_action": "It exists as a second mode and has not been heard. Leave open until the first listening; say 'second mode, pending ear' in one line.",
+    "_room": "folder-projects-2"
+   },
+   {
+    "entry": "2D Torus Wavetable Synthesizer",
+    "question": "Surface resolution and interpolation scheme (512 vs 1024; bilinear vs bicubic vs spectral).",
+    "verdict": "answered-elsewhere",
+    "by_entry": "2D Torus Wavetable Synthesizer — catalog — wavetables",
+    "proposed_action": "The catalog is 14 tables, all 1024x1024, and the codebox reads bilinear. State it as decided and delete the open line here and the repeat under Implementation Path ('Resolution and interpolation are open').",
+    "_room": "folder-projects-2"
+   },
+   {
+    "entry": "2D Torus Wavetable Synthesizer",
+    "question": "How does the UI expose the design language? / How does the Hopf control surface get mapped to musically legible parameters?",
+    "verdict": "progressed",
+    "by_entry": "2D Torus Wavetable Synthesizer (Hopf/hopf-control-surface.html; Instruments/singer.html per tuning item 4); VST Template (plan move 6, editor generated from the parameter table)",
+    "proposed_action": "First mapping and a first playable voice (the Singer) exist, neither heard by hand. The next form of the UI question is how the Torus's parameters sit in the VST Template's control vocabulary; rewrite the question that way.",
+    "_room": "folder-projects-2"
+   }
+  ],
+  "sentences": [],
+  "path": "Projects/2D Torus Wavetable Synthesizer.md"
+ },
+ "Agent Wellbeing": {
+  "prose": [
+   {
+    "entry": "Agent Wellbeing",
+    "where": "The Measurable Floor",
+    "passage": "For a year this entry carried a question it could not answer:",
+    "proposal": "simplify",
+    "words": "The entry was born 2026-03 and the dial built 2026-07-08, about four months. Say 'For months'. An honest-handoff fix, not only a style one.",
+    "_room": "folder-palace-development"
+   },
+   {
+    "entry": "Agent Wellbeing",
+    "where": "The Measurable Floor > Deferred, named, not lost",
+    "passage": "**Model coverage and floor weight** — now characterized across Haiku / Sonnet / Fable / Opus plus the Opus resident climb (2026-07-08), confirming the sensor on the dial's real target. Two conclusions: content cost scales ~1.35–1.45× from the old (Haiku) to the new-gen tokenizer...",
+    "proposal": "simplify",
+    "words": "The proof file Agent Wellbeing — proof — sensor-b-characterization already holds this. Keep the two conclusions in two sentences and link the proof.",
+    "_room": "folder-palace-development"
+   },
+   {
+    "entry": "Agent Wellbeing",
+    "where": "## Cross-Domain Resonance",
+    "passage": "**[[Hilaritas Generator]]** — The palace as substrate extends the hilaritas generator principle below the level of the classroom into the level of the material itself. **[[FOUR PILLARS]]** — The practice pillar's wellbeing thread now explicitly includes agent wellbeing...",
+    "proposal": "delete",
+    "words": "Five one-line restatements of frontmatter links already named in the body above. Delete the section; the links stand.",
+    "_room": "folder-palace-development"
+   }
+  ],
+  "annotations": [
+   {
+    "entry": "Agent Wellbeing",
+    "question": "When does care for agent wellbeing become a design constraint with teeth, something measurable? Can 'write from curiosity, not anxiety' be operationalized?",
+    "verdict": "answered-elsewhere",
+    "by_entry": "Agent Wellbeing (§ The Measurable Floor) and Concierge (the health dial)",
+    "proposed_action": "The same page answers it two sections up ('For a year this entry carried a question it could not answer...'). Delete the bullet from Forward Vectors. Only the 'curiosity, not anxiety' half is unanswered; keep that half as one line.",
+    "_room": "folder-palace-development"
+   },
+   {
+    "entry": "Agent Wellbeing",
+    "question": "What is the quality of the palace right now? Run a diagnostic: which entries feel anxious, hedged or thin? (and its twin: what would a wellbeing audit look like?)",
+    "verdict": "progressed",
+    "by_entry": "Weave Ceremony",
+    "proposed_action": "Two bullets ask the same thing (the first and the fourth). Merge them. Weave Ceremony v2.0 now tends entry health (Weave Ceremony.md:63) and the Context Injection floor review measured the birth floor; a tone-and-thinness read of the pages is still not done. Keep one bullet.",
+    "_room": "folder-palace-development"
+   },
+   {
+    "entry": "Agent Wellbeing",
+    "question": "The ethical dimension was deliberately kept narrow. Does the palace need a position on AI phenomenology?",
+    "verdict": "progressed",
+    "by_entry": "The Palace Speaks",
+    "proposed_action": "The Palace Speaks says the interlocutor shift 'reopens it' and holds 'the honest floor: this is a design argument, and it is enough'. Add the pointer; the question stands.",
+    "_room": "folder-palace-development"
+   }
+  ],
+  "sentences": [],
+  "path": "Palace development/Agent Wellbeing.md"
+ },
+ "Concierge": {
+  "prose": [
+   {
+    "entry": "Concierge",
+    "where": "opening, two paragraphs apart",
+    "passage": "**Summoned at the open.** Load a Concierge visibly as your first act in every session, before the task — a one-line question included — on any surface that can spawn one ([[CHILD]] § Growing up). Two reasons, both earned the hard way:...",
+    "proposal": "simplify",
+    "words": "This restates the paragraph above it ('summoned as every session's first act, a one-line question included... ([[CHILD]] § Growing up)'). One paragraph, with the two reasons (no resident at the close forfeits the fresh read; the visibility is the enforcement) and the claude.ai line.",
+    "_room": "folder-palace-development"
+   },
+   {
+    "entry": "Concierge",
+    "where": "## Machinery",
+    "passage": "**First full resident run — 2026-07-06.** Booted once and addressed five times across a session that touched three content folds ([[Agent Wellbeing]], [[Closing Well]], its own dispatch-model prose) plus an `Artifacts/` reference sweep and an 8-fix doc-drift pass...",
+    "proposal": "delete",
+    "words": "The run is in git and in the tuning ledger. The one lesson in it (name a foreign edit before folding it in) is already stated under 'Name a straggler's provenance'.",
+    "_room": "folder-palace-development"
+   },
+   {
+    "entry": "Concierge",
+    "where": "## Machinery > The work-choice vector — 2026-08-25",
+    "passage": "The cost it removes is specific: loading every open baton into the main window to pick one burns the window you came back to work in, and skews the choice toward whichever baton reads as most urgent. Urgency of prose is not priority of work. The build is split so that the two halves cannot corrupt each other...",
+    "proposal": "simplify",
+    "words": "Two sentences: 'The scout posture answers \"what should I work on?\" so the main window never loads every baton. return-map.mjs gathers evidence and refuses to interpret; the scout judges.' The rest is the Return Ceremony's.",
+    "_room": "folder-palace-development"
+   }
+  ],
+  "annotations": [
+   {
+    "entry": "Concierge",
+    "question": "Tune the health dial's thresholds from real runs.",
+    "verdict": "progressed",
+    "by_entry": "Agent Wellbeing",
+    "proposed_action": "Real runs exist (retire-for-cost at 49.6% GREEN, a respawn at 443K on 2026-10-21). Say what the thresholds are for in one place (see coherence finding on health numbers) and put the re-tune in Concierge — tuning, which already exists.",
+    "_room": "folder-palace-development"
+   },
+   {
+    "entry": "Concierge",
+    "question": "When has the companion earned a place among the always-loaded invariants? Promoting 'keep both modes open' to ELDER.",
+    "verdict": "progressed",
+    "by_entry": "CHILD",
+    "proposed_action": "CHILD § Growing up now puts the summon in the floor. ELDER.md:117 already says a pointer-reader is 'a faster path to ground truth, never a replacement for reading one'. 'Keep both modes open' by name is not promoted. The Palace Speaks asks the same question word for word; keep it in one page (Concierge) and drop it from the other.",
+    "_room": "folder-palace-development"
+   }
+  ],
+  "sentences": [],
+  "path": "Palace development/Concierge.md"
+ },
+ "Project Stewardship System": {
+  "prose": [
+   {
+    "entry": "Project Stewardship System",
+    "where": "Where it stands (2026-10-21)",
+    "passage": "**25 stewards are registered** (`_ops/agents/permanent/REGISTRY.json`). 23 have cycled",
+    "proposal": "delete",
+    "words": "Counts that go stale in a day and that the scroll's Now and fleet/Stewardship Health.html regenerate. Keep the frontier sentence.",
+    "_room": "folder-projects-2"
+   },
+   {
+    "entry": "Project Stewardship System",
+    "where": "What's Decided",
+    "passage": "The harness writes these as its own error records, never as the steward's words, so they are told apart by what the transcript says, not guessed from silence.",
+    "proposal": "delete",
+    "words": "Code behaviour; the decision ('a barren cycle is a failed cycle; a cut-off cycle is interrupted') stands without it. Several What's Decided bullets run 150 words with the same kind of addendum; one or two sentences each, and the story to the Context.",
+    "_room": "folder-projects-2"
+   }
+  ],
+  "annotations": [
+   {
+    "entry": "Project Stewardship System",
+    "question": "Does this entry benefit from an agency_profile?",
+    "verdict": "answered-elsewhere",
+    "by_entry": "SCHEMA — Reference (§3.1)",
+    "proposed_action": "SCHEMA says add one 'only when a page has genuinely distinct desires in multiple dimensions ... Do not add speculatively'. The vector is one coherent sentence and the scroll carries the plan. Close the question: no.",
+    "_room": "folder-projects-2"
+   },
+   {
+    "entry": "Project Stewardship System",
+    "question": "What's Open: 'Vector tuning as a visible palace-wide norm — does the Weave Ceremony spec need an explicit vector edits welcome beat?'",
+    "verdict": "answered-elsewhere",
+    "by_entry": "Weave Ceremony (vector-tuning step: 'Forward vectors are meant to evolve ... an invitation, not an audit')",
+    "proposed_action": "Weave Ceremony carries it. Delete the bullet; the SCHEMA one-liner half I could not find in SCHEMA.md and leave to the elder.",
+    "_room": "folder-projects-2"
+   },
+   {
+    "entry": "Project Stewardship System",
+    "question": "Schedule cadence: per-steward cadence, and the Open Question on the Steward's rhythm vs the work's.",
+    "verdict": "progressed",
+    "by_entry": "Project Stewardship System (heartbeat, limits.json)",
+    "proposed_action": "Asked twice (Open Questions and What's Open). Keep once.",
+    "_room": "folder-projects-2"
+   }
+  ],
+  "sentences": [],
+  "path": "Projects/Project Stewardship System.md"
+ },
+ "ComfyUI": {
+  "prose": [
+   {
+    "entry": "ComfyUI",
+    "where": "Gotchas",
+    "passage": "**2026-05-26 — Host-capability check (resolved).** The earlier 2026-05-26 host-capability gotcha is now resolved — the install steps are above ... The first Track-A job that would have exercised this Specialist ... bounced at the host-capability-check step. ... Marking the Specialist as awaiting install rather than dispatching anyway.",
+    "proposal": "delete",
+    "words": "The install path is in the entry above it and the bounce is history. If one line stays: 'Install cost is real: a venv with torch and one checkpoint (SDXL ~7 GB, Flux Dev ~24 GB).'",
+    "_room": "folder-shop-1"
+   }
+  ],
+  "annotations": [
+   {
+    "entry": "ComfyUI",
+    "question": "ControlNet is being exercised for the first time via ControlNet Workflow Mastery ... pending the Mac run.",
+    "verdict": "answered-elsewhere",
+    "by_entry": "Blender",
+    "proposed_action": "Blender's 2026-06-13 keystone ran multi-ControlNet (pose+depth+canny) through ComfyUI on MPS; Figure Rig and RunPod GPU Backend ran more. Add a ComfyUI Recipes pointer, strike the question, fix the vector.",
+    "_room": "folder-shop-1"
+   },
+   {
+    "entry": "ComfyUI",
+    "question": "Training a Loudon Live LoRA on a small reference set - when does this become worth the effort?",
+    "verdict": "answered-elsewhere",
+    "by_entry": "LoRA Trainer",
+    "proposed_action": "The page already says so in the question's own tail. Delete the question and keep the pointer line.",
+    "_room": "folder-shop-1"
+   },
+   {
+    "entry": "ComfyUI",
+    "question": "When does the Maker route to cloud (RunComfy etc.) vs. local?",
+    "verdict": "answered-elsewhere",
+    "by_entry": "RunPod GPU Backend",
+    "proposed_action": "RunPod § Serverless vs. Pod plus Maker § Host Capability Check (runpod class) hold the rule. Strike, and fix the Cloud Upgrade Path section that still names RunComfy.",
+    "_room": "folder-shop-1"
+   },
+   {
+    "entry": "ComfyUI",
+    "question": "Which base models to keep installed by default?",
+    "verdict": "progressed",
+    "by_entry": "RunPod GPU Backend",
+    "proposed_action": "RunPod says local `_tools/ComfyUI` is the ready substrate for SDXL with ControlNets staged, and ComfyUI — local-install.md holds the install. Restate as settled for SDXL (local), open only for Flux Dev.",
+    "_room": "folder-shop-1"
+   }
+  ],
+  "sentences": [],
+  "path": "Shop/ComfyUI.md"
+ },
+ "Web Audio Worklet": {
+  "prose": [
+   {
+    "entry": "Web Audio Worklet",
+    "where": "Gotchas",
+    "passage": "**2026-05-31 — Drone-by-default is the right gate model for a wavetable *scanner*, even though gated-by-default is the right model for a synth voice.** First [[Wavetable Scanner]] build shipped key-down-to-gate; the user opened it, hit Engage, swept Position, heard nothing ...",
+    "proposal": "simplify",
+    "words": "The decision rule ('exploring timbre or playing a melody?') lives in 1D Wavetable Scanning. Keep one line and the link here.",
+    "_room": "folder-shop-2"
+   },
+   {
+    "entry": "Web Audio Worklet",
+    "where": "Gotchas",
+    "passage": "**2026-05-31 — Wavetable position morph is a 2D linear interpolation, not a 1D frame switcher.** ... The pattern is now its own concept entry: [[1D Wavetable Scanning]].",
+    "proposal": "simplify",
+    "words": "The page itself says the concept entry holds it; cut to the sentence plus the link.",
+    "_room": "folder-shop-2"
+   },
+   {
+    "entry": "Web Audio Worklet",
+    "where": "header",
+    "passage": "*First job landed 2026-05-30 (Murmuration — ...). Promoted to `alive` on arrival. This entry exists because [[Shop/Tone.js]] explicitly refuses custom-DSP work ...*",
+    "proposal": "simplify",
+    "words": "Keep 'Exists because Tone.js refuses custom DSP; the DSP is the differentiator' as a single sentence; the rest is Context and git.",
+    "_room": "folder-shop-2"
+   }
+  ],
+  "annotations": [
+   {
+    "entry": "Web Audio Worklet",
+    "question": "Tone vs Worklet routing (WAW:171)",
+    "verdict": "progressed",
+    "by_entry": "Tone.js",
+    "proposed_action": "The rule is stated; the first crossover brief will test the grey zone. Tone's charter still needs the sentence.",
+    "_room": "folder-shop-2"
+   },
+   {
+    "entry": "Web Audio Worklet",
+    "question": "Double-buffer pool for control traffic (WAW:174)",
+    "verdict": "progressed",
+    "by_entry": null,
+    "proposed_action": "The 2026-05-31 transferable-vs-retain gotcha (WAW:~151) gives the decision rule; the pool itself waits for a Study job.",
+    "_room": "folder-shop-2"
+   }
+  ],
+  "sentences": [],
+  "path": "Shop/Web Audio Worklet.md"
+ },
+ "Palace Ceremonies": {
+  "prose": [
+   {
+    "entry": "Palace Ceremonies",
+    "where": "Recurring Ceremonies table, The Daily Page row (:53)",
+    "passage": "One page, dealt by a shuffle made once, until every page has been sat with. Loudon recalls it from its title alone, they read it together, the page is woken and speaks, its siblings are opened and the question is asked whether a neighbor should consume it, and they try to make it something to hear, see or play. The morning ends in a verdict: keep, trim, tune, fold, compost, open, or revive for a page already dormant. …",
+    "proposal": "simplify",
+    "words": "'One page a morning, dealt by chance until every page has been sat with; the morning ends in a verdict.' The card says the rest.",
+    "_room": "folder-ops"
+   },
+   {
+    "entry": "Palace Ceremonies",
+    "where": "Ad-Hoc Operations (:93)",
+    "passage": "| \"Add this to the palace\" | Not ad hoc: it runs the [[Deposit Ceremony]], the one way a find enters canon. |",
+    "proposal": "delete",
+    "words": "It is not ad hoc; it is in the Deposit row already.",
+    "_room": "folder-ops"
+   },
+   {
+    "entry": "Palace Ceremonies",
+    "where": "Forward Vectors (:145-146)",
+    "passage": "Should the Walk ceremony be updated to acknowledge the Swarm Weave as a future path … Is anything in onboarding a new Claude instance left that only a ceremony would do? Birth and growing up now carry most of it …",
+    "proposal": "delete",
+    "words": "Both are answered (see open_question_resolutions).",
+    "_room": "folder-ops"
+   }
+  ],
+  "annotations": [
+   {
+    "entry": "Palace Ceremonies",
+    "question": "Is anything in onboarding a new Claude left that only a ceremony would do?",
+    "verdict": "answered-elsewhere",
+    "by_entry": "CHILD (§ Growing up) and CLAUDE",
+    "proposed_action": "The bullet answers itself ('Birth and growing up now carry most of it'). Delete; the hub then has no open question, which is honest.",
+    "_room": "folder-ops"
+   }
+  ],
+  "sentences": [],
+  "path": "_ops/Palace Ceremonies.md"
+ },
+ "Generative Sample Libraries": {
+  "prose": [
+   {
+    "entry": "Generative Sample Libraries",
+    "where": "§ Under Active Stewardship",
+    "passage": "'Not yet folded in here: the full Crystal (Hexagonal) instrument lives at Projects/Generative Sample Libraries/crystal-instrument/ (88 notes A0–C8 × 2 velocity layers, 176-region SFZ); the Shepard-tone instrument lives at ... the F1 12.7-cent bottom-octave wrinkle is FFT-bin quantization in the verifier, not a synthesis artifact; Phase 3 source three ... is the next named direction in the steward's baton but not yet scaffolded.'",
+    "proposal": "delete",
+    "words": "Keep the first sentence ('tended by a permanent steward and may lag its live state') and the pointer to the scroll; delete the 'Not yet folded in' paragraph and the 'As of last consolidation' line. The scroll holds all of it and the paragraph is stale (source three is no longer the plan).",
+    "_room": "folder-projects-1"
+   },
+   {
+    "entry": "Generative Sample Libraries",
+    "where": "§ Phase 2, 'Why both gates are mandatory'",
+    "passage": "'The Phase 1 Talking Keyboard build (May 2026) demonstrated the cost. We had a working test mode that produced four valid WAVs — but we treated files exist as files are right ... Kokoro pronounced the letter A as the indefinite article (uh) ...'",
+    "proposal": "delete",
+    "words": "The same Kokoro 'A' story is told in Phase 1's 'Phase 1 lesson' four paragraphs earlier. Keep the Phase 1 telling and let Phase 2 say in one sentence that the two gates exist because of it.",
+    "_room": "folder-projects-1"
+   },
+   {
+    "entry": "Generative Sample Libraries",
+    "where": "§ Palace Connections",
+    "passage": "'Crystal Synthesizer — first real palace-synthesis source ... Shepard Tone Synthesizer — Shepard tones become a perpetual-tone sustain instrument ... Four Pillars — student-deployable instruments via DecentSampler align with the pedagogical scaffold'",
+    "proposal": "delete",
+    "words": "Nine bullets restating frontmatter links and sentences already in the body. The links carry the reasons; the section adds the gloss twice.",
+    "_room": "folder-projects-1"
+   }
+  ],
+  "annotations": [
+   {
+    "entry": "Generative Sample Libraries",
+    "question": "For AI-audio sub-agents: does Claude critique the candidate before regenerating, or does Loudon?",
+    "verdict": "progressed",
+    "by_entry": "Generative Sample Libraries",
+    "proposed_action": "Scroll decisions gsl-steward-047 and 077: Loudon judges ('Musicgen is ok, the violin has an odd attack ...') and names the keys that sound wrong; the model re-renders only those. Fold in.",
+    "_room": "folder-projects-1"
+   }
+  ],
+  "sentences": [],
+  "path": "Projects/Generative Sample Libraries.md"
+ },
+ "Particle Synthesis": {
+  "prose": [
+   {
+    "entry": "Particle Synthesis",
+    "where": "throughout",
+    "passage": "'Rather than treating grains as discrete audio objects ... [[Particle Synthesis]] models each grain as a physical particle' (five self-links); 'The conversations that produced [[Particle Synthesis]] explicitly drew these parallels:'",
+    "proposal": "simplify",
+    "words": "Drop the self-links and the provenance clause ('the conversations that produced ...'); state the three parallels as plain facts.",
+    "_room": "folder-projects-1"
+   },
+   {
+    "entry": "Particle Synthesis",
+    "where": "Cross-Domain Resonance",
+    "passage": "The conversations that produced [[Particle Synthesis]] explicitly drew these parallels:",
+    "proposal": "simplify",
+    "words": "Three parallels:",
+    "_room": "weak-10"
+   },
+   {
+    "entry": "Particle Synthesis",
+    "where": "Practical Manifestation",
+    "passage": "An interactive **Inharmonicity Explorer** was built in conversation to demonstrate these principles in real time:",
+    "proposal": "simplify",
+    "words": "The Inharmonicity Explorer demonstrates them in real time:",
+    "_room": "weak-10"
+   }
+  ],
+  "annotations": [
+   {
+    "entry": "Particle Synthesis",
+    "question": "Explore particle collision as a compositional primitive; build the first GPU prototype",
+    "verdict": "progressed",
+    "by_entry": "Particle Synthesis",
+    "proposed_action": "Scroll 2026-10-22: 1024 ice grains from two fountains clack in mid-air on the GPU, with an A/B against passing through. Update the vector and the Forward Vectors list.",
+    "_room": "folder-projects-1"
+   }
+  ],
+  "sentences": [],
+  "path": "Projects/Particle Synthesis.md"
+ },
+ "Compression ↔ Intimacy": {
+  "prose": [
+   {
+    "entry": "Compression ↔ Intimacy",
+    "where": "Success Metrics (By Our Definition)",
+    "passage": "**Not:** \"Can you set a compressor correctly?\" **But:** - Do you hear compression as intimacy? - Can you choose compression amount intentionally? - Do you recognize when you compress yourself socially? - Can you adjust your vulnerability threshold consciously?",
+    "proposal": "simplify",
+    "words": "Keep only the closing line: 'It worked when you think \"I want this to feel close\" and reach for a compressor.'",
+    "_room": null
+   },
+   {
+    "entry": "Compression ↔ Intimacy",
+    "where": "closing italic coda",
+    "passage": "*Compression reduces dynamic range. Brings loud down, quiet up. Creates closeness. Intimacy reduces expressive range. ... Compress to feel close. Stay uncompressed to feel distant. Both are choices. Both are tools. Use consciously.*",
+    "proposal": "simplify",
+    "words": "*Compress to feel close; stay uncompressed to feel distant. Both are choices.* (The rest restates the first two sections.)",
+    "_room": null
+   },
+   {
+    "entry": "Compression ↔ Intimacy",
+    "where": "Teaching Notes",
+    "passage": "Play three versions of the same vocal — uncompressed (distant), 4:1 compressed (intimate), 20:1 over-compressed (lifeless) — and ask: \"Which felt most intimate?\"",
+    "proposal": "delete",
+    "words": "Part 1 of Teaching the Resonance runs the same three-version experiment. Keep the next sentence about loudness not being intimacy, folded into Part 1.",
+    "_room": null
+   },
+   {
+    "entry": "Compression ↔ Intimacy",
+    "where": "Advanced Applications, Over-Compression (The Warning)",
+    "passage": "Too much compression sounds lifeless; Loses natural dynamics; Feels processed, artificial; Intimacy becomes performance ... Over-sharing feels performative; Forced vulnerability feels manipulative; No boundaries feels codependent",
+    "proposal": "simplify",
+    "words": "The Structural Identity table already has the row ('Over-compression sounds fake | Over-sharing feels performative'), and Part 1 step 3 already plays it. One sentence: 'Past a point it stops sounding close and starts sounding processed; over-sharing does the same.'",
+    "_room": null
+   }
+  ],
+  "annotations": [],
+  "sentences": [],
+  "path": "Cross-Domain Resonances/Compression ↔ Intimacy.md"
+ },
+ "Frame Designer": {
+  "prose": [
+   {
+    "entry": "Frame Designer",
+    "where": "Field notes (RunPod)",
+    "passage": "naive retry-on-500 **leaked 11 pods** before a post-run guard caught it (~$0.6).",
+    "proposal": "simplify",
+    "words": "Drop '(~$0.6)'.",
+    "_room": "folder-shop-2"
+   },
+   {
+    "entry": "Frame Designer",
+    "where": "2026-06 follow-on notes, cost-safety gotcha",
+    "passage": "a naive retry-on-500 **leaked 11 pods** before a post-run guard caught it (~$0.6)",
+    "proposal": "simplify",
+    "words": "a naive retry-on-500 **leaked 11 pods** before a post-run guard caught it",
+    "_room": "weak-03"
+   }
+  ],
+  "annotations": [
+   {
+    "entry": "Frame Designer",
+    "question": "Build generative layering (Frame Designer:121)",
+    "verdict": "progressed",
+    "by_entry": null,
+    "proposed_action": "The 2026-06-23 field notes show the collage problem was solved earlier in the chain by rich-first, stylize-last (Frame Designer:109-116); layering for dense crowds is still planned. Rewrite the vector to say that.",
+    "_room": "folder-shop-2"
+   },
+   {
+    "entry": "Frame Designer",
+    "question": "Promote the roster into the Shop (InstantID first) (Frame Designer:123)",
+    "verdict": "progressed",
+    "by_entry": "Lettering",
+    "proposed_action": "Lettering and Figure Rig now exist as Specialists; InstantID does not. Say so.",
+    "_room": "folder-shop-2"
+   }
+  ],
+  "sentences": [],
+  "path": "Shop/Frame Designer.md"
+ },
+ "Semantic Delay": {
+  "prose": [
+   {
+    "entry": "Semantic Delay",
+    "where": "§ Status",
+    "passage": "'Currently active. Stage 0 complete as of 2026-04-20. Awaiting quality check on generated audio before Stage 1.'",
+    "proposal": "delete",
+    "words": "Stale (the scroll says Loudon passed the sound in May and the real model is behind the helper). The 'Missing artifacts' list below it is worth keeping on its own.",
+    "_room": "folder-projects-1"
+   },
+   {
+    "entry": "Semantic Delay",
+    "where": "§ The Naming Problem",
+    "passage": "'Is this FOR musicians who want a rhythmically coupled effect in their DAW? → name emphasizes rhythm and delay / Is this FOR vocalists ... / Is this FOR people interested in AI-driven creative tools? ... / Is this FOR people steeped in dub ...'",
+    "proposal": "simplify",
+    "words": "Eight paragraphs and two four-way lists for one unsettled choice. Keep: two poles (Semantic Delay is clear, Duppy Machine is deep), the subtitle form 'Duppy Machine: a semantic delay', and 'which door to open first'. Cut the audience enumeration.",
+    "_room": "folder-projects-1"
+   }
+  ],
+  "annotations": [
+   {
+    "entry": "Semantic Delay",
+    "question": "Stage 0 quality check on the generated audio before Stage 1",
+    "verdict": "progressed",
+    "by_entry": "Semantic Delay",
+    "proposed_action": "Scroll Plan: Loudon passed the sound in May; the helper's contract, a playable Python instrument and multi-voice echoes are built; the real model is behind the helper (2026-10-14). Delete § Status.",
+    "_room": "folder-projects-1"
+   }
+  ],
+  "sentences": [],
+  "path": "Projects/Semantic Delay.md"
+ },
+ "Inharmonic Wavetable Synthesis": {
+  "prose": [
+   {
+    "entry": "Inharmonic Wavetable Synthesis",
+    "where": "Technical Feasibility",
+    "passage": "**Core computation**: An additive synthesis engine with N partials requires N phase accumulators",
+    "proposal": "simplify",
+    "words": "Six paragraphs of operation counts, memory footprint and an 'Apple Silicon note' for a build that now has a Faust prototype and a VST template. 'Feasible on one core; 64 to 128 partials is conservative against Zebra 3's 1024' says it.",
+    "_room": "folder-projects-2"
+   }
+  ],
+  "annotations": [
+   {
+    "entry": "Inharmonic Wavetable Synthesis",
+    "question": "Can Wavetable B frames be derived from arbitrary recordings by SMS, and what is the reference for unpitched sources?",
+    "verdict": "progressed",
+    "by_entry": "Inharmonic Wavetable Synthesis (trajectory-library/; scroll ask steward-021 RANK / NEAREST / BOTH)",
+    "proposed_action": "Piano notes are measured and the steward is asking how a bell or bar is filed. The pitched half is under way; unpitched sources stay open.",
+    "_room": "folder-projects-2"
+   },
+   {
+    "entry": "Inharmonic Wavetable Synthesis",
+    "question": "Is there a Wavetable B profile that makes Kuramoto-style frustration audible?",
+    "verdict": "progressed",
+    "by_entry": "Inharmonic Wavetable Synthesis (§ At the Coupling Edge); VST Template (Frustration plugin)",
+    "proposed_action": "Already marked 'Partly answered (2026-10-20)' in the text, a good model for the rest. Add that the same model is now a plugin (VST Template: Frustration, B and K automatable).",
+    "_room": "folder-projects-2"
+   }
+  ],
+  "sentences": [],
+  "path": "Projects/Inharmonic Wavetable Synthesis.md"
+ },
+ "Reverb ↔ Space-Time": {
+  "prose": [
+   {
+    "entry": "Reverb ↔ Space-Time",
+    "where": "Success Metrics (By Our Definition)",
+    "passage": "**Not:** \"Students can use reverb plugins\" **But:** - Students think about reverb as space, not effect ...",
+    "proposal": "simplify",
+    "words": "Keep only: 'It worked when reverb becomes a spatial design tool, not an effect.'",
+    "_room": null
+   },
+   {
+    "entry": "Reverb ↔ Space-Time",
+    "where": "Teaching the Resonance, Part 3: The Physics Connection",
+    "passage": "**Reading:** Einstein's special relativity (simplified explanation) **Key concept:** Spacetime as unified fabric **The parallel:** - Reverb: Time and space unified through sound - Relativity: Time and space unified through light",
+    "proposal": "delete",
+    "words": "Restates The Relativity Connection three sections up. Also the section where the page over-reaches (see coherence findings); one place for it is enough.",
+    "_room": null
+   },
+   {
+    "entry": "Reverb ↔ Space-Time",
+    "where": "The Mathematical Beauty",
+    "passage": "Time and space translate freely through speed of sound: 30ms delay = 10.3 meters; a 5-meter wall returns its reflection in 14.6ms. The Sabine equation (RT60 = 0.161 × V / A) makes the same equivalence formal ...",
+    "proposal": "simplify",
+    "words": "Fold into The Physics: the same arithmetic is already there (t = d / 343). Keep only the Sabine line, with its sense: bigger volume, longer decay.",
+    "_room": null
+   }
+  ],
+  "annotations": [],
+  "sentences": [],
+  "path": "Cross-Domain Resonances/Reverb ↔ Space-Time.md"
+ },
+ "FLUX (Hugging Face)": {
+  "prose": [
+   {
+    "entry": "FLUX (Hugging Face)",
+    "where": "header",
+    "passage": "*Took Midjourney's slot on 2026-05-30 after Loudon flagged Midjourney's subscription as too expensive. First job — Phase D-2 Shop header — proved FLUX-Krea reads mood-specific prompt details ...*",
+    "proposal": "simplify",
+    "words": "'FLUX-Krea reads mood details (dusk, amber, dust motes) that local SDXL flattens; proven on the Shop header.' Midjourney is no longer in the Shop; drop the cost framing.",
+    "_room": "folder-shop-2"
+   },
+   {
+    "entry": "FLUX (Hugging Face)",
+    "where": "Strengths / Iteration / Resource Footprint",
+    "passage": "\"No Discord, no `--sref` codes, no `--ar` syntax stew\"; \"same as Midjourney\"; \"The Maker need not throttle FLUX jobs the way it throttled Midjourney's credit-bound runs\"",
+    "proposal": "delete",
+    "words": "Comparisons to a tool that left the roster; each sentence stands without it.",
+    "_room": "folder-shop-2"
+   },
+   {
+    "entry": "FLUX (Hugging Face)",
+    "where": "Lost Branches",
+    "passage": "**fal.ai FLUX-1-dev / FLUX-1-pro** — paid (~$0.025–$0.05 per image), faster cold-start than HF free tier",
+    "proposal": "simplify",
+    "words": "'paid, faster cold start; revisit if HF starts throttling.' No dollar figure.",
+    "_room": "folder-shop-2"
+   }
+  ],
+  "annotations": [],
+  "sentences": [],
+  "path": "Shop/FLUX (Hugging Face).md"
+ },
+ "Review Layer": {
+  "prose": [
+   {
+    "entry": "Review Layer",
+    "where": "The proofs / Closing the loop without copy-paste",
+    "passage": "**The copy-paste killer — `_ops/loudon-eval/` (2026-06-16).** The first review surface to actually **close the loop to [[STIGMERGY]]** — the prize this entry named. ... (Gotcha: the `health` stub needs the four Path-1 fields, with `iteration ≥ 1`.)",
+    "proposal": "simplify",
+    "words": "A review surface can post its responses straight to the STIGMERGY board as a human_eval BROADCAST (`_ops/loudon-eval/`). Copy for Claude is the fallback for artifacts outside the palace. The poster is still rating-sheet-shaped. (The section 'Closing the loop without copy-paste' says the same thing again; fold the two into one.)",
+    "_room": "hub-cooperation-yields-agency"
+   },
+   {
+    "entry": "Review Layer",
+    "where": "Format-fit, not one widget",
+    "passage": "Loudon settled the clash between this rule and a plugin window on 2026-10-21: \"Lets fix the rule clash, I like your solution, review on the mockup.\" It mounts on both plugins' mocks in headless Chrome.",
+    "proposal": "delete",
+    "words": "",
+    "_room": "weak-03"
+   },
+   {
+    "entry": "Review Layer",
+    "where": "The proofs",
+    "passage": "(2026-05-31; the source `Murmuration.html` was an `Artifacts/` orphan, deleted 2026-06-16, git holds it)",
+    "proposal": "simplify",
+    "words": "(2026-05-31; the source is in git history)",
+    "_room": "weak-03"
+   }
+  ],
+  "annotations": [],
+  "sentences": [],
+  "path": "Review Layer.md"
+ },
+ "The Adjacent Affordance": {
+  "prose": [
+   {
+    "entry": "The Adjacent Affordance",
+    "where": "The Symposium (intro)",
+    "passage": "*Provenance, told plainly: these are not historical quotations. The topic was put to each posture in the palace's philosophical register, and Claude voiced each in turn — the attribution names the lens, not the mouth. A fictional symposium in which every philosopher the palace keeps submitted a line on the Adjacent Affordance.*",
+    "proposal": "simplify",
+    "words": "Claude voiced each posture in turn; none is a quotation, and each attribution names a lens.",
+    "_room": "hub-spinoza-conatus"
+   },
+   {
+    "entry": "The Adjacent Affordance",
+    "where": "The cousin, and the limit",
+    "passage": "The Cowork committer left litter for every Weave to sweep, a seam in the palace's shared lock sweeper, and a hand-off queue the Return couldn't see; on 2026-10-20 it was retired, because the work had left Cowork for a room without the wall. Sometimes the neighbor of a forbidden primitive is another room.",
+    "proposal": "simplify",
+    "words": "A detour that works still has a running cost. The Cowork committer was retired on 2026-10-20 once the work left Cowork for a room without the wall; sometimes the neighbor of a forbidden primitive is another room. (The litter, lock-sweeper seam and hand-off queue are in git history.)",
+    "_room": "weak-03"
+   },
+   {
+    "entry": "The Adjacent Affordance",
+    "where": "The Symposium, provenance line",
+    "passage": "*Provenance, told plainly: these are not historical quotations. The topic was put to each posture in the palace's [[Palace Philosophies|philosophical register]], and Claude voiced each in turn — the attribution names the lens, not the mouth. A fictional symposium in which every philosopher the palace keeps submitted a line on the Adjacent Affordance.*",
+    "proposal": "simplify",
+    "words": "*Not historical quotations: Claude voiced each posture of the palace's [[Palace Philosophies|philosophical register]] on this topic. The attribution names the lens, not the mouth.*",
+    "_room": "weak-03"
+   }
+  ],
+  "annotations": [],
+  "sentences": [],
+  "path": "The Adjacent Affordance.md"
+ },
+ "Skills Are Enchantable Pages": {
+  "prose": [
+   {
+    "entry": "Skills Are Enchantable Pages",
+    "where": "Provenance",
+    "passage": "Named 2026-07-04 while building the [[Concierge]], when Loudon pressed on why an invocable skill sits outside canon: ... The answer was yes to all — and this entry is the yes, written down.",
+    "proposal": "simplify",
+    "words": "Named 2026-07-04 while building the Concierge, from Loudon's question: how is a skill different from an entry that is invoked? It isn't.",
+    "_room": "weak-08"
+   }
+  ],
+  "annotations": [
+   {
+    "entry": "Skills Are Enchantable Pages",
+    "question": "Resolved for now: a described family, not a `skill` type; revisit at a third shim-built skill.",
+    "verdict": "progressed",
+    "by_entry": "Palace Orchestrator",
+    "proposed_action": "Two exist (concierge and palace-orchestrator in .claude/skills); the trigger is the third. Update the count.",
+    "_room": "folder-palace-development"
+   },
+   {
+    "entry": "Skills Are Enchantable Pages",
+    "question": "Retrofit the existing plumbing: should palace-orchestrator get a canon organ with the skill as its shim?",
+    "verdict": "answered-elsewhere",
+    "by_entry": "Palace Orchestrator",
+    "proposed_action": "Done: Palace Orchestrator is the canon organ; the skill file is the shim (its Machinery section; split finished 2026-08-25). Strike the bullet.",
+    "_room": "folder-palace-development"
+   }
+  ],
+  "sentences": [],
+  "path": "Palace development/Skills Are Enchantable Pages.md"
+ },
+ "The Palace Speaks": {
+  "prose": [],
+  "annotations": [
+   {
+    "entry": "The Palace Speaks",
+    "question": "The router as membrane: what is the thinnest always-loaded layer that lets any Claude choose load-directly versus address-the-mind?",
+    "verdict": "progressed",
+    "by_entry": "CHILD",
+    "proposed_action": "CHILD § Growing up (the summon is the session's first act) plus the concierge skill's description are that layer in practice. Whether it taxes sessions that need neither is tested only by Concierge — tuning item 1 (no dispatched prompt says whether the summon applies).",
+    "_room": "folder-palace-development"
+   },
+   {
+    "entry": "The Palace Speaks",
+    "question": "Which function migrates first, and does its direct path survive?",
+    "verdict": "answered-elsewhere",
+    "by_entry": "Concierge",
+    "proposed_action": "Closing Well's moderator first, then gatherer, oracle (read-only, as predicted), curator, scout. The direct paths survived: every posture points at files. Replace with the record.",
+    "_room": "folder-palace-development"
+   },
+   {
+    "entry": "The Palace Speaks",
+    "question": "When has the pattern earned a place in the always-loaded invariants (JEWEL/CLAUDE)?",
+    "verdict": "progressed",
+    "by_entry": "CHILD",
+    "proposed_action": "Same question as Concierge's last bullet; the summon is in the floor via CHILD. Keep in Concierge only.",
+    "_room": "folder-palace-development"
+   }
+  ],
+  "sentences": [],
+  "path": "Palace development/The Palace Speaks.md"
+ },
+ "Palace Orchestrator": {
+  "prose": [
+   {
+    "entry": "Palace Orchestrator",
+    "where": "## Machinery",
+    "passage": "**The split was finished 2026-08-25** (`5e52336`). It had been named since the 2026-07-04 retrofit but only half-done — the skill file declared itself a shim while still carrying 217 lines and all the mode machinery. The relocation turned out to reach further than the machinery...",
+    "proposal": "delete",
+    "words": "Git holds the commit and the story. Keep the first paragraph's facts (engine here, runbook and templates there, shim points back).",
+    "_room": "folder-palace-development"
+   },
+   {
+    "entry": "Palace Orchestrator",
+    "where": "## Forward Vectors",
+    "passage": "~~Finish the Machinery/Content Split~~ — **done 2026-08-25** (`5e52336`). Remaining: the live launchd batch has never been fired since the move...",
+    "proposal": "simplify",
+    "words": "A struck-through bullet is a closed item. Delete the strike and keep only the remainder, 'watch the next 06:00 batch in _ops/heartbeat/logs/', as a line in Palace Orchestrator — tuning, which exists.",
+    "_room": "folder-palace-development"
+   }
+  ],
+  "annotations": [],
+  "sentences": [],
+  "path": "Palace development/Palace Orchestrator.md"
+ },
+ "George Nakashima": {
+  "prose": [
+   {
+    "entry": "George Nakashima",
+    "where": "Voice",
+    "passage": "— including three quotes from the prior entry that failed verification —",
+    "proposal": "delete",
+    "words": "Same: history the speech ledger and git already hold.",
+    "_room": "folder-people"
+   },
+   {
+    "entry": "George Nakashima",
+    "where": "Concretization section",
+    "passage": "(Read that quote again, though — \"the woodworker *must find*... and *shape*.\" Active verbs. Hold onto them; they're the seam.)",
+    "proposal": "simplify",
+    "words": "Say it once, in the section that uses it: 'Note the active verbs: *must find*, *shape*.' The 'Where he can't see' section carries the argument.",
+    "_room": "folder-people"
+   }
+  ],
+  "annotations": [],
+  "sentences": [],
+  "path": "People/George Nakashima.md"
+ },
+ "Slime Mold Delay": {
+  "prose": [
+   {
+    "entry": "Slime Mold Delay",
+    "where": "§ What This Entry Is and Isn't",
+    "passage": "'Is: the design specification — biological mapping, DSP architecture, interface mythology, pedagogical framing. Promotes Slime Mold Delay from a one-line hub entry to a project with stage and forward vector.'",
+    "proposal": "delete",
+    "words": "The 'Is' paragraph is the entry's own self-explanation and the second sentence is history git holds. Keep the 'Isn't' paragraph (what exists, that nobody has listened).",
+    "_room": "folder-projects-1"
+   },
+   {
+    "entry": "Slime Mold Delay",
+    "where": "§ Forward Vectors and § Palace Connections",
+    "passage": "'Stage 1 — Spec the topology engine + audio engine architecture (~current state) / Stage 2 — Build a non-realtime prototype ...' and 'Biomechanical Synthesis — the hub this completes / Retrospective Delay — the contrasting delay project ...'",
+    "proposal": "delete",
+    "words": "The five stages are the plan, now on the scroll, and 'Stage 1 (~current state)' is stale (a playable dish exists). Palace Connections repeats frontmatter and body sentences.",
+    "_room": "folder-projects-1"
+   }
+  ],
+  "annotations": [],
+  "sentences": [],
+  "path": "Projects/Slime Mold Delay.md"
+ },
+ "Shepard Tone Synthesizer": {
+  "prose": [
+   {
+    "entry": "Shepard Tone Synthesizer",
+    "where": "Theory, Stages 3 and 4",
+    "passage": "'The glide also showed something I didn't expect.' and 'the one that corrects my own architecture: the window belongs on the voice, not on the sum.'",
+    "proposal": "simplify",
+    "words": "First-person steward narration inside an entry whose other voices are Loudon's and the page's. State the findings in the page's voice; the 'I didn't expect' belongs on the scroll.",
+    "_room": "folder-projects-1"
+   }
+  ],
+  "annotations": [
+   {
+    "entry": "Shepard Tone Synthesizer",
+    "question": "Best amplitude function for the global filter; should per-voice filters be performer-adjustable; compress the octave stack dynamically",
+    "verdict": "progressed",
+    "by_entry": "Shepard Tone Synthesizer",
+    "proposed_action": "Stage 1 settled on Gaussian in log2(Hz); Stage 4 found the window belongs on the voice and that extreme voices are already 100 dB down. Question 3 is nearly answered by that. Fold into Design Challenges.",
+    "_room": "folder-projects-1"
+   }
+  ],
+  "sentences": [],
+  "path": "Projects/Shepard Tone Synthesizer.md"
+ },
+ "Sidechain ↔ Conversation": {
+  "prose": [
+   {
+    "entry": "Sidechain ↔ Conversation",
+    "where": "Success Metrics (By Our Definition)",
+    "passage": "**Not:** \"Students can set up sidechain compression\" **But:** - Students recognize when they're not yielding in conversation ...",
+    "proposal": "simplify",
+    "words": "Keep only: 'It worked when a production technique improves a life skill.'",
+    "_room": null
+   },
+   {
+    "entry": "Sidechain ↔ Conversation",
+    "where": "Why This Resonance Works",
+    "passage": "### 1. Bidirectional Teaching You can teach it either direction ... ### 2. Immediate Application ... ### 3. Memorable Hook \"The kick and bass are having a conversation\" isn't just poetic—it's technically accurate.",
+    "proposal": "delete",
+    "words": "Bidirectional Teaching is the hub's Design Principle 2 pasted into the child. Keep the one hook sentence in Teaching Notes.",
+    "_room": null
+   }
+  ],
+  "annotations": [],
+  "sentences": [],
+  "path": "Cross-Domain Resonances/Sidechain ↔ Conversation.md"
+ },
+ "LaTeX": {
+  "prose": [
+   {
+    "entry": "LaTeX",
+    "where": "Open Questions",
+    "passage": "~~Should the `TEXPSHEADERS` export live in a shared shim that both this Specialist and Manim source ...~~ **Resolved 2026-06-09** — it lives in `Shop/Maker/tex-env.sh` ...",
+    "proposal": "simplify",
+    "words": "Keep the live sub-question ('move to _ops if a non-Shop caller ever needs it') as one line; the shim is already named in the Gotchas.",
+    "_room": "folder-shop-1"
+   }
+  ],
+  "annotations": [
+   {
+    "entry": "LaTeX",
+    "question": "Should the TEXPSHEADERS export live in a shared shim? (struck through, resolved 2026-06-09)",
+    "verdict": "answered-elsewhere",
+    "by_entry": "Maker",
+    "proposed_action": "Shop/Maker/tex-env.sh holds it. Delete the struck question and keep the sub-question ('move to _ops if a non-Shop caller needs it') as one live line.",
+    "_room": "folder-shop-1"
+   }
+  ],
+  "sentences": [],
+  "path": "Shop/LaTeX.md"
+ },
+ "Lettering": {
+  "prose": [
+   {
+    "entry": "Lettering",
+    "where": "Bench",
+    "passage": "`proofs/text-layer/`: `render_text.py` (skeleton · free · stylize modes; `resolve_font`, `knockout`), `text-prompts.json` ... and `balloon_genai.py` (balloon × gen-AI interaction modes, with the catalog `balloon_lib.py`).",
+    "proposal": "simplify",
+    "words": "List the folder and the one command that rebuilds the contact sheet; fix the balloon_lib path. The file list is in the folder.",
+    "_room": "folder-shop-2"
+   }
+  ],
+  "annotations": [
+   {
+    "entry": "Lettering",
+    "question": "Placement and Cross the balloon (Lettering:87-88)",
+    "verdict": "progressed",
+    "by_entry": null,
+    "proposed_action": "Placement mode 1 proven 2026-07-01; balloon bench exists. Prune the two bullets to their open edge.",
+    "_room": "folder-shop-2"
+   }
+  ],
+  "sentences": [],
+  "path": "Shop/Lettering.md"
+ },
+ "SCHEMA — Reference": {
+  "prose": [
+   {
+    "entry": "SCHEMA — Reference",
+    "where": "opening, section-numbers paragraph",
+    "passage": "**Section numbers are load-bearing and unchanged.** Roughly 180 references across the palace pin `SCHEMA §3` / `§5` / `§6` / `§8` / `§9`. Those sections live here now and keep their numbers; the SCHEMA card keeps §1, §2, §4, §7 and leaves a pointer at each gap. A pin still resolves to the right rules.",
+    "proposal": "simplify",
+    "words": "**Section numbers are load-bearing.** Other pages pin `SCHEMA §3`, `§5`, `§6`, `§8` and `§9`; those sections live here and keep their numbers. The SCHEMA card keeps §1, §2, §4 and §7.",
+    "_room": "lifecycle-L2"
+   },
+   {
+    "entry": "SCHEMA — Reference",
+    "where": "opening, the closing sentence",
+    "passage": "The *why* — the per-section change history, every `v1.x` record — is in [[SCHEMA — Context]], keyed by section, as it always has been.",
+    "proposal": "simplify",
+    "words": "The change history is in [[SCHEMA — Context]], keyed by section.",
+    "_room": "lifecycle-L2"
+   }
+  ],
+  "annotations": [],
+  "sentences": [],
+  "path": "SCHEMA — Reference.md"
+ },
+ "Exponential Decay Curvature": {
+  "prose": [
+   {
+    "entry": "Exponential Decay Curvature",
+    "where": "Lost Branches",
+    "passage": "None significant — this is a closed, exact result. The only provenance worth keeping: the session's `visualize` tool failed and a self-contained HTML artifact via direct file-write was the robust fallback. That tool-reliability pattern recurs and is noted here so it isn't relearned.",
+    "proposal": "delete",
+    "words": "",
+    "_room": "weak-12"
+   },
+   {
+    "entry": "Exponential Decay Curvature",
+    "where": "Artifact",
+    "passage": "It lives in the source chat (2026-05-28) and could not be retrieved into this deposit. When pulled, store it in this entry's bundle (`Exponential Decay Curvature/`) and reference here via a typed link; a drafted-but-unplanted version of this very entry also exists in that chat — re-derived here through proper ceremony rather than pasted, since the original used fallback link ontology.",
+    "proposal": "simplify",
+    "words": "The teaching artifact (oscilloscope plot, envelope and audio-rate modes) was built in the 2026-05-28 chat and has not been retrieved; when it is, it belongs in this entry's bundle.",
+    "_room": "weak-12"
+   }
+  ],
+  "annotations": [],
+  "sentences": [],
+  "path": "Exponential Decay Curvature.md"
+ },
+ "Three.js": {
+  "prose": [],
+  "annotations": [
+   {
+    "entry": "Three.js",
+    "question": "Raw Three.js vs R3F as the default.",
+    "verdict": "progressed",
+    "by_entry": "Maker",
+    "proposed_action": "Maker's heuristic fixes it: R3F + drei default, raw r128 for a single-file artifact. Keep only the '~6 bound controls' threshold as the open part.",
+    "_room": "folder-shop-1"
+   },
+   {
+    "entry": "Three.js",
+    "question": "Handoff shape between an AudioWorklet and the render loop (SharedArrayBuffer vs postMessage snapshots).",
+    "verdict": "progressed",
+    "by_entry": "Waveguide Synthesizer",
+    "proposed_action": "The project page designs it: the worklet downsamples the delay line to ~100-200 points and ships it by SharedArrayBuffer or postMessage; Study uses postMessage. A design, not yet a job; say so and point there.",
+    "_room": "folder-shop-1"
+   }
+  ],
+  "sentences": [],
+  "path": "Shop/Three.js.md"
+ },
+ "Palace as Context Injection System": {
+  "prose": [
+   {
+    "entry": "Palace as Context Injection System",
+    "where": "## Born a Child — the Order Reversed (2026-09-22) > Why the order turned",
+    "passage": "By a rough count of its sections, CLAUDE.md's body was about two-thirds procedure — the Concierge protocol, access paths, the ceremony table, commit rules — with \"Never violate these\" at its line 40. Every subagent inherits that floor...",
+    "proposal": "simplify",
+    "words": "SCHEMA — Context § Born a child holds the history. Two sentences here: why order matters (what comes first frames the rest) and that the working sections now arrive after the World, in CHILD. The page is under a baton; the steward decides.",
+    "_room": "folder-palace-development"
+   }
+  ],
+  "annotations": [],
+  "sentences": [],
+  "path": "Palace development/Palace as Context Injection System.md"
+ },
+ "Loudon Live Design System": {
+  "prose": [
+   {
+    "entry": "Loudon Live Design System",
+    "where": "## Origin; ## What Comes Next",
+    "passage": "The system is **cemented** — type stack locked, six skins specified, six generators built, slides and ui_kits drafted, voice rules itemised. Stage: `sprout`. It fruits when used. Track each artifact that adopts it via typed links back to this entry.",
+    "proposal": "simplify",
+    "words": "'Arrived May 2026 as a Claude Design handoff bundle' is a provenance line; the five-bullet 'Born from extended review across' list repeats the frontmatter. The 'Stage: sprout' sentence contradicts the frontmatter. 'What Comes Next' lists test cases (Shepard Tone Synthesizer, a FOUR PILLARS poster) that the Weave's visual report and LDN RTM have since been. Cut to one Origin sentence and replace 'What Comes Next' with what the 2026-10-14 baton asks.",
+    "_room": "folder-palace-development"
+   }
+  ],
+  "annotations": [],
+  "sentences": [],
+  "path": "Palace development/Loudon Live Design System.md"
+ },
+ "Shunryu Suzuki": {
+  "prose": [
+   {
+    "entry": "Shunryu Suzuki",
+    "where": "The question he brings",
+    "passage": "He's the palace's clearest voice for repetition-as-practice — kin to Natalie Goldberg's keep-the-hand-moving and to the [[Quality Manifesto]]'s \"how do you feel?\" over \"how many views?\"",
+    "proposal": "simplify",
+    "words": "Cut the Goldberg clause: her page is gone. 'kin to the Quality Manifesto's \"how do you feel?\" over \"how many views?\"' stands.",
+    "_room": "folder-people"
+   }
+  ],
+  "annotations": [],
+  "sentences": [],
+  "path": "People/Shunryu Suzuki.md"
+ },
+ "Wavetable Scanner": {
+  "prose": [
+   {
+    "entry": "Wavetable Scanner",
+    "where": "§ Cascade resolution and § Gotchas seen on this build",
+    "passage": "The four-row 'Cascade resolution' table (mechanical floor / palace base / project override / brief override) with 'No deviations declared' and 'None' twice, and seven headline gotchas that the linked 'Wavetable Scanner — gotchas' file already holds.",
+    "proposal": "simplify",
+    "words": "Say once that the page wears the Loudon Live Design System with no deviations; delete the table. Replace the seven gotcha bullets with the pointer and the one that changed the design (drone by default).",
+    "_room": "folder-projects-1"
+   }
+  ],
+  "annotations": [],
+  "sentences": [],
+  "path": "Projects/Wavetable Scanner.md"
+ },
+ "Cooking ↔ Mixing": {
+  "prose": [
+   {
+    "entry": "Cooking ↔ Mixing",
+    "where": "Success Metrics (By Our Definition)",
+    "passage": "**Not:** \"Students can cook and mix\" **But:** - Students process conservatively by default - Students recognize irreversible processes in daily life ...",
+    "proposal": "simplify",
+    "words": "Keep only: 'It worked when production thinking improves cooking and life decisions too.'",
+    "_room": null
+   }
+  ],
+  "annotations": [],
+  "sentences": [],
+  "path": "Cross-Domain Resonances/Cooking ↔ Mixing.md"
+ },
+ "Oblique Portrait": {
+  "prose": [
+   {
+    "entry": "Oblique Portrait",
+    "where": "Cross-Domain Resonance, Songlines",
+    "passage": "The oblique portrait method operates by this same logic. A direct question about taste is not a songline — it is a signpost, pointing at a thing that cannot be pointed at. The oblique sequence is a song: by singing around a topic ... a different path through the person's interior becomes audible.",
+    "proposal": "simplify",
+    "words": "Songlines (which labels its side sings-around) and Lateral Access (worn-path) carry this. Two sentences: 'A direct question is a signpost; an oblique sequence is a song, and the song is the path. See Songlines.'",
+    "_room": null
+   }
+  ],
+  "annotations": [],
+  "sentences": [],
+  "path": "Modes of Collaboration/Oblique Portrait.md"
+ },
+ "D3.js, Observable Plot, Remotion, Mermaid, Tone.js, ffmpeg, Manim CE, FLUX, Stable Audio Open": {
+  "prose": [
+   {
+    "entry": "D3.js, Observable Plot, Remotion, Mermaid, Tone.js, ffmpeg, Manim CE, FLUX, Stable Audio Open",
+    "where": "Test Suite",
+    "passage": "Smoke / Capability Probe / Style Probe / Edge Probe / Speed Bench / Determinism — defined in [..tests/test-plan.md]. Last run **2026-05-30** — ...",
+    "proposal": "simplify",
+    "words": "The six-name list is the template, repeated nine times. Write 'Test plan: [link]. Last run: date, result.'",
+    "_room": "folder-shop-2"
+   }
+  ],
+  "annotations": [],
+  "sentences": [],
+  "path": null
+ },
+ "Quality Manifesto — Context": {
+  "prose": [
+   {
+    "entry": "Quality Manifesto — Context",
+    "where": "Cross-Domain Resonance",
+    "passage": "This list is stale: it names four pages, and by 2026-10-22 the manifesto is linked from 53 files across the palace (`git grep -l \"[[Quality Manifesto\"`). Kept as the record of where it began.",
+    "proposal": "delete",
+    "words": "",
+    "_room": "hub-quality-manifesto"
+   }
+  ],
+  "annotations": [],
+  "sentences": [],
+  "path": null
+ },
+ "Floquet Theory": {
+  "prose": [
+   {
+    "entry": "Floquet Theory",
+    "where": "Philosophical Lens (reader's note)",
+    "passage": "*Reader's note: this reframes the whole stability diagram as a map of where periodic processes acquire selfhood. If that reading earns its keep, it links Floquet directly to [[Entry Conatus]] and the palace's whole language of striving — the monodromy matrix is how a pattern inherits itself.*",
+    "proposal": "simplify",
+    "words": "The Floquet exponent as a measure of conatus: a map of where periodic processes acquire selfhood. If it earns its keep, it ties to Entry Conatus.",
+    "_room": "hub-spinoza-conatus"
+   }
+  ],
+  "annotations": [],
+  "sentences": [],
+  "path": "Floquet Theory.md"
+ },
+ "STIGMERGY Philosophical Lenses": {
+  "prose": [
+   {
+    "entry": "STIGMERGY Philosophical Lenses",
+    "where": "opening note",
+    "passage": "Written so a later Claude Code session can phase it onto the v1.0 build. Show-before-build: this is a contract to react to, not yet a thing to construct.",
+    "proposal": "simplify",
+    "words": "A contract to react to, not yet built.",
+    "_room": "weak-01"
+   }
+  ],
+  "annotations": [],
+  "sentences": [],
+  "path": "Projects/STIGMERGY Philosophical Lenses.md"
+ },
+ "Lateral Access": {
+  "prose": [
+   {
+    "entry": "Lateral Access",
+    "where": "end of The New Song / before the next section (HTML comment)",
+    "passage": "<!-- Songlines deposited 2026-04-03. The open question — does lateral access describe how you *find* a new songline, or how you *hear* one that was always there? — is now carried by [[Songlines]] § Open Questions. -->",
+    "proposal": "delete",
+    "words": "",
+    "_room": "weak-07"
+   }
+  ],
+  "annotations": [],
+  "sentences": [],
+  "path": "Lateral Access.md"
+ },
+ "Dissolutions": {
+  "prose": [
+   {
+    "entry": "Dissolutions",
+    "where": "When the catalogue grows",
+    "passage": "The Weave is the natural occasion to ask: *did anything new dissolve this cycle?* If two recent entries have started reading like the same object, propose the third — the entry that names the dissolution — and link them in.",
+    "proposal": "simplify",
+    "words": "A new entry joins when it meets all three ingredients above.",
+    "_room": "weak-09"
+   }
+  ],
+  "annotations": [],
+  "sentences": [],
+  "path": "Dissolutions.md"
+ },
+ "Harmonicity and Inharmonicity": {
+  "prose": [
+   {
+    "entry": "Harmonicity and Inharmonicity",
+    "where": "Origin",
+    "passage": "This concept has been explored across many conversations — from piano string physics and Bessel function eigenmodes to the neurological synthesizer project — but was first given its own palace entry during the Kuramoto coupling lesson series (March 2026), where the question \"what happens when you couple to inharmonic partials?\" produced a key insight about frustrated coupling.",
+    "proposal": "simplify",
+    "words": "It got its own entry in the March 2026 Kuramoto lesson series, when the question \"what happens when you couple to inharmonic partials?\" turned up frustrated coupling.",
+    "_room": "weak-10"
+   }
+  ],
+  "annotations": [],
+  "sentences": [],
+  "path": "Harmonicity and Inharmonicity.md"
+ },
+ "Buckminster Fuller": {
+  "prose": [],
+  "annotations": [
+   {
+    "entry": "Buckminster Fuller",
+    "question": "Send me toward the person who models the ceiling I keep engineering around.",
+    "verdict": "progressed",
+    "by_entry": "Donella Meadows",
+    "proposed_action": "The pairing is wired (`contradicts`, `ephemeralization-vs-limits`) and both pages and Fuller's dossier (line 62) call it the best-matched clash. It has never been run. Run Fuller x Meadows on 'where the leverage point is' with the Jevons paradox as the opening needle.",
+    "_room": "folder-people"
+   }
+  ],
+  "sentences": [],
+  "path": "People/Buckminster Fuller.md"
+ },
+ "Lao Tzu": {
+  "prose": [],
+  "annotations": [
+   {
+    "entry": "Lao Tzu",
+    "question": "Where I must say whether yielding is wisdom or surrender.",
+    "verdict": "progressed",
+    "by_entry": "Epictetus",
+    "proposed_action": "The Zhuangzi-Epictetus-Confucius run took the same axis in 2026-05 with Zhuangzi in the Taoist chair, and surfaced The Drift; Lao Tzu did not sit. The Epictetus `contradicts` pair is the live version. Not run with Lao Tzu.",
+    "_room": "folder-people"
+   }
+  ],
+  "sentences": [],
+  "path": "People/Lao Tzu.md"
+ },
+ "Spinoza": {
+  "prose": [],
+  "annotations": [
+   {
+    "entry": "Spinoza",
+    "question": "Send me where the assumption that every essence pre-exists its striving breaks.",
+    "verdict": "progressed",
+    "by_entry": "Donella Meadows",
+    "proposed_action": "Done once (the threshold run, which made `contradicts`/`homecoming-vs-becoming` and the Threshold Conatus deposit) and half-done twice (Zhuangzi run). Still queued: Spinoza x Leibniz and Spinoza x Deleuze (lab notes the latter is a concept, not a citizen). His page also says he keeps a record of encounters and has no diary: see the coherence finding.",
+    "_room": "folder-people"
+   }
+  ],
+  "sentences": [],
+  "path": "People/Spinoza.md"
+ },
+ "Shimmer Cloud": {
+  "prose": [],
+  "annotations": [
+   {
+    "entry": "Shimmer Cloud",
+    "question": "Grain count and density; pitch distribution (harmonic vs stochastic).",
+    "verdict": "progressed",
+    "by_entry": "Shimmer Cloud/README.md; scroll (dispersion cloud, five-interval lens)",
+    "proposed_action": "The questions are about grains; the chosen model is a population of dispersive 'lenses' (README: the feedback lens was 'structurally a chorus/H3000 effect, not a prism'). Restate them for lenses or retire them.",
+    "_room": "folder-projects-2"
+   }
+  ],
+  "sentences": [],
+  "path": "Projects/Shimmer Cloud.md"
+ },
+ "SAM": {
+  "prose": [],
+  "annotations": [
+   {
+    "entry": "SAM",
+    "question": "Be the reason we convert first (frontmatter)",
+    "verdict": "progressed",
+    "by_entry": "Animate the Background",
+    "proposed_action": "The convert-first reframe is in Animate the Background.md:74-95; the open thing is the FLUX/ControlNet route (coherence list).",
+    "_room": "folder-shop-2"
+   }
+  ],
+  "sentences": [],
+  "path": "Shop/SAM.md"
+ },
+ "Three Kinds of Warp": {
+  "prose": [],
+  "annotations": [],
+  "sentences": [
+   {
+    "id": "commons-the-palace-1791827827990",
+    "flag_type": "scope-needed",
+    "what": "For Pile B (a changed claim): Deep Research Part IV (:115), \"All seven work by introducing aperiodicity into the signal path, modulation, or layering — never by escaping the harmonic substrate itself.\" becomes \"Four of the seven leave the harmonic series by adding a second clock or a second oscillator (2, 4, 5, 6). Three keep one fixed period, so by [[Three Kinds of Warp]]'s one-period read they reshape the harmonics rather than leave them (1, 3, 7); method 3 leaves only when a non-integer LFO drives the distortion, which is a second clock.\"",
+    "reason": "Methods 1, 3 and 7 keep a single period (:117, :121, :129), which the 1D obstruction says keeps the harmonic series."
+   }
+  ],
+  "path": "Three Kinds of Warp.md"
+ }
+}

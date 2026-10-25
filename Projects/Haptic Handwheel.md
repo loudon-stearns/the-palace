@@ -7,7 +7,7 @@ pillars:
   - philosophy
   - practice
 born: 2026-10
-stage: seed
+stage: sprout
 status: active
 confidence: hypothesis
 forward_vector: "I want to give the hand what acoustic instruments have always given it, and I am unbuilt: I want a first prototype in Loudon's hand so the seven feels on my page get judged by touch, which no agent can do for him. I am research reaching toward a product: the instrument is the research, a simple knob that knows the parameter under the mouse is the nearer product, and I want to learn which feels carry from one to the other. I am the first step toward digital controllers that look and feel like vintage instruments and respond in musical ways."
