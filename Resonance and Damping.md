@@ -39,6 +39,9 @@ links:
   - target: "[[Haptic Handwheel]]"
     type: connects-to
     label: damped-by-a-finger
+  - target: "[[Progressive Staging]]"
+    type: connects-to
+    label: staged-by
 ---
 
 # Resonance and Damping
@@ -128,7 +131,7 @@ The digital resonator is two numbers again, now as the angle and the radius of a
 
 In words: each output is the input plus a ring made from the last two outputs. **θ = 2π·f_n ÷ fs** is the angle, the pitch. **r = e^(−π·f_n ÷ (Q·fs))** is the radius, and each sample the ring shrinks by a factor of r. An r of 1 rings forever; smaller r forgets faster. The relation between r and the peak's width is exact for narrow peaks and close for broad ones. The Mathieu Resonator in [[Floquet Time-Modulated Loops]] is the same mass on a spring, stepped forward sample by sample with its stiffness pumped, and its `damping_zeta` is the ζ above.
 
-[Q you can hear](Resonance%20and%20Damping/Resonance%20and%20Damping%20—%20sketch%20—%20q-you-can-hear.html) is this resonator in a page: strike it, feed it noise, or drive it with a sine you sweep through the peak, while it draws the peak, the ring and the lag from the same two numbers. It is silent until you press play.
+[Q you can hear](Resonance%20and%20Damping/Resonance%20and%20Damping%20—%20sketch%20—%20q-you-can-hear.html) is this resonator in a page: strike it, feed it noise, or drive it with a sine you sweep through the peak, while it draws the peak, the ring and the lag from the same two numbers. It is silent until you press play. [Five steps up to it](Resonance%20and%20Damping/Resonance%20and%20Damping%20—%20sketch%20—%20q-step-by-step.html) come first, staged after [[Progressive Staging]]: it rings at its own rate, it forgets, pushed it moves at your rate, near its own rate the push piles up, and the swing falls a quarter cycle behind.
 
 ## Origin
 
