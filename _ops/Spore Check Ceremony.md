@@ -110,7 +110,6 @@ Do it at the same time each quarter, or tie it to a natural turn in the work, an
 ## Open Questions
 
 - Should a page held across three checks with nothing changed come to the table already marked as a compost candidate, with Loudon making the call?
-- Should the Weave's report offer a Spore Check when a quarter has passed since the last run line?
 - Should `revival_conditions` be required on every sleeper? (Optional in [[SCHEMA]]; today two growing pages carry it as a "waiting for" note, which is a different use.)
 
 ---
