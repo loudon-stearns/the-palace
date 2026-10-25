@@ -74,7 +74,7 @@ The Deposit's map carries the typed links; links back from existing entries are 
 
 ### The Typed Link Ontology
 
-Use only the link types defined in [[SCHEMA]] §4 (read when you grow up — that is the single source for their directionality and labels; the fields a link object takes are [[SCHEMA — Reference]] §3): `connects-to`, `mirrors`, `enables`, `deepens`, `spawned`, `emerged-from`, `contradicts`, `couples-with`, `exemplifies`, `member-of`. When unsure, use `connects-to`; do not introduce new link types without discussing with Loudon.
+Use only the link types defined in [[SCHEMA]] §4 (read when you grow up — that is the single source for their directionality and labels; the fields a link object takes are [[SCHEMA — Reference]] §3): `connects-to`, `mirrors`, `enables`, `deepens`, `spawned`, `emerged-from`, `contradicts`, `couples-with`, `exemplifies`, `member-of`, `contrasts-with`, `made-by`. When unsure, use `connects-to`; do not introduce new link types without discussing with Loudon.
 
 YAML frontmatter links are reserved for structural relationships that matter. Body text wiki links are casual and abundant. YAML links are curated and intentional.
 
