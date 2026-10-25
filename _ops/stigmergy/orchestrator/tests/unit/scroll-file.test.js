@@ -1,6 +1,7 @@
 import { describe, test, expect, afterEach } from 'vitest';
-import { mkdtempSync, mkdirSync, writeFileSync, readFileSync, existsSync, rmSync } from 'node:fs';
+import { mkdtempSync, mkdirSync, writeFileSync, readFileSync, existsSync, rmSync, utimesSync } from 'node:fs';
 import { tmpdir } from 'node:os';
+import { execFileSync } from 'node:child_process';
 import path from 'node:path';
 import {
   MARK, ORDERS_PLACEHOLDER, PLAN_PLACEHOLDER, computeNow, renderNow, renderMakingSection, isMakingMessage,
@@ -237,6 +238,38 @@ describe('materializeScroll', () => {
     expect(t).toContain('backfilled from the bundle');
     expect(t).toContain('[flock.png](Projects/Murmuration/flock.png)');
     expect(t).not.toContain('hero.png');
+  });
+
+  test('bundle media is dated by its last commit, not by a fresh checkout\'s mtime', () => {
+    root = mkdtempSync(path.join(tmpdir(), 'palace-scroll-'));
+    const bundle = path.join(root, 'Projects', 'Murmuration');
+    mkdirSync(bundle, { recursive: true });
+    writeFileSync(path.join(root, 'Projects', 'Murmuration.md'), '---\ntype: project\nstatus: active\nstage: growing\n---\n# m');
+    const git = (args, date) => execFileSync('git', args, {
+      cwd: root, stdio: 'ignore',
+      env: { ...process.env, GIT_AUTHOR_DATE: date, GIT_COMMITTER_DATE: date, GIT_AUTHOR_NAME: 't', GIT_AUTHOR_EMAIL: 't@t', GIT_COMMITTER_NAME: 't', GIT_COMMITTER_EMAIL: 't@t' },
+    });
+    git(['init', '-q']);
+    writeFileSync(path.join(bundle, 'old take.wav'), 'wav');
+    git(['add', '-A']); git(['commit', '-qm', 'old', '--no-verify'], '2026-05-04T12:00:00Z');
+    writeFileSync(path.join(bundle, 'new take.wav'), 'wav');
+    git(['add', '-A']); git(['commit', '-qm', 'new', '--no-verify'], '2026-10-22T12:00:00Z');
+    // A worktree checkout stamps every file with today: make the OLD take look newest.
+    const today = new Date('2026-10-25T09:00:00Z');
+    const later = new Date(today.getTime() + 60000);
+    utimesSync(path.join(bundle, 'new take.wav'), today, today);
+    utimesSync(path.join(bundle, 'old take.wav'), later, later);
+    // A file not yet committed has only its mtime, and keeps it.
+    writeFileSync(path.join(bundle, 'fresh.png'), 'png');
+    utimesSync(path.join(bundle, 'fresh.png'), today, today);
+    const r = materializeScroll({ palaceRoot: root, home: 'Murmuration', board: [], tsNow: '2026-10-25T10:00:00Z' });
+    const t = readFileSync(r.scrollPath, 'utf8');
+    const fresh = t.indexOf('[fresh.png](Projects/Murmuration/fresh.png) · 2026-10-25');
+    const recent = t.indexOf('[new take.wav](Projects/Murmuration/new take.wav) · 2026-10-22');
+    const old = t.indexOf('[old take.wav](Projects/Murmuration/old take.wav) · 2026-05-04');
+    expect(fresh).toBeGreaterThan(-1);
+    expect(recent).toBeGreaterThan(fresh);
+    expect(old).toBeGreaterThan(recent);
   });
 
   test('entry-inside-bundle layout (BLUELINE) resolves the holding folder as the bundle', () => {
