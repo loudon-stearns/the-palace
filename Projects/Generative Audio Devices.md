@@ -6,7 +6,7 @@ pillars:
   - tools
   - practice
 born: 2026-04
-stage: dormant
+stage: sprout
 status: active
 links:
   - target: "[[FOUR PILLARS]]"
@@ -50,13 +50,11 @@ The central bet: with a curated, source-verified component vocabulary as groundi
 
 ---
 
-## Pick Up Here — state as of 2026-05-29
+## Where it stands
 
-**Stage 1 is closed end-to-end on VCV Rack.** Both halves of the pipeline exist and are verified: English description → [[VCV Patch Generator — spec — PDL generation prompt|PDL Generation Prompt]] → 2–3 candidate PDL → `emitVcvJson` (in `PDL Renderer.html`) → loadable, good-sounding `.vcv`. The full task chain (T1·T3·T4·T4b·T11·T12·T7a·T7b·T7c·T7d·T6) is all ✅. Two registry files are the reliability surface: `vcv_fundamental_registry.json` (v2.4, 10 modules) and `archetypes.json` (v0.2, 8 archetypes). Tests, all green: `verify_t7a_phase2.js` 21/21, `verify_t7b.js` 36/36, local harnesses in `_tools/` (real-emitter 12/12, layout 18/18, T6 oracle 9/9).
+**The VCV Rack half works end to end.** English description → [[VCV Patch Generator — spec — PDL generation prompt|PDL Generation Prompt]] → 2–3 candidate PDL → `emitVcvJson` (in `PDL Renderer.html`) → a loadable `.vcv`. The full task chain (T1·T3·T4·T4b·T11·T12·T7a·T7b·T7c·T7d·T6) is closed. Two registry files are the reliability surface: `vcv_fundamental_registry.json` (v2.4, 10 modules) and `archetypes.json` (v0.2, 8 archetypes). In the bundle, `verify_t7a_phase2.js` (21/21) and `verify_t7b.js` (36/36) pass; the T6 oracle is `Shop/VCV Patch Generator/t6-oracle.js`. The real-emitter and layout harnesses were local and are not in the palace.
 
-The plan — what comes next, agreed with Loudon — lives on [[Generative Audio Devices — scroll]], where it changes only with his yes.
-
-**To resume:** read this entry, then `git log --oneline` for the 2026-05-29 commits (`T7b`→`T6`). The prompt, registries, renderer, and tests are the working set.
+**Next, every emitted patch is quick to hear:** it opens on the computer keyboard and the MacBook speakers, with each modulator on the row under the module it modulates (the scroll's Standing Orders). Today the emitter writes no device settings (`data: {}`), and T7d packs modulators left to right by depth, not under their target.
 
 ---
 
@@ -139,6 +137,7 @@ Deferred from T7c (named for the next builder): **polyphony** (`MIDI_CV` models 
 - **T8** — perceptual-index wiring in the renderer UI
 - **T10** — any second-target registry (no RNBO, Max, PD, WebAudio registries yet)
 - **Polyphony** — unrepresented axis; scope before building
+- **Device defaults** — the MIDI input and audio device in each emitted module's `data`; Loudon's re-save of `house_bass.vcv` (2026-10-24) is the first source for those values
 
 ---
 
