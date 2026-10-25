@@ -273,7 +273,7 @@ const StringBendingDemo = () => {
         />
         <div className="flex justify-between text-sm text-gray-400 mt-1">
           <span>Unbent (1.0x)</span>
-          <span>Bent up ~2 semitones (2.0x)</span>
+          <span>Bent up ~6 semitones (2.0x)</span>
         </div>
       </div>
 
