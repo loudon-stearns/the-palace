@@ -21,24 +21,12 @@ links:
   - target: "[[Blocked, Not Prompted]]"
     type: connects-to
     label: applies
-  - target: "[[Steer the Generator]]"
-    type: connects-to
-    label: render-discipline
   - target: "[[Adopt the Craft, Author the Seam]]"
     type: exemplifies
     label: comp-as-craft
   - target: "[[BLUELINE — Production Pipeline]]"
     type: connects-to
     label: realizes-stages-4-5
-  - target: "[[Hand-Drawn 3D Look]]"
-    type: connects-to
-    label: hand-drawn-pipeline
-  - target: "[[Remnants in Depth]]"
-    type: connects-to
-    label: 2d-marks-in-3d
-  - target: "[[Shop/Figure Rig]]"
-    type: connects-to
-    label: figure-staging-method
   - target: "[[Graphic Storytelling]]"
     type: deepens
     label: applies-the-craft
@@ -57,6 +45,12 @@ links:
   - target: "[[Block It in Blender, Ink It in genAI]]"
     type: connects-to
     label: staging-runbook
+  - target: "[[Steer the Generator]]"
+    type: exemplifies
+    label: render-discipline
+  - target: "[[Remnants in Depth]]"
+    type: connects-to
+    label: ink-that-moves-with-the-camera
 ---
 
 # Frame Designer

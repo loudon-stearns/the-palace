@@ -28,6 +28,9 @@ links:
     label: coupling-is-two-sided
   - target: "[[Palace Ceremonies]]"
     type: member-of
+  - target: "[[Can an Instrument Notice Where the Work Stops?]]"
+    type: mirrors
+    label: coming-back-is-cheap
 ---
 
 # Return Ceremony

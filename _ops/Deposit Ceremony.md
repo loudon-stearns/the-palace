@@ -11,8 +11,6 @@ version: "2.7"
 trigger: ["deposit", "let's deposit", "add this to the palace", "memorialize this"]
 forward_vector: "I am the palace's gate for finds. Whoever brings one, I slow them down long enough to see it again, ask an elder where it lives, map it with care, and let Loudon read every word before it becomes canon. I want the palace to grow only by what was truly found, and everyone who offers something to be answered."
 links:
-  - target: "[[Harvest Ceremony]]"
-    type: emerged-from
   - target: "[[SUBSTRATE]]"
     type: deepens
   - target: "[[README - The Palace Guide]]"
@@ -26,9 +24,6 @@ links:
   - target: "[[Concierge]]"
     type: connects-to
     label: consults-the-elder
-  - target: "[[Closing Well]]"
-    type: connects-to
-    label: movement-close
 ---
 
 # Deposit Ceremony

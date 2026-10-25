@@ -20,12 +20,6 @@ links:
   - target: "[[Endosymbiosis]]"
     type: enables
     label: symbiotic-infrastructure
-  - target: "[[Kokoro]]"
-    type: couples-with
-    label: narration-pipe
-  - target: "[[Manim CE]]"
-    type: couples-with
-    label: render-pipe
   - target: "[[ComfyUI]]"
     type: couples-with
     label: stills-pipe

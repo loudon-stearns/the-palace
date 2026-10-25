@@ -17,9 +17,6 @@ links:
   - target: "[[Dialectic — dialectic — zhuangzi-epictetus-confucius-on-the-self]]"
     type: emerged-from
     label: surfaced-here
-  - target: "[[Stoicism]]"
-    type: contradicts
-    label: refuses-the-fortress
   - target: "[[Confucianism]]"
     type: contradicts
     label: refuses-the-threshold
@@ -29,9 +26,6 @@ links:
   - target: "[[Merleau-Ponty]]"
     type: contradicts
     label: refuses-the-cultivated-body
-  - target: "[[Leibniz]]"
-    type: contradicts
-    label: refuses-the-monad
   - target: "[[Deleuze]]"
     type: connects-to
     label: difference-not-no-self

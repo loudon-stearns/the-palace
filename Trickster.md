@@ -45,9 +45,6 @@ links:
   - target: "[[Palace Enchantment]]"
     type: connects-to
     label: trickster-seat
-  - target: "[[Dialogue Moderator]]"
-    type: couples-with
-    label: trickster-moderator-pair
   - target: "[[Latent Error]]"
     type: connects-to
     label: uninvestigated

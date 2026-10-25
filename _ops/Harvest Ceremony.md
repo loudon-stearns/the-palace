@@ -9,8 +9,6 @@ stage: mature
 version: "1.2"
 trigger: ["harvest", "let's harvest"]
 links:
-  - target: "[[Deposit Ceremony]]"
-    type: spawned
   - target: "[[SUBSTRATE]]"
     type: deepens
   - target: "[[Harvest Ceremony — Context]]"
@@ -20,9 +18,6 @@ links:
   - target: "[[Palace Quotes]]"
     type: connects-to
     label: quote-intake
-  - target: "[[Deposit Ceremony]]"
-    type: couples-with
-    label: harvest-deposit-pair
   - target: "[[Tool Builder]]"
     type: enables
     label: checklist-growth
@@ -32,6 +27,9 @@ links:
   - target: "[[Harvest Ceremony — spec — lessons from outside]]"
     type: spawned
     label: export-prompt
+  - target: "[[Deposit Ceremony]]"
+    type: couples-with
+    label: routes-its-candidates-there
 ---
 
 # Harvest Ceremony

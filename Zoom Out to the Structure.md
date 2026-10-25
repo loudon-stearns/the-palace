@@ -14,9 +14,6 @@ links:
   - target: "[[The Commons]]"
     type: connects-to
     label: born-this-way
-  - target: "[[FOUR PILLARS]]"
-    type: connects-to
-    label: don't-force-it
 ---
 
 # Zoom Out to the Structure

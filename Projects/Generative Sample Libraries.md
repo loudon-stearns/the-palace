@@ -14,9 +14,6 @@ links:
   - target: "[[Generative Audio Devices]]"
     type: couples-with
     label: eventual-convergence
-  - target: "[[Generative Preset Development]]"
-    type: couples-with
-    label: content-meets-configuration
   - target: "[[Generative Wavetable Libraries]]"
     type: spawned
     label: split-off
@@ -29,9 +26,6 @@ links:
   - target: "[[Substrate Skill]]"
     type: connects-to
     label: stage-conditional-posture-source
-  - target: "[[Project Stewardship System]]"
-    type: connects-to
-    label: stage-mismatch-case-study
   - target: "[[Shepard Tone Synthesizer]]"
     type: deepens
     label: timbral-source
@@ -47,6 +41,9 @@ links:
   - target: "[[Splice Instrument Forge]]"
     type: spawned
     label: splice-arm
+  - target: "[[Project Stewardship System]]"
+    type: connects-to
+    label: stage-A-pilot
 forward_vector: "I will become a chat-driven generator of multisampled instruments — Claude conducts the interview, draws audio from any source (palace synthesis, the web, AI sub-agents), and renders a playable sample library in any open sampler format requested."
 ---
 

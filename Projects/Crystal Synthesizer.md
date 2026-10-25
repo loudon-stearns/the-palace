@@ -34,6 +34,9 @@ links:
   - target: "[[Hyperdimensional Prism]]"
     type: exemplifies
     label: prism-machine
+  - target: "[[Biomechanical Synthesis]]"
+    type: exemplifies
+    label: instrument-two-built
 forward_vector: "I will become a synthesizer that makes audible the optical properties of crystals."
 ---
 

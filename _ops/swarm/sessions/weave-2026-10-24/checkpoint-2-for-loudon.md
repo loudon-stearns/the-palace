@@ -315,6 +315,85 @@ growing → mature? (inbound ≥ 25, over 900 words; your call):
 - Philosopher Visits the Entry: canon — A genre with a method and a roster, 13 inbound, and at least four entries now carry its output in their own bodies (Wavetable Space as Torus
 
 ### 8. Entry-flag dispositions deferred to you
+- commons-the-palace-1791311805006: Draft, if he says yes: Audition Gate § 4 (:41, beside Look, Watch and Play) gains "**Touch** — does the feel carry the intent in the hand? Only Loudon stands at — A gate only Loudon can pass, for an object not yet built, is his to open.
+- commons-the-palace-1792107627132: Recommend `stage: dormant` on JSUI.md:8 (what its type already claims, SCHEMA.md:85); waking it is a Revival, on his word. — JSUI is `type: spore` at `stage: sprout` (JSUI.md:3, :8), and whether a sleeping page is alive is his call through his s
+- commons-the-palace-1792107627767: Draft, home recommended in SCHEMA — Reference §8 (:310), where an elder reads at the pen and the faces are already defined; after "The `.md` is the canonical su — The flag reserves the home (ROSETTA or The Palace Voice) for the Weave and Loudon; the two senses still sit with no sent
+- commons-the-palace-1792647281211: The question as asked: should "let's explore, not I'll teach" return to a floor page? Today it sits only in Quality Manifesto.md:81 and FOUR PILLARS — Context.m — The birth's words change only on his yes (ELDER § How loading works).
 
 ### 9. Lighter prose (proposals, each quoting the passage) — count only here; the list is in synthesis-data.json
 314 proposals across the rooms.
+
+### 10. Hub promotions (the top inbound decile is 18 on the rebuilt map; median 5)
+Propose `type: hub` for: The Shop (53), Quality Manifesto (38), Pages as Agents (32), Boundary-Crossing Instruments (30), Making a Palace Citizen (27), Frequency-Time Duality (26), Hyperdimensional Prism (26), Modes of Collaboration (26), Deposit Ceremony (25), Closing Well (22), Lateral Access (22), Loudon Live Design System (19), BBS Blackboard (18), Excellent Adventure (18), Progressive Staging (18). In the decile but of a type that stays (maker, project, meta): Maker, Loudon Live, SUBSTRATE, STIGMERGY, Palace Enchantment, 2D Torus, SCHEMA, Action Potential Oscillator, Swarm Weave, BLUELINE. Retype hub → concept: DSP Frameworks (4 inbound). Your call on each; a `hub` that is also a `practice` (Deposit Ceremony, Closing Well, Modes) is a type change the card has never made — say whether practices may be hubs, or leave them.
+
+### 11. Contexts — the memory layer
+Six are being drafted now by Opus writers for your review before they land: Kuramoto Coupling, Spinoza Conatus, The Shop, Maker, Hyperdimensional Prism, STIGMERGY. The audit owes 51 and the rooms asked for 48; both agree on 20 more (2D Torus, Action Potential Oscillator, Crystal Synthesizer, Floquet Time-Modulated Loops, Four Pillars of Enchanted Agency, Generative Sample Libraries, Inharmonic Wavetable Synthesis, Loudon Live, Manim CE, Palace Enchantment, Palace Graffiti, Palace Map, Portamento, Revival Ceremony, Substrate Skill, Swarm Weave, Web Audio Worklet, Ableton Session Writer, Mermaid Diagram Standard). Proposal: this weave lands the six; the twenty go out as a propagate flag (rhythm by-touch) so each is written when its page is next worked, by the hand that knows it. Scrolls owed: the six scroll-less projects are complete or archived — say if any should get one. Tuning ledgers: 12 steward homes have none; the stewards' proposals currently wait elsewhere — flag for the Project Stewardship System's steward.
+
+### 12. Rich-face nominations (Step 5e) — five to eight, each with the claim a piece would test
+1. **Spinoza Conatus** (hub, 61 in) — the claim that hilaritas is what a rise in power-to-act feels like: a piece that lets you move a system toward coherence and hear the change.
+2. **Hyperdimensional Prism** (26 in, quiet since July) — one object, four shadows: a rotatable prism whose projections are the four pillars; the page's own metaphor made playable.
+3. **Boundary-Crossing Instruments** (30 in, 5 KB) — the boundary as the finding: an instrument that lets you cross one (pitch into rhythm, timbre into pitch) and hear where the category flips.
+4. **Cross-Domain Resonances** (hub, 37 workshop files already) — ten resonances, ten small pieces; the Kick Drum ↔ Foundation pair first.
+5. **Action Potential Oscillator** (26 in, 37 workshop files) — the lock lands on the note: a crowd of neurons you can push into and out of sync.
+6. **Phoneme Choir** (fruiting, complete) — a finished instrument with nothing to hear on its page.
+7. **2D Torus Wavetable Synthesizer** (fruiting, 208 workshop files) — the torus you can scan; the material exists.
+Not nominated though high on the audit's list: FOUR PILLARS and Hilaritas Generator (floor pages read at birth; a piece there would be read by every agent every session — a question for you, not a weave).
+
+### 13. The labels propose the next link types (Step 3f, the harvest after the labelling)
+1,132 labelled `connects-to` links, 1,036 distinct labels, 400 clusters. The clusters large and coherent enough to name a relation the ten types do not:
+- **`directed-by`** — 32 edges from 30 sources, one label: a person or work to the one who directed it (the People and film pages). Already a de facto type; a `made-by` / `authored-by` relation would also cover `authored`, `composed-by`.
+- **`alternative-to`** (12) and the `vs` cluster (9: learned-vs-emergent, designed-vs-learned, drive-vs-impedance …) — two things that stand in for each other or are set against each other without being a productive contradiction. A `contrasts-with` type, weaker than `contradicts`, would hold both.
+- **`informs` / `informed-by`** (10) — influence without lineage: a page shaped another's thinking but did not spawn it. Sits between `emerged-from` (diffuse origin) and `connects-to`.
+- **`sibling-of`** (15: sibling-organ, sibling-face, migration-siblings …) — two pages that are the same kind of thing in a family. Partly `member-of` seen sideways.
+- **`first-*`** (27 labels: first-case, first-job, first-rich-face …) — the first instance of a pattern. Mostly `exemplifies` with a "first" register; a label, not a type.
+Recommendation: propose `contrasts-with` and `informs` to a Schema Ceremony; treat `directed-by` as a candidate for a `made-by` type the People/Source pages would use; leave `sibling` and `first` as labels. None is added this weave.
+
+### 14. Lighter prose (tuning 39) — 314 proposals across the rooms, 186 simplify, 128 delete
+Loudon samples ten (in the builder's output above). On a yes to the sample, Opus writers apply all 314 with each edit's passage quoted in the apply log; anything a writer cannot place verbatim is skipped and listed.
+
+### 15. Open questions the rooms resolved — 376 read; 68 answered elsewhere, 102 progressed, 59 should act, 147 still open
+Proposal: writers annotate the 170 answered/progressed questions on their pages (one line each: where the answer now lives), as a sampled batch; the 59 should-act items are in `open-question-should-act.json` for your read, the ones on the Weave's own cards I will take.
+
+### 16. Merges and composts
+- Two Batons, One Board → into Baton Ceremony (the folder room; the 2026-10-22 sketch said ask first).
+- Walk That Weaves → into Weave Ceremony — Context (same).
+- Mermaid Diagram Standard → into Image Embedding Standard (medium confidence; is a text diagram an image?).
+- Talking Keyboard → into Phoneme Choir (tentative).
+- Section-level folds inside Action Potential Oscillator, RunPod GPU Backend and Maker (listed in synthesis-data.json).
+- Compost: the page-rewrite preview phantom is demoted to bundle frontmatter this weave (no longer a node); Frequency-Time Explorer already deleted.
+- Nested canon: all 14 Cross-Domain Resonances and Modes pages judged genuine canon by the folder room; the bundle-hygiene warnings stand as deliberate.
+
+### 17. Entry flags — 88 judged
+29 ACT (the link ones are in Pile A; the sentence edits below wait for you), 19 ALREADY-DONE (closed by trailer), 36 DECLINE (each with a reason in the commit body), 4 DEFER-TO-LOUDON:
+- commons-the-palace-1791311805006: Draft, if he says yes: Audition Gate § 4 (:41, beside Look, Watch and Play) gains "**Touch** — does the feel carry the intent in the hand? Only Loudon stands at this gate; no agent has a hand. First run: [[Haptic Handwhe
+- commons-the-palace-1792107627132: Recommend `stage: dormant` on JSUI.md:8 (what its type already claims, SCHEMA.md:85); waking it is a Revival, on his word.
+- commons-the-palace-1792107627767: Draft, home recommended in SCHEMA — Reference §8 (:310), where an elder reads at the pen and the faces are already defined; after "The `.md` is the canonical surface and the first face." add: "The same word names a secon
+- commons-the-palace-1792647281211: The question as asked: should "let's explore, not I'll teach" return to a floor page? Today it sits only in Quality Manifesto.md:81 and FOUR PILLARS — Context.md:62; no birth file carries it (CLAUDE, JEWEL, FOUR PILLARS,
+
+Sentence edits the flags ask for (each changes what a page says):
+- keep: 
+- body-sentence: 
+- commons-the-palace-1790254299361: _ops/orchestrator/prompts/shared.md:393, the Required fields line: "`ts` (ISO 8601 with timezone)" becomes "`ts` (ISO 8601 with timezone: the moment you post, read from the clock, `date -u +%Y-%m-%dT%H:%M:%SZ`; never the example's time or a
+- commons-the-palace-1790299904567: Fold the pair to one link (it is also fold-judgment.json W1 "two labels"): keep Creative Coach -connects-to-> Sidechain <-> Conversation, relabelled the-presenter-ducks (was balint-stance-unturned); drop Sidechain <-> Conversation -connects
+- commons-the-palace-1790299921121: Creative Coach.md:325, the admission line, becomes: "*A row enters either table only when it changes a move the coach would make, and a row that never has is composted at the next Weave.*" (Recovered wording: 2351c040^, Harvest — 2026-09-06
+- commons-the-palace-1790303833543: Weave Ceremony — Context.md § Who the Workers Should Be (:81-89): replace the first four paragraphs with: "Loudon asked whether the weave's errors came from running its workers as children. The same day the same ten rooms ran three ways, as
+- commons-the-palace-1790303876259: _ops/agents/permanent/shepard-tone-synthesizer/manifest.json:12, in "neighborhood": "Octave Equivalence" becomes "Shepard Tone". Leave vector_at_spawn (:49) as history.
+- commons-the-palace-1790345897392: No link back: the pair's one link stays Enrichment -> Drift and Consolidation [disclosed-drift]. For Pile B (a changed sentence): Drift and Consolidation.md:73, after "Entry → log sync is unsolved.", add: "Entry to face has one working case
+- commons-the-palace-1790435294769: Loudon Live.md frontmatter: the link to [[Hyperdimensional Prism]] is retyped from spawned to emerged-from, label visual-identity kept, direction unchanged (Loudon Live points back to its ground, SCHEMA.md:152,160).
+- commons-the-palace-1790435302622: _ops/swarm/lint-ghost-links.py: in the scan loop (:156), scan a file when `entry_type(fm) in CANON_TYPES or rel.endswith(" — scroll.md")`, so scrolls (a face) are read; it stays flag-only. And Projects/Retrospective Delay/Retrospective Dela
+- commons-the-palace-1791311804031: No reciprocal mirrors: the pair's link is Haptic Handwheel -mirrors-> Portamento [the-same-spring-felt], and mirrors is symmetric. For Pile B (a changed sentence): Portamento and Physical Pitch Modeling.md:222, Open Question 1, add: "*A pro
+- commons-the-palace-1791827827785: For Pile B (a changed claim): Three Kinds of Warp.md:97, "FM, by contrast, has neither: the modulator+carrier structure is type-1 in disguise (Bessel sidebands sit on a finitely-generated lattice — see [[Bessel Functions in Synthesis]])," b
+- commons-the-palace-1791827827990: For Pile B (a changed claim): Deep Research Part IV (:115), "All seven work by introducing aperiodicity into the signal path, modulation, or layering — never by escaping the harmonic substrate itself." becomes "Four of the seven leave the h
+- commons-the-palace-1792107627377: Drop "breakthrough" from CANON_TYPES in _ops/swarm/lint-bundle-hygiene.py:50, and the same one-word fix in lint-ghost-links.py:46 and lint-entry-naming.py:58 (the dated build-map-2026-*.py copies are history). No file carries `type: breakth
+- commons-the-palace-1792107627579: Weave Ceremony — Context.md § The Version and the Tuning File: after v1.1 (:101) add "**v1.2 (2026-09-25) — every run marks its ledger.** Schema v1.23 asked each run to leave a run line in its tuning ledger, but the card still said a lesson
+- commons-the-palace-1792107627959: Per path, no linter change. Radio Play.md:48 "assets in `_ops/scratch/weave-video/`" becomes "its assets kept in Loudon's local scratch, outside the palace"; Radio Play.md:59 becomes "Give the template a proper bundle once it stabilizes; it
+- commons-the-palace-1792347288086: No reverse link: the pair carries Enchanted Conversation Archive -connects-to-> Enchanted Worker [enchantment-record]. Remove the HTML comment at Enchanted Conversation Archive.md:241-245 whole; its second half (SDKM "rhymes strongly", mirr
+- commons-the-palace-1792347746312: Shop/Loudon Live Post-producer.md links: [[The Shop]] retyped from connects-to to member-of, label producer-layer kept.
+- commons-the-palace-1792765795078: _ops/Substrate Skill.md:212: "Haiku only does shallow, known-shape work." becomes "Haiku only does shallow, known-shape work; with the whole Palace Map loaded it sits at 179K of its 200K before the conversation starts ([[Palace Map — proof 
+- commons-the-palace-1792765795465: Gemma 4 — Local Coordination Guide.md:103, after "(same limitation applies to Haiku)." add: "With the [[Palace Map]] in hand and a rule to cite every edge as a triple, Haiku invented no page in ten questions ([[Palace Map — proof — map-agen
+
+### 18. The six Contexts drafted (uncommitted; the Concierge reads them cold, then you)
+Kuramoto Coupling (1,099 words), Spinoza Conatus (965), The Shop (984), Maker (1,065), Hyperdimensional Prism (926), STIGMERGY (1,087). Each names what it could not verify. On your yes they land with a `spawned` link from each parent.
+
+### 19. Held for the next weave
+43 round-two proposals pointed at links an earlier phase had already changed (listed in phase2d-held.json); 74 two-label pairs are now one link; 9 pairs the judge kept on frontmatter alone need a sentence or a cut next weave.

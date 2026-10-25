@@ -29,9 +29,6 @@ links:
   - target: "[[Linear Predictive Coding]]"
     type: connects-to
     label: visit-the-residual-is-the-conatus
-  - target: "[[Threshold Conatus]]"
-    type: connects-to
-    label: self-as-what-the-model-cannot-absorb
   - target: "[[Whitehead]]"
     type: couples-with
     label: process-monism-ally

@@ -1,0 +1,818 @@
+[
+ {
+  "why": "no such link now",
+  "source": "Closing Well Ceremony",
+  "target": "Palace Ceremonies",
+  "proposed_type": "member-of",
+  "proposed_label": null,
+  "kind": "retype",
+  "rationale": "Replaces this ceremony's bare connects-to to the hub and the hub's reverse link (two links on one pair). The hub's table lists the card as a ceremony; a registry does not enable what it lists.",
+  "evidence_source": "Palace Ceremonies.md:49-81 (tables list it as a ceremony)",
+  "evidence_target": "Closing Well Ceremony.md:29 (the thin card the trigger reaches)",
+  "_room": "folder-ops",
+  "_rooms": [
+   "folder-ops"
+  ],
+  "_convergence": 1
+ },
+ {
+  "why": "no such link now",
+  "source": "Map Build Ceremony",
+  "target": "Palace Ceremonies",
+  "proposed_type": "member-of",
+  "proposed_label": null,
+  "kind": "retype",
+  "rationale": "Replaces this ceremony's bare connects-to to the hub and the hub's reverse link (two links on one pair). The hub's table lists the card as a ceremony; a registry does not enable what it lists.",
+  "evidence_source": "Palace Ceremonies.md:49-81 (tables list it as a ceremony)",
+  "evidence_target": "Map Build Ceremony.md:10 trigger field",
+  "_room": "folder-ops",
+  "_rooms": [
+   "folder-ops"
+  ],
+  "_convergence": 1
+ },
+ {
+  "why": "no such link now",
+  "source": "Revival Ceremony",
+  "target": "Palace Ceremonies",
+  "proposed_type": "member-of",
+  "proposed_label": null,
+  "kind": "retype",
+  "rationale": "Replaces this ceremony's bare connects-to to the hub and the hub's reverse link (two links on one pair). The hub's table lists the card as a ceremony; a registry does not enable what it lists.",
+  "evidence_source": "Palace Ceremonies.md:49-81 (tables list it as a ceremony)",
+  "evidence_target": "Revival Ceremony.md:8 trigger field",
+  "_room": "folder-ops",
+  "_rooms": [
+   "folder-ops"
+  ],
+  "_convergence": 1
+ },
+ {
+  "why": "no such link now",
+  "source": "Self-Model Update Ceremony",
+  "target": "Palace Ceremonies",
+  "proposed_type": "member-of",
+  "proposed_label": null,
+  "kind": "retype",
+  "rationale": "Replaces this ceremony's bare connects-to to the hub and the hub's reverse link (two links on one pair). The hub's table lists the card as a ceremony; a registry does not enable what it lists.",
+  "evidence_source": "Palace Ceremonies.md:49-81 (tables list it as a ceremony)",
+  "evidence_target": "Self-Model Update Ceremony.md:11 trigger field",
+  "_room": "folder-ops",
+  "_rooms": [
+   "folder-ops"
+  ],
+  "_convergence": 1
+ },
+ {
+  "why": "no such link now",
+  "source": "Spore Check Ceremony",
+  "target": "Palace Ceremonies",
+  "proposed_type": "member-of",
+  "proposed_label": null,
+  "kind": "retype",
+  "rationale": "Replaces this ceremony's bare connects-to to the hub and the hub's reverse link (two links on one pair). The hub's table lists the card as a ceremony; a registry does not enable what it lists.",
+  "evidence_source": "Palace Ceremonies.md:49-81 (tables list it as a ceremony)",
+  "evidence_target": "Spore Check Ceremony.md:8 trigger field",
+  "_room": "folder-ops",
+  "_rooms": [
+   "folder-ops"
+  ],
+  "_convergence": 1
+ },
+ {
+  "why": "no such link now",
+  "source": "Walk Ceremony",
+  "target": "Palace Ceremonies",
+  "proposed_type": "member-of",
+  "proposed_label": null,
+  "kind": "retype",
+  "rationale": "Replaces this ceremony's bare connects-to to the hub and the hub's reverse link (two links on one pair). The hub's table lists the card as a ceremony; a registry does not enable what it lists.",
+  "evidence_source": "Palace Ceremonies.md:49-81 (tables list it as a ceremony)",
+  "evidence_target": "Walk Ceremony.md:8 trigger field",
+  "_room": "folder-ops",
+  "_rooms": [
+   "folder-ops"
+  ],
+  "_convergence": 1
+ },
+ {
+  "why": "no such link now",
+  "source": "Weave Ceremony",
+  "target": "Palace Ceremonies",
+  "proposed_type": "member-of",
+  "proposed_label": null,
+  "kind": "retype",
+  "rationale": "Replaces this ceremony's bare connects-to to the hub and the hub's reverse link (two links on one pair). The hub's table lists the card as a ceremony; a registry does not enable what it lists.",
+  "evidence_source": "Palace Ceremonies.md:49-81 (tables list it as a ceremony)",
+  "evidence_target": "Weave Ceremony.md:8 trigger field",
+  "_room": "folder-ops",
+  "_rooms": [
+   "folder-ops"
+  ],
+  "_convergence": 1
+ },
+ {
+  "why": "no such link now",
+  "source": "The Daily Page",
+  "target": "Palace Ceremonies",
+  "proposed_type": "member-of",
+  "proposed_label": null,
+  "kind": "retype",
+  "rationale": "Replaces this ceremony's bare connects-to to the hub and the hub's reverse link (two links on one pair). The hub's table lists the card as a ceremony; a registry does not enable what it lists.",
+  "evidence_source": "Palace Ceremonies.md:49-81 (tables list it as a ceremony)",
+  "evidence_target": "The Daily Page.md:7 trigger field",
+  "_room": "folder-ops",
+  "_rooms": [
+   "folder-ops"
+  ],
+  "_convergence": 1
+ },
+ {
+  "why": "no such link now",
+  "source": "Deposit Ceremony",
+  "target": "Palace Ceremonies",
+  "proposed_type": "member-of",
+  "proposed_label": null,
+  "kind": "retype",
+  "rationale": "Palace Ceremonies lists it with 'enables' and the ceremony carries no link back. Membership is the real relation; the member declares it, the hub's 'enables' goes.",
+  "evidence_source": "Palace Ceremonies.md:49-81 (tables list it as a ceremony)",
+  "evidence_target": "Deposit Ceremony.md:11 trigger field",
+  "_room": "folder-ops",
+  "_rooms": [
+   "folder-ops"
+  ],
+  "_convergence": 1
+ },
+ {
+  "why": "no such link now",
+  "source": "Harvest Ceremony",
+  "target": "Palace Ceremonies",
+  "proposed_type": "member-of",
+  "proposed_label": null,
+  "kind": "retype",
+  "rationale": "Palace Ceremonies lists it with 'enables' and the ceremony carries no link back. Membership is the real relation; the member declares it, the hub's 'enables' goes.",
+  "evidence_source": "Palace Ceremonies.md:49-81 (tables list it as a ceremony)",
+  "evidence_target": "Harvest Ceremony.md:10 trigger field",
+  "_room": "folder-ops",
+  "_rooms": [
+   "folder-ops"
+  ],
+  "_convergence": 1
+ },
+ {
+  "why": "no such link now",
+  "source": "Map Build Ceremony",
+  "target": "Weave Ceremony",
+  "proposed_type": "enables",
+  "proposed_label": "pre-weave",
+  "kind": "retype",
+  "rationale": "The Weave currently says it enables Map Build [pre-weave]. The map is the Weave's precondition (the Weave builds it at its open and after its writes), so the link points the other way; cut Weave's.",
+  "evidence_source": "Map Build Ceremony.md:57 ('the Weave Ceremony runs it at its open and again after its writes')",
+  "evidence_target": "Weave Ceremony.md:83 ('Second, build the map — python3 _ops/swarm/build-map.py')",
+  "_room": "folder-ops",
+  "_rooms": [
+   "folder-ops"
+  ],
+  "_convergence": 1
+ },
+ {
+  "why": "no such link now",
+  "source": "Spore Check Ceremony",
+  "target": "Revival Ceremony",
+  "proposed_type": "connects-to",
+  "proposed_label": "one-of-four-ways-in",
+  "kind": "retype",
+  "rationale": "Keeps this link; cut Revival's emerged-from to Spore Check (git holds the origin). See coherence finding for why I depart from Step 3d's default.",
+  "evidence_source": "Spore Check Ceremony.md:28,87",
+  "evidence_target": "Revival Ceremony.md:38,44",
+  "_room": "folder-ops",
+  "_rooms": [
+   "folder-ops"
+  ],
+  "_convergence": 1
+ },
+ {
+  "why": "no such link now",
+  "source": "Palace To-Do",
+  "target": "Deposit Ceremony",
+  "proposed_type": "connects-to",
+  "proposed_label": "where-lost-branches-wait",
+  "kind": "retype",
+  "rationale": "Currently 'enables'. A worklist does not enable the Deposit; the Deposit's map queues lost branches here. Drop enables → Harvest (no body reason anywhere).",
+  "evidence_source": "Palace To-Do.md:82-86 (two items about the Deposit's steps)",
+  "evidence_target": "Deposit Ceremony.md:104 ('Lost branches … queued on [[Palace To-Do]]')",
+  "_room": "folder-ops",
+  "_rooms": [
+   "folder-ops"
+  ],
+  "_convergence": 1
+ },
+ {
+  "why": "no such link now",
+  "source": "Pheromone Trail",
+  "target": "Lateral Access",
+  "proposed_type": "connects-to",
+  "proposed_label": "lateral-counterweight",
+  "kind": "retype",
+  "rationale": "The link says mirrors with no sentence in either body. The only reason in the files is Pheromone Trail's own second open question, whether a deeply worn trail 'forecloses lateral exploration'; Lateral Access argues that habitual routes find only what they have found before. That is a counterweight, not a same-pattern-different-material.",
+  "evidence_source": "Pheromone Trail.md § Open Questions, second bullet",
+  "evidence_target": "Lateral Access.md (the habitual-route argument; the page never names Pheromone Trail)",
+  "_room": "folder-palace-development",
+  "_rooms": [
+   "folder-palace-development"
+  ],
+  "_convergence": 1
+ },
+ {
+  "why": "no such link now",
+  "source": "Tree of Thoughts",
+  "target": "Enchanted Worker",
+  "proposed_type": "connects-to",
+  "proposed_label": "thought-node-as-worker",
+  "kind": "retype",
+  "rationale": "enables says Enchanted Worker 'could not exist or be understood without' a 2023 paper; it did not. The page's own sentence is an analogy: 'an enchanted worker loaded with a specific neighborhood is an instantiated thought node'. Retype to a named connects-to, or cut. The sibling enables[grounds] to Palace Orchestrator is the same claim about a design that is 'not yet built' and the Orchestrator never names the paper; same retype, label 'branch-exploration-model'.",
+  "evidence_source": "Tree of Thoughts.md § Cross-Domain Resonance (Enchanted Worker)",
+  "evidence_target": "Enchanted Worker.md (no mention of tree search)",
+  "_room": "folder-palace-development",
+  "_rooms": [
+   "folder-palace-development"
+  ],
+  "_convergence": 1
+ },
+ {
+  "why": "no such link now",
+  "source": "Annie Dillard",
+  "target": "Iain McGilchrist",
+  "proposed_type": "mirrors",
+  "proposed_label": "two-ways-of-seeing",
+  "kind": "retype",
+  "rationale": "`couples-with` means always active together; these two are not. Dillard's body says her two ways of seeing 'map uncannily onto McGilchrist's two modes of attention' (Annie Dillard.md:69), which is same pattern in different material. Her dossier adds the friction (structural vs spiritual).",
+  "evidence_source": "People/Annie Dillard.md:69; People/Annie Dillard/Annie Dillard — dossier.md:61",
+  "evidence_target": "People/Iain McGilchrist.md (How his mind moves)",
+  "_room": "folder-people",
+  "_rooms": [
+   "folder-people"
+  ],
+  "_convergence": 1
+ },
+ {
+  "why": "no such link now",
+  "source": "Piano String Inharmonicity",
+  "target": "Categorizing Inharmonicity",
+  "proposed_type": "exemplifies",
+  "proposed_label": "stretched-tuning",
+  "kind": "retype",
+  "rationale": "Replaces the held Categorizing —deepens→ Piano String. Categorizing's own sentence is '[[Piano String Inharmonicity|A piano exemplifies this type]]' (type 1, stretched tuning), and the schema points exemplifies from the instance back at the general. One link for the pair. Alternative if Loudon prefers the taxonomy as the elaboration: keep deepens and drop the new one.",
+  "evidence_source": "Piano String Inharmonicity: the whole page is the single worked stretched-tuning case (formula, B, bending, LTI)",
+  "evidence_target": "Categorizing Inharmonicity § 1: 'A piano exemplifies this type'",
+  "_room": "folder-projects-1",
+  "_rooms": [
+   "folder-projects-1"
+  ],
+  "_convergence": 1
+ },
+ {
+  "why": "no such link now",
+  "source": "Slime Mold Delay",
+  "target": "Particle Synthesis",
+  "proposed_type": "mirrors",
+  "proposed_label": "elements-without-intelligence",
+  "kind": "retype",
+  "rationale": "Held as deepens[emergent-topology], which points at the ground; Slime Mold Delay does not elaborate Particle Synthesis. Its own sentence is a mirror: 'both are population-based instruments where individual elements have no intelligence and the system has plenty'. Same pattern, different material (tube, grain).",
+  "evidence_source": "Slime Mold Delay § Pedagogical Framing: 'both are population-based instruments where individual elements have no intelligence and the system has plenty'",
+  "evidence_target": "Particle Synthesis § Cross-Domain Resonance: the grain as a particle obeying shared laws",
+  "_room": "folder-projects-1",
+  "_rooms": [
+   "folder-projects-1"
+  ],
+  "_convergence": 1
+ },
+ {
+  "why": "no such link now",
+  "source": "Generative Sample Libraries",
+  "target": "Shepard Tone Synthesizer",
+  "proposed_type": "connects-to",
+  "proposed_label": "timbral-source",
+  "kind": "retype",
+  "rationale": "Held as deepens[timbral-source]. The GSL page does not elaborate Shepard; Shepard is a source of audio for a multisampled instrument (shepard-instrument in GSL's bundle, coordinated by gsl-steward-017). The label already carries the reason; the type was the part that mis-pointed (ground-emits-deepens lint).",
+  "evidence_source": "Generative Sample Libraries § Palace Connections: 'Shepard Tone Synthesizer — Shepard tones become a perpetual-tone sustain instrument when multisampled'",
+  "evidence_target": "Shepard Tone Synthesizer: 12 octave-class WAVs and an interior-loop SFZ built from its stack, per GSL's footer",
+  "_room": "folder-projects-1",
+  "_rooms": [
+   "folder-projects-1"
+  ],
+  "_convergence": 1
+ },
+ {
+  "why": "no such link now",
+  "source": "Piano String Inharmonicity",
+  "target": "Frequency-Time Duality",
+  "proposed_type": "connects-to",
+  "proposed_label": "partials-and-impulse-response",
+  "kind": "retype",
+  "rationale": "Held as mirrors with a generic body sentence. The specific, real content is Piano String's § Why This Is Linear: the stretched partials are a sum of decaying sinusoids that is the string's impulse response, the same system seen as frequency pattern and as time pattern. That is a connection, not a mirror of one pattern in two materials.",
+  "evidence_source": "Piano String Inharmonicity § Frequency-Time Connection: 'a frequency-domain pattern (stretched partials) that corresponds to a time-domain pattern (the impulse response)'",
+  "evidence_target": "Frequency-Time Duality § The Bridge: a delay line's loop length and feedback set pitch and pluck, the same reciprocal seen two ways",
+  "_room": "folder-projects-1",
+  "_rooms": [
+   "folder-projects-1"
+  ],
+  "_convergence": 1
+ },
+ {
+  "why": "no such link now",
+  "source": "Compressor Design",
+  "target": "Retrospective Delay",
+  "proposed_type": "mirrors",
+  "proposed_label": "one-buffer-two-time-scales",
+  "kind": "retype",
+  "rationale": "The page itself says what the relation is: 'One primitive at two time scales — below perception here, fully perceptual there'. That is the same pattern in different material (mirrors); couples-with means always active together, and the two are not.",
+  "evidence_source": "Compressor Design.md § FILO Circular Buffer RMS ('The same buffer, stretched to about a second, is the heart of Retrospective Delay ... One primitive at two time scales')",
+  "evidence_target": "Retrospective Delay.md § The Core Architecture (a 1-measure always-recording circular buffer with a write phasor)",
+  "_room": "folder-projects-2",
+  "_rooms": [
+   "folder-projects-2"
+  ],
+  "_convergence": 1
+ },
+ {
+  "why": "no such link now",
+  "source": "Swarm Weave",
+  "target": "Palace Enchantment",
+  "proposed_type": "enables",
+  "proposed_label": "correct-before-alive",
+  "kind": "retype",
+  "rationale": "Both bodies state the relation in the same words, 'The Swarm Weave is the precondition. Enchantment is the life it enables.' Today the pair carries Swarm Weave spawned (no label) and Palace Enchantment emerged-from[is-it-alive-vs-is-it-correct]. One link, and the one the text states is enables. A judgment: if Loudon reads this as direct lineage, keep emerged-from alone.",
+  "evidence_source": "Swarm Weave.md § What Comes Next — Enchantment ('The Swarm Weave is the maintenance crew. Enchantment is the life it enables.')",
+  "evidence_target": "Palace Enchantment.md § opening and § Relationship to the Swarm Weave ('Run order: Swarm Weave first. Enchantment after.')",
+  "_room": "folder-projects-2",
+  "_rooms": [
+   "folder-projects-2"
+  ],
+  "_convergence": 1
+ },
+ {
+  "why": "no such link now",
+  "source": "Loudon Live",
+  "target": "2D Torus Wavetable Synthesizer",
+  "proposed_type": "connects-to",
+  "proposed_label": "signature-instrument-candidate",
+  "kind": "retype",
+  "rationale": "'Candidate' is an undecided question (see coherence); couples-with claims the two are always active together. The label already carries the reason, so connects-to keeps it honestly.",
+  "evidence_source": "Loudon Live.md § How it teaches (names the Torus as 'a concrete entry point to 2D Fourier analysis, torus geometry, quasi-periodicity ...')",
+  "evidence_target": "2D Torus Wavetable Synthesizer.md § Forward Vectors ('Decide whether this becomes a commercial release')",
+  "_room": "folder-projects-2",
+  "_rooms": [
+   "folder-projects-2"
+  ],
+  "_convergence": 1
+ },
+ {
+  "why": "no such link now",
+  "source": "Compression ↔ Intimacy",
+  "target": "Sidechain ↔ Conversation",
+  "proposed_type": "mirrors",
+  "proposed_label": "four-knobs-as-relation",
+  "kind": "retype",
+  "current_type": "couples-with[sibling-pattern]",
+  "rationale": "couples-with says always active together; these are not. What the pages do share, and say: each maps the compressor's four controls (threshold, ratio, attack, release) onto a human variable. Compression: 'Threshold = Trust level ... Attack = How quickly you guard'. Sidechain: 'Threshold: How much must you speak before I stop thinking? ... Attack: How quickly do I shift to listening mode?' Same move, different material. Compression's own Sidechain Compression section applies the sidechain pattern to vulnerability, so the body carries it.",
+  "evidence": "Compression 'The Vulnerability Parallel' and 'Sidechain Compression (External Control)'; Sidechain 'The Parameters' (twice).",
+  "confidence": "medium",
+  "_room": null,
+  "_rooms": [
+   null
+  ],
+  "_convergence": 1
+ },
+ {
+  "why": "no such link now",
+  "source": "Excellent Adventure",
+  "target": "Modes of Collaboration",
+  "proposed_type": "member-of",
+  "proposed_label": "flagship-mode",
+  "kind": "retype",
+  "current_type": "exemplifies[flagship-mode]",
+  "rationale": "Same relation as its three siblings, who use member-of; the label keeps what makes it first.",
+  "confidence": "high",
+  "_room": null,
+  "_rooms": [
+   null
+  ],
+  "_convergence": 1
+ },
+ {
+  "why": "no such link now",
+  "source": "Dialectic",
+  "target": "Palace Philosophies",
+  "proposed_type": "enables",
+  "proposed_label": "yields-philosophy-entries",
+  "kind": "retype",
+  "current_type": "enables (bare); Palace Philosophies connects-to[contradictions-dispatched-here] -> Dialectic",
+  "rationale": "One pair, two links. Keep Dialectic's enables and give it the reason that is true and checkable: the Dialectic's runs produced The Fortress and the Threshold, Stoicism, Confucianism, The Drift and the second axis for Spinoza Conatus. Cut Palace Philosophies' connects-to. The body sentence under Dialectic's Cross-Domain heading ('the council's voices often become candidates for person entries') names person entries, not this page, and could be edited to say it.",
+  "keep_on": "Dialectic",
+  "confidence": "medium",
+  "_room": null,
+  "_rooms": [
+   null
+  ],
+  "_convergence": 1
+ },
+ {
+  "why": "no such link now",
+  "source": "Three.js",
+  "target": "p5.js",
+  "proposed_type": "connects-to",
+  "proposed_label": "route-2d-vs-3d",
+  "kind": "retype",
+  "rationale": "couples-with[pairs-with] claims the two are always active together. Both Charters say the opposite: each refuses the other's work and routes it across, and the Waveguide Synthesizer page proposes them as Comparison Mode candidates (3D string versus 2D string). A named boundary, not a coupling.",
+  "evidence_source": "Three.js.md Charter: 'I refuse jobs that are really 2D dressed up in perspective — route those to p5.js or D3.js'.",
+  "evidence_target": "p5.js.md Charter: 'I refuse jobs that need ... real 3D engine work (Three.js).' Projects/Waveguide Synthesizer.md Open Questions: Comparison Mode, Three.js 3D vs. a p5.js 2D string.",
+  "_room": "folder-shop-1",
+  "_rooms": [
+   "folder-shop-1"
+  ],
+  "_convergence": 1
+ },
+ {
+  "why": "no such link now",
+  "source": "Stable Audio Open",
+  "target": "Kuramoto Coupling",
+  "proposed_type": "connects-to",
+  "proposed_label": "auditory-rendering",
+  "kind": "retype",
+  "rationale": "spawned says SAO directly produced the Kuramoto entry. It produced beds and a 'synchronization arriving' clip that the entry embeds. connects-to with the existing label says that.",
+  "evidence_source": "Shop/Stable Audio Open.md:19 type: spawned; Recipes 'Embedded in [[Kuramoto Coupling]] near the sync-arriving video as a parallel auditory rendering'",
+  "evidence_target": "Shop/Stable Audio Open.md Recipes 2026-05-26",
+  "_room": "folder-shop-2",
+  "_rooms": [
+   "folder-shop-2"
+  ],
+  "_convergence": 1
+ },
+ {
+  "why": "pair already linked",
+  "source": "John Cage",
+  "target": "Brian Eno",
+  "proposed_type": "contradicts",
+  "proposed_label": "same-door-opposite-grip",
+  "kind": "contradiction",
+  "rationale": "Both citizens, after three Dialectics, independently confirmed `contradicts` and proposed labels that describe the same split (Eno: same door, opposite grip; Cage: both doors escape taste in opposite directions). They share the method (set conditions, let it run) and part at one seam: Eno keeps the pen and says why the take is good; Cage put the choosing upstream. Today the pair has only Cage's unlabeled `connects-to`, and Eno's page carries no edge to Cage at all. One link, retyped, on the page that already holds it. Loudon applies the held edits ('citizen proposes; Loudon decides').",
+  "evidence_source": "People/John Cage/John Cage — diary.md:59,86",
+  "evidence_target": "People/Brian Eno/Brian Eno — diary.md:86; People/Brian Eno.md:83",
+  "_room": "folder-people",
+  "existing": [
+   {
+    "source": "John Cage",
+    "type": "connects-to",
+    "target": "Brian Eno",
+    "label": "coins-and-tape-loops"
+   }
+  ]
+ },
+ {
+  "why": "no such link now",
+  "source": "Compression ↔ Intimacy",
+  "target": "Kick Drum ↔ Foundation",
+  "proposed_type": null,
+  "proposed_label": null,
+  "kind": "cut",
+  "current_type": "connects-to[cross-bridge]",
+  "rationale": "No reason on either page. The only sentence is Compression's 'See [[Kick Drum ↔ Foundation]] for a related discussion of how low-frequency anchor points work', and the Kick Drum page has no discussion of compression or of closeness. Cut the link and the sentence.",
+  "evidence": "Compression line 50; Kick Drum page: foundation, path dependency, kick/bass masking; nothing on dynamic range.",
+  "confidence": "high",
+  "_room": null,
+  "existing": [
+   {
+    "source": "Compression ↔ Intimacy",
+    "type": "connects-to",
+    "target": "Kick Drum ↔ Foundation",
+    "label": "cross-bridge"
+   }
+  ]
+ },
+ {
+  "why": "no such link now",
+  "source": "Frequency Domain ↔ Perspective Shift",
+  "target": "Kick Drum ↔ Foundation",
+  "proposed_type": null,
+  "proposed_label": null,
+  "kind": "cut",
+  "current_type": "connects-to[cross-bridge]",
+  "rationale": "Frequency Domain says 'See [[Kick Drum ↔ Foundation]] for the specific case of kick drum analysis'. That page does not analyse a kick in the time or frequency domain; it is about early structural decisions. The kick appears in Frequency Domain only as its own demonstration signal. Cut the link and the sentence.",
+  "confidence": "high",
+  "_room": null,
+  "existing": [
+   {
+    "source": "Frequency Domain ↔ Perspective Shift",
+    "type": "connects-to",
+    "target": "Kick Drum ↔ Foundation",
+    "label": "cross-bridge"
+   }
+  ]
+ },
+ {
+  "why": "no such link now",
+  "source": "Dovetail Joint ↔ Counterpoint",
+  "target": "Hilaritas Generator",
+  "proposed_type": null,
+  "proposed_label": null,
+  "kind": "cut",
+  "current_type": "exemplifies[all-four-pillars-fire]",
+  "rationale": "The page never mentions hilaritas, and 'all four pillars' is a pillar tag it shares with five siblings. Cooking's exemplifies[learning-through-constraint] is different: its experiment (salt at the start, at the end, throughout) is the 'real thing that resists and teaches' of Hilaritas's first primitive, so that one stays.",
+  "confidence": "medium",
+  "_room": null,
+  "existing": [
+   {
+    "source": "Dovetail Joint ↔ Counterpoint",
+    "type": "exemplifies",
+    "target": "Hilaritas Generator",
+    "label": "all-four-pillars-fire"
+   }
+  ]
+ },
+ {
+  "why": "no such link now",
+  "source": "Kick Drum ↔ Foundation",
+  "target": "Donella Meadows",
+  "proposed_type": "connects-to",
+  "proposed_label": "structure-determines-behavior",
+  "kind": "fold",
+  "current_type": "both ways, labels differ",
+  "rationale": "The Kick page says 'Donella Meadows argues that a system's structure determines its behavior.' Meadows' side says leverage-in-the-low-end; the page does not say that. Keep the Kick side.",
+  "keep_on": "Kick Drum ↔ Foundation",
+  "confidence": "high",
+  "_room": null,
+  "existing": [
+   {
+    "source": "Donella Meadows",
+    "type": "connects-to",
+    "target": "Kick Drum ↔ Foundation",
+    "label": "leverage-in-the-low-end"
+   },
+   {
+    "source": "Kick Drum ↔ Foundation",
+    "type": "connects-to",
+    "target": "Donella Meadows",
+    "label": "structure-determines-behavior"
+   }
+  ]
+ },
+ {
+  "why": "no such link now",
+  "source": "Iain McGilchrist",
+  "target": "Frequency Domain ↔ Perspective Shift",
+  "proposed_type": "connects-to",
+  "proposed_label": "two-modes-of-attention",
+  "kind": "fold",
+  "current_type": "both ways, same label",
+  "rationale": "Same label stated on both sides; the Frequency Domain page has the McGilchrist section. Keep once.",
+  "keep_on": "Frequency Domain ↔ Perspective Shift",
+  "confidence": "high",
+  "_room": null,
+  "existing": [
+   {
+    "source": "Iain McGilchrist",
+    "type": "connects-to",
+    "target": "Frequency Domain ↔ Perspective Shift",
+    "label": "two-modes-of-attention"
+   }
+  ]
+ },
+ {
+  "why": "no such link now",
+  "source": "Lao Tzu",
+  "target": "Cooking ↔ Mixing",
+  "proposed_type": "connects-to",
+  "proposed_label": "wu-wei",
+  "kind": "fold",
+  "current_type": "both ways, labels differ (subtraction / wu-wei)",
+  "rationale": "Cooking's section is literally 'Wu Wei (Effortless Action)' and 'The Empty Pot'. Keep wu-wei on Cooking's side.",
+  "keep_on": "Cooking ↔ Mixing",
+  "confidence": "high",
+  "_room": null,
+  "existing": [
+   {
+    "source": "Lao Tzu",
+    "type": "connects-to",
+    "target": "Cooking ↔ Mixing",
+    "label": "subtraction"
+   },
+   {
+    "source": "Cooking ↔ Mixing",
+    "type": "connects-to",
+    "target": "Lao Tzu",
+    "label": "wu-wei"
+   }
+  ]
+ },
+ {
+  "why": "no such link now",
+  "source": "Rick Rubin",
+  "target": "Cooking ↔ Mixing",
+  "proposed_type": "connects-to",
+  "proposed_label": "subtraction-as-trust",
+  "kind": "fold",
+  "current_type": "both ways, labels differ (subtraction / subtraction-as-trust)",
+  "rationale": "Cooking's 'Trust the raw materials' and 'they don't trust the source material' carry the second label. Keep Cooking's.",
+  "keep_on": "Cooking ↔ Mixing",
+  "confidence": "medium",
+  "_room": null,
+  "existing": [
+   {
+    "source": "Rick Rubin",
+    "type": "connects-to",
+    "target": "Cooking ↔ Mixing",
+    "label": "subtraction"
+   },
+   {
+    "source": "Cooking ↔ Mixing",
+    "type": "connects-to",
+    "target": "Rick Rubin",
+    "label": "subtraction-as-trust"
+   }
+  ]
+ },
+ {
+  "why": "no such link now",
+  "source": "Martin Buber",
+  "target": "Dovetail Joint ↔ Counterpoint",
+  "proposed_type": "connects-to",
+  "proposed_label": "all-real-living-is-meeting",
+  "kind": "fold",
+  "current_type": "both ways, same label",
+  "rationale": "Keep once, on the page that holds the Buber section.",
+  "keep_on": "Dovetail Joint ↔ Counterpoint",
+  "confidence": "high",
+  "_room": null,
+  "existing": [
+   {
+    "source": "Martin Buber",
+    "type": "connects-to",
+    "target": "Dovetail Joint ↔ Counterpoint",
+    "label": "all-real-living-is-meeting"
+   }
+  ]
+ },
+ {
+  "why": "no such link now",
+  "source": "Martin Heidegger",
+  "target": "Reverb ↔ Space-Time",
+  "proposed_type": "connects-to",
+  "proposed_label": "dwelling-makes-space",
+  "kind": "fold",
+  "current_type": "both ways, same label",
+  "rationale": "Keep once, on Reverb, which holds the Heidegger section.",
+  "keep_on": "Reverb ↔ Space-Time",
+  "confidence": "high",
+  "_room": null,
+  "existing": [
+   {
+    "source": "Martin Heidegger",
+    "type": "connects-to",
+    "target": "Reverb ↔ Space-Time",
+    "label": "dwelling-makes-space"
+   }
+  ]
+ },
+ {
+  "why": "no such link now",
+  "source": "Semantic Webcam",
+  "target": "Synthesis ↔ Emergence",
+  "proposed_type": "connects-to",
+  "proposed_label": "flock-origin",
+  "kind": "fold",
+  "current_type": "both ways, labels differ (flock-origin / flock-made-visible)",
+  "rationale": "Semantic Webcam says in its body that it 'began as one facet (the Synthesis ↔ Emergence flock)'; the Synthesis page says nothing about the webcam. Keep Webcam's flock-origin.",
+  "keep_on": "Semantic Webcam",
+  "confidence": "medium",
+  "_room": null,
+  "existing": [
+   {
+    "source": "Semantic Webcam",
+    "type": "connects-to",
+    "target": "Synthesis ↔ Emergence",
+    "label": "flock-origin"
+   },
+   {
+    "source": "Synthesis ↔ Emergence",
+    "type": "connects-to",
+    "target": "Semantic Webcam",
+    "label": "flock-made-visible"
+   }
+  ]
+ },
+ {
+  "why": "no such link now",
+  "source": "Shunryu Suzuki",
+  "target": "Sidechain ↔ Conversation",
+  "proposed_type": "connects-to",
+  "proposed_label": "yielding-practice",
+  "kind": "fold",
+  "current_type": "both ways, labels differ (yielding-practice / informed-by)",
+  "rationale": "yielding-practice names the register; informed-by is the generic one. Keep Suzuki's. Separately the hub and Suzuki hold two links (hub connects-to[resonance-witness]; Suzuki member-of[bridge-builder] -> hub): keep Suzuki's member-of, cut the hub's.",
+  "keep_on": "Shunryu Suzuki",
+  "confidence": "medium",
+  "_room": null,
+  "existing": [
+   {
+    "source": "Shunryu Suzuki",
+    "type": "connects-to",
+    "target": "Sidechain ↔ Conversation",
+    "label": "yielding-practice"
+   },
+   {
+    "source": "Sidechain ↔ Conversation",
+    "type": "connects-to",
+    "target": "Shunryu Suzuki",
+    "label": "informed-by"
+   }
+  ]
+ },
+ {
+  "why": "no such link now",
+  "source": "Oblique Portrait",
+  "target": "Excellent Adventure",
+  "proposed_type": "contradicts",
+  "proposed_label": "unsteered-vs-steered",
+  "kind": "fold",
+  "current_type": "four edges: mirrors both ways, contradicts[unsteered-vs-steered] both ways",
+  "rationale": "Two specific types on one pair; the worker who read both says which relation it is. The contradiction is the load-bearing one and the label says why: in the Excellent Adventure 'the learner steers the encounter'; in the Oblique Portrait the origin was to hand the design over ('what happens when the human hands the design over?', 'in the passenger seat'). The mirror is real in a loose way (an agent takes a role to reach what direct instruction cannot) but is the less informative of the two. Keep one contradicts, on Oblique Portrait's page, where the reversal is told; cut the mirrors and Excellent Adventure's copy.",
+  "keep_on": "Oblique Portrait",
+  "confidence": "medium-high",
+  "_room": null,
+  "existing": [
+   {
+    "source": "Oblique Portrait",
+    "type": "mirrors",
+    "target": "Excellent Adventure",
+    "label": null
+   },
+   {
+    "source": "Oblique Portrait",
+    "type": "contradicts",
+    "target": "Excellent Adventure",
+    "label": "unsteered-vs-steered"
+   },
+   {
+    "source": "Excellent Adventure",
+    "type": "mirrors",
+    "target": "Oblique Portrait",
+    "label": null
+   },
+   {
+    "source": "Excellent Adventure",
+    "type": "contradicts",
+    "target": "Oblique Portrait",
+    "label": "unsteered-vs-steered"
+   }
+  ]
+ },
+ {
+  "why": "no such link now",
+  "source": "Oblique Portrait",
+  "target": "Trickster",
+  "proposed_type": "mirrors",
+  "proposed_label": null,
+  "kind": "fold",
+  "current_type": "both ways, both bare",
+  "rationale": "Trickster's page holds the reason ('The Oblique Portrait is trickster pedagogy'); Oblique Portrait's page never mentions it. Keep Trickster's side.",
+  "keep_on": "Trickster",
+  "confidence": "high",
+  "_room": null,
+  "existing": [
+   {
+    "source": "Trickster",
+    "type": "mirrors",
+    "target": "Oblique Portrait",
+    "label": null
+   }
+  ]
+ },
+ {
+  "why": "no such link now",
+  "source": "Oblique Portrait",
+  "target": "Songlines",
+  "proposed_type": "connects-to",
+  "proposed_label": "sings-around",
+  "kind": "fold",
+  "current_type": "both ways, labels differ (different-song / sings-around)",
+  "rationale": "sings-around names what the method does (sings around a topic); different-song is vaguer. Keep Songlines' side.",
+  "keep_on": "Songlines",
+  "confidence": "medium",
+  "_room": null,
+  "existing": [
+   {
+    "source": "Songlines",
+    "type": "connects-to",
+    "target": "Oblique Portrait",
+    "label": "sings-around"
+   },
+   {
+    "source": "Oblique Portrait",
+    "type": "connects-to",
+    "target": "Songlines",
+    "label": "different-song"
+   }
+  ]
+ }
+]

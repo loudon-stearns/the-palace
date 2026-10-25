@@ -14,9 +14,6 @@ links:
   - target: "[[Floquet Time-Modulated Loops]]"
     type: emerged-from
     label: framework-for
-  - target: "[[Mathieu Equation]]"
-    type: connects-to
-    label: simplest-instance
   - target: "[[Parametric Resonance]]"
     type: enables
     label: predicts-instability
@@ -26,18 +23,12 @@ links:
   - target: "[[Differential Equations]]"
     type: connects-to
     label: periodically-coefficient-linear-class
-  - target: "[[Photonic Time Crystals]]"
-    type: connects-to
-    label: experimental-domain
   - target: "[[Crystal Synthesizer]]"
     type: mirrors
     label: bloch-temporal-twin
   - target: "[[Three Kinds of Warp]]"
     type: mirrors
     label: discrete-floquet-on-tori
-  - target: "[[Phase Reduction]]"
-    type: couples-with
-    label: bridge-via-PRC
   - target: "[[Philosopher Visits the Entry]]"
     type: connects-to
     label: visited-entry

@@ -20,9 +20,6 @@ links:
     label: the-stance-never-turned-inward
   - target: "[[Cross-Domain Resonances]]"
     type: member-of
-  - target: "[[Shunryu Suzuki]]"
-    type: connects-to
-    label: informed-by
   - target: "[[FOUR PILLARS]]"
     type: exemplifies
   - target: "[[Cooperation Yields Agency]]"
@@ -37,6 +34,9 @@ links:
   - target: "[[Quality Manifesto]]"
     type: exemplifies
     label: self-defined-metric
+  - target: "[[Shunryu Suzuki]]"
+    type: connects-to
+    label: yielding-practice
 ---
 
 # Sidechain ↔ Conversation

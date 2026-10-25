@@ -11,9 +11,6 @@ links:
   - target: "[[Generative Sample Libraries]]"
     type: emerged-from
     label: migrated-from
-  - target: "[[Generative Sample Libraries]]"
-    type: couples-with
-    label: parallel-deployment
   - target: "[[Wavetable Synthesis — Deep Research & Higher-Dimensional Design]]"
     type: mirrors
     label: wavetable-space
@@ -34,12 +31,6 @@ links:
   - target: "[[Floquet Theory]]"
     type: connects-to
     label: time-periodic-modulation
-  - target: "[[Wavetable Scanner]]"
-    type: connects-to
-    label: plays-its-packed-tables
-  - target: "[[1D Wavetable Scanning]]"
-    type: connects-to
-    label: what-position-means
   - target: "[[Drift and Consolidation]]"
     type: exemplifies
     label: stewarded-page

@@ -47,6 +47,9 @@ links:
   - target: "[[Making a Palace Citizen]]"
     type: exemplifies
     label: made-by-this-method
+  - target: "[[Pauline Oliveros]]"
+    type: connects-to
+    label: the-wide-mode-as-practice
 ---
 
 # Iain McGilchrist

@@ -37,15 +37,15 @@ links:
   - target: "[[Loudon Live Design System]]"
     type: spawned
     label: visual-system-now-palace-default
-  - target: "[[Retrospective Delay]]"
-    type: connects-to
-    label: interface-mythology
   - target: "[[STIGMERGY]]"
     type: connects-to
     label: provenance-layer
   - target: "[[BLUELINE]]"
     type: connects-to
     label: beside-it
+  - target: "[[Retrospective Delay]]"
+    type: connects-to
+    label: interface-mythology
 ---
 
 # Loudon Live

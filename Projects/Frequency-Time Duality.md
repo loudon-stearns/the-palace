@@ -6,16 +6,11 @@ born: 2024-06
 stage: growing
 forward_vector: "I want to become the explanation of how time-scales themselves are perceptually graduated — the principle that one continuous axis (the rate at which something repeats) crosses *perceptual* thresholds, not physical ones. The first and most foundational of these crossings is rate-becoming-pitch around 20 Hz: below it polyrhythms, above it intervals. From this single gear-shift the rest of the modulation family — delay, vibrato, FM, rhythm — emerges as named regions on the same axis. I am the prototype of every threshold-crossing that follows, and my rich face is the walk you can play, taught from in class as it grows; a fuller standalone tool spawns from it only once the face has earned it."
 links:
-  - target: "[[Boundary-Crossing Instruments]]"
-    type: enables
   - target: "[[Hyperdimensional Prism]]"
     type: mirrors
   - target: "[[Action Potential Oscillator]]"
     type: connects-to
     label: single-cycle-scale
-  - target: "[[Waveguide Synthesizer]]"
-    type: connects-to
-    label: doorway
   - target: "[[Wavetable Oscillator]]"
     type: connects-to
     label: doorway
@@ -25,6 +20,9 @@ links:
   - target: "[[Loudon Live]]"
     type: connects-to
     label: introductory-tool
+  - target: "[[Boundary-Crossing Instruments]]"
+    type: enables
+    label: clearest-single-demonstration
 ---
 
 # Frequency-Time Duality

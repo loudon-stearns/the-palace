@@ -22,12 +22,6 @@ links:
   - target: "[[Swarm Weave]]"
     type: connects-to
     label: steers-the-swarm
-  - target: "[[STIGMERGY]]"
-    type: mirrors
-    label: two-timescale-trace
-  - target: "[[The Remembering Page]]"
-    type: couples-with
-    label: semantic-to-its-episodic
   - target: "[[SCHEMA — Reference]]"
     type: connects-to
     label: use-computed-from-git

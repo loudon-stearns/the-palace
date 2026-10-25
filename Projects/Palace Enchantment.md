@@ -37,9 +37,6 @@ links:
   - target: "[[Hilaritas Generator]]"
     type: connects-to
     label: first-enchanted-page
-  - target: "[[Dialogue Moderator]]"
-    type: couples-with
-    label: active-coordinator
   - target: "[[Action Potential Oscillator]]"
     type: connects-to
     label: dialogue-candidate

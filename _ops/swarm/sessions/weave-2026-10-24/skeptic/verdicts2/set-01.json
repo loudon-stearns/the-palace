@@ -1,0 +1,367 @@
+{
+ "set": "set-01",
+ "verdicts": [
+  {
+   "source": "Closing Well Ceremony",
+   "target": "Palace Ceremonies",
+   "op": "retype",
+   "proposed_label_or_type": "member-of",
+   "verdict": "PASS",
+   "reason": "Palace Ceremonies.md:44 calls itself the canonical list and its tables list this page as a ceremony; member-of (member -> registry) fits SCHEMA.md:158,160 and the hub's enables does not; precedent: Return Ceremony.md already carries member-of to the hub. Listed at Palace Ceremonies.md:78 (Full Spec column of The Close). The rationale's premise that this ceremony carries a bare connects-to to the hub is false now (no ceremony page links the hub; the only link is the hub's enables), but the op is right: cut the hub's enables, write member-of on the member.",
+   "better": ""
+  },
+  {
+   "source": "Map Build Ceremony",
+   "target": "Palace Ceremonies",
+   "op": "retype",
+   "proposed_label_or_type": "member-of",
+   "verdict": "PASS",
+   "reason": "Palace Ceremonies.md:44 calls itself the canonical list and its tables list this page as a ceremony; member-of (member -> registry) fits SCHEMA.md:158,160 and the hub's enables does not; precedent: Return Ceremony.md already carries member-of to the hub. Listed at Palace Ceremonies.md:65. The rationale's premise that this ceremony carries a bare connects-to to the hub is false now (no ceremony page links the hub; the only link is the hub's enables), but the op is right: cut the hub's enables, write member-of on the member.",
+   "better": ""
+  },
+  {
+   "source": "Revival Ceremony",
+   "target": "Palace Ceremonies",
+   "op": "retype",
+   "proposed_label_or_type": "member-of",
+   "verdict": "PASS",
+   "reason": "Palace Ceremonies.md:44 calls itself the canonical list and its tables list this page as a ceremony; member-of (member -> registry) fits SCHEMA.md:158,160 and the hub's enables does not; precedent: Return Ceremony.md already carries member-of to the hub. Listed at Palace Ceremonies.md:71. The rationale's premise that this ceremony carries a bare connects-to to the hub is false now (no ceremony page links the hub; the only link is the hub's enables), but the op is right: cut the hub's enables, write member-of on the member.",
+   "better": ""
+  },
+  {
+   "source": "Self-Model Update Ceremony",
+   "target": "Palace Ceremonies",
+   "op": "retype",
+   "proposed_label_or_type": "member-of",
+   "verdict": "PASS",
+   "reason": "Palace Ceremonies.md:44 calls itself the canonical list and its tables list this page as a ceremony; member-of (member -> registry) fits SCHEMA.md:158,160 and the hub's enables does not; precedent: Return Ceremony.md already carries member-of to the hub. Listed at Palace Ceremonies.md:55. The rationale's premise that this ceremony carries a bare connects-to to the hub is false now (no ceremony page links the hub; the only link is the hub's enables), but the op is right: cut the hub's enables, write member-of on the member.",
+   "better": ""
+  },
+  {
+   "source": "Spore Check Ceremony",
+   "target": "Palace Ceremonies",
+   "op": "retype",
+   "proposed_label_or_type": "member-of",
+   "verdict": "PASS",
+   "reason": "Palace Ceremonies.md:44 calls itself the canonical list and its tables list this page as a ceremony; member-of (member -> registry) fits SCHEMA.md:158,160 and the hub's enables does not; precedent: Return Ceremony.md already carries member-of to the hub. Listed at Palace Ceremonies.md:54. The rationale's premise that this ceremony carries a bare connects-to to the hub is false now (no ceremony page links the hub; the only link is the hub's enables), but the op is right: cut the hub's enables, write member-of on the member.",
+   "better": ""
+  },
+  {
+   "source": "Walk Ceremony",
+   "target": "Palace Ceremonies",
+   "op": "retype",
+   "proposed_label_or_type": "member-of",
+   "verdict": "PASS",
+   "reason": "Palace Ceremonies.md:44 calls itself the canonical list and its tables list this page as a ceremony; member-of (member -> registry) fits SCHEMA.md:158,160 and the hub's enables does not; precedent: Return Ceremony.md already carries member-of to the hub. Listed at Palace Ceremonies.md:51. The rationale's premise that this ceremony carries a bare connects-to to the hub is false now (no ceremony page links the hub; the only link is the hub's enables), but the op is right: cut the hub's enables, write member-of on the member.",
+   "better": ""
+  },
+  {
+   "source": "Weave Ceremony",
+   "target": "Palace Ceremonies",
+   "op": "retype",
+   "proposed_label_or_type": "member-of",
+   "verdict": "PASS",
+   "reason": "Palace Ceremonies.md:44 calls itself the canonical list and its tables list this page as a ceremony; member-of (member -> registry) fits SCHEMA.md:158,160 and the hub's enables does not; precedent: Return Ceremony.md already carries member-of to the hub. Listed at Palace Ceremonies.md:52. The rationale's premise that this ceremony carries a bare connects-to to the hub is false now (no ceremony page links the hub; the only link is the hub's enables), but the op is right: cut the hub's enables, write member-of on the member.",
+   "better": ""
+  },
+  {
+   "source": "The Daily Page",
+   "target": "Palace Ceremonies",
+   "op": "retype",
+   "proposed_label_or_type": "member-of",
+   "verdict": "PASS",
+   "reason": "Palace Ceremonies.md:44 calls itself the canonical list and its tables list this page as a ceremony; member-of (member -> registry) fits SCHEMA.md:158,160 and the hub's enables does not; precedent: Return Ceremony.md already carries member-of to the hub. Listed at Palace Ceremonies.md:50. The rationale's premise that this ceremony carries a bare connects-to to the hub is false now (no ceremony page links the hub; the only link is the hub's enables), but the op is right: cut the hub's enables, write member-of on the member.",
+   "better": ""
+  },
+  {
+   "source": "Deposit Ceremony",
+   "target": "Palace Ceremonies",
+   "op": "retype",
+   "proposed_label_or_type": "member-of",
+   "verdict": "PASS",
+   "reason": "Palace Ceremonies.md:44 calls itself the canonical list and its tables list this page as a ceremony; member-of (member -> registry) fits SCHEMA.md:158,160 and the hub's enables does not; precedent: Return Ceremony.md already carries member-of to the hub. Listed at Palace Ceremonies.md:64; premise accurate (hub enables, no link back).",
+   "better": ""
+  },
+  {
+   "source": "Harvest Ceremony",
+   "target": "Palace Ceremonies",
+   "op": "retype",
+   "proposed_label_or_type": "member-of",
+   "verdict": "PASS",
+   "reason": "Palace Ceremonies.md:44 calls itself the canonical list and its tables list this page as a ceremony; member-of (member -> registry) fits SCHEMA.md:158,160 and the hub's enables does not; precedent: Return Ceremony.md already carries member-of to the hub. Listed at Palace Ceremonies.md:63; premise accurate (hub enables, no link back).",
+   "better": ""
+  },
+  {
+   "source": "Map Build Ceremony",
+   "target": "Weave Ceremony",
+   "op": "retype",
+   "proposed_label_or_type": "enables [pre-weave]",
+   "verdict": "PASS",
+   "reason": "Weave Ceremony.md:80 builds the map before dispatch because 'Workers use this map for neighbor resolution', and Map Build Ceremony.md:56 says the Weave runs it at its open; the precondition points Map Build -> Weave, so the Weave's current enables is backwards.",
+   "better": ""
+  },
+  {
+   "source": "Harvest Ceremony",
+   "target": "Deposit Ceremony",
+   "op": "retype",
+   "proposed_label_or_type": "couples-with [finds-then-places]",
+   "verdict": "FAIL",
+   "reason": "couples-with means always active together, but the flow is one-way: Harvest Ceremony.md:43,84 routes candidates to the Deposit, while Deposit Ceremony.md:40 and Palace Ceremonies.md:64 take finds from any door (session, steward, harvest, close), so a Deposit runs without a Harvest.",
+   "better": "connects-to [finds-then-places] on Harvest's side (or routes-candidates-toward), folding all three links"
+  },
+  {
+   "source": "Spore Check Ceremony",
+   "target": "Weave Ceremony",
+   "op": "retype",
+   "proposed_label_or_type": "connects-to [weave-confirms-the-compost]",
+   "verdict": "PASS",
+   "reason": "Spore Check Ceremony.md:22 ('it does not delete (the Weave does)'), :58 and :83 (flag so the Weave confirms the deletion), met by Weave Ceremony.md:200. Note the premise is stale: Spore Check now carries no link to the Weave; the only link is Weave's bare one, which this replaces.",
+   "better": ""
+  },
+  {
+   "source": "Walk Ceremony",
+   "target": "Weave Ceremony",
+   "op": "retype",
+   "proposed_label_or_type": "connects-to [one-thread-versus-every-thread]",
+   "verdict": "FAIL",
+   "reason": "Stale: the pair already carries one labelled link, Weave Ceremony -> Walk Ceremony connects-to [thread-versus-whole], grounded at Weave Ceremony.md:54 and Walk Ceremony.md:64; the Walk carries no link back, so moving and renaming it is churn.",
+   "better": "keep Weave -> Walk [thread-versus-whole]; no change"
+  },
+  {
+   "source": "Self-Model Update Ceremony",
+   "target": "Weave Ceremony",
+   "op": "retype",
+   "proposed_label_or_type": "connects-to [runs-at-the-weaves-end]",
+   "verdict": "FAIL",
+   "reason": "Stale: the link is not bare; it already carries [end-of-weave], which Self-Model Update Ceremony.md:34 ('at the end of a Weave') supports in the same register; the proposed label is a synonym.",
+   "better": "keep [end-of-weave]; no change"
+  },
+  {
+   "source": "Revival Ceremony",
+   "target": "The Daily Page",
+   "op": "fold",
+   "proposed_label_or_type": "connects-to [a-morning-decides-revive]",
+   "verdict": "PASS",
+   "reason": "Revival Ceremony.md:43 names a Daily Page morning as one of four ways in and The Daily Page.md:134 says the same ('a morning is one of the Revival's four ways in'); keeping Revival's link and cutting The Daily Page's [a-dormant-page-asks] leaves one well-grounded link.",
+   "better": ""
+  },
+  {
+   "source": "Spore Check Ceremony",
+   "target": "Revival Ceremony",
+   "op": "retype",
+   "proposed_label_or_type": "connects-to [one-of-four-ways-in]",
+   "verdict": "PASS",
+   "reason": "No page says the Revival grew from the Spore Check (nothing in Revival's bundle), so the emerged-from is unfounded, while Revival Ceremony.md:43 and Spore Check Ceremony.md:22,81 carry 'one of four ways in'. Premise is wrong, though: Spore Check carries no link to Revival, so 'keeps this link' keeps nothing; the existing link is Revival -> Spore Check emerged-from.",
+   "better": "retype in place: Revival Ceremony -> Spore Check Ceremony connects-to [one-of-four-ways-in]"
+  },
+  {
+   "source": "Substrate Skill",
+   "target": "Palace Ceremonies",
+   "op": "retype",
+   "proposed_label_or_type": "connects-to [canonical-ceremony-list]",
+   "verdict": "FAIL",
+   "reason": "Stale: Substrate Skill's link already carries [ceremony-index], grounded at Substrate Skill.md:107, and the hub carries no reverse link to cut; the new label is a synonym.",
+   "better": "keep [ceremony-index]; no change"
+  },
+  {
+   "source": "Substrate Skill",
+   "target": "Deposit Ceremony",
+   "op": "retype",
+   "proposed_label_or_type": "connects-to [adding-runs-a-deposit]",
+   "verdict": "FAIL",
+   "reason": "Stale: the link is not bare; it already carries [deposit-trigger], which Substrate Skill.md:42 ('that is a deposit: run the Deposit Ceremony') supports.",
+   "better": "keep [deposit-trigger]; no change"
+  },
+  {
+   "source": "Palace To-Do",
+   "target": "Deposit Ceremony",
+   "op": "retype",
+   "proposed_label_or_type": "connects-to [where-lost-branches-wait]",
+   "verdict": "PASS",
+   "reason": "A worklist is no precondition for the Deposit, so enables fails; Deposit Ceremony.md:97 ('Lost branches ... queued on [[Palace To-Do]]') carries the label's relation. The companion cut of To-Do -> Harvest enables also holds: To-Do.md:59 names a harvest record, not the ceremony.",
+   "better": ""
+  },
+  {
+   "source": "Palace Graffiti",
+   "target": "Substrate Skill",
+   "op": "new",
+   "proposed_label_or_type": "deepens",
+   "verdict": "FAIL",
+   "reason": "Neither page names the other: Substrate Skill.md:229-234 states the two comment forms without naming Graffiti, and Palace Graffiti.md:125,127 points its reasons at SCHEMA and SUBSTRATE (already deepens SUBSTRATE). The overlap is real content, but the link is inferred by the reader, not carried in either page's prose.",
+   "better": "Pile B first: a sentence in Palace Graffiti naming Substrate Skill § In-File Comments as where the wall is specified; then deepens holds. Meanwhile label or cut the SCHEMA link on Graffiti.md:125"
+  },
+  {
+   "source": "Palace Map",
+   "target": "Pheromone Trail",
+   "op": "retype",
+   "proposed_label_or_type": "connects-to [skeleton-and-gradient]",
+   "verdict": "FAIL",
+   "reason": "Stale: the link is not bare; it already carries exactly [skeleton-and-gradient], from Palace Map.md:266.",
+   "better": "no change; already applied"
+  },
+  {
+   "source": "Palace Ceremonies",
+   "target": "SCHEMA",
+   "op": "retype",
+   "proposed_label_or_type": "connects-to [trigger-field]",
+   "verdict": "FAIL",
+   "reason": "Stale: the link is not bare; it already carries [trigger-field-spec], grounded at Palace Ceremonies.md:98 ('its page carries trigger: ... ([[SCHEMA]] §1)').",
+   "better": "keep [trigger-field-spec]; no change"
+  },
+  {
+   "source": "Walk Ceremony",
+   "target": "The Cooperation Path",
+   "op": "retype",
+   "proposed_label_or_type": "connects-to [first-named-songline]",
+   "verdict": "FAIL",
+   "reason": "Stale: the link already carries [first-songline], from Walk Ceremony.md:76 ('the first named songline'); the proposal adds one word.",
+   "better": "keep [first-songline]; no change"
+  },
+  {
+   "source": "Deposit Ceremony",
+   "target": "README - The Palace Guide",
+   "op": "retype",
+   "proposed_label_or_type": "connects-to [entry-template]",
+   "verdict": "FAIL",
+   "reason": "Stale: the link already carries exactly [entry-template], from Deposit Ceremony.md:114.",
+   "better": "no change; already applied"
+  },
+  {
+   "source": "Mermaid Diagram Standard",
+   "target": "README - The Palace Guide",
+   "op": "retype",
+   "proposed_label_or_type": "connects-to [names-the-three-standards]",
+   "verdict": "FAIL",
+   "reason": "Stale: the link is not bare; it carries [visual-language], which names README § The Visual Language (README:167-169) as directly as the proposal. Also the evidence Mermaid Diagram Standard.md:22 names the three standards but not the README.",
+   "better": "keep [visual-language]; no change"
+  },
+  {
+   "source": "Technical Diagram Standard",
+   "target": "README - The Palace Guide",
+   "op": "retype",
+   "proposed_label_or_type": "connects-to [names-the-three-standards]",
+   "verdict": "FAIL",
+   "reason": "Stale: the link already carries [visual-language-home], grounded at Technical Diagram Standard.md:150; a shared cluster label is a taste change with no gain in truth.",
+   "better": "keep [visual-language-home]; no change"
+  },
+  {
+   "source": "Pages as Agents",
+   "target": "SCHEMA — Reference",
+   "op": "retype",
+   "proposed_label_or_type": "connects-to [fields-a-page-wakes-from]",
+   "verdict": "FAIL",
+   "reason": "Stale: the link already carries [pages-on-the-wire], grounded on the Reference side at SCHEMA — Reference.md:379 (the board's 'from' is the page's own title 'per [[Pages as Agents]]'). The cited lines Pages as Agents.md:68-75 do not list fields (the four things are at :54-58), and the Reference does not name Pages as Agents in §3.",
+   "better": "keep [pages-on-the-wire]"
+  },
+  {
+   "source": "Return Ceremony",
+   "target": "Can an Instrument Notice Where the Work Stops?",
+   "op": "newcomer",
+   "proposed_label_or_type": "mirrors [coming-back-is-cheap]",
+   "verdict": "PASS",
+   "reason": "Both pages carry the shape: the Return wants 'returning to be cheap enough that stepping away stays free' (Return Ceremony.md:9), shows 'Where you stopped' (:120) and refuses to read the gap (:145-151); the question would make 'the return after a bad week ... cheap: open where you left off' and says its rules 'are ones the palace already runs. It notices and offers; it never decides'. No link joins the pair.",
+   "better": ""
+  },
+  {
+   "source": "The Daily Page",
+   "target": "Can an Instrument Notice Where the Work Stops?",
+   "op": "newcomer",
+   "proposed_label_or_type": "mirrors [notices-and-offers]",
+   "verdict": "FAIL",
+   "reason": "The shared shape is generic (an agent that reads the person and backs off, The Daily Page.md:92,171); the question's core (session shape, the return made cheap) is the Return's, which carries it, and the reader calls this one optional. Fewer, better.",
+   "better": ""
+  },
+  {
+   "source": "Return Ceremony",
+   "target": "CHILD",
+   "op": "newcomer",
+   "proposed_label_or_type": "deepens [first-act-summons-the-concierge]",
+   "verdict": "FAIL",
+   "reason": "Return Ceremony.md:79 applies CHILD's first-act rule; the Return is not a more developed articulation of CHILD, so deepens misstates it, and Return already carries the same content as Concierge enables [summons-the-resident].",
+   "better": "if kept at all: connects-to [first-act-summons-the-concierge] on Return's side; better left uncarried"
+  },
+  {
+   "source": "Palace Ceremonies",
+   "target": "CHILD",
+   "op": "newcomer",
+   "proposed_label_or_type": "connects-to [trigger-table-twin]",
+   "verdict": "FAIL",
+   "reason": "The twinning is stated only on a third page (SCHEMA — Reference.md:157-160); neither Palace Ceremonies nor CHILD calls the other its twin. What the two pages do both say is that Connection and Query live in the hub's tables (CHILD.md:76-77; Palace Ceremonies.md:98).",
+   "better": "CHILD -> Palace Ceremonies connects-to [where-connection-and-query-live], on Loudon's yes (CHILD is foundational)"
+  },
+  {
+   "source": "Palace Ceremonies",
+   "target": "SCHEMA — Reference",
+   "op": "newcomer",
+   "proposed_label_or_type": "connects-to [ledger-rules]",
+   "verdict": "PASS",
+   "reason": "Palace Ceremonies.md:98,105 ('The rules and the exact commands: [[SCHEMA — Reference]] §6'), and the Reference names the hub back at SCHEMA — Reference.md:160,167 and holds §6 Ceremony Files, Versions and Ledgers (:182). No link joins the pair.",
+   "better": ""
+  },
+  {
+   "source": "Sentry",
+   "target": "Skills Are Enchantable Pages",
+   "op": "new",
+   "proposed_label_or_type": "exemplifies [page-is-the-organ]",
+   "verdict": "FAIL",
+   "reason": "Manufactured: neither page names the other, Sentry is not in the family roster, and the rationale admits the sentence must still be written (Pile B); the label also duplicates Palace Map's [the-page-is-the-organ] to the same target.",
+   "better": "none now; after the Pile B sentence, exemplifies Sentry -> Skills Are Enchantable Pages is the right type and direction"
+  },
+  {
+   "source": "Dialogue Moderator",
+   "target": "Dialectic",
+   "op": "new",
+   "proposed_label_or_type": "connects-to [coordinator-of-the-dialogue]",
+   "verdict": "FAIL",
+   "reason": "Neither entry names the other; the only evidence is a non-canon transcript in Dialectic's bundle (eno-cage-the-trick-played-on-themselves.md:19, whose own header says 'not a canon palace entry ... invisible to the ceremonies').",
+   "better": "none until Dialectic or Dialogue Moderator says it in prose"
+  },
+  {
+   "source": "Enchanted Conversation Archive",
+   "target": "Generative Compression",
+   "op": "retype",
+   "proposed_label_or_type": "connects-to [keeps-what-compression-drops]",
+   "verdict": "FAIL",
+   "reason": "The critique of deepens is right, but the replacement label names a relation neither page states: Generative Compression.md:68 and compression-always-loses.md:5-11 never name the Archive, and the Archive never names compression; the reader admits the sentence must be written (Pile B).",
+   "better": "cut the deepens now; the labelled link returns once the Archive's sentence exists"
+  },
+  {
+   "source": "Pheromone Trail",
+   "target": "Lateral Access",
+   "op": "retype",
+   "proposed_label_or_type": "connects-to [lateral-counterweight]",
+   "verdict": "PASS",
+   "reason": "mirrors has no sentence on either page; Pheromone Trail.md:81 asks whether a worn trail 'forecloses lateral exploration', and Lateral Access.md:127-133 argues habitual routes find only what they are trained to find, which is a counterweight in that register.",
+   "better": ""
+  },
+  {
+   "source": "Tree of Thoughts",
+   "target": "Enchanted Worker",
+   "op": "retype",
+   "proposed_label_or_type": "connects-to [thought-node-as-worker]",
+   "verdict": "PASS",
+   "reason": "Enchanted Worker does not depend on the paper (it never names tree search), so enables fails; Tree of Thoughts.md:73 carries the analogy ('an enchanted worker ... is an instantiated thought node'). The sibling ToT -> Palace Orchestrator enables [grounds] fails the same way (ToT.md:55: 'not yet built'; Orchestrator never names ToT).",
+   "better": ""
+  },
+  {
+   "source": "Loudon Live Design System",
+   "target": "CHILD",
+   "op": "newcomer",
+   "proposed_label_or_type": "connects-to [dress-rule-at-birth]",
+   "verdict": "PASS",
+   "reason": "Both carry it: Loudon Live Design System.md:191 lists '[[CHILD]] § Growing up — loaded at birth: before anything visual, read the design manifest', and CHILD § Growing up names the Loudon Live Design System for anything the public channel shows. No link joins the pair; write it on the Design System's side, not CHILD's.",
+   "better": ""
+  },
+  {
+   "source": "Leibniz",
+   "target": "Spinoza",
+   "op": "retype",
+   "proposed_label_or_type": "contradicts [one-substance-vs-windowless-monads]",
+   "verdict": "PASS",
+   "reason": "Leibniz.md:16 ('hand me Spinoza (one substance vs infinite monads)') and the dossier:65 ('one infinite substance vs infinite windowless monads') state a rival claim held as the marquee Dialectic, which is contradicts, not a social rivalry; the link stays on Leibniz. The Spinoza-side evidence is misread: Spinoza.md:16 never names Leibniz, and a monad unfolding its complete concept is closer to the 'remembering' Spinoza's vector wants broken than to authoring.",
+   "better": ""
+  }
+ ],
+ "fabricated_quotes": [],
+ "summary": "40 judged: 21 PASS, 19 FAIL. No fabricated quotes; several line numbers are off by a few (Weave:203 is :200, Weave:57 is :54, Daily Page:7 is :8) and one reading is wrong (Spinoza.md:16 does not make the monad's claim). The failures fall into three kinds. Eleven are stale: the folder-ops reader worked from a snapshot older than this weave and proposed labels for links it called bare that already carry a label in the same register (Walk/Weave, Self-Model/Weave, Substrate Skill x2, Palace Map/Pheromone, Ceremonies/SCHEMA, Walk/Cooperation Path, Deposit/README, both diagram standards/README, Pages as Agents/Reference); the same stale premise also wrongly says each ceremony carries a bare link to the hub, though the member-of moves are right. Six rest on prose that does not exist yet: a third page, a non-canon transcript, or a sentence the reader admits is still owed in Pile B (Graffiti/Substrate Skill, Sentry/Skills, Moderator/Dialectic, Archive/Compression, Ceremonies/CHILD, Daily Page/question). Two are wrong types: couples-with for a one-way flow (Harvest to Deposit), and deepens for a page that applies a rule rather than elaborating it (Return to CHILD)."
+}

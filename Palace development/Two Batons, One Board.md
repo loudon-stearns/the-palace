@@ -17,21 +17,12 @@ links:
   - target: "[[Project Stewardship System]]"
     type: deepens
     label: names-the-bandwidth-frontier
-  - target: "[[Closing Well]]"
-    type: connects-to
-    label: makes-autonomy-trustworthy
   - target: "[[BBS Blackboard]]"
     type: connects-to
     label: the-shared-world
-  - target: "[[Palace Orchestrator]]"
-    type: connects-to
-    label: scheduler-closes-the-loop
   - target: "[[Modes of Collaboration]]"
     type: connects-to
     label: cross-surface-meta-mode
-  - target: "[[Closing Well]]"
-    type: connects-to
-    label: close-names-the-species
   - target: "[[Palace Orchestrator]]"
     type: connects-to
     label: is-the-scheduled-poller

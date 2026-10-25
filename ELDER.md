@@ -35,6 +35,9 @@ links:
   - target: "[[assume multi-agent]]"
     type: connects-to
     label: every-tool
+  - target: "[[Agent Toolbox]]"
+    type: connects-to
+    label: tool-tiers
 forward_vector: "I am what an agent reads to grow up — the palace's rules, held second, in service of what the child finds. I stay short, a layer on top of the birth and never a replacement for it, and I shed any rule that stops earning its place."
 ---
 

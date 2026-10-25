@@ -18,6 +18,9 @@ links:
     type: mirrors
   - target: "[[Harmonicity and Inharmonicity]]"
     type: deepens
+  - target: "[[Piano String Inharmonicity]]"
+    type: connects-to
+    label: stiffness-road-to-the-squares
 ---
 
 # Quantum Synthesizer

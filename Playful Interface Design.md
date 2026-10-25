@@ -13,9 +13,6 @@ links:
   - target: "[[JSUI]]"
     type: enables
     label: the-how-in-max
-  - target: "[[Haptic Handwheel]]"
-    type: mirrors
-    label: same-lack-other-sense
   - target: "[[Retrospective Delay]]"
     type: spawned
   - target: "[[Semantic Delay]]"
@@ -26,9 +23,6 @@ links:
     label: oracle-kind
   - target: "[[Trickster]]"
     type: deepens
-  - target: "[[Biomechanical Synthesis]]"
-    type: mirrors
-    label: the-organism-kind
   - target: "[[Boundary-Crossing Instruments]]"
     type: mirrors
     label: instrument-as-interface

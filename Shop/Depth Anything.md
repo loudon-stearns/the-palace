@@ -14,7 +14,6 @@ links:
   - { target: "[[The Shop]]", type: member-of, label: roster-member }
   - { target: "[[Maker]]", type: connects-to, label: directed-by }
   - { target: "[[Animate the Background]]", type: connects-to, label: the-surprise-win }
-  - { target: "[[SAM]]", type: connects-to, label: a-second-route-to-the-figure }
   - target: "[[LaMa]]"
     type: connects-to
     label: fills-what-i-cannot-see

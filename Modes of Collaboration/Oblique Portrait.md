@@ -20,16 +20,11 @@ links:
   - target: "[[Lateral Access]]"
     type: spawned
   - target: "[[Excellent Adventure]]"
-    type: mirrors
-  - target: "[[Excellent Adventure]]"
     type: contradicts
     label: unsteered-vs-steered
   - target: "[[Modes of Collaboration]]"
     type: member-of
     label: named-mode
-  - target: "[[Songlines]]"
-    type: connects-to
-    label: different-song
   - target: "[[Reflective Practice]]"
     type: connects-to
     label: reflects-in-action

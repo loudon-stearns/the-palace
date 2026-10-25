@@ -12,9 +12,6 @@ links:
   - target: "[[STIGMERGY v1.0 — Palace Front-End]]"
     type: deepens
     label: a-philosophical-surface-for-the-front-end
-  - target: "[[Palace Philosophies]]"
-    type: connects-to
-    label: the-neighborhood-this-surfaces
   - target: "[[Philosopher Visits the Entry]]"
     type: enables
     label: the-card-type-this-renders

@@ -1,0 +1,367 @@
+{
+ "set": "set-02",
+ "verdicts": [
+  {
+   "source": "James Turrell",
+   "target": "Agnes Martin",
+   "op": "retype",
+   "proposed_label_or_type": "mirrors[humility-that-hides-control]",
+   "verdict": "PASS",
+   "reason": "Turrell.md:79 says 'the same blindspot in four materials (grid, wood, stone-and-ice, light)', and Agnes Martin.md:25,71 carries her half ('I do not author, I receive' as an authored stance): same pattern, different material.",
+   "better": ""
+  },
+  {
+   "source": "James Turrell",
+   "target": "George Nakashima",
+   "op": "retype",
+   "proposed_label_or_type": "mirrors[humility-that-hides-control]",
+   "verdict": "PASS",
+   "reason": "mirrors fits (George Nakashima.md:100 'the same move ... the most materially concrete of the four'), but note Turrell's frontmatter carries no Nakashima link; the edge to retype is Nakashima's connects-to -> Turrell.",
+   "better": ""
+  },
+  {
+   "source": "James Turrell",
+   "target": "Andy Goldsworthy",
+   "op": "retype",
+   "proposed_label_or_type": "mirrors[humility-that-hides-control]",
+   "verdict": "PASS",
+   "reason": "Goldsworthy.md:76 ''Collaboration with nature' is a flattering word for what is still authorial selection' is the same pattern Turrell.md:79 names; mirrors is right.",
+   "better": ""
+  },
+  {
+   "source": "Annie Dillard",
+   "target": "Iain McGilchrist",
+   "op": "retype",
+   "proposed_label_or_type": "mirrors[two-ways-of-seeing]",
+   "verdict": "PASS",
+   "reason": "Annie Dillard.md:69 'Her two-ways-of-seeing map uncannily onto [[Iain McGilchrist]]'s two modes of attention' is a mirror, not co-activation; couples-with was wrong.",
+   "better": ""
+  },
+  {
+   "source": "Yasujirō Ozu",
+   "target": "John Cage",
+   "op": "retype",
+   "proposed_label_or_type": "mirrors[stillness-without-seizure]",
+   "verdict": "FAIL",
+   "reason": "Neither Ozu.md nor John Cage.md names the other in prose (the reader concedes 'the label is the only reason on record'); a link with no reason on either page is cut, not retyped.",
+   "better": "cut"
+  },
+  {
+   "source": "Julia Cameron",
+   "target": "Christopher Alexander",
+   "op": "new",
+   "proposed_label_or_type": "contradicts[permission-vs-degree-of-life]",
+   "verdict": "FAIL",
+   "reason": "Neither page names the other: Cameron.md:24,89 asks for 'someone who cares whether the finished thing is any good' and only the dossier (:65) names Alexander; Christopher Alexander.md never mentions Cameron, so the contradiction is assembled by the reader.",
+   "better": "none; write the sentence first, then link"
+  },
+  {
+   "source": "Marcus Aurelius",
+   "target": "Donella Meadows",
+   "op": "new",
+   "proposed_label_or_type": "contradicts[accept-the-weather-vs-moral-urgency]",
+   "verdict": "FAIL",
+   "reason": "One-sided by the reader's own account: only Marcus's dossier (:65) names Meadows; Donella Meadows.md never mentions Marcus or Stoic acceptance, and her 'moral urgency can outrun my model' is not the counter-pole.",
+   "better": "none"
+  },
+  {
+   "source": "Brian Eno",
+   "target": "Can an Instrument Notice Where the Work Stops?",
+   "op": "new",
+   "proposed_label_or_type": "connects-to[the-stopping-is-the-taste]",
+   "verdict": "FAIL",
+   "reason": "Evidence lives only in Brian Eno — diary.md:102; neither Brian Eno.md nor the question page says it, as the reader admits ('The page does not yet say so').",
+   "better": "none until the sentence is placed"
+  },
+  {
+   "source": "Quantum Synthesizer",
+   "target": "Piano String Inharmonicity",
+   "op": "new",
+   "proposed_label_or_type": "connects-to[stiffness-road-to-the-squares]",
+   "verdict": "PASS",
+   "reason": "Quantum Synthesizer.md:85 names Piano String Inharmonicity for the linear stiffness term, Piano String Inharmonicity.md:119 states 'stiff string dispersion is different — it's purely geometric', and no frontmatter link joins the pair.",
+   "better": ""
+  },
+  {
+   "source": "Piano String Inharmonicity",
+   "target": "Categorizing Inharmonicity",
+   "op": "retype",
+   "proposed_label_or_type": "exemplifies[stretched-tuning]",
+   "verdict": "PASS",
+   "reason": "Categorizing Inharmonicity.md:61 '[[Piano String Inharmonicity|A piano exemplifies this type]]'; exemplifies from the instance back at the taxonomy is the right direction and replaces the misdirected deepens.",
+   "better": ""
+  },
+  {
+   "source": "Slime Mold Delay",
+   "target": "Particle Synthesis",
+   "op": "retype",
+   "proposed_label_or_type": "mirrors[elements-without-intelligence]",
+   "verdict": "PASS",
+   "reason": "Slime Mold Delay.md:114 'both are population-based instruments where individual elements have no intelligence and the system has plenty' is same-pattern-different-material; deepens mis-pointed.",
+   "better": ""
+  },
+  {
+   "source": "Generative Sample Libraries",
+   "target": "Shepard Tone Synthesizer",
+   "op": "retype",
+   "proposed_label_or_type": "connects-to[timbral-source]",
+   "verdict": "PASS",
+   "reason": "Generative Sample Libraries.md:269,297 makes Shepard a source multisampled into GSL's shepard-instrument; GSL does not elaborate Shepard, so deepens is wrong and connects-to[timbral-source] is honest.",
+   "better": ""
+  },
+  {
+   "source": "Generative Audio Devices",
+   "target": "Preset Oracle",
+   "op": "retype",
+   "proposed_label_or_type": "mirrors[same-prompt-different-maker]",
+   "verdict": "FAIL",
+   "reason": "The reader states 'Neither page says this'; Generative Audio Devices.md body never names Preset Oracle and Preset Oracle.md never names GAD, so the new label is invented and the held mirror has no reason on either page.",
+   "better": "cut"
+  },
+  {
+   "source": "Metric Modulation",
+   "target": "Frequency-Time Duality",
+   "op": "label",
+   "proposed_label_or_type": "deepens[tempo-ratio-is-an-interval]",
+   "verdict": "FAIL",
+   "reason": "Label invented by the reader ('absent from both pages'): Metric Modulation.md body never names Frequency-Time Duality and FTD never names Metric Modulation; the 3/2-as-a-fifth find is real but unwritten.",
+   "better": "cut (return when a body sentence exists)"
+  },
+  {
+   "source": "Bayesian Granular Synthesizer",
+   "target": "Granular Synthesis",
+   "op": "new",
+   "proposed_label_or_type": "exemplifies[probability-steers-the-cloud]",
+   "verdict": "FAIL",
+   "reason": "Bayesian Granular Synthesizer.md:67 names Neural Granular Synthesis, not Granular Synthesis, and Granular Synthesis.md never mentions Bayesian; the reader is filling the hub's gap rather than reading it.",
+   "better": "none"
+  },
+  {
+   "source": "LDN RTM",
+   "target": "AuK",
+   "op": "new",
+   "proposed_label_or_type": "contradicts[stumble-or-repair]",
+   "verdict": "FAIL",
+   "reason": "Neither LDN RTM.md nor AuK.md mentions the other, and the reader conditions the tension on a use Loudon may never make; manufactured contradiction.",
+   "better": "none"
+  },
+  {
+   "source": "Particle Synthesis",
+   "target": "Neural Granular Synthesis",
+   "op": "label",
+   "proposed_label_or_type": "connects-to[grain-cloud-sibling]",
+   "verdict": "FAIL",
+   "reason": "The link is not unlabelled: Particle Synthesis.md:13 already carries connects-to[designed-vs-learned], which quotes its own forward vector (:111 'can particle behavior be learned rather than designed?'); the generic sibling label is a downgrade.",
+   "better": "keep connects-to[designed-vs-learned]"
+  },
+  {
+   "source": "Biomechanical Synthesis",
+   "target": "Neural Granular Synthesis",
+   "op": "label",
+   "proposed_label_or_type": "connects-to[firing-rate-becomes-grain-rate]",
+   "verdict": "PASS",
+   "reason": "Biomechanical Synthesis.md:119 'The neural firing rate becomes the grain rate' carries it, but the link already reads connects-to[firing-rate-as-grain-rate], so this is a no-op.",
+   "better": "keep firing-rate-as-grain-rate (already on the link)"
+  },
+  {
+   "source": "Action Potential Oscillator",
+   "target": "Frequency-Time Duality",
+   "op": "retype",
+   "proposed_label_or_type": "connects-to[refractory-sets-the-ceiling]",
+   "verdict": "FAIL",
+   "reason": "Action Potential Oscillator.md frontmatter carries no FTD link; the pair's only link is FTD's connects-to[single-cycle-scale] -> APO, which echoes APO.md:102 ('frequency-time duality effects operating at the single-cycle scale'); cutting it as the 'reverse' would leave the pair unlinked.",
+   "better": "keep FTD's connects-to[single-cycle-scale]"
+  },
+  {
+   "source": "Piano String Inharmonicity",
+   "target": "Frequency-Time Duality",
+   "op": "retype",
+   "proposed_label_or_type": "connects-to[partials-and-impulse-response]",
+   "verdict": "PASS",
+   "reason": "Piano String Inharmonicity.md:160 frames it as one system seen two ways, not one pattern in two materials, so mirrors is wrong; FTD's own subject (rate thresholds) is not what Piano String instances, so connects-to plus label is the honest type.",
+   "better": ""
+  },
+  {
+   "source": "1 from 2",
+   "target": "Symbiotic Skills",
+   "op": "retype",
+   "proposed_label_or_type": "mirrors[fiction-and-curriculum]",
+   "verdict": "FAIL",
+   "reason": "The reader adds 'the reason neither page states': 1 from 2.md never names Symbiotic Skills and Symbiotic Skills.md names 1 from 2 only in frontmatter (:25).",
+   "better": "cut"
+  },
+  {
+   "source": "1 from 2",
+   "target": "Trickster",
+   "op": "label",
+   "proposed_label_or_type": "connects-to[sun-wukong-avatar]",
+   "verdict": "FAIL",
+   "reason": "1 from 2.md frontmatter carries no Trickster link; the held link is Trickster's connects-to[ai-as-trickster] -> 1 from 2, already labelled and backed by Trickster.md:118, so there is nothing unlabelled to retype.",
+   "better": "keep Trickster's connects-to[ai-as-trickster]"
+  },
+  {
+   "source": "Crystal Synthesizer",
+   "target": "Quantum Synthesizer",
+   "op": "retype",
+   "proposed_label_or_type": "mirrors[confinement-chooses-the-partials]",
+   "verdict": "FAIL",
+   "reason": "The reader concedes 'no sentence on either page': Crystal Synthesizer.md never names Quantum and Quantum never names Crystal; the confinement mirror is the reader's synthesis.",
+   "better": "cut"
+  },
+  {
+   "source": "SMPTE LTC",
+   "target": "Frequency-Time Duality",
+   "op": "label",
+   "proposed_label_or_type": "connects-to[time-written-as-frequency]",
+   "verdict": "FAIL",
+   "reason": "Not unlabelled: SMPTE LTC.md:17 already carries connects-to[time-in-frequency-space], taken from its own sentence at :64; the softer label moves away from the page's words.",
+   "better": "keep time-in-frequency-space"
+  },
+  {
+   "source": "Compressor Design",
+   "target": "Retrospective Delay",
+   "op": "retype",
+   "proposed_label_or_type": "mirrors[one-buffer-two-time-scales]",
+   "verdict": "PASS",
+   "reason": "Compressor Design.md:44 'One primitive at two time scales — below perception here, fully perceptual there' is a mirror; couples-with overclaims.",
+   "better": ""
+  },
+  {
+   "source": "Swarm Weave",
+   "target": "Palace Enchantment",
+   "op": "retype",
+   "proposed_label_or_type": "enables[correct-before-alive]",
+   "verdict": "PASS",
+   "reason": "Palace Enchantment.md:76 'The [[Swarm Weave]] is the precondition. Enchantment is the life it enables.' (and Swarm Weave.md:357); enables points forward from precondition, one link replaces spawned + emerged-from.",
+   "better": ""
+  },
+  {
+   "source": "Loudon Live",
+   "target": "2D Torus Wavetable Synthesizer",
+   "op": "retype",
+   "proposed_label_or_type": "connects-to[signature-instrument-candidate]",
+   "verdict": "PASS",
+   "reason": "connects-to is right (couples-with overclaims), but the label 'signature-instrument-candidate' appears on neither page; the page's own reason is Loudon Live.md:100 'The instrument teaches while it sounds'.",
+   "better": "connects-to[teaches-while-it-sounds]"
+  },
+  {
+   "source": "Inharmonic Wavetable Synthesis",
+   "target": "2D Torus Wavetable Synthesizer",
+   "op": "retype",
+   "proposed_label_or_type": "mirrors[two-routes-to-stretch]",
+   "verdict": "FAIL",
+   "reason": "The reader admits the Inharmonic body is silent; 2D Torus never names Inharmonic Wavetable Synthesis either, and the triangulation sentence lives on a third page (Waveguide Synthesizer).",
+   "better": "cut"
+  },
+  {
+   "source": "Floquet Time-Modulated Loops",
+   "target": "Bessel Functions in Synthesis",
+   "op": "label",
+   "proposed_label_or_type": "connects-to[fm-is-a-floquet-system]",
+   "verdict": "PASS",
+   "reason": "Floquet Time-Modulated Loops.md:270 'FM is a Floquet system whose modulation spectrum happens to be Bessel-shaped'; the held label fm-as-floquet already says this, so near no-op.",
+   "better": ""
+  },
+  {
+   "source": "Portamento and Physical Pitch Modeling",
+   "target": "Bessel Functions in Synthesis",
+   "op": "label",
+   "proposed_label_or_type": "connects-to[circular-resonator-modes]",
+   "verdict": "PASS",
+   "reason": "Portamento and Physical Pitch Modeling.md:256-258 'The mode structure of a circular or nearly-circular resonator (bell, gong, drum) is governed by Bessel function zeros' carries the label.",
+   "better": ""
+  },
+  {
+   "source": "Loudon Live",
+   "target": "Retrospective Delay",
+   "op": "label",
+   "proposed_label_or_type": "connects-to[interface-mythology]",
+   "verdict": "PASS",
+   "reason": "Loudon Live.md:102 names Retrospective Delay for its 'dub-lineage interface mythology'; the link already carries interface-mythology, so no change.",
+   "better": ""
+  },
+  {
+   "source": "Generative Wavetable Libraries",
+   "target": "Floquet Time-Modulated Loops",
+   "op": "new",
+   "proposed_label_or_type": "connects-to[floquet-sideband-table]",
+   "verdict": "FAIL",
+   "reason": "Evidence is workshop files (floquet-modes/BUILD.md, generate_floquet.py) that point at [[Floquet Theory]], a different page; neither Generative Wavetable Libraries.md nor Floquet Time-Modulated Loops.md names the other in prose.",
+   "better": "none"
+  },
+  {
+   "source": "Generative Preset Development",
+   "target": "Generative Wavetable Libraries",
+   "op": "new",
+   "proposed_label_or_type": "connects-to[preset-meets-wavetable]",
+   "verdict": "FAIL",
+   "reason": "Generative Preset Development.md:206 names Generative Sample Libraries, not GWL, and GWL never names GPD; the link depends on an edit that has not been made.",
+   "better": "none until the sentence is retargeted"
+  },
+  {
+   "source": "Blood Compressor",
+   "target": "VST Template",
+   "op": "new",
+   "proposed_label_or_type": "connects-to[plugin-in-template-shape]",
+   "verdict": "FAIL",
+   "reason": "Blood Compressor.md never names VST Template (only 'Port to VST/AU' at :99) and VST Template.md never names Blood Compressor; the sentence exists only as a proposed tuning item.",
+   "better": "none until the sentence lands"
+  },
+  {
+   "source": "Compression ↔ Intimacy",
+   "target": "Sidechain ↔ Conversation",
+   "op": "retype",
+   "proposed_label_or_type": "mirrors[four-knobs-as-relation]",
+   "verdict": "PASS",
+   "reason": "Compression ↔ Intimacy.md:80-92 and its Sidechain section (:214-224) map the compressor's controls onto a human variable as Sidechain ↔ Conversation.md:102-104 does; mirrors fits, couples-with does not.",
+   "better": ""
+  },
+  {
+   "source": "Compression ↔ Intimacy",
+   "target": "Reverb ↔ Space-Time",
+   "op": "new",
+   "proposed_label_or_type": "connects-to[two-distance-cues]",
+   "verdict": "FAIL",
+   "reason": "Neither page names the other: Compression ↔ Intimacy.md:171-173 uses 'Large reverb' in one exercise and Reverb ↔ Space-Time.md:196-197 calls a small room intimate, but the 'two distance cues' bridge is the reader's; a real find that needs a sentence first.",
+   "better": "none until a body sentence exists"
+  },
+  {
+   "source": "Quantization ↔ Precision vs Flow",
+   "target": "Found ↔ Made",
+   "op": "new",
+   "proposed_label_or_type": "exemplifies[impose-or-surrender]",
+   "verdict": "FAIL",
+   "reason": "Found ↔ Made.md never mentions quantization, and its floor (:39-43) says both poles are fidelity to given structure, so 'imposing will' is not its Made pole; Quantization's own poles (Rubin and Eno, :284-294) both sit on the surrender side.",
+   "better": "none"
+  },
+  {
+   "source": "Quantization ↔ Precision vs Flow",
+   "target": "Meadows and Music — Leverage Points",
+   "op": "new",
+   "proposed_label_or_type": "connects-to[tempo-sets-resolution]",
+   "verdict": "FAIL",
+   "reason": "Neither page names the other: Meadows and Music § Swing as Resolution (:221-266) makes the tempo claim and Quantization ↔ Precision vs Flow.md:135 lists genre, skill and intent; joining them is the reader's synthesis.",
+   "better": "none until a body sentence exists"
+  },
+  {
+   "source": "Excellent Adventure",
+   "target": "Modes of Collaboration",
+   "op": "retype",
+   "proposed_label_or_type": "member-of[flagship-mode]",
+   "verdict": "PASS",
+   "reason": "member-of is right for a catalogued mode and matches Dialectic, Oblique Portrait and Philosopher Visits the Entry; but 'flagship' appears on no page except the label itself.",
+   "better": "member-of[named-mode]"
+  },
+  {
+   "source": "Dialectic",
+   "target": "Palace Philosophies",
+   "op": "retype",
+   "proposed_label_or_type": "enables[yields-philosophy-entries]",
+   "verdict": "PASS",
+   "reason": "enables Dialectic -> Palace Philosophies fits Dialectic.md:92 (the Fire at Nicopolis produced The Fortress and the Threshold, Stoicism, Confucianism); note the link is not bare (it reads contradictions-dispatched-here) and Palace Philosophies' reverse connects-to is already gone.",
+   "better": ""
+  }
+ ],
+ "fabricated_quotes": [],
+ "summary": "19 of 40 pass. No fabricated quotes: every evidence quote is on its page, though several are paraphrased (Cage 'let the sounds be themselves', LDN RTM 'A 250-video catalog', Alexander 'real property, measurable in principle') and line numbers drift by a few. The failures fall into three groups. First, labels or retypes on links the reader admits no page explains (Ozu-Cage, GAD-Preset Oracle, Metric Modulation-FTD, 1 from 2-Symbiotic Skills, Crystal-Quantum, Inharmonic-Torus): by the weave's own rule these are cuts, not relabels. Second, new links neither page names, built from dossiers, diaries, workshop files, a sentence not yet written, or the reader's own synthesis (Cameron-Alexander, Marcus-Meadows, Eno-question, Bayesian-Granular, LDN RTM-AuK, GWL-Floquet, GPD-GWL, Blood Compressor-VST Template, Compression-Reverb, Quantization-Found/Made, Quantization-Meadows and Music); several are good finds that should come back once a body sentence carries them. Third, stale reads of the frontmatter: proposals that call a labelled link 'unlabelled' (Particle-NGS, SMPTE-FTD) or act on an edge that lives on the other page (APO-FTD, 1 from 2-Trickster), one of which would cut the pair's only link. The passes are mostly retypes away from couples-with and misdirected deepens, where the page sentence plainly gives the type."
+}

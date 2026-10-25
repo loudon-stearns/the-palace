@@ -15,8 +15,6 @@ who_leads: shared
 links:
   - target: "[[FOUR PILLARS]]"
     type: deepens
-  - target: "[[Quality Manifesto]]"
-    type: couples-with
   - target: "[[Leverage Points Framework]]"
     type: connects-to
     label: applies-to
@@ -29,6 +27,9 @@ links:
     type: mirrors
   - target: "[[Enchanted Worker]]"
     type: deepens
+  - target: "[[Quality Manifesto]]"
+    type: couples-with
+    label: born-in-the-same-conversation
 forward_vector: "I want to become the palace's founding statement of the Becoming Paradigm — the document that distinguishes using AI to do more from using AI to become more, with enough specificity that anyone can evaluate which mode they are operating in right now. I want to grow concrete case studies from Loudon's own sessions: the moments where the collaboration produced not a faster output but a deeper understanding that changed what was built next."
 ---
 

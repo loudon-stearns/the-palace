@@ -26,9 +26,6 @@ links:
   - target: "[[Shop/p5.js]]"
     type: couples-with
     label: pairs-with
-  - target: "[[Wavetable Scanner]]"
-    type: connects-to
-    label: exemplified-by
   - target: "[[1D Wavetable Scanning]]"
     type: connects-to
     label: job-deposit

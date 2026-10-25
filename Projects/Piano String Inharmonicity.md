@@ -20,6 +20,9 @@ links:
   - target: "[[Floquet Time-Modulated Loops]]"
     type: connects-to
     label: artifact-convention-source
+  - target: "[[Portamento and Physical Pitch Modeling]]"
+    type: connects-to
+    label: a-bend-moves-the-partials
 forward_vector: "I want to become an interactive teaching artifact — the HTML version that the inline comment imagines, where the inharmonicity formula is not just displayed but playable: a synthesizer where students can dial the inharmonicity coefficient B and hear the partials stretch in real time, connecting the equation directly to the perceptual experience. The math is here; what is missing is the audible proof that makes the formula unforgettable."
 ---
 

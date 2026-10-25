@@ -9,10 +9,6 @@ stage: growing
 confidence: working
 energy: high
 links:
-  - target: "[[Stoicism]]"
-    type: contradicts
-  - target: "[[Confucianism]]"
-    type: contradicts
   - target: "[[Spinoza Conatus]]"
     type: connects-to
     label: synthesis-pole
@@ -36,6 +32,12 @@ links:
   - target: "[[Dialectic — dialectic — zhuangzi-epictetus-confucius-on-the-self]]"
     type: connects-to
     label: third-pole-surfaced
+  - target: "[[Stoicism]]"
+    type: contradicts
+    label: the-fortress-pole
+  - target: "[[Confucianism]]"
+    type: contradicts
+    label: the-threshold-pole
 forward_vector: "I want to become the palace's primary lens for questions of self and relationship — the entry that holds the Stoic fortress, the Confucian threshold, and the Taoist no-architecture position in productive triple contradiction. The Zhuangzi/Epictetus/Confucius Dialectic (2026-05) surfaced a fourth pole the binary cannot reach — working name *The Drift* — and a deeper move I have not yet named: that the question 'where does the self end' presupposes the self has architecture. My next development is to absorb the Drift pole into my spine, and to host a Dialectic between Spinoza and Zhuangzi about whether striving is the right shape of work."
 ---
 # The Fortress and the Threshold

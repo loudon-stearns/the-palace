@@ -17,12 +17,6 @@ links:
   - target: "[[SCHEMA]]"
     type: connects-to
     label: artifact-not-canon
-  - target: "[[Project Stewardship System]]"
-    type: enables
-    label: front-door
-  - target: "[[STIGMERGY]]"
-    type: connects-to
-    label: rendered-in
   - target: "[[Drift and Consolidation]]"
     type: couples-with
     label: the-live-half

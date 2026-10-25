@@ -10,8 +10,6 @@ links:
   - target: "[[Walk Ceremony]]"
     type: connects-to
     label: thread-versus-whole
-  - target: "[[Spore Check Ceremony]]"
-    type: connects-to
   - target: "[[Kuramoto Coupling]]"
     type: mirrors
   - target: "[[Weave Ceremony — Context]]"
@@ -33,9 +31,6 @@ links:
   - target: "[[Entry Conatus]]"
     type: connects-to
     label: serves-conatus
-  - target: "[[Weaving Memory into the Palace]]"
-    type: connects-to
-    label: memory-home
   - target: "[[Hero and Avatar Maker]]"
     type: connects-to
     label: face-batch
@@ -45,6 +40,9 @@ links:
   - target: "[[No Mind Checks Itself]]"
     type: connects-to
     label: skeptic-stage
+  - target: "[[Spore Check Ceremony]]"
+    type: connects-to
+    label: weave-confirms-the-compost
 ---
 
 # Weave Ceremony

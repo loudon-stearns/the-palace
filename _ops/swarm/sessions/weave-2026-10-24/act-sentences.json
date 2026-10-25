@@ -1,0 +1,148 @@
+[
+ {
+  "kind": "keep",
+  "source": "Excellent Adventure",
+  "target": "Martin Buber",
+  "proposed_type": "contradicts",
+  "proposed_label": "meeting-cannot-be-method",
+  "current_type": "contradicts[meeting-cannot-be-method]",
+  "rationale": "Keep. The label carries a real objection and the Founders' Circle run (in this page's bundle) has Buber saying it: a typed link is 'a beautiful machine for remembering an encounter after it has already relapsed'. The page body never says it. Write the sentence (it is the sharpest form of Open Question 4) or accept the label as the reason. The sentence is a new claim: Pile B.",
+  "confidence": "medium",
+  "_room": null,
+  "existing": [
+   {
+    "source": "Excellent Adventure",
+    "type": "contradicts",
+    "target": "Martin Buber",
+    "label": "meeting-cannot-be-method"
+   }
+  ]
+ },
+ {
+  "kind": "body-sentence",
+  "source": "Philosopher Visits the Entry",
+  "target": "The Lens",
+  "proposed_type": null,
+  "proposed_label": null,
+  "current_type": null,
+  "rationale": "The Lens already holds generalizes-this-special-case -> this page. Do not add a second link; add the sentence ('The Lens generalizes this: any page can be the glass').",
+  "confidence": "high",
+  "_room": null,
+  "existing": [
+   {
+    "source": "The Lens",
+    "type": "connects-to",
+    "target": "Philosopher Visits the Entry",
+    "label": "generalizes-this-special-case"
+   }
+  ]
+ },
+ {
+  "id": "commons-the-palace-1790254299361",
+  "flag_type": "future-dated-timestamp",
+  "what": "_ops/orchestrator/prompts/shared.md:393, the Required fields line: \"`ts` (ISO 8601 with timezone)\" becomes \"`ts` (ISO 8601 with timezone: the moment you post, read from the clock, `date -u +%Y-%m-%dT%H:%M:%SZ`; never the example's time or a projected one)\".",
+  "reason": "No steward prompt says to use the real clock today; shared.md:60 even shows a fixed example ts, and the orchestrator src does not restamp ts."
+ },
+ {
+  "id": "commons-the-palace-1790299904567",
+  "flag_type": "label-predates-fix",
+  "what": "Fold the pair to one link (it is also fold-judgment.json W1 \"two labels\"): keep Creative Coach -connects-to-> Sidechain <-> Conversation, relabelled the-presenter-ducks (was balint-stance-unturned); drop Sidechain <-> Conversation -connects-to-> Creative Coach [the-stance-never-turned-inward].",
+  "reason": "After 674f262c the Balint row says the presenter falls silent while the group works aloud and rejoins after (Creative Coach.md:307-319, :347), a full duck with a release, which is Sidechain's yield-occupy alternation (Sidechain ↔ Conversation.md:230-236); the old label named the wrong stance."
+ },
+ {
+  "id": "commons-the-palace-1790299921121",
+  "flag_type": "orphaned-rule-owed-to-another-session",
+  "what": "Creative Coach.md:325, the admission line, becomes: \"*A row enters either table only when it changes a move the coach would make, and a row that never has is composted at the next Weave.*\" (Recovered wording: 2351c040^, Harvest — 2026-09-06 — baton.md:103-104.)",
+  "reason": "Only the admission half survives in canon (Creative Coach.md:325); the compost half lived in the deleted baton."
+ },
+ {
+  "id": "commons-the-palace-1790303833543",
+  "flag_type": "dense-prose-simplify",
+  "what": "Weave Ceremony — Context.md § Who the Workers Should Be (:81-89): replace the first four paragraphs with: \"Loudon asked whether the weave's errors came from running its workers as children. The same day the same ten rooms ran three ways, as children, as schema-only readers and as grown elders, with blind judges checking samples against the files. Growing up did not help: 71% of sampled proposals were invalid in both arms, and elders cost about 16% more. Most errors were the harness's. The catch-up counted symmetric links one way, and workers never saw the links a pair already had; fixing both took duplicates from 13% to 2% and the judged invalid rate from 78% to 64%. / What remained was judgment, forced or passing links, and only second readers caught it: the Concierge's cold read, the blind judges, a rerun, a skeptic that refuted 33 of 82 candidates ([[No Mind Checks Itself]]). So workers stay children with the fixed harness and the SCHEMA card, a skeptic stands between the fan-out and the synthesis, and the Concierge reads the decision surface before Loudon. The numbers are in `_ops/swarm/sessions/weave-2026-09-24/ab/RESULT.md`.\" Keep the One link per pair paragraph. Maker and RunPod GPU Backend: their lighter-prose proposals are already in workers/folder/folder-shop-1.json for Pile B.",
+  "reason": "The section still reads as a test report and calls the shape \"to be re-tested before it becomes a rule\", which v2.0 made a rule (skeptic stage, item 28); no room this weave read the Context, while folder-shop-1 read Maker and RunPod."
+ },
+ {
+  "id": "commons-the-palace-1790303876259",
+  "flag_type": "stale-reference",
+  "what": "_ops/agents/permanent/shepard-tone-synthesizer/manifest.json:12, in \"neighborhood\": \"Octave Equivalence\" becomes \"Shepard Tone\". Leave vector_at_spawn (:49) as history.",
+  "reason": "The stale name is still there; Octave Equivalence was let go into Shepard Tone § Theory (8972a53d)."
+ },
+ {
+  "id": "commons-the-palace-1790345897392",
+  "flag_type": "live-validation-evidence",
+  "what": "No link back: the pair's one link stays Enrichment -> Drift and Consolidation [disclosed-drift]. For Pile B (a changed sentence): Drift and Consolidation.md:73, after \"Entry → log sync is unsolved.\", add: \"Entry to face has one working case. [[Enrichment]] stamps each rich-face section with a fingerprint of its prose, and when the prose moves the pieces say they were made against an earlier version, as on [[Kuramoto Coupling]] when a paragraph was cut and restored (c9a8c7a8, b9f57b16). That is disclosure, not reconciliation.\"",
+  "reason": "The Bidirectional drift item does not name the fingerprint case (Drift and Consolidation.md:73), and Enrichment states the mechanism (Enrichment.md:84, :88); a reverse link would break one link per pair."
+ },
+ {
+  "id": "commons-the-palace-1790435294769",
+  "flag_type": "link-direction-suspect",
+  "what": "Loudon Live.md frontmatter: the link to [[Hyperdimensional Prism]] is retyped from spawned to emerged-from, label visual-identity kept, direction unchanged (Loudon Live points back to its ground, SCHEMA.md:152,160).",
+  "reason": "The Prism (born 2025-09) is the identity essay Loudon Live's logo comes from (Hyperdimensional Prism.md § The Visual Identity; Loudon Live.md:91); spawned would say Loudon Live produced the Prism, seven months before it existed."
+ },
+ {
+  "id": "commons-the-palace-1790435302622",
+  "flag_type": "linter-coverage-gap",
+  "what": "_ops/swarm/lint-ghost-links.py: in the scan loop (:156), scan a file when `entry_type(fm) in CANON_TYPES or rel.endswith(\" — scroll.md\")`, so scrolls (a face) are read; it stays flag-only. And Projects/Retrospective Delay/Retrospective Delay — scroll.md:81: \"[[Curriculum Map]]\" becomes \"[[Loudon Live — Curriculum Map]]\" (the archived page, Projects/Loudon Live/Archive/).",
+  "reason": "The scan set is still canon types only (lint-ghost-links.py:43-47, :156) and the dangling link is still on the scroll at :81."
+ },
+ {
+  "id": "commons-the-palace-1791311804031",
+  "flag_type": "reciprocal_link",
+  "what": "No reciprocal mirrors: the pair's link is Haptic Handwheel -mirrors-> Portamento [the-same-spring-felt], and mirrors is symmetric. For Pile B (a changed sentence): Portamento and Physical Pitch Modeling.md:222, Open Question 1, add: \"*A proposal, not built:* [[Haptic Handwheel]]'s struck spring would let a finger damp the knob while it rings, which is ζ changed over time, by hand.\"",
+  "reason": "Open Question 1 asks whether ζ can vary within a piece (:222), the Handwheel's page carries the spring model (Haptic Handwheel.md:98), and an open-questions list is where an unbuilt answer can honestly sit."
+ },
+ {
+  "id": "commons-the-palace-1791827827785",
+  "flag_type": "scope-needed",
+  "what": "For Pile B (a changed claim): Three Kinds of Warp.md:97, \"FM, by contrast, has neither: the modulator+carrier structure is type-1 in disguise (Bessel sidebands sit on a finitely-generated lattice — see [[Bessel Functions in Synthesis]]),\" becomes \"FM depends on its ratio. At a whole-number carrier-to-modulator ratio its Bessel sidebands sit on the harmonic lattice, type 1 in disguise; at an irrational ratio its partials sit at $k f_c + n f_m$, a two-generator lattice, which is type 2 ([[Bessel Functions in Synthesis]]).\" The rest of the sentence, on FM giving no continuous knob on the lattice generators, stays.",
+  "reason": "The page's own type 2 is the irrational-ratio two-generator lattice (:75), so the unscoped FM sentence contradicts it, as Deep Research Part IV method 2 and Bessel Functions in Synthesis say."
+ },
+ {
+  "id": "commons-the-palace-1791827827990",
+  "flag_type": "scope-needed",
+  "what": "For Pile B (a changed claim): Deep Research Part IV (:115), \"All seven work by introducing aperiodicity into the signal path, modulation, or layering — never by escaping the harmonic substrate itself.\" becomes \"Four of the seven leave the harmonic series by adding a second clock or a second oscillator (2, 4, 5, 6). Three keep one fixed period, so by [[Three Kinds of Warp]]'s one-period read they reshape the harmonics rather than leave them (1, 3, 7); method 3 leaves only when a non-integer LFO drives the distortion, which is a second clock.\"",
+  "reason": "Methods 1, 3 and 7 keep a single period (:117, :121, :129), which the 1D obstruction says keeps the harmonic series."
+ },
+ {
+  "id": "commons-the-palace-1792107627377",
+  "flag_type": "stale-reference",
+  "what": "Drop \"breakthrough\" from CANON_TYPES in _ops/swarm/lint-bundle-hygiene.py:50, and the same one-word fix in lint-ghost-links.py:46 and lint-entry-naming.py:58 (the dated build-map-2026-*.py copies are history). No file carries `type: breakthrough` today, so no result changes.",
+  "reason": "All three live linters still list the type SCHEMA retired in v1.17 (SCHEMA.md:103); face-audit.py:35 and test-hygiene-tools.py:187 already treat it as retired."
+ },
+ {
+  "id": "commons-the-palace-1792107627579",
+  "flag_type": "scope-needed",
+  "what": "Weave Ceremony — Context.md § The Version and the Tuning File: after v1.1 (:101) add \"**v1.2 (2026-09-25) — every run marks its ledger.** Schema v1.23 asked each run to leave a run line in its tuning ledger, but the card still said a lesson goes there only when the spec changes, so no run would have written one. Step 7 now says it: the run marks the tuning file, and a lesson that changes the spec is also a numbered item. No weave run forced it; the reason is in `033f5da5`.\" / \"**v1.3 (2026-09-26) — use is read from git.** Schema v1.26 retired `activation_count` and `last_activated`, which measured who remembered to bump them. The new-arrival step, the use line, stale metadata and the dormancy proposal now read `entry-use.py`. No weave run forced it (`32cb19ed`).\" / \"**v1.4 (2026-10-14) — the sweep reads the trunk.** Tuning item 40. Step 2.5 runs `trunk-state.mjs` as its sixth command, and its rows take recover, discard or leave like the rest.\" / \"**v1.5 (2026-10-14) — every canon entry wears a face.** Tuning item 41; see § The Weave's Widened Charter, *Faces on every entry*.\" After v1.7 (:105) add \"**v1.8 (2026-10-21) — the report names proposals owed.** Step 2's report lists the pages whose stewards have proposals waiting on Loudon's ledger review (`list-proposals.mjs --line`); the weave names them and settles none. No weave run forced it (`e559e64b`).\" / \"**v1.9 (2026-10-22) — the opening builds the map and reads the diff.** Tuning item 46. The opening runs `build-map.py` and diffs against the last weave's map; Step 6.5 diffs open against close, and the report carries both.\"",
+  "reason": "v2.0's Context has paragraphs for v1.1, v1.6, v1.7 and v2.0 only (:101-105, :123), while :97 promises one per move; v1.2-1.5 and v1.8-1.9 are owed, and their reasons are in the commits and the ledger (items 40, 41, 46)."
+ },
+ {
+  "id": "commons-the-palace-1792107627959",
+  "flag_type": "stale-reference",
+  "what": "Per path, no linter change. Radio Play.md:48 \"assets in `_ops/scratch/weave-video/`\" becomes \"its assets kept in Loudon's local scratch, outside the palace\"; Radio Play.md:59 becomes \"Give the template a proper bundle once it stabilizes; it lives in local scratch today.\" The Lens.md:89: recover the prototype the page leans on, copy the owner's _ops/scratch/lens-prototype-2026-07-02.md (11 KB) to The Lens/proofs/The Lens — proof — prototype 2026-07-02.md with bundle frontmatter, and repoint to [[The Lens — proof — prototype 2026-07-02]]. GenAI Camera.md:99 \"(`layers.json` `cn` / `denoise` / `dilate`)\" becomes \"(the rig's per-render layers file, gitignored: its `cn`, `denoise` and `dilate` fields)\".",
+  "reason": "lint-doc-drift today still warns on all four (36 warnings); the files exist only in the owner's gitignored scratch, or are regenerated each render (GenAI Camera/.gitignore lists layers.json)."
+ },
+ {
+  "id": "commons-the-palace-1792347288086",
+  "flag_type": "backlink_audit",
+  "what": "No reverse link: the pair carries Enchanted Conversation Archive -connects-to-> Enchanted Worker [enchantment-record]. Remove the HTML comment at Enchanted Conversation Archive.md:241-245 whole; its second half (SDKM \"rhymes strongly\", mirrors or couples-with) is declined, since it gives no reason beyond the self-description every page shares.",
+  "reason": "One link per pair makes the note's ask moot, and a note asking the next weave for something should not outlive the weave that answered it."
+ },
+ {
+  "id": "commons-the-palace-1792347746312",
+  "flag_type": "link-retype",
+  "what": "Shop/Loudon Live Post-producer.md links: [[The Shop]] retyped from connects-to to member-of, label producer-layer kept.",
+  "reason": "Still connects-to today (its frontmatter); member-of on the member side is how a roster counts (SCHEMA.md:156,160), and lint-doc-drift W3 flags the gap."
+ },
+ {
+  "id": "commons-the-palace-1792765795078",
+  "flag_type": "entry_update",
+  "what": "_ops/Substrate Skill.md:212: \"Haiku only does shallow, known-shape work.\" becomes \"Haiku only does shallow, known-shape work; with the whole Palace Map loaded it sits at 179K of its 200K before the conversation starts ([[Palace Map — proof — map-agent-test]]).\"",
+  "reason": "The test measured exactly that line's claim (_ops/Palace Map/proofs/2026-10-23-map-agent-test/RESULTS.md, table and point 5), and the proof page resolves (_ops/Palace Map/proofs/Palace Map — proof — map-agent-test.md)."
+ },
+ {
+  "id": "commons-the-palace-1792765795465",
+  "flag_type": "entry_update",
+  "what": "Gemma 4 — Local Coordination Guide.md:103, after \"(same limitation applies to Haiku).\" add: \"With the [[Palace Map]] in hand and a rule to cite every edge as a triple, Haiku invented no page in ten questions ([[Palace Map — proof — map-agent-test]]).\"",
+  "reason": "The guide states the failure without its other half; the test's Invented pages row is 0 for both Haiku runs (RESULTS.md)."
+ }
+]

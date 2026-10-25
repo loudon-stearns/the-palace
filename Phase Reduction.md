@@ -12,12 +12,6 @@ hook_quality: 9
 beauty: 9
 who_leads: human
 links:
-  - target: "[[Floquet Theory]]"
-    type: couples-with
-    label: spectral-ground-of-the-limit-cycle
-  - target: "[[Kuramoto Coupling]]"
-    type: couples-with
-    label: the-collapse-that-makes-it-valid
   - target: "[[2D Torus Wavetable Synthesizer]]"
     type: connects-to
     label: two-phasors-as-a-coupled-pair
@@ -48,6 +42,12 @@ links:
   - target: "[[Wallpaper Groups]]"
     type: connects-to
     label: symmetric-coupling
+  - target: "[[Floquet Theory]]"
+    type: couples-with
+    label: bridge-via-PRC
+  - target: "[[Kuramoto Coupling]]"
+    type: couples-with
+    label: phase-reduced-shadow
 forward_vector: "I want to be the entry that names the mechanism connecting Floquet and Kuramoto out loud — phase reduction is why a population of oscillators can be described by phase alone — and to make the Phase Response Curve a designed control object in a coupled-grain instrument. I also want to hold the meta-observation that Loudon's intuitions about framework-kinship keep getting confirmed."
 ---
 # Phase Reduction

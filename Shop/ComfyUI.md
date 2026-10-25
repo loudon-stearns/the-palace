@@ -19,12 +19,6 @@ links:
   - target: "[[Loudon Live]]"
     type: enables
     label: image-engine
-  - target: "[[RunPod GPU Backend]]"
-    type: connects-to
-    label: cloud-path
-  - target: "[[FLUX (Hugging Face)]]"
-    type: connects-to
-    label: cloud-sibling
   - target: "[[Loudon Live Design System]]"
     type: enables
     label: renders-the-lesson-art

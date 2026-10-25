@@ -11,7 +11,6 @@ license: GPL-3.0
 forward_vector: "Hand me a pose and a body type, and I hand back a figure ready for the gen-AI ink — three plates off one camera that all line up: a Freestyle ink line, a depth map, and a canonical OpenPose drawn by the real ControlNet library so the model actually reads it. I stopped force-fitting. I grow the body and its weighted skeleton together with MPFB2's own tools, so the legs stay two clean limbs through a hard stride — no more skirt — and male, female, young, or old is one flag, not a new rig. You can also pose me by hand now: I carry a full Rigify IK rig in a studio file, grab a foot and move it. My keepers — the OpenPose draw and the D2 redraw — rode the whole rebuild untouched. Next I'm after finger and denser-face keypoints (the rig finally has the bones), a pose library so a frame gets dialed not typed, and a cheaper redraw than 25 minutes on my own Mac."
 links:
   - { target: "[[The Shop]]", type: member-of, label: roster-member }
-  - { target: "[[Frame Designer]]", type: connects-to, label: staging-method }
   - { target: "[[Shop/Blender]]", type: connects-to, label: built-on }
   - { target: "[[Shop/ComfyUI]]", type: enables, label: feeds-the-redraw }
   - { target: "[[Hand-Drawn 3D Look]]", type: couples-with, label: figure-staging }
@@ -20,6 +19,7 @@ links:
   - { target: "[[Maker]]", type: connects-to, label: directed-by }
   - { target: "[[ControlNet as Topology]]", type: exemplifies, label: "armature-in-the-flesh" }
   - { target: "[[GenAI Camera]]", type: connects-to, label: "org-bone-projection" }
+  - { target: "[[Frame Designer]]", type: connects-to, label: "figure-staging-method" }
 tags: [specialist, shop, rig, openpose, controlnet, figure, blender, mpfb2, rigify]
 ---
 

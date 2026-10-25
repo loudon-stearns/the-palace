@@ -15,9 +15,6 @@ links:
   - target: "[[Stable Audio Open]]"
     type: connects-to
     label: scores
-  - target: "[[Modes of Collaboration]]"
-    type: connects-to
-    label: the-debrief-reel
   - target: "[[Loudon Live Design System]]"
     type: connects-to
     label: teaching-radio

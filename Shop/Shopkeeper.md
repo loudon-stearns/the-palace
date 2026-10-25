@@ -35,6 +35,9 @@ links:
   - target: "[[CAD Drafter]]"
     type: spawned
     label: drafted-from-a-probe
+  - target: "[[Ableton Session Writer]]"
+    type: spawned
+    label: drafted-in-the-workshop
 ---
 
 # Shopkeeper

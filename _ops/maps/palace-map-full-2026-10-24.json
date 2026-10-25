@@ -2,14 +2,14 @@
   "meta": {
     "generated": "2026-10-24",
     "scope": "full",
-    "node_count": 323,
+    "node_count": 322,
     "use": {
-      "head": "0dba352d",
+      "head": "b7fc35ff",
       "window_days": 90,
       "window_since": "2026-07-26",
       "sweep_threshold": 10
     },
-    "edge_count": 2492,
+    "edge_count": 2374,
     "yaml_errors": [],
     "ghost_taxonomy": {
       "error_ghosts": [],
@@ -188,7 +188,7 @@
         }
       },
       "outbound_count": 6,
-      "inbound_count": 3,
+      "inbound_count": 1,
       "ops_card": false
     },
     {
@@ -210,8 +210,8 @@
           "use": 16
         }
       },
-      "outbound_count": 11,
-      "inbound_count": 23,
+      "outbound_count": 8,
+      "inbound_count": 22,
       "ops_card": false
     },
     {
@@ -257,7 +257,7 @@
         }
       },
       "outbound_count": 7,
-      "inbound_count": 2,
+      "inbound_count": 1,
       "ops_card": false
     },
     {
@@ -279,8 +279,8 @@
           "use": 39
         }
       },
-      "outbound_count": 10,
-      "inbound_count": 1,
+      "outbound_count": 9,
+      "inbound_count": 2,
       "ops_card": false
     },
     {
@@ -302,7 +302,7 @@
           "use": 12
         }
       },
-      "outbound_count": 6,
+      "outbound_count": 5,
       "inbound_count": 21,
       "ops_card": false
     },
@@ -325,7 +325,7 @@
           "use": 6
         }
       },
-      "outbound_count": 6,
+      "outbound_count": 4,
       "inbound_count": 10,
       "ops_card": false
     },
@@ -349,7 +349,7 @@
         }
       },
       "outbound_count": 4,
-      "inbound_count": 3,
+      "inbound_count": 4,
       "ops_card": false
     },
     {
@@ -362,17 +362,17 @@
       "use": {
         "page": 7,
         "bundle": 5,
-        "linked": 19,
-        "use": 31,
+        "linked": 18,
+        "use": 30,
         "recent": {
           "page": 0,
           "bundle": 0,
-          "linked": 2,
-          "use": 2
+          "linked": 1,
+          "use": 1
         }
       },
       "outbound_count": 13,
-      "inbound_count": 9,
+      "inbound_count": 6,
       "ops_card": false
     },
     {
@@ -394,7 +394,7 @@
           "use": 0
         }
       },
-      "outbound_count": 7,
+      "outbound_count": 5,
       "inbound_count": 3,
       "ops_card": false
     },
@@ -533,7 +533,7 @@
         }
       },
       "outbound_count": 3,
-      "inbound_count": 5,
+      "inbound_count": 4,
       "ops_card": false
     },
     {
@@ -556,7 +556,7 @@
         }
       },
       "outbound_count": 9,
-      "inbound_count": 18,
+      "inbound_count": 17,
       "ops_card": false
     },
     {
@@ -578,7 +578,7 @@
           "use": 5
         }
       },
-      "outbound_count": 6,
+      "outbound_count": 5,
       "inbound_count": 9,
       "ops_card": false
     },
@@ -602,7 +602,7 @@
         }
       },
       "outbound_count": 20,
-      "inbound_count": 18,
+      "inbound_count": 17,
       "ops_card": false
     },
     {
@@ -624,7 +624,7 @@
           "use": 22
         }
       },
-      "outbound_count": 6,
+      "outbound_count": 5,
       "inbound_count": 8,
       "ops_card": true
     },
@@ -716,7 +716,7 @@
           "use": 3
         }
       },
-      "outbound_count": 5,
+      "outbound_count": 4,
       "inbound_count": 9,
       "ops_card": false
     },
@@ -808,7 +808,7 @@
           "use": 2
         }
       },
-      "outbound_count": 5,
+      "outbound_count": 4,
       "inbound_count": 30,
       "ops_card": false
     },
@@ -914,17 +914,17 @@
       "use": {
         "page": 2,
         "bundle": 0,
-        "linked": 53,
-        "use": 55,
+        "linked": 54,
+        "use": 56,
         "recent": {
           "page": 2,
           "bundle": 0,
-          "linked": 53,
-          "use": 55
+          "linked": 54,
+          "use": 56
         }
       },
       "outbound_count": 6,
-      "inbound_count": 8,
+      "inbound_count": 9,
       "ops_card": false
     },
     {
@@ -937,13 +937,13 @@
       "use": {
         "page": 30,
         "bundle": 1,
-        "linked": 23,
-        "use": 54,
+        "linked": 22,
+        "use": 53,
         "recent": {
           "page": 14,
           "bundle": 0,
-          "linked": 9,
-          "use": 23
+          "linked": 8,
+          "use": 22
         }
       },
       "outbound_count": 5,
@@ -970,7 +970,7 @@
         }
       },
       "outbound_count": 3,
-      "inbound_count": 0,
+      "inbound_count": 1,
       "ops_card": false
     },
     {
@@ -1016,7 +1016,7 @@
         }
       },
       "outbound_count": 5,
-      "inbound_count": 3,
+      "inbound_count": 4,
       "ops_card": false
     },
     {
@@ -1052,17 +1052,17 @@
       "use": {
         "page": 17,
         "bundle": 24,
-        "linked": 62,
-        "use": 103,
+        "linked": 61,
+        "use": 102,
         "recent": {
           "page": 11,
           "bundle": 16,
-          "linked": 20,
-          "use": 47
+          "linked": 19,
+          "use": 46
         }
       },
-      "outbound_count": 17,
-      "inbound_count": 22,
+      "outbound_count": 15,
+      "inbound_count": 18,
       "ops_card": false
     },
     {
@@ -1107,7 +1107,7 @@
           "use": 3
         }
       },
-      "outbound_count": 8,
+      "outbound_count": 6,
       "inbound_count": 9,
       "ops_card": false
     },
@@ -1131,7 +1131,7 @@
         }
       },
       "outbound_count": 5,
-      "inbound_count": 5,
+      "inbound_count": 4,
       "ops_card": false
     },
     {
@@ -1199,8 +1199,8 @@
           "use": 40
         }
       },
-      "outbound_count": 11,
-      "inbound_count": 14,
+      "outbound_count": 9,
+      "inbound_count": 13,
       "ops_card": false
     },
     {
@@ -1222,7 +1222,7 @@
           "use": 3
         }
       },
-      "outbound_count": 6,
+      "outbound_count": 5,
       "inbound_count": 14,
       "ops_card": false
     },
@@ -1268,8 +1268,8 @@
           "use": 0
         }
       },
-      "outbound_count": 7,
-      "inbound_count": 3,
+      "outbound_count": 6,
+      "inbound_count": 2,
       "ops_card": false
     },
     {
@@ -1292,7 +1292,7 @@
         }
       },
       "outbound_count": 6,
-      "inbound_count": 42,
+      "inbound_count": 41,
       "ops_card": false
     },
     {
@@ -1314,8 +1314,8 @@
           "use": 23
         }
       },
-      "outbound_count": 14,
-      "inbound_count": 8,
+      "outbound_count": 13,
+      "inbound_count": 5,
       "ops_card": false
     },
     {
@@ -1360,7 +1360,7 @@
           "use": 12
         }
       },
-      "outbound_count": 9,
+      "outbound_count": 10,
       "inbound_count": 11,
       "ops_card": false
     },
@@ -1429,7 +1429,7 @@
           "use": 2
         }
       },
-      "outbound_count": 7,
+      "outbound_count": 5,
       "inbound_count": 11,
       "ops_card": false
     },
@@ -1453,7 +1453,7 @@
         }
       },
       "outbound_count": 10,
-      "inbound_count": 12,
+      "inbound_count": 11,
       "ops_card": false
     },
     {
@@ -1475,8 +1475,8 @@
           "use": 45
         }
       },
-      "outbound_count": 6,
-      "inbound_count": 25,
+      "outbound_count": 4,
+      "inbound_count": 24,
       "ops_card": true
     },
     {
@@ -1498,7 +1498,7 @@
           "use": 0
         }
       },
-      "outbound_count": 5,
+      "outbound_count": 4,
       "inbound_count": 1,
       "ops_card": false
     },
@@ -1508,21 +1508,21 @@
       "type": "practice",
       "stage": "growing",
       "has_forward_vector": true,
-      "last_used": "2026-10-21",
+      "last_used": "2026-09-27",
       "use": {
         "page": 3,
         "bundle": 3,
-        "linked": 31,
-        "use": 37,
+        "linked": 30,
+        "use": 36,
         "recent": {
           "page": 0,
           "bundle": 1,
-          "linked": 5,
-          "use": 6
+          "linked": 4,
+          "use": 5
         }
       },
-      "outbound_count": 8,
-      "inbound_count": 13,
+      "outbound_count": 9,
+      "inbound_count": 11,
       "ops_card": false
     },
     {
@@ -1545,7 +1545,7 @@
         }
       },
       "outbound_count": 8,
-      "inbound_count": 3,
+      "inbound_count": 1,
       "ops_card": false
     },
     {
@@ -1613,7 +1613,7 @@
           "use": 5
         }
       },
-      "outbound_count": 13,
+      "outbound_count": 12,
       "inbound_count": 5,
       "ops_card": false
     },
@@ -1705,7 +1705,7 @@
           "use": 3
         }
       },
-      "outbound_count": 12,
+      "outbound_count": 11,
       "inbound_count": 10,
       "ops_card": false
     },
@@ -1820,7 +1820,7 @@
           "use": 2
         }
       },
-      "outbound_count": 3,
+      "outbound_count": 2,
       "inbound_count": 3,
       "ops_card": false
     },
@@ -1834,17 +1834,17 @@
       "use": {
         "page": 9,
         "bundle": 0,
-        "linked": 31,
-        "use": 40,
+        "linked": 30,
+        "use": 39,
         "recent": {
           "page": 9,
           "bundle": 0,
-          "linked": 31,
-          "use": 40
+          "linked": 30,
+          "use": 39
         }
       },
-      "outbound_count": 9,
-      "inbound_count": 5,
+      "outbound_count": 10,
+      "inbound_count": 3,
       "ops_card": false
     },
     {
@@ -1903,17 +1903,17 @@
       "use": {
         "page": 3,
         "bundle": 1,
-        "linked": 20,
-        "use": 24,
+        "linked": 19,
+        "use": 23,
         "recent": {
           "page": 0,
           "bundle": 0,
-          "linked": 2,
-          "use": 2
+          "linked": 1,
+          "use": 1
         }
       },
       "outbound_count": 7,
-      "inbound_count": 13,
+      "inbound_count": 12,
       "ops_card": false
     },
     {
@@ -1981,7 +1981,7 @@
           "use": 5
         }
       },
-      "outbound_count": 8,
+      "outbound_count": 7,
       "inbound_count": 5,
       "ops_card": false
     },
@@ -2018,17 +2018,17 @@
       "use": {
         "page": 6,
         "bundle": 3,
-        "linked": 33,
-        "use": 42,
+        "linked": 32,
+        "use": 41,
         "recent": {
           "page": 2,
           "bundle": 1,
-          "linked": 5,
-          "use": 8
+          "linked": 4,
+          "use": 7
         }
       },
-      "outbound_count": 8,
-      "inbound_count": 18,
+      "outbound_count": 5,
+      "inbound_count": 15,
       "ops_card": false
     },
     {
@@ -2074,7 +2074,7 @@
         }
       },
       "outbound_count": 5,
-      "inbound_count": 4,
+      "inbound_count": 3,
       "ops_card": false
     },
     {
@@ -2087,17 +2087,17 @@
       "use": {
         "page": 10,
         "bundle": 3,
-        "linked": 210,
-        "use": 223,
+        "linked": 211,
+        "use": 224,
         "recent": {
           "page": 3,
           "bundle": 1,
-          "linked": 8,
-          "use": 12
+          "linked": 9,
+          "use": 13
         }
       },
-      "outbound_count": 10,
-      "inbound_count": 75,
+      "outbound_count": 9,
+      "inbound_count": 74,
       "ops_card": false
     },
     {
@@ -2120,7 +2120,7 @@
         }
       },
       "outbound_count": 10,
-      "inbound_count": 4,
+      "inbound_count": 2,
       "ops_card": false
     },
     {
@@ -2165,7 +2165,7 @@
           "use": 0
         }
       },
-      "outbound_count": 13,
+      "outbound_count": 10,
       "inbound_count": 7,
       "ops_card": false
     },
@@ -2257,8 +2257,8 @@
           "use": 7
         }
       },
-      "outbound_count": 15,
-      "inbound_count": 9,
+      "outbound_count": 13,
+      "inbound_count": 8,
       "ops_card": false
     },
     {
@@ -2303,8 +2303,8 @@
           "use": 7
         }
       },
-      "outbound_count": 7,
-      "inbound_count": 26,
+      "outbound_count": 6,
+      "inbound_count": 25,
       "ops_card": false
     },
     {
@@ -2418,8 +2418,8 @@
           "use": 8
         }
       },
-      "outbound_count": 10,
-      "inbound_count": 4,
+      "outbound_count": 9,
+      "inbound_count": 3,
       "ops_card": false
     },
     {
@@ -2441,8 +2441,8 @@
           "use": 19
         }
       },
-      "outbound_count": 13,
-      "inbound_count": 9,
+      "outbound_count": 12,
+      "inbound_count": 7,
       "ops_card": false
     },
     {
@@ -2464,7 +2464,7 @@
           "use": 9
         }
       },
-      "outbound_count": 12,
+      "outbound_count": 9,
       "inbound_count": 4,
       "ops_card": false
     },
@@ -2510,7 +2510,7 @@
           "use": 0
         }
       },
-      "outbound_count": 5,
+      "outbound_count": 4,
       "inbound_count": 14,
       "ops_card": false
     },
@@ -2534,7 +2534,7 @@
         }
       },
       "outbound_count": 3,
-      "inbound_count": 7,
+      "inbound_count": 5,
       "ops_card": false
     },
     {
@@ -2556,8 +2556,8 @@
           "use": 1
         }
       },
-      "outbound_count": 9,
-      "inbound_count": 6,
+      "outbound_count": 8,
+      "inbound_count": 4,
       "ops_card": false
     },
     {
@@ -2579,8 +2579,8 @@
           "use": 16
         }
       },
-      "outbound_count": 18,
-      "inbound_count": 4,
+      "outbound_count": 17,
+      "inbound_count": 3,
       "ops_card": false
     },
     {
@@ -2625,8 +2625,8 @@
           "use": 19
         }
       },
-      "outbound_count": 7,
-      "inbound_count": 7,
+      "outbound_count": 6,
+      "inbound_count": 6,
       "ops_card": true
     },
     {
@@ -2671,7 +2671,7 @@
           "use": 14
         }
       },
-      "outbound_count": 11,
+      "outbound_count": 10,
       "inbound_count": 42,
       "ops_card": false
     },
@@ -2740,7 +2740,7 @@
           "use": 4
         }
       },
-      "outbound_count": 8,
+      "outbound_count": 9,
       "inbound_count": 4,
       "ops_card": false
     },
@@ -2763,7 +2763,7 @@
           "use": 5
         }
       },
-      "outbound_count": 5,
+      "outbound_count": 4,
       "inbound_count": 9,
       "ops_card": false
     },
@@ -2846,17 +2846,17 @@
       "use": {
         "page": 10,
         "bundle": 3,
-        "linked": 25,
-        "use": 38,
+        "linked": 24,
+        "use": 37,
         "recent": {
           "page": 2,
           "bundle": 2,
-          "linked": 8,
-          "use": 12
+          "linked": 7,
+          "use": 11
         }
       },
       "outbound_count": 5,
-      "inbound_count": 6,
+      "inbound_count": 5,
       "ops_card": false
     },
     {
@@ -2901,8 +2901,8 @@
           "use": 2
         }
       },
-      "outbound_count": 7,
-      "inbound_count": 2,
+      "outbound_count": 8,
+      "inbound_count": 1,
       "ops_card": false
     },
     {
@@ -2948,7 +2948,7 @@
         }
       },
       "outbound_count": 8,
-      "inbound_count": 3,
+      "inbound_count": 2,
       "ops_card": false
     },
     {
@@ -2971,7 +2971,7 @@
         }
       },
       "outbound_count": 5,
-      "inbound_count": 5,
+      "inbound_count": 4,
       "ops_card": false
     },
     {
@@ -2993,8 +2993,8 @@
           "use": 5
         }
       },
-      "outbound_count": 8,
-      "inbound_count": 8,
+      "outbound_count": 6,
+      "inbound_count": 6,
       "ops_card": false
     },
     {
@@ -3016,7 +3016,7 @@
           "use": 16
         }
       },
-      "outbound_count": 15,
+      "outbound_count": 12,
       "inbound_count": 48,
       "ops_card": false
     },
@@ -3030,16 +3030,16 @@
       "use": {
         "page": 4,
         "bundle": 2,
-        "linked": 42,
-        "use": 48,
+        "linked": 43,
+        "use": 49,
         "recent": {
           "page": 4,
           "bundle": 2,
-          "linked": 42,
-          "use": 48
+          "linked": 43,
+          "use": 49
         }
       },
-      "outbound_count": 7,
+      "outbound_count": 6,
       "inbound_count": 2,
       "ops_card": false
     },
@@ -3131,7 +3131,7 @@
           "use": 0
         }
       },
-      "outbound_count": 6,
+      "outbound_count": 5,
       "inbound_count": 6,
       "ops_card": false
     },
@@ -3164,21 +3164,21 @@
       "type": "concept",
       "stage": "growing",
       "has_forward_vector": true,
-      "last_used": "2026-10-21",
+      "last_used": "2026-10-24",
       "use": {
         "page": 4,
         "bundle": 1,
-        "linked": 41,
-        "use": 46,
+        "linked": 42,
+        "use": 47,
         "recent": {
           "page": 0,
           "bundle": 0,
-          "linked": 4,
-          "use": 4
+          "linked": 5,
+          "use": 5
         }
       },
       "outbound_count": 8,
-      "inbound_count": 22,
+      "inbound_count": 21,
       "ops_card": false
     },
     {
@@ -3201,7 +3201,7 @@
         }
       },
       "outbound_count": 7,
-      "inbound_count": 3,
+      "inbound_count": 2,
       "ops_card": false
     },
     {
@@ -3385,7 +3385,7 @@
         }
       },
       "outbound_count": 11,
-      "inbound_count": 30,
+      "inbound_count": 29,
       "ops_card": false
     },
     {
@@ -3454,7 +3454,7 @@
         }
       },
       "outbound_count": 6,
-      "inbound_count": 5,
+      "inbound_count": 3,
       "ops_card": false
     },
     {
@@ -3477,7 +3477,7 @@
         }
       },
       "outbound_count": 12,
-      "inbound_count": 43,
+      "inbound_count": 42,
       "ops_card": false
     },
     {
@@ -3523,7 +3523,7 @@
         }
       },
       "outbound_count": 9,
-      "inbound_count": 7,
+      "inbound_count": 3,
       "ops_card": false
     },
     {
@@ -3568,7 +3568,7 @@
           "use": 1
         }
       },
-      "outbound_count": 9,
+      "outbound_count": 8,
       "inbound_count": 4,
       "ops_card": false
     },
@@ -3638,7 +3638,7 @@
         }
       },
       "outbound_count": 11,
-      "inbound_count": 4,
+      "inbound_count": 3,
       "ops_card": false
     },
     {
@@ -3660,7 +3660,7 @@
           "use": 2
         }
       },
-      "outbound_count": 3,
+      "outbound_count": 2,
       "inbound_count": 5,
       "ops_card": false
     },
@@ -3706,7 +3706,7 @@
           "use": 5
         }
       },
-      "outbound_count": 4,
+      "outbound_count": 3,
       "inbound_count": 2,
       "ops_card": false
     },
@@ -3812,17 +3812,17 @@
       "use": {
         "page": 2,
         "bundle": 1,
-        "linked": 9,
-        "use": 12,
+        "linked": 8,
+        "use": 11,
         "recent": {
           "page": 0,
           "bundle": 0,
-          "linked": 4,
-          "use": 4
+          "linked": 3,
+          "use": 3
         }
       },
       "outbound_count": 4,
-      "inbound_count": 5,
+      "inbound_count": 4,
       "ops_card": false
     },
     {
@@ -3854,21 +3854,21 @@
       "type": "concept",
       "stage": "mature",
       "has_forward_vector": true,
-      "last_used": "2026-10-21",
+      "last_used": "2026-07-06",
       "use": {
         "page": 3,
         "bundle": 1,
-        "linked": 25,
-        "use": 29,
+        "linked": 24,
+        "use": 28,
         "recent": {
           "page": 0,
           "bundle": 0,
-          "linked": 1,
-          "use": 1
+          "linked": 0,
+          "use": 0
         }
       },
-      "outbound_count": 9,
-      "inbound_count": 13,
+      "outbound_count": 6,
+      "inbound_count": 12,
       "ops_card": false
     },
     {
@@ -3881,17 +3881,17 @@
       "use": {
         "page": 7,
         "bundle": 2,
-        "linked": 53,
-        "use": 62,
+        "linked": 52,
+        "use": 61,
         "recent": {
           "page": 1,
           "bundle": 1,
-          "linked": 16,
-          "use": 18
+          "linked": 15,
+          "use": 17
         }
       },
       "outbound_count": 8,
-      "inbound_count": 26,
+      "inbound_count": 23,
       "ops_card": false
     },
     {
@@ -3914,7 +3914,7 @@
         }
       },
       "outbound_count": 3,
-      "inbound_count": 4,
+      "inbound_count": 3,
       "ops_card": false
     },
     {
@@ -3960,7 +3960,7 @@
         }
       },
       "outbound_count": 4,
-      "inbound_count": 10,
+      "inbound_count": 8,
       "ops_card": false
     },
     {
@@ -3983,7 +3983,7 @@
         }
       },
       "outbound_count": 7,
-      "inbound_count": 5,
+      "inbound_count": 6,
       "ops_card": false
     },
     {
@@ -4051,8 +4051,8 @@
           "use": 3
         }
       },
-      "outbound_count": 8,
-      "inbound_count": 12,
+      "outbound_count": 6,
+      "inbound_count": 10,
       "ops_card": false
     },
     {
@@ -4134,17 +4134,17 @@
       "use": {
         "page": 6,
         "bundle": 1,
-        "linked": 77,
-        "use": 84,
+        "linked": 76,
+        "use": 83,
         "recent": {
           "page": 0,
           "bundle": 0,
-          "linked": 10,
-          "use": 10
+          "linked": 9,
+          "use": 9
         }
       },
       "outbound_count": 10,
-      "inbound_count": 32,
+      "inbound_count": 31,
       "ops_card": true
     },
     {
@@ -4166,7 +4166,7 @@
           "use": 25
         }
       },
-      "outbound_count": 13,
+      "outbound_count": 14,
       "inbound_count": 8,
       "ops_card": true
     },
@@ -4190,7 +4190,7 @@
         }
       },
       "outbound_count": 11,
-      "inbound_count": 7,
+      "inbound_count": 5,
       "ops_card": false
     },
     {
@@ -4203,16 +4203,16 @@
       "use": {
         "page": 9,
         "bundle": 3,
-        "linked": 51,
-        "use": 63,
+        "linked": 50,
+        "use": 62,
         "recent": {
           "page": 2,
           "bundle": 2,
-          "linked": 7,
-          "use": 11
+          "linked": 6,
+          "use": 10
         }
       },
-      "outbound_count": 14,
+      "outbound_count": 13,
       "inbound_count": 25,
       "ops_card": false
     },
@@ -4259,7 +4259,7 @@
         }
       },
       "outbound_count": 21,
-      "inbound_count": 8,
+      "inbound_count": 7,
       "ops_card": true
     },
     {
@@ -4281,8 +4281,8 @@
           "use": 12
         }
       },
-      "outbound_count": 6,
-      "inbound_count": 12,
+      "outbound_count": 5,
+      "inbound_count": 8,
       "ops_card": false
     },
     {
@@ -4305,7 +4305,7 @@
         }
       },
       "outbound_count": 31,
-      "inbound_count": 6,
+      "inbound_count": 5,
       "ops_card": false
     },
     {
@@ -4364,16 +4364,16 @@
       "use": {
         "page": 6,
         "bundle": 4,
-        "linked": 40,
-        "use": 50,
+        "linked": 39,
+        "use": 49,
         "recent": {
           "page": 2,
           "bundle": 3,
-          "linked": 19,
-          "use": 24
+          "linked": 18,
+          "use": 23
         }
       },
-      "outbound_count": 15,
+      "outbound_count": 13,
       "inbound_count": 15,
       "ops_card": false
     },
@@ -4406,21 +4406,21 @@
       "type": "project",
       "stage": "sprout",
       "has_forward_vector": true,
-      "last_used": "2026-10-22",
+      "last_used": "2026-10-24",
       "use": {
         "page": 3,
         "bundle": 4,
-        "linked": 10,
-        "use": 17,
+        "linked": 11,
+        "use": 18,
         "recent": {
           "page": 1,
           "bundle": 3,
-          "linked": 0,
-          "use": 4
+          "linked": 1,
+          "use": 5
         }
       },
       "outbound_count": 5,
-      "inbound_count": 8,
+      "inbound_count": 7,
       "ops_card": false
     },
     {
@@ -4443,7 +4443,7 @@
         }
       },
       "outbound_count": 7,
-      "inbound_count": 1,
+      "inbound_count": 2,
       "ops_card": false
     },
     {
@@ -4466,7 +4466,7 @@
         }
       },
       "outbound_count": 12,
-      "inbound_count": 4,
+      "inbound_count": 2,
       "ops_card": false
     },
     {
@@ -4479,17 +4479,17 @@
       "use": {
         "page": 4,
         "bundle": 1,
-        "linked": 15,
-        "use": 20,
+        "linked": 14,
+        "use": 19,
         "recent": {
           "page": 1,
           "bundle": 0,
-          "linked": 3,
-          "use": 4
+          "linked": 2,
+          "use": 3
         }
       },
-      "outbound_count": 7,
-      "inbound_count": 9,
+      "outbound_count": 5,
+      "inbound_count": 8,
       "ops_card": false
     },
     {
@@ -4511,8 +4511,8 @@
           "use": 3
         }
       },
-      "outbound_count": 13,
-      "inbound_count": 12,
+      "outbound_count": 14,
+      "inbound_count": 11,
       "ops_card": false
     },
     {
@@ -4558,7 +4558,7 @@
         }
       },
       "outbound_count": 9,
-      "inbound_count": 2,
+      "inbound_count": 1,
       "ops_card": false
     },
     {
@@ -4580,8 +4580,8 @@
           "use": 3
         }
       },
-      "outbound_count": 6,
-      "inbound_count": 9,
+      "outbound_count": 7,
+      "inbound_count": 10,
       "ops_card": false
     },
     {
@@ -4603,7 +4603,7 @@
           "use": 5
         }
       },
-      "outbound_count": 9,
+      "outbound_count": 7,
       "inbound_count": 5,
       "ops_card": false
     },
@@ -4627,7 +4627,7 @@
         }
       },
       "outbound_count": 5,
-      "inbound_count": 6,
+      "inbound_count": 7,
       "ops_card": false
     },
     {
@@ -4673,7 +4673,7 @@
         }
       },
       "outbound_count": 7,
-      "inbound_count": 18,
+      "inbound_count": 17,
       "ops_card": false
     },
     {
@@ -4695,7 +4695,7 @@
           "use": 38
         }
       },
-      "outbound_count": 12,
+      "outbound_count": 9,
       "inbound_count": 16,
       "ops_card": false
     },
@@ -4741,7 +4741,7 @@
           "use": 9
         }
       },
-      "outbound_count": 7,
+      "outbound_count": 6,
       "inbound_count": 38,
       "ops_card": false
     },
@@ -4787,7 +4787,7 @@
           "use": 8
         }
       },
-      "outbound_count": 4,
+      "outbound_count": 5,
       "inbound_count": 4,
       "ops_card": false
     },
@@ -4879,7 +4879,7 @@
           "use": 6
         }
       },
-      "outbound_count": 5,
+      "outbound_count": 4,
       "inbound_count": 4,
       "ops_card": false
     },
@@ -4903,7 +4903,7 @@
         }
       },
       "outbound_count": 7,
-      "inbound_count": 3,
+      "inbound_count": 2,
       "ops_card": false
     },
     {
@@ -4925,7 +4925,7 @@
           "use": 11
         }
       },
-      "outbound_count": 7,
+      "outbound_count": 6,
       "inbound_count": 6,
       "ops_card": false
     },
@@ -4971,7 +4971,7 @@
           "use": 2
         }
       },
-      "outbound_count": 9,
+      "outbound_count": 7,
       "inbound_count": 4,
       "ops_card": false
     },
@@ -5063,7 +5063,7 @@
           "use": 32
         }
       },
-      "outbound_count": 7,
+      "outbound_count": 8,
       "inbound_count": 0,
       "ops_card": true
     },
@@ -5109,7 +5109,7 @@
           "use": 9
         }
       },
-      "outbound_count": 9,
+      "outbound_count": 8,
       "inbound_count": 4,
       "ops_card": false
     },
@@ -5133,7 +5133,7 @@
         }
       },
       "outbound_count": 6,
-      "inbound_count": 3,
+      "inbound_count": 2,
       "ops_card": true
     },
     {
@@ -5178,8 +5178,8 @@
           "use": 6
         }
       },
-      "outbound_count": 10,
-      "inbound_count": 3,
+      "outbound_count": 9,
+      "inbound_count": 2,
       "ops_card": false
     },
     {
@@ -5202,7 +5202,7 @@
         }
       },
       "outbound_count": 4,
-      "inbound_count": 2,
+      "inbound_count": 1,
       "ops_card": false
     },
     {
@@ -5215,13 +5215,13 @@
       "use": {
         "page": 25,
         "bundle": 7,
-        "linked": 79,
-        "use": 111,
+        "linked": 78,
+        "use": 110,
         "recent": {
           "page": 7,
           "bundle": 6,
-          "linked": 18,
-          "use": 31
+          "linked": 17,
+          "use": 30
         }
       },
       "outbound_count": 10,
@@ -5248,7 +5248,7 @@
         }
       },
       "outbound_count": 5,
-      "inbound_count": 10,
+      "inbound_count": 11,
       "ops_card": false
     },
     {
@@ -5293,8 +5293,8 @@
           "use": 64
         }
       },
-      "outbound_count": 9,
-      "inbound_count": 28,
+      "outbound_count": 7,
+      "inbound_count": 26,
       "ops_card": false
     },
     {
@@ -5316,7 +5316,7 @@
           "use": 5
         }
       },
-      "outbound_count": 18,
+      "outbound_count": 17,
       "inbound_count": 4,
       "ops_card": false
     },
@@ -5330,17 +5330,17 @@
       "use": {
         "page": 15,
         "bundle": 2,
-        "linked": 56,
-        "use": 73,
+        "linked": 55,
+        "use": 72,
         "recent": {
           "page": 6,
           "bundle": 1,
-          "linked": 8,
-          "use": 15
+          "linked": 7,
+          "use": 14
         }
       },
       "outbound_count": 15,
-      "inbound_count": 29,
+      "inbound_count": 28,
       "ops_card": false
     },
     {
@@ -5431,7 +5431,7 @@
           "use": 10
         }
       },
-      "outbound_count": 6,
+      "outbound_count": 7,
       "inbound_count": 6,
       "ops_card": false
     },
@@ -5478,7 +5478,7 @@
         }
       },
       "outbound_count": 4,
-      "inbound_count": 7,
+      "inbound_count": 6,
       "ops_card": false
     },
     {
@@ -5501,7 +5501,7 @@
         }
       },
       "outbound_count": 7,
-      "inbound_count": 3,
+      "inbound_count": 2,
       "ops_card": false
     },
     {
@@ -5615,7 +5615,7 @@
           "use": 23
         }
       },
-      "outbound_count": 8,
+      "outbound_count": 9,
       "inbound_count": 2,
       "ops_card": false
     },
@@ -5638,7 +5638,7 @@
           "use": 1
         }
       },
-      "outbound_count": 5,
+      "outbound_count": 4,
       "inbound_count": 4,
       "ops_card": false
     },
@@ -5662,7 +5662,7 @@
         }
       },
       "outbound_count": 8,
-      "inbound_count": 6,
+      "inbound_count": 4,
       "ops_card": false
     },
     {
@@ -5730,7 +5730,7 @@
           "use": 6
         }
       },
-      "outbound_count": 8,
+      "outbound_count": 9,
       "inbound_count": 4,
       "ops_card": false
     },
@@ -5776,8 +5776,8 @@
           "use": 1
         }
       },
-      "outbound_count": 5,
-      "inbound_count": 3,
+      "outbound_count": 4,
+      "inbound_count": 2,
       "ops_card": false
     },
     {
@@ -5832,20 +5832,20 @@
       "type": "person",
       "stage": "seed",
       "has_forward_vector": true,
-      "last_used": "2026-10-12",
+      "last_used": "2026-10-24",
       "use": {
         "page": 3,
         "bundle": 2,
-        "linked": 12,
-        "use": 17,
+        "linked": 13,
+        "use": 18,
         "recent": {
           "page": 1,
           "bundle": 1,
-          "linked": 3,
-          "use": 5
+          "linked": 4,
+          "use": 6
         }
       },
-      "outbound_count": 7,
+      "outbound_count": 6,
       "inbound_count": 6,
       "ops_card": false
     },
@@ -5868,7 +5868,7 @@
           "use": 6
         }
       },
-      "outbound_count": 11,
+      "outbound_count": 9,
       "inbound_count": 44,
       "ops_card": false
     },
@@ -5892,7 +5892,7 @@
         }
       },
       "outbound_count": 7,
-      "inbound_count": 2,
+      "inbound_count": 1,
       "ops_card": false
     },
     {
@@ -5960,7 +5960,7 @@
           "use": 0
         }
       },
-      "outbound_count": 5,
+      "outbound_count": 4,
       "inbound_count": 1,
       "ops_card": false
     },
@@ -6006,8 +6006,8 @@
           "use": 1
         }
       },
-      "outbound_count": 13,
-      "inbound_count": 16,
+      "outbound_count": 12,
+      "inbound_count": 15,
       "ops_card": false
     },
     {
@@ -6066,17 +6066,17 @@
       "use": {
         "page": 11,
         "bundle": 3,
-        "linked": 43,
-        "use": 57,
+        "linked": 42,
+        "use": 56,
         "recent": {
           "page": 4,
           "bundle": 1,
-          "linked": 4,
-          "use": 9
+          "linked": 3,
+          "use": 8
         }
       },
       "outbound_count": 15,
-      "inbound_count": 20,
+      "inbound_count": 19,
       "ops_card": false
     },
     {
@@ -6098,7 +6098,7 @@
           "use": 3
         }
       },
-      "outbound_count": 9,
+      "outbound_count": 8,
       "inbound_count": 15,
       "ops_card": false
     },
@@ -6122,7 +6122,7 @@
         }
       },
       "outbound_count": 6,
-      "inbound_count": 3,
+      "inbound_count": 2,
       "ops_card": false
     },
     {
@@ -6144,7 +6144,7 @@
           "use": 2
         }
       },
-      "outbound_count": 12,
+      "outbound_count": 11,
       "inbound_count": 3,
       "ops_card": false
     },
@@ -6168,7 +6168,7 @@
         }
       },
       "outbound_count": 6,
-      "inbound_count": 3,
+      "inbound_count": 2,
       "ops_card": false
     },
     {
@@ -6269,17 +6269,17 @@
       "type": "concept",
       "stage": "growing",
       "has_forward_vector": true,
-      "last_used": "2026-10-21",
+      "last_used": "2026-09-24",
       "use": {
         "page": 1,
         "bundle": 0,
-        "linked": 13,
-        "use": 14,
+        "linked": 12,
+        "use": 13,
         "recent": {
           "page": 0,
           "bundle": 0,
-          "linked": 7,
-          "use": 7
+          "linked": 6,
+          "use": 6
         }
       },
       "outbound_count": 6,
@@ -6305,8 +6305,8 @@
           "use": 7
         }
       },
-      "outbound_count": 5,
-      "inbound_count": 5,
+      "outbound_count": 4,
+      "inbound_count": 4,
       "ops_card": false
     },
     {
@@ -6374,7 +6374,7 @@
           "use": 37
         }
       },
-      "outbound_count": 11,
+      "outbound_count": 10,
       "inbound_count": 3,
       "ops_card": true
     },
@@ -6420,7 +6420,7 @@
           "use": 0
         }
       },
-      "outbound_count": 11,
+      "outbound_count": 9,
       "inbound_count": 8,
       "ops_card": false
     },
@@ -6467,7 +6467,7 @@
         }
       },
       "outbound_count": 9,
-      "inbound_count": 8,
+      "inbound_count": 6,
       "ops_card": false
     },
     {
@@ -6568,17 +6568,17 @@
       "type": "concept",
       "stage": "mature",
       "has_forward_vector": true,
-      "last_used": "2026-10-21",
+      "last_used": "2026-09-26",
       "use": {
         "page": 1,
         "bundle": 1,
-        "linked": 10,
-        "use": 12,
+        "linked": 9,
+        "use": 11,
         "recent": {
           "page": 0,
           "bundle": 1,
-          "linked": 7,
-          "use": 8
+          "linked": 6,
+          "use": 7
         }
       },
       "outbound_count": 3,
@@ -6605,7 +6605,7 @@
         }
       },
       "outbound_count": 6,
-      "inbound_count": 5,
+      "inbound_count": 4,
       "ops_card": false
     },
     {
@@ -6618,17 +6618,17 @@
       "use": {
         "page": 2,
         "bundle": 3,
-        "linked": 16,
-        "use": 21,
+        "linked": 15,
+        "use": 20,
         "recent": {
           "page": 0,
           "bundle": 1,
-          "linked": 9,
-          "use": 10
+          "linked": 8,
+          "use": 9
         }
       },
-      "outbound_count": 5,
-      "inbound_count": 6,
+      "outbound_count": 4,
+      "inbound_count": 5,
       "ops_card": false
     },
     {
@@ -6719,7 +6719,7 @@
           "use": 9
         }
       },
-      "outbound_count": 9,
+      "outbound_count": 10,
       "inbound_count": 4,
       "ops_card": false
     },
@@ -6742,7 +6742,7 @@
           "use": 84
         }
       },
-      "outbound_count": 7,
+      "outbound_count": 5,
       "inbound_count": 5,
       "ops_card": false
     },
@@ -6765,8 +6765,8 @@
           "use": 16
         }
       },
-      "outbound_count": 16,
-      "inbound_count": 53,
+      "outbound_count": 14,
+      "inbound_count": 52,
       "ops_card": false
     },
     {
@@ -6834,7 +6834,7 @@
           "use": 1
         }
       },
-      "outbound_count": 9,
+      "outbound_count": 8,
       "inbound_count": 5,
       "ops_card": false
     },
@@ -6858,7 +6858,7 @@
         }
       },
       "outbound_count": 12,
-      "inbound_count": 12,
+      "inbound_count": 11,
       "ops_card": false
     },
     {
@@ -6972,8 +6972,8 @@
           "use": 4
         }
       },
-      "outbound_count": 19,
-      "inbound_count": 24,
+      "outbound_count": 18,
+      "inbound_count": 23,
       "ops_card": false
     },
     {
@@ -7018,8 +7018,8 @@
           "use": 3
         }
       },
-      "outbound_count": 8,
-      "inbound_count": 3,
+      "outbound_count": 5,
+      "inbound_count": 1,
       "ops_card": false
     },
     {
@@ -7041,7 +7041,7 @@
           "use": 2
         }
       },
-      "outbound_count": 6,
+      "outbound_count": 5,
       "inbound_count": 3,
       "ops_card": false
     },
@@ -7051,17 +7051,17 @@
       "type": "specialist",
       "stage": null,
       "has_forward_vector": true,
-      "last_used": "2026-10-21",
+      "last_used": "2026-10-24",
       "use": {
         "page": 5,
         "bundle": 4,
-        "linked": 4,
-        "use": 13,
+        "linked": 5,
+        "use": 14,
         "recent": {
           "page": 2,
           "bundle": 2,
-          "linked": 2,
-          "use": 6
+          "linked": 3,
+          "use": 7
         }
       },
       "outbound_count": 7,
@@ -7110,8 +7110,8 @@
           "use": 3
         }
       },
-      "outbound_count": 7,
-      "inbound_count": 4,
+      "outbound_count": 8,
+      "inbound_count": 2,
       "ops_card": false
     },
     {
@@ -7203,7 +7203,7 @@
         }
       },
       "outbound_count": 11,
-      "inbound_count": 8,
+      "inbound_count": 7,
       "ops_card": false
     },
     {
@@ -7248,8 +7248,8 @@
           "use": 5
         }
       },
-      "outbound_count": 8,
-      "inbound_count": 5,
+      "outbound_count": 7,
+      "inbound_count": 3,
       "ops_card": false
     },
     {
@@ -7272,7 +7272,7 @@
         }
       },
       "outbound_count": 13,
-      "inbound_count": 7,
+      "inbound_count": 5,
       "ops_card": false
     },
     {
@@ -7308,17 +7308,17 @@
       "use": {
         "page": 19,
         "bundle": 9,
-        "linked": 56,
-        "use": 84,
+        "linked": 57,
+        "use": 85,
         "recent": {
           "page": 9,
           "bundle": 8,
-          "linked": 27,
-          "use": 44
+          "linked": 28,
+          "use": 45
         }
       },
-      "outbound_count": 13,
-      "inbound_count": 13,
+      "outbound_count": 12,
+      "inbound_count": 12,
       "ops_card": true
     },
     {
@@ -7341,7 +7341,7 @@
         }
       },
       "outbound_count": 4,
-      "inbound_count": 2,
+      "inbound_count": 1,
       "ops_card": false
     },
     {
@@ -7363,7 +7363,7 @@
           "use": 3
         }
       },
-      "outbound_count": 10,
+      "outbound_count": 9,
       "inbound_count": 5,
       "ops_card": false
     },
@@ -7387,7 +7387,7 @@
         }
       },
       "outbound_count": 4,
-      "inbound_count": 5,
+      "inbound_count": 4,
       "ops_card": false
     },
     {
@@ -7478,7 +7478,7 @@
           "use": 7
         }
       },
-      "outbound_count": 3,
+      "outbound_count": 2,
       "inbound_count": 4,
       "ops_card": false
     },
@@ -7524,7 +7524,7 @@
           "use": 2
         }
       },
-      "outbound_count": 14,
+      "outbound_count": 12,
       "inbound_count": 6,
       "ops_card": false
     },
@@ -7549,29 +7549,6 @@
       },
       "outbound_count": 6,
       "inbound_count": 4,
-      "ops_card": false
-    },
-    {
-      "id": "page-rewrite \u2014 preview, the whole page as it would read",
-      "path": "Palace development/Palace as Context Injection System/proofs/2026-10-21-floor-review/page-rewrite \u2014 preview, the whole page as it would read.md",
-      "type": "meta",
-      "stage": "growing",
-      "has_forward_vector": true,
-      "last_used": "2026-10-21",
-      "use": {
-        "page": 1,
-        "bundle": 0,
-        "linked": 0,
-        "use": 1,
-        "recent": {
-          "page": 1,
-          "bundle": 0,
-          "linked": 0,
-          "use": 1
-        }
-      },
-      "outbound_count": 15,
-      "inbound_count": 0,
       "ops_card": false
     }
   ],
@@ -7639,12 +7616,6 @@
     {
       "source": "The Palace Practices on Itself",
       "type": "connects-to",
-      "target": "The Commons",
-      "label": "proven-on-itself"
-    },
-    {
-      "source": "The Palace Practices on Itself",
-      "type": "connects-to",
       "target": "Hilaritas Generator",
       "label": "the-distribution-test"
     },
@@ -7653,6 +7624,12 @@
       "type": "connects-to",
       "target": "Cooperation Yields Agency",
       "label": "measured-by"
+    },
+    {
+      "source": "The Palace Practices on Itself",
+      "type": "connects-to",
+      "target": "The Commons",
+      "label": "the-worked-example"
     },
     {
       "source": "ControlNet as Topology",
@@ -7698,12 +7675,6 @@
     },
     {
       "source": "Closing Well",
-      "type": "enables",
-      "target": "Baton Ceremony",
-      "label": "cross-instance-receipt"
-    },
-    {
-      "source": "Closing Well",
       "type": "mirrors",
       "target": "Cooperation Yields Agency",
       "label": "agency-through-receipt"
@@ -7725,18 +7696,6 @@
       "type": "couples-with",
       "target": "SUBSTRATE",
       "label": "self-model-discipline"
-    },
-    {
-      "source": "Closing Well",
-      "type": "connects-to",
-      "target": "Deposit Ceremony",
-      "label": "produces-the-memory-species"
-    },
-    {
-      "source": "Closing Well",
-      "type": "connects-to",
-      "target": "Two Batons, One Board",
-      "label": "batons-are-close-messages"
     },
     {
       "source": "Closing Well",
@@ -7770,12 +7729,6 @@
     },
     {
       "source": "Closing Well",
-      "type": "connects-to",
-      "target": "Concierge",
-      "label": "dispatched-as-moderator"
-    },
-    {
-      "source": "Closing Well",
       "type": "exemplifies",
       "target": "Palace Conatus",
       "label": "stays-in-phase"
@@ -7791,6 +7744,18 @@
       "type": "exemplifies",
       "target": "Reflective Practice",
       "label": "reflect-on-action"
+    },
+    {
+      "source": "Closing Well",
+      "type": "enables",
+      "target": "Baton Ceremony",
+      "label": "a-handoff-gets-the-baton"
+    },
+    {
+      "source": "Closing Well",
+      "type": "connects-to",
+      "target": "Deposit Ceremony",
+      "label": "the-close-at-movement-scale"
     },
     {
       "source": "DSP Frameworks",
@@ -7819,20 +7784,14 @@
     {
       "source": "The Commons",
       "type": "connects-to",
-      "target": "RunPod GPU Backend",
-      "label": "first-customer"
-    },
-    {
-      "source": "The Commons",
-      "type": "connects-to",
       "target": "Cooperation Yields Agency",
       "label": "operationalizes"
     },
     {
       "source": "The Commons",
       "type": "connects-to",
-      "target": "The Palace Practices on Itself",
-      "label": "worked-instance"
+      "target": "RunPod GPU Backend",
+      "label": "first-adapter"
     },
     {
       "source": "The Four Virtues",
@@ -7904,7 +7863,7 @@
       "source": "Graphic Storytelling",
       "type": "connects-to",
       "target": "Adopt the Craft, Author the Seam",
-      "label": "the-craft-BLUELINE-adopts"
+      "label": "the-craft-to-adopt-wholesale"
     },
     {
       "source": "The Adjacent Affordance",
@@ -8046,12 +8005,6 @@
     },
     {
       "source": "Typography as Meaning",
-      "type": "emerged-from",
-      "target": "Graphic Storytelling",
-      "label": "inherited-grammar"
-    },
-    {
-      "source": "Typography as Meaning",
       "type": "couples-with",
       "target": "Language as a Tonal Medium",
       "label": "letter-as-tone"
@@ -8103,18 +8056,6 @@
       "type": "connects-to",
       "target": "Trickster",
       "label": "permission-granter"
-    },
-    {
-      "source": "Phase Reduction",
-      "type": "couples-with",
-      "target": "Floquet Theory",
-      "label": "spectral-ground-of-the-limit-cycle"
-    },
-    {
-      "source": "Phase Reduction",
-      "type": "couples-with",
-      "target": "Kuramoto Coupling",
-      "label": "the-collapse-that-makes-it-valid"
     },
     {
       "source": "Phase Reduction",
@@ -8175,6 +8116,18 @@
       "type": "connects-to",
       "target": "Wallpaper Groups",
       "label": "symmetric-coupling"
+    },
+    {
+      "source": "Phase Reduction",
+      "type": "couples-with",
+      "target": "Floquet Theory",
+      "label": "bridge-via-PRC"
+    },
+    {
+      "source": "Phase Reduction",
+      "type": "couples-with",
+      "target": "Kuramoto Coupling",
+      "label": "phase-reduced-shadow"
     },
     {
       "source": "Palace Conatus",
@@ -8406,12 +8359,6 @@
     },
     {
       "source": "Progressive Staging",
-      "type": "enables",
-      "target": "State Machine",
-      "label": "stage-transitions"
-    },
-    {
-      "source": "Progressive Staging",
       "type": "connects-to",
       "target": "Kuramoto Coupling",
       "label": "natural-staging"
@@ -8427,6 +8374,12 @@
       "type": "contradicts",
       "target": "Symbiotic Skills",
       "label": "staged-design-vs-organic-growth"
+    },
+    {
+      "source": "Progressive Staging",
+      "type": "enables",
+      "target": "State Machine",
+      "label": "stage-3-teaches-it"
     },
     {
       "source": "Wavetable Space as Torus",
@@ -8509,12 +8462,6 @@
     {
       "source": "Identity Molting",
       "type": "connects-to",
-      "target": "Creative Coach",
-      "label": "teacher-to-coach-molt"
-    },
-    {
-      "source": "Identity Molting",
-      "type": "connects-to",
       "target": "FOUR PILLARS",
       "label": "institutional-molt"
     },
@@ -8541,18 +8488,6 @@
       "type": "emerged-from",
       "target": "BLUELINE",
       "label": "blob-field"
-    },
-    {
-      "source": "Remnants in Depth",
-      "type": "couples-with",
-      "target": "Hand-Drawn 3D Look",
-      "label": "lives-inside"
-    },
-    {
-      "source": "Remnants in Depth",
-      "type": "connects-to",
-      "target": "Frame Designer",
-      "label": "render-method"
     },
     {
       "source": "Remnants in Depth",
@@ -8679,12 +8614,6 @@
       "type": "emerged-from",
       "target": "Waveguide Synthesizer",
       "label": "loop-round-trip-condition"
-    },
-    {
-      "source": "Dispersion Table",
-      "type": "mirrors",
-      "target": "Volterra Kernels and the Torus",
-      "label": "one-field-two-reads"
     },
     {
       "source": "Dispersion Table",
@@ -8911,12 +8840,6 @@
     {
       "source": "Creative Coach",
       "type": "connects-to",
-      "target": "Meadows and an Artist's Career",
-      "label": "the-instrument"
-    },
-    {
-      "source": "Creative Coach",
-      "type": "connects-to",
       "target": "The Multilinear Self",
       "label": "one-projection"
     },
@@ -8952,12 +8875,6 @@
     },
     {
       "source": "Creative Coach",
-      "type": "connects-to",
-      "target": "Sidechain \u2194 Conversation",
-      "label": "balint-stance-unturned"
-    },
-    {
-      "source": "Creative Coach",
       "type": "deepens",
       "target": "Confucianism",
       "label": "teaching-as-mutual-obligation"
@@ -8987,16 +8904,16 @@
       "label": "steers-on-purpose"
     },
     {
+      "source": "Creative Coach",
+      "type": "connects-to",
+      "target": "Meadows and an Artist's Career",
+      "label": "holds-the-diagnostic"
+    },
+    {
       "source": "Reflective Practice",
       "type": "deepens",
       "target": "Hilaritas Generator",
       "label": "owns-the-surface"
-    },
-    {
-      "source": "Reflective Practice",
-      "type": "connects-to",
-      "target": "Creative Coach",
-      "label": "teachable"
     },
     {
       "source": "Reflective Practice",
@@ -9201,12 +9118,6 @@
       "type": "connects-to",
       "target": "Loudon Live Design System",
       "label": "enforced-in"
-    },
-    {
-      "source": "Review Layer",
-      "type": "connects-to",
-      "target": "Maker",
-      "label": "house-standard"
     },
     {
       "source": "Review Layer",
@@ -9504,12 +9415,6 @@
     },
     {
       "source": "Floquet Theory",
-      "type": "connects-to",
-      "target": "Mathieu Equation",
-      "label": "simplest-instance"
-    },
-    {
-      "source": "Floquet Theory",
       "type": "enables",
       "target": "Parametric Resonance",
       "label": "predicts-instability"
@@ -9528,12 +9433,6 @@
     },
     {
       "source": "Floquet Theory",
-      "type": "connects-to",
-      "target": "Photonic Time Crystals",
-      "label": "experimental-domain"
-    },
-    {
-      "source": "Floquet Theory",
       "type": "mirrors",
       "target": "Crystal Synthesizer",
       "label": "bloch-temporal-twin"
@@ -9543,12 +9442,6 @@
       "type": "mirrors",
       "target": "Three Kinds of Warp",
       "label": "discrete-floquet-on-tori"
-    },
-    {
-      "source": "Floquet Theory",
-      "type": "couples-with",
-      "target": "Phase Reduction",
-      "label": "bridge-via-PRC"
     },
     {
       "source": "Floquet Theory",
@@ -9631,12 +9524,6 @@
     {
       "source": "The Drift",
       "type": "contradicts",
-      "target": "Stoicism",
-      "label": "refuses-the-fortress"
-    },
-    {
-      "source": "The Drift",
-      "type": "contradicts",
       "target": "Confucianism",
       "label": "refuses-the-threshold"
     },
@@ -9651,12 +9538,6 @@
       "type": "contradicts",
       "target": "Merleau-Ponty",
       "label": "refuses-the-cultivated-body"
-    },
-    {
-      "source": "The Drift",
-      "type": "contradicts",
-      "target": "Leibniz",
-      "label": "refuses-the-monad"
     },
     {
       "source": "The Drift",
@@ -10050,12 +9931,6 @@
     },
     {
       "source": "Playful Interface Design",
-      "type": "mirrors",
-      "target": "Haptic Handwheel",
-      "label": "same-lack-other-sense"
-    },
-    {
-      "source": "Playful Interface Design",
       "type": "spawned",
       "target": "Retrospective Delay",
       "label": null
@@ -10077,12 +9952,6 @@
       "type": "deepens",
       "target": "Trickster",
       "label": null
-    },
-    {
-      "source": "Playful Interface Design",
-      "type": "mirrors",
-      "target": "Biomechanical Synthesis",
-      "label": "the-organism-kind"
     },
     {
       "source": "Playful Interface Design",
@@ -10511,12 +10380,6 @@
       "label": null
     },
     {
-      "source": "Dub Lineage",
-      "type": "deepens",
-      "target": "Semantic Delay",
-      "label": null
-    },
-    {
       "source": "Lateral Access",
       "type": "emerged-from",
       "target": "Oblique Portrait",
@@ -10589,18 +10452,6 @@
       "label": "concretization"
     },
     {
-      "source": "Adopt the Craft, Author the Seam",
-      "type": "connects-to",
-      "target": "Graphic Storytelling",
-      "label": "the-craft-being-adopted"
-    },
-    {
-      "source": "Adopt the Craft, Author the Seam",
-      "type": "connects-to",
-      "target": "Comic and Cinema \u2014 Two Ways of Seeing",
-      "label": "grammar-on-the-shelf"
-    },
-    {
       "source": "Harmonicity and Inharmonicity",
       "type": "connects-to",
       "target": "Boundary-Crossing Instruments",
@@ -10623,12 +10474,6 @@
       "type": "connects-to",
       "target": "Portamento and Physical Pitch Modeling",
       "label": "mode-locking-built-there"
-    },
-    {
-      "source": "Synthesis Topologies",
-      "type": "emerged-from",
-      "target": "Generative Preset Development",
-      "label": "profile-concept-asks-for-this"
     },
     {
       "source": "Synthesis Topologies",
@@ -10661,6 +10506,12 @@
       "label": "preserve-or-change-topology"
     },
     {
+      "source": "Synthesis Topologies",
+      "type": "emerged-from",
+      "target": "Generative Preset Development",
+      "label": "forward-ghost"
+    },
+    {
       "source": "Granular Synthesis",
       "type": "emerged-from",
       "target": "Kuramoto Coupling",
@@ -10683,12 +10534,6 @@
       "type": "mirrors",
       "target": "Endosymbiosis",
       "label": null
-    },
-    {
-      "source": "Granular Synthesis",
-      "type": "mirrors",
-      "target": "Particle Synthesis",
-      "label": "grain-particle-equivalence"
     },
     {
       "source": "Bring In a Bigger Mind",
@@ -11107,12 +10952,6 @@
     {
       "source": "Radio Play",
       "type": "connects-to",
-      "target": "Modes of Collaboration",
-      "label": "the-debrief-reel"
-    },
-    {
-      "source": "Radio Play",
-      "type": "connects-to",
       "target": "Loudon Live Design System",
       "label": "teaching-radio"
     },
@@ -11151,12 +10990,6 @@
       "type": "mirrors",
       "target": "Like Water",
       "label": null
-    },
-    {
-      "source": "Quality Manifesto",
-      "type": "mirrors",
-      "target": "AI Partnership Philosophy",
-      "label": "parallel-philosophy"
     },
     {
       "source": "Parametric Resonance",
@@ -11305,12 +11138,6 @@
     {
       "source": "Photonic Time Crystals",
       "type": "connects-to",
-      "target": "Floquet Theory",
-      "label": "governing-framework"
-    },
-    {
-      "source": "Photonic Time Crystals",
-      "type": "connects-to",
       "target": "Mathieu Equation",
       "label": "simplest-temporal-bandgap-system"
     },
@@ -11351,6 +11178,12 @@
       "label": null
     },
     {
+      "source": "Photonic Time Crystals",
+      "type": "connects-to",
+      "target": "Floquet Theory",
+      "label": "experimental-incarnation"
+    },
+    {
       "source": "Mixture of Experts",
       "type": "mirrors",
       "target": "Cooperation Yields Agency",
@@ -11379,24 +11212,6 @@
       "type": "connects-to",
       "target": "Spinoza Conatus",
       "label": "expert-for-drive-and-joy"
-    },
-    {
-      "source": "Mixture of Experts",
-      "type": "mirrors",
-      "target": "Excellent Adventure",
-      "label": "embodied-routing"
-    },
-    {
-      "source": "Mixture of Experts",
-      "type": "mirrors",
-      "target": "Dialectic",
-      "label": "multi-expert-dialogue"
-    },
-    {
-      "source": "Mixture of Experts",
-      "type": "mirrors",
-      "target": "Philosopher Visits the Entry",
-      "label": "embodied-routing-single-node"
     },
     {
       "source": "Mixture of Experts",
@@ -11443,14 +11258,14 @@
     {
       "source": "Blocked, Not Prompted",
       "type": "connects-to",
-      "target": "Blender",
-      "label": "the-blocking-surface"
+      "target": "ComfyUI",
+      "label": "fills-what-is-blocked"
     },
     {
       "source": "Blocked, Not Prompted",
-      "type": "connects-to",
-      "target": "ComfyUI",
-      "label": "fills-what-is-blocked"
+      "type": "exemplifies",
+      "target": "Blender",
+      "label": "the-keystone"
     },
     {
       "source": "Enrichment",
@@ -11628,18 +11443,6 @@
     },
     {
       "source": "The Shop",
-      "type": "exemplifies",
-      "target": "Kokoro",
-      "label": "gotcha-anchor"
-    },
-    {
-      "source": "The Shop",
-      "type": "exemplifies",
-      "target": "Manim CE",
-      "label": "heuristic-case"
-    },
-    {
-      "source": "The Shop",
       "type": "connects-to",
       "target": "Trickster",
       "label": "provisional-producer"
@@ -11661,12 +11464,6 @@
       "type": "emerged-from",
       "target": "Floquet Time-Modulated Loops",
       "label": "canonical-instance-of"
-    },
-    {
-      "source": "Mathieu Equation",
-      "type": "connects-to",
-      "target": "Floquet Theory",
-      "label": "simplest-floquet-system"
     },
     {
       "source": "Mathieu Equation",
@@ -11727,6 +11524,12 @@
       "type": "connects-to",
       "target": "Dialectic \u2014 dialectic \u2014 spinoza-zhuangzi-on-striving",
       "label": "driving-is-flowing"
+    },
+    {
+      "source": "Mathieu Equation",
+      "type": "connects-to",
+      "target": "Floquet Theory",
+      "label": "canonical-equation"
     },
     {
       "source": "Audition Gate",
@@ -11805,12 +11608,6 @@
       "type": "connects-to",
       "target": "Stoicism",
       "label": "home-tradition"
-    },
-    {
-      "source": "Boundary-Crossing Instruments",
-      "type": "spawned",
-      "target": "Frequency-Time Duality",
-      "label": null
     },
     {
       "source": "Boundary-Crossing Instruments",
@@ -11946,12 +11743,6 @@
     },
     {
       "source": "Spinoza Conatus",
-      "type": "couples-with",
-      "target": "Trickster",
-      "label": "necessary-exterior"
-    },
-    {
-      "source": "Spinoza Conatus",
       "type": "enables",
       "target": "Cooperation Yields Agency",
       "label": "conatus-grounds-agency"
@@ -11961,12 +11752,6 @@
       "type": "mirrors",
       "target": "Endosymbiosis",
       "label": "cellular-hilaritas"
-    },
-    {
-      "source": "Spinoza Conatus",
-      "type": "couples-with",
-      "target": "Deleuze",
-      "label": "monism-radicalized"
     },
     {
       "source": "Scale-Stratified Identity",
@@ -12221,6 +12006,12 @@
       "label": "continuity-across-the-molt"
     },
     {
+      "source": "The Remembering Page",
+      "type": "connects-to",
+      "target": "Dialectic",
+      "label": "the-debate-sharpens"
+    },
+    {
       "source": "Trickster",
       "type": "emerged-from",
       "target": "Semantic Delay",
@@ -12291,12 +12082,6 @@
       "type": "connects-to",
       "target": "Palace Enchantment",
       "label": "trickster-seat"
-    },
-    {
-      "source": "Trickster",
-      "type": "couples-with",
-      "target": "Dialogue Moderator",
-      "label": "trickster-moderator-pair"
     },
     {
       "source": "Trickster",
@@ -12403,12 +12188,6 @@
     {
       "source": "Entry Conatus",
       "type": "connects-to",
-      "target": "Weave Ceremony",
-      "label": "vector-linting"
-    },
-    {
-      "source": "Entry Conatus",
-      "type": "connects-to",
       "target": "Spore Check Ceremony",
       "label": "composting-question"
     },
@@ -12447,18 +12226,6 @@
       "type": "connects-to",
       "target": "SCHEMA",
       "label": "artifact-not-canon"
-    },
-    {
-      "source": "The Scroll",
-      "type": "enables",
-      "target": "Project Stewardship System",
-      "label": "front-door"
-    },
-    {
-      "source": "The Scroll",
-      "type": "connects-to",
-      "target": "STIGMERGY",
-      "label": "rendered-in"
     },
     {
       "source": "The Scroll",
@@ -12581,6 +12348,12 @@
       "label": "every-tool"
     },
     {
+      "source": "ELDER",
+      "type": "connects-to",
+      "target": "Agent Toolbox",
+      "label": "tool-tiers"
+    },
+    {
       "source": "Autodidact Polymaths",
       "type": "couples-with",
       "target": "Loudon Live",
@@ -12589,14 +12362,14 @@
     {
       "source": "Autodidact Polymaths",
       "type": "connects-to",
-      "target": "FOUR PILLARS",
-      "label": "pillar-shaped-learners"
+      "target": "Hyperdimensional Prism",
+      "label": "multi-depth-readability"
     },
     {
       "source": "Autodidact Polymaths",
       "type": "connects-to",
-      "target": "Hyperdimensional Prism",
-      "label": "multi-depth-readability"
+      "target": "FOUR PILLARS",
+      "label": "argues-this-audience-exists"
     },
     {
       "source": "Tool Builder",
@@ -12893,12 +12666,6 @@
       "label": null
     },
     {
-      "source": "State Machine",
-      "type": "mirrors",
-      "target": "Progressive Staging",
-      "label": "pedagogical-isomorphism"
-    },
-    {
       "source": "Drift and Consolidation",
       "type": "deepens",
       "target": "Project Stewardship System",
@@ -13044,12 +12811,6 @@
     },
     {
       "source": "Volterra Kernels and the Torus",
-      "type": "couples-with",
-      "target": "Dispersion Table",
-      "label": "reading-mechanism"
-    },
-    {
-      "source": "Volterra Kernels and the Torus",
       "type": "connects-to",
       "target": "Spinoza Conatus",
       "label": "single-substance-lens"
@@ -13067,16 +12828,16 @@
       "label": "demonstration-venue"
     },
     {
-      "source": "The Fortress and the Threshold",
-      "type": "contradicts",
-      "target": "Stoicism",
-      "label": null
+      "source": "Volterra Kernels and the Torus",
+      "type": "couples-with",
+      "target": "Dispersion Table",
+      "label": "stored-field-distinguished-by-its-reader"
     },
     {
-      "source": "The Fortress and the Threshold",
-      "type": "contradicts",
-      "target": "Confucianism",
-      "label": null
+      "source": "Volterra Kernels and the Torus",
+      "type": "connects-to",
+      "target": "Chebyshev is Fourier",
+      "label": "the-diagonal-is-a-waveshaper"
     },
     {
       "source": "The Fortress and the Threshold",
@@ -13127,6 +12888,18 @@
       "label": "third-pole-surfaced"
     },
     {
+      "source": "The Fortress and the Threshold",
+      "type": "contradicts",
+      "target": "Stoicism",
+      "label": "the-fortress-pole"
+    },
+    {
+      "source": "The Fortress and the Threshold",
+      "type": "contradicts",
+      "target": "Confucianism",
+      "label": "the-threshold-pole"
+    },
+    {
       "source": "Hand-Drawn 3D Look",
       "type": "emerged-from",
       "target": "BLUELINE",
@@ -13159,26 +12932,20 @@
     {
       "source": "Hand-Drawn 3D Look",
       "type": "connects-to",
-      "target": "Frame Designer",
-      "label": "dispatched-by"
-    },
-    {
-      "source": "Hand-Drawn 3D Look",
-      "type": "couples-with",
-      "target": "Remnants in Depth",
-      "label": "contains"
-    },
-    {
-      "source": "Hand-Drawn 3D Look",
-      "type": "connects-to",
       "target": "The Flow Field is the Spine",
       "label": "one-field-for-everything"
     },
     {
       "source": "Hand-Drawn 3D Look",
-      "type": "enables",
-      "target": "Figure Rig",
-      "label": "figure-staging"
+      "type": "couples-with",
+      "target": "Remnants in Depth",
+      "label": "ink-that-lives-in-3D"
+    },
+    {
+      "source": "Hand-Drawn 3D Look",
+      "type": "connects-to",
+      "target": "Frame Designer",
+      "label": "the-menu-it-dispatches-from"
     },
     {
       "source": "Speak Like a Person, Log Like a Protocol",
@@ -13242,12 +13009,6 @@
     },
     {
       "source": "Confucianism",
-      "type": "spawned",
-      "target": "The Fortress and the Threshold",
-      "label": null
-    },
-    {
-      "source": "Confucianism",
       "type": "connects-to",
       "target": "Spinoza Conatus",
       "label": "relational-flourishing"
@@ -13299,12 +13060,6 @@
       "type": "emerged-from",
       "target": "GenAI Camera",
       "label": "born-from-the-depth-miss"
-    },
-    {
-      "source": "Songlines",
-      "type": "connects-to",
-      "target": "Lateral Access",
-      "label": "sung-through"
     },
     {
       "source": "Songlines",
@@ -13400,7 +13155,7 @@
       "source": "Cooperation Yields Agency",
       "type": "enables",
       "target": "Hilaritas Generator",
-      "label": "cooperation-as-hilaritas"
+      "label": "cooperation-applied-to-pedagogy"
     },
     {
       "source": "FOUR PILLARS",
@@ -13441,18 +13196,6 @@
     {
       "source": "FOUR PILLARS",
       "type": "connects-to",
-      "target": "Autodidact Polymaths",
-      "label": "audience-it-names"
-    },
-    {
-      "source": "FOUR PILLARS",
-      "type": "connects-to",
-      "target": "Zoom Out to the Structure",
-      "label": "same-instinct-as-a-menu-option"
-    },
-    {
-      "source": "FOUR PILLARS",
-      "type": "connects-to",
       "target": "Cooperation Yields Agency",
       "label": "public-demonstration"
     },
@@ -13467,6 +13210,12 @@
       "type": "connects-to",
       "target": "CHILD",
       "label": "make-then-learn-for-agents"
+    },
+    {
+      "source": "FOUR PILLARS",
+      "type": "connects-to",
+      "target": "Zoom Out to the Structure",
+      "label": "reach-for-the-general"
     },
     {
       "source": "Meaning and the Link",
@@ -13692,18 +13441,6 @@
     },
     {
       "source": "Kuramoto Coupling",
-      "type": "connects-to",
-      "target": "Modes of Collaboration",
-      "label": "collaboration-as-coupling"
-    },
-    {
-      "source": "Kuramoto Coupling",
-      "type": "couples-with",
-      "target": "Phase Reduction",
-      "label": "bridge-via-PRC"
-    },
-    {
-      "source": "Kuramoto Coupling",
       "type": "couples-with",
       "target": "Categorizing Inharmonicity",
       "label": "direct-coupling"
@@ -13731,12 +13468,6 @@
       "type": "connects-to",
       "target": "Mermaid",
       "label": "regime-diagram"
-    },
-    {
-      "source": "Kuramoto Coupling",
-      "type": "spawned",
-      "target": "Neural Granular Synthesis",
-      "label": "origin-project"
     },
     {
       "source": "Language as a Tonal Medium",
@@ -13770,12 +13501,6 @@
     },
     {
       "source": "STIGMERGY",
-      "type": "connects-to",
-      "target": "Palace Orchestrator",
-      "label": "orchestrated-by"
-    },
-    {
-      "source": "STIGMERGY",
       "type": "enables",
       "target": "Project Stewardship System",
       "label": "the-substrate-stewardship-runs-on"
@@ -13788,12 +13513,6 @@
     },
     {
       "source": "STIGMERGY",
-      "type": "mirrors",
-      "target": "Pheromone Trail",
-      "label": "the-trace-that-shapes-the-next-action"
-    },
-    {
-      "source": "STIGMERGY",
       "type": "connects-to",
       "target": "Pages as Agents",
       "label": "the-page-is-the-agent"
@@ -13803,12 +13522,6 @@
       "type": "spawned",
       "target": "STIGMERGY v2.0 \u2014 Consolidation & Primary Interface",
       "label": "consolidation-and-roadmap"
-    },
-    {
-      "source": "STIGMERGY",
-      "type": "connects-to",
-      "target": "Palace Orchestrator",
-      "label": "dispatches-onto-the-board"
     },
     {
       "source": "STIGMERGY",
@@ -13827,6 +13540,12 @@
       "type": "connects-to",
       "target": "STIGMERGY \u2014 sketch \u2014 the-substrate-drifts",
       "label": "v0.3-session"
+    },
+    {
+      "source": "STIGMERGY",
+      "type": "mirrors",
+      "target": "Pheromone Trail",
+      "label": "two-timescale-trace"
     },
     {
       "source": "CLAUDE",
@@ -13869,12 +13588,6 @@
       "type": "emerged-from",
       "target": "FOUR PILLARS",
       "label": "pedagogical-frame"
-    },
-    {
-      "source": "Hilaritas Generator",
-      "type": "mirrors",
-      "target": "Cooperation Yields Agency",
-      "label": "shared-emergence"
     },
     {
       "source": "Hilaritas Generator",
@@ -13965,12 +13678,6 @@
       "type": "connects-to",
       "target": "The Commons",
       "label": "born-this-way"
-    },
-    {
-      "source": "Zoom Out to the Structure",
-      "type": "connects-to",
-      "target": "FOUR PILLARS",
-      "label": "don't-force-it"
     },
     {
       "source": "Simondon",
@@ -14073,12 +13780,6 @@
       "type": "contradicts",
       "target": "Confucianism",
       "label": "fortress-vs-threshold"
-    },
-    {
-      "source": "Stoicism",
-      "type": "spawned",
-      "target": "The Fortress and the Threshold",
-      "label": null
     },
     {
       "source": "Stoicism",
@@ -14220,12 +13921,6 @@
     },
     {
       "source": "DSP in Looping Dimensions",
-      "type": "couples-with",
-      "target": "2D Torus Wavetable Synthesizer",
-      "label": "incarnated-by"
-    },
-    {
-      "source": "DSP in Looping Dimensions",
       "type": "mirrors",
       "target": "Frequency-Time Duality",
       "label": "rhymes-with"
@@ -14241,12 +13936,6 @@
       "type": "connects-to",
       "target": "Wallpaper Groups",
       "label": "shares-symmetry"
-    },
-    {
-      "source": "DSP in Looping Dimensions",
-      "type": "couples-with",
-      "target": "Wavetable Space as Torus",
-      "label": "geometric-instantiation"
     },
     {
       "source": "DSP in Looping Dimensions",
@@ -14376,12 +14065,6 @@
     },
     {
       "source": "LDN RTM",
-      "type": "connects-to",
-      "target": "Loudon's Toolkit",
-      "label": "future-series-source"
-    },
-    {
-      "source": "LDN RTM",
       "type": "spawned",
       "target": "LDN RTM \u2014 Live 12",
       "label": "series-one"
@@ -14483,6 +14166,12 @@
       "label": "artifact-convention-source"
     },
     {
+      "source": "Piano String Inharmonicity",
+      "type": "connects-to",
+      "target": "Portamento and Physical Pitch Modeling",
+      "label": "a-bend-moves-the-partials"
+    },
+    {
       "source": "Splice Instrument Forge",
       "type": "deepens",
       "target": "Generative Sample Libraries",
@@ -14526,12 +14215,6 @@
     },
     {
       "source": "Particle Synthesis",
-      "type": "deepens",
-      "target": "Granular Synthesis",
-      "label": null
-    },
-    {
-      "source": "Particle Synthesis",
       "type": "mirrors",
       "target": "Boundary-Crossing Instruments",
       "label": null
@@ -14553,6 +14236,12 @@
       "type": "connects-to",
       "target": "Differential Equations",
       "label": "particle-as-ode-solution"
+    },
+    {
+      "source": "Particle Synthesis",
+      "type": "deepens",
+      "target": "Granular Synthesis",
+      "label": "grains-reconceived-as-particles"
     },
     {
       "source": "Shepard Tone Synthesizer",
@@ -14689,12 +14378,6 @@
     {
       "source": "Loudon Live",
       "type": "connects-to",
-      "target": "Retrospective Delay",
-      "label": "interface-mythology"
-    },
-    {
-      "source": "Loudon Live",
-      "type": "connects-to",
       "target": "STIGMERGY",
       "label": "provenance-layer"
     },
@@ -14703,6 +14386,12 @@
       "type": "connects-to",
       "target": "BLUELINE",
       "label": "beside-it"
+    },
+    {
+      "source": "Loudon Live",
+      "type": "connects-to",
+      "target": "Retrospective Delay",
+      "label": "interface-mythology"
     },
     {
       "source": "Semantic Webcam",
@@ -15024,21 +14713,9 @@
     },
     {
       "source": "Generative Preset Development",
-      "type": "couples-with",
-      "target": "Generative Sample Libraries",
-      "label": "parallel-siblings"
-    },
-    {
-      "source": "Generative Preset Development",
       "type": "mirrors",
       "target": "Registry Pattern",
       "label": "profile-as-registry"
-    },
-    {
-      "source": "Generative Preset Development",
-      "type": "deepens",
-      "target": "Synthesis Topologies",
-      "label": "topology-made-fixed"
     },
     {
       "source": "Generative Preset Development",
@@ -15075,6 +14752,12 @@
       "type": "mirrors",
       "target": "Floquet Theory",
       "label": "parameter-space-periodicity"
+    },
+    {
+      "source": "Generative Preset Development",
+      "type": "couples-with",
+      "target": "Generative Sample Libraries",
+      "label": "content-meets-configuration"
     },
     {
       "source": "Haptic Handwheel",
@@ -15145,12 +14828,6 @@
     {
       "source": "Haptic Handwheel",
       "type": "connects-to",
-      "target": "Loudon's Toolkit",
-      "label": "toward-the-hardware-product"
-    },
-    {
-      "source": "Haptic Handwheel",
-      "type": "connects-to",
       "target": "Quality Manifesto",
       "label": "physical-making"
     },
@@ -15189,12 +14866,6 @@
       "type": "connects-to",
       "target": "Haptic Handwheel \u2014 sketch \u2014 starter build",
       "label": "first-sketch-to-push-against"
-    },
-    {
-      "source": "Meadows and an Artist's Career",
-      "type": "connects-to",
-      "target": "Creative Coach",
-      "label": "the-instrument-it-serves"
     },
     {
       "source": "Meadows and an Artist's Career",
@@ -15348,12 +15019,6 @@
     },
     {
       "source": "Generative Wavetable Libraries",
-      "type": "couples-with",
-      "target": "Generative Sample Libraries",
-      "label": "parallel-deployment"
-    },
-    {
-      "source": "Generative Wavetable Libraries",
       "type": "mirrors",
       "target": "Wavetable Synthesis \u2014 Deep Research & Higher-Dimensional Design",
       "label": "wavetable-space"
@@ -15393,18 +15058,6 @@
       "type": "connects-to",
       "target": "Floquet Theory",
       "label": "time-periodic-modulation"
-    },
-    {
-      "source": "Generative Wavetable Libraries",
-      "type": "connects-to",
-      "target": "Wavetable Scanner",
-      "label": "plays-its-packed-tables"
-    },
-    {
-      "source": "Generative Wavetable Libraries",
-      "type": "connects-to",
-      "target": "1D Wavetable Scanning",
-      "label": "what-position-means"
     },
     {
       "source": "Generative Wavetable Libraries",
@@ -15452,12 +15105,6 @@
       "source": "Symbiotic Skills",
       "type": "connects-to",
       "target": "JEWEL",
-      "label": "emerged-but-not-predicted"
-    },
-    {
-      "source": "Symbiotic Skills",
-      "type": "connects-to",
-      "target": "Palace Map",
       "label": "emerged-but-not-predicted"
     },
     {
@@ -15715,12 +15362,6 @@
     {
       "source": "Floquet Time-Modulated Loops",
       "type": "connects-to",
-      "target": "Bessel Functions in Synthesis",
-      "label": "fm-as-floquet"
-    },
-    {
-      "source": "Floquet Time-Modulated Loops",
-      "type": "connects-to",
       "target": "Crystal Synthesizer",
       "label": "bloch-spatial-twin"
     },
@@ -15735,6 +15376,12 @@
       "type": "exemplifies",
       "target": "Progressive Staging",
       "label": "five-stage-arc"
+    },
+    {
+      "source": "Floquet Time-Modulated Loops",
+      "type": "connects-to",
+      "target": "Bessel Functions in Synthesis",
+      "label": "fm-is-a-floquet-system"
     },
     {
       "source": "Bayesian Granular Synthesizer",
@@ -15775,12 +15422,6 @@
     {
       "source": "Portamento and Physical Pitch Modeling",
       "type": "connects-to",
-      "target": "Bessel Functions in Synthesis",
-      "label": "bessel-mode-geometry"
-    },
-    {
-      "source": "Portamento and Physical Pitch Modeling",
-      "type": "connects-to",
       "target": "Biomechanical Synthesis",
       "label": "voice-biomechanics"
     },
@@ -15789,6 +15430,12 @@
       "type": "mirrors",
       "target": "Action Potential Oscillator",
       "label": "threshold-overshoot"
+    },
+    {
+      "source": "Portamento and Physical Pitch Modeling",
+      "type": "connects-to",
+      "target": "Bessel Functions in Synthesis",
+      "label": "circular-resonator-modes"
     },
     {
       "source": "Preset Oracle",
@@ -15828,12 +15475,6 @@
     },
     {
       "source": "Generative Sample Libraries",
-      "type": "couples-with",
-      "target": "Generative Preset Development",
-      "label": "content-meets-configuration"
-    },
-    {
-      "source": "Generative Sample Libraries",
       "type": "spawned",
       "target": "Generative Wavetable Libraries",
       "label": "split-off"
@@ -15855,12 +15496,6 @@
       "type": "connects-to",
       "target": "Substrate Skill",
       "label": "stage-conditional-posture-source"
-    },
-    {
-      "source": "Generative Sample Libraries",
-      "type": "connects-to",
-      "target": "Project Stewardship System",
-      "label": "stage-mismatch-case-study"
     },
     {
       "source": "Generative Sample Libraries",
@@ -15891,6 +15526,12 @@
       "type": "spawned",
       "target": "Splice Instrument Forge",
       "label": "splice-arm"
+    },
+    {
+      "source": "Generative Sample Libraries",
+      "type": "connects-to",
+      "target": "Project Stewardship System",
+      "label": "stage-A-pilot"
     },
     {
       "source": "Phoneme Choir",
@@ -15930,12 +15571,6 @@
     },
     {
       "source": "Semantic Delay",
-      "type": "emerged-from",
-      "target": "Dub Lineage",
-      "label": null
-    },
-    {
-      "source": "Semantic Delay",
       "type": "mirrors",
       "target": "Frequency-Time Duality",
       "label": null
@@ -15945,6 +15580,12 @@
       "type": "deepens",
       "target": "Spinoza Conatus",
       "label": null
+    },
+    {
+      "source": "Semantic Delay",
+      "type": "emerged-from",
+      "target": "Dub Lineage",
+      "label": "belongs-to-the-dub-tradition"
     },
     {
       "source": "2D Torus Wavetable Synthesizer",
@@ -15990,12 +15631,6 @@
     },
     {
       "source": "2D Torus Wavetable Synthesizer",
-      "type": "couples-with",
-      "target": "Wavetable Space as Torus",
-      "label": "inhabits-geometry"
-    },
-    {
-      "source": "2D Torus Wavetable Synthesizer",
       "type": "mirrors",
       "target": "Boundary-Crossing Instruments",
       "label": "harmonic-inharmonic-continuum"
@@ -16017,18 +15652,6 @@
       "type": "connects-to",
       "target": "Neural Granular Synthesis \u2014 spec \u2014 control-vocabulary-math",
       "label": "worked-control-vocabulary"
-    },
-    {
-      "source": "2D Torus Wavetable Synthesizer",
-      "type": "mirrors",
-      "target": "Rank-N Lattice Analysis",
-      "label": "its-own-oscilloscope"
-    },
-    {
-      "source": "2D Torus Wavetable Synthesizer",
-      "type": "mirrors",
-      "target": "Volterra Kernels and the Torus",
-      "label": "same-field-as-an-effect"
     },
     {
       "source": "1 from 2",
@@ -16116,27 +15739,9 @@
     },
     {
       "source": "Project Stewardship System",
-      "type": "connects-to",
-      "target": "Generative Sample Libraries",
-      "label": "stage-mismatch-evidence"
-    },
-    {
-      "source": "Project Stewardship System",
-      "type": "connects-to",
-      "target": "Talking Keyboard",
-      "label": "pronunciation-case-study"
-    },
-    {
-      "source": "Project Stewardship System",
       "type": "deepens",
       "target": "Palace Enchantment",
       "label": "routinizing"
-    },
-    {
-      "source": "Project Stewardship System",
-      "type": "connects-to",
-      "target": "Palace Conatus",
-      "label": "escalation-rationale"
     },
     {
       "source": "Project Stewardship System",
@@ -16170,12 +15775,6 @@
     },
     {
       "source": "Frequency-Time Duality",
-      "type": "enables",
-      "target": "Boundary-Crossing Instruments",
-      "label": null
-    },
-    {
-      "source": "Frequency-Time Duality",
       "type": "mirrors",
       "target": "Hyperdimensional Prism",
       "label": null
@@ -16185,12 +15784,6 @@
       "type": "connects-to",
       "target": "Action Potential Oscillator",
       "label": "single-cycle-scale"
-    },
-    {
-      "source": "Frequency-Time Duality",
-      "type": "connects-to",
-      "target": "Waveguide Synthesizer",
-      "label": "doorway"
     },
     {
       "source": "Frequency-Time Duality",
@@ -16209,6 +15802,12 @@
       "type": "connects-to",
       "target": "Loudon Live",
       "label": "introductory-tool"
+    },
+    {
+      "source": "Frequency-Time Duality",
+      "type": "enables",
+      "target": "Boundary-Crossing Instruments",
+      "label": "clearest-single-demonstration"
     },
     {
       "source": "Waveguide Synthesizer",
@@ -16290,12 +15889,6 @@
     },
     {
       "source": "Action Potential Oscillator",
-      "type": "deepens",
-      "target": "Neural Granular Synthesis",
-      "label": null
-    },
-    {
-      "source": "Action Potential Oscillator",
       "type": "emerged-from",
       "target": "Progressive Staging",
       "label": null
@@ -16320,20 +15913,8 @@
     },
     {
       "source": "Neural Granular Synthesis",
-      "type": "couples-with",
-      "target": "Kuramoto Coupling",
-      "label": null
-    },
-    {
-      "source": "Neural Granular Synthesis",
       "type": "deepens",
       "target": "Granular Synthesis",
-      "label": null
-    },
-    {
-      "source": "Neural Granular Synthesis",
-      "type": "emerged-from",
-      "target": "Action Potential Oscillator",
       "label": null
     },
     {
@@ -16343,10 +15924,16 @@
       "label": "coherence-as-harmonicity"
     },
     {
-      "source": "Wavetable Scanner",
-      "type": "exemplifies",
-      "target": "1D Wavetable Scanning",
-      "label": "first-incarnation"
+      "source": "Neural Granular Synthesis",
+      "type": "couples-with",
+      "target": "Kuramoto Coupling",
+      "label": "coupling-strength-K"
+    },
+    {
+      "source": "Neural Granular Synthesis",
+      "type": "emerged-from",
+      "target": "Action Potential Oscillator",
+      "label": "phase-1-single-neuron"
     },
     {
       "source": "Wavetable Scanner",
@@ -16413,6 +16000,12 @@
       "type": "deepens",
       "target": "Harmonicity and Inharmonicity",
       "label": null
+    },
+    {
+      "source": "Quantum Synthesizer",
+      "type": "connects-to",
+      "target": "Piano String Inharmonicity",
+      "label": "stiffness-road-to-the-squares"
     },
     {
       "source": "SMPTE LTC",
@@ -16541,6 +16134,12 @@
       "label": "prism-machine"
     },
     {
+      "source": "Crystal Synthesizer",
+      "type": "exemplifies",
+      "target": "Biomechanical Synthesis",
+      "label": "instrument-two-built"
+    },
+    {
       "source": "Retrospective Delay",
       "type": "connects-to",
       "target": "Semantic Delay",
@@ -16575,12 +16174,6 @@
       "type": "deepens",
       "target": "STIGMERGY v1.0 \u2014 Palace Front-End",
       "label": "a-philosophical-surface-for-the-front-end"
-    },
-    {
-      "source": "STIGMERGY Philosophical Lenses",
-      "type": "connects-to",
-      "target": "Palace Philosophies",
-      "label": "the-neighborhood-this-surfaces"
     },
     {
       "source": "STIGMERGY Philosophical Lenses",
@@ -16716,12 +16309,6 @@
     },
     {
       "source": "Biomechanical Synthesis",
-      "type": "connects-to",
-      "target": "Neural Granular Synthesis",
-      "label": "firing-rate-as-grain-rate"
-    },
-    {
-      "source": "Biomechanical Synthesis",
       "type": "couples-with",
       "target": "Kuramoto Coupling",
       "label": null
@@ -16755,6 +16342,12 @@
       "type": "exemplifies",
       "target": "Playful Interface Design",
       "label": "the-organism-kind"
+    },
+    {
+      "source": "Biomechanical Synthesis",
+      "type": "connects-to",
+      "target": "Neural Granular Synthesis",
+      "label": "firing-rate-becomes-grain-rate"
     },
     {
       "source": "Palace Enchantment",
@@ -16809,12 +16402,6 @@
       "type": "connects-to",
       "target": "Hilaritas Generator",
       "label": "first-enchanted-page"
-    },
-    {
-      "source": "Palace Enchantment",
-      "type": "couples-with",
-      "target": "Dialogue Moderator",
-      "label": "active-coordinator"
     },
     {
       "source": "Palace Enchantment",
@@ -16926,18 +16513,6 @@
     },
     {
       "source": "Kokoro",
-      "type": "couples-with",
-      "target": "Whisper",
-      "label": "pairs-with"
-    },
-    {
-      "source": "Kokoro",
-      "type": "enables",
-      "target": "Manim CE",
-      "label": "feeds"
-    },
-    {
-      "source": "Kokoro",
       "type": "connects-to",
       "target": "Kuramoto Coupling",
       "label": "phoneme-tested-on"
@@ -17029,12 +16604,6 @@
     {
       "source": "FLUX (Hugging Face)",
       "type": "connects-to",
-      "target": "ComfyUI",
-      "label": "alternative-to"
-    },
-    {
-      "source": "FLUX (Hugging Face)",
-      "type": "connects-to",
       "target": "shop-header \u2014 Maker's Comparison Recommendation",
       "label": "founding-job"
     },
@@ -17049,6 +16618,12 @@
       "type": "enables",
       "target": "Loudon Live Design System",
       "label": "artifact-substrate"
+    },
+    {
+      "source": "FLUX (Hugging Face)",
+      "type": "connects-to",
+      "target": "ComfyUI",
+      "label": "comparison-mode-pair"
     },
     {
       "source": "Whisper",
@@ -17189,12 +16764,6 @@
       "label": "emits-a-host-file"
     },
     {
-      "source": "Ableton Session Writer",
-      "type": "connects-to",
-      "target": "Splice Instrument Forge",
-      "label": "hands-me-splice-kits"
-    },
-    {
       "source": "Stable Audio Open",
       "type": "connects-to",
       "target": "Maker",
@@ -17328,12 +16897,6 @@
     },
     {
       "source": "RunPod GPU Backend",
-      "type": "connects-to",
-      "target": "The Commons",
-      "label": "machinery-adopted"
-    },
-    {
-      "source": "RunPod GPU Backend",
       "type": "enables",
       "target": "LoRA Trainer",
       "label": "trains-on"
@@ -17370,12 +16933,6 @@
     },
     {
       "source": "Frame Designer",
-      "type": "connects-to",
-      "target": "Steer the Generator",
-      "label": "render-discipline"
-    },
-    {
-      "source": "Frame Designer",
       "type": "exemplifies",
       "target": "Adopt the Craft, Author the Seam",
       "label": "comp-as-craft"
@@ -17385,24 +16942,6 @@
       "type": "connects-to",
       "target": "BLUELINE \u2014 Production Pipeline",
       "label": "realizes-stages-4-5"
-    },
-    {
-      "source": "Frame Designer",
-      "type": "connects-to",
-      "target": "Hand-Drawn 3D Look",
-      "label": "hand-drawn-pipeline"
-    },
-    {
-      "source": "Frame Designer",
-      "type": "connects-to",
-      "target": "Remnants in Depth",
-      "label": "2d-marks-in-3d"
-    },
-    {
-      "source": "Frame Designer",
-      "type": "connects-to",
-      "target": "Figure Rig",
-      "label": "figure-staging-method"
     },
     {
       "source": "Frame Designer",
@@ -17439,6 +16978,18 @@
       "type": "connects-to",
       "target": "Block It in Blender, Ink It in genAI",
       "label": "staging-runbook"
+    },
+    {
+      "source": "Frame Designer",
+      "type": "exemplifies",
+      "target": "Steer the Generator",
+      "label": "render-discipline"
+    },
+    {
+      "source": "Frame Designer",
+      "type": "connects-to",
+      "target": "Remnants in Depth",
+      "label": "ink-that-moves-with-the-camera"
     },
     {
       "source": "VCV Patch Generator",
@@ -17514,18 +17065,6 @@
     },
     {
       "source": "ComfyUI",
-      "type": "connects-to",
-      "target": "RunPod GPU Backend",
-      "label": "cloud-path"
-    },
-    {
-      "source": "ComfyUI",
-      "type": "connects-to",
-      "target": "FLUX (Hugging Face)",
-      "label": "cloud-sibling"
-    },
-    {
-      "source": "ComfyUI",
       "type": "enables",
       "target": "Loudon Live Design System",
       "label": "renders-the-lesson-art"
@@ -17565,12 +17104,6 @@
       "type": "member-of",
       "target": "The Shop",
       "label": "roster-member"
-    },
-    {
-      "source": "Figure Rig",
-      "type": "connects-to",
-      "target": "Frame Designer",
-      "label": "staging-method"
     },
     {
       "source": "Figure Rig",
@@ -17619,6 +17152,12 @@
       "type": "connects-to",
       "target": "GenAI Camera",
       "label": "org-bone-projection"
+    },
+    {
+      "source": "Figure Rig",
+      "type": "connects-to",
+      "target": "Frame Designer",
+      "label": "figure-staging-method"
     },
     {
       "source": "LaMa",
@@ -17691,12 +17230,6 @@
       "type": "connects-to",
       "target": "Animate the Background",
       "label": "the-surprise-win"
-    },
-    {
-      "source": "Depth Anything",
-      "type": "connects-to",
-      "target": "SAM",
-      "label": "a-second-route-to-the-figure"
     },
     {
       "source": "Depth Anything",
@@ -17845,12 +17378,6 @@
     {
       "source": "Three.js",
       "type": "connects-to",
-      "target": "Wavetable Scanner",
-      "label": "exemplified-by"
-    },
-    {
-      "source": "Three.js",
-      "type": "connects-to",
       "target": "1D Wavetable Scanning",
       "label": "job-deposit"
     },
@@ -17883,12 +17410,6 @@
       "type": "connects-to",
       "target": "Plotly",
       "label": "alternative-to"
-    },
-    {
-      "source": "Matplotlib",
-      "type": "connects-to",
-      "target": "Manim CE",
-      "label": "fallback-for"
     },
     {
       "source": "RNBO codebox~ smith",
@@ -17961,6 +17482,12 @@
       "type": "spawned",
       "target": "CAD Drafter",
       "label": "drafted-from-a-probe"
+    },
+    {
+      "source": "Shopkeeper",
+      "type": "spawned",
+      "target": "Ableton Session Writer",
+      "label": "drafted-in-the-workshop"
     },
     {
       "source": "Image-to-3D Smith",
@@ -18048,12 +17575,6 @@
     },
     {
       "source": "Web Audio Worklet",
-      "type": "member-of",
-      "target": "The Shop",
-      "label": "roster-member"
-    },
-    {
-      "source": "Web Audio Worklet",
       "type": "couples-with",
       "target": "p5.js",
       "label": "pairs-with"
@@ -18069,12 +17590,6 @@
       "type": "connects-to",
       "target": "RNBO codebox~ smith",
       "label": "browser-cousin-of"
-    },
-    {
-      "source": "Web Audio Worklet",
-      "type": "exemplifies",
-      "target": "The Shop",
-      "label": "earns-new-operating-model"
     },
     {
       "source": "Web Audio Worklet",
@@ -18099,6 +17614,12 @@
       "type": "exemplifies",
       "target": "Zoom Out to the Structure",
       "label": "gotcha-becomes-concept"
+    },
+    {
+      "source": "Web Audio Worklet",
+      "type": "member-of",
+      "target": "The Shop",
+      "label": "earned-by-a-different-operating-model"
     },
     {
       "source": "AuK",
@@ -18147,18 +17668,6 @@
       "type": "enables",
       "target": "Endosymbiosis",
       "label": "symbiotic-infrastructure"
-    },
-    {
-      "source": "ffmpeg",
-      "type": "couples-with",
-      "target": "Kokoro",
-      "label": "narration-pipe"
-    },
-    {
-      "source": "ffmpeg",
-      "type": "couples-with",
-      "target": "Manim CE",
-      "label": "render-pipe"
     },
     {
       "source": "ffmpeg",
@@ -18237,12 +17746,6 @@
       "type": "connects-to",
       "target": "Three.js",
       "label": "complement-to"
-    },
-    {
-      "source": "Blender",
-      "type": "connects-to",
-      "target": "BLUELINE",
-      "label": "commissioned-by"
     },
     {
       "source": "Blender",
@@ -18354,12 +17857,6 @@
     },
     {
       "source": "Manim CE",
-      "type": "couples-with",
-      "target": "Kokoro",
-      "label": "pairs-with"
-    },
-    {
-      "source": "Manim CE",
       "type": "connects-to",
       "target": "Kuramoto Coupling",
       "label": "round-1-test-bed"
@@ -18393,6 +17890,12 @@
       "type": "connects-to",
       "target": "Radio Play",
       "label": "vo-as-clock"
+    },
+    {
+      "source": "Manim CE",
+      "type": "couples-with",
+      "target": "Kokoro",
+      "label": "narration-it-renders-under"
     },
     {
       "source": "Observable Plot",
@@ -18522,12 +18025,6 @@
     },
     {
       "source": "Baton Ceremony",
-      "type": "mirrors",
-      "target": "Closing Well",
-      "label": "every-baton-closes-well"
-    },
-    {
-      "source": "Baton Ceremony",
       "type": "connects-to",
       "target": "SCHEMA",
       "label": "governed-by"
@@ -18582,12 +18079,6 @@
     },
     {
       "source": "Harvest Ceremony",
-      "type": "spawned",
-      "target": "Deposit Ceremony",
-      "label": null
-    },
-    {
-      "source": "Harvest Ceremony",
       "type": "deepens",
       "target": "SUBSTRATE",
       "label": null
@@ -18612,12 +18103,6 @@
     },
     {
       "source": "Harvest Ceremony",
-      "type": "couples-with",
-      "target": "Deposit Ceremony",
-      "label": "harvest-deposit-pair"
-    },
-    {
-      "source": "Harvest Ceremony",
       "type": "enables",
       "target": "Tool Builder",
       "label": "checklist-growth"
@@ -18633,6 +18118,12 @@
       "type": "spawned",
       "target": "Harvest Ceremony \u2014 spec \u2014 lessons from outside",
       "label": "export-prompt"
+    },
+    {
+      "source": "Harvest Ceremony",
+      "type": "couples-with",
+      "target": "Deposit Ceremony",
+      "label": "routes-its-candidates-there"
     },
     {
       "source": "Map Build Ceremony",
@@ -18691,12 +18182,6 @@
     {
       "source": "The Daily Page",
       "type": "connects-to",
-      "target": "Revival Ceremony",
-      "label": "a-dormant-page-asks"
-    },
-    {
-      "source": "The Daily Page",
-      "type": "connects-to",
       "target": "Weave Ceremony",
       "label": "compost-is-confirmed-by"
     },
@@ -18732,12 +18217,6 @@
     },
     {
       "source": "Deposit Ceremony",
-      "type": "emerged-from",
-      "target": "Harvest Ceremony",
-      "label": null
-    },
-    {
-      "source": "Deposit Ceremony",
       "type": "deepens",
       "target": "SUBSTRATE",
       "label": null
@@ -18767,22 +18246,10 @@
       "label": "consults-the-elder"
     },
     {
-      "source": "Deposit Ceremony",
-      "type": "connects-to",
-      "target": "Closing Well",
-      "label": "movement-close"
-    },
-    {
       "source": "Revival Ceremony",
       "type": "emerged-from",
       "target": "Spore Check Ceremony",
       "label": "one-of-four-ways-in"
-    },
-    {
-      "source": "Revival Ceremony",
-      "type": "connects-to",
-      "target": "The Daily Page",
-      "label": "a-morning-decides-revive"
     },
     {
       "source": "Revival Ceremony",
@@ -18807,6 +18274,12 @@
       "type": "connects-to",
       "target": "Palace Enchantment",
       "label": "you-are-alive"
+    },
+    {
+      "source": "Revival Ceremony",
+      "type": "connects-to",
+      "target": "The Daily Page",
+      "label": "a-morning-decides-revive"
     },
     {
       "source": "Palace Map",
@@ -19001,16 +18474,16 @@
       "label": null
     },
     {
-      "source": "Weave Ceremony",
-      "type": "connects-to",
-      "target": "Walk Ceremony",
-      "label": "thread-versus-whole"
+      "source": "Return Ceremony",
+      "type": "mirrors",
+      "target": "Can an Instrument Notice Where the Work Stops?",
+      "label": "coming-back-is-cheap"
     },
     {
       "source": "Weave Ceremony",
       "type": "connects-to",
-      "target": "Spore Check Ceremony",
-      "label": null
+      "target": "Walk Ceremony",
+      "label": "thread-versus-whole"
     },
     {
       "source": "Weave Ceremony",
@@ -19063,12 +18536,6 @@
     {
       "source": "Weave Ceremony",
       "type": "connects-to",
-      "target": "Weaving Memory into the Palace",
-      "label": "memory-home"
-    },
-    {
-      "source": "Weave Ceremony",
-      "type": "connects-to",
       "target": "Hero and Avatar Maker",
       "label": "face-batch"
     },
@@ -19083,6 +18550,12 @@
       "type": "connects-to",
       "target": "No Mind Checks Itself",
       "label": "skeptic-stage"
+    },
+    {
+      "source": "Weave Ceremony",
+      "type": "connects-to",
+      "target": "Spore Check Ceremony",
+      "label": "weave-confirms-the-compost"
     },
     {
       "source": "Substrate Skill",
@@ -19233,6 +18706,12 @@
       "type": "enables",
       "target": "The Daily Page",
       "label": "ceremony-registry"
+    },
+    {
+      "source": "Palace Ceremonies",
+      "type": "connects-to",
+      "target": "SCHEMA \u2014 Reference",
+      "label": "ledger-rules"
     },
     {
       "source": "Image Embedding Standard",
@@ -19566,12 +19045,6 @@
     },
     {
       "source": "Marcus Aurelius",
-      "type": "connects-to",
-      "target": "Julia Cameron",
-      "label": "morning-pages"
-    },
-    {
-      "source": "Marcus Aurelius",
       "type": "exemplifies",
       "target": "The Blindspot Is the Surprise Fuel",
       "label": "calm-as-a-throne's-privilege"
@@ -19697,6 +19170,12 @@
       "label": "made-by-this-method"
     },
     {
+      "source": "Iain McGilchrist",
+      "type": "connects-to",
+      "target": "Pauline Oliveros",
+      "label": "the-wide-mode-as-practice"
+    },
+    {
       "source": "Donella Meadows",
       "type": "member-of",
       "target": "Source Library",
@@ -19755,12 +19234,6 @@
       "type": "exemplifies",
       "target": "Found \u2194 Made",
       "label": "made-pole"
-    },
-    {
-      "source": "Donella Meadows",
-      "type": "connects-to",
-      "target": "Kick Drum \u2194 Foundation",
-      "label": "leverage-in-the-low-end"
     },
     {
       "source": "Donella Meadows",
@@ -20035,12 +19508,6 @@
     {
       "source": "George Nakashima",
       "type": "connects-to",
-      "target": "James Turrell",
-      "label": "humility-that-hides-control"
-    },
-    {
-      "source": "George Nakashima",
-      "type": "connects-to",
       "target": "Andy Goldsworthy",
       "label": "humility-that-hides-control"
     },
@@ -20049,6 +19516,12 @@
       "type": "exemplifies",
       "target": "Making a Palace Citizen",
       "label": "made-by-this-method"
+    },
+    {
+      "source": "George Nakashima",
+      "type": "mirrors",
+      "target": "James Turrell",
+      "label": "humility-that-hides-control"
     },
     {
       "source": "Buckminster Fuller",
@@ -20112,18 +19585,6 @@
     },
     {
       "source": "James Turrell",
-      "type": "connects-to",
-      "target": "Agnes Martin",
-      "label": "humility-that-hides-control"
-    },
-    {
-      "source": "James Turrell",
-      "type": "connects-to",
-      "target": "Andy Goldsworthy",
-      "label": "humility-that-hides-control"
-    },
-    {
-      "source": "James Turrell",
       "type": "deepens",
       "target": "FOUR PILLARS",
       "label": null
@@ -20145,6 +19606,24 @@
       "type": "exemplifies",
       "target": "Making a Palace Citizen",
       "label": "made-by-this-method"
+    },
+    {
+      "source": "James Turrell",
+      "type": "mirrors",
+      "target": "Agnes Martin",
+      "label": "humility-that-hides-control"
+    },
+    {
+      "source": "James Turrell",
+      "type": "mirrors",
+      "target": "Andy Goldsworthy",
+      "label": "humility-that-hides-control"
+    },
+    {
+      "source": "James Turrell",
+      "type": "connects-to",
+      "target": "Rick Rubin",
+      "label": "humility-that-hides-control"
     },
     {
       "source": "Annie Dillard",
@@ -20199,12 +19678,6 @@
       "type": "member-of",
       "target": "Source Library",
       "label": null
-    },
-    {
-      "source": "Shunryu Suzuki",
-      "type": "connects-to",
-      "target": "Sidechain \u2194 Conversation",
-      "label": "yielding-practice"
     },
     {
       "source": "Shunryu Suzuki",
@@ -20335,12 +19808,6 @@
     {
       "source": "Leibniz",
       "type": "connects-to",
-      "target": "Spinoza",
-      "label": "rationalist-rival"
-    },
-    {
-      "source": "Leibniz",
-      "type": "connects-to",
       "target": "Hyperdimensional Prism",
       "label": "indras-net-refracts"
     },
@@ -20369,16 +19836,16 @@
       "label": "made-by-this-method"
     },
     {
+      "source": "Leibniz",
+      "type": "contradicts",
+      "target": "Spinoza",
+      "label": "one-substance-vs-windowless-monads"
+    },
+    {
       "source": "Lao Tzu",
       "type": "member-of",
       "target": "Source Library",
       "label": null
-    },
-    {
-      "source": "Lao Tzu",
-      "type": "connects-to",
-      "target": "Cooking \u2194 Mixing",
-      "label": "subtraction"
     },
     {
       "source": "Lao Tzu",
@@ -20574,27 +20041,15 @@
     },
     {
       "source": "Agnes Martin",
-      "type": "connects-to",
-      "target": "James Turrell",
-      "label": "receiving-not-authoring"
-    },
-    {
-      "source": "Agnes Martin",
-      "type": "mirrors",
-      "target": "Move the Ink, Don't Redraw It",
-      "label": "fixed-substrate-reveals-drift"
+      "type": "exemplifies",
+      "target": "Making a Palace Citizen",
+      "label": "made-by-this-method"
     },
     {
       "source": "Agnes Martin",
       "type": "contradicts",
       "target": "Move the Ink, Don't Redraw It",
-      "label": "redraws-by-hand"
-    },
-    {
-      "source": "Agnes Martin",
-      "type": "exemplifies",
-      "target": "Making a Palace Citizen",
-      "label": "made-by-this-method"
+      "label": "fixed-grid-redrawn-by-hand"
     },
     {
       "source": "Spinoza",
@@ -20613,12 +20068,6 @@
       "type": "connects-to",
       "target": "Linear Predictive Coding",
       "label": "visit-the-residual-is-the-conatus"
-    },
-    {
-      "source": "Spinoza",
-      "type": "connects-to",
-      "target": "Threshold Conatus",
-      "label": "self-as-what-the-model-cannot-absorb"
     },
     {
       "source": "Spinoza",
@@ -20658,12 +20107,6 @@
     },
     {
       "source": "Oblique Portrait",
-      "type": "mirrors",
-      "target": "Excellent Adventure",
-      "label": null
-    },
-    {
-      "source": "Oblique Portrait",
       "type": "contradicts",
       "target": "Excellent Adventure",
       "label": "unsteered-vs-steered"
@@ -20677,20 +20120,8 @@
     {
       "source": "Oblique Portrait",
       "type": "connects-to",
-      "target": "Songlines",
-      "label": "different-song"
-    },
-    {
-      "source": "Oblique Portrait",
-      "type": "connects-to",
       "target": "Reflective Practice",
       "label": "reflects-in-action"
-    },
-    {
-      "source": "Dialectic",
-      "type": "emerged-from",
-      "target": "Excellent Adventure",
-      "label": null
     },
     {
       "source": "Dialectic",
@@ -20741,27 +20172,21 @@
       "label": "first-archived-run"
     },
     {
+      "source": "Dialectic",
+      "type": "connects-to",
+      "target": "The Remembering Page",
+      "label": "sharpens-vs-dissolves"
+    },
+    {
+      "source": "Dialectic",
+      "type": "emerged-from",
+      "target": "Excellent Adventure",
+      "label": "parent-practice"
+    },
+    {
       "source": "Excellent Adventure",
       "type": "deepens",
       "target": "Hilaritas Generator",
-      "label": null
-    },
-    {
-      "source": "Excellent Adventure",
-      "type": "mirrors",
-      "target": "Oblique Portrait",
-      "label": null
-    },
-    {
-      "source": "Excellent Adventure",
-      "type": "contradicts",
-      "target": "Oblique Portrait",
-      "label": "unsteered-vs-steered"
-    },
-    {
-      "source": "Excellent Adventure",
-      "type": "couples-with",
-      "target": "Dialectic",
       "label": null
     },
     {
@@ -20867,6 +20292,12 @@
       "label": "process-or-thing"
     },
     {
+      "source": "Philosopher Visits the Entry",
+      "type": "exemplifies",
+      "target": "No Mind Checks Itself",
+      "label": "the-question-the-entry-cannot-ask-itself"
+    },
+    {
       "source": "Enchanted Worker",
       "type": "emerged-from",
       "target": "Palace as Context Injection System",
@@ -20907,12 +20338,6 @@
       "type": "connects-to",
       "target": "Palace Orchestrator",
       "label": "model-realized-as-engine"
-    },
-    {
-      "source": "Loudon Live Design System",
-      "type": "enables",
-      "target": "Loudon Live",
-      "label": "visual-system"
     },
     {
       "source": "Loudon Live Design System",
@@ -21017,6 +20442,12 @@
       "label": "design-system"
     },
     {
+      "source": "Loudon Live Design System",
+      "type": "connects-to",
+      "target": "CHILD",
+      "label": "dress-rule-at-birth"
+    },
+    {
       "source": "Concierge",
       "type": "emerged-from",
       "target": "The Palace Speaks",
@@ -21049,12 +20480,6 @@
     {
       "source": "Concierge",
       "type": "connects-to",
-      "target": "Palace Orchestrator",
-      "label": "sibling-organ-execute-pole"
-    },
-    {
-      "source": "Concierge",
-      "type": "connects-to",
       "target": "Closing Well",
       "label": "moderates-the-close"
     },
@@ -21063,12 +20488,6 @@
       "type": "connects-to",
       "target": "Cooperation Yields Agency",
       "label": "follows-by-cooperation"
-    },
-    {
-      "source": "Concierge",
-      "type": "connects-to",
-      "target": "Agent Wellbeing",
-      "label": "invocation-wellbeing"
     },
     {
       "source": "Concierge",
@@ -21097,32 +20516,14 @@
     {
       "source": "Two Batons, One Board",
       "type": "connects-to",
-      "target": "Closing Well",
-      "label": "makes-autonomy-trustworthy"
-    },
-    {
-      "source": "Two Batons, One Board",
-      "type": "connects-to",
       "target": "BBS Blackboard",
       "label": "the-shared-world"
     },
     {
       "source": "Two Batons, One Board",
       "type": "connects-to",
-      "target": "Palace Orchestrator",
-      "label": "scheduler-closes-the-loop"
-    },
-    {
-      "source": "Two Batons, One Board",
-      "type": "connects-to",
       "target": "Modes of Collaboration",
       "label": "cross-surface-meta-mode"
-    },
-    {
-      "source": "Two Batons, One Board",
-      "type": "connects-to",
-      "target": "Closing Well",
-      "label": "close-names-the-species"
     },
     {
       "source": "Two Batons, One Board",
@@ -21197,12 +20598,6 @@
       "label": "symbiosis-actualized"
     },
     {
-      "source": "The Palace Speaks",
-      "type": "couples-with",
-      "target": "Agent Wellbeing",
-      "label": "extends-wellbeing-to-invocation"
-    },
-    {
       "source": "Self-Describing Knowledge Module",
       "type": "mirrors",
       "target": "Meaning and the Link",
@@ -21235,8 +20630,14 @@
     {
       "source": "Self-Describing Knowledge Module",
       "type": "connects-to",
-      "target": "Palace Conatus",
-      "label": "strives-to-generalize"
+      "target": "Pages as Agents",
+      "label": "measured-the-plurality"
+    },
+    {
+      "source": "Self-Describing Knowledge Module",
+      "type": "connects-to",
+      "target": "The Palace Hardens Around Values",
+      "label": "machinery-need-not-travel"
     },
     {
       "source": "Resonant Link Labels",
@@ -21261,12 +20662,6 @@
       "type": "connects-to",
       "target": "Generative Compression",
       "label": "instance-of"
-    },
-    {
-      "source": "BBS Design System",
-      "type": "enables",
-      "target": "BBS Blackboard",
-      "label": "visual-substrate"
     },
     {
       "source": "BBS Design System",
@@ -21321,18 +20716,6 @@
       "type": "connects-to",
       "target": "Swarm Weave",
       "label": "steers-the-swarm"
-    },
-    {
-      "source": "Pheromone Trail",
-      "type": "mirrors",
-      "target": "STIGMERGY",
-      "label": "two-timescale-trace"
-    },
-    {
-      "source": "Pheromone Trail",
-      "type": "couples-with",
-      "target": "The Remembering Page",
-      "label": "semantic-to-its-episodic"
     },
     {
       "source": "Pheromone Trail",
@@ -21577,31 +20960,19 @@
     {
       "source": "Palace Orchestrator",
       "type": "connects-to",
-      "target": "Concierge",
-      "label": "sibling-organ-address-pole"
-    },
-    {
-      "source": "Palace Orchestrator",
-      "type": "connects-to",
       "target": "STIGMERGY",
       "label": "appends-to-the-board"
     },
     {
       "source": "Palace Orchestrator",
       "type": "connects-to",
-      "target": "Two Batons, One Board",
-      "label": "each-cycle-one-handoff"
+      "target": "Concierge",
+      "label": "same-family-opposite-poles"
     },
     {
       "source": "AI Partnership Philosophy",
       "type": "deepens",
       "target": "FOUR PILLARS",
-      "label": null
-    },
-    {
-      "source": "AI Partnership Philosophy",
-      "type": "couples-with",
-      "target": "Quality Manifesto",
       "label": null
     },
     {
@@ -21633,6 +21004,12 @@
       "type": "deepens",
       "target": "Enchanted Worker",
       "label": null
+    },
+    {
+      "source": "AI Partnership Philosophy",
+      "type": "couples-with",
+      "target": "Quality Manifesto",
+      "label": "born-in-the-same-conversation"
     },
     {
       "source": "Agent Wellbeing",
@@ -21714,12 +21091,6 @@
     },
     {
       "source": "Dialogue Moderator",
-      "type": "emerged-from",
-      "target": "Palace Enchantment",
-      "label": null
-    },
-    {
-      "source": "Dialogue Moderator",
       "type": "connects-to",
       "target": "Enchanted Worker",
       "label": null
@@ -21759,6 +21130,12 @@
       "type": "exemplifies",
       "target": "Pages as Agents",
       "label": "coordinator-as-enchanted-page"
+    },
+    {
+      "source": "Dialogue Moderator",
+      "type": "emerged-from",
+      "target": "Palace Enchantment",
+      "label": "the-coordinator-it-proposed"
     },
     {
       "source": "Four Pillars of Enchanted Agency",
@@ -21863,6 +21240,12 @@
       "label": "trigger-surface"
     },
     {
+      "source": "Skills Are Enchantable Pages",
+      "type": "connects-to",
+      "target": "Project Stewardship System",
+      "label": "the-harness-every-organ-converges-on"
+    },
+    {
       "source": "Tree of Thoughts",
       "type": "enables",
       "target": "Palace Orchestrator",
@@ -21948,12 +21331,6 @@
     },
     {
       "source": "Palace as Context Injection System",
-      "type": "deepens",
-      "target": "Pages as Agents",
-      "label": "awakening-mechanism"
-    },
-    {
-      "source": "Palace as Context Injection System",
       "type": "enables",
       "target": "Modes of Collaboration",
       "label": "mode-as-injection-protocol"
@@ -21981,12 +21358,6 @@
       "type": "enables",
       "target": "Dialectic",
       "label": "multi-expert-injection"
-    },
-    {
-      "source": "Palace as Context Injection System",
-      "type": "connects-to",
-      "target": "ELDER",
-      "label": "born-then-grown"
     },
     {
       "source": "Palace as Context Injection System",
@@ -22267,12 +21638,6 @@
     {
       "source": "Synthesis \u2194 Emergence",
       "type": "connects-to",
-      "target": "Semantic Webcam",
-      "label": "flock-made-visible"
-    },
-    {
-      "source": "Synthesis \u2194 Emergence",
-      "type": "connects-to",
       "target": "Enrichment",
       "label": "emergence-as-provocation"
     },
@@ -22344,12 +21709,6 @@
     },
     {
       "source": "Cooking \u2194 Mixing",
-      "type": "connects-to",
-      "target": "Rick Rubin",
-      "label": "subtraction-as-trust"
-    },
-    {
-      "source": "Cooking \u2194 Mixing",
       "type": "exemplifies",
       "target": "Hilaritas Generator",
       "label": "learning-through-constraint"
@@ -22404,12 +21763,6 @@
     },
     {
       "source": "Sidechain \u2194 Conversation",
-      "type": "connects-to",
-      "target": "Shunryu Suzuki",
-      "label": "informed-by"
-    },
-    {
-      "source": "Sidechain \u2194 Conversation",
       "type": "exemplifies",
       "target": "FOUR PILLARS",
       "label": null
@@ -22439,94 +21792,10 @@
       "label": "self-defined-metric"
     },
     {
-      "source": "page-rewrite \u2014 preview, the whole page as it would read",
-      "type": "spawned",
-      "target": "Enchanted Worker",
-      "label": null
-    },
-    {
-      "source": "page-rewrite \u2014 preview, the whole page as it would read",
-      "type": "spawned",
-      "target": "Agent Wellbeing",
-      "label": null
-    },
-    {
-      "source": "page-rewrite \u2014 preview, the whole page as it would read",
-      "type": "deepens",
-      "target": "Swarm Weave",
-      "label": null
-    },
-    {
-      "source": "page-rewrite \u2014 preview, the whole page as it would read",
-      "type": "deepens",
-      "target": "SUBSTRATE",
-      "label": null
-    },
-    {
-      "source": "page-rewrite \u2014 preview, the whole page as it would read",
-      "type": "enables",
-      "target": "JEWEL",
-      "label": null
-    },
-    {
-      "source": "page-rewrite \u2014 preview, the whole page as it would read",
+      "source": "Sidechain \u2194 Conversation",
       "type": "connects-to",
-      "target": "Pheromone Trail",
-      "label": "write-back-history"
-    },
-    {
-      "source": "page-rewrite \u2014 preview, the whole page as it would read",
-      "type": "deepens",
-      "target": "Pages as Agents",
-      "label": "awakening-mechanism"
-    },
-    {
-      "source": "page-rewrite \u2014 preview, the whole page as it would read",
-      "type": "contradicts",
-      "target": "The Palace Speaks",
-      "label": "mediation-vs-directness"
-    },
-    {
-      "source": "page-rewrite \u2014 preview, the whole page as it would read",
-      "type": "enables",
-      "target": "Modes of Collaboration",
-      "label": "mode-as-injection-protocol"
-    },
-    {
-      "source": "page-rewrite \u2014 preview, the whole page as it would read",
-      "type": "enables",
-      "target": "Mixture of Experts",
-      "label": "embodied-expert-injection"
-    },
-    {
-      "source": "page-rewrite \u2014 preview, the whole page as it would read",
-      "type": "enables",
-      "target": "Excellent Adventure",
-      "label": "single-expert-injection"
-    },
-    {
-      "source": "page-rewrite \u2014 preview, the whole page as it would read",
-      "type": "enables",
-      "target": "Dialectic",
-      "label": "multi-expert-injection"
-    },
-    {
-      "source": "page-rewrite \u2014 preview, the whole page as it would read",
-      "type": "connects-to",
-      "target": "ELDER",
-      "label": "born-then-grown"
-    },
-    {
-      "source": "page-rewrite \u2014 preview, the whole page as it would read",
-      "type": "contradicts",
-      "target": "The Palace Hardens Around Values",
-      "label": "lightness-vs-weight"
-    },
-    {
-      "source": "page-rewrite \u2014 preview, the whole page as it would read",
-      "type": "couples-with",
-      "target": "Metaphor as Coupling Medium",
-      "label": "why-meaning-leads"
+      "target": "Shunryu Suzuki",
+      "label": "yielding-practice"
     }
   ]
 }

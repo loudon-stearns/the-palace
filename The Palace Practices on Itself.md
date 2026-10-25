@@ -18,15 +18,15 @@ links:
   - target: "[[Endosymbiosis]]"
     type: mirrors
     label: folds-inward
-  - target: "[[The Commons]]"
-    type: connects-to
-    label: proven-on-itself
   - target: "[[Hilaritas Generator]]"
     type: connects-to
     label: the-distribution-test
   - target: "[[Cooperation Yields Agency]]"
     type: connects-to
     label: measured-by
+  - target: "[[The Commons]]"
+    type: connects-to
+    label: the-worked-example
 ---
 
 # The Palace Practices on Itself

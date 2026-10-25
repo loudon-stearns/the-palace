@@ -13,8 +13,6 @@ forward_vector: "I speak text into clean, loudness-correct WAV and report exactl
 links:
   - { target: "[[Maker]]", type: connects-to, label: directed-by }
   - { target: "[[The Shop]]", type: member-of, label: roster-member }
-  - { target: "[[Shop/Whisper]]", type: couples-with, label: pairs-with }
-  - { target: "[[Shop/Manim CE]]", type: enables, label: feeds }
   - target: "[[Kuramoto Coupling]]"
     type: connects-to
     label: phoneme-tested-on

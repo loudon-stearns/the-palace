@@ -18,15 +18,6 @@ links:
   - target: "[[Spinoza Conatus]]"
     type: connects-to
     label: expert-for-drive-and-joy
-  - target: "[[Excellent Adventure]]"
-    type: mirrors
-    label: embodied-routing
-  - target: "[[Dialectic]]"
-    type: mirrors
-    label: multi-expert-dialogue
-  - target: "[[Philosopher Visits the Entry]]"
-    type: mirrors
-    label: embodied-routing-single-node
   - target: "[[Pages as Agents]]"
     type: connects-to
     label: experts-as-pool

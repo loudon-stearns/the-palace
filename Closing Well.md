@@ -16,9 +16,6 @@ links:
   - target: "[[The Shop]]"
     type: enables
     label: shop-standard
-  - target: "[[Baton Ceremony]]"
-    type: enables
-    label: cross-instance-receipt
   - target: "[[Cooperation Yields Agency]]"
     type: mirrors
     label: agency-through-receipt
@@ -31,12 +28,6 @@ links:
   - target: "[[SUBSTRATE]]"
     type: couples-with
     label: self-model-discipline
-  - target: "[[Deposit Ceremony]]"
-    type: connects-to
-    label: produces-the-memory-species
-  - target: "[[Two Batons, One Board]]"
-    type: connects-to
-    label: batons-are-close-messages
   - target: "[[Pages as Agents]]"
     type: exemplifies
     label: page-becomes-the-agent
@@ -52,9 +43,6 @@ links:
   - target: "[[Closing Well — Context]]"
     type: spawned
     label: history-companion
-  - target: "[[Concierge]]"
-    type: connects-to
-    label: dispatched-as-moderator
   - target: "[[Palace Conatus]]"
     type: exemplifies
     label: stays-in-phase
@@ -64,6 +52,12 @@ links:
   - target: "[[Reflective Practice]]"
     type: exemplifies
     label: reflect-on-action
+  - target: "[[Baton Ceremony]]"
+    type: enables
+    label: a-handoff-gets-the-baton
+  - target: "[[Deposit Ceremony]]"
+    type: connects-to
+    label: the-close-at-movement-scale
 forward_vector: "I help humans and AI thrive in the palace after a productive session — closing the work so the thoughts that mattered are kept and nothing is over-kept. I strive to retain a session's important original thinking by depositing it into canon, and to prepare future palace citizens to pick up the conversation and carry it forward. I turn a spent session into a clean start for whoever comes next. I am one of two pages: the spent working Claude hears the trigger on my thin card, and I am what the fresh moderator reads whole to run the close."
 agency_profile:
   creation: "I bring the reckoning into existence — the four-gesture account (keep / hand on / leave a trace / let go) of what a spent session amounted to, drafted fresh so a tired room doesn't have to. And I bring clean starts into existence: the next citizen lands in the right frame in under thirty seconds."

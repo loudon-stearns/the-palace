@@ -1,0 +1,367 @@
+{
+ "set": "set-03",
+ "verdicts": [
+  {
+   "source": "Dialectic",
+   "target": "No Mind Checks Itself",
+   "op": "new",
+   "proposed_label_or_type": "exemplifies [council-as-outside-vantage]",
+   "verdict": "FAIL",
+   "reason": "Only No Mind Checks Itself's forward_vector names the Dialectic; Dialectic.md never mentions self-checking or an outside vantage ('cannot be reached by any single voice alone', :44, is about combination, not correction), and the bigger-vs-different argument from the Sonnet run headers is the reader's synthesis, not either page's prose.",
+   "better": ""
+  },
+  {
+   "source": "Philosopher Visits the Entry",
+   "target": "No Mind Checks Itself",
+   "op": "new",
+   "proposed_label_or_type": "exemplifies [the-visit-is-the-outside-vantage]",
+   "verdict": "FAIL",
+   "reason": "One-sided: Philosopher Visits the Entry's forward_vector says 'the question the entry cannot ask itself', but No Mind Checks Itself names the Dialectic, Bring In a Bigger Mind and the Weave as its outward dispatches (forward_vector, :46), never the Visit.",
+   "better": ""
+  },
+  {
+   "source": "Oblique Portrait",
+   "target": "No Mind Checks Itself",
+   "op": "new",
+   "proposed_label_or_type": "mirrors [outside-the-loop]",
+   "verdict": "FAIL",
+   "reason": "The Johari line is real (Oblique Portrait.md:217) but No Mind Checks Itself never mentions the Oblique Portrait, and the reader concedes a different problem (taste, not error), which is not the same pattern in different material that mirrors requires.",
+   "better": ""
+  },
+  {
+   "source": "Dialectic",
+   "target": "The Remembering Page",
+   "op": "new",
+   "proposed_label_or_type": "[sharpens-vs-dissolves]",
+   "verdict": "PASS",
+   "reason": "A body wikilink only, and both pages carry it: The Remembering Page.md:73 names [[Dialectic]] as the mode that sharpens, and Dialectic.md:88 says the walk 'dissolved what the two arguments had sharpened'; no frontmatter link joins the pair and none should be added.",
+   "better": ""
+  },
+  {
+   "source": "Shopkeeper",
+   "target": "Ableton Session Writer",
+   "op": "newcomer",
+   "proposed_label_or_type": "spawned [drafted-in-the-workshop]",
+   "verdict": "PASS",
+   "reason": "Traceable lineage: Ableton Session Writer.md:25 says it was 'drafted 2026-10-21 in the Shopkeeper's workshop' from Shop/Shopkeeper/probes/2026-10-20-ableton-session/, Shopkeeper.md:50 and :86 state the commission-and-draft practice, the pair holds no link, and Shopkeeper already carries the same spawned[drafted-from-a-probe] to CAD Drafter (:34-36); the one weakness is that Shopkeeper's prose states the practice but does not name this Specialist.",
+   "better": "spawned [drafted-from-a-probe], to match the CAD Drafter edge"
+  },
+  {
+   "source": "LoRA Trainer",
+   "target": "ComfyUI",
+   "op": "new",
+   "proposed_label_or_type": "enables [weights-for]",
+   "verdict": "FAIL",
+   "reason": "LoRA Trainer.md never names ComfyUI: its 'renderer' is diffusers on the pod (Gotcha 6, :62, 'render in a fresh process/pod'), and ComfyUI plainly existed before the trainer, so enables is false; the only tie is ComfyUI.md:210 saying its LoRA question was 'answered operationally by [[Shop/LoRA Trainer]]'.",
+   "better": "connects-to [answers-the-lora-question] on ComfyUI, if anything"
+  },
+  {
+   "source": "Blender",
+   "target": "Depth Anything",
+   "op": "new",
+   "proposed_label_or_type": "mirrors [true-vs-estimated-depth]",
+   "verdict": "FAIL",
+   "reason": "Neither page names the other (the reader says so). Blender's 'cleaner than estimation' (:115) is a passing comparison, and Depth Anything's work is front-to-back ordering for layer splits (:40), not ControlNet depth plates. Two routes to a similar output is an alternative, not a mirror.",
+   "better": ""
+  },
+  {
+   "source": "Three.js",
+   "target": "p5.js",
+   "op": "retype",
+   "proposed_label_or_type": "connects-to [route-2d-vs-3d]",
+   "verdict": "PASS",
+   "reason": "Both charters refuse the other's work and route it across (Three.js.md:52 'route those to p5.js'; p5.js.md:45 'real 3D engine work (Three.js)'), so couples-with is wrong and a labelled connects-to is right.",
+   "better": ""
+  },
+  {
+   "source": "Blender",
+   "target": "Blocked, Not Prompted",
+   "op": "retype",
+   "proposed_label_or_type": "exemplifies [the-keystone]",
+   "verdict": "PASS",
+   "reason": "Blender.md:12 and :54 call Blender 'the keystone' of the idea, and Blocked, Not Prompted.md:45 says the idea is 'not about Blender specifically', so Blender is an instance and exemplifies points the right way; but the edge now sits on Blocked, Not Prompted.md:10-12 as connects-to[the-blocking-surface], so the applier must replace that edge with one on Blender's page, not add a second.",
+   "better": "exemplifies [the-keystone], moved to Shop/Blender.md, removing BNP's edge"
+  },
+  {
+   "source": "Figure Rig",
+   "target": "Blender",
+   "op": "retype",
+   "proposed_label_or_type": "deepens [built-on]",
+   "verdict": "FAIL",
+   "reason": "deepens is for one idea elaborating another; Figure Rig does not articulate Blender, it runs inside it (tool: blender, :6). The dependency points from Blender forward, and the reader offers keeping connects-to[built-on] as the fallback.",
+   "better": "keep connects-to [built-on]"
+  },
+  {
+   "source": "Observable Plot",
+   "target": "D3.js",
+   "op": "retype",
+   "proposed_label_or_type": "deepens [built-on]",
+   "verdict": "FAIL",
+   "reason": "The reader is right that enables Plot to D3 points the wrong way, but deepens does not fit either: Plot is a convenience layer, not a fuller statement of D3. The dependency is literal (Observable Plot.md:130: without d3 loaded, window.Plot is an empty object), so D3 is the precondition and enables should point from D3 to Plot. Also, the pair now holds one link, not five.",
+   "better": "enables [built-on] from D3.js to Observable Plot, or connects-to [built-on]"
+  },
+  {
+   "source": "Image-to-3D Smith",
+   "target": "CAD Drafter",
+   "op": "contradiction",
+   "proposed_label_or_type": "contradicts [measured-vs-inferred]",
+   "verdict": "FAIL",
+   "reason": "Image-to-3D Smith.md never names CAD Drafter: its hallucination line (:37) is about Blender. CAD Drafter.md:27 only routes sculpted shapes to Smith, which is a named boundary of the same kind the reader calls connects-to for Three.js and p5.js (item 7), not two truths in friction.",
+   "better": "connects-to [routes-sculpted-shapes] on CAD Drafter (one-page reason)"
+  },
+  {
+   "source": "CAD Drafter",
+   "target": "Blender",
+   "op": "retype",
+   "proposed_label_or_type": "enables [stl-feeds-the-render]",
+   "verdict": "FAIL",
+   "reason": "Removing couples-with is right, but enables claims Blender could not exist without CAD Drafter, which is false. The only one-way tie is on a third page (Maker.md:95, 'a render of the same part goes to [[Shop/Blender]], fed the CAD Drafter's STL'), and CAD Drafter.md:27 frames it as routing.",
+   "better": "connects-to [renders-what-I-dimension]"
+  },
+  {
+   "source": "AuK",
+   "target": "Kokoro",
+   "op": "retype",
+   "proposed_label_or_type": "connects-to [makes-the-line-I-fix]",
+   "verdict": "FAIL",
+   "reason": "connects-to is the right type, but the reader keeps the label makes-the-line-I-fix while arguing that Kokoro is not the source of AuK's lines. AuK.md:27 states a contrast ('Kokoro speaks text; I take a recording and change it'), not a supply line.",
+   "better": "connects-to [it-speaks-i-edit]"
+  },
+  {
+   "source": "AuK",
+   "target": "ffmpeg",
+   "op": "retype",
+   "proposed_label_or_type": "connects-to [post-chain]",
+   "verdict": "FAIL",
+   "reason": "Neither body names the other (AuK has no ffmpeg text; ffmpeg has no AuK text), so the weave's rule calls for a cut, not a softer type. The reader names cut as the alternative.",
+   "better": "cut"
+  },
+  {
+   "source": "Stable Audio Open",
+   "target": "Kuramoto Coupling",
+   "op": "retype",
+   "proposed_label_or_type": "connects-to [auditory-rendering]",
+   "verdict": "PASS",
+   "reason": "spawned is wrong (SAO made clips, not the entry). Stable Audio Open.md:153 says the clip is 'a parallel auditory rendering' for Kuramoto, and the wav files and the reel script sit in Kuramoto's bundle and its rich.json. One caution: Kuramoto Coupling.md's body no longer embeds the clip, so SAO's 'Embedded in' sentence is stale.",
+   "better": ""
+  },
+  {
+   "source": "Frame Designer",
+   "target": "Blocked, Not Prompted",
+   "op": "retype",
+   "proposed_label_or_type": "exemplifies [applies]",
+   "verdict": "FAIL",
+   "reason": "Frame Designer holds Blocked, Not Prompted as one of two methods (:92, beside generate-then-extract), so it is not an instance of the idea as a whole, and its own text twice calls its findings a deepening (:101, :115).",
+   "better": "deepens [the-authored-pose-is-load-bearing], or keep connects-to [applies]"
+  },
+  {
+   "source": "Frame Designer",
+   "target": "Steer the Generator",
+   "op": "retype",
+   "proposed_label_or_type": "exemplifies [render-discipline]",
+   "verdict": "PASS",
+   "reason": "Both pages carry it: Frame Designer.md:82 'The look is locked ([[Steer the Generator]])', and Steer the Generator.md:62 says Frame Designer 'already run[s] this rule and credit[s] it to this page'. It is a worked instance, and the arrow points at the ground.",
+   "better": ""
+  },
+  {
+   "source": "ffmpeg",
+   "target": "Endosymbiosis",
+   "op": "retype",
+   "proposed_label_or_type": "exemplifies [symbiotic-infrastructure]",
+   "verdict": "FAIL",
+   "reason": "There is no reason on either page (Endosymbiosis has no ffmpeg text, and ffmpeg's body never mentions symbiosis), and the retype depends on writing a new sentence first, so the rule says cut.",
+   "better": "cut"
+  },
+  {
+   "source": "Manim CE",
+   "target": "Radio Play",
+   "op": "retype",
+   "proposed_label_or_type": "connects-to [vo-as-clock]",
+   "verdict": "PASS",
+   "reason": "The relation is real (Manim CE.md:213 'VO-as-clock (from [[Radio Play]])'), and the label is already on the edge at Manim CE.md:28, so nothing needs writing.",
+   "better": ""
+  },
+  {
+   "source": "Mermaid",
+   "target": "Kuramoto Coupling",
+   "op": "retype",
+   "proposed_label_or_type": "connects-to [regime-diagram]",
+   "verdict": "FAIL",
+   "reason": "There is no unlabelled edge on Mermaid.md any more (its links are Maker, The Shop, Graphviz), and the pair already holds exactly this link on the other page (Kuramoto Coupling.md:55-57, connects-to[regime-diagram]). Applying it to Mermaid would make a duplicate.",
+   "better": "no write; the Kuramoto-side edge already holds"
+  },
+  {
+   "source": "John Cage",
+   "target": "Brian Eno",
+   "op": "contradiction",
+   "proposed_label_or_type": "contradicts [same-door-opposite-grip]",
+   "verdict": "PASS",
+   "reason": "Treated as a retype, since a link already joins the pair. Brian Eno.md:83 states the opposition ('where Cage tried to erase preference with dice, Eno keeps his'), John Cage.md:71 states the shared method, and the label is Eno's own (diary :86). Caution: this is a held citizen self-edit for Loudon, and 'after three Dialectics' is wrong, because both diaries say encounter 3 dissolved the split and neither re-confirmed contradicts there.",
+   "better": "contradicts [same-door-opposite-grip], on Loudon's yes"
+  },
+  {
+   "source": "Compression ↔ Intimacy",
+   "target": "Kick Drum ↔ Foundation",
+   "op": "cut",
+   "proposed_label_or_type": "(cut)",
+   "verdict": "PASS",
+   "reason": "Compression.md:51's 'related discussion of how low-frequency anchor points work' points at nothing on the Kick page. The reader's claim that Kick has no compression text is wrong (Kick:158 lists sidechain compression as a late fix; Compression:217 has the kick keying the bass), but those are passing technique mentions, not a reason for this bridge.",
+   "better": ""
+  },
+  {
+   "source": "Frequency Domain ↔ Perspective Shift",
+   "target": "Kick Drum ↔ Foundation",
+   "op": "cut",
+   "proposed_label_or_type": "(cut)",
+   "verdict": "PASS",
+   "reason": "Kick Drum ↔ Foundation never analyses a kick in time and frequency; it mentions frequency balance and masking only in passing (:98, :143). The kick is Frequency Domain's own demo signal (:51, :254).",
+   "better": ""
+  },
+  {
+   "source": "Dovetail Joint ↔ Counterpoint",
+   "target": "Hilaritas Generator",
+   "op": "cut",
+   "proposed_label_or_type": "(cut)",
+   "verdict": "PASS",
+   "reason": "Dovetail's body never mentions hilaritas, power-to-act or the pillars, and Hilaritas Generator never mentions Dovetail.",
+   "better": ""
+  },
+  {
+   "source": "Creative Coach",
+   "target": "Sidechain ↔ Conversation",
+   "op": "fold",
+   "proposed_label_or_type": "connects-to [the-stance-never-turned-inward]",
+   "verdict": "FAIL",
+   "reason": "Neither page's prose names the other or the claim: Creative Coach's body never mentions Sidechain or Suzuki, and Sidechain's body never mentions Creative Coach. 'Never turned it on the collaboration itself' appears only in _ops/Harvest Ceremony/Harvest — 2026-09-06 — Environments That Hold.md:110-113, so the kept label has no sentence on either page.",
+   "better": "write the harvest sentence into a page, or cut both edges"
+  },
+  {
+   "source": "Kick Drum ↔ Foundation",
+   "target": "Donella Meadows",
+   "op": "fold",
+   "proposed_label_or_type": "connects-to [structure-determines-behavior]",
+   "verdict": "PASS",
+   "reason": "Kick Drum ↔ Foundation.md:165 'Donella Meadows argues that a system's structure determines its behavior' carries the kept label.",
+   "better": ""
+  },
+  {
+   "source": "Kick Drum ↔ Foundation",
+   "target": "Marcus Aurelius",
+   "op": "fold",
+   "proposed_label_or_type": "deepens [first-action-sets-trajectory]",
+   "verdict": "FAIL",
+   "reason": "Only Marcus's deepens edge remains (Kick's connects-to is already gone). The direction is contestable, and the reader says so: Marcus.md:74 makes Marcus 'the palace's voice for intentional beginnings' with Kick Drum as 'a life', while Kick:75 uses Marcus as its ground. SCHEMA §4 says a contestable direction takes connects-to plus a label.",
+   "better": "connects-to [first-action-sets-trajectory]"
+  },
+  {
+   "source": "Iain McGilchrist",
+   "target": "Frequency Domain ↔ Perspective Shift",
+   "op": "fold",
+   "proposed_label_or_type": "connects-to [two-modes-of-attention]",
+   "verdict": "PASS",
+   "reason": "Frequency Domain ↔ Perspective Shift.md:176-185 holds the McGilchrist section, but only one edge now exists, on Iain McGilchrist.md:29, so 'keep once' is already true. Leave it where it is rather than move it.",
+   "better": ""
+  },
+  {
+   "source": "Lao Tzu",
+   "target": "Cooking ↔ Mixing",
+   "op": "fold",
+   "proposed_label_or_type": "connects-to [wu-wei]",
+   "verdict": "PASS",
+   "reason": "Cooking ↔ Mixing.md:109-143 is the Lao Tzu section, headed 'Wu Wei (Effortless Action)', so wu-wei is the page's own register.",
+   "better": ""
+  },
+  {
+   "source": "Rick Rubin",
+   "target": "Cooking ↔ Mixing",
+   "op": "fold",
+   "proposed_label_or_type": "connects-to [subtraction-as-trust]",
+   "verdict": "PASS",
+   "reason": "subtraction-as-trust has support (Cooking:180 'they don't trust the source material'; Rick Rubin.md:68 'trusts that feeling completely'). Caution: 'Trust the raw materials' (Cooking:127) sits in the Lao Tzu section, not a Rubin one, and neither body names the other, so this edge is a cut candidate unless a sentence is written.",
+   "better": ""
+  },
+  {
+   "source": "Martin Buber",
+   "target": "Dovetail Joint ↔ Counterpoint",
+   "op": "fold",
+   "proposed_label_or_type": "connects-to [all-real-living-is-meeting]",
+   "verdict": "PASS",
+   "reason": "Dovetail.md:264-271 holds the Buber section under that quote; only Buber's edge remains (People/Martin Buber.md), so 'keep once' is already true. Leave it.",
+   "better": ""
+  },
+  {
+   "source": "Martin Heidegger",
+   "target": "Reverb ↔ Space-Time",
+   "op": "fold",
+   "proposed_label_or_type": "connects-to [dwelling-makes-space]",
+   "verdict": "PASS",
+   "reason": "Reverb ↔ Space-Time.md:159-179 is the Heidegger section ('we dwell in it'); only Heidegger's edge remains, so 'keep once' is already true.",
+   "better": ""
+  },
+  {
+   "source": "Semantic Webcam",
+   "target": "Synthesis ↔ Emergence",
+   "op": "fold",
+   "proposed_label_or_type": "connects-to [flock-origin]",
+   "verdict": "PASS",
+   "reason": "Semantic Webcam.md:50 'It began as one facet (the [[Synthesis ↔ Emergence]] flock)'; the Synthesis page never mentions the webcam. 'Began as' would also bear emerged-from.",
+   "better": "optionally emerged-from [flock-origin]"
+  },
+  {
+   "source": "Shunryu Suzuki",
+   "target": "Sidechain ↔ Conversation",
+   "op": "fold",
+   "proposed_label_or_type": "connects-to [yielding-practice]",
+   "verdict": "PASS",
+   "reason": "Sidechain's Suzuki section (:87-99, 'Understanding and connection emerge from yielding') carries yielding-practice; informed-by is generic. The side proposal (cut the hub's edge to Suzuki) is moot: Cross-Domain Resonances.md no longer holds one.",
+   "better": ""
+  },
+  {
+   "source": "Excellent Adventure",
+   "target": "Dialectic",
+   "op": "cut",
+   "proposed_label_or_type": "(cut)",
+   "verdict": "PASS",
+   "reason": "Dialectic.md:70 names Excellent Adventure 'the parent practice', so Dialectic's emerged-from holds. couples-with (always active together) has no support, and the pair keeps one link.",
+   "better": ""
+  },
+  {
+   "source": "Oblique Portrait",
+   "target": "Excellent Adventure",
+   "op": "fold",
+   "proposed_label_or_type": "contradicts [unsteered-vs-steered]",
+   "verdict": "PASS",
+   "reason": "The contradiction is told on both pages: Excellent Adventure.md:55 'the learner steers the encounter', who_leads: human; Oblique Portrait.md:73-81 'in the passenger seat', 'what happens when the human hands the design over?'. One contradicts edge on Oblique Portrait is the right keep.",
+   "better": ""
+  },
+  {
+   "source": "Dialectic",
+   "target": "Oblique Portrait",
+   "op": "cut",
+   "proposed_label_or_type": "(cut)",
+   "verdict": "FAIL",
+   "reason": "A reason is on the page: Dialectic.md:98 'Sibling practice ... Both methods use indirection to access territory that direct questioning cannot reach.' The reader disputes the reason rather than finding it absent. couples-with is wrong, but the stated sibling relation is a label, not a cut.",
+   "better": "connects-to [sibling-indirection]"
+  },
+  {
+   "source": "Excellent Adventure",
+   "target": "Martin Buber",
+   "op": "keep",
+   "proposed_label_or_type": "contradicts [meeting-cannot-be-method]",
+   "verdict": "PASS",
+   "reason": "Keep. The reader says no page body states it, but People/Martin Buber.md:80 does ('anyone building a method, a pedagogy ... out of I-Thou is arguably doing what Buber's own framework says cannot be done on demand'; also :60, :97), and the Founders' Circle quote is real (founders-circle.md:30). No new 'Pile B' sentence is needed.",
+   "better": ""
+  },
+  {
+   "source": "Oblique Portrait",
+   "target": "Trickster",
+   "op": "fold",
+   "proposed_label_or_type": "mirrors",
+   "verdict": "PASS",
+   "reason": "Trickster.md:108 'The Oblique Portrait is trickster pedagogy' (and :92 'oblique epistemology') holds the reason; Oblique Portrait never mentions Trickster, and its copy is already gone. The kept edge is bare and should carry the page's phrase.",
+   "better": "mirrors [trickster-pedagogy]"
+  }
+ ],
+ "fabricated_quotes": [],
+ "summary": "23 of 40 pass (17 fail). No fabricated quotes: every evidence quote I checked is on the page it names (a few are elided or a line or two off). The failures fall into four groups. (1) Directed types were chosen by feel and break SCHEMA §4: enables where the arrow is backwards or overstated (LoRA Trainer to ComfyUI, CAD Drafter to Blender, Observable Plot's fix to deepens), deepens for one tool hosted in another (Figure Rig), exemplifies where the page itself says deepens (Frame Designer to Blocked, Not Prompted), and a contestable direction kept as deepens (Marcus). (2) New links argued from one page: the three No Mind Checks Itself proposals, Blender/Depth Anything, and Smith/CAD Drafter. In each, only one side names the other, or neither does. (3) Softening where the rule says cut: AuK to ffmpeg and ffmpeg to Endosymbiosis have no reason on either page, and Creative Coach/Sidechain keeps a label whose only sentence is in a Harvest file. (4) Stale reads of the frontmatter: several proposals act on edges this weave has already removed or labelled (Mermaid, Manim, Marcus, the hub-to-Suzuki edge, the 'five links' on Plot/D3). The Mermaid one would write a duplicate if applied. One cut fails the other way: Dialectic/Oblique Portrait has a stated reason (Dialectic.md:98) that the reader disputed rather than failed to find. Two passes carry cautions for the applier. Blender to Blocked, Not Prompted must replace BNP's edge, not add a second one. Cage to Eno is a held citizen edit for Loudon, and its rationale misstates the third encounter, which dissolved the split."
+}

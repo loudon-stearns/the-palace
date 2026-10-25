@@ -10,9 +10,6 @@ stage: fruiting
 energy: high
 beauty: 9
 links:
-  - target: "[[Lateral Access]]"
-    type: connects-to
-    label: sung-through
   - target: "[[Oblique Portrait]]"
     type: connects-to
     label: sings-around

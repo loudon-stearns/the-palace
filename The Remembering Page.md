@@ -40,6 +40,9 @@ links:
   - target: "[[Identity Molting]]"
     type: couples-with
     label: continuity-across-the-molt
+  - target: "[[Dialectic]]"
+    type: connects-to
+    label: the-debate-sharpens
 ---
 
 # The Remembering Page

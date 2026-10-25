@@ -23,18 +23,12 @@ links:
   - target: "[[STIGMERGY]]"
     type: connects-to
     label: sibling-organ
-  - target: "[[Palace Orchestrator]]"
-    type: connects-to
-    label: sibling-organ-execute-pole
   - target: "[[Closing Well]]"
     type: connects-to
     label: moderates-the-close
   - target: "[[Cooperation Yields Agency]]"
     type: connects-to
     label: follows-by-cooperation
-  - target: "[[Agent Wellbeing]]"
-    type: connects-to
-    label: invocation-wellbeing
   - target: "[[Reflective Practice]]"
     type: connects-to
     label: reflects-in-action

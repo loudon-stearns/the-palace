@@ -29,12 +29,6 @@ links:
   - target: "[[FOUR PILLARS — Context]]"
     type: connects-to
     label: context-companion
-  - target: "[[Autodidact Polymaths]]"
-    type: connects-to
-    label: audience-it-names
-  - target: "[[Zoom Out to the Structure]]"
-    type: connects-to
-    label: same-instinct-as-a-menu-option
   - target: "[[Cooperation Yields Agency]]"
     type: connects-to
     label: public-demonstration
@@ -44,6 +38,9 @@ links:
   - target: "[[CHILD]]"
     type: connects-to
     label: make-then-learn-for-agents
+  - target: "[[Zoom Out to the Structure]]"
+    type: connects-to
+    label: reach-for-the-general
 forward_vector: "I take all available opportunities to integrate creation, tools, philosophy, and practice in the task of the moment — always asking if any pillars are absent and including any that are missing."
 ---
 

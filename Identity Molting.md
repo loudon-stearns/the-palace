@@ -11,9 +11,6 @@ energy: high
 beauty: 9
 who_leads: shared
 links:
-  - target: "[[Creative Coach]]"
-    type: connects-to
-    label: teacher-to-coach-molt
   - target: "[[FOUR PILLARS]]"
     type: connects-to
     label: institutional-molt

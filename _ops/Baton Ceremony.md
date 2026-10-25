@@ -18,9 +18,6 @@ links:
   - target: "[[Deposit Ceremony]]"
     type: mirrors
     label: "shares-show-before-write"
-  - target: "[[Closing Well]]"
-    type: mirrors
-    label: "every-baton-closes-well"
   - target: "[[SCHEMA]]"
     type: connects-to
     label: "governed-by"

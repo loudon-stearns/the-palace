@@ -30,7 +30,7 @@ links:
     label: context-companion
   - target: "[[Hilaritas Generator]]"
     type: enables
-    label: cooperation-as-hilaritas
+    label: cooperation-applied-to-pedagogy
 forward_vector: "I want to scale from describing two collaborators to describing the palace's full distributed intelligence — and test whether the formula holds at enchanted-page scale."
 ---
 

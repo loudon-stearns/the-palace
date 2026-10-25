@@ -9,8 +9,6 @@ links:
     type: mirrors
   - target: "[[Retrospective Delay]]"
     type: enables
-  - target: "[[Semantic Delay]]"
-    type: deepens
 forward_vector: "I want to become the philosophical ground for Loudon's production aesthetic — the entry that names why subtraction, absence, and transformation are as creative as addition. I want to connect dub's specific techniques to specific moments in Loudon's practice and teaching: the riddim as substrate, echo as time-manipulation, the engineer as composer."
 ---
 

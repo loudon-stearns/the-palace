@@ -36,6 +36,9 @@ links:
   - target: "[[The Daily Page]]"
     type: enables
     label: ceremony-registry
+  - target: "[[SCHEMA — Reference]]"
+    type: connects-to
+    label: ledger-rules
 ---
 # Palace Ceremonies
 

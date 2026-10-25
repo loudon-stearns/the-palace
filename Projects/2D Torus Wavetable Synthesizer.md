@@ -32,9 +32,6 @@ links:
   - target: "[[2D Torus Wavetable Synthesizer — catalog — warps]]"
     type: spawned
     label: warps
-  - target: "[[Wavetable Space as Torus]]"
-    type: couples-with
-    label: inhabits-geometry
   - target: "[[Boundary-Crossing Instruments]]"
     type: mirrors
     label: harmonic-inharmonic-continuum
@@ -46,12 +43,6 @@ links:
   - target: "[[Neural Granular Synthesis — spec — control-vocabulary-math]]"
     type: connects-to
     label: worked-control-vocabulary
-  - target: "[[Rank-N Lattice Analysis]]"
-    type: mirrors
-    label: its-own-oscilloscope
-  - target: "[[Volterra Kernels and the Torus]]"
-    type: mirrors
-    label: same-field-as-an-effect
 ---
 # 2D Torus Wavetable Synthesizer
 

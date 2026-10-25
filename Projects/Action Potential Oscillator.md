@@ -13,8 +13,6 @@ links:
     label: object-to-think-with
   - target: "[[Boundary-Crossing Instruments]]"
     type: mirrors
-  - target: "[[Neural Granular Synthesis]]"
-    type: deepens
   - target: "[[Progressive Staging]]"
     type: emerged-from
   - target: "[[Compressor Design]]"

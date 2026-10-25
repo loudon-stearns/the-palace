@@ -20,9 +20,6 @@ links:
   - target: "[[Baton Ceremony]]"
     type: connects-to
     label: a-verdict-waits-as
-  - target: "[[Revival Ceremony]]"
-    type: connects-to
-    label: a-dormant-page-asks
   - target: "[[Weave Ceremony]]"
     type: connects-to
     label: compost-is-confirmed-by

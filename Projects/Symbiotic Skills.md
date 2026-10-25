@@ -33,9 +33,6 @@ links:
   - target: "[[JEWEL|The Jewel]]"
     type: connects-to
     label: emerged-but-not-predicted
-  - target: "[[Palace Map]]"
-    type: connects-to
-    label: emerged-but-not-predicted
   - target: "[[Palace Enchantment]]"
     type: connects-to
     label: emerged-but-not-predicted

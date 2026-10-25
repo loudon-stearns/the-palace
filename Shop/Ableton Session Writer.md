@@ -17,7 +17,6 @@ links:
   - { target: "[[Search Before You Build]]", type: connects-to, label: prior-art-pass-first }
   - { target: "[[Generative Preset Development]]", type: connects-to, label: earlier-live-xml-seam }
   - { target: "[[Shop/VCV Patch Generator]]", type: mirrors, label: emits-a-host-file }
-  - { target: "[[Splice Instrument Forge]]", type: connects-to, label: hands-me-splice-kits }
 ---
 
 # Ableton Session Writer

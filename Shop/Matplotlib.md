@@ -14,7 +14,6 @@ links:
   - { target: "[[Maker]]", type: connects-to, label: directed-by }
   - { target: "[[The Shop]]", type: member-of, label: roster-member }
   - { target: "[[Shop/Plotly]]", type: connects-to, label: alternative-to }
-  - { target: "[[Shop/Manim CE]]", type: connects-to, label: fallback-for }
 tags: [specialist, shop, image, chart, scientific]
 ---
 

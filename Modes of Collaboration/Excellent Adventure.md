@@ -17,13 +17,6 @@ keywords:
 links:
   - target: "[[Hilaritas Generator]]"
     type: deepens
-  - target: "[[Oblique Portrait]]"
-    type: mirrors
-  - target: "[[Oblique Portrait]]"
-    type: contradicts
-    label: unsteered-vs-steered
-  - target: "[[Dialectic]]"
-    type: couples-with
   - target: "[[Modes of Collaboration]]"
     type: exemplifies
     label: flagship-mode

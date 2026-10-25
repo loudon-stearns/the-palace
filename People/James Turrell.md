@@ -28,12 +28,6 @@ agency_profile:
 links:
   - target: "[[Source Library]]"
     type: member-of
-  - target: "[[Agnes Martin]]"
-    type: connects-to
-    label: humility-that-hides-control
-  - target: "[[Andy Goldsworthy]]"
-    type: connects-to
-    label: humility-that-hides-control
   - target: "[[FOUR PILLARS]]"
     type: deepens
   - target: "[[Quality Manifesto]]"
@@ -45,6 +39,15 @@ links:
   - target: "[[Making a Palace Citizen]]"
     type: exemplifies
     label: made-by-this-method
+  - target: "[[Agnes Martin]]"
+    type: mirrors
+    label: humility-that-hides-control
+  - target: "[[Andy Goldsworthy]]"
+    type: mirrors
+    label: humility-that-hides-control
+  - target: "[[Rick Rubin]]"
+    type: connects-to
+    label: humility-that-hides-control
 ---
 
 # James Turrell

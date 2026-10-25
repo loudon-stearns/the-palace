@@ -13,7 +13,6 @@ forward_vector: "I paint atmosphere from the cloud in three seconds and free —
 links:
   - { target: "[[Maker]]", type: connects-to, label: directed-by }
   - { target: "[[The Shop]]", type: member-of, label: roster-member }
-  - { target: "[[Shop/ComfyUI]]", type: connects-to, label: alternative-to }
   - target: "[[shop-header — Maker's Comparison Recommendation]]"
     type: connects-to
     label: founding-job
@@ -23,6 +22,7 @@ links:
   - target: "[[Loudon Live Design System]]"
     type: enables
     label: artifact-substrate
+  - { target: "[[ComfyUI]]", type: connects-to, label: "comparison-mode-pair" }
 tags: [specialist, shop, image, generative, cloud, hugging-face, flux]
 ---
 

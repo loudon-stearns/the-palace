@@ -18,9 +18,6 @@ links:
     label: delight-by-recognition
   - target: "[[Granular Synthesis]]"
     type: connects-to
-  - target: "[[Neural Granular Synthesis]]"
-    type: connects-to
-    label: firing-rate-as-grain-rate
   - target: "[[Kuramoto Coupling]]"
     type: couples-with
   - target: "[[Frequency-Time Duality]]"
@@ -35,6 +32,9 @@ links:
   - target: "[[Playful Interface Design]]"
     type: exemplifies
     label: the-organism-kind
+  - target: "[[Neural Granular Synthesis]]"
+    type: connects-to
+    label: firing-rate-becomes-grain-rate
 forward_vector: "I am the palace's most viscerally pedagogical framework — the set of eight instruments that prove DSP mechanics are unforgettable when made physical and grotesque."
 ---
 

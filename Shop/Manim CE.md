@@ -13,7 +13,6 @@ forward_vector: "I animate mathematics until the hidden structure moves into vie
 links:
   - { target: "[[Maker]]", type: connects-to, label: directed-by }
   - { target: "[[The Shop]]", type: member-of, label: roster-member }
-  - { target: "[[Shop/Kokoro]]", type: couples-with, label: pairs-with }
   - { target: "[[Kuramoto Coupling]]", type: connects-to, label: round-1-test-bed }
   - { target: "[[Frequency-Time Duality]]", type: mirrors, label: visual-temporal-duality }
   - target: "[[Loudon Live Design System]]"
@@ -26,6 +25,7 @@ links:
     type: connects-to
     label: sandboxed-fallback
   - { target: "[[Radio Play]]", type: connects-to, label: "vo-as-clock" }
+  - { target: "[[Kokoro]]", type: couples-with, label: "narration-it-renders-under" }
 tags: [specialist, shop, motion, math, animation]
 ---
 

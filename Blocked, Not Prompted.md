@@ -7,12 +7,12 @@ stage: growing
 confidence: working
 energy: high
 links:
-  - target: "[[Shop/Blender]]"
-    type: connects-to
-    label: the-blocking-surface
   - target: "[[Shop/ComfyUI]]"
     type: connects-to
     label: fills-what-is-blocked
+  - target: "[[Blender]]"
+    type: exemplifies
+    label: the-keystone
 tags: [concept, generative, controlnet, staging, blueline, seed]
 ---
 

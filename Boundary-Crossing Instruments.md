@@ -13,8 +13,6 @@ hook_quality: 8
 beauty: 9
 who_leads: shared
 links:
-  - target: "[[Frequency-Time Duality]]"
-    type: spawned
   - target: "[[Hyperdimensional Prism]]"
     type: mirrors
   - target: "[[Symbiotic Skills]]"

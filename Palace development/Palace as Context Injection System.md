@@ -18,9 +18,6 @@ links:
     type: deepens
   - target: "[[JEWEL]]"
     type: enables
-  - target: "[[Pages as Agents]]"
-    type: deepens
-    label: awakening-mechanism
   - target: "[[Modes of Collaboration]]"
     type: enables
     label: mode-as-injection-protocol
@@ -36,9 +33,6 @@ links:
   - target: "[[Dialectic]]"
     type: enables
     label: multi-expert-injection
-  - target: "[[ELDER]]"
-    type: connects-to
-    label: born-then-grown
   - target: "[[The Palace Hardens Around Values]]"
     type: contradicts
     label: lightness-vs-weight

@@ -8,8 +8,6 @@ pillars:
 born: 2026-03
 stage: growing
 links:
-  - target: "[[Excellent Adventure]]"
-    type: emerged-from
   - target: "[[Oblique Portrait]]"
     type: couples-with
   - target: "[[Hilaritas Generator]]"
@@ -32,6 +30,12 @@ links:
   - target: "[[Dialectic — dialectic — zhuangzi-epictetus-confucius-on-the-self]]"
     type: connects-to
     label: first-archived-run
+  - target: "[[The Remembering Page]]"
+    type: connects-to
+    label: sharpens-vs-dissolves
+  - target: "[[Excellent Adventure]]"
+    type: emerged-from
+    label: parent-practice
 forward_vector: "I want to become a fully documented, executable method — precise enough that any agent can initiate a Dialectic without having participated in one before. My next development: a protocol document specifying how to choose the council (how many voices, which traditions, what selection criteria), how to research each voice before embodying it, and how to know when the dialogue has done its work versus when it has merely produced a summary of competing positions."
 ---
 

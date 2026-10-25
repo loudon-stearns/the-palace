@@ -15,27 +15,18 @@ links:
   - target: "[[BBS Blackboard]]"
     type: emerged-from
     label: historical-root
-  - target: "[[Palace Orchestrator]]"
-    type: connects-to
-    label: orchestrated-by
   - target: "[[Project Stewardship System]]"
     type: enables
     label: the-substrate-stewardship-runs-on
   - target: "[[Swarm Weave]]"
     type: enables
     label: coordinated-on
-  - target: "[[Pheromone Trail]]"
-    type: mirrors
-    label: the-trace-that-shapes-the-next-action
   - target: "[[Pages as Agents]]"
     type: connects-to
     label: the-page-is-the-agent
   - target: "[[STIGMERGY v2.0 — Consolidation & Primary Interface]]"
     type: spawned
     label: consolidation-and-roadmap
-  - target: "[[Palace Orchestrator]]"
-    type: connects-to
-    label: dispatches-onto-the-board
   - target: "[[Trickster]]"
     type: mirrors
     label: field-trace-vs-signal-intercept
@@ -45,6 +36,9 @@ links:
   - target: "[[STIGMERGY — sketch — the-substrate-drifts]]"
     type: connects-to
     label: v0.3-session
+  - target: "[[Pheromone Trail]]"
+    type: mirrors
+    label: two-timescale-trace
 ---
 
 # STIGMERGY

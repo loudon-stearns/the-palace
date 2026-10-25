@@ -12,9 +12,6 @@ links:
   - target: "[[FOUR PILLARS]]"
     type: emerged-from
     label: creative-coach-not-teacher
-  - target: "[[Meadows and an Artist's Career]]"
-    type: connects-to
-    label: the-instrument
   - target: "[[The Multilinear Self]]"
     type: connects-to
     label: one-projection
@@ -33,9 +30,6 @@ links:
   - target: "[[Dialectic]]"
     type: connects-to
     label: solo-dialectic-case
-  - target: "[[Sidechain ↔ Conversation]]"
-    type: connects-to
-    label: balint-stance-unturned
   - target: "[[Confucianism]]"
     type: deepens
     label: teaching-as-mutual-obligation
@@ -51,6 +45,9 @@ links:
   - target: "[[Oblique Portrait]]"
     type: connects-to
     label: steers-on-purpose
+  - target: "[[Meadows and an Artist's Career]]"
+    type: connects-to
+    label: holds-the-diagnostic
 forward_vector: "I am the practice behind Loud'n Live: what a creative coach actually does, and what changes when the person is in the room rather than in the chat. I keep one boundary sharp — a broadcast models, and modelling is not coaching — so in Loud'n Live the videos model and the rooms coach. The room exists now, in Loudon's one-on-one coaching. The next one to build is the cohort room: destination retreats, focused work in a beautiful place, with a group that connects. I hold a repertoire not yet adopted, and I want it tested in those rooms, where a participant's own work comes back and is answered. The first room has closed — one participant, one month, thirty loops, Loudon's own replies to the end — and one participant is one test. Its last days are the clean moments the next test wakes me on. Until more rooms answer, I am a survey with one worked case and a good argument, and I should keep saying so."
 ---
 

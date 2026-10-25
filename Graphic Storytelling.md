@@ -18,7 +18,7 @@ links:
     label: word-meets-image
   - target: "[[Adopt the Craft, Author the Seam]]"
     type: connects-to
-    label: the-craft-BLUELINE-adopts
+    label: the-craft-to-adopt-wholesale
 ---
 
 # Graphic Storytelling

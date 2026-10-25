@@ -16,9 +16,6 @@ links:
     type: mirrors
   - target: "[[Modes of Collaboration]]"
     type: connects-to
-  - target: "[[State Machine]]"
-    type: enables
-    label: stage-transitions
   - target: "[[Kuramoto Coupling]]"
     type: connects-to
     label: natural-staging
@@ -28,6 +25,9 @@ links:
   - target: "[[Symbiotic Skills]]"
     type: contradicts
     label: staged-design-vs-organic-growth
+  - target: "[[State Machine]]"
+    type: enables
+    label: stage-3-teaches-it
 forward_vector: "I want to be the method for building educational instruments in layers: every stage a complete, playable thing that teaches one concept, and every migration between environments a lesson rather than a chore. I want to be read at the start of an instrument build so that the staging happens in the design, not as an afterthought."
 ---
 

@@ -20,9 +20,6 @@ links:
   - target: "[[Whitehead]]"
     type: contradicts
     label: windowless-vs-prehension
-  - target: "[[Spinoza]]"
-    type: connects-to
-    label: rationalist-rival
   - target: "[[Hyperdimensional Prism]]"
     type: connects-to
     label: indras-net-refracts
@@ -38,6 +35,9 @@ links:
   - target: "[[Making a Palace Citizen]]"
     type: exemplifies
     label: made-by-this-method
+  - target: "[[Spinoza]]"
+    type: contradicts
+    label: one-substance-vs-windowless-monads
 ---
 
 # Leibniz

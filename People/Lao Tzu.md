@@ -27,9 +27,6 @@ agency_profile:
 links:
   - target: "[[Source Library]]"
     type: member-of
-  - target: "[[Cooking ↔ Mixing]]"
-    type: connects-to
-    label: subtraction
   - target: "[[Like Water]]"
     type: connects-to
     label: wu-wei-source

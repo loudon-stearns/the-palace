@@ -11,9 +11,6 @@ links:
   - target: "[[Spore Check Ceremony]]"
     type: emerged-from
     label: one-of-four-ways-in
-  - target: "[[The Daily Page]]"
-    type: connects-to
-    label: a-morning-decides-revive
   - target: "[[Deposit Ceremony]]"
     type: connects-to
     label: rewrites-what-a-page-claims
@@ -26,6 +23,9 @@ links:
   - target: "[[Palace Enchantment]]"
     type: connects-to
     label: you-are-alive
+  - target: "[[The Daily Page]]"
+    type: connects-to
+    label: a-morning-decides-revive
 ---
 
 # Revival Ceremony

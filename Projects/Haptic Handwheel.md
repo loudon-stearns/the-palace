@@ -45,9 +45,6 @@ links:
   - target: "[[Logarithmic Interface Scaling]]"
     type: connects-to
     label: resolution-where-it-matters
-  - target: "[[Loudon's Toolkit]]"
-    type: connects-to
-    label: toward-the-hardware-product
   - target: "[[Quality Manifesto]]"
     type: connects-to
     label: physical-making

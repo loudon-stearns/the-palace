@@ -19,9 +19,6 @@ links:
   - target: "[[FOUR PILLARS]]"
     type: emerged-from
     label: pedagogical-frame
-  - target: "[[Cooperation Yields Agency]]"
-    type: mirrors
-    label: shared-emergence
   - target: "[[Kuramoto Coupling]]"
     type: connects-to
     label: physics-of-firing

@@ -27,9 +27,6 @@ agency_profile:
 links:
   - target: "[[Source Library]]"
     type: member-of
-  - target: "[[Sidechain ↔ Conversation]]"
-    type: connects-to
-    label: yielding-practice
   - target: "[[Quality Manifesto]]"
     type: connects-to
     label: wellbeing-over-metrics

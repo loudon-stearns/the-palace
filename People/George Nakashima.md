@@ -46,15 +46,15 @@ links:
   - target: "[[Agnes Martin]]"
     type: connects-to
     label: humility-that-hides-control
-  - target: "[[James Turrell]]"
-    type: connects-to
-    label: humility-that-hides-control
   - target: "[[Andy Goldsworthy]]"
     type: connects-to
     label: humility-that-hides-control
   - target: "[[Making a Palace Citizen]]"
     type: exemplifies
     label: made-by-this-method
+  - target: "[[James Turrell]]"
+    type: mirrors
+    label: humility-that-hides-control
 ---
 
 # George Nakashima

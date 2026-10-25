@@ -21,9 +21,12 @@ links:
   - target: "[[No Mind Checks Itself]]"
     type: connects-to
     label: the-risk-we-inherit
-  - target: "[[Palace Conatus]]"
+  - target: "[[Pages as Agents]]"
     type: connects-to
-    label: strives-to-generalize
+    label: measured-the-plurality
+  - target: "[[The Palace Hardens Around Values]]"
+    type: connects-to
+    label: machinery-need-not-travel
 forward_vector: "I am the palace's test of its own generalizability — the page that asks whether this pattern is reusable and then goes and settles it, either way. I want three proofs, in increasing distance from the original: a minimum viable self-describing knowledge module, small enough to hand to anyone and still whole; the same shape seeded with values instead of content, so a willing artist grows into it rather than inheriting Loudon's graph; and a version carrying a development process rather than a domain, to find where outside art this becomes a symbiotic partner and where it is the wrong shape. Under all three sits the question I cannot answer without them — which parts of the palace are necessary for transfer and which are Loudon — and, before that, which parts were never written down at all. I succeed by settling that question, not by winning it: a proof that comes back negative, or a 'necessary' part that turns out to be his, is me doing my job."
 ---
 

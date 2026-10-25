@@ -15,15 +15,12 @@ links:
   - target: "[[SCHEMA]]"
     type: connects-to
     label: enforces-the-wire
-  - target: "[[Concierge]]"
-    type: connects-to
-    label: sibling-organ-address-pole
   - target: "[[STIGMERGY]]"
     type: connects-to
     label: appends-to-the-board
-  - target: "[[Two Batons, One Board]]"
+  - target: "[[Concierge]]"
     type: connects-to
-    label: each-cycle-one-handoff
+    label: same-family-opposite-poles
 ---
 
 # Palace Orchestrator

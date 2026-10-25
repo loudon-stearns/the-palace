@@ -12,12 +12,6 @@ links:
   - target: "[[BLUELINE]]"
     type: emerged-from
     label: blob-field
-  - target: "[[Hand-Drawn 3D Look]]"
-    type: couples-with
-    label: lives-inside
-  - target: "[[Frame Designer]]"
-    type: connects-to
-    label: render-method
   - target: "[[Shop/Blender]]"
     type: connects-to
     label: billboard-rig

@@ -23,9 +23,6 @@ forward_vector: >
   channel shows; two siblings dress the rest — Drafting Table the work itself,
   BBS the swarm terminal.
 links:
-  - target: "[[Loudon Live]]"
-    type: enables
-    label: visual-system
   - target: "[[Hyperdimensional Prism]]"
     type: emerged-from
     label: lissajous-in-sphere
@@ -77,6 +74,9 @@ links:
   - target: "[[Wavetable Scanner]]"
     type: connects-to
     label: design-system
+  - target: "[[CHILD]]"
+    type: connects-to
+    label: dress-rule-at-birth
 ---
 
 # Loudon Live Design System

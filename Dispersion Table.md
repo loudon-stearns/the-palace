@@ -27,9 +27,6 @@ links:
   - target: "[[Waveguide Synthesizer]]"
     type: emerged-from
     label: loop-round-trip-condition
-  - target: "[[Volterra Kernels and the Torus]]"
-    type: mirrors
-    label: one-field-two-reads
   - target: "[[Linear Predictive Coding]]"
     type: mirrors
     label: reading-mechanism-is-the-instrument

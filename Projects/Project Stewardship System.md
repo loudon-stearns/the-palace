@@ -20,18 +20,9 @@ links:
   - target: "[[Modes of Collaboration]]"
     type: connects-to
     label: mode-by-stage
-  - target: "[[Generative Sample Libraries]]"
-    type: connects-to
-    label: stage-mismatch-evidence
-  - target: "[[Talking Keyboard]]"
-    type: connects-to
-    label: pronunciation-case-study
   - target: "[[Palace Enchantment]]"
     type: deepens
     label: routinizing
-  - target: "[[Palace Conatus]]"
-    type: connects-to
-    label: escalation-rationale
   - target: "[[Baton Ceremony]]"
     type: connects-to
     label: steward-batons

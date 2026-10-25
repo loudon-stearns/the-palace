@@ -16,8 +16,6 @@ links:
   - target: "[[Confucianism]]"
     type: contradicts
     label: fortress-vs-threshold
-  - target: "[[The Fortress and the Threshold]]"
-    type: spawned
   - target: "[[The Dichotomy of Control]]"
     type: spawned
     label: the-operating-discipline

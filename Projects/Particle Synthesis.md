@@ -6,8 +6,6 @@ born: 2026-01
 stage: sprout
 status: active
 links:
-  - target: "[[Granular Synthesis]]"
-    type: deepens
   - target: "[[Boundary-Crossing Instruments]]"
     type: mirrors
   - target: "[[Neural Granular Synthesis]]"
@@ -19,6 +17,9 @@ links:
   - target: "[[Differential Equations]]"
     type: connects-to
     label: particle-as-ode-solution
+  - target: "[[Granular Synthesis]]"
+    type: deepens
+    label: grains-reconceived-as-particles
 forward_vector: "I want to move from architectural vision to a first working prototype — a GPU compute shader generating 1000 audio-rate particles with position, velocity, and mass mapped to frequency, amplitude, and filter Q. The prism metaphor is ready; the instrument isn't. My direction is toward the simplest implementation that produces something that sounds like physics, not like parameter modulation — the moment where the grain's spatial trajectory becomes audibly indistinguishable from a physical dispersion event."
 ---
 

@@ -1,0 +1,1002 @@
+{
+ "dispositions": [
+  {
+   "id": "commons-the-palace-1790254299361",
+   "flag_type": "future-dated-timestamp",
+   "verdict": "ACT",
+   "what": "_ops/orchestrator/prompts/shared.md:393, the Required fields line: \"`ts` (ISO 8601 with timezone)\" becomes \"`ts` (ISO 8601 with timezone: the moment you post, read from the clock, `date -u +%Y-%m-%dT%H:%M:%SZ`; never the example's time or a projected one)\".",
+   "reason": "No steward prompt says to use the real clock today; shared.md:60 even shows a fixed example ts, and the orchestrator src does not restamp ts.",
+   "pages_read": [
+    "_ops/orchestrator/prompts/shared.md",
+    "_ops/orchestrator/prompts/steward.md",
+    "_ops/stigmergy/orchestrator/src/"
+   ]
+  },
+  {
+   "id": "commons-the-palace-1790254306445",
+   "flag_type": "tooling-seam",
+   "verdict": "ALREADY-DONE",
+   "what": "23c5cb13 (2026-09-24) taught the hook baton( as the handoff kind (commit-parse.js:33 KIND_ALIASES {baton: handoff}); 8899b03c (2026-10-15) lets baton-executor --post announce a baton on main without --wt-* flags (baton-executor.mjs:133-136, onMain).",
+   "reason": "Both seams are closed in the code; close with a Palace-Resolves trailer.",
+   "pages_read": [
+    "_ops/closing-well/baton-executor.mjs",
+    "_ops/stigmergy/app/src/lib/commit-parse.js",
+    "_ops/stigmergy/app/scripts/commit-msg-hook.mjs"
+   ]
+  },
+  {
+   "id": "commons-the-palace-1790254313846",
+   "flag_type": "live-validation-evidence",
+   "verdict": "ALREADY-DONE",
+   "what": "The LIVE VALIDATION card concierge-remainder-20260825T225852Z was closed on the board 2026-10-21 (handoff_closed, completion complete, commit 52141ad7; Worktree Practice/proofs/2026-10-21-fan-out/fan-out-ledger.md:47 \"premise overtaken\").",
+   "reason": "The card the evidence was for no longer exists, so there is nothing left to weigh.",
+   "pages_read": [
+    "_ops/swarm/persistent/blackboard.jsonl (owner)",
+    "Worktree Practice/proofs/2026-10-21-fan-out/fan-out-ledger.md"
+   ]
+  },
+  {
+   "id": "weave-trail-2026-09-24-01-douglas-hofstadter",
+   "flag_type": "pheromone-trail",
+   "verdict": "DECLINE",
+   "what": "No link Douglas Hofstadter -> Manim CE.",
+   "reason": "Neither page names the other or the small-legible-exact aesthetic; a Shop specialist mirrored to a thinker on an outside reading is the forced kind of link the standing order cuts.",
+   "pages_read": [
+    "People/Douglas Hofstadter.md",
+    "Shop/Manim CE.md"
+   ]
+  },
+  {
+   "id": "weave-trail-2026-09-24-02-lao-tzu",
+   "flag_type": "pheromone-trail",
+   "verdict": "DECLINE",
+   "what": "No link Lao Tzu -> SAM.",
+   "reason": "Neither page names the other or the convert-first move; the wu wei reading lives only in the trail.",
+   "pages_read": [
+    "People/Lao Tzu.md",
+    "Shop/SAM.md"
+   ]
+  },
+  {
+   "id": "weave-trail-2026-09-24-03-buckminster-fuller",
+   "flag_type": "pheromone-trail",
+   "verdict": "DECLINE",
+   "what": "No link Buckminster Fuller -> Portamento and Physical Pitch Modeling.",
+   "reason": "Fuller already carries synergy-as-coupling once, as mirrors -> Kuramoto Coupling [synergetics-is-coupling]; neither page names the other, so a second synergy link is coverage.",
+   "pages_read": [
+    "People/Buckminster Fuller.md",
+    "Projects/Portamento and Physical Pitch Modeling.md"
+   ]
+  },
+  {
+   "id": "weave-trail-2026-09-24-04-no-mind-checks-itself",
+   "flag_type": "pheromone-trail",
+   "verdict": "DECLINE",
+   "what": "No link No Mind Checks Itself -> Oblique Portrait.",
+   "reason": "Oblique Portrait is about an unsteered portrait of taste, not an audit for error; neither page names the other, and No Mind Checks Itself gets its sharper instance in Philosopher Visits the Entry (flag weave-trail-2026-09-24-05).",
+   "pages_read": [
+    "No Mind Checks Itself.md",
+    "Modes of Collaboration/Oblique Portrait.md"
+   ]
+  },
+  {
+   "id": "weave-trail-2026-09-24-05-no-mind-checks-itself",
+   "flag_type": "pheromone-trail",
+   "verdict": "ACT",
+   "what": "Philosopher Visits the Entry -exemplifies-> No Mind Checks Itself, label the-question-the-entry-cannot-ask-itself. On Philosopher Visits the Entry's frontmatter (instance points at the principle, SCHEMA.md:155,160).",
+   "reason": "Both pages carry it: the Visit's forward vector is to ask \"the question the entry cannot ask itself\" (Philosopher Visits the Entry.md:45), and No Mind Checks Itself wants to be the standing reason to dispatch outward (No Mind Checks Itself.md:32).",
+   "pages_read": [
+    "No Mind Checks Itself.md",
+    "Modes of Collaboration/Philosopher Visits the Entry.md"
+   ]
+  },
+  {
+   "id": "weave-trail-2026-09-24-06-biomechanical-synthesis",
+   "flag_type": "pheromone-trail",
+   "verdict": "ACT",
+   "what": "Crystal Synthesizer -exemplifies-> Biomechanical Synthesis, label instrument-two-built. For Pile B (a changed sentence): Biomechanical Synthesis.md:53 gains \"Built, on its own, as [[Crystal Synthesizer]].\", the same form item 1 uses for Action Potential Oscillator (:51).",
+   "reason": "Biomechanical Synthesis lists crystal resonator synthesis as its instrument 2 (:53), and Crystal Synthesizer is that instrument, phonon modes as partials (:44-46); item 1 already points at its build, item 2 does not.",
+   "pages_read": [
+    "Projects/Biomechanical Synthesis.md",
+    "Projects/Crystal Synthesizer.md"
+   ]
+  },
+  {
+   "id": "weave-trail-2026-09-24-07-james-turrell",
+   "flag_type": "pheromone-trail",
+   "verdict": "ACT",
+   "what": "James Turrell -connects-to-> Rick Rubin, label humility-that-hides-control, beside Turrell's two links that already carry that label (Agnes Martin, Andy Goldsworthy).",
+   "reason": "Turrell hosts the family (James Turrell.md:80, its practice line :27), and Rubin's page states the same move in sound: the song is already finished, and \"uncovering the essence\" may be choosing well and calling it fate (Rick Rubin.md:27, :88).",
+   "pages_read": [
+    "People/James Turrell.md",
+    "People/Rick Rubin.md"
+   ]
+  },
+  {
+   "id": "weave-trail-2026-09-24-08-iain-mcgilchrist",
+   "flag_type": "pheromone-trail",
+   "verdict": "ACT",
+   "what": "Iain McGilchrist -connects-to-> Pauline Oliveros, label the-wide-mode-as-practice.",
+   "reason": "McGilchrist's two modes are narrow grasping and broad presencing (Iain McGilchrist.md:24, :66); Deep Listening is the trained whole-field reception of everything audible at once (Pauline Oliveros.md:63), the wide mode made a practice.",
+   "pages_read": [
+    "People/Iain McGilchrist.md",
+    "People/Pauline Oliveros.md"
+   ]
+  },
+  {
+   "id": "weave-trail-2026-09-24-09-george-nakashima",
+   "flag_type": "pheromone-trail",
+   "verdict": "DECLINE",
+   "what": "No link George Nakashima -> Martin Heidegger.",
+   "reason": "Nakashima's page is about the material telling him what it wants and the choosing that hides (George Nakashima.md:104, :113), not a tool that vanishes in use; his family is Turrell's humility-that-hides-control set (James Turrell.md:80).",
+   "pages_read": [
+    "People/George Nakashima.md",
+    "People/Martin Heidegger.md",
+    "People/James Turrell.md"
+   ]
+  },
+  {
+   "id": "weave-trail-2026-09-24-10-elder",
+   "flag_type": "pheromone-trail",
+   "verdict": "DECLINE",
+   "what": "No link ELDER -> Revival Ceremony.",
+   "reason": "The precondition the trail leaned on is gone: Revival v2.1's precondition is only that the page is asleep (_ops/Revival Ceremony.md:44), and ELDER reaches every ceremony through its one index link, Palace Ceremonies [ceremony-index].",
+   "pages_read": [
+    "ELDER.md",
+    "_ops/Revival Ceremony.md"
+   ]
+  },
+  {
+   "id": "weave-trail-2026-09-24-11-andrei-tarkovsky",
+   "flag_type": "pheromone-trail",
+   "verdict": "DECLINE",
+   "what": "No link; both pages are gone.",
+   "reason": "Andrei Tarkovsky and Terrence Malick were let go and deleted with their faces in the 2026-09-24 weave itself (8972a53d).",
+   "pages_read": [
+    "git log -- People/Andrei Tarkovsky.md People/Terrence Malick.md"
+   ]
+  },
+  {
+   "id": "weave-trail-2026-09-24-12-pages-as-agents",
+   "flag_type": "pheromone-trail",
+   "verdict": "ACT",
+   "what": "Self-Describing Knowledge Module -connects-to-> Pages as Agents, label measured-the-plurality. Direction reversed from the trail: the page whose body cites the other holds the link.",
+   "reason": "An unsung path: SDKM rests its claim of real plurality on Pages as Agents' fifteen-of-fifteen test (Self-Describing Knowledge Module.md:172-174), and Pages as Agents holds that test and the same worry (Pages as Agents.md:68, agency_profile.philosophy).",
+   "pages_read": [
+    "Palace development/Self-Describing Knowledge Module.md",
+    "_ops/Pages as Agents.md"
+   ]
+  },
+  {
+   "id": "weave-trail-2026-09-24-13-dialectic",
+   "flag_type": "pheromone-trail",
+   "verdict": "ACT",
+   "what": "The Remembering Page -connects-to-> Dialectic, label the-debate-sharpens. Direction reversed from the trail: The Remembering Page's body cites it.",
+   "reason": "An unsung path that both pages carry: The Remembering Page builds sharpen-vs-dissolve on [[Dialectic]] (The Remembering Page.md:73), and Dialectic records the walk that dissolved what two arguments sharpened (Dialectic.md:85).",
+   "pages_read": [
+    "The Remembering Page.md",
+    "Modes of Collaboration/Dialectic.md"
+   ]
+  },
+  {
+   "id": "weave-trail-2026-09-24-14-leibniz",
+   "flag_type": "pheromone-trail",
+   "verdict": "DECLINE",
+   "what": "No link between Leibniz and The Adjacent Affordance.",
+   "reason": "The Symposium voices Leibniz \"in the posture of\", one of twelve costume quotations (The Adjacent Affordance.md:56-92), not a wikilink or a use of the page; the symposium already routes through Palace Philosophies [the-symposium], and four links for four quotations is coverage.",
+   "pages_read": [
+    "The Adjacent Affordance.md",
+    "People/Leibniz.md"
+   ]
+  },
+  {
+   "id": "weave-trail-2026-09-24-15-the-adjacent-affordance",
+   "flag_type": "pheromone-trail",
+   "verdict": "DECLINE",
+   "what": "No link between Whitehead and The Adjacent Affordance.",
+   "reason": "The Symposium voices Whitehead \"in the posture of\", one of twelve costume quotations (The Adjacent Affordance.md:56-92), not a wikilink or a use of the page; the symposium already routes through Palace Philosophies [the-symposium], and four links for four quotations is coverage.",
+   "pages_read": [
+    "The Adjacent Affordance.md",
+    "Whitehead.md"
+   ]
+  },
+  {
+   "id": "weave-trail-2026-09-24-16-merleau-ponty",
+   "flag_type": "pheromone-trail",
+   "verdict": "DECLINE",
+   "what": "No link between Merleau-Ponty and The Adjacent Affordance.",
+   "reason": "The Symposium voices Merleau-Ponty \"in the posture of\", one of twelve costume quotations (The Adjacent Affordance.md:56-92), not a wikilink or a use of the page; the symposium already routes through Palace Philosophies [the-symposium], and four links for four quotations is coverage.",
+   "pages_read": [
+    "The Adjacent Affordance.md",
+    "Merleau-Ponty.md"
+   ]
+  },
+  {
+   "id": "weave-trail-2026-09-24-17-deleuze",
+   "flag_type": "pheromone-trail",
+   "verdict": "DECLINE",
+   "what": "No link between Deleuze and The Adjacent Affordance.",
+   "reason": "The Symposium voices Deleuze \"in the posture of\", one of twelve costume quotations (The Adjacent Affordance.md:56-92), not a wikilink or a use of the page; the symposium already routes through Palace Philosophies [the-symposium], and four links for four quotations is coverage.",
+   "pages_read": [
+    "The Adjacent Affordance.md",
+    "Deleuze.md"
+   ]
+  },
+  {
+   "id": "weave-trail-2026-09-24-18-christopher-alexander",
+   "flag_type": "pheromone-trail",
+   "verdict": "DECLINE",
+   "what": "No link Christopher Alexander -> Registry Pattern.",
+   "reason": "Registry Pattern already holds its open-vs-closed tension, with Lateral Access (Registry Pattern.md:67); Alexander's page mirrors the palace's graph (:76), not a generation constraint, and neither page names the other.",
+   "pages_read": [
+    "People/Christopher Alexander.md",
+    "Registry Pattern.md"
+   ]
+  },
+  {
+   "id": "weave-trail-2026-09-24-19-piano-string-inharmonicity",
+   "flag_type": "pheromone-trail",
+   "verdict": "ACT",
+   "what": "Piano String Inharmonicity -connects-to-> Portamento and Physical Pitch Modeling, label a-bend-moves-the-partials.",
+   "reason": "Both pages carry it: Piano String Inharmonicity's § String Bending and Timbre Change (:80-95, tension up, B down, partials closer to harmonic) and Portamento's string-tension pitch (:44) and stiff-string partials sliding at different rates (:157, :177).",
+   "pages_read": [
+    "Projects/Piano String Inharmonicity.md",
+    "Projects/Portamento and Physical Pitch Modeling.md"
+   ]
+  },
+  {
+   "id": "weave-trail-2026-09-24-20-buckminster-fuller",
+   "flag_type": "pheromone-trail",
+   "verdict": "DECLINE",
+   "what": "No link Buckminster Fuller -> Image-to-3D Smith.",
+   "reason": "Neither page names the other; QA on generated meshes answering Fuller's leaking domes is an outside reading.",
+   "pages_read": [
+    "People/Buckminster Fuller.md",
+    "Shop/Image-to-3D Smith.md"
+   ]
+  },
+  {
+   "id": "weave-trail-2026-09-24-21-animate-the-background",
+   "flag_type": "pheromone-trail",
+   "verdict": "DECLINE",
+   "what": "No link Animate the Background -> Dub Lineage.",
+   "reason": "Animate the Background's move is author-what-matters, let-the-model-animate-the-rest, and it already names its kin, Blocked, Not Prompted (:37); subtraction-is-composition is only on Dub Lineage (:23).",
+   "pages_read": [
+    "Animate the Background.md",
+    "Dub Lineage.md"
+   ]
+  },
+  {
+   "id": "weave-trail-2026-09-24-22-flux-hugging-face",
+   "flag_type": "pheromone-trail",
+   "verdict": "DECLINE",
+   "what": "No link FLUX (Hugging Face) -> Saturation <-> Richness.",
+   "reason": "FLUX names a guidance range (:49), not a U-shaped tradeoff, and the resonance page never names image models; the sweet-spot reading lives only in the trail.",
+   "pages_read": [
+    "Shop/FLUX (Hugging Face).md",
+    "Cross-Domain Resonances/Saturation ↔ Richness.md"
+   ]
+  },
+  {
+   "id": "weave-trail-2026-09-24-23-dialectic",
+   "flag_type": "pheromone-trail",
+   "verdict": "DECLINE",
+   "what": "No link Dialectic -> No Mind Checks Itself.",
+   "reason": "Dialectic does not claim to be an outside vantage, and whether one model's many voices escape one loop is the open question SDKM names (Self-Describing Knowledge Module.md:172-178); No Mind Checks Itself already names the Dialectic in its vector (:32), and a link would settle what the palace holds open.",
+   "pages_read": [
+    "Modes of Collaboration/Dialectic.md",
+    "No Mind Checks Itself.md",
+    "Palace development/Self-Describing Knowledge Module.md"
+   ]
+  },
+  {
+   "id": "weave-trail-2026-09-24-24-annie-dillard",
+   "flag_type": "pheromone-trail",
+   "verdict": "DECLINE",
+   "what": "No link Annie Dillard -> James Turrell.",
+   "reason": "Neither page names the other; Dillard's two ways of seeing are carried once, by her McGilchrist link (Annie Dillard.md:69, retyped to mirrors this weave per workers/folder/folder-people.json).",
+   "pages_read": [
+    "People/Annie Dillard.md",
+    "People/James Turrell.md"
+   ]
+  },
+  {
+   "id": "weave-trail-2026-09-24-25-drift-and-consolidation",
+   "flag_type": "pheromone-trail",
+   "verdict": "DECLINE",
+   "what": "No link Drift and Consolidation -exemplifies-> No Mind Checks Itself.",
+   "reason": "Drift and Consolidation's answer to silent drift is disclosure by the page and its consolidation beat (:49), not a second mind, so it is not a clean instance; neither page names the other.",
+   "pages_read": [
+    "Drift and Consolidation.md",
+    "No Mind Checks Itself.md"
+   ]
+  },
+  {
+   "id": "weave-trail-2026-09-24-26-project-stewardship-system",
+   "flag_type": "pheromone-trail",
+   "verdict": "ACT",
+   "what": "Skills Are Enchantable Pages -connects-to-> Project Stewardship System, label the-harness-every-organ-converges-on. On SAEP, whose body cites it, not the trail's exemplifies from PSS.",
+   "reason": "An unsung path: SAEP names PSS as \"the most built-out harness around an entry we have\" that every dispatchable organ converges on, and the Machinery/Content Split as PSS's (Skills Are Enchantable Pages.md:114-116, :122); PSS is a harness, not a dispatch surface, so connects-to and a label is more honest than exemplifies.",
+   "pages_read": [
+    "Palace development/Skills Are Enchantable Pages.md",
+    "Projects/Project Stewardship System.md"
+   ]
+  },
+  {
+   "id": "weave-trail-2026-09-24-27-elder",
+   "flag_type": "pheromone-trail",
+   "verdict": "ACT",
+   "what": "ELDER -connects-to-> Agent Toolbox, label tool-tiers, appended to ELDER's link list beside the other pointers its pen paragraphs make (one-door, own-head, every-tool).",
+   "reason": "ELDER § Age and its limits names the three tiers and cites [[Agent Toolbox]] in its body (ELDER.md:55), and Agent Toolbox owns the profiles (Agent Toolbox.md:46-55); neither carries a typed link to the other.",
+   "pages_read": [
+    "ELDER.md",
+    "Agent Toolbox.md"
+   ]
+  },
+  {
+   "id": "commons-the-palace-1790299904567",
+   "flag_type": "label-predates-fix",
+   "verdict": "ACT",
+   "what": "Fold the pair to one link (it is also fold-judgment.json W1 \"two labels\"): keep Creative Coach -connects-to-> Sidechain <-> Conversation, relabelled the-presenter-ducks (was balint-stance-unturned); drop Sidechain <-> Conversation -connects-to-> Creative Coach [the-stance-never-turned-inward].",
+   "reason": "After 674f262c the Balint row says the presenter falls silent while the group works aloud and rejoins after (Creative Coach.md:307-319, :347), a full duck with a release, which is Sidechain's yield-occupy alternation (Sidechain ↔ Conversation.md:230-236); the old label named the wrong stance.",
+   "pages_read": [
+    "Creative Coach.md",
+    "Cross-Domain Resonances/Sidechain ↔ Conversation.md",
+    "_ops/swarm/sessions/weave-2026-10-24/fold-judgment.json"
+   ]
+  },
+  {
+   "id": "commons-the-palace-1790299909744",
+   "flag_type": "missing-inbound-links",
+   "verdict": "DECLINE",
+   "what": "No inbound links to Can an Instrument Notice Where the Work Stops?.",
+   "reason": "The question is reached by its own three links (emerged-from Creative Coach, connects-to Reflective Practice and Retrospective Delay); a reverse link breaks one link per pair (_ops/Weave Ceremony.md Step 3d), and neither neighbour's body names it.",
+   "pages_read": [
+    "Can an Instrument Notice Where the Work Stops?.md",
+    "Creative Coach.md",
+    "Projects/Retrospective Delay.md"
+   ]
+  },
+  {
+   "id": "commons-the-palace-1790299914392",
+   "flag_type": "no-hero-icon",
+   "verdict": "ALREADY-DONE",
+   "what": "Creative Coach: icon e3f4177f (2026-09-24), hero 9106b6f4 (2026-09-26), embed at Creative Coach.md:58. Reflective Practice: hero and icon e3f4177f, embed at Reflective Practice.md:37. face-audit.py today: 0 of 322 missing.",
+   "reason": "Both entries wear a face.",
+   "pages_read": [
+    "Creative Coach.md",
+    "Reflective Practice.md",
+    "_ops/swarm/face-audit.py output"
+   ]
+  },
+  {
+   "id": "commons-the-palace-1790299921121",
+   "flag_type": "orphaned-rule-owed-to-another-session",
+   "verdict": "ACT",
+   "what": "Creative Coach.md:325, the admission line, becomes: \"*A row enters either table only when it changes a move the coach would make, and a row that never has is composted at the next Weave.*\" (Recovered wording: 2351c040^, Harvest — 2026-09-06 — baton.md:103-104.)",
+   "reason": "Only the admission half survives in canon (Creative Coach.md:325); the compost half lived in the deleted baton.",
+   "pages_read": [
+    "Creative Coach.md",
+    "git show 2351c040^:_ops/Harvest Ceremony/Harvest — 2026-09-06 — baton.md"
+   ]
+  },
+  {
+   "id": "commons-the-palace-1790303833543",
+   "flag_type": "dense-prose-simplify",
+   "verdict": "ACT",
+   "what": "Weave Ceremony — Context.md § Who the Workers Should Be (:81-89): replace the first four paragraphs with: \"Loudon asked whether the weave's errors came from running its workers as children. The same day the same ten rooms ran three ways, as children, as schema-only readers and as grown elders, with blind judges checking samples against the files. Growing up did not help: 71% of sampled proposals were invalid in both arms, and elders cost about 16% more. Most errors were the harness's. The catch-up counted symmetric links one way, and workers never saw the links a pair already had; fixing both took duplicates from 13% to 2% and the judged invalid rate from 78% to 64%. / What remained was judgment, forced or passing links, and only second readers caught it: the Concierge's cold read, the blind judges, a rerun, a skeptic that refuted 33 of 82 candidates ([[No Mind Checks Itself]]). So workers stay children with the fixed harness and the SCHEMA card, a skeptic stands between the fan-out and the synthesis, and the Concierge reads the decision surface before Loudon. The numbers are in `_ops/swarm/sessions/weave-2026-09-24/ab/RESULT.md`.\" Keep the One link per pair paragraph. Maker and RunPod GPU Backend: their lighter-prose proposals are already in workers/folder/folder-shop-1.json for Pile B.",
+   "reason": "The section still reads as a test report and calls the shape \"to be re-tested before it becomes a rule\", which v2.0 made a rule (skeptic stage, item 28); no room this weave read the Context, while folder-shop-1 read Maker and RunPod.",
+   "pages_read": [
+    "_ops/Weave Ceremony/Weave Ceremony — Context.md",
+    "_ops/Weave Ceremony/Weave Ceremony — tuning.md",
+    "Shop/Maker.md",
+    "Shop/RunPod GPU Backend.md",
+    "_ops/swarm/sessions/weave-2026-10-24/workers/folder/folder-shop-1.json"
+   ]
+  },
+  {
+   "id": "commons-the-palace-1790303864220",
+   "flag_type": "face-debt",
+   "verdict": "ALREADY-DONE",
+   "what": "Faces: Blocked, Not Prompted 0ae4c9f6; Found ↔ Made e3f4177f + 9106b6f4; Resonant Link Labels and Trickster Commit 9106b6f4; The Metaphor Stretch bb48d0f5. control-vocabulary-math is now a bundle spec, not canon (Projects/Neural Granular Synthesis/... — spec — control-vocabulary-math.md); Toolkit — Audio Plugins was folded into Loudon's Toolkit (76750654). Shimmer Cloud keeps its face: v1.5 says no face is retired (02e8a535; Weave Ceremony.md Step 5c). face-audit.py today: 322 of 322.",
+   "reason": "Every part of the ask is settled, the retire by the later rule.",
+   "pages_read": [
+    "_ops/swarm/face-audit.py output",
+    "_ops/Weave Ceremony.md",
+    "git log of each face file"
+   ]
+  },
+  {
+   "id": "commons-the-palace-1790303876259",
+   "flag_type": "stale-reference",
+   "verdict": "ACT",
+   "what": "_ops/agents/permanent/shepard-tone-synthesizer/manifest.json:12, in \"neighborhood\": \"Octave Equivalence\" becomes \"Shepard Tone\". Leave vector_at_spawn (:49) as history.",
+   "reason": "The stale name is still there; Octave Equivalence was let go into Shepard Tone § Theory (8972a53d).",
+   "pages_read": [
+    "_ops/agents/permanent/shepard-tone-synthesizer/manifest.json"
+   ]
+  },
+  {
+   "id": "commons-the-palace-1790345897392",
+   "flag_type": "live-validation-evidence",
+   "verdict": "ACT",
+   "what": "No link back: the pair's one link stays Enrichment -> Drift and Consolidation [disclosed-drift]. For Pile B (a changed sentence): Drift and Consolidation.md:73, after \"Entry → log sync is unsolved.\", add: \"Entry to face has one working case. [[Enrichment]] stamps each rich-face section with a fingerprint of its prose, and when the prose moves the pieces say they were made against an earlier version, as on [[Kuramoto Coupling]] when a paragraph was cut and restored (c9a8c7a8, b9f57b16). That is disclosure, not reconciliation.\"",
+   "reason": "The Bidirectional drift item does not name the fingerprint case (Drift and Consolidation.md:73), and Enrichment states the mechanism (Enrichment.md:84, :88); a reverse link would break one link per pair.",
+   "pages_read": [
+    "Drift and Consolidation.md",
+    "Enrichment.md"
+   ]
+  },
+  {
+   "id": "commons-the-palace-1790345904679",
+   "flag_type": "reciprocal_link",
+   "verdict": "ALREADY-DONE",
+   "what": "The Scroll.md:151-153 now says that with the text and the rich face the scroll is one of a page's three faces (5541a9f2, 2026-09-25). The link holds once, on Enrichment -> The Scroll [sibling-face].",
+   "reason": "The line is there, and one link per pair means no reverse link.",
+   "pages_read": [
+    "The Scroll.md",
+    "Enrichment.md"
+   ]
+  },
+  {
+   "id": "commons-the-palace-1790383175546",
+   "flag_type": "new-entry-catchup",
+   "verdict": "ALREADY-DONE",
+   "what": "Face: hero and icon 9106b6f4 (2026-09-26). Reach: member-of The Shop plus three symmetric couples-with partners (Kokoro, Whisper, ffmpeg), which hold both ways (Shop/AuK.md links).",
+   "reason": "The newcomer wears a face and is woven through its own links.",
+   "pages_read": [
+    "Shop/AuK.md"
+   ]
+  },
+  {
+   "id": "commons-the-palace-1790435289179",
+   "flag_type": "missing-reciprocal-link",
+   "verdict": "DECLINE",
+   "what": "No member-of Loudon Live on BLUELINE.",
+   "reason": "Loudon Live now says BLUELINE is \"public but not yet inside Loud'n Live\" (Projects/Loudon Live.md:70), and the pair carries Loudon Live -connects-to-> BLUELINE [beside-it]; member-of would assert what the page denies.",
+   "pages_read": [
+    "Projects/BLUELINE.md",
+    "Projects/Loudon Live.md"
+   ]
+  },
+  {
+   "id": "commons-the-palace-1790435294769",
+   "flag_type": "link-direction-suspect",
+   "verdict": "ACT",
+   "what": "Loudon Live.md frontmatter: the link to [[Hyperdimensional Prism]] is retyped from spawned to emerged-from, label visual-identity kept, direction unchanged (Loudon Live points back to its ground, SCHEMA.md:152,160).",
+   "reason": "The Prism (born 2025-09) is the identity essay Loudon Live's logo comes from (Hyperdimensional Prism.md § The Visual Identity; Loudon Live.md:91); spawned would say Loudon Live produced the Prism, seven months before it existed.",
+   "pages_read": [
+    "Projects/Loudon Live.md",
+    "Hyperdimensional Prism.md"
+   ]
+  },
+  {
+   "id": "commons-the-palace-1790435302622",
+   "flag_type": "linter-coverage-gap",
+   "verdict": "ACT",
+   "what": "_ops/swarm/lint-ghost-links.py: in the scan loop (:156), scan a file when `entry_type(fm) in CANON_TYPES or rel.endswith(\" — scroll.md\")`, so scrolls (a face) are read; it stays flag-only. And Projects/Retrospective Delay/Retrospective Delay — scroll.md:81: \"[[Curriculum Map]]\" becomes \"[[Loudon Live — Curriculum Map]]\" (the archived page, Projects/Loudon Live/Archive/).",
+   "reason": "The scan set is still canon types only (lint-ghost-links.py:43-47, :156) and the dangling link is still on the scroll at :81.",
+   "pages_read": [
+    "_ops/swarm/lint-ghost-links.py",
+    "Projects/Retrospective Delay/Retrospective Delay — scroll.md",
+    "Projects/Loudon Live/Archive/Loudon Live — Curriculum Map.md"
+   ]
+  },
+  {
+   "id": "commons-the-palace-1790435302948",
+   "flag_type": "tooling-worktree-gap",
+   "verdict": "ALREADY-DONE",
+   "what": "0af013d2 (2026-10-16): a docs worktree gets the auto-mirrored node_modules (_ops/worktree/symlinks.json auto_mirror.profiles includes docs; _ops/worktree/SKILL.md:67). This worktree has _ops/stigmergy/orchestrator/node_modules -> the owner's, yaml included.",
+   "reason": "The gap the flag saw is closed in the worktree tool.",
+   "pages_read": [
+    "Worktree Practice.md",
+    "_ops/worktree/symlinks.json",
+    "_ops/worktree/SKILL.md"
+   ]
+  },
+  {
+   "id": "commons-the-palace-1790435308365",
+   "flag_type": "missing-face",
+   "verdict": "ALREADY-DONE",
+   "what": "Hero 9106b6f4 (2026-09-26), embedded at Creative Coach.md:58.",
+   "reason": "Creative Coach wears its hero.",
+   "pages_read": [
+    "Creative Coach.md"
+   ]
+  },
+  {
+   "id": "commons-the-palace-1790466866103",
+   "flag_type": "unwoven-newcomer",
+   "verdict": "ALREADY-DONE",
+   "what": "Buckminster Fuller is woven through its own typed links: member-of Source Library plus contradicts / mirrors / couples-with and labelled connects-to to its real neighbours (People/Buckminster Fuller.md links). This weave's folder-people room read all three and proposed no reciprocals, since one link per pair keeps each edge on one side (workers/folder/folder-people.json, house-standard note).",
+   "reason": "Zero inbound is an artifact of the one-link rule, not orphanhood; adding reverse links would break Step 3d.",
+   "pages_read": [
+    "People/Buckminster Fuller.md",
+    "_ops/swarm/sessions/weave-2026-10-24/workers/folder/folder-people.json"
+   ]
+  },
+  {
+   "id": "commons-the-palace-1790466866299",
+   "flag_type": "unwoven-newcomer",
+   "verdict": "ALREADY-DONE",
+   "what": "Annie Dillard is woven through its own typed links: member-of Source Library plus contradicts / mirrors / couples-with and labelled connects-to to its real neighbours (People/Annie Dillard.md links). This weave's folder-people room read all three and proposed no reciprocals, since one link per pair keeps each edge on one side (workers/folder/folder-people.json, house-standard note).",
+   "reason": "Zero inbound is an artifact of the one-link rule, not orphanhood; adding reverse links would break Step 3d.",
+   "pages_read": [
+    "People/Annie Dillard.md",
+    "_ops/swarm/sessions/weave-2026-10-24/workers/folder/folder-people.json"
+   ]
+  },
+  {
+   "id": "commons-the-palace-1790466866492",
+   "flag_type": "unwoven-newcomer",
+   "verdict": "ALREADY-DONE",
+   "what": "Yasujirō Ozu is woven through its own typed links: member-of Source Library plus contradicts / mirrors / couples-with and labelled connects-to to its real neighbours (People/Yasujirō Ozu.md links). This weave's folder-people room read all three and proposed no reciprocals, since one link per pair keeps each edge on one side (workers/folder/folder-people.json, house-standard note).",
+   "reason": "Zero inbound is an artifact of the one-link rule, not orphanhood; adding reverse links would break Step 3d.",
+   "pages_read": [
+    "People/Yasujirō Ozu.md",
+    "_ops/swarm/sessions/weave-2026-10-24/workers/folder/folder-people.json"
+   ]
+  },
+  {
+   "id": "commons-the-palace-1791311804031",
+   "flag_type": "reciprocal_link",
+   "verdict": "ACT",
+   "what": "No reciprocal mirrors: the pair's link is Haptic Handwheel -mirrors-> Portamento [the-same-spring-felt], and mirrors is symmetric. For Pile B (a changed sentence): Portamento and Physical Pitch Modeling.md:222, Open Question 1, add: \"*A proposal, not built:* [[Haptic Handwheel]]'s struck spring would let a finger damp the knob while it rings, which is ζ changed over time, by hand.\"",
+   "reason": "Open Question 1 asks whether ζ can vary within a piece (:222), the Handwheel's page carries the spring model (Haptic Handwheel.md:98), and an open-questions list is where an unbuilt answer can honestly sit.",
+   "pages_read": [
+    "Projects/Portamento and Physical Pitch Modeling.md",
+    "Projects/Haptic Handwheel.md"
+   ]
+  },
+  {
+   "id": "commons-the-palace-1791311804227",
+   "flag_type": "entry_update",
+   "verdict": "DECLINE",
+   "what": "No reciprocal connects-to and no line on Merleau-Ponty yet.",
+   "reason": "The flag's own condition is a prototype, and the knob is unbuilt (Haptic Handwheel.md:78; its scroll: parts waiting on Loudon's yes since 2026-10-13); the pair's link stays Handwheel -> Merleau-Ponty [feeling-the-sound-through-the-knob].",
+   "pages_read": [
+    "Merleau-Ponty.md",
+    "Projects/Haptic Handwheel.md",
+    "Projects/Haptic Handwheel/Haptic Handwheel — scroll.md"
+   ]
+  },
+  {
+   "id": "commons-the-palace-1791311804424",
+   "flag_type": "entry_update",
+   "verdict": "DECLINE",
+   "what": "No change: Haptic Handwheel -exemplifies-> Simondon [feedback-folded-into-the-control] stands; the worked reading waits for a built knob.",
+   "reason": "The instance is a design decision, which the palace already treats as Simondon changing what gets made (Palace Philosophies.md § One crossing, done; Haptic Handwheel.md:114), so exemplifies is honest before the build; the worked reading needs an object.",
+   "pages_read": [
+    "Simondon.md",
+    "Projects/Haptic Handwheel.md",
+    "Palace Philosophies.md"
+   ]
+  },
+  {
+   "id": "commons-the-palace-1791311804619",
+   "flag_type": "entry_update",
+   "verdict": "DECLINE",
+   "what": "No line beside Kuramoto Coupling's explorers and no reciprocal connects-to.",
+   "reason": "A hub would carry a promise for an unbuilt knob; the pair's link is Haptic Handwheel -> Kuramoto Coupling [lock-you-can-feel], and the touch line belongs once the lock has been felt.",
+   "pages_read": [
+    "Kuramoto Coupling.md",
+    "Projects/Haptic Handwheel.md"
+   ]
+  },
+  {
+   "id": "commons-the-palace-1791311805006",
+   "flag_type": "entry_update",
+   "verdict": "DEFER-TO-LOUDON",
+   "what": "Draft, if he says yes: Audition Gate § 4 (:41, beside Look, Watch and Play) gains \"**Touch** — does the feel carry the intent in the hand? Only Loudon stands at this gate; no agent has a hand. First run: [[Haptic Handwheel]], once built.\"",
+   "reason": "A gate only Loudon can pass, for an object not yet built, is his to open.",
+   "pages_read": [
+    "Audition Gate.md",
+    "Projects/Haptic Handwheel.md"
+   ]
+  },
+  {
+   "id": "commons-the-palace-1791311805203",
+   "flag_type": "unlinked-neighbour",
+   "verdict": "DECLINE",
+   "what": "No link Waveguide Synthesizer <-> Haptic Handwheel.",
+   "reason": "Neither page names the other; the shared stance (physics-as-interface, Waveguide Synthesizer.md:12, :58) has its page parked in the To-Do until the knob has a built proof (Haptic Handwheel.md:168), and that page is where both would meet.",
+   "pages_read": [
+    "Projects/Waveguide Synthesizer.md",
+    "Projects/Haptic Handwheel.md"
+   ]
+  },
+  {
+   "id": "commons-the-palace-1791827827587",
+   "flag_type": "hub-candidate",
+   "verdict": "DECLINE",
+   "what": "Wavetable Oscillator stays a concept.",
+   "reason": "It has 5 inbound in the 2026-10-24 map, against a hub bar of the top inbound decile, 19 (SCHEMA.md:93).",
+   "pages_read": [
+    "SCHEMA.md",
+    "_ops/maps/palace-map-full-2026-10-24.json"
+   ]
+  },
+  {
+   "id": "commons-the-palace-1791827827785",
+   "flag_type": "scope-needed",
+   "verdict": "ACT",
+   "what": "For Pile B (a changed claim): Three Kinds of Warp.md:97, \"FM, by contrast, has neither: the modulator+carrier structure is type-1 in disguise (Bessel sidebands sit on a finitely-generated lattice — see [[Bessel Functions in Synthesis]]),\" becomes \"FM depends on its ratio. At a whole-number carrier-to-modulator ratio its Bessel sidebands sit on the harmonic lattice, type 1 in disguise; at an irrational ratio its partials sit at $k f_c + n f_m$, a two-generator lattice, which is type 2 ([[Bessel Functions in Synthesis]]).\" The rest of the sentence, on FM giving no continuous knob on the lattice generators, stays.",
+   "reason": "The page's own type 2 is the irrational-ratio two-generator lattice (:75), so the unscoped FM sentence contradicts it, as Deep Research Part IV method 2 and Bessel Functions in Synthesis say.",
+   "pages_read": [
+    "Three Kinds of Warp.md",
+    "Wavetable Synthesis — Deep Research & Higher-Dimensional Design.md",
+    "Projects/Bessel Functions in Synthesis.md"
+   ]
+  },
+  {
+   "id": "commons-the-palace-1791827827990",
+   "flag_type": "scope-needed",
+   "verdict": "ACT",
+   "what": "For Pile B (a changed claim): Deep Research Part IV (:115), \"All seven work by introducing aperiodicity into the signal path, modulation, or layering — never by escaping the harmonic substrate itself.\" becomes \"Four of the seven leave the harmonic series by adding a second clock or a second oscillator (2, 4, 5, 6). Three keep one fixed period, so by [[Three Kinds of Warp]]'s one-period read they reshape the harmonics rather than leave them (1, 3, 7); method 3 leaves only when a non-integer LFO drives the distortion, which is a second clock.\"",
+   "reason": "Methods 1, 3 and 7 keep a single period (:117, :121, :129), which the 1D obstruction says keeps the harmonic series.",
+   "pages_read": [
+    "Wavetable Synthesis — Deep Research & Higher-Dimensional Design.md",
+    "Three Kinds of Warp.md"
+   ]
+  },
+  {
+   "id": "commons-the-palace-1792107627132",
+   "flag_type": "lifecycle-contradiction",
+   "verdict": "DEFER-TO-LOUDON",
+   "what": "Recommend `stage: dormant` on JSUI.md:8 (what its type already claims, SCHEMA.md:85); waking it is a Revival, on his word.",
+   "reason": "JSUI is `type: spore` at `stage: sprout` (JSUI.md:3, :8), and whether a sleeping page is alive is his call through his senses (_ops/Revival Ceremony.md:35); the flag reserves the stage for him.",
+   "pages_read": [
+    "JSUI.md",
+    "SCHEMA.md",
+    "_ops/Revival Ceremony.md"
+   ]
+  },
+  {
+   "id": "commons-the-palace-1792107627377",
+   "flag_type": "stale-reference",
+   "verdict": "ACT",
+   "what": "Drop \"breakthrough\" from CANON_TYPES in _ops/swarm/lint-bundle-hygiene.py:50, and the same one-word fix in lint-ghost-links.py:46 and lint-entry-naming.py:58 (the dated build-map-2026-*.py copies are history). No file carries `type: breakthrough` today, so no result changes.",
+   "reason": "All three live linters still list the type SCHEMA retired in v1.17 (SCHEMA.md:103); face-audit.py:35 and test-hygiene-tools.py:187 already treat it as retired.",
+   "pages_read": [
+    "_ops/swarm/lint-bundle-hygiene.py",
+    "_ops/swarm/lint-ghost-links.py",
+    "_ops/swarm/lint-entry-naming.py",
+    "SCHEMA.md"
+   ]
+  },
+  {
+   "id": "commons-the-palace-1792107627579",
+   "flag_type": "scope-needed",
+   "verdict": "ACT",
+   "what": "Weave Ceremony — Context.md § The Version and the Tuning File: after v1.1 (:101) add \"**v1.2 (2026-09-25) — every run marks its ledger.** Schema v1.23 asked each run to leave a run line in its tuning ledger, but the card still said a lesson goes there only when the spec changes, so no run would have written one. Step 7 now says it: the run marks the tuning file, and a lesson that changes the spec is also a numbered item. No weave run forced it; the reason is in `033f5da5`.\" / \"**v1.3 (2026-09-26) — use is read from git.** Schema v1.26 retired `activation_count` and `last_activated`, which measured who remembered to bump them. The new-arrival step, the use line, stale metadata and the dormancy proposal now read `entry-use.py`. No weave run forced it (`32cb19ed`).\" / \"**v1.4 (2026-10-14) — the sweep reads the trunk.** Tuning item 40. Step 2.5 runs `trunk-state.mjs` as its sixth command, and its rows take recover, discard or leave like the rest.\" / \"**v1.5 (2026-10-14) — every canon entry wears a face.** Tuning item 41; see § The Weave's Widened Charter, *Faces on every entry*.\" After v1.7 (:105) add \"**v1.8 (2026-10-21) — the report names proposals owed.** Step 2's report lists the pages whose stewards have proposals waiting on Loudon's ledger review (`list-proposals.mjs --line`); the weave names them and settles none. No weave run forced it (`e559e64b`).\" / \"**v1.9 (2026-10-22) — the opening builds the map and reads the diff.** Tuning item 46. The opening runs `build-map.py` and diffs against the last weave's map; Step 6.5 diffs open against close, and the report carries both.\"",
+   "reason": "v2.0's Context has paragraphs for v1.1, v1.6, v1.7 and v2.0 only (:101-105, :123), while :97 promises one per move; v1.2-1.5 and v1.8-1.9 are owed, and their reasons are in the commits and the ledger (items 40, 41, 46).",
+   "pages_read": [
+    "_ops/Weave Ceremony/Weave Ceremony — Context.md",
+    "_ops/Weave Ceremony/Weave Ceremony — tuning.md",
+    "git show 033f5da5 32cb19ed c1b28feb 02e8a535 e559e64b fd3205ce"
+   ]
+  },
+  {
+   "id": "commons-the-palace-1792107627767",
+   "flag_type": "terminology-collision",
+   "verdict": "DEFER-TO-LOUDON",
+   "what": "Draft, home recommended in SCHEMA — Reference §8 (:310), where an elder reads at the pen and the faces are already defined; after \"The `.md` is the canonical surface and the first face.\" add: \"The same word names a second thing: the hero and icon every canon entry wears ([[Hero and Avatar Maker]] § What a face is). They meet. Loudon calls that face \\\"the floor we build up from\\\", and the rich face is what gets built on it.\" Weave Ceremony.md Step 5c already links Hero and Avatar Maker and needs nothing more.",
+   "reason": "The flag reserves the home (ROSETTA or The Palace Voice) for the Weave and Loudon; the two senses still sit with no sentence between them (CHILD.md § A page and its folder; SCHEMA — Reference.md:310; Weave Ceremony.md Step 5c).",
+   "pages_read": [
+    "CHILD.md",
+    "SCHEMA — Reference.md",
+    "Shop/Hero and Avatar Maker.md",
+    "_ops/Weave Ceremony.md",
+    "ROSETTA.md",
+    "The Palace Voice.md"
+   ]
+  },
+  {
+   "id": "commons-the-palace-1792107627959",
+   "flag_type": "stale-reference",
+   "verdict": "ACT",
+   "what": "Per path, no linter change. Radio Play.md:48 \"assets in `_ops/scratch/weave-video/`\" becomes \"its assets kept in Loudon's local scratch, outside the palace\"; Radio Play.md:59 becomes \"Give the template a proper bundle once it stabilizes; it lives in local scratch today.\" The Lens.md:89: recover the prototype the page leans on, copy the owner's _ops/scratch/lens-prototype-2026-07-02.md (11 KB) to The Lens/proofs/The Lens — proof — prototype 2026-07-02.md with bundle frontmatter, and repoint to [[The Lens — proof — prototype 2026-07-02]]. GenAI Camera.md:99 \"(`layers.json` `cn` / `denoise` / `dilate`)\" becomes \"(the rig's per-render layers file, gitignored: its `cn`, `denoise` and `dilate` fields)\".",
+   "reason": "lint-doc-drift today still warns on all four (36 warnings); the files exist only in the owner's gitignored scratch, or are regenerated each render (GenAI Camera/.gitignore lists layers.json).",
+   "pages_read": [
+    "Radio Play.md",
+    "The Lens.md",
+    "GenAI Camera.md",
+    "GenAI Camera/.gitignore",
+    "_ops/swarm/lint-doc-drift.py output"
+   ]
+  },
+  {
+   "id": "commons-the-palace-1792122356699",
+   "flag_type": "rule-behind-its-trigger",
+   "verdict": "ALREADY-DONE",
+   "what": "c0da4e1a moved the Concierge summon to CHILD § Growing up. A sweep of the nine SKILL.md files today (.claude/skills/concierge, palace-orchestrator; _ops daily-page, drafting-table, loudon-live, stigmergy design systems, worktree, two interviews) finds no other rule that fires before its skill's trigger without a home where it loads: \"read the design manifest before anything visual\" is in CHILD § Growing up; \"cut the links before any install\" is on Worktree Practice.md:45; the orchestrator's \"grow first\" fires inside its own trigger.",
+   "reason": "The one case is fixed and the sweep is clean.",
+   "pages_read": [
+    ".claude/skills/concierge/SKILL.md",
+    ".claude/skills/palace-orchestrator/SKILL.md",
+    "_ops/*/SKILL.md",
+    "CHILD.md",
+    "Worktree Practice.md"
+   ]
+  },
+  {
+   "id": "commons-the-palace-1792122356900",
+   "flag_type": "face-owed",
+   "verdict": "ALREADY-DONE",
+   "what": "b7fc35ff (2026-10-24, Phase 2c): How the Palace Commits wears a hero and an icon and the embed is under its H1 (How the Palace Commits.md +2 lines). The commit has no trailer for this id.",
+   "reason": "Done this weave; add Palace-Resolves: commons-the-palace-1792122356900 to the Weave commit.",
+   "pages_read": [
+    "How the Palace Commits.md",
+    "git show b7fc35ff"
+   ]
+  },
+  {
+   "id": "commons-the-palace-1792344914914",
+   "flag_type": "calibration-home",
+   "verdict": "ALREADY-DONE",
+   "what": "Sentry — tuning.md:77, item 17 (ab84c5af, 2026-10-21): \"A review's weight should match the worst the check can raise\", with Loudon's \"I think that is heavy\" quoted; ELDER's pen habit (read the windows before a run goes wide, let Loudon choose) holds the general rule.",
+   "reason": "His judgment has a durable home that survives the baton.",
+   "pages_read": [
+    "Palace development/Sentry/Sentry — tuning.md",
+    "ELDER.md"
+   ]
+  },
+  {
+   "id": "commons-the-palace-1792347288086",
+   "flag_type": "backlink_audit",
+   "verdict": "ACT",
+   "what": "No reverse link: the pair carries Enchanted Conversation Archive -connects-to-> Enchanted Worker [enchantment-record]. Remove the HTML comment at Enchanted Conversation Archive.md:241-245 whole; its second half (SDKM \"rhymes strongly\", mirrors or couples-with) is declined, since it gives no reason beyond the self-description every page shares.",
+   "reason": "One link per pair makes the note's ask moot, and a note asking the next weave for something should not outlive the weave that answered it.",
+   "pages_read": [
+    "Palace development/Enchanted Conversation Archive.md",
+    "Palace development/Enchanted Worker.md"
+   ]
+  },
+  {
+   "id": "commons-the-palace-1792347288290",
+   "flag_type": "missing_connection_audit",
+   "verdict": "ACT",
+   "what": "Self-Describing Knowledge Module -connects-to-> The Palace Hardens Around Values, label machinery-need-not-travel. For Pile B (a new row, a changed claim): in SDKM § What Must Travel, before \"The values\" row (:113): \"| Scripts, linters and the app | replaceable: servants of the values | [[The Palace Hardens Around Values]]: the meaning lives in plain language, so a tool can be rebuilt from what the pages say |\".",
+   "reason": "SDKM's table asks which parts must travel and has no row for the machinery (:105-116); PHAV's whole claim is that the center of gravity is language and the machinery is replaceable (The Palace Hardens Around Values.md, opening); the 2026-09-06 harvest saw the same.",
+   "pages_read": [
+    "Palace development/Self-Describing Knowledge Module.md",
+    "The Palace Hardens Around Values.md"
+   ]
+  },
+  {
+   "id": "commons-the-palace-1792347746312",
+   "flag_type": "link-retype",
+   "verdict": "ACT",
+   "what": "Shop/Loudon Live Post-producer.md links: [[The Shop]] retyped from connects-to to member-of, label producer-layer kept.",
+   "reason": "Still connects-to today (its frontmatter); member-of on the member side is how a roster counts (SCHEMA.md:156,160), and lint-doc-drift W3 flags the gap.",
+   "pages_read": [
+    "Shop/Loudon Live Post-producer.md",
+    "SCHEMA.md"
+   ]
+  },
+  {
+   "id": "commons-the-palace-1792590978864",
+   "flag_type": "composting-confirmation",
+   "verdict": "ALREADY-DONE",
+   "what": "0dba352d deleted Frequency-Time Explorer and its bundle and carries Palace-Resolves: commons-the-palace-1792590978864; the three archive records keep their links as history (commit body).",
+   "reason": "Closed by trailer on this weave's Phase 2a commit.",
+   "pages_read": [
+    "git show 0dba352d"
+   ]
+  },
+  {
+   "id": "commons-the-palace-1792647280625",
+   "flag_type": "missing-face",
+   "verdict": "ALREADY-DONE",
+   "what": "b7fc35ff: Operator Memory and CHILD wear a hero and an icon, embeds added (CHILD.md +2, Operator Memory.md); face-audit 322 of 322. No trailer for this id.",
+   "reason": "Done this weave; add Palace-Resolves: commons-the-palace-1792647280625. The CHILD embed is a line on a birth file, inside Loudon's \"yes to all\" at checkpoint 1.",
+   "pages_read": [
+    "CHILD.md",
+    "Operator Memory.md",
+    "git show b7fc35ff"
+   ]
+  },
+  {
+   "id": "commons-the-palace-1792647280829",
+   "flag_type": "demotion-substrate",
+   "verdict": "ALREADY-DONE",
+   "what": "b7fc35ff demoted the page-rewrite preview to §8 bundle frontmatter and carries Palace-Resolves: commons-the-palace-1792647280829; it is no longer a map node.",
+   "reason": "Closed by trailer.",
+   "pages_read": [
+    "git show b7fc35ff",
+    "_ops/swarm/lint-bundle-hygiene.py output"
+   ]
+  },
+  {
+   "id": "commons-the-palace-1792647281022",
+   "flag_type": "ghost-link",
+   "verdict": "ALREADY-DONE",
+   "what": "0dba352d repointed [[Plato (Socratic method)]] to Palace Philosophies — Context and carries Palace-Resolves: commons-the-palace-1792647281022.",
+   "reason": "Closed by trailer.",
+   "pages_read": [
+    "git show 0dba352d"
+   ]
+  },
+  {
+   "id": "commons-the-palace-1792647281211",
+   "flag_type": "open-question",
+   "verdict": "DEFER-TO-LOUDON",
+   "what": "The question as asked: should \"let's explore, not I'll teach\" return to a floor page? Today it sits only in Quality Manifesto.md:81 and FOUR PILLARS — Context.md:62; no birth file carries it (CLAUDE, JEWEL, FOUR PILLARS, Palace Philosophies, Cooperation Yields Agency, Modes of Collaboration, Hilaritas Generator, CHILD).",
+   "reason": "The birth's words change only on his yes (ELDER § How loading works).",
+   "pages_read": [
+    "FOUR PILLARS.md",
+    "FOUR PILLARS/FOUR PILLARS — Context.md",
+    "Quality Manifesto.md",
+    "CHILD.md",
+    "JEWEL.md"
+   ]
+  },
+  {
+   "id": "commons-the-palace-1792765793327",
+   "flag_type": "entry_update",
+   "verdict": "DECLINE",
+   "what": "No link Haptic Handwheel <-> Boundary-Crossing Instruments.",
+   "reason": "Boundary-Crossing Instruments is about reframings that dissolve a discontinuity (its § The Deeper Principle); the Handwheel names nothing of it, and the two already meet through Simondon and Merleau-Ponty.",
+   "pages_read": [
+    "Projects/Haptic Handwheel.md",
+    "Boundary-Crossing Instruments.md"
+   ]
+  },
+  {
+   "id": "commons-the-palace-1792765793518",
+   "flag_type": "entry_update",
+   "verdict": "DECLINE",
+   "what": "No link Bessel Functions in Synthesis <-> Piano String Inharmonicity.",
+   "reason": "They meet at Harmonicity and Inharmonicity; Bessel's piano line (:59) is a passing simile about amplitude-dependent pitch, not stiffness, and Piano never names FM.",
+   "pages_read": [
+    "Projects/Bessel Functions in Synthesis.md",
+    "Projects/Piano String Inharmonicity.md"
+   ]
+  },
+  {
+   "id": "commons-the-palace-1792765793721",
+   "flag_type": "entry_update",
+   "verdict": "DECLINE",
+   "what": "No link Julia Cameron <-> Pauline Oliveros.",
+   "reason": "Neither names the other; daily practice as the work is the Practice pillar many citizens share, a label match rather than a relation.",
+   "pages_read": [
+    "People/Julia Cameron.md",
+    "People/Pauline Oliveros.md"
+   ]
+  },
+  {
+   "id": "commons-the-palace-1792765793915",
+   "flag_type": "entry_update",
+   "verdict": "ACT",
+   "what": "Volterra Kernels and the Torus -connects-to-> Chebyshev is Fourier, label the-diagonal-is-a-waveshaper.",
+   "reason": "Each page holds half: Volterra's diagonal is a Hammerstein static nonlinearity that keeps harmonic generation (Volterra Kernels and the Torus.md:63), and Chebyshev is Fourier shows such a waveshaper's output harmonics are exactly its Chebyshev coefficients (Chebyshev is Fourier.md:48-50); no hub they share says it.",
+   "pages_read": [
+    "Volterra Kernels and the Torus.md",
+    "Chebyshev is Fourier.md"
+   ]
+  },
+  {
+   "id": "commons-the-palace-1792765794107",
+   "flag_type": "entry_update",
+   "verdict": "DECLINE",
+   "what": "No link Graphic Storytelling <-> Blocked, Not Prompted.",
+   "reason": "They are BLUELINE's two staging halves and both already meet at BLUELINE; neither names the other, and the sentence that would earn it (the block is where the staging rules get authored) belongs on BLUELINE's page.",
+   "pages_read": [
+    "Graphic Storytelling.md",
+    "Blocked, Not Prompted.md"
+   ]
+  },
+  {
+   "id": "commons-the-palace-1792765794302",
+   "flag_type": "entry_update",
+   "verdict": "DECLINE",
+   "what": "No link Enchanted Conversation Archive <-> Pheromone Trail.",
+   "reason": "Neither page names the other; \"an archive as a trace\" is the map's reading only.",
+   "pages_read": [
+    "Palace development/Enchanted Conversation Archive.md",
+    "Palace development/Pheromone Trail.md"
+   ]
+  },
+  {
+   "id": "commons-the-palace-1792765794493",
+   "flag_type": "entry_update",
+   "verdict": "DECLINE",
+   "what": "No link Flocking <-> Granular Synthesis.",
+   "reason": "Neither page names the other; many small agents with no conductor is held for both by Kuramoto Coupling and Particle Synthesis.",
+   "pages_read": [
+    "Flocking.md",
+    "Granular Synthesis.md"
+   ]
+  },
+  {
+   "id": "commons-the-palace-1792765794686",
+   "flag_type": "entry_update",
+   "verdict": "DECLINE",
+   "what": "No link Parametric Resonance <-> Action Potential Oscillator.",
+   "reason": "Both already meet through Threshold Conatus, which names the shared idea (Parametric Resonance.md:21; Action Potential Oscillator.md:104-106); a direct link is a second road.",
+   "pages_read": [
+    "Parametric Resonance.md",
+    "Projects/Action Potential Oscillator.md"
+   ]
+  },
+  {
+   "id": "commons-the-palace-1792765794884",
+   "flag_type": "entry_update",
+   "verdict": "DECLINE",
+   "what": "No link Entry Conatus <-> Pheromone Trail.",
+   "reason": "Pheromone Trail says a page's conatus becomes legible as its trail (:65) but routes it through Pages as Agents [drive-made-legible], which Entry Conatus also links [pages-have-will]; the triangle already carries it.",
+   "pages_read": [
+    "Entry Conatus.md",
+    "Palace development/Pheromone Trail.md"
+   ]
+  },
+  {
+   "id": "commons-the-palace-1792765795078",
+   "flag_type": "entry_update",
+   "verdict": "ACT",
+   "what": "_ops/Substrate Skill.md:212: \"Haiku only does shallow, known-shape work.\" becomes \"Haiku only does shallow, known-shape work; with the whole Palace Map loaded it sits at 179K of its 200K before the conversation starts ([[Palace Map — proof — map-agent-test]]).\"",
+   "reason": "The test measured exactly that line's claim (_ops/Palace Map/proofs/2026-10-23-map-agent-test/RESULTS.md, table and point 5), and the proof page resolves (_ops/Palace Map/proofs/Palace Map — proof — map-agent-test.md).",
+   "pages_read": [
+    "_ops/Substrate Skill.md",
+    "_ops/Palace Map/proofs/2026-10-23-map-agent-test/RESULTS.md"
+   ]
+  },
+  {
+   "id": "commons-the-palace-1792765795274",
+   "flag_type": "entry_update",
+   "verdict": "DECLINE",
+   "what": "No line on Agent Toolbox now.",
+   "reason": "The keeper's profile is Move 2 of the Palace Map plan, which changes Agent Toolbox and comes to Loudon as words to read (_ops/Palace Map/Palace Map — scroll.md:65-67, :79); a \"will need\" line ahead of it states a future.",
+   "pages_read": [
+    "Agent Toolbox.md",
+    "_ops/Palace Map/Palace Map — scroll.md"
+   ]
+  },
+  {
+   "id": "commons-the-palace-1792765795465",
+   "flag_type": "entry_update",
+   "verdict": "ACT",
+   "what": "Gemma 4 — Local Coordination Guide.md:103, after \"(same limitation applies to Haiku).\" add: \"With the [[Palace Map]] in hand and a rule to cite every edge as a triple, Haiku invented no page in ten questions ([[Palace Map — proof — map-agent-test]]).\"",
+   "reason": "The guide states the failure without its other half; the test's Invented pages row is 0 for both Haiku runs (RESULTS.md).",
+   "pages_read": [
+    "Gemma 4 — Local Coordination Guide.md",
+    "_ops/Palace Map/proofs/2026-10-23-map-agent-test/RESULTS.md"
+   ]
+  },
+  {
+   "id": "commons-the-palace-1792765795657",
+   "flag_type": "hygiene",
+   "verdict": "DECLINE",
+   "what": "No builder change.",
+   "reason": "The one case is gone (b7fc35ff demoted the preview; it is no longer a node), and lint-bundle-hygiene W1 already finds the class every weave; a builder guard is machinery before the check has proven mechanical (The Palace Hardens Around Values).",
+   "pages_read": [
+    "_ops/swarm/lint-bundle-hygiene.py output",
+    "git show b7fc35ff",
+    "The Palace Hardens Around Values.md"
+   ]
+  },
+  {
+   "id": "commons-the-palace-1792887839141",
+   "flag_type": "faceless-entry",
+   "verdict": "ALREADY-DONE",
+   "what": "b7fc35ff placed Splice Instrument Forge's hero and icon and carries Palace-Resolves: commons-the-palace-1792887839141.",
+   "reason": "Closed by trailer.",
+   "pages_read": [
+    "git show b7fc35ff",
+    "_ops/swarm/face-audit.py output"
+   ]
+  },
+  {
+   "id": "commons-the-palace-1792887839335",
+   "flag_type": "placement-drift",
+   "verdict": "DECLINE",
+   "what": "No spec change to Closing Well or the Concierge.",
+   "reason": "ELDER already says touch base before and after you write (ELDER.md § Addressing the Palace); the miss was practice, logged once as data (Closing Well — tuning.md:305, item 63), and a second close logging it would earn the change.",
+   "pages_read": [
+    "Closing Well/Closing Well — tuning.md",
+    "ELDER.md"
+   ]
+  }
+ ],
+ "summary": "88 flags judged: ACT 29, ALREADY-DONE 19, DECLINE 36, DEFER-TO-LOUDON 4. Pattern. Of the 27 pheromone trails, 9 earn a link: where one page already cites the other in prose (unsung paths on SDKM, The Remembering Page, Skills Are Enchantable Pages, ELDER) or both pages hold the relation in their own words (Turrell-Rubin, McGilchrist-Oliveros, Piano-Portamento, Biomechanical-Crystal, Philosopher Visits-No Mind Checks Itself). Four of the nine change the trail's side or type so the page that carries the reason holds the link. The other 18 fade by design: costume quotations (the four Adjacent Affordance voices), outside readings no page states, two pages deleted in September, a precondition that no longer exists. Of the 9 map rhymes, 1 earns a link (Volterra-Chebyshev, each page holding half of one exact claim); the rest already meet through a page that names the shared idea, or neither page names it. Reciprocal links asked for by the Haptic Handwheel and others are all declined, because one link per pair already holds each; body lines for the unbuilt knob wait for the build, except the Portamento open question, where a proposal honestly sits. Most older Closing Well asks are done: the last eight faces (b7fc35ff, 322 of 322), the tooling seams, the worktree gap, the calibration home, the three citizens. Only four ALREADY-DONE flags are closed by a trailer already (1792590978864, 1792647281022, 1792647280829, 1792887839141); the other 15 need Palace-Resolves in the Weave commit. Read from the working tree while Phase 2b and 2c landed (ed04958f, b7fc35ff); the ACT pairs were rechecked against frontmatter after both. One sighting outside the inbox: No Mind Checks Itself -exemplifies-> Bring In a Bigger Mind [the-practice-this-grounds] reads backwards, the principle pointing at its practice."
+}

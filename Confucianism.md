@@ -7,8 +7,6 @@ stage: growing
 confidence: working
 energy: high
 links:
-  - target: "[[The Fortress and the Threshold]]"
-    type: spawned
   - target: "[[Spinoza Conatus]]"
     type: connects-to
     label: relational-flourishing

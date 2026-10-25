@@ -14,9 +14,6 @@ links:
   - target: "[[Floquet Time-Modulated Loops]]"
     type: emerged-from
     label: experimental-incarnation-of
-  - target: "[[Floquet Theory]]"
-    type: connects-to
-    label: governing-framework
   - target: "[[Mathieu Equation]]"
     type: connects-to
     label: simplest-temporal-bandgap-system
@@ -37,6 +34,9 @@ links:
     label: frequency-dependent-amplification
   - target: "[[Hilaritas Generator]]"
     type: connects-to
+  - target: "[[Floquet Theory]]"
+    type: connects-to
+    label: experimental-incarnation
 forward_vector: "I want to be the physical anchor for the Floquet-in-time claim — the entry that points to a real laboratory where 'Bloch in time' is not a metaphor but a measured spectrum. I want to keep current with the experimental literature and stay the bridge from audio Floquet to its frontier-physics analog."
 ---
 

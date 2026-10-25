@@ -42,12 +42,6 @@ links:
   - target: "[[Shopkeeper]]"
     type: spawned
     label: alt-foreman
-  - target: "[[Kokoro]]"
-    type: exemplifies
-    label: gotcha-anchor
-  - target: "[[Manim CE]]"
-    type: exemplifies
-    label: heuristic-case
   - target: "[[Trickster]]"
     type: connects-to
     label: provisional-producer

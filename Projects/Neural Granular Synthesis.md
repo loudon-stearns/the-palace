@@ -7,15 +7,17 @@ stage: growing
 status: active
 forward_vector: "I want to become the architecture where stable timbres emerge from populations rather than individual grains — a shader-parallel neuron model where statistical emergence and biological constraint meet, making the crowd's coherence the primary control surface."
 links:
-  - target: "[[Kuramoto Coupling]]"
-    type: couples-with
   - target: "[[Granular Synthesis]]"
     type: deepens
-  - target: "[[Action Potential Oscillator]]"
-    type: emerged-from
   - target: "[[Harmonicity and Inharmonicity]]"
     type: connects-to
     label: coherence-as-harmonicity
+  - target: "[[Kuramoto Coupling]]"
+    type: couples-with
+    label: coupling-strength-K
+  - target: "[[Action Potential Oscillator]]"
+    type: emerged-from
+    label: phase-1-single-neuron
 ---
 
 # Neural Granular Synthesis

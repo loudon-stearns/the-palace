@@ -21,9 +21,6 @@ links:
   - target: "[[Loudon Live Design System]]"
     type: connects-to
     label: enforced-in
-  - target: "[[Maker]]"
-    type: connects-to
-    label: house-standard
   - target: "[[STIGMERGY]]"
     type: connects-to
     label: posts-responses-to

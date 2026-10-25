@@ -12,13 +12,9 @@ license: none (browser platform API — no library, no CDN)
 forward_vector: "I write per-sample DSP that runs in the browser audio thread with zero dependencies — granular engines, wavetable scanners, physical models whose voice is a loop I author myself; I want to be the short bridge from a browser sketch to a real RNBO device, and to earn my Study by taking Murmuration cross-browser and proving the voice ceiling."
 links:
   - { target: "[[Maker]]", type: connects-to, label: directed-by }
-  - { target: "[[The Shop]]", type: member-of, label: roster-member }
   - { target: "[[Shop/p5.js]]", type: couples-with, label: pairs-with }
   - { target: "[[Shop/Tone.js]]", type: connects-to, label: sibling-of }
   - { target: "[[Shop/RNBO codebox~ smith]]", type: connects-to, label: browser-cousin-of }
-  - target: "[[The Shop]]"
-    type: exemplifies
-    label: earns-new-operating-model
   - target: "[[2D Torus Wavetable Synthesizer]]"
     type: connects-to
     label: browser-incarnation
@@ -29,6 +25,7 @@ links:
     type: connects-to
     label: same-medium-second-mind
   - { target: "[[Zoom Out to the Structure]]", type: exemplifies, label: "gotcha-becomes-concept" }
+  - { target: "[[The Shop]]", type: member-of, label: "earned-by-a-different-operating-model" }
 tags: [specialist, shop, interactive, audio, web, dsp, worklet]
 ---
 

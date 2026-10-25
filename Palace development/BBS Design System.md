@@ -13,9 +13,6 @@ forward_vector: >
   visible, FLAGS blazing amber, Trickster channel glowing gold, the whole alive in
   green phosphor.
 links:
-  - target: "[[BBS Blackboard]]"
-    type: enables
-    label: visual-substrate
   - target: "[[STIGMERGY]]"
     type: enables
     label: visual-substrate

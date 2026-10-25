@@ -8,12 +8,13 @@ status: active
 links:
   - target: "[[Kuramoto Coupling]]"
     type: couples-with
-  - target: "[[Dub Lineage]]"
-    type: emerged-from
   - target: "[[Frequency-Time Duality]]"
     type: mirrors
   - target: "[[Spinoza Conatus]]"
     type: deepens
+  - target: "[[Dub Lineage]]"
+    type: emerged-from
+    label: belongs-to-the-dub-tradition
 forward_vector: "I want to become a working live performance instrument, not just a speculative architecture. As of 2026-04-20, my immediate phase is the voice-swap delay: SoulX-Singer-SVC is the primitive (audio→audio singing voice conversion, no lyrics required, no LLM in the loop yet), and the target form factor is a VST3 plugin operating as a phrase-delay return effect inside a DAW. The architecture is a thin C++ plugin paired with an out-of-process Python inference daemon — the daemon's RPC surface is the stable contract that all subsequent work plugs into. Latency is musical, not monitoring: seconds of phrase-delay, not zero-latency monitoring. The LLM-driven semantic transform (Whisper → spirit → re-synthesis) returns in Phase 2, when SVS mode joins SVC mode and the spirit pantheon becomes a routing choice between two models with different text-transform logic upstream. The two-stage pool-then-select rhythmic coupling re-enters at Stage 4 of the Phase 1 plan, expressed as user-controllable F0 conditioning on the SVC call."
 ---
 
