@@ -27,6 +27,9 @@ links:
   - target: "[[Kuramoto Coupling]]"
     type: connects-to
     label: isomorphism-example
+  - target: "[[Progressive Staging]]"
+    type: exemplifies
+    label: a-walk-up-to-each-proof
 ---
 
 # Dissolutions
