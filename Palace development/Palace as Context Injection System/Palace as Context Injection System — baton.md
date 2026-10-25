@@ -11,35 +11,35 @@ forward_vector: "I carry the in-progress move on [[Palace as Context Injection S
 # Baton: Palace as Context Injection System
 
 ## Move
-Finish the floor work Loudon agreed on 2026-10-21: build the floor measurement so this page's numbers keep themselves true, run the map-injection test, and carry the chores that follow the landing, so a page woken here speaks up for its own needs, its neighbors' and the palace's.
+Palace as Context Injection System, after the floor measurement's code landed (bc9b4fe3): the page's prose keeps only dated results and points at floor/floor.json and Who wakes here (words drafted, waiting for Loudon's read); the map-injection test; optionally a firmer rate for G4 and S1; the births owed on his yes (D1, E7, G4, G5, S1, and every scenario on Claude Code 2.1.308). After landing: the propagate flag whose text is in this baton, on Loudon's yes; the memory files and the MEMORY.md index line pointed at CHILD.md; the live Daily Page task updated to the new floor; a Sentry sweep before the next push. The World mends are struck below as overtaken on 2026-10-22; confirm with Loudon and drop them.
 
 ## Why this move matters
-The page's new forward vector (tuned 2026-10-20) says two levers shape who wakes: how much context a value gets, and when it arrives. A value that comes early frames everything read after it. The five World files ride in every birth, right after the Seed Jewel, and Loudon: "These are of great importance but have not been reviewed and tuned for this purpose." They were written mostly for human learners. And he widened the work on purpose: "make sure that we are not over-refining the tiers for a single purpose, consider all the ways and circumstances where we 'inject context'... like stewardship." A fix tuned to the woken page alone would be an over-fit; the steward cycle, the board launch and the songline build minds too, and they load in a different order.
+The page's forward vector names two levers on who wakes: how much context a value gets, and when it arrives. A value that comes early frames everything read after it. The floor is the first thing every agent reads, so this page's numbers about it have to stay true. Loudon widened the work on purpose: "make sure that we are not over-refining the tiers for a single purpose, consider all the ways and circumstances where we 'inject context'... like stewardship."
 
-## Cold start
-State at the end of 2026-10-21. Most of the agreed plan is made, on branch `claude/pacis-floor-242548`, which the supervisor lands:
-- CLAUDE.md's working sections live in [[CHILD]], imported after the World (5de78ac2), and the Jewel carries its v1.3 sentence (ebf1cff1).
-- The 36 memory-free births across three arms are graded and recorded (d3e6e4c7; the record is `Palace development/Palace as Context Injection System/proofs/2026-10-21-floor-review/births — the order test and the Jewel line.md`). Order alone lost nothing and gained a little, not beyond chance; the Jewel's sentence pointed the same way, still thin.
-- Every site finding is with its owner, seven of them in five tuning ledgers minted on his yes (8c22741a, 1d7f4af3), and the sites ledger has its second reading.
-- The no-ceremony decision is recorded in [[ELDER]] and [[SCHEMA — Context]], and the Daily Page's line on foundational pages now agrees with SCHEMA — Reference §5 (eceef192).
-- This page is rebuilt around time and timing, on his read of the preview (326472f4). The tier numbers retired on this page only; no other page was renamed.
-- Operator memory is cut to one-line hooks (outside the palace).
-- The scroll's Plan holds the agreed plan and what is open.
-
-Not begun: the floor measurement, which Loudon made the next move ("land it first, and place making this script the plan in the page's scroll"); and the map-injection test. The World mends are no longer waiting: on 2026-10-22 all five World pages were rewritten on his yes (see the struck part (2) below).
+## Current state
+- **The floor measurement's code landed** in bc9b4fe3 (branch `claude/floor-measure-29da46`: 9cf9e74d, 1765e18e), on Loudon's yes of 2026-10-25, read cold by the Concierge.
+  - `_ops/self-description-test/floor.mjs` runs the $0 `claude -p /context` probe and writes `floor/floor.json` in this page's bundle. It adds a line to `floor/history.jsonl` when the numbers move, and refuses to write if the probe ever costs.
+  - `due.mjs` says "floor measurement owed" when a floor file changes after the last measurement.
+  - `proofs/2026-10-21-floor-review/who-wakes-here.html` reads `floor/floor.json` as a declared piece file.
+  - `node --test _ops/self-description-test/tests/*.test.mjs` passes 27/27.
+- **The first measurement:** 2026-10-25 at 4852b2a5, 9,756 tokens (the palace's files 8,845, MEMORY.md 911), 658 before the Jewel. The page's prose still says 11.8k.
+- Not verified by the session: the graphic framed by the rich face's piece origin (the page has no rich face); a `/context` table that changes shape; MEMORY.md changes and a new Claude Code don't make the measurement owed.
+- **The World mends** (the old part 2) were overtaken on 2026-10-22, when the five World pages were rewritten on his yes: 9131c5bf, b3e1fb41, 7dbc858c, 0bfe76dc, ad8ae5e8, fdada7dc. The drafts file `world-mends — drafts for Loudon.md` is history. Confirm with Loudon and drop the line.
 
 ## Next move
-Six parts. (1) can start now; (2) is struck; (3) and (4) can run any time, each on a yes for its count; (5) follows the landing; (6) is owed on his yes.
+(1) **The page's prose**, on Loudon's read. The floor-measure session drafted § The Birth, Measured: drop the date from the heading, add a third row and a pointer.
 
-(1) **The floor measurement.** Nothing keeps this page's numbers current, so they drift as soon as the World pages change. Four parts:
-- **The script.** It runs the same $0 `claude -p /context` probe (`Palace development/Palace as Context Injection System/proofs/2026-10-21-floor-review/context-probe.mjs` is the start) and writes one floor data file: each floor file's tokens in the order they load, the total, the commit, the Claude Code version and the date.
-- **The graphic.** `Palace development/Palace as Context Injection System/proofs/2026-10-21-floor-review/who-wakes-here.html` reads that file, declared as a piece file, instead of numbers typed into its script.
-- **The page.** Its prose keeps only dated results, and points at the data file and the graphic for the floor as it stands.
-- **The due checker.** `_ops/self-description-test/due.mjs` already notices any change to a floor file; it also lists "floor measurement owed", so a close asks for it the same way it asks about births.
+> The floor as it stands is measured, not typed. `node _ops/self-description-test/floor.mjs` reads Claude Code's own `/context` count for $0. It writes `floor/floor.json` in this page's bundle, which `proofs/2026-10-21-floor-review/who-wakes-here.html` draws from, and adds a dated line to `floor/history.jsonl` whenever the numbers move. A change to any floor file leaves `due.mjs` saying "floor measurement owed" until it is run again.
+>
+> | | Before the Jewel | The whole floor | In order |
+> |---|---|---|---|
+> | until 2026-10-21 | 3.0k tokens, 2.3k of it procedure | 14.4k | CLAUDE (with its rules) → Jewel → World → memory 4.5k |
+> | from 2026-10-21 | 0.6k | 11.8k | CLAUDE (the birth) → Jewel → World → CHILD 2.5k → memory 1.8k |
+> | 2026-10-25, after the World rewrites | 0.7k | 9.8k | CLAUDE → Jewel 0.8k → World 5.4k → CHILD 2.0k → memory 0.9k |
 
-Its limit: the size of each agent's own prompt stays in the sites ledger's dated re-readings, unless that is scripted later by loading each builder.
+The scroll's Plan would then mark part 1's code done, leaving the page line; that edit needs his yes too.
 
-(2) ~~**The World mends, placed on Loudon's read.**~~ Overtaken 2026-10-22: the five World pages were rewritten on his yes, each cut traced, in 9131c5bf (Palace Philosophies), b3e1fb41 (Cooperation Yields Agency and Modes of Collaboration), 7dbc858c (FOUR PILLARS, Hilaritas Generator and Palace Philosophies again, CLAUDE.md's Born-with list), 0bfe76dc (Operator Memory born), ad8ae5e8 (money off the floor) and fdada7dc (usage moved to ELDER). The drafts file `world-mends — drafts for Loudon.md` is history now.
+(2) ~~**The World mends.**~~ Overtaken 2026-10-22; see Current state.
 
 (3) **The map-injection test** (the first baton's part e), still unrun. Wake a page with its local [[Palace Map]] against titles only. Measured 2026-10-20: about 5,750 page greps against about 290 map touches in two weeks of transcripts, mostly maintenance, and no site injects the map. Say the count of births and get a yes before running it.
 
@@ -51,7 +51,12 @@ Its limit: the size of each agent's own prompt stays in the sites ledger's dated
 - Loudon updates the live Daily Page task to match `_ops/The Daily Page/The Daily Page — tuning.md` item 53.
 - A Sentry sweep before the next push: the 36 child transcripts are now tracked.
 
-(6) **Births owed on fdada7dc or later:** D1, E7, G4, G5 and S1. `due.mjs --session --since 1326e83e` exits owed on all six scenarios; A1 was last born at fdada7dc, the current floor, and the other five at d072a76f, before ad8ae5e8 and fdada7dc changed CHILD and ELDER. Born with `node _ops/self-description-test/birth.mjs --scenario <id> --ref HEAD --budget none` (tuning ledger item 23). Say the count and get his yes first; a close never runs them.
+(6) **Births owed on fdada7dc or later:** D1, E7, G4, G5 and S1. `due.mjs --session --since 1326e83e` exits owed on all six scenarios; A1 was last born at fdada7dc, the current floor, and the other five at d072a76f, before ad8ae5e8 and fdada7dc changed CHILD and ELDER. Born with `node _ops/self-description-test/birth.mjs --scenario <id> --ref HEAD --budget none` (tuning ledger item 23). Say the count and get his yes first; a close never runs them. The suite is also owed every scenario on Claude Code 2.1.308.
+
+## Offered, not placed (from the floor-measure session)
+- **A Closing Well line.** In `_ops/closing-well/prompts/closing-well-agent-map.md`, the due paragraph under-describes exit 2. One sentence to add: "Exit 2 can also mean the session changed a floor file and the floor hasn't been measured since: that one is free (`node _ops/self-description-test/floor.mjs`, then commit what it writes), so name it in the hand-on beside the births."
+- `scenarios.mjs` BORN_WITH lists Hilaritas before Modes, but the files load Modes first. Only set membership is used, so it's harmless, but the comment implies an order.
+- `proofs/2026-10-21-floor-review/context-probe.mjs` imports from the gone `pacis-floor-242548` worktree. `floor.mjs` replaces it.
 
 ## Calibrations from this session
 - Draft, then show. A rename drafted mid-sit across six pages was held the moment the scope widened. Showing it first caught an over-fit before it landed.
@@ -63,15 +68,12 @@ Its limit: the size of each agent's own prompt stays in the sites ledger's dated
 - Two runs a scenario can't separate a nudge from noise. Read the arms by their totals, and ask for five or more runs before calling a rate.
 
 ## Load these files first
-1. `Palace development/Palace as Context Injection System/Palace as Context Injection System — scroll.md` (the Plan, and today's trail)
-2. `Palace development/Palace as Context Injection System/proofs/2026-10-21-floor-review/world-mends — drafts for Loudon.md`
-3. `Palace development/Palace as Context Injection System/proofs/2026-10-21-floor-review/births — the order test and the Jewel line.md`
-4. `Palace development/Palace as Context Injection System.md` (rebuilt: § Two Levers, § The Moments of a Life, § The Birth, Measured)
-5. `Palace development/Palace as Context Injection System/Palace as Context Injection System — sites.md` (the 2026-10-21 reading)
+1. `Palace development/Palace as Context Injection System/Palace as Context Injection System — scroll.md` (the Plan)
+2. `Palace development/Palace as Context Injection System.md` § The Birth, Measured
+3. `Palace development/Palace as Context Injection System/floor/floor.json` and `_ops/self-description-test/floor.mjs`
+4. `Palace development/Palace as Context Injection System/proofs/2026-10-21-floor-review/who-wakes-here.html`
+5. `Palace development/Palace as Context Injection System/proofs/2026-10-21-floor-review/births — the order test and the Jewel line.md`
 6. `CHILD.md`, `JEWEL.md`, and `ELDER.md` § How loading works
-7. `Palace development/Palace as Context Injection System/proofs/2026-10-21-floor-review/context-probe.mjs` (the $0 probe the script starts from)
-8. `Palace development/Palace as Context Injection System/proofs/2026-10-21-floor-review/who-wakes-here.html` (the graphic that will read the data file)
-9. `_ops/self-description-test/due.mjs` (where "floor measurement owed" goes)
 
 ## On pickup (fixed — the catcher's checklist; do not rewrite per session)
 *Identical in every baton. It rides along because the catching Claude loads the
