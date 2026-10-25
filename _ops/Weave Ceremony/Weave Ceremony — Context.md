@@ -134,6 +134,132 @@ Loudon's word, 2026-10-24: "I agree that all the 'connect to' links are weak, la
 
 **v2.0 (2026-10-24) — fewer, better links; memory keeps pace with faces; health as a trend.** Tuning items 47–57. One link per pair becomes a step (3d) with a linter (`lint-link-pairs.py`), paying item 29; the hub bar moves to the top inbound decile, paying item 30; the unsaid-links scan joins the unsung-path audit (3e); label enrichment stops being a handful and settles every bare `connects-to`; the bundle audit (5d) and rich-face nominations (5e) are new steps with a script; the health ledger (6.6) is a new ledger kind; decisions move to Step 0c; workers are `palace-reader` children born with the real Jewel (item 44), a skeptic stage sits before synthesis (item 28), the worker template asks for lighter prose (item 39), and the card and the ghost linter cite the Jewel for its own line (item 45). See § Fewer, Better Links.
 
+## Moved from the card (2026-10-25)
+
+The card's history and rationale, moved here word for word on 2026-10-25 so the card carries its steps; each heading names where the words stood on the card.
+
+### From the opening, under the title
+
+A weave is more than links — it is the palace's periodic tending of its own **health and joy**, across the three bodies a knowledge organism lives in at once:
+
+- **Entries** — reachable, rightly staged, honestly labelled, wearing a face, striving toward a forward vector that still fits. The youngest get the boldest care: newborn, they are the least-alive nodes, and only a weave can wire their *inbound* links (those live in other files). An entry's health is its [[Entry Conatus|conatus]] served.
+- **Agents** — a clean board, honest handoffs, memory kept as a cache not a rival truth, and work *trusted to judgment* rather than caged in scripts. The linters only flag; the mind of the moment decides. That trust is [[Cooperation Yields Agency|cooperation]] turned on our own workers — their [[Agent Wellbeing|wellbeing]].
+- **Humans** — the palace stays legible and uncluttered, *grabs* you in the state view, and hands you the signing, not the toil. The measure is [[Hilaritas Generator|hilaritas]]: "how do you feel," not "how many links."
+
+Links are one instrument of entry-health, and the weave also takes them away: a typed link is a claim with a reason — its type, its label, or a sentence in the body — a pair carries one link, and a link with no reason anywhere is cut (Steps 3c–3e; the Standing Order on [[Weave Ceremony — scroll]]). The weave tends all three bodies; it is done well when each leaves more able to act than before.
+
+Memory keeps pace with faces. Every canon entry wears a hero and an icon; the weave also asks whether a page's weight has earned the memory the next worker needs — a Context for why it is shaped so, a scroll for a project, a tuning ledger for a page that runs — and names the pages ready for a rich face. The same numbers are measured at every weave and kept in a health ledger, so health is a trend and not a snapshot.
+
+The weave is also where a decision reaches every page. When a session settles something that should hold across the palace (a retired word, a new convention, a moved path), it writes the decision into its home and posts a **propagate flag**; the next weave opens by carrying it to every page it hasn't reached yet (Step 0c), and closes by posting flags for the standards it set itself. That is coherence too: the palace agreeing with what it has already decided.
+
+### From Execution Method
+
+**Ceremonies are woven too.** Since 2026-09-24 the map builder makes every `_ops/` ceremony card with a canon type a node, so ceremonies are read, linked and partitioned like any entry.
+
+### From postcondition 2b
+
+It is the checkable backstop that makes 2b unmissable *however the Weave was launched*, the sibling of the 2d/2e/2f linters.
+
+### From postcondition 2f
+
+Both are masked by the case-insensitive FS until a case-sensitive reader breaks.
+
+### From postcondition 4
+
+Forward vectors are meant to evolve; the Weave is a natural occasion to surface drift and propose tweaks or full overhauls.
+
+### From Step 0 — Load the foundation
+
+The Weave is a *write* ceremony: it formalizes typed links, proposes stage transitions, and may spawn hub entries. Every one of those is governed by SCHEMA.
+
+### From Step 0b — New-entry induction (the catch-up)
+
+The youngest entries get the boldest care. A newborn entry is the least-alive node in the palace, and only a Weave can wire its *inbound* links — those live in other entries' files, so a deposit cannot place them. This step makes new entries the Weave's priority citizens.
+
+### From Step 0b — New-entry induction (the catch-up), its last paragraph
+
+Because inbound links live in the established entries, meeting a newcomer's catch-up target is work spent *by the old graph on the new* — integrating the newcomer and enriching the old in a single motion.
+
+### From Step 0c — Decisions first: read the `weave_flag` inbox
+
+They are the Weave's first-class inputs, not free-form discoveries: someone has already seen the work, and the palace hasn't caught up.
+
+### From Step 1b: Unsung Path Audit
+
+They require near-zero deliberation: the intellectual work is done; only the structural registration is missing.
+
+### From the end of Step 1b
+
+The Weave always runs with full filesystem access. No GitHub URL fallback.
+
+### From Step 2, the since-the-last-map line
+
+A ghost closed is a deposit that answered a reach; a ghost new is the palace reaching again.
+
+### From Step 2, the hub line
+
+A hub is a role the graph has given a page, not a badge.
+
+### From Step 2.5: Substrate sweep
+
+The Weave is the palace's full-body exam, and git is where work either lives or is lost.
+
+### From Step 2.5, the discard disposition
+
+Acknowledging the loss is what keeps the LOG honest.
+
+### From Step 3a: Formalize unsung paths
+
+Unsung paths are navigation hygiene, not proposals. The body text already asserts the connection; the YAML just hasn't caught up.
+
+### From Step 3a, on labels
+
+`connects-to` is the most under-described type — a label often carries more signal than the type itself.
+
+### From Step 3b: Propose new introductions
+
+This is the creative work of the Weave and the palace's genuine growth mechanism.
+
+### From Step 3b, on pace
+
+A typed link is a permanent claim about the structure of knowledge; the palace and its gardener both benefit from a slow, deliberate metabolism.
+
+### From Step 3d: Prune and retype — one link per pair
+
+A cut link is not lost: the palace is re-read every weave, and a real connection returns with its reason.
+
+### From Step 3e: Unsaid links
+
+The inverse of an unsung path.
+
+### From Step 3e, on what the link asserts
+
+The link asserts a relation the page gives no reason for.
+
+### From Step 3f: Label harvest — the labels propose the next link types
+
+The ten link types were never meant to be eternal (Loudon, 2026-10-24). Once every `connects-to` carries a label, the labels are the palace's own proposal for what the next types should be.
+
+### From Step 5b: Invite vector tuning
+
+Forward vectors are meant to evolve. The palace stays lively because directional desire adapts to what entries actually become.
+
+### From Step 5b, on pace
+
+Tuning a vector is a real authorial decision; too many at once turns the Weave into a rewriting marathon and dilutes deliberation.
+
+### From Step 5c: Face audit
+
+Faces are load-bearing — they are how [[STIGMERGY]]'s state view grabs the eye in search.
+
+### From Step 6b: Weave memory home
+
+The reflex is asymmetric — an agent reaches for memory by habit — so this step deliberately redirects toward the palace.
+
+### From Step 6.5: Lint link directions
+
+Three of them are the health scans behind Steps 2 and 5c: `lint-ghost-links.py` surfaces dead body wikilinks (flag-only — a ghost may be an invitation, so it never gates), `lint-bundle-hygiene.py` flags demotion candidates (an invalid `type:` is a hard error; canon-frontmatter-in-a-bundle is a judgment warning), and `face-audit.py` lists the canon entries missing a face, for the face batch. The first two *detect* and the mind rules each finding; the face list asks for no ruling, only prompts and Loudon's yes to the batch.
+
 ## Open Questions
 
 - Is median link-degree the right proxy for a new entry's catch-up target, or should it weight body-length and cross-pillar reach so a deeply-linked-but-shallow entry isn't mistaken for a healthy one?

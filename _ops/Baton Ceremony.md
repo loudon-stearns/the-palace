@@ -34,8 +34,6 @@ links:
 
 ![[Baton Ceremony — hero.png]]
 
-*Formerly the Handoff Ceremony. The **baton** is the file this ceremony generates — the thing that gets passed. "Handoff" is a secondary, looser name; see § Trigger for how to tell an official baton from a casual handoff.*
-
 ---
 
 > This ceremony produces a **baton**: a document that lets one Claude continue work another Claude started — across a context limit, a surface change, or a deliberate pause.
@@ -190,7 +188,7 @@ Tiered list of what the next Claude should read before doing anything. Most-load
 
 *Cold-start variant:* when the baton commissions un-started work (§ The Scope, The cold-start variant), replace the **Tried and rejected** and **Current state** sections with a single **`## Cold start`** block that says so plainly — *"COLD START — this work has not begun; no prior state, no tried-and-rejected"* — and carry the captured framing under **Move / Why this move matters / Next move**. Never leave the two sections blank: a blank reads as lost residue, the label reads as intent. Everything else in the template is unchanged, and the freshness check in the On-pickup footer becomes *more* load-bearing, not less.
 
-The On-pickup section is fixed boilerplate in one file, [[Baton Ceremony — on-pickup]]; paste it verbatim, never retype it. The catcher reads only the baton, never this spec, and `_ops/closing-well/baton-executor.mjs` writes batons too, so one file read at write time keeps every copy alike. `_ops/swarm/lint-baton-footer.py` fails if a second copy appears.
+The On-pickup section is fixed boilerplate in one file, [[Baton Ceremony — on-pickup]]; paste it verbatim, never retype it. `_ops/swarm/lint-baton-footer.py` fails if a second copy appears.
 
 **Step 3: Show**
 
@@ -223,7 +221,7 @@ Wait for confirmation that the next session has caught the baton, or for Loudon 
 
 When the move the baton carried has landed, the baton has done its job. It is **deleted** — git history is its archive (any cross-session baton will have been committed at least once, so its full content is recoverable via `git log --follow`). The palace keeps no `Archive/` graveyard of spent batons; the entry and the deposit are the permanent record, not the baton.
 
-Deletion is performed by the *incoming* Claude — but at the **close**, not at the catch (On-pickup step 8). This is the one beat the three-state lifecycle moved: a catch posts a claim and changes nothing on disk, so the pointer and the file both survive a fumble. The consume-marker is the **entry pointer, not the file**: removing the "Active Baton" section is the logical "spent" signal, and it works on any surface because it is an edit, not a delete. The file deletion follows.
+Deletion is performed by the *incoming* Claude — but at the **close**, not at the catch (On-pickup step 8). The consume-marker is the **entry pointer, not the file**: removing the "Active Baton" section is the logical "spent" signal, and it works on any surface because it is an edit, not a delete. The file deletion follows.
 
 *One exception the tooling can't infer:* on a `--partial` close the remainder card usually points at the **same baton path**, so the file stays — update it to carry only what's left. `close-handoff.mjs` prints its housekeeping line either way; on a partial, delete nothing.
 
@@ -233,13 +231,13 @@ Permanent-agent steward batons are the exception to all of this — updated in p
 
 ## Announcing the Baton on the Board
 
-*Cross-surface or cross-worktree batons. Optional for same-machine cross-surface today; **required for any cross-worktree baton** — a baton on a feature branch is invisible from every other worktree, and the owner's board is the only globally-visible rendezvous. Load-bearing for everything once a scheduler exists.*
+*Cross-surface or cross-worktree batons. Optional for same-machine cross-surface today; **required for any cross-worktree baton** — a baton on a feature branch is invisible from every other worktree, and the owner's board is the only globally-visible rendezvous.*
 
-A baton filed in a bundle is invisible to everything but a human who knows to go read it. When the move crosses to a surface that the [[Project Stewardship System]] coordinates — Claude Code on the Mac, picked up by a future scheduled dispatch — announce the baton on the persistent blackboard so it lives on the same surface as every steward's request. See [[Two Batons, One Board]] for why the two batons belong together.
+When the move crosses to a surface that the [[Project Stewardship System]] coordinates — Claude Code on the Mac, picked up by a future scheduled dispatch — announce the baton on the persistent blackboard so it lives on the same surface as every steward's request. See [[Two Batons, One Board]] for why the two batons belong together.
 
 This announcement does **not** replace writing the baton file (Steps 1–4). It is a pointer to it, posted to the [[BBS Blackboard]] so the board becomes the one place "what is ready to continue" lives.
 
-**The convention (not a new message type).** A baton announcement is a `BROADCAST` to `GENERAL` carrying `payload.kind: "handoff_ready"`. The wire field keeps its `handoff_ready` name for protocol stability even though the ceremony is now named for the baton — the palace lets categories prove themselves before hardening, and renaming a live wire field is a separate decision (see [[Speak Like a Person, Log Like a Protocol]]). The `from` field is the entry's own title (the page is the agent; see [[Pages as Agents]]). Health uses the Path 2 stub, since the message is hand-authored or subagent-dispatched, not measured against a direct API call (see [[Palace Orchestrator]], Definitions of record → dual-path health).
+**The convention (not a new message type).** A baton announcement is a `BROADCAST` to `GENERAL` carrying `payload.kind: "handoff_ready"`. The `from` field is the entry's own title (the page is the agent; see [[Pages as Agents]]). Health uses the Path 2 stub, since the message is hand-authored or subagent-dispatched, not measured against a direct API call (see [[Palace Orchestrator]], Definitions of record → dual-path health).
 
 ```json
 {
@@ -272,11 +270,9 @@ This announcement does **not** replace writing the baton file (Steps 1–4). It 
 
 For a **cross-worktree** baton, the payload also carries a `worktree` object naming where the move lives: `"worktree": { "branch": "feature/blueline", "dir": "../palace-feature-blueline", "profile": "blueline" }` — the catcher reads it to `cd` in, or to recreate the worktree, before picking up.
 
-**Pairing — a three-state lifecycle (rung 1 of the Reliable Handoff ladder; see [[STIGMERGY]] § Handoff Lifecycle).** A board-announced baton moves `ready → picked_up (claim) → closed`, and every transition is an explicit board event — done is never computed from git or the filesystem (the board is the single source of truth). The catcher posts a claim (`REPLY`, `re: "<the handoff_ready id>"`, `payload.kind: "handoff_picked_up"`, `payload.lifecycle: "claim"`) when it catches the move — the card goes **CLAIMED**, still visible — and a close (`payload.kind: "handoff_closed"`, citing the commit) when it lands. Pending work is exactly: every `handoff_ready` with no `handoff_closed` (a legacy pickup with no `lifecycle` marker grandfathers as closed). Don't hand-author these: `pickup-handoff.mjs <id>` posts the claim (and first prints the since-baton commits so you reconcile before working it); `close-handoff.mjs <id> --commit <hash>` posts the close, and `--partial --remainder "…"` re-batons whatever's left as a fresh `handoff_ready`. A claim aging with no close is a **fumble** made visible — the point of splitting the two. This mirrors the inbox-builder logic already used for resource requests (§2.6), so a future scheduled poller — or Loudon scanning `GENERAL` — reads the open batons with the same scan that finds open asks.
+**Pairing — a three-state lifecycle (rung 1 of the Reliable Handoff ladder; see [[STIGMERGY]] § Handoff Lifecycle).** A board-announced baton moves `ready → picked_up (claim) → closed`, and every transition is an explicit board event — done is never computed from git or the filesystem (the board is the single source of truth). The catcher posts a claim (`REPLY`, `re: "<the handoff_ready id>"`, `payload.kind: "handoff_picked_up"`, `payload.lifecycle: "claim"`) when it catches the move — the card goes **CLAIMED**, still visible — and a close (`payload.kind: "handoff_closed"`, citing the commit) when it lands. Pending work is exactly: every `handoff_ready` with no `handoff_closed` (a legacy pickup with no `lifecycle` marker grandfathers as closed). Don't hand-author these: `pickup-handoff.mjs <id>` posts the claim (and first prints the since-baton commits so you reconcile before working it); `close-handoff.mjs <id> --commit <hash>` posts the close, and `--partial --remainder "…"` re-batons whatever's left as a fresh `handoff_ready`. A claim aging with no close is a **fumble** made visible — the point of splitting the two.
 
 **How to post.** From a Claude Code session, append one valid §2.2 line to the **owner's** `_ops/swarm/persistent/blackboard.jsonl` — never a worktree branch copy (see `_ops/worktree/SKILL.md` § Ceremonies in a worktree); the board renders it on reload / live-tail — or `POST /api/persistent` when the STIGMERGY dev server is running. Either way the strict validator (`_ops/stigmergy/app/server/validator.js`) gates the write — a malformed announcement is rejected, not coerced.
-
-**The honest limit.** Until the scheduled dispatch of Stage C exists, this post is for *visibility* — it surfaces the ready baton on the board for Loudon, but a human still triggers the pickup. The post is the trail; the scheduler is the ant. Announcing now is still worth it: it builds the convention and the board history that the scheduler will later read. See [[Two Batons, One Board]] § The board is a pheromone field, not an actuator.
 
 ---
 
