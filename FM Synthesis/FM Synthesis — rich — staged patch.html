@@ -147,6 +147,7 @@ class Engine {
   }
   noteOff(id) { for (const v of this.voices) if (v.id === id && v.gate) { v.gate = false; v.st.fill(3); } }
   allOff() { for (const v of this.voices) { v.gate = false; v.st.fill(3); } }
+  cut() { for (const v of this.voices) { v.gate = false; v.active = false; v.id = null; v.env.fill(0); } }
   render(L, R, n) {
     const p = this.patch;
     if (!p) { L.fill(0); R.fill(0); return; }
@@ -225,6 +226,7 @@ class FMProc extends AudioWorkletProcessor {
       if (d.on) this.e.noteOn(d.on.id, d.on.freq, d.on.vel);
       if (d.off) this.e.noteOff(d.off.id);
       if (d.allOff) this.e.allOff();
+      if (d.cut) this.e.cut();
     };
   }
   process(_, outputs) { const o = outputs[0]; this.e.render(o[0], o[1] || o[0], o[0].length); return true; }
@@ -270,7 +272,7 @@ function boot() {
     const sp = ctx.createScriptProcessor(1024, 0, 2);
     sp.onaudioprocess = ev => e.render(ev.outputBuffer.getChannelData(0), ev.outputBuffer.getChannelData(1), 1024);
     sp.connect(comp);
-    port = { postMessage: d => { if (d.patch) e.setPatch(d.patch); if (d.on) e.noteOn(d.on.id, d.on.freq, d.on.vel); if (d.off) e.noteOff(d.off.id); if (d.allOff) e.allOff(); } };
+    port = { postMessage: d => { if (d.patch) e.setPatch(d.patch); if (d.on) e.noteOn(d.on.id, d.on.freq, d.on.vel); if (d.off) e.noteOff(d.off.id); if (d.allOff) e.allOff(); if (d.cut) e.cut(); } };
     console.info('staged FM: worklet unavailable (' + why + '), running on the main thread');
   };
   booting = (async () => {
@@ -373,7 +375,8 @@ stage(2, 'The threshold',
       await ensureSound();
       const t0 = performance.now(), dur = 16000;
       says('Walking the rate from 1 Hz to 400 Hz. Listen for the moment it stops being vibrato.');
-      (function step() { const q = Math.min(1, (performance.now() - t0) / dur); S.rate = 1 * Math.pow(400, q); applyStage2(); after(); if (q < 1 && !S.locked) requestAnimationFrame(step); })();
+      const walk = S.walk = {};
+      (function step() { if (S.walk !== walk) return; const q = Math.min(1, (performance.now() - t0) / dur); S.rate = 1 * Math.pow(400, q); applyStage2(); after(); if (q < 1 && !S.locked) requestAnimationFrame(step); })();
     } }, 'Walk the threshold, 1 → 400 Hz');
     return [el('div', { class: 'fm-grid' },
       slider({ label: 'Modulator rate', min: 0.5, max: 1000, log: true, get: () => S.rate, set: v => { S.rate = v; applyStage2(); }, fmt: v => v < 10 ? v.toFixed(1) + ' Hz' : Math.round(v) + ' Hz' }),
@@ -681,6 +684,15 @@ $('drone').addEventListener('click', async () => {
 const hold = $('hold');
 hold.addEventListener('pointerdown', ev => { hold.setPointerCapture(ev.pointerId); hold.setAttribute('aria-pressed', 'true'); noteOn('pad', S.note, 1); });
 const release = () => { hold.setAttribute('aria-pressed', 'false'); noteOff('pad'); };
+// A page nobody can see says nothing: hidden, every voice is cut, a walk in progress stops, and the
+// context is suspended. Nothing starts again when the page comes back; the next touch wakes it.
+function hush() {
+  S.walk = null;
+  if (port) port.postMessage({ cut: true });
+  droneOn = false; $('drone').setAttribute('aria-pressed', 'false'); hold.setAttribute('aria-pressed', 'false');
+  if (ctx && ctx.state === 'running') ctx.suspend();
+}
+document.addEventListener('visibilitychange', () => { if (document.hidden) hush(); });
 hold.addEventListener('pointerup', release); hold.addEventListener('pointercancel', release);
 
 // ───────────────────────── scope ─────────────────────────

@@ -9,7 +9,8 @@
 // Run: node "FM Synthesis/FM Synthesis — proof — staged patch checks.mjs"
 import fs from 'node:fs';
 import path from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { fileURLToPath, pathToFileURL } from 'node:url';
+import { createRequire } from 'node:module';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const html = fs.readFileSync(path.join(here, 'FM Synthesis — rich — staged patch.html'), 'utf8');
@@ -116,6 +117,51 @@ function check(stage, claim, ok, detail) { (ok ? pass++ : fail++); console.log(`
   const still = render(patch({ velSens: 0, ops: [op({ level: 0.8 }), op({ level: 0.4 }), op(), op(), op(), op()] }), { notes: [[200, 0.3]], from: 0.2 });
   const full = render(patch({ velSens: 0, ops: [op({ level: 0.8 }), op({ level: 0.4 }), op(), op(), op(), op()] }), { notes: [[200, 1]], from: 0.2 });
   check(7, 'velocity sensitivity 0 plays every note the same, as stages 1-6 did', Math.abs(db(mag(still, 600)) - db(mag(full, 600))) < 0.01);
+}
+
+// Every stage — the page, in headless Chromium: no audio context before a click, and a hidden tab
+// says nothing. Hidden, the sound stops; shown again, it stays stopped until the next touch.
+{
+  let chromium = null, why = '';
+  try {
+    const req = createRequire(path.join(here, '..', '_ops', 'stigmergy', 'app', 'package.json'));
+    ({ chromium } = req('playwright'));
+    if (!fs.existsSync(chromium.executablePath())) { why = 'Playwright has no Chromium here'; chromium = null; }
+  } catch (e) { why = 'Playwright is not installed for STIGMERGY (' + (e.code || e.message) + ')'; }
+  if (!chromium) { fail++; console.log(`COULDN'T  every stage · the hidden-tab checks did not run: ${why}`); }
+  else {
+    const browser = await chromium.launch({ args: ['--autoplay-policy=no-user-gesture-required'] });
+    const page = await browser.newPage();
+    await page.addInitScript(() => {
+      window.__ctxs = [];
+      const AC = window.AudioContext;
+      window.AudioContext = class extends AC { constructor(...a) { super(...a); window.__ctxs.push(this); } };
+    });
+    await page.goto(pathToFileURL(path.join(here, 'FM Synthesis — rich — staged patch.html')).href);
+    await page.waitForTimeout(300);
+    check('all', 'no audio context exists before a click', (await page.evaluate(() => window.__ctxs.length)) === 0);
+    await page.click('#drone');
+    await page.waitForTimeout(600);
+    const playing = await page.evaluate(() => ({ state: window.__ctxs[0] && window.__ctxs[0].state, drone: document.getElementById('drone').getAttribute('aria-pressed') }));
+    check('all', 'a click on Drone starts the sound', playing.state === 'running' && playing.drone === 'true', JSON.stringify(playing));
+    const setHidden = h => page.evaluate(h => {
+      Object.defineProperty(document, 'hidden', { configurable: true, get: () => h });
+      Object.defineProperty(document, 'visibilityState', { configurable: true, get: () => (h ? 'hidden' : 'visible') });
+      document.dispatchEvent(new Event('visibilitychange'));
+    }, h);
+    await setHidden(true);
+    await page.waitForTimeout(400);
+    const hidden = await page.evaluate(() => ({ state: window.__ctxs[0].state, drone: document.getElementById('drone').getAttribute('aria-pressed') }));
+    check('all', 'a hidden tab stops the sound', hidden.state === 'suspended' && hidden.drone === 'false', JSON.stringify(hidden));
+    await setHidden(false);
+    await page.waitForTimeout(1000);
+    const back = await page.evaluate(() => window.__ctxs[0].state);
+    check('all', 'shown again, it stays silent until the next touch', back === 'suspended', back);
+    await page.click('#drone');
+    await page.waitForTimeout(400);
+    check('all', 'the next touch wakes it', (await page.evaluate(() => window.__ctxs[0].state)) === 'running');
+    await browser.close();
+  }
 }
 
 console.log(`\n${pass} passed, ${fail} failed`);
