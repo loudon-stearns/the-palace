@@ -71,3 +71,8 @@ What each return taught the ceremony, and the lessons that reached it from elsew
 ## From the Cowork retirement — 2026-10-20
 
 16. **Items 6 and 7 are paid by retirement, not by a probe.** Loudon said yes on 2026-10-18 to retiring the Cowork commit pieces, and the commit hand-off queue went with them (`8c72090c`), so the blind spot items 6 and 7 named has nothing behind it, and the card's open question on it is gone. No version move: the query block and `return-map.mjs` never carried the probe. No return run forced this.
+
+## From the return of 2026-10-24 — 28 hours, via the scout
+
+17. **The trunk names a writer only when a session's transcript wrote the file.** `trunk-state.mjs` found the writer of one of six unsaved places, a steward cycle's `Generative Preset Development/vital/`, from its session's Write calls (item 12). It could not name who wrote the VST Template steward's registration in `_ops/agents/permanent/REGISTRY.json`, the dealer's line in `visits.jsonl`, the morning's map files, or Blood Compressor's build outputs: it found no Write or Edit call for any of them, which is what a file made by a script, a server or a shell looks like to it. The map gave timestamps beside the nearest commits and marked every such writer unproven. No spec change forced. The baton probe worked as written: it caught our own [[Palace Map — baton]], placed on main with no board line.
+- run · 2026-10-24 · v1.5 · 28 hours, via the scout · taught item 17
