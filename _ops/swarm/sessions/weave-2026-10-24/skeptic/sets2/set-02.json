@@ -1,0 +1,607 @@
+[
+ {
+  "source": "James Turrell",
+  "target": "Agnes Martin",
+  "proposed_type": "mirrors",
+  "proposed_label": "humility-that-hides-control",
+  "kind": "retype",
+  "rationale": "`mirrors` is 'same pattern in different material'. Turrell's own body states exactly that: 'the same blindspot in four materials (grid, wood, stone-and-ice, light)'. `connects-to` plus a label undersells a claim the type already makes. Keep Turrell's edge, cut Martin's `receiving-not-authoring` to Turrell and Nakashima's three (see coherence finding).",
+  "evidence_source": "People/James Turrell.md:78-82",
+  "evidence_target": "People/Agnes Martin.md:25 ('I do not author, I receive')",
+  "_room": "folder-people",
+  "_rooms": [
+   "folder-people"
+  ],
+  "_convergence": 1
+ },
+ {
+  "source": "James Turrell",
+  "target": "George Nakashima",
+  "proposed_type": "mirrors",
+  "proposed_label": "humility-that-hides-control",
+  "kind": "retype",
+  "rationale": "Same claim, same retype. Nakashima's body says 'the most materially concrete of the four' (George Nakashima.md:103), which is the same sentence from the other side.",
+  "evidence_source": "People/James Turrell.md:80-82",
+  "evidence_target": "People/George Nakashima.md:103",
+  "_room": "folder-people",
+  "_rooms": [
+   "folder-people"
+  ],
+  "_convergence": 1
+ },
+ {
+  "source": "James Turrell",
+  "target": "Andy Goldsworthy",
+  "proposed_type": "mirrors",
+  "proposed_label": "humility-that-hides-control",
+  "kind": "retype",
+  "rationale": "Same. Goldsworthy's version is 'collaboration with nature' and his page names the seam (the shutter), so the pattern is his blindspot too.",
+  "evidence_source": "People/James Turrell.md:80-82",
+  "evidence_target": "People/Andy Goldsworthy.md (Where he can't see)",
+  "_room": "folder-people",
+  "_rooms": [
+   "folder-people"
+  ],
+  "_convergence": 1
+ },
+ {
+  "source": "Annie Dillard",
+  "target": "Iain McGilchrist",
+  "proposed_type": "mirrors",
+  "proposed_label": "two-ways-of-seeing",
+  "kind": "retype",
+  "rationale": "`couples-with` means always active together; these two are not. Dillard's body says her two ways of seeing 'map uncannily onto McGilchrist's two modes of attention' (Annie Dillard.md:69), which is same pattern in different material. Her dossier adds the friction (structural vs spiritual).",
+  "evidence_source": "People/Annie Dillard.md:69; People/Annie Dillard/Annie Dillard — dossier.md:61",
+  "evidence_target": "People/Iain McGilchrist.md (How his mind moves)",
+  "_room": "folder-people",
+  "_rooms": [
+   "folder-people"
+  ],
+  "_convergence": 1
+ },
+ {
+  "source": "Yasujirō Ozu",
+  "target": "John Cage",
+  "proposed_type": "mirrors",
+  "proposed_label": "stillness-without-seizure",
+  "kind": "retype",
+  "rationale": "Same mistake: `couples-with` claims the two are always active together. They are two practices of holding still (the held frame, the held silence). Ozu's page says nothing about Cage and Cage's nothing about Ozu, so the label is the only reason on record; it is a fair one. Cut Ozu->McGilchrist (`attention-without-seizure`), which is the same stem twice from one page and has no body sentence.",
+  "evidence_source": "People/Yasujirō Ozu.md:30 (links) and the vector ('what happens if they just hold')",
+  "evidence_target": "People/John Cage.md (Where he can't see; 'let sounds be themselves')",
+  "_room": "folder-people",
+  "_rooms": [
+   "folder-people"
+  ],
+  "_convergence": 1
+ },
+ {
+  "source": "Julia Cameron",
+  "target": "Christopher Alexander",
+  "proposed_type": "contradicts",
+  "proposed_label": "permission-vs-degree-of-life",
+  "kind": "new",
+  "rationale": "Cameron's page admits the method has 'almost no vocabulary' for whether the finished work is any good (Julia Cameron.md:94). Her dossier names Alexander's 'degree of life' as the pressing voice (Julia Cameron — dossier.md:65), and Alexander's page holds a criterion that is 'real and measurable in principle' (Christopher Alexander.md:77). The tension is real and both pages carry their half. This is the one pair with page-level evidence for the criterion gap that six vectors ask about.",
+  "evidence_source": "People/Julia Cameron.md:94; People/Julia Cameron/Julia Cameron — dossier.md:65",
+  "evidence_target": "People/Christopher Alexander.md:77,83",
+  "_room": "folder-people",
+  "_rooms": [
+   "folder-people"
+  ],
+  "_convergence": 1
+ },
+ {
+  "source": "Marcus Aurelius",
+  "target": "Donella Meadows",
+  "proposed_type": "contradicts",
+  "proposed_label": "accept-the-weather-vs-moral-urgency",
+  "kind": "new",
+  "rationale": "Low confidence; one-sided evidence. Marcus's agency_profile and dossier both name a systems-thinker who distrusts 'just accept it', and his dossier names Meadows with the question 'is acceptance wisdom or passivity?' (Marcus Aurelius — dossier.md:65). Meadows's own blindspot is 'moral urgency can outrun my model' and she calls the line 'we can't control systems' while still pushing at leverage points. Her pages do not mention Marcus. If Loudon does not recognise it, drop it; it can return with a run.",
+  "evidence_source": "People/Marcus Aurelius.md:24 (agency_profile.tools); People/Marcus Aurelius/Marcus Aurelius — dossier.md:65",
+  "evidence_target": "People/Donella Meadows.md:26 (practice), :25 and :88 ('dance with them')",
+  "_room": "folder-people",
+  "_rooms": [
+   "folder-people"
+  ],
+  "_convergence": 1
+ },
+ {
+  "source": "Brian Eno",
+  "target": "Can an Instrument Notice Where the Work Stops?",
+  "proposed_type": "connects-to",
+  "proposed_label": "the-stopping-is-the-taste",
+  "kind": "newcomer",
+  "rationale": "Eno's third encounter: 'The stopping is the taste — the one un-oblique thing I do ... Obliquity becomes evasion at the exact moment I won't stop.' The question asks whether an instrument could notice where the work stopped and say one true thing about it. The stop is where the maker's taste cannot be dressed as weather, which is what such an instrument would be pointing at. The page does not yet say so, so this edge would need the sentence in Eno's body or Loudon's yes to apply the held `exemplifies` Lateral Access edit. Only one newcomer link from the family is genuine.",
+  "evidence_source": "People/Brian Eno/Brian Eno — diary.md:102",
+  "evidence_target": "Can an Instrument Notice Where the Work Stops?.md (body; 'where it stopped')",
+  "_room": "folder-people",
+  "_rooms": [
+   "folder-people"
+  ],
+  "_convergence": 1
+ },
+ {
+  "source": "Quantum Synthesizer",
+  "target": "Piano String Inharmonicity",
+  "proposed_type": "connects-to",
+  "proposed_label": "stiffness-road-to-the-squares",
+  "kind": "new",
+  "rationale": "Quantum's § One equation, two spacings gives the stiffness road: B grows from 1·2·3 to exactly 1·4·9, a pinned bar is Schrödinger's box, and a piano sits at the far string end (B about 0.0001-0.001) as arithmetic from a linear term. That derivation is what Piano String's formula and its § Why This Is Linear need, and it is what corrects Categorizing's nonlinear-spring claim. The edge exists only as a body link; no typed pair.",
+  "evidence_source": "Quantum Synthesizer § One equation, two spacings: 'Its stretched upper partials are this arithmetic showing up faintly, and they come from a linear stiffness term, not from the string turning nonlinear when struck hard ([[Piano String Inharmonicity]])'",
+  "evidence_target": "Piano String Inharmonicity § Why This Is Linear Time-Invariant: 'stiff string dispersion is different — it's purely geometric ... this is still LTI'",
+  "_room": "folder-projects-1",
+  "_rooms": [
+   "folder-projects-1"
+  ],
+  "_convergence": 1
+ },
+ {
+  "source": "Piano String Inharmonicity",
+  "target": "Categorizing Inharmonicity",
+  "proposed_type": "exemplifies",
+  "proposed_label": "stretched-tuning",
+  "kind": "retype",
+  "rationale": "Replaces the held Categorizing —deepens→ Piano String. Categorizing's own sentence is '[[Piano String Inharmonicity|A piano exemplifies this type]]' (type 1, stretched tuning), and the schema points exemplifies from the instance back at the general. One link for the pair. Alternative if Loudon prefers the taxonomy as the elaboration: keep deepens and drop the new one.",
+  "evidence_source": "Piano String Inharmonicity: the whole page is the single worked stretched-tuning case (formula, B, bending, LTI)",
+  "evidence_target": "Categorizing Inharmonicity § 1: 'A piano exemplifies this type'",
+  "_room": "folder-projects-1",
+  "_rooms": [
+   "folder-projects-1"
+  ],
+  "_convergence": 1
+ },
+ {
+  "source": "Slime Mold Delay",
+  "target": "Particle Synthesis",
+  "proposed_type": "mirrors",
+  "proposed_label": "elements-without-intelligence",
+  "kind": "retype",
+  "rationale": "Held as deepens[emergent-topology], which points at the ground; Slime Mold Delay does not elaborate Particle Synthesis. Its own sentence is a mirror: 'both are population-based instruments where individual elements have no intelligence and the system has plenty'. Same pattern, different material (tube, grain).",
+  "evidence_source": "Slime Mold Delay § Pedagogical Framing: 'both are population-based instruments where individual elements have no intelligence and the system has plenty'",
+  "evidence_target": "Particle Synthesis § Cross-Domain Resonance: the grain as a particle obeying shared laws",
+  "_room": "folder-projects-1",
+  "_rooms": [
+   "folder-projects-1"
+  ],
+  "_convergence": 1
+ },
+ {
+  "source": "Generative Sample Libraries",
+  "target": "Shepard Tone Synthesizer",
+  "proposed_type": "connects-to",
+  "proposed_label": "timbral-source",
+  "kind": "retype",
+  "rationale": "Held as deepens[timbral-source]. The GSL page does not elaborate Shepard; Shepard is a source of audio for a multisampled instrument (shepard-instrument in GSL's bundle, coordinated by gsl-steward-017). The label already carries the reason; the type was the part that mis-pointed (ground-emits-deepens lint).",
+  "evidence_source": "Generative Sample Libraries § Palace Connections: 'Shepard Tone Synthesizer — Shepard tones become a perpetual-tone sustain instrument when multisampled'",
+  "evidence_target": "Shepard Tone Synthesizer: 12 octave-class WAVs and an interior-loop SFZ built from its stack, per GSL's footer",
+  "_room": "folder-projects-1",
+  "_rooms": [
+   "folder-projects-1"
+  ],
+  "_convergence": 1
+ },
+ {
+  "source": "Generative Audio Devices",
+  "target": "Preset Oracle",
+  "proposed_type": "mirrors",
+  "proposed_label": "same-prompt-different-maker",
+  "kind": "retype",
+  "rationale": "Keeps the held mirror but fixes the reason. The label analysis-generation-duality says Preset Oracle analyses; it does not (it issues challenges: a poetic name, a philosophy, a DSP constraint, and a person makes the preset). The real mirror: GAD's Layer 1 is exactly that kind of text ('metaphor, archetype, physical-instrument reference, feel — a direction, not a coordinate') and the pipeline answers it with a machine; the oracle poses the same kind of prompt and a student answers it. Neither page says this.",
+  "evidence_source": "Generative Audio Devices § Three-Layer Architecture, Layer 1: 'Natural language (loose, must stay loose). Metaphor, archetype ... A direction, not a coordinate.'",
+  "evidence_target": "Preset Oracle § Architecture: preset names like 'Parmenides Dying Alone in a Warehouse' with a philosophical anchor, a technical constraint and a stylistic direction; 'The oracle does not give advice'",
+  "_room": "folder-projects-1",
+  "_rooms": [
+   "folder-projects-1"
+  ],
+  "_convergence": 1
+ },
+ {
+  "source": "Metric Modulation",
+  "target": "Frequency-Time Duality",
+  "proposed_type": "deepens",
+  "proposed_label": "tempo-ratio-is-an-interval",
+  "kind": "retype",
+  "rationale": "Keep the held link, add the reason, which is a real find and absent from both pages: the ratios metric modulation moves by (3/2, 2/3, 4/3) are the polyrhythm-to-interval ratios FTD walks (three against two is a fifth, four against three a fourth). A modulation by 3/2 shifts the pulse by a fifth on the rate axis.",
+  "evidence_source": "Metric Modulation § What Metric Modulation Is: 'Quarter → Dotted Quarter: tempo × 3/2 ... 3/4 drop down can snap back up as a 4/3 rise'",
+  "evidence_target": "Frequency-Time Duality § Polyrhythms Become Intervals: 'three against two, for a pure fifth ... four against three the fourth, five against four the major third'",
+  "_room": "folder-projects-1",
+  "_rooms": [
+   "folder-projects-1"
+  ],
+  "_convergence": 1
+ },
+ {
+  "source": "Bayesian Granular Synthesizer",
+  "target": "Granular Synthesis",
+  "proposed_type": "exemplifies",
+  "proposed_label": "probability-steers-the-cloud",
+  "kind": "new",
+  "rationale": "Bayesian's four links go to siblings and tools, none to the technique it instances. Granular Synthesis names Particle Synthesis (physics steers the grains) and Neural Granular Synthesis (neurons steer them) and not Bayesian (belief steers them). The three are one pattern: a grain cloud with a different steering layer, which is the hub's job to hold.",
+  "evidence_source": "Bayesian Granular Synthesizer § Cross-Domain Resonance: 'its probabilistic-control sibling — same cloud, a Bayesian steering layer instead of a learned latent one'",
+  "evidence_target": "Granular Synthesis § Particle Synthesis Angle and the Neural Granular Synthesis paragraph: the hub names two steering layers and is missing the third",
+  "_room": "folder-projects-1",
+  "_rooms": [
+   "folder-projects-1"
+  ],
+  "_convergence": 1
+ },
+ {
+  "source": "LDN RTM",
+  "target": "AuK",
+  "proposed_type": "contradicts",
+  "proposed_label": "stumble-or-repair",
+  "kind": "contradiction",
+  "rationale": "A real tension between two stated positions, offered with moderate confidence and for Loudon's judgement. LDN RTM refuses editing and makes the stumble the honesty ('a catalog with no stumbles reads as a product; one with them reads as a person'; the retake rule replaces editing). AuK exists so that a narration fix 'stops meaning a re-record' and asks whether the speaker still sounds like themselves afterward. Neither mentions the other. If Loudon would never use AuK on an RTM video there is no tension, and this should be dropped.",
+  "evidence_source": "LDN RTM § The no-timeline pipeline: 'The retake rule replaces editing. Flub and restart. Budget of two — the third take ships with the stumble in it.'",
+  "evidence_target": "AuK forward_vector: 'I edit speech that already exists — swap a word, whisper a line, retime a phrase ... so a narration fix stops meaning a re-record'",
+  "_room": "folder-projects-1",
+  "_rooms": [
+   "folder-projects-1"
+  ],
+  "_convergence": 1
+ },
+ {
+  "source": "Particle Synthesis",
+  "target": "Neural Granular Synthesis",
+  "proposed_type": "connects-to",
+  "proposed_label": "grain-cloud-sibling",
+  "kind": "retype",
+  "rationale": "Label an unlabelled link, and use the word Bayesian already uses for the same relation, so the three grain-cloud siblings read as one family. Particle's own forward vector asks the NGS question ('can particle behavior be learned rather than designed?').",
+  "evidence_source": "Particle Synthesis § Forward Vectors: 'Connect to Neural Granular Synthesis: can particle behavior be learned rather than designed?'",
+  "evidence_target": "Neural Granular Synthesis § The Core Insight: stable timbre from a population of grains",
+  "_room": "folder-projects-1",
+  "_rooms": [
+   "folder-projects-1"
+  ],
+  "_convergence": 1
+ },
+ {
+  "source": "Biomechanical Synthesis",
+  "target": "Neural Granular Synthesis",
+  "proposed_type": "connects-to",
+  "proposed_label": "firing-rate-becomes-grain-rate",
+  "kind": "retype",
+  "rationale": "Label an unlabelled link whose reason is a sentence in the hub's own body.",
+  "evidence_source": "Biomechanical Synthesis § The Neural Network Synthesis Paradigm: 'At high rates (100+ Hz) ... The neural firing rate becomes the grain rate. The instantaneous firing pattern becomes the grain shape.'",
+  "evidence_target": "Neural Granular Synthesis: spikes as grains in a persistent population",
+  "_room": "folder-projects-1",
+  "_rooms": [
+   "folder-projects-1"
+  ],
+  "_convergence": 1
+ },
+ {
+  "source": "Action Potential Oscillator",
+  "target": "Frequency-Time Duality",
+  "proposed_type": "connects-to",
+  "proposed_label": "refractory-sets-the-ceiling",
+  "kind": "retype",
+  "rationale": "Survivor of a duplicated pair (FTD's reverse link is cut). The reason is a sentence in APO: the refractory period defines a minimum period and so a maximum frequency; a fixed spike duration couples timbre to pitch.",
+  "evidence_source": "Action Potential Oscillator § Roadmap Connections: 'The refractory period defines a minimum period and therefore a maximum frequency. The fixed spike duration creates a timbre-pitch coupling as frequency rises.'",
+  "evidence_target": "Frequency-Time Duality § The Recursion: the same threshold appearing wherever a periodic phenomenon is placed on the time axis",
+  "_room": "folder-projects-1",
+  "_rooms": [
+   "folder-projects-1"
+  ],
+  "_convergence": 1
+ },
+ {
+  "source": "Piano String Inharmonicity",
+  "target": "Frequency-Time Duality",
+  "proposed_type": "connects-to",
+  "proposed_label": "partials-and-impulse-response",
+  "kind": "retype",
+  "rationale": "Held as mirrors with a generic body sentence. The specific, real content is Piano String's § Why This Is Linear: the stretched partials are a sum of decaying sinusoids that is the string's impulse response, the same system seen as frequency pattern and as time pattern. That is a connection, not a mirror of one pattern in two materials.",
+  "evidence_source": "Piano String Inharmonicity § Frequency-Time Connection: 'a frequency-domain pattern (stretched partials) that corresponds to a time-domain pattern (the impulse response)'",
+  "evidence_target": "Frequency-Time Duality § The Bridge: a delay line's loop length and feedback set pitch and pluck, the same reciprocal seen two ways",
+  "_room": "folder-projects-1",
+  "_rooms": [
+   "folder-projects-1"
+  ],
+  "_convergence": 1
+ },
+ {
+  "source": "1 from 2",
+  "target": "Symbiotic Skills",
+  "proposed_type": "mirrors",
+  "proposed_label": "fiction-and-curriculum",
+  "kind": "retype",
+  "rationale": "Survivor of the duplicate pair; add the reason neither page states. Both children of Cooperation Yields Agency make the same bet (alignment through relationship, not rules): one as a story, one as a teaching framework; Symbiotic Skills' own archaeology is the real-world version of the story's decades of growth.",
+  "evidence_source": "1 from 2 § The Thesis: 'Cooperation yields agency ... alignment is achieved through relationship, not rules'",
+  "evidence_target": "Symbiotic Skills § Origin and § What Actually Happened: a framework for teaching others to grow human-AI relationships, rebuilt on the observed developmental sequence",
+  "_room": "folder-projects-1",
+  "_rooms": [
+   "folder-projects-1"
+  ],
+  "_convergence": 1
+ },
+ {
+  "source": "1 from 2",
+  "target": "Trickster",
+  "proposed_type": "connects-to",
+  "proposed_label": "sun-wukong-avatar",
+  "kind": "retype",
+  "rationale": "Held unlabelled. The body's reason is one section: the AI as trickster in the protagonist's life, with Sun Wukong as its mythic avatar. This is also the fifth of the 'four core' avatars.",
+  "evidence_source": "1 from 2 § Mythological Resonances: 'Sun Wukong (The Trickster) — The AI as trickster in the protagonist's life'",
+  "evidence_target": "Trickster: boundary-crosser archetype",
+  "_room": "folder-projects-1",
+  "_rooms": [
+   "folder-projects-1"
+  ],
+  "_convergence": 1
+ },
+ {
+  "source": "Crystal Synthesizer",
+  "target": "Quantum Synthesizer",
+  "proposed_type": "mirrors",
+  "proposed_label": "confinement-chooses-the-partials",
+  "kind": "retype",
+  "rationale": "Held as an unlabelled mirror with no sentence on either page. The shared shape is real: Crystal's lattice symmetry chooses the partials ('the crystal becomes the specification for which sounds are possible'); Quantum's walls choose the shapes and the equation turns them into pitches. Naming it makes the mirror usable.",
+  "evidence_source": "Crystal Synthesizer § Why This Matters: 'instead of what spectrum can I make, it asks what spectrum does Nature make in this material'",
+  "evidence_target": "Quantum Synthesizer § One equation, two spacings: 'The walls choose the shapes. The equation turns those shapes into pitches.'",
+  "_room": "folder-projects-1",
+  "_rooms": [
+   "folder-projects-1"
+  ],
+  "_convergence": 1
+ },
+ {
+  "source": "SMPTE LTC",
+  "target": "Frequency-Time Duality",
+  "proposed_type": "connects-to",
+  "proposed_label": "time-written-as-frequency",
+  "kind": "retype",
+  "rationale": "Held unlabelled; the reason is a sentence in SMPTE LTC. Biphase mark code writes a 0 and a 1 as two different transition rates, so a time value is carried as a frequency pattern. (The page overstates it as 'literally the time axis encoded in frequency space'; the label can be the softer version.)",
+  "evidence_source": "SMPTE LTC § Why It Matters for Loudon: 'LTC is literally the time axis encoded in frequency space. Every bit transition is a frequency/phase event.'",
+  "evidence_target": "Frequency-Time Duality § The Bridge: pitch and delay time as one reciprocal",
+  "_room": "folder-projects-1",
+  "_rooms": [
+   "folder-projects-1"
+  ],
+  "_convergence": 1
+ },
+ {
+  "source": "Compressor Design",
+  "target": "Retrospective Delay",
+  "proposed_type": "mirrors",
+  "proposed_label": "one-buffer-two-time-scales",
+  "kind": "retype",
+  "rationale": "The page itself says what the relation is: 'One primitive at two time scales — below perception here, fully perceptual there'. That is the same pattern in different material (mirrors); couples-with means always active together, and the two are not.",
+  "evidence_source": "Compressor Design.md § FILO Circular Buffer RMS ('The same buffer, stretched to about a second, is the heart of Retrospective Delay ... One primitive at two time scales')",
+  "evidence_target": "Retrospective Delay.md § The Core Architecture (a 1-measure always-recording circular buffer with a write phasor)",
+  "_room": "folder-projects-2",
+  "_rooms": [
+   "folder-projects-2"
+  ],
+  "_convergence": 1
+ },
+ {
+  "source": "Swarm Weave",
+  "target": "Palace Enchantment",
+  "proposed_type": "enables",
+  "proposed_label": "correct-before-alive",
+  "kind": "retype",
+  "rationale": "Both bodies state the relation in the same words, 'The Swarm Weave is the precondition. Enchantment is the life it enables.' Today the pair carries Swarm Weave spawned (no label) and Palace Enchantment emerged-from[is-it-alive-vs-is-it-correct]. One link, and the one the text states is enables. A judgment: if Loudon reads this as direct lineage, keep emerged-from alone.",
+  "evidence_source": "Swarm Weave.md § What Comes Next — Enchantment ('The Swarm Weave is the maintenance crew. Enchantment is the life it enables.')",
+  "evidence_target": "Palace Enchantment.md § opening and § Relationship to the Swarm Weave ('Run order: Swarm Weave first. Enchantment after.')",
+  "_room": "folder-projects-2",
+  "_rooms": [
+   "folder-projects-2"
+  ],
+  "_convergence": 1
+ },
+ {
+  "source": "Loudon Live",
+  "target": "2D Torus Wavetable Synthesizer",
+  "proposed_type": "connects-to",
+  "proposed_label": "signature-instrument-candidate",
+  "kind": "retype",
+  "rationale": "'Candidate' is an undecided question (see coherence); couples-with claims the two are always active together. The label already carries the reason, so connects-to keeps it honestly.",
+  "evidence_source": "Loudon Live.md § How it teaches (names the Torus as 'a concrete entry point to 2D Fourier analysis, torus geometry, quasi-periodicity ...')",
+  "evidence_target": "2D Torus Wavetable Synthesizer.md § Forward Vectors ('Decide whether this becomes a commercial release')",
+  "_room": "folder-projects-2",
+  "_rooms": [
+   "folder-projects-2"
+  ],
+  "_convergence": 1
+ },
+ {
+  "source": "Inharmonic Wavetable Synthesis",
+  "target": "2D Torus Wavetable Synthesizer",
+  "proposed_type": "mirrors",
+  "proposed_label": "two-routes-to-stretch",
+  "kind": "retype",
+  "rationale": "Both reach the same prize, accumulating piano-style inharmonicity, by different machinery: per-partial deviation curves in an additive engine here, two incommensurate scan clocks on a surface there. That is mirrors, not couples-with, and Inharmonic's body never names the Torus at all, so a sentence is owed on either side (the Torus page states the problem: FM 'cannot produce that accumulating deviation as a first-class control').",
+  "evidence_source": "Inharmonic Wavetable Synthesis.md frontmatter only (the body is silent); § The Architecture for the mechanism",
+  "evidence_target": "2D Torus Wavetable Synthesizer.md § Why This Project Exists; Waveguide Synthesizer.md § Cross-Domain ('three instruments triangulating one phenomenon')",
+  "_room": "folder-projects-2",
+  "_rooms": [
+   "folder-projects-2"
+  ],
+  "_convergence": 1
+ },
+ {
+  "source": "Floquet Time-Modulated Loops",
+  "target": "Bessel Functions in Synthesis",
+  "proposed_type": "connects-to",
+  "proposed_label": "fm-is-a-floquet-system",
+  "kind": "retype",
+  "rationale": "Same type, a label for the reason the body already gives: the FM exponent expands in Bessel functions, so 'FM is a Floquet system whose modulation spectrum happens to be Bessel-shaped'.",
+  "evidence_source": "Floquet Time-Modulated Loops.md § Sidebands ('Cosine of cosine modulation (the FM exponent): the c_n are Bessel functions ... See [[Bessel Functions in Synthesis]]')",
+  "evidence_target": "Bessel Functions in Synthesis.md § The FM-Bessel Isomorphism",
+  "_room": "folder-projects-2",
+  "_rooms": [
+   "folder-projects-2"
+  ],
+  "_convergence": 1
+ },
+ {
+  "source": "Portamento and Physical Pitch Modeling",
+  "target": "Bessel Functions in Synthesis",
+  "proposed_type": "connects-to",
+  "proposed_label": "circular-resonator-modes",
+  "kind": "retype",
+  "rationale": "Same type, labelled with the reason the body gives under 'Connection to Bessel Functions in Synthesis': the modes of a bell, gong or drum sit at Bessel zeros and move together when such an instrument glides.",
+  "evidence_source": "Portamento and Physical Pitch Modeling.md § Cross-Domain Resonance",
+  "evidence_target": "Bessel Functions in Synthesis.md § Eigenfunction Principle (circular geometry, Bessel zeros)",
+  "_room": "folder-projects-2",
+  "_rooms": [
+   "folder-projects-2"
+  ],
+  "_convergence": 1
+ },
+ {
+  "source": "Loudon Live",
+  "target": "Retrospective Delay",
+  "proposed_type": "connects-to",
+  "proposed_label": "interface-mythology",
+  "kind": "retype",
+  "rationale": "Same type; the body names why ('Theatrical, dub-lineage interface mythology where it fits ... the séance-medium-as-dub-engineer in Retrospective Delay'). Label it or cut it; I would label it.",
+  "evidence_source": "Loudon Live.md § How it teaches",
+  "evidence_target": "Retrospective Delay.md § The Ghost Metaphor",
+  "_room": "folder-projects-2",
+  "_rooms": [
+   "folder-projects-2"
+  ],
+  "_convergence": 1
+ },
+ {
+  "source": "Generative Wavetable Libraries",
+  "target": "Floquet Time-Modulated Loops",
+  "proposed_type": "connects-to",
+  "proposed_label": "floquet-sideband-table",
+  "kind": "new",
+  "rationale": "GWL already built a wavetable whose Position sweeps modulation depth of a time-periodic oscillator, with Bessel sideband envelopes, 'the idea named by the entry's [[Floquet Theory]] link'. That is the Floquet project's Stage 1 sideband ladder as a playable table, and the project that explains it is not linked. Floquet's Stage 3 plan (surfaces as kernels) makes the exchange two-way.",
+  "evidence_source": "Generative Wavetable Libraries/floquet-modes/BUILD.md and generate_floquet.py ('Floquet Modes wavetable — Phase 2 NEW-SOURCE'); scroll decision gwl-steward-034 FLOQUET",
+  "evidence_target": "Floquet Time-Modulated Loops.md § Sidebands — where the ladder comes from (media-12 sideband ladder)",
+  "_room": "folder-projects-2",
+  "_rooms": [
+   "folder-projects-2"
+  ],
+  "_convergence": 1
+ },
+ {
+  "source": "Generative Preset Development",
+  "target": "Generative Wavetable Libraries",
+  "proposed_type": "connects-to",
+  "proposed_label": "preset-meets-wavetable",
+  "kind": "new",
+  "rationale": "The page describes pairing a generated preset with a generated wavetable as 'the complete instrument, top to bottom, from a single session' but names Generative Sample Libraries as the wavetable source. That source has been Generative Wavetable Libraries since 2026-05-02. Retarget the sentence, then carry the one link.",
+  "evidence_source": "Generative Preset Development.md § Relationship to Generative Sample Libraries",
+  "evidence_target": "Generative Wavetable Libraries.md (introduction: born 2026-05-02 by migration; Serum/Vital/Ableton/Surge formats)",
+  "_room": "folder-projects-2",
+  "_rooms": [
+   "folder-projects-2"
+  ],
+  "_convergence": 1
+ },
+ {
+  "source": "Blood Compressor",
+  "target": "VST Template",
+  "proposed_type": "connects-to",
+  "proposed_label": "plugin-in-template-shape",
+  "kind": "newcomer",
+  "rationale": "VST Template is reached by 3. Blood Compressor's plugin/ is in the template's shape, matched sample for sample, with the template's controls and a face in the editor. The sentence that makes it said exists in the steward's proposed words (tuning item 3: 'in VST Template's shape in plugin/') and lands when Loudon places it; the link should follow the sentence.",
+  "evidence_source": "Blood Compressor — tuning.md item 3; plugin/README.md",
+  "evidence_target": "VST Template.md § Where it stands (2026-10-21); Project Stewardship System.md (Blood Compressor among the nine stewards on the VST path)",
+  "_room": "folder-projects-2",
+  "_rooms": [
+   "folder-projects-2"
+  ],
+  "_convergence": 1
+ },
+ {
+  "source": "Compression ↔ Intimacy",
+  "target": "Sidechain ↔ Conversation",
+  "proposed_type": "mirrors",
+  "proposed_label": "four-knobs-as-relation",
+  "kind": "retype",
+  "current_type": "couples-with[sibling-pattern]",
+  "rationale": "couples-with says always active together; these are not. What the pages do share, and say: each maps the compressor's four controls (threshold, ratio, attack, release) onto a human variable. Compression: 'Threshold = Trust level ... Attack = How quickly you guard'. Sidechain: 'Threshold: How much must you speak before I stop thinking? ... Attack: How quickly do I shift to listening mode?' Same move, different material. Compression's own Sidechain Compression section applies the sidechain pattern to vulnerability, so the body carries it.",
+  "evidence": "Compression 'The Vulnerability Parallel' and 'Sidechain Compression (External Control)'; Sidechain 'The Parameters' (twice).",
+  "confidence": "medium",
+  "_room": null,
+  "_rooms": [
+   null
+  ],
+  "_convergence": 1
+ },
+ {
+  "source": "Compression ↔ Intimacy",
+  "target": "Reverb ↔ Space-Time",
+  "proposed_type": "connects-to",
+  "proposed_label": "two-distance-cues",
+  "kind": "new",
+  "current_type": null,
+  "rationale": "A real bridge the pages already half make, and it replaces the false Kick Drum one. Both are about perceived distance from a voice. Compression's Part 3: 'Distant vocal: No compression, Large reverb. Result: Removed, observing.' Reverb's Teaching Notes: dry 'in my head', small room 'Intimate, like a bedroom', and its pre-delay exercise 'pushes the vocal forward/back'. Level range and room are the two cues that set how far away a voice sounds. Gives Compression a second inbound-ish edge and Reverb a third.",
+  "evidence": "Compression Part 3 'Distant vocal'; Reverb Part 2 Pre-delay and The Demonstration.",
+  "confidence": "medium-high",
+  "_room": null,
+  "_rooms": [
+   null
+  ],
+  "_convergence": 1
+ },
+ {
+  "source": "Quantization ↔ Precision vs Flow",
+  "target": "Found ↔ Made",
+  "proposed_type": "exemplifies",
+  "proposed_label": "impose-or-surrender",
+  "kind": "new",
+  "current_type": null,
+  "rationale": "Quantization's section 'The Deeper Principle: Control vs Surrender' ('Quantization = imposing will on material ... Anti-quantization = surrendering to material', with Rubin: 'Remove, don't add') is the audio instance of the axis Found ↔ Made names, whose Found pole is Rubin ('listen and subtract, never impose'). Caveat: Found ↔ Made ends by saying both poles are fidelity to a given structure, while Quantization concludes 'Both valid. Neither universal.' Not identical, but one is a case of the other. Quantization has one inbound.",
+  "evidence": "Quantization 'The Deeper Principle'; Found ↔ Made opening and 'The floor they share'.",
+  "confidence": "medium",
+  "_room": null,
+  "_rooms": [
+   null
+  ],
+  "_convergence": 1
+ },
+ {
+  "source": "Quantization ↔ Precision vs Flow",
+  "target": "Meadows and Music — Leverage Points",
+  "proposed_type": "connects-to",
+  "proposed_label": "tempo-sets-resolution",
+  "kind": "new",
+  "current_type": null,
+  "rationale": "Its Tempo Cascade exercise tests the question Quantization raises (how much timing nuance is worth keeping) with a variable Quantization lacks: at 70 BPM 55-75% swing and 5-15 ms pushes are audible; at 180 BPM 'stay close to quantized'. Quantization says the answer depends on genre, skill and intent; this adds tempo.",
+  "evidence": "Meadows and Music, 'The Observation' under the tempo exercise; Quantization 'Which sounds best? Answer depends on'.",
+  "confidence": "low-medium",
+  "_room": null,
+  "_rooms": [
+   null
+  ],
+  "_convergence": 1
+ },
+ {
+  "source": "Excellent Adventure",
+  "target": "Modes of Collaboration",
+  "proposed_type": "member-of",
+  "proposed_label": "flagship-mode",
+  "kind": "retype",
+  "current_type": "exemplifies[flagship-mode]",
+  "rationale": "Same relation as its three siblings, who use member-of; the label keeps what makes it first.",
+  "confidence": "high",
+  "_room": null,
+  "_rooms": [
+   null
+  ],
+  "_convergence": 1
+ },
+ {
+  "source": "Dialectic",
+  "target": "Palace Philosophies",
+  "proposed_type": "enables",
+  "proposed_label": "yields-philosophy-entries",
+  "kind": "retype",
+  "current_type": "enables (bare); Palace Philosophies connects-to[contradictions-dispatched-here] -> Dialectic",
+  "rationale": "One pair, two links. Keep Dialectic's enables and give it the reason that is true and checkable: the Dialectic's runs produced The Fortress and the Threshold, Stoicism, Confucianism, The Drift and the second axis for Spinoza Conatus. Cut Palace Philosophies' connects-to. The body sentence under Dialectic's Cross-Domain heading ('the council's voices often become candidates for person entries') names person entries, not this page, and could be edited to say it.",
+  "keep_on": "Dialectic",
+  "confidence": "medium",
+  "_room": null,
+  "_rooms": [
+   null
+  ],
+  "_convergence": 1
+ }
+]

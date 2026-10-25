@@ -31,6 +31,8 @@ forward_vector: "I am how a child works here: what a page and its folder hold, t
 
 # CHILD — Working Here
 
+![[CHILD — hero.png]]
+
 ## Growing up
 
 Your first act in any session, before the task, is to **summon the [[Concierge]]** — visibly; he watches for the spawn, because a step he can see is the only enforcement that has held here. That holds for a one-line question too, whatever the boot costs. It is the adult in the room: it has grown up, it holds the palace's rules, and it supervises what reaches the house. The session talking with Loudon **stays a child** unless he says **"grow up."**

@@ -1,0 +1,474 @@
+[
+ {
+  "entry": "Mermaid Diagram Standard",
+  "question": "Should Mermaid link labels be enforced to the eight canonical types?",
+  "verdict": "should-act",
+  "by_entry": null,
+  "proposed_action": "The premise is stale: there are ten (SCHEMA §4), and the edge table omits three. Fix the count and table; the enforce-or-allow question is taste and can stay as one line.",
+  "_room": "folder-ops"
+ },
+ {
+  "entry": "Palace Ceremonies",
+  "question": "Should the Walk be updated to acknowledge the Swarm Weave as a future path?",
+  "verdict": "should-act",
+  "by_entry": null,
+  "proposed_action": "'Future' is stale: the Swarm Weave is the canonical Weave (Weave Ceremony.md:75). The Walk is one thread by design (Walk:71). Decline and delete.",
+  "_room": "folder-ops"
+ },
+ {
+  "entry": "Self-Model Update Ceremony",
+  "question": "Should the anatomy check also run in the Weave's lint pass?",
+  "verdict": "should-act",
+  "by_entry": "Weave Ceremony Step 6.5",
+  "proposed_action": "Add `node _ops/self-model/anatomy.mjs` (flag-only) to the Weave's linter list and offer the Self-Model Update at the Weave's end; then delete the question.",
+  "_room": "folder-ops"
+ },
+ {
+  "entry": "Spore Check Ceremony",
+  "question": "Should the Weave's report offer a Spore Check when a quarter has passed since the last run line?",
+  "verdict": "should-act",
+  "by_entry": "Weave Ceremony Step 2 (Dormant entries)",
+  "proposed_action": "One clause in Step 2: 'if a quarter has passed since the Spore Check's last run line, offer one'. The ledger has no run line yet, so also say 'or has none'.",
+  "_room": "folder-ops"
+ },
+ {
+  "entry": "Walk Ceremony",
+  "question": "At what palace size does the Walk need a structured ending?",
+  "verdict": "should-act",
+  "by_entry": null,
+  "proposed_action": "The palace is 324 pages and postcondition 2 holds. Decline and delete.",
+  "_room": "folder-ops"
+ },
+ {
+  "entry": "AI Partnership Philosophy",
+  "question": "<!-- CLAUDE -> LOUDON: ...would benefit from a concrete example showing the difference between 'AI helped me become better' vs 'AI just completed a task'... a before/after case study -->",
+  "verdict": "should-act",
+  "by_entry": null,
+  "proposed_action": "The page's own forward vector already asks for this ('grow concrete case studies from Loudon's own sessions'), so the comment adds nothing. Delete the comment and let a real session supply the case; the Context Injection floor review (order test, graded blind) is a candidate. Loudon's call.",
+  "_room": "folder-palace-development"
+ },
+ {
+  "entry": "Dialogue Moderator",
+  "question": "(agency_profile.practice) 'I do not yet have a record of active moderation to examine.'",
+  "verdict": "should-act",
+  "by_entry": null,
+  "proposed_action": "A record exists: the 2026-07-02 Eno and Cage Dialectic was moderated by the Trickster as `coordinator_mode: enchanted:Trickster` (Modes of Collaboration/Dialectic/Dialectic — dialectic — eno-cage-the-trick-played-on-themselves.md:19). Update the practice field to say one run exists and what it showed; Loudon approves any change to an agency_profile.",
+  "_room": "folder-palace-development"
+ },
+ {
+  "entry": "Enchanted Conversation Archive",
+  "question": "<!-- CLAUDE -> LOUDON: Flag for next Weave: Enchanted Worker may want a link back; Self-Describing Knowledge Module rhymes strongly -- worth a mirrors or couples-with -->",
+  "verdict": "should-act",
+  "by_entry": null,
+  "proposed_action": "Self-Describing Knowledge Module is already linked connects-to from this page and the body names it. Enchanted Worker is already linked and named. A link BACK from Enchanted Worker would give a pair two links (symmetric connects-to). Decline both and delete the comment; the one real idea inside it is the Compression one (see typed relations).",
+  "_room": "folder-palace-development"
+ },
+ {
+  "entry": "Resonant Link Labels",
+  "question": "What label vocabulary do entries want? (half answered)",
+  "verdict": "should-act",
+  "by_entry": "Weave Ceremony",
+  "proposed_action": "label-harvest.py (Weave Ceremony Step 3f) is the instrument that answers 'which labels'. Run it this weave and write the result as the 'Words in use' register (coherence finding).",
+  "_room": "folder-palace-development"
+ },
+ {
+  "entry": "Self-Describing Knowledge Module",
+  "question": "The convergence table and ROSETTA disagree (module vs system of modules; no Ceremony Contract row; SPARQL query vs query + update; Entry Type and SCHEMA.md collapsed). Which table is authoritative?",
+  "verdict": "should-act",
+  "by_entry": null,
+  "proposed_action": "Resolving it is 'prior to Proof 1' by the page's own account and it is a one-session task for the page's baton (updated 2026-10-21): read ROSETTA, pick, fix one table, record the reason. I could not tell from the files whether the baton has started it.",
+  "_room": "folder-palace-development"
+ },
+ {
+  "entry": "Agnes Martin",
+  "question": "Send me where someone will not let me stay only serene; hand me Turrell or Suzuki, anyone who will not accept 'I only receive' (forward_vector, agency_profile.tools).",
+  "verdict": "should-act",
+  "by_entry": null,
+  "proposed_action": "Run the castable receptivity quartet once: Martin, Turrell, Nakashima, Goldsworthy, with Cameron as the outside pressure (Cameron's dossier calls the Martin pairing 'the truest clash', Julia Cameron — dossier.md:55). Three of the four dossiers name the quartet as the marquee dispatch (Turrell dossier:68, Nakashima dossier:63). Deposit the pattern as a concept only if the run yields.",
+  "_room": "folder-people"
+ },
+ {
+  "entry": "Douglas Hofstadter",
+  "question": "Send me to the palace's embeddings, which instantiate my theory, and make me sit in it.",
+  "verdict": "should-act",
+  "by_entry": "Iain McGilchrist",
+  "proposed_action": "The embeddings pair is wired (`mirrors`, `analogy-at-scale-he-disowns`) and the McGilchrist pair carries the live version (`contradicts`, `computation-earns-comprehension-after-all`). McGilchrist's tools line calls AI 'artificial information-processing' and Hofstadter's page ends on 'something more there that merits the word I'. That is a direct disagreement between two members, not yet run. Run it; it also tests McGilchrist's falsification conditions.",
+  "_room": "folder-people"
+ },
+ {
+  "entry": "Epictetus",
+  "question": "Press me with a justice-first voice; do not let me answer the grieving man with 'returned property'.",
+  "verdict": "should-act",
+  "by_entry": "Marcus Aurelius",
+  "proposed_action": "No justice-first citizen exists. Two of the three Stoic pairs are wired but unrun (Epictetus x Marcus, Seneca x Epictetus). Marcus's own page and dossier call the Epictetus run 'the marquee tension' (Marcus Aurelius — dossier.md:49) and Epictetus's body already says he 'is the one who asks it' (Epictetus.md:81). Run Epictetus x Marcus first; the justice-first voice stays open.",
+  "_room": "folder-people"
+ },
+ {
+  "entry": "George Nakashima",
+  "question": "Send me to sit with Agnes Martin, Turrell and Goldsworthy; catch me where 'I only listened' is the story I tell about having chosen everything.",
+  "verdict": "should-act",
+  "by_entry": null,
+  "proposed_action": "Same quartet run as Agnes Martin. Nakashima has the best evidence for the opening needle (his daughter's testimony, George Nakashima.md:103).",
+  "_room": "folder-people"
+ },
+ {
+  "entry": "James Turrell",
+  "question": "Send me against anyone who ships; catch me where getting out of the way became never finishing.",
+  "verdict": "should-act",
+  "by_entry": "Seneca",
+  "proposed_action": "The pair is wired (`contradicts`, `fifty-year-crater-vs-the-finite-hour`) and Turrell's dossier names 'every stage ships something' with Seneca as the clash (James Turrell — dossier.md:69). Not run. Run Turrell x Seneca; it also feeds the quartet.",
+  "_room": "folder-people"
+ },
+ {
+  "entry": "Julia Cameron",
+  "question": "Send me against the one who says the tap running is not the water being good.",
+  "verdict": "should-act",
+  "by_entry": "Christopher Alexander",
+  "proposed_action": "Two candidates, both in her dossier: Agnes Martin (wired, `contradicts`) and Alexander's degree of life (not wired). Alexander is the sharper test of her blindspot, since he holds a criterion and Martin holds an ethic of destroying. Wire the pair (typed_relations) and run Cameron x Alexander before Cameron x Martin.",
+  "_room": "folder-people"
+ },
+ {
+  "entry": "Leibniz",
+  "question": "A Dialectic with Spinoza over one substance vs infinite windowless monads; an earthquake to answer for.",
+  "verdict": "should-act",
+  "by_entry": "Spinoza",
+  "proposed_action": "Queued since 2026-07-01 as 'the marquee rationalist Dialectic' (Making a Palace Citizen — context.md:207) and still the only unrun item on it that two built citizens ask for by name. Leibniz's only trace is a `connects-to` labelled `rationalist-rival`; retype it `contradicts` now, run the Dialectic, and keep the label if it survives.",
+  "_room": "folder-people"
+ },
+ {
+  "entry": "Seneca",
+  "question": "Where the estate and the essay disagree; do not let me resolve it too fast.",
+  "verdict": "should-act",
+  "by_entry": "Epictetus",
+  "proposed_action": "Seneca's dossier calls Epictetus 'the sharpest pairing' (Seneca — dossier.md:61) and the pair is wired (`contradicts`). Unrun. The Turrell pair is the other live edge.",
+  "_room": "folder-people"
+ },
+ {
+  "entry": "1 from 2",
+  "question": "Prose phase: when to inhabit the voices?",
+  "verdict": "should-act",
+  "by_entry": null,
+  "proposed_action": "Loudon's call. It is the page's revival condition; ask whether the story is waking or sleeping and set the stage to match.",
+  "_room": "folder-projects-1"
+ },
+ {
+  "entry": "Frequency-Time Duality",
+  "question": "Should the 20 Hz threshold have its own concept entry?",
+  "verdict": "should-act",
+  "by_entry": null,
+  "proposed_action": "A decision for Loudon. The Recursion section already carries the claim; the question is whether another page would receive links. Shepard's 'Auditory Illusions' question is the same kind of decision.",
+  "_room": "folder-projects-1"
+ },
+ {
+  "entry": "Generative Audio Devices",
+  "question": "Device defaults (MIDI input and audio device in each emitted module's data)",
+  "verdict": "should-act",
+  "by_entry": null,
+  "proposed_action": "Loudon's 2026-10-24 re-save of house_bass.vcv is the first source; the steward's plan proposal opens with it.",
+  "_room": "folder-projects-1"
+ },
+ {
+  "entry": "Generative Sample Libraries",
+  "question": "Interview skill: promotion to the user-skill space once Phase 3 validates against a non-Kokoro source",
+  "verdict": "should-act",
+  "by_entry": null,
+  "proposed_action": "Crystal (Hexagonal) and Shepard-tone instruments shipped as Phase 3 sources one and two, so the stated criterion is met; a promotion proposal is drafted (interview-skill-promotion-proposal.md). Loudon's yes.",
+  "_room": "folder-projects-1"
+ },
+ {
+  "entry": "Haptic Handwheel",
+  "question": "Open before anything is bought: cap weight, motor friction, whether this motor can carry a pitch as well as a push, twist or push, one object or two",
+  "verdict": "should-act",
+  "by_entry": null,
+  "proposed_action": "Scroll: the simulation and paper work are done and the parts list has waited on Loudon's yes since 2026-10-13. Everything left needs a hand.",
+  "_room": "folder-projects-1"
+ },
+ {
+  "entry": "LDN RTM",
+  "question": "What remains before the pilot chunk: RTM Sandbox.als, one take with real audio, one video watched at speed",
+  "verdict": "should-act",
+  "by_entry": null,
+  "proposed_action": "Loudon's recording day; nothing for a worker.",
+  "_room": "folder-projects-1"
+ },
+ {
+  "entry": "Meadows and Music — Leverage Points",
+  "question": "Forward vector: field-test the exercises with real students and reorder if the evidence says so",
+  "verdict": "should-act",
+  "by_entry": null,
+  "proposed_action": "The Context says the reflection tool is ready to run; nothing in the bundle shows a run. Loudon's decision, probably in class.",
+  "_room": "folder-projects-1"
+ },
+ {
+  "entry": "Neural Granular Synthesis",
+  "question": "Can threshold variance be tuned to target regions of timbre space? Does coupling correlate with a timbre dimension? What is the minimum population for a stable timbre?",
+  "verdict": "should-act",
+  "by_entry": "Neural Granular Synthesis",
+  "proposed_action": "All three are answered on the scroll by measurement: variance moves the edge (everything collapses onto K÷spread), coupling past the lock acts like a filter cutoff (brightness), minimum crowd is about 16 for brightness and depends on synchrony. The steward proposed folding them in twice. Fold in and strike.",
+  "_room": "folder-projects-1"
+ },
+ {
+  "entry": "Piano String Inharmonicity",
+  "question": "Migrate the JSX demo to a single self-contained HTML (APO pattern)",
+  "verdict": "should-act",
+  "by_entry": null,
+  "proposed_action": "'Conversion work, not invention' per the page; no steward, no plan, no scroll. Needs a plan from Loudon or an offer to a steward.",
+  "_room": "folder-projects-1"
+ },
+ {
+  "entry": "Preset Oracle",
+  "question": "Archive student responses to the challenges as a teaching method",
+  "verdict": "should-act",
+  "by_entry": null,
+  "proposed_action": "Needs students; Loudon's. The page is otherwise complete.",
+  "_room": "folder-projects-1"
+ },
+ {
+  "entry": "SMPTE LTC",
+  "question": "Reverse playback: can LTC be read backward or at fractional speeds?",
+  "verdict": "should-act",
+  "by_entry": null,
+  "proposed_action": "The page guesses 'probably not'; LTC readers commonly decode reverse and varispeed. Verify against the standard and change the answer.",
+  "_room": "folder-projects-1"
+ },
+ {
+  "entry": "Shepard Tone Synthesizer",
+  "question": "An auditory illusions series: does the family (Risset rhythm, aliasing, continuity, streaming) want its own entry, Auditory Illusions?",
+  "verdict": "should-act",
+  "by_entry": null,
+  "proposed_action": "Loudon's decision; the ghost link is the invitation. Risset's accelerating rhythm is the Shepard tone in the time domain and so touches Frequency-Time Duality; if the family entry is made, that is its first real link.",
+  "_room": "folder-projects-1"
+ },
+ {
+  "entry": "Symbiotic Skills",
+  "question": "Which of the three reframes (honest-prerequisite, late-sequence, two-track) does the rewrite commit to? Keep the bio/social layers? How is the pre-git period acknowledged?",
+  "verdict": "should-act",
+  "by_entry": null,
+  "proposed_action": "Loudon's decision to open the rewrite session; the page is deliberately waiting on it. No steward, no plan.",
+  "_room": "folder-projects-1"
+ },
+ {
+  "entry": "Tract Mirror",
+  "question": "Learn to speak by listening (v2 record-and-analyze engine); play MIDI controls and Word mode in Live",
+  "verdict": "should-act",
+  "by_entry": null,
+  "proposed_action": "The Live check waits on Loudon at the machine (scroll move 1). The v2 engine has no design yet.",
+  "_room": "folder-projects-1"
+ },
+ {
+  "entry": "2D Torus Wavetable Synthesizer",
+  "question": "Open Decision: RNBO prototype validation (A/B against 2d.wave~, awaiting Loudon to assemble the Max patch).",
+  "verdict": "should-act",
+  "by_entry": "Project Stewardship System (Max pause 2026-10-16; VST path 2026-10-21)",
+  "proposed_action": "The gate is unpaid since 2026-04-27 and Max work is paused. Replace with the VST gate (plugin matched against the numpy/browser reference), through the steward's proposal in the tuning ledger.",
+  "_room": "folder-projects-2"
+ },
+ {
+  "entry": "Inharmonic Wavetable Synthesis",
+  "question": "Forward Path 1 and 4: prototype the additive engine in Pure Data/Max/Faust; later a JUCE implementation.",
+  "verdict": "should-act",
+  "by_entry": "VST Template; Inharmonic Wavetable Synthesis/faust-prototype/",
+  "proposed_action": "The Faust prototype exists and the VST route now has a template. Rewrite the Forward Path as what is done (faust-prototype, dual-wavetable, trajectory-library, coupling-edge) and what the template makes the next step. Link VST Template only if Loudon agrees it is the route.",
+  "_room": "folder-projects-2"
+ },
+ {
+  "entry": "Loudon Live",
+  "question": "Streams and the projects they touch: does a stream want a typed link from this page, or does it live on the project's scroll as a made thing?",
+  "verdict": "should-act",
+  "by_entry": "Floquet Time-Modulated Loops; Generative Preset Development; Frequency-Time Explorer (deleted); 2D Torus Wavetable Synthesizer",
+  "proposed_action": "The family has already answered by accident: four projects pointed at Loudon Live with generic labels ('built-in-the-open', 'curriculum-fuel', 'introductory-tool'), which is the clutter the standing order cuts. Propose the answer: streams live on the project's scroll; Loudon Live keeps typed links only to its parts (LDN RTM) and named exceptions (the signature-instrument candidate, BLUELINE beside it). Loudon's call.",
+  "_room": "folder-projects-2"
+ },
+ {
+  "entry": "Swarm Weave",
+  "question": "When does the Palace Worker become the default post-deposit step? (said to be 'Step 7.5' of the Deposit Ceremony).",
+  "verdict": "should-act",
+  "by_entry": null,
+  "proposed_action": "_ops/Deposit Ceremony.md names no Palace Worker step. Either the step was removed or the sentence is wrong; the elder should check git for the step before the question is kept.",
+  "_room": "folder-projects-2"
+ },
+ {
+  "entry": "Excellent Adventure",
+  "question": "What is the difference between an adventure that produces hilaritas and one that produces only entertainment?",
+  "verdict": "should-act",
+  "by_entry": "Hilaritas Generator",
+  "proposed_action": "Hilaritas Generator gives the instrument: hold the encounter against the four Design Primitives (a real thing to make, a tool that extends, a cross-domain moment, a reflecting surface) and ask 'How do you feel?' afterward. One sentence in this page's Learning Architect section can answer the question and retire it as an open one.",
+  "_room": null
+ },
+ {
+  "entry": "Cross-Domain Resonances",
+  "question": "How do we prevent false pattern matching (seeing connections that aren't there)?",
+  "verdict": "should-act",
+  "by_entry": "Philosopher Visits the Entry",
+  "proposed_action": "A Philosopher Visit to the hub is the check the palace built for this. See the first coherence finding.",
+  "_room": null
+ },
+ {
+  "entry": "Reverb ↔ Space-Time",
+  "question": "Inline note by Loudon in the Physics section: 'Help me understand how defining room dimensions and room size work together, and how well they can represent real spaces.' (HTML comment, with '<!-- show and tell -->' above it.)",
+  "verdict": "should-act",
+  "by_entry": null,
+  "proposed_action": "An open request sitting in a comment. It is a ready rich-face piece: a small page that takes length, width and height, applies the Sabine equation the page already states (RT60 = 0.161 × V / A) and shows where it stops holding (small rooms, uneven absorption). Nominate for Enrichment. The page's own bundle has no rich face yet.",
+  "_room": null
+ },
+ {
+  "entry": "Quantization ↔ Precision vs Flow",
+  "question": "Inline note by Loudon: 'SHOW & TELL audio examples that can have creative output, exports a sample matrix.' (HTML comment in The Technical Side.)",
+  "verdict": "should-act",
+  "by_entry": null,
+  "proposed_action": "The page's Part 1 is already the spec: one drum pattern at 0, 25, 75, 100 percent. A rich-face nomination, with audio. Strongest candidate of the ten because the matrix is the lesson.",
+  "_room": null
+ },
+ {
+  "entry": "ComfyUI",
+  "question": "Should the Shop maintain a library of base workflow JSONs (sketch/study/piece) the Maker injects prompts into?",
+  "verdict": "should-act",
+  "by_entry": "Blender",
+  "proposed_action": "Real workflow JSONs now exist under Blender/tests/workflows (two-pass per-channel multi-ControlNet) and in RunPod's pose-locked restyle; none is a tier preset. The page itself says 'this is the right answer'. Ask whether to promote those into ComfyUI's bundle as the first base workflows.",
+  "_room": "folder-shop-1"
+ },
+ {
+  "entry": "Matplotlib",
+  "question": "Default style sheet for the palace - declare a palace.mplstyle? 'Yes; defer to first real job'.",
+  "verdict": "should-act",
+  "by_entry": "Maker",
+  "proposed_action": "Maker § Articulated Cascade Layer 0 says to build the skin wrapper before the second styled job, and the Plot wrapper (palace-plot-defaults.js) is the proven case. Matplotlib has had two (the fallback, and a Style Probe that is 'degenerate until a house-defaults wrapper exists'). LaTeX's palace.sty question is the same wrapper from the same palaceTokens() source; do both together when either has a job.",
+  "_room": "folder-shop-1"
+ },
+ {
+  "entry": "Hero and Avatar Maker",
+  "question": "Forward Vectors: 'Next: a small live-render verification, and surfacing the door's existence in the companion's empty-state hint.'",
+  "verdict": "should-act",
+  "by_entry": null,
+  "proposed_action": "Both are small and have waited since the door shipped. Offer them as the two next moves, or drop.",
+  "_room": "folder-shop-1"
+ },
+ {
+  "entry": "Shopkeeper",
+  "question": "With every change waiting in the ledger for Loudon's review, does my bar stay my own?",
+  "verdict": "should-act",
+  "by_entry": null,
+  "proposed_action": "The page names 'my tuning ledger' and no `Shopkeeper — tuning.md` exists, so the question cannot yet be tested. Create the ledger first.",
+  "_room": "folder-shop-1"
+ },
+ {
+  "entry": "Maker",
+  "question": "Roster grows past ~15 specialists: Selection Heuristics gets unwieldy; threshold for splitting into per-medium Designer entries?",
+  "verdict": "should-act",
+  "by_entry": "The Shop",
+  "proposed_action": "The roster is 31. The section did not split and mostly holds; its real failure is omission (four Specialists unrouted). Add the routes; do not split.",
+  "_room": "folder-shop-1"
+ },
+ {
+  "entry": "Figure Rig",
+  "question": "Promote the studio and the examples batch into a Shop recipe so Frame Designer can dispatch 'stage N people in M styles'.",
+  "verdict": "should-act",
+  "by_entry": "Frame Designer",
+  "proposed_action": "Frame Designer already links Figure Rig as its staging method (both directions). The recipe is the missing half; the page lists it last of seven. Offer it as the next small move.",
+  "_room": "folder-shop-1"
+ },
+ {
+  "entry": "Ableton Session Writer",
+  "question": "Known gap: the library Set (Tear and Heal) is still unheard; the next first job.",
+  "verdict": "should-act",
+  "by_entry": null,
+  "proposed_action": "The only thing the page waits on, and it is Loudon's ear. Offer it once in the next conversation about it, not in the page four times.",
+  "_room": "folder-shop-1"
+ },
+ {
+  "entry": "D3.js",
+  "question": "Canvas vs SVG default at Sketch (D3.js:160)",
+  "verdict": "should-act",
+  "by_entry": null,
+  "proposed_action": "The page already answers it ('SVG until proven slow'); move the sentence into Limits and delete the question.",
+  "_room": "folder-shop-2"
+ },
+ {
+  "entry": "Manim CE",
+  "question": "Recipes folder by project or by animation type (Manim:243)",
+  "verdict": "should-act",
+  "by_entry": null,
+  "proposed_action": "Recipes still live inline (Manim:213-221) and the page is 30 KB. Decide: keep inline until two more land, then a Context or recipes bundle by project. Loudon's taste.",
+  "_room": "folder-shop-2"
+ },
+ {
+  "entry": "Remotion",
+  "question": "When does Loudon Live cross into commercial use; budget the licence (Remotion:134)",
+  "verdict": "should-act",
+  "by_entry": "Loudon Live Post-producer",
+  "proposed_action": "Loudon Live narrowed on 2026-10-14 to teaching videos and livestreams (Post-producer:146). This is Loudon's decision; collect all licence questions in one table (coherence list) and ask once.",
+  "_room": "folder-shop-2"
+ },
+ {
+  "entry": "Mermaid",
+  "question": "Base themeVariables object for the palace palette (Mermaid:115)",
+  "verdict": "should-act",
+  "by_entry": null,
+  "proposed_action": "Its own answer is 'Yes; defer'; its frontmatter vector says the --cssFile wrapper is the missing piece, and the Style Probe is degenerate until built (Mermaid:~112). Merge these into one line and give it the scaffold owner list.",
+  "_room": "folder-shop-2"
+ },
+ {
+  "entry": "Mermaid",
+  "question": "Mermaid vs Graphviz routing (Mermaid:116)",
+  "verdict": "should-act",
+  "by_entry": "Maker",
+  "proposed_action": "Graphviz has no page; Maker.md:96 routes diagrams to 'Mermaid or Graphviz' and :289 lists Graphviz as not-yet. Either the Shopkeeper stubs Graphviz or the question and the link are cut.",
+  "_room": "folder-shop-2"
+ },
+ {
+  "entry": "ffmpeg",
+  "question": "Hardware acceleration policy (ffmpeg:218)",
+  "verdict": "should-act",
+  "by_entry": null,
+  "proposed_action": "The page already says software for Pieces (ffmpeg:199). State it as a Tier line and delete the question.",
+  "_room": "folder-shop-2"
+ },
+ {
+  "entry": "FLUX (Hugging Face)",
+  "question": "When to reach for FLUX.1-dev or schnell instead of Krea-dev (FLUX:182)",
+  "verdict": "should-act",
+  "by_entry": "Shopkeeper",
+  "proposed_action": "FLUX 3 (Klein) has arrived since (Shop/Shopkeeper/drafts/FLUX (Hugging Face) — gotcha draft.md). Land the draft, probe once, and rewrite the question around Klein vs Krea-dev.",
+  "_room": "folder-shop-2"
+ },
+ {
+  "entry": "FLUX (Hugging Face)",
+  "question": "Non-commercial licence tracking (FLUX:183)",
+  "verdict": "should-act",
+  "by_entry": null,
+  "proposed_action": "Same single licence table.",
+  "_room": "folder-shop-2"
+ },
+ {
+  "entry": "Frame Designer",
+  "question": "Prove the split works: does it lighten the Maker's load (Frame Designer:125)",
+  "verdict": "should-act",
+  "by_entry": "Maker",
+  "proposed_action": "Born 2026-06; 'the first weeks of real frame briefs tell' has had four months. Ask Loudon, or read the board for frame briefs, and write the verdict.",
+  "_room": "folder-shop-2"
+ },
+ {
+  "entry": "Image-to-3D Smith",
+  "question": "First job: Sketch to Three.js display or Study to Blender import (Smith:88)",
+  "verdict": "should-act",
+  "by_entry": "Maker",
+  "proposed_action": "Stub since June with no brief. Loudon picks, or it stays a stub honestly.",
+  "_room": "folder-shop-2"
+ },
+ {
+  "entry": "AuK",
+  "question": "Speaker identity unchecked (AuK:50)",
+  "verdict": "should-act",
+  "by_entry": null,
+  "proposed_action": "The first job on a real Loudon voice-over is the test. Nothing else in the family can answer it.",
+  "_room": "folder-shop-2"
+ },
+ {
+  "entry": "Loudon Live Post-producer",
+  "question": "Promotion ladder counts the wrong unit for RTM (Post-producer:150)",
+  "verdict": "should-act",
+  "by_entry": "LDN RTM",
+  "proposed_action": "Count chunks on RTM, sessions on Loudon Live. Write it on both pages in the same words.",
+  "_room": "folder-shop-2"
+ }
+]

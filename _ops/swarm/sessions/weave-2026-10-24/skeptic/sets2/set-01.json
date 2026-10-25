@@ -1,0 +1,602 @@
+[
+ {
+  "source": "Closing Well Ceremony",
+  "target": "Palace Ceremonies",
+  "proposed_type": "member-of",
+  "proposed_label": null,
+  "kind": "retype",
+  "rationale": "Replaces this ceremony's bare connects-to to the hub and the hub's reverse link (two links on one pair). The hub's table lists the card as a ceremony; a registry does not enable what it lists.",
+  "evidence_source": "Palace Ceremonies.md:49-81 (tables list it as a ceremony)",
+  "evidence_target": "Closing Well Ceremony.md:29 (the thin card the trigger reaches)",
+  "_room": "folder-ops",
+  "_rooms": [
+   "folder-ops"
+  ],
+  "_convergence": 1
+ },
+ {
+  "source": "Map Build Ceremony",
+  "target": "Palace Ceremonies",
+  "proposed_type": "member-of",
+  "proposed_label": null,
+  "kind": "retype",
+  "rationale": "Replaces this ceremony's bare connects-to to the hub and the hub's reverse link (two links on one pair). The hub's table lists the card as a ceremony; a registry does not enable what it lists.",
+  "evidence_source": "Palace Ceremonies.md:49-81 (tables list it as a ceremony)",
+  "evidence_target": "Map Build Ceremony.md:10 trigger field",
+  "_room": "folder-ops",
+  "_rooms": [
+   "folder-ops"
+  ],
+  "_convergence": 1
+ },
+ {
+  "source": "Revival Ceremony",
+  "target": "Palace Ceremonies",
+  "proposed_type": "member-of",
+  "proposed_label": null,
+  "kind": "retype",
+  "rationale": "Replaces this ceremony's bare connects-to to the hub and the hub's reverse link (two links on one pair). The hub's table lists the card as a ceremony; a registry does not enable what it lists.",
+  "evidence_source": "Palace Ceremonies.md:49-81 (tables list it as a ceremony)",
+  "evidence_target": "Revival Ceremony.md:8 trigger field",
+  "_room": "folder-ops",
+  "_rooms": [
+   "folder-ops"
+  ],
+  "_convergence": 1
+ },
+ {
+  "source": "Self-Model Update Ceremony",
+  "target": "Palace Ceremonies",
+  "proposed_type": "member-of",
+  "proposed_label": null,
+  "kind": "retype",
+  "rationale": "Replaces this ceremony's bare connects-to to the hub and the hub's reverse link (two links on one pair). The hub's table lists the card as a ceremony; a registry does not enable what it lists.",
+  "evidence_source": "Palace Ceremonies.md:49-81 (tables list it as a ceremony)",
+  "evidence_target": "Self-Model Update Ceremony.md:11 trigger field",
+  "_room": "folder-ops",
+  "_rooms": [
+   "folder-ops"
+  ],
+  "_convergence": 1
+ },
+ {
+  "source": "Spore Check Ceremony",
+  "target": "Palace Ceremonies",
+  "proposed_type": "member-of",
+  "proposed_label": null,
+  "kind": "retype",
+  "rationale": "Replaces this ceremony's bare connects-to to the hub and the hub's reverse link (two links on one pair). The hub's table lists the card as a ceremony; a registry does not enable what it lists.",
+  "evidence_source": "Palace Ceremonies.md:49-81 (tables list it as a ceremony)",
+  "evidence_target": "Spore Check Ceremony.md:8 trigger field",
+  "_room": "folder-ops",
+  "_rooms": [
+   "folder-ops"
+  ],
+  "_convergence": 1
+ },
+ {
+  "source": "Walk Ceremony",
+  "target": "Palace Ceremonies",
+  "proposed_type": "member-of",
+  "proposed_label": null,
+  "kind": "retype",
+  "rationale": "Replaces this ceremony's bare connects-to to the hub and the hub's reverse link (two links on one pair). The hub's table lists the card as a ceremony; a registry does not enable what it lists.",
+  "evidence_source": "Palace Ceremonies.md:49-81 (tables list it as a ceremony)",
+  "evidence_target": "Walk Ceremony.md:8 trigger field",
+  "_room": "folder-ops",
+  "_rooms": [
+   "folder-ops"
+  ],
+  "_convergence": 1
+ },
+ {
+  "source": "Weave Ceremony",
+  "target": "Palace Ceremonies",
+  "proposed_type": "member-of",
+  "proposed_label": null,
+  "kind": "retype",
+  "rationale": "Replaces this ceremony's bare connects-to to the hub and the hub's reverse link (two links on one pair). The hub's table lists the card as a ceremony; a registry does not enable what it lists.",
+  "evidence_source": "Palace Ceremonies.md:49-81 (tables list it as a ceremony)",
+  "evidence_target": "Weave Ceremony.md:8 trigger field",
+  "_room": "folder-ops",
+  "_rooms": [
+   "folder-ops"
+  ],
+  "_convergence": 1
+ },
+ {
+  "source": "The Daily Page",
+  "target": "Palace Ceremonies",
+  "proposed_type": "member-of",
+  "proposed_label": null,
+  "kind": "retype",
+  "rationale": "Replaces this ceremony's bare connects-to to the hub and the hub's reverse link (two links on one pair). The hub's table lists the card as a ceremony; a registry does not enable what it lists.",
+  "evidence_source": "Palace Ceremonies.md:49-81 (tables list it as a ceremony)",
+  "evidence_target": "The Daily Page.md:7 trigger field",
+  "_room": "folder-ops",
+  "_rooms": [
+   "folder-ops"
+  ],
+  "_convergence": 1
+ },
+ {
+  "source": "Deposit Ceremony",
+  "target": "Palace Ceremonies",
+  "proposed_type": "member-of",
+  "proposed_label": null,
+  "kind": "retype",
+  "rationale": "Palace Ceremonies lists it with 'enables' and the ceremony carries no link back. Membership is the real relation; the member declares it, the hub's 'enables' goes.",
+  "evidence_source": "Palace Ceremonies.md:49-81 (tables list it as a ceremony)",
+  "evidence_target": "Deposit Ceremony.md:11 trigger field",
+  "_room": "folder-ops",
+  "_rooms": [
+   "folder-ops"
+  ],
+  "_convergence": 1
+ },
+ {
+  "source": "Harvest Ceremony",
+  "target": "Palace Ceremonies",
+  "proposed_type": "member-of",
+  "proposed_label": null,
+  "kind": "retype",
+  "rationale": "Palace Ceremonies lists it with 'enables' and the ceremony carries no link back. Membership is the real relation; the member declares it, the hub's 'enables' goes.",
+  "evidence_source": "Palace Ceremonies.md:49-81 (tables list it as a ceremony)",
+  "evidence_target": "Harvest Ceremony.md:10 trigger field",
+  "_room": "folder-ops",
+  "_rooms": [
+   "folder-ops"
+  ],
+  "_convergence": 1
+ },
+ {
+  "source": "Map Build Ceremony",
+  "target": "Weave Ceremony",
+  "proposed_type": "enables",
+  "proposed_label": "pre-weave",
+  "kind": "retype",
+  "rationale": "The Weave currently says it enables Map Build [pre-weave]. The map is the Weave's precondition (the Weave builds it at its open and after its writes), so the link points the other way; cut Weave's.",
+  "evidence_source": "Map Build Ceremony.md:57 ('the Weave Ceremony runs it at its open and again after its writes')",
+  "evidence_target": "Weave Ceremony.md:83 ('Second, build the map — python3 _ops/swarm/build-map.py')",
+  "_room": "folder-ops",
+  "_rooms": [
+   "folder-ops"
+  ],
+  "_convergence": 1
+ },
+ {
+  "source": "Harvest Ceremony",
+  "target": "Deposit Ceremony",
+  "proposed_type": "couples-with",
+  "proposed_label": "finds-then-places",
+  "kind": "retype",
+  "rationale": "Folds three links into one and replaces the tautological label harvest-deposit-pair. Harvest finds, Deposit places; always active together.",
+  "evidence_source": "Harvest Ceremony.md:45 ('It does not build palace entries … routes those candidates toward Deposit')",
+  "evidence_target": "Deposit Ceremony.md:47 ('a harvest with a candidate, …')",
+  "_room": "folder-ops",
+  "_rooms": [
+   "folder-ops"
+  ],
+  "_convergence": 1
+ },
+ {
+  "source": "Spore Check Ceremony",
+  "target": "Weave Ceremony",
+  "proposed_type": "connects-to",
+  "proposed_label": "weave-confirms-the-compost",
+  "kind": "retype",
+  "rationale": "The two bare links on this pair (one each way) become one labelled link, on the side whose body says it.",
+  "evidence_source": "Spore Check Ceremony.md:89 (posts a flag so the Weave confirms the deletion)",
+  "evidence_target": "Weave Ceremony.md:203 ('Composting candidates … Confirm deletion or revive')",
+  "_room": "folder-ops",
+  "_rooms": [
+   "folder-ops"
+  ],
+  "_convergence": 1
+ },
+ {
+  "source": "Walk Ceremony",
+  "target": "Weave Ceremony",
+  "proposed_type": "connects-to",
+  "proposed_label": "one-thread-versus-every-thread",
+  "kind": "retype",
+  "rationale": "The two bare links on this pair become one labelled link, on the side whose body says it.",
+  "evidence_source": "Walk Ceremony.md:71 ('The Walk is not a Weave … follows a single thread')",
+  "evidence_target": "Weave Ceremony.md:57 ('Where the Walk follows one thread, the Weave reads every thread')",
+  "_room": "folder-ops",
+  "_rooms": [
+   "folder-ops"
+  ],
+  "_convergence": 1
+ },
+ {
+  "source": "Self-Model Update Ceremony",
+  "target": "Weave Ceremony",
+  "proposed_type": "connects-to",
+  "proposed_label": "runs-at-the-weaves-end",
+  "kind": "retype",
+  "rationale": "Bare, and the body gives the reason.",
+  "evidence_source": "Self-Model Update Ceremony.md:37 ('at the end of a Weave')",
+  "evidence_target": "Weave Ceremony.md:337-355 (no Self-Model hand-off yet; see recipe finding)",
+  "_room": "folder-ops",
+  "_rooms": [
+   "folder-ops"
+  ],
+  "_convergence": 1
+ },
+ {
+  "source": "Revival Ceremony",
+  "target": "The Daily Page",
+  "proposed_type": "connects-to",
+  "proposed_label": "a-morning-decides-revive",
+  "kind": "retype",
+  "rationale": "Keeps this side's link (a pair carries one) and drops The Daily Page's [a-dormant-page-asks]; no type change.",
+  "evidence_source": "Revival Ceremony.md:44 (a Daily Page morning decides revive is one of four ways in)",
+  "evidence_target": "The Daily Page.md:137,164",
+  "_room": "folder-ops",
+  "_rooms": [
+   "folder-ops"
+  ],
+  "_convergence": 1
+ },
+ {
+  "source": "Spore Check Ceremony",
+  "target": "Revival Ceremony",
+  "proposed_type": "connects-to",
+  "proposed_label": "one-of-four-ways-in",
+  "kind": "retype",
+  "rationale": "Keeps this link; cut Revival's emerged-from to Spore Check (git holds the origin). See coherence finding for why I depart from Step 3d's default.",
+  "evidence_source": "Spore Check Ceremony.md:28,87",
+  "evidence_target": "Revival Ceremony.md:38,44",
+  "_room": "folder-ops",
+  "_rooms": [
+   "folder-ops"
+  ],
+  "_convergence": 1
+ },
+ {
+  "source": "Substrate Skill",
+  "target": "Palace Ceremonies",
+  "proposed_type": "connects-to",
+  "proposed_label": "canonical-ceremony-list",
+  "kind": "retype",
+  "rationale": "Keeps this side's link, with its reason; cut the hub's reverse bare connects-to.",
+  "evidence_source": "Substrate Skill.md:100-102 ('The canonical list of all ceremonies lives at Palace Ceremonies')",
+  "evidence_target": "Palace Ceremonies.md:47",
+  "_room": "folder-ops",
+  "_rooms": [
+   "folder-ops"
+  ],
+  "_convergence": 1
+ },
+ {
+  "source": "Substrate Skill",
+  "target": "Deposit Ceremony",
+  "proposed_type": "connects-to",
+  "proposed_label": "adding-runs-a-deposit",
+  "kind": "retype",
+  "rationale": "Bare connects-to, and the body gives the reason.",
+  "evidence_source": "Substrate Skill.md:37 ('that is a deposit: run the Deposit Ceremony')",
+  "evidence_target": "Deposit Ceremony.md:55",
+  "_room": "folder-ops",
+  "_rooms": [
+   "folder-ops"
+  ],
+  "_convergence": 1
+ },
+ {
+  "source": "Palace To-Do",
+  "target": "Deposit Ceremony",
+  "proposed_type": "connects-to",
+  "proposed_label": "where-lost-branches-wait",
+  "kind": "retype",
+  "rationale": "Currently 'enables'. A worklist does not enable the Deposit; the Deposit's map queues lost branches here. Drop enables → Harvest (no body reason anywhere).",
+  "evidence_source": "Palace To-Do.md:82-86 (two items about the Deposit's steps)",
+  "evidence_target": "Deposit Ceremony.md:104 ('Lost branches … queued on [[Palace To-Do]]')",
+  "_room": "folder-ops",
+  "_rooms": [
+   "folder-ops"
+  ],
+  "_convergence": 1
+ },
+ {
+  "source": "Palace Graffiti",
+  "target": "Substrate Skill",
+  "proposed_type": "deepens",
+  "proposed_label": null,
+  "kind": "new",
+  "rationale": "Substrate Skill § In-File Comments holds the two comment forms; Palace Graffiti is the elaboration and the why. Replaces Palace Graffiti → SCHEMA connects-to, which claims a convention SCHEMA does not carry.",
+  "evidence_source": "Palace Graffiti.md:36-44",
+  "evidence_target": "Substrate Skill.md:224-229",
+  "_room": "folder-ops",
+  "_rooms": [
+   "folder-ops"
+  ],
+  "_convergence": 1
+ },
+ {
+  "source": "Palace Map",
+  "target": "Pheromone Trail",
+  "proposed_type": "connects-to",
+  "proposed_label": "skeleton-and-gradient",
+  "kind": "retype",
+  "rationale": "Bare; § Cross-Domain Resonance says the map is the explicit topology and the trail the felt one.",
+  "evidence_source": "Palace Map.md:265",
+  "evidence_target": "Pheromone Trail.md",
+  "_room": "folder-ops",
+  "_rooms": [
+   "folder-ops"
+  ],
+  "_convergence": 1
+ },
+ {
+  "source": "Palace Ceremonies",
+  "target": "SCHEMA",
+  "proposed_type": "connects-to",
+  "proposed_label": "trigger-field",
+  "kind": "retype",
+  "rationale": "Bare; the section says a ceremony is a page carrying trigger: (SCHEMA §1).",
+  "evidence_source": "Palace Ceremonies.md:101",
+  "evidence_target": "SCHEMA.md:79,87",
+  "_room": "folder-ops",
+  "_rooms": [
+   "folder-ops"
+  ],
+  "_convergence": 1
+ },
+ {
+  "source": "Walk Ceremony",
+  "target": "The Cooperation Path",
+  "proposed_type": "connects-to",
+  "proposed_label": "first-named-songline",
+  "kind": "retype",
+  "rationale": "Bare; the body names it as the first songline.",
+  "evidence_source": "Walk Ceremony.md:83",
+  "evidence_target": "The Cooperation Path.md",
+  "_room": "folder-ops",
+  "_rooms": [
+   "folder-ops"
+  ],
+  "_convergence": 1
+ },
+ {
+  "source": "Deposit Ceremony",
+  "target": "README - The Palace Guide",
+  "proposed_type": "connects-to",
+  "proposed_label": "entry-template",
+  "kind": "retype",
+  "rationale": "Bare; Step 5 drafts to the template there.",
+  "evidence_source": "Deposit Ceremony.md:121",
+  "evidence_target": "README - The Palace Guide.md:176",
+  "_room": "folder-ops",
+  "_rooms": [
+   "folder-ops"
+  ],
+  "_convergence": 1
+ },
+ {
+  "source": "Mermaid Diagram Standard",
+  "target": "README - The Palace Guide",
+  "proposed_type": "connects-to",
+  "proposed_label": "names-the-three-standards",
+  "kind": "retype",
+  "rationale": "Bare; README § The Visual Language names all three standards as one system (TDS says so at :149). One shared label for the cluster.",
+  "evidence_source": "Mermaid Diagram Standard.md:22",
+  "evidence_target": "README - The Palace Guide.md:165-167",
+  "_room": "folder-ops",
+  "_rooms": [
+   "folder-ops"
+  ],
+  "_convergence": 1
+ },
+ {
+  "source": "Technical Diagram Standard",
+  "target": "README - The Palace Guide",
+  "proposed_type": "connects-to",
+  "proposed_label": "names-the-three-standards",
+  "kind": "retype",
+  "rationale": "Bare; README § The Visual Language names all three standards as one system (TDS says so at :149). One shared label for the cluster.",
+  "evidence_source": "Technical Diagram Standard.md:149",
+  "evidence_target": "README - The Palace Guide.md:165-167",
+  "_room": "folder-ops",
+  "_rooms": [
+   "folder-ops"
+  ],
+  "_convergence": 1
+ },
+ {
+  "source": "Pages as Agents",
+  "target": "SCHEMA — Reference",
+  "proposed_type": "connects-to",
+  "proposed_label": "fields-a-page-wakes-from",
+  "kind": "retype",
+  "rationale": "Bare. A new-entry priority citizen (reached by 6): the fields a woken page reads (type, stage, forward_vector, agency_profile) are defined there, and this page lists them as what a page hands a model.",
+  "evidence_source": "Pages as Agents.md:68-75",
+  "evidence_target": "SCHEMA — Reference.md:71,105",
+  "_room": "folder-ops",
+  "_rooms": [
+   "folder-ops"
+  ],
+  "_convergence": 1
+ },
+ {
+  "source": "Return Ceremony",
+  "target": "Can an Instrument Notice Where the Work Stops?",
+  "proposed_type": "mirrors",
+  "proposed_label": "coming-back-is-cheap",
+  "kind": "newcomer",
+  "rationale": "Same pattern in different material. The question asks for an instrument that notices where a session stopped and 'makes that return cheap: open where you left off'; the Return puts the record of where Loudon stopped in one map and wants 'returning cheap enough that stepping away stays free'. Both hold the rule 'notice and offer, never decide, never read the absence'. Genuine; the Return is the older practice and the question can borrow its rule that a gap is not a finding.",
+  "evidence_source": "Return Ceremony.md:9,122,149-153",
+  "evidence_target": "Can an Instrument Notice Where the Work Stops?.md (the return after a bad week; 'It notices and offers; it never decides and never nags')",
+  "_room": "folder-ops",
+  "_rooms": [
+   "folder-ops"
+  ],
+  "_convergence": 1
+ },
+ {
+  "source": "The Daily Page",
+  "target": "Can an Instrument Notice Where the Work Stops?",
+  "proposed_type": "mirrors",
+  "proposed_label": "notices-and-offers",
+  "kind": "newcomer",
+  "rationale": "Weaker than the Return's, offered because it is true: the morning reads how hard he is engaging, backs off when he does not, and the session's note is 'a reading, not his words' that a later morning may correct, which is the question's 'a reading the player can correct'. Take the Return's link first; this one is optional.",
+  "evidence_source": "The Daily Page.md:57,95,174",
+  "evidence_target": "Can an Instrument Notice Where the Work Stops?.md (the useful notice is 'a reading the player can correct')",
+  "_room": "folder-ops",
+  "_rooms": [
+   "folder-ops"
+  ],
+  "_convergence": 1
+ },
+ {
+  "source": "Return Ceremony",
+  "target": "CHILD",
+  "proposed_type": "deepens",
+  "proposed_label": "first-act-summons-the-concierge",
+  "kind": "newcomer",
+  "rationale": "Step 0 is CHILD's first-act rule (summon the Concierge before the task, even for a one-line question) worked out for a returning instance; the page cites CHILD § Growing up.",
+  "evidence_source": "Return Ceremony.md:81",
+  "evidence_target": "CHILD.md § Growing up",
+  "_room": "folder-ops",
+  "_rooms": [
+   "folder-ops"
+  ],
+  "_convergence": 1
+ },
+ {
+  "source": "Palace Ceremonies",
+  "target": "CHILD",
+  "proposed_type": "connects-to",
+  "proposed_label": "trigger-table-twin",
+  "kind": "newcomer",
+  "rationale": "CHILD's Ceremony Triggers table and this hub's tables are the two hand-kept copies that SCHEMA — Reference §5 step 5 names as the mirror set for a ceremony added or removed. They have drifted (coherence finding); the link says who keeps whom in step.",
+  "evidence_source": "Palace Ceremonies.md:51-81",
+  "evidence_target": "CHILD.md § Ceremony Triggers; SCHEMA — Reference.md:160",
+  "_room": "folder-ops",
+  "_rooms": [
+   "folder-ops"
+  ],
+  "_convergence": 1
+ },
+ {
+  "source": "Palace Ceremonies",
+  "target": "SCHEMA — Reference",
+  "proposed_type": "connects-to",
+  "proposed_label": "ledger-rules",
+  "kind": "newcomer",
+  "rationale": "§ What Makes a Ceremony, and How It Changes summarises the version, tail-read and run-line rules and ends 'The rules and the exact commands: SCHEMA — Reference §6'. A new-entry priority citizen.",
+  "evidence_source": "Palace Ceremonies.md:101-108",
+  "evidence_target": "SCHEMA — Reference.md §6",
+  "_room": "folder-ops",
+  "_rooms": [
+   "folder-ops"
+  ],
+  "_convergence": 1
+ },
+ {
+  "source": "Sentry",
+  "target": "Skills Are Enchantable Pages",
+  "proposed_type": "exemplifies",
+  "proposed_label": "page-is-the-organ",
+  "kind": "new",
+  "rationale": "Sentry is built on the four-part shape that page names: the canon page is the organ, machinery in _ops/sentry/, a CHILD trigger row ('sentry sweep'), working state in a scroll and a tuning ledger. It is not in that page's family roster and has no shim, so it is the ceremony-cell example with machinery, beside the Concierge (address) and the Orchestrator (execute). Needs one sentence in Sentry to say so (Pile B).",
+  "evidence_source": "Sentry.md: the Trigger section; 'How to reach it'; the footer 'Its watches, newest first: [[Sentry — scroll]]'",
+  "evidence_target": "Skills Are Enchantable Pages.md: § The harness around the organ (the four bullets)",
+  "_room": "folder-palace-development",
+  "_rooms": [
+   "folder-palace-development"
+  ],
+  "_convergence": 1
+ },
+ {
+  "source": "Dialogue Moderator",
+  "target": "Dialectic",
+  "proposed_type": "connects-to",
+  "proposed_label": "coordinator-of-the-dialogue",
+  "kind": "new",
+  "rationale": "The Moderator is the coordinator of a dialogic enchantment, and the Dialectic transcripts are where it has run: the 2026-07-02 Eno and Cage encounter was 'Moderated by the Trickster as an active/enchanted coordinator ([[Dialogue Moderator]] `coordinator_mode: enchanted:Trickster`)'. The Dialectic page itself never names a coordinator or moderator, so the label has to carry the reason. This replaces three bare connects-to links the page is losing.",
+  "evidence_source": "Dialogue Moderator.md: § Relationship to Trickster; coordinator_mode list",
+  "evidence_target": "Modes of Collaboration/Dialectic/Dialectic — dialectic — eno-cage-the-trick-played-on-themselves.md:19",
+  "_room": "folder-palace-development",
+  "_rooms": [
+   "folder-palace-development"
+  ],
+  "_convergence": 1
+ },
+ {
+  "source": "Enchanted Conversation Archive",
+  "target": "Generative Compression",
+  "proposed_type": "connects-to",
+  "proposed_label": "keeps-what-compression-drops",
+  "kind": "retype",
+  "rationale": "Today ECA deepens Generative Compression with no reason in either body. The real relation is the one Generative Compression's own provocation names: compression collapses wrong turns, and the Archive is the full per-session record, head and tail, that keeps them ('the confusion is sometimes the whole point', compression-always-loses). Keep the connection, drop the unfounded 'deepens', give it that label and one sentence in the Archive (Pile B).",
+  "evidence_source": "Enchanted Conversation Archive.md: § The Core Structure (each session a self-contained JSONL with head, synthesis node and every message)",
+  "evidence_target": "Generative Compression/compression-always-loses.md; Generative Compression.md § Counter-pressure",
+  "_room": "folder-palace-development",
+  "_rooms": [
+   "folder-palace-development"
+  ],
+  "_convergence": 1
+ },
+ {
+  "source": "Pheromone Trail",
+  "target": "Lateral Access",
+  "proposed_type": "connects-to",
+  "proposed_label": "lateral-counterweight",
+  "kind": "retype",
+  "rationale": "The link says mirrors with no sentence in either body. The only reason in the files is Pheromone Trail's own second open question, whether a deeply worn trail 'forecloses lateral exploration'; Lateral Access argues that habitual routes find only what they have found before. That is a counterweight, not a same-pattern-different-material.",
+  "evidence_source": "Pheromone Trail.md § Open Questions, second bullet",
+  "evidence_target": "Lateral Access.md (the habitual-route argument; the page never names Pheromone Trail)",
+  "_room": "folder-palace-development",
+  "_rooms": [
+   "folder-palace-development"
+  ],
+  "_convergence": 1
+ },
+ {
+  "source": "Tree of Thoughts",
+  "target": "Enchanted Worker",
+  "proposed_type": "connects-to",
+  "proposed_label": "thought-node-as-worker",
+  "kind": "retype",
+  "rationale": "enables says Enchanted Worker 'could not exist or be understood without' a 2023 paper; it did not. The page's own sentence is an analogy: 'an enchanted worker loaded with a specific neighborhood is an instantiated thought node'. Retype to a named connects-to, or cut. The sibling enables[grounds] to Palace Orchestrator is the same claim about a design that is 'not yet built' and the Orchestrator never names the paper; same retype, label 'branch-exploration-model'.",
+  "evidence_source": "Tree of Thoughts.md § Cross-Domain Resonance (Enchanted Worker)",
+  "evidence_target": "Enchanted Worker.md (no mention of tree search)",
+  "_room": "folder-palace-development",
+  "_rooms": [
+   "folder-palace-development"
+  ],
+  "_convergence": 1
+ },
+ {
+  "source": "Loudon Live Design System",
+  "target": "CHILD",
+  "proposed_type": "connects-to",
+  "proposed_label": "dress-rule-at-birth",
+  "kind": "newcomer",
+  "rationale": "CHILD is a priority newcomer. This page's § Which dress, and where the rule is written lists CHILD § Growing up first among four places the rule lives: 'before anything visual, read the design manifest'. The page names it and does not link it.",
+  "evidence_source": "Loudon Live Design System.md § Which dress, and where the rule is written, item 1",
+  "evidence_target": "CHILD.md § Growing up: 'Before anything visual, read the design manifest'",
+  "_room": "folder-palace-development",
+  "_rooms": [
+   "folder-palace-development"
+  ],
+  "_convergence": 1
+ },
+ {
+  "source": "Leibniz",
+  "target": "Spinoza",
+  "proposed_type": "contradicts",
+  "proposed_label": "one-substance-vs-windowless-monads",
+  "kind": "retype",
+  "rationale": "Today `connects-to` `rationalist-rival`. Both pages' own words make it a disagreement: Leibniz's tools line, 'Spinoza (one substance vs infinite monads)'; Leibniz's dossier calls it the marquee Dialectic. That is the definition of a productive contradiction, and it is the same register as Leibniz's other three `contradicts` edges. The label `rationalist-rival` names a social fact, not the content of the rival claim. Single edge stays on Leibniz's page.",
+  "evidence_source": "People/Leibniz.md:16 (agency_profile.tools); People/Leibniz/Leibniz — dossier.md:65",
+  "evidence_target": "People/Spinoza.md:16 (vector asks to be sent where a thing authors its nature, which is the monad's claim)",
+  "_room": "folder-people",
+  "_rooms": [
+   "folder-people"
+  ],
+  "_convergence": 1
+ }
+]

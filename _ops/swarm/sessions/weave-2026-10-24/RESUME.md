@@ -55,3 +55,10 @@ Write v2.0 (PLAN §3 A–K): card, Context paragraph, tuning items, worker templ
 - Done outside the branch: two task folders removed from `~/Documents/Claude/Scheduled/`; worktrees floor-child and floor-hilaritas removed; the map build had already been committed on main by the Daily Page landing `fb5a0c99`.
 - In flight: skeptic sets 01–08 + links (Opus; set-02 back: 37 PASS / 3 FAIL, all three FOUR PILLARS bridge labels → cuts); folder rooms ×8 (Sonnet); the face render (Sonnet, RunPod; writes Shop/Hero and Avatar Maker/prompts.json and the eight bundles); the entry-flag dispositions (Opus → `flag-dispositions.json`).
 - Next: when skeptics land → `apply.py` on the PASSed weak ops (labels/retypes/cuts) and the PASSed new links → commit Phase 2b → `label-harvest.py` (Step 3f) → Pile B (stages, vectors, Contexts, merges/compost, flag dispositions, nested canon, rich nominations) → Concierge cold read → Loudon's second sitting.
+
+## Checkpoint 2b — committed `ed04958f` (2026-10-24 ~23:50); the second sitting assembling
+- Phase 2b landed: 268 labels, 46 retypes, 166 cuts, 15 new links, 3 second folds. Health row after: 323/2492, 85% labelled, 47 bare, unsaid 785 (148 bare), 114 multi-link pairs (74 two-label, a judgment).
+- All 31 rooms in; `synthesis-data.json` holds 314 lighter-prose proposals, 376 open-question resolutions, 196 health flags, 78 memory needs, 7 merges, 154 coherence findings. `pile-b-hand.md` holds the hand-written Pile B sections (hubs, Contexts, rich nominations, label-type candidates, prose, questions, merges).
+- In flight: skeptic round 2 (4 sets: the folder rooms' 125 relation proposals; two-label pairs judged in set-04's second job); Contexts ×6 (3 Opus writers: Kuramoto, Spinoza Conatus, The Shop, Maker, Prism, STIGMERGY); the face render; the entry-flag dispositions.
+- The phantom proof page (page-rewrite preview) demoted to §8 frontmatter (flag 1792647280829; hygiene flag 1792765795657's builder fix is no longer needed for it).
+- Next: merge round 2 → apply passes (Pile A-2) → assemble checkpoint 2 (build-pile-b.py + pile-b-hand.md) → Concierge cold read → Loudon.

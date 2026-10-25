@@ -33,6 +33,8 @@ links:
 
 # How the Palace Commits
 
+![[How the Palace Commits — hero.png]]
+
 Every change reaches the palace the same way: made on a branch, committed through one door, landed on main, and published only on Loudon's word. The door keeps many writers from tangling, and the ear counts every move of main that went around it.
 
 ## The path

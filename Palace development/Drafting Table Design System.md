@@ -51,6 +51,8 @@ links:
 
 # Drafting Table Design System
 
+![[Drafting Table Design System — hero.png]]
+
 The dress for the work Loudon makes with his hands and ears: plugin faces, instrument panels, 3D parts, and the pages that document a build. It is the [[BBS Design System]]'s terminal grown up and moved onto the [[CAD Drafter]]'s sheet. The grammar stays: monospace everywhere, a hairline is the card, nothing is rounded unless it was turned on a lathe, every word is text you can grep. What changes is the ground and the mass. The sheet is paper by day and phosphor by night, and a control has a solid surface you could pick up.
 
 > Drawn, not rendered. Every surface is outlined in ink, every number says where it came from.

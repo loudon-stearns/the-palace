@@ -22,6 +22,8 @@ links:
 
 # Ableton Session Writer
 
+![[Ableton Session Writer — hero.png]]
+
 **Status: ALIVE** — marked alive on 2026-10-21 on Loudon's yes ("Yes, mark the Ableton Session Writer alive now that its first job is done"); drafted 2026-10-21 in the Shopkeeper's workshop by the ableton-session session of the 2026-10-20 fan-out, from one probe (`Shop/Shopkeeper/probes/2026-10-20-ableton-session/`). Loudon's words that commissioned it: "I would be interested for the projects that are creating plugins and sample libraries to hand me fully ready Ableton sessions so that all I need to do is open the Ableton session and the result of their work is there ready to play." First job done on 2026-10-21 at 07:43: Loudon opened it unchanged in his own Live 12 (a fresh launch; Live's log: "Restored: Frustration" at 07:43:18 on 2026-10-21), played the ride, and said "looks great and is working great!" The library Set is the next first job.
 
 ## Charter

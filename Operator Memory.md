@@ -24,6 +24,8 @@ forward_vector: "I say what the operator's memory folder is for here, so nothing
 
 # Operator Memory
 
+![[Operator Memory — hero.png]]
+
 Claude Code keeps a memory folder for Loudon's machine, and its index is read by every agent born here, after the World and CHILD, last on the floor. It is the one floor file written without Loudon's yes: an agent saves to it on its own. That is why it holds only three kinds of line.
 
 **Facts about this machine and this harness** that no page can hold: which Live is bound to the app-control tool, how a shim behaves, what a flag does in this version of Claude Code.
