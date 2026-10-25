@@ -166,3 +166,6 @@ The realization: All the audio shapes he's been chasing — organic envelopes, r
 - **Organic imprecision:** See [[Latent Error]] — sometimes a slightly-wrong solver (e.g., PID with overshoot) sounds more "alive" than the mathematically perfect solution.
 - **Force vs. mechanism:** Is the "force" in a DE a real physical force, or a mathematical abstraction? In circuits, it's real (voltage). In digital audio, it's a metaphor we use to reason about what the algorithm does.
 
+## Active Baton
+
+[[Differential Equations — baton]] — drafted 2026-10-25
