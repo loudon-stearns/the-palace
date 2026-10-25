@@ -117,8 +117,30 @@ One line for each decision a steward or a fresh Claude acts on. Each in full, wi
 - **Page-agent identity is the page's own title — no invented compound handles** (decided 2026-05-03).
 - **A steward's tuning ledger holds what running taught; what a cycle leaves rough stays on the trail, and Now shows what keeps recurring** (decided 2026-10-16).
 - **No steward edits the house without Loudon's eyes; what it would change waits in its tuning ledger** (decided 2026-10-18). The scroll's Plan and Standing Orders stay Loudon's.
-- **A steward leaves when its page ends; it never decides the end** (decided 2026-10-21; Loudon: "Yes to both recommendations. Run the leaving rite on Talking Keyboard."). A page set down to rest (`stage: dormant`, its Plan opening "Paused") keeps its steward: that is a pause, and the [[Revival Ceremony]] is its way back. The runtime, `_ops/agents/permanent/<slug>/`, is taken off `REGISTRY.json` and deleted. `node _ops/stigmergy/leave-stewardship.mjs "<page>"` reads what stands in the way and writes nothing; `--apply --why "<the end>" [--plan "<closing paragraph>"]` acts on Loudon's word (`_ops/stigmergy/orchestrator/src/leave.js`).
-- **The ledger review goes page by page: Loudon decides, an elder places, the ledger is settled after** (decided 2026-10-21). One card per page: `node _ops/stigmergy/list-proposals.mjs --page "<title>"` shows the section as the page reads now, then the proposed words, and why. An elder (the [[Concierge]], for a child session) places the yeses in one edit commit per page, read cold by someone who didn't write it before it lands. Each yes is then paid with that commit, in a second small commit (`node _ops/stigmergy/settle-proposal.mjs "<steward>" <n> --paid <commit>`); the commit must exist and change the page the item names. *Placing* is the rite's step: the words Loudon said yes to go into the page. *Landing* is git's: the commit reaches main.
+- **A steward leaves when its page ends; it never decides the end** (decided 2026-10-21; Loudon: "Yes to both recommendations. Run the leaving rite on Talking Keyboard."). A page set down to rest (`stage: dormant`, its Plan opening "Paused") keeps its steward: that is a pause, and the [[Revival Ceremony]] is its way back. The rite is below, in § The rites it keeps.
+- **The ledger review goes page by page: Loudon decides, an elder places, the ledger is settled after** (decided 2026-10-21). The rite is below, in § The rites it keeps.
+
+## The rites it keeps
+
+Two rites have no page of their own, and this page keeps them: how a steward leaves, and how its proposals for canon are reviewed. What each has done so far is in the Context.
+
+### Leaving stewardship
+
+A page has ended when it is finished (`status: complete` or `archived`) or composting. A folded page composts once its fold has crossed, by [[The Daily Page]]'s rule, so a fold arrives as composting. A page set down to rest (`stage: dormant`, its Plan opening "Paused") keeps its steward: that is a pause, and the [[Revival Ceremony]] is its way back.
+
+The rite settles six things. Each open ask Loudon answers on the deck with DENY and one line ("left stewardship: <why>"), and the rite won't close while any stays open; there is no new wire type. Owed proposals go through the ledger review first. The Plan gets a closing paragraph Loudon agrees, saying what became of each open move: carried to the page it folded into, let go, or kept for a revival; it is logged on the trail like any plan change. The scroll stays in the bundle and gets its last trail entry ("<date> — Left stewardship: <why>"); if the page later composts, the scroll goes with it, and git keeps both. The runtime, `_ops/agents/permanent/<slug>/`, is taken off `REGISTRY.json` and deleted. Git is its archive, as it is a caught baton's, and the commit that removed it is where a revival reads the history back. That runtime is the steward's baton, updated in place while the move went on ([[Baton Ceremony]] § Where the Baton Lives), so this is the moment its "never deleted" exception ends.
+
+A page that has ended takes no new steward while it stays ended: `enchant.js` refuses it, and the deck shows the refusal in plain words. `node _ops/stigmergy/leave-stewardship.mjs "<page>"` reads what stands in the way and writes nothing; `--apply --why "<the end>" [--plan "<closing paragraph>"]` acts on Loudon's word (`_ops/stigmergy/orchestrator/src/leave.js`).
+
+### The ledger review
+
+*Placing* is the rite's step: the words Loudon said yes to go into the page. *Landing* is git's: the commit reaches main.
+
+One card per page: `node _ops/stigmergy/list-proposals.mjs --page "<title>"` shows the section as the page reads now, then the proposed words, and why. Loudon says yes, adjust or no to each item. An elder (the [[Concierge]], for a child session) places the yeses in one edit commit per page, read cold by someone who didn't write it before it lands. Each yes is then paid with that commit, in a second small commit (`node _ops/stigmergy/settle-proposal.mjs "<steward>" <n> --paid <commit>`); the commit must exist and change the page the item names. Each no is declined with his one line (`--declined "<line>"`). A proposal that would mint a page (a new Specialist, "a new page") goes through the full [[Deposit Ceremony]] instead.
+
+This is the [[Deposit Ceremony]]'s one exception: the Deposit calls a change to what a page says a deposit, but here Loudon's yes to the exact words, read beside the section as it stands, does the gate's work, and the Deposit's step 8 still answers the steward by settling its ledger item. It is not a Harvest by name: a close reading in spirit, a map shown before any write, without the Harvest's record.
+
+For an urgent proposal, his answer to its ask on the deck decides what the review does. LAND-NOW is his yes to exactly the words the ask quotes, so the review places it first without asking again, and it is paid when it is placed, not when he clicked. DECLINE, or a deny, declines the item with his note; the review reads that answer from the board (`settle-proposal.mjs --from-board`), so the deck's live code doesn't change. REVIEW leaves it owed with the rest.
 
 ## What's Open
 

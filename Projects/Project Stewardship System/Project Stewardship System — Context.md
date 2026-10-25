@@ -193,7 +193,7 @@ The live frontier is no longer technical — it's **operational bandwidth**. The
 
 ## What's Decided, in full
 
-These came out of the text on 2026-10-25, word for word, when it was trimmed to lead with the partnership; the text keeps each decision in one line and points here. They speak in the present tense of that day, and their "above" and "below" are the text's. The posture table the text carried beside them is the last part of this section; its canonical home is [[Substrate Skill]] § Stage as Alignment Confidence.
+These came out of the text on 2026-10-25, word for word, when it was trimmed to lead with the partnership; the text keeps each decision in one line and points here, and keeps the two rites whole in its § The rites it keeps. They speak in the present tense of that day, and their "above" and "below" are the text's. The posture table the text carried beside them is the last part of this section; its canonical home is [[Substrate Skill]] § Stage as Alignment Confidence.
 
 - **Architecture piggybacks on the existing board and permanent-agent stack.** No new substrate; the wire is [[SCHEMA — Reference]] §9 and the executor [[Palace Orchestrator]].
 - **The Machinery/Content Split governs where stewardship state lives** (see the section above). Engine → `_ops`; per-entry content → the bundle. `[Entry] — scroll.md` is the work-state front door and holds the agreed Plan; the board stays the append-only log. The orchestrator materializes the scroll from what the steward posts; the steward reads the scroll's Standing Orders, Plan and Now, writes none of them, and proposes a change to the path as a `plan_revision` ask carrying its evidence.
