@@ -41,7 +41,7 @@ _Not yet rendered. The project was born 2026-10-24 and has no steward; this zone
 - **Session and arrangement both.** A stack Set holds its scenes as Session slots and, the same clips laid along the Arrangement as sections, a locator naming each. (Loudon, 2026-10-24.)
 - **Clip gain is 0 dB.** Every clip the forge writes comes in at unity; level lives on the track fader and, in a rack, on the pad. (Loudon, 2026-10-24, after the cloned clip shell brought +3.1 dB in and distorted.)
 - **Level by grounds.** Splice sounds come in loud; start every Set from three grounds, 4 dB apart. Foreground −4 dB: drums and bass. Middleground −8 dB: vocals and leads. Background −12 dB: percussion, pads, strings. A rough starting point for a mix, not the mix. (Loudon, 2026-10-24.)
-- **Drums inside a rack** (proposed 2026-10-24, awaiting Loudon's yes; the builder uses it meanwhile): kick 0 dB as the reference; 808 and sub −2; snare −2; clap −4; tom −4; rim, snap, stick −6; shaker, perc, conga −6; closed and open hats −8; fx −8; ride, crash, cymbal −10; anything unnamed −4. The rack's track then sits in the foreground at −4. A pad's own `db` in the recipe overrides.
+- **Drums inside a rack.** kick 0 dB as the reference; 808 and sub −2; snare −2; clap −4; tom −4; rim, snap, stick −6; shaker, perc, conga −6; closed and open hats −8; fx −8; ride, crash, cymbal −10; anything unnamed −4. The rack's track then sits in the foreground at −4. A pad's own `db` in the recipe overrides. (Proposed by the forge and adopted by Loudon, 2026-10-24: "very close to what I would propose".)
 - **Prove structure, hear sound.** A Set is done when it opens and `check` is clean. Whether it sounds right is Loudon's ear; never say a Set sounds right.
 <!-- scroll:orders:end -->
 
