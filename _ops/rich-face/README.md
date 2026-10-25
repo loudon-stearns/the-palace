@@ -40,6 +40,7 @@ Any entry opens. `&review=0` hides the review layer.
 | `pin-cdn.mjs` | the shelf's one writer: `--add <url>` puts a library on it; given pages, it pins their CDN tags to the shelf (url, `integrity`, `crossorigin`). It shows a diff and a digest first, and `--write <digest>` writes only that, only to files unchanged since |
 | `untracked.mjs` | every file a face names that git doesn't track, with the step that tracks it (§ Media a face plays). The checker's `file-local` carries the same steps |
 | `check-kuramoto-pieces.mjs` | re-checks the physics claims of Kuramoto's pieces headless, on their own worklet code |
+| `check-hidden-hush.mjs` | re-checks, in headless Chromium, that a playing piece goes quiet when its page is hidden and stays quiet when it comes back: in Kuramoto's face, framed by a page that sends nothing, and alone |
 | `kit/` | the piece kit (`piece.js`) and the one function every server injects it through (`inject.mjs`) |
 | `serve-file.mjs` | sends one file: its type, byte ranges, and a web page as a piece with the kit injected. The handler and the piece origin both send files through it. |
 | `grants.json` | what Loudon has let a piece use: camera, microphone, midi, hosts. One line per piece, written only on his yes. |
@@ -183,6 +184,8 @@ palace writes runs there: every piece runs on the **piece origin**.
   - reports the piece's height;
   - posts `rich:play` when a sound the reader asked for starts;
   - on `rich:hush`, suspends the piece's audio and pauses its media until the next touch;
+  - when the page goes hidden, does the same itself, framed or alone, whatever the page around it sends
+    (§ Making pieces, "A hidden page says nothing");
   - posts `rich:error` for the first three script errors;
   - keeps each piece's storage under its own prefix, its path, since every piece shares one origin. A piece
     with no origin keeps storage in memory, and the figure says it won't keep;
@@ -237,6 +240,15 @@ palace writes runs there: every piece runs on the **piece origin**.
 - **One voice at a time, by the kit.** It hears an `AudioContext` start (Tone.js's own included) or an
   `<audio>`/`<video>` start after a click, and tells the page, which hushes every other video, strip
   and piece. A piece that answers `rich:hush` itself is left to it.
+- **A hidden page says nothing.** When the page goes hidden, the page hushes every strip, video,
+  piece and its room tone, and each piece's kit hushes the piece itself too, so a piece is quiet on a
+  hidden tab in the face, in the deck, or opened alone. Here the kit does not leave a piece to itself:
+  a piece that answers `rich:hush` hears one, and then every context still running is suspended and
+  every media element paused, an `Audio()` never put in the page included. It is a cut, not a fade,
+  since a hidden page gets no animation frames and slow timers, and nothing starts again when the page
+  comes back: the next touch on a piece wakes its audio, as after any hush, and the room tone waits for
+  its button. A piece needs no `visibilitychange` handler of its own.
+  `node _ops/rich-face/check-hidden-hush.mjs` re-checks it.
 - **The camera starts on a click.** Call `RichPiece.camera()`, or `getUserMedia`, from a click handler.
   If a piece asks before any click, the kit holds the request behind a "start the camera" button. One
   piece holds a camera or microphone at a time: when one starts, the page (or the deck) stops every other

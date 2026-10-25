@@ -14,6 +14,12 @@
 //   hush   — on {type:'rich:hush'} from the page, suspends the piece's audio
 //            and pauses its media; the next touch on the piece brings its audio
 //            back. A piece that answers rich:hush itself is left to it.
+//   hidden — when the page goes hidden, the kit hushes the piece itself,
+//            framed or alone, whatever the page around it does: a piece that
+//            answers rich:hush hears one, and every context still running is
+//            suspended and all media paused all the same. A cut, not a fade (a
+//            hidden page gets no frames to fade on), and nothing comes back
+//            when the page does; the next touch wakes it, as after any hush.
 //   errors — posts {type:'rich:error'} for its first three script errors.
 //   storage — localStorage and sessionStorage keep each piece's keys under its
 //            own prefix (its path), since every piece on the piece origin shares
@@ -148,18 +154,38 @@
     }
   }
   document.addEventListener('play', played, true); // <audio>/<video>: 'play' does not bubble, so catch it on the way down
+  // An Audio() never put in the page plays all the same, out of the document's
+  // reach: keep every element that starts, so a hush finds it.
+  var started = [];
+  var Media = window.HTMLMediaElement;
+  if (Media && Media.prototype.play) {
+    var mediaPlay = Media.prototype.play;
+    Media.prototype.play = function () { if (started.indexOf(this) === -1) started.push(this); return mediaPlay.apply(this, arguments); };
+  }
 
-  function hush() {
-    quietDevices();
-    if (speaks('rich:hush')) return;
+  function quiet() {
     lastPlay = 0; // quieted: the next start is news, however soon it comes
     for (var i = 0; i < contexts.length; i++) {
       var c = contexts[i];
       if (c.state === 'running') { c.suspend(); if (quieted.indexOf(c) === -1) quieted.push(c); }
     }
-    var media = document.querySelectorAll('audio, video');
+    var media = [].slice.call(document.querySelectorAll('audio, video')).concat(started);
     for (var j = 0; j < media.length; j++) if (!media[j].paused) media[j].pause();
   }
+  function hush() {
+    quietDevices();
+    if (speaks('rich:hush')) return;
+    quiet();
+  }
+  // Hidden, nobody is listening on purpose. The piece's own hush runs first, so
+  // its controls agree; then the kit quiets what is left, since a piece's stop
+  // may fade on timers a hidden page slows to a crawl.
+  document.addEventListener('visibilitychange', function () {
+    if (!document.hidden) return;
+    quietDevices();
+    if (speaks('rich:hush')) { try { window.dispatchEvent(new MessageEvent('message', { data: { type: 'rich:hush' } })); } catch (e) { /* no MessageEvent here: the kit's quiet still holds */ } }
+    quiet();
+  });
   window.addEventListener('message', function (e) {
     if (e.source !== window.parent || !e.data) return;
     if (e.data.type === 'rich:hush') hush();
