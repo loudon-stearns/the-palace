@@ -146,7 +146,7 @@ The demo is designed for teaching: it shows *what is happening* (partials moving
 
 **Pedagogical design choice:** The fixed harmonic positions make it immediately clear that inharmonicity is a *deviation from* the harmonic series, not an independent phenomenon. The partials chase the gray circles but never catch them.
 
-The demo uses [[Logarithmic Interface Scaling]] for the bend slider, making tension changes feel symmetric around the unbent state.
+The bend slider is linear in tension, 1.0 to 2.0; [[Logarithmic Interface Scaling]] would make it feel symmetric around the unbent state, and is not yet applied.
 
 ## Cross-Domain Resonance
 
@@ -162,9 +162,9 @@ Inharmonicity creates a frequency-domain pattern (stretched partials) that corre
 
 ## Artifacts
 
-**[string_bending_inharmonicity.jsx](Piano%20String%20Inharmonicity/string_bending_inharmonicity.jsx)** *(legacy — does not render natively in Obsidian)* — Interactive string bending demonstration as a React/JSX component, ~14KB. Functional in a JSX-aware environment but predates the palace's established HTML interactive convention. *(A duplicate copy `string_bending_inharmonicity 1.jsx` from an Obsidian sync also exists in the same folder; both are identical.)*
+**[string_bending_inharmonicity.jsx](Piano%20String%20Inharmonicity/string_bending_inharmonicity.jsx)** *(legacy — does not render natively in Obsidian)* — Interactive string bending demonstration as a React/JSX component, ~14KB. Functional in a JSX-aware environment but predates the palace's established HTML interactive convention. It stays as the record of the original; the demo now runs as [string-bending-inharmonicity.html](Piano%20String%20Inharmonicity/string-bending-inharmonicity.html).
 
-**Migration target — pending:** Single-file HTML following the **Action Potential Oscillator pattern** (`Action Potential Oscillator/neuron_oscillator.html`) — self-contained, no build step, runs offline, with the canonical CSS variable `:root` block and the Source Serif 4 / JetBrains Mono / DM Sans font stack. Convention deployed across at least six projects (Action Potential Oscillator, Crystal Synthesizer, Shepard Tone Synthesizer, Floquet Time-Modulated Loops, Quantum Synthesizer, Portamento Physical Modeling) and documented in [[Floquet Time-Modulated Loops]]. Target path when migrated: `Piano String Inharmonicity/string-bending-inharmonicity.html`.
+**Migrated (2026-10-25, ca39ebdd):** Single-file HTML following the **Action Potential Oscillator pattern** (`Action Potential Oscillator/neuron_oscillator.html`) — self-contained, no build step, runs offline, with the canonical CSS variable `:root` block and the Source Serif 4 / JetBrains Mono / DM Sans font stack. Convention deployed across at least six projects (Action Potential Oscillator, Crystal Synthesizer, Shepard Tone Synthesizer, Floquet Time-Modulated Loops, Quantum Synthesizer, Portamento Physical Modeling) and documented in [[Floquet Time-Modulated Loops]]. It lives at `Piano String Inharmonicity/string-bending-inharmonicity.html`.
 
 ## Open Questions & Budding Branches
 
