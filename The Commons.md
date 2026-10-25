@@ -53,7 +53,3 @@ Loudon's call (2026-07-02): **stay on RunPod and push it hard for a few weeks**,
 ## Origin
 
 Grew out of the tactical RunPod fix (per-agent slugs across the pod orchestrators) when it became clear the same five obligations recur for every outside service. The specific machinery lives in `_ops/commons/`; the RunPod story and playbook are in [[RunPod GPU Backend]]. It measures itself the palace way — by whether agents cooperate without watching each other, not by output volume ([[Cooperation Yields Agency]]).
-
-## Active Baton
-
-[[The Commons — baton]] — drafted 2026-10-25
