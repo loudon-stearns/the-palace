@@ -189,6 +189,10 @@ function hushAll(except) {
   document.querySelectorAll('iframe').forEach((f) => { if (f.contentWindow !== except) tell(f, { type: 'rich:hush' }); });
 }
 document.addEventListener('rich:play', (e) => hushAll(e.detail));
+// A page nobody can see says nothing: hidden, every strip, video and piece is
+// hushed (each piece's kit hushes it too, on its own), and nothing starts again
+// when the page comes back.
+document.addEventListener('visibilitychange', () => { if (document.hidden) hushAll(); });
 // The caps a frame holds a piece to, each named on the figure when it bites.
 const CAP = { min: 120, max: 8000 };
 const PIECE_HEIGHT = 800;
@@ -519,6 +523,13 @@ function mountBed() {
     btn.setAttribute('aria-pressed', on); btn.textContent = on ? 'room tone ❚❚' : 'room tone ▸';
     if (on) { a.play(); fade(target); } else fade(0);
   };
+  // Hidden, the bed stops at once and stays off: its fade runs on frames a
+  // hidden page doesn't get.
+  document.addEventListener('visibilitychange', () => {
+    if (!document.hidden || btn.getAttribute('aria-pressed') !== 'true') return;
+    cancelAnimationFrame(raf); a.pause(); a.volume = 0;
+    btn.setAttribute('aria-pressed', false); btn.textContent = 'room tone ▸';
+  });
 }
 
 // ── live: re-read the text every few seconds ──
