@@ -1,0 +1,1065 @@
+<!doctype html>
+<!--
+  title: The Shadow That Locks — a learning sequence
+  born: 2026-10-25
+  parent: [[Dissolutions]] · leads up to ../2026-10-20-the-shadow-that-locks/the-shadow-that-locks.html · tests [[Phase Reduction]]
+  forward_vector: I am the way up to the shadow that locks. I take one oscillator and its loop, a kick and when it lands, the same curve read off the loop itself, two oscillators that lock, why their pitch climbs, and the phase-only shadow, one step each, so that the proof makes sense the first time it is played, and so the pitch that climbs at strong coupling is heard as the spring it is, not an error.
+  outline: the loop alone, the kick alone (the PRC by experiment), the PRC from the loop (Floquet), two joined (locking), the spring (why the pitch climbs, from Loudon's note of 2026-10-25), the phase-only shadow against the pair, then the proof.
+  sound: nothing plays until a Play button is clicked; the AudioContext is made on that click.
+-->
+<html lang="en" class="skin-graphite">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Shadow That Locks · learning sequence</title>
+<style>
+  :root{
+    --bg:#0a0a0f; --bg-elev-1:#12121a; --bg-elev-2:#1a1a28; --border:#4a4a5e; --border-soft:rgba(255,255,255,0.06);
+    --fg-1:#e8e8f0; --fg-2:#c8c8d8; --fg-3:#8a8aa0; --fg-4:#4a4a5a;
+    --accent:#e8b84a; --accent-dim:#7a6030; --accent-soft:rgba(232,184,74,0.10); --accent-line:rgba(232,184,74,0.5);
+    --info:#4a8fff;
+    --serif:'Cormorant Garamond','Source Serif 4',Georgia,serif; --sans:'Manrope',system-ui,sans-serif;
+    --display:'Anton','Bebas Neue',Impact,sans-serif; --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--fg-1)}
+  body{font-family:var(--serif);font-size:17px;line-height:1.75;padding:40px 16px 64px}
+  main{max-width:960px;margin:0 auto}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--fg-3)}
+  h1{font-family:var(--display);font-weight:400;font-size:52px;line-height:1.05;margin:6px 0 10px}
+  h2{font-family:var(--display);font-weight:400;font-size:32px;line-height:1.1;margin:4px 0 8px;letter-spacing:.01em}
+  p.lead{font-size:20px;color:var(--fg-2);margin:0 0 22px;max-width:64ch}
+  .rail{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 18px}
+  .rail button{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-3);background:transparent;border:1px solid var(--border);border-radius:4px;padding:7px 11px;cursor:pointer;transition:all .18s cubic-bezier(.4,0,.2,1)}
+  .rail button[aria-current="step"]{color:var(--fg-1);border-color:var(--fg-3);background:var(--bg-elev-2)}
+  .rail button.seen{color:var(--fg-2)}
+  .step p.say{color:var(--fg-2);margin:0 0 14px;max-width:68ch}
+  .panel{background:var(--bg-elev-1);border:1px solid var(--border-soft);border-radius:8px;padding:18px;margin:0 0 16px}
+  .tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;align-items:center}
+  .tabs .eyebrow{margin-right:4px}
+  .tab{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-3);background:transparent;border:1px solid var(--border);border-radius:4px;padding:8px 14px;cursor:pointer;transition:all .18s cubic-bezier(.4,0,.2,1)}
+  .tab[aria-pressed="true"]{color:var(--fg-1);border-color:var(--fg-3);background:var(--bg-elev-2)}
+  button.play{font-family:var(--sans);font-weight:500;font-size:14px;color:#0a0a0f;background:var(--accent);border:0;border-radius:4px;padding:9px 20px;cursor:pointer;margin-left:auto;transition:all .18s cubic-bezier(.4,0,.2,1)}
+  button.play:hover{box-shadow:0 0 24px var(--accent-soft)}
+  canvas.stage{width:100%;display:block;background:var(--bg-elev-2);border-radius:6px}
+  .legend{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px 18px;margin-top:12px;font-family:var(--sans);font-size:13px;color:var(--fg-3);line-height:1.5}
+  .legend b{font-family:var(--mono);font-weight:400;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-2);display:block}
+  .ctl{display:grid;grid-template-columns:120px 1fr auto;gap:6px 14px;align-items:center;margin-top:14px}
+  .ctl label{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-3)}
+  .ctl input[type=range]{width:100%;accent-color:var(--accent)}
+  .ctl .v{font-family:var(--mono);font-size:14px;color:var(--fg-1);text-align:right;white-space:nowrap}
+  .hear{font-family:var(--sans);font-size:13px;color:var(--fg-3);margin-top:10px}
+  .hear b{color:var(--accent);font-weight:500}
+  .meter{font-family:var(--mono);font-size:13px;color:var(--fg-1);margin-top:10px;line-height:1.7}
+  .meter b{color:var(--accent);font-weight:400}
+  .toggle{font-family:var(--sans);font-size:13px;color:var(--fg-2);background:transparent;border:1px solid var(--border);border-radius:4px;padding:6px 12px;cursor:pointer}
+  .toggle[aria-pressed="true"]{color:var(--accent);border-color:var(--accent-line);background:var(--accent-soft)}
+  .eq{font-family:var(--mono);font-size:13px;color:var(--fg-1);margin:14px 0 0;overflow-wrap:anywhere;white-space:pre-wrap}
+  .eq.words{color:var(--fg-3);font-size:12px;margin-top:2px}
+  .try{margin:14px 0 0;padding:12px 16px;border-left:2px solid var(--accent-dim);background:var(--bg-elev-1);font-family:var(--sans);font-size:14px;color:var(--fg-2);line-height:1.6}
+  .try .eyebrow{color:var(--accent);display:block;margin-bottom:2px}
+  textarea{width:100%;margin-top:10px;min-height:54px;font-family:var(--sans);font-size:14px;color:var(--fg-1);background:var(--bg-elev-2);border:1px solid var(--border-soft);border-radius:4px;padding:8px 10px;resize:vertical}
+  textarea::placeholder{color:var(--fg-4)}
+  .rowb{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:10px}
+  button.ghost{font-family:var(--sans);font-size:14px;color:var(--fg-2);background:transparent;border:1px solid var(--border);border-radius:4px;padding:8px 14px;cursor:pointer}
+  button.ghost.small{font-size:13px;padding:5px 10px}
+  button.ghost[aria-pressed="true"]{color:var(--fg-1);border-color:var(--fg-3);background:var(--bg-elev-2)}
+  button.ghost:disabled{opacity:.35;cursor:default}
+  .hint{font-family:var(--sans);font-size:13px;color:var(--fg-3)}
+  .walk{display:flex;justify-content:space-between;gap:10px;margin-top:22px}
+  .gathered{margin:0;padding:0 0 0 18px;color:var(--fg-2)}
+  .gathered li{margin:4px 0}
+  a.proof-link{display:inline-block;font-family:var(--sans);font-weight:500;font-size:15px;color:#0a0a0f;background:var(--accent);border-radius:4px;padding:11px 22px;text-decoration:none;margin-top:14px}
+  a.proof-link:hover{box-shadow:0 0 24px var(--accent-soft)}
+  footer{margin-top:36px;font-family:var(--sans);font-size:13px;color:var(--fg-4)}
+  footer b{font-family:var(--display);font-weight:400;letter-spacing:.06em;color:var(--fg-3)}
+  footer a{color:var(--fg-3)}
+  @media (max-width:520px){h1{font-size:40px}h2{font-size:26px}.ctl{grid-template-columns:90px 1fr auto}}
+</style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">Dissolutions · learning sequence · Phase Reduction</div>
+  <h1>The shadow that locks, step by step</h1>
+  <p class="lead">Six short steps up to the proof. One oscillator and the loop it keeps falling back onto, a kick and when it lands, the same curve read off the loop itself, two oscillators that lock, why their pitch climbs, and the phase-only shadow. Each step has one thing to hear or see. Nothing plays until you press Play.</p>
+
+  <nav class="rail" aria-label="Steps"></nav>
+
+  <!-- ───────────── step 1 ───────────── -->
+  <section class="step" data-step="0" data-title="The loop">
+    <div class="eyebrow">Step 1 of 7 · one oscillator alone</div>
+    <h2>An oscillator that keeps its own shape</h2>
+    <p class="say">Here is one oscillator, the van der Pol: a position x, a speed y, and a rule that pushes them round. Start it anywhere and it falls onto the same closed loop, the gold one, and goes round it for good. Where it is on the loop is its phase, θ: one number. What you hear is x, going round 220 times a second.</p>
+    <div class="panel">
+      <div class="tabs"><span class="eyebrow">Hear</span><span class="hint">x, on the loop, at 220 Hz</span><button class="play" data-play>Play</button></div>
+      <canvas class="stage" data-aspect="0.5"></canvas>
+      <div class="legend">
+        <div><b>Left · the loop</b>x across, y up. Gold: the loop. Blue dots: three starts, one inside and two outside, slowed down a few hundred times, falling onto it. The ring rides the loop: its place is the phase.</div>
+        <div><b>Right · what comes out</b>x across three trips round the loop. That is the waveform you hear.</div>
+      </div>
+      <div class="rowb"><span class="eyebrow">the loop</span>
+        <button class="ghost small" data-s1mu="0.3" aria-pressed="false">Gentle, μ 0.3</button>
+        <button class="ghost small" data-s1mu="1" aria-pressed="true">Van der Pol, μ 1</button>
+        <button class="ghost small" data-s1mu="3" aria-pressed="false">Relaxation, μ 3</button>
+      </div>
+      <div class="meter" id="s1m"></div>
+      <div class="eq">x′ = y          y′ = μ × (1 − x²) × y − x</div>
+      <div class="eq words">(how the position changes) = (the speed)  ·  (how the speed changes) = (the loop’s shape) × (1 − (position)²) × (speed) − (position)</div>
+      <p class="hint" style="margin-top:12px">Keep an eye on the last term, − x. It is a spring: it pulls the position back toward the middle, harder the farther out it is. It comes back in step 5.</p>
+    </div>
+    <div class="try"><span class="eyebrow">Try</span>Switch the loop. The gentle one is nearly a circle and sounds nearly pure; the relaxation loop is a lopsided box and buzzes. Watch the blue dots each time: wherever they start, they end on the gold line.</div>
+    <textarea data-note placeholder="What your ear and eye say about the loop"></textarea>
+  </section>
+
+  <!-- ───────────── step 2 ───────────── -->
+  <section class="step" data-step="1" data-title="A kick" hidden>
+    <div class="eyebrow">Step 2 of 7 · a kick alone</div>
+    <h2>Kick it, and it comes back early or late</h2>
+    <p class="say">Now kick it: add a little to its speed at one moment. The loop pulls it back on, but not to where it would have been. It comes back a little ahead or a little behind, and stays that way, because nothing along the loop pulls it back. How far, against when in the cycle the kick lands, is the phase response curve: the PRC.</p>
+    <div class="panel">
+      <div class="tabs" role="group" aria-label="What you hear"><span class="eyebrow">Hear</span>
+        <button class="tab" data-s2door="plain" aria-pressed="false">Untouched</button>
+        <button class="tab" data-s2door="kick" aria-pressed="false">Kicked every cycle</button>
+        <button class="tab" data-s2door="both" aria-pressed="true">Both together</button>
+        <button class="play" data-play>Play</button></div>
+      <canvas class="stage" data-aspect="0.5"></canvas>
+      <div class="legend">
+        <div><b>Left · the loop</b>The gold arrow is the kick, straight up in y, at the phase you choose. Phase 0 is the right-hand edge, where y falls through zero.</div>
+        <div><b>Right · the PRC</b>Blue dots: kick it by 0.01 at each phase, let it settle, and measure how far ahead (up) or behind (down) it ends, per unit of kick. The line marks your phase.</div>
+      </div>
+      <div class="ctl"><label for="s2p">kick lands at</label><input id="s2p" type="range" min="0" max="360" step="1" value="200"><span class="v" id="s2pv"></span></div>
+      <div class="hear" id="s2h"></div>
+      <div class="meter" id="s2m"></div>
+      <div class="eq">Δθ = Z(θ) × Δy          f_kicked ÷ f = 1 ÷ (1 − Z(θ) × Δy ÷ 2π)</div>
+      <div class="eq words">(how far ahead it ends up) = (the PRC at the phase of the kick) × (the size of the kick)  ·  (kicked pitch) ÷ (pitch) = 1 ÷ (1 − (what each kick gains) ÷ (one whole cycle))</div>
+      <p class="hint" style="margin-top:12px">One kick only moves the phase, which the ear can’t hear on its own. So the sound kicks it by 0.3 once every cycle, at the same phase. Each kick gains the same bit, and the gains add up to a change of pitch.</p>
+    </div>
+    <div class="try"><span class="eyebrow">Try</span>Play both together and slide the kick round the loop. Where the curve sits above the line the kicked one runs sharp and the two beat against each other; near where it crosses zero the beating slows almost to nothing; below it, the kicked one runs flat.</div>
+    <textarea data-note placeholder="What your ear and eye say about the kick"></textarea>
+  </section>
+
+  <!-- ───────────── step 3 ───────────── -->
+  <section class="step" data-step="2" data-title="The curve from the loop" hidden>
+    <div class="eyebrow">Step 3 of 7 · the PRC without kicking</div>
+    <h2>The same curve, read off the loop itself</h2>
+    <p class="say">You can get the PRC without kicking at all. Follow one trip round the loop and watch what it does to every small nudge: across the loop a nudge shrinks, and along the loop it comes back exactly the size it left, a multiplier of 1. Read the direction that goes with that 1, its left eigenvector, at each phase, and you have the PRC. That is Floquet theory, and the proof’s first claim: the gold line and the blue dots are one curve.</p>
+    <div class="panel">
+      <div class="tabs"><span class="eyebrow">See</span><span class="hint">this step is a picture; the sound comes back in step 4</span></div>
+      <canvas class="stage" data-aspect="0.42"></canvas>
+      <div class="legend">
+        <div><b>Gold line · from the loop</b>The left eigenvector of one trip round the loop, at 64 phases, scaled so the loop’s own motion counts as one cycle per trip.</div>
+        <div><b>Blue dots · from kicks</b>Kick it at 16 phases by the size you pick, let it settle for eight trips, and measure the shift per unit of kick.</div>
+      </div>
+      <div class="rowb"><span class="eyebrow">the loop</span>
+        <button class="ghost small" data-s3mu="0.3" aria-pressed="false">Gentle, μ 0.3</button>
+        <button class="ghost small" data-s3mu="1" aria-pressed="true">Van der Pol, μ 1</button>
+        <button class="ghost small" data-s3mu="3" aria-pressed="false">Relaxation, μ 3</button>
+      </div>
+      <div class="rowb"><span class="eyebrow">kick size</span>
+        <button class="ghost small" data-s3k="0.1" aria-pressed="true">0.1</button>
+        <button class="ghost small" data-s3k="0.03" aria-pressed="false">0.03</button>
+        <button class="ghost small" data-s3k="0.01" aria-pressed="false">0.01</button>
+      </div>
+      <div class="meter" id="s3m"></div>
+      <div class="eq">Z(θ) × M(θ) = Z(θ)          Z(θ) × F(γ(θ)) = 2π ÷ T</div>
+      <div class="eq words">(the PRC at a phase) × (one trip round the loop from there) = (the PRC)  ·  (the PRC) × (the loop’s own motion there) = (one whole cycle) ÷ (the time one trip takes)</div>
+      <p class="hint" style="margin-top:12px">The gap shrinks as the kick does. The curve describes small kicks; a big one knocks the oscillator far enough off the loop that the curve is no longer the whole story.</p>
+    </div>
+    <div class="try"><span class="eyebrow">Try</span>Set the kick to 0.1, then 0.03, then 0.01, and watch the dots close onto the gold line. Then switch the loop. The curve changes shape with it: the shape of the loop designs the PRC.</div>
+    <textarea data-note placeholder="What your eye says about the two curves"></textarea>
+  </section>
+
+  <!-- ───────────── step 4 ───────────── -->
+  <section class="step" data-step="3" data-title="Two, joined" hidden>
+    <div class="eyebrow">Step 4 of 7 · two oscillators, coupled</div>
+    <h2>Two oscillators, joined, lock together</h2>
+    <p class="say">Now two of them, the second tuned a little sharp, and join them: each one’s speed gets a nudge of ε times the gap between their positions. With no coupling the gap between their phases slides round and round, and they drift. Give them a little and the gap stops sliding: they lock. On this loop they lock far apart, heading toward opposite as the coupling grows, one near the top of its swing while the other is near the bottom.</p>
+    <div class="panel">
+      <div class="tabs" role="group" aria-label="What you hear"><span class="eyebrow">Hear</span>
+        <button class="tab" data-s4door="ears" aria-pressed="true">One in each ear</button>
+        <button class="tab" data-s4door="mid" aria-pressed="false">Both in the middle</button>
+        <button class="play" data-play>Play</button></div>
+      <canvas class="stage" data-aspect="0.5"></canvas>
+      <div class="legend">
+        <div><b>Left · the loop</b>Both oscillators on it, slowed: blue is the first, white the second.</div>
+        <div><b>Right · the gap</b>ψ = θ₂ − θ₁, once a cycle for eighty cycles, time falling downward. A slanting trail means drifting; a vertical line means locked. The two edges, −180° and +180°, are the same place: exactly opposite.</div>
+      </div>
+      <div class="ctl">
+        <label for="s4e">coupling ε</label><input id="s4e" type="range" min="0" max="0.1" step="0.002" value="0.04"><span class="v" id="s4ev"></span>
+        <label for="s4d">detuning</label><input id="s4d" type="range" min="-0.05" max="0.05" step="0.002" value="0.006"><span class="v" id="s4dv"></span>
+      </div>
+      <div class="hear" id="s4h"></div>
+      <div class="meter" id="s4m"></div>
+      <div class="eq">y₁′ = μ × (1 − x₁²) × y₁ − x₁ + ε × (x₂ − x₁)          ψ = θ₂ − θ₁</div>
+      <div class="eq words">(how the first one’s speed changes) = (its own rule) + (coupling) × ((the other’s position) − (its own))  ·  (the gap) = (the second’s phase) − (the first’s phase)</div>
+    </div>
+    <div class="try"><span class="eyebrow">Try</span>Start at no coupling, both in the middle, and hear the slow swell as they slide past each other. Raise the coupling until the trail stands up straight: locked far apart, the two partly cancel and it gets quieter. Push the detuning out until it slants again: too far apart for this much coupling. Keep half an ear on the pitch, too. It moves. That is the next step.</div>
+    <textarea data-note placeholder="What your ear and eye say about the pair"></textarea>
+  </section>
+
+  <!-- ───────────── step 5 ───────────── -->
+  <section class="step" data-step="4" data-title="The spring" hidden>
+    <div class="eyebrow">Step 5 of 7 · why the pitch climbs</div>
+    <h2>The coupling is a spring, and it stiffens the swing</h2>
+    <p class="say">The coupling pulls each one toward the other’s position, ε times the distance between them: a spring between the two. Locked nearly opposite, they are always far apart, so the spring is always stretched, and it always pulls each one back toward the middle, the same way as its own − x. A stiffer pull back means a faster swing, so the pitch rises. It is the higher mode of two pendulums joined by a spring, and it is not an error.</p>
+    <div class="panel">
+      <div class="tabs" role="group" aria-label="What you hear"><span class="eyebrow">Hear</span>
+        <button class="tab" data-s5door="alone" aria-pressed="false">One alone</button>
+        <button class="tab" data-s5door="pair" aria-pressed="true">The coupled pair</button>
+        <button class="play" data-play>Play</button></div>
+      <canvas class="stage" data-aspect="0.5"></canvas>
+      <div class="legend">
+        <div><b>Left · pitch against coupling</b>Blue dots: the pair’s pitch, measured once it has locked. Dashed: the spring’s count for a round swing. White cross: where you are.</div>
+        <div><b>Right · the spring</b>Each oscillator’s position x as a ball on its own track, slowed, with the spring between them. Gold when stretched. Opposite, it stretches on every swing; in step, it stays slack.</div>
+      </div>
+      <div class="ctl"><label for="s5e">coupling ε</label><input id="s5e" type="range" min="0" max="0.5" step="0.005" value="0.2"><span class="v" id="s5ev"></span></div>
+      <div class="rowb"><button class="toggle" id="s5in" aria-pressed="false">Start them together, no detuning</button><span class="hint">Then nothing ever pulls them apart, and the spring never stretches.</span></div>
+      <div class="hear" id="s5h"></div>
+      <div class="meter" id="s5m"></div>
+      <div class="eq">ε × (x₂ − x₁) ≈ −2 × ε × x₁  when x₂ ≈ −x₁          f ÷ f₀ ≈ √(1 + ε × (1 − cos ψ))</div>
+      <div class="eq words">(the spring’s pull on the first) = (coupling) × ((the other’s position) − (its own)) ≈ −2 × (coupling) × (its own position), when the two are opposite  ·  (new pitch) ÷ (old pitch) ≈ √(1 + (coupling) × (1 − cos (the gap)))</div>
+      <p class="hint" style="margin-top:12px">The count treats each swing as a circle, which the van der Pol loop is not, so here it lands a few points under the measured pitch. On the gentle loop, which is nearly round, it lands within a point of it at every coupling from 0.1 to 0.5.</p>
+    </div>
+    <div class="try"><span class="eyebrow">Try</span>Play the pair and pull the coupling from 0 up to 0.5: the pitch climbs more than six semitones. Flip to one alone to hear where it started. Then start them together and play again: the spring goes slack, and the pitch comes home.</div>
+    <textarea data-note placeholder="Does the spring explain what you heard?"></textarea>
+  </section>
+
+  <!-- ───────────── step 6 ───────────── -->
+  <section class="step" data-step="5" data-title="The shadow" hidden>
+    <div class="eyebrow">Step 6 of 7 · the phases alone</div>
+    <h2>Forget everything but the phases</h2>
+    <p class="say">Phase reduction makes a bet. If the loop pulls each oscillator back much faster than the coupling pushes it off, then knowing where each one is around its loop is nearly knowing everything. So keep only the two phases, and pull each with Γ: the PRC from steps 2 and 3, times the other’s push, averaged over a cycle. That is Kuramoto’s equation, the shadow, and it locks where the curve on the left crosses zero going down.</p>
+    <div class="panel">
+      <div class="tabs" role="group" aria-label="What you hear"><span class="eyebrow">Hear</span>
+        <button class="tab" data-s6door="full" aria-pressed="true">The oscillators</button>
+        <button class="tab" data-s6door="red" aria-pressed="false">Their phase shadow</button>
+        <button class="tab" data-s6door="diff" aria-pressed="false">Their difference</button>
+        <button class="play" data-play>Play</button></div>
+      <canvas class="stage" data-aspect="0.5"></canvas>
+      <div class="legend">
+        <div><b>Left · how fast the gap moves</b>The shadow’s rule for the gap, against the gap. Above zero the gap grows, below it shrinks. Gold ring: where it settles, the shadow’s lock. Blue tick: where the full pair locks.</div>
+        <div><b>Right · the gap over time</b>Gold dots: the full pair, once a cycle. Blue, dashed: the shadow. Time falls downward over eighty cycles.</div>
+      </div>
+      <div class="rowb"><span class="eyebrow">the loop</span>
+        <button class="ghost small" data-s6mu="0.3" aria-pressed="false">Gentle, μ 0.3</button>
+        <button class="ghost small" data-s6mu="1" aria-pressed="true">Van der Pol, μ 1</button>
+        <button class="ghost small" data-s6mu="3" aria-pressed="false">Relaxation, μ 3</button>
+      </div>
+      <div class="ctl"><label for="s6e">coupling ε</label><input id="s6e" type="range" min="0" max="0.5" step="0.005" value="0.04"><span class="v" id="s6ev"></span></div>
+      <div class="hear" id="s6h"></div>
+      <div class="meter" id="s6m"></div>
+      <div class="eq">θ̇ᵢ = ωᵢ + ε × Γ(θⱼ − θᵢ)          Γ(ψ) = ⟨ Z(θ) × (x(θ + ψ) − x(θ)) ⟩</div>
+      <div class="eq words">(phase speed) = (own speed) + (coupling) × (the pull at that gap)  ·  (the pull) = the average over a cycle of (the PRC) × ((the other’s position) − (its own))</div>
+      <p class="hint" style="margin-top:12px">The shadow hears the spring too, but only to first order: its pitch is 1 + ε × Γ(ψ) ÷ ω, a straight line in the coupling. At strong coupling it runs sharp of the real pair.</p>
+    </div>
+    <div class="try"><span class="eyebrow">Try</span>At 0.04 on the van der Pol loop, play the oscillators, then the shadow: they sound alike, and their difference is quiet. Raise the coupling to 0.5 and play the difference: the shadow’s pitch has run ahead. Then pick the gentle loop at 0.04: the oscillators lock, and the shadow says they drift.</div>
+    <textarea data-note placeholder="What your ear and eye say about the shadow"></textarea>
+  </section>
+
+  <!-- ───────────── step 7 ───────────── -->
+  <section class="step" data-step="6" data-title="The proof" hidden>
+    <div class="eyebrow">Step 7 of 7 · the proof</div>
+    <h2>Now the whole thing, on one page</h2>
+    <p class="say">The proof puts every step on one screen and runs the full pair and the shadow side by side. Here is where each step is waiting for you there.</p>
+    <ul class="gathered">
+      <li><b>The loop</b> buttons, Gentle, Van der Pol and Relaxation, are step 1, and the gold loop in the top-left panel.</li>
+      <li>The <b>phase response curve</b> under the measurement box is steps 2 and 3: blue dots from kicks of 0.01, the gold line from the eigenvector. The box’s first two lines are step 3’s multipliers and gap.</li>
+      <li><b>The oscillators</b> tab, the <b>coupling</b> and <b>detuning</b> sliders, and the bottom-left reader are step 4: a vertical line of dots means locked.</li>
+      <li>Step 5 is in the same tab. Raise the coupling and the pitch climbs. The proof doesn’t say why; it is the spring.</li>
+      <li><b>Their phase shadow</b> and <b>Their difference</b> tabs, and the dashed line in the reader, are step 6. The box’s fourth line says where each one locks.</li>
+      <li>What the proof adds: <b>the tongue</b>, bottom right. It runs the full pair at every detuning and coupling on a grid, gold where it locks, with blue lines where the shadow says locking ends. At weak coupling the gold sits between the lines; turn the coupling up and it walks away from them. The box’s third line weighs step 6’s bet: how fast the loop pulls back, against how hard the coupling pushes.</li>
+    </ul>
+    <p class="say" style="margin-top:14px">It ends on a question. The PRC half is exact. The shadow half holds only as the coupling goes to zero, and how small is small enough depends on the loop. Should Phase Reduction stay in the catalogue as an identity, stand as an isomorphism, or be split into the exact half and the shadow?</p>
+    <a class="proof-link" href="../2026-10-20-the-shadow-that-locks/the-shadow-that-locks.html">Open the proof</a>
+    <textarea data-note placeholder="Did the steps get you there? What was missing?"></textarea>
+    <div class="rowb"><button class="ghost" id="copy">Copy all notes</button><span class="hint" id="copied"></span></div>
+  </section>
+
+  <div class="walk"><button class="ghost" id="back">Back</button><button class="ghost" id="next">Next</button></div>
+
+  <footer><b>LOUD’N LIVE</b> · a learning sequence for Dissolutions, 2026-10-25 · up to <a href="../2026-10-20-the-shadow-that-locks/the-shadow-that-locks.html">the shadow that locks</a> · <a href="index.html">all six sequences</a></footer>
+</main>
+
+<script>
+(function(){
+  'use strict';
+  var $ = function(id){ return document.getElementById(id); };
+  var Q = function(sel, root){ return Array.prototype.slice.call((root || document).querySelectorAll(sel)); };
+
+  // ---- math (pure; re-checked headless by check-sequences.mjs, which calls selfTest) ----
+  // From here to "what the sequence adds": the proof's own, copied verbatim from
+  // ../2026-10-20-the-shadow-that-locks/the-shadow-that-locks.html, so the two cannot drift apart.
+  // the van der Pol oscillator: x' = y, y' = μ(1 − x²)y − x (a loop it keeps falling back onto)
+  function field(mu, x, y){ return [y, mu * (1 - x * x) * y - x]; }
+  function rk4(f, s, h){
+    var k1 = f(s), n = s.length, t = new Array(n), i;
+    for (i = 0; i < n; i++) t[i] = s[i] + 0.5 * h * k1[i]; var k2 = f(t);
+    for (i = 0; i < n; i++) t[i] = s[i] + 0.5 * h * k2[i]; var k3 = f(t);
+    for (i = 0; i < n; i++) t[i] = s[i] + h * k3[i]; var k4 = f(t);
+    var out = new Array(n); for (i = 0; i < n; i++) out[i] = s[i] + h / 6 * (k1[i] + 2 * k2[i] + 2 * k3[i] + k4[i]);
+    return out;
+  }
+  // the loop: settle onto it, measure its period between crossings of the section (y falls through 0, x > 0),
+  // then store one trip of Ns points starting on the section. Phase 0 is the section.
+  function limitCycle(mu, Ns){
+    var f = function(s){ return field(mu, s[0], s[1]); }, s = [2, 0.1], h = 0.002, t = 0, cross = [], i;
+    for (i = 0; i < 60 / h; i++){ s = rk4(f, s, h); t += h; }
+    var prev = s;
+    while (cross.length < 4){
+      var nx = rk4(f, prev, h);
+      if (prev[1] > 0 && nx[1] <= 0 && nx[0] > 0){ var a = prev[1] / (prev[1] - nx[1]); cross.push({ t: t + a * h, s: [prev[0] + a * (nx[0] - prev[0]), prev[1] + a * (nx[1] - prev[1])] }); }
+      prev = nx; t += h;
+    }
+    var T = (cross[3].t - cross[1].t) / 2, s0 = cross[3].s, hh = T / Ns, xs = new Float64Array(Ns), ys = new Float64Array(Ns), tr = 0;
+    s = s0;
+    for (i = 0; i < Ns; i++){ xs[i] = s[0]; ys[i] = s[1]; tr += mu * (1 - s[0] * s[0]) * hh; s = rk4(f, s, hh); }
+    // the multiplier across the loop, by Liouville: the product of both multipliers is e^(∮ trace J), and one of them is 1
+    return { mu: mu, T: T, w: 2 * Math.PI / T, x: xs, y: ys, Ns: Ns, across: Math.exp(tr), logAcross: tr, closure: Math.hypot(s[0] - s0[0], s[1] - s0[1]) };
+  }
+  function cycleAt(cyc, th){ // the loop read at phase th (radians), linear between stored points
+    var u = ((th / (2 * Math.PI)) % 1 + 1) % 1 * cyc.Ns, i = Math.floor(u), q = u - i, j = (i + 1) % cyc.Ns;
+    return [cyc.x[i] + q * (cyc.x[j] - cyc.x[i]), cyc.y[i] + q * (cyc.y[j] - cyc.y[i])];
+  }
+  // Floquet side: the monodromy M(θ) of one trip from phase θ, by the variational equation Φ' = J Φ;
+  // the PRC is its left eigenvector at the multiplier nearest 1, scaled so Z · F = 2π / T
+  function floquetAt(cyc, k, steps){
+    var mu = cyc.mu, h = cyc.T / steps;
+    var f = function(s){
+      var x = s[0], y = s[1], j21 = -2 * mu * x * y - 1, j22 = mu * (1 - x * x);
+      return [y, mu * (1 - x * x) * y - x, s[4], s[5], j21 * s[2] + j22 * s[4], j21 * s[3] + j22 * s[5]];
+    };
+    var s = [cyc.x[k], cyc.y[k], 1, 0, 0, 1];
+    for (var i = 0; i < steps; i++) s = rk4(f, s, h);
+    var a = s[2], b = s[3], c = s[4], d = s[5], tr = a + d, det = a * d - b * c, disc = Math.sqrt(Math.max(0, tr * tr / 4 - det));
+    var l1 = tr / 2 + disc, l2 = tr / 2 - disc, lam = Math.abs(l1 - 1) < Math.abs(l2 - 1) ? l1 : l2, other = lam === l1 ? l2 : l1;
+    var w = Math.abs(c) + Math.abs(a - lam) > Math.abs(b) + Math.abs(d - lam) ? [c, -(a - lam)] : [d - lam, -b];
+    var F = field(mu, cyc.x[k], cyc.y[k]), sc = cyc.w / (w[0] * F[0] + w[1] * F[1]);
+    return { Z: [w[0] * sc, w[1] * sc], one: lam, other: other };
+  }
+  function prcFloquet(cyc, K){ var out = []; for (var j = 0; j < K; j++) out.push(floquetAt(cyc, Math.round(j * cyc.Ns / K) % cyc.Ns, 1000)); return out; }
+  // experiment side: kick y by dy at phase θ, let it settle for n trips, read how far ahead it ends up
+  function crossings(f, s, h, steps){
+    var out = [], prev = s, t = 0;
+    for (var i = 0; i < steps; i++){
+      var nx = rk4(f, prev, h);
+      if (prev[1] > 0 && nx[1] <= 0 && nx[0] > 0){
+        // land on y = 0 with partial steps (false position), so the timing is as good as the integrator
+        var lo = 0, hi = h, ylo = prev[1], yhi = nx[1];
+        for (var r = 0; r < 4; r++){ var a = lo + (hi - lo) * ylo / (ylo - yhi), sm = rk4(f, prev, a); if (sm[1] > 0){ lo = a; ylo = sm[1]; } else { hi = a; yhi = sm[1]; } }
+        out.push(t + lo + (hi - lo) * ylo / (ylo - yhi));
+      }
+      prev = nx; t += h;
+    }
+    return out;
+  }
+  function prcKick(cyc, th, dy, trips){
+    var f = function(s){ return field(cyc.mu, s[0], s[1]); }, p = cycleAt(cyc, th), h = cyc.T / 1000, n = Math.round(trips * 1000);
+    var a = crossings(f, [p[0], p[1]], h, n), b = crossings(f, [p[0], p[1] + dy], h, n);
+    // the last crossing of each, compared within half a trip: a kick near phase 0 can add or drop a crossing
+    var gain = a[a.length - 1] - b[b.length - 1];
+    gain -= cyc.T * Math.round(gain / cyc.T);
+    return gain * cyc.w / dy; // radians gained per unit kick
+  }
+  // the averaged pull: Γ(ψ) = (1/2π)∮ Z_y(θ) · (x(θ + ψ) − x(θ)) dθ, at P gaps
+  function gammaTable(cyc, prc, P){
+    var K = prc.length, out = new Float64Array(P), Ns = cyc.Ns;
+    for (var q = 0; q < P; q++){
+      var psi = 2 * Math.PI * q / P, s = 0;
+      for (var i = 0; i < Ns; i++){
+        var u = i / Ns * K, k0 = Math.floor(u), fr = u - k0, z = prc[k0 % K].Z[1] * (1 - fr) + prc[(k0 + 1) % K].Z[1] * fr;
+        var j = (i + Math.round(psi / (2 * Math.PI) * Ns)) % Ns;
+        s += z * (cyc.x[j] - cyc.x[i]);
+      }
+      out[q] = s / Ns;
+    }
+    return out;
+  }
+  function gammaAt(G, psi){ var P = G.length, u = ((psi / (2 * Math.PI)) % 1 + 1) % 1 * P, i = Math.floor(u), q = u - i; return G[i % P] * (1 - q) + G[(i + 1) % P] * q; }
+  // where the shadow says locking ends: δ·ω₀ + ε·[Γ(−ψ) − Γ(ψ)] = 0 must have a root
+  function tongue(G, w){
+    var lo = 1e9, hi = -1e9, P = G.length;
+    for (var q = 0; q < P; q++){ var psi = 2 * Math.PI * q / P, h = gammaAt(G, -psi) - gammaAt(G, psi); lo = Math.min(lo, h); hi = Math.max(hi, h); }
+    // locked iff  −ε·hi ≤ δ·ω₀ ≤ −ε·lo
+    return { lo: -hi / w, hi: -lo / w };
+  }
+  // the gap the shadow locks at: a root of δ·ω₀ + ε·[Γ(−ψ) − Γ(ψ)] where it falls through zero (stable),
+  // the one nearest where the shadow's own run ended; null when there is none
+  function shadowLock(G, w, eps, det, near){
+    var P = 720, best = null, rate = function(psi){ return det * w + eps * (gammaAt(G, -psi) - gammaAt(G, psi)); };
+    for (var q = 0; q < P; q++){
+      var a = -Math.PI + 2 * Math.PI * q / P, b = a + 2 * Math.PI / P, ra = rate(a), rb = rate(b);
+      if (ra > 0 && rb <= 0){ var z = a + (b - a) * ra / (ra - rb), dz = Math.abs(Math.atan2(Math.sin(z - near), Math.cos(z - near))); if (best === null || dz < best[1]) best = [z, dz]; }
+    }
+    return best && best[0];
+  }
+  // the full pair: osc 2 runs (1 + δ) faster; each feels ε × (the other's x − its own) in its y equation
+  function pairField(mu, eps, det){
+    return function(s){
+      var a = field(mu, s[0], s[1]), b = field(mu, s[2], s[3]);
+      return [a[0], a[1] + eps * (s[2] - s[0]), (1 + det) * b[0], (1 + det) * b[1] + eps * (s[0] - s[2])];
+    };
+  }
+  // run the full pair from two points on the loop; return the gap ψ at each crossing of osc 2, and whether it locked
+  function runFull(cyc, eps, det, psi0, trips, perTrip){
+    var f = pairField(cyc.mu, eps, det), p1 = cycleAt(cyc, 0), p2 = cycleAt(cyc, psi0), s = [p1[0], p1[1], p2[0], p2[1]];
+    var h = cyc.T / perTrip, n = Math.round(trips * perTrip), c1 = [], c2 = [], t = 0, path = [], every = Math.max(1, Math.round(perTrip / 50));
+    for (var i = 0; i < n; i++){
+      var nx = rk4(f, s, h);
+      if (s[1] > 0 && nx[1] <= 0 && nx[0] > 0) c1.push(t + h * s[1] / (s[1] - nx[1]));
+      if (s[3] > 0 && nx[3] <= 0 && nx[2] > 0) c2.push(t + h * s[3] / (s[3] - nx[3]));
+      if (i % every === 0) path.push([t, s[0], s[1], s[2], s[3]]);
+      s = nx; t += h;
+    }
+    var gaps = [];
+    for (var k = 0, j = 0; k < c2.length; k++){
+      while (j + 1 < c1.length && c1[j + 1] <= c2[k]) j++;
+      if (j + 1 >= c1.length || c1[j] > c2[k]) continue;
+      var g = 2 * Math.PI * (c1[j + 1] - c2[k]) / (c1[j + 1] - c1[j]); // how far osc 2 is ahead
+      gaps.push([c2[k], Math.atan2(Math.sin(g), Math.cos(g))]);
+    }
+    var tail = gaps.filter(function(q){ return q[0] > t * 0.6; }), locked = false, at = NaN, alive = c1.length > trips * 0.5 && c2.length > trips * 0.5;
+    if (alive && tail.length > 4){
+      var cx = 0, sx = 0; tail.forEach(function(q){ cx += Math.cos(q[1]); sx += Math.sin(q[1]); });
+      var R = Math.hypot(cx, sx) / tail.length, drift = Math.abs(unwrapSpan(tail));
+      locked = R > 0.995 && drift < 0.6; at = Math.atan2(sx, cx);
+    }
+    return { gaps: gaps, locked: locked, at: at, alive: alive, path: path, T: t };
+  }
+  function unwrapSpan(g){ var u = g[0][1], lo = u, hi = u; for (var i = 1; i < g.length; i++){ var dd = g[i][1] - g[i - 1][1]; dd = Math.atan2(Math.sin(dd), Math.cos(dd)); u += dd; lo = Math.min(lo, u); hi = Math.max(hi, u); } return hi - lo; }
+  // the shadow: two phases and the averaged pull, nothing else
+  function runShadow(cyc, G, eps, det, psi0, trips, perTrip){
+    var w = cyc.w, h = cyc.T / perTrip, n = Math.round(trips * perTrip), a = 0, b = psi0, out = [];
+    var f = function(s){ return [w + eps * gammaAt(G, s[1] - s[0]), (1 + det) * w + eps * gammaAt(G, s[0] - s[1])]; };
+    var s = [a, b], every = Math.max(1, Math.round(perTrip / 50));
+    for (var i = 0; i < n; i++){ if (i % every === 0) out.push([i * h, s[0], s[1]]); s = rk4(f, s, h); }
+    var g = s[1] - s[0];
+    return { path: out, end: Math.atan2(Math.sin(g), Math.cos(g)) };
+  }
+  // ---- what the sequence adds (built on the proof's own functions above) ----
+  // a path from any starting point, n points over tEnd time units (step 1's falling dots)
+  function trajectory(mu, s0, tEnd, n){
+    var f = function(s){ return field(mu, s[0], s[1]); }, sub = 8, h = tEnd / (n * sub), s = s0.slice(), out = [];
+    for (var i = 0; i < n; i++){ out.push([s[0], s[1]]); for (var k = 0; k < sub; k++) s = rk4(f, s, h); }
+    return out;
+  }
+  // how far a point is from the stored loop
+  function distToLoop(cyc, x, y){ var m = 1e9; for (var i = 0; i < cyc.Ns; i++) m = Math.min(m, Math.hypot(cyc.x[i] - x, cyc.y[i] - y)); return m; }
+  // the Floquet PRC (y part) at any phase, read between the stored phases as the proof's measure() does
+  function zAt(prc, th){ var u = ((th / (2 * Math.PI)) % 1 + 1) % 1 * prc.length, i = Math.floor(u), q = u - i; return prc[i % prc.length].Z[1] * (1 - q) + prc[(i + 1) % prc.length].Z[1] * q; }
+  // one oscillator on its loop, n steps of h (h = T·F0/sr plays it at F0)
+  function renderOne(cyc, h, n){
+    var f = function(s){ return field(cyc.mu, s[0], s[1]); }, s = cycleAt(cyc, 0), x = new Float64Array(n);
+    for (var i = 0; i < n; i++){ x[i] = s[0]; s = rk4(f, s, h); }
+    return x;
+  }
+  // kicked every trip: dy added to y a fixed time th/ω after each crossing of the section (phase th)
+  function kickedRun(cyc, th, dy, h, n){
+    var f = function(s){ return field(cyc.mu, s[0], s[1]); }, s = cycleAt(cyc, 0), t = 0, last = 0, kicked = true, cr = [], x = new Float64Array(n), wait = th / cyc.w;
+    for (var i = 0; i < n; i++){
+      x[i] = s[0];
+      if (!kicked && t - last >= wait){ s = [s[0], s[1] + dy]; kicked = true; }
+      var nx = rk4(f, s, h);
+      if (s[1] > 0 && nx[1] <= 0 && nx[0] > 0){ last = t + h * s[1] / (s[1] - nx[1]); cr.push(last); kicked = false; }
+      s = nx; t += h;
+    }
+    var k = Math.floor(cr.length / 2), per = (cr[cr.length - 1] - cr[k]) / (cr.length - 1 - k);
+    return { x: x, ratio: cyc.T / per };
+  }
+  // a shift of z·dy radians every cycle shortens each cycle by that much: the pitch the PRC predicts
+  function pitchFromKick(z, dy){ return 1 / (1 - z * dy / (2 * Math.PI)); }
+  // the full pair's pitch once settled: the proof's pairField, the mean trip of each over the second half of the run
+  function pairPitch(cyc, eps, det, psi0, trips, perTrip){
+    var f = pairField(cyc.mu, eps, det), p1 = cycleAt(cyc, 0), p2 = cycleAt(cyc, psi0), s = [p1[0], p1[1], p2[0], p2[1]];
+    var h = cyc.T / perTrip, n = Math.round(trips * perTrip), c1 = [], c2 = [], t = 0;
+    for (var i = 0; i < n; i++){
+      var nx = rk4(f, s, h);
+      if (s[1] > 0 && nx[1] <= 0 && nx[0] > 0) c1.push(t + h * s[1] / (s[1] - nx[1]));
+      if (s[3] > 0 && nx[3] <= 0 && nx[2] > 0) c2.push(t + h * s[3] / (s[3] - nx[3]));
+      s = nx; t += h;
+    }
+    var mean = function(c){ var k = Math.floor(c.length / 2); return (c[c.length - 1] - c[k]) / (c.length - 1 - k); };
+    return { r1: cyc.T / mean(c1), r2: cyc.T / mean(c2) };
+  }
+  // the spring's count for a round swing: locked ψ apart, the spring adds ε·(1 − cos ψ) to the pull back to the middle
+  function springCount(eps, psi){ return Math.sqrt(1 + eps * (1 - Math.cos(psi))); }
+  // the shadow's pitch when it locks at ψ: θ₁' = ω + ε·Γ(ψ)
+  function shadowPitch(G, w, eps, psi){ return 1 + eps * gammaAt(G, psi) / w; }
+  // the shadow's gap speed: δ·ω + ε·[Γ(−ψ) − Γ(ψ)]; it locks where this falls through zero (as the proof's shadowLock)
+  function shadowRate(G, w, eps, det, psi){ return det * w + eps * (gammaAt(G, -psi) - gammaAt(G, psi)); }
+  // the proof's renderAll, made pure: the full pair and the shadow at audio rate, after a settling run of `pre` steps
+  function renderPair(cyc, G, eps, det, psi0, h, n, pre){
+    var f = pairField(cyc.mu, eps, det), p1 = cycleAt(cyc, 0), p2 = cycleAt(cyc, psi0), s = [p1[0], p1[1], p2[0], p2[1]], th = [0, psi0];
+    var fl = [new Float64Array(n), new Float64Array(n)], rd = [new Float64Array(n), new Float64Array(n)];
+    for (var i = -pre; i < n; i++){
+      if (i >= 0){ fl[0][i] = s[0]; fl[1][i] = s[2]; rd[0][i] = cycleAt(cyc, th[0])[0]; rd[1][i] = cycleAt(cyc, th[1])[0]; }
+      s = rk4(f, s, h);
+      var d0 = cyc.w + eps * gammaAt(G, th[1] - th[0]), d1 = (1 + det) * cyc.w + eps * gammaAt(G, th[0] - th[1]);
+      th[0] += h * d0; th[1] += h * d1;
+    }
+    return { full: fl, red: rd };
+  }
+  // the period of a sampled signal, from its upward zero crossings (interpolated), in samples
+  function periodOf(x, from){
+    var c = [];
+    for (var i = Math.max(1, from || 0); i < x.length; i++) if (x[i - 1] < 0 && x[i] >= 0) c.push(i - 1 + x[i - 1] / (x[i - 1] - x[i]));
+    return (c[c.length - 1] - c[0]) / (c.length - 1);
+  }
+  function semis(r){ return 12 * Math.log(r) / Math.LN2; }
+  function deg(r){ return r * 180 / Math.PI; }
+
+  // every number a step shows, re-derived; each line is { name, ok, detail }
+  function selfTest(){
+    var out = [], t = function(name, ok, detail){ out.push({ name: name, ok: !!ok, detail: detail }); };
+    var PSI0 = 2 * Math.PI / 3, DET = 0.006, sr = 48000, F0 = 220, L = {};
+    [0.3, 1, 3].forEach(function(mu){ var c = limitCycle(mu, 2000), p = prcFloquet(c, 64); L[mu] = { cyc: c, prc: p, G: gammaTable(c, p, 128) }; });
+    var c1 = L[1].cyc;
+
+    // step 1: the loop closes, it pulls back hard across, and starts inside and outside end on it
+    var rows1 = [], ok1 = true;
+    [0.3, 1, 3].forEach(function(mu){
+      var c = L[mu].cyc, worst = 0;
+      [[0.1, 0], [3.2, 3.2 * mu + 1], [-3, -2]].forEach(function(s0){ var tr = trajectory(mu, s0, 12 * c.T, 200), e = tr[tr.length - 1]; worst = Math.max(worst, distToLoop(c, e[0], e[1])); });
+      ok1 = ok1 && c.closure < 1e-3 && c.across < 0.2 && worst < 0.02;
+      rows1.push('μ ' + mu + ': T ' + c.T.toFixed(3) + ', across ' + c.across.toExponential(2) + ', starts end ' + worst.toFixed(4) + ' from the loop');
+    });
+    t('step 1: each loop closes, shrinks a nudge across it each trip, and catches starts from inside and outside', ok1, rows1.join('; '));
+    var x1 = renderOne(c1, c1.T * F0 / sr, sr), per1 = periodOf(x1, 0);
+    t('step 1: the sound goes round at 220 Hz', Math.abs(sr / per1 - F0) < 0.05, (sr / per1).toFixed(3) + ' Hz');
+
+    // step 2: the PRC from kicks, and the pitch a kick every cycle gives, against the PRC's prediction
+    var rows2 = [], ok2 = true, dy = 0.3;
+    [30, 120, 200, 250, 330].forEach(function(dg){
+      var th = dg * Math.PI / 180, z = prcKick(c1, th, 0.01, 8), one = prcKick(c1, th, dy, 8) * dy;
+      var kr = kickedRun(c1, th, dy, c1.T / 1000, 60000), pred = pitchFromKick(z, dy);
+      var ka = kickedRun(c1, th, dy, c1.T * F0 / sr, 3 * sr), pa = sr / periodOf(ka.x, Math.round(0.3 * sr));
+      var good = Math.abs((kr.ratio - pred) * 100) < 0.4 && Math.abs(pa / F0 - kr.ratio) * 100 < 0.15 && (Math.abs(z) < 0.05 || Math.sign(kr.ratio - 1) === Math.sign(z)) && Math.sign(one) === Math.sign(z);
+      ok2 = ok2 && good;
+      rows2.push(dg + '°: Z ' + z.toFixed(3) + ', one kick ' + one.toFixed(3) + ' rad, kicked pitch ' + ((kr.ratio - 1) * 100).toFixed(2) + '% (as heard ' + ((pa / F0 - 1) * 100).toFixed(2) + '%), PRC says ' + ((pred - 1) * 100).toFixed(2) + '%');
+    });
+    t('step 2: kicked every cycle, the pitch moves the way and the amount the PRC says', ok2, rows2.join('; '));
+    var zz = prcKick(c1, 200 * Math.PI / 180, 0.01, 8), zf = zAt(L[1].prc, 200 * Math.PI / 180);
+    t('step 2: at the default 200°, a kick lands it ahead, and the kicked curve is the Floquet one', zz > 0.4 && Math.abs(zz - zf) < 0.01, 'kicks ' + zz.toFixed(4) + ', eigenvector ' + zf.toFixed(4));
+
+    // step 3: multiplier 1 along, Liouville across, and the kick curve closing on the eigenvector as the kick shrinks
+    var rows3 = [], ok3 = true;
+    [0.3, 1, 3].forEach(function(mu){
+      var c = L[mu].cyc, p = L[mu].prc, along = 0, scale = 0, gaps = [];
+      p.forEach(function(q){ along = Math.max(along, Math.abs(q.one - 1)); scale = Math.max(scale, Math.abs(q.Z[1])); });
+      var acrossOk = Math.abs(p[0].other - c.across) <= 1e-3 * c.across + 1e-12;
+      [0.1, 0.03, 0.01].forEach(function(k){
+        var worst = 0;
+        for (var j = 0; j < 16; j++){ var th = 2 * Math.PI * (j + 0.5) / 16; worst = Math.max(worst, Math.abs(zAt(p, th) - prcKick(c, th, k, 8))); }
+        gaps.push(100 * worst / scale);
+      });
+      ok3 = ok3 && along < 1e-4 && acrossOk && gaps[0] > gaps[1] && gaps[1] > gaps[2] && gaps[2] < 2;
+      rows3.push('μ ' + mu + ': along within ' + along.toExponential(1) + ' of 1, across ' + p[0].other.toExponential(2) + ' vs ' + c.across.toExponential(2) + ', gaps ' + gaps.map(function(v){ return v.toFixed(2) + '%'; }).join(' → '));
+    });
+    t('step 3: multiplier 1 along the loop, Liouville’s across, and the kicks close on the eigenvector as they shrink', ok3, rows3.join('; '));
+
+    // step 4: no coupling drifts; a little locks, far apart, farther as it grows; too much detuning drifts
+    var r0 = runFull(c1, 0, DET, PSI0, 80, 200), r4 = runFull(c1, 0.04, DET, PSI0, 80, 200), r10 = runFull(c1, 0.1, DET, PSI0, 80, 200), rd = runFull(c1, 0.1, 0.05, PSI0, 80, 200);
+    t('step 4: at no coupling the pair drifts; at 0.04 it locks more than 120° apart, at 0.1 farther', !r0.locked && r4.locked && Math.abs(r4.at) > 2 * Math.PI / 3 && r10.locked && Math.abs(r10.at) > Math.abs(r4.at), 'ε 0: ' + (r0.locked ? 'locks' : 'drifts') + '; ε 0.04: ' + deg(r4.at).toFixed(1) + '°; ε 0.1: ' + deg(r10.at).toFixed(1) + '°');
+    t('step 4: detuned 5%, a coupling of 0.1 cannot hold them', !rd.locked, rd.locked ? 'locks' : 'drifts');
+    var a4 = renderPair(c1, L[1].G, 0.04, DET, PSI0, c1.T * F0 / sr, sr, 100 * Math.round(sr / F0)), e4 = 0, eM = 0;
+    for (var i = 0; i < sr; i++){ e4 += a4.full[0][i] * a4.full[0][i]; eM += 0.25 * (a4.full[0][i] + a4.full[1][i]) * (a4.full[0][i] + a4.full[1][i]); }
+    t('step 4: locked far apart, the two in the middle partly cancel', eM < 0.5 * e4, 'level in the middle ' + (10 * Math.log10(eM / e4)).toFixed(1) + ' dB against one alone');
+
+    // step 5: the pitch climbs with the coupling; in step it does not; the spring's count lands near it
+    var rows5 = [], ok5 = true, prev = 0.999;
+    [0, 0.1, 0.2, 0.3, 0.4, 0.5].forEach(function(e){
+      var r = runFull(c1, e, DET, PSI0, 80, 200), pp = pairPitch(c1, e, DET, PSI0, 80, 200), sc = springCount(e, r.at);
+      var good = pp.r1 > prev - 1e-6 && (e === 0 || (r.locked && Math.abs(pp.r1 - pp.r2) < 1e-3 && sc < pp.r1 && pp.r1 - sc < 0.06));
+      ok5 = ok5 && good; prev = pp.r1;
+      rows5.push('ε ' + e + ': ' + (r.locked ? deg(r.at).toFixed(1) + '°' : 'drift') + ', up ' + ((pp.r1 - 1) * 100).toFixed(2) + '% (' + semis(pp.r1).toFixed(2) + ' st), count ' + ((sc - 1) * 100).toFixed(2) + '%');
+    });
+    t('step 5: locked, the pitch climbs with the coupling, and the spring’s count lands a few points under it', ok5, rows5.join('; '));
+    var top = pairPitch(c1, 0.5, DET, PSI0, 80, 200);
+    t('step 5: from 0 to 0.5 the pitch climbs more than six semitones', semis(top.r1) > 6, semis(top.r1).toFixed(2) + ' semitones');
+    var inS = runFull(c1, 0.5, 0, 0, 80, 200), inP = pairPitch(c1, 0.5, 0, 0, 80, 200);
+    t('step 5: started together with no detuning, the spring never stretches and the pitch stays', inS.locked && Math.abs(inS.at) < 1e-6 && Math.abs(inP.r1 - 1) < 1e-5, 'gap ' + deg(inS.at).toExponential(1) + '°, pitch ' + ((inP.r1 - 1) * 100).toExponential(1) + '%');
+    var rows5c = [], ok5c = true;
+    [0.1, 0.2, 0.3, 0.4, 0.5].forEach(function(e){ var c = L[0.3].cyc, r = runFull(c, e, DET, PSI0, 80, 200), pp = pairPitch(c, e, DET, PSI0, 80, 200), sc = springCount(e, r.at); ok5c = ok5c && r.locked && Math.abs(pp.r1 - sc) < 0.01; rows5c.push('ε ' + e + ': ' + ((pp.r1 - 1) * 100).toFixed(2) + '% vs ' + ((sc - 1) * 100).toFixed(2) + '%'); });
+    t('step 5: on the gentle loop, nearly round, the count lands within a point', ok5c, rows5c.join('; '));
+    var a5 = renderPair(c1, L[1].G, 0.2, DET, PSI0, c1.T * F0 / sr, sr, 100 * Math.round(sr / F0)), p5 = pairPitch(c1, 0.2, DET, PSI0, 80, 200), heard5 = sr / periodOf(a5.full[0], 0) / F0;
+    t('step 5: what you hear at 0.2 has the pitch the readout says', Math.abs(heard5 - p5.r1) < 0.003, 'heard up ' + ((heard5 - 1) * 100).toFixed(2) + '%, readout up ' + ((p5.r1 - 1) * 100).toFixed(2) + '%');
+
+    // step 6: the shadow, against the full pair
+    var G1 = L[1].G, w1 = c1.w;
+    var rowsW = [];
+    var weak = [0.04, 0.1].every(function(e){
+      var r = runFull(c1, e, DET, PSI0, 80, 200), sh = runShadow(c1, G1, e, DET, PSI0, 80, 100), sAt = shadowLock(G1, w1, e, DET, sh.end);
+      var pp = pairPitch(c1, e, DET, PSI0, 80, 200), sp = shadowPitch(G1, w1, e, sAt), gapErr = Math.abs(deg(Math.atan2(Math.sin(r.at - sAt), Math.cos(r.at - sAt))));
+      rowsW.push('ε ' + e + ': full ' + deg(r.at).toFixed(1) + '° up ' + ((pp.r1 - 1) * 100).toFixed(2) + '%, shadow ' + deg(sAt).toFixed(1) + '° up ' + ((sp - 1) * 100).toFixed(2) + '%');
+      return r.locked && sAt !== null && gapErr < 15 && Math.abs(sp - pp.r1) < 0.006;
+    });
+    t('step 6: van der Pol, weak coupling, the shadow locks near the pair and gets its pitch to half a point', weak, rowsW.join('; '));
+    var sh5 = runShadow(c1, G1, 0.5, DET, PSI0, 80, 100), s5 = shadowLock(G1, w1, 0.5, DET, sh5.end), pf5 = pairPitch(c1, 0.5, DET, PSI0, 80, 200), sp5 = shadowPitch(G1, w1, 0.5, s5);
+    t('step 6: at 0.5 the shadow’s pitch runs ahead of the pair’s', s5 !== null && sp5 - pf5.r1 > 0.05, 'pair up ' + ((pf5.r1 - 1) * 100).toFixed(1) + '%, shadow up ' + ((sp5 - 1) * 100).toFixed(1) + '%');
+    // the shadow's pitch formula is its own run's speed once locked
+    var path = sh5.path, q0 = path[Math.floor(path.length / 2)], q1 = path[path.length - 1], speed = (q1[1] - q0[1]) / (q1[0] - q0[0]) / w1;
+    t('step 6: the shadow’s pitch, 1 + ε·Γ(ψ) ÷ ω, is how fast its own phase runs once locked', Math.abs(speed - sp5) < 0.002, 'run ' + speed.toFixed(4) + ', formula ' + sp5.toFixed(4));
+    var cG = L[0.3].cyc, G3 = L[0.3].G, rg = runFull(cG, 0.04, DET, PSI0, 80, 200), sg = shadowLock(G3, cG.w, 0.04, DET, runShadow(cG, G3, 0.04, DET, PSI0, 80, 100).end);
+    t('step 6: on the gentle loop at 0.04 the pair locks and the shadow says drift', rg.locked && sg === null, 'pair ' + (rg.locked ? 'locks at ' + deg(rg.at).toFixed(1) + '°' : 'drifts') + ', shadow ' + (sg === null ? 'drifts' : 'locks'));
+    // the shadow's lock is a zero of the curve the step draws
+    var zr = s5 === null ? 1 : Math.abs(shadowRate(G1, w1, 0.5, DET, s5)) / (0.5 * w1);
+    t('step 6: the shadow locks where the drawn curve crosses zero', zr < 1e-3, 'curve at the lock ' + zr.toExponential(1) + ' of its scale');
+    // the bet line: how fast the loop pulls back (−ln of the across multiplier per trip time) against the push, ε × the shadow's widest pull × ω (the proof's measure)
+    var tg1 = tongue(G1, w1), pulls = -c1.logAcross / c1.T, push = function(e){ return e * Math.max(Math.abs(tg1.lo), Math.abs(tg1.hi)) * w1; };
+    t('step 6: the bet, at 0.04: the loop pulls back far faster than the coupling pushes; the push grows in step with ε', pulls > 0 && Math.abs(pulls - (-Math.log(c1.across) / c1.T)) < 1e-9 && pulls / push(0.04) > 50 && Math.abs(push(0.5) / push(0.04) - 12.5) < 1e-9, 'pulls ' + pulls.toFixed(3) + ', pushes ' + push(0.04).toFixed(3) + ' (' + (pulls / push(0.04)).toFixed(1) + ' to 1); at 0.5, ' + (pulls / push(0.5)).toFixed(1) + ' to 1');
+    return out;
+  }
+  // ---- end math ----
+  window.__selfTest = selfTest;
+
+  // ================= the sequence frame =================
+  var sr = 48000;
+  var steps = Q('section.step'), cur = 0, seen = {};
+  var rail = document.querySelector('.rail');
+  steps.forEach(function(s, i){
+    var b = document.createElement('button'); b.textContent = (i + 1) + ' · ' + s.getAttribute('data-title'); b.setAttribute('data-go', i);
+    b.addEventListener('click', function(){ go(i); }); rail.appendChild(b);
+  });
+  var STEP = []; // per-step behaviour: { render(): Float32Array or [left, right], draw(g, W, H, d, dt), changed() }
+
+  // ---------- audio: nothing is made until a Play click ----------
+  var ctx = null, master = null, voice = null, t0 = 0, playing = false;
+  function ensure(){
+    if (ctx) return;
+    ctx = new (window.AudioContext || window.webkitAudioContext)();
+    var comp = ctx.createDynamicsCompressor(); comp.threshold.value = -6; comp.ratio.value = 8;
+    master = ctx.createGain(); master.gain.value = 0.4; master.connect(comp); comp.connect(ctx.destination);
+    // the buffers are rendered on Play, at the context's own rate, so nothing needs rebuilding here
+    if (ctx.sampleRate !== sr) sr = ctx.sampleRate;
+  }
+  function loopify(x, F){
+    var N = x.length - F, out = new Float32Array(N);
+    for (var i = 0; i < N; i++){
+      if (i < F){ var q = i / F; out[i] = x[i] * Math.sin(q * Math.PI / 2) + x[N + i] * Math.cos(q * Math.PI / 2); }
+      else out[i] = x[i];
+    }
+    return out;
+  }
+  // a buffer is one channel (a Float32Array, sent to both ears) or two ([left, right])
+  function playBuffer(data){
+    var ch = data instanceof Float32Array ? [data, data] : data;
+    var b = ctx.createBuffer(2, ch[0].length, ctx.sampleRate); b.copyToChannel(ch[0], 0); b.copyToChannel(ch[1], 1);
+    var s = ctx.createBufferSource(); s.buffer = b; s.loop = true;
+    var g = ctx.createGain(); g.gain.value = 0; s.connect(g); g.connect(master);
+    var t = ctx.currentTime; s.start(); g.gain.setTargetAtTime(1, t, 0.03); t0 = t;
+    if (voice){ var o = voice; o.g.gain.setTargetAtTime(0, t, 0.03); setTimeout(function(){ try { o.s.stop(); } catch (e) {} o.g.disconnect(); }, 400); }
+    voice = { s: s, g: g, len: ch[0].length };
+  }
+  function stopAudio(){
+    playing = false;
+    Q('[data-play]').forEach(function(b){ b.textContent = 'Play'; });
+    if (voice && ctx){ var o = voice; o.g.gain.setTargetAtTime(0, ctx.currentTime, 0.02); setTimeout(function(){ try { o.s.stop(); } catch (e) {} o.g.disconnect(); }, 200); }
+    voice = null;
+  }
+  var pend = 0;
+  function refreshAudio(){ if (!playing) return; clearTimeout(pend); pend = setTimeout(function(){ if (playing) playBuffer(STEP[cur].render()); }, 40); }
+  Q('[data-play]').forEach(function(b){
+    b.addEventListener('click', function(){
+      ensure(); if (ctx.state === 'suspended') ctx.resume();
+      if (playing){ stopAudio(); return; }
+      playing = true; b.textContent = 'Stop'; playBuffer(STEP[cur].render());
+    });
+  });
+
+  // ---------- walking the steps ----------
+  function go(i){
+    if (i < 0 || i >= steps.length) return;
+    stopAudio(); cur = i; seen[i] = true;
+    steps.forEach(function(s, k){ s.hidden = k !== i; });
+    Q('.rail button').forEach(function(b, k){ if (k === i) b.setAttribute('aria-current', 'step'); else b.removeAttribute('aria-current'); b.classList.toggle('seen', !!seen[k]); });
+    $('back').disabled = i === 0; $('next').disabled = i === steps.length - 1;
+    $('next').textContent = i === steps.length - 2 ? 'Next: the proof' : 'Next';
+    if (STEP[i] && STEP[i].changed) STEP[i].changed();
+  }
+  $('back').addEventListener('click', function(){ go(cur - 1); window.scrollTo(0, 0); });
+  $('next').addEventListener('click', function(){ go(cur + 1); window.scrollTo(0, 0); });
+  window.__seq = { count: steps.length, current: function(){ return cur; }, playing: function(){ return playing; }, go: go };
+
+  // ---------- drawing helpers ----------
+  var css = getComputedStyle(document.documentElement);
+  var ACC = css.getPropertyValue('--accent').trim(), FG1 = css.getPropertyValue('--fg-1').trim(), FG2 = css.getPropertyValue('--fg-2').trim(), FG3 = css.getPropertyValue('--fg-3').trim(), FG4 = css.getPropertyValue('--fg-4').trim(), INFO = css.getPropertyValue('--info').trim();
+  function strip(g, x0, y0, w, h, get, color, lw, dash){
+    g.strokeStyle = color; g.lineWidth = lw; g.setLineDash(dash || []); g.beginPath();
+    for (var i = 0; i <= 240; i++){ var v = get(i / 240), x = x0 + i / 240 * w, y = y0 + h / 2 - v * h * 0.42; if (i) g.lineTo(x, y); else g.moveTo(x, y); }
+    g.stroke(); g.setLineDash([]);
+  }
+  function box(g, x, y, w, h, d){ g.strokeStyle = 'rgba(255,255,255,0.06)'; g.lineWidth = d; g.strokeRect(x, y, w, h); }
+  function label(g, text, x, y, d, align, maxW){
+    g.font = (10 * d) + 'px JetBrains Mono, Menlo, monospace'; g.fillStyle = FG4; g.textAlign = align || 'left';
+    // a box title that won't fit drops its second part (after the double space), then shrinks
+    if (maxW && g.measureText(text).width > maxW && text.indexOf('  ') > 0) text = text.slice(0, text.indexOf('  '));
+    if (maxW && g.measureText(text).width > maxW) g.font = Math.max(7, 10 * maxW / g.measureText(text).width) * d + 'px JetBrains Mono, Menlo, monospace';
+    g.fillText(text, x, y); g.textAlign = 'left';
+  }
+  function axis(g, x0, y, w, d){ g.setLineDash([4 * d, 4 * d]); g.strokeStyle = FG4; g.lineWidth = d; g.beginPath(); g.moveTo(x0, y); g.lineTo(x0 + w, y); g.stroke(); g.setLineDash([]); }
+  function pressGroup(attr, val){ Q('[' + attr + ']').forEach(function(b){ b.setAttribute('aria-pressed', String(b.getAttribute(attr) === val)); }); }
+  // the loop drawn in a box, and a mapper from (x, y) to the canvas
+  function loopFrame(cyc, x0, y0, S, d){
+    var xm = 1e-9, ym = 1e-9, i; for (i = 0; i < cyc.Ns; i++){ xm = Math.max(xm, Math.abs(cyc.x[i])); ym = Math.max(ym, Math.abs(cyc.y[i])); }
+    xm *= 1.3; ym *= 1.3;
+    var cx = x0 + S / 2, cy = y0 + S / 2 + 8 * d, kx = (S / 2 - 12 * d) / xm, ky = (S / 2 - 24 * d) / ym;
+    return { xm: xm, ym: ym, X: function(x){ return cx + x * kx; }, Y: function(y){ return cy - y * ky; } };
+  }
+  function drawLoop(g, cyc, M, d, color, lw){
+    g.strokeStyle = color || ACC; g.lineWidth = (lw || 2.5) * d; g.beginPath();
+    for (var i = 0; i <= cyc.Ns; i += 4){ var k = i % cyc.Ns, X = M.X(cyc.x[k]), Y = M.Y(cyc.y[k]); if (i) g.lineTo(X, Y); else g.moveTo(X, Y); }
+    g.stroke();
+  }
+  function dot(g, x, y, r, color){ g.fillStyle = color; g.beginPath(); g.arc(x, y, r, 0, 7); g.fill(); }
+  function ring(g, x, y, r, color, lw){ g.strokeStyle = color; g.lineWidth = lw; g.beginPath(); g.arc(x, y, r, 0, 7); g.stroke(); }
+  function wrap(a){ return Math.atan2(Math.sin(a), Math.cos(a)); }
+  function fmtDeg(a){ return (a >= 0 ? '+' : '−') + Math.abs(deg(a)).toFixed(1) + '°'; }
+  function pct(r, k){ var v = (r - 1) * 100; return (v >= 0 ? 'up ' : 'down ') + Math.abs(v).toFixed(k == null ? 2 : k) + '%'; }
+
+  // ================= the steps =================
+  var F0 = 220, SECS = 3, PSI0 = 2 * Math.PI / 3, DET = 0.006, eyeT = 0;
+  var LOOPS = {};
+  function loopOf(mu){
+    if (!LOOPS[mu]){ var c = limitCycle(mu, 2000), p = prcFloquet(c, 64), G = gammaTable(c, p, 128); LOOPS[mu] = { cyc: c, prc: p, G: G, tg: tongue(G, c.w) }; }
+    return LOOPS[mu];
+  }
+  function hAudio(cyc){ return cyc.T * F0 / sr; }
+  function nAudio(){ return Math.round(sr * SECS); }
+  function scaled(x, k){ var y = new Float64Array(x.length); for (var i = 0; i < x.length; i++) y[i] = k * x[i]; return y; }
+  function loopOut(x){ return loopify(x, Math.round(0.15 * sr)); }
+  // the eye's clock: one trip round the loop every two seconds
+  function eyeTrip(){ return eyeT / 2; }
+
+  // ---- step 1: the loop alone ----
+  (function(){
+    var mu = 1, L = null, paths = [];
+    function rebuild(){
+      L = loopOf(mu); var c = L.cyc, xm = 0, ym = 0, i;
+      for (i = 0; i < c.Ns; i++){ xm = Math.max(xm, Math.abs(c.x[i])); ym = Math.max(ym, Math.abs(c.y[i])); }
+      paths = [[0.1, 0], [-1.15 * xm, 1.1 * ym], [1.2 * xm, -1.15 * ym]].map(function(s0){ return trajectory(mu, s0, 3 * c.T, 600); });
+    }
+    function ui(){
+      var c = L.cyc;
+      $('s1m').innerHTML = 'one trip: <b>' + c.T.toFixed(3) + '</b> time units, played at <b>' + F0 + ' Hz</b> · a nudge across the loop shrinks to <b>' + c.across.toExponential(2) + '</b> of itself in one trip · a nudge along it stays: that is the phase';
+      pressGroup('data-s1mu', String(mu));
+    }
+    STEP[0] = {
+      render: function(){ var c = L.cyc; return loopOut(scaled(renderOne(c, hAudio(c), nAudio() + Math.round(0.15 * sr)), 0.4)); },
+      changed: function(){ rebuild(); ui(); refreshAudio(); },
+      draw: function(g, W, H, d){
+        var c = L.cyc, p = 14 * d, S = Math.min(H - 2 * p, W * 0.46), rx = 2 * p + S, rw = W - p - rx;
+        box(g, p, p, S, H - 2 * p, d); box(g, rx, p, rw, H - 2 * p, d);
+        label(g, 'THE LOOP  x across, y up · μ ' + mu, p + 6 * d, p + 14 * d, d, 'left', S - 12 * d);
+        label(g, 'WHAT COMES OUT  x, three trips', rx + 6 * d, p + 14 * d, d, 'left', rw - 12 * d);
+        var M = loopFrame(c, p, p, H - 2 * p > S ? S : H - 2 * p, d);
+        g.save(); g.beginPath(); g.rect(p, p + 20 * d, S, H - 2 * p - 20 * d); g.clip();
+        drawLoop(g, c, M, d);
+        // three starts falling onto the loop, slowed: three trips in six seconds, then again
+        var k = Math.floor((eyeTrip() / 3 % 1) * 600);
+        paths.forEach(function(pt){
+          g.strokeStyle = INFO; g.globalAlpha = 0.45; g.lineWidth = 1.2 * d; g.beginPath();
+          for (var i = 0; i <= k; i++){ var X = M.X(pt[i][0]), Y = M.Y(pt[i][1]); if (i) g.lineTo(X, Y); else g.moveTo(X, Y); }
+          g.stroke(); g.globalAlpha = 1;
+          dot(g, M.X(pt[k][0]), M.Y(pt[k][1]), 4 * d, INFO);
+        });
+        var q = cycleAt(c, 2 * Math.PI * (eyeTrip() % 1));
+        ring(g, M.X(q[0]), M.Y(q[1]), 8 * d, FG1, 1.8 * d);
+        g.restore();
+        var x0 = rx + 8 * d, w = rw - 16 * d, y0 = p + 22 * d, hh = H - 2 * p - 30 * d;
+        axis(g, x0, y0 + hh / 2, w, d);
+        strip(g, x0, y0, w, hh, function(t){ return cycleAt(c, t * 6 * Math.PI)[0] / (M.xm / 1.3); }, ACC, 2 * d);
+      }
+    };
+    Q('[data-s1mu]').forEach(function(b){ b.addEventListener('click', function(){ mu = parseFloat(b.getAttribute('data-s1mu')); STEP[0].changed(); }); });
+  })();
+
+  // ---- step 2: a kick ----
+  (function(){
+    var door = 'both', dg = 200, DY = 0.3, L = null, curve = null, z = 0, one = 0, ratio = 1, pred = 1;
+    function rebuild(){
+      L = loopOf(1); var c = L.cyc;
+      if (!curve){ curve = []; for (var j = 0; j < 36; j++){ var th = 2 * Math.PI * (j + 0.5) / 36; curve.push([th, prcKick(c, th, 0.01, 8)]); } }
+      var th0 = dg * Math.PI / 180;
+      z = prcKick(c, th0, 0.01, 8); one = prcKick(c, th0, DY, 8) * DY;
+      ratio = kickedRun(c, th0, DY, c.T / 1000, 60000).ratio; pred = pitchFromKick(z, DY);
+    }
+    function ui(){
+      pressGroup('data-s2door', door);
+      $('s2pv').textContent = dg + '°';
+      $('s2m').innerHTML = 'one kick of ' + DY + ' here lands it <b>' + Math.abs(one).toFixed(3) + ' rad ' + (one >= 0 ? 'ahead' : 'behind') + '</b> · kicked every cycle, the pitch goes <b>' + pct(ratio) + '</b>, ' + F0 + ' → ' + (F0 * ratio).toFixed(1) + ' Hz · the PRC says <b>' + pct(pred) + '</b>';
+      var beat = Math.abs(F0 * (ratio - 1));
+      $('s2h').innerHTML = door === 'plain' ? 'You hear <b>the oscillator, untouched</b>, at ' + F0 + ' Hz.' : door === 'kick' ? 'You hear <b>the kicked one</b>, ' + (ratio >= 1 ? 'sharp' : 'flat') + ', with a faint tick each cycle where the kick lands.' : 'You hear <b>both</b>: they beat about <b>' + beat.toFixed(1) + '</b> times a second, the gap between their pitches.';
+    }
+    STEP[1] = {
+      render: function(){
+        var c = L.cyc, n = nAudio() + Math.round(0.15 * sr), h = hAudio(c), a = renderOne(c, h, n), b = kickedRun(c, dg * Math.PI / 180, DY, h, n).x, x = new Float64Array(n);
+        for (var i = 0; i < n; i++) x[i] = door === 'plain' ? 0.4 * a[i] : door === 'kick' ? 0.4 * b[i] : 0.22 * (a[i] + b[i]);
+        return loopOut(x);
+      },
+      changed: function(){ rebuild(); ui(); refreshAudio(); },
+      draw: function(g, W, H, d){
+        var c = L.cyc, p = 14 * d, S = Math.min(H - 2 * p, W * 0.42), rx = 2 * p + S, rw = W - p - rx, hh = H - 2 * p;
+        box(g, p, p, S, hh, d); box(g, rx, p, rw, hh, d);
+        label(g, 'THE LOOP  the kick at ' + dg + '°', p + 6 * d, p + 14 * d, d, 'left', S - 12 * d);
+        label(g, 'THE PRC  ahead ↑ · behind ↓ · per unit kick', rx + 6 * d, p + 14 * d, d, 'left', rw - 12 * d);
+        var M = loopFrame(c, p, p, S, d), th0 = dg * Math.PI / 180;
+        drawLoop(g, c, M, d, FG3, 1.6);
+        var q0 = cycleAt(c, 0); label(g, 'phase 0', M.X(q0[0]) - 4 * d, M.Y(q0[1]) + 14 * d, d, 'right');
+        var k = cycleAt(c, th0), kx = M.X(k[0]), ky = M.Y(k[1]), len = 34 * d;
+        g.strokeStyle = ACC; g.lineWidth = 2.5 * d; g.beginPath(); g.moveTo(kx, ky); g.lineTo(kx, ky - len); g.moveTo(kx - 5 * d, ky - len + 7 * d); g.lineTo(kx, ky - len); g.lineTo(kx + 5 * d, ky - len + 7 * d); g.stroke();
+        dot(g, kx, ky, 4.5 * d, ACC);
+        var r = cycleAt(c, 2 * Math.PI * (eyeTrip() % 1)); ring(g, M.X(r[0]), M.Y(r[1]), 7 * d, FG1, 1.6 * d);
+        // the curve
+        var lo = -0.6, hi = 0.6, x0 = rx + 34 * d, w = rw - 46 * d, y0 = p + 26 * d, ch = hh - 50 * d;
+        function X(t){ return x0 + t / (2 * Math.PI) * w; } function Y(v){ return y0 + (hi - v) / (hi - lo) * ch; }
+        axis(g, x0, Y(0), w, d);
+        curve.forEach(function(e){ dot(g, X(e[0]), Y(e[1]), 3.5 * d, INFO); });
+        g.strokeStyle = ACC; g.lineWidth = 1.5 * d; g.beginPath(); g.moveTo(X(th0), y0); g.lineTo(X(th0), y0 + ch); g.stroke();
+        dot(g, X(th0), Y(z), 5 * d, ACC);
+        label(g, '+0.6', x0 - 6 * d, Y(0.6) + 4 * d, d, 'right'); label(g, '0', x0 - 6 * d, Y(0) + 4 * d, d, 'right'); label(g, '−0.6', x0 - 6 * d, Y(-0.6) + 4 * d, d, 'right');
+        label(g, '0°', x0, y0 + ch + 16 * d, d); label(g, '360°', x0 + w, y0 + ch + 16 * d, d, 'right');
+      }
+    };
+    $('s2p').addEventListener('input', function(){ dg = parseInt($('s2p').value, 10); STEP[1].changed(); });
+    Q('[data-s2door]').forEach(function(b){ b.addEventListener('click', function(){ door = b.getAttribute('data-s2door'); ui(); refreshAudio(); }); });
+  })();
+
+  // ---- step 3: the PRC from the loop (no sound) ----
+  (function(){
+    var mu = 1, kick = 0.1, L = null, dots = [], gap = 0, KC = {};
+    function rebuild(){
+      L = loopOf(mu); var c = L.cyc, key = mu + '|' + kick;
+      if (!KC[key]){ var a = []; for (var j = 0; j < 16; j++){ var th = 2 * Math.PI * (j + 0.5) / 16; a.push([th, prcKick(c, th, kick, 8)]); } KC[key] = a; }
+      dots = KC[key];
+      var worst = 0, scale = 0; dots.forEach(function(e){ worst = Math.max(worst, Math.abs(zAt(L.prc, e[0]) - e[1])); });
+      L.prc.forEach(function(q){ scale = Math.max(scale, Math.abs(q.Z[1])); }); gap = 100 * worst / scale;
+    }
+    function ui(){
+      pressGroup('data-s3mu', String(mu)); pressGroup('data-s3k', String(kick));
+      $('s3m').innerHTML = 'multipliers of one trip: <b>' + L.prc[0].one.toFixed(4) + '</b> along the loop, <b>' + L.cyc.across.toExponential(2) + '</b> across it · eigenvector against kicks of ' + kick + ': largest gap <b>' + gap.toFixed(2) + '%</b> of the curve’s height';
+    }
+    STEP[2] = {
+      changed: function(){ rebuild(); ui(); },
+      draw: function(g, W, H, d){
+        var p = 14 * d; box(g, p, p, W - 2 * p, H - 2 * p, d);
+        label(g, 'THE PRC TWO WAYS  μ ' + mu + ' · kicks of ' + kick, p + 6 * d, p + 14 * d, d, 'left', W - 2 * p - 12 * d);
+        var lo = 1e9, hi = -1e9; L.prc.forEach(function(q){ lo = Math.min(lo, q.Z[1]); hi = Math.max(hi, q.Z[1]); }); dots.forEach(function(e){ lo = Math.min(lo, e[1]); hi = Math.max(hi, e[1]); });
+        var pad = 0.12 * (hi - lo || 1); lo -= pad; hi += pad;
+        var x0 = p + 40 * d, w = W - 2 * p - 56 * d, y0 = p + 26 * d, h = H - 2 * p - 50 * d;
+        function X(t){ return x0 + t / (2 * Math.PI) * w; } function Y(v){ return y0 + (hi - v) / (hi - lo) * h; }
+        axis(g, x0, Y(0), w, d);
+        g.strokeStyle = ACC; g.lineWidth = 2.5 * d; g.beginPath();
+        for (var j = 0; j <= L.prc.length; j++){ var q = L.prc[j % L.prc.length], xx = X(2 * Math.PI * j / L.prc.length), yy = Y(q.Z[1]); if (j) g.lineTo(xx, yy); else g.moveTo(xx, yy); }
+        g.stroke();
+        dots.forEach(function(e){ dot(g, X(e[0]), Y(e[1]), 4.5 * d, INFO); });
+        label(g, '0', x0 - 6 * d, Y(0) + 4 * d, d, 'right');
+        label(g, 'phase 0°', x0, y0 + h + 18 * d, d); label(g, '360°', x0 + w, y0 + h + 18 * d, d, 'right');
+        if (W > 640 * d) label(g, 'gold: eigenvector · blue: kicks', x0 + w, p + 14 * d, d, 'right');
+      }
+    };
+    Q('[data-s3mu]').forEach(function(b){ b.addEventListener('click', function(){ mu = parseFloat(b.getAttribute('data-s3mu')); STEP[2].changed(); }); });
+    Q('[data-s3k]').forEach(function(b){ b.addEventListener('click', function(){ kick = parseFloat(b.getAttribute('data-s3k')); STEP[2].changed(); }); });
+  })();
+
+  // the gap over time, as in the proof's reader: dots once a cycle, an optional dashed shadow
+  function drawReader(g, x0, y0, w, h, d, full, shadow){
+    function PX(psi){ return x0 + (psi + Math.PI) / (2 * Math.PI) * w; } function PY(t){ return y0 + t / full.T * h; }
+    g.strokeStyle = FG4; g.lineWidth = d; g.setLineDash([2 * d, 3 * d]); g.beginPath(); g.moveTo(PX(0), y0); g.lineTo(PX(0), y0 + h); g.stroke(); g.setLineDash([]);
+    label(g, '−180°', x0, y0 - 6 * d, d); label(g, '0', PX(0), y0 - 6 * d, d, 'center'); label(g, '+180°', x0 + w, y0 - 6 * d, d, 'right');
+    g.fillStyle = ACC; g.globalAlpha = 0.85; full.gaps.forEach(function(q){ g.beginPath(); g.arc(PX(q[1]), PY(q[0]), 2 * d, 0, 7); g.fill(); }); g.globalAlpha = 1;
+    if (shadow){
+      g.strokeStyle = INFO; g.setLineDash([5 * d, 3 * d]); g.lineWidth = 2 * d; g.beginPath(); var prevX = null;
+      shadow.path.forEach(function(q){ var X = PX(wrap(q[2] - q[1])), Y = PY(q[0]); if (prevX === null || Math.abs(X - prevX) > w / 2) g.moveTo(X, Y); else g.lineTo(X, Y); prevX = X; });
+      g.stroke(); g.setLineDash([]);
+    }
+    label(g, 'time ↓  80 cycles', x0 + w, y0 + h + 14 * d, d, 'right');
+  }
+  // the full pair's state at the eye's clock, from the last four trips of its path
+  function pairNow(full, cyc){
+    var tail = full.path.filter(function(q){ return q[0] > full.T - 4 * cyc.T; });
+    return tail[Math.floor((eyeTrip() / 4 % 1) * tail.length) % tail.length];
+  }
+
+  // ---- step 4: two, joined ----
+  (function(){
+    var door = 'ears', eps = 0.04, det = DET, L = null, full = null;
+    function rebuild(){ L = loopOf(1); full = runFull(L.cyc, eps, det, PSI0, 80, 200); }
+    function ui(){
+      pressGroup('data-s4door', door);
+      $('s4ev').textContent = eps.toFixed(3);
+      $('s4dv').textContent = (det >= 0 ? '+' : '−') + Math.abs(det * 100).toFixed(1) + '%';
+      $('s4m').innerHTML = 'the gap: ' + (full.locked ? '<b>locked at ' + fmtDeg(full.at) + '</b>' : '<b>drifting</b>') + ' · coupling ' + eps.toFixed(3) + ', the second tuned ' + (det >= 0 ? '+' : '−') + Math.abs(det * 100).toFixed(1) + '%';
+      $('s4h').innerHTML = door === 'ears' ? 'You hear <b>one oscillator in each ear</b>. Headphones help.' : 'You hear <b>both in the middle</b>: ' + (full.locked ? 'locked far apart, they partly cancel.' : 'drifting, they swell and fade as they slide past each other.');
+    }
+    STEP[3] = {
+      render: function(){
+        var c = L.cyc, n = nAudio() + Math.round(0.15 * sr), a = renderPair(c, L.G, eps, det, PSI0, hAudio(c), n, 100 * Math.round(sr / F0)).full;
+        if (door === 'ears') return [loopOut(scaled(a[0], 0.4)), loopOut(scaled(a[1], 0.4))];
+        var m = new Float64Array(n); for (var i = 0; i < n; i++) m[i] = 0.25 * (a[0][i] + a[1][i]);
+        return loopOut(m);
+      },
+      changed: function(){ rebuild(); ui(); refreshAudio(); },
+      draw: function(g, W, H, d){
+        var c = L.cyc, p = 14 * d, S = Math.min(H - 2 * p, W * 0.42), rx = 2 * p + S, rw = W - p - rx, hh = H - 2 * p;
+        box(g, p, p, S, hh, d); box(g, rx, p, rw, hh, d);
+        label(g, 'THE LOOP  both, slowed', p + 6 * d, p + 14 * d, d, 'left', S - 12 * d);
+        label(g, 'THE GAP  ψ = θ₂ − θ₁', rx + 6 * d, p + 14 * d, d, 'left', rw - 12 * d);
+        var M = loopFrame(c, p, p, S, d); drawLoop(g, c, M, d);
+        var q = pairNow(full, c);
+        dot(g, M.X(q[1]), M.Y(q[2]), 5.5 * d, INFO); dot(g, M.X(q[3]), M.Y(q[4]), 5.5 * d, FG1);
+        drawReader(g, rx + 12 * d, p + 40 * d, rw - 24 * d, hh - 66 * d, d, full, null);
+      }
+    };
+    $('s4e').addEventListener('input', function(){ eps = parseFloat($('s4e').value); STEP[3].changed(); });
+    $('s4d').addEventListener('input', function(){ det = parseFloat($('s4d').value); STEP[3].changed(); });
+    Q('[data-s4door]').forEach(function(b){ b.addEventListener('click', function(){ door = b.getAttribute('data-s4door'); ui(); refreshAudio(); }); });
+  })();
+
+  // ---- step 5: the spring ----
+  (function(){
+    var door = 'pair', eps = 0.2, inStep = false, L = null, full = null, pp = null, chart = null;
+    function det(){ return inStep ? 0 : DET; } function psi0(){ return inStep ? 0 : PSI0; }
+    function rebuild(){
+      L = loopOf(1); var c = L.cyc;
+      if (!chart){ chart = []; for (var k = 0; k <= 10; k++){ var e = 0.05 * k, r = runFull(c, e, DET, PSI0, 80, 200); chart.push({ e: e, r: pairPitch(c, e, DET, PSI0, 80, 200).r1, sc: springCount(e, r.at), locked: r.locked }); } }
+      full = runFull(c, eps, det(), psi0(), 80, 200); pp = pairPitch(c, eps, det(), psi0(), 80, 200);
+    }
+    function ui(){
+      pressGroup('data-s5door', door);
+      $('s5in').setAttribute('aria-pressed', String(inStep));
+      $('s5ev').textContent = eps.toFixed(3);
+      var sc = springCount(eps, full.at);
+      $('s5m').innerHTML = (full.locked ? 'locked <b>' + Math.abs(deg(full.at)).toFixed(1) + '°</b> apart' : '<b>not locked</b>') + ' · the pitch: <b>' + pct(pp.r1, 1) + '</b>, ' + F0 + ' → ' + (F0 * pp.r1).toFixed(1) + ' Hz, <b>' + semis(pp.r1).toFixed(2) + '</b> semitones' + (full.locked ? ' · the spring’s count for a round swing: <b>' + pct(sc, 1) + '</b>' : '');
+      $('s5h').innerHTML = door === 'alone' ? 'You hear <b>one oscillator alone</b>, at ' + F0 + ' Hz: where the pair starts from.' : 'You hear <b>the coupled pair</b>, one in each ear, at about ' + Math.round(F0 * pp.r1) + ' Hz.';
+    }
+    STEP[4] = {
+      render: function(){
+        var c = L.cyc, n = nAudio() + Math.round(0.15 * sr);
+        if (door === 'alone') return loopOut(scaled(renderOne(c, hAudio(c), n), 0.4));
+        var a = renderPair(c, L.G, eps, det(), psi0(), hAudio(c), n, 100 * Math.round(sr / F0)).full;
+        return [loopOut(scaled(a[0], 0.4)), loopOut(scaled(a[1], 0.4))];
+      },
+      changed: function(){ rebuild(); ui(); refreshAudio(); },
+      draw: function(g, W, H, d){
+        var c = L.cyc, p = 14 * d, lw = (W - 3 * p) * 0.5, rx = 2 * p + lw, rw = W - p - rx, hh = H - 2 * p;
+        box(g, p, p, lw, hh, d); box(g, rx, p, rw, hh, d);
+        label(g, 'PITCH AGAINST COUPLING  μ 1 · detuned +0.6%', p + 6 * d, p + 14 * d, d, 'left', lw - 12 * d);
+        label(g, 'THE SPRING  slowed', rx + 6 * d, p + 14 * d, d, 'left', rw - 12 * d);
+        // the chart
+        var x0 = p + 40 * d, w = lw - 52 * d, y0 = p + 32 * d, ch = hh - 60 * d, top = 0.5;
+        function X(e){ return x0 + e / 0.5 * w; } function Y(r){ return y0 + ch - (r - 1) / top * ch; }
+        axis(g, x0, Y(1), w, d);
+        g.strokeStyle = FG3; g.setLineDash([5 * d, 4 * d]); g.lineWidth = 1.4 * d; g.beginPath();
+        chart.forEach(function(q, i){ if (i) g.lineTo(X(q.e), Y(q.sc)); else g.moveTo(X(q.e), Y(q.sc)); }); g.stroke(); g.setLineDash([]);
+        chart.forEach(function(q){ dot(g, X(q.e), Y(q.r), 4 * d, INFO); });
+        var mx = X(eps), my = Y(pp.r1);
+        g.strokeStyle = FG1; g.lineWidth = 1.5 * d; g.beginPath(); g.moveTo(mx - 7 * d, my); g.lineTo(mx + 7 * d, my); g.moveTo(mx, my - 7 * d); g.lineTo(mx, my + 7 * d); g.stroke();
+        label(g, '+50%', x0 - 6 * d, Y(1.5) + 4 * d, d, 'right'); label(g, '+25%', x0 - 6 * d, Y(1.25) + 4 * d, d, 'right'); label(g, '0', x0 - 6 * d, Y(1) + 4 * d, d, 'right');
+        label(g, 'ε 0', x0, y0 + ch + 16 * d, d); label(g, '0.5', x0 + w, y0 + ch + 16 * d, d, 'right');
+        // the spring: two balls on two tracks, joined
+        var q = pairNow(full, c), xm = 2.4, tx0 = rx + 24 * d, tw = rw - 48 * d, ya = p + hh * 0.34, yb = p + hh * 0.74;
+        function TX(x){ return tx0 + (x / xm + 1) / 2 * tw; }
+        [ya, yb].forEach(function(y){ g.strokeStyle = FG4; g.lineWidth = d; g.beginPath(); g.moveTo(tx0, y); g.lineTo(tx0 + tw, y); g.stroke(); });
+        g.setLineDash([2 * d, 3 * d]); g.strokeStyle = FG4; g.beginPath(); g.moveTo(TX(0), ya - 20 * d); g.lineTo(TX(0), yb + 20 * d); g.stroke(); g.setLineDash([]);
+        label(g, 'the middle', TX(0), yb + 34 * d, d, 'center');
+        var xa = TX(q[1]), xb = TX(q[3]), stretch = Math.min(1, Math.abs(q[3] - q[1]) / 3.5), seg = 18, amp = 7 * d;
+        g.strokeStyle = stretch > 0.25 ? ACC : FG3; g.globalAlpha = 0.4 + 0.6 * stretch; g.lineWidth = 1.8 * d; g.beginPath(); g.moveTo(xa, ya);
+        for (var i = 1; i < seg; i++){ var f = i / seg, sx = xa + (xb - xa) * f, sy = ya + (yb - ya) * f, nx = (yb - ya), ny = -(xb - xa), nl = Math.hypot(nx, ny) || 1; g.lineTo(sx + (i % 2 ? 1 : -1) * amp * nx / nl, sy + (i % 2 ? 1 : -1) * amp * ny / nl); }
+        g.lineTo(xb, yb); g.stroke(); g.globalAlpha = 1;
+        dot(g, xa, ya, 8 * d, INFO); dot(g, xb, yb, 8 * d, FG1);
+        label(g, 'x₁', tx0 - 4 * d, ya + 4 * d, d, 'right'); label(g, 'x₂', tx0 - 4 * d, yb + 4 * d, d, 'right');
+      }
+    };
+    $('s5e').addEventListener('input', function(){ eps = parseFloat($('s5e').value); STEP[4].changed(); });
+    $('s5in').addEventListener('click', function(){ inStep = !inStep; STEP[4].changed(); });
+    Q('[data-s5door]').forEach(function(b){ b.addEventListener('click', function(){ door = b.getAttribute('data-s5door'); ui(); refreshAudio(); }); });
+  })();
+
+  // ---- step 6: the shadow ----
+  (function(){
+    var door = 'full', mu = 1, eps = 0.04, L = null, full = null, shadow = null, sAt = null, pp = null;
+    function rebuild(){
+      L = loopOf(mu); var c = L.cyc, per = mu > 2 ? 300 : 200;
+      full = runFull(c, eps, DET, PSI0, 80, per); shadow = runShadow(c, L.G, eps, DET, PSI0, 80, 100);
+      sAt = eps > 0 ? shadowLock(L.G, c.w, eps, DET, shadow.end) : null;
+      pp = pairPitch(c, eps, DET, PSI0, 80, per);
+    }
+    function ui(){
+      pressGroup('data-s6door', door); pressGroup('data-s6mu', String(mu));
+      $('s6ev').textContent = eps.toFixed(3);
+      var c = L.cyc, sp = sAt !== null ? shadowPitch(L.G, c.w, eps, sAt) : null;
+      var gapErr = full.locked && sAt !== null ? Math.abs(deg(wrap(full.at - sAt))) : NaN;
+      var pulls = -c.logAcross / c.T, pushes = eps * Math.max(Math.abs(L.tg.lo), Math.abs(L.tg.hi)) * c.w;
+      $('s6m').innerHTML = 'the oscillators: <b>' + (full.alive ? (full.locked ? 'lock at ' + fmtDeg(full.at) : 'drift') : 'stop') + '</b>' + (full.locked ? ', pitch ' + pct(pp.r1, 1) : '') +
+        '<br>the shadow: <b>' + (sAt !== null ? 'lock at ' + fmtDeg(sAt) : 'drift') + '</b>' + (sAt !== null ? ', pitch ' + pct(sp, 1) : '') + (isFinite(gapErr) ? ' · <b>' + gapErr.toFixed(1) + '°</b> apart' : '') +
+        '<br>the bet: the loop pulls back at <b>' + pulls.toFixed(3) + '</b> per unit time, the coupling pushes at about <b>' + pushes.toFixed(3) + '</b>' + (pushes > 0 ? ' (' + (pulls / pushes).toFixed(1) + ' to 1)' : '');
+      $('s6h').innerHTML = door === 'full' ? 'You hear <b>the two oscillators</b> in full, one in each ear.' : door === 'red' ? 'You hear <b>the shadow</b>: two phases, read back through the loop.' : 'You hear <b>what the shadow leaves out</b>: the oscillators minus their shadow, ear by ear.';
+    }
+    STEP[5] = {
+      render: function(){
+        var c = L.cyc, n = nAudio() + Math.round(0.15 * sr), b = renderPair(c, L.G, eps, DET, PSI0, hAudio(c), n, 100 * Math.round(sr / F0)), out = [];
+        for (var ch = 0; ch < 2; ch++){ var x = new Float64Array(n); for (var i = 0; i < n; i++) x[i] = 0.4 * (door === 'full' ? b.full[ch][i] : door === 'red' ? b.red[ch][i] : b.full[ch][i] - b.red[ch][i]); out.push(loopOut(x)); }
+        return out;
+      },
+      changed: function(){ rebuild(); ui(); refreshAudio(); },
+      draw: function(g, W, H, d){
+        var c = L.cyc, p = 14 * d, lw = (W - 3 * p) * 0.55, rx = 2 * p + lw, rw = W - p - rx, hh = H - 2 * p;
+        box(g, p, p, lw, hh, d); box(g, rx, p, rw, hh, d);
+        label(g, 'HOW FAST THE GAP MOVES  the shadow’s rule · μ ' + mu, p + 6 * d, p + 14 * d, d, 'left', lw - 12 * d);
+        label(g, 'THE GAP OVER TIME', rx + 6 * d, p + 14 * d, d, 'left', rw - 12 * d);
+        var x0 = p + 12 * d, w = lw - 24 * d, y0 = p + 40 * d, ch = hh - 66 * d, P = 360, vals = [], m = 1e-6, i;
+        for (i = 0; i <= P; i++){ var psi = -Math.PI + 2 * Math.PI * i / P, v = shadowRate(L.G, c.w, eps, DET, psi); vals.push(v); m = Math.max(m, Math.abs(v)); }
+        function X(psi){ return x0 + (psi + Math.PI) / (2 * Math.PI) * w; } function Y(v){ return y0 + ch / 2 - v / m * ch * 0.45; }
+        axis(g, x0, Y(0), w, d);
+        label(g, 'grows', x0 + 2 * d, Y(m * 0.9), d); label(g, 'shrinks', x0 + 2 * d, Y(-m * 0.9) + 8 * d, d);
+        g.strokeStyle = FG2; g.lineWidth = 2 * d; g.beginPath();
+        vals.forEach(function(v, k){ var xx = X(-Math.PI + 2 * Math.PI * k / P); if (k) g.lineTo(xx, Y(v)); else g.moveTo(xx, Y(v)); }); g.stroke();
+        if (full.locked){ g.strokeStyle = INFO; g.lineWidth = 2.5 * d; g.beginPath(); g.moveTo(X(full.at), Y(0) - 12 * d); g.lineTo(X(full.at), Y(0) + 12 * d); g.stroke(); }
+        if (sAt !== null) ring(g, X(sAt), Y(0), 7 * d, ACC, 2.2 * d);
+        label(g, '−180°', x0, y0 + ch + 16 * d, d); label(g, '0', X(0), y0 + ch + 16 * d, d, 'center'); label(g, '+180°', x0 + w, y0 + ch + 16 * d, d, 'right');
+        drawReader(g, rx + 12 * d, p + 40 * d, rw - 24 * d, hh - 66 * d, d, full, shadow);
+      }
+    };
+    $('s6e').addEventListener('input', function(){ eps = parseFloat($('s6e').value); STEP[5].changed(); });
+    Q('[data-s6mu]').forEach(function(b){ b.addEventListener('click', function(){ mu = parseFloat(b.getAttribute('data-s6mu')); STEP[5].changed(); }); });
+    Q('[data-s6door]').forEach(function(b){ b.addEventListener('click', function(){ door = b.getAttribute('data-s6door'); ui(); refreshAudio(); }); });
+  })();
+
+  // ---------- the picture loop: only the step in view is drawn ----------
+  var lastT = performance.now();
+  function frame(now){
+    var dt = Math.max(0, Math.min(0.25, (now - lastT) / 1000)); lastT = now;
+    eyeT += dt; // the pictures turn whether or not anything plays: they are slowed far below the sound
+    var cv = steps[cur].querySelector('canvas.stage');
+    if (cv && STEP[cur] && STEP[cur].draw){
+      var r = cv.getBoundingClientRect(), d = window.devicePixelRatio || 1, asp = parseFloat(cv.getAttribute('data-aspect') || '0.5');
+      var cssH = Math.min(520, Math.max(260, r.width * asp));
+      if (cv.style.height !== cssH + 'px') cv.style.height = cssH + 'px';
+      var bw = Math.round(r.width * d), bh = Math.round(cssH * d);
+      if (bw > 0){
+        if (cv.width !== bw || cv.height !== bh){ cv.width = bw; cv.height = bh; }
+        var g = cv.getContext('2d'); g.clearRect(0, 0, bw, bh); STEP[cur].draw(g, bw, bh, d, dt);
+      }
+    }
+    requestAnimationFrame(frame);
+  }
+
+  // ---------- notes: one per step; kept in this tab, and in storage only where storage is allowed ----------
+  var KEY = 'dissolutions-seq-shadow-locks-notes', notes = {};
+  try { notes = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch (e) { notes = {}; }
+  Q('[data-note]').forEach(function(t){
+    var k = t.closest('section.step').getAttribute('data-step'); t.value = notes[k] || '';
+    t.addEventListener('input', function(){ notes[k] = t.value; try { localStorage.setItem(KEY, JSON.stringify(notes)); } catch (e) {} });
+  });
+  $('copy').addEventListener('click', function(){
+    var text = 'The shadow that locks, learning sequence — notes\n' + steps.map(function(s, i){ return '- ' + (i + 1) + ' ' + s.getAttribute('data-title') + ': ' + (notes[i] || '—'); }).join('\n');
+    var done = function(){ $('copied').textContent = 'copied'; };
+    if (navigator.clipboard) navigator.clipboard.writeText(text).then(done, function(){ $('copied').textContent = text; }); else $('copied').textContent = text;
+  });
+
+  // each step builds when it is first shown (go calls changed), so the page wakes quickly
+  go(0);
+  requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>

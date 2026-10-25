@@ -1,0 +1,870 @@
+<!doctype html>
+<!--
+  title: The Equation Read Backward — a learning sequence
+  born: 2026-10-25
+  parent: [[Dissolutions]] · leads up to ../2026-10-20-the-equation-read-backward/the-equation-read-backward.html · tests [[Linear Predictive Coding]]
+  forward_vector: I am the way up to the equation read backward. I take the source and the filter, the guess from one sample, the residual sixteen weights leave, the same line run the other way, and the order that splits the voice between them, one step each, so that the proof makes sense the first time it is played.
+  outline: the template's arc (Loudon's, for the table that travels) cast for LPC — source and filter alone, prediction alone, the two met in the residual, the line solved the other way, then the order.
+  sound: nothing plays until a Play button is clicked; the AudioContext is made on that click. Every buffer is made at 16 kHz, the proof's world.
+-->
+<html lang="en" class="skin-graphite">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Equation Read Backward · learning sequence</title>
+<style>
+  :root{
+    --bg:#0a0a0f; --bg-elev-1:#12121a; --bg-elev-2:#1a1a28; --border:#4a4a5e; --border-soft:rgba(255,255,255,0.06);
+    --fg-1:#e8e8f0; --fg-2:#c8c8d8; --fg-3:#8a8aa0; --fg-4:#4a4a5a;
+    --accent:#e8b84a; --accent-dim:#7a6030; --accent-soft:rgba(232,184,74,0.10); --accent-line:rgba(232,184,74,0.5);
+    --info:#4a8fff;
+    --serif:'Cormorant Garamond','Source Serif 4',Georgia,serif; --sans:'Manrope',system-ui,sans-serif;
+    --display:'Anton','Bebas Neue',Impact,sans-serif; --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--fg-1)}
+  body{font-family:var(--serif);font-size:17px;line-height:1.75;padding:40px 16px 64px}
+  main{max-width:960px;margin:0 auto}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--fg-3)}
+  h1{font-family:var(--display);font-weight:400;font-size:52px;line-height:1.05;margin:6px 0 10px}
+  h2{font-family:var(--display);font-weight:400;font-size:32px;line-height:1.1;margin:4px 0 8px;letter-spacing:.01em}
+  p.lead{font-size:20px;color:var(--fg-2);margin:0 0 22px;max-width:64ch}
+  .rail{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 18px}
+  .rail button{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-3);background:transparent;border:1px solid var(--border);border-radius:4px;padding:7px 11px;cursor:pointer;transition:all .18s cubic-bezier(.4,0,.2,1)}
+  .rail button[aria-current="step"]{color:var(--fg-1);border-color:var(--fg-3);background:var(--bg-elev-2)}
+  .rail button.seen{color:var(--fg-2)}
+  .step p.say{color:var(--fg-2);margin:0 0 14px;max-width:68ch}
+  .panel{background:var(--bg-elev-1);border:1px solid var(--border-soft);border-radius:8px;padding:18px;margin:0 0 16px}
+  .tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;align-items:center}
+  .tabs .eyebrow{margin-right:4px}
+  .tab{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-3);background:transparent;border:1px solid var(--border);border-radius:4px;padding:8px 14px;cursor:pointer;transition:all .18s cubic-bezier(.4,0,.2,1)}
+  .tab[aria-pressed="true"]{color:var(--fg-1);border-color:var(--fg-3);background:var(--bg-elev-2)}
+  button.play{font-family:var(--sans);font-weight:500;font-size:14px;color:#0a0a0f;background:var(--accent);border:0;border-radius:4px;padding:9px 20px;cursor:pointer;margin-left:auto;transition:all .18s cubic-bezier(.4,0,.2,1)}
+  button.play:hover{box-shadow:0 0 24px var(--accent-soft)}
+  canvas.stage{width:100%;display:block;background:var(--bg-elev-2);border-radius:6px}
+  .legend{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px 18px;margin-top:12px;font-family:var(--sans);font-size:13px;color:var(--fg-3);line-height:1.5}
+  .legend b{font-family:var(--mono);font-weight:400;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-2);display:block}
+  .ctl{display:grid;grid-template-columns:120px 1fr auto;gap:6px 14px;align-items:center;margin-top:14px}
+  .ctl label{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-3)}
+  .ctl input[type=range]{width:100%;accent-color:var(--accent)}
+  .ctl .v{font-family:var(--mono);font-size:14px;color:var(--fg-1);text-align:right;white-space:nowrap}
+  .hear{font-family:var(--sans);font-size:13px;color:var(--fg-3);margin-top:10px}
+  .hear b{color:var(--accent);font-weight:500}
+  .meter{font-family:var(--mono);font-size:13px;color:var(--fg-1);margin-top:10px;line-height:1.7}
+  .meter b{color:var(--accent);font-weight:400}
+  .toggle{font-family:var(--sans);font-size:13px;color:var(--fg-2);background:transparent;border:1px solid var(--border);border-radius:4px;padding:6px 12px;cursor:pointer}
+  .toggle[aria-pressed="true"]{color:var(--accent);border-color:var(--accent-line);background:var(--accent-soft)}
+  .eq{font-family:var(--mono);font-size:13px;color:var(--fg-1);margin:14px 0 0;overflow-wrap:anywhere;white-space:pre-wrap}
+  .eq.words{color:var(--fg-3);font-size:12px;margin-top:2px}
+  .try{margin:14px 0 0;padding:12px 16px;border-left:2px solid var(--accent-dim);background:var(--bg-elev-1);font-family:var(--sans);font-size:14px;color:var(--fg-2);line-height:1.6}
+  .try .eyebrow{color:var(--accent);display:block;margin-bottom:2px}
+  textarea{width:100%;margin-top:10px;min-height:54px;font-family:var(--sans);font-size:14px;color:var(--fg-1);background:var(--bg-elev-2);border:1px solid var(--border-soft);border-radius:4px;padding:8px 10px;resize:vertical}
+  textarea::placeholder{color:var(--fg-4)}
+  .rowb{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:10px}
+  button.ghost{font-family:var(--sans);font-size:14px;color:var(--fg-2);background:transparent;border:1px solid var(--border);border-radius:4px;padding:8px 14px;cursor:pointer}
+  button.ghost.small{font-size:13px;padding:5px 10px}
+  button.ghost[aria-pressed="true"]{color:var(--fg-1);border-color:var(--fg-3);background:var(--bg-elev-2)}
+  button.ghost:disabled{opacity:.35;cursor:default}
+  .hint{font-family:var(--sans);font-size:13px;color:var(--fg-3)}
+  .walk{display:flex;justify-content:space-between;gap:10px;margin-top:22px}
+  .gathered{margin:0;padding:0 0 0 18px;color:var(--fg-2)}
+  .gathered li{margin:4px 0}
+  a.proof-link{display:inline-block;font-family:var(--sans);font-weight:500;font-size:15px;color:#0a0a0f;background:var(--accent);border-radius:4px;padding:11px 22px;text-decoration:none;margin-top:14px}
+  a.proof-link:hover{box-shadow:0 0 24px var(--accent-soft)}
+  footer{margin-top:36px;font-family:var(--sans);font-size:13px;color:var(--fg-4)}
+  footer b{font-family:var(--display);font-weight:400;letter-spacing:.06em;color:var(--fg-3)}
+  footer a{color:var(--fg-3)}
+  @media (max-width:520px){h1{font-size:40px}h2{font-size:26px}.ctl{grid-template-columns:90px 1fr auto}}
+</style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">Dissolutions · learning sequence · Linear Predictive Coding</div>
+  <h1>The equation read backward, step by step</h1>
+  <p class="lead">Five short steps up to the proof. A buzz and a mouth, a guess from one sample, the guess made with sixteen weights, the same line run the other way, then how many weights to use. Each step has one thing to hear. Nothing plays until you press Play.</p>
+
+  <nav class="rail" aria-label="Steps"></nav>
+
+  <!-- ───────────── step 1 ───────────── -->
+  <section class="step" data-step="0" data-title="A buzz and a mouth">
+    <div class="eyebrow">Step 1 of 6 · the source and the filter</div>
+    <h2>A buzz, shaped by a mouth</h2>
+    <p class="say">A voice is two things. A source, which is a buzz: the vocal folds snapping shut over and over, here a plain click 125 times a second. And a filter, the mouth, which rings at a few frequencies and lets the others fade. The buzz sets the pitch. The mouth sets the vowel.</p>
+    <div class="panel">
+      <div class="tabs" role="group" aria-label="What you hear"><span class="eyebrow">Hear</span>
+        <button class="tab" data-s1door="buzz" aria-pressed="false">The buzz alone</button>
+        <button class="tab" data-s1door="mouth" aria-pressed="true">Through the mouth</button>
+        <button class="play" data-play>Play</button></div>
+      <canvas class="stage" data-aspect="0.5"></canvas>
+      <div class="legend">
+        <div><b>Left · the sound</b>Three periods of the buzz, then the same three after the mouth. One click in, one ringing out, every period.</div>
+        <div><b>Right · where the sound lives</b>Grey: the buzz’s harmonics, every one as loud as the next. Gold: the mouth’s curve. Blue: what comes out, each harmonic lifted or cut by the curve.</div>
+      </div>
+      <div class="rowb"><span class="eyebrow">the mouth makes</span>
+        <button class="ghost small" data-s1vowel="a" aria-pressed="true">Ah</button>
+        <button class="ghost small" data-s1vowel="i" aria-pressed="false">Ee</button>
+        <button class="ghost small" data-s1vowel="u" aria-pressed="false">Oo</button>
+      </div>
+      <div class="meter" id="s1m"></div>
+      <div class="eq">x[n] = (1 − r) × s[n] + 2r cos θ × x[n − 1] − r² × x[n − 2]          θ = 2π × F ÷ sr          r = e^(−π × B ÷ sr)</div>
+      <div class="eq words">(one resonance, now) = (1 − r) × (the buzz now) + 2r cos θ × (its own output one sample ago) − r² × (its own output two samples ago)  ·  θ = 2π × (the resonance’s frequency) ÷ (sample rate)  ·  r = e^(−π × (its width) ÷ (sample rate))</div>
+      <p class="hint" style="margin-top:12px">The proof’s voice starts from a smoother pulse, closer to air through real vocal folds, with a little breath. The click is the plainest buzz there is, and it is the one the proof’s <em>A buzz</em> button uses.</p>
+    </div>
+    <div class="try"><span class="eyebrow">Try</span>Play the buzz alone: a harsh, nasal tick-tone with no vowel in it. Switch to the mouth and flip between ah, ee and oo. The pitch never moves; only the curve does. Then look at the mouth’s equation: its output now is the buzz plus a weighted sum of its own last outputs. Hold on to that shape.</div>
+    <textarea data-note placeholder="What your ear and eye say about the buzz and the mouth"></textarea>
+  </section>
+
+  <!-- ───────────── step 2 ───────────── -->
+  <section class="step" data-step="1" data-title="A guess from one sample" hidden>
+    <div class="eyebrow">Step 2 of 6 · prediction, by hand</div>
+    <h2>Guess the next sample from the last one</h2>
+    <p class="say">Now take a finished voice, the proof’s, singing ah, ee, oo, and try to guess each sample before it arrives. The simplest guess: the last sample, times one weight. What the guess gets wrong is the miss. Set the weight by hand and listen to how loud the miss is.</p>
+    <div class="panel">
+      <div class="tabs" role="group" aria-label="What you hear"><span class="eyebrow">Hear</span>
+        <button class="tab" data-s2door="voice" aria-pressed="false">The voice</button>
+        <button class="tab" data-s2door="miss" aria-pressed="true">The miss</button>
+        <button class="play" data-play>Play</button></div>
+      <canvas class="stage" data-aspect="0.5"></canvas>
+      <div class="legend">
+        <div><b>Left · the guess</b>The last two dozen samples of the voice. Gold dot: the guess, the last sample times the weight. Blue dot: what the sample really is. The white line between them is the miss.</div>
+        <div><b>Right · how loud the miss is</b>Against the weight, in dB below the voice. The gold dot is your weight. The dashed line is the best one.</div>
+      </div>
+      <div class="ctl"><label for="s2a">the weight</label><input id="s2a" type="range" min="-0.5" max="1.5" step="0.01" value="0"><span class="v" id="s2av"></span></div>
+      <div class="meter" id="s2m"></div>
+      <div class="eq">e[n] = x[n] − a × x[n − 1]          loudness of e ÷ loudness of x = 1 − 2a × ρ + a²</div>
+      <div class="eq words">(the miss now) = (the voice now) − (the weight) × (the voice one sample ago)  ·  (how loud the miss is) ÷ (how loud the voice is) = 1 − 2 × (the weight) × (how alike neighbouring samples are) + (the weight)²</div>
+    </div>
+    <div class="try"><span class="eyebrow">Try</span>Start at zero: the guess is nothing, so the miss is the whole voice. Slide right and find where the miss is quietest. It gets thin and bright there, because one sample ago is nearly the same as now for the slow, low parts of the voice, so the guess cancels the lows and leaves the highs.</div>
+    <textarea data-note placeholder="What your ear and eye say about the guess"></textarea>
+  </section>
+
+  <!-- ───────────── step 3 ───────────── -->
+  <section class="step" data-step="2" data-title="Sixteen weights: the residual" hidden>
+    <div class="eyebrow">Step 3 of 6 · the residual</div>
+    <h2>Sixteen weights, and what they cannot guess</h2>
+    <p class="say">One weight can only cancel the lows. Give the guess sixteen weights, reading the last sixteen samples, and let the machine choose them, a fresh set every 10 ms as the vowel changes. Now the guess catches the vowel itself. What it still misses is called the residual, and it sounds like the buzz you started with.</p>
+    <div class="panel">
+      <div class="tabs" role="group" aria-label="What you hear"><span class="eyebrow">Hear</span>
+        <button class="tab" data-s3door="voice" aria-pressed="false">The voice</button>
+        <button class="tab" data-s3door="res" aria-pressed="true">The residual</button>
+        <button class="play" data-play>Play</button></div>
+      <canvas class="stage" data-aspect="0.5"></canvas>
+      <div class="legend">
+        <div><b>Left · the guess</b>The voice’s recent samples, with the sixteen weights as gold stems under the sixteen newest. Gold dot: their weighted sum, the guess. Blue dot: the truth.</div>
+        <div><b>Right · where the voice lives</b>Blue: the voice’s spectrum at this moment, with the vowel’s peaks. Grey: the residual’s, on the same scale. The peaks are gone; what is left is nearly flat.</div>
+      </div>
+      <div class="meter" id="s3m"></div>
+      <div class="eq">e[n] = x[n] − Σₖ aₖ × x[n − k]          k = 1 … 16</div>
+      <div class="eq words">(the residual now) = (the voice now) − Σ (weight k) × (the voice k samples ago), for k from 1 to 16</div>
+      <p class="hint" style="margin-top:12px">The weights are chosen by a recipe called Levinson-Durbin, which finds the sixteen that make the miss smallest over each 25 ms stretch. This sequence does not teach the recipe. It does what your hand did in step 2, sixteen weights at a time.</p>
+    </div>
+    <div class="try"><span class="eyebrow">Try</span>Play the voice, then the residual, turned up so you can hear it. The vowels are almost gone. What stays is the pitch, gliding, and the breath: a bright buzz, close to step 1’s click. The weights took the mouth; the residual kept the source.</div>
+    <textarea data-note placeholder="What your ear and eye say about the residual"></textarea>
+  </section>
+
+  <!-- ───────────── step 4 ───────────── -->
+  <section class="step" data-step="3" data-title="Run it the other way" hidden>
+    <div class="eyebrow">Step 4 of 6 · the same line, solved for the voice</div>
+    <h2>Residual in, voice out</h2>
+    <p class="say">The line that gave you the residual has three parts: the voice, the guess, the miss. Move the guess to the other side and the same line, with the same weights, makes a voice from a residual. Each new sample is the residual plus the guess from its own last sixteen outputs. That is the mouth’s shape from step 1. Feed it the residual and the voice comes back, every sample.</p>
+    <div class="panel">
+      <div class="tabs" role="group" aria-label="What you hear"><span class="eyebrow">Hear</span>
+        <button class="tab" data-s4door="res" aria-pressed="false">What goes in</button>
+        <button class="tab" data-s4door="syn" aria-pressed="false">What comes out</button>
+        <button class="tab" data-s4door="diff" aria-pressed="true">Voice minus that</button>
+        <button class="play" data-play>Play</button></div>
+      <canvas class="stage" data-aspect="0.56"></canvas>
+      <div class="legend">
+        <div><b>Top · what goes in</b>The residual, scaled to fit, the only thing this direction hears.</div>
+        <div><b>Middle · what comes out</b>Gold: the original voice. Blue, dashed: the voice solved back. When they match, blue lies on gold.</div>
+        <div><b>Bottom · their difference</b>On the same scale as the voice. A flat line is silence.</div>
+      </div>
+      <div class="rowb"><button class="toggle" id="s4nudge" aria-pressed="false">Run it back with the weights nudged</button><span class="hint">Each weight shrunk a little, the far ones more. The vowels stay, but the numbers are no longer the same numbers.</span></div>
+      <div class="hear" id="s4h"></div>
+      <div class="meter" id="s4m"></div>
+      <div class="eq">solved for e:  e[n] = x[n] − Σₖ aₖ × x[n − k]          solved for x:  x[n] = e[n] + Σₖ aₖ × x[n − k]</div>
+      <div class="eq words">(the residual) = (the voice) − (the guess from the voice’s past)  ·  (the voice) = (the residual) + (the guess from the voice’s own past, as it is being made)</div>
+    </div>
+    <div class="try"><span class="eyebrow">Try</span>Play the difference: silence, all the way through ah, ee, oo. Then nudge the weights and play it again. A small change in the numbers is enough to make the null speak. It is the same line with the same numbers that makes the round trip close.</div>
+    <textarea data-note placeholder="What your ear and eye say about the round trip"></textarea>
+  </section>
+
+  <!-- ───────────── step 5 ───────────── -->
+  <section class="step" data-step="4" data-title="How many weights" hidden>
+    <div class="eyebrow">Step 5 of 6 · the order</div>
+    <h2>Where the voice is split</h2>
+    <p class="say">The number of weights is called the order. It never decides whether the round trip closes: it closes at every order. It decides how the voice is shared between the two halves. The weights hold the shape of the mouth, and the residual holds whatever they could not reach. Drive the weights with a plain buzz and you hear what they hold; play the residual and you hear what they left.</p>
+    <div class="panel">
+      <div class="tabs" role="group" aria-label="What you hear"><span class="eyebrow">Hear</span>
+        <button class="tab" data-s5door="model" aria-pressed="true">What the weights hold</button>
+        <button class="tab" data-s5door="res" aria-pressed="false">What the residual holds</button>
+        <button class="play" data-play>Play</button></div>
+      <canvas class="stage" data-aspect="0.5"></canvas>
+      <div class="legend">
+        <div><b>Left · the weights’ filter</b>Gold: the curve the weights make at this moment. Faint blue: the voice’s own spectrum. More weights, more of its peaks the curve can follow.</div>
+        <div><b>Right · what the residual keeps</b>Grey: the residual’s spectrum, on the voice’s scale. Faint blue: the voice. Whatever the curve missed is still here.</div>
+      </div>
+      <div class="ctl"><label for="s5o">order</label><input id="s5o" type="range" min="1" max="32" step="1" value="2"><span class="v" id="s5ov"></span></div>
+      <div class="meter" id="s5m"></div>
+      <div class="eq">x[n] = Σₖ₌₁ᵖ aₖ × x[n − k] + e[n]</div>
+      <div class="eq words">(the voice now) = Σ (weight k) × (the voice k samples ago), for k from 1 to (the order) + (the residual now)</div>
+      <p class="hint" style="margin-top:12px">The buzz here is the proof’s: one click per period at the voice’s own pitch, turned up or down every 10 ms to the residual’s loudness.</p>
+    </div>
+    <div class="try"><span class="eyebrow">Try</span>Start at order 2 on <em>what the weights hold</em>: a buzz with a dull or bright tilt and barely a vowel. Raise it to 8, then 16, and the ah, ee, oo arrive. Switch to the residual and go back down: at low orders the residual still sounds like a voice, at high orders it thins to buzz and breath.</div>
+    <textarea data-note placeholder="What your ear and eye say about the order"></textarea>
+  </section>
+
+  <!-- ───────────── step 6 ───────────── -->
+  <section class="step" data-step="5" data-title="The proof" hidden>
+    <div class="eyebrow">Step 6 of 6 · the proof</div>
+    <h2>Now the whole thing, on one page</h2>
+    <p class="say">The proof puts every step on one screen, around the same made voice. Here is where each one is waiting for you there.</p>
+    <ul class="gathered">
+      <li><b>The voice</b> tab is the voice of steps 2 to 5, and the <b>A buzz</b> button is step 1’s click, put back in place of the residual.</li>
+      <li><b>The reader</b>, bottom left of the picture, is steps 2 and 3: the recent samples, the gold weights under them, the gold guess, the blue truth, the white miss.</li>
+      <li><b>Solved for the miss</b> is step 3: the residual. The bottom-right panel, <em>where the voice lives</em>, is step 3’s spectra.</li>
+      <li><b>Solved for the voice</b> and <b>Voice minus that</b> are step 4. The first line of the measurement box is the round trip, closing to rounding error.</li>
+      <li>The <b>order</b> slider is step 5, and the measurement box’s second line is how many dB the weights catch. The top-left panel, <em>the numbers</em>, draws the weights as the filter they make, as step 5 did.</li>
+      <li>One thing the proof adds: <b>A whisper</b>. Noise in place of the residual. The vowels come back whispered, with no pitch at all, because the pitch lived in the residual and noise has none to give.</li>
+    </ul>
+    <p class="say" style="margin-top:14px">It ends on a question. With its own residual the voice comes back whole; with a buzz the vowels survive and the life does not. Are analysis and synthesis one thing, or one equation with two kinds of thing in it, a model and what the model cannot reach?</p>
+    <a class="proof-link" href="../2026-10-20-the-equation-read-backward/the-equation-read-backward.html">Open the proof</a>
+    <textarea data-note placeholder="Did the steps get you there? What was missing?"></textarea>
+    <div class="rowb"><button class="ghost" id="copy">Copy all notes</button><span class="hint" id="copied"></span></div>
+  </section>
+
+  <div class="walk"><button class="ghost" id="back">Back</button><button class="ghost" id="next">Next</button></div>
+
+  <footer><b>LOUD’N LIVE</b> · a learning sequence for Dissolutions, 2026-10-25 · up to <a href="../2026-10-20-the-equation-read-backward/the-equation-read-backward.html">the equation read backward</a> · <a href="index.html">all six sequences</a></footer>
+</main>
+
+<script>
+(function(){
+  'use strict';
+  var $ = function(id){ return document.getElementById(id); };
+  var Q = function(sel, root){ return Array.prototype.slice.call((root || document).querySelectorAll(sel)); };
+
+  // ---- math (pure; re-checked headless by check-sequences.mjs, which calls selfTest) ----
+  // the proof's own seeded random numbers
+  function rng(seed){ var s = seed >>> 0 || 1; return function(){ s = (s * 1664525 + 1013904223) >>> 0; return s / 4294967296; }; }
+  // the proof's own vowels: four resonances each, and their widths
+  var VOWELS = { a: [730, 1090, 2440, 3400], i: [270, 2290, 3010, 3500], u: [300, 870, 2240, 3300] };
+  var BW = [80, 90, 120, 160];
+  function vowelAt(t){
+    var path = [[0, 'a'], [0.45, 'a'], [0.85, 'i'], [1.25, 'i'], [1.65, 'u'], [9, 'u']];
+    for (var j = 0; j < path.length - 1; j++) if (t < path[j + 1][0]){
+      var q = (t - path[j][0]) / (path[j + 1][0] - path[j][0]), A = VOWELS[path[j][1]], B = VOWELS[path[j + 1][1]];
+      q = q * q * (3 - 2 * q);
+      return A.map(function(f, k){ return f + (B[k] - f) * q; });
+    }
+    return VOWELS.u;
+  }
+  // the proof's own made voice: a glottal pulse train through four formant resonators, gliding ah → ee → oo
+  function makeVoice(sr, secs, seed){
+    var n = Math.round(sr * secs), x = new Float64Array(n), nz = new Float64Array(n), f0 = new Float64Array(n), r = rng(seed);
+    var ph = 0, prev = 0, y1 = [0, 0, 0, 0], y2 = [0, 0, 0, 0], jit = 0, lip = 0;
+    for (var i = 0; i < n; i++){
+      var t = i / sr, u = t / secs;
+      var base = 118 + 34 * Math.sin(Math.PI * Math.min(1, u * 1.1)) - 10 * u;
+      if (i % 64 === 0) jit = 0.6 * jit + 0.4 * (r() - 0.5) * 0.02;
+      var hz = base * (1 + 0.012 * Math.sin(2 * Math.PI * 5.2 * t) + jit); f0[i] = hz;
+      ph += hz / sr; if (ph >= 1) ph -= 1;
+      // Rosenberg flow: opens over 40% of the cycle, closes over 16%, rests shut
+      var g = ph < 0.4 ? 0.5 * (1 - Math.cos(Math.PI * ph / 0.4)) : ph < 0.56 ? Math.cos(Math.PI * (ph - 0.4) / 0.32) : 0;
+      var src = (g - prev) * 8 + (ph < 0.56 ? 0.04 : 0.006) * (r() - 0.5); prev = g;
+      var env = Math.min(1, t / 0.06) * Math.min(1, (secs - t) / 0.15);
+      var v = src * env, F = vowelAt(t);
+      for (var k = 0; k < 4; k++){
+        var rr = Math.exp(-Math.PI * BW[k] / sr), th = 2 * Math.PI * F[k] / sr;
+        var out = (1 - rr) * v + 2 * rr * Math.cos(th) * y1[k] - rr * rr * y2[k];
+        y2[k] = y1[k]; y1[k] = out; v = out;
+      }
+      // the lips radiate the flow's change, lifting the highs; turbulence at the glottis adds breath above it all
+      x[i] = v - 0.95 * lip; lip = v;
+      nz[i] = env * (ph < 0.56 ? 1 : 0.3) * (r() - 0.5);
+    }
+    var pk = 1e-12; for (i = 0; i < n; i++) pk = Math.max(pk, Math.abs(x[i]));
+    for (i = 0; i < n; i++) x[i] = (x[i] + 0.012 * pk * nz[i]) * 0.88 / pk;
+    return { x: x, f0: f0 };
+  }
+  // a steady buzz: one click per period, the same clicks the proof's buzz button makes (its standIn, held at one pitch)
+  function makeBuzz(sr, n, hz){ var y = new Float64Array(n), ph = 0; for (var i = 0; i < n; i++){ ph += hz / sr; if (ph >= 1){ ph -= 1; y[i] = 1; } } return y; }
+  // the proof's mouth: four resonators in a row, then the lips (the same lines as in makeVoice), for one vowel held still
+  function mouth(s, F, sr){
+    var n = s.length, x = new Float64Array(n), y1 = [0, 0, 0, 0], y2 = [0, 0, 0, 0], lip = 0;
+    for (var i = 0; i < n; i++){
+      var v = s[i];
+      for (var k = 0; k < 4; k++){
+        var rr = Math.exp(-Math.PI * BW[k] / sr), th = 2 * Math.PI * F[k] / sr;
+        var out = (1 - rr) * v + 2 * rr * Math.cos(th) * y1[k] - rr * rr * y2[k];
+        y2[k] = y1[k]; y1[k] = out; v = out;
+      }
+      x[i] = v - 0.95 * lip; lip = v;
+    }
+    return x;
+  }
+  // how loud the mouth makes each frequency, in dB, at B points from 0 to fmax
+  function mouthDb(F, sr, B, fmax){
+    var out = new Float64Array(B);
+    for (var b = 0; b < B; b++){
+      var w = 2 * Math.PI * (fmax * b / (B - 1)) / sr, m2 = 1;
+      for (var k = 0; k < 4; k++){
+        var rr = Math.exp(-Math.PI * BW[k] / sr), th = 2 * Math.PI * F[k] / sr;
+        var dr = 1 - 2 * rr * Math.cos(th) * Math.cos(w) + rr * rr * Math.cos(2 * w), di = 2 * rr * Math.cos(th) * Math.sin(w) - rr * rr * Math.sin(2 * w);
+        m2 *= (1 - rr) * (1 - rr) / (dr * dr + di * di);
+      }
+      var lr = 1 - 0.95 * Math.cos(w), li = 0.95 * Math.sin(w);
+      out[b] = 10 * Math.log10(m2 * (lr * lr + li * li) + 1e-30);
+    }
+    return out;
+  }
+  // autocorrelation-method Levinson-Durbin, x[n] = Σ a_k x[n−k] + e[n] (the proof's own)
+  function levinson(rr, p){
+    var a = new Float64Array(p), k = new Float64Array(p), e = rr[0];
+    if (!(e > 0)) return { a: a, k: k, err: 0 };
+    for (var i = 0; i < p; i++){
+      var acc = rr[i + 1];
+      for (var j = 0; j < i; j++) acc -= a[j] * rr[i - j];
+      var ki = acc / e, nw = a.slice();
+      k[i] = ki; nw[i] = ki;
+      for (j = 0; j < i; j++) nw[j] = a[j] - ki * a[i - 1 - j];
+      a = nw; e *= (1 - ki * ki);
+      if (e <= 0) break;
+    }
+    return { a: a, k: k, err: e };
+  }
+  // one set of weights every hop samples, fitted to a Hann window of win samples centred on it (the proof's own)
+  function lpcFrames(x, p, hop, win){
+    var F = Math.ceil(x.length / hop), frames = [], w = new Float64Array(win), seg = new Float64Array(win);
+    for (var i = 0; i < win; i++) w[i] = 0.5 - 0.5 * Math.cos(2 * Math.PI * (i + 0.5) / win);
+    for (var f = 0; f < F; f++){
+      var c = f * hop - (win >> 1);
+      for (i = 0; i < win; i++){ var s = c + i; seg[i] = (s >= 0 && s < x.length ? x[s] : 0) * w[i]; }
+      var rr = new Float64Array(p + 1);
+      for (var lag = 0; lag <= p; lag++){ var acc = 0; for (i = lag; i < win; i++) acc += seg[i] * seg[i - lag]; rr[lag] = acc; }
+      rr[0] = rr[0] * (1 + 1e-9) + 1e-12;
+      frames.push(levinson(rr, p));
+    }
+    return frames;
+  }
+  function frameOf(n, hop, F){ return Math.min(F - 1, Math.floor((n + (hop >> 1)) / hop)); }
+  // solved for the miss (the proof's own)
+  function analyse(x, frames, p, hop){
+    var e = new Float64Array(x.length);
+    for (var n = 0; n < x.length; n++){
+      var a = frames[frameOf(n, hop, frames.length)].a, s = 0;
+      for (var k = 1; k <= p && k <= n; k++) s += a[k - 1] * x[n - k];
+      e[n] = x[n] - s;
+    }
+    return e;
+  }
+  // solved for the voice (the proof's own)
+  function synthesise(e, frames, p, hop){
+    var y = new Float64Array(e.length);
+    for (var n = 0; n < e.length; n++){
+      var a = frames[frameOf(n, hop, frames.length)].a, s = 0;
+      for (var k = 1; k <= p && k <= n; k++) s += a[k - 1] * y[n - k];
+      y[n] = e[n] + s;
+    }
+    return y;
+  }
+  // a buzz or a whisper, given the residual's loudness hop by hop (the proof's own)
+  function standIn(kind, e, f0, sr, hop, seed){
+    var n = e.length, z = new Float64Array(n), r = rng(seed), ph = 0, i;
+    for (i = 0; i < n; i++){
+      if (kind === 'buzz'){ ph += f0[i] / sr; if (ph >= 1){ ph -= 1; z[i] = 1; } }
+      else z[i] = r() - 0.5;
+    }
+    for (var s = 0; s < n; s += hop){
+      var lo = Math.max(0, s - hop), hi = Math.min(n, s + 2 * hop), ee = 0, zz = 0;
+      for (i = lo; i < hi; i++){ ee += e[i] * e[i]; zz += z[i] * z[i]; }
+      var gsc = zz > 0 ? Math.sqrt(ee / zz) : 0;
+      for (i = s; i < Math.min(n, s + hop); i++) z[i] *= gsc;
+    }
+    return z;
+  }
+  function maxDiff(a, b){ var m = 0; for (var i = 0; i < a.length; i++) m = Math.max(m, Math.abs(a[i] - b[i])); return m; }
+  function energy(x){ var s = 0; for (var i = 0; i < x.length; i++) s += x[i] * x[i]; return s; }
+  function peak(x){ var m = 0; for (var i = 0; i < x.length; i++) m = Math.max(m, Math.abs(x[i])); return m; }
+  function dB(r){ return 10 * Math.log10(Math.max(1e-300, r)); }
+  // the filter the weights make, |1 / A(e^jω)| in dB, at B points from 0 to Nyquist (the proof's own)
+  function envelopeDb(a, B){
+    var out = new Float64Array(B);
+    for (var b = 0; b < B; b++){
+      var w = Math.PI * b / (B - 1), re = 1, im = 0;
+      for (var k = 1; k <= a.length; k++){ re -= a[k - 1] * Math.cos(w * k); im += a[k - 1] * Math.sin(w * k); }
+      out[b] = -10 * Math.log10(re * re + im * im + 1e-20);
+    }
+    return out;
+  }
+  // one weight, by hand: the guess is a times the last sample
+  function missOne(x, a){ var e = new Float64Array(x.length); e[0] = x[0]; for (var n = 1; n < x.length; n++) e[n] = x[n] - a * x[n - 1]; return e; }
+  // the voice's own likeness to itself one sample later, ρ = r₁ ÷ r₀; the best single weight is ρ
+  function rho1(x){ var r0 = 0, r1 = 0; for (var n = 0; n < x.length; n++){ r0 += x[n] * x[n]; if (n) r1 += x[n] * x[n - 1]; } return r1 / r0; }
+  // how loud the miss is against the voice, from ρ alone: 1 − 2aρ + a²
+  function missDbFormula(rho, a){ return dB(1 - 2 * a * rho + a * a); }
+  // the same weights, each shrunk a little: a_k × g^k (the poles move inward, so it stays stable)
+  function shrinkFrames(frames, g){ return frames.map(function(fr){ var a = new Float64Array(fr.a.length); for (var k = 0; k < a.length; k++) a[k] = fr.a[k] * Math.pow(g, k + 1); return { a: a }; }); }
+  // radix-2 FFT and a Hann-windowed spectrum in dB (the template's own)
+  function fft(re, im){
+    var n = re.length, i, j = 0, k, len;
+    for (i = 1; i < n; i++){ var bit = n >> 1; for (; j & bit; bit >>= 1) j ^= bit; j ^= bit;
+      if (i < j){ var t = re[i]; re[i] = re[j]; re[j] = t; t = im[i]; im[i] = im[j]; im[j] = t; } }
+    for (len = 2; len <= n; len <<= 1){
+      var half = len >> 1, ang = -2 * Math.PI / len;
+      for (k = 0; k < half; k++){
+        var wr = Math.cos(ang * k), wi = Math.sin(ang * k);
+        for (i = k; i < n; i += len){
+          var r2 = re[i + half] * wr - im[i + half] * wi, i2 = re[i + half] * wi + im[i + half] * wr;
+          re[i + half] = re[i] - r2; im[i + half] = im[i] - i2; re[i] += r2; im[i] += i2;
+        }
+      }
+    }
+  }
+  function spectrumDb(x, start, N){
+    var re = new Float64Array(N), im = new Float64Array(N);
+    for (var i = 0; i < N; i++){ var s = start + i; re[i] = (s >= 0 && s < x.length ? x[s] : 0) * (0.5 - 0.5 * Math.cos(2 * Math.PI * i / N)); }
+    fft(re, im);
+    var out = new Float64Array(N / 2 + 1);
+    for (i = 0; i <= N / 2; i++) out[i] = 10 * Math.log10(re[i] * re[i] + im[i] * im[i] + 1e-30);
+    return out;
+  }
+  // how flat a spectrum is: geometric mean over arithmetic mean of power, 1 for white noise, near 0 for a few sharp peaks
+  function flatness(db, lo, hi){ var g = 0, m = 0, n = 0; for (var i = lo; i < hi; i++){ g += db[i] / 10 * Math.LN10; m += Math.pow(10, db[i] / 10); n++; } return Math.exp(g / n) / (m / n); }
+  // the local peak of a dB curve nearest a guess, searched within ± span points
+  function peakNear(arr, i0, span){ var m = i0; for (var i = Math.max(1, i0 - span); i <= Math.min(arr.length - 2, i0 + span); i++) if (arr[i] > arr[m]) m = i; return m; }
+  // the world the sequence and the proof share: 16 kHz, 2.2 s of made voice, a fresh set of weights every 10 ms from a 25 ms window
+  var SRV = 16000, SECSV = 2.2, HOP = 160, WIN = 400, F0 = 125;
+  // the first three resonances' peaks in a weights' filter, searched near the vowel's listed ones (B points to 8 kHz)
+  function envPeaksNear(a, F, B){ var env = envelopeDb(a, B); return F.slice(0, 3).map(function(f){ var i0 = Math.round(f / 8000 * (B - 1)), m = peakNear(env, i0, Math.round(80 / 8000 * (B - 1))); var isMax = env[m] > env[m - 1] && env[m] > env[m + 1]; return isMax ? m * 8000 / (B - 1) : NaN; }); }
+
+  // every number a step shows, re-derived; each line is { name, ok, detail }
+  function selfTest(){
+    var out = [], sr = SRV, i;
+    var t = function(name, ok, detail){ out.push({ name: name, ok: !!ok, detail: detail }); };
+    // step 1: the buzz is one click every sr ÷ 125 = 128 samples
+    var bz = makeBuzz(sr, 3 * sr, F0), clicks = 0, worst = 0;
+    for (i = 0; i < sr; i++) clicks += bz[i];
+    for (i = 0; i + 128 < bz.length; i++) worst = Math.max(worst, Math.abs(bz[i] - bz[i + 128]));
+    t('step 1: the buzz is 125 clicks a second, one every 128 samples, exactly', clicks === 125 && worst === 0, clicks + ' clicks in 1 s; largest change period to period ' + worst);
+    // step 1: the mouth's peaks sit at the vowel's listed resonances
+    var miss1 = 0;
+    ['a', 'i', 'u'].forEach(function(v){ var F = VOWELS[v], B = 1601, db = mouthDb(F, sr, B, 8000);
+      F.forEach(function(f){ var m = peakNear(db, Math.round(f / 8000 * (B - 1)), 40); miss1 = Math.max(miss1, Math.abs(m * 8000 / (B - 1) - f)); }); });
+    t('step 1: for ah, ee and oo the mouth peaks within 30 Hz of each of its four listed resonances', miss1 <= 30, 'worst ' + miss1.toFixed(0) + ' Hz (the lips and the neighbouring peaks lean on each one)');
+    // step 1: what comes out is the buzz's harmonics, each lifted or cut by the mouth's curve: output = source × filter
+    var spread = 0;
+    ['a', 'i', 'u'].forEach(function(v){
+      var N = 4096, y = mouth(bz, VOWELS[v], sr), dy = spectrumDb(y, sr, N), ds = spectrumDb(bz, sr, N), mdb = mouthDb(VOWELS[v], sr, N / 2 + 1, sr / 2), lo = 1e9, hi = -1e9;
+      for (var h = 1; h * F0 <= 5000; h++){ var b = h * F0 / (sr / N), r = dy[b] - ds[b] - mdb[b]; lo = Math.min(lo, r); hi = Math.max(hi, r); }
+      spread = Math.max(spread, hi - lo); });
+    t('step 1: every harmonic that comes out is the buzz’s harmonic times the mouth’s curve, to 5 kHz', spread < 0.5, 'harmonic levels follow the curve to within ' + spread.toFixed(3) + ' dB');
+    // step 2: one weight by hand; the miss's loudness is 1 − 2aρ + a², least at a = ρ
+    var X = makeVoice(sr, SECSV, 11).x, rho = rho1(X), eX = energy(X), worst2 = 0;
+    [-0.5, 0, 0.5, rho, 1, 1.5].forEach(function(a){ worst2 = Math.max(worst2, Math.abs(missDbFormula(rho, a) - dB(energy(missOne(X, a)) / eX))); });
+    t('step 2: the miss’s loudness, from the formula, matches the miss measured sample by sample', worst2 < 0.01, 'worst ' + worst2.toExponential(1) + ' dB over six weights');
+    var bestA = 0, bestE = 1e300; for (var a = -0.5; a <= 1.5; a += 0.001){ var ee = energy(missOne(X, a)); if (ee < bestE){ bestE = ee; bestA = a; } }
+    t('step 2: the quietest miss, found by trying every weight, is at a = ρ = r₁ ÷ r₀', Math.abs(bestA - rho) < 0.002 && Math.abs(missDbFormula(rho, 0)) < 1e-12, 'scan finds ' + bestA.toFixed(3) + ', ρ = ' + rho.toFixed(3) + ', ' + missDbFormula(rho, rho).toFixed(1) + ' dB; at a = 0, ' + missDbFormula(rho, 0).toFixed(1) + ' dB');
+    // step 3: sixteen weights, refit every 10 ms
+    var fr16 = lpcFrames(X, 16, HOP, WIN), E16 = analyse(X, fr16, 16, HOP), g16 = dB(eX / energy(E16));
+    t('step 3: sixteen weights, a set every 10 ms, 220 sets, catch far more than one weight could', fr16.length === 220 && g16 > -missDbFormula(rho, rho) + 10, fr16.length + ' sets; ' + g16.toFixed(1) + ' dB against ' + (-missDbFormula(rho, rho)).toFixed(1) + ' dB for the best single weight');
+    var flatOk = true, fd = [];
+    [0.3, 1.05, 1.95].forEach(function(tt){ var s0 = Math.round(tt * sr) - 256, fx = flatness(spectrumDb(X, s0, 512), 4, 240), fe = flatness(spectrumDb(E16, s0, 512), 4, 240); if (!(fe > 10 * fx && fe > 0.2)) flatOk = false; fd.push(fx.toFixed(3) + '→' + fe.toFixed(2)); });
+    t('step 3: the residual’s spectrum is flat where the voice’s has peaks (ah, ee, oo)', flatOk, 'flatness voice→residual ' + fd.join(', '));
+    var pk3 = true, pd = [];
+    [[0.3, 'a'], [1.05, 'i'], [1.95, 'u']].forEach(function(q){ var f = frameOf(Math.round(q[0] * sr), HOP, fr16.length), pks = envPeaksNear(fr16[f].a, VOWELS[q[1]], 801);
+      pks.forEach(function(pf, k){ if (!(Math.abs(pf - VOWELS[q[1]][k]) <= 60)) pk3 = false; }); pd.push(q[1] + ' ' + pks.map(function(v){ return isNaN(v) ? '—' : v.toFixed(0); }).join('/')); });
+    t('step 3: the sixteen weights’ filter has a bump at each of the vowel’s first three resonances', pk3, pd.join(' · '));
+    // step 4: solved for the voice, the same line gives the voice back
+    var Y16 = synthesise(E16, fr16, 16, HOP), trip = maxDiff(X, Y16);
+    t('step 4: the residual, run back through the same weights, is the voice to rounding error', trip < 1e-10, 'largest difference ' + trip.toExponential(1));
+    var Ys = synthesise(E16, shrinkFrames(fr16, 0.98), 16, HOP), Ds = new Float64Array(X.length); for (i = 0; i < X.length; i++) Ds[i] = X[i] - Ys[i];
+    var dd = dB(energy(Ds) / eX);
+    t('step 4: with the weights nudged, the round trip no longer closes, and the miss is loud enough to hear', dd > -20 && dd < -3 && peak(Ys) < 2, 'difference ' + (-dd).toFixed(1) + ' dB below the voice; peak out ' + peak(Ys).toFixed(2));
+    // step 5: the order moves sound between the weights and the residual; the line holds at every order
+    var worst5 = 0, gains = [], ords = [1, 2, 4, 8, 16, 32], mono = true, prev = -1e9;
+    for (var p = 1; p <= 32; p++){ var fr = lpcFrames(X, p, HOP, WIN), E = analyse(X, fr, p, HOP); worst5 = Math.max(worst5, maxDiff(X, synthesise(E, fr, p, HOP)));
+      if (ords.indexOf(p) >= 0){ var gg = dB(eX / energy(E)); gains.push(p + ': ' + gg.toFixed(1)); if (gg < prev) mono = false; prev = gg; } }
+    t('step 5: the round trip closes to rounding error at every order from 1 to 32', worst5 < 1e-10, 'largest difference ' + worst5.toExponential(1));
+    t('step 5: each added weight catches more of the voice, so less is left for the residual', mono, 'dB caught at order ' + gains.join(', '));
+    var fr1 = lpcFrames(X, 1, HOP, WIN), g1 = dB(eX / energy(analyse(X, fr1, 1, HOP)));
+    t('step 5: at order 1 the machine finds what your hand found in step 2', Math.abs(g1 + missDbFormula(rho, rho)) < 0.5, 'order 1 catches ' + g1.toFixed(1) + ' dB; the best hand-set weight ' + (-missDbFormula(rho, rho)).toFixed(1) + ' dB');
+    var v5 = makeVoice(sr, SECSV, 11), Z = standIn('buzz', E16, v5.f0, sr, HOP, 5), zr = dB(energy(Z) / energy(E16));
+    t('step 5: the plain buzz that drives the weights is about as loud as the residual it stands in for', Math.abs(zr) < 3, 'buzz against residual ' + (zr >= 0 ? '+' : '') + zr.toFixed(2) + ' dB');
+    return out;
+  }
+  // ---- end math ----
+  window.__selfTest = selfTest;
+
+  // ================= the sequence frame =================
+  // This sequence lives in the proof's 16 kHz world, like a telephone's: every buffer is made at 16 kHz and the
+  // browser resamples it on the way out, so sr stays 16000 whatever the AudioContext's own rate (the proof does the same).
+  var sr = SRV;
+  var steps = Q('section.step'), cur = 0, seen = {};
+  var rail = document.querySelector('.rail');
+  steps.forEach(function(s, i){
+    var b = document.createElement('button'); b.textContent = (i + 1) + ' · ' + s.getAttribute('data-title'); b.setAttribute('data-go', i);
+    b.addEventListener('click', function(){ go(i); }); rail.appendChild(b);
+  });
+  var STEP = []; // per-step behaviour: { render(): Float32Array, draw(g, W, H, d, dt), changed() }
+
+  // ---------- audio: nothing is made until a Play click ----------
+  var ctx = null, master = null, voice = null, t0 = 0, playing = false;
+  function ensure(){
+    if (ctx) return;
+    ctx = new (window.AudioContext || window.webkitAudioContext)();
+    var comp = ctx.createDynamicsCompressor(); comp.threshold.value = -6; comp.ratio.value = 8;
+    master = ctx.createGain(); master.gain.value = 0.4; master.connect(comp); comp.connect(ctx.destination);
+  }
+  function loopify(x, F){
+    var N = x.length - F, out = new Float32Array(N);
+    for (var i = 0; i < N; i++){
+      if (i < F){ var q = i / F; out[i] = x[i] * Math.sin(q * Math.PI / 2) + x[N + i] * Math.cos(q * Math.PI / 2); }
+      else out[i] = x[i];
+    }
+    return out;
+  }
+  function playBuffer(data){
+    var b = ctx.createBuffer(1, data.length, sr); b.copyToChannel(data, 0);
+    var s = ctx.createBufferSource(); s.buffer = b; s.loop = true;
+    var g = ctx.createGain(); g.gain.value = 0; s.connect(g); g.connect(master);
+    var t = ctx.currentTime; s.start(); g.gain.setTargetAtTime(1, t, 0.03); t0 = t;
+    if (voice){ var o = voice; o.g.gain.setTargetAtTime(0, t, 0.03); setTimeout(function(){ try { o.s.stop(); } catch (e) {} o.g.disconnect(); }, 400); }
+    voice = { s: s, g: g, len: data.length };
+  }
+  function stopAudio(){
+    playing = false;
+    Q('[data-play]').forEach(function(b){ b.textContent = 'Play'; });
+    if (voice && ctx){ var o = voice; o.g.gain.setTargetAtTime(0, ctx.currentTime, 0.02); setTimeout(function(){ try { o.s.stop(); } catch (e) {} o.g.disconnect(); }, 200); }
+    voice = null;
+  }
+  var pend = 0;
+  function refreshAudio(){ if (!playing) return; clearTimeout(pend); pend = setTimeout(function(){ if (playing) playBuffer(STEP[cur].render()); }, 40); }
+  function nowSample(len){ if (!playing || !voice) return -1; return Math.floor((ctx.currentTime - t0) * sr) % (len || voice.len); }
+  Q('[data-play]').forEach(function(b){
+    b.addEventListener('click', function(){
+      ensure(); if (ctx.state === 'suspended') ctx.resume();
+      if (playing){ stopAudio(); return; }
+      playing = true; b.textContent = 'Stop'; playBuffer(STEP[cur].render());
+    });
+  });
+
+  // ---------- walking the steps ----------
+  function go(i){
+    if (i < 0 || i >= steps.length) return;
+    stopAudio(); cur = i; seen[i] = true;
+    steps.forEach(function(s, k){ s.hidden = k !== i; });
+    Q('.rail button').forEach(function(b, k){ if (k === i) b.setAttribute('aria-current', 'step'); else b.removeAttribute('aria-current'); b.classList.toggle('seen', !!seen[k]); });
+    $('back').disabled = i === 0; $('next').disabled = i === steps.length - 1;
+    $('next').textContent = i === steps.length - 2 ? 'Next: the proof' : 'Next';
+    if (STEP[i] && STEP[i].changed) STEP[i].changed();
+  }
+  $('back').addEventListener('click', function(){ go(cur - 1); window.scrollTo(0, 0); });
+  $('next').addEventListener('click', function(){ go(cur + 1); window.scrollTo(0, 0); });
+  window.__seq = { count: steps.length, current: function(){ return cur; }, playing: function(){ return playing; }, go: go };
+
+  // ---------- drawing helpers ----------
+  var css = getComputedStyle(document.documentElement);
+  var ACC = css.getPropertyValue('--accent').trim(), FG1 = css.getPropertyValue('--fg-1').trim(), FG2 = css.getPropertyValue('--fg-2').trim(), FG3 = css.getPropertyValue('--fg-3').trim(), FG4 = css.getPropertyValue('--fg-4').trim(), INFO = css.getPropertyValue('--info').trim();
+  function box(g, x, y, w, h, d){ g.strokeStyle = 'rgba(255,255,255,0.06)'; g.lineWidth = d; g.strokeRect(x, y, w, h); }
+  function label(g, text, x, y, d, align){ g.font = (10 * d) + 'px JetBrains Mono, Menlo, monospace'; g.fillStyle = FG4; g.textAlign = align || 'left'; g.fillText(text, x, y); g.textAlign = 'left'; }
+  function axis(g, x0, y, w, d){ g.setLineDash([4 * d, 4 * d]); g.strokeStyle = FG4; g.lineWidth = d; g.beginPath(); g.moveTo(x0, y); g.lineTo(x0 + w, y); g.stroke(); g.setLineDash([]); }
+  function pressGroup(attr, val){ Q('[' + attr + ']').forEach(function(b){ b.setAttribute('aria-pressed', String(b.getAttribute(attr) === val)); }); }
+  // a stretch of samples drawn sample by sample (so a single click is never skipped), scaled by pk
+  function wave(g, x0, y0, w, h, arr, start, len, pk, color, lw, dash){
+    g.strokeStyle = color; g.lineWidth = lw; g.setLineDash(dash || []); g.beginPath();
+    for (var i = 0; i < len; i++){ var k = start + i, v = k >= 0 && k < arr.length ? arr[k] : 0, x = x0 + i / (len - 1) * w, y = y0 + h / 2 - Math.max(-1.15, Math.min(1.15, v / pk)) * h * 0.42; if (i) g.lineTo(x, y); else g.moveTo(x, y); }
+    g.stroke(); g.setLineDash([]);
+  }
+  // a dB curve: arr[b] for b over its length, mapped to 0 … fmax of the box (only the bins up to fmax are drawn)
+  function dbLine(g, arr, binHz, fmax, x0, y0, w, h, top, range, color, lw){
+    g.strokeStyle = color; g.lineWidth = lw; g.beginPath();
+    var nb = Math.min(arr.length - 1, Math.floor(fmax / binHz));
+    for (var b = 0; b <= nb; b++){ var xx = x0 + b * binHz / fmax * w, yy = y0 + Math.min(h, Math.max(0, (top - arr[b]) / range * h)); if (b) g.lineTo(xx, yy); else g.moveTo(xx, yy); }
+    g.stroke();
+  }
+  // two panels: side by side on a wide screen, stacked on a narrow one (frac is the first panel's share)
+  function halves(W, H, d, frac){
+    var p = 14 * d;
+    if (W / d < 560){ var h1 = (H - 3 * p) * frac; return { a: { x: p, y: p, w: W - 2 * p, h: h1 }, b: { x: p, y: 2 * p + h1, w: W - 2 * p, h: H - 3 * p - h1 } }; }
+    var lw = (W - 3 * p) * frac; return { a: { x: p, y: p, w: lw, h: H - 2 * p }, b: { x: 2 * p + lw, y: p, w: W - 3 * p - lw, h: H - 2 * p } };
+  }
+  function maxOf(arr, n){ var m = -1e9; for (var i = 0; i < Math.min(n || arr.length, arr.length); i++) m = Math.max(m, arr[i]); return m; }
+  function freqTicks(g, x0, y, w, fmax, d){ for (var f = 1000; f < fmax; f += 1000) label(g, (f / 1000) + 'k', x0 + f / fmax * w, y, d, 'center'); }
+
+  // ================= the steps =================
+  // the proof's voice, made once and shared: 2.2 s, then 0.4 s of rest before it loops, as on the proof
+  var VOICE = makeVoice(SRV, SECSV, 11), X = VOICE.x, REST = Math.round(0.4 * SRV);
+  var FR16 = lpcFrames(X, 16, HOP, WIN), E16 = analyse(X, FR16, 16, HOP), PK_E16 = peak(E16);
+  function withRest(src, gain){ var out = new Float32Array(src.length + REST); for (var i = 0; i < src.length; i++) out[i] = Math.max(-1, Math.min(1, src[i] * gain)); return out; }
+  // where the pictures look: the sound's own moment while it plays, else a still moment in the ah
+  function momentOr(still){ var n = nowSample(); return n < 0 ? still : Math.min(X.length - 1, n); }
+  // the still moment: the biggest swing in the ah just after 0.35 s, so the guess and the truth sit apart enough to see
+  var STILL = 5600; (function(){ for (var i = 5600; i < 5760; i++) if (Math.abs(X[i]) > Math.abs(X[STILL])) STILL = i; })();
+  // the reader: recent samples, optional weight stems under the newest, the guess (gold) against the truth (blue)
+  function reader(g, x0, y0, w, h, d, sig, n0, a, pastN){
+    var win = pastN, lo = n0 - win + 1, pkv = 1e-9, i, k;
+    for (i = Math.max(0, lo); i <= n0; i++) pkv = Math.max(pkv, Math.abs(sig[i]));
+    var step = w / (win - 0.5), mid = y0 + h * 0.42, amp = h * 0.3;
+    var SX = function(j){ return x0 + (j - lo) * step; }, SY = function(v){ return mid - v / pkv * amp; };
+    axis(g, x0, mid, w, d);
+    g.strokeStyle = INFO; g.lineWidth = 1.4 * d; g.beginPath();
+    for (i = Math.max(0, lo); i < n0; i++){ if (i > Math.max(0, lo)) g.lineTo(SX(i), SY(sig[i])); else g.moveTo(SX(i), SY(sig[i])); }
+    g.stroke();
+    g.fillStyle = INFO; for (i = Math.max(0, lo); i < n0; i++){ g.beginPath(); g.arc(SX(i), SY(sig[i]), 2 * d, 0, 7); g.fill(); }
+    var amax = 1e-9; for (k = 0; k < a.length; k++) amax = Math.max(amax, Math.abs(a[k]));
+    var base = y0 + h - 16 * d;
+    g.strokeStyle = FG4; g.lineWidth = d; g.beginPath(); g.moveTo(x0, base); g.lineTo(x0 + w, base); g.stroke();
+    for (k = 1; k <= a.length && n0 - k >= lo; k++){ var tx = SX(n0 - k), tv = a[k - 1] / amax * h * 0.12; g.strokeStyle = ACC; g.lineWidth = Math.max(1.5 * d, step * 0.35); g.beginPath(); g.moveTo(tx, base); g.lineTo(tx, base - tv); g.stroke(); }
+    var pred = 0; for (k = 1; k <= a.length && k <= n0; k++) pred += a[k - 1] * sig[n0 - k];
+    var ax = SX(n0), yT = SY(sig[n0]), yP = SY(pred);
+    g.strokeStyle = FG1; g.lineWidth = 2 * d; g.beginPath(); g.moveTo(ax, yT); g.lineTo(ax, yP); g.stroke();
+    g.fillStyle = ACC; g.beginPath(); g.arc(ax, yP, 5 * d, 0, 7); g.fill();
+    g.fillStyle = INFO; g.beginPath(); g.arc(ax, yT, 5 * d, 0, 7); g.fill();
+    label(g, 'now', ax, y0 + 12 * d, d, 'right');
+    label(g, a.length === 1 ? 'the weight, under the last sample' : 'the ' + a.length + ' weights, under the ' + a.length + ' newest', x0, y0 + h - 2 * d, d);
+  }
+
+  // ---- step 1: a buzz and a mouth ----
+  (function(){
+    var door = 'mouth', vowel = 'a', N = 4096, bz = makeBuzz(SRV, 3 * SRV, F0), y = null, dy = null, ds = spectrumDb(bz, SRV, N), mdb = null, pkB = peak(bz), pkY = 1;
+    var NAMES = { a: 'ah', i: 'ee', u: 'oo' };
+    function rebuild(){ y = mouth(bz, VOWELS[vowel], SRV); pkY = peak(y.subarray(SRV)); dy = spectrumDb(y, SRV, N); mdb = mouthDb(VOWELS[vowel], SRV, N / 2 + 1, SRV / 2); }
+    function ui(){
+      pressGroup('data-s1door', door); pressGroup('data-s1vowel', vowel);
+      $('s1m').innerHTML = 'the buzz: <b>' + F0 + '</b> clicks a second, one every <b>' + Math.round(SRV / F0) + '</b> samples · the mouth for ' + NAMES[vowel] + ': resonances near <b>' + VOWELS[vowel].join(', ') + ' Hz</b>';
+    }
+    STEP[0] = {
+      // the last two seconds are exactly periodic (250 periods of 128 samples), so the loop needs no crossfade; the bare clicks go a little higher, being so sparse
+      render: function(){ var src = door === 'buzz' ? bz : y, pk = door === 'buzz' ? pkB : pkY, out = new Float32Array(2 * SRV); for (var i = 0; i < out.length; i++) out[i] = (door === 'buzz' ? 0.95 : 0.7) * src[SRV + i] / pk; return out; },
+      changed: function(){ rebuild(); ui(); refreshAudio(); },
+      draw: function(g, W, H, d){
+        var p = 14 * d, R = halves(W, H, d, 0.44), A = R.a, lw = A.w, rx = R.b.x, rw = R.b.w, hh = R.b.h, ty = R.b.y, h1 = (A.h - p) / 2, ya = A.y, yb2 = A.y + h1 + p;
+        box(g, A.x, ya, lw, h1, d); box(g, A.x, yb2, lw, h1, d); box(g, rx, ty, rw, hh, d);
+        label(g, 'THE BUZZ  ' + F0 + ' Hz', A.x + 6 * d, ya + 14 * d, d);
+        label(g, 'THROUGH THE MOUTH  ' + NAMES[vowel], A.x + 6 * d, yb2 + 14 * d, d);
+        label(g, 'WHERE THE SOUND LIVES  0–5 kHz · 60 dB', rx + 6 * d, ty + 14 * d, d);
+        var x0 = A.x + 8 * d, w = lw - 16 * d, span = 3 * 128, s0 = 2 * SRV - 2;
+        axis(g, x0, ya + 18 * d + (h1 - 26 * d) / 2, w, d);
+        wave(g, x0, ya + 18 * d, w, h1 - 26 * d, bz, s0, span, pkB, door === 'buzz' ? ACC : FG3, 1.6 * d);
+        axis(g, x0, yb2 + 18 * d + (h1 - 26 * d) / 2, w, d);
+        wave(g, x0, yb2 + 18 * d, w, h1 - 26 * d, y, s0, span, pkY, door === 'mouth' ? ACC : FG3, 1.6 * d);
+        // the harmonics as stems: grey for the buzz (all equal), blue for what comes out, gold for the mouth's curve
+        var fmax = 5000, binHz = SRV / N, sx0 = rx + 10 * d, sw = rw - 20 * d, sy0 = ty + 46 * d, sh = hh - 76 * d, range = 60;
+        var topY = -1e9, h;
+        for (h = 1; h * F0 <= fmax; h++) topY = Math.max(topY, dy[h * F0 / binHz]);
+        var topM = maxOf(mdb, Math.floor(fmax / binHz)), topS = ds[F0 / binHz];
+        for (h = 1; h * F0 <= fmax; h++){
+          var b = h * F0 / binHz, xx = sx0 + h * F0 / fmax * sw, yb = sy0 + sh;
+          var ys = sy0 + Math.min(sh, Math.max(0, (topS - ds[b]) / range * sh)), yy = sy0 + Math.min(sh, Math.max(0, (topY - dy[b]) / range * sh));
+          g.strokeStyle = 'rgba(138,138,160,0.35)'; g.lineWidth = 3 * d; g.beginPath(); g.moveTo(xx, yb); g.lineTo(xx, ys); g.stroke();
+          g.strokeStyle = INFO; g.lineWidth = 1.6 * d; g.beginPath(); g.moveTo(xx, yb); g.lineTo(xx, yy); g.stroke();
+        }
+        dbLine(g, mdb, binHz, fmax, sx0, sy0, sw, sh, topM, range, ACC, 2.2 * d);
+        VOWELS[vowel].forEach(function(f, k){ label(g, f + '', sx0 + f / fmax * sw, sy0 - 6 * d - (k % 2) * 11 * d, d, 'center'); });
+        freqTicks(g, sx0, ty + hh - 8 * d, sw, fmax, d);
+      }
+    };
+    Q('[data-s1door]').forEach(function(b){ b.addEventListener('click', function(){ door = b.getAttribute('data-s1door'); ui(); refreshAudio(); }); });
+    Q('[data-s1vowel]').forEach(function(b){ b.addEventListener('click', function(){ vowel = b.getAttribute('data-s1vowel'); STEP[0].changed(); }); });
+  })();
+
+  // ---- step 2: a guess from one sample ----
+  (function(){
+    var door = 'miss', a = 0, rho = rho1(X), E = null, A0 = -0.5, A1 = 1.5;
+    function rebuild(){ E = missOne(X, a); }
+    function ui(){
+      pressGroup('data-s2door', door);
+      $('s2av').textContent = 'a = ' + a.toFixed(2);
+      var m = missDbFormula(rho, a), best = missDbFormula(rho, rho);
+      $('s2m').innerHTML = 'your weight <b>' + a.toFixed(2) + '</b>: the miss is ' + (Math.abs(m) < 0.05 ? '<b>as loud as the voice</b>' : '<b>' + Math.abs(m).toFixed(1) + ' dB</b> ' + (m < 0 ? 'below' : 'above') + ' the voice') + ' · the best single weight is ρ = <b>' + rho.toFixed(2) + '</b>, <b>' + (-best).toFixed(1) + ' dB</b> below';
+    }
+    STEP[1] = {
+      render: function(){ var src = door === 'voice' ? X : E, pk = peak(src); return withRest(src, Math.min(0.8, 0.95 / pk)); },
+      changed: function(){ rebuild(); ui(); refreshAudio(); },
+      draw: function(g, W, H, d){
+        var R = halves(W, H, d, 0.5), A = R.a, B = R.b, p = B.y, rx = B.x, rw = B.w, hh = B.h;
+        box(g, A.x, A.y, A.w, A.h, d); box(g, rx, p, rw, hh, d);
+        label(g, 'THE GUESS  one weight · at ' + (momentOr(STILL) / SRV).toFixed(2) + ' s', A.x + 6 * d, A.y + 14 * d, d);
+        label(g, 'HOW LOUD THE MISS IS  dB against the voice', rx + 6 * d, p + 14 * d, d);
+        reader(g, A.x + 10 * d, A.y + 24 * d, A.w - 20 * d, A.h - 30 * d, d, X, momentOr(STILL), [a], 24);
+        // the miss's loudness against the weight: 1 − 2aρ + a²
+        var cx0 = rx + 34 * d, cw = rw - 48 * d, cy0 = p + 30 * d, ch = hh - 60 * d, top = 6, bot = -20;
+        var Y = function(db){ return cy0 + (top - Math.max(bot, Math.min(top, db))) / (top - bot) * ch; }, Xa = function(v){ return cx0 + (v - A0) / (A1 - A0) * cw; };
+        axis(g, cx0, Y(0), cw, d);
+        label(g, '0 dB · as loud as the voice', cx0 + cw, Y(0) - 4 * d, d, 'right');
+        label(g, '+6', cx0 - 6 * d, Y(6) + 4 * d, d, 'right'); label(g, '−20', cx0 - 6 * d, Y(-20) + 4 * d, d, 'right');
+        g.strokeStyle = FG2; g.lineWidth = 1.8 * d; g.beginPath();
+        for (var i = 0; i <= 200; i++){ var v = A0 + i / 200 * (A1 - A0), xx = Xa(v), yy = Y(missDbFormula(rho, v)); if (i) g.lineTo(xx, yy); else g.moveTo(xx, yy); }
+        g.stroke();
+        g.setLineDash([3 * d, 4 * d]); g.strokeStyle = FG3; g.lineWidth = d; g.beginPath(); g.moveTo(Xa(rho), cy0); g.lineTo(Xa(rho), cy0 + ch); g.stroke(); g.setLineDash([]);
+        label(g, 'best · ' + rho.toFixed(2), Xa(rho) - 4 * d, cy0 + ch - 4 * d, d, 'right');
+        g.fillStyle = ACC; g.beginPath(); g.arc(Xa(a), Y(missDbFormula(rho, a)), 6 * d, 0, 7); g.fill();
+        [-0.5, 0, 0.5, 1, 1.5].forEach(function(v){ label(g, v + '', Xa(v), p + hh - 10 * d, d, 'center'); });
+        label(g, 'the weight', cx0 + cw, p + hh - 22 * d, d, 'right');
+      }
+    };
+    $('s2a').addEventListener('input', function(){ a = parseFloat($('s2a').value); STEP[1].changed(); });
+    Q('[data-s2door]').forEach(function(b){ b.addEventListener('click', function(){ door = b.getAttribute('data-s2door'); ui(); refreshAudio(); }); });
+  })();
+
+  // the spectra of one moment (a 256-sample Hann window, as on the proof), kept until the moment or the signals change
+  function momentSpectra(cache, f, key, sigs){
+    if (cache.f === f && cache.key === key) return cache;
+    var N = 256, c = f * HOP - N / 2, out = { f: f, key: key };
+    Object.keys(sigs).forEach(function(k){ out[k] = spectrumDb(sigs[k], c, N); });
+    return out;
+  }
+
+  // ---- step 3: sixteen weights, the residual ----
+  (function(){
+    var door = 'res', cache = {}, gain = dB(energy(X) / energy(E16));
+    function ui(){
+      pressGroup('data-s3door', door);
+      $('s3m').innerHTML = '<b>16</b> weights, a fresh set every <b>10 ms</b>: <b>' + FR16.length + '</b> sets for the ' + SECSV + ' s · the guess catches <b>' + gain.toFixed(1) + ' dB</b> of the voice; the best single weight caught ' + (-missDbFormula(rho1(X), rho1(X))).toFixed(1) + ' dB';
+    }
+    STEP[2] = {
+      render: function(){ return door === 'voice' ? withRest(X, 0.8) : withRest(E16, 0.9 / PK_E16); },
+      changed: function(){ ui(); refreshAudio(); },
+      draw: function(g, W, H, d){
+        var R = halves(W, H, d, 0.5), A = R.a, B = R.b, p = B.y, rx = B.x, rw = B.w, hh = B.h;
+        box(g, A.x, A.y, A.w, A.h, d); box(g, rx, p, rw, hh, d);
+        var n0 = momentOr(STILL), f = frameOf(n0, HOP, FR16.length);
+        label(g, 'THE GUESS  16 weights · at ' + (n0 / SRV).toFixed(2) + ' s', A.x + 6 * d, A.y + 14 * d, d);
+        label(g, 'WHERE THE VOICE LIVES  0–8 kHz · 90 dB', rx + 6 * d, p + 14 * d, d);
+        reader(g, A.x + 10 * d, A.y + 24 * d, A.w - 20 * d, A.h - 30 * d, d, X, n0, FR16[f].a, 40);
+        cache = momentSpectra(cache, f, 'r16', { x: X, e: E16 });
+        var sx0 = rx + 10 * d, sw = rw - 20 * d, sy0 = p + 26 * d, sh = hh - 50 * d, top = maxOf(cache.x) + 3;
+        dbLine(g, cache.x, SRV / 256, 8000, sx0, sy0, sw, sh, top, 90, INFO, 1.6 * d);
+        dbLine(g, cache.e, SRV / 256, 8000, sx0, sy0, sw, sh, top, 90, FG3, 1.4 * d);
+        freqTicks(g, sx0, p + hh - 8 * d, sw, 8000, d);
+        label(g, 'blue: the voice · grey: the residual', sx0, sy0 + sh - 4 * d, d);
+      }
+    };
+    Q('[data-s3door]').forEach(function(b){ b.addEventListener('click', function(){ door = b.getAttribute('data-s3door'); ui(); refreshAudio(); }); });
+  })();
+
+  // ---- step 4: run it the other way ----
+  (function(){
+    var door = 'diff', nudge = false, Y = null, D = null, trip = 0, dd = 0, FRS = shrinkFrames(FR16, 0.98);
+    function rebuild(){
+      Y = synthesise(E16, nudge ? FRS : FR16, 16, HOP);
+      D = new Float64Array(X.length); for (var i = 0; i < X.length; i++) D[i] = X[i] - Y[i];
+      trip = maxDiff(X, Y); dd = dB(energy(D) / energy(X));
+    }
+    function ui(){
+      pressGroup('data-s4door', door);
+      $('s4nudge').setAttribute('aria-pressed', String(nudge));
+      $('s4m').innerHTML = nudge
+        ? 'voice against the voice solved back, weights nudged: their difference is <b>' + (-dd).toFixed(1) + ' dB</b> below the voice, loud enough to hear'
+        : 'voice against the voice solved back from its residual: largest difference <b>' + trip.toExponential(1) + '</b>, the size of the computer’s rounding';
+      var h;
+      if (door === 'res') h = 'You hear <b>what goes in</b>: the residual, turned up to be heard.';
+      else if (door === 'syn') h = nudge ? 'You hear <b>the voice, solved back with nudged weights</b>: nearly the voice, a little duller in its peaks.' : 'You hear <b>the voice, solved back</b> from the residual alone.';
+      else h = nudge ? 'You hear <b>the leftover</b>: what the nudged numbers failed to give back.' : 'You hear <b>silence</b>: the voice and its solved-back self cancel.';
+      $('s4h').innerHTML = h;
+    }
+    STEP[3] = {
+      render: function(){ return door === 'res' ? withRest(E16, 0.9 / PK_E16) : withRest(door === 'syn' ? Y : D, 0.8); },
+      changed: function(){ rebuild(); ui(); refreshAudio(); },
+      draw: function(g, W, H, d){
+        var p = 14 * d, ww = W - 2 * p, hh = H - 4 * p, h1 = hh * 0.26, h2 = hh * 0.42, h3 = hh - h1 - h2;
+        var y1 = p, y2 = y1 + h1 + p, y3 = y2 + h2 + p;
+        box(g, p, y1, ww, h1, d); box(g, p, y2, ww, h2, d); box(g, p, y3, ww, h3, d);
+        var n0 = momentOr(STILL), span = Math.round(0.04 * SRV), s0 = Math.max(0, Math.min(X.length - span, n0 - span));
+        label(g, 'WHAT GOES IN  the residual · scaled to fit', p + 6 * d, y1 + 14 * d, d);
+        label(g, 'WHAT COMES OUT  40 ms at ' + (n0 / SRV).toFixed(2) + ' s', p + 6 * d, y2 + 14 * d, d);
+        label(g, 'VOICE MINUS THAT  same scale as the voice', p + 6 * d, y3 + 14 * d, d);
+        var x0 = p + 8 * d, w = ww - 16 * d, pkE = 1e-9, pkX = peak(X), i;
+        for (i = s0; i < s0 + span; i++) pkE = Math.max(pkE, Math.abs(E16[i]));
+        axis(g, x0, y1 + 18 * d + (h1 - 24 * d) / 2, w, d);
+        wave(g, x0, y1 + 18 * d, w, h1 - 24 * d, E16, s0, span, pkE, door === 'res' ? ACC : FG3, 1.3 * d);
+        axis(g, x0, y2 + 18 * d + (h2 - 24 * d) / 2, w, d);
+        wave(g, x0, y2 + 18 * d, w, h2 - 24 * d, X, s0, span, pkX * 0.6, ACC, 2.4 * d);
+        wave(g, x0, y2 + 18 * d, w, h2 - 24 * d, Y, s0, span, pkX * 0.6, INFO, 1.5 * d, [5 * d, 4 * d]);
+        axis(g, x0, y3 + 18 * d + (h3 - 24 * d) / 2, w, d);
+        wave(g, x0, y3 + 18 * d, w, h3 - 24 * d, D, s0, span, pkX * 0.6, door === 'diff' ? ACC : FG3, 1.6 * d);
+      }
+    };
+    Q('[data-s4door]').forEach(function(b){ b.addEventListener('click', function(){ door = b.getAttribute('data-s4door'); ui(); refreshAudio(); }); });
+    $('s4nudge').addEventListener('click', function(){ nudge = !nudge; STEP[3].changed(); });
+  })();
+
+  // ---- step 5: how many weights ----
+  (function(){
+    var door = 'model', order = 2, fr = null, E = null, Ym = null, gain = 0, trip = 0, pkE = 1, pkY = 1, cache = {}, pendO = 0;
+    function rebuild(){
+      fr = lpcFrames(X, order, HOP, WIN); E = analyse(X, fr, order, HOP);
+      trip = maxDiff(X, synthesise(E, fr, order, HOP)); gain = dB(energy(X) / energy(E));
+      Ym = synthesise(standIn('buzz', E, VOICE.f0, SRV, HOP, 5), fr, order, HOP);
+      pkE = peak(E); pkY = peak(Ym); cache = {};
+    }
+    function ui(){
+      pressGroup('data-s5door', door);
+      $('s5ov').textContent = order + (order === 1 ? ' weight' : ' weights');
+      $('s5m').innerHTML = 'order <b>' + order + '</b>: the weights catch <b>' + gain.toFixed(1) + ' dB</b> of the voice; the residual carries the rest · the round trip still closes: largest difference <b>' + trip.toExponential(1) + '</b>';
+    }
+    STEP[4] = {
+      render: function(){ return door === 'model' ? withRest(Ym, 0.8 / pkY) : withRest(E, 0.9 / pkE); },
+      changed: function(){ rebuild(); ui(); refreshAudio(); },
+      draw: function(g, W, H, d){
+        var R = halves(W, H, d, 0.5), A = R.a, B = R.b, rx = B.x, rw = B.w;
+        box(g, A.x, A.y, A.w, A.h, d); box(g, rx, B.y, rw, B.h, d);
+        var n0 = momentOr(STILL), f = frameOf(n0, HOP, fr.length);
+        label(g, 'THE WEIGHTS’ FILTER  order ' + order + ' · 0–8 kHz', A.x + 6 * d, A.y + 14 * d, d);
+        label(g, 'WHAT THE RESIDUAL KEEPS  0–8 kHz · 90 dB', rx + 6 * d, B.y + 14 * d, d);
+        cache = momentSpectra(cache, f, 'o' + order, { x: X, e: E });
+        var env = envelopeDb(fr[f].a, 129), top = maxOf(cache.x) + 3, envTop = maxOf(env) + 3;
+        var sx0 = A.x + 10 * d, sw = A.w - 20 * d, sy0 = A.y + 26 * d, sh = A.h - 50 * d;
+        dbLine(g, cache.x, SRV / 256, 8000, sx0, sy0, sw, sh, top, 90, 'rgba(74,143,255,0.35)', 1.2 * d);
+        dbLine(g, env, 8000 / 128, 8000, sx0, sy0, sw, sh, envTop, 90, ACC, 2.4 * d);
+        freqTicks(g, sx0, A.y + A.h - 8 * d, sw, 8000, d);
+        var ex0 = rx + 10 * d, ew = rw - 20 * d, ey0 = B.y + 26 * d, eh = B.h - 50 * d;
+        dbLine(g, cache.x, SRV / 256, 8000, ex0, ey0, ew, eh, top, 90, 'rgba(74,143,255,0.35)', 1.2 * d);
+        dbLine(g, cache.e, SRV / 256, 8000, ex0, ey0, ew, eh, top, 90, FG2, 1.4 * d);
+        freqTicks(g, ex0, B.y + B.h - 8 * d, ew, 8000, d);
+      }
+    };
+    $('s5o').addEventListener('input', function(){ order = parseInt($('s5o').value, 10); $('s5ov').textContent = order + (order === 1 ? ' weight' : ' weights'); clearTimeout(pendO); pendO = setTimeout(function(){ STEP[4].changed(); }, 60); });
+    Q('[data-s5door]').forEach(function(b){ b.addEventListener('click', function(){ door = b.getAttribute('data-s5door'); ui(); refreshAudio(); }); });
+  })();
+
+  // ---------- the picture loop: only the step in view is drawn ----------
+  var lastT = performance.now();
+  function frame(now){
+    var dt = Math.max(0, Math.min(0.25, (now - lastT) / 1000)); lastT = now;
+    var cv = steps[cur].querySelector('canvas.stage');
+    if (cv && STEP[cur] && STEP[cur].draw){
+      var r = cv.getBoundingClientRect(), d = window.devicePixelRatio || 1, asp = parseFloat(cv.getAttribute('data-aspect') || '0.5');
+      if (r.width < 560) asp *= 2.2; // narrow: the panels stack
+      var cssH = Math.min(520, Math.max(220, r.width * asp));
+      if (cv.style.height !== cssH + 'px') cv.style.height = cssH + 'px';
+      var bw = Math.round(r.width * d), bh = Math.round(cssH * d);
+      if (bw > 0){
+        if (cv.width !== bw || cv.height !== bh){ cv.width = bw; cv.height = bh; }
+        var g = cv.getContext('2d'); g.clearRect(0, 0, bw, bh); STEP[cur].draw(g, bw, bh, d, dt);
+      }
+    }
+    requestAnimationFrame(frame);
+  }
+
+  // ---------- notes: one per step; kept in this tab, and in storage only where storage is allowed ----------
+  var KEY = 'dissolutions-seq-equation-read-backward-notes', notes = {};
+  try { notes = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch (e) { notes = {}; }
+  Q('[data-note]').forEach(function(t){
+    var k = t.closest('section.step').getAttribute('data-step'); t.value = notes[k] || '';
+    t.addEventListener('input', function(){ notes[k] = t.value; try { localStorage.setItem(KEY, JSON.stringify(notes)); } catch (e) {} });
+  });
+  $('copy').addEventListener('click', function(){
+    var text = 'The equation read backward, learning sequence — notes\n' + steps.map(function(s, i){ return '- ' + (i + 1) + ' ' + s.getAttribute('data-title') + ': ' + (notes[i] || '—'); }).join('\n');
+    var done = function(){ $('copied').textContent = 'copied'; };
+    if (navigator.clipboard) navigator.clipboard.writeText(text).then(done, function(){ $('copied').textContent = text; }); else $('copied').textContent = text;
+  });
+
+  STEP.forEach(function(s){ s.changed(); });
+  go(0);
+  requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>
