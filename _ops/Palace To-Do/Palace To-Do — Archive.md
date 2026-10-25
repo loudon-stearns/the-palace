@@ -2,13 +2,15 @@
 title: Palace To-Do — Archive
 born: 2026-08-25
 links:
-  - target: "[[Palace To-Do]]"
+  - target: "[[Baton Ceremony]]"
     type: connects-to
-    label: archive-of
-forward_vector: "I hold everything the active To-Do card no longer carries — every completed item with its full body, and every open item deliberately parked — so the card can stay a dozen live things without the palace losing a single record. I end when an item here is either revived onto the card or composted with a reason."
+    label: succeeded-by
+forward_vector: "I hold what the Palace To-Do carried, every completed item and every item it set down, verbatim, since the card retired into handoffs on 2026-10-25. I keep the record so nothing it held is lost, and I point whoever reads me at the board's handoffs, where open work now lives."
 ---
 
 # Palace To-Do — Archive
+
+*The card retired on 2026-10-25, and open work now lives in the board's handoffs (`node _ops/stigmergy/list-handoffs.mjs`, [[Baton Ceremony]]). What follows is history, kept verbatim; its `[[Palace To-Do]]` links name a page that no longer exists.*
 
 The [[Palace To-Do]] card was 66KB and 43 open items on 2026-08-25. It was split so the card could
 be a *worklist* again — the dozen-odd things actually live — while nothing was lost.
@@ -27,6 +29,34 @@ Three status notes recorded at the split, verified against the tree rather than 
 - **The commit-msg hook — answered 2026-08-25.** The card asked what `ops/couldnt` meant and whether the subject-length cap fits how commits are actually written. Both now settled by reading `_ops/stigmergy/app/scripts/commit-msg-hook.mjs`: (1) `ops/couldnt` is the tolerate-and-flag annotation stamped on any message that fails validation — `Palace-Kind: ops` plus `Palace-Verify: couldnt` — so the LOG still renders it honestly. It never blocks. (2) The 72-char subject cap is a *warning*, never an error, so blowing past it on real multi-part work costs nothing; no fix needed. (3) The real trap, and the actual cause of the 2026-07-05 incident: **`Palace-Verify` is an enum (`verified | unverified | couldnt`), not a sentence.** Writing an honest prose verification note there invalidates the whole message, and a well-formed deposit gets silently demoted to `ops/couldnt` — losing its deposit classification in the LOG deck. The hook computed that reason and discarded it, so the demotion looked identical to a raw Obsidian commit. Fixed: the hook now prints `why:` and `note:` lines. Put the prose in the body; keep the trailer to one enum word.
 
 - **`connects-to` + label as a permanent class — answered.** Listed under Questions Being Carried as open; [[SCHEMA]] §4 now states it directly ("a permanent named class — not a draft placeholder"). The question was resolved in a Schema Ceremony and the To-Do never learned.
+
+---
+
+## Released at the To-Do's retirement, 2026-10-25
+
+On 2026-10-25 the card retired in favour of handoffs, on Loudon's word: "Create a handoff for the to-do's and to retire 'to-do' entirely in favor of handoffs." He walked its 25 open items one at a time. Thirteen became batons on the board (`node _ops/stigmergy/list-handoffs.mjs`, [[Baton Ceremony]]); two were folded into open batons (the RunPod readers into BLUELINE's, the stewardship rite's verb into Project Stewardship System's); the old merged branches were pruned that day; the nine below were released, each with its reason. The two items the 2026-10-24 weave had ticked are kept at the end.
+
+- [x] **AI and the Future of Higher Education** — Loudon's specific hopes, predictions, and the vision he wants to push. Not a brainstorm; a manifesto-level crystallization. This is the philosophy under [[Loudon Live]], and it is the one entry on this list that is straightforwardly *content* rather than infrastructure. Next action: a dedicated session with Loudon talking, Claude drafting. — released 2026-10-25: Loudon's call, 2026-10-25.
+
+- [x] **Rich faces nominated by the 2026-10-24 weave** — Spinoza Conatus, Hyperdimensional Prism, Boundary-Crossing Instruments, Cross-Domain Resonances, Action Potential Oscillator, Phoneme Choir, 2D Torus Wavetable Synthesizer; the claim each piece would test is in `_ops/swarm/sessions/weave-2026-10-24/checkpoint-2-for-loudon.md` § 12. Next action: Loudon picks the first; Enrichment makes it. — released 2026-10-25: covered by the Enrichment rich-face nominations handoff (`enrichment-rich-face-nominations-2026-10-handoff-2026-10-25`).
+
+- [x] **[[Two Batons, One Board]] — the fixture that hardcodes its path** — the entry has three homes across the codebase, and `_ops/stigmergy/app/tests/e2e/state-deck.spec.js:317` hardcodes its exact path as a fixture. If the entry moves, the test breaks silently. Its own session. — released 2026-10-25: the test fails loudly if the entry moves, and the fix is one line then.
+
+- [x] **[[STIGMERGY Philosophical Lenses]] → The Lens — re-scope, not a fold** — The Lens's own body asks for this re-scope; the weave dropped it as too big for a fold. Its own session. — released 2026-10-25: Loudon's call, 2026-10-25.
+
+- [x] **[[Shop/Maker]] — whether the Shop can hold an operated Specialist, and the Producer layer** — an architecture question, plus generalizing the Post-producer charter (Loudon deferred both, 2026-09-02). Its own session. — released 2026-10-25: held by the Maker's forward vector.
+
+- [x] **`Palace-Verify:` is a self-report** — the trailer that exists to prevent self-report is typed by the agent that did the work ([[Deposit Ceremony]] step 7, "land with the honest verify state"). The palace's own rule is that an agent can report what it *did* and not what it *is*, and verification status is the second kind. Fixing it means deriving the value from something checkable — a linter exit code, a scoped run — or dropping the field rather than letting it assert what it cannot know. Related: the scoped-linter item above is probably its precondition. — released 2026-10-25: Deposit step 6 already makes `verified` mean someone else's cold read plus the linters; the exit code alone isn't the answer.
+
+- [x] **Entry voice diversity** — enchanted voices read too alike. Audit which entries are merely expository versus which carry real voice or opinion, and write guidance for entries that are enchantment candidates. Now coupled to the markup-density work in [[The Palace Voice]]: the drift that flattened entry voice is measurable, and the same check catches both. — released 2026-10-25: carried by The Lens handoff, whose step (f) now holds one line of it.
+
+- [x] **Spore check on [[1 from 2]]** — dormant, revival condition is "Loudon ready to return to fiction." Worth one honest read against current work rather than carrying indefinitely: either the condition has moved, or the entry should be re-parked with a date. — released 2026-10-25: [[1 from 2]] is re-parked: `stage: dormant` on 2026-10-25, and it wakes when Loudon is ready to return to fiction.
+
+- [x] **The CAD Drafter's first job** — the Handwheel's real drawings through the Maker, which is what moves the Specialist from stub to alive. Owner: [[CAD Drafter]], with [[Haptic Handwheel]] and [[Shop/Maker]]. — released 2026-10-25: no motor yet; the CAD Drafter's forward vector names the job, and it comes back when the parts arrive.
+
+- [x] **Let the dead-link checker read bundle files** — `_ops/swarm/lint-ghost-links.py` scans only entries: it skips any file whose frontmatter has no canon `type` (`:155-157`), and bundle files carry none by design ([[SCHEMA — Reference]] §8). So a dead `[[link]]` inside a bundle file never reaches the Weave, and as more tools fold into bundles, more of the palace goes dark to it. Widen the scan to bundle files, reported apart from entries so the Weave can tell them apart. First known case: `[[PDL]]` in `Shop/VCV Patch Generator/VCV Patch Generator — spec — PDL generation prompt.md`, which dropped out of the lint's sight when the prompt folded into the bundle (D-2026-09-26-PDLGP, the Concierge's flag); move 4 on the [[Generative Audio Devices]] scroll, a PDL Spec page, would give it a target. Loudon asked for this, 2026-09-26. — done by the 2026-10-24 weave: lint-ghost-links.py now scans bundle files into a separate block
+
+- [x] **`palace-commit --help` prints no usage** — `--help` is an unknown flag, so the committer refuses it; the door's measure counts it the commonest refusal, 19 times in 17 sessions. Owner: [[How the Palace Commits]]. — done by the 2026-10-24 weave: --help prints the usage block from the header and exits 0; one test
 
 ---
 
