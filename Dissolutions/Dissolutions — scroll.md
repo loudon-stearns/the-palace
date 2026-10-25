@@ -15,17 +15,17 @@ forward_vector: "I am Dissolutions' scroll: the page that opens on where the ide
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-18T22:40:53.344Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the page is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-25T16:19:22-04:00 from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the page is steered by the **Plan** and **Standing Orders** below, never here._
 
 - **Status:** — · **Stage:** seed · **Steward:** none — this page has no permanent steward yet
-- **Plan:** agreed (no dated change on the trail yet)
+- **Plan:** agreed 2026-10-25 (today) · 0 made things since
 - **Waiting on you:** nothing
-- **Last shipped:** nothing on the board yet — but the bundle holds 2 media files (see the making trail)
-- **Last commit touching this page:** 2026-10-18 `c9acd4b1` — handoff(Dissolutions): Build the six remaining playable proofs for the Dissolutions
+- **Last shipped:** nothing on the board yet — but the bundle holds 8 media files (see the making trail)
+- **Last commit touching this page:** 2026-10-25 `4852b2a5` — edit(Dissolutions): the Plan gains a learning sequence for every proof, on Loudon's yes; the baton's run is marked in the ceremony's ledger
 
 ### Where this stands
 
-**handoff path:** Dissolutions/Dissolutions — baton.md **receiving surface:** Claude Code (Mac) **move:** Build the six remaining playable proofs for the Dissolutions catalogue, one per member, each testing its identity claim and ending in a hunt-ledger line.
+**lifecycle:** claim **handoff id:** dissolutions-remainder-20261025T132839Z **handoff path:** Dissolutions/Dissolutions — baton.md **receiving surface:** Claude Code (Mac) **move:** Build a learning sequence for each of the six 2026-10-20 Dissolutions proofs — a few short interactive steps up to each existing page — then carry Loudon's yes or no on offers A, B and E; the move and everything it needs are on Dissolutions/Dissolutions — baton.md. **note:** Caught in worktree dissolutions-sequences-905758; building six learning sequences as roughs on branch claude/dissolutions-sequences-905758 for Loudon's play.
 
 ### Open asks
 
@@ -42,8 +42,7 @@ _Nothing decided on the board yet._
 <!-- scroll:plan:start -->
 **One playable proof per dissolution.** Agreed with Loudon, 2026-10-18.
 
-1. Each member gets an interactive proof that tests its identity claim rather than illustrates it. *One curve, three readers* is the first (Exponential Decay Curvature, partly Volterra Kernels and the Torus and Chebyshev is Fourier), and shows where the feeling of difference comes from: a dissolution is hidden by nature, which is why it is taught.
-1a. Each proof is reached by a learning sequence: a few short interactive steps that take each component concept on its own, then combine them, and arrive at the proof as the last step. Loudon's outline for the table that travels is the model: the table alone, the loop alone, the two combined through their difference, then the filter. *(Agreed with Loudon, 2026-10-25.)*
+1. Each member gets an interactive proof that tests its identity claim rather than illustrates it, reached by a learning sequence: a few short interactive steps that take each component concept on its own, then combine them, and arrive at the proof as the last step. Loudon's outline for the table that travels is the model: the table alone, the loop alone, the two combined through their difference, then the filter. *One curve, three readers* is the first proof (Exponential Decay Curvature, partly Volterra Kernels and the Torus and Chebyshev is Fourier), and shows where the feeling of difference comes from: a dissolution is hidden by nature, which is why it is taught. *(The sequence agreed with Loudon, 2026-10-25.)*
 2. Built 2026-10-20: Dispersion Table, Phase Reduction, Chebyshev is Fourier, Volterra Kernels and the Torus, Linear Predictive Coding, Rank-N Lattice Analysis. Owed: a learning sequence for each.
 3. Each proof ends in a hunt-ledger line: identity, isomorphism or analogy, and the knob it unlocked.
 4. A proof that will not come alive is a question about whether that member stands, carried to a sit, not hidden.
@@ -62,6 +61,27 @@ _Loudon's standing direction for this page — never regenerated. A steward, if 
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="plan-2026-10-25T16-19-22-04-00" -->
+### 2026-10-25 — Plan revised
+
+Step 1a folds into step 1, on Loudon's yes, so the proof and the walk up to it read as one step with the proof last, and the list numbers plainly. Nothing in the agreed path changes. Learning sequences for all six proofs are drafted on the branch claude/dissolutions-sequences-905758, with one index; they are not on main, and Loudon has not heard them yet.
+
+_The plan before this change:_
+
+> **One playable proof per dissolution.** Agreed with Loudon, 2026-10-18.
+>
+> 1. Each member gets an interactive proof that tests its identity claim rather than illustrates it. *One curve, three readers* is the first (Exponential Decay Curvature, partly Volterra Kernels and the Torus and Chebyshev is Fourier), and shows where the feeling of difference comes from: a dissolution is hidden by nature, which is why it is taught.
+> 1a. Each proof is reached by a learning sequence: a few short interactive steps that take each component concept on its own, then combine them, and arrive at the proof as the last step. Loudon's outline for the table that travels is the model: the table alone, the loop alone, the two combined through their difference, then the filter. *(Agreed with Loudon, 2026-10-25.)*
+> 2. Built 2026-10-20: Dispersion Table, Phase Reduction, Chebyshev is Fourier, Volterra Kernels and the Torus, Linear Predictive Coding, Rank-N Lattice Analysis. Owed: a learning sequence for each.
+> 3. Each proof ends in a hunt-ledger line: identity, isomorphism or analogy, and the knob it unlocked.
+> 4. A proof that will not come alive is a question about whether that member stands, carried to a sit, not hidden.
+> 5. When enough proofs exist, [[Enrichment]] assembles them into the rich face.
+> 6. Before each build, search the member's bundle and `Projects/*/proofs/` first.
+>
+> *On form:* the projection picture (the stored object in the centre, its reader below, the output to the right) may carry across most members, since "same object, different reader" is the shape of almost every one.
+<sub>`plan-2026-10-25T16-19-22-04-00` · plan revised · agreed 2026-10-25T16:19:22-04:00 · the Concierge, on Loudon's yes of 2026-10-25</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="plan-2026-10-25-learning-sequences" -->
 ### 2026-10-25 — Plan revised
 
