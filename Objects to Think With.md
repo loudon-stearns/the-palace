@@ -90,3 +90,7 @@ working alongside their own AI collaborator. Until a cohort meets, the share ste
   moments in a lesson where students heard the 500-sample window as time they could feel."*
 - Body-syntonic is a claim about Loudon's own pedagogy that has never been tested against a failure.
   Which project taught nobody anything, and why?
+
+## Active Baton
+
+[[Objects to Think With — baton]] — drafted 2026-10-25
