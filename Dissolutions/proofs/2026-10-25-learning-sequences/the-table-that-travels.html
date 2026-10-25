@@ -1,0 +1,735 @@
+<!doctype html>
+<!--
+  title: The Table That Travels — a learning sequence
+  born: 2026-10-25
+  parent: [[Dissolutions]] · leads up to ../2026-10-20-the-table-that-travels/the-table-that-travels.html · tests [[Dispersion Table]]
+  forward_vector: I am the way up to the table that travels. I take the table alone, the loop alone, the two through their difference, the filter alone, and the filter in the loop, one step each, so that the proof makes sense the first time it is played.
+  outline: Loudon's, from the sit of 2026-10-25 — the table alone, the loop alone, the two combined through their difference, then the filter.
+  sound: nothing plays until a Play button is clicked; the AudioContext is made on that click.
+-->
+<html lang="en" class="skin-graphite">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Table That Travels · learning sequence</title>
+<style>
+  :root{
+    --bg:#0a0a0f; --bg-elev-1:#12121a; --bg-elev-2:#1a1a28; --border:#4a4a5e; --border-soft:rgba(255,255,255,0.06);
+    --fg-1:#e8e8f0; --fg-2:#c8c8d8; --fg-3:#8a8aa0; --fg-4:#4a4a5a;
+    --accent:#e8b84a; --accent-dim:#7a6030; --accent-soft:rgba(232,184,74,0.10); --accent-line:rgba(232,184,74,0.5);
+    --info:#4a8fff;
+    --serif:'Cormorant Garamond','Source Serif 4',Georgia,serif; --sans:'Manrope',system-ui,sans-serif;
+    --display:'Anton','Bebas Neue',Impact,sans-serif; --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--fg-1)}
+  body{font-family:var(--serif);font-size:17px;line-height:1.75;padding:40px 16px 64px}
+  main{max-width:960px;margin:0 auto}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--fg-3)}
+  h1{font-family:var(--display);font-weight:400;font-size:52px;line-height:1.05;margin:6px 0 10px}
+  h2{font-family:var(--display);font-weight:400;font-size:32px;line-height:1.1;margin:4px 0 8px;letter-spacing:.01em}
+  p.lead{font-size:20px;color:var(--fg-2);margin:0 0 22px;max-width:64ch}
+  .rail{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 18px}
+  .rail button{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-3);background:transparent;border:1px solid var(--border);border-radius:4px;padding:7px 11px;cursor:pointer;transition:all .18s cubic-bezier(.4,0,.2,1)}
+  .rail button[aria-current="step"]{color:var(--fg-1);border-color:var(--fg-3);background:var(--bg-elev-2)}
+  .rail button.seen{color:var(--fg-2)}
+  .step p.say{color:var(--fg-2);margin:0 0 14px;max-width:68ch}
+  .panel{background:var(--bg-elev-1);border:1px solid var(--border-soft);border-radius:8px;padding:18px;margin:0 0 16px}
+  .tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;align-items:center}
+  .tabs .eyebrow{margin-right:4px}
+  .tab{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-3);background:transparent;border:1px solid var(--border);border-radius:4px;padding:8px 14px;cursor:pointer;transition:all .18s cubic-bezier(.4,0,.2,1)}
+  .tab[aria-pressed="true"]{color:var(--fg-1);border-color:var(--fg-3);background:var(--bg-elev-2)}
+  button.play{font-family:var(--sans);font-weight:500;font-size:14px;color:#0a0a0f;background:var(--accent);border:0;border-radius:4px;padding:9px 20px;cursor:pointer;margin-left:auto;transition:all .18s cubic-bezier(.4,0,.2,1)}
+  button.play:hover{box-shadow:0 0 24px var(--accent-soft)}
+  canvas.stage{width:100%;display:block;background:var(--bg-elev-2);border-radius:6px}
+  .legend{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px 18px;margin-top:12px;font-family:var(--sans);font-size:13px;color:var(--fg-3);line-height:1.5}
+  .legend b{font-family:var(--mono);font-weight:400;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-2);display:block}
+  .ctl{display:grid;grid-template-columns:120px 1fr auto;gap:6px 14px;align-items:center;margin-top:14px}
+  .ctl label{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-3)}
+  .ctl input[type=range]{width:100%;accent-color:var(--accent)}
+  .ctl .v{font-family:var(--mono);font-size:14px;color:var(--fg-1);text-align:right;white-space:nowrap}
+  .hear{font-family:var(--sans);font-size:13px;color:var(--fg-3);margin-top:10px}
+  .hear b{color:var(--accent);font-weight:500}
+  .meter{font-family:var(--mono);font-size:13px;color:var(--fg-1);margin-top:10px;line-height:1.7}
+  .meter b{color:var(--accent);font-weight:400}
+  .toggle{font-family:var(--sans);font-size:13px;color:var(--fg-2);background:transparent;border:1px solid var(--border);border-radius:4px;padding:6px 12px;cursor:pointer}
+  .toggle[aria-pressed="true"]{color:var(--accent);border-color:var(--accent-line);background:var(--accent-soft)}
+  .eq{font-family:var(--mono);font-size:13px;color:var(--fg-1);margin:14px 0 0;overflow-wrap:anywhere;white-space:pre-wrap}
+  .eq.words{color:var(--fg-3);font-size:12px;margin-top:2px}
+  .try{margin:14px 0 0;padding:12px 16px;border-left:2px solid var(--accent-dim);background:var(--bg-elev-1);font-family:var(--sans);font-size:14px;color:var(--fg-2);line-height:1.6}
+  .try .eyebrow{color:var(--accent);display:block;margin-bottom:2px}
+  textarea{width:100%;margin-top:10px;min-height:54px;font-family:var(--sans);font-size:14px;color:var(--fg-1);background:var(--bg-elev-2);border:1px solid var(--border-soft);border-radius:4px;padding:8px 10px;resize:vertical}
+  textarea::placeholder{color:var(--fg-4)}
+  .rowb{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:10px}
+  button.ghost{font-family:var(--sans);font-size:14px;color:var(--fg-2);background:transparent;border:1px solid var(--border);border-radius:4px;padding:8px 14px;cursor:pointer}
+  button.ghost.small{font-size:13px;padding:5px 10px}
+  button.ghost[aria-pressed="true"]{color:var(--fg-1);border-color:var(--fg-3);background:var(--bg-elev-2)}
+  button.ghost:disabled{opacity:.35;cursor:default}
+  .hint{font-family:var(--sans);font-size:13px;color:var(--fg-3)}
+  .walk{display:flex;justify-content:space-between;gap:10px;margin-top:22px}
+  .gathered{margin:0;padding:0 0 0 18px;color:var(--fg-2)}
+  .gathered li{margin:4px 0}
+  a.proof-link{display:inline-block;font-family:var(--sans);font-weight:500;font-size:15px;color:#0a0a0f;background:var(--accent);border-radius:4px;padding:11px 22px;text-decoration:none;margin-top:14px}
+  a.proof-link:hover{box-shadow:0 0 24px var(--accent-soft)}
+  footer{margin-top:36px;font-family:var(--sans);font-size:13px;color:var(--fg-4)}
+  footer b{font-family:var(--display);font-weight:400;letter-spacing:.06em;color:var(--fg-3)}
+  footer a{color:var(--fg-3)}
+  @media (max-width:520px){h1{font-size:40px}h2{font-size:26px}.ctl{grid-template-columns:90px 1fr auto}}
+</style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">Dissolutions · learning sequence · Dispersion Table</div>
+  <h1>The table that travels, step by step</h1>
+  <p class="lead">Five short steps up to the proof. A table alone, a loop alone, the two set against each other, a filter alone, then the filter put in the loop. Each step has one thing to hear. Nothing plays until you press Play.</p>
+
+  <nav class="rail" aria-label="Steps"></nav>
+
+  <!-- ───────────── step 1 ───────────── -->
+  <section class="step" data-step="0" data-title="The table">
+    <div class="eyebrow">Step 1 of 6 · the table alone</div>
+    <h2>A stored cycle and a reader</h2>
+    <p class="say">A wavetable is one cycle of a wave, kept as a list of numbers, and a reader that runs across it and jumps back to the start. The cycle never changes. The pitch is only how fast the reader goes round: twice as fast, an octave up.</p>
+    <div class="panel">
+      <div class="tabs"><span class="eyebrow">Hear</span><span class="hint">the table, read at the speed below</span><button class="play" data-play>Play</button></div>
+      <canvas class="stage" data-aspect="0.5"></canvas>
+      <div class="legend">
+        <div><b>Top · the table</b>Gold: the stored cycle, 436 numbers. The dot is the reader, slowed down so the eye can follow it.</div>
+        <div><b>Bottom · what comes out</b>Three periods of what the reader gives you at this speed. Faster reader, more periods squeezed into the same time.</div>
+      </div>
+      <div class="rowb"><span class="eyebrow">the stored cycle</span>
+        <button class="ghost small" data-s1shape="saw" aria-pressed="true">Saw</button>
+        <button class="ghost small" data-s1shape="pulse" aria-pressed="false">Pulse</button>
+        <button class="ghost small" data-s1shape="soft" aria-pressed="false">Soft</button>
+      </div>
+      <div class="ctl"><label for="s1f">reader speed</label><input id="s1f" type="range" min="0" max="1" step="0.001" value="0.333"><span class="v" id="s1fv"></span></div>
+      <div class="meter" id="s1m"></div>
+      <div class="eq">step = P × f ÷ sr          y[n] = cycle[(n × step) mod P]</div>
+      <div class="eq words">(how far the reader moves each sample) = (cycle length) × (frequency) ÷ (sample rate)  ·  (output now) = (the stored cycle, at the reader's place, wrapped every cycle)</div>
+    </div>
+    <div class="try"><span class="eyebrow">Try</span>Slide the speed and watch the stored cycle hold still while only the reader changes. Then change the shape: the reader is the same, the table is new.</div>
+    <textarea data-note placeholder="What your ear and eye say about the table"></textarea>
+  </section>
+
+  <!-- ───────────── step 2 ───────────── -->
+  <section class="step" data-step="1" data-title="The loop" hidden>
+    <div class="eyebrow">Step 2 of 6 · the loop alone</div>
+    <h2>A delay fed back into itself</h2>
+    <p class="say">Now a different machine. Take a delay line, fill it once, and send its output back into its input. Nothing sweeps across it. The samples travel round the ring and pass a tap that holds still. What went in comes back after one trip, then again, and again. Its length sets the pitch: one trip per period.</p>
+    <div class="panel">
+      <div class="tabs"><span class="eyebrow">Hear</span><span class="hint">the loop, after it was filled once</span><button class="play" data-play>Play</button></div>
+      <canvas class="stage" data-aspect="0.5"></canvas>
+      <div class="legend">
+        <div><b>Left · the ring</b>The delay line drawn as a circle. Its samples turn past the tap at the top, which never moves. Slowed down for the eye.</div>
+        <div><b>Right · what comes out</b>Three trips of what passes the tap. Each trip is the one before it, unchanged.</div>
+      </div>
+      <div class="rowb"><span class="eyebrow">fill it with</span>
+        <button class="ghost small" data-s2fill="saw" aria-pressed="true">The saw cycle</button>
+        <button class="ghost small" data-s2fill="noise" aria-pressed="false">A burst of noise</button>
+      </div>
+      <div class="ctl"><label for="s2l">loop length</label><input id="s2l" type="range" min="0" max="1" step="0.001" value="0.333"><span class="v" id="s2lv"></span></div>
+      <div class="meter" id="s2m"></div>
+      <div class="eq">y[n] = y[n − L]          f = sr ÷ L</div>
+      <div class="eq words">(output now) = (the output one trip ago)  ·  (pitch) = (sample rate) ÷ (loop length in samples)</div>
+    </div>
+    <div class="try"><span class="eyebrow">Try</span>Fill it with noise. A burst of hiss, sent round a loop, becomes a steady pitched buzz: the loop remembers one trip and repeats it exactly. Whatever you put in, its length makes it periodic.</div>
+    <textarea data-note placeholder="What your ear and eye say about the loop"></textarea>
+  </section>
+
+  <!-- ───────────── step 3 ───────────── -->
+  <section class="step" data-step="2" data-title="Their difference" hidden>
+    <div class="eyebrow">Step 3 of 6 · the two, through their difference</div>
+    <h2>Turn one upside down and add them</h2>
+    <p class="say">Fill the loop with the table's own cycle and make the loop exactly one cycle long. Now play both, with one flipped upside down. Where they match, they cancel. Studio engineers call this a null test: if two paths cancel to silence, they are giving you the same numbers. Here the table's moving reader and the loop's moving samples cancel completely.</p>
+    <div class="panel">
+      <div class="tabs" role="group" aria-label="What you hear"><span class="eyebrow">Hear</span>
+        <button class="tab" data-s3door="table" aria-pressed="false">The table</button>
+        <button class="tab" data-s3door="loop" aria-pressed="false">The loop</button>
+        <button class="tab" data-s3door="diff" aria-pressed="true">Their difference</button>
+        <button class="play" data-play>Play</button></div>
+      <canvas class="stage" data-aspect="0.5"></canvas>
+      <div class="legend">
+        <div><b>Top · both</b>Gold: the table. Blue, dashed: the loop. When they match, blue lies on gold.</div>
+        <div><b>Bottom · their difference</b>The table minus the loop, sample by sample, magnified ten times. A flat line is silence.</div>
+      </div>
+      <div class="rowb"><button class="toggle" id="s3miss" aria-pressed="false">Make the loop one sample too long</button><span class="hint">Breaks the match, so you can hear what a null test catches.</span></div>
+      <div class="hear" id="s3h"></div>
+      <div class="meter" id="s3m"></div>
+      <div class="eq">d[n] = table[n] − loop[n]</div>
+      <div class="eq words">(what you hear) = (the table now) − (the loop now)</div>
+    </div>
+    <div class="try"><span class="eyebrow">Try</span>Play the difference: silence, for as long as you like. Then make the loop one sample long and play it again. A one-sample mismatch is enough to make the null speak.</div>
+    <textarea data-note placeholder="What your ear and eye say about the difference"></textarea>
+  </section>
+
+  <!-- ───────────── step 4 ───────────── -->
+  <section class="step" data-step="3" data-title="The filter" hidden>
+    <div class="eyebrow">Step 4 of 6 · the filter alone</div>
+    <h2>A filter that only delays</h2>
+    <p class="say">The proof puts one kind of filter in the loop, an allpass. It is a strange filter: it lets every frequency through at full strength, and changes only how late each one arrives. Turn it up and the low frequencies come out later than the high ones. On its own you hear that as a click smeared into a quick downward zap: the highs arrive first.</p>
+    <div class="panel">
+      <div class="tabs"><span class="eyebrow">Hear</span><span class="hint">a click, twice a second, through the filter</span><button class="play" data-play>Play</button></div>
+      <canvas class="stage" data-aspect="0.5"></canvas>
+      <div class="legend">
+        <div><b>Left · how late each frequency arrives</b>The delay of the proof's filter, eight allpass sections, against frequency. Dashed: how loud each frequency comes out, flat at full strength, always.</div>
+        <div><b>Right · the click, after the filter</b>One click in, what comes out. Flat setting: still a click. Turned up: a chirp, highs first.</div>
+      </div>
+      <div class="ctl"><label for="s4a">filter amount</label><input id="s4a" type="range" min="0" max="1" step="0.01" value="0.6"><span class="v" id="s4av"></span></div>
+      <div class="meter" id="s4m"></div>
+      <div class="eq">H(z) = (a + z⁻¹) ÷ (1 + a × z⁻¹)          delay at low frequencies = (1 − a) ÷ (1 + a)</div>
+      <div class="eq words">(one allpass section) = ((its coefficient) + (one sample of delay)) ÷ (1 + (its coefficient) × (one sample of delay))  ·  (how many samples late the lows arrive) = (1 − (coefficient)) ÷ (1 + (coefficient))</div>
+      <p class="hint" style="margin-top:12px">To make the smear long enough to hear, the click you play goes through 256 of these sections, thirty-two times the proof's eight. The picture on the left is the proof's eight.</p>
+    </div>
+    <div class="try"><span class="eyebrow">Try</span>Start at the bottom of the slider: a click. Raise it slowly and listen to the click stretch into a zap. Nothing got louder or quieter. Only the timing moved.</div>
+    <textarea data-note placeholder="What your ear and eye say about the filter"></textarea>
+  </section>
+
+  <!-- ───────────── step 5 ───────────── -->
+  <section class="step" data-step="4" data-title="The filter in the loop" hidden>
+    <div class="eyebrow">Step 5 of 6 · the filter in the loop</div>
+    <h2>Put the filter where only the loop can follow</h2>
+    <p class="say">Now place that filter inside the loop, so every trip goes through it. A table has nowhere to put it: its cycle is fixed, and its reader moves one cycle per period for every harmonic alike. In the loop, each frequency now takes its own time to get round. A partial can only last if it comes back in step with itself, a whole number of turns per trip. Highs take a shorter trip than lows, so they fit their turns at a higher frequency, and the partials walk sharp, off the harmonic grid.</p>
+    <div class="panel">
+      <div class="tabs" role="group" aria-label="What you hear"><span class="eyebrow">Hear</span>
+        <button class="tab" data-s5door="table" aria-pressed="false">The table</button>
+        <button class="tab" data-s5door="loop" aria-pressed="true">The loop, with its filter</button>
+        <button class="play" data-play>Play</button></div>
+      <canvas class="stage" data-aspect="0.42"></canvas>
+      <div class="legend">
+        <div><b>Blue · the loop's spectrum</b>Measured from what the loop puts out.</div>
+        <div><b>Dashed ticks · the harmonic grid</b>Whole-number multiples of the fundamental. The table is stuck on these.</div>
+        <div><b>Gold marks · the prediction</b>Where the round-trip condition says each partial must land.</div>
+      </div>
+      <div class="ctl"><label for="s5a">loop filter</label><input id="s5a" type="range" min="0" max="1" step="0.01" value="0.85"><span class="v" id="s5av"></span></div>
+      <div class="meter" id="s5m"></div>
+      <div class="eq">2π × f × τ + θ(f) = 2π × k</div>
+      <div class="eq words">2π × (frequency) × (the bare delay) + (the filter's phase lag at that frequency) = 2π × (a whole number of turns)</div>
+    </div>
+    <div class="try"><span class="eyebrow">Try</span>Play the loop and raise the filter. The tone starts to shimmer, because its partials no longer line up with each other and keep sliding past. Flip to the table: it cannot follow. Watch the gold marks: the peaks land where the equation sends them.</div>
+    <textarea data-note placeholder="What your ear and eye say about the filter in the loop"></textarea>
+  </section>
+
+  <!-- ───────────── step 6 ───────────── -->
+  <section class="step" data-step="5" data-title="The proof" hidden>
+    <div class="eyebrow">Step 6 of 6 · the proof</div>
+    <h2>Now the whole thing, on one page</h2>
+    <p class="say">The proof puts every step on one screen. Here is where each one is waiting for you there.</p>
+    <ul class="gathered">
+      <li><b>The table</b> tab is step 1: the top strip of its readers, a cycle held still with its reader moving.</li>
+      <li><b>The loop</b> tab is step 2: the lower strip, the samples sliding past a tap that holds still.</li>
+      <li><b>Their difference</b> tab is step 3: silence, with the measurement saying “0, exactly.”</li>
+      <li><b>The loop filter</b> slider is steps 4 and 5: the partials leave the dashed grid for the gold marks.</li>
+      <li>One thing the proof adds: <b>Half a sample longer</b>. A loop whose length falls between two samples has to read between them on every trip, and that reading is already a filter. So the identity is exact only for a loop a whole number of samples long, and that edge is where the filter's slot opens.</li>
+    </ul>
+    <p class="say" style="margin-top:14px">It ends on a question: is a wavetable a loop with its filter slot left empty, or is the filter what makes the loop a different thing?</p>
+    <a class="proof-link" href="../2026-10-20-the-table-that-travels/the-table-that-travels.html">Open the proof</a>
+    <textarea data-note placeholder="Did the steps get you there? What was missing?"></textarea>
+    <div class="rowb"><button class="ghost" id="copy">Copy all notes</button><span class="hint" id="copied"></span></div>
+  </section>
+
+  <div class="walk"><button class="ghost" id="back">Back</button><button class="ghost" id="next">Next</button></div>
+
+  <footer><b>LOUD’N LIVE</b> · a learning sequence for Dissolutions, 2026-10-25 · up to <a href="../2026-10-20-the-table-that-travels/the-table-that-travels.html">the table that travels</a> · <a href="index.html">all six sequences</a></footer>
+</main>
+
+<script>
+(function(){
+  'use strict';
+  var $ = function(id){ return document.getElementById(id); };
+  var Q = function(sel, root){ return Array.prototype.slice.call((root || document).querySelectorAll(sel)); };
+
+  // ---- math (pure; re-checked headless by check-sequences.mjs, which calls selfTest) ----
+  // a stored cycle of P samples, zero mean, peak 1 (the proof's own)
+  function makeCycle(kind, P){
+    var y = new Float64Array(P), i, k;
+    for (i = 0; i < P; i++){
+      var t = i / P;
+      if (kind === 'saw') y[i] = 1 - 2 * t;
+      else if (kind === 'pulse') y[i] = t < 0.2 ? 1 : 0;
+      else { y[i] = 0; for (k = 1; k <= 6; k++) y[i] += Math.sin(2 * Math.PI * k * t) / (k * k); }
+    }
+    var m = 0; for (i = 0; i < P; i++) m += y[i]; m /= P;
+    var pk = 1e-9; for (i = 0; i < P; i++){ y[i] -= m; pk = Math.max(pk, Math.abs(y[i])); }
+    for (i = 0; i < P; i++) y[i] /= pk;
+    return y;
+  }
+  // a burst of noise, L samples, zero mean, peak 1, from a fixed seed
+  function makeNoise(L, seed){
+    var y = new Float64Array(L), s = seed || 12345, m = 0, pk = 1e-9, i;
+    for (i = 0; i < L; i++){ s = (s * 16807) % 2147483647; y[i] = s / 1073741823.5 - 1; m += y[i]; }
+    m /= L; for (i = 0; i < L; i++){ y[i] -= m; pk = Math.max(pk, Math.abs(y[i])); }
+    for (i = 0; i < L; i++) y[i] /= pk;
+    return y;
+  }
+  // the table: a reader sweeping the stored cycle once per period (period in samples, may be fractional)
+  function readTable(cyc, period, n){
+    var P = cyc.length, out = new Float64Array(n), step = P / period;
+    for (var i = 0; i < n; i++){
+      var pos = (i * step) % P, i0 = Math.floor(pos), f = pos - i0;
+      out[i] = cyc[i0] + f * (cyc[(i0 + 1) % P] - cyc[i0]);
+    }
+    return out;
+  }
+  // a bare loop of length L: filled once with fill (its first L samples leave the tap), then y[n] = y[n − L]
+  function bareLoop(fill, L, n){
+    var y = new Float64Array(n);
+    for (var i = 0; i < n; i++) y[i] = i < L ? (i < fill.length ? fill[i] : 0) : y[i - L];
+    return y;
+  }
+  // phase lag of one first-order allpass H(z) = (a + z⁻¹) / (1 + a·z⁻¹), in radians (the proof's own)
+  function apLag(w, a){ return w - 2 * Math.atan2(a * Math.sin(w), 1 + a * Math.cos(w)); }
+  // its magnitude at ω, which should be 1 everywhere
+  function apMag(w, a){
+    var nr = a + Math.cos(w), ni = -Math.sin(w), dr = 1 + a * Math.cos(w), di = -a * Math.sin(w);
+    return Math.sqrt((nr * nr + ni * ni) / (dr * dr + di * di));
+  }
+  // M allpass sections in series, run over x
+  function allpassChain(x, M, a){
+    var y = Float64Array.from(x), s, i;
+    for (s = 0; s < M; s++){
+      var up = 0, wp = 0;
+      for (i = 0; i < y.length; i++){ var u = y[i], w = a * u + up - a * wp; up = u; wp = w; y[i] = w; }
+    }
+    return y;
+  }
+  // the filter amount sets each section's low-frequency delay, 1 to 19 samples, evenly in its log (the proof's own knob)
+  function coefFor(s){ var D = Math.pow(19, s); return (1 - D) / (1 + D); }
+  // the proof's loop: bare delay L (+ frac, read linearly), then M allpass sections with coefficient a
+  function loopConfig(P, frac, M, a){
+    var ddc = M * (1 - a) / (1 + a);
+    return { P: P, frac: frac, M: M, a: a, L: Math.max(2, Math.round(P - ddc)) };
+  }
+  // the round-trip condition: ω·(L + frac) + M·lag(ω) = 2πk, solved for each k (the proof's own)
+  function predictPartials(cfg, K, sr){
+    var out = [], phi = function(w){ return w * (cfg.L + cfg.frac) + cfg.M * apLag(w, cfg.a); };
+    for (var k = 1; k <= K; k++){
+      var target = 2 * Math.PI * k, lo = 0, hi = Math.PI;
+      if (phi(hi) < target) break;
+      for (var it = 0; it < 60; it++){ var mid = (lo + hi) / 2; if (phi(mid) < target) lo = mid; else hi = mid; }
+      out.push((lo + hi) / 2 * sr / (2 * Math.PI));
+    }
+    return out;
+  }
+  // the proof's loop, run (its first trip is the stored cycle)
+  function runLoop(cyc, cfg, n){
+    var P = cyc.length, y = new Float64Array(n), M = cfg.M, a = cfg.a, L = cfg.L, f = cfg.frac;
+    var up = new Float64Array(M), wp = new Float64Array(M), i, s;
+    for (i = 0; i < n; i++){
+      var u = 0;
+      if (i - L - 1 >= 0) u = (1 - f) * y[i - L] + f * y[i - L - 1];
+      else if (i - L >= 0) u = y[i - L];
+      for (s = 0; s < M; s++){ var w = a * u + up[s] - a * wp[s]; up[s] = u; wp[s] = w; u = w; }
+      y[i] = i < P ? cyc[i] : u;
+    }
+    return y;
+  }
+  function fft(re, im){
+    var n = re.length, i, j = 0, k, len;
+    for (i = 1; i < n; i++){ var bit = n >> 1; for (; j & bit; bit >>= 1) j ^= bit; j ^= bit;
+      if (i < j){ var t = re[i]; re[i] = re[j]; re[j] = t; t = im[i]; im[i] = im[j]; im[j] = t; } }
+    for (len = 2; len <= n; len <<= 1){
+      var half = len >> 1, ang = -2 * Math.PI / len;
+      for (k = 0; k < half; k++){
+        var wr = Math.cos(ang * k), wi = Math.sin(ang * k);
+        for (i = k; i < n; i += len){
+          var r2 = re[i + half] * wr - im[i + half] * wi, i2 = re[i + half] * wi + im[i + half] * wr;
+          re[i + half] = re[i] - r2; im[i + half] = im[i] - i2; re[i] += r2; im[i] += i2;
+        }
+      }
+    }
+  }
+  function spectrumDb(x, start, N){
+    var re = new Float64Array(N), im = new Float64Array(N);
+    for (var i = 0; i < N; i++) re[i] = x[start + i] * (0.5 - 0.5 * Math.cos(2 * Math.PI * i / N));
+    fft(re, im);
+    var out = new Float64Array(N / 2);
+    for (i = 0; i < N / 2; i++) out[i] = 10 * Math.log10(re[i] * re[i] + im[i] * im[i] + 1e-30);
+    return out;
+  }
+  function peakNear(db, binHz, f, half){
+    var a = Math.max(1, Math.floor((f - half) / binHz)), b = Math.min(db.length - 2, Math.ceil((f + half) / binHz)), m = a;
+    for (var i = a; i <= b; i++) if (db[i] > db[m]) m = i;
+    var l = db[m - 1], c = db[m], r = db[m + 1], d = l - 2 * c + r, off = d < 0 ? 0.5 * (l - r) / d : 0;
+    return (m + off) * binHz;
+  }
+  function maxDiff(a, b, n){ var m = 0; for (var i = 0; i < n; i++) m = Math.max(m, Math.abs(a[i] - b[i])); return m; }
+  // the reader speed slider: 55 to 440 Hz, evenly in octaves
+  function freqFor(s){ return 55 * Math.pow(8, s); }
+  // the loop length slider: 873 down to 109 samples (55 to 440 Hz at 48 kHz), evenly in octaves
+  function lengthFor(s, sr){ return Math.round(sr / freqFor(s)); }
+
+  // every number a step shows, re-derived; each line is { name, ok, detail }
+  function selfTest(){
+    var out = [], sr = 48000, P = Math.round(sr / 110), n = 3 * sr, i;
+    var t = function(name, ok, detail){ out.push({ name: name, ok: !!ok, detail: detail }); };
+    // step 1: the reader at f moves P·f/sr samples a tick, so the output's period is sr/f samples
+    var f = 220, y1 = readTable(makeCycle('saw', P), sr / f, 9600), worst1 = 0;
+    for (i = 0; i + 2400 < 9600; i++) worst1 = Math.max(worst1, Math.abs(y1[i] - y1[i + 2400]));
+    t('step 1: at 220 Hz the reader moves P·f/sr a sample, and eleven periods come to 2400 samples exactly', worst1 < 1e-9 && Math.abs(P * f / sr - 1.998333) < 1e-5, 'step ' + (P * f / sr).toFixed(4) + '; largest drift over 11 periods ' + worst1.toExponential(1));
+    var y1b = readTable(makeCycle('saw', P), 240, 4800), w1b = 0; for (i = 0; i + 240 < 4800; i++) w1b = Math.max(w1b, Math.abs(y1b[i] - y1b[i + 240]));
+    t('step 1: read at 200 Hz (240 samples a period) the output repeats every 240 samples', w1b < 1e-12, 'largest drift ' + w1b.toExponential(1));
+    // step 2: a bare loop repeats any fill exactly, saw or noise
+    var L = 300, nz = bareLoop(makeNoise(L, 99), L, n), w2 = 0; for (i = L; i < n; i++) w2 = Math.max(w2, Math.abs(nz[i] - nz[i - L]));
+    t('step 2: a loop filled with noise repeats its first trip exactly, for 3 s', w2 === 0, 'largest change trip to trip ' + w2);
+    t('step 2: the loop length slider gives pitch = sr ÷ L', lengthFor(0, sr) === 873 && lengthFor(1, sr) === 109 && Math.abs(sr / lengthFor(1 / 3, sr) - 110) < 0.2, 'L from ' + lengthFor(0, sr) + ' to ' + lengthFor(1, sr) + ' samples; at the default, ' + (sr / lengthFor(1 / 3, sr)).toFixed(2) + ' Hz');
+    // step 3: table and bare loop null exactly when the loop is one cycle long; one sample long, they do not
+    var worst3 = 0;
+    ['saw', 'pulse', 'soft'].forEach(function(s){ var c = makeCycle(s, P); worst3 = Math.max(worst3, maxDiff(readTable(c, P, n), bareLoop(c, P, n), n)); });
+    t('step 3: the table and a loop one cycle long give the same samples, three shapes, 3 s', worst3 === 0, 'largest difference ' + worst3);
+    var c3 = makeCycle('saw', P), miss = maxDiff(readTable(c3, P, n), bareLoop(c3, P + 1, n), n);
+    t('step 3: one sample too long, the null breaks', miss > 0.5, 'largest difference ' + miss.toFixed(3));
+    // step 4: the allpass is flat in level, and its low-frequency delay is (1 − a)/(1 + a)
+    var wm = 0, wd = 0;
+    [0, 0.3, 0.6, 1].forEach(function(s){ var a = coefFor(s);
+      for (var w = 0.001; w < Math.PI; w += 0.05) wm = Math.max(wm, Math.abs(apMag(w, a) - 1));
+      var D = (1 - a) / (1 + a), meas = apLag(1e-5, a) / 1e-5; wd = Math.max(wd, Math.abs(meas - D) / D); });
+    t('step 4: one allpass section passes every frequency at full strength', wm < 1e-12, 'largest level error ' + wm.toExponential(1));
+    t('step 4: its low-frequency delay is (1 − a) ÷ (1 + a), from 1 to 19 samples across the slider', wd < 1e-6 && Math.abs((1 - coefFor(1)) / (1 + coefFor(1)) - 19) < 1e-9, 'worst relative miss ' + wd.toExponential(1));
+    var ir = new Float64Array(4096); ir[0] = 1; var irOut = allpassChain(ir, 8, coefFor(0.6)), e = 0; for (i = 0; i < irOut.length; i++) e += irOut[i] * irOut[i];
+    t('step 4: a click through eight sections keeps its energy', Math.abs(e - 1) < 1e-6, 'energy out ' + e.toFixed(6) + ' (in 1)');
+    t('step 4: at the top frequency every section delays exactly one sample', Math.abs(apLag(Math.PI, coefFor(0.6)) / Math.PI - 1) < 1e-12, 'delay at sr/2 ' + (apLag(Math.PI, coefFor(0.6)) / Math.PI).toFixed(6) + ' samples');
+    // step 5: the round-trip condition predicts where the loop's partials land (the proof's claim, at the step's settings)
+    [0.3, 0.6, 0.85, 1].forEach(function(s){
+      var cyc = makeCycle('saw', P), cfg = loopConfig(P, 0, 8, coefFor(s)), lp = runLoop(cyc, cfg, n);
+      var pred = predictPartials(cfg, 24, sr), N = 32768, db = spectrumDb(lp, 2 * P, N);
+      var mm = 0; pred.forEach(function(fp){ mm = Math.max(mm, Math.abs(peakNear(db, sr / N, fp, 0.3 * sr / P) - fp)); });
+      t('step 5: filter at ' + s + ', the round-trip condition places the loop’s 24 partials', mm < 0.1, 'worst miss ' + mm.toFixed(3) + ' Hz; partial 24 is ' + ((pred[23] / (24 * pred[0]) - 1) * 100).toFixed(2) + '% sharp');
+    });
+    var cfg0 = loopConfig(P, 0, 8, coefFor(0)), lp0 = runLoop(makeCycle('saw', P), cfg0, n), pr0 = predictPartials(cfg0, 24, sr);
+    t('step 5: at the bottom of the slider the filter is a plain delay, and the partials sit on the grid', Math.abs(pr0[23] / (24 * pr0[0]) - 1) < 1e-9 && maxDiff(readTable(makeCycle('saw', P), P, n), lp0, n) < 1e-12, 'partial 24 ' + ((pr0[23] / (24 * pr0[0]) - 1) * 100).toFixed(4) + '% off the grid');
+    return out;
+  }
+  // ---- end math ----
+  window.__selfTest = selfTest;
+
+  // ================= the sequence frame =================
+  var sr = 48000;
+  var steps = Q('section.step'), cur = 0, seen = {};
+  var rail = document.querySelector('.rail');
+  steps.forEach(function(s, i){
+    var b = document.createElement('button'); b.textContent = (i + 1) + ' · ' + s.getAttribute('data-title'); b.setAttribute('data-go', i);
+    b.addEventListener('click', function(){ go(i); }); rail.appendChild(b);
+  });
+  var STEP = []; // per-step behaviour: { render(): Float32Array, draw(g, W, H, d, dt), changed() }
+
+  // ---------- audio: nothing is made until a Play click ----------
+  var ctx = null, master = null, voice = null, t0 = 0, playing = false;
+  function ensure(){
+    if (ctx) return;
+    ctx = new (window.AudioContext || window.webkitAudioContext)();
+    var comp = ctx.createDynamicsCompressor(); comp.threshold.value = -6; comp.ratio.value = 8;
+    master = ctx.createGain(); master.gain.value = 0.4; master.connect(comp); comp.connect(ctx.destination);
+    if (ctx.sampleRate !== sr){ sr = ctx.sampleRate; STEP.forEach(function(s){ s.changed(); }); }
+  }
+  function loopify(x, F){
+    var N = x.length - F, out = new Float32Array(N);
+    for (var i = 0; i < N; i++){
+      if (i < F){ var q = i / F; out[i] = x[i] * Math.sin(q * Math.PI / 2) + x[N + i] * Math.cos(q * Math.PI / 2); }
+      else out[i] = x[i];
+    }
+    return out;
+  }
+  function playBuffer(data){
+    var b = ctx.createBuffer(1, data.length, ctx.sampleRate); b.copyToChannel(data, 0);
+    var s = ctx.createBufferSource(); s.buffer = b; s.loop = true;
+    var g = ctx.createGain(); g.gain.value = 0; s.connect(g); g.connect(master);
+    var t = ctx.currentTime; s.start(); g.gain.setTargetAtTime(1, t, 0.03); t0 = t;
+    if (voice){ var o = voice; o.g.gain.setTargetAtTime(0, t, 0.03); setTimeout(function(){ try { o.s.stop(); } catch (e) {} o.g.disconnect(); }, 400); }
+    voice = { s: s, g: g, len: data.length };
+  }
+  function stopAudio(){
+    playing = false;
+    Q('[data-play]').forEach(function(b){ b.textContent = 'Play'; });
+    if (voice && ctx){ var o = voice; o.g.gain.setTargetAtTime(0, ctx.currentTime, 0.02); setTimeout(function(){ try { o.s.stop(); } catch (e) {} o.g.disconnect(); }, 200); }
+    voice = null;
+  }
+  var pend = 0;
+  function refreshAudio(){ if (!playing) return; clearTimeout(pend); pend = setTimeout(function(){ if (playing) playBuffer(STEP[cur].render()); }, 40); }
+  function nowSample(len){ if (!playing || !voice) return -1; return Math.floor((ctx.currentTime - t0) * sr) % (len || voice.len); }
+  Q('[data-play]').forEach(function(b){
+    b.addEventListener('click', function(){
+      ensure(); if (ctx.state === 'suspended') ctx.resume();
+      if (playing){ stopAudio(); return; }
+      playing = true; b.textContent = 'Stop'; playBuffer(STEP[cur].render());
+    });
+  });
+
+  // ---------- walking the steps ----------
+  function go(i){
+    if (i < 0 || i >= steps.length) return;
+    stopAudio(); cur = i; seen[i] = true;
+    steps.forEach(function(s, k){ s.hidden = k !== i; });
+    Q('.rail button').forEach(function(b, k){ if (k === i) b.setAttribute('aria-current', 'step'); else b.removeAttribute('aria-current'); b.classList.toggle('seen', !!seen[k]); });
+    $('back').disabled = i === 0; $('next').disabled = i === steps.length - 1;
+    $('next').textContent = i === steps.length - 2 ? 'Next: the proof' : 'Next';
+    if (STEP[i] && STEP[i].changed) STEP[i].changed();
+  }
+  $('back').addEventListener('click', function(){ go(cur - 1); window.scrollTo(0, 0); });
+  $('next').addEventListener('click', function(){ go(cur + 1); window.scrollTo(0, 0); });
+  window.__seq = { count: steps.length, current: function(){ return cur; }, playing: function(){ return playing; }, go: go };
+
+  // ---------- drawing helpers ----------
+  var css = getComputedStyle(document.documentElement);
+  var ACC = css.getPropertyValue('--accent').trim(), FG2 = css.getPropertyValue('--fg-2').trim(), FG3 = css.getPropertyValue('--fg-3').trim(), FG4 = css.getPropertyValue('--fg-4').trim(), INFO = css.getPropertyValue('--info').trim();
+  function strip(g, x0, y0, w, h, get, color, lw, dash){
+    g.strokeStyle = color; g.lineWidth = lw; g.setLineDash(dash || []); g.beginPath();
+    for (var i = 0; i <= 240; i++){ var v = get(i / 240), x = x0 + i / 240 * w, y = y0 + h / 2 - v * h * 0.42; if (i) g.lineTo(x, y); else g.moveTo(x, y); }
+    g.stroke(); g.setLineDash([]);
+  }
+  function box(g, x, y, w, h, d){ g.strokeStyle = 'rgba(255,255,255,0.06)'; g.lineWidth = d; g.strokeRect(x, y, w, h); }
+  function label(g, text, x, y, d, align){ g.font = (10 * d) + 'px JetBrains Mono, Menlo, monospace'; g.fillStyle = FG4; g.textAlign = align || 'left'; g.fillText(text, x, y); g.textAlign = 'left'; }
+  function axis(g, x0, y, w, d){ g.setLineDash([4 * d, 4 * d]); g.strokeStyle = FG4; g.lineWidth = d; g.beginPath(); g.moveTo(x0, y); g.lineTo(x0 + w, y); g.stroke(); g.setLineDash([]); }
+  function pressGroup(attr, val){ Q('[' + attr + ']').forEach(function(b){ b.setAttribute('aria-pressed', String(b.getAttribute(attr) === val)); }); }
+
+  // ================= the steps =================
+  var SECS = 3, P0 = 436, eyePh = 0.2;
+
+  // ---- step 1: the table alone ----
+  (function(){
+    var shape = 'saw', s = 1 / 3, cyc = makeCycle('saw', P0), out = null;
+    function f(){ return freqFor(s); }
+    function rebuild(){ cyc = makeCycle(shape, P0); out = readTable(cyc, sr / f(), Math.round(sr * SECS)); }
+    function ui(){
+      $('s1fv').textContent = f().toFixed(1) + ' Hz';
+      $('s1m').innerHTML = 'the table: <b>' + P0 + '</b> numbers, never changed · the reader moves <b>' + (P0 * f() / sr).toFixed(3) + '</b> of them per sample · <b>' + f().toFixed(1) + '</b> trips a second';
+      pressGroup('data-s1shape', shape);
+    }
+    STEP[0] = {
+      render: function(){ var x = new Float64Array(out.length); for (var i = 0; i < x.length; i++) x[i] = 0.8 * out[i]; return loopify(x, Math.round(0.15 * sr)); },
+      changed: function(){ rebuild(); ui(); refreshAudio(); },
+      draw: function(g, W, H, d){
+        var p = 14 * d, h1 = (H - 3 * p) * 0.5, h2 = H - 3 * p - h1;
+        box(g, p, p, W - 2 * p, h1, d); box(g, p, 2 * p + h1, W - 2 * p, h2, d);
+        label(g, 'THE TABLE  ' + P0 + ' numbers · still', p + 6 * d, p + 14 * d, d);
+        label(g, 'WHAT COMES OUT  the same 27 ms at every speed · ' + f().toFixed(0) + ' Hz', p + 6 * d, 2 * p + h1 + 14 * d, d);
+        var x0 = p + 8 * d, w = W - 2 * p - 16 * d, y0 = p + 18 * d, hh = h1 - 26 * d;
+        axis(g, x0, y0 + hh / 2, w, d);
+        strip(g, x0, y0, w, hh, function(t){ return cyc[Math.min(P0 - 1, Math.floor(t * P0))]; }, ACC, 2.5 * d);
+        var ph = eyePhase(0.5 * f() / 110) % 1, mx = x0 + ph * w, v = cyc[Math.min(P0 - 1, Math.floor(ph * P0))];
+        g.strokeStyle = FG3; g.lineWidth = d; g.beginPath(); g.moveTo(mx, y0); g.lineTo(mx, y0 + hh); g.stroke();
+        g.fillStyle = INFO; g.beginPath(); g.arc(mx, y0 + hh / 2 - v * hh * 0.42, 5 * d, 0, 7); g.fill();
+        // three periods, drawn at a fixed time span so a faster reader squeezes more cycles in
+        var span = Math.round(3 * sr / 110), y1 = 2 * p + h1 + 18 * d, hh2 = h2 - 26 * d;
+        axis(g, x0, y1 + hh2 / 2, w, d);
+        strip(g, x0, y1, w, hh2, function(t){ return out[Math.floor(t * span)]; }, ACC, 1.8 * d);
+      }
+    };
+    $('s1f').addEventListener('input', function(){ s = parseFloat($('s1f').value); STEP[0].changed(); });
+    Q('[data-s1shape]').forEach(function(b){ b.addEventListener('click', function(){ shape = b.getAttribute('data-s1shape'); STEP[0].changed(); }); });
+  })();
+
+  // the eye's clock: the readers in the pictures turn at a slow, steady rate, faster for a higher pitch
+  var eyeT = 0;
+  function eyePhase(rate){ return eyeT * rate; }
+
+  // ---- step 2: the loop alone ----
+  (function(){
+    var fill = 'saw', s = 1 / 3, L = 436, buf = null, contents = null;
+    function rebuild(){
+      L = lengthFor(s, sr);
+      contents = fill === 'saw' ? makeCycle('saw', L) : makeNoise(L, 99);
+      buf = bareLoop(contents, L, Math.round(sr * SECS));
+    }
+    function ui(){
+      $('s2lv').textContent = L + ' samples';
+      $('s2m').innerHTML = 'one trip: <b>' + L + '</b> samples · pitch = ' + sr + ' ÷ ' + L + ' = <b>' + (sr / L).toFixed(1) + ' Hz</b> · every trip the same as the last';
+      pressGroup('data-s2fill', fill);
+    }
+    STEP[1] = {
+      render: function(){ var x = new Float32Array(buf.length); for (var i = 0; i < x.length; i++) x[i] = 0.7 * buf[i]; return x; },
+      changed: function(){ rebuild(); ui(); refreshAudio(); },
+      draw: function(g, W, H, d){
+        var p = 14 * d, S = Math.min(H - 2 * p, W * 0.42), rx = 2 * p + S, rw = W - p - rx;
+        box(g, p, p, S, H - 2 * p, d); box(g, rx, p, rw, H - 2 * p, d);
+        label(g, 'THE RING  ' + L + ' samples · turning', p + 6 * d, p + 14 * d, d);
+        label(g, 'WHAT PASSES THE TAP  three trips', rx + 6 * d, p + 14 * d, d);
+        var cx = p + S / 2, cy = p + (H - 2 * p) / 2 + 6 * d, R = S * 0.30, amp = S * 0.11, rot = eyePhase(0.12 * (436 / L)) * 2 * Math.PI;
+        g.strokeStyle = FG4; g.lineWidth = d; g.setLineDash([3 * d, 4 * d]); g.beginPath(); g.arc(cx, cy, R, 0, 7); g.stroke(); g.setLineDash([]);
+        g.strokeStyle = INFO; g.lineWidth = 1.8 * d; g.beginPath();
+        for (var i = 0; i <= 360; i++){
+          var q = i / 360, k = Math.min(L - 1, Math.floor(q * L)), ang = -Math.PI / 2 + q * 2 * Math.PI - rot, rr = R + contents[k] * amp;
+          var x = cx + rr * Math.cos(ang), y = cy + rr * Math.sin(ang); if (i) g.lineTo(x, y); else g.moveTo(x, y);
+        }
+        g.stroke();
+        // the tap, fixed at the top
+        g.strokeStyle = ACC; g.lineWidth = 2 * d; g.beginPath(); g.moveTo(cx, cy - R - amp - 10 * d); g.lineTo(cx, cy - R + amp * 0.2); g.stroke();
+        label(g, 'tap · still', cx + 6 * d, cy - R - amp - 2 * d, d);
+        var x0 = rx + 8 * d, w = rw - 16 * d, y0 = p + 22 * d, hh = H - 2 * p - 30 * d, span = 3 * L;
+        axis(g, x0, y0 + hh / 2, w, d);
+        for (var tr = 1; tr < 3; tr++){ var gx = x0 + tr / 3 * w; g.strokeStyle = FG4; g.setLineDash([2 * d, 3 * d]); g.beginPath(); g.moveTo(gx, y0); g.lineTo(gx, y0 + hh); g.stroke(); g.setLineDash([]); }
+        strip(g, x0, y0, w, hh, function(t){ return buf[Math.min(buf.length - 1, Math.floor(t * span))]; }, INFO, 1.4 * d);
+      }
+    };
+    $('s2l').addEventListener('input', function(){ s = parseFloat($('s2l').value); STEP[1].changed(); });
+    Q('[data-s2fill]').forEach(function(b){ b.addEventListener('click', function(){ fill = b.getAttribute('data-s2fill'); STEP[1].changed(); }); });
+  })();
+
+  // ---- step 3: their difference ----
+  (function(){
+    var door = 'diff', miss = false, P = 436, cyc = null, tab = null, lp = null, dmax = 0;
+    function rebuild(){
+      P = Math.round(sr / 110); cyc = makeCycle('saw', P);
+      var n = Math.round(sr * SECS);
+      tab = readTable(cyc, P, n); lp = bareLoop(cyc, miss ? P + 1 : P, n); dmax = maxDiff(tab, lp, n);
+    }
+    function ui(){
+      pressGroup('data-s3door', door);
+      $('s3miss').setAttribute('aria-pressed', String(miss));
+      $('s3m').innerHTML = 'table against loop, over ' + SECS + ' s: largest difference <b>' + (dmax === 0 ? '0, exactly' : dmax.toFixed(3)) + '</b>' + (miss ? ' · loop ' + (P + 1) + ' samples, table ' + P : ' · both ' + P + ' samples a period');
+      var h;
+      if (door === 'table') h = 'You hear <b>the table</b>.';
+      else if (door === 'loop') h = 'You hear <b>the loop</b>' + (miss ? ', a shade flat of the table.' : ', and it is the table.');
+      else h = dmax === 0 ? 'You hear <b>silence</b>: the two cancel exactly.' : 'You hear <b>the leftover</b>: a slow beating, the two drifting in and out of step.';
+      $('s3h').innerHTML = h;
+    }
+    STEP[2] = {
+      render: function(){
+        var x = new Float64Array(tab.length);
+        for (var i = 0; i < x.length; i++) x[i] = 0.8 * (door === 'table' ? tab[i] : door === 'loop' ? lp[i] : 0.5 * (tab[i] - lp[i]));
+        return loopify(x, Math.round(0.15 * sr));
+      },
+      changed: function(){ rebuild(); ui(); refreshAudio(); },
+      draw: function(g, W, H, d){
+        var p = 14 * d, h1 = (H - 3 * p) * 0.55, h2 = H - 3 * p - h1;
+        box(g, p, p, W - 2 * p, h1, d); box(g, p, 2 * p + h1, W - 2 * p, h2, d);
+        label(g, 'BOTH  three periods', p + 6 * d, p + 14 * d, d);
+        label(g, 'THEIR DIFFERENCE  × 10', p + 6 * d, 2 * p + h1 + 14 * d, d);
+        var n0 = nowSample(), s0 = n0 < 0 ? Math.round(sr * 1.5) : n0, span = 3 * P;
+        s0 = Math.max(0, Math.min(tab.length - span - 1, s0));
+        var x0 = p + 8 * d, w = W - 2 * p - 16 * d, y0 = p + 18 * d, hh = h1 - 26 * d;
+        axis(g, x0, y0 + hh / 2, w, d);
+        strip(g, x0, y0, w, hh, function(t){ return tab[s0 + Math.floor(t * span)]; }, ACC, 2.2 * d);
+        strip(g, x0, y0, w, hh, function(t){ return lp[s0 + Math.floor(t * span)]; }, INFO, 1.5 * d, [5 * d, 4 * d]);
+        var y1 = 2 * p + h1 + 18 * d, hh2 = h2 - 26 * d;
+        axis(g, x0, y1 + hh2 / 2, w, d);
+        strip(g, x0, y1, w, hh2, function(t){ var k = s0 + Math.floor(t * span); return Math.max(-1.1, Math.min(1.1, 10 * (tab[k] - lp[k]))); }, door === 'diff' ? ACC : FG3, 1.6 * d);
+      }
+    };
+    Q('[data-s3door]').forEach(function(b){ b.addEventListener('click', function(){ door = b.getAttribute('data-s3door'); ui(); refreshAudio(); }); });
+    $('s3miss').addEventListener('click', function(){ miss = !miss; STEP[2].changed(); });
+  })();
+
+  // ---- step 4: the filter alone ----
+  (function(){
+    var s = 0.6, a = coefFor(0.6), M = 8, MEAR = 256, click = null;
+    function rebuild(){
+      a = coefFor(s);
+      var per = Math.round(sr / 2), x = new Float64Array(per); x[0] = 1;
+      click = allpassChain(x, MEAR, a);
+    }
+    function delayAt(fHz){ var w = 2 * Math.PI * fHz / sr; return M * apLag(w, a) / w; }
+    function ui(){
+      var D = (1 - a) / (1 + a);
+      $('s4av').textContent = s === 0 ? 'none · a = 0' : 'a = ' + a.toFixed(2);
+      $('s4m').innerHTML = 'each section delays the lows <b>' + D.toFixed(2) + '</b> samples and the very top <b>1</b> sample · eight sections: lows <b>' + (M * D).toFixed(1) + '</b> samples late, highs <b>8</b> · level change at every frequency: <b>none</b>';
+    }
+    STEP[3] = {
+      render: function(){ var x = new Float32Array(click.length), pk = 1e-9, i; for (i = 0; i < x.length; i++) pk = Math.max(pk, Math.abs(click[i])); for (i = 0; i < x.length; i++) x[i] = 0.8 * click[i] / pk; return x; },
+      changed: function(){ rebuild(); ui(); refreshAudio(); },
+      draw: function(g, W, H, d){
+        var p = 14 * d, lw = (W - 3 * p) * 0.5, rx = 2 * p + lw, rw = W - p - rx, hh = H - 2 * p;
+        box(g, p, p, lw, hh, d); box(g, rx, p, rw, hh, d);
+        label(g, 'DELAY BY FREQUENCY  8 sections', p + 6 * d, p + 14 * d, d);
+        label(g, 'ONE CLICK, AFTER ' + MEAR + ' SECTIONS', rx + 6 * d, p + 14 * d, d);
+        var x0 = p + 34 * d, w = lw - 44 * d, yb = p + hh - 22 * d, yt = p + 30 * d, top = 160, fmax = 12000;
+        // the level, flat
+        g.setLineDash([5 * d, 4 * d]); g.strokeStyle = FG3; g.lineWidth = d; g.beginPath(); g.moveTo(x0, yt + 2 * d); g.lineTo(x0 + w, yt + 2 * d); g.stroke(); g.setLineDash([]);
+        label(g, 'level · full, every frequency', x0 + 4 * d, yt - 4 * d, d);
+        g.strokeStyle = ACC; g.lineWidth = 2.2 * d; g.beginPath();
+        for (var i = 0; i <= 200; i++){ var fz = 20 + i / 200 * (fmax - 20), x = x0 + i / 200 * w, y = yb - Math.min(1, delayAt(fz) / top) * (yb - yt - 14 * d); if (i) g.lineTo(x, y); else g.moveTo(x, y); }
+        g.stroke();
+        label(g, '0', x0 - 6 * d, yb + 4 * d, d, 'right'); label(g, top + '', x0 - 6 * d, yt + 18 * d, d, 'right');
+        label(g, 'samples late', x0 + 4 * d, yb - 6 * d, d); label(g, '12 kHz', x0 + w, yb + 14 * d, d, 'right'); label(g, '0 Hz', x0, yb + 14 * d, d);
+        // the click after the long chain, first 60 ms
+        var span = Math.round(0.12 * sr), pk = 1e-9; for (i = 0; i < span; i++) pk = Math.max(pk, Math.abs(click[i]));
+        var cx0 = rx + 8 * d, cw = rw - 16 * d, cy0 = p + 22 * d, ch = hh - 40 * d;
+        axis(g, cx0, cy0 + ch / 2, cw, d);
+        g.strokeStyle = INFO; g.lineWidth = 1.2 * d; g.beginPath();
+        for (i = 0; i < span; i++){ var xx = cx0 + i / span * cw, yy = cy0 + ch / 2 - click[i] / pk * ch * 0.45; if (i) g.lineTo(xx, yy); else g.moveTo(xx, yy); }
+        g.stroke();
+        label(g, '0', cx0, p + hh - 6 * d, d); label(g, '120 ms', cx0 + cw, p + hh - 6 * d, d, 'right');
+      }
+    };
+    $('s4a').addEventListener('input', function(){ s = parseFloat($('s4a').value); STEP[3].changed(); });
+  })();
+
+  // ---- step 5: the filter in the loop ----
+  (function(){
+    var s = 0.85, door = 'loop', P = 436, cfg = null, tab = null, lp = null, pred = [], db = null, binHz = 1, worst = 0, M = 8, K = 24;
+    function rebuild(){
+      P = Math.round(sr / 110); var cyc = makeCycle('saw', P), n = Math.round(sr * SECS);
+      cfg = loopConfig(P, 0, M, coefFor(s));
+      tab = readTable(cyc, P, n); lp = runLoop(cyc, cfg, n);
+      pred = predictPartials(cfg, K, sr);
+      var N = 32768; binHz = sr / N; db = spectrumDb(lp, 2 * P, N);
+      worst = 0; pred.forEach(function(f){ worst = Math.max(worst, Math.abs(peakNear(db, binHz, f, 0.3 * sr / P) - f)); });
+    }
+    function ui(){
+      pressGroup('data-s5door', door);
+      $('s5av').textContent = s === 0 ? 'none' : M + ' allpasses, a = ' + cfg.a.toFixed(2);
+      var top = pred[pred.length - 1], sharp = (top / (pred.length * pred[0]) - 1) * 100;
+      $('s5m').innerHTML = 'partial ' + pred.length + ' sits at <b>' + top.toFixed(1) + ' Hz</b>, ' + (Math.abs(sharp) < 0.005 ? 'exactly on' : '<b>' + sharp.toFixed(2) + '%</b> sharp of') + ' the harmonic grid · the equation’s worst miss against the measurement: <b>' + worst.toFixed(3) + ' Hz</b> across ' + pred.length;
+    }
+    STEP[4] = {
+      render: function(){ var src = door === 'table' ? tab : lp, x = new Float64Array(src.length); for (var i = 0; i < x.length; i++) x[i] = 0.8 * src[i]; return loopify(x, Math.round(0.15 * sr)); },
+      changed: function(){ rebuild(); ui(); refreshAudio(); },
+      draw: function(g, W, H, d){
+        var p = 14 * d; box(g, p, p, W - 2 * p, H - 2 * p, d);
+        label(g, 'THE LOOP’S PARTIALS 1–' + pred.length, p + 6 * d, p + 14 * d, d);
+        var fmax = pred[pred.length - 1] + 0.7 * pred[0], px0 = p + 8 * d, pw = W - 2 * p - 16 * d, pb = H - p - 8 * d, pt = p + 38 * d;
+        label(g, '70 dB · 0–' + Math.round(fmax) + ' Hz', W - p - 8 * d, p + 14 * d, d, 'right');
+        var top = -1e9, bins = Math.floor(fmax / binHz), i; for (i = 1; i < bins; i++) top = Math.max(top, db[i]);
+        g.strokeStyle = INFO; g.lineWidth = 1.2 * d; g.beginPath();
+        for (i = 1; i < bins; i++){ var fx = px0 + i * binHz / fmax * pw, fy = pb - Math.max(0, 1 + (db[i] - top) / 70) * (pb - pt); if (i > 1) g.lineTo(fx, fy); else g.moveTo(fx, fy); }
+        g.stroke();
+        var f1 = sr / P;
+        for (i = 1; i <= pred.length; i++){
+          var gx = px0 + i * f1 / fmax * pw;
+          if (gx < px0 + pw){ g.strokeStyle = FG4; g.setLineDash([2 * d, 2 * d]); g.beginPath(); g.moveTo(gx, pt - 10 * d); g.lineTo(gx, pb); g.stroke(); g.setLineDash([]); }
+          var qx = px0 + pred[i - 1] / fmax * pw; g.fillStyle = ACC; g.beginPath(); g.moveTo(qx - 3.5 * d, pt - 14 * d); g.lineTo(qx + 3.5 * d, pt - 14 * d); g.lineTo(qx, pt - 6 * d); g.fill();
+        }
+      }
+    };
+    $('s5a').addEventListener('input', function(){ s = parseFloat($('s5a').value); STEP[4].changed(); });
+    Q('[data-s5door]').forEach(function(b){ b.addEventListener('click', function(){ door = b.getAttribute('data-s5door'); ui(); refreshAudio(); }); });
+  })();
+
+  // ---------- the picture loop: only the step in view is drawn ----------
+  var lastT = performance.now();
+  function frame(now){
+    var dt = Math.max(0, Math.min(0.25, (now - lastT) / 1000)); lastT = now;
+    if (playing) eyeT += dt;
+    var cv = steps[cur].querySelector('canvas.stage');
+    if (cv && STEP[cur] && STEP[cur].draw){
+      var r = cv.getBoundingClientRect(), d = window.devicePixelRatio || 1, asp = parseFloat(cv.getAttribute('data-aspect') || '0.5');
+      var cssH = Math.min(520, Math.max(220, r.width * asp));
+      if (cv.style.height !== cssH + 'px') cv.style.height = cssH + 'px';
+      var bw = Math.round(r.width * d), bh = Math.round(cssH * d);
+      if (bw > 0){
+        if (cv.width !== bw || cv.height !== bh){ cv.width = bw; cv.height = bh; }
+        var g = cv.getContext('2d'); g.clearRect(0, 0, bw, bh); STEP[cur].draw(g, bw, bh, d, dt);
+      }
+    }
+    requestAnimationFrame(frame);
+  }
+
+  // ---------- notes: one per step; kept in this tab, and in storage only where storage is allowed ----------
+  var KEY = 'dissolutions-seq-table-travels-notes', notes = {};
+  try { notes = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch (e) { notes = {}; }
+  Q('[data-note]').forEach(function(t){
+    var k = t.closest('section.step').getAttribute('data-step'); t.value = notes[k] || '';
+    t.addEventListener('input', function(){ notes[k] = t.value; try { localStorage.setItem(KEY, JSON.stringify(notes)); } catch (e) {} });
+  });
+  $('copy').addEventListener('click', function(){
+    var text = 'The table that travels, learning sequence — notes\n' + steps.map(function(s, i){ return '- ' + (i + 1) + ' ' + s.getAttribute('data-title') + ': ' + (notes[i] || '—'); }).join('\n');
+    var done = function(){ $('copied').textContent = 'copied'; };
+    if (navigator.clipboard) navigator.clipboard.writeText(text).then(done, function(){ $('copied').textContent = text; }); else $('copied').textContent = text;
+  });
+
+  STEP.forEach(function(s){ s.changed(); });
+  go(0);
+  requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>
