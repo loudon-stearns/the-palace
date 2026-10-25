@@ -7,15 +7,18 @@
 // the whole suite due (tier 2), and so does a new Claude Code: the desktop app's newest differs from the one a
 // scenario was last born on (Loudon, 2026-10-21: births run on the app's current Claude Code, which shapes the child
 // as much as the text does). A due scenario is still owed until a birth has run on a commit that holds the change.
+// A change to a floor file (what CLAUDE.md imports) also owes the floor measurement, until floor.mjs has measured a
+// commit that holds it (floor.json's `commit`). That one is free, so it is listed apart from the births.
 //
 //   node _ops/self-description-test/due.mjs                     # what this branch changed since main, committed or not
 //   node _ops/self-description-test/due.mjs --since <ref>       # since the merge-base with <ref>
 //   node _ops/self-description-test/due.mjs --files <path> …    # these paths, no git history (nothing can be "run since")
-//   … [--json] [--repo <dir>] [--runs-dir <dir>] [--claude-version <v>]   (default: the desktop app's newest)
+//   … [--json] [--repo <dir>] [--runs-dir <dir>] [--floor <floor.json>] [--claude-version <v>]   (default: the desktop app's newest)
 //   … --session   only what this change put at risk: scenarios born before whose canon it touched. No version moves,
 //                 no scenario never born. That is a session's debt, and what a close hands on; the rest is the suite's.
 //
-// Exit: 0 nothing owed · 1 error · 2 a due scenario has not been born since the change (the Closing Well hand-on).
+// Exit: 0 nothing owed · 1 error · 2 a due scenario has not been born since the change, or the floor has not been
+//       measured since (the Closing Well hand-on).
 
 import { execFileSync } from "node:child_process";
 import fs from "node:fs";
@@ -23,6 +26,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { SCENARIOS, WHOLE_SUITE } from "./scenarios.mjs";
 import { desktopClaude } from "./claude-bin.mjs";
+import { FLOOR_FILES, FLOOR_DATA } from "./floor.mjs";
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const argv = process.argv.slice(2);
@@ -90,7 +94,21 @@ function main() {
   }
   const owed = due.filter((d) => d.born_since === false);
 
-  if (flag("--json")) console.log(JSON.stringify({ since, base, claude_code: claudeCode, changed: changed.length, whole_suite_because: whole, due, owed: owed.map((d) => d.scenario) }, null, 2));
+  // The floor measurement: at risk when a floor file changed; owed until floor.json's commit holds every such change.
+  let floor = null;
+  const floorBecause = changed.filter((p) => FLOOR_FILES.includes(p));
+  if (floorBecause.length) {
+    let m = null; try { m = JSON.parse(fs.readFileSync(path.resolve(repo, opt("--floor", FLOOR_DATA)), "utf8")); } catch {}
+    let measuredSince = null; // null: no history to judge by (--files)
+    if (!files) measuredSince = !!m?.commit && floorBecause.every((p) => {
+      const c = commitsFor.get(p);
+      return !c.uncommitted && !(m.dirty || []).includes(p) && c.commits.every((h) => isAncestor(h, m.commit, repo));
+    });
+    if (m || !session) floor = { because: floorBecause, last: m ? { date: m.date, commit: m.commit, total: m.total } : null, measured_since: measuredSince };
+  }
+  const floorOwed = floor?.measured_since === false;
+
+  if (flag("--json")) console.log(JSON.stringify({ since, base, claude_code: claudeCode, changed: changed.length, whole_suite_because: whole, due, owed: owed.map((d) => d.scenario), floor, floor_owed: floorOwed }, null, 2));
   else {
     const from = files ? `${files.length} named path(s)` : `${changed.length} changed path(s) since ${since} (merge-base ${base.slice(0, 8)})`;
     if (!due.length) console.log(`due     nothing: ${from} touch no scenario's canon.`);
@@ -103,8 +121,14 @@ function main() {
       }
       if (owed.length) console.log(`        run: node _ops/self-description-test/birth.mjs --scenario <id> --ref HEAD   (each owed scenario; tier 2 runs the whole suite)`);
     }
+    if (floor) {
+      const last = floor.last ? `last measured ${floor.last.date} @ ${String(floor.last.commit).slice(0, 8)}` : "never measured";
+      const state = floor.measured_since === null ? "" : floor.measured_since ? " · measured since ✓" : " · floor measurement owed";
+      console.log(`floor   ${floor.because.join(", ")} · ${last}${state}`);
+      if (floorOwed) console.log(`        run: node _ops/self-description-test/floor.mjs   ($0, no model call), then commit what it writes`);
+    }
   }
-  return owed.length ? 2 : 0;
+  return owed.length || floorOwed ? 2 : 0;
 }
 
 try { process.exitCode = main(); } catch (e) { console.error(`due: ${e.stderr?.toString().trim() || e.message}`); process.exitCode = 1; }
