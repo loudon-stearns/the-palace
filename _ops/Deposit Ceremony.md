@@ -165,7 +165,3 @@ A deposit that cannot verify its postcondition has not completed.
 ---
 
 *Why the ceremony is shaped this way: [[Deposit Ceremony — Context]]. The version and what each deposit taught the ceremony: [[Deposit Ceremony — tuning]].*
-
-## Active Baton
-
-[[Deposit Ceremony — baton]] — drafted 2026-10-25
