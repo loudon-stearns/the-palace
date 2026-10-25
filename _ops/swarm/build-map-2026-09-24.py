@@ -151,8 +151,10 @@ for p in PALACE.rglob("*.md"):
     # and no bundle avatar. They are not entries — the spaced originals are. (listEntries
     # already skips them: a symlink Dirent reports isFile()===false.)
     if p.is_symlink(): continue
-    if excluded(p): continue
     rel = p.relative_to(PALACE)
+    # Judge the palace-relative parts: a worktree lives under .claude/worktrees/, so the
+    # absolute path would exclude every file and build an empty map.
+    if excluded(rel): continue
     # ops ceremony card = directly in _ops/ or one level into a non-machinery subdir
     in_ops = rel.parts[0] == "_ops"
     ops_card = in_ops and (len(rel.parts) == 2 or (len(rel.parts) == 3 and rel.parts[1] not in OPS_EXCLUDE))

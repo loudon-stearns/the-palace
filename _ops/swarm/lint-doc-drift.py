@@ -40,8 +40,16 @@ Checks implemented:
                               of type specialist/maker with no `member-of [[The Shop]]` is
                               still listed), or a builder that could not run at all.
 
-Usage: python3 _ops/swarm/lint-doc-drift.py [palace-root]
+Usage: python3 _ops/swarm/lint-doc-drift.py [palace-root] [--paths a.md,b/c.md]
        (defaults to the palace root two levels above this script)
+
+--paths scopes the run to the named files (root-relative or absolute, comma-separated,
+repeatable). The index stays whole, so references still resolve against everything; what
+is reported is exactly the whole run's findings that belong to a named file: E3/W0/W1 when
+it is the citing doc (and only foundational docs are cited-checked, scoped or not), E1 when
+it is either spelling, W2 when it is the ceremony page or the trigger table. E4/W3 are
+always checked whole - a new page can stale a generated block that never names it. With
+no --paths the whole palace is checked.
 """
 from __future__ import annotations
 import os, re, subprocess, sys
@@ -106,12 +114,19 @@ def build_index(root):
     return files, dirs, lower_file, basenames_lower
 
 
-def check_case_collisions(lower_file):
+def named(rp, only):
+    """True when `only` is None (whole palace) or rp is one of the named paths."""
+    return only is None or rp.replace(os.sep, "/") in only
+
+
+def check_case_collisions(lower_file, only=None):
     """E1 - distinct inodes that differ only by case (genuine collision, not one file)."""
     out = []
     for lp, entries in sorted(lower_file.items()):
         inodes = {ino for _, ino in entries if ino >= 0}
         names = sorted({rp for rp, _ in entries})
+        if only is not None and not any(named(n, only) for n in names):
+            continue
         if len(names) > 1 and len(inodes) > 1:
             out.append("E1  case-colliding distinct files (edit to one diverges from the other): "
                        + "  vs  ".join(names))
@@ -271,7 +286,7 @@ def trigger_field(text):
     return None
 
 
-def check_trigger_coverage(root, basenames_lower):
+def check_trigger_coverage(root, basenames_lower, only=None):
     warns = []
     # The trigger table lives in CHILD.md, which CLAUDE.md imports after the World (2026-10-21); CLAUDE.md is
     # the fallback for a tree from before the move.
@@ -279,6 +294,7 @@ def check_trigger_coverage(root, basenames_lower):
     if not home:
         return warns
     table_file = os.path.basename(home[0])
+    table_named = named(home[0], only)
     ctext = open(os.path.join(root, home[0]), encoding="utf-8", errors="ignore").read()
     m = re.search(r"Ceremony Triggers(.+?)(?:\n##\s|\Z)", ctext, re.S)
     table = m.group(1) if m else ctext
@@ -293,6 +309,8 @@ def check_trigger_coverage(root, basenames_lower):
         if is_dir or not rp.lower().endswith(".md") or os.path.islink(ap):
             continue
         if "Archive" in rp.split(os.sep):
+            continue
+        if not table_named and not named(rp, only):
             continue
         try:
             text = open(ap, encoding="utf-8", errors="ignore").read()
@@ -385,26 +403,68 @@ def foundational_scan_set(files, include_transient=False):
     return out
 
 
+def normalize_paths(raw, root):
+    """Root-relative, '/'-separated forms of the --paths values (absolute ones made
+    relative to root; a leading './' dropped)."""
+    out = set()
+    for p in raw:
+        p = p.strip()
+        if not p:
+            continue
+        if os.path.isabs(p):
+            p = os.path.relpath(p, root)
+        p = p.replace(os.sep, "/")
+        while p.startswith("./"):
+            p = p[2:]
+        out.add(p)
+    return out
+
+
+def parse_args():
+    """[palace-root] positional + optional --paths a,b,c (root-relative files to check)."""
+    root, raw = None, None
+    args = sys.argv[1:]
+    i = 0
+    while i < len(args):
+        if args[i] == "--paths" and i + 1 < len(args):
+            raw = (raw or []) + args[i + 1].split(",")
+            i += 2
+        elif not args[i].startswith("--"):
+            root = args[i]; i += 1
+        else:
+            i += 1
+    root = os.path.abspath(root or PALACE_DEFAULT)
+    return root, (normalize_paths(raw, root) if raw is not None else None)
+
+
 def main():
-    root = os.path.abspath(sys.argv[1] if len(sys.argv) > 1 else PALACE_DEFAULT)
+    root, only = parse_args()
     if not os.path.isdir(root):
         sys.exit(f"not a directory: {root}")
 
     files, dirs, lower_file, basenames_lower = build_index(root)
     scan = foundational_scan_set(files)
+    if only is not None:
+        scan = [rp for rp in scan if named(rp, only)]
 
     errors, warns = [], []
-    errors += check_case_collisions(lower_file)
+    errors += check_case_collisions(lower_file, only)
     e, w = check_path_refs(root, files, dirs, basenames_lower, scan)
     errors += e; warns += w
     warns += check_section_pins(root, basenames_lower, scan)
-    warns += check_trigger_coverage(root, basenames_lower)
+    warns += check_trigger_coverage(root, basenames_lower, only)
     e, w = check_generated_blocks(root)
     errors += e; warns += w
 
     errors = sorted(set(errors)); warns = sorted(set(warns))
 
     print(f"doc-drift lint - root: {root}")
+    if only is not None:
+        missing = sorted(p for p in only if not os.path.exists(os.path.join(root, p)))
+        print(f"  scoped to {len(only)} named path(s); {len(scan)} of them foundational docs "
+              f"(the rest get only the case and trigger checks); generated blocks are checked whole")
+        for p in missing:
+            print(f"  note: named path not found under root: {p}")
     print(f"  scanned {len(scan)} foundational docs, indexed {len(files)} files, {len(dirs)} dirs\n")
     if errors:
         print(f"ERRORS ({len(errors)}):")
