@@ -217,3 +217,4 @@ The fix is **CQRS, not relocation**: the append-only board stays the event log (
 ## Active Baton
 
 [[Project Stewardship System — baton]] — drafted 2026-10-21
+[[Project Stewardship System — baton — deck ready rows]] — drafted 2026-10-25
