@@ -25,6 +25,12 @@ const FIRST_TRACK_ID = 20;
 // Live stores a Drum Rack pad's ReceivingNote inverted: stored = 128 - MIDI note (a factory kit's kick, stored 92, sits on C1 = 36;
 // a pad written as 42 showed on D5 = 86, Loudon's ear 2026-10-24). SendingNote is not inverted: every pad read stores 60 and plays its sample at root.
 const recv = (note) => 128 - note;
+// Per-drum levels inside the rack, proposed 2026-10-24 for Loudon's yes: the kick is the reference at 0 dB and the rest sit under it;
+// the rack's track then takes the foreground (-4 dB). A pad may name its own "db". Set on the pad's branch mixer (linear amplitude).
+const DRUM_DB = [[/kick/, 0], [/808|sub/, -2], [/snare/, -2], [/clap/, -4], [/rim|snap|stick/, -6], [/tom/, -4], [/closed|chh|hat/, -8], [/open|ohh/, -8], [/ride/, -10], [/crash|cymbal/, -10], [/shaker|perc|conga|bongo/, -6], [/fx|riser|impact/, -8]];
+const drumDb = (pad) => pad.db != null ? pad.db : (DRUM_DB.find(([re]) => re.test(pad.name.toLowerCase())) || [, -4])[1];
+const dbToAmp = (db) => Math.pow(10, db / 20);
+const setMixerVolume = (branchXml, tag, db) => { const mix = element(branchXml, tag); const vol = element(mix.text, 'Volume'); return replaceEl(branchXml, mix, replaceEl(mix.text, vol, vol.text.replace(/<Manual Value="[^"]*" \/>/, '<Manual Value="' + Number(dbToAmp(db).toFixed(10)) + '" />'))); };
 const POINTEES = /<(AutomationTarget|[A-Za-z]*ModulationTarget|Pointee|ControllerTargets\.\d+) Id="(\d+)"/g;
 
 // ---- XML craft (the Session Writer's) ----
@@ -92,6 +98,7 @@ function buildAdg(kit, pads, setDir) {
     const simp = element(b, 'OriginalSimpler');
     b = replaceEl(b, simp, withId(padSimpler(pad, setDir).xml, 0));
     b = b.replace(/<BrowserContentPath Value="[^"]*" \/>/, '<BrowserContentPath Value="" />');
+    b = setMixerVolume(b, 'AudioBranchMixerDevice', drumDb(pad));
     return b;
   });
   adg = replaceEl(adg, presets, '<BranchPresets>\n' + branches.join('\n') + '\n</BranchPresets>');
@@ -124,6 +131,7 @@ function buildAls(kit, pads, setDir) {
     b = b.replace(/<EffectiveName Value="[^"]*" \/>/, '<EffectiveName Value="' + esc(pad.name) + '" />').replace(/<UserName Value="[^"]*" \/>/, '<UserName Value="' + esc(pad.name) + '" />');
     b = b.replace(/<IsSelected Value="true" \/>/, '<IsSelected Value="' + (i === 0 ? 'true' : 'false') + '" />');
     b = b.replace('<!--DEVICE-->', withId(padSimpler(pad, setDir).xml, 0));
+    b = setMixerVolume(b, 'MixerDevice', drumDb(pad));
     const bi = element(b, 'BranchInfo');
     b = replaceEl(b, bi, '<BranchInfo>\n<ReceivingNote Value="' + recv(pad.note) + '" />\n<SendingNote Value="60" />\n<ChokeGroup Value="' + (pad.choke || 0) + '" />\n</BranchInfo>');
     return b;
@@ -159,12 +167,14 @@ function buildAls(kit, pads, setDir) {
   const nameEl = element(t, 'Name');
   t = replaceEl(t, nameEl, nameEl.text.replace(/<EffectiveName Value="[^"]*" \/>/, '<EffectiveName Value="' + esc(kit.name) + '" />').replace(/<UserName Value="[^"]*" \/>/, '<UserName Value="' + esc(kit.name) + '" />'));
   t = t.replace(/<Color Value="\d+" \/>/, '<Color Value="17" />');
+  { const mixer = element(t, 'Mixer'); const vol = element(mixer.text, 'Volume'); t = replaceEl(t, mixer, replaceEl(mixer.text, vol, vol.text.replace(/<Manual Value="[^"]*" \/>/, '<Manual Value="' + Number(dbToAmp(-4).toFixed(10)) + '" />'))); }   // foreground
   t = t.replace(/<AutomationEnvelopes>[\s\S]*?<\/AutomationEnvelopes>/, '<AutomationEnvelopes>\n<Envelopes />\n</AutomationEnvelopes>');
   t = replaceEl(t, element(t, 'Devices'), '<Devices>\n' + rack + '\n</Devices>');
   const arr = element(t, 'ArrangerAutomation');
   t = replaceEl(t, arr, arr.text.replace(/<Events \/>/, '<Events>\n' + c + '\n</Events>'));
   t = t.replace(/<ClipSlotList>[\s\S]*?<\/ClipSlotList>/g, (all) => { const slot = element(all, 'ClipSlot').text; const slots = []; for (let i = 0; i < scenes; i++) slots.push(slot.replace(/^<ClipSlot Id="\d+">/, '<ClipSlot Id="' + i + '">')); return '<ClipSlotList>\n' + slots.join('\n') + '\n</ClipSlotList>'; });
 
+  xml = replaceEl(xml, element(xml, 'Locators'), '<Locators>\n<Locators>\n<Locator Id="0">\n<LomId Value="0" />\n<Time Value="0" />\n<Name Value="' + esc(kit.name + ' pattern') + '" />\n<Annotation Value="" />\n<IsSongStart Value="true" />\n</Locator>\n</Locators>\n</Locators>');
   // the Limiter on Main, and the counter written back
   let lim = element(readGz(path.join(WRITER, 'Limiter.adv')), 'Limiter').text;
   lim = lim.replace(/<LastPresetRef>[\s\S]*?<\/LastPresetRef>/, '<LastPresetRef>\n<Value />\n</LastPresetRef>');
@@ -196,9 +206,13 @@ function check(file) {
       const pname = br.match(/<EffectiveName Value="([^"]*)" \/>/)[1], note = br.match(/<ReceivingNote Value="(\d+)" \/>/)[1], choke = br.match(/<ChokeGroup Value="(\d+)" \/>/)[1];
       const paths = [...br.matchAll(/<Path Value="([^"]*)" \/>/g)].map((p) => p[1]).filter(Boolean);
       const missing = paths.filter((p) => !fs.existsSync(p)); for (const p of missing) problems.push(pname + ': sample missing ' + p);
-      pads.push(pname + '@' + (128 - Number(note)) + ' (stored ' + note + ')' + (choke !== '0' ? ' choke' + choke : '') + (missing.length ? ' MISSING' : ''));
+      const bamp = Number((element(element(br, 'MixerDevice').text, 'Volume').text.match(/<Manual Value="([^"]*)" \/>/) || [, '1'])[1]);
+      pads.push(pname + '@' + (128 - Number(note)) + ' ' + (20 * Math.log10(bamp)).toFixed(0) + 'dB' + (choke !== '0' ? ' choke' + choke : '') + (missing.length ? ' MISSING' : ''));
     }
     console.log('  Drum Rack "' + name + '": ' + pads.length + ' pads: ' + pads.join(', '));
+    const trk = element(xml, 'MidiTrack'); const tamp = Number((element(element(trk.text, 'Mixer').text, 'Volume').text.match(/<Manual Value="([^"]*)" \/>/) || [, '1'])[1]);
+    const locs = [...element(xml, 'Locators').text.matchAll(/<Name Value="([^"]*)" \/>/g)].map((m) => m[1]);
+    console.log('  track ' + (20 * Math.log10(tamp)).toFixed(1) + ' dB; locators: ' + (locs.join(', ') || 'none'));
   }
   if (!racks.length) console.log('  no Drum Rack');
   console.log('  notes: ' + (element(xml, 'Tracks').text.match(/<MidiNoteEvent /g) || []).length + '; tempo ' + element(element(xml, 'MainTrack').text, 'Tempo').text.match(/<Manual Value="([^"]*)" \/>/)[1]);

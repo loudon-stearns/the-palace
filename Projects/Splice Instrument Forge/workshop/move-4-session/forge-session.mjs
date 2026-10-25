@@ -106,6 +106,7 @@ function audioClip({ name, colour, abs, rel, bpm, transpose = 0, setTempo, isDru
   c = replaceEl(c, element(c, 'WarpMarkers'), '<WarpMarkers>\n<WarpMarker Id="0" SecTime="0" BeatTime="0" />\n<WarpMarker Id="1" SecTime="' + fmt(seconds) + '" BeatTime="' + beats + '" />\n</WarpMarkers>');
   c = c.replace(/<SavedWarpMarkersForStretched>[\s\S]*?<\/SavedWarpMarkersForStretched>/, '<SavedWarpMarkersForStretched />');
   c = c.replace(/<PitchCoarse Value="-?\d+" \/>/, '<PitchCoarse Value="' + transpose + '" />').replace(/<PitchFine Value="-?\d+" \/>/, '<PitchFine Value="0" />');
+  c = c.replace(/<SampleVolume Value="[^"]*" \/>/, '<SampleVolume Value="1" />');   // clip gain 0 dB: the shell carried +3.1 dB from the Set it came from (Loudon heard the distortion, 2026-10-24)
   c = setValue(c, 'MarkersGenerated', 'false').replace(/<IsSongTempoLeader Value="true" \/>/, '<IsSongTempoLeader Value="false" />');
   return { xml: c, beats, seconds, facts: w, stretched, bent, warpMode };
 }
@@ -227,6 +228,9 @@ function check(file) {
   const sceneNames = [...element(xml, 'Scenes').text.matchAll(/<Name Value="([^"]*)" \/>/g)].map((m) => m[1]);
   console.log(path.basename(file) + ': ' + xml.match(/Creator="([^"]*)"/)[1] + ', ' + Math.round(xml.length / 1024) + ' KB of XML; pointees ' + ids.length + ', all unique ' + (dup.size ? 'NO' : 'yes') + ', NextPointeeId ' + next + '; opens in ' + view + ' view; tempo ' + element(element(xml, 'MainTrack').text, 'Tempo').text.match(/<Manual Value="([^"]*)" \/>/)[1]);
   console.log('  scenes: ' + sceneNames.map((n, i) => i + ':' + n).join('  '));
+  const gains = [...xml.matchAll(/<SampleVolume Value="([^"]*)" \/>/g)].map((m) => Number(m[1])); const maxGain = gains.length ? Math.max(...gains) : 1;
+  if (maxGain > 1.0001) problems.push('clip gain above 0 dB: ' + (20 * Math.log10(maxGain)).toFixed(1) + ' dB on some clip');
+  console.log('  clip gain: ' + (gains.length ? (20 * Math.log10(maxGain)).toFixed(1) + ' dB max over ' + gains.length + ' clips' : 'no clips'));
   const locs = [...element(xml, 'Locators').text.matchAll(/<Time Value="([^"]+)" \/>\s*<Name Value="([^"]*)" \/>/g)].map((m) => 'bar ' + (Number(m[1]) / 4 + 1) + ' ' + m[2]);
   console.log('  locators: ' + (locs.length ? locs.join(' · ') : 'none'));
   const tracksEl = element(xml, 'Tracks'); const re = /<AudioTrack Id="(\d+)"/g; let m; const grid = [];

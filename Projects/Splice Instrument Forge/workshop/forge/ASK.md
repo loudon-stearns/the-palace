@@ -47,8 +47,8 @@ A FAILED line means an expired URL: call `download_asset` again for that one (a 
 
 ## 4. Write the recipe
 
-- **kit** — `kit.json` as `move-3-drum-rack/kit.json`: `kind: "kit"`, `name`, `tempo`, `pads` (`note`, `name`, `file`, `choke` for hats), `pattern` rows of sixteenths. Pads from 36 up (C1); hats share a choke group.
-- **instrument** — `recipe.json`: `{ "kind": "instrument", "name", "tempo", "release": 0.5, "samples": "samples" }`. Roots are detected; nothing else to say.
+- **kit** — `kit.json` as `move-3-drum-rack/kit.json`: `kind: "kit"`, `name`, `tempo`, `pads` (`note`, `name`, `file`, `choke` for hats), `pattern` rows of sixteenths. Pads from 36 up (C1); hats share a choke group. Each pad's level follows the per-drum rule on the scroll (kick 0, hats −8, cymbals −10…) unless the pad names its own `db`; the rack's track sits in the foreground.
+- **instrument** — `recipe.json`: `{ "kind": "instrument", "name", "tempo", "release": 0.5, "samples": "samples", "ground": "middleground" }`. Roots are detected; the track takes its ground (middleground unless said) and a locator at bar 1.
 - **stack** — `stack.json` as `move-4-session/stack.json`: `kind: "stack"`, `name`, `tempo`, `layers` (`role`, `file`, native `bpm` as Splice listed it), `scenes` (`name`, `play`). Eight scenes that add and remove layers read well: intro, build, drop, full, a breakdown, a second drop, outro. Each scene is also a section of the Arrangement (8 bars unless the scene names `bars`) with a locator at its start, so the Set plays as a track from bar 1 as well as from the grid. Give every layer two `alternates` found the same way (same tempo, same key or unkeyed): they become take lanes on the track, so Loudon can swap options in without leaving Live.
 
 ## 5. Make, check, open

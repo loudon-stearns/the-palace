@@ -47,6 +47,7 @@ if (verb === 'build') {
     run('python3', ['-I', path.join(SAMPLER, 'build-sfz.py'), r.name, '--release', String(r.release ?? 0.4)], dir);
     run('node', [WRITER, 'library', path.join(dir, r.name + '.sfz'), '--out', path.join(dir, r.name + '.als'), '--tempo', String(r.tempo || 100), ...rest]);
     run('python3', ['-I', path.join(SAMPLER, 'als-to-adv.py'), path.join(dir, r.name + '.als'), path.join(dir, r.name + '.adv')], dir);
+    run('node', [path.join(HERE, 'finish.mjs'), path.join(dir, r.name + '.als'), '--track', r.name + '=' + (r.ground || 'middleground'), '--locator', r.name + ' phrase@1']);   // a Sampler is a lead or keys unless the recipe says
   } else { console.error('recipe needs "kind": kit | stack | instrument'); process.exit(2); }
   console.log('\nnext: node forge.mjs check "' + path.join(dir, r.name + '.als') + '"  then  node forge.mjs open "' + path.join(dir, r.name + '.als') + '"');
   process.exit(0);
