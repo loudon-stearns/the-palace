@@ -26,3 +26,12 @@ python3 -m commons propagate --sender "Weave Ceremony" --home "Weave Ceremony" -
   --action "write <Entry>/<Entry> — Context.md with §8 frontmatter, answering the three questions; add spawned from the parent" \
   --rationale "Weave v2.0 Step 5d (tuning 54): 316 of 325 pages wore faces, 20 had a Context" \
   --source-id "<the Weave commit>"
+
+4. The To-Do retired in favour of handoffs (Loudon, 2026-10-25)
+python3 -m commons propagate --sender "TRICKSTER" --home "Weave Ceremony" --rhythm sweep \
+  --decision "The palace keeps no to-do list apart from its handoffs. A thought with no mover becomes a baton announced on the board, or is let go; the Palace To-Do is composting and its open items move to batons." \
+  --scope "every live page that points a reader at the Palace To-Do: README - The Palace Guide, ROSETTA, Deposit Ceremony, Baton Ceremony, Return Ceremony, BBS Design System, Loudon Live, Palace Enchantment, Haptic Handwheel, Loudon's Toolkit — context — assessment, Frequency-Time Duality — baton; archives, tuning ledgers and Contexts are history and stay" \
+  --check "the pattern finds no live page" --pattern "\[\[Palace To-Do(\]\]|\|)" --paths "*.md,:(exclude)_ops/Palace To-Do.md,:(exclude)_ops/Palace To-Do/*,:(exclude)_ops/Weave Ceremony/*" \
+  --action "point the reader at list-handoffs (node _ops/stigmergy/list-handoffs.mjs) and the Baton Ceremony instead; drop a sentence that only existed to route to the list" \
+  --rationale "Loudon, 2026-10-25: 'Create a handoff for the to-do's and to retire to-do entirely in favor of handoffs.' Weave v2.0 Step 6 now walks the open handoffs." \
+  --source-id "<the Weave commit>"

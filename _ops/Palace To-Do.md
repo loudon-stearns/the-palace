@@ -5,7 +5,7 @@ pillars:
   - practice
   - tools
 born: 2026-03
-stage: growing
+stage: composting
 forward_vector: "I am the palace's live worklist, and my discipline is subtraction — I hold about a dozen things Loudon could actually pick up this week, and I push everything else into my archive rather than let myself grow into a document nobody reads. I want every item on me to name its next physical action. I end each cycle by asking what has gone stale on me and moving it out."
 links:
   - target: "[[Harvest Ceremony]]"
@@ -32,8 +32,7 @@ action. Everything completed, parked, or waiting on a condition lives in
 condition is met.
 
 The list is capped by intent, not by rule: if it grows past roughly a dozen items, that is the
-signal to triage, not to scroll. It was 43 open items and 66KB on 2026-08-25, which is how a
-worklist stops being read.
+signal to triage, not to scroll.
 
 **What this list feeds: [[Loudon Live]], Loudon's teaching and coaching face, building slowly.** An item earns a slot
 here if it feeds that, or if it is cheap and unblocks something that does.
@@ -71,7 +70,8 @@ Unrelated loose ends the September weave declined to settle in place (each wants
 
 - [x] **Let the dead-link checker read bundle files** — `_ops/swarm/lint-ghost-links.py` scans only entries: it skips any file whose frontmatter has no canon `type` (`:155-157`), and bundle files carry none by design ([[SCHEMA — Reference]] §8). So a dead `[[link]]` inside a bundle file never reaches the Weave, and as more tools fold into bundles, more of the palace goes dark to it. Widen the scan to bundle files, reported apart from entries so the Weave can tell them apart. First known case: `[[PDL]]` in `Shop/VCV Patch Generator/VCV Patch Generator — spec — PDL generation prompt.md`, which dropped out of the lint's sight when the prompt folded into the bundle (D-2026-09-26-PDLGP, the Concierge's flag); move 4 on the [[Generative Audio Devices]] scroll, a PDL Spec page, would give it a target. Loudon asked for this, 2026-09-26. — done by the 2026-10-24 weave: lint-ghost-links.py now scans bundle files into a separate block
 
-- [ ] **`Palace-Verify:` is a self-report** — the trailer that exists to prevent self-report is typed by the agent that did the work ([[Deposit Ceremony]] `:121,157`, "set `--verify verified` honestly"). The palace's own rule is that an agent can report what it *did* and not what it *is*, and verification status is the second kind. Fixing it means deriving the value from something checkable — a linter exit code, a scoped run — or dropping the field rather than letting it assert what it cannot know. Related: the scoped-linter item above is probably its precondition.
+- [ ] **`Palace-Verify:` is a self-report** — the trailer that exists to prevent self-report is typed by the agent that did the work ([[Deposit Ceremony]] step 7, "land with the honest verify state"). The palace's own rule is that an agent can report what it *did* and not what it *is*, and verification status is the second kind. Fixing it means deriving the value from something checkable — a linter exit code, a scoped run — or dropping the field rather than letting it assert what it cannot know. Related: the scoped-linter item above is probably its precondition.
+  — progressed: [[Deposit Ceremony]] steps 6–7 now verify rather than assert — someone who didn't write it reads the placement cold, and `verified` is allowed only if step 6's checks passed. What remains is deriving the value from a checkable source, which waits on the scoped linters (2026-10-24).
 
 - [ ] **Re-split the Weave and Baton cards** — both were split into a card plus a `— Context` companion, and both cards grew back: Weave ~36 KB, Baton ~28 KB, against the ~8 KB line in [[SCHEMA — Reference]] §6. A card that size teaches every runner that its history is the procedure. Next action: move the history and rationale out again, and keep the steps.
 
@@ -98,9 +98,13 @@ The sessions of that fan-out noticed these and fixed none; each line names where
 
 ## Hygiene rules
 
-- Client work belongs in dedicated Claude Projects, not general chat history. Projects scope the harvest boundary and keep client material from seeping into the palace unexpectedly. Discovered 2026-03-21 via H095 compost.
+- Client work belongs in dedicated Claude Projects, not general chat history. Projects scope the harvest boundary and keep client material from seeping into the palace unexpectedly.
 - This card is capped at roughly a dozen items. When it overflows, triage into [[Palace To-Do — Archive]] — do not let it grow a scrollbar.
 
 ---
 
 *Everything completed, parked, or condition-blocked — including the STIGMERGY v0.3 / v2.0 / M2 roadmaps, the Orchestrator v0.2 plan, the nine Enchantment next-steps, and the 2026-04-27 Graffiti To-Do — is held verbatim in [[Palace To-Do — Archive]].*
+
+## Active Baton
+
+[[Palace To-Do — baton]] — drafted 2026-10-25
