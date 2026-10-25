@@ -47,3 +47,11 @@ What each revival taught the ceremony, and the lessons that reached it from else
    - **The standing order was written by hand on his word,** as Particle Synthesis's was on 2026-09-23, while [[The Scroll]] says standing orders are edited on the scroll in STIGMERGY and nowhere else. Either the rite says how an elder writes one on his word, or The Scroll allows it. He answered "allow it": Step 5 and [[The Scroll]] now let an elder write one on his explicit word, quoting him and the date.
 
 - run · 2026-10-21 · v2.0 · Shimmer Cloud (spore → project at sprout; met by ear on a listening page; the plan written from his listening; woken from the branch, then enchanted) · taught item 4
+
+## From the third run, Generative Audio Devices — 2026-10-24
+
+5. **Two small gaps showed.** **Owed:** Loudon's call on each.
+   - **Meeting a made thing in its own tool can rewrite it.** Rack re-saved the committed `house_bass.vcv` in place, as a zstd archive, the moment he saved. Step 2 could say: open a copy, or keep the re-save as a proof and restore the original before landing. · owed
+   - **A stewarded page may have no tuning ledger to leave the order in.** Generative Audio Devices had none, as Particle Synthesis had none (`99978d05`). Step 5 could say the order's ledger is opened if it does not exist, in the commit that lands the revival. · owed
+
+- run · 2026-10-24 · v2.1 · Generative Audio Devices (a dormant project whose steward never ran; met by playing the April house bass in Rack; landed then plan) · taught item 5
