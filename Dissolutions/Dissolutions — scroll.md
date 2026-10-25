@@ -61,6 +61,21 @@ _Loudon's standing direction for this page — never regenerated. A steward, if 
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="sit-2026-10-25-the-table-that-travels" -->
+### 2026-10-25 — The table that travels, played: the right proof, reached too soon
+
+Loudon played the table that travels on 2026-10-25, in the session's walk through the six proofs of 2026-10-20. He left one note, in the box for the whole object; the three boxes for the doors stayed empty. His words, as typed:
+
+> "This is a good example, but needs scaffolded learning, just a few steps to undertsand each concept in isolation. Right now we are at the end proof of a complex topic, and we need to work our way up to this. Interactive explanation of the loop and the table individually, then the combionation with the difference, then finally explain the filter and bring that concept in. A little more staged learning and this is fantastic."
+
+The note is about how the proof teaches, not what it found: the identity verdict in [[Dissolutions — hunt]] stands. On his yes in the same sit, the identity's strict edge went into [[Dispersion Table]]: exact when the loop is a whole number of samples long, and a fractional length opens the slot the dispersion curve goes in.
+
+**Artifacts:**
+- [the table that travels](Dissolutions/proofs/2026-10-20-the-table-that-travels/the-table-that-travels.html)
+
+<sub>hand-appended · sit · played through in a sit 2026-10-25; the note is Loudon's, quoted as typed</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="proof-2026-10-20-the-shadow-that-locks" -->
 ### 2026-10-20 — The shadow that locks: Phase Reduction is two claims
 
