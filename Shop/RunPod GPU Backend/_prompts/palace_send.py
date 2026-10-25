@@ -16,7 +16,7 @@ queue.txt format — one image per line; blank lines and #comments ignored:
     your prompt text | 832x1216 | 42       # custom size + seed
 
 Config:
-  - In a Cowork session it auto-reads /tmp/.rp_key and /tmp/flux_ep.
+  - It also auto-reads /tmp/.rp_key and /tmp/flux_ep when those files are present.
   - Standalone (your Mac): set env RUNPOD_API_KEY and RUNPOD_ENDPOINT_ID.
 """
 import json, base64, os, sys, time, urllib.request
@@ -33,7 +33,7 @@ def cfg():
     if not key and Path("/tmp/.rp_key").exists(): key = Path("/tmp/.rp_key").read_text().strip()
     if not ep  and Path("/tmp/flux_ep").exists(): ep  = Path("/tmp/flux_ep").read_text().strip()
     if not key or not ep:
-        sys.exit("Need RUNPOD_API_KEY and RUNPOD_ENDPOINT_ID (env), or the Cowork /tmp files.")
+        sys.exit("Need RUNPOD_API_KEY and RUNPOD_ENDPOINT_ID (env), or /tmp/.rp_key and /tmp/flux_ep.")
     return key, ep
 
 KEY, EP = cfg()

@@ -134,7 +134,7 @@ An entry's `stage` field doubles as a confidence interval on alignment between L
 | sprout | Plan-level detail; named tradeoffs; flag default-traps | Build a small working prototype each cycle; proposals ride alongside it, never instead of it. |
 | growing | Execute within established direction; checkpoint at sensory steps | Build Session pace; ship freely. `blocking: true` only before committing to a full sensory batch. |
 | mature / fruiting | Ship the next proof; post completions | Full execution; ship the next concrete proof without a fork-question; `WEAVE` board for completion signals. |
-| dormant | Don't touch — Spore Check ceremony only | — |
+| dormant | Don't touch. Only the [[Spore Check Ceremony]], [[The Daily Page]], or a revival probe Loudon ordered touches it; only the [[Revival Ceremony]] wakes it | — |
 | composting | Don't touch — composting protocol applies | — |
 
 *(Ship-first since the 2026-06-07 Steward Boldness revision — see [[Project Stewardship System]]; boldness ≠ batch: free the single creation, keep the gate on mass-production. Replaces the earlier "discussion, not deliverables" framing, which optimized for well-shaped questions over made things.)*
@@ -240,15 +240,17 @@ Example:
 
 Apply this to pedagogical entries especially (anywhere a formula is meant to teach), and to chart captions whenever an equation appears in the figure. Operators remain symbolic — the words form is for the variables and coefficients, not for the math itself.
 
-### Artifact Aesthetic (the palace default)
+### Artifact Aesthetic (three dresses)
 
-Every HTML artifact, slide, session page, learning material, web prototype, or visual deliverable the palace makes defaults to the **[[Loudon Live Design System]]** — a **floor, not a cage**: a small non-negotiable floor (the studio voice, the Lissajous sigil, the nevers — no cyan / no emoji / no hype) keeps everything recognizably Loudon; a house style over six per-stream skins is the reliable default to reach for and depart from, the home of the **Loud'n Live** projection of Loudon's [[The Multilinear Self|multilinear self]]. **Invoke the agent-readable manifest (`_ops/loudon-live/design-system/SKILL.md`) before generating any artifact** — the fonts, skins, and full rule set live there.
+Before anything visual, read the design manifest for the dress it wears ([[CHILD]] § Growing up). Three dresses, one rule for which ([[Drafting Table Design System]] § Which dress):
 
-**Override carve-out:** when a context has its own established visual language, that system wins. Currently only [[BBS Design System]] (STIGMERGY swarm terminal) qualifies. New overrides require a deliberate decision documented in the artifact's parent entry.
+- **The work itself** — a plugin or AU face, an instrument panel, a part drawing, a tool's UI, a page about a build — wears the **[[Drafting Table Design System]]**. Manifest: `_ops/drafting-table/design-system/SKILL.md`.
+- **What the public channel shows** — a stream card, a session artifact, a slide deck, a learning poster, Loud'n Live's pages — wears the **[[Loudon Live Design System]]**: a small non-negotiable floor (the studio voice, the Lissajous sigil, the nevers — no cyan / no emoji / no hype) and a house style over six per-stream skins, the home of the **Loud'n Live** projection of Loudon's [[The Multilinear Self|multilinear self]]. Manifest: `_ops/loudon-live/design-system/SKILL.md`. Its footer reads `Loud'n Live` — the wordmark alone (audience named situationally in prose, never stamped on every artifact); no emoji, no CDN icon libraries, no cyan, no outcome promises in titles. The wordmark grammar and audience-phrasing bank are on its page.
+- **STIGMERGY**, the board and its app, wears the **[[BBS Design System]]**.
 
-The footer of any shipped artifact reads `Loud'n Live` — the wordmark alone (audience named situationally in prose, never stamped on every artifact). No emoji, no CDN icon libraries, no cyan, no outcome promises in titles. See [[Loudon Live Design System]] for the wordmark grammar and audience-phrasing bank.
+Each is a floor, not a cage: the reliable default a thing reaches for, departed from deliberately with a reason written down. Invoke the manifest before generating the artifact — the fonts, tokens and full rule set live there. A new context with a dress of its own requires a deliberate decision documented in the artifact's parent entry.
 
-**Adoption is a typed-link event.** When an artifact adopts the system, link it back to [[Loudon Live Design System]] with `connects-to` and a label naming the surface (e.g. `learning-poster`, `session-artifact`, `slide-deck`). When an artifact deliberately overrides, link to whichever system it chose instead with a label naming the reason.
+**Adoption is a typed-link event.** When an artifact adopts a dress, link it back to that system with `connects-to` and a label naming the surface (e.g. `learning-poster`, `session-artifact`, `plugin-face`). When an artifact deliberately departs, link to whichever system it chose instead with a label naming the reason.
 
 ## Closing Punchlist Scaffold
 

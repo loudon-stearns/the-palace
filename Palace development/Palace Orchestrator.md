@@ -112,7 +112,8 @@ agent. Two paths:
   `score` is a **sentinel, always green** (real escalation needs Path 1). The §9 validator relaxes
   the full-health requirement for the `STUB_HEALTH_DISPATCH` set — `claude-code-subagent`,
   `hand-authored`, `cowork`, `claude-code`, `claude-code-mac-session` — requiring only `score` and
-  `model`. A new non-API dispatch mode joins the set; it is never exempted ad-hoc.
+  `model` (`cowork` stays because the board still holds lines stamped with it; nothing posts it now).
+  A new non-API dispatch mode joins the set; it is never exempted ad-hoc.
 
 **The Trickster `options[]` shape.** A blocking decision goes to the TRICKSTER board as a
 `RESOURCE_REQUEST` whose `payload.options[]` is the fork. Canonical shape is objects — `{ id, label }`,

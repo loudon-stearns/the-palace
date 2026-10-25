@@ -114,7 +114,7 @@ The canonical posture lives in [[Substrate Skill]] § Stage as Alignment Confide
 | sprout | Plan-level detail; named tradeoffs; flag default-traps | Build a small working prototype each cycle; proposals ride alongside it, never instead of it. |
 | growing | Execute within established direction; checkpoint at sensory steps | Build Session pace; ship freely. `blocking: true` only before committing to a full sensory batch. |
 | mature / fruiting | Ship the next proof; post completions | Full execution; ship the next concrete proof without a fork-question; `WEAVE` board completions. |
-| dormant | Don't touch — Spore Check ceremony only | — |
+| dormant | Don't touch. Only the [[Spore Check Ceremony]], [[The Daily Page]], or a revival probe Loudon ordered touches it; only the [[Revival Ceremony]] wakes it | — |
 | composting | Don't touch — composting protocol applies | — |
 
 **Recursion within entries.** A `growing` project can contain `seed` deliverables. The pronunciation bug in [[Talking Keyboard]] (Phase 1 of [[Generative Sample Libraries]], May 2026) showed this clearly — project-level alignment was good, but the deliverable-level conventions (filename scheme, pronunciation form, audition cycle) were never aligned, and we shipped 352 files with a TTS bug only listening could catch. A steward re-aligns at the deliverable level before committing labor.
@@ -196,7 +196,7 @@ The fix is **CQRS, not relocation**: the append-only board stays the event log (
 - **Handoffs reach the board, not the dispatch.** A baton Loudon or a session writes is now announced on the board as `handoff_ready` — about sixty since 2026-06-18 — and `list-handoffs`, `pickup-handoff` and `close-handoff` (`_ops/stigmergy/`) carry it through claim and close. But the heartbeat that cycles stewards does not pick handoffs up; a session claims them by hand. Whether it should is [[Two Batons, One Board]]'s open question.
 - **Withdrawing a proposal outright.** Not built; `replaces` covers a steward changing its mind.
 - **A click still wakes a resting page.** The heartbeat skips a dormant page, but a deck Advance still runs a registered steward on one, because `advance()` in `_ops/stigmergy/app/server/steward-lane.js` checks only the registry.
-- **A way back for a finished page.** The [[Revival Ceremony]] wakes only a dormant or composting page. A finished or archived one has no ceremony back yet, so while it stays ended it takes no steward.
+- **A way back for a finished page.** The [[Revival Ceremony]] wakes only a sleeping page: dormant, composting, or a spore. A finished or archived one has no ceremony back yet, so while it stays ended it takes no steward.
 - **Vector tuning as a visible palace-wide norm.** Does the Weave Ceremony spec need an explicit "vector edits welcome" beat? Does [[SCHEMA]] want a one-line note that forward vectors are meant to evolve? Probably yes to both, as small follow-on edits.
 - **Schedule cadence.** Today every steward runs on one cadence, the heartbeat's. Per-steward cadence in the manifest, with a sensible default, is still a question.
 - **Recursion handling at the orchestrator level.** When a steward meets a `seed` deliverable inside a `growing` project, does it switch to seed-stage posture for that deliverable? The prompt says re-align; the orchestrator has no explicit rule.

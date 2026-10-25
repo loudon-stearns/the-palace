@@ -1,6 +1,6 @@
 #!/bin/bash
 # Palace heartbeat — STEWARD BATCH (Mac-side)
-# Replaces the disabled Cowork scheduled task "palace-heartbeat-steward-batch".
+# Replaces the disabled desktop-app scheduled task "palace-heartbeat-steward-batch".
 #
 # Why Mac-side: stewards run as a headless `claude -p` session on your machine,
 # so they reach the full Shop (ComfyUI, Kokoro, Manim, Max/RNBO, the GPU) and

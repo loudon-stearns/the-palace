@@ -18,7 +18,7 @@
 //    itself under rich/, in static mode.
 //
 // What publishes is canon — an entry with frontmatter and a type — and its
-// faces, never its memory (CLAUDE.md § A page and its folder). Memory stays
+// faces, never its memory (CHILD.md § A page and its folder). Memory stays
 // in git: Context companions, handoffs, batons, ledgers, logs, dossiers. A
 // scroll shows only The making; its Now (regenerated from the board) and its
 // Standing Orders stay in STIGMERGY. Nothing from the board is published.

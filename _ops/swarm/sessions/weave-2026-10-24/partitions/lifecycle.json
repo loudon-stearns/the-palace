@@ -1,0 +1,290 @@
+{
+  "cluster_count": 2,
+  "clusters": [
+    {
+      "id": "L1",
+      "size": 5,
+      "members": [
+        "Ableton Session Writer",
+        "AuK",
+        "CAD Drafter",
+        "LDN RTM",
+        "VST Template"
+      ],
+      "walk": {
+        "Ableton Session Writer": {
+          "community": "C1",
+          "hop1": [
+            "Adopt the Craft, Author the Seam",
+            "Audition Gate",
+            "Generative Preset Development",
+            "Generative Sample Libraries",
+            "Maker",
+            "Search Before You Build",
+            "The Shop",
+            "VCV Patch Generator",
+            "VST Template"
+          ],
+          "hop2": [
+            "Generative Audio Devices",
+            "BLUELINE",
+            "Phoneme Choir",
+            "Registry Pattern",
+            "Talking Keyboard",
+            "Animate the Background",
+            "Blender",
+            "Blocked, Not Prompted",
+            "Comic and Cinema \u2014 Two Ways of Seeing",
+            "Drafting Table Design System",
+            "Frame Designer",
+            "GenAI Camera"
+          ],
+          "hop2_dropped": 27,
+          "note": null
+        },
+        "AuK": {
+          "community": "C1",
+          "hop1": [
+            "Kokoro",
+            "Maker",
+            "The Shop",
+            "Whisper",
+            "ffmpeg"
+          ],
+          "hop2": [
+            "Manim CE",
+            "Stable Audio Open",
+            "Loudon Live Design System",
+            "Loudon Live Post-producer",
+            "Radio Play",
+            "ComfyUI",
+            "Matplotlib",
+            "OBS",
+            "RNBO codebox~ smith",
+            "Remotion",
+            "Songlines",
+            "Endosymbiosis"
+          ],
+          "hop2_dropped": 0,
+          "note": null
+        },
+        "CAD Drafter": {
+          "community": "C1",
+          "hop1": [
+            "Blender",
+            "Drafting Table Design System",
+            "Haptic Handwheel",
+            "Maker",
+            "Technical Diagram Standard",
+            "The Shop"
+          ],
+          "hop2": [
+            "Adopt the Craft, Author the Seam",
+            "Audition Gate",
+            "BBS Design System",
+            "BLUELINE",
+            "Block It in Blender, Ink It in genAI",
+            "Blocked, Not Prompted",
+            "ComfyUI",
+            "Figure Rig",
+            "Hand-Drawn 3D Look",
+            "Image-to-3D Smith",
+            "Loudon Live Design System",
+            "Loudon's Toolkit"
+          ],
+          "hop2_dropped": 22,
+          "note": null
+        },
+        "LDN RTM": {
+          "community": "C1",
+          "hop1": [
+            "Autodidact Polymaths",
+            "Loudon Live",
+            "Loudon Live Design System",
+            "Loudon Live Post-producer",
+            "Loudon's Toolkit",
+            "OBS",
+            "Progressive Staging",
+            "Quality Manifesto"
+          ],
+          "hop2": [
+            "ffmpeg",
+            "BBS Design System",
+            "BLUELINE",
+            "Hero and Avatar Maker",
+            "The Multilinear Self",
+            "ComfyUI",
+            "Drafting Table Design System",
+            "FLUX (Hugging Face)",
+            "Flocking",
+            "Generative Preset Development",
+            "Kokoro",
+            "Manim CE"
+          ],
+          "hop2_dropped": 33,
+          "note": null
+        },
+        "VST Template": {
+          "community": "C1",
+          "hop1": [
+            "Ableton Session Writer",
+            "DSP Frameworks",
+            "Drafting Table Design System",
+            "Harmonicity and Inharmonicity",
+            "Review Layer",
+            "Tract Mirror"
+          ],
+          "hop2": [
+            "Loudon Live Design System",
+            "Adopt the Craft, Author the Seam",
+            "Audition Gate",
+            "BBS Design System",
+            "CAD Drafter",
+            "Generative Preset Development",
+            "Generative Sample Libraries",
+            "LoRA Trainer",
+            "Search Before You Build",
+            "Synthesis \u2194 Emergence",
+            "VCV Patch Generator",
+            "Action Potential Oscillator"
+          ],
+          "hop2_dropped": 32,
+          "note": null
+        }
+      },
+      "files_in_reach": 63,
+      "internal_edge_count": null,
+      "boundary_edge_count": null,
+      "boundary_edges": []
+    },
+    {
+      "id": "L2",
+      "size": 4,
+      "members": [
+        "CHILD",
+        "Can an Instrument Notice Where the Work Stops?",
+        "Operator Memory",
+        "SCHEMA \u2014 Reference"
+      ],
+      "walk": {
+        "CHILD": {
+          "community": "C2",
+          "hop1": [
+            "CLAUDE",
+            "ELDER",
+            "JEWEL",
+            "Operator Memory",
+            "Palace as Context Injection System",
+            "Search Before You Build"
+          ],
+          "hop2": [
+            "Concierge",
+            "Palace Ceremonies",
+            "Palace Map",
+            "SCHEMA",
+            "Swarm Weave",
+            "Weaving Memory into the Palace",
+            "page-rewrite \u2014 preview, the whole page as it would read",
+            "Agent Wellbeing",
+            "Enchanted Worker",
+            "How the Palace Commits",
+            "Metaphor as Coupling Medium",
+            "Modes of Collaboration"
+          ],
+          "hop2_dropped": 23,
+          "note": null
+        },
+        "Can an Instrument Notice Where the Work Stops?": {
+          "community": "C2",
+          "hop1": [
+            "Creative Coach",
+            "Reflective Practice",
+            "Retrospective Delay"
+          ],
+          "hop2": [
+            "Concierge",
+            "Oblique Portrait",
+            "Progressive Staging",
+            "Closing Well",
+            "Drift and Consolidation",
+            "Identity Molting",
+            "Lateral Access",
+            "Modes of Collaboration",
+            "No Mind Checks Itself",
+            "The Palace Practices on Itself",
+            "Dialectic",
+            "Objects to Think With"
+          ],
+          "hop2_dropped": 18,
+          "note": null
+        },
+        "Operator Memory": {
+          "community": "C2",
+          "hop1": [
+            "CHILD",
+            "Palace as Context Injection System",
+            "Weave Ceremony",
+            "Weaving Memory into the Palace"
+          ],
+          "hop2": [
+            "Agent Wellbeing",
+            "ELDER",
+            "JEWEL",
+            "Swarm Weave",
+            "The Palace Hardens Around Values",
+            "CLAUDE",
+            "Closing Well",
+            "Deposit Ceremony",
+            "Enchanted Worker",
+            "Entry Conatus",
+            "Map Build Ceremony",
+            "Metaphor as Coupling Medium"
+          ],
+          "hop2_dropped": 24,
+          "note": null
+        },
+        "SCHEMA \u2014 Reference": {
+          "community": "C2",
+          "hop1": [
+            "Deposit Ceremony",
+            "ELDER",
+            "Pages as Agents",
+            "Project Stewardship System",
+            "Resonant Link Labels",
+            "SCHEMA",
+            "STIGMERGY",
+            "Worktree Practice"
+          ],
+          "hop2": [
+            "Baton Ceremony",
+            "Closing Well",
+            "Concierge",
+            "Substrate Skill",
+            "Enrichment",
+            "Generative Compression",
+            "How the Palace Commits",
+            "Palace Ceremonies",
+            "Palace Orchestrator",
+            "The Scroll",
+            "Agent Wellbeing",
+            "BBS Blackboard"
+          ],
+          "hop2_dropped": 54,
+          "note": null
+        }
+      },
+      "files_in_reach": 51,
+      "internal_edge_count": null,
+      "boundary_edge_count": null,
+      "boundary_edges": []
+    }
+  ],
+  "params": {
+    "per_room": 5,
+    "hop2_cap": 12,
+    "targets": 9
+  },
+  "lens": "lifecycle",
+  "map": "palace-map-full-2026-10-24.json",
+  "node_count": 324
+}

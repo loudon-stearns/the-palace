@@ -128,7 +128,7 @@ HTML loads without console errors, the chart renders at requested dimensions, al
 - Disk: trivial
 - Network: required only for CDN-loaded Plot (or self-host)
 - API keys: none
-- **Sandbox compatibility**: works in the Cowork Linux-arm64 sandbox (pure JS in HTML; runs in any browser).
+- **Host**: pure JS in HTML, so it runs in any browser; nothing to install.
 
 ## Gotchas
 

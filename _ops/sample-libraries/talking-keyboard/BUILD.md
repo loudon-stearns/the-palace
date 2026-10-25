@@ -170,4 +170,4 @@ What remains:
 
 The body of `Projects/Generative Sample Libraries.md` contains the project-level Phase 1 description and the broader pipeline. The interview that produced these decisions happened in a Cowork session on 2026-05-02.
 
-When Phase 1 ships, the next move (Phase 2 — codifying the Interview as a real skill) returns to Cowork.
+The move after Phase 1 — Phase 2, codifying the Interview as a real skill — is a Claude Code session's; its work is in `_ops/sample-libraries/skills/interview/`.

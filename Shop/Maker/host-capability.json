@@ -2,7 +2,7 @@
   "$schema_note": "Host-capability manifest for the Shop. The Maker reads this before dispatch to confirm a Specialist's wrapped tool is reachable on the dispatching host, and to resolve a fallback when it isn't. Implementation surface for host_capability_check(specialist, host). Authored 2026-05-30; update in lockstep with the Maker Roster and each Specialist's frontmatter.",
   "host_classes": {
     "mac": "Loudon's machine. Full tier — MPS GPU, Max/MSP, VCV Rack, Chromium, LaTeX. Everything runs.",
-    "sandbox": "Cowork Linux arm64, no sudo, no GPU. Web specialists, Matplotlib, Mermaid, ffmpeg, Whisper (CPU).",
+    "sandbox": "A Linux container with no sudo and no GPU (a cloud session's sandbox). Web specialists, Matplotlib, Mermaid, ffmpeg, Whisper (CPU).",
     "cloud": "API-reachable services. Currently FLUX (Hugging Face Inference); Midjourney deprecated 2026-05-30 in favour of FLUX.",
     "runpod": "Rented GPU we own the worker on. Serverless endpoints (scale-to-zero, per-second) and on-demand pods (continuous bill, but full ComfyUI + ControlNet/LoRA). Reachable from any host via HTTPS; solves the no-GPU/quota wall. Serverless for spiky batches, pod for ControlNet/iteration. See [[RunPod GPU Backend]]."
   },

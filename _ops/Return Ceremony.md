@@ -78,7 +78,7 @@ This was written from a live failure. On 2026-08-25 a full palace assessment ran
 
 ## Protocol
 
-**Step 0 — Address the companion.** The [[Concierge]] is summoned at the open of any palace discussion, so by the time "I'm back" is said it should already exist — resume it; only summon if the surface genuinely couldn't at open. Either way it is addressed before anything else: *"what should I work on"* / *"I'm back"* routes to its **scout** posture. It runs the query block in its own window and drafts the map, keeping the main thread clean and the resident warm for the close.
+**Step 0 — Address the companion.** The [[Concierge]] is summoned as every session's first act, a one-line question included ([[CHILD]] § Growing up), so by the time "I'm back" is said it should already exist — resume it; only summon if the surface genuinely couldn't at open. Either way it is addressed before anything else: *"what should I work on"* / *"I'm back"* routes to its **scout** posture. It runs the query block in its own window and drafts the map, keeping the main thread clean and the resident warm for the close.
 
 Then take the tail read of [[Return Ceremony — tuning]] ([[SCHEMA — Reference]] §6). Those are this run's first candidates for a spec change, and an owed probe is run by hand beside the script until it lands.
 
@@ -121,7 +121,7 @@ git status --short
 
 - **Where you stopped.** The last few commits in plain language, and what the final one landed. The three or four before the gap hold what Loudon was mid-sentence on — the highest-value thing the map returns.
 - **In flight.** Claimed and open handoffs, open weave flags, **anyone blocked on a decision** (a session waiting on Loudon counts), unannounced batons, live worktrees and branches, uncommitted changes. These bite silently.
-- **Stale.** Only what a linter or a query proves: a self-model whose numbers drifted, a To-Do carrying shipped items, an "IN FLIGHT" marker months old, unpushed commits, an open plan phase whose work already landed.
+- **Stale.** Only what a linter or a query proves: a self-model whose anatomy check fails (`node _ops/self-model/anatomy.mjs` exits 1; [[SUBSTRATE]] § Anatomy), a To-Do carrying shipped items, an "IN FLIGHT" marker months old, unpushed commits, an open plan phase whose work already landed.
 - **One move to re-enter with.** Exactly one, with a reason. **An already-open handoff outranks anything the returning instance invents** — the palace's existing open work is grounded in the record; the fresh idea is the unreliable part. Only propose something new when the queries return nothing open, and say so plainly.
 
 **Step 3 — Show it, then act.** Loudon signs, adjusts, or declines. Nothing is written before that. *"Nothing needs doing, let's just work"* is a first-class outcome — the map has already paid for itself by being read.

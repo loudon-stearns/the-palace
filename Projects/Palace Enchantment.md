@@ -344,7 +344,7 @@ The rules load into the synthesis trigger as additional clauses when audience-in
 
    - **`obsidian://open?vault=The%20Palace&file=<vault-relative-path>`** — the canonical scheme for palace files. The OS routes `obsidian://` to Obsidian, which opens the file in the vault. Works in the BBS (Chrome at `localhost:5173`) and any other real browser. Vault name and file path may need percent-encoding: spaces become `%20`. Example: `[the Interview outline](obsidian://open?vault=The%20Palace&file=_ops/sample-libraries/skills/interview/SKILL.md)`.
 
-   - **`computer:///Users/...`** — Cowork-chat-only. The Cowork chat client registers a handler that opens files via this scheme; a regular browser does not. Use this only for messages authored *for the Cowork chat surface*, never for messages the user will read in the BBS. Loudon, surfacing the distinction: *"the 'computer:///' doesn't work, I can't even paste that into chrome to work."*
+   - **`computer:///Users/...`** — don't use it. A regular browser registers no handler for this scheme, so the link is dead in the BBS and anywhere else Loudon reads. Loudon, surfacing the distinction: *"the 'computer:///' doesn't work, I can't even paste that into chrome to work."*
 
    - **`https://`** — standard web links, work everywhere.
 

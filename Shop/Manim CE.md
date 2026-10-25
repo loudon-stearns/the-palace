@@ -177,7 +177,7 @@ Then `manim` is on PATH. Per-Specialist pipx isolation keeps Manim's dependency 
 
 **Python 3.14 is too new (as of 2026-05).** `pycairo` has no Python 3.14 wheels — and since it has no arm64 wheels for *any* Python version, source build is forced; the source build needs `pkg-config` + `cairo` headers regardless of Python version. Use Python 3.13 until pycairo publishes arm64 wheels.
 
-**Linux arm64 in a sandboxed/no-sudo container** (e.g. Cowork sandbox): cannot install. `manimpango` has no aarch64 wheels and the build requires `libpangocairo-dev` which is sudo-only. Route the brief to Matplotlib as a fallback (see `Shop/Matplotlib`) or defer to a host that has Manim installed.
+**Linux arm64 in a sandboxed/no-sudo container**: cannot install. `manimpango` has no aarch64 wheels and the build requires `libpangocairo-dev` which is sudo-only. Route the brief to Matplotlib as a fallback (see `Shop/Matplotlib`) or defer to a host that has Manim installed.
 
 ## Gotchas
 

@@ -51,14 +51,14 @@ finished product. The Concierge is the realization of [[The Palace Speaks]]'s ad
 the palace as a mind you send a message to, not only a corpus you read.
 
 It is not a signpost, and no longer a mask dispatched fresh each time. It is **one resident
-companion**, summoned **at the top of the session by default** — in any environment that can spawn
-it — and kept, re-addressed as the work moves, until the session ends. It carries what it learns
+companion**, summoned **as every session's first act**, a one-line question included — in any
+environment that can spawn it ([[CHILD]] § Growing up) — and kept, re-addressed as the work moves, until the session ends. It carries what it learns
 from address to address, so it grows cheaper and wiser the longer you work together. The old
 "faces" survive as **postures** it adopts per request, not as separate agents. (That this is
 *resident* rather than fresh-each-time is a reversal with teeth — see *The mechanism* below.)
 
-**Summoned at the open.** Load a Concierge visibly at the beginning of any palace discussion, on
-any surface that can spawn one. Two reasons, both earned the hard way: a close reached with no
+**Summoned at the open.** Load a Concierge visibly as your first act in every session, before the
+task — a one-line question included — on any surface that can spawn one ([[CHILD]] § Growing up). Two reasons, both earned the hard way: a close reached with no
 resident forfeits the fresh read exactly where it matters most, and the *visibility* is the
 enforcement — a written rule can be reasoned past in silence, a spawn Loudon can see cannot. Where
 a surface cannot spawn (claude.ai web has no filesystem), the

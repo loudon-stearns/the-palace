@@ -1,0 +1,110 @@
+{
+  "rule": "git-added since 8972a53d or born >= 2026-09, and under target",
+  "since": null,
+  "median_inbound": 9,
+  "catch_up_target": 7,
+  "young_at_or_over_target": 14,
+  "newcomers": [
+    {
+      "id": "Can an Instrument Notice Where the Work Stops?",
+      "path": "Can an Instrument Notice Where the Work Stops?.md",
+      "inbound": 2,
+      "stage": "seed",
+      "born": "2026-09",
+      "young": true,
+      "ops_card": false,
+      "target": 7,
+      "deficit": 5
+    },
+    {
+      "id": "Operator Memory",
+      "path": "Operator Memory.md",
+      "inbound": 3,
+      "stage": "seed",
+      "born": "2026-10-22",
+      "young": true,
+      "ops_card": false,
+      "target": 7,
+      "deficit": 4
+    },
+    {
+      "id": "AuK",
+      "path": "Shop/AuK.md",
+      "inbound": 4,
+      "stage": null,
+      "born": "2026-09",
+      "young": true,
+      "ops_card": false,
+      "target": 7,
+      "deficit": 3
+    },
+    {
+      "id": "CAD Drafter",
+      "path": "Shop/CAD Drafter.md",
+      "inbound": 5,
+      "stage": null,
+      "born": "2026-10",
+      "young": true,
+      "ops_card": false,
+      "target": 7,
+      "deficit": 2
+    },
+    {
+      "id": "CHILD",
+      "path": "CHILD.md",
+      "inbound": 5,
+      "stage": "foundational",
+      "born": "2026-10",
+      "young": true,
+      "ops_card": false,
+      "target": 7,
+      "deficit": 2
+    },
+    {
+      "id": "LDN RTM",
+      "path": "Projects/LDN RTM.md",
+      "inbound": 5,
+      "stage": "sprout",
+      "born": "2026-09",
+      "young": true,
+      "ops_card": false,
+      "target": 7,
+      "deficit": 2
+    },
+    {
+      "id": "Ableton Session Writer",
+      "path": "Shop/Ableton Session Writer.md",
+      "inbound": 6,
+      "stage": null,
+      "born": "2026-10",
+      "young": true,
+      "ops_card": false,
+      "target": 7,
+      "deficit": 1
+    },
+    {
+      "id": "SCHEMA — Reference",
+      "path": "SCHEMA — Reference.md",
+      "inbound": 6,
+      "stage": "foundational",
+      "born": "2026-09",
+      "young": true,
+      "ops_card": false,
+      "target": 7,
+      "deficit": 1
+    },
+    {
+      "id": "VST Template",
+      "path": "Projects/VST Template.md",
+      "inbound": 6,
+      "stage": "sprout",
+      "born": "2026-10",
+      "young": true,
+      "ops_card": false,
+      "target": 7,
+      "deficit": 1
+    }
+  ],
+  "unreachable": [],
+  "unreachable_ops": []
+}

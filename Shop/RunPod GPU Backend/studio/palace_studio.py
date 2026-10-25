@@ -12,7 +12,7 @@ Run:
 Config resolution (first that exists wins):
     1. env RUNPOD_API_KEY / RUNPOD_ENDPOINT_ID
     2. a config.json next to this file:  {"api_key":"...","endpoint_id":"..."}
-    3. Cowork session files /tmp/.rp_key and /tmp/flux_ep
+    3. the files /tmp/.rp_key and /tmp/flux_ep, when present
 
 Images + a metadata index are saved in ./images/ . Stdlib only — no pip install.
 Your prompts go to the GPU verbatim; nothing rewrites them.

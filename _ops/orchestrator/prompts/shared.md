@@ -262,8 +262,8 @@ palace files in BBS messages is `obsidian://`:
 [the Interview outline](obsidian://open?vault=The%20Palace&file=_ops/sample-libraries/skills/interview/SKILL.md)
 ```
 
-Reserve `computer://` for Cowork-chat surfaces; the BBS lives in Chrome and
-the OS does not register `computer://` there.
+Don't use `computer://`: the BBS lives in Chrome, and the OS does not
+register `computer://` there.
 
 6 — When you ask Loudon to look at something, give him exactly one click.
 A link, a path, a board tab. Not three places at once.

@@ -27,7 +27,7 @@ links:
 
 > **The re-founding (2026-06-17).** BLUELINE does not need an invented process — it needs the *established* one with a render-AI dropped in. The founding rationale is [[Adopt the Craft, Author the Seam]]: adopt a century of codified craft, author only the seams. This doc names every stage with the industry's own word, so we stop reinventing. It reframes the substrate-first tracks of [[BLUELINE — Production Plan]] as stages of a real pipeline; the tracks didn't change, their *names* did.
 
-> **This is the conceptual map; [[BLUELINE — Production Plan]] is the status and threads map; what comes next is the plan on [[BLUELINE — scroll]].** Three subsystems
+> **This is the conceptual map; [[BLUELINE — Production Plan]] is the status and threads map; what comes next is the plan on [[BLUELINE — scroll]]; BLUELINE's current decisions are [[BLUELINE — The Page]], which holds wherever this doc reads otherwise.** Three subsystems
 > that grew after this doc map onto its stages: **Text & Lettering** ([[BLUELINE — Text Layer]]) is the
 > overlay at stage 7 (words over art, never diffused); **Line-Art Decomposition**
 > ([[Animate the Background#The N-Layer Case (Line-Art Decomposition)|Animate the Background § The N-Layer Case]]) serves Seam A / compositing (convert flat-ink → flat-cel → layers);
@@ -55,10 +55,10 @@ Four traditions, four layers — they don't compete:
 | 4 | Layout / blocking | **DP / layout** ([[Shop/Blender]]) | board panel | *layout レイアウト / previs* → conditioning passes | **cinema** |
 | ⟶ | **SEAM B — layout → render (staging → conditioning)** | | | | *the frontier* |
 | 5 | The render | **Render-AI** | layout + style | *collapses genga + douga + satsuei / anim + light + comp* | cinema |
-| 6 | The motion spine | **FX** | one flow field | *effects animation*, authored once across registers | spans all |
-| 7 | The cut | **Editor** | shots + track | *the edit / online*, beat-mux | cinema |
+| 6 | The motion spine | **FX** | the panel's field stack (fields live at the panel, plural) | *effects animation*, each field authored once across registers | spans all |
+| 7 | The page | **Editor** | panels + track | *the edit / online*, beat-mux — the page persists; rendered offline or run live | comic page, cinema time |
 
-> **Stage 7 reframed (2026-07-09) — the page persists.** The cut is no longer one shot at a time: the
+> **Stage 7 is the page.** The cut keeps the page whole instead of flattening it to full-screen shots: the
 > screen is a **comic page**, panels arriving in musical time, layers breathing inside them. The page
 > structure born at Stage 2 is *kept* to output instead of flattened, and this is where **live
 > performance** enters as the final register. Full spec + the comic lexicon: [[BLUELINE — The Page]].
@@ -74,12 +74,12 @@ A conditioned pipeline has seams exactly where the downstream stops being a huma
 
 ## Where Blender sits (and where it stops)
 
-Blender is the **layout DCC** at Stage 4 only: author camera + pose as geometry → emit OpenPose / depth / edge / camera. It **stops at the grey-box** — it never paints pixels (Stage 5 is the AI) and never authors the idea (Stage 2 is the 2D board). Its only cameo elsewhere is the offline **flow-field sim** at Stage 6. This is the modern anime move — *3D layout → 2D/AI finish*: you get 3D's exact control without 3D's cost.
+Blender is the **layout DCC** at Stage 4 only: author camera + pose as geometry → emit OpenPose / depth / edge / camera. It **stops at the grey-box** — it never paints pixels (Stage 5 is the AI) and never authors the idea (Stage 2 is the 2D board). Its only cameo elsewhere is a **flow-field sim** at Stage 6, one field in a panel's stack. This is the modern anime move — *3D layout → 2D/AI finish*: you get 3D's exact control without 3D's cost.
 
 ## Adopt vs. invent
 
 - **Adopt wholesale** (stop coining our own): storyboard/ekonte, the animatic, shot grammar (ECU/CU/MS/WS, the 180° rule, eyeline match, the line of action), the layout stage, editorial/beat-cut, the 12 Principles, McCloud's transitions, the timing sheet, the treatment, the color script. The board record's fields should become *the industry's* fields.
-- **Invent** (the only genuinely new parts): (1) the **layout→conditioning seam** (B); (2) the **single-source flow-field** authored once across three registers (6); (3) making the **comic↔cinema transduction an explicit stage** (4) instead of picking one register; (4) the **render-AI collapsing 4–5 departments** into one conditioned step (5).
+- **Invent** (the only genuinely new parts): (1) the **layout→conditioning seam** (B); (2) the **field stack** — fields that live at the panel, plural, each authored once across three registers (6; [[BLUELINE — The Page]]); (3) making the **comic↔cinema transduction an explicit stage** (4) instead of picking one register; (4) the **render-AI collapsing 4–5 departments** into one conditioned step (5).
 
 ## The tracks already *are* the pipeline
 

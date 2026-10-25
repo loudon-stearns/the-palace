@@ -2,7 +2,7 @@
 """
 runpod_specialist.py — Palace Shop backend for RunPod serverless endpoints.
 
-The agent (Claude Code / Cowork) drives RunPod over plain HTTPS. This module is
+The agent (a Claude Code session) drives RunPod over plain HTTPS. This module is
 the thin, dependency-light client that turns "run this ComfyUI workflow" into
 "submit job -> poll -> collect outputs", with the scale-to-zero cold-start
 behaviour handled so the poll loop never mistakes a booting worker for a failure.

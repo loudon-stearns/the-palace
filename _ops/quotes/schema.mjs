@@ -12,7 +12,7 @@
 // append-only: a retirement is a second line with the same id and
 // `status: "retired"`; readers fold by id and the last line wins (foldLedger).
 // The target page's own file is never touched — the quote is laid beside its
-// words, the way a rich-face piece is (CLAUDE.md § A page and its folder).
+// words, the way a rich-face piece is (CHILD.md § A page and its folder).
 
 // How far the quote's words are from the source's.
 //   verbatim     the source's own words, in its own language

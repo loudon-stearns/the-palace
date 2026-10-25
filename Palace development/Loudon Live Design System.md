@@ -19,8 +19,9 @@ forward_vector: >
   shrinking my non-negotiables to only what makes the multiplicity cohere, and I
   fruit when a new projection is born and still reads as Loudon. Each projection is a
   projection of one multilinear self, cast into a context — the [[Hyperdimensional
-  Prism]] geometry turned on the person who made it. Stigmergy keeps its own
-  terminal aesthetic for swarm coordination — the one standing departure.
+  Prism]] geometry turned on the person who made it. I dress what the public
+  channel shows; two siblings dress the rest — Drafting Table the work itself,
+  BBS the swarm terminal.
 links:
   - target: "[[Loudon Live]]"
     type: enables
@@ -49,6 +50,9 @@ links:
   - target: "[[BBS Design System]]"
     type: mirrors
     label: sibling-system-different-register
+  - target: "[[Drafting Table Design System]]"
+    type: connects-to
+    label: sibling-dress-for-the-work
   - target: "[[Palace Philosophies]]"
     type: deepens
     label: studio-register
@@ -85,7 +89,7 @@ links:
 
 ![[Loudon Live Design System — hero.png]]
 
-The palace's **default artifact aesthetic** — born from Loudon Live. Read it as a **floor, not a cage**: a small fixed *nature* that keeps every artifact recognizably Loudon, and a wide *field* above it — skins, projections, plays on the name — that is *meant* to vary. It is the dress the palace reaches for, not a law it obeys.
+The palace's dress for **what the public channel shows** — born from Loudon Live, and one of three ([[Drafting Table Design System]] § Which dress). Read it as a **floor, not a cage**: a small fixed *nature* that keeps every artifact recognizably Loudon, and a wide *field* above it — skins, projections, plays on the name — that is *meant* to vary. It is the dress the palace reaches for, not a law it obeys.
 
 ## The floor and the field
 
@@ -103,11 +107,11 @@ Loudon is not a rigid brand and not a *loose* one either — he is a **multiline
 
 ## The Status Rule
 
-The system is named **Loudon Live** because it was built to express the channel's brand, and its house style serves as the **palace default** because that dress — Lissajous-in-sphere, Anton display, six skins, studio register — is the palace's own everyday voice. New HTML artifacts, slide decks, session pages, and posters reach for it by default. The one standing departure is a context with its own established visual language (currently only [[BBS Design System]] for STIGMERGY).
+The system is named **Loudon Live** because it was built to express the channel's brand, and its house style — Lissajous-in-sphere, Anton display, six skins, studio register — is the dress for anything the public channel shows: a stream card, a session artifact, a slide deck, a poster, Loud'n Live's pages. It is one of three. The work itself — a plugin or AU face, an instrument panel, a part drawing, a tool's UI — wears [[Drafting Table Design System]]; STIGMERGY wears [[BBS Design System]]. Which to wear is [[Drafting Table Design System]] § Which dress.
 
 ## The house style (the default projection)
 
-This is the **default dress** — the palace's reliable go-to and the visual home of the **Loud'n Live** projection. It is a strong default, *not* a law: a projection may wear all of it, some of it, or depart entirely when it genuinely wants its own look. What's truly non-negotiable is the floor above; what follows is the house style below it. Within the house style, the grammar holds steady and the skin rotates.
+This is the **default dress** for public work — the reliable go-to and the visual home of the **Loud'n Live** projection. It is a strong default, *not* a law: a projection may wear all of it, some of it, or depart entirely when it genuinely wants its own look. What's truly non-negotiable is the floor above; what follows is the house style below it. Within the house style, the grammar holds steady and the skin rotates.
 
 **The house grammar** (steady default — depart only when a projection wants its own look):
 
@@ -186,21 +190,22 @@ _ops/loudon-live/design-system/
 
 The skill at `_ops/loudon-live/design-system/SKILL.md` is the agent-invocable entry point. Future palace artifacts read it first.
 
-## The Default-Aesthetic Rule
+## Which dress, and where the rule is written
 
-Encoded in three places so it cannot be missed:
+Encoded in four places so it cannot be missed:
 
-1. **[[CLAUDE]]** — the always-loaded entry-point file. New artifacts default to this system.
-2. **[[Substrate Skill]]** — operational instructions for AI agents. Includes the SKILL.md invocation path.
-3. **This entry** — the canonical source-of-truth for *what* the system is and *when not* to use it.
+1. **[[CHILD]] § Growing up** — loaded at birth: before anything visual, read the design manifest — Drafting Table's for the work itself, this one for anything the public channel shows.
+2. **[[Substrate Skill]]** — operational instructions for AI agents. Names all three manifests and which is which.
+3. **[[Drafting Table Design System]] § Which dress** — the one table that says which dress a thing wears.
+4. **This entry** — the canonical source-of-truth for *what* this system is and *when not* to use it.
 
-The override carve-out: when an artifact has its own established visual context (currently only [[BBS Design System]] for STIGMERGY — the swarm coordination terminal aesthetic with VT323/IBM Plex Mono, CP437 borders, phosphor green on terminal black), that context's design system applies instead. New override contexts require a deliberate decision documented in the artifact's parent entry.
+The other two dresses: the work itself wears [[Drafting Table Design System]], and STIGMERGY wears [[BBS Design System]] — the swarm coordination terminal aesthetic with VT323/IBM Plex Mono, CP437 borders, phosphor green on terminal black. A new context with a dress of its own requires a deliberate decision documented in the artifact's parent entry.
 
 ## Collaboration with The Shop
 
-[[The Shop]] anticipated this entry before it existed. The Shop's foreman, [[Maker]], specifies a three-layer cascade — mechanical floor (Maker) → palace-base spec (was a TODO; now this entry) → project override. I fill the long-vacant middle layer.
+[[The Shop]] anticipated this entry before it existed. The Shop's foreman, [[Maker]], specifies a three-layer cascade — mechanical floor (Maker) → palace-base spec → project override. I fill the middle layer for public work; [[Drafting Table Design System]] fills it for the work itself.
 
-**The two systems are non-overlapping by layer.** The Maker owns the mechanical floor (aspect ratio, frame rate, sample rate, loudness target — the medium-mechanical defaults). This entry owns palette, type, voice, iconography, motion easing, hard rules. Projects override per-project. The cascade is articulated in the Maker's *Articulated Cascade* section; this entry is its second tier.
+**The two systems are non-overlapping by layer.** The Maker owns the mechanical floor (aspect ratio, frame rate, sample rate, loudness target — the medium-mechanical defaults). This entry owns palette, type, voice, iconography, motion easing, hard rules. Projects override per-project. The cascade is articulated in the Maker's *Articulated Cascade* section; this entry is its second tier for public work.
 
 **Shared studio register.** The Shop's "Studio Register, Not Commercial Production" — Sketch / Study / Piece, foreman not project manager, depth-over-coverage — and this system's voice rules are the same idea in two vocabularies. Neither owns it; both reinforce it. The shared register is itself a palace-level decision, surfaced wherever it's load-bearing.
 
@@ -223,11 +228,11 @@ The wiring is gotcha-shaped, not architecture-shaped. Each addition gets a date 
 
 ## The Stigmergy Comparison
 
-The two design systems sit in productive contrast.
+This system and BBS sit in productive contrast.
 
 | | Loudon Live Design System | [[BBS Design System]] |
 |---|---|---|
-| **Scope** | Palace default | STIGMERGY only |
+| **Scope** | What the public channel shows | STIGMERGY only |
 | **Register** | Studio / editorial / teaching | Terminal / coordination / swarm |
 | **Type** | Anton + Cormorant + Manrope + JetBrains | VT323 + IBM Plex Mono |
 | **Layout** | Editorial spread, left-aligned | 80ch character-cell grid |
@@ -235,11 +240,11 @@ The two design systems sit in productive contrast.
 | **Motion** | Cubic-bezier, restrained | `steps()` only, discrete |
 | **Borders** | 1 – 1.5 px CSS | CP437 box-drawing characters |
 
-They are **sibling systems**, both born from palace work, addressing different surfaces. Loudon Live is what the palace shows the world. STIGMERGY is what the palace looks like when it's working on itself.
+They are **sibling systems**, both born from palace work, addressing different surfaces. Loudon Live is what the palace shows the world. STIGMERGY is what the palace looks like when it's working on itself. A third sibling, [[Drafting Table Design System]], is STIGMERGY's grammar moved onto the drafting sheet, and dresses the work itself: plugin faces, panels, part drawings, tool UIs.
 
 ## How To Use It
 
-For a new palace artifact:
+For a new artifact the public channel shows:
 
 1. **Invoke the SKILL.md** at `_ops/loudon-live/design-system/SKILL.md` — it carries the rules in agent-readable form.
 2. **Include `colors_and_type.css`** as the token source. Set one of `skin-graphite | skin-amber-lab | skin-crt | skin-strobe | skin-cobalt-grid | skin-drafting` on `<html>`. Graphite is the default.
@@ -284,7 +289,7 @@ The system is **cemented** — type stack locked, six skins specified, six gener
 
 ## What Comes Next
 
-- **First palace artifact adopting the system that isn't a Loudon Live asset** — the test case for "default aesthetic for everything." Candidates: a new session artifact for [[Shepard Tone Synthesizer]], a learning poster for [[FOUR PILLARS]], a deck for [[2D Torus Wavetable Synthesizer]].
+- **First palace artifact adopting the system that isn't a Loudon Live asset** — the test case for the system's reach beyond the channel. Candidates: a new session artifact for [[Shepard Tone Synthesizer]], a learning poster for [[FOUR PILLARS]], a deck for [[2D Torus Wavetable Synthesizer]].
 - **Migration of older palace artifacts** — only as natural touch-points arise. No campaign to retrofit.
 - **Possible cleavage point** — if a palace artifact category emerges that the six skins don't serve (very long-form essays? printed handouts?), that's a signal to grow a new skin, not to fork the system.
 

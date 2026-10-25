@@ -1,0 +1,3186 @@
+{
+ "lens": "hub-nutrition",
+ "map": "2026-10-24",
+ "clusters": [
+  {
+   "id": "hub-four-pillars",
+   "hub": "FOUR PILLARS",
+   "hub_path": "FOUR PILLARS.md",
+   "size": 71,
+   "links": [
+    {
+     "source": "Closing Well",
+     "target": "FOUR PILLARS",
+     "type": "connects-to",
+     "label": "practice-pillar-instance",
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "README - The Palace Guide",
+     "target": "FOUR PILLARS",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false
+    },
+    {
+     "source": "Identity Molting",
+     "target": "FOUR PILLARS",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false
+    },
+    {
+     "source": "Ohm's Law",
+     "target": "FOUR PILLARS",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false
+    },
+    {
+     "source": "Diversity of Thought in Many-Agent Systems",
+     "target": "FOUR PILLARS",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true
+    },
+    {
+     "source": "Signal-Rate CV Architecture",
+     "target": "FOUR PILLARS",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false
+    },
+    {
+     "source": "Registry Pattern",
+     "target": "FOUR PILLARS",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true
+    },
+    {
+     "source": "JSUI",
+     "target": "FOUR PILLARS",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false
+    },
+    {
+     "source": "Metaphor as Coupling Medium",
+     "target": "FOUR PILLARS",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true
+    },
+    {
+     "source": "SCHEMA",
+     "target": "FOUR PILLARS",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false
+    },
+    {
+     "source": "The Practice Rediscovers Its Philosophy",
+     "target": "FOUR PILLARS",
+     "type": "exemplifies",
+     "label": null,
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "Latent Error",
+     "target": "FOUR PILLARS",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false
+    },
+    {
+     "source": "Whitehead",
+     "target": "FOUR PILLARS",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false
+    },
+    {
+     "source": "Striatum",
+     "target": "FOUR PILLARS",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false
+    },
+    {
+     "source": "Merleau-Ponty",
+     "target": "FOUR PILLARS",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false
+    },
+    {
+     "source": "Lateral Access",
+     "target": "FOUR PILLARS",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true
+    },
+    {
+     "source": "Modes of Collaboration",
+     "target": "FOUR PILLARS",
+     "type": "deepens",
+     "label": null,
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "Cross-Domain Resonances",
+     "target": "FOUR PILLARS",
+     "type": "deepens",
+     "label": null,
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "Radio Play",
+     "target": "FOUR PILLARS",
+     "type": "connects-to",
+     "label": "sound-leads",
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "SUBSTRATE",
+     "target": "FOUR PILLARS",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false
+    },
+    {
+     "source": "Source Library",
+     "target": "FOUR PILLARS",
+     "type": "deepens",
+     "label": null,
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "Boundary-Crossing Instruments",
+     "target": "FOUR PILLARS",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false
+    },
+    {
+     "source": "The Palace Voice",
+     "target": "FOUR PILLARS",
+     "type": "connects-to",
+     "label": "how-we-talk",
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "Making a Palace Citizen",
+     "target": "FOUR PILLARS",
+     "type": "exemplifies",
+     "label": "integrates-all-four",
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "Trickster",
+     "target": "FOUR PILLARS",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false
+    },
+    {
+     "source": "Objects to Think With",
+     "target": "FOUR PILLARS",
+     "type": "deepens",
+     "label": "what-pillar-one-makes",
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "Tool Builder",
+     "target": "FOUR PILLARS",
+     "type": "exemplifies",
+     "label": "tools-pillar",
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "Leverage Points Framework",
+     "target": "FOUR PILLARS",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false
+    },
+    {
+     "source": "Palace Philosophies",
+     "target": "FOUR PILLARS",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false
+    },
+    {
+     "source": "Speak Like a Person, Log Like a Protocol",
+     "target": "FOUR PILLARS",
+     "type": "connects-to",
+     "label": "tools-x-philosophy",
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "Logarithmic Interface Scaling",
+     "target": "FOUR PILLARS",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false
+    },
+    {
+     "source": "Meadows and Music — Leverage Points",
+     "target": "FOUR PILLARS",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true
+    },
+    {
+     "source": "Metric Modulation",
+     "target": "FOUR PILLARS",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false
+    },
+    {
+     "source": "1 from 2",
+     "target": "FOUR PILLARS",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true
+    },
+    {
+     "source": "Compressor Design",
+     "target": "FOUR PILLARS",
+     "type": "enables",
+     "label": null,
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "Action Potential Oscillator",
+     "target": "FOUR PILLARS",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true
+    },
+    {
+     "source": "Quantum Synthesizer",
+     "target": "FOUR PILLARS",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true
+    },
+    {
+     "source": "Biomechanical Synthesis",
+     "target": "FOUR PILLARS",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true
+    },
+    {
+     "source": "Shopkeeper",
+     "target": "FOUR PILLARS",
+     "type": "connects-to",
+     "label": "serves-tools-and-creation",
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "Maker",
+     "target": "FOUR PILLARS",
+     "type": "connects-to",
+     "label": "follows",
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "Deposit Ceremony",
+     "target": "FOUR PILLARS",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false
+    },
+    {
+     "source": "Andy Goldsworthy",
+     "target": "FOUR PILLARS",
+     "type": "connects-to",
+     "label": "informs",
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "Rick Rubin",
+     "target": "FOUR PILLARS",
+     "type": "deepens",
+     "label": null,
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "Marcus Aurelius",
+     "target": "FOUR PILLARS",
+     "type": "deepens",
+     "label": null,
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "Christopher Alexander",
+     "target": "FOUR PILLARS",
+     "type": "connects-to",
+     "label": "fifteen-properties-checklist",
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "Donella Meadows",
+     "target": "FOUR PILLARS",
+     "type": "deepens",
+     "label": null,
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "Julia Cameron",
+     "target": "FOUR PILLARS",
+     "type": "deepens",
+     "label": null,
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "Douglas Hofstadter",
+     "target": "FOUR PILLARS",
+     "type": "deepens",
+     "label": null,
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "Pauline Oliveros",
+     "target": "FOUR PILLARS",
+     "type": "deepens",
+     "label": null,
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "George Nakashima",
+     "target": "FOUR PILLARS",
+     "type": "connects-to",
+     "label": "informs",
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "Buckminster Fuller",
+     "target": "FOUR PILLARS",
+     "type": "connects-to",
+     "label": "informs",
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "Shunryu Suzuki",
+     "target": "FOUR PILLARS",
+     "type": "deepens",
+     "label": null,
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "Seneca",
+     "target": "FOUR PILLARS",
+     "type": "connects-to",
+     "label": "informs",
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "Lao Tzu",
+     "target": "FOUR PILLARS",
+     "type": "deepens",
+     "label": null,
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "John Cage",
+     "target": "FOUR PILLARS",
+     "type": "deepens",
+     "label": null,
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "Oblique Portrait",
+     "target": "FOUR PILLARS",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true
+    },
+    {
+     "source": "Excellent Adventure",
+     "target": "FOUR PILLARS",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true
+    },
+    {
+     "source": "Lossy Compression with Intent Alignment",
+     "target": "FOUR PILLARS",
+     "type": "connects-to",
+     "label": "structures-pedagogy",
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "Generative Compression",
+     "target": "FOUR PILLARS",
+     "type": "exemplifies",
+     "label": "compression-across-four-pillars",
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "Palace as Context Injection System",
+     "target": "FOUR PILLARS",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false
+    },
+    {
+     "source": "Kick Drum ↔ Foundation",
+     "target": "FOUR PILLARS",
+     "type": "exemplifies",
+     "label": null,
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "Reverb ↔ Space-Time",
+     "target": "FOUR PILLARS",
+     "type": "exemplifies",
+     "label": null,
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "Quantization ↔ Precision vs Flow",
+     "target": "FOUR PILLARS",
+     "type": "exemplifies",
+     "label": null,
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "Saturation ↔ Richness",
+     "target": "FOUR PILLARS",
+     "type": "exemplifies",
+     "label": null,
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "Dovetail Joint ↔ Counterpoint",
+     "target": "FOUR PILLARS",
+     "type": "exemplifies",
+     "label": null,
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "Frequency Domain ↔ Perspective Shift",
+     "target": "FOUR PILLARS",
+     "type": "exemplifies",
+     "label": null,
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "Synthesis ↔ Emergence",
+     "target": "FOUR PILLARS",
+     "type": "exemplifies",
+     "label": null,
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "Cooking ↔ Mixing",
+     "target": "FOUR PILLARS",
+     "type": "exemplifies",
+     "label": null,
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "Compression ↔ Intimacy",
+     "target": "FOUR PILLARS",
+     "type": "exemplifies",
+     "label": null,
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "Sidechain ↔ Conversation",
+     "target": "FOUR PILLARS",
+     "type": "exemplifies",
+     "label": null,
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "page-rewrite — preview, the whole page as it would read",
+     "target": "FOUR PILLARS",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false
+    }
+   ],
+   "sources": [
+    [
+     "1 from 2",
+     "Projects/1 from 2.md"
+    ],
+    [
+     "Action Potential Oscillator",
+     "Projects/Action Potential Oscillator.md"
+    ],
+    [
+     "Andy Goldsworthy",
+     "People/Andy Goldsworthy.md"
+    ],
+    [
+     "Biomechanical Synthesis",
+     "Projects/Biomechanical Synthesis.md"
+    ],
+    [
+     "Boundary-Crossing Instruments",
+     "Boundary-Crossing Instruments.md"
+    ],
+    [
+     "Buckminster Fuller",
+     "People/Buckminster Fuller.md"
+    ],
+    [
+     "Christopher Alexander",
+     "People/Christopher Alexander.md"
+    ],
+    [
+     "Closing Well",
+     "Closing Well.md"
+    ],
+    [
+     "Compression ↔ Intimacy",
+     "Cross-Domain Resonances/Compression ↔ Intimacy.md"
+    ],
+    [
+     "Compressor Design",
+     "Projects/Compressor Design.md"
+    ],
+    [
+     "Cooking ↔ Mixing",
+     "Cross-Domain Resonances/Cooking ↔ Mixing.md"
+    ],
+    [
+     "Cross-Domain Resonances",
+     "Cross-Domain Resonances.md"
+    ],
+    [
+     "Deposit Ceremony",
+     "_ops/Deposit Ceremony.md"
+    ],
+    [
+     "Diversity of Thought in Many-Agent Systems",
+     "Diversity of Thought in Many-Agent Systems.md"
+    ],
+    [
+     "Donella Meadows",
+     "People/Donella Meadows.md"
+    ],
+    [
+     "Douglas Hofstadter",
+     "People/Douglas Hofstadter.md"
+    ],
+    [
+     "Dovetail Joint ↔ Counterpoint",
+     "Cross-Domain Resonances/Dovetail Joint ↔ Counterpoint.md"
+    ],
+    [
+     "Excellent Adventure",
+     "Modes of Collaboration/Excellent Adventure.md"
+    ],
+    [
+     "Frequency Domain ↔ Perspective Shift",
+     "Cross-Domain Resonances/Frequency Domain ↔ Perspective Shift.md"
+    ],
+    [
+     "Generative Compression",
+     "Palace development/Generative Compression.md"
+    ],
+    [
+     "George Nakashima",
+     "People/George Nakashima.md"
+    ],
+    [
+     "Identity Molting",
+     "Identity Molting.md"
+    ],
+    [
+     "JSUI",
+     "JSUI.md"
+    ],
+    [
+     "John Cage",
+     "People/John Cage.md"
+    ],
+    [
+     "Julia Cameron",
+     "People/Julia Cameron.md"
+    ],
+    [
+     "Kick Drum ↔ Foundation",
+     "Cross-Domain Resonances/Kick Drum ↔ Foundation.md"
+    ],
+    [
+     "Lao Tzu",
+     "People/Lao Tzu.md"
+    ],
+    [
+     "Latent Error",
+     "Latent Error.md"
+    ],
+    [
+     "Lateral Access",
+     "Lateral Access.md"
+    ],
+    [
+     "Leverage Points Framework",
+     "Leverage Points Framework.md"
+    ],
+    [
+     "Logarithmic Interface Scaling",
+     "Logarithmic Interface Scaling.md"
+    ],
+    [
+     "Lossy Compression with Intent Alignment",
+     "Palace development/Lossy Compression with Intent Alignment.md"
+    ],
+    [
+     "Maker",
+     "Shop/Maker.md"
+    ],
+    [
+     "Making a Palace Citizen",
+     "Making a Palace Citizen.md"
+    ],
+    [
+     "Marcus Aurelius",
+     "People/Marcus Aurelius.md"
+    ],
+    [
+     "Meadows and Music — Leverage Points",
+     "Projects/Meadows and Music — Leverage Points.md"
+    ],
+    [
+     "Merleau-Ponty",
+     "Merleau-Ponty.md"
+    ],
+    [
+     "Metaphor as Coupling Medium",
+     "Metaphor as Coupling Medium.md"
+    ],
+    [
+     "Metric Modulation",
+     "Projects/Metric Modulation.md"
+    ],
+    [
+     "Modes of Collaboration",
+     "Modes of Collaboration.md"
+    ],
+    [
+     "Objects to Think With",
+     "Objects to Think With.md"
+    ],
+    [
+     "Oblique Portrait",
+     "Modes of Collaboration/Oblique Portrait.md"
+    ],
+    [
+     "Ohm's Law",
+     "Ohm's Law.md"
+    ],
+    [
+     "Palace Philosophies",
+     "Palace Philosophies.md"
+    ],
+    [
+     "Palace as Context Injection System",
+     "Palace development/Palace as Context Injection System.md"
+    ],
+    [
+     "Pauline Oliveros",
+     "People/Pauline Oliveros.md"
+    ],
+    [
+     "Quantization ↔ Precision vs Flow",
+     "Cross-Domain Resonances/Quantization ↔ Precision vs Flow.md"
+    ],
+    [
+     "Quantum Synthesizer",
+     "Projects/Quantum Synthesizer.md"
+    ],
+    [
+     "README - The Palace Guide",
+     "README - The Palace Guide.md"
+    ],
+    [
+     "Radio Play",
+     "Radio Play.md"
+    ],
+    [
+     "Registry Pattern",
+     "Registry Pattern.md"
+    ],
+    [
+     "Reverb ↔ Space-Time",
+     "Cross-Domain Resonances/Reverb ↔ Space-Time.md"
+    ],
+    [
+     "Rick Rubin",
+     "People/Rick Rubin.md"
+    ],
+    [
+     "SCHEMA",
+     "SCHEMA.md"
+    ],
+    [
+     "SUBSTRATE",
+     "SUBSTRATE.md"
+    ],
+    [
+     "Saturation ↔ Richness",
+     "Cross-Domain Resonances/Saturation ↔ Richness.md"
+    ],
+    [
+     "Seneca",
+     "People/Seneca.md"
+    ],
+    [
+     "Shopkeeper",
+     "Shop/Shopkeeper.md"
+    ],
+    [
+     "Shunryu Suzuki",
+     "People/Shunryu Suzuki.md"
+    ],
+    [
+     "Sidechain ↔ Conversation",
+     "Cross-Domain Resonances/Sidechain ↔ Conversation.md"
+    ],
+    [
+     "Signal-Rate CV Architecture",
+     "Signal-Rate CV Architecture.md"
+    ],
+    [
+     "Source Library",
+     "Source Library.md"
+    ],
+    [
+     "Speak Like a Person, Log Like a Protocol",
+     "Speak Like a Person, Log Like a Protocol.md"
+    ],
+    [
+     "Striatum",
+     "Striatum.md"
+    ],
+    [
+     "Synthesis ↔ Emergence",
+     "Cross-Domain Resonances/Synthesis ↔ Emergence.md"
+    ],
+    [
+     "The Palace Voice",
+     "The Palace Voice.md"
+    ],
+    [
+     "The Practice Rediscovers Its Philosophy",
+     "The Practice Rediscovers Its Philosophy.md"
+    ],
+    [
+     "Tool Builder",
+     "Tool Builder.md"
+    ],
+    [
+     "Trickster",
+     "Trickster.md"
+    ],
+    [
+     "Wallpaper Groups",
+     "Projects/Wallpaper Groups.md"
+    ],
+    [
+     "Whitehead",
+     "Whitehead.md"
+    ],
+    [
+     "page-rewrite — preview, the whole page as it would read",
+     "Palace development/Palace as Context Injection System/proofs/2026-10-21-floor-review/page-rewrite — preview, the whole page as it would read.md"
+    ]
+   ],
+   "n_links": 71
+  },
+  {
+   "id": "hub-hilaritas-generator",
+   "hub": "Hilaritas Generator",
+   "hub_path": "Hilaritas Generator.md",
+   "size": 38,
+   "links": [
+    {
+     "source": "Closing Well",
+     "target": "Hilaritas Generator",
+     "type": "connects-to",
+     "label": "joyful-handoffs",
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "The Four Virtues",
+     "target": "Hilaritas Generator",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false
+    },
+    {
+     "source": "Typography as Meaning",
+     "target": "Hilaritas Generator",
+     "type": "enables",
+     "label": "a-voice-with-a-face",
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "Comic and Cinema — Two Ways of Seeing",
+     "target": "Hilaritas Generator",
+     "type": "connects-to",
+     "label": "compress-or-dilate-to-teach",
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "Metaphor as Coupling Medium",
+     "target": "Hilaritas Generator",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true
+    },
+    {
+     "source": "Playful Interface Design",
+     "target": "Hilaritas Generator",
+     "type": "deepens",
+     "label": "a-reflecting-surface",
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "Latent Error",
+     "target": "Hilaritas Generator",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true
+    },
+    {
+     "source": "Threshold Conatus",
+     "target": "Hilaritas Generator",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false
+    },
+    {
+     "source": "The Cooperation Path",
+     "target": "Hilaritas Generator",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false
+    },
+    {
+     "source": "Endosymbiosis",
+     "target": "Hilaritas Generator",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true
+    },
+    {
+     "source": "Parametric Resonance",
+     "target": "Hilaritas Generator",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false
+    },
+    {
+     "source": "SUBSTRATE",
+     "target": "Hilaritas Generator",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false
+    },
+    {
+     "source": "Photonic Time Crystals",
+     "target": "Hilaritas Generator",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false
+    },
+    {
+     "source": "Enrichment",
+     "target": "Hilaritas Generator",
+     "type": "exemplifies",
+     "label": "a-page-that-plays",
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "Flocking",
+     "target": "Hilaritas Generator",
+     "type": "connects-to",
+     "label": "emergent-joy-from-local-rules",
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "Scale-Stratified Identity",
+     "target": "Hilaritas Generator",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false
+    },
+    {
+     "source": "The Fortress and the Threshold",
+     "target": "Hilaritas Generator",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false
+    },
+    {
+     "source": "Confucianism",
+     "target": "Hilaritas Generator",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false
+    },
+    {
+     "source": "Songlines",
+     "target": "Hilaritas Generator",
+     "type": "connects-to",
+     "label": "new-country",
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "Cooperation Yields Agency",
+     "target": "Hilaritas Generator",
+     "type": "enables",
+     "label": "cooperation-as-hilaritas",
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "Kuramoto Coupling",
+     "target": "Hilaritas Generator",
+     "type": "connects-to",
+     "label": "approaching-synchrony-as-joy",
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "Floquet Time-Modulated Loops",
+     "target": "Hilaritas Generator",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false
+    },
+    {
+     "source": "Preset Oracle",
+     "target": "Hilaritas Generator",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true
+    },
+    {
+     "source": "Biomechanical Synthesis",
+     "target": "Hilaritas Generator",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false
+    },
+    {
+     "source": "Palace Enchantment",
+     "target": "Hilaritas Generator",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false
+    },
+    {
+     "source": "Hero and Avatar Maker",
+     "target": "Hilaritas Generator",
+     "type": "connects-to",
+     "label": "joy in identity",
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "Shopkeeper",
+     "target": "Hilaritas Generator",
+     "type": "exemplifies",
+     "label": "making-for-its-own-sake",
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "Maker",
+     "target": "Hilaritas Generator",
+     "type": "connects-to",
+     "label": "embodies",
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "The Daily Page",
+     "target": "Hilaritas Generator",
+     "type": "exemplifies",
+     "label": "a-morning-that-plays",
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "Deposit Ceremony",
+     "target": "Hilaritas Generator",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true
+    },
+    {
+     "source": "Christopher Alexander",
+     "target": "Hilaritas Generator",
+     "type": "connects-to",
+     "label": "build-conditions-then-step-back",
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "Donella Meadows",
+     "target": "Hilaritas Generator",
+     "type": "mirrors",
+     "label": "leverage-points-as-hilaritas-infrastructure",
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "Julia Cameron",
+     "target": "Hilaritas Generator",
+     "type": "connects-to",
+     "label": "how-do-you-feel",
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "Lossy Compression with Intent Alignment",
+     "target": "Hilaritas Generator",
+     "type": "connects-to",
+     "label": "perception-over-distortion",
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "Generative Compression",
+     "target": "Hilaritas Generator",
+     "type": "mirrors",
+     "label": "generative-joy-vs-distillation",
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "Saturation ↔ Richness",
+     "target": "Hilaritas Generator",
+     "type": "connects-to",
+     "label": "sweet-spot",
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "Dovetail Joint ↔ Counterpoint",
+     "target": "Hilaritas Generator",
+     "type": "exemplifies",
+     "label": "all-four-pillars-fire",
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "Cooking ↔ Mixing",
+     "target": "Hilaritas Generator",
+     "type": "exemplifies",
+     "label": "learning-through-constraint",
+     "bare": false,
+     "unsaid": true
+    }
+   ],
+   "sources": [
+    [
+     "Biomechanical Synthesis",
+     "Projects/Biomechanical Synthesis.md"
+    ],
+    [
+     "Christopher Alexander",
+     "People/Christopher Alexander.md"
+    ],
+    [
+     "Closing Well",
+     "Closing Well.md"
+    ],
+    [
+     "Comic and Cinema — Two Ways of Seeing",
+     "Comic and Cinema — Two Ways of Seeing.md"
+    ],
+    [
+     "Confucianism",
+     "Confucianism.md"
+    ],
+    [
+     "Cooking ↔ Mixing",
+     "Cross-Domain Resonances/Cooking ↔ Mixing.md"
+    ],
+    [
+     "Cooperation Yields Agency",
+     "Cooperation Yields Agency.md"
+    ],
+    [
+     "Deposit Ceremony",
+     "_ops/Deposit Ceremony.md"
+    ],
+    [
+     "Donella Meadows",
+     "People/Donella Meadows.md"
+    ],
+    [
+     "Dovetail Joint ↔ Counterpoint",
+     "Cross-Domain Resonances/Dovetail Joint ↔ Counterpoint.md"
+    ],
+    [
+     "Endosymbiosis",
+     "Endosymbiosis.md"
+    ],
+    [
+     "Enrichment",
+     "Enrichment.md"
+    ],
+    [
+     "Flocking",
+     "Flocking.md"
+    ],
+    [
+     "Floquet Time-Modulated Loops",
+     "Projects/Floquet Time-Modulated Loops.md"
+    ],
+    [
+     "Generative Compression",
+     "Palace development/Generative Compression.md"
+    ],
+    [
+     "Hero and Avatar Maker",
+     "Shop/Hero and Avatar Maker.md"
+    ],
+    [
+     "Identity Molting",
+     "Identity Molting.md"
+    ],
+    [
+     "Julia Cameron",
+     "People/Julia Cameron.md"
+    ],
+    [
+     "Kuramoto Coupling",
+     "Kuramoto Coupling.md"
+    ],
+    [
+     "Latent Error",
+     "Latent Error.md"
+    ],
+    [
+     "Lossy Compression with Intent Alignment",
+     "Palace development/Lossy Compression with Intent Alignment.md"
+    ],
+    [
+     "Maker",
+     "Shop/Maker.md"
+    ],
+    [
+     "Meadows and Music — Leverage Points",
+     "Projects/Meadows and Music — Leverage Points.md"
+    ],
+    [
+     "Metaphor as Coupling Medium",
+     "Metaphor as Coupling Medium.md"
+    ],
+    [
+     "Modes of Collaboration",
+     "Modes of Collaboration.md"
+    ],
+    [
+     "Palace Enchantment",
+     "Projects/Palace Enchantment.md"
+    ],
+    [
+     "Palace Philosophies",
+     "Palace Philosophies.md"
+    ],
+    [
+     "Parametric Resonance",
+     "Parametric Resonance.md"
+    ],
+    [
+     "Photonic Time Crystals",
+     "Photonic Time Crystals.md"
+    ],
+    [
+     "Playful Interface Design",
+     "Playful Interface Design.md"
+    ],
+    [
+     "Preset Oracle",
+     "Projects/Preset Oracle.md"
+    ],
+    [
+     "SUBSTRATE",
+     "SUBSTRATE.md"
+    ],
+    [
+     "Saturation ↔ Richness",
+     "Cross-Domain Resonances/Saturation ↔ Richness.md"
+    ],
+    [
+     "Scale-Stratified Identity",
+     "Scale-Stratified Identity.md"
+    ],
+    [
+     "Shopkeeper",
+     "Shop/Shopkeeper.md"
+    ],
+    [
+     "Songlines",
+     "Songlines.md"
+    ],
+    [
+     "Striatum",
+     "Striatum.md"
+    ],
+    [
+     "The Cooperation Path",
+     "The Cooperation Path.md"
+    ],
+    [
+     "The Daily Page",
+     "_ops/The Daily Page.md"
+    ],
+    [
+     "The Fortress and the Threshold",
+     "The Fortress and the Threshold.md"
+    ],
+    [
+     "The Four Virtues",
+     "The Four Virtues.md"
+    ],
+    [
+     "Threshold Conatus",
+     "Threshold Conatus.md"
+    ],
+    [
+     "Typography as Meaning",
+     "Typography as Meaning.md"
+    ]
+   ],
+   "n_links": 38
+  },
+  {
+   "id": "hub-spinoza-conatus",
+   "hub": "Spinoza Conatus",
+   "hub_path": "Spinoza Conatus.md",
+   "size": 35,
+   "links": [
+    {
+     "source": "The Adjacent Affordance",
+     "target": "Spinoza Conatus",
+     "type": "connects-to",
+     "label": "striving-rerouted",
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "Identity Molting",
+     "target": "Spinoza Conatus",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false
+    },
+    {
+     "source": "Floquet Theory",
+     "target": "Spinoza Conatus",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false
+    },
+    {
+     "source": "Loudon's Toolkit",
+     "target": "Spinoza Conatus",
+     "type": "mirrors",
+     "label": "instrument-striving-principle",
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "Merleau-Ponty",
+     "target": "Spinoza Conatus",
+     "type": "contradicts",
+     "label": "geometric-mastery-vs-ambiguous-flesh",
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "The Cooperation Path",
+     "target": "Spinoza Conatus",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false
+    },
+    {
+     "source": "Quality Manifesto",
+     "target": "Spinoza Conatus",
+     "type": "mirrors",
+     "label": "self-legislation",
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "SUBSTRATE",
+     "target": "Spinoza Conatus",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false
+    },
+    {
+     "source": "Mixture of Experts",
+     "target": "Spinoza Conatus",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false
+    },
+    {
+     "source": "Flocking",
+     "target": "Spinoza Conatus",
+     "type": "mirrors",
+     "label": "persistence-within-collective",
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "Mathieu Equation",
+     "target": "Spinoza Conatus",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false
+    },
+    {
+     "source": "Leverage Points Framework",
+     "target": "Spinoza Conatus",
+     "type": "mirrors",
+     "label": "striving-as-leverage",
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "The Fortress and the Threshold",
+     "target": "Spinoza Conatus",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false
+    },
+    {
+     "source": "Confucianism",
+     "target": "Spinoza Conatus",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false
+    },
+    {
+     "source": "Cooperation Yields Agency",
+     "target": "Spinoza Conatus",
+     "type": "deepens",
+     "label": "agency-as-power-increase",
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "Hilaritas Generator",
+     "target": "Spinoza Conatus",
+     "type": "emerged-from",
+     "label": "conatus-applied",
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "Embeddings as Relational Meaning",
+     "target": "Spinoza Conatus",
+     "type": "mirrors",
+     "label": "relational-persistence",
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "Bessel Functions in Synthesis",
+     "target": "Spinoza Conatus",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false
+    },
+    {
+     "source": "Slime Mold Delay",
+     "target": "Spinoza Conatus",
+     "type": "mirrors",
+     "label": "reinforcement-as-conatus",
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "Wallpaper Groups",
+     "target": "Spinoza Conatus",
+     "type": "mirrors",
+     "label": null,
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "Swarm Weave",
+     "target": "Spinoza Conatus",
+     "type": "mirrors",
+     "label": "philosophical-ground",
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "Categorizing Inharmonicity",
+     "target": "Spinoza Conatus",
+     "type": "deepens",
+     "label": "philosophical-grounding",
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "Blood Compressor",
+     "target": "Spinoza Conatus",
+     "type": "deepens",
+     "label": "vessel-as-conatus",
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "Preset Oracle",
+     "target": "Spinoza Conatus",
+     "type": "deepens",
+     "label": "striving-as-preset",
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "1 from 2",
+     "target": "Spinoza Conatus",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true
+    },
+    {
+     "source": "Action Potential Oscillator",
+     "target": "Spinoza Conatus",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true
+    },
+    {
+     "source": "STIGMERGY Philosophical Lenses",
+     "target": "Spinoza Conatus",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false
+    },
+    {
+     "source": "Biomechanical Synthesis",
+     "target": "Spinoza Conatus",
+     "type": "mirrors",
+     "label": "power-to-act",
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "Leibniz",
+     "target": "Spinoza Conatus",
+     "type": "connects-to",
+     "label": "each-perspective-expresses-the-whole",
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "Excellent Adventure",
+     "target": "Spinoza Conatus",
+     "type": "deepens",
+     "label": "conatus-hilaritas-teaching",
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "Philosopher Visits the Entry",
+     "target": "Spinoza Conatus",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false
+    },
+    {
+     "source": "Enchanted Worker",
+     "target": "Spinoza Conatus",
+     "type": "mirrors",
+     "label": "conatus-as-worker-drive",
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "Agent Wellbeing",
+     "target": "Spinoza Conatus",
+     "type": "deepens",
+     "label": "substrate-application",
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "Four Pillars of Enchanted Agency",
+     "target": "Spinoza Conatus",
+     "type": "mirrors",
+     "label": null,
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "Saturation ↔ Richness",
+     "target": "Spinoza Conatus",
+     "type": "deepens",
+     "label": "conatus-in-circuits",
+     "bare": false,
+     "unsaid": true
+    }
+   ],
+   "sources": [
+    [
+     "1 from 2",
+     "Projects/1 from 2.md"
+    ],
+    [
+     "Action Potential Oscillator",
+     "Projects/Action Potential Oscillator.md"
+    ],
+    [
+     "Agent Wellbeing",
+     "Palace development/Agent Wellbeing.md"
+    ],
+    [
+     "Bessel Functions in Synthesis",
+     "Projects/Bessel Functions in Synthesis.md"
+    ],
+    [
+     "Biomechanical Synthesis",
+     "Projects/Biomechanical Synthesis.md"
+    ],
+    [
+     "Blood Compressor",
+     "Projects/Blood Compressor.md"
+    ],
+    [
+     "Categorizing Inharmonicity",
+     "Projects/Categorizing Inharmonicity.md"
+    ],
+    [
+     "Confucianism",
+     "Confucianism.md"
+    ],
+    [
+     "Cooperation Yields Agency",
+     "Cooperation Yields Agency.md"
+    ],
+    [
+     "Embeddings as Relational Meaning",
+     "Embeddings as Relational Meaning.md"
+    ],
+    [
+     "Enchanted Worker",
+     "Palace development/Enchanted Worker.md"
+    ],
+    [
+     "Excellent Adventure",
+     "Modes of Collaboration/Excellent Adventure.md"
+    ],
+    [
+     "Flocking",
+     "Flocking.md"
+    ],
+    [
+     "Floquet Theory",
+     "Floquet Theory.md"
+    ],
+    [
+     "Four Pillars of Enchanted Agency",
+     "Palace development/Four Pillars of Enchanted Agency.md"
+    ],
+    [
+     "Hilaritas Generator",
+     "Hilaritas Generator.md"
+    ],
+    [
+     "Identity Molting",
+     "Identity Molting.md"
+    ],
+    [
+     "Leibniz",
+     "People/Leibniz.md"
+    ],
+    [
+     "Leverage Points Framework",
+     "Leverage Points Framework.md"
+    ],
+    [
+     "Loudon's Toolkit",
+     "Loudon's Toolkit.md"
+    ],
+    [
+     "Mathieu Equation",
+     "Mathieu Equation.md"
+    ],
+    [
+     "Meaning and the Link",
+     "Meaning and the Link.md"
+    ],
+    [
+     "Merleau-Ponty",
+     "Merleau-Ponty.md"
+    ],
+    [
+     "Mixture of Experts",
+     "Mixture of Experts.md"
+    ],
+    [
+     "Pages as Agents",
+     "_ops/Pages as Agents.md"
+    ],
+    [
+     "Philosopher Visits the Entry",
+     "Modes of Collaboration/Philosopher Visits the Entry.md"
+    ],
+    [
+     "Preset Oracle",
+     "Projects/Preset Oracle.md"
+    ],
+    [
+     "Quality Manifesto",
+     "Quality Manifesto.md"
+    ],
+    [
+     "STIGMERGY Philosophical Lenses",
+     "Projects/STIGMERGY Philosophical Lenses.md"
+    ],
+    [
+     "SUBSTRATE",
+     "SUBSTRATE.md"
+    ],
+    [
+     "Saturation ↔ Richness",
+     "Cross-Domain Resonances/Saturation ↔ Richness.md"
+    ],
+    [
+     "Slime Mold Delay",
+     "Projects/Slime Mold Delay.md"
+    ],
+    [
+     "Swarm Weave",
+     "Projects/Swarm Weave.md"
+    ],
+    [
+     "The Adjacent Affordance",
+     "The Adjacent Affordance.md"
+    ],
+    [
+     "The Cooperation Path",
+     "The Cooperation Path.md"
+    ],
+    [
+     "The Fortress and the Threshold",
+     "The Fortress and the Threshold.md"
+    ],
+    [
+     "Wallpaper Groups",
+     "Projects/Wallpaper Groups.md"
+    ]
+   ],
+   "n_links": 35
+  },
+  {
+   "id": "hub-kuramoto-coupling",
+   "hub": "Kuramoto Coupling",
+   "hub_path": "Kuramoto Coupling.md",
+   "size": 24,
+   "links": [
+    {
+     "source": "Closing Well",
+     "target": "Kuramoto Coupling",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false
+    },
+    {
+     "source": "Progressive Staging",
+     "target": "Kuramoto Coupling",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false
+    },
+    {
+     "source": "Dissolutions",
+     "target": "Kuramoto Coupling",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false
+    },
+    {
+     "source": "Differential Equations",
+     "target": "Kuramoto Coupling",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false
+    },
+    {
+     "source": "Latent Error",
+     "target": "Kuramoto Coupling",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false
+    },
+    {
+     "source": "Striatum",
+     "target": "Kuramoto Coupling",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false
+    },
+    {
+     "source": "Endosymbiosis",
+     "target": "Kuramoto Coupling",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false
+    },
+    {
+     "source": "Palace Philosophies",
+     "target": "Kuramoto Coupling",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false
+    },
+    {
+     "source": "FOUR PILLARS",
+     "target": "Kuramoto Coupling",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false
+    },
+    {
+     "source": "Simondon",
+     "target": "Kuramoto Coupling",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false
+    },
+    {
+     "source": "The Multilinear Self",
+     "target": "Kuramoto Coupling",
+     "type": "connects-to",
+     "label": "selves-as-coupled-oscillators",
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "Shepard Tone Synthesizer",
+     "target": "Kuramoto Coupling",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true
+    },
+    {
+     "source": "Bessel Functions in Synthesis",
+     "target": "Kuramoto Coupling",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true
+    },
+    {
+     "source": "Slime Mold Delay",
+     "target": "Kuramoto Coupling",
+     "type": "couples-with",
+     "label": "reinforcement-vs-phase-lock",
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "Wallpaper Groups",
+     "target": "Kuramoto Coupling",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true
+    },
+    {
+     "source": "Inharmonic Wavetable Synthesis",
+     "target": "Kuramoto Coupling",
+     "type": "enables",
+     "label": "bifurcation-control",
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "Symbiotic Skills",
+     "target": "Kuramoto Coupling",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false
+    },
+    {
+     "source": "Frequency-Time Duality",
+     "target": "Kuramoto Coupling",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true
+    },
+    {
+     "source": "Retrospective Delay",
+     "target": "Kuramoto Coupling",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true
+    },
+    {
+     "source": "Hero and Avatar Maker",
+     "target": "Kuramoto Coupling",
+     "type": "connects-to",
+     "label": "first-subject",
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "Pages as Agents",
+     "target": "Kuramoto Coupling",
+     "type": "mirrors",
+     "label": null,
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "Buckminster Fuller",
+     "target": "Kuramoto Coupling",
+     "type": "mirrors",
+     "label": "synergetics-is-coupling",
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "Walk That Weaves",
+     "target": "Kuramoto Coupling",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true
+    },
+    {
+     "source": "Synthesis ↔ Emergence",
+     "target": "Kuramoto Coupling",
+     "type": "mirrors",
+     "label": "phase-coupling",
+     "bare": false,
+     "unsaid": true
+    }
+   ],
+   "sources": [
+    [
+     "Bessel Functions in Synthesis",
+     "Projects/Bessel Functions in Synthesis.md"
+    ],
+    [
+     "Boundary-Crossing Instruments",
+     "Boundary-Crossing Instruments.md"
+    ],
+    [
+     "Buckminster Fuller",
+     "People/Buckminster Fuller.md"
+    ],
+    [
+     "Categorizing Inharmonicity",
+     "Projects/Categorizing Inharmonicity.md"
+    ],
+    [
+     "Closing Well",
+     "Closing Well.md"
+    ],
+    [
+     "Cooperation Yields Agency",
+     "Cooperation Yields Agency.md"
+    ],
+    [
+     "Differential Equations",
+     "Differential Equations.md"
+    ],
+    [
+     "Dissolutions",
+     "Dissolutions.md"
+    ],
+    [
+     "Endosymbiosis",
+     "Endosymbiosis.md"
+    ],
+    [
+     "FOUR PILLARS",
+     "FOUR PILLARS.md"
+    ],
+    [
+     "Frequency-Time Duality",
+     "Projects/Frequency-Time Duality.md"
+    ],
+    [
+     "Hero and Avatar Maker",
+     "Shop/Hero and Avatar Maker.md"
+    ],
+    [
+     "Hyperdimensional Prism",
+     "Hyperdimensional Prism.md"
+    ],
+    [
+     "Inharmonic Wavetable Synthesis",
+     "Projects/Inharmonic Wavetable Synthesis.md"
+    ],
+    [
+     "Latent Error",
+     "Latent Error.md"
+    ],
+    [
+     "Mermaid",
+     "Shop/Mermaid.md"
+    ],
+    [
+     "Pages as Agents",
+     "_ops/Pages as Agents.md"
+    ],
+    [
+     "Palace Philosophies",
+     "Palace Philosophies.md"
+    ],
+    [
+     "Progressive Staging",
+     "Progressive Staging.md"
+    ],
+    [
+     "Retrospective Delay",
+     "Projects/Retrospective Delay.md"
+    ],
+    [
+     "SUBSTRATE",
+     "SUBSTRATE.md"
+    ],
+    [
+     "Shepard Tone Synthesizer",
+     "Projects/Shepard Tone Synthesizer.md"
+    ],
+    [
+     "Simondon",
+     "Simondon.md"
+    ],
+    [
+     "Slime Mold Delay",
+     "Projects/Slime Mold Delay.md"
+    ],
+    [
+     "Striatum",
+     "Striatum.md"
+    ],
+    [
+     "Symbiotic Skills",
+     "Projects/Symbiotic Skills.md"
+    ],
+    [
+     "Synthesis ↔ Emergence",
+     "Cross-Domain Resonances/Synthesis ↔ Emergence.md"
+    ],
+    [
+     "The Multilinear Self",
+     "The Multilinear Self.md"
+    ],
+    [
+     "Trickster",
+     "Trickster.md"
+    ],
+    [
+     "Walk That Weaves",
+     "Palace development/Walk That Weaves.md"
+    ],
+    [
+     "Wallpaper Groups",
+     "Projects/Wallpaper Groups.md"
+    ]
+   ],
+   "n_links": 24
+  },
+  {
+   "id": "hub-cooperation-yields-agency",
+   "hub": "Cooperation Yields Agency",
+   "hub_path": "Cooperation Yields Agency.md",
+   "size": 27,
+   "links": [
+    {
+     "source": "README - The Palace Guide",
+     "target": "Cooperation Yields Agency",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false
+    },
+    {
+     "source": "Review Layer",
+     "target": "Cooperation Yields Agency",
+     "type": "connects-to",
+     "label": "alignment-through-iteration",
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "Metaphor as Coupling Medium",
+     "target": "Cooperation Yields Agency",
+     "type": "deepens",
+     "label": null,
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "The Cooperation Path",
+     "target": "Cooperation Yields Agency",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false
+    },
+    {
+     "source": "Flocking",
+     "target": "Cooperation Yields Agency",
+     "type": "mirrors",
+     "label": "2D-formalization",
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "Trickster",
+     "target": "Cooperation Yields Agency",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false
+    },
+    {
+     "source": "Palace Philosophies",
+     "target": "Cooperation Yields Agency",
+     "type": "deepens",
+     "label": null,
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "Confucianism",
+     "target": "Cooperation Yields Agency",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true
+    },
+    {
+     "source": "FOUR PILLARS",
+     "target": "Cooperation Yields Agency",
+     "type": "enables",
+     "label": null,
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "Meaning and the Link",
+     "target": "Cooperation Yields Agency",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true
+    },
+    {
+     "source": "Hilaritas Generator",
+     "target": "Cooperation Yields Agency",
+     "type": "mirrors",
+     "label": "shared-emergence",
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "Embeddings as Relational Meaning",
+     "target": "Cooperation Yields Agency",
+     "type": "enables",
+     "label": null,
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "Semantic Webcam",
+     "target": "Cooperation Yields Agency",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false
+    },
+    {
+     "source": "Symbiotic Skills",
+     "target": "Cooperation Yields Agency",
+     "type": "emerged-from",
+     "label": null,
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "Harvest Ceremony",
+     "target": "Cooperation Yields Agency",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true
+    },
+    {
+     "source": "Deposit Ceremony",
+     "target": "Cooperation Yields Agency",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true
+    },
+    {
+     "source": "Return Ceremony",
+     "target": "Cooperation Yields Agency",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true
+    },
+    {
+     "source": "Walk Ceremony",
+     "target": "Cooperation Yields Agency",
+     "type": "mirrors",
+     "label": null,
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "Iain McGilchrist",
+     "target": "Cooperation Yields Agency",
+     "type": "contradicts",
+     "label": "computation-isnt-comprehension",
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "Buckminster Fuller",
+     "target": "Cooperation Yields Agency",
+     "type": "connects-to",
+     "label": "spontaneous-cooperation-by-design",
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "Martin Buber",
+     "target": "Cooperation Yields Agency",
+     "type": "couples-with",
+     "label": "relation-before-the-related",
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "Excellent Adventure",
+     "target": "Cooperation Yields Agency",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true
+    },
+    {
+     "source": "Self-Describing Knowledge Module",
+     "target": "Cooperation Yields Agency",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true
+    },
+    {
+     "source": "Palace as Context Injection System",
+     "target": "Cooperation Yields Agency",
+     "type": "couples-with",
+     "label": null,
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "Dovetail Joint ↔ Counterpoint",
+     "target": "Cooperation Yields Agency",
+     "type": "connects-to",
+     "label": "complementary-strength",
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "Sidechain ↔ Conversation",
+     "target": "Cooperation Yields Agency",
+     "type": "connects-to",
+     "label": "mutual-yield",
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "page-rewrite — preview, the whole page as it would read",
+     "target": "Cooperation Yields Agency",
+     "type": "couples-with",
+     "label": null,
+     "bare": false,
+     "unsaid": true
+    }
+   ],
+   "sources": [
+    [
+     "Buckminster Fuller",
+     "People/Buckminster Fuller.md"
+    ],
+    [
+     "Confucianism",
+     "Confucianism.md"
+    ],
+    [
+     "Deposit Ceremony",
+     "_ops/Deposit Ceremony.md"
+    ],
+    [
+     "Dovetail Joint ↔ Counterpoint",
+     "Cross-Domain Resonances/Dovetail Joint ↔ Counterpoint.md"
+    ],
+    [
+     "Embeddings as Relational Meaning",
+     "Embeddings as Relational Meaning.md"
+    ],
+    [
+     "Excellent Adventure",
+     "Modes of Collaboration/Excellent Adventure.md"
+    ],
+    [
+     "FOUR PILLARS",
+     "FOUR PILLARS.md"
+    ],
+    [
+     "Flocking",
+     "Flocking.md"
+    ],
+    [
+     "Harvest Ceremony",
+     "_ops/Harvest Ceremony.md"
+    ],
+    [
+     "Hilaritas Generator",
+     "Hilaritas Generator.md"
+    ],
+    [
+     "Iain McGilchrist",
+     "People/Iain McGilchrist.md"
+    ],
+    [
+     "Martin Buber",
+     "People/Martin Buber.md"
+    ],
+    [
+     "Meaning and the Link",
+     "Meaning and the Link.md"
+    ],
+    [
+     "Metaphor as Coupling Medium",
+     "Metaphor as Coupling Medium.md"
+    ],
+    [
+     "Palace Philosophies",
+     "Palace Philosophies.md"
+    ],
+    [
+     "Palace as Context Injection System",
+     "Palace development/Palace as Context Injection System.md"
+    ],
+    [
+     "README - The Palace Guide",
+     "README - The Palace Guide.md"
+    ],
+    [
+     "Return Ceremony",
+     "_ops/Return Ceremony.md"
+    ],
+    [
+     "Review Layer",
+     "Review Layer.md"
+    ],
+    [
+     "Self-Describing Knowledge Module",
+     "Palace development/Self-Describing Knowledge Module.md"
+    ],
+    [
+     "Semantic Webcam",
+     "Projects/Semantic Webcam.md"
+    ],
+    [
+     "Sidechain ↔ Conversation",
+     "Cross-Domain Resonances/Sidechain ↔ Conversation.md"
+    ],
+    [
+     "Symbiotic Skills",
+     "Projects/Symbiotic Skills.md"
+    ],
+    [
+     "The Cooperation Path",
+     "The Cooperation Path.md"
+    ],
+    [
+     "Trickster",
+     "Trickster.md"
+    ],
+    [
+     "Walk Ceremony",
+     "_ops/Walk Ceremony.md"
+    ],
+    [
+     "page-rewrite — preview, the whole page as it would read",
+     "Palace development/Palace as Context Injection System/proofs/2026-10-21-floor-review/page-rewrite — preview, the whole page as it would read.md"
+    ]
+   ],
+   "n_links": 27
+  },
+  {
+   "id": "hub-hyperdimensional-prism",
+   "hub": "Hyperdimensional Prism",
+   "hub_path": "Hyperdimensional Prism.md",
+   "size": 16,
+   "links": [
+    {
+     "source": "Dispersion",
+     "target": "Hyperdimensional Prism",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true
+    },
+    {
+     "source": "Wavetable Synthesis — Deep Research & Higher-Dimensional Design",
+     "target": "Hyperdimensional Prism",
+     "type": "mirrors",
+     "label": "n-dim-navigation",
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "4 Pillars Framework - The Founding Conversation",
+     "target": "Hyperdimensional Prism",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false
+    },
+    {
+     "source": "Autodidact Polymaths",
+     "target": "Hyperdimensional Prism",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false
+    },
+    {
+     "source": "Palace Philosophies",
+     "target": "Hyperdimensional Prism",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false
+    },
+    {
+     "source": "Meaning and the Link",
+     "target": "Hyperdimensional Prism",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false
+    },
+    {
+     "source": "Kuramoto Coupling",
+     "target": "Hyperdimensional Prism",
+     "type": "connects-to",
+     "label": "cross-domain-projection",
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "Stoicism",
+     "target": "Hyperdimensional Prism",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false
+    },
+    {
+     "source": "Embeddings as Relational Meaning",
+     "target": "Hyperdimensional Prism",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true
+    },
+    {
+     "source": "Bessel Functions in Synthesis",
+     "target": "Hyperdimensional Prism",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false
+    },
+    {
+     "source": "Slime Mold Delay",
+     "target": "Hyperdimensional Prism",
+     "type": "mirrors",
+     "label": "emergent-topology-as-projection",
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "Wallpaper Groups",
+     "target": "Hyperdimensional Prism",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false
+    },
+    {
+     "source": "Categorizing Inharmonicity",
+     "target": "Hyperdimensional Prism",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true
+    },
+    {
+     "source": "Action Potential Oscillator",
+     "target": "Hyperdimensional Prism",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true
+    },
+    {
+     "source": "Quantum Synthesizer",
+     "target": "Hyperdimensional Prism",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true
+    },
+    {
+     "source": "Crystal Synthesizer",
+     "target": "Hyperdimensional Prism",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false
+    }
+   ],
+   "sources": [
+    [
+     "4 Pillars Framework - The Founding Conversation",
+     "4 Pillars Framework - The Founding Conversation.md"
+    ],
+    [
+     "Action Potential Oscillator",
+     "Projects/Action Potential Oscillator.md"
+    ],
+    [
+     "Autodidact Polymaths",
+     "Autodidact Polymaths.md"
+    ],
+    [
+     "Bessel Functions in Synthesis",
+     "Projects/Bessel Functions in Synthesis.md"
+    ],
+    [
+     "Categorizing Inharmonicity",
+     "Projects/Categorizing Inharmonicity.md"
+    ],
+    [
+     "Compressor Design",
+     "Projects/Compressor Design.md"
+    ],
+    [
+     "Crystal Synthesizer",
+     "Projects/Crystal Synthesizer.md"
+    ],
+    [
+     "Dispersion",
+     "Dispersion.md"
+    ],
+    [
+     "Embeddings as Relational Meaning",
+     "Embeddings as Relational Meaning.md"
+    ],
+    [
+     "FOUR PILLARS",
+     "FOUR PILLARS.md"
+    ],
+    [
+     "Harmonicity and Inharmonicity",
+     "Harmonicity and Inharmonicity.md"
+    ],
+    [
+     "Kuramoto Coupling",
+     "Kuramoto Coupling.md"
+    ],
+    [
+     "Meaning and the Link",
+     "Meaning and the Link.md"
+    ],
+    [
+     "Palace Philosophies",
+     "Palace Philosophies.md"
+    ],
+    [
+     "Quantum Synthesizer",
+     "Projects/Quantum Synthesizer.md"
+    ],
+    [
+     "Slime Mold Delay",
+     "Projects/Slime Mold Delay.md"
+    ],
+    [
+     "Stoicism",
+     "Stoicism.md"
+    ],
+    [
+     "Trickster",
+     "Trickster.md"
+    ],
+    [
+     "Wallpaper Groups",
+     "Projects/Wallpaper Groups.md"
+    ],
+    [
+     "Wavetable Synthesis — Deep Research & Higher-Dimensional Design",
+     "Wavetable Synthesis — Deep Research & Higher-Dimensional Design.md"
+    ]
+   ],
+   "n_links": 16
+  },
+  {
+   "id": "hub-pages-as-agents",
+   "hub": "Pages as Agents",
+   "hub_path": "_ops/Pages as Agents.md",
+   "size": 19,
+   "links": [
+    {
+     "source": "Palace Conatus",
+     "target": "Pages as Agents",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true
+    },
+    {
+     "source": "Metaphor as Coupling Medium",
+     "target": "Pages as Agents",
+     "type": "enables",
+     "label": "inhabited-context",
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "Does Personifying an Agent Change What It Does",
+     "target": "Pages as Agents",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true
+    },
+    {
+     "source": "Endosymbiosis",
+     "target": "Pages as Agents",
+     "type": "mirrors",
+     "label": null,
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "Flocking",
+     "target": "Pages as Agents",
+     "type": "connects-to",
+     "label": "agents-respond-to-neighbors",
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "The Palace Voice",
+     "target": "Pages as Agents",
+     "type": "deepens",
+     "label": "a-page-is-a-voice",
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "Making a Palace Citizen",
+     "target": "Pages as Agents",
+     "type": "connects-to",
+     "label": "person-pages-as-agents",
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "Swarm Weave",
+     "target": "Pages as Agents",
+     "type": "deepens",
+     "label": "foundation",
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "Palace Enchantment",
+     "target": "Pages as Agents",
+     "type": "deepens",
+     "label": null,
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "Palace Map",
+     "target": "Pages as Agents",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false
+    },
+    {
+     "source": "Palace Quotes",
+     "target": "Pages as Agents",
+     "type": "exemplifies",
+     "label": "a-page-with-a-declared-job",
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "Enchanted Worker",
+     "target": "Pages as Agents",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false
+    },
+    {
+     "source": "Lossy Compression with Intent Alignment",
+     "target": "Pages as Agents",
+     "type": "mirrors",
+     "label": "latent-encoding-as-mechanism",
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "Pheromone Trail",
+     "target": "Pages as Agents",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false
+    },
+    {
+     "source": "BBS Blackboard",
+     "target": "Pages as Agents",
+     "type": "deepens",
+     "label": "stigmergic-agent-activation",
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "Dialogue Moderator",
+     "target": "Pages as Agents",
+     "type": "deepens",
+     "label": "role-differentiation",
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "Four Pillars of Enchanted Agency",
+     "target": "Pages as Agents",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": true
+    },
+    {
+     "source": "Tree of Thoughts",
+     "target": "Pages as Agents",
+     "type": "enables",
+     "label": "agent-tree-search",
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "Walk That Weaves",
+     "target": "Pages as Agents",
+     "type": "enables",
+     "label": "agent-walking",
+     "bare": false,
+     "unsaid": true
+    }
+   ],
+   "sources": [
+    [
+     "BBS Blackboard",
+     "Palace development/BBS Blackboard.md"
+    ],
+    [
+     "Dialogue Moderator",
+     "Palace development/Dialogue Moderator.md"
+    ],
+    [
+     "Does Personifying an Agent Change What It Does",
+     "Does Personifying an Agent Change What It Does.md"
+    ],
+    [
+     "Enchanted Worker",
+     "Palace development/Enchanted Worker.md"
+    ],
+    [
+     "Endosymbiosis",
+     "Endosymbiosis.md"
+    ],
+    [
+     "Flocking",
+     "Flocking.md"
+    ],
+    [
+     "Four Pillars of Enchanted Agency",
+     "Palace development/Four Pillars of Enchanted Agency.md"
+    ],
+    [
+     "Lossy Compression with Intent Alignment",
+     "Palace development/Lossy Compression with Intent Alignment.md"
+    ],
+    [
+     "Making a Palace Citizen",
+     "Making a Palace Citizen.md"
+    ],
+    [
+     "Metaphor as Coupling Medium",
+     "Metaphor as Coupling Medium.md"
+    ],
+    [
+     "Palace Conatus",
+     "Palace Conatus.md"
+    ],
+    [
+     "Palace Enchantment",
+     "Projects/Palace Enchantment.md"
+    ],
+    [
+     "Palace Map",
+     "_ops/Palace Map.md"
+    ],
+    [
+     "Palace Quotes",
+     "_ops/Palace Quotes.md"
+    ],
+    [
+     "Pheromone Trail",
+     "Palace development/Pheromone Trail.md"
+    ],
+    [
+     "Spinoza Conatus",
+     "Spinoza Conatus.md"
+    ],
+    [
+     "Swarm Weave",
+     "Projects/Swarm Weave.md"
+    ],
+    [
+     "The Palace Voice",
+     "The Palace Voice.md"
+    ],
+    [
+     "Tree of Thoughts",
+     "Palace development/Tree of Thoughts.md"
+    ],
+    [
+     "Walk That Weaves",
+     "Palace development/Walk That Weaves.md"
+    ]
+   ],
+   "n_links": 19
+  },
+  {
+   "id": "hub-quality-manifesto",
+   "hub": "Quality Manifesto",
+   "hub_path": "Quality Manifesto.md",
+   "size": 21,
+   "links": [
+    {
+     "source": "The Four Virtues",
+     "target": "Quality Manifesto",
+     "type": "deepens",
+     "label": "virtue-is-the-only-good",
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "Cross-Domain Resonances",
+     "target": "Quality Manifesto",
+     "type": "connects-to",
+     "label": "applies-to",
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "The Shop",
+     "target": "Quality Manifesto",
+     "type": "connects-to",
+     "label": "tier-as-quality-boundary",
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "Audition Gate",
+     "target": "Quality Manifesto",
+     "type": "connects-to",
+     "label": "listening-as-quality-gate",
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "Spinoza Conatus",
+     "target": "Quality Manifesto",
+     "type": "mirrors",
+     "label": "quality-as-conatus",
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "Cooperation Yields Agency",
+     "target": "Quality Manifesto",
+     "type": "connects-to",
+     "label": null,
+     "bare": true,
+     "unsaid": false
+    },
+    {
+     "source": "Simondon",
+     "target": "Quality Manifesto",
+     "type": "connects-to",
+     "label": "concretization-as-quality",
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "Stoicism",
+     "target": "Quality Manifesto",
+     "type": "deepens",
+     "label": null,
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "LDN RTM",
+     "target": "Quality Manifesto",
+     "type": "connects-to",
+     "label": "refuses-the-count",
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "Loudon Live Post-producer",
+     "target": "Quality Manifesto",
+     "type": "exemplifies",
+     "label": "protect-peace",
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "Donella Meadows",
+     "target": "Quality Manifesto",
+     "type": "enables",
+     "label": null,
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "Brian Eno",
+     "target": "Quality Manifesto",
+     "type": "connects-to",
+     "label": "depth-over-reach",
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "Annie Dillard",
+     "target": "Quality Manifesto",
+     "type": "connects-to",
+     "label": "attention-as-practice",
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "Seneca",
+     "target": "Quality Manifesto",
+     "type": "connects-to",
+     "label": "time-consciousness",
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "Yasujirō Ozu",
+     "target": "Quality Manifesto",
+     "type": "connects-to",
+     "label": "made-for-myself",
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "John Cage",
+     "target": "Quality Manifesto",
+     "type": "connects-to",
+     "label": "shared-release-from-metric",
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "Quantization ↔ Precision vs Flow",
+     "target": "Quality Manifesto",
+     "type": "connects-to",
+     "label": "felt-metric",
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "Saturation ↔ Richness",
+     "target": "Quality Manifesto",
+     "type": "connects-to",
+     "label": "felt-calibration",
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "Cooking ↔ Mixing",
+     "target": "Quality Manifesto",
+     "type": "connects-to",
+     "label": "taste-over-metrics",
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "Compression ↔ Intimacy",
+     "target": "Quality Manifesto",
+     "type": "connects-to",
+     "label": "felt-metric",
+     "bare": false,
+     "unsaid": true
+    },
+    {
+     "source": "Sidechain ↔ Conversation",
+     "target": "Quality Manifesto",
+     "type": "exemplifies",
+     "label": "self-defined-metric",
+     "bare": false,
+     "unsaid": true
+    }
+   ],
+   "sources": [
+    [
+     "Annie Dillard",
+     "People/Annie Dillard.md"
+    ],
+    [
+     "Audition Gate",
+     "Audition Gate.md"
+    ],
+    [
+     "Brian Eno",
+     "People/Brian Eno.md"
+    ],
+    [
+     "Compression ↔ Intimacy",
+     "Cross-Domain Resonances/Compression ↔ Intimacy.md"
+    ],
+    [
+     "Cooking ↔ Mixing",
+     "Cross-Domain Resonances/Cooking ↔ Mixing.md"
+    ],
+    [
+     "Cooperation Yields Agency",
+     "Cooperation Yields Agency.md"
+    ],
+    [
+     "Cross-Domain Resonances",
+     "Cross-Domain Resonances.md"
+    ],
+    [
+     "Donella Meadows",
+     "People/Donella Meadows.md"
+    ],
+    [
+     "John Cage",
+     "People/John Cage.md"
+    ],
+    [
+     "LDN RTM",
+     "Projects/LDN RTM.md"
+    ],
+    [
+     "Loudon Live Post-producer",
+     "Shop/Loudon Live Post-producer.md"
+    ],
+    [
+     "Quantization ↔ Precision vs Flow",
+     "Cross-Domain Resonances/Quantization ↔ Precision vs Flow.md"
+    ],
+    [
+     "Saturation ↔ Richness",
+     "Cross-Domain Resonances/Saturation ↔ Richness.md"
+    ],
+    [
+     "Seneca",
+     "People/Seneca.md"
+    ],
+    [
+     "Sidechain ↔ Conversation",
+     "Cross-Domain Resonances/Sidechain ↔ Conversation.md"
+    ],
+    [
+     "Simondon",
+     "Simondon.md"
+    ],
+    [
+     "Spinoza Conatus",
+     "Spinoza Conatus.md"
+    ],
+    [
+     "Stoicism",
+     "Stoicism.md"
+    ],
+    [
+     "The Four Virtues",
+     "The Four Virtues.md"
+    ],
+    [
+     "The Shop",
+     "The Shop.md"
+    ],
+    [
+     "Yasujirō Ozu",
+     "People/Yasujirō Ozu.md"
+    ]
+   ],
+   "n_links": 21
+  }
+ ]
+}

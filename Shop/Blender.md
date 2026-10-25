@@ -59,7 +59,7 @@ The shop's sculptor and gaffer. Patient, tactile, opinionated about staging. Spe
 
 ## Limits
 
-- **GPU / Mac-resident.** Not a Cowork-sandbox tool; runs on the Mac. Heavy scenes are VRAM- and time-bound.
+- **GPU / Mac-resident.** Runs on the Mac. Heavy scenes are VRAM- and time-bound.
 - Learning curve is real; the bench rewards patience, punishes haste.
 - Offline render times are minutes-to-hours at fidelity — this is the slow surface by design.
 - Not real-time and not a browser deliverable — wrong tool for interactive.
