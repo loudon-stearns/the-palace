@@ -36,7 +36,7 @@ links:
     label: signature-instrument-candidate
   - target: "[[Loudon Live Design System]]"
     type: spawned
-    label: visual-system-now-palace-default
+    label: visual-system
   - target: "[[STIGMERGY]]"
     type: connects-to
     label: provenance-layer
@@ -86,7 +86,7 @@ Narrow, on purpose. Loudon wants anyone curious to come away with a full, honest
 
 ## The look
 
-The [[Loudon Live Design System]] is the look — palettes, type, stream cards, overlays — and it is now the palace's default dress (`_ops/loudon-live/design-system/`). Channel copy and stream-card templates live in this entry's bundle as the launch kit.
+The [[Loudon Live Design System]] is the look — palettes, type, stream cards, overlays (`_ops/loudon-live/design-system/`). It dresses what the public channel shows; the work itself wears [[Drafting Table Design System]]. Loud'n Live wears three complete looks of its own: Worn Broadcast, Cyanotype and Night Signal (2026-10-25). Channel copy and stream-card templates live in this entry's bundle as the launch kit.
 
 The visual signature is the Lissajous trace inside a sphere — see [[Hyperdimensional Prism]] for the identity essay. It reads at several depths at once: an oscilloscope trace to a producer, a path through knowledge space to a learner, a method made visible to a collaborator. The patch that *generates* the logo is itself a teaching object anyone can download, modify, and run.
 

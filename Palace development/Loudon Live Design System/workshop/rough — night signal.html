@@ -1,0 +1,376 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rough 8 · night signal</title>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Chakra+Petch:wght@400;600&family=IBM+Plex+Mono:wght@400;600&family=VT323&family=Cormorant+Garamond:wght@300&family=Manrope:wght@300;500&display=swap" rel="stylesheet">
+<style>
+  :root { --page: #0c0c0f; --ink: #d8d8e0; --ink-dim: #8a8aa0; }
+  * { box-sizing: border-box; }
+  body { margin: 0; padding: 32px 24px 64px; background: var(--page); color: var(--ink); font-family: 'Manrope', system-ui, sans-serif; }
+  header.sheet, figure { max-width: 1280px; margin: 0 auto; }
+  header.sheet { margin-bottom: 22px; }
+  header.sheet h1 { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: 30px; margin: 0 0 6px; }
+  header.sheet p { margin: 0; color: var(--ink-dim); font-size: 14px; max-width: 82ch; line-height: 1.55; }
+  figcaption { margin-top: 10px; font-size: 13px; line-height: 1.5; color: var(--ink-dim); max-width: 92ch; }
+  figcaption b { color: var(--ink); font-weight: 500; }
+  .pick { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
+  .pick button { font: 500 13px 'Manrope', sans-serif; color: var(--ink); background: #1b1b22; border: 1px solid #3a3a48; border-radius: 2px; padding: 6px 12px; cursor: pointer; }
+  .pick button[aria-pressed="true"] { border-color: #ff2bd6; color: #ff2bd6; }
+
+  .card { position: relative; aspect-ratio: 16 / 9; overflow: hidden; container-type: inline-size; isolation: isolate; background: #03030a; color: #fff;
+          --pump: 0; --split: .35cqw; --mag: #ff2bd6; --cy: #00e5ff; --acid: #c6ff00; --amb: #ffb000; }
+  .card > * { position: absolute; }
+  .card .full { inset: 0; width: 100%; height: 100%; display: block; pointer-events: none; }
+
+  /* 0 · the night behind the glass */
+  .plate { inset: -4%; width: 108%; height: 108%; object-fit: cover; z-index: 0;
+           filter: blur(.6cqw) brightness(calc(.34 + .1 * var(--pump))) saturate(1.5) contrast(1.2);
+           animation: drift 40s ease-in-out infinite alternate; }
+  @keyframes drift { from { transform: scale(1) translate(0, 0); } to { transform: scale(1.06) translate(-1.5%, -1%); } }
+  .shade { z-index: 1; inset: 0; pointer-events: none; background: linear-gradient(90deg, rgba(3,3,10,.78) 0%, rgba(3,3,10,.5) 42%, rgba(3,3,10,.1) 75%, transparent); }
+  /* 1 · haze */
+  .haze { inset: -15%; width: 130%; height: 130%; z-index: 1; filter: blur(3cqw); mix-blend-mode: screen; opacity: .5; animation: hazemove 26s linear infinite alternate; }
+  @keyframes hazemove { from { transform: translate(-4%, 0); } to { transform: translate(4%, -3%); } }
+  /* 2 · the old board, under it all */
+  svg.pcb { z-index: 2; mix-blend-mode: screen; opacity: .55; }
+  /* 3 · instruments, and their bloom */
+  canvas.fx { z-index: 3; }
+  canvas.bloom { z-index: 3; mix-blend-mode: screen; opacity: calc(.7 + .3 * var(--pump)); }
+  /* 4 · the sign and the words */
+  .layer, .tear { inset: 0; padding: 4.6cqw 6cqw 11.5cqw; display: flex; flex-direction: column; z-index: 4; }
+  .tear { z-index: 5; visibility: hidden; background: #03030a; pointer-events: none; }
+  .tear.on { visibility: visible; }
+  .row { display: flex; gap: 1.3cqw; align-items: center; }
+  .dymo { font-family: 'IBM Plex Mono', monospace; font-weight: 600; font-size: 1.45cqw; letter-spacing: .14em; color: #f2efe6; background: #b3241c;
+          padding: .4cqw 1cqw .35cqw; transform: rotate(-1.4deg); box-shadow: inset 0 -.15cqw 0 rgba(0,0,0,.35), 0 .12cqw 0 rgba(0,0,0,.6); }
+  .chip { font-family: 'Chakra Petch', sans-serif; font-weight: 600; font-size: 1.3cqw; letter-spacing: .18em; color: var(--amb); border: .15cqw solid var(--amb);
+          padding: .25cqw .9cqw; box-shadow: 0 0 1.2cqw rgba(255,176,0,.6), inset 0 0 1cqw rgba(255,176,0,.35); text-shadow: 0 0 .8cqw rgba(255,176,0,.9); }
+  .hud { font-family: 'Chakra Petch', sans-serif; font-weight: 600; font-size: 1.4cqw; letter-spacing: .16em; text-transform: uppercase; color: var(--cy); text-shadow: 0 0 .9cqw rgba(0,229,255,.8); }
+  .synth { margin-top: auto; width: 46cqw; transform: perspective(38cqw) rotateX(34deg); transform-origin: 50% 100%; margin-bottom: .6cqw;
+            filter: drop-shadow(0 0 .5cqw rgba(0,229,255,.7)) drop-shadow(0 0 1.6cqw rgba(255,43,214,.45)); }
+  .knobs { width: 100%; height: 8.2cqw; margin-bottom: .4cqw; }
+  .knobs svg { width: 100%; height: 100%; display: block; overflow: visible; }
+  .knobs .track { fill: none; stroke: rgba(159,243,255,.25); stroke-width: .9; stroke-linecap: round; }
+  .knobs .val { fill: none; stroke-width: 1.6; stroke-linecap: round; }
+  .knobs .cap { fill: rgba(6,10,24,.75); stroke: #9ff3ff; stroke-width: .5; }
+  .knobs .ptr { stroke: #fff; stroke-width: .8; stroke-linecap: round; }
+  .knobs text { font-family: 'Chakra Petch', sans-serif; font-weight: 600; font-size: 2.5px; letter-spacing: .25px; fill: #9ff3ff; text-anchor: middle; }
+  .keys { width: 100%; height: 6.2cqw; }
+  .keys svg { width: 100%; height: 100%; display: block; overflow: visible; }
+  .keys .w { fill: rgba(6,10,24,.55); stroke: #9ff3ff; stroke-width: 1.4; }
+  .keys .b { fill: #07040f; stroke: #ff6fe3; stroke-width: 1.2; }
+  .keys .lit.acc { fill: #ff2bd6; stroke: #ffd6f6; }
+  .keys .lit { fill: #c6ff00; stroke: #f2ffd0; }
+  .keys .kick { fill: rgba(0,229,255,.55); }
+  .wordmark { font-family: 'Anton', sans-serif; font-size: 10.2cqw; line-height: .95; margin-top: 0; color: transparent; -webkit-text-stroke: .34cqw #ffe0f8;
+              filter: brightness(calc(1 + .55 * var(--pump)));
+              text-shadow: calc(var(--split) * -1) 0 rgba(255,43,214,.55), var(--split) 0 rgba(0,229,255,.55),
+                           0 0 .4cqw #ff2bd6, 0 0 1.4cqw #ff2bd6, 0 0 3.5cqw rgba(255,43,214,.8), 0 0 8cqw rgba(255,43,214,.5); }
+  .wordmark .live { -webkit-text-stroke-color: #e2fdff;
+              text-shadow: calc(var(--split) * -1) 0 rgba(255,43,214,.6), var(--split) 0 rgba(198,255,0,.4),
+                           0 0 .4cqw #00e5ff, 0 0 1.4cqw #00e5ff, 0 0 3.5cqw rgba(0,229,255,.8), 0 0 8cqw rgba(0,229,255,.5); }
+  .wordmark span.off { -webkit-text-stroke-color: rgba(255,224,248,.18); text-shadow: none; }
+  .wordmark span.dim { -webkit-text-stroke-color: rgba(255,224,248,.55); text-shadow: 0 0 .6cqw rgba(255,43,214,.5); }
+  .title { font-family: 'IBM Plex Mono', monospace; font-size: 2.2cqw; line-height: 1.25; margin-top: 1.6cqw; max-width: 56%; color: #f1e8ff;
+           text-shadow: .12cqw 0 rgba(255,43,214,.6), -.12cqw 0 rgba(0,229,255,.6); }
+  .cursor { display: inline-block; width: .55em; height: 1em; vertical-align: -.12em; background: var(--amb); margin-left: .15em; box-shadow: 0 0 1cqw var(--amb); animation: blink 1.06s steps(1) infinite; }
+  @keyframes blink { 50% { opacity: 0; } }
+  .strip { margin-top: 2cqw; display: flex; align-items: center; gap: .9cqw; font-family: 'VT323', monospace; font-size: 2.05cqw; letter-spacing: .1em; color: rgba(0,229,255,.85); text-shadow: 0 0 .7cqw rgba(0,229,255,.6); }
+  .strip .on { color: #ff2a2a; text-shadow: 0 0 .8cqw rgba(255,42,42,.9); } .strip .mag { color: var(--mag); text-shadow: 0 0 .8cqw rgba(255,43,214,.8); } .strip .acid { color: var(--acid); text-shadow: 0 0 .8cqw rgba(198,255,0,.7); } .strip .amb { color: var(--amb); text-shadow: 0 0 .8cqw rgba(255,176,0,.8); }
+  .dot { width: 1.05cqw; height: 1.05cqw; border-radius: 50%; background: #ff2a2a; box-shadow: 0 0 .7cqw rgba(255,42,42,1), 0 0 2cqw rgba(255,42,42,.6); opacity: calc(.4 + .6 * var(--pump)); }
+  .readout { z-index: 4; text-align: right; font-family: 'Chakra Petch', sans-serif; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--amb); text-shadow: 0 0 .8cqw rgba(255,176,0,.7); }
+  .readout .big { font-family: 'VT323', monospace; font-size: 4.4cqw; letter-spacing: .04em; line-height: .9; display: block; color: #fff; text-shadow: 0 0 1.2cqw rgba(255,43,214,.9), .15cqw 0 rgba(0,229,255,.7); }
+  .readout .lbl { font-size: 1cqw; display: block; }
+  .steps { z-index: 4; display: grid; grid-template-columns: repeat(16, 1fr); gap: .4cqw; }
+  .steps i { display: block; height: 1cqw; border: .14cqw solid rgba(0,229,255,.8); background: rgba(3,3,10,.6); box-shadow: 0 0 .6cqw rgba(0,229,255,.4); }
+  .steps i.k { border-color: rgba(255,43,214,.85); }
+  .steps i.on { background: var(--acid); border-color: var(--acid); box-shadow: 0 0 1.4cqw var(--acid), 0 0 3cqw rgba(198,255,0,.5); }
+  .tape { z-index: 4; left: -4cqw; bottom: 2.2cqw; width: 20cqw; height: 1.8cqw; transform: rotate(8deg);
+          background: repeating-linear-gradient(-45deg, var(--acid) 0 1cqw, #050505 1cqw 2cqw); opacity: .75; filter: contrast(1.1); box-shadow: 0 .2cqw .6cqw rgba(0,0,0,.6); }
+  /* 6 · rain and the lens */
+  canvas.rain { z-index: 6; }
+  /* 7 · dirt, leaks, tracking */
+  canvas.dirt { z-index: 7; mix-blend-mode: screen; opacity: .45; }
+  .leak { z-index: 7; inset: 0; pointer-events: none; mix-blend-mode: screen;
+          background: radial-gradient(40% 60% at 0% 20%, rgba(255,43,214,.28), transparent 70%), radial-gradient(35% 50% at 100% 90%, rgba(255,176,0,.18), transparent 70%);
+          animation: leak 9s ease-in-out infinite alternate; }
+  @keyframes leak { from { opacity: .5; } to { opacity: 1; } }
+  .track { z-index: 8; left: 0; right: 0; height: 7%; top: -10%; pointer-events: none;
+           backdrop-filter: hue-rotate(70deg) saturate(2) blur(.08cqw); -webkit-backdrop-filter: hue-rotate(70deg) saturate(2) blur(.08cqw);
+           background: linear-gradient(180deg, transparent, rgba(255,255,255,.07) 45%, rgba(255,255,255,.12) 50%, transparent);
+           animation: track 6.5s linear infinite; }
+  @keyframes track { 0% { top: -10%; } 70% { top: 105%; } 100% { top: 105%; } }
+  .block { z-index: 8; pointer-events: none; backdrop-filter: invert(1) hue-rotate(160deg); -webkit-backdrop-filter: invert(1) hue-rotate(160deg); mix-blend-mode: normal; }
+  canvas.grain { z-index: 9; mix-blend-mode: screen; opacity: .16; }
+  .card::before { content: ''; position: absolute; inset: 0; z-index: 9; pointer-events: none; background: repeating-linear-gradient(180deg, rgba(0,0,0,.42) 0 1px, transparent 1px 3px); }
+  .vig { z-index: 9; inset: 0; pointer-events: none; background: radial-gradient(115% 90% at 50% 50%, transparent 45%, rgba(0,0,0,.78) 100%); }
+  @media (prefers-reduced-motion: reduce) { .plate, .haze, .leak, .track, .cursor { animation: none; } }
+</style>
+</head>
+<body>
+
+<header class="sheet">
+  <h1>Rough 8 · night signal</h1>
+  <p>The three directions folded into one, and dirtied. Deepest is a generated night plate: rain on dark glass, the city out of focus behind it, drifting slowly. Over that come haze and the old circuit board from Worn Broadcast. Then the instruments, with a real bloom pass so they glow: the 303's filter sweeping, a spectrum analyser, the sigil in three colours (magenta and cyan as a stereo pair, amber behind). Then a synth panel, six neon knobs over a keyboard, playing the 303 line, and under it the neon sign, pumping on the kick. Rain falls in front of the sign at two depths, with droplets on the lens. On top: dust, scratches, light leaks, a VHS tracking band rolling through, heavy grain and hard scanlines. Every eight bars the drop lands: a big tear, datamosh blocks and a shake.</p>
+</header>
+
+<figure>
+  <div class="card" id="card">
+    <img class="plate" alt="">
+    <div class="shade"></div>
+    <canvas class="haze" width="64" height="36"></canvas>
+    <svg class="pcb full" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      <g fill="none" stroke="#0b3a4a" stroke-width="5" stroke-linejoin="round" stroke-linecap="round">
+        <path d="M-10 640 H210 L260 590 H520 L560 550 V430"/><path d="M-10 700 H300 L340 740 H640 L700 680 H880"/>
+        <path d="M40 120 H260 L310 170 V300 L350 340 H480"/><path d="M880 680 L930 630 V560"/>
+        <path d="M760 80 H1000 L1040 40 H1600"/><path d="M640 900 V820 L690 770 H900 L950 820 H1600"/>
+      </g>
+      <g fill="#03030a" stroke="#155a6e" stroke-width="3"><circle cx="560" cy="430" r="10"/><circle cx="480" cy="340" r="10"/><circle cx="880" cy="680" r="10"/><circle cx="930" cy="560" r="10"/></g>
+      <g font-family="IBM Plex Mono, monospace" font-size="17" fill="#136072" letter-spacing="1"><text x="36" y="104">J1 IN</text><text x="36" y="872">LL-03 REV C  2049</text><text x="610" y="550">U3 TL072</text></g>
+    </svg>
+    <canvas class="fx full"></canvas>
+    <canvas class="bloom full"></canvas>
+    <div class="layer">
+      <div class="row"><span class="dymo">SESSION 01</span><span class="chip">NOW PLAYING</span><span class="hud">WAVETABLE SCANNER // <span style="color:#ff2bd6">@ldn</span></span></div>
+      <div class="synth"><div class="knobs"></div><div class="keys"></div></div>
+      <div class="wordmark neonword"></div>
+      <div class="title"><span class="scramble">live build · scanning a wavetable by hand</span><span class="cursor"></span></div>
+      <div class="strip"><span class="dot"></span><span class="on">ON AIR</span> · <span class="mag">SC −6 dB</span> · <span class="acid">CUTOFF <span class="cut">800</span> HZ</span> · <span class="amb">DROP IN <span class="drop">8</span></span></div>
+    </div>
+    <div class="tear"></div>
+    <div class="readout" style="right:6cqw; top:4.6cqw"><span class="big bpm">128.00</span><span class="lbl">BPM · 4/4</span></div>
+    <div class="readout" style="right:6cqw; top:11.4cqw"><span class="big pos">001.1</span><span class="lbl">BAR . BEAT</span></div>
+    <div class="steps" style="right:6cqw; bottom:16.5cqw; width:32cqw"></div>
+    <div class="tape"></div>
+    <canvas class="rain full"></canvas>
+    <canvas class="dirt full"></canvas>
+    <div class="leak"></div>
+    <div class="track"></div>
+    <canvas class="grain full" width="400" height="225"></canvas>
+    <div class="vig"></div>
+  </div>
+  <div class="pick" id="pick"></div>
+  <figcaption><b>Night signal.</b> The layers, deepest first: the night plate, haze, the board, the instruments and their bloom, the neon sign and the words, rain and lens drops, then dirt, leaks, tracking, grain and scanlines. Switch the night plate under the card. Everything that pumps is on one 128 BPM clock.</figcaption>
+</figure>
+
+<script>
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const card = document.getElementById('card');
+const BPM = 128, SPB = 60 / BPM, T0 = performance.now() / 1000;
+
+// night plates
+const PLATES = ['n01', 'n02', 'n03', 'n04'];
+const plateImg = card.querySelector('.plate'), pick = document.getElementById('pick');
+function showPlate(p) { plateImg.src = `plates/night-${p}.jpg`; pick.querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', b.dataset.p === p)); }
+PLATES.forEach(p => { const b = document.createElement('button'); b.dataset.p = p; b.textContent = `night ${p}`; b.onclick = () => showPlate(p); pick.appendChild(b); });
+showPlate('n01');
+
+// neon letters
+const wm = card.querySelector('.neonword');
+wm.innerHTML = [...'LOUD’N '].map(c => `<span>${c === ' ' ? '&nbsp;' : c}</span>`).join('') + '<span class="live">' + [...'LIVE'].map(c => `<span>${c}</span>`).join('') + '</span>';
+const letters = [...wm.querySelectorAll('span:not(.live)')].filter(s => s.textContent.trim());
+// one tube is going: it stays dim and buzzes
+const sick = letters[2];
+
+// the 303's six knobs: label, colour, and how each one moves
+const KNOBS = [['TUNING', '#9ff3ff'], ['CUTOFF', '#c6ff00'], ['RESONANCE', '#c6ff00'], ['ENV MOD', '#ff2bd6'], ['DECAY', '#00e5ff'], ['ACCENT', '#ff2bd6']];
+const knobEls = [];
+(() => {
+  const n = KNOBS.length, gap = 100 / n, R = 6, cy = 8;
+  const arc = (cx, a0, a1) => { const p = a => [cx + R * Math.cos(a), cy + R * Math.sin(a)], [x0, y0] = p(a0), [x1, y1] = p(a1); return `M${x0.toFixed(2)} ${y0.toFixed(2)} A${R} ${R} 0 ${a1 - a0 > Math.PI ? 1 : 0} 1 ${x1.toFixed(2)} ${y1.toFixed(2)}`; };
+  let svg = '<svg viewBox="0 0 100 19" preserveAspectRatio="xMidYMid meet">';
+  KNOBS.forEach(([label, col], i) => {
+    const cx = gap * (i + .5);
+    svg += `<path class="track" d="${arc(cx, Math.PI * .75, Math.PI * 2.25)}"/><path class="val" stroke="${col}" style="filter:drop-shadow(0 0 .8px ${col})" data-k="${i}"/>` +
+           `<circle class="cap" cx="${cx}" cy="${cy}" r="${R * .62}"/><line class="ptr" data-p="${i}" x1="${cx}" y1="${cy}" x2="${cx}" y2="${cy - R * .55}"/>` +
+           `<text x="${cx}" y="${cy + R + 3.2}">${label}</text>`;
+  });
+  card.querySelector('.knobs').innerHTML = svg + '</svg>';
+  KNOBS.forEach((_, i) => knobEls[i] = { val: card.querySelector(`.knobs [data-k="${i}"]`), ptr: card.querySelector(`.knobs [data-p="${i}"]`), cx: gap * (i + .5) });
+  window.setKnob = (i, v) => {
+    const k = knobEls[i], a0 = Math.PI * .75, a = a0 + Math.max(.001, Math.min(1, v)) * Math.PI * 1.5;
+    k.val.setAttribute('d', arc(k.cx, a0, a));
+    k.ptr.setAttribute('x2', (k.cx + R * .55 * Math.cos(a)).toFixed(2)); k.ptr.setAttribute('y2', (cy + R * .55 * Math.sin(a)).toFixed(2));
+  };
+})();
+// two octaves of keys, C to C; semitone -> key element
+const KEYS = card.querySelector('.keys'), WHITE = [0, 2, 4, 5, 7, 9, 11], keyEls = [];
+(() => {
+  const nW = 15, kw = 100 / nW; let svg = `<svg viewBox="0 0 100 30" preserveAspectRatio="none">`;
+  for (let i = 0; i < nW; i++) svg += `<rect class="w" data-s="${Math.floor(i / 7) * 12 + WHITE[i % 7]}" x="${i * kw + .15}" y="0" width="${kw - .3}" height="30" rx=".4"/>`;
+  for (let i = 0; i < nW - 1; i++) { const n = WHITE[i % 7]; if (n === 4 || n === 11) continue; svg += `<rect class="b" data-s="${Math.floor(i / 7) * 12 + n + 1}" x="${(i + 1) * kw - kw * .3}" y="0" width="${kw * .6}" height="18" rx=".3"/>`; }
+  KEYS.innerHTML = svg + '</svg>';
+  KEYS.querySelectorAll('rect').forEach(r => keyEls[+r.dataset.s] = r);
+})();
+card.querySelector('.steps').innerHTML = Array.from({ length: 16 }, (_, i) => `<i class="${i % 4 === 0 ? 'k' : ''}"></i>`).join('');
+
+// canvases
+const C = n => { const cv = card.querySelector('canvas.' + n); return { cv, ctx: cv.getContext('2d') }; };
+const fx = C('fx'), bloom = C('bloom'), rain = C('rain'), dirt = C('dirt'), haze = C('haze'), grainC = C('grain');
+let W, H;
+function size() {
+  const r = card.getBoundingClientRect(), d = Math.min(devicePixelRatio || 1, 1.5);
+  W = Math.round(r.width * d); H = Math.round(r.height * d);
+  for (const c of [fx, rain, dirt]) { c.cv.width = W; c.cv.height = H; }
+  bloom.cv.width = W / 2; bloom.cv.height = H / 2;
+  paintDirt(); paintHaze();
+}
+function paintHaze() {
+  const { ctx } = haze, img = ctx.createImageData(64, 36);
+  for (let i = 0; i < img.data.length; i += 4) { const v = Math.random(); const m = Math.random() < .5; img.data[i] = m ? 120 * v : 20; img.data[i + 1] = 20 * v; img.data[i + 2] = m ? 160 * v : 120 * v; img.data[i + 3] = 255 * v * v; }
+  ctx.putImageData(img, 0, 0);
+}
+function paintDirt() {
+  const { ctx } = dirt; ctx.clearRect(0, 0, W, H);
+  for (let i = 0; i < 900; i++) { ctx.fillStyle = `rgba(255,255,255,${.15 + Math.random() * .6})`; const s = Math.random() < .9 ? 1 : 2.5; ctx.fillRect(Math.random() * W, Math.random() * H, s, s); }
+  ctx.lineWidth = 1;
+  for (let i = 0; i < 40; i++) { const x = Math.random() * W, y = Math.random() * H, l = (.1 + Math.random() * .5) * H; ctx.strokeStyle = `rgba(255,255,255,${.05 + Math.random() * .12})`; ctx.beginPath(); ctx.moveTo(x, y); ctx.quadraticCurveTo(x + (Math.random() - .5) * 30, y + l / 2, x + (Math.random() - .5) * 20, y + l); ctx.stroke(); }
+  for (let i = 0; i < 14; i++) { const x = Math.random() * W, y = Math.random() * H, r = (.05 + Math.random() * .15) * W; const g = ctx.createRadialGradient(x, y, 0, x, y, r); g.addColorStop(0, 'rgba(255,240,220,.07)'); g.addColorStop(1, 'transparent'); ctx.fillStyle = g; ctx.fillRect(x - r, y - r, r * 2, r * 2); }
+}
+size(); addEventListener('resize', size);
+
+// rain: far, near, splashes; lens droplets
+const far = Array.from({ length: 320 }, () => ({ x: Math.random(), y: Math.random(), l: .03 + Math.random() * .05, s: .9 + Math.random() * .6 }));
+const near = Array.from({ length: 46 }, () => ({ x: Math.random(), y: Math.random(), l: .12 + Math.random() * .2, s: 1.6 + Math.random(), w: 1.6 + Math.random() * 2.4 }));
+const lens = Array.from({ length: 34 }, () => ({ x: Math.random(), y: Math.random(), r: .004 + Math.random() * .016, vy: Math.random() < .3 ? .01 + Math.random() * .03 : 0, hue: Math.random() < .5 ? '255,43,214' : '0,229,255' }));
+const splashes = [];
+
+const ACID = [[0,1,0],[0,0,0],[12,0,1],[0,0,0],[3,1,0],[0,0,1],[7,0,0],[0,0,0],[0,1,0],[10,0,1],[0,0,0],[5,0,0],[0,1,0],[12,0,1],[3,0,0],[0,0,0]];
+const ARR = Array.from({ length: 256 }, (_, i) => { const bar = i / 8; const sec = bar < 8 ? .35 : bar < 16 ? .35 + .5 * (bar - 8) / 8 : bar < 24 ? 1 : .3; return sec * (.55 + .45 * Math.abs(Math.sin(i * 1.7) * Math.cos(i * .37))); });
+
+function liss(ctx, cx, cy, R, ph, col, alpha, lw, a = 3, b = 5, n = 700) {
+  ctx.beginPath();
+  for (let i = 0; i <= n; i++) { const s = i / n * Math.PI * 2; const x = cx + R * Math.sin(a * s + ph), y = cy + R * Math.sin(b * s); i ? ctx.lineTo(x, y) : ctx.moveTo(x, y); }
+  ctx.strokeStyle = col; ctx.globalAlpha = alpha; ctx.lineWidth = lw; ctx.stroke(); ctx.globalAlpha = 1;
+}
+
+function drawFx(t, pump, step, beat) {
+  const ctx = fx.ctx; ctx.clearRect(0, 0, W, H);
+  // spectrum, low bins kicking
+  const n = 44, x0 = W * .5, bw = W * .44 / n, base = H * .8;
+  for (let i = 0; i < n; i++) {
+    const low = Math.max(0, 1 - i / 9), v = .12 + .45 * Math.abs(Math.sin(t * (1.2 + i * .23) + i)) * (1 - i / n * .6) + low * .6 * pump;
+    ctx.fillStyle = i < 10 ? 'rgba(255,43,214,.32)' : 'rgba(0,229,255,.22)';
+    ctx.fillRect(x0 + i * bw, base - v * H * .32, bw * .6, v * H * .32);
+  }
+  // the 303 filter, wide and faint behind the sigil
+  const acc = ACID[step][1], fc = 180 * Math.pow(2, 3.4 + 1.6 * Math.sin(t * .35) + acc * .9 * pump), Q = 7;
+  window.FC = fc;
+  ctx.beginPath();
+  for (let i = 0; i <= 260; i++) {
+    const fr = 20 * Math.pow(1000, i / 260), r = fr / fc, mag = 1 / Math.sqrt((1 - r * r) ** 2 + (r / Q) ** 2);
+    const db = Math.max(-36, Math.min(18, 20 * Math.log10(mag)));
+    const x = W * .46 + W * .5 * i / 260, y = H * .62 - (db + 36) / 54 * H * .42;
+    i ? ctx.lineTo(x, y) : ctx.moveTo(x, y);
+  }
+  ctx.strokeStyle = 'rgba(198,255,0,.75)'; ctx.lineWidth = W / 520; ctx.stroke();
+  card.querySelector('.cut').textContent = Math.round(fc);
+  // the sigil: amber behind, magenta and cyan as a stereo pair, swelling on the kick
+  const R = H * (.24 + .03 * pump), cx = W * .69, cy = H * .38, ph = t * .45;
+  liss(ctx, cx + W * .008, cy + H * .01, R * 1.04, ph - .2, '#ffb000', .55, W / 700);
+  liss(ctx, cx, cy, R, ph, '#ff2bd6', .95, W / 420);
+  liss(ctx, cx + W * .005, cy, R, ph + .09, '#00e5ff', .85, W / 560);
+  // the track along the bottom
+  const X0 = W * .06, X1 = W * .94, Y = H * .925, A = H * .04, bars = 32, pos = (beat / 4) % bars, head = X0 + (X1 - X0) * pos / bars;
+  for (let i = 0; i < ARR.length; i++) { const x = X0 + (X1 - X0) * i / ARR.length, a = ARR[i] * A; ctx.fillStyle = x < head ? 'rgba(0,229,255,.9)' : 'rgba(0,229,255,.25)'; ctx.fillRect(x, Y - a, (X1 - X0) / ARR.length * .7, a * 2); }
+  const xd = X0 + (X1 - X0) * 16 / bars; ctx.fillStyle = '#ffb000'; ctx.fillRect(xd, Y - A * 1.6, Math.max(1, W / 1100), A * 3.2);
+  ctx.font = `${Math.round(W / 110)}px "Chakra Petch", sans-serif`; ctx.fillText('DROP', xd + 5, Y - A * 1.7);
+  ctx.fillStyle = '#fff'; ctx.fillRect(head, Y - A * 1.6, Math.max(2, W / 650), A * 3.2);
+  card.querySelector('.drop').textContent = Math.ceil((16 - pos + bars) % bars) + ' BARS';
+  // bloom: a blurred copy, screened over
+  const b = bloom.ctx; b.clearRect(0, 0, bloom.cv.width, bloom.cv.height);
+  b.filter = `blur(${Math.round(W / 140)}px)`; b.drawImage(fx.cv, 0, 0, bloom.cv.width, bloom.cv.height);
+  b.filter = `blur(${Math.round(W / 50)}px)`; b.globalAlpha = .8; b.drawImage(fx.cv, 0, 0, bloom.cv.width, bloom.cv.height); b.globalAlpha = 1; b.filter = 'none';
+}
+
+function drawRain(t, dt) {
+  const ctx = rain.ctx; ctx.clearRect(0, 0, W, H);
+  ctx.lineCap = 'round';
+  ctx.strokeStyle = 'rgba(190,225,255,.28)'; ctx.lineWidth = Math.max(1, W / 1500);
+  for (const d of far) { d.y += dt * d.s * 1.6; if (d.y > 1.05) { d.y = -.08; d.x = Math.random(); } const x = (d.x + d.y * .08) * W, y = d.y * H; ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(x + d.l * .08 * W * .3, y + d.l * H); ctx.stroke(); }
+  for (const d of near) {
+    d.y += dt * d.s * 1.7; if (d.y > 1.1) { d.y = -.3; d.x = Math.random(); if (Math.random() < .7) splashes.push({ x: d.x + .1 * .08, t: 0 }); }
+    const x = (d.x + d.y * .1) * W, y = d.y * H, g = ctx.createLinearGradient(x, y, x, y + d.l * H);
+    g.addColorStop(0, 'rgba(220,240,255,0)'); g.addColorStop(1, 'rgba(220,240,255,.55)');
+    ctx.strokeStyle = g; ctx.lineWidth = d.w * W / 1600; ctx.shadowColor = 'rgba(0,229,255,.6)'; ctx.shadowBlur = 6;
+    ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(x + d.l * .1 * W * .3, y + d.l * H); ctx.stroke(); ctx.shadowBlur = 0;
+  }
+  for (let i = splashes.length - 1; i >= 0; i--) { const s = splashes[i]; s.t += dt * 4; if (s.t > 1) { splashes.splice(i, 1); continue; } ctx.strokeStyle = `rgba(220,240,255,${.5 * (1 - s.t)})`; ctx.lineWidth = 1.2; ctx.beginPath(); ctx.ellipse(s.x * W, H * .985, s.t * W * .012, s.t * H * .006, 0, Math.PI, 0); ctx.stroke(); }
+  // lens drops: dark rim, a neon tint, a highlight; some slide and leave a trail
+  for (const d of lens) {
+    if (d.vy) { d.y += dt * d.vy; if (d.y > 1.05) { d.y = -.05; d.x = Math.random(); } ctx.strokeStyle = 'rgba(200,230,255,.08)'; ctx.lineWidth = d.r * W * .5; ctx.beginPath(); ctx.moveTo(d.x * W, d.y * H); ctx.lineTo(d.x * W, (d.y - .12) * H); ctx.stroke(); }
+    const x = d.x * W, y = d.y * H, r = d.r * W, g = ctx.createRadialGradient(x - r * .3, y - r * .35, r * .05, x, y, r);
+    g.addColorStop(0, 'rgba(255,255,255,.75)'); g.addColorStop(.25, `rgba(${d.hue},.22)`); g.addColorStop(.8, 'rgba(10,10,20,.25)'); g.addColorStop(1, 'rgba(255,255,255,.2)');
+    ctx.fillStyle = g; ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2); ctx.fill();
+  }
+  // a fresh film scratch or two
+  if (Math.random() < .35) { ctx.strokeStyle = 'rgba(255,255,255,.35)'; ctx.lineWidth = 1; const x = Math.random() * W; ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x + (Math.random() - .5) * 6, H); ctx.stroke(); }
+}
+
+const gimg = grainC.ctx.createImageData(400, 225);
+function grain() { const d = gimg.data; for (let i = 0; i < d.length; i += 4) { const v = Math.random() * 255; d[i] = v; d[i + 1] = v * .92; d[i + 2] = v; d[i + 3] = 255; } grainC.ctx.putImageData(gimg, 0, 0); }
+
+// glitches
+const layer = card.querySelector('.layer'), tearEl = card.querySelector('.tear');
+const GLYPHS = '▓▒░█▌▐#%&@$';
+function tear(big) {
+  tearEl.innerHTML = layer.innerHTML;
+  const top = Math.random() * 85, h = 2 + Math.random() * (big ? 16 : 7), dx = (Math.random() - .5) * (big ? 9 : 4);
+  tearEl.style.clipPath = `inset(${top}% 0 ${Math.max(0, 100 - top - h)}% 0)`;
+  tearEl.style.transform = `translateX(${dx}cqw)`;
+  tearEl.style.filter = big ? 'invert(1) hue-rotate(180deg)' : 'hue-rotate(90deg) brightness(1.4)';
+  tearEl.classList.add('on'); card.style.setProperty('--split', big ? '1.6cqw' : '.8cqw');
+  setTimeout(() => { tearEl.classList.remove('on'); card.style.setProperty('--split', '.35cqw'); }, big ? 200 : 90);
+}
+function blocks() {
+  for (let i = 0; i < 7; i++) {
+    const b = document.createElement('div'); b.className = 'block';
+    Object.assign(b.style, { left: Math.random() * 90 + '%', top: Math.random() * 90 + '%', width: 4 + Math.random() * 18 + '%', height: 2 + Math.random() * 8 + '%' });
+    card.appendChild(b); setTimeout(() => b.remove(), 90 + Math.random() * 140);
+  }
+}
+function shake() { let n = 0; const iv = setInterval(() => { card.style.transform = `translate(${(Math.random() - .5) * 10}px, ${(Math.random() - .5) * 6}px)`; if (++n > 6) { clearInterval(iv); card.style.transform = ''; } }, 30); }
+function scramble() {
+  const el = layer.querySelector('.scramble'), orig = el.dataset.o || (el.dataset.o = el.textContent); let n = 0;
+  const iv = setInterval(() => { el.textContent = [...orig].map(ch => ch !== ' ' && Math.random() < .25 ? GLYPHS[Math.random() * GLYPHS.length | 0] : ch).join(''); if (++n > 6) { clearInterval(iv); el.textContent = orig; } }, 45);
+}
+
+let last = performance.now() / 1000, lastBeat = -1, lastBar = -1, fno = 0;
+function frame() {
+  const now = performance.now() / 1000, dt = Math.min(.05, now - last); last = now;
+  const t = now - T0, beat = t / SPB, ph = beat % 1, bar = Math.floor(beat / 4), step = Math.floor(beat * 4) % 16;
+  const pump = reduce ? 0 : Math.exp(-ph * 5);
+  card.style.setProperty('--pump', pump.toFixed(3));
+  card.querySelector('.pos').textContent = `${String(bar % 999 + 1).padStart(3, '0')}.${Math.floor(beat % 4) + 1}`;
+  card.querySelectorAll('.steps i').forEach((e, i) => e.classList.toggle('on', i === step));
+  keyEls.forEach(k => k && k.classList.remove('lit', 'acc', 'kick'));
+  const [note, acc] = ACID[step], held = (beat * 4) % 1 < .7;
+  if (held && keyEls[note]) { keyEls[note].classList.add('lit'); if (acc) keyEls[note].classList.add('acc'); }
+  if (pump > .5 && keyEls[24]) keyEls[24].classList.add('kick');
+  drawFx(t, pump, step, beat);
+  setKnob(0, .5);
+  setKnob(1, Math.log2((window.FC || 800) / 180) / 6.5);
+  setKnob(2, .86);
+  setKnob(3, .45 + .45 * pump);
+  setKnob(4, .5 + .3 * Math.sin(t * .2));
+  setKnob(5, ACID[step][1] ? .85 : .35);
+  if (!reduce) drawRain(t, dt);
+  // the sick tube buzzes every frame; the rest stutter now and then
+  sick.classList.toggle('dim', Math.random() < .55);
+  sick.classList.toggle('off', Math.random() < .12);
+  if (!reduce && Math.floor(beat) !== lastBeat) {
+    lastBeat = Math.floor(beat);
+    if (bar !== lastBar) { lastBar = bar; if (bar % 8 === 0 && bar > 0) { tear(true); blocks(); shake(); } }
+    const r = Math.random();
+    if (r < .18) tear(false); else if (r < .26) scramble(); else if (r < .32) blocks();
+    if (Math.random() < .3) { const s = letters[Math.random() * letters.length | 0]; if (s !== sick) { s.classList.add('off'); setTimeout(() => s.classList.remove('off'), 80 + Math.random() * 150); } }
+  }
+  if (fno++ % 2 === 0) grain();
+  requestAnimationFrame(frame);
+}
+frame();
+</script>
+</body>
+</html>

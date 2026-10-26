@@ -45,3 +45,8 @@ What each enrichment taught the ceremony, appended after a run that taught it so
 ## From the Kuramoto face-switch cleanup, 2026-10-13
 
 8. **A bare `--stamp` re-stamps a section held drifted on purpose.** Step 5 runs `fingerprint.mjs "<Entry>" --stamp` bare, and a bare stamp covers every drifted section with no sign that one was held. Kuramoto's "Asymmetric Coupling: The Stubbornness Parameter" is held drifted on purpose (stamped `f19f12592784`, prose now `084c089b289f`; `48bda7a1`): it wants a real re-tune, not a quiet stamp, and a bare stamp would give it one. Spec change owed: step 5 stamps by section name whenever any section is held. **Owed; the version stays v2.4.**
+
+## From the Dissolutions sits, 2026-10-25
+
+9. **The test came first, and the person it was for couldn't reach it.** Step 2 prefers a piece that tests its section's claim (item 3), and Dissolutions' Plan asks the same of its proofs in nearly the same words. Loudon played three of its six proofs on 2026-10-25 and sent all six back with one note: "these are the end of a proof, we need to work our way there with each of them." The preference holds; its place moves. Forced: step 2 says the test is the last step, reached by steps that take one concept alone ([[Progressive Staging]]), and step 3 says the tier is how finished the face is, not where a piece starts. v2.6.
+- correction · 2026-10-25 · item 8's "the version stays v2.4" was true when it was written and is not now: v2.5 came at 37853d97 (a piece declares what it needs; conform.mjs reads every piece) and v2.6 at 450a3a84 (item 9). Item 8's change is still unmade: step 5 still stamps bare, though `fingerprint.mjs` already takes a section name after `--stamp`.

@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rough 7 · cyberpunk EDM</title>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Chakra+Petch:wght@400;600&family=IBM+Plex+Mono:wght@400;600&family=VT323&family=Cormorant+Garamond:wght@300&family=Manrope:wght@300;500&display=swap" rel="stylesheet">
+<style>
+  :root { --page: #111114; --ink: #d8d8e0; --ink-dim: #8a8aa0; }
+  * { box-sizing: border-box; }
+  body { margin: 0; padding: 32px 24px 64px; background: var(--page); color: var(--ink); font-family: 'Manrope', system-ui, sans-serif; }
+  header.sheet { max-width: 1280px; margin: 0 auto 24px; }
+  header.sheet h1 { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: 30px; margin: 0 0 6px; }
+  header.sheet p { margin: 0; color: var(--ink-dim); font-size: 14px; max-width: 80ch; line-height: 1.55; }
+  .grid { max-width: 1280px; margin: 0 auto; display: grid; gap: 30px; }
+  figure { margin: 0; }
+  figcaption { margin-top: 10px; font-size: 13px; line-height: 1.5; color: var(--ink-dim); max-width: 92ch; }
+  figcaption b { color: var(--ink); font-weight: 500; }
+
+  .card { position: relative; aspect-ratio: 16 / 9; overflow: hidden; container-type: inline-size; isolation: isolate; background: var(--bg); color: var(--fg); --pump: 0; --split: .3cqw; }
+  .card canvas.fx { position: absolute; inset: 0; width: 100%; height: 100%; display: block; z-index: 1; }
+  .card canvas.grain { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 7; mix-blend-mode: screen; opacity: .07; pointer-events: none; }
+  .card::before { content: ''; position: absolute; inset: 0; z-index: 8; pointer-events: none; background: repeating-linear-gradient(180deg, rgba(0,0,0,.3) 0 1px, transparent 1px 3px); }
+  .card .vig { position: absolute; inset: 0; z-index: 8; pointer-events: none; background: radial-gradient(120% 95% at 50% 50%, transparent 55%, rgba(0,0,0,.6) 100%); }
+  .layer { position: absolute; inset: 0; padding: 5cqw 6cqw; display: flex; flex-direction: column; z-index: 4; }
+  .tear { position: absolute; inset: 0; padding: 5cqw 6cqw; display: flex; flex-direction: column; z-index: 5; visibility: hidden; background: var(--bg); pointer-events: none; }
+  .tear.on { visibility: visible; }
+  .row { display: flex; gap: 1.4cqw; align-items: center; }
+  .hud { font-family: 'Chakra Petch', sans-serif; font-weight: 600; font-size: 1.45cqw; letter-spacing: .16em; text-transform: uppercase; }
+  .wordmark { font-family: 'Anton', sans-serif; font-size: 9.4cqw; line-height: .95; margin-top: auto; }
+  .title { font-family: 'IBM Plex Mono', monospace; font-size: 2.3cqw; line-height: 1.25; margin-top: 1.8cqw; max-width: 56%; }
+  .strip { margin-top: 2.4cqw; display: flex; align-items: center; gap: 1cqw; font-family: 'VT323', monospace; font-size: 2.1cqw; letter-spacing: .1em; }
+  .dot { width: 1.05cqw; height: 1.05cqw; border-radius: 50%; background: #ff2a2a; box-shadow: 0 0 .6cqw rgba(255,42,42,.9), 0 0 1.6cqw rgba(255,42,42,.5); opacity: calc(.45 + .55 * var(--pump)); }
+  .readout { position: absolute; z-index: 4; font-family: 'Chakra Petch', sans-serif; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; }
+  .readout .big { font-family: 'VT323', monospace; font-size: 4.2cqw; letter-spacing: .04em; line-height: .9; display: block; }
+  .readout .lbl { font-size: 1.05cqw; opacity: .7; display: block; }
+  .steps { position: absolute; z-index: 4; display: grid; grid-template-columns: repeat(16, 1fr); gap: .45cqw; }
+  .steps i { display: block; height: 1.1cqw; border: .12cqw solid var(--stepline); background: transparent; }
+  .steps i.k { border-color: var(--stepk); }
+  .steps i.on { background: var(--stepon); box-shadow: 0 0 1cqw var(--stepon); }
+
+  /* ═══ H · SIDECHAIN: the neon city, everything ducks on the kick ═══ */
+  .h { --bg: #07020e; --fg: #f4ecff; --mag: #ff2bd6; --cy: #00e5ff; --stepline: rgba(0,229,255,.35); --stepk: rgba(255,43,214,.7); --stepon: #00e5ff; }
+  .h .hud { color: var(--cy); text-shadow: 0 0 .8cqw rgba(0,229,255,.6); }
+  .h .chip { font-family: 'Chakra Petch', sans-serif; font-weight: 600; font-size: 1.35cqw; letter-spacing: .18em; color: #07020e; background: var(--mag); padding: .35cqw 1cqw; clip-path: polygon(0 0, 100% 0, 100% 62%, 92% 100%, 0 100%); box-shadow: 0 0 1.4cqw rgba(255,43,214,.6); }
+  .h .wordmark { color: var(--fg); filter: brightness(calc(1 + .35 * var(--pump)));
+                 text-shadow: calc(var(--split) * -1) 0 rgba(255,43,214,.85), var(--split) 0 rgba(0,229,255,.85), 0 0 calc(1cqw + 2cqw * var(--pump)) rgba(255,43,214,.45); }
+  .h .wordmark .live { color: var(--cy); text-shadow: calc(var(--split) * -1) 0 rgba(255,43,214,.9), var(--split) 0 rgba(255,255,255,.5), 0 0 .7cqw rgba(0,229,255,.9), 0 0 calc(2cqw + 3cqw * var(--pump)) rgba(0,229,255,.55); }
+  .h .title { color: #e5d9ff; }
+  .h .strip { color: rgba(0,229,255,.7); } .h .strip .on { color: #ff2a2a; } .h .strip .mag { color: var(--mag); }
+  .h .readout { color: var(--cy); text-shadow: 0 0 .8cqw rgba(0,229,255,.5); }
+  .h .readout .big { color: var(--fg); text-shadow: 0 0 1cqw rgba(255,43,214,.7); }
+  .h .glowfloor { position: absolute; left: 0; right: 0; bottom: 0; height: 45%; z-index: 0; pointer-events: none;
+                  background: radial-gradient(70% 90% at 70% 100%, rgba(255,43,214,calc(.10 + .22 * var(--pump))), transparent 70%); }
+
+  /* ═══ A · ACID: the 303 and the warehouse, acid green on black ═══ */
+  .a { --bg: #050505; --fg: #f2ffe0; --acid: #c6ff00; --pink: #ff3d8b; --stepline: rgba(198,255,0,.3); --stepk: rgba(255,61,139,.75); --stepon: #c6ff00; }
+  .a .hud { color: var(--acid); }
+  .a .tape { position: absolute; z-index: 3; right: -4cqw; top: 3.2cqw; width: 34cqw; height: 2.6cqw; transform: rotate(9deg);
+             background: repeating-linear-gradient(-45deg, var(--acid) 0 1.2cqw, #050505 1.2cqw 2.4cqw); opacity: .9; }
+  .a .halftone { position: absolute; inset: 0; z-index: 0; pointer-events: none; opacity: .16;
+                 background-image: radial-gradient(circle, var(--pink) 28%, transparent 30%); background-size: 1.4cqw 1.4cqw;
+                 -webkit-mask-image: linear-gradient(115deg, transparent 35%, #000 100%); mask-image: linear-gradient(115deg, transparent 35%, #000 100%); }
+  .a .chip { font-family: 'VT323', monospace; font-size: 2.2cqw; color: #050505; background: var(--acid); padding: 0 1cqw; letter-spacing: .06em; }
+  .a .wordmark { color: var(--fg); transform: skewX(-6deg); transform-origin: left bottom;
+                 text-shadow: calc(var(--split) * -1) 0 rgba(255,61,139,.9), var(--split) 0 rgba(198,255,0,.7); }
+  .a .wordmark .live { color: var(--acid); text-shadow: calc(var(--split) * -1) 0 rgba(255,61,139,.9), 0 0 calc(1cqw + 2.5cqw * var(--pump)) rgba(198,255,0,.7); }
+  .a .title { color: #e8ffd0; }
+  .a .strip { color: rgba(198,255,0,.75); } .a .strip .on { color: #ff2a2a; } .a .strip .pink { color: var(--pink); }
+  .a .readout { color: var(--acid); } .a .readout .big { color: var(--pink); }
+
+  /* ═══ N · NEON: a sign in the rain, the track running along the bottom ═══ */
+  .n { --bg: #04060c; --fg: #fff; --neon: #ff2bd6; --cy: #00e5ff; --amb: #ffb000; --stepline: rgba(0,229,255,.3); --stepk: rgba(255,176,0,.7); --stepon: #ffb000; }
+  .n .hud { color: var(--cy); text-shadow: 0 0 .8cqw rgba(0,229,255,.6); }
+  .n .chip { font-family: 'Chakra Petch', sans-serif; font-weight: 600; font-size: 1.35cqw; letter-spacing: .18em; color: var(--amb); border: .15cqw solid var(--amb); padding: .3cqw 1cqw; box-shadow: 0 0 1cqw rgba(255,176,0,.5), inset 0 0 1cqw rgba(255,176,0,.3); text-shadow: 0 0 .8cqw rgba(255,176,0,.8); }
+  .n .wordmark { color: transparent; -webkit-text-stroke: .32cqw #ffd6f6;
+                 text-shadow: 0 0 .4cqw #ff2bd6, 0 0 1.2cqw #ff2bd6, 0 0 3cqw rgba(255,43,214,.7), 0 0 6cqw rgba(255,43,214,.35); }
+  .n .wordmark .live { -webkit-text-stroke-color: #d6fbff; text-shadow: 0 0 .4cqw #00e5ff, 0 0 1.2cqw #00e5ff, 0 0 3cqw rgba(0,229,255,.7), 0 0 6cqw rgba(0,229,255,.35); }
+  .n .wordmark span.off { -webkit-text-stroke-color: rgba(255,214,246,.25); text-shadow: none; }
+  .n .layer, .n .tear { padding-bottom: 12cqw; }
+  .n .title { color: #e6f6ff; }
+  .n .strip { color: rgba(0,229,255,.75); } .n .strip .on { color: #ff2a2a; } .n .strip .amb { color: var(--amb); }
+  .n .readout { color: var(--amb); text-shadow: 0 0 .8cqw rgba(255,176,0,.6); }
+  .n .readout .big { color: #fff; text-shadow: 0 0 1cqw rgba(0,229,255,.8); }
+
+  @media (prefers-reduced-motion: reduce) { .card { --pump: 0 !important; } }
+</style>
+</head>
+<body>
+
+<header class="sheet">
+  <h1>Rough 7 · cyberpunk EDM</h1>
+  <p>Three directions for the third look. Each keeps Worn Broadcast's bones (Anton, the colour fringe, scanlines, grain, a glitch now and then, the sigil) and pushes them toward a future city and a dance floor. All three run on one 128 BPM clock, so they move like a track: a 16-step sequencer lights in time, a bar and beat counter ticks, and every eight bars the drop lands with a tear. H is the neon city, where everything ducks on the kick like a sidechained pad. A is acid: a 303's resonant filter sweeping, warehouse tape, halftone. N is a neon sign in the rain, with the track's waveform running along the bottom.</p>
+</header>
+
+<div class="grid">
+
+  <figure>
+    <div class="card h" data-v="h">
+      <div class="glowfloor"></div>
+      <canvas class="fx"></canvas>
+      <div class="layer">
+        <div class="row"><span class="chip">SESSION 01</span><span class="hud">// WAVETABLE SCANNER · <span style="color:#ff2bd6">@ldn</span></span></div>
+        <div class="wordmark">LOUD’N <span class="live">LIVE</span></div>
+        <div class="title"><span class="scramble">live build · scanning a wavetable by hand</span></div>
+        <div class="strip"><span class="dot"></span><span class="on">ON AIR</span> · <span class="mag">SC −6 dB</span> · → palace/wavetable-scanner</div>
+      </div>
+      <div class="tear"></div>
+      <div class="readout" style="right:6cqw; top:5cqw; text-align:right"><span class="big bpm">128.00</span><span class="lbl">BPM · 4/4</span></div>
+      <div class="readout" style="right:6cqw; top:12.5cqw; text-align:right"><span class="big pos">001.1</span><span class="lbl">BAR . BEAT</span></div>
+      <div class="steps" style="right:6cqw; bottom:4.6cqw; width:36cqw"></div>
+      <canvas class="grain" width="320" height="180"></canvas><div class="vig"></div>
+    </div>
+    <figcaption><b>H · Sidechain.</b> Violet-black, magenta and electric cyan. The sigil is a stereo vectorscope, left channel magenta and right channel cyan, and it swells on every kick. A spectrum analyser runs underneath. The floor glow, the wordmark's bloom and the on-air dot all pump at 128 BPM, the way a pad ducks under a sidechained kick. Chakra Petch for the HUD.</figcaption>
+  </figure>
+
+  <figure>
+    <div class="card a" data-v="a">
+      <div class="halftone"></div>
+      <canvas class="fx"></canvas>
+      <div class="tape"></div>
+      <div class="layer">
+        <div class="row"><span class="chip">SESSION 01</span><span class="hud">ACID // WAVETABLE SCANNER</span></div>
+        <div class="wordmark">LOUD’N <span class="live">LIVE</span></div>
+        <div class="title"><span class="scramble">live build · scanning a wavetable by hand</span></div>
+        <div class="strip"><span class="dot"></span><span class="on">ON AIR</span> · <span class="pink">CUTOFF <span class="cut">800</span> HZ · RES 0.86</span></div>
+      </div>
+      <div class="tear"></div>
+      <div class="readout" style="right:6cqw; top:7.5cqw; text-align:right"><span class="big pos">001.1</span><span class="lbl">BAR . BEAT · 128 BPM</span></div>
+      <div class="steps" style="right:6cqw; bottom:4.6cqw; width:36cqw"></div>
+      <canvas class="grain" width="320" height="180"></canvas><div class="vig"></div>
+    </div>
+    <figcaption><b>A · Acid.</b> Black, acid green and hot pink, from the TB-303 and the warehouse flyer. The big graphic is the 303's resonant lowpass, its peak sweeping as the cutoff opens and closes, with the sixteen-step pattern below it: accents in pink, slides as ties. The sigil sits small in the filter's corner. The wordmark leans forward. Hazard tape and a halftone corner.</figcaption>
+  </figure>
+
+  <figure>
+    <div class="card n" data-v="n">
+      <canvas class="fx"></canvas>
+      <div class="layer">
+        <div class="row"><span class="chip">SESSION 01</span><span class="hud">NOW PLAYING // WAVETABLE SCANNER</span></div>
+        <div class="wordmark neonword"></div>
+        <div class="title"><span class="scramble">live build · scanning a wavetable by hand</span></div>
+        <div class="strip"><span class="dot"></span><span class="on">ON AIR</span> · <span class="amb">DROP IN <span class="drop">8</span> BARS</span></div>
+      </div>
+      <div class="tear"></div>
+      <div class="readout" style="right:6cqw; top:5cqw; text-align:right"><span class="big pos">001.1</span><span class="lbl">BAR . BEAT · 128 BPM</span></div>
+      <canvas class="grain" width="320" height="180"></canvas><div class="vig"></div>
+    </div>
+    <figcaption><b>N · Neon.</b> The wordmark is drawn as neon tubing: magenta for LOUD’N, cyan for LIVE. Now and then one letter stutters, like a sign with a bad transformer. Rain falls through the frame, and the sigil hangs in amber like a second sign. Along the bottom runs the track's waveform: intro, build, drop, with a playhead and a countdown to the drop.</figcaption>
+  </figure>
+
+</div>
+
+<script>
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const BPM = 128, SPB = 60 / BPM, T0 = performance.now() / 1000;
+const cards = [...document.querySelectorAll('.card')];
+
+// neon wordmark as per-letter spans, so a letter can stutter
+document.querySelectorAll('.neonword').forEach(w => {
+  w.innerHTML = [...'LOUD’N '].map(c => `<span>${c === ' ' ? '&nbsp;' : c}</span>`).join('') +
+    '<span class="live">' + [...'LIVE'].map(c => `<span>${c}</span>`).join('') + '</span>';
+});
+
+// sequencer rows: a four-on-the-floor kick marked, the lit step follows the clock
+document.querySelectorAll('.steps').forEach(s => { s.innerHTML = Array.from({ length: 16 }, (_, i) => `<i class="${i % 4 === 0 ? 'k' : ''}"></i>`).join(''); });
+
+// the tear copies the layer each time
+cards.forEach(c => { c._layer = c.querySelector('.layer'); c._tear = c.querySelector('.tear'); });
+const GLYPHS = '▓▒░█▌▐#%&@$';
+function tear(c, big) {
+  c._tear.innerHTML = c._layer.innerHTML;
+  const top = Math.random() * 85, h = 2 + Math.random() * (big ? 14 : 6), dx = (Math.random() - .5) * (big ? 8 : 3);
+  c._tear.style.clipPath = `inset(${top}% 0 ${Math.max(0, 100 - top - h)}% 0)`;
+  c._tear.style.transform = `translateX(${dx}cqw)`;
+  c._tear.style.filter = big ? 'invert(1) hue-rotate(180deg)' : 'hue-rotate(90deg) brightness(1.3)';
+  c._tear.classList.add('on');
+  c.style.setProperty('--split', `${big ? 1.4 : .6}cqw`);
+  setTimeout(() => { c._tear.classList.remove('on'); c.style.setProperty('--split', '.3cqw'); }, big ? 180 : 80);
+}
+function scramble(c) {
+  const el = c.querySelector('.layer .scramble'), orig = el.dataset.o || (el.dataset.o = el.textContent); let n = 0;
+  const iv = setInterval(() => { el.textContent = [...orig].map(ch => ch !== ' ' && Math.random() < .2 ? GLYPHS[Math.random() * GLYPHS.length | 0] : ch).join(''); if (++n > 5) { clearInterval(iv); el.textContent = orig; } }, 45);
+}
+
+// canvases
+const fx = cards.map(c => { const cv = c.querySelector('canvas.fx'); return { c, cv, ctx: cv.getContext('2d'), v: c.dataset.v }; });
+function size() { for (const f of fx) { const r = f.cv.getBoundingClientRect(), d = Math.min(devicePixelRatio || 1, 2); f.cv.width = r.width * d; f.cv.height = r.height * d; f.w = f.cv.width; f.h = f.cv.height; } }
+size(); addEventListener('resize', size);
+const drops = Array.from({ length: 140 }, () => ({ x: Math.random(), y: Math.random(), l: .02 + Math.random() * .05, s: .5 + Math.random() }));
+// a 32-bar arrangement for N's waveform: intro 8, build 8, drop 8, break 8
+const ARR = Array.from({ length: 256 }, (_, i) => { const bar = i / 8; const sec = bar < 8 ? .35 : bar < 16 ? .35 + .5 * (bar - 8) / 8 : bar < 24 ? 1 : .3; return sec * (.55 + .45 * Math.abs(Math.sin(i * 1.7) * Math.cos(i * .37))); });
+// a 303 line: [note offset, accent, slide]
+const ACID = [[0,1,0],[0,0,0],[12,0,1],[0,0,0],[3,1,0],[0,0,1],[7,0,0],[0,0,0],[0,1,0],[10,0,1],[0,0,0],[5,0,0],[0,1,0],[12,0,1],[3,0,0],[0,0,0]];
+
+function liss(ctx, cx, cy, R, ph, col, alpha, lw, blur, a = 3, b = 5, n = 700) {
+  ctx.beginPath();
+  for (let i = 0; i <= n; i++) { const s = i / n * Math.PI * 2; const x = cx + R * Math.sin(a * s + ph), y = cy + R * Math.sin(b * s); i ? ctx.lineTo(x, y) : ctx.moveTo(x, y); }
+  ctx.strokeStyle = col; ctx.globalAlpha = alpha; ctx.lineWidth = lw; ctx.shadowColor = col; ctx.shadowBlur = blur; ctx.stroke(); ctx.shadowBlur = 0; ctx.globalAlpha = 1;
+}
+
+function drawH(f, t, pump) {
+  const { ctx, w, h } = f; ctx.clearRect(0, 0, w, h);
+  // spectrum: 40 bars, the low bins kick with the pump
+  const n = 40, bw = w * .36 / n, x0 = w * .58, base = h * .88;
+  for (let i = 0; i < n; i++) {
+    const low = Math.max(0, 1 - i / 8), v = .15 + .5 * Math.abs(Math.sin(t * (1.3 + i * .21) + i)) * (1 - i / n * .6) + low * .55 * pump;
+    const g = ctx.createLinearGradient(0, base - v * h * .35, 0, base);
+    g.addColorStop(0, '#ff2bd6'); g.addColorStop(1, 'rgba(0,229,255,.25)');
+    ctx.fillStyle = g; ctx.globalAlpha = .35; ctx.fillRect(x0 + i * bw, base - v * h * .35, bw * .62, v * h * .35);
+  }
+  ctx.globalAlpha = 1;
+  // the sigil as a stereo vectorscope, swelling on the kick
+  const R = h * (.22 + .022 * pump), cx = w * .655, cy = h * .4, ph = t * .5;
+  liss(ctx, cx, cy, R, ph, '#ff2bd6', .85, w / 520, w / 70);
+  liss(ctx, cx + w * .004, cy, R, ph + .08, '#00e5ff', .75, w / 650, w / 70);
+}
+
+function drawA(f, t, pump, step) {
+  const { ctx, w, h } = f; ctx.clearRect(0, 0, w, h);
+  // 303 resonant lowpass: |H| over log frequency, cutoff swept by a slow LFO plus the accent
+  const acc = ACID[step][1];
+  const fc = 180 * Math.pow(2, 3.4 + 1.6 * Math.sin(t * .35) + acc * .9 * pump), Q = 6.5;
+  const X0 = w * .52, X1 = w * .95, Y0 = h * .27, Y1 = h * .64;
+  ctx.strokeStyle = 'rgba(198,255,0,.15)'; ctx.lineWidth = 1;
+  for (let k = 0; k <= 3; k++) { const x = X0 + (X1 - X0) * k / 3; ctx.beginPath(); ctx.moveTo(x, Y0); ctx.lineTo(x, Y1); ctx.stroke(); }
+  for (let k = 0; k <= 4; k++) { const y = Y0 + (Y1 - Y0) * k / 4; ctx.beginPath(); ctx.moveTo(X0, y); ctx.lineTo(X1, y); ctx.stroke(); }
+  ctx.beginPath();
+  for (let i = 0; i <= 300; i++) {
+    const fr = 20 * Math.pow(1000, i / 300), r = fr / fc;
+    const mag = 1 / Math.sqrt((1 - r * r) ** 2 + (r / Q) ** 2);
+    const db = Math.max(-36, Math.min(18, 20 * Math.log10(mag)));
+    const x = X0 + (X1 - X0) * i / 300, y = Y0 + (Y1 - Y0) * (1 - (db + 36) / 54);
+    i ? ctx.lineTo(x, y) : ctx.moveTo(x, y);
+  }
+  ctx.strokeStyle = '#c6ff00'; ctx.lineWidth = w / 480; ctx.shadowColor = '#c6ff00'; ctx.shadowBlur = w / 90; ctx.stroke(); ctx.shadowBlur = 0;
+  ctx.fillStyle = 'rgba(198,255,0,.7)'; ctx.font = `${Math.round(w / 95)}px "Chakra Petch", sans-serif`; ctx.fillText('VCF · 24 dB/OCT', X0, Y0 - w * .008);
+  f.c.querySelector('.cut').textContent = Math.round(fc);
+  // the pattern as a tiny piano roll, current step lit
+  const PX = X0, PW = X1 - X0, PY = h * .7, PH = h * .09, sw = PW / 16;
+  ACID.forEach(([note, a, slide], i) => {
+    const y = PY + PH * (1 - note / 12) - h * .008;
+    ctx.fillStyle = i === step ? '#ffffff' : a ? '#ff3d8b' : 'rgba(198,255,0,.75)';
+    ctx.fillRect(PX + i * sw + 1, y, sw * (slide ? 1.02 : .7), h * .014);
+  });
+  // the sigil, small, in the filter's corner
+  liss(ctx, X0 + w * .05, Y1 - h * .1, h * .065, t * .5, '#c6ff00', .9, w / 900, w / 140);
+}
+
+function drawN(f, t, pump, beat) {
+  const { ctx, w, h } = f; ctx.clearRect(0, 0, w, h);
+  // rain
+  ctx.strokeStyle = 'rgba(160,220,255,.22)'; ctx.lineWidth = Math.max(1, w / 1600);
+  for (const d of drops) {
+    const y = ((d.y + t * .55 * d.s) % 1.1) - .05, x = d.x + y * .06;
+    ctx.beginPath(); ctx.moveTo(x * w, y * h); ctx.lineTo((x + d.l * .06) * w, (y + d.l) * h); ctx.stroke();
+  }
+  // the sigil in amber neon
+  liss(ctx, w * .76, h * .42, h * .24, t * .4, '#ffb000', .9, w / 480, w / 50);
+  // the track: 32-bar waveform, playhead, drop marker
+  const X0 = w * .06, X1 = w * .94, Y = h * .91, H = h * .055, n = ARR.length, bars = 32;
+  const pos = (beat / 4) % bars, head = X0 + (X1 - X0) * pos / bars;
+  for (let i = 0; i < n; i++) {
+    const x = X0 + (X1 - X0) * i / n, a = ARR[i] * H, past = x < head;
+    ctx.fillStyle = past ? 'rgba(0,229,255,.85)' : 'rgba(0,229,255,.28)';
+    ctx.fillRect(x, Y - a, (X1 - X0) / n * .7, a * 2);
+  }
+  const xd = X0 + (X1 - X0) * 16 / bars;
+  ctx.fillStyle = '#ffb000'; ctx.font = `${Math.round(w / 110)}px "Chakra Petch", sans-serif`; ctx.fillText('DROP', xd + 4, Y - H - 6);
+  ctx.fillRect(xd, Y - H - 2, Math.max(1, w / 1200), H * 2 + 4);
+  ctx.fillStyle = '#fff'; ctx.shadowColor = '#ff2bd6'; ctx.shadowBlur = w / 120; ctx.fillRect(head, Y - H * 1.4, Math.max(2, w / 700), H * 2.8); ctx.shadowBlur = 0;
+  const toDrop = Math.ceil((16 - pos + bars) % bars);
+  f.c.querySelector('.drop').textContent = toDrop;
+}
+
+// grain
+const grains = cards.map(c => { const cv = c.querySelector('canvas.grain'), g = cv.getContext('2d'); return { g, img: g.createImageData(cv.width, cv.height) }; });
+function grain() { for (const { g, img } of grains) { const d = img.data; for (let i = 0; i < d.length; i += 4) { const v = Math.random() * 255; d[i] = v; d[i + 1] = v * .9; d[i + 2] = v; d[i + 3] = 255; } g.putImageData(img, 0, 0); } }
+
+let lastBar = -1, lastBeat = -1, frameNo = 0;
+function frame() {
+  const t = performance.now() / 1000 - T0, beat = t / SPB, ph = beat % 1, bar = Math.floor(beat / 4);
+  const pump = reduce ? 0 : Math.exp(-ph * 5);
+  const step = Math.floor(beat * 4) % 16;
+  const pos = `${String(bar % 999 + 1).padStart(3, '0')}.${Math.floor(beat % 4) + 1}`;
+  for (const f of fx) {
+    f.c.style.setProperty('--pump', pump.toFixed(3));
+    f.c.querySelectorAll('.layer ~ .readout .pos, .readout .pos').forEach(e => e.textContent = pos);
+    f.c.querySelectorAll('.steps i').forEach((e, i) => e.classList.toggle('on', i === step));
+    if (f.v === 'h') drawH(f, t, pump); else if (f.v === 'a') drawA(f, t, pump, step); else drawN(f, t, pump, beat);
+  }
+  if (!reduce && Math.floor(beat) !== lastBeat) {
+    lastBeat = Math.floor(beat);
+    if (bar !== lastBar) { lastBar = bar; if (bar % 8 === 0 && bar > 0) cards.forEach(c => tear(c, true)); }
+    if (Math.random() < .12) { const c = cards[Math.random() * cards.length | 0]; Math.random() < .6 ? tear(c, false) : scramble(c); }
+    // a neon letter stutters now and then
+    document.querySelectorAll('.neonword span:not(.live)').forEach(s => s.classList.remove('off'));
+    if (Math.random() < .3) { const ls = [...document.querySelectorAll('.neonword span:not(.live)')]; const s = ls[Math.random() * ls.length | 0]; s.classList.add('off'); setTimeout(() => s.classList.remove('off'), 90 + Math.random() * 160); }
+  }
+  if (frameNo++ % 3 === 0) grain();
+  requestAnimationFrame(frame);
+}
+frame();
+</script>
+</body>
+</html>

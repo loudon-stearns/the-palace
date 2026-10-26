@@ -138,7 +138,11 @@ A **look** is a complete dress for one projection. Palette, type, texture and mo
 
 **Worn Broadcast** (2026-10-25) is the first: `looks/worn-broadcast.html` in the system's folder. A signal wearing out on old hardware. STIGMERGY's phosphor and grammar ([[BBS Design System]]) are carried most of the way; Anton, the amber LIVE and the Lissajous sigil keep it Loud'n Live and not the board. An old circuit board sits behind, the sigil glows on a round tube face, and every few seconds one glitch comes (a tear or a scramble, never constant). Cyan carries handles and links. On first sight Loudon said: *"E is the perfect hit, record that as a clear win."* The file's header comment is the look's spec (palette, type, texture, motion), and the file fills itself from its URL, so it drops into OBS as a browser source.
 
-**Cyanotype** (2026-10-25) is the second: `looks/cyanotype.html`. A blueprint print a careful hand has worked on. It borrows the [[Drafting Table Design System]]'s grammar, turns it onto a dark cyanotype ground, and revises it. The hand is in the process, never in the geometry: every line is ruled, and the care shows in guidelines left in, an erased old name, a rubbed-out first sigil, a revision table, a checker's red pencil. The lettering is Josefin Sans, and the wordmark is drawn in a thin-pen outline with its construction lines left in. Loudon, on plate 6: *"use plate 6, perfect. lets have this be the second look for Loud'N Live."* It is a Loud'n Live look, not a change to Drafting Table, whose own "Never cyan" stands as it is. The paper is a generated plate: local SDXL, img2img from the blank paper of a reference print Loudon shared, used only as a tone map, so nothing generated carries a mark.
+**Cyanotype** (2026-10-25) is the second: `looks/cyanotype.html`. A blueprint print a careful hand has worked on. It borrows the [[Drafting Table Design System]]'s grammar, turns it onto a dark cyanotype ground, and revises it. The hand is in the process, never in the geometry: every line is ruled, and the care shows in guidelines left in, an erased old name, a rubbed-out first sigil, a revision table, a checker's red pencil. The lettering is Josefin Sans, and the wordmark is drawn in a thin-pen outline with its construction lines left in. Loudon, on plate 6: *"use plate 6, perfect. lets have this be the second look for Loud'N Live."* It is a Loud'n Live look, not a change to Drafting Table. Drafting Table retired its own "Never cyan" the same day, on Loudon's word: *"Retire Drafting Table's "Never cyan" too; Cyanotype already wears its grammar on cyan."* The paper was generated with GenAI: Stable Diffusion XL, image to image at denoise 0.55, from an init image cut from the blank paper of Drawing Matter's photograph of Jean-Charles Moreux's *Front Elevation, Design for a block of flats, Rue Gazan, Paris* (c.1927, cyanotype on paper, Drawing Matter Collection DMC 2272.2, [photograph](https://drawingmatter.org/a-blueprint-is-blue/)), then tinted as a tone map. Every line and word on the sheet is drawn on top of it. The recipe, seeds and checksums are in `Palace development/Loudon Live Design System/workshop/plates/PROVENANCE.md`.
+
+**Night Signal** (2026-10-25) is the third: `looks/night-signal.html`. Cyberpunk and electronic music, layered and dirty: Worn Broadcast's bones pushed into a city at night and onto a dance floor. A neon wordmark with one tube failing, a 303 synth panel with its knobs over two octaves of keys, a filter sweeping, the sigil as a stereo vectorscope, rain on the glass, and everything that moves on one tempo, with a drop every eight bars. It got there in three steps of Loudon's: *"all are a little safe and clean, get even dirtier, layer the concepts, more glow stronger rain more texture,"* then *"YES, this is the kind of layered look,"* then *"get some neon synth knobs above the keyboard and we are there."* Its night plate was generated with GenAI (Stable Diffusion XL, text to image, no reference image), and PROVENANCE.md holds its recipe too. The file fills from its URL, tempo included.
+
+The set is complete for now. Loudon: *"that is all the looks we need."*
 
 The six-skin house style stays the public channel's default dress for everything else.
 
@@ -155,7 +159,7 @@ The six-skin house style stays the public channel's default dress for everything
 
 *(New 2026-07. Replaces the old universal `· Autodidact Polymaths` footer stamp.)*
 
-The audience is [[Autodidact Polymaths]] — self-taught generalists who learn across many fields at once. It used to be stamped on every footer. That over-said it, and the term itself carries an academic tilt that fights the everyday voice. So: **name the idea in specific moments — prose, intros — stated quickly and never leaned on.**
+The audience is electronic musicians, to start; [[Autodidact Polymaths]] — self-taught generalists who learn across many fields at once — stays in the background (2026-10-14, [[Loudon Live]]). It used to be stamped on every footer. That over-said it, and the term itself carries an academic tilt that fights the everyday voice. So: **name the idea in specific moments — prose, intros — stated quickly and never leaned on.**
 
 Two rules:
 
@@ -183,7 +187,7 @@ _ops/loudon-live/design-system/
 ├── README.md             ← full design rationale (read this first)
 ├── colors_and_type.css   ← canonical source of every token
 ├── index.html            ← system overview / cover page
-├── looks/                ← Loud'n Live's complete looks (worn-broadcast.html, cyanotype.html)
+├── looks/                ← Loud'n Live's complete looks (worn-broadcast.html, cyanotype.html, night-signal.html)
 ├── assets/               ← Lissajous logos, wordmark, monogram, watermark, avatar
 │   └── generators/       ← six per-stream generative SVGs
 ├── preview/              ← specimen cards (type / colors / spacing / components)
@@ -284,7 +288,7 @@ Arrived May 2026 as a Claude Design handoff bundle, Loudon's second design-syste
 
 ## What Comes Next
 
-The rethink the [[Loudon Live Design System — baton|baton]] of 2026-10-14 asked for has its answer: Loud'n Live wears looks of its own, two have landed (Worn Broadcast and Cyanotype), and "no cyan" is retired ([§ Looks](#looks)). Two things are still open. A third look, cyberpunk EDM, is in the bundle's workshop. And the system's text still has to catch up with the 2026-10-14 portrait of Loud'n Live, here and in `SKILL.md` and `README.md`.
+The rethink the baton of 2026-10-14 asked for has its answer: Loud'n Live wears looks of its own, three have landed (Worn Broadcast, Cyanotype and Night Signal) and the set is complete for now, and "no cyan" is retired ([§ Looks](#looks)). The system's text has caught up with the 2026-10-14 portrait of Loud'n Live, and Drafting Table has retired its own "Never cyan". Nothing from the rethink is left open; the next look starts from [[Loudon Live Design System — tuning]].
 
 ## Cross-Domain Resonances
 
@@ -300,7 +304,3 @@ The rethink the [[Loudon Live Design System — baton|baton]] of 2026-10-14 aske
 - **Skin-selection rubric.** When a new palace artifact is being made, which skin should it default to? Graphite is the channel default, but a math poster wants Cobalt Grid, a Confucian philosophy entry wants Amber Lab, a DSP first-principles piece wants CRT. A small decision card per artifact type would help future Claude pick correctly without bikeshedding.
 - **Token-level inheritance.** Should palace artifacts pull `colors_and_type.css` from a single canonical URL, or copy it per artifact? Copying is honest (artifact stays self-contained); pulling is DRY (one update cascades). Currently: copy per artifact.
 - **Stigmergy contact surface.** When a palace artifact wants to *show* swarm coordination output (a session page summarising a Weave run), which system applies? Probably this one, with STIGMERGY excerpts treated as embedded code-block content. Test case will decide.
-
-## Active Baton
-
-[[Loudon Live Design System — baton]] — drafted 2026-10-14

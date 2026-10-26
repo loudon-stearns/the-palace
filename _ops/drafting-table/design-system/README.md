@@ -56,7 +56,7 @@ Casing: uppercase for sheet eyebrows, view captions, title-block names and hotke
 - `source-datasheet` on `ground-000`: 6.0:1 Paper, 6.2:1 Phosphor. `source-measure`: 5.4:1 Paper, 5.1:1 Phosphor. `source-assumed`: 4.6:1 Paper, 11.1:1 Phosphor. All pass for text at `sheet-dim` size.
 - `accent` on Paper is the same red as `source-measure`. That is the Drafting skin's choice and it is kept: on the sheet, the thing that is lit and the thing that is unmeasured are both the thing you look at next. If a face has to show both at once, make the accent an arc and the hold a word.
 - Categorical `cat-1` … `cat-6` are for an unordered series in a chart, up to six. Ordered data uses one hue stepped through `ink-3` → `ink-2` → `ink`.
-- Never cyan. Never a purple-to-blue gradient. Never a colour that only means a state used as decoration.
+- Never a purple-to-blue gradient. Never a colour that only means a state used as decoration.
 
 ## Solid surfaces, and 3D
 

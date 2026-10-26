@@ -1,0 +1,704 @@
+<!doctype html>
+<!--
+title: Resonance and Damping — sketch — q-step-by-step
+born: 2026-10-25
+links:
+  - target: "[[Resonance and Damping]]"
+    type: connects-to
+    label: child-of
+  - target: "[[Progressive Staging]]"
+    type: connects-to
+    label: staged-by
+forward_vector: "I am the way up to Q you can hear. Five steps, each a complete thing you can play that teaches one idea: it rings at its own rate, it forgets, pushed it moves at your rate, near its own rate the push piles up, and the swing falls a quarter cycle behind. Each step keeps the one before it inside it. The sixth step is the proof."
+method: "[[Progressive Staging]]: every stage complete and playable, one concept each, additive and never retroactive (a control at its end recovers the step before), the tests accumulating. Form after the Dissolutions learning sequences of 2026-10-25."
+sound: "nothing plays until a Pluck or Play button is clicked; the AudioContext is made on that click."
+status: "a rough that works, not yet a finished teaching tool: Loudon, 2026-10-25, \"there is still more to be done to make this a perfect teaching tool\". What is owed is in [[Resonance and Damping]] § Forward Vector."
+-->
+<html lang="en" data-theme="paper">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:needs" content="storage">
+<title>Q, step by step</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  /* Drafting Table tokens, paper ground, copied from _ops/drafting-table/design-system/colors_and_type.css */
+  :root {
+    --ground-000: #f0eee5; --ground-100: #e6e3d7; --ground-200: #dcd9ca;
+    --ink: #1a1916; --ink-2: #3a3a35; --ink-3: #6a6862;
+    --rule: #b8b09a; --rule-soft: #cfc9b6;
+    --slab-face: #d8d4c6; --slab-light: #ebe8dd; --slab-shade: #b9b4a3;
+    --accent: #c8261a; --on-accent: #f0eee5;
+    --source-datasheet: #2b5fb0; --source-assumed: #a8730a; --ok: #3a7d2c;
+    --scope-ground: #050a06; --scope-grid: #0f5024; --scope-trace: #33ff66; --scope-trace-2: #ffb000;
+    --shadow-slab: inset 0 1px 0 #ebe8dd, 0 1px 0 #b9b4a3, 0 2px 3px rgba(26,25,22,0.18);
+    --shadow-recess: inset 0 1px 2px rgba(26,25,22,0.28), inset 0 0 0 1px #b8b09a;
+    --font-mono: 'JetBrains Mono', 'IBM Plex Mono', 'SF Mono', Menlo, Consolas, monospace;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--ground-000); color: var(--ink); font-family: var(--font-mono); font-size: 13px; }
+  .sheet { border: 2px solid var(--ink); margin: 12px auto; padding: 18px; max-width: 1000px; }
+  .eyebrow { font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-3); }
+  h1 { font-size: 18px; font-weight: 600; margin: 4px 0 6px; }
+  h2 { font-size: 15px; font-weight: 600; margin: 4px 0 8px; }
+  .lead { color: var(--ink-2); margin: 0 0 14px; max-width: 74ch; line-height: 1.55; }
+  .rail { display: flex; gap: 6px; flex-wrap: wrap; margin: 0 0 14px; }
+  button { font-family: var(--font-mono); font-size: 12px; color: var(--ink); background: var(--slab-face); border: 1.5px solid var(--ink); border-radius: 0; padding: 6px 10px; box-shadow: var(--shadow-slab); cursor: pointer; }
+  button:active { box-shadow: var(--shadow-recess); }
+  button[aria-pressed=true], .rail button[aria-current=step] { background: var(--ink); color: var(--ground-000); }
+  .rail button.seen { border-color: var(--ink-2); }
+  .rail button { font-size: 11px; }
+  button.go { background: var(--accent); color: var(--on-accent); border-color: var(--accent); }
+  button.go[data-on=true] { background: var(--ground-000); color: var(--accent); }
+  .say { color: var(--ink-2); line-height: 1.6; max-width: 74ch; margin: 0 0 12px; }
+  .panel { border: 1px solid var(--rule); padding: 12px; margin: 0 0 12px; }
+  .bar { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin-bottom: 10px; }
+  .bar .hint { color: var(--ink-3); font-size: 11.5px; margin-right: auto; }
+  canvas { display: block; width: 100%; }
+  .legend { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 6px 18px; margin-top: 10px; font-size: 11.5px; color: var(--ink-3); line-height: 1.45; }
+  .legend b { display: block; color: var(--ink-2); font-weight: 600; font-size: 10.5px; letter-spacing: .08em; text-transform: uppercase; }
+  .ctl { display: grid; grid-template-columns: 150px 1fr 220px; gap: 6px 12px; align-items: center; margin-top: 10px; }
+  .ctl label { font-size: 10.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-3); }
+  .ctl .v { text-align: right; white-space: nowrap; }
+  input[type=range] { width: 100%; accent-color: var(--accent); }
+  .meter { margin-top: 10px; line-height: 1.7; border-top: 1px solid var(--rule-soft); padding-top: 8px; }
+  .meter b { color: var(--accent); font-weight: 600; }
+  .eq { margin: 10px 0 0; white-space: pre-wrap; overflow-wrap: anywhere; }
+  .eq.words { color: var(--ink-3); font-size: 11.5px; margin-top: 2px; }
+  .try { margin: 0 0 12px; padding: 10px 14px; border-left: 2px solid var(--accent); background: var(--ground-100); color: var(--ink-2); line-height: 1.55; }
+  .try .eyebrow { color: var(--accent); display: block; margin-bottom: 2px; }
+  textarea { width: 100%; min-height: 54px; font-family: var(--font-mono); font-size: 12px; color: var(--ink); background: var(--ground-000); border: 1px solid var(--rule); padding: 8px; resize: vertical; }
+  .walk { display: flex; justify-content: space-between; margin-top: 12px; }
+  ul.gathered { line-height: 1.6; color: var(--ink-2); padding-left: 18px; max-width: 74ch; }
+  ul.gathered b { color: var(--ink); }
+  a.proof-link { display: inline-block; margin: 6px 0 12px; padding: 8px 14px; background: var(--accent); color: var(--on-accent); text-decoration: none; border: 1.5px solid var(--accent); }
+  .block { margin-top: 14px; border-top: 2px solid var(--ink); padding-top: 6px; display: flex; justify-content: space-between; font-size: 11px; color: var(--ink-3); flex-wrap: wrap; gap: 8px; }
+  .block a { color: var(--ink-2); }
+  @media (max-width: 560px) { .ctl { grid-template-columns: 1fr; } .ctl .v { text-align: left; } }
+</style>
+</head>
+<body>
+<div class="sheet">
+  <div class="eyebrow">Resonance and Damping · the way up to Q you can hear</div>
+  <h1>Q, step by step</h1>
+  <p class="lead">Five short steps up to the proof. A thing that rings, the same thing forgetting, a push at someone else's rate, a push near its own rate, and the moment of the push. Each step is something whole you can play, and each keeps the one before it inside: put a control back to its end and you are on the step before. Nothing plays until you press Pluck or Play.</p>
+
+  <nav class="rail" aria-label="Steps"></nav>
+
+  <!-- ───────────── step 1 ───────────── -->
+  <section class="step" data-step="0" data-title="It rings">
+    <div class="eyebrow">Step 1 of 6 · its own rate</div>
+    <h2>A weight on a spring rings at one rate</h2>
+    <p class="say">Hang a weight on a spring and flick it. It bobs up and down at one rate, and the rate is its own: flick it harder and it bobs further, not faster. A stiffer spring pulls back harder, so it bobs faster. A heavier weight is harder to turn round, so it bobs slower. Here there is no friction at all, so once flicked it never stops.</p>
+    <div class="panel">
+      <div class="bar"><span class="hint">the weight, flicked once, with nothing to slow it</span><button class="go" data-pluck>Pluck</button><button data-stop>Stop</button></div>
+      <canvas data-canvas="spring" data-aspect="0.42"></canvas>
+      <div class="legend">
+        <div><b>Left · the weight</b>Slowed down 300 times so the eye can follow it. The pitch you hear is the same motion at full speed. The block grows with its weight; the wire thickens with its stiffness.</div>
+        <div><b>Right · where it has been</b>Its height over the last few seconds, newest on the right. Every swing as tall as the last.</div>
+      </div>
+      <div class="ctl"><label for="s1k">spring stiffness</label><input id="s1k" type="range" min="0" max="1000" value="500"><span class="v" id="s1kv"></span></div>
+      <div class="ctl"><label for="s1w">weight</label><input id="s1w" type="range" min="0" max="1000" value="500"><span class="v" id="s1wv"></span></div>
+      <div class="meter" id="s1m"></div>
+      <div class="eq">f = √(k ÷ m) ÷ 2π</div>
+      <div class="eq words">(how many bobs a second) = (the square root of stiffness over weight) ÷ (one turn of the circle)</div>
+    </div>
+    <div class="try"><span class="eyebrow">Try</span>Make the spring four times as stiff and listen: one octave up. Make the weight four times as heavy: one octave down. Do both and you are back where you started, because only stiffness over weight counts. Then flick it a few times while it is already moving. The swing gets bigger or smaller, but the rate never changes.</div>
+    <textarea data-note placeholder="What your ear and eye say about its own rate"></textarea>
+  </section>
+
+  <!-- ───────────── step 2 ───────────── -->
+  <section class="step" data-step="1" data-title="It forgets" hidden>
+    <div class="eyebrow">Step 2 of 6 · forgetting</div>
+    <h2>Add friction and the ring dies</h2>
+    <p class="say">Now the same spring in air, or in honey. Friction takes a little energy every swing, so each swing is a little smaller than the last, until the weight hangs still. How fast it forgets is one number. Audio people call it Q: high Q, long ring; low Q, a short thud. Slide Q all the way up to “none” and you are back on step 1.</p>
+    <div class="panel">
+      <div class="bar"><span class="hint">the same weight, now with friction</span><button class="go" data-pluck>Pluck</button><button data-stop>Stop</button></div>
+      <canvas data-canvas="ring" data-aspect="0.42"></canvas>
+      <div class="legend">
+        <div><b>Left · the weight</b>Slowed 300 times, so a ring that lasts a tenth of a second here takes thirty. The same number of swings as the sound.</div>
+        <div><b>Right · where it has been</b>The weight's own height, newest on the right. Hatched: how tall the swings still are since the last pluck. Red: where they have fallen 60 dB, about a thousandth of where they started.</div>
+      </div>
+      <div class="ctl"><label for="s2q">Q (friction)</label><input id="s2q" type="range" min="0" max="1000" value="724"><span class="v" id="s2qv"></span></div>
+      <div class="meter" id="s2m"></div>
+      <div class="eq">Q = 1 ÷ 2ζ          ring time ≈ 2.2 × Q ÷ f</div>
+      <div class="eq words">(Q) = one over twice the damping  ·  (seconds to fall 60 dB) ≈ 2.2 × (Q) ÷ (bobs a second)</div>
+    </div>
+    <div class="try"><span class="eyebrow">Try</span>Count the swings. Double Q and the ring lasts twice as long, at the same pitch. Then drop Q below 1: it stops ringing and just sags back, a thud with no note in it.</div>
+    <textarea data-note placeholder="What your ear and eye say about forgetting"></textarea>
+  </section>
+
+  <!-- ───────────── step 3 ───────────── -->
+  <section class="step" data-step="2" data-title="Pushed" hidden>
+    <div class="eyebrow">Step 3 of 6 · someone else's rate</div>
+    <h2>Push it, and it moves at your rate</h2>
+    <p class="say">Stop flicking and start pushing, smoothly, up and down, at a rate that is not its own. For a moment it does both: its own ring, and your push. Then its own ring dies away, as step 2 said it would, and what is left moves at your rate. Galileo thought this was impossible. Thomas Young showed in 1807 that it is not.</p>
+    <div class="panel">
+      <div class="bar"><span class="hint">a steady push at half its own rate</span><button class="go" data-play>Play</button></div>
+      <canvas data-canvas="push" data-aspect="0.55"></canvas>
+      <div class="legend">
+        <div><b>Left · the weight and the hand</b>Slowed 300 times. Amber arrow: the push, from the rest line to where a push held still would put the weight, so its tip lines up with the amber trace.</div>
+        <div><b>Right · push and swing</b>Amber: the push. Ink: where the weight is. Watch the first wobbly seconds settle into the push's rhythm.</div>
+      </div>
+      <div class="ctl"><label for="s3d">push rate</label><input id="s3d" type="range" min="0" max="1000" value="250"><span class="v" id="s3dv"></span></div>
+      <div class="ctl"><label for="s3w">weight (its own rate)</label><input id="s3w" type="range" min="0" max="1000" value="500"><span class="v" id="s3wv"></span></div>
+      <div class="meter" id="s3m"></div>
+      <div class="eq">after the ring dies:  y = A · sin(2π · f_push · t − lag)</div>
+      <div class="eq words">(where it is) = (how far it swings) × (a sine at the push's rate, a little behind the push)</div>
+    </div>
+    <div class="try"><span class="eyebrow">Try</span>Press Stop, then Play, to start the push again from rest and watch the first seconds: two rates beating against each other, then one. Move the push rate and the swing follows it. Then hold the push still and change the weight: its own rate moves, the swing still keeps your rate, but how far it swings changes as its own rate comes near yours. Its own rate only decides how far it swings, which is the next step.</div>
+    <textarea data-note placeholder="What your ear and eye say about being pushed"></textarea>
+  </section>
+
+  <!-- ───────────── step 4 ───────────── -->
+  <section class="step" data-step="3" data-title="The peak" hidden>
+    <div class="eyebrow">Step 4 of 6 · steps 2 and 3 together</div>
+    <h2>Push near its own rate and the push piles up</h2>
+    <p class="say">Push a swing at the swing's own rate and every push lands on top of the last. Push at any other rate and some pushes fight it. So how far it swings depends on how close your rate is to its own, and friction (Q, from step 2) decides how much. Right at its own rate it swings Q times as far as the same push held still. The band it answers to is f ÷ Q wide. Noise is every push at once, so noise through it comes out as a pitch.</p>
+    <div class="panel">
+      <div class="bar"><span class="hint" id="s4hint">a sine push, swept by hand or by the button</span>
+        <button data-s4src="sine" aria-pressed="true">A sine push</button><button data-s4src="noise" aria-pressed="false">Every push at once</button>
+        <button class="go" data-play>Play</button></div>
+      <canvas data-canvas="peak" data-aspect="0.55"></canvas>
+      <div class="legend">
+        <div><b>Left · the weight</b>Pushed at your rate, slowed 300 times, on the same scale as steps 3 and 5. Red bar: the top of its swing over the last push.</div>
+        <div><b>Right · the curve</b>How high it swings for every push rate, in the weight's own units, measured up from its rest line. Once it settles, the red bar and the red dot are one height. Dashed: a push held still. Hatched: the band f ÷ Q wide. The sound is held level to keep your ears safe; the picture is not.</div>
+      </div>
+      <div class="ctl"><label for="s4d">push rate</label><input id="s4d" type="range" min="0" max="1000" value="250"><span class="v" id="s4dv"></span></div>
+      <div class="ctl"><label for="s4w">weight (its own rate)</label><input id="s4w" type="range" min="0" max="1000" value="500"><span class="v" id="s4wv"></span></div>
+      <div class="ctl"><label for="s4q">Q (friction)</label><input id="s4q" type="range" min="0" max="990" value="450"><span class="v" id="s4qv"></span></div>
+      <div class="bar" style="margin-top:10px"><button id="s4sweep">Sweep the push through its own rate</button></div>
+      <div class="meter" id="s4m"></div>
+      <div class="eq">height at f = Q          width = f ÷ Q</div>
+      <div class="eq words">(how many times further than a held push, at its own rate) = (Q)  ·  (the band it answers) = (its rate) ÷ (Q)</div>
+    </div>
+    <div class="try"><span class="eyebrow">Try</span>Push at exactly its own rate and watch the red bar climb to the red dot: that climb is the swell. Then hold the push still and change the weight. The whole peak slides along under your push, and when its own rate reaches your push it towers: that is tuning, the way a radio is tuned to a station. Sweep at Q 4, then at Q 9. The higher Q, the taller and narrower the peak, and the longer the swell takes to build: the narrow peak and the long ring of step 2 are one number. Push Q past 10 and the peak runs off the sheet; the sheet says how far. Then choose every push at once and raise Q: a pitch comes out of the hiss.</div>
+    <textarea data-note placeholder="What your ear and eye say about the peak"></textarea>
+  </section>
+
+  <!-- ───────────── step 5 ───────────── -->
+  <section class="step" data-step="4" data-title="The lag" hidden>
+    <div class="eyebrow">Step 5 of 6 · the moment of the push</div>
+    <h2>At its own rate, the swing is a quarter cycle behind</h2>
+    <p class="say">Watch when the weight is highest against when you push hardest. Push slowly and they move together: the weight just follows your hand. Push fast and they move against each other. At its own rate the weight is a quarter cycle behind, and that is the moment it is moving fastest: you push it while it is already going your way, so every push adds and none takes back. That is why the push piles up.</p>
+    <div class="panel">
+      <div class="bar"><span class="hint">a sine push; the lag measured from the weight</span><button data-s5speed aria-pressed="false">Show its speed</button><button class="go" data-play>Play</button></div>
+      <canvas data-canvas="lag" data-aspect="0.55"></canvas>
+      <div class="legend">
+        <div><b>Left · the weight, push and swing</b>Amber: the push, and its arrow on the weight. Ink: where the weight is. Green, when shown: how fast it is moving.</div>
+        <div><b>Right · the lag</b>How far behind the push the weight is, for every push rate. The dot is yours.</div>
+      </div>
+      <div class="ctl"><label for="s5d">push rate</label><input id="s5d" type="range" min="0" max="1000" value="500"><span class="v" id="s5dv"></span></div>
+      <div class="ctl"><label for="s5q">Q (friction)</label><input id="s5q" type="range" min="0" max="990" value="450"><span class="v" id="s5qv"></span></div>
+      <div class="meter" id="s5m"></div>
+      <div class="eq">lag = atan2(u ÷ Q, 1 − u²),   u = f_push ÷ f</div>
+      <div class="eq words">(how far behind) goes from none, to a quarter cycle exactly at its own rate, to half a cycle far above it; Q sets how suddenly it turns</div>
+    </div>
+    <div class="try"><span class="eyebrow">Try</span>Set the push to exactly its own rate and show its speed: the green speed line and the amber push rise and fall together. Then raise Q and sweep slowly past its own rate: the lag turns over almost at once.</div>
+    <textarea data-note placeholder="What your ear and eye say about the lag"></textarea>
+  </section>
+
+  <!-- ───────────── step 6 ───────────── -->
+  <section class="step" data-step="5" data-title="The proof" hidden>
+    <div class="eyebrow">Step 6 of 6 · the proof</div>
+    <h2>Now the whole thing, on one page</h2>
+    <p class="say">Q you can hear puts every step on one screen, as a digital resonator: two numbers, f and Q. Here is where each step is waiting for you there.</p>
+    <ul class="gathered">
+      <li><b>A strike</b> is steps 1 and 2: the ring, and the red line where it has fallen 60 dB.</li>
+      <li><b>A sine push</b> is step 3, and <b>sweep the push through the peak</b> is step 4.</li>
+      <li><b>Noise</b> is step 4's every push at once.</li>
+      <li><b>The lag</b> scope is step 5, measured live from the sound.</li>
+      <li>One thing the proof adds: <b>the pole radius r</b>. In a computer the weight and spring become one line of arithmetic, and r is how much of the ring is kept each sample. That line is the resonance knob on a synth filter.</li>
+    </ul>
+    <p class="say">It ends on a question for you: where in your own instruments is something ringing that you have been treating as just a knob?</p>
+    <a class="proof-link" href="Resonance%20and%20Damping%20%E2%80%94%20sketch%20%E2%80%94%20q-you-can-hear.html">Open the proof</a>
+    <textarea data-note placeholder="Did the steps get you there? What was missing?"></textarea>
+    <div class="bar" style="margin-top:8px"><button id="copy">Copy all notes</button><span class="hint" id="copied"></span></div>
+  </section>
+
+  <div class="walk"><button id="back">Back</button><button id="next">Next</button></div>
+
+  <div class="block">
+    <span>RESONANCE AND DAMPING · q-step-by-step · staged after Progressive Staging</span>
+    <span>SKETCH · 2026-10-25 · needs work</span>
+    <span>up to <a href="Resonance%20and%20Damping%20%E2%80%94%20sketch%20%E2%80%94%20q-you-can-hear.html">Q you can hear</a></span>
+  </div>
+</div>
+
+<script>
+// ---- math (pure; check-step-by-step.mjs runs selfTest in node) -------------------------------
+const FS_DEFAULT = 48000;
+const SLOW = 300;                                               // the drawn weight runs 300 times slower than the sound
+function freqFromStiffness(k, m) { return Math.sqrt(k / m) / (2 * Math.PI); }
+function stiffnessFromFreq(f, m) { return m * Math.pow(2 * Math.PI * f, 2); }
+// the drawing's scale is fixed, never re-scaled while you watch, so a tall swing looks tall. Steps 1 and 2: one
+// pluck's swing is 1 and the sheet holds 2.5 of them. Steps 3 to 5: a push held still moves the weight 1 and the
+// sheet holds 10. Past the sheet the weight and its trace stop at the same edge, and the sheet says how far.
+const PLUCK_REACH = 2.5, PUSH_REACH = 10, ROOM = 0.34, EDGE = 0.42;
+function swingScale(h, reach) { return ROOM * h / reach; }
+function clampSwing(h, dy) { return Math.max(-EDGE * h, Math.min(EDGE * h, dy)); }
+function poleRadius(f, Q, fs) { return Q === Infinity ? 1 : Math.exp(-Math.PI * f / (Q * fs)); }
+function ringTime(f, Q) { return 3 * Math.LN10 / Math.PI * Q / f; }   // −60 dB: ln(1000)/(ζω) = (3 ln10 / π)·Q/f ≈ 2.2·Q/f
+// a held push moves the weight 1; a push at u times its own rate moves it gain(u, Q), lag(u, Q) degrees behind
+function gain(u, Q) { return 1 / Math.sqrt(Math.pow(1 - u * u, 2) + Math.pow(u / Q, 2)); }
+function lag(u, Q) { return Math.atan2(u / Q, 1 - u * u) * 180 / Math.PI; }
+// the weight, stepped forward: x'' = −2ζω x' − ω² x + ω² F
+function springStep(s, dt, f, Q, F) {
+  const w = 2 * Math.PI * f, z = Q === Infinity ? 0 : 1 / (2 * Q);
+  s.v += (-2 * z * w * s.v - w * w * s.x + w * w * F) * dt;
+  s.x += s.v * dt;
+}
+// the digital resonator of the proof, struck once: seconds until it has fallen 60 dB
+function measuredRing(f, Q, fs) {
+  const th = 2 * Math.PI * f / fs, r = poleRadius(f, Q, fs), a1 = 2 * r * Math.cos(th), a2 = r * r;
+  let y1 = 0, y2 = 0, peak = 0, last = 0;
+  const per = Math.round(fs / f), N = Math.ceil(3 * ringTime(f, Q) * fs);
+  for (let n = 0; n < N; n++) { const y = (n === 0 ? Math.sin(th) : 0) + a1 * y1 - a2 * y2; y2 = y1; y1 = y; const a = Math.abs(y); if (n < 3 * per) peak = Math.max(peak, a); else if (a > peak / 1000) last = n; }
+  return last / fs;
+}
+// a pushed weight, after its own ring has died: its rate, from zero crossings
+function settledRate(f, Q, fPush) {
+  const s = { x: 0, v: 0 }, dt = 1 / (200 * Math.max(f, fPush)); let t = 0, cross = [], prev = 0;
+  const settle = 12 * ringTime(f, Q), span = 20 / fPush;
+  while (t < settle + span) { springStep(s, dt, f, Q, Math.sin(2 * Math.PI * fPush * t)); t += dt; if (t > settle) { if (prev < 0 && s.x >= 0) cross.push(t); prev = s.x; } }
+  return (cross.length - 1) / (cross[cross.length - 1] - cross[0]);
+}
+// the half-power band of gain(), measured
+function measuredWidth(f, Q) {
+  let lo = null, hi = null; const top = gain(1, Q) / Math.SQRT2;
+  for (let i = 0; i <= 40000; i++) { const u = 0.5 + i / 40000; const g = gain(u, Q); if (g >= top && lo === null) lo = u; if (g >= top) hi = u; }
+  return (hi - lo) * f;
+}
+function selfTest() {
+  const out = [], near = (a, b, tol) => Math.abs(a - b) <= tol * Math.abs(b);
+  const t = (step, name, a, b, tol) => out.push(`${near(a, b, tol) ? 'PASS' : 'FAIL'}  step ${step} · ${name}: ${a.toPrecision(4)} against ${b.toPrecision(4)}`);
+  t(1, 'four times stiffer is an octave up', freqFromStiffness(4 * stiffnessFromFreq(220, 1), 1), 440, 1e-9);
+  t(1, 'four times heavier is an octave down', freqFromStiffness(stiffnessFromFreq(220, 1), 4), 110, 1e-9);
+  t(1, 'four times stiffer and four times heavier is where it started', freqFromStiffness(4 * stiffnessFromFreq(220, 1), 4), 220, 1e-9);
+  t(1, 'the scale is fixed: one pluck is the same height at any swing', swingScale(100, PLUCK_REACH), 34 / 2.5, 1e-9);
+  const qDefault = 0.5 * Math.pow(400, 450 / 990);              // steps 4 and 5 open at this Q
+  out.push(`${gain(1, qDefault) <= PUSH_REACH ? 'PASS' : 'FAIL'}  step 4 · at the opening Q (${qDefault.toFixed(2)}) the resonance fits the sheet: ${gain(1, qDefault).toFixed(2)} × against room for ${PUSH_REACH} ×`);
+  t(1, 'no friction: the pole radius is 1', poleRadius(220, Infinity, FS_DEFAULT), 1, 0);
+  t(2, 'ring time of the digital resonator, Q 20 at 220 Hz', measuredRing(220, 20, FS_DEFAULT), ringTime(220, 20), 0.03);
+  t(2, 'ring time of the digital resonator, Q 5 at 1 kHz', measuredRing(1000, 5, FS_DEFAULT), ringTime(1000, 5), 0.03);
+  t(2, 'the 2.2 rule', ringTime(1, 1), 2.2, 0.01);
+  t(3, 'pushed at half its rate, it settles at the push rate', settledRate(2, 8, 1), 1, 0.01);
+  t(3, 'pushed at 1.7 times its rate, it settles at the push rate', settledRate(2, 8, 3.4), 3.4, 0.01);
+  t(4, 'at its own rate it swings Q times as far, Q 16', gain(1, 16), 16, 1e-9);
+  t(4, 'four times heavier, and a push held at half the rate now meets the peak', gain((346.4 / 2) / freqFromStiffness(stiffnessFromFreq(346.4, 1), 4), 16), 16, 1e-9);
+  t(4, 'the band it answers is f ÷ Q wide, Q 20', measuredWidth(346, 20), 346 / 20, 0.02);
+  t(4, 'steps 2 and 4 are one number: width × (ring time ÷ 6.91) = 1 ÷ π', (346 / 20) * ringTime(346, 20) / (3 * Math.LN10), 1 / Math.PI, 1e-9);
+  t(5, 'a quarter cycle behind at its own rate', lag(1, 16), 90, 1e-9);
+  t(5, 'with the push, far below', lag(0.25, 16), 0.955, 0.01);
+  t(5, 'against the push, far above', lag(4, 16), 179.05, 0.001);
+  return out;
+}
+// ---- end math ----
+
+// ---- the sound: the proof's own resonator, with the same fallback --------------------------
+const WORKLET = `
+class Resonator extends AudioWorkletProcessor {
+  constructor() {
+    super();
+    this.y1 = 0; this.y2 = 0; this.ph = 0;
+    this.f = 220; this.Q = 20; this.mode = 'strike'; this.df = 220;
+    this.kick = 0; this.seed = 12345;
+    this.port.onmessage = (e) => {
+      const m = e.data;
+      if (m.f !== undefined) this.f = m.f;
+      if (m.Q !== undefined) this.Q = m.Q;
+      if (m.mode !== undefined) { this.mode = m.mode; }
+      if (m.df !== undefined) this.df = m.df;
+      if (m.strike) this.kick = 1;
+      if (m.reset) { this.y1 = 0; this.y2 = 0; }
+    };
+  }
+  rnd() { this.seed = (this.seed * 1664525 + 1013904223) >>> 0; return this.seed / 4294967296 * 2 - 1; }
+  process(inputs, outputs) {
+    const out = outputs[0], drv = outputs[1];
+    const n = out[0].length, fs = sampleRate;
+    const th = 2 * Math.PI * this.f / fs;
+    const r = this.Q === Infinity ? 1 : Math.exp(-Math.PI * this.f / (this.Q * fs));
+    const a1 = 2 * r * Math.cos(th), a2 = r * r;
+    const peakNorm = (1 - r) * Math.sqrt(1 - 2 * r * Math.cos(2 * th) + r * r);
+    const g = this.mode === 'strike' ? Math.sin(th) : peakNorm;
+    const dInc = 2 * Math.PI * this.df / fs;
+    const noiseLift = Math.min(1000, 0.5 / Math.sqrt(Math.PI * (this.f / this.Q) / fs));
+    for (let i = 0; i < n; i++) {
+      let x = 0;
+      if (this.mode === 'strike') { x = this.kick; this.kick = 0; }
+      else if (this.mode === 'noise') { x = this.rnd() * 0.5 * noiseLift; }
+      else { this.ph += dInc; if (this.ph > 2 * Math.PI) this.ph -= 2 * Math.PI; x = Math.cos(this.ph); }
+      const y = g * x + a1 * this.y1 - a2 * this.y2;
+      const played = this.y1;
+      this.y2 = this.y1; this.y1 = y;
+      for (let c = 0; c < out.length; c++) out[c][i] = played * 0.5;
+      if (drv && drv[0]) drv[0][i] = this.mode === 'drive' ? x * 0.5 : 0;
+    }
+    return true;
+  }
+}
+registerProcessor('resonator', Resonator);
+`;
+
+const $ = (id) => document.getElementById(id);
+const Q$ = (sel, root) => Array.prototype.slice.call((root || document).querySelectorAll(sel));
+let ctx = null, node = null, anResp = null, starting = null, engineName = '';
+
+async function workletEngine() {
+  if (!ctx.audioWorklet) throw new Error('no AudioWorklet here');
+  const url = URL.createObjectURL(new Blob([WORKLET], { type: 'application/javascript' }));
+  await ctx.audioWorklet.addModule(url);
+  node = new AudioWorkletNode(ctx, 'resonator', { numberOfInputs: 0, numberOfOutputs: 2, outputChannelCount: [2, 1] });
+  return { out: [node, 0], name: 'worklet' };
+}
+function scriptEngine() {
+  // opened from file://, or anywhere the Blob-URL worklet is refused: the same class on a ScriptProcessor
+  let Proc;
+  new Function('AudioWorkletProcessor', 'registerProcessor', 'sampleRate', WORKLET)(
+    class { constructor() { this.port = { postMessage() {} }; } }, (_, c) => { Proc = c; }, ctx.sampleRate);
+  const proc = new Proc();
+  const sp = ctx.createScriptProcessor(1024, 0, 2);
+  sp.onaudioprocess = (e) => proc.process([], [[e.outputBuffer.getChannelData(0)], [e.outputBuffer.getChannelData(1)]]);
+  const split = ctx.createChannelSplitter(2);
+  sp.connect(split);
+  node = { port: { postMessage: (data) => proc.port.onmessage({ data }) }, keep: sp };
+  return { out: [split, 0], name: 'script' };
+}
+function send(m) { if (node) node.port.postMessage(m); }
+function audio() {
+  if (starting) return starting;
+  ctx = new (window.AudioContext || window.webkitAudioContext)();   // made inside the click, so it may sound
+  starting = (async () => {
+    const comp = ctx.createDynamicsCompressor(); comp.threshold.value = -12; comp.ratio.value = 6;
+    const master = ctx.createGain(); master.gain.value = 0.8;
+    const an = ctx.createAnalyser(); an.fftSize = 2048;
+    let eng; try { eng = await workletEngine(); } catch (e) { eng = scriptEngine(); }
+    engineName = eng.name;
+    eng.out[0].connect(comp, eng.out[1]); comp.connect(master); master.connect(ctx.destination);
+    eng.out[0].connect(an, eng.out[1]); anResp = an;
+    if (ctx.state !== 'running') await ctx.resume();
+  })();
+  return starting;
+}
+async function silence() { if (ctx && ctx.state === 'running') await ctx.suspend(); playing = null; showButtons(); }
+
+// ---- the steps -----------------------------------------------------------------------------
+const fFrom = (v) => 60 * Math.pow(2000 / 60, v / 1000);        // 60 Hz .. 2 kHz, log
+const qFrom = (v) => v >= 1000 ? Infinity : 0.5 * Math.pow(400, v / 990);   // 0.5 .. 200, then none
+const uFrom = (v) => Math.pow(2, (v - 500) / 250);              // × 1/4 .. 4
+// steps 3 and 4 push at a rate in hertz that holds still when the weight changes, so tuning the weight moves its
+// own rate toward or away from the push; step 5 still sets the push as a multiple of its own rate
+const pushHzFrom = (v) => 346.4 * uFrom(v);
+function fmtHz(x) { return x >= 1000 ? (x / 1000).toFixed(2) + ' kHz' : x.toFixed(x < 100 ? 1 : 0) + ' Hz'; }
+function fmtS(x) { return x === Infinity ? 'forever' : x >= 1 ? x.toFixed(2) + ' s' : (x * 1000).toFixed(x < 0.01 ? 2 : 1) + ' ms'; }
+function fmtQ(Q) { return Q === Infinity ? 'none (no friction)' : Q < 10 ? Q.toFixed(2) : Q.toFixed(0); }
+
+const S = {
+  step: 0,
+  f: 346.4,                                                      // the proof's default
+  k1: 500, w1: 500, q2: 724, u3: 250, u4: 250, q4: 450, u5: 500, q5: 450, s4src: 'sine', speed: false,
+};
+let playing = null;                                              // which step's sound is on
+const sim = { x: 0, v: 0, t: 0, trail: [], tPush: 0 };          // the drawn weight
+
+function stepQ() { return S.step === 0 ? Infinity : S.step === 1 ? qFrom(S.q2) : S.step === 2 ? 8 : S.step === 3 ? qFrom(S.q4) : qFrom(S.q5); }
+function stepU() { return S.step === 2 ? pushHzFrom(S.u3) / S.f : S.step === 3 ? pushHzFrom(S.u4) / S.f : S.step === 4 ? uFrom(S.u5) : 1; }
+function pushing() { return S.step >= 2 && S.step <= 4; }
+
+function configureSound() {
+  const Q = stepQ();
+  if (S.step <= 1) send({ mode: 'strike', f: S.f, Q });
+  else if (S.step === 3 && S.s4src === 'noise') send({ mode: 'noise', f: S.f, Q });
+  else send({ mode: 'drive', f: S.f, Q, df: S.f * stepU() });
+}
+function pluck() { const w = 2 * Math.PI * (S.f / SLOW); sim.v += w * 1.0; sim.tPluck = sim.t; sim.pluckAmp = Math.hypot(sim.x, sim.v / w); send({ strike: true }); }
+
+async function onPluck() {
+  await audio(); if (ctx.state !== 'running') await ctx.resume();
+  if (playing !== S.step) { send({ reset: true }); playing = S.step; }
+  configureSound(); pluck(); showButtons();
+}
+async function onPlay() {
+  if (playing === S.step && ctx && ctx.state === 'running') { await silence(); return; }
+  await audio(); if (ctx.state !== 'running') await ctx.resume();
+  send({ reset: true }); sim.x = 0; sim.v = 0; sim.trail = []; sim.tPush = sim.t;
+  playing = S.step; configureSound(); showButtons();
+}
+function showButtons() {
+  Q$('[data-play]').forEach((b) => { const on = playing === S.step && ctx && ctx.state === 'running'; b.dataset.on = String(on); b.textContent = on ? 'Stop' : 'Play'; });
+}
+Q$('[data-pluck]').forEach((b) => b.addEventListener('click', onPluck));
+Q$('[data-stop]').forEach((b) => b.addEventListener('click', () => { silence(); sim.x = 0; sim.v = 0; }));
+Q$('[data-play]').forEach((b) => b.addEventListener('click', onPlay));
+
+function bind(id, key, after) { $(id).value = S[key]; $(id).addEventListener('input', (e) => { S[key] = +e.target.value; if (after) after(); configureSound(); meters(); }); }
+const F0 = 346.4, mulFrom = (v) => Math.pow(4, (v - 500) / 500);   // the proof's default pitch; each slider ×¼ .. ×4
+function stepOneFreq() { return F0 * Math.sqrt(mulFrom(S.k1) / mulFrom(S.w1)); }
+bind('s1k', 'k1', () => { S.f = stepOneFreq(); });
+bind('s1w', 'w1', () => { S.f = stepOneFreq(); });
+// one weight for the whole page: moving any weight slider moves them all
+['s3w', 's4w'].forEach((id) => bind(id, 'w1', () => { S.f = stepOneFreq(); }));
+function syncWeights() { ['s1w', 's3w', 's4w'].forEach((id) => { if ($(id).value != S.w1) $(id).value = S.w1; }); }
+bind('s2q', 'q2');
+bind('s3d', 'u3');
+bind('s4d', 'u4', () => stopSweep());
+bind('s4q', 'q4');
+bind('s5d', 'u5');
+bind('s5q', 'q5');
+Q$('[data-s4src]').forEach((b) => b.addEventListener('click', () => {
+  S.s4src = b.dataset.s4src; Q$('[data-s4src]').forEach((x) => x.setAttribute('aria-pressed', String(x === b))); configureSound(); meters();
+}));
+$('s5d').closest('.step').querySelector('[data-s5speed]').addEventListener('click', (e) => { S.speed = !S.speed; e.target.setAttribute('aria-pressed', String(S.speed)); });
+
+let sweepRaf = 0;
+function stopSweep() { if (sweepRaf) cancelAnimationFrame(sweepRaf); sweepRaf = 0; $('s4sweep').textContent = 'Sweep the push through its own rate'; }
+$('s4sweep').addEventListener('click', async () => {
+  if (sweepRaf) { stopSweep(); return; }
+  if (S.s4src !== 'sine') Q$('[data-s4src]')[0].click();
+  if (!(playing === 3 && ctx && ctx.state === 'running')) await onPlay();
+  const t0 = performance.now(), dur = 10000;
+  $('s4sweep').textContent = 'Stop the sweep';
+  const step = (t) => {
+    const a = Math.min(1, (t - t0) / dur);
+    S.u4 = Math.round(250 + 500 * a); $('s4d').value = S.u4;     // f/2 .. 2f over ten seconds
+    configureSound(); meters();
+    if (a < 1 && S.step === 3) sweepRaf = requestAnimationFrame(step); else stopSweep();
+  };
+  sweepRaf = requestAnimationFrame(step);
+});
+
+function meters() {
+  const f = S.f, fv = f / SLOW;
+  $('s1kv').textContent = 'k × ' + mulFrom(S.k1).toFixed(2);
+  $('s1wv').textContent = 'm × ' + mulFrom(S.w1).toFixed(2);
+  $('s1m').innerHTML = `rings at <b>${fmtHz(f)}</b> · one bob every ${fmtS(1 / f)} · drawn at ${fv.toFixed(2)} bobs a second`;
+  const Q2 = qFrom(S.q2);
+  $('s2qv').textContent = fmtQ(Q2);
+  $('s2m').innerHTML = Q2 === Infinity ? 'no friction: this is step 1 again. It rings <b>forever</b>.'
+    : Q2 <= 0.5001 ? `Q ${fmtQ(Q2)}: just enough friction that it no longer rings, only sags back` :
+    `ζ = ${(1 / (2 * Q2)).toPrecision(3)} · falls 60 dB in <b>${fmtS(ringTime(f, Q2))}</b> · about <b>${Math.round(f * ringTime(f, Q2))}</b> swings before it is gone`;
+  syncWeights();
+  const h3 = pushHzFrom(S.u3), u3 = h3 / f;
+  $('s3dv').textContent = fmtHz(h3);
+  $('s3wv').textContent = 'm × ' + mulFrom(S.w1).toFixed(2) + ' · ' + fmtHz(f);
+  $('s3m').innerHTML = `its own rate <b>${fmtHz(f)}</b> · your push <b>${fmtHz(h3)}</b> (${u3.toFixed(2)} × its own) · once settled it moves at <b>${fmtHz(h3)}</b>, ${gain(u3, 8).toFixed(2)} × as far as the push held still`;
+  const h4 = pushHzFrom(S.u4), u4 = h4 / f, Q4 = qFrom(S.q4);
+  $('s4dv').textContent = fmtHz(h4) + ' (' + u4.toFixed(2) + ' × its own rate)';
+  $('s4wv').textContent = 'm × ' + mulFrom(S.w1).toFixed(2) + ' · ' + fmtHz(f);
+  $('s4qv').textContent = fmtQ(Q4);
+  $('s4m').innerHTML = S.s4src === 'noise'
+    ? `every push at once: what comes out is the band <b>${fmtHz(f / Q4)}</b> wide around ${fmtHz(f)}`
+    : `it swings <b>${gain(u4, Q4).toFixed(2)} ×</b> as far as the push held still · at its own rate it would be <b>${Q4 === Infinity ? '∞' : Q4.toFixed(1)} ×</b> · the band is <b>${fmtHz(f / Q4)}</b> wide`;
+  const u5 = uFrom(S.u5), Q5 = qFrom(S.q5);
+  $('s5dv').textContent = fmtHz(f * u5) + ' (' + u5.toFixed(2) + ' × f)';
+  $('s5qv').textContent = fmtQ(Q5);
+  $('s5m').innerHTML = `the weight is <b>${lag(u5, Q5).toFixed(0)}°</b> behind the push · ${lag(u5, Q5) < 30 ? 'moving with your hand' : lag(u5, Q5) > 150 ? 'moving against your hand' : Math.abs(lag(u5, Q5) - 90) < 8 ? 'a quarter cycle behind: every push adds' : 'turning over'}`;
+}
+
+// ---- drawing ---------------------------------------------------------------------------------
+const css = (v) => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+function fit(c) {
+  const dpr = window.devicePixelRatio || 1, w = c.clientWidth, h = Math.round(w * (+c.dataset.aspect || 0.42));
+  c.style.height = h + 'px';
+  if (c.width !== Math.round(w * dpr) || c.height !== Math.round(h * dpr)) { c.width = Math.round(w * dpr); c.height = Math.round(h * dpr); }
+  const g = c.getContext('2d'); g.setTransform(dpr, 0, 0, dpr, 0, 0); return [g, w, h];
+}
+function hatch(g, x0, y0, x1, y1, color) {
+  g.save(); g.beginPath(); g.rect(x0, y0, x1 - x0, y1 - y0); g.clip(); g.strokeStyle = color; g.lineWidth = 1;
+  for (let k = -(y1 - y0); k < x1 - x0; k += 6) { g.beginPath(); g.moveTo(x0 + k, y1); g.lineTo(x0 + k + (y1 - y0), y0); g.stroke(); }
+  g.restore();
+}
+function label(g, text, x, y, color) { g.fillStyle = color || css('--ink-3'); g.font = '10.5px ' + css('--font-mono'); g.fillText(text, x, y); }
+
+const REST = 0.5;                                               // the weight's rest line and the trace's middle, as a share of the height
+// the weight on its spring, with the hand when pushing; scale: pixels per unit of "held push"
+function drawSpring(g, x0, w, h, pos, push, scale) {
+  const big = Math.sqrt(mulFrom(S.w1));                          // block area grows with its weight
+  const cx = x0 + w / 2, top = 18, rest = h * REST, y = rest + clampSwing(h, pos * scale), bw = Math.min(70, w * 0.4) * big, bh = Math.min(34 * big, h * 0.15);
+  hatch(g, cx - bw, 4, cx + bw, top, css('--rule')); g.strokeStyle = css('--ink'); g.lineWidth = 2; g.beginPath(); g.moveTo(cx - bw, top); g.lineTo(cx + bw, top); g.stroke();
+  const coils = 12, sy = top, ey = y - bh / 2; g.lineWidth = 0.6 + 1.1 * Math.sqrt(mulFrom(S.k1)); g.beginPath(); g.moveTo(cx, sy);
+  for (let i = 1; i < coils * 2; i++) g.lineTo(cx + (i % 2 ? -14 : 14), sy + (ey - sy) * i / (coils * 2));
+  g.lineTo(cx, ey); g.stroke();
+  g.fillStyle = css('--slab-face'); g.fillRect(cx - bw / 2, y - bh / 2, bw, bh);
+  g.strokeStyle = css('--ink'); g.lineWidth = 1.5; g.strokeRect(cx - bw / 2, y - bh / 2, bw, bh);
+  g.strokeStyle = css('--rule'); g.setLineDash([3, 3]); g.beginPath(); g.moveTo(x0 + 6, rest); g.lineTo(x0 + w - 6, rest); g.stroke(); g.setLineDash([]);
+  if (push !== null) {
+    // the push, measured from the rest line as the amber trace is: an arrow just right of the weight, from rest to
+    // where a push held still would put the weight; drawLink joins its tip to the amber trace's head
+    const xa = pushX(cx, bw), len = clampSwing(h, push * scale), tip = rest + len, head = Math.sign(len) * Math.min(7, Math.abs(len));
+    g.strokeStyle = css('--source-assumed'); g.fillStyle = css('--source-assumed'); g.lineWidth = 3;
+    g.beginPath(); g.moveTo(xa, rest); g.lineTo(xa, tip); g.stroke();
+    if (Math.abs(len) > 3) { g.beginPath(); g.moveTo(xa - 6, tip - head); g.lineTo(xa + 6, tip - head); g.lineTo(xa, tip + head * 0.3); g.closePath(); g.fill(); }
+    label(g, 'push', xa + 18, rest - 6, css('--source-assumed'));
+  }
+}
+// the weight's centre and the trace's newest point are one height: a dotted line joins them, a dot marks the head
+function pushX(cx, bw) { return cx + bw / 2 + 16; }
+function drawLink(g, split, head, h, scale, push) {
+  const y = h * REST + clampSwing(h, sim.x * scale), bw = Math.min(70, split * 0.4) * Math.sqrt(mulFrom(S.w1));
+  if (push !== undefined && push !== null) {
+    // the push's tip and the amber trace's head are one height, joined the same way as the weight's
+    const xa = pushX(split / 2, bw), yp = h * REST + clampSwing(h, push * scale);
+    g.strokeStyle = css('--source-assumed'); g.lineWidth = 1; g.setLineDash([2, 3]);
+    g.beginPath(); g.moveTo(xa, yp); g.lineTo(head, yp); g.stroke(); g.setLineDash([]);
+    g.fillStyle = css('--source-assumed'); g.beginPath(); g.arc(xa + 9, yp, 3, 0, 7); g.fill();
+    // the head as a ring, so it stays in view when the weight's red dot sits on it
+    g.strokeStyle = css('--source-assumed'); g.lineWidth = 2; g.beginPath(); g.arc(head, yp, 5.5, 0, 7); g.stroke();
+  }
+  g.strokeStyle = css('--accent'); g.lineWidth = 1; g.setLineDash([2, 3]);
+  g.beginPath(); g.moveTo(split / 2 + bw / 2, y); g.lineTo(head, y); g.stroke(); g.setLineDash([]);
+  g.fillStyle = css('--accent'); g.beginPath(); g.arc(split / 2, y, 2.5, 0, 7); g.fill(); g.beginPath(); g.arc(head, y, 3.5, 0, 7); g.fill();
+}
+// a trail of [t, x, push, speed] over the last span seconds
+function drawTrail(g, x0, w, h, span, scale, opts) {
+  const mid = h * REST, t1 = sim.t, t0 = t1 - span, X = (t) => x0 + w * (t - t0) / span;
+  g.strokeStyle = css('--rule-soft'); g.lineWidth = 1; g.beginPath(); g.moveTo(x0, mid); g.lineTo(x0 + w, mid); g.stroke();
+  const line = (idx, color, width, k) => { g.strokeStyle = color; g.lineWidth = width; g.beginPath(); let first = true;
+    for (const p of sim.trail) { if (p[0] < t0) continue; const yy = mid + clampSwing(h, p[idx] * scale * (k || 1)); first ? g.moveTo(X(p[0]), yy) : g.lineTo(X(p[0]), yy); first = false; } g.stroke(); };
+  if (opts.push) line(2, css('--source-assumed'), 2);
+  if (opts.speed) line(3, css('--ok') || '#3a7d2c', 1.5);
+  line(1, css('--ink'), 1.6);
+  label(g, 'now', x0 + w - 26, h - 4); label(g, '−' + span.toFixed(0) + ' s (drawn time)', x0 + 2, h - 4);
+}
+// over the weight's own trace (step 2): the hatched envelope of its last pluck, and the red line where it has
+// fallen 60 dB. Drawn time, like the trace; the same number of swings as the sound.
+function drawEnvelope(g, x0, w, h, span, scale, fv, Q) {
+  if (sim.tPluck === undefined || Q === Infinity || Q <= 0.5001) return;
+  const mid = h * REST, t1 = sim.t, t0 = t1 - span, X = (t) => x0 + w * (t - t0) / span, d = Math.PI * fv / Q;
+  const tp = Math.max(sim.tPluck, t0), A = (t) => sim.pluckAmp * Math.exp(-d * (t - sim.tPluck)) * scale;
+  g.save(); g.beginPath(); g.moveTo(X(tp), mid - A(tp));
+  for (let i = 0; i <= 120; i++) { const t = tp + (t1 - tp) * i / 120; g.lineTo(X(t), mid - A(t)); }
+  for (let i = 120; i >= 0; i--) { const t = tp + (t1 - tp) * i / 120; g.lineTo(X(t), mid + A(t)); }
+  g.closePath(); g.clip(); hatch(g, x0, 0, x0 + w, h, css('--rule')); g.restore();
+  const t60 = sim.tPluck + ringTime(fv, Q);
+  if (t60 <= t1) { g.strokeStyle = css('--accent'); g.lineWidth = 2; g.beginPath(); g.moveTo(X(t60), 6); g.lineTo(X(t60), h - 16); g.stroke(); label(g, '−60 dB', X(t60) + 4, 14, css('--accent')); }
+  else label(g, '−60 dB in ' + (t60 - t1).toFixed(0) + ' s more (drawn time)', x0 + 4, 14, css('--accent'));
+}
+// step 4's curve, drawn in the weight's own units and pixels and measured up from the weight's rest line, so how
+// high the weight swings and how tall the curve stands are one height
+function drawPeakFace(g, x0, w, h, scale) {
+  // the axis is the push rate in hertz, fixed: change the weight and the peak slides along it under a push that holds still
+  const Q = qFrom(S.q4), f = S.f, hz = pushHzFrom(S.u4), lo = 346.4 / 4, hi = 346.4 * 4, rest = h * REST;
+  const X = (r) => x0 + w * Math.log(r / lo) / Math.log(hi / lo), Y = (v) => rest - Math.min(EDGE * h, v * scale);
+  const half = 1 / (2 * Q); hatch(g, X(Math.max(lo, f * (1 - half))), rest - EDGE * h, X(Math.min(hi, f * (1 + half))), rest, css('--rule'));
+  g.strokeStyle = css('--rule-soft'); g.lineWidth = 1; g.beginPath(); g.moveTo(x0, rest); g.lineTo(x0 + w, rest); g.stroke();
+  g.strokeStyle = css('--rule'); g.setLineDash([4, 4]); g.beginPath(); g.moveTo(x0, Y(1)); g.lineTo(x0 + w, Y(1)); g.stroke(); g.setLineDash([]);
+  label(g, '1 × a push held still', x0 + 4, Y(1) - 4);
+  g.strokeStyle = css('--ink'); g.lineWidth = 1.6; g.beginPath();
+  for (let i = 0; i <= 400; i++) { const r = lo * Math.pow(hi / lo, i / 400), yy = Y(gain(r / f, Q)); i ? g.lineTo(X(r), yy) : g.moveTo(X(r), yy); }
+  g.stroke();
+  const peak = gain(1, Q);
+  label(g, (peak * scale > EDGE * h ? '↑ off the sheet: ' : 'its own rate: ') + peak.toFixed(1) + ' ×', X(f) + 8, Math.max(12, Y(peak) + 4), peak * scale > EDGE * h ? css('--accent') : null);
+  g.strokeStyle = css('--ink-3'); g.lineWidth = 1; g.beginPath(); g.moveTo(X(f), rest - 4); g.lineTo(X(f), rest + 4); g.stroke();
+  label(g, 'f ' + fmtHz(f), X(f) - 14, rest + 26);
+  label(g, fmtHz(lo), X(lo), rest + 14); label(g, fmtHz(hi), X(hi) - 44, rest + 14);
+  label(g, 'push rate, in hertz →', x0 + w * 0.62, rest + 14);
+  if (S.s4src === 'sine') {
+    g.strokeStyle = css('--source-assumed'); g.lineWidth = 1.5; g.beginPath(); g.moveTo(X(hz), rest); g.lineTo(X(hz), Y(gain(hz / f, Q))); g.stroke();
+    label(g, 'push ' + fmtHz(hz), X(hz) + 4, rest - 6, css('--source-assumed'));
+    g.fillStyle = css('--accent'); g.beginPath(); g.arc(X(hz), Y(gain(hz / f, Q)), 4, 0, 7); g.fill();
+  }
+  return { X, Y };
+}
+// the top of the weight's swing over the last push, on the weight, joined to the curve's dot at the push rate
+function drawSwingTop(g, split, h, scale, faceXY, u, Q, fv) {
+  const bw = Math.min(70, split * 0.4) * Math.sqrt(mulFrom(S.w1)), cx = split / 2, period = 1 / (fv * u);
+  let up = 0; for (const p of sim.trail) if (p[0] >= sim.t - period) up = Math.max(up, -p[1]);
+  const y = h * REST - Math.min(EDGE * h, up * scale), xd = faceXY.X(u * S.f), yd = faceXY.Y(gain(u, Q));
+  g.strokeStyle = css('--accent'); g.lineWidth = 2; g.beginPath(); g.moveTo(cx - bw / 2 - 8, y); g.lineTo(cx + bw / 2 + 8, y); g.stroke();
+  label(g, 'top of its swing', cx - bw / 2 - 8, y - 5, css('--accent'));
+  g.lineWidth = 1; g.setLineDash([2, 3]); g.beginPath(); g.moveTo(cx + bw / 2 + 8, y); g.lineTo(xd, yd); g.stroke(); g.setLineDash([]);
+}
+// when the swing is bigger than the sheet, the sheet says so
+function drawOffSheet(g, x0, h, scale, span, unit, y) {
+  let big = 0; for (const p of sim.trail) if (p[0] >= sim.t - span) big = Math.max(big, Math.abs(p[1]));
+  if (big * scale > EDGE * h) label(g, '↕ the weight swings off the sheet: ' + big.toFixed(1) + ' × ' + unit, x0 + 4, y || 14, css('--accent'));
+}
+function drawLagFace(g, x0, w, h) {
+  const pad = 16, Q = qFrom(S.q5), u = uFrom(S.u5), lo = 0.25, hi = 4;
+  const X = (uu) => x0 + pad + (w - 2 * pad) * Math.log(uu / lo) / Math.log(hi / lo), Y = (d) => pad + (h - 2 * pad) * d / 180;
+  g.strokeStyle = css('--rule-soft'); g.lineWidth = 1; [0, 90, 180].forEach((d) => { g.beginPath(); g.moveTo(x0 + pad, Y(d)); g.lineTo(x0 + w - pad, Y(d)); g.stroke(); });
+  label(g, '0° with', x0 + pad, Y(0) - 3); label(g, '90° a quarter behind', x0 + pad, Y(90) - 3); label(g, '180° against', x0 + pad, Y(180) - 3);
+  g.strokeStyle = css('--ink'); g.lineWidth = 1.6; g.beginPath();
+  for (let i = 0; i <= 300; i++) { const uu = lo * Math.pow(hi / lo, i / 300), yy = Y(lag(uu, Q === Infinity ? 1e6 : Q)); i ? g.lineTo(X(uu), yy) : g.moveTo(X(uu), yy); }
+  g.stroke();
+  g.fillStyle = css('--source-assumed'); g.beginPath(); g.arc(X(u), Y(lag(u, Q === Infinity ? 1e6 : Q)), 5, 0, 7); g.fill();
+  label(g, 'f/4', X(lo), h - 2); label(g, 'f', X(1) - 3, h - 2); label(g, '4f', X(hi) - 12, h - 2);
+}
+
+// ---- the loop: step the drawn weight, draw the current step --------------------------------
+let lastT = performance.now();
+function frame(now) {
+  const dt = Math.min(0.05, (now - lastT) / 1000); lastT = now;
+  const Q = stepQ(), fv = S.f / SLOW, u = stepU();
+  const live = playing === S.step && ctx && ctx.state === 'running';
+  const noise = S.step === 3 && S.s4src === 'noise';
+  // a sine push; or, for every push at once, a fresh random push each frame
+  const F = !(live && pushing()) ? 0 : noise ? (Math.random() * 2 - 1) * 1.5 : Math.sin(2 * Math.PI * fv * u * (sim.t - sim.tPush));
+  const sub = 40; for (let i = 0; i < sub; i++) springStep(sim, dt / sub, fv, Q, F);
+  sim.t += dt;
+  sim.trail.push([sim.t, sim.x, F, sim.v / (2 * Math.PI * fv)]);
+  while (sim.trail.length && sim.trail[0][0] < sim.t - 24) sim.trail.shift();
+  const c = document.querySelector('section.step:not([hidden]) canvas');
+  if (c) {
+    const [g, w, h] = fit(c); g.clearRect(0, 0, w, h);
+    const kind = c.dataset.canvas, split = kind === 'lag' ? Math.min(150, w * 0.18) : kind === 'peak' ? Math.min(200, w * 0.28) : Math.min(220, w * 0.34);
+    // how many seconds of drawn time the trace shows: step 2 widens to hold the ring, up to 20 s
+    const span = kind === 'ring' ? Math.max(4, Math.min(20, 1.15 * ringTime(fv, Q === Infinity ? 1e9 : Q))) : kind === 'push' ? 6 : 4;
+    // one fixed scale for the weight, its trace and step 4's curve: never re-scaled, so a tall swing looks tall
+    const scale = swingScale(h, pushing() ? PUSH_REACH : PLUCK_REACH), unit = pushing() ? 'a push held still' : 'one pluck';
+    if (kind === 'spring') { drawSpring(g, 0, split, h, sim.x, null, scale); drawTrail(g, split + 10, w - split - 18, h, 4, scale, {}); drawLink(g, split, w - 8, h, scale);  drawOffSheet(g, split + 14, h, scale, span, unit); }
+    if (kind === 'ring') { drawSpring(g, 0, split, h, sim.x, null, scale); drawEnvelope(g, split + 10, w - split - 18, h, span, scale, fv, Q); drawTrail(g, split + 10, w - split - 18, h, span, scale, {}); drawLink(g, split, w - 8, h, scale);  drawOffSheet(g, split + 14, h, scale, span, unit); }
+    if (kind === 'push') { drawSpring(g, 0, split, h, sim.x, live ? F : null, scale); drawTrail(g, split + 10, w - split - 18, h, 6, scale, { push: true }); drawLink(g, split, w - 8, h, scale, live ? F : null);  drawOffSheet(g, split + 14, h, scale, span, unit); }
+    if (kind === 'peak') {
+      drawSpring(g, 0, split, h, sim.x, live && !noise ? F : null, scale);
+      const face = drawPeakFace(g, split + 10, w - split - 18, h, scale);
+      if (live && !noise) drawSwingTop(g, split, h, scale, face, u, Q, fv);
+      drawOffSheet(g, split + 14, h, scale, 4, unit, h - 22);
+    }
+    if (kind === 'lag') { const half = w * 0.6; drawSpring(g, 0, split, h, sim.x, live ? F : null, scale); drawTrail(g, split + 10, half - split - 28, h, span, scale, { push: true, speed: S.speed }); drawLink(g, split, half - 18, h, scale, live ? F : null); drawLagFace(g, half, w - half, h);  drawOffSheet(g, split + 14, h, scale, span, unit); }
+  }
+  requestAnimationFrame(frame);
+}
+
+// ---- walking the steps ---------------------------------------------------------------------
+const steps = Q$('section.step'), rail = document.querySelector('.rail');
+steps.forEach((s, i) => { const b = document.createElement('button'); b.textContent = (i + 1) + ' · ' + s.dataset.title; b.addEventListener('click', () => go(i)); rail.appendChild(b); });
+function go(i) {
+  if (i === S.step) return;
+  silence(); stopSweep();
+  S.step = Math.max(0, Math.min(steps.length - 1, i));
+  steps.forEach((s, k) => { s.hidden = k !== S.step; });
+  Q$('button', rail).forEach((b, k) => { if (k === S.step) b.setAttribute('aria-current', 'step'); else b.removeAttribute('aria-current'); if (k <= S.step) b.classList.add('seen'); });
+  sim.x = 0; sim.v = 0; sim.trail = [];
+  $('back').disabled = S.step === 0; $('next').disabled = S.step === steps.length - 1;
+  meters(); showButtons();
+}
+$('back').addEventListener('click', () => go(S.step - 1));
+$('next').addEventListener('click', () => go(S.step + 1));
+// the notes boxes keep what is typed in this browser, so a reload or a closed tab loses nothing
+Q$('section.step').forEach((sec, i) => {
+  const ta = sec.querySelector('textarea'), key = 'resonance-and-damping/q-step-by-step/note-' + i;
+  try { const v = localStorage.getItem(key); if (v) ta.value = v; } catch (e) {}
+  ta.addEventListener('input', () => { try { localStorage.setItem(key, ta.value); } catch (e) {} });
+});
+$('copy').addEventListener('click', () => {
+  const text = Q$('section.step').map((s, i) => (i + 1) + '. ' + s.dataset.title + ': ' + (s.querySelector('textarea').value || '—')).join('\n');
+  const done = () => { $('copied').textContent = 'copied'; };
+  if (navigator.clipboard) navigator.clipboard.writeText(text).then(done, () => { $('copied').textContent = text; }); else $('copied').textContent = text;
+});
+
+// A hidden tab says nothing: stop the sound and the sweep, and wait for the next Pluck or Play to start
+// again (no auto-resume). The house rule: Progressive Staging § Inside One Piece, _ops/rich-face/rich.js.
+document.addEventListener('visibilitychange', () => { if (document.hidden) { stopSweep(); silence(); } });
+
+S.f = stepOneFreq();
+Q$('button', rail)[0].setAttribute('aria-current', 'step'); Q$('button', rail)[0].classList.add('seen');
+$('back').disabled = true;
+meters();
+requestAnimationFrame(frame);
+</script>
+</body>
+</html>

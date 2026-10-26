@@ -2,7 +2,7 @@
 
 The HTML page Loudon publishes alongside (or instead of) the live stream. Long-form, serif-bodied, dense with technical detail, and built so a viewer can stop the video and *follow the build* in the page.
 
-**Canonical reference:** `_reference/shepard-tone-session.html` — the Stage 1 *Shepard Tone Synthesizer* artifact from `The Palace/Projects/Shepard Tone Synthesizer/session-1-interactive.html`. The footer of that file reads *Loudon Live · Autodidact Polymaths* — that's the audience signature.
+**Canonical reference:** `_reference/shepard-tone-session.html` — the Stage 1 *Shepard Tone Synthesizer* artifact from `The Palace/Projects/Shepard Tone Synthesizer/session-1-interactive.html`. The footer of that file reads *Loudon Live · Autodidact Polymaths* — the old audience signature, retired from footers 2026-07; new artifacts sign `Loud'n Live` alone.
 
 ## Components
 
