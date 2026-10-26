@@ -56,7 +56,7 @@ If a source was flagged `partial`, the deposit map should reflect that — only 
 
 The palace has begun functioning as a task surface — a place where outstanding work is tracked, not just where knowledge is stored. This is a deliberate scoping decision: the palace tracks *palace tasks* (deposit queue, ceremony to-dos, structural improvements) but not general life tasks. Keeping this boundary intact preserves the palace's identity as a knowledge organism. A knowledge organism that becomes a general GTD system loses the quality that makes it distinct.
 
-The [[Palace To-Do]] entry is the designated surface for palace tasks. General life management belongs elsewhere.
+Palace tasks are carried as batons on the board ([[Baton Ceremony]]); the To-Do that once held them retired on 2026-10-25. General life management belongs elsewhere.
 
 ## Ceremonies Teach Practices by Requiring Structures
 
