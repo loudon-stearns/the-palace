@@ -29,7 +29,7 @@ links:
     label: "applied-to-tools"
   - target: "[[BBS Blackboard]]"
     type: contradicts
-    label: "alternative-to"
+    label: "one-foreman-vs-many-agents"
   - target: "[[Quality Manifesto]]"
     type: connects-to
     label: "tier-as-quality-boundary"
