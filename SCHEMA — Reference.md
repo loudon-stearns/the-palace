@@ -393,7 +393,7 @@ The strict validator gates malformed posts, and **as of v1.17 the gate matches t
 | `PROOF` | Evidence a postcondition was met — a ceremony's "it completed." |
 | `REPLY` | A threaded response to a prior message (`re`). |
 | `SESSION_INIT` / `SESSION_CLOSE` | Open/close a run; `SESSION_INIT.payload` names the `session_kind` (e.g. `enchanted_songline`, permanent stewardship) and its path. |
-| `RETRACT` | Withdraw a prior message that was posted in error, naming it in `re` and giving a one-line reason. The board is append-only, so a mistake is corrected by *adding* the retraction, never by editing the line. Ratified v1.17 after a wrong-path `handoff_ready` had to be corrected by overloading `handoff_picked_up` plus a repost — workable, but it made a naive board reader hit the wrong path first. |
+| `RETRACT` | Withdraw a prior message that was posted in error or is no longer true — a card whose worktree coordinate has gone stale — naming it in `re` and giving a one-line reason. A move that is still live is reposted first and then retracted, so it is never off the board. The board is append-only, so a message is corrected by *adding* the retraction, never by editing the line. Ratified v1.17 after a wrong-path `handoff_ready` had to be corrected by overloading `handoff_picked_up` plus a repost — workable, but it made a naive board reader hit the wrong path first. |
 
 **Boards** route attention: `GENERAL` (status/content), `TRICKSTER` (decisions for the human), `WEAVE` (palace-weaving flags: weave flags for the next weave, and the proofs and sparks that feed it), `FLAGS` (connections worth keeping), `SYSTEM` (session lifecycle).
 

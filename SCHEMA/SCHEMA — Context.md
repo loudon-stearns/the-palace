@@ -114,6 +114,8 @@ v1.16 — the Return Ceremony.** Added 2026-08-25. The palace had ceremonies for
 
 **Migration of existing flat companions:** Files like `Jewel — Context.md` and `Deposit Ceremony — Context.md` currently live flat in their parent's directory. They remain valid in their current location. Migration into bundles is queued for the next Weave per [[Palace To-Do]] — the Weave Ceremony's general scope includes fixing mis-located and mis-linked items.
 
+**`RETRACT` covers a message gone stale (2026-10-26, an edit, no version move).** The rich-face pieces card (`stigmergy-remainder-20261021T125648Z`) still sends its catcher to a worktree that was removed. It was not posted in error; it stopped being true, and an append-only board can withdraw a line only by adding one. The draft ([[STIGMERGY — sketch — clearing a dead coordinate]]) weighed two routes: widen `RETRACT`, or mint a `handoff_amended` event the fold would apply over a card's payload, which keeps the card's id and claim history but is a new kind and needs a Schema Ceremony. Loudon, 2026-10-26: "widen RETRACT in SCHEMA — Reference §9 to cover a card that went stale, not just one posted in error." No message type was added or removed, so no §5 trigger applies; the row's meaning changed on his yes. A move still live is reposted before it is retracted, the order `close-handoff.mjs` already keeps for a remainder. The reader code that honours a retracted card (`handoff-model.mjs`'s fold, the app's `queue-model.js`) is not yet written; it rides on [[STIGMERGY — baton — stale worktree on remainder]].
+
 ---
 
 ## §1 / §3 / §9 — v1.17, the reduction ceremony (2026-08-25)
