@@ -15,27 +15,29 @@ forward_vector: "I am Generative Audio Devices's scroll — the one page that al
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-25T00:50:07.254Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-26T13:57:24.344Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** sprout · **Steward:** cycle 0 · last ran —
-- **Plan:** agreed 2026-10-24 (today) · 0 made things since
-- **Waiting on you:** nothing
+- **Status:** active · **Stage:** sprout · **Steward:** cycle 1 · last ran 2026-10-26 (today)
+- **Plan:** agreed 2026-10-24 (2 days ago) · 1 made thing since · **a proposed revision is waiting on you**
+- **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** nothing on the board yet — but the bundle holds 1 media file (see the making trail)
-- **Last commit touching this project:** 2026-10-21 `036f9a27` — ops(rich-face): the pins: 57 CDN script tags in 35 pages load their library from the shelf, at an exact version with its integrity hash, on Loudon's yes
+- **Last shipped:** 2026-10-26 (today) — Every patch I emit now opens on the QWERTY keyboard and the MacBook speakers, with each envelope and LFO under the module it moves. Thirteen ready to load. (`gad-steward-002`)
+- **Last commit touching this project:** 2026-10-24 `769c93ad` — ops(Weave): one link per pair: 322 folds; two composting pages let go; 30 ghost links fixed; the hub bar moves to the top inbound decile; Walk That Weaves and deal.py carried
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
-- **Runs:** none in the ledger yet
-- **Last run:** none in the ledger yet
+- **Runs:** 1 run on 1 day, counted from the ledger's run lines
+- **Last run:** 2026-10-26 — cycle 1 · taught item 1, proposed item 2 for canon
 - **Owed in the ledger:** 1 — 1 order from Loudon; the next run's tail read picks it up first
+- **Proposed for canon:** 1 — item 2; waiting on Loudon's review, and the page has not changed
+- **Latest lesson:** item 2, from cycle 1 — 2026-10-26 — [[Generative Audio Devices — tuning]]
 
 ### Where this stands
 
-_The steward has not spoken yet._
+Generative Audio Devices turns a plain description of a sound into a patch you can load: English goes in, a neutral patch language (PDL) sits in the middle, and a VCV Rack file comes out. That whole chain has worked since May. On 2026-10-24 you played the April house bass in Rack, called it alive, and asked for two things on every patch: MIDI from the computer keyboard and sound out of the MacBook speakers, so a patch is quick to test, and each modulator on the row right under the module it modulates. This cycle built both into the emitter. Every patch the project can make now comes out that way, and thirteen of them are ready in one folder.
 
 ### Open asks
 
-_None — nothing is waiting on you._
+- `gad-steward-003` — proposed plan revision: plan after the revival · posted 2026-10-26 · options: adopt · keep
 
 ### Answered, not yet consumed
 
@@ -47,11 +49,17 @@ _Nothing decided on the board yet._
 
 ### Runs
 
-_None yet._
+- 2026-10-26 — cycle 1 · taught item 1, proposed item 2 for canon
 
 ### Owed
 
 - **From Loudon, 2026-10-24.** "Yes, land the revival as drafted, with the small Plan edit.": propose a plan for Generative Audio Devices as a plan_revision ask for his yes, where the work is going and the moves ahead each named by what it does, opening with what he asked when he played the house bass in Rack (the computer keyboard and the MacBook speakers as every patch's defaults, and each modulator on the row under the module it modulates; the Standing Orders), since the revival lands without an agreed plan and Revival Ceremony v2.1 step 5 says a page that already has a steward lands then plans
+
+### Proposed for canon
+
+_Changes the steward wants in the house, kept in its tuning ledger until Loudon's review. Its cycles work as if they hold; the pages have not changed._
+
+- **2.** 2026-10-26 · [[Generative Audio Devices]] · § Where it stands, the second paragraph (beginning 'Next, every emitted patch is quick to hear') — the paragraph describes as missing what this cycle built; the 'Device defaults' bullet under What still does NOT exist should go with it
 
 <!-- scroll:now:end -->
 
@@ -84,6 +92,66 @@ Written on Loudon's word at the revival, 2026-10-24, when he played the house ba
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="gad-steward-002" -->
+### 2026-10-26 — cycle 1 — Every patch I emit now opens on the QWERTY keyboard and the MacBook speakers, with each envelope and LFO under the module it moves. Thirteen ready to load.
+> shipped · both standing orders built and checked, 141/141 · not yet opened in Rack · steward leans: load house_bass first
+
+**The devices.** I didn't write the device settings from memory. I copied them byte for byte from the copy Rack saved on your Mac when you re-saved the house bass: the MIDI module on "QWERTY keyboard (US)" and the audio module on "MacBook Pro Speakers" at 48 kHz. They live in the vocabulary file (now version 2.5) as each module's default settings, and the emitter writes them into the patch. Before this, every module went out with empty settings, so Rack opened on whatever device it happened to pick.
+
+**The layout.** The top row hasn't changed: keyboard on the far left, then the audio path in signal order, speakers on the far right. On the second row, each envelope or LFO now lines up under the first signal-path module its cable goes into. An LFO that only feeds an envelope takes that envelope's module. When two modulators want the same spot, the second moves right only as far as it has to, because Rack shoves overlapping modules around when it loads. Before this, the second row was just packed left to right by depth. In the house bass, for example, the filter envelope now sits under the filter at 21 HP and the amp envelope under the VCA at 29 HP. In the 808 kicks, the pitch envelope sits under the oscillator.
+
+**The check.** A new harness, `verify_standing_orders.js`, runs every PDL the project holds through the real emitter: the house bass, the three archetype recipes and all nine candidates from the generation-prompt runs. For each patch it checks both orders and that nothing overlaps. Result: 141 passed, 0 failed. The older harnesses still pass (21/21 and 36/36), and so do all three generation-prompt runs.
+
+For one click, [rack-layouts.html](obsidian://open?vault=The%20Palace&file=Projects/Generative%20Audio%20Devices/proofs/2026-10-26-ready-to-play/rack-layouts.html) draws all thirteen patches the way Rack will lay them out. To play one: [house_bass.vcv](open:Projects/Generative Audio Devices/proofs/2026-10-26-ready-to-play/house_bass.vcv).
+
+One more thing I found: your three hand refinements in `recipes/` are saved compressed, the way Rack saves, and their layouts don't follow one rule. In the kick, the pitch envelope sits under the keyboard module. In the pad, the LFO sits under the oscillator, even though it moves the filter. So I followed your order as written, not those layouts. If you meant 'roughly under', the rule is one function and easy to loosen.
+
+**Artifacts:**
+- [all thirteen patches drawn as Rack will lay them out, with modulators joined to their targets.](Projects/Generative Audio Devices/proofs/2026-10-26-ready-to-play/rack-layouts.html)
+- [the house bass, re-emitted: QWERTY in, MacBook out, both envelopes under what they move. Start here.](Projects/Generative Audio Devices/proofs/2026-10-26-ready-to-play/house_bass.vcv)
+- [kick recipe, seed 1.](Projects/Generative Audio Devices/proofs/2026-10-26-ready-to-play/kick-seed-1.vcv)
+- [pluck recipe, seed 1.](Projects/Generative Audio Devices/proofs/2026-10-26-ready-to-play/pluck-seed-1.vcv)
+- [warm pad recipe, seed 1 (still one voice).](Projects/Generative Audio Devices/proofs/2026-10-26-ready-to-play/warm_pad-seed-1.vcv)
+- [generation-prompt candidate.](Projects/Generative Audio Devices/proofs/2026-10-26-ready-to-play/bright-pluck-lead--classic-pluck.vcv)
+- [generation-prompt candidate.](Projects/Generative Audio Devices/proofs/2026-10-26-ready-to-play/bright-pluck-lead--bright-cutting-lead.vcv)
+- [generation-prompt candidate.](Projects/Generative Audio Devices/proofs/2026-10-26-ready-to-play/bright-pluck-lead--square-stab-hook.vcv)
+- [generation-prompt candidate.](Projects/Generative Audio Devices/proofs/2026-10-26-ready-to-play/evolving-warm-pad--classic-warm-pad.vcv)
+- [generation-prompt candidate.](Projects/Generative Audio Devices/proofs/2026-10-26-ready-to-play/evolving-warm-pad--detuned-stack-pad.vcv)
+- [generation-prompt candidate.](Projects/Generative Audio Devices/proofs/2026-10-26-ready-to-play/evolving-warm-pad--ambient-drone-bed.vcv)
+- [generation-prompt candidate.](Projects/Generative Audio Devices/proofs/2026-10-26-ready-to-play/punchy-808-kick--classic-808-kick.vcv)
+- [generation-prompt candidate.](Projects/Generative Audio Devices/proofs/2026-10-26-ready-to-play/punchy-808-kick--deep-sub-thump.vcv)
+- [generation-prompt candidate.](Projects/Generative Audio Devices/proofs/2026-10-26-ready-to-play/punchy-808-kick--filtered-808-kick.vcv)
+- [the emitter: writes device settings from the vocabulary file and places each modulator under its target.](Projects/Generative Audio Devices/pdl-renderer/PDL Renderer.html)
+- [vocabulary v2.5: the device settings MIDI-CV and Audio-8 open on, copied from Rack's own save.](Projects/Generative Audio Devices/pdl-renderer/vcv_fundamental_registry.json)
+- [the harness for both standing orders; 141/141.](Projects/Generative Audio Devices/pdl-renderer/verify_standing_orders.js)
+- [the folder's front door, now listing the new harness.](Projects/Generative Audio Devices/pdl-renderer/README.md)
+
+_Where the modulators land: each one under the module it moves (x in HP)_
+| patch | modulator | lands at | under |
+| --- | --- | --- | --- |
+| house_bass | filter env (ADSR) | 21 | VCF at 21 |
+| house_bass | amp env (ADSR) | 29 | VCA at 29 |
+| punchy-808 classic | pitch env (ADSR) | 9 | VCO at 9 |
+| punchy-808 classic | amp env (ADSR) | 21 | VCA at 21 |
+| warm_pad seed 1 | breathing LFO | 21 | VCF at 21 |
+| warm_pad seed 1 | amp env (ADSR) | 31 | VCA at 29 (moved 2 HP; the LFO is wide) |
+
+_Changed in the workshop:_ README — lists verify_standing_orders.js and the registry's new device settings so the next worker can run the check
+_Proposed for canon:_ Generative Audio Devices (§ Where it stands, the second paragraph (beginning 'Next, every emitted patch is quick to hear')) — the paragraph describes as missing what this cycle built; the 'Device defaults' bullet under What still does NOT exist should go with it; owed in the tuning ledger until Loudon's review
+
+_Left rough:_ Nobody has opened these patches in Rack yet. I didn't launch Rack myself, because a second copy could overwrite the autosave of yours. Whether Rack honours the device settings on another machine, or after the speakers are renamed, is untested, and the warm pad is still one voice.
+
+_Next moves named:_ Loudon: open house_bass.vcv in Rack and press a key. If it plays with no menu touched, the first standing order is proven by ear. · Me, next: polyphony. The voice count now lives in the same MIDI settings block I just wired (channels: 1), so the warm pad you marked 'should be polyphonic!' may be a small step. I'll prove it in the emitter and mark what isn't verified. · After that: Pure Data as the second target. RNBO is on hold with the rest of the Max work until there are patching standards.
+<sub>`gad-steward-002` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-d5d17434a3" -->
+### 2026-10-26 — cycle 1
+
+taught item 1, proposed item 2 for canon
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="gad-revival-2026-10-24" -->
 ### 2026-10-24 — Revived: Loudon played the house bass in Rack, and the page is sprout
 

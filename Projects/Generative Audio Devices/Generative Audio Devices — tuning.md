@@ -23,3 +23,13 @@ standards:
 What Generative Audio Devices's steward cycles taught the page, and the changes to the house its steward proposed. The Concierge opened this ledger on 2026-10-24, at the revival and on Loudon's word, to leave the steward its first one-shot order; the orchestrator writes every line after it. A proposal waits here for Loudon's review; the page takes it in only on his yes. What a cycle leaves rough stays on the scroll's trail, and the scroll's Now lists what keeps recurring.
 
 - from Loudon · 2026-10-24 · "Yes, land the revival as drafted, with the small Plan edit.": propose a plan for Generative Audio Devices as a plan_revision ask for his yes, where the work is going and the moves ahead each named by what it does, opening with what he asked when he played the house bass in Rack (the computer keyboard and the MacBook speakers as every patch's defaults, and each modulator on the row under the module it modulates; the Standing Orders), since the revival lands without an agreed plan and Revival Ceremony v2.1 step 5 says a page that already has a steward lands then plans · owed
+
+## From cycle 1 — 2026-10-26
+
+1. Rack's saved .vcv files are compressed (unpack with `zstd -dc file | tar x` to read patch.json), and anything the emitter writes into a module's settings should be copied from a file Rack itself saved, never from memory of the format. *(offered by the steward, cycle 1)*
+2. **Proposed for canon** · 2026-10-26 · [[Generative Audio Devices]] · § Where it stands, the second paragraph (beginning 'Next, every emitted patch is quick to hear') · canon change owed *(proposed by the steward, cycle 1)*
+   Why: the paragraph describes as missing what this cycle built; the 'Device defaults' bullet under What still does NOT exist should go with it
+   Path: `Projects/Generative Audio Devices.md`
+   > **Every emitted patch is quick to hear.** It opens on the computer keyboard and the MacBook speakers, and each modulator sits on the row under the module it modulates (the scroll's Standing Orders). The device settings are copied byte for byte from Rack's own re-save of the house bass and live in the vocabulary file (v2.5) as `default_data` on MIDI_CV and AUDIO_8. `verify_standing_orders.js` checks both orders on every PDL the project holds (141/141, 2026-10-26).
+
+- run · 2026-10-26 · cycle 1 · taught item 1, proposed item 2 for canon

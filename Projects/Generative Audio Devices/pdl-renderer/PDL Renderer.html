@@ -22,7 +22,7 @@
   -->
   <script type="application/json" id="vcv-registry">
 {
-  "version": "2.4",
+  "version": "2.5",
   "plugin": "Fundamental",
   "plugin_slug": "Fundamental",
   "vcv_rack_version": "2.x",
@@ -255,6 +255,7 @@
     },
     "MIDI_CV": {
       "slug": "MIDIToCVInterface", "plugin": "Core", "name": "MIDI-CV", "hp": 9,
+      "default_data": {"pwRange": 0.0, "smooth": true, "channels": 1, "polyMode": 0, "clockDivision": 24, "lastPw": 0, "lastMod": 0, "filterLambda": 30.0, "midi": {"driver": -11, "deviceName": "QWERTY keyboard (US)", "channel": -1}},
       "description": "MIDI-to-CV interface. No inputs, no params — 12 outputs derived from incoming MIDI. Slug is 'MIDIToCVInterface' (historical), plugin is 'Core'.",
       "verification": "verified against Rack v2/src/core/MIDI_CV.cpp (2026-04-20). NUM_INPUTS=0, NUM_PARAMS=0, 12 configOutput() calls in OutputIds enum order. Slug verified from `createModel<MIDI_CV, MIDI_CVWidget>(\"MIDIToCVInterface\")`.",
       "default_output": "PITCH",
@@ -278,6 +279,7 @@
     },
     "AUDIO_8": {
       "slug": "AudioInterface", "plugin": "Core", "name": "Audio-8", "hp": 10,
+      "default_data": {"audio": {"driver": 5, "deviceName": "MacBook Pro Speakers", "sampleRate": 48000.0, "blockSize": 256, "inputOffset": 0, "outputOffset": 0}, "dcFilter": false},
       "description": "Audio interface, 8×8. Inputs on the left (signals leaving the rack to the DAW/speakers — 'device output N'). Outputs on the right (signals arriving from the DAW/mic — 'device input N'). For stereo listen, patch to IN1 AND IN2.",
       "verification": "verified against Rack v2/src/core/Audio.cpp (2026-04-20). AUDIO_INPUTS+i / AUDIO_OUTPUTS+i pattern for i∈[0,7], no params. Slug verified from `createModel<Audio<8,8>, AudioWidget<8,8>>(\"AudioInterface\")`.",
       "default_input": "IN1",
@@ -754,10 +756,12 @@
     //   - Only registered instances become VCV modules. Unregistered endpoints
     //     (KEYBOARD, OUT, external controllers) are treated as virtual — cables
     //     that touch them are skipped in the emitter output.
-    //   - Module placement (T7d): two rows — row 0 is the signal path (MIDI
-    //     controller hard-left → audio modules in topological order → audio sink
-    //     rightmost), row 1 is modulators (envelopes/LFOs) below. Matches the
-    //     hand-layout Loudon's audition refinements converged on.
+    //   - Module placement (T7d, revised 2026-10-26): two rows — row 0 is the
+    //     signal path (MIDI controller hard-left → audio modules in topological
+    //     order → audio sink rightmost), row 1 is modulators, each right under
+    //     the module it modulates (Loudon's Standing Orders, 2026-10-24).
+    //   - Device settings: MIDI_CV and AUDIO_8 emit the registry's
+    //     `default_data` (QWERTY keyboard in, MacBook speakers out).
     //   - Parameter values: per-param, prefer the numeric value from the PDL `*`
     //     line for that instance, else the registry `default`. Named perceptual
     //     regions (`CUTOFF = dark`) resolve through the param's `regions` table
@@ -993,18 +997,43 @@
       const row0 = [], row1 = [];
       for (const id of registeredIds) (moduleClass(instanceTypes[id]) === "modulator" ? row1 : row0).push(id);
       // Row 0: controller hard-left (tiebreak), then by topological depth, then
-      // by declaration order. Row 1: modulators by depth, then declaration order.
+      // by declaration order.
       const ctrlRank = (id) => moduleClass(instanceTypes[id]) === "controller" ? -1 : 0;
       row0.sort((a, b) => ctrlRank(a) - ctrlRank(b) || depth[a] - depth[b] || orderIndex[a] - orderIndex[b]);
-      row1.sort((a, b) => depth[a] - depth[b] || orderIndex[a] - orderIndex[b]);
 
       const positions = {};
-      const layRow = (ids, row) => {
-        let x = 0;
-        for (const id of ids) { positions[id] = [x, row]; x += (REGISTRY[instanceTypes[id]].hp || 1); }
+      let x0 = 0;
+      for (const id of row0) { positions[id] = [x0, 0]; x0 += (REGISTRY[instanceTypes[id]].hp || 1); }
+
+      // Row 1 (Standing Orders, 2026-10-24): every modulator sits right under
+      // the main module it modulates. Its target is the first row-0 module its
+      // output is cabled into, in PDL line order; a modulator that only feeds
+      // another modulator (an LFO into an envelope's CV) inherits that one's
+      // target. Modulators are packed left-aligned under their target and pushed
+      // right only as far as needed so none overlap (Rack shoves overlapping
+      // modules on load). A modulator that reaches no row-0 module goes after
+      // the rest, in declaration order.
+      const row0Set = new Set(row0);
+      const targetOf = {};
+      const findTarget = (id, seen) => {
+        if (targetOf[id] !== undefined) return targetOf[id];
+        if (seen.has(id)) return null;
+        seen.add(id);
+        const outs = connections.filter(c => c.from === id && instanceTypes[c.to] && c.to !== id);
+        let t = null;
+        for (const c of outs) if (row0Set.has(c.to)) { t = c.to; break; }
+        if (t == null) for (const c of outs) if (!row0Set.has(c.to)) { t = findTarget(c.to, seen); if (t != null) break; }
+        return (targetOf[id] = t);
       };
-      layRow(row0, 0);
-      layRow(row1, 1);
+      for (const id of row1) findTarget(id, new Set());
+      const anchorX = (id) => targetOf[id] != null ? positions[targetOf[id]][0] : Infinity;
+      row1.sort((a, b) => anchorX(a) - anchorX(b) || orderIndex[a] - orderIndex[b]);
+      let x1 = 0;
+      for (const id of row1) {
+        const x = Math.max(x1, Number.isFinite(anchorX(id)) ? anchorX(id) : x1);
+        positions[id] = [x, 1];
+        x1 = x + (REGISTRY[instanceTypes[id]].hp || 1);
+      }
 
       // T7a phase 2 — resolve PDL `*` entries into per-instance
       // { paramName → numeric value } maps. Each entry is `Name = Value`.
@@ -1144,7 +1173,11 @@
           })),
           leftModuleId: -1,
           rightModuleId: -1,
-          data: {},
+          // Device settings (registry v2.5): MIDI_CV and AUDIO_8 carry a
+          // `default_data` blob copied from Rack's own save, so the patch opens
+          // on the QWERTY keyboard and the MacBook speakers. Deep-copied so no
+          // two patches share one object.
+          data: mod.default_data ? JSON.parse(JSON.stringify(mod.default_data)) : {},
           pos: positions[id],
         };
       });
