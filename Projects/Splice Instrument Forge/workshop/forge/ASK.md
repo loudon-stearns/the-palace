@@ -39,7 +39,7 @@ Make the folder (`workshop/<something>/`), call `download_asset` for every pick,
 { "into": "samples", "samples": [ { "file": "<File Name from the download result>", "uuid": "<Asset UUID>", "url": "<Download URL>" } ] }
 ```
 
-Keep the `uuid`: the WAVs are gitignored and live only on this Mac, so the asset id is the one way back to a sample that goes missing (the 2026-10-24 samples were gone from disk by 2026-10-26, and only the stack Sets, whose Splice stack id was in the recipe, could be fetched again).
+Keep the `uuid`: the WAVs are gitignored and live only on this Mac, so the asset id is the one way back to a sample that goes missing (the 2026-10-24 samples were gone from disk by 2026-10-26, and only the stack Sets, whose Splice stack id was in the recipe, could be fetched again). They were lost because they were fetched inside a worktree (`palace-forge-format-study`): gitignored files never reach the main checkout, so they went when the worktree was removed, and every Set pointed at the dead path. Fetch and build in the main checkout's bundle, or move the samples there before a worktree is removed. A repeat download still spent a credit each time on 2026-10-26.
 
 ```bash
 node forge/forge.mjs fetch "<folder>/manifest.json"
@@ -61,7 +61,7 @@ node forge/forge.mjs check "<folder>/<Name>.als"
 node forge/forge.mjs open  "<folder>/<Name>.als"
 ```
 
-`check` must end "nothing to look at", and its last column says what had to bend: aim for every layer "native" and "in key"; each "stretched" or transposed layer is one the search should have replaced. `open` starts a second Live 12 so Loudon's own Live is never touched. Then read Live's log for "Loading command-line document: done" without a warning, and hand the Set to Loudon with the Set's name and where it is. The sound is his call; never say it sounds right.
+`check` must end "nothing to look at", and its last column says what had to bend: aim for every layer "native" and "untransposed" (the build's own report says whether an untransposed vocal is in the Set's key); each "stretched" or transposed layer is one the search should have replaced. `open` starts a second Live 12 so Loudon's own Live is never touched. If a Live 12 is already running, the new one stops on a message box ("Another instance…") that only a click clears. When the screen is locked (`lsappinfo front` says loginwindow) no click can land: open the Set into the forge's own proof Live with `open -a` instead of `-n`, as long as that Live holds nothing of Loudon's. A Set Live calls corrupt leaves a modal error too, and the instance must then be quit. Then read Live's log for "Loading command-line document: done" without a warning, and hand the Set to Loudon with the Set's name and where it is. The sound is his call; never say it sounds right.
 
 ## 6. Leave the trail
 

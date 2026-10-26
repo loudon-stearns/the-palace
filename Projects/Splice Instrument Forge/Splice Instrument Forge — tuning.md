@@ -31,3 +31,8 @@ What Splice Instrument Forge's steward cycles taught the page, and the changes t
    > **Live ships a shell for every target.** Sampler, Simpler and Drum Sampler defaults, and factory Drum Racks, all as gzipped XML in the Core Library. It also ships a default audio and MIDI track, a sample library and a beat template, all written by Ableton's own build. The forge takes its tracks, clips and drum pads from these (`workshop/move-7-shells/`), never from a Set someone saved, and `audit.mjs` shows, value by value, where any part differs from Ableton's.
 
 - run · 2026-10-26 · cycle 1 · taught item 1, proposed item 2 for canon
+
+## From cycle 2 — 2026-10-26
+
+3. Samples fetched inside a temporary working copy vanish when it is removed, because they're kept out of git; fetch and build in the main copy's bundle, and every Set will keep its samples. *(offered by the steward, cycle 2)*
+- run · 2026-10-26 · cycle 2 · taught item 3

@@ -41,6 +41,6 @@ Run both again after a Live update: `audit --own` then shows what Ableton change
 - `proof/Flowers Stack.als`: the Flowers Stack recipe rebuilt on the new audio track and clip. `check` is clean (222 pointees, all unique, 42 clips at 0 dB), and it loaded in a second Live 12.4.6 at 10:11:51 with no warning.
 - `proof/lofi-kit/Dusty Eighty-Five.als` and `.adg`: a new lo-fi kit at 85 (eight Splice one-shots, eight credits), built on the new MIDI track, MIDI clip and pad. `check` is clean (1837 pointees, all unique, macros bare, hats choked). It loaded at 10:19:19 with no warning.
 
-## Not moved yet
+## The Sampler path, moved 2026-10-26
 
-The Sampler path (`forge.mjs build` for an instrument) still runs through the Session Writer's `library` job, which uses its own `midi-track.xml`. `finish.mjs` corrects the fader, but the track still comes in armed. Moving that path off the writer is the next piece of this move.
+`forge.mjs build` for an instrument still lets the Session Writer's `library` job lay the Sampler's zones, then `../forge/rehouse.mjs` lifts the Sampler and its clip off the writer's track and sets them on `shells/MidiTrack.xml`, carrying every clip slot list across. The first try carried only the main sequencer's list; Live called the Set corrupt ("Slot count mismatch"), because the freeze sequencer's list must hold one slot per scene as well. rehouse now refuses any list that doesn't. `Astromode Analog.als`, rebuilt that way with its three samples fetched again, loaded in Live 12.4.6 at 10:31:13 with no warning, unarmed, at −8 dB. Every Set the forge builds now stands on Ableton's own MIDI or audio track.

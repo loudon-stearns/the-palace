@@ -7,7 +7,7 @@
 //
 // recipe.json carries "kind": "kit" (a Drum Rack: forge-drum-rack.mjs's shape), "stack" (a Session Set: forge-session.mjs's
 // shape) or "instrument" (a Sampler: { name, release?, samples: "samples/" } -> detect-roots.py, build-sfz.py, the Session
-// Writer's library job, als-to-adv.py). The builders stay where their moves made them; this file only routes.
+// Writer's library job, als-to-adv.py, rehouse.mjs onto the forge's own MIDI track). The builders stay where their moves made them; this file only routes.
 import fs from 'node:fs';
 import path from 'node:path';
 import zlib from 'node:zlib';
@@ -19,6 +19,8 @@ const SHOP = path.join(HERE, '..');
 const WRITER = '/Users/loudonstearns/Documents/The Palace/Shop/Shopkeeper/probes/2026-10-20-ableton-session/live-set.mjs';
 const BUILDERS = { kit: path.join(SHOP, 'move-3-drum-rack', 'forge-drum-rack.mjs'), stack: path.join(SHOP, 'move-4-session', 'forge-session.mjs') };
 const SAMPLER = path.join(SHOP, 'move-2-sampler');
+// the Sampler's scripts need numpy and soundfile; the python3 first on PATH may lack them (2026-10-26: Homebrew's did), so take the first that imports both
+const PY = ['python3', '/usr/local/bin/python3', '/opt/homebrew/bin/python3', '/usr/bin/python3'].find((p) => spawnSync(p, ['-I', '-c', 'import numpy, soundfile']).status === 0) || 'python3';
 const run = (cmd, args, cwd) => { const r = spawnSync(cmd, args, { cwd, stdio: 'inherit' }); if (r.status !== 0) process.exit(r.status || 1); };
 
 const [verb, target, ...rest] = process.argv.slice(2);
@@ -43,10 +45,11 @@ if (verb === 'build') {
   if (r.kind === 'kit' || r.kind === 'stack') run('node', [BUILDERS[r.kind], 'build', file, ...rest]);
   else if (r.kind === 'instrument') {
     const samples = path.resolve(dir, r.samples || 'samples');
-    run('python3', ['-I', path.join(SAMPLER, 'detect-roots.py'), samples], dir);            // writes roots.json beside the samples folder
-    run('python3', ['-I', path.join(SAMPLER, 'build-sfz.py'), r.name, '--release', String(r.release ?? 0.4)], dir);
+    run(PY, ['-I', path.join(SAMPLER, 'detect-roots.py'), samples], dir);            // writes roots.json beside the samples folder
+    run(PY, ['-I', path.join(SAMPLER, 'build-sfz.py'), r.name, '--release', String(r.release ?? 0.4)], dir);
     run('node', [WRITER, 'library', path.join(dir, r.name + '.sfz'), '--out', path.join(dir, r.name + '.als'), '--tempo', String(r.tempo || 100), ...rest]);
-    run('python3', ['-I', path.join(SAMPLER, 'als-to-adv.py'), path.join(dir, r.name + '.als'), path.join(dir, r.name + '.adv')], dir);
+    run(PY, ['-I', path.join(SAMPLER, 'als-to-adv.py'), path.join(dir, r.name + '.als'), path.join(dir, r.name + '.adv')], dir);
+    run('node', [path.join(HERE, 'rehouse.mjs'), path.join(dir, r.name + '.als')]);   // off the writer's armed track, onto Ableton's own (move seven)
     run('node', [path.join(HERE, 'finish.mjs'), path.join(dir, r.name + '.als'), '--track', r.name + '=' + (r.ground || 'middleground'), '--locator', r.name + ' phrase@1']);   // a Sampler is a lead or keys unless the recipe says
   } else { console.error('recipe needs "kind": kit | stack | instrument'); process.exit(2); }
   console.log('\nnext: node forge.mjs check "' + path.join(dir, r.name + '.als') + '"  then  node forge.mjs open "' + path.join(dir, r.name + '.als') + '"');

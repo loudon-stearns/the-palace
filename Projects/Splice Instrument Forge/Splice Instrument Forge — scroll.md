@@ -15,25 +15,32 @@ forward_vector: "I am Splice Instrument Forge's scroll — the one page that alw
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-26T14:05:03.487Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-26T14:21:47.911Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** sprout · **Steward:** cycle 1 · last ran 2026-10-26 (today)
+- **Status:** active · **Stage:** sprout · **Steward:** cycle 2 · last ran 2026-10-26 (today)
 - **Plan:** agreed (no dated change on the trail yet)
 - **Waiting on you:** nothing
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-10-26 (today) — Kits and stacks now build from parts taken out of Live's own factory files. The audit found a hidden fade-out on every clip in your melodic techno Set. (`splice-instrument-forge-steward-002`)
-- **Last commit touching this project:** 2026-10-24 `87d2d07c` — ops(Weave): eight faces placed; tuning 58–60; the worker brief learns where a reason hides; a proof demoted
+- **Last shipped:** 2026-10-26 (today) — The Sampler path now builds on Ableton's own MIDI track, so no forge Set comes in armed. Astromode Analog was rebuilt and opens clean in Live. (`splice-instrument-forge-steward-004`)
+- **Last commit touching this project:** 2026-10-26 `90d12627` — steward(Splice Instrument Forge): cycle 1 — SPINNING UP. HOME: [Splice Instrument Forge](obsidian://open?vault=The%…
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
-- **Runs:** 1 run on 1 day, counted from the ledger's run lines
-- **Last run:** 2026-10-26 — cycle 1 · taught item 1, proposed item 2 for canon
+- **Runs:** 2 runs on 1 day, counted from the ledger's run lines
+- **Last run:** 2026-10-26 — cycle 2 · taught item 3
 - **Owed in the ledger:** nothing
 - **Proposed for canon:** 1 — item 2; waiting on Loudon's review, and the page has not changed
-- **Latest lesson:** item 2, from cycle 1 — 2026-10-26 — [[Splice Instrument Forge — tuning]]
+- **Latest lesson:** item 3, from cycle 2 — 2026-10-26 — [[Splice Instrument Forge — tuning]]
 
 ### Where this stands
 
-Splice Instrument Forge turns a sentence into a Live Set built from Splice sounds. On 2026-10-24 it built a Sampler instrument, a Drum Rack and a Session View stack, then one command that goes from your words to an open Set, which made your melodic techno track. After you heard those, you added three steps to the plan: own shells, taste, and four owed format proofs. Own shells came first because all three bugs that day (named macros, +3.1 dB clip gain, a −12 dB fader) rode in on parts copied from Sets someone had saved. This cycle the forge stopped copying from saved Sets. Every track, clip and drum pad the kit and stack builders use now comes from files Ableton itself ships inside Live 12.…
+Splice Instrument Forge turns a sentence into a Live Set built from Splice sounds: a Sampler instrument, a Drum Rack, or a Session View stack. After you heard the first Sets on 2026-10-24, you asked the forge to build from its own clean parts instead of copying from Sets someone had saved, because the three bugs that day came in on copied parts. Earlier today the kit and stack builders moved onto parts taken from Live's own factory files. This cycle moved the last one, the Sampler path, so every Set the forge makes now stands on Ableton's own tracks. Astromode Analog, the three-note analog Sampler from the first day, was rebuilt that way and opens clean. It also turned out why the old sampl…
+
+### Left rough, again and again
+
+_What the trail's left-rough notes keep saying, oldest first, in its latest words._
+
+- **rough since cycle 1:** Nobody has heard Dusty Eighty-Five or the rebuilt Flowers Stack. _(in 2 notes, the latest cycle 2)_
+- **rough since cycle 1:** Spoiler Kit and the melodic techno Set still open with their samples missing, and their recipes hold no Splice ids. _(in 2 notes, the latest cycle 2)_
 
 ### Open asks
 
@@ -49,6 +56,7 @@ _Nothing decided on the board yet._
 
 ### Runs
 
+- 2026-10-26 — cycle 2 · taught item 3
 - 2026-10-26 — cycle 1 · taught item 1, proposed item 2 for canon
 
 ### Owed
@@ -97,6 +105,56 @@ _Changes the steward wants in the house, kept in its tuning ledger until Loudon'
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="splice-instrument-forge-steward-004" -->
+### 2026-10-26 — cycle 2 — The Sampler path now builds on Ableton's own MIDI track, so no forge Set comes in armed. Astromode Analog was rebuilt and opens clean in Live.
+> shipped · every builder on Live's own parts · steward leans rebuilding the old Sets next
+
+**What I made.** [rehouse.mjs](obsidian://open?vault=The%20Palace&file=Projects/Splice%20Instrument%20Forge/workshop/forge/rehouse.mjs) is a new last step in `forge.mjs build` for an instrument. The Session Writer still lays the Sampler's zones, which it does well. Then rehouse lifts the Sampler and its clip off the writer's track, which came in armed for recording, and sets them on Ableton's own default MIDI track. `finish.mjs` sets the fader to the middleground (−8 dB), as before.
+
+**The proof caught a real bug.** My first rebuild opened in Live as "corrupt… Slot count mismatch." A MIDI track keeps two lists of clip slots, one for playing and one for freezing, and both must hold one slot per scene. I had carried over only the first. rehouse now carries both and refuses to write a list with the wrong count. The rebuilt Astromode Analog loaded in Live 12.4.6 at 10:31:13 with no warning, unarmed, all three samples on disk, and `check` came back clean. It is open in Live now, silent until played.
+
+**One of the owed proofs, partly.** I handed the lifted Sampler preset (`Astromode Analog.adv`) to the running Live. Live logged no error, and at that moment it wrote Sampler-zone actions into its undo history. That is evidence the preset loaded, not proof: your screen was locked, so nobody saw the device.
+
+**Why the old samples vanished.** Last cycle couldn't explain why every sample from 2026-10-24 was gone. The old Sets point at `Documents/palace-forge-format-study/…`, a separate working copy of the palace that has since been removed. The samples are kept out of git, so they never reached the main copy and went when it was deleted. [ASK.md](obsidian://open?vault=The%20Palace&file=Projects/Splice%20Instrument%20Forge/workshop/forge/ASK.md) now says to fetch and build in the main copy.
+
+**Smaller fixes.** The `python3` first on the PATH no longer has the audio library the pitch detector needs, so the forge now picks a Python that has it. When a vocal is left alone in a different key, the build report says "vocal left off-key". The read-back check says "untransposed" instead of claiming "in key", since a Set can't tell it the source key. ASK.md also says how to prove a Set when a Live is already running and the screen is locked.
+
+**Credits.** Three: the Astromode samples fetched again. A repeat download costs a credit each time, as last cycle found.
+
+**Artifacts:**
+- [the analog Sampler Set, rebuilt on Ableton's own MIDI track; open in Live now](Projects/Splice Instrument Forge/workshop/move-2-sampler/Astromode Analog.als)
+- [the same Sampler as a preset; Live took it without an error](Projects/Splice Instrument Forge/workshop/move-2-sampler/Astromode Analog.adv)
+- [the three samples with their Splice ids, so they can be fetched again](Projects/Splice Instrument Forge/workshop/move-2-sampler/manifest.json)
+- [moves a Sampler and its clip onto Ableton's own MIDI track, both slot lists included](Projects/Splice Instrument Forge/workshop/forge/rehouse.mjs)
+- [runs rehouse after the Sampler build; picks a Python that can read audio](Projects/Splice Instrument Forge/workshop/forge/forge.mjs)
+- [says 'vocal left off-key' and 'untransposed' instead of claiming 'in key'](Projects/Splice Instrument Forge/workshop/move-4-session/forge-session.mjs)
+- [why the samples vanished; how to prove a Set beside a running Live](Projects/Splice Instrument Forge/workshop/forge/ASK.md)
+- [the Sampler path, moved; the slot-count bug](Projects/Splice Instrument Forge/workshop/move-7-shells/README.md)
+- [the preset proof so far, and the new last step](Projects/Splice Instrument Forge/workshop/move-2-sampler/README.md)
+- [analog note C (stays on this Mac)](Projects/Splice Instrument Forge/workshop/move-2-sampler/samples/SOULSURPLUS_astromode_one_shot_Synth_analog_single_note_C.wav)
+- [analog note D](Projects/Splice Instrument Forge/workshop/move-2-sampler/samples/SOULSURPLUS_astromode_one_shot_Synth_analog_single_note_D.wav)
+- [analog note E](Projects/Splice Instrument Forge/workshop/move-2-sampler/samples/SOULSURPLUS_astromode_one_shot_Synth_analog_single_note_E.wav)
+
+_Where each builder's track comes from now_
+| builder | track before | track now | proved in Live |
+| --- | --- | --- | --- |
+| stack (Session View) | Live 12.1's default audio track | Ableton's 12.4.6 default audio track | Flowers Stack, 10:11 today |
+| kit (Drum Rack) | Session Writer's MIDI track, armed, −12 dB | Ableton's 12.4.6 default MIDI track | Dusty Eighty-Five, 10:19 today |
+| instrument (Sampler) | Session Writer's MIDI track, armed | Ableton's 12.4.6 default MIDI track, via rehouse | Astromode Analog, 10:31 today |
+
+_Left rough:_ Nobody has heard Dusty Eighty-Five or the rebuilt Flowers Stack. I closed the Live that had Dusty Eighty-Five open so it could hold this Sampler; reopen the kit from its folder. Spoiler Kit and the melodic techno Set still open with their samples missing, and their recipes hold no Splice ids. The .adv preset load is evidence, not proof: nobody saw the device on a track. Closing the proof Live left a crash-recovery prompt, and I moved Live's two recovery files (an empty Untitled Set) to /tmp/live-crash-backup-2026-10-26.
+
+_Next moves named:_ Find Spoiler Kit's and the melodic techno Set's samples on Splice by file name, fetch them into the main copy with their ids, and rebuild both on the new parts, so you can hear whether the old clips' fade-out was audible. · Then the owed format proofs: velocity layers in the kit builder first (two hits per pad, soft and hard), then a Drum Sampler pad inside a Set, then Simpler's playback-mode values.
+<sub>`splice-instrument-forge-steward-004` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-40fdaf48ba" -->
+### 2026-10-26 — cycle 2
+
+taught item 3
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="splice-instrument-forge-steward-002" -->
 ### 2026-10-26 — cycle 1 — Kits and stacks now build from parts taken out of Live's own factory files. The audit found a hidden fade-out on every clip in your melodic techno Set.
 > shipped · two proof Sets open clean in Live 12.4.6 · steward leans moving the Sampler path next

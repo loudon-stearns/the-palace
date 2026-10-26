@@ -154,7 +154,7 @@ function build(stack, layers, outDir) {
     t = replaceEl(t, mixer, replaceEl(mixer.text, vol, vol.text.replace(/<Manual Value="[^"]*" \/>/, '<Manual Value="' + fmt(dbToAmp(db)) + '" />')));
     const isDrums = /drum|kick|beat|groove|perc/i.test(layer.role);
     const clip = audioClip({ name: layer.role, colour, abs: layer.abs, rel: path.relative(outDir, layer.abs).split(path.sep).join('/'), bpm: layer.bpm || tempo, transpose, setTempo: tempo, isDrums }, 0);
-    const bend = (clip.stretched ? 'stretched ' + (layer.bpm || tempo) + '->' + tempo : 'native tempo') + ', ' + (k ? (transpose ? 'transposed ' + k.name + ' -> ' + target.name + ' (' + (transpose > 0 ? '+' : '') + transpose + ' st)' : k.name + ' in key') : 'unkeyed') + ', ' + (clip.warpMode === 0 ? 'Beats' : 'Complex');
+    const bend = (clip.stretched ? 'stretched ' + (layer.bpm || tempo) + '->' + tempo : 'native tempo') + ', ' + (k ? (transpose ? 'transposed ' + k.name + ' -> ' + target.name + ' (' + (transpose > 0 ? '+' : '') + transpose + ' st)' : (isVocal && target && semitonesTo(k, target) ? k.name + ' vocal left off-key (' + target.name + ' Set)' : k.name + ' in key')) : 'unkeyed') + ', ' + (clip.warpMode === 0 ? 'Beats' : 'Complex');
     report.push(layer.role.padEnd(10) + clip.beats + ' beats; ' + bend + '; ' + ground + ' ' + db + ' dB');
     bent += (clip.bent ? 1 : 0) + (transpose ? 1 : 0);
     // the arrangement: the same clip laid along the timeline once per section the layer plays in, looping to fill it
@@ -251,7 +251,7 @@ function check(file) {
     const pitch = (mainSeq.match(/<PitchCoarse Value="(-?\d+)" \/>/) || [, '0'])[1]; const mode = (mainSeq.match(/<WarpMode Value="(\d+)" \/>/) || [, '?'])[1];
     const wm = mainSeq.match(/<WarpMarker Id="1" SecTime="([^"]+)" BeatTime="([^"]+)"/); const tempoHere = Number(element(element(xml, 'MainTrack').text, 'Tempo').text.match(/<Manual Value="([^"]*)" \/>/)[1]);
     const native = wm ? Number(wm[2]) / Number(wm[1]) * 60 : null; const stretched = native != null && Math.abs(native - tempoHere) > 0.5; const amp = Number((element(element(tr, 'Mixer').text, 'Volume').text.match(/<Manual Value="([^"]*)" \/>/) || [, '1'])[1]);
-    grid.push('  ' + name.padEnd(10) + sceneNames.map((_, i) => slots.includes(i) ? '[x]' : '[ ]').join(' ') + '  ' + clips + ' slots, ' + arrEvents + ' arranged, ' + laneCount + ' takes (' + laneClips + ' clips), ' + warped + ' warped, ' + (stretched ? 'stretched from ' + Math.round(native) : 'native') + ', ' + (pitch === '0' ? 'in key' : (Number(pitch) > 0 ? '+' : '') + pitch + ' st') + ', ' + ({ '0': 'Beats', '4': 'Complex', '6': 'Complex Pro' }[mode] || 'mode ' + mode) + ', ' + (20 * Math.log10(amp)).toFixed(1) + ' dB' + (missing.length ? ', sample MISSING' : ''));
+    grid.push('  ' + name.padEnd(10) + sceneNames.map((_, i) => slots.includes(i) ? '[x]' : '[ ]').join(' ') + '  ' + clips + ' slots, ' + arrEvents + ' arranged, ' + laneCount + ' takes (' + laneClips + ' clips), ' + warped + ' warped, ' + (stretched ? 'stretched from ' + Math.round(native) : 'native') + ', ' + (pitch === '0' ? 'untransposed' : (Number(pitch) > 0 ? '+' : '') + pitch + ' st') + ', ' + ({ '0': 'Beats', '4': 'Complex', '6': 'Complex Pro' }[mode] || 'mode ' + mode) + ', ' + (20 * Math.log10(amp)).toFixed(1) + ' dB' + (missing.length ? ', sample MISSING' : ''));
     if (warped !== clips) problems.push(name + ': ' + (clips - warped) + ' clip(s) not warped');
     if (arrEvents !== clips) problems.push(name + ': ' + clips + ' slots but ' + arrEvents + ' arrangement clips');
   }
