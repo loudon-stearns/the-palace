@@ -130,6 +130,52 @@ example manifests live at `_ops/orchestrator/`; the harness-discoverable trigger
 `.claude/skills/palace-orchestrator/SKILL.md`, which points back here — the
 [[Skills Are Enchantable Pages]] pattern (page = organ, skill file = one dispatch surface onto it).
 
+**Stewardship's parts** (moved here from [[Project Stewardship System]] on 2026-10-25). The system was built in stages, each closing a real gap. Where each one lives (how the live
+ones stand is the entry's to say):
+
+| Stage | What it is | Where it lives |
+|---|---|---|
+| A | A steward run by hand on one project | `_ops/agents/permanent/generative-sample-libraries/` |
+| B | The orchestrator, which runs one cycle | `_ops/stigmergy/orchestrator/`, invoked through `_ops/orchestrator/` |
+| C | Scheduling the cycles | `_ops/heartbeat/`, `_ops/stigmergy/orchestrator/src/batch-plan.js` |
+| D | Answering from STIGMERGY instead of hand-editing the board | `_ops/stigmergy/app/` |
+| E | An automated Trickster that triages routine asks | `_ops/stigmergy/trickster-auto/`, its build report `STAGE-E-COMPLETE.md` there |
+| F | Two Paths: build both branches of a fork, Loudon picks | `_ops/orchestrator/two-paths.md`, its build report `_ops/orchestrator/STAGE-F-COMPLETE.md` |
+
+How the parts fit:
+
+```
+Steward (one per stewarded page)
+  ├── Runtime: _ops/agents/permanent/<slug>/  (manifest.json, state.json, history.jsonl)
+  ├── Registered in _ops/agents/permanent/REGISTRY.json; agent_id = the page's title
+  ├── Manifest: home = the page, mode = long_duration_background,
+  │             stopping_conditions.max_iterations = the run cap
+  ├── Stage and forward vector read live from the page's frontmatter
+  └── One cycle: _ops/stigmergy/orchestrator/  (prompt, post-processing, the cycle's commit)
+
+Trickster (one for the whole palace)
+  ├── Loudon — the TRICKSTER tab and each project's scroll in STIGMERGY
+  ├── Automated proxy: _ops/stigmergy/trickster-auto/  (shadow: proposes, posts nothing)
+  └── Decisions logged back to the persistent board
+
+The board
+  ├── _ops/swarm/persistent/blackboard.jsonl  (append-only; the event log)
+  ├── STIGMERGY: _ops/stigmergy/app/  (the PROJECTS deck, the TRICKSTER tab; reads and writes)
+  └── Boards: GENERAL / FLAGS / WEAVE / SYSTEM / TRICKSTER / BRANCHES
+
+The front door
+  └── [Entry] — scroll.md in each page's bundle  (Now · Plan · Standing Orders · the making)
+
+The heartbeat
+  └── _ops/heartbeat/  (launchd → run-steward-batch.sh → batch.mjs → the steward lane; limits.json)
+```
+
+**Where stewardship state lives** (the Machinery/Content Split, in [[Project Stewardship System]]).
+The fix is **CQRS, not relocation**: the append-only board stays the event log (machinery), the
+`[Entry] — scroll.md` bundle file is the materialized read-model (content, its Now regenerated on
+every look), and `_ops` keeps only slim runtime (iteration, cursor, health). Stage and vector are
+read live from frontmatter, never copied — single source of truth enforced, not merely moved.
+
 ## Forward Vectors
 
 - When a second executor appears (a non-Path-2 dispatcher, an API-direct path), does this page

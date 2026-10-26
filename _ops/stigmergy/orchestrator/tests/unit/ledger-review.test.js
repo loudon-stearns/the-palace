@@ -103,21 +103,24 @@ describe("the review's read across the palace", () => {
     expect(flux).toMatchObject({ readable: false }); // its page is not in this palace
   });
 
-  // An urgent proposal also asked on the board (Loudon, 2026-10-21): LAND-NOW
-  // is his yes to the words, paid when it lands; DECLINE or a deny declines it
-  // with his note; REVIEW leaves it with the rest.
+  // An urgent proposal also asked on the board (Loudon, 2026-10-21): PLACE-NOW
+  // is his yes to the words, paid when they are placed; DECLINE or a deny
+  // declines it with his note; REVIEW leaves it with the rest. An ask posted
+  // before 2026-10-25 offered LAND-NOW for the same yes, and reads as PLACE-NOW.
   test("an urgent item carries what Loudon already said to its ask, the latest answer first", () => {
     const r = palace();
     const flux = proposalsByPage(r).find((g) => g.page === 'FLUX (Hugging Face)').items[0];
     const answer = (type, option, notes, ts) => ({ id: `resp-${ts}`, ts, type, board: 'TRICKSTER', from: 'TRICKSTER', re: 'shop-msg-urgent-1', payload: { option_id: option, notes } });
     expect(urgentAnswer(flux, [])).toBe(null);
-    expect(urgentAnswer(flux, [answer('RESOURCE_GRANT', 'LAND-NOW', '', '2026-10-21T10:00:00Z')])).toMatchObject({ option: 'LAND-NOW', ts: '2026-10-21T10:00:00Z' });
+    expect(urgentAnswer(flux, [answer('RESOURCE_GRANT', 'PLACE-NOW', '', '2026-10-25T10:00:00Z')])).toMatchObject({ option: 'PLACE-NOW', ts: '2026-10-25T10:00:00Z' });
+    expect(urgentAnswer(flux, [answer('RESOURCE_GRANT', 'LAND-NOW', '', '2026-10-21T10:00:00Z')])).toMatchObject({ option: 'PLACE-NOW', ts: '2026-10-21T10:00:00Z' });
+    expect(urgentAnswer(flux, [answer('RESOURCE_GRANT', undefined, '', '2026-10-21T10:00:00Z')])).toMatchObject({ option: 'PLACE-NOW' });
     expect(urgentAnswer(flux, [answer('RESOURCE_GRANT', 'review', '', '2026-10-21T10:00:00Z'), answer('RESOURCE_GRANT', 'DECLINE', 'probe Klein first', '2026-10-21T11:00:00Z')]))
       .toMatchObject({ option: 'DECLINE', notes: 'probe Klein first' });
     expect(urgentAnswer(flux, [answer('RESOURCE_DENY', undefined, 'not this', '2026-10-21T10:00:00Z')])).toMatchObject({ option: 'DECLINE', notes: 'not this' });
     expect(urgentAnswer({ ...flux, urgent: false }, [answer('RESOURCE_GRANT', 'LAND-NOW', '', 'x')])).toBe(null);
     const card = pageReview(r, proposalsByPage(r).find((g) => g.page === 'FLUX (Hugging Face)'), { board: [answer('RESOURCE_GRANT', 'LAND-NOW', '', '2026-10-21T10:00:00Z')] });
-    expect(card.items[0].answer).toMatchObject({ option: 'LAND-NOW' });
+    expect(card.items[0].answer).toMatchObject({ option: 'PLACE-NOW' });
   });
 
   test('the one line says how many, on how many pages, the urgent first, and the oldest', () => {

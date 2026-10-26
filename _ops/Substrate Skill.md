@@ -129,9 +129,9 @@ An entry's `stage` field doubles as a confidence interval on alignment between L
 
 **Earlier stages require more discussion *before building* — not a ban on building.** A `seed` entry is a hypothesis about Loudon's intent; a `mature` entry is verified, co-authored truth. The discussion budget is inverse to the stage: more conversation up front, less re-litigation later. But every stage ships *something* — the budget governs how much you discuss *around* the artifact, never whether you make one. Vector tuning, plan tuning, and convention agreement are the work of seed and sprout, pursued around a sketch or probe rather than in place of one.
 
-**Stage-conditional posture for the Steward agent** (canonical home: [[Project Stewardship System]]; the running coordination system is [[STIGMERGY]], its grammar and wire spec are [[SCHEMA]] §9, its origin concept is [[BBS Blackboard]], and its executor is [[Palace Orchestrator]]):
+**Stage-conditional posture for the Steward agent** (canonical here; the system that runs it is [[Project Stewardship System]]; the running coordination system is [[STIGMERGY]], its grammar and wire spec are [[SCHEMA]] §9, its origin concept is [[BBS Blackboard]], and its executor is [[Palace Orchestrator]]):
 
-| Stage | Agent's job | BBS posture |
+| Stage | Steward's job | Board posture |
 |---|---|---|
 | seed | Surface underspecified parts; propose vector and plan refinements *around an artifact* | Make a sketch or probe and discuss around it — still ships a (rough) made thing. A genuine fork goes to TRICKSTER, `blocking: true`. |
 | sprout | Plan-level detail; named tradeoffs; flag default-traps | Build a small working prototype each cycle; proposals ride alongside it, never instead of it. |

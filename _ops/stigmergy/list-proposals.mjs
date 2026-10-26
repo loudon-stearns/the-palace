@@ -79,7 +79,7 @@ for (const p of r.items) {
   console.log(`${C.B}${p.n}.${C.R} ${p.place || '—'}${p.urgent ? `  ${C.Rd}urgent${p.ask ? `, asked as ${p.ask}` : ''}${C.R}` : ''}`);
   console.log(`   ${C.D}${p.date} · ${p.by || 'proposed'} · ${p.ledger}, item ${p.n}${C.R}`);
   console.log(`   why: ${p.why}`);
-  if (p.answer) console.log(`   ${C.Y}you said ${p.answer.option}${p.answer.ts ? ` on ${p.answer.ts.slice(0, 10)}` : ''}${p.answer.notes ? `: "${p.answer.notes}"` : ''}${C.R}${p.answer.option === 'LAND-NOW' ? ' — land it first; it is paid when it lands' : p.answer.option === 'DECLINE' ? ' — settle-proposal.mjs --from-board declines it' : ''}`);
+  if (p.answer) console.log(`   ${C.Y}you said ${p.answer.option}${p.answer.ts ? ` on ${p.answer.ts.slice(0, 10)}` : ''}${p.answer.notes ? `: "${p.answer.notes}"` : ''}${C.R}${p.answer.option === 'PLACE-NOW' ? ' — place it first; it is paid when it is placed' : p.answer.option === 'DECLINE' ? ' — settle-proposal.mjs --from-board declines it' : ''}`);
   if (p.now) {
     const label = p.now.kind === 'frontmatter' ? 'the frontmatter now' : `the page now, § ${p.now.heading} (lines ${p.now.line}–${p.now.end})`;
     console.log(`\n   ${C.D}${label}:${C.R}`);

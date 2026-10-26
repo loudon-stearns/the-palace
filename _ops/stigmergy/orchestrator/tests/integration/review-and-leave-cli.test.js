@@ -75,6 +75,26 @@ describe('settle-proposal.mjs', () => {
     expect(seed).not.toBe(landed);
   });
 
+  // Placing is the rite's step, landing git's (2026-10-25): a pay needs the
+  // placing commit in the settled checkout's own history, so a ledger on main
+  // never says paid for words that sit only on a branch.
+  test('a pay is refused for a commit the settled checkout does not hold, and taken once it is merged', () => {
+    repo();
+    git(root, 'checkout', '-q', '-b', 'place');
+    writeFileSync(join(root, 'Projects/Wave.md'), readFileSync(join(root, 'Projects/Wave.md'), 'utf8').replace('First move: a sketch.', 'The sketch is done.'));
+    git(root, 'add', 'Projects/Wave.md'); git(root, 'commit', '-q', '-m', 'edit(Wave): places item 2');
+    const placed = git(root, 'rev-parse', 'HEAD');
+    git(root, 'checkout', '-q', 'main');
+    const refused = run('settle-proposal.mjs', ['Wave', '2', '--paid', placed, '--root', root], root);
+    expect(refused.status).not.toBe(0);
+    expect(refused.stderr).toMatch(/is not in the history of/);
+    expect(items()[0].owed).toBe(true);
+    git(root, 'merge', '-q', '--ff-only', 'place');
+    const paid = run('settle-proposal.mjs', ['Wave', '2', '--paid', placed, '--root', root], root);
+    expect(paid.status).toBe(0);
+    expect(items()[0]).toMatchObject({ owed: false, outcome: { kind: 'paid', commit: placed.slice(0, 8) } });
+  });
+
   test('--from-board declines what Loudon declined on the deck, stamped when he said it', () => {
     repo();
     const r = run('settle-proposal.mjs', ['--from-board', '--root', root, '--board', board()], root);

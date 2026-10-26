@@ -13,7 +13,7 @@
 // Read-only. A proposal is settled on its own ledger, by payProposal or
 // declineProposal, once Loudon has said yes or no (settle-proposal.mjs);
 // nothing here writes.
-// Canon: [[Project Stewardship System]] § What's Decided.
+// Canon: [[Project Stewardship System]] § The rites it keeps.
 
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
@@ -103,10 +103,13 @@ export function sectionNow(pageText, place) {
 
 /**
  * What Loudon already said to an urgent proposal's ask on the board, the latest
- * answer `re:` its ask id: { option, notes, ts, id }, or null. LAND-NOW is his
- * yes to the words the ask quoted: the review lands it first, and it is paid
- * when it lands, not when he clicked. DECLINE, or a deny, declines it with his
- * note. REVIEW leaves it owed with the rest (Loudon, 2026-10-21).
+ * answer `re:` its ask id: { option, notes, ts, id }, or null. PLACE-NOW is his
+ * yes to the words the ask quoted: the review places them first, and the item is
+ * paid when they are placed, not when he clicked. DECLINE, or a deny, declines it
+ * with his note. REVIEW leaves it owed with the rest (Loudon, 2026-10-21).
+ * Asks posted before 2026-10-25 offered LAND-NOW for the same yes; an answer
+ * carrying it reads as PLACE-NOW, since placing, not git's landing, is what it
+ * says yes to.
  */
 export function urgentAnswer(proposal, board = []) {
   if (!proposal || !proposal.urgent || !proposal.ask) return null;
@@ -116,7 +119,8 @@ export function urgentAnswer(proposal, board = []) {
   }
   if (!hit) return null;
   const p = hit.payload || {};
-  const option = hit.type === 'RESOURCE_DENY' ? 'DECLINE' : String(p.option_id || 'LAND-NOW').toUpperCase();
+  const given = hit.type === 'RESOURCE_DENY' ? 'DECLINE' : String(p.option_id || 'PLACE-NOW').toUpperCase();
+  const option = given === 'LAND-NOW' ? 'PLACE-NOW' : given;
   return { option, notes: typeof p.notes === 'string' ? p.notes.trim() : '', ts: hit.ts || null, id: hit.id || null };
 }
 

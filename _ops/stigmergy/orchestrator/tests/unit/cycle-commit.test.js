@@ -722,7 +722,7 @@ describe('a steward\'s proposals for canon', () => {
     const ask = board.find((m) => m.id === 'pr-5-urgent-1');
     expect(ask).toMatchObject({ type: 'RESOURCE_REQUEST', board: 'TRICKSTER', to: 'TRICKSTER', from: 'Test Steward', request_id: 'pr-5-urgent-1' });
     expect(ask.payload).toMatchObject({ kind: 'choice', blocking: false, urgent_proposal: true, proposal: { page: 'The Shop', place: '§ Current Bet' } });
-    expect(ask.payload.options.map((o) => o.id)).toEqual(['LAND-NOW', 'REVIEW', 'DECLINE']);
+    expect(ask.payload.options.map((o) => o.id)).toEqual(['PLACE-NOW', 'REVIEW', 'DECLINE']);
     expect(ask.payload.headline).toMatch(/^Urgent, for canon: The Shop \(§ Current Bet\) — the next brief reads the old bet/);
     expect(ask.payload.rationale).toContain('> The bet now:');
     expect(ask.health).toBeTruthy();

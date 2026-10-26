@@ -401,13 +401,13 @@ export function urgentProposalAsk({ proposal, home, sessionId, ts, requestId }) 
     from: home, to: 'TRICKSTER', type: 'RESOURCE_REQUEST', board: 'TRICKSTER',
     payload: {
       resource: 'directional_decision', kind: 'choice', urgent_proposal: true,
-      headline: one(`Urgent, for canon: ${name}${proposal.why ? ` — ${proposal.why}` : ''}. Land it now, or leave it for the ledger review?`, 220),
+      headline: one(`Urgent, for canon: ${name}${proposal.why ? ` — ${proposal.why}` : ''}. Place it now, or leave it for the ledger review?`, 220),
       ground: 'not blocking · filed in my tuning ledger · marked urgent',
       rationale: `I proposed this change to ${name} and marked it urgent, because it should not wait for the ledger review: ${proposal.why || 'no reason given'}. It is filed in my tuning ledger like every proposal, and I keep working as if it holds. The words:\n\n${quoted}`,
       proposal: { page: proposal.page, path: proposal.path, place: proposal.place, why: proposal.why },
       blocking: false,
       options: [
-        { id: 'LAND-NOW', label: 'LAND-NOW — an elder writes it into canon now, as proposed, and the ledger item is paid with that commit.' },
+        { id: 'PLACE-NOW', label: 'PLACE-NOW — an elder places it in the page now, as proposed, and the ledger item is paid with that commit.' },
         { id: 'REVIEW', label: 'REVIEW — not urgent after all; it waits in the ledger for the review with the rest.' },
         { id: 'DECLINE', label: 'DECLINE — not this change; a line of why, and I read it on my next run.' },
       ],
