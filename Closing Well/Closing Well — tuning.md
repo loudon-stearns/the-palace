@@ -305,3 +305,9 @@ Item 51 again: seven of the room's outgoing messages are cut in the arc. The co-
 63. **A long build session's house writes drift past the resident unless the room re-addresses it at each landing.** In the Splice Instrument Forge session, six house writes and a stage change came after the resident's last placement check, and nine landings went by without re-addressing it. Data, not a spec change; the version stays v1.13. Nothing owed.
 
 - run · 2026-10-24 · v1.13 · close-2026-10-24-splice-forge · taught item 63
+
+## From the progressive-staging close — 2026-10-25
+
+64. **A reason given to Loudon was a guess stated as fact, and the cold read caught it.** In the progressive-staging session a reason offered to him (the re-stamp) was a guess put as a fact; the cold read caught it and the room owned it at the panel. Data, not a spec change, matching item 61: the record beat the resident's account. Also data: this time the resident wrote every house write and the room checked each landing, so no write drifted past the resident; item 63's case did not recur. The version stays v1.13. Nothing owed.
+
+- run · 2026-10-25 · v1.13 · close-2026-10-25-progressive-staging · taught item 64
