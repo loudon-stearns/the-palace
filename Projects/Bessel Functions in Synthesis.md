@@ -33,7 +33,7 @@ This is not an approximation. This is the exact solution to the frequency spectr
 
 The pedagogical insight: **a specific FM ratio produces a specific timbre because you are selecting a particular landscape of Bessel coefficients.** Rational carrier-to-modulator ratios place sidebands at harmonic positions (integer multiples of a fundamental); irrational ratios place them at inharmonic positions. The amplitude contour of this sideband cloud is determined entirely by $J_n(\beta)$ — whether the sound rings like a bell (inharmonic due to Bessel zeros) or a harmonic tone (constructive sideband interference).
 
-[[Harmonicity and Inharmonicity|Why does FM with ratio 1:1 sound like a buzzy sawtooth?]] Because the sideband amplitudes follow $J_0(\beta), J_1(\beta), J_2(\beta), \ldots$, creating a spectrum similar to a sawtooth's harmonic series. Why does FM with ratio 1:1.5 sound hollow and inharmonic? Because the sidebands land at frequencies with no integer relationship, and Bessel coefficients decay differently, creating the acoustic signature of an inharmonic resonance.
+[[Harmonicity and Inharmonicity|Why does FM with ratio 1:1 sound like a buzzy sawtooth?]] Because the sideband amplitudes follow $J_0(\beta), J_1(\beta), J_2(\beta), \ldots$, creating a spectrum similar to a sawtooth's harmonic series. Why does FM with ratio 1:1.414 sound like a bell, inharmonic? Because the sidebands land at frequencies with no integer relationship, and Bessel coefficients decay differently, creating the acoustic signature of an inharmonic resonance.
 
 ## Eigenfunction Principle: Geometry Determines Resonance
 

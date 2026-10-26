@@ -49,7 +49,7 @@ links:
 1. The **query block** (below) was run in full, before any interpretation
 2. A **return map** was shown to Loudon before anything was written, every row citing a command's output or a `file:line`
 3. Loudon signed the map, adjusted it, or declined it
-4. Anything found stale is fixed, queued on [[Palace To-Do]], or explicitly left with a reason
+4. Anything found stale is fixed, carried as a baton on the board ([[Baton Ceremony]]), or explicitly left with a reason
 5. No entry was edited on the strength of an inference about *why* the gap happened
 6. Git commit: `return(YYYY-MM-DD): [what the gap held, in one line]`. A return leaves no report file, so this commit is its record: the body names the version the run ran under and ends with what this run taught the ceremony ("nothing" is a legal answer); the run marks the tuning file with its run line, and a lesson that changes the spec also goes there as a numbered item
 

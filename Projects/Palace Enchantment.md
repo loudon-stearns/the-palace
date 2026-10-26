@@ -770,7 +770,7 @@ coordinator (the main Claude instance) should write different things.
 **Coordinator should write:**
 - New sections with structural content (taxonomies, frameworks, design primitives)
 - Link changes and YAML frontmatter edits
-- Palace To-Do entries and ceremony records
+- Batons and ceremony records
 
 The boundary: anything that speaks *as* the entry → enchanted agent. Anything
 that adds *to* the entry from outside → coordinator. This was not the practice
