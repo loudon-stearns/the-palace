@@ -145,5 +145,4 @@ In April 2026 the idea was designed a second time, as the Frequency-Time Explore
 
 ## Active Baton
 
-[[Frequency-Time Duality — baton]] — re-batoned 2026-10-21 to the remainder after the deposit (`41f41dbd`): the first rich face, Enrichment's run; card `frequency-time-duality-remainder-20261021T135522Z`
 [[Frequency-Time Duality — baton — fm-page]] — drafted 2026-10-25
