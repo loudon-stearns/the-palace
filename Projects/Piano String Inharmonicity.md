@@ -146,7 +146,7 @@ The demo is designed for teaching: it shows *what is happening* (partials moving
 
 **Pedagogical design choice:** The fixed harmonic positions make it immediately clear that inharmonicity is a *deviation from* the harmonic series, not an independent phenomenon. The partials chase the gray circles but never catch them.
 
-The bend slider is linear in tension, 1.0 to 2.0; [[Logarithmic Interface Scaling]] would make it feel symmetric around the unbent state, and is not yet applied.
+The bend slider uses [[Logarithmic Interface Scaling]]: it moves in equal steps of pitch, 0 to 600 cents, so equal travel bends the string by an equal amount to the ear, and the readout still shows the tension multiplier, 1.0 to 2.0.
 
 ## Cross-Domain Resonance
 

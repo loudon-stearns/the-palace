@@ -5,6 +5,8 @@
   Moved 2026-10-25 from string_bending_inharmonicity.jsx (React + Tone.js + Tailwind)
   to one self-contained file: no build, no CDN, runs offline. Same behaviour, same look:
   the Tailwind classes are written out as CSS, Tone.js as plain Web Audio.
+  Changed 2026-10-26: the bend slider moves in cents (0-600), not in tension;
+  the readout still shows the tension multiplier (1.0-2.0x).
 -->
 <html lang="en">
 <head>
@@ -103,11 +105,11 @@ td.b { font-weight: 600; }
   </div>
 
   <div class="block">
-    <label class="strong" for="bend">String Bend (Tension Multiplier): <span id="bendVal">1.00</span>x</label>
-    <input id="bend" type="range" min="1.0" max="2.0" step="0.01" value="1">
+    <label class="strong" for="bend">String Bend: <span id="bendCents">0</span> cents (Tension Multiplier: <span id="bendVal">1.00</span>x)</label>
+    <input id="bend" type="range" min="0" max="600" step="1" value="0">
     <div class="ends small dim">
-      <span>Unbent (1.0x)</span>
-      <span>Bent up ~6 semitones (2.0x)</span>
+      <span>Unbent (0 cents, 1.0x)</span>
+      <span>Bent up 6 semitones (600 cents, 2.0x)</span>
     </div>
   </div>
 
@@ -351,6 +353,7 @@ td.b { font-weight: 600; }
     const currentB = calculateB(state.bendAmount);
     const bentF0 = state.f0 * Math.sqrt(state.bendAmount);
 
+    $('bendCents').textContent = $('bend').value;
     $('bendVal').textContent = state.bendAmount.toFixed(2);
     $('sF0').textContent = `${bentF0.toFixed(2)} Hz`;
     $('sShift').textContent = `${(1200 * Math.log2(Math.sqrt(state.bendAmount))).toFixed(0)} cents`;
@@ -376,8 +379,10 @@ td.b { font-weight: 600; }
     $('npVal').textContent = String(state.numPartials);
   };
 
+  // The slider moves in cents, so equal travel bends equal pitch;
+  // pitch goes as √tension, so tension = 2^(cents/600)
   $('bend').addEventListener('input', (e) => {
-    state.bendAmount = parseFloat(e.target.value);
+    state.bendAmount = Math.pow(2, parseFloat(e.target.value) / 600);
     render();
     onBendChanged();
   });
