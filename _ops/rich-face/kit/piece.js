@@ -150,6 +150,14 @@
         var ctx = this;
         this.addEventListener('statechange', function () { if (ctx.state === 'running') played(); });
       }
+      // A piece's own resume can land after the kit quieted it: a start that
+      // awaits a worklet, say, and the page hid or another piece played in the
+      // gap. Hidden, or quieted and not touched since, the kit holds it; the
+      // next touch wakes it, as after any hush.
+      resume() {
+        if (document.hidden || quieted.indexOf(this) !== -1) { if (quieted.indexOf(this) === -1) quieted.push(this); return Promise.resolve(); }
+        return super.resume();
+      }
     };
     window.AudioContext = Kit;
     if ('webkitAudioContext' in window) window.webkitAudioContext = Kit;

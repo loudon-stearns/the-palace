@@ -12,6 +12,9 @@
 //              that sends it nothing: the kit alone has to quiet it, an
 //              AudioContext and an Audio() never put in the page.
 //   alone      the same piece opened in its own tab, with no page around it.
+//   slow       a piece hidden while its own start is still settling: its late
+//              resume() must not wake it on a hidden page (seen on Kuramoto's
+//              ensemble, whose start awaits its worklet, 2026-10-25).
 //
 // Headless Chromium never hides a page: a second tab in front, a minimized
 // window and a background target all leave it 'visible' (tried 2026-10-25, in
@@ -118,6 +121,20 @@ document.getElementById('go').onclick = () => {
   el = new Audio('${wav()}'); el.loop = true; el.play();
 };
 </script></body></html>`;
+// A piece whose start is still settling: it makes its context, waits (as a
+// worklet's addModule waits), then resumes. A page hidden in that gap must not
+// hear the late resume.
+const SLOW = `<!doctype html><html><head><meta charset="utf-8"><title>a piece slow to start</title></head>
+<body style="margin:0;padding:24px"><button id="go">start</button>
+<script>
+document.getElementById('go').onclick = async () => {
+  const ctx = new AudioContext();
+  const o = ctx.createOscillator(), g = ctx.createGain();
+  g.gain.value = 0.02; o.connect(g).connect(ctx.destination); o.start();
+  await new Promise((r) => setTimeout(r, 600));
+  await ctx.resume();
+};
+</script></body></html>`;
 const HOST = `<!doctype html><html><head><meta charset="utf-8"><title>a page that sends nothing</title></head>
 <body style="margin:0"><iframe id="p" sandbox="allow-scripts" allow="autoplay" src="http://hush.test/piece.html" style="width:600px;height:200px;border:0"></iframe></body></html>`;
 
@@ -125,6 +142,7 @@ async function routeFixture(context) {
   await context.route('http://hush.test/**', (route) => {
     const path = new URL(route.request().url()).pathname;
     if (path === '/piece.html') return route.fulfill({ contentType: 'text/html; charset=utf-8', body: injectKit(FIXTURE) });
+    if (path === '/slow.html') return route.fulfill({ contentType: 'text/html; charset=utf-8', body: injectKit(SLOW) });
     if (path === '/host.html') return route.fulfill({ contentType: 'text/html; charset=utf-8', body: HOST });
     return route.fulfill({ status: 404, body: '' });
   });
@@ -181,6 +199,19 @@ try {
     const playing = await until(page, (s) => s.ctx > 0 && s.media > 0, 5000);
     check('alone: the piece is playing', playing.ctx > 0 && playing.media > 0, say(playing));
     await hideAndReturn(page, 'alone');
+    await page.close();
+  }
+  // ── slow to start: hidden before the piece's own resume comes ──
+  {
+    const page = await context.newPage();
+    await page.goto('http://hush.test/slow.html', { waitUntil: 'load' });
+    await page.locator('#go').click();
+    const playing = await until(page, (s) => s.ctx > 0, 2000);
+    check('slow to start: the context runs before the piece has finished starting', playing.ctx > 0, say(playing));
+    await hideAndReturn(page, 'slow to start');
+    await page.locator('body').click({ position: { x: 300, y: 10 } });
+    const woke = await until(page, (s) => s.ctx > 0, 2000);
+    check('slow to start: a touch wakes it, as after any hush', woke.ctx > 0, say(woke));
     await page.close();
   }
 } catch (e) {

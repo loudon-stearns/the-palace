@@ -250,7 +250,9 @@ palace writes runs there: every piece runs on the **piece origin**.
   every media element paused, an `Audio()` never put in the page included. It is a cut, not a fade,
   since a hidden page gets no animation frames and slow timers, and nothing starts again when the page
   comes back: the next touch on a piece wakes its audio, as after any hush, and the room tone waits for
-  its button. A piece needs no `visibilitychange` handler of its own.
+  its button. A piece's own `resume()` that lands after the kit quieted it, a start still awaiting its
+  worklet when the page hid, say, is held too, until that next touch. A piece needs no
+  `visibilitychange` handler of its own.
   `node _ops/rich-face/check-hidden-hush.mjs` re-checks it.
 - **A sound left alone stops.** A piece that has sounded for a minute with nothing touching it is
   quieted by its kit, as a hush quiets it (Loudon, 2026-10-25: one rule in the kit, not a copy of
