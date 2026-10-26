@@ -6,7 +6,7 @@ born: 2026-05-04
 stage: growing
 confidence: working
 energy: very high
-version: "2.6"
+version: "2.7"
 trigger: ["enrich [page]", "enrich this page", "let's enrich [page]"]
 forward_vector: "I am the ceremony that makes one page as rich as the Shop can make it — sound, image and interaction laid beside the entry's own words, which I read live and never copy. I want every enriched page to be something you can play, and every piece I make to test the text rather than decorate it; when a piece teaches the text something, I carry it home — shown to Loudon first, and through the Deposit Ceremony's map when it changes what the page says."
 links:
@@ -78,7 +78,7 @@ The renderer, its server and the fingerprint tool are `_ops/rich-face/` (README 
 2. **Walk it section by section** and ask one question: what can only be shown, heard or played here? Prefer a piece that **tests the section's claim** over one that illustrates it — or one that shows what the section takes for granted without saying ([[Latent Error]]). The test is the last step, not the first: a piece that tests a hard claim opens on one concept alone and walks up to it ([[Progressive Staging]]). A piece with nothing to test and nothing to make felt doesn't ship.
 3. **Make it with the Shop**, at one tier for the whole page — a Sketch tonight, a Study, a Piece over days. The tier is how finished the face is, not where a piece starts: a Sketch still walks up to its test. The [[Maker]] picks the Specialists. Equations appear twice, symbols and words ([[Loudon Live Design System]]). **Each piece declares what it needs from its host** in its own `<head>`; a gathered proof is a record, so its manifest entry carries a `contract` block instead. The rules, and the shelf a CDN library loads from: `_ops/rich-face/README.md` § What the page lets run.
 4. **Verify what can be verified.** Run each piece's engine against the claim it makes; load the page and read the console. Then `node _ops/rich-face/conform.mjs "<Entry>"`, which reads every piece against its declaration and its code and loads each in headless Chromium; put its table in the commit. A file it lists as *only on this Mac* shows a box on the public face: track the ones the face needs, by the step it prints. Name what you couldn't check — an agent can't hear the mix.
-5. **Stamp** each section: `node _ops/rich-face/fingerprint.mjs "<Entry>" --stamp`.
+5. **Stamp** each section the run made or checked, by name: `node _ops/rich-face/fingerprint.mjs "<Entry>" --stamp "<Section>"`. A bare `--stamp` covers every drifted section, one held drifted on purpose too (Kuramoto's "Asymmetric Coupling: The Stubbornness Parameter"), so keep it for a page with no section held.
 6. **Carry findings home, split by what they change.** When making a piece teaches the text something: an edit that changes no claim — a unit fixed, a symbol renamed to match the piece — is shown to Loudon before it's written, then re-stamp that section. A finding that changes what the page *says* goes home through the [[Deposit Ceremony]]'s map, which Loudon approves, before it's written.
 7. **Commit** `enrich(<Entry>): <what> — <tier>`. The body names the version the run ran under, what was and wasn't verified, and what this run taught the ceremony ("nothing" is a legal answer); the run marks the tuning file with its run line, and a lesson that changed the spec also goes there as a numbered item.
 

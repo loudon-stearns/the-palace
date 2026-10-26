@@ -44,7 +44,7 @@ What each enrichment taught the ceremony, appended after a run that taught it so
 
 ## From the Kuramoto face-switch cleanup, 2026-10-13
 
-8. **A bare `--stamp` re-stamps a section held drifted on purpose.** Step 5 runs `fingerprint.mjs "<Entry>" --stamp` bare, and a bare stamp covers every drifted section with no sign that one was held. Kuramoto's "Asymmetric Coupling: The Stubbornness Parameter" is held drifted on purpose (stamped `f19f12592784`, prose now `084c089b289f`; `48bda7a1`): it wants a real re-tune, not a quiet stamp, and a bare stamp would give it one. Spec change owed: step 5 stamps by section name whenever any section is held. **Owed; the version stays v2.4.**
+8. **A bare `--stamp` re-stamps a section held drifted on purpose.** Step 5 runs `fingerprint.mjs "<Entry>" --stamp` bare, and a bare stamp covers every drifted section with no sign that one was held. Kuramoto's "Asymmetric Coupling: The Stubbornness Parameter" is held drifted on purpose (stamped `f19f12592784`, prose now `084c089b289f`; `48bda7a1`): it wants a real re-tune, not a quiet stamp, and a bare stamp would give it one. Spec change: step 5 stamps by section name whenever any section is held. **Paid in v2.7, 2026-10-25.**
 
 ## From the Dissolutions sits, 2026-10-25
 
