@@ -46,8 +46,6 @@ This is what makes it a [[Boundary-Crossing Instruments]] concept before there w
 
 > 🎓 *The demo that makes this a body-experience.* See [[proofs/2026-05-05-vibrato-becomes-melody|the moment vibrato becomes melody]] — a 5-minute lesson script that walks a learner from 5 Hz vibrato down to 0.5 Hz alternating melody, the crossing of the ~20 Hz boundary in real time. The script ends on a thesis: *the whole right side of the synthesizer is the left side, with a different clock.*
 
-> 🎚 *The rough Loudon played, 2026-10-13.* [[proofs/2026-10-13-the-flip-three-axes.html|The flip, three axes]] — one log axis from 0.5 Hz to 2 kHz, three modes (click train, sine through a wobbled delay, two drum voices), with the threshold marked as a zone on each axis. It is the seed of this page's rich face, kept beside the two 2026-05-04 sketches.
-
 ## The Flip
 
 Speed up a click train. At 60, 120, 240 beats a minute it is a rhythm you could tap. Somewhere around 1200, twenty clicks a second, the clicks stop arriving one at a time and fuse into a low buzz; push further and the buzz is a pitch. The signal hasn't changed, and neither has the speaker. The ear has changed how it reads them. A click train was a harmonic series all along: the tone you hear is the click rate and its whole-number multiples.
@@ -99,6 +97,8 @@ The duality is recursive across dimensions: the same ~20 Hz perceptual threshold
 - **Implication.** Every dimension you can put on the frequency-time axis carries the same perceptual zones. The duality is not a single fact about delay-and-pitch — it is a structural feature of how the auditory system parses periodicity at every level of nesting.
 
 This is why the walk keeps meeting the threshold: on the rate of the signal (The Flip), on a polyrhythm, and here, on the rate of a modulation. Whether the zones sit in the same place is one of the open questions below. That they all exist is what makes the duality more than a conversion table.
+
+> 🎚 *The rough Loudon played, 2026-10-13.* [[proofs/2026-10-13-the-flip-three-axes.html|The flip, three axes]] — one log axis from 0.5 Hz to 2 kHz, three modes (click train, sine through a wobbled delay, two drum voices), with the threshold marked as a zone on each axis. It is the seed of this page's rich face, kept beside the two 2026-05-04 sketches.
 
 ## Three Doorways
 
