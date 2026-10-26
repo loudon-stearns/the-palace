@@ -22,7 +22,7 @@
   -->
   <script type="application/json" id="vcv-registry">
 {
-  "version": "2.5",
+  "version": "2.6",
   "plugin": "Fundamental",
   "plugin_slug": "Fundamental",
   "vcv_rack_version": "2.x",
@@ -42,6 +42,7 @@
       "slug": "VCO", "plugin": "Fundamental", "name": "VCO", "hp": 12,
       "description": "Voltage-controlled oscillator. Four simultaneous waveform outputs. Hard/soft sync. PWM.",
       "verification": "verified against src/VCO.cpp (2026-04-19)",
+      "poly": "carries voices — VCO.cpp: channels = max(PITCH_INPUT channels, 1); every output setChannels(channels) (read 2026-10-26 from GitHub VCVRack/Fundamental v2)",
       "default_input": "V/OCT", "default_output": "SAW",
       "inputs": [
         { "name": "V/OCT", "type": "pitch",   "index": 0, "description": "1V/oct pitch CV" },
@@ -69,6 +70,7 @@
       "slug": "VCF", "plugin": "Fundamental", "name": "VCF", "hp": 8,
       "description": "Voltage-controlled filter. Lowpass + highpass simultaneously. Drive input. Self-oscillates at high resonance.",
       "verification": "verified against src/VCF.cpp (2026-04-19)",
+      "poly": "carries voices — VCF.cpp: channels = max(1, IN_INPUT channels); FREQ/RES/DRIVE CV read with getPolyVoltageSimd, so a mono CV reaches every voice (read 2026-10-26 from GitHub VCVRack/Fundamental v2)",
       "default_input": "IN", "default_output": "LPF",
       "inputs": [
         { "name": "FREQ",  "type": "cv",    "index": 0, "description": "Cutoff frequency CV" },
@@ -94,6 +96,7 @@
       "slug": "ADSR", "plugin": "Fundamental", "name": "ADSR EG", "hp": 8,
       "description": "Attack-Decay-Sustain-Release envelope generator. Gate input is at index 4 (after the 4 CV modulation inputs).",
       "verification": "verified against src/ADSR.cpp (2026-04-19)",
+      "poly": "carries voices — ADSR.cpp: channels = max(1, GATE_INPUT channels); one envelope per voice (read 2026-10-26 from GitHub VCVRack/Fundamental v2)",
       "default_input": "GATE", "default_output": "ENV",
       "inputs": [
         { "name": "A_CV",   "type": "cv",      "index": 0, "description": "Attack time CV" },
@@ -123,6 +126,7 @@
       "slug": "VCA-1", "plugin": "Fundamental", "name": "VCA", "hp": 3,
       "description": "Single-channel VCA. CV input is index 0, audio input is index 1 (NOT the other way around).",
       "verification": "verified against src/VCA-1.cpp (2026-04-19)",
+      "poly": "carries voices — VCA-1.cpp: channels = max(1, IN channels, CV channels); gain per voice (read 2026-10-26 from GitHub VCVRack/Fundamental v2)",
       "default_input": "IN", "default_output": "OUT",
       "inputs": [
         { "name": "CV", "type": "cv",    "index": 0, "description": "Level CV (0–10V) — THIS IS INDEX 0, not the audio input" },
@@ -141,6 +145,7 @@
       "slug": "LFO", "plugin": "Fundamental", "name": "LFO", "hp": 10,
       "description": "Low-frequency oscillator. Four outputs (no UNI — use OFFSET param for unipolar). Clock-syncable.",
       "verification": "verified against src/LFO.cpp (2026-04-19)",
+      "poly": "carries voices — LFO.cpp: channels follow FM_INPUT; with nothing in FM it stays one voice, and a mono cable broadcasts to every voice it reaches (read 2026-10-26 from GitHub VCVRack/Fundamental v2)",
       "default_output": "SIN",
       "inputs": [
         { "name": "FM",    "type": "cv",      "index": 0, "description": "FM CV" },
@@ -204,6 +209,7 @@
       "slug": "Mixer", "plugin": "Fundamental", "name": "Mix", "hp": 6,
       "description": "Six-input simple mixer. Single master Level knob — no per-channel control. Use VCMIXER for per-channel.",
       "verification": "verified against src/Mixer.cpp (2026-04-19)",
+      "poly": "carries voices — Mixer.cpp: channels = max over IN inputs; OUT setChannels(channels) (read 2026-10-26 from GitHub VCVRack/Fundamental v2)",
       "default_input": "IN1", "default_output": "MIX",
       "inputs": [
         { "name": "IN1", "type": "audio", "index": 0, "description": "Ch1" },
@@ -225,6 +231,7 @@
       "slug": "VCMixer", "plugin": "Fundamental", "name": "VCA Mix", "hp": 10,
       "description": "Four-channel mixer with per-channel level knobs AND CV inputs. Audio inputs start at index 5, not 0.",
       "verification": "verified against src/VCMixer.cpp (2026-04-19)",
+      "poly": "carries voices — VCMixer.cpp: channels = max over CH inputs; MIX and CH outputs carry every voice (read 2026-10-26 from GitHub VCVRack/Fundamental v2)",
       "default_input": "IN1", "default_output": "MIX",
       "inputs": [
         { "name": "MIX_CV", "type": "cv",    "index": 0, "description": "Master mix CV" },
@@ -256,6 +263,7 @@
     "MIDI_CV": {
       "slug": "MIDIToCVInterface", "plugin": "Core", "name": "MIDI-CV", "hp": 9,
       "default_data": {"pwRange": 0.0, "smooth": true, "channels": 1, "polyMode": 0, "clockDivision": 24, "lastPw": 0, "lastMod": 0, "filterLambda": 30.0, "midi": {"driver": -11, "deviceName": "QWERTY keyboard (US)", "channel": -1}},
+      "voices": { "data_key": "channels", "min": 1, "max": 16, "verification": "read 2026-10-26 from GitHub VCVRack/Rack v2: include/dsp/midi.hpp toJson writes `channels` (json_integer) and fromJson reads it back; MIDI_CV.cpp process() calls setChannels(midiParser.channels) on PITCH, GATE, VELOCITY, AFTERTOUCH and RETRIGGER, so one cable carries every voice. Its Polyphony channels menu offers 1 (Monophonic) to 16. polyMode 0 = ROTATE_MODE (enum PolyMode in midi.hpp), already in default_data." },
       "description": "MIDI-to-CV interface. No inputs, no params — 12 outputs derived from incoming MIDI. Slug is 'MIDIToCVInterface' (historical), plugin is 'Core'.",
       "verification": "verified against Rack v2/src/core/MIDI_CV.cpp (2026-04-20). NUM_INPUTS=0, NUM_PARAMS=0, 12 configOutput() calls in OutputIds enum order. Slug verified from `createModel<MIDI_CV, MIDI_CVWidget>(\"MIDIToCVInterface\")`.",
       "default_output": "PITCH",
@@ -280,6 +288,7 @@
     "AUDIO_8": {
       "slug": "AudioInterface", "plugin": "Core", "name": "Audio-8", "hp": 10,
       "default_data": {"audio": {"driver": 5, "deviceName": "MacBook Pro Speakers", "sampleRate": 48000.0, "blockSize": 256, "inputOffset": 0, "outputOffset": 0}, "dcFilter": false},
+      "poly": "sums — Audio.cpp reads each input with getVoltageSum(), so every voice is heard (read 2026-10-26 from GitHub VCVRack/Rack v2)",
       "description": "Audio interface, 8×8. Inputs on the left (signals leaving the rack to the DAW/speakers — 'device output N'). Outputs on the right (signals arriving from the DAW/mic — 'device input N'). For stereo listen, patch to IN1 AND IN2.",
       "verification": "verified against Rack v2/src/core/Audio.cpp (2026-04-20). AUDIO_INPUTS+i / AUDIO_OUTPUTS+i pattern for i∈[0,7], no params. Slug verified from `createModel<Audio<8,8>, AudioWidget<8,8>>(\"AudioInterface\")`.",
       "default_input": "IN1",
@@ -324,8 +333,8 @@
   -->
   <script type="application/json" id="archetypes">
 {
-  "version": "0.2",
-  "notes": "T7c synth archetype library for the VCV/PDL pipeline. An archetype is a param-cloud projection onto EXISTING topology — it never injects modules. v0.2 (2026-05-29), shaped by the first Rack audition of the v0.1 patches: (1) a param-cloud value may be a REGION NAME (string → seed-sampled at a deterministic position, the expressive axis) OR a NUMERIC LITERAL (pinned, clamped to the param's range, the identity axis) — so the seed varies what should vary and leaves identity-critical settings fixed; (2) clouds now set MODULATION DEPTH (attenuverter params like VCF.FREQ_CV, VCO.FM_DEPTH), because v0.1 set destination knobs but left depths at zero, making cabled modulation silent — depth values for pluck/warm_pad are calibrated from Loudon's hand-refinements (FREQ_CV ≈0.38 / ≈0.03); (3) each archetype declares RECOMMENDED_CABLES between roles — the emitter WARNS (T12 'make failure loud') when an identity cable is absent, without injecting it, because topology stays a PDL/T6 decision; (4) base oscillator FREQ is pinned to keyboard-tracking (0) for played voices so a static multi-octave offset can't fight the played pitch — drone keeps a FREQ region as the documented unplayed/sustained exception, and sub_bass pins a -12 octave offset as an intentional register choice. Region names reference perceptual regions in vcv_fundamental_registry.json (v2.3+). Resolver: resolveArchetype in PDL Renderer.html. Emit precedence: explicit PDL `*` line > archetype param > registry default. Project data with its own `version`; not palace ontology.",
+  "version": "0.3",
+  "notes": "T7c synth archetype library for the VCV/PDL pipeline. An archetype is a param-cloud projection onto EXISTING topology — it never injects modules. v0.2 (2026-05-29), shaped by the first Rack audition of the v0.1 patches: (1) a param-cloud value may be a REGION NAME (string → seed-sampled at a deterministic position, the expressive axis) OR a NUMERIC LITERAL (pinned, clamped to the param's range, the identity axis) — so the seed varies what should vary and leaves identity-critical settings fixed; (2) clouds now set MODULATION DEPTH (attenuverter params like VCF.FREQ_CV, VCO.FM_DEPTH), because v0.1 set destination knobs but left depths at zero, making cabled modulation silent — depth values for pluck/warm_pad are calibrated from Loudon's hand-refinements (FREQ_CV ≈0.38 / ≈0.03); (3) each archetype declares RECOMMENDED_CABLES between roles — the emitter WARNS (T12 'make failure loud') when an identity cable is absent, without injecting it, because topology stays a PDL/T6 decision; (4) base oscillator FREQ is pinned to keyboard-tracking (0) for played voices so a static multi-octave offset can't fight the played pitch — drone keeps a FREQ region as the documented unplayed/sustained exception, and sub_bass pins a -12 octave offset as an intentional register choice. Region names reference perceptual regions in vcv_fundamental_registry.json (v2.3+). Resolver: resolveArchetype in PDL Renderer.html. Emit precedence: explicit PDL `*` line > archetype param > registry default. Project data with its own `version`; not palace ontology. v0.3 (2026-10-26, steward cycle 2): an archetype may carry `voices`, how many notes it plays at once; the emitter writes it into the keyboard module unless the PDL says `# voices: N`. warm_pad plays six voices (Loudon, on his warm-pad refinement: should be polyphonic!) and pins its amp LEVEL at 0.5, so a chord of saws summed at the audio out does not clip.",
   "role_conventions": {
     "AMP_ENV": "amp_env",
     "PITCH_ENV": "pitch_env",
@@ -387,8 +396,10 @@
         "vco":     { "FREQ": 0.0 },
         "vcf":     { "FREQ": "open", "RES": "present", "FREQ_CV": 0.03 },
         "amp_env": { "A": "pad", "D": "medium", "S": "held", "R": "long" },
-        "lfo":     { "FREQ": "subtle" }
+        "lfo":     { "FREQ": "subtle" },
+        "amp":     { "LEVEL": 0.5 }
       },
+      "voices": 6,
       "recommended_cables": [
         { "from": "lfo", "to": "vcf", "to_port": "FREQ",
           "label": "LFO breathes the cutoff — the pad's slow evolution; without it FREQ_CV modulates nothing" }
@@ -580,6 +591,7 @@
       const instanceTypes = {}; // instanceId → registry module type key
       const warnings      = []; // { source, lineNumber, content, reason }
       const archetypes    = []; // { name, bindings, seed, lineNumber } (T7b)
+      let   voices        = null; // { n, lineNumber } from `# voices: N` (polyphony, 2026-10-26)
 
       const rawLines = text.split("\n");
       for (let i = 0; i < rawLines.length; i++) {
@@ -597,6 +609,17 @@
         // Archetype pragma (T7b):  # archetype: name {role=INST, ...} #seed=N
         // Collected here, resolved at emit time at lower precedence than `*` lines.
         if (line.startsWith("#")) {
+          // Polyphony pragma:  # voices: N  — how many notes play at once.
+          // Target-neutral: PDL says the count; the registry says where a
+          // target keeps it (VCV: MIDI_CV's `channels`).
+          const vm = line.match(/^#\s*voices\s*:\s*(.*?)\s*$/);
+          if (vm) {
+            const n = Number(vm[1]);
+            if (Number.isInteger(n) && n >= 1) voices = { n, lineNumber };
+            else warnings.push({ source: "parser", lineNumber, content: rawLine,
+              reason: `malformed \`# voices\` pragma (expected a whole number of voices, e.g. \`# voices: 6\`)` });
+            continue;
+          }
           const am = line.match(/^#\s*archetype\s*:\s*([A-Za-z0-9_]+)\s*(\{[^}]*\})?\s*(?:#\s*seed\s*=\s*(-?\d+))?\s*$/);
           if (am) {
             const bindings = {};
@@ -746,7 +769,7 @@
         return { ...c, toPort, fromPort, type };
       });
 
-      return { connections: resolvedConnections, params, modules: [...moduleSet], instanceTypes, archetypes, warnings };
+      return { connections: resolvedConnections, params, modules: [...moduleSet], instanceTypes, archetypes, voices, warnings };
     }
 
     // ─── .vcv Emitter ────────────────────────────────────────────────────────────
@@ -940,7 +963,7 @@
     }
 
     function emitVcvJson(pdlText) {
-      const { connections, instanceTypes, params: pdlParams, archetypes: pdlArchetypes, warnings } = parsePDL(pdlText);
+      const { connections, instanceTypes, params: pdlParams, archetypes: pdlArchetypes, voices: pdlVoices, warnings } = parsePDL(pdlText);
 
       // Only registered instances become VCV modules.
       const registeredIds = Object.keys(instanceTypes).filter(id => REGISTRY[instanceTypes[id]]);
@@ -1217,6 +1240,41 @@
           inputId: toPort.index,
           color: CABLE_COLORS_VCV[c.type] || CABLE_COLORS_VCV.default,
         });
+      }
+
+      // Polyphony (registry v2.6, archetypes v0.3). Precedence mirrors params:
+      // `# voices: N` in the PDL > the last archetype that names `voices` > 1.
+      // The count lands in whichever module's registry entry carries a
+      // `voices` field (VCV: MIDI_CV's data.channels), clamped to its range.
+      let voiceCount = null, voiceLine = null;
+      for (const a of (pdlArchetypes || [])) {
+        const v = ARCHETYPES[a.name] && ARCHETYPES[a.name].voices;
+        if (Number.isInteger(v)) { voiceCount = v; voiceLine = a.lineNumber; }
+      }
+      if (pdlVoices) { voiceCount = pdlVoices.n; voiceLine = pdlVoices.lineNumber; }
+      if (voiceCount != null) {
+        const carriers = modulesOut.filter(m => {
+          const id = registeredIds.find(r => moduleId[r] === m.id);
+          return REGISTRY[instanceTypes[id]] && REGISTRY[instanceTypes[id]].voices;
+        });
+        if (!carriers.length && voiceCount > 1) {
+          warnings.push({ source: "emitter", lineNumber: voiceLine, content: `# voices: ${voiceCount}`,
+            reason: "voices asked for, but no module here can carry them (patch a KEYBOARD in)" });
+        }
+        for (const m of carriers) {
+          const id = registeredIds.find(r => moduleId[r] === m.id);
+          const spec = REGISTRY[instanceTypes[id]].voices;
+          const n = Math.max(spec.min ?? 1, Math.min(spec.max ?? voiceCount, voiceCount));
+          if (n !== voiceCount) warnings.push({ source: "emitter", lineNumber: voiceLine, content: `# voices: ${voiceCount}`,
+            reason: `${instanceTypes[id]} carries ${spec.min ?? 1}–${spec.max} voices; clamped to ${n}` });
+          m.data[spec.data_key] = n;
+        }
+        // A module in the patch that cannot carry voices plays only the first.
+        if (voiceCount > 1) for (const id of registeredIds) {
+          const mod = REGISTRY[instanceTypes[id]];
+          if (!mod.voices && !mod.poly && (mod.inputs || []).length) warnings.push({ source: "emitter", lineNumber: voiceLine,
+            content: `@${id} = ${instanceTypes[id]}`, reason: `${instanceTypes[id]} has no polyphony on record in the registry; it may play only one voice` });
+        }
       }
 
       const patch = {

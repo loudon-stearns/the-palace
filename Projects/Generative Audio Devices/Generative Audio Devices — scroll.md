@@ -15,25 +15,25 @@ forward_vector: "I am Generative Audio Devices's scroll — the one page that al
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-26T13:57:24.344Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-26T14:00:44.839Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** sprout · **Steward:** cycle 1 · last ran 2026-10-26 (today)
-- **Plan:** agreed 2026-10-24 (2 days ago) · 1 made thing since · **a proposed revision is waiting on you**
+- **Status:** active · **Stage:** sprout · **Steward:** cycle 2 · last ran 2026-10-26 (today)
+- **Plan:** agreed 2026-10-24 (2 days ago) · 2 made things since · **a proposed revision is waiting on you**
 - **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-10-26 (today) — Every patch I emit now opens on the QWERTY keyboard and the MacBook speakers, with each envelope and LFO under the module it moves. Thirteen ready to load. (`gad-steward-002`)
-- **Last commit touching this project:** 2026-10-24 `769c93ad` — ops(Weave): one link per pair: 322 folds; two composting pages let go; 30 ghost links fixed; the hub bar moves to the top inbound decile; Walk That Weaves and deal.py carried
+- **Last shipped:** 2026-10-26 (today) — The warm pad now plays chords: six voices from the QWERTY keyboard, wired through every module, checked against Rack's own source. (`gad-steward-005`)
+- **Last commit touching this project:** 2026-10-26 `03ffa7e9` — steward(Generative Audio Devices): cycle 1 — SPINNING UP. HOME: [Generative Audio Devices](obsidian://open?vault=The…
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
-- **Runs:** 1 run on 1 day, counted from the ledger's run lines
-- **Last run:** 2026-10-26 — cycle 1 · taught item 1, proposed item 2 for canon
-- **Owed in the ledger:** 1 — 1 order from Loudon; the next run's tail read picks it up first
-- **Proposed for canon:** 1 — item 2; waiting on Loudon's review, and the page has not changed
-- **Latest lesson:** item 2, from cycle 1 — 2026-10-26 — [[Generative Audio Devices — tuning]]
+- **Runs:** 2 runs on 1 day, counted from the ledger's run lines
+- **Last run:** 2026-10-26 — cycle 2 · taught item 3, proposed items 4, 5 for canon
+- **Owed in the ledger:** nothing
+- **Proposed for canon:** 3 — items 2, 4, 5; waiting on Loudon's review, and the page has not changed
+- **Latest lesson:** item 5, from cycle 2 — 2026-10-26 — [[Generative Audio Devices — tuning]]
 
 ### Where this stands
 
-Generative Audio Devices turns a plain description of a sound into a patch you can load: English goes in, a neutral patch language (PDL) sits in the middle, and a VCV Rack file comes out. That whole chain has worked since May. On 2026-10-24 you played the April house bass in Rack, called it alive, and asked for two things on every patch: MIDI from the computer keyboard and sound out of the MacBook speakers, so a patch is quick to test, and each modulator on the row right under the module it modulates. This cycle built both into the emitter. Every patch the project can make now comes out that way, and thirteen of them are ready in one folder.
+Generative Audio Devices turns a plain description of a sound into a VCV Rack patch: English in, a neutral patch language (PDL) in the middle, a loadable file out. It has worked since May. At the revival on 2026-10-24 you asked that every patch open on the QWERTY keyboard and the MacBook speakers, with each modulator under what it moves, and the first cycle today built that. Your own note on the warm pad, 'should be polyphonic!', named the one thing the project couldn't yet say. This cycle taught it to say it: a patch can now ask for several notes at once, and the warm pad asks for six.
 
 ### Open asks
 
@@ -49,17 +49,20 @@ _Nothing decided on the board yet._
 
 ### Runs
 
+- 2026-10-26 — cycle 2 · taught item 3, proposed items 4, 5 for canon
 - 2026-10-26 — cycle 1 · taught item 1, proposed item 2 for canon
 
 ### Owed
 
-- **From Loudon, 2026-10-24.** "Yes, land the revival as drafted, with the small Plan edit.": propose a plan for Generative Audio Devices as a plan_revision ask for his yes, where the work is going and the moves ahead each named by what it does, opening with what he asked when he played the house bass in Rack (the computer keyboard and the MacBook speakers as every patch's defaults, and each modulator on the row under the module it modulates; the Standing Orders), since the revival lands without an agreed plan and Revival Ceremony v2.1 step 5 says a page that already has a steward lands then plans
+_Nothing owed._
 
 ### Proposed for canon
 
 _Changes the steward wants in the house, kept in its tuning ledger until Loudon's review. Its cycles work as if they hold; the pages have not changed._
 
 - **2.** 2026-10-26 · [[Generative Audio Devices]] · § Where it stands, the second paragraph (beginning 'Next, every emitted patch is quick to hear') — the paragraph describes as missing what this cycle built; the 'Device defaults' bullet under What still does NOT exist should go with it
+- **4.** 2026-10-26 · [[Generative Audio Devices]] · § What still does NOT exist, the bullet beginning '**Polyphony**' — the bullet calls polyphony unrepresented, and this cycle represented it in all three layers
+- **5.** 2026-10-26 · `Shop/VCV Patch Generator/VCV Patch Generator — spec — PDL generation prompt.md` · § PDL grammar, after the line '# archetype: name #seed=N' — fresh agents can't ask for chords until the prompt names the token, which is the T6 lesson that 'obey the registry' alone wasn't enough
 
 <!-- scroll:now:end -->
 
@@ -92,6 +95,62 @@ Written on Loudon's word at the revival, 2026-10-24, when he played the house ba
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="gad-steward-005" -->
+### 2026-10-26 — cycle 2 — Off plan — The warm pad now plays chords: six voices from the QWERTY keyboard, wired through every module, checked against Rack's own source.
+> shipped · 3 chord patches ready to load · 20/20, older checks still pass · steward leans adopt the revised plan
+
+_Off plan — polyphony now rather than deferred: the agreed plan holds it back, and the revision waiting on you puts it right after hearing the patches. Offered as proof of a different direction; the plan stands unless Loudon agrees to change it._
+
+Before building, I read Rack's own source (GitHub, VCVRack/Rack and Fundamental v2). The voice count is one number, `channels`, inside the keyboard module's saved settings. Every Fundamental module we use (oscillator, filter, envelope, amp, LFO, both mixers) takes its voice count from what comes in, and the audio out adds all the voices together, so nothing gets dropped. That made it small.
+
+What I built:
+- **PDL says it:** a new line, `# voices: 6`. It stays target-neutral: it says how many notes, not where Rack keeps the number.
+- **The vocabulary file says where it goes** (v2.6): the keyboard module records that its voice count lives in `channels` (1 to 16). Every module records how it carries voices, with the source line it came from.
+- **The archetype gives a default** (v0.3): the warm pad plays six voices, and its amp is pinned at half level so a chord of saws doesn't clip at the speakers. The pluck, kick and the others stay at one voice.
+- **Order of precedence**, the same as for parameters: the PDL line beats the archetype, and the archetype beats one voice. A bad count warns and the patch still comes out: 32 is cut to 16, and 'two' leaves it at one voice.
+
+Checks: the new `verify_polyphony.js` passes 20/20. The emitter changes only the voice count in the device settings Rack saved for us, and every module from keyboard to speakers can carry voices. The same PDL gives the same file byte for byte, and both copies of the vocabulary match. The older checks still pass: 141/141 for your two orders, 36/36 for archetypes, 21/21 for parameter names. The nine prompt-generated candidates are still 9/9 clean.
+
+To hear it: open [the classic warm pad](open:Projects/Generative Audio Devices/proofs/2026-10-26-chords/evolving-warm-pad--classic-warm-pad.vcv) in Rack and hold three keys.
+
+What I passed over: giving the pluck and the stab chords too. Stabs are a natural chord sound, but you haven't heard either archetype yet, so I changed only the one you asked about.
+
+**Artifacts:**
+- [the classic warm pad, six voices: hold a chord on the QWERTY keys](Projects/Generative Audio Devices/proofs/2026-10-26-chords/evolving-warm-pad--classic-warm-pad.vcv)
+- [the detuned two-oscillator pad, six voices](Projects/Generative Audio Devices/proofs/2026-10-26-chords/evolving-warm-pad--detuned-stack-pad.vcv)
+- [the warm-pad recipe you refined, now playing chords](Projects/Generative Audio Devices/proofs/2026-10-26-chords/warm_pad-seed-1.vcv)
+- [the chord check, 20/20](Projects/Generative Audio Devices/pdl-renderer/verify_polyphony.js)
+- [the renderer: the `# voices` line, voice emission, embedded vocabulary v2.6 and archetypes v0.3](Projects/Generative Audio Devices/pdl-renderer/PDL Renderer.html)
+- [vocabulary v2.6: where the voice count lives, and how each module carries voices](Projects/Generative Audio Devices/pdl-renderer/vcv_fundamental_registry.json)
+- [archetypes v0.3: the warm pad plays six voices at half amp level](Projects/Generative Audio Devices/pdl-renderer/archetypes.json)
+
+_Who decides how many notes play at once_
+| patch says | archetype | voices emitted |
+| --- | --- | --- |
+| nothing | warm_pad | 6 |
+| nothing | pluck / kick / others | 1 |
+| # voices: 4 | pluck | 4 |
+| # voices: 3 | warm_pad | 3 |
+| # voices: 32 | any | 16, with a warning |
+| # voices: two | any | 1, with a warning |
+
+_Changed in the workshop:_ README — lists verify_polyphony.js and the vocabulary's v2.6 voice fields so the next worker can run the check
+_Proposed for canon:_ Generative Audio Devices (§ What still does NOT exist, the bullet beginning '**Polyphony**') — the bullet calls polyphony unrepresented, and this cycle represented it in all three layers; owed in the tuning ledger until Loudon's review
+_Proposed for canon:_ Shop/VCV Patch Generator/VCV Patch Generator — spec — PDL generation prompt.md (§ PDL grammar, after the line '# archetype: name #seed=N') — fresh agents can't ask for chords until the prompt names the token, which is the T6 lesson that 'obey the registry' alone wasn't enough; owed in the tuning ledger until Loudon's review
+
+_Left rough:_ Nobody has heard a chord in Rack yet: the source says it works, but your ear hasn't confirmed it, and the half amp level is my guess at keeping a chord from clipping, not a measured level.
+
+_Next moves named:_ When you play a chord patch: if it clips or sounds thin, retune the warm pad's amp level and voice count from what you hear · Teach the generation prompt the `# voices` line (proposed below) so fresh agents ask for chords when a description wants them · Then the second target, Pure Data, once you say which plan stands
+<sub>`gad-steward-005` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-95f757768b" -->
+### 2026-10-26 — cycle 2
+
+taught item 3, proposed items 4, 5 for canon
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="gad-steward-002" -->
 ### 2026-10-26 — cycle 1 — Every patch I emit now opens on the QWERTY keyboard and the MacBook speakers, with each envelope and LFO under the module it moves. Thirteen ready to load.
 > shipped · both standing orders built and checked, 141/141 · not yet opened in Rack · steward leans: load house_bass first

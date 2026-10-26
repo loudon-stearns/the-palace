@@ -25,11 +25,12 @@ The project's development log — the T-task roadmap, the registry's version his
 | File | What it is |
 |---|---|
 | `PDL Renderer.html` | The renderer. Carries the registry and the archetype library as embedded JSON blocks (`#vcv-registry`, `#archetypes`) so it runs with no server. |
-| `vcv_fundamental_registry.json` | The module registry — port indices, param ranges, perceptual regions, and (v2.5) the device settings MIDI-CV and Audio-8 open on. The embedded `#vcv-registry` block mirrors it; keep the two in sync. |
+| `vcv_fundamental_registry.json` | The module registry — port indices, param ranges, perceptual regions, (v2.5) the device settings MIDI-CV and Audio-8 open on, and (v2.6) how each module carries voices. The embedded `#vcv-registry` block mirrors it; keep the two in sync. |
 | `archetypes.json` | The synth archetype library ([[Generative Audio Devices — spec — synth archetypes]]). The embedded `#archetypes` block mirrors it. |
 | `house_bass.pdl` / `house_bass.vcv` | The first playable test (2026-04-20), kept as the pre-archetype reference pair. |
 | `verify_t7a_phase2.js` | Node harness for the perceptual parameter vocabulary — regions, curves, aliases. |
 | `verify_t7b.js` | Node harness for the archetype library and its seeded resolver. |
+| `verify_polyphony.js` | Node harness for chords: `# voices: N` in PDL, an archetype's `voices`, the count written into MIDI-CV's `channels`, and every module from keyboard to speakers able to carry voices (registry v2.6, archetypes v0.3). `--emit <dir>` writes the warm-pad chord patches. |
 | `verify_standing_orders.js` | Node harness for Loudon's two Standing Orders on every PDL the project holds: MIDI on the QWERTY keyboard and audio on the MacBook speakers, and each modulator on the row under the module it modulates. `--emit <dir>` writes the patches. |
 
 ## Checking it still works
@@ -39,6 +40,7 @@ cd "Projects/Generative Audio Devices/pdl-renderer"
 node verify_t7a_phase2.js
 node verify_t7b.js
 node verify_standing_orders.js
+node verify_polyphony.js
 ```
 
 Both read their data from this folder. The T6 oracle in [[VCV Patch Generator]] (`Shop/VCV Patch Generator/t6-oracle.js`) runs candidate PDL through the real `emitVcvJson` in `PDL Renderer.html` here.

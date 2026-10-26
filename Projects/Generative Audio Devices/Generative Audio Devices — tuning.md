@@ -22,7 +22,7 @@ standards:
 
 What Generative Audio Devices's steward cycles taught the page, and the changes to the house its steward proposed. The Concierge opened this ledger on 2026-10-24, at the revival and on Loudon's word, to leave the steward its first one-shot order; the orchestrator writes every line after it. A proposal waits here for Loudon's review; the page takes it in only on his yes. What a cycle leaves rough stays on the scroll's trail, and the scroll's Now lists what keeps recurring.
 
-- from Loudon · 2026-10-24 · "Yes, land the revival as drafted, with the small Plan edit.": propose a plan for Generative Audio Devices as a plan_revision ask for his yes, where the work is going and the moves ahead each named by what it does, opening with what he asked when he played the house bass in Rack (the computer keyboard and the MacBook speakers as every patch's defaults, and each modulator on the row under the module it modulates; the Standing Orders), since the revival lands without an agreed plan and Revival Ceremony v2.1 step 5 says a page that already has a steward lands then plans · owed
+- from Loudon · 2026-10-24 · "Yes, land the revival as drafted, with the small Plan edit.": propose a plan for Generative Audio Devices as a plan_revision ask for his yes, where the work is going and the moves ahead each named by what it does, opening with what he asked when he played the house bass in Rack (the computer keyboard and the MacBook speakers as every patch's defaults, and each modulator on the row under the module it modulates; the Standing Orders), since the revival lands without an agreed plan and Revival Ceremony v2.1 step 5 says a page that already has a steward lands then plans · paid in cycle 2
 
 ## From cycle 1 — 2026-10-26
 
@@ -33,3 +33,17 @@ What Generative Audio Devices's steward cycles taught the page, and the changes 
    > **Every emitted patch is quick to hear.** It opens on the computer keyboard and the MacBook speakers, and each modulator sits on the row under the module it modulates (the scroll's Standing Orders). The device settings are copied byte for byte from Rack's own re-save of the house bass and live in the vocabulary file (v2.5) as `default_data` on MIDI_CV and AUDIO_8. `verify_standing_orders.js` checks both orders on every PDL the project holds (141/141, 2026-10-26).
 
 - run · 2026-10-26 · cycle 1 · taught item 1, proposed item 2 for canon
+
+## From cycle 2 — 2026-10-26
+
+3. Polyphony looked like a deep gap and turned out to be one number in the keyboard's saved settings, because Rack's modules take their voice count from what comes in. Read the target's source before calling an axis hard. *(offered by the steward, cycle 2)*
+4. **Proposed for canon** · 2026-10-26 · [[Generative Audio Devices]] · § What still does NOT exist, the bullet beginning '**Polyphony**' · canon change owed *(proposed by the steward, cycle 2)*
+   Why: the bullet calls polyphony unrepresented, and this cycle represented it in all three layers
+   Path: `Projects/Generative Audio Devices.md`
+   > - **Polyphony beyond the warm pad.** Chords exist as of 2026-10-26: PDL says `# voices: N`, an archetype may carry a default `voices` (warm_pad plays 6), and the vocabulary (v2.6) records that VCV keeps the count in MIDI_CV's `channels` and how every module carries voices, read from Rack's source. `verify_polyphony.js` checks it (20/20). Not yet heard in Rack, and no other archetype has a voice count yet.
+5. **Proposed for canon** · 2026-10-26 · `Shop/VCV Patch Generator/VCV Patch Generator — spec — PDL generation prompt.md` · § PDL grammar, after the line '# archetype: name #seed=N' · canon change owed *(proposed by the steward, cycle 2)*
+   Why: fresh agents can't ask for chords until the prompt names the token, which is the T6 lesson that 'obey the registry' alone wasn't enough
+   Path: `Shop/VCV Patch Generator/VCV Patch Generator — spec — PDL generation prompt.md`
+   > # voices: N                               // how many notes play at once (1–16); omit it and the archetype decides, usually one
+
+- run · 2026-10-26 · cycle 2 · taught item 3, proposed items 4, 5 for canon
