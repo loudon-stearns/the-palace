@@ -17,6 +17,9 @@ links:
   - target: "[[Bessel Functions in Synthesis]]"
     type: connects-to
     label: doorway
+  - target: "[[FM Synthesis]]"
+    type: connects-to
+    label: doorway
   - target: "[[Loudon Live]]"
     type: connects-to
     label: introductory-tool
