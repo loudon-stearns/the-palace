@@ -105,7 +105,7 @@ This is why the walk keeps meeting the threshold: on the rate of the signal (The
 Walk the whole axis and three fields open, each through something the walk already put in your hands.
 
 - **Waveguides and physical modelling.** The Bridge made a string out of a delay line and a low-pass. Tune that filter and the string has a material; branch a resonator off it and it has a body. Flute, drum and bowed cello are next. See [[Waveguide Synthesizer]].
-- **FM synthesis.** The sidebands that appear when the modulation crosses the threshold are a two-operator FM patch. The DX7 had six operators wired in 32 algorithms, each a different routing of carriers and modulators. That's the territory. See [[Bessel Functions in Synthesis]] for the maths of the sidebands.
+- **FM synthesis.** The sidebands that appear when the modulation crosses the threshold are a two-operator FM patch. The DX7 had six operators wired in 32 algorithms, each a different routing of carriers and modulators. That's the territory. See [[FM Synthesis]] for the instrument and [[Bessel Functions in Synthesis]] for the maths of the sidebands.
 - **Wavetables.** Close the delay line into a loop. A loop N samples long, read one sample per tick at sample rate fs, sounds at fs ÷ N, the same reciprocal that ran through the whole walk. A wavetable oscillator keeps the loop and changes how fast it reads it. See [[Wavetable Oscillator]], and past it [[DSP in Looping Dimensions]], where the loop goes up a dimension.
 
 `f = fs ÷ N`
@@ -142,7 +142,3 @@ In April 2026 the idea was designed a second time, as the Frequency-Time Explore
 ---
 
 *Why the page walks and what it left out: [[Frequency-Time Duality — Context]]. The design of its rich face: [[Frequency-Time Duality — spec — rich face]].*
-
-## Active Baton
-
-[[Frequency-Time Duality — baton — fm-page]] — drafted 2026-10-25
