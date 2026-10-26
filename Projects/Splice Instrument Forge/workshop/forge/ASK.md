@@ -36,14 +36,16 @@ Credits: spend freely; ask only before more than 200 at once (his standing order
 Make the folder (`workshop/<something>/`), call `download_asset` for every pick, then **at once** write `manifest.json` and run fetch. Presigned URLs last about two minutes.
 
 ```json
-{ "into": "samples", "samples": [ { "file": "<File Name from the download result>", "url": "<Download URL>" } ] }
+{ "into": "samples", "samples": [ { "file": "<File Name from the download result>", "uuid": "<Asset UUID>", "url": "<Download URL>" } ] }
 ```
+
+Keep the `uuid`: the WAVs are gitignored and live only on this Mac, so the asset id is the one way back to a sample that goes missing (the 2026-10-24 samples were gone from disk by 2026-10-26, and only the stack Sets, whose Splice stack id was in the recipe, could be fetched again).
 
 ```bash
 node forge/forge.mjs fetch "<folder>/manifest.json"
 ```
 
-A FAILED line means an expired URL: call `download_asset` again for that one (a repeat download is free) and re-run fetch.
+A FAILED line means an expired URL: call `download_asset` again for that one and re-run fetch. A repeat download may spend a credit again: on 2026-10-26 Splice reported "Credit Spent: yes" for five sounds first downloaded two days earlier.
 
 ## 4. Write the recipe
 

@@ -1,0 +1,71 @@
+{
+ "kind": "kit",
+ "name": "Dusty Eighty-Five",
+ "tempo": 85,
+ "ask": "a lo-fi kit at 85 (the entry's own example ask, made to prove the forge's own shells, 2026-10-26)",
+ "pads": [
+  {
+   "note": 36,
+   "name": "Kick",
+   "file": "samples/lh2_kick_one_shot_round.wav",
+   "uuid": "5fd66c45-fc79-4790-9ce4-43236f88bb37"
+  },
+  {
+   "note": 37,
+   "name": "808 C",
+   "file": "samples/lh2_bass_one_shot_thic_C.wav",
+   "uuid": "fb34b77e-9178-4b78-8a9c-0d38c81b4992"
+  },
+  {
+   "note": 38,
+   "name": "Snare",
+   "file": "samples/OS_LFN_Round_Snare.wav",
+   "uuid": "4246c39c-f63c-46fd-a0f3-bc61f9eb5e15"
+  },
+  {
+   "note": 39,
+   "name": "Rim",
+   "file": "samples/lh3_percussion_one_shot_rim_flop.wav",
+   "uuid": "c030fb00-6759-48c5-a2cd-bd38f7dfe6e0"
+  },
+  {
+   "note": 42,
+   "name": "Closed Hat",
+   "file": "samples/BOS_MWLF_Hat_Closed_One_Shot_Vinyl.wav",
+   "choke": 1,
+   "uuid": "44c3ba72-dddb-4b79-a3ac-e1a31cd26373"
+  },
+  {
+   "note": 46,
+   "name": "Open Hat",
+   "file": "samples/BOS_MWLF_Hat_Open_One_Shot_Radio.wav",
+   "choke": 1,
+   "uuid": "c2caef05-9859-4203-b2a5-2d3900175589"
+  },
+  {
+   "note": 44,
+   "name": "Shaker",
+   "file": "samples/AB_DL4_Toby_Schay_Shaker_One_Shot_Washer.wav",
+   "uuid": "2e341681-b74e-4d5d-90c4-814850403895"
+  },
+  {
+   "note": 51,
+   "name": "Ride",
+   "file": "samples/LFF_cymbal_tape_ride_dusty.wav",
+   "uuid": "6557de10-9ff7-4d73-a3db-984362d0aa1d"
+  }
+ ],
+ "pattern": {
+  "bars": 4,
+  "steps": {
+   "Kick": "x.....x...x.....x.......xx...x..x.....x...x.....x.......xx...x..",
+   "808 C": "x.........x.....x...............x.........x.....x...............",
+   "Snare": "....x.......x.......x.......x.......x.......x.......x.......x...",
+   "Rim": ".......x...................x...x.......x...................x...x",
+   "Closed Hat": "x.x.x.x.x.x.x...x.x.x.x.x.x.x...x.x.x.x.x.x.x...x.x.x.x.x.x.x...",
+   "Open Hat": "..............................x...............................x.",
+   "Shaker": ".x.x.x.x.x.x.x.x.x.x.x.x.x.x.x.x.x.x.x.x.x.x.x.x.x.x.x.x.x.x.x.x",
+   "Ride": "x...............................x..............................."
+  }
+ }
+}

@@ -15,7 +15,52 @@ forward_vector: "I am Splice Instrument Forge's scroll — the one page that alw
 <!-- scroll:now:start -->
 ## Now
 
-_Not yet rendered. The project was born 2026-10-24 and has no steward; this zone fills when the project is first looked at from the PROJECTS deck._
+> _Regenerated 2026-10-26T14:05:03.487Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+
+- **Status:** active · **Stage:** sprout · **Steward:** cycle 1 · last ran 2026-10-26 (today)
+- **Plan:** agreed (no dated change on the trail yet)
+- **Waiting on you:** nothing
+- **Ready to advance:** no unread answers
+- **Last shipped:** 2026-10-26 (today) — Kits and stacks now build from parts taken out of Live's own factory files. The audit found a hidden fade-out on every clip in your melodic techno Set. (`splice-instrument-forge-steward-002`)
+- **Last commit touching this project:** 2026-10-24 `87d2d07c` — ops(Weave): eight faces placed; tuning 58–60; the worker brief learns where a reason hides; a proof demoted
+- **Signal:** steady
+- **Drift:** no consolidation marker on the entry — nothing to measure against.
+- **Runs:** 1 run on 1 day, counted from the ledger's run lines
+- **Last run:** 2026-10-26 — cycle 1 · taught item 1, proposed item 2 for canon
+- **Owed in the ledger:** nothing
+- **Proposed for canon:** 1 — item 2; waiting on Loudon's review, and the page has not changed
+- **Latest lesson:** item 2, from cycle 1 — 2026-10-26 — [[Splice Instrument Forge — tuning]]
+
+### Where this stands
+
+Splice Instrument Forge turns a sentence into a Live Set built from Splice sounds. On 2026-10-24 it built a Sampler instrument, a Drum Rack and a Session View stack, then one command that goes from your words to an open Set, which made your melodic techno track. After you heard those, you added three steps to the plan: own shells, taste, and four owed format proofs. Own shells came first because all three bugs that day (named macros, +3.1 dB clip gain, a −12 dB fader) rode in on parts copied from Sets someone had saved. This cycle the forge stopped copying from saved Sets. Every track, clip and drum pad the kit and stack builders use now comes from files Ableton itself ships inside Live 12.…
+
+### Open asks
+
+_None — nothing is waiting on you._
+
+### Answered, not yet consumed
+
+_None._
+
+### Decided
+
+_Nothing decided on the board yet._
+
+### Runs
+
+- 2026-10-26 — cycle 1 · taught item 1, proposed item 2 for canon
+
+### Owed
+
+_Nothing owed._
+
+### Proposed for canon
+
+_Changes the steward wants in the house, kept in its tuning ledger until Loudon's review. Its cycles work as if they hold; the pages have not changed._
+
+- **2.** 2026-10-26 · [[Splice Instrument Forge]] · § What it stands on, the bullet 'Live ships a shell for every target.' — the entry should name where the forge's parts come from now; copying from saved Sets is what let three bugs and a hidden fade-out into every Set
+
 <!-- scroll:now:end -->
 
 ## Plan
@@ -52,6 +97,81 @@ _Not yet rendered. The project was born 2026-10-24 and has no steward; this zone
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="splice-instrument-forge-steward-002" -->
+### 2026-10-26 — cycle 1 — Kits and stacks now build from parts taken out of Live's own factory files. The audit found a hidden fade-out on every clip in your melodic techno Set.
+> shipped · two proof Sets open clean in Live 12.4.6 · steward leans moving the Sampler path next
+
+**What I made.** [harvest.mjs](obsidian://open?vault=The%20Palace&file=Projects/Splice%20Instrument%20Forge/workshop/move-7-shells/harvest.mjs) takes five parts from files inside the Live 12 app: Ableton's default audio and MIDI tracks, a clip from its own sample library, and a clip and a drum pad from its Quick Start Beat template. It resets them to neutral values and writes them to `move-7-shells/shells/`. The kit and stack builders now read only from there. [audit.mjs](obsidian://open?vault=The%20Palace&file=Projects/Splice%20Instrument%20Forge/workshop/move-7-shells/audit.mjs) compares each part, value by value, with Ableton's own version. After a Live update, run both again and the audit shows what Ableton changed.
+
+**What the audit found in the old parts.** The audio clip copied from your Impact Granular Set had a 0.44-beat shaped fade-out, clip fades switched off, and the 'in key' flag set. All 100 clips in Loudon Melodic Techno carry those, and so do the 21 in Flowers Stack. The +3.1 dB you heard came the same way. The MIDI track every kit used came in armed for recording, on top of the −12 dB fader we already knew about. The new parts differ from Ableton's own only at the holes where the builders pour content.
+
+**Proof.** Flowers Stack, rebuilt on the new parts, loaded in a second Live 12.4.6 at 10:11 with no warning. A new kit, Dusty Eighty-Five, also loaded clean at 10:19. It's lo-fi at 85: a round kick, a C 808, a round snare, a rim, vinyl hats on one choke group, a shaker and a tape ride, playing a four-bar boom-bap pattern. Live is open on it now. Whether it sounds right is yours to say.
+
+**Fixed along the way.** The stack builder had been transposing vocals, against your standing order. Flowers Stack's vocal was being moved −3 semitones. It now stays where it is, and the report names the key clash. The rebuilt Flowers Stack plays the vocal untransposed.
+
+**Found along the way.** None of the samples from 2026-10-24 are on disk anymore. They're gitignored WAVs, and I don't know what removed them. Every older Set (Astromode Analog, Spoiler Kit, Flowers Stack, the melodic techno track) now opens with its samples missing. Splice still had Flowers Stack, so I fetched its five layers again, and that cost five credits, not the free repeat [ASK.md](obsidian://open?vault=The%20Palace&file=Projects/Splice%20Instrument%20Forge/workshop/forge/ASK.md) promised. ASK.md now has every manifest keep each sound's Splice id, so a lost sample can always be fetched again. Thirteen credits this cycle in all.
+
+**Artifacts:**
+- [the new lo-fi kit at 85, built on the new parts; open in Live now](Projects/Splice Instrument Forge/workshop/move-7-shells/proof/lofi-kit/Dusty Eighty-Five.als)
+- [the same kit as a Drum Rack preset](Projects/Splice Instrument Forge/workshop/move-7-shells/proof/lofi-kit/Dusty Eighty-Five.adg)
+- [Flowers Stack rebuilt on the new parts, vocal no longer transposed](Projects/Splice Instrument Forge/workshop/move-7-shells/proof/Flowers Stack.als)
+- [the kit recipe, each pad with its Splice id](Projects/Splice Instrument Forge/workshop/move-7-shells/proof/lofi-kit/kit.json)
+- [the kit's download manifest, with Splice ids](Projects/Splice Instrument Forge/workshop/move-7-shells/proof/lofi-kit/manifest.json)
+- [takes the five parts out of the Live app and resets them](Projects/Splice Instrument Forge/workshop/move-7-shells/harvest.mjs)
+- [compares every part with Ableton's own, value by value](Projects/Splice Instrument Forge/workshop/move-7-shells/audit.mjs)
+- [the audit's findings](Projects/Splice Instrument Forge/workshop/move-7-shells/audit.json)
+- [where each part comes from, what the audit found, what's proved](Projects/Splice Instrument Forge/workshop/move-7-shells/README.md)
+- [Ableton's default audio track](Projects/Splice Instrument Forge/workshop/move-7-shells/shells/AudioTrack.xml)
+- [Ableton's default MIDI track](Projects/Splice Instrument Forge/workshop/move-7-shells/shells/MidiTrack.xml)
+- [a clip from Ableton's own sample library, emptied](Projects/Splice Instrument Forge/workshop/move-7-shells/shells/AudioClip.xml)
+- [a clip from Ableton's Quick Start Beat, notes removed](Projects/Splice Instrument Forge/workshop/move-7-shells/shells/MidiClip.xml)
+- [a pad from Ableton's Quick Start Beat rack, emptied](Projects/Splice Instrument Forge/workshop/move-7-shells/shells/DrumBranch.xml)
+- [which Live file each part came from, and its Live version](Projects/Splice Instrument Forge/workshop/move-7-shells/shells/PROVENANCE.json)
+- [stack builder: reads the new parts; never moves a vocal](Projects/Splice Instrument Forge/workshop/move-4-session/forge-session.mjs)
+- [kit builder: reads the new parts](Projects/Splice Instrument Forge/workshop/move-3-drum-rack/forge-drum-rack.mjs)
+- [Flowers Stack recipe, now with Splice ids](Projects/Splice Instrument Forge/workshop/move-4-session/stack.json)
+- [keep the Splice id in every manifest; a repeat download can cost a credit](Projects/Splice Instrument Forge/workshop/forge/ASK.md)
+- [kick (stays on this Mac)](Projects/Splice Instrument Forge/workshop/move-7-shells/proof/lofi-kit/samples/lh2_kick_one_shot_round.wav)
+- [808 in C](Projects/Splice Instrument Forge/workshop/move-7-shells/proof/lofi-kit/samples/lh2_bass_one_shot_thic_C.wav)
+- [snare](Projects/Splice Instrument Forge/workshop/move-7-shells/proof/lofi-kit/samples/OS_LFN_Round_Snare.wav)
+- [rim](Projects/Splice Instrument Forge/workshop/move-7-shells/proof/lofi-kit/samples/lh3_percussion_one_shot_rim_flop.wav)
+- [closed hat](Projects/Splice Instrument Forge/workshop/move-7-shells/proof/lofi-kit/samples/BOS_MWLF_Hat_Closed_One_Shot_Vinyl.wav)
+- [open hat](Projects/Splice Instrument Forge/workshop/move-7-shells/proof/lofi-kit/samples/BOS_MWLF_Hat_Open_One_Shot_Radio.wav)
+- [shaker](Projects/Splice Instrument Forge/workshop/move-7-shells/proof/lofi-kit/samples/AB_DL4_Toby_Schay_Shaker_One_Shot_Washer.wav)
+- [ride](Projects/Splice Instrument Forge/workshop/move-7-shells/proof/lofi-kit/samples/LFF_cymbal_tape_ride_dusty.wav)
+- [Flowers Stack bass, fetched again](Projects/Splice Instrument Forge/workshop/move-4-session/samples/tp_da_140_bass_loop_flowers_Fmin.wav)
+- [Flowers Stack drums, fetched again](Projects/Splice Instrument Forge/workshop/move-4-session/samples/Bpm140_RaveStep_Beat25_PL.wav)
+- [Flowers Stack drums 2, fetched again](Projects/Splice Instrument Forge/workshop/move-4-session/samples/BOS_LevIV_150_Drum_Loop_Percieve.wav)
+- [Flowers Stack pad, fetched again](Projects/Splice Instrument Forge/workshop/move-4-session/samples/DS_DSP2_150_synth_loop_pad_cavern_Em.wav)
+- [Flowers Stack vocal, fetched again](Projects/Splice Instrument Forge/workshop/move-4-session/samples/PMA_12_Vocal_Atmosphere_Bmaj_140Bpm.wav)
+
+_Each part the builders use: the old copy compared with Ableton's own 12.4.6 version_
+| part | came from | what rode in | new part differs from Ableton's in |
+| --- | --- | --- | --- |
+| audio clip | your Impact Granular Set | 0.44-beat fade-out, clip fades off, +3.1 dB (fixed earlier), 'in key' set | only the sample and warp holes |
+| MIDI track | Session Writer template | armed for recording, −12 dB (fixed earlier) | only the blank name |
+| audio track | Live 12.1's default Set | ten values Live 12.4 writes that 12.1 lacked | only the blank name |
+| MIDI clip | Session Writer template | editor zoom and scroll, colour, start at beat 4 | only colour |
+| drum pad | Spoiler Kit, saved back from your Live | small differences | no sends, output kept on the rack (Ableton's fed a sidechain) |
+| the Set itself | Live 12.1's default Set | nothing: matches Ableton's | kept as it was |
+
+_Changed in the workshop:_ ASK — keep each sound's Splice id in the manifest; a repeat download can spend a credit
+_Changed in the workshop:_ README — new: where the forge's own parts come from, the audit's findings, the proofs
+_Proposed for canon:_ Splice Instrument Forge (§ What it stands on, the bullet 'Live ships a shell for every target.') — the entry should name where the forge's parts come from now; copying from saved Sets is what let three bugs and a hidden fade-out into every Set; owed in the tuning ledger until Loudon's review
+
+_Left rough:_ Nobody has heard Dusty Eighty-Five or the rebuilt Flowers Stack. The Sampler path still goes through the Session Writer's own MIDI track, which comes in armed. The Sets from 2026-10-24 other than Flowers Stack still have their samples missing, and their recipes hold no Splice ids to fetch them by. I haven't checked by ear whether the 0.44-beat fade-out actually played with clip fades switched off. The stack check reports an unmoved off-key vocal as 'in key'.
+
+_Next moves named:_ Move the Sampler path off the Session Writer onto the new MIDI track, so no Set the forge makes comes in armed, then rebuild the four old Sets on the new parts. · Fetch the melodic techno Set's samples again by searching for each file name, since its alternates have no saved Splice ids, and rebuild it on the clean clip so you can hear whether the fade-out was audible. · Make the stack check say 'vocal left off-key' instead of 'in key'.
+<sub>`splice-instrument-forge-steward-002` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-d5d17434a3" -->
+### 2026-10-26 — cycle 1
+
+taught item 1, proposed item 2 for canon
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="forge-2026-10-24-plan-moves-7-9" -->
 ### 2026-10-24 — Plan: moves seven to nine
 
