@@ -311,3 +311,9 @@ Item 51 again: seven of the room's outgoing messages are cut in the arc. The co-
 64. **A reason given to Loudon was a guess stated as fact, and the cold read caught it.** In the progressive-staging session a reason offered to him (the re-stamp) was a guess put as a fact; the cold read caught it and the room owned it at the panel. Data, not a spec change, matching item 61: the record beat the resident's account. Also data: this time the resident wrote every house write and the room checked each landing, so no write drifted past the resident; item 63's case did not recur. The version stays v1.13. Nothing owed.
 
 - run · 2026-10-25 · v1.13 · close-2026-10-25-progressive-staging · taught item 64
+
+## From the Playful Interface Design close — 2026-10-25
+
+65. **A session that spans a gap can have its canon reshaped by a Weave before its close, and the cold read saw it only by diffing.** The Weave of 2026-10-24 removed the page's outbound links to Haptic Handwheel, Merleau-Ponty and Biomechanical Synthesis. The cold read caught it because it diffed the session's last commit against HEAD on the files the session touched. This is item 58's gap rule from the other side: the room's own landings, not Loudon's answers, moved. Data, not a spec change; the version stays v1.13. Nothing owed. Also data: `due.mjs --session` listed six tier-2 scenarios owed, all floor files changed by other sessions in the gap; no birth row is owed to this session, so the next close on main should not re-attribute them.
+
+- run · 2026-10-25 · v1.13 · close-2026-10-25-playful-interface-design · taught item 65
