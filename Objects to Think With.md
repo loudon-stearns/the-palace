@@ -23,7 +23,7 @@ links:
   - target: "[[Creative Coach]]"
     type: connects-to
     label: the-peer-gap
-forward_vector: "I name what forty-one projects are for. I want the seventeen that qualify and do not yet say so to declare it from their own side, and I want the harder thing the palace has never collected — evidence that an object actually taught its idea, including a case where one didn't."
+forward_vector: "I name what the palace's projects are for. I want the eighteen that qualify and do not yet say so to declare it from their own side, and I want the harder thing the palace has never collected — evidence that an object actually taught its idea, including a case where one didn't."
 ---
 
 # Objects to Think With
@@ -83,8 +83,8 @@ working alongside their own AI collaborator. Until a cohort meets, the share ste
 
 ## Forward Vectors
 
-- Seventeen further `Projects/` entries qualify and do not yet declare it. A Weave should add
-  `exemplifies` from the instance side rather than a deposit adding twenty-one links at once.
+- Eighteen further `Projects/` entries qualify and do not yet declare it. A Weave should add
+  `exemplifies` from the instance side rather than a deposit adding them all at once.
 - Is there a test for whether an object actually teaches its idea, or does the palace only find out
   afterward, from a lesson that landed? [[Compressor Design]] wants exactly this evidence — *"the
   moments in a lesson where students heard the 500-sample window as time they could feel."*
@@ -93,4 +93,4 @@ working alongside their own AI collaborator. Until a cohort meets, the share ste
 
 ## Active Baton
 
-[[Objects to Think With — baton]] — drafted 2026-10-25
+[[Objects to Think With — baton]] — the eighteen links, for a Weave (2026-10-26)
