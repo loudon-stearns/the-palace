@@ -51,7 +51,7 @@ At zero you hear the carrier alone, a sine. Turn it up a little and the tone war
 
 It doesn't simply get brighter. Each partial swells and dips in its own rhythm as the index climbs, so a slow sweep shimmers rather than opens. That wobble is the Bessel shape, and its sheet is in [[Bessel Functions in Synthesis]].
 
-The instrument move is to give the index an envelope. Jean-Claude Risset had found that a trumpet gets brighter as it gets louder; tie the index to the loudness and two sines play brass. Let the index fall faster than the loudness and you get the opposite gesture, a bright strike that mellows towards a sine: an electric piano, a marimba, a bell. In FM the envelope on the modulator *is* the timbre over time.
+The instrument move is to give the index an envelope. Jean-Claude Risset had found at Bell Labs that a trumpet gets brighter as it gets louder; tie the index to the loudness and two sines play brass. Let the index fall faster than the loudness and you get the opposite gesture, a bright strike that mellows towards a sine: an electric piano, a marimba, a bell. In FM the envelope on the modulator *is* the timbre over time.
 
 ## Ratios
 
@@ -73,7 +73,7 @@ A little feedback leans the sine towards a sawtooth, and at 7, the DX7's top, it
 
 Yamaha licensed Chowning's FM from Stanford in the 1970s and, in 1983, released the DX7. It had six operators, and you could not patch them. You chose one of 32 **algorithms**, each a fixed wiring diagram printed on the panel.
 
-An algorithm says three things: which operators are carriers (the bottom row, the ones you hear), which modulate which (the stacks above them), and where the one feedback loop sits. Algorithm 1 is a two-operator pair beside a four-operator stack. Algorithm 32 is six carriers side by side with no modulation at all, an additive organ of six sines. Between them are three pairs layered into one sound, so one pair can be the body and another the strike, and single modulators driving several carriers at once.
+An algorithm says three things: which operators are carriers (the bottom row, the ones you hear), which modulate which (the stacks above them), and where the one feedback loop sits. Algorithm 1 is a two-operator pair beside a four-operator stack. Algorithm 32 is six carriers side by side with no modulation between them, an additive organ of six sines. Between them are three pairs layered into one sound, so one pair can be the body and another the strike, and single modulators driving several carriers at once.
 
 A stack is where it gets dense. A modulator that is itself modulated is already a rich tone, and pushing a carrier with a rich tone gives far more partials than a pair can.
 
@@ -86,7 +86,7 @@ Several things at once, and the instrument explains each.
 - **It was exact.** Digital oscillators don't drift, so attacks were glassy and clean and sixteen voices stayed in tune with each other, where an analog polysynth of the time drifted.
 - **Brightness lived in envelopes, and velocity drove them.** Strike a key harder and the modulators pushed harder, so the sound got brighter as well as louder. A keyboard player's touch came through a digital box for the first time.
 - **There was no filter.** Subtractive synths start bright and filter the brightness away. FM starts with a sine and draws the brightness in with the index. A struck bar loses its high partials first because they are damped harder, which is the physics [[Resonance and Damping]] holds. FM has no resonance to damp. It draws that decay by hand, on the modulator's envelope, and the drawing is exact in a way a physical object never is. You can hear the difference: FM bells are cleaner than bells.
-- **Nobody could program it.** Around 150 settings per sound, one data slider, a row of membrane buttons and a two-line display. Most players used the factory sounds and bought cartridges, so a handful of patches, E.PIANO 1 and TUB BELLS among them, turned up on record after record. The decade shares a few presets the way an earlier one shared a few guitar amps.
+- **Nobody could program it.** Around 150 settings per sound, one data slider, a row of membrane buttons and a two-line display. Most players used the factory sounds and bought cartridges, so a handful of patches, E.PIANO 1 above all, turned up on record after record. The decade shares a few presets the way an earlier one shared a few guitar amps.
 - **It was good at struck things and brass.** Electric piano, bells, marimba, glassy bass, brass stabs: everything whose brightness falls as it decays, or rises as it gets louder. Warm pads and strings it did less well, and that gap is part of why the end of the decade layered FM with samples.
 
 ## Origin
@@ -95,7 +95,7 @@ Minted 2026-10-25, from the second of [[Frequency-Time Duality]]'s three doorway
 
 ## Forward Vector
 
-- **Hear the patch.** A rough sits in this page's workshop, a walk built by [[Progressive Staging]]: seven steps, one at a time, each a whole instrument, from one operator through the threshold, ratio and index, the index's own envelope and feedback, to all 32 algorithms and a keyboard that plays them. Steps 1 to 5 quietly run DX7 algorithm 2 with four operators off, and step 6 says so. The last step links to the proof already on [[Bessel Functions in Synthesis]]. Its checks re-run every step's claims. It wants Loudon's ears before it becomes part of the rich face.
+- **Hear the patch.** A playable rough sits in this page's workshop, a walk built by [[Progressive Staging]] from one operator up to the full DX7, with checks that re-run its claims. It wants Loudon's ears before it becomes part of the rich face.
 - **Draw the algorithms.** Three of the 32, numbers 1, 5 and 32, as technical diagrams beside the section that describes them ([[Technical Diagram Standard]]).
 - **Phase or frequency.** The DX7 actually pushes the carrier's phase, not its frequency. To the ear the two give the same family of sounds; whether the page owes the distinction more than this line is open.
 - **Where the threshold sits.** The Duality asks whether its 20 Hz zones fall in the same place on every axis. FM is where to measure it on the modulation axis: at what modulator rate does a listener stop hearing vibrato and start hearing tone?
