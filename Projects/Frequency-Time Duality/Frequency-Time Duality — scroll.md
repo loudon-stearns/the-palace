@@ -58,6 +58,13 @@ _Loudon's standing direction for this page — never regenerated. A steward, if 
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="milestone-2026-10-25-the-first-face" -->
+### 2026-10-25 — The first face, at Sketch tier
+The Plan's first move: the page's rich face, laid from what already existed. The flip rough stays at the opening, the May delay sketch sits beside the echo walk, the rough's Modulation tab and the May sweep beside the recursion, and the Waveguide project's Karplus–Strong string at the first doorway. No piece was copied: the piece kit now stops every piece on a hidden tab and after a minute untouched. Loudon approved it the same day, and shared Curtis Roads' time-scale figure from *Microsound*, now cited at The Flip. Left rough: nobody had heard it in a room yet; the made pieces, the ride, the bridge and the remakes, are the Plan's moves 2 to 4.
+- [The face's manifest](Projects/Frequency-Time Duality/Frequency-Time Duality — rich.json)
+<sub>milestone · `ffab2b8a` the face · `b3c4d4e2` the kit's time cap · `5172498c` the Roads citation · card `frequency-time-duality-remainder-20261021T135522Z`</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="plan-2026-10-21T09-03-45-04-00" -->
 ### 2026-10-21 — Plan agreed
 

@@ -54,6 +54,8 @@ Speed up a click train. At 60, 120, 240 beats a minute it is a rhythm you could 
 
 The crossing is a zone, not a line. Asked on 2026-10-13 to mark the one rate where rhythm became pitch, Loudon pushed back on the question itself: "we are requiring a listener to mark an exact point inside a zone that we have identified as a 'zone' there is a rudeness here, I am asked something impossible." He asked to mark the bottom and the top instead, and said in the same breath that "the top of the zone should be lower in almost all cases" than the rough had drawn it, at 40 Hz. Where one listener's zone sits, and whether it sits in the same place on every axis, is still open.
 
+Curtis Roads draws the crossing as a zone too. Figure 1.1 of *Microsound* (MIT Press, 2001), in its chapter "Time Scales of Music" (p. 5), lays the whole time domain out in four bands, periods, time-delay effects, frequency, and perception and action, from the age of the universe down to the infinitesimal. On it he hatches a transition band at 10 to 20 Hz, and puts the onset of tone perception at about 50 ms, which is 20 Hz. His band ends at 20 Hz, below the rough's 40. The figure is not drawn to scale, so the band is his reading of the field, not a listener's measurement.
+
 ## Polyrhythms Become Intervals
 
 Two drums, one striking three times while the other strikes twice, sped up together. First a polyrhythm you can count, then a groove too fast to count, then a buzz, then two pitches a perfect fifth apart. Slow them down and the fifth comes apart into three against two again. So the question Loudon asks, "what is the rhythm of a perfect 5th?", has an answer: three against two, for a pure fifth; the tempered fifth on a keyboard is a hair narrower. Every ratio does it: two against one is the octave, four against three the fourth, five against four the major third.
@@ -133,7 +135,9 @@ In April 2026 the idea was designed a second time, as the Frequency-Time Explore
   - Progressed, thinly (2026-10-24): [[Meadows and Music — Leverage Points]] § 4 Swing as Resolution records how much timing nuance sounds musical at 70 BPM against 180 — an observation, not a measurement of the zones.
 - Does the recursion observation imply the duality wants its own concept entry for **the 20 Hz threshold itself** as a perceptual constant? It currently lives scattered across body text in this entry and in Microsound.
 - Lets bring Curtis Roads into this conversation, the best analysis of time scales in music I have found was in Curtis Roads book, microsound.
+  - Progressed (2026-10-25): The Flip now cites his Figure 1.1 and its transition band. The figure's time-delay band runs close to The Echo Walk, in the same order: repetition, discrete and tape-head echoes, doubling and spatial image shifting near 50 ms, comb filters (phasing and flanging), then the classic filters under 1 ms. Its perception-and-action band puts tremolo and vibrato at 5 to 8 Hz, and the fastest repetitive human gesture at about 12 Hz, inside the transition band. On his chart the hand gives out about where the ear starts to fuse: a coincidence of the drawing, or the same limit in the body and the ear? His nine time-scale names are still a later round for the rich face.
 - Loudon puts daily cognition beside music and sound design as a place this boundary reaches: "how it impacts so much of what we do with music and sound design and daily cognition." What does the crossing look like there, where a run of separate moments stops being a sequence and is lived as one?
+  - Progressed (2026-10-25): In the same figure Roads marks conscious time, the present, at about 600 ms, after Winckel (1967): a candidate for where a run of separate moments is lived as one.
 
 ---
 
@@ -141,5 +145,4 @@ In April 2026 the idea was designed a second time, as the Frequency-Time Explore
 
 ## Active Baton
 
-[[Frequency-Time Duality — baton]] — re-batoned 2026-10-21 to the remainder after the deposit (`41f41dbd`): the first rich face, Enrichment's run; card `frequency-time-duality-remainder-20261021T135522Z`
 [[Frequency-Time Duality — baton — fm-page]] — drafted 2026-10-25
