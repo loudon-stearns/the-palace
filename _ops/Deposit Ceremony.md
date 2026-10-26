@@ -89,7 +89,7 @@ These are the palace's values as they bear on this one decision. Hold them while
 - **Type, pillars, stage** ([[SCHEMA]] §1–2).
 - **Typed links**, by name; you don't need to read the targets. Ask of each whether it deserves a label.
 - **Tensions**: any entry this contradicts, in one sentence, marked for a `contradicts` link.
-- **Lost branches**, and which kind: queued on [[Palace To-Do]], or declined. "Deferred" alone says neither, and a later session will go back for something that was never kept.
+- **Lost branches**, and which kind: carried as a baton on the board ([[Baton Ceremony]]), or declined. "Deferred" alone says neither, and a later session will go back for something that was never kept.
 - **Entries to flag for the Weave**: what may want updating once this lands. Don't update them now.
 - **A decision to carry**: if the deposit settles something that should hold on every page (a retired word, a new convention, a moved path), name it. It lands in its home here and goes out as one propagate flag, which the next Weave carries everywhere else.
 

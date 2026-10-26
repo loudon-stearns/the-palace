@@ -257,8 +257,7 @@ The Palace/
 │
 └── _ops/                   ← Ceremony machinery + working queues. All ceremony files but Enrichment (root) and Sentry (Palace development/), their context companions, and palace operational queues live here.
     ├── Substrate Skill.md  ← Full ceremony protocols. Method library. Operational instructions.
-    ├── Palace Ceremonies.md ← Canonical ceremony list with triggers and cadences.
-    └── Palace To-Do.md     ← Active improvement queue for palace infrastructure.
+    └── Palace Ceremonies.md ← Canonical ceremony list with triggers and cadences.
 ```
 
 ---

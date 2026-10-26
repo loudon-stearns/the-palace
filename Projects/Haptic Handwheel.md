@@ -162,7 +162,7 @@ The [[Haptic Handwheel — sketch — starter build|starter-build brief]] (parts
 
 ## Lost branches
 
-A concept page for a stance the palace has named three ways already ("physics-as-interface," "interface IS the physics," "not as metaphor but as isomorphism"), and the doubted brief a fourth ("model the physics, not the gesture"), is parked in the [[Palace To-Do]]'s archive until the knob has a built proof. A page for the vintage-instrument aesthetic was declined for now; it stays in this project until a second object exists. The brief's test order is kept in the sketch and is not this project's plan. The plan Loudon agreed on 2026-10-13 is on the project's scroll.
+A concept page for a stance the palace has named three ways already ("physics-as-interface," "interface IS the physics," "not as metaphor but as isomorphism"), and the doubted brief a fourth ("model the physics, not the gesture"), is parked in the retired To-Do's archive ([[Palace To-Do — Archive]]) until the knob has a built proof. A page for the vintage-instrument aesthetic was declined for now; it stays in this project until a second object exists. The brief's test order is kept in the sketch and is not this project's plan. The plan Loudon agreed on 2026-10-13 is on the project's scroll.
 
 ## Forward Vectors
 

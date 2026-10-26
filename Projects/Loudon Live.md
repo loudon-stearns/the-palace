@@ -74,7 +74,7 @@ Underneath all of it is the palace's public face: the provenance layer, the reco
 
 ## What the palace's public face holds back
 
-Narrow, on purpose. Loudon wants anyone curious to come away with a full, honest picture of him — "those interested can understand who I am through exploring" — so the read view shows who he is and what he plans, [[Palace To-Do]] and the audits included, and keeps back only highly personal data and anything that puts his finances at risk. For now it stays out of search engines (a robots noindex on every page), and Loudon will revisit that.
+Narrow, on purpose. Loudon wants anyone curious to come away with a full, honest picture of him — "those interested can understand who I am through exploring" — so the read view shows who he is and what he plans, the audits included, and keeps back only highly personal data and anything that puts his finances at risk. For now it stays out of search engines (a robots noindex on every page), and Loudon will revisit that.
 
 ## Editorial posture
 
