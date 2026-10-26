@@ -187,7 +187,3 @@ For an urgent proposal, his answer to its ask on the deck decides what the revie
 ---
 
 *How the system was first conceived, the Stage A pilot's full record (its nine spec gaps and four voice findings), the build as it stood in May, the stories behind its decisions and each decision in full live in [[Project Stewardship System — Context]].*
-
-## Active Baton
-
-[[Project Stewardship System — baton]] — drafted 2026-10-21
