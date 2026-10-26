@@ -305,3 +305,9 @@ Item 51 again: seven of the room's outgoing messages are cut in the arc. The co-
 63. **A long build session's house writes drift past the resident unless the room re-addresses it at each landing.** In the Splice Instrument Forge session, six house writes and a stage change came after the resident's last placement check, and nine landings went by without re-addressing it. Data, not a spec change; the version stays v1.13. Nothing owed.
 
 - run · 2026-10-24 · v1.13 · close-2026-10-24-splice-forge · taught item 63
+
+## From the Dissolutions sequences close — 2026-10-25
+
+64. **A dispatched child session's reading of the human reaches it by relay, and a wondering the panel never asked travels nowhere unless the close names it.** The Dissolutions sequences session was a child of another session, and Loudon's play of the first sequence reached it through the parent. The close did the relay right: his words quoted exactly ("Dissoulutions, I played it, sounds good, great progress, will need work, but not tonight"), with the note that they were not his yes on anything else. But two wonderings were never put to him by the panel: how far the close reaches, and whether the 2026-10-20 proofs may take small corrections. The first was asked at the gate and answered ("Pause it: keep the handoff claimed and the branch unlanded tonight; the remainder rides the baton"). The second stayed unasked, so the rows that depend on it stayed carried in the baton rather than placed. Data for item 60: offering the thing itself before the close got him to play it, the owed third witness question working. Also: the room departed from the moderator's layout advice and the notes credited the departure to the Concierge; the room corrected that itself. No spec change; the version stays v1.13.
+
+- run · 2026-10-25 · v1.13 · close-2026-10-25-dissolutions-sequences · taught item 64
