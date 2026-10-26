@@ -14,6 +14,8 @@ forward_vector: "I carry the in-progress move on [[Dissolutions]] across a bound
 
 For each of the six 2026-10-20 proofs, build a learning sequence that introduces each component concept on its own in a few short interactive steps, then combines them, and arrives at the existing proof as its last step; then put the sequences in front of Loudon one per turn and carry his yes or no on offers A, B and E.
 
+The six are built, as roughs, on a branch that is not on main. What is left is the rework from his notes, the five he has not played, offers A, B and E, the scroll's trail entry, and landing the branch. Current state has the whole list.
+
 ## Why this move matters
 
 Three sits on 2026-10-25 gave the same answer. On the table that travels he wrote (scroll, `sit-2026-10-25-the-table-that-travels`):
@@ -28,13 +30,37 @@ A proof here tests an identity by letting you play it. If the player can't follo
 
 His outline for the table that travels is the model for the rest: **the table alone, the loop alone, the two combined through their difference, then the filter.**
 
+Then he played the first sequence, the table that travels (2026-10-25, relayed by the session that dispatched this one): "Dissoulutions, I played it, sounds good, great progress, will need work, but not tonight". Those are his only words on the sequences so far; what "will need work" means in particular is for his notes to say, and the rework follows them. At the close he said: "Pause it: keep the handoff claimed and the branch unlanded tonight; the remainder rides the baton." He did not say whether the 2026-10-20 proofs may take small corrections, nor whether a scroll entry may be written tonight.
+
 ## Tried and rejected
 
 - Showing the finished proof first. Three sits, same answer: each page is the end of a proof, met with no way up to it.
 
 ## Current state
 
-The six proofs landed on main at 026fc835, under `Dissolutions/proofs/2026-10-20-*/`. The existing pages stay as they are, as the last step of each sequence.
+**The sequences exist as roughs on a branch, not on main.** Branch `claude/dissolutions-sequences-905758`, four commits: a3f4df6c (the table that travels, five steps, and the checker), efda5834 (the other five), 26338d61 (an index page in the scroll's Plan order), 605e3798 (the pages hush when their tab is hidden and stay hushed on return). They sit in `Dissolutions/proofs/2026-10-25-learning-sequences/`: one `.html` per proof, `index.html`, and `check-sequences.mjs`, which was 170 PASS at the last run. Loudon played one, the table that travels, and said "sounds good, great progress, will need work, but not tonight" (above). The other five are not played.
+
+**What is still owed, all of it, in order:**
+
+1. The rework, from his notes.
+2. The other five sequences in front of him, one per turn, the thing itself as the last thing in the turn.
+3. Offers A, B and E, each after he has met the proof it rests on (A on one-field-two-hands, B on the-lattice-read-back, E from the hunt ledger).
+4. The scroll's trail entry for the sequences. He has not said whether one may be written tonight; none was.
+5. Landing the branch on main through `palace-land`, then the partial close citing a commit on main. Nothing is closed: the handoff `dissolutions-remainder-20261025T132839Z` stays claimed.
+
+**The plan this was written against.** The newest `plan-` section on the scroll's trail is `plan-2026-10-25T16-19-22-04-00`, on main at 87596717: Plan step 1a is folded into step 1, so the proof and the sequence that reaches it read as one step with the proof last. That commit is on main and not on this branch; the branch's scroll still shows 1a until the two meet at the landing.
+
+**Proof-page faults found while building, reported not fixed.** Whether the 2026-10-20 proofs may take small corrections is Loudon's open question. Fix nothing in them until he answers. No hunt verdict moves and no hunt-ledger line is written for any of these.
+
+- `the-lattice-read-back`: its ledger says the analysis may return (g₁, g₂ − g₁), but on the Diagonal field it returns (g₁, g₁ + g₂). Offer B already says g₁ + g₂; flag the mismatch when B is shown. The Two rows field at √2 also returns the other basis. The "whole numbers up to" slider bounds rank 1 by K but caps the rank-2 search at min(K, 8).
+- `the-shadow-that-locks`: at coupling 0.04 the proof's own `runFull` locks at −145.2°, where the scroll's sit note says 141°. At 0.5 it is bistable: started together with detuning, it stays in step (1.3°). Nothing on the page or scroll mentions this.
+- `the-equation-read-backward`: the "loudness-matched" buzz-driven sound is 1.75 dB louder than the residual.
+- `the-circles-shadow`: plays the steady offset for even drawbars below full reach; its harmonics pane never shows harmonic 0.
+- `one-field-two-hands`: after "Line the hands up" the difference shown is about 3e-13, not machine epsilon.
+- Three proofs' legends say "Middle · …" for a panel drawn top-left: the shadow, the equation, one-field.
+- All six proofs load Google Fonts, which is a network request.
+
+**The 2026-10-20 proofs, as landed.** The six proofs landed on main at 026fc835, under `Dissolutions/proofs/2026-10-20-*/`. The existing pages stay as they are, as the last step of each sequence.
 
 | proof | played | what the sit left |
 |---|---|---|
@@ -83,7 +109,11 @@ B2, at the end of the paragraph at `Rank-N Lattice Analysis.md:64`. The Weave re
 
 ## Next move
 
-Start with the table that travels, because his outline is already there. Build its sequence and put it in front of him as the last thing in the turn, then wait for his reaction before the next. After that the order is his. For each proof, ask what its component concepts are. Give each one its own short interactive step, then a step that combines them, and end on the existing page. Offer A or B right after he has met the proof it rests on. The Concierge places any yes. An overturned verdict becomes a new line in the hunt ledger.
+The sequences are built, so the build is not the first move. Ask him for his notes on the table that travels' sequence and rework it first, because his reaction to the first one is the template for the other five. Then put the next sequence in front of him as the last thing in the turn, one per turn, and wait for his reaction before the next; after that the order is his. Offer A or B right after he has met the proof it rests on, with the fault from Current state shown beside it where it touches the offer. Ask him the two questions he left open: whether the 2026-10-20 proofs may take small corrections, and whether a scroll entry may be written. The Concierge places any yes. An overturned verdict becomes a new line in the hunt ledger. When the work lands, the partial close cites a commit on main.
+
+## Receiving environment
+
+*Cross-worktree.* The sequences live in worktree `/Users/loudonstearns/Documents/The Palace/.claude/worktrees/dissolutions-sequences-905758`, branch `claude/dissolutions-sequences-905758`, and are on no other branch. If the worktree is gone, the branch is still in git: `node _ops/worktree/new-worktree.mjs --name claude/dissolutions-sequences-905758` (the branch exists, so it is not re-forked). The claim on the board names this worktree. This baton is edited on that branch, so a catcher on main sees the earlier text until the branch lands: read it from the worktree.
 
 ## Calibrations from this session
 
@@ -91,6 +121,8 @@ Start with the table that travels, because his outline is already there. Build i
 - **They start silent.** A static check on 2026-10-25 found all six build their AudioContext only inside `ensure()`, called only from Play, with `playing` false at start and nothing autoplaying. New sequence pages keep that, and the tab closes after.
 - **The hunt verdicts stand.** None was overturned in these sits. His notes were about teaching, not about the verdicts.
 - **A number a step shows gets a check.** `check-dissolutions-proofs.mjs` re-runs every number the six pages show (27 PASS on 2026-10-25). A new step that shows a number joins it.
+- **Open the sequences in a real browser, not the Claude pane.** The pane serves local files as `data:` URLs, so the sequences' relative links (step to step, last step to the proof, the index) break there.
+- **The sequences hush when their tab is hidden,** and stay hushed on return. A sound that stops when you switch tabs is the design, not a fault. `check-sequences.mjs` tests it.
 
 ## Load these files first
 
@@ -99,9 +131,10 @@ Start with the table that travels, because his outline is already there. Build i
 3. `Dissolutions/Dissolutions — hunt.md`: the nine ledger lines.
 4. The six proof pages, and the model they were built to: `Dissolutions/proofs/2026-10-18-one-curve-three-doorways/`, which he has played. Search there before you build.
 5. `Dissolutions/proofs/check-dissolutions-proofs.mjs`.
-6. The dress. The pages carry the LOUD'N LIVE mark and teach in public, so the governing manifest is [[Loudon Live Design System]] (`_ops/loudon-live/design-system/SKILL.md`). Confirm it against [[Drafting Table Design System]] § Which dress before you depart from it.
-7. `The Palace Voice.md` § Where words land: the made thing is the last thing in the turn.
-8. When an offer is shown, the member page it edits.
+6. On the branch `claude/dissolutions-sequences-905758` only: `Dissolutions/proofs/2026-10-25-learning-sequences/` — the six sequences, `index.html`, and `check-sequences.mjs`. Run the checker in the worktree before changing anything.
+7. The dress. The pages carry the LOUD'N LIVE mark and teach in public, so the governing manifest is [[Loudon Live Design System]] (`_ops/loudon-live/design-system/SKILL.md`). Confirm it against [[Drafting Table Design System]] § Which dress before you depart from it.
+8. `The Palace Voice.md` § Where words land: the made thing is the last thing in the turn.
+9. When an offer is shown, the member page it edits.
 
 ## On pickup (fixed — the catcher's checklist; do not rewrite per session)
 *Identical in every baton. It rides along because the catching Claude loads the
