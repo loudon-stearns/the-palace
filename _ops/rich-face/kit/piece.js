@@ -20,6 +20,12 @@
 //            suspended and all media paused all the same. A cut, not a fade (a
 //            hidden page gets no frames to fade on), and nothing comes back
 //            when the page does; the next touch wakes it, as after any hush.
+//   cap    — a piece that has sounded for a minute with nothing touching it
+//            stops on its own, as after a hush, framed or alone. Ten seconds
+//            before, a line over the piece offers to keep it playing; at the cap
+//            a line says it stopped, with a way back or a way to leave it. Any
+//            touch resets the clock. RichPiece.hold() keeps a piece playing; RichPiece.capAfter(s)
+//            sets its own cap in seconds, 0 for never.
 //   errors — posts {type:'rich:error'} for its first three script errors.
 //   storage — localStorage and sessionStorage keep each piece's keys under its
 //            own prefix (its path), since every piece on the piece origin shares
@@ -191,12 +197,116 @@
     if (e.data.type === 'rich:hush') hush();
     else if (e.data.type === 'rich:camera-off') quietDevices();
   });
-  function wake() {
+  function wake(e) {
+    if (e && e.target && notice && notice.contains && notice.contains(e.target)) return; // the cap's line decides for itself
     while (quieted.length) { var c = quieted.pop(); if (c.state === 'suspended') c.resume(); }
     wakeDevices();
   }
   window.addEventListener('pointerdown', wake, true);
   window.addEventListener('keydown', wake, true);
+
+  // ---- the cap ---------------------------------------------------------------
+  // A sound left alone stops on its own (Loudon, 2026-10-25: one rule in the
+  // kit, not a copy of every piece). The clock is the last touch on the piece,
+  // not the start of the sound, so a reader dragging a slider keeps it going.
+  // Ten seconds before the cap a line over the piece says so and offers to keep
+  // it playing; at the cap the kit quiets the piece as a hush does and says
+  // that too, with a way back. Kept playing, it never stops on its own again
+  // this visit. Sound is media playing, or a running context whose output is
+  // above silence: every connection to a context's destination goes through a
+  // tap the kit reads, so a context left running at zero gain counts for nothing.
+  var cap = 60, warnAt = 10, keep = false, stopped = false, touched = Date.now(), notice = null, capPaused = [];
+  var taps = typeof WeakMap === 'function' ? new WeakMap() : null;
+  var AN = window.AudioNode, Dest = window.AudioDestinationNode;
+  if (Native && AN && Dest && taps) {
+    var connect = AN.prototype.connect, disconnect = AN.prototype.disconnect;
+    var tapOf = function (d) { return d instanceof Dest ? taps.get(d.context) : null; };
+    AN.prototype.connect = function (dest) {
+      var t = tapOf(dest);
+      if (!t) return connect.apply(this, arguments);
+      var a = [].slice.call(arguments); a[0] = t.tap; connect.apply(this, a);
+      return dest;
+    };
+    AN.prototype.disconnect = function (dest) {
+      var t = tapOf(dest);
+      if (!t) return disconnect.apply(this, arguments);
+      var a = [].slice.call(arguments); a[0] = t.tap; return disconnect.apply(this, a);
+    };
+    var tapped = function (ctx) {
+      try {
+        var tap = ctx.createGain(), meter = ctx.createAnalyser();
+        meter.fftSize = 2048;
+        connect.call(tap, ctx.destination); connect.call(tap, meter);
+        taps.set(ctx, { tap: tap, meter: meter, buf: new Float32Array(meter.fftSize) });
+      } catch (e) { /* untapped: this context never counts as sound */ }
+    };
+    for (var ci = 0; ci < contexts.length; ci++) tapped(contexts[ci]);
+    var push = contexts.push;
+    contexts.push = function (c) { tapped(c); return push.apply(contexts, arguments); };
+  }
+  function sounding() {
+    for (var i = 0; i < contexts.length; i++) {
+      var c = contexts[i], t = taps && taps.get(c);
+      if (c.state !== 'running' || !t) continue;
+      t.meter.getFloatTimeDomainData(t.buf);
+      for (var j = 0; j < t.buf.length; j++) if (Math.abs(t.buf[j]) > 1e-4) return true; // above -80 dB
+    }
+    var media = [].slice.call(document.querySelectorAll('audio, video')).concat(started);
+    for (var k = 0; k < media.length; k++) if (!media[k].paused && !media[k].muted && media[k].volume > 0) return true;
+    return false;
+  }
+  var KIT_STYLE = 'font:500 12px/1.4 system-ui,sans-serif;letter-spacing:.04em;color:#e8b84a;background:#12121a;border:1px solid #7a6030;border-radius:2px;cursor:pointer;padding:6px 10px;margin-left:8px';
+  function say(words, buttons) {
+    if (!document.body) return;
+    if (!notice) {
+      notice = document.createElement('div');
+      notice.setAttribute('data-rich-kit', 'cap');
+      notice.setAttribute('role', 'status');
+      notice.style.cssText = 'position:fixed;left:12px;right:12px;bottom:12px;z-index:2147483647;display:flex;align-items:center;flex-wrap:wrap;gap:4px;font:400 13px/1.4 system-ui,sans-serif;color:#e8e8f0;background:rgba(10,10,15,.94);border:1px solid #4a4a5e;border-radius:2px;padding:8px 12px';
+    }
+    notice.textContent = '';
+    var w = document.createElement('span'); w.textContent = words; notice.appendChild(w);
+    buttons.forEach(function (b) {
+      var el = document.createElement('button');
+      el.type = 'button'; el.textContent = b[0]; el.style.cssText = KIT_STYLE;
+      el.addEventListener('click', b[1]);
+      notice.appendChild(el);
+    });
+    if (!notice.parentNode) document.body.appendChild(notice);
+  }
+  function span(s) { return s === 1 ? 'a second' : s === 60 ? 'a minute' : s % 60 ? s + ' seconds' : s / 60 + ' minutes'; }
+  function unsay() { if (notice && notice.parentNode) notice.remove(); }
+  function hold() { keep = true; unsay(); }
+  function stopOnOwn() {
+    quietDevices();
+    if (speaks('rich:hush')) { try { window.dispatchEvent(new MessageEvent('message', { data: { type: 'rich:hush' } })); } catch (e) { /* the kit's quiet still holds */ } }
+    capPaused = [].slice.call(document.querySelectorAll('audio, video')).concat(started).filter(function (m) { return !m.paused; });
+    quiet();
+    stopped = true;
+    var goOn = function () { stopped = false; unsay(); wake(); capPaused.forEach(function (m) { m.play().catch(function () {}); }); capPaused = []; };
+    var leave = function () { stopped = false; capPaused = []; unsay(); }; // quiet until the next touch, as after a hush
+    say('Stopped after ' + span(cap) + ' untouched.', [['go on', goOn], ['go on, and keep it playing', function () { goOn(); hold(); }], ['leave it stopped', leave]]);
+  }
+  function touch(e) {
+    if (e && e.type === 'pointermove' && !e.buttons) return;
+    touched = Date.now();
+    if (e && e.target && notice && notice.contains(e.target)) return; // its own buttons say what happens
+    // Any other touch is the way back, as after a hush: the kit's wake brings
+    // the audio back; media it paused waits for the piece's own play.
+    if (stopped) { stopped = false; capPaused = []; }
+    unsay();
+  }
+  ['pointerdown', 'keydown', 'input', 'wheel', 'pointermove'].forEach(function (t) { window.addEventListener(t, touch, true); });
+  setInterval(function () {
+    if (keep || !cap || stopped || document.hidden) return;
+    var idle = (Date.now() - touched) / 1000;
+    if (idle < cap - warnAt) return;
+    if (!sounding()) { unsay(); return; }
+    if (idle >= cap) stopOnOwn();
+    else if (!notice || !notice.parentNode) say('This stops in ' + span(warnAt) + ' unless it is touched.', [['keep it playing', hold]]);
+  }, 1000);
+  // A piece may keep itself playing (a bed meant to run) or set its own cap, in seconds; 0 is never.
+  function capAfter(seconds) { var s = Number(seconds); if (s >= 0) { cap = s; warnAt = Math.min(10, s / 4); } }
 
   // ---- camera and microphone -----------------------------------------------
   var md = navigator.mediaDevices;
@@ -313,7 +423,7 @@
     try { var store = storeFor(name); Object.defineProperty(window, name, { configurable: true, enumerable: true, get: function () { return store; } }); } catch (e) { /* left as the browser made it */ }
   });
 
-  window.RichPiece = Object.freeze({ kit: 2, camera: camera, cameraOff: cameraOff });
+  window.RichPiece = Object.freeze({ kit: 3, camera: camera, cameraOff: cameraOff, capAfter: capAfter, hold: function (on) { keep = on !== false; if (keep) unsay(); } });
 
   // ---- errors --------------------------------------------------------------
   var told = 0;
