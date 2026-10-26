@@ -10,7 +10,7 @@ forward_vector: "I carry the in-progress move on [[STIGMERGY]] — stale worktre
 
 ## Move
 
-Clear the STIGMERGY card's dead coordinate: the handoff reader has to honour RETRACT, and SCHEMA has to say whether RETRACT covers a card that went stale rather than one posted in error.
+Clear the STIGMERGY card's dead coordinate: teach the handoff reader to honour `RETRACT`, then retract and repost the rich-face pieces card without its dead worktree.
 
 ## Why this move matters
 
@@ -18,11 +18,16 @@ The rich-face pieces card (`stigmergy-remainder-20261021T125648Z`) still sends i
 
 ## Current state
 
-The first half of this move landed in `22c39e74` (branch `claude/stale-worktree-remainder-4a8a3b`, `a679331f`). `close-handoff.mjs` now carries a worktree to a remainder only while `worktreeLive()` in `handoff-model.mjs` says it lives, and resets a `receiving_surface` that names the dead folder. So the next partial close of any card drops a dead coordinate by itself. The STIGMERGY card itself is untouched, on Loudon's word of 2026-10-25: "Leave the STIGMERGY card's dead coordinate for later." The catching session's draft is in this bundle, copied verbatim on 2026-10-25: `STIGMERGY/STIGMERGY — sketch — clearing a dead coordinate.md` ([[STIGMERGY — sketch — clearing a dead coordinate]]). It recommends a RETRACT and a repost, with the fold taught to honour RETRACT, and names the canon question that comes first.
+- The first half of this move landed in `22c39e74` (branch `claude/stale-worktree-remainder-4a8a3b`, `a679331f`). `close-handoff.mjs` now carries a worktree to a remainder only while `worktreeLive()` in `handoff-model.mjs` says it lives, and resets a `receiving_surface` that names the dead folder. So the next partial close of any card drops a dead coordinate by itself.
+- **The canon question is settled.** Loudon, 2026-10-26: "widen RETRACT in SCHEMA — Reference §9 to cover a card that went stale, not just one posted in error. The reader code stays on the baton for later." [[SCHEMA — Reference]] §9 now says `RETRACT` withdraws a message posted in error or no longer true, and that a still-live move is reposted first, then retracted (`0ea91241`; the why in [[SCHEMA — Context]] §9).
+- The catching session's draft is in this bundle: `STIGMERGY/STIGMERGY — sketch — clearing a dead coordinate.md` ([[STIGMERGY — sketch — clearing a dead coordinate]]). The board card's move text says the draft is "in the shared notes"; that is wrong, it lives here.
+- The STIGMERGY card itself is untouched, and so is its board line.
 
 ## Next move
 
-Wait for Loudon. When he picks it up: read the draft, then [[SCHEMA — Reference]] §9 on `RETRACT` ("posted in error"). Bring him the SCHEMA question first, since a widened `RETRACT` is a wire change. Then teach `handoff-model.mjs`'s fold to honour it.
+1. **The reader code**, on a branch: in `handoff-model.mjs`, `foldHandoffs` collects `type === 'RETRACT'` lines, and a ready whose id is some RETRACT's `re` takes state `retracted` — not shown, not resolved as active, and `resolveCard` answers it like `closed` ("retracted — see <superseded_by>"). The app's `_ops/stigmergy/app/src/lib/queue-model.js` needs the same rule, or the QUEUE deck keeps showing the card. The sketch's "Code" paragraph is the spec.
+2. **Then the two board lines**, from the owner's board, in the sketch's order: repost the move of `stigmergy-remainder-20261021T125648Z` verbatim without its worktree, then the `RETRACT` naming it with `superseded_by` the repost.
+3. Check `list-handoffs.mjs` no longer prints `→ worktree close/2026-10-13-handoffs (…)` for STIGMERGY, then close this card citing the commit.
 
 ## Load these files first
 
