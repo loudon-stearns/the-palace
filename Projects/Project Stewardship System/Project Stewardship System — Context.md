@@ -193,7 +193,7 @@ The live frontier is no longer technical — it's **operational bandwidth**. The
 
 ## What's Decided, in full
 
-These came out of the text on 2026-10-25, word for word, when it was trimmed to lead with the partnership; the text keeps each decision in one line and points here, and keeps the two rites whole in its § The rites it keeps. They speak in the present tense of that day, and their "above" and "below" are the text's. The posture table the text carried beside them is the last part of this section; its canonical home is [[Substrate Skill]] § Stage as Alignment Confidence.
+These came out of the text on 2026-10-25, word for word, when it was trimmed to lead with the partnership; the text keeps each decision in one line and points here, and keeps the two rites whole in its § The rites it keeps. They speak in the present tense of that day, and their "above" and "below" are the text's. This section is never edited: a decision that changes later is told in § Where the decisions came from, and its line and detail change where they live. The posture table the text carried beside them is the last part of this section; its canonical home is [[Substrate Skill]] § Stage as Alignment Confidence.
 
 - **Architecture piggybacks on the existing board and permanent-agent stack.** No new substrate; the wire is [[SCHEMA — Reference]] §9 and the executor [[Palace Orchestrator]].
 - **The Machinery/Content Split governs where stewardship state lives** (see the section above). Engine → `_ops`; per-entry content → the bundle. `[Entry] — scroll.md` is the work-state front door and holds the agreed Plan; the board stays the append-only log. The orchestrator materializes the scroll from what the steward posts; the steward reads the scroll's Standing Orders, Plan and Now, writes none of them, and proposes a change to the path as a `plan_revision` ask carrying its evidence.
@@ -251,7 +251,7 @@ The system was built in stages, each closing a real gap. Where each one stands:
 
 ## Where the decisions came from
 
-The text keeps each decision and its reason. The stories behind a few of them live here.
+The text keeps each decision in one line, with where its detail lives. The stories behind a few of them live here, and each later change gets a dated line of its own.
 
 - **Every cycle ends with a shipped thing.** First decided on 2026-05-27 the other way round, as "every cycle ends with a TRICKSTER ask": each cycle posted at least one `RESOURCE_REQUEST`. Reading about fifteen cycles showed the rule manufactured questions and suppressed building — stewards behaving like "scared interns," asking permission instead of making. The Steward Boldness redesign inverted it on 2026-06-07 (`733ea0d4`).
 - **One activation is a run.** Loudon set 10 as the first cap on 2026-09-23 and lowered it to 3 on 2026-10-13 (`e7c428b6`) after watching a nine-steward queue: ten cycles unseen is a long way down a poor path, and the scroll only checks a run if he reads it between runs. The heartbeat's own cap of two cycles came the next day (`52c00c0c`), after one unlimited batch ran 35 Opus cycles over eleven stewards in three and a half hours and then sat six and a half hours on a usage limit, none of it visible on the deck.

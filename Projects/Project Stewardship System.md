@@ -93,30 +93,38 @@ Watch for the second, non-steward application of the principle; that is the sign
 
 ## What's Decided
 
-One line for each decision a steward or a fresh Claude acts on. Each in full, with its date and its reasons, is in [[Project Stewardship System — Context]] § What's Decided, in full, and the stories behind some of them are in its § Where the decisions came from.
+One line for each decision a steward or a fresh Claude acts on: what was decided, when, and where its detail lives. Each as the text held it in full on 2026-10-25 is in [[Project Stewardship System — Context]] § What's Decided, in full, and the stories behind some of them are in its § Where the decisions came from.
+
+**Where a decision is written.** A new or changed decision is written in three places, each once:
+
+- **Here, its line:** the decision in bold, its date, Loudon's words if he gave them, and where its detail lives.
+- **Its detail, where the work reads it:** what a steward may write in [[ELDER]]; what a cycle does in the steward prompts (`_ops/orchestrator/prompts/`); the engine's rules in [[Palace Orchestrator]] § Definitions of record; the scroll in [[The Scroll]]; posture in [[Substrate Skill]]. A rite no other page keeps is written whole in § The rites it keeps, below. Never only in the Context: a steward reads neither this page nor its Context, and a woken page reads only its text.
+- **Its story, in the Context:** why, what it replaced, and the words that turned it, as a dated line in § Where the decisions came from.
+
+A changed decision rewrites its line and its detail in place, and the story gains a dated line saying what it was. A retired one loses its line, and the story says why. § What's Decided, in full is the text as it stood on 2026-10-25, and is never edited.
 
 - **Architecture piggybacks on the existing board and permanent-agent stack.** No new substrate; the wire is [[SCHEMA — Reference]] §9 and the executor [[Palace Orchestrator]].
 - **The Machinery/Content Split governs where stewardship state lives** (see the section above). Engine → `_ops`; per-entry content → the bundle.
-- **Steward = permanent agent in `long_duration_background` mode**, with stage-conditional posture loaded from the home entry's `stage` field at activation.
-- **Trickster begins as Loudon (manual mode)**, evolves toward hybrid then automated.
-- **The audition gate guards batches, not single artifacts.**
-- **Vector tuning is the seed-stage Steward's primary work**, not a preamble to "real" work. Proposing three centers of gravity is the canonical move.
-- **Stewardship is recursive within projects.** Align project-level, then re-align deliverable-level, then audition.
-- **Vector tuning is a regular process, not a ceremony** (decided 2026-05-03).
+- **Steward = permanent agent in `long_duration_background` mode**, with stage-conditional posture loaded from the home entry's `stage` field at activation. Its detail is in [[Palace Orchestrator]] § Definitions of record.
+- **Trickster begins as Loudon (manual mode)**, evolves toward hybrid then automated. Its detail is in `_ops/stigmergy/trickster-auto/README.md`.
+- **The audition gate guards batches, not single artifacts.** Its detail is in [[Substrate Skill]] § Stage as Alignment Confidence.
+- **Vector tuning is the seed-stage Steward's primary work**, not a preamble to "real" work. Proposing three centers of gravity is the canonical move. Its detail is in [[Substrate Skill]] § Stage as Alignment Confidence.
+- **Stewardship is recursive within projects.** Align project-level, then re-align deliverable-level, then audition. Its detail is above, in § Stage-Conditional Posture.
+- **Vector tuning is a regular process, not a ceremony** (decided 2026-05-03). Its detail is in [[Weave Ceremony]], at its Step 5b.
 - **The Steward's voice rules live in [[Palace Enchantment]] § Voice Rules When Addressing the Human** (decided 2026-05-03).
-- **Every steward cycle ends with a shipped thing** (decided 2026-06-07). A steward asks **only** when a real fork blocks it and guessing wrong costs more than a cycle; otherwise it ships and attaches a non-blocking "redirect me" turn grounded in the page's `forward_vector` (present, then offer a turn — not ask, then wait).
-- **One activation is a run** (decided 2026-09-23; cap 3 since 2026-10-13).
-- **A barren cycle is a failed cycle** (decided 2026-09-23).
-- **The plan is agreed with Loudon** (decided 2026-09-25, SCHEMA v1.25).
-- **Standing Orders bind the steward** (decided 2026-09-23). A question a standing order already answers is never asked.
-- **This page is Loudon's partner in making the projects, not only the system that tends them** (decided 2026-10-16).
-- **Max work is paused, and Max blocks are deferred** (paused 2026-10-16, Loudon: "pause max work until we develop some max patching standards"; blocks deferred 2026-10-21). No steward makes a new Max patcher, gen~ or RNBO codebox, or Max for Live device, or edits one, until Loudon lifts the pause. Ableton sets, racks and presets of Ableton's own devices go on.
-- **Nine stewards are on the VST production path** (decided 2026-10-21; Loudon: "All stuck behind max, move them to the VST production path … lets make them products now."): Shepard Tone Synthesizer, Slime Mold Delay, Neural Granular Synthesis, Action Potential Oscillator, 2D Torus Wavetable Synthesizer, Blood Compressor, Bayesian Granular Synthesizer, Crystal Synthesizer and Retrospective Delay.
-- **A steward can tend a service, not only a project** (decided 2026-09-25).
-- **A steward commits what it ships** (decided 2026-09-25). The model never runs git; the deterministic step does.
-- **Page-agent identity is the page's own title — no invented compound handles** (decided 2026-05-03).
-- **A steward's tuning ledger holds what running taught; what a cycle leaves rough stays on the trail, and Now shows what keeps recurring** (decided 2026-10-16).
-- **No steward edits the house without Loudon's eyes; what it would change waits in its tuning ledger** (decided 2026-10-18). The scroll's Plan and Standing Orders stay Loudon's.
+- **Every steward cycle ends with a shipped thing** (decided 2026-06-07). A steward asks **only** when a real fork blocks it and guessing wrong costs more than a cycle; otherwise it ships and attaches a non-blocking "redirect me" turn grounded in the page's `forward_vector` (present, then offer a turn — not ask, then wait). Its detail is in `_ops/orchestrator/prompts/steward.md` § Every cycle ends with a shipped thing.
+- **One activation is a run** (decided 2026-09-23; cap 3 since 2026-10-13). Its detail is in [[Palace Orchestrator]] § Definitions of record.
+- **A barren cycle is a failed cycle** (decided 2026-09-23). Its detail is in [[Palace Orchestrator]] § Definitions of record, and for a cycle the harness cut off, in `_ops/orchestrator/runAgentCycle.md`.
+- **The plan is agreed with Loudon** (decided 2026-09-25, SCHEMA v1.25). Its detail is in [[The Scroll]] § The Plan.
+- **Standing Orders bind the steward** (decided 2026-09-23). A question a standing order already answers is never asked. Its detail is in [[The Scroll]] § The project scroll — the front door.
+- **This page is Loudon's partner in making the projects, not only the system that tends them** (decided 2026-10-16). Its detail is this page's opening.
+- **Max work is paused, and Max blocks are deferred** (paused 2026-10-16, Loudon: "pause max work until we develop some max patching standards"; blocks deferred 2026-10-21). No steward makes a new Max patcher, gen~ or RNBO codebox, or Max for Live device, or edits one, until Loudon lifts the pause. Ableton sets, racks and presets of Ableton's own devices go on. Its detail is in `_ops/orchestrator/prompts/shared.md` § Max, Gen~ and RNBO.
+- **Nine stewards are on the VST production path** (decided 2026-10-21; Loudon: "All stuck behind max, move them to the VST production path … lets make them products now."): Shepard Tone Synthesizer, Slime Mold Delay, Neural Granular Synthesis, Action Potential Oscillator, 2D Torus Wavetable Synthesizer, Blood Compressor, Bayesian Granular Synthesizer, Crystal Synthesizer and Retrospective Delay. Its detail is in each of their scrolls' Standing Orders and in [[VST Template]].
+- **A steward can tend a service, not only a project** (decided 2026-09-25). Its detail is in [[Shopkeeper]].
+- **A steward commits what it ships** (decided 2026-09-25). The model never runs git; the deterministic step does. Its detail is in `_ops/heartbeat/README.md` § Posture.
+- **Page-agent identity is the page's own title — no invented compound handles** (decided 2026-05-03). Its detail is in [[Substrate Skill]] § Stage as Alignment Confidence.
+- **A steward's tuning ledger holds what running taught; what a cycle leaves rough stays on the trail, and Now shows what keeps recurring** (decided 2026-10-16). Its detail is in `_ops/orchestrator/prompts/shared.md` § Your scroll.
+- **No steward edits the house without Loudon's eyes; what it would change waits in its tuning ledger** (decided 2026-10-18). The scroll's Plan and Standing Orders stay Loudon's. Its detail is in [[ELDER]] § Age and its limits.
 - **A steward leaves when its page ends; it never decides the end** (decided 2026-10-21; Loudon: "Yes to both recommendations. Run the leaving rite on Talking Keyboard."). A page set down to rest (`stage: dormant`, its Plan opening "Paused") keeps its steward: that is a pause, and the [[Revival Ceremony]] is its way back. The rite is below, in § The rites it keeps.
 - **The ledger review goes page by page: Loudon decides, an elder places, the ledger is settled after** (decided 2026-10-21). The rite is below, in § The rites it keeps.
 
