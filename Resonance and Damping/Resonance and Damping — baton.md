@@ -27,7 +27,7 @@ Loudon's word on 2026-10-25, after the last round: the steps work, and there is 
 
 ## Current state
 
-Branch `claude/resonance-damping-635d8b`: 11 commits ahead of main, none pushed, tree clean at the close. `6e319b57` is the draft deposit (`Resonance and Damping.md` + the proof sketch); ten edit commits since built the steps. It is a draft on the branch, not canon: Loudon has not read the words, the Concierge has not read it cold, and `Palace-Verify` is outstanding (do not run it before he reads).
+Landed on main in `11ffc891` (2026-10-25), as it stood, on Loudon's word, and set to `stage: sprout` (`a5aa0b55`); the Concierge read it cold. Loudon has not yet read the words as a deposit, so `Palace-Verify` on the page stays outstanding until he does.
 
 Owed on the steps, in the order the move reaches them:
 
@@ -52,7 +52,7 @@ Run `pickup-handoff.mjs` and read the since-baton commits, then open the steps f
 
 ## Receiving environment
 
-Cross-worktree. Branch `claude/resonance-damping-635d8b`, directory `/Users/loudonstearns/Documents/The Palace/.claude/worktrees/scoped-linters-941839`, profile `docs`. If it has been torn down: `node _ops/worktree/new-worktree.mjs --name claude/resonance-damping-635d8b --profile docs` (the branch holds the work; nothing is pushed). The step checker loads Playwright through `_ops/stigmergy/app/package.json`, so a fresh worktree may need that app's `node_modules` linked (take `new-worktree.mjs --dry-run`'s link list).
+On main. The branch it was built on is merged and its worktree is gone; work from a fresh worktree off main (`node _ops/worktree/new-worktree.mjs --name <new branch> --profile docs`). The step checker loads Playwright through `_ops/stigmergy/app/package.json`, so a fresh worktree may need that app's `node_modules` linked (take `new-worktree.mjs --dry-run`'s link list).
 
 ## Calibrations from this session
 
