@@ -24,7 +24,7 @@ Projects/VST Template/
 ## The recipe
 
 1. **Sketch in numpy, one sample at a time.** A loop over samples with the state in plain variables, in the order the C++ will run it. Vectorise across partials or voices if you like (`ride.py` does), but not across time.
-2. **Make the plugin folder.** `python3 new-plugin.py "Tape Smear" Tsmr` (add `--kind effect` for an effect). The code is four characters, a capital then three lower case, unique among Loudon Live plugins.
+2. **Make the plugin folder.** `python3 new-plugin.py "Tape Smear" Tsmr` (add `--kind effect` for an effect). The code is four characters, a capital then three lower case, unique among Loudon Live plugins; it is checked against every `plugin.json` in the palace. A steward makes its plugin in its own bundle with `--into "Projects/<Its Page>/plugin"`: the folder's `CMakeLists.txt` and `plugin.sh` find `VST Template/machinery` beside a folder on the way up, so it builds, validates and installs the same way.
 3. **Fill in four files** in `plugins/<Name>/`:
    - `reference/sketch.py`: the sketch, in the shape `render(v, sr, inputs, notes)` described at its top. If it draws random numbers (detunings, starting phases), return them from `constants()`, so the plugin starts from the same draw.
    - `src/Algorithm.h`: the parameter table, then `prepare`, `reset` and `step`, ported line for line from the sketch. Add `noteOn` and `noteOff` to play notes.
@@ -54,11 +54,12 @@ To see the real editor, run `./plugin.sh editor` after `install`. The host check
 
 To check that the editor fits its window, run `python3 machinery/tools/ui.py fit plugins/<Name>`. It tries the minimum, default and maximum from `plugin.json` (or each `--size`) and exits 1 if the panels overflow at any of them. A plugin with many controls needs a larger `min`: Simple Synth's 20 controls under two heroes fit nothing smaller than 920 × 540. Find the size with a few `--size` values, then set it.
 
-**The CRT, and where its feed would hook in.** The editor keeps a screen between the heroes for a plugin's own visualizer: a bezel drawn in the dress's ink, with whatever the plugin likes inside (design standard § The CRT). `"screen": true` in the `ui` block shows it, and a visualizer draws into `window.editorScreen`. Nothing feeds it yet. The probes are the natural feed:
-- Each `step` already leaves its latest values in `alg.probes`, and `processBlock` copies them out only for the harness (`machinery/src/PluginProcessor.cpp:192`).
-- A live feed would copy them once per block, on the audio thread, into a `std::array<std::atomic<float>, algo::kNumProbes>` on the processor. Nothing on that thread waits or allocates.
-- The editor (`machinery/src/PluginEditor.cpp`) would read that array on a 60 Hz `juce::Timer` and send it with `web->emitEventIfBrowserIsVisible ("probes", …)`.
-- The page would listen with `window.__JUCE__.backend.addEventListener ("probes", …)` and hand the values to the visualizer.
+**The CRT: a plugin's own visualizer, fed by its probes.** The editor keeps a screen between the heroes: a bezel drawn in the dress's ink, with whatever the plugin likes inside (design standard § The CRT). To put a picture on it:
+- Write `ui/visualizer.js` in the plugin's folder: one object with `mount(el, hooks)` and `frame(probes, params, dt)`, defined as the file's first top-level `const` (or name it in the `ui` block as `"visualizer"`). Set `"screen": true` in the `ui` block. `ui.py` inlines the file into the page at build, so it fetches nothing and ships inside the plugin. Simple Synth's `ui/visualizer.js` is the worked example; Crystal Synthesizer's is a far stranger one.
+- `mount` gets the glass (`window.editorScreen`) once, and `hooks` `{ get, set, begin, end }` by parameter id. They are the editor's own relays, so a drag on the picture is the knob moving, with automation and undo. The glass is made once and survives every resize, so a canvas or a WebGL context made in `mount` lives as long as the editor.
+- `frame` runs about 60 times a second, driven by the plugin's timer, not by animation frames, which WebKit stops in a plugin window it thinks is covered. `probes` are the latest values in `kProbes` order; `params` every parameter in natural units, a menu as its index. `window.editorProbes` holds the whole event: `names`, `p`, `out` (the output's peak), `h` (every frame since the last, about 480 a second) and `rate`. Keep a frame cheap, well under 16 ms.
+- The feed: while an editor is open, `processBlock` writes the probes and the output's peak about 480 times a second into a lock-free queue (`juce::AbstractFifo`), and a 60 Hz timer in the editor drains it and sends one `"probes"` event. Nothing on the audio thread waits or allocates; with no editor open it writes nothing. A frame is sent every tick, so a picture keeps moving while nothing plays.
+- To see it without a DAW: `python3 machinery/tools/ui.py mock plugins/<Name> --feed --out crt.html` renders an eight-second phrase through the harness and replays its probes on the CRT in a browser. `shot … --feed` photographs it.
 
 ## The pieces
 

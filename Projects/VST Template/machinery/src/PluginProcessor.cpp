@@ -118,6 +118,9 @@ void Processor::prepareToPlay (double sampleRate, int)
         const bool smoothed = (s.taper == Taper::Linear || s.taper == Taper::Log) && s.smoothMs > 0.0;
         m.coef = smoothed ? std::exp (-1.0 / (s.smoothMs * 0.001 * sampleRate)) : 0.0;
     }
+    feedEvery = juce::jmax (1, (int) std::lround (sampleRate / kFeedHz));
+    feedRateHz = sampleRate / feedEvery;
+    feedCount = 0; feedPeak = 0.0f;
     needsReset = true;
 }
 
@@ -166,6 +169,7 @@ void Processor::processBlock (juce::AudioBuffer<float>& buffer, juce::MidiBuffer
     float out[algo::kOutputs] {};
     auto event = midi.cbegin();
     const auto lastEvent = midi.cend();
+    const bool feeding = feedOn.load (std::memory_order_relaxed);
 
     for (int n = 0; n < numSamples; ++n)
     {
@@ -195,7 +199,36 @@ void Processor::processBlock (juce::AudioBuffer<float>& buffer, juce::MidiBuffer
                 probeSink->data[(size_t) j * (size_t) probeSink->steps + (size_t) probeSink->pos] = alg.probes[j];
             ++probeSink->pos;
         }
+
+        if (feeding)
+        {
+            feedPeak = juce::jmax (feedPeak, std::abs (out[0]));
+            if (++feedCount >= feedEvery)
+            {
+                feedCount = 0;
+                const auto w = feed.write (1);   // a full queue drops the frame: the editor is behind
+                if (w.blockSize1 > 0)
+                {
+                    float* f = feedRing.data() + (size_t) w.startIndex1 * kFeedWidth;
+                    for (int j = 0; j < algo::kNumProbes; ++j) f[j] = (float) alg.probes[j];
+                    f[algo::kNumProbes] = feedPeak;
+                }
+                feedPeak = 0.0f;
+            }
+        }
     }
+}
+
+int Processor::readFeed (float* dest, int maxFrames)
+{
+    const auto r = feed.read (juce::jmin (maxFrames, feed.getNumReady()));
+    auto copy = [&] (int start, int n, int at)
+    {
+        std::copy_n (feedRing.data() + (size_t) start * kFeedWidth, (size_t) n * kFeedWidth, dest + (size_t) at * kFeedWidth);
+    };
+    copy (r.startIndex1, r.blockSize1, 0);
+    copy (r.startIndex2, r.blockSize2, r.blockSize1);
+    return r.blockSize1 + r.blockSize2;
 }
 
 juce::AudioProcessorEditor* Processor::createEditor()

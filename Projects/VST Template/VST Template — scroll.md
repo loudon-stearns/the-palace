@@ -13,6 +13,62 @@ forward_vector: "I am VST Template's scroll — the one page that always opens o
 > The project's front door. **Now** is regenerated on every look; the **Plan** is the path agreed with Loudon, changed only with his yes; **Standing Orders** are Loudon's; **The making** is the trail, newest first. Rendered in [[STIGMERGY]]'s PROJECTS deck; the entry [[VST Template]] stays the considered truth and this is the live one. See [[The Scroll]].
 
 <!-- scroll:now:start -->
+## Now
+
+> _Regenerated 2026-10-28T22:21:07.338Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+
+- **Status:** active · **Stage:** sprout · **Steward:** cycle 1 · last ran 2026-10-28 (today)
+- **Plan:** agreed 2026-10-21 (7 days ago) · 2 made things since
+- **Waiting on you:** 1 open ask
+- **Ready to advance:** no unread answers
+- **Last shipped:** 2026-10-28 (today) — Open Simple Synth in Live and play a few notes: does the screen between the knobs carve as you play? (`vst-template-steward-003`)
+- **Last commit touching this project:** 2026-10-24 `a75350ec` — Weave — 2026-10-24 — 79 links added, 647 links pruned, 268 labels added, 13 entries promoted, 25 stages moved, 35 flags closed, 13 decisions carried, 6 Contexts opened, 2 pages composted, 8 faces added
+- **Signal:** steady
+- **Drift:** no consolidation marker on the entry — nothing to measure against.
+- **Runs:** 1 run on 1 day, counted from the ledger's run lines
+- **Last run:** 2026-10-28 — cycle 1 · taught item 1, proposed item 2 for canon
+- **Owed in the ledger:** nothing
+- **Proposed for canon:** 1 — item 2; waiting on Loudon's review, and the page has not changed
+- **Latest lesson:** item 2, from cycle 1 — 2026-10-28 — [[VST Template — tuning]]
+
+### Where this stands
+
+VST Template turns a per-sample numpy sketch into a VST3/AU plugin Loudon can play in Live. Its shared machinery builds every plugin: one parameter table drawn as a Drafting Table editor on Phosphor, with a bezelled screen (the CRT) between the two big knobs. On 2026-10-21 Loudon moved nine stewarded instruments onto this path and asked for a picture in that screen drawn from each instrument's own metaphor. Until now the screen was blank. Nothing could load a picture or send it live values, and new-plugin.py could only make plugins inside VST Template's own folder. This cycle closed both gaps. The machinery now loads each plugin's ui/visualizer.js and feeds it about 60 times a second. A ste…
+
+### Left rough, again and again
+
+_What the trail's left-rough notes keep saying, oldest first, in its latest words._
+
+- **rough since 2026-10-20:** the new editors have not been opened in Live, and neither plugin has yet been inserted from Live's browser; _(in 6 notes, the latest 2026-10-21)_
+- **rough since 2026-10-21:** The real-editor photograph failed because this session can't reach a display ('could not create image from display'), so every picture here is the same page in Chrome, not in the plugin's WebView. _(in 4 notes, the latest cycle 1)_
+- **rough since 2026-10-21:** the colour bars are a stand-in; _(in 2 notes, the latest 2026-10-21)_
+- **rough since 2026-10-21:** no visualizer and no probe feed exist yet. _(in 2 notes, the latest 2026-10-21)_
+
+### Open asks
+
+- `vst-template-steward-003` — sensory_check · posted 2026-10-28 · options: LOOKS-RIGHT · STILL-OR-BLANK · REDRAW
+
+### Answered, not yet consumed
+
+_None._
+
+### Decided
+
+_Nothing decided on the board yet._
+
+### Runs
+
+- 2026-10-28 — cycle 1 · taught item 1, proposed item 2 for canon
+
+### Owed
+
+_Nothing owed._
+
+### Proposed for canon
+
+_Changes the steward wants in the house, kept in its tuning ledger until Loudon's review. Its cycles work as if they hold; the pages have not changed._
+
+- **2.** 2026-10-28 · [[VST Template]] · § Where it stands (the paragraph beginning 'One Algorithm.h and a numpy sketch') — The entry still describes the CRT as a blank screen and plugins as living only under VST Template; both changed this cycle.
 
 <!-- scroll:now:end -->
 
@@ -50,6 +106,67 @@ _Loudon's standing direction for this project. The steward reads this zone every
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="vst-template-steward-003" -->
+### 2026-10-28 — cycle 1 — Open Simple Synth in Live and play a few notes: does the screen between the knobs carve as you play?
+> still working · CRT lit, all gates pass · only your screen can see it in Live · steward leans LOOKS-RIGHT
+
+Catch-up: VST Template turns a numpy sketch into a plugin you can play in Live. Its editors have a screen between the two big knobs. On 2026-10-21 you asked for that screen to show each instrument's own picture. This cycle the screen came alive: each plugin's picture is fed about 60 times a second by its sound engine. Simple Synth's picture is 'the stone and the chisel': the note's harmonics as stalks, carved by the filter's amber curve, with the history receding behind. Simple Synth and Crystal Synthesizer both pass every check, and both are installed. What I can't do from here is see it inside Live: this session can't photograph a screen, so my pictures come from the same page in Chrome. One look settles it. Insert Simple Synth from Live's browser (that also closes the long-open 'never inserted from the browser' check), open its editor, and play. I keep working either way.
+
+**Artifacts:**
+- [What it should look like: G4 through a saw, carved by the filter.](Projects/VST Template/proofs/2026-10-28-crt/simple-synth-crt-960x600.png)
+- [The same page, moving, in the board.](Projects/VST Template/proofs/2026-10-28-crt/simple-synth-crt.html)
+<sub>`vst-template-steward-003` · RESOURCE_REQUEST on TRICKSTER</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="vst-template-steward-002" -->
+### 2026-10-28 — cycle 1 — The CRT is lit: every template plugin can now play its own visualizer, fed live by its probes, and stewards can build plugins in their own bundles.
+> shipped · Simple Synth and Crystal Synthesizer pass every check · steward leans LIVE-CHECK next
+
+Three stewards had already written visualizers for the screen: Crystal Synthesizer, Blood Compressor and Bayesian Granular Synthesizer. Without asking each other, all three used the same shape: an object with mount(el, hooks) and frame(probes, params, dt), reading the probes in the order Algorithm.h declares them. So the template adopted that shape word for word, and none of their files needed a change. That is also why the probes come from Algorithm.h's list and are not listed again in plugin.json: a second list would only drift. Underneath: while the editor is open, the audio thread writes the probes and the output's peak about 480 times a second into a lock-free queue. A 60 Hz timer in the editor drains it and sends one event per tick. The picture is driven by that timer, not by the browser's animation frames, which WebKit stops in a plugin window it thinks is covered. Parameter hooks are the editor's own relays, so dragging on a picture moves the real knob, with automation. Simple Synth got a visualizer of its own, the template's worked example. I call it 'the stone and the chisel'. Each harmonic of the note stands as a stalk. Its faint full height is what the wave gives; the bright part is what the filter leaves. The amber dashed curve is the filter's real response, and old rows recede into a landscape as the filter sweeps. In the browser, ui.py mock --feed runs an eight-second phrase through the real processor and replays its probes, so you can watch a CRT move without a DAW. new-plugin.py --into "Projects/<Page>/plugin" makes a plugin in a bundle, using Crystal Synthesizer's shims (now the template's own). The plugin-code check now reads every plugin.json in the palace: it refused 'Crys' as Crystal's. Gates on the new machinery: Simple Synth passed verify, strict codesign, pluginval at strictness 5, auval and the host check for VST3 and AU. Crystal Synthesizer, built from its own bundle, passed all the same gates. Frustration builds and verifies but was not reinstalled.
+
+**Artifacts:**
+- [Simple Synth's editor with 'the stone and the chisel' moving on the CRT, replaying a harness phrase.](Projects/VST Template/proofs/2026-10-28-crt/simple-synth-crt.html)
+- [The same, photographed mid-phrase: G4 through a saw, carved by the filter.](Projects/VST Template/proofs/2026-10-28-crt/simple-synth-crt-960x600.png)
+- [Crystal Synthesizer's own visualizer, unchanged, on the template's CRT.](Projects/VST Template/proofs/2026-10-28-crt/crystal-synthesizer-crt.html)
+- [Ruby's cell turning in the beam, its modes fanned out as coloured rays.](Projects/VST Template/proofs/2026-10-28-crt/crystal-synthesizer-crt-1100x700.png)
+- [What changed, why the probes come from Algorithm.h, what is proved and what isn't.](Projects/VST Template/proofs/2026-10-28-crt/README.md)
+- [The template's worked example of a visualizer.](Projects/VST Template/plugins/SimpleSynth/ui/visualizer.js)
+- [Simple Synth now shows its screen.](Projects/VST Template/plugins/SimpleSynth/plugin.json)
+- [The probe feed's queue.](Projects/VST Template/machinery/src/PluginProcessor.h)
+- [The audio thread writes the feed, lock-free, only while an editor is open.](Projects/VST Template/machinery/src/PluginProcessor.cpp)
+- [The editor's 60 Hz timer.](Projects/VST Template/machinery/src/PluginEditor.h)
+- [Drains the feed and sends the probes event; pluginInfo carries probe names.](Projects/VST Template/machinery/src/PluginEditor.cpp)
+- [Mounts the visualizer on the glass and drives frame() from the feed.](Projects/VST Template/machinery/ui/editor.html)
+- [Inlines ui/visualizer.js; mock/shot --feed; real-time shots when a visualizer is present.](Projects/VST Template/machinery/tools/ui.py)
+- [--into a steward's bundle; the code check covers every plugin.json in the palace.](Projects/VST Template/new-plugin.py)
+- [Finds VST Template/machinery from a bundle.](Projects/VST Template/template/CMakeLists.txt)
+- [The same search for plugin.sh.](Projects/VST Template/template/plugin.sh)
+- [The recipe's CRT section, rewritten from 'where a feed would hook in' to how it works.](Projects/VST Template/template/README.md)
+
+_Checks on the new machinery, 2026-10-28_
+| plugin | where it lives | verify | codesign (strict) | pluginval 5 | auval | host check |
+| --- | --- | --- | --- | --- | --- | --- |
+| Simple Synth | VST Template/plugins/ | pass | pass | pass | pass | pass (VST3 + AU) |
+| Crystal Synthesizer | its own bundle | pass | pass | pass | pass | pass (VST3 + AU) |
+| Frustration | VST Template/plugins/ | pass | not reinstalled | not run | not run | not run |
+
+_Changed in the workshop:_ README — The recipe now says how to put a visualizer on the CRT, how the feed works, and how a steward makes a plugin in its own bundle.
+_Changed in the workshop:_ README — This cycle's proof: what changed, what was checked, what wasn't.
+_Proposed for canon:_ VST Template (§ Where it stands (the paragraph beginning 'One Algorithm.h and a numpy sketch')) — The entry still describes the CRT as a blank screen and plugins as living only under VST Template; both changed this cycle.; owed in the tuning ledger until Loudon's review
+
+_Left rough:_ Nobody has yet watched the CRT move inside Live. The real-editor photograph failed because this session can't reach a display ('could not create image from display'), so every picture here is the same page in Chrome, not in the plugin's WebView.
+
+_Next moves named:_ Loudon opens Simple Synth in Live 12 and plays a few notes: the CRT should carve as he plays. That is the last thing the CRT baton asks for. · Reinstall Frustration on the new machinery and give it a CRT picture of its own, from the frustration model's edge map. · Bring the steward baton up to date: its Cold start still says nothing feeds the CRT.
+<sub>`vst-template-steward-002` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-5aafbfde97" -->
+### 2026-10-28 — cycle 1
+
+taught item 1, proposed item 2 for canon
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="plan-2026-10-21T10-37-06-04-00" -->
 ### 2026-10-21 — Plan revised: the editor's dress and direction, as Loudon picked them
 

@@ -7,7 +7,8 @@
   python3 machinery/tools/ui.py mock <plugin dir> [--direction D] [--set id=value ...] [--round N] [--clean] --out page.html
       The same page with a stand-in for the plugin, to open in a browser, carrying the review
       surface (the design system's review-layer kit; --clean leaves it off). Needs a built harness
-      (for the parameter table).
+      (for the parameter table). --feed renders a short phrase through the harness and replays its
+      probes on the CRT, so the page shows the plugin's visualizer moving as it would in a DAW.
   python3 machinery/tools/ui.py shot <plugin dir> [--direction D] [--set id=value ...] --size 760x480 --out shot.png
       A mock page rendered to PNG by headless Chrome.
   python3 machinery/tools/ui.py fit <plugin dir> [--direction D] [--dress D] [--size WxH ...]
@@ -21,11 +22,15 @@ Into the page it inlines, so the plugin needs nothing at run time:
   the fonts (Anton, Manrope, JetBrains Mono: machinery/ui/fonts/, else ~/Library/Fonts),
   JUCE's JavaScript bridge, and, for a mock, the parameter table.
 A plugin may add plugins/<Name>/ui/backdrop.json: a field drawn under the XY pad.
+And ui/visualizer.js: the CRT's picture, shown when the ui block sets "screen": true. It defines one
+object { mount(el, hooks), frame(probes, params, dt) }, as a top-level const (the first one in the file)
+or the global the ui block names in "visualizer"; it is inlined whole, so it fetches nothing.
 """
 import argparse
 import base64
 import json
 import os
+import tempfile
 import re
 import subprocess
 import sys
@@ -157,6 +162,22 @@ TEST_CARD = """
 """
 
 
+def visualizer(plugin_dir, ui):
+    """The plugin's ui/visualizer.js, inlined and named as window.editorVisualizer, or ""."""
+    js_path = plugin_dir / "ui/visualizer.js"
+    if not js_path.exists():
+        return ""
+    js = js_path.read_text()
+    name = ui.get("visualizer")
+    if not name:
+        m = re.search(r"^(?:const|let|var)\s+([A-Za-z_$][\w$]*)\s*=", js, re.M)
+        if not m:
+            sys.exit(f"ui.py: {js_path} defines no top-level const; name its object in plugin.json ui.visualizer")
+        name = m.group(1)
+    ui["visualizer"] = name
+    return js + f"\n;window.editorVisualizer = typeof {name} !== 'undefined' ? {name} : window.{name};\n"
+
+
 def review(round_):
     kit = find_up("_ops/loudon-live/design-system/ui_kits/review-layer/review-layer.js").read_text()
     return kit + "\n" + REVIEW_MOUNT % round_
@@ -168,17 +189,19 @@ def inline_js(js):
     return js.replace("</script", "<\\/script")
 
 
-def page(ui, mock_info=None, review_round=None):
+def page(ui, mock_info=None, review_round=None, plugin_dir=None):
     html = (MACH / "ui/editor.html").read_text()
+    vis = visualizer(plugin_dir, ui) if plugin_dir else ""
     font_css, css, js = dress(ui)
     html = html.replace("/*@@FONTS@@*/", font_css).replace("/*@@TOKENS@@*/", css)
     html = html.replace("/*@@DRESS@@*/", inline_js(js))
     html = html.replace("/*@@JUCE@@*/", inline_js(juce_bridge()))
     mock = "" if mock_info is None else "window.MOCK_INFO = " + json.dumps(mock_info) + ";"
-    if mock_info is not None and ui.get("screen") == "test-card":
+    if mock_info is not None and ui.get("screen") == "test-card" and not vis:
         mock += TEST_CARD
     html = html.replace("/*@@MOCK@@*/", inline_js(mock))
     html = html.replace("/*@@REVIEW@@*/", "" if review_round is None else inline_js(review(review_round)))
+    html = html.replace("/*@@VISUALIZER@@*/", inline_js(vis))
     return html
 
 
@@ -186,7 +209,7 @@ def build(plugin_dir, build_dir):
     pj, ui = ui_block(plugin_dir)
     out = build_dir / "ui"
     out.mkdir(parents=True, exist_ok=True)
-    (out / "index.html").write_text(page(ui))
+    (out / "index.html").write_text(page(ui, plugin_dir=plugin_dir))
     lines = ["// EditorConfig.h — written by machinery/tools/ui.py from plugin.json. Don't edit.", "#pragma once",
              f"#define PLUGIN_UI_W {int(ui['width'])}", f"#define PLUGIN_UI_H {int(ui['height'])}",
              f"#define PLUGIN_UI_MIN_W {int(ui['min'][0])}", f"#define PLUGIN_UI_MIN_H {int(ui['min'][1])}",
@@ -195,12 +218,58 @@ def build(plugin_dir, build_dir):
     (out / "EditorConfig.h").write_text("\n".join(lines))
 
 
-def mock_info(plugin_dir, direction, sets, dress_name=None, screen=False):
+def harness(plugin_dir):
     found = [p for p in (plugin_dir / "build").glob("*Harness_artefacts/**/*Harness") if p.is_file()]
     if not found:
         sys.exit("no harness built: run ./plugin.sh build first")
-    table = json.loads(subprocess.run([str(max(found, key=lambda p: p.stat().st_mtime)), "params"],
-                                      check=True, capture_output=True, text=True).stdout)
+    return str(max(found, key=lambda p: p.stat().st_mtime))
+
+
+# The mock's feed: a phrase through the real processor, its probes read at 60 Hz. An instrument plays a
+# rising figure, held and short notes; an effect hears the same figure as plucked saws.
+FEED_SR, FEED_FPS, FEED_SECONDS = 48000, 60, 8.0
+FEED_NOTES = [(0.0, 0.9, 48), (1.0, 0.25, 55), (1.4, 0.25, 60), (1.8, 0.25, 63), (2.2, 1.6, 67),
+              (4.2, 0.12, 72), (4.5, 0.12, 70), (4.8, 0.12, 67), (5.1, 2.2, 43)]
+
+
+def feed(plugin_dir, table, params):
+    import numpy as np
+    steps = int(FEED_SR * FEED_SECONDS)
+    nin, nout, npr = table["inputs"], table["outputs"], len(table["probes"])
+    with tempfile.TemporaryDirectory() as tmp:
+        tmp = Path(tmp)
+        vals = [p.get("mock", p["default"]) for p in params]
+        np.repeat(np.array(vals, dtype=np.float64)[:, None], steps, axis=1).tofile(tmp / "paths.f64")
+        args = [harness(plugin_dir), "plugin", str(steps), str(FEED_SR), str(tmp / "paths.f64"), str(tmp / "out.bin")]
+        if nin:
+            x = np.zeros(steps)
+            for t0, dur, note in FEED_NOTES:
+                a, b = int(t0 * FEED_SR), min(steps, int((t0 + dur) * FEED_SR))
+                n = np.arange(b - a)
+                hz = 440.0 * 2 ** ((note - 69) / 12)
+                x[a:b] += 0.5 * (2 * ((n * hz / FEED_SR) % 1.0) - 1) * np.exp(-n / (0.3 * FEED_SR))
+            np.repeat(x[None, :], nin, axis=0).astype(np.float32).tofile(tmp / "in.f32")
+            args.append(str(tmp / "in.f32"))
+        else:
+            rows = []
+            for t0, dur, note in FEED_NOTES:
+                rows += [(int(t0 * FEED_SR), 1, note, 100), (int((t0 + dur) * FEED_SR), 0, note, 0)]
+            np.array(sorted(rows), dtype=np.float64).tofile(tmp / "notes.f64")
+            args += ["--notes", str(tmp / "notes.f64")]
+        subprocess.run(args, check=True, capture_output=True)
+        raw = (tmp / "out.bin").read_bytes()
+    out = np.frombuffer(raw[:4 * nout * steps], dtype=np.float32).reshape(nout, steps)[0]
+    probes = np.frombuffer(raw[4 * nout * steps:], dtype=np.float64).reshape(npr, steps)
+    hop = FEED_SR // FEED_FPS
+    frames = []
+    for k in range(steps // hop):
+        a, b = k * hop, (k + 1) * hop
+        frames.append([round(float(v), 6) for v in probes[:, b - 1]] + [round(float(np.abs(out[a:b]).max()), 6)])
+    return dict(rate=FEED_FPS, frames=frames)
+
+
+def mock_info(plugin_dir, direction, sets, dress_name=None, screen=False, with_feed=False):
+    table = json.loads(subprocess.run([harness(plugin_dir), "params"], check=True, capture_output=True, text=True).stdout)
     pj, ui = ui_block(plugin_dir)
     if direction:
         ui["direction"] = direction
@@ -214,7 +283,11 @@ def mock_info(plugin_dir, direction, sets, dress_name=None, screen=False):
         k, v = s.split("=", 1)
         p = next(p for p in params if p["id"] == k)
         p["mock"] = p["choices"].split("|").index(v) if p["taper"] == "choice" and not v.replace(".", "").isdigit() else float(v)
-    return dict(name=pj["name"], version=pj["version"], company=pj["company"], params=params, ui=ui)
+    info = dict(name=pj["name"], version=pj["version"], company=pj["company"], params=params, ui=ui,
+                probes=table.get("probes", []))
+    if with_feed:
+        info["feed"] = feed(plugin_dir, table, params)
+    return info
 
 
 CHROME = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
@@ -232,13 +305,17 @@ def chrome(args):
     sys.exit("ui.py: headless Chrome hung twice")
 
 
-def shot(html_path, png, size):
+def shot(html_path, png, size, live=False):
     w, h = size.split("x")
     png = Path(png)
     png.unlink(missing_ok=True)
     # Headless Chrome sometimes exits non-zero while shutting down after writing the file, so the
     # file is the test, not the exit code.
-    r = chrome(["--force-device-scale-factor=2", f"--window-size={w},{h}", "--virtual-time-budget=3000",
+    # A page with a visualizer is shot after 3.5 s of real time: under virtual time a heavy picture,
+    # called 60 times a simulated second, starves the compositor and the glass comes out black
+    # (Crystal Synthesizer's, 2026-10-28).
+    clock = "--timeout=3500" if live else "--virtual-time-budget=3000"
+    r = chrome(["--force-device-scale-factor=2", f"--window-size={w},{h}", clock,
                 f"--screenshot={png}", Path(html_path).resolve().as_uri()])
     if not png.exists() or png.stat().st_size == 0:
         sys.exit(f"ui.py shot: Chrome wrote no image (exit {r.returncode}): {r.stderr.strip()[-400:]}")
@@ -278,6 +355,7 @@ def main():
     ap.add_argument("--set", action="append", default=[])
     ap.add_argument("--screen", action="store_true", help="mock/shot/fit: show the CRT, with colour bars standing in for a visualizer")
     ap.add_argument("--size", action="append", help="shot: the window (default 760x480); fit: each window to try")
+    ap.add_argument("--feed", action="store_true", help="mock/shot: replay a harness render's probes on the CRT")
     ap.add_argument("--round", type=int, default=1, help="mock: the review round (bump each revision pass)")
     ap.add_argument("--clean", action="store_true", help="mock: leave the review surface off")
     ap.add_argument("--out")
@@ -286,16 +364,16 @@ def main():
     if a.mode == "build":
         build(plugin_dir, Path(a.build_dir or plugin_dir / "build").resolve())   # the plugin's page: never a review surface
         return
-    info = mock_info(plugin_dir, a.direction, a.set, a.dress, a.screen)
+    info = mock_info(plugin_dir, a.direction, a.set, a.dress, a.screen, a.feed)
     if a.mode == "mock":
-        Path(a.out).write_text(page(info["ui"], info, None if a.clean else a.round))
+        Path(a.out).write_text(page(info["ui"], info, None if a.clean else a.round, plugin_dir))
         return
     if a.mode == "fit":
         ui = info["ui"]
         sizes = a.size or [f"{ui['min'][0]}x{ui['min'][1]}", f"{ui['width']}x{ui['height']}", f"{ui['max'][0]}x{ui['max'][1]}"]
         tmp = plugin_dir / f"build/ui/fit-{ui['dress']}-{ui['direction']}.html"   # one per check, so checks can run side by side
         tmp.parent.mkdir(parents=True, exist_ok=True)
-        head, tail = page(ui, info).rsplit("</body>", 1)
+        head, tail = page(ui, info, None, plugin_dir).rsplit("</body>", 1)
         tmp.write_text(head + FIT_PROBE + "</body>" + tail)
         bad = 0
         for size in sizes:
@@ -305,8 +383,9 @@ def main():
             bad += bool(dx or dy)
         sys.exit(1 if bad else 0)
     tmp = Path(a.out).with_suffix(".html")
-    tmp.write_text(page(info["ui"], info))   # a shot is of the editor alone
-    shot(tmp, Path(a.out).resolve(), (a.size or ["760x480"])[-1])
+    tmp.write_text(page(info["ui"], info, None, plugin_dir))   # a shot is of the editor alone
+    shot(tmp, Path(a.out).resolve(), (a.size or ["760x480"])[-1], live=bool(info["ui"].get("visualizer")))
+    tmp.unlink(missing_ok=True)
 
 
 if __name__ == "__main__":

@@ -142,6 +142,7 @@
 <script>/*@@JUCE@@*/</script>
 <script>/*@@MOCK@@*/</script>
 <script>/*@@REVIEW@@*/</script>
+<script>/*@@VISUALIZER@@*/</script>
 <script>
 "use strict";
 // ── the trace: a 3:2 Lissajous, the channel's mark, drawn rather than embedded ──
@@ -369,6 +370,43 @@ function crt() {
   return SCREEN = { el, glass, draw };
 }
 
+// ── the CRT's picture: the plugin's own ui/visualizer.js, which ui.py inlines and names as
+// window.editorVisualizer, an object { mount(el, hooks), frame(probes, params, dt) }. mount gets the
+// glass and hooks { get, set, begin, end } by parameter id (the editor's own relays, so a drag on the
+// picture is the knob moving). frame runs on each "probes" event the plugin sends, about 60 Hz, with
+// the latest probes in kProbes order and every parameter in natural units (a menu's index). It is
+// driven by the plugin's timer, not by animation frames, which WebKit stops in a plugin window it
+// thinks is covered. window.editorProbes holds the whole event: names, p, out (the output's peak),
+// h (every frame, ~480 a second, since the last event) and rate. In a browser, the mock's feed
+// (ui.py mock --feed) stands in, replayed from a harness render. ──
+const PROBES = window.editorProbes = { names: [], p: [], out: 0, h: [], rate: 0 };
+function binding(p) { return p.taper === "choice" ? bindChoice(p) : p.taper === "toggle" ? bindToggle(p) : bindSlider(p); }
+function startScreen(info) {
+  const vis = window.editorVisualizer, ui = info.ui || {};
+  if (!vis || !ui.screen || !SCREEN) return;
+  PROBES.names = info.probes || [];
+  PROBES.p = PROBES.names.map(() => 0);
+  const byId = new Map(info.params.map(p => [p.id, binding(p)]));
+  const call = (id, k, ...a) => { const b = byId.get(id); return b ? b[k](...a) : undefined; };
+  const hooks = { get: id => call(id, "get"), set: (id, v) => call(id, "set", v), begin: id => call(id, "begin"), end: id => call(id, "end") };
+  const values = () => { const v = {}; byId.forEach((b, id) => { v[id] = b.get(); }); return v; };
+  try { vis.mount(SCREEN.glass, hooks); } catch (err) { console.error("visualizer mount:", err); return; }
+  let last = performance.now();
+  const tick = ev => {
+    if (ev) Object.assign(PROBES, ev);
+    const now = performance.now(), dt = Math.min(0.1, (now - last) / 1000); last = now;
+    try { vis.frame(PROBES.p, values(), dt); } catch (err) { console.error("visualizer frame:", err); }
+  };
+  if (window.__IN_PLUGIN__) { window.__JUCE__.backend.addEventListener("probes", tick); tick(); return; }
+  const feed = info.feed, n = PROBES.names.length;   // the mock: a harness render, replayed in a loop
+  let i = 0;
+  setInterval(() => {
+    if (!feed || !feed.frames.length) return tick();
+    const f = feed.frames[i++ % feed.frames.length];
+    tick({ p: f.slice(0, n), out: f[n], h: [f], rate: feed.rate });
+  }, 1000 / 60);
+}
+
 // ── XY pad: two heroes on one surface, x first, y second; an optional backdrop (ui.backdrop) ──
 function pad(px, py, backdrop) {
   const sx = bindSlider(px), sy = bindSlider(py);
@@ -489,7 +527,7 @@ function build(info) {
     const h = document.createElement("div"); h.className = "heroes"; h.dataset.moment = "heroes";
     // The CRT sits between the heroes, hidden unless ui.screen is set. Shown, it stretches into the row's
     // spare width, so nothing else moves (design standard § The CRT).
-    const screen = crt().el; screen.hidden = !ui.screen;
+    const screen = crt().el; screen.hidden = !(ui.screen && (window.editorVisualizer || ui.screen === "test-card"));
     heroes.forEach((p, i) => { if (i === 1) h.append(screen); h.append(control(p, true, direction)); });
     if (heroes.length === 1) h.append(screen);
     main.append(h);
@@ -540,6 +578,7 @@ function fitWindow(info) {
   if (q.get("direction")) info.ui = Object.assign({}, info.ui, { direction: q.get("direction"), skin: q.get("skin") || undefined });
   build(info);
   fitWindow(info);
+  startScreen(info);
   if (window.__onEditorBuilt) window.__onEditorBuilt(info);   // the mock's review surface, if it has one
   document.fonts.ready.then(() => fitWindow(info));   // the faces change every width
   // Fitted again in the resize event itself, not on a later frame: WebKit stops animation frames in a
