@@ -1,0 +1,29 @@
+{
+  "name": "Bent Line",
+  "target": "BentLine",
+  "company": "Loudon Live",
+  "bundle_id": "com.LoudonLive.BentLine",
+  "manufacturer_code": "Loud",
+  "plugin_code": "Bent",
+  "kind": "instrument",
+  "version": "0.1.0",
+  "hostcheck": [
+    "material=Vibraphone",
+    "filing=Nearest",
+    "bend=0",
+    "wall=Own"
+  ],
+  "ui": {
+    "width": 1000,
+    "height": 600,
+    "min": [
+      920,
+      540
+    ],
+    "max": [
+      1600,
+      1000
+    ],
+    "direction": "bench"
+  }
+}
