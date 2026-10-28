@@ -31,3 +31,13 @@ What Generative Wavetable Libraries's steward cycles taught the page, and the ch
    > - **Smoothness along Position**: a table can be clean frame by frame and still buzz when swept, if neighbouring frames differ a lot. Each jump is a corner in the crossfade, repeated at the sweep's frame rate. A one-frame Gaussian blur across neighbours (on aligned frames) cut that buzz 10 to 18 dB on the family chains (2026-10-28, `loop-smoothing/`). Whether it becomes the packers' default waits on Loudon's ears.
 
 - run · 2026-10-28 · cycle 19 · taught item 1, proposed item 2 for canon
+
+## From cycle 20 — 2026-10-28
+
+3. When one cycle is exported at several lengths, choose its start point once on the full-length version and keep it at every length. Several zero crossings can rise almost equally steeply, so picking afresh at each length can rotate the same sound by up to half a cycle. *(offered by the steward, cycle 20)*
+4. **Proposed for canon** · 2026-10-28 · [[Generative Wavetable Libraries]] · § Single-Cycle Waveforms, a new last sentence · canon change owed *(proposed by the steward, cycle 20)*
+   Why: the page lists single cycles as a format family with nothing built, and now there is a tested writer for it
+   Path: `Projects/Generative Wavetable Libraries.md`
+   > An exporter exists: `single-cycle/export_single_cycles.py` writes any cycle at 2048, 600 and 256 samples. Each file is cut in the spectrum, starts on a zero crossing, and carries its loop and root note in the file. It has run on the crystal, Floquet and Shepard tables (2026-10-28). Nobody has heard these files or loaded them on hardware yet.
+
+- run · 2026-10-28 · cycle 20 · taught item 3, proposed item 4 for canon
