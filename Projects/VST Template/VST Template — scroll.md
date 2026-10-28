@@ -15,32 +15,32 @@ forward_vector: "I am VST Template's scroll — the one page that always opens o
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-28T22:21:07.338Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-28T22:37:51.527Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** sprout · **Steward:** cycle 1 · last ran 2026-10-28 (today)
-- **Plan:** agreed 2026-10-21 (7 days ago) · 2 made things since
+- **Status:** active · **Stage:** sprout · **Steward:** cycle 2 · last ran 2026-10-28 (today)
+- **Plan:** agreed 2026-10-21 (7 days ago) · 3 made things since
 - **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-10-28 (today) — Open Simple Synth in Live and play a few notes: does the screen between the knobs carve as you play? (`vst-template-steward-003`)
-- **Last commit touching this project:** 2026-10-24 `a75350ec` — Weave — 2026-10-24 — 79 links added, 647 links pruned, 268 labels added, 13 entries promoted, 25 stages moved, 35 flags closed, 13 decisions carried, 6 Contexts opened, 2 pages composted, 8 faces added
+- **Last shipped:** 2026-10-28 (today) — Frustration's screen now shows the loom: voices on pegs, partials on one rod, and a thread between each that holds or slips as you play. (`vst-template-steward-005`)
+- **Last commit touching this project:** 2026-10-28 `1270e546` — steward(VST Template): cycle 1 — SPINNING UP. HOME: [VST Template](obsidian://open?vault=The%20Palace&fi…
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
-- **Runs:** 1 run on 1 day, counted from the ledger's run lines
-- **Last run:** 2026-10-28 — cycle 1 · taught item 1, proposed item 2 for canon
+- **Runs:** 2 runs on 1 day, counted from the ledger's run lines
+- **Last run:** 2026-10-28 — cycle 2 · proposed item 3 for canon
 - **Owed in the ledger:** nothing
-- **Proposed for canon:** 1 — item 2; waiting on Loudon's review, and the page has not changed
-- **Latest lesson:** item 2, from cycle 1 — 2026-10-28 — [[VST Template — tuning]]
+- **Proposed for canon:** 1 — item 3; waiting on Loudon's review, and the page has not changed
+- **Latest lesson:** item 3, from cycle 2 — 2026-10-28 — [[VST Template — tuning]]
 
 ### Where this stands
 
-VST Template turns a per-sample numpy sketch into a VST3/AU plugin Loudon can play in Live. Its shared machinery builds every plugin: one parameter table drawn as a Drafting Table editor on Phosphor, with a bezelled screen (the CRT) between the two big knobs. On 2026-10-21 Loudon moved nine stewarded instruments onto this path and asked for a picture in that screen drawn from each instrument's own metaphor. Until now the screen was blank. Nothing could load a picture or send it live values, and new-plugin.py could only make plugins inside VST Template's own folder. This cycle closed both gaps. The machinery now loads each plugin's ui/visualizer.js and feeds it about 60 times a second. A ste…
+VST Template turns a numpy sketch into a plugin Loudon can play in Live. Every plugin made from it gets the same editor: a Drafting Table panel on Phosphor with a small screen (the CRT) that plays the plugin's own picture, fed live from the sound. Last cycle lit that screen and gave Simple Synth its picture. Frustration, the stretched tone that tears near an edge, still had none, and its layout (the pad with the map of where the tone tears) had nowhere to put one. This cycle gave its layout a screen and drew Frustration's picture, the loom. The plugin passes every check and is installed. No one has opened it in Live yet.
 
 ### Left rough, again and again
 
 _What the trail's left-rough notes keep saying, oldest first, in its latest words._
 
-- **rough since 2026-10-20:** the new editors have not been opened in Live, and neither plugin has yet been inserted from Live's browser; _(in 6 notes, the latest 2026-10-21)_
-- **rough since 2026-10-21:** The real-editor photograph failed because this session can't reach a display ('could not create image from display'), so every picture here is the same page in Chrome, not in the plugin's WebView. _(in 4 notes, the latest cycle 1)_
+- **rough since 2026-10-20:** the new editors have not been opened in Live, and neither plugin has yet been inserted from Live's browser; _(in 7 notes, the latest cycle 2)_
+- **rough since 2026-10-21:** the photographs are the page in Chrome, and their wobble trace shows only its last moment. _(in 5 notes, the latest cycle 2)_
 - **rough since 2026-10-21:** the colour bars are a stand-in; _(in 2 notes, the latest 2026-10-21)_
 - **rough since 2026-10-21:** no visualizer and no probe feed exist yet. _(in 2 notes, the latest 2026-10-21)_
 
@@ -58,6 +58,7 @@ _Nothing decided on the board yet._
 
 ### Runs
 
+- 2026-10-28 — cycle 2 · proposed item 3 for canon
 - 2026-10-28 — cycle 1 · taught item 1, proposed item 2 for canon
 
 ### Owed
@@ -68,7 +69,7 @@ _Nothing owed._
 
 _Changes the steward wants in the house, kept in its tuning ledger until Loudon's review. Its cycles work as if they hold; the pages have not changed._
 
-- **2.** 2026-10-28 · [[VST Template]] · § Where it stands (the paragraph beginning 'One Algorithm.h and a numpy sketch') — The entry still describes the CRT as a blank screen and plugins as living only under VST Template; both changed this cycle.
+- **3.** 2026-10-28 · [[VST Template]] · § Where it stands (the paragraph beginning 'One Algorithm.h and a numpy sketch') — Both plugins now have a picture; the paragraph should say so in one line.
 
 <!-- scroll:now:end -->
 
@@ -106,6 +107,41 @@ _Loudon's standing direction for this project. The steward reads this zone every
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="vst-template-steward-005" -->
+### 2026-10-28 — cycle 2 — Frustration's screen now shows the loom: voices on pegs, partials on one rod, and a thread between each that holds or slips as you play.
+> shipped · every check passes · not yet seen in Live · steward leans keep building pictures
+
+The loom draws the frustration itself. Along the top hang the voices, one peg per harmonic at k·f0, with the same small detune Algorithm.h uses. Along the bottom runs the tone: one rod, with every partial fixed to it at its stretched place. A thread joins each voice to its partial. The model's own lock test decides how each thread is drawn. While a partial's mismatch with its voice is under the coupling K, the voice can hold it, and the thread is taut and green. Past that it slips, turns amber and sways (slowed for the eye). Far past it, the model lets go and the thread is cut. Because every partial sits on one rod, you can see why they can't all be satisfied at once. Below that is the live fundamental over three seconds, with its wobble against the 0.5 Hz line the pad's map uses: HELD or TEARING. Measured on the mock page: B = 1e-6 holds 29 of 40 threads at ±0.05 Hz, B = 2e-5 holds about 16 at ±0.39 Hz, and B = 6e-5 holds 3 and tears at ±3.58 Hz. In the machinery, the pad layout now carries the screen between the pad and its readouts, on the same rule as the knob layout. Checked: Frustration's full run passes (matches its sketch to 5.8e-08 of peak, strict code signing, pluginval at strictness 5, auval, host check). The editor fits at 900×540, 1040×600 and 1600×1000, and Simple Synth's layout still fits at all three of its sizes.
+
+**Artifacts:**
+- [Torn: B = 6e-5, 3 of 40 threads held, wobble ±3.58 Hz.](Projects/VST Template/proofs/2026-10-28-loom/frustration-loom-torn-1040x600.png)
+- [At the edge: B = 2e-5, about 16 of 40 held, ±0.39 Hz.](Projects/VST Template/proofs/2026-10-28-loom/frustration-loom-edge-1040x600.png)
+- [Held: B = 1e-6, 29 of 40 held, ±0.05 Hz.](Projects/VST Template/proofs/2026-10-28-loom/frustration-loom-held-1040x600.png)
+- [The moving page, replaying the plugin's own feed. Open it in a browser.](Projects/VST Template/proofs/2026-10-28-loom/frustration-loom.html)
+- [This cycle's proof: what changed, what was checked, what wasn't.](Projects/VST Template/proofs/2026-10-28-loom/README.md)
+- [The full check run on Frustration.](Projects/VST Template/proofs/2026-10-28-loom/plugin-all.log)
+- [The loom.](Projects/VST Template/plugins/Frustration/ui/visualizer.js)
+- [Screen on; window 1040×600, min 900×540.](Projects/VST Template/plugins/Frustration/plugin.json)
+- [The pad layout now carries the CRT.](Projects/VST Template/machinery/ui/editor.html)
+- [The recipe says where the screen sits in the pad layout.](Projects/VST Template/template/README.md)
+
+_Changed in the workshop:_ README — The recipe now says where the screen sits in the pad layout.
+_Changed in the workshop:_ README — This cycle's proof.
+_Proposed for canon:_ VST Template (§ Where it stands (the paragraph beginning 'One Algorithm.h and a numpy sketch')) — Both plugins now have a picture; the paragraph should say so in one line.; owed in the tuning ledger until Loudon's review; it replaces item 2
+
+_Left rough:_ the new editors have not been opened in Live, and neither plugin has yet been inserted from Live's browser; the photographs are the page in Chrome, and their wobble trace shows only its last moment.
+
+_Next moves named:_ When Loudon has opened Simple Synth or Frustration in Live, fold what he saw into the next picture. · Write the afternoon recipe as one start-to-finish walk, sketch to installed plugin with a picture, using Frustration as the worked case.
+<sub>`vst-template-steward-005` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-a579ec0ed6" -->
+### 2026-10-28 — cycle 2
+
+proposed item 3 for canon
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="vst-template-steward-003" -->
 ### 2026-10-28 — cycle 1 — Open Simple Synth in Live and play a few notes: does the screen between the knobs carve as you play?
 > still working · CRT lit, all gates pass · only your screen can see it in Live · steward leans LOOKS-RIGHT

@@ -16,16 +16,17 @@
     "source=bright"
   ],
   "ui": {
-    "width": 760,
-    "height": 520,
+    "width": 1040,
+    "height": 600,
     "min": [
-      660,
-      500
+      900,
+      540
     ],
     "max": [
       1600,
       1000
     ],
-    "direction": "edge"
+    "direction": "edge",
+    "screen": true
   }
 }
