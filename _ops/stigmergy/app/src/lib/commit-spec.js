@@ -251,7 +251,11 @@ export function deriveTrailers({
   if (kind) out.push(`Palace-Kind: ${kind}`);
 
   // Entries: explicit override, else Palace-Entry per touched knowledge .md.
-  const entries = explicitEntries ?? derivedEntriesFromPaths(paths);
+  // A .md the diff read as no entry (no `type:` in its frontmatter, either
+  // side) is left out: a bundle's README is workshop, not a page (5853c266
+  // was logged `Palace-Entry: README`). A caller that does not say keeps it.
+  const notEntries = new Set(mdChanges.filter((fd) => fd.isEntry === false).map((fd) => fd.path));
+  const entries = explicitEntries ?? derivedEntriesFromPaths(paths.filter((p) => !notEntries.has(p)));
   for (const e of entries) out.push(`Palace-Entry: ${e}`);
 
   // Stage transitions + vector moves from the frontmatter diffs.

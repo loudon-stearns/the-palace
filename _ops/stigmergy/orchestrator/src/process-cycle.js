@@ -49,7 +49,8 @@ import { materializeScroll } from './scroll-file.js';
 import { resolveBundleDir } from './entry-paths.js';
 import { readEntryMeta } from './entry-frontmatter.js';
 import { tuningPathFor, recordRun, payOrders, localDate, growTuningLedger } from './ledger.js';
-import { commitCycle, planCycleCommit, pageEditsOf, vetPageEdits, proposedEditsOf, vetProposedEdits, urgentProposalAsk } from './cycle-commit.js';
+import { commitCycle, planCycleCommit, pageEditsOf, vetPageEdits, proposedEditsOf, vetProposedEdits, urgentProposalAsk, shippedPaths } from './cycle-commit.js';
+import { uncommittedInBundle } from './workshop-leftovers.js';
 import { refreshShopRoster, rosterTriggers, ROSTER_BUILDER } from './shop-roster.js';
 import { resolveModel } from '../../../models/latest-opus.mjs';
 
@@ -594,6 +595,22 @@ export function processCycle(opts) {
     run = { error: e.message };
   }
 
+  // ── What the bundle holds that this cycle will not commit (2026-10-29) ───
+  // Every uncommitted file in the steward's bundle that no posted message
+  // declared: a dying spawn's work, most often (GPD cycle 10, 2026-10-24).
+  // Never swept in; named on the scroll, in history and in the commit body, so
+  // a person sees it. Read once, before the scroll, so the scroll does not
+  // count the files this cycle is about to commit.
+  const posted = valid.filter((m) => appended.includes(m.id));
+  let leftovers = [];
+  try {
+    const declared = [...shippedPaths(posted), ...posted.flatMap((m) => (Array.isArray(m.payload.page_edits) ? m.payload.page_edits.map((e) => e.path) : []))];
+    leftovers = bundle ? uncommittedInBundle(palaceRoot, bundle.bundleDir, { home, exclude: declared }) : [];
+  } catch { leftovers = []; }
+  if (leftovers.length) {
+    appendFileSync(histPath, JSON.stringify({ event: 'WORKSHOP_LEFTOVERS', ts: tsNow, cycle: cycleN, iteration, barren, count: leftovers.length, paths: leftovers.slice(0, 50) }) + '\n');
+  }
+
   // ── Materialize the bundle-local scroll (the project's front door) ────────
   // Write `[Entry] — scroll.md` into the entry's bundle: the Now zone from the
   // board-derived view + the state we just wrote (and the runs block, when the
@@ -604,7 +621,7 @@ export function processCycle(opts) {
   // ledgers, git) — never from a copy. The deck draws the same scroll.
   let scroll;
   try {
-    scroll = scrollSummary(materializeScroll({ palaceRoot, home, agentDir: agentDirAbs, boardPath: boardFile, tsNow }));
+    scroll = scrollSummary(materializeScroll({ palaceRoot, home, agentDir: agentDirAbs, boardPath: boardFile, tsNow, leftovers }));
   } catch (e) {
     scroll = { written: false, reason: `error: ${e.message}` };
   }
@@ -613,7 +630,6 @@ export function processCycle(opts) {
   // The vetted page edits of the messages that reached the board, the
   // refusals, and the canon edits proposed, said loudly: in history (greppable)
   // and on the summary. A proposal carries the ledger item it was filed as.
-  const posted = valid.filter((m) => appended.includes(m.id));
   const pageEdits = posted.flatMap((m) => (Array.isArray(m.payload.page_edits) ? m.payload.page_edits : []));
   const refusedEdits = posted.flatMap((m) => (Array.isArray(m.payload.page_edits_refused) ? m.payload.page_edits_refused : []));
   const filed = filedProposals(posted);
@@ -676,7 +692,7 @@ export function processCycle(opts) {
           palaceRoot, home, cycleN,
           bundleDir: bundle ? bundle.bundleDir : null,
           messages: posted,
-          pageEdits, refusedEdits, proposals, roster,
+          pageEdits, refusedEdits, proposals, roster, leftovers,
           extraPaths: [
             join(agentDirAbs, 'state.json'),
             join(agentDirAbs, 'history.jsonl'),
@@ -695,7 +711,7 @@ export function processCycle(opts) {
         palaceRoot, home, cycleN,
         bundleDir: bundle ? bundle.bundleDir : null,
         messages: posted,
-        pageEdits, refusedEdits, proposals, roster,
+        pageEdits, refusedEdits, proposals, roster, leftovers,
         extraPaths: [
           join(agentDirAbs, 'state.json'),
           join(agentDirAbs, 'history.jsonl'),
@@ -739,6 +755,8 @@ export function processCycle(opts) {
     shop_roster: roster,
     // Where the project's scroll landed (replaces the plan.md read-model).
     scroll,
+    // Uncommitted files in the bundle that no message declared: named, not committed.
+    workshop_leftovers: leftovers,
     // What the cycle committed (null when the caller did not opt in).
     commit: commitResult,
   };

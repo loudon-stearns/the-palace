@@ -85,9 +85,19 @@ function diffPillars(beforeRaw, afterRaw) {
   return { field: 'pillars', kind: 'changed', addedPillars: added, removedPillars: removed };
 }
 
+// True when a .md's text is a palace entry: its frontmatter declares a
+// top-level `type:`. Read off the raw block, not the parsed one, so an entry
+// whose YAML is broken still counts (parseFrontmatter reads a broken block as
+// {}). A README, a scroll or a ledger in a bundle carries no `type:`.
+export function textIsEntry(text) {
+  const m = String(text ?? '').match(/^---\r?\n([\s\S]*?)\r?\n---/);
+  return !!(m && /^type:\s*\S/m.test(m[1]));
+}
+
 // Full palace-aware diff of one .md file given its before/after text.
 // Returns { frontmatterChanges: [...], bodyChanged: bool, hadFrontmatter,
-// hasFrontmatter }.
+// hasFrontmatter, isEntry }. `isEntry` holds when either side is an entry, so
+// a deleted entry, or one whose `type:` this change removes, still names it.
 export function diffEntryText(beforeText, afterText) {
   const before = parseFrontmatter(beforeText ?? '');
   const after = parseFrontmatter(afterText ?? '');
@@ -98,6 +108,7 @@ export function diffEntryText(beforeText, afterText) {
     bodyChanged,
     hadFrontmatter: Object.keys(before.frontmatter || {}).length > 0,
     hasFrontmatter: Object.keys(after.frontmatter || {}).length > 0,
+    isEntry: textIsEntry(beforeText) || textIsEntry(afterText),
   };
 }
 

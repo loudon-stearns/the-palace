@@ -1,5 +1,7 @@
 import { describe, test, expect, afterEach } from 'vitest';
 import { mkdtempSync, mkdirSync, writeFileSync, readFileSync, rmSync } from 'node:fs';
+import { execFileSync } from 'node:child_process';
+import { gitFreeEnv, assertScratchRepo } from '../helpers/git-env.js';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { latestOpus } from '../../../../models/latest-opus.mjs';
@@ -717,5 +719,90 @@ describe('a cycle marks its page\'s tuning ledger', () => {
     const msgs = [{ payload: { lesson: 'one' } }, { payload: { lesson: ['two', ' ', 3], paid: '2026-10-14' } }, { payload: {} }, null];
     expect(offeredLessons(msgs)).toEqual(['one', 'two']);
     expect(paidOrders(msgs)).toEqual(['2026-10-14']);
+  });
+});
+
+// GPD cycle 10 (2026-10-24): the spawn wrote `vital/` for 25 minutes, died
+// before posting, was recorded barren, and its commit took only the scroll.
+// The cycle still never commits a file no message declared, but it names each
+// one where a person looks: the commit body, history and the scroll's Now.
+describe('a cycle names what is left uncommitted in its bundle', () => {
+  let root;
+  afterEach(() => { if (root) rmSync(root, { recursive: true, force: true, maxRetries: 5 }); root = null; });
+  const git = (args) => execFileSync('git', args, { cwd: root, encoding: 'utf8', env: gitFreeEnv() });
+  const BUNDLE = 'Test Steward';
+  const HOST = `${BUNDLE}/vital/host.py`;
+  const README = `${BUNDLE}/vital/README.md`;
+
+  function makePalace() {
+    root = mkdtempSync(path.join(tmpdir(), 'palace-pc-left-'));
+    const agentDir = path.join(root, '_ops/agents/permanent/test-steward');
+    mkdirSync(agentDir, { recursive: true });
+    mkdirSync(path.join(root, '_ops/swarm/persistent'), { recursive: true });
+    mkdirSync(path.join(root, BUNDLE, 'vital', '__pycache__'), { recursive: true });
+    writeFileSync(path.join(agentDir, 'manifest.json'), JSON.stringify({ agent_id: 'Test Steward', home: 'Test Steward', mode: 'long_duration_background', session_id: 'sess-1', model: { name: 'claude-opus-4-7' } }));
+    writeFileSync(path.join(agentDir, 'state.json'), JSON.stringify({ iteration: 9, last_active: null, last_read_cursor: null }));
+    writeFileSync(path.join(agentDir, 'history.jsonl'), '');
+    writeFileSync(path.join(root, '_ops/swarm/persistent/blackboard.jsonl'), '');
+    writeFileSync(path.join(root, 'Test Steward.md'), '---\ntitle: "Test Steward"\ntype: project\nstage: growing\nstatus: active\n---\n# Test Steward');
+    writeFileSync(path.join(root, '.gitignore'), '__pycache__/\n');
+    git(['init', '-q', '-b', 'main']);
+    assertScratchRepo(root);
+    git(['config', 'user.name', 'test']);
+    git(['config', 'user.email', 'test@example.com']);
+    git(['add', '-A']);
+    git(['commit', '-q', '-m', 'init']);
+    // What the spawn wrote before it died.
+    writeFileSync(path.join(root, HOST), 'print(1)\n');
+    writeFileSync(path.join(root, README), '# vital\n');
+    writeFileSync(path.join(root, BUNDLE, 'vital', '__pycache__', 'host.pyc'), 'x');
+    return '_ops/agents/permanent/test-steward';
+  }
+
+  test('a barren cycle commits none of it and names all of it', () => {
+    const agentDir = makePalace();
+    const transcriptPath = path.join(root, 'transcript.jsonl');
+    writeFileSync(transcriptPath, JSON.stringify({ type: 'assistant', message: { usage: { output_tokens: 3 }, content: [{ type: 'text', text: 'waiting on the render, posting nothing' }] } }));
+    const summary = processCycle({ palaceRoot: root, transcriptPath, agentDir, cycleN: 10, iteration: 10, tsNow: '2026-10-24T20:05:00Z', commit: 'plan' });
+    expect(summary.barren).toBe(true);
+    expect(summary.workshop_leftovers).toEqual([{ path: README, state: 'new' }, { path: HOST, state: 'new' }]);
+    const { plan } = summary.commit;
+    expect(plan.paths).not.toContain(HOST);
+    expect(plan.paths).not.toContain(README);
+    expect(plan.leftovers.map((l) => l.path)).toEqual([README, HOST]);
+    expect(plan.body).toContain(`Left uncommitted in the bundle — no message of this cycle declared them, so they wait for Loudon's eyes:\n- ${README} (new)\n- ${HOST} (new)`);
+    const hist = readFileSync(path.join(root, agentDir, 'history.jsonl'), 'utf8').trim().split('\n').map((l) => JSON.parse(l));
+    expect(hist.find((e) => e.event === 'WORKSHOP_LEFTOVERS')).toMatchObject({ cycle: 10, barren: true, count: 2 });
+    const scroll = readFileSync(path.join(root, BUNDLE, 'Test Steward — scroll.md'), 'utf8');
+    expect(scroll).toContain(`- **Left uncommitted:** ⚠ 2 files in the bundle that no cycle declared, so no cycle commits them — \`${README}\`, \`${HOST}\`. Look, then commit or clear them.`);
+    expect(scroll).not.toContain('host.pyc');
+  });
+
+  test('a cycle that declares one file commits it, and names only the other', () => {
+    const agentDir = makePalace();
+    const transcriptPath = path.join(root, 'transcript.jsonl');
+    writeFileSync(transcriptPath, assistantLine([{
+      schema_version: '1.0', id: 'ship-10', ts: '2026-10-24T16:01:00-04:00', session_id: 'sess-1', from: 'Test Steward', to: '*', type: 'BROADCAST', board: 'GENERAL',
+      payload: { kind: 'shipped_artifact', headline: 'the vital host', ground: 'shipped', content: 'Catch-up — the host runs.', artifacts: [HOST] },
+    }]));
+    const summary = processCycle({ palaceRoot: root, transcriptPath, agentDir, cycleN: 10, iteration: 10, tsNow: '2026-10-24T20:05:00Z', commit: 'plan' });
+    expect(summary.barren).toBe(false);
+    expect(summary.workshop_leftovers).toEqual([{ path: README, state: 'new' }]);
+    expect(summary.commit.plan.paths).toContain(HOST);
+    expect(summary.commit.plan.body).toContain(`so they wait for Loudon's eyes:\n- ${README} (new)`);
+    const scroll = readFileSync(path.join(root, BUNDLE, 'Test Steward — scroll.md'), 'utf8');
+    expect(scroll).toContain('**Left uncommitted:** ⚠ 1 file in the bundle');
+    expect(scroll).not.toMatch(/Left uncommitted:.*host\.py/);
+  });
+
+  test('a clean bundle says nothing', () => {
+    const agentDir = makePalace();
+    rmSync(path.join(root, BUNDLE, 'vital'), { recursive: true, force: true });
+    const transcriptPath = path.join(root, 'transcript.jsonl');
+    writeFileSync(transcriptPath, JSON.stringify({ type: 'assistant', message: { usage: { output_tokens: 3 }, content: [{ type: 'text', text: 'nothing' }] } }));
+    const summary = processCycle({ palaceRoot: root, transcriptPath, agentDir, cycleN: 10, iteration: 10, tsNow: '2026-10-24T20:05:00Z', commit: 'plan' });
+    expect(summary.workshop_leftovers).toEqual([]);
+    expect(summary.commit.plan.body).not.toContain('Left uncommitted');
+    expect(readFileSync(path.join(root, BUNDLE, 'Test Steward — scroll.md'), 'utf8')).not.toContain('Left uncommitted');
   });
 });
