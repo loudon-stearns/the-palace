@@ -41,6 +41,16 @@ _None yet._
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="rational-hearing-2026-10-29-columns" -->
+### 2026-10-29 — The ladder is his: prime columns and the bracket legend
+
+Loudon heard the page and confirmed the sound works. He asked for two things the first build lost: the vertical alignment of the constellation, and his perfect / imperfect / dissonant labelling. The numerals were measured off the handout and the ladder rebuilt from them, with every prime in its own column (his rule: "every prime number gets its own column"), 2, 3 and 5 snapped exactly vertical, 9 and 15 where he drew them. The class legend is now his bracket column on the left of the ladder, built from the edge labels' heights, in the provenance colours. Column heads `×2 ×3 ×5` and a one-line rule in his words sit with the ladder; the three-row legend under the spectrum is gone, the notation key stays.
+
+- [the page](Projects/Rational Hearing/rational-hearing.html)
+- [Paper](Projects/Rational Hearing/proofs/2026-10-29-paper.png) · [Phosphor](Projects/Rational Hearing/proofs/2026-10-29-phosphor.png) · [phone](Projects/Rational Hearing/proofs/2026-10-29-phone.png) · [projector](Projects/Rational Hearing/proofs/2026-10-29-projector.png) · [print](Projects/Rational Hearing/proofs/2026-10-29-print.png)
+
+_Left rough:_ How composites (9, 15) and partial 1 should sit is his call; the page follows the drawing. Headless Chromium only, as before. The Plan is unchanged.
+<!-- /scroll:entry -->
 <!-- scroll:entry id="rational-hearing-2026-10-28-born" -->
 ### 2026-10-28 — Born: the handout rebuilt on Drafting Table
 
