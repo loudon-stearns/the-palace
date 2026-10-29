@@ -1,0 +1,564 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Rational Hearing</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Cormorant:ital,wght@1,500&family=JetBrains+Mono:wght@400;500;600&family=Manrope:wght@400;600;700&display=swap">
+<style>
+/* Layout: a drafting sheet for the lecture screen. Ladder of partials beside a live readout and spectrum; then three bodies; then just against equal. */
+:root{
+  --paper:#f0eee5; --fill:#dcd9ca; --ink:#1a1916; --ink-2:#3a3a35; --ink-3:#6a6862;
+  --rule:#b8b09a; --rule-soft:#cfc9b6; --lit:#c8261a; --on-lit:#f0eee5;
+  --perfect:#1a1916; --imperfect:#2b5fb0; --dissonant:#a8730a; --tritone:#6a6862;
+  --f-display:'Anton', Impact, 'Arial Narrow Bold', sans-serif;
+  --f-script:'Cormorant', 'Cormorant Garamond', Georgia, serif;
+  --f-body:'Manrope', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --f-num:'JetBrains Mono', ui-monospace, Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --paper:#14130f; --fill:#2b2922; --ink:#ece8dc; --ink-2:#c9c4b5; --ink-3:#9a9588;
+  --rule:#4a463c; --rule-soft:#38352d; --lit:#ff5a47; --on-lit:#14130f;
+  --perfect:#ece8dc; --imperfect:#7aa5ff; --dissonant:#e8b84a; --tritone:#9a9588; color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --paper:#14130f; --fill:#2b2922; --ink:#ece8dc; --ink-2:#c9c4b5; --ink-3:#9a9588;
+  --rule:#4a463c; --rule-soft:#38352d; --lit:#ff5a47; --on-lit:#14130f;
+  --perfect:#ece8dc; --imperfect:#7aa5ff; --dissonant:#e8b84a; --tritone:#9a9588; color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.5;
+  padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px))}
+.sheet{max-width:1240px;margin:0 auto;padding-block:28px 48px;display:flex;flex-direction:column;gap:44px}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px dashed var(--ink);outline-offset:3px}
+
+/* header */
+header{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:20px;border-bottom:2px solid var(--ink);padding-bottom:18px}
+h1{font-family:var(--f-display);font-weight:400;font-size:clamp(44px, 8vw, 92px);line-height:.92;margin:0;letter-spacing:.01em;text-wrap:balance}
+.sub{font-family:var(--f-script);font-style:italic;font-weight:500;font-size:clamp(24px, 3.4vw, 36px);margin:6px 0 0;color:var(--ink-2)}
+.controls{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.btn{border:1.5px solid var(--ink);background:transparent;padding:9px 14px;font-weight:700;font-size:14px;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;border-radius:0}
+.btn:hover{background:var(--fill)}
+.btn[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.btn.lit{background:var(--lit);border-color:var(--lit);color:var(--on-lit)}
+.seg{display:inline-flex;border:1.5px solid var(--ink)}
+.seg button{border:0;background:transparent;padding:9px 12px;font-family:var(--f-num);font-size:14px;cursor:pointer}
+.seg button + button{border-left:1px solid var(--ink)}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.seg-label{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2);font-weight:700}
+
+.eyebrow{font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-2);margin:0 0 4px}
+h2{font-family:var(--f-display);font-weight:400;font-size:clamp(30px, 4vw, 44px);line-height:1;margin:0;text-wrap:balance}
+.lede{max-width:62ch;color:var(--ink-2);margin:8px 0 0}
+.sec-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:14px;margin-bottom:18px}
+
+/* series */
+.series{display:grid;grid-template-columns:minmax(0, 420px) minmax(0, 1fr);gap:36px;align-items:start}
+.ladder-wrap{border:1px solid var(--rule);padding:8px}
+#ladder{width:100%;height:auto;display:block;max-height:86vh}
+.side{display:flex;flex-direction:column;gap:22px;min-width:0}
+.readout{border:2px solid var(--ink);padding:18px 20px;display:grid;gap:6px;min-height:228px}
+.ratio{font-family:var(--f-display);font-size:clamp(56px, 9vw, 104px);line-height:.95;letter-spacing:.02em;overflow-wrap:anywhere}
+.ratio .colon{color:var(--ink-3);padding:0 .08em}
+.iname{font-size:20px;font-weight:700}
+.iname .cls{font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;margin-left:10px;padding:2px 7px;border:1px solid currentColor;vertical-align:middle}
+.math{font-family:var(--f-num);font-size:15px;color:var(--ink-2);font-variant-numeric:tabular-nums;display:grid;gap:2px}
+.math b{color:var(--ink);font-weight:600}
+.empty{color:var(--ink-2);font-size:17px}
+.spec-wrap{border:1px solid var(--rule);padding:10px 10px 4px}
+.spec-title{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;font-size:13px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:var(--ink-2);padding:2px 4px 6px}
+#spectrum{width:100%;height:auto;display:block}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.key{display:grid;grid-template-columns:repeat(3, minmax(0,1fr));gap:12px}
+.key div{border-top:3px solid currentColor;padding-top:6px;font-size:14px}
+.key strong{display:block;font-size:12px;letter-spacing:.14em;text-transform:uppercase}
+.key span{font-family:var(--f-num);color:var(--ink-2);font-size:13px}
+.c-perfect{color:var(--perfect)} .c-imperfect{color:var(--imperfect)} .c-dissonant{color:var(--dissonant)} .c-tritone{color:var(--tritone)}
+
+/* svg interactive bits */
+.hit{cursor:pointer;outline:none}
+.hit .focus{opacity:0}
+.hit:focus-visible .focus{opacity:1}
+.node .num{font-family:var(--f-display);font-size:40px;fill:var(--ink)}
+.node .let{font-family:var(--f-body);font-weight:700;font-size:16px;fill:var(--ink-2)}
+.node .ring{fill:none;stroke:var(--lit);stroke-width:2.5;opacity:0}
+.node.on .ring{opacity:1}
+.node.on .num{fill:var(--lit)}
+.node:hover .num{text-decoration:underline}
+.edge line{stroke-width:1.6}
+.edge.lit line{stroke:var(--lit)!important;stroke-width:3.5}
+.edge .chip{fill:var(--paper);stroke:currentColor;stroke-width:1}
+.edge text{font-family:var(--f-num);font-weight:600;font-size:15px;fill:currentColor}
+.edge.lit .chip{fill:var(--lit);stroke:var(--lit)}
+.edge.lit text{fill:var(--on-lit)}
+.edge:hover .chip{stroke-width:2}
+
+/* bodies */
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip-btn{border:1.5px solid currentColor;background:transparent;padding:6px 10px;cursor:pointer;display:inline-flex;gap:8px;align-items:baseline;border-radius:0}
+.chip-btn b{font-family:var(--f-num);font-weight:600;font-size:15px}
+.chip-btn span{font-family:var(--f-num);font-size:13px;color:var(--ink-2)}
+.chip-btn[aria-pressed="true"]{background:var(--lit);border-color:var(--lit);color:var(--on-lit)}
+.chip-btn[aria-pressed="true"] span{color:var(--on-lit)}
+.bodies{display:grid;grid-template-columns:repeat(2, minmax(0,1fr));gap:24px;margin-top:18px}
+figure{margin:0;border:1px solid var(--rule);padding:12px;min-width:0}
+figcaption{font-family:var(--f-script);font-style:italic;font-weight:500;font-size:24px;margin-bottom:4px}
+canvas{width:100%;height:230px;display:block}
+.fig-note{font-size:14px;color:var(--ink-2);margin:6px 0 0}
+.bodies-foot{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px;margin-top:14px}
+.bodies-foot p{margin:0;color:var(--ink-2);max-width:70ch}
+
+/* temper */
+.temper-wrap{overflow-x:auto;border:1px solid var(--rule);padding:8px}
+#temper{display:block;width:100%;min-width:760px;height:auto}
+.col text{font-family:var(--f-num)}
+.col .short{font-family:var(--f-body);font-weight:700;font-size:16px}
+.col .frac{font-size:15px;font-weight:600}
+.col .dev{font-size:12px;fill:var(--ink-2)}
+.col .bar{fill:var(--ink)}
+.col:hover .bar{fill:var(--lit)}
+.col.playing .bar{fill:var(--lit)}
+.status{min-height:1.5em;font-family:var(--f-num);font-size:14px;color:var(--ink-2);margin:10px 0 0}
+footer{border-top:2px solid var(--ink);padding-top:12px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;font-size:14px;letter-spacing:.12em;text-transform:uppercase;font-weight:700}
+footer span{color:var(--ink-2)}
+
+@media (max-width: 900px){ .series{grid-template-columns:minmax(0,1fr)} .ladder-wrap{max-width:440px;margin:0 auto;width:100%} }
+@media (max-width: 760px){ .bodies{grid-template-columns:minmax(0,1fr)} .key{grid-template-columns:minmax(0,1fr)} }
+@media (prefers-reduced-motion: reduce){ *{transition:none!important} }
+</style>
+</head>
+<body>
+
+<div class="sheet">
+  <header>
+    <div>
+      <h1>Rational Hearing</h1>
+      <p class="sub">musical intervals are ratios</p>
+    </div>
+    <div class="controls">
+      <button class="btn" id="soundBtn" aria-pressed="false">○ Sound off</button>
+      <span class="seg-label" id="fundLabel">Fundamental</span>
+      <div class="seg" role="group" aria-labelledby="fundLabel">
+        <button id="fundC" aria-pressed="true">C 65.41 Hz</button>
+        <button id="fundA" aria-pressed="false">A 110 Hz</button>
+      </div>
+    </div>
+  </header>
+
+  <section aria-labelledby="h-series">
+    <div class="sec-head">
+      <div>
+        <p class="eyebrow">The harmonic series</p>
+        <h2 id="h-series">Every interval lives inside one note</h2>
+        <p class="lede">Each number is a multiple of one common frequency. Tap a number to switch that partial on or off. Tap an interval label to hear just those two partials.</p>
+      </div>
+    </div>
+    <div class="series">
+      <div class="ladder-wrap"><svg id="ladder" viewBox="0 0 460 790" role="group" aria-label="Ladder of partials 1 to 16 with the intervals between them"></svg></div>
+      <div class="side">
+        <div class="readout" id="readout" aria-live="polite"></div>
+        <div class="spec-wrap">
+          <div class="spec-title"><span>As harmonics of a single note</span><span id="specAxis"></span></div>
+          <svg id="spectrum" viewBox="0 0 640 222" role="group" aria-label="Partials 1 to 16; tap a bar to switch it on or off"></svg>
+        </div>
+        <div class="row">
+          <button class="btn" id="climbBtn">▸ Climb the series</button>
+          <button class="btn" id="allBtn">All 16</button>
+          <button class="btn" id="clearBtn">Clear</button>
+        </div>
+        <div class="key">
+          <div class="c-perfect"><strong>Perfect</strong><span>0 · P5 · P4</span></div>
+          <div class="c-imperfect"><strong>Imperfect</strong><span>M6 · M3 · -3 · -6</span></div>
+          <div class="c-dissonant"><strong>Dissonant</strong><span>M2 · M7 · -7 · -2</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="h-bodies">
+    <div class="sec-head">
+      <div>
+        <p class="eyebrow">One ratio, two bodies</p>
+        <h2 id="h-bodies">The same ratio in a string and a tube</h2>
+      </div>
+    </div>
+    <div class="chips" id="chips" role="group" aria-label="Choose an interval"></div>
+    <div class="bodies">
+      <figure>
+        <figcaption>As divisions of a string</figcaption>
+        <canvas id="stringCv" aria-label="Two vibrating strings"></canvas>
+        <p class="fig-note" id="stringNote"></p>
+      </figure>
+      <figure>
+        <figcaption>As fractions of a tube length</figcaption>
+        <canvas id="tubeCv" aria-label="Two air columns"></canvas>
+        <p class="fig-note" id="tubeNote"></p>
+      </figure>
+    </div>
+    <div class="bodies-foot">
+      <p id="bodiesFoot"></p>
+      <button class="btn lit" id="hearPair">▸ Hear 3 : 2</button>
+    </div>
+  </section>
+
+  <section aria-labelledby="h-temper">
+    <div class="sec-head">
+      <div>
+        <p class="eyebrow">Just against equal</p>
+        <h2 id="h-temper">Twelve equal steps miss the simple ratios</h2>
+        <p class="lede">Black bars sit at the just ratio. Dashed lines are the twelve equal steps of the octave. The gap between them is the tempering, in cents. Tap a column to hear the just interval, then the tempered one.</p>
+      </div>
+      <button class="btn" id="magBtn" aria-pressed="false">Magnify gaps ×5</button>
+    </div>
+    <div class="temper-wrap"><svg id="temper" viewBox="0 0 960 262" role="group" aria-label="Just intervals compared with equal temperament"></svg></div>
+    <p class="status" id="temperStatus" aria-live="polite"></p>
+  </section>
+
+  <footer><span>5-limit · page one</span>Enjoy, Loudon Stearns</footer>
+</div>
+
+<script>
+(function(){
+'use strict';
+const NS='http://www.w3.org/2000/svg';
+const $=id=>document.getElementById(id);
+function el(tag, attrs, parent){ const e=document.createElementNS(NS, tag); for(const k in attrs) e.setAttribute(k, attrs[k]); if(parent) parent.appendChild(e); return e; }
+const gcd=(a,b)=>{ while(b){ [a,b]=[b, a%b]; } return a; };
+const SHARP=['C','C♯','D','D♯','E','F','F♯','G','G♯','A','A♯','B'];
+const FLAT =['C','D♭','D','E♭','E','F','G♭','G','A♭','A','B♭','B'];
+const FUND={C:{f:65.406, pc:0, root:261.626, label:'C'}, A:{f:110, pc:9, root:220, label:'A'}};
+const reduceMotion=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* ---------- interval knowledge ---------- */
+const INTERVALS=[ // short, name, num, den, class, semitones
+  ['U','unison',1,1,'perfect',0],
+  ['-2','minor 2nd',16,15,'dissonant',1],
+  ['M2','major 2nd',9,8,'dissonant',2],
+  ['-3','minor 3rd',6,5,'imperfect',3],
+  ['M3','major 3rd',5,4,'imperfect',4],
+  ['P4','perfect 4th',4,3,'perfect',5],
+  ['T.T.','tritone',64,45,'tritone',6],
+  ['P5','perfect 5th',3,2,'perfect',7],
+  ['-6','minor 6th',8,5,'imperfect',8],
+  ['M6','major 6th',5,3,'imperfect',9],
+  ['-7','minor 7th',16,9,'dissonant',10],
+  ['M7','major 7th',15,8,'dissonant',11],
+  ['0','octave',2,1,'perfect',12]
+];
+const BY_RATIO={}; INTERVALS.forEach(i=>BY_RATIO[i[2]+'/'+i[3]]=i);
+const BY_SHORT={}; INTERVALS.forEach(i=>BY_SHORT[i[0]]=i);
+const CLASS_LABEL={perfect:'Perfect', imperfect:'Imperfect', dissonant:'Dissonant', tritone:'Tritone'};
+const CHORDS={'4:5:6':'major triad','10:12:15':'minor triad','3:4:5':'major triad, second inversion','2:3:4':'fifth and fourth stacked','4:5:6:8':'major triad with octave','1:2:3:4:5:6:7:8:9:10:11:12:13:14:15:16':'the full series to 16, a bright saw-like tone'};
+const OCT=['', 'octave', 'two octaves', 'three octaves', 'four octaves'];
+
+function primeOk(n){ for(const p of [2,3,5]) while(n%p===0) n/=p; return n===1; }
+function describePair(p,q){ // p>q
+  const g=gcd(p,q); let a=p/g, b=q/g;
+  if(!primeOk(a)||!primeOk(b)) return {name:'Beyond this page: the ratio involves 7, 11 or 13', cls:null};
+  let k=0; while(a/b>=2 && !(a===2*b)){ b*=2; const g2=gcd(a,b); a/=g2; b/=g2; k++; }
+  if(a===2*b && k>0){ return {name:OCT[k+1]||((k+1)+' octaves'), cls:'perfect'}; }
+  const it=BY_RATIO[a+'/'+b];
+  if(!it) return {name:'ratio '+a+':'+b, cls:null};
+  if(k===0) return {name:it[1]+' ('+it[0]+')', cls:it[4]};
+  return {name:OCT[k]+' + '+it[1], cls:it[4]};
+}
+const cents=r=>1200*Math.log2(r);
+function fmtHz(f){ return f>=1000 ? (f/1000).toFixed(3)+' kHz' : f.toFixed(2)+' Hz'; }
+function noteOf(n){ if(!primeOk(n)) return ''; const s=Math.round(12*Math.log2(n)); return SHARP[(FUND[fundKey].pc+s)%12]; }
+
+/* ---------- state ---------- */
+let active=new Set([2,3]);
+let fundKey='C';
+let soundOn=false;
+let pair=[3,2];
+let magnify=1;
+let climbTimer=null;
+
+/* ---------- audio ---------- */
+const A={ctx:null, master:null, osc:[], g:[], wave:null};
+const weight=n=>1/Math.sqrt(n);
+function ensureAudio(){
+  if(A.ctx) return true;
+  const C=window.AudioContext||window.webkitAudioContext; if(!C) return false;
+  A.ctx=new C();
+  const comp=A.ctx.createDynamicsCompressor();
+  comp.connect(A.ctx.destination);
+  A.master=A.ctx.createGain(); A.master.gain.value=0; A.master.connect(comp);
+  A.out=comp;
+  for(let n=1;n<=16;n++){
+    const o=A.ctx.createOscillator(); o.type='sine'; o.frequency.value=n*FUND[fundKey].f;
+    const g=A.ctx.createGain(); g.gain.value=0; o.connect(g); g.connect(A.master); o.start();
+    A.osc[n]=o; A.g[n]=g;
+  }
+  const real=new Float32Array(8), imag=new Float32Array(8);
+  for(let i=1;i<8;i++) imag[i]=1/i;
+  A.wave=A.ctx.createPeriodicWave(real, imag);
+  return true;
+}
+function applyAudio(){
+  if(!A.ctx) return;
+  const t=A.ctx.currentTime;
+  let sum=0; active.forEach(n=>sum+=weight(n));
+  for(let n=1;n<=16;n++){
+    const target=active.has(n)&&sum>0 ? weight(n)/sum : 0;
+    A.g[n].gain.setTargetAtTime(target, t, 0.03);
+    A.osc[n].frequency.setTargetAtTime(n*FUND[fundKey].f, t, 0.02);
+  }
+  A.master.gain.cancelScheduledValues(t);
+  A.master.gain.setTargetAtTime(soundOn&&!A.ducked ? 0.32 : 0, t, 0.04);
+}
+function setSound(on){
+  soundOn=on;
+  if(on){ if(!ensureAudio()){ soundOn=false; } else A.ctx.resume(); }
+  const b=$('soundBtn'); b.setAttribute('aria-pressed', String(soundOn)); b.textContent=soundOn?'● Sound on':'○ Sound off';
+  applyAudio();
+}
+
+/* ---------- ladder ---------- */
+const NODES=[{n:1,x:120,y:50},{n:2,x:210,y:112},{n:3,x:322,y:178},{n:4,x:205,y:258},{n:5,x:398,y:352},{n:6,x:250,y:398},{n:8,x:175,y:512},{n:9,x:298,y:562},{n:15,x:398,y:690},{n:16,x:172,y:745}];
+const NPOS={}; NODES.forEach(d=>NPOS[d.n]=d);
+const EDGES=[[1,2,'0',.5],[2,3,'P5',.5],[3,4,'P4',.5],[3,5,'M6',.5],[4,5,'M3',.5],[5,6,'-3',.5],[5,8,'-6',.62],[8,9,'M2',.5],[8,15,'M7',.6],[9,16,'-7',.5],[15,16,'-2',.5]];
+const ladder=$('ladder');
+const edgeEls=[], nodeEls={};
+function buildLadder(){
+  const gE=el('g',{},ladder), gN=el('g',{},ladder);
+  EDGES.forEach(([a,b,lab,t])=>{
+    const A1=NPOS[a], B1=NPOS[b], cls=BY_SHORT[lab][4];
+    const dx=B1.x-A1.x, dy=B1.y-A1.y, L=Math.hypot(dx,dy), ux=dx/L, uy=dy/L, trim=28;
+    const g=el('g',{class:'edge hit c-'+cls, tabindex:'0', role:'button', 'aria-label':'Hear '+BY_SHORT[lab][1]+', partials '+b+' and '+a},gE);
+    el('line',{x1:A1.x+ux*trim, y1:A1.y+uy*trim, x2:B1.x-ux*trim, y2:B1.y-uy*trim, stroke:'currentColor'},g);
+    const mx=A1.x+dx*t, my=A1.y+dy*t, w=lab.length*10+16;
+    el('rect',{class:'focus', x:mx-w/2-5, y:my-17, width:w+10, height:34, fill:'none', stroke:'var(--ink)', 'stroke-dasharray':'3 3'},g);
+    el('rect',{class:'chip', x:mx-w/2, y:my-12, width:w, height:24},g);
+    const tx=el('text',{x:mx, y:my+5, 'text-anchor':'middle'},g); tx.textContent=lab;
+    g.addEventListener('click',()=>{ stopClimb(); active=new Set([a,b]); render(); });
+    edgeEls.push({g,a,b});
+  });
+  NODES.forEach(d=>{
+    const g=el('g',{class:'node hit', tabindex:'0', role:'button'},gN);
+    el('circle',{cx:d.x, cy:d.y, r:30, fill:'transparent'},g);
+    el('circle',{class:'ring', cx:d.x, cy:d.y, r:28},g);
+    el('circle',{class:'focus', cx:d.x, cy:d.y, r:33, fill:'none', stroke:'var(--ink)', 'stroke-dasharray':'3 3'},g);
+    const num=el('text',{class:'num', x:d.x, y:d.y+15, 'text-anchor':'middle'},g); num.textContent=d.n;
+    const digits=String(d.n).length;
+    const let_=el('text',{class:'let', x:d.x-10*digits-3, y:d.y-6, 'text-anchor':'end'},g);
+    g.addEventListener('click',()=>toggle(d.n));
+    nodeEls[d.n]={g,let_};
+  });
+  [...ladder.querySelectorAll('.hit')].forEach(h=>h.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); h.dispatchEvent(new Event('click')); } }));
+}
+
+/* ---------- spectrum ---------- */
+const spec=$('spectrum');
+const barEls={};
+const sx=n=>44+(n-1)*37.5;
+function buildSpectrum(){
+  el('line',{x1:20, y1:172, x2:626, y2:172, stroke:'var(--ink)', 'stroke-width':1.5},spec);
+  for(let n=1;n<=16;n++){
+    const x=sx(n), h=140*weight(n);
+    const g=el('g',{class:'hit', tabindex:'0', role:'button'},spec);
+    el('rect',{x:x-17, y:14, width:34, height:200, fill:'transparent'},g);
+    el('rect',{class:'focus', x:x-16, y:22, width:32, height:192, fill:'none', stroke:'var(--ink)', 'stroke-dasharray':'3 3'},g);
+    const bar=el('rect',{x:x-8, y:172-h, width:16, height:h, 'stroke-width':1.5},g);
+    const lab=el('text',{x:x, y:194, 'text-anchor':'middle', 'font-family':'var(--f-num)', 'font-size':15, 'font-weight':600, fill:'var(--ink)'},g); lab.textContent=n;
+    const nt=el('text',{x:x, y:212, 'text-anchor':'middle', 'font-family':'var(--f-body)', 'font-size':13, 'font-weight':700, fill:'var(--ink-2)'},g);
+    g.addEventListener('click',()=>toggle(n));
+    g.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); toggle(n); } });
+    barEls[n]={g,bar,nt,lab};
+  }
+}
+
+function toggle(n){ stopClimb(); if(active.has(n)) active.delete(n); else active.add(n); render(); }
+
+/* ---------- readout ---------- */
+function renderReadout(){
+  const r=$('readout'); const f=FUND[fundKey].f;
+  const arr=[...active].sort((a,b)=>b-a);
+  if(arr.length===0){ r.innerHTML='<p class="eyebrow">Now sounding</p><div class="empty">Nothing yet. Tap a number on the ladder, a bar in the spectrum, or an interval label.</div>'; return; }
+  if(arr.length===1){
+    const n=arr[0];
+    r.innerHTML='<p class="eyebrow">Now sounding · one partial</p><div class="ratio">'+n+'</div><div class="iname">'+(noteOf(n)?noteOf(n)+', ':'')+'partial '+n+'</div><div class="math"><div><b>'+n+'</b> × '+f.toFixed(2)+' Hz = <b>'+fmtHz(n*f)+'</b></div></div>';
+    return;
+  }
+  if(arr.length===2){
+    const [p,q]=arr, g=gcd(p,q), d=describePair(p,q);
+    const tag=d.cls?'<span class="cls c-'+d.cls+'">'+CLASS_LABEL[d.cls]+'</span>':'';
+    r.innerHTML='<p class="eyebrow">Now sounding · partials '+p+' and '+q+'</p>'+
+      '<div class="ratio">'+(p/g)+'<span class="colon">:</span>'+(q/g)+'</div>'+
+      '<div class="iname">'+d.name+tag+'</div>'+
+      '<div class="math"><div><b>'+p+'</b> × '+f.toFixed(2)+' Hz = <b>'+fmtHz(p*f)+'</b>'+(noteOf(p)?'  '+noteOf(p):'')+'</div>'+
+      '<div><b>'+q+'</b> × '+f.toFixed(2)+' Hz = <b>'+fmtHz(q*f)+'</b>'+(noteOf(q)?'  '+noteOf(q):'')+'</div>'+
+      '<div>'+cents(p/q).toFixed(1)+' ¢ apart</div></div>';
+    return;
+  }
+  const asc=[...arr].reverse(), g=asc.reduce(gcd), red=asc.map(n=>n/g).join(':');
+  const name=CHORDS[red]||(asc.length+' partials');
+  const lines=asc.slice(0,5).map(n=>'<div><b>'+n+'</b> × '+f.toFixed(2)+' Hz = <b>'+fmtHz(n*f)+'</b></div>').join('')+(asc.length>5?'<div>… and '+(asc.length-5)+' more</div>':'');
+  const big=red.length>18?'<div class="ratio" style="font-size:clamp(34px,5vw,52px)">':'<div class="ratio">';
+  r.innerHTML='<p class="eyebrow">Now sounding · '+asc.length+' partials</p>'+big+red.split(':').join('<span class="colon">:</span>')+'</div><div class="iname">'+name+'</div><div class="math">'+lines+'</div>';
+}
+
+/* ---------- bodies ---------- */
+const CHIP_SET=INTERVALS.filter(i=>i[0]!=='U'&&i[0]!=='T.T.');
+function buildChips(){
+  const c=$('chips');
+  CHIP_SET.forEach(i=>{
+    const b=document.createElement('button');
+    b.className='chip-btn c-'+i[4]; b.setAttribute('aria-pressed','false'); b.dataset.r=i[2]+'/'+i[3];
+    b.innerHTML='<b>'+i[0]+'</b><span>'+i[2]+':'+i[3]+'</span>';
+    b.title=i[1];
+    b.addEventListener('click',()=>{ stopClimb(); active=new Set([i[2],i[3]]); render(); });
+    c.appendChild(b);
+  });
+}
+function renderBodies(){
+  const [p,q]=pair, g=gcd(p,q), key=(p/g)+'/'+(q/g);
+  document.querySelectorAll('.chip-btn').forEach(b=>b.setAttribute('aria-pressed', String(b.dataset.r===key)));
+  $('stringNote').textContent='Top string vibrates in '+p+' equal parts, bottom in '+q+'. Same string, so the frequencies are '+p+' × f and '+q+' × f.';
+  $('tubeNote').textContent='Tube lengths 1/'+p+' and 1/'+q+' of the full length. A shorter tube sounds higher: 1/'+p+' of the length gives '+p+' × f.';
+  $('bodiesFoot').textContent='Both bodies move at their real ratio, slowed down: the top one completes '+p+' cycles while the bottom completes '+q+'.';
+  $('hearPair').textContent='▸ Hear '+(p/g)+' : '+(q/g);
+}
+$('hearPair').addEventListener('click',()=>{ stopClimb(); active=new Set(pair); if(!soundOn) setSound(true); render(); });
+
+function colors(){ const s=getComputedStyle(document.documentElement); const v=k=>s.getPropertyValue(k).trim(); return {ink:v('--ink'), ink2:v('--ink-2'), ink3:v('--ink-3'), lit:v('--lit'), rule:v('--rule'), fill:v('--fill'), paper:v('--paper'), disp:v('--f-display'), num:v('--f-num')}; }
+function fitCanvas(cv){ const dpr=window.devicePixelRatio||1, w=cv.clientWidth, h=cv.clientHeight; if(cv.width!==Math.round(w*dpr)||cv.height!==Math.round(h*dpr)){ cv.width=Math.round(w*dpr); cv.height=Math.round(h*dpr); } const ctx=cv.getContext('2d'); ctx.setTransform(dpr,0,0,dpr,0,0); return {ctx,w,h}; }
+const PERIOD=2.4; // seconds for one cycle of the fundamental mode, slowed for the eye
+
+function drawString(t, C){
+  const {ctx,w,h}=fitCanvas($('stringCv')); ctx.clearRect(0,0,w,h);
+  const padL=46, padR=14, L=w-padL-padR;
+  [[pair[0], h*0.3],[pair[1], h*0.74]].forEach(([m,y0])=>{
+    const A=h*0.12;
+    ctx.font='30px '+C.disp; ctx.fillStyle=C.ink; ctx.textBaseline='middle'; ctx.textAlign='left'; ctx.fillText(String(m), 4, y0);
+    ctx.strokeStyle=C.rule; ctx.setLineDash([3,4]); ctx.lineWidth=1; ctx.beginPath(); ctx.moveTo(padL,y0); ctx.lineTo(padL+L,y0); ctx.stroke(); ctx.setLineDash([]);
+    const phases=reduceMotion?[0,Math.PI]:[2*Math.PI*m*t/PERIOD];
+    phases.forEach((ph,idx)=>{
+      ctx.strokeStyle=reduceMotion&&idx===1?C.ink3:C.ink; ctx.lineWidth=2; ctx.beginPath();
+      for(let i=0;i<=240;i++){ const x=padL+L*i/240; const y=y0-A*Math.sin(m*Math.PI*i/240)*Math.cos(ph); if(i) ctx.lineTo(x,y); else ctx.moveTo(x,y); }
+      ctx.stroke();
+    });
+    ctx.fillStyle=C.lit; for(let k=1;k<m;k++){ ctx.beginPath(); ctx.arc(padL+L*k/m, y0, 3.5, 0, Math.PI*2); ctx.fill(); }
+    ctx.fillStyle=C.ink; [padL, padL+L].forEach(x=>ctx.fillRect(x-3, y0-9, 6, 18));
+  });
+}
+function drawTube(t, C){
+  const {ctx,w,h}=fitCanvas($('tubeCv')); ctx.clearRect(0,0,w,h);
+  const padL=46, padR=14, Lf=w-padL-padR, th=34;
+  [[pair[0], h*0.3],[pair[1], h*0.74]].forEach(([m,y0])=>{
+    const l=Lf/m;
+    ctx.font='600 15px '+C.num; ctx.fillStyle=C.ink; ctx.textBaseline='middle'; ctx.textAlign='left'; ctx.fillText('1/'+m, 4, y0);
+    ctx.strokeStyle=C.rule; ctx.setLineDash([5,5]); ctx.lineWidth=1; ctx.strokeRect(padL, y0-th/2, Lf, th); ctx.setLineDash([]);
+    ctx.fillStyle=C.fill; ctx.fillRect(padL, y0-th/2, l, th);
+    ctx.strokeStyle=C.ink; ctx.lineWidth=1.5; ctx.strokeRect(padL, y0-th/2, l, th);
+    const N=Math.max(5, Math.min(26, Math.round(l/9)));
+    const amp=Math.min(l/(N-1)*0.42, 8);
+    const c=reduceMotion?1:Math.cos(2*Math.PI*m*t/PERIOD);
+    ctx.strokeStyle=C.ink2; ctx.lineWidth=1.2;
+    for(let i=0;i<N;i++){ const fr=i/(N-1); const x=padL+fr*l+amp*Math.cos(Math.PI*fr)*c; ctx.beginPath(); ctx.moveTo(x, y0-th/2+5); ctx.lineTo(x, y0+th/2-5); ctx.stroke(); }
+  });
+  ctx.font='12px '+C.num; ctx.fillStyle=C.ink2; ctx.textAlign='right'; ctx.textBaseline='bottom'; ctx.fillText('dashed: full length L · lines: air moving', w-padR, h-2);
+}
+let colorCache=null, colorAt=0;
+function frame(ts){
+  const t=ts/1000;
+  if(!colorCache||ts-colorAt>500){ colorCache=colors(); colorAt=ts; }
+  drawString(t, colorCache); drawTube(t, colorCache);
+  if(!reduceMotion) requestAnimationFrame(frame);
+}
+
+/* ---------- temper ---------- */
+const tsvg=$('temper');
+const tx=c=>52+c*(856/1200);
+function buildTemper(){
+  tsvg.textContent='';
+  const pc=FUND[fundKey].pc;
+  el('line',{x1:20, y1:202, x2:940, y2:202, stroke:'var(--ink)', 'stroke-width':1.5},tsvg);
+  for(let k=-1;k<=13;k++){
+    const x=tx(k*100), p=((pc+k)%12+12)%12, black=[1,3,6,8,10].includes(p);
+    const faded=(k<0||k>12);
+    if(black){ el('rect',{x:x-17, y:204, width:34, height:54, fill:'var(--fill)', opacity:faded?0.45:1},tsvg);
+      const a=el('text',{x:x, y:226, 'text-anchor':'middle', 'font-family':'var(--f-num)', 'font-size':13, fill:'var(--ink-2)', opacity:faded?0.5:1},tsvg); a.textContent=SHARP[p];
+      const b=el('text',{x:x, y:246, 'text-anchor':'middle', 'font-family':'var(--f-num)', 'font-size':13, fill:'var(--ink-2)', opacity:faded?0.5:1},tsvg); b.textContent=FLAT[p];
+    } else { const a=el('text',{x:x, y:236, 'text-anchor':'middle', 'font-family':'var(--f-num)', 'font-size':15, 'font-weight':600, fill:'var(--ink)', opacity:faded?0.4:1},tsvg); a.textContent=SHARP[p]; }
+    if(!faded) el('line',{x1:x, y1:96, x2:x, y2:202, stroke:'var(--ink-3)', 'stroke-width':1.2, 'stroke-dasharray':'5 4'},tsvg);
+  }
+  INTERVALS.forEach(i=>{
+    const [short,name,num,den,cls,semi]=i;
+    const jc=cents(num/den), dev=jc-semi*100, xe=tx(semi*100), xj=tx(semi*100+dev*magnify);
+    const g=el('g',{class:'col hit', tabindex:'0', role:'button', 'aria-label':name+', just '+num+' over '+den+', '+(dev>=0?'+':'')+dev.toFixed(1)+' cents from equal'},tsvg);
+    el('rect',{x:xe-34, y:0, width:68, height:200, fill:'transparent'},g);
+    el('rect',{class:'focus', x:xe-33, y:2, width:66, height:196, fill:'none', stroke:'var(--ink)', 'stroke-dasharray':'3 3'},g);
+    const s=el('text',{class:'short c-'+cls, x:xe, y:22, 'text-anchor':'middle', fill:'currentColor'},g); s.textContent=short;
+    const f=el('text',{class:'frac', x:xe, y:46, 'text-anchor':'middle', fill:'var(--ink)'},g); f.textContent=num+'/'+den;
+    el('rect',{class:'bar', x:xj-4, y:60, width:8, height:78},g);
+    const d=el('text',{class:'dev', x:xe, y:166, 'text-anchor':'middle'},g);
+    d.textContent=Math.abs(dev)<0.05?'0':(dev>0?'+':'−')+Math.abs(dev).toFixed(1)+'¢';
+    g.addEventListener('click',()=>playCompare(i, g));
+    g.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); playCompare(i, g); } });
+  });
+  const cap=el('text',{x:940, y:190, 'text-anchor':'end', 'font-family':'var(--f-num)', 'font-size':12, fill:'var(--ink-2)'},tsvg);
+  cap.textContent=magnify>1?'gaps drawn ×'+magnify:'drawn to scale';
+}
+let compareTimer=null;
+function playCompare(i, g){
+  const [short,name,num,den,cls,semi]=i;
+  const dev=cents(num/den)-semi*100;
+  if(!soundOn){ $('temperStatus').textContent='Turn sound on (top of the page) to hear '+name+'.'; return; }
+  ensureAudio(); A.ctx.resume();
+  document.querySelectorAll('.col.playing').forEach(x=>x.classList.remove('playing'));
+  g.classList.add('playing');
+  const ctx=A.ctx, root=FUND[fundKey].root, t0=ctx.currentTime+0.05;
+  A.ducked=true; applyAudio();
+  const out=ctx.createGain(); out.gain.value=0.22; out.connect(A.out);
+  const dyad=(f2, start)=>{ [root, f2].forEach(f=>{ const o=ctx.createOscillator(); o.setPeriodicWave(A.wave); o.frequency.value=f; const e=ctx.createGain(); e.gain.setValueAtTime(0,start); e.gain.linearRampToValueAtTime(0.5,start+0.04); e.gain.setValueAtTime(0.5,start+1.15); e.gain.linearRampToValueAtTime(0,start+1.35); o.connect(e); e.connect(out); o.start(start); o.stop(start+1.4); }); };
+  dyad(root*num/den, t0);
+  dyad(root*Math.pow(2, semi/12), t0+1.6);
+  $('temperStatus').textContent='Just '+num+':'+den+', then equal-tempered '+name+' ('+(Math.abs(dev)<0.05?'identical':(dev>0?'equal is ':'equal is ')+Math.abs(dev).toFixed(1)+'¢ '+(dev>0?'lower':'higher'))+').';
+  clearTimeout(compareTimer);
+  compareTimer=setTimeout(()=>{ A.ducked=false; applyAudio(); g.classList.remove('playing'); out.disconnect(); }, 3100);
+}
+$('magBtn').addEventListener('click',()=>{ magnify=magnify===1?5:1; $('magBtn').setAttribute('aria-pressed', String(magnify>1)); buildTemper(); });
+
+/* ---------- climb ---------- */
+function stopClimb(){ if(climbTimer){ clearInterval(climbTimer); climbTimer=null; $('climbBtn').textContent='▸ Climb the series'; } }
+$('climbBtn').addEventListener('click',()=>{
+  if(climbTimer){ stopClimb(); return; }
+  if(!soundOn) setSound(true);
+  active=new Set([1]); render(); let n=1;
+  $('climbBtn').textContent='■ Stop';
+  climbTimer=setInterval(()=>{ n++; if(n>16){ stopClimb(); return; } active.add(n); render(); }, 700);
+});
+$('allBtn').addEventListener('click',()=>{ stopClimb(); active=new Set(Array.from({length:16},(_,i)=>i+1)); render(); });
+$('clearBtn').addEventListener('click',()=>{ stopClimb(); active=new Set(); render(); });
+$('soundBtn').addEventListener('click',()=>setSound(!soundOn));
+function setFund(k){ fundKey=k; $('fundC').setAttribute('aria-pressed', String(k==='C')); $('fundA').setAttribute('aria-pressed', String(k==='A')); buildTemper(); render(); }
+$('fundC').addEventListener('click',()=>setFund('C'));
+$('fundA').addEventListener('click',()=>setFund('A'));
+
+/* ---------- render ---------- */
+function render(){
+  const f=FUND[fundKey].f;
+  NODES.forEach(d=>{ const o=nodeEls[d.n]; o.g.classList.toggle('on', active.has(d.n)); o.let_.textContent=noteOf(d.n); o.g.setAttribute('aria-label','Partial '+d.n+' '+noteOf(d.n)+(active.has(d.n)?', on':', off')); o.g.setAttribute('aria-pressed', String(active.has(d.n))); });
+  edgeEls.forEach(e=>e.g.classList.toggle('lit', active.has(e.a)&&active.has(e.b)));
+  for(let n=1;n<=16;n++){ const b=barEls[n], on=active.has(n);
+    b.bar.setAttribute('fill', on?'var(--lit)':'none'); b.bar.setAttribute('stroke', on?'var(--lit)':'var(--ink-3)'); b.bar.setAttribute('stroke-dasharray', on?'':'3 3');
+    b.nt.textContent=noteOf(n); b.g.setAttribute('aria-label','Partial '+n+(on?', on':', off')); b.g.setAttribute('aria-pressed', String(on)); }
+  $('specAxis').textContent='n × '+f.toFixed(2)+' Hz';
+  if(active.size===2){ const a=[...active].sort((x,y)=>y-x); pair=a; }
+  renderReadout(); renderBodies(); applyAudio();
+  if(reduceMotion) requestAnimationFrame(frame);
+}
+
+buildLadder(); buildSpectrum(); buildChips(); buildTemper(); render();
+requestAnimationFrame(frame);
+window.addEventListener('resize',()=>{ if(reduceMotion) requestAnimationFrame(frame); });
+})();
+</script>
+</body>
+</html>
