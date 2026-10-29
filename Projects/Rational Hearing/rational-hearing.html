@@ -176,6 +176,7 @@ canvas{width:100%;height:230px;display:block}
 /* projector: big numerals, bigger labels, ledes hidden */
 [data-present="on"] .ratio{font-size:clamp(72px, 12vw, 160px)}
 [data-present="on"] .node .num{font-size:46px}
+[data-present="on"] .brackets text{font-size:17px}
 [data-present="on"] .edge text{font-size:19px}
 [data-present="on"] .col .short{font-size:20px}
 [data-present="on"] .col .frac{font-size:17px}
@@ -248,7 +249,8 @@ canvas{width:100%;height:230px;display:block}
       </div>
     </div>
     <div class="series">
-      <div class="panel ladder"><p class="eyebrow">Ladder of partials</p><svg id="ladder" viewBox="0 0 460 790" role="group" aria-label="Ladder of partials 1 to 16 with the intervals between them"></svg></div>
+      <div class="panel ladder"><p class="eyebrow">Ladder of partials</p><svg id="ladder" viewBox="0 0 560 820" role="group" aria-label="Ladder of partials 1 to 16 with the intervals between them, and the consonance brackets"></svg>
+        <p class="note" style="margin:var(--space-2) var(--space-1) 0">Every prime number gets its own column: 2, 3, 5. The sheet stops at 5 because this tuning is 5-limit; a 7-limit system would add a column.</p></div>
       <div class="side">
         <div class="readout" id="readout" aria-live="polite"></div>
         <div class="panel">
@@ -260,11 +262,6 @@ canvas{width:100%;height:230px;display:block}
           <button class="btn" id="climbBtn">▸ Climb the series</button>
           <button class="btn" id="allBtn">All 16</button>
           <button class="btn" id="clearBtn">Clear</button>
-        </div>
-        <div class="legend">
-          <div class="c-perfect"><strong>Perfect</strong><span>0 · P5 · P4</span></div>
-          <div class="c-imperfect"><strong>Imperfect</strong><span>M6 · M3 · -3 · -6</span></div>
-          <div class="c-dissonant"><strong>Dissonant</strong><span>M2 · M7 · -7 · -2</span></div>
         </div>
         <p class="note">Notation: <b>-3</b> minor third, <b>M3</b> major third, <b>P5</b> perfect fifth, <b>0</b> octave, <b>U</b> unison, <b>T.T.</b> tritone.</p>
       </div>
@@ -421,7 +418,13 @@ function setSound(on){
 window.addEventListener('message', e=>{ if(e&&e.data&&e.data.type==='rich:hush'&&soundOn){ setSound(false); } });
 
 /* ---------- ladder: the handout's zigzag, partials 1,2,3,4,5,6,8,9,15,16 ---------- */
-const NODES=[{n:1,x:120,y:50},{n:2,x:210,y:112},{n:3,x:322,y:178},{n:4,x:205,y:258},{n:5,x:398,y:352},{n:6,x:250,y:398},{n:8,x:175,y:512},{n:9,x:298,y:562},{n:15,x:398,y:690},{n:16,x:172,y:745}];
+/* Positions measured from the handout (rational-hearing-handout-v1.jpeg, 1170 px wide) on 2026-10-29: numeral centroids
+   1 (159,112) 2 (289,169) 3 (433,248) 4 (291,347) 5 (589,461) 6 (420,518) 8 (283,628) 9 (423,686) 15 (585,881) 16 (290,955),
+   scaled by 0.85 and offset to (150,50). Loudon's rule: every prime number gets its own column. The 2-column (2,4,8,16),
+   the 3-column (3,6) and the 5-column (5) are snapped exactly vertical; 9 and 15 are composite and sit where he drew them,
+   which on the sheet is within a few pixels of the 3- and 5-columns. 1 sits left of the 2-column, as drawn. */
+const COL={2:260, 3:377, 5:513};
+const NODES=[{n:1,x:150,y:50},{n:2,x:COL[2],y:98},{n:3,x:COL[3],y:166},{n:4,x:COL[2],y:250},{n:5,x:COL[5],y:347},{n:6,x:COL[3],y:395},{n:8,x:COL[2],y:489},{n:9,x:COL[3]-3,y:538},{n:15,x:COL[5]-3,y:704},{n:16,x:COL[2],y:767}];
 const NPOS={}; NODES.forEach(d=>NPOS[d.n]=d);
 const EDGES=[[1,2,'0',.5],[2,3,'P5',.5],[3,4,'P4',.5],[3,5,'M6',.5],[4,5,'M3',.5],[5,6,'-3',.5],[5,8,'-6',.62],[8,9,'M2',.5],[8,15,'M7',.6],[9,16,'-7',.5],[15,16,'-2',.5]];
 const ladder=$('ladder');
@@ -438,8 +441,11 @@ function buildLadder(){
     el('rect',{class:'chip', x:mx-w/2, y:my-12, width:w, height:24},g);
     const tx=el('text',{x:mx, y:my+5, 'text-anchor':'middle'},g); tx.textContent=lab;
     g.addEventListener('click',()=>{ stopClimb(); active=new Set([a,b]); render(); });
-    edgeEls.push({g,a,b});
+    edgeEls.push({g,a,b,lab,my});
   });
+  buildBrackets(gE);
+  /* column heads: the primes */
+  Object.entries(COL).forEach(([p,x])=>{ const t=el('text',{x, y:16, 'text-anchor':'middle', 'font-family':'var(--font-mono)', 'font-size':11, 'letter-spacing':'0.18em', fill:'var(--ink-3)'},gE); t.textContent='×'+p; });
   NODES.forEach(d=>{
     const g=el('g',{class:'node hit', tabindex:'0', role:'button'},gN);
     el('circle',{cx:d.x, cy:d.y, r:30, fill:'transparent'},g);
@@ -452,6 +458,31 @@ function buildLadder(){
     nodeEls[d.n]={g,let_};
   });
   [...ladder.querySelectorAll('.hit')].forEach(h=>h.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); h.dispatchEvent(new Event('click')); } }));
+}
+
+/* The handout's bracket column: PERFECT, IMPERFECT, DISSONANT down the left, each short name at the height of its
+   edge label, brackets joining the complementary pairs (P5-P4, M6/-3, M3/-6, M2/-7, M7/-2). Built from the edges so it
+   stays true when the ladder moves. */
+const BRACKETS=[
+  {cls:'perfect',   names:['0','P5','P4'],         pairs:[['P5','P4','r']]},
+  {cls:'imperfect', names:['M6','M3','-3','-6'],   pairs:[['M6','-3','l'],['M3','-6','r']]},
+  {cls:'dissonant', names:['M2','M7','-7','-2'],   pairs:[['M2','-7','l'],['M7','-2','r']]}
+];
+function buildBrackets(parent){
+  const yOf={}; edgeEls.forEach(e=>yOf[e.lab]=e.my);
+  const g=el('g',{class:'brackets', 'aria-hidden':'true'},parent);
+  const X_WORD=18, X_NAME=78, X_L=44, X_R=96, ARM=8;
+  BRACKETS.forEach(b=>{
+    const col='var(--'+b.cls+')';
+    const ys=b.names.map(n=>yOf[n]);
+    const mid=(Math.min(...ys)+Math.max(...ys))/2;
+    const w=el('text',{x:X_WORD, y:mid, 'text-anchor':'middle', 'font-family':'var(--font-mono)', 'font-size':12, 'font-weight':500, 'letter-spacing':'0.18em', fill:col, transform:'rotate(90 '+X_WORD+' '+mid+')'},g); w.textContent=b.cls.toUpperCase();
+    b.names.forEach(n=>{ const t=el('text',{x:X_NAME, y:yOf[n]+5, 'text-anchor':'end', 'font-family':'var(--font-mono)', 'font-size':14, 'font-weight':600, fill:col},g); t.textContent=n; });
+    b.pairs.forEach(([a,c,side])=>{
+      const y1=yOf[a], y2=yOf[c], x=side==='r'?X_R:X_L, dir=side==='r'?-1:1;
+      el('path',{d:'M'+(x+dir*ARM)+' '+y1+' H'+x+' V'+y2+' H'+(x+dir*ARM), fill:'none', stroke:col, 'stroke-width':1.2},g);
+    });
+  });
 }
 
 /* ---------- spectrum ---------- */

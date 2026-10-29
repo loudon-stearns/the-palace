@@ -46,6 +46,16 @@ Fundamentals: C2 at 65.41 Hz, whose partials land on the handout's letter names 
 
 **03 Just against equal.** Columns in the handout's order. Solid bar at the just ratio in DESIGN ink; dashed line at the ET step in DATASHEET blue (read from the piano, not chosen); deviation label under each with a paper halo so it reads across the dashed line. ×5 magnify. Edge keys faded, "can start from any note" kept as a caption. Tapping a column ducks the drone and plays just then tempered on a 7-harmonic saw-ish wave, 1.4 s each.
 
+## The ladder's geometry (2026-10-29)
+
+Loudon's review, 2026-10-29, his words: "I did hear them, and the sound is working... Notice the vertical alignment of the constellation, the vertical alignment is particular and shows important relationships. Notice my labeling of the types of intervals, perfect imperfect and dissonant, that is also needed in the new version." And the rule behind the columns, his words: "every prime number gets its own column." And: "our system is a '5 limit' system meaning we use every prime up to 5, other cultures go beyond to 7 limit systems."
+
+So the sound is confirmed working by him; the first build's node positions were not his, and its class legend was three rows under the ladder instead of his bracket column.
+
+The numerals were measured from the handout JPEG (1170 px wide) by centroid on 2026-10-29: 1 (159,112) · 2 (289,169) · 3 (433,248) · 4 (291,347) · 5 (589,461) · 6 (420,518) · 8 (283,628) · 9 (423,686) · 15 (585,881) · 16 (290,955). The page scales these by 0.85 into its SVG and snaps the 2-column (2, 4, 8, 16), the 3-column (3, 6) and the 5-column (5) exactly vertical, per his rule. The composite partials are 9 (3 × 3) and 15 (3 × 5). On the sheet they sit within a few pixels of the 3- and 5-columns (9 at x 423 against 433 and 420; 15 at x 585 against 589), and the page draws them 3 px left of those columns, where he drew them. 1 sits well left of the 2-column on the sheet (x 159 against 289), and the page keeps it there. **Open for Loudon:** how he wants composites placed (in the column of their largest prime, as drawn, or by some other rule), and whether 1 belongs in the 2-column; the page does not invent a lattice rule. The reading of "9 and 15 lean a fifth above their column" that the coordinating session offered is an interpretation of the drawing, not his words, and is not on the page.
+
+The bracket column is built in the same SVG from the edge labels' actual heights, so it stays true when the ladder moves: rotated class words down the left, each short name at the height of its edge label, brackets joining the complementary pairs as on the sheet (P5–P4 on the right; M6–-3 on the left and M3–-6 on the right; M2–-7 on the left and M7–-2 on the right). The column heads `×2 ×3 ×5` and the one-line rule under the ladder are new to the page; the rule is in his words.
+
 ## The audio engine
 
 Sixteen sine oscillators run from the first click and never stop; gains ease toward (1/√n) ÷ Σ over the active set so the drone's loudness does not jump with count. Master gain 0.32 into a `DynamicsCompressor`. The A/B dyads are separate oscillators on a `PeriodicWave` with 1/i amplitudes to seven harmonics. The `AudioContext` is created only on a user gesture, and the page listens for the rich-face kit's `rich:hush` so the Sound button tells the truth after a hush.

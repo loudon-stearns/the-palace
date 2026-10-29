@@ -59,7 +59,7 @@ Every interval is already inside a single note. Neighbouring partials of the har
 
 `Projects/Rational Hearing/rational-hearing.html`, one file, no build. Three interactions, all from the handout's layout:
 
-- **The ladder is live.** The handout's zigzag of partials 1, 2, 3, 4, 5, 6, 8, 9, 15, 16. Tap a number to switch that partial on in a sixteen-sine drone; tap an edge label (`P5`, `-3`, `M7`) to hear just that pair, and the edge lights. The readout gives the reduced ratio in big numerals, the interval's name and class, `n × f = Hz` for each partial, and the size in cents. The spectrum under it is the same sixteen partials as bars at 1/√n. "Climb the series" adds one every 0.7 s.
+- **The ladder is live.** The handout's zigzag of partials 1, 2, 3, 4, 5, 6, 8, 9, 15, 16, at its measured positions: every prime gets its own column, so 2, 4, 8, 16 stack exactly vertical, 3 and 6 beside them, 5 furthest right. His perfect / imperfect / dissonant brackets run down the left at the height of each interval's label. Tap a number to switch that partial on in a sixteen-sine drone; tap an edge label (`P5`, `-3`, `M7`) to hear just that pair, and the edge lights. The readout gives the reduced ratio in big numerals, the interval's name and class, `n × f = Hz` for each partial, and the size in cents. The spectrum under it is the same sixteen partials as bars at 1/√n. "Climb the series" adds one every 0.7 s.
 - **One ratio, two bodies.** Any interval chip animates a string vibrating in p and q loops beside two tubes 1/p and 1/q of a full length, both moving at their true ratio, slowed so the fundamental takes 2.4 s per cycle.
 - **Just against equal.** The handout's bottom row: solid bars at the just ratio, dashed lines at the twelve equal steps, the deviation in cents under each. Magnify ×5 for the back of the room. Tapping a column plays the just dyad, then the tempered one.
 
@@ -84,7 +84,7 @@ The palace had no page on just intonation, the harmonic series or interval heari
 
 Page one only. Held back on purpose, and in the handout's own order:
 
-- The 7th harmonic, skipped silently between 6 and 8 on the ladder: 7/4 is about 31 ¢ below the ET minor seventh, the note the piano cannot play. It opens 7-limit and microtonal material. Frame "7-limit in raga practice" as one interpretation; the classic 22-shruti tables are usually given as 5-limit and scholars debate the point.
+- The 7th harmonic, skipped silently between 6 and 8 on the ladder: 7/4 is about 31 ¢ below the ET minor seventh, the note the piano cannot play. On this sheet every prime gets its own column and the columns stop at 5, because the tuning is 5-limit; a 7-limit system adds a column, not just a note. It opens 7-limit and microtonal material. Frame "7-limit in raga practice" as one interpretation; the classic 22-shruti tables are usually given as 5-limit and scholars debate the point.
 - The tritone's several just forms (64/45, 45/32, 7/5). On the sheet it sits in the table but not on the ladder.
 - The cents-deviation lecture.
 
