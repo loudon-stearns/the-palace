@@ -264,7 +264,7 @@ input[type=range] { accent-color: var(--ink); }
 
 /* the line of fifths */
 .lof { overflow-x: auto; padding-bottom: 4px; }
-.lof-inner { position: relative; display: grid; grid-auto-flow: column; grid-auto-columns: 46px; width: max-content; padding-top: 22px; }
+.lof-inner { position: relative; display: grid; grid-auto-flow: column; grid-auto-columns: 46px; width: max-content; padding-top: 34px; }
 .lof .cell { display: grid; justify-items: center; gap: 2px; padding: 4px 0 6px; cursor: pointer; position: relative; z-index: 1; }
 .lof .cell .sd { font-size: 11px; color: var(--degree); height: 16px; }
 .lof .cell .sd.par { opacity: .45; }
@@ -272,9 +272,9 @@ input[type=range] { accent-color: var(--ink); }
 .lof .cell.in .nm { color: var(--note); }
 .lof .cell.tonic .nm { color: var(--on-selection); background: var(--selection); padding: 0 5px; }
 .lof .cell .ct { font-size: 10px; color: var(--function); height: 14px; }
-.lof .win { position: absolute; top: 18px; bottom: 0; border: var(--stroke-outline) solid var(--ink); background: var(--ground-100); transition: left 120ms linear; z-index: 0; }
-.lof .range { position: absolute; top: 0; height: 14px; border: var(--stroke-rule) solid var(--rule); border-bottom: 0; }
-.lof .range span { position: absolute; top: -2px; left: 50%; transform: translate(-50%, -50%); background: var(--ground-000); padding: 0 6px; font-size: 10px; letter-spacing: .14em; color: var(--ink-2); white-space: nowrap; }
+.lof .win { position: absolute; top: 30px; bottom: 0; border: var(--stroke-outline) solid var(--ink); background: var(--ground-100); transition: left 120ms linear; z-index: 0; }
+.lof .range { position: absolute; top: 12px; height: 14px; border: var(--stroke-rule) solid var(--rule); border-bottom: 0; }
+.lof .range span { position: absolute; top: 0; left: 50%; transform: translate(-50%, -50%); line-height: 14px; background: var(--ground-000); padding: 0 6px; font-size: 10px; letter-spacing: .14em; color: var(--ink-2); white-space: nowrap; }
 .tours { display: flex; flex-wrap: wrap; gap: var(--space-2); }
 
 /* keys, title block */
