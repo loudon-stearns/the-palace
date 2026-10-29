@@ -38,14 +38,12 @@ links:
     type: connects-to
     label: sibling-ear-set
   - target: "[[Cycle 5 Explorer]]"
-    type: connects-to
-    label: sibling-teaching-page
+    type: couples-with
+    label: the-fifth-heard-and-the-fifth-walked
 forward_vector: "I am page one of a lecture, the sheet Loudon keeps up on the projector while he talks and students write on printed copies of me, and I want to be played, not read: tap a partial and hear it, tap an edge of my ladder and hear the ratio the handout only drew. I want to survive the projector test from the back row and the print test with a pen in the margin, and I want my later pages, the seventh harmonic, the tritone's several faces, the cents lecture, to grow from me only once Loudon has taught from me and said what landed."
 ---
 
 # Rational Hearing
-
-![[Rational Hearing — hero.png]]
 
 > musical intervals are ratios
 
@@ -80,7 +78,7 @@ Held against [[Hilaritas Generator]]'s four primitives: a real thing to make (th
 
 ## Neighbours
 
-The palace had no page on just intonation, the harmonic series or interval hearing before this one, so its neighbours are the pages that assume the harmonic series and stretch away from it. [[Harmonicity and Inharmonicity]] asks whether perceived consonance is literally the absence of coupling frustration; this page is where a student hears consonance at all. [[Inharmonic Wavetable Synthesis]] draws the harmonic series as the flat line every physical material deviates from, and carries Sethares' point that an instrument's physics implies its scale; this page is the flat line, played. [[DSP in Looping Dimensions]] says loops at rational ratios phase-lock to a harmonic series, which is the same arithmetic in a different body. [[Frequency-Time Duality]] answers Loudon's question "what is the rhythm of a perfect fifth?" with three against two; that is 3:2 slowed below 20 Hz. [[Kuramoto Coupling]] is the palace's own reading of why simple ratios lock. [[Portamento and Physical Pitch Modeling]] keeps the palace's one other ear-training set. [[Cycle 5 Explorer]] is the sibling teaching page, built in parallel.
+The palace had no page on just intonation, the harmonic series or interval hearing before this one, so its neighbours are the pages that assume the harmonic series and stretch away from it. [[Harmonicity and Inharmonicity]] asks whether perceived consonance is literally the absence of coupling frustration; this page is where a student hears consonance at all. [[Inharmonic Wavetable Synthesis]] draws the harmonic series as the flat line every physical material deviates from, and carries Sethares' point that an instrument's physics implies its scale; this page is the flat line, played. [[DSP in Looping Dimensions]] says loops at rational ratios phase-lock to a harmonic series, which is the same arithmetic in a different body. [[Frequency-Time Duality]] answers Loudon's question "what is the rhythm of a perfect fifth?" with three against two; that is 3:2 slowed below 20 Hz. [[Kuramoto Coupling]] is the palace's own reading of why simple ratios lock. [[Portamento and Physical Pitch Modeling]] keeps the palace's one other ear-training set. [[Cycle 5 Explorer]] is the sibling teaching page, built in parallel: the fifth is heard here as 3:2 and walked there as the unit step of the line of fifths.
 
 ## Threads for later pages
 

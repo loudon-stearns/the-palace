@@ -8,7 +8,7 @@ This is an interactive web version of Loudon Stearns' one-page handout *Rational
 
 | Path | What it is |
 |---|---|
-| `CLAUDE.md` | Project brief for Claude Code. It loads automatically when you open this folder. |
+| `BRIEF.md` | Project brief for Claude Code (was `CLAUDE.md`; renamed on import so it does not collide with the palace's root CLAUDE). |
 | `src/index.html` | The page as a standalone HTML file. Open it in a browser; no build step is needed. |
 | `src/rational-hearing.artifact.html` | The same page in the form published to claude.ai. It has no `<html>`/`<head>` wrapper because the artifact host adds one. |
 | `reference/rational-hearing-handout-v1.jpeg` | The original printed handout (page one). |
@@ -26,7 +26,7 @@ git init && git add . && git commit -m "Import Rational Hearing interactive v0.1
 claude
 ```
 
-Claude Code reads `CLAUDE.md` on start. A good first prompt is: *"Read docs/open-items.md and conversation/transcript.md, then open src/index.html and let's restyle it from the real Loudon Live skin."*
+Claude Code read `CLAUDE.md` (now `BRIEF.md`) on start. A good first prompt is: *"Read docs/open-items.md and conversation/transcript.md, then open src/index.html and let's restyle it from the real Loudon Live skin."*
 
 To preview the page: `open src/index.html` on a Mac, or `python3 -m http.server` and visit `localhost:8000/src/`.
 
