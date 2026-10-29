@@ -59,10 +59,13 @@ if (chromium) {
     check(`step ${i + 1}: exactly one step showing, and it is this one`, shown.length === 1 && shown[0] === i, String(shown));
     const btn = await p.$(`section.step[data-step="${i}"] [data-pluck], section.step[data-step="${i}"] [data-play]`);
     if (btn) {
-      // wait for the sound, up to 1.5 s (the first click also starts the engine); a pluck is heard at once
+      // wait for the sound, up to 1.5 s (the first click also starts the engine); a pluck is heard at once. The
+      // audio must be running too: a suspended context's analyser still holds the last step's ring, and read alone
+      // that leftover passed this check before the step's own sound had started (2026-10-26, 9 probes in 10)
       await btn.click();
-      let db = -999; for (let k = 0; k < 75 && db <= -30; k++) { await p.waitForTimeout(20); db = await peak(); }
-      check(`step ${i + 1}: its button makes sound`, db > -30, `peak ${db.toFixed(1)} dBFS`);
+      let db = -999, on = false;
+      for (let k = 0; k < 75 && !(on && db > -30); k++) { await p.waitForTimeout(20); on = await p.evaluate(() => ctx.state === 'running'); db = await peak(); }
+      check(`step ${i + 1}: its button makes sound`, on && db > -30, `peak ${db.toFixed(1)} dBFS${on ? '' : ', audio not running'}`);
       if (shotsAt) await p.screenshot({ path: join(shotsAt, `step-${i + 1}.png`) });
     } else if (shotsAt) await p.screenshot({ path: join(shotsAt, `step-${i + 1}.png`) });
     if (i < steps - 1) {
@@ -147,6 +150,26 @@ if (chromium) {
     await pg.reload(); await pg.waitForTimeout(300);
     check('a note survives a reload', (await pg.inputValue('section.step[data-step="0"] textarea')) === 'a note that must survive');
     await pg.evaluate(() => localStorage.clear());
+    await pg.close();
+  }
+
+  // Leaving a step while its sound is still starting silences it too: Play on step 3, then Next at once, ten
+  // times. Before 2026-10-26 a stop that came while the audio was resuming was skipped, and the push kept sounding;
+  // it failed this checker 2 runs in 9, whenever the machine was slow to resume. Here every resume is held back
+  // 150 ms, so the race happens every time instead of now and then.
+  {
+    const pg = await b.newPage();
+    await pg.route(/^https?:\/\//, (r) => r.abort());
+    await pg.goto(pathToFileURL(PAGE).href);
+    await pg.click('.rail button:nth-child(3)'); await pg.click('section.step[data-step="2"] [data-play]'); await pg.waitForTimeout(600);
+    await pg.evaluate(() => { const r = ctx.resume.bind(ctx); ctx.resume = () => new Promise((ok) => setTimeout(ok, 150)).then(r); });
+    let left = 0;
+    for (let n = 0; n < 10; n++) {
+      await pg.click('.rail button:nth-child(3)'); await pg.waitForTimeout(60);
+      await pg.click('section.step[data-step="2"] [data-play]'); await pg.click('#next'); await pg.waitForTimeout(300);
+      if (await pg.evaluate(() => ctx.state === 'running')) left++;
+    }
+    check('leaving a step while its sound is starting still silences it', left === 0, `${left} of 10 left sounding`);
     await pg.close();
   }
 
