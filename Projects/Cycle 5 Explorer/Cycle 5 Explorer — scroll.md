@@ -49,7 +49,7 @@ The claude.ai build (two versions, 2026-10-27 to 28) came into the palace as a z
 - [Phosphor ground, 1400 wide.](Projects/Cycle 5 Explorer/proofs/2026-10-28-phosphor.png)
 - [Paper at 390 wide: no page-level horizontal scroll; the grids scroll in their own boxes.](Projects/Cycle 5 Explorer/proofs/2026-10-28-paper-phone.png)
 - [The theory tests, 26 checks, pointed at the page.](Projects/Cycle 5 Explorer/tests/theory.test.mjs)
-- [The import as it arrived: the build conversation, the transcript, the stills, the chalkboard page.](Projects/Cycle 5 Explorer/workshop/import/)
+- [The import as it arrived: the build conversation, the transcript, the stills, the chalkboard page.](Projects/Cycle 5 Explorer/import/)
 
 _Left rough:_ Nobody has heard the page in this session; headless Chromium has no audio, so the Web Audio path is unverified beyond parsing. Google Fonts were not reachable from the headless run, so the screenshots show the fallback mono face, not JetBrains Mono. The DT controls (`dt-controls.js`) were not inlined; the page's segments and buttons follow the bundle's grammar in their own CSS. The functions colour moved from light green to the DATASHEET blue; see the Context for why.
 

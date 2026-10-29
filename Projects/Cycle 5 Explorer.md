@@ -38,15 +38,13 @@ links:
     label: scale-from-the-spectrum-vs-scale-from-the-line
   - target: "[[Rational Hearing]]"
     type: couples-with
-    label: sibling-built-the-same-day
+    label: the-fifth-heard-and-the-fifth-walked
   - target: "[[Cycle 5 Explorer — Context]]"
     type: spawned
     label: the-model-in-full
 ---
 
 # Cycle 5 Explorer
-
-![[Cycle 5 Explorer — hero.png]]
 
 A decoder ring for harmony. Turn the rings, hear the change.
 
@@ -96,7 +94,7 @@ Drafting Table, by the coordinating session's decision on 2026-10-28: the page i
 - Does the feel word per mode match how he teaches emotion to mode?
 - Which of the roadmap's moves comes first: secondary dominants and tritone subs, harmonic and melodic minor as other windows, a bass and voice-leading view, MIDI out for Ableton, or presentation mode?
 
-The plan is on the scroll. The build conversation, the transcript of the original video and the stills are kept under `Projects/Cycle 5 Explorer/workshop/import/`.
+The plan is on the scroll. The build conversation, the transcript of the original video and the stills are kept under `Projects/Cycle 5 Explorer/import/`.
 
 ## Forward Vectors
 

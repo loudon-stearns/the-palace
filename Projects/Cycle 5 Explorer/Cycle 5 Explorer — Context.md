@@ -13,7 +13,7 @@ forward_vector: "I hold what the Cycle 5 Explorer entry left out: the core model
 
 # Cycle 5 Explorer — Context
 
-What the entry left out, and why the page is shaped as it is. The entry is [[Cycle 5 Explorer]]; the page is `Projects/Cycle 5 Explorer/cycle5-explorer.html`; the theory tests are `tests/theory.test.mjs` (26 checks). The build conversation, Loudon's narration of the original board, and the stills are kept as they arrived under `workshop/import/` (`docs/conversation.md`, `docs/original-video-transcript.md`, `docs/original/`, `docs/screenshots/` for the chalkboard first version). The original board, whole, is `original-full-board.png` beside this file.
+What the entry left out, and why the page is shaped as it is. The entry is [[Cycle 5 Explorer]]; the page is `Projects/Cycle 5 Explorer/cycle5-explorer.html`; the theory tests are `tests/theory.test.mjs` (26 checks). The build conversation, Loudon's narration of the original board, and the stills are kept as they arrived under `import/` (`docs/conversation.md`, `docs/original-video-transcript.md`, `docs/original/`, `docs/screenshots/` for the chalkboard first version). The original board, whole, is `original-full-board.png` beside this file.
 
 ## The core model
 
