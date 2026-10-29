@@ -6,7 +6,7 @@ pillars:
   - creation
   - philosophy
 born: 2026-10
-stage: sprout
+stage: growing
 forward_vector: "I want to be the page every instrument build points at when it says resonance, Q or loss: two numbers, where a thing rings and how fast it forgets, said in plain words with their equations beside them. I want Q heard before it is read, through a sweep a learner can play, and I want the Waveguide's soundboard tuned from my ring-time rule instead of by guess."
 links:
   - target: "[[Bessel Functions in Synthesis]]"
@@ -71,7 +71,7 @@ High Q, little damping, long ring. Low Q, heavy damping, short thud. A Q of 100 
 Q shows up three ways, and they are the same fact.
 
 - **How tall the peak is.** Push the system at its own rate and it swings Q times as far as the same push held steady would move it.
-- **How narrow the peak is.** The band it answers to, measured between the points where its response has fallen to half power, is f_n ÷ Q wide.
+- **How narrow the peak is.** The band it answers to, measured between the points where its response has fallen to half power, is f_n ÷ Q wide (exactly, for a band-pass filter's output; for the swing itself, closely once Q is above a few).
 - **How long it rings.** Strike it and the ring falls 60 dB in about 2.2 × Q ÷ f_n seconds.
 
 | Q | ζ | width of the peak at 1 kHz | ring time at 1 kHz |
@@ -85,7 +85,7 @@ The width and the ring time trade against each other exactly: the width in hertz
 
 ## Pushing it
 
-The earliest clear account of resonance is Galileo's, in 1638, and he got half of it wrong. He saw that one ringer, pulling in time, could swing a bell so hard that six men grabbing its rope were lifted off their feet, and he concluded that a pendulum cannot be made to swing at any rate but its own. Thomas Young showed in 1807 that it can: push it smoothly, as a sine, and after the first ring dies away it swings at the rate of the push, not its own (the history is Jörn Bleck-Neuhaus's, "Mechanical resonance: 300 years from discovery to the full understanding of its importance", arXiv 1811.08353). Both are true, and the difference is the whole of this section. Struck, a thing rings at its own rate. Driven, it moves at yours, and its own rate only decides how much.
+The earliest clear account of resonance is Galileo's, in 1638, and he got half of it wrong. He saw that one ringer, pulling in time, could swing a bell so hard that four or even six men grabbing its rope were lifted off their feet, and he concluded that a pendulum cannot be made to swing at any rate but its own. Thomas Young showed in 1807 that it can: push it smoothly, as a sine, and it swings at the rate of the push, not its own (the history is Jörn Bleck-Neuhaus's, "Mechanical resonance: 300 years from discovery to the full understanding of its importance", arXiv 1811.08353). Both are true, and the difference is the whole of this section. Struck, a thing rings at its own rate. Driven, it moves at yours, and its own rate only decides how much.
 
 Three things happen as the push passes the natural frequency:
 
@@ -99,7 +99,7 @@ This is resonance from outside, a force at f_n. [[Parametric Resonance]] is its 
 
 ### The filter's resonance knob
 
-A resonant filter is a mass on a spring. [[Bessel Functions in Synthesis]] § The State-Variable Filter as Physics shows the state-variable filter is a discretised `m·ẍ + b·ẋ + k·x = F`: cutoff is the natural frequency, the resonance knob is Q. Turning up resonance is taking friction away. Sweep a high-Q filter over noise and you hear a whistle where the peak sits, because a narrow band of noise is nearly a sine. Take the damping below zero, as the top of a resonance knob does in many analogue designs, and the ring grows instead of fading until something nonlinear holds it: the filter has become an oscillator. The [[VST Template]]'s SimpleSynth carries a two-pole state-variable filter with a Resonance control; its range has not been measured against this page.
+A resonant filter is a mass on a spring. [[Bessel Functions in Synthesis]] § The State-Variable Filter as Physics shows the state-variable filter is a discretised `m·ẍ + b·ẋ + k·x = F`: cutoff is the natural frequency, the resonance knob is Q. Turning up resonance is taking friction away. Sweep a high-Q filter over noise and you hear a whistle where the peak sits, because a narrow band of noise is nearly a sine. Take the damping below zero, as the top of a resonance knob does in many analogue designs, and the ring grows instead of fading until something nonlinear holds it: the filter has become an oscillator. The [[VST Template]]'s SimpleSynth carries a two-pole state-variable filter whose Resonance tops out at Q = 20 and never self-oscillates: its damping never reaches zero, and the only nonlinearity is a soft clip on the output.
 
 ### The string's loss filter
 
@@ -140,14 +140,10 @@ Minted 2026-10-25. [[Differential Equations]] linked this page before it existed
 ## Forward Vector
 
 - **Hear Q.** The sketch is a rough. It wants Loudon's ears on whether the strike, the noise and the sweep make the three faces of Q land, and then a place on this page's rich face.
-- **Finish the steps.** The five steps up to the sketch work and were shaped by Loudon's notes on 2026-10-25 (one weight across the page, a weight tied to its trace, a fixed scale so resonance shows its height, the weight tuned under a push that holds still). His word that day: there is still more to be done to make this a perfect teaching tool. Owed: hearing it through speakers, a learner taking it by hand, the empty lower half of step 4's sheet, step 5's push still set as a multiple of its own rate, and the closing question, which is Claude's and was the old method's to give to Loudon.
-- **Tune the soundboard by ring time.** The Waveguide's scroll has carried a rough since cycle 8: at higher notes the string goes quiet in about a second while the board keeps ringing. The rule here, ring time ≈ 2.2 × Q ÷ f, gives each of the board's twelve modes a Q to aim for, from the ring time a real soundboard has.
-- **Measure the filters.** Which Q does the top of SimpleSynth's Resonance reach, and does it self-oscillate? The same question stands for every filter a palace instrument carries.
+- **Hear the steps.** The five steps up to the sketch were finished on 2026-10-29: one weight across the page, a push in hertz that holds still on steps 3 to 5, step 4's peak drawn both ways from the rest line, and Claude's closing question kept on Loudon's word. Owed: hearing them through speakers, and a learner taking them by hand.
+- **Tune the soundboard by ring time.** The Waveguide's scroll has carried a rough since cycle 8: at higher notes the string goes quiet in about a second while the board keeps ringing. The rule here, ring time ≈ 2.2 × Q ÷ f, gives each of the board's twelve modes a Q to aim for, from the ring time a real soundboard has. The board sets ring times today, which come to about Q 14 at its lowest mode and Q 49 at its highest.
+- **Measure the filters.** SimpleSynth's is answered from its code: its Resonance tops out at Q = 20, and it never self-oscillates. The same question stands for every other filter a palace instrument carries.
 
 ---
 
 *"First of all one must observe that each pendulum has its own time of vibration so definite and determinate that it is not possible to make it move with any other period than that which nature has given it."* — Galileo Galilei, *Dialogues Concerning Two New Sciences* (1638; trans. Henry Crew and Alfonso de Salvio, 1914). Half right: see § Pushing it.
-
-## Active Baton
-
-[[Resonance and Damping — baton]] — drafted 2026-10-25
