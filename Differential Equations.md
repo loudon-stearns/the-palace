@@ -89,7 +89,7 @@ All of these are solving differential equations. They're the same shape. They're
 
 **Audio manifestations:**
 - **Plucked string or struck bell:** The fundamental insight. You pluck at y₀ with initial velocity v₀. The string oscillates at its natural frequency ω_n, damped at rate ζ. You hear the pitch (frequency) fade away as the amplitude envelope decays.
-- **Resonant filter:** The filter resonates at its natural frequency. Q (quality factor) controls damping.
+- **Resonant filter:** The filter resonates at its natural frequency. Q (quality factor) is the damping turned upside down, Q = 1/(2ζ): see [[Resonance and Damping]].
 - **Granular synthesis grain envelope:** A grain with sinusoidal waveform and exponential amplitude envelope *is* a second-order underdamped system. The "pitch" of the grain's oscillation is ω_n; the decay rate is ζ.
 - **Action Potential:** The membrane voltage oscillates and settles back to resting potential.
 
@@ -121,7 +121,7 @@ All of these are solving differential equations. They're the same shape. They're
 
 **Solution shape:** Transient behavior (same as unforced) *plus* a steady-state response at the driving frequency.
 
-**The resonance phenomenon:** If the driving frequency matches the natural frequency ω_n, the system resonates with maximum amplitude. This happens regardless of damping (though damping controls how sharp the peak is).
+**The resonance phenomenon:** If the driving frequency matches the natural frequency ω_n, the system swings Q times as far as the same push held steady, a quarter cycle behind the push. Damping sets how tall and how sharp the peak is, and with heavy damping (ζ above about 0.7) the peak in displacement flattens away. See [[Resonance and Damping]].
 
 **Audio manifestations:**
 - A filter responding to a signal: if the signal contains frequency content near the filter's natural frequency, that content rings up.
@@ -165,7 +165,3 @@ The realization: All the audio shapes he's been chasing — organic envelopes, r
 - **Discrete vs. continuous:** On a digital system, we solve difference equations (discrete time approximations of DEs). How much does the difference matter for audio?
 - **Organic imprecision:** See [[Latent Error]] — sometimes a slightly-wrong solver (e.g., PID with overshoot) sounds more "alive" than the mathematically perfect solution.
 - **Force vs. mechanism:** Is the "force" in a DE a real physical force, or a mathematical abstraction? In circuits, it's real (voltage). In digital audio, it's a metaphor we use to reason about what the algorithm does.
-
-## Active Baton
-
-[[Differential Equations — baton]] — drafted 2026-10-25
