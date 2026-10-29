@@ -41,6 +41,9 @@ links:
   - target: "[[Generative Sample Libraries]]"
     type: connects-to
     label: flesh-for-a-fixed-skeleton
+  - target: "[[Synth Templates]]"
+    type: connects-to
+    label: subtractive-taught
 forward_vector: "I keep naming the ontology of synthesis as a topology question — fixed architectures (wavetable, Serum2, Vital) are topology-first instruments where the architecture decides what is reachable, and modular synthesis is the topology-emergent counterpart where the patcher decides. I want to expose the trade — fixed topology buys a large legible parameter space; free topology buys composability at the cost of legibility — and name the in-betweens (PDL-constrained generation, profile registries, fixed-skeleton-variable-flesh designs)."
 ---
 
@@ -62,7 +65,7 @@ Seven topologies run through the palace's instrument projects. They come down fr
 
 ### Subtractive — the wiring, as ground
 
-Start bright and take away. An oscillator rich in harmonics feeds a filter that removes some of them, then an amplifier that an envelope opens and closes. VCO into VCF into VCA is the first chain [[Generative Audio Devices]] emits — the house bass of 2026-04-20 — and its whole verified registry (VCO, VCF, ADSR, VCA, LFO, a sequencer, two mixers) is a subtractive kit. The fixed synths [[Generative Preset Development]] profiles — Ableton Wavetable, Vital, Serum2 — swap the plain oscillator for a wavetable and keep the subtractive back half. The palace has no subtractive instrument of its own. Subtractive is the ground its generators stand on, not a territory it explores.
+Start bright and take away. An oscillator rich in harmonics feeds a filter that removes some of them, then an amplifier that an envelope opens and closes. VCO into VCF into VCA is the first chain [[Generative Audio Devices]] emits — the house bass of 2026-04-20 — and its whole verified registry (VCO, VCF, ADSR, VCA, LFO, a sequencer, two mixers) is a subtractive kit. The fixed synths [[Generative Preset Development]] profiles — Ableton Wavetable, Vital, Serum2 — swap the plain oscillator for a wavetable and keep the subtractive back half. The palace has no subtractive instrument of its own; [[Synth Templates]] teaches the ground instead, one card at a time, the house bass first. Subtractive is the ground its generators stand on, not a territory it explores.
 
 ### FM — the wiring, at audio rate
 
