@@ -47,6 +47,7 @@ import { parseFrontmatter } from './entry-frontmatter.js';
 import { reconcilePendingRequests } from './process-cycle.js';
 import { readTrigger } from './ceremony-scroll.js';
 import { pageEnded } from './batch-due.js';
+import { uncommittedInBundle } from './workshop-leftovers.js';
 import {
   readTuningState, readDiaryState, diaryPathFor, ledgerTrail, renderLedgerSection, runText, isGitIgnored,
 } from './ledger.js';
@@ -418,7 +419,7 @@ export function lastGitTouch(palaceRoot, paths) {
  * `ledger` is ledger.js's readTuningState, `diary` its readDiaryState; either
  * may be null, and `kind` defaults from the entry's frontmatter (scrollKind).
  */
-export function computeNow({ home, board = [], state = null, history = [], meta = {}, entryText = '', tsNow, lastTouch = null, bundleMedia = [], plan = null, ledger = null, diary = null, kind = null, rough = [] }) {
+export function computeNow({ home, board = [], state = null, history = [], meta = {}, entryText = '', tsNow, lastTouch = null, bundleMedia = [], plan = null, ledger = null, diary = null, kind = null, rough = [], leftovers = [] }) {
   const own = ownMessages(board, home);
   const { stillPending, nowResolved } = reconcilePendingRequests(board, home);
   const lastActiveMs = state && state.last_active ? Date.parse(state.last_active) : NaN;
@@ -491,6 +492,7 @@ export function computeNow({ home, board = [], state = null, history = [], meta 
     rough,
     last_touch: lastTouch,
     bundle_media_count: bundleMedia.length,
+    leftovers,
     ts_now: tsNow,
   };
 }
@@ -678,6 +680,15 @@ function diaryLine(d, home) {
   return `- **Last encounter:** ${date && !text.includes(date) ? `${date} — ${text}` : text} — [[${home} — diary]]`;
 }
 
+// Uncommitted files in the bundle no cycle declared (workshop-leftovers.js):
+// named here so a person sees them, since no cycle commits them unasked.
+const LEFTOVERS_SHOWN = 5;
+export function leftoversLine(leftovers) {
+  const n = leftovers.length;
+  const names = leftovers.slice(0, LEFTOVERS_SHOWN).map((l) => `\`${l.path}\``).join(', ');
+  return `- **Left uncommitted:** ⚠ ${n} file${n === 1 ? '' : 's'} in the bundle that no cycle declared, so no cycle commits ${n === 1 ? 'it' : 'them'} — ${names}${n > LEFTOVERS_SHOWN ? `, and ${n - LEFTOVERS_SHOWN} more` : ''}. Look, then commit or clear ${n === 1 ? 'it' : 'them'}.`;
+}
+
 /**
  * Render the NOW zone (between the markers, markers excluded) from what the
  * page has: a status line from its frontmatter and the Plan line, always; the
@@ -715,6 +726,7 @@ export function renderNow(now, { home }) {
       if (now.stall.stalled) L.push(`- **Signal:** ⚠ **STALLED** — the last ${now.stall.barren_streak} cycle${now.stall.barren_streak === 1 ? '' : 's'} posted nothing. The loop is broken until a cycle ships; the lane retries once, then flags here.`);
       else if (now.stall.last_cycle_barren) L.push('- **Signal:** ⚠ the last cycle posted nothing (one barren cycle — the lane will retry before calling it stalled)');
       else L.push('- **Signal:** steady');
+      if (now.leftovers && now.leftovers.length) L.push(leftoversLine(now.leftovers));
       if (now.drift) L.push(`- **Drift:** ${now.drift.cycles} cycle${now.drift.cycles === 1 ? '' : 's'} since the entry was last consolidated (cycle ${now.drift.consolidated_at}) — the entry body may lag; this scroll does not.`);
       else L.push('- **Drift:** no consolidation marker on the entry — nothing to measure against.');
     }
@@ -1079,6 +1091,10 @@ export function materializeScroll(opts) {
   const kind = scrollKind(fm);
   const lastTouch = lastGitTouch(palaceRoot, [relative(palaceRoot, entryFile), relative(palaceRoot, bundleDir)].filter(Boolean));
   const bundleMedia = scanBundleMediaFiles(palaceRoot, bundleDir);
+  // A cycle hands in what it will not commit (read before its commit, so it
+  // leaves out what is about to ride); any other read asks git now. Only a
+  // stewarded page is asked: the line is about what its cycles left.
+  const leftovers = Array.isArray(opts.leftovers) ? opts.leftovers : state ? uncommittedInBundle(palaceRoot, bundleDir, { home }) : [];
 
   // What the page keeps besides the board: a tuning ledger, a diary. A private
   // diary is read into a scroll only when git ignores that scroll too.
@@ -1128,7 +1144,7 @@ export function materializeScroll(opts) {
   // change lands on the trail. Then Now is computed against the plan as it stands.
   const adopted = applyAdoptedPlans(text, board, home);
   text = adopted.text;
-  const now = computeNow({ home, board, state, history, meta, entryText, tsNow, lastTouch, bundleMedia, plan: readPlanInfo(text), ledger, diary, kind, rough: recurringRough(text) });
+  const now = computeNow({ home, board, state, history, meta, entryText, tsNow, lastTouch, bundleMedia, plan: readPlanInfo(text), ledger, diary, kind, rough: recurringRough(text), leftovers });
   text = updateScrollText(text, { nowText: renderNow(now, { home }), newSections: [] }).text;
 
   if (!dryRun) {

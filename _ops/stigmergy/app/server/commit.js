@@ -170,7 +170,7 @@ export async function commitSelected(palaceRoot, opts = {}) {
         const before = status === 'A' ? '' : (await gitAsync(palaceRoot, ['show', `HEAD:${renamedFrom ?? path}`], { allowFail: true })).stdout;
         const after = status === 'D' ? '' : (await gitAsync(palaceRoot, ['show', `:${path}`], { allowFail: true })).stdout;
         const d = diffEntryText(before, after);
-        mdChanges.push({ path, frontmatterChanges: d.frontmatterChanges, bodyChanged: d.bodyChanged, wasAdded: status === 'A' || (before === '' && after !== '') });
+        mdChanges.push({ path, frontmatterChanges: d.frontmatterChanges, bodyChanged: d.bodyChanged, wasAdded: status === 'A' || (before === '' && after !== ''), isEntry: d.isEntry });
       }
 
       if (dpaths.length === 0) return { ok: false, error: 'nothing staged for the selected paths' };

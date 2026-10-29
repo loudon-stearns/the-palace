@@ -144,6 +144,7 @@ export function readStagedDiff(palaceRoot, onlyPaths = null, gitOpts = {}) {
       frontmatterChanges: d.frontmatterChanges,
       bodyChanged: d.bodyChanged,
       wasAdded: status === 'A' || (before === '' && after !== ''),
+      isEntry: d.isEntry,
     });
   }
   return { paths, mdChanges };

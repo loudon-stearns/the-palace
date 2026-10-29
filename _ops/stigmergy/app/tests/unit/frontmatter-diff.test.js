@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { diffFrontmatter, diffEntryText, changeLabel } from '../../src/lib/frontmatter-diff.js';
+import { diffFrontmatter, diffEntryText, changeLabel, textIsEntry } from '../../src/lib/frontmatter-diff.js';
 
 describe('diffFrontmatter', () => {
   it('detects a scalar change with stage prioritized first', () => {
@@ -111,5 +111,29 @@ describe('changeLabel', () => {
   it('labels a removed field', () => {
     expect(changeLabel({ field: 'confidence', kind: 'removed' }))
       .toBe('confidence removed');
+  });
+});
+
+describe('textIsEntry', () => {
+  it('reads an entry off a top-level type: in its frontmatter', () => {
+    expect(textIsEntry('---\ntitle: Foo\ntype: concept\n---\nbody\n')).toBe(true);
+    // Broken YAML still counts: the raw block is read, not the parse.
+    expect(textIsEntry('---\ntitle: "Foo\ntype: concept\n---\nbody\n')).toBe(true);
+  });
+
+  it('reads no entry in a README, a scroll or a ledger', () => {
+    expect(textIsEntry('# vital\n\nhow to run it\n')).toBe(false);
+    expect(textIsEntry('---\ntitle: "Foo — scroll"\nlinks:\n  - target: "[[Foo]]"\n    type: connects-to\n---\n# scroll\n')).toBe(false);
+    expect(textIsEntry('---\nledger: tuning\n---\n')).toBe(false);
+    expect(textIsEntry('')).toBe(false);
+  });
+});
+
+describe('diffEntryText isEntry', () => {
+  it('holds when either side is an entry', () => {
+    const entry = '---\ntitle: Foo\ntype: concept\n---\nbody\n';
+    expect(diffEntryText('', entry).isEntry).toBe(true);
+    expect(diffEntryText(entry, '').isEntry).toBe(true);
+    expect(diffEntryText('', '# README\n').isEntry).toBe(false);
   });
 });

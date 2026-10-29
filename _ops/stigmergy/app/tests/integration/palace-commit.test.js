@@ -63,6 +63,22 @@ describe('palace-commit', () => {
     expect(msg).toMatch(/Palace-Stage: New Entry: born->seed/);
   });
 
+  test('a md with no type: frontmatter gets no Palace-Entry (5853c266)', () => {
+    mkdirSync(resolve(root, 'Foo', 'vital'), { recursive: true });
+    writeFileSync(resolve(root, 'Foo', 'vital', 'README.md'), '# vital\n\nhow to run the host\n');
+    writeFileSync(resolve(root, 'Foo.md'), '---\ntitle: Foo\ntype: concept\nstage: seed\npillars: [tools]\nforward_vector: "I will seed."\n---\n# Foo\nbody, edited\n');
+    g('add', '--', 'Foo/vital/README.md', 'Foo.md');
+    const msg = buildMessageFromStaged(root, { kind: 'steward', scope: 'Foo', summary: 'cycle 1', verify: 'unverified' });
+    expect(msg).not.toMatch(/Palace-Entry: README/);
+    expect(msg).toMatch(/^Palace-Entry: Foo$/m);
+  });
+
+  test('a deleted entry is still named', () => {
+    g('rm', '-q', '--', 'Foo.md');
+    const msg = buildMessageFromStaged(root, { kind: 'edit', scope: 'Foo', summary: 'compost', verify: 'verified' });
+    expect(msg).toMatch(/^Palace-Entry: Foo$/m);
+  });
+
   test('the derived message round-trips the validator + carries campaign', async () => {
     writeFileSync(resolve(root, 'Foo.md'), '---\ntitle: Foo\nstage: growing\n---\nbody\n');
     g('add', '--', 'Foo.md');
@@ -277,7 +293,8 @@ describe('palace-commit', () => {
       }
       const msg = buildMessageFromStaged(root, { kind: 'edit', scope: 'Foo', summary: 'move into Projects/', verify: 'verified' });
       expect(msg).toMatch(/^Palace-Entry: Foo$/m);
-      expect(msg).toMatch(/^Palace-Entry: Foo — gotchas$/m);
+      // Its gotchas file carries no `type:`: bundle memory, not an entry.
+      expect(msg).not.toMatch(/^Palace-Entry: Foo — gotchas$/m);
       expect(derived(msg)).toEqual([]);
     });
 

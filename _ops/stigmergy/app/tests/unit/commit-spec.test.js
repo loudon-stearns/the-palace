@@ -258,6 +258,25 @@ describe('deriveTrailers', () => {
     expect(t).toContain('Palace-Resolves: queue-7');
   });
 
+  // 5853c266 committed a bundle's vital/README.md, which has no frontmatter,
+  // and was logged `Palace-Entry: README`. A md the diff read as no entry is
+  // left out; one the caller said nothing about is kept, as before.
+  it('names no Palace-Entry for a md the diff read as no entry', () => {
+    const t = deriveTrailers({
+      paths: ['Projects/Foo/vital/README.md', 'Projects/Foo.md', 'Projects/Foo/Foo — scroll.md', 'Bar.md'],
+      mdChanges: [
+        { path: 'Projects/Foo/vital/README.md', frontmatterChanges: [], isEntry: false },
+        { path: 'Projects/Foo.md', frontmatterChanges: [], isEntry: true },
+        { path: 'Projects/Foo/Foo — scroll.md', frontmatterChanges: [], isEntry: false },
+      ],
+      kind: 'steward', verify: 'unverified',
+    });
+    expect(t).not.toContain('Palace-Entry: README');
+    expect(t).not.toContain('Palace-Entry: Foo — scroll');
+    expect(t).toContain('Palace-Entry: Foo');
+    expect(t).toContain('Palace-Entry: Bar');
+  });
+
   it('honors an explicit entries override', () => {
     const t = deriveTrailers({
       paths: ['Foo.md', 'Bar.md'], explicitEntries: ['Foo'],
