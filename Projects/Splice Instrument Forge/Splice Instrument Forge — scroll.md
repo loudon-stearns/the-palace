@@ -100,6 +100,7 @@ _Changes the steward wants in the house, kept in its tuning ledger until Loudon'
 - **Drums inside a rack.** kick 0 dB as the reference; 808 and sub −2; snare −2; clap −4; tom −4; rim, snap, stick −6; shaker, perc, conga −6; closed and open hats −8; fx −8; ride, crash, cymbal −10; anything unnamed −4. The rack's track then sits in the foreground at −4. A pad's own `db` in the recipe overrides. (Proposed by the forge and adopted by Loudon, 2026-10-24: "very close to what I would propose".)
 - **No dead controls.** A rack carries no named macros and no Macro Variations until the forge maps them to something. (Loudon, 2026-10-24, on seeing the Slicing default's Hold/Play/Looped Slices in a kit.)
 - **Prove structure, hear sound.** A Set is done when it opens and `check` is clean. Whether it sounds right is Loudon's ear; never say a Set sounds right.
+- **Prove in a Live you launched.** A steward or a session proves a Set only in a Live 12 it started itself, a new instance, never in one Loudon started. When a new one can't come up (the screen is locked, or the "Another instance…" box waits for a click), the proof stays owed and the hand-off says so. (Loudon, 2026-10-29: "I'd rather a steward load a new version of live and not use a copy of live that I started.")
 <!-- scroll:orders:end -->
 
 ## The making

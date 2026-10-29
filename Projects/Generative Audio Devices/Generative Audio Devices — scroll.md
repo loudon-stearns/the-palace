@@ -15,14 +15,14 @@ forward_vector: "I am Generative Audio Devices's scroll — the one page that al
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-26T14:00:44.839Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-29T00:29:54-04:00 from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** sprout · **Steward:** cycle 2 · last ran 2026-10-26 (today)
-- **Plan:** agreed 2026-10-24 (2 days ago) · 2 made things since · **a proposed revision is waiting on you**
+- **Status:** active · **Stage:** sprout · **Steward:** cycle 2 · last ran 2026-10-26 (3 days ago)
+- **Plan:** agreed 2026-10-29 (today) · 0 made things since · **a proposed revision is waiting on you**
 - **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-10-26 (today) — The warm pad now plays chords: six voices from the QWERTY keyboard, wired through every module, checked against Rack's own source. (`gad-steward-005`)
-- **Last commit touching this project:** 2026-10-26 `03ffa7e9` — steward(Generative Audio Devices): cycle 1 — SPINNING UP. HOME: [Generative Audio Devices](obsidian://open?vault=The…
+- **Last shipped:** 2026-10-26 (3 days ago) — The warm pad now plays chords: six voices from the QWERTY keyboard, wired through every module, checked against Rack's own source. (`gad-steward-005`)
+- **Last commit touching this project:** 2026-10-26 `4091456b` — steward(Generative Audio Devices): cycle 2 — SPINNING UP. HOME: [Generative Audio Devices](obsidian://open?vault=The…
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
 - **Runs:** 2 runs on 1 day, counted from the ledger's run lines
@@ -69,23 +69,24 @@ _Changes the steward wants in the house, kept in its tuning ledger until Loudon'
 ## Plan
 
 <!-- scroll:plan:start -->
-**Woken** (Loudon, 2026-10-24). He played the April house bass in Rack and called it alive. The moves below are the September path; his steward's first cycle proposes a revision for his yes, opening with what he asked at the revival (the Standing Orders).
-
-**Where this is going.** A pipeline that turns a plain description of a sound into a loadable instrument for any modular or DSP environment: English in, a target-neutral patch language (PDL) in the middle, and one verified vocabulary per target on the way out. VCV Rack is the first target, and the whole chain has worked there since May 2026: [[VCV Patch Generator — spec — PDL generation prompt|PDL Generation Prompt]] writes two or three candidate patches, [[Generative Audio Devices|PDL Renderer]] emits a `.vcv` that loads, and fresh agents went nine for nine. On 2026-10-24 Loudon's ear met the first patch, and the next step is to make every emitted patch as quick to hear.
+**Where this is going.** A pipeline that turns a plain description of a sound into a loadable instrument for any modular or DSP environment: English in, a target-neutral patch language (PDL) in the middle, and one verified vocabulary per target on the way out. VCV Rack is the first target, and the whole chain has worked there since May 2026. Loudon's ear met it on 2026-10-24, when he called the house bass alive. From here every patch should be as quick to hear as that one, then play more than one note at a time, then prove the pipeline is target-neutral on a second environment.
 
 **The moves ahead**
 
-1. **Hear it in Rack.** On the Mac, Loudon writes a description through the prompt, picks a candidate, emits it, loads it in Rack, and says whether the revised archetypes sound usable and the two-row layout matches his muscle memory. Starting material is in `Shop/VCV Patch Generator/recipes/` and `Shop/VCV Patch Generator/t6-runs/`. The second target waits on this.
-2. **Prove it on a second target.** A second environment gets its own vocabulary file and emitter, not a new architecture, and it passes when the same PDL that makes a VCV patch makes a working artifact there. Pure Data is the safest choice; RNBO codebox~ has the most reach and forces the real question, whether a code-emitting target fits a graph-shaped language. One target at a time.
-3. **Search the modules by feel.** A search box in the renderer's module sidebar that lights up every module whose description words match what you type. It passes when "bright" lights the oscillator and filter, "breathing" lights the LFO and envelope, and "kick" lights nothing, which is the sign the vocabulary still needs percussive words.
-4. **Give PDL its own page.** Move the grammar, the signal types and the port-resolution order out of [[Generative Audio Devices]] into a `PDL Spec` entry the project links to.
+1. **Make every patch quick to hear.** Every emitted patch opens on the computer keyboard and the MacBook speakers, with each modulator on the row under the module it moves (the Standing Orders). Built 2026-10-26: thirteen patches in `proofs/2026-10-26-ready-to-play/`, checked by `verify_standing_orders.js`. It passes when Loudon opens one in Rack, presses a key, and hears it without touching a menu.
+2. **Hear the archetypes in Rack.** Loudon plays a few of the ready patches and says whether the archetypes sound usable and the layout fits his hands. What he hears steers the archetype library.
+3. **Play chords.** Represent polyphony: the voice count lives in the MIDI module's settings, and the Fundamental modules carry many voices down one cable. Decide whether it is said in PDL, in the archetype or in both. It passes when the warm pad plays a chord from the QWERTY keyboard. Built 2026-10-26: the warm pad plays six voices from the QWERTY keyboard; not yet heard.
+4. **Prove it on a second target: Max** (Loudon, 2026-10-29: Max, not Pure Data; building Max patching skills is useful to the palace). It gets its own vocabulary file and emitter, not a new architecture, and passes when the same PDL that makes a VCV patch makes a working Max patch. Max work is paused until there are Max patching standards, so for now this move makes no `.maxpat`, gen~ or RNBO work: it builds the Max vocabulary from patches Max itself saved, the way Rack's came from Rack's own re-save, and writes down what the emitter will need, so the build is quick once the standards exist. No Pure Data.
 
-The last two are side moves with no fixed place: the search box was marked medium priority and the PDL page low, and either can go whenever there is a spare hour. Two gaps are named and deliberately deferred, and neither may hold up the second target. One is polyphony, which the project's three layers can't yet represent: the keyboard module carries one voice, and Loudon labelled his warm-pad refinement in `recipes/` "should be polyphonic!" The other is a recount of the oscillator and filter parameters against Rack's own source, since patches Rack re-saves carry more parameter slots than the vocabulary lists.
+Side moves, whenever there is a spare hour: a search box in the renderer that lights up modules by feel words (it passes when 'bright' lights the oscillator and filter, 'breathing' the LFO and envelope, and 'kick' lights nothing yet), and a page of its own for the PDL grammar. Deferred and not allowed to hold anything up: recounting the oscillator and filter parameters against Rack's source, since patches Rack re-saves carry more parameter slots than the vocabulary lists.
 <!-- scroll:plan:end -->
 
 ## Standing Orders
 
 <!-- scroll:orders:start -->
+- **Max work is paused until we have Max patching standards** (Loudon, 2026-10-16). Make no new Max patcher, gen~ or RNBO codebox, or Max for Live device, and don't edit the ones already made. Carry the Max moves in other tools meanwhile, and write down what each patch will need. This holds over anything below and over the Plan until Loudon lifts it.
+- **Max, not Pure Data.** When a target is a question of Max or Pure Data, it is Max. (Loudon, 2026-10-29: "I think it is very useful for the palace to build max patching skills anyway.")
+
 Written on Loudon's word at the revival, 2026-10-24, when he played the house bass in Rack ("The house bass feels alive! Love it, I would ask that for the midi input it always defaults to QWERTY keyboard, and for audio device it defaults to macbook speakrs, this way I can easily test patches, I'd also ask that all modulators like envelopes are placed on the row right below the main thing they modulate."):
 
 - Every patch this project emits opens ready to play on Loudon's Mac: MIDI input on the computer keyboard (QWERTY), audio out to the MacBook speakers.
@@ -95,6 +96,28 @@ Written on Loudon's word at the revival, 2026-10-24, when he played the house ba
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="plan-2026-10-29T00-29-54-04-00" -->
+### 2026-10-29 — Plan revised: Max, not Pure Data, under the pause
+
+Loudon, 2026-10-29: "No use of pure data, I'd much rather you work in max if it is a question of max or pure data, I think it is very useful for the palace to build max patching skills anyway." Offered holding Max under the 2026-10-16 pause or lifting it here, he chose: "Max after standards". The steward's proposed plan (`gad-steward-003`) stands otherwise: hear the ready patches, then chords (built in cycle 2, `gad-steward-005`, not yet heard), then Max. Until there are Max patching standards, move four builds the vocabulary from patches Max itself saved and writes down what the emitter will need; reading a patch Max saved is reading, not Max work. Written directly rather than by adopting the ask, since an adopt would have installed the Pure Data text.
+
+_The plan before this change:_
+
+> **Woken** (Loudon, 2026-10-24). He played the April house bass in Rack and called it alive. The moves below are the September path; his steward's first cycle proposes a revision for his yes, opening with what he asked at the revival (the Standing Orders).
+>
+> **Where this is going.** A pipeline that turns a plain description of a sound into a loadable instrument for any modular or DSP environment: English in, a target-neutral patch language (PDL) in the middle, and one verified vocabulary per target on the way out. VCV Rack is the first target, and the whole chain has worked there since May 2026: [[VCV Patch Generator — spec — PDL generation prompt|PDL Generation Prompt]] writes two or three candidate patches, [[Generative Audio Devices|PDL Renderer]] emits a `.vcv` that loads, and fresh agents went nine for nine. On 2026-10-24 Loudon's ear met the first patch, and the next step is to make every emitted patch as quick to hear.
+>
+> **The moves ahead**
+>
+> 1. **Hear it in Rack.** On the Mac, Loudon writes a description through the prompt, picks a candidate, emits it, loads it in Rack, and says whether the revised archetypes sound usable and the two-row layout matches his muscle memory. Starting material is in `Shop/VCV Patch Generator/recipes/` and `Shop/VCV Patch Generator/t6-runs/`. The second target waits on this.
+> 2. **Prove it on a second target.** A second environment gets its own vocabulary file and emitter, not a new architecture, and it passes when the same PDL that makes a VCV patch makes a working artifact there. Pure Data is the safest choice; RNBO codebox~ has the most reach and forces the real question, whether a code-emitting target fits a graph-shaped language. One target at a time.
+> 3. **Search the modules by feel.** A search box in the renderer's module sidebar that lights up every module whose description words match what you type. It passes when "bright" lights the oscillator and filter, "breathing" lights the LFO and envelope, and "kick" lights nothing, which is the sign the vocabulary still needs percussive words.
+> 4. **Give PDL its own page.** Move the grammar, the signal types and the port-resolution order out of [[Generative Audio Devices]] into a `PDL Spec` entry the project links to.
+>
+> The last two are side moves with no fixed place: the search box was marked medium priority and the PDL page low, and either can go whenever there is a spare hour. Two gaps are named and deliberately deferred, and neither may hold up the second target. One is polyphony, which the project's three layers can't yet represent: the keyboard module carries one voice, and Loudon labelled his warm-pad refinement in `recipes/` "should be polyphonic!" The other is a recount of the oscillator and filter parameters against Rack's own source, since patches Rack re-saves carry more parameter slots than the vocabulary lists.
+<sub>`plan-2026-10-29T00-29-54-04-00` · plan revised · agreed 2026-10-29T00:29:54-04:00 · proposed by the steward (`gad-steward-003`), amended and written by the Concierge on Loudon's word</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="gad-steward-005" -->
 ### 2026-10-26 — cycle 2 — Off plan — The warm pad now plays chords: six voices from the QWERTY keyboard, wired through every module, checked against Rack's own source.
 > shipped · 3 chord patches ready to load · 20/20, older checks still pass · steward leans adopt the revised plan
