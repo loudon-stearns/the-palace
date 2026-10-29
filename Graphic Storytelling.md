@@ -101,3 +101,7 @@ Load-bearing sources: Alex Toth, *Rules for Making Comics*; Todd Klein (kleinlet
 ---
 
 *The synthesis is home; the verification is two-thirds done. When the limit clears, a third pass can turn the sourced tier into the verified tier — but the craft is usable now. Forward edge: grow from a borrowed canon into the palace's own theory of how comics move a reader, and earn a `[[Graphic Storytelling — Context]]` companion once that pass lands.*
+
+## Active Baton
+
+[[Graphic Storytelling — baton]] — drafted 2026-10-29
