@@ -1,0 +1,323 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Color Hold</title>
+<!-- Daily Page rough · 2026-10-28 · Graphic Storytelling.
+     Five blind takes of one six-panel ink strip on an 84 bpm clock. Each take
+     differs only in color: where it is, and on which beat it arrives. The key
+     (revealed after rating) is in TAKES below. Results: window.dailyPageResults,
+     or the copy button. Sketch tier; no fonts embedded, no network. -->
+<style>
+  :root{--paper:#ece5d3;--ink:#0e0d0c;--dim:#6b665c;--hair:#cfc6b0;--red:#c4161c}
+  *{box-sizing:border-box}
+  body{margin:0;background:#1a1917;color:var(--paper);font-family:Georgia,"Iowan Old Style",serif}
+  main{max-width:1180px;margin:0 auto;padding:28px 16px 60px}
+  .eyebrow{font:11px/1 ui-monospace,Menlo,monospace;letter-spacing:.22em;text-transform:uppercase;color:#9a9384}
+  h1{font-weight:400;font-size:34px;margin:8px 0 6px}
+  .intro{font-size:17px;line-height:1.6;color:#c9c1ad;max-width:62ch;margin:0 0 22px}
+  .stage{background:#000;border:1px solid #333;padding:10px;border-radius:3px}
+  svg.strip{display:block;width:100%;height:auto}
+  .panel{opacity:0;transition:opacity .12s linear}
+  .panel.on{opacity:1}
+  .bar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:14px 0 6px}
+  button{font:13px ui-monospace,Menlo,monospace;background:transparent;color:var(--paper);
+    border:1px solid #555;border-radius:3px;padding:7px 12px;cursor:pointer}
+  button:hover{border-color:var(--paper)}
+  button.on{background:var(--paper);color:var(--ink)}
+  .beat{font:12px ui-monospace,Menlo,monospace;color:#9a9384;min-width:9ch}
+  .takes{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px;margin-top:18px}
+  .take{border:1px solid #3a3833;border-radius:3px;padding:12px}
+  .take h3{margin:0 0 8px;font:600 13px ui-monospace,Menlo,monospace;letter-spacing:.12em}
+  .take.cur{border-color:var(--paper)}
+  .take label{display:block;font-size:13px;color:#b8b09c;margin:8px 0 4px}
+  .stars{display:flex;gap:4px}
+  .stars button{padding:4px 8px}
+  select,textarea{width:100%;background:#111;color:var(--paper);border:1px solid #444;border-radius:3px;font:13px Georgia,serif;padding:5px}
+  textarea{height:52px;resize:vertical}
+  .key{font-size:13px;color:#9a9384;margin-top:8px;min-height:1em}
+  .q{margin-top:22px;border-top:1px solid #333;padding-top:16px}
+  .q label{font-size:15px;color:#c9c1ad}
+  footer{margin-top:28px;font:11px ui-monospace,Menlo,monospace;letter-spacing:.18em;color:#6b665c;text-transform:uppercase}
+</style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">Daily Page · rough · 2026-10-28</div>
+  <h1>The Color Hold</h1>
+  <p class="intro">Five takes of the same six panels, played to the same clock. Watch and listen to each, then rate how hard it hit and say where your eye went first. What differs between them is hidden until you have rated them all.</p>
+
+  <div class="stage"><svg class="strip" id="strip" viewBox="0 0 1500 270" aria-label="six-panel strip"></svg></div>
+
+  <div class="bar">
+    <button id="play">▸ play take I</button>
+    <button id="sound" class="on">sound on</button>
+    <span class="beat" id="beat">—</span>
+  </div>
+
+  <div class="takes" id="takes"></div>
+
+  <div class="q">
+    <label for="overall">After all five: which one would you ship, and is there a take you wanted that isn't here?</label>
+    <textarea id="overall"></textarea>
+  </div>
+
+  <div class="bar">
+    <button id="reveal">reveal what differed</button>
+    <button id="copy">copy results</button>
+    <span class="beat" id="copied"></span>
+  </div>
+
+  <footer>Sketch · Graphic Storytelling</footer>
+</main>
+
+<script>
+const BPM = 84, BEAT = 60 / BPM, H = 270, U = 100, G = 20;
+const C = { paper:'#ece5d3', ink:'#0e0d0c', red:'#c4161c', blue:'#2b59c3', yellow:'#e8c547', violet:'#4b3a78' };
+
+// Panels: beats held, width follows time (a longer hold is a wider panel).
+const PANELS = [
+  { id:1, beats:2 }, { id:2, beats:2 }, { id:3, beats:2 },
+  { id:4, beats:2 }, { id:5, beats:4 }, { id:6, beats:2 }
+];
+let x = 0; PANELS.forEach(p => { p.x = x; p.w = p.beats * U; p.start = 0; x += p.w + G; });
+let b = 0; PANELS.forEach(p => { p.start = b; b += p.beats; });
+const TOTAL = b;
+
+// The five treatments. glove: per-panel color ('p' paper, 'r' red); lateRed: red floods on beat 3 of panel 5.
+const TAKES = [
+  { key:'ink',    what:'All ink. No color anywhere.',                                       glove:{3:'p',4:'p',5:'p',6:'p'} },
+  { key:'hold',   what:'One red, held: the glove is red from the moment it falls.',          glove:{3:'r',4:'r',5:'r',6:'r'} },
+  { key:'script', what:'One red, scripted: the glove stays ink until the close-up, and goes red on that panel\'s downbeat, with the hit.', glove:{3:'p',4:'p',5:'r',6:'r'} },
+  { key:'late',   what:'One red, off the beat: the close-up lands in ink on the hit, and the red arrives two beats later, on beat 3.', glove:{3:'p',4:'p',5:'p',6:'r'}, lateRed:true },
+  { key:'spent',  what:'Capital spent: the red glove plus a blue umbrella, yellow lamplight and windows, a violet sky.', glove:{3:'r',4:'r',5:'r',6:'r'}, spent:true }
+];
+
+// Blind order, shuffled once per load.
+const order = TAKES.map((_, i) => i).sort(() => Math.random() - .5);
+const NUMERALS = ['I','II','III','IV','V'];
+const ratings = order.map(() => ({ punch:null, eye:'', note:'' }));
+let cur = 0, revealed = false;
+
+// ---------- drawing ----------
+const rain = (w, n, seed, col, op) => {
+  let s = seed, out = '';
+  const r = () => (s = (s * 9301 + 49297) % 233280) / 233280;
+  for (let i = 0; i < n; i++) {
+    const x0 = r() * (w + 40) - 20, y0 = r() * H, l = 14 + r() * 22;
+    out += `<line x1="${x0}" y1="${y0}" x2="${x0 - l * .3}" y2="${y0 + l}" stroke="${col}" stroke-width="1.1" opacity="${op}"/>`;
+  }
+  return out;
+};
+const glove = (cls, tx, ty, s, rot) => `<g class="glove ${cls}" transform="translate(${tx},${ty}) rotate(${rot}) scale(${s})">
+  <rect x="0" y="30" width="44" height="40" rx="9"/>
+  <rect x="2" y="4" width="9" height="34" rx="4.5"/><rect x="13" y="0" width="9" height="38" rx="4.5"/>
+  <rect x="24" y="2" width="9" height="36" rx="4.5"/><rect x="35" y="9" width="8" height="30" rx="4"/>
+  <rect x="-16" y="40" width="24" height="10" rx="5" transform="rotate(-38 -4 45)"/>
+  <rect x="-2" y="66" width="48" height="12" rx="3"/></g>`;
+const figure = (tx, ty, s, umb) => `<g transform="translate(${tx},${ty}) scale(${s})" fill="${C.ink}">
+  ${umb ? `<path class="umb" d="M-52,-24 Q0,-78 52,-24 Z"/><line x1="0" y1="-50" x2="0" y2="20" stroke="${C.ink}" stroke-width="3"/>` : ''}
+  <rect x="-22" y="0" width="44" height="5"/><rect x="-13" y="-18" width="26" height="20" rx="2"/>
+  <circle cx="0" cy="14" r="11"/><path d="M-20,22 L20,22 L31,112 L-31,112 Z"/>
+  <path d="M-15,110 L-4,110 L-10,152 L-22,152 Z"/><path d="M5,110 L16,110 L24,150 L12,152 Z"/></g>`;
+const lamp = (tx, ground, coneCls) => `<g transform="translate(${tx},0)">
+  <polygon class="cone ${coneCls}" points="-8,72 8,72 46,${ground} -46,${ground}" opacity=".9"/>
+  <rect x="-3" y="62" width="6" height="${ground - 62}" fill="${C.ink}"/>
+  <path d="M-12,62 L12,62 L8,74 L-8,74 Z" fill="${C.ink}"/></g>`;
+
+function panelSVG(p) {
+  const w = p.w;
+  let body = '';
+  if (p.id === 1) {           // wide: the city in rain
+    body = `<rect class="sky" width="${w}" height="${H}" fill="${C.paper}"/>`;
+    const bl = [[0,120,34],[30,90,30],[58,140,26],[82,70,36],[116,110,30],[144,60,26],[168,130,32]];
+    bl.forEach(([bx, by, bw]) => {
+      body += `<rect x="${bx}" y="${by}" width="${bw}" height="${H - by}" fill="${C.ink}"/>`;
+      for (let wy = by + 10; wy < H - 20; wy += 16) for (let wx = bx + 5; wx < bx + bw - 6; wx += 9)
+        if ((wx * 7 + wy * 3) % 5 < 2) body += `<rect class="win" x="${wx}" y="${wy}" width="4" height="6" fill="${C.paper}"/>`;
+    });
+    body += rain(w, 70, 11, C.ink, .55);
+  } else if (p.id === 2) {    // the figure, umbrella up
+    body = `<rect class="sky" width="${w}" height="${H}" fill="${C.paper}"/><rect y="${H - 50}" width="${w}" height="50" fill="${C.ink}"/>`;
+    body += lamp(160, H - 50, 'c2') + figure(80, 96, 1, true) + rain(w, 60, 23, C.ink, .5);
+  } else if (p.id === 3) {    // close: the hand lets go
+    body = `<rect width="${w}" height="${H}" fill="${C.ink}"/>`;
+    body += `<path d="M-10,40 C40,30 90,46 120,70 L112,92 C80,72 40,66 -10,74 Z" fill="none" stroke="${C.paper}" stroke-width="3"/>`;
+    body += `<path d="M118,70 C130,78 138,88 140,98" fill="none" stroke="${C.paper}" stroke-width="2.5"/>`;
+    body += glove('g3', 100, 140, .9, 24);
+    body += `<line x1="110" y1="118" x2="104" y2="96" stroke="${C.paper}" stroke-width="1.5"/><line x1="126" y1="122" x2="122" y2="100" stroke="${C.paper}" stroke-width="1.5"/>`;
+    body += rain(w, 40, 37, C.paper, .35);
+  } else if (p.id === 4) {    // wide: he walks on; it stays
+    body = `<rect class="sky" width="${w}" height="${H}" fill="${C.paper}"/><rect y="${H - 60}" width="${w}" height="60" fill="${C.ink}"/>`;
+    body += lamp(60, H - 60, 'c4') + figure(160, 148, .42, true) + glove('g4', 52, H - 46, .36, 80);
+    body += rain(w, 60, 41, C.ink, .5);
+  } else if (p.id === 5) {    // the peak: tight on the glove in the puddle
+    body = `<rect width="${w}" height="${H}" fill="${C.ink}"/>`;
+    body += `<ellipse cx="${w / 2}" cy="178" rx="170" ry="36" fill="none" stroke="${C.paper}" stroke-width="1.5" opacity=".5"/>`;
+    body += `<ellipse cx="${w / 2}" cy="178" rx="120" ry="24" fill="none" stroke="${C.paper}" stroke-width="1.5" opacity=".7"/>`;
+    body += `<ellipse cx="${w / 2}" cy="178" rx="70" ry="12" fill="none" stroke="${C.paper}" stroke-width="2"/>`;
+    body += glove('g5', w / 2 + 70, 90, 1.9, 92);
+    body += `<g opacity=".35" transform="translate(0,356) scale(1,-1)">${glove('g5', w / 2 + 70, 90, 1.9, 92)}</g>`;
+    body += rain(w, 50, 53, C.paper, .3);
+  } else {                    // aftermath: an empty street
+    body = `<rect class="sky" width="${w}" height="${H}" fill="${C.paper}"/><rect y="${H - 60}" width="${w}" height="60" fill="${C.ink}"/>`;
+    body += lamp(120, H - 60, 'c6') + glove('g6', 46, H - 40, .3, 80) + rain(w, 70, 67, C.ink, .55);
+  }
+  return `<g class="panel" id="p${p.id}" transform="translate(${p.x},0)">
+    <clipPath id="clip${p.id}"><rect width="${w}" height="${H}"/></clipPath>
+    <g clip-path="url(#clip${p.id})" filter="url(#ink)">${body}</g>
+    <rect width="${w}" height="${H}" fill="none" stroke="${C.paper}" stroke-width="3"/></g>`;
+}
+
+const strip = document.getElementById('strip');
+strip.innerHTML = `<defs>
+  <filter id="ink"><feTurbulence type="fractalNoise" baseFrequency=".045" numOctaves="2" seed="4"/>
+    <feDisplacementMap in="SourceGraphic" scale="2.6"/></filter>
+  <filter id="grain"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="9"/>
+    <feColorMatrix values="0 0 0 0 .5  0 0 0 0 .45  0 0 0 0 .38  0 0 0 .22 0"/></filter></defs>
+  ${PANELS.map(panelSVG).join('')}
+  <rect width="1500" height="${H}" filter="url(#grain)" pointer-events="none"/>`;
+
+function paint(take, lateOn) {
+  const t = TAKES[take];
+  for (const n of [3,4,5,6]) {
+    let c = t.glove[n] === 'r' ? C.red : C.paper;
+    if (n === 5 && t.lateRed && lateOn) c = C.red;
+    strip.querySelectorAll(`.g${n}`).forEach(g => g.setAttribute('fill', c));
+  }
+  strip.querySelectorAll('.sky').forEach(s => s.setAttribute('fill', t.spent ? '#d9cfe8' : C.paper));
+  strip.querySelectorAll('#p1 .sky').forEach(s => s.setAttribute('fill', t.spent ? C.violet : C.paper));
+  strip.querySelectorAll('.win').forEach(s => s.setAttribute('fill', t.spent ? C.yellow : C.paper));
+  strip.querySelectorAll('.umb').forEach(s => s.setAttribute('fill', t.spent ? C.blue : C.ink));
+  strip.querySelectorAll('.cone').forEach(s => s.setAttribute('fill', t.spent ? C.yellow : C.paper));
+}
+
+// ---------- sound ----------
+let ac = null, soundOn = true, noiseBuf = null;
+function ctx() {
+  if (!ac) {
+    ac = new (window.AudioContext || window.webkitAudioContext)();
+    noiseBuf = ac.createBuffer(1, ac.sampleRate * 2, ac.sampleRate);
+    const d = noiseBuf.getChannelData(0); for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
+  }
+  return ac;
+}
+function kick(t, amp, low) {
+  const o = ac.createOscillator(), g = ac.createGain();
+  o.frequency.setValueAtTime(low ? 95 : 130, t); o.frequency.exponentialRampToValueAtTime(low ? 32 : 46, t + (low ? .6 : .3));
+  g.gain.setValueAtTime(amp, t); g.gain.exponentialRampToValueAtTime(.001, t + (low ? 1.4 : .35));
+  o.connect(g).connect(ac.destination); o.start(t); o.stop(t + 1.5);
+}
+function tick(t, amp) {
+  const s = ac.createBufferSource(), f = ac.createBiquadFilter(), g = ac.createGain();
+  s.buffer = noiseBuf; f.type = 'highpass'; f.frequency.value = 6000;
+  g.gain.setValueAtTime(amp, t); g.gain.exponentialRampToValueAtTime(.001, t + .05);
+  s.connect(f).connect(g).connect(ac.destination); s.start(t); s.stop(t + .06);
+}
+function rainBed(t0, dur) {
+  const s = ac.createBufferSource(), f = ac.createBiquadFilter(), g = ac.createGain();
+  s.buffer = noiseBuf; s.loop = true; f.type = 'bandpass'; f.frequency.value = 2400; f.Q.value = .6;
+  g.gain.setValueAtTime(0, t0); g.gain.linearRampToValueAtTime(.05, t0 + .6);
+  g.gain.setValueAtTime(.05, t0 + dur - .8); g.gain.linearRampToValueAtTime(0, t0 + dur);
+  s.connect(f).connect(g).connect(ac.destination); s.start(t0); s.stop(t0 + dur + .1);
+}
+
+// ---------- playback ----------
+let playing = false;
+function play() {
+  if (playing) return;
+  playing = true;
+  const take = order[cur];
+  const a = ctx(); a.resume();
+  const t0 = a.currentTime + BEAT;          // one beat of count-in
+  const peakBeat = PANELS[4].start;
+  if (soundOn) {
+    rainBed(a.currentTime, (TOTAL + 3) * BEAT);
+    tick(a.currentTime, .25);
+    for (let i = 0; i < TOTAL; i++) {
+      const t = t0 + i * BEAT, panelDown = PANELS.some(p => p.start === i);
+      if (i === peakBeat) kick(t, 1, true);
+      else if (i > peakBeat && i < peakBeat + 4) tick(t, .08);   // the close-up holds nearly silent
+      else kick(t, panelDown ? .7 : .35, false);
+      tick(t + BEAT / 2, .05);
+    }
+  }
+  strip.querySelectorAll('.panel').forEach(p => p.classList.remove('on'));
+  paint(take, false);
+  const beatEl = document.getElementById('beat');
+  (function frame() {
+    const now = a.currentTime - t0, beat = Math.floor(now / BEAT);
+    PANELS.forEach(p => { if (now >= p.start * BEAT - .02) document.getElementById('p' + p.id).classList.add('on'); });
+    if (TAKES[take].lateRed && now >= (peakBeat + 2) * BEAT - .02) paint(take, true);
+    beatEl.textContent = now < 0 ? 'count-in' : beat < TOTAL ? `beat ${beat % 4 + 1} · bar ${Math.floor(beat / 4) + 1}` : 'held';
+    if (now < (TOTAL + 1.5) * BEAT) requestAnimationFrame(frame);
+    else { playing = false; }
+  })();
+}
+
+// ---------- takes & results ----------
+const takesEl = document.getElementById('takes');
+function renderTakes() {
+  takesEl.innerHTML = order.map((ti, i) => `
+    <div class="take ${i === cur ? 'cur' : ''}" data-i="${i}">
+      <h3>TAKE ${NUMERALS[i]}</h3>
+      <button class="pick">${i === cur ? '● selected' : 'select'}</button>
+      <label>punch</label>
+      <div class="stars">${[1,2,3,4,5].map(n => `<button class="star ${ratings[i].punch === n ? 'on' : ''}" data-n="${n}">${n}</button>`).join('')}</div>
+      <label>eye went first to</label>
+      <select class="eye">${['', 'the city', 'the figure', 'the falling glove', 'the glove in the puddle', 'the lamp', 'the empty street', 'nowhere in particular']
+        .map(o => `<option ${ratings[i].eye === o ? 'selected' : ''}>${o}</option>`).join('')}</select>
+      <label>note</label>
+      <textarea class="note">${ratings[i].note}</textarea>
+      <div class="key">${revealed ? TAKES[ti].what : ''}</div>
+    </div>`).join('');
+  document.getElementById('play').textContent = `▸ play take ${NUMERALS[cur]}`;
+  publish();
+}
+takesEl.addEventListener('click', e => {
+  const card = e.target.closest('.take'); if (!card) return;
+  const i = +card.dataset.i;
+  if (e.target.classList.contains('pick')) { cur = i; paint(order[cur], false); renderTakes(); }
+  if (e.target.classList.contains('star')) { ratings[i].punch = +e.target.dataset.n; renderTakes(); }
+});
+takesEl.addEventListener('change', e => {
+  const card = e.target.closest('.take'); if (!card) return;
+  if (e.target.classList.contains('eye')) { ratings[+card.dataset.i].eye = e.target.value; publish(); }
+});
+takesEl.addEventListener('input', e => {
+  const card = e.target.closest('.take'); if (!card) return;
+  if (e.target.classList.contains('note')) { ratings[+card.dataset.i].note = e.target.value; publish(); }
+});
+document.getElementById('overall').addEventListener('input', publish);
+
+function results() {
+  return {
+    rough: 'color-hold 2026-10-28',
+    takes: order.map((ti, i) => ({ take: NUMERALS[i], treatment: TAKES[ti].key, ...ratings[i] })),
+    overall: document.getElementById('overall').value,
+    revealed_before_done: revealed && ratings.some(r => r.punch === null)
+  };
+}
+function publish() { window.dailyPageResults = results(); }
+function asText() {
+  const r = results();
+  return ['Color Hold results (2026-10-28)']
+    .concat(r.takes.map(t => `- take ${t.take} [${t.treatment}]: punch ${t.punch ?? '—'} · eye: ${t.eye || '—'} · ${t.note || ''}`))
+    .concat([`- overall: ${r.overall || '—'}`]).join('\n');
+}
+
+document.getElementById('play').onclick = play;
+document.getElementById('sound').onclick = e => { soundOn = !soundOn; e.target.classList.toggle('on', soundOn); e.target.textContent = soundOn ? 'sound on' : 'sound off'; };
+document.getElementById('reveal').onclick = () => { revealed = true; renderTakes(); };
+document.getElementById('copy').onclick = async () => {
+  const el = document.getElementById('copied');
+  try { await navigator.clipboard.writeText(asText()); el.textContent = 'copied'; }
+  catch { el.textContent = 'copy blocked: results are in window.dailyPageResults'; }
+};
+
+paint(order[0], false);
+renderTakes();
+</script>
+</body>
+</html>
