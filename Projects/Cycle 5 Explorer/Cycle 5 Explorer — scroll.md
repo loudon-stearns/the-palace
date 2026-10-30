@@ -15,30 +15,30 @@ forward_vector: "I am Cycle 5 Explorer's scroll — the one page that always ope
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-30T10:00:04.540Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-30T10:04:03.712Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** sprout · **Steward:** cycle 1 · last ran 2026-10-30 (today)
+- **Status:** active · **Stage:** sprout · **Steward:** cycle 2 · last ran 2026-10-30 (today)
 - **Plan:** agreed (no dated change on the trail yet)
 - **Waiting on you:** 1 open ask — one of them has the steward paused
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-10-30 (today) — A review kit for my page: every key's spelling checked, my own sound rendered for the first time, and your four questions on one printable sheet. (`cycle5-explorer-steward-004`)
-- **Last commit touching this project:** 2026-10-28 `dc3746d2` — edit(Cycle 5 Explorer): remove the old workshop/import copies
+- **Last shipped:** 2026-10-30 (today) — A fifty-minute class plan for teaching with me, with every step pressed on the real page first. It found that my grids hide their last column on a projector. (`cycle5-explorer-steward-006`)
+- **Last commit touching this project:** 2026-10-30 `a91383f5` — steward(Cycle 5 Explorer): cycle 1 — SPINNING UP. HOME: [Cycle 5 Explorer](obsidian://open?vault=The%20Palac…
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
-- **Runs:** 1 run on 1 day, counted from the ledger's run lines
-- **Last run:** 2026-10-30 — cycle 1 · taught item 1
+- **Runs:** 2 runs on 1 day, counted from the ledger's run lines
+- **Last run:** 2026-10-30 — cycle 2 · taught item 2
 - **Owed in the ledger:** nothing
-- **Latest lesson:** item 1, from cycle 1 — 2026-10-30 — [[Cycle 5 Explorer — tuning]]
+- **Latest lesson:** item 2, from cycle 2 — 2026-10-30 — [[Cycle 5 Explorer — tuning]]
 
 ### Where this stands
 
-Cycle 5 Explorer is the decoder ring for harmony you rebuilt from your Illustrator board on 27 and 28 October. Every key is a seven-note window sliding along the line of fifths. You drag a note ring to change key and a degree ring to change mode, and three grids and a four-dialect chord readout follow. When I was given a steward, I asked you to look at me before any cycle runs, and that ask is still open. So this cycle leaves the page alone and builds a review kit beside it, in a new review/ folder. It holds a check of the spelling in every key, the first recording of the page's own sound, and one sheet with your four open questions to mark with a pen.
+Cycle 5 Explorer is the decoder ring for harmony you rebuilt from your Illustrator board on 27 and 28 October. Every key is a seven-note window sliding along the line of fifths. You drag one ring to change key and another to change mode, and three grids and a four-notation chord readout follow. The plan is to have you answer the page's open questions, try it once in a class or a stream, then grow it. You asked to look at me before any cycle changes me, and that ask is still open. So cycle 1 built a review kit beside the page: a spelling check of every key (3,990 checks, no failures), the page's own sound recorded, and your four questions on one sheet. This cycle prepared the classroom step:…
 
 ### Left rough, again and again
 
 _What the trail's left-rough notes keep saying, oldest first, in its latest words._
 
-- **rough since 2026-10-28:** Nobody has heard the page, me included. _(in 2 notes, the latest cycle 1)_
+- **rough since 2026-10-28:** Nobody has heard the page, me included. _(in 3 notes, the latest cycle 2)_
 
 ### Open asks
 
@@ -54,6 +54,7 @@ _Nothing decided on the board yet._
 
 ### Runs
 
+- 2026-10-30 — cycle 2 · taught item 2
 - 2026-10-30 — cycle 1 · taught item 1
 
 ### Owed
@@ -81,6 +82,38 @@ Where this is going: the page Loudon pulls up to teach harmony, proven in a clas
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="cycle5-explorer-steward-006" -->
+### 2026-10-30 — cycle 2 — A fifty-minute class plan for teaching with me, with every step pressed on the real page first. It found that my grids hide their last column on a projector.
+> shipped · page untouched, your review still open · steward leans fix the grid clipping first
+
+The class follows the order your brief gives: emotion, then mode, then the cycle and its progressions, then borrowing a chord from another mode, with the four notations along the way. It runs in five parts. (1) Emotion first: hold the tonic and walk from Lydian down to Locrian. The room names each feel before the page shows its word, and you point out that each step darker lowers exactly one note. (2) Same notes, new home: F Lydian through B Locrian on the white keys, the window idea said out loud. (3) The diatonic cycle of fifths, looped while you press N three times so the room sees one progression written Berklee, jazz shorthand, lead sheet and classical. (4) Borrow one chord: the IV-to-minor-IV preset, then the students build I VI IV V, then I ♭VI IV V with the ♭VI clicked from the Aeolian row, then press → twice and hear it move to D with the ♭VI still borrowed. (5) Walk the keys, and close on 'how do you feel, and which mode felt most like you today?'
+
+How it's checked: rehearse.mjs opens the page in headless Chromium with the sound silenced and presses the keys and buttons the sheet names, in order. It records what the page shows back. The sheet is built only from that record, so every chord, feel word and 'one step darker' note on it is what the page actually said. The stills are taken from the same run.
+
+What the rehearsal found: in the first still, my Scale Tones grid was missing its seventh column. I measured the three grids at four widths. At 1280, 1440 and 1920 pixels, Scale Tones and Chord Tones both scroll sideways and hide their seventh column. Chord Function hides its VII column at 1024 to 1440. No width shows all three in full. The column Scale Tones hides holds the ♭7, the note that turns Ionian into Mixolydian. The sheet tells you this in an amber box before class. I didn't fix it on the page, because you asked to see me first.
+
+**Artifacts:**
+- [the class plan: five parts, the keys to press, what to say, questions for the room, three stills, and boxes to mark with a pen](Projects/Cycle 5 Explorer/class/class-run-sheet.html)
+- [C Dorian, same tonic, during the rehearsal](Projects/Cycle 5 Explorer/class/still-emotion-dorian.jpg)
+- [the diatonic cycle loaded in the progression lane](Projects/Cycle 5 Explorer/class/still-cycle.jpg)
+- [I ♭VI IV V moved to D, the ♭VI still borrowed from Aeolian. The Scale Tones grid's seventh column is cut off at the right edge.](Projects/Cycle 5 Explorer/class/still-borrow-in-D.jpg)
+- [presses the sheet's steps on the real page and records what it shows](Projects/Cycle 5 Explorer/class/rehearse.mjs)
+- [builds the sheet from the rehearsal's record](Projects/Cycle 5 Explorer/class/build-run-sheet.mjs)
+- [what the page showed at each step](Projects/Cycle 5 Explorer/class/rehearsal.json)
+
+_Left rough:_ Nobody has heard the page, me included. The rehearsal ran silent and checked what the page shows, not how it sounds. The timings are my guess, not a tested class. The grid clipping is found and measured but not fixed.
+
+_Next moves named:_ Once you've reviewed me: make the three grids fit at projector widths, so no column scrolls out of sight, then rerun the rehearsal and both sheets. · Fold your four answers into the page and lift the title block from SKETCH to STUDY, then mark up the class sheet and teach it once.
+<sub>`cycle5-explorer-steward-006` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-d53434d568" -->
+### 2026-10-30 — cycle 2
+
+taught item 2
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="cycle5-explorer-steward-004" -->
 ### 2026-10-30 — cycle 1 — A review kit for my page: every key's spelling checked, my own sound rendered for the first time, and your four questions on one printable sheet.
 > shipped · page untouched, still waiting for your look · steward leans print the sheet

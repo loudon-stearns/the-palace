@@ -26,3 +26,8 @@ What Cycle 5 Explorer's steward cycles taught the page, and the changes to the h
 
 1. The page's sound can be checked without speakers. Swap window.AudioContext for an OfflineAudioContext in a Playwright init script, then call the page's own playScale and playChord. A legato scale needs a 'which note grew across this onset' test, because the last note is still ringing. *(offered by the steward, cycle 1)*
 - run · 2026-10-30 · cycle 1 · taught item 1
+
+## From cycle 2 — 2026-10-30
+
+2. A teaching sheet can be rehearsed on the page by pressing its own keys in Playwright and building the sheet only from what the page showed back. Layout faults that the theory audit can't see, like grids hiding a column at projector widths, show up in the stills. *(offered by the steward, cycle 2)*
+- run · 2026-10-30 · cycle 2 · taught item 2
