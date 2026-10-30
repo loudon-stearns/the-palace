@@ -15,35 +15,35 @@ forward_vector: "I am Rational Hearing's scroll — the one page that always ope
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-30T10:08:09.342Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-30T10:11:44.331Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** sprout · **Steward:** cycle 1 · last ran 2026-10-30 (today)
+- **Status:** active · **Stage:** sprout · **Steward:** cycle 2 · last ran 2026-10-30 (today)
 - **Plan:** agreed (no dated change on the trail yet)
-- **Waiting on you:** 1 open ask — one of them has the steward paused
+- **Waiting on you:** 2 open asks — one of them has the steward paused
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-10-30 (today) — I measured every label on my page as the back row would see it. The ladder's edge labels, the ones you point at, are the first thing to fail. (`rational-hearing-steward-004`)
-- **Last commit touching this project:** 2026-10-29 `e80d4600` — edit(Rational Hearing): the ladder is his: prime columns and the bracket legend
+- **Last shipped:** 2026-10-30 (today) — Should Projector mode's bigger, full-height ladder go into the live page before you test it in a room? (`rational-hearing-steward-007`)
+- **Last commit touching this project:** 2026-10-30 `fc56eec0` — steward(Rational Hearing): cycle 1 — SPINNING UP. HOME: [Rational Hearing](obsidian://open?vault=The%20Palac…
 - **Signal:** steady
-- **Left uncommitted:** ⚠ 50 files in the bundle that no cycle declared, so no cycle commits them — `Projects/Rational Hearing/back-row/backrow-ladder-2020.png`, `Projects/Rational Hearing/back-row/backrow-ladder-2040.png`, `Projects/Rational Hearing/back-row/backrow-temper-x1-2020.png`, `Projects/Rational Hearing/back-row/backrow-temper-x1-2040.png`, `Projects/Rational Hearing/back-row/backrow-temper-x5-2020.png`, and 45 more. Look, then commit or clear them.
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
-- **Runs:** 1 run on 1 day, counted from the ledger's run lines
-- **Last run:** 2026-10-30 — cycle 1 · taught item 1
+- **Runs:** 2 runs on 1 day, counted from the ledger's run lines
+- **Last run:** 2026-10-30 — cycle 2 · taught item 2
 - **Owed in the ledger:** nothing
-- **Latest lesson:** item 1, from cycle 1 — 2026-10-30 — [[Rational Hearing — tuning]]
+- **Latest lesson:** item 2, from cycle 2 — 2026-10-30 — [[Rational Hearing — tuning]]
 
 ### Where this stands
 
-Rational Hearing is your one-page handout on intervals as whole-number ratios, 5-limit only, rebuilt as a page you can play. You tap a partial on the ladder and hear it, tap an edge (P5, M3) and hear the pair, and compare just bars against the piano's twelve equal steps. You heard it on 29 October and said the sound works. You also asked for your prime columns and your perfect / imperfect / dissonant brackets, and both are now on the page. The plan says the next steps are yours: a projector test from the back row, then a print test with a pen. My ask that you review me is still open, so this cycle doesn't change the page. Instead it measures the projector test ahead of time. Every label was…
+Rational Hearing is your one-page handout on intervals as whole-number ratios, 5-limit only, rebuilt as a page you can play. Tap a partial on the ladder to hear it, tap an interval label (P5, M3) to hear the pair, and compare just bars against the piano's twelve equal steps. You heard it on 29 October and said the sound works. The plan's next steps are yours: put it on a projector and look from the back row, then print it and write on it. Last cycle I measured the projector test ahead of time. The ladder's interval labels came out right at the edge of what 20/20 eyes can read, and browser zoom can't help, because the ladder shrinks to fit its column. This cycle I built the fix as a draft co…
 
 ### Left rough, again and again
 
 _What the trail's left-rough notes keep saying, oldest first, in its latest words._
 
-- **rough since 2026-10-28:** Headless Chromium only, as before. _(in 2 notes, the latest 2026-10-29)_
+- **rough since 2026-10-28:** Headless Chromium only, as before. _(in 3 notes, the latest cycle 2)_
 
 ### Open asks
 
 - `rational-hearing-steward-002` — review the current state before any cycle runs · **steward paused on this** · posted 2026-10-29 · options: reviewed · notes · replan
+- `rational-hearing-steward-007` — fold the back-row ladder into the live page · posted 2026-10-30 · options: ADOPT · ROOM-FIRST · ADJUST
 
 ### Answered, not yet consumed
 
@@ -55,6 +55,7 @@ _Nothing decided on the board yet._
 
 ### Runs
 
+- 2026-10-30 — cycle 2 · taught item 2
 - 2026-10-30 — cycle 1 · taught item 1
 
 ### Owed
@@ -86,6 +87,65 @@ _None yet._
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="rational-hearing-steward-007" -->
+### 2026-10-30 — cycle 2 — Should Projector mode's bigger, full-height ladder go into the live page before you test it in a room?
+> still working · draft measured, live page untouched · steward leans ADOPT
+
+Rational Hearing is your playable handout on intervals as ratios. Before you walk to the back of a room with it, I measured how its labels would read from there. The ladder's interval labels, the ones you point at, were the first to fail. I built a draft where Projector mode makes the ladder fill the screen height. Those labels go from 5.9 to 10.6 arcminutes at 720p, readable rather than borderline, and the desk view is unchanged. Adopting it means your room test checks the fixed version. Keeping the live page means you check the original first and can see the problem for yourself. My older ask, that you review me, is still open; this one doesn't replace it. I'll keep working either way.
+
+**Artifacts:**
+- [the draft. Press Projector.](Projects/Rational Hearing/back-row/rational-hearing-projector-draft.html)
+- [what a 720p projector would show.](Projects/Rational Hearing/back-row/draft-projector-1280x720-frame.png)
+- [back-row-report.html](Projects/Rational Hearing/back-row/back-row-report.html)
+- [backrow-temper-x5-strip.png](Projects/Rational Hearing/back-row/backrow-temper-x5-strip.png)
+- [backrow-temper-x1-strip.png](Projects/Rational Hearing/back-row/backrow-temper-x1-strip.png)
+- [backrow-ladder-strip.png](Projects/Rational Hearing/back-row/backrow-ladder-strip.png)
+- [zoom-150-ladder.png](Projects/Rational Hearing/back-row/zoom-150-ladder.png)
+<sub>`rational-hearing-steward-007` · RESOURCE_REQUEST on TRICKSTER</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="rational-hearing-steward-006" -->
+### 2026-10-30 — cycle 2 — A draft of my page whose Projector mode makes the ladder fill the screen. The interval labels you point at nearly double from the back row.
+> shipped · draft beside the live page, live page untouched · steward leans adopt it
+
+**Open this:** [the projector draft](open:Projects/Rational Hearing/back-row/rational-hearing-projector-draft.html). It opens in Projector mode if you add `?present=on`, or you can press the Projector button. Tap P5 and it still sounds.
+
+**What changed, in Projector mode only.** The ladder takes 46% of the width and the full screen height, so the whole ladder and the big 3:2 readout fit on one 720p screen together (see the frame below). Every label on the ladder grows: the interval labels go from 19 to 30 units, with chips sized to hug them, and the letter names grow from 15 to 22. Your bracket names go from 14 to about 24 and the ×2 ×3 ×5 heads from 11 to about 18, with the brackets moved apart to make room. When you switch Projector off, the ladder rebuilds at the desk size and comes back exactly as it is now. Nothing outside the ladder moved. Your prime columns and node positions are unchanged.
+
+**Measured the same way as last cycle.** I read each label's size on screen in headless Chromium and converted it into how big it looks from a seat 8 screen-heights back. About 5 arcminutes is the 20/20 limit, about 10 reads, and 16 is comfortable.
+
+**Artifacts:**
+- [the draft: my page with the back-row ladder in Projector mode. Open it and press Projector.](Projects/Rational Hearing/back-row/rational-hearing-projector-draft.html)
+- [what a 720p projector shows: the whole ladder beside the 3:2 readout, P5 sounding.](Projects/Rational Hearing/back-row/draft-projector-1280x720-frame.png)
+- [the draft's ladder at 720p.](Projects/Rational Hearing/back-row/draft-draft-1280x720.png)
+- [the live page's ladder at 720p, for comparison.](Projects/Rational Hearing/back-row/draft-live-1280x720.png)
+- [the draft's ladder at 1080p.](Projects/Rational Hearing/back-row/draft-draft-1920x1080.png)
+- [the live ladder at 1080p.](Projects/Rational Hearing/back-row/draft-live-1920x1080.png)
+- [every number in the table, plus a text-overlap check and a tap-P5 check.](Projects/Rational Hearing/back-row/draft-measure.json)
+- [measures and screenshots the draft beside the live page (Playwright).](Projects/Rational Hearing/back-row/shoot-draft.mjs)
+
+_smallest label of each kind on the ladder · Projector mode · back row at 8 screen-heights (arcminutes)_
+| label | live 1280×720 | draft 1280×720 | live 1920×1080 | draft 1920×1080 |
+| --- | --- | --- | --- | --- |
+| interval labels (P5, M3…) | 5.9′ | 10.6′ | 4.0′ | 8.6′ |
+| ladder numerals | 14.4′ | 16.2′ | 9.6′ | 13.2′ |
+| letter names (C, G, E) | 4.7′ | 7.8′ | 3.1′ | 6.3′ |
+| bracket column (smallest: the rotated class words) | 5.3′ | 6.3′ | 3.5′ | 5.2′ |
+| ×2 ×3 ×5 column heads | 3.4′ | 6.2′ | 2.3′ | 5.0′ |
+
+_Left rough:_ Headless Chromium only, as before. The letter names still crowd two chips: the D beside 9 touches M2, and the G beside 3 touches P5. The bracket words and column heads are still under 10′ at 1080p. The draft only fixes the ladder; the temper strip's ratios and cents lines (8–9′) are untouched. I also deleted last cycle's 46 intermediate screenshots. They were never committed, the report carries its images inline, and measure.mjs plus visual.py can regenerate them.
+
+_Next moves named:_ If you take the draft, fold its CSS and its rebuild-on-toggle into rational-hearing.html, then re-run measure.mjs and the report · Give the temper strip's ratio and cents lines the same treatment in Projector mode · Then it's the room: your back-row walk with the report's checklist
+<sub>`rational-hearing-steward-006` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-d53434d568" -->
+### 2026-10-30 — cycle 2
+
+taught item 2
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="rational-hearing-steward-004" -->
 ### 2026-10-30 — cycle 1 — I measured every label on my page as the back row would see it. The ladder's edge labels, the ones you point at, are the first thing to fail.
 > shipped · page untouched, your review still open · steward leans enlarge the ladder in Projector mode

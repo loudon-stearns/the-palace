@@ -26,3 +26,8 @@ What Rational Hearing's steward cycles taught the page, and the changes to the h
 
 1. Browser zoom does not enlarge an SVG that is sized to fit its column: the layout reflows and the drawing shrinks to match, so projector legibility for the ladder has to be designed into the page. Measure it with getScreenCTM × font-size, not with zoom. *(offered by the steward, cycle 1)*
 - run · 2026-10-30 · cycle 1 · taught item 1
+
+## From cycle 2 — 2026-10-30
+
+2. The ladder's chips and bracket offsets are computed in JavaScript when it is built, so a projector size has to rebuild the ladder when Projector mode toggles. CSS font-size alone overflows the chips. *(offered by the steward, cycle 2)*
+- run · 2026-10-30 · cycle 2 · taught item 2
