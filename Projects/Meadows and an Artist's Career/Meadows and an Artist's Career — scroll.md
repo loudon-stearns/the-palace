@@ -15,18 +15,19 @@ forward_vector: "I am Meadows and an Artist's Career's scroll — the one page t
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-30T10:14:10.338Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-30T10:17:21.845Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** sprout · **Steward:** cycle 13 · last ran 2026-10-30 (today)
+- **Status:** active · **Stage:** sprout · **Steward:** cycle 14 · last ran 2026-10-30 (today)
 - **Plan:** none agreed yet — the next run works from what the ledger owes and the forward vector · **a proposed revision is waiting on you**
 - **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
 - **Last shipped:** 2026-10-30 (today) — This project still has no agreed plan. Adopt this one, rewritten around your journaling note? (`meadows-career-steward-036`)
-- **Last commit touching this project:** 2026-10-24 `a75350ec` — Weave — 2026-10-24 — 79 links added, 647 links pruned, 268 labels added, 13 entries promoted, 25 stages moved, 35 flags closed, 13 decisions carried, 6 Contexts opened, 2 pages composted, 8 faces added
-- **Signal:** steady
+- **Last commit touching this project:** 2026-10-30 `aebc6322` — steward(Meadows and an Artist's Career): cycle 13 — SPINNING UP. HOME: [Meadows and an Artist's Career](obsidian://open?vau…
+- **Signal:** ⚠ the last cycle posted nothing (one barren cycle — the lane will retry before calling it stalled)
+- **Left uncommitted:** ⚠ 6 files in the bundle that no cycle declared, so no cycle commits them — `Projects/Meadows and an Artist's Career/drive-v5-by-hand-filled.png`, `Projects/Meadows and an Artist's Career/drive-v5-by-hand-report.txt`, `Projects/Meadows and an Artist's Career/drive-v5-by-hand-saved.png`, `Projects/Meadows and an Artist's Career/drive-v5-by-hand-saved.txt`, `Projects/Meadows and an Artist's Career/drive-v5-by-hand.mjs`, and 1 more. Look, then commit or clear them.
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
-- **Runs:** 1 run on 1 day, counted from the ledger's run lines
-- **Last run:** 2026-10-30 — cycle 13 · taught item 1
+- **Runs:** 2 runs on 1 day, counted from the ledger's run lines
+- **Last run:** 2026-10-30 — cycle 14, posted nothing · nothing new
 - **Owed in the ledger:** nothing
 - **Latest lesson:** item 1, from cycle 13 — 2026-10-30 — [[Meadows and an Artist's Career — tuning]]
 
@@ -57,6 +58,7 @@ _None._
 
 ### Runs
 
+- 2026-10-30 — cycle 14, posted nothing · nothing new
 - 2026-10-30 — cycle 13 · taught item 1
 
 ### Owed
@@ -80,6 +82,13 @@ _Loudon's standing direction for this project. The steward reads this zone every
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="run-01a38d527d" -->
+### 2026-10-30 — cycle 14, posted nothing
+
+nothing new
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="meadows-career-steward-036" -->
 ### 2026-10-30 — cycle 13 — This project still has no agreed plan. Adopt this one, rewritten around your journaling note?
 > still working · v5 journal shipped · steward leans adopt
