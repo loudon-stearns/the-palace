@@ -20,8 +20,8 @@ import sys, yaml, pathlib
 
 PALETTE = {"ink": "1a1916", "inktwo": "3a3a35", "inkthree": "6a6862", "rule": "b8b09a", "amber": "a8730a", "red": "c8261a", "paper": "f0eee5", "slab": "d8d4c6"}
 
-COL = 3.8                      # column pitch
-W, H = 2.4, 1.9                # block size (cm)
+COL = 4.4                      # column pitch
+W, H = 3.0, 1.9                # block size (cm)
 AUDIO_Y = 0.0
 SRC_DY = 2.9                   # vertical pitch of the source stack
 TEXT_H = 1.7                   # room reserved under a block for its settings text
@@ -29,8 +29,13 @@ SOURCES = ["osc1", "osc2", "sub", "noise"]
 CHAIN   = ["mix", "filter1", "filter2", "amp", "fx"]
 MODS    = ["lfo1", "fenv", "menv", "aenv", "lfo2"]
 PERFS   = ["key", "vel", "wheel", "at"]
-LABEL = {"osc1": "OSC 1", "osc2": "OSC 2", "sub": "SUB", "noise": "NOISE", "mix": "MIX", "filter1": "FILTER 1", "filter2": "FILTER 2", "amp": "AMP", "fx": "FX",
-         "lfo1": "LFO 1", "fenv": "FILTER ENV", "menv": "MOD ENV", "aenv": "AMP ENV", "lfo2": "LFO 2", "key": "KEY", "vel": "VEL", "wheel": "WHEEL", "at": "AFTERTOUCH"}
+# full names on the sheet (Loudon, 2026-11-02): the student should read the whole word
+LABEL = {"osc1": "OSCILLATOR 1", "osc2": "OSCILLATOR 2", "sub": "SUB OSCILLATOR", "noise": "NOISE OSCILLATOR", "mix": "MIXER", "filter1": "FILTER 1", "filter2": "FILTER 2", "amp": "AMPLIFIER", "fx": "EFFECTS",
+         "lfo1": "LFO 1", "fenv": "FILTER ENVELOPE", "menv": "MODULATION ENVELOPE", "aenv": "AMPLITUDE ENVELOPE", "lfo2": "LFO 2", "key": "KEYBOARD", "vel": "VELOCITY", "wheel": "MOD WHEEL", "at": "AFTERTOUCH"}
+def label_for(slot, blocks):
+    """The modulation envelope is named for its role: PITCH ENVELOPE, INDEX ENVELOPE."""
+    if slot == "menv" and blocks.get("menv", {}).get("role"): return f"{str(blocks['menv']['role']).upper()} ENVELOPE"
+    return LABEL[slot]
 PERF = set(PERFS)
 POS = {}                       # slot → (x, y), computed per card by layout()
 LAYOUT = {}                    # bus heights etc.
@@ -124,7 +129,7 @@ LEVEL = {"zero": 0.0, "low": 0.3, "half": 0.5, "held": 0.72, "full": 1.0}
 
 LEVELS = {"off": 0.0, "quarter": 0.25, "little": 0.25, "half": 0.5, "equal to osc1": 1.0, "equal": 1.0, "full": 1.0, "unity": 1.0, "under unity": 0.8, "headroom": 0.8}
 def mixer_glyph(ins, level, x, y):
-    gx0, gx1, gy0, gy1 = x - 0.15, x + W/2 - 0.12, y - 0.62, y + 0.12
+    gx0, gx1, gy0, gy1 = x + 0.05, x + W/2 - 0.12, y - 0.62, y + 0.12
     w = gx1 - gx0; out = []
     n = len(ins); step = (gy1 - gy0) / max(n, 1)
     for i, name in enumerate(ins):
@@ -136,7 +141,7 @@ def mixer_glyph(ins, level, x, y):
 
 def glyph(slot, b, kind, x, y):
     """A small drawing in the block's upper right: GX0..GX1 wide, GY0..GY1 tall, in block-relative cm."""
-    gx0, gx1, gy0, gy1 = x - 0.15, x + W/2 - 0.12, y - 0.62, y + 0.12   # right of the jack labels, under the title and the out jack
+    gx0, gx1, gy0, gy1 = x + 0.05, x + W/2 - 0.12, y - 0.62, y + 0.12   # right of the jack labels, under the title and the out jack
     w, h = gx1 - gx0, gy1 - gy0
     P = lambda u, v: f"({gx0 + u*w:.3f},{gy0 + v*h:.3f})"
     out = [rf"\begin{{scope}}"]
@@ -281,7 +286,7 @@ def main(path):
   gatewire/.style={{line width=0.6pt, dotted, ink}},
   block/.style={{rectangle, draw=ink, line width=0.9pt, fill=slab, minimum width={W}cm, minimum height={H}cm, inner sep=0pt}},
   perf/.style={{rectangle, draw=ink, line width=0.7pt, minimum width={W}cm, minimum height=0.7cm, inner sep=2pt, font=\footnotesize, text=ink}},
-  title/.style={{font=\footnotesize\bfseries, text=ink, anchor=north, inner sep=2pt}},
+  title/.style={{font=\scriptsize\bfseries, text=ink, anchor=north, inner sep=2pt}},
   jack/.style={{circle, draw=ink, fill=paper, line width=0.5pt, minimum size=3.2pt, inner sep=0pt}},
   plabel/.style={{font=\tiny, text=inktwo, anchor=west, inner sep=1pt}},
   olabel/.style={{font=\tiny, text=inktwo, anchor=east, inner sep=1pt}},
@@ -290,7 +295,7 @@ def main(path):
     A(r"\begin{document}\begin{tikzpicture}")
     A(rf"\begin{{scope}}[on background layer]\fill[paper] (-{W/2+1.0},{LAYOUT['bottom']}) rectangle ({LAYOUT['right']},{LAYOUT['top']});\end{{scope}}")
     for slot, (x, y) in POS.items():
-        label = LABEL[slot]
+        label = label_for(slot, blocks)
         if slot in PERF:
             A(rf"\node[perf] ({slot}) at ({x},{y}) {{{label}}};")
             continue
@@ -299,11 +304,11 @@ def main(path):
         ins, outname = INS[slot], PORTS[kind[slot]][1]
         for name in ins:
             py = port_y(slot, name, kind[slot])
-            lab = LABEL.get(name, name).lower() if slot == "mix" else name
+            lab = label_for(name, blocks).lower() if slot == "mix" else name
             A(rf"\node[jack] ({slot}-{name}) at ({x - W/2},{py}) {{}};")
             A(rf"\node[plabel] at ({x - W/2 + 0.08},{py}) {{{esc(lab)}}};")
             if slot == "mix":                                        # the level row right under its input
-                ly = py - MIX_ROW; lv = LEVELS.get(level.get(name, "full"), 0.8); bx0, bx1 = x - W/2 + 0.3, x + W/2 - 0.75
+                ly = py - MIX_ROW; lv = LEVELS.get(level.get(name, "full"), 0.8); bx0, bx1 = x - W/2 + 0.3, x + W/2 - 0.85
                 A(rf"\draw[inkthree, line width=0.3pt] ({bx0:.3f},{ly:.3f}) -- ({bx1:.3f},{ly:.3f});")
                 A(rf"\draw[ink, line width=2.2pt] ({bx0:.3f},{ly:.3f}) -- ({bx0 + (bx1-bx0)*lv:.3f},{ly:.3f});")
                 A(rf"\node[font=\tiny, text=inktwo, anchor=west, inner sep=1pt] at ({bx1 + 0.05:.3f},{ly:.3f}) {{{esc(level.get(name, 'full'))}}};")

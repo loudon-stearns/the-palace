@@ -45,6 +45,13 @@ Where this is going: a catalog of template cards a learner can program on any so
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="synth-templates-2026-11-02-full-names-sheet" -->
+### 2026-11-02 — Full names on the sheet (Loudon)
+
+Loudon, asked whether the sheet's block titles should match the tables: "Full names on sheet." `card-to-tikz.py` now titles every block in full, OSCILLATOR 1, SUB OSCILLATOR, NOISE OSCILLATOR, MIXER, FILTER 1, AMPLIFIER, EFFECTS, FILTER ENVELOPE, AMPLITUDE ENVELOPE, LFO 1, KEYBOARD, VELOCITY, MOD WHEEL, AFTERTOUCH, and names the modulation envelope for its role, PITCH ENVELOPE on the kick, INDEX ENVELOPE on the electric piano; the mixer's jack labels are full too. Blocks widened from 2.4 to 3.0 cm and the column pitch from 3.8 to 4.4 cm to carry the words, the title face one step smaller, glyphs and mixer bars moved right to fit. Fifteen sheet files regenerated and the site rebuilt; cards unchanged. The open question in the entry before this is answered.
+
+_Left rough:_ the Plan is still proposed; the revision drafted on 2026-11-02 waits on him.
+<!-- /scroll:entry -->
 <!-- scroll:entry id="synth-templates-2026-11-02-midi-reviews-release" -->
 ### 2026-11-02 — Site revised on Loudon's read: MIDI, reviews, full parameter names, the release click found twice
 
