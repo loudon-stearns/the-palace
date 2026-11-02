@@ -21,6 +21,9 @@ links:
     type: emerged-from
   - target: "[[SUBSTRATE]]"
     type: deepens
+  - target: "[[Rosetta Stone — Context]]"
+    type: spawned
+    label: rationale-archive
 ---
 
 # Rosetta Stone — Palace Vocabulary Across Traditions
