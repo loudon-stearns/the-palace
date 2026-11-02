@@ -43,6 +43,13 @@ Where this is going: a catalog of template cards a learner can program on any so
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="synth-templates-2026-11-01-supersaw-glyphs" -->
+### 2026-11-01 — Second card, Supersaw Pad; module glyphs drawn from schema 0.2 (Loudon: add the graphics as you make them)
+
+Loudon: "Ok, lets make 1 more preset." and "as you make them, also add in the graphics to the modules when appropriate." The second card is `workshop/cards/supersaw-pad.yaml`: poly, two saws (one in seven-voice wide unison, one an octave down), mix, 12 dB low-pass, amp, chorus then reverb; a sustaining amp envelope; a slow triangle LFO on the cutoff as taste, the wheel on its depth; ten essentials with why, nine taste ranges, a listening A/B (unison 1 against 7, detune 0), a held Cm7 for the render. The card schema moved to `synth-template-card/0.2` with typed glyph fields, and House Bass was brought up to it (pulse width on the square, resonance on the filter, shape words and category on both envelopes: filter env percussive, amp env sustaining). `card-to-tikz.py` now draws a glyph in each block's upper right from those fields: waveform cycles, filter response with slope and resonance bump, ADSR polyline with its category as caption, LFO waveform with rate word, FX chain caption. Both sheets regenerated; the tracker's state lives in Loudon's browser and was not touched.
+
+_Left rough:_ neither card is rendered to audio or verified on a synth; the Plan is still proposed.
+<!-- /scroll:entry -->
 <!-- scroll:entry id="synth-templates-2026-11-01-glyphs-goal" -->
 ### 2026-11-01 — Module glyphs made a goal (Loudon)
 

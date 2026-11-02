@@ -1,0 +1,78 @@
+# Synth Templates — card 0.1 — Supersaw Pad
+# Second card: chosen to stress what House Bass did not — poly voice mode, unison, a slow sustaining envelope,
+# an LFO on the filter, and effects in the chain.
+schema: synth-template-card/0.2
+id: supersaw-pad
+name: Supersaw Pad
+family: Pads
+tier: 1
+mode: poly
+classics: trance (JP-8000 lineage)
+status: drafted
+concepts:
+  - "Unison / unisono"
+  - "Small detune (≤7 cents) = chorus"
+  - "Standard sustaining envelope; strings and horns variants"
+  - "LFO → pitch / amplitude / pan / filter"
+  - "Chorus: multiple delays, own LFOs, no feedback"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: saw, octave: 0, unison: 7, detune: wide, spread: wide}
+    osc2:    {kind: oscillator, wave: saw, octave: -1, unison: 1, note: "one plain saw an octave down for weight"}
+    mix:     {kind: mixer}
+    filter1: {kind: filter, type: lowpass, slope: 12, resonance: none}
+    amp:     {kind: amplifier}
+    fx:      {kind: fx, chain: [chorus, reverb]}
+    aenv:    {kind: envelope, role: amp, shape: {a: slow, d: medium, s: held, r: long}, category: sustaining}
+    lfo1:    {kind: lfo, wave: triangle, rate: slow, sync: false}
+  audio:
+    - [osc1, mix]
+    - [osc2, mix]
+    - [mix, filter1]
+    - [filter1, amp]
+    - [amp, fx]
+    - [fx, out]
+  modulation:
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: lfo1, to: filter1.cutoff, amount: little, essential: false}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: osc2.pitch, essential: true}
+    - {from: key,  to: aenv.gate,  essential: true}
+    - {from: wheel, to: lfo1.depth, amount: full, essential: false}
+
+essentials:
+  - {block: mode,    param: voices,    value: poly,           why: "it is a chord instrument; one voice is a lead"}
+  - {block: osc1,    param: wave,      value: saw,            why: "every harmonic present, so unison beating lives in every partial"}
+  - {block: osc1,    param: unison,    value: 7 voices,       why: "the supersaw is the stack, not the wave"}
+  - {block: osc1,    param: detune,    value: wide,           why: "enough that the voices beat rather than chorus"}
+  - {block: filter1, param: type,      value: lowpass 12 dB,  why: "gentle; the stack supplies the brightness, the filter only tames it"}
+  - {block: filter1, param: cutoff,    value: mid,            why: "half open; closed it is a dark pad, open it is a lead"}
+  - {block: aenv,    param: attack,    value: slow,           why: "the pad arrives, it does not strike"}
+  - {block: aenv,    param: sustain,   value: held,           why: "sustaining: the energy keeps coming while the key is down"}
+  - {block: aenv,    param: release,   value: long,           why: "the chord hangs after the key; chords overlap"}
+  - {block: fx,      param: chain,     value: chorus then reverb, why: "width and room; the stack alone is wide but dry"}
+
+taste:
+  - {block: osc1,    param: spread,  range: "narrow – wide",        default: wide}
+  - {block: osc2,    param: level,   range: "off – half",           default: quarter}
+  - {block: filter1, param: cutoff,  range: "dark – bright",        default: mid}
+  - {block: filter1, param: resonance, range: "none – little",      default: none}
+  - {block: aenv,    param: attack,  range: "slow – very slow",     default: slow}
+  - {block: aenv,    param: release, range: "long – very long",     default: long}
+  - {block: lfo1,    param: rate,    range: "very slow – slow",     default: slow}
+  - {block: lfo1,    param: depth,   range: "none – little",        default: little}
+  - {block: fx,      param: reverb,  range: "small – huge",         default: large}
+
+listening:
+  cue: "A wall, not a line: the detuned voices shimmer against each other and the chord swells in rather than starting. Movement comes from the beating, not from any one knob."
+  ab: "Set unison to 1 voice: the same chord becomes a thin organ. Back to 7 and the wall returns. Then set detune to zero with 7 voices: louder, but no shimmer."
+
+render:
+  tempo: 128
+  note: [C3, Eb3, G3, Bb3]
+  velocity: 90
+  pattern: "one minor-seventh chord held two bars, released, tail to silence"
+  length_s: 6.0
+
+mappings: {}

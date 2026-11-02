@@ -33,13 +33,15 @@ PERF = set(PERFS)
 POS = {}                       # slot → (x, y), computed per card by layout()
 LAYOUT = {}                    # bus heights etc.
 
-def layout(used, modulation):
+def layout(used, modulation, text_lines=None):
     """Pack the grid around the used slots. Sources stack in column 0 centred on the audio row; the chain takes the
     next columns; modulators pack beneath, ordered by the column of their first target; performance inputs along the bottom."""
     POS.clear()
     srcs = [s for s in SOURCES if s in used]
+    text_lines = text_lines or {}
+    src_dy = max(SRC_DY, H + 0.5 + 0.31 * max([text_lines.get(sname, 0) for sname in srcs] + [0]))
     for i, sname in enumerate(srcs):
-        POS[sname] = (0.0, AUDIO_Y + ((len(srcs) - 1) / 2 - i) * SRC_DY)
+        POS[sname] = (0.0, AUDIO_Y + ((len(srcs) - 1) / 2 - i) * src_dy)
     col = 1 if srcs else 0
     for c in CHAIN:
         if c in used: POS[c] = (col * COL, AUDIO_Y); col += 1
@@ -88,18 +90,90 @@ def port_y(slot, name, kind):
 
 def block_sub(b):
     parts = []
-    if "octave" in b: parts.append(f"{int(b['octave']):+d} oct")
+    if b.get("octave"): parts.append(f"{int(b['octave']):+d} oct")
     return " · ".join(parts)
+
+# ---- glyphs: what is essential about the module, drawn from card fields (schema 0.2) ----------------------
+TIME = {"instant": 0.02, "fast": 0.08, "short": 0.2, "medium": 0.4, "slow": 0.6, "long": 0.7, "very slow": 0.85, "very long": 0.9, "gated": 0.1}
+LEVEL = {"zero": 0.0, "low": 0.3, "half": 0.5, "held": 0.72, "full": 1.0}
+
+def glyph(slot, b, kind, x, y):
+    """A small drawing in the block's upper right: GX0..GX1 wide, GY0..GY1 tall, in block-relative cm."""
+    gx0, gx1, gy0, gy1 = x - 0.15, x + W/2 - 0.12, y - 0.42, y + 0.32   # right of the jack labels, under the title
+    w, h = gx1 - gx0, gy1 - gy0
+    P = lambda u, v: f"({gx0 + u*w:.3f},{gy0 + v*h:.3f})"
+    out = [rf"\begin{{scope}}"]
+    cap = None
+    if kind == "oscillator":
+        wave = str(b.get("wave", "saw")); pw = float(b.get("pw", 0.5)); n = 2
+        def cycle(k, dy=0.0, col="ink", lw="0.7pt"):
+            u0, u1 = k/n, (k+1)/n
+            if wave == "saw":   pts = [P(u0, 0.1+dy), P(u1, 0.9+dy), P(u1, 0.1+dy)]
+            elif wave in ("square", "pulse"): pts = [P(u0, 0.9+dy), P(u0+(u1-u0)*pw, 0.9+dy), P(u0+(u1-u0)*pw, 0.1+dy), P(u1, 0.1+dy), P(u1, 0.9+dy)]
+            elif wave == "triangle": pts = [P(u0, 0.1+dy), P((u0+u1)/2, 0.9+dy), P(u1, 0.1+dy)]
+            elif wave == "sine": return rf"\draw[{col}, line width={lw}] plot[domain={u0:.3f}:{u1:.3f}, samples=24, variable=\u] ({{{gx0:.3f}+\u*{w:.3f}}},{{{gy0:.3f}+({h:.3f})*(0.5+{0.4}*sin(360*(\u*{n}))+{dy})}});"
+            elif wave == "noise":
+                import random; r = random.Random(7+k); return rf"\draw[{col}, line width={lw}] " + " -- ".join(P(u0+(u1-u0)*i/10, 0.5+0.4*(r.random()*2-1)) for i in range(11)) + ";"
+            else: pts = [P(u0, 0.5), P(u1, 0.5)]
+            return rf"\draw[{col}, line width={lw}] " + " -- ".join(pts) + ";"
+        unison = int(b.get("unison", 1) or 1)
+        if unison > 1:
+            for dy in (0.08, -0.08): out.append(cycle(0, dy, "inkthree", "0.4pt")); out.append(cycle(1, dy, "inkthree", "0.4pt"))
+        for k in range(n): out.append(cycle(k))
+        if unison > 1: cap = f"×{unison}" + (f" {b['detune']}" if b.get("detune") else "")
+        elif wave in ("square", "pulse") and abs(pw - 0.5) > 0.01: cap = f"pw {int(pw*100)}%"
+    elif kind == "filter":
+        ftype = str(b.get("type", "lowpass")); slope = int(b.get("slope", 24)); res = str(b.get("resonance", "none"))
+        drop = {12: 0.55, 18: 0.7, 24: 0.85, 48: 0.95}.get(slope, 0.85)
+        bump = {"none": 0, "clean": 0, "little": 0.15, "moderate": 0.3, "high": 0.45, "self-oscillating": 0.6}.get(res, 0.2)
+        top = 0.65
+        if ftype == "lowpass":   pts = [P(0, top), P(0.45, top), P(0.52, top + bump), P(0.56, top), P(0.56 + (1-drop)*0.35, 0.08), P(1, 0.08)] if bump else [P(0, top), P(0.5, top), P(0.5 + (1-drop)*0.4, 0.08), P(1, 0.08)]
+        elif ftype == "highpass": pts = [P(0, 0.08), P(0.5 - (1-drop)*0.4, 0.08), P(0.5, top), P(1, top)] if not bump else [P(0, 0.08), P(0.44 - (1-drop)*0.35, 0.08), P(0.44, top), P(0.48, top + bump), P(0.55, top), P(1, top)]
+        elif ftype == "bandpass": pts = [P(0, 0.08), P(0.35, 0.1), P(0.5, top + bump), P(0.65, 0.1), P(1, 0.08)]
+        elif ftype == "notch":    pts = [P(0, top), P(0.4, top), P(0.5, 0.08), P(0.6, top), P(1, top)]
+        elif ftype == "comb":     pts = [P(i/8, top if i % 2 == 0 else 0.1) for i in range(9)]
+        else: pts = [P(0, top), P(1, top)]
+        out.append(r"\draw[inkthree, line width=0.3pt] " + P(0, 0.02) + " -- " + P(1, 0.02) + ";")
+        out.append(r"\draw[ink, line width=0.7pt] " + " -- ".join(pts) + ";")
+        cap = f"{ftype} {slope} dB"
+    elif kind == "envelope":
+        sh = b.get("shape", {}); a = TIME.get(str(sh.get("a", "fast")), 0.1); d = TIME.get(str(sh.get("d", "medium")), 0.4)
+        sl = LEVEL.get(str(sh.get("s", "held")), 0.7); r = TIME.get(str(sh.get("r", "short")), 0.2)
+        hold = 0.25 if sl > 0 else 0.0
+        tot = a + d + hold + r; sc = 0.98 / tot
+        pts = [P(0.01, 0.08), P(0.01 + a*sc, 0.92), P(0.01 + (a+d)*sc, 0.08 + 0.84*sl), P(0.01 + (a+d+hold)*sc, 0.08 + 0.84*sl), P(0.01 + (a+d+hold+r)*sc, 0.08)]
+        out.append(r"\draw[inkthree, line width=0.3pt] " + P(0, 0.08) + " -- " + P(1, 0.08) + ";")
+        out.append(r"\draw[ink, line width=0.7pt] " + " -- ".join(pts) + ";")
+        if sl > 0: out.append(rf"\draw[inkthree, line width=0.3pt, dotted] " + P(0.01 + (a+d+hold)*sc, 0.08) + " -- " + P(0.01 + (a+d+hold)*sc, 0.08 + 0.84*sl) + ";")
+        cap = str(b.get("category", ""))
+    elif kind == "lfo":
+        wave = str(b.get("wave", "triangle")); n = 2
+        if wave == "triangle": pts = [P(k/(2*n), 0.1 if k % 2 == 0 else 0.9) for k in range(2*n+1)]
+        elif wave == "square": pts = sum([[P(k/n, 0.9), P((k+0.5)/n, 0.9), P((k+0.5)/n, 0.1), P((k+1)/n, 0.1)] for k in range(n)], [])
+        elif wave == "saw": pts = sum([[P(k/n, 0.1), P((k+1)/n, 0.9), P((k+1)/n, 0.1)] for k in range(n)], [])
+        elif wave in ("random", "s&h", "sample-hold"):
+            import random; rr = random.Random(3); pts = sum([[P(k/6, v), P((k+1)/6, v)] for k, v in [(k, 0.1+0.8*rr.random()) for k in range(6)]], [])
+        else: pts = None
+        if wave == "sine": out.append(rf"\draw[ink, line width=0.7pt] plot[domain=0:1, samples=40, variable=\u] ({{{gx0:.3f}+\u*{w:.3f}}},{{{gy0:.3f}+({h:.3f})*(0.5+0.4*sin(360*\u*{n}))}});")
+        elif pts: out.append(r"\draw[ink, line width=0.7pt] " + " -- ".join(pts) + ";")
+        cap = " ".join(str(v) for v in [b.get("rate", ""), "sync" if b.get("sync") else ""] if v)
+    elif kind == "fx":
+        chain = b.get("chain", [])
+        if chain: cap = " → ".join(str(c) for c in chain)
+    if cap: out.append(rf"\node[font=\tiny, text=inktwo, anchor=north west, inner sep=0pt] at ({gx0:.3f},{gy0 - 0.03:.3f}) {{{esc(cap)}}};")
+    out.append(r"\end{scope}")
+    return "\n".join(out)
 
 def main(path):
     card = yaml.safe_load(open(path))
     blocks = card["graph"]["blocks"]
     used = set(blocks) | {m["from"] for m in card["graph"].get("modulation", []) if m["from"] in PERF}
-    layout(used, card["graph"].get("modulation", []))
-    kind = {s: blocks.get(s, {}).get("kind", DEFAULT_KIND.get(s)) for s in POS}
     ess, taste = {}, {}
     for e in card.get("essentials", []): ess.setdefault(e["block"], []).append(f"{e['param']} {e['value']}")
     for t in card.get("taste", []): taste.setdefault(t["block"], []).append(f"{t['param']} {t['range']}")
+    text_lines = {sl: (1 if block_sub(blocks.get(sl, {})) else 0) + len(ess.get(sl, [])) + len(taste.get(sl, [])) for sl in blocks}
+    layout(used, card["graph"].get("modulation", []), text_lines)
+    kind = {s: blocks.get(s, {}).get("kind", DEFAULT_KIND.get(s)) for s in POS}
     L = []; A = L.append
     A(r"\documentclass[border=8pt]{standalone}")
     A(r"\usepackage[T1]{fontenc}\usepackage{helvet}\renewcommand{\familydefault}{\sfdefault}")
@@ -133,8 +207,9 @@ def main(path):
             py = port_y(slot, name, kind[slot])
             A(rf"\node[jack] ({slot}-{name}) at ({x - W/2},{py}) {{}};")
             A(rf"\node[plabel] at ({x - W/2 + 0.08},{py}) {{{name}}};")
-        A(rf"\node[jack] ({slot}-out) at ({x + W/2},{y - 0.1}) {{}};")
-        A(rf"\node[olabel] at ({x + W/2 - 0.08},{y - 0.1}) {{{outname}}};")
+        A(rf"\node[jack] ({slot}-out) at ({x + W/2},{y - H/2 + 0.25}) {{}};")
+        A(rf"\node[olabel] at ({x + W/2 - 0.08},{y - H/2 + 0.25}) {{{outname}}};")
+        A(glyph(slot, blocks.get(slot, {}), kind[slot], x, y))
         if True:
             lines = []
             sub = block_sub(blocks.get(slot, {}))
