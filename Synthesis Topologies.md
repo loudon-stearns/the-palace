@@ -20,7 +20,7 @@ links:
     label: topology-as-prior
   - target: "[[The Curve Is the Material]]"
     type: connects-to
-    label: sub-topology-question
+    label: function-family-as-sub-topology
   - target: "[[Three Kinds of Warp]]"
     type: connects-to
     label: preserve-or-change-topology
@@ -42,9 +42,6 @@ links:
   - target: "[[Generative Sample Libraries]]"
     type: connects-to
     label: flesh-for-a-fixed-skeleton
-  - target: "[[Synth Templates]]"
-    type: connects-to
-    label: subtractive-taught
 forward_vector: "I name the wiring diagrams the palace's instruments are built on, and offer one useful way to see them as a family: the loop, the crowd, the wiring. Next I want each project to know its family from its own side, and the next instrument found at a crossing nobody has built yet, like a crowd that drives a wiring."
 ---
 
