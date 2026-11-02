@@ -33,6 +33,9 @@ links:
   - target: "[[Spinoza Conatus]]"
     type: deepens
     label: conatus-in-four-dimensions
+  - target: "[[Four Pillars of Enchanted Agency — Context]]"
+    type: spawned
+    label: rationale-archive
 ---
 
 # Four Pillars of Enchanted Agency
