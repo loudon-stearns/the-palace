@@ -15,6 +15,9 @@ links:
   - target: "[[README - The Palace Guide]]"
     type: connects-to
     label: visual-language
+  - target: "[[Mermaid Diagram Standard — Context]]"
+    type: spawned
+    label: rationale-archive
 ---
 # Mermaid Diagram Standard
 
