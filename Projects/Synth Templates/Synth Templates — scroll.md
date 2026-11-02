@@ -26,7 +26,7 @@ _Not yet regenerated. The project was born 2026-10-29 and has not been looked at
 Where this is going: a catalog of template cards a learner can program on any softsynth in the toolkit and check against a reference, the house bass first and proven before any card follows.
 
 1. **Fix the card vocabulary.** One sheet that says what a card holds: the essential settings, the taste settings, the words for ranges. The range words are the archetype registry's region names (`instant`, `snappy`, `short`, `long`; `closed`, `dark`, `open`, `bright`; `sub`, `low`, `mid`, `high`…) from `Projects/Generative Audio Devices/pdl-renderer/vcv_fundamental_registry.json`, reused, not reinvented, so the catalog and [[Generative Preset Development]]'s profiles stay one language.
-2. **Walk the whole catalog in tier order.** Loudon's word, 2026-10-29: "I want to do them all, in your order of tiers." All 292 templates in `workshop/catalog.json`, 19 families, walked tier by tier (157 in tier 1, 110 in tier 2, 25 in tier 3) and tracked in `workshop/picker.html`, the Completeness Tracker, which holds four states per template (todo, drafted, rendered, verified) and a coverage panel per concept. Every concept in his synthesis notes (`workshop/notes/`) maps to at least one template: 93 concepts, each named in the catalog's concept map.
+2. **Walk the whole catalog in tier order.** Loudon's word, 2026-10-29: "I want to do them all, in your order of tiers." All 292 templates in `workshop/catalog.json`, 19 families, walked tier by tier (157 in tier 1, 110 in tier 2, 25 in tier 3) and tracked in `workshop/picker.html`, the Completeness Tracker, which holds four states per template (todo, drafted, rendered, verified) and a coverage panel per concept. Every concept in his synthesis notes ([[Synthesis Notes (Loudon)]]) maps to at least one template: 93 concepts, each named in the catalog's concept map.
 3. **Signal-flow sheets, one per card.** TikZ under the [[Technical Diagram Standard]]'s primitives, rendered to SVG, on the Drafting Table paper ground; essential and taste marked in the provenance colours.
 4. **A neutral reference voice and its render pipeline.** A fully controlled subtractive voice the project owns (SimpleSynth from [[VST Template]] is a candidate; a Python or Web Audio voice is the other), rendering every card to a WAV with a manifest, a feature sidecar (level, brightness, rise, tail, width) and a spectrogram, after the pattern of `Projects/Portamento and Physical Pitch Modeling/curated-ear-set/`.
 5. **A comparison sheet.** The learner's render beside the reference: the two spectrograms, the two feature rows, the differences named in the card's own words, and a play button for each. Compared by feature and by ear ([[Audition Gate]]), never by null test.
@@ -42,6 +42,11 @@ _None yet._
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="synth-templates-2026-11-01-notes-source" -->
+### 2026-11-01 — Loudon's notes become a source of their own
+
+Loudon: "Yes, source entry." His synthesis notes left the workshop and became [[Synthesis Notes (Loudon)]], a `source` entry at the palace root with the PDF and its extracted text in its bundle. This entry now carries `emerged-from` that source (concepts-covered); `workshop/build-catalog.py`'s concept-map comment points at the new path; `workshop/README.md` says what is source of truth and what is generated. The year is still his to supply; the source marks it ASSUMED.
+<!-- /scroll:entry -->
 <!-- scroll:entry id="synth-templates-2026-10-29-workshop" -->
 ### 2026-10-29 — The workshop: the whole catalog and its tracker
 
