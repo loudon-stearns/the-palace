@@ -34,7 +34,7 @@ PERF = set(PERFS)
 POS = {}                       # slot → (x, y), computed per card by layout()
 LAYOUT = {}                    # bus heights etc.
 
-def layout(used, modulation, text_lines=None):
+def layout(used, modulation, text_lines=None, extra_depth=0.0):
     """Pack the grid around the used slots. Sources stack in column 0 centred on the audio row; the chain takes the
     next columns; modulators pack beneath, ordered by the column of their first target; performance inputs along the bottom."""
     POS.clear()
@@ -47,9 +47,11 @@ def layout(used, modulation, text_lines=None):
     for c in CHAIN:
         if c in used: POS[c] = (col * COL, AUDIO_Y); col += 1
     LAYOUT["out_x"] = col * COL
-    low = min([y for (_, y) in POS.values()] + [AUDIO_Y]) - H / 2 - TEXT_H
+    nwires = len(modulation)
+    low = min([y for (_, y) in POS.values()] + [AUDIO_Y]) - H / 2 - TEXT_H - extra_depth
     LAYOUT["bus"] = low - 0.4
-    mod_y = LAYOUT["bus"] - 0.6 - H / 2
+    LAYOUT["lanes"] = 0.11 * nwires
+    mod_y = LAYOUT["bus"] - LAYOUT["lanes"] - 0.6 - H / 2
     first_target = {}
     for m in modulation:
         tgt = m["to"].split(".")[0]
@@ -62,7 +64,7 @@ def layout(used, modulation, text_lines=None):
         while c in taken: c += 1                                    # a second modulator on the same target shifts right
         taken.add(c); POS[m] = (c * COL, mod_y)
     LAYOUT["bus2"] = (mod_y - H / 2 - TEXT_H - 0.4) if mods else (LAYOUT["bus"] - 0.6)
-    perf_y = LAYOUT["bus2"] - 0.6 - 0.35
+    perf_y = LAYOUT["bus2"] - LAYOUT["lanes"] - 0.6 - 0.35
     perfs = [p for p in PERFS if p in used]
     for i, p in enumerate(perfs): POS[p] = (i * COL, perf_y)
     LAYOUT["top"] = max([y for (_, y) in POS.values()] + [AUDIO_Y]) + H / 2 + 1.2
@@ -88,13 +90,18 @@ DEFAULT_KIND = {"osc1": "oscillator", "osc2": "oscillator", "sub": "oscillator",
 
 
 INS = {}      # slot → list of input jack names, filled per card (mixer: one per source)
+BH = {}       # slot → block height; H unless the slot needs more (the mixer: a jack row and a level row per input)
+MIX_ROW = 0.3 # height of one mixer row (a jack row or a level row)
+def bh(slot): return BH.get(slot, H)
+def mixer_height(n): return max(H, JACK_TOP + 2 * MIX_ROW * n + 0.2)
 JACK_TOP = 0.5   # first jack sits this far under the block's top edge; the out jack sits at the same height
 
 def port_y(slot, name, kind=None):
     ins = INS.get(slot) or PORTS[kind][0]
     n = len(ins); i = ins.index(name) if name in ins else 0
-    top = Y(slot) + H/2 - JACK_TOP
-    step = (H - 0.75) / max(n - 1, 1) if n > 1 else 0
+    top = Y(slot) + bh(slot)/2 - JACK_TOP
+    if slot == "mix": return top - i * 2 * MIX_ROW                      # rows: input 1, level 1, input 2, level 2 …
+    step = (bh(slot) - 0.75) / max(n - 1, 1) if n > 1 else 0
     return top - i * step
 
 def block_sub(b):
@@ -227,14 +234,19 @@ def main(path):
     for e in card.get("essentials", []): ess.setdefault(e["block"], []).append(f"{e['param']} {e['value']}")
     for t in card.get("taste", []): taste.setdefault(t["block"], []).append(f"{t['param']} {t['range']}")
     text_lines = {sl: (1 if block_sub(blocks.get(sl, {})) else 0) + len(ess.get(sl, [])) + len(taste.get(sl, [])) for sl in blocks}
-    layout(used, card["graph"].get("modulation", []), text_lines)
+    feeds0 = [a for a, b in card["graph"]["audio"] if b == "mix"]
+    layout(used, card["graph"].get("modulation", []), text_lines, extra_depth=max(0.0, mixer_height(len(feeds0)) - H))
     kind = {s: blocks.get(s, {}).get("kind", DEFAULT_KIND.get(s)) for s in POS}
     INS.clear()
     for sl in POS:
         if sl in PERF: continue
         INS[sl] = list(PORTS[kind[sl]][0])
     feeds = [a for a, b in card["graph"]["audio"] if b == "mix"]
-    if "mix" in POS and feeds: INS["mix"] = feeds
+    BH.clear()
+    if "mix" in POS and feeds:
+        INS["mix"] = feeds
+        BH["mix"] = mixer_height(len(feeds))
+        POS["mix"] = (X("mix"), AUDIO_Y + H/2 - BH["mix"]/2)
     # level word per mixer input: the taste default or the essential value for that source's `level`, else full
     level = {}
     for t in card.get("taste", []):
@@ -267,25 +279,29 @@ def main(path):
         if slot in PERF:
             A(rf"\node[perf] ({slot}) at ({x},{y}) {{{label}}};")
             continue
-        A(rf"\node[block] ({slot}) at ({x},{y}) {{}};")
+        A(rf"\node[block, minimum height={bh(slot)}cm] ({slot}) at ({x},{y}) {{}};")
         A(rf"\node[title] at ({slot}.north) {{{label}}};")
         ins, outname = INS[slot], PORTS[kind[slot]][1]
         for name in ins:
             py = port_y(slot, name, kind[slot])
-            lab = f"{LABEL.get(name, name).lower()} · {level.get(name, 'full')}" if slot == "mix" else name
+            lab = LABEL.get(name, name).lower() if slot == "mix" else name
             A(rf"\node[jack] ({slot}-{name}) at ({x - W/2},{py}) {{}};")
             A(rf"\node[plabel] at ({x - W/2 + 0.08},{py}) {{{esc(lab)}}};")
-        oy = y + H/2 - JACK_TOP                                      # out at the height of the first (audio) input
+            if slot == "mix":                                        # the level row right under its input
+                ly = py - MIX_ROW; lv = LEVELS.get(level.get(name, "full"), 0.8); bx0, bx1 = x - W/2 + 0.3, x + W/2 - 0.75
+                A(rf"\draw[inkthree, line width=0.3pt] ({bx0:.3f},{ly:.3f}) -- ({bx1:.3f},{ly:.3f});")
+                A(rf"\draw[ink, line width=2.2pt] ({bx0:.3f},{ly:.3f}) -- ({bx0 + (bx1-bx0)*lv:.3f},{ly:.3f});")
+                A(rf"\node[font=\tiny, text=inktwo, anchor=west, inner sep=1pt] at ({bx1 + 0.05:.3f},{ly:.3f}) {{{esc(level.get(name, 'full'))}}};")
+        oy = y + bh(slot)/2 - JACK_TOP                               # out at the height of the first (audio) input
         A(rf"\node[jack] ({slot}-out) at ({x + W/2},{oy}) {{}};")
         A(rf"\node[olabel] at ({x + W/2 - 0.08},{oy}) {{{outname}}};")
-        if slot == "mix": A(mixer_glyph(ins, level, x, y))
-        else: A(glyph(slot, blocks.get(slot, {}), kind[slot], x, y))
+        if slot != "mix": A(glyph(slot, blocks.get(slot, {}), kind[slot], x, y))
         if True:
             lines = []
             sub = block_sub(blocks.get(slot, {}))
             if sub: lines.append(r"\textbf{" + esc(sub) + "}")
             lines += [r"\textbf{" + esc(t) + "}" for t in ess.get(slot, [])] + [r"\textcolor{amber}{" + esc(t) + "}" for t in taste.get(slot, [])]
-            if lines: A(rf"\node[settings] at ({x - W/2 + 0.05},{y - H/2 - 0.12}) {{" + r" \\ ".join(lines) + "};")
+            if lines: A(rf"\node[settings] at ({x - W/2 + 0.05},{y - bh(slot)/2 - 0.12}) {{" + r" \\ ".join(lines) + "};")
     # out jack
     ox = LAYOUT["out_x"]
     oy = AUDIO_Y + H/2 - JACK_TOP
@@ -298,9 +314,10 @@ def main(path):
         elif b == "out":
             A(rf"\draw[wire,->] ({a}-out) -- ({tgt});")
         else:
-            A(rf"\draw[wire,->] ({a}-out) -- ({X(a) + W/2 + 0.55},{Y(a) + H/2 - JACK_TOP}) |- ({tgt});")
+            A(rf"\draw[wire,->] ({a}-out) -- ({X(a) + W/2 + 0.55},{Y(a) + bh(a)/2 - JACK_TOP}) |- ({tgt});")
     # modulation wires: east → drop to bus → along bus → up the gutter left of the target → into the jack
-    for m in card["graph"].get("modulation", []):
+    OFF = 0.11                                                       # spacing between parallel wires
+    for k, m in enumerate(card["graph"].get("modulation", [])):
         src = m["from"]; tgt, _, param = m["to"].partition(".")
         ess_route = m.get("essential", True)
         style, col = ("modwire", "ink") if ess_route else ("tastewire", "amber")
@@ -308,10 +325,10 @@ def main(path):
         if param not in ins: param = ins[0]
         if param == "gate": style = "gatewire"
         lab = esc(m.get("amount", ""))
-        bus = LAYOUT["bus2"] if src in PERF else LAYOUT["bus"]
-        sx = X(src) + W/2 + 0.45
-        sy = Y(src) if src in PERF else Y(src) + H/2 - JACK_TOP      # leave at the out jack's own height: no diagonals
-        gx = X(tgt) - W/2 - 0.55          # gutter riser, just left of the target's jacks
+        bus = (LAYOUT["bus2"] if src in PERF else LAYOUT["bus"]) - k * OFF   # each wire its own bus lane
+        sx = X(src) + W/2 + 0.45 + k * OFF                                   # and its own drop
+        sy = Y(src) if src in PERF else Y(src) + bh(src)/2 - JACK_TOP        # leave at the out jack's own height: no diagonals
+        gx = X(tgt) - W/2 - 0.55 - k * OFF   # gutter riser, just left of the target's jacks, its own lane
         srcpt = f"{src}-out" if src not in PERF else f"{src}.east"
         A(rf"\draw[{style},->] ({srcpt}) -- ({sx},{sy}) -- ({sx},{bus}) -- ({gx},{bus}) -- ({gx},{port_y(tgt, param, kind[tgt])}) -- ({tgt}-{param});")
         if lab: A(rf"\node[font=\tiny, text={col}, anchor=south, inner sep=1pt, rotate=90] at ({gx - 0.12},{(bus + port_y(tgt, param, kind[tgt]))/2}) {{{lab}}};")

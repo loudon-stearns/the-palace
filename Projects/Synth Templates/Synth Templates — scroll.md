@@ -44,6 +44,13 @@ Where this is going: a catalog of template cards a learner can program on any so
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="synth-templates-2026-11-02-mixer-rows-lanes" -->
+### 2026-11-02 — Mixer as rows; modulation wires in lanes (Loudon)
+
+Loudon: "For the mixer, put the slider levels right below the input it relates to, so if we thought of the module as a series of rows, input 1, level 1, input 2, level 2, etc. When we have multiple modulation signals going to the same module input offset the lines so we never have cables exactly stacked up on each other for long lengths of a run." `card-to-tikz.py` now draws the mixer as rows, a jack row named for the source and a level row beneath it with the bar filled to the level word; the block grows with its inputs, its top stays level with the chain so the first input row is still the straight audio line, and the old side glyph of stacked bars is gone. Every modulation wire has a lane of its own: the k-th wire's drop, bus run and riser sit 0.11 cm × k apart, the layout reserves that depth under each bus, and cables meet only in the last short run into the jack. Nine sheet files regenerated; cards unchanged.
+
+_Left rough:_ pan glyph still undrawn; no audio yet; the Plan is still proposed.
+<!-- /scroll:entry -->
 <!-- scroll:entry id="synth-templates-2026-11-02-808-kick" -->
 ### 2026-11-02 — Third card, 808 Kick; amp fader and effect glyphs (Loudon)
 

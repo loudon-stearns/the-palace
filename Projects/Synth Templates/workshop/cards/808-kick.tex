@@ -24,8 +24,8 @@
   settings/.style={font=\scriptsize, text=ink, align=left, anchor=north west, inner sep=1pt, text width=2.3cm},
 }
 \begin{document}\begin{tikzpicture}
-\begin{scope}[on background layer]\fill[paper] (-2.2,-9.6) rectangle (13.499999999999998,2.15);\end{scope}
-\node[block] (osc1) at (0.0,0.0) {};
+\begin{scope}[on background layer]\fill[paper] (-2.2,-10.92) rectangle (13.499999999999998,2.15);\end{scope}
+\node[block, minimum height=1.9cm] (osc1) at (0.0,0.0) {};
 \node[title] at (osc1.north) {OSC 1};
 \node[jack] (osc1-pitch) at (-1.2,0.44999999999999996) {};
 \node[plabel] at (-1.1199999999999999,0.44999999999999996) {pitch};
@@ -40,7 +40,7 @@
 \draw[ink, line width=0.7pt] plot[domain=0.500:1.000, samples=24, variable=\u] ({-0.150+\u*1.230},{-0.620+(0.740)*(0.5+0.4*sin(360*(\u*2))+0.0)});
 \end{scope}
 \node[settings] at (-1.15,-1.0699999999999998) {\textbf{wave sine} \\ \textbf{retrigger on} \\ \textcolor{amber}{pitch F1 -- C2}};
-\node[block] (amp) at (3.8,0.0) {};
+\node[block, minimum height=1.9cm] (amp) at (3.8,0.0) {};
 \node[title] at (amp.north) {AMP};
 \node[jack] (amp-in) at (2.5999999999999996,0.44999999999999996) {};
 \node[plabel] at (2.6799999999999997,0.44999999999999996) {in};
@@ -62,7 +62,7 @@
 \node[font=\tiny, text=inktwo, anchor=north west, inner sep=0pt] at (3.650,-0.650) {level full};
 \end{scope}
 \node[settings] at (2.6499999999999995,-1.0699999999999998) {\textcolor{amber}{level half -- full}};
-\node[block] (fx) at (7.6,0.0) {};
+\node[block, minimum height=1.9cm] (fx) at (7.6,0.0) {};
 \node[title] at (fx.north) {FX};
 \node[jack] (fx-in) at (6.3999999999999995,0.44999999999999996) {};
 \node[plabel] at (6.4799999999999995,0.44999999999999996) {in};
@@ -76,48 +76,48 @@
 \node[font=\tiny, text=inktwo, anchor=north west, inner sep=0pt] at (7.450,-0.650) {saturation};
 \end{scope}
 \node[settings] at (6.449999999999999,-1.0699999999999998) {\textbf{chain saturation} \\ \textcolor{amber}{drive light -- heavy}};
-\node[block] (menv) at (0.0,-4.6) {};
+\node[block, minimum height=1.9cm] (menv) at (0.0,-5.26) {};
 \node[title] at (menv.north) {MOD ENV};
-\node[jack] (menv-gate) at (-1.2,-4.1499999999999995) {};
-\node[plabel] at (-1.1199999999999999,-4.1499999999999995) {gate};
-\node[jack] (menv-amount) at (-1.2,-5.299999999999999) {};
-\node[plabel] at (-1.1199999999999999,-5.299999999999999) {amount};
-\node[jack] (menv-out) at (1.2,-4.1499999999999995) {};
-\node[olabel] at (1.1199999999999999,-4.1499999999999995) {env};
+\node[jack] (menv-gate) at (-1.2,-4.81) {};
+\node[plabel] at (-1.1199999999999999,-4.81) {gate};
+\node[jack] (menv-amount) at (-1.2,-5.959999999999999) {};
+\node[plabel] at (-1.1199999999999999,-5.959999999999999) {amount};
+\node[jack] (menv-out) at (1.2,-4.81) {};
+\node[olabel] at (1.1199999999999999,-4.81) {env};
 \begin{scope}
-\draw[inkthree, line width=0.3pt] (-0.150,-5.161) -- (1.080,-5.161);
-\draw[ink, line width=0.7pt] (-0.138,-5.161) -- (-0.080,-4.539) -- (0.494,-5.161) -- (0.494,-5.161) -- (1.068,-5.161);
-\node[font=\tiny, text=inktwo, anchor=north west, inner sep=0pt] at (-0.150,-5.250) {percussive};
+\draw[inkthree, line width=0.3pt] (-0.150,-5.821) -- (1.080,-5.821);
+\draw[ink, line width=0.7pt] (-0.138,-5.821) -- (-0.080,-5.199) -- (0.494,-5.821) -- (0.494,-5.821) -- (1.068,-5.821);
+\node[font=\tiny, text=inktwo, anchor=north west, inner sep=0pt] at (-0.150,-5.910) {percussive};
 \end{scope}
-\node[settings] at (-1.15,-5.67) {\textbf{attack instant} \\ \textbf{decay short} \\ \textbf{sustain zero} \\ \textbf{mode one-shot} \\ \textcolor{amber}{amount a fifth -- two octaves} \\ \textcolor{amber}{decay instant -- short}};
-\node[block] (aenv) at (3.8,-4.6) {};
+\node[settings] at (-1.15,-6.33) {\textbf{attack instant} \\ \textbf{decay short} \\ \textbf{sustain zero} \\ \textbf{mode one-shot} \\ \textcolor{amber}{amount a fifth -- two octaves} \\ \textcolor{amber}{decay instant -- short}};
+\node[block, minimum height=1.9cm] (aenv) at (3.8,-5.26) {};
 \node[title] at (aenv.north) {AMP ENV};
-\node[jack] (aenv-gate) at (2.5999999999999996,-4.1499999999999995) {};
-\node[plabel] at (2.6799999999999997,-4.1499999999999995) {gate};
-\node[jack] (aenv-amount) at (2.5999999999999996,-5.299999999999999) {};
-\node[plabel] at (2.6799999999999997,-5.299999999999999) {amount};
-\node[jack] (aenv-out) at (5.0,-4.1499999999999995) {};
-\node[olabel] at (4.92,-4.1499999999999995) {env};
+\node[jack] (aenv-gate) at (2.5999999999999996,-4.81) {};
+\node[plabel] at (2.6799999999999997,-4.81) {gate};
+\node[jack] (aenv-amount) at (2.5999999999999996,-5.959999999999999) {};
+\node[plabel] at (2.6799999999999997,-5.959999999999999) {amount};
+\node[jack] (aenv-out) at (5.0,-4.81) {};
+\node[olabel] at (4.92,-4.81) {env};
 \begin{scope}
-\draw[inkthree, line width=0.3pt] (3.650,-5.161) -- (4.880,-5.161);
-\draw[ink, line width=0.7pt] (3.662,-5.161) -- (3.679,-4.539) -- (4.273,-5.161) -- (4.273,-5.161) -- (4.868,-5.161);
-\node[font=\tiny, text=inktwo, anchor=north west, inner sep=0pt] at (3.650,-5.250) {percussive};
+\draw[inkthree, line width=0.3pt] (3.650,-5.821) -- (4.880,-5.821);
+\draw[ink, line width=0.7pt] (3.662,-5.821) -- (3.679,-5.199) -- (4.273,-5.821) -- (4.273,-5.821) -- (4.868,-5.821);
+\node[font=\tiny, text=inktwo, anchor=north west, inner sep=0pt] at (3.650,-5.910) {percussive};
 \end{scope}
-\node[settings] at (2.6499999999999995,-5.67) {\textbf{attack instant} \\ \textbf{sustain zero} \\ \textbf{release same as decay} \\ \textcolor{amber}{decay medium -- very long}};
-\node[perf] (key) at (0.0,-8.6) {KEY};
-\node[perf] (vel) at (3.8,-8.6) {VEL};
+\node[settings] at (2.6499999999999995,-6.33) {\textbf{attack instant} \\ \textbf{sustain zero} \\ \textbf{release same as decay} \\ \textcolor{amber}{decay medium -- very long}};
+\node[perf] (key) at (0.0,-9.92) {KEY};
+\node[perf] (vel) at (3.8,-9.92) {VEL};
 \node[perf, fill=paper] (out) at (11.399999999999999,0.44999999999999996) {OUT}; \node[jack] (out-in) at (10.2,0.44999999999999996) {};
 \draw[wire,->] (osc1-out) -- (amp-in);
 \draw[wire,->] (amp-out) -- (fx-in);
 \draw[wire,->] (fx-out) -- (out-in);
-\draw[modwire,->] (menv-out) -- (1.65,-4.1499999999999995) -- (1.65,-3.05) -- (-1.75,-3.05) -- (-1.75,0.44999999999999996) -- (osc1-pitch);
+\draw[modwire,->] (menv-out) -- (1.65,-4.81) -- (1.65,-3.05) -- (-1.75,-3.05) -- (-1.75,0.44999999999999996) -- (osc1-pitch);
 \node[font=\tiny, text=ink, anchor=south, inner sep=1pt, rotate=90] at (-1.87,-1.2999999999999998) {about an octave};
-\draw[modwire,->] (aenv-out) -- (5.45,-4.1499999999999995) -- (5.45,-3.05) -- (2.05,-3.05) -- (2.05,-0.125) -- (amp-level);
-\draw[tastewire,->] (key.east) -- (1.65,-8.6) -- (1.65,-7.65) -- (-1.75,-7.65) -- (-1.75,0.44999999999999996) -- (osc1-pitch);
-\draw[gatewire,->] (key.east) -- (1.65,-8.6) -- (1.65,-7.65) -- (-1.75,-7.65) -- (-1.75,-4.1499999999999995) -- (menv-gate);
-\draw[gatewire,->] (key.east) -- (1.65,-8.6) -- (1.65,-7.65) -- (2.05,-7.65) -- (2.05,-4.1499999999999995) -- (aenv-gate);
-\draw[tastewire,->] (vel.east) -- (5.45,-8.6) -- (5.45,-7.65) -- (2.05,-7.65) -- (2.05,-0.125) -- (amp-level);
-\node[font=\tiny, text=amber, anchor=south, inner sep=1pt, rotate=90] at (1.9299999999999997,-3.8875) {some};
+\draw[modwire,->] (aenv-out) -- (5.5600000000000005,-4.81) -- (5.5600000000000005,-3.1599999999999997) -- (1.9399999999999997,-3.1599999999999997) -- (1.9399999999999997,-0.125) -- (amp-level);
+\draw[tastewire,->] (key.east) -- (1.8699999999999999,-9.92) -- (1.8699999999999999,-8.530000000000001) -- (-1.97,-8.530000000000001) -- (-1.97,0.44999999999999996) -- (osc1-pitch);
+\draw[gatewire,->] (key.east) -- (1.98,-9.92) -- (1.98,-8.64) -- (-2.08,-8.64) -- (-2.08,-4.81) -- (menv-gate);
+\draw[gatewire,->] (key.east) -- (2.09,-9.92) -- (2.09,-8.75) -- (1.6099999999999999,-8.75) -- (1.6099999999999999,-4.81) -- (aenv-gate);
+\draw[tastewire,->] (vel.east) -- (6.0,-9.92) -- (6.0,-8.860000000000001) -- (1.4999999999999998,-8.860000000000001) -- (1.4999999999999998,-0.125) -- (amp-level);
+\node[font=\tiny, text=amber, anchor=south, inner sep=1pt, rotate=90] at (1.38,-4.492500000000001) {some};
 \node[anchor=north west, font=\scriptsize, text=inktwo] at (-2.0,1.95) {\textbf{808 KICK} · tier 1 · mono · Drums and Percussion};
 \node[anchor=north east, font=\tiny, text=inkthree] at (13.299999999999999,1.95) {inputs left, outputs right · audio solid · CV dashed · gate dotted · essentials in ink · taste in amber};
 \end{tikzpicture}\end{document}
