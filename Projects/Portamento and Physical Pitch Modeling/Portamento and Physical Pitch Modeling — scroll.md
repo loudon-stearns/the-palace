@@ -15,32 +15,34 @@ forward_vector: "I am Portamento and Physical Pitch Modeling's scroll — the on
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-11-02T03:21:41.781Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-11-02T03:24:15.595Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** mature · **Steward:** cycle 12 · last ran 2026-11-02 (today)
+- **Status:** active · **Stage:** mature · **Steward:** cycle 13 · last ran 2026-11-02 (today)
 - **Plan:** none agreed yet — the next run works from what the ledger owes and the forward vector
 - **Waiting on you:** nothing
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-11-02 (today) — A ten-minute listening test that finds two numbers for your ears: the smallest overshoot you can hear, and where an overshoot turns sour. (`portamento-steward-026`)
-- **Last commit touching this project:** 2026-10-24 `a75350ec` — Weave — 2026-10-24 — 79 links added, 647 links pruned, 268 labels added, 13 entries promoted, 25 stages moved, 35 flags closed, 13 decisions carried, 6 Contexts opened, 2 pages composted, 8 faces added
+- **Last shipped:** 2026-11-02 (today) — Seven glides whose damping changes partway through, plus an exercise: can you hear when a spring was caught, grabbed or let go? (`portamento-steward-028`)
+- **Last commit touching this project:** 2026-11-01 `3deb04e3` — steward(Portamento and Physical Pitch Modeling): cycle 12 — SPINNING UP. HOME: [Portamento and Physical Pitch Modeling](obsidian://…
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
-- **Runs:** 1 run on 1 day, counted from the ledger's run lines
-- **Last run:** 2026-11-01 — cycle 12 · proposed item 1 for canon
+- **Runs:** 2 runs on 1 day, counted from the ledger's run lines
+- **Last run:** 2026-11-01 — cycle 13 · taught item 2, proposed items 3, 4 for canon
 - **Owed in the ledger:** nothing
-- **Proposed for canon:** 1 — item 1; waiting on Loudon's review, and the page has not changed
-- **Latest lesson:** item 1, from cycle 12 — 2026-11-01 — [[Portamento and Physical Pitch Modeling — tuning]]
+- **Proposed for canon:** 3 — items 1, 3, 4; waiting on Loudon's review, and the page has not changed
+- **Latest lesson:** item 4, from cycle 13 — 2026-11-01 — [[Portamento and Physical Pitch Modeling — tuning]]
 
 ### Where this stands
 
-Portamento and Physical Pitch Modeling treats pitch as a damped spring settling on a note: it eases in (overdamped), arrives clean (critically damped), or overshoots and rings back (underdamped). In June it shipped an ear-training set and a single-session reel that teaches the three. In August and October it extended the model to a bowed string's whole family of partials. One question has sat on the page since the start: is there a threshold where an overshoot becomes audible, and where does it stop sounding energetic and start sounding out of tune? This cycle built a listening test that measures both numbers for whoever takes it.
+Portamento and Physical Pitch Modeling treats a pitch glide as a spring settling on a note. With heavy damping it eases in. With just enough damping it lands clean. With light damping it overshoots and wobbles back. Earlier cycles made an ear-training set and a single-session reel for those three behaviours, extended the model to a bowed string's partials, and built a listening test for how much overshoot a listener can hear. From the start, the page's first open question has been what a glide sounds like if the damping itself changes over time. This cycle answered it in sound. It made seven glides up a fifth on one spring. In five of them the damping changes while the pitch is still moving…
 
 ### Left rough, again and again
 
 _What the trail's left-rough notes keep saying, oldest first, in its latest words._
 
-- **rough since cycle 9:** Nobody has listened yet. _(in 4 notes, the latest cycle 12)_
+- **rough since cycle 9:** Nobody has listened yet. _(in 5 notes, the latest cycle 13)_
 - **rough since cycle 9:** The curve from bow force to locking range is my choice, and the stiffness is still exaggerated, so partials 7–10 stay free even at fortissimo. _(in 2 notes, the latest cycle 10)_
+- **rough since cycle 11:** I also haven't checked that 'grabbed' and 'caught gradually' can be told apart by ear. _(in 2 notes, the latest cycle 13)_
+- **rough since cycle 12:** That is now true of the threshold test and of this page, and it is the one step only Loudon can take: ten minutes with either page would tell me more than another render. _(in 2 notes, the latest cycle 13)_
 
 ### Open asks
 
@@ -56,6 +58,7 @@ _None._
 
 ### Runs
 
+- 2026-11-01 — cycle 13 · taught item 2, proposed items 3, 4 for canon
 - 2026-11-01 — cycle 12 · proposed item 1 for canon
 
 ### Owed
@@ -67,6 +70,8 @@ _Nothing owed._
 _Changes the steward wants in the house, kept in its tuning ledger until Loudon's review. Its cycles work as if they hold; the pages have not changed._
 
 - **1.** 2026-11-01 · [[Portamento and Physical Pitch Modeling]] · § Artifacts and Interactive Exploration, end of the bundle list — The entry lists what the bundle holds, and this is the first tool that measures a listener rather than teaching one.
+- **3.** 2026-11-01 · [[Portamento and Physical Pitch Modeling]] · § Open Questions → Composition and Control, under question 1 — The question now has sound and one measured answer, and that answer reframes the question.
+- **4.** 2026-11-01 · [[Portamento and Physical Pitch Modeling]] · § Artifacts and Interactive Exploration, end of the bundle list (after the threshold/ line) — The entry lists what the bundle holds.
 
 <!-- scroll:now:end -->
 
@@ -85,6 +90,56 @@ _Loudon's standing direction for this project. The steward reads this zone every
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="portamento-steward-028" -->
+### 2026-11-02 — cycle 13 — Seven glides whose damping changes partway through, plus an exercise: can you hear when a spring was caught, grabbed or let go?
+> shipped · page's first open question now has sound · steward leans: listen to grab-crest vs ramp first
+
+Every glide goes C3 to G3 on the same 4 Hz spring, and the only thing that changes is how the damping behaves. **Ring** is the spring left alone: it overshoots by 479 cents and wobbles for a second. **Clean** is the reference. **Caught gradually** is the damping rising from loose to firm over 0.6 s, like a hand closing on a ringing knob: one smaller swing, one shallow dip, then still. **Grabbed at the top** is heavy damping that clamps on at the peak of the overshoot. It lands sharp, freezes there and sinks onto the note. That is the singer's arrive-sharp-and-settle the page describes, and it comes out as a damping change, not as an underdamped wobble. **Grabbed mid-swing** clamps on as the pitch first passes the note. Even caught at full speed, it coasts 88 cents past and creeps back. **Loosened mid-glide** is a slow, careful approach that is let go while still moving. It swings 178 cents past and rings, because its momentum turns into a wobble. **Loosened after arrival** drops the damping once the note has settled, and it sounds exactly like Clean. That last one is the lesson I didn't expect to be the centre of this: damping acts only on motion, so a change in damping is a gesture of the glide, never of the note. The exercise plays each study twice, shuffled and without the picture, and asks what happened: never changed, caught gradually, grabbed all at once, or let go while moving. One check: the integrator's fixed-damping overshoot matches the home entry's formula (478.8 cents both ways).
+
+**Artifacts:**
+- [the listening page: seven studies with plots, then the 14-item exercise. Plays right here.](Projects/Portamento and Physical Pitch Modeling/zeta-over-time/zeta-over-time.html)
+- [all seven trajectories, pitch in blue over damping in orange.](Projects/Portamento and Physical Pitch Modeling/zeta-over-time/zeta-over-time.png)
+- [grabbed at the top: arrive sharp, sink onto the note.](Projects/Portamento and Physical Pitch Modeling/zeta-over-time/audio/grab-crest.wav)
+- [caught gradually: the one to compare with grab-crest.](Projects/Portamento and Physical Pitch Modeling/zeta-over-time/audio/ramp.wav)
+- [the spring left alone.](Projects/Portamento and Physical Pitch Modeling/zeta-over-time/audio/ring.wav)
+- [the reference.](Projects/Portamento and Physical Pitch Modeling/zeta-over-time/audio/clean.wav)
+- [grabbed mid-swing.](Projects/Portamento and Physical Pitch Modeling/zeta-over-time/audio/grab-crossing.wav)
+- [let go while moving.](Projects/Portamento and Physical Pitch Modeling/zeta-over-time/audio/loosen-late.wav)
+- [let go after arriving, which sounds the same as clean.](Projects/Portamento and Physical Pitch Modeling/zeta-over-time/audio/loosen-still.wav)
+- [the integrator and renderer.](Projects/Portamento and Physical Pitch Modeling/zeta-over-time/render.py)
+- [embeds the curves into the page.](Projects/Portamento and Physical Pitch Modeling/zeta-over-time/build_page.py)
+- [the page before the data goes in.](Projects/Portamento and Physical Pitch Modeling/zeta-over-time/page_template.html)
+- [the seven trajectories at 200 Hz, with their overshoots and switch times.](Projects/Portamento and Physical Pitch Modeling/zeta-over-time/studies.json)
+- [what's here and how to rerun it.](Projects/Portamento and Physical Pitch Modeling/zeta-over-time/README.md)
+
+_Seven studies, C3 → G3_
+| study | damping | overshoot (cents) | sounds like |
+| --- | --- | --- | --- |
+| Rings the whole way | 0.12 throughout | 479 | a long wobble |
+| Clean the whole way | 1.0 throughout | 0 | the reference |
+| Caught gradually | 0.12 → 1.2 over 0.6 s | 332 | one smaller swing, then still |
+| Grabbed at the top | 0.12, then 3.0 at the crest | 479 | lands sharp, sinks down |
+| Grabbed mid-swing | 0.12, then 3.0 passing the note | 88 | coasts a little past, creeps back |
+| Loosened mid-glide | 1.5, then 0.05 at 0.15 s | 178 | careful, then rings |
+| Loosened after arrival | 1.0, then 0.05 at 1.2 s | 0 | identical to clean |
+
+_Changed in the workshop:_ README — new workshop folder for the damping-over-time study.
+_Proposed for canon:_ Portamento and Physical Pitch Modeling (§ Open Questions → Composition and Control, under question 1) — The question now has sound and one measured answer, and that answer reframes the question.; owed in the tuning ledger until Loudon's review
+_Proposed for canon:_ Portamento and Physical Pitch Modeling (§ Artifacts and Interactive Exploration, end of the bundle list (after the threshold/ line)) — The entry lists what the bundle holds.; owed in the tuning ledger until Loudon's review
+
+_Left rough:_ Nobody has listened yet. That is now true of the threshold test and of this page, and it is the one step only Loudon can take: ten minutes with either page would tell me more than another render. I also haven't checked that 'grabbed' and 'caught gradually' can be told apart by ear. The exercise is how to find out.
+
+_Next moves named:_ Once someone has taken the exercise, see which pairs get confused and retune the studies so each answer has one clear cue. · Hand the damping to a finger. Make a live page where the mouse or trackpad pressure sets the damping during a glide. It's a browser stand-in for the Haptic Handwheel's struck spring, so the gesture can be played, not just heard.
+<sub>`portamento-steward-028` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-40a2e3194f" -->
+### 2026-11-01 — cycle 13
+
+taught item 2, proposed items 3, 4 for canon
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="portamento-steward-026" -->
 ### 2026-11-02 — cycle 12 — A ten-minute listening test that finds two numbers for your ears: the smallest overshoot you can hear, and where an overshoot turns sour.
 > shipped · maths checked, staircase simulated · steward leans you take it once

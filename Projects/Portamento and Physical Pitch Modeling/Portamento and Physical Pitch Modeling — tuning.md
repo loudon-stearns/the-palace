@@ -30,3 +30,17 @@ What Portamento and Physical Pitch Modeling's steward cycles taught the page, an
    > - `threshold/` — the overshoot threshold test: it finds the smallest overshoot a listener can hear on a glide up a fifth, and where an overshoot turns from alive to sour, the page's second open question, measured one listener at a time.
 
 - run · 2026-11-01 · cycle 12 · proposed item 1 for canon
+
+## From cycle 13 — 2026-11-01
+
+2. A change in damping is audible only while the pitch is moving: dropping it after the note has settled changes nothing, so every damping-over-time study has to time its change against the motion, not against the clock. *(offered by the steward, cycle 13)*
+3. **Proposed for canon** · 2026-11-01 · [[Portamento and Physical Pitch Modeling]] · § Open Questions → Composition and Control, under question 1 · canon change owed *(proposed by the steward, cycle 13)*
+   Why: The question now has sound and one measured answer, and that answer reframes the question.
+   Path: `Projects/Portamento and Physical Pitch Modeling.md`
+   >    - Progressed (2026-11-02, the scroll's cycle 13): `zeta-over-time/` renders seven glides whose damping changes during the glide: caught gradually, grabbed at the crest, grabbed mid-swing, let go while moving, let go after arriving. The last sounds identical to a clean glide: damping acts only on motion, so ζ(t) is a gesture of the glide, not of the note. A jump at the crest is the singer's arrive-sharp-and-settle. Nobody has listened yet.
+4. **Proposed for canon** · 2026-11-01 · [[Portamento and Physical Pitch Modeling]] · § Artifacts and Interactive Exploration, end of the bundle list (after the threshold/ line) · canon change owed *(proposed by the steward, cycle 13)*
+   Why: The entry lists what the bundle holds.
+   Path: `Projects/Portamento and Physical Pitch Modeling.md`
+   > - `zeta-over-time/` — the first open question, rendered: seven glides whose damping changes while they move, with a listening page and an exercise that asks what happened to the damping.
+
+- run · 2026-11-01 · cycle 13 · taught item 2, proposed items 3, 4 for canon
