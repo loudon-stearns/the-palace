@@ -1,0 +1,53 @@
+<!doctype html><html><head><meta charset="utf-8"><title>ζ over time — Portamento</title>
+<style>
+body{font:15px/1.5 -apple-system,system-ui,sans-serif;max-width:760px;margin:24px auto;padding:0 16px;color:#222;background:#fbfaf7}
+h1{font-size:22px;margin:0 0 4px}h2{font-size:17px;margin:28px 0 8px}
+.study{border:1px solid #ddd;border-radius:8px;padding:10px 12px;margin:10px 0;background:#fff}
+.study b{font-size:15px}.z{color:#c05621;font-size:13px}.note{color:#555;font-size:14px;margin:4px 0}
+canvas{width:100%;height:90px;display:block;margin:6px 0}
+button{font:inherit;padding:5px 12px;border-radius:6px;border:1px solid #2b6cb0;background:#fff;color:#2b6cb0;cursor:pointer;margin:2px}
+button:hover{background:#ebf4ff}.choice button{border-color:#888;color:#333}
+#quiz{border:2px solid #2b6cb0;border-radius:8px;padding:12px;background:#fff}
+.ok{color:#276749}.no{color:#c53030}.small{font-size:13px;color:#666}
+</style></head><body>
+<h1>ζ over time</h1>
+<p class="small">Portamento and Physical Pitch Modeling · the page's first open question: what does a glide sound like when its damping changes while it moves?</p>
+<p>Every glide here goes up a fifth, C3 to G3, on the same spring. Only the damping (ζ) changes — and in five of the seven, it changes <i>during</i> the glide. Blue is the pitch, the dashed line is the note, orange is ζ. Listen to all seven, then try the exercise at the bottom.</p>
+<div id="studies"></div>
+<h2>Exercise — what happened to the damping?</h2>
+<div id="quiz"></div>
+<p class="small" style="margin-top:24px">The one to sit with: <b>Loosened after arrival</b> sounds exactly like <b>Clean</b>. Damping acts on motion; a pitch at rest has none to lose. That is why ζ(t) is a gesture of the glide, not of the note.</p>
+<script>
+const D=/*DATA*/null;
+let ctx;function ac(){if(!ctx)ctx=new (window.AudioContext||window.webkitAudioContext)();return ctx}
+function play(s){const c=ac(),t0=c.currentTime+0.05,dur=D.dur_s;
+ const f=new Float32Array(s.cents_200hz.map(x=>D.f_target_hz*Math.pow(2,x/1200)));
+ const real=new Float32Array(8),imag=new Float32Array(8);for(let k=1;k<7;k++)imag[k]=Math.pow(.6,k-1)/k;
+ const o=c.createOscillator();o.setPeriodicWave(c.createPeriodicWave(real,imag));
+ o.frequency.setValueAtTime(f[0],t0);o.frequency.setValueCurveAtTime(f,t0,dur);
+ const g=c.createGain();g.gain.setValueAtTime(0,t0);g.gain.linearRampToValueAtTime(.25,t0+.02);
+ g.gain.setValueAtTime(.25,t0+dur-.25);g.gain.linearRampToValueAtTime(0,t0+dur);
+ o.connect(g).connect(c.destination);o.start(t0);o.stop(t0+dur+.05)}
+function draw(cv,s){const r=devicePixelRatio||1,W=cv.clientWidth,H=cv.clientHeight;cv.width=W*r;cv.height=H*r;
+ const x=cv.getContext('2d');x.scale(r,r);const n=s.cents_200hz.length,X=i=>i/(n-1)*W,Y=c=>H-(c+760)/1280*H;
+ x.strokeStyle='#aaa';x.setLineDash([3,3]);x.beginPath();x.moveTo(0,Y(0));x.lineTo(W,Y(0));x.stroke();x.setLineDash([]);
+ x.strokeStyle='#c05621';x.globalAlpha=.7;x.beginPath();s.zeta_200hz.forEach((z,i)=>{const y=H-z/3.2*H;i?x.lineTo(X(i),y):x.moveTo(X(i),y)});x.stroke();
+ x.globalAlpha=1;x.strokeStyle='#2b6cb0';x.lineWidth=1.8;x.beginPath();s.cents_200hz.forEach((c,i)=>i?x.lineTo(X(i),Y(c)):x.moveTo(X(i),Y(c)));x.stroke()}
+const box=document.getElementById('studies');
+D.studies.forEach(s=>{const d=document.createElement('div');d.className='study';
+ d.innerHTML=`<b>${s.name}</b> <span class="z">ζ ${s.zeta} · overshoot ${s.overshoot_cents} cents</span><canvas></canvas>
+ <button>▶ play</button><div class="note">${s.hear}</div><div class="note small">${s.physical}</div>`;
+ box.appendChild(d);d.querySelector('button').onclick=()=>play(s);requestAnimationFrame(()=>draw(d.querySelector('canvas'),s))});
+// exercise: each study twice, shuffled, picture hidden
+const LABEL={same:'never changed (as far as the ear can tell)',caught:'caught gradually',grabbed:'grabbed all at once',loosened:'let go while moving'};
+let deck=[...D.studies,...D.studies].map(v=>[Math.random(),v]).sort((a,b)=>a[0]-b[0]).map(v=>v[1]),i=0,right=0,log=[];
+const q=document.getElementById('quiz');
+function ask(){if(i>=deck.length){q.innerHTML=`<b>${right} of ${deck.length}</b> right. Paste this back if you like:<pre class="small">${JSON.stringify({zeta_over_time:{right,of:deck.length,log}})}</pre>`;return}
+ const s=deck[i];q.innerHTML=`<div class="small">${i+1} of ${deck.length}</div><button id="p">▶ play the glide</button>
+ <div class="choice" style="margin-top:8px">${Object.entries(LABEL).map(([k,v])=>`<button data-k="${k}">${v}</button>`).join('')}</div><div id="fb"></div>`;
+ q.querySelector('#p').onclick=()=>play(s);
+ q.querySelectorAll('.choice button').forEach(b=>b.onclick=()=>{const ok=b.dataset.k===s.answer;if(ok)right++;log.push([s.id,b.dataset.k]);
+  q.querySelector('#fb').innerHTML=`<p class="${ok?'ok':'no'}">${ok?'Yes':'Not quite'} — it was <b>${s.name}</b> (${LABEL[s.answer]}). ${s.hear}</p><button id="n">next</button>`;
+  q.querySelectorAll('.choice button').forEach(x=>x.disabled=true);q.querySelector('#n').onclick=()=>{i++;ask()}})}
+ask();
+</script></body></html>

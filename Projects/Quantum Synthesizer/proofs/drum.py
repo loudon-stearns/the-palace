@@ -104,7 +104,9 @@ def shape(md, P):
     r, ph = P
     m, j = md["m"], md["k"]
     ang = np.cos(m * ph) if md["trig"] == "cos" else np.sin(m * ph)
-    N = np.sqrt(np.pi) * abs(special.jv(m + 1, j))            # integral over the unit disk of J_m^2 cos^2 = pi J_{m+1}^2
+    # integral over the unit disk of J_m^2 cos^2(m phi): pi J_{m+1}^2 when m = 0, (pi/2) J_{m+1}^2 when m > 0.
+    # (Through cycle 18 this used pi for every m, leaving the m > 0 partials 6 dB quiet; caught by instrument-checks.txt.)
+    N = np.sqrt(np.pi if m == 0 else np.pi / 2) * abs(special.jv(m + 1, j))
     return special.jv(m, j * r) * ang / N * np.where(r <= 1, 1.0, 0.0)
 
 
@@ -283,6 +285,15 @@ for key, shp, eq, name in INSTR:
     say(f"  {name:32s} best return {R[j]:.5f} at {T[j] * 1e3:7.3f} ms"
         + (f"  → repeats {1 / T[j]:.1f} times a second" if periodic else "  → never repeats")
         + ("   PASS" if good else "   FAIL"))
+say("== check 5: every circle mode has unit loudness: its square integrated over the disk ==")
+_rr = (np.arange(4000) + 0.5) / 4000; _pp = (np.arange(720) + 0.5) * 2 * np.pi / 720
+_R, _P = np.meshgrid(_rr, _pp, indexing="ij"); _dA = (1 / 4000) * (2 * np.pi / 720) * _R
+_worst = 0.0
+for md in disk_modes()[:40]:
+    _worst = max(_worst, abs(np.sum(shape(md, (_R, _P))**2 * _dA) - 1))
+_good = _worst < 1e-3
+ok &= _good
+say(f"  first 40 circle modes, m = 0 and m > 0 alike: worst |integral - 1| = {_worst:.1e}" + ("   PASS" if _good else "   FAIL"))
 say("  ALL PASS" if ok else "  SOME FAIL")
 say(f"wrote drum.wav ({TOTAL:.1f} s): " + " · ".join(s["name"] for s in SEG))
 for key, shp, eq, name in INSTR:

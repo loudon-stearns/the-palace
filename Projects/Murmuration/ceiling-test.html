@@ -1,0 +1,730 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Murmuration — the voice ceiling, in your browser</title>
+<!--
+  MURMURATION · CEILING TEST. Open this one file in Chrome, Firefox and Safari, press Start,
+  and listen. It climbs the flock from 60 birds to 720, holding each size for six seconds
+  with the startle on and a strike every rung (the worst case: every bird scans every bird,
+  every grain voice sounds). Built by build_ceiling_test.js, which inlines
+  engine/murmur_engine.js unchanged, so the grains measured here are the grains the renders
+  came from.
+
+  What it measures, per rung:
+    audio load   — time spent inside the worklet's process() over the time the block
+                   represents (mean and worst block). Over 100% the audio thread cannot
+                   keep up and you hear clicks. Timed with performance.now() where the
+                   worklet scope has it, else Date.now(): ms ticks, but the mean over
+                   hundreds of blocks is still honest; the worst block is then coarse.
+    flock        — ms per frame for one flock step + mapping on the page's thread.
+    frames       — share of animation frames that came late (> 1.5x the median).
+    underruns    — Chrome's AudioContext.playbackStats where it exists; "n/a" elsewhere.
+    your ear     — "I heard a click" marks the rung. The ear outranks every number here.
+  A rung is clean when mean audio load < 60%, no reported underrun, no click heard, and (on a
+  fine clock only) the worst block < 90%. Late frames flag a stuttering picture, not a sound.
+  The ceiling is the last clean rung.
+
+  The view: the flock at the current size over the terrain, seen from the air; behind it a
+  row of glass columns, one per rung, rising with that rung's audio load toward the red
+  ceiling at 100%. No library, no storage, no fetch: it runs sandboxed in the board.
+-->
+<style>
+  :root { --bg:#0b0d12; --fg:#e8e6df; --dim:#8b8a85; --line:#2a2d36; --acc:#e9b45a; --hot:#e0645a; --ok:#7fc8a0; }
+  html,body { margin:0; height:100%; background:var(--bg); color:var(--fg); font:13px/1.4 ui-monospace,Menlo,monospace; overflow:hidden; }
+  canvas { display:block; width:100vw; height:100vh; }
+  #ui { position:fixed; left:12px; top:12px; width:250px; background:rgba(11,13,18,.82); border:1px solid var(--line); border-radius:6px; padding:10px 12px; }
+  #ui h1 { font-size:12px; letter-spacing:.12em; text-transform:uppercase; margin:0 0 6px; color:var(--acc); font-weight:600; }
+  #ui p { margin:4px 0; color:var(--dim); font-size:11px; }
+  #ui button { width:100%; margin-top:6px; background:#141720; color:var(--fg); border:1px solid var(--line); border-radius:4px; font:inherit; padding:6px; cursor:pointer; }
+  #ui button.big { border-color:var(--acc); color:var(--acc); }
+  #ui button.ear { border-color:var(--hot); color:var(--hot); }
+  #ui button:disabled { opacity:.4; cursor:default; }
+  #hud { position:fixed; right:12px; top:12px; text-align:right; color:var(--dim); font-size:12px; }
+  #hud b { color:var(--fg); font-weight:600; }
+  #res { position:fixed; right:12px; bottom:12px; width:560px; max-width:calc(100vw - 300px); background:rgba(11,13,18,.86); border:1px solid var(--line); border-radius:6px; padding:8px 10px; font-size:11px; }
+  #res table { width:100%; border-collapse:collapse; }
+  #res th { color:var(--dim); font-weight:400; text-align:right; padding:1px 4px; }
+  #res td { text-align:right; padding:1px 4px; }
+  #res td.v { text-align:left; }
+  .clean { color:var(--ok); } .strained { color:var(--acc); } .over, .heard { color:var(--hot); }
+  #verdict { margin-top:6px; color:var(--fg); }
+  #report { width:100%; height:70px; margin-top:6px; background:#0f1218; color:var(--dim); border:1px solid var(--line); font:10px/1.3 ui-monospace,Menlo,monospace; display:none; }
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<script type="text/plain" id="engineSrc">const E = (() => { const module = { exports: {} };
+// Murmuration — headless twin of Murmuration.html.
+//
+// The flock (stepFlock / polarization), the boid→grain mapping (pushFlock) and the
+// grain voice (the AudioWorklet's process loop) are copied from the page line for line.
+// Two deliberate differences, both for repeatability:
+//   1. the worklet's Math.random() (grain re-phase "shimmer", initial phases) is a
+//      seeded mulberry32 stream separate from the flock's, so the flock's random
+//      sequence stays exactly the page's;
+//   2. no DynamicsCompressor — renders are level-matched offline instead.
+//
+// It also holds the AUTHORED cloud: the same 60 grain voices, the same mapping, the
+// same per-frame centre and spread as the flock — but each voice wanders on its own
+// (independent smooth random jitter) instead of steering by its neighbours. It is the
+// hard version of the wager's control: everything a hand-dialed granular synth could
+// copy from the flock is copied; only the social coordination is taken away.
+"use strict";
+
+const SEED = 7;
+const WIDTH = 920, HEIGHT = 520;
+const NEIGHBOR_R = 56, NEIGHBOR_R2 = NEIGHBOR_R * NEIGHBOR_R;
+const MAX_SPEED = 3, MAX_FORCE = 0.05;
+const SEE_R = 150, KNN = 7, ALARM_PASS = 0.88, ALARM_FLOOR = 0.2, ALARM_RISE = 0.12, ALARM_DECAY = 0.985, DASH = 0.3;   // the startle (third reading)
+const FPS = 60;
+const L = 2048, LMASK = L - 1;
+
+function mulberry32(a) { return function () { a |= 0; a = (a + 0x6D2B79F5) | 0; let t = Math.imul(a ^ (a >>> 15), 1 | a); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
+
+function torDelta(ax, ay, bx, by) { let dx = bx - ax, dy = by - ay; if (dx > WIDTH * 0.5) dx -= WIDTH; else if (dx < -WIDTH * 0.5) dx += WIDTH; if (dy > HEIGHT * 0.5) dy -= HEIGHT; else if (dy < -HEIGHT * 0.5) dy += HEIGHT; return [dx, dy]; }
+function setMag(x, y, m) { const n = Math.hypot(x, y); return n > 0 ? [x / n * m, y / n * m] : [0, 0]; }
+function limit(x, y, mx) { const n = Math.hypot(x, y); return (n > mx && n > 0) ? [x / n * mx, y / n * mx] : [x, y]; }
+
+class Flock {
+  constructor(n, seed = SEED) {
+    this.rng = mulberry32(seed);
+    this.field = { attract: null, predator: null, predT: 0 };
+    const b = [];
+    for (let i = 0; i < n; i++) {
+      const x = this.rng() * WIDTH, y = this.rng() * HEIGHT, a = this.rng() * Math.PI * 2, sp = 0.5 * MAX_SPEED + this.rng() * 0.5 * MAX_SPEED;
+      b.push({ x, y, vx: Math.cos(a) * sp, vy: Math.sin(a) * sp, nb: 0, a: 0 });
+    }
+    this.boids = b;
+  }
+  step(w) {                                   // = stepFlock() in Murmuration.html
+    const boids = this.boids, field = this.field, rng = this.rng, N = boids.length;
+    const nvx = new Float64Array(N), nvy = new Float64Array(N), nbN = new Int32Array(N);
+    const st = !!w.startle, nA = new Float64Array(N), kd = new Float64Array(KNN), ka = new Float64Array(KNN), kx = new Float64Array(KNN), ky = new Float64Array(KNN);
+    for (let i = 0; i < N; i++) {
+      const b = boids[i];
+      let sepX = 0, sepY = 0, sepN = 0, aliX = 0, aliY = 0, aliN = 0, cohX = 0, cohY = 0, cohN = 0;
+      let mxA = 0, upX = 0, upY = 0;
+      if (st) { kd.fill(Infinity); ka.fill(0); }
+      for (let j = 0; j < N; j++) {
+        if (i === j) continue;
+        const o = boids[j];
+        const [dx, dy] = torDelta(b.x, b.y, o.x, o.y);
+        const d2 = dx * dx + dy * dy;
+        if (d2 > 0 && d2 < NEIGHBOR_R2) { sepX -= dx / d2; sepY -= dy / d2; sepN++; aliX += o.vx; aliY += o.vy; aliN++; cohX += dx; cohY += dy; cohN++; }
+        if (st && d2 > 0 && d2 < kd[KNN - 1]) { let q = KNN - 1; while (q > 0 && kd[q - 1] > d2) { kd[q] = kd[q - 1]; ka[q] = ka[q - 1]; kx[q] = kx[q - 1]; ky[q] = ky[q - 1]; q--; } kd[q] = d2; ka[q] = o.a; kx[q] = dx; ky[q] = dy; }
+      }
+      // STARTLE (the third reading, opt-in): each boid carries an alarm a ∈ [0,1]. It rises when
+      // the boid sees the predator, or catches it from its most alarmed neighbour (one step
+      // weaker per hop, a few frames' reaction time per hop), and fades over about a second.
+      // Contagion is topological, as measured in real starlings (Ballerini et al. 2008): a boid
+      // watches its 7 nearest flockmates however far away they are, not everyone within a radius.
+      // Alarmed boids fly faster, push apart harder, hold the group less, and dodge away from
+      // where the alarm is coming from — so the startle travels through the flock as a wave
+      // several times faster than any boid, and the regathering afterwards is plain flocking.
+      let ga = 1, kSep = 1, kAli = 1, kCoh = 1, spMax = MAX_SPEED;
+      if (st) {
+        for (let q = 0; q < KNN; q++) { if (kd[q] === Infinity) break; if (ka[q] > mxA) mxA = ka[q]; if (ka[q] > b.a) { upX += (ka[q] - b.a) * kx[q]; upY += (ka[q] - b.a) * ky[q]; } }
+        let see = 0;
+        if (field.predator && field.predT > 0) { const [dx, dy] = torDelta(field.predator.x, field.predator.y, b.x, b.y); const d = Math.hypot(dx, dy); if (d < SEE_R) see = Math.min(1, 1.6 * field.predT * (1 - d / SEE_R)); }
+        const tgt = Math.max(see, mxA > ALARM_FLOOR ? ALARM_PASS * mxA : 0);
+        const a = tgt > b.a ? b.a + ALARM_RISE * (tgt - b.a) : b.a * ALARM_DECAY;
+        nA[i] = a; ga = a;
+        kSep = 1 + 1.5 * a; kAli = 1 - 0.5 * a; kCoh = 1 - 0.7 * a; spMax = MAX_SPEED * (1 + 0.8 * a);
+      }
+      let fx = 0, fy = 0;
+      if (sepN > 0) { const [dx, dy] = setMag(sepX, sepY, MAX_SPEED); const [sx, sy] = limit(dx - b.vx, dy - b.vy, MAX_FORCE); fx += kSep * w.sep * sx; fy += kSep * w.sep * sy; }
+      if (aliN > 0) { const [dx, dy] = setMag(aliX / aliN, aliY / aliN, MAX_SPEED); const [sx, sy] = limit(dx - b.vx, dy - b.vy, MAX_FORCE); fx += kAli * w.ali * sx; fy += kAli * w.ali * sy; }
+      if (cohN > 0) { const [dx, dy] = setMag(cohX / cohN, cohY / cohN, MAX_SPEED); const [sx, sy] = limit(dx - b.vx, dy - b.vy, MAX_FORCE); fx += kCoh * w.coh * sx; fy += kCoh * w.coh * sy; }
+      if (st && ga > 0.02 && (upX !== 0 || upY !== 0)) { const [dx, dy] = setMag(-upX, -upY, spMax); const [sx, sy] = limit(dx - b.vx, dy - b.vy, MAX_FORCE * 3); fx += 3 * ga * sx; fy += 3 * ga * sy; }
+      if (field.attract) { const [dx, dy] = torDelta(b.x, b.y, field.attract.x, field.attract.y); const [sx, sy] = limit(...setMag(dx, dy, MAX_SPEED), MAX_FORCE * 1.4); fx += 0.9 * sx; fy += 0.9 * sy; }
+      if (field.predator && field.predT > 0) { const [dx, dy] = torDelta(field.predator.x, field.predator.y, b.x, b.y); const d = Math.hypot(dx, dy) + 1e-6; if (d < 200) { const g = field.predT * (1 - d / 200); const [sx, sy] = setMag(dx, dy, MAX_SPEED); fx += 4.0 * g * sx; fy += 4.0 * g * sy; } }
+      let vx = b.vx + fx, vy = b.vy + fy;
+      if (st && ga > 0.02) { const m = Math.hypot(vx, vy) || 1; vx += vx / m * DASH * ga; vy += vy / m * DASH * ga; }
+      if (w.eta > 0) { const ang = (rng() * 2 - 1) * w.eta * Math.PI; const c = Math.cos(ang), s = Math.sin(ang); const rx = vx * c - vy * s, ry = vx * s + vy * c; vx = rx; vy = ry; }
+      [vx, vy] = limit(vx, vy, spMax);
+      nvx[i] = vx; nvy[i] = vy; nbN[i] = cohN;
+    }
+    for (let i = 0; i < N; i++) { const b = boids[i]; b.vx = nvx[i]; b.vy = nvy[i]; b.nb = nbN[i]; if (st) b.a = nA[i]; b.x = (b.x + b.vx + WIDTH) % WIDTH; b.y = (b.y + b.vy + HEIGHT) % HEIGHT; }
+    if (field.predT > 0) field.predT -= 0.045;
+  }
+  polarization() { let sx = 0, sy = 0; for (const b of this.boids) { const m = Math.hypot(b.vx, b.vy); if (m > 0) { sx += b.vx / m; sy += b.vy / m; } } return Math.hypot(sx, sy) / this.boids.length; }
+}
+
+// Circular mean of x/y on the torus + covariance of the wrapped deviations from it,
+// plus the speed and radial-velocity statistics the mapping reads.
+function cloudStats(boids) {
+  let cx = 0, sx = 0, cy = 0, sy = 0;
+  for (const b of boids) { const ax = b.x / WIDTH * 2 * Math.PI, ay = b.y / HEIGHT * 2 * Math.PI; cx += Math.cos(ax); sx += Math.sin(ax); cy += Math.cos(ay); sy += Math.sin(ay); }
+  const mx = ((Math.atan2(sx, cx) / (2 * Math.PI)) + 1) % 1 * WIDTH, my = ((Math.atan2(sy, cy) / (2 * Math.PI)) + 1) % 1 * HEIGHT;
+  const N = boids.length; let vxx = 0, vyy = 0, vxy = 0, spd = 0, spd2 = 0;
+  for (const b of boids) { const [dx, dy] = torDelta(mx, my, b.x, b.y); vxx += dx * dx; vyy += dy * dy; vxy += dx * dy; const s = Math.hypot(b.vx, b.vy); spd += s; spd2 += s * s; }
+  vxx /= N; vyy /= N; vxy /= N; spd /= N; spd2 = Math.max(0, spd2 / N - spd * spd);
+  let hx = 0, hy = 0; for (const b of boids) { const m = Math.hypot(b.vx, b.vy); if (m > 0) { hx += b.vx / m; hy += b.vy / m; } }
+  const phi = Math.min(0.999999, Math.hypot(hx, hy) / N), hMean = Math.atan2(hy, hx), hSig = Math.min(Math.sqrt(-2 * Math.log(Math.max(phi, 1e-6))), 4 * Math.PI);
+  return { mx, my, vxx, vyy, vxy, spd, spdSd: Math.sqrt(spd2), phi, hMean, hSig };
+}
+
+// The authored cloud: N voices, each an independent Ornstein–Uhlenbeck wanderer in a
+// standardised space, mapped onto the flock's own centre and covariance every frame.
+// tauSec is the one hand-dialed knob (how smooth each grain's jitter is).
+class AuthoredCloud {
+  constructor(n, seed = SEED + 101, tauSec = 0.6) {
+    this.rng = mulberry32(seed); this.n = n; this.a = Math.exp(-1 / (tauSec * FPS)); this.k = Math.sqrt(1 - this.a * this.a);
+    this.z = []; for (let i = 0; i < n; i++) this.z.push([this.gauss(), this.gauss(), this.gauss(), this.gauss(), this.gauss()]);
+    this.boids = []; this.prev = null;
+  }
+  gauss() { let u = 0; while (u === 0) u = this.rng(); return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * this.rng()); }
+  step(st) {
+    const { mx, my, vxx, vyy, vxy } = st;
+    const l11 = Math.sqrt(Math.max(vxx, 1e-9)), l21 = vxy / l11, l22 = Math.sqrt(Math.max(vyy - l21 * l21, 1e-9));
+    const out = [];
+    for (let i = 0; i < this.n; i++) {
+      const z = this.z[i]; for (let d = 0; d < 5; d++) z[d] = this.a * z[d] + this.k * this.gauss();
+      const x = ((mx + l11 * z[0]) % WIDTH + WIDTH) % WIDTH, y = ((my + l21 * z[0] + l22 * z[1]) % HEIGHT + HEIGHT) % HEIGHT;
+      // speed: same mean and spread as the flock's, each voice jittering on its own;
+      // heading: its own random walk around the flock's mean heading, with the wrapped-normal
+      // width that gives the same polarization φ (R = e^(−σ²/2)) — same agreement, no neighbours.
+      const sp = Math.max(0, Math.min(MAX_SPEED, st.spd + st.spdSd * z[2])), hd = st.hMean + st.hSig * z[3];
+      out.push({ x, y, vx: Math.cos(hd) * sp, vy: Math.sin(hd) * sp, nb: 0 });
+    }
+    for (let i = 0; i < this.n; i++) { let c = 0; const b = out[i]; for (let j = 0; j < this.n; j++) { if (i === j) continue; const [dx, dy] = torDelta(b.x, b.y, out[j].x, out[j].y); const d2 = dx * dx + dy * dy; if (d2 > 0 && d2 < NEIGHBOR_R2) c++; } b.nb = c; }
+    this.boids = out;
+  }
+  // Grain length is copied the same way: each voice jitters on its own around the flock's
+  // mean and spread of grain rate this frame, so the two clouds click and sing in the same
+  // proportion and only *which* grain does which, and when, differs.
+  matchGrainRate(mappedA, mappedF) {
+    const n = this.n; let m = 0, m2 = 0; for (let i = 0; i < n; i++) { const g = mappedF[i * 6 + 4]; m += g; m2 += g * g; }
+    m /= n; const sd = Math.sqrt(Math.max(0, m2 / n - m * m));
+    for (let i = 0; i < n; i++) mappedA[i * 6 + 4] = Math.max(4, Math.min(104, m + sd * this.z[i][4]));
+    return mappedA;
+  }
+}
+
+// = pushFlock() in Murmuration.html, plus the "listening" mapping (P.mapping === "order"):
+//   pitch  — the heading circle is the pitch circle (one octave around), so heading
+//            agreement (φ) is heard as pitch agreement: aligned → unison, scattered → cluster;
+//   grain  — grain length follows each boid's heading persistence (how steady its course
+//            has been over the last ~¼ s): a boid held on course by its neighbours plays
+//            long, tonal grains; a boid tumbling in the noise plays short clicks.
+// mem is per-voice state (the persistence average), kept by the caller between frames.
+function mapBoids(boids, P, mem) {
+  const N = boids.length, f = new Float32Array(N * 6), cx = WIDTH * 0.5, cy = HEIGHT * 0.5;
+  const order = P.mapping === "order";
+  if (order && mem && mem.hx === undefined) { mem.hx = new Float64Array(N); mem.hy = new Float64Array(N); for (let i = 0; i < N; i++) { const b = boids[i], m = Math.hypot(b.vx, b.vy) || 1; mem.hx[i] = b.vx / m; mem.hy[i] = b.vy / m; } }
+  for (let i = 0; i < N; i++) {
+    const b = boids[i], u = b.x / WIDTH, v = b.y / HEIGHT;
+    const semis = order ? 12 * Math.atan2(b.vy, b.vx) / (2 * Math.PI) : (0.5 - v) * P.pitch;
+    const rdx = b.x - cx, rdy = b.y - cy, rd = Math.hypot(rdx, rdy) + 1e-6;
+    const vrad = (b.vx * rdx + b.vy * rdy) / rd, dopp = 1 - 0.012 * vrad;
+    const freq = P.base * Math.pow(2, semis / 12) * dopp;
+    const spd = Math.hypot(b.vx, b.vy) / MAX_SPEED;
+    let grainHz = 18 + spd * 90;
+    if (order && mem) {
+      const m = Math.hypot(b.vx, b.vy) || 1, a = 0.93;          // ~0.24 s memory at 60 fps
+      mem.hx[i] = a * mem.hx[i] + (1 - a) * b.vx / m; mem.hy[i] = a * mem.hy[i] + (1 - a) * b.vy / m;
+      const pers = Math.min(1, Math.hypot(mem.hx[i], mem.hy[i]));  // 1 = dead straight, ~0.3 = tumbling
+      const q = Math.pow(pers, 6);
+      grainHz = 4 + (1 - q) * 100;                               // 4 Hz (250 ms, tonal) … 104 Hz (10 ms, click)
+    }
+    const gain = (0.55 + 0.45 * Math.min(1, b.nb / 6)) * (P.startle ? 1 + 1.5 * (b.a || 0) : 1), k = i * 6;
+    f[k] = u; f[k + 1] = v; f[k + 2] = freq; f[k + 3] = gain; f[k + 4] = grainHz; f[k + 5] = u;
+  }
+  return f;
+}
+
+function buildCorners() {
+  const TL = new Float32Array(L), TR = new Float32Array(L), BL = new Float32Array(L), BR = new Float32Array(L);
+  for (let i = 0; i < L; i++) { const ph = i / L, t = ph * 2 * Math.PI; TL[i] = Math.sin(t); TR[i] = 2 * ph - 1; BL[i] = ph < 0.5 ? 1 : -1; BR[i] = 0.6 * Math.sin(t) + 0.4 * Math.sin(2.76 * t) + 0.28 * Math.sin(5.4 * t) + 0.18 * Math.sin(8.93 * t); }
+  let mx = 0; for (let i = 0; i < L; i++) mx = Math.max(mx, Math.abs(BR[i])); if (mx > 0) for (let i = 0; i < L; i++) BR[i] /= mx;
+  return { TL, TR, BL, BR };
+}
+
+// = GranularProcessor in the page's worklet (Math.random → seeded stream)
+class Grains {
+  constructor(sr, seed = SEED + 1000) { this.sr = sr; this.rng = mulberry32(seed); this.voices = []; this.master = 0.7; this.shimmer = 0.55; Object.assign(this, buildCorners()); }
+  setFlock(f, n) {
+    while (this.voices.length < n) this.voices.push({ u: 0.5, v: 0.5, freq: 110, gain: 0, grainHz: 40, pan: 0.5, phase: this.rng(), gp: this.rng() });
+    this.voices.length = n;
+    for (let i = 0; i < n; i++) { const o = this.voices[i], k = i * 6; o.u = f[k]; o.v = f[k + 1]; o.freq = f[k + 2]; o.gain = f[k + 3]; o.grainHz = f[k + 4]; o.pan = f[k + 5]; }
+  }
+  process(outL, outR, n) {
+    const invSr = 1 / this.sr, { TL, TR, BL, BR } = this, norm = this.master / Math.sqrt(Math.max(1, this.voices.length));
+    for (let s = 0; s < n; s++) {
+      let accL = 0, accR = 0;
+      for (let vi = 0; vi < this.voices.length; vi++) {
+        const o = this.voices[vi]; if (o.gain <= 0) continue;
+        const env = 0.5 - 0.5 * Math.cos(2 * Math.PI * o.gp);
+        const idx = o.phase * L, i0 = idx | 0, fr = idx - i0, i1 = (i0 + 1) & LMASK;
+        const stl = TL[i0] + fr * (TL[i1] - TL[i0]), str = TR[i0] + fr * (TR[i1] - TR[i0]);
+        const sbl = BL[i0] + fr * (BL[i1] - BL[i0]), sbr = BR[i0] + fr * (BR[i1] - BR[i0]);
+        const top = stl + o.u * (str - stl), bot = sbl + o.u * (sbr - sbl);
+        const smp = (top + o.v * (bot - top)) * env * o.gain;
+        accL += smp * Math.cos(o.pan * Math.PI * 0.5); accR += smp * Math.sin(o.pan * Math.PI * 0.5);
+        o.phase += o.freq * invSr; if (o.phase >= 1) o.phase -= 1;
+        o.gp += o.grainHz * invSr;
+        if (o.gp >= 1) { o.gp -= 1; o.phase = (1 - this.shimmer) * o.phase + this.shimmer * this.rng(); }
+      }
+      outL[s] = accL * norm; outR[s] = accR * norm;
+    }
+  }
+}
+
+function writeWav16(path, L_, R_, sr) {
+  const fs = require("fs"), total = L_.length, pcm = Buffer.alloc(44 + total * 4);
+  pcm.write("RIFF", 0); pcm.writeUInt32LE(36 + total * 4, 4); pcm.write("WAVEfmt ", 8);
+  pcm.writeUInt32LE(16, 16); pcm.writeUInt16LE(1, 20); pcm.writeUInt16LE(2, 22); pcm.writeUInt32LE(sr, 24);
+  pcm.writeUInt32LE(sr * 4, 28); pcm.writeUInt16LE(4, 32); pcm.writeUInt16LE(16, 34); pcm.write("data", 36); pcm.writeUInt32LE(total * 4, 40);
+  for (let i = 0; i < total; i++) { pcm.writeInt16LE(Math.round(Math.max(-1, Math.min(1, L_[i])) * 32767), 44 + i * 4); pcm.writeInt16LE(Math.round(Math.max(-1, Math.min(1, R_[i])) * 32767), 46 + i * 4); }
+  fs.writeFileSync(path, pcm);
+}
+
+module.exports = { SEE_R, SEED, WIDTH, HEIGHT, MAX_SPEED, FPS, mulberry32, Flock, AuthoredCloud, cloudStats, mapBoids, Grains, writeWav16 };
+
+return module.exports; })();
+</script>
+<div id="ui">
+  <h1>Murmuration · ceiling</h1>
+  <p>Climbs the flock from 60 to 720 birds, six seconds a size, a strike on every size. About a minute. Turn the volume down first; it gets dense.</p>
+  <button id="go" class="big">Start the climb</button>
+  <button id="ear" class="ear" disabled>I heard a click</button>
+  <button id="stop" disabled>Stop</button>
+  <p id="env"></p>
+</div>
+<div id="hud"></div>
+<div id="res">
+  <table><thead><tr><th>birds</th><th>audio mean</th><th>worst block</th><th>flock ms</th><th>late frames</th><th>underruns</th><th class="v">reads</th></tr></thead><tbody id="rows"></tbody></table>
+  <div id="verdict">Press Start. The table fills as it climbs.</div>
+  <textarea id="report" readonly></textarea>
+</div>
+<script>
+const E = (() => { const module = { exports: {} };
+// Murmuration — headless twin of Murmuration.html.
+//
+// The flock (stepFlock / polarization), the boid→grain mapping (pushFlock) and the
+// grain voice (the AudioWorklet's process loop) are copied from the page line for line.
+// Two deliberate differences, both for repeatability:
+//   1. the worklet's Math.random() (grain re-phase "shimmer", initial phases) is a
+//      seeded mulberry32 stream separate from the flock's, so the flock's random
+//      sequence stays exactly the page's;
+//   2. no DynamicsCompressor — renders are level-matched offline instead.
+//
+// It also holds the AUTHORED cloud: the same 60 grain voices, the same mapping, the
+// same per-frame centre and spread as the flock — but each voice wanders on its own
+// (independent smooth random jitter) instead of steering by its neighbours. It is the
+// hard version of the wager's control: everything a hand-dialed granular synth could
+// copy from the flock is copied; only the social coordination is taken away.
+"use strict";
+
+const SEED = 7;
+const WIDTH = 920, HEIGHT = 520;
+const NEIGHBOR_R = 56, NEIGHBOR_R2 = NEIGHBOR_R * NEIGHBOR_R;
+const MAX_SPEED = 3, MAX_FORCE = 0.05;
+const SEE_R = 150, KNN = 7, ALARM_PASS = 0.88, ALARM_FLOOR = 0.2, ALARM_RISE = 0.12, ALARM_DECAY = 0.985, DASH = 0.3;   // the startle (third reading)
+const FPS = 60;
+const L = 2048, LMASK = L - 1;
+
+function mulberry32(a) { return function () { a |= 0; a = (a + 0x6D2B79F5) | 0; let t = Math.imul(a ^ (a >>> 15), 1 | a); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
+
+function torDelta(ax, ay, bx, by) { let dx = bx - ax, dy = by - ay; if (dx > WIDTH * 0.5) dx -= WIDTH; else if (dx < -WIDTH * 0.5) dx += WIDTH; if (dy > HEIGHT * 0.5) dy -= HEIGHT; else if (dy < -HEIGHT * 0.5) dy += HEIGHT; return [dx, dy]; }
+function setMag(x, y, m) { const n = Math.hypot(x, y); return n > 0 ? [x / n * m, y / n * m] : [0, 0]; }
+function limit(x, y, mx) { const n = Math.hypot(x, y); return (n > mx && n > 0) ? [x / n * mx, y / n * mx] : [x, y]; }
+
+class Flock {
+  constructor(n, seed = SEED) {
+    this.rng = mulberry32(seed);
+    this.field = { attract: null, predator: null, predT: 0 };
+    const b = [];
+    for (let i = 0; i < n; i++) {
+      const x = this.rng() * WIDTH, y = this.rng() * HEIGHT, a = this.rng() * Math.PI * 2, sp = 0.5 * MAX_SPEED + this.rng() * 0.5 * MAX_SPEED;
+      b.push({ x, y, vx: Math.cos(a) * sp, vy: Math.sin(a) * sp, nb: 0, a: 0 });
+    }
+    this.boids = b;
+  }
+  step(w) {                                   // = stepFlock() in Murmuration.html
+    const boids = this.boids, field = this.field, rng = this.rng, N = boids.length;
+    const nvx = new Float64Array(N), nvy = new Float64Array(N), nbN = new Int32Array(N);
+    const st = !!w.startle, nA = new Float64Array(N), kd = new Float64Array(KNN), ka = new Float64Array(KNN), kx = new Float64Array(KNN), ky = new Float64Array(KNN);
+    for (let i = 0; i < N; i++) {
+      const b = boids[i];
+      let sepX = 0, sepY = 0, sepN = 0, aliX = 0, aliY = 0, aliN = 0, cohX = 0, cohY = 0, cohN = 0;
+      let mxA = 0, upX = 0, upY = 0;
+      if (st) { kd.fill(Infinity); ka.fill(0); }
+      for (let j = 0; j < N; j++) {
+        if (i === j) continue;
+        const o = boids[j];
+        const [dx, dy] = torDelta(b.x, b.y, o.x, o.y);
+        const d2 = dx * dx + dy * dy;
+        if (d2 > 0 && d2 < NEIGHBOR_R2) { sepX -= dx / d2; sepY -= dy / d2; sepN++; aliX += o.vx; aliY += o.vy; aliN++; cohX += dx; cohY += dy; cohN++; }
+        if (st && d2 > 0 && d2 < kd[KNN - 1]) { let q = KNN - 1; while (q > 0 && kd[q - 1] > d2) { kd[q] = kd[q - 1]; ka[q] = ka[q - 1]; kx[q] = kx[q - 1]; ky[q] = ky[q - 1]; q--; } kd[q] = d2; ka[q] = o.a; kx[q] = dx; ky[q] = dy; }
+      }
+      // STARTLE (the third reading, opt-in): each boid carries an alarm a ∈ [0,1]. It rises when
+      // the boid sees the predator, or catches it from its most alarmed neighbour (one step
+      // weaker per hop, a few frames' reaction time per hop), and fades over about a second.
+      // Contagion is topological, as measured in real starlings (Ballerini et al. 2008): a boid
+      // watches its 7 nearest flockmates however far away they are, not everyone within a radius.
+      // Alarmed boids fly faster, push apart harder, hold the group less, and dodge away from
+      // where the alarm is coming from — so the startle travels through the flock as a wave
+      // several times faster than any boid, and the regathering afterwards is plain flocking.
+      let ga = 1, kSep = 1, kAli = 1, kCoh = 1, spMax = MAX_SPEED;
+      if (st) {
+        for (let q = 0; q < KNN; q++) { if (kd[q] === Infinity) break; if (ka[q] > mxA) mxA = ka[q]; if (ka[q] > b.a) { upX += (ka[q] - b.a) * kx[q]; upY += (ka[q] - b.a) * ky[q]; } }
+        let see = 0;
+        if (field.predator && field.predT > 0) { const [dx, dy] = torDelta(field.predator.x, field.predator.y, b.x, b.y); const d = Math.hypot(dx, dy); if (d < SEE_R) see = Math.min(1, 1.6 * field.predT * (1 - d / SEE_R)); }
+        const tgt = Math.max(see, mxA > ALARM_FLOOR ? ALARM_PASS * mxA : 0);
+        const a = tgt > b.a ? b.a + ALARM_RISE * (tgt - b.a) : b.a * ALARM_DECAY;
+        nA[i] = a; ga = a;
+        kSep = 1 + 1.5 * a; kAli = 1 - 0.5 * a; kCoh = 1 - 0.7 * a; spMax = MAX_SPEED * (1 + 0.8 * a);
+      }
+      let fx = 0, fy = 0;
+      if (sepN > 0) { const [dx, dy] = setMag(sepX, sepY, MAX_SPEED); const [sx, sy] = limit(dx - b.vx, dy - b.vy, MAX_FORCE); fx += kSep * w.sep * sx; fy += kSep * w.sep * sy; }
+      if (aliN > 0) { const [dx, dy] = setMag(aliX / aliN, aliY / aliN, MAX_SPEED); const [sx, sy] = limit(dx - b.vx, dy - b.vy, MAX_FORCE); fx += kAli * w.ali * sx; fy += kAli * w.ali * sy; }
+      if (cohN > 0) { const [dx, dy] = setMag(cohX / cohN, cohY / cohN, MAX_SPEED); const [sx, sy] = limit(dx - b.vx, dy - b.vy, MAX_FORCE); fx += kCoh * w.coh * sx; fy += kCoh * w.coh * sy; }
+      if (st && ga > 0.02 && (upX !== 0 || upY !== 0)) { const [dx, dy] = setMag(-upX, -upY, spMax); const [sx, sy] = limit(dx - b.vx, dy - b.vy, MAX_FORCE * 3); fx += 3 * ga * sx; fy += 3 * ga * sy; }
+      if (field.attract) { const [dx, dy] = torDelta(b.x, b.y, field.attract.x, field.attract.y); const [sx, sy] = limit(...setMag(dx, dy, MAX_SPEED), MAX_FORCE * 1.4); fx += 0.9 * sx; fy += 0.9 * sy; }
+      if (field.predator && field.predT > 0) { const [dx, dy] = torDelta(field.predator.x, field.predator.y, b.x, b.y); const d = Math.hypot(dx, dy) + 1e-6; if (d < 200) { const g = field.predT * (1 - d / 200); const [sx, sy] = setMag(dx, dy, MAX_SPEED); fx += 4.0 * g * sx; fy += 4.0 * g * sy; } }
+      let vx = b.vx + fx, vy = b.vy + fy;
+      if (st && ga > 0.02) { const m = Math.hypot(vx, vy) || 1; vx += vx / m * DASH * ga; vy += vy / m * DASH * ga; }
+      if (w.eta > 0) { const ang = (rng() * 2 - 1) * w.eta * Math.PI; const c = Math.cos(ang), s = Math.sin(ang); const rx = vx * c - vy * s, ry = vx * s + vy * c; vx = rx; vy = ry; }
+      [vx, vy] = limit(vx, vy, spMax);
+      nvx[i] = vx; nvy[i] = vy; nbN[i] = cohN;
+    }
+    for (let i = 0; i < N; i++) { const b = boids[i]; b.vx = nvx[i]; b.vy = nvy[i]; b.nb = nbN[i]; if (st) b.a = nA[i]; b.x = (b.x + b.vx + WIDTH) % WIDTH; b.y = (b.y + b.vy + HEIGHT) % HEIGHT; }
+    if (field.predT > 0) field.predT -= 0.045;
+  }
+  polarization() { let sx = 0, sy = 0; for (const b of this.boids) { const m = Math.hypot(b.vx, b.vy); if (m > 0) { sx += b.vx / m; sy += b.vy / m; } } return Math.hypot(sx, sy) / this.boids.length; }
+}
+
+// Circular mean of x/y on the torus + covariance of the wrapped deviations from it,
+// plus the speed and radial-velocity statistics the mapping reads.
+function cloudStats(boids) {
+  let cx = 0, sx = 0, cy = 0, sy = 0;
+  for (const b of boids) { const ax = b.x / WIDTH * 2 * Math.PI, ay = b.y / HEIGHT * 2 * Math.PI; cx += Math.cos(ax); sx += Math.sin(ax); cy += Math.cos(ay); sy += Math.sin(ay); }
+  const mx = ((Math.atan2(sx, cx) / (2 * Math.PI)) + 1) % 1 * WIDTH, my = ((Math.atan2(sy, cy) / (2 * Math.PI)) + 1) % 1 * HEIGHT;
+  const N = boids.length; let vxx = 0, vyy = 0, vxy = 0, spd = 0, spd2 = 0;
+  for (const b of boids) { const [dx, dy] = torDelta(mx, my, b.x, b.y); vxx += dx * dx; vyy += dy * dy; vxy += dx * dy; const s = Math.hypot(b.vx, b.vy); spd += s; spd2 += s * s; }
+  vxx /= N; vyy /= N; vxy /= N; spd /= N; spd2 = Math.max(0, spd2 / N - spd * spd);
+  let hx = 0, hy = 0; for (const b of boids) { const m = Math.hypot(b.vx, b.vy); if (m > 0) { hx += b.vx / m; hy += b.vy / m; } }
+  const phi = Math.min(0.999999, Math.hypot(hx, hy) / N), hMean = Math.atan2(hy, hx), hSig = Math.min(Math.sqrt(-2 * Math.log(Math.max(phi, 1e-6))), 4 * Math.PI);
+  return { mx, my, vxx, vyy, vxy, spd, spdSd: Math.sqrt(spd2), phi, hMean, hSig };
+}
+
+// The authored cloud: N voices, each an independent Ornstein–Uhlenbeck wanderer in a
+// standardised space, mapped onto the flock's own centre and covariance every frame.
+// tauSec is the one hand-dialed knob (how smooth each grain's jitter is).
+class AuthoredCloud {
+  constructor(n, seed = SEED + 101, tauSec = 0.6) {
+    this.rng = mulberry32(seed); this.n = n; this.a = Math.exp(-1 / (tauSec * FPS)); this.k = Math.sqrt(1 - this.a * this.a);
+    this.z = []; for (let i = 0; i < n; i++) this.z.push([this.gauss(), this.gauss(), this.gauss(), this.gauss(), this.gauss()]);
+    this.boids = []; this.prev = null;
+  }
+  gauss() { let u = 0; while (u === 0) u = this.rng(); return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * this.rng()); }
+  step(st) {
+    const { mx, my, vxx, vyy, vxy } = st;
+    const l11 = Math.sqrt(Math.max(vxx, 1e-9)), l21 = vxy / l11, l22 = Math.sqrt(Math.max(vyy - l21 * l21, 1e-9));
+    const out = [];
+    for (let i = 0; i < this.n; i++) {
+      const z = this.z[i]; for (let d = 0; d < 5; d++) z[d] = this.a * z[d] + this.k * this.gauss();
+      const x = ((mx + l11 * z[0]) % WIDTH + WIDTH) % WIDTH, y = ((my + l21 * z[0] + l22 * z[1]) % HEIGHT + HEIGHT) % HEIGHT;
+      // speed: same mean and spread as the flock's, each voice jittering on its own;
+      // heading: its own random walk around the flock's mean heading, with the wrapped-normal
+      // width that gives the same polarization φ (R = e^(−σ²/2)) — same agreement, no neighbours.
+      const sp = Math.max(0, Math.min(MAX_SPEED, st.spd + st.spdSd * z[2])), hd = st.hMean + st.hSig * z[3];
+      out.push({ x, y, vx: Math.cos(hd) * sp, vy: Math.sin(hd) * sp, nb: 0 });
+    }
+    for (let i = 0; i < this.n; i++) { let c = 0; const b = out[i]; for (let j = 0; j < this.n; j++) { if (i === j) continue; const [dx, dy] = torDelta(b.x, b.y, out[j].x, out[j].y); const d2 = dx * dx + dy * dy; if (d2 > 0 && d2 < NEIGHBOR_R2) c++; } b.nb = c; }
+    this.boids = out;
+  }
+  // Grain length is copied the same way: each voice jitters on its own around the flock's
+  // mean and spread of grain rate this frame, so the two clouds click and sing in the same
+  // proportion and only *which* grain does which, and when, differs.
+  matchGrainRate(mappedA, mappedF) {
+    const n = this.n; let m = 0, m2 = 0; for (let i = 0; i < n; i++) { const g = mappedF[i * 6 + 4]; m += g; m2 += g * g; }
+    m /= n; const sd = Math.sqrt(Math.max(0, m2 / n - m * m));
+    for (let i = 0; i < n; i++) mappedA[i * 6 + 4] = Math.max(4, Math.min(104, m + sd * this.z[i][4]));
+    return mappedA;
+  }
+}
+
+// = pushFlock() in Murmuration.html, plus the "listening" mapping (P.mapping === "order"):
+//   pitch  — the heading circle is the pitch circle (one octave around), so heading
+//            agreement (φ) is heard as pitch agreement: aligned → unison, scattered → cluster;
+//   grain  — grain length follows each boid's heading persistence (how steady its course
+//            has been over the last ~¼ s): a boid held on course by its neighbours plays
+//            long, tonal grains; a boid tumbling in the noise plays short clicks.
+// mem is per-voice state (the persistence average), kept by the caller between frames.
+function mapBoids(boids, P, mem) {
+  const N = boids.length, f = new Float32Array(N * 6), cx = WIDTH * 0.5, cy = HEIGHT * 0.5;
+  const order = P.mapping === "order";
+  if (order && mem && mem.hx === undefined) { mem.hx = new Float64Array(N); mem.hy = new Float64Array(N); for (let i = 0; i < N; i++) { const b = boids[i], m = Math.hypot(b.vx, b.vy) || 1; mem.hx[i] = b.vx / m; mem.hy[i] = b.vy / m; } }
+  for (let i = 0; i < N; i++) {
+    const b = boids[i], u = b.x / WIDTH, v = b.y / HEIGHT;
+    const semis = order ? 12 * Math.atan2(b.vy, b.vx) / (2 * Math.PI) : (0.5 - v) * P.pitch;
+    const rdx = b.x - cx, rdy = b.y - cy, rd = Math.hypot(rdx, rdy) + 1e-6;
+    const vrad = (b.vx * rdx + b.vy * rdy) / rd, dopp = 1 - 0.012 * vrad;
+    const freq = P.base * Math.pow(2, semis / 12) * dopp;
+    const spd = Math.hypot(b.vx, b.vy) / MAX_SPEED;
+    let grainHz = 18 + spd * 90;
+    if (order && mem) {
+      const m = Math.hypot(b.vx, b.vy) || 1, a = 0.93;          // ~0.24 s memory at 60 fps
+      mem.hx[i] = a * mem.hx[i] + (1 - a) * b.vx / m; mem.hy[i] = a * mem.hy[i] + (1 - a) * b.vy / m;
+      const pers = Math.min(1, Math.hypot(mem.hx[i], mem.hy[i]));  // 1 = dead straight, ~0.3 = tumbling
+      const q = Math.pow(pers, 6);
+      grainHz = 4 + (1 - q) * 100;                               // 4 Hz (250 ms, tonal) … 104 Hz (10 ms, click)
+    }
+    const gain = (0.55 + 0.45 * Math.min(1, b.nb / 6)) * (P.startle ? 1 + 1.5 * (b.a || 0) : 1), k = i * 6;
+    f[k] = u; f[k + 1] = v; f[k + 2] = freq; f[k + 3] = gain; f[k + 4] = grainHz; f[k + 5] = u;
+  }
+  return f;
+}
+
+function buildCorners() {
+  const TL = new Float32Array(L), TR = new Float32Array(L), BL = new Float32Array(L), BR = new Float32Array(L);
+  for (let i = 0; i < L; i++) { const ph = i / L, t = ph * 2 * Math.PI; TL[i] = Math.sin(t); TR[i] = 2 * ph - 1; BL[i] = ph < 0.5 ? 1 : -1; BR[i] = 0.6 * Math.sin(t) + 0.4 * Math.sin(2.76 * t) + 0.28 * Math.sin(5.4 * t) + 0.18 * Math.sin(8.93 * t); }
+  let mx = 0; for (let i = 0; i < L; i++) mx = Math.max(mx, Math.abs(BR[i])); if (mx > 0) for (let i = 0; i < L; i++) BR[i] /= mx;
+  return { TL, TR, BL, BR };
+}
+
+// = GranularProcessor in the page's worklet (Math.random → seeded stream)
+class Grains {
+  constructor(sr, seed = SEED + 1000) { this.sr = sr; this.rng = mulberry32(seed); this.voices = []; this.master = 0.7; this.shimmer = 0.55; Object.assign(this, buildCorners()); }
+  setFlock(f, n) {
+    while (this.voices.length < n) this.voices.push({ u: 0.5, v: 0.5, freq: 110, gain: 0, grainHz: 40, pan: 0.5, phase: this.rng(), gp: this.rng() });
+    this.voices.length = n;
+    for (let i = 0; i < n; i++) { const o = this.voices[i], k = i * 6; o.u = f[k]; o.v = f[k + 1]; o.freq = f[k + 2]; o.gain = f[k + 3]; o.grainHz = f[k + 4]; o.pan = f[k + 5]; }
+  }
+  process(outL, outR, n) {
+    const invSr = 1 / this.sr, { TL, TR, BL, BR } = this, norm = this.master / Math.sqrt(Math.max(1, this.voices.length));
+    for (let s = 0; s < n; s++) {
+      let accL = 0, accR = 0;
+      for (let vi = 0; vi < this.voices.length; vi++) {
+        const o = this.voices[vi]; if (o.gain <= 0) continue;
+        const env = 0.5 - 0.5 * Math.cos(2 * Math.PI * o.gp);
+        const idx = o.phase * L, i0 = idx | 0, fr = idx - i0, i1 = (i0 + 1) & LMASK;
+        const stl = TL[i0] + fr * (TL[i1] - TL[i0]), str = TR[i0] + fr * (TR[i1] - TR[i0]);
+        const sbl = BL[i0] + fr * (BL[i1] - BL[i0]), sbr = BR[i0] + fr * (BR[i1] - BR[i0]);
+        const top = stl + o.u * (str - stl), bot = sbl + o.u * (sbr - sbl);
+        const smp = (top + o.v * (bot - top)) * env * o.gain;
+        accL += smp * Math.cos(o.pan * Math.PI * 0.5); accR += smp * Math.sin(o.pan * Math.PI * 0.5);
+        o.phase += o.freq * invSr; if (o.phase >= 1) o.phase -= 1;
+        o.gp += o.grainHz * invSr;
+        if (o.gp >= 1) { o.gp -= 1; o.phase = (1 - this.shimmer) * o.phase + this.shimmer * this.rng(); }
+      }
+      outL[s] = accL * norm; outR[s] = accR * norm;
+    }
+  }
+}
+
+function writeWav16(path, L_, R_, sr) {
+  const fs = require("fs"), total = L_.length, pcm = Buffer.alloc(44 + total * 4);
+  pcm.write("RIFF", 0); pcm.writeUInt32LE(36 + total * 4, 4); pcm.write("WAVEfmt ", 8);
+  pcm.writeUInt32LE(16, 16); pcm.writeUInt16LE(1, 20); pcm.writeUInt16LE(2, 22); pcm.writeUInt32LE(sr, 24);
+  pcm.writeUInt32LE(sr * 4, 28); pcm.writeUInt16LE(4, 32); pcm.writeUInt16LE(16, 34); pcm.write("data", 36); pcm.writeUInt32LE(total * 4, 40);
+  for (let i = 0; i < total; i++) { pcm.writeInt16LE(Math.round(Math.max(-1, Math.min(1, L_[i])) * 32767), 44 + i * 4); pcm.writeInt16LE(Math.round(Math.max(-1, Math.min(1, R_[i])) * 32767), 46 + i * 4); }
+  fs.writeFileSync(path, pcm);
+}
+
+module.exports = { SEE_R, SEED, WIDTH, HEIGHT, MAX_SPEED, FPS, mulberry32, Flock, AuthoredCloud, cloudStats, mapBoids, Grains, writeWav16 };
+
+return module.exports; })();
+
+const { Flock, mapBoids, WIDTH, HEIGHT } = E;
+
+/* ------------------------------------------------------------------ the ladder */
+const RUNGS = [60, 120, 180, 240, 300, 360, 420, 480, 600, 720];
+const HOLD = 6, SETTLE = 1;                                     // seconds per rung; the first second is not scored
+const W = { sep: 1.5, ali: 1.0, coh: 1.0, eta: 0.06, startle: true };
+const P = { mapping: 'order', base: 110, pitch: 19, startle: true };
+const results = RUNGS.map(N => ({ N, state: 'waiting' }));
+let flock = new Flock(60), mem = {}, rung = -1, rungT0 = 0, running = false, heard = false;
+let acc = null, frames = [], flockMs = [], uStart = null;
+
+function browserName() { const u = navigator.userAgent; if (/Firefox\//.test(u)) return 'Firefox'; if (/Edg\//.test(u)) return 'Edge'; if (/Chrome\//.test(u)) return 'Chrome'; if (/Safari\//.test(u)) return 'Safari'; return 'unknown'; }
+const ENV = { browser: browserName(), ua: navigator.userAgent, cores: navigator.hardwareConcurrency || null };
+
+/* ------------------------------------------------------------------ audio: the engine's own Grains, timed from inside the worklet */
+let ac = null, node = null, clockKind = '?', blockLen = 128, moduleVia = '?';
+async function startAudio() {
+  ac = new (window.AudioContext || window.webkitAudioContext)({ sampleRate: 48000 });
+  const src = document.getElementById('engineSrc').textContent + `
+    const NOW = (typeof performance !== 'undefined' && performance.now) ? () => performance.now() : () => Date.now();
+    const KIND = (typeof performance !== 'undefined' && performance.now) ? 'performance.now' : 'Date.now';
+    class CeilProc extends AudioWorkletProcessor {
+      constructor() { super(); this.gr = new E.Grains(sampleRate); this.gr.master = 0.35; this.busy = 0; this.worst = 0; this.blocks = 0; this.n = 128;
+        this.port.onmessage = e => { this.gr.setFlock(new Float32Array(e.data.buf), e.data.n); };
+        this.port.postMessage({ hello: KIND }); }
+      process(_, outs) { const o = outs[0]; if (!o[1]) return true; this.n = o[0].length;
+        const t0 = NOW(); this.gr.process(o[0], o[1], this.n); const dt = NOW() - t0;
+        this.busy += dt; if (dt > this.worst) this.worst = dt; this.blocks++;
+        if (this.blocks >= 94) { this.port.postMessage({ busy: this.busy, worst: this.worst, blocks: this.blocks, n: this.n, sr: sampleRate }); this.busy = 0; this.worst = 0; this.blocks = 0; }
+        return true; }
+    }
+    registerProcessor('ceil', CeilProc);`;
+  // A blob URL first; some browsers refuse a blob from a file:// page, so then a data: URL.
+  const url = URL.createObjectURL(new Blob([src], { type: 'application/javascript' }));
+  try { await ac.audioWorklet.addModule(url); moduleVia = 'blob'; }
+  catch (e) { await ac.audioWorklet.addModule('data:application/javascript;charset=utf-8,' + encodeURIComponent(src)); moduleVia = 'data'; }
+  URL.revokeObjectURL(url);
+  node = new AudioWorkletNode(ac, 'ceil', { numberOfOutputs: 1, outputChannelCount: [2] });
+  const lim = ac.createDynamicsCompressor(); lim.threshold.value = -6; lim.ratio.value = 12; lim.attack.value = 0.003; lim.release.value = 0.2;
+  node.connect(lim); lim.connect(ac.destination);
+  node.port.onmessage = e => {
+    const d = e.data; if (d.hello) { clockKind = d.hello; return; }
+    blockLen = d.n; if (!acc) return;
+    const budget = d.n / d.sr * 1000;
+    acc.busy += d.busy; acc.blocks += d.blocks; acc.budget = budget; acc.worst = Math.max(acc.worst, d.worst / budget);
+  };
+  if (ac.state === 'suspended') await ac.resume();
+}
+function underruns() { const s = ac && ac.playbackStats; if (!s) return null; const v = s.underrunEvents ?? s.underrunCount; return typeof v === 'number' ? v : null; }
+
+/* ------------------------------------------------------------------ the climb */
+function beginRung(i) {
+  rung = i; const N = RUNGS[i];
+  flock = new Flock(N); mem = {}; for (let k = 0; k < 30; k++) flock.step(W);
+  rungT0 = performance.now(); acc = null; frames = []; flockMs = []; heard = false; uStart = null;
+  results[i].state = 'running'; render();
+}
+function scoreRung() {
+  const r = results[rung], N = RUNGS[rung];
+  const mean = acc && acc.blocks ? acc.busy / (acc.blocks * acc.budget) : NaN;
+  const med = frames.slice().sort((a, b) => a - b)[frames.length >> 1] || 16.7;
+  const late = frames.length ? frames.filter(f => f > 1.5 * med).length / frames.length : 0;
+  const u1 = underruns(), du = (u1 !== null && uStart !== null) ? u1 - uStart : null;
+  Object.assign(r, { mean, worst: acc ? acc.worst : NaN, flockMs: flockMs.reduce((a, b) => a + b, 0) / Math.max(1, flockMs.length), late, underruns: du, heard });
+  // The sound decides the verdict; late frames only flag a stuttering picture. The worst block
+  // counts only on a fine clock: on Date.now() it is whole milliseconds, a third of a block each.
+  const fine = clockKind === 'performance.now';
+  r.state = heard ? 'heard' : (mean < 0.6 && (!fine || r.worst < 0.9) && !(du > 0)) ? 'clean' : (mean < 0.85 && !(du > 0)) ? 'strained' : 'over';
+  r.picture = late > 0.1 ? 'stutters' : 'smooth';
+  render();
+}
+function tick() {
+  if (!running) return;
+  const t = (performance.now() - rungT0) / 1000;
+  if (t >= SETTLE && !acc) { acc = { busy: 0, blocks: 0, budget: 1, worst: 0 }; uStart = underruns(); }
+  if (t >= 2.5 && !flock._struck) { flock.field.predator = { x: WIDTH * (0.3 + 0.4 * Math.random()), y: HEIGHT * (0.3 + 0.4 * Math.random()) }; flock.field.predT = 1; flock._struck = true; }
+  if (t >= HOLD) {
+    scoreRung();
+    const overs = results.filter(r => r.state === 'over').length;
+    if (rung + 1 < RUNGS.length && overs < 2) beginRung(rung + 1); else finish();
+  }
+}
+function finish() {
+  running = false; if (node) node.port.postMessage({ buf: new Float32Array(0).buffer, n: 0 });
+  document.getElementById('go').disabled = false; document.getElementById('ear').disabled = true; document.getElementById('stop').disabled = true;
+  document.getElementById('go').textContent = 'Climb again';
+  render(true);
+}
+document.getElementById('go').onclick = async () => {
+  if (!ac) await startAudio(); else if (ac.state === 'suspended') await ac.resume();
+  results.forEach(r => { for (const k in r) if (k !== 'N') delete r[k]; r.state = 'waiting'; });
+  document.getElementById('report').style.display = 'none';
+  running = true; beginRung(0);
+  document.getElementById('go').disabled = true; document.getElementById('ear').disabled = false; document.getElementById('stop').disabled = false;
+};
+document.getElementById('ear').onclick = () => { if (running) { heard = true; flashEar = 1; } };
+document.getElementById('stop').onclick = () => { if (running) { if (acc) scoreRung(); finish(); } };
+
+/* ------------------------------------------------------------------ the table and the report */
+const pct = x => isFinite(x) ? Math.round(x * 100) + '%' : '—';
+function ceiling() { let last = null; for (const r of results) { if (r.state === 'clean') last = r.N; else if (r.state !== 'waiting' && r.state !== 'running') break; } return last; }
+function render(done) {
+  document.getElementById('rows').innerHTML = results.filter(r => r.state !== 'waiting').map(r =>
+    `<tr><td>${r.N}</td><td>${pct(r.mean)}</td><td>${clockKind === 'performance.now' ? pct(r.worst) : '<span style="color:var(--dim)">ms clock</span>'}</td><td>${isFinite(r.flockMs) ? r.flockMs.toFixed(1) : '—'}</td><td>${r.late !== undefined ? pct(r.late) : '—'}</td><td>${r.underruns === null || r.underruns === undefined ? (r.state === 'running' ? '…' : 'n/a') : r.underruns}</td><td class="v ${r.state}">${r.state === 'running' ? 'listening…' : r.state === 'heard' ? 'you heard a click' : r.state}${r.picture === 'stutters' ? ' <span style="color:var(--dim)">· picture stutters</span>' : ''}</td></tr>`).join('');
+  const c = ceiling();
+  document.getElementById('verdict').innerHTML = done
+    ? `<b>${ENV.browser}</b>: clean up to <b>${c ?? 'none'}</b> birds${c ? '' : ' — not even the first rung was clean'}. Select the text below and paste it to the steward.`
+    : running ? `Climbing — ${RUNGS[rung]} birds. Press “I heard a click” the moment you hear one.` : document.getElementById('verdict').innerHTML;
+  if (done) { const ta = document.getElementById('report'); ta.style.display = 'block'; ta.value = JSON.stringify({ test: 'murmuration-ceiling', when: new Date().toISOString(), ...ENV, sampleRate: ac && ac.sampleRate, block: blockLen, baseLatency: ac && ac.baseLatency, clock: clockKind, moduleVia, cleanUpTo: c, rungs: results.filter(r => r.state !== 'waiting').map(r => ({ N: r.N, mean: +(+r.mean).toFixed(3), worst: +(+r.worst).toFixed(3), flockMs: +(+r.flockMs).toFixed(2), late: +(+r.late).toFixed(3), underruns: r.underruns, reads: r.state, picture: r.picture })) }); }
+}
+document.getElementById('env').textContent = `${ENV.browser} · ${ENV.cores ?? '?'} cores reported`;
+
+/* ------------------------------------------------------------------ the view */
+const cv = document.getElementById('c'), g = cv.getContext('2d');
+let VW = 0, VH = 0, DPR = 1, flashEar = 0;
+function resize() { DPR = Math.min(2, window.devicePixelRatio || 1); VW = innerWidth; VH = innerHeight; cv.width = VW * DPR; cv.height = VH * DPR; g.setTransform(DPR, 0, 0, DPR, 0, 0); }
+addEventListener('resize', resize); resize();
+const WW = 10, WH = WW * HEIGHT / WIDTH;                         // world units for the terrain
+let yaw = -0.5, cam;
+function basis() {
+  const dist = 13.5, pitch = 0.62, eye = [Math.sin(yaw) * Math.cos(pitch) * dist, -Math.cos(yaw) * Math.cos(pitch) * dist, Math.sin(pitch) * dist];
+  const tgt = [0, 1.2, 1.4], f = nrm(sub(tgt, eye)), r = nrm(cross(f, [0, 0, 1])), u = cross(r, f);
+  cam = { eye, f, r, u, foc: Math.min(VW, VH * 1.6) * 0.9 };
+}
+const sub = (a, b) => [a[0] - b[0], a[1] - b[1], a[2] - b[2]], dot = (a, b) => a[0] * b[0] + a[1] * b[1] + a[2] * b[2];
+const cross = (a, b) => [a[1] * b[2] - a[2] * b[1], a[2] * b[0] - a[0] * b[2], a[0] * b[1] - a[1] * b[0]], nrm = a => { const n = Math.hypot(...a) || 1; return [a[0] / n, a[1] / n, a[2] / n]; };
+function P3(x, y, z) { const d = sub([x, y, z], cam.eye), zc = dot(d, cam.f); if (zc < 0.1) return null; return [VW / 2 + cam.foc * dot(d, cam.r) / zc, VH / 2 - cam.foc * dot(d, cam.u) / zc, zc]; }
+const CORNER = [[94, 150, 230], [233, 180, 90], [224, 100, 130], [127, 200, 160]];   // sine · saw · square · bell
+function tint(u, v) { const w = [(1 - u) * (1 - v), u * (1 - v), (1 - u) * v, u * v]; return [0, 1, 2].map(k => w.reduce((s, wi, i) => s + wi * CORNER[i][k], 0)); }
+const loadHue = x => x < 0.6 ? [127, 200, 160] : x < 0.9 ? [233, 180, 90] : [224, 100, 90];
+
+function draw() {
+  yaw = -0.42 + 0.22 * Math.sin(performance.now() / 9000); basis();          // a slow sway, so the ceiling stays in frame
+  g.fillStyle = '#0b0d12'; g.fillRect(0, 0, VW, VH);
+  // terrain grid, tinted by the corner each cell leans to
+  const G = 16;
+  for (let i = 0; i < G; i++) for (let j = 0; j < G; j++) {
+    const u0 = i / G, v0 = j / G, u1 = (i + 1) / G, v1 = (j + 1) / G, q = [[u0, v0], [u1, v0], [u1, v1], [u0, v1]].map(([u, v]) => P3((u - 0.5) * WW, (v - 0.5) * WH, 0));
+    if (q.some(p => !p)) continue; const [cr, cg, cb] = tint((u0 + u1) / 2, (v0 + v1) / 2);
+    g.beginPath(); q.forEach((p, k) => k ? g.lineTo(p[0], p[1]) : g.moveTo(p[0], p[1])); g.closePath();
+    g.fillStyle = `rgba(${cr|0},${cg|0},${cb|0},0.10)`; g.fill(); g.strokeStyle = 'rgba(42,45,54,0.7)'; g.lineWidth = 0.6; g.stroke();
+  }
+  // the columns: one per rung, standing along the far edge, rising toward the ceiling
+  const colY = WH / 2 + 1.4, H100 = 4.2, span = WW * 0.92;
+  const ceil = [[-span / 2 - 0.4, colY - 0.4], [span / 2 + 0.4, colY - 0.4], [span / 2 + 0.4, colY + 0.4], [-span / 2 - 0.4, colY + 0.4]].map(([x, y]) => P3(x, y, H100));
+  if (ceil.every(Boolean)) { g.beginPath(); ceil.forEach((p, k) => k ? g.lineTo(p[0], p[1]) : g.moveTo(p[0], p[1])); g.closePath(); g.fillStyle = 'rgba(224,100,90,0.13)'; g.fill(); g.strokeStyle = 'rgba(224,100,90,0.7)'; g.lineWidth = 1; g.stroke();
+    g.fillStyle = 'rgba(224,100,90,0.85)'; g.font = '11px ui-monospace,Menlo,monospace'; g.fillText('100% — the audio thread is out of time', ceil[1][0] + 6, ceil[1][1]); }
+  results.forEach((r, i) => {
+    const x = -span / 2 + span * i / (RUNGS.length - 1);
+    let load = r.mean; if (r.state === 'running') load = acc && acc.blocks ? acc.busy / (acc.blocks * acc.budget) : 0;
+    const h = isFinite(load) ? Math.min(1.25, load) * H100 : 0, s = 0.22;
+    const base = P3(x, colY, 0), top = P3(x, colY, Math.max(0.02, h));
+    if (!base || !top) return;
+    const [cr, cg, cb] = r.state === 'heard' ? [224, 100, 90] : loadHue(isFinite(load) ? load : 0);
+    const a = r.state === 'waiting' ? 0.12 : r.state === 'running' ? 0.9 : 0.6;
+    const corners = [[-s, -s], [s, -s], [s, s], [-s, s]];
+    const b4 = corners.map(([dx, dy]) => P3(x + dx, colY + dy, 0)), t4 = corners.map(([dx, dy]) => P3(x + dx, colY + dy, Math.max(0.02, h)));
+    if (b4.some(p => !p) || t4.some(p => !p)) return;
+    for (let k = 0; k < 4; k++) { const k2 = (k + 1) % 4; g.beginPath(); g.moveTo(b4[k][0], b4[k][1]); g.lineTo(b4[k2][0], b4[k2][1]); g.lineTo(t4[k2][0], t4[k2][1]); g.lineTo(t4[k][0], t4[k][1]); g.closePath(); g.fillStyle = `rgba(${cr},${cg},${cb},${a * 0.28})`; g.fill(); g.strokeStyle = `rgba(${cr},${cg},${cb},${a})`; g.lineWidth = 0.8; g.stroke(); }
+    g.beginPath(); t4.forEach((p, k) => k ? g.lineTo(p[0], p[1]) : g.moveTo(p[0], p[1])); g.closePath(); g.fillStyle = `rgba(${cr},${cg},${cb},${a * 0.6})`; g.fill();
+    g.fillStyle = r.state === 'waiting' ? 'rgba(139,138,133,0.5)' : '#e8e6df'; g.font = '10px ui-monospace,Menlo,monospace'; g.textAlign = 'center'; g.fillText(String(r.N), base[0], base[1] + 13); g.textAlign = 'left';
+  });
+  // the flock: steadiness lifts a bird, alarm flashes it white
+  const B = flock.boids, pts = [];
+  for (let i = 0; i < B.length; i++) {
+    const b = B[i], hx = mem.hx ? mem.hx[i] : 0, hy = mem.hy ? mem.hy[i] : 0, steady = Math.pow(Math.min(1, Math.hypot(hx, hy)), 6);
+    const x = (b.x / WIDTH - 0.5) * WW, y = (b.y / HEIGHT - 0.5) * WH, z = 0.25 + 2.2 * steady, p = P3(x, y, z), sh = P3(x, y, 0);
+    if (p && sh) pts.push([p, sh, b, b.x / WIDTH, b.y / HEIGHT]);
+  }
+  pts.sort((a, b) => b[0][2] - a[0][2]);
+  const dotR = Math.max(1.1, 3.2 * Math.sqrt(60 / Math.max(60, B.length)));
+  for (const [p, sh, b, u, v] of pts) {
+    g.fillStyle = 'rgba(0,0,0,0.35)'; g.beginPath(); g.arc(sh[0], sh[1], dotR * 0.8, 0, 6.283); g.fill();
+    const [cr, cg, cb] = tint(u, v), al = b.a || 0, mix = c => (c + (255 - c) * al) | 0;
+    g.fillStyle = `rgb(${mix(cr)},${mix(cg)},${mix(cb)})`; g.beginPath(); g.arc(p[0], p[1], dotR * (1 + al), 0, 6.283); g.fill();
+  }
+  if (flashEar > 0) { g.fillStyle = `rgba(224,100,90,${0.25 * flashEar})`; g.fillRect(0, 0, VW, VH); flashEar *= 0.9; if (flashEar < 0.02) flashEar = 0; }
+  const phi = flock.polarization();
+  document.getElementById('hud').innerHTML = running
+    ? `<b>${RUNGS[rung]}</b> birds · rung ${rung + 1} of ${RUNGS.length}<br>order φ <b>${phi.toFixed(2)}</b><br>audio clock: ${clockKind} · block ${blockLen}`
+    : `<b>${flock.boids.length}</b> birds · idle<br>order φ <b>${phi.toFixed(2)}</b>`;
+}
+
+/* ------------------------------------------------------------------ the loop */
+let lastT = performance.now();
+function frame() {
+  const now = performance.now(), dt = now - lastT; lastT = now;
+  const t0 = performance.now(); flock.step(W); const f = mapBoids(flock.boids, P, mem); const ms = performance.now() - t0;
+  if (running && acc) { frames.push(dt); flockMs.push(ms); }
+  if (node && running) node.port.postMessage({ buf: f.buffer, n: flock.boids.length }, [f.buffer]);
+  tick(); draw();
+  if (!window.__noLoop) requestAnimationFrame(frame);
+}
+window.__ceil = { frame, results, beginRung: i => { running = true; beginRung(i); }, scoreRung, finish, ceiling };
+requestAnimationFrame(frame);
+</script>
+</body>
+</html>

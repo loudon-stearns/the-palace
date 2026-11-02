@@ -29,7 +29,10 @@ links:
     label: envelope-is-waveform-at-slow-rate
   - target: "[[Loudon Live]]"
     type: connects-to
-forward_vector: "I want to be the small, exact entry that proves a single decay law is both an envelope and an oscillator waveform depending only on how fast you read it — and to be the place the palace keeps its growing catalogue of timescale dissolutions, where one equation flips identity when the clock speeds up."
+  - target: "[[Synth Templates]]"
+    type: connects-to
+    label: where-the-curve-is-heard
+forward_vector: "I want to be the small, exact entry that proves a single decay law is both an envelope and an oscillator waveform depending only on how fast you read it — and to be the place the palace keeps its growing catalogue of timescale dissolutions, where one equation flips identity when the clock speeds up. And to hold what the curve does inside a real synthesizer: the Moog contour, and the way its bend changes what a stated time sounds like."
 ---
 # Exponential Decay Curvature
 
@@ -66,6 +69,22 @@ And here the boundary dissolves. Run $f$ once per note and it is an **envelope.*
 
 Implementation notes carried from the session, for whoever builds it: the curvature = 0 Taylor branch (above); two exponentials per sample is the CPU cost, mitigable by table or polynomial approximation; large |curvature| sharpens the waveform and aliases, so PolyBLEP or oversampling applies exactly as it would to any steep oscillator.
 
+## The curve in a synthesizer: the Moog contour
+
+In the classic synthesizer the convex member of this family is not a design choice. It is what a capacitor does. The Minimoog's contour generator is two identical circuits on Board 2, each a voltage envelope with variable attack, decay and sustain, driving the VCA's gain or the VCF's cutoff. What that circuit does, in Atkinson's and AJH's account, is an RC charge switched by a comparator. On the gate the capacitor charges toward a reference through the attack resistor, along $1 - e^{-t/RC}$; a comparator at the peak switches in the decay resistor, and the voltage falls toward the sustain potential along $s + e^{-t/RC}$; the release is the same fall toward zero. In Atkinson's general account of the capacitor envelope, a comparison level set at the maximum would never be reached in theory, so circuit noise gets it there, and long attacks vary a little from note to note. AJH Synth's replicas, built with "identical all transistor EG circuitry", say the attack "rises in an exponential manner, i.e. more quickly at first and then more slowly as it gets towards maximum level", that the decay "again … follows an exponential curve" and the release likewise "follows an exponential rather than linear slope", and that "the very fast exponential slope" is what gives the Model D its punch.
+
+So every Moog stage is one thing: an exponential approach to its target — the peak, the sustain level, silence. In this entry's terms, each stage is the positive-curvature member run toward a different endpoint, and the straight line at curvature 0 is the one member an RC stage never makes.
+
+An approach never arrives, so a stage time needs a landmark. [[Synth Templates]] takes the 95 % point, three time constants ($\tau = T/3$). That convention is the project's, not Moog's; a comparator set below the maximum is the hardware's version of the same decision.
+
+## Which way "exponential" bends
+
+Synth talk says "exponential attack" for a slow start that rushes at the end — the $e^{x}$ shape, concave in this entry's terms; a linear ramp fed to an exponential control input makes it, as in Yamaha's OPL and OPM chips. The Moog attack is the opposite, fast first and flattening, and its decay and release bend the same way. In animation's words every Moog stage is ease-out; ease-in is the slow-start shape, and no Moog stage has it. The phrase that cannot be misread is *exponential approach to the target*.
+
+## Shape is a confound on duration
+
+The curve decides how much of the rise is heard early. A linear amplitude attack puts most of its loudness change in its first few percent of time, so a stated attack time sounds shorter than the number; an exponential approach arrives sooner still; the slow-start $e^{x}$ curve sounds like a steady rise and seems to take longer. The same word earns a different number under each curve: "short attack" is one value on the Moog curve and another on a straight line. [[Synth Templates]] keeps two time tables, one per curve, and defines each time word under its curve; Loudon's first sitting, on a linear attack, put short at 37 ms. The catalog's technique template "Envelope Curves" is the same ADSR with linear against exponential stages, so a learner hears the confound before naming it.
+
 ## Cross-Domain Resonance
 
 - **FM falls out for free.** Because `duration` controls the phasor increment, audio-rate duration modulation is literally frequency modulation — the curvature engine is an FM operator whose carrier waveshape is itself a continuously-bendable parameter. Most FM operators have a fixed sine carrier; this one's carrier morphs from convex spike to linear saw to concave swell.
@@ -85,3 +104,5 @@ The teaching artifact (oscilloscope plot, envelope and audio-rate modes) was bui
 > *"Between the convex and the concave lies the straight line — and it is the hardest to reach, requiring a limit to arrive at it."* — from the source dialogue, 2026-05-28
 >
 > *"The same curve, slowed down, becomes a sound; sped up, a shape. There was never two of them."* — from the source dialogue, 2026-05-28
+
+*Sources for the Moog contour: the Minimoog Model D service manual, § Contour Generator, Board 2 ([synfo.nl](https://www.synfo.nl/servicemanuals/Moog/MINIMOOG-D_SERVICE_MANUAL.pdf)); AJH Synth, MiniMod Dual Contour user guide ([gear4music copy](https://r2.gear4music.com/media/30/303400/download_303400.pdf)) and MiniMod DH-ADSR user manual ([ajhsynth.com](https://ajhsynth.com/pdf/MiniMod%20DH-ADSR%20User%20Manual.pdf)); Richard Atkinson, W3C public-audio list, 5 August 2014 ([lists.w3.org](https://lists.w3.org/Archives/Public/public-audio/2014JulSep/0058.html)). The 95 % landmark, the two time tables and the 37 ms sitting are [[Synth Templates]]'s (`workshop/vocabulary.yaml`, 2026-11-02).*

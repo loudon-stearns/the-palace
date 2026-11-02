@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Portamento — Find Your Overshoot Threshold</title>
+<style>
+  :root {
+    --bg:#1a1a1a; --ink:#e8e4dc; --dim:#8a857a; --rule:#2a2a2a;
+    --over:#7fb069; --crit:#e0b020; --under:#d96b6b;
+  }
+  html,body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:"Cormorant Garamond","Iowan Old Style",Georgia,serif;
+    font-size:18px;line-height:1.55}
+  .frame{max-width:760px;margin:0 auto;padding:48px 36px 96px}
+  h1{font-family:"Anton","Bebas Neue",Impact,sans-serif;font-weight:400;
+    font-size:50px;line-height:1;letter-spacing:.5px;margin:0 0 8px;text-transform:uppercase}
+  h2{font-family:"Anton",sans-serif;font-weight:400;font-size:24px;text-transform:uppercase;
+    letter-spacing:.5px;margin:36px 0 10px;border-top:1px solid var(--rule);padding-top:24px}
+  .sub{font-family:"Manrope","Inter",sans-serif;font-size:12px;letter-spacing:2.5px;
+    text-transform:uppercase;color:var(--dim);margin-bottom:30px}
+  .intro{border-left:2px solid var(--rule);padding:6px 0 6px 18px;margin:0 0 20px;color:#cfcabd}
+  .ui{font-family:"Manrope","Inter",sans-serif;font-size:14px}
+  button{font-family:"Manrope",sans-serif;font-size:13px;letter-spacing:1.5px;text-transform:uppercase;
+    background:#242424;color:var(--ink);border:1px solid #3a3a3a;padding:10px 18px;margin:4px 6px 4px 0;cursor:pointer}
+  button:hover{border-color:var(--crit)}
+  button:disabled{opacity:.35;cursor:default}
+  button.big{font-size:15px;padding:14px 26px}
+  .status{font-family:"Silkscreen","JetBrains Mono",monospace;font-size:11px;color:var(--dim);letter-spacing:2px;margin:12px 0}
+  .fb{min-height:1.4em;font-family:"Manrope",sans-serif;font-size:14px;margin:8px 0}
+  .ok{color:var(--over)} .no{color:var(--under)}
+  canvas{width:100%;height:160px;background:#141414;border:1px solid var(--rule);margin:10px 0}
+  table{border-collapse:collapse;width:100%;font-family:"Manrope",sans-serif;font-size:13px}
+  td,th{border-bottom:1px solid var(--rule);padding:6px 8px;text-align:left}
+  th{color:var(--dim);font-weight:400;letter-spacing:1px;text-transform:uppercase;font-size:11px}
+  textarea{width:100%;height:110px;background:#141414;color:var(--ink);border:1px solid var(--rule);
+    font-family:"JetBrains Mono",monospace;font-size:12px}
+  .hidden{display:none}
+  .result{font-size:22px;margin:8px 0}
+</style>
+</head>
+<body>
+<div class="frame">
+<h1>Find your overshoot threshold</h1>
+<div class="sub">Portamento and Physical Pitch Modeling · a ten-minute listening test</div>
+
+<div class="intro">
+A singer who lands sharp and settles is an underdamped spring: the pitch overshoots its note and rings back.
+Two questions the page has carried for months: <em>how small an overshoot can you hear at all?</em> and
+<em>where does an overshoot stop sounding alive and start sounding out of tune?</em> This page measures both,
+for your ears. Use headphones at a comfortable level.
+</div>
+
+<div class="ui">
+<h2>1 · Can you hear it?</h2>
+<p>You hear two glides up a fifth, A then B. One lands clean. The other overshoots and rings back.
+Both arrive at the same speed, so the overshoot is the only difference. Pick the one that overshoots.
+The overshoot gets smaller when you are right twice in a row and bigger when you miss. About 40 trials.</p>
+<button id="startA" class="big">Start</button>
+<div id="phaseA" class="hidden">
+  <div class="status" id="statA"></div>
+  <button id="replay">Play again</button>
+  <button id="pickA" disabled>A overshoots</button>
+  <button id="pickB" disabled>B overshoots</button>
+  <div class="fb" id="fbA"></div>
+  <canvas id="track" width="1400" height="320"></canvas>
+</div>
+
+<h2>2 · Alive or sour?</h2>
+<p>Now every glide overshoots, by amounts from just above your threshold to a third of a fifth.
+For each, say whether it sounds <b>alive</b> (energetic, a landing with body) or <b>sour</b> (out of tune).
+No right answers. Each level comes twice, shuffled.</p>
+<button id="startB" class="big" disabled>Start part two</button>
+<div id="phaseB" class="hidden">
+  <div class="status" id="statB"></div>
+  <button id="replayB">Play again</button>
+  <button id="alive" disabled>Alive</button>
+  <button id="sour" disabled>Sour</button>
+</div>
+
+<h2>Your result</h2>
+<div id="res" class="intro">Finish both parts to see it.</div>
+<table id="ladder" class="hidden"><thead><tr><th>overshoot (cents)</th><th>ζ that makes it</th><th>% of the fifth</th><th>you said sour</th></tr></thead><tbody></tbody></table>
+<p>Copy this and paste it back to the page (a reply on the board is fine):</p>
+<textarea id="out" readonly></textarea>
+</div>
+</div>
+
+<script id="core">
+// ---- the physics: pitch in cents obeys a damped spring toward the target ----
+// x'' + 2ζωn x' + ωn² (x - target) = 0, x(0)=0, x'(0)=0, x in cents above the start.
+const FIFTH = 701.955;
+const FS_CTRL = 1000;              // control-rate samples per second for the pitch curve
+
+// overshoot fraction of the interval for a given ζ (0<ζ<1)
+function osFrac(z){ return z >= 1 ? 0 : Math.exp(-Math.PI*z/Math.sqrt(1-z*z)); }
+// ζ that gives an overshoot fraction p (0<p<1)
+function zetaFor(p){ const L = Math.log(p); return -L/Math.sqrt(Math.PI*Math.PI + L*L); }
+
+// step response (unit interval) at time t for ζ, ωn — closed forms for all three regimes
+function step(z, wn, t){
+  if (Math.abs(z-1) < 1e-9) return 1 - (1 + wn*t)*Math.exp(-wn*t);
+  if (z < 1){ const wd = wn*Math.sqrt(1-z*z);
+    return 1 - Math.exp(-z*wn*t)*(Math.cos(wd*t) + z/Math.sqrt(1-z*z)*Math.sin(wd*t)); }
+  const s = Math.sqrt(z*z-1), r1 = -wn*(z-s), r2 = -wn*(z+s);
+  return 1 - (r2*Math.exp(r1*t) - r1*Math.exp(r2*t))/(r2-r1);
+}
+// ωn such that the glide first reaches half the interval at time tHalf — this matches arrival speed
+function wnForHalf(z, tHalf){
+  // step(z, 1, τ) is monotone up to its first crossing of 0.5; find τ by bisection, then ωn = τ/tHalf
+  let lo = 0, hi = 20;
+  for (let i=0;i<60;i++){ const m=(lo+hi)/2; if (step(z,1,m) < 0.5) lo=m; else hi=m; }
+  return ((lo+hi)/2)/tHalf;
+}
+// pitch curve in cents over dur seconds, at FS_CTRL
+function curve(z, interval, tHalf, dur){
+  const wn = wnForHalf(z, tHalf), n = Math.round(dur*FS_CTRL), c = new Float32Array(n);
+  for (let i=0;i<n;i++) c[i] = interval*step(z, wn, i/FS_CTRL);
+  return c;
+}
+function peakCents(c, interval){ let m=-1e9; for (const v of c) if (v>m) m=v; return m-interval; }
+if (typeof module !== "undefined") module.exports = {osFrac, zetaFor, step, wnForHalf, curve, peakCents, FIFTH};
+</script>
+
+<script>
+// ---- the sound ----
+let ctx = null;
+function ac(){ if (!ctx) ctx = new (window.AudioContext||window.webkitAudioContext)(); return ctx; }
+const HOLD = 0.35, GLIDE = 1.15, GAP = 0.55, T_HALF = 0.07;
+function voice(){
+  const a = ac(), real = new Float32Array(9), imag = new Float32Array(9);
+  for (let k=1;k<9;k++) imag[k] = 1/(k*k**0.3);       // a soft, bowed-ish spectrum
+  return a.createPeriodicWave(real, imag);
+}
+// one note: hold the start pitch, then glide with damping z; overshoot specified as fraction p (0 = clean)
+function playGlide(t0, f0, p){
+  const a = ac(), z = p>0 ? zetaFor(p) : 1;
+  const c = curve(z, FIFTH, T_HALF, GLIDE);
+  const hz = new Float32Array(c.length); for (let i=0;i<c.length;i++) hz[i] = f0*Math.pow(2, c[i]/1200);
+  const o = a.createOscillator(), g = a.createGain();
+  o.setPeriodicWave(voice()); o.connect(g); g.connect(a.destination);
+  o.frequency.setValueAtTime(f0, t0);
+  o.frequency.setValueCurveAtTime(hz, t0+HOLD, GLIDE);
+  const end = t0+HOLD+GLIDE;
+  g.gain.setValueAtTime(0, t0); g.gain.linearRampToValueAtTime(0.18, t0+0.03);
+  g.gain.setValueAtTime(0.18, end-0.12); g.gain.linearRampToValueAtTime(0, end);
+  o.start(t0); o.stop(end+0.02);
+  return {end, c};
+}
+function draw(cA, cB, label){
+  const cv = document.getElementById("track"), g = cv.getContext("2d"), W=cv.width, H=cv.height;
+  g.clearRect(0,0,W,H); const lo=-60, hi=FIFTH+260, y=v=>H-20-(v-lo)/(hi-lo)*(H-40);
+  g.strokeStyle="#2a2a2a"; g.beginPath(); g.moveTo(0,y(FIFTH)); g.lineTo(W,y(FIFTH)); g.stroke();
+  [[cA,"#e0b020",0],[cB,"#d96b6b",W/2]].forEach(([c,col,x0])=>{
+    g.strokeStyle=col; g.lineWidth=3; g.beginPath();
+    for (let i=0;i<c.length;i++){ const x=x0+20+i/c.length*(W/2-40); i?g.lineTo(x,y(c[i])):g.moveTo(x,y(c[i])); }
+    g.stroke(); });
+  g.fillStyle="#8a857a"; g.font="24px Manrope,sans-serif"; g.fillText(label,24,34);
+}
+
+// ---- part one: 2-down 1-up staircase on overshoot cents (tracks ~71% correct) ----
+const S = {cents:120, factor:1.41, streak:0, dir:0, reversals:[], trial:0, answer:null, f0:0, last:null, log:[]};
+const MAXREV = 10, FLOOR = 1.5, CEIL = 250;
+const $ = id => document.getElementById(id);
+function nextTrial(){
+  S.trial++; S.answer = Math.random()<0.5 ? "A" : "B";
+  S.f0 = 196*Math.pow(2, (Math.random()*6-3)/12);       // rove the start note ±3 semitones
+  play1();
+}
+function play1(){
+  const a = ac(), t = a.currentTime+0.08, p = S.cents/FIFTH;
+  $("pickA").disabled = $("pickB").disabled = true;
+  const first  = playGlide(t, S.f0, S.answer==="A" ? p : 0);
+  const second = playGlide(first.end+GAP, S.f0, S.answer==="B" ? p : 0);
+  S.last = [first.c, second.c];
+  $("statA").textContent = `TRIAL ${S.trial} · REVERSALS ${S.reversals.length}/${MAXREV}`;
+  setTimeout(()=>{ $("pickA").disabled = $("pickB").disabled = false; }, (second.end-a.currentTime)*1000);
+}
+function answer1(pick){
+  const right = pick===S.answer;
+  S.log.push([S.trial, +S.cents.toFixed(1), right?1:0]);
+  $("fbA").innerHTML = right ? `<span class="ok">Right — ${S.answer} overshot by ${S.cents.toFixed(1)} cents.</span>`
+                             : `<span class="no">It was ${S.answer}, by ${S.cents.toFixed(1)} cents.</span>`;
+  draw(S.last[0], S.last[1], "A                                                         B");
+  let move = 0;
+  if (right){ S.streak++; if (S.streak===2){ move=-1; S.streak=0; } } else { move=+1; S.streak=0; }
+  if (move){
+    if (S.dir && move!==S.dir){ S.reversals.push(S.cents); if (S.reversals.length===4) S.factor=1.19; }
+    S.dir = move;
+    S.cents = Math.min(CEIL, Math.max(FLOOR, move<0 ? S.cents/S.factor : S.cents*S.factor));
+  }
+  if (S.reversals.length >= MAXREV){ finish1(); return; }
+  setTimeout(nextTrial, 900);
+}
+let threshold = null;
+function finish1(){
+  const last = S.reversals.slice(-6);
+  threshold = Math.exp(last.reduce((s,v)=>s+Math.log(v),0)/last.length);
+  $("pickA").disabled = $("pickB").disabled = $("replay").disabled = true;
+  $("statA").textContent = `DONE · ${S.trial} TRIALS · THRESHOLD ${threshold.toFixed(1)} CENTS`;
+  $("startB").disabled = false; report();
+}
+$("startA").onclick = ()=>{ $("startA").disabled=true; $("phaseA").classList.remove("hidden"); nextTrial(); };
+$("replay").onclick = play1;
+$("pickA").onclick = ()=>answer1("A"); $("pickB").onclick = ()=>answer1("B");
+
+// ---- part two: alive or sour, a ladder from threshold to a third of the fifth ----
+let ladder = [], queue = [], cur = null, curF0 = 0;
+function buildLadder(){
+  const lo = Math.max(threshold*1.5, 4), hi = 234, n = 7;
+  ladder = Array.from({length:n}, (_,i)=>({cents: lo*Math.pow(hi/lo, i/(n-1)), sour:0, n:0}));
+  queue = ladder.flatMap(r=>[r,r]).sort(()=>Math.random()-0.5);
+}
+function play2(){
+  const a = ac(); $("alive").disabled = $("sour").disabled = true;
+  const g = playGlide(a.currentTime+0.08, curF0, cur.cents/FIFTH);
+  $("statB").textContent = `${ladder.length*2-queue.length} OF ${ladder.length*2}`;
+  setTimeout(()=>{ $("alive").disabled = $("sour").disabled = false; }, (g.end-a.currentTime)*1000);
+}
+function next2(){
+  if (!queue.length){ $("alive").disabled=$("sour").disabled=$("replayB").disabled=true; $("statB").textContent="DONE"; report(); return; }
+  cur = queue.pop(); curF0 = 196*Math.pow(2,(Math.random()*6-3)/12); play2();
+}
+function answer2(isSour){ cur.n++; if (isSour) cur.sour++; setTimeout(next2, 500); }
+$("startB").onclick = ()=>{ $("startB").disabled=true; $("phaseB").classList.remove("hidden"); buildLadder(); next2(); };
+$("replayB").onclick = play2;
+$("alive").onclick = ()=>answer2(false); $("sour").onclick = ()=>answer2(true);
+
+// the sour line: first level where half or more of the answers were sour, interpolated in log cents
+function sourLine(){
+  for (let i=0;i<ladder.length;i++){
+    const f = ladder[i].sour/ladder[i].n;
+    if (f >= 0.5){
+      if (i===0) return {cents:ladder[0].cents, below:true};
+      const f0 = ladder[i-1].sour/ladder[i-1].n, a = Math.log(ladder[i-1].cents), b = Math.log(ladder[i].cents);
+      return {cents: Math.exp(a + (0.5-f0)/(f-f0)*(b-a))};
+    }
+  }
+  return null;
+}
+function report(){
+  let html = "", txt = {page:"Portamento and Physical Pitch Modeling", test:"overshoot-threshold v1", date:new Date().toISOString().slice(0,10)};
+  if (threshold){
+    html += `<div class="result">You hear an overshoot from about <b>${threshold.toFixed(1)} cents</b>.</div>
+      That is ${(threshold/FIFTH*100).toFixed(1)}% of the fifth, the overshoot a spring makes at ζ ≈ ${zetaFor(threshold/FIFTH).toFixed(2)}.
+      Below that, an underdamped glide sounds to you like a clean arrival.`;
+    txt.threshold_cents = +threshold.toFixed(1); txt.threshold_zeta = +zetaFor(threshold/FIFTH).toFixed(3);
+    txt.trials = S.trial; txt.reversals = S.reversals.map(v=>+v.toFixed(1));
+  }
+  if (ladder.length && !queue.length){
+    const s = sourLine();
+    html += s ? (s.below ? `<div class="result">Every overshoot you could hear already sounded sour to you.</div>`
+                         : `<div class="result">It turns sour at about <b>${s.cents.toFixed(0)} cents</b> (ζ ≈ ${zetaFor(s.cents/FIFTH).toFixed(2)}).</div>
+                            Between your two numbers is your band of <em>alive</em> overshoot.`)
+              : `<div class="result">Nothing on the ladder sounded sour to you, up to a third of the fifth.</div>`;
+    txt.sour_cents = s ? +s.cents.toFixed(0) : null;
+    txt.ladder = ladder.map(r=>[+r.cents.toFixed(1), r.sour, r.n]);
+    const tb = $("ladder").querySelector("tbody"); tb.innerHTML = "";
+    ladder.forEach(r=>{ tb.innerHTML += `<tr><td>${r.cents.toFixed(1)}</td><td>${zetaFor(r.cents/FIFTH).toFixed(2)}</td><td>${(r.cents/FIFTH*100).toFixed(1)}%</td><td>${r.sour} of ${r.n}</td></tr>`; });
+    $("ladder").classList.remove("hidden");
+  }
+  $("res").innerHTML = html; $("out").value = JSON.stringify(txt);
+}
+</script>
+</body>
+</html>

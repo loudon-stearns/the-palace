@@ -21,16 +21,18 @@
   box (Schrödinger, a line)        best return 0.99996 at   4.545 ms  → repeats 220.0 times a second   PASS
   square drum                      best return 0.68331 at  59.188 ms  → never repeats   PASS
   square box (Schrödinger)         best return 1.00000 at   9.091 ms  → repeats 110.0 times a second   PASS
-  round drum                       best return 0.75482 at  36.183 ms  → never repeats   PASS
-  round box (Schrödinger)          best return 0.72327 at   8.979 ms  → never repeats   PASS
+  round drum                       best return 0.70508 at  36.181 ms  → never repeats   PASS
+  round box (Schrödinger)          best return 0.71312 at   8.980 ms  → never repeats   PASS
   round drum, struck dead centre   best return 0.98472 at  13.899 ms  → never repeats   PASS
+== check 5: every circle mode has unit loudness: its square integrated over the disk ==
+  first 40 circle modes, m = 0 and m > 0 alike: worst |integral - 1| = 7.6e-07   PASS
   ALL PASS
 wrote drum.wav (21.3 s): string · box (Schrödinger, a line) · square drum · square box (Schrödinger) · round drum · round box (Schrödinger) · round drum, struck dead centre
   string                             18 modes in the render
   box (Schrödinger, a line)           9 modes in the render
   square drum                       478 modes in the render
   square box (Schrödinger)          115 modes in the render
-  round drum                        349 modes in the render
+  round drum                        357 modes in the render
   round box (Schrödinger)           107 modes in the render
   round drum, struck dead centre     14 modes in the render
 wrote drum-poster.png

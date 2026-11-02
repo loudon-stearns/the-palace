@@ -1,0 +1,70 @@
+# Synth Templates — card 0.2 — 808 Kick
+# Third card: a drum. No mixer, no filter; the sound is a sine with a pitch envelope and a long amp decay, then saturation.
+schema: synth-template-card/0.2
+id: 808-kick
+name: 808 Kick
+family: Drums and Percussion
+tier: 1
+mode: mono
+classics: TR-808
+status: drafted
+lineage:
+  - "Generative Audio Devices/pdl-renderer/archetypes.json: kick — pitch-fall decay matches amp decay (the punch)"
+concepts:
+  - "Sine: no response to filtering; FM/additive building block"
+  - "Envelope → pitch (attack blip)"
+  - "Pluck / strike: release = decay; gong vs marimba"
+  - "Envelope trigger / one-shot mode"
+  - "Distortion: nonlinear, harmonic, compresses dynamics, tames resonance"
+
+graph:
+  blocks:
+    osc1: {kind: oscillator, wave: sine, octave: 0, retrigger: true}
+    amp:  {kind: amplifier, level: full}
+    fx:   {kind: fx, chain: [saturation]}
+    menv: {kind: envelope, role: pitch, shape: {a: instant, d: short, s: zero, r: short}, category: percussive, one_shot: true}
+    aenv: {kind: envelope, role: amp,   shape: {a: instant, d: long,  s: zero, r: long},  category: percussive, one_shot: true}
+  audio:
+    - [osc1, amp]
+    - [amp, fx]
+    - [fx, out]
+  modulation:
+    - {from: menv, to: osc1.pitch, amount: "about an octave", essential: true}
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: false}
+    - {from: key,  to: menv.gate, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+    - {from: vel,  to: amp.level, amount: some, essential: false}
+
+essentials:
+  - {block: osc1, param: wave,      value: sine,        why: "one partial; the whole timbre is pitch movement and saturation"}
+  - {block: osc1, param: retrigger, value: "on",          why: "the phase restarts each hit so every kick is the same kick"}
+  - {block: menv, param: attack,    value: instant}
+  - {block: menv, param: decay,     value: short,       why: "the pitch falls about an octave in 20–60 ms: that fall is the punch"}
+  - {block: menv, param: sustain,   value: zero,        why: "the pitch must settle on the note; any sustain detunes the body"}
+  - {block: aenv, param: attack,    value: instant}
+  - {block: aenv, param: sustain,   value: zero,        why: "a drum: struck, then left to decay"}
+  - {block: aenv, param: release,   value: same as decay, why: "a short MIDI note must still ring out"}
+  - {block: menv, param: mode,      value: one-shot,    why: "plays out whatever the note length"}
+  - {block: fx,   param: chain,     value: saturation,  why: "adds the upper harmonics a sine lacks, so it reads on small speakers"}
+
+taste:
+  - {block: aenv, param: decay,   range: "medium – very long",   default: long,  why: "the length of the boom"}
+  - {block: menv, param: amount,  range: "a fifth – two octaves", default: about an octave}
+  - {block: menv, param: decay,   range: "instant – short",      default: short, why: "shorter is a click, longer is a laser"}
+  - {block: osc1, param: pitch,   range: "F1 – C2",              default: A1}
+  - {block: fx,   param: drive,   range: "light – heavy",        default: light}
+  - {block: amp,  param: level,   range: "half – full",          default: full}
+
+listening:
+  cue: "A thump that lands and then hums. The first instant is higher than the body; the tail is a pure low note."
+  ab: "Set the pitch envelope amount to zero: the kick turns into a soft sine blip with no attack. Put it back and the punch returns. Then shorten the amp decay to short: an 808 becomes a 909-ish thud."
+
+render:
+  tempo: 120
+  note: A1
+  velocity: 110
+  pattern: "four on the floor, one bar; the last hit left to ring"
+  length_s: 3.0
+
+mappings: {}

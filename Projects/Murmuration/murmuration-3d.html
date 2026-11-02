@@ -1,0 +1,935 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Murmuration — the flock in three dimensions</title>
+<!--
+  MURMURATION 3D · the same engine as Murmuration.html, seen from the air.
+  Built by build_3d.js, which inlines engine/murmur_engine.js and engine/field_reading.js
+  unchanged, so the flock drawn here is the flock the renders came from.
+
+  What each dimension carries (every one is data, nothing is decoration):
+    ground       — the wavetable terrain. Height = how bright the waveform at (u,v) is
+                   (rms of its slope over rms of the wave); colour = which corner it leans to
+                   (sine blue · saw amber · square rose · bell green).
+    a bird's     — x,y = where it walks the terrain (the timbre it reads).
+    altitude     — how steady its course has been over the last quarter second, the same
+                   number that sets its grain length in the "order" mapping: steady birds
+                   fly high and sing long tonal grains, tumbling birds skim the ground and
+                   click. So the order→disorder transition is seen as the flock lifting off
+                   as one sheet, or sinking into churn.
+    white flash  — alarm (the startle wave).
+    pillars      — "Listen by: density": the 40 pad cells, height = level, hue = pitch class.
+    sky          — clears as order φ rises, hazes as it falls.
+  Drag to orbit. Click (without dragging) to strike: the predator lands where you click.
+  No library: canvas 2D with its own projection, so it runs sandboxed.
+-->
+<style>
+  :root { --bg:#0b0d12; --fg:#e8e6df; --dim:#8b8a85; --line:#2a2d36; --acc:#e9b45a; }
+  html,body { margin:0; height:100%; background:var(--bg); color:var(--fg); font:13px/1.4 ui-monospace,Menlo,monospace; overflow:hidden; }
+  canvas { display:block; width:100vw; height:100vh; cursor:crosshair; }
+  #ui { position:fixed; left:12px; top:12px; width:230px; background:rgba(11,13,18,.78); border:1px solid var(--line); border-radius:6px; padding:10px 12px; }
+  #ui h1 { font-size:12px; letter-spacing:.12em; text-transform:uppercase; margin:0 0 8px; color:var(--acc); font-weight:600; }
+  #ui label { display:flex; justify-content:space-between; color:var(--dim); font-size:11px; text-transform:uppercase; letter-spacing:.05em; margin-top:8px; }
+  #ui input[type=range] { width:100%; }
+  #ui select, #ui button { width:100%; margin-top:4px; background:#141720; color:var(--fg); border:1px solid var(--line); border-radius:4px; font:inherit; padding:4px; }
+  #ui button.on { border-color:var(--acc); color:var(--acc); }
+  #hud { position:fixed; right:12px; top:12px; text-align:right; color:var(--dim); font-size:12px; }
+  #hud b { color:var(--fg); font-weight:600; }
+  #legend { position:fixed; left:12px; bottom:10px; color:var(--dim); font-size:11px; max-width:620px; }
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<script type="text/plain" id="engineSrc">const E = (() => { const module = { exports: {} };
+// Murmuration — headless twin of Murmuration.html.
+//
+// The flock (stepFlock / polarization), the boid→grain mapping (pushFlock) and the
+// grain voice (the AudioWorklet's process loop) are copied from the page line for line.
+// Two deliberate differences, both for repeatability:
+//   1. the worklet's Math.random() (grain re-phase "shimmer", initial phases) is a
+//      seeded mulberry32 stream separate from the flock's, so the flock's random
+//      sequence stays exactly the page's;
+//   2. no DynamicsCompressor — renders are level-matched offline instead.
+//
+// It also holds the AUTHORED cloud: the same 60 grain voices, the same mapping, the
+// same per-frame centre and spread as the flock — but each voice wanders on its own
+// (independent smooth random jitter) instead of steering by its neighbours. It is the
+// hard version of the wager's control: everything a hand-dialed granular synth could
+// copy from the flock is copied; only the social coordination is taken away.
+"use strict";
+
+const SEED = 7;
+const WIDTH = 920, HEIGHT = 520;
+const NEIGHBOR_R = 56, NEIGHBOR_R2 = NEIGHBOR_R * NEIGHBOR_R;
+const MAX_SPEED = 3, MAX_FORCE = 0.05;
+const SEE_R = 150, KNN = 7, ALARM_PASS = 0.88, ALARM_FLOOR = 0.2, ALARM_RISE = 0.12, ALARM_DECAY = 0.985, DASH = 0.3;   // the startle (third reading)
+const FPS = 60;
+const L = 2048, LMASK = L - 1;
+
+function mulberry32(a) { return function () { a |= 0; a = (a + 0x6D2B79F5) | 0; let t = Math.imul(a ^ (a >>> 15), 1 | a); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
+
+function torDelta(ax, ay, bx, by) { let dx = bx - ax, dy = by - ay; if (dx > WIDTH * 0.5) dx -= WIDTH; else if (dx < -WIDTH * 0.5) dx += WIDTH; if (dy > HEIGHT * 0.5) dy -= HEIGHT; else if (dy < -HEIGHT * 0.5) dy += HEIGHT; return [dx, dy]; }
+function setMag(x, y, m) { const n = Math.hypot(x, y); return n > 0 ? [x / n * m, y / n * m] : [0, 0]; }
+function limit(x, y, mx) { const n = Math.hypot(x, y); return (n > mx && n > 0) ? [x / n * mx, y / n * mx] : [x, y]; }
+
+class Flock {
+  constructor(n, seed = SEED) {
+    this.rng = mulberry32(seed);
+    this.field = { attract: null, predator: null, predT: 0 };
+    const b = [];
+    for (let i = 0; i < n; i++) {
+      const x = this.rng() * WIDTH, y = this.rng() * HEIGHT, a = this.rng() * Math.PI * 2, sp = 0.5 * MAX_SPEED + this.rng() * 0.5 * MAX_SPEED;
+      b.push({ x, y, vx: Math.cos(a) * sp, vy: Math.sin(a) * sp, nb: 0, a: 0 });
+    }
+    this.boids = b;
+  }
+  step(w) {                                   // = stepFlock() in Murmuration.html
+    const boids = this.boids, field = this.field, rng = this.rng, N = boids.length;
+    const nvx = new Float64Array(N), nvy = new Float64Array(N), nbN = new Int32Array(N);
+    const st = !!w.startle, nA = new Float64Array(N), kd = new Float64Array(KNN), ka = new Float64Array(KNN), kx = new Float64Array(KNN), ky = new Float64Array(KNN);
+    for (let i = 0; i < N; i++) {
+      const b = boids[i];
+      let sepX = 0, sepY = 0, sepN = 0, aliX = 0, aliY = 0, aliN = 0, cohX = 0, cohY = 0, cohN = 0;
+      let mxA = 0, upX = 0, upY = 0;
+      if (st) { kd.fill(Infinity); ka.fill(0); }
+      for (let j = 0; j < N; j++) {
+        if (i === j) continue;
+        const o = boids[j];
+        const [dx, dy] = torDelta(b.x, b.y, o.x, o.y);
+        const d2 = dx * dx + dy * dy;
+        if (d2 > 0 && d2 < NEIGHBOR_R2) { sepX -= dx / d2; sepY -= dy / d2; sepN++; aliX += o.vx; aliY += o.vy; aliN++; cohX += dx; cohY += dy; cohN++; }
+        if (st && d2 > 0 && d2 < kd[KNN - 1]) { let q = KNN - 1; while (q > 0 && kd[q - 1] > d2) { kd[q] = kd[q - 1]; ka[q] = ka[q - 1]; kx[q] = kx[q - 1]; ky[q] = ky[q - 1]; q--; } kd[q] = d2; ka[q] = o.a; kx[q] = dx; ky[q] = dy; }
+      }
+      // STARTLE (the third reading, opt-in): each boid carries an alarm a ∈ [0,1]. It rises when
+      // the boid sees the predator, or catches it from its most alarmed neighbour (one step
+      // weaker per hop, a few frames' reaction time per hop), and fades over about a second.
+      // Contagion is topological, as measured in real starlings (Ballerini et al. 2008): a boid
+      // watches its 7 nearest flockmates however far away they are, not everyone within a radius.
+      // Alarmed boids fly faster, push apart harder, hold the group less, and dodge away from
+      // where the alarm is coming from — so the startle travels through the flock as a wave
+      // several times faster than any boid, and the regathering afterwards is plain flocking.
+      let ga = 1, kSep = 1, kAli = 1, kCoh = 1, spMax = MAX_SPEED;
+      if (st) {
+        for (let q = 0; q < KNN; q++) { if (kd[q] === Infinity) break; if (ka[q] > mxA) mxA = ka[q]; if (ka[q] > b.a) { upX += (ka[q] - b.a) * kx[q]; upY += (ka[q] - b.a) * ky[q]; } }
+        let see = 0;
+        if (field.predator && field.predT > 0) { const [dx, dy] = torDelta(field.predator.x, field.predator.y, b.x, b.y); const d = Math.hypot(dx, dy); if (d < SEE_R) see = Math.min(1, 1.6 * field.predT * (1 - d / SEE_R)); }
+        const tgt = Math.max(see, mxA > ALARM_FLOOR ? ALARM_PASS * mxA : 0);
+        const a = tgt > b.a ? b.a + ALARM_RISE * (tgt - b.a) : b.a * ALARM_DECAY;
+        nA[i] = a; ga = a;
+        kSep = 1 + 1.5 * a; kAli = 1 - 0.5 * a; kCoh = 1 - 0.7 * a; spMax = MAX_SPEED * (1 + 0.8 * a);
+      }
+      let fx = 0, fy = 0;
+      if (sepN > 0) { const [dx, dy] = setMag(sepX, sepY, MAX_SPEED); const [sx, sy] = limit(dx - b.vx, dy - b.vy, MAX_FORCE); fx += kSep * w.sep * sx; fy += kSep * w.sep * sy; }
+      if (aliN > 0) { const [dx, dy] = setMag(aliX / aliN, aliY / aliN, MAX_SPEED); const [sx, sy] = limit(dx - b.vx, dy - b.vy, MAX_FORCE); fx += kAli * w.ali * sx; fy += kAli * w.ali * sy; }
+      if (cohN > 0) { const [dx, dy] = setMag(cohX / cohN, cohY / cohN, MAX_SPEED); const [sx, sy] = limit(dx - b.vx, dy - b.vy, MAX_FORCE); fx += kCoh * w.coh * sx; fy += kCoh * w.coh * sy; }
+      if (st && ga > 0.02 && (upX !== 0 || upY !== 0)) { const [dx, dy] = setMag(-upX, -upY, spMax); const [sx, sy] = limit(dx - b.vx, dy - b.vy, MAX_FORCE * 3); fx += 3 * ga * sx; fy += 3 * ga * sy; }
+      if (field.attract) { const [dx, dy] = torDelta(b.x, b.y, field.attract.x, field.attract.y); const [sx, sy] = limit(...setMag(dx, dy, MAX_SPEED), MAX_FORCE * 1.4); fx += 0.9 * sx; fy += 0.9 * sy; }
+      if (field.predator && field.predT > 0) { const [dx, dy] = torDelta(field.predator.x, field.predator.y, b.x, b.y); const d = Math.hypot(dx, dy) + 1e-6; if (d < 200) { const g = field.predT * (1 - d / 200); const [sx, sy] = setMag(dx, dy, MAX_SPEED); fx += 4.0 * g * sx; fy += 4.0 * g * sy; } }
+      let vx = b.vx + fx, vy = b.vy + fy;
+      if (st && ga > 0.02) { const m = Math.hypot(vx, vy) || 1; vx += vx / m * DASH * ga; vy += vy / m * DASH * ga; }
+      if (w.eta > 0) { const ang = (rng() * 2 - 1) * w.eta * Math.PI; const c = Math.cos(ang), s = Math.sin(ang); const rx = vx * c - vy * s, ry = vx * s + vy * c; vx = rx; vy = ry; }
+      [vx, vy] = limit(vx, vy, spMax);
+      nvx[i] = vx; nvy[i] = vy; nbN[i] = cohN;
+    }
+    for (let i = 0; i < N; i++) { const b = boids[i]; b.vx = nvx[i]; b.vy = nvy[i]; b.nb = nbN[i]; if (st) b.a = nA[i]; b.x = (b.x + b.vx + WIDTH) % WIDTH; b.y = (b.y + b.vy + HEIGHT) % HEIGHT; }
+    if (field.predT > 0) field.predT -= 0.045;
+  }
+  polarization() { let sx = 0, sy = 0; for (const b of this.boids) { const m = Math.hypot(b.vx, b.vy); if (m > 0) { sx += b.vx / m; sy += b.vy / m; } } return Math.hypot(sx, sy) / this.boids.length; }
+}
+
+// Circular mean of x/y on the torus + covariance of the wrapped deviations from it,
+// plus the speed and radial-velocity statistics the mapping reads.
+function cloudStats(boids) {
+  let cx = 0, sx = 0, cy = 0, sy = 0;
+  for (const b of boids) { const ax = b.x / WIDTH * 2 * Math.PI, ay = b.y / HEIGHT * 2 * Math.PI; cx += Math.cos(ax); sx += Math.sin(ax); cy += Math.cos(ay); sy += Math.sin(ay); }
+  const mx = ((Math.atan2(sx, cx) / (2 * Math.PI)) + 1) % 1 * WIDTH, my = ((Math.atan2(sy, cy) / (2 * Math.PI)) + 1) % 1 * HEIGHT;
+  const N = boids.length; let vxx = 0, vyy = 0, vxy = 0, spd = 0, spd2 = 0;
+  for (const b of boids) { const [dx, dy] = torDelta(mx, my, b.x, b.y); vxx += dx * dx; vyy += dy * dy; vxy += dx * dy; const s = Math.hypot(b.vx, b.vy); spd += s; spd2 += s * s; }
+  vxx /= N; vyy /= N; vxy /= N; spd /= N; spd2 = Math.max(0, spd2 / N - spd * spd);
+  let hx = 0, hy = 0; for (const b of boids) { const m = Math.hypot(b.vx, b.vy); if (m > 0) { hx += b.vx / m; hy += b.vy / m; } }
+  const phi = Math.min(0.999999, Math.hypot(hx, hy) / N), hMean = Math.atan2(hy, hx), hSig = Math.min(Math.sqrt(-2 * Math.log(Math.max(phi, 1e-6))), 4 * Math.PI);
+  return { mx, my, vxx, vyy, vxy, spd, spdSd: Math.sqrt(spd2), phi, hMean, hSig };
+}
+
+// The authored cloud: N voices, each an independent Ornstein–Uhlenbeck wanderer in a
+// standardised space, mapped onto the flock's own centre and covariance every frame.
+// tauSec is the one hand-dialed knob (how smooth each grain's jitter is).
+class AuthoredCloud {
+  constructor(n, seed = SEED + 101, tauSec = 0.6) {
+    this.rng = mulberry32(seed); this.n = n; this.a = Math.exp(-1 / (tauSec * FPS)); this.k = Math.sqrt(1 - this.a * this.a);
+    this.z = []; for (let i = 0; i < n; i++) this.z.push([this.gauss(), this.gauss(), this.gauss(), this.gauss(), this.gauss()]);
+    this.boids = []; this.prev = null;
+  }
+  gauss() { let u = 0; while (u === 0) u = this.rng(); return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * this.rng()); }
+  step(st) {
+    const { mx, my, vxx, vyy, vxy } = st;
+    const l11 = Math.sqrt(Math.max(vxx, 1e-9)), l21 = vxy / l11, l22 = Math.sqrt(Math.max(vyy - l21 * l21, 1e-9));
+    const out = [];
+    for (let i = 0; i < this.n; i++) {
+      const z = this.z[i]; for (let d = 0; d < 5; d++) z[d] = this.a * z[d] + this.k * this.gauss();
+      const x = ((mx + l11 * z[0]) % WIDTH + WIDTH) % WIDTH, y = ((my + l21 * z[0] + l22 * z[1]) % HEIGHT + HEIGHT) % HEIGHT;
+      // speed: same mean and spread as the flock's, each voice jittering on its own;
+      // heading: its own random walk around the flock's mean heading, with the wrapped-normal
+      // width that gives the same polarization φ (R = e^(−σ²/2)) — same agreement, no neighbours.
+      const sp = Math.max(0, Math.min(MAX_SPEED, st.spd + st.spdSd * z[2])), hd = st.hMean + st.hSig * z[3];
+      out.push({ x, y, vx: Math.cos(hd) * sp, vy: Math.sin(hd) * sp, nb: 0 });
+    }
+    for (let i = 0; i < this.n; i++) { let c = 0; const b = out[i]; for (let j = 0; j < this.n; j++) { if (i === j) continue; const [dx, dy] = torDelta(b.x, b.y, out[j].x, out[j].y); const d2 = dx * dx + dy * dy; if (d2 > 0 && d2 < NEIGHBOR_R2) c++; } b.nb = c; }
+    this.boids = out;
+  }
+  // Grain length is copied the same way: each voice jitters on its own around the flock's
+  // mean and spread of grain rate this frame, so the two clouds click and sing in the same
+  // proportion and only *which* grain does which, and when, differs.
+  matchGrainRate(mappedA, mappedF) {
+    const n = this.n; let m = 0, m2 = 0; for (let i = 0; i < n; i++) { const g = mappedF[i * 6 + 4]; m += g; m2 += g * g; }
+    m /= n; const sd = Math.sqrt(Math.max(0, m2 / n - m * m));
+    for (let i = 0; i < n; i++) mappedA[i * 6 + 4] = Math.max(4, Math.min(104, m + sd * this.z[i][4]));
+    return mappedA;
+  }
+}
+
+// = pushFlock() in Murmuration.html, plus the "listening" mapping (P.mapping === "order"):
+//   pitch  — the heading circle is the pitch circle (one octave around), so heading
+//            agreement (φ) is heard as pitch agreement: aligned → unison, scattered → cluster;
+//   grain  — grain length follows each boid's heading persistence (how steady its course
+//            has been over the last ~¼ s): a boid held on course by its neighbours plays
+//            long, tonal grains; a boid tumbling in the noise plays short clicks.
+// mem is per-voice state (the persistence average), kept by the caller between frames.
+function mapBoids(boids, P, mem) {
+  const N = boids.length, f = new Float32Array(N * 6), cx = WIDTH * 0.5, cy = HEIGHT * 0.5;
+  const order = P.mapping === "order";
+  if (order && mem && mem.hx === undefined) { mem.hx = new Float64Array(N); mem.hy = new Float64Array(N); for (let i = 0; i < N; i++) { const b = boids[i], m = Math.hypot(b.vx, b.vy) || 1; mem.hx[i] = b.vx / m; mem.hy[i] = b.vy / m; } }
+  for (let i = 0; i < N; i++) {
+    const b = boids[i], u = b.x / WIDTH, v = b.y / HEIGHT;
+    const semis = order ? 12 * Math.atan2(b.vy, b.vx) / (2 * Math.PI) : (0.5 - v) * P.pitch;
+    const rdx = b.x - cx, rdy = b.y - cy, rd = Math.hypot(rdx, rdy) + 1e-6;
+    const vrad = (b.vx * rdx + b.vy * rdy) / rd, dopp = 1 - 0.012 * vrad;
+    const freq = P.base * Math.pow(2, semis / 12) * dopp;
+    const spd = Math.hypot(b.vx, b.vy) / MAX_SPEED;
+    let grainHz = 18 + spd * 90;
+    if (order && mem) {
+      const m = Math.hypot(b.vx, b.vy) || 1, a = 0.93;          // ~0.24 s memory at 60 fps
+      mem.hx[i] = a * mem.hx[i] + (1 - a) * b.vx / m; mem.hy[i] = a * mem.hy[i] + (1 - a) * b.vy / m;
+      const pers = Math.min(1, Math.hypot(mem.hx[i], mem.hy[i]));  // 1 = dead straight, ~0.3 = tumbling
+      const q = Math.pow(pers, 6);
+      grainHz = 4 + (1 - q) * 100;                               // 4 Hz (250 ms, tonal) … 104 Hz (10 ms, click)
+    }
+    const gain = (0.55 + 0.45 * Math.min(1, b.nb / 6)) * (P.startle ? 1 + 1.5 * (b.a || 0) : 1), k = i * 6;
+    f[k] = u; f[k + 1] = v; f[k + 2] = freq; f[k + 3] = gain; f[k + 4] = grainHz; f[k + 5] = u;
+  }
+  return f;
+}
+
+function buildCorners() {
+  const TL = new Float32Array(L), TR = new Float32Array(L), BL = new Float32Array(L), BR = new Float32Array(L);
+  for (let i = 0; i < L; i++) { const ph = i / L, t = ph * 2 * Math.PI; TL[i] = Math.sin(t); TR[i] = 2 * ph - 1; BL[i] = ph < 0.5 ? 1 : -1; BR[i] = 0.6 * Math.sin(t) + 0.4 * Math.sin(2.76 * t) + 0.28 * Math.sin(5.4 * t) + 0.18 * Math.sin(8.93 * t); }
+  let mx = 0; for (let i = 0; i < L; i++) mx = Math.max(mx, Math.abs(BR[i])); if (mx > 0) for (let i = 0; i < L; i++) BR[i] /= mx;
+  return { TL, TR, BL, BR };
+}
+
+// = GranularProcessor in the page's worklet (Math.random → seeded stream)
+class Grains {
+  constructor(sr, seed = SEED + 1000) { this.sr = sr; this.rng = mulberry32(seed); this.voices = []; this.master = 0.7; this.shimmer = 0.55; Object.assign(this, buildCorners()); }
+  setFlock(f, n) {
+    while (this.voices.length < n) this.voices.push({ u: 0.5, v: 0.5, freq: 110, gain: 0, grainHz: 40, pan: 0.5, phase: this.rng(), gp: this.rng() });
+    this.voices.length = n;
+    for (let i = 0; i < n; i++) { const o = this.voices[i], k = i * 6; o.u = f[k]; o.v = f[k + 1]; o.freq = f[k + 2]; o.gain = f[k + 3]; o.grainHz = f[k + 4]; o.pan = f[k + 5]; }
+  }
+  process(outL, outR, n) {
+    const invSr = 1 / this.sr, { TL, TR, BL, BR } = this, norm = this.master / Math.sqrt(Math.max(1, this.voices.length));
+    for (let s = 0; s < n; s++) {
+      let accL = 0, accR = 0;
+      for (let vi = 0; vi < this.voices.length; vi++) {
+        const o = this.voices[vi]; if (o.gain <= 0) continue;
+        const env = 0.5 - 0.5 * Math.cos(2 * Math.PI * o.gp);
+        const idx = o.phase * L, i0 = idx | 0, fr = idx - i0, i1 = (i0 + 1) & LMASK;
+        const stl = TL[i0] + fr * (TL[i1] - TL[i0]), str = TR[i0] + fr * (TR[i1] - TR[i0]);
+        const sbl = BL[i0] + fr * (BL[i1] - BL[i0]), sbr = BR[i0] + fr * (BR[i1] - BR[i0]);
+        const top = stl + o.u * (str - stl), bot = sbl + o.u * (sbr - sbl);
+        const smp = (top + o.v * (bot - top)) * env * o.gain;
+        accL += smp * Math.cos(o.pan * Math.PI * 0.5); accR += smp * Math.sin(o.pan * Math.PI * 0.5);
+        o.phase += o.freq * invSr; if (o.phase >= 1) o.phase -= 1;
+        o.gp += o.grainHz * invSr;
+        if (o.gp >= 1) { o.gp -= 1; o.phase = (1 - this.shimmer) * o.phase + this.shimmer * this.rng(); }
+      }
+      outL[s] = accL * norm; outR[s] = accR * norm;
+    }
+  }
+}
+
+function writeWav16(path, L_, R_, sr) {
+  const fs = require("fs"), total = L_.length, pcm = Buffer.alloc(44 + total * 4);
+  pcm.write("RIFF", 0); pcm.writeUInt32LE(36 + total * 4, 4); pcm.write("WAVEfmt ", 8);
+  pcm.writeUInt32LE(16, 16); pcm.writeUInt16LE(1, 20); pcm.writeUInt16LE(2, 22); pcm.writeUInt32LE(sr, 24);
+  pcm.writeUInt32LE(sr * 4, 28); pcm.writeUInt16LE(4, 32); pcm.writeUInt16LE(16, 34); pcm.write("data", 36); pcm.writeUInt32LE(total * 4, 40);
+  for (let i = 0; i < total; i++) { pcm.writeInt16LE(Math.round(Math.max(-1, Math.min(1, L_[i])) * 32767), 44 + i * 4); pcm.writeInt16LE(Math.round(Math.max(-1, Math.min(1, R_[i])) * 32767), 46 + i * 4); }
+  fs.writeFileSync(path, pcm);
+}
+
+module.exports = { SEE_R, SEED, WIDTH, HEIGHT, MAX_SPEED, FPS, mulberry32, Flock, AuthoredCloud, cloudStats, mapBoids, Grains, writeWav16 };
+
+return module.exports; })();
+const ENGINE_ = E;
+const FR = (() => { const module = { exports: {} }; const require = () => ENGINE_;
+// Murmuration — the second reading: flock-as-distribution ("Listen by: density").
+//
+// The flock is not rendered boid by boid. A fixed 8×5 grid of sustained oscillators sits
+// on the wavetable field; each one reads the single waveform under its cell. Every frame
+// the flock is smoothed into a density over the field (a Gaussian kernel around each boid,
+// wrapped on the torus), and that density is the additive weighting across the wavetable:
+// where the flock is thick, that region of the terrain sounds. Spread the flock and many
+// regions sound at once; gather it (the attractor) and the pad narrows to one timbre.
+//
+// Pitch: each cell plays the kernel-weighted mean heading of the boids around it, on the
+// same heading→pitch circle as the grains' "order" mapping. Ordered flock → every cell
+// agrees → one pitch class across the whole pad. Melted flock → each region its own
+// heading → a slowly drifting cluster. The pitch circle is made a real circle with a
+// two-octave Shepard pair per cell, so a heading crossing ±180° never jumps an octave.
+//
+// Startle (third reading, opt-in): a cell also takes the kernel-weighted mean alarm of the
+// boids around it and swells by up to 2.5× while they are alarmed — after the power
+// normalisation, so the startle is heard as a swell the way it is in the grains.
+//
+// mapField() and Field are copied into Murmuration.html line for line (check with
+// check_page_mapping.js). No Math.random anywhere — the field reading is deterministic.
+"use strict";
+const E = require("./murmur_engine.js");
+const { WIDTH, HEIGHT } = E;
+const L = 2048, LMASK = L - 1;
+
+// ---- = FIELD READING block in Murmuration.html ------------------------------------------
+const FGX = 8, FGY = 5, FNC = FGX * FGY, FSIG = 80, FSIG2 = 2 * FSIG * FSIG, FSMOOTH = 0.85;
+function mapField(boids, mem, startle) {
+  if (!mem.D || mem.D.length !== FNC) { mem.D = new Float64Array(FNC); mem.Hx = new Float64Array(FNC); mem.Hy = new Float64Array(FNC); mem.A = new Float64Array(FNC); mem.first = true; }
+  const f = new Float32Array(FNC * 4), a = mem.first ? 0 : FSMOOTH;
+  let s2 = 0;
+  for (let c = 0; c < FNC; c++) {
+    const cu = ((c % FGX) + 0.5) / FGX, cv = (((c / FGX) | 0) + 0.5) / FGY, x = cu * WIDTH, y = cv * HEIGHT;
+    let d = 0, hx = 0, hy = 0, al = 0;
+    for (const b of boids) {
+      let dx = b.x - x, dy = b.y - y;
+      if (dx > WIDTH * 0.5) dx -= WIDTH; else if (dx < -WIDTH * 0.5) dx += WIDTH;
+      if (dy > HEIGHT * 0.5) dy -= HEIGHT; else if (dy < -HEIGHT * 0.5) dy += HEIGHT;
+      const k = Math.exp(-(dx * dx + dy * dy) / FSIG2), m = Math.hypot(b.vx, b.vy) || 1;
+      d += k; hx += k * b.vx / m; hy += k * b.vy / m; if (startle) al += k * (b.a || 0);
+    }
+    mem.D[c] = a * mem.D[c] + (1 - a) * d; mem.Hx[c] = a * mem.Hx[c] + (1 - a) * hx; mem.Hy[c] = a * mem.Hy[c] + (1 - a) * hy; if (startle) mem.A[c] = a * mem.A[c] + (1 - a) * al;
+    s2 += mem.D[c] * mem.D[c];
+  }
+  mem.first = false;
+  const s = Math.sqrt(s2) || 1;
+  for (let c = 0; c < FNC; c++) {
+    const k = c * 4, pc = ((Math.atan2(mem.Hy[c], mem.Hx[c]) / (2 * Math.PI) + 0.5) % 1 + 1) % 1;
+    f[k] = ((c % FGX) + 0.5) / FGX; f[k + 1] = (((c / FGX) | 0) + 0.5) / FGY; f[k + 2] = mem.D[c] / s * (startle ? 1 + 1.5 * mem.A[c] / (mem.D[c] + 1e-9) : 1); f[k + 3] = pc;
+  }
+  return f;
+}
+// ---- end FIELD READING block -------------------------------------------------------------
+
+// = the field branch of GranularProcessor in the page's worklet
+class Field {
+  constructor(sr) { this.sr = sr; this.cells = []; this.master = 0.7; Object.assign(this, corners()); }
+  setField(f, n, base) {
+    while (this.cells.length < n) this.cells.push({ tab: null, u: -1, v: -1, pan: 0.5, pc: -1, ph: [0, 0.5], g: [0, 0], t: [0, 0], fq: [0, 0] });
+    this.cells.length = n;
+    for (let i = 0; i < n; i++) {
+      const o = this.cells[i], k = i * 4, u = f[k], v = f[k + 1], amp = f[k + 2], pc = f[k + 3];
+      if (u !== o.u || v !== o.v) { o.u = u; o.v = v; o.pan = u; o.tab = new Float32Array(L); for (let j = 0; j < L; j++) { const top = this.TL[j] + u * (this.TR[j] - this.TL[j]), bot = this.BL[j] + u * (this.BR[j] - this.BL[j]); o.tab[j] = top + v * (bot - top); } }
+      // the Shepard pair: hi = base·2^(pc−½), lo an octave below; crossing the top of the circle
+      // relabels them (new hi = old lo, at the same frequency), so swap phase and level.
+      if (o.pc >= 0 && Math.abs(pc - o.pc) > 0.5) { o.ph = [o.ph[1], o.ph[0]]; o.g = [o.g[1], o.g[0]]; }
+      o.pc = pc;
+      const c = Math.cos(Math.PI * pc * 0.5), sn = Math.sin(Math.PI * pc * 0.5);
+      o.t = [amp * c * c, amp * sn * sn];
+      o.fq = [base * Math.pow(2, pc - 0.5), base * Math.pow(2, pc - 1.5)];
+    }
+  }
+  process(outL, outR, n) {
+    const invSr = 1 / this.sr, norm = this.master;
+    for (let s = 0; s < n; s++) { outL[s] = 0; outR[s] = 0; }
+    for (const o of this.cells) {
+      const pL = Math.cos(o.pan * Math.PI * 0.5) * norm, pR = Math.sin(o.pan * Math.PI * 0.5) * norm, tab = o.tab;
+      for (let j = 0; j < 2; j++) {
+        const g0 = o.g[j], g1 = o.t[j];
+        if (g0 < 1e-4 && g1 < 1e-4) continue;
+        let ph = o.ph[j]; const inc = o.fq[j] * invSr, dg = (g1 - g0) / n;
+        for (let s = 0; s < n; s++) {
+          const idx = ph * L, i0 = idx | 0, fr = idx - i0, smp = (tab[i0] + fr * (tab[(i0 + 1) & LMASK] - tab[i0])) * (g0 + dg * (s + 1));
+          outL[s] += smp * pL; outR[s] += smp * pR;
+          ph += inc; if (ph >= 1) ph -= 1;
+        }
+        o.ph[j] = ph;
+      }
+      o.g = [o.t[0], o.t[1]];
+    }
+  }
+}
+
+function corners() {   // = buildCorners() in the page / murmur_engine.js
+  const TL = new Float32Array(L), TR = new Float32Array(L), BL = new Float32Array(L), BR = new Float32Array(L);
+  for (let i = 0; i < L; i++) { const ph = i / L, t = ph * 2 * Math.PI; TL[i] = Math.sin(t); TR[i] = 2 * ph - 1; BL[i] = ph < 0.5 ? 1 : -1; BR[i] = 0.6 * Math.sin(t) + 0.4 * Math.sin(2.76 * t) + 0.28 * Math.sin(5.4 * t) + 0.18 * Math.sin(8.93 * t); }
+  let mx = 0; for (let i = 0; i < L; i++) mx = Math.max(mx, Math.abs(BR[i])); if (mx > 0) for (let i = 0; i < L; i++) BR[i] /= mx;
+  return { TL, TR, BL, BR };
+}
+
+module.exports = { FGX, FGY, FNC, mapField, Field };
+
+return module.exports; })();
+</script>
+<div id="ui">
+  <h1>Murmuration · 3D</h1>
+  <button id="bSound">sound on</button>
+  <button id="bDemo" class="on">demo: playing itself</button>
+  <label>Disorder η <span id="vEta">0.06</span></label>
+  <input id="cEta" type="range" min="0" max="1" step="0.001" value="0.49">
+  <label>Listen by</label>
+  <select id="cMap"><option value="order">grains — every bird a grain</option><option value="density">density — the breathing pad</option></select>
+  <label>Birds</label>
+  <select id="cN"><option>60</option><option>120</option><option>240</option></select>
+  <label>Camera</label>
+  <select id="cCam"><option value="orbit">slow orbit</option><option value="still">hold still</option><option value="low">low, among the flock</option></select>
+</div>
+<div id="hud"></div>
+<div id="legend">ground = the wavetable (height: brightness · colour: sine / saw / square / bell) · altitude = how steady a bird's course is = how long its grains sing · white = alarmed · drag to orbit · click to strike</div>
+
+<script>
+"use strict";
+const E = (() => { const module = { exports: {} };
+// Murmuration — headless twin of Murmuration.html.
+//
+// The flock (stepFlock / polarization), the boid→grain mapping (pushFlock) and the
+// grain voice (the AudioWorklet's process loop) are copied from the page line for line.
+// Two deliberate differences, both for repeatability:
+//   1. the worklet's Math.random() (grain re-phase "shimmer", initial phases) is a
+//      seeded mulberry32 stream separate from the flock's, so the flock's random
+//      sequence stays exactly the page's;
+//   2. no DynamicsCompressor — renders are level-matched offline instead.
+//
+// It also holds the AUTHORED cloud: the same 60 grain voices, the same mapping, the
+// same per-frame centre and spread as the flock — but each voice wanders on its own
+// (independent smooth random jitter) instead of steering by its neighbours. It is the
+// hard version of the wager's control: everything a hand-dialed granular synth could
+// copy from the flock is copied; only the social coordination is taken away.
+"use strict";
+
+const SEED = 7;
+const WIDTH = 920, HEIGHT = 520;
+const NEIGHBOR_R = 56, NEIGHBOR_R2 = NEIGHBOR_R * NEIGHBOR_R;
+const MAX_SPEED = 3, MAX_FORCE = 0.05;
+const SEE_R = 150, KNN = 7, ALARM_PASS = 0.88, ALARM_FLOOR = 0.2, ALARM_RISE = 0.12, ALARM_DECAY = 0.985, DASH = 0.3;   // the startle (third reading)
+const FPS = 60;
+const L = 2048, LMASK = L - 1;
+
+function mulberry32(a) { return function () { a |= 0; a = (a + 0x6D2B79F5) | 0; let t = Math.imul(a ^ (a >>> 15), 1 | a); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
+
+function torDelta(ax, ay, bx, by) { let dx = bx - ax, dy = by - ay; if (dx > WIDTH * 0.5) dx -= WIDTH; else if (dx < -WIDTH * 0.5) dx += WIDTH; if (dy > HEIGHT * 0.5) dy -= HEIGHT; else if (dy < -HEIGHT * 0.5) dy += HEIGHT; return [dx, dy]; }
+function setMag(x, y, m) { const n = Math.hypot(x, y); return n > 0 ? [x / n * m, y / n * m] : [0, 0]; }
+function limit(x, y, mx) { const n = Math.hypot(x, y); return (n > mx && n > 0) ? [x / n * mx, y / n * mx] : [x, y]; }
+
+class Flock {
+  constructor(n, seed = SEED) {
+    this.rng = mulberry32(seed);
+    this.field = { attract: null, predator: null, predT: 0 };
+    const b = [];
+    for (let i = 0; i < n; i++) {
+      const x = this.rng() * WIDTH, y = this.rng() * HEIGHT, a = this.rng() * Math.PI * 2, sp = 0.5 * MAX_SPEED + this.rng() * 0.5 * MAX_SPEED;
+      b.push({ x, y, vx: Math.cos(a) * sp, vy: Math.sin(a) * sp, nb: 0, a: 0 });
+    }
+    this.boids = b;
+  }
+  step(w) {                                   // = stepFlock() in Murmuration.html
+    const boids = this.boids, field = this.field, rng = this.rng, N = boids.length;
+    const nvx = new Float64Array(N), nvy = new Float64Array(N), nbN = new Int32Array(N);
+    const st = !!w.startle, nA = new Float64Array(N), kd = new Float64Array(KNN), ka = new Float64Array(KNN), kx = new Float64Array(KNN), ky = new Float64Array(KNN);
+    for (let i = 0; i < N; i++) {
+      const b = boids[i];
+      let sepX = 0, sepY = 0, sepN = 0, aliX = 0, aliY = 0, aliN = 0, cohX = 0, cohY = 0, cohN = 0;
+      let mxA = 0, upX = 0, upY = 0;
+      if (st) { kd.fill(Infinity); ka.fill(0); }
+      for (let j = 0; j < N; j++) {
+        if (i === j) continue;
+        const o = boids[j];
+        const [dx, dy] = torDelta(b.x, b.y, o.x, o.y);
+        const d2 = dx * dx + dy * dy;
+        if (d2 > 0 && d2 < NEIGHBOR_R2) { sepX -= dx / d2; sepY -= dy / d2; sepN++; aliX += o.vx; aliY += o.vy; aliN++; cohX += dx; cohY += dy; cohN++; }
+        if (st && d2 > 0 && d2 < kd[KNN - 1]) { let q = KNN - 1; while (q > 0 && kd[q - 1] > d2) { kd[q] = kd[q - 1]; ka[q] = ka[q - 1]; kx[q] = kx[q - 1]; ky[q] = ky[q - 1]; q--; } kd[q] = d2; ka[q] = o.a; kx[q] = dx; ky[q] = dy; }
+      }
+      // STARTLE (the third reading, opt-in): each boid carries an alarm a ∈ [0,1]. It rises when
+      // the boid sees the predator, or catches it from its most alarmed neighbour (one step
+      // weaker per hop, a few frames' reaction time per hop), and fades over about a second.
+      // Contagion is topological, as measured in real starlings (Ballerini et al. 2008): a boid
+      // watches its 7 nearest flockmates however far away they are, not everyone within a radius.
+      // Alarmed boids fly faster, push apart harder, hold the group less, and dodge away from
+      // where the alarm is coming from — so the startle travels through the flock as a wave
+      // several times faster than any boid, and the regathering afterwards is plain flocking.
+      let ga = 1, kSep = 1, kAli = 1, kCoh = 1, spMax = MAX_SPEED;
+      if (st) {
+        for (let q = 0; q < KNN; q++) { if (kd[q] === Infinity) break; if (ka[q] > mxA) mxA = ka[q]; if (ka[q] > b.a) { upX += (ka[q] - b.a) * kx[q]; upY += (ka[q] - b.a) * ky[q]; } }
+        let see = 0;
+        if (field.predator && field.predT > 0) { const [dx, dy] = torDelta(field.predator.x, field.predator.y, b.x, b.y); const d = Math.hypot(dx, dy); if (d < SEE_R) see = Math.min(1, 1.6 * field.predT * (1 - d / SEE_R)); }
+        const tgt = Math.max(see, mxA > ALARM_FLOOR ? ALARM_PASS * mxA : 0);
+        const a = tgt > b.a ? b.a + ALARM_RISE * (tgt - b.a) : b.a * ALARM_DECAY;
+        nA[i] = a; ga = a;
+        kSep = 1 + 1.5 * a; kAli = 1 - 0.5 * a; kCoh = 1 - 0.7 * a; spMax = MAX_SPEED * (1 + 0.8 * a);
+      }
+      let fx = 0, fy = 0;
+      if (sepN > 0) { const [dx, dy] = setMag(sepX, sepY, MAX_SPEED); const [sx, sy] = limit(dx - b.vx, dy - b.vy, MAX_FORCE); fx += kSep * w.sep * sx; fy += kSep * w.sep * sy; }
+      if (aliN > 0) { const [dx, dy] = setMag(aliX / aliN, aliY / aliN, MAX_SPEED); const [sx, sy] = limit(dx - b.vx, dy - b.vy, MAX_FORCE); fx += kAli * w.ali * sx; fy += kAli * w.ali * sy; }
+      if (cohN > 0) { const [dx, dy] = setMag(cohX / cohN, cohY / cohN, MAX_SPEED); const [sx, sy] = limit(dx - b.vx, dy - b.vy, MAX_FORCE); fx += kCoh * w.coh * sx; fy += kCoh * w.coh * sy; }
+      if (st && ga > 0.02 && (upX !== 0 || upY !== 0)) { const [dx, dy] = setMag(-upX, -upY, spMax); const [sx, sy] = limit(dx - b.vx, dy - b.vy, MAX_FORCE * 3); fx += 3 * ga * sx; fy += 3 * ga * sy; }
+      if (field.attract) { const [dx, dy] = torDelta(b.x, b.y, field.attract.x, field.attract.y); const [sx, sy] = limit(...setMag(dx, dy, MAX_SPEED), MAX_FORCE * 1.4); fx += 0.9 * sx; fy += 0.9 * sy; }
+      if (field.predator && field.predT > 0) { const [dx, dy] = torDelta(field.predator.x, field.predator.y, b.x, b.y); const d = Math.hypot(dx, dy) + 1e-6; if (d < 200) { const g = field.predT * (1 - d / 200); const [sx, sy] = setMag(dx, dy, MAX_SPEED); fx += 4.0 * g * sx; fy += 4.0 * g * sy; } }
+      let vx = b.vx + fx, vy = b.vy + fy;
+      if (st && ga > 0.02) { const m = Math.hypot(vx, vy) || 1; vx += vx / m * DASH * ga; vy += vy / m * DASH * ga; }
+      if (w.eta > 0) { const ang = (rng() * 2 - 1) * w.eta * Math.PI; const c = Math.cos(ang), s = Math.sin(ang); const rx = vx * c - vy * s, ry = vx * s + vy * c; vx = rx; vy = ry; }
+      [vx, vy] = limit(vx, vy, spMax);
+      nvx[i] = vx; nvy[i] = vy; nbN[i] = cohN;
+    }
+    for (let i = 0; i < N; i++) { const b = boids[i]; b.vx = nvx[i]; b.vy = nvy[i]; b.nb = nbN[i]; if (st) b.a = nA[i]; b.x = (b.x + b.vx + WIDTH) % WIDTH; b.y = (b.y + b.vy + HEIGHT) % HEIGHT; }
+    if (field.predT > 0) field.predT -= 0.045;
+  }
+  polarization() { let sx = 0, sy = 0; for (const b of this.boids) { const m = Math.hypot(b.vx, b.vy); if (m > 0) { sx += b.vx / m; sy += b.vy / m; } } return Math.hypot(sx, sy) / this.boids.length; }
+}
+
+// Circular mean of x/y on the torus + covariance of the wrapped deviations from it,
+// plus the speed and radial-velocity statistics the mapping reads.
+function cloudStats(boids) {
+  let cx = 0, sx = 0, cy = 0, sy = 0;
+  for (const b of boids) { const ax = b.x / WIDTH * 2 * Math.PI, ay = b.y / HEIGHT * 2 * Math.PI; cx += Math.cos(ax); sx += Math.sin(ax); cy += Math.cos(ay); sy += Math.sin(ay); }
+  const mx = ((Math.atan2(sx, cx) / (2 * Math.PI)) + 1) % 1 * WIDTH, my = ((Math.atan2(sy, cy) / (2 * Math.PI)) + 1) % 1 * HEIGHT;
+  const N = boids.length; let vxx = 0, vyy = 0, vxy = 0, spd = 0, spd2 = 0;
+  for (const b of boids) { const [dx, dy] = torDelta(mx, my, b.x, b.y); vxx += dx * dx; vyy += dy * dy; vxy += dx * dy; const s = Math.hypot(b.vx, b.vy); spd += s; spd2 += s * s; }
+  vxx /= N; vyy /= N; vxy /= N; spd /= N; spd2 = Math.max(0, spd2 / N - spd * spd);
+  let hx = 0, hy = 0; for (const b of boids) { const m = Math.hypot(b.vx, b.vy); if (m > 0) { hx += b.vx / m; hy += b.vy / m; } }
+  const phi = Math.min(0.999999, Math.hypot(hx, hy) / N), hMean = Math.atan2(hy, hx), hSig = Math.min(Math.sqrt(-2 * Math.log(Math.max(phi, 1e-6))), 4 * Math.PI);
+  return { mx, my, vxx, vyy, vxy, spd, spdSd: Math.sqrt(spd2), phi, hMean, hSig };
+}
+
+// The authored cloud: N voices, each an independent Ornstein–Uhlenbeck wanderer in a
+// standardised space, mapped onto the flock's own centre and covariance every frame.
+// tauSec is the one hand-dialed knob (how smooth each grain's jitter is).
+class AuthoredCloud {
+  constructor(n, seed = SEED + 101, tauSec = 0.6) {
+    this.rng = mulberry32(seed); this.n = n; this.a = Math.exp(-1 / (tauSec * FPS)); this.k = Math.sqrt(1 - this.a * this.a);
+    this.z = []; for (let i = 0; i < n; i++) this.z.push([this.gauss(), this.gauss(), this.gauss(), this.gauss(), this.gauss()]);
+    this.boids = []; this.prev = null;
+  }
+  gauss() { let u = 0; while (u === 0) u = this.rng(); return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * this.rng()); }
+  step(st) {
+    const { mx, my, vxx, vyy, vxy } = st;
+    const l11 = Math.sqrt(Math.max(vxx, 1e-9)), l21 = vxy / l11, l22 = Math.sqrt(Math.max(vyy - l21 * l21, 1e-9));
+    const out = [];
+    for (let i = 0; i < this.n; i++) {
+      const z = this.z[i]; for (let d = 0; d < 5; d++) z[d] = this.a * z[d] + this.k * this.gauss();
+      const x = ((mx + l11 * z[0]) % WIDTH + WIDTH) % WIDTH, y = ((my + l21 * z[0] + l22 * z[1]) % HEIGHT + HEIGHT) % HEIGHT;
+      // speed: same mean and spread as the flock's, each voice jittering on its own;
+      // heading: its own random walk around the flock's mean heading, with the wrapped-normal
+      // width that gives the same polarization φ (R = e^(−σ²/2)) — same agreement, no neighbours.
+      const sp = Math.max(0, Math.min(MAX_SPEED, st.spd + st.spdSd * z[2])), hd = st.hMean + st.hSig * z[3];
+      out.push({ x, y, vx: Math.cos(hd) * sp, vy: Math.sin(hd) * sp, nb: 0 });
+    }
+    for (let i = 0; i < this.n; i++) { let c = 0; const b = out[i]; for (let j = 0; j < this.n; j++) { if (i === j) continue; const [dx, dy] = torDelta(b.x, b.y, out[j].x, out[j].y); const d2 = dx * dx + dy * dy; if (d2 > 0 && d2 < NEIGHBOR_R2) c++; } b.nb = c; }
+    this.boids = out;
+  }
+  // Grain length is copied the same way: each voice jitters on its own around the flock's
+  // mean and spread of grain rate this frame, so the two clouds click and sing in the same
+  // proportion and only *which* grain does which, and when, differs.
+  matchGrainRate(mappedA, mappedF) {
+    const n = this.n; let m = 0, m2 = 0; for (let i = 0; i < n; i++) { const g = mappedF[i * 6 + 4]; m += g; m2 += g * g; }
+    m /= n; const sd = Math.sqrt(Math.max(0, m2 / n - m * m));
+    for (let i = 0; i < n; i++) mappedA[i * 6 + 4] = Math.max(4, Math.min(104, m + sd * this.z[i][4]));
+    return mappedA;
+  }
+}
+
+// = pushFlock() in Murmuration.html, plus the "listening" mapping (P.mapping === "order"):
+//   pitch  — the heading circle is the pitch circle (one octave around), so heading
+//            agreement (φ) is heard as pitch agreement: aligned → unison, scattered → cluster;
+//   grain  — grain length follows each boid's heading persistence (how steady its course
+//            has been over the last ~¼ s): a boid held on course by its neighbours plays
+//            long, tonal grains; a boid tumbling in the noise plays short clicks.
+// mem is per-voice state (the persistence average), kept by the caller between frames.
+function mapBoids(boids, P, mem) {
+  const N = boids.length, f = new Float32Array(N * 6), cx = WIDTH * 0.5, cy = HEIGHT * 0.5;
+  const order = P.mapping === "order";
+  if (order && mem && mem.hx === undefined) { mem.hx = new Float64Array(N); mem.hy = new Float64Array(N); for (let i = 0; i < N; i++) { const b = boids[i], m = Math.hypot(b.vx, b.vy) || 1; mem.hx[i] = b.vx / m; mem.hy[i] = b.vy / m; } }
+  for (let i = 0; i < N; i++) {
+    const b = boids[i], u = b.x / WIDTH, v = b.y / HEIGHT;
+    const semis = order ? 12 * Math.atan2(b.vy, b.vx) / (2 * Math.PI) : (0.5 - v) * P.pitch;
+    const rdx = b.x - cx, rdy = b.y - cy, rd = Math.hypot(rdx, rdy) + 1e-6;
+    const vrad = (b.vx * rdx + b.vy * rdy) / rd, dopp = 1 - 0.012 * vrad;
+    const freq = P.base * Math.pow(2, semis / 12) * dopp;
+    const spd = Math.hypot(b.vx, b.vy) / MAX_SPEED;
+    let grainHz = 18 + spd * 90;
+    if (order && mem) {
+      const m = Math.hypot(b.vx, b.vy) || 1, a = 0.93;          // ~0.24 s memory at 60 fps
+      mem.hx[i] = a * mem.hx[i] + (1 - a) * b.vx / m; mem.hy[i] = a * mem.hy[i] + (1 - a) * b.vy / m;
+      const pers = Math.min(1, Math.hypot(mem.hx[i], mem.hy[i]));  // 1 = dead straight, ~0.3 = tumbling
+      const q = Math.pow(pers, 6);
+      grainHz = 4 + (1 - q) * 100;                               // 4 Hz (250 ms, tonal) … 104 Hz (10 ms, click)
+    }
+    const gain = (0.55 + 0.45 * Math.min(1, b.nb / 6)) * (P.startle ? 1 + 1.5 * (b.a || 0) : 1), k = i * 6;
+    f[k] = u; f[k + 1] = v; f[k + 2] = freq; f[k + 3] = gain; f[k + 4] = grainHz; f[k + 5] = u;
+  }
+  return f;
+}
+
+function buildCorners() {
+  const TL = new Float32Array(L), TR = new Float32Array(L), BL = new Float32Array(L), BR = new Float32Array(L);
+  for (let i = 0; i < L; i++) { const ph = i / L, t = ph * 2 * Math.PI; TL[i] = Math.sin(t); TR[i] = 2 * ph - 1; BL[i] = ph < 0.5 ? 1 : -1; BR[i] = 0.6 * Math.sin(t) + 0.4 * Math.sin(2.76 * t) + 0.28 * Math.sin(5.4 * t) + 0.18 * Math.sin(8.93 * t); }
+  let mx = 0; for (let i = 0; i < L; i++) mx = Math.max(mx, Math.abs(BR[i])); if (mx > 0) for (let i = 0; i < L; i++) BR[i] /= mx;
+  return { TL, TR, BL, BR };
+}
+
+// = GranularProcessor in the page's worklet (Math.random → seeded stream)
+class Grains {
+  constructor(sr, seed = SEED + 1000) { this.sr = sr; this.rng = mulberry32(seed); this.voices = []; this.master = 0.7; this.shimmer = 0.55; Object.assign(this, buildCorners()); }
+  setFlock(f, n) {
+    while (this.voices.length < n) this.voices.push({ u: 0.5, v: 0.5, freq: 110, gain: 0, grainHz: 40, pan: 0.5, phase: this.rng(), gp: this.rng() });
+    this.voices.length = n;
+    for (let i = 0; i < n; i++) { const o = this.voices[i], k = i * 6; o.u = f[k]; o.v = f[k + 1]; o.freq = f[k + 2]; o.gain = f[k + 3]; o.grainHz = f[k + 4]; o.pan = f[k + 5]; }
+  }
+  process(outL, outR, n) {
+    const invSr = 1 / this.sr, { TL, TR, BL, BR } = this, norm = this.master / Math.sqrt(Math.max(1, this.voices.length));
+    for (let s = 0; s < n; s++) {
+      let accL = 0, accR = 0;
+      for (let vi = 0; vi < this.voices.length; vi++) {
+        const o = this.voices[vi]; if (o.gain <= 0) continue;
+        const env = 0.5 - 0.5 * Math.cos(2 * Math.PI * o.gp);
+        const idx = o.phase * L, i0 = idx | 0, fr = idx - i0, i1 = (i0 + 1) & LMASK;
+        const stl = TL[i0] + fr * (TL[i1] - TL[i0]), str = TR[i0] + fr * (TR[i1] - TR[i0]);
+        const sbl = BL[i0] + fr * (BL[i1] - BL[i0]), sbr = BR[i0] + fr * (BR[i1] - BR[i0]);
+        const top = stl + o.u * (str - stl), bot = sbl + o.u * (sbr - sbl);
+        const smp = (top + o.v * (bot - top)) * env * o.gain;
+        accL += smp * Math.cos(o.pan * Math.PI * 0.5); accR += smp * Math.sin(o.pan * Math.PI * 0.5);
+        o.phase += o.freq * invSr; if (o.phase >= 1) o.phase -= 1;
+        o.gp += o.grainHz * invSr;
+        if (o.gp >= 1) { o.gp -= 1; o.phase = (1 - this.shimmer) * o.phase + this.shimmer * this.rng(); }
+      }
+      outL[s] = accL * norm; outR[s] = accR * norm;
+    }
+  }
+}
+
+function writeWav16(path, L_, R_, sr) {
+  const fs = require("fs"), total = L_.length, pcm = Buffer.alloc(44 + total * 4);
+  pcm.write("RIFF", 0); pcm.writeUInt32LE(36 + total * 4, 4); pcm.write("WAVEfmt ", 8);
+  pcm.writeUInt32LE(16, 16); pcm.writeUInt16LE(1, 20); pcm.writeUInt16LE(2, 22); pcm.writeUInt32LE(sr, 24);
+  pcm.writeUInt32LE(sr * 4, 28); pcm.writeUInt16LE(4, 32); pcm.writeUInt16LE(16, 34); pcm.write("data", 36); pcm.writeUInt32LE(total * 4, 40);
+  for (let i = 0; i < total; i++) { pcm.writeInt16LE(Math.round(Math.max(-1, Math.min(1, L_[i])) * 32767), 44 + i * 4); pcm.writeInt16LE(Math.round(Math.max(-1, Math.min(1, R_[i])) * 32767), 46 + i * 4); }
+  fs.writeFileSync(path, pcm);
+}
+
+module.exports = { SEE_R, SEED, WIDTH, HEIGHT, MAX_SPEED, FPS, mulberry32, Flock, AuthoredCloud, cloudStats, mapBoids, Grains, writeWav16 };
+
+return module.exports; })();
+const ENGINE_ = E;
+const FR = (() => { const module = { exports: {} }; const require = () => ENGINE_;
+// Murmuration — the second reading: flock-as-distribution ("Listen by: density").
+//
+// The flock is not rendered boid by boid. A fixed 8×5 grid of sustained oscillators sits
+// on the wavetable field; each one reads the single waveform under its cell. Every frame
+// the flock is smoothed into a density over the field (a Gaussian kernel around each boid,
+// wrapped on the torus), and that density is the additive weighting across the wavetable:
+// where the flock is thick, that region of the terrain sounds. Spread the flock and many
+// regions sound at once; gather it (the attractor) and the pad narrows to one timbre.
+//
+// Pitch: each cell plays the kernel-weighted mean heading of the boids around it, on the
+// same heading→pitch circle as the grains' "order" mapping. Ordered flock → every cell
+// agrees → one pitch class across the whole pad. Melted flock → each region its own
+// heading → a slowly drifting cluster. The pitch circle is made a real circle with a
+// two-octave Shepard pair per cell, so a heading crossing ±180° never jumps an octave.
+//
+// Startle (third reading, opt-in): a cell also takes the kernel-weighted mean alarm of the
+// boids around it and swells by up to 2.5× while they are alarmed — after the power
+// normalisation, so the startle is heard as a swell the way it is in the grains.
+//
+// mapField() and Field are copied into Murmuration.html line for line (check with
+// check_page_mapping.js). No Math.random anywhere — the field reading is deterministic.
+"use strict";
+const E = require("./murmur_engine.js");
+const { WIDTH, HEIGHT } = E;
+const L = 2048, LMASK = L - 1;
+
+// ---- = FIELD READING block in Murmuration.html ------------------------------------------
+const FGX = 8, FGY = 5, FNC = FGX * FGY, FSIG = 80, FSIG2 = 2 * FSIG * FSIG, FSMOOTH = 0.85;
+function mapField(boids, mem, startle) {
+  if (!mem.D || mem.D.length !== FNC) { mem.D = new Float64Array(FNC); mem.Hx = new Float64Array(FNC); mem.Hy = new Float64Array(FNC); mem.A = new Float64Array(FNC); mem.first = true; }
+  const f = new Float32Array(FNC * 4), a = mem.first ? 0 : FSMOOTH;
+  let s2 = 0;
+  for (let c = 0; c < FNC; c++) {
+    const cu = ((c % FGX) + 0.5) / FGX, cv = (((c / FGX) | 0) + 0.5) / FGY, x = cu * WIDTH, y = cv * HEIGHT;
+    let d = 0, hx = 0, hy = 0, al = 0;
+    for (const b of boids) {
+      let dx = b.x - x, dy = b.y - y;
+      if (dx > WIDTH * 0.5) dx -= WIDTH; else if (dx < -WIDTH * 0.5) dx += WIDTH;
+      if (dy > HEIGHT * 0.5) dy -= HEIGHT; else if (dy < -HEIGHT * 0.5) dy += HEIGHT;
+      const k = Math.exp(-(dx * dx + dy * dy) / FSIG2), m = Math.hypot(b.vx, b.vy) || 1;
+      d += k; hx += k * b.vx / m; hy += k * b.vy / m; if (startle) al += k * (b.a || 0);
+    }
+    mem.D[c] = a * mem.D[c] + (1 - a) * d; mem.Hx[c] = a * mem.Hx[c] + (1 - a) * hx; mem.Hy[c] = a * mem.Hy[c] + (1 - a) * hy; if (startle) mem.A[c] = a * mem.A[c] + (1 - a) * al;
+    s2 += mem.D[c] * mem.D[c];
+  }
+  mem.first = false;
+  const s = Math.sqrt(s2) || 1;
+  for (let c = 0; c < FNC; c++) {
+    const k = c * 4, pc = ((Math.atan2(mem.Hy[c], mem.Hx[c]) / (2 * Math.PI) + 0.5) % 1 + 1) % 1;
+    f[k] = ((c % FGX) + 0.5) / FGX; f[k + 1] = (((c / FGX) | 0) + 0.5) / FGY; f[k + 2] = mem.D[c] / s * (startle ? 1 + 1.5 * mem.A[c] / (mem.D[c] + 1e-9) : 1); f[k + 3] = pc;
+  }
+  return f;
+}
+// ---- end FIELD READING block -------------------------------------------------------------
+
+// = the field branch of GranularProcessor in the page's worklet
+class Field {
+  constructor(sr) { this.sr = sr; this.cells = []; this.master = 0.7; Object.assign(this, corners()); }
+  setField(f, n, base) {
+    while (this.cells.length < n) this.cells.push({ tab: null, u: -1, v: -1, pan: 0.5, pc: -1, ph: [0, 0.5], g: [0, 0], t: [0, 0], fq: [0, 0] });
+    this.cells.length = n;
+    for (let i = 0; i < n; i++) {
+      const o = this.cells[i], k = i * 4, u = f[k], v = f[k + 1], amp = f[k + 2], pc = f[k + 3];
+      if (u !== o.u || v !== o.v) { o.u = u; o.v = v; o.pan = u; o.tab = new Float32Array(L); for (let j = 0; j < L; j++) { const top = this.TL[j] + u * (this.TR[j] - this.TL[j]), bot = this.BL[j] + u * (this.BR[j] - this.BL[j]); o.tab[j] = top + v * (bot - top); } }
+      // the Shepard pair: hi = base·2^(pc−½), lo an octave below; crossing the top of the circle
+      // relabels them (new hi = old lo, at the same frequency), so swap phase and level.
+      if (o.pc >= 0 && Math.abs(pc - o.pc) > 0.5) { o.ph = [o.ph[1], o.ph[0]]; o.g = [o.g[1], o.g[0]]; }
+      o.pc = pc;
+      const c = Math.cos(Math.PI * pc * 0.5), sn = Math.sin(Math.PI * pc * 0.5);
+      o.t = [amp * c * c, amp * sn * sn];
+      o.fq = [base * Math.pow(2, pc - 0.5), base * Math.pow(2, pc - 1.5)];
+    }
+  }
+  process(outL, outR, n) {
+    const invSr = 1 / this.sr, norm = this.master;
+    for (let s = 0; s < n; s++) { outL[s] = 0; outR[s] = 0; }
+    for (const o of this.cells) {
+      const pL = Math.cos(o.pan * Math.PI * 0.5) * norm, pR = Math.sin(o.pan * Math.PI * 0.5) * norm, tab = o.tab;
+      for (let j = 0; j < 2; j++) {
+        const g0 = o.g[j], g1 = o.t[j];
+        if (g0 < 1e-4 && g1 < 1e-4) continue;
+        let ph = o.ph[j]; const inc = o.fq[j] * invSr, dg = (g1 - g0) / n;
+        for (let s = 0; s < n; s++) {
+          const idx = ph * L, i0 = idx | 0, fr = idx - i0, smp = (tab[i0] + fr * (tab[(i0 + 1) & LMASK] - tab[i0])) * (g0 + dg * (s + 1));
+          outL[s] += smp * pL; outR[s] += smp * pR;
+          ph += inc; if (ph >= 1) ph -= 1;
+        }
+        o.ph[j] = ph;
+      }
+      o.g = [o.t[0], o.t[1]];
+    }
+  }
+}
+
+function corners() {   // = buildCorners() in the page / murmur_engine.js
+  const TL = new Float32Array(L), TR = new Float32Array(L), BL = new Float32Array(L), BR = new Float32Array(L);
+  for (let i = 0; i < L; i++) { const ph = i / L, t = ph * 2 * Math.PI; TL[i] = Math.sin(t); TR[i] = 2 * ph - 1; BL[i] = ph < 0.5 ? 1 : -1; BR[i] = 0.6 * Math.sin(t) + 0.4 * Math.sin(2.76 * t) + 0.28 * Math.sin(5.4 * t) + 0.18 * Math.sin(8.93 * t); }
+  let mx = 0; for (let i = 0; i < L; i++) mx = Math.max(mx, Math.abs(BR[i])); if (mx > 0) for (let i = 0; i < L; i++) BR[i] /= mx;
+  return { TL, TR, BL, BR };
+}
+
+module.exports = { FGX, FGY, FNC, mapField, Field };
+
+return module.exports; })();
+
+
+const { Flock, mapBoids, WIDTH, HEIGHT, MAX_SPEED } = E;
+const { mapField, FNC, FGX, FGY } = FR;
+
+/* ------------------------------------------------------------------ terrain */
+const GX = 46, GY = 26, WW = 9.2, WH = 5.2;               // grid cells; world size (units)
+const CORN = (() => { const c = buildCornersSmall(256); return c; })();
+function buildCornersSmall(n) {
+  const TL = new Float32Array(n), TR = new Float32Array(n), BL = new Float32Array(n), BR = new Float32Array(n);
+  for (let i = 0; i < n; i++) { const ph = i / n, t = ph * 2 * Math.PI; TL[i] = Math.sin(t); TR[i] = 2 * ph - 1; BL[i] = ph < 0.5 ? 1 : -1; BR[i] = 0.6 * Math.sin(t) + 0.4 * Math.sin(2.76 * t) + 0.28 * Math.sin(5.4 * t) + 0.18 * Math.sin(8.93 * t); }
+  let mx = 0; for (let i = 0; i < n; i++) mx = Math.max(mx, Math.abs(BR[i])); for (let i = 0; i < n; i++) BR[i] /= mx;
+  return { TL, TR, BL, BR, n };
+}
+function brightness(u, v) {                                 // rms(slope)/rms(wave) of the blended cycle
+  const { TL, TR, BL, BR, n } = CORN; let s = 0, d = 0, prev = null, first = null;
+  for (let i = 0; i < n; i++) { const top = TL[i] + u * (TR[i] - TL[i]), bot = BL[i] + u * (BR[i] - BL[i]), w = top + v * (bot - top); s += w * w; if (prev !== null) d += (w - prev) * (w - prev); else first = w; prev = w; }
+  d += (first - prev) * (first - prev);
+  return Math.sqrt(d / n) / (Math.sqrt(s / n) + 1e-9);
+}
+const CC = { TL: [86, 156, 255], TR: [240, 176, 74], BL: [232, 98, 132], BR: [96, 214, 150] };
+function terrainColour(u, v) { const c = []; for (let k = 0; k < 3; k++) { const top = CC.TL[k] + u * (CC.TR[k] - CC.TL[k]), bot = CC.BL[k] + u * (CC.BR[k] - CC.BL[k]); c.push(top + v * (bot - top)); } return c; }
+const H = new Float32Array((GX + 1) * (GY + 1)); let hMax = 0;
+for (let j = 0; j <= GY; j++) for (let i = 0; i <= GX; i++) { const b = brightness(i / GX, j / GY); H[j * (GX + 1) + i] = b; hMax = Math.max(hMax, b); }
+let hMin = Infinity; for (let k = 0; k < H.length; k++) hMin = Math.min(hMin, H[k]);
+for (let k = 0; k < H.length; k++) H[k] = 1.1 * Math.pow((H[k] - hMin) / (hMax - hMin), 1.1);   // world height of the ground
+function groundAt(u, v) { const x = Math.min(GX - 1e-6, Math.max(0, u * GX)), y = Math.min(GY - 1e-6, Math.max(0, v * GY)); const i = x | 0, j = y | 0, fx = x - i, fy = y - j, k = j * (GX + 1) + i; const a = H[k] + fx * (H[k + 1] - H[k]), b = H[k + GX + 1] + fx * (H[k + GX + 2] - H[k + GX + 1]); return a + fy * (b - a); }
+function toWorld(px, py) { return [(px / WIDTH - 0.5) * WW, (py / HEIGHT - 0.5) * WH]; }
+
+/* ------------------------------------------------------------------ camera */
+const cv = document.getElementById('c'), g = cv.getContext('2d');
+let DPR = 1, VW = 0, VH = 0;
+function resize() { DPR = Math.min(2, window.devicePixelRatio || 1); VW = cv.clientWidth; VH = cv.clientHeight; cv.width = VW * DPR; cv.height = VH * DPR; g.setTransform(DPR, 0, 0, DPR, 0, 0); }
+window.addEventListener('resize', resize); resize();
+const cam = { yaw: -0.55, pitch: 0.5, dist: 14, tz: 0.9 };
+let camBasis;
+function setCam() {
+  const cy = Math.cos(cam.yaw), sy = Math.sin(cam.yaw), cp = Math.cos(cam.pitch), sp = Math.sin(cam.pitch);
+  const eye = [cam.dist * cp * sy, -cam.dist * cp * cy, cam.tz + cam.dist * sp];
+  const tgt = [0, 0, cam.tz * 0.5], f = norm(sub(tgt, eye)), r = norm(cross(f, [0, 0, 1])), u = cross(r, f);
+  camBasis = { eye, f, r, u, foc: 1.25 * Math.min(VW, VH * 1.6) };
+}
+function sub(a, b) { return [a[0] - b[0], a[1] - b[1], a[2] - b[2]]; }
+function cross(a, b) { return [a[1] * b[2] - a[2] * b[1], a[2] * b[0] - a[0] * b[2], a[0] * b[1] - a[1] * b[0]]; }
+function dot(a, b) { return a[0] * b[0] + a[1] * b[1] + a[2] * b[2]; }
+function norm(a) { const n = Math.hypot(a[0], a[1], a[2]) || 1; return [a[0] / n, a[1] / n, a[2] / n]; }
+function proj(x, y, z) { const { eye, f, r, u, foc } = camBasis; const d = [x - eye[0], y - eye[1], z - eye[2]], zc = dot(d, f); if (zc < 0.1) return null; return [VW / 2 + foc * dot(d, r) / zc, VH / 2 - foc * dot(d, u) / zc, zc]; }
+function pickGround(sx, sy) {                                  // ray from the eye through the pixel, onto the ground plane
+  const { eye, f, r, u, foc } = camBasis; const dx = (sx - VW / 2) / foc, dy = -(sy - VH / 2) / foc;
+  const dir = norm([f[0] + r[0] * dx + u[0] * dy, f[1] + r[1] * dx + u[1] * dy, f[2] + r[2] * dx + u[2] * dy]);
+  let t = (0.3 - eye[2]) / dir[2]; if (!(t > 0)) return null;
+  for (let it = 0; it < 4; it++) { const x = eye[0] + dir[0] * t, y = eye[1] + dir[1] * t; const gz = groundAt(x / WW + 0.5, y / WH + 0.5); t = (gz - eye[2]) / dir[2]; }
+  const x = eye[0] + dir[0] * t, y = eye[1] + dir[1] * t; if (Math.abs(x) > WW / 2 || Math.abs(y) > WH / 2) return null;
+  return [(x / WW + 0.5) * WIDTH, (y / WH + 0.5) * HEIGHT];
+}
+
+/* ------------------------------------------------------------------ the flock */
+const P = { N: 60, sep: 1.5, ali: 1.0, coh: 1.0, eta: 0.06, base: 110, pitch: 19, map: 'order', startle: true };
+const etaOfX = x => 0.25 * x * x;                               // = Murmuration.html: the knee sits mid-slider
+let flock, mem, fmem, trails;
+function reset(n) { P.N = n; flock = new Flock(n); mem = {}; fmem = {}; trails = flock.boids.map(() => []); }
+reset(60);
+let demo = true, tDemo = 0, strikes = [];
+
+/* ------------------------------------------------------------------ audio (the engine's own Grains and Field, in a worklet) */
+let ac = null, node = null;
+async function startAudio() {
+  ac = new (window.AudioContext || window.webkitAudioContext)({ sampleRate: 48000 });
+  const src = document.getElementById('engineSrc').textContent + `
+    class MurmProc extends AudioWorkletProcessor {
+      constructor() { super(); this.gr = new E.Grains(sampleRate); this.fd = new FR.Field(sampleRate); this.mode = 'order';
+        this.port.onmessage = e => { const d = e.data; if (d.type === 'grains') { this.mode = 'order'; this.gr.setFlock(new Float32Array(d.buf), d.n); } else { this.mode = 'density'; this.fd.setField(new Float32Array(d.buf), d.n, d.base); } }; }
+      process(_, outs) { const o = outs[0]; if (!o[1]) return true; (this.mode === 'order' ? this.gr : this.fd).process(o[0], o[1], o[0].length); return true; }
+    }
+    registerProcessor('murm', MurmProc);`;
+  await ac.audioWorklet.addModule(URL.createObjectURL(new Blob([src], { type: 'application/javascript' })));
+  node = new AudioWorkletNode(ac, 'murm', { outputChannelCount: [2] });
+  const comp = ac.createDynamicsCompressor(), gain = ac.createGain(); gain.gain.value = 0.8;
+  node.connect(comp).connect(gain).connect(ac.destination);
+}
+
+/* ------------------------------------------------------------------ frame */
+let alt = new Float32Array(240), lastField = null, phiS = 0.1;
+function step() {
+  if (demo) {                                                    // a 48-second performance: melt, crystallise, strike, melt
+    tDemo += 1 / 60; const t = tDemo % 48;
+    const x = t < 8 ? 0.95 : t < 18 ? 0.95 - 0.9 * (t - 8) / 10 : t < 38 ? 0.05 : 0.05 + 0.9 * (t - 38) / 10;
+    P.eta = etaOfX(x); document.getElementById('cEta').value = x; document.getElementById('vEta').textContent = P.eta.toFixed(3);
+    for (const s of [22, 29, 34]) if (Math.abs(t - s) < 0.5 / 60) strike(s === 29 ? 0.25 * WIDTH : 0.55 * WIDTH, s === 29 ? 0.3 * HEIGHT : 0.5 * HEIGHT);
+  }
+  flock.step({ sep: P.sep, ali: P.ali, coh: P.coh, eta: P.eta, startle: P.startle });
+  const f = mapBoids(flock.boids, { mapping: 'order', base: P.base, pitch: P.pitch, startle: true }, mem);
+  const B = flock.boids;
+  for (let i = 0; i < B.length; i++) {                           // altitude follows the grain-length steadiness
+    const pers = Math.min(1, Math.hypot(mem.hx[i], mem.hy[i])), q = Math.pow(pers, 6);
+    alt[i] += 0.12 * (0.18 + 1.6 * q - alt[i]);
+    const tr = trails[i]; tr.push([B[i].x, B[i].y, alt[i]]); if (tr.length > 14) tr.shift();
+  }
+  if (P.map === 'density') lastField = mapField(B, fmem, true);
+  if (node) {
+    if (P.map === 'density') node.port.postMessage({ type: 'field', buf: lastField.slice().buffer, n: FNC, base: P.base });
+    else node.port.postMessage({ type: 'grains', buf: f.buffer, n: B.length }, [f.buffer]);
+  }
+  phiS += 0.05 * (flock.polarization() - phiS);
+}
+function strike(x, y) { flock.field.predator = { x, y }; flock.field.predT = 1; strikes.push({ x, y, t: 0 }); }
+
+function draw() {
+  if (document.getElementById('cCam').value === 'orbit' && !dragging) cam.yaw += 0.0011;
+  if (document.getElementById('cCam').value === 'low') { cam.pitch += 0.05 * (0.2 - cam.pitch); cam.dist += 0.05 * (9 - cam.dist); } else { cam.dist += 0.05 * (14 - cam.dist); }
+  setCam();
+  // sky: clears with order
+  const haze = 1 - Math.min(1, phiS);
+  const sky = g.createLinearGradient(0, 0, 0, VH);
+  sky.addColorStop(0, `rgb(${10 + 30 * haze},${14 + 24 * haze},${28 + 14 * haze})`); sky.addColorStop(1, `rgb(${18 + 40 * haze},${20 + 34 * haze},${26 + 22 * haze})`);
+  g.fillStyle = sky; g.fillRect(0, 0, VW, VH);
+  // ground: quads far → near, lambert-lit
+  const L = norm([-0.4, -0.5, 0.75]), quads = [];
+  for (let j = 0; j < GY; j++) for (let i = 0; i < GX; i++) {
+    const k = j * (GX + 1) + i, xs = [i, i + 1, i + 1, i], ys = [j, j, j + 1, j + 1], hs = [H[k], H[k + 1], H[k + GX + 2], H[k + GX + 1]], pts = [];
+    let zs = 0, ok = true;
+    for (let q = 0; q < 4; q++) { const p = proj((xs[q] / GX - 0.5) * WW, (ys[q] / GY - 0.5) * WH, hs[q]); if (!p) { ok = false; break; } pts.push(p); zs += p[2]; }
+    if (!ok) continue;
+    const nx = -(hs[1] - hs[0] + hs[2] - hs[3]) * 0.5 / (WW / GX), ny = -(hs[3] - hs[0] + hs[2] - hs[1]) * 0.5 / (WH / GY), n = norm([nx, ny, 1]);
+    quads.push({ pts, z: zs / 4, c: terrainColour((i + 0.5) / GX, (j + 0.5) / GY), l: 0.35 + 0.65 * Math.max(0, dot(n, L)) });
+  }
+  quads.sort((a, b) => b.z - a.z);
+  for (const q of quads) {
+    const fog = Math.min(1, Math.max(0, (q.z - 6) / 12)) * (0.4 + 0.5 * haze), c = q.c.map(v => v * q.l * 0.85 * (1 - fog) + 30 * fog);
+    g.fillStyle = `rgb(${c[0] | 0},${c[1] | 0},${c[2] | 0})`; g.strokeStyle = `rgba(0,0,0,.18)`;
+    g.beginPath(); g.moveTo(q.pts[0][0], q.pts[0][1]); for (let s = 1; s < 4; s++) g.lineTo(q.pts[s][0], q.pts[s][1]); g.closePath(); g.fill(); g.stroke();
+  }
+  // strike rings on the ground
+  for (const s of strikes) {
+    s.t += 1 / 60; const [wx, wy] = toWorld(s.x, s.y), R = 0.2 + 3.2 * s.t, a = Math.max(0, 1 - s.t / 1.4);
+    g.strokeStyle = `rgba(255,255,255,${a * 0.8})`; g.lineWidth = 1.5; g.beginPath();
+    for (let k = 0; k <= 48; k++) { const th = k / 48 * 2 * Math.PI, x = wx + R * Math.cos(th), y = wy + R * 0.565 * Math.sin(th), p = proj(x, y, groundAt(x / WW + 0.5, y / WH + 0.5) + 0.02); if (p) k ? g.lineTo(p[0], p[1]) : g.moveTo(p[0], p[1]); }
+    g.stroke();
+  }
+  strikes = strikes.filter(s => s.t < 1.4);
+  // pad pillars
+  const items = [];
+  if (P.map === 'density' && lastField) for (let c = 0; c < FNC; c++) {
+    const u = lastField[c * 4], v = lastField[c * 4 + 1], lv = lastField[c * 4 + 2], pc = lastField[c * 4 + 3], [wx, wy] = toWorld(u * WIDTH, v * HEIGHT), gz = groundAt(u, v);
+    const top = proj(wx, wy, gz + 0.1 + 3.4 * Math.min(1.2, lv)), bot = proj(wx, wy, gz); if (top && bot) items.push({ z: bot[2], kind: 'pillar', top, bot, pc, lv });
+  }
+  // birds
+  const B = flock.boids;
+  for (let i = 0; i < B.length; i++) {
+    const b = B[i], [wx, wy] = toWorld(b.x, b.y), gz = groundAt(b.x / WIDTH, b.y / HEIGHT), z = gz + alt[i];
+    const p = proj(wx, wy, z); if (!p) continue;
+    items.push({ z: p[2], kind: 'bird', i, wx, wy, z3: z, gz, p });
+  }
+  items.sort((a, b) => b.z - a.z);
+  for (const it of items) {
+    if (it.kind === 'pillar') {
+      const hue = it.pc * 360, w = Math.max(2, 120 / it.bot[2]);
+      const gr = g.createLinearGradient(0, it.bot[1], 0, it.top[1]); gr.addColorStop(0, `hsla(${hue},80%,62%,.75)`); gr.addColorStop(1, `hsla(${hue},80%,70%,0)`);
+      g.fillStyle = gr; g.fillRect(it.top[0] - w / 2, it.top[1], w, it.bot[1] - it.top[1]); continue;
+    }
+    const b = B[it.i], al = b.a || 0, tr = trails[it.i];
+    // shadow and tether
+    const sh = proj(it.wx, it.wy, it.gz + 0.01);
+    if (sh) { g.fillStyle = 'rgba(0,0,0,.35)'; g.beginPath(); g.ellipse(sh[0], sh[1], 30 / sh[2], 13 / sh[2], 0, 0, 7); g.fill(); g.strokeStyle = 'rgba(255,255,255,.07)'; g.lineWidth = 1; g.beginPath(); g.moveTo(sh[0], sh[1]); g.lineTo(it.p[0], it.p[1]); g.stroke(); }
+    const col = terrainColour(b.x / WIDTH, b.y / HEIGHT).map(v => v + (255 - v) * (0.08 + 0.92 * al));
+    // trail ribbon
+    g.lineWidth = Math.max(0.6, 9 / it.p[2]); let prev = null;
+    for (let k = 0; k < tr.length; k++) {
+      const [tx, ty, ta] = tr[k], [qx, qy] = toWorld(tx, ty), q = proj(qx, qy, groundAt(tx / WIDTH, ty / HEIGHT) + ta);
+      if (q && prev && Math.hypot(q[0] - prev[0], q[1] - prev[1]) < 80) { g.strokeStyle = `rgba(${col[0] | 0},${col[1] | 0},${col[2] | 0},${0.5 * k / tr.length})`; g.beginPath(); g.moveTo(prev[0], prev[1]); g.lineTo(q[0], q[1]); g.stroke(); }
+      prev = q;
+    }
+    // the bird: a dart along its heading
+    const m = Math.hypot(b.vx, b.vy) || 1, hx = b.vx / m * 0.11, hy = b.vy / m * 0.11, sx = -hy * 0.5, sy = hx * 0.5;
+    const nose = proj(it.wx + hx, it.wy + hy, it.z3), lw = proj(it.wx - hx * 0.6 + sx, it.wy - hy * 0.6 + sy, it.z3 + 0.03), rw = proj(it.wx - hx * 0.6 - sx, it.wy - hy * 0.6 - sy, it.z3 + 0.03);
+    if (nose && lw && rw) {
+      if (al > 0.15) { g.fillStyle = `rgba(255,255,255,${0.25 * al})`; g.beginPath(); g.arc(it.p[0], it.p[1], 70 * al / it.p[2], 0, 7); g.fill(); }
+      g.fillStyle = `rgb(${col[0] | 0},${col[1] | 0},${col[2] | 0})`; g.beginPath(); g.moveTo(nose[0], nose[1]); g.lineTo(lw[0], lw[1]); g.lineTo(rw[0], rw[1]); g.closePath(); g.fill();
+    }
+  }
+  const nAl = B.filter(b => (b.a || 0) > 0.2).length, state = phiS > 0.7 ? 'ordered · a tone' : phiS > 0.3 ? 'at the knee' : 'melted · a cloud';
+  document.getElementById('hud').innerHTML = `order φ <b>${phiS.toFixed(2)}</b><br>${state}<br>η ${P.eta.toFixed(3)} · ${B.length} birds${nAl ? ` · <b>${nAl} alarmed</b>` : ''}<br>${ac ? 'listening by ' + P.map : 'sound off'}`;
+}
+let frames = 0;
+function loop() { step(); draw(); frames++; requestAnimationFrame(loop); }
+window.__murm = { stepN: n => { for (let i = 0; i < n; i++) { step(); } draw(); }, setDemo: d => { demo = d; }, P, strike, cam, get phi() { return phiS; }, setMap: m => { P.map = m; document.getElementById('cMap').value = m; } };
+if (!window.__noLoop) requestAnimationFrame(loop);
+
+/* ------------------------------------------------------------------ input */
+let dragging = false, down = null;
+cv.addEventListener('pointerdown', e => { down = [e.clientX, e.clientY, cam.yaw, cam.pitch]; dragging = false; cv.setPointerCapture(e.pointerId); });
+cv.addEventListener('pointermove', e => { if (!down) return; const dx = e.clientX - down[0], dy = e.clientY - down[1]; if (Math.hypot(dx, dy) > 4) dragging = true; if (dragging) { cam.yaw = down[2] - dx * 0.006; cam.pitch = Math.max(0.08, Math.min(1.45, down[3] + dy * 0.004)); } });
+cv.addEventListener('pointerup', e => { if (down && !dragging) { const hit = pickGround(e.clientX, e.clientY); if (hit) strike(hit[0], hit[1]); } down = null; dragging = false; });
+document.getElementById('cEta').addEventListener('input', e => { demo = false; bDemo.classList.remove('on'); bDemo.textContent = 'demo: off'; P.eta = etaOfX(+e.target.value); document.getElementById('vEta').textContent = P.eta.toFixed(3); });
+document.getElementById('cMap').addEventListener('change', e => { P.map = e.target.value; fmem = {}; });
+document.getElementById('cN').addEventListener('change', e => reset(+e.target.value));
+const bDemo = document.getElementById('bDemo');
+bDemo.addEventListener('click', () => { demo = !demo; bDemo.classList.toggle('on', demo); bDemo.textContent = demo ? 'demo: playing itself' : 'demo: off'; });
+document.getElementById('bSound').addEventListener('click', async e => { if (!ac) { await startAudio(); e.target.textContent = 'sound off'; e.target.classList.add('on'); } else if (ac.state === 'running') { await ac.suspend(); e.target.textContent = 'sound on'; e.target.classList.remove('on'); } else { await ac.resume(); e.target.textContent = 'sound off'; e.target.classList.add('on'); } });
+</script>
+</body>
+</html>

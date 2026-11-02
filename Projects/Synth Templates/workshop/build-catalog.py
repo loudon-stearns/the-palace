@@ -339,7 +339,8 @@ t(f,"CC → Decay on Percussive","mono","A CC controls decay time on a no-sustai
 t(f,"Volume vs Expression (CC7 / CC11)","poly","CC7 for the mix level, CC11 for phrase dynamics as a percentage of it.","CC7 and CC11",1,"")
 t(f,"Modulation Template (Init Patch)","poly","Saw, LP, standard primary and secondary routings all wired at sensible defaults; saved as the starting point.","The init patch as a template for every patch",1,"")
 
-# ---- Concept map: every concept in Loudon's synthesis notes (workshop/notes/Synthesis_notes_from_Loudon.pdf) → templates that cover it
+# ---- Concept map: every concept in Loudon's synthesis notes ([[Synthesis Notes (Loudon)]], the PDF at
+# "Synthesis Notes (Loudon)/Synthesis Notes (Loudon) — source — notes.pdf") → templates that cover it
 C = []
 def c(section, name, page, *ids): C.append({"section":section,"name":name,"page":page,"templates":list(ids)})
 S="Oscillators"

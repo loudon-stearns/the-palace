@@ -6,12 +6,12 @@
 
 In `Quantum Synthesizer.md`, section *Anharmonicity through Potential Shaping*, **replace the last paragraph**, the one that begins *"Similarly, a struck bell or tam-tam has a potential landscape determined by its shape"* and ends *"…forces inharmonic eigenmodes]]."*, with the paragraph below. Nothing else in the section changes.
 
-**Why.** `drum.py` built six instruments with the same walls, mallet, pickup rule and damping, and the lowest partial at 220 Hz in every one. It has three shapes (a line, a square, a circle), each under both equations, plus a seventh strike: the round drum hit dead centre. Four checks, all PASS (`drum-checks.txt`):
+**Why.** `drum.py` built six instruments with the same walls, mallet, pickup rule and damping, and the lowest partial at 220 Hz in every one. It has three shapes (a line, a square, a circle), each under both equations, plus a seventh strike: the round drum hit dead centre. Five checks, all PASS (`drum-checks.txt`; the fifth, added in cycle 19, integrates each circle mode over the disk and confirms its loudness):
 
 - The Bessel zeros the circle uses agree with an independent radial finite-difference solve of the drum equation to about 1e-7 (m = 0 to 3, three zeros each).
 - A separate 2D grid solve on a square grid cut to a disk finds the same first 12 levels to 4e-4, with the same five cos/sin twin pairs.
 - Read from the **sound** of each strike, the strongest spectral peaks land on the predicted partials. The worst miss is under 0.001 Hz.
-- Autocorrelation of each sound, scanned from 1 to 60 ms: the string, the line box and the **square box** come back to 1.0000. The square drum (best 0.68), the round drum (0.75) and the round box (0.72) never do.
+- Autocorrelation of each sound, scanned from 1 to 60 ms: the string, the line box and the **square box** come back to 1.0000. The square drum (best 0.68), the round drum (0.71) and the round box (0.71) never do. (Re-rendered in cycle 19 with the corrected circle loudness; before that the round drum read 0.75 and the round box 0.72.)
 
 What that does to the current text:
 

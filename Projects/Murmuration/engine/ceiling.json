@@ -1,0 +1,54 @@
+{
+ "when": "2026-11-02T03:07:42.181Z",
+ "host": "Apple M1 Max",
+ "node": "v25.9.0",
+ "sr": 48000,
+ "block": 128,
+ "rows": [
+  {
+   "N": 60,
+   "flockPct": 2.3,
+   "flockMsPerFrame": 0.38,
+   "grainsPct": 7.1,
+   "grainsWorstBlockPct": 10,
+   "padAudioPct": 1.5,
+   "padMapPct": 1.7
+  },
+  {
+   "N": 120,
+   "flockPct": 1.8,
+   "flockMsPerFrame": 0.3,
+   "grainsPct": 15.9,
+   "grainsWorstBlockPct": 18,
+   "padAudioPct": 1.2,
+   "padMapPct": 1.1
+  },
+  {
+   "N": 240,
+   "flockPct": 6.6,
+   "flockMsPerFrame": 1.11,
+   "grainsPct": 33.3,
+   "grainsWorstBlockPct": 35,
+   "padAudioPct": 1,
+   "padMapPct": 1.8
+  },
+  {
+   "N": 480,
+   "flockPct": 24.5,
+   "flockMsPerFrame": 4.08,
+   "grainsPct": 73.7,
+   "grainsWorstBlockPct": 76,
+   "padAudioPct": 1.2,
+   "padMapPct": 3.5
+  },
+  {
+   "N": 960,
+   "flockPct": 109.2,
+   "flockMsPerFrame": 18.19,
+   "grainsPct": 154.3,
+   "grainsWorstBlockPct": 171,
+   "padAudioPct": 1,
+   "padMapPct": 8
+  }
+ ]
+}

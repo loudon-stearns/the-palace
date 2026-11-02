@@ -39,6 +39,9 @@ links:
   - target: "[[Granular Synthesis]]"
     type: exemplifies
     label: flock-as-grains
+  - target: "[[Synthesis Topologies]]"
+    type: member-of
+    label: a-loop-walked-by-a-crowd
 ---
 
 # Murmuration

@@ -256,7 +256,7 @@ class SoulXBackend:
         wall = time.monotonic() - t0
         r = self._result(out, output_sr, int(applied), wall, len(audio_in) / input_sr)  # 6
         if coupling_report is not None:
-            r["coupling"] = coupling_report
+            r["coupling"] = {**coupling_report, "applied": True}  # the stub says False
         return r
 
     @staticmethod

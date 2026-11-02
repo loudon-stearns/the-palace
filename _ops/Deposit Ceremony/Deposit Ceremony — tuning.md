@@ -134,3 +134,7 @@ What each deposit taught the ceremony. Each item names what the run showed and t
 ## From the Daily Page on Image Embedding Standard — 2026-11-02
 
 32. **The gate never asked whether a find wants to be seen, heard or played.** The card mentioned pictures only at step 6, where it says that a technical diagram files its `.tex` source beside its `.svg`. The card before v2.0 was the same (`e4c50cbf^`, lines 190–191): it said where images and audio are filed, never whether to make one. § What a deposit is leaves the *making* of a rich face to [[Enrichment]], without a deposit, and that stands. The gap was the question: a figure in the body is canon, and nothing at the gate asked for one. Seen at the Daily Page sit on [[Image Embedding Standard]] (dealt 2026-10-31, sat 2026-11-02). Loudon: "within depositing we should be asking 'are any images or figures needed to express what the page is expressing'". Forced: **v2.8**, in three places. § What the deposit carries gains "Can it be seen, heard or played?": a figure goes in the draft, and a sound or a thing to play is named on the map and goes out to Enrichment as a commissioning baton. Step 4's map names "Seen, heard or played". The map template gains its line.
+## From the Moog curve fold — 2026-11-02
+
+The DH-ADSR citation was first reported by the working session, then verified by two readers (the Concierge and the cold reader, each from the PDF's text) before landing; item 30's rule held.
+- run · 2026-11-02 · v2.7 · D-2026-11-02-MOOGCURVE · nothing new

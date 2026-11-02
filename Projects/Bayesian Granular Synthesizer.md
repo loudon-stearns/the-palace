@@ -26,6 +26,9 @@ links:
   - target: "[[Loudon Live]]"
     type: connects-to
     label: candidate-stage
+  - target: "[[Synthesis Topologies]]"
+    type: member-of
+    label: the-chord-grows-the-cloud
 forward_vector: "I want to become a working RNBO grain engine where the chord a player holds is a hypothesis the cloud slowly comes to believe — MIDI as Bayesian evidence sculpting a pitch posterior in real time. I want to expose the prior itself as a paintable belief, and to take a stage at Loudon Live."
 ---
 # Bayesian Granular Synthesizer
