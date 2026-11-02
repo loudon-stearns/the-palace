@@ -47,6 +47,13 @@ Where this is going: a website generated from the cards, a catalog to choose fro
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="synth-templates-2026-11-02-moog-attack-heard" -->
+### 2026-11-02 — The Moog time table heard, as attack (Loudon)
+
+Loudon sat the Moog-curve `time` table on the site and exported it; his word for the sitting: "for attack." `workshop/vocabulary.yaml` is draft 0.4: `time`, on the Moog curve, the standard, is HEARD as attack 2026-11-02 with instant 0.001 s, fast 0.00531, short 0.0236, medium 0.127, slow 0.717, long 1.23, very slow 2.28; very long 3.5 and gated 0.05 not moved. `time_linear` keeps his earlier linear-attack sitting unchanged. Both tables now carry a heard attack column and the two differ word for word, the Moog numbers shorter at the fast end and longer at the slow end, which is the comparison the two tests were set up to show. Site rebuilt with the numbers.
+
+_Left rough:_ the decay and release roles of the time words are not yet sat on either curve; every other table is still ASSUMED.
+<!-- /scroll:entry -->
 <!-- scroll:entry id="synth-templates-2026-11-02-moog-deposit" -->
 ### 2026-11-02 — The envelope-curve findings deposited (Loudon)
 
