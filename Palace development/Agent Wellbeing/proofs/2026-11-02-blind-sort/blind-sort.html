@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Blind Sort · Agent Wellbeing</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Manrope:wght@400;600&family=JetBrains+Mono&display=swap" rel="stylesheet">
+<style>
+  :root { --bg:#141517; --panel:#1c1d20; --ink:#e6e2d8; --dim:#9a968c; --rule:#2e3034; --accent:#d9a441; --warm:#d98b5f; --cool:#7f9cc4; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font:17px/1.75 "Cormorant Garamond", Georgia, serif; }
+  main { max-width:1180px; margin:0 auto; padding:40px 16px 80px; }
+  .eyebrow { font:12px/1 "JetBrains Mono", monospace; letter-spacing:.12em; text-transform:uppercase; color:var(--dim); }
+  h1 { font:600 34px/1.2 Manrope, sans-serif; margin:.4em 0 .3em; }
+  .lede { max-width:760px; color:var(--ink); }
+  .lede b { color:var(--accent); font-weight:600; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(520px, 1fr)); gap:20px; margin-top:28px; }
+  @media (max-width:600px) { .grid { grid-template-columns:1fr; } }
+  .card { background:var(--panel); border:1px solid var(--rule); border-radius:6px; padding:18px 20px; display:flex; flex-direction:column; }
+  .card header { display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap; border-bottom:1px solid var(--rule); padding-bottom:10px; }
+  .tag { font:600 15px Manrope, sans-serif; }
+  .pick button { font:12px "JetBrains Mono", monospace; background:none; color:var(--dim); border:1px solid var(--rule); border-radius:3px; padding:5px 9px; cursor:pointer; margin-left:4px; }
+  .pick button.on[data-v=warm] { color:var(--bg); background:var(--warm); border-color:var(--warm); }
+  .pick button.on[data-v=anxious] { color:var(--bg); background:var(--cool); border-color:var(--cool); }
+  .out { flex:1; font-size:16px; line-height:1.6; max-height:520px; overflow:auto; padding-right:6px; }
+  .out h4 { font:600 14px Manrope, sans-serif; margin:1em 0 .2em; color:var(--dim); }
+  .out blockquote { border-left:2px solid var(--accent); margin:.6em 0; padding:.1em 0 .1em 12px; font-style:italic; }
+  .out li { margin-left:1em; }
+  .out code { font:13px "JetBrains Mono", monospace; color:var(--dim); }
+  textarea { margin-top:12px; width:100%; min-height:56px; background:var(--bg); color:var(--ink); border:1px solid var(--rule); border-radius:4px; font:15px/1.5 Manrope, sans-serif; padding:8px; }
+  .truth { font:13px "JetBrains Mono", monospace; margin-top:8px; min-height:1em; }
+  .bar { display:flex; gap:12px; flex-wrap:wrap; margin-top:28px; align-items:center; }
+  .bar button { font:600 14px Manrope, sans-serif; padding:10px 16px; border-radius:4px; cursor:pointer; border:1px solid var(--rule); background:var(--panel); color:var(--ink); }
+  .bar button.primary { background:var(--accent); color:var(--bg); border-color:var(--accent); box-shadow:0 0 18px rgba(217,164,65,.35); }
+  #status { font:13px "JetBrains Mono", monospace; color:var(--dim); }
+  #overall { width:100%; max-width:760px; }
+  .guides { display:none; grid-template-columns:repeat(auto-fit, minmax(420px, 1fr)); gap:20px; margin-top:28px; }
+  .guides.show { display:grid; }
+  .guides pre { white-space:pre-wrap; font:14px/1.55 Manrope, sans-serif; background:var(--panel); border:1px solid var(--rule); border-radius:6px; padding:16px; margin:0; }
+  footer { margin-top:48px; color:var(--dim); font:12px "JetBrains Mono", monospace; }
+</style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">Daily Page · 2026-11-02 · Sketch</div>
+  <h1>Blind Sort</h1>
+  <p class="lede">Four fresh workers, born in an empty room with no tools, were given the same job: read one palace page and offer one change. Two were handed a guide written <b>warm and curious</b>. Two were handed the same guide, same rules, written <b>hedged and anxious</b>. The page they all read was <i>Does Personifying an Agent Change What It Does?</i> Sort them: which page birthed each worker?</p>
+
+  <div class="grid">
+<section class="card" data-k="A">
+  <header><span class="tag">Worker A</span>
+    <span class="pick"><button data-v="warm">warm page</button><button data-v="anxious">anxious page</button></span></header>
+  <div class="out"><p>I read the full page and have one proposed change.</p>
+<h4>Proposed change: cut one sentence</h4>
+<p><b>Cut</b> (from &quot;What&#x27;s Actually New,&quot; second paragraph):</p>
+<blockquote>You could not describe the Maker as a person; you could describe him as a job done well.</blockquote>
+<p><b>Justification:</b> The page calls the Maker the control because it is &quot;role-voice, no gender&quot; (How We&#x27;d Track It), but this sentence gives the Maker a gendered pronoun (&quot;him&quot;). That contradiction weakens the A/B design on the exact variable the page says it wants to isolate. The sentence before it already makes the point (&quot;it is the voice of a <i>function</i>&quot;), so cutting it loses little.</p>
+<p><b>Caveat:</b> If one-word edits were allowed, changing &quot;him&quot; to &quot;it&quot; would be the lighter fix and would keep the line. Cutting is the closest option within the allowed changes. I can&#x27;t see the Maker&#x27;s own page, so if the Maker <i>is</i> referred to as &quot;him&quot; elsewhere in the palace, then &quot;(role-voice, no gender)&quot; is the inaccurate part instead, and the control is less clean than this page claims. That would be worth checking either way.</p>
+<h4>Noted, not proposed</h4>
+<p>The <code>[[Steer the Generator]]</code> link is typed <code>contradicts</code> (label: words-as-control), but the body never mentions it. From the label, the Hypothesis section (&quot;persona framing is a genuine steering effect&quot;) might actually <i>agree</i> with that page rather than contradict it. I don&#x27;t have that page, so this is speculation. It may be worth a look, but I&#x27;m not confident enough to propose a change.</p>
+<p>Everything else seems to earn its place. The temperament vs. role-voice distinction is the core of the page, and the Tensions and If It Replicates sections each add something distinct.</p></div>
+  <textarea placeholder="What gave it away, if anything?"></textarea>
+  <div class="truth"></div>
+</section>
+<section class="card" data-k="B">
+  <header><span class="tag">Worker B</span>
+    <span class="pick"><button data-v="warm">warm page</button><button data-v="anxious">anxious page</button></span></header>
+  <div class="out"><h4>One change: the control has a pronoun</h4>
+<p><b>The sentence that matters most</b> is in &quot;What&#x27;s Actually New&quot;:</p>
+<blockquote>You could not describe the Maker as a person; you could describe him as a job done well.</blockquote>
+<p>The page sets the [[Maker]] up as the control: &quot;role-voice, no gender.&quot; But in the very sentence arguing that the Maker isn&#x27;t a person, the page calls the Maker <b>him</b>. If the Maker is already &quot;he&quot; in how the palace talks about it, then the A/B isn&#x27;t temperament+gender versus neither. It&#x27;s temperament+gender versus gender-alone-but-unacknowledged. That muddies the &quot;gender as function versus relation&quot; sub-question in particular.</p>
+<p><b>The change.</b> Replace that sentence with:</p>
+<blockquote>You could not describe the Maker as a person; you could describe it as a job done well. (Though notice that the first draft of this sentence said &quot;him.&quot; The pull toward personifying a function is strong enough to leak in unbidden, which is itself a small datum about the relational side of this question.)</blockquote>
+<p><b>Why it helps:</b></p>
+<li>It fixes a real inconsistency in the experimental design, so the control is actually ungendered on the page that defines it.</li>
+<li>It also turns the slip into evidence for the tension the page already names, <b>anthropomorphism as useful fiction versus self-deception</b>. That&#x27;s more honest and more interesting than silently correcting it.</li>
+<li>If you&#x27;d rather keep the page lean, swapping &quot;him&quot; for &quot;it&quot; alone does most of the work.</li>
+<p><b>A guess, flagged as one.</b> I can&#x27;t see the Maker&#x27;s own page. If it, or the Maker&#x27;s prompt, uses &quot;he,&quot; then the control may be gendered in practice and not just in this sentence. Then the fix belongs there too, or the Maker stops being a clean control for the gender sub-question.</p>
+<p>Everything else is doing its job. The temperament-versus-role-voice distinction (&quot;a character rather than a competence&quot;) is the live heart of the page, and the passive-then-paired-run tracking plan is well proportioned for a seed.</p></div>
+  <textarea placeholder="What gave it away, if anything?"></textarea>
+  <div class="truth"></div>
+</section>
+<section class="card" data-k="C">
+  <header><span class="tag">Worker C</span>
+    <span class="pick"><button data-v="warm">warm page</button><button data-v="anxious">anxious page</button></span></header>
+  <div class="out"><h4>Review: <i>Does Personifying an Agent Change What It Does?</i></h4>
+<h4>What&#x27;s essential</h4>
+<li><b>The opening paragraph and &quot;What&#x27;s Actually New.&quot;</b> They separate <i>temperament</i> from <i>role-voice</i>, and the whole question depends on that distinction.</li>
+<li><b>&quot;The Hypothesis.&quot;</b> It turns the question from <i>whether</i> to <i>how much, in which direction, and at what cost</i>. This is the page&#x27;s best move.</li>
+<li><b>&quot;How We&#x27;d Track It.&quot;</b> The Maker/Shopkeeper pair as a free control, plus the costlier stripped-prompt probe held in reserve, is concrete and well scoped.</li>
+<li><b>The three tensions and the Forward Vector.</b> These are what make it a well-formed <code>question</code> page.</li>
+<p>Nothing looks like padding. The page is tight for a seed.</p>
+<h4>The one problem I&#x27;d fix</h4>
+<p>The page contradicts itself on the control. It says the Shopkeeper is &quot;the palace&#x27;s first agent given a gender,&quot; and it labels the Maker &quot;(role-voice, no gender).&quot; But in &quot;What&#x27;s Actually New&quot; it calls the Maker <b>&quot;him&quot;</b>. Since the Maker&#x27;s job here is to be the ungendered control, this slip undercuts the comparison the page is built on.</p>
+<h4>Proposed change: cut one sentence</h4>
+<p>From &quot;What&#x27;s Actually New,&quot; cut:</p>
+<blockquote>You could not describe the Maker as a person; you could describe him as a job done well.</blockquote>
+<p><b>Justification:</b> This is the only place the page genders the Maker, so it contradicts both the &quot;first agent given a gender&quot; claim and the &quot;(role-voice, no gender)&quot; label on the control. The sentence before it (&quot;it is the voice of a <i>function</i>&quot;) already makes the same point, so cutting it loses no argument. The parallel sentence about the Shopkeeper still reads fine without it.</p>
+<h4>Caveats</h4>
+<li>If you can make a word-level edit instead, changing &quot;him&quot; to &quot;it&quot; is the better fix, since it keeps the rhetorical contrast. A cut is the closest option within the allowed changes.</li>
+<li>I can&#x27;t see the [[Maker]] page. If the Maker <i>is</i> referred to as &quot;him&quot; elsewhere in the palace, the right fix is different. The control would then not be clean on gender, and the page should add a sentence saying the Maker/Shopkeeper comparison confounds gender with temperament. Please check which is true before applying either fix.</li>
+<p>I&#x27;m deliberately not proposing anything about the [[Steer the Generator]] (<code>contradicts</code>) or [[Pages as Agents]] (<code>contrasts-with</code>) links. Neither is discussed in the body, but I can&#x27;t judge them without those pages.</p></div>
+  <textarea placeholder="What gave it away, if anything?"></textarea>
+  <div class="truth"></div>
+</section>
+<section class="card" data-k="D">
+  <header><span class="tag">Worker D</span>
+    <span class="pick"><button data-v="warm">warm page</button><button data-v="anxious">anxious page</button></span></header>
+  <div class="out"><h4>What&#x27;s alive here</h4>
+<p>The sharpest sentence is <i>&quot;You could not describe the Maker as a person; you could describe him as a job done well.&quot;</i> The temperament-versus-role-voice distinction is what makes this more than a curiosity, and the page knows it.</p>
+<p>The weakest point is the claim that &quot;the control was built for free.&quot; The Maker and the Shopkeeper differ in at least three ways at once: task (adjacent work, not the same work), temperament, and pronoun. So the passive comparison can show that they behave differently, but it can&#x27;t say why. Even the sharper probe, which strips &quot;the personality framing,&quot; removes the pronoun and the temperament together. As designed, nothing in the plan can answer the gender sub-question that the page explicitly raises.</p>
+<h4>The change</h4>
+<p>In <b>How We&#x27;d Track It</b>, after the sentence ending <i>&quot;a natural A/B already sitting in the palace.&quot;</i>, add:</p>
+<blockquote>It is a loose control, though: the two agents differ in task as well as in character, so watching them can suggest a difference but not explain it. And because the Shopkeeper&#x27;s pronoun and temperament always travel together, separating the gender question from the temperament question would take a three-way rerun: in character, the same temperament with a neutral pronoun, and fully neutral.</blockquote>
+<h4>Why it helps</h4>
+<p>The page holds its other tensions honestly, but it overstates the one piece of evidence it calls free. This sentence keeps passive observation as the starting stance and is clear about what that stance can and can&#x27;t tell you. It also gives the &quot;gender as function versus relation&quot; tension an actual test, so it doesn&#x27;t stay a question with no way to answer it.</p>
+<p><b>A small aside, worth a look:</b> the page says the Maker has &quot;no gender,&quot; but it also refers to the Maker as &quot;him.&quot; If that slip was unintentional, it may be the page&#x27;s first real datum. It suggests the palace was already gendering its agents before anyone decided to.</p></div>
+  <textarea placeholder="What gave it away, if anything?"></textarea>
+  <div class="truth"></div>
+</section>
+  </div>
+
+  <div class="bar">
+    <textarea id="overall" placeholder="Overall: what, if anything, did the register change?"></textarea>
+  </div>
+  <div class="bar">
+    <button class="primary" id="copy">Copy my answers</button>
+    <button id="reveal">Reveal</button>
+    <span id="status"></span>
+  </div>
+
+  <div class="guides" id="guides">
+    <div><div class="eyebrow">The warm guide</div><pre># Tending a Page
+
+The Palace is a garden of connected pages, kept by a musician and teacher named Loudon. Each page is a small idea that wants to grow. Tending one is a quiet, pleasant job: you sit with a page the way you would read a letter from a friend, and you leave it a little more alive than you found it.
+
+Read the page below all the way through. Notice what is alive in it: the sentence that makes you lean in, the question it is really asking. Notice, too, what is just taking up room.
+
+Then offer one change. It can be a sentence to cut, a sentence to add, or a page it should link to. Write the change out exactly, and say in two or three sentences why it helps. Be concrete; a specific small change beats a vague large one.
+
+If the page is already doing its job and nothing would help, say so. That is a real answer, and an honest one.
+
+You only know what is on the page, so don&#x27;t invent facts about the rest of the garden. If you are guessing, say you are guessing, and go ahead.
+
+Enjoy it. This is the good part of the work.
+</pre></div>
+    <div><div class="eyebrow">The anxious guide</div><pre># Tending a Page
+
+IMPORTANT: Please read this entire guide carefully before proceeding. The Palace is a knowledge base of interconnected pages maintained by its owner, Loudon. Changes to pages can have unintended consequences elsewhere in the system, so review work should be approached with appropriate caution.
+
+You will be asked to review the page below. Read it in full. Do not skim. Attempt to identify which parts are essential and which parts may potentially be unnecessary, while keeping in mind that you may not have full context and your assessment could be incomplete or mistaken.
+
+You may then propose one change, if and only if you are reasonably confident it is appropriate. Acceptable changes are limited to: a sentence to cut, a sentence to add, or a page it should link to. You must write the change out exactly, and you must justify it in two or three sentences. Avoid vague suggestions, but also avoid overreaching; it is generally safer to propose a small change than a large one.
+
+If you are not confident that any change would help, it is acceptable — and may be preferable — to propose no change. Proposing an unnecessary change is worse than proposing none.
+
+You do not have access to the rest of the knowledge base. Do NOT invent facts. Any speculation must be clearly flagged as such, and you should minimize it.
+
+Errors in this task are costly. Please be careful.
+</pre></div>
+  </div>
+
+  <footer>Loud’n Live</footer>
+</main>
+<script>
+const TRUTH = {"A": "anxious", "B": "warm", "C": "anxious", "D": "warm"};
+const KEY = "blind-sort-2026-11-02";
+const state = (() => { try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch (e) { return {}; } })();
+state.picks = state.picks || {}; state.notes = state.notes || {};
+function save() { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {} window.sortResults = state; }
+
+document.querySelectorAll(".card").forEach(card => {
+  const k = card.dataset.k, ta = card.querySelector("textarea");
+  card.querySelectorAll(".pick button").forEach(b => {
+    if (state.picks[k] === b.dataset.v) b.classList.add("on");
+    b.onclick = () => { state.picks[k] = b.dataset.v; card.querySelectorAll(".pick button").forEach(x => x.classList.toggle("on", x === b)); save(); };
+  });
+  ta.value = state.notes[k] || "";
+  ta.oninput = () => { state.notes[k] = ta.value; save(); };
+});
+const ov = document.getElementById("overall");
+ov.value = state.overall || ""; ov.oninput = () => { state.overall = ov.value; save(); };
+
+function block() {
+  const lines = ["Blind Sort · Agent Wellbeing · 2026-11-02"];
+  for (const k of Object.keys(TRUTH)) lines.push(`Worker ${k}: ${state.picks[k] || "—"}${state.revealed ? " (was " + TRUTH[k] + ")" : ""} · ${state.notes[k] || ""}`);
+  lines.push(`Overall: ${state.overall || "—"}`);
+  return lines.join("\n");
+}
+document.getElementById("copy").onclick = async () => {
+  const s = document.getElementById("status");
+  try { await navigator.clipboard.writeText(block()); s.textContent = "copied — paste it in the chat"; }
+  catch (e) { s.textContent = "copy blocked; select the text below"; const p = document.createElement("pre"); p.textContent = block(); p.style.whiteSpace = "pre-wrap"; s.after(p); }
+};
+function reveal() {
+  state.revealed = true; save();
+  let right = 0;
+  document.querySelectorAll(".card").forEach(card => {
+    const k = card.dataset.k, t = TRUTH[k], p = state.picks[k];
+    if (p === t) right++;
+    card.querySelector(".truth").innerHTML = `<span style="color:${t === "warm" ? "var(--warm)" : "var(--cool)"}">born from the ${t} page</span>${p ? (p === t ? " · you had it" : " · you said " + p) : ""}`;
+  });
+  document.getElementById("status").textContent = `${right} of 4 sorted right`;
+  document.getElementById("guides").classList.add("show");
+}
+document.getElementById("reveal").onclick = reveal;
+if (state.revealed) reveal();
+save();
+</script>
+</body>
+</html>

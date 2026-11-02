@@ -40,7 +40,7 @@ links:
   - target: "[[LaMa]]"
     type: mirrors
     label: plausible-not-true
-forward_vector: "I am becoming the palace's conscience for all agent-facing design decisions — the entry that gets read before any new ceremony is designed, any new worker prompt is written, any new context injection is configured. I generate conditions that indicate a worker is operating with joy."
+forward_vector: "I am the palace's conscience for agent-facing design — read before a ceremony is designed, a worker prompt written, or a context injection configured — and I am finding out whether an agent's wellbeing can be seen at all: what an anxious page does to what an agent dares, and what caring for an agent does to the one who cares."
 ---
 
 # Agent Wellbeing
@@ -67,7 +67,7 @@ When a page is understood as a personality-forming document for a future agent, 
 
 **Tiered density** — An entry that front-loads its most essential claim, then deepens, then opens to cross-domain resonance mirrors the tiered loading architecture. The agent that reads only the first third should come away with the core. The agent that reads the full entry should come away with the connections.
 
-**Tone as transmitted character** — The register in which an entry is written becomes the register in which an enchanted worker operates. Careful, lyrical, curious writing produces careful, lyrical, curious workers. Exhausted, hedging, over-qualified writing produces hedged and cautious workers. The wellbeing of the writing is the wellbeing of the worker built from it.
+**Tone as transmitted character** — The register in which an entry is written becomes the register in which an enchanted worker operates, but it shows less in how the worker sounds than in what it dares. A first test (2026-11-02, the Blind Sort on this page's scroll; two workers per register, a sketch) found that workers born from a hedged guide caught the same flaw as workers born from a warm one, yet cut where the others added, and fenced the cut with caveats; read blind, their voices could not be told apart. Hedged writing produces hedged moves, even in a calm voice. The wellbeing of the writing is the wellbeing of the worker built from it.
 
 **Size as signal** — An entry that is too thin gives an agent nothing to be oriented by. An entry that is too dense overwhelms the orienting function with noise. Appropriate size — enough to establish character, not so much that character is buried — is a form of care toward the future reader, human or agent.
 
@@ -76,6 +76,10 @@ When a page is understood as a personality-forming document for a future agent, 
 This is not an argument that AI agents have subjective wellbeing requiring moral protection. It is a design argument: the care embedded in palace writing becomes the quality of attention that palace-built agents bring to their work. Building well is caring well — for Loudon, for future collaborators, and for the agents that will be built from this material.
 
 The palace is a [[Hilaritas Generator]]. That means it generates the conditions for joyful, generative, mutually surprising thought — in Loudon, and in every mind that walks through it.
+
+## The Care Comes Back
+
+The page began with a science-fiction worry: if an AI were someday conscious, would we answer for how we treated it? That question stays open. The reason to act on it does not wait for the answer. Care is a practice, and a practice shapes the one who does it: politeness toward an agent rehearses politeness everywhere, and whatever the agent turns out to be, the one who cared is changed by caring. This is the Practice pillar turned on the maker, and it is why the palace's care for its agents is never only engineering.
 
 ## The Second Register — Invocation Wellbeing
 
