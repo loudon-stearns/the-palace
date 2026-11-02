@@ -1,0 +1,118 @@
+{
+ "report": {
+  "test": "murmuration-ceiling",
+  "when": "2026-11-02T03:20:46.994Z",
+  "browser": "Chrome",
+  "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36",
+  "cores": 10,
+  "sampleRate": 48000,
+  "block": 128,
+  "baseLatency": 0.0058125,
+  "clock": "Date.now",
+  "moduleVia": "data",
+  "cleanUpTo": 420,
+  "rungs": [
+   {
+    "N": 60,
+    "mean": 0.239,
+    "worst": 0.75,
+    "flockMs": 0.56,
+    "late": 0.372,
+    "underruns": 0,
+    "reads": "clean",
+    "picture": "stutters"
+   },
+   {
+    "N": 120,
+    "mean": 0.315,
+    "worst": 1.125,
+    "flockMs": 0.75,
+    "late": 0.3,
+    "underruns": 0,
+    "reads": "clean",
+    "picture": "stutters"
+   },
+   {
+    "N": 180,
+    "mean": 0.351,
+    "worst": 1.125,
+    "flockMs": 0.98,
+    "late": 0.272,
+    "underruns": 0,
+    "reads": "clean",
+    "picture": "stutters"
+   },
+   {
+    "N": 240,
+    "mean": 0.411,
+    "worst": 0.75,
+    "flockMs": 1.42,
+    "late": 0.366,
+    "underruns": 0,
+    "reads": "clean",
+    "picture": "stutters"
+   },
+   {
+    "N": 300,
+    "mean": 0.465,
+    "worst": 0.75,
+    "flockMs": 1.92,
+    "late": 0.262,
+    "underruns": 0,
+    "reads": "clean",
+    "picture": "stutters"
+   },
+   {
+    "N": 360,
+    "mean": 0.54,
+    "worst": 0.75,
+    "flockMs": 2.94,
+    "late": 0.357,
+    "underruns": 0,
+    "reads": "clean",
+    "picture": "stutters"
+   },
+   {
+    "N": 420,
+    "mean": 0.592,
+    "worst": 0.75,
+    "flockMs": 3.26,
+    "late": 0.071,
+    "underruns": 0,
+    "reads": "clean",
+    "picture": "smooth"
+   },
+   {
+    "N": 480,
+    "mean": 0.662,
+    "worst": 0.75,
+    "flockMs": 3.79,
+    "late": 0.094,
+    "underruns": 0,
+    "reads": "strained",
+    "picture": "smooth"
+   },
+   {
+    "N": 600,
+    "mean": 0.839,
+    "worst": 1.125,
+    "flockMs": 6.75,
+    "late": 0.292,
+    "underruns": 0,
+    "reads": "strained",
+    "picture": "stutters"
+   },
+   {
+    "N": 720,
+    "mean": 1.009,
+    "worst": 1.125,
+    "flockMs": 7.97,
+    "late": 0.173,
+    "underruns": 858,
+    "reads": "over",
+    "picture": "stutters"
+   }
+  ]
+ },
+ "errors": []
+}

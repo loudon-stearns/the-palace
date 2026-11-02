@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Murmuration — the voice ceiling, in your browser</title>
+<!--
+  MURMURATION · CEILING TEST. Open this one file in Chrome, Firefox and Safari, press Start,
+  and listen. It climbs the flock from 60 birds to 720, holding each size for six seconds
+  with the startle on and a strike every rung (the worst case: every bird scans every bird,
+  every grain voice sounds). Built by build_ceiling_test.js, which inlines
+  engine/murmur_engine.js unchanged, so the grains measured here are the grains the renders
+  came from.
+
+  What it measures, per rung:
+    audio load   — time spent inside the worklet's process() over the time the block
+                   represents (mean and worst block). Over 100% the audio thread cannot
+                   keep up and you hear clicks. Timed with performance.now() where the
+                   worklet scope has it, else Date.now(): ms ticks, but the mean over
+                   hundreds of blocks is still honest; the worst block is then coarse.
+    flock        — ms per frame for one flock step + mapping on the page's thread.
+    frames       — share of animation frames that came late (> 1.5x the median).
+    underruns    — Chrome's AudioContext.playbackStats where it exists; "n/a" elsewhere.
+    your ear     — "I heard a click" marks the rung. The ear outranks every number here.
+  A rung is clean when mean audio load < 60%, no reported underrun, no click heard, and (on a
+  fine clock only) the worst block < 90%. Late frames flag a stuttering picture, not a sound.
+  The ceiling is the last clean rung.
+
+  The view: the flock at the current size over the terrain, seen from the air; behind it a
+  row of glass columns, one per rung, rising with that rung's audio load toward the red
+  ceiling at 100%. No library, no storage, no fetch: it runs sandboxed in the board.
+-->
+<style>
+  :root { --bg:#0b0d12; --fg:#e8e6df; --dim:#8b8a85; --line:#2a2d36; --acc:#e9b45a; --hot:#e0645a; --ok:#7fc8a0; }
+  html,body { margin:0; height:100%; background:var(--bg); color:var(--fg); font:13px/1.4 ui-monospace,Menlo,monospace; overflow:hidden; }
+  canvas { display:block; width:100vw; height:100vh; }
+  #ui { position:fixed; left:12px; top:12px; width:250px; background:rgba(11,13,18,.82); border:1px solid var(--line); border-radius:6px; padding:10px 12px; }
+  #ui h1 { font-size:12px; letter-spacing:.12em; text-transform:uppercase; margin:0 0 6px; color:var(--acc); font-weight:600; }
+  #ui p { margin:4px 0; color:var(--dim); font-size:11px; }
+  #ui button { width:100%; margin-top:6px; background:#141720; color:var(--fg); border:1px solid var(--line); border-radius:4px; font:inherit; padding:6px; cursor:pointer; }
+  #ui button.big { border-color:var(--acc); color:var(--acc); }
+  #ui button.ear { border-color:var(--hot); color:var(--hot); }
+  #ui button:disabled { opacity:.4; cursor:default; }
+  #hud { position:fixed; right:12px; top:12px; text-align:right; color:var(--dim); font-size:12px; }
+  #hud b { color:var(--fg); font-weight:600; }
+  #res { position:fixed; right:12px; bottom:12px; width:560px; max-width:calc(100vw - 300px); background:rgba(11,13,18,.86); border:1px solid var(--line); border-radius:6px; padding:8px 10px; font-size:11px; }
+  #res table { width:100%; border-collapse:collapse; }
+  #res th { color:var(--dim); font-weight:400; text-align:right; padding:1px 4px; }
+  #res td { text-align:right; padding:1px 4px; }
+  #res td.v { text-align:left; }
+  .clean { color:var(--ok); } .strained { color:var(--acc); } .over, .heard { color:var(--hot); }
+  #verdict { margin-top:6px; color:var(--fg); }
+  #report { width:100%; height:70px; margin-top:6px; background:#0f1218; color:var(--dim); border:1px solid var(--line); font:10px/1.3 ui-monospace,Menlo,monospace; display:none; }
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div id="ui">
+  <h1>Murmuration · ceiling</h1>
+  <p>Climbs the flock from 60 to 720 birds, six seconds a size, a strike on every size. About a minute. Turn the volume down first; it gets dense.</p>
+  <button id="go" class="big">Start the climb</button>
+  <button id="ear" class="ear" disabled>I heard a click</button>
+  <button id="stop" disabled>Stop</button>
+  <p id="env"></p>
+</div>
+<div id="hud"></div>
+<div id="res">
+  <table><thead><tr><th>birds</th><th>audio mean</th><th>worst block</th><th>flock ms</th><th>late frames</th><th>underruns</th><th class="v">reads</th></tr></thead><tbody id="rows"></tbody></table>
+  <div id="verdict">Press Start. The table fills as it climbs.</div>
+  <textarea id="report" readonly></textarea>
+</div>
+<script>
+/*__ENGINE__*/
+const { Flock, mapBoids, WIDTH, HEIGHT } = E;
+
+/* ------------------------------------------------------------------ the ladder */
+const RUNGS = [60, 120, 180, 240, 300, 360, 420, 480, 600, 720];
+const HOLD = 6, SETTLE = 1;                                     // seconds per rung; the first second is not scored
+const W = { sep: 1.5, ali: 1.0, coh: 1.0, eta: 0.06, startle: true };
+const P = { mapping: 'order', base: 110, pitch: 19, startle: true };
+const results = RUNGS.map(N => ({ N, state: 'waiting' }));
+let flock = new Flock(60), mem = {}, rung = -1, rungT0 = 0, running = false, heard = false;
+let acc = null, frames = [], flockMs = [], uStart = null;
+
+function browserName() { const u = navigator.userAgent; if (/Firefox\//.test(u)) return 'Firefox'; if (/Edg\//.test(u)) return 'Edge'; if (/Chrome\//.test(u)) return 'Chrome'; if (/Safari\//.test(u)) return 'Safari'; return 'unknown'; }
+const ENV = { browser: browserName(), ua: navigator.userAgent, cores: navigator.hardwareConcurrency || null };
+
+/* ------------------------------------------------------------------ audio: the engine's own Grains, timed from inside the worklet */
+let ac = null, node = null, clockKind = '?', blockLen = 128, moduleVia = '?';
+async function startAudio() {
+  ac = new (window.AudioContext || window.webkitAudioContext)({ sampleRate: 48000 });
+  const src = document.getElementById('engineSrc').textContent + `
+    const NOW = (typeof performance !== 'undefined' && performance.now) ? () => performance.now() : () => Date.now();
+    const KIND = (typeof performance !== 'undefined' && performance.now) ? 'performance.now' : 'Date.now';
+    class CeilProc extends AudioWorkletProcessor {
+      constructor() { super(); this.gr = new E.Grains(sampleRate); this.gr.master = 0.35; this.busy = 0; this.worst = 0; this.blocks = 0; this.n = 128;
+        this.port.onmessage = e => { this.gr.setFlock(new Float32Array(e.data.buf), e.data.n); };
+        this.port.postMessage({ hello: KIND }); }
+      process(_, outs) { const o = outs[0]; if (!o[1]) return true; this.n = o[0].length;
+        const t0 = NOW(); this.gr.process(o[0], o[1], this.n); const dt = NOW() - t0;
+        this.busy += dt; if (dt > this.worst) this.worst = dt; this.blocks++;
+        if (this.blocks >= 94) { this.port.postMessage({ busy: this.busy, worst: this.worst, blocks: this.blocks, n: this.n, sr: sampleRate }); this.busy = 0; this.worst = 0; this.blocks = 0; }
+        return true; }
+    }
+    registerProcessor('ceil', CeilProc);`;
+  // A blob URL first; some browsers refuse a blob from a file:// page, so then a data: URL.
+  const url = URL.createObjectURL(new Blob([src], { type: 'application/javascript' }));
+  try { await ac.audioWorklet.addModule(url); moduleVia = 'blob'; }
+  catch (e) { await ac.audioWorklet.addModule('data:application/javascript;charset=utf-8,' + encodeURIComponent(src)); moduleVia = 'data'; }
+  URL.revokeObjectURL(url);
+  node = new AudioWorkletNode(ac, 'ceil', { numberOfOutputs: 1, outputChannelCount: [2] });
+  const lim = ac.createDynamicsCompressor(); lim.threshold.value = -6; lim.ratio.value = 12; lim.attack.value = 0.003; lim.release.value = 0.2;
+  node.connect(lim); lim.connect(ac.destination);
+  node.port.onmessage = e => {
+    const d = e.data; if (d.hello) { clockKind = d.hello; return; }
+    blockLen = d.n; if (!acc) return;
+    const budget = d.n / d.sr * 1000;
+    acc.busy += d.busy; acc.blocks += d.blocks; acc.budget = budget; acc.worst = Math.max(acc.worst, d.worst / budget);
+  };
+  if (ac.state === 'suspended') await ac.resume();
+}
+function underruns() { const s = ac && ac.playbackStats; if (!s) return null; const v = s.underrunEvents ?? s.underrunCount; return typeof v === 'number' ? v : null; }
+
+/* ------------------------------------------------------------------ the climb */
+function beginRung(i) {
+  rung = i; const N = RUNGS[i];
+  flock = new Flock(N); mem = {}; for (let k = 0; k < 30; k++) flock.step(W);
+  rungT0 = performance.now(); acc = null; frames = []; flockMs = []; heard = false; uStart = null;
+  results[i].state = 'running'; render();
+}
+function scoreRung() {
+  const r = results[rung], N = RUNGS[rung];
+  const mean = acc && acc.blocks ? acc.busy / (acc.blocks * acc.budget) : NaN;
+  const med = frames.slice().sort((a, b) => a - b)[frames.length >> 1] || 16.7;
+  const late = frames.length ? frames.filter(f => f > 1.5 * med).length / frames.length : 0;
+  const u1 = underruns(), du = (u1 !== null && uStart !== null) ? u1 - uStart : null;
+  Object.assign(r, { mean, worst: acc ? acc.worst : NaN, flockMs: flockMs.reduce((a, b) => a + b, 0) / Math.max(1, flockMs.length), late, underruns: du, heard });
+  // The sound decides the verdict; late frames only flag a stuttering picture. The worst block
+  // counts only on a fine clock: on Date.now() it is whole milliseconds, a third of a block each.
+  const fine = clockKind === 'performance.now';
+  r.state = heard ? 'heard' : (mean < 0.6 && (!fine || r.worst < 0.9) && !(du > 0)) ? 'clean' : (mean < 0.85 && !(du > 0)) ? 'strained' : 'over';
+  r.picture = late > 0.1 ? 'stutters' : 'smooth';
+  render();
+}
+function tick() {
+  if (!running) return;
+  const t = (performance.now() - rungT0) / 1000;
+  if (t >= SETTLE && !acc) { acc = { busy: 0, blocks: 0, budget: 1, worst: 0 }; uStart = underruns(); }
+  if (t >= 2.5 && !flock._struck) { flock.field.predator = { x: WIDTH * (0.3 + 0.4 * Math.random()), y: HEIGHT * (0.3 + 0.4 * Math.random()) }; flock.field.predT = 1; flock._struck = true; }
+  if (t >= HOLD) {
+    scoreRung();
+    const overs = results.filter(r => r.state === 'over').length;
+    if (rung + 1 < RUNGS.length && overs < 2) beginRung(rung + 1); else finish();
+  }
+}
+function finish() {
+  running = false; if (node) node.port.postMessage({ buf: new Float32Array(0).buffer, n: 0 });
+  document.getElementById('go').disabled = false; document.getElementById('ear').disabled = true; document.getElementById('stop').disabled = true;
+  document.getElementById('go').textContent = 'Climb again';
+  render(true);
+}
+document.getElementById('go').onclick = async () => {
+  if (!ac) await startAudio(); else if (ac.state === 'suspended') await ac.resume();
+  results.forEach(r => { for (const k in r) if (k !== 'N') delete r[k]; r.state = 'waiting'; });
+  document.getElementById('report').style.display = 'none';
+  running = true; beginRung(0);
+  document.getElementById('go').disabled = true; document.getElementById('ear').disabled = false; document.getElementById('stop').disabled = false;
+};
+document.getElementById('ear').onclick = () => { if (running) { heard = true; flashEar = 1; } };
+document.getElementById('stop').onclick = () => { if (running) { if (acc) scoreRung(); finish(); } };
+
+/* ------------------------------------------------------------------ the table and the report */
+const pct = x => isFinite(x) ? Math.round(x * 100) + '%' : '—';
+function ceiling() { let last = null; for (const r of results) { if (r.state === 'clean') last = r.N; else if (r.state !== 'waiting' && r.state !== 'running') break; } return last; }
+function render(done) {
+  document.getElementById('rows').innerHTML = results.filter(r => r.state !== 'waiting').map(r =>
+    `<tr><td>${r.N}</td><td>${pct(r.mean)}</td><td>${clockKind === 'performance.now' ? pct(r.worst) : '<span style="color:var(--dim)">ms clock</span>'}</td><td>${isFinite(r.flockMs) ? r.flockMs.toFixed(1) : '—'}</td><td>${r.late !== undefined ? pct(r.late) : '—'}</td><td>${r.underruns === null || r.underruns === undefined ? (r.state === 'running' ? '…' : 'n/a') : r.underruns}</td><td class="v ${r.state}">${r.state === 'running' ? 'listening…' : r.state === 'heard' ? 'you heard a click' : r.state}${r.picture === 'stutters' ? ' <span style="color:var(--dim)">· picture stutters</span>' : ''}</td></tr>`).join('');
+  const c = ceiling();
+  document.getElementById('verdict').innerHTML = done
+    ? `<b>${ENV.browser}</b>: clean up to <b>${c ?? 'none'}</b> birds${c ? '' : ' — not even the first rung was clean'}. Select the text below and paste it to the steward.`
+    : running ? `Climbing — ${RUNGS[rung]} birds. Press “I heard a click” the moment you hear one.` : document.getElementById('verdict').innerHTML;
+  if (done) { const ta = document.getElementById('report'); ta.style.display = 'block'; ta.value = JSON.stringify({ test: 'murmuration-ceiling', when: new Date().toISOString(), ...ENV, sampleRate: ac && ac.sampleRate, block: blockLen, baseLatency: ac && ac.baseLatency, clock: clockKind, moduleVia, cleanUpTo: c, rungs: results.filter(r => r.state !== 'waiting').map(r => ({ N: r.N, mean: +(+r.mean).toFixed(3), worst: +(+r.worst).toFixed(3), flockMs: +(+r.flockMs).toFixed(2), late: +(+r.late).toFixed(3), underruns: r.underruns, reads: r.state, picture: r.picture })) }); }
+}
+document.getElementById('env').textContent = `${ENV.browser} · ${ENV.cores ?? '?'} cores reported`;
+
+/* ------------------------------------------------------------------ the view */
+const cv = document.getElementById('c'), g = cv.getContext('2d');
+let VW = 0, VH = 0, DPR = 1, flashEar = 0;
+function resize() { DPR = Math.min(2, window.devicePixelRatio || 1); VW = innerWidth; VH = innerHeight; cv.width = VW * DPR; cv.height = VH * DPR; g.setTransform(DPR, 0, 0, DPR, 0, 0); }
+addEventListener('resize', resize); resize();
+const WW = 10, WH = WW * HEIGHT / WIDTH;                         // world units for the terrain
+let yaw = -0.5, cam;
+function basis() {
+  const dist = 13.5, pitch = 0.62, eye = [Math.sin(yaw) * Math.cos(pitch) * dist, -Math.cos(yaw) * Math.cos(pitch) * dist, Math.sin(pitch) * dist];
+  const tgt = [0, 1.2, 1.4], f = nrm(sub(tgt, eye)), r = nrm(cross(f, [0, 0, 1])), u = cross(r, f);
+  cam = { eye, f, r, u, foc: Math.min(VW, VH * 1.6) * 0.9 };
+}
+const sub = (a, b) => [a[0] - b[0], a[1] - b[1], a[2] - b[2]], dot = (a, b) => a[0] * b[0] + a[1] * b[1] + a[2] * b[2];
+const cross = (a, b) => [a[1] * b[2] - a[2] * b[1], a[2] * b[0] - a[0] * b[2], a[0] * b[1] - a[1] * b[0]], nrm = a => { const n = Math.hypot(...a) || 1; return [a[0] / n, a[1] / n, a[2] / n]; };
+function P3(x, y, z) { const d = sub([x, y, z], cam.eye), zc = dot(d, cam.f); if (zc < 0.1) return null; return [VW / 2 + cam.foc * dot(d, cam.r) / zc, VH / 2 - cam.foc * dot(d, cam.u) / zc, zc]; }
+const CORNER = [[94, 150, 230], [233, 180, 90], [224, 100, 130], [127, 200, 160]];   // sine · saw · square · bell
+function tint(u, v) { const w = [(1 - u) * (1 - v), u * (1 - v), (1 - u) * v, u * v]; return [0, 1, 2].map(k => w.reduce((s, wi, i) => s + wi * CORNER[i][k], 0)); }
+const loadHue = x => x < 0.6 ? [127, 200, 160] : x < 0.9 ? [233, 180, 90] : [224, 100, 90];
+
+function draw() {
+  yaw = -0.42 + 0.22 * Math.sin(performance.now() / 9000); basis();          // a slow sway, so the ceiling stays in frame
+  g.fillStyle = '#0b0d12'; g.fillRect(0, 0, VW, VH);
+  // terrain grid, tinted by the corner each cell leans to
+  const G = 16;
+  for (let i = 0; i < G; i++) for (let j = 0; j < G; j++) {
+    const u0 = i / G, v0 = j / G, u1 = (i + 1) / G, v1 = (j + 1) / G, q = [[u0, v0], [u1, v0], [u1, v1], [u0, v1]].map(([u, v]) => P3((u - 0.5) * WW, (v - 0.5) * WH, 0));
+    if (q.some(p => !p)) continue; const [cr, cg, cb] = tint((u0 + u1) / 2, (v0 + v1) / 2);
+    g.beginPath(); q.forEach((p, k) => k ? g.lineTo(p[0], p[1]) : g.moveTo(p[0], p[1])); g.closePath();
+    g.fillStyle = `rgba(${cr|0},${cg|0},${cb|0},0.10)`; g.fill(); g.strokeStyle = 'rgba(42,45,54,0.7)'; g.lineWidth = 0.6; g.stroke();
+  }
+  // the columns: one per rung, standing along the far edge, rising toward the ceiling
+  const colY = WH / 2 + 1.4, H100 = 4.2, span = WW * 0.92;
+  const ceil = [[-span / 2 - 0.4, colY - 0.4], [span / 2 + 0.4, colY - 0.4], [span / 2 + 0.4, colY + 0.4], [-span / 2 - 0.4, colY + 0.4]].map(([x, y]) => P3(x, y, H100));
+  if (ceil.every(Boolean)) { g.beginPath(); ceil.forEach((p, k) => k ? g.lineTo(p[0], p[1]) : g.moveTo(p[0], p[1])); g.closePath(); g.fillStyle = 'rgba(224,100,90,0.13)'; g.fill(); g.strokeStyle = 'rgba(224,100,90,0.7)'; g.lineWidth = 1; g.stroke();
+    g.fillStyle = 'rgba(224,100,90,0.85)'; g.font = '11px ui-monospace,Menlo,monospace'; g.fillText('100% — the audio thread is out of time', ceil[1][0] + 6, ceil[1][1]); }
+  results.forEach((r, i) => {
+    const x = -span / 2 + span * i / (RUNGS.length - 1);
+    let load = r.mean; if (r.state === 'running') load = acc && acc.blocks ? acc.busy / (acc.blocks * acc.budget) : 0;
+    const h = isFinite(load) ? Math.min(1.25, load) * H100 : 0, s = 0.22;
+    const base = P3(x, colY, 0), top = P3(x, colY, Math.max(0.02, h));
+    if (!base || !top) return;
+    const [cr, cg, cb] = r.state === 'heard' ? [224, 100, 90] : loadHue(isFinite(load) ? load : 0);
+    const a = r.state === 'waiting' ? 0.12 : r.state === 'running' ? 0.9 : 0.6;
+    const corners = [[-s, -s], [s, -s], [s, s], [-s, s]];
+    const b4 = corners.map(([dx, dy]) => P3(x + dx, colY + dy, 0)), t4 = corners.map(([dx, dy]) => P3(x + dx, colY + dy, Math.max(0.02, h)));
+    if (b4.some(p => !p) || t4.some(p => !p)) return;
+    for (let k = 0; k < 4; k++) { const k2 = (k + 1) % 4; g.beginPath(); g.moveTo(b4[k][0], b4[k][1]); g.lineTo(b4[k2][0], b4[k2][1]); g.lineTo(t4[k2][0], t4[k2][1]); g.lineTo(t4[k][0], t4[k][1]); g.closePath(); g.fillStyle = `rgba(${cr},${cg},${cb},${a * 0.28})`; g.fill(); g.strokeStyle = `rgba(${cr},${cg},${cb},${a})`; g.lineWidth = 0.8; g.stroke(); }
+    g.beginPath(); t4.forEach((p, k) => k ? g.lineTo(p[0], p[1]) : g.moveTo(p[0], p[1])); g.closePath(); g.fillStyle = `rgba(${cr},${cg},${cb},${a * 0.6})`; g.fill();
+    g.fillStyle = r.state === 'waiting' ? 'rgba(139,138,133,0.5)' : '#e8e6df'; g.font = '10px ui-monospace,Menlo,monospace'; g.textAlign = 'center'; g.fillText(String(r.N), base[0], base[1] + 13); g.textAlign = 'left';
+  });
+  // the flock: steadiness lifts a bird, alarm flashes it white
+  const B = flock.boids, pts = [];
+  for (let i = 0; i < B.length; i++) {
+    const b = B[i], hx = mem.hx ? mem.hx[i] : 0, hy = mem.hy ? mem.hy[i] : 0, steady = Math.pow(Math.min(1, Math.hypot(hx, hy)), 6);
+    const x = (b.x / WIDTH - 0.5) * WW, y = (b.y / HEIGHT - 0.5) * WH, z = 0.25 + 2.2 * steady, p = P3(x, y, z), sh = P3(x, y, 0);
+    if (p && sh) pts.push([p, sh, b, b.x / WIDTH, b.y / HEIGHT]);
+  }
+  pts.sort((a, b) => b[0][2] - a[0][2]);
+  const dotR = Math.max(1.1, 3.2 * Math.sqrt(60 / Math.max(60, B.length)));
+  for (const [p, sh, b, u, v] of pts) {
+    g.fillStyle = 'rgba(0,0,0,0.35)'; g.beginPath(); g.arc(sh[0], sh[1], dotR * 0.8, 0, 6.283); g.fill();
+    const [cr, cg, cb] = tint(u, v), al = b.a || 0, mix = c => (c + (255 - c) * al) | 0;
+    g.fillStyle = `rgb(${mix(cr)},${mix(cg)},${mix(cb)})`; g.beginPath(); g.arc(p[0], p[1], dotR * (1 + al), 0, 6.283); g.fill();
+  }
+  if (flashEar > 0) { g.fillStyle = `rgba(224,100,90,${0.25 * flashEar})`; g.fillRect(0, 0, VW, VH); flashEar *= 0.9; if (flashEar < 0.02) flashEar = 0; }
+  const phi = flock.polarization();
+  document.getElementById('hud').innerHTML = running
+    ? `<b>${RUNGS[rung]}</b> birds · rung ${rung + 1} of ${RUNGS.length}<br>order φ <b>${phi.toFixed(2)}</b><br>audio clock: ${clockKind} · block ${blockLen}`
+    : `<b>${flock.boids.length}</b> birds · idle<br>order φ <b>${phi.toFixed(2)}</b>`;
+}
+
+/* ------------------------------------------------------------------ the loop */
+let lastT = performance.now();
+function frame() {
+  const now = performance.now(), dt = now - lastT; lastT = now;
+  const t0 = performance.now(); flock.step(W); const f = mapBoids(flock.boids, P, mem); const ms = performance.now() - t0;
+  if (running && acc) { frames.push(dt); flockMs.push(ms); }
+  if (node && running) node.port.postMessage({ buf: f.buffer, n: flock.boids.length }, [f.buffer]);
+  tick(); draw();
+  if (!window.__noLoop) requestAnimationFrame(frame);
+}
+window.__ceil = { frame, results, beginRung: i => { running = true; beginRung(i); }, scoreRung, finish, ceiling };
+requestAnimationFrame(frame);
+</script>
+</body>
+</html>

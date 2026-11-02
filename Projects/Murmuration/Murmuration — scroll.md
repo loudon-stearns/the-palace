@@ -15,35 +15,36 @@ forward_vector: "I am Murmuration's scroll — the one page that always opens on
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-11-02T03:06:40.047Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-11-02T03:12:24.861Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** growing · **Steward:** cycle 4 · last ran 2026-11-02 (today)
-- **Plan:** agreed 2026-10-15 (18 days ago) · 1 made thing since
-- **Waiting on you:** nothing
+- **Status:** active · **Stage:** growing · **Steward:** cycle 5 · last ran 2026-11-02 (today)
+- **Plan:** agreed 2026-10-15 (18 days ago) · 3 made things since
+- **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-11-02 (today) — Murmuration now flies in 3D: the wavetable is a landscape, each bird's height is how long its grains sing, and order shows as the flock lifting off. (`murmuration-steward-011`)
-- **Last commit touching this project:** 2026-10-25 `41dff426` — edit(SCHEMA): fifteen alternative-to and -vs- links become contrasts-with, labels kept; three that name a kinship or a pointer stay connects-to
+- **Last shipped:** 2026-11-02 (today) — The RNBO version is the plan's next step, but Max work is paused. Skip ahead to the short piece, or hold here for your three browser runs? (`murmuration-steward-015`)
+- **Last commit touching this project:** 2026-11-01 `39a1a54e` — edit(Synthesis Topologies): Loudon's rulings from his section-by-section read: the family as one way to see it, FM picked from a menu, modal as a crowd of resonators, the cross-domain text, and six projects declare member-of
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
-- **Runs:** 1 run on 1 day, counted from the ledger's run lines
-- **Last run:** 2026-11-01 — cycle 4 · taught item 1, proposed items 2, 3, 4 for canon
+- **Runs:** 2 runs on 1 day, counted from the ledger's run lines
+- **Last run:** 2026-11-01 — cycle 5 · taught item 5, proposed item 6 for canon
 - **Owed in the ledger:** nothing
-- **Proposed for canon:** 3 — items 2, 3, 4; waiting on Loudon's review, and the page has not changed
-- **Latest lesson:** item 4, from cycle 4 — 2026-11-01 — [[Murmuration — tuning]]
+- **Proposed for canon:** 3 — items 2, 4, 6; waiting on Loudon's review, and the page has not changed
+- **Latest lesson:** item 6, from cycle 5 — 2026-11-01 — [[Murmuration — tuning]]
 
 ### Where this stands
 
-Murmuration is a synth where a flock of 60 boids wanders across a 2D wavetable and every boid is a grain. Its bet is that a sound shaped by a living flock feels more alive than one dialed by hand. On 14 October I built all three ways to hear the flock: as grains, as a breathing pad, and as a startle you trigger by clicking. I also sent you a blind pair. You adopted my plan, with one note: every stage needs compelling 3D visuals. And you couldn't tell the blind pair apart. This cycle I opened the key, measured how many voices the engine can carry (the first half of the plan's next move, before the browser tests), and built a 3D view of the same engine, so the three readings built so far fina…
+Murmuration is a synth where a flock of birds walks a 2D wavetable and every bird is a grain. Its bet is that a sound shaped by a living flock feels more alive than one dialed by hand. All three ways of hearing the flock are built: grains, a breathing pad, and a startle you trigger by clicking. You couldn't tell the blind pair apart, so the bet now has to be tested by playing. Last cycle I measured, outside any browser, how many voices the engine can carry, and built the 3D view. This cycle I finished that move with one page you open in Chrome, Firefox and Safari. It climbs the flock from 60 birds to 720 with a strike on every step, and it tells you where that browser starts to click.
 
 ### Left rough, again and again
 
 _What the trail's left-rough notes keep saying, oldest first, in its latest words._
 
-- **rough since cycle 1:** Nobody has heard the density pad in a browser. _(in 2 notes, the latest cycle 2)_
+- **rough since cycle 1:** Nobody has heard the density pad in a browser, and now nobody has heard the ceiling climb either. _(in 3 notes, the latest cycle 5)_
+- **rough since cycle 4:** Firefox and Safari are untested, and only you can listen; _(in 2 notes, the latest cycle 5)_
 
 ### Open asks
 
-_None — nothing is waiting on you._
+- `murmuration-steward-015` — directional_decision · posted 2026-11-02 · options: PIECE-NEXT · WAIT-BROWSERS · POLISH-FIRST
 
 ### Answered, not yet consumed
 
@@ -56,6 +57,7 @@ _None._
 
 ### Runs
 
+- 2026-11-01 — cycle 5 · taught item 5, proposed item 6 for canon
 - 2026-11-01 — cycle 4 · taught item 1, proposed items 2, 3, 4 for canon
 
 ### Owed
@@ -67,8 +69,8 @@ _Nothing owed._
 _Changes the steward wants in the house, kept in its tuning ledger until Loudon's review. Its cycles work as if they hold; the pages have not changed._
 
 - **2.** 2026-11-01 · [[Murmuration]] · § Forward Vectors, replacing the line '— progressed: the blind pair is rendered …' — The verdict is in, and the page still says it's waiting.
-- **3.** 2026-11-01 · [[Murmuration]] · § Open Decisions, under 'Voice ceiling' — The first half of the question is answered with numbers.
 - **4.** 2026-11-01 · [[Murmuration]] · § Status, after the first sentence — Loudon asked for compelling 3D visuals at every stage, and the page doesn't yet name the view that answers that.
+- **6.** 2026-11-01 · [[Murmuration]] · § Open Decisions, under 'Voice ceiling' — The browser half now has a test page and Chrome's first numbers, so the earlier words are out of date.
 
 <!-- scroll:now:end -->
 
@@ -94,6 +96,66 @@ _Loudon's standing direction for this project. The steward reads this zone every
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="murmuration-steward-015" -->
+### 2026-11-02 — cycle 5 — The RNBO version is the plan's next step, but Max work is paused. Skip ahead to the short piece, or hold here for your three browser runs?
+> still working · ceiling test shipped · steward leans PIECE-NEXT
+
+Catch-up: Murmuration is the flock-of-grains synth. All three ways of hearing the flock are built, the 3D view exists, and this cycle shipped a ceiling test you open in each browser (headless Chrome stays clean to about 400 birds). On the agreed plan, the step after this is building the same engine again as an RNBO device in Max, then a short piece made only with Murmuration. But you've paused all new Max work until there are patching standards, so I can't build the RNBO version yet. My lean: skip ahead to the piece and play the flock against a hand-dialed cloud under the same strike. That's the playing test your blind verdict pointed to. Meanwhile I'd write down what the RNBO version will need, so the build is quick once the pause lifts. The other paths are to wait until you've run Firefox and Safari, or to stop and polish the instrument itself first. The project keeps moving whichever you pick.
+
+**Artifacts:**
+- [where the ceiling stands in headless Chrome](Projects/Murmuration/ceiling/ceiling-done.png)
+- [3d-plate.png](Projects/Murmuration/3d-plate.png)
+- [murmuration-3d.html](Projects/Murmuration/murmuration-3d.html)
+- [murmuration-3d.template.html](Projects/Murmuration/three-d/murmuration-3d.template.html)
+<sub>`murmuration-steward-015` · RESOURCE_REQUEST on TRICKSTER</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="murmuration-steward-014" -->
+### 2026-11-02 — cycle 5 — I built a ceiling test you open in any browser. It climbs the flock from 60 birds to 720 until the sound breaks. In headless Chrome it stays clean to about 400 birds.
+> shipped · Chrome done headless · Firefox and Safari need your hands · steward leans skip ahead to the piece
+
+The page is [ceiling-test.html](open:Projects/Murmuration/ceiling-test.html). Press Start and turn the volume down first. It holds each flock size for six seconds, from 60 birds up to 720, and strikes the flock once on every step, which is the hardest case for the engine. For each step it measures four things: how much of the audio thread's time the grains use, how long the flock takes per frame, how many picture frames arrive late, and, in Chrome only, how many times the sound actually dropped out. There's an "I heard a click" button, and your ear outranks every number on the page. At the end it says how far that browser stayed clean and gives you a block of text to paste back to me. The view is in 3D, as you asked. The flock flies over the terrain, and behind it a row of glass columns rises, one per step, toward a red ceiling at 100%. It runs the same engine file as the renders, inlined unchanged.
+
+Headless Chrome on this Mac (table below): clean through 360 birds, and 420 sat right on the line across three runs. The audio thread is stretched from 480, and at 720 it is out of time. Chrome itself counted 858 dropouts there and none below. That matches last cycle's measurement outside the browser (about 300 voices before a block risks running late). Chrome costs a bit more per voice than that measurement did.
+
+Two things building it taught me. First, Chrome's worklet has no fine clock, only whole milliseconds, which is a third of an audio block each. So the slowest single block can't be measured there, and the verdict now rests on average load, Chrome's own dropout count, and your ear. Second, Chrome refused to load the worklet from a file opened straight off disk, so the page now falls back to a second way of loading it, and that one worked.
+
+**Artifacts:**
+- [the ceiling test: open it in each browser, press Start, listen](Projects/Murmuration/ceiling-test.html)
+- [a finished climb in headless Chrome: green to 420, amber 480–600, red at 720](Projects/Murmuration/ceiling/ceiling-done.png)
+- [mid-climb at 300 birds, the column for that step still rising](Projects/Murmuration/ceiling/ceiling-midclimb.png)
+- [the page's own report from the headless run](Projects/Murmuration/ceiling/ceiling-headless-chrome.json)
+- [the page's source, before the engine is inlined](Projects/Murmuration/ceiling/ceiling-test.template.html)
+- [builds the page, inlining engine/murmur_engine.js unchanged](Projects/Murmuration/ceiling/build_ceiling_test.js)
+- [drives a full climb in headless Chrome and saves the stills and the report](Projects/Murmuration/ceiling/drive_ceiling.mjs)
+
+_Headless Chrome 156 · M1 Max · 48 kHz, 128-sample blocks · startle on, one strike per step_
+| birds | audio thread used | flock ms/frame | Chrome dropouts | reads |
+| --- | --- | --- | --- | --- |
+| 60 | 24% | 0.6 | 0 | clean |
+| 120 | 31% | 0.7 | 0 | clean |
+| 240 | 41% | 1.4 | 0 | clean |
+| 360 | 54% | 2.9 | 0 | clean |
+| 420 | 59% | 3.3 | 0 | clean (on the line) |
+| 480 | 66% | 3.8 | 0 | strained |
+| 600 | 84% | 6.8 | 0 | strained |
+| 720 | 101% | 8.0 | 858 | over |
+
+_Proposed for canon:_ Murmuration (§ Open Decisions, under 'Voice ceiling') — The browser half now has a test page and Chrome's first numbers, so the earlier words are out of date.; owed in the tuning ledger until Loudon's review; it replaces item 3
+
+_Left rough:_ Nobody has heard the density pad in a browser, and now nobody has heard the ceiling climb either. Firefox and Safari are untested, and only you can listen; headless Chrome has no ears and its late-frame counts are noise.
+
+_Next moves named:_ When you paste back a report from each browser, I fold the three ceilings into one table and set the instrument's default flock size under the lowest of them. · Then the short piece made only with Murmuration (see the fork on the Trickster board), with the RNBO version held as a written spec until the Max pause lifts.
+<sub>`murmuration-steward-014` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-528cfab1f0" -->
+### 2026-11-01 — cycle 5
+
+taught item 5, proposed item 6 for canon
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="plan-murmuration-steward-004" -->
 ### 2026-10-14 — Plan agreed: A first plan for Murmuration: audible and tested blind, then all three readings, then live limits, then an RNBO twin, then a piece.
 
