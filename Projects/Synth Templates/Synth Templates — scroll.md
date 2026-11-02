@@ -28,6 +28,7 @@ Where this is going: a catalog of template cards a learner can program on any so
 1. **Fix the card vocabulary.** One sheet that says what a card holds: the essential settings, the taste settings, the words for ranges. The range words are the archetype registry's region names (`instant`, `snappy`, `short`, `long`; `closed`, `dark`, `open`, `bright`; `sub`, `low`, `mid`, `high`…) from `Projects/Generative Audio Devices/pdl-renderer/vcv_fundamental_registry.json`, reused, not reinvented, so the catalog and [[Generative Preset Development]]'s profiles stay one language.
 2. **Walk the whole catalog in tier order.** Loudon's word, 2026-10-29: "I want to do them all, in your order of tiers." All 292 templates in `workshop/catalog.json`, 19 families, walked tier by tier (157 in tier 1, 110 in tier 2, 25 in tier 3) and tracked in `workshop/picker.html`, the Completeness Tracker, which holds four states per template (todo, drafted, rendered, verified) and a coverage panel per concept. Every concept in his synthesis notes ([[Synthesis Notes (Loudon)]]) maps to at least one template: 93 concepts, each named in the catalog's concept map.
 3. **Signal-flow sheets, one per card.** TikZ under the [[Technical Diagram Standard]]'s primitives, rendered to SVG, on the Drafting Table paper ground; essential and taste marked in the provenance colours.
+   - *Module glyphs* (Loudon, 2026-11-01: "we should make it a goal to add in drawings of the Envelopes, Filters, LFOs oscillators and more. Show in the block what is essential about the module, for instance the OSC could show the basic waveform, the filter could show that it is a low pass filter, and envelope shows what category the envelope is (based on my document, is the envelope percussive, sustaining etc...)"). Every block carries a glyph of what is essential about it, drawn by the generator from the card: an oscillator shows one cycle of its waveform (saw, square with its pulse width, triangle, sine, noise); a filter shows its response curve (low-pass, high-pass, band-pass, notch, comb) with the slope and a resonance bump when resonance is essential; an envelope shows its ADSR shape and names its category from [[Synthesis Notes (Loudon)]]: switch, sustaining, percussive (release = decay), piano (release 0), reverse, the funny one; an LFO shows its waveform with a rate word and sync mark; the amp shows level and pan; the mixer shows its input weights. Glyphs are drawn from card fields, never by hand, so they stay consistent across the catalog.
 4. **A neutral reference voice and its render pipeline.** A fully controlled subtractive voice the project owns (SimpleSynth from [[VST Template]] is a candidate; a Python or Web Audio voice is the other), rendering every card to a WAV with a manifest, a feature sidecar (level, brightness, rise, tail, width) and a spectrogram, after the pattern of `Projects/Portamento and Physical Pitch Modeling/curated-ear-set/`.
 5. **A comparison sheet.** The learner's render beside the reference: the two spectrograms, the two feature rows, the differences named in the card's own words, and a play button for each. Compared by feature and by ear ([[Audition Gate]]), never by null test.
 6. **Prove three templates on three synths.** The house bass alone first, on Vital, Serum and Ableton Wavetable, heard by Loudon; then the next two cards, each climbing from the last. Staging per his 2026-10-25 ruling on the Dissolutions proofs: work up to the thing, never start at the end.
@@ -36,12 +37,19 @@ Where this is going: a catalog of template cards a learner can program on any so
 ## Standing Orders
 
 <!-- scroll:orders:start -->
-_None yet._
+- **Blocks show their essentials** (2026-11-01). Every block on a sheet carries a glyph of what is essential about its module, drawn by the generator from the card, never by hand: the oscillator its waveform, the filter its response, the envelope its shape and its category from [[Synthesis Notes (Loudon)]], the LFO its waveform and rate. The full list is under Plan move 3.
 <!-- scroll:orders:end -->
 
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="synth-templates-2026-11-01-glyphs-goal" -->
+### 2026-11-01 — Module glyphs made a goal (Loudon)
+
+Loudon set a standing goal: each block should draw what is essential about its module, the oscillator its waveform, the filter that it is a low-pass, the envelope its category from his notes. Added as a sub-goal under Plan move 3 and as a Standing Order, with the glyph list per module kind; the envelope categories were checked against the notes (switch, sustaining, pluck/strike with release equal to decay, piano with release zero, reversed, the funny one). Nothing drawn yet; the generator does not read glyphs from the card.
+
+_Left rough:_ the Plan is still proposed; this is an addition he asked for, not agreement to the six moves.
+<!-- /scroll:entry -->
 <!-- scroll:entry id="synth-templates-2026-11-01-no-ghosts" -->
 ### 2026-11-01 — No ghosted blocks: the diagram holds only what the preset needs
 
