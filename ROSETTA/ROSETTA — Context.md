@@ -1,5 +1,5 @@
 ---
-title: "Rosetta Stone — Context"
+title: "ROSETTA — Context"
 born: 2026-11-02
 links:
   - target: "[[ROSETTA]]"
@@ -8,7 +8,7 @@ links:
 forward_vector: "I hold why the Rosetta Stone is shaped as it is — a mirror carried along by other pages' changes, what it dropped and what it never caught up on — so the next worker can change the page without redoing the reasons, and I grow when its shape changes."
 ---
 
-# Rosetta Stone — Context
+# ROSETTA — Context
 
 The page was born on 2026-03-18 in the same Schema Ceremony that created [[SCHEMA]] (`d1f62f5`). It has had 49 commits in all, birth included, and only three are about it alone (`22e8cf9`, `7342f8c`, `81f0f7b`). Every other change was carried here by someone else's change. When a ceremony's spec moved, its row here moved in the same commit. The shape follows from that.
 

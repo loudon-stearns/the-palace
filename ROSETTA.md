@@ -21,7 +21,7 @@ links:
     type: emerged-from
   - target: "[[SUBSTRATE]]"
     type: deepens
-  - target: "[[Rosetta Stone — Context]]"
+  - target: "[[ROSETTA — Context]]"
     type: spawned
     label: rationale-archive
 ---
