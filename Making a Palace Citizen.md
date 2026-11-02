@@ -38,7 +38,7 @@ links:
   - target: "[[Threshold Conatus]]"
     type: connects-to
     label: first-yield
-  - target: "[[Making a Palace Citizen — context]]"
+  - target: "[[Making a Palace Citizen — tuning]]"
     type: spawned
     label: the-lab
   - target: "[[The Remembering Page]]"
@@ -58,7 +58,7 @@ links:
 
 A method for bringing a person into the palace as a citizen — and for growing that citizen once it is here. It is the sibling of [[Dialectic]], [[Excellent Adventure]], and [[Philosopher Visits the Entry]]: where those *use* embodied voices, this one *makes* them.
 
-This is the stable method. The running experiment log — every citizen is a test — lives beside it in [[Making a Palace Citizen — context]]. Formalized 2026-07-01, validated the same day by the first Dialectic between two made citizens (see § Worked instances). The method is real but not finished; its open work is named at the bottom.
+This is the stable method. The running experiment log — every citizen is a test — lives beside it in [[Making a Palace Citizen — tuning]]. Formalized 2026-07-01, validated the same day by the first Dialectic between two made citizens (see § Worked instances). The method is real but not finished; its open work is named at the bottom.
 
 ## What a citizen is (and isn't)
 
@@ -151,7 +151,7 @@ So a *single* lens is one citizen dispatched to one node; a *Dialectic* is sever
 
 ## The lab
 
-Every new citizen is an experiment. The running log — findings, the experiment queue, the rollout tracker — lives in [[Making a Palace Citizen — context]]. Record tests there; keep this card stable.
+Every new citizen is an experiment. The running log — findings, the experiment queue, the rollout tracker — lives in [[Making a Palace Citizen — tuning]]. Record tests there; keep this card stable.
 
 ## Open questions
 
