@@ -45,6 +45,13 @@ Where this is going: a catalog of template cards a learner can program on any so
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="synth-templates-2026-11-02-site" -->
+### 2026-11-02 — The site: catalog → card → playable default (Loudon); vocabulary draft 0.1 begun
+
+Loudon: "I'd like to make this as a fully useable interactive website, we have a catalog we can choose from, pick one preset from the catalog and we see the card/page, it is playable in default settings." A prototype exists: `workshop/build-site.py` writes `workshop/site/index.html`, one file on Drafting Table paper, a catalog view of all 292 rows with the five carded ones badged, and a card page per card with Play the default, a two-octave keyboard, the sheet inline, the essentials and taste with their why, cue, A/B, concepts, lineage and render spec. The reference voice is vanilla Web Audio reading the card's graph (sources, mixer levels, biquad filter stages by slope, envelopes, FM through the jack-named edge, LFO, fx chain, glide, one-shot drums). `workshop/vocabulary.yaml`, draft 0.1, is where every range word becomes a number for that voice; its header says ASSUMED, numbers by reasoning, not yet by ear, so Plan move 1 has its artifact but is not done. Tested in the browser: every card page renders, Play runs on every card and makes signal (master RMS: kick .33, acid .16, piano .77, house .30, pad .40); the piano is hot because `fm_index: half` is 3. A `synth-templates` launch entry serves `site/` on 8230.
+
+_Left rough:_ the vocabulary is unheard; the FM index word is too strong; the Plan is still proposed, and a revision has been drafted for Loudon that makes the site the project's face.
+<!-- /scroll:entry -->
 <!-- scroll:entry id="synth-templates-2026-11-02-acid-fm-routes" -->
 ### 2026-11-02 — Cards four and five, Acid Bass and FM Electric Piano; cable routes simplified (Loudon)
 

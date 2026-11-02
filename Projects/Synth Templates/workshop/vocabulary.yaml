@@ -1,0 +1,81 @@
+# Synth Templates — range vocabulary, draft 0.1 (ASSUMED: numbers set by reasoning, not yet by ear; move 1 of the plan earns them)
+# The cards speak in these words. This file says what each word means to the reference voice. One word, one meaning, everywhere.
+# Sources for the word list: the archetype registry's perceptual regions (Generative Audio Devices) and Loudon's synthesis notes.
+time:            # envelope stages, seconds
+  instant: 0.002
+  fast: 0.01
+  short: 0.12
+  medium: 0.35
+  slow: 0.9
+  long: 1.6
+  very slow: 2.5
+  very long: 3.5
+  gated: 0.05
+  same as decay: null   # resolved to the decay value
+level:           # 0–1 linear gain, also sustain levels
+  zero: 0.0
+  off: 0.0
+  little: 0.2
+  quarter: 0.25
+  low: 0.3
+  half: 0.5
+  held: 0.7
+  under unity: 0.8
+  headroom: 0.8
+  equal: 1.0
+  equal to osc1: 1.0
+  full: 1.0
+  unity: 1.0
+cutoff:          # low-pass resting cutoff, Hz, at middle C; keytracking not yet modelled
+  dark: 300
+  mid: 1200
+  bright: 5000
+  open: 12000
+resonance:       # biquad Q
+  none: 0.7
+  clean: 0.7
+  little: 1.5
+  moderate: 4
+  high: 10
+  self-oscillating: 25
+amount:          # filter-envelope depth in octaves above the resting cutoff; also generic depth 0–1
+  none: 0
+  little: 0.5
+  some: 1
+  moderate: 2
+  generous: 3.5
+  full: 5
+  accent: 1.5           # extra octaves an accented note adds
+pitch_amount:    # pitch-envelope depth
+  a fifth: 700
+  about an octave: 1200
+  two octaves: 2400
+detune:          # unison spread in cents, total across the stack
+  none: 0
+  slight: 7
+  narrow: 12
+  wide: 30
+  very wide: 50
+rate:            # LFO Hz
+  very slow: 0.1
+  slow: 0.3
+  medium: 4.5
+  fast: 7
+  very fast: 12
+glide:           # portamento seconds
+  none: 0
+  short: 0.06
+  medium: 0.15
+  long: 0.4
+drive:           # waveshaper amount 0–1
+  none: 0
+  light: 0.25
+  heavy: 0.7
+fm_index:        # modulator level as index (modulation depth in Hz = index × modulator frequency)
+  little: 1
+  half: 3
+  full: 6
+reverb:          # decay seconds
+  small: 0.8
+  large: 2.5
+  huge: 5

@@ -124,6 +124,18 @@
         "_ops/swarm/experiments/palace-gnn-2026-08-26"
       ],
       "port": 8220
+    },
+    {
+      "name": "synth-templates",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": [
+        "-m",
+        "http.server",
+        "8230",
+        "--directory",
+        "Projects/Synth Templates/workshop/site"
+      ],
+      "port": 8230
     }
   ]
 }

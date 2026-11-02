@@ -33,3 +33,11 @@ sips -s format png <id>.pdf --out <id>-preview-1.png   # quick look only
 
 The `.tex` and `.svg` are kept, per the standard's filing protocol; the `-preview-1.png` is kept as the quick look; the `.pdf` is ignored (`.gitignore`). The standard's own `render.sh` (`_ops/Technical Diagram Standard/render.sh`) stops at its dvisvgm step on this Mac — dvisvgm rejects the installed Ghostscript 10.07 — so the SVG comes from PyMuPDF instead (reported by the working session, 2026-11-01).
 
+## Site
+
+`build-site.py` reads `catalog.json`, `vocabulary.yaml`, `cards/*.yaml` and `cards/*.svg` and writes `site/index.html`: one file, nothing fetched at runtime, Drafting Table paper. Two views by hash route: the catalog (all 292 rows by family, search, a card badge and a With-cards filter) and the card page (title block, Play the default / Stop, a two-octave keyboard, the signal-flow sheet inline, essentials and taste with their why, listening cue and A/B, concepts, lineage, render spec). The reference voice is vanilla Web Audio interpreting the card's graph; Play the default plays the card's render pattern. Loudon, 2026-11-02: "I'd like to make this as a fully useable interactive website, we have a catalog we can choose from, pick one preset from the catalog and we see the card/page, it is playable in default settings."
+
+Run it: `python3 build-site.py`, then the `synth-templates` entry in `.claude/launch.json` (python `http.server` on 8230 serving `site/`) or any static server on `site/`. `site/index.html` is generated; edit the cards, the vocabulary or the builder, never the output.
+
+`vocabulary.yaml` is the one place the cards' range words become numbers for the reference voice (time, level, cutoff, resonance, amount, pitch amount, detune, rate, glide, drive, fm index, reverb). Draft 0.1 is marked ASSUMED in its header: set by reasoning, to be earned by ear against the site's own voice. Known: `fm_index: half = 3` makes the FM piano hot.
+

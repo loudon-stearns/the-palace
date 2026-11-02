@@ -1,0 +1,377 @@
+#!/usr/bin/env python3
+"""Synth Templates — builds site/index.html: the catalog, one page per card, and a Web Audio voice that plays a card's defaults.
+
+usage: python3 build-site.py        (reads catalog.json, vocabulary.yaml, cards/*.yaml and cards/*.svg; writes site/index.html)
+
+One HTML file, no build at runtime, nothing fetched: the cards, the vocabulary and the diagrams are embedded.
+Drafting Table paper ground. The voice interprets a card's graph with the vocabulary's numbers; where a word is
+missing it falls back and says so in the console.
+"""
+import json, pathlib, re, yaml
+
+HERE = pathlib.Path(__file__).parent
+catalog = json.load(open(HERE / "catalog.json"))
+vocab = yaml.safe_load(open(HERE / "vocabulary.yaml"))
+cards, svgs = {}, {}
+for p in sorted((HERE / "cards").glob("*.yaml")):
+    c = yaml.safe_load(open(p)); cards[c["id"]] = c
+    svg = HERE / "cards" / f"{c['id']}.svg"
+    if svg.exists():
+        s = svg.read_text()
+        s = re.sub(r"<\?xml[^>]*\?>", "", s)
+        s = re.sub(r"<svg ", '<svg class="sheet-svg" ', s, count=1)
+        s = re.sub(r'\s(width|height)="[^"]*"', "", s, count=2)
+        svgs[c["id"]] = s
+
+HTML = r'''<!doctype html>
+<html lang="en" data-theme="paper">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Synth Templates</title>
+<style>
+:root{--ground-000:#f0eee5;--ground-100:#e6e3d7;--ground-200:#dcd9ca;--ink:#1a1916;--ink-2:#3a3a35;--ink-3:#6a6862;--ink-bright:#000;--rule:#b8b09a;--rule-soft:#cfc9b6;--slab-face:#d8d4c6;--slab-light:#ebe8dd;--slab-shade:#b9b4a3;--accent:#c8261a;--on-accent:#f0eee5;--datasheet:#2b5fb0;--assumed:#a8730a;--ok:#3a7d2c}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ground-000);color:var(--ink);font:15px/22px 'JetBrains Mono','IBM Plex Mono','SF Mono',Menlo,Consolas,monospace}
+a{color:var(--datasheet);text-decoration:none}
+.sheet{max-width:1200px;margin:24px auto;padding:0 16px}
+.frame{border:2px solid var(--rule);background:var(--ground-000)}
+.titleblock{display:grid;grid-template-columns:1fr auto;border-bottom:2px solid var(--rule)}
+.titleblock>div{padding:12px}
+.titleblock .cell{border-left:1px solid var(--rule);font-size:11px;line-height:16px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-2);white-space:nowrap;text-align:right}
+h1{font-size:22px;line-height:26px;font-weight:600;letter-spacing:.04em;margin:0;text-transform:uppercase}
+h2{font-size:18px;line-height:24px;font-weight:600;letter-spacing:.04em;margin:0;text-transform:uppercase}
+h3{font-size:11px;line-height:16px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-2);margin:0 0 6px;font-weight:500}
+.sub{font-size:13px;line-height:18px;color:var(--ink-2);margin-top:4px}
+.btn{font:inherit;font-size:11px;letter-spacing:.12em;text-transform:uppercase;padding:6px 12px;border:1px solid var(--ink);background:var(--slab-face);color:var(--ink);border-radius:0;cursor:pointer;box-shadow:inset 0 1px 0 var(--slab-light),0 1px 0 var(--slab-shade)}
+.btn:active{box-shadow:none;transform:translateY(1px)}
+.btn.primary{border-color:var(--accent);color:var(--accent)}
+.btn.on{background:var(--ink);color:var(--on-accent)}
+.toolbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:12px;border-bottom:1px solid var(--rule)}
+.toolbar input[type=search]{font:inherit;font-size:13px;padding:5px 8px;border:1px solid var(--rule);background:var(--ground-100);color:var(--ink);border-radius:0;min-width:220px}
+.count{margin-left:auto;font-size:12px;color:var(--ink-2)}
+/* catalog */
+.fam{border-bottom:1px solid var(--rule)}
+.famhead{display:flex;gap:12px;align-items:baseline;padding:10px 12px;background:var(--ground-100);border-bottom:1px solid var(--rule-soft)}
+.famhead .note{font-size:13px;color:var(--ink-2);flex:1}
+.famhead .n{font-size:12px;color:var(--ink-3);white-space:nowrap}
+table{width:100%;border-collapse:collapse}
+tr.item{border-top:1px solid var(--rule-soft)}
+tr.item.hide{display:none}
+tr.item.has{cursor:pointer}
+tr.item.has:hover{background:var(--ground-100)}
+td{padding:6px 10px;vertical-align:top;font-size:13px;line-height:18px}
+td.name{width:240px;font-weight:600;color:var(--ink-bright)}
+tr.item:not(.has) td.name{color:var(--ink-3);font-weight:500}
+td.name small{display:block;font-weight:400;color:var(--datasheet);font-size:11px}
+td.mode{width:100px;color:var(--ink-2);font-size:11px;letter-spacing:.08em;text-transform:uppercase}
+td.ess{color:var(--ink)}
+tr.item:not(.has) td.ess{color:var(--ink-3)}
+td.ess i{display:block;font-style:normal;color:var(--ink-2);font-size:12px}
+td.tier{width:40px;text-align:center;color:var(--assumed);font-weight:600}
+td.badge{width:70px;font-size:10px;letter-spacing:.12em;text-transform:uppercase}
+td.badge span{border:1px solid var(--ok);color:var(--ok);padding:1px 5px}
+/* card page */
+.cardhead{display:grid;grid-template-columns:1fr auto;border-bottom:2px solid var(--rule)}
+.cardhead>div{padding:12px}
+.crumb{font-size:12px;color:var(--ink-2);margin-bottom:4px}
+.play{display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:12px;border-bottom:1px solid var(--rule);background:var(--ground-100)}
+.play .hint{font-size:12px;color:var(--ink-2)}
+.keys{display:flex;gap:2px;padding:12px;border-bottom:1px solid var(--rule);align-items:flex-end}
+.key{width:34px;height:70px;border:1px solid var(--ink);background:var(--slab-face);box-shadow:inset 0 1px 0 var(--slab-light),0 1px 0 var(--slab-shade);cursor:pointer;font-size:10px;color:var(--ink-2);display:flex;align-items:flex-end;justify-content:center;padding-bottom:4px;user-select:none}
+.key.black{background:var(--ink);color:var(--ground-100);height:48px;width:28px;margin:0 -15px;z-index:1;position:relative}
+.key.down{background:var(--accent);color:var(--on-accent)}
+.diagram{padding:12px;border-bottom:1px solid var(--rule);background:#f0eee5}
+.sheet-svg{width:100%;height:auto;display:block}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:0}
+.two>div{padding:12px}
+.two>div+div{border-left:1px solid var(--rule)}
+.kv{width:100%;border-collapse:collapse;font-size:13px}
+.kv td{padding:4px 6px;border-top:1px solid var(--rule-soft);vertical-align:top}
+.kv td.k{color:var(--ink-2);width:90px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding-top:6px}
+.kv td.v{font-weight:600;color:var(--ink-bright);width:170px}
+.kv.taste td.v{color:var(--assumed)}
+.kv td.w{color:var(--ink-2)}
+.listen{padding:12px;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+.listen p{margin:4px 0 10px}
+.meta{padding:12px;font-size:12px;color:var(--ink-2)}
+.meta b{color:var(--ink)}
+.foot{display:grid;grid-template-columns:repeat(3,1fr);border-top:2px solid var(--rule);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2)}
+.foot div{padding:8px 12px;border-left:1px solid var(--rule)}
+.foot div:first-child{border-left:0}
+.assumed{color:var(--assumed)}
+@media(max-width:760px){.two{grid-template-columns:1fr}.two>div+div{border-left:0;border-top:1px solid var(--rule)}td.mode,td.tier{display:none}.foot{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="sheet"><div class="frame" id="app"></div></div>
+<script>
+const CATALOG = __CATALOG__;
+const CARDS = __CARDS__;
+const SVGS = __SVGS__;
+const VOCAB = __VOCAB__;
+const NCARDS = Object.keys(CARDS).length;
+
+// ---------- routing ----------
+const app = document.getElementById('app');
+function route(){ const h = location.hash.replace(/^#\/?/, ''); const m = h.match(/^card\/(.+)$/); if (m && CARDS[m[1]]) renderCard(m[1]); else renderCatalog(); window.scrollTo(0,0); }
+window.addEventListener('hashchange', route);
+
+// ---------- catalog ----------
+let q = '', onlyCards = false;
+function renderCatalog(){
+  stopAll();
+  const fams = CATALOG.families.map((f, fi) => `
+    <div class="fam"><div class="famhead"><h2>${f.name}</h2><span class="note">${f.note}</span><span class="n">${f.items.filter(i=>CARDS[i.id]).length}/${f.items.length} cards</span></div>
+    <table>${f.items.map(it => `<tr class="item ${CARDS[it.id]?'has':''}" data-id="${it.id}" data-text="${(it.name+' '+it.essentials+' '+it.teaches+' '+it.classics+' '+f.name).toLowerCase().replace(/"/g,'')}">
+      <td class="name">${it.name}${it.classics?`<small>${it.classics}</small>`:''}</td><td class="mode">${it.mode}</td>
+      <td class="ess">${it.essentials}<i>teaches: ${it.teaches}</i></td><td class="tier">${it.tier}</td>
+      <td class="badge">${CARDS[it.id]?'<span>card</span>':''}</td></tr>`).join('')}</table></div>`).join('');
+  app.innerHTML = `
+    <div class="titleblock"><div><h1>Synth Templates</h1><div class="sub">A catalog of base presets that teach synthesis. Pick one that has a card to see its sheet and play it at its default settings.</div></div>
+    <div class="cell">STUDY · 2026-11-02<br>${CATALOG.families.reduce((n,f)=>n+f.items.length,0)} TEMPLATES · ${NCARDS} CARDS</div></div>
+    <div class="toolbar"><input type="search" id="q" placeholder="search" value="${q}"><button class="btn ${onlyCards?'on':''}" id="onlycards">With cards</button><span class="count" id="count"></span></div>
+    ${fams}
+    <div class="foot"><div>Synth Templates · workshop</div><div>Drafting Table · Paper</div><div>built from cards/*.yaml</div></div>`;
+  document.getElementById('q').addEventListener('input', e => { q = e.target.value.toLowerCase(); filter(); });
+  document.getElementById('onlycards').addEventListener('click', e => { onlyCards = !onlyCards; e.target.classList.toggle('on', onlyCards); filter(); });
+  document.querySelectorAll('tr.item.has').forEach(tr => tr.addEventListener('click', () => location.hash = '#/card/' + tr.dataset.id));
+  filter();
+}
+function filter(){ let n = 0; document.querySelectorAll('tr.item').forEach(tr => { const vis = (!q || tr.dataset.text.includes(q)) && (!onlyCards || tr.classList.contains('has')); tr.classList.toggle('hide', !vis); if (vis) n++; }); document.getElementById('count').textContent = n + ' shown'; }
+
+// ---------- card page ----------
+function esc(s){ return String(s ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;'); }
+function renderCard(id){
+  stopAll();
+  const c = CARDS[id];
+  const kv = (rows, cls) => `<table class="kv ${cls}">${rows.map(r => `<tr><td class="k">${esc(r.block)}</td><td class="v">${esc(r.param)} ${esc(r.value ?? r.range)}${r.default!==undefined?`<br><span style="font-weight:400;font-size:11px">default ${esc(r.default)}</span>`:''}</td><td class="w">${esc(r.why||'')}</td></tr>`).join('')}</table>`;
+  const notes = Array.isArray(c.render?.note) ? c.render.note.join(' ') : (c.render?.note || '');
+  app.innerHTML = `
+    <div class="cardhead"><div><div class="crumb"><a href="#/">← catalog</a> · ${esc(c.family)}</div><h1>${esc(c.name)}</h1><div class="sub">${esc(c.classics||'')}</div></div>
+    <div class="cell" style="border-left:1px solid var(--rule);padding:12px;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-2);text-align:right">tier ${c.tier} · ${esc(c.mode)}<br>${esc(c.status)} · schema ${esc(c.schema.split('/')[1])}</div></div>
+    <div class="play"><button class="btn primary" id="demo">▶ Play the default</button><button class="btn" id="stop">Stop</button><span class="hint">Plays the card's render pattern (${esc(notes)} at ${c.render?.tempo||120} bpm) on the reference voice, from the card's own settings and the vocabulary draft. <span class="assumed">Vocabulary numbers are ASSUMED until sat by ear.</span></span></div>
+    <div class="keys" id="keys"></div>
+    <div class="diagram">${SVGS[id] || '<div class="sub">no sheet rendered for this card</div>'}</div>
+    <div class="two"><div><h3>Essentials · what makes it this sound</h3>${kv(c.essentials||[], 'ess')}</div><div><h3>Taste · what you move</h3>${kv(c.taste||[], 'taste')}</div></div>
+    <div class="listen"><h3>Listening</h3><p>${esc(c.listening?.cue)}</p><h3>A / B</h3><p>${esc(c.listening?.ab)}</p></div>
+    <div class="meta">${c.concepts?.length?`<b>Covers:</b> ${c.concepts.map(esc).join(' · ')}<br>`:''}${c.lineage?.length?`<b>Lineage:</b> ${c.lineage.map(esc).join(' · ')}<br>`:''}<b>Render:</b> ${esc(c.render?.pattern||'')}</div>
+    <div class="foot"><div>Synth Templates · ${esc(c.id)}</div><div>Drafting Table · Paper</div><div>cards/${esc(c.id)}.yaml</div></div>`;
+  document.getElementById('demo').addEventListener('click', () => playDemo(c));
+  document.getElementById('stop').addEventListener('click', stopAll);
+  buildKeys(c);
+}
+
+// ---------- keyboard ----------
+const KEYNAMES = ['C','C#','D','D#','E','F','F#','G','G#','A','A#','B'];
+function buildKeys(c){
+  const el = document.getElementById('keys'); el.innerHTML = '';
+  const base = c.family === 'Bass' || c.family === 'Drums and Percussion' ? 36 : 60;   // C2 or C4
+  for (let n = base; n <= base + 24; n++){
+    const k = document.createElement('div'); const black = [1,3,6,8,10].includes(n % 12);
+    k.className = 'key' + (black ? ' black' : ''); k.textContent = black ? '' : KEYNAMES[n % 12] + (Math.floor(n/12) - 1);
+    const down = e => { e.preventDefault(); k.classList.add('down'); noteOn(c, n, 100, 'key' + n); };
+    const up = () => { k.classList.remove('down'); noteOff('key' + n); };
+    k.addEventListener('mousedown', down); k.addEventListener('mouseup', up); k.addEventListener('mouseleave', up);
+    k.addEventListener('touchstart', down, {passive:false}); k.addEventListener('touchend', up);
+    el.appendChild(k);
+  }
+}
+
+// ---------- vocabulary ----------
+function word(table, w, fallback){ if (w === undefined || w === null) return fallback; if (typeof w === 'number') return w; const v = VOCAB[table]?.[String(w).trim()]; if (v === undefined || v === null) { console.warn(`vocabulary: no ${table} word "${w}", using ${fallback}`); return fallback; } return v; }
+function noteToHz(n){ return 440 * Math.pow(2, (n - 69) / 12); }
+function nameToMidi(s){ const m = String(s).match(/^([A-Ga-g])([#b]?)(-?\d)$/); if (!m) return 60; let n = {c:0,d:2,e:4,f:5,g:7,a:9,b:11}[m[1].toLowerCase()]; if (m[2]==='#') n++; if (m[2]==='b') n--; return n + 12 * (parseInt(m[3]) + 1); }
+
+// ---------- the reference voice ----------
+let ctx = null, master = null, fxOut = null, fxCardId = null;
+const voices = new Map();   // id → voice
+let monoVoice = null, heldMono = [];
+function audio(){ if (!ctx){ ctx = new (window.AudioContext || window.webkitAudioContext)(); master = ctx.createGain(); master.gain.value = 0.5; const comp = ctx.createDynamicsCompressor(); comp.threshold.value = -12; master.connect(comp); comp.connect(ctx.destination); } if (ctx.state === 'suspended') ctx.resume(); return ctx; }
+
+function fxChain(c){
+  // built once per card: the fx block's chain, in order, feeding master
+  if (fxCardId === c.id && fxOut) return fxOut;
+  if (fxOut) { try { fxOut.disconnect(); } catch(e){} }
+  const ac = audio(); let input = ac.createGain(); let node = input;
+  const chain = c.graph.blocks.fx?.chain || [];
+  const tasteDefault = (block, param) => (c.taste||[]).find(t => t.block===block && t.param===param)?.default;
+  for (const fx of chain){
+    if (fx === 'chorus'){
+      const wet = ac.createGain(); wet.gain.value = 0.5; const dry = ac.createGain(); dry.gain.value = 0.8;
+      const merger = ac.createGain(); node.connect(dry); dry.connect(merger);
+      [[0.012, 0.6, -0.6], [0.018, 0.75, 0.6], [0.025, 0.5, 0]].forEach(([t, rate, pan]) => {
+        const d = ac.createDelay(0.1); d.delayTime.value = t; const lfo = ac.createOscillator(); lfo.frequency.value = rate; const g = ac.createGain(); g.gain.value = 0.003; lfo.connect(g); g.connect(d.delayTime); lfo.start();
+        const p = ac.createStereoPanner(); p.pan.value = pan; node.connect(d); d.connect(p); p.connect(wet); });
+      wet.connect(merger); node = merger;
+    } else if (fx === 'reverb'){
+      const size = word('reverb', tasteDefault('fx','reverb') || 'large', 2.5);
+      const conv = ac.createConvolver(); const len = Math.floor(ac.sampleRate * size); const ir = ac.createBuffer(2, len, ac.sampleRate);
+      for (let ch = 0; ch < 2; ch++){ const d = ir.getChannelData(ch); for (let i = 0; i < len; i++) d[i] = (Math.random()*2-1) * Math.pow(1 - i/len, 2.2); }
+      conv.buffer = ir; const wet = ac.createGain(); wet.gain.value = 0.35; const dry = ac.createGain(); dry.gain.value = 0.9; const merger = ac.createGain();
+      node.connect(dry); dry.connect(merger); node.connect(conv); conv.connect(wet); wet.connect(merger); node = merger;
+    } else if (['saturation','drive','distortion','overdrive'].includes(fx)){
+      const amt = word('drive', tasteDefault('fx','drive') || 'light', 0.25); const ws = ac.createWaveShaper(); const n = 1024, curve = new Float32Array(n); const k = 1 + amt * 20;
+      for (let i = 0; i < n; i++){ const x = i / (n-1) * 2 - 1; curve[i] = Math.tanh(k * x) / Math.tanh(k); } ws.curve = curve; ws.oversample = '2x';
+      const pre = ac.createGain(); pre.gain.value = 1 + amt * 2; const post = ac.createGain(); post.gain.value = 0.7; node.connect(pre); pre.connect(ws); ws.connect(post); node = post;
+    } else if (fx === 'delay' || fx === 'echo'){
+      const d = ac.createDelay(2); d.delayTime.value = 60 / (c.render?.tempo || 120) * 0.75; const fb = ac.createGain(); fb.gain.value = 0.35; const wet = ac.createGain(); wet.gain.value = 0.3; const merger = ac.createGain();
+      node.connect(merger); node.connect(d); d.connect(fb); fb.connect(d); d.connect(wet); wet.connect(merger); node = merger;
+    }
+  }
+  node.connect(master); fxOut = input; fxCardId = c.id; return input;
+}
+
+function makeOsc(ac, b, hz, t){
+  // one source block → {node (output gain), oscs[], gainParam}; unison fans out detuned copies
+  const out = ac.createGain(); const wave = b.wave || 'saw'; const oscs = [];
+  const n = Math.max(1, parseInt(b.unison) || 1); const spread = word('detune', b.detune, n > 1 ? 30 : 0);
+  if (wave === 'noise'){
+    const len = ac.sampleRate * 2, buf = ac.createBuffer(1, len, ac.sampleRate), d = buf.getChannelData(0); for (let i = 0; i < len; i++) d[i] = Math.random()*2-1;
+    const src = ac.createBufferSource(); src.buffer = buf; src.loop = true; src.connect(out); src.start(t); oscs.push(src); return { node: out, oscs, freqParams: [] };
+  }
+  const type = { saw: 'sawtooth', square: 'square', pulse: 'square', triangle: 'triangle', sine: 'sine' }[wave] || 'sawtooth';
+  const freqParams = [];
+  for (let i = 0; i < n; i++){
+    const o = ac.createOscillator(); o.type = type; o.frequency.value = hz * Math.pow(2, (b.octave || 0));
+    const cents = n > 1 ? (i / (n-1) - 0.5) * spread : 0; o.detune.value = cents;
+    const g = ac.createGain(); g.gain.value = 1 / Math.sqrt(n); const p = ac.createStereoPanner(); p.pan.value = n > 1 ? (i / (n-1) - 0.5) * 1.4 : 0;
+    o.connect(g); g.connect(p); p.connect(out); o.start(t); oscs.push(o); freqParams.push(o);
+  }
+  return { node: out, oscs, freqParams };
+}
+
+function envTimes(shape){ const a = word('time', shape?.a, 0.01), d = word('time', shape?.d, 0.3), s = word('level', shape?.s, 0.7); let r = shape?.r === 'same as decay' ? d : word('time', shape?.r, 0.2); return { a, d, s, r }; }
+function applyEnv(param, t, env, peak, base, exp){
+  // base → peak over a, → base + (peak-base)*s over d
+  const lo = exp ? Math.max(base, 1e-3) : base;
+  param.cancelScheduledValues(t); param.setValueAtTime(lo, t);
+  if (exp) { param.exponentialRampToValueAtTime(Math.max(peak, 1e-3), t + env.a); param.exponentialRampToValueAtTime(Math.max(lo + (peak - lo) * env.s, 1e-3), t + env.a + env.d); }
+  else { param.linearRampToValueAtTime(peak, t + env.a); param.linearRampToValueAtTime(lo + (peak - lo) * env.s, t + env.a + env.d); }
+}
+function releaseEnv(param, t, env, base, exp){ param.cancelScheduledValues(t); param.setValueAtTime(param.value, t); if (exp) param.exponentialRampToValueAtTime(Math.max(base, 1e-3), t + env.r); else param.linearRampToValueAtTime(base, t + env.r); }
+
+function noteOn(c, midi, vel, id, when){
+  const ac = audio(); const t = when ?? ac.currentTime; const B = c.graph.blocks; const mods = c.graph.modulation || [];
+  const velScale = (vel || 100) / 100;
+  const mono = /mono/.test(c.mode);
+  const legato = /legato/.test(c.mode) && monoVoice && heldMono.length > 0;
+  if (mono && monoVoice && !legato){ voiceOff(monoVoice, t); monoVoice = null; }
+  if (mono && legato){
+    // slide: retune the running voice, no new envelopes
+    const glide = word('glide', B.osc1?.glide === 'legato' ? ((c.taste||[]).find(x=>x.block==='osc1'&&x.param==='glide')?.default || 'short') : B.osc1?.glide, 0.06);
+    for (const [slot, src] of Object.entries(monoVoice.sources)) for (const o of src.freqParams){ const hz = noteToHz(midi) * Math.pow(2, B[slot].octave || 0) * (src.ratio || 1); o.frequency.cancelScheduledValues(t); o.frequency.setValueAtTime(o.frequency.value, t); o.frequency.exponentialRampToValueAtTime(hz, t + Math.max(glide, 0.005)); }
+    heldMono.push(id); monoVoice.ids.push(id); return;
+  }
+  const v = { ids: [id], sources: {}, nodes: [], envs: [], t0: t };
+  const hz = noteToHz(midi);
+  const fx = fxChain(c);
+  // sources
+  const sourceSlots = ['osc1','osc2','sub','noise'].filter(s => B[s]);
+  const audioEdges = c.graph.audio;
+  const feedsOsc = {}; audioEdges.forEach(e => { if (e.length === 3) feedsOsc[e[0]] = { to: e[1], jack: e[2] }; });
+  for (const s of sourceSlots){
+    const b = B[s]; let ratio = 1; if (b.ratio) { const m = String(b.ratio).split(':'); if (m.length === 2) ratio = parseFloat(m[0]) / parseFloat(m[1]); }
+    const src = makeOsc(ac, b, hz * ratio, t); src.ratio = ratio; v.sources[s] = src; v.nodes.push(src.node);
+  }
+  // mixer levels (taste default or essential 'level' for that source), FM routing
+  const levelWord = s => (c.essentials||[]).find(e=>e.block===s&&e.param==='level')?.value ?? (c.taste||[]).find(e=>e.block===s&&e.param==='level')?.default ?? B[s].level ?? 'full';
+  const mix = ac.createGain(); v.mixNode = mix;
+  for (const s of sourceSlots){
+    const src = v.sources[s];
+    if (feedsOsc[s]){                       // modulator oscillator → carrier frequency (FM) or sync (approximated as FM)
+      const tgt = v.sources[feedsOsc[s].to]; const idx = word('fm_index', B[s].level || 'half', 3); const g = ac.createGain(); g.gain.value = idx * hz * src.ratio; src.node.connect(g); tgt.freqParams.forEach(o => g.connect(o.frequency)); src.indexGain = g; src.indexBase = g.gain.value;
+    } else { src.node.gain.value = word('level', levelWord(s), 1); src.node.connect(mix); }
+  }
+  // filters
+  let node = mix; const filters = [];
+  for (const fs of ['filter1','filter2']){
+    const f = B[fs]; if (!f) continue;
+    const cutoffWord = (c.essentials||[]).find(e=>e.block===fs&&e.param==='cutoff')?.value ?? (c.taste||[]).find(e=>e.block===fs&&e.param==='cutoff')?.default ?? 'mid';
+    const base = word('cutoff', cutoffWord, 1200) * Math.pow(2, (midi - 60) / 12 * 0.5);   // half keytracking (ASSUMED)
+    const Q = word('resonance', f.resonance || 'none', 0.7); const poles = Math.max(1, Math.round((f.slope || 24) / 12));
+    const stages = [];
+    for (let i = 0; i < poles; i++){ const bq = ac.createBiquadFilter(); bq.type = { lowpass:'lowpass', highpass:'highpass', bandpass:'bandpass', notch:'notch' }[f.type] || 'lowpass'; bq.frequency.value = base; bq.Q.value = i === 0 ? Q : 0.7; node.connect(bq); node = bq; stages.push(bq); }
+    filters.push({ slot: fs, stages, base }); v.nodes.push(...stages);
+  }
+  // amp
+  const amp = ac.createGain(); amp.gain.value = 0; node.connect(amp); const pan = ac.createStereoPanner(); amp.connect(pan); pan.connect(fx); v.amp = amp; v.pan = pan; v.nodes.push(amp, pan);
+  const ampLevel = word('level', B.amp?.level || 'full', 0.8) * (0.4 + 0.6 * velScale);
+  // envelopes and LFOs by route
+  const envOf = slot => envTimes(B[slot]?.shape);
+  let ampEnv = null;
+  for (const m of mods){
+    const [tgt, param] = m.to.split('.'); const src = m.from; const amt = m.amount;
+    if (src === 'aenv' && tgt === 'amp'){ ampEnv = envOf('aenv'); applyEnv(amp.gain, t, ampEnv, ampLevel, 0, false); v.envs.push({ param: amp.gain, env: ampEnv, base: 0, exp: false }); }
+    else if (src === 'fenv' && /^filter/.test(tgt)){
+      const f = filters.find(x => x.slot === tgt); if (!f) continue; const env = envOf('fenv');
+      let oct = word('amount', amt || 'moderate', 2);
+      const accent = mods.find(x => x.from === 'vel' && x.to === 'fenv.amount'); if (accent) oct += word('amount', accent.amount || 'accent', 1.5) * (velScale - 0.7);
+      const peak = Math.min(f.base * Math.pow(2, oct), 18000);
+      f.stages.forEach(bq => { applyEnv(bq.frequency, t, env, peak, f.base, true); v.envs.push({ param: bq.frequency, env, base: f.base, exp: true }); });
+    }
+    else if (src === 'menv' && /^osc/.test(tgt) && param === 'pitch'){
+      const env = envOf('menv'); const cents = word('pitch_amount', amt || 'about an octave', 1200); const s = v.sources[tgt]; if (!s) continue;
+      s.freqParams.forEach(o => { o.detune.cancelScheduledValues(t); o.detune.setValueAtTime(o.detune.value + cents, t); o.detune.linearRampToValueAtTime(o.detune.value, t + env.a + env.d); });
+    }
+    else if (src === 'menv' && /^osc/.test(tgt) && param === 'level'){
+      const s = v.sources[tgt]; if (!s || !s.indexGain) continue; const env = envOf('menv'); let depth = word('amount', amt || 'moderate', 2) / 3.5;
+      const velRoute = mods.find(x => x.from === 'vel' && x.to === 'menv.amount'); if (velRoute) depth *= (0.5 + velScale * 0.7);
+      applyEnv(s.indexGain.gain, t, env, s.indexBase * (1 + depth * 2), s.indexBase * 0.3, false); v.envs.push({ param: s.indexGain.gain, env, base: s.indexBase * 0.3, exp: false });
+    }
+    else if (/^lfo/.test(src)){
+      const L = B[src]; if (!L) continue; const lfo = ac.createOscillator(); lfo.type = { triangle:'triangle', sine:'sine', square:'square', saw:'sawtooth' }[L.wave] || 'triangle';
+      lfo.frequency.value = word('rate', L.rate || 'slow', 0.3); const g = ac.createGain(); lfo.connect(g); lfo.start(t); v.nodes.push(lfo, g);
+      const depthWord = (c.taste||[]).find(x => x.block === src && x.param === 'depth')?.default || amt || 'little'; const depth = word('amount', depthWord, 0.5) / 5;
+      if (/^filter/.test(tgt)){ const f = filters.find(x => x.slot === tgt); if (f){ g.gain.value = depth * 1200; f.stages.forEach(bq => g.connect(bq.detune)); } }
+      else if (tgt === 'amp' && param === 'pan'){ g.gain.value = depth * 1.5; g.connect(pan.pan); }
+      else if (tgt === 'amp'){ g.gain.value = depth * 0.5; g.connect(amp.gain); }
+      else if (/^osc/.test(tgt)){ g.gain.value = depth * 100; v.sources[tgt]?.freqParams.forEach(o => g.connect(o.detune)); }
+    }
+  }
+  if (!ampEnv){ ampEnv = { a: 0.005, d: 0.1, s: 1, r: 0.1 }; applyEnv(amp.gain, t, ampEnv, ampLevel, 0, false); v.envs.push({ param: amp.gain, env: ampEnv, base: 0, exp: false }); }
+  v.ampEnv = ampEnv; v.oneShot = !!(B.aenv?.one_shot);
+  voices.set(id, v); if (mono){ monoVoice = v; heldMono = [id]; }
+  if (v.oneShot){ const end = t + ampEnv.a + ampEnv.d + 0.05; voiceOff(v, end, true); if (mono){ monoVoice = null; heldMono = []; } }
+  return v;
+}
+function voiceOff(v, t, already){
+  const ac = ctx; for (const e of v.envs) releaseEnv(e.param, t, e.env, e.base, e.exp);
+  const end = t + Math.max(v.ampEnv.r, 0.05) + 0.1;
+  for (const s of Object.values(v.sources)) for (const o of s.oscs) { try { o.stop(end); } catch(e){} }
+  setTimeout(() => { for (const n of v.nodes) { try { n.disconnect(); } catch(e){} } }, (end - ac.currentTime) * 1000 + 200);
+  for (const id of v.ids) voices.delete(id);
+}
+function noteOff(id, when){
+  const v = voices.get(id); if (!v) return; const ac = audio(); const t = when ?? ac.currentTime;
+  if (v === monoVoice){ heldMono = heldMono.filter(x => x !== id); if (heldMono.length) return; monoVoice = null; }
+  if (v.oneShot) return; voiceOff(v, t);
+}
+let demoTimers = [];
+function stopAll(){ demoTimers.forEach(clearTimeout); demoTimers = []; if (!ctx) return; const t = ctx.currentTime; for (const v of new Set(voices.values())) voiceOff(v, t); monoVoice = null; heldMono = []; }
+function playDemo(c){
+  stopAll(); const ac = audio(); const r = c.render || {}; const bpm = r.tempo || 120; const beat = 60 / bpm; const t0 = ac.currentTime + 0.05;
+  const notes = (Array.isArray(r.note) ? r.note : [r.note || 'C3']).map(nameToMidi);
+  const vels = Array.isArray(r.velocity) ? r.velocity : [r.velocity || 100];
+  const mono = /mono/.test(c.mode); const drum = c.family === 'Drums and Percussion';
+  if (!mono && notes.length > 1){                 // chord: once soft and once hard if two velocity sets, else once
+    const passes = vels.length > notes.length ? 2 : 1;
+    for (let p = 0; p < passes; p++){ const t = t0 + p * 2 * beat * 2; notes.forEach((n, i) => { noteOn(c, n, vels[p * notes.length + i] ?? vels[0], 'd' + p + '-' + i, t); noteOff('d' + p + '-' + i, t + beat * 3.5); }); }
+  } else if (drum || notes.length === 1){        // one note: four hits on the beat
+    for (let i = 0; i < 4; i++){ const t = t0 + i * beat; noteOn(c, notes[0], vels[i % vels.length], 'd' + i, t); noteOff('d' + i, t + beat * 0.5); }
+  } else {                                        // mono line: sixteenths, a note that repeats its predecessor's pitch is tied (slide)
+    const step = beat / 4; let prev = null;
+    notes.forEach((n, i) => { const t = t0 + i * step; const tied = /tied|slide/.test(r.pattern || '') && i > 0 && (i === 2 || i === 4);
+      if (!tied) { if (prev) noteOff(prev, t - 0.01); noteOn(c, n, vels[i % vels.length], 'd' + i, t); prev = 'd' + i; }
+      else { const v = voices.get(prev); if (v){ const B = c.graph.blocks; const glide = word('glide', (c.taste||[]).find(x=>x.block==='osc1'&&x.param==='glide')?.default || 'short', 0.06); for (const [slot, s] of Object.entries(v.sources)) for (const o of s.freqParams){ const hz = noteToHz(n) * Math.pow(2, B[slot].octave || 0) * (s.ratio || 1); o.frequency.setValueAtTime(o.frequency.value, t); o.frequency.exponentialRampToValueAtTime(hz, t + glide); } } } });
+    if (prev) noteOff(prev, t0 + notes.length * step);
+  }
+}
+route();
+</script>
+</body></html>'''
+
+out = HERE / "site"; out.mkdir(exist_ok=True)
+html = (HTML.replace("__CATALOG__", json.dumps(catalog)).replace("__CARDS__", json.dumps(cards)).replace("__SVGS__", json.dumps(svgs)).replace("__VOCAB__", json.dumps(vocab)))
+(out / "index.html").write_text(html)
+print("site/index.html written:", len(cards), "cards,", len(svgs), "sheets,", len(html)//1024, "KB")
