@@ -1,7 +1,27 @@
-# Synth Templates — range vocabulary, draft 0.2. A table marked HEARD was sat by Loudon by ear on the site's vocabulary page; the rest are ASSUMED (numbers set by reasoning). Move 1 of the plan earns them table by table.
+# Synth Templates — range vocabulary, draft 0.3. A table marked HEARD was sat by Loudon by ear on the site's vocabulary page; the rest are ASSUMED (numbers set by reasoning). Move 1 of the plan earns them table by table.
 # The cards speak in these words. This file says what each word means to the reference voice. One word, one meaning, everywhere.
 # Sources for the word list: the archetype registry's perceptual regions (Generative Audio Devices) and Loudon's synthesis notes.
-time:            # envelope stages, seconds — HEARD as attack 2026-11-02 (Loudon, on the site's vocabulary page); the decay and release roles of these same words are not yet sat
+#
+# ENVELOPE CURVES — part of the definition of every time word (Loudon, 2026-11-02: "match a classic Moog amp envelope curve").
+#   The standard is the Minimoog contour generator's RC shape: the attack is an exponential approach toward the peak (fast at first,
+#   slowing as it nears full level), the decay an exponential approach toward the sustain level, the release an exponential approach
+#   toward silence. A stage's time T is the time to reach 95% of the way (three time constants: tau = T/3), since an RC charge
+#   never quite arrives. A linear curve is kept beside it as a second test, so the same words can be sat on both and compared.
+#   Sources: the Minimoog Model D service manual (contour generator, Board 2: RC envelope with variable attack, decay, sustain);
+#   AJH MiniMod DH-ADSR manual (circuit identical to the Model D contour generator): the attack "rises in an exponential manner,
+#   i.e. more quickly at first and then more slowly as it gets towards maximum level … the DECAY … again follows an exponential curve".
+time:            # envelope stages, seconds, on the MOOG curve (the standard) — ASSUMED: reset 2026-11-02 when the curve changed; Loudon's linear-attack sitting lives in time_linear
+  instant: 0.002
+  fast: 0.01
+  short: 0.12
+  medium: 0.35
+  slow: 0.9
+  long: 1.6
+  very slow: 2.5
+  very long: 3.5
+  gated: 0.05
+  same as decay: null   # resolved to the decay value
+time_linear:     # the same words on a LINEAR curve, the second test — HEARD as attack 2026-11-02 (Loudon; sat when the voice's attack was linear); decay and release roles not yet sat
   instant: 0.00167
   fast: 0.0108
   short: 0.037
@@ -11,7 +31,7 @@ time:            # envelope stages, seconds — HEARD as attack 2026-11-02 (Loud
   very slow: 2.3
   very long: 3.5        # not moved
   gated: 0.05           # not moved
-  same as decay: null   # resolved to the decay value
+  same as decay: null
 level:           # 0–1 linear gain, also sustain levels
   zero: 0.0
   'off': 0.0            # quoted: bare off/on/yes/no are booleans to YAML

@@ -118,8 +118,12 @@ const CATALOG = __CATALOG__;
 const CARDS = __CARDS__;
 const SVGS = __SVGS__;
 const VOCAB_FILE = __VOCAB__;
-const VKEY = 'synth-templates-vocab-v1'; let VOCAB = JSON.parse(JSON.stringify(VOCAB_FILE)); let HEARD = {};
-try { const o = JSON.parse(localStorage.getItem(VKEY) || '{}'); for (const t in (o.values||{})) for (const w in o.values[t]) if (VOCAB[t] && w in VOCAB[t]) VOCAB[t][w] = o.values[t][w]; HEARD = o.heard || {}; } catch(e){}
+const VKEY = 'synth-templates-vocab-v2'; let VOCAB = JSON.parse(JSON.stringify(VOCAB_FILE)); let HEARD = {};
+try {
+  // v1 storage was sat when the voice's attack was linear: its time numbers move to time_linear, and the Moog time table starts from the file
+  if (!localStorage.getItem(VKEY) && localStorage.getItem('synth-templates-vocab-v1')) { const o1 = JSON.parse(localStorage.getItem('synth-templates-vocab-v1')); const v = o1.values || {}; if (v.time) { v.time_linear = v.time; delete v.time; } const h = o1.heard || {}; if (h.time) { h.time_linear = h.time; delete h.time; } localStorage.setItem(VKEY, JSON.stringify({ values: v, heard: h })); }
+  const o = JSON.parse(localStorage.getItem(VKEY) || '{}'); for (const t in (o.values||{})) for (const w in o.values[t]) if (VOCAB[t] && w in VOCAB[t]) VOCAB[t][w] = o.values[t][w]; HEARD = o.heard || {};
+} catch(e){}
 function saveVocab(){ try { localStorage.setItem(VKEY, JSON.stringify({ values: VOCAB, heard: HEARD })); } catch(e){} }
 const NCARDS = Object.keys(CARDS).length;
 
@@ -191,7 +195,8 @@ function renderCard(id){
 // ---------- vocabulary page ----------
 // each table: what the word controls, how to hear it on a plain patch, and the slider's range
 const VTABLES = {
-  time:        { title: 'Time · envelope stages', what: 'One table of seconds, used for attack, decay and release times. The hear button is a key: hold it as long as you like. Choose which stage carries the word.', range: [0.001, 5], log: true, unit: 's', modes: { attack: 'As attack: the note rises over this time while you hold, and stops quickly when you let go.', decay: 'As decay: instant attack, then falls to silence over this time (a percussive shape; letting go changes nothing).', release: 'As release: instant attack, full while you hold, then fades over this time when you let go.' } },
+  time:        { title: 'Time · envelope stages · MOOG curve (the standard)', what: 'Seconds for attack, decay and release on the Minimoog contour curve: every stage is an exponential approach, fast at first and slowing as it nears its target; the time is the point where it has come 95% of the way. The hear button is a key: hold it as long as you like. Choose which stage carries the word.', range: [0.001, 5], log: true, unit: 's', modes: { attack: 'As attack: the note rises toward full over this time while you hold (reaching 63% at a third of it), and stops quickly when you let go.', decay: 'As decay: instant attack, then falls toward silence over this time (percussive; letting go changes nothing).', release: 'As release: instant attack, full while you hold, then fades toward silence over this time when you let go.' } },
+  time_linear: { title: 'Time · envelope stages · LINEAR curve (the second test)', what: 'The same words on straight-line ramps, kept beside the Moog table so the two can be sat and compared. Your attack sitting of 2026-11-02 lives here, since the voice was linear then.', range: [0.001, 5], log: true, unit: 's', modes: { attack: 'As attack: a straight rise to full over this time while you hold; quick stop on release.', decay: 'As decay: instant attack, then a straight fall to silence over this time.', release: 'As release: instant attack, full while you hold, then a straight fade over this time when you let go.' } },
   level:       { title: 'Level · gains and sustain', what: 'Linear gain, 0 to 1: mixer inputs, amplifier level, sustain level. The demo plays a plain saw at this gain beside a full-level reference.', range: [0, 1], log: false, unit: '' },
   cutoff:      { title: 'Cutoff frequency · resting low-pass', what: 'Where the low-pass sits at rest, in hertz at middle C (half keytracking elsewhere). The demo holds a saw at C3 through a 24 dB low-pass at this frequency.', range: [40, 16000], log: true, unit: 'Hz' },
   resonance:   { title: 'Resonance · filter Q', what: 'The boost at the cutoff. The demo sweeps a 24 dB low-pass slowly down through a saw at this Q.', range: [0.5, 40], log: true, unit: 'Q' },
@@ -204,13 +209,13 @@ const VTABLES = {
   fm_index:    { title: 'FM index · modulator level', what: 'Modulation depth as a multiple of the modulator frequency (1:1 ratio). The demo plays a sine carrier at C3 with this index.', range: [0, 15], log: false, unit: '' },
   reverb:      { title: 'Reverb · decay seconds', what: 'The tail length. The demo plucks a saw into a reverb of this size.', range: [0.2, 10], log: true, unit: 's' },
 };
-let vtab = 'time'; let vmode = { time: 'attack' };
+let vtab = 'time'; let vmode = { time: 'attack', time_linear: 'attack' };
 function fmtNum(v, t){ if (v === null || v === undefined) return '—'; const r = VTABLES[t]; if (!r) return v; if (r.unit === 'Hz') return v >= 1000 ? (v/1000).toFixed(2)+' kHz' : (v < 1 ? v.toFixed(2) : Math.round(v)) + ' Hz'; if (r.unit === 's') return v < 0.1 ? Math.round(v*1000)+' ms' : v.toFixed(2)+' s'; if (r.unit === 'c') return Math.round(v)+' c'; return (+v).toFixed(2); }
 function toSlider(v, r){ const [a,b] = r.range; if (r.log) return (Math.log(Math.max(v, a)) - Math.log(a)) / (Math.log(b) - Math.log(a)) * 1000; return (v - a) / (b - a) * 1000; }
 function fromSlider(x, r){ const [a,b] = r.range; if (r.log) return Math.exp(Math.log(a) + x/1000 * (Math.log(b) - Math.log(a))); return a + x/1000 * (b - a); }
 function renderVocab(){
   stopAll();
-  const tabs = Object.keys(VTABLES).map(t => `<button class="btn ${t===vtab?'on':''} ${HEARD[t]?'':'assumedtab'}" data-vt="${t}">${t.replace('_',' ')}${HEARD[t]?' ✓':''}</button>`).join('');
+  const tabs = Object.keys(VTABLES).map(t => `<button class="btn ${t===vtab?'on':''} ${HEARD[t]?'':'assumedtab'}" data-vt="${t}">${t === 'time' ? 'time · moog' : t === 'time_linear' ? 'time · linear' : t.replace('_',' ')}${HEARD[t]?' ✓':''}</button>`).join('');
   const T = VTABLES[vtab]; const words = Object.keys(VOCAB[vtab]);
   const rows = words.map(w => { const v = VOCAB[vtab][w]; const fixed = v === null;
     return `<tr class="vrow" data-w="${w}"><td class="vw">${esc(w)}</td>
@@ -252,8 +257,12 @@ let activeDemos = [];    // every demo still sounding, released or not; Stop rea
 function demoGraph(){ const ac = audio(); const g = ac.createGain(); g.gain.value = 0.5; g.connect(master); demoNodes.push(g); return { ac, out: g }; }
 function saw(ac, hz, t, type){ const o = ac.createOscillator(); o.type = type || 'sawtooth'; o.frequency.value = hz; o.start(t); demoNodes.push(o); return o; }
 function lp(ac, hz, q, poles){ const stages = []; for (let i = 0; i < (poles||2); i++){ const f = ac.createBiquadFilter(); f.type = 'lowpass'; f.frequency.value = hz; f.Q.value = i ? 0.7 : q; stages.push(f); demoNodes.push(f); } for (let i = 1; i < stages.length; i++) stages[i-1].connect(stages[i]); return { input: stages[0], output: stages[stages.length-1], stages }; }
-function gateOn(param, t, a, d, s, peak){ param.setValueAtTime(0, t); param.linearRampToValueAtTime(peak, t + a); param.linearRampToValueAtTime(peak * s, t + a + d); }
-function gateOff(param, t, r){ if (param.cancelAndHoldAtTime) param.cancelAndHoldAtTime(t); else param.cancelScheduledValues(t); param.setTargetAtTime(0, t, Math.max(r, 0.01) / 3); }
+// two curves: 'moog' — each stage an exponential approach, time = 95% point (tau = T/3); 'linear' — straight ramps
+function gateOn(param, t, a, d, s, peak, curve){ param.setValueAtTime(0, t);
+  if (curve === 'linear'){ param.linearRampToValueAtTime(peak, t + a); param.linearRampToValueAtTime(peak * s, t + a + d); }
+  else { param.setTargetAtTime(peak, t, Math.max(a, 0.0015) / 3); param.setTargetAtTime(peak * s, t + a, Math.max(d, 0.0015) / 3); } }
+function gateOff(param, t, r, curve){ if (param.cancelAndHoldAtTime) param.cancelAndHoldAtTime(t); else param.cancelScheduledValues(t);
+  if (curve === 'linear'){ param.linearRampToValueAtTime(0, t + Math.max(r, 0.005)); } else { param.setTargetAtTime(0, t, Math.max(r, 0.01) / 3); } }
 function finishDemo(d, t){ for (const n of d.nodes){ try { if (n.stop) n.stop(t); } catch(e){} } setTimeout(() => { for (const n of d.nodes){ try { n.disconnect(); } catch(e){} } activeDemos = activeDemos.filter(x => x !== d); }, Math.max(0, (t - ctx.currentTime) * 1000) + 300); }
 function stopDemosNow(){ if (!ctx) return; const now = ctx.currentTime; for (const d of activeDemos){ for (const n of d.nodes){ try { if (n.stop) n.stop(now); } catch(e){} } } const gone = activeDemos; activeDemos = []; setTimeout(() => { for (const d of gone) for (const n of d.nodes){ try { n.disconnect(); } catch(e){} } }, 50); for (const n of demoNodes){ try { if (n.stop) n.stop(now); n.disconnect(); } catch(e){} } demoNodes = []; }
 function hearOn(table, w, when){
@@ -261,7 +270,8 @@ function hearOn(table, w, when){
   const { ac, out } = demoGraph(); const t = when ?? ac.currentTime + 0.02; const C3 = noteToHz(48), C2 = noteToHz(36);
   const g = ac.createGain(); g.connect(out); demoNodes.push(g);
   let a = 0.005, d = 0.001, s = 1, r = 0.08, peak = 0.6, tail = 0;   // the plain shape; each table changes one thing
-  if (table === 'time'){ const o = saw(ac, C3, t); const f = lp(ac, 2500, 0.7); o.connect(f.input); f.output.connect(g); const m = vmode.time || 'attack';
+  const curve = table === 'time_linear' ? 'linear' : 'moog';
+  if (table === 'time' || table === 'time_linear'){ const o = saw(ac, C3, t); const f = lp(ac, 2500, 0.7); o.connect(f.input); f.output.connect(g); const m = vmode[table] || 'attack';
     if (m === 'attack') a = v; else if (m === 'decay') { a = 0.002; d = v; s = 0; } else { a = 0.002; r = v; } }
   else if (table === 'level'){ const o = saw(ac, C3, t); const f = lp(ac, 1500, 0.7); o.connect(f.input); f.output.connect(g); peak = 0.6 * v; }
   else if (table === 'cutoff'){ const o = saw(ac, C3, t); const f = lp(ac, v, 1.0); o.connect(f.input); f.output.connect(g); }
@@ -276,15 +286,15 @@ function hearOn(table, w, when){
   else if (table === 'drive'){ const o = saw(ac, C2, t); const f = lp(ac, 1200, 1); const ws = ac.createWaveShaper(); const n = 1024, curve = new Float32Array(n), k = 1 + v * 20; for (let i = 0; i < n; i++){ const x = i/(n-1)*2-1; curve[i] = Math.tanh(k*x)/Math.tanh(k); } ws.curve = curve; const pre = ac.createGain(); pre.gain.value = 1 + v*2; o.connect(f.input); f.output.connect(pre); pre.connect(ws); ws.connect(g); demoNodes.push(ws, pre); peak = 0.5; }
   else if (table === 'fm_index'){ const car = saw(ac, C3, t, 'sine'); const mod = saw(ac, C3, t, 'sine'); const mg = ac.createGain(); mg.gain.value = v * C3; mod.connect(mg); mg.connect(car.frequency); car.connect(g); demoNodes.push(mg); peak = 0.5; r = 0.3; }
   else if (table === 'reverb'){ const o = saw(ac, C3, t); const f = lp(ac, 2000, 2); o.connect(f.input); f.output.connect(g); const conv = ac.createConvolver(); const len = Math.floor(ac.sampleRate * v), ir = ac.createBuffer(2, len, ac.sampleRate); for (let ch = 0; ch < 2; ch++){ const dd = ir.getChannelData(ch); for (let i = 0; i < len; i++) dd[i] = (Math.random()*2-1) * Math.pow(1 - i/len, 2.2); } conv.buffer = ir; const wet = ac.createGain(); wet.gain.value = 0.5; g.disconnect(); g.connect(out); g.connect(conv); conv.connect(wet); wet.connect(out); demoNodes.push(conv, wet); f.stages.forEach(st => { st.frequency.setValueAtTime(4000, t); st.frequency.exponentialRampToValueAtTime(300, t + 0.3); }); a = 0.003; d = 0.4; s = 0; r = 0.2; tail = v; }
-  gateOn(g.gain, t, a, d, s, peak);
-  const demo = { nodes: demoNodes, released: false, off(tt){ if (this.released) return; this.released = true; const t2 = tt ?? ac.currentTime; gateOff(g.gain, t2, r); finishDemo(this, t2 + Math.max(r, 0.02) * 2 + tail + 0.1); }, a, d, s, r };
+  gateOn(g.gain, t, a, d, s, peak, curve);
+  const demo = { nodes: demoNodes, released: false, off(tt){ if (this.released) return; this.released = true; const t2 = tt ?? ac.currentTime; gateOff(g.gain, t2, r, curve); finishDemo(this, t2 + Math.max(r, 0.02) * 2 + tail + 0.1); }, a, d, s, r };
   demoNodes = []; activeDemos.push(demo);
   if (s === 0) demo.off(t + a + d + 0.02);                                   // a percussive shape ends itself
   return demo;
 }
 function hearWord(table, w, when, hold){   // scripted: on, then off after `hold` seconds (the ladder); returns the duration
   const demo = hearOn(table, w, when); if (!demo) return 0; const t = when ?? ctx.currentTime;
-  const h = hold ?? (table === 'time' && vmode.time === 'attack' ? demo.a + 1.0 : 1.0);
+  const h = hold ?? ((table === 'time' || table === 'time_linear') && (vmode[table]||'attack') === 'attack' ? demo.a + 1.0 : 1.0);
   if (!demo.released) demo.off(t + h);
   return (demo.released && demo.s === 0 ? demo.a + demo.d : h) + demo.r * 2 + (table === 'reverb' ? VOCAB[table][w] : 0) + 0.15;
 }
@@ -387,12 +397,14 @@ function makeOsc(ac, b, hz, t){
 }
 
 function envTimes(shape){ const a = word('time', shape?.a, 0.01), d = word('time', shape?.d, 0.3), s = word('level', shape?.s, 0.7); let r = shape?.r === 'same as decay' ? d : word('time', shape?.r, 0.2); return { a, d, s, r }; }
+// The standard envelope curve is the Minimoog contour generator's RC shape (Loudon, 2026-11-02): every stage is an exponential
+// approach to its target, and a stage's time is the time to reach 95% of the way (tau = T/3). Filter frequency keeps its
+// exponential-in-Hz ramps (linear in pitch) since that is what the ear hears as a straight sweep.
 function applyEnv(param, t, env, peak, base, exp){
-  // base → peak over a, → base + (peak-base)*s over d
   const lo = exp ? Math.max(base, 1e-3) : base;
   param.cancelScheduledValues(t); param.setValueAtTime(lo, t);
   if (exp) { param.exponentialRampToValueAtTime(Math.max(peak, 1e-3), t + env.a); param.exponentialRampToValueAtTime(Math.max(lo + (peak - lo) * env.s, 1e-3), t + env.a + env.d); }
-  else { param.linearRampToValueAtTime(peak, t + env.a); param.linearRampToValueAtTime(lo + (peak - lo) * env.s, t + env.a + env.d); }
+  else { param.setTargetAtTime(peak, t, Math.max(env.a, 0.0015) / 3); param.setTargetAtTime(lo + (peak - lo) * env.s, t + env.a, Math.max(env.d, 0.0015) / 3); }
 }
 function releaseEnv(param, t, env, base, exp){ param.cancelAndHoldAtTime ? param.cancelAndHoldAtTime(t) : param.cancelScheduledValues(t); const tc = Math.max(env.r, 0.02) / 3; param.setTargetAtTime(exp ? Math.max(base, 1e-3) : base, t, tc); }
 
