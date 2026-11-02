@@ -46,6 +46,13 @@ Where this is going: a website generated from the cards, a catalog to choose fro
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="synth-templates-2026-11-02-time-modes" -->
+### 2026-11-02 — Time demo in three modes; two demo bugs that made the lengths inconsistent (Loudon)
+
+Loudon, sitting with the time table: "I am working on the time one, and I am confused, are we only assessing attack time here? Or also release time and decay time? when I hit 'Hear' the note lengths seem to be inconsistent and I find it confusing." Three causes. The demo applied the word to attack and release at once and held the note for a length that grew with the word, so every rung had a different shape and length; the time table now has three modes chosen above the rows, as attack, as decay, as release, each holding one note length fixed and changing only that stage, and the table says so. A demo's cleanup disconnected the shared node list 300 ms after it fired, cutting off whatever demo had started since, so every hear after a Stop went silent at about 300 ms; each demo's nodes are now captured when scheduled. After that capture, Stop could not reach a running demo; an active-demo list now holds every sounding demo until it ends and Stop stops them all. Measured by the working session on the master bus: each mode isolates its stage (attack/long rises over about 2 s, instant is flat; decay/instant is a 2 ms click, decay/long falls over about 1.6 s; release/long fades over about 1.6 s after the 0.8 s hold), and Stop silences a running demo at once. Site rebuilt.
+
+_Left rough:_ the time table is still ASSUMED until he marks it heard.
+<!-- /scroll:entry -->
 <!-- scroll:entry id="synth-templates-2026-11-02-press" -->
 ### 2026-11-02 — A sound starts on the press (Loudon)
 

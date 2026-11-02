@@ -191,7 +191,7 @@ function renderCard(id){
 // ---------- vocabulary page ----------
 // each table: what the word controls, how to hear it on a plain patch, and the slider's range
 const VTABLES = {
-  time:        { title: 'Time · envelope stages', what: 'Attack, decay and release times, in seconds. The demo plays one note whose attack AND release are this long (sustain held in between), so you hear the word twice.', range: [0.001, 5], log: true, unit: 's' },
+  time:        { title: 'Time · envelope stages', what: 'One table of seconds, used for attack, decay and release times. Choose which stage to hear: every note is then the same length and only that one stage changes from rung to rung.', range: [0.001, 5], log: true, unit: 's', modes: { attack: 'As attack: the note rises over this time, holds at full for 1.5 s, then stops quickly.', decay: 'As decay: instant attack, then falls to silence over this time (a percussive shape, sustain zero).', release: 'As release: instant attack, holds at full for 0.8 s, then after the key is lifted fades over this time.' } },
   level:       { title: 'Level · gains and sustain', what: 'Linear gain, 0 to 1: mixer inputs, amplifier level, sustain level. The demo plays a plain saw at this gain beside a full-level reference.', range: [0, 1], log: false, unit: '' },
   cutoff:      { title: 'Cutoff frequency · resting low-pass', what: 'Where the low-pass sits at rest, in hertz at middle C (half keytracking elsewhere). The demo holds a saw at C3 through a 24 dB low-pass at this frequency.', range: [40, 16000], log: true, unit: 'Hz' },
   resonance:   { title: 'Resonance · filter Q', what: 'The boost at the cutoff. The demo sweeps a 24 dB low-pass slowly down through a saw at this Q.', range: [0.5, 40], log: true, unit: 'Q' },
@@ -204,7 +204,7 @@ const VTABLES = {
   fm_index:    { title: 'FM index · modulator level', what: 'Modulation depth as a multiple of the modulator frequency (1:1 ratio). The demo plays a sine carrier at C3 with this index.', range: [0, 15], log: false, unit: '' },
   reverb:      { title: 'Reverb · decay seconds', what: 'The tail length. The demo plucks a saw into a reverb of this size.', range: [0.2, 10], log: true, unit: 's' },
 };
-let vtab = 'time';
+let vtab = 'time'; let vmode = { time: 'attack' };
 function fmtNum(v, t){ if (v === null || v === undefined) return '—'; const r = VTABLES[t]; if (!r) return v; if (r.unit === 'Hz') return v >= 1000 ? (v/1000).toFixed(2)+' kHz' : (v < 1 ? v.toFixed(2) : Math.round(v)) + ' Hz'; if (r.unit === 's') return v < 0.1 ? Math.round(v*1000)+' ms' : v.toFixed(2)+' s'; if (r.unit === 'c') return Math.round(v)+' c'; return (+v).toFixed(2); }
 function toSlider(v, r){ const [a,b] = r.range; if (r.log) return (Math.log(Math.max(v, a)) - Math.log(a)) / (Math.log(b) - Math.log(a)) * 1000; return (v - a) / (b - a) * 1000; }
 function fromSlider(x, r){ const [a,b] = r.range; if (r.log) return Math.exp(Math.log(a) + x/1000 * (Math.log(b) - Math.log(a))); return a + x/1000 * (b - a); }
@@ -222,6 +222,7 @@ function renderVocab(){
     <div class="cell" style="border-left:1px solid var(--rule);padding:12px;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-2);text-align:right">${Object.keys(VTABLES).length} tables<br>${Object.values(HEARD).filter(Boolean).length} heard</div></div>
     <div class="toolbar">${tabs}</div>
     <div class="play"><h3 style="margin:0">${esc(T.title)}</h3><span class="hint">${esc(T.what)}</span></div>
+    ${T.modes ? `<div class="play" style="background:none;padding-top:0"><span class="hint" style="margin-right:4px">hear each word</span>${Object.keys(T.modes).map(m => `<button class="btn ${vmode[vtab]===m?'on':''}" data-mode="${m}">as ${m}</button>`).join('')}<span class="hint" id="modewhat">${esc(T.modes[vmode[vtab]])}</span></div>` : ''}
     <div class="play" style="background:none"><button class="btn primary" id="ladder">▶ Play the ladder</button><button class="btn" id="stop">Stop</button><label class="hint" style="margin-left:12px"><input type="checkbox" id="heard" ${HEARD[vtab]?'checked':''}> this table is heard: the words are true</label></div>
     <table class="vtable">${rows}</table>
     <div class="export"><button class="btn primary" id="exportv">Export vocabulary.yaml</button><button class="btn" id="resetv">Reset this table to the file</button><span id="vmsg" style="font-size:12px;color:var(--ok);margin-left:8px"></span>
@@ -249,11 +250,27 @@ function demoGraph(){ const ac = audio(); const g = ac.createGain(); g.gain.valu
 function saw(ac, hz, t, type){ const o = ac.createOscillator(); o.type = type || 'sawtooth'; o.frequency.value = hz; o.start(t); demoNodes.push(o); return o; }
 function lp(ac, hz, q, poles){ const stages = []; for (let i = 0; i < (poles||2); i++){ const f = ac.createBiquadFilter(); f.type = 'lowpass'; f.frequency.value = hz; f.Q.value = i ? 0.7 : q; stages.push(f); demoNodes.push(f); } for (let i = 1; i < stages.length; i++) stages[i-1].connect(stages[i]); return { input: stages[0], output: stages[stages.length-1], stages }; }
 function env(param, t, a, d, s, r, hold, peak, base){ base = base || 0; param.setValueAtTime(base, t); param.linearRampToValueAtTime(peak, t + a); param.linearRampToValueAtTime(base + (peak - base) * s, t + a + d); const off = t + Math.max(a + d, hold); param.setTargetAtTime(base, off, Math.max(r, 0.02) / 3); return off + r * 2 + 0.1; }
-function stopDemo(t){ for (const n of demoNodes){ try { if (n.stop) n.stop(t); } catch(e){} } setTimeout(() => { for (const n of demoNodes){ try { n.disconnect(); } catch(e){} } demoNodes = []; }, Math.max(0, (t - (ctx?.currentTime||0)) * 1000) + 300); }
+let activeDemos = [];   // every demo still sounding: {nodes, end}; Stop can always reach them
+function stopDemo(t){
+  // called by a demo once it is built: take its nodes off the build list, stop them at its end, remember it until then
+  const nodes = demoNodes; demoNodes = []; const d = { nodes, end: t }; activeDemos.push(d);
+  for (const n of nodes){ try { if (n.stop) n.stop(t); } catch(e){} }
+  setTimeout(() => { for (const n of nodes){ try { n.disconnect(); } catch(e){} } activeDemos = activeDemos.filter(x => x !== d); }, Math.max(0, (t - (ctx?.currentTime||0)) * 1000) + 300);
+}
+function stopDemosNow(){
+  const now = ctx ? ctx.currentTime : 0;
+  for (const d of activeDemos){ for (const n of d.nodes){ try { if (n.stop) n.stop(now); } catch(e){} } }
+  setTimeout(() => { for (const d of activeDemos){ for (const n of d.nodes){ try { n.disconnect(); } catch(e){} } } activeDemos = []; }, 50);
+  for (const n of demoNodes){ try { if (n.stop) n.stop(now); n.disconnect(); } catch(e){} } demoNodes = [];
+}
 function hearWord(table, w, when){
   const v = VOCAB[table][w]; if (v === null) return 0;
   const { ac, out } = demoGraph(); const t = when ?? ac.currentTime + 0.03; const C3 = noteToHz(48), C2 = noteToHz(36); let end = t + 1.5;
-  if (table === 'time'){ const o = saw(ac, C3, t); const f = lp(ac, 2500, 0.7); const g = ac.createGain(); o.connect(f.input); f.output.connect(g); g.connect(out); end = env(g.gain, t, v, 0.001, 1, v, v + 0.6, 0.6); }
+  if (table === 'time'){ const o = saw(ac, C3, t); const f = lp(ac, 2500, 0.7); const g = ac.createGain(); o.connect(f.input); f.output.connect(g); g.connect(out); const m = vmode.time || 'attack';
+    if (m === 'attack')  end = env(g.gain, t, v, 0.001, 1, 0.05, v + 1.5, 0.6);        // rise over v, hold 1.5 s, quick stop
+    else if (m === 'decay') end = env(g.gain, t, 0.002, v, 0, 0.05, 0.002, 0.6);         // instant on, fall over v to silence
+    else                  end = env(g.gain, t, 0.002, 0.001, 1, v, 0.8, 0.6);             // instant on, hold 0.8 s, fade over v
+    end = Math.max(end, t + 0.8 + v * 2 + 0.3); }
   else if (table === 'level'){ const o = saw(ac, C3, t); const f = lp(ac, 1500, 0.7); const g = ac.createGain(); o.connect(f.input); f.output.connect(g); g.connect(out); end = env(g.gain, t, 0.01, 0.001, 1, 0.08, 0.9, 0.6 * v); }
   else if (table === 'cutoff'){ const o = saw(ac, C3, t); const f = lp(ac, v, 1.0); const g = ac.createGain(); o.connect(f.input); f.output.connect(g); g.connect(out); end = env(g.gain, t, 0.01, 0.001, 1, 0.1, 1.2, 0.6); }
   else if (table === 'resonance'){ const o = saw(ac, C2, t); const f = lp(ac, 4000, v); const g = ac.createGain(); o.connect(f.input); f.output.connect(g); g.connect(out); f.stages.forEach(s => { s.frequency.setValueAtTime(4000, t); s.frequency.exponentialRampToValueAtTime(150, t + 1.6); }); end = env(g.gain, t, 0.01, 0.001, 1, 0.1, 1.7, 0.4 / Math.sqrt(Math.max(v, 1))); }
@@ -470,7 +487,7 @@ function noteOff(id, when){
   if (v.oneShot) return; voiceOff(v, t);
 }
 let demoTimers = [];
-function stopAll(){ demoTimers.forEach(clearTimeout); demoTimers = []; if (!ctx) return; stopDemo(ctx.currentTime); const t = ctx.currentTime; for (const v of new Set(voices.values())) voiceOff(v, t); monoVoice = null; heldMono = []; }
+function stopAll(){ demoTimers.forEach(clearTimeout); demoTimers = []; if (!ctx) return; stopDemosNow(); const t = ctx.currentTime; for (const v of new Set(voices.values())) voiceOff(v, t); monoVoice = null; heldMono = []; }
 function playDemo(c){
   stopAll(); const ac = audio(); const r = c.render || {}; const bpm = r.tempo || 120; const beat = 60 / bpm; const t0 = ac.currentTime + 0.05;
   const notes = (Array.isArray(r.note) ? r.note : [r.note || 'C3']).map(nameToMidi);
