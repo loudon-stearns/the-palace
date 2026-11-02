@@ -230,3 +230,9 @@ What each morning taught the practice. Each item names what the morning showed a
 81. **A late sit passed `--date` again** (items 61, 75). The page was dealt on 10-31 and sat on 11-02. The card's change is still owed under item 61.
 82. **The prep kept the pane clean.** The rough was made with a heredoc and checked in headless Chrome, so the pane stayed clean (items 19, 27). The scheduled task's rename went through (item 64). Nothing forced.
 - run · 2026-10-31 · v1.2 · Image Embedding Standard, trim · taught items 78–82
+
+## From the fifteenth morning — BBS Design System, 2026-11-01 (sat 11-02)
+
+83. **A game's shuffle put the tested dress in the learning rounds.** Find the Ask timed nine rounds in three dresses, and its shuffle dealt two of the three reserved-colour rounds first, while the game was still being learned. Those rounds carried the misses, from instructions that were not yet clear, and the one reserved round played after learning took 1.7 s. The result held anyway (rainbow never beat mono), but the condition under test paid for the learning. **Change owed, open:** a line in prep step 5, that a timed rough opens with a practice round outside the count, or shuffles so that no condition takes the first rounds.
+- Also: a late sit passed `--date` a third time (items 61, 75, 81); the card's change is still owed under item 61. The rough was copied into the receiving page's `proofs` folder and named by its baton, as sit step 6 says; STIGMERGY has no scroll, and the card makes one only for a rough on a kept page, so none was made.
+- run · 2026-11-01 · v1.2 · BBS Design System, fold into STIGMERGY · taught item 83
