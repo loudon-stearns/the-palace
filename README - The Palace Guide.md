@@ -19,6 +19,9 @@ links:
   - target: "[[FOUR PILLARS]]"
     type: connects-to
     label: onboarding-read
+  - target: "[[The Palace Guide — Context]]"
+    type: spawned
+    label: rationale-archive
 ---
 # Our Palace: A Symbiotic Knowledge Organism
 
