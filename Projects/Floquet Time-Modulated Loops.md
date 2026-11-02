@@ -75,6 +75,9 @@ links:
   - target: "[[Bessel Functions in Synthesis]]"
     type: connects-to
     label: fm-is-a-floquet-system
+  - target: "[[Synthesis Topologies]]"
+    type: member-of
+    label: a-loop-that-breathes
 forward_vector: "I want to become a five-stage teaching instrument, with Stage 1 (the Mathieu Resonator in codebox~) shipped first as a complete pedagogical artifact — every named object taught, every concept media-supported, every cross-domain hook landed. I want to be the entry every modulation-with-period device in the palace eventually links back to, and the proof that the LTI assumption is a choice, not the territory."
 ---
 

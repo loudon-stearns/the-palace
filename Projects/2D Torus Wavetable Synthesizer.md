@@ -39,7 +39,7 @@ links:
     type: spawned
     label: asset-library
   - target: "[[Synthesis Topologies]]"
-    type: exemplifies
+    type: member-of
   - target: "[[Neural Granular Synthesis — spec — control-vocabulary-math]]"
     type: connects-to
     label: worked-control-vocabulary
