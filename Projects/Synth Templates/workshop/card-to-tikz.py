@@ -36,7 +36,7 @@ POS = {}                       # slot → (x, y), computed per card by layout()
 LAYOUT = {}                    # bus heights etc.
 
 def layout(used, modulation, text_lines=None, extra_depth=0.0):
-    """Pack the grid around the used slots. Sources stack in column 0 centred on the audio row; the chain takes the
+    """Pack the grid around the used slots. Sources stack in column 1 centred on the audio row (column 0 is kept for modulators of the oscillators); the chain takes the
     next columns; modulators pack beneath, ordered by the column of their first target; performance inputs along the bottom."""
     POS.clear()
     srcs = [s for s in SOURCES if s in used]
