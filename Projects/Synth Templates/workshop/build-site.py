@@ -101,6 +101,13 @@ td.badge span{border:1px solid var(--ok);color:var(--ok);padding:1px 5px}
 .foot div{padding:8px 12px;border-left:1px solid var(--rule)}
 .foot div:first-child{border-left:0}
 .assumed{color:var(--assumed)}
+.btn.assumedtab{border-color:var(--assumed);color:var(--assumed)}
+.vtable td{padding:6px 10px;border-top:1px solid var(--rule-soft);vertical-align:middle;font-size:13px}
+.vtable td.vw{width:180px;font-weight:600;color:var(--ink-bright)}
+.vtable td.vs input{width:100%;accent-color:var(--accent)}
+.vtable td.vv{width:110px;text-align:right;color:var(--ink-2);font-size:12px;white-space:nowrap}
+.vtable td.vp{width:90px;text-align:right}
+.export textarea{width:100%;height:120px;font:12px/16px inherit;font-family:inherit;background:var(--ground-100);color:var(--ink);border:1px solid var(--rule);border-radius:0;padding:8px}
 @media(max-width:760px){.two{grid-template-columns:1fr}.two>div+div{border-left:0;border-top:1px solid var(--rule)}td.mode,td.tier{display:none}.foot{grid-template-columns:1fr}}
 </style>
 </head>
@@ -110,7 +117,10 @@ td.badge span{border:1px solid var(--ok);color:var(--ok);padding:1px 5px}
 const CATALOG = __CATALOG__;
 const CARDS = __CARDS__;
 const SVGS = __SVGS__;
-const VOCAB = __VOCAB__;
+const VOCAB_FILE = __VOCAB__;
+const VKEY = 'synth-templates-vocab-v1'; let VOCAB = JSON.parse(JSON.stringify(VOCAB_FILE)); let HEARD = {};
+try { const o = JSON.parse(localStorage.getItem(VKEY) || '{}'); for (const t in (o.values||{})) for (const w in o.values[t]) if (VOCAB[t] && w in VOCAB[t]) VOCAB[t][w] = o.values[t][w]; HEARD = o.heard || {}; } catch(e){}
+function saveVocab(){ try { localStorage.setItem(VKEY, JSON.stringify({ values: VOCAB, heard: HEARD })); } catch(e){} }
 const NCARDS = Object.keys(CARDS).length;
 
 // ---------- reviews (per card, in this browser) ----------
@@ -119,7 +129,7 @@ function saveReviews(){ try { localStorage.setItem(RKEY, JSON.stringify(reviews)
 function exportReviews(){ const ids = Object.keys(reviews).filter(k => reviews[k].trim()); let md = '## Synth Templates — card reviews ' + new Date().toISOString().slice(0,10) + '\n'; ids.forEach(id => md += '\n### ' + (CARDS[id]?.name || id) + ' (' + id + ')\n' + reviews[id].trim() + '\n'); if (!ids.length) md += '\n(no reviews yet)\n'; navigator.clipboard?.writeText(md).then(() => { const el = document.getElementById('revmsg'); if (el) el.textContent = ids.length + ' review' + (ids.length===1?'':'s') + ' copied — paste to Claude'; }); }
 // ---------- routing ----------
 const app = document.getElementById('app');
-function route(){ const h = location.hash.replace(/^#\/?/, ''); const m = h.match(/^card\/(.+)$/); if (m && CARDS[m[1]]) renderCard(m[1]); else renderCatalog(); window.scrollTo(0,0); }
+function route(){ const h = location.hash.replace(/^#\/?/, ''); const m = h.match(/^card\/(.+)$/); if (m && CARDS[m[1]]) renderCard(m[1]); else if (h === 'vocabulary') renderVocab(); else renderCatalog(); window.scrollTo(0,0); }
 window.addEventListener('hashchange', route);
 
 // ---------- catalog ----------
@@ -135,7 +145,7 @@ function renderCatalog(){
   app.innerHTML = `
     <div class="titleblock"><div><h1>Synth Templates</h1><div class="sub">A catalog of base presets that teach synthesis. Pick one that has a card to see its sheet and play it at its default settings.</div></div>
     <div class="cell">STUDY · 2026-11-02<br>${CATALOG.families.reduce((n,f)=>n+f.items.length,0)} TEMPLATES · ${NCARDS} CARDS</div></div>
-    <div class="toolbar"><input type="search" id="q" placeholder="search" value="${q}"><button class="btn ${onlyCards?'on':''}" id="onlycards">With cards</button><button class="btn" id="exportrev">Export reviews</button><span id="revmsg" style="font-size:12px;color:var(--ok)"></span><span class="count" id="count"></span></div>
+    <div class="toolbar"><input type="search" id="q" placeholder="search" value="${q}"><button class="btn ${onlyCards?'on':''}" id="onlycards">With cards</button><button class="btn" id="exportrev">Export reviews</button><a class="btn" href="#/vocabulary" style="display:inline-block">Vocabulary</a><span id="revmsg" style="font-size:12px;color:var(--ok)"></span><span class="count" id="count"></span></div>
     ${fams}
     <div class="foot"><div>Synth Templates · workshop</div><div>Drafting Table · Paper</div><div>built from cards/*.yaml</div></div>`;
   document.getElementById('q').addEventListener('input', e => { q = e.target.value.toLowerCase(); filter(); });
@@ -176,6 +186,86 @@ function renderCard(id){
   buildKeys(c);
 }
 
+// ---------- vocabulary page ----------
+// each table: what the word controls, how to hear it on a plain patch, and the slider's range
+const VTABLES = {
+  time:        { title: 'Time · envelope stages', what: 'Attack, decay and release times, in seconds. The demo plays one note whose attack AND release are this long (sustain held in between), so you hear the word twice.', range: [0.001, 5], log: true, unit: 's' },
+  level:       { title: 'Level · gains and sustain', what: 'Linear gain, 0 to 1: mixer inputs, amplifier level, sustain level. The demo plays a plain saw at this gain beside a full-level reference.', range: [0, 1], log: false, unit: '' },
+  cutoff:      { title: 'Cutoff frequency · resting low-pass', what: 'Where the low-pass sits at rest, in hertz at middle C (half keytracking elsewhere). The demo holds a saw at C3 through a 24 dB low-pass at this frequency.', range: [40, 16000], log: true, unit: 'Hz' },
+  resonance:   { title: 'Resonance · filter Q', what: 'The boost at the cutoff. The demo sweeps a 24 dB low-pass slowly down through a saw at this Q.', range: [0.5, 40], log: true, unit: 'Q' },
+  amount:      { title: 'Envelope amount · octaves of filter sweep', what: 'How far the filter envelope opens the cutoff above its resting point, in octaves. The demo plucks a saw: cutoff dark, instant attack, medium decay, this amount.', range: [0, 7], log: false, unit: 'oct' },
+  pitch_amount:{ title: 'Pitch envelope amount · cents', what: 'How far a pitch envelope starts above the note. The demo is a kick-shaped sine: this many cents, falling over a short decay.', range: [0, 3600], log: false, unit: 'c' },
+  detune:      { title: 'Detune · unison spread in cents', what: 'The total spread of a seven-voice saw stack. The demo holds the stack at C3.', range: [0, 120], log: false, unit: 'c' },
+  rate:        { title: 'Rate · LFO speed', what: 'LFO frequency in hertz. The demo puts a triangle LFO at this rate on the cutoff of a held saw.', range: [0.03, 30], log: true, unit: 'Hz' },
+  glide:       { title: 'Glide time · portamento', what: 'Seconds to slide from one note to the next. The demo plays C2 then slides to G2 in this time.', range: [0, 1.5], log: false, unit: 's' },
+  drive:       { title: 'Drive · saturation amount', what: '0 to 1 into a soft clipper. The demo holds a saw through it.', range: [0, 1], log: false, unit: '' },
+  fm_index:    { title: 'FM index · modulator level', what: 'Modulation depth as a multiple of the modulator frequency (1:1 ratio). The demo plays a sine carrier at C3 with this index.', range: [0, 15], log: false, unit: '' },
+  reverb:      { title: 'Reverb · decay seconds', what: 'The tail length. The demo plucks a saw into a reverb of this size.', range: [0.2, 10], log: true, unit: 's' },
+};
+let vtab = 'time';
+function fmtNum(v, t){ if (v === null || v === undefined) return '—'; const r = VTABLES[t]; if (!r) return v; if (r.unit === 'Hz') return v >= 1000 ? (v/1000).toFixed(2)+' kHz' : (v < 1 ? v.toFixed(2) : Math.round(v)) + ' Hz'; if (r.unit === 's') return v < 0.1 ? Math.round(v*1000)+' ms' : v.toFixed(2)+' s'; if (r.unit === 'c') return Math.round(v)+' c'; return (+v).toFixed(2); }
+function toSlider(v, r){ const [a,b] = r.range; if (r.log) return (Math.log(Math.max(v, a)) - Math.log(a)) / (Math.log(b) - Math.log(a)) * 1000; return (v - a) / (b - a) * 1000; }
+function fromSlider(x, r){ const [a,b] = r.range; if (r.log) return Math.exp(Math.log(a) + x/1000 * (Math.log(b) - Math.log(a))); return a + x/1000 * (b - a); }
+function renderVocab(){
+  stopAll();
+  const tabs = Object.keys(VTABLES).map(t => `<button class="btn ${t===vtab?'on':''} ${HEARD[t]?'':'assumedtab'}" data-vt="${t}">${t.replace('_',' ')}${HEARD[t]?' ✓':''}</button>`).join('');
+  const T = VTABLES[vtab]; const words = Object.keys(VOCAB[vtab]);
+  const rows = words.map(w => { const v = VOCAB[vtab][w]; const fixed = v === null;
+    return `<tr class="vrow" data-w="${w}"><td class="vw">${esc(w)}</td>
+      <td class="vs">${fixed ? '<span class="sub">resolved from decay</span>' : `<input type="range" min="0" max="1000" value="${toSlider(v, T).toFixed(0)}" data-w="${w}">`}</td>
+      <td class="vv" id="vv-${w.replace(/\W/g,'_')}">${fmtNum(v, vtab)}${v !== null && VOCAB_FILE[vtab][w] !== v ? ' <span class="assumed">·</span>' : ''}</td>
+      <td class="vp">${fixed ? '' : `<button class="btn" data-play="${w}">▶ hear</button>`}</td></tr>`; }).join('');
+  app.innerHTML = `
+    <div class="cardhead"><div><div class="crumb"><a href="#/">← catalog</a></div><h1>Vocabulary</h1><div class="sub">Every range word the cards use, and the number the reference voice gives it. Draft numbers are set by reasoning; a table is earned when you have heard each rung and moved it until the word is true. Edits live in this browser until exported.</div></div>
+    <div class="cell" style="border-left:1px solid var(--rule);padding:12px;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-2);text-align:right">${Object.keys(VTABLES).length} tables<br>${Object.values(HEARD).filter(Boolean).length} heard</div></div>
+    <div class="toolbar">${tabs}</div>
+    <div class="play"><h3 style="margin:0">${esc(T.title)}</h3><span class="hint">${esc(T.what)}</span></div>
+    <div class="play" style="background:none"><button class="btn primary" id="ladder">▶ Play the ladder</button><button class="btn" id="stop">Stop</button><label class="hint" style="margin-left:12px"><input type="checkbox" id="heard" ${HEARD[vtab]?'checked':''}> this table is heard: the words are true</label></div>
+    <table class="vtable">${rows}</table>
+    <div class="export"><button class="btn primary" id="exportv">Export vocabulary.yaml</button><button class="btn" id="resetv">Reset this table to the file</button><span id="vmsg" style="font-size:12px;color:var(--ok);margin-left:8px"></span>
+    <textarea id="vout" readonly style="margin-top:8px"></textarea></div>
+    <div class="foot"><div>Synth Templates · vocabulary</div><div>Drafting Table · Paper</div><div>workshop/vocabulary.yaml</div></div>`;
+  document.querySelectorAll('[data-vt]').forEach(b => b.addEventListener('click', () => { vtab = b.dataset.vt; renderVocab(); }));
+  document.querySelectorAll('input[type=range]').forEach(sl => sl.addEventListener('input', e => { const w = e.target.dataset.w; VOCAB[vtab][w] = +fromSlider(+e.target.value, T).toPrecision(3); document.getElementById('vv-' + w.replace(/\W/g,'_')).innerHTML = fmtNum(VOCAB[vtab][w], vtab) + ' <span class="assumed">·</span>'; saveVocab(); }));
+  document.querySelectorAll('input[type=range]').forEach(sl => sl.addEventListener('change', e => hearWord(vtab, e.target.dataset.w)));
+  document.querySelectorAll('[data-play]').forEach(b => b.addEventListener('click', () => hearWord(vtab, b.dataset.play)));
+  document.getElementById('ladder').addEventListener('click', () => playLadder(vtab));
+  document.getElementById('stop').addEventListener('click', stopAll);
+  document.getElementById('heard').addEventListener('change', e => { HEARD[vtab] = e.target.checked; saveVocab(); renderVocab(); });
+  document.getElementById('exportv').addEventListener('click', () => { const y = vocabYaml(); document.getElementById('vout').value = y; navigator.clipboard?.writeText(y).then(() => document.getElementById('vmsg').textContent = 'copied — paste to Claude, who writes vocabulary.yaml'); });
+  document.getElementById('resetv').addEventListener('click', () => { VOCAB[vtab] = JSON.parse(JSON.stringify(VOCAB_FILE[vtab])); HEARD[vtab] = false; saveVocab(); renderVocab(); });
+}
+function vocabYaml(){
+  const today = new Date().toISOString().slice(0,10);
+  let y = `# Synth Templates — range vocabulary, exported from the site ${today}\n# A table marked HEARD was sat by ear on the site's reference voice; a table marked ASSUMED still carries numbers set by reasoning.\n`;
+  for (const t of Object.keys(VOCAB)){ y += `${t}:   # ${HEARD[t] ? 'HEARD ' + today : 'ASSUMED'}\n`; for (const w of Object.keys(VOCAB[t])){ const v = VOCAB[t][w]; y += `  ${/[^a-z0-9 _-]/.test(w) || /^(on|off|yes|no)$/.test(w) ? JSON.stringify(w) : w}: ${v === null ? 'null' : v}\n`; } }
+  return y;
+}
+// ---------- rung demos: a plain patch that exposes one word ----------
+let demoNodes = [];
+function demoGraph(){ const ac = audio(); const g = ac.createGain(); g.gain.value = 0.5; g.connect(master); demoNodes.push(g); return { ac, out: g }; }
+function saw(ac, hz, t, type){ const o = ac.createOscillator(); o.type = type || 'sawtooth'; o.frequency.value = hz; o.start(t); demoNodes.push(o); return o; }
+function lp(ac, hz, q, poles){ const stages = []; for (let i = 0; i < (poles||2); i++){ const f = ac.createBiquadFilter(); f.type = 'lowpass'; f.frequency.value = hz; f.Q.value = i ? 0.7 : q; stages.push(f); demoNodes.push(f); } for (let i = 1; i < stages.length; i++) stages[i-1].connect(stages[i]); return { input: stages[0], output: stages[stages.length-1], stages }; }
+function env(param, t, a, d, s, r, hold, peak, base){ base = base || 0; param.setValueAtTime(base, t); param.linearRampToValueAtTime(peak, t + a); param.linearRampToValueAtTime(base + (peak - base) * s, t + a + d); const off = t + Math.max(a + d, hold); param.setTargetAtTime(base, off, Math.max(r, 0.02) / 3); return off + r * 2 + 0.1; }
+function stopDemo(t){ for (const n of demoNodes){ try { if (n.stop) n.stop(t); } catch(e){} } setTimeout(() => { for (const n of demoNodes){ try { n.disconnect(); } catch(e){} } demoNodes = []; }, Math.max(0, (t - (ctx?.currentTime||0)) * 1000) + 300); }
+function hearWord(table, w, when){
+  const v = VOCAB[table][w]; if (v === null) return 0;
+  const { ac, out } = demoGraph(); const t = when ?? ac.currentTime + 0.03; const C3 = noteToHz(48), C2 = noteToHz(36); let end = t + 1.5;
+  if (table === 'time'){ const o = saw(ac, C3, t); const f = lp(ac, 2500, 0.7); const g = ac.createGain(); o.connect(f.input); f.output.connect(g); g.connect(out); end = env(g.gain, t, v, 0.001, 1, v, v + 0.6, 0.6); }
+  else if (table === 'level'){ const o = saw(ac, C3, t); const f = lp(ac, 1500, 0.7); const g = ac.createGain(); o.connect(f.input); f.output.connect(g); g.connect(out); end = env(g.gain, t, 0.01, 0.001, 1, 0.08, 0.9, 0.6 * v); }
+  else if (table === 'cutoff'){ const o = saw(ac, C3, t); const f = lp(ac, v, 1.0); const g = ac.createGain(); o.connect(f.input); f.output.connect(g); g.connect(out); end = env(g.gain, t, 0.01, 0.001, 1, 0.1, 1.2, 0.6); }
+  else if (table === 'resonance'){ const o = saw(ac, C2, t); const f = lp(ac, 4000, v); const g = ac.createGain(); o.connect(f.input); f.output.connect(g); g.connect(out); f.stages.forEach(s => { s.frequency.setValueAtTime(4000, t); s.frequency.exponentialRampToValueAtTime(150, t + 1.6); }); end = env(g.gain, t, 0.01, 0.001, 1, 0.1, 1.7, 0.4 / Math.sqrt(Math.max(v, 1))); }
+  else if (table === 'amount'){ const o = saw(ac, C2, t); const f = lp(ac, 300, 3); const g = ac.createGain(); o.connect(f.input); f.output.connect(g); g.connect(out); f.stages.forEach(s => { s.frequency.setValueAtTime(300, t); s.frequency.exponentialRampToValueAtTime(Math.min(300 * Math.pow(2, v), 18000), t + 0.005); s.frequency.exponentialRampToValueAtTime(300, t + 0.4); }); end = env(g.gain, t, 0.003, 0.001, 1, 0.2, 0.8, 0.6); }
+  else if (table === 'pitch_amount'){ const o = saw(ac, noteToHz(33), t, 'sine'); const g = ac.createGain(); o.connect(g); g.connect(out); o.detune.setValueAtTime(v, t); o.detune.linearRampToValueAtTime(0, t + 0.12); end = env(g.gain, t, 0.002, 0.6, 0, 0.3, 0.6, 0.8); }
+  else if (table === 'detune'){ const g = ac.createGain(); g.gain.value = 0; for (let i = 0; i < 7; i++){ const o = saw(ac, C3, t); o.detune.value = (i/6 - 0.5) * v; const gg = ac.createGain(); gg.gain.value = 1/Math.sqrt(7); o.connect(gg); gg.connect(g); } const f = lp(ac, 3000, 0.7); g.connect(f.input); f.output.connect(out); end = env(g.gain, t, 0.01, 0.001, 1, 0.15, 1.6, 0.6); }
+  else if (table === 'rate'){ const o = saw(ac, C2, t); const f = lp(ac, 700, 4); const g = ac.createGain(); o.connect(f.input); f.output.connect(g); g.connect(out); const l = ac.createOscillator(); l.type = 'triangle'; l.frequency.value = v; const lg = ac.createGain(); lg.gain.value = 1800; l.connect(lg); f.stages.forEach(s => lg.connect(s.detune)); l.start(t); demoNodes.push(l, lg); end = env(g.gain, t, 0.01, 0.001, 1, 0.1, 2.2, 0.5); }
+  else if (table === 'glide'){ const o = saw(ac, C2, t); const f = lp(ac, 1200, 1); const g = ac.createGain(); o.connect(f.input); f.output.connect(g); g.connect(out); o.frequency.setValueAtTime(C2, t + 0.5); o.frequency.exponentialRampToValueAtTime(noteToHz(43), t + 0.5 + Math.max(v, 0.003)); end = env(g.gain, t, 0.01, 0.001, 1, 0.1, 1.6, 0.6); }
+  else if (table === 'drive'){ const o = saw(ac, C2, t); const f = lp(ac, 1200, 1); const ws = ac.createWaveShaper(); const n = 1024, curve = new Float32Array(n), k = 1 + v * 20; for (let i = 0; i < n; i++){ const x = i/(n-1)*2-1; curve[i] = Math.tanh(k*x)/Math.tanh(k); } ws.curve = curve; const pre = ac.createGain(); pre.gain.value = 1 + v*2; const g = ac.createGain(); o.connect(f.input); f.output.connect(pre); pre.connect(ws); ws.connect(g); g.connect(out); demoNodes.push(ws, pre); end = env(g.gain, t, 0.01, 0.001, 1, 0.1, 1.2, 0.5); }
+  else if (table === 'fm_index'){ const car = saw(ac, C3, t, 'sine'); const mod = saw(ac, C3, t, 'sine'); const mg = ac.createGain(); mg.gain.value = v * C3; mod.connect(mg); mg.connect(car.frequency); const g = ac.createGain(); car.connect(g); g.connect(out); demoNodes.push(mg); end = env(g.gain, t, 0.005, 0.001, 1, 0.3, 1.2, 0.5); }
+  else if (table === 'reverb'){ const o = saw(ac, C3, t); const f = lp(ac, 2000, 2); const g = ac.createGain(); o.connect(f.input); f.output.connect(g); const conv = ac.createConvolver(); const len = Math.floor(ac.sampleRate * v), ir = ac.createBuffer(2, len, ac.sampleRate); for (let ch = 0; ch < 2; ch++){ const d = ir.getChannelData(ch); for (let i = 0; i < len; i++) d[i] = (Math.random()*2-1) * Math.pow(1 - i/len, 2.2); } conv.buffer = ir; const wet = ac.createGain(); wet.gain.value = 0.5; g.connect(out); g.connect(conv); conv.connect(wet); wet.connect(out); demoNodes.push(conv, wet); f.stages.forEach(s => { s.frequency.setValueAtTime(4000, t); s.frequency.exponentialRampToValueAtTime(300, t + 0.3); }); end = env(g.gain, t, 0.003, 0.4, 0, 0.2, 0.4, 0.6) + v; }
+  stopDemo(end); return end - t;
+}
+function playLadder(table){ stopAll(); const ac = audio(); let t = ac.currentTime + 0.05; for (const w of Object.keys(VOCAB[table])){ if (VOCAB[table][w] === null) continue; const d = hearWord(table, w, t); const row = document.querySelector(`tr.vrow[data-w="${w}"]`); demoTimers.push(setTimeout(() => { document.querySelectorAll('tr.vrow').forEach(r => r.style.background = ''); if (row) row.style.background = 'var(--ground-100)'; }, (t - ac.currentTime) * 1000)); t += d + 0.25; } demoTimers.push(setTimeout(() => document.querySelectorAll('tr.vrow').forEach(r => r.style.background = ''), (t - ac.currentTime) * 1000)); }
 // ---------- keyboard ----------
 const KEYNAMES = ['C','C#','D','D#','E','F','F#','G','G#','A','A#','B'];
 function buildKeys(c){
@@ -378,7 +468,7 @@ function noteOff(id, when){
   if (v.oneShot) return; voiceOff(v, t);
 }
 let demoTimers = [];
-function stopAll(){ demoTimers.forEach(clearTimeout); demoTimers = []; if (!ctx) return; const t = ctx.currentTime; for (const v of new Set(voices.values())) voiceOff(v, t); monoVoice = null; heldMono = []; }
+function stopAll(){ demoTimers.forEach(clearTimeout); demoTimers = []; if (!ctx) return; stopDemo(ctx.currentTime); const t = ctx.currentTime; for (const v of new Set(voices.values())) voiceOff(v, t); monoVoice = null; heldMono = []; }
 function playDemo(c){
   stopAll(); const ac = audio(); const r = c.render || {}; const bpm = r.tempo || 120; const beat = 60 / bpm; const t0 = ac.currentTime + 0.05;
   const notes = (Array.isArray(r.note) ? r.note : [r.note || 'C3']).map(nameToMidi);
