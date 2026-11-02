@@ -146,7 +146,7 @@ A standard no agent knows about is dead tissue. These hooks are now **live** acr
 
 - [[Mermaid Diagram Standard]] § "When SVG Still Wins" routes technical/quantitative diagrams (signal flow, DSP, math, plots) here — *do not reach for raw SVG.*
 - [[Image Embedding Standard]] § Filing Protocol files generated technical figures' `.tex` source beside the `.svg`, per this standard.
-- The [[Deposit Ceremony]] step 6 carries the third branch: Mermaid block, embedded image, or technical `.tex`+`.svg` pair.
+- The [[Deposit Ceremony]] asks at the map whether a find wants to be seen, heard or played, and step 6 files a technical figure as its `.tex` source beside its `.svg`.
 - [[README - The Palace Guide]] § The Visual Language names all three standards as one system.
 
 These hooks are the difference between a tool that exists and a tool that gets used — and they are in place.
