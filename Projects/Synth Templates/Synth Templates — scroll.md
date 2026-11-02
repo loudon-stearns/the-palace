@@ -45,6 +45,13 @@ Where this is going: a catalog of template cards a learner can program on any so
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="synth-templates-2026-11-02-midi-reviews-release" -->
+### 2026-11-02 — Site revised on Loudon's read: MIDI, reviews, full parameter names, the release click found twice
+
+Loudon: "no note names on the keyboard, it should respond to MIDI, I need the ability to review the pages so we can fine tune each. In the bottom of the pages, don't shorten names of modulators: 'Amplitude envelope', 'filter envelope' this will help the student internalize the parameter names. Same goes for envelope stages: Decay time, and Sustain level instead of decay and sustain, so that we are very aware of what we are changing. One more thing, in the sub bass, when I release a note there is a click, are you calculating release properly?" `build-site.py`: keys without names; Web MIDI in, with a status line; a Review box per card saved in the browser and an Export reviews button on the catalog; every block and parameter named in full in the tables. The click had two causes. The release was a linear ramp restarted from the parameter's read value, which can step; it is now cancelAndHold and setTargetAtTime with a time constant of release ÷ 3, the oscillators stopping after two release lengths, and House Bass measured falling smoothly from .26 to 0 over about 150 ms, largest step .06. And the card itself put the sub two octaves under the played note, 16 Hz at C2, where a 120 ms fade is under two cycles and lands as a thump; `house-bass.yaml` now has Oscillator 1 at the played pitch and the sub one octave down (the lineage line to `house_bass.pdl`, which used −12, is unchanged), sheet regenerated. Site regenerated.
+
+_Left rough:_ **a question for Loudon:** the sheet's block titles are still short (FILTER ENV, AMP ENV, MIX) while the tables now say Filter envelope, Amplitude envelope, Mixer; should the sheet carry the full names too? The Plan is still proposed; the revision drafted on 2026-11-02 waits on him.
+<!-- /scroll:entry -->
 <!-- scroll:entry id="synth-templates-2026-11-02-site" -->
 ### 2026-11-02 — The site: catalog → card → playable default (Loudon); vocabulary draft 0.1 begun
 

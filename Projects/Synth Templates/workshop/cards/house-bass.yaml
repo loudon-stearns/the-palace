@@ -18,8 +18,8 @@ concepts:             # names from the concept map in catalog.json (Loudon's syn
 
 graph:
   blocks:             # slot ids are the layout grammar; a slot not listed is drawn ghosted
-    osc1:    {kind: oscillator, wave: square, pw: 0.5, octave: -1}
-    sub:     {kind: oscillator, wave: sine, octave: -2, note: "one octave under osc1"}
+    osc1:    {kind: oscillator, wave: square, pw: 0.5, octave: 0}
+    sub:     {kind: oscillator, wave: sine, octave: -1, note: "one octave under osc1"}
     mix:     {kind: mixer}
     filter1: {kind: filter, type: lowpass, slope: 24, resonance: moderate}
     amp:     {kind: amplifier, level: under unity}

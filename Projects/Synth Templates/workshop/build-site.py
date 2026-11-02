@@ -88,12 +88,13 @@ td.badge span{border:1px solid var(--ok);color:var(--ok);padding:1px 5px}
 .two>div+div{border-left:1px solid var(--rule)}
 .kv{width:100%;border-collapse:collapse;font-size:13px}
 .kv td{padding:4px 6px;border-top:1px solid var(--rule-soft);vertical-align:top}
-.kv td.k{color:var(--ink-2);width:90px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding-top:6px}
+.kv td.k{color:var(--ink-2);width:150px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding-top:6px}
 .kv td.v{font-weight:600;color:var(--ink-bright);width:170px}
 .kv.taste td.v{color:var(--assumed)}
 .kv td.w{color:var(--ink-2)}
 .listen{padding:12px;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
 .listen p{margin:4px 0 10px}
+.listen textarea{width:100%;min-height:90px;font:13px/18px inherit;font-family:inherit;background:var(--ground-100);color:var(--ink);border:1px solid var(--rule);border-radius:0;padding:8px}
 .meta{padding:12px;font-size:12px;color:var(--ink-2)}
 .meta b{color:var(--ink)}
 .foot{display:grid;grid-template-columns:repeat(3,1fr);border-top:2px solid var(--rule);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2)}
@@ -112,6 +113,10 @@ const SVGS = __SVGS__;
 const VOCAB = __VOCAB__;
 const NCARDS = Object.keys(CARDS).length;
 
+// ---------- reviews (per card, in this browser) ----------
+const RKEY = 'synth-templates-reviews-v1'; let reviews = {}; try { reviews = JSON.parse(localStorage.getItem(RKEY) || '{}'); } catch(e){}
+function saveReviews(){ try { localStorage.setItem(RKEY, JSON.stringify(reviews)); } catch(e){} }
+function exportReviews(){ const ids = Object.keys(reviews).filter(k => reviews[k].trim()); let md = '## Synth Templates — card reviews ' + new Date().toISOString().slice(0,10) + '\n'; ids.forEach(id => md += '\n### ' + (CARDS[id]?.name || id) + ' (' + id + ')\n' + reviews[id].trim() + '\n'); if (!ids.length) md += '\n(no reviews yet)\n'; navigator.clipboard?.writeText(md).then(() => { const el = document.getElementById('revmsg'); if (el) el.textContent = ids.length + ' review' + (ids.length===1?'':'s') + ' copied — paste to Claude'; }); }
 // ---------- routing ----------
 const app = document.getElementById('app');
 function route(){ const h = location.hash.replace(/^#\/?/, ''); const m = h.match(/^card\/(.+)$/); if (m && CARDS[m[1]]) renderCard(m[1]); else renderCatalog(); window.scrollTo(0,0); }
@@ -130,10 +135,11 @@ function renderCatalog(){
   app.innerHTML = `
     <div class="titleblock"><div><h1>Synth Templates</h1><div class="sub">A catalog of base presets that teach synthesis. Pick one that has a card to see its sheet and play it at its default settings.</div></div>
     <div class="cell">STUDY · 2026-11-02<br>${CATALOG.families.reduce((n,f)=>n+f.items.length,0)} TEMPLATES · ${NCARDS} CARDS</div></div>
-    <div class="toolbar"><input type="search" id="q" placeholder="search" value="${q}"><button class="btn ${onlyCards?'on':''}" id="onlycards">With cards</button><span class="count" id="count"></span></div>
+    <div class="toolbar"><input type="search" id="q" placeholder="search" value="${q}"><button class="btn ${onlyCards?'on':''}" id="onlycards">With cards</button><button class="btn" id="exportrev">Export reviews</button><span id="revmsg" style="font-size:12px;color:var(--ok)"></span><span class="count" id="count"></span></div>
     ${fams}
     <div class="foot"><div>Synth Templates · workshop</div><div>Drafting Table · Paper</div><div>built from cards/*.yaml</div></div>`;
   document.getElementById('q').addEventListener('input', e => { q = e.target.value.toLowerCase(); filter(); });
+  document.getElementById('exportrev').addEventListener('click', exportReviews);
   document.getElementById('onlycards').addEventListener('click', e => { onlyCards = !onlyCards; e.target.classList.toggle('on', onlyCards); filter(); });
   document.querySelectorAll('tr.item.has').forEach(tr => tr.addEventListener('click', () => location.hash = '#/card/' + tr.dataset.id));
   filter();
@@ -141,23 +147,31 @@ function renderCatalog(){
 function filter(){ let n = 0; document.querySelectorAll('tr.item').forEach(tr => { const vis = (!q || tr.dataset.text.includes(q)) && (!onlyCards || tr.classList.contains('has')); tr.classList.toggle('hide', !vis); if (vis) n++; }); document.getElementById('count').textContent = n + ' shown'; }
 
 // ---------- card page ----------
+const BLOCKNAME = {osc1:'Oscillator 1', osc2:'Oscillator 2', sub:'Sub oscillator', noise:'Noise oscillator', mix:'Mixer', filter1:'Filter 1', filter2:'Filter 2', amp:'Amplifier', fx:'Effects', fenv:'Filter envelope', aenv:'Amplitude envelope', menv:'Modulation envelope', lfo1:'LFO 1', lfo2:'LFO 2', key:'Keyboard', vel:'Velocity', wheel:'Mod wheel', at:'Aftertouch', mode:'Voice mode'};
+const PARAMNAME = {attack:'Attack time', decay:'Decay time', sustain:'Sustain level', release:'Release time', cutoff:'Cutoff frequency', resonance:'Resonance', amount:'Envelope amount', wave:'Waveform', glide:'Glide time', level:'Level', pw:'Pulse width', unison:'Unison voices', detune:'Detune', spread:'Stereo spread', drive:'Drive', type:'Filter type', voices:'Voices', retrigger:'Oscillator retrigger', ratio:'Frequency ratio', rate:'Rate', depth:'Depth', chain:'Effects chain', reverb:'Reverb size', chorus:'Chorus depth', pitch:'Pitch', mode:'Trigger mode', target:'Target', routing:'Routing', accent:'Accent'};
+function blockName(c, b){ if (b === 'menv' && c.graph?.blocks?.menv?.role) return c.graph.blocks.menv.role.charAt(0).toUpperCase() + c.graph.blocks.menv.role.slice(1) + ' envelope'; return BLOCKNAME[b] || b; }
+function paramName(p){ return PARAMNAME[p] || p; }
 function esc(s){ return String(s ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;'); }
 function renderCard(id){
   stopAll();
   const c = CARDS[id];
-  const kv = (rows, cls) => `<table class="kv ${cls}">${rows.map(r => `<tr><td class="k">${esc(r.block)}</td><td class="v">${esc(r.param)} ${esc(r.value ?? r.range)}${r.default!==undefined?`<br><span style="font-weight:400;font-size:11px">default ${esc(r.default)}</span>`:''}</td><td class="w">${esc(r.why||'')}</td></tr>`).join('')}</table>`;
+  const kv = (rows, cls) => `<table class="kv ${cls}">${rows.map(r => `<tr><td class="k">${esc(blockName(c, r.block))}</td><td class="v">${esc(paramName(r.param))}<br>${esc(r.value ?? r.range)}${r.default!==undefined?`<br><span style="font-weight:400;font-size:11px">default ${esc(r.default)}</span>`:''}</td><td class="w">${esc(r.why||'')}</td></tr>`).join('')}</table>`;
   const notes = Array.isArray(c.render?.note) ? c.render.note.join(' ') : (c.render?.note || '');
   app.innerHTML = `
     <div class="cardhead"><div><div class="crumb"><a href="#/">← catalog</a> · ${esc(c.family)}</div><h1>${esc(c.name)}</h1><div class="sub">${esc(c.classics||'')}</div></div>
     <div class="cell" style="border-left:1px solid var(--rule);padding:12px;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-2);text-align:right">tier ${c.tier} · ${esc(c.mode)}<br>${esc(c.status)} · schema ${esc(c.schema.split('/')[1])}</div></div>
     <div class="play"><button class="btn primary" id="demo">▶ Play the default</button><button class="btn" id="stop">Stop</button><span class="hint">Plays the card's render pattern (${esc(notes)} at ${c.render?.tempo||120} bpm) on the reference voice, from the card's own settings and the vocabulary draft. <span class="assumed">Vocabulary numbers are ASSUMED until sat by ear.</span></span></div>
     <div class="keys" id="keys"></div>
+    <div class="play" style="background:none"><span class="hint" id="midi">MIDI: …</span></div>
     <div class="diagram">${SVGS[id] || '<div class="sub">no sheet rendered for this card</div>'}</div>
     <div class="two"><div><h3>Essentials · what makes it this sound</h3>${kv(c.essentials||[], 'ess')}</div><div><h3>Taste · what you move</h3>${kv(c.taste||[], 'taste')}</div></div>
     <div class="listen"><h3>Listening</h3><p>${esc(c.listening?.cue)}</p><h3>A / B</h3><p>${esc(c.listening?.ab)}</p></div>
+    <div class="listen"><h3>Review · notes for fine-tuning this card</h3><textarea id="review" placeholder="What is wrong, what is missing, what to change. Saved in this browser; export all reviews from the catalog page.">${esc(reviews[c.id]||'')}</textarea></div>
     <div class="meta">${c.concepts?.length?`<b>Covers:</b> ${c.concepts.map(esc).join(' · ')}<br>`:''}${c.lineage?.length?`<b>Lineage:</b> ${c.lineage.map(esc).join(' · ')}<br>`:''}<b>Render:</b> ${esc(c.render?.pattern||'')}</div>
     <div class="foot"><div>Synth Templates · ${esc(c.id)}</div><div>Drafting Table · Paper</div><div>cards/${esc(c.id)}.yaml</div></div>`;
   document.getElementById('demo').addEventListener('click', () => playDemo(c));
+  document.getElementById('review').addEventListener('input', e => { reviews[c.id] = e.target.value; saveReviews(); });
+  midiStatus();
   document.getElementById('stop').addEventListener('click', stopAll);
   buildKeys(c);
 }
@@ -166,10 +180,10 @@ function renderCard(id){
 const KEYNAMES = ['C','C#','D','D#','E','F','F#','G','G#','A','A#','B'];
 function buildKeys(c){
   const el = document.getElementById('keys'); el.innerHTML = '';
-  const base = c.family === 'Bass' || c.family === 'Drums and Percussion' ? 36 : 60;   // C2 or C4
+  const base = c.family === 'Bass' ? 36 : c.family === 'Drums and Percussion' ? 45 : 60;   // C2, A2, or C4
   for (let n = base; n <= base + 24; n++){
     const k = document.createElement('div'); const black = [1,3,6,8,10].includes(n % 12);
-    k.className = 'key' + (black ? ' black' : ''); k.textContent = black ? '' : KEYNAMES[n % 12] + (Math.floor(n/12) - 1);
+    k.className = 'key' + (black ? ' black' : '');
     const down = e => { e.preventDefault(); k.classList.add('down'); noteOn(c, n, 100, 'key' + n); };
     const up = () => { k.classList.remove('down'); noteOff('key' + n); };
     k.addEventListener('mousedown', down); k.addEventListener('mouseup', up); k.addEventListener('mouseleave', up);
@@ -178,6 +192,22 @@ function buildKeys(c){
   }
 }
 
+// ---------- MIDI ----------
+let midi = null, midiCard = null;
+function midiStatus(){
+  const el = document.getElementById('midi'); if (!el) return;
+  midiCard = CARDS[location.hash.replace(/^#\/card\//, '')] || null;
+  if (!navigator.requestMIDIAccess){ el.textContent = 'MIDI: not available in this browser'; return; }
+  if (midi){ const names = [...midi.inputs.values()].map(i => i.name); el.textContent = names.length ? 'MIDI: listening on ' + names.join(', ') : 'MIDI: no input connected'; return; }
+  el.textContent = 'MIDI: requesting access…';
+  navigator.requestMIDIAccess().then(m => { midi = m; const bind = () => { for (const inp of midi.inputs.values()) inp.onmidimessage = onMidi; midiStatus(); }; midi.onstatechange = bind; bind(); }, () => { el.textContent = 'MIDI: access refused'; });
+}
+function onMidi(e){
+  const [st, d1, d2] = e.data; const cmd = st & 0xf0; if (!midiCard) return;
+  if (cmd === 0x90 && d2 > 0) noteOn(midiCard, d1, Math.round(d2 / 127 * 100), 'midi' + d1);
+  else if (cmd === 0x80 || (cmd === 0x90 && d2 === 0)) noteOff('midi' + d1);
+  else if (cmd === 0xb0 && d1 === 123) stopAll();
+}
 // ---------- vocabulary ----------
 function word(table, w, fallback){ if (w === undefined || w === null) return fallback; if (typeof w === 'number') return w; const v = VOCAB[table]?.[String(w).trim()]; if (v === undefined || v === null) { console.warn(`vocabulary: no ${table} word "${w}", using ${fallback}`); return fallback; } return v; }
 function noteToHz(n){ return 440 * Math.pow(2, (n - 69) / 12); }
@@ -249,7 +279,7 @@ function applyEnv(param, t, env, peak, base, exp){
   if (exp) { param.exponentialRampToValueAtTime(Math.max(peak, 1e-3), t + env.a); param.exponentialRampToValueAtTime(Math.max(lo + (peak - lo) * env.s, 1e-3), t + env.a + env.d); }
   else { param.linearRampToValueAtTime(peak, t + env.a); param.linearRampToValueAtTime(lo + (peak - lo) * env.s, t + env.a + env.d); }
 }
-function releaseEnv(param, t, env, base, exp){ param.cancelScheduledValues(t); param.setValueAtTime(param.value, t); if (exp) param.exponentialRampToValueAtTime(Math.max(base, 1e-3), t + env.r); else param.linearRampToValueAtTime(base, t + env.r); }
+function releaseEnv(param, t, env, base, exp){ param.cancelAndHoldAtTime ? param.cancelAndHoldAtTime(t) : param.cancelScheduledValues(t); const tc = Math.max(env.r, 0.02) / 3; param.setTargetAtTime(exp ? Math.max(base, 1e-3) : base, t, tc); }
 
 function noteOn(c, midi, vel, id, when){
   const ac = audio(); const t = when ?? ac.currentTime; const B = c.graph.blocks; const mods = c.graph.modulation || [];
@@ -337,7 +367,7 @@ function noteOn(c, midi, vel, id, when){
 }
 function voiceOff(v, t, already){
   const ac = ctx; for (const e of v.envs) releaseEnv(e.param, t, e.env, e.base, e.exp);
-  const end = t + Math.max(v.ampEnv.r, 0.05) + 0.1;
+  const end = t + Math.max(v.ampEnv.r, 0.05) * 2 + 0.1;   // the target curve needs ~6 time constants (2 × release) to reach silence
   for (const s of Object.values(v.sources)) for (const o of s.oscs) { try { o.stop(end); } catch(e){} }
   setTimeout(() => { for (const n of v.nodes) { try { n.disconnect(); } catch(e){} } }, (end - ac.currentTime) * 1000 + 200);
   for (const id of v.ids) voices.delete(id);
