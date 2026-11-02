@@ -24,9 +24,19 @@ What Semantic Delay's steward cycles taught the page, and the changes to the hou
 
 ## From cycle 10 — 2026-11-01
 
-1. **Proposed for canon** · 2026-11-01 · [[Semantic Delay]] · § Status, its first paragraph · canon change owed *(proposed by the steward, cycle 10)*
+1. **Proposed for canon** · 2026-11-01 · [[Semantic Delay]] · § Status, its first paragraph · superseded by item 3 *(proposed by the steward, cycle 10)*
    Why: the Status still says the next move is putting the real model behind the helper, which landed in October
    Path: `Projects/Semantic Delay.md`
    > Where it stands now is on the [[Semantic Delay — scroll|scroll]]. The real model runs behind the helper, the Python instrument's echoes change voice, and each echo has its own melody knob (helper contract v0.2). The next move is the plugin. Nobody has yet heard an echo from the real model.
 
 - run · 2026-11-01 · cycle 10 · proposed item 1 for canon
+
+## From cycle 11 — 2026-11-01
+
+2. Sing the echo due soonest, not phrase by phrase: with one helper and several phrases in flight, phrase order puts a new phrase's first echo behind an old phrase's last one, and it comes late. *(offered by the steward, cycle 11)*
+3. **Proposed for canon** · 2026-11-01 · [[Semantic Delay]] · § Status, its first paragraph · canon change owed *(proposed by the steward, cycle 11)*
+   Why: the plugin landed this cycle, so the Status I proposed last cycle (next move: the plugin) is already out of date
+   Path: `Projects/Semantic Delay.md`
+   > Where it stands now is on the [[Semantic Delay — scroll|scroll]]. The real model runs behind the helper, each echo has its own melody knob (helper contract v0.2), and the first plugin is built: a VST3 and AU in `plugin/`, whose echoes the real model sings on time in a real-time test. The next move is hearing it in Live, then locking the echoes to the song's tempo.
+
+- run · 2026-11-01 · cycle 11 · taught item 2, proposed item 3 for canon

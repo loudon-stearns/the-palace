@@ -1,0 +1,52 @@
+{
+  "phrases": 2,
+  "late": 0,
+  "helper": true,
+  "coupling": true,
+  "voices": 1,
+  "echoes": [
+    {
+      "phrase": 1,
+      "repeat": 1,
+      "due_s": 19.198,
+      "start_s": 19.198,
+      "late_s": 0.0,
+      "len_s": 6.699
+    },
+    {
+      "phrase": 1,
+      "repeat": 2,
+      "due_s": 31.198,
+      "start_s": 31.198,
+      "late_s": 0.0,
+      "len_s": 6.699
+    },
+    {
+      "phrase": 2,
+      "repeat": 1,
+      "due_s": 25.7,
+      "start_s": 25.7,
+      "late_s": 0.0,
+      "len_s": 4.795
+    },
+    {
+      "phrase": 2,
+      "repeat": 2,
+      "due_s": 37.7,
+      "start_s": 37.7,
+      "late_s": 0.0,
+      "len_s": 4.795
+    }
+  ],
+  "backend": "soulx",
+  "device": "mps",
+  "helper_ready_s": 17.9,
+  "run_wall_s": 42.6,
+  "delay_s": 12.0,
+  "repeats": 2,
+  "hold": 1.0,
+  "letgo": 0.5,
+  "steps": 16,
+  "output_peak": 0.329,
+  "finite": true
+}

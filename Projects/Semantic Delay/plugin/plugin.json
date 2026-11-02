@@ -1,0 +1,26 @@
+{
+  "name": "Semantic Delay",
+  "target": "SemanticDelay",
+  "company": "Loudon Live",
+  "bundle_id": "com.LoudonLive.SemanticDelay",
+  "manufacturer_code": "Loud",
+  "plugin_code": "Smdl",
+  "kind": "effect",
+  "version": "0.1.0",
+  "hostcheck": [
+    "dry=-12"
+  ],
+  "ui": {
+    "width": 900,
+    "height": 600,
+    "min": [
+      900,
+      560
+    ],
+    "max": [
+      1400,
+      900
+    ],
+    "direction": "bench"
+  }
+}
