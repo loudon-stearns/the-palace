@@ -1,0 +1,72 @@
+# Synth Templates — card 0.1 — House Bass
+# One card is the single source: the diagram, the sheet and the reference render are generated from it.
+# Range words come from the archetype registry's perceptual regions (Generative Audio Devices); numbers are avoided
+# so the card stays portable across synths. Essentials make the sound that sound; taste is what you move.
+schema: synth-template-card/0.1
+id: house-bass
+name: House Bass
+family: Bass
+tier: 1
+mode: mono            # mono | poly | mono legato | both
+classics: classic Chicago / French house
+status: drafted       # todo | drafted | rendered | verified
+lineage:
+  - "Generative Audio Devices/pdl-renderer/house_bass.pdl (2026-04-20): saw → resonant LPF with filter-env pluck → VCA"
+concepts:             # names from the concept map in catalog.json (Loudon's synthesis notes)
+  - "Subtractive: rich wave then filter"
+  - "Envelope → filter cutoff (bite; auto-wah with long attack)"
+
+graph:
+  blocks:             # slot ids are the layout grammar; a slot not listed is drawn ghosted
+    osc1:    {kind: oscillator, wave: square, octave: -1}
+    sub:     {kind: oscillator, wave: sine, octave: -2, note: "one octave under osc1"}
+    mix:     {kind: mixer}
+    filter1: {kind: filter, type: lowpass, slope: 24}
+    amp:     {kind: amplifier}
+    fenv:    {kind: envelope, role: filter}
+    aenv:    {kind: envelope, role: amp}
+  audio:              # the signal path, left to right
+    - [osc1, mix]
+    - [sub, mix]
+    - [mix, filter1]
+    - [filter1, amp]
+    - [amp, out]
+  modulation:         # dashed on the diagram; essential routes in ink, taste routes in amber
+    - {from: fenv, to: filter1.cutoff, amount: generous, essential: true}
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: vel,  to: fenv.amount, amount: some, essential: false}
+
+essentials:           # pinned: change one and it stops being a house bass
+  - {block: osc1,    param: wave,      value: square,       why: "hollow odd-harmonic body; the filter shapes it without going thin"}
+  - {block: filter1, param: type,      value: lowpass 24 dB, why: "steep enough that the pluck is a clear open-and-close"}
+  - {block: filter1, param: resonance, value: moderate,     why: "the vowel in the 'ooh'"}
+  - {block: fenv,    param: attack,    value: instant}
+  - {block: fenv,    param: decay,     value: short,        why: "the pluck"}
+  - {block: fenv,    param: sustain,   value: zero,         why: "the pluck lives in the filter, not the amp"}
+  - {block: aenv,    param: attack,    value: fast,         why: "tight but not a click"}
+  - {block: aenv,    param: sustain,   value: held,         why: "the note holds under the closed filter; the body stays"}
+  - {block: mode,    param: voices,    value: mono,         why: "one bass line; no note overlaps"}
+
+taste:                # what you move, as a range; default first
+  - {block: filter1, param: cutoff,  range: "dark – mid",          default: dark}
+  - {block: fenv,    param: amount,  range: "moderate – generous", default: generous}
+  - {block: fenv,    param: decay,   range: "short – medium",      default: short}
+  - {block: sub,     param: level,   range: "off – equal to osc1", default: half}
+  - {block: aenv,    param: decay,   range: "medium – long",       default: medium}
+  - {block: aenv,    param: release, range: "short – medium",      default: short, why: "staccato eighths must not smear"}
+  - {block: filter1, param: drive,   range: "none – light",        default: none}
+  - {block: osc1,    param: glide,   range: "none – short",        default: none}
+
+listening:
+  cue: "Every note opens and shuts in the first instant: 'ooh', not 'aah'. The body stays under it as long as the key is held."
+  ab: "Raise the filter envelope's sustain to full: the pluck vanishes and it becomes a plain square bass. Put it back to zero and the 'ooh' returns."
+
+render:               # the reference audio
+  tempo: 124
+  note: C2
+  velocity: 100
+  pattern: "offbeat eighths, one bar: rest C2 rest C2 rest C2 rest C2, each a 16th long"
+  length_s: 2.0
+
+mappings: {}          # per synth, later: where each block lives in Vital, Serum, Ableton Wavetable
