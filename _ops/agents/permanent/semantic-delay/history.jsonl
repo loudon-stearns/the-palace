@@ -39,3 +39,11 @@
 {"event":"TOOL_CALL","ts":"2026-10-14T21:34:37.586Z","tool":"write_blackboard","args":{"message_id":"semantic-delay-steward-016"},"result":"emitted+validated+appended"}
 {"event":"TOOL_CALL","ts":"2026-10-14T21:34:37.586Z","tool":"write_blackboard","args":{"message_id":"semantic-delay-steward-017"},"result":"emitted+validated+appended"}
 {"event":"CYCLE_COMPLETE","ts":"2026-10-14T21:34:37.586Z","iteration":9,"stop_reason":"end_turn","posted_messages":["semantic-delay-steward-015","semantic-delay-steward-016","semantic-delay-steward-017"],"pending_after":["semantic-delay-steward-017"]}
+{"event":"CYCLE_10_SPAWN","ts":"2026-11-02T03:33:54.889Z","dispatched_by":"bbs-actuator","model":"claude-opus-5-5"}
+{"event":"TOOL_CALL","ts":"2026-11-02T03:33:54.889Z","tool":"write_blackboard","args":{"message_id":"semantic-delay-steward-018"},"result":"emitted+validated+appended"}
+{"event":"TOOL_CALL","ts":"2026-11-02T03:33:54.889Z","tool":"write_blackboard","args":{"message_id":"semantic-delay-steward-019"},"result":"emitted+validated+appended"}
+{"event":"CYCLE_COMPLETE","ts":"2026-11-02T03:33:54.889Z","iteration":10,"stop_reason":"end_turn","posted_messages":["semantic-delay-steward-018","semantic-delay-steward-019"],"pending_after":["semantic-delay-steward-017"]}
+{"event":"PAGE_EDIT","ts":"2026-11-02T03:33:54.889Z","cycle":10,"path":"Projects/Semantic Delay/daemon/RPC-v0.2.md","why":"the helper's code pointed at a description of contract version 0.2 that was never written; the plugin needs a contract on paper"}
+{"event":"PAGE_EDIT","ts":"2026-11-02T03:33:54.889Z","cycle":10,"path":"Projects/Semantic Delay/daemon/README.md","why":"points at the 0.2 contract"}
+{"event":"PAGE_EDIT","ts":"2026-11-02T03:33:54.889Z","cycle":10,"path":"Projects/Semantic Delay/standalone/README.md","why":"records the knob through the helper, late echoes, and the listening sheet"}
+{"event":"PROPOSED_FOR_CANON","ts":"2026-11-02T03:33:54.889Z","cycle":10,"page":"Semantic Delay","path":"Projects/Semantic Delay.md","place":"§ Status, its first paragraph","why":"the Status still says the next move is putting the real model behind the helper, which landed in October","item":1,"ledger":"Projects/Semantic Delay/Semantic Delay — tuning.md"}

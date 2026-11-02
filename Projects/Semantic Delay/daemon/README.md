@@ -93,3 +93,10 @@ unchanged until the Stage 1.5 model wiring lands.
   this daemon over the wire.
 - **No DAW transport sync.** Stage 6.
 - **No streaming.** v0.1 is one-shot phrases; long-phrase streaming is v0.2.
+
+## RPC v0.2 — the melody knob (2026-10-14, documented 2026-11-02)
+
+`convert` may carry an optional `options.coupling = {"k": 0..1, ...}`: at 1 the
+echo sings your melody, at 0 it wanders onto the phrase's scale. A v0.1 client
+is still served. The contract is [RPC-v0.2.md](RPC-v0.2.md);
+`test_rpc_v02_conformance.py` checks it without the model.
