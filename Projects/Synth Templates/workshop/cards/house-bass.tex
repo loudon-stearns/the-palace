@@ -96,6 +96,15 @@
 \node[jack] (amp-out) at (12.599999999999998,0.44999999999999996) {};
 \node[olabel] at (12.519999999999998,0.44999999999999996) {out};
 \begin{scope}
+\draw[ink, line width=1.2pt] (11.865,-0.570) -- (11.865,0.070);
+\draw[inkthree, line width=0.3pt] (11.645,-0.570) -- (11.765,-0.570) (11.965,-0.570) -- (12.085,-0.570);
+\draw[inkthree, line width=0.3pt] (11.645,-0.410) -- (11.765,-0.410) (11.965,-0.410) -- (12.085,-0.410);
+\draw[inkthree, line width=0.3pt] (11.645,-0.250) -- (11.765,-0.250) (11.965,-0.250) -- (12.085,-0.250);
+\draw[inkthree, line width=0.3pt] (11.645,-0.090) -- (11.765,-0.090) (11.965,-0.090) -- (12.085,-0.090);
+\draw[inkthree, line width=0.3pt] (11.645,0.070) -- (11.765,0.070) (11.965,0.070) -- (12.085,0.070);
+\fill[slab, draw=ink, line width=0.6pt] (11.695,-0.178) rectangle (12.035,0.062);
+\draw[ink, line width=0.5pt] (11.695,-0.058) -- (12.035,-0.058);
+\node[font=\tiny, text=inktwo, anchor=north west, inner sep=0pt] at (11.250,-0.650) {level under unity};
 \end{scope}
 \node[block] (fenv) at (3.8,-6.265000000000001) {};
 \node[title] at (fenv.north) {FILTER ENV};

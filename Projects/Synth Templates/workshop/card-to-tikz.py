@@ -106,7 +106,7 @@ def block_sub(b):
 TIME = {"instant": 0.02, "fast": 0.08, "short": 0.2, "medium": 0.4, "slow": 0.6, "long": 0.7, "very slow": 0.85, "very long": 0.9, "gated": 0.1}
 LEVEL = {"zero": 0.0, "low": 0.3, "half": 0.5, "held": 0.72, "full": 1.0}
 
-LEVELS = {"off": 0.0, "quarter": 0.25, "little": 0.25, "half": 0.5, "equal to osc1": 1.0, "equal": 1.0, "full": 1.0, "unity": 1.0}
+LEVELS = {"off": 0.0, "quarter": 0.25, "little": 0.25, "half": 0.5, "equal to osc1": 1.0, "equal": 1.0, "full": 1.0, "unity": 1.0, "under unity": 0.8, "headroom": 0.8}
 def mixer_glyph(ins, level, x, y):
     gx0, gx1, gy0, gy1 = x - 0.15, x + W/2 - 0.12, y - 0.62, y + 0.12
     w = gx1 - gx0; out = []
@@ -179,8 +179,42 @@ def glyph(slot, b, kind, x, y):
         elif pts: out.append(r"\draw[ink, line width=0.7pt] " + " -- ".join(pts) + ";")
         cap = " ".join(str(v) for v in [b.get("rate", ""), "sync" if b.get("sync") else ""] if v)
     elif kind == "fx":
-        chain = b.get("chain", [])
-        if chain: cap = " → ".join(str(c) for c in chain)
+        chain = [str(c) for c in b.get("chain", [])]
+        n = max(len(chain), 1); cw = w / n
+        for i, fxname in enumerate(chain):
+            u0 = i / n; u1 = (i + 1) / n - (0.08 if n > 1 else 0)
+            if fxname == "chorus":      # several sines out of phase with each other
+                for k, (ph, col, lw) in enumerate([(0, "ink", "0.7pt"), (60, "inktwo", "0.5pt"), (120, "inkthree", "0.5pt")]):
+                    out.append(rf"\draw[{col}, line width={lw}] plot[domain={u0:.3f}:{u1:.3f}, samples=30, variable=\u] ({{{gx0:.3f}+\u*{w:.3f}}},{{{gy0:.3f}+({h:.3f})*(0.5+0.38*sin(360*((\u-{u0:.3f})/{(u1-u0):.3f})*2+{ph}))}});")
+            elif fxname == "reverb":    # a decaying tail of reflections
+                import random; rr = random.Random(11)
+                out.append(r"\draw[inkthree, line width=0.3pt] " + P(u0, 0.08) + " -- " + P(u1, 0.08) + ";")
+                for j in range(9):
+                    uu = u0 + (u1 - u0) * (0.05 + 0.9 * j / 8); hh = 0.85 * (0.92 ** (j * 2.2)) * (0.75 + 0.25 * rr.random())
+                    out.append(r"\draw[ink, line width=0.6pt] " + P(uu, 0.08) + " -- " + P(uu, 0.08 + hh) + ";")
+            elif fxname in ("delay", "echo"):
+                out.append(r"\draw[inkthree, line width=0.3pt] " + P(u0, 0.08) + " -- " + P(u1, 0.08) + ";")
+                for j in range(4):
+                    uu = u0 + (u1 - u0) * (0.08 + 0.28 * j); out.append(r"\draw[ink, line width=0.9pt] " + P(uu, 0.08) + " -- " + P(uu, 0.08 + 0.84 * (0.6 ** j)) + ";")
+            elif fxname in ("saturation", "drive", "distortion", "overdrive"):   # a sine that has been soft-clipped
+                out.append(rf"\draw[inkthree, line width=0.3pt] plot[domain={u0:.3f}:{u1:.3f}, samples=30, variable=\u] ({{{gx0:.3f}+\u*{w:.3f}}},{{{gy0:.3f}+({h:.3f})*(0.5+0.42*sin(360*((\u-{u0:.3f})/{(u1-u0):.3f})))}});")
+                out.append(rf"\draw[ink, line width=0.7pt] plot[domain={u0:.3f}:{u1:.3f}, samples=40, variable=\u] ({{{gx0:.3f}+\u*{w:.3f}}},{{{gy0:.3f}+({h:.3f})*(0.5+0.3*tanh(3*sin(360*((\u-{u0:.3f})/{(u1-u0):.3f}))))}});")
+            elif fxname in ("phaser", "flanger"):
+                out.append(rf"\draw[ink, line width=0.7pt] plot[domain={u0:.3f}:{u1:.3f}, samples=40, variable=\u] ({{{gx0:.3f}+\u*{w:.3f}}},{{{gy0:.3f}+({h:.3f})*(0.5+0.4*cos(360*((\u-{u0:.3f})/{(u1-u0):.3f})*3))}});")
+            else:
+                out.append(rf"\node[font=\tiny, text=inktwo] at ({gx0 + (u0+u1)/2*w:.3f},{gy0 + h/2:.3f}) {{{esc(fxname)}}};")
+        if chain: cap = " → ".join(chain)
+    elif kind == "amplifier":           # a vertical mixer fader, cap at the level word
+        lv = LEVELS.get(str(b.get("level", "full")), 0.8)
+        fx_ = gx0 + w * 0.5
+        out.append(rf"\draw[ink, line width=1.2pt] ({fx_:.3f},{gy0 + 0.05:.3f}) -- ({fx_:.3f},{gy1 - 0.05:.3f});")
+        for j in range(5):
+            ty = gy0 + 0.05 + (h - 0.1) * j / 4
+            out.append(rf"\draw[inkthree, line width=0.3pt] ({fx_ - 0.22:.3f},{ty:.3f}) -- ({fx_ - 0.1:.3f},{ty:.3f}) ({fx_ + 0.1:.3f},{ty:.3f}) -- ({fx_ + 0.22:.3f},{ty:.3f});")
+        cy = gy0 + 0.05 + (h - 0.1) * lv
+        out.append(rf"\fill[slab, draw=ink, line width=0.6pt] ({fx_ - 0.17:.3f},{cy - 0.12:.3f}) rectangle ({fx_ + 0.17:.3f},{cy + 0.12:.3f});")
+        out.append(rf"\draw[ink, line width=0.5pt] ({fx_ - 0.17:.3f},{cy:.3f}) -- ({fx_ + 0.17:.3f},{cy:.3f});")
+        if b.get("level"): cap = f"level {b['level']}"
     if cap: out.append(rf"\node[font=\tiny, text=inktwo, anchor=north west, inner sep=0pt] at ({gx0:.3f},{gy0 - 0.03:.3f}) {{{esc(cap)}}};")
     out.append(r"\end{scope}")
     return "\n".join(out)

@@ -44,6 +44,13 @@ Where this is going: a catalog of template cards a learner can program on any so
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="synth-templates-2026-11-02-808-kick" -->
+### 2026-11-02 — Third card, 808 Kick; amp fader and effect glyphs (Loudon)
+
+Loudon: "In the amplifier add an image of a vertical mixer fader, and in the chorus, multiple sine waves out of phase with each other, Fix these as you proceed on to the next card." The amp now draws a vertical fader with its cap at the card's `level` word; the FX block draws one glyph per effect in its chain (chorus as three sines 60° apart, reverb as a decaying tail, delay as repeating impulses, saturation as a sine and its clipped copy, phaser or flanger as a ripple). The third card is `workshop/cards/808-kick.yaml`: mono, a retriggered sine straight into the amp, saturation, out, no mixer and no filter; a one-shot percussive MOD ENV drops the pitch about an octave and a one-shot percussive AMP ENV with release equal to decay shapes the hit; ten essentials, six taste ranges, an A/B (pitch envelope amount zero; amp decay short toward a 909). Its lineage is the `kick` archetype in [[Generative Audio Devices]]'s `archetypes.json`, whose constraint is the same: the pitch fall's decay matches the amp decay. Against the Standing Order *Blocks show their essentials*: the fader covers the amp's level, the mixer's bars cover its input weights; pan is not yet drawn. One gotcha found and kept in the README: YAML reads a bare `on` as a boolean.
+
+_Left rough:_ pan glyph; no audio yet; the Plan is still proposed.
+<!-- /scroll:entry -->
 <!-- scroll:entry id="synth-templates-2026-11-02-no-angles" -->
 ### 2026-11-02 — No angled lines
 

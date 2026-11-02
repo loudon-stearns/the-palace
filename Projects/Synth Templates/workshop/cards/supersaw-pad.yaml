@@ -22,7 +22,7 @@ graph:
     osc2:    {kind: oscillator, wave: saw, octave: -1, unison: 1, note: "one plain saw an octave down for weight"}
     mix:     {kind: mixer}
     filter1: {kind: filter, type: lowpass, slope: 12, resonance: none}
-    amp:     {kind: amplifier}
+    amp:     {kind: amplifier, level: under unity}
     fx:      {kind: fx, chain: [chorus, reverb]}
     aenv:    {kind: envelope, role: amp, shape: {a: slow, d: medium, s: held, r: long}, category: sustaining}
     lfo1:    {kind: lfo, wave: triangle, rate: slow, sync: false}

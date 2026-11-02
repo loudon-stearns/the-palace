@@ -22,7 +22,7 @@ graph:
     sub:     {kind: oscillator, wave: sine, octave: -2, note: "one octave under osc1"}
     mix:     {kind: mixer}
     filter1: {kind: filter, type: lowpass, slope: 24, resonance: moderate}
-    amp:     {kind: amplifier}
+    amp:     {kind: amplifier, level: under unity}
     fenv:    {kind: envelope, role: filter, shape: {a: instant, d: short, s: zero, r: short}, category: percussive}
     aenv:    {kind: envelope, role: amp,    shape: {a: fast, d: medium, s: held, r: short}, category: sustaining}
   audio:              # the signal path, left to right

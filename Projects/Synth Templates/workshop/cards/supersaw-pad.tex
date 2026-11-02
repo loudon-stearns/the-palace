@@ -101,6 +101,15 @@
 \node[jack] (amp-out) at (12.599999999999998,0.44999999999999996) {};
 \node[olabel] at (12.519999999999998,0.44999999999999996) {out};
 \begin{scope}
+\draw[ink, line width=1.2pt] (11.865,-0.570) -- (11.865,0.070);
+\draw[inkthree, line width=0.3pt] (11.645,-0.570) -- (11.765,-0.570) (11.965,-0.570) -- (12.085,-0.570);
+\draw[inkthree, line width=0.3pt] (11.645,-0.410) -- (11.765,-0.410) (11.965,-0.410) -- (12.085,-0.410);
+\draw[inkthree, line width=0.3pt] (11.645,-0.250) -- (11.765,-0.250) (11.965,-0.250) -- (12.085,-0.250);
+\draw[inkthree, line width=0.3pt] (11.645,-0.090) -- (11.765,-0.090) (11.965,-0.090) -- (12.085,-0.090);
+\draw[inkthree, line width=0.3pt] (11.645,0.070) -- (11.765,0.070) (11.965,0.070) -- (12.085,0.070);
+\fill[slab, draw=ink, line width=0.6pt] (11.695,-0.178) rectangle (12.035,0.062);
+\draw[ink, line width=0.5pt] (11.695,-0.058) -- (12.035,-0.058);
+\node[font=\tiny, text=inktwo, anchor=north west, inner sep=0pt] at (11.250,-0.650) {level under unity};
 \end{scope}
 \node[block] (fx) at (15.2,0.0) {};
 \node[title] at (fx.north) {FX};
@@ -111,6 +120,19 @@
 \node[jack] (fx-out) at (16.4,0.44999999999999996) {};
 \node[olabel] at (16.32,0.44999999999999996) {out};
 \begin{scope}
+\draw[ink, line width=0.7pt] plot[domain=0.000:0.420, samples=30, variable=\u] ({15.050+\u*1.230},{-0.620+(0.740)*(0.5+0.38*sin(360*((\u-0.000)/0.420)*2+0))});
+\draw[inktwo, line width=0.5pt] plot[domain=0.000:0.420, samples=30, variable=\u] ({15.050+\u*1.230},{-0.620+(0.740)*(0.5+0.38*sin(360*((\u-0.000)/0.420)*2+60))});
+\draw[inkthree, line width=0.5pt] plot[domain=0.000:0.420, samples=30, variable=\u] ({15.050+\u*1.230},{-0.620+(0.740)*(0.5+0.38*sin(360*((\u-0.000)/0.420)*2+120))});
+\draw[inkthree, line width=0.3pt] (15.665,-0.561) -- (16.182,-0.561);
+\draw[ink, line width=0.6pt] (15.691,-0.561) -- (15.691,-0.018);
+\draw[ink, line width=0.6pt] (15.749,-0.561) -- (15.749,-0.095);
+\draw[ink, line width=0.6pt] (15.807,-0.561) -- (15.807,-0.133);
+\draw[ink, line width=0.6pt] (15.865,-0.561) -- (15.865,-0.246);
+\draw[ink, line width=0.6pt] (15.923,-0.561) -- (15.923,-0.296);
+\draw[ink, line width=0.6pt] (15.981,-0.561) -- (15.981,-0.335);
+\draw[ink, line width=0.6pt] (16.040,-0.561) -- (16.040,-0.394);
+\draw[ink, line width=0.6pt] (16.098,-0.561) -- (16.098,-0.408);
+\draw[ink, line width=0.6pt] (16.156,-0.561) -- (16.156,-0.429);
 \node[font=\tiny, text=inktwo, anchor=north west, inner sep=0pt] at (15.050,-0.650) {chorus → reverb};
 \end{scope}
 \node[settings] at (14.05,-1.0699999999999998) {\textbf{chain chorus then reverb} \\ \textcolor{amber}{reverb small -- huge}};
