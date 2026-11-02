@@ -16,7 +16,7 @@ Colour is provenance: essentials in ink, taste in amber (Drafting Table).
 """
 import sys, yaml, pathlib
 
-PALETTE = {"ink": "1a1916", "inktwo": "3a3a35", "inkthree": "6a6862", "rule": "b8b09a", "amber": "a8730a", "red": "c8261a", "paper": "f0eee5", "slab": "d8d4c6", "ghost": "cfc9b6"}
+PALETTE = {"ink": "1a1916", "inktwo": "3a3a35", "inkthree": "6a6862", "rule": "b8b09a", "amber": "a8730a", "red": "c8261a", "paper": "f0eee5", "slab": "d8d4c6"}
 
 COL = 3.8                      # column pitch
 W, H = 2.4, 1.6                # block size (cm)
@@ -126,17 +126,16 @@ def main(path):
         if slot in PERF:
             A(rf"\node[perf] ({slot}) at ({x},{y}) {{{label}}};")
             continue
-        on = True
-        A(rf"\node[{'block' if on else 'ghost'}] ({slot}) at ({x},{y}) {{}};")
-        A(rf"\node[{'title' if on else 'gtitle'}] at ({slot}.north) {{{label}}};")
+        A(rf"\node[block] ({slot}) at ({x},{y}) {{}};")
+        A(rf"\node[title] at ({slot}.north) {{{label}}};")
         ins, outname = PORTS[kind[slot]]
         for name in ins:
             py = port_y(slot, name, kind[slot])
-            A(rf"\node[{'jack' if on else 'gjack'}] ({slot}-{name}) at ({x - W/2},{py}) {{}};")
-            A(rf"\node[{'plabel' if on else 'gplabel'}] at ({x - W/2 + 0.08},{py}) {{{name}}};")
-        A(rf"\node[{'jack' if on else 'gjack'}] ({slot}-out) at ({x + W/2},{y - 0.1}) {{}};")
-        if on: A(rf"\node[olabel] at ({x + W/2 - 0.08},{y - 0.1}) {{{outname}}};")
-        if on:
+            A(rf"\node[jack] ({slot}-{name}) at ({x - W/2},{py}) {{}};")
+            A(rf"\node[plabel] at ({x - W/2 + 0.08},{py}) {{{name}}};")
+        A(rf"\node[jack] ({slot}-out) at ({x + W/2},{y - 0.1}) {{}};")
+        A(rf"\node[olabel] at ({x + W/2 - 0.08},{y - 0.1}) {{{outname}}};")
+        if True:
             lines = []
             sub = block_sub(blocks.get(slot, {}))
             if sub: lines.append(r"\textbf{" + esc(sub) + "}")
