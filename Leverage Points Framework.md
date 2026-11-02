@@ -27,6 +27,9 @@ links:
   - target: "[[Meadows and Music — Leverage Points]]"
     type: spawned
     label: domain-application
+  - target: "[[Leverage Points Framework — Context]]"
+    type: spawned
+    label: rationale-archive
 forward_vector: "I am mature but underleveraged as a tool. My direction is activation: I want to become the lens Loudon reaches for when any system resists change — asking 'which leverage point is this, and am I pushing at the right level?' I want one worked example from each of the Four Pillars demonstrating leverage-point analysis in practice."
 ---
 
