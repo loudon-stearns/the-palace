@@ -1,6 +1,6 @@
 \documentclass[border=8pt]{standalone}
 \usepackage[T1]{fontenc}\usepackage{helvet}\renewcommand{\familydefault}{\sfdefault}
-\usepackage{tikz}\usetikzlibrary{shapes.geometric, arrows.meta, positioning, calc, backgrounds}
+\usepackage{tikz}\usetikzlibrary{arrows.meta, positioning, calc, backgrounds}
 \definecolor{ink}{HTML}{1a1916}
 \definecolor{inktwo}{HTML}{3a3a35}
 \definecolor{inkthree}{HTML}{6a6862}
@@ -11,53 +11,171 @@
 \definecolor{slab}{HTML}{d8d4c6}
 \definecolor{ghost}{HTML}{cfc9b6}
 \tikzset{
-  >={Stealth[length=2.4mm]},
-  wire/.style={line width=0.7pt, ink},
+  >={Stealth[length=2.2mm]},
+  wire/.style={line width=0.8pt, ink},
   modwire/.style={line width=0.6pt, dashed, ink},
   tastewire/.style={line width=0.6pt, dashed, amber},
-  block/.style={rectangle, draw=ink, line width=0.9pt, fill=slab, minimum width=20mm, minimum height=10mm, inner sep=2pt, align=center, font=\footnotesize\bfseries, text=ink},
-  ghost/.style={rectangle, draw=ghost, line width=0.6pt, dashed, minimum width=20mm, minimum height=10mm, inner sep=2pt, align=center, font=\footnotesize, text=ghost},
-  perf/.style={rectangle, draw=ink, line width=0.7pt, minimum width=20mm, minimum height=7mm, inner sep=2pt, font=\footnotesize, text=ink},
+  gatewire/.style={line width=0.6pt, dotted, ink},
+  block/.style={rectangle, draw=ink, line width=0.9pt, fill=slab, minimum width=2.4cm, minimum height=1.6cm, inner sep=0pt},
+  ghost/.style={rectangle, draw=ghost, line width=0.6pt, dashed, minimum width=2.4cm, minimum height=1.6cm, inner sep=0pt},
+  perf/.style={rectangle, draw=ink, line width=0.7pt, minimum width=2.4cm, minimum height=0.7cm, inner sep=2pt, font=\footnotesize, text=ink},
   perfghost/.style={perf, draw=ghost, text=ghost, dashed, line width=0.5pt},
-  ess/.style={font=\scriptsize, text=ink, align=left, anchor=north west, inner sep=1pt, text width=2.3cm},
-  tst/.style={font=\scriptsize, text=amber, align=left, anchor=north west, inner sep=1pt, text width=2.3cm},
-  tap/.style={circle, fill=ink, minimum size=3.4pt, inner sep=0pt},
+  title/.style={font=\footnotesize\bfseries, text=ink, anchor=north, inner sep=2pt},
+  gtitle/.style={title, text=ghost, font=\footnotesize},
+  jack/.style={circle, draw=ink, fill=paper, line width=0.5pt, minimum size=3.2pt, inner sep=0pt},
+  gjack/.style={jack, draw=ghost},
+  plabel/.style={font=\tiny, text=inktwo, anchor=west, inner sep=1pt},
+  gplabel/.style={plabel, text=ghost},
+  olabel/.style={font=\tiny, text=inktwo, anchor=east, inner sep=1pt},
+  settings/.style={font=\scriptsize, text=ink, align=left, anchor=north west, inner sep=1pt, text width=2.3cm},
 }
 \begin{document}\begin{tikzpicture}
-\begin{scope}[on background layer]\fill[paper] (-1.6,-10.9) rectangle (22.4,3.0);\end{scope}
-\node[block] (osc1) at (0.0,1.9) {OSC 1\\[-1pt]{\scriptsize\mdseries square · -1 oct}};
-\node[ess] at (-1.05,1.2399999999999998) {\textbf{wave square} \\ \textcolor{amber}{glide none -- short}};
-\node[ghost] (osc2) at (0.0,0.0) {OSC 2};
-\node[block] (sub) at (0.0,-1.9) {SUB\\[-1pt]{\scriptsize\mdseries sine · -2 oct}};
-\node[ess] at (-1.05,-2.56) {\textcolor{amber}{level off -- equal to osc1}};
-\node[ghost] (noise) at (0.0,-3.8) {NOISE};
-\node[block] (mix) at (3.6,0.0) {MIX};
-\node[block] (filter1) at (7.2,0.0) {FILTER 1\\[-1pt]{\scriptsize\mdseries lowpass · 24 dB}};
-\node[ess] at (6.15,-0.66) {\textbf{type lowpass 24 dB} \\ \textbf{resonance moderate} \\ \textcolor{amber}{cutoff dark -- mid} \\ \textcolor{amber}{drive none -- light}};
-\node[ghost] (filter2) at (10.8,0.0) {FILTER 2};
-\node[block] (amp) at (14.4,0.0) {AMP};
-\node[ghost] (fx) at (18.0,0.0) {FX};
-\node[ghost] (lfo2) at (0.0,-6.6) {LFO 2};
-\node[ghost] (lfo1) at (3.6,-6.6) {LFO 1};
-\node[block] (fenv) at (7.2,-6.6) {FILTER ENV};
-\node[ess] at (6.15,-7.26) {\textbf{attack instant} \\ \textbf{decay short} \\ \textbf{sustain zero} \\ \textcolor{amber}{amount moderate -- generous} \\ \textcolor{amber}{decay short -- medium}};
-\node[ghost] (menv) at (10.8,-6.6) {MOD ENV};
-\node[block] (aenv) at (14.4,-6.6) {AMP ENV};
-\node[ess] at (13.35,-7.26) {\textbf{attack fast} \\ \textbf{sustain held} \\ \textcolor{amber}{decay medium -- long} \\ \textcolor{amber}{release short -- medium}};
-\node[perf] (key) at (0.0,-9.9) {KEY};
-\node[perf] (vel) at (3.6,-9.9) {VEL};
-\node[perfghost] (wheel) at (7.2,-9.9) {WHEEL};
-\node[perfghost] (at) at (10.8,-9.9) {AFTERTOUCH};
-\node[perf, draw=ink, fill=paper] (out) at (20.8,0.0) {OUT};
-\draw[wire,->] (osc1.east) -- (1.9,1.9) |- (mix.west);
-\draw[wire,->] (sub.east) -- (1.9,-1.9) |- (mix.west);
-\draw[wire,->] (mix.east) -- (filter1.west);
-\draw[wire,->] (filter1.east) -- (amp.west);
-\draw[wire,->] (amp.east) -- (out.west);
-\draw[modwire,->] (fenv.east) -- (8.5,-6.6) -- (8.5,-0.5) node[pos=1, right, font=\tiny, text=ink] {cutoff (generous)} -- (filter1.south east);
-\draw[modwire,->] (aenv.east) -- (15.700000000000001,-6.6) -- (15.700000000000001,-0.5) node[pos=1, right, font=\tiny, text=ink] {level} -- (amp.south east);
-\draw[modwire,->] (key.east) -- (1.3,-9.9) -- (1.3,1.4) node[pos=1, right, font=\tiny, text=ink] {pitch} -- (osc1.south east);
-\draw[tastewire,->] (vel.east) -- (4.9,-9.9) -- (8.5,-9.9) -- (8.5,-7.1) node[pos=1, above right, font=\tiny, text=amber, xshift=-1pt] {amount (some)} -- (fenv.south east);
-\node[anchor=north west, font=\scriptsize, text=inktwo] at (-1.4,2.8) {\textbf{HOUSE BASS} · tier 1 · mono · Bass};
-\node[anchor=north east, font=\tiny, text=inkthree] at (22.2,2.8) {essentials in ink · taste in amber · ghosted = not used};
+\begin{scope}[on background layer]\fill[paper] (-2.2,-13.5) rectangle (24.899999999999995,4.9);\end{scope}
+\node[block] (osc1) at (0.0,2.9) {};
+\node[title] at (osc1.north) {OSC 1};
+\node[jack] (osc1-pitch) at (-1.2,3.1500000000000004) {};
+\node[plabel] at (-1.1199999999999999,3.1500000000000004) {pitch};
+\node[jack] (osc1-shape) at (-1.2,2.7250000000000005) {};
+\node[plabel] at (-1.1199999999999999,2.7250000000000005) {shape};
+\node[jack] (osc1-sync) at (-1.2,2.3000000000000003) {};
+\node[plabel] at (-1.1199999999999999,2.3000000000000003) {sync};
+\node[jack] (osc1-out) at (1.2,2.8) {};
+\node[olabel] at (1.1199999999999999,2.8) {out};
+\node[settings] at (-1.15,1.9799999999999995) {\textbf{-1 oct} \\ \textbf{wave square} \\ \textcolor{amber}{glide none -- short}};
+\node[ghost] (osc2) at (0.0,0.0) {};
+\node[gtitle] at (osc2.north) {OSC 2};
+\node[gjack] (osc2-pitch) at (-1.2,0.25) {};
+\node[gplabel] at (-1.1199999999999999,0.25) {pitch};
+\node[gjack] (osc2-shape) at (-1.2,-0.17500000000000004) {};
+\node[gplabel] at (-1.1199999999999999,-0.17500000000000004) {shape};
+\node[gjack] (osc2-sync) at (-1.2,-0.6000000000000001) {};
+\node[gplabel] at (-1.1199999999999999,-0.6000000000000001) {sync};
+\node[gjack] (osc2-out) at (1.2,-0.1) {};
+\node[block] (sub) at (0.0,-2.9) {};
+\node[title] at (sub.north) {SUB};
+\node[jack] (sub-pitch) at (-1.2,-2.6499999999999995) {};
+\node[plabel] at (-1.1199999999999999,-2.6499999999999995) {pitch};
+\node[jack] (sub-shape) at (-1.2,-3.0749999999999993) {};
+\node[plabel] at (-1.1199999999999999,-3.0749999999999993) {shape};
+\node[jack] (sub-sync) at (-1.2,-3.4999999999999996) {};
+\node[plabel] at (-1.1199999999999999,-3.4999999999999996) {sync};
+\node[jack] (sub-out) at (1.2,-3.0) {};
+\node[olabel] at (1.1199999999999999,-3.0) {out};
+\node[settings] at (-1.15,-3.8200000000000003) {\textbf{-2 oct} \\ \textcolor{amber}{level off -- equal to osc1}};
+\node[ghost] (noise) at (0.0,-5.8) {};
+\node[gtitle] at (noise.north) {NOISE};
+\node[gjack] (noise-pitch) at (-1.2,-5.55) {};
+\node[gplabel] at (-1.1199999999999999,-5.55) {pitch};
+\node[gjack] (noise-shape) at (-1.2,-5.975) {};
+\node[gplabel] at (-1.1199999999999999,-5.975) {shape};
+\node[gjack] (noise-sync) at (-1.2,-6.4) {};
+\node[gplabel] at (-1.1199999999999999,-6.4) {sync};
+\node[gjack] (noise-out) at (1.2,-5.8999999999999995) {};
+\node[block] (mix) at (3.8,0.0) {};
+\node[title] at (mix.north) {MIX};
+\node[jack] (mix-in) at (2.5999999999999996,0.25) {};
+\node[plabel] at (2.6799999999999997,0.25) {in};
+\node[jack] (mix-out) at (5.0,-0.1) {};
+\node[olabel] at (4.92,-0.1) {out};
+\node[block] (filter1) at (7.6,0.0) {};
+\node[title] at (filter1.north) {FILTER 1};
+\node[jack] (filter1-in) at (6.3999999999999995,0.25) {};
+\node[plabel] at (6.4799999999999995,0.25) {in};
+\node[jack] (filter1-cutoff) at (6.3999999999999995,-0.03333333333333338) {};
+\node[plabel] at (6.4799999999999995,-0.03333333333333338) {cutoff};
+\node[jack] (filter1-res) at (6.3999999999999995,-0.31666666666666676) {};
+\node[plabel] at (6.4799999999999995,-0.31666666666666676) {res};
+\node[jack] (filter1-drive) at (6.3999999999999995,-0.6000000000000001) {};
+\node[plabel] at (6.4799999999999995,-0.6000000000000001) {drive};
+\node[jack] (filter1-out) at (8.799999999999999,-0.1) {};
+\node[olabel] at (8.719999999999999,-0.1) {out};
+\node[settings] at (6.449999999999999,-0.92) {\textbf{type lowpass 24 dB} \\ \textbf{resonance moderate} \\ \textcolor{amber}{cutoff dark -- mid} \\ \textcolor{amber}{drive none -- light}};
+\node[ghost] (filter2) at (11.399999999999999,0.0) {};
+\node[gtitle] at (filter2.north) {FILTER 2};
+\node[gjack] (filter2-in) at (10.2,0.25) {};
+\node[gplabel] at (10.28,0.25) {in};
+\node[gjack] (filter2-cutoff) at (10.2,-0.03333333333333338) {};
+\node[gplabel] at (10.28,-0.03333333333333338) {cutoff};
+\node[gjack] (filter2-res) at (10.2,-0.31666666666666676) {};
+\node[gplabel] at (10.28,-0.31666666666666676) {res};
+\node[gjack] (filter2-drive) at (10.2,-0.6000000000000001) {};
+\node[gplabel] at (10.28,-0.6000000000000001) {drive};
+\node[gjack] (filter2-out) at (12.599999999999998,-0.1) {};
+\node[block] (amp) at (15.2,0.0) {};
+\node[title] at (amp.north) {AMP};
+\node[jack] (amp-in) at (14.0,0.25) {};
+\node[plabel] at (14.08,0.25) {in};
+\node[jack] (amp-level) at (14.0,-0.17500000000000004) {};
+\node[plabel] at (14.08,-0.17500000000000004) {level};
+\node[jack] (amp-pan) at (14.0,-0.6000000000000001) {};
+\node[plabel] at (14.08,-0.6000000000000001) {pan};
+\node[jack] (amp-out) at (16.4,-0.1) {};
+\node[olabel] at (16.32,-0.1) {out};
+\node[ghost] (fx) at (19.0,0.0) {};
+\node[gtitle] at (fx.north) {FX};
+\node[gjack] (fx-in) at (17.8,0.25) {};
+\node[gplabel] at (17.88,0.25) {in};
+\node[gjack] (fx-mix) at (17.8,-0.6000000000000001) {};
+\node[gplabel] at (17.88,-0.6000000000000001) {mix};
+\node[gjack] (fx-out) at (20.2,-0.1) {};
+\node[ghost] (lfo1) at (0.0,-9.0) {};
+\node[gtitle] at (lfo1.north) {LFO 1};
+\node[gjack] (lfo1-rate) at (-1.2,-8.75) {};
+\node[gplabel] at (-1.1199999999999999,-8.75) {rate};
+\node[gjack] (lfo1-depth) at (-1.2,-9.6) {};
+\node[gplabel] at (-1.1199999999999999,-9.6) {depth};
+\node[gjack] (lfo1-out) at (1.2,-9.1) {};
+\node[block] (fenv) at (3.8,-9.0) {};
+\node[title] at (fenv.north) {FILTER ENV};
+\node[jack] (fenv-gate) at (2.5999999999999996,-8.75) {};
+\node[plabel] at (2.6799999999999997,-8.75) {gate};
+\node[jack] (fenv-amount) at (2.5999999999999996,-9.6) {};
+\node[plabel] at (2.6799999999999997,-9.6) {amount};
+\node[jack] (fenv-out) at (5.0,-9.1) {};
+\node[olabel] at (4.92,-9.1) {env};
+\node[settings] at (2.6499999999999995,-9.92) {\textbf{attack instant} \\ \textbf{decay short} \\ \textbf{sustain zero} \\ \textcolor{amber}{amount moderate -- generous} \\ \textcolor{amber}{decay short -- medium}};
+\node[ghost] (menv) at (7.6,-9.0) {};
+\node[gtitle] at (menv.north) {MOD ENV};
+\node[gjack] (menv-gate) at (6.3999999999999995,-8.75) {};
+\node[gplabel] at (6.4799999999999995,-8.75) {gate};
+\node[gjack] (menv-amount) at (6.3999999999999995,-9.6) {};
+\node[gplabel] at (6.4799999999999995,-9.6) {amount};
+\node[gjack] (menv-out) at (8.799999999999999,-9.1) {};
+\node[block] (aenv) at (11.399999999999999,-9.0) {};
+\node[title] at (aenv.north) {AMP ENV};
+\node[jack] (aenv-gate) at (10.2,-8.75) {};
+\node[plabel] at (10.28,-8.75) {gate};
+\node[jack] (aenv-amount) at (10.2,-9.6) {};
+\node[plabel] at (10.28,-9.6) {amount};
+\node[jack] (aenv-out) at (12.599999999999998,-9.1) {};
+\node[olabel] at (12.519999999999998,-9.1) {env};
+\node[settings] at (10.25,-9.92) {\textbf{attack fast} \\ \textbf{sustain held} \\ \textcolor{amber}{decay medium -- long} \\ \textcolor{amber}{release short -- medium}};
+\node[ghost] (lfo2) at (15.2,-9.0) {};
+\node[gtitle] at (lfo2.north) {LFO 2};
+\node[gjack] (lfo2-rate) at (14.0,-8.75) {};
+\node[gplabel] at (14.08,-8.75) {rate};
+\node[gjack] (lfo2-depth) at (14.0,-9.6) {};
+\node[gplabel] at (14.08,-9.6) {depth};
+\node[gjack] (lfo2-out) at (16.4,-9.1) {};
+\node[perf] (key) at (0.0,-12.5) {KEY};
+\node[perf] (vel) at (3.8,-12.5) {VEL};
+\node[perfghost] (wheel) at (7.6,-12.5) {WHEEL};
+\node[perfghost] (at) at (11.399999999999999,-12.5) {AFTERTOUCH};
+\node[perf, fill=paper] (out) at (22.799999999999997,0.0) {OUT}; \node[jack] (out-in) at (21.599999999999998,0.0) {};
+\draw[wire,->] (osc1-out) -- (1.75,2.9) |- (mix-in);
+\draw[wire,->] (sub-out) -- (1.75,-2.9) |- (mix-in);
+\draw[wire,->] (mix-out) -- (filter1-in);
+\draw[wire,->] (filter1-out) -- (amp-in);
+\draw[wire,->] (amp-out) -- (out-in);
+\draw[modwire,->] (fenv-out) -- (5.45,-9.0) -- (5.45,-7.1) -- (5.85,-7.1) -- (5.85,-0.03333333333333338) -- (filter1-cutoff);
+\node[font=\tiny, text=ink, anchor=south, inner sep=1pt, rotate=90] at (5.7299999999999995,-3.5666666666666664) {generous};
+\draw[modwire,->] (aenv-out) -- (13.049999999999997,-9.0) -- (13.049999999999997,-7.1) -- (13.45,-7.1) -- (13.45,-0.17500000000000004) -- (amp-level);
+\draw[modwire,->] (key.east) -- (1.65,-12.5) -- (1.65,-11.2) -- (-1.75,-11.2) -- (-1.75,3.1500000000000004) -- (osc1-pitch);
+\draw[modwire,->] (key.east) -- (1.65,-12.5) -- (1.65,-11.2) -- (-1.75,-11.2) -- (-1.75,-2.6499999999999995) -- (sub-pitch);
+\draw[gatewire,->] (key.east) -- (1.65,-12.5) -- (1.65,-11.2) -- (2.05,-11.2) -- (2.05,-8.75) -- (fenv-gate);
+\draw[gatewire,->] (key.east) -- (1.65,-12.5) -- (1.65,-11.2) -- (9.649999999999999,-11.2) -- (9.649999999999999,-8.75) -- (aenv-gate);
+\draw[tastewire,->] (vel.east) -- (5.45,-12.5) -- (5.45,-11.2) -- (2.05,-11.2) -- (2.05,-9.6) -- (fenv-amount);
+\node[font=\tiny, text=amber, anchor=south, inner sep=1pt, rotate=90] at (1.9299999999999997,-10.399999999999999) {some};
+\node[anchor=north west, font=\scriptsize, text=inktwo] at (-2.0,4.7) {\textbf{HOUSE BASS} · tier 1 · mono · Bass};
+\node[anchor=north east, font=\tiny, text=inkthree] at (24.699999999999996,4.7) {inputs left, outputs right · audio solid · CV dashed · gate dotted · essentials in ink · taste in amber · ghosted = not used};
 \end{tikzpicture}\end{document}
