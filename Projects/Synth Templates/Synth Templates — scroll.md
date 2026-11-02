@@ -46,6 +46,13 @@ Where this is going: a website generated from the cards, a catalog to choose fro
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="synth-templates-2026-11-02-silent-sliders" -->
+### 2026-11-02 — Sliders are silent (Loudon)
+
+Loudon: "This is working FAR better, next tweak, don't play the sound automatically when I adjust a parameter." `build-site.py` drops the slider's change handler that played the rung; a slider only moves the number, and nothing sounds until a hear button is pressed. Site rebuilt.
+
+_Left rough:_ nothing.
+<!-- /scroll:entry -->
 <!-- scroll:entry id="synth-templates-2026-11-02-hear-as-keys" -->
 ### 2026-11-02 — Hear buttons as keys: the attack on the press, the release on the lift (Loudon)
 
