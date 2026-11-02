@@ -47,6 +47,11 @@ Where this is going: a website generated from the cards, a catalog to choose fro
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="synth-templates-2026-11-02-moog-deposit" -->
+### 2026-11-02 — The envelope-curve findings deposited (Loudon)
+
+What this project learned about the Moog contour, the ease-in naming clash and curve shape as a confound on heard time was folded into [[Exponential Decay Curvature]] on Loudon's word ("Id like to fold into Exponential decay curvature"): D-2026-11-02-MOOGCURVE, landed on main as `f5e8769e`, with a reciprocal link back to this project. The earlier entry's left-rough line, that the DH-ADSR manual could not be reached and is not cited, is settled: it was reached today, its sentences verified by three readers from the PDF's text, and the deposit cites it.
+<!-- /scroll:entry -->
 <!-- scroll:entry id="synth-templates-2026-11-02-moog-curve" -->
 ### 2026-11-02 — The Moog curve: research, a mismatch found, the standard set, the time table reset (Loudon)
 
