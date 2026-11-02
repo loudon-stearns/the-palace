@@ -47,6 +47,13 @@ Where this is going: a website generated from the cards, a catalog to choose fro
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="synth-templates-2026-11-02-linear-matched" -->
+### 2026-11-02 — Second sitting: the linear table matched by ear to the Moog table (Loudon)
+
+Loudon exported again. His words: "So I now made linear sound perceptually the same," and, asked to what, "to moog." `workshop/vocabulary.yaml` is draft 0.5. The Moog `time` table, re-sat as attack in the same export: instant 0.001 s, fast 0.0154, short 0.0499, medium 0.336, slow 1.41, long 3.16, very slow 4.18, very long 5; gated not moved. The linear `time_linear` table, sat as attack to sound the same word for word as the Moog table: instant 0.00112, fast 0.01, short 0.0661, medium 0.35, slow 0.9, long 1.6, very slow 2.5, very long 4.4; gated not moved. Worth keeping: at the long end the linear number sits well under the Moog number for the same perceived attack (long 1.6 against 3.16), because the Moog curve spends its last stretch creeping toward full while the ear has already heard the note arrive; at the fast end the two nearly meet. That gap is the first measured difference between the two curves the Standing Order set up as tests. Site rebuilt.
+
+_Left rough:_ decay and release are still unsat on both curves; every other table is still ASSUMED.
+<!-- /scroll:entry -->
 <!-- scroll:entry id="synth-templates-2026-11-02-moog-attack-heard" -->
 ### 2026-11-02 — The Moog time table heard, as attack (Loudon)
 
