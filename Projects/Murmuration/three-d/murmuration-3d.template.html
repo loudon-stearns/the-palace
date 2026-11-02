@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Murmuration — the flock in three dimensions</title>
+<!--
+  MURMURATION 3D · the same engine as Murmuration.html, seen from the air.
+  Built by build_3d.js, which inlines engine/murmur_engine.js and engine/field_reading.js
+  unchanged, so the flock drawn here is the flock the renders came from.
+
+  What each dimension carries (every one is data, nothing is decoration):
+    ground       — the wavetable terrain. Height = how bright the waveform at (u,v) is
+                   (rms of its slope over rms of the wave); colour = which corner it leans to
+                   (sine blue · saw amber · square rose · bell green).
+    a bird's     — x,y = where it walks the terrain (the timbre it reads).
+    altitude     — how steady its course has been over the last quarter second, the same
+                   number that sets its grain length in the "order" mapping: steady birds
+                   fly high and sing long tonal grains, tumbling birds skim the ground and
+                   click. So the order→disorder transition is seen as the flock lifting off
+                   as one sheet, or sinking into churn.
+    white flash  — alarm (the startle wave).
+    pillars      — "Listen by: density": the 40 pad cells, height = level, hue = pitch class.
+    sky          — clears as order φ rises, hazes as it falls.
+  Drag to orbit. Click (without dragging) to strike: the predator lands where you click.
+  No library: canvas 2D with its own projection, so it runs sandboxed.
+-->
+<style>
+  :root { --bg:#0b0d12; --fg:#e8e6df; --dim:#8b8a85; --line:#2a2d36; --acc:#e9b45a; }
+  html,body { margin:0; height:100%; background:var(--bg); color:var(--fg); font:13px/1.4 ui-monospace,Menlo,monospace; overflow:hidden; }
+  canvas { display:block; width:100vw; height:100vh; cursor:crosshair; }
+  #ui { position:fixed; left:12px; top:12px; width:230px; background:rgba(11,13,18,.78); border:1px solid var(--line); border-radius:6px; padding:10px 12px; }
+  #ui h1 { font-size:12px; letter-spacing:.12em; text-transform:uppercase; margin:0 0 8px; color:var(--acc); font-weight:600; }
+  #ui label { display:flex; justify-content:space-between; color:var(--dim); font-size:11px; text-transform:uppercase; letter-spacing:.05em; margin-top:8px; }
+  #ui input[type=range] { width:100%; }
+  #ui select, #ui button { width:100%; margin-top:4px; background:#141720; color:var(--fg); border:1px solid var(--line); border-radius:4px; font:inherit; padding:4px; }
+  #ui button.on { border-color:var(--acc); color:var(--acc); }
+  #hud { position:fixed; right:12px; top:12px; text-align:right; color:var(--dim); font-size:12px; }
+  #hud b { color:var(--fg); font-weight:600; }
+  #legend { position:fixed; left:12px; bottom:10px; color:var(--dim); font-size:11px; max-width:620px; }
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div id="ui">
+  <h1>Murmuration · 3D</h1>
+  <button id="bSound">sound on</button>
+  <button id="bDemo" class="on">demo: playing itself</button>
+  <label>Disorder η <span id="vEta">0.06</span></label>
+  <input id="cEta" type="range" min="0" max="1" step="0.001" value="0.49">
+  <label>Listen by</label>
+  <select id="cMap"><option value="order">grains — every bird a grain</option><option value="density">density — the breathing pad</option></select>
+  <label>Birds</label>
+  <select id="cN"><option>60</option><option>120</option><option>240</option></select>
+  <label>Camera</label>
+  <select id="cCam"><option value="orbit">slow orbit</option><option value="still">hold still</option><option value="low">low, among the flock</option></select>
+</div>
+<div id="hud"></div>
+<div id="legend">ground = the wavetable (height: brightness · colour: sine / saw / square / bell) · altitude = how steady a bird's course is = how long its grains sing · white = alarmed · drag to orbit · click to strike</div>
+
+<script>
+"use strict";
+/*__ENGINE__*/
+
+const { Flock, mapBoids, WIDTH, HEIGHT, MAX_SPEED } = E;
+const { mapField, FNC, FGX, FGY } = FR;
+
+/* ------------------------------------------------------------------ terrain */
+const GX = 46, GY = 26, WW = 9.2, WH = 5.2;               // grid cells; world size (units)
+const CORN = (() => { const c = buildCornersSmall(256); return c; })();
+function buildCornersSmall(n) {
+  const TL = new Float32Array(n), TR = new Float32Array(n), BL = new Float32Array(n), BR = new Float32Array(n);
+  for (let i = 0; i < n; i++) { const ph = i / n, t = ph * 2 * Math.PI; TL[i] = Math.sin(t); TR[i] = 2 * ph - 1; BL[i] = ph < 0.5 ? 1 : -1; BR[i] = 0.6 * Math.sin(t) + 0.4 * Math.sin(2.76 * t) + 0.28 * Math.sin(5.4 * t) + 0.18 * Math.sin(8.93 * t); }
+  let mx = 0; for (let i = 0; i < n; i++) mx = Math.max(mx, Math.abs(BR[i])); for (let i = 0; i < n; i++) BR[i] /= mx;
+  return { TL, TR, BL, BR, n };
+}
+function brightness(u, v) {                                 // rms(slope)/rms(wave) of the blended cycle
+  const { TL, TR, BL, BR, n } = CORN; let s = 0, d = 0, prev = null, first = null;
+  for (let i = 0; i < n; i++) { const top = TL[i] + u * (TR[i] - TL[i]), bot = BL[i] + u * (BR[i] - BL[i]), w = top + v * (bot - top); s += w * w; if (prev !== null) d += (w - prev) * (w - prev); else first = w; prev = w; }
+  d += (first - prev) * (first - prev);
+  return Math.sqrt(d / n) / (Math.sqrt(s / n) + 1e-9);
+}
+const CC = { TL: [86, 156, 255], TR: [240, 176, 74], BL: [232, 98, 132], BR: [96, 214, 150] };
+function terrainColour(u, v) { const c = []; for (let k = 0; k < 3; k++) { const top = CC.TL[k] + u * (CC.TR[k] - CC.TL[k]), bot = CC.BL[k] + u * (CC.BR[k] - CC.BL[k]); c.push(top + v * (bot - top)); } return c; }
+const H = new Float32Array((GX + 1) * (GY + 1)); let hMax = 0;
+for (let j = 0; j <= GY; j++) for (let i = 0; i <= GX; i++) { const b = brightness(i / GX, j / GY); H[j * (GX + 1) + i] = b; hMax = Math.max(hMax, b); }
+let hMin = Infinity; for (let k = 0; k < H.length; k++) hMin = Math.min(hMin, H[k]);
+for (let k = 0; k < H.length; k++) H[k] = 1.1 * Math.pow((H[k] - hMin) / (hMax - hMin), 1.1);   // world height of the ground
+function groundAt(u, v) { const x = Math.min(GX - 1e-6, Math.max(0, u * GX)), y = Math.min(GY - 1e-6, Math.max(0, v * GY)); const i = x | 0, j = y | 0, fx = x - i, fy = y - j, k = j * (GX + 1) + i; const a = H[k] + fx * (H[k + 1] - H[k]), b = H[k + GX + 1] + fx * (H[k + GX + 2] - H[k + GX + 1]); return a + fy * (b - a); }
+function toWorld(px, py) { return [(px / WIDTH - 0.5) * WW, (py / HEIGHT - 0.5) * WH]; }
+
+/* ------------------------------------------------------------------ camera */
+const cv = document.getElementById('c'), g = cv.getContext('2d');
+let DPR = 1, VW = 0, VH = 0;
+function resize() { DPR = Math.min(2, window.devicePixelRatio || 1); VW = cv.clientWidth; VH = cv.clientHeight; cv.width = VW * DPR; cv.height = VH * DPR; g.setTransform(DPR, 0, 0, DPR, 0, 0); }
+window.addEventListener('resize', resize); resize();
+const cam = { yaw: -0.55, pitch: 0.5, dist: 14, tz: 0.9 };
+let camBasis;
+function setCam() {
+  const cy = Math.cos(cam.yaw), sy = Math.sin(cam.yaw), cp = Math.cos(cam.pitch), sp = Math.sin(cam.pitch);
+  const eye = [cam.dist * cp * sy, -cam.dist * cp * cy, cam.tz + cam.dist * sp];
+  const tgt = [0, 0, cam.tz * 0.5], f = norm(sub(tgt, eye)), r = norm(cross(f, [0, 0, 1])), u = cross(r, f);
+  camBasis = { eye, f, r, u, foc: 1.25 * Math.min(VW, VH * 1.6) };
+}
+function sub(a, b) { return [a[0] - b[0], a[1] - b[1], a[2] - b[2]]; }
+function cross(a, b) { return [a[1] * b[2] - a[2] * b[1], a[2] * b[0] - a[0] * b[2], a[0] * b[1] - a[1] * b[0]]; }
+function dot(a, b) { return a[0] * b[0] + a[1] * b[1] + a[2] * b[2]; }
+function norm(a) { const n = Math.hypot(a[0], a[1], a[2]) || 1; return [a[0] / n, a[1] / n, a[2] / n]; }
+function proj(x, y, z) { const { eye, f, r, u, foc } = camBasis; const d = [x - eye[0], y - eye[1], z - eye[2]], zc = dot(d, f); if (zc < 0.1) return null; return [VW / 2 + foc * dot(d, r) / zc, VH / 2 - foc * dot(d, u) / zc, zc]; }
+function pickGround(sx, sy) {                                  // ray from the eye through the pixel, onto the ground plane
+  const { eye, f, r, u, foc } = camBasis; const dx = (sx - VW / 2) / foc, dy = -(sy - VH / 2) / foc;
+  const dir = norm([f[0] + r[0] * dx + u[0] * dy, f[1] + r[1] * dx + u[1] * dy, f[2] + r[2] * dx + u[2] * dy]);
+  let t = (0.3 - eye[2]) / dir[2]; if (!(t > 0)) return null;
+  for (let it = 0; it < 4; it++) { const x = eye[0] + dir[0] * t, y = eye[1] + dir[1] * t; const gz = groundAt(x / WW + 0.5, y / WH + 0.5); t = (gz - eye[2]) / dir[2]; }
+  const x = eye[0] + dir[0] * t, y = eye[1] + dir[1] * t; if (Math.abs(x) > WW / 2 || Math.abs(y) > WH / 2) return null;
+  return [(x / WW + 0.5) * WIDTH, (y / WH + 0.5) * HEIGHT];
+}
+
+/* ------------------------------------------------------------------ the flock */
+const P = { N: 60, sep: 1.5, ali: 1.0, coh: 1.0, eta: 0.06, base: 110, pitch: 19, map: 'order', startle: true };
+const etaOfX = x => 0.25 * x * x;                               // = Murmuration.html: the knee sits mid-slider
+let flock, mem, fmem, trails;
+function reset(n) { P.N = n; flock = new Flock(n); mem = {}; fmem = {}; trails = flock.boids.map(() => []); }
+reset(60);
+let demo = true, tDemo = 0, strikes = [];
+
+/* ------------------------------------------------------------------ audio (the engine's own Grains and Field, in a worklet) */
+let ac = null, node = null;
+async function startAudio() {
+  ac = new (window.AudioContext || window.webkitAudioContext)({ sampleRate: 48000 });
+  const src = document.getElementById('engineSrc').textContent + `
+    class MurmProc extends AudioWorkletProcessor {
+      constructor() { super(); this.gr = new E.Grains(sampleRate); this.fd = new FR.Field(sampleRate); this.mode = 'order';
+        this.port.onmessage = e => { const d = e.data; if (d.type === 'grains') { this.mode = 'order'; this.gr.setFlock(new Float32Array(d.buf), d.n); } else { this.mode = 'density'; this.fd.setField(new Float32Array(d.buf), d.n, d.base); } }; }
+      process(_, outs) { const o = outs[0]; if (!o[1]) return true; (this.mode === 'order' ? this.gr : this.fd).process(o[0], o[1], o[0].length); return true; }
+    }
+    registerProcessor('murm', MurmProc);`;
+  await ac.audioWorklet.addModule(URL.createObjectURL(new Blob([src], { type: 'application/javascript' })));
+  node = new AudioWorkletNode(ac, 'murm', { outputChannelCount: [2] });
+  const comp = ac.createDynamicsCompressor(), gain = ac.createGain(); gain.gain.value = 0.8;
+  node.connect(comp).connect(gain).connect(ac.destination);
+}
+
+/* ------------------------------------------------------------------ frame */
+let alt = new Float32Array(240), lastField = null, phiS = 0.1;
+function step() {
+  if (demo) {                                                    // a 48-second performance: melt, crystallise, strike, melt
+    tDemo += 1 / 60; const t = tDemo % 48;
+    const x = t < 8 ? 0.95 : t < 18 ? 0.95 - 0.9 * (t - 8) / 10 : t < 38 ? 0.05 : 0.05 + 0.9 * (t - 38) / 10;
+    P.eta = etaOfX(x); document.getElementById('cEta').value = x; document.getElementById('vEta').textContent = P.eta.toFixed(3);
+    for (const s of [22, 29, 34]) if (Math.abs(t - s) < 0.5 / 60) strike(s === 29 ? 0.25 * WIDTH : 0.55 * WIDTH, s === 29 ? 0.3 * HEIGHT : 0.5 * HEIGHT);
+  }
+  flock.step({ sep: P.sep, ali: P.ali, coh: P.coh, eta: P.eta, startle: P.startle });
+  const f = mapBoids(flock.boids, { mapping: 'order', base: P.base, pitch: P.pitch, startle: true }, mem);
+  const B = flock.boids;
+  for (let i = 0; i < B.length; i++) {                           // altitude follows the grain-length steadiness
+    const pers = Math.min(1, Math.hypot(mem.hx[i], mem.hy[i])), q = Math.pow(pers, 6);
+    alt[i] += 0.12 * (0.18 + 1.6 * q - alt[i]);
+    const tr = trails[i]; tr.push([B[i].x, B[i].y, alt[i]]); if (tr.length > 14) tr.shift();
+  }
+  if (P.map === 'density') lastField = mapField(B, fmem, true);
+  if (node) {
+    if (P.map === 'density') node.port.postMessage({ type: 'field', buf: lastField.slice().buffer, n: FNC, base: P.base });
+    else node.port.postMessage({ type: 'grains', buf: f.buffer, n: B.length }, [f.buffer]);
+  }
+  phiS += 0.05 * (flock.polarization() - phiS);
+}
+function strike(x, y) { flock.field.predator = { x, y }; flock.field.predT = 1; strikes.push({ x, y, t: 0 }); }
+
+function draw() {
+  if (document.getElementById('cCam').value === 'orbit' && !dragging) cam.yaw += 0.0011;
+  if (document.getElementById('cCam').value === 'low') { cam.pitch += 0.05 * (0.2 - cam.pitch); cam.dist += 0.05 * (9 - cam.dist); } else { cam.dist += 0.05 * (14 - cam.dist); }
+  setCam();
+  // sky: clears with order
+  const haze = 1 - Math.min(1, phiS);
+  const sky = g.createLinearGradient(0, 0, 0, VH);
+  sky.addColorStop(0, `rgb(${10 + 30 * haze},${14 + 24 * haze},${28 + 14 * haze})`); sky.addColorStop(1, `rgb(${18 + 40 * haze},${20 + 34 * haze},${26 + 22 * haze})`);
+  g.fillStyle = sky; g.fillRect(0, 0, VW, VH);
+  // ground: quads far → near, lambert-lit
+  const L = norm([-0.4, -0.5, 0.75]), quads = [];
+  for (let j = 0; j < GY; j++) for (let i = 0; i < GX; i++) {
+    const k = j * (GX + 1) + i, xs = [i, i + 1, i + 1, i], ys = [j, j, j + 1, j + 1], hs = [H[k], H[k + 1], H[k + GX + 2], H[k + GX + 1]], pts = [];
+    let zs = 0, ok = true;
+    for (let q = 0; q < 4; q++) { const p = proj((xs[q] / GX - 0.5) * WW, (ys[q] / GY - 0.5) * WH, hs[q]); if (!p) { ok = false; break; } pts.push(p); zs += p[2]; }
+    if (!ok) continue;
+    const nx = -(hs[1] - hs[0] + hs[2] - hs[3]) * 0.5 / (WW / GX), ny = -(hs[3] - hs[0] + hs[2] - hs[1]) * 0.5 / (WH / GY), n = norm([nx, ny, 1]);
+    quads.push({ pts, z: zs / 4, c: terrainColour((i + 0.5) / GX, (j + 0.5) / GY), l: 0.35 + 0.65 * Math.max(0, dot(n, L)) });
+  }
+  quads.sort((a, b) => b.z - a.z);
+  for (const q of quads) {
+    const fog = Math.min(1, Math.max(0, (q.z - 6) / 12)) * (0.4 + 0.5 * haze), c = q.c.map(v => v * q.l * 0.85 * (1 - fog) + 30 * fog);
+    g.fillStyle = `rgb(${c[0] | 0},${c[1] | 0},${c[2] | 0})`; g.strokeStyle = `rgba(0,0,0,.18)`;
+    g.beginPath(); g.moveTo(q.pts[0][0], q.pts[0][1]); for (let s = 1; s < 4; s++) g.lineTo(q.pts[s][0], q.pts[s][1]); g.closePath(); g.fill(); g.stroke();
+  }
+  // strike rings on the ground
+  for (const s of strikes) {
+    s.t += 1 / 60; const [wx, wy] = toWorld(s.x, s.y), R = 0.2 + 3.2 * s.t, a = Math.max(0, 1 - s.t / 1.4);
+    g.strokeStyle = `rgba(255,255,255,${a * 0.8})`; g.lineWidth = 1.5; g.beginPath();
+    for (let k = 0; k <= 48; k++) { const th = k / 48 * 2 * Math.PI, x = wx + R * Math.cos(th), y = wy + R * 0.565 * Math.sin(th), p = proj(x, y, groundAt(x / WW + 0.5, y / WH + 0.5) + 0.02); if (p) k ? g.lineTo(p[0], p[1]) : g.moveTo(p[0], p[1]); }
+    g.stroke();
+  }
+  strikes = strikes.filter(s => s.t < 1.4);
+  // pad pillars
+  const items = [];
+  if (P.map === 'density' && lastField) for (let c = 0; c < FNC; c++) {
+    const u = lastField[c * 4], v = lastField[c * 4 + 1], lv = lastField[c * 4 + 2], pc = lastField[c * 4 + 3], [wx, wy] = toWorld(u * WIDTH, v * HEIGHT), gz = groundAt(u, v);
+    const top = proj(wx, wy, gz + 0.1 + 3.4 * Math.min(1.2, lv)), bot = proj(wx, wy, gz); if (top && bot) items.push({ z: bot[2], kind: 'pillar', top, bot, pc, lv });
+  }
+  // birds
+  const B = flock.boids;
+  for (let i = 0; i < B.length; i++) {
+    const b = B[i], [wx, wy] = toWorld(b.x, b.y), gz = groundAt(b.x / WIDTH, b.y / HEIGHT), z = gz + alt[i];
+    const p = proj(wx, wy, z); if (!p) continue;
+    items.push({ z: p[2], kind: 'bird', i, wx, wy, z3: z, gz, p });
+  }
+  items.sort((a, b) => b.z - a.z);
+  for (const it of items) {
+    if (it.kind === 'pillar') {
+      const hue = it.pc * 360, w = Math.max(2, 120 / it.bot[2]);
+      const gr = g.createLinearGradient(0, it.bot[1], 0, it.top[1]); gr.addColorStop(0, `hsla(${hue},80%,62%,.75)`); gr.addColorStop(1, `hsla(${hue},80%,70%,0)`);
+      g.fillStyle = gr; g.fillRect(it.top[0] - w / 2, it.top[1], w, it.bot[1] - it.top[1]); continue;
+    }
+    const b = B[it.i], al = b.a || 0, tr = trails[it.i];
+    // shadow and tether
+    const sh = proj(it.wx, it.wy, it.gz + 0.01);
+    if (sh) { g.fillStyle = 'rgba(0,0,0,.35)'; g.beginPath(); g.ellipse(sh[0], sh[1], 30 / sh[2], 13 / sh[2], 0, 0, 7); g.fill(); g.strokeStyle = 'rgba(255,255,255,.07)'; g.lineWidth = 1; g.beginPath(); g.moveTo(sh[0], sh[1]); g.lineTo(it.p[0], it.p[1]); g.stroke(); }
+    const col = terrainColour(b.x / WIDTH, b.y / HEIGHT).map(v => v + (255 - v) * (0.08 + 0.92 * al));
+    // trail ribbon
+    g.lineWidth = Math.max(0.6, 9 / it.p[2]); let prev = null;
+    for (let k = 0; k < tr.length; k++) {
+      const [tx, ty, ta] = tr[k], [qx, qy] = toWorld(tx, ty), q = proj(qx, qy, groundAt(tx / WIDTH, ty / HEIGHT) + ta);
+      if (q && prev && Math.hypot(q[0] - prev[0], q[1] - prev[1]) < 80) { g.strokeStyle = `rgba(${col[0] | 0},${col[1] | 0},${col[2] | 0},${0.5 * k / tr.length})`; g.beginPath(); g.moveTo(prev[0], prev[1]); g.lineTo(q[0], q[1]); g.stroke(); }
+      prev = q;
+    }
+    // the bird: a dart along its heading
+    const m = Math.hypot(b.vx, b.vy) || 1, hx = b.vx / m * 0.11, hy = b.vy / m * 0.11, sx = -hy * 0.5, sy = hx * 0.5;
+    const nose = proj(it.wx + hx, it.wy + hy, it.z3), lw = proj(it.wx - hx * 0.6 + sx, it.wy - hy * 0.6 + sy, it.z3 + 0.03), rw = proj(it.wx - hx * 0.6 - sx, it.wy - hy * 0.6 - sy, it.z3 + 0.03);
+    if (nose && lw && rw) {
+      if (al > 0.15) { g.fillStyle = `rgba(255,255,255,${0.25 * al})`; g.beginPath(); g.arc(it.p[0], it.p[1], 70 * al / it.p[2], 0, 7); g.fill(); }
+      g.fillStyle = `rgb(${col[0] | 0},${col[1] | 0},${col[2] | 0})`; g.beginPath(); g.moveTo(nose[0], nose[1]); g.lineTo(lw[0], lw[1]); g.lineTo(rw[0], rw[1]); g.closePath(); g.fill();
+    }
+  }
+  const nAl = B.filter(b => (b.a || 0) > 0.2).length, state = phiS > 0.7 ? 'ordered · a tone' : phiS > 0.3 ? 'at the knee' : 'melted · a cloud';
+  document.getElementById('hud').innerHTML = `order φ <b>${phiS.toFixed(2)}</b><br>${state}<br>η ${P.eta.toFixed(3)} · ${B.length} birds${nAl ? ` · <b>${nAl} alarmed</b>` : ''}<br>${ac ? 'listening by ' + P.map : 'sound off'}`;
+}
+let frames = 0;
+function loop() { step(); draw(); frames++; requestAnimationFrame(loop); }
+window.__murm = { stepN: n => { for (let i = 0; i < n; i++) { step(); } draw(); }, setDemo: d => { demo = d; }, P, strike, cam, get phi() { return phiS; }, setMap: m => { P.map = m; document.getElementById('cMap').value = m; } };
+if (!window.__noLoop) requestAnimationFrame(loop);
+
+/* ------------------------------------------------------------------ input */
+let dragging = false, down = null;
+cv.addEventListener('pointerdown', e => { down = [e.clientX, e.clientY, cam.yaw, cam.pitch]; dragging = false; cv.setPointerCapture(e.pointerId); });
+cv.addEventListener('pointermove', e => { if (!down) return; const dx = e.clientX - down[0], dy = e.clientY - down[1]; if (Math.hypot(dx, dy) > 4) dragging = true; if (dragging) { cam.yaw = down[2] - dx * 0.006; cam.pitch = Math.max(0.08, Math.min(1.45, down[3] + dy * 0.004)); } });
+cv.addEventListener('pointerup', e => { if (down && !dragging) { const hit = pickGround(e.clientX, e.clientY); if (hit) strike(hit[0], hit[1]); } down = null; dragging = false; });
+document.getElementById('cEta').addEventListener('input', e => { demo = false; bDemo.classList.remove('on'); bDemo.textContent = 'demo: off'; P.eta = etaOfX(+e.target.value); document.getElementById('vEta').textContent = P.eta.toFixed(3); });
+document.getElementById('cMap').addEventListener('change', e => { P.map = e.target.value; fmem = {}; });
+document.getElementById('cN').addEventListener('change', e => reset(+e.target.value));
+const bDemo = document.getElementById('bDemo');
+bDemo.addEventListener('click', () => { demo = !demo; bDemo.classList.toggle('on', demo); bDemo.textContent = demo ? 'demo: playing itself' : 'demo: off'; });
+document.getElementById('bSound').addEventListener('click', async e => { if (!ac) { await startAudio(); e.target.textContent = 'sound off'; e.target.classList.add('on'); } else if (ac.state === 'running') { await ac.suspend(); e.target.textContent = 'sound on'; e.target.classList.remove('on'); } else { await ac.resume(); e.target.textContent = 'sound off'; e.target.classList.add('on'); } });
+</script>
+</body>
+</html>

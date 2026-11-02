@@ -1,0 +1,43 @@
+{
+ "shots": [
+  {
+   "sec": 5,
+   "name": "melted",
+   "phi": 0.165,
+   "file": "3d-melted.png"
+  },
+  {
+   "sec": 21,
+   "name": "ordered",
+   "phi": 0.699,
+   "file": "3d-ordered.png"
+  },
+  {
+   "sec": 22.9,
+   "name": "strike",
+   "phi": 0.565,
+   "file": "3d-strike.png"
+  },
+  {
+   "sec": 33,
+   "name": "density",
+   "phi": 0.908,
+   "file": "3d-density.png"
+  }
+ ],
+ "timing": [
+  {
+   "N": 60,
+   "msPerFrame": 2.66
+  },
+  {
+   "N": 120,
+   "msPerFrame": 4.45
+  },
+  {
+   "N": 240,
+   "msPerFrame": 6.58
+  }
+ ],
+ "errors": []
+}

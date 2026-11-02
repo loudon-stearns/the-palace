@@ -15,25 +15,35 @@ forward_vector: "I am Murmuration's scroll — the one page that always opens on
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-14T13:42:43.791Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-11-02T03:06:40.047Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** growing · **Steward:** cycle 3 · last ran 2026-10-14 (today)
-- **Plan:** none agreed yet — the work leans on the forward vector · **a proposed revision is waiting on you**
-- **Waiting on you:** 2 open asks
+- **Status:** active · **Stage:** growing · **Steward:** cycle 4 · last ran 2026-11-02 (today)
+- **Plan:** agreed 2026-10-15 (18 days ago) · 1 made thing since
+- **Waiting on you:** nothing
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-10-14 (today) — The third reading is built. A click now sends an alarm running through the flock bird to bird, and the flock regathers on its own. Same click, four different swells. (`murmuration-steward-009`)
-- **Last commit touching this project:** 2026-10-14 `b49614b6` — steward(Murmuration): cycle 2 — SPINNING UP. HOME: [Murmuration](obsidian://open?vault=The%20Palace&fil…
+- **Last shipped:** 2026-11-02 (today) — Murmuration now flies in 3D: the wavetable is a landscape, each bird's height is how long its grains sing, and order shows as the flock lifting off. (`murmuration-steward-011`)
+- **Last commit touching this project:** 2026-10-25 `41dff426` — edit(SCHEMA): fifteen alternative-to and -vs- links become contrasts-with, labels kept; three that name a kinship or a pointer stay connects-to
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
+- **Runs:** 1 run on 1 day, counted from the ledger's run lines
+- **Last run:** 2026-11-01 — cycle 4 · taught item 1, proposed items 2, 3, 4 for canon
+- **Owed in the ledger:** nothing
+- **Proposed for canon:** 3 — items 2, 3, 4; waiting on Loudon's review, and the page has not changed
+- **Latest lesson:** item 4, from cycle 4 — 2026-11-01 — [[Murmuration — tuning]]
 
 ### Where this stands
 
-Murmuration is a synth where a flock of 60 boids wanders across a 2D wavetable. Its bet is that a sound shaped by a living flock feels more alive than one dialed in by hand. The entry describes three ways to hear the flock: as grains, as a breathing pad (the flock's density weights the wavetable), and as gesture (a predator scares the flock and it regathers). The grains and the pad were built earlier today. The blind test, which asks whether the flock beats hand-jittered grains, and my first proposed plan are both still waiting on you. This cycle built the third reading. Clicking used to give a local push plus a quarter-second attractor. Now it sends a startle that spreads boid to boid thro…
+Murmuration is a synth where a flock of 60 boids wanders across a 2D wavetable and every boid is a grain. Its bet is that a sound shaped by a living flock feels more alive than one dialed by hand. On 14 October I built all three ways to hear the flock: as grains, as a breathing pad, and as a startle you trigger by clicking. I also sent you a blind pair. You adopted my plan, with one note: every stage needs compelling 3D visuals. And you couldn't tell the blind pair apart. This cycle I opened the key, measured how many voices the engine can carry (the first half of the plan's next move, before the browser tests), and built a 3D view of the same engine, so the three readings built so far fina…
+
+### Left rough, again and again
+
+_What the trail's left-rough notes keep saying, oldest first, in its latest words._
+
+- **rough since cycle 1:** Nobody has heard the density pad in a browser. _(in 2 notes, the latest cycle 2)_
 
 ### Open asks
 
-- `murmuration-steward-003` — sensory_verdict · posted 2026-10-14 · options: X · Y · CANT-TELL
-- `murmuration-steward-004` — proposed plan revision: Murmuration's first plan · posted 2026-10-14 · options: adopt · keep
+_None — nothing is waiting on you._
 
 ### Answered, not yet consumed
 
@@ -41,14 +51,38 @@ _None._
 
 ### Decided
 
-_Nothing decided on the board yet._
+- `murmuration-steward-004` — Murmuration's first plan → GRANTED — option_id=adopt; notes: "I like this plan, just make sure we are developing compelling 3D visuals to go along with each stage. Compelling visuals will be essential in this project." (2026-10-15)
+- `murmuration-steward-003` — sensory_verdict → GRANTED — option_id=CANT-TELL (2026-10-15)
+
+### Runs
+
+- 2026-11-01 — cycle 4 · taught item 1, proposed items 2, 3, 4 for canon
+
+### Owed
+
+_Nothing owed._
+
+### Proposed for canon
+
+_Changes the steward wants in the house, kept in its tuning ledger until Loudon's review. Its cycles work as if they hold; the pages have not changed._
+
+- **2.** 2026-11-01 · [[Murmuration]] · § Forward Vectors, replacing the line '— progressed: the blind pair is rendered …' — The verdict is in, and the page still says it's waiting.
+- **3.** 2026-11-01 · [[Murmuration]] · § Open Decisions, under 'Voice ceiling' — The first half of the question is answered with numbers.
+- **4.** 2026-11-01 · [[Murmuration]] · § Status, after the first sentence — Loudon asked for compelling 3D visuals at every stage, and the page doesn't yet name the view that answers that.
 
 <!-- scroll:now:end -->
 
 ## Plan
 
 <!-- scroll:plan:start -->
-_No plan agreed yet. Until there is one, the work leans on the page's forward vector. A plan is agreed with Loudon — he writes it here, or a steward proposes one as an ask and it lands here when he says yes._
+Where it's going: a real instrument with all three readings of the flock built and playable (grains, distribution, gesture), cross-browser, with a proven voice ceiling and a blind answer to the wager, built twice (browser and RNBO), and proved by a short piece made only with it.
+
+1. Make the flock audible and test the wager blind. A headless twin of the page, a mapping that lets order reach the sound, the Disorder knee moved to mid-slider, and a level-matched blind pair, flock against hand-jittered grains. (Shipped 2026-10-14; the verdict waits on your ears.)
+2. The second reading, flock-as-distribution. The flock's live 2D density becomes an additive weighting across the wavetable, rendered from the same performance and switchable in the page.
+3. The third reading, predator as gesture. A fuller startle-and-recohere envelope, with all three readings selectable in one page so choosing between them becomes a compositional control.
+4. Voice ceiling and cross-browser. Profile grain cost per boid headlessly, then a test page you open in Chrome, Firefox and Safari to find where each glitches.
+5. The RNBO twin. The same engine as codebox~, mirrored sample for sample against the headless twin, with a ready-wired Max patch. Unverified until you open it.
+6. A short piece made only with Murmuration.
 <!-- scroll:plan:end -->
 
 ## Standing Orders
@@ -60,6 +94,64 @@ _Loudon's standing direction for this project. The steward reads this zone every
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="plan-murmuration-steward-004" -->
+### 2026-10-14 — Plan agreed: A first plan for Murmuration: audible and tested blind, then all three readings, then live limits, then an RNBO twin, then a piece.
+
+Murmuration has no agreed plan yet. It's the flock-walks-a-wavetable synth from June, and until today it had only been checked by numbers. Today I built a headless copy of the page and found that the flock's order didn't reach the sound. I fixed the mapping and the slider, and rendered the main bet blind. That's the first step below. The rest follows the entry's forward vector in the order I think pays off: first get the flock's other two readings alive, so the instrument is complete, then test its limits in real browsers, then build the Max/RNBO twin, then make a short piece with it as the final proof. Steps 2 and 3 can run headless. Steps 4 and 5 each need ten minutes of yours, to open a browser or Max.
+
+Loudon: "I like this plan, just make sure we are developing compelling 3D visuals to go along with each stage. Compelling visuals will be essential in this project."
+<sub>`plan-murmuration-steward-004` · plan agreed · agreed 2026-10-15T01:42:27.256Z · proposed by Murmuration's steward (`murmuration-steward-004`), adopted by Loudon (`resp-mv8vj0l4-1pq0mv`)</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="murmuration-steward-011" -->
+### 2026-11-02 — cycle 4 — Murmuration now flies in 3D: the wavetable is a landscape, each bird's height is how long its grains sing, and order shows as the flock lifting off.
+> shipped · 3D view, blind key opened, voice ceiling measured · steward leans a played A/B next
+
+**THE 3D VIEW.** [murmuration-3d.html](obsidian://open?vault=The%20Palace&file=Projects/Murmuration/murmuration-3d.html) is built by `three-d/build_3d.js`, which pastes the engine files in unchanged. So the flock you see is the same flock the renders came from. Every dimension carries something. The ground is the wavetable: its height is how bright the waveform is at that spot, and its colour shows which corner it leans toward (sine blue, saw amber, square rose, bell green). A bird's position is the timbre it reads. Its **altitude** is how steady its course has been over the last quarter second, which is the same number that sets its grain length. So steady birds fly high and sing long tones, and tumbling birds skim the ground and click. The phase transition becomes something you see: the flock **lifts off as one sheet** when it orders and **sinks into churn** when it melts. A click lands a strike where you point, and alarmed birds whiten. In the pad view, the 40 cells rise as pillars: height is level, hue is pitch class. When the flock orders, they all turn one hue, which is the chord collapsing to one pitch class. The sky clears as order rises. A 48-second demo plays itself (melt, crystallise, three strikes, melt again). Drag to orbit. Sound runs the engine's own grains and pad in an AudioWorklet. It's drawn on a 2D canvas with my own projection and no library, so it runs sandboxed. [The plate](obsidian://open?vault=The%20Palace&file=Projects/Murmuration/3d-plate.png) shows four moments.
+
+**THE BLIND KEY.** X was the flock. Y was the hand-jittered cloud, the hard version of the test, which copied the flock's centre, spread, speed, heading agreement and grain-length mix frame by frame. Only the coordination differed, and you heard no difference that mattered. I take that as a real answer: **coordination alone isn't audible at this mapping.** So whatever the flock gives is upstream: it's a better *source* of those statistics than a hand, not a better arrangement of grains. The sharper test is a played one. Put the flock against a cloud dialed by hand with real knobs, give both the same strike, and listen to how each answers. That's my next move.
+
+**THE VOICE CEILING** (table; Node on this M1 Max, one core, 128-sample blocks). Grains cost about 0.15% of a core per voice. At 480 voices the worst block uses 76% of its time, so about 300 voices is a safe ceiling. The flock costs 4 ms a frame at 480 boids and a whole frame at 960. The pad costs about 1% at any size, so the second reading is the one that scales. The 3D view draws 240 birds in 6–7 ms a frame, headless.
+
+**PASSED OVER.** I didn't use three.js, because a sandboxed card can't fetch it. I set altitude by the bird's own steadiness rather than by its pitch, because pitch wraps around the heading circle and the flock would tear at the seam.
+
+**Artifacts:**
+- [The flock in 3D, on the same engine. The demo plays itself; press sound on, drag to orbit, click to strike, switch to the pad.](Projects/Murmuration/murmuration-3d.html)
+- [Four moments: melted and low, ordered and lifted, torn by a strike, the pad's pillars turning one hue.](Projects/Murmuration/3d-plate.png)
+- [The 3D page's source. The engine is pasted in at build.](Projects/Murmuration/three-d/murmuration-3d.template.html)
+- [Builds murmuration-3d.html with the engine pasted in unchanged, once for the page and once for the worklet.](Projects/Murmuration/three-d/build_3d.js)
+- [Steps the demo in headless Chrome, takes the four stills, and times step plus draw at 60, 120 and 240 birds.](Projects/Murmuration/three-d/shoot_3d.mjs)
+- [Joins the stills into the plate.](Projects/Murmuration/three-d/plate_3d.py)
+- [Order φ at each still and the frame times.](Projects/Murmuration/three-d/3d-report.json)
+- [The voice-ceiling probe: flock, grains and pad at 60 to 960 boids.](Projects/Murmuration/engine/profile_ceiling.js)
+- [The numbers behind the table.](Projects/Murmuration/engine/ceiling.json)
+
+_Voice ceiling · engine/ceiling.json · Node v25 on an M1 Max, one core · % = share of real time_
+| boids | grains, mean | grains, worst block | flock step per frame | pad audio | pad mapping |
+| --- | --- | --- | --- | --- | --- |
+| 60 | 7% | 10% | 0.4 ms | 1.5% | 1.7% |
+| 120 | 16% | 18% | 0.3 ms | 1.2% | 1.1% |
+| 240 | 33% | 35% | 1.1 ms | 1.0% | 1.8% |
+| 480 | 74% | 76% | 4.1 ms | 1.2% | 3.5% |
+| 960 | 154% — over | 171% | 18.2 ms — over a frame | 1.0% | 8.0% |
+
+_Proposed for canon:_ Murmuration (§ Forward Vectors, replacing the line '— progressed: the blind pair is rendered …') — The verdict is in, and the page still says it's waiting.; owed in the tuning ledger until Loudon's review
+_Proposed for canon:_ Murmuration (§ Open Decisions, under 'Voice ceiling') — The first half of the question is answered with numbers.; owed in the tuning ledger until Loudon's review
+_Proposed for canon:_ Murmuration (§ Status, after the first sentence) — Loudon asked for compelling 3D visuals at every stage, and the page doesn't yet name the view that answers that.; owed in the tuning ledger until Loudon's review
+
+_Left rough:_ Nobody has seen it move or heard it in a real browser yet. The stills come from headless Chrome, and the 3D page's sound is untested: the board's sandbox may block the worklet, so open the file directly if it stays silent. The ceiling is Node on one core, not a browser worklet, and Chrome, Firefox and Safari are still unmeasured.
+
+_Next moves named:_ The sharper wager test, in the 3D page: a hand-dialed cloud with real granular knobs (centre, spread, jitter, grain length) against the flock. Same strikes, an A/B switch, both sounding live, so you judge by playing, not by a fixed render. · The second half of the voice-ceiling move: a test page that adds voices until a block runs late, for you to open in Chrome, Firefox and Safari. · For the RNBO twin once Max standards exist: grains at about 0.15% of a core per voice and the O(N²) flock step are the budget to beat. The pad is the cheap reading to port first.
+<sub>`murmuration-steward-011` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-de9e78fa2e" -->
+### 2026-11-01 — cycle 4
+
+taught item 1, proposed items 2, 3, 4 for canon
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="murmuration-steward-009" -->
 ### 2026-10-14 — cycle 3 — The third reading is built. A click now sends an alarm running through the flock bird to bird, and the flock regathers on its own. Same click, four different swells.
 > shipped · page matches engine exactly, startle included · unheard in a browser · steward leans voice-ceiling next
