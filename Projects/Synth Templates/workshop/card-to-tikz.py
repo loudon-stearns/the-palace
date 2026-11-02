@@ -13,6 +13,7 @@ The layout grammar is fixed so every card reads the same way, like a modular pan
 Only the blocks a card uses are drawn (Loudon, 2026-11-01: a diagram holds only what the preset needs), and the grid
 packs around them: the slot ORDER is fixed, the positions are computed per card.
 Colour is provenance: essentials in ink, taste in amber (Drafting Table).
+Every wire is orthogonal: horizontal and vertical runs only (Loudon, 2026-11-02: avoid angles unless necessary).
 """
 import sys, yaml, pathlib
 
@@ -274,8 +275,8 @@ def main(path):
         if param == "gate": style = "gatewire"
         lab = esc(m.get("amount", ""))
         bus = LAYOUT["bus2"] if src in PERF else LAYOUT["bus"]
-        sx = X(src) + W/2 + (0.45 if src not in PERF else 0.45)
-        sy = Y(src)
+        sx = X(src) + W/2 + 0.45
+        sy = Y(src) if src in PERF else Y(src) + H/2 - JACK_TOP      # leave at the out jack's own height: no diagonals
         gx = X(tgt) - W/2 - 0.55          # gutter riser, just left of the target's jacks
         srcpt = f"{src}-out" if src not in PERF else f"{src}.east"
         A(rf"\draw[{style},->] ({srcpt}) -- ({sx},{sy}) -- ({sx},{bus}) -- ({gx},{bus}) -- ({gx},{port_y(tgt, param, kind[tgt])}) -- ({tgt}-{param});")

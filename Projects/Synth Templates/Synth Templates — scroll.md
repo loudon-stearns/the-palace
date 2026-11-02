@@ -38,11 +38,19 @@ Where this is going: a catalog of template cards a learner can program on any so
 
 <!-- scroll:orders:start -->
 - **Blocks show their essentials** (2026-11-01). Every block on a sheet carries a glyph of what is essential about its module, drawn by the generator from the card, never by hand: the oscillator its waveform, the filter its response, the envelope its shape and its category from [[Synthesis Notes (Loudon)]], the LFO its waveform and rate. The full list is under Plan move 3.
+- **No angled lines** (2026-11-02). Loudon: "whenever you have an angled line, ask if it is needed, avoid angles unless necessary." As the generator holds it: every wire is orthogonal, horizontal and vertical runs only; an angle is allowed only where a straight run is impossible, and then it is asked about before it is drawn.
 <!-- scroll:orders:end -->
 
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="synth-templates-2026-11-02-no-angles" -->
+### 2026-11-02 — No angled lines
+
+Loudon: "whenever you have an angled line, ask if it is needed, avoid angles unless necessary." The one angle on the sheets was a modulator wire dropping from its out jack to the block's centre line before heading down; it now leaves at the jack's own height. `card-to-tikz.py` says so in its docstring (every wire orthogonal, horizontal and vertical runs only), and the rule is a Standing Order above. Both sheets regenerated; cards unchanged.
+
+_Left rough:_ the Plan is still proposed.
+<!-- /scroll:entry -->
 <!-- scroll:entry id="synth-templates-2026-11-02-aligned-audio-line" -->
 ### 2026-11-02 — Visual revision on Loudon's read: aligned audio line, mixer inputs with levels, modulators one column left of their targets
 
