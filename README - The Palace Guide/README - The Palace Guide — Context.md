@@ -1,5 +1,5 @@
 ---
-title: "The Palace Guide — Context"
+title: "README - The Palace Guide — Context"
 born: 2026-11-02
 links:
   - target: "[[README - The Palace Guide]]"
@@ -8,7 +8,7 @@ links:
 forward_vector: "I hold why the Palace Guide is shaped as it is — what its first version carried, what Loudon's margin notes asked for, what its mirror duty brought in and what never arrived — so the next worker can change the page without redoing the reasons, and I grow when its shape changes."
 ---
 
-# The Palace Guide — Context
+# README - The Palace Guide — Context
 
 The Guide is the oldest of the skeleton pages. It came in with the initial commit, 2026-03-17 (`abc2592`), and its first half is still close to that day's text. Its second life began on 2026-06-09, when it became a mirror of [[SCHEMA]]. Since then most of its edits have been rows carried in by Schema Ceremonies.
 
