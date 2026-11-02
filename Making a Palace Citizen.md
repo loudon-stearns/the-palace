@@ -50,6 +50,9 @@ links:
   - target: "[[SCHEMA — Reference]]"
     type: connects-to
     label: diary-bundle-type
+  - target: "[[Making a Palace Citizen — Context]]"
+    type: spawned
+    label: rationale-archive
 ---
 
 # Making a Palace Citizen
