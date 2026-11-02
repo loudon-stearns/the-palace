@@ -46,6 +46,13 @@ Where this is going: a website generated from the cards, a catalog to choose fro
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="synth-templates-2026-11-02-time-heard" -->
+### 2026-11-02 — First heard table: time, as attack (Loudon)
+
+Loudon: "I set the parameters for envelope attack time, please record those numbers." His Export vocabulary.yaml arrived and `workshop/vocabulary.yaml` is draft 0.2. The time table carries his numbers, sat by ear on the site as attack times: instant 0.00167 s, fast 0.0108, short 0.037, medium 0.11, slow 0.256, long 0.974, very slow 2.3; very long 3.5 and gated 0.05 were not moved. The table is marked HEARD as attack 2026-11-02; every other table is still ASSUMED, and the header now says what the two marks mean. His export also exposed a bug: the level table's `off` key was read by YAML as the boolean false (it came back as `false: 0`), so the word never resolved; it is now quoted. The site carries the heard numbers (its rebuild rode into `97f49fc8`, the mode-button commit, a few minutes before this one).
+
+_Left rough:_ the same time words serve decay and release, and they were sat as attacks only. "short" at 37 ms is a quick attack but may be too short for a short decay, so the decay and release roles want their own sitting, and the table may split if they disagree. The first entry in the HEARD column is also the first [[Audition Gate]] pass on the vocabulary.
+<!-- /scroll:entry -->
 <!-- scroll:entry id="synth-templates-2026-11-02-mode-buttons" -->
 ### 2026-11-02 — The time-mode buttons wired (Loudon)
 
