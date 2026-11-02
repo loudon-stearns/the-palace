@@ -43,6 +43,13 @@ Where this is going: a catalog of template cards a learner can program on any so
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="synth-templates-2026-11-02-aligned-audio-line" -->
+### 2026-11-02 — Visual revision on Loudon's read: aligned audio line, mixer inputs with levels, modulators one column left of their targets
+
+Loudon: "lets work on the visual a little. The main audio path, oscillators mixer filter amplifier, put the main audio output at the same height in the module as the main audio input. so the audio path is an aligned line from mixer to filter to amplifier. the mixer should take multiple inputs and then have levels for each input. move the amp envelope to the right, below the filter, and the filter envelope under the mixer, this way the lines will not intersect and will be easier to follow." `card-to-tikz.py` now sets every output jack at its audio input's height, the OUT box with it, so mix, filter, amp, fx and out lie on one line; the mixer carries one labelled input jack per source ("osc 1 · full", "sub · half"), the level word read from the card, with a level-bar glyph; each modulator sits one column left of its first target, a second on the same target shifting right; blocks grew from 1.6 to 1.9 cm to hold the glyph under the out jack. Both sheets regenerated; the cards are unchanged.
+
+_Left rough:_ no audio yet; the Plan is still proposed.
+<!-- /scroll:entry -->
 <!-- scroll:entry id="synth-templates-2026-11-01-supersaw-glyphs" -->
 ### 2026-11-01 — Second card, Supersaw Pad; module glyphs drawn from schema 0.2 (Loudon: add the graphics as you make them)
 

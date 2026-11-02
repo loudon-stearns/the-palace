@@ -19,7 +19,7 @@ import sys, yaml, pathlib
 PALETTE = {"ink": "1a1916", "inktwo": "3a3a35", "inkthree": "6a6862", "rule": "b8b09a", "amber": "a8730a", "red": "c8261a", "paper": "f0eee5", "slab": "d8d4c6"}
 
 COL = 3.8                      # column pitch
-W, H = 2.4, 1.6                # block size (cm)
+W, H = 2.4, 1.9                # block size (cm)
 AUDIO_Y = 0.0
 SRC_DY = 2.9                   # vertical pitch of the source stack
 TEXT_H = 1.7                   # room reserved under a block for its settings text
@@ -54,7 +54,12 @@ def layout(used, modulation, text_lines=None):
         tgt = m["to"].split(".")[0]
         first_target.setdefault(m["from"], POS.get(tgt, (0, 0))[0])
     mods = sorted([m for m in MODS if m in used], key=lambda m: (first_target.get(m, 0), MODS.index(m)))
-    for i, m in enumerate(mods): POS[m] = (i * COL, mod_y)
+    taken = set()
+    for m in mods:
+        want = round(first_target.get(m, COL) / COL) - 1          # one column left of the target
+        c = max(want, 0)
+        while c in taken: c += 1                                    # a second modulator on the same target shifts right
+        taken.add(c); POS[m] = (c * COL, mod_y)
     LAYOUT["bus2"] = (mod_y - H / 2 - TEXT_H - 0.4) if mods else (LAYOUT["bus"] - 0.6)
     perf_y = LAYOUT["bus2"] - 0.6 - 0.35
     perfs = [p for p in PERFS if p in used]
@@ -81,10 +86,13 @@ DEFAULT_KIND = {"osc1": "oscillator", "osc2": "oscillator", "sub": "oscillator",
                 "amp": "amplifier", "fx": "fx", "fenv": "envelope", "aenv": "envelope", "menv": "envelope", "lfo1": "lfo", "lfo2": "lfo"}
 
 
-def port_y(slot, name, kind):
-    ins, _ = PORTS[kind]
+INS = {}      # slot → list of input jack names, filled per card (mixer: one per source)
+JACK_TOP = 0.5   # first jack sits this far under the block's top edge; the out jack sits at the same height
+
+def port_y(slot, name, kind=None):
+    ins = INS.get(slot) or PORTS[kind][0]
     n = len(ins); i = ins.index(name) if name in ins else 0
-    top = Y(slot) + H/2 - 0.55          # first jack sits under the title line
+    top = Y(slot) + H/2 - JACK_TOP
     step = (H - 0.75) / max(n - 1, 1) if n > 1 else 0
     return top - i * step
 
@@ -97,9 +105,21 @@ def block_sub(b):
 TIME = {"instant": 0.02, "fast": 0.08, "short": 0.2, "medium": 0.4, "slow": 0.6, "long": 0.7, "very slow": 0.85, "very long": 0.9, "gated": 0.1}
 LEVEL = {"zero": 0.0, "low": 0.3, "half": 0.5, "held": 0.72, "full": 1.0}
 
+LEVELS = {"off": 0.0, "quarter": 0.25, "little": 0.25, "half": 0.5, "equal to osc1": 1.0, "equal": 1.0, "full": 1.0, "unity": 1.0}
+def mixer_glyph(ins, level, x, y):
+    gx0, gx1, gy0, gy1 = x - 0.15, x + W/2 - 0.12, y - 0.62, y + 0.12
+    w = gx1 - gx0; out = []
+    n = len(ins); step = (gy1 - gy0) / max(n, 1)
+    for i, name in enumerate(ins):
+        lv = LEVELS.get(level.get(name, "full"), 0.8)
+        yy = gy1 - (i + 0.5) * step
+        out.append(rf"\draw[inkthree, line width=0.3pt] ({gx0:.3f},{yy:.3f}) -- ({gx1:.3f},{yy:.3f});")
+        out.append(rf"\draw[ink, line width=2.2pt] ({gx0:.3f},{yy:.3f}) -- ({gx0 + w*lv:.3f},{yy:.3f});")
+    return "\n".join(out)
+
 def glyph(slot, b, kind, x, y):
     """A small drawing in the block's upper right: GX0..GX1 wide, GY0..GY1 tall, in block-relative cm."""
-    gx0, gx1, gy0, gy1 = x - 0.15, x + W/2 - 0.12, y - 0.42, y + 0.32   # right of the jack labels, under the title
+    gx0, gx1, gy0, gy1 = x - 0.15, x + W/2 - 0.12, y - 0.62, y + 0.12   # right of the jack labels, under the title and the out jack
     w, h = gx1 - gx0, gy1 - gy0
     P = lambda u, v: f"({gx0 + u*w:.3f},{gy0 + v*h:.3f})"
     out = [rf"\begin{{scope}}"]
@@ -174,6 +194,18 @@ def main(path):
     text_lines = {sl: (1 if block_sub(blocks.get(sl, {})) else 0) + len(ess.get(sl, [])) + len(taste.get(sl, [])) for sl in blocks}
     layout(used, card["graph"].get("modulation", []), text_lines)
     kind = {s: blocks.get(s, {}).get("kind", DEFAULT_KIND.get(s)) for s in POS}
+    INS.clear()
+    for sl in POS:
+        if sl in PERF: continue
+        INS[sl] = list(PORTS[kind[sl]][0])
+    feeds = [a for a, b in card["graph"]["audio"] if b == "mix"]
+    if "mix" in POS and feeds: INS["mix"] = feeds
+    # level word per mixer input: the taste default or the essential value for that source's `level`, else full
+    level = {}
+    for t in card.get("taste", []):
+        if t["param"] == "level": level[t["block"]] = str(t.get("default", t["range"]))
+    for e in card.get("essentials", []):
+        if e["param"] == "level": level[e["block"]] = str(e["value"])
     L = []; A = L.append
     A(r"\documentclass[border=8pt]{standalone}")
     A(r"\usepackage[T1]{fontenc}\usepackage{helvet}\renewcommand{\familydefault}{\sfdefault}")
@@ -202,14 +234,17 @@ def main(path):
             continue
         A(rf"\node[block] ({slot}) at ({x},{y}) {{}};")
         A(rf"\node[title] at ({slot}.north) {{{label}}};")
-        ins, outname = PORTS[kind[slot]]
+        ins, outname = INS[slot], PORTS[kind[slot]][1]
         for name in ins:
             py = port_y(slot, name, kind[slot])
+            lab = f"{LABEL.get(name, name).lower()} · {level.get(name, 'full')}" if slot == "mix" else name
             A(rf"\node[jack] ({slot}-{name}) at ({x - W/2},{py}) {{}};")
-            A(rf"\node[plabel] at ({x - W/2 + 0.08},{py}) {{{name}}};")
-        A(rf"\node[jack] ({slot}-out) at ({x + W/2},{y - H/2 + 0.25}) {{}};")
-        A(rf"\node[olabel] at ({x + W/2 - 0.08},{y - H/2 + 0.25}) {{{outname}}};")
-        A(glyph(slot, blocks.get(slot, {}), kind[slot], x, y))
+            A(rf"\node[plabel] at ({x - W/2 + 0.08},{py}) {{{esc(lab)}}};")
+        oy = y + H/2 - JACK_TOP                                      # out at the height of the first (audio) input
+        A(rf"\node[jack] ({slot}-out) at ({x + W/2},{oy}) {{}};")
+        A(rf"\node[olabel] at ({x + W/2 - 0.08},{oy}) {{{outname}}};")
+        if slot == "mix": A(mixer_glyph(ins, level, x, y))
+        else: A(glyph(slot, blocks.get(slot, {}), kind[slot], x, y))
         if True:
             lines = []
             sub = block_sub(blocks.get(slot, {}))
@@ -218,14 +253,17 @@ def main(path):
             if lines: A(rf"\node[settings] at ({x - W/2 + 0.05},{y - H/2 - 0.12}) {{" + r" \\ ".join(lines) + "};")
     # out jack
     ox = LAYOUT["out_x"]
-    A(rf"\node[perf, fill=paper] (out) at ({ox},{AUDIO_Y}) {{OUT}}; \node[jack] (out-in) at ({ox - W/2},{AUDIO_Y}) {{}};")
+    oy = AUDIO_Y + H/2 - JACK_TOP
+    A(rf"\node[perf, fill=paper] (out) at ({ox},{oy}) {{OUT}}; \node[jack] (out-in) at ({ox - W/2},{oy}) {{}};")
     # audio wires: out jack → in jack; stacked sources bend in the gutter
     for a, b in card["graph"]["audio"]:
-        tgt = "out-in" if b == "out" else f"{b}-in"
-        if abs(Y(a) - (AUDIO_Y if b == "out" else Y(b))) < 1e-6:
+        tgt = "out-in" if b == "out" else (f"mix-{a}" if b == "mix" else f"{b}-in")
+        if b != "out" and b != "mix" and abs(Y(a) - Y(b)) < 1e-6:
+            A(rf"\draw[wire,->] ({a}-out) -- ({tgt});")
+        elif b == "out":
             A(rf"\draw[wire,->] ({a}-out) -- ({tgt});")
         else:
-            A(rf"\draw[wire,->] ({a}-out) -- ({X(a) + W/2 + 0.55},{Y(a)}) |- ({tgt});")
+            A(rf"\draw[wire,->] ({a}-out) -- ({X(a) + W/2 + 0.55},{Y(a) + H/2 - JACK_TOP}) |- ({tgt});")
     # modulation wires: east → drop to bus → along bus → up the gutter left of the target → into the jack
     for m in card["graph"].get("modulation", []):
         src = m["from"]; tgt, _, param = m["to"].partition(".")
