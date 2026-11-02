@@ -7,7 +7,8 @@ render: pdflatex, then SVG via PyMuPDF and PNG via sips (see workshop/README.md;
 The layout grammar is fixed so every card reads the same way, like a modular panel:
   every block has its INPUTS as labelled jacks on its LEFT edge and its output on the RIGHT edge;
   sources stack on the left (osc1, osc2, sub, noise) → mix → filter1 → filter2 → amp → fx → out, one audio row;
-  modulators sit in a row beneath, each one column LEFT of its usual target, and their wires leave on the right,
+  the audio row starts one column in, so column 0 is free for modulators of the oscillators;
+  modulators sit in a row beneath, each in the column BEFORE what it modulates (the standard), and their wires leave on the right,
   drop to a bus below the audio row's settings text, run along it, and rise in the gutter left of the target into its jack;
   performance inputs (key, vel, wheel, aftertouch) sit along the bottom and route the same way.
 Only the blocks a card uses are drawn (Loudon, 2026-11-01: a diagram holds only what the preset needs), and the grid
@@ -41,9 +42,10 @@ def layout(used, modulation, text_lines=None, extra_depth=0.0):
     srcs = [s for s in SOURCES if s in used]
     text_lines = text_lines or {}
     src_dy = max(SRC_DY, H + 0.5 + 0.31 * max([text_lines.get(sname, 0) for sname in srcs] + [0]))
+    # the audio row starts one column in: column 0 is kept for modulators of the oscillators (Loudon, 2026-11-02)
     for i, sname in enumerate(srcs):
-        POS[sname] = (0.0, AUDIO_Y + ((len(srcs) - 1) / 2 - i) * src_dy)
-    col = 1 if srcs else 0
+        POS[sname] = (COL, AUDIO_Y + ((len(srcs) - 1) / 2 - i) * src_dy)
+    col = 2 if srcs else 1
     for c in CHAIN:
         if c in used: POS[c] = (col * COL, AUDIO_Y); col += 1
     LAYOUT["out_x"] = col * COL
@@ -59,7 +61,7 @@ def layout(used, modulation, text_lines=None, extra_depth=0.0):
     mods = sorted([m for m in MODS if m in used], key=lambda m: (first_target.get(m, 0), MODS.index(m)))
     taken = set()
     for m in mods:
-        want = round(first_target.get(m, COL) / COL) - 1          # one column left of the target
+        want = round(first_target.get(m, COL) / COL) - 1          # the standard: a modulator sits in the column before what it modulates
         c = max(want, 0)
         while c in taken: c += 1                                    # a second modulator on the same target shifts right
         taken.add(c); POS[m] = (c * COL, mod_y)

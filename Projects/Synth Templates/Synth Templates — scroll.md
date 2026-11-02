@@ -39,11 +39,19 @@ Where this is going: a catalog of template cards a learner can program on any so
 <!-- scroll:orders:start -->
 - **Blocks show their essentials** (2026-11-01). Every block on a sheet carries a glyph of what is essential about its module, drawn by the generator from the card, never by hand: the oscillator its waveform, the filter its response, the envelope its shape and its category from [[Synthesis Notes (Loudon)]], the LFO its waveform and rate. The full list is under Plan move 3.
 - **No angled lines** (2026-11-02). Loudon: "whenever you have an angled line, ask if it is needed, avoid angles unless necessary." As the generator holds it: every wire is orthogonal, horizontal and vertical runs only; an angle is allowed only where a straight run is impossible, and then it is asked about before it is drawn.
+- **Modulators before what they modulate** (2026-11-02). Loudon: "make it a standard, when possible to have the modulators be in a column before what they modulate, that makes the cables clean and orderly. start The main audio modules one column to the right, this way when modulating the oscillators you can line up the modules the way I am describing." As the generator holds it: the audio row starts one column in, so column 0 is free for modulators of the oscillators; each modulator sits in the column before its first target when possible; a second modulator on the same target shifts right.
 <!-- scroll:orders:end -->
 
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="synth-templates-2026-11-02-modulators-before" -->
+### 2026-11-02 — Modulators before what they modulate (Loudon)
+
+Loudon made it a standard: modulators in the column before what they modulate, and the main audio modules starting one column to the right so an oscillator's modulator has a column to stand in. `card-to-tikz.py` now puts the source stack in column 1 and the chain from column 2; a modulator takes the column before its first target, a second on the same target shifting right; the docstring carries the standard and his date. On the 808 Kick the MOD ENV now stands in column 0 before OSC 1 and the AMP ENV in column 1 before the AMP. Nine sheet files regenerated; cards unchanged. The rule is the third Standing Order above.
+
+_Left rough:_ pan glyph; no audio yet; the Plan is still proposed.
+<!-- /scroll:entry -->
 <!-- scroll:entry id="synth-templates-2026-11-02-mixer-rows-lanes" -->
 ### 2026-11-02 — Mixer as rows; modulation wires in lanes (Loudon)
 
