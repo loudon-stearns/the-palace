@@ -36,6 +36,9 @@ links:
   - target: "[[Palace Orchestrator]]"
     type: connects-to
     label: appends-through-this-engine
+  - target: "[[BBS Blackboard — Context]]"
+    type: spawned
+    label: rationale-archive
 ---
 
 # BBS Blackboard
