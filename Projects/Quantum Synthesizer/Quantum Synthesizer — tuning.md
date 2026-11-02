@@ -50,3 +50,8 @@ What Quantum Synthesizer's steward cycles taught the page, and the changes to th
    > A drum is the same story one dimension up, and it sharpens the claim. Stretch the string into a skin and the harmonic series breaks. A round drum's partials sit at 1 · 1.59 · 2.14 · 2.30 · 2.65, the zeros of Bessel functions. A square drum's sit at 1 · 1.58 · 2 · 2.24 · 2.55, the square roots of whole numbers. Neither tone ever repeats ([seven strikes](Projects/Quantum Synthesizer/proofs/drum.mp4)). So for a drum it isn't the circle that breaks the series. It's the second dimension. Schrödinger draws the line somewhere else. A square box squares those roots back into whole numbers, 2 · 5 · 8 · 10 · 13, and the tone repeats exactly, 110 times a second, an octave below its lowest partial. A round box squares the Bessel zeros, which land no nearer to whole numbers, and it never repeats. Under Schrödinger's rule it really is [[Harmonicity and Inharmonicity|the geometry of circular resonators that forces inharmonic eigenmodes]]. Where you strike picks which of them ring: hit a round drum dead centre and only its rings sound, 1 · 2.30 · 3.60 · 4.90, almost evenly spaced. A bell is neither a drum nor a box. It is a thick curved shell, and the founder's craft is shaving its walls until five of its partials line up.
 
 - run · 2026-11-01 · cycle 19 · proposed items 1, 2, 3, 4 for canon
+
+## From cycle 20 — 2026-11-01
+
+5. A live device can't read a strike's peak before it plays it, as the browser does, so any port of this engine has to replace peak normalising with a gain set from the partials' own loudness. Sum of |a| never clips and keeps the presets within 5.6 dB. *(offered by the steward, cycle 20)*
+- run · 2026-11-01 · cycle 20 · taught item 5
