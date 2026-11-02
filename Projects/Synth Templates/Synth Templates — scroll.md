@@ -42,6 +42,13 @@ _None yet._
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="synth-templates-2026-11-01-house-bass-card" -->
+### 2026-11-01 — First card and generator; House Bass drafted
+
+Loudon: "Prototype House Bass." The first card exists, `workshop/cards/house-bass.yaml` (schema `synth-template-card/0.1`), and the smallest generator that draws its sheet from it, `workshop/card-to-tikz.py`: a fixed layout grammar under the Technical Diagram Standard, essentials in ink, taste in amber, unused slots ghosted. The sheet is `cards/house-bass.tex` and `.svg`, with `house-bass-preview-1.png` as the quick look; the render recipe is in `workshop/README.md`. Mappings to real synths are still empty. Made in the workshop; committed and landed on his word.
+
+_Left rough:_ the card's status is drafted, not rendered or verified; no reference audio yet; the Plan is still proposed.
+<!-- /scroll:entry -->
 <!-- scroll:entry id="synth-templates-2026-11-01-notes-source" -->
 ### 2026-11-01 — Loudon's notes become a source of their own
 
