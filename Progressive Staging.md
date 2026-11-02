@@ -28,6 +28,9 @@ links:
   - target: "[[State Machine]]"
     type: enables
     label: stage-3-teaches-it
+  - target: "[[Progressive Staging — Context]]"
+    type: spawned
+    label: rationale-archive
 forward_vector: "I want to be the method for building anything that teaches in layers: an instrument as a ladder of stages, one piece as a walk of steps up to its proof, every stage and every step a complete, playable thing that teaches one concept, and every migration between environments a lesson rather than a chore. I want to be read at the start of any build that teaches, so that the staging happens in the design, not as an afterthought."
 ---
 
