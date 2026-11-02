@@ -45,6 +45,13 @@ Where this is going: a catalog of template cards a learner can program on any so
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="synth-templates-2026-11-02-acid-fm-routes" -->
+### 2026-11-02 — Cards four and five, Acid Bass and FM Electric Piano; cable routes simplified (Loudon)
+
+Loudon: "ok, do two more, when possible reduce the number of turns in a cable, simplify the paths." `card-to-tikz.py` now routes a modulation wire in three segments (out, across to the gutter, up or down, in) whenever the gutter lies ahead and no block stands across the run, and falls back to the five-segment bus only to go around or back; an audio edge may name the jack it enters, and a jack so named is added to the block; an oscillator that only feeds another oscillator counts as a modulator and takes column 0 beside its target. Card four, `workshop/cards/acid-bass.yaml` (tier 2, mono legato, after the TB-303): saw with legato glide, 18 dB low-pass with high resonance, a percussive filter envelope on the cutoff with velocity on its amount as the accent, a percussive amp envelope; ten essentials, seven taste, A/B resonance to none and glide to always, a sixteenth pattern with slides and accents to render. Card five, `workshop/cards/fm-electric-piano.yaml` (tier 2, poly, after the DX7's E.PIANO 1): a sine modulator at 1:1 into the carrier's `fm` jack, a percussive MOD ENV on the modulator's level as the index envelope with velocity on its amount, a piano-category AMP ENV, a slow sine LFO on pan, chorus; ten essentials, seven taste, A/B modulator level zero and index decay zero toward an organ. Eight new sheet files; the nine earlier ones regenerated.
+
+_Left rough:_ pan glyph still undrawn (the FM piano's tremolo lands on it); no audio yet; the Plan is still proposed.
+<!-- /scroll:entry -->
 <!-- scroll:entry id="synth-templates-2026-11-02-modulators-before" -->
 ### 2026-11-02 — Modulators before what they modulate (Loudon)
 

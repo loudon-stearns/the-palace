@@ -35,16 +35,23 @@ PERF = set(PERFS)
 POS = {}                       # slot → (x, y), computed per card by layout()
 LAYOUT = {}                    # bus heights etc.
 
-def layout(used, modulation, text_lines=None, extra_depth=0.0):
+def layout(used, modulation, text_lines=None, extra_depth=0.0, audio=()):
     """Pack the grid around the used slots. Sources stack in column 1 centred on the audio row (column 0 is kept for modulators of the oscillators); the chain takes the
     next columns; modulators pack beneath, ordered by the column of their first target; performance inputs along the bottom."""
     POS.clear()
-    srcs = [s for s in SOURCES if s in used]
+    # an oscillator that feeds another oscillator (fm, sync) and nothing else is a modulator: it goes to column 0, level with its target
+    feeds_only = {}
+    for e in audio:
+        feeds_only.setdefault(e[0], set()).add(e[1])
+    modosc = [s for s in SOURCES if s in used and feeds_only.get(s) and feeds_only[s] <= set(SOURCES)]
+    srcs = [s for s in SOURCES if s in used and s not in modosc]
     text_lines = text_lines or {}
     src_dy = max(SRC_DY, H + 0.5 + 0.31 * max([text_lines.get(sname, 0) for sname in srcs] + [0]))
     # the audio row starts one column in: column 0 is kept for modulators of the oscillators (Loudon, 2026-11-02)
     for i, sname in enumerate(srcs):
         POS[sname] = (COL, AUDIO_Y + ((len(srcs) - 1) / 2 - i) * src_dy)
+    for mo in modosc:
+        tgt = next(iter(feeds_only[mo])); POS[mo] = (0.0, POS[tgt][1])
     col = 2 if srcs else 1
     for c in CHAIN:
         if c in used: POS[c] = (col * COL, AUDIO_Y); col += 1
@@ -236,14 +243,20 @@ def main(path):
     for e in card.get("essentials", []): ess.setdefault(e["block"], []).append(f"{e['param']} {e['value']}")
     for t in card.get("taste", []): taste.setdefault(t["block"], []).append(f"{t['param']} {t['range']}")
     text_lines = {sl: (1 if block_sub(blocks.get(sl, {})) else 0) + len(ess.get(sl, [])) + len(taste.get(sl, [])) for sl in blocks}
-    feeds0 = [a for a, b in card["graph"]["audio"] if b == "mix"]
-    layout(used, card["graph"].get("modulation", []), text_lines, extra_depth=max(0.0, mixer_height(len(feeds0)) - H))
+    feeds0 = [e[0] for e in card["graph"]["audio"] if e[1] == "mix"]
+    layout(used, card["graph"].get("modulation", []), text_lines, extra_depth=max(0.0, mixer_height(len(feeds0)) - H), audio=card["graph"]["audio"])
     kind = {s: blocks.get(s, {}).get("kind", DEFAULT_KIND.get(s)) for s in POS}
     INS.clear()
     for sl in POS:
         if sl in PERF: continue
         INS[sl] = list(PORTS[kind[sl]][0])
-    feeds = [a for a, b in card["graph"]["audio"] if b == "mix"]
+    # a jack a route names that the block does not list by default is added (an oscillator's fm or level, say)
+    for m in card["graph"].get("modulation", []):
+        tgt, _, param = m["to"].partition(".")
+        if tgt in INS and param and param not in INS[tgt]: INS[tgt].append(param)
+    for e in card["graph"]["audio"]:
+        if len(e) == 3 and e[1] in INS and e[2] not in INS[e[1]]: INS[e[1]].append(e[2])
+    feeds = [e[0] for e in card["graph"]["audio"] if e[1] == "mix"]
     BH.clear()
     if "mix" in POS and feeds:
         INS["mix"] = feeds
@@ -309,14 +322,15 @@ def main(path):
     oy = AUDIO_Y + H/2 - JACK_TOP
     A(rf"\node[perf, fill=paper] (out) at ({ox},{oy}) {{OUT}}; \node[jack] (out-in) at ({ox - W/2},{oy}) {{}};")
     # audio wires: out jack → in jack; stacked sources bend in the gutter
-    for a, b in card["graph"]["audio"]:
-        tgt = "out-in" if b == "out" else (f"mix-{a}" if b == "mix" else f"{b}-in")
-        if b != "out" and b != "mix" and abs(Y(a) - Y(b)) < 1e-6:
-            A(rf"\draw[wire,->] ({a}-out) -- ({tgt});")
-        elif b == "out":
+    for e in card["graph"]["audio"]:
+        a, b = e[0], e[1]; jack = e[2] if len(e) == 3 else None
+        tgt = "out-in" if b == "out" else (f"mix-{a}" if b == "mix" else f"{b}-{jack or 'in'}")
+        if b == "out" or (not jack and b != "mix" and abs(Y(a) - Y(b)) < 1e-6):
             A(rf"\draw[wire,->] ({a}-out) -- ({tgt});")
         else:
-            A(rf"\draw[wire,->] ({a}-out) -- ({X(a) + W/2 + 0.55},{Y(a) + bh(a)/2 - JACK_TOP}) |- ({tgt});")
+            ay = Y(a) + bh(a)/2 - JACK_TOP
+            if jack: ty = port_y(b, jack, kind[b]); A(rf"\draw[wire,->] ({a}-out) -- ({X(b) - W/2 - 0.55},{ay}) -- ({X(b) - W/2 - 0.55},{ty}) -- ({tgt});")
+            else: A(rf"\draw[wire,->] ({a}-out) -- ({X(a) + W/2 + 0.55},{ay}) |- ({tgt});")
     # modulation wires: east → drop to bus → along bus → up the gutter left of the target → into the jack
     OFF = 0.11                                                       # spacing between parallel wires
     for k, m in enumerate(card["graph"].get("modulation", [])):
@@ -332,8 +346,22 @@ def main(path):
         sy = Y(src) if src in PERF else Y(src) + bh(src)/2 - JACK_TOP        # leave at the out jack's own height: no diagonals
         gx = X(tgt) - W/2 - 0.55 - k * OFF   # gutter riser, just left of the target's jacks, its own lane
         srcpt = f"{src}-out" if src not in PERF else f"{src}.east"
-        A(rf"\draw[{style},->] ({srcpt}) -- ({sx},{sy}) -- ({sx},{bus}) -- ({gx},{bus}) -- ({gx},{port_y(tgt, param, kind[tgt])}) -- ({tgt}-{param});")
-        if lab: A(rf"\node[font=\tiny, text={col}, anchor=south, inner sep=1pt, rotate=90] at ({gx - 0.12},{(bus + port_y(tgt, param, kind[tgt]))/2}) {{{lab}}};")
+        ty = port_y(tgt, param, kind[tgt])
+        def blocked(x0, x1, yy):
+            """Does any block lie across the horizontal run from x0 to x1 at height yy?"""
+            for sl, (bx, by) in POS.items():
+                if sl in (src, tgt): continue
+                hh = 0.35 if sl in PERF else bh(sl) / 2
+                if bx - W/2 < max(x0, x1) and bx + W/2 > min(x0, x1) and by - hh < yy < by + hh: return True
+            return False
+        if gx > sx - 0.2 and not blocked(sx, gx, sy):
+            # the gutter lies ahead of the source and the way is clear: out, across, up (or down), in — three turns at most
+            A(rf"\draw[{style},->] ({srcpt}) -- ({gx},{sy}) -- ({gx},{ty}) -- ({tgt}-{param});")
+            if lab: A(rf"\node[font=\tiny, text={col}, anchor=south, inner sep=1pt, rotate=90] at ({gx - 0.12},{(sy + ty)/2}) {{{lab}}};")
+        else:
+            # the target is behind or above the source's own column: go round by the bus
+            A(rf"\draw[{style},->] ({srcpt}) -- ({sx},{sy}) -- ({sx},{bus}) -- ({gx},{bus}) -- ({gx},{ty}) -- ({tgt}-{param});")
+            if lab: A(rf"\node[font=\tiny, text={col}, anchor=south, inner sep=1pt, rotate=90] at ({gx - 0.12},{(bus + ty)/2}) {{{lab}}};")
     A(rf"\node[anchor=north west, font=\scriptsize, text=inktwo] at (-{W/2+0.8},{LAYOUT['top']-0.2}) {{\textbf{{{esc(card['name']).upper()}}} · tier {card['tier']} · {esc(card['mode'])} · {esc(card['family'])}}};")
     A(rf"\node[anchor=north east, font=\tiny, text=inkthree] at ({LAYOUT['right']-0.2},{LAYOUT['top']-0.2}) {{inputs left, outputs right · audio solid · CV dashed · gate dotted · essentials in ink · taste in amber}};")
     A(r"\end{tikzpicture}\end{document}")

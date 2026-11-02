@@ -16,7 +16,9 @@ A template is a card, `cards/<id>.yaml` (schema `synth-template-card/0.1`: ident
 
 **Gotcha:** YAML reads a bare `on`, `off`, `yes` or `no` as a boolean. A card value meant as the word must be quoted (`value: "on"`); unquoted, it printed as `True`.
 
-Three cards so far: `cards/house-bass.yaml`, `cards/supersaw-pad.yaml`, `cards/808-kick.yaml`.
+**Cable routes** (Loudon, 2026-11-02: "when possible reduce the number of turns in a cable, simplify the paths"). When a modulator's gutter lies ahead of its out jack and no drawn block stands across the run at that height, the wire is three segments: out, across to the gutter, up or down, in. Only when the target is behind the source, or a block is in the way, does it take the five-segment bus route under the row. An audio edge may name the jack it enters (`[osc2, osc1, fm]`), and a jack a route names that the block does not list by default is added to the block. An oscillator that feeds only another oscillator is a modulator and goes to column 0, level with its target: the standard applied to FM.
+
+Five cards so far: `cards/house-bass.yaml`, `cards/supersaw-pad.yaml`, `cards/808-kick.yaml`, `cards/acid-bass.yaml`, `cards/fm-electric-piano.yaml`.
 
 Render recipe, from this folder:
 
