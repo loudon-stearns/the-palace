@@ -233,6 +233,7 @@ function renderVocab(){
   // a slider only moves the number; nothing sounds until a hear button is pressed (Loudon, 2026-11-02)
   document.querySelectorAll('[data-play]').forEach(b => bindKeyButton(b, () => hearOn(vtab, b.dataset.play)));
   onPress(document.getElementById('ladder'), () => playLadder(vtab));
+  document.querySelectorAll('[data-mode]').forEach(b => b.addEventListener('click', () => { stopAll(); vmode[vtab] = b.dataset.mode; renderVocab(); }));
   document.getElementById('stop').addEventListener('click', stopAll);
   document.getElementById('heard').addEventListener('change', e => { HEARD[vtab] = e.target.checked; saveVocab(); renderVocab(); });
   document.getElementById('exportv').addEventListener('click', () => { const y = vocabYaml(); document.getElementById('vout').value = y; navigator.clipboard?.writeText(y).then(() => document.getElementById('vmsg').textContent = 'copied — paste to Claude, who writes vocabulary.yaml'); });

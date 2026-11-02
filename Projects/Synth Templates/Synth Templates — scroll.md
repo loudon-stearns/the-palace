@@ -46,6 +46,13 @@ Where this is going: a website generated from the cards, a catalog to choose fro
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="synth-templates-2026-11-02-mode-buttons" -->
+### 2026-11-02 — The time-mode buttons wired (Loudon)
+
+Loudon: "'as attack' 'as decay' 'as release' buttons don't seem to work." Cause: the edit meant to wire them had replaced a line that an earlier edit had already replaced, so the three buttons were drawn with no listener. `build-site.py` gains the one line that binds them (stop, set the mode, re-render); site rebuilt. He also wrote: "I set the parameters for envelope attack time, please record those numbers." Those numbers are in his browser; the Export vocabulary.yaml button is the way back, and the paste is awaited.
+
+_Left rough:_ his attack-time numbers are not yet in `vocabulary.yaml`; the time table stays ASSUMED until the paste lands.
+<!-- /scroll:entry -->
 <!-- scroll:entry id="synth-templates-2026-11-02-silent-sliders" -->
 ### 2026-11-02 — Sliders are silent (Loudon)
 
