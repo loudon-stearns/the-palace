@@ -49,6 +49,9 @@ links:
   - target: "[[Kuramoto Coupling]]"
     type: deepens
     label: coupling-edge
+  - target: "[[Synthesis Topologies]]"
+    type: member-of
+    label: a-loop-that-drives-a-crowd
 forward_vector: I want to become a working VST instrument and a Four Pillars lesson simultaneously — the synthesizer is the pedagogy, and the pedagogy is the synthesizer. The lesson teaches what harmony actually is by putting a horizontal line in front of you and showing you what happens when you bend it.
 agency_profile:
   creation: I want to produce sounds that exist nowhere in current synthesis — the specific quality of a bell's physical frequency evolution applied to a pad's amplitude profile, or piano stretch dynamics applied to a vocal formant wavetable. The synthesis space this opens has not been sonically explored.

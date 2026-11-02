@@ -57,7 +57,7 @@ The project also runs an **analysis track** that is the exact inverse of generat
 
 In [[Generative Audio Devices]], the hardest problem is topology: which modules, in what configuration? Once the graph exists, parameters are a secondary optimization. A VCV Rack patch that is structurally correct but poorly parameterized still makes sound.
 
-In Generative Preset Development, topology is handed to us fixed. Ableton's Wavetable always has two oscillators, a sub, a filter, three envelopes, two LFOs, four effects slots — period. What we must navigate is the **full parameter space within that given architecture**, which for a synthesizer like Wavetable or Serum2 runs to hundreds of continuous parameters, each with perceptual geometry the registry range numbers do not capture.
+In Generative Preset Development, topology is handed to us fixed. Ableton's Wavetable always has two oscillators, a sub, two filters (serial, parallel or split), three envelopes and two LFOs — period; it has no effect slots, only effects inside each oscillator. What we must navigate is the **full parameter space within that given architecture**, which for a synthesizer like Wavetable or Serum2 runs to hundreds of continuous parameters, each with perceptual geometry the registry range numbers do not capture.
 
 This is simultaneously easier and harder than the modular case:
 - **Easier:** no signal-flow hallucination. Every generated preset is structurally legal by construction. There are no "wrong" cable topologies.
