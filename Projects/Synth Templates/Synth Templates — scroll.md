@@ -42,6 +42,13 @@ _None yet._
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="synth-templates-2026-11-01-no-ghosts" -->
+### 2026-11-01 — No ghosted blocks: the diagram holds only what the preset needs
+
+Loudon: "do not put the unused blocks ghosted, as we move through this catalog our patches will have a wide variety of different amounts of modulators and oscillators and filters and effects, It is better to kept the diagram holding only what is necessary for each preset." `card-to-tikz.py` now draws only the blocks a card uses. The slot order stays fixed (sources; mix, filter 1, filter 2, amp, fx, out; lfo 1, filter env, mod env, amp env, lfo 2; key, vel, wheel, aftertouch) and the grid packs around what is present: sources centred on the audio row, the chain in consecutive columns, modulators beneath ordered by their first target's column, performance inputs along the bottom; bus heights and paper size follow the content. House Bass regenerated: seven blocks, two performance inputs, no grey (`7c0a2023`).
+
+_Left rough:_ the Plan is still proposed. `7c0a2023`'s message says the README and this entry changed with it; they did not, and landed in the commit after it.
+<!-- /scroll:entry -->
 <!-- scroll:entry id="synth-templates-2026-11-01-inputs-left" -->
 ### 2026-11-01 — Diagram grammar revised on Loudon's read: inputs left, every jack labelled
 

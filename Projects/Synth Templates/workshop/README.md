@@ -12,7 +12,7 @@ forward_vector: "I say what in this folder is written by hand and what is genera
 
 ## Cards and their sheets
 
-A template is a card, `cards/<id>.yaml` (schema `synth-template-card/0.1`: identity, graph, essentials pinned with why, taste ranges default first, listening cue and A/B, render spec, mappings). `card-to-tikz.py` draws the card's signal-flow sheet under the [[Technical Diagram Standard]] with one fixed layout: sources stacked left, then mix, filter 1, filter 2, amp, fx, out; modulators beneath; performance inputs along the bottom; unused slots ghosted; essentials in ink, taste in amber ([[Drafting Table Design System]] provenance colours).
+A template is a card, `cards/<id>.yaml` (schema `synth-template-card/0.1`: identity, graph, essentials pinned with why, taste ranges default first, listening cue and A/B, render spec, mappings). `card-to-tikz.py` draws the card's signal-flow sheet under the [[Technical Diagram Standard]] with one fixed layout: sources stacked left, then mix, filter 1, filter 2, amp, fx, out; modulators beneath; performance inputs along the bottom; essentials in ink, taste in amber ([[Drafting Table Design System]] provenance colours). Only the blocks a card uses are drawn; the slot order is fixed, the positions are computed per card (Loudon, 2026-11-01).
 
 Render recipe, from this folder:
 
