@@ -130,3 +130,8 @@ What each deposit taught the ceremony. Each item names what the run showed and t
 
 31. **Item 30 recurred.** The words for D-2026-10-25-CONSTELLATION again carried claims no file landing with them backed: the 180 pages one hop from the chosen sky, the five inbound links to JEWEL, and the 647 links the Weave pruned. A cold read found them before Loudon read the words, and the evidence was saved or the claim tied to its source: `foundations16-stats.txt` in the proof folder holds the 180 and the five, and the 647 is `a75350ec`'s own count. Item 30 said that if this recurred, Step 5 wants a line: every claim in the words traces to a file that will land with them. **Owed, and Loudon's to rule:** whether Step 5 takes that line. The card is unchanged.
 - run · 2026-10-25 · v2.7 · D-2026-10-25-CONSTELLATION · taught item 31
+
+## From the Moog curve fold — 2026-11-02
+
+The DH-ADSR citation was first reported by the working session, then verified by two readers (the Concierge and the cold reader, each from the PDF's text) before landing; item 30's rule held.
+- run · 2026-11-02 · v2.7 · D-2026-11-02-MOOGCURVE · nothing new
