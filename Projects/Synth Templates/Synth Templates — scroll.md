@@ -40,11 +40,19 @@ Where this is going: a website generated from the cards, a catalog to choose fro
 - **Blocks show their essentials** (2026-11-01). Every block on a sheet carries a glyph of what is essential about its module, drawn by the generator from the card, never by hand: the oscillator its waveform, the filter its response, the envelope its shape and its category from [[Synthesis Notes (Loudon)]], the LFO its waveform and rate. The full list is under Plan move 3.
 - **No angled lines** (2026-11-02). Loudon: "whenever you have an angled line, ask if it is needed, avoid angles unless necessary." As the generator holds it: every wire is orthogonal, horizontal and vertical runs only; an angle is allowed only where a straight run is impossible, and then it is asked about before it is drawn.
 - **Modulators before what they modulate** (2026-11-02). Loudon: "make it a standard, when possible to have the modulators be in a column before what they modulate, that makes the cables clean and orderly. start The main audio modules one column to the right, this way when modulating the oscillators you can line up the modules the way I am describing." As the generator holds it: the audio row starts one column in, so column 0 is free for modulators of the oscillators; each modulator sits in the column before its first target when possible; a second modulator on the same target shifts right.
+- **A sound starts on the press** (2026-11-02). Loudon: "can you change the button action so the note starts when I push the button, like a piano note would?" Every control on the site that makes a sound fires on mousedown or touchstart, not on the click's release; the click that follows is swallowed; a keyboard-driven click, which has no press, still sounds.
 <!-- scroll:orders:end -->
 
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="synth-templates-2026-11-02-press" -->
+### 2026-11-02 — A sound starts on the press (Loudon)
+
+Loudon: "This may seem small, but can you change the button action so the note starts when I push the button, like a piano note would?" `build-site.py` gains `onPress(el, fn)`: a sounding button fires on mousedown or touchstart and swallows the click that follows, so the sound begins on the press like a piano key; applied to Play the default, every hear button on the vocabulary page and Play the ladder (the keys already worked this way); keyboard-driven clicks still work. Site rebuilt. The rule is the fourth Standing Order above.
+
+_Left rough:_ nothing.
+<!-- /scroll:entry -->
 <!-- scroll:entry id="synth-templates-2026-11-02-vocabulary-page" -->
 ### 2026-11-02 — The vocabulary page: move 1 has its instrument (Loudon: Yes, both)
 

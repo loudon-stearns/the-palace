@@ -127,6 +127,8 @@ const NCARDS = Object.keys(CARDS).length;
 const RKEY = 'synth-templates-reviews-v1'; let reviews = {}; try { reviews = JSON.parse(localStorage.getItem(RKEY) || '{}'); } catch(e){}
 function saveReviews(){ try { localStorage.setItem(RKEY, JSON.stringify(reviews)); } catch(e){} }
 function exportReviews(){ const ids = Object.keys(reviews).filter(k => reviews[k].trim()); let md = '## Synth Templates — card reviews ' + new Date().toISOString().slice(0,10) + '\n'; ids.forEach(id => md += '\n### ' + (CARDS[id]?.name || id) + ' (' + id + ')\n' + reviews[id].trim() + '\n'); if (!ids.length) md += '\n(no reviews yet)\n'; navigator.clipboard?.writeText(md).then(() => { const el = document.getElementById('revmsg'); if (el) el.textContent = ids.length + ' review' + (ids.length===1?'':'s') + ' copied — paste to Claude'; }); }
+// a sounding button fires on the press, like a piano key (Loudon, 2026-11-02), not on the release
+function onPress(el, fn){ if (!el) return; let pressed = false; const down = e => { e.preventDefault(); pressed = true; fn(e); }; el.addEventListener('mousedown', down); el.addEventListener('touchstart', down, {passive:false}); el.addEventListener('click', e => { if (pressed) { pressed = false; e.preventDefault(); return; } fn(e); }); }
 // ---------- routing ----------
 const app = document.getElementById('app');
 function route(){ const h = location.hash.replace(/^#\/?/, ''); const m = h.match(/^card\/(.+)$/); if (m && CARDS[m[1]]) renderCard(m[1]); else if (h === 'vocabulary') renderVocab(); else renderCatalog(); window.scrollTo(0,0); }
@@ -179,7 +181,7 @@ function renderCard(id){
     <div class="listen"><h3>Review · notes for fine-tuning this card</h3><textarea id="review" placeholder="What is wrong, what is missing, what to change. Saved in this browser; export all reviews from the catalog page.">${esc(reviews[c.id]||'')}</textarea></div>
     <div class="meta">${c.concepts?.length?`<b>Covers:</b> ${c.concepts.map(esc).join(' · ')}<br>`:''}${c.lineage?.length?`<b>Lineage:</b> ${c.lineage.map(esc).join(' · ')}<br>`:''}<b>Render:</b> ${esc(c.render?.pattern||'')}</div>
     <div class="foot"><div>Synth Templates · ${esc(c.id)}</div><div>Drafting Table · Paper</div><div>cards/${esc(c.id)}.yaml</div></div>`;
-  document.getElementById('demo').addEventListener('click', () => playDemo(c));
+  onPress(document.getElementById('demo'), () => playDemo(c));
   document.getElementById('review').addEventListener('input', e => { reviews[c.id] = e.target.value; saveReviews(); });
   midiStatus();
   document.getElementById('stop').addEventListener('click', stopAll);
@@ -228,8 +230,8 @@ function renderVocab(){
   document.querySelectorAll('[data-vt]').forEach(b => b.addEventListener('click', () => { vtab = b.dataset.vt; renderVocab(); }));
   document.querySelectorAll('input[type=range]').forEach(sl => sl.addEventListener('input', e => { const w = e.target.dataset.w; VOCAB[vtab][w] = +fromSlider(+e.target.value, T).toPrecision(3); document.getElementById('vv-' + w.replace(/\W/g,'_')).innerHTML = fmtNum(VOCAB[vtab][w], vtab) + ' <span class="assumed">·</span>'; saveVocab(); }));
   document.querySelectorAll('input[type=range]').forEach(sl => sl.addEventListener('change', e => hearWord(vtab, e.target.dataset.w)));
-  document.querySelectorAll('[data-play]').forEach(b => b.addEventListener('click', () => hearWord(vtab, b.dataset.play)));
-  document.getElementById('ladder').addEventListener('click', () => playLadder(vtab));
+  document.querySelectorAll('[data-play]').forEach(b => onPress(b, () => { stopAll(); hearWord(vtab, b.dataset.play); }));
+  onPress(document.getElementById('ladder'), () => playLadder(vtab));
   document.getElementById('stop').addEventListener('click', stopAll);
   document.getElementById('heard').addEventListener('change', e => { HEARD[vtab] = e.target.checked; saveVocab(); renderVocab(); });
   document.getElementById('exportv').addEventListener('click', () => { const y = vocabYaml(); document.getElementById('vout').value = y; navigator.clipboard?.writeText(y).then(() => document.getElementById('vmsg').textContent = 'copied — paste to Claude, who writes vocabulary.yaml'); });
