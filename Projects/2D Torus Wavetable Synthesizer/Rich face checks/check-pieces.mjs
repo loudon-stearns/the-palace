@@ -170,10 +170,14 @@ console.log('\n§ The Surfaces — surfaces and morphs');
     const psp = MM.db(MM.level(U, 'spatial', 0.5)), psc = MM.db(MM.level(U, 'spectral', 0.5));
     ok(Math.abs(sp - psp) < 0.3 && Math.abs(sc - psc) < 0.3, `${a} ↔ ${b} played at φ: measured mid-morph ${sp.toFixed(2)} dB height-map, ${sc.toFixed(2)} dB spectral (predicted ${psp.toFixed(2)}, ${psc.toFixed(2)})`);
   }
-  // the claim: does a shared point group predict the dip? the page's own pairs
-  const same = MM.pair(surf('Membrane').terms, surf('Chladni Ghost').terms), cross = MM.pair(surf('Membrane').terms, surf('Theta Surface').terms), far = MM.pair(surf('Theta Surface').terms, surf('Matérn Field').terms);
-  console.log(`  note  same class (Membrane ↔ Chladni, both 4-fold): ${same.spatial.toFixed(2)} dB; the page's cross-class pair (Membrane ↔ Theta): ${cross.spatial.toFixed(2)} dB; Theta ↔ Matérn: ${far.spatial.toFixed(2)} dB height-map vs ${far.spectral.toFixed(2)} dB spectral`);
-  ok(Math.abs(same.spatial - cross.spatial) < 0.3 && far.spatial < -6, 'the shared point group does not make Membrane ↔ Chladni cleaner than the cross-class pair; overlap with opposed phase (Theta ↔ Matérn) is what deepens the dip');
+  // measured lattice symmetry (the challenger's numbers on the full tables: Membrane, Chladni, Theta 1/1/1; Penrose 0/1/0)
+  const sym = (nm) => MM.symmetry(surf(nm).terms);
+  for (const nm of ['Membrane', 'Chladni Ghost', 'Theta Surface', 'Penrose Lattice']) { const y = sym(nm); console.log(`  note  ${nm}: swap ${y.swap.toFixed(3)} · flip ${y.flip.toFixed(3)} · 90° ${y.rot.toFixed(3)} → ${y.label}`); }
+  ok(['Membrane', 'Chladni Ghost', 'Theta Surface'].every((nm) => sym(nm).label === '4-fold') && sym('Penrose Lattice').label !== '4-fold' && sym('Penrose Lattice').flip > 0.99 && sym('Penrose Lattice').rot < 0.01, 'measured symmetry: Membrane, Chladni and Theta all 4-fold; Penrose not');
+  // the claim: does a shared point group predict the dip? same class vs a real cross-class pair
+  const same = MM.pair(surf('Membrane').terms, surf('Chladni Ghost').terms), cross = MM.pair(surf('Membrane').terms, surf('Penrose Lattice').terms), far = MM.pair(surf('Theta Surface').terms, surf('Matérn Field').terms);
+  console.log(`  note  same class (Membrane ↔ Chladni, both 4-fold): ${same.spatial.toFixed(2)} dB; cross-class (Membrane ↔ Penrose, 4-fold ↔ 5-fold): ${cross.spatial.toFixed(2)} dB; Theta ↔ Matérn: ${far.spatial.toFixed(2)} dB height-map vs ${far.spectral.toFixed(2)} dB spectral`);
+  ok(same.spatial <= cross.spatial + 0.05 && far.spatial < -6, 'the same-class pair (Membrane ↔ Chladni) is no cleaner than the cross-class pair (Membrane ↔ Penrose); overlap with opposed phase (Theta ↔ Matérn) is what deepens the dip');
   // cost: the largest union, one second of audio
   { const U = MM.union(surf('Chladni Ghost').terms, surf('Stiff String').terms); const t0 = performance.now(); play(U, 'spectral', 0.5, 1); const ms = performance.now() - t0; ok(ms < 400, `largest pair (Chladni ↔ Stiff String, ${U.length} oscillators): 1 s of audio in ${ms.toFixed(0)} ms in Node`); }
 }

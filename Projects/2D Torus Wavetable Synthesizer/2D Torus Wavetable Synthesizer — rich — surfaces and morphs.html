@@ -84,7 +84,7 @@
       <canvas id="curve"></canvas>
     </div>
     <div class="panel wide hidden" id="gridPanel">
-      <div class="plabel"><span>all 36 pairs · mid-morph level, height-map ⁄ spectral · the brighter, the more the law matters</span><span>symmetry as the page names it</span></div>
+      <div class="plabel"><span>all 36 pairs · mid-morph level, height-map ⁄ spectral · the brighter, the more the law matters</span><span>symmetry: as the page names it · as the table measures</span></div>
       <canvas id="grid"></canvas>
     </div>
   </div>
@@ -175,7 +175,17 @@ class AddScan extends AudioWorkletProcessor {
   }
 }
 registerProcessor('add-scan', AddScan);`;
-  return { unit, union, at, level, db, overlap, pair, WORKLET };
+  // lattice-magnitude symmetry: correlation of |c_mn| with its m↔n swap, m flip and 90° turn (1 = holds, 0 = absent)
+  function symmetry(terms) {
+    const mag = new Map(); let e = 0;
+    for (const [m, n, a] of terms) { mag.set(key(m, n), a); mag.set(key(-m, -n), a); e += 2 * a * a; }
+    const corr = (T) => { let c = 0; for (const [k, a] of mag) { const [m, n] = k.split(',').map(Number), [u, v] = T(m, n); c += a * (mag.get(key(u, v)) || 0); } return c / (e || 1); };
+    const swap = corr((m, n) => [n, m]), flip = corr((m, n) => [-m, n]), rot = corr((m, n) => [-n, m]);
+    const on = (x) => x > 0.99;
+    const label = on(swap) && on(flip) && on(rot) ? '4-fold' : on(flip) && !on(rot) ? 'mirror only' : on(swap) && !on(rot) ? 'diagonal mirror only' : on(rot) ? '4-fold turn' : 'no square symmetry';
+    return { swap, flip, rot, label };
+  }
+  return { unit, union, at, level, db, overlap, pair, symmetry, WORKLET };
 })();
 </script>
 
@@ -188,9 +198,10 @@ const STEPS = [
   { key: 'lat', name: 'a surface is its lattice', say: 'Beside the height map, the same surface as its lattice of ripples c<sub>mn</sub>. Penrose is five ripples and their mirror images; Theta crowds the middle; Chladni sprays outward. <i>Where the ripples sit is what you hear</i>: each one is a partial.' },
   { key: 'two', name: 'two lattices', say: 'Two surfaces at once, A in blue and B in amber. Where both hold a ripple at the same (m, n), the lattices <i>overlap</i>. Overlap is 0 when they share nothing and 1 when their ripples match in size. Whether the shared ripples point the same way is the second number.' },
   { key: 'fade', name: 'crossfade the heights', say: 'Now morph from A to B by crossfading the height maps, the cheapest morph there is. That is the same as adding each ripple of A to its partner in B as a complex number. <i>Where partners point opposite ways they cancel</i>, and the middle of the morph goes quiet. Drag α, or sweep.' },
-  { key: 'test', name: 'the test: does symmetry decide?', say: 'The claim: surfaces that share a point group crossfade cleanly; different symmetry classes need another treatment. Try the pairs the page names: Membrane and Chladni, both 4-fold; Membrane and Theta, its own example of two classes. Then Theta and Matérn. Switch the law between height-map and spectral, and read the grid. <i>What predicts the dip: the symmetry, or the overlap?</i>' },
+  { key: 'test', name: 'the test: does symmetry decide?', say: 'The claim: surfaces that share a point group crossfade cleanly; different symmetry classes need another treatment. Start with Membrane and Chladni, both 4-fold. Then Membrane and Penrose, a real change of class: 4-fold to 5-fold. (The page\'s own example, Membrane and Theta, turns out to share a class: the built Theta table measures fully 4-fold.) Then Theta and Matérn. Switch the law between height-map and spectral, and read the grid. <i>What predicts the dip: the symmetry, or the overlap?</i>' },
 ];
-const PAIRS = [['Membrane', 'Chladni Ghost', 'both 4-fold'], ['Membrane', 'Theta Surface', '4-fold ↔ modular'], ['Theta Surface', 'Matérn Field', 'modular ↔ random field']];
+const PAIRS = [['Membrane', 'Chladni Ghost', 'both 4-fold'], ['Membrane', 'Penrose Lattice', '4-fold ↔ 5-fold'], ['Membrane', 'Theta Surface', 'the page: 4-fold ↔ modular'], ['Theta Surface', 'Matérn Field', 'overlapping']];
+const symOf = (s) => (s._sym ||= MorphMath.symmetry(s.terms));
 const S = { step: 0, a: 5, b: 1, alpha: 0, law: 'spatial', sweeping: false, sweepT0: 0 };
 let DATA = null, ctx = null, node = null, playing = false, U = null, measured = null;
 
@@ -310,11 +321,11 @@ function drawGrid() {
   const c = $('grid'); const n = DATA.surfaces.length; const { g, w } = fit(c, Math.min(520, c.clientWidth * 0.62)); const h = c.height / (devicePixelRatio || 1);
   g.clearRect(0, 0, w, h);
   if (!gridCache) { gridCache = []; for (let i = 0; i < n; i++) { gridCache.push([]); for (let j = 0; j < n; j++) gridCache[i].push(i < j ? MorphMath.pair(sel(i).terms, sel(j).terms) : null); } }
-  const left = 150, top = 8, cell = Math.min((w - left - 10) / n, (h - top - 70) / n);
+  const left = Math.min(260, w * 0.3), top = 8, cell = Math.min((w - left - 10) / n, (h - top - 70) / n);
   g.font = '10px JetBrains Mono, monospace';
   for (let i = 0; i < n; i++) {
-    const s = sel(i), lab = s.name + (s.symmetry ? ' · ' + s.symmetry : '');
-    g.fillStyle = '#8a8aa0'; g.textAlign = 'right'; g.fillText(lab.length > 26 ? lab.slice(0, 25) + '…' : lab, left - 6, top + i * cell + cell / 2 + 3);
+    const s = sel(i), lab = s.name + ' · ' + (s.symmetry || '—').replace(' (local)', '') + ' ⁄ ' + symOf(s).label.replace('no square symmetry', 'none').replace('mirror only', 'mirror');
+    g.fillStyle = '#8a8aa0'; g.textAlign = 'right'; g.fillText(lab.length > 40 ? lab.slice(0, 39) + '…' : lab, left - 6, top + i * cell + cell / 2 + 3);
     g.save(); g.translate(left + i * cell + cell / 2, top + n * cell + 6); g.rotate(Math.PI / 4); g.textAlign = 'left'; g.fillText(s.name, 0, 0); g.restore();
   }
   for (let i = 0; i < n; i++) for (let j = 0; j < n; j++) {
@@ -332,10 +343,10 @@ function drawGrid() {
 
 function readouts() {
   const k = STEPS[S.step].key, out = [];
-  if (!twoUp()) { const s = sel(S.a); out.push(`<b>${s.name}</b>`, `symmetry, as the page names it: <b>${s.symmetry || '—'}</b>`, `${s.terms.length} ripples hold 99.5% of its energy`, `scanned at f₁ ⁄ f₂ = <b>φ</b>, f₂ = <b>${F2} Hz</b>`); }
+  if (!twoUp()) { const s = sel(S.a); out.push(`<b>${s.name}</b>`, `symmetry, as the page names it: <b>${s.symmetry || '—'}</b>`, `as the table measures: <b>${symOf(s).label}</b> (swap ${symOf(s).swap.toFixed(2)} · flip ${symOf(s).flip.toFixed(2)} · 90° ${symOf(s).rot.toFixed(2)})`, `${s.terms.length} ripples hold 99.5% of its energy`, `scanned at f₁ ⁄ f₂ = <b>φ</b>, f₂ = <b>${F2} Hz</b>`); }
   else {
     const p = MorphMath.overlap(U), sa = sel(S.a), sb = sel(S.b);
-    out.push(`A <b>${sa.name}</b> (${sa.symmetry || '—'})`, `B <b>${sb.name}</b> (${sb.symmetry || '—'})`, `overlap <b>${p.overlap.toFixed(3)}</b>`, `phase agreement <b>${p.corr >= 0 ? '+' : ''}${p.corr.toFixed(3)}</b>`);
+    out.push(`A <b>${sa.name}</b> (page: ${sa.symmetry || '—'} · measured: ${symOf(sa).label})`, `B <b>${sb.name}</b> (page: ${sb.symmetry || '—'} · measured: ${symOf(sb).label})`, `overlap <b>${p.overlap.toFixed(3)}</b>`, `phase agreement <b>${p.corr >= 0 ? '+' : ''}${p.corr.toFixed(3)}</b>`);
     if (k === 'fade' || k === 'test') {
       const sp = MorphMath.db(MorphMath.level(U, 'spatial', 0.5)), sc = MorphMath.db(MorphMath.level(U, 'spectral', 0.5));
       out.push(`mid-morph · height-map <b class="${k === 'test' ? 'hot' : ''}">${sp.toFixed(2)} dB</b>`);
@@ -350,7 +361,7 @@ function hintFor(k) {
   if (k === 'lat') return 'Dots far from the centre are high partials. A faint dot is a ripple\'s mirror image (−m, −n): the same partial, since the surface is real.';
   if (k === 'two') return 'Membrane and Penrose share nothing: overlap 0. Theta and Matérn share almost everything: overlap near 0.9. Watch the second number for that pair.';
   if (k === 'fade') return 'A pair that shares nothing dips exactly 3 dB at the middle: the two sets of partials just add in power. An equal-power crossfade is the whole fix for that. A deeper dip means shared ripples pointing opposite ways.';
-  return 'Clean here means level: how far the middle of the morph falls. Whether the middle sounds like a sensible blend is for the ear; the grid can\'t say. Click any cell to load that pair.';
+  return 'Measured symmetry is the lattice\'s: the correlation of each ripple\'s size with its m↔n swap, m flip and 90° turn. Clean here means level: how far the middle of the morph falls. Whether the middle sounds like a sensible blend is for the ear; the grid can\'t say. Click any cell to load that pair.';
 }
 function setStep(i) {
   stop(); S.sweeping = false;

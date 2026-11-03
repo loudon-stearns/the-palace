@@ -34,31 +34,32 @@
     {
       "section": "Architecture",
       "kind": "claim-change",
-      "what": "The two bullets read as a binary gate; by the spectrum it is a slope, which is the Four Pillars claim. Measured on the piece's engine: the rational/irrational line is everywhere and inaudible (1.5 closes in 18.18 ms, 1.5005 = 3001/2000 in 18.2 s, 1.5 + 10⁻⁹ in 53 days, with the same spectrum); what moves is the detune δ = f₁ − (p/q)·f₂ from the nearest simple ratio. Each partial slides by m·δ (Penrose dragged 1.49 → 1.51: 45 lines, worst 0.010 Hz from m·f₁ + n·f₂) and partials that shared a harmonic beat at multiples of |q·f₁ − p·f₂| (Membrane at 112 : 110: the 330 Hz pair measured at 331.99 and 334.00 Hz). Proposed sentence after the bullets: \"By ear the gate is not the line between rational and irrational, which is dense and inaudible, but the detune from the nearest simple ratio: each partial slides by m·δ, and partials that shared a harmonic beat apart at |q·ω₁ − p·ω₂|, slowing to stillness as the ratio arrives.\"",
+      "what": "An addition, not a correction: the two bullets are exact mathematics, and this squares them with the Philosophy pillar's \"continuous geometric parameter, not a categorical line\". Measured on the piece's engine and on the catalog tables (the challenger's scanner): whether the ratio is rational is everywhere and inaudible (1.5 closes in 18.18 ms, 1.5005 in 18.2 s, 1.5 + 10⁻⁹ in 53 days, same spectrum); each partial slides by m·δ (Penrose 1.49 → 1.51: 45 lines, worst 0.010 Hz), and partials that shared a harmonic beat at multiples of |q·f₁ − p·f₂| (Membrane at 112 : 110 Hz: 331.99 and 334.00 Hz, with weaker lines 4 Hz out either side). Proposed sentence after the bullets: \"By ear the move is gradual: just off a simple ratio p/q, each partial slides by m·δ Hz, and partials that shared a harmonic beat apart at multiples of |q·f₁ − p·f₂| Hz, slowing to stillness as the ratio arrives.\"",
       "status": "open"
     },
     {
       "section": "Why This Project Exists",
       "kind": "claim-change",
       "what": "The section credits the irrational-ratio gate with load-bearing work toward piano-style accumulating inharmonicity. The ratio-gate piece shows the gate alone moves each partial by m·δ: linear in the ripple's count, not the quadratic n·√(1 + B·n²) stretch the section starts from. The quadratic enters through the stiffness warp or the Stiff String surface (Architecture's \"second inharmonicity layer\"). Proposed: say the gate supplies a linear, surface-shaped detune and the quadratic accumulation comes from the B warp.",
-      "status": "open"
+      "status": "declined",
+      "declined": "Challenger, 2026-11-03: the page already gives the load-bearing work to \"the irrational-ratio gate and the coupled-flow warps\", and [[Three Kinds of Warp]] (lines 95–101) says the same; the Stiff String surface rounds its partials to whole numbers, so it does not supply the stretch either. The number (m·δ) holds by construction, but no claim in the text is wrong. Maker agrees."
     },
     {
       "section": "The Surfaces — Design Language",
       "kind": "claim-change",
-      "what": "\"Surfaces sharing a common symmetry can crossfade cleanly; surfaces with different symmetry classes need a different morph treatment\" does not hold by level. Measured on the full 1024² tables (Rich face checks/mid-morph-direct.py): Membrane ↔ Chladni, both 4-fold, dips 3.14 dB at mid-morph under a height-map crossfade; Membrane ↔ Theta, the page's own cross-class example, 3.01 dB; Membrane ↔ Penrose, which share nothing, 3.01 dB. The law matters where lattices overlap with opposed phase: Theta ↔ Matérn (overlap 0.89) 6.47 dB height-map against 0.24 dB spectral; Matérn ↔ Fisher 4.17 against 0.56. Proposed: overlap and phase agreement, not point group, predict the dip; for pairs that share nothing an equal-power crossfade is the whole fix. This is the steward's cycle-7 finding, never folded in.",
+      "what": "By level, \"surfaces sharing a common symmetry can crossfade cleanly; surfaces with different symmetry classes need a different morph treatment\" does not hold. Height-map mid-morph is exactly 10·log₁₀((1 + ρ)/2) for the two tables' correlation ρ. Membrane ↔ Chladni, both 4-fold: −3.14 dB. Membrane ↔ Penrose, a real change of class (4-fold to 5-fold, measured on the lattices): −3.01 dB. The same class is no cleaner. The page's own example, Membrane ↔ Theta, is not cross-class in the built tables (Theta measures fully 4-fold). What sets the dip is overlap with opposed phase: Theta ↔ Matérn −6.47 dB height-map against −0.24 dB spectral; Matérn ↔ Fisher −4.17 against −0.56 (Rich face checks/mid-morph-direct.py; cycle 7's −7.5 / −5.4 dB is stale). Proposed: overlap and phase agreement, not point group, set the dip; for pairs that share nothing an equal-power crossfade is the whole fix. Whether \"cleanly\" meant level or the symmetry of the in-between surface is Loudon's call.",
       "status": "open"
     },
     {
       "section": "Open Decisions",
       "kind": "claim-change",
-      "what": "\"Spectral-domain is the right tool for cross-symmetry surface morphs (Membrane ↔ Chladni)\": the Surfaces list calls both 4-fold, so the pair is not cross-symmetry, and the spectral law gains it 0.27 dB (3.14 → 2.87 dB at mid-morph). The pair where spectral morphing earns its FFT is Theta ↔ Matérn (6.47 → 0.24 dB). Proposed: name Theta ↔ Matérn, or say \"overlapping, opposed-phase pairs\".",
+      "what": "\"Spectral-domain is the right tool for cross-symmetry surface morphs (Membrane ↔ Chladni)\": the Surfaces list calls both 4-fold, so the pair is not cross-symmetry, and the spectral law gains it 0.27 dB (3.14 → 2.87 dB at mid-morph). The pair where spectral morphing earns its FFT is Theta ↔ Matérn (6.47 → 0.24 dB). Proposed: name Theta ↔ Matérn, or say \"overlapping, opposed-phase pairs\". (Challenger: Matérn's lattice is nearly 4-fold too, 0.93 / 0.89 / 0.83, so that pair is not cross-symmetry either; say \"overlapping, opposed-phase pairs\".)",
       "status": "open"
     },
     {
       "section": "Open Decisions",
       "kind": "claim-change",
-      "what": "Measured from 00_test_diagnostic.wav, row by row: sine → rising saw bottoms 9.6 dB below the constant-RMS target at 55% of the segment (9.2 dB at the midpoint), so \"~10 dB\" holds; but the deepest dip in the table is rising saw → square, 11.7 dB below target at 36% (14.5 dB below the louder anchor), and when two anchors' levels differ the bottom of the dip moves off the midpoint. Proposed: \"~10–12 dB for negatively correlated anchors (sine → rising saw 9.6 dB; rising saw → square, the deepest, 11.7 dB, a third of the way across)\".",
+      "what": "The text holds by its own measure: at the midpoint, sine → rising saw is the deepest dip in 00_test_diagnostic.wav (−9.24 dB below the constant-RMS target, against −8.73 for rising saw → square). Measured anywhere in the segment, though, the deepest trough is rising saw → square, −11.7 dB at 36% of the way (−14.5 below the louder anchor; sine → saw bottoms at −9.6 at 55%). Proposed: \"~9 dB at the midpoint for sine → rising saw; the deepest trough is rising saw → square, 11.7 dB a third of the way across\".",
       "status": "open"
     },
     {
@@ -146,14 +147,14 @@
           "by": "the Maker · Web Audio Worklet",
           "height": 1500,
           "title": "surfaces and morphs · five steps",
-          "caption": "**Does symmetry decide the morph?** Nine voices from one scanning rule, then each as its lattice, then two lattices overlaid, then a height-map crossfade, and last the section's closing claim tested on the pairs the page names. Measured on the full tables: Membrane ↔ Chladni, both 4-fold, dips 3.1 dB at mid-morph, the same as Membrane ↔ Theta, the page's own cross-class example (3.0 dB), and as a pair that shares nothing. Theta ↔ Matérn, whose lattices overlap with opposed phase, dips 6.5 dB under the height-map law and 0.2 dB under the spectral one.",
+          "caption": "**Does symmetry decide the morph?** Nine voices from one scanning rule, then each as its lattice, then two lattices overlaid, then a height-map crossfade, and last the section's closing claim on trial, with each surface's symmetry shown twice: as the page names it and as its table measures. Membrane ↔ Chladni, both 4-fold, dips 3.14 dB at mid-morph under a height-map crossfade; Membrane ↔ Penrose, a real change of class (4-fold to 5-fold), dips 3.01 dB. The same class is no cleaner. (The page's own example, Membrane ↔ Theta, shares a class in the built tables: Theta measures fully 4-fold.) What deepens the dip is overlap with opposed phase: Theta ↔ Matérn falls 6.5 dB under the height-map law and 0.2 dB under the spectral one, exactly 10·log₁₀((1 + ρ)/2) for their correlation ρ.",
           "near": "A symmetric morph stack across these surfaces is constrained by point group"
         },
         {
           "file": "Auditions/cycle-7/theta_matern_morph_spatial.wav",
           "origin": "gathered",
           "title": "Theta → Matérn, height-map crossfade · cycle 7",
-          "caption": "8 s, the morph the steward's cycle 7 surfaced from September's workshop. Listen for the middle going thin.",
+          "caption": "8 s, the morph the steward's cycle 7 surfaced from September's workshop. Listen for the middle going thin. These renders' ends are not level-matched (−11.8 and −6.7 dBFS), so the gap between the two laws is milder here, about 2.4 dB, than the piece's unit-energy 6.5 against 0.2 dB.",
           "near": "A symmetric morph stack across these surfaces is constrained by point group",
           "place": "margin"
         },
@@ -161,7 +162,7 @@
           "file": "Auditions/cycle-7/theta_matern_morph_spectral.wav",
           "origin": "gathered",
           "title": "Theta → Matérn, spectral crossfade · cycle 7",
-          "caption": "The same pair, magnitudes blended and phases turned: the middle keeps its body.",
+          "caption": "The same pair, magnitudes blended and phases turned: the middle keeps its body. These renders' ends are not level-matched (−11.8 and −6.7 dBFS), so the gap between the two laws is milder here, about 2.4 dB, than the piece's unit-energy 6.5 against 0.2 dB.",
           "near": "A symmetric morph stack across these surfaces is constrained by point group",
           "place": "margin"
         }
@@ -321,7 +322,7 @@
           },
           "height": 1400,
           "title": "the Hopf control surface · the cycle 7 study, as it was",
-          "caption": "**Start at the south pole.** Drag the dot to the bottom of the sphere and press play: that point is the classic 1D wavetable synth, and longitude chooses the row. Then climb. Gathered as built, including its own note boxes, which keep nothing inside the face; the page says it has not been played in a real browser, and this is the first place it can be.",
+          "caption": "**Start at the south pole.** Drag the dot to the bottom of the sphere and press play: that point is the classic 1D wavetable synth, and longitude chooses the row. Then climb. Gathered as built, including its own note boxes, which keep on this Mac's live face only (the public site holds them in memory); the page says it has not been played in a real browser, and this is the first place it can be.",
           "near": "A first mapping is built as a browser instrument"
         }
       ],
@@ -360,7 +361,7 @@
           "by": "the Maker · Web Audio Worklet",
           "height": 1300,
           "title": "the RMS dip · five steps",
-          "caption": "**Where does the middle of a crossfade go?** Sine and rising saw alone, then crossfaded, then the inner product that sinks the middle (−1 ⁄ π), then the constant-RMS fix, and last the real diagnostic table, all 1024 rows measured. Sine → saw bottoms at 9.6 dB below the constant-RMS target, as the page says; the deepest dip in the table is rising saw → square, 11.7 dB, a third of the way across.",
+          "caption": "**Where does the middle of a crossfade go?** Sine and rising saw alone, then crossfaded, then the inner product that sinks the middle (−1 ⁄ π), then the constant-RMS fix, and last the real diagnostic table, all 1024 rows measured. The two measures disagree: at the midpoint, the page's measure, sine → saw is the deepest (−9.2 dB below the constant-RMS target, against −8.7 for saw → square), as the page says; measured anywhere in the segment, the deepest trough is rising saw → square, 11.7 dB a third of the way across.",
           "near": "Linear sample-domain interpolation between dissimilar anchor waveforms"
         },
         {
