@@ -47,6 +47,13 @@ Where this is going: a website generated from the cards, a catalog to choose fro
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="synth-templates-2026-11-03-swarm-landed" -->
+### 2026-11-03 — "Merge it": the swarm's drafts landed on main
+
+Loudon: "Merge it." The branch `swarm/synth-templates-cards` (`17e9e298`) landed on main as merge `036dd538`. The lander refused once, because the two tracked scripts had been moved aside and read as deleted; they were restored to their last committed content and the landing then carried the branch's versions over them. The landed tree was checked file for file against the set-aside originals, the `site/sheets` symlink points at `../cards`, nothing under the project is left unsaved, and the worktree and branch are torn down. On main the validator reads 292 ok, 20 warn, 0 FAIL.
+
+_Left rough:_ the gap list and the three questions from the entry below still stand; none of the 287 drafts has been heard.
+<!-- /scroll:entry -->
 <!-- scroll:entry id="synth-templates-2026-11-03-swarm-drafts" -->
 ### 2026-11-03 — Every catalog id has a card: the swarm's drafts (Loudon: "proceed")
 
