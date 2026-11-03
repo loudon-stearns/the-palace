@@ -1,0 +1,347 @@
+<!doctype html>
+<!--
+  title: Inharmonic Wavetable Synthesis — rich — two ways to settle
+  born: 2026-11-03
+  links: [[Inharmonic Wavetable Synthesis]] (connects-to · rich-face-piece) · listed in [[Inharmonic Wavetable Synthesis — rich.json]] · [[Piano String Inharmonicity]] (tests · the settling piano) · [[Progressive Staging]] (exemplifies · a walk up to its test)
+  forward_vector: I am the settling piano put beside a real one. A struck string's loudness wall alone, then that string's own measured bend, then the page's recipe, where the bend itself relaxes to the flat line over half a second, and last both together, measured the same way. I want whoever plays me to hear where a real piano's settling lives, and to keep the recipe as what it is: a gesture no string makes. I play inside the entry's rich face and stand alone opened directly; I change only when the section I serve does.
+  engine: everything between ENGINE-START and ENGINE-END is pure and runs in Node too; the checks re-run the claims on it. The string is trajectory-library/piano-A2.wtb.json (a Grand Piano A at 110 Hz, measured 2026-10-14): its 16 frames of cents and levels, nothing of the recording itself.
+  dress: Loudon Live house style, Graphite skin.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:needs" content="">
+<title>Two ways to settle</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Manrope:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root { --bg:#0a0a0f; --e1:#12121a; --ring:#22222e; --border:#4a4a5e; --soft:rgba(255,255,255,.06); --fg1:#e8e8f0; --fg2:#c8c8d8; --fg3:#8a8aa0; --fg4:#4a4a5a;
+    --amber:#e8b84a; --amberline:rgba(232,184,74,.5); --indigo:#6366F1; --warn:#ff9b4a;
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --sans:'Manrope',system-ui,sans-serif; --serif:'Cormorant Garamond',Georgia,serif; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); font-weight: 300; }
+  .piece { padding: 22px 22px 16px; }
+  .kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; }
+  .title { font-family: var(--serif); font-size: 27px; font-weight: 300; color: var(--fg1); margin: 0 0 6px; }
+  .sub { font-size: 14px; line-height: 1.6; color: var(--fg2); max-width: 78ch; margin: 0 0 14px; }
+  .rail { display: flex; flex-wrap: wrap; margin: 0 0 12px; }
+  .rail button { border-radius: 0; margin-right: -1px; }
+  .rail button.here { color: var(--amber); border-color: var(--amberline); position: relative; z-index: 1; }
+  .rail button.ahead { color: var(--fg3); }
+  .stephead { font-family: var(--mono); font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--amber); margin: 4px 0 4px; }
+  .says { font-size: 14px; line-height: 1.6; color: var(--fg1); max-width: 78ch; margin: 0 0 14px; min-height: 3.2em; }
+  .stage { display: grid; grid-template-columns: 1.2fr 1fr; gap: 16px; align-items: start; }
+  .panel { border: 1px solid var(--soft); border-radius: 2px; background: var(--e1); padding: 10px 12px; }
+  .plabel { font-family: var(--mono); font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--fg3); margin-bottom: 8px; display: flex; justify-content: space-between; gap: 10px; }
+  canvas { display: block; width: 100%; }
+  .controls { display: flex; flex-wrap: wrap; gap: 14px 26px; align-items: end; margin-top: 16px; min-height: 40px; }
+  .ctl { min-width: 200px; flex: 1; }
+  .seg { display: inline-flex; flex-wrap: wrap; } .seg button + button { border-left: 0; }
+  button.on { color: var(--amber); border-color: var(--amberline); }
+  button { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--fg2); background: var(--bg); border: 1px solid var(--border); border-radius: 2px; padding: 8px 12px; cursor: pointer; }
+  button:hover { border-color: rgba(232,184,74,.55); color: var(--fg1); }
+  button:disabled { opacity: .4; cursor: default; }
+  button.go { color: var(--amber); border-color: var(--amberline); box-shadow: 0 0 14px rgba(232,184,74,.18); min-width: 96px; }
+  button.go2 { color: #8f91ff; border-color: rgba(99,102,241,.6); min-width: 96px; }
+  button:focus-visible, input:focus-visible { outline: 1px dashed var(--amber); outline-offset: 2px; }
+  label.sl { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: .08em; color: var(--fg3); }
+  label.sl b { color: var(--fg1); font-weight: 500; }
+  input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 3px; background: var(--fg4); margin: 12px 0 4px; outline: none; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 13px; height: 13px; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  input[type=range]::-moz-range-thumb { width: 13px; height: 13px; border: 0; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  .read { display: flex; flex-wrap: wrap; gap: 6px 22px; margin-top: 14px; font-family: var(--mono); font-size: 11.5px; letter-spacing: .05em; color: var(--fg3); }
+  .read b { color: var(--fg1); font-weight: 500; }
+  .read .verdict { color: var(--amber); }
+  .nav { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 16px; }
+  .hint { font-family: var(--mono); font-size: 11px; letter-spacing: .05em; line-height: 1.6; color: var(--fg3); margin-top: 10px; max-width: 92ch; }
+  .eqs { margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--soft); }
+  .eq { font-family: var(--serif); font-size: 19px; color: var(--fg1); }
+  .words { font-size: 13px; line-height: 1.55; color: var(--fg2); margin: 2px 0 10px; }
+  .foot { display: flex; align-items: center; gap: 10px; margin-top: 14px; font-family: var(--mono); font-size: 10px; letter-spacing: .18em; text-transform: uppercase; color: var(--fg4); }
+  .foot svg { width: 22px; height: 22px; }
+  @media (max-width: 700px) { .stage { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="piece">
+  <div class="kicker">made · Web Audio Worklet · study · a walk in five steps</div>
+  <h3 class="title">Two ways to settle</h3>
+  <p class="sub">The page’s settling piano bows Wavetable B hard at the strike and flattens it over half a second, so the bend itself relaxes. Here that recipe sits beside a real piano string, measured partial by partial from a recording. The line on the left glows where its partials are loud. The curve on the right is the bend you hear: each partial’s distance from the flat line, averaged by how much of the sound it carries.</p>
+
+  <div class="rail" id="rail" role="group" aria-label="steps"></div>
+  <div class="stephead" id="stephead"></div>
+  <p class="says" id="says"></p>
+
+  <div class="stage">
+    <div class="panel">
+      <div class="plabel"><span>wavetable B · the line at <b id="tnow" style="color:var(--fg1);font-weight:500"></b></span><span>brightness is level</span></div>
+      <canvas id="line"></canvas>
+    </div>
+    <div class="panel">
+      <div class="plabel"><span>the bend you hear · cents · against time</span><span>log time</span></div>
+      <canvas id="heard"></canvas>
+    </div>
+  </div>
+  <div class="read">
+    <span id="r1"></span>
+    <span id="r2"></span>
+    <span class="verdict" id="verdict"></span>
+  </div>
+
+  <div class="controls" id="controls"></div>
+
+  <div class="nav">
+    <button id="back">← back</button>
+    <button class="go" id="go">▸ strike</button>
+    <button class="go2" id="go2" style="display:none">▸ strike the recipe</button>
+    <button id="next">next step →</button>
+  </div>
+  <div class="hint">The string is a Grand Piano A2, 110 Hz (fitted f₀ 110.25 Hz), from Ableton’s Core Library, tracked into 16 frames from 0.03 s to 8 s by the project’s steward on 2026-10-14; only its numbers are here. Between frames the line is interpolated. The page names its recipe at “B ≈ 0.002 at partial 20”; the piece reads that as stiffness B = 0.002 and lets you move it.</div>
+
+  <div class="eqs">
+    <div class="eq">heard bend(t) = Σ a<sub>n</sub>(t)² · |Δ<sub>n</sub>(t)| ⁄ Σ a<sub>n</sub>(t)²</div>
+    <div class="words">(the bend you hear at time t) is (each partial’s distance from the flat line, in cents), weighted by (how much power that partial carries right then). It falls if the line flattens, and it also falls if the bent partials go quiet. Weighted by power, it mostly reads the lowest partials: at this string’s strike partials 2 and 3 carry 70 % of it, partials 10 and up 3 %.</div>
+    <div class="eq">string: Δ<sub>n</sub>(t) ≈ 1200 · log<sub>2</sub> √(1 + B n²), B steady · recipe: Δ<sub>n</sub>(t) = 1200 · log<sub>2</sub> √(1 + B n²) · max(0, 1 − t ⁄ 0.5 s)</div>
+    <div class="words">(the real string’s bend) stays on one stiffness curve the whole note, give or take a few cents at the lowest partials in the first 60 ms, which may be the tracker; (the page’s recipe) shrinks that curve to the flat line over half a second.</div>
+  </div>
+  <div class="foot"><svg viewBox="-1.1 -1.1 2.2 2.2" aria-hidden="true"><path id="sigil" fill="none" stroke="#e8b84a" stroke-width="0.06"/></svg><span>Inharmonic Wavetable Synthesis · rich face · Loud’n Live</span></div>
+</div>
+
+<script id="engine">
+/*ENGINE-START*/
+const A2 = {"f0":110.2484,"B":8.301e-05,"times":[0.03,0.0435,0.0632,0.0917,0.1331,0.1931,0.2802,0.4067,0.5902,0.8565,1.2429,1.8037,2.6176,3.7986,5.5126,8.0],"Bper":[8.3162e-05,8.2718e-05,8.3525e-05,8.2801e-05,8.2375e-05,8.2297e-05,8.2388e-05,8.2146e-05,8.1737e-05,8.1571e-05,8.1467e-05,8.1648e-05,8.1472e-05,7.9783e-05,8.0885e-05,8.0472e-05],"cents":[[null,3.62,-6.14,3.56,3.0,1.82,2.94,5.14,7.0,7.69,11.29,11.49,9.08,14.0,12.02,18.96,22.35,23.67,26.95,29.21,31.87,34.26,37.56,40.92,44.97,47.74,51.34,55.53,56.98,61.82,67.11,71.06,null,79.91,84.23,88.34,93.76,98.43,102.57,107.86,115.57,null,123.69,129.17,134.84,140.36,145.72,null,null,null,null,null,180.39,183.92,null,null,null,null,null,null,null,null,null,null],[null,4.16,-5.09,3.45,3.79,1.92,1.92,5.0,6.92,7.47,10.58,11.36,8.97,13.81,12.87,18.98,19.53,23.61,26.68,29.23,31.93,34.3,37.71,41.06,45.61,47.73,51.26,55.59,56.73,62.16,67.18,71.07,null,79.94,84.21,88.55,93.77,98.38,102.72,107.92,115.55,null,124.14,128.96,134.87,140.3,145.61,null,null,null,null,null,180.58,184.0,null,null,null,null,null,null,null,null,null,null],[null,0.88,-2.75,3.7,3.84,2.8,1.4,5.54,6.52,7.14,9.6,10.69,9.22,13.45,20.23,19.27,22.1,23.43,25.73,29.09,31.79,34.04,37.83,41.12,45.75,47.73,51.17,55.59,56.48,62.41,67.57,70.98,null,79.78,84.09,88.8,93.65,98.26,102.75,107.93,116.16,null,124.01,128.77,135.13,140.35,145.9,null,null,null,null,null,180.58,184.19,null,null,null,null,null,null,null,null,null,null],[null,0.66,1.64,2.16,2.54,2.71,1.99,5.05,6.41,6.9,9.14,10.33,12.16,13.41,31.32,19.53,21.69,23.51,26.29,28.87,31.75,34.1,37.68,41.16,45.83,47.69,51.11,55.45,56.31,63.09,67.4,71.0,74.42,79.93,84.16,88.81,93.48,98.19,102.35,107.87,117.07,null,123.95,128.73,135.11,140.29,145.65,151.73,null,null,168.39,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,0.05,2.93,2.2,1.84,2.95,3.16,4.72,6.24,7.34,9.36,10.83,14.95,14.19,5.75,19.08,23.27,23.6,26.41,29.04,31.8,34.17,38.11,41.09,44.23,47.69,51.13,55.53,56.51,63.47,67.45,71.08,73.5,79.67,84.2,88.9,93.54,98.19,102.53,107.89,115.33,null,123.85,128.59,134.76,139.98,145.67,151.53,null,null,168.5,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,1.46,1.09,1.7,2.74,3.95,3.96,4.75,6.33,7.59,8.85,10.77,9.56,13.94,23.14,18.92,23.03,23.53,25.81,28.91,31.61,34.52,37.79,41.04,44.7,47.51,51.09,55.54,57.38,63.19,67.15,71.06,null,79.57,84.04,88.58,93.42,98.17,102.75,107.96,116.87,117.29,123.52,128.75,134.78,139.38,145.51,151.28,null,null,168.49,null,null,183.76,null,null,null,null,null,null,null,null,null,null],[null,1.5,0.18,1.66,2.58,3.24,3.77,4.74,6.01,7.41,9.06,10.54,10.97,13.85,1.32,18.98,18.75,23.54,25.85,28.82,31.49,34.57,37.76,40.8,43.59,47.44,50.99,55.25,56.46,62.98,66.89,70.9,74.11,79.58,84.07,88.37,93.33,98.06,102.86,107.93,117.12,118.05,123.79,128.75,134.65,139.8,145.45,151.28,null,null,168.33,174.77,null,null,null,null,null,null,null,null,null,null,null,null],[null,1.47,0.68,1.67,2.54,3.24,3.95,4.72,6.04,7.45,8.87,10.56,11.55,13.88,6.36,18.77,20.88,23.43,25.79,28.76,31.46,34.59,37.65,40.66,43.83,47.35,50.88,55.04,57.43,62.93,66.89,70.94,null,79.65,84.03,87.87,93.17,98.05,102.86,107.81,116.53,116.6,123.87,129.23,null,139.71,145.57,151.0,null,162.67,null,174.68,null,null,null,null,null,null,null,null,null,null,null,null],[null,1.54,0.67,1.49,2.36,3.14,3.84,4.93,6.01,7.41,8.82,10.44,9.08,14.03,14.69,18.66,21.38,23.35,25.89,28.64,31.35,34.44,37.39,40.71,44.19,47.34,50.73,54.74,55.27,62.94,67.25,71.0,75.57,79.67,83.97,88.47,93.16,97.91,102.79,107.04,115.61,116.86,114.89,129.16,134.42,139.84,145.43,151.06,null,null,168.27,174.66,180.18,183.39,null,null,null,null,null,null,null,null,null,null],[null,1.33,0.71,1.39,2.44,3.04,3.72,4.7,5.93,7.38,8.69,10.38,9.16,13.86,4.71,18.88,19.52,23.21,25.92,28.51,31.37,34.24,37.27,40.56,43.07,47.28,50.6,55.01,57.16,62.99,67.19,70.97,75.04,79.41,83.88,88.46,93.11,97.44,102.61,107.63,114.77,116.98,114.9,129.09,134.48,139.86,145.1,150.97,null,null,168.41,174.66,null,null,null,null,null,null,null,null,null,null,null,null],[null,1.39,0.54,1.35,2.19,2.99,3.69,4.6,5.87,7.31,8.61,10.28,10.81,13.89,15.64,18.58,20.31,23.19,25.65,28.55,31.28,34.12,37.26,40.49,43.81,47.13,50.42,54.77,58.16,63.25,67.29,71.72,null,79.46,83.57,null,93.05,97.87,102.63,107.56,116.41,118.94,114.84,128.45,null,139.67,145.35,150.44,null,null,null,174.77,null,183.21,null,null,null,null,null,null,null,null,null,null],[null,1.3,0.49,1.19,2.15,2.95,3.58,4.19,5.88,7.08,8.47,10.22,11.7,13.62,9.81,18.87,20.7,23.13,25.86,28.38,31.24,34.19,37.33,40.57,43.66,47.08,50.64,54.04,57.99,63.15,67.94,70.9,null,79.37,83.61,88.23,93.05,97.89,102.61,107.72,115.71,118.16,123.51,128.77,134.42,139.89,145.09,151.5,null,null,null,null,null,183.06,null,null,null,null,null,null,null,null,null,null],[null,1.19,0.53,1.3,2.27,2.95,3.43,4.29,5.82,7.13,8.58,10.33,15.27,13.37,12.54,18.52,21.29,23.12,26.04,28.56,31.26,34.23,37.29,40.88,43.77,47.3,50.67,54.78,58.93,63.56,66.85,70.82,null,79.33,83.75,88.29,93.07,97.95,102.61,107.68,115.77,null,114.9,129.09,null,139.8,145.99,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,1.53,0.28,0.01,2.95,3.2,3.29,4.52,5.26,7.34,8.75,10.35,8.73,13.86,9.08,17.76,20.96,23.19,25.86,28.73,31.38,34.14,36.99,40.9,44.32,47.23,50.63,55.09,58.19,63.45,66.92,70.88,null,79.75,84.0,null,92.88,98.01,102.67,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,1.17,0.65,1.45,2.28,2.86,3.65,5.36,5.95,7.45,8.59,10.46,11.22,13.88,14.55,18.56,20.73,23.31,25.73,28.56,31.25,34.29,37.54,40.83,44.68,47.36,50.95,55.4,57.73,62.52,66.84,71.08,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,1.08,2.43,1.41,1.35,2.87,3.69,4.23,5.87,7.4,8.81,10.25,14.83,13.83,12.34,18.63,21.37,23.28,25.56,28.76,31.43,34.23,36.67,40.41,null,47.26,null,null,null,62.54,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null]],"lev":[[0.0,1.0,0.7565,0.672,0.1734,0.2324,0.1635,0.0694,0.194,0.1369,0.091,0.0612,0.0312,0.0943,0.1048,0.0437,0.0139,0.0838,0.0453,0.0397,0.0217,0.0283,0.0134,0.0142,0.002,0.0444,0.0387,0.0049,0.0239,0.011,0.0251,0.0096,0.0,0.0035,0.0032,0.002,0.0098,0.0095,0.0049,0.004,0.0036,0.0,0.0024,0.0048,0.0028,0.0068,0.0025,0.0,0.0,0.0,0.0,0.0,0.0013,0.0021,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],[0.0,0.9596,0.7495,0.6605,0.1651,0.2393,0.1555,0.0638,0.1928,0.1359,0.0948,0.0574,0.0332,0.093,0.0765,0.0433,0.0146,0.0852,0.042,0.0389,0.0212,0.0268,0.0139,0.0138,0.0021,0.0434,0.039,0.0044,0.02,0.0121,0.024,0.0093,0.0,0.0033,0.0033,0.0023,0.01,0.0096,0.004,0.0039,0.0033,0.0,0.0026,0.0039,0.0026,0.006,0.0023,0.0,0.0,0.0,0.0,0.0,0.0012,0.0019,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],[0.0,0.9557,0.7365,0.6286,0.1572,0.2503,0.1442,0.0575,0.1924,0.1295,0.1002,0.0531,0.0316,0.0895,0.0347,0.041,0.0133,0.0862,0.0391,0.0376,0.0207,0.0252,0.0144,0.0132,0.0019,0.0414,0.039,0.0038,0.0156,0.0147,0.0229,0.0089,0.0,0.0032,0.0031,0.0025,0.0101,0.0098,0.0033,0.0038,0.0025,0.0,0.0028,0.0029,0.0023,0.0049,0.0023,0.0,0.0,0.0,0.0,0.0,0.0011,0.0015,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],[0.0,0.9481,0.7265,0.5806,0.1517,0.2584,0.1348,0.0528,0.1887,0.1212,0.099,0.0518,0.0191,0.0823,0.0154,0.0386,0.014,0.0847,0.0417,0.0359,0.0206,0.0238,0.0137,0.0123,0.0018,0.0375,0.0382,0.0033,0.0118,0.0189,0.0209,0.0081,0.001,0.003,0.0028,0.0025,0.0099,0.0092,0.0031,0.0037,0.0017,0.0,0.0029,0.0022,0.0021,0.0037,0.0022,0.0011,0.0,0.0,0.0009,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],[0.0,0.8924,0.7157,0.5497,0.1424,0.2445,0.1179,0.0491,0.1861,0.1214,0.0894,0.0538,0.0149,0.0748,0.0264,0.0362,0.0138,0.0798,0.0416,0.0352,0.0196,0.0225,0.0132,0.0111,0.0021,0.0325,0.0352,0.0029,0.0109,0.0231,0.0186,0.0076,0.0009,0.0028,0.0025,0.002,0.0089,0.0085,0.0031,0.0037,0.002,0.0,0.0022,0.0019,0.0018,0.0023,0.002,0.0011,0.0,0.0,0.0007,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],[0.0,0.8698,0.6347,0.5087,0.1305,0.2267,0.1156,0.048,0.1808,0.1245,0.0802,0.0548,0.0278,0.0681,0.0155,0.0323,0.0113,0.0763,0.0363,0.0324,0.0182,0.0213,0.0136,0.0101,0.0013,0.0262,0.0323,0.0023,0.0124,0.0227,0.0132,0.0064,0.0,0.0027,0.0024,0.0015,0.0075,0.0072,0.0036,0.0034,0.001,0.0008,0.0015,0.0016,0.0013,0.001,0.0018,0.001,0.0,0.0,0.0006,0.0,0.0,0.0006,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],[0.0,0.8269,0.597,0.4635,0.1155,0.2096,0.1029,0.041,0.1677,0.1174,0.0719,0.048,0.0192,0.062,0.0081,0.0265,0.0134,0.0718,0.0299,0.0286,0.0158,0.0218,0.0115,0.0083,0.0012,0.0207,0.0275,0.0021,0.0064,0.0164,0.0076,0.005,0.0006,0.0024,0.0024,0.0008,0.0056,0.0058,0.004,0.0027,0.0007,0.0004,0.0013,0.0017,0.0007,0.0007,0.0013,0.0008,0.0,0.0,0.0004,0.0005,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],[0.0,0.7777,0.509,0.3996,0.105,0.1926,0.0962,0.0299,0.1499,0.1066,0.0628,0.0415,0.0114,0.0574,0.006,0.0195,0.0107,0.0621,0.0238,0.0235,0.0133,0.0211,0.0088,0.0059,0.0007,0.0149,0.0201,0.0017,0.0081,0.0097,0.0048,0.0042,0.0,0.0018,0.0021,0.0002,0.004,0.0039,0.0039,0.0016,0.0005,0.0003,0.0008,0.0021,0.0,0.0006,0.0008,0.0005,0.0,0.0002,0.0,0.0003,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],[0.0,0.702,0.4094,0.313,0.0917,0.1722,0.0875,0.0186,0.1229,0.0922,0.0503,0.0341,0.0136,0.0485,0.0079,0.0141,0.0067,0.0489,0.0163,0.0172,0.0101,0.0164,0.0058,0.0037,0.0004,0.0106,0.0119,0.001,0.0015,0.0061,0.0029,0.0033,0.0002,0.001,0.0015,0.0004,0.0028,0.0018,0.0028,0.0004,0.0003,0.0001,0.001,0.0012,0.0001,0.0005,0.0004,0.0004,0.0,0.0,0.0002,0.0002,0.0001,0.0001,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],[0.0,0.6072,0.2962,0.2248,0.0747,0.1475,0.0716,0.0146,0.0934,0.0713,0.0363,0.0237,0.0088,0.038,0.0012,0.0095,0.0025,0.0334,0.0093,0.0114,0.0073,0.0094,0.0037,0.0025,0.0002,0.0066,0.0065,0.0003,0.0025,0.0017,0.0026,0.0016,0.0001,0.0002,0.0007,0.0004,0.0013,0.0006,0.0011,0.0006,0.0003,0.0001,0.0006,0.0007,0.0001,0.0004,0.0002,0.0002,0.0,0.0,0.0001,0.0001,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],[0.0,0.4893,0.1817,0.1336,0.0555,0.1131,0.0501,0.0079,0.0652,0.0448,0.0208,0.0148,0.0047,0.0215,0.0029,0.0039,0.0021,0.0205,0.0056,0.0076,0.005,0.0058,0.0036,0.0012,0.0002,0.0029,0.003,0.0008,0.0013,0.0018,0.0017,0.0002,0.0,0.0003,0.0002,0.0,0.0006,0.0011,0.0006,0.0004,0.0001,0.0001,0.0004,0.0002,0.0,0.0003,0.0002,0.0,0.0,0.0,0.0,0.0001,0.0,0.0001,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],[0.0,0.3518,0.0856,0.0598,0.035,0.075,0.0285,0.0029,0.0387,0.0194,0.0105,0.0088,0.0028,0.008,0.0008,0.0006,0.0036,0.0085,0.0061,0.0033,0.0034,0.0046,0.0034,0.0008,0.0002,0.0011,0.0031,0.0002,0.0013,0.0012,0.0007,0.0005,0.0,0.0004,0.0002,0.0001,0.0005,0.0006,0.0004,0.0001,0.0,0.0,0.0001,0.0,0.0,0.0001,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],[0.0,0.2106,0.0244,0.0189,0.0142,0.0375,0.0116,0.0017,0.0155,0.0123,0.0076,0.0054,0.0006,0.0028,0.0009,0.0009,0.002,0.0032,0.0028,0.0025,0.0023,0.0036,0.0018,0.0002,0.0001,0.0009,0.0017,0.0003,0.0001,0.0004,0.0006,0.0002,0.0,0.0002,0.0001,0.0001,0.0004,0.0,0.0002,0.0,0.0,0.0,0.0001,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],[0.0,0.1013,0.0023,0.003,0.0021,0.008,0.0061,0.0016,0.003,0.0138,0.0049,0.0032,0.0004,0.0037,0.0002,0.0003,0.0017,0.0019,0.0018,0.0004,0.0007,0.0013,0.0003,0.0001,0.0,0.0002,0.0,0.0001,0.0001,0.0001,0.0002,0.0001,0.0,0.0,0.0,0.0,0.0001,0.0,0.0001,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],[0.0,0.047,0.001,0.0094,0.0028,0.0058,0.0048,0.0007,0.0025,0.0028,0.0012,0.002,0.0002,0.0012,0.0004,0.0006,0.001,0.0011,0.0005,0.0003,0.0003,0.0007,0.0003,0.0001,0.0,0.0001,0.0001,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],[0.0,0.0177,0.003,0.0076,0.0024,0.0058,0.0021,0.0001,0.0032,0.0042,0.001,0.0005,0.0002,0.0003,0.0001,0.0002,0.0002,0.0003,0.0002,0.0001,0.0001,0.0003,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0]],"eff":[4.67,4.61,2.58,1.83,1.96,2.03,1.72,1.81,1.78,1.6,1.58,1.45,1.34,1.72,1.33,1.71]};
+const NPR = 64;
+function bowCents(n, B) { return 600 * Math.log2(1 + B * n * n); }
+function heardBend(cents, lev) {
+  let s = 0, w = 0;
+  for (let i = 0; i < cents.length; i++) { const c = cents[i], a = lev[i]; if (c == null || !a) continue; s += a * a * Math.abs(c); w += a * a; }
+  return w ? s / w : 0;
+}
+// a frame list is { times, cents[f][n], lev[f][n] }; read it at t by linear interpolation between frames
+function frameAt(tr, t) {
+  const T = tr.times, F = T.length;
+  if (t <= T[0]) return { cents: tr.cents[0], lev: tr.lev[0] };
+  if (t >= T[F - 1]) return { cents: tr.cents[F - 1], lev: tr.lev[F - 1] };
+  let k = 0; while (T[k + 1] < t) k++;
+  const u = (t - T[k]) / (T[k + 1] - T[k]), c0 = tr.cents[k], c1 = tr.cents[k + 1], l0 = tr.lev[k], l1 = tr.lev[k + 1];
+  const cents = c0.map((c, i) => (c == null || c1[i] == null ? (c == null ? c1[i] : c) : c + (c1[i] - c) * u));
+  const lev = l0.map((a, i) => a + (l1[i] - a) * u);
+  return { cents, lev };
+}
+// the string with its bend scaled by D (D = 0 is the flat line under the same loudness wall)
+function stringTrack(D) { return { times: A2.times, cents: A2.cents.map((f) => f.map((c) => (c == null ? null : c * D))), lev: A2.lev }; }
+// pull the string apart: its line held on the stiffness fit, or its levels held at the strike
+function splitTrack(line, lev) {
+  const fit = Array.from({ length: NPR }, (_, i) => bowCents(i + 1, A2.B));
+  return { times: A2.times,
+    cents: A2.cents.map((f) => (line === 'fit' ? f.map((c, i) => (c == null ? null : fit[i])) : f)),
+    lev: A2.lev.map((l, k) => (lev === 'strike' ? A2.lev[0].map((a, i) => (A2.cents[k][i] == null ? 0 : a)) : l)) };
+}
+// the page's recipe: a saw wall held by a gate, its bow shrinking to flat over T seconds
+function recipeTrack(B, T = 0.5, N = NPR) {
+  const times = [0.0]; for (let k = 1; k <= 20; k++) times.push(T * k / 20); times.push(8);
+  const lev0 = Array.from({ length: N }, (_, i) => 1 / (i + 1));
+  return { times, cents: times.map((t) => lev0.map((_, i) => bowCents(i + 1, B) * Math.max(0, 1 - t / T))), lev: times.map(() => lev0.slice()) };
+}
+function heardSeries(tr, ts) { return ts.map((t) => { const f = frameAt(tr, t); return heardBend(f.cents, f.lev); }); }
+const TS = Array.from({ length: 121 }, (_, i) => 0.03 * Math.pow(8 / 0.03, i / 120));   // 0.03 s to 8 s, log spaced
+/*ENGINE-END*/
+</script>
+
+<script>
+const $ = (id) => document.getElementById(id);
+const S = { step: 1, B: 0.002, view: 0.03, line: 'measured', lev: 'measured' };
+const STEPS = [
+  { n: 1, name: 'The struck wall alone', says: 'A real piano string’s loudness, partial by partial, with every partial put back on its harmonic: the flat line under a measured amplitude wall. Strike it. The right end of the line goes dark first, because the upper partials die first. Nothing bends, so the bend you hear is zero.' },
+  { n: 2, name: 'The string’s own bend', says: 'Now give each partial back its measured place. The line bows up, partial 32 about 71 cents sharp, and the bow holds for the whole note: the fitted stiffness moves 3 % in 8 seconds. Yet the bend you hear falls from 4.7 to 1.8 cents in the first tenth of a second, and on to 1.3 by 2.6 s. Something settled. Was it the line, or the loudness? Depth 0 takes you back to step 1.' },
+  { n: 3, name: 'Pull them apart', says: 'Two ways to ask. Hold the line on the string’s stiffness curve and let only the levels move (dashed amber). Or keep the measured line and freeze the levels at the strike (blue). There are two settlings, on two time scales. In the first tenth of a second the drop follows the blue curve: partials 2 and 3 sit 3.6 and −6.1 cents off at the strike and within 2 cents by 0.09 s. That may be the string, or it may be the tracker’s first frames; the data can’t say. After that the measured line holds (blue, about 2.0 to 1.7 cents) while the bend you hear keeps falling, 1.83 to 1.34 cents by 2.6 s: the slow settling is the loudness wall dimming. Strike any of the three.' },
+  { n: 4, name: 'The page’s recipe', says: 'The settling piano as the page writes it: a bright saw-like wall held by a gate, Wavetable B bowed at the strike and flattened over 500 ms. Here the whole line relaxes, and the bend you hear falls to zero with it. The stiffness slider starts at the page’s 0.002; slide it down to the string’s own 8.3 × 10⁻⁵ to hear the difference in size.' },
+  { n: 5, name: 'Side by side', says: 'The test. Both curves on one chart, both sounds a click apart. The page says the attack is “slightly metallic” and settles “into clarity” over half a second, “exactly as a piano note does.” Read the two curves: the string’s bow holds and its heard bend moves by a few cents; the recipe, set here at the A2 string’s pitch, starts eight times higher and goes to zero.' },
+];
+let D = 1;
+function tracks() {
+  return { str: S.step === 3 ? splitTrack(S.line, S.lev) : stringTrack(S.step === 1 ? 0 : D), rec: recipeTrack(S.B),
+    loud: splitTrack('fit', 'measured'), line: splitTrack('measured', 'strike') };
+}
+let TR = null, H = null;
+function recompute() {
+  TR = tracks();
+  H = { str: heardSeries(stringTrack(S.step === 1 ? 0 : S.step === 2 ? D : 1), TS), rec: heardSeries(TR.rec, TS), loud: heardSeries(TR.loud, TS), line: heardSeries(TR.line, TS) };
+  readouts(); drawAll();
+}
+const fmtB = (B) => { const e = Math.floor(Math.log10(B)); return (B / Math.pow(10, e)).toFixed(1) + ' × 10^' + e; };
+const at = (arr, t) => { let k = 0; while (k < TS.length - 1 && TS[k + 1] <= t) k++; return arr[k]; };
+function readouts() {
+  let r1 = '', r2 = '', v = '';
+  const B0 = A2.Bper[0], B1 = A2.Bper[A2.Bper.length - 1];
+  if (S.step === 1) { r1 = 'bend you hear: 0 ¢ at every moment'; r2 = `level of partial 20 against partial 2: ${(20 * Math.log10(A2.lev[0][19] / A2.lev[0][1])).toFixed(0)} dB at 0.03 s, ${(20 * Math.log10(A2.lev[8][19] / A2.lev[8][1])).toFixed(0)} dB at 0.59 s`; }
+  if (S.step >= 2) { r1 = `string: heard bend ${at(H.str, 0.03).toFixed(1)} ¢ at 0.03 s → ${at(H.str, 0.0917).toFixed(1)} ¢ at 0.09 s · fitted B ${fmtB(B0)} → ${fmtB(B1)} over 8 s`; }
+  if (S.step === 3) { r2 = `bow held, levels moving: ${at(H.loud, 0.03).toFixed(2)} → ${at(H.loud, 0.0917).toFixed(2)} ¢ by 0.09 s, ${at(H.loud, 2.6).toFixed(2)} ¢ by 2.6 s · line measured, levels frozen: ${at(H.line, 0.03).toFixed(2)} → ${at(H.line, 0.0917).toFixed(2)} ¢ by 0.09 s · partials 2 and 3: ${A2.cents[0][1]}, ${A2.cents[0][2]} ¢ at 0.03 s → ${A2.cents[3][1]}, ${A2.cents[3][2]} ¢ at 0.09 s`; }
+  if (S.step >= 4) { r2 = `recipe: partial 20 starts ${bowCents(20, S.B).toFixed(0)} ¢ sharp (the string: ${bowCents(20, A2.B).toFixed(0)} ¢) · heard bend ${at(H.rec, 0.03).toFixed(0)} ¢ → 0 at 0.5 s`; }
+  if (S.step === 5) v = 'the string’s bow holds, moving a few cents at most; the recipe’s whole line relaxes';
+  if (S.step === 2) v = 'the bow holds; the heard bend still drops';
+  if (S.step === 3) v = 'first 0.1 s: partials 2 and 3 move (string or tracker, unsettled) · after: the line holds, the loudness falls';
+  if (S.step === 4) v = 'the whole line flattens';
+  $('r1').textContent = r1; $('r2').textContent = r2; $('verdict').textContent = v;
+}
+function slider(label, min, max, step, get, set, fmt) {
+  const l = document.createElement('label'); l.className = 'sl ctl';
+  const b = document.createElement('b'); const i = document.createElement('input');
+  Object.assign(i, { type: 'range', min, max, step, value: get() });
+  const show = () => (b.textContent = fmt(get()));
+  i.oninput = () => { set(+i.value); show(); recompute(); };
+  l.append(label + ' ', b, i); show(); return l;
+}
+function buildControls() {
+  const c = $('controls'); c.innerHTML = '';
+  c.append(slider('look at time', Math.log10(0.03), Math.log10(8), 0.01, () => Math.log10(S.view), (v) => (S.view = Math.pow(10, v)), (v) => Math.pow(10, v).toFixed(2) + ' s'));
+  if (S.step === 3) { c.append(seg([['line: measured', 'measured'], ['line: held on the stiffness fit', 'fit']], () => S.line, (v) => (S.line = v))); c.append(seg([['levels: measured', 'measured'], ['levels: frozen at the strike', 'strike']], () => S.lev, (v) => (S.lev = v))); }
+  if (S.step === 2) c.append(slider('depth D', 0, 2, 0.01, () => D, (v) => (D = v), (v) => v.toFixed(2)));
+  if (S.step >= 4) c.append(slider('recipe stiffness B', Math.log10(5e-5), Math.log10(4e-3), 0.01, () => Math.log10(S.B), (v) => (S.B = Math.pow(10, v)), (v) => fmtB(Math.pow(10, v))));
+}
+function seg(items, get, set) {
+  const s = document.createElement('span'); s.className = 'seg';
+  for (const [label, val] of items) { const b = document.createElement('button'); b.textContent = label; if (get() === val) b.classList.add('on');
+    b.onclick = () => { set(val); [...s.children].forEach((c) => c.classList.toggle('on', c === b)); stop(); recompute(); }; s.append(b); }
+  return s;
+}
+function buildRail() {
+  const r = $('rail'); r.innerHTML = '';
+  for (const s of STEPS) { const b = document.createElement('button'); b.textContent = s.n + ' · ' + s.name;
+    if (s.n === S.step) b.classList.add('here'); else if (s.n > S.step) b.classList.add('ahead');
+    b.onclick = () => goStep(s.n); r.append(b); }
+}
+function goStep(n) {
+  n = Math.max(1, Math.min(STEPS.length, n));
+  if (n !== S.step) stop();
+  if (n !== 2) D = 1;
+  S.step = n; const s = STEPS[n - 1];
+  $('stephead').textContent = `step ${n} of ${STEPS.length} · ${s.name}`;
+  $('says').textContent = s.says;
+  $('back').disabled = n === 1; $('next').disabled = n === STEPS.length;
+  $('next').textContent = n === STEPS.length ? 'the last step' : 'next step →';
+  $('go').textContent = n === 4 ? '▸ strike the recipe' : n === 5 ? '▸ strike the string' : '▸ strike';
+  $('go2').style.display = n === 5 ? '' : 'none';
+  buildRail(); buildControls(); recompute();
+}
+$('back').onclick = () => goStep(S.step - 1);
+$('next').onclick = () => goStep(S.step + 1);
+
+function fit(c, hgt) {
+  const w = c.clientWidth || 300, d = devicePixelRatio || 1;
+  if (c.width !== Math.round(w * d) || c.height !== Math.round(hgt * d)) { c.width = Math.round(w * d); c.height = Math.round(hgt * d); c.style.height = hgt + 'px'; }
+  const g = c.getContext('2d'); g.setTransform(d, 0, 0, d, 0, 0); return { g, w, h: hgt };
+}
+function shownTrack() { return (S.step === 4 || (S.step === 5 && playing === 'rec')) ? 'rec' : 'str'; }
+function drawAll() {
+  if (!TR) return;
+  const t = playing ? Math.max(0.03, Math.min(8, playT)) : S.view;
+  $('tnow').textContent = t.toFixed(2) + ' s';
+  // the glowing line
+  { const { g, w, h } = fit($('line'), 230); g.clearRect(0, 0, w, h);
+    const which = shownTrack(), tr = TR[which], f = frameAt(tr, t), f0 = frameAt(tr, 0.03), n = f.cents.length;
+    let hi = 40; for (const c of f0.cents) if (c != null) hi = Math.max(hi, c * 1.08); hi = Math.min(hi, 1400);
+    const lo = -hi * 0.12, padL = 40, padR = 10, top = 8, bot = h - 18;
+    const X = (k) => padL + (w - padL - padR) * (k - 1) / (n - 1), Y = (v) => top + (bot - top) * (hi - Math.min(hi, v)) / (hi - lo);
+    g.font = '10px JetBrains Mono, monospace'; g.fillStyle = '#4a4a5a'; g.textAlign = 'right';
+    for (const v of [0, Math.round(hi / 2), Math.round(hi * 0.95)]) g.fillText(v + '¢', padL - 4, Y(v) + 3);
+    g.textAlign = 'center'; for (let k = 1; k <= n; k += 8) g.fillText(k, X(k), h - 5);
+    g.strokeStyle = '#e8e8f0'; g.lineWidth = 2.5; g.beginPath(); g.moveTo(padL, Y(0)); g.lineTo(w - padR, Y(0)); g.stroke(); g.lineWidth = 1;
+    // ghost of the strike
+    g.strokeStyle = 'rgba(138,138,160,.35)'; g.setLineDash([3, 4]); g.beginPath(); let st = false;
+    for (let k = 1; k <= n; k++) { const c = f0.cents[k - 1]; if (c == null) continue; st ? g.lineTo(X(k), Y(c)) : g.moveTo(X(k), Y(c)); st = true; } g.stroke(); g.setLineDash([]);
+    let amax = 0; for (const a of frameAt(tr, 0.03).lev) amax = Math.max(amax, a); amax = amax || 1;
+    for (let k = 1; k <= n; k++) { const c = f.cents[k - 1]; if (c == null) continue; const a = Math.sqrt(Math.max(0, f.lev[k - 1]) / amax);
+      g.fillStyle = `rgba(232,184,74,${Math.min(1, 0.06 + 1.2 * a)})`; g.beginPath(); g.arc(X(k), Y(c), 1.5 + 3 * Math.min(1, a), 0, 2 * Math.PI); g.fill(); }
+    g.textAlign = 'left'; g.fillStyle = '#8a8aa0'; g.fillText(which === 'rec' ? 'the recipe' : S.step === 1 ? 'the string’s wall, flat line' : S.step === 3 ? `line ${S.line === 'fit' ? 'on the fit' : 'measured'} · levels ${S.lev === 'strike' ? 'frozen' : 'measured'}` : 'the string, as measured', padL + 6, top + 10);
+  }
+  // the bend you hear
+  { const { g, w, h } = fit($('heard'), 230); g.clearRect(0, 0, w, h);
+    const padL = 40, padR = 10, top = 10, bot = h - 20, lt0 = Math.log10(0.03), lt1 = Math.log10(8);
+    const X = (tt) => padL + (w - padL - padR) * (Math.log10(tt) - lt0) / (lt1 - lt0);
+    const series = [];
+    if (S.step <= 3 || S.step === 5) series.push(['str', '#e8b84a']);
+    if (S.step === 3) { series.push(['loud', '#e8b84a', [5, 4]]); series.push(['line', '#8f91ff']); }
+    if (S.step >= 4) series.push(['rec', '#8f91ff']);
+    let hi = 6; for (const [k] of series) for (const v of H[k]) hi = Math.max(hi, v * 1.1);
+    const useLog = hi > 60, Y = (v) => useLog ? bot - (bot - top) * Math.log10(1 + v) / Math.log10(1 + hi) : bot - (bot - top) * v / hi;
+    g.font = '10px JetBrains Mono, monospace'; g.fillStyle = '#4a4a5a'; g.textAlign = 'right';
+    const ticks = useLog ? [0, 1, 3, 10, 30, 100, 300].filter((v) => v <= hi) : [0, Math.round(hi / 2), Math.round(hi)];
+    for (const v of ticks) { g.fillText(v, padL - 4, Y(v) + 3); g.strokeStyle = '#1a1a24'; g.beginPath(); g.moveTo(padL, Y(v)); g.lineTo(w - padR, Y(v)); g.stroke(); }
+    g.textAlign = 'center'; for (const tt of [0.03, 0.1, 0.5, 1, 3, 8]) { g.fillText(tt + ' s', X(tt), h - 5); g.strokeStyle = '#1a1a24'; g.beginPath(); g.moveTo(X(tt), top); g.lineTo(X(tt), bot); g.stroke(); }
+    for (const [k, col, dash] of series) { g.setLineDash(dash || []); g.strokeStyle = col; g.lineWidth = 2; g.beginPath(); H[k].forEach((v, i) => { const xx = X(TS[i]), yy = Y(v); i ? g.lineTo(xx, yy) : g.moveTo(xx, yy); }); g.stroke(); g.lineWidth = 1; g.setLineDash([]); }
+    if (S.step === 2 || S.step === 5) { g.fillStyle = 'rgba(232,184,74,.6)'; A2.times.forEach((tt, i) => { g.beginPath(); g.arc(X(tt), Y(A2.eff[i] * (S.step === 2 ? D : 1)), 2.2, 0, 2 * Math.PI); g.fill(); }); }
+    g.strokeStyle = 'rgba(232,232,240,.5)'; g.beginPath(); g.moveTo(X(t), top); g.lineTo(X(t), bot); g.stroke();
+    g.textAlign = 'left'; g.fillStyle = '#8a8aa0';
+    if (S.step === 2 || S.step === 5) g.fillText('dots: the library’s own reading', padL + 6, top + 10);
+    if (S.step === 3) g.fillText('solid: measured · dashed: bow held · blue: levels frozen', padL + 6, top + 10);
+  }
+}
+addEventListener('resize', drawAll);
+
+// ── sound: a bank of sines that walks a frame list from the strike ──
+const WORKLET = `
+const NP = ${NPR};
+class Strike extends AudioWorkletProcessor {
+  constructor() { super(); this.tr = null; this.t = 0; this.f0 = 110; this.k = 0.2; this.ph = new Float64Array(NP); this.g = 0; this.tg = 0; this.end = 8; this.rel = 8;
+    this.port.onmessage = (e) => { const m = e.data; if (m.tr) { this.tr = m.tr; this.f0 = m.f0; this.k = m.k; this.end = m.end; this.rel = m.rel; this.t = 0; this.ph.fill(0); this.tg = 1; this.g = 0; } if (m.off) this.tg = 0; }; }
+  frame(t) {
+    const T = this.tr.times, F = T.length; let k = 0;
+    if (t <= T[0]) return [0, 0, 0]; if (t >= T[F - 1]) return [F - 1, F - 1, 0];
+    while (T[k + 1] < t) k++; return [k, k + 1, (t - T[k]) / (T[k + 1] - T[k])];
+  }
+  process(_i, outs) {
+    const o = outs[0], Lc = o[0], R = o[1] || o[0];
+    if (!this.tr) { Lc.fill(0); if (R !== Lc) R.fill(0); return true; }
+    const [a, b, u] = this.frame(this.t), C = this.tr.cents, A = this.tr.lev, nyq = 0.45 * sampleRate, TP = 2 * Math.PI, dt = 1 / sampleRate;
+    const w = new Float64Array(NP), amp = new Float64Array(NP);
+    for (let i = 0; i < NP; i++) {
+      const ca = C[a][i], cb = C[b][i], c = ca == null ? (cb == null ? 0 : cb) : cb == null ? ca : ca + (cb - ca) * u;
+      const f = (i + 1) * this.f0 * Math.pow(2, c / 1200);
+      w[i] = TP * f * dt; amp[i] = f < nyq ? (A[a][i] + (A[b][i] - A[a][i]) * u) * this.k : 0;
+    }
+    for (let s = 0; s < Lc.length; s++) {
+      const tt = this.t + s * dt;
+      const env = Math.min(1, tt / 0.003) * (tt > this.rel ? Math.max(0, 1 - (tt - this.rel) / 0.3) : 1);
+      this.g += (this.tg - this.g) * 0.01;
+      let y = 0; for (let i = 0; i < NP; i++) { if (!amp[i]) continue; y += amp[i] * Math.sin(this.ph[i]); this.ph[i] += w[i]; if (this.ph[i] > TP) this.ph[i] -= TP; }
+      y *= env * this.g; Lc[s] = y; R[s] = y;
+    }
+    this.t += Lc.length * dt;
+    if (this.t > this.end) { this.tr = null; this.port.postMessage({ done: true }); }
+    else this.port.postMessage({ t: this.t });
+    return true;
+  }
+}
+registerProcessor('iws-strike', Strike);`;
+let ctx = null, node = null, playing = null, playT = 0;
+async function strike(which) {
+  if (!ctx) {
+    const c = new AudioContext();
+    const url = URL.createObjectURL(new Blob([WORKLET], { type: 'application/javascript' }));
+    try { await c.audioWorklet.addModule(url); } catch (e) { c.close(); throw e; } finally { URL.revokeObjectURL(url); }
+    ctx = c;
+    node = new AudioWorkletNode(ctx, 'iws-strike', { numberOfInputs: 0, numberOfOutputs: 1, outputChannelCount: [2] });
+    const comp = ctx.createDynamicsCompressor(); comp.threshold.value = -14; comp.ratio.value = 4;
+    node.connect(comp).connect(ctx.destination);
+    node.port.onmessage = (e) => { if (e.data.done) { playing = null; drawAll(); } else if (playing && e.data.t !== undefined) { playT = e.data.t; } };
+    ctx.onstatechange = () => { if (ctx.state !== 'running' && playing) { playing = null; drawAll(); } };
+  }
+  TR = tracks();
+  const tr = TR[which], lev0 = frameAt(tr, 0.03).lev; let e = 0; lev0.forEach((a) => (e += a * a));
+  const isRec = which === 'rec';
+  node.port.postMessage({ tr: { times: tr.times, cents: tr.cents, lev: tr.lev }, f0: isRec ? 110 : A2.f0, k: 0.22 / Math.sqrt(e || 1), end: isRec ? 3.4 : 8.3, rel: isRec ? 3 : 8 });
+  await ctx.resume();
+  playing = which; playT = 0; tick();
+}
+function stop() { if (node && playing) node.port.postMessage({ off: true }); playing = null; if (ctx) setTimeout(() => { if (!playing) ctx.suspend(); }, 200); drawAll(); }
+function tick() { if (!playing) return; drawAll(); requestAnimationFrame(tick); }
+$('go').onclick = () => strike(S.step === 4 ? 'rec' : 'str');
+$('go2').onclick = () => strike('rec');
+
+{ let d = ''; for (let i = 0; i <= 240; i++) { const t = 2 * Math.PI * i / 240; d += (i ? 'L' : 'M') + (Math.sin(3 * t + Math.PI / 2)).toFixed(3) + ' ' + (Math.sin(2 * t)).toFixed(3); } $('sigil').setAttribute('d', d); }
+
+goStep(1);
+</script>
+</body>
+</html>

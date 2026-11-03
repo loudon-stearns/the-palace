@@ -1,0 +1,477 @@
+<!doctype html>
+<!--
+  title: Inharmonic Wavetable Synthesis — rich — bend the line
+  born: 2026-11-03
+  links: [[Inharmonic Wavetable Synthesis]] (connects-to · rich-face-piece) · listed in [[Inharmonic Wavetable Synthesis — rich.json]] · [[Three Kinds of Warp]] (grew-from · starts where its obstruction walk ends) · [[Progressive Staging]] (exemplifies · a walk up to its test)
+  forward_vector: I am the flat line you can bend. I open where Three Kinds of Warp's walk ends, on a one-cycle table whose lines can only sit on the harmonics, rebuild the same tone as a bank of sines so the flat line plays it back exactly, then let you move one line off the grid, then draw any curve, and last put the curves the page names beside curves measured from real materials. The readout counts the energy between the harmonic lines, so "a flat line is the harmonic series" is measured, not asserted. I play inside the entry's rich face and stand alone opened directly; I change only when the section I serve does.
+  engine: everything between ENGINE-START and ENGINE-END is pure and runs in Node too; the checks re-run the claims on it. The measured curves are medians over each recording's live frames from trajectory-library/*.wtb.json, levels at its fifth frame; no audio from the recordings is held here.
+  dress: Loudon Live house style, Graphite skin.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:needs" content="">
+<title>Bend the flat line</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Manrope:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root { --bg:#0a0a0f; --e1:#12121a; --ring:#22222e; --border:#4a4a5e; --soft:rgba(255,255,255,.06); --fg1:#e8e8f0; --fg2:#c8c8d8; --fg3:#8a8aa0; --fg4:#4a4a5a;
+    --amber:#e8b84a; --amberline:rgba(232,184,74,.5); --indigo:#6366F1; --warn:#ff9b4a;
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --sans:'Manrope',system-ui,sans-serif; --serif:'Cormorant Garamond',Georgia,serif; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); font-weight: 300; }
+  .piece { padding: 22px 22px 16px; }
+  .kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; }
+  .title { font-family: var(--serif); font-size: 27px; font-weight: 300; color: var(--fg1); margin: 0 0 6px; }
+  .sub { font-size: 14px; line-height: 1.6; color: var(--fg2); max-width: 78ch; margin: 0 0 14px; }
+  .rail { display: flex; flex-wrap: wrap; margin: 0 0 12px; }
+  .rail button { border-radius: 0; margin-right: -1px; }
+  .rail button.here { color: var(--amber); border-color: var(--amberline); position: relative; z-index: 1; }
+  .rail button.ahead { color: var(--fg3); }
+  .stephead { font-family: var(--mono); font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--amber); margin: 4px 0 4px; }
+  .says { font-size: 14px; line-height: 1.6; color: var(--fg1); max-width: 78ch; margin: 0 0 14px; min-height: 3.2em; }
+  .stage { display: grid; grid-template-columns: 1.5fr 1fr; gap: 16px; align-items: start; }
+  .panel { border: 1px solid var(--soft); border-radius: 2px; background: var(--e1); padding: 10px 12px; }
+  .plabel { font-family: var(--mono); font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--fg3); margin-bottom: 8px; display: flex; justify-content: space-between; gap: 10px; }
+  canvas { display: block; width: 100%; }
+  canvas.draw { cursor: crosshair; touch-action: none; }
+  .spec { margin-top: 16px; }
+  .controls { display: flex; flex-wrap: wrap; gap: 14px 26px; align-items: end; margin-top: 16px; min-height: 40px; }
+  .ctl { min-width: 200px; flex: 1; }
+  .seg { display: inline-flex; flex-wrap: wrap; } .seg button + button { border-left: 0; }
+  button { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--fg2); background: var(--bg); border: 1px solid var(--border); border-radius: 2px; padding: 8px 12px; cursor: pointer; }
+  button:hover { border-color: rgba(232,184,74,.55); color: var(--fg1); }
+  button:disabled { opacity: .4; cursor: default; }
+  button.on { color: var(--amber); border-color: var(--amberline); }
+  button.go { color: var(--amber); border-color: var(--amberline); box-shadow: 0 0 14px rgba(232,184,74,.18); min-width: 96px; }
+  button:focus-visible, input:focus-visible { outline: 1px dashed var(--amber); outline-offset: 2px; }
+  label.sl { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: .08em; color: var(--fg3); }
+  label.sl b { color: var(--fg1); font-weight: 500; }
+  input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 3px; background: var(--fg4); margin: 12px 0 4px; outline: none; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 13px; height: 13px; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  input[type=range]::-moz-range-thumb { width: 13px; height: 13px; border: 0; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  .read { display: flex; flex-wrap: wrap; gap: 6px 22px; margin-top: 14px; font-family: var(--mono); font-size: 11.5px; letter-spacing: .05em; color: var(--fg3); }
+  .read b { color: var(--fg1); font-weight: 500; }
+  .read .verdict { color: var(--amber); }
+  .read .verdict.broke { color: var(--warn); }
+  .nav { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 16px; }
+  .hint { font-family: var(--mono); font-size: 11px; letter-spacing: .05em; line-height: 1.6; color: var(--fg3); margin-top: 10px; max-width: 92ch; }
+  .eqs { margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--soft); }
+  .eq { font-family: var(--serif); font-size: 19px; color: var(--fg1); }
+  .words { font-size: 13px; line-height: 1.55; color: var(--fg2); margin: 2px 0 10px; }
+  .foot { display: flex; align-items: center; gap: 10px; margin-top: 14px; font-family: var(--mono); font-size: 10px; letter-spacing: .18em; text-transform: uppercase; color: var(--fg4); }
+  .foot svg { width: 22px; height: 22px; }
+  @media (max-width: 700px) { .stage { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="piece">
+  <div class="kicker">made · Web Audio Worklet · study · a walk in five steps</div>
+  <h3 class="title">Bend the flat line</h3>
+  <p class="sub">Three Kinds of Warp ends on a fact: whatever you do to a one-cycle wavetable, its sound stays on the harmonic lines. This walk starts there. It rebuilds the same tone as a bank of sines, one per line, so each line can be moved on its own. Wavetable B says how far each one moves, in cents. The readout under the spectrum is the same one that walk used: the share of the energy that lands <i>between</i> the harmonic lines.</p>
+
+  <div class="rail" id="rail" role="group" aria-label="steps"></div>
+  <div class="stephead" id="stephead"></div>
+  <p class="says" id="says"></p>
+
+  <div class="stage">
+    <div class="panel">
+      <div class="plabel"><span id="leftlabel"></span><span id="leftnote"></span></div>
+      <canvas id="left"></canvas>
+    </div>
+    <div class="panel">
+      <div class="plabel"><span id="rightlabel">wavetable A · how loud each partial is</span><span id="rightnote"></span></div>
+      <canvas id="right"></canvas>
+    </div>
+  </div>
+  <div class="panel spec">
+    <div class="plabel"><span>spectrum · in harmonics of the fundamental · the grid lines are the harmonic series</span><span>dB</span></div>
+    <canvas id="spec"></canvas>
+  </div>
+  <div class="read">
+    <span>energy between the lines: <b id="off"></b></span>
+    <span class="verdict" id="verdict"></span>
+    <span id="extra"></span>
+  </div>
+
+  <div class="controls" id="controls"></div>
+
+  <div class="nav">
+    <button id="back">← back</button>
+    <button class="go" id="go">▸ play</button>
+    <button id="next">next step →</button>
+  </div>
+  <div class="hint">Measured on an exact lap: 256 samples a cycle of the fundamental, 32 cycles long, so a harmonic is an exact bin and anything between the bins is real. The sound plays at the pitch named under the spectrum. The measured curves in step 5 are medians over each recording's live frames, from the project's trajectory library; the stiff-string family uses each string's own fitted B.</div>
+
+  <div class="eqs">
+    <div class="eq">f<sub>n</sub> = n · f<sub>0</sub> · 2<sup>(D · Δ<sub>n</sub> ⁄ 1200)</sup></div>
+    <div class="words">(partial n's frequency) = (n times the fundamental), raised by (the depth knob times that partial's value on Wavetable B, in cents). Every Δ<sub>n</sub> = 0, or depth 0, and every partial sits on a harmonic line. The page calls the depth knob B; this piece calls it D, to keep B for the string's stiffness below.</div>
+    <div class="eq">Δ<sub>n</sub> = 1200 · log<sub>2</sub> √(1 + B n²)</div>
+    <div class="words">(the stiff string's bend, in cents, at partial n) grows with (the stiffness B) and with (the square of the partial number): flat near partial 1, steepening to the right.</div>
+    <div class="eq">Δ<sub>n</sub> = 1200 · log<sub>2</sub> ( j<sub>0,n</sub> ⁄ (n · j<sub>0,1</sub>) )</div>
+    <div class="words">(the Bessel shape) puts partial n at (the n-th zero of J₀, as a ratio to the first): a jump of 238.5 cents at partial 2, then flatter and flatter toward 463 cents. These are the modes of an ideal drum head clamped at its rim.</div>
+  </div>
+  <div class="foot"><svg viewBox="-1.1 -1.1 2.2 2.2" aria-hidden="true"><path id="sigil" fill="none" stroke="#e8b84a" stroke-width="0.06"/></svg><span>Inharmonic Wavetable Synthesis · rich face · Loud’n Live</span></div>
+</div>
+
+<script id="engine">
+/*ENGINE-START*/
+const TWO_PI = 2 * Math.PI;
+const NP = 32;             // partials in steps 1 to 4
+const L = 256, P = 32;     // analysis: samples per cycle of f0, cycles per window
+const J0Z = [2.404826,5.520078,8.653728,11.791534,14.930918,18.071064,21.211637,24.352472,27.493479,30.634606,33.775820,36.917098,40.058426,43.199792,46.341188,49.482610,52.624052,55.765511,58.906984,62.048469,65.189965,68.331469,71.472982,74.614501,77.756026,80.897556,84.039091,87.180630,90.322173,93.463719,96.605268,99.746820,102.888374,106.029931,109.171490,112.313050,115.454613,118.596177,121.737742,124.879309,128.020877,131.162446,134.304017,137.445588,140.587160,143.728734,146.870308,150.011882,153.153458,156.295034,159.436611,162.578189,165.719767,168.861345,172.002925,175.144504,178.286084,181.427665,184.569246,187.710827,190.852409,193.993991,197.135573,200.277156];
+const MATERIALS = {"piano-low-A1":{"label":"piano \u00b7 A1 \u00b7 55 Hz","cents":[null,-0.6,-0.6,0.5,-0.1,0.8,1.2,2.2,2.6,3.5,3.9,5.1,6.4,7.6,8.3,10.1,10.7,12.5,14.5,15.9,17.3,19.4,21.3,23.8,null,27.6,29.4,31.7,34.0,36.7,38.8,41.3,null,null,48.5,51.9,54.2,59.6,60.5,63.2,66.5,59.7,72.6,75.0,79.0,81.6,85.8,89.0,null,95.8,99.6,null,106.3,null,null,null,121.5,126.0],"lev":[0,0.8568,0.3203,0.2918,0.4097,0.2119,0.4445,0.0663,0.2368,0.6799,0.3853,0.104,0.2043,0.0398,0.1479,0.0411,0.0126,0.0979,0.1053,0.033,0.1074,0.1777,0.1208,0.0206,0,0.0308,0.0099,0.0234,0.1133,0.1056,0.0838,0.0245,0,0,0.0208,0.0192,0.0671,0.0486,0.0361,0.0449,0.0131,0.0153,0.0117,0.0068,0.0268,0.0192,0.0407,0.0125,0,0.0061,0.0085,0,0.0119,0,0,0,0.0083,0.0096],"kind":"string","f0":55.142,"B":4.6713e-05},"piano-A2":{"label":"piano \u00b7 A2 \u00b7 110 Hz","cents":[null,1.4,0.6,1.6,2.5,3.0,3.6,4.7,6.0,7.4,8.8,10.4,10.9,13.9,12.4,18.9,21.1,23.4,25.9,28.8,31.4,34.2,37.5,40.9,44.2,47.4,51.0,55.2,57.2,63.0,67.2,71.0,74.4,79.7,84.0,88.5,93.2,98.1,102.7,107.9,115.8,null,123.7,128.8,134.8,139.9,145.6,151.3,null,null,168.4],"lev":[0,0.8924,0.7157,0.5497,0.1424,0.2445,0.1179,0.0491,0.1861,0.1214,0.0894,0.0538,0.0149,0.0748,0.0264,0.0362,0.0138,0.0798,0.0416,0.0352,0.0196,0.0225,0.0132,0.0111,0.0021,0.0325,0.0352,0.0029,0.0109,0.0231,0.0186,0.0076,0.0009,0.0028,0.0025,0.002,0.0089,0.0085,0.0031,0.0037,0.002,0,0.0022,0.0019,0.0018,0.0023,0.002,0.0011,0,0,0.0007],"kind":"string","f0":110.248,"B":8.301e-05},"piano-A4":{"label":"piano \u00b7 A4 \u00b7 443 Hz","cents":[0.9,2.1,5.7,9.5,16.1,22.8,31.4,40.6,51.1,62.6,74.5,87.2,103.1,119.2,134.1,152.2,169.1,187.6,206.2,226.0,244.3,265.8],"lev":[0.8032,0.2539,0.1121,0.0418,0.0718,0.0409,0.0204,0.0721,0.0035,0.0062,0.0043,0.0039,0.0015,0.0019,0.0008,0.0015,0.0004,0.0002,0.0001,0.0009,0.0002,0.0001],"kind":"string","f0":442.751,"B":0.00074049},"piano-C6":{"label":"piano \u00b7 C6 \u00b7 1053 Hz","cents":[2.4,9.5,21.8,39.0,59.8,102.1,114.6,148.2,182.8,218.3],"lev":[0.7269,0.0747,0.0179,0.0123,0.0037,0.001,0.0031,0.0007,0.0003,0.0001],"kind":"string","f0":1053.037,"B":0.0028863},"bell-brooklyn-C6":{"label":"bell \u00b7 Brooklyn \u00b7 C6","cents":[3.3,-1009.0,-1257.5,-1052.7,-1321.1,-1517.7,-1223.3,-1407.6,-1484.6,-1585.3,-1615.7,-1571.6,-1650.1,-1608.6,-1701.9,-1571.2,-1633.8,-700.9,-543.8,-585.0,-622.6,-512.4,-548.4,-616.2],"lev":[0.656,0.0086,0.2795,0.0079,0.049,0.0305,0.0325,0.0866,0.0057,0.0068,0.0111,0.0088,0.0316,0.0212,0.0068,0.0139,0.0085,0.0047,0.0064,0.0147,0.0122,0.0139,0.0068,0.0051],"kind":"modal","f0":1042.075,"ratios":[1.0,1.1353,1.4512,2.1783,2.3302,2.4521,3.453,3.5489,3.8176,4.0024,4.324,4.8517,5.0207,5.5295,5.6139,6.4553,6.6169,12.0073,13.8788,14.2633,14.6577,16.364,16.7562,16.8134]},"vibraphone-C4":{"label":"vibraphone \u00b7 C4","cents":[0.4,-645.9,-1059.5,-1197.9,-1285.7,-1197.3,-965.0,-810.5,-721.4,-18.4],"lev":[0.6649,0.0029,0.0024,0.0239,0.0016,0.0139,0.3456,0.0035,0.0081,0.0054],"kind":"modal","f0":261.317,"ratios":[1.0,1.3788,1.6299,2.0034,2.3788,3.0031,4.0073,5.0097,5.9328,9.8941]},"marimba-C3":{"label":"marimba \u00b7 C3","cents":[0.4,389.1,3.5,3.7,1288.4],"lev":[0.7871,0.0061,0.0216,0.0687,0.0666],"kind":"modal","f0":130.386,"ratios":[1.0,2.5045,3.0061,4.0086,10.524]},"singing-bowl-D4":{"label":"singing bowl \u00b7 D4","cents":[-2.5,-7.0,1002.0,626.0,745.2,569.4,310.1,514.2,1080.4],"lev":[0.1113,0.6335,0.1031,0.7483,0.003,0.0805,0.0589,0.0828,0.0735],"kind":"modal","f0":299.514,"ratios":[1.0,1.9996,5.3464,5.7415,7.682,8.3361,8.3697,10.749,16.794]}};
+
+const WALLS = {                       // wavetable A: amplitude of partial n (1-based)
+  saw: (n) => 1 / n,
+  square: (n) => (n % 2 ? 1 / n : 0),
+  hollow: (n) => (n === 1 || n === 3 || n === 5 ? 1 / n : 0.02 / n),   // the page's "only partials 1, 3, 5 strongly present"
+};
+function bowCents(n, B) { return 600 * Math.log2(1 + B * n * n); }
+function besselCents(n) { return 1200 * Math.log2(J0Z[n - 1] / (n * J0Z[0])); }
+function scatterCents(n, sigma, seed = 7) {   // deterministic: the same scatter every time
+  let h = (n * 2654435761 + seed * 40503) >>> 0; h ^= h >>> 15; h = Math.imul(h, 2246822519) >>> 0; h ^= h >>> 13;
+  let h2 = Math.imul(h ^ 0x9e3779b9, 3266489917) >>> 0; h2 ^= h2 >>> 16;
+  const u1 = (h + 1) / 4294967297, u2 = (h2 + 1) / 4294967297;
+  return n === 1 ? 0 : sigma * Math.sqrt(-2 * Math.log(u1)) * Math.cos(TWO_PI * u2);
+}
+// the one-cycle table: sine-phase partials, L samples a cycle, so a read at whole samples is exact
+function tableFromWall(amps) {
+  const T = new Float64Array(L);
+  amps.forEach((a, i) => { if (a) for (let t = 0; t < L; t++) T[t] += a * Math.sin(TWO_PI * (i + 1) * t / L); });
+  return T;
+}
+function fft(re, im) {
+  const n = re.length;
+  for (let i = 1, j = 0; i < n; i++) { let bit = n >> 1; for (; j & bit; bit >>= 1) j ^= bit; j ^= bit; if (i < j) { [re[i], re[j]] = [re[j], re[i]]; [im[i], im[j]] = [im[j], im[i]]; } }
+  for (let len = 2; len <= n; len <<= 1) {
+    const ang = -TWO_PI / len, wr = Math.cos(ang), wi = Math.sin(ang);
+    for (let i = 0; i < n; i += len) { let cr = 1, ci = 0;
+      for (let k = 0; k < len / 2; k++) { const a = i + k, b = a + len / 2, xr = re[b] * cr - im[b] * ci, xi = re[b] * ci + im[b] * cr;
+        re[b] = re[a] - xr; im[b] = im[a] - xi; re[a] += xr; im[a] += xi; const t = cr * wr - ci * wi; ci = cr * wi + ci * wr; cr = t; } } }
+}
+// wavetable A as the page builds it: FFT one frame, keep each partial's magnitude
+function wallFromTable(T, count) {
+  const re = Float64Array.from(T), im = new Float64Array(T.length); fft(re, im);
+  const a = []; for (let k = 1; k <= count; k++) a.push(2 * Math.hypot(re[k], im[k]) / T.length);
+  return a;
+}
+function readTable(T, laps = P) { const y = new Float64Array(L * laps); for (let t = 0; t < y.length; t++) y[t] = T[t % L]; return y; }
+// the additive engine: partial n at n * 2^(D * cents / 1200) harmonics, amplitude a_n, sine phase
+function ratios(cents, D) { return cents.map((c, i) => (i + 1) * Math.pow(2, D * (c || 0) / 1200)); }
+function renderBank(amps, rat, laps = P) {
+  const y = new Float64Array(L * laps);
+  for (let i = 0; i < amps.length; i++) { const a = amps[i]; if (!a) continue; const w = TWO_PI * rat[i] / L;
+    for (let t = 0; t < y.length; t++) y[t] += a * Math.sin(w * t); }
+  return y;
+}
+function spectrum(y) {
+  const n = y.length, re = Float64Array.from(y), im = new Float64Array(n);
+  fft(re, im);
+  const pw = new Float64Array(n / 2 + 1);
+  for (let i = 0; i <= n / 2; i++) pw[i] = (re[i] * re[i] + im[i] * im[i]) * (i === 0 || i === n / 2 ? 1 : 2);
+  let tot = 0, on = 0;
+  for (let i = 0; i <= n / 2; i++) { tot += pw[i]; if (i % P === 0) on += pw[i]; }
+  return { pw, offGrid: tot > 0 ? Math.max(0, (tot - on) / tot) : 0 };
+}
+function maxDiff(a, b) { let m = 0, p = 0; for (let i = 0; i < a.length; i++) { m = Math.max(m, Math.abs(a[i] - b[i])); p = Math.max(p, Math.abs(a[i])); } return m / (p || 1); }
+// how near a measured curve lies to a named family: rms cents over the partials it has
+function rmsTo(cents, fam) { let s = 0, k = 0; cents.forEach((c, i) => { if (c == null) return; const d = c - fam(i + 1); s += d * d; k++; }); return k ? Math.sqrt(s / k) : NaN; }
+function bestBow(cents) {             // least-squares stiffness B >= 0, by a fine log grid then a polish
+  let best = [Infinity, 0];
+  for (let e = -7; e <= -1; e += 0.01) { const B = Math.pow(10, e), r = rmsTo(cents, (n) => bowCents(n, B)); if (r < best[0]) best = [r, B]; }
+  const r0 = rmsTo(cents, () => 0); if (r0 <= best[0]) best = [r0, 0];
+  return { rms: best[0], B: best[1] };
+}
+function judge(m) {
+  const bow = m.kind === 'string' ? { rms: rmsTo(m.cents, (n) => bowCents(n, m.B)), B: m.B } : bestBow(m.cents);
+  const bes = rmsTo(m.cents, besselCents);
+  return { bow, bes };
+}
+/*ENGINE-END*/
+</script>
+
+<script>
+const $ = (id) => document.getElementById(id);
+const S = { step: 1, wall: 'saw', one: { n: 7, c: 60 }, cents: new Array(NP).fill(0), shape: 'flat', B: 4e-4, sigma: 40, D: 1, mat: 'piano-A2', matWall: 'own', f0: 110 };
+const STEPS = [
+  { n: 1, name: 'The table’s lines', says: 'Where Three Kinds of Warp ends: one cycle of a wavetable, read over and over. Its FFT finds how loud each harmonic is (right). Every line in the spectrum sits on the grid, and the readout is zero. Change the table: the heights move, the lines stay put.' },
+  { n: 2, name: 'The flat line', says: 'The same tone, rebuilt as a bank of sines, one per harmonic, each as loud as the table’s FFT says. Wavetable B (left) gives each partial a place, in cents off its harmonic. Here it is a flat line at zero. The bank plays the table back exactly; the readout under the spectrum says by how little it differs.' },
+  { n: 3, name: 'Bend one partial', says: 'Move one point off the flat line. Click a partial on the left, or use the sliders. That one line leaves the grid, and the readout stops being zero. Put it back to 0 and you are at step 2.' },
+  { n: 4, name: 'Draw the curve', says: 'Now any shape. Drag across the left panel to draw, or start from the shapes the page names: the stiff string’s upward bow, the Bessel positions, a random scatter. The depth knob D scales the whole curve. At D = 0 every line goes home, whatever you drew.' },
+  { n: 5, name: 'Which material?', says: 'The test of “the shape of the deviation encodes the physics of a material.” Each dotted line was measured from a recording. Beside it, the two shapes the page names: the stiff-string bow (dashed amber, at its best B) and the Bessel positions (dashed blue). The readout gives the distance to each. Bells, bars and bowls are filed by rank, the k-th mode in slot k, the same way the Bessel positions are. A string’s bend is one number. Does a bell’s match either shape?' },
+];
+
+function wallAmps(kind, count = NP) { return Array.from({ length: count }, (_, i) => WALLS[kind](i + 1)); }
+function shapeCents() {
+  if (S.shape === 'bow') return Array.from({ length: NP }, (_, i) => bowCents(i + 1, S.B));
+  if (S.shape === 'bessel') return Array.from({ length: NP }, (_, i) => besselCents(i + 1));
+  if (S.shape === 'scatter') return Array.from({ length: NP }, (_, i) => scatterCents(i + 1, S.sigma));
+  if (S.shape === 'flat') return new Array(NP).fill(0);
+  return S.cents.slice();
+}
+// what plays, by step: { amps, cents, D, f0 }
+function current() {
+  if (S.step <= 2) { const T = tableFromWall(wallAmps(S.wall)); return { T, amps: wallFromTable(T, NP), cents: new Array(NP).fill(0), D: 1, f0: S.f0 }; }
+  if (S.step === 3) { const c = new Array(NP).fill(0); c[S.one.n - 1] = S.one.c; return { amps: wallAmps(S.wall), cents: c, D: 1, f0: S.f0 }; }
+  if (S.step === 4) return { amps: wallAmps(S.wall), cents: S.cents, D: S.D, f0: S.f0 };
+  const m = MATERIALS[S.mat], n = m.cents.length;
+  const amps = S.matWall === 'own' ? m.lev.slice() : wallAmps(S.matWall, n).map((a, i) => (m.cents[i] == null ? 0 : a));
+  return { amps, cents: m.cents.map((c) => c || 0), D: S.D, f0: m.f0, m };
+}
+let cur = null, spec = null, j = null, bankVsTable = null;
+function recompute() {
+  cur = current();
+  const rat = ratios(cur.cents, cur.D);
+  cur.rat = rat;
+  const y = renderBank(cur.amps, rat);
+  spec = spectrum(y);
+  bankVsTable = cur.T ? maxDiff(readTable(cur.T), y) : null;
+  if (S.step === 5) j = judge(cur.m);
+  readouts(); send(); drawAll();
+}
+function fmtShare(s) {
+  if (s < 1e-12) return '0 · under one part in a trillion';
+  if (s < 1e-6) return s.toExponential(1).replace('e-', ' × 10^−');
+  return (s * 100).toFixed(s < 0.001 ? 4 : 2) + ' %';
+}
+function readouts() {
+  $('off').textContent = fmtShare(spec.offGrid);
+  const v = $('verdict'), broke = spec.offGrid > 1e-9;
+  v.classList.toggle('broke', broke);
+  v.textContent = broke ? 'off the harmonic series' : 'every line on the harmonic series';
+  let extra = '';
+  if (S.step === 2) extra = `bank against table, largest difference: ${bankVsTable < 1e-12 ? bankVsTable.toExponential(0).replace('e-', ' × 10^−') : bankVsTable.toExponential(1)} of the peak`;
+  if (S.step === 3) { const r = cur.rat[S.one.n - 1]; extra = `partial ${S.one.n} now sits at ${r.toFixed(3)} harmonics, ${(r * S.f0).toFixed(1)} Hz instead of ${(S.one.n * S.f0).toFixed(0)}`; }
+  if (S.step === 4) extra = S.D === 0 ? 'D = 0: this is the flat line' : `partial 2 at ${cur.rat[1].toFixed(3)}, partial 16 at ${cur.rat[15].toFixed(3)}, partial 32 at ${cur.rat[31].toFixed(3)} harmonics`;
+  if (S.step === 5) {
+    const m = cur.m;
+    extra = `stiff-string bow at B = ${fmtB(j.bow.B)}: ${j.bow.rms.toFixed(1)} ¢ rms off · Bessel positions: ${j.bes.toFixed(0)} ¢ rms off · ${m.cents.filter((c) => c != null).length} measured partials`;
+    v.textContent = verdict5(m);
+    v.classList.toggle('broke', !(j.bow.rms < 10 || j.bes < 10));
+  }
+  $('extra').textContent = extra;
+}
+function fmtB(B) { if (!B) return '0'; const e = Math.floor(Math.log10(B)); return (B / Math.pow(10, e)).toFixed(1) + ' × 10^' + e; }
+function verdict5(m) {
+  const near = Math.min(j.bow.rms, j.bes);
+  if (near < 10) return j.bow.rms <= j.bes ? 'one number names it: the stiff-string bow' : 'the Bessel positions name it';
+  return 'neither named shape: this material draws its own line';
+}
+
+// ── controls ──
+function seg(items, get, set) {
+  const s = document.createElement('span'); s.className = 'seg';
+  for (const [label, val] of items) { const b = document.createElement('button'); b.textContent = label; if (get() === val) b.classList.add('on');
+    b.onclick = () => { set(val); [...s.children].forEach((c) => c.classList.toggle('on', c === b)); recompute(); buildControls(); }; s.append(b); }
+  return s;
+}
+function slider(label, min, max, step, get, set, fmt) {
+  const l = document.createElement('label'); l.className = 'sl ctl';
+  const b = document.createElement('b'); const i = document.createElement('input');
+  Object.assign(i, { type: 'range', min, max, step, value: get() });
+  const show = () => (b.textContent = fmt(get()));
+  i.oninput = () => { set(+i.value); show(); recompute(); };
+  l.append(label + ' ', b, i); show(); return l;
+}
+function buildControls() {
+  const c = $('controls'); c.innerHTML = '';
+  const walls = [['saw', 'saw'], ['square', 'square'], ['hollow 1·3·5', 'hollow']];
+  if (S.step <= 4) c.append(seg(walls, () => S.wall, (v) => (S.wall = v)));
+  if (S.step === 3) {
+    c.append(slider('partial', 1, NP, 1, () => S.one.n, (v) => (S.one.n = v), (v) => String(v)));
+    c.append(slider('cents', -300, 300, 1, () => S.one.c, (v) => (S.one.c = v), (v) => (v > 0 ? '+' : '') + v + ' ¢'));
+  }
+  if (S.step === 4) {
+    c.append(seg([['flat', 'flat'], ['stiff-string bow', 'bow'], ['Bessel J₀', 'bessel'], ['scatter', 'scatter']], () => S.shape, (v) => { S.shape = v; S.cents = shapeCents(); }));
+    if (S.shape === 'bow') c.append(slider('stiffness B', -5, -2.3, 0.01, () => Math.log10(S.B), (v) => { S.B = Math.pow(10, v); S.cents = shapeCents(); }, (v) => fmtB(Math.pow(10, v))));
+    if (S.shape === 'scatter') c.append(slider('scatter σ', 0, 150, 1, () => S.sigma, (v) => { S.sigma = v; S.cents = shapeCents(); }, (v) => v + ' ¢'));
+    c.append(slider('depth D', 0, 2, 0.01, () => S.D, (v) => (S.D = v), (v) => v.toFixed(2)));
+  }
+  if (S.step === 5) {
+    c.append(seg(Object.keys(MATERIALS).map((k) => [MATERIALS[k].label, k]), () => S.mat, (v) => (S.mat = v)));
+    c.append(seg([['its own levels', 'own'], ['saw wall', 'saw']], () => S.matWall, (v) => (S.matWall = v)));
+    c.append(slider('depth D', 0, 2, 0.01, () => S.D, (v) => (S.D = v), (v) => v.toFixed(2)));
+  }
+}
+function buildRail() {
+  const r = $('rail'); r.innerHTML = '';
+  for (const s of STEPS) { const b = document.createElement('button'); b.textContent = s.n + ' · ' + s.name;
+    if (s.n === S.step) b.classList.add('here'); else if (s.n > S.step) b.classList.add('ahead');
+    b.onclick = () => goStep(s.n); r.append(b); }
+}
+function goStep(n) {
+  n = Math.max(1, Math.min(STEPS.length, n));
+  if (n !== S.step) stop();                         // changing step stops the sound
+  if (n === 4 && S.step !== 4) { S.cents = shapeCents(); }
+  if (n === 5) S.D = 1;
+  S.step = n; const s = STEPS[n - 1];
+  $('stephead').textContent = `step ${n} of ${STEPS.length} · ${s.name}`;
+  $('says').textContent = s.says;
+  $('back').disabled = n === 1; $('next').disabled = n === STEPS.length;
+  $('next').textContent = n === STEPS.length ? 'the last step' : 'next step →';
+  $('left').classList.toggle('draw', n === 3 || n === 4);
+  buildRail(); buildControls(); recompute();
+}
+$('back').onclick = () => goStep(S.step - 1);
+$('next').onclick = () => goStep(S.step + 1);
+
+// ── the left panel: the table (step 1) or Wavetable B (2 to 5) ──
+function yRange() {
+  if (S.step === 3) return [-320, 320];
+  if (S.step === 4) { let m = 120; for (const c of cur.cents) m = Math.max(m, Math.abs(c) * Math.max(S.D, 1) * 1.1); return [-m, m]; }
+  if (S.step === 5) { let lo = -60, hi = 60; const fams = [];
+    cur.m.cents.forEach((c, i) => { if (c == null) return; lo = Math.min(lo, c); hi = Math.max(hi, c); fams.push(bowCents(i + 1, j.bow.B), besselCents(i + 1)); });
+    for (const f of fams) hi = Math.max(hi, f); const pad = (hi - lo) * 0.08; return [lo - pad, hi + pad]; }
+  return [-120, 120];
+}
+(function bindDraw() {
+  const c = $('left'); let down = false;
+  const at = (e) => { const r = c.getBoundingClientRect(); return [(e.clientX - r.left) / r.width, (e.clientY - r.top) / r.height]; };
+  const paint = (e) => {
+    const [x, yy] = at(e); const [lo, hi] = yRange(); const padL = 40, w = c.clientWidth;
+    const n = Math.max(1, Math.min(NP, Math.round(((x * w - padL) / (w - padL - 10)) * (NP - 1)) + 1));
+    const val = Math.round(hi - yy * (hi - lo));
+    if (S.step === 3) { S.one.n = n; S.one.c = Math.max(-300, Math.min(300, val)); buildControls(); }
+    else { S.shape = 'drawn'; S.cents[n - 1] = val / (S.D || 1); }
+    recompute();
+  };
+  c.addEventListener('pointerdown', (e) => { if (S.step !== 3 && S.step !== 4) return; down = true; c.setPointerCapture(e.pointerId); paint(e); });
+  c.addEventListener('pointermove', (e) => { if (down) paint(e); });
+  c.addEventListener('pointerup', () => { if (down && S.step === 4) buildControls(); down = false; });
+  c.addEventListener('pointercancel', () => (down = false));
+})();
+
+function fit(c, hgt) {
+  const w = c.clientWidth || 300, d = devicePixelRatio || 1;
+  if (c.width !== Math.round(w * d) || c.height !== Math.round(hgt * d)) { c.width = Math.round(w * d); c.height = Math.round(hgt * d); c.style.height = hgt + 'px'; }
+  const g = c.getContext('2d'); g.setTransform(d, 0, 0, d, 0, 0); return { g, w, h: hgt };
+}
+function drawAll() {
+  if (!cur) return;
+  // left
+  { const { g, w, h } = fit($('left'), 220); g.clearRect(0, 0, w, h);
+    g.font = '10px JetBrains Mono, monospace';
+    if (S.step === 1) {
+      $('leftlabel').textContent = 'the table · one cycle, read over and over'; $('leftnote').textContent = '';
+      g.strokeStyle = '#22222e'; g.beginPath(); g.moveTo(0, h / 2); g.lineTo(w, h / 2); g.stroke();
+      let m = 0; for (const v of cur.T) m = Math.max(m, Math.abs(v));
+      g.strokeStyle = '#6366F1'; g.lineWidth = 1.5; g.beginPath();
+      for (let t = 0; t <= L; t++) { const X = w * t / L, Y = h / 2 - (h / 2 - 12) * cur.T[t % L] / (m || 1); t ? g.lineTo(X, Y) : g.moveTo(X, Y); }
+      g.stroke(); g.lineWidth = 1;
+    } else {
+      $('leftlabel').textContent = 'wavetable B · cents off each harmonic';
+      $('leftnote').textContent = S.step === 3 ? 'click a partial' : S.step === 4 ? 'drag to draw' : cur.m ? cur.m.label : '';
+      const n = cur.cents.length, [lo, hi] = yRange(), padL = 40, padR = 10, top = 8, bot = h - 18;
+      const X = (k) => padL + (w - padL - padR) * (k - 1) / Math.max(1, n - 1), Y = (v) => top + (bot - top) * (hi - v) / (hi - lo);
+      g.fillStyle = '#4a4a5a'; g.textAlign = 'right';
+      for (const v of niceTicks(lo, hi)) { g.strokeStyle = '#1a1a24'; g.beginPath(); g.moveTo(padL, Y(v)); g.lineTo(w - padR, Y(v)); g.stroke(); g.fillText(v + '¢', padL - 4, Y(v) + 3); }
+      g.textAlign = 'center'; for (let k = 1; k <= n; k += n > 40 ? 8 : 4) g.fillText(k, X(k), h - 5);
+      // the flat line: bold, always there
+      g.strokeStyle = '#e8e8f0'; g.lineWidth = 2.5; g.beginPath(); g.moveTo(padL, Y(0)); g.lineTo(w - padR, Y(0)); g.stroke(); g.lineWidth = 1;
+      if (S.step === 5) {
+        g.setLineDash([5, 4]);
+        g.strokeStyle = 'rgba(232,184,74,.75)'; g.beginPath(); for (let k = 1; k <= n; k++) { const yy = Y(bowCents(k, j.bow.B)); k > 1 ? g.lineTo(X(k), yy) : g.moveTo(X(k), yy); } g.stroke();
+        g.strokeStyle = 'rgba(99,102,241,.85)'; g.beginPath(); for (let k = 1; k <= n; k++) { const yy = Y(Math.max(lo, Math.min(hi, besselCents(k)))); k > 1 ? g.lineTo(X(k), yy) : g.moveTo(X(k), yy); } g.stroke();
+        g.setLineDash([]);
+        cur.m.cents.forEach((c, i) => { if (c == null) return; const lv = cur.m.lev[i]; g.fillStyle = `rgba(255,155,74,${0.35 + 0.65 * Math.min(1, Math.sqrt(lv))})`; g.beginPath(); g.arc(X(i + 1), Y(c * S.D), 3, 0, TWO_PI); g.fill(); });
+      } else {
+        // the curve, glowing where the partial is loud
+        const amax = Math.max(...cur.amps) || 1;
+        for (let k = 1; k <= n; k++) {
+          const v = (cur.cents[k - 1] || 0) * cur.D, a = cur.amps[k - 1] / amax;
+          if (k < n) { const v2 = (cur.cents[k] || 0) * cur.D; g.strokeStyle = `rgba(232,184,74,${0.25 + 0.6 * Math.sqrt(a)})`; g.lineWidth = 1.5; g.beginPath(); g.moveTo(X(k), Y(v)); g.lineTo(X(k + 1), Y(v2)); g.stroke(); g.lineWidth = 1; }
+          g.fillStyle = (S.step === 3 && k === S.one.n) ? '#ff9b4a' : `rgba(232,184,74,${0.35 + 0.65 * Math.sqrt(a)})`;
+          g.beginPath(); g.arc(X(k), Y(v), (S.step === 3 && k === S.one.n) ? 4.5 : 2.5, 0, TWO_PI); g.fill();
+        }
+      }
+    }
+  }
+  // right: wavetable A
+  { const { g, w, h } = fit($('right'), 220); g.clearRect(0, 0, w, h);
+    const a = cur.amps, n = a.length, mx = Math.max(...a) || 1, padB = 18, bw = (w - 8) / n;
+    $('rightnote').textContent = S.step <= 2 ? 'from the table’s FFT' : S.step === 5 && S.matWall === 'own' ? 'measured, at 0.13 s' : '';
+    for (let k = 0; k < n; k++) { const hh = (h - padB - 8) * Math.sqrt(a[k] / mx); g.fillStyle = '#6366F1'; g.fillRect(4 + k * bw + 0.5, h - padB - hh, Math.max(1, bw - 1.5), hh); }
+    g.fillStyle = '#4a4a5a'; g.font = '10px JetBrains Mono, monospace'; g.textAlign = 'center';
+    for (let k = 1; k <= n; k += n > 40 ? 8 : 4) g.fillText(k, 4 + (k - 0.5) * bw, h - 5);
+  }
+  // spectrum
+  { const { g, w, h } = fit($('spec'), 220); g.clearRect(0, 0, w, h);
+    let KMAX = 33; for (let i = 0; i < cur.rat.length; i++) if (cur.amps[i]) KMAX = Math.max(KMAX, Math.ceil(cur.rat[i]) + 1);
+    KMAX = Math.min(KMAX, 64);
+    const padL = 34, padR = 10, top = 10, base = h - 22, X = (k) => padL + (w - padL - padR) * k / KMAX;
+    const pw = spec.pw; let mx = 0; for (let i = 1; i < pw.length; i++) mx = Math.max(mx, pw[i]); mx = mx || 1;
+    const FLOOR = -90, Ydb = (p) => { const db = 10 * Math.log10(p / mx + 1e-30); return top + (base - top) * Math.min(1, Math.max(0, db / FLOOR)); };
+    g.font = '10px JetBrains Mono, monospace'; g.fillStyle = '#4a4a5a'; g.textAlign = 'right';
+    for (const db of [0, -30, -60, -90]) { const yy = top + (base - top) * db / FLOOR; g.fillText(db, padL - 6, yy + 3); g.strokeStyle = '#1a1a24'; g.beginPath(); g.moveTo(padL, yy); g.lineTo(w - padR, yy); g.stroke(); }
+    g.textAlign = 'center';
+    for (let k = 0; k <= KMAX; k++) { g.strokeStyle = '#22222e'; g.beginPath(); g.moveTo(X(k), top); g.lineTo(X(k), base); g.stroke(); if (k % (KMAX > 40 ? 8 : 4) === 0) { g.fillStyle = '#4a4a5a'; g.fillText(k, X(k), h - 6); } }
+    if (spec.offGrid > 1e-9) { g.strokeStyle = 'rgba(255,155,74,.85)'; g.beginPath(); let st = false;
+      for (let i = 1; i <= KMAX * P && i < pw.length; i++) { if (i % P === 0) continue; const xx = X(i / P), yy = Ydb(pw[i]); st ? g.lineTo(xx, yy) : g.moveTo(xx, yy); st = true; } g.stroke(); }
+    for (let k = 1; k <= KMAX; k++) { const p = pw[k * P]; if (!p || p / mx < 1e-9) continue; g.strokeStyle = '#e8b84a'; g.lineWidth = 3; g.beginPath(); g.moveTo(X(k), base); g.lineTo(X(k), Ydb(p)); g.stroke(); g.lineWidth = 1; }
+    g.textAlign = 'left'; g.fillStyle = '#8a8aa0'; g.fillText(`plays at ${cur.f0.toFixed(1)} Hz`, padL + 6, top + 10);
+  }
+}
+function niceTicks(lo, hi) { const span = hi - lo, raw = span / 4, p = Math.pow(10, Math.floor(Math.log10(raw))), st = [1, 2, 5, 10].map((m) => m * p).find((s) => s >= raw); const out = []; for (let v = Math.ceil(lo / st) * st; v <= hi; v += st) out.push(Math.round(v)); return out; }
+addEventListener('resize', drawAll);
+
+// ── sound: a bank of sines, the same partials the spectrum was measured on ──
+const WORKLET = `
+class Bank extends AudioWorkletProcessor {
+  constructor() { super(); this.n = 0; this.f = new Float64Array(96); this.tf = new Float64Array(96); this.a = new Float64Array(96); this.ta = new Float64Array(96); this.ph = new Float64Array(96); this.g = 0; this.tg = 0;
+    this.port.onmessage = (e) => { const m = e.data;
+      if (m.f) { const k = Math.min(96, m.f.length); for (let i = 0; i < 96; i++) { this.tf[i] = i < k ? m.f[i] : 0; this.ta[i] = i < k ? m.a[i] : 0; if (this.a[i] < 1e-6) this.f[i] = this.tf[i]; } this.n = 96; }
+      if (m.on !== undefined) this.tg = m.on ? 1 : 0; }; }
+  process(_i, outs) {
+    const o = outs[0], Lc = o[0], R = o[1] || o[0], TP = 2 * Math.PI, inv = 1 / sampleRate;
+    for (let i = 0; i < this.n; i++) { this.a[i] += (this.ta[i] - this.a[i]) * 0.15; this.f[i] += (this.tf[i] - this.f[i]) * 0.3; }
+    for (let s = 0; s < Lc.length; s++) {
+      this.g += (this.tg - this.g) * 0.002;
+      let y = 0;
+      for (let i = 0; i < this.n; i++) { const a = this.a[i]; if (a < 1e-7) continue; y += a * Math.sin(this.ph[i]); this.ph[i] += TP * this.f[i] * inv; if (this.ph[i] > TP) this.ph[i] -= TP; }
+      y *= this.g; Lc[s] = y; R[s] = y;
+    }
+    return true;
+  }
+}
+registerProcessor('iws-bank', Bank);`;
+let ctx = null, node = null, running = false;
+function send() {
+  if (!node || !cur) return;
+  const nyq = 0.45 * ctx.sampleRate;
+  let e = 0; cur.amps.forEach((a) => (e += a * a));
+  const k = 0.2 / Math.sqrt(e || 1);
+  const f = cur.rat.map((r) => r * cur.f0), a = cur.amps.map((x, i) => (f[i] < nyq ? x * k : 0));
+  node.port.postMessage({ f: Float64Array.from(f), a: Float64Array.from(a) });
+}
+async function start() {
+  if (!ctx) {
+    const c = new AudioContext();
+    const url = URL.createObjectURL(new Blob([WORKLET], { type: 'application/javascript' }));
+    try { await c.audioWorklet.addModule(url); } catch (e) { c.close(); throw e; } finally { URL.revokeObjectURL(url); }
+    ctx = c;
+    node = new AudioWorkletNode(ctx, 'iws-bank', { numberOfInputs: 0, numberOfOutputs: 1, outputChannelCount: [2] });
+    const comp = ctx.createDynamicsCompressor(); comp.threshold.value = -14; comp.ratio.value = 4;
+    node.connect(comp).connect(ctx.destination);
+    ctx.onstatechange = () => { if (ctx.state !== 'running' && running) { running = false; $('go').textContent = '▸ play'; } };
+  }
+  send();
+  await ctx.resume();
+  node.port.postMessage({ on: true });
+  running = true; $('go').textContent = '❚❚ stop';
+}
+function stop() {
+  if (!running) return;
+  running = false; $('go').textContent = '▸ play';
+  if (node) node.port.postMessage({ on: false });
+  if (ctx) setTimeout(() => { if (!running) ctx.suspend(); }, 300);
+}
+$('go').onclick = () => (running ? stop() : start());
+
+// the sigil: a 3:2 Lissajous
+{ let d = ''; for (let i = 0; i <= 240; i++) { const t = TWO_PI * i / 240; d += (i ? 'L' : 'M') + (Math.sin(3 * t + Math.PI / 2)).toFixed(3) + ' ' + (Math.sin(2 * t)).toFixed(3); } $('sigil').setAttribute('d', d); }
+
+goStep(1);
+</script>
+</body>
+</html>
