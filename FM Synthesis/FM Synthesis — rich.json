@@ -44,7 +44,7 @@
           "origin": "gathered",
           "by": "Web Audio Worklet · from the deposit of 2026-10-25 (4dc02656)",
           "title": "FM, in seven steps · the staged patch",
-          "caption": "**The whole instrument as one walk.** One operator; a vibrato pushed past the threshold this paragraph opens on; ratio and index; the index given its own envelope; feedback; the other four operators and all 32 DX7 algorithms; a keyboard. Each step adds to the last without breaking it, and its checks re-run every step's claim. Gathered as it was built: the page's Forward Vector says it waits on Loudon's ears before it belongs here, so it stands as a proposal until he has played it.",
+          "caption": "**The whole instrument as one walk.** One operator; a vibrato pushed past the threshold this paragraph opens on; ratio and index; the index given its own envelope; feedback; the other four operators and all 32 DX7 algorithms; a keyboard. Each step adds to the last without breaking it, and its checks re-run every step's claim. Gathered as it was built. The page holds it back until Loudon has played it (its Forward Vector: it wants his ears before it becomes part of the rich face), and its proposal status here is exactly that gate. If he has not played it, it comes out of the face.",
           "near": "This page is that instrument",
           "height": 800
         }
@@ -189,7 +189,7 @@
           "origin": "made",
           "by": "Web Audio Worklet",
           "title": "Six operators · wirings of one pair",
-          "caption": "**The DX7's own table, played and counted.** It walks one pair, a stack of three, algorithm 1, algorithm 5 and algorithm 32, and each one is drawn from its row with a count of its partials. The last step sets a stack against a pair you can push as hard as you like. At the same push the stack makes over twice the pair's partials (17 against 7). Off whole-number ratios no push lets a pair catch up (154 against at most 32). With whole numbers, though, a pair pushed to index 14 fills the same grid the stack fills at index 2. The counts are a floor: peaks closer than about 12 Hz count as one.",
+          "caption": "**The DX7's own table, played and counted.** It walks one pair, a stack of three, algorithm 1, algorithm 5 and algorithm 32, and each one is drawn from its row with a count of its partials. The last step sets a stack against a pair you can push as hard as you like. At the same push the stack makes over twice the pair's partials (17 against 7). Off whole-number ratios no push lets a pair catch up (154 against at most 32). With whole numbers, though, a pair catches up: the stack at index 2 has 17 of the 22 harmonics under 5 kHz, and the pair matches those 17 near index 9.3 and fills all 22 by 13.3. The counts are a floor: peaks closer than about 12 Hz count as one.",
           "near": "A stack is where it gets dense",
           "height": 940
         }
@@ -219,13 +219,13 @@
       "section": "What the ear hears as the index rises",
       "kind": "claim-change",
       "status": "open",
-      "what": "At 1:1 the first new partials are not heard as a pair. The lower sideband lands on 0 Hz and is silent, so a breath of index adds one partial, an octave up: −16.25 dB at index 0.3, where the engine and the Bessel maths agree to 0.01 dB. Suggested: \"the first new partial has appeared, an octave up; its partner below the carrier lands on 0 Hz and is silent, since at 1:1 the spacing is the carrier itself.\" The index-plus-one rule holds as written: the pairs holding 98 % of the power stay within a pair of index + 1 from index 0.25 to 8, and index 4 gives five."
+      "what": "At 1:1 the first new partials are not heard as a pair. The lower sideband lands on 0 Hz and is silent, so a breath of index adds one partial, an octave up: −16.25 dB at index 0.3, where the engine and the Bessel maths agree to 0.01 dB. Suggested: \"the first new partial has appeared, an octave up; its partner below the carrier lands on 0 Hz and is silent, since at 1:1 the spacing is the carrier itself.\" The index-plus-one rule holds as written: the pairs holding 98 % of the power stay within a pair of index + 1 from index 0.25 to 8 (worst gap 0.92 pairs at a 0.01 step, per the challenger), and index 4 gives five."
     },
     {
       "section": "What the ear hears as the index rises",
-      "kind": "claim-change",
+      "kind": "no-claim-edit",
       "status": "open",
-      "what": "The shimmer goes further than the text says. At 1:1 even the overall brightness (the power-weighted mean frequency) falls as the index climbs in places: 483 → 417 Hz between index 2 and 3, and 925 → 807 Hz between 5.5 and 6.5. \"It doesn't simply get brighter\" could say so."
+      "what": "An addition, not a correction: the text's \"it doesn't simply get brighter\" already holds. At 1:1 even the overall brightness (the power-weighted mean frequency) falls in places as the index climbs: 483.4 → 416.8 Hz between index 2 and 3, and 924.7 → 807.5 Hz between 5.5 and 6.5. The falling runs are index 1.93–3.14 and 5.31–6.49. A clause could say so."
     },
     {
       "section": "Ratios",
@@ -235,15 +235,15 @@
     },
     {
       "section": "Ratios",
-      "kind": "claim-change",
+      "kind": "no-claim-edit",
       "status": "open",
-      "what": "To the ear, the scope line \"whole numbers keep the series, anything else leaves it\" is a threshold, not a line between kinds of number. Small whole numbers keep it: 1:3.5 is 2:7, a pitch at 110 Hz, and 1:1.25 is 4:5, at 55 Hz. Larger ones push the shared fundamental down until it is no longer a pitch. 1:1.1 is 10:11, a 22 Hz fundamental whose loud partials are its 10th, 12th and 21st harmonics. A hair off a whole number beats instead (1:1.01 at 4.4 Hz). That is the Duality's 20 Hz threshold again, which this page's own Forward Vector asks to measure. Suggested: \"small whole numbers keep the series.\" The piece's family edges (a bottom number of 4, 20 Hz, 50 Hz) are its own, and no ear has checked them."
+      "what": "The text is right in number terms: whole numbers do keep the series. 10:11 repeats, and has only harmonics of 22 Hz. It is less precise about the ear, which hears a threshold, not a line between kinds of number. Small whole numbers keep a heard pitch: 1:3.5 is 2:7, at 110 Hz, and 1:1.25 is 4:5, at 55 Hz. Larger ones push the shared fundamental down until it barely reads as a pitch. At 1:1.1 (10:11, index 2) the 22 Hz fundamental is present and among the two loudest partials (J₁ = 0.577), but at 22 Hz it is hardly heard as a note, and the rest are scattered at its 10th, 12th, 21st, 23rd and 32nd harmonics. A hair off a whole number beats instead (1:1.01 at 4.4 Hz). That is the Duality's 20 Hz threshold again, which this page's own Forward Vector asks to measure. A possible clause: \"small whole numbers keep the series the ear hears.\" The piece's family edges (a bottom number of 4, 20 Hz, 50 Hz) are its own, and no ear has checked them."
     },
     {
       "section": "Feedback",
-      "kind": "claim-change",
+      "kind": "no-claim-edit",
       "status": "open",
-      "what": "The text holds as written. This offers the reason, and where the edge is. The DX7, as Dexed models it, feeds back the average of the operator's last two outputs. With that average, 7 sits within 1.0 dB rms of a sawtooth over harmonics 2 to 10 and repeats exactly. A plain one-sample loop at the same push (π) is already fraying: 78 % of its energy repeats with the note, and it sits 8.3 dB from a sawtooth. Yamaha's top also sits just under the edge. The loop repeats exactly to about 7.3 (a push of 1.23π), frays by 7.35 (97 %) and is mostly noise by 7.4 (25 %). These numbers are for one 200 Hz note at 48 kHz."
+      "what": "The text holds as written. This adds a reason, and where the edge is. The DX7, as Dexed models it, feeds back the average of the operator's last two outputs. With that average, 7 sits within 1.0 dB rms of a sawtooth over harmonics 2 to 10 and repeats exactly. A plain one-sample loop at the same push (π) is already fraying: about 78 % of its energy repeats with the note, and it sits about 8 to 9 dB from a sawtooth. Yamaha's top also sits just under the edge. The loop repeats exactly to about 7.3, frays by 7.35 (about 97 %), and by 7.4 only a fifth to a quarter of it repeats. Past the edge the loop is chaotic, so those last digits shift between implementations. The edge itself stays at 7.3 to 7.4 at 44.1, 48 and 49.096 kHz and from 100 to 1600 Hz (the challenger's check)."
     },
     {
       "section": "Feedback",
@@ -253,9 +253,9 @@
     },
     {
       "section": "Six operators, 32 algorithms",
-      "kind": "claim-change",
+      "kind": "no-claim-edit",
       "status": "open",
-      "what": "\"Pushing a carrier with a rich tone gives far more partials than a pair can\" holds at the same push. A stack of three makes 17 partials and a pair 7, both at index 2, ratios 1:1:1. Once the ratios leave whole numbers it holds at any push: the stack makes 154 and the pair tops out at 32 by index 10. With whole-number ratios, though, a pair pushed to index 14 fills the same harmonic grid the stack fills at 2 (22 partials under 5 kHz). Suggested: \"far more partials than a pair makes at the same push, and, off whole-number ratios, more than a pair can at any.\""
+      "what": "\"Pushing a carrier with a rich tone gives far more partials than a pair can\" holds at the same push. A stack of three makes 17 partials and a pair 7, both at index 2, ratios 1:1:1. Once the ratios leave whole numbers it holds at any push: the stack makes 154 and the pair tops out at 32 by index 10. With whole-number ratios, though, a pair catches the stack: it reaches the stack's 17 near index 9.3, and all 22 harmonics under 5 kHz by 13.3. The gap holds at 40, 50 and 80 dB floors too. The text is less precise here, not wrong in spirit. Suggested: \"far more partials than a pair makes at the same push, and, off whole-number ratios, more than a pair can at any.\""
     },
     {
       "section": "Six operators, 32 algorithms",

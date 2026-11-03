@@ -177,7 +177,7 @@ function reading(fc, ratio, I) {
     says = 'Whole numbers in name only: it repeats every ' + fmtT(1 / f0) + ', too slowly to be a pitch. The loud partials sit in pairs ' + gap.toFixed(2) + ' Hz apart, so you hear the nearby ratio\'s note, beating about ' + gap.toFixed(1) + ' times a second.';
   } else if (q <= 10 && f0 >= 20) {
     fam = 'between';
-    says = 'Whole numbers, and the pair does repeat ' + fmtHz(f0).replace(' Hz', '') + ' times a second, but the loud partials are that fundamental\'s harmonics ' + nums.join(', ') + ': far up its series and scattered. Somewhere between a low note and a clang; the ear decides.';
+    says = 'Whole numbers, and the pair does repeat ' + fmtHz(f0).replace(' Hz', '') + ' times a second, but the loud partials are that fundamental\'s harmonics ' + nums.join(', ') + ': scattered, with gaps where its low harmonics should be. Somewhere between a low note and a clang; the ear decides.';
   } else if (gap < 50) {
     fam = 'rough';
     says = 'It repeats only every ' + fmtT(1 / f0) + '. The loud partials crowd ' + gap.toFixed(1) + ' Hz apart, too fast to hear as beats: the tone turns rough.';
