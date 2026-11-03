@@ -256,7 +256,7 @@ var PID = {
   LEVELS: [ { id: 'none',   j: 0,    name: 'none',   adds: 'the opening only' },
             { id: 'middle', j: 0.45, name: 'middle', adds: 'wall darkens with the squeeze, baroreceptors light where it squeezed, cells hurry through the narrow part' },
             { id: 'heavy',  j: 1,    name: 'most',   adds: 'all of the middle, plus the vessel pumps on each beat, the frame shakes, sparks fly, the background flashes, the edge glows' } ],
-  PUMP: 0.3, LOOK_S: 4, PER_LEVEL: 8, CALL: 3, BETTER_THAN_CHANCE: 5
+  PUMP: 0.3, LOOK_S: 4, PER_LEVEL: 8, CALL: 3, POOLED_PASS: 8, BETTER_THAN_CHANCE: 5
 };
 function pidMeaning(j){ return Math.max(0, Math.min(1, j / 0.4)); }               // m: reactions keyed to gain
 function pidDecor(j){ return Math.max(0, Math.min(1, (j - 0.45) / 0.55)); }        // d: reactions keyed to the beat
@@ -321,7 +321,13 @@ function pidScore(trials, answers){
 function pidCompare(a, b){ var d = a - b; return d >= PID.CALL ? 'call' : d <= -PID.CALL ? 'reverse' : d === 2 ? 'leans' : d === -2 ? 'leans-reverse' : 'same'; }
 function pidVerdict(score){
   var r = { none: score.none.right, middle: score.middle.right, heavy: score.heavy.right };
-  return { counts: r, legible: r.middle >= PID.BETTER_THAN_CHANCE, past: pidCompare(r.middle, r.heavy), top: pidCompare(r.middle, r.none) };
+  // each comparison speaks only when its two amounts, pooled, read better than a guess: 8 or more of 16.
+  // The gate looks at both sides alike, so it favours neither the claim nor its reverse.
+  var gate = function(a, b){ return a + b >= PID.POOLED_PASS; };
+  var best = Math.max(r.none, r.middle, r.heavy);
+  return { counts: r, anyRead: best >= PID.BETTER_THAN_CHANCE,
+           past: gate(r.middle, r.heavy) ? pidCompare(r.middle, r.heavy) : 'unread',
+           top: gate(r.middle, r.none) ? pidCompare(r.middle, r.none) : 'unread' };
 }
 if (typeof module !== 'undefined') module.exports = { PID: PID, PidSim: PidSim, pidTrials: pidTrials, pidScore: pidScore, pidVerdict: pidVerdict, pidCompare: pidCompare, pidOpen: pidOpen, pidDrawn: pidDrawn, pidBinOf: pidBinOf, pidMeaning: pidMeaning, pidDecor: pidDecor, pidPump: pidPump, pidShuffle: pidShuffle };
 </script>
@@ -339,7 +345,7 @@ if (typeof module !== 'undefined') module.exports = { PID: PID, PidSim: PidSim, 
   function resetSim(sr){ var th = sim.comp.p.th; sim = new PidSim(th, inDb, sr || (ac ? ac.sampleRate : PID.SR)); sim.run(5); }
 
   // ---------- sound: optional, only after a click; the picture runs without it ----------
-  var ac = null, sp = null, playing = false;
+  var ac = null, sp = null, playing = false, ranOnce = false;
   function sounding(){ return playing && ac && ac.state === 'running'; }
   function startSound(){
     if (!ac){
@@ -352,6 +358,9 @@ if (typeof module !== 'undefined') module.exports = { PID: PID, PidSim: PidSim, 
       src.connect(sp); sp.connect(out); out.connect(safety); safety.connect(ac.destination);
       sp.onaudioprocess = function(e){ var o = e.outputBuffer.getChannelData(0); if (playing && !STEPS[step].test) sim.render(o); else o.fill(0); };
     }
+    // when the kit quiets the context (a hidden page, the time cap), the button goes back to Sound on
+    ranOnce = ac.state === 'running';
+    ac.onstatechange = function(){ if (ac.state === 'running') ranOnce = true; else if (playing && ranOnce) stopSound(); };
     if (ac.state === 'suspended') ac.resume();
     playing = true; $('play').textContent = 'Sound off';
   }
@@ -464,7 +473,7 @@ if (typeof module !== 'undefined') module.exports = { PID: PID, PidSim: PidSim, 
       say: 'The test. Twenty-four looks at the vessel, shuffled: eight at no juice, eight at the middle, eight at the most, and the amount isn’t named. Each look runs four seconds and then goes dark. Say how hard the vessel is squeezing at its deepest. The heartbeat is loud in half of each bin’s looks and soft in the other half, so the beat’s size tells you nothing. No meter, no numbers, no sound. After the last look you pick the look you’d rather have, and then the answers show.',
       hint: 'silent; the vessel only',
       eq1: ['chance = 1 ÷ 4 a look  →  2 of 8 at each amount', 'four answers, so a guess is right one time in four'],
-      eq2: ['call: middle − most ≥ 3 of 8', 'the difference the rule needs before it calls one amount easier to read than another'],
+      eq2: ['call: |middle − most| ≥ 3 of 8,  if middle + most ≥ 8 of 16', 'one amount is called easier to read when it leads by 3, and only when the two together read better than a guess'],
       tryText: 'Press Start the test. Answer as soon as you can; answering moves to the next look.' }
   ];
 
@@ -475,11 +484,11 @@ if (typeof module !== 'undefined') module.exports = { PID: PID, PidSim: PidSim, 
   var test = null, tSim = null, tDeco = null, tLeft = 0, tPhase = 'idle', thumbs = null;
   function ruleText(){
     return '<b>The rule, set before the first look.</b> A guess is right one time in four, so 2 of 8 at each amount of juice. ' +
-      'Reading an amount right 5 or more times in 8 is better than guessing; a guesser gets there 2.7% of the time. ' +
+      'Each comparison speaks only when its two amounts together read 8 or more right of 16, better than guessing (a guesser gets there 2.7% of the time); the gate looks at both amounts alike, so it favours neither side. ' +
       'If you read the middle at least 3 better than the most, juice past the middle cost you the meaning, as the section says. ' +
       'If you read the middle at least 3 better than none, the middle helped too: the top of the inverted U. ' +
       'A difference of 2 leans that way but isn’t called; 1 or 0, those two amounts read the same for you. ' +
-      'Eight looks each is a small sample: an eye that reads two amounts equally well still crosses the line of 3 about one time in ten (7% at 6 of 8 right, 10.5% at 4 of 8). ' +
+      'Eight looks each is a small sample: an eye that reads two amounts equally well still gets a call in each direction, the claim’s way or the reverse, 5.9% of the time at 4 of 8 right and 7.1% at 6 of 8, so about 12 to 14% for one call either way. ' +
       'Separately, after the last look you pick the look you’d rather have, before any answer shows: the juice studies the section cites found players liking the juiciest version and sometimes reading it worse.';
   }
   function newTest(){
@@ -496,12 +505,12 @@ if (typeof module !== 'undefined') module.exports = { PID: PID, PidSim: PidSim, 
     var fin = test.i >= test.order.length;
     $('trialLabel').textContent = fin ? 'All twenty-four answered' : 'Look ' + (test.i + 1) + ' of ' + test.order.length + (tPhase === 'dark' ? ' · dark now, answer' : '');
     $('startTest').hidden = tPhase !== 'idle' || fin;
-    Array.prototype.forEach.call(document.querySelectorAll('[data-ans]'), function(b){ b.disabled = fin || tPhase === 'idle'; });
+    Array.prototype.forEach.call(document.querySelectorAll('[data-ans]'), function(b){ b.disabled = fin || !(tPhase === 'look' || tPhase === 'dark'); });
   }
   $('startTest').addEventListener('click', function(){ startLook(); });
   Array.prototype.forEach.call(document.querySelectorAll('[data-ans]'), function(b){
     b.addEventListener('click', function(){
-      if (!test || tPhase === 'idle' || test.i >= test.order.length) return;
+      if (!test || !(tPhase === 'look' || tPhase === 'dark') || test.i >= test.order.length) return;
       test.answers[test.order[test.i].id] = +b.getAttribute('data-ans'); test.i++; meter();
       if (test.i >= test.order.length){ tPhase = 'idle'; syncTest(); showPrefs(); }
       else { tPhase = 'gap'; tLeft = 0.35; syncTest(); }
@@ -524,23 +533,23 @@ if (typeof module !== 'undefined') module.exports = { PID: PID, PidSim: PidSim, 
       tr.innerHTML = '<td>' + L.name + '</td><td>' + L.adds + '</td><td><b>' + r.right + '</b> of ' + r.n + '</td><td>' + r.one + '</td><td>' + r.more + '</td><td>' + (test.pref === L.id ? '<b>this one</b>' : '') + '</td>'; tb.appendChild(tr); });
     var c = v.counts, n = [];
     var past, top;
-    if (!v.legible){
-      n.push('You read the middle ' + c.middle + ' of 8, and the rule needs 5 before it counts as better than a guess. So this run can’t speak to the claim either way: none ' + c.none + ', middle ' + c.middle + ', most ' + c.heavy + '. Step 3’s presets show each squeeze at each amount; try them, then run the test again.');
-      past = null; top = null;
-    } else n.push('You read the middle better than a guess would (' + c.middle + ' of 8).');
-    if (v.legible) past = { call: 'Past the middle, juice cost you the meaning: the middle ' + c.middle + ', the most ' + c.heavy + '. That is the section’s claim, held for your eye.',
+    n.push('Read right: none ' + c.none + ', middle ' + c.middle + ', most ' + c.heavy + ', each of 8.');
+    past = { unread: 'The middle and the most together read ' + (c.middle + c.heavy) + ' of 16, under the 8 the rule needs, so this run can’t speak to the claim either way. Step 3’s presets show each squeeze at each amount; try them, then run the test again.',
+                 call: 'Past the middle, juice cost you the meaning: the middle ' + c.middle + ', the most ' + c.heavy + '. That is the section’s claim, held for your eye.',
                  leans: 'The middle read 2 better than the most (' + c.middle + ' to ' + c.heavy + '): it leans the section’s way but the rule doesn’t call it.',
                  same: 'The middle and the most read about the same for you (' + c.middle + ' and ' + c.heavy + '): the extra motion didn’t bury the squeeze. That goes against the section’s claim, for this eye on this vessel.',
                  'leans-reverse': 'The most read 2 better than the middle (' + c.heavy + ' to ' + c.middle + '): against the section, though the rule doesn’t call it.',
                  reverse: 'The most read better than the middle (' + c.heavy + ' to ' + c.middle + '): for you the extra juice helped. That goes against the section’s claim.' }[v.past];
-    if (v.legible) top = { call: 'The middle also beat none (' + c.middle + ' to ' + c.none + '): reactions that mean gain helped you read it, the top of the inverted U.',
+    top = { unread: 'None and the middle together read ' + (c.none + c.middle) + ' of 16, under the 8 the rule needs, so the top of the U goes unasked.',
+                call: 'The middle also beat none (' + c.middle + ' to ' + c.none + '): reactions that mean gain helped you read it, the top of the inverted U.',
                 leans: 'The middle read 2 better than none (' + c.middle + ' to ' + c.none + '): a lean toward the top of the U, not called.',
                 same: 'None and the middle read about the same (' + c.none + ' and ' + c.middle + '): here the test can’t tell a peak from a plateau, since the opening alone already carries the gain.',
                 'leans-reverse': 'None read 2 better than the middle (' + c.none + ' to ' + c.middle + '): not called.',
                 reverse: 'None read better than the middle (' + c.none + ' to ' + c.middle + '): for you even the meaningful reactions got in the way.' }[v.top];
     if (past) n.push(past); if (top) n.push(top);
     var prefL = PID.LEVELS.filter(function(L){ return L.id === test.pref; })[0];
-    if (prefL){ var pr = sc[prefL.id].right, best = Math.max(c.none, c.middle, c.heavy);
+    if (prefL && !v.anyRead) n.push('You’d rather have ' + prefL.name + ' juice; since no amount read better than a guess, liking can’t be set against reading this run.');
+    else if (prefL){ var pr = sc[prefL.id].right, best = Math.max(c.none, c.middle, c.heavy);
       n.push('You’d rather have ' + prefL.name + ' juice, which you read ' + pr + ' of 8' + (pr < best ? ', below your best of ' + best + '. Liking a look and reading it well came apart, as in the juice studies.' : ', as well as any. Here liking and reading went together.')); }
     n.push('The test asks the eye, not the engine. A reader who measured only the narrowest point of the drawn opening would sort all eight looks right at none and at the middle, and seven of eight at the most: the pump widens the narrowest point by 18 to 25%, enough to move one look into the wrong bin. The rest of what the most adds is motion for the eye to sort out.');
     $('revealNote').textContent = n.join(' ');

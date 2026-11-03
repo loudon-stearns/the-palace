@@ -82,19 +82,30 @@ const C = (n, k) => { let r = 1; for (let i = 1; i <= k; i++) r = r * (n - k + i
 const pmf = (n, p) => Array.from({ length: n + 1 }, (_, k) => C(n, k) * p ** k * (1 - p) ** (n - k));
 const atLeast = (n, p, k) => pmf(n, p).slice(k).reduce((a, b) => a + b, 0);
 const diffAtLeast = (n, p, t) => { const a = pmf(n, p); let s = 0; for (let i = 0; i <= n; i++) for (let j = 0; j <= n; j++) if (i - j >= t) s += a[i] * a[j]; return s; };
-const g5 = atLeast(8, 0.25, 5), fa75 = diffAtLeast(8, 0.75, 3), fa50 = diffAtLeast(8, 0.5, 3), fa25 = diffAtLeast(8, 0.25, 3);
-console.log(`\nrule: a guesser reads 5+ of 8 with p = ${(g5 * 100).toFixed(2)}%; two equal amounts differ by 3+ with p = ${(fa75 * 100).toFixed(1)}% at 6 of 8, ${(fa50 * 100).toFixed(1)}% at 4 of 8, ${(fa25 * 100).toFixed(1)}% at 2 of 8`);
-ok(page.includes('2.7%') && Math.abs(g5 - 0.027) < 0.0005, 'rule text: 2.7% for a guesser reaching 5 of 8');
-ok(page.includes('7% at 6 of 8') && Math.round(fa75 * 100) === 7, 'rule text: 7% at 6 of 8');
-ok(page.includes('10.5% at 4 of 8') && (fa50 * 100).toFixed(1) === '10.5', 'rule text: 10.5% at 4 of 8');
+const g16 = atLeast(16, 0.25, 8);
+// with the pooled gate: P(the two amounts read 8+ of 16 together AND one leads by 3+), one direction, for an even eye
+const gatedCall = p => { const a = pmf(8, p); let s = 0; for (let i = 0; i <= 8; i++) for (let j = 0; j <= 8; j++) if (i + j >= 8 && i - j >= 3) s += a[i] * a[j]; return s; };
+const c50 = gatedCall(0.5), c75 = gatedCall(0.75);
+console.log(`\nrule: a guesser reads 8+ of 16 with p = ${(g16 * 100).toFixed(2)}%; an even eye gets a call each way with p = ${(c50 * 100).toFixed(2)}% at 4 of 8, ${(c75 * 100).toFixed(2)}% at 6 of 8`);
+ok(page.includes('2.7% of the time') && (g16 * 100).toFixed(1) === '2.7', 'rule text: 2.7% for a guesser reaching 8 of 16');
+ok(page.includes('5.9% of the time at 4 of 8') && (c50 * 100).toFixed(1) === '5.9', 'rule text: 5.9% each way at 4 of 8');
+ok(page.includes('7.1% at 6 of 8') && (c75 * 100).toFixed(1) === '7.1', 'rule text: 7.1% each way at 6 of 8');
+ok(page.includes('about 12 to 14%') && Math.round(2 * c50 * 100) === 12 && Math.round(2 * c75 * 100) === 14, 'rule text: 12 to 14% for a call either way');
+// the gate is symmetric: the claim's call and the reverse come equally often for an even eye
+{ const a = pmf(8, 0.5); let cl = 0, rv = 0; for (let i = 0; i <= 8; i++) for (let j = 0; j <= 8; j++) if (i + j >= 8){ if (i - j >= 3) cl += a[i] * a[j]; if (j - i >= 3) rv += a[i] * a[j]; } ok(Math.abs(cl - rv) < 1e-12, 'gate: symmetric, the claim and the reverse equally likely for an even eye'); }
 
 // 10. the verdict function does what the rule says
 const sc = (n, m, h) => ({ none: { right: n }, middle: { right: m }, heavy: { right: h } });
-const v1 = K.pidVerdict(sc(7, 7, 3)), v2 = K.pidVerdict(sc(4, 7, 5)), v3 = K.pidVerdict(sc(7, 6, 6)), v4 = K.pidVerdict(sc(2, 4, 8));
-ok(v1.past === 'call' && v1.top === 'same' && v1.legible, 'verdict: 7,7,3 → past the middle called; none and middle the same');
+const v1 = K.pidVerdict(sc(7, 7, 3)), v2 = K.pidVerdict(sc(4, 7, 5)), v3 = K.pidVerdict(sc(7, 6, 6)), v4 = K.pidVerdict(sc(2, 4, 8)), v5 = K.pidVerdict(sc(2, 5, 2)), v6 = K.pidVerdict(sc(1, 2, 4));
+ok(v1.past === 'call' && v1.top === 'same', 'verdict: 7,7,3 → past the middle called; none and middle the same');
 ok(v2.past === 'leans' && v2.top === 'call', 'verdict: 4,7,5 → leans; top of the U called');
 ok(v3.past === 'same' && v3.top === 'same', 'verdict: 7,6,6 → the same both ways');
-ok(v4.past === 'reverse' && !v4.legible, 'verdict: 2,4,8 → reversed; middle not better than a guess');
+ok(v4.past === 'reverse' && v4.top === 'unread', 'verdict: 2,4,8 → reversed (12 of 16); none and middle unread (6 of 16)');
+ok(v5.past === 'unread' && v5.top === 'unread' && v5.anyRead, 'verdict: 2,5,2 → both comparisons unread (7 of 16), though the middle alone reached 5');
+ok(!v6.anyRead, 'verdict: 1,2,4 → no amount better than a guess, so the preference is not set against reading');
+
+// 10b. the answer buttons take an answer only during a look or after it goes dark
+ok(/b\.disabled = fin \|\| !\(tPhase === 'look' \|\| tPhase === 'dark'\)/.test(page) && /if \(!test \|\| !\(tPhase === 'look' \|\| tPhase === 'dark'\)/.test(page), 'input: answers accepted only while a look shows or is dark, never in the gap');
 
 // 11. scoring
 const tr = K.pidTrials(), ans = {}; tr.forEach(t => { ans[t.id] = t.level === 'heavy' ? Math.min(3, t.bin + 1) : t.bin; });
