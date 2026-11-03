@@ -98,7 +98,8 @@ const WT = E.WT;
   check('the Hermite sits only a few dB below the quadratic at every size', hq.every((v) => v > 3 && v < 6), hq.map((v) => '+' + v.toFixed(1)).join(', ') + ' dB');
   const per = (m) => (T[m][3] - T[m][0]) / 3;
   check('per doubling of the table: nearest ~6 dB, linear ~12, quadratic and Hermite ~18', Math.abs(per('none') - 6) < 1 && Math.abs(per('linear') - 12) < 0.5 && Math.abs(per('quad') - 18) < 0.5 && Math.abs(per('hermite') - 18) < 0.5, ['none', 'linear', 'quad', 'hermite'].map((m) => `${m} ${per(m).toFixed(1)}`).join(', '));
-  check('cost: the Hermite counts about twice the quadratic\'s arithmetic', WT.ops.hermite[0] + WT.ops.hermite[1] >= 1.8 * (WT.ops.quad[0] + WT.ops.quad[1]), `quad ${WT.ops.quad.join('·')}, hermite ${WT.ops.hermite.join('·')} (multiplies·adds, on the forms written)`);
+  check('cost, on the forms written: the Hermite takes one multiply more than the quadratic and twice its adds', WT.ops.hermite[0] === WT.ops.quad[0] + 1 && WT.ops.hermite[1] === 2 * WT.ops.quad[1], `quad ${WT.ops.quad.join('·')}, Hermite ${WT.ops.hermite.join('·')} (multiplies·adds)`);
+  { const src = WT.herm.toString(), mul = (src.match(/\*/g) || []).length, add = (src.match(/[+\-]/g) || []).length; check('the Hermite as written counts 5 multiplies and 10 adds', mul === 5 && add === 10, `${mul} · ${add}, counted in its source`); }
   // the worklet plays the core: held at 440 Hz, quadratic, 16 numbers
   const P = new E.reg(); P.set({ m: 'quad', N: 16, glide: false });
   const outL = new Float32Array(128), outR = new Float32Array(128), got = [];
