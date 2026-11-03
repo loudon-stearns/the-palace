@@ -1,0 +1,192 @@
+{
+  "title": "Waveguide Synthesizer — rich",
+  "born": "2026-11-03",
+  "links": [
+    {
+      "target": "[[Waveguide Synthesizer]]",
+      "type": "connects-to",
+      "label": "rich-face-of"
+    },
+    {
+      "target": "[[Enrichment]]",
+      "type": "connects-to",
+      "label": "made-by"
+    }
+  ],
+  "forward_vector": "I am the manifest of Waveguide Synthesizer's rich face: two made walks that test what the page says about delay lines, and the project's own renders and recordings gathered beside the sections they serve, with the fingerprint of the words each was made against. I grow when the entry is enriched again; I never hold the entry's words.",
+  "entry": "Waveguide Synthesizer",
+  "tier": "study",
+  "made": "2026-11-03",
+  "round": 1,
+  "sections": [
+    {
+      "heading": "Why This Project Exists",
+      "made_against": "7edeb6e23bc9",
+      "made": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "Waveguide Synthesizer — rich — two travelling waves.html",
+          "origin": "made",
+          "by": "Web Audio · canvas",
+          "height": 1500,
+          "title": "two travelling waves · a walk in five steps",
+          "caption": "**The string is two delay lines, and their sum.** A pluck shared between a line running toward the bridge and one running back; the ends turning each half over; then the string at full speed, where a screen at sixty frames a second catches it only every three round trips or so, and a strobe that still draws the true state, once per period. The last step tests what “you pluck where you click” implies: plucked at a fraction p of the way along, every harmonic k with k·p a whole number is missing, and the rest follow |sin(kπp)| ⁄ k². Its check (`Waveguide Synthesizer — rich — check.mjs`) measures the missing ones at least 170 dB down and the rest within 0.07 dB. Drawn flat, in 2D.",
+          "near": "A digital waveguide is a pair of delay lines",
+          "place": "band"
+        }
+      ],
+      "stamped": "2026-11-03"
+    },
+    {
+      "heading": "The DSP: Digital Waveguide",
+      "made_against": "445a2bd92b83",
+      "made": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "Waveguide Synthesizer — rich — karplus-strong walked up.html",
+          "origin": "made",
+          "by": "Web Audio · canvas",
+          "height": 1450,
+          "title": "Karplus-Strong, walked up · four steps",
+          "caption": "**The seed case, one idea at a time, and its pitch formula tested.** A loop that only remembers; the one average that makes it a string; each harmonic measured as it dies, the high ones fastest, at the rate the loop predicts (within 0.1 dB a second in its check); then the test. The bare loop sits exactly at fs ⁄ N. With the average in, it sits at fs ⁄ (N + ½), measured within 0.02 cents: 8.6 cents under fs ⁄ N at N = 100, 42.8 cents under at N = 20. Hold it against either pitch and listen for the beating.",
+          "near": "Karplus-Strong (the seed case)",
+          "place": "band"
+        },
+        {
+          "file": "offline-v1/spacetime-strike-stiffness-0-vs-1.png",
+          "origin": "gathered",
+          "title": "the string over three round trips · cycle 8",
+          "caption": "The string itself, recorded every two samples for three round trips: time runs down, nut at left, bridge at right, orange up and violet down. Left, stiffness 0: two pulses cross and come back from each end turned over. Right, stiffness 1: after its first pass through the bridge the pulse fans out, the high ripples running ahead. Rendered from Study v1.1's own audio code.",
+          "near": "The full bidirectional waveguide",
+          "place": "margin"
+        },
+        {
+          "file": "offline-v1.10/ladder-sheet.png",
+          "origin": "gathered",
+          "title": "the overtone ladder at four stiffnesses · Study v1.10",
+          "caption": "**The allpass's stretch, measured.** Dashed rungs are where a perfectly flexible string puts each overtone; amber bars are where this string puts it. G3 at stiffness 0, 0.4, 0.7 and 1.0, then C5 at 0.7, the same lean two octaves up. Overtone 16 runs +1.6, +35, +245 and +1195 cents sharp. Every bar was checked against the sound's own peaks, within 0.26 cents (`offline-v1.10/ladder-vs-sound.json`). At 1.0 the filter overshoots the stiff-string rule: overtone 8 at +476 cents against the rule's +420.",
+          "near": "An allpass filter in the loop",
+          "place": "band"
+        },
+        {
+          "file": "offline-v1.10/stiffness-tour.wav",
+          "origin": "gathered",
+          "title": "stiffness tour · Study v1.10's engine",
+          "caption": "G3 plucked at stiffness 0, 0.4, 0.7 and 1.0, two seconds each, then C3, G3, C4, G4 and C5 at 0.7. From harmonic, to piano-like, to a struck bar.",
+          "near": "An allpass filter in the loop",
+          "place": "margin"
+        },
+        {
+          "file": "offline-v1.8/bridge-feeds-body.wav",
+          "origin": "gathered",
+          "title": "the bridge feeds the body · Study v1.8's engine",
+          "caption": "Six G3 plucks, the bridge going from rigid to soft. What the string loses at the bridge is exactly what the soundboard gets: rigid, a long thin ring (about 3 s); soft, short and woody (about 0.2 s). The board is a modal plate fed from the bridge, not a branching waveguide.",
+          "near": "branching waveguides (a body resonator)",
+          "place": "margin"
+        }
+      ],
+      "stamped": "2026-11-03"
+    },
+    {
+      "heading": "The Interface: 3D Waveguide, Visible",
+      "made_against": "3385794e719e",
+      "made": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "study-v1.13-the-hair-holds-at-half/index.html",
+          "origin": "gathered",
+          "height": 720,
+          "contract": {
+            "needs": "",
+            "size": "fill 16/9"
+          },
+          "title": "Study v1.13 · the instrument as it stands",
+          "caption": "**The study itself, as built.** Click to start the sound, then click the string to pluck it, hold B to bow, press L for the seven-stop lesson or W to walk the links. Raw Three.js r128 with OrbitControls, the engine in an AudioWorklet. Gathered as it was; it loads Three.js from unpkg, which is not on the rich face's library shelf.",
+          "near": "The teaching claim the project is built to prove",
+          "place": "band"
+        }
+      ],
+      "stamped": "2026-11-03"
+    },
+    {
+      "heading": "Forward Vector",
+      "made_against": "809803df182c",
+      "made": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "rich-face/lesson-run.mp4",
+          "origin": "gathered",
+          "title": "the seven-stop lesson, taken by a mouse · Study v1.12",
+          "caption": "**The lesson, for a reader who can't run the study.** Pluck, reflection, loss, pitch, stiffness, bow, body: each stop lights one control and says what to do, watch and hear. Recorded in Chrome with a real mouse driving it and the engine's own sound, about 112 s; every stop ticked from the hand. The sound went through a stand-in speaker clock, and nobody has yet taken the lesson by ear.",
+          "near": "a seven-stop lesson",
+          "place": "band"
+        },
+        {
+          "file": "offline-v1.12/lesson-sheet.png",
+          "origin": "gathered",
+          "title": "all seven stops on one sheet · Study v1.12",
+          "caption": "Every stop after the hand, plus the pluck stop before it.",
+          "near": "a seven-stop lesson",
+          "place": "margin"
+        }
+      ],
+      "stamped": "2026-11-03"
+    }
+  ],
+  "offers": [
+    {
+      "section": "The DSP: Digital Waveguide",
+      "kind": "claim-change",
+      "status": "open",
+      "what": "Item 1 says 'Frequency = sample_rate / delay_length'. The Karplus-Strong piece measured that this holds only for the bare loop (within 0.001 cents, N = 20 to 400, at 44.1 and 48 kHz). With the two-point average in the loop the pitch is sample_rate / (delay_length + ½), measured within 0.02 cents, so the page's formula runs sharp by 2.2 cents at N = 400, 8.6 at N = 100 and 42.8 at N = 20. The project's own cycle 8 found the same in Study v1 (+12.1 cents at 330 Hz). Suggested: 'Frequency = sample_rate / (delay_length + the delay inside the loop filter), half a sample for the classic average.'"
+    },
+    {
+      "section": "The DSP: Digital Waveguide",
+      "kind": "no-claim-edit",
+      "status": "open",
+      "what": "Item 1 names the loop filter 'a one-pole lowpass'. Karplus-Strong's own filter, the one the piece runs, is the two-point average, a one-zero lowpass; the project's Sketch runs the average and then a one-pole as a brightness control (sketch-karplus-strong/index.html, the line commented 'average + LP + feedback'). Suggested: 'a two-point average (a gentle lowpass)'."
+    },
+    {
+      "section": "The DSP: Digital Waveguide",
+      "kind": "claim-change",
+      "status": "open",
+      "what": "Item 3 says 'Tubes, bowed excitation, and branching waveguides (a body resonator) are later extensions.' Two are built: the bow since Study v1.4 and a body since v1.8 (scroll, cycles 11 and 15), though the body is a modal soundboard fed from the bridge, not a branching waveguide. Tubes and branching are not built. Found by reading the scroll, not by a piece."
+    },
+    {
+      "section": "Why This Project Exists",
+      "kind": "claim-change",
+      "status": "open",
+      "what": "The page says the drawn string is the delay-line state and that you see the wave travel and reflect. The two-travelling-waves piece shows the qualifier this needs. At 200 Hz the wave goes round about 3.3 times between two frames at 60 frames a second, so the true state drawn every frame cannot show travel. The study shows travel only through its strobe (v1.2) or a slowed replay. Both still draw real delay-line state, picked once per period. And with stiffness up, part of the loop lives inside the allpass filters, not on the drawn string: up to about 70 samples at full stiffness (scroll, cycle 8). Suggested addition: 'At pitch the picture is a strobe: the true state, drawn once per period and a little later each time; with stiffness up, part of the loop lives in the filters, off the string.'"
+    },
+    {
+      "section": "The Interface: 3D Waveguide, Visible",
+      "kind": "claim-change",
+      "status": "open",
+      "what": "Found by reading the study, not by a piece. The page names R3F and drei as the default and, in § The Audio Engine, Tone.js as host of the audio graph. Study v1.13 loads raw Three.js r128 with OrbitControls from unpkg, no React and no Tone.js. Its controls are plain HTML sliders, and it uses no SharedArrayBuffer. Suggested: say the Study was built in raw r128 with its own Web Audio graph, and keep R3F and Tone.js as options."
+    }
+  ]
+}

@@ -1,0 +1,366 @@
+<!doctype html>
+<!--
+  title: Waveguide Synthesizer — rich — karplus-strong walked up
+  born: 2026-11-03
+  links: [[Waveguide Synthesizer]] (connects-to · rich-face-piece) · listed in [[Waveguide Synthesizer — rich.json]] · the seed case of § The DSP: Digital Waveguide
+  forward_vector: I am the seed case taken one idea at a time. A loop that only remembers, then the one average that makes it a string, then the highs dying first, and last the test: is the pitch the sample rate over the delay length, as the page says, or does the average add half a sample? I play inside the entry's rich face and stand alone opened directly; I change only when the section I serve does.
+  sound: nothing plays until a pluck button is clicked; the AudioContext is made on that click. Changing step stops the sound.
+  check: Waveguide Synthesizer — rich — check.mjs runs this page's engine in Node against the pitch and decay it claims.
+-->
+<html lang="en" class="skin-graphite">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- needs nothing of its host: no device, no storage, no file, no host; sound only on a click -->
+<meta name="piece:needs" content="">
+<title>Karplus-Strong, walked up</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@300;400;500&display=swap">
+<style>
+  :root{
+    --bg:#0a0a0f; --bg-elev-1:#12121a; --bg-elev-2:#1a1a28; --border:#4a4a5e; --border-soft:rgba(255,255,255,0.06);
+    --fg-1:#e8e8f0; --fg-2:#c8c8d8; --fg-3:#8a8aa0; --fg-4:#4a4a5a;
+    --accent:#e8b84a; --accent-dim:#7a6030; --accent-soft:rgba(232,184,74,0.10); --accent-line:rgba(232,184,74,0.5);
+    --violet:#8b7cf6;
+    --serif:'Cormorant Garamond','Source Serif 4',Georgia,serif; --sans:'Manrope',system-ui,sans-serif;
+    --display:'Anton','Bebas Neue',Impact,sans-serif; --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--fg-1)}
+  body{font-family:var(--serif);font-size:17px;line-height:1.7;padding:28px 16px 36px}
+  main{max-width:960px;margin:0 auto}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--fg-3)}
+  h1{font-family:var(--display);font-weight:400;font-size:42px;line-height:1.05;margin:6px 0 10px}
+  h2{font-family:var(--display);font-weight:400;font-size:27px;line-height:1.1;margin:4px 0 8px;letter-spacing:.01em}
+  p.lead{font-size:19px;color:var(--fg-2);margin:0 0 18px;max-width:66ch}
+  .rail{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 18px}
+  .rail button{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-3);background:transparent;border:1px solid var(--border);border-radius:4px;padding:7px 11px;cursor:pointer;transition:all .22s cubic-bezier(.4,0,.2,1)}
+  .rail button[aria-current="step"]{color:var(--fg-1);border-color:var(--fg-3);background:var(--bg-elev-2)}
+  p.say{color:var(--fg-2);margin:0 0 14px;max-width:68ch}
+  .dwh{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:8px 18px;margin:0 0 14px;font-family:var(--sans);font-size:13.5px;color:var(--fg-2);line-height:1.55}
+  .dwh b{font-family:var(--mono);font-weight:400;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);display:block}
+  .panel{background:var(--bg-elev-1);border:1px solid var(--border-soft);border-radius:4px;padding:16px;margin:0 0 14px}
+  .plabel{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-3);display:flex;justify-content:space-between;gap:10px;margin-bottom:8px}
+  canvas{width:100%;display:block;background:var(--bg-elev-2);border-radius:2px}
+  .rowb{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:12px}
+  button.play{font-family:var(--sans);font-weight:500;font-size:14px;color:#0a0a0f;background:var(--accent);border:0;border-radius:4px;padding:9px 20px;cursor:pointer;transition:box-shadow .22s cubic-bezier(.4,0,.2,1)}
+  button.play:hover{box-shadow:0 0 24px var(--accent-soft)}
+  button.ghost{font-family:var(--sans);font-size:14px;color:var(--fg-2);background:transparent;border:1px solid var(--border);border-radius:4px;padding:8px 14px;cursor:pointer}
+  button.ghost[aria-pressed="true"]{color:var(--fg-1);border-color:var(--accent-line);background:var(--bg-elev-2)}
+  button.ghost:disabled{opacity:.35;cursor:default}
+  .ctl{display:grid;grid-template-columns:150px 1fr auto;gap:6px 14px;align-items:center;margin-top:14px}
+  .ctl label{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-3)}
+  .ctl input[type=range]{width:100%;accent-color:var(--accent)}
+  .ctl .v{font-family:var(--mono);font-size:14px;color:var(--fg-1);text-align:right;white-space:nowrap;min-width:9ch}
+  .meter{font-family:var(--mono);font-size:13px;color:var(--fg-2);margin-top:12px;line-height:1.75}
+  .meter b{color:var(--accent);font-weight:400}
+  .eq{font-family:var(--mono);font-size:13.5px;color:var(--fg-1);margin:14px 0 0;overflow-wrap:anywhere}
+  .eq.words{font-family:var(--sans);color:var(--fg-3);font-size:13px;margin-top:2px}
+  .hint{font-family:var(--sans);font-size:13px;color:var(--fg-3)}
+  table.t{border-collapse:collapse;margin-top:12px;font-family:var(--mono);font-size:13px;color:var(--fg-2)}
+  table.t td,table.t th{border-bottom:1px solid var(--border-soft);padding:5px 16px 5px 0;text-align:right;font-weight:400}
+  table.t th{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-3)}
+  table.t td:first-child,table.t th:first-child{text-align:left}
+  table.t b{color:var(--accent);font-weight:400}
+  .walk{display:flex;justify-content:space-between;gap:10px;margin-top:16px}
+  .hide{display:none!important}
+  footer{margin-top:28px;font-family:var(--sans);font-size:13px;color:var(--fg-4)}
+  footer b{font-family:var(--display);font-weight:400;letter-spacing:.06em;color:var(--fg-3)}
+  @media (max-width:560px){h1{font-size:32px}h2{font-size:23px}.ctl{grid-template-columns:100px 1fr auto}}
+</style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">Waveguide Synthesizer · the seed case · four steps</div>
+  <h1>Karplus-Strong, walked up</h1>
+  <p class="lead">One delay line and one average are the whole instrument. Take them one at a time, then check the formula the page gives for its pitch.</p>
+
+  <nav class="rail" id="rail" aria-label="steps"></nav>
+  <h2 id="st-title"></h2>
+  <p class="say" id="st-say"></p>
+  <div class="dwh"><div><b>do</b><span id="st-do"></span></div><div><b>watch</b><span id="st-watch"></span></div><div><b>hear</b><span id="st-hear"></span></div></div>
+
+  <div class="panel">
+    <div class="plabel"><span id="line-label">the delay line · the next N samples it will send out</span><span id="line-read"></span></div>
+    <canvas id="line" height="200"></canvas>
+    <div class="rowb">
+      <button class="play" id="pluck" aria-label="play: pluck the string">▸ pluck</button>
+      <button class="ghost" id="filt" aria-pressed="true">the average · on</button>
+      <span class="hint" id="filt-hint"></span>
+    </div>
+    <div class="ctl" id="ctl-n">
+      <label for="n">delay length N</label><input id="n" type="range" min="20" max="400" step="1" value="100"><span class="v" id="n-v"></span>
+    </div>
+  </div>
+
+  <div class="panel" id="p-chart">
+    <div class="plabel"><span>each harmonic's level, measured from the sound · dashed: the loop's prediction</span><span>dB, over seconds</span></div>
+    <canvas id="chart" height="260"></canvas>
+    <table class="t" id="decay-t"></table>
+  </div>
+
+  <div class="panel" id="p-test">
+    <div class="plabel"><span>the test · which pitch does the string have?</span><span>Hz</span></div>
+    <div class="rowb">
+      <span class="hint">hold the string against:</span>
+      <button class="ghost" id="ref-n" aria-pressed="true">fs ⁄ N</button>
+      <button class="ghost" id="ref-h" aria-pressed="false">fs ⁄ (N + ½)</button>
+      <button class="ghost" id="tone" aria-pressed="true">reference tone · on</button>
+    </div>
+    <div class="meter" id="test-m"></div>
+  </div>
+
+  <div class="eq" id="eq1"></div>
+  <div class="eq words" id="eq1w"></div>
+  <div class="eq" id="eq2"></div>
+  <div class="eq words" id="eq2w"></div>
+
+  <div class="walk"><button class="ghost" id="back">← back</button><button class="ghost" id="next">next →</button></div>
+  <footer><b>LOUD’N LIVE</b> · made for the rich face of Waveguide Synthesizer · the engine runs here, in this page, and in its check</footer>
+</main>
+
+<script id="engine">
+// ---- engine: Karplus-Strong, one delay line (shared by the page and its headless check) ----
+function ksBurst(N, seed) {
+  let s = seed >>> 0 || 1; const b = new Float64Array(N);
+  for (let i = 0; i < N; i++) { s ^= s << 13; s >>>= 0; s ^= s >>> 17; s ^= s << 5; s >>>= 0; b[i] = (s / 4294967296) * 2 - 1; }
+  let m = 0; for (let i = 0; i < N; i++) m += b[i]; m /= N;
+  let pk = 0; for (let i = 0; i < N; i++) { b[i] -= m; pk = Math.max(pk, Math.abs(b[i])); }
+  for (let i = 0; i < N; i++) b[i] *= 0.8 / pk;
+  return b;
+}
+// y[n] = rho * y[n-N]                       (the average off: the loop only remembers)
+// y[n] = rho * (y[n-N] + y[n-N-1]) / 2      (the average on: Karplus-Strong)
+// The first N samples out are the burst itself. At time n the line holds y[n .. n+N-1], the next N out.
+function ksRender(N, burst, len, filterOn, rho) {
+  const y = new Float32Array(len);
+  for (let n = 0; n < len; n++) {
+    if (n < N) { y[n] = burst[n]; continue; }
+    const a = y[n - N], b = n - N - 1 >= 0 ? y[n - N - 1] : 0;
+    y[n] = filterOn ? rho * 0.5 * (a + b) : rho * a;
+  }
+  return y;
+}
+const HANN = new Map();
+function hann(w) { let h = HANN.get(w); if (!h) { h = new Float64Array(w); let s = 0; for (let i = 0; i < w; i++) { h[i] = 0.5 - 0.5 * Math.cos(2 * Math.PI * i / (w - 1)); s += h[i]; } h.sum = s; HANN.set(w, h); } return h; }
+// the windowed DTFT of y[s .. s+w) at f (Hz), as amplitude and phase at sample s
+function dtft(y, s, w, f, fs) {
+  const h = hann(w), om = 2 * Math.PI * f / fs, cr = Math.cos(om), ci = Math.sin(om);
+  let pr = 1, pi = 0, re = 0, im = 0;
+  for (let i = 0; i < w; i++) { const v = y[s + i] * h[i]; re += v * pr; im -= v * pi; const t = pr * cr - pi * ci; pi = pr * ci + pi * cr; pr = t; }
+  return { amp: 2 * Math.hypot(re, im) / h.sum, phase: Math.atan2(im, re) };
+}
+// the fundamental the sound really has: the peak of the DTFT near a guess (coarse scan, then golden section)
+function measurePitch(y, fs, guess, startS, durS) {
+  const s = Math.round(startS * fs), w = Math.min(Math.round(durS * fs), y.length - s), g = (Math.sqrt(5) - 1) / 2;
+  const lo = guess * 0.94, hi = guess * 1.06, step = (hi - lo) / 240; let best = lo, bm = -1;
+  for (let i = 0; i <= 240; i++) { const f = lo + step * i, m = dtft(y, s, w, f, fs).amp; if (m > bm) { bm = m; best = f; } }
+  let a = best - step, b = best + step, c = b - g * (b - a), d = a + g * (b - a);
+  for (let it = 0; it < 60; it++) { if (dtft(y, s, w, c, fs).amp > dtft(y, s, w, d, fs).amp) b = d; else a = c; c = b - g * (b - a); d = a + g * (b - a); }
+  return (a + b) / 2;
+}
+// harmonic k's level over time: six-period windows every two periods
+function harmonicTrack(y, fs, f0, k, t1) {
+  const P = fs / f0, w = Math.round(6 * P), hop = Math.max(1, Math.round(2 * P)), pts = [];
+  for (let s = 0; s + w < Math.min(y.length, t1 * fs); s += hop) { const m = dtft(y, s, w, k * f0, fs).amp; pts.push([(s + w / 2) / fs, 20 * Math.log10(Math.max(m, 1e-9))]); }
+  return pts;
+}
+// how fast harmonic k dies, in dB a second: least-squares slope while it is above the floor
+function measureDecay(pts, floorDb) {
+  const use = []; for (const p of pts) { if (p[1] < floorDb) break; use.push(p); }
+  const n = use.length; if (n < 4) return NaN;
+  let sx = 0, sy = 0, sxx = 0, sxy = 0; for (const [x, v] of use) { sx += x; sy += v; sxx += x * x; sxy += x * v; }
+  return (n * sxy - sx * sy) / (n * sxx - sx * sx);
+}
+// what the loop predicts: each trip multiplies harmonic k by rho·|cos(pi·f_k/fs)|, and there are f0 trips a second
+function predictDecay(fs, N, k, rho, filterOn) {
+  const P = filterOn ? N + 0.5 : N, f = k * fs / P, gain = filterOn ? rho * Math.abs(Math.cos(Math.PI * f / fs)) : rho;
+  return (fs / P) * 20 * Math.log10(gain);
+}
+// ---- end engine ----
+</script>
+
+<script>
+const RHO = 0.996, SECONDS = 4, HARM = 8;
+const $ = (id) => document.getElementById(id);
+const S = { step: 0, N: 100, filter: true, ref: 'n', tone: true };
+const STEPS = [
+  { name: 'the loop', title: 'A loop that only remembers',
+    say: 'One delay line, N samples long, filled with a burst of noise. Each sample that comes out goes straight back in, a little quieter. Nothing else happens to it.',
+    do: 'Pluck. Then move the delay length and pluck again.', watch: 'The line, drawn once every trip: the same jagged burst every time, only smaller.', hear: 'A buzzy pitch that fades but never gets darker. Shorter line, higher pitch.',
+    filter: false, fixFilter: true, chart: false, test: false },
+  { name: 'the average', title: 'One average, and it is a string',
+    say: 'Now each sample goes back in as the average of itself and the one before it. That is the whole of Karplus-Strong. Averaging two neighbours smooths a jagged line, and it smooths it a little more on every trip.',
+    do: 'Pluck. Turn the average off and pluck, then on again.', watch: 'The jagged burst rounding off, trip by trip, into a smooth hump. The faint line is the burst you started with.', hear: 'Bright to dark: the first instant is noise, the end is a soft round tone.',
+    filter: true, fixFilter: false, chart: false, test: false },
+  { name: 'highs die first', title: 'The highs go first',
+    say: 'Why bright to dark? On every trip the average keeps a share of each harmonic, and the share falls as the harmonic rises. A low harmonic loses almost nothing per trip; a high one loses a lot. Here the sound is taken apart into its harmonics, and each is measured as it dies.',
+    do: 'Pluck. Try a short line and a long one.', watch: 'The solid lines, measured from the sound, falling at the slopes the dashed lines predict. The high ones fall steepest.', hear: 'The same pluck, now with its colour drawn out as it fades.',
+    filter: true, fixFilter: true, chart: true, test: false },
+  { name: 'the test', title: 'The test: what pitch is it?',
+    say: 'The page says frequency = sample rate ⁄ delay length. Hold the string against that, and against one alternative: the average looks back half a sample, so one trip round the loop may take N + ½ samples, not N. Two checks for each: a reference tone at that pitch, and a picture drawn once per period at that pitch.',
+    do: 'Pluck with fs ⁄ N chosen, listen, then choose fs ⁄ (N + ½) and pluck again. Shorten the line to widen the gap.', watch: 'Drawn at the wrong period, the line creeps sideways. At the right one, it stands still and only smooths.', hear: 'Against the wrong tone, a slow beating. Against the right one, none.',
+    filter: true, fixFilter: true, chart: false, test: true },
+];
+
+let ctx = null, master = null, strGain = null, toneGain = null, srcS = null, srcT = null, t0 = 0, sr = 48000;
+let Y = null, burst = null, tracks = null, pitch = null, ampAt = null, lastFs = 48000;
+
+function ensureAudio() {
+  if (ctx) return;
+  ctx = new (window.AudioContext || window.webkitAudioContext)();
+  sr = ctx.sampleRate;
+  const comp = ctx.createDynamicsCompressor(); comp.threshold.value = -12; comp.ratio.value = 4;
+  master = ctx.createGain(); master.gain.value = 0.55;
+  strGain = ctx.createGain(); toneGain = ctx.createGain(); toneGain.gain.value = 0;
+  strGain.connect(master); toneGain.connect(master); master.connect(comp).connect(ctx.destination);
+}
+function stopSound() {
+  for (const s of [srcS, srcT]) if (s) { try { s.stop(); } catch (e) {} }
+  srcS = srcT = null; Y = null;
+}
+function filterNow() { const st = STEPS[S.step]; return st.fixFilter ? st.filter : S.filter; }
+function refHz() { return S.ref === 'n' ? sr / S.N : sr / (S.N + 0.5); }
+
+function pluck() {
+  ensureAudio(); stopSound();
+  if (ctx.state !== 'running') ctx.resume();
+  const st = STEPS[S.step], on = filterNow(), N = S.N, len = Math.round(SECONDS * sr);
+  burst = ksBurst(N, (Math.random() * 4294967295) >>> 0 || 7);
+  Y = ksRender(N, burst, len, on, RHO);
+  for (let i = 0; i < 256; i++) Y[len - 1 - i] *= i / 256;   // no click at the end of the buffer
+  const buf = ctx.createBuffer(1, len, sr); buf.copyToChannel(Y, 0);
+  srcS = ctx.createBufferSource(); srcS.buffer = buf; srcS.connect(strGain);
+  t0 = ctx.currentTime + 0.03; srcS.start(t0);
+    // tell the face a sound started (a buffer source's start is not one the kit hears on its own)
+    if (window.parent !== window) { try { window.parent.postMessage({ type: 'rich:play' }, '*'); } catch (e) {} }
+  tracks = null; pitch = null;
+  const f0 = sr / (on ? N + 0.5 : N);
+  if (st.chart) tracks = Array.from({ length: HARM }, (_, k) => harmonicTrack(Y, sr, f0, k + 1, 3));
+  if (st.test) {
+    pitch = measurePitch(Y, sr, f0, 0.02, 0.3);
+    const f = refHz(), s0 = Math.round(0.01 * sr), w = Math.round(6 * sr / f), d = dtft(Y, s0, w, f, sr);
+    const amp = 0.7 * d.amp, decay = Math.pow(10, predictDecay(sr, N, 1, RHO, true) / 20 / sr), T = new Float32Array(len), om = 2 * Math.PI * f / sr;
+    for (let n = 0; n < len; n++) T[n] = amp * Math.pow(decay, n) * Math.cos(om * (n - s0) + d.phase) * Math.min(1, n / 64, (len - n) / 256);
+    const tb = ctx.createBuffer(1, len, sr); tb.copyToChannel(T, 0);
+    srcT = ctx.createBufferSource(); srcT.buffer = tb; srcT.connect(toneGain); srcT.start(t0);
+  }
+  toneGain.gain.value = st.test && S.tone ? 1 : 0;
+  render();
+}
+
+// ---- the picture ----
+function fit(c) {
+  const d = devicePixelRatio || 1, w = c.clientWidth, h = +c.getAttribute('height');
+  if (c.width !== Math.round(w * d)) { c.width = Math.round(w * d); c.height = Math.round(h * d); c.style.height = h + 'px'; }
+  const g = c.getContext('2d'); g.setTransform(d, 0, 0, d, 0, 0); return { g, w, h };
+}
+function nowSample() { if (!ctx || !Y) return 0; return Math.max(0, Math.floor((ctx.currentTime - t0) * sr)); }
+function strobePeriod() {
+  const st = STEPS[S.step], on = filterNow();
+  if (st.test) return S.ref === 'n' ? S.N : 2 * S.N + 1;   // two trips of N + ½ is a whole number of samples
+  return on ? 2 * S.N + 1 : S.N;
+}
+function drawLine() {
+  const { g, w, h } = fit($('line')), N = S.N, mid = h / 2, sc = h * 0.55;
+  g.clearRect(0, 0, w, h);
+  g.strokeStyle = '#22222e'; g.lineWidth = 1; g.beginPath(); g.moveTo(0, mid); g.lineTo(w, mid); g.stroke();
+  const xs = (i) => 14 + (w - 28) * i / (N - 1);
+  const poly = (arr, off, col, lw, k = 1) => { g.strokeStyle = col; g.lineWidth = lw; g.beginPath(); for (let i = 0; i < N; i++) { const v = arr[off + i] * k; const x = xs(i), yy = mid - Math.max(-0.95, Math.min(0.95, v)) * sc; i ? g.lineTo(x, yy) : g.moveTo(x, yy); } g.stroke(); };
+  g.fillStyle = '#8a8aa0'; g.font = '10.5px JetBrains Mono, monospace';
+  g.textAlign = 'left'; g.fillText('◂ out next', 14, h - 8); g.textAlign = 'right'; g.fillText('just written ▸', w - 14, h - 8);
+  if (!Y) { g.textAlign = 'center'; g.fillText(ctx ? 'pluck to fill the line' : 'silent until you pluck', w / 2, mid - 14); $('line-read').textContent = ''; return; }
+  if (burst && STEPS[S.step].name !== 'the loop') poly(burst, 0, 'rgba(139,124,246,0.35)', 1);
+  const n = nowSample(), P = strobePeriod(), max = Y.length - N - 1;
+  const nd = Math.min(max, Math.floor(n / P) * P);
+  // the line fades as it rings; it is drawn larger as it fades, so its shape stays readable, and the label says by how much
+  let pk = 0; for (let i = 0; i < N; i++) pk = Math.max(pk, Math.abs(Y[nd + i]));
+  const zoom = pk > 0 ? Math.min(64, Math.max(1, 0.8 / pk)) : 1;
+  poly(Y, nd, '#e8b84a', 1.6, zoom);
+  const on = filterNow(), trip = on ? N + 0.5 : N;
+  $('line-read').textContent = `drawn every ${P} samples · trip ${Math.floor(nd / trip)} · ${(nd / sr).toFixed(2)} s · drawn ×${zoom.toFixed(zoom < 10 ? 1 : 0)}`;
+}
+function drawChart() {
+  const c = $('chart'); if (c.offsetParent === null) return;
+  const { g, w, h } = fit(c), L = 46, R = 12, T = 10, B = 26, tMax = 3, dbTop = 0, dbBot = -72;
+  g.clearRect(0, 0, w, h);
+  const X = (t) => L + (w - L - R) * t / tMax, Yp = (db) => T + (h - T - B) * (dbTop - db) / (dbTop - dbBot);
+  g.strokeStyle = '#22222e'; g.lineWidth = 1; g.fillStyle = '#8a8aa0'; g.font = '10px JetBrains Mono, monospace';
+  for (let db = 0; db >= dbBot; db -= 12) { g.beginPath(); g.moveTo(L, Yp(db)); g.lineTo(w - R, Yp(db)); g.stroke(); g.textAlign = 'right'; g.fillText(db + '', L - 6, Yp(db) + 3); }
+  for (let t = 0; t <= tMax; t += 0.5) { g.textAlign = 'center'; g.fillText(t + ' s', X(t), h - 8); }
+  if (!tracks) { g.textAlign = 'center'; g.fillText('pluck to measure', w / 2, h / 2); return; }
+  let ref = -Infinity; for (const tr of tracks) if (tr.length) ref = Math.max(ref, tr[0][1]);
+  const now = nowSample() / sr, on = filterNow();
+  tracks.forEach((tr, k) => {
+    const mix = k / (HARM - 1), col = `rgb(${Math.round(232 - 93 * mix)},${Math.round(184 - 60 * mix)},${Math.round(74 + 172 * mix)})`;
+    if (!tr.length) return;
+    const start = tr[0], slope = predictDecay(sr, S.N, k + 1, RHO, on);
+    g.setLineDash([4, 4]); g.strokeStyle = col; g.globalAlpha = 0.55; g.lineWidth = 1; g.beginPath();
+    g.moveTo(X(start[0]), Yp(start[1] - ref)); const tEnd = Math.min(tMax, start[0] + (start[1] - ref - dbBot) / -slope); g.lineTo(X(tEnd), Yp(start[1] - ref + slope * (tEnd - start[0]))); g.stroke();
+    g.setLineDash([]); g.globalAlpha = 1; g.lineWidth = 1.6; g.beginPath(); let first = true;
+    for (const [t, db] of tr) { if (t > now || t > tMax) break; const v = Math.max(dbBot, db - ref); first ? g.moveTo(X(t), Yp(v)) : g.lineTo(X(t), Yp(v)); first = false; }
+    g.stroke();
+    let last = null; for (const [t, db] of tr) { if (t > now || t > tMax || db - ref < dbBot) break; last = [t, db - ref]; }
+    if (last) { g.fillStyle = col; g.textAlign = 'left'; g.fillText('k' + (k + 1), X(last[0]) + 4, Yp(last[1]) + 3); }
+  });
+}
+function decayTable() {
+  const t = $('decay-t');
+  if (!tracks) { t.innerHTML = ''; return; }
+  const on = filterNow();
+  let ref = -Infinity; for (const tr of tracks) if (tr.length) ref = Math.max(ref, tr[0][1]);
+  let html = '<tr><th>harmonic</th><th>kept per trip</th><th>predicted dB ⁄ s</th><th>measured dB ⁄ s</th></tr>';
+  for (const k of [1, 2, 4, 8]) {
+    const f = k * sr / (S.N + 0.5), keep = RHO * Math.abs(Math.cos(Math.PI * f / sr));
+    const m = measureDecay(tracks[k - 1], ref - 60);
+    html += `<tr><td>k = ${k}</td><td>${keep.toFixed(4)}</td><td>${predictDecay(sr, S.N, k, RHO, on).toFixed(1)}</td><td><b>${isNaN(m) ? '—' : m.toFixed(1)}</b></td></tr>`;
+  }
+  t.innerHTML = html;
+}
+function testMeter() {
+  const m = $('test-m'), N = S.N, a = sr / N, b = sr / (N + 0.5), c = (x, y) => { const v = 1200 * Math.log2(x / y); return Math.abs(v) < 0.005 ? 0 : v; };
+  let s = `fs = ${sr} Hz${ctx ? '' : ' (assumed until you pluck; then your device’s own rate)'} · N = ${N}<br>fs ⁄ N = <b>${a.toFixed(2)} Hz</b> · fs ⁄ (N + ½) = <b>${b.toFixed(2)} Hz</b> · apart by ${c(a, b).toFixed(1)} cents: ${(a - b).toFixed(2)} beats a second`;
+  if (pitch) s += `<br>measured from the sound: <b>${pitch.toFixed(3)} Hz</b> · ${c(pitch, a) >= 0 ? '+' : ''}${c(pitch, a).toFixed(2)} cents from fs ⁄ N · ${c(pitch, b) >= 0 ? '+' : ''}${c(pitch, b).toFixed(2)} cents from fs ⁄ (N + ½)`;
+  else s += '<br><span class="hint">pluck to measure the string</span>';
+  m.innerHTML = s;
+}
+function render() { drawLine(); drawChart(); }
+function loop() { requestAnimationFrame(loop); render(); }
+
+// ---- the walk ----
+function setStep(i) {
+  stopSound(); tracks = null; pitch = null;
+  S.step = Math.max(0, Math.min(STEPS.length - 1, i)); const st = STEPS[S.step];
+  if (st.fixFilter) S.filter = st.filter; else S.filter = true;
+  $('st-title').textContent = `${S.step + 1} · ${st.title}`; $('st-say').textContent = st.say;
+  $('st-do').textContent = st.do; $('st-watch').textContent = st.watch; $('st-hear').textContent = st.hear;
+  [...$('rail').children].forEach((b, j) => b.setAttribute('aria-current', j === S.step ? 'step' : 'false'));
+  $('filt').classList.toggle('hide', st.fixFilter); $('filt-hint').textContent = st.fixFilter ? (st.filter ? 'the average is on' : 'no average yet: the loop only remembers') : '';
+  $('p-chart').classList.toggle('hide', !st.chart); $('p-test').classList.toggle('hide', !st.test);
+  $('back').disabled = S.step === 0; $('next').disabled = S.step === STEPS.length - 1;
+  syncFilter(); eqs(); decayTable(); testMeter(); render();
+}
+function syncFilter() { $('filt').setAttribute('aria-pressed', S.filter ? 'true' : 'false'); $('filt').textContent = 'the average · ' + (S.filter ? 'on' : 'off'); }
+function eqs() {
+  const st = STEPS[S.step];
+  const E = {
+    'the loop': ['y[n] = ρ · y[n − N]      f = fs ⁄ N', '(each sample out) = (a little under one) × (the sample that went in N samples ago); so the pattern repeats every N samples, and the pitch is the sample rate divided by the delay length'],
+    'the average': ['y[n] = ρ · ½ · (y[n − N] + y[n − N − 1])', '(each sample out) = (a little under one) × (the average of the sample from N ago and the one from N + 1 ago)'],
+    'highs die first': ['per trip, harmonic k keeps ρ · |cos(π fₖ ⁄ fs)|', '(what one trip round the loop leaves of harmonic k) = (a little under one) × (the cosine of pi times its frequency over the sample rate): near one for low harmonics, smaller for high ones'],
+    'the test': ['f = fs ⁄ (N + ½)', '(the pitch) = (the sample rate) ÷ (the delay length plus the half sample the average looks back)'],
+  }[st.name];
+  $('eq1').textContent = E[0]; $('eq1w').textContent = E[1];
+  $('eq2').textContent = st.name === 'the test' ? 'f = fs ⁄ N' : ''; $('eq2w').textContent = st.name === 'the test' ? '(the pitch) = (the sample rate) ÷ (the delay length): the page’s formula, which holds for the bare loop of step 1' : '';
+}
+STEPS.forEach((st, i) => { const b = document.createElement('button'); b.textContent = `${i + 1} · ${st.name}`; b.onclick = () => setStep(i); $('rail').appendChild(b); });
+$('back').onclick = () => setStep(S.step - 1); $('next').onclick = () => setStep(S.step + 1);
+$('pluck').onclick = () => { pluck(); decayTable(); testMeter(); };
+$('filt').onclick = () => { S.filter = !S.filter; syncFilter(); stopSound(); render(); };
+$('n').oninput = () => { S.N = +$('n').value; $('n-v').textContent = `${S.N} samples`; stopSound(); tracks = null; pitch = null; decayTable(); testMeter(); render(); };
+const setRef = (r) => { S.ref = r; $('ref-n').setAttribute('aria-pressed', r === 'n' ? 'true' : 'false'); $('ref-h').setAttribute('aria-pressed', r === 'h' ? 'true' : 'false'); if (Y) { pluck(); testMeter(); } };
+$('ref-n').onclick = () => setRef('n'); $('ref-h').onclick = () => setRef('h');
+$('tone').onclick = () => { S.tone = !S.tone; $('tone').setAttribute('aria-pressed', S.tone ? 'true' : 'false'); $('tone').textContent = 'reference tone · ' + (S.tone ? 'on' : 'off'); if (toneGain) toneGain.gain.setTargetAtTime(S.tone && STEPS[S.step].test ? 1 : 0, ctx.currentTime, 0.02); };
+$('n-v').textContent = `${S.N} samples`;
+setStep(0); loop();
+</script>
+</body>
+</html>
