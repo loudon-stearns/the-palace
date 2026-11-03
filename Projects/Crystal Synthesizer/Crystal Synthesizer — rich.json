@@ -45,7 +45,18 @@
           "near": "The shape of this curve determines everything"
         }
       ],
-      "stamped": "2026-11-03"
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Crystal Synthesizer — rich — which phonons are fast.html",
+            "verdict": "keep",
+            "why": "A real test: the chain built from the section’s own ω(k) could have sent highs first and sends lows first (250 Hz 120 ms, 7.5 kHz 342 ms); an independent mass-spring simulation gives v_g = cos(ka/2) to four places. Walks curve, slope, click; its disagreement with the text is offer 1, stated as such."
+          }
+        ]
+      }
     },
     {
       "heading": "Bravais Lattice Taxonomy: Seven into Fourteen into 230",
@@ -89,7 +100,33 @@
           "near": "Labradorite is the proof by negation"
         }
       ],
-      "stamped": "2026-11-03"
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "playable-crystal/one_strike_nine_lattices.wav",
+            "verdict": "keep",
+            "why": "The summer bank’s before-picture, captioned as a taste-chosen ring; matches playable-crystal/README.md:55."
+          },
+          {
+            "file": "Crystal Synthesizer — rich — strike the seven.html",
+            "verdict": "remake",
+            "why": "Wording only. HYP (html 252–260) claims the page’s own words but its ellipses drop the testable clauses: restore orthorhombic’s “three distinct mode groups with wider spacing” and trigonal’s “without full birefringent doubling”, ideally every hypothesis whole. Also relabel step 2’s “diamond · 1.00 / 1.32” as an interval, not a symmetry split, and say step 4’s summer “5.5 s” is a time constant beside the printed 38.0 s T60. Engine and numbers verified (32/32)."
+          },
+          {
+            "file": "triclinic-proof/symmetry_arc_AB.wav",
+            "verdict": "keep",
+            "why": "The summer half of the step-4 test, captioned as that."
+          },
+          {
+            "file": "crystal-rings/strike_vs_ring.wav",
+            "verdict": "keep",
+            "why": "The ring study’s result, its condition on estimated widths kept, as crystal-rings/README.md:47-50."
+          }
+        ]
+      }
     },
     {
       "heading": "The Optical-Sonic Bridge: Dispersion, Anisotropy, and Resonance",
@@ -138,7 +175,38 @@
           "near": "would separate a broadband sound pulse"
         }
       ],
-      "stamped": "2026-11-03"
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "birefringence-proof/05_birefringence_arc.wav",
+            "verdict": "keep",
+            "why": "Neither family alone beats, the sum does: 8.8 Hz = 220 × 0.04. Doesn’t claim the split is acoustic anisotropy."
+          },
+          {
+            "file": "dispersion-filter/beryl_c_axis.wav",
+            "verdict": "keep",
+            "why": "Measured 12 kHz at 600 ms, but 600 ms is the render’s shared cap (render_anisotropic_beryl.py:85), so the highs are pinned; a later caption could name the bounded 1 − v_g stand-in and the cap, as the diamond click’s does."
+          },
+          {
+            "file": "dispersion-filter/beryl_basal_plane.wav",
+            "verdict": "keep",
+            "why": "Measured 12 kHz at 244 ms against the caption’s “about 240”."
+          },
+          {
+            "file": "dispersion-filter/01_dry_click.wav",
+            "verdict": "keep",
+            "why": "The control: every band within 1 ms."
+          },
+          {
+            "file": "dispersion-filter/02_dispersed_click.wav",
+            "verdict": "keep",
+            "why": "Measured rising (12 kHz 353 ms, 16 kHz 600 ms), as the caption says; the bundle README’s “downward-falling” (README.md:56) is the slip, not the caption. Names its bounded stand-in."
+          }
+        ]
+      }
     },
     {
       "heading": "What the Instrument Would Be",
@@ -166,7 +234,23 @@
           "near": "Dramatically different sound from frequency-independent filtering"
         }
       ],
-      "stamped": "2026-11-03"
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "crystal-rings/hardness.wav",
+            "verdict": "keep",
+            "why": "Option 2 built and heard; pulse lengths match crystal-rings/README.md:25."
+          },
+          {
+            "file": "dispersion-filter/03_dispersion_sweep.wav",
+            "verdict": "keep",
+            "why": "Option 3 heard; eight overlapping strikes in 3 s (render_dispersion.py:261-264), the caption doesn’t say otherwise."
+          }
+        ]
+      }
     },
     {
       "heading": "Mineral Palette",
@@ -187,7 +271,18 @@
           "near": "Eight named crystals"
         }
       ],
-      "stamped": "2026-11-03"
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "charts/comparative_all_crystals.png",
+            "verdict": "keep",
+            "why": "True to the chart, except “highest symmetry at the top” holds only at the ends (ruby above emerald, topaz above amethyst); “roughly” would make it exact."
+          }
+        ]
+      }
     },
     {
       "heading": "Open Questions",
@@ -217,7 +312,23 @@
           "near": "How would a performer interface with this"
         }
       ],
-      "stamped": "2026-11-03"
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "crystal-synthesizer-face.html",
+            "verdict": "keep",
+            "why": "The conform error stands and the keys play without MIDI, as the caption says. But the manifest’s empty contract {} under-declares, and that is what turns conform’s soft warn into an error (conform.mjs:112-113, 497); the truthful contract {\"needs\":\"midi\"} leaves grant-missing, which is exactly Loudon’s yes in grants.json."
+          },
+          {
+            "file": "rich-face/crystal-synthesizer-take.wav",
+            "verdict": "keep",
+            "why": "Tracked, 30 s stereo, copied under rich-face/ for the public face; the plugin heard beside the performer question."
+          }
+        ]
+      }
     }
   ],
   "offers": [
