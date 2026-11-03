@@ -35,7 +35,7 @@
           "by": "Levinson-Durbin · Kokoro (af_heart) for the voice",
           "height": 1250,
           "title": "how much is left over",
-          "caption": "**The compression sentence, measured.** Three steps: a sine predicted from its last sample (one weight leaves sin² ω of it, two leave rounding error); then Wold's split, two sines that four weights take 47 dB out of, noise that no order touches, and a sine in noise whose gain climbs toward the noise's own 17 dB and stops; and last the page's sentence spoken, with the order raised from 1 to 32. The leftover falls 10.1 dB under the voice at one weight and 19.1 dB at eighteen, about 3.2 bits a sample, and the next fourteen weights buy 0.4 dB more. The voice is Kokoro, open weights, carried inside the piece; the checks beside it re-run every number.",
+          "caption": "**The compression sentence, measured.** Three steps: a sine predicted from its last sample (one weight leaves sin² ω of it, two leave rounding error); then Wold's split, two sines that four weights take 47 dB out of, noise that no order touches, and a sine in noise whose gain climbs toward the noise's own 17 dB and stops; and last the page's sentence spoken, with the order raised from 1 to 32. The leftover falls 10.1 dB under the voice at one weight and 19.1 dB at eighteen, about 3.2 bits a sample, a fifth of 256 kbps of 16-bit audio, and the next fourteen weights buy 0.4 dB more. The voice is Kokoro, open weights, carried inside the piece; the checks beside it re-run every number.",
           "near": "The whole art is choosing"
         }
       ],
@@ -103,7 +103,7 @@
           "by": "Levinson-Durbin · LPC-10 and CELP, their moves · Kokoro (af_heart) for the voice",
           "height": 1350,
           "title": "keep the filter, change what drives it",
-          "caption": "**The soul made audible, walked up.** A made vowel and its formants; ten weights reading them back to within 16 Hz and leaving the buzz (99.5 % of the leftover on the buzz's instants). Then the page's sentence spoken: its leftover puts only 49.5 % on the beat. The same ten weights, driven by its own leftover, give the voice back to 10⁻¹⁵; driven by LPC-10's pulse train (98.2 % on the beat) they keep every formant and lose the waveform (−2.8 dB). Last, a CELP-style codebook brings the waveform back to 8.8 dB for about 3.5 kbps more, without copying the leftover. All at 8 kHz; no agent has heard the mix.",
+          "caption": "**The soul made audible, walked up.** A made vowel and its formants; ten weights reading them back to within 16 Hz and leaving the buzz (99.5 % of the leftover on the buzz's instants). Then the page's sentence said by Kokoro, a speech model trained on human recordings, so the life measured was itself predicted by a model: its leftover puts only 49.5 % on the beat. The same ten weights, driven by its own leftover, give the voice back to 10⁻¹⁵, by construction, as any weights would. Driven by LPC-10's pulse train (98.2 % on the beat) they keep every formant and lose the waveform (−2.8 dB). Last, a CELP-style codebook brings the waveform back to 8.8 dB for about 3.5 kbps more, matching the leftover as its weighting hears it (0.87), not sample by sample (0.43). All at 8 kHz; no agent has heard the mix.",
           "near": "brought the body back by shipping"
         }
       ],
@@ -132,19 +132,19 @@
     {
       "section": "The residual is where the soul hides",
       "kind": "no-claim-edit",
-      "what": "'The residual sounded like a buzzer because LPC-10 threw the residual away' reads as if the residual were the buzzer. It was the voice: the piece's leftover is the least buzz-like thing in it (49.5 % of its energy on the beat, against 98.2 % for the pulse train that replaced it). Offer: 'The voice sounded like a buzzer because LPC-10 threw the residual away and replaced it with a pulse train.'",
+      "what": "'The residual sounded like a buzzer because LPC-10 threw the residual away' reads as if the residual were the buzzer. It was the voice: the leftover is the least buzz-like signal in the piece. Energy on the beat: residual 49.5 % on the maker's tracker, 42.2 % on the challenger's; pulse train 98.2 % and 99.7 %; white noise 17 % (challenger). Offer: 'The voice sounded like a buzzer because LPC-10 threw the residual away and replaced it with a pulse train.'",
+      "status": "open"
+    },
+    {
+      "section": "The residual is where the soul hides",
+      "kind": "no-claim-edit",
+      "what": "'A small codebook of excitations — quantized residuals' is the common shorthand and holds where CELP looks: through the weighting 1/A(z/0.8), the piece's chosen excitation matches the residual at 0.87, though sample by sample only 0.43 (challenger 0.45), and it brings the waveform back to 8.8 dB against the pulse train's −2.8 (challenger 8.7 and −3.2). What the phrase leaves out is the method. Offer: keep the word and add it: 'a small codebook of excitations — quantized residuals, each chosen by synthesizing the voice it would make and keeping the closest'.",
       "status": "open"
     },
     {
       "section": "The residual is where the soul hides",
       "kind": "claim-change",
-      "what": "'A small codebook of excitations — quantized residuals' is looser than what the piece measured. Its CELP-style coder (512 noise vectors plus the last excitation a pitch period back, every 7.5 ms, chosen by analysis-by-synthesis through A(z)/A(z/0.8)) brings the voice's waveform back to 8.8 dB segmental SNR against the pulse train's −2.8, yet the excitation it chose matches the residual at only 0.43 correlation, puts less of itself on the beat (26.6 % against 49.5 %) and is noisier between the harmonics (5.4 against 6.6 dB). It is chosen by how the voice it makes compares, not by how close it sits to the residual. Offer: 'a small codebook of excitations, each chosen by synthesizing the voice it would make and keeping the closest'. It sharpens the page's thesis rather than weakening it: the life is judged by ear, not by copying the leftover.",
-      "status": "open"
-    },
-    {
-      "section": "The residual is where the soul hides",
-      "kind": "claim-change",
-      "what": "'The 2,400 bps secure-voice standard of the late 1970s': LPC-10 was developed through the 1970s and described by Tremain in 1982, but the standard dates from 1984 (NATO STANAG 4198, February 1984; FED-STD-1015, 28 November 1984; later FIPS 137). Offer: 'the 2,400 bps secure-voice standard of 1984, built through the 1970s'. Checked on the web, not by a piece (Wikipedia's LPC-10 article; the Crypto Museum's LPC-10 page).",
+      "what": "Only the word 'standard' is early. LPC-10 at 2,400 bps was the secure-voice coder in service in the late 1970s (NSA's STU-I, 1977–79), but the standard dates from 1984 (NATO STANAG 4198, February 1984; FED-STD-1015, 28 November 1984; later FIPS 137). Offer: 'the 2,400 bps secure-voice coder of the late 1970s, a federal standard by 1984'. Checked on the web, not by a piece (Wikipedia's FIPS 137 and LPC-10 articles; the Crypto Museum's LPC-10 and STU-I pages). The swap piece's step-4 note already says 'the 1984 standard', which is accurate.",
       "status": "open"
     }
   ]

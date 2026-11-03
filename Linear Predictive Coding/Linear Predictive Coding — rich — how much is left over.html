@@ -390,6 +390,9 @@
     }
     return { mean: cnt ? sum / cnt : 0, per };
   };
+  /* y through 1/A(z/γ), the weighted all-pole the CELP search compares in, with the track's predictor per block */
+  L.weighted = (y, tr, gam) => { const o = new Float64Array(y.length); for (let i = 0; i < y.length; i++) { const a = tr.as[Math.floor(i / tr.sub)]; let v = y[i]; for (let k = 1; k <= a.length && k <= i; k++) v += a[k - 1] * Math.pow(gam, k) * o[i - k]; o[i] = v; } return o; };
+  L.corr = (A, B) => { let n = 0, d1 = 0, d2 = 0; for (let i = 0; i < A.length; i++) { n += A[i] * B[i]; d1 += A[i] * A[i]; d2 += B[i] * B[i]; } return n / Math.sqrt(d1 * d2); };
   /* how much of an excitation lands on the voice's beats: through every voiced stretch, step one pitch period
      at a time, find the strongest sample in the period, and count the energy within one sample of it. A buzz
      puts nearly all its energy there; breath and wobble spread it across the period. Returns a share, 0 to 1. */
@@ -629,7 +632,7 @@ function draw3() {
   line(LT, UI.C.blue, 1.4); line(le, UI.C.white, 1.2);
   UI.text(g, 'Hz', x0 - 4, H - 10, UI.C.grey, 'right'); UI.text(g, 'average spectrum, 70 dB shown', W - 12, top + 4, UI.C.grey, 'right');
   const g18 = G3[17], b18 = g18 / 6.02, after = G3[31] - G3[17];
-  $('t3').innerHTML = 'One weight already puts the leftover ' + G3[0].toFixed(1) + ' dB under the voice: most of a voice\'s energy is low, and low notes change slowly. At 18 weights (the usual rule at 16 kHz, the rate in kHz plus two) it is <b>' + g18.toFixed(1) + ' dB</b> under, about <b>' + b18.toFixed(1) + ' bits</b> a sample, <b>' + (b18 * 16).toFixed(0) + ' kbps</b> you no longer send. The next fourteen weights together buy ' + after.toFixed(1) + ' dB more. That is the page\'s sentence, measured: the better you predict, the less you send, until the leftover is what can\'t be predicted. Then listen to what it holds at 18: whether you can still follow the words, and what in it sounds like the voice.';
+  $('t3').innerHTML = 'One weight already puts the leftover ' + G3[0].toFixed(1) + ' dB under the voice: most of a voice\'s energy is low, and low notes change slowly. At 18 weights (the usual rule at 16 kHz, the rate in kHz plus two) it is <b>' + g18.toFixed(1) + ' dB</b> under, about <b>' + b18.toFixed(1) + ' bits</b> a sample, <b>' + (b18 * 16).toFixed(0) + ' kbps</b> you no longer send, out of 256 kbps for 16-bit samples at 16 kHz: about a fifth. Prediction alone gets you that far; the page\'s thousands of bits a second come from throwing the leftover away, the residual swap piece in the section below. The next fourteen weights together buy ' + after.toFixed(1) + ' dB more. That is the page\'s sentence, measured: the better you predict, the less you send, until the leftover is what can\'t be predicted. Then listen to what it holds at 18: whether you can still follow the words, and what in it sounds like the voice.';
 }
 $('p3').addEventListener('input', () => { UI.stop(); draw3(); });
 $('lvl3').addEventListener('click', (ev) => { trueLvl = !trueLvl; ev.currentTarget.setAttribute('aria-pressed', String(trueLvl)); UI.stop(); });

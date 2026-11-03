@@ -92,7 +92,7 @@
 <main class="lp-piece">
   <div class="lp-kicker">Linear Predictive Coding · the residual is where the soul hides</div>
   <h1 class="lp-title">Keep the filter, change what drives it</h1>
-  <p class="lp-sub">The page says a ten-weight model keeps a voice's vowels and misses its life, and that the life is in the leftover. Five steps: a made vowel, and the model reading its shape back; then a real voice, whose leftover is something else; then the swap, the same filter driven by a buzz and by its own leftover; and last, what a codebook buys back. Each step plays. You can jump to any of them.</p>
+  <p class="lp-sub">The page says a ten-weight model keeps a voice's vowels and misses its life, and that the life is in the leftover. Five steps: a made vowel, and the model reading its shape back; then a spoken voice, Kokoro's, a model trained on human speech, whose leftover is something else; then the swap, the same filter driven by a buzz and by its own leftover; and last, what a codebook buys back. Each step plays. You can jump to any of them.</p>
 
   <nav class="lp-rail" aria-label="steps">
     <button data-go="1" aria-pressed="true">1 · one vowel</button>
@@ -148,7 +148,7 @@
   <!-- ───────────── STEP 3 ───────────── -->
   <section class="lp-step" data-step="3">
     <h2>3 · A voice's leftover</h2>
-    <p class="lp-idea">Now a voice, saying the page's sentence. Do the same thing every 22.5 ms, LPC-10's frame: ten weights for the shape, and take the leftover. A made vowel left a clean buzz. Look at what a voice leaves.</p>
+    <p class="lp-idea">Now a voice saying the page's sentence. It is Kokoro's, a speech model trained on human recordings, so the life measured here was itself predicted by a model: the page's own open question, what survives a model's prediction, in small. Do the same thing every 22.5 ms, LPC-10's frame: ten weights for the shape, and take the leftover. A made vowel left a clean buzz. Look at what a voice leaves.</p>
     <canvas id="c3a" height="200"></canvas>
     <div class="lp-legend"><span class="lp-sw" style="background:#6aa8e8"></span>the voice <span class="lp-sw" style="background:#e8e8f0"></span>its leftover <span class="lp-sw" style="background:rgba(232,184,74,.5)"></span>the stretch shown below</div>
     <canvas id="c3b" height="150" style="margin-top:8px"></canvas>
@@ -425,6 +425,9 @@
     }
     return { mean: cnt ? sum / cnt : 0, per };
   };
+  /* y through 1/A(z/γ), the weighted all-pole the CELP search compares in, with the track's predictor per block */
+  L.weighted = (y, tr, gam) => { const o = new Float64Array(y.length); for (let i = 0; i < y.length; i++) { const a = tr.as[Math.floor(i / tr.sub)]; let v = y[i]; for (let k = 1; k <= a.length && k <= i; k++) v += a[k - 1] * Math.pow(gam, k) * o[i - k]; o[i] = v; } return o; };
+  L.corr = (A, B) => { let n = 0, d1 = 0, d2 = 0; for (let i = 0; i < A.length; i++) { n += A[i] * B[i]; d1 += A[i] * A[i]; d2 += B[i] * B[i]; } return n / Math.sqrt(d1 * d2); };
   /* how much of an excitation lands on the voice's beats: through every voiced stretch, step one pitch period
      at a time, find the strongest sample in the period, and count the energy within one sample of it. A buzz
      puts nearly all its energy there; breath and wobble spread it across the period. Returns a share, 0 to 1. */
@@ -626,13 +629,12 @@ function voice() {
   let miss = 0; for (let i = 0; i < x.length; i++) miss = Math.max(miss, Math.abs(own[i] - x[i]));
   const u10 = L.lpc10Excitation(e, pt, 180, 7), y10 = L.synth(u10, tr), ce = L.celpExcitation(x, tr, { size: 512 }), yc = L.synth(ce.u, tr);
   const diff = x.map((v, i) => v - own[i]);
-  let num = 0, d1 = 0, d2 = 0; for (let i = 0; i < e.length; i++) { num += e[i] * ce.u[i]; d1 += e[i] * e[i]; d2 += ce.u[i] * ce.u[i]; }
   V = { x, e, own, diff, pt, miss, u10, y10, uc: ce.u, yc, peak: L.maxAbs(x),
     gain: L.db(L.energy(x) / L.energy(e)),
     on: { e: L.pulseShare(e, pt, 180), u10: L.pulseShare(u10, pt, 180), uc: L.pulseShare(ce.u, pt, 180) },
     harm: { e: L.harmonicity(e, pt, 180, SR).mean, u10: L.harmonicity(u10, pt, 180, SR).mean, uc: L.harmonicity(ce.u, pt, 180, SR).mean },
     snr: { y10: L.segSnr(x, y10, 80), yc: L.segSnr(x, yc, 80), own: L.segSnr(x, own, 80) },
-    corrC: num / Math.sqrt(d1 * d2) };
+    corrC: L.corr(e, ce.u), corrW: L.corr(L.weighted(e, tr, 0.8), L.weighted(ce.u, tr, 0.8)) };
   return V;
 }
 
@@ -677,7 +679,7 @@ function draw4() {
   spec(g, v.x, 8, 4, W - 16, hh, ref); spec(g, v.y10, 8, 22 + hh, W - 16, hh, ref);
   UI.text(g, 'the voice', 14, 18, UI.C.white); UI.text(g, 'the same ten weights, driven by a pulse train', 14, 36 + hh, UI.C.white);
   $('r4id').textContent = UI.sup(v.miss); $('r4lo').textContent = (100 * v.on.e).toFixed(1) + ' %'; $('r4pu').textContent = (100 * v.on.u10).toFixed(1) + ' %'; $('r4sn').textContent = v.snr.y10.toFixed(1) + ' dB';
-  $('t4').innerHTML = 'Driven by its own leftover, the filter gives the voice back, every sample within <b>' + UI.sup(v.miss) + '</b> of a peak of ' + v.peak.toFixed(2) + ': rounding. Driven by the pulse train, the formants are all there, the same weights frame by frame. The pulse train puts <b>' + (100 * v.on.u10).toFixed(1) + ' %</b> of its energy on the beat against the leftover\'s ' + (100 * v.on.e).toFixed(1) + ' %, and the waveform it makes no longer matches the voice (' + v.snr.y10.toFixed(1) + ' dB). That half, off the beat, is what the page calls the soul. Listen to the two side by side and decide what went.';
+  $('t4').innerHTML = 'Driven by its own leftover, the filter gives the voice back, every sample within <b>' + UI.sup(v.miss) + '</b> of a peak of ' + v.peak.toFixed(2) + ': rounding. That can\'t fail: the leftover is defined as what the filter missed, so solving the same equation back returns the voice for any weights at all. It shows the machine is wired right; it is a demonstration, not a test. Driven by the pulse train, the formants are all there, the same weights frame by frame. The pulse train puts <b>' + (100 * v.on.u10).toFixed(1) + ' %</b> of its energy on the beat against the leftover\'s ' + (100 * v.on.e).toFixed(1) + ' %, and the waveform it makes no longer matches the voice (' + v.snr.y10.toFixed(1) + ' dB). That half, off the beat, is where the breath the page names lives. The jitter and shimmer it names sit on the beat, in when each beat lands and how hard, and the pulse train flattens those too, to a steady glide and one loudness a frame. Listen to the two side by side and decide what went.';
 }
 $('play4x').addEventListener('click', (ev) => UI.play(ev.currentTarget, voice().x, SR, 0.1));
 $('play4o').addEventListener('click', (ev) => UI.play(ev.currentTarget, voice().own, SR, 0.1));
@@ -706,7 +708,7 @@ function draw5() {
     rows.map((r) => '<tr><td><button class="lp-go" data-y="' + r[0] + '">play</button></td><td class="lp-l">' + r[1] + '</td><td>' + r[2] + '</td><td>' + r[3] + '</td><td>' + r[4] + '</td><td>' + r[5] + '</td></tr>').join('');
   $('tab5').querySelectorAll('.lp-go').forEach((b) => { b.dataset.label = b.textContent; b.addEventListener('click', (ev) => { const k = b.dataset.y; if (shown5 !== k) { shown5 = k; draw5spec(); } UI.play(ev.currentTarget, { x: v.x, y10: v.y10, yc: v.yc, own: v.own, e: v.e }[k], SR, 0.1); }); });
   draw5spec();
-  $('t5').innerHTML = 'The structure was always cheap: ten weights every 22.5 ms cost <b>1.8 kbps</b>, the same in every row. LPC-10 adds 0.6 kbps for its stand-in and gets the vowels and a machine. The codebook spends <b>3.5 kbps</b> more and brings the waveform back to ' + v.snr.yc.toFixed(1) + ' dB, against the pulse train\'s ' + v.snr.y10.toFixed(1) + '. And it does it without copying the leftover: the excitation it chose matches the leftover at only <b>' + v.corrC.toFixed(2) + '</b>, puts less of itself on the beat (' + pct(v.on.uc) + ' against ' + pct(v.on.e) + '), and is noisier between the harmonics (' + v.harm.uc.toFixed(1) + ' against ' + v.harm.e.toFixed(1) + ' dB). It was chosen by how the voice it makes compares, through an ear-shaped weighting, not by how close it sits to the leftover. The life cost extra; whether it came back is for your ear.';
+  $('t5').innerHTML = 'The structure was always cheap: ten weights every 22.5 ms cost <b>1.8 kbps</b>, the same in every row. LPC-10 adds 0.6 kbps for its stand-in and gets the vowels and a machine. The codebook spends <b>3.5 kbps</b> more and brings the waveform back to ' + v.snr.yc.toFixed(1) + ' dB, against the pulse train\'s ' + v.snr.y10.toFixed(1) + '. It copies the leftover as the ear-shaped weighting hears it, not sample by sample: through 1/A(z/0.8), where the search compares them, the excitation it chose matches the leftover at <b>' + v.corrW.toFixed(2) + '</b>; sample by sample, only ' + v.corrC.toFixed(2) + ', with less of itself on the beat (' + pct(v.on.uc) + ' against ' + pct(v.on.e) + ') and more noise between the harmonics (' + v.harm.uc.toFixed(1) + ' against ' + v.harm.e.toFixed(1) + ' dB). It is judged by the voice it would make, heard through that weighting. The life cost extra; whether it came back is for your ear.';
 }
 
 UI.steps(5, (k) => { if (k === 1) draw1(); if (k === 2) draw2(); if (k === 3) draw3(); if (k === 4) draw4(); if (k === 5) draw5(); });

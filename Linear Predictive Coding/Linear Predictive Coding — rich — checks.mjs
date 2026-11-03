@@ -67,7 +67,7 @@ check('the phrase is 16 kHz', sr === 16000, `${sr} Hz, ${(X16.length / sr).toFix
   const G = [], miss = [];
   for (let p = 1; p <= 32; p++) { const tr = L.coefTrack(L.analyse(X16, 16000, p, 160, 400), X16.length, 160), e = L.residual(X16, tr), y = L.synth(e, tr); G.push(L.db(L.energy(X16) / L.energy(e))); let m = 0; for (let i = 0; i < y.length; i++) m = Math.max(m, Math.abs(y[i] - X16[i])); miss.push(m); }
   let mono = true; for (let i = 1; i < 32; i++) if (G[i] < G[i - 1] - 0.05) mono = false;
-  check('order: the voice comes back from its leftover at every order', Math.max(...miss) < 1e-12, `largest miss ${Math.max(...miss).toExponential(2)}`);
+  check('order: the voice comes back from its leftover at every order (by construction: a wiring check)', Math.max(...miss) < 1e-12, `largest miss ${Math.max(...miss).toExponential(2)}`);
   check('order: the leftover shrinks as weights are added', mono, G.filter((_, i) => [0, 3, 9, 17, 31].includes(i)).map((v, j) => `G(${[1, 4, 10, 18, 32][j]}) ${v.toFixed(1)}`).join(', ') + ' dB');
   check('order: past 18 weights the next fourteen buy under 1 dB', G[31] - G[17] < 1, `${(G[31] - G[17]).toFixed(2)} dB`);
   check('order: bits saved at 18 weights, G/6.02', true, `${(G[17] / 6.02).toFixed(2)} bits a sample, ${(G[17] / 6.02 * 16).toFixed(1)} kbps at 16 kHz`);
@@ -98,13 +98,18 @@ check('the phrase is 16 kHz', sr === 16000, `${sr} Hz, ${(X16.length / sr).toFix
   const corr = num / Math.sqrt(d1 * d2), voiced = pt.filter((q) => q.voiced).length;
   const lvl = (y) => L.db(L.energy(y) / L.energy(x));
   check('swap: the pitch tracker finds the voiced stretches', voiced > pt.length * 0.4 && voiced < pt.length * 0.8, `${voiced} of ${pt.length} frames voiced`);
-  check('swap: driven by its own leftover, the voice comes back exactly', miss < 1e-12, `largest miss ${miss.toExponential(2)} of a peak ${L.maxAbs(x).toFixed(2)}`);
+  check('swap: driven by its own leftover, the voice comes back exactly (by construction: a wiring check)', miss < 1e-12, `largest miss ${miss.toExponential(2)} of a peak ${L.maxAbs(x).toFixed(2)}`);
   check('swap: a voice\'s leftover is not a buzz', on.e < 0.7 && on.e > 0.3, `${(100 * on.e).toFixed(1)} % on the beat`);
   check('swap: LPC-10\'s pulse train is', on.u10 > 0.95, `${(100 * on.u10).toFixed(1)} % on the beat`);
   check('swap: the pulse train is cleaner between the harmonics than the leftover', hm.u10 - hm.e > 5, `${hm.u10.toFixed(1)} against ${hm.e.toFixed(1)} dB`);
   check('swap: the pulse version keeps the loudness, loses the waveform', Math.abs(lvl(y10)) < 1.5 && snr.y10 < 0, `level ${lvl(y10).toFixed(2)} dB, waveform match ${snr.y10.toFixed(1)} dB`);
   check('swap: the codebook brings the waveform back', snr.yc > 6 && Math.abs(lvl(yc)) < 1.5, `waveform match ${snr.yc.toFixed(1)} dB, level ${lvl(yc).toFixed(2)} dB`);
-  check('swap: the codebook does not copy the leftover', corr < 0.6 && on.uc < on.e && hm.uc < hm.e, `correlation ${corr.toFixed(2)}, on the beat ${(100 * on.uc).toFixed(1)} %, harmonics ${hm.uc.toFixed(1)} dB`);
+  const corrW = L.corr(L.weighted(e, tr, 0.8), L.weighted(ce.u, tr, 0.8));
+  check('swap: the codebook copies the leftover as the weighting hears it, not sample by sample', corrW > 0.8 && corr < 0.6 && on.uc < on.e && hm.uc < hm.e, `through 1/A(z/0.8) ${corrW.toFixed(2)}; sample by sample ${corr.toFixed(2)}, on the beat ${(100 * on.uc).toFixed(1)} %, harmonics ${hm.uc.toFixed(1)} dB`);
+  // the identity cannot fail: any stable weights at all return the voice from its own leftover
+  const rr = L.rng(99), rk = Array.from({ length: Math.ceil(x.length / 60) }, () => L.kToA(Float64Array.from({ length: 10 }, () => 1.8 * rr() - 0.9)));
+  const rt = { as: rk, sub: 60 }, ry = L.synth(L.residual(x, rt), rt); let rm = 0; for (let i = 0; i < x.length; i++) rm = Math.max(rm, Math.abs(ry[i] - x[i]));
+  check('swap: random weights give the voice back too, so step 4\'s identity is a demonstration', rm < 1e-9, `largest miss ${rm.toExponential(2)} with random reflection coefficients in ±0.9`);
 }
 { // the bit counts step 5 prints
   check('swap: LPC-10, 54 bits each 22.5 ms', Math.abs(54 / 0.0225 - 2400) < 1e-9, `${54 / 0.0225} bps; weights ${(41 / 0.0225).toFixed(0)}, the rest ${(13 / 0.0225).toFixed(0)}`);
