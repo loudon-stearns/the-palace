@@ -23,7 +23,7 @@
       "section": "The Mapping",
       "kind": "no-claim-edit",
       "status": "open",
-      "what": "The table gives 'a delay line with delay-time = tube length × signal velocity', and DSP Architecture item 2 writes DelayLine(time=length × velocity, …). The dish and the renderer both divide: delay = L ÷ v (slime-mold-flow-dish.html sets d.delayTime to len / speed; physarum_flow.py says delay = L / VELOCITY), which is what makes a longer tube a later echo. Suggested: 'delay-time = tube length ÷ streaming velocity', and time=length ÷ velocity in item 2. The walk's first step shows 0.60 ÷ 0.9 = 0.67 s."
+      "what": "The page writes the delay as length × velocity twice: the table, 'delay-time = tube length × signal velocity' (Slime Mold Delay.md:63), and DSP Architecture item 2, DelayLine(time=length × velocity, …) (:96). Both engines divide, delay = L ÷ v: the dish at slime-mold-flow-dish.html:511 (len / speed) and :543 (t.L / v), the renderer at headless/physarum_flow.py:31 (delay = L / VELOCITY) and :50 (delay = length / velocity). That is what makes a longer tube a later echo, and it holds by dimension: dish widths ÷ dish widths a second is seconds. Suggested: 'delay-time = tube length ÷ streaming velocity' at :63, and time=length ÷ velocity at :96. The walk's first step shows 0.60 ÷ 0.9 = 0.67 s."
     },
     {
       "section": "DSP Architecture",
@@ -33,9 +33,9 @@
     },
     {
       "section": "DSP Architecture",
-      "kind": "claim-change",
+      "kind": "no-claim-edit",
       "status": "open",
-      "what": "Item 6 names two changes, thickness that grows faster than flow and flakes that take turns. Taken apart on the same 40 dishes, neither does it alone: the competing law without turns, on a mesh, gives a median of 1.985× (40 of 40 fed); turns without the competing law give 1.349×, but only by letting flakes go (0 of 40 dishes fed all four; 2.0 heard on average). The mesh alone, on the old law, gives 2.021×. Suggested addition: 'Neither half works alone: the law without turns stays near 1.99×, and turns without the law keep the network lean only by losing flakes.'"
+      "what": "An addition to item 6, not a correction. The page gives the competing law and the turns as one remedy, and the steward's tuning item 1 already holds that both are needed. What is new is the turns-only row. On the same 40 dishes: turns without the competing law reach 1.349×, lean only because they let flakes go (0 of 40 dishes fed all four; 2.0 heard on average). The competing law without turns, on a mesh, gives 1.985× (40 of 40 fed), and the mesh alone on the old law gives 2.021×. Suggested sentence: 'Neither half works alone: the law without turns stays near 1.99×, and turns without the law keep the network lean only by losing flakes.'"
     },
     {
       "section": "DSP Architecture",
@@ -47,13 +47,13 @@
       "section": "DSP Architecture",
       "kind": "claim-change",
       "status": "open",
-      "what": "Item 3 says each delay line measures recent RMS at its output and the topology engine reads these to update diameters. The dish measures loudness at each flake (one analyser per flake, levels()), the flakes push by that loudness, and every diameter follows the Kirchhoff flow those pushes set; no line's output is measured. Suggested: 'Flow tracking: each food source's recent loudness sets how hard it pushes; pressure settles by Kirchhoff, and each tube's flow updates its diameter per the Physarum rule.'"
+      "what": "Item 3 says each delay line measures recent RMS at its output, and the topology engine reads those to update diameters. The measure is RMS, but the place is wrong. The dish takes the RMS at each flake (one analyser per flake, slime-mold-flow-dish.html:498, levels() at :547–556). The flakes push by that loudness, and every diameter follows the Kirchhoff flow those pushes set. No line's output is measured. Suggested: 'Flow tracking: each food source's recent RMS sets how hard it pushes; pressure settles by Kirchhoff, and each tube's flow updates its diameter per the Physarum rule.'"
     },
     {
       "section": "Interface Mythology",
       "kind": "claim-change",
       "status": "open",
-      "what": "'Starve = prune aggressively' is not what either engine does. Forty colonies, 20 s fed then 12 s at the knob: under the dish's current law starving prunes 1.2 tubes to eating's 2.8 (counting only tubes already there, 1.3 cuts begun to eating's 2.1); under cycle 10's law 1.1 to 2.6. Starving stops growth (0.2 tips against 1.9) and thins every tube by the same factor, so the middle road settles at 0.625 of its fed thickness and the summed send drops 3.3 dB; since the competing law prunes on flow, and flow depends only on the tubes' thickness against one another, no road loses its place. The 2026-10-13 feast/famine render agrees: its starve windows pruned 1 and 0 tubes, its eat windows 2, 2 and 1. Suggested: 'Eat = grow new branches. Starve = stop growing and fade: every road thins, none is cut.' Or, if a cull is the instrument wanted, the engine needs a starve that raises the prune line, and the text can stay."
+      "what": "'Starve = prune aggressively' is not what either engine does. Forty colonies, 20 s fed then 12 s at the knob: under the dish's current law starving prunes 1.2 tubes to eating's 2.8 (counting only tubes already there, 1.3 cuts begun to eating's 2.1); under cycle 10's law 1.1 to 2.6. Counting only tubes already there, cycle 10's law leans the other way: starving begins slightly more cuts than eating, 0.8 against 0.725. So starving cuts fewer under the current law and about as many under the old. Starving stops growth (0.2 tips against 1.9) and thins every tube by the same factor, so the middle road settles at 0.625 of its fed thickness and the summed send drops 3.3 dB; since the competing law prunes on flow, and flow depends only on the tubes' thickness against one another, no road loses its place. The 2026-10-13 feast/famine render agrees: its starve windows pruned 1 and 0 tubes, its eat windows 2, 2 and 1. Suggested: 'Eat = grow new branches. Starve = stop growing and fade: every road thins, none is cut.' Or, if a cull is the instrument wanted, the engine needs a starve that raises the prune line, and the text can stay."
     }
   ],
   "sections": [
