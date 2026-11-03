@@ -106,7 +106,28 @@
           "place": "margin"
         }
       ],
-      "stamped": "2026-11-03"
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "image1_t2_product_of_circles.png",
+            "verdict": "keep",
+            "why": "Decorates the T² = S¹ × S¹ statement rather than testing it; gathered, and true to its caption."
+          },
+          {
+            "file": "2D Torus Wavetable Synthesizer — rich — the ratio gate.html",
+            "verdict": "keep",
+            "why": "Walks up in five steps and settles the page’s own split (binary bullets against the Philosophy pillar’s slope); every line recomputed on the catalog tables. The beats come at multiples of |q·f₁ − p·f₂|, a word the proposed sentence drops."
+          },
+          {
+            "file": "audition/penrose_ratio_sweep.wav",
+            "verdict": "keep",
+            "why": "Evidence beside the section; 15.0 s by its byte count, six ratios at 2.5 s, as captioned."
+          }
+        ]
+      }
     },
     {
       "heading": "The Surfaces — Design Language",
@@ -145,7 +166,28 @@
           "place": "margin"
         }
       ],
-      "stamped": "2026-11-03"
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "2D Torus Wavetable Synthesizer — rich — surfaces and morphs.html",
+            "verdict": "remake",
+            "why": "The test’s cross-class pair is not cross-class in the built tables: Theta’s lattice magnitudes are fully 4-fold (swap, flip, rot90 all 1.000) like Membrane’s. Add Membrane ↔ Penrose (−3.01 dB, really cross-class) as a quick pair, show each surface’s measured lattice symmetry beside the page’s name for it, and rest the caption on that pair."
+          },
+          {
+            "file": "Auditions/cycle-7/theta_matern_morph_spatial.wav",
+            "verdict": "keep",
+            "why": "The caption holds: about 3.5 dB below the straight-line target near a third of the way across. Note that the renders’ gap (~2.4 dB, ends not level-matched) is milder than the piece’s 6.5 against 0.2 dB."
+          },
+          {
+            "file": "Auditions/cycle-7/theta_matern_morph_spectral.wav",
+            "verdict": "keep",
+            "why": "The caption holds: about 1.1 dB below the target at the same point; the middle keeps its body."
+          }
+        ]
+      }
     },
     {
       "heading": "The Five Generating Logics — Authoring Methods",
@@ -175,7 +217,23 @@
           "place": "margin"
         }
       ],
-      "stamped": "2026-11-03"
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Auditions/cycle-7/penrose_kuramoto_three_regimes.wav",
+            "verdict": "keep",
+            "why": "Evidence for the third logic’s snap; traces to scroll.md:835–837."
+          },
+          {
+            "file": "Auditions/cycle-7/penrose_kuramoto_ramp.png",
+            "verdict": "keep",
+            "why": "Tests the snap: lock order and harmonicity jump together at K* = 0.80 Hz. The plot runs 0–1.59 Hz; the caption’s 1.6 is fine."
+          }
+        ]
+      }
     },
     {
       "heading": "Warps — A Second Surface Library",
@@ -213,7 +271,28 @@
           "place": "margin"
         }
       ],
-      "stamped": "2026-11-03"
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Hopf/hands_tour_penrose.wav",
+            "verdict": "keep",
+            "why": "Its timings trace to scroll.md:802."
+          },
+          {
+            "file": "Hopf/hands_tour_penrose.png",
+            "verdict": "keep",
+            "why": "Tests the warp catalog’s lesson (on a closed orbit the hands reweight, not retune); the opening at 21 s traces to scroll.md:807."
+          },
+          {
+            "file": "Warp Bank/warp_bank_tour_knot_shadow.wav",
+            "verdict": "keep",
+            "why": "Rotation at 10–15 s and the dead line at 22.5° trace to scroll.md:770 and 783."
+          }
+        ]
+      }
     },
     {
       "heading": "Hopf Fibration as Control Surface",
@@ -246,7 +325,23 @@
           "near": "A first mapping is built as a browser instrument"
         }
       ],
-      "stamped": "2026-11-03"
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Hopf/hopf_tour_penrose.wav",
+            "verdict": "keep",
+            "why": "Traces to scroll.md:866–870, the snap at 13.5 s included."
+          },
+          {
+            "file": "Hopf/hopf-control-surface.html",
+            "verdict": "keep",
+            "why": "Its storage contract gives it allow-same-origin live, so its notes keep on this Mac’s live face and only in memory on the public site. Fix the caption’s “keep nothing inside the face”."
+          }
+        ]
+      }
     },
     {
       "heading": "Open Decisions",
@@ -293,7 +388,33 @@
           "place": "margin"
         }
       ],
-      "stamped": "2026-11-03"
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "2D Torus Wavetable Synthesizer — rich — the RMS dip.html",
+            "verdict": "keep",
+            "why": "A real test that walks up. Step 5 should quote the page’s “at the midpoint”, where sine → saw (−9.24 dB) is still deeper than saw → square (−8.73); the piece’s own table already shows both columns."
+          },
+          {
+            "file": "Wavetables/_rms_diagnostic.png",
+            "verdict": "keep",
+            "why": "The catalog’s own plot; its caption is true."
+          },
+          {
+            "file": "Wavetables/00_test_diagnostic.wav",
+            "verdict": "keep",
+            "why": "21.8 s and 46.9 Hz, as captioned; row RMS recomputed independently."
+          },
+          {
+            "file": "Wavetables/00_test_diagnostic_constant_rms.wav",
+            "verdict": "keep",
+            "why": "Every row within 0.000 dB of the linear target, as captioned."
+          }
+        ]
+      }
     },
     {
       "heading": "Forward Vectors",
@@ -323,7 +444,23 @@
           "place": "margin"
         }
       ],
-      "stamped": "2026-11-03"
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Etude/etude_two_e_heros_journey.m4a",
+            "verdict": "keep",
+            "why": "Loudon’s quote is real (scroll.md:60); the caption is honest that it tests the engine, not the Max prototype."
+          },
+          {
+            "file": "Etude/etude_two_e_heros_journey.png",
+            "verdict": "keep",
+            "why": "The spectrogram of the étude beside it."
+          }
+        ]
+      }
     }
   ]
 }
