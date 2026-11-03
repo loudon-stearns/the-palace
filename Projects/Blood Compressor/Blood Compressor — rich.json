@@ -76,7 +76,23 @@
         }
       ],
       "made_against": "19aee85e1ef0",
-      "stamped": "2026-11-03"
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "stage2-vessel-prototype-v3.html",
+            "verdict": "keep",
+            "why": "A gathered record of the cross-section the section describes; its caption names where the build departs (five of six controls, no sidechain, no heart icon), all checked in the source."
+          },
+          {
+            "file": "blood-compressor-face.html",
+            "verdict": "keep",
+            "why": "The caption says plainly that this is not the section's cross-section but a view from inside the artery; its one console line, the JUCE placeholder, is expected outside a host."
+          }
+        ]
+      }
     },
     {
       "heading": "DSP Architecture",
@@ -108,7 +124,23 @@
         }
       ],
       "made_against": "9ac647544d85",
-      "stamped": "2026-11-03"
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "rich-face/blood-compressor-body-take.wav",
+            "verdict": "keep",
+            "why": "Caption numbers match plugin/out/body-take.json row for row and settings match render_body.py; byte-identical to the steward's render. Unheard, and the caption says so."
+          },
+          {
+            "file": "Blood Compressor — rich — the stressed body.html",
+            "verdict": "keep",
+            "why": "A test that comes out against the text: as written it squeezes less than rest at every rise (−1.4 at +12 vs −9.2), recomputed on the plugin's file; faithful, since it names the amounts as the plugin's; walks up from rest, to the line alone, to the muscle alone, to the test. The crest reading of 'aggressive' agrees (17.1 written, 20.0 rest, 24.6 built)."
+          }
+        ]
+      }
     },
     {
       "heading": "Pedagogical Framing",
@@ -140,7 +172,23 @@
         }
       ],
       "made_against": "5463674cecea",
-      "stamped": "2026-11-03"
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "rich-face/blood-compressor-attack-lesson.wav",
+            "verdict": "keep",
+            "why": "Byte-identical to the steward's render; the caption's claim about render_take.py is true (its docstring lines 7–8 contradict lines 16–17 and the engine). That should be filed as an offer with section → bundle, which the challenger may not write."
+          },
+          {
+            "file": "Blood Compressor — rich — attack floor.html",
+            "verdict": "keep",
+            "why": "A test the build fails as the sentence says it should not: at the floor +0.12 dB in a kick's first 5 ms, −8.38 by 10 ms, against −16.85 with no floor and no nerve, recomputed on the plugin's file. Walks up in four steps. Taste notes: a 'floor off, nerve kept' take would show the nerve alone holds the first 5 ms (+0.13), and step 3's 'the DSP section says so too' blurs the two floors."
+          }
+        ]
+      }
     }
   ]
 }
