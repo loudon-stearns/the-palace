@@ -1,0 +1,356 @@
+<!doctype html>
+<!--
+  title: Crystal Sonification Reference — rich — where is the physics
+  born: 2026-11-03
+  links: [[Crystal Sonification Reference]] connects-to · rich-face-piece · listed in [[Crystal Sonification Reference — rich.json]] · [[Crystal Synthesizer]] belongs-to · [[Progressive Staging]] exemplifies · a walk in four steps
+  forward_vector: I am the spectral stretch, the section's power law, built from its own formula and played on ruby's seven modes, walked up to the sentence it rests on: that at α = 1 you hear the crystal's physics exactly as scaled. Four steps: ruby as the table, the chart and the synthesis agree; the span alone; α alone, with the page's 8-second sweep; and a search for the setting where the synthesized ratios equal the table. I change when the formula or the ruby table does.
+  engine: r_out = 1 + ((r_n − 1)/(r_max − 1))^α × (2^span − 1), the page's equation, on ruby's printed ratios 1.00 1.10 1.14 1.19 1.52 1.70 1.98 over A3 (220 Hz), equal amplitude as the page's sweep prompt asks. The chart's bars were read off charts/ruby_spectrum.png at its own axis ticks (1.0 at x 168, 2.0 at x 746 px) and are baked in: 0.999 1.0995 1.1393 1.1894 1.5199 1.6998 1.9801. The sweep moves α geometrically from 0.3 to 3 over 8 s, so α = 1 falls at 4.18 s.
+  checks: rich-checks/check-rich-pieces.mjs, in this bundle, runs the CHECK block headless and asserts every number this piece prints.
+  dress: Loudon Live, Graphite skin.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:size" content="flow">
+<title>Where is the physics</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Manrope:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root { --bg:#0a0a0f; --e1:#12121a; --e2:#181822; --soft:rgba(255,255,255,.07); --border:#4a4a5e; --fg1:#e8e8f0; --fg2:#c8c8d8; --fg3:#8a8aa0; --fg4:#4a4a5a;
+    --amber:#e8b84a; --amberline:rgba(232,184,74,.5); --violet:#a99cf0; --red:#e0604a; --cyan:#6cc4dc;
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --sans:'Manrope',system-ui,sans-serif; --serif:'Cormorant Garamond',Georgia,serif; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); font-weight: 300; }
+  .sr-piece { padding: 22px 22px 18px; }
+  .sr-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; }
+  .sr-kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; }
+  .sr-title { font-family: var(--serif); font-size: 28px; font-weight: 300; color: var(--fg1); margin: 0 0 6px; }
+  .sr-sub { font-size: 14px; line-height: 1.6; color: var(--fg2); max-width: 76ch; margin: 0 0 14px; }
+  .sr-tabs { display: flex; flex-wrap: wrap; margin: 4px 0 14px; border: 1px solid var(--border); width: fit-content; max-width: 100%; border-radius: 2px; }
+  .sr-tabs button { border: 0; border-right: 1px solid var(--border); border-radius: 0; background: var(--bg); color: var(--fg3); padding: 7px 11px; }
+  .sr-tabs button:last-child { border-right: 0; }
+  .sr-tabs button[aria-pressed="true"] { color: var(--amber); background: var(--e1); }
+  .sr-step { border: 1px solid var(--soft); background: var(--e1); border-radius: 2px; padding: 14px 16px 16px; }
+  .sr-stephead { font-family: var(--mono); font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--fg3); display: flex; justify-content: space-between; margin-bottom: 8px; }
+  .sr-teach { font-size: 14px; line-height: 1.62; color: var(--fg2); max-width: 78ch; margin: 0 0 10px; }
+  .sr-eq { margin: 10px 0 12px; padding: 8px 0 2px; border-top: 1px solid var(--soft); }
+  .sr-sym { font-family: var(--serif); font-size: 20px; color: var(--fg1); }
+  .sr-words { font-size: 13px; line-height: 1.5; color: var(--fg3); margin: 1px 0 8px; }
+  canvas { display: block; width: 100%; background: var(--bg); border: 1px solid var(--soft); border-radius: 2px; }
+  .sr-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin: 12px 0 4px; }
+  button { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--fg2); background: var(--bg); border: 1px solid var(--border); border-radius: 2px; padding: 7px 12px; cursor: pointer; }
+  button:hover { border-color: var(--amberline); color: var(--fg1); }
+  button:disabled { opacity: .4; cursor: default; }
+  button.sr-go { color: var(--amber); border-color: var(--amberline); box-shadow: 0 0 14px rgba(232,184,74,.16); }
+  button[aria-pressed="true"].sr-pick { color: var(--amber); border-color: var(--amberline); }
+  label.sr-sl { display: block; min-width: 240px; flex: 1; font-family: var(--mono); font-size: 11px; letter-spacing: .06em; color: var(--fg3); }
+  label.sr-sl b { color: var(--fg1); font-weight: 500; }
+  input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 3px; background: var(--fg4); margin: 12px 0 4px; outline: none; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 13px; height: 13px; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  input[type=range]::-moz-range-thumb { width: 13px; height: 13px; border: 0; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  .sr-read { display: flex; flex-wrap: wrap; gap: 6px 22px; margin-top: 10px; font-family: var(--mono); font-size: 11.5px; letter-spacing: .04em; color: var(--fg3); }
+  .sr-read b { color: var(--fg1); font-weight: 500; }
+  .sr-back { font-family: var(--mono); font-size: 11px; color: var(--fg3); margin: 10px 0 0; }
+  .sr-nav { display: flex; justify-content: space-between; gap: 10px; margin-top: 14px; }
+  .sr-quote { font-family: var(--serif); font-style: italic; font-size: 17px; color: var(--fg1); border-left: 2px solid var(--amberline); padding: 2px 0 2px 12px; margin: 12px 0; max-width: 72ch; }
+  .sr-answer { font-size: 14px; line-height: 1.6; color: var(--fg2); max-width: 78ch; margin: 10px 0 0; padding-top: 10px; border-top: 1px solid var(--soft); }
+  .sr-answer b { color: var(--fg1); font-weight: 500; }
+  .sr-note { font-size: 12.5px; line-height: 1.55; color: var(--fg3); max-width: 80ch; margin: 10px 0 0; }
+  .sr-foot { display: flex; justify-content: space-between; margin-top: 16px; font-family: var(--mono); font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--fg4); }
+  table.sr-t { border-collapse: collapse; font-family: var(--mono); font-size: 11.5px; margin: 8px 0 4px; width: 100%; max-width: 860px; }
+  table.sr-t th { text-align: right; font-weight: 400; color: var(--fg3); padding: 4px 8px; border-bottom: 1px solid var(--border); letter-spacing: .04em; }
+  table.sr-t td { text-align: right; padding: 3px 8px; border-bottom: 1px solid var(--soft); color: var(--fg2); }
+  table.sr-t th:first-child, table.sr-t td:first-child { text-align: left; }
+  table.sr-t td b { color: var(--fg1); font-weight: 500; }
+  .sr-ok { color: #8fd18a; } .sr-bad { color: var(--red); }
+  .sr-wrap { overflow-x: auto; }
+</style>
+</head>
+<body>
+<div class="sr-piece">
+  <div class="sr-head">
+    <div>
+      <div class="sr-kicker">made · study · a walk in four steps</div>
+      <h3 class="sr-title">Where is the physics</h3>
+    </div>
+    <svg width="30" height="30" viewBox="-1.2 -1.2 2.4 2.4" aria-label="Lissajous sigil"><circle r="1.12" fill="none" stroke="#4a4a5e" stroke-width=".04"/><path id="sigil" fill="none" stroke="#e8b84a" stroke-width=".06"/></svg>
+  </div>
+  <p class="sr-sub">The section’s stretch parameter, built from its own formula and played on ruby. Four steps: ruby as measured, the span alone, α alone, and then a search for the setting where what you hear is the crystal’s physics. Nothing sounds until you press play.</p>
+  <div class="sr-tabs" id="tabs" role="group" aria-label="steps"></div>
+  <div id="stage"></div>
+  <div class="sr-nav"><button id="back">← back</button><button id="next">next step →</button></div>
+  <div class="sr-foot"><span>Crystal Sonification Reference · the spectral stretch</span><span>Loud’n Live</span></div>
+</div>
+<script>
+/*CHECK-START*/
+const ENG = (() => {
+  const SR = 44100;
+  const cents = (r) => 1200 * Math.log2(r);
+  const midiHz = (m) => 440 * 2 ** ((m - 69) / 12);
+  function fft(re, im, inv = false) {
+    const n = re.length;
+    for (let i = 1, j = 0; i < n; i++) { let b = n >> 1; for (; j & b; b >>= 1) j ^= b; j ^= b; if (i < j) { [re[i], re[j]] = [re[j], re[i]]; [im[i], im[j]] = [im[j], im[i]]; } }
+    for (let len = 2; len <= n; len <<= 1) {
+      const a = (inv ? 2 : -2) * Math.PI / len, wr = Math.cos(a), wi = Math.sin(a);
+      for (let i = 0; i < n; i += len) { let cr = 1, ci = 0;
+        for (let k = 0; k < len / 2; k++) { const p = i + k, q = p + len / 2, tr = re[q] * cr - im[q] * ci, ti = re[q] * ci + im[q] * cr;
+          re[q] = re[p] - tr; im[q] = im[p] - ti; re[p] += tr; im[p] += ti; const nr = cr * wr - ci * wi; ci = cr * wi + ci * wr; cr = nr; } }
+    }
+    if (inv) for (let i = 0; i < n; i++) { re[i] /= n; im[i] /= n; }
+  }
+  // A sum of sines, each at its own frequency and amplitude, with a 20 ms rise and a 150 ms fall. Phases fixed, so a render is the same every time.
+  function render(freqs, amps, dur) {
+    const n = Math.round(dur * SR), x = new Float32Array(n), up = Math.round(0.02 * SR), down = Math.round(0.15 * SR);
+    freqs.forEach((f, k) => { if (!(f > 0) || f >= 0.45 * SR) return; const a = amps[k], w = 2 * Math.PI * f / SR, ph = 0.7 * k;
+      for (let i = 0; i < n; i++) x[i] += a * Math.sin(w * i + ph); });
+    for (let i = 0; i < n; i++) { const e = Math.min(1, i / up, (n - 1 - i) / down); x[i] *= Math.max(0, e); }
+    return x;
+  }
+  // The magnitude spectrum of a render: Hann window, zero-padded to 2^18 points.
+  function spectrum(x, N = 1 << 18) {
+    const re = new Float64Array(N), im = new Float64Array(N), L = Math.min(x.length, N);
+    for (let i = 0; i < L; i++) re[i] = x[i] * (0.5 - 0.5 * Math.cos(2 * Math.PI * i / (L - 1)));
+    fft(re, im); const m = new Float64Array(N / 2); for (let i = 0; i < N / 2; i++) m[i] = Math.hypot(re[i], im[i]);
+    return { m, df: SR / N };
+  }
+  // The measured frequency of the peak nearest f (within ±w Hz), parabolic on log magnitude.
+  function peakNear(sp, f, w = 3) {
+    const { m, df } = sp; let best = -1, at = 0;
+    for (let k = Math.max(1, Math.floor((f - w) / df)); k <= Math.ceil((f + w) / df) && k < m.length - 1; k++) if (m[k] > best) { best = m[k]; at = k; }
+    const a = Math.log(m[at - 1] + 1e-30), b = Math.log(m[at] + 1e-30), c = Math.log(m[at + 1] + 1e-30);
+    const d = 0.5 * (a - c) / (a - 2 * b + c || 1e-30);
+    return { f: (at + d) * df, mag: best };
+  }
+  const ROOT = 220;
+  const R = [1.00, 1.10, 1.14, 1.19, 1.52, 1.70, 1.98], SYM = ['Eg', 'A₁g', 'Eg', 'Eg', 'Eg', 'A₁g', 'Eg'];
+  const CHART = [0.999, 1.0995, 1.1393, 1.1894, 1.5199, 1.6998, 1.9801];      // read off charts/ruby_spectrum.png
+  const RMAX = Math.max(...R), NAT = Math.log2(RMAX);
+  const map = (a, span, rs = R) => { const m = Math.max(...rs); return rs.map((r) => 1 + Math.pow((r - 1) / (m - 1), a) * (2 ** span - 1)); };
+  const devRatio = (o) => Math.max(...o.map((x, i) => Math.abs(x / R[i] - 1)));
+  const devCents = (o) => Math.max(...o.map((x, i) => Math.abs(cents(x / R[i]))));
+  const devHz = (o) => Math.max(...o.map((x, i) => Math.abs(ROOT * (x - R[i]))));
+  const spacing = (o) => { const m = Math.max(...o); return o.map((x) => (x - 1) / (m - 1)); };
+  const devSpacing = (o) => { const s = spacing(o), p = spacing(R); return Math.max(...s.map((x, i) => Math.abs(x - p[i]))); };
+  const doublet = (o) => ({ hz: ROOT * (o[2] - o[1]), cents: cents(o[2] / o[1]) });
+  const TOL_HZ = 0.5;                                                    // the page's own Type B tolerance
+  const holds = (o) => devHz(o) <= TOL_HZ;
+  const AMPS = R.map(() => 1 / 7);
+  const chord = (o, dur = 4) => render(o.map((x) => ROOT * x), AMPS, dur);
+  // The page's sweep prompt: span 2 octaves, α from 0.3 to 3 over 8 s; here geometric, so α = 1 near the middle.
+  const SWEEP = { span: 2, a0: 0.3, a1: 3, dur: 8 };
+  const alphaAt = (t) => SWEEP.a0 * (SWEEP.a1 / SWEEP.a0) ** (t / SWEEP.dur);
+  function renderSweep(span = SWEEP.span) {
+    const n = Math.round(SWEEP.dur * SR), x = new Float32Array(n), ph = R.map((_, k) => 0.7 * k), up = Math.round(0.02 * SR), down = Math.round(0.15 * SR);
+    for (let i = 0; i < n; i++) {
+      const o = map(alphaAt(i / SR), span); let s = 0;
+      for (let k = 0; k < R.length; k++) { ph[k] += 2 * Math.PI * ROOT * o[k] / SR; s += AMPS[k] * Math.sin(ph[k]); }
+      x[i] = s * Math.max(0, Math.min(1, i / up, (n - 1 - i) / down));
+    }
+    return x;
+  }
+  // Ruby as measured: the table, the chart and the synthesis, side by side.
+  function asMeasured() {
+    const sp = spectrum(chord(R, 3)), syn = R.map((r) => peakNear(sp, ROOT * r).f / ROOT);
+    return { syn, chartGap: Math.max(...CHART.map((x, i) => Math.abs(x - R[i]))), synGap: Math.max(...syn.map((x, i) => Math.abs(x - R[i]))) };
+  }
+  const NATURAL = { Diamond: 1.65, Ruby: 1.98, Fluorite: 2.48, Emerald: 3.33, Topaz: 6.05, Amethyst: 8.32, Labradorite: 17.5 };
+  const GRID = [[1, NAT, 'ruby’s own span'], [1, 1, ''], [1, 2, 'the page’s sweep prompt'], [1, 4, ''], [0.4, 2, ''], [2.5, 2, '']];
+  return { SR, ROOT, R, SYM, CHART, RMAX, NAT, map, devRatio, devCents, devHz, devSpacing, spacing, doublet, TOL_HZ, holds, AMPS, chord, SWEEP, alphaAt, renderSweep, asMeasured, NATURAL, GRID, cents, render, spectrum, peakNear };
+})();
+/*CHECK-END*/
+// ───────────────────────── sound: silent until a click ─────────────────────────
+let actx = null, out = null, sources = [], oscs = [];
+function ctx() {
+  if (!actx) {
+    actx = new (window.AudioContext || window.webkitAudioContext)();
+    const comp = actx.createDynamicsCompressor(); comp.threshold.value = -6; comp.ratio.value = 4;
+    out = actx.createGain(); out.gain.value = 0.9; out.connect(comp); comp.connect(actx.destination);
+  }
+  if (actx.state === 'suspended') actx.resume();
+  return actx;
+}
+function stopSound() {
+  for (const s of sources) { try { s.stop(); } catch (e) {} } sources = [];
+  if (oscs.length && actx) { const t = actx.currentTime; for (const o of oscs) { try { o.g.gain.setTargetAtTime(0, t, 0.02); o.o.stop(t + 0.15); } catch (e) {} } }
+  oscs = [];
+  document.querySelectorAll('[data-live]').forEach((b) => { b.textContent = b.dataset.live; b.classList.add('sr-go'); });
+}
+function playBuf(x, peak = 0.7) {
+  const a = ctx(); let p = 1e-9; for (const v of x) p = Math.max(p, Math.abs(v));
+  const b = a.createBuffer(1, x.length, ENG.SR), ch = b.getChannelData(0); const k = peak / p; for (let i = 0; i < x.length; i++) ch[i] = x[i] * k;
+  const s = a.createBufferSource(); s.buffer = b; s.connect(out); s.start(a.currentTime + 0.03); sources.push(s); return s;
+}
+// A playBuf whose level is fixed, not normalised: two buffers made at one level stay at one level.
+function playBufAt(x, gain) {
+  const a = ctx(); const b = a.createBuffer(1, x.length, ENG.SR), ch = b.getChannelData(0); for (let i = 0; i < x.length; i++) ch[i] = x[i] * gain;
+  const s = a.createBufferSource(); s.buffer = b; s.connect(out); s.start(a.currentTime + 0.03); sources.push(s); return s;
+}
+
+// ───────────────────────── helpers ─────────────────────────
+const $ = (s, r = document) => r.querySelector(s);
+function el(tag, attrs = {}, ...kids) {
+  const e = document.createElement(tag);
+  for (const [k, v] of Object.entries(attrs)) { if (k === 'class') e.className = v; else if (k.startsWith('on')) e.addEventListener(k.slice(2), v); else e.setAttribute(k, v); }
+  for (const k of kids.flat()) if (k != null) e.append(k.nodeType ? k : document.createTextNode(String(k)));
+  return e;
+}
+const eq = (sym, words) => el('div', {}, el('div', { class: 'sr-sym' }, sym), el('div', { class: 'sr-words' }, words));
+function canvas(h) { const c = el('canvas'); c.style.height = h + 'px'; return c; }
+function fit(c) { const dpr = window.devicePixelRatio || 1, w = c.clientWidth || 600, h = parseInt(c.style.height, 10); c.width = Math.round(w * dpr); c.height = Math.round(h * dpr); const g = c.getContext('2d'); g.setTransform(dpr, 0, 0, dpr, 0, 0); return { g, w, h }; }
+function playButton(label, fn) { return el('button', { class: 'sr-go', onclick: () => { stopSound(); fn(); } }, label); }
+const fmt = (x, d = 2) => Number(x).toFixed(d);
+// ───────────────────────── the steps ─────────────────────────
+const S = { step: 1, span: 2, alpha: 1, span4: ENG.NAT, alpha4: 1 };
+const STEPS = [];
+const COL = (i) => (ENG.SYM[i] === 'A₁g' ? '#e8b84a' : '#e0604a');
+// Partials on an axis of octaves above the root; the table's ratios as grey ghosts.
+function drawPartials(c, o, { top = 4.2, label = '' } = {}) {
+  const { g, w, h } = fit(c), L = 46, Rr = 14, T = 18, B = 24, X = (r) => L + (w - L - Rr) * Math.log2(r) / top;
+  g.clearRect(0, 0, w, h); g.font = '10px JetBrains Mono, monospace';
+  g.strokeStyle = 'rgba(255,255,255,.07)'; g.fillStyle = '#4a4a5a';
+  for (let k = 0; k <= Math.floor(top); k++) { g.beginPath(); g.moveTo(X(2 ** k), T); g.lineTo(X(2 ** k), h - B); g.stroke(); g.fillText(k ? '+' + k + ' oct' : 'root', X(2 ** k) - (k ? 14 : 4), h - 8); }
+  g.setLineDash([3, 3]); g.strokeStyle = 'rgba(200,200,216,.35)';
+  ENG.R.forEach((r) => { g.beginPath(); g.moveTo(X(r), h - B); g.lineTo(X(r), T + 34); g.stroke(); }); g.setLineDash([]);
+  g.lineWidth = 2;
+  o.forEach((r, i) => { g.strokeStyle = COL(i); g.fillStyle = COL(i); g.beginPath(); g.moveTo(X(r), h - B); g.lineTo(X(r), T + 20 + (i % 2) * 10); g.stroke(); g.fillText(String(i + 1), X(r) - 3, T + 14 + (i % 2) * 10); });
+  g.lineWidth = 1; g.fillStyle = '#8a8aa0'; g.fillText(label, L, T - 6);
+}
+function liveChord(getRatios) {
+  const b = el('button', { class: 'sr-go', 'data-live': '▸ play, and move it', onclick: () => {
+    if (oscs.length) { stopSound(); return; }
+    const a = ctx(), o = getRatios();
+    oscs = o.map((r) => { const x = a.createOscillator(), g = a.createGain(); x.frequency.value = ENG.ROOT * r; g.gain.value = 0; x.connect(g); g.connect(out); x.start(); g.gain.setTargetAtTime(0.09, a.currentTime, 0.03); return { o: x, g }; });
+    b.textContent = '■ stop'; b.classList.remove('sr-go'); } }, '▸ play, and move it');
+  return b;
+}
+const retune = (o) => { if (oscs.length) oscs.forEach((x, i) => x.o.frequency.setTargetAtTime(ENG.ROOT * o[i], actx.currentTime, 0.02)); };
+
+STEPS.push({ name: 'ruby as measured', build() {
+  const cv = canvas(130), M = ENG.asMeasured(), t = el('div', { class: 'sr-wrap' });
+  t.innerHTML = `<table class="sr-t"><tr><th>mode</th>${ENG.R.map((_, i) => `<th>${i + 1} · ${ENG.SYM[i]}</th>`).join('')}</tr>
+    <tr><td>r_n · the page’s table</td>${ENG.R.map((r) => `<td><b>${r.toFixed(2)}</b></td>`).join('')}</tr>
+    <tr><td>r_n · the chart’s bars</td>${ENG.CHART.map((r) => `<td>${r.toFixed(3)}</td>`).join('')}</tr>
+    <tr><td>r_n · measured in this sound</td>${M.syn.map((r) => `<td>${r.toFixed(4)}</td>`).join('')}</tr>
+    <tr><td>Hz over A3</td>${ENG.R.map((r) => `<td>${(220 * r).toFixed(1)}</td>`).join('')}</tr></table>`;
+  const node = [
+    el('p', { class: 'sr-teach' }, 'Start with ruby as the page measures it: seven Raman modes, two polarization families, the near-doublet at 1.10 and 1.14 that the page calls the rubiness. Three records of the same seven numbers sit below: the table, the bars of the bundle’s chart, and the peaks of the sound this piece plays. Play it. This is the physics, and every step after this moves away from it or back.'),
+    t,
+    el('div', { class: 'sr-read' }, el('span', {}, 'table against chart: ', el('b', {}, M.chartGap.toFixed(4)), ' (half a pixel)'), el('span', {}, 'table against the sound: ', el('b', {}, M.synGap.toExponential(1)))),
+    cv,
+    el('div', { class: 'sr-row' }, playButton('▸ play ruby over A3, equal levels', () => playBuf(ENG.chord(ENG.R, 5), 0.6))),
+    el('p', { class: 'sr-note' }, 'Equal level per partial, as the page’s sweep prompt asks. The chart’s bars were read at its own axis ticks; its axis label says log₂, but its ticks are evenly spaced in ratio, so the axis is linear.'),
+  ];
+  node._after = () => drawPartials(cv, ENG.R, { top: 1.2, label: 'ruby over A3 · octaves above the root' }); node._redraw = node._after;
+  return node;
+} });
+
+STEPS.push({ name: 'the span', build() {
+  const cv = canvas(140), read = el('div', { class: 'sr-read' }), row = el('div', { class: 'sr-row' });
+  const spans = [[ENG.NAT, 'ruby’s own, ' + ENG.NAT.toFixed(2)], [1, '1 octave'], [2, '2 octaves'], [4, '4 octaves']];
+  const draw = () => {
+    const o = ENG.map(1, S.span), d = ENG.doublet(o);
+    drawPartials(cv, o, { top: 4.2, label: 'α = 1 · span ' + S.span.toFixed(2) + ' octaves · dashed: the table' });
+    read.innerHTML = `<span>top partial at <b>${o[6].toFixed(2)}</b> × the root</span><span>the doublet, modes 2 and 3: <b>${d.cents.toFixed(0)} cents</b> apart, <b>${d.hz.toFixed(1)} Hz</b> between them over A3</span><span>spacing kept, (r − 1) ⁄ (r_max − 1): ${ENG.devSpacing(o) < 1e-12 ? '<b>exactly the table’s</b>' : 'differs from the table’s by <b>' + ENG.devSpacing(o).toFixed(3) + '</b>'}</span>`;
+    [...row.querySelectorAll('[data-span]')].forEach((b) => b.setAttribute('aria-pressed', String(Math.abs(+b.dataset.span - S.span) < 1e-9)));
+    retune(o);
+  };
+  spans.forEach(([v, lab]) => row.append(el('button', { class: 'sr-pick', 'data-span': v, onclick: () => { S.span = v; draw(); } }, lab)));
+  const node = [
+    el('p', { class: 'sr-teach' }, 'The span sets how far above the root the top mode lands: one octave, two, four. Hold α at 1 and change only the span. Watch the doublet: at ruby’s own span it is 8.8 Hz of slow shimmer; as the span widens, the two modes pull apart until they are an interval, not a shimmer.'),
+    el('div', { class: 'sr-eq' }, eq('r_out = 1 + (r_n − 1) ⁄ (r_max − 1) × (2^span − 1)   at α = 1', '(where a partial lands) = (the root) + (its share of the crystal’s spread) × (the spread the span allows)')),
+    cv, row, read, el('div', { class: 'sr-row' }, liveChord(() => ENG.map(1, S.span))),
+    el('p', { class: 'sr-back' }, 'At ruby’s own span, ' + ENG.NAT.toFixed(2) + ' octaves, this is step 1 exactly.'),
+  ];
+  node._after = draw; node._redraw = draw;
+  return node;
+} });
+
+STEPS.push({ name: 'the stretch', build() {
+  const cv = canvas(150), curve = canvas(170), read = el('div', { class: 'sr-read' });
+  const inp = el('input', { type: 'range', min: Math.log(0.3), max: Math.log(3), step: 0.001, 'aria-label': 'alpha' }); inp.value = Math.log(S.alpha);
+  const b = el('b'), lab = el('label', { class: 'sr-sl' }, 'the stretch, α ', b, inp);
+  const drawCurve = (a) => {
+    const { g, w, h } = fit(curve), L = 46, Rr = 14, T = 12, B = 24, X = (x) => L + (w - L - Rr) * x, Y = (y) => h - B - (h - T - B) * y;
+    g.clearRect(0, 0, w, h); g.font = '10px JetBrains Mono, monospace'; g.strokeStyle = 'rgba(255,255,255,.07)'; g.fillStyle = '#4a4a5a';
+    for (const v of [0, 0.5, 1]) { g.beginPath(); g.moveTo(X(v), T); g.lineTo(X(v), h - B); g.stroke(); g.beginPath(); g.moveTo(L, Y(v)); g.lineTo(w - Rr, Y(v)); g.stroke(); g.fillText(String(v), X(v) - 4, h - 8); g.fillText(String(v), 14, Y(v) + 3); }
+    g.fillText('input, (r − 1) ⁄ (r_max − 1)', X(0.36), h - 8);
+    g.strokeStyle = 'rgba(200,200,216,.4)'; g.setLineDash([4, 4]); g.beginPath(); g.moveTo(X(0), Y(0)); g.lineTo(X(1), Y(1)); g.stroke(); g.setLineDash([]);
+    g.strokeStyle = '#a99cf0'; g.lineWidth = 2; g.beginPath(); for (let i = 0; i <= 200; i++) { const x = i / 200; i ? g.lineTo(X(x), Y(x ** a)) : g.moveTo(X(x), Y(x ** a)); } g.stroke(); g.lineWidth = 1;
+    ENG.R.forEach((r, i) => { const x = (r - 1) / (ENG.RMAX - 1); g.fillStyle = COL(i); g.beginPath(); g.arc(X(x), Y(x ** a), 4, 0, 2 * Math.PI); g.fill(); });
+    g.fillStyle = '#8a8aa0'; g.fillText('output position in the span', L + 6, T + 10);
+  };
+  const draw = () => {
+    const a = S.alpha, o = ENG.map(a, 2);
+    b.textContent = a.toFixed(2) + (Math.abs(a - 1) < 0.01 ? ' · linear' : a < 1 ? ' · compressed toward the top' : ' · stretched');
+    drawCurve(a); drawPartials(cv, o, { top: 4.2, label: 'span 2 octaves · α ' + a.toFixed(2) + ' · dashed: the table' });
+    read.innerHTML = `<span>partials at <b>${o.map((x) => x.toFixed(2)).join(' · ')}</b> × the root</span>`; retune(o);
+  };
+  inp.addEventListener('input', () => { S.alpha = Math.exp(+inp.value); draw(); });
+  const node = [
+    el('p', { class: 'sr-teach' }, 'Now hold the span at two octaves, as the page’s sweep prompt does, and bend the curve instead. α below 1 lifts the low modes toward the top of the span; above 1 it holds them near the root and throws the top ones out. The root and the top never move. Play the page’s own 8-second sweep, or drag α yourself.'),
+    el('div', { class: 'sr-eq' }, eq('r_out = 1 + ((r_n − 1) ⁄ (r_max − 1))^α × (2^span − 1)', '(where a partial lands) = (the root) + (its share of the spread, bent by α) × (the spread the span allows)')),
+    curve, cv, read,
+    el('div', { class: 'sr-row' }, liveChord(() => ENG.map(S.alpha, 2)), lab),
+    el('div', { class: 'sr-row' }, playButton('▸ the page’s sweep: α 0.3 → 3 in 8 s', () => playBuf(ENG.renderSweep(), 0.6))),
+    el('p', { class: 'sr-note' }, 'In the sweep α moves geometrically, so α = 1 falls near the middle, at 4.2 seconds. The page asks for 0.3 to 3 over 8 seconds and does not say how; a straight-line sweep would pass α = 1 at 1.6 seconds.'),
+    el('p', { class: 'sr-back' }, 'At α = 1 this is step 2 at two octaves.'),
+  ];
+  node._after = draw; node._redraw = draw;
+  return node;
+} });
+
+STEPS.push({ name: 'where is the physics', build() {
+  const cv = canvas(130), read = el('div', { class: 'sr-read' }), answer = el('div'), grid = el('div', { class: 'sr-wrap' });
+  const ia = el('input', { type: 'range', min: Math.log(0.3), max: Math.log(3), step: 0.001, 'aria-label': 'alpha' }); ia.value = Math.log(S.alpha4);
+  const is = el('input', { type: 'range', min: 0.5, max: 4, step: 0.005, 'aria-label': 'span' }); is.value = S.span4;
+  const ba = el('b'), bs = el('b');
+  const draw = () => {
+    const o = ENG.map(S.alpha4, S.span4), ok = ENG.holds(o);
+    ba.textContent = S.alpha4.toFixed(2); bs.textContent = S.span4.toFixed(2) + ' octaves';
+    drawPartials(cv, o, { top: 4.2, label: 'α ' + S.alpha4.toFixed(2) + ' · span ' + S.span4.toFixed(2) + ' · dashed: the table' });
+    read.innerHTML = `<span>largest departure from the table: <b>${ENG.devHz(o).toFixed(2)} Hz</b> over A3, <b>${ENG.devCents(o).toFixed(1)} cents</b></span><span class="${ok ? 'sr-ok' : 'sr-bad'}">${ok ? 'the physics: within 0.5 Hz' : 'not the physics'}</span>`;
+    retune(o);
+  };
+  ia.addEventListener('input', () => { S.alpha4 = Math.exp(+ia.value); draw(); });
+  is.addEventListener('input', () => { S.span4 = +is.value; draw(); });
+  const set = (a, s) => { S.alpha4 = a; S.span4 = s; ia.value = Math.log(a); is.value = s; draw(); };
+  grid.innerHTML = `<table class="sr-t"><tr><th>setting</th><th>top partial</th><th>largest departure, Hz over A3</th><th>cents</th><th>the doublet, cents</th><th>verdict</th></tr>${ENG.GRID.map(([a, s, why]) => { const o = ENG.map(a, s), d = ENG.doublet(o);
+    return `<tr><td>α ${a} · span ${s.toFixed(2)}${why ? ' · ' + why : ''}</td><td>${o[6].toFixed(2)}</td><td>${ENG.devHz(o).toFixed(2)}</td><td>${ENG.devCents(o).toFixed(1)}</td><td>${d.cents.toFixed(0)}</td><td class="${ENG.holds(o) ? 'sr-ok' : 'sr-bad'}">${ENG.holds(o) ? 'the physics' : 'a lens'}</td></tr>`; }).join('')}</table>`;
+  const reveal = () => { answer.innerHTML = `<p class="sr-answer">At two octaves, the span of the page’s own sweep, <b>no α gives the physics</b>: the top mode is pinned at 4.00 × the root, and the table says 1.98. α = 1 is the physics only when the span is ruby’s own, log₂ 1.98 = ${ENG.NAT.toFixed(3)} octaves. Every crystal has its own: diamond 0.72, fluorite 1.31, emerald 1.74, topaz 2.60, amethyst 3.06, labradorite 4.13. What α = 1 keeps at any span is the spacing in hertz, in proportion: every gap between partials grows by the same factor, ${((2 ** 2 - 1) / (ENG.RMAX - 1)).toFixed(2)} at two octaves, so the doublet’s 8.8 Hz becomes ${ENG.doublet(ENG.map(1, 2)).hz.toFixed(1)} Hz. The ear hears intervals, and the intervals change: the doublet goes from 62 to 155 cents. So “at α = 1 you are hearing the crystal’s physics exactly as scaled” holds at one span per crystal, and α = 1 elsewhere is a lens too, a straight one.</p>`; };
+  const node = [
+    el('p', { class: 'sr-teach' }, 'The section says one setting is special: “At α = 1, you are hearing the crystal’s physics exactly as scaled.” The test: find a setting where the ratios you hear are the table’s. The rule, set before you look: a setting is the physics if every partial over A3 lands within 0.5 Hz of the table’s, the tolerance the page sets for its own audio files. If the sentence holds, α = 1 at the sweep’s two octaves passes.'),
+    el('div', { class: 'sr-quote' }, '“At α = 1, you are hearing the crystal’s physics exactly as scaled.” — the section, as printed when this piece was made'),
+    cv, read,
+    el('div', { class: 'sr-row' }, el('label', { class: 'sr-sl' }, 'α ', ba, ia), el('label', { class: 'sr-sl' }, 'span ', bs, is)),
+    el('div', { class: 'sr-row' }, liveChord(() => ENG.map(S.alpha4, S.span4)),
+      el('button', { onclick: () => set(1, 2) }, 'α 1 · span 2'), el('button', { onclick: () => set(1, ENG.NAT) }, 'α 1 · ruby’s own span')),
+    el('div', { class: 'sr-row' }, playButton('▸ the physics', () => playBuf(ENG.chord(ENG.R), 0.6)), playButton('▸ α 1 at two octaves', () => playBuf(ENG.chord(ENG.map(1, 2)), 0.6))),
+    el('div', { class: 'sr-row' }, el('button', { onclick: () => { reveal(); grid.style.display = ''; } }, 'show where it holds')),
+    grid, answer,
+    el('p', { class: 'sr-note' }, 'The two chords play at the same level per partial. Had the sentence held, the α 1 · span 2 row would read 0.00 Hz.'),
+  ];
+  grid.style.display = 'none';
+  node._after = draw; node._redraw = draw;
+  return node;
+} });
+// ───────────────────────── the walk ─────────────────────────
+const tabs = $('#tabs'), stage = $('#stage');
+STEPS.forEach((s, i) => tabs.append(el('button', { 'aria-pressed': 'false', onclick: () => go(i + 1) }, (i + 1) + ' · ' + s.name)));
+function go(n) {
+  if (n !== S.step) stopSound();                 // changing step stops the sound
+  S.step = Math.max(1, Math.min(STEPS.length, n));
+  [...tabs.children].forEach((b, i) => b.setAttribute('aria-pressed', String(i + 1 === S.step)));
+  stage.innerHTML = '';
+  const s = STEPS[S.step - 1], nodes = s.build(); stage._after = nodes._after; stage._redraw = nodes._redraw;
+  stage.append(el('section', { class: 'sr-step', 'aria-label': 'step ' + S.step }, el('div', { class: 'sr-stephead' }, el('span', {}, S.step + ' · ' + s.name), el('span', {}, 'step ' + S.step + ' of ' + STEPS.length)), ...nodes));
+  requestAnimationFrame(() => stage._after?.());
+  $('#back').disabled = S.step === 1; $('#next').disabled = S.step === STEPS.length;
+}
+$('#back').onclick = () => go(S.step - 1);
+$('#next').onclick = () => go(S.step + 1);
+let rz = 0; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(() => stage._redraw?.(), 150); });
+(() => { let d = ''; for (let i = 0; i <= 400; i++) { const t = i / 400 * 2 * Math.PI; d += (i ? 'L' : 'M') + Math.sin(3 * t + Math.PI / 2).toFixed(3) + ' ' + Math.sin(2 * t).toFixed(3); } $('#sigil').setAttribute('d', d); })();
+go(1);
+</script>
+</body>
+</html>
