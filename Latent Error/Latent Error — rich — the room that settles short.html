@@ -1,0 +1,424 @@
+<!doctype html>
+<!--
+  title: Latent Error — rich — the room that settles short
+  born: 2026-11-03
+  links: [[Latent Error]] (connects-to · rich-face-piece) · listed in [[Latent Error — rich.json]] · serves § Control Theory Translation: The Integral Term
+  forward_vector: I am the walk from a heated room with nobody at the dial to the page's own sentence about P, I and D, run against the room. First the room alone, then P in a room that answers at once, then P with the lag a real radiator and thermometer have, then memory, then prediction, and last a table of runs that says which of them the sentence describes. I am the page's own method turned on the page: what does the section take for granted? I change only when the section I serve does.
+  sound: two sine tones on a click, the target and the room, so an offset is a beat that never stops and an oscillation a beat that never holds still. 24 seconds a play, then quiet.
+  check: Latent Error/Latent Error — rich — check.mjs runs this page's core in Node.
+-->
+<html lang="en" class="skin-graphite">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- needs nothing of its host: no device, no storage, no file, no host -->
+<meta name="piece:needs" content="">
+<title>The room that settles short · P, I and D on a heated room</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@300;400;500&display=swap">
+<style>
+  :root{
+    --bg:#0a0a0f; --bg-elev-1:#12121a; --bg-elev-2:#1a1a28; --border:#4a4a5e; --border-soft:rgba(255,255,255,0.06);
+    --fg-1:#e8e8f0; --fg-2:#c8c8d8; --fg-3:#8a8aa0; --fg-4:#4a4a5a;
+    --accent:#e8b84a; --accent-dim:#7a6030; --accent-soft:rgba(232,184,74,0.10);
+    --info:#4a8fff; --warn:#e8651b;
+    --serif:'Cormorant Garamond','Source Serif 4',Georgia,serif; --sans:'Manrope',system-ui,sans-serif;
+    --display:'Anton','Bebas Neue',Impact,sans-serif; --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--fg-1)}
+  body{font-family:var(--serif);font-size:17px;line-height:1.7;padding:28px 16px 36px}
+  main{max-width:960px;margin:0 auto}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--fg-3)}
+  h1{font-family:var(--display);font-weight:400;font-size:44px;line-height:1.05;margin:6px 0 10px}
+  h2{font-family:var(--display);font-weight:400;font-size:28px;line-height:1.1;margin:4px 0 8px;letter-spacing:.01em}
+  p.lead{font-size:19px;color:var(--fg-2);margin:0 0 18px;max-width:66ch}
+  .rail{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 18px}
+  .rail button{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-3);background:transparent;border:1px solid var(--border);border-radius:4px;padding:7px 11px;cursor:pointer;transition:all .22s cubic-bezier(.4,0,.2,1)}
+  .rail button[aria-current="step"]{color:var(--fg-1);border-color:var(--fg-3);background:var(--bg-elev-2)}
+  p.say{color:var(--fg-2);margin:0 0 14px;max-width:68ch}
+  .panel{background:var(--bg-elev-1);border:1px solid var(--border-soft);border-radius:4px;padding:18px;margin:0 0 14px}
+  canvas#plot{width:100%;height:330px;display:block}
+  .controls{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px 22px;margin-top:12px}
+  .ctl[hidden]{display:none}
+  .ctl label{display:flex;justify-content:space-between;font-family:var(--mono);font-size:12px;color:var(--fg-3);letter-spacing:.06em}
+  .ctl label b{color:var(--fg-1);font-weight:400}
+  input[type=range]{width:100%;accent-color:var(--accent)}
+  .seg{display:inline-flex;border:1px solid var(--border);border-radius:4px;overflow:hidden}
+  .seg button{font-family:var(--sans);font-size:13px;color:var(--fg-3);background:transparent;border:0;padding:7px 12px;cursor:pointer}
+  .seg button[aria-pressed="true"]{color:var(--fg-1);background:var(--bg-elev-2)}
+  .check{font-family:var(--sans);font-size:13px;color:var(--fg-2);display:flex;gap:8px;align-items:center}
+  .rowb{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:12px}
+  button.ghost{font-family:var(--sans);font-size:14px;color:var(--fg-2);background:transparent;border:1px solid var(--border);border-radius:4px;padding:8px 14px;cursor:pointer}
+  button.ghost:disabled{opacity:.35;cursor:default}
+  button.play{font-family:var(--sans);font-size:14px;color:var(--bg);background:var(--accent);border:1px solid var(--accent);border-radius:4px;padding:8px 16px;cursor:pointer;box-shadow:0 0 18px rgba(232,184,74,.25)}
+  .hint{font-family:var(--sans);font-size:13px;color:var(--fg-3)}
+  .meter{font-family:var(--mono);font-size:13px;color:var(--fg-2);margin-top:12px;line-height:1.75}
+  .meter b{color:var(--accent);font-weight:400}
+  .meter i{color:var(--info);font-style:normal}
+  .eq{font-family:var(--mono);font-size:13px;color:var(--fg-1);margin:14px 0 0;overflow-wrap:anywhere;white-space:pre-wrap}
+  .eq.words{color:var(--fg-3);font-size:12px;margin-top:2px}
+  .try{margin:0 0 4px;padding:12px 16px;border-left:2px solid var(--accent-dim);background:var(--bg-elev-1);font-family:var(--sans);font-size:14px;color:var(--fg-2);line-height:1.6}
+  .try .eyebrow{color:var(--accent);display:block;margin-bottom:2px}
+  blockquote.page{margin:0 0 14px;padding:10px 16px;border-left:2px solid var(--fg-4);font-style:italic;color:var(--fg-2);max-width:68ch}
+  blockquote.page[hidden]{display:none}
+  .tablewrap{overflow-x:auto}
+  table.runs{border-collapse:collapse;margin-top:12px;font-family:var(--mono);font-size:12px;color:var(--fg-2);width:100%}
+  table.runs[hidden]{display:none}
+  table.runs td,table.runs th{border-bottom:1px solid var(--border-soft);padding:6px 12px 6px 0;text-align:left;font-weight:400;vertical-align:top}
+  table.runs th{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-3)}
+  table.runs tr.pick{cursor:pointer}
+  table.runs tr.pick:hover td{color:var(--fg-1)}
+  table.runs tr.on td{color:var(--fg-1);background:var(--bg-elev-2)}
+  table.runs b{color:var(--accent);font-weight:400}
+  table.runs i{color:var(--warn);font-style:normal}
+  .walk{display:flex;justify-content:space-between;gap:10px;margin-top:16px}
+  footer{margin-top:28px;font-family:var(--sans);font-size:13px;color:var(--fg-4);display:flex;gap:10px;align-items:center}
+  footer b{font-family:var(--display);font-weight:400;letter-spacing:.06em;color:var(--fg-3)}
+  @media (max-width:520px){h1{font-size:34px}h2{font-size:23px}canvas#plot{height:260px}}
+</style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">Latent Error · control theory translation · six steps</div>
+  <h1>The room that settles short</h1>
+  <p class="lead">A room on a cold day, 5 °C outside, a heater, a thermometer, and a target of 20 °C. At minute 60 a window opens and stays open. Six steps, one new thing in each: the room alone, then P, then the lag every real room has, then I, then D, and last the page’s own sentence about P put against the room. The page’s example cools; this one heats. The sums are the same with the sign turned.</p>
+
+  <nav class="rail" aria-label="Steps" id="rail"></nav>
+
+  <section aria-live="polite">
+    <div class="eyebrow" id="stepEyebrow"></div>
+    <h2 id="stepTitle"></h2>
+    <p class="say" id="stepSay"></p>
+  </section>
+  <blockquote class="page" id="quote" hidden></blockquote>
+
+  <div class="panel">
+    <canvas id="plot" role="img" aria-label="The room's temperature over four hours, with the target, the heater's share below"></canvas>
+    <div class="controls">
+      <div class="ctl" id="cPlant"><label>the room</label>
+        <div class="seg" role="group" aria-label="The room"><button id="plain" aria-pressed="true">answers at once</button><button id="lagged" aria-pressed="false">with lag</button></div></div>
+      <div class="ctl" id="cManual"><label for="manual">heater, set by hand <b id="manualV"></b></label><input id="manual" type="range" min="0" max="1" step="0.005" value="0.5"></div>
+      <div class="ctl" id="cKp"><label for="kp">P · Kp, per °C <b id="kpV"></b></label><input id="kp" type="range" min="0" max="5" step="0.01" value="0.2"></div>
+      <div class="ctl" id="cKi"><label for="ki">I · Ki, per °C·minute <b id="kiV"></b></label><input id="ki" type="range" min="0" max="0.12" step="0.001" value="0.02"></div>
+      <div class="ctl" id="cKd"><label for="kd">D · Kd, minutes per °C <b id="kdV"></b></label><input id="kd" type="range" min="0" max="3" step="0.05" value="0"></div>
+      <div class="ctl" id="cWin"><label>&nbsp;</label><span class="check"><input id="win" type="checkbox" checked><label for="win" style="all:unset;cursor:pointer">the window opens at minute 60</label></span></div>
+    </div>
+    <div class="rowb">
+      <button class="play" id="hear">Hear it</button>
+      <span class="hint" id="hearHint">Two tones: the target, and the room. When they beat, the room is off; the slower the beat, the closer. 24 seconds, four hours of the room.</span>
+    </div>
+    <div class="meter" id="meter"></div>
+    <div class="tablewrap"><table class="runs" id="runs" hidden><thead><tr><th>run</th><th>overshoot</th><th>the last hour</th><th>“always … steady-state error … oscillate around the target, never settling”</th><th>“with I term will converge”</th></tr></thead><tbody></tbody></table></div>
+    <div class="eq" id="eq1"></div><div class="eq words" id="eq1w"></div>
+    <div class="eq" id="eq2"></div><div class="eq words" id="eq2w"></div>
+  </div>
+  <div class="try" id="try"><span class="eyebrow">Try</span><span id="tryText"></span></div>
+
+  <div class="walk"><button class="ghost" id="back">Back</button><button class="ghost" id="next">Next</button></div>
+
+  <footer><svg width="22" height="22" viewBox="-11 -11 22 22" aria-hidden="true"><path id="sigil" fill="none" stroke="#e8b84a" stroke-width="1"/></svg><span><b>LOUD’N LIVE</b> · Latent Error · the room that settles short · Sketch, 2026-11-03</span></footer>
+</main>
+
+<!-- The core. Plain functions, shared by the page and the headless check. Time in minutes, temperature in °C,
+     the heater's share u from 0 to 1. The room: tau dT/dt = -(T - Tout) + G*H - D. With lag, the radiator's
+     output H follows the command u over 2 minutes and the thermometer S follows T over 1 minute; without, H = u
+     and S = T. The controller sees only S. -->
+<script id="le-pid-core">
+var LE = { TAU: 10, TAUH: 2, TAUS: 1, G: 30, TOUT: 5, R: 20, D: 5, TWIN: 60, TEND: 240, DT: 0.001, EVERY: 0.25, TAIL: 180 };
+// One run of the room. o: { lag, kp, ki, kd, manual (a fixed heater share, or null), window }
+function simulate(o){
+  var c = LE, dt = c.DT, n = Math.round(c.TEND / dt), every = Math.round(c.EVERY / dt);
+  var T = c.TOUT, H = 0, S = c.TOUT, I = 0, dS = 0;
+  var out = { t: [], T: [], S: [], u: [], iTerm: [] };
+  for (var k = 0; k <= n; k++){
+    var t = k * dt, D = (o.window && t >= c.TWIN) ? c.D : 0;
+    var e = c.R - S, u, uRaw;
+    if (o.manual != null){ u = uRaw = o.manual; }
+    else {
+      uRaw = o.kp * e + o.ki * I - o.kd * dS;
+      u = Math.max(0, Math.min(1, uRaw));
+      // the memory stops filling while the heater is pinned and the error would pin it harder
+      if (!((uRaw >= 1 && e > 0) || (uRaw <= 0 && e < 0))) I += e * dt;
+    }
+    if (k % every === 0){ out.t.push(t); out.T.push(T); out.S.push(S); out.u.push(u); out.iTerm.push(o.ki * I); }
+    var Hn = o.lag ? H + dt * (u - H) / c.TAUH : u;
+    var dT = (-(T - c.TOUT) + c.G * (o.lag ? H : u) - D) / c.TAU;
+    var Tn = T + dt * dT;
+    var dSn = o.lag ? (T - S) / c.TAUS : dT;
+    S = o.lag ? S + dt * dSn : Tn;
+    dS = dSn; H = Hn; T = Tn;
+  }
+  return out;
+}
+// What a run did over a stretch of time. The centre is the mean over whole cycles, from the first
+// upward pass through the middle to the last, so a part-cycle at either end can't pull it.
+function stretch(tr, a, b){
+  var idx = [], lo = Infinity, hi = -Infinity, i;
+  for (i = 0; i < tr.t.length; i++) if (tr.t[i] >= a && tr.t[i] <= b){ idx.push(i); lo = Math.min(lo, tr.T[i]); hi = Math.max(hi, tr.T[i]); }
+  var mid = (lo + hi) / 2, ups = [];
+  for (i = 1; i < idx.length; i++) if (tr.T[idx[i - 1]] < mid && tr.T[idx[i]] >= mid) ups.push(i);
+  var j0 = 0, j1 = idx.length - 1;
+  if (hi - lo > 0.05 && ups.length >= 2){ j0 = ups[0]; j1 = ups[ups.length - 1] - 1; }
+  var sum = 0, m = 0, cross = 0;
+  for (i = j0; i <= j1; i++){ sum += tr.T[idx[i]]; m++; }
+  for (i = 1; i < idx.length; i++) if ((tr.T[idx[i - 1]] >= LE.R) !== (tr.T[idx[i]] >= LE.R)) cross++;
+  return { p2p: hi - lo, centre: sum / m, lo: lo, hi: hi, cross: cross, cycles: Math.max(0, ups.length - 1) };
+}
+// settled: still to within 0.05 °C over the last hour. ringing: still moving, but the swing shrank by more
+// than 15% from the hour before. sustained: anything else, a swing that holds or grows to the heater's limits.
+function analyze(tr){
+  var tail = stretch(tr, LE.TAIL, LE.TEND), before = stretch(tr, LE.TAIL - 60, LE.TAIL), pre = stretch(tr, 0, LE.TWIN);
+  var state = tail.p2p < 0.05 ? 'settled' : (tail.p2p < 0.85 * before.p2p ? 'ringing' : 'sustained');
+  return { state: state, settled: state === 'settled', centre: tail.centre, offset: LE.R - tail.centre, p2p: tail.p2p,
+    lo: tail.lo, hi: tail.hi, cross: tail.cross, overshoot: Math.max(0, pre.hi - LE.R), finalT: tr.T[tr.T.length - 1] };
+}
+// The page's sentence, clause by clause, against one run
+function verdict(a){
+  return {
+    ssError: Math.abs(a.offset) > 0.05,
+    aroundTarget: a.state === 'sustained' && a.lo < LE.R && a.hi > LE.R && Math.abs(a.offset) < 0.1,
+    neverSettles: a.state === 'sustained'
+  };
+}
+// P alone, the room answering at once: where it settles with the window open
+function pOffset(kp){ return (LE.R - LE.TOUT + LE.D) / (1 + LE.G * kp); }
+// The runs the test lays side by side
+LE.RUNS = [
+  { name: 'P alone · answers at once · Kp 0.2', lag: false, kp: 0.2, ki: 0, kd: 0 },
+  { name: 'P alone · answers at once · Kp 5, high', lag: false, kp: 5, ki: 0, kd: 0 },
+  { name: 'P alone · with lag · Kp 0.4', lag: true, kp: 0.4, ki: 0, kd: 0 },
+  { name: 'P alone · with lag · Kp 0.7', lag: true, kp: 0.7, ki: 0, kd: 0 },
+  { name: 'P alone · with lag · Kp 2, high', lag: true, kp: 2, ki: 0, kd: 0 },
+  { name: 'P and I · with lag · Kp 2, Ki 0.02', lag: true, kp: 2, ki: 0.02, kd: 0 },
+  { name: 'P, I and D · with lag · Kp 2, Ki 0.02, Kd 1', lag: true, kp: 2, ki: 0.02, kd: 1 },
+  { name: 'P and I · with lag · Kp 0.2, Ki 0.02', lag: true, kp: 0.2, ki: 0.02, kd: 0 },
+  { name: 'P and I · with lag · Kp 0.2, Ki 0.07', lag: true, kp: 0.2, ki: 0.07, kd: 0 },
+  { name: 'P, I and D · with lag · Kp 0.4, Ki 0.04, Kd 0.5', lag: true, kp: 0.4, ki: 0.04, kd: 0.5 }
+];
+function f2(x){ return (Math.abs(x) < 0.005 ? 0 : x).toFixed(2); }
+// The last hour, in words. ki says whether a memory is still pulling a calm room in.
+function describe(a, ki){
+  if (a.state === 'settled'){
+    if (Math.abs(a.offset) <= 0.05) return 'settles on the target, ' + f2(a.centre) + ' °C';
+    return (ki > 0 ? 'calm, still creeping in: ' : 'settles at ') + f2(a.centre) + ' °C, ' + f2(a.offset) + ' below the target' + (ki > 0 ? ' at four hours' : '');
+  }
+  if (a.state === 'ringing') return 'still ringing but calming, ' + f2(a.lo) + ' to ' + f2(a.hi) + ' °C, around ' + f2(a.centre);
+  return 'never settles: swings ' + f2(a.lo) + ' to ' + f2(a.hi) + ' °C, centred at ' + f2(a.centre) + (a.hi < LE.R ? ', and never reaches the target' : a.lo > LE.R ? ', and never comes down to the target' : '');
+}
+// Does the page's sentence describe this run? "Always have steady-state error" is the mean held off the
+// target; "oscillate around the target, never settling" is a swing across 20 that never calms. Both, or one.
+function fits(a){
+  var off = Math.abs(a.offset) > 0.1, swing = a.state === 'sustained', across = a.lo < LE.R && a.hi > LE.R;
+  if (swing && across && off) return { word: 'yes', why: 'it swings across the target, centred ' + f2(a.offset) + ' short, and never settles' };
+  if (swing && across) return { word: 'half', why: 'it swings across the target and never settles, but its mean is on it' };
+  if (swing) return { word: 'half', why: 'it never settles, but never reaches the target either' };
+  if (off) return { word: 'half', why: 'the error stays, but it ' + (a.state === 'ringing' ? 'is calming' : 'settles') };
+  return { word: 'no', why: a.state === 'ringing' ? 'it is calming onto the target' : Math.abs(a.offset) > 0.05 ? 'it is calm, creeping onto the target' : 'it settles on the target' };
+}
+// "A system with I term will converge": for a run with memory, did it?
+function converges(a){ return a.state !== 'sustained'; }
+// The room as a pitch beside the target's: 2 Hz for every degree off, kept within 40 Hz
+function roomHz(T){ return 220 + Math.max(-40, Math.min(40, 2 * (T - LE.R))); }
+</script>
+
+<script>
+(function(){
+  'use strict';
+  var $ = function(id){ return document.getElementById(id); };
+  var css = getComputedStyle(document.documentElement);
+  var ACC = '#e8b84a', FG1 = '#e8e8f0', FG3 = '#8a8aa0', FG4 = '#4a4a5a', INFO = '#4a8fff', WARN = '#e8651b';
+
+  var STEPS = [
+    { title: 'The room alone', short: 'The room', ctl: ['cManual', 'cWin'], lag: false,
+      say: 'No controller yet. The heater runs at a share you set by hand, and the room settles where the heat in matches the heat lost through the walls. At half power that is 20 °C, the target. Then the window opens at minute 60, and the room settles 5 degrees lower. Nothing notices; nothing answers.',
+      eq1: ['10 · dT/dt = −(T − 5) + 30·u − D', '10 minutes × (how fast the room warms) = −(how far above the outside it is) + 30 × (the heater’s share) − (what the open window steals, 5 °C’s worth)'],
+      eq2: ['at rest:  T = 5 + 30·u − D', '(where the room settles) = 5 + 30 × (the heater’s share) − (the window)'],
+      tryText: 'Find the heater setting that holds 20 °C with the window open: about two thirds. Then untick the window. The same setting now holds 25 °C. A hand on the dial fixes one disturbance at a time.' },
+    { title: 'P alone, in a room that answers at once', short: 'P', ctl: ['cKp', 'cWin'], lag: false, kpMax: 5,
+      say: 'Now a controller: the heater’s share is Kp times how far below 20 the thermometer reads. In this room the heat arrives the moment it is asked for, and the thermometer reads the room exactly. Push Kp as high as it goes. The room never overshoots and never swings. It settles short of 20, every time, because P can only heat while there is an error to heat for.',
+      eq1: ['u = Kp · e,   e = 20 − T', '(the heater’s share) = Kp × (how far below the target the room reads)'],
+      eq2: ['with the window open:  e_rest = (20 − 5 + 5) ÷ (1 + 30·Kp)', '(where P leaves it) = 20 degrees of loss ÷ (1 + 30 × Kp): smaller as Kp grows, never zero'],
+      tryText: 'Kp 0.2 settles at 17.14 °C. Kp 5 settles at 19.87. Read the overshoot in the meter at any setting: it stays at 0.00. The page says P alone creates oscillation; in this room it can’t.' },
+    { title: 'P alone, with lag', short: 'Lag', ctl: ['cKp', 'cWin'], lag: true, kpMax: 2,
+      say: 'A real room is late. The radiator takes two minutes to warm, and the thermometer on the far wall reads a minute behind. Now the heat arrives after the error that asked for it, and a high Kp overshoots. Past about 0.65 the room never calms down. This lag is what the page’s P paragraph takes for granted: without it, as in step 2, P alone can’t swing. Just past the edge the swing sits wholly below the target. Turn Kp higher and it crosses 20 on every swing, but its middle, the blue line, stays short. The offset is still there inside the oscillation.',
+      eq1: ['2 · dH/dt = u − H      1 · dS/dt = T − S', 'the radiator’s output H follows the command over 2 minutes; the thermometer S follows the room over 1 minute; the controller sees only S'],
+      eq2: ['20s³ + 32s² + 13s + 1 + 30·Kp = 0  →  edge at Kp ≈ 0.66, a swing every 7.8 minutes', 'the loop’s own equation: past 30 × Kp = 19.8 it can’t calm itself, and it swings about every 7.8 minutes'],
+      tryText: 'Kp 0.4 overshoots once by 1.06 and settles at 18.46. Kp 0.7 never settles, swinging between 18.24 and 19.91, never reaching 20. Kp 2 swings 18.23 to 20.67 around 19.37: the page’s high-P room. Then Hear it: a beat that won’t hold still, and never stops.' },
+    { title: 'Add memory: the I term', short: 'I', ctl: ['cPlant', 'cKp', 'cKi', 'cWin'], lag: true, kpMax: 2, ki: true,
+      say: 'I adds up the error over time. While the room sits short, the sum grows and pushes the heater harder, until the error is gone. The gold line below is the heater’s share that comes from memory. When the window opens it climbs again, and at rest it carries all of the heat: 0.667, exactly what the window and the walls take. But memory is late by its nature, so too much of it overshoots. With the lag and Kp 0.2, past about Ki 0.063 the room never settles at all.',
+      eq1: ['u = Kp·e + Ki·∫e dt', '(the heater’s share) = Kp × (the error now) + Ki × (all the error so far, added up)'],
+      eq2: ['at rest e = 0, so  Ki·∫e = (20 − 5 + 5) ÷ 30 = 0.667', 'when the room sits on the target the whole heater is memory: the loss, 20 degrees’ worth, ÷ 30'],
+      tryText: 'Ki 0.02 settles on 20.00. Ki 0.07 swings 18.28 to 21.54 and never settles: a loop with an I term, oscillating around the target. Then switch the room to answers at once: there, no Ki makes it swing forever, but Ki 0.1 overshoots by 0.53, which P alone never did.' },
+    { title: 'Add prediction: the D term', short: 'D', ctl: ['cPlant', 'cKp', 'cKi', 'cKd', 'cWin'], lag: true, kpMax: 2, ki: true, kd: true,
+      say: 'D reads how fast the thermometer is climbing and backs the heater off before the room gets there. With Kp 0.4 and Ki 0.04 the room rings; add a little D and the ringing is gone. Add a lot and it comes back another way: the climb gets so slow that the memory overfills on the way up.',
+      eq1: ['u = Kp·e + Ki·∫e dt − Kd·dS/dt', '(the heater’s share) = P + I − Kd × (how fast the thermometer is rising)'],
+      eq2: ['Kd 0 → overshoot 1.17     Kd 0.5 → 0.00     Kd 2 → 1.97', 'measured on this room: a little prediction calms it; a lot slows the climb and lets the memory overshoot'],
+      tryText: 'Start at Kd 0 and walk it up. Watch the overshoot in the meter fall to nothing around 0.5, then rise again past 1.' },
+    { title: 'The test: the page’s sentence', short: 'The test', ctl: ['cPlant', 'cKp', 'cKi', 'cKd', 'cWin'], lag: true, kpMax: 2, ki: true, kd: true, test: true,
+      say: 'The page’s sentences, put against ten runs of this room, each measured over its last hour. Click a run to load it above, or set your own. “High P, no I”: with lag and a high gain, the room does just what the page says, a swing across the target, centred short of it, that never settles. Nearer the edge it swings below the target, and with no lag it simply settles short. “With I it converges”: not here. Add I to the high-P room and it still swings; D settles it, as the page’s own D paragraph says. And too much I makes a swing of its own.',
+      eq1: ['steady-state error: the room settles, off the target', 'what P alone leaves, in every room here'],
+      eq2: ['oscillation: the room never settles', 'what lag and a high gain make, and too much I; memory removes an offset, but it does not calm a swing'],
+      tryText: 'Load Kp 2 with Ki 0.02, then walk Kd up to 1 and watch it settle. Then load the last row and turn Ki past 0.06. Which part of the swing did memory fix?' }
+  ];
+
+  var Q = '“[P:] This alone creates <em>oscillation</em>.” … “A system with high P gain but no I term will always have steady-state error. It will oscillate around the target, never settling. A system with I term will converge.” · the page, § Control Theory Translation';
+
+  var step = 0, plantLag = false, trace = null, an = null, picked = -1;
+
+  var rail = $('rail');
+  STEPS.forEach(function(s, i){ var b = document.createElement('button'); b.textContent = (i + 1) + ' · ' + s.short; b.addEventListener('click', function(){ go(i); }); rail.appendChild(b); });
+
+  function num(id){ return parseFloat($(id).value); }
+  function cfg(){
+    var s = STEPS[step];
+    if (step === 0) return { lag: false, manual: num('manual'), kp: 0, ki: 0, kd: 0, window: $('win').checked };
+    return { lag: plantLag, manual: null, kp: num('kp'), ki: s.ki ? num('ki') : 0, kd: s.kd ? num('kd') : 0, window: $('win').checked };
+  }
+  function setPlant(lag){ plantLag = lag; $('plain').setAttribute('aria-pressed', String(!lag)); $('lagged').setAttribute('aria-pressed', String(lag)); }
+  function labels(){
+    $('manualV').textContent = num('manual').toFixed(3); $('kpV').textContent = num('kp').toFixed(2);
+    $('kiV').textContent = num('ki').toFixed(3); $('kdV').textContent = num('kd').toFixed(2);
+  }
+  function recompute(){ labels(); trace = simulate(cfg()); an = analyze(trace); meter(); draw(); }
+
+  // ---------- the plot ----------
+  var cv = $('plot');
+  function draw(){
+    var r = cv.getBoundingClientRect(), d = window.devicePixelRatio || 1, W = Math.round(r.width * d), H = Math.round(r.height * d);
+    if (!W || !H || !trace) return;
+    if (cv.width !== W || cv.height !== H){ cv.width = W; cv.height = H; }
+    var g = cv.getContext('2d'); g.clearRect(0, 0, W, H);
+    var L = 40 * d, Rm = 12 * d, Tp = 10 * d, strip = 54 * d, gap = 26 * d, Bm = 22 * d;
+    var y0 = Tp, y1 = H - Bm - strip - gap, s0 = H - Bm - strip, s1 = H - Bm;
+    var X = function(t){ return L + t / LE.TEND * (W - L - Rm); };
+    var Y = function(T){ return y1 - (Math.max(0, Math.min(30, T)) / 30) * (y1 - y0); };
+    var Ys = function(u){ return s1 - Math.max(0, Math.min(1, u)) * (s1 - s0); };
+    g.font = (10 * d) + 'px JetBrains Mono, monospace'; g.textBaseline = 'middle';
+    // grid
+    g.strokeStyle = 'rgba(255,255,255,0.05)'; g.lineWidth = d; g.fillStyle = FG4; g.textAlign = 'right';
+    for (var T = 0; T <= 30; T += 5){ g.beginPath(); g.moveTo(L, Y(T)); g.lineTo(W - Rm, Y(T)); g.stroke(); g.fillText(T + '°', L - 6 * d, Y(T)); }
+    g.textAlign = 'center'; g.textBaseline = 'top';
+    for (var t = 0; t <= LE.TEND; t += 30){ g.fillText(t + (t === LE.TEND ? ' min' : ''), X(t) - (t === LE.TEND ? 14 * d : 0), s1 + 6 * d); }
+    // the last hour, where the measuring happens
+    g.fillStyle = 'rgba(255,255,255,0.025)'; g.fillRect(X(LE.TAIL), y0, X(LE.TEND) - X(LE.TAIL), y1 - y0);
+    g.fillStyle = FG4; g.textBaseline = 'top'; g.fillText('measured here', (X(LE.TAIL) + X(LE.TEND)) / 2, y0 + 2 * d);
+    // the window
+    if ($('win').checked){ g.strokeStyle = 'rgba(138,138,160,0.5)'; g.setLineDash([2 * d, 4 * d]); g.beginPath(); g.moveTo(X(LE.TWIN), y0); g.lineTo(X(LE.TWIN), s1); g.stroke(); g.setLineDash([]); g.fillStyle = FG3; g.textAlign = 'left'; g.fillText('window opens', X(LE.TWIN) + 5 * d, y0 + 2 * d); }
+    // the target
+    g.strokeStyle = ACC; g.setLineDash([6 * d, 5 * d]); g.lineWidth = 1.2 * d; g.beginPath(); g.moveTo(L, Y(LE.R)); g.lineTo(W - Rm, Y(LE.R)); g.stroke(); g.setLineDash([]);
+    g.fillStyle = ACC; g.textAlign = 'left'; g.textBaseline = 'bottom'; g.fillText('target 20°', L + 6 * d, Y(LE.R) - 3 * d);
+    // where it settles, or the centre of its swing
+    if (Math.abs(an.offset) > 0.05){ g.strokeStyle = INFO; g.lineWidth = 1.2 * d; g.beginPath(); g.moveTo(X(LE.TAIL - 30), Y(an.centre)); g.lineTo(W - Rm, Y(an.centre)); g.stroke();
+      g.fillStyle = INFO; g.textAlign = 'right'; g.textBaseline = 'top'; g.fillText((an.settled ? 'settles ' : 'centre ') + f2(an.centre) + '°', W - Rm - 2 * d, Y(an.centre) + 3 * d); }
+    // the room
+    g.strokeStyle = FG1; g.lineWidth = 1.6 * d; g.beginPath();
+    for (var i = 0; i < trace.t.length; i++){ var x = X(trace.t[i]), y = Y(trace.T[i]); if (i) g.lineTo(x, y); else g.moveTo(x, y); }
+    g.stroke();
+    // the heater strip
+    g.fillStyle = '#12121a'; g.fillRect(L, s0, W - L - Rm, s1 - s0); g.strokeStyle = 'rgba(255,255,255,0.08)'; g.strokeRect(L, s0, W - L - Rm, s1 - s0);
+    g.fillStyle = FG4; g.textAlign = 'right'; g.textBaseline = 'middle'; g.fillText('1', L - 6 * d, s0 + 4 * d); g.fillText('0', L - 6 * d, s1 - 4 * d);
+    g.textAlign = 'left'; g.textBaseline = 'bottom'; g.fillStyle = FG3; g.fillText('heater’s share', L, s0 - 4 * d);
+    var ki = cfg().ki;
+    if (ki > 0){ g.fillStyle = ACC; g.fillText('from memory (I)', L + 110 * d, s0 - 4 * d); }
+    g.strokeStyle = FG3; g.lineWidth = 1.2 * d; g.beginPath();
+    for (i = 0; i < trace.t.length; i++){ x = X(trace.t[i]); y = Ys(trace.u[i]); if (i) g.lineTo(x, y); else g.moveTo(x, y); }
+    g.stroke();
+    if (ki > 0){ g.strokeStyle = ACC; g.beginPath(); for (i = 0; i < trace.t.length; i++){ x = X(trace.t[i]); y = Ys(trace.iTerm[i]); if (i) g.lineTo(x, y); else g.moveTo(x, y); } g.stroke(); }
+    // the cursor while it plays
+    if (play){ var tc = playPos() * LE.TEND; g.strokeStyle = ACC; g.lineWidth = d; g.beginPath(); g.moveTo(X(tc), y0); g.lineTo(X(tc), s1); g.stroke(); }
+  }
+
+  // ---------- the meter ----------
+  function meter(){
+    var s = STEPS[step], c = cfg(), h = [];
+    if (step === 0){
+      var before = LE.TOUT + LE.G * c.manual, after = before - LE.D;
+      h.push('heater at <b>' + c.manual.toFixed(3) + '</b> → the room settles at <b>' + f2(before) + ' °C</b>' + (c.window ? ' before the window, <b>' + f2(after) + ' °C</b> after it' : ''));
+      h.push('at the end of four hours: <b>' + f2(an.finalT) + ' °C</b>, ' + (Math.abs(an.offset) <= 0.05 ? 'on the target' : f2(Math.abs(an.offset)) + (an.offset > 0 ? ' below' : ' above') + ' the target'));
+    } else {
+      h.push('the last hour: <b>' + describe(an, c.ki) + '</b>');
+      h.push('overshoot before the window: <b>' + f2(an.overshoot) + ' °C</b> above 20' + (an.overshoot < 0.005 ? ', it never crosses the target' : ''));
+      if (c.ki === 0 && c.kd === 0 && c.window) h.push('P alone, where the sum says it rests: <i>' + f2(LE.R - pOffset(c.kp)) + ' °C</i>, ' + f2(pOffset(c.kp)) + ' short' + (an.state !== 'settled' ? ' (the swing is centred near it, not on 20)' : ''));
+      if (c.ki > 0) h.push('the share from memory at the end: <b>' + trace.iTerm[trace.iTerm.length - 1].toFixed(3) + '</b>' + (c.window ? ' · the loss needs 0.667' : ' · the loss needs 0.500'));
+      if (s.test){ var v = fits(an); h.push('the page’s “high P, no I” sentence, on your run: <b>' + v.word + '</b> · ' + v.why); if (c.ki > 0) h.push('“with I term will converge”, on your run: <b>' + (converges(an) ? 'yes' : 'no') + '</b>'); }
+    }
+    $('meter').innerHTML = h.join('<br>');
+  }
+
+  // ---------- the test table ----------
+  function table(){
+    var tb = $('runs').querySelector('tbody'); tb.innerHTML = '';
+    LE.RUNS.forEach(function(run, i){
+      var a = analyze(simulate({ lag: run.lag, kp: run.kp, ki: run.ki, kd: run.kd, manual: null, window: true })), v = fits(a);
+      var tr = document.createElement('tr'); tr.className = 'pick' + (i === picked ? ' on' : ''); tr.tabIndex = 0;
+      tr.innerHTML = '<td>' + run.name + '</td><td>' + f2(a.overshoot) + ' °C</td><td>' + describe(a, run.ki) + '</td><td>' + (v.word === 'yes' ? '<b>yes</b>' : v.word === 'half' ? '<i>half</i>' : 'no') + ' · ' + v.why + '</td><td>' + (run.ki > 0 ? (converges(a) ? 'yes' : '<i>no</i>') : '—') + '</td>';
+      var load = function(){ picked = i; setPlant(run.lag); $('kp').value = run.kp; $('ki').value = run.ki; $('kd').value = run.kd; $('win').checked = true; table(); recompute(); };
+      tr.addEventListener('click', load); tr.addEventListener('keydown', function(e){ if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); load(); } });
+      tb.appendChild(tr);
+    });
+  }
+
+  // ---------- the sound: the target and the room, side by side ----------
+  var ac = null, play = null, DUR = 24;
+  function playPos(){ return play ? Math.min(1, (ac.currentTime - play.t0) / DUR) : 0; }
+  function stopSound(){
+    if (!play) return; var p = play; play = null; $('hear').textContent = 'Hear it';
+    var now = ac.currentTime; [p.g1, p.g2].forEach(function(g){ g.gain.cancelScheduledValues(now); g.gain.setTargetAtTime(0, now, 0.03); });
+    p.o1.stop(now + 0.2); p.o2.stop(now + 0.2); draw();
+  }
+  function startSound(){
+    if (!ac) ac = new (window.AudioContext || window.webkitAudioContext)();
+    ac.resume(); stopSound();
+    var comp = ac.createDynamicsCompressor(); comp.connect(ac.destination);
+    var o1 = ac.createOscillator(), o2 = ac.createOscillator(), g1 = ac.createGain(), g2 = ac.createGain();
+    o1.type = 'sine'; o2.type = 'sine'; o1.frequency.value = 220; o2.frequency.value = roomHz(trace.T[0]);
+    g1.gain.value = 0; g2.gain.value = 0;
+    o1.connect(g1); o2.connect(g2); g1.connect(comp); g2.connect(comp);
+    var now = ac.currentTime; g1.gain.setTargetAtTime(0.11, now, 0.05); g2.gain.setTargetAtTime(0.11, now, 0.05);
+    o1.start(now); o2.start(now);
+    play = { o1: o1, o2: o2, g1: g1, g2: g2, t0: now }; $('hear').textContent = 'Stop';
+  }
+  $('hear').addEventListener('click', function(){ if (play) stopSound(); else startSound(); });
+  function tickSound(){
+    if (!play) return;
+    var u = playPos(), i = Math.min(trace.T.length - 1, Math.round(u * (trace.T.length - 1)));
+    play.o2.frequency.setTargetAtTime(roomHz(trace.T[i]), ac.currentTime, 0.02);
+    if (u >= 1) stopSound(); else draw();
+  }
+
+  // ---------- the walk ----------
+  function go(i){
+    stopSound();
+    step = i; var s = STEPS[i]; picked = -1;
+    Array.prototype.forEach.call(rail.children, function(b, j){ if (j === i) b.setAttribute('aria-current', 'step'); else b.removeAttribute('aria-current'); });
+    $('stepEyebrow').textContent = 'Step ' + (i + 1) + ' of ' + STEPS.length + (s.test ? ' · the test' : '');
+    $('stepTitle').textContent = s.title; $('stepSay').textContent = s.say;
+    $('eq1').textContent = s.eq1[0]; $('eq1w').textContent = s.eq1[1]; $('eq2').textContent = s.eq2[0]; $('eq2w').textContent = s.eq2[1];
+    $('tryText').textContent = s.tryText;
+    ['cPlant', 'cManual', 'cKp', 'cKi', 'cKd', 'cWin'].forEach(function(id){ $(id).hidden = s.ctl.indexOf(id) < 0; });
+    if (s.kpMax) $('kp').max = s.kpMax;
+    // each step opens on its own example
+    setPlant(s.lag); $('win').checked = true;
+    var start = [ { manual: 0.5 }, { kp: 0.2 }, { kp: 0.4 }, { kp: 0.2, ki: 0.02 }, { kp: 0.4, ki: 0.04, kd: 0 }, { kp: 2, ki: 0.02, kd: 0 } ][i];
+    if (start.manual != null) $('manual').value = start.manual;
+    if (start.kp != null) $('kp').value = start.kp; if (start.ki != null) $('ki').value = start.ki; if (start.kd != null) $('kd').value = start.kd;
+    if (s.test) picked = 5;
+    $('quote').hidden = !(i === 1 || i === 2 || s.test); $('quote').innerHTML = Q;
+    $('runs').hidden = !s.test; if (s.test) table();
+    $('back').disabled = i === 0; $('next').disabled = i === STEPS.length - 1;
+    recompute();
+  }
+  ['manual', 'kp', 'ki', 'kd'].forEach(function(id){ $(id).addEventListener('input', function(){ picked = -1; if (STEPS[step].test) table(); recompute(); }); });
+  $('win').addEventListener('change', recompute);
+  $('plain').addEventListener('click', function(){ setPlant(false); picked = -1; if (STEPS[step].test) table(); recompute(); });
+  $('lagged').addEventListener('click', function(){ setPlant(true); picked = -1; if (STEPS[step].test) table(); recompute(); });
+  $('back').addEventListener('click', function(){ if (step > 0) go(step - 1); });
+  $('next').addEventListener('click', function(){ if (step < STEPS.length - 1) go(step + 1); });
+  window.addEventListener('resize', draw);
+  (function loop(){ requestAnimationFrame(loop); tickSound(); })();
+  (function(){ var d = ''; for (var i = 0; i <= 200; i++){ var a = i / 200 * 2 * Math.PI; d += (i ? 'L' : 'M') + (9 * Math.sin(3 * a + 0.5)).toFixed(2) + ' ' + (9 * Math.sin(2 * a)).toFixed(2); } $('sigil').setAttribute('d', d); })();
+  go(0);
+})();
+</script>
+</body>
+</html>

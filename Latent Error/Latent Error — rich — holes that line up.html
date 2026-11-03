@@ -1,0 +1,297 @@
+<!doctype html>
+<!--
+  title: Latent Error — rich — holes that line up
+  born: 2026-11-03
+  links: [[Latent Error]] (connects-to · rich-face-piece) · listed in [[Latent Error — rich.json]] · serves § Latent Error (opening)
+  forward_vector: I am the walk from one slice of cheese with one hole to the page's own advice, measured. First one slice, then a stack whose holes wander on their own, then a condition every layer shares, and last a test of two ways to spend one change: add a layer, or redesign one. I show what the Swiss cheese model takes for granted: that the layers fail on their own. I change only when the section I serve does.
+  sound: none. This piece makes no sound.
+  check: Latent Error/Latent Error — rich — check.mjs runs this page's core in Node.
+-->
+<html lang="en" class="skin-graphite">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- needs nothing of its host: no device, no storage, no file, no host, no sound -->
+<meta name="piece:needs" content="">
+<title>Holes that line up · the Swiss cheese model, counted</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@300;400;500&display=swap">
+<style>
+  :root{
+    --bg:#0a0a0f; --bg-elev-1:#12121a; --bg-elev-2:#1a1a28; --border:#4a4a5e; --border-soft:rgba(255,255,255,0.06);
+    --fg-1:#e8e8f0; --fg-2:#c8c8d8; --fg-3:#8a8aa0; --fg-4:#4a4a5a;
+    --accent:#e8b84a; --accent-dim:#7a6030; --accent-soft:rgba(232,184,74,0.10);
+    --info:#4a8fff; --warn:#e8651b;
+    --serif:'Cormorant Garamond','Source Serif 4',Georgia,serif; --sans:'Manrope',system-ui,sans-serif;
+    --display:'Anton','Bebas Neue',Impact,sans-serif; --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--fg-1)}
+  body{font-family:var(--serif);font-size:17px;line-height:1.7;padding:28px 16px 36px}
+  main{max-width:960px;margin:0 auto}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--fg-3)}
+  h1{font-family:var(--display);font-weight:400;font-size:44px;line-height:1.05;margin:6px 0 10px}
+  h2{font-family:var(--display);font-weight:400;font-size:28px;line-height:1.1;margin:4px 0 8px;letter-spacing:.01em}
+  p.lead{font-size:19px;color:var(--fg-2);margin:0 0 18px;max-width:66ch}
+  .rail{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 18px}
+  .rail button{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-3);background:transparent;border:1px solid var(--border);border-radius:4px;padding:7px 11px;cursor:pointer;transition:all .22s cubic-bezier(.4,0,.2,1)}
+  .rail button[aria-current="step"]{color:var(--fg-1);border-color:var(--fg-3);background:var(--bg-elev-2)}
+  p.say{color:var(--fg-2);margin:0 0 14px;max-width:68ch}
+  .panel{background:var(--bg-elev-1);border:1px solid var(--border-soft);border-radius:4px;padding:18px;margin:0 0 14px}
+  canvas#plot{width:100%;height:300px;display:block}
+  .controls{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px 22px;margin-top:12px}
+  .ctl[hidden]{display:none}
+  .ctl label{display:flex;justify-content:space-between;font-family:var(--mono);font-size:12px;color:var(--fg-3);letter-spacing:.06em}
+  .ctl label b{color:var(--fg-1);font-weight:400}
+  input[type=range]{width:100%;accent-color:var(--accent)}
+  .seg{display:inline-flex;border:1px solid var(--border);border-radius:4px;overflow:hidden}
+  .seg button{font-family:var(--sans);font-size:13px;color:var(--fg-3);background:transparent;border:0;padding:7px 12px;cursor:pointer}
+  .seg button[aria-pressed="true"]{color:var(--fg-1);background:var(--bg-elev-2)}
+  .check{font-family:var(--sans);font-size:13px;color:var(--fg-2);display:flex;gap:8px;align-items:center}
+  .rowb{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:12px}
+  button.ghost{font-family:var(--sans);font-size:14px;color:var(--fg-2);background:transparent;border:1px solid var(--border);border-radius:4px;padding:8px 14px;cursor:pointer}
+  button.ghost:disabled{opacity:.35;cursor:default}
+  button.play{font-family:var(--sans);font-size:14px;color:var(--bg);background:var(--accent);border:1px solid var(--accent);border-radius:4px;padding:8px 16px;cursor:pointer;box-shadow:0 0 18px rgba(232,184,74,.25)}
+  .hint{font-family:var(--sans);font-size:13px;color:var(--fg-3)}
+  .meter{font-family:var(--mono);font-size:13px;color:var(--fg-2);margin-top:12px;line-height:1.75}
+  .meter b{color:var(--accent);font-weight:400}
+  .meter i{color:var(--info);font-style:normal}
+  .eq{font-family:var(--mono);font-size:13px;color:var(--fg-1);margin:14px 0 0;overflow-wrap:anywhere;white-space:pre-wrap}
+  .eq.words{color:var(--fg-3);font-size:12px;margin-top:2px}
+  .try{margin:0 0 4px;padding:12px 16px;border-left:2px solid var(--accent-dim);background:var(--bg-elev-1);font-family:var(--sans);font-size:14px;color:var(--fg-2);line-height:1.6}
+  .try .eyebrow{color:var(--accent);display:block;margin-bottom:2px}
+  blockquote.page{margin:0 0 14px;padding:10px 16px;border-left:2px solid var(--fg-4);font-style:italic;color:var(--fg-2);max-width:68ch}
+  blockquote.page[hidden]{display:none}
+  .tablewrap{overflow-x:auto}
+  table.runs{border-collapse:collapse;margin-top:12px;font-family:var(--mono);font-size:12px;color:var(--fg-2);width:100%}
+  table.runs[hidden]{display:none}
+  table.runs td,table.runs th{border-bottom:1px solid var(--border-soft);padding:6px 12px 6px 0;text-align:left;font-weight:400;vertical-align:top}
+  table.runs th{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-3)}
+  table.runs tr.pick{cursor:pointer}
+  table.runs tr.pick:hover td{color:var(--fg-1)}
+  table.runs tr.on td{color:var(--fg-1);background:var(--bg-elev-2)}
+  table.runs b{color:var(--accent);font-weight:400}
+  table.runs i{color:var(--warn);font-style:normal}
+  .walk{display:flex;justify-content:space-between;gap:10px;margin-top:16px}
+  footer{margin-top:28px;font-family:var(--sans);font-size:13px;color:var(--fg-4);display:flex;gap:10px;align-items:center}
+  footer b{font-family:var(--display);font-weight:400;letter-spacing:.06em;color:var(--fg-3)}
+  @media (max-width:520px){h1{font-size:34px}h2{font-size:23px}canvas#plot{height:260px}}
+</style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">Latent Error · the Swiss cheese model · four steps</div>
+  <h1>Holes that line up</h1>
+  <p class="lead">Reason’s picture, counted. Each slice is a layer of defence, a check or a label or a habit, and each hole is the share of the time it lets a hazard through. Four steps: one slice, then a stack, then a condition every slice shares, and last the page’s own advice measured two ways. This piece makes no sound.</p>
+
+  <nav class="rail" aria-label="Steps" id="rail"></nav>
+
+  <section aria-live="polite">
+    <div class="eyebrow" id="stepEyebrow"></div>
+    <h2 id="stepTitle"></h2>
+    <p class="say" id="stepSay"></p>
+  </section>
+  <blockquote class="page" id="quote" hidden></blockquote>
+
+  <div class="panel">
+    <canvas id="plot" role="img" aria-label="Slices of defence with holes, and hazards crossing them from the left"></canvas>
+    <div class="controls">
+      <div class="ctl" id="cP"><label for="p">hole, share of each slice <b id="pV"></b></label><input id="p" type="range" min="0.02" max="0.5" step="0.01" value="0.15"></div>
+      <div class="ctl" id="cN"><label for="n">slices <b id="nV"></b></label><input id="n" type="range" min="1" max="5" step="1" value="3"></div>
+      <div class="ctl" id="cB"><label for="beta">β · share of the time one condition shapes every slice <b id="bV"></b></label><input id="beta" type="range" min="0" max="0.6" step="0.01" value="0.25"></div>
+      <div class="ctl" id="cOpt"><label>one change to make</label>
+        <div class="seg" role="group" aria-label="One change to make"><button id="o0" aria-pressed="true">as it is</button><button id="o1" aria-pressed="false">add a slice</button><button id="o2" aria-pressed="false">redesign one</button></div></div>
+    </div>
+    <div class="rowb">
+      <button class="ghost" id="run">Fire hazards</button>
+      <button class="ghost" id="many">Fire 10,000 at once</button>
+      <button class="ghost" id="measure" hidden>Measure all three, 200,000 each</button>
+      <span class="hint">Counts start again whenever a setting changes.</span>
+    </div>
+    <div class="meter" id="meter"></div>
+    <div class="tablewrap"><table class="runs" id="runs" hidden><thead><tr><th>the stack</th><th>through, measured</th><th>through, by the sum</th><th>acts like this many independent slices</th></tr></thead><tbody></tbody></table></div>
+    <div class="eq" id="eq1"></div><div class="eq words" id="eq1w"></div>
+    <div class="eq" id="eq2"></div><div class="eq words" id="eq2w"></div>
+  </div>
+  <div class="try" id="try"><span class="eyebrow">Try</span><span id="tryText"></span></div>
+
+  <div class="walk"><button class="ghost" id="back">Back</button><button class="ghost" id="next">Next</button></div>
+
+  <footer><svg width="22" height="22" viewBox="-11 -11 22 22" aria-hidden="true"><path id="sigil" fill="none" stroke="#e8b84a" stroke-width="1"/></svg><span><b>LOUD’N LIVE</b> · Latent Error · holes that line up · Sketch, 2026-11-03</span></footer>
+</main>
+
+<!-- The core. Plain functions, shared by the page and the headless check. A hazard comes in at a height y from
+     0 to 1; each slice has a hole of size p starting at h, wrapping round, and lets the hazard through when y
+     falls in it. Each hazard, the holes move. A share beta of hazards meet one condition every slice shares
+     (except a slice redesigned out of its reach): then those slices' holes sit in one place. -->
+<script id="le-cheese-core">
+// a small seeded generator, so the check can repeat a count exactly
+function rng(seed){ var a = seed >>> 0; return function(){ a = (a + 0x6D2B79F5) >>> 0; var t = a; t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
+// c: { p, n, beta, free } · free is how many slices the shared condition can't reach (the last ones)
+function fire(c, rand){
+  var y = rand(), shared = rand() < c.beta, h0 = rand(), holes = [], blockedAt = -1;
+  for (var i = 0; i < c.n; i++){
+    var reach = i < c.n - (c.free || 0);
+    var h = (shared && reach) ? h0 : rand();
+    holes.push(h);
+    var inHole = ((y - h) % 1 + 1) % 1 < c.p;
+    if (!inHole && blockedAt < 0) blockedAt = i;
+  }
+  return { y: y, holes: holes, shared: shared, blockedAt: blockedAt, passed: blockedAt < 0 };
+}
+function measure(c, N, seed){ var r = rng(seed), k = 0; for (var i = 0; i < N; i++) if (fire(c, r).passed) k++; return k / N; }
+// the sum: the slices the condition reaches fail together a share beta of the time, and on their own otherwise
+function predicted(c){
+  var m = c.n - (c.free || 0), group = m > 0 ? c.beta * c.p + (1 - c.beta) * Math.pow(c.p, m) : 1;
+  return group * Math.pow(c.p, c.free || 0);
+}
+// how many independent slices of the same hole would let the same share through
+function nEff(P, p){ return Math.log(P) / Math.log(p); }
+// the three ways the test compares
+function options(p, n, beta){ return [
+  { name: 'as it is', c: { p: p, n: n, beta: beta, free: 0 } },
+  { name: 'add a slice of the same design', c: { p: p, n: n + 1, beta: beta, free: 0 } },
+  { name: 'redesign one slice', c: { p: p, n: n, beta: beta, free: 1 } } ]; }
+</script>
+
+<script>
+(function(){
+  'use strict';
+  var $ = function(id){ return document.getElementById(id); };
+  var ACC = '#e8b84a', FG1 = '#e8e8f0', FG2 = '#c8c8d8', FG3 = '#8a8aa0', FG4 = '#4a4a5a', INFO = '#4a8fff', WARN = '#e8651b';
+  var pc = function(x, d){ return (x * 100).toFixed(d == null ? 2 : d) + '%'; };
+
+  var STEPS = [
+    { title: 'One slice, one hole', short: 'One slice', ctl: ['cP'], n: 1, beta: 0,
+      say: 'One layer of defence with one hole in it. Hazards arrive from the left at any height. The ones that meet the hole go through; the rest stop at the slice. With one slice, the share that gets through is just the size of the hole.',
+      eq1: ['P(through) = p', '(the share of hazards that get through) = (the size of the hole)'],
+      eq2: ['p = 0.15  →  15%', 'a hole 15% of the slice lets 15% through'],
+      tryText: 'Fire 10,000 at once and read the count. Then change the hole and fire again: the share follows the hole.' },
+    { title: 'Holes that wander on their own', short: 'A stack', ctl: ['cP', 'cN'], beta: 0,
+      say: 'Now a stack. Each slice’s hole moves from one hazard to the next, on its own: a lapse here, a slip there, each with its own cause. A hazard gets through only when every hole sits in its path at once. With three slices of 0.15, that is about 3 in 1,000. This is the model’s promise and the page’s advice: design so failure needs more than one mistake at the same moment.',
+      eq1: ['P(through) = pⁿ', '(the share that gets through) = (the hole) multiplied by itself once for each slice'],
+      eq2: ['0.15³ = 0.0034', 'three slices with 15% holes let through about a third of one percent'],
+      tryText: 'Add slices one at a time and fire 10,000 each time. Each slice cuts the count by the same factor, about 7.' },
+    { title: 'A condition every slice shares', short: 'Shared', ctl: ['cP', 'cN', 'cB'],
+      say: 'Now the latent error. Some of the time one condition shapes every slice at once. Two identical-looking levers fool the eye, the checklist written by someone who saw them as one, and the hand trained on the other aircraft, all the same way. When that condition is in play, the holes line up: gold, in the picture. β is the share of the time it is. With β 0.25 the three slices let through 4.0%, twelve times the promise, and a fourth slice brings it only to 3.8%.',
+      eq1: ['P(through) = β·p + (1 − β)·pⁿ', '(through) = (the time the condition is in play) × (one hole) + (the rest of the time) × (every hole lining up by chance)'],
+      eq2: ['n_eff = log P ÷ log p', '(how many independent slices the stack acts like) = log of the share through ÷ log of one hole'],
+      tryText: 'Hold β at 0.25 and add slices. The count stops falling near β × p, 3.75%: that is one slice’s worth, and no number of slices of the same design gets under it.' },
+    { title: 'The test: add a slice, or redesign one', short: 'The test', ctl: ['cP', 'cN', 'cB', 'cOpt'], test: true,
+      say: 'The page’s advice, measured. One change to spend: add a fourth slice of the same design, or redesign one of the three so the shared condition no longer reaches it, a lever shaped differently from its neighbour. The redesigned slice is drawn in blue. Measure all three on 200,000 hazards each.',
+      eq1: ['add:  β·p + (1 − β)·pⁿ⁺¹        redesign:  [β·p + (1 − β)·pⁿ⁻¹] · p', 'adding a slice the condition reaches changes only the smaller term; redesigning one takes it out of the condition and multiplies the whole by one more hole'],
+      eq2: ['p 0.15, three slices, β 0.25:  as it is 4.00%   add 3.79%   redesign 0.82%', 'the redesign lets through about a fifth as much; the extra slice, almost the same'],
+      tryText: 'Measure all three. Then set β to 0 and measure again: with no shared condition, the extra slice wins. The page’s advice holds once the mistakes can’t share a cause.' }
+  ];
+  var Q = '“Systems fail when these “holes” align across layers.” … “The philosophy: don’t design for idealized attention, redesign so failure requires more than one simultaneous mistake.” · the page, opening';
+
+  var step = 0, opt = 0, count = { fired: 0, through: 0 }, shown = null, running = false, anim = null, results = null;
+  var rail = $('rail');
+  STEPS.forEach(function(s, i){ var b = document.createElement('button'); b.textContent = (i + 1) + ' · ' + s.short; b.addEventListener('click', function(){ go(i); }); rail.appendChild(b); });
+
+  function num(id){ return parseFloat($(id).value); }
+  function cfg(){
+    var s = STEPS[step], p = num('p'), n = s.n || num('n'), beta = s.beta != null ? s.beta : num('beta');
+    if (s.test) return options(p, n, beta)[opt].c;
+    return { p: p, n: n, beta: beta, free: 0 };
+  }
+  function labels(){ $('pV').textContent = num('p').toFixed(2); $('nV').textContent = num('n'); $('bV').textContent = num('beta').toFixed(2); }
+  function reset(){ count = { fired: 0, through: 0 }; shown = null; anim = null; results = null; labels(); table(); meter(); draw(); }
+  var seed = 1;
+  function one(){ var r = fire(cfg(), rng(seed++ * 2654435761)); count.fired++; if (r.passed) count.through++; return r; }
+
+  // ---------- the picture ----------
+  var cv = $('plot');
+  function draw(){
+    var r = cv.getBoundingClientRect(), d = window.devicePixelRatio || 1, W = Math.round(r.width * d), H = Math.round(r.height * d);
+    if (!W || !H) return;
+    if (cv.width !== W || cv.height !== H){ cv.width = W; cv.height = H; }
+    var g = cv.getContext('2d'); g.clearRect(0, 0, W, H);
+    var c = cfg(), L = 70 * d, R = W - 70 * d, top = 18 * d, bot = H - 26 * d, sw = 16 * d;
+    var Y = function(v){ return top + v * (bot - top); };
+    var sx = function(i){ return L + (i + 1) * (R - L) / (c.n + 1); };
+    g.font = (10 * d) + 'px JetBrains Mono, monospace'; g.textAlign = 'center'; g.textBaseline = 'top';
+    g.fillStyle = FG3; g.fillText('hazards', L / 2, bot + 8 * d); g.fillText('harm', R + (W - R) / 2, bot + 8 * d);
+    var h = shown ? shown.holes : null;
+    for (var i = 0; i < c.n; i++){
+      var x = sx(i) - sw / 2, free = i >= c.n - (c.free || 0);
+      var hi = h ? h[i] : (i * 0.37 + 0.2) % 1;
+      var aligned = shown && shown.shared && !free;
+      g.fillStyle = free ? 'rgba(74,143,255,0.32)' : 'rgba(232,184,74,0.20)';
+      g.fillRect(x, top, sw, bot - top);
+      // the hole, wrapping round
+      g.fillStyle = '#12121a';
+      var a = hi, b = hi + c.p;
+      g.fillRect(x, Y(a), sw, Y(Math.min(1, b)) - Y(a));
+      if (b > 1) g.fillRect(x, Y(0), sw, Y(b - 1) - Y(0));
+      g.strokeStyle = aligned ? ACC : 'rgba(255,255,255,0.10)'; g.lineWidth = (aligned ? 1.5 : 1) * d;
+      g.strokeRect(x, Y(a), sw, Y(Math.min(1, b)) - Y(a)); if (b > 1) g.strokeRect(x, Y(0), sw, Y(b - 1) - Y(0));
+      g.fillStyle = free ? INFO : FG4; g.fillText(free ? 'redesigned' : 'slice ' + (i + 1), sx(i), bot + 8 * d);
+    }
+    // the hazard in flight
+    if (shown){
+      var stopX = shown.passed ? R + (W - R) * 0.6 : sx(shown.blockedAt) - sw / 2;
+      var u = anim ? Math.min(1, (performance.now() - anim) / 520) : 1, x0 = 14 * d, xh = x0 + (stopX - x0) * u, y = Y(shown.y);
+      g.strokeStyle = shown.passed ? ACC : 'rgba(200,200,216,0.45)'; g.lineWidth = 1.2 * d;
+      g.beginPath(); g.moveTo(x0, y); g.lineTo(xh, y); g.stroke();
+      g.fillStyle = shown.passed ? ACC : (u >= 1 ? WARN : FG2); g.beginPath(); g.arc(xh, y, 4 * d, 0, 2 * Math.PI); g.fill();
+      if (shown.shared && c.n > 1){ g.fillStyle = ACC; g.textAlign = 'left'; g.fillText('the shared condition: holes lined up', L, 2 * d); }
+    }
+  }
+
+  // ---------- the meter ----------
+  function meter(){
+    var c = cfg(), P = predicted(c), h = [];
+    if (count.fired) h.push('fired <b>' + count.fired.toLocaleString() + '</b> · through <b>' + count.through.toLocaleString() + '</b> · share through <b>' + pc(count.through / count.fired) + '</b>');
+    else h.push('nothing fired yet');
+    h.push('the sum says: <b>' + pc(P) + '</b>' + (c.n > 1 ? ' · the stack acts like <b>' + nEff(P, c.p).toFixed(2) + '</b> independent slices of this hole, out of ' + c.n : ''));
+    if (c.beta > 0 && c.n > 1) h.push('the floor no number of slices of this design gets under: β × p = <b>' + pc(c.beta * c.p) + '</b>');
+    $('meter').innerHTML = h.join('<br>');
+  }
+  function table(){
+    var t = $('runs'), tb = t.querySelector('tbody'); tb.innerHTML = '';
+    if (!STEPS[step].test || !results){ t.hidden = true; return; }
+    results.forEach(function(r){ var tr = document.createElement('tr');
+      tr.innerHTML = '<td>' + r.name + '</td><td><b>' + pc(r.measured) + '</b></td><td>' + pc(r.predicted) + '</td><td>' + nEff(r.predicted, r.c.p).toFixed(2) + ' of ' + r.c.n + '</td>'; tb.appendChild(tr); });
+    t.hidden = false;
+  }
+
+  // ---------- the controls ----------
+  function setOpt(k){ opt = k; [0, 1, 2].forEach(function(j){ $('o' + j).setAttribute('aria-pressed', String(j === k)); }); var keep = results; reset(); results = keep; table(); }
+  [0, 1, 2].forEach(function(j){ $('o' + j).addEventListener('click', function(){ setOpt(j); }); });
+  ['p', 'n', 'beta'].forEach(function(id){ $(id).addEventListener('input', reset); });
+  $('run').addEventListener('click', function(){ running = !running; $('run').textContent = running ? 'Stop firing' : 'Fire hazards'; });
+  $('many').addEventListener('click', function(){ var last; for (var i = 0; i < 10000; i++) last = one(); shown = last; anim = null; meter(); draw(); });
+  $('measure').addEventListener('click', function(){
+    var s = options(num('p'), num('n'), num('beta'));
+    results = s.map(function(o, k){ return { name: o.name, c: o.c, measured: measure(o.c, 200000, 7 + k), predicted: predicted(o.c) }; });
+    table();
+  });
+  var lastFire = 0;
+  (function loop(now){ requestAnimationFrame(loop);
+    if (running && (!anim || now - anim > 640)){ shown = one(); anim = now; meter(); }
+    if (anim || running) draw();
+  })(0);
+
+  function go(i){
+    step = i; var s = STEPS[i]; running = false; $('run').textContent = 'Fire hazards';
+    Array.prototype.forEach.call(rail.children, function(b, j){ if (j === i) b.setAttribute('aria-current', 'step'); else b.removeAttribute('aria-current'); });
+    $('stepEyebrow').textContent = 'Step ' + (i + 1) + ' of ' + STEPS.length + (s.test ? ' · the test' : '');
+    $('stepTitle').textContent = s.title; $('stepSay').textContent = s.say;
+    $('eq1').textContent = s.eq1[0]; $('eq1w').textContent = s.eq1[1]; $('eq2').textContent = s.eq2[0]; $('eq2w').textContent = s.eq2[1];
+    $('tryText').textContent = s.tryText;
+    ['cP', 'cN', 'cB', 'cOpt'].forEach(function(id){ $(id).hidden = s.ctl.indexOf(id) < 0; });
+    $('p').value = 0.15; $('n').value = 3; $('beta').value = 0.25; opt = 0; [0, 1, 2].forEach(function(j){ $('o' + j).setAttribute('aria-pressed', String(j === 0)); });
+    $('measure').hidden = !s.test;
+    $('quote').hidden = !(i === 1 || s.test); $('quote').innerHTML = Q;
+    $('back').disabled = i === 0; $('next').disabled = i === STEPS.length - 1;
+    reset();
+  }
+  $('back').addEventListener('click', function(){ if (step > 0) go(step - 1); });
+  $('next').addEventListener('click', function(){ if (step < STEPS.length - 1) go(step + 1); });
+  window.addEventListener('resize', draw);
+  (function(){ var d = ''; for (var i = 0; i <= 200; i++){ var a = i / 200 * 2 * Math.PI; d += (i ? 'L' : 'M') + (9 * Math.sin(3 * a + 0.5)).toFixed(2) + ' ' + (9 * Math.sin(2 * a)).toFixed(2); } $('sigil').setAttribute('d', d); })();
+  go(0);
+})();
+</script>
+</body>
+</html>
