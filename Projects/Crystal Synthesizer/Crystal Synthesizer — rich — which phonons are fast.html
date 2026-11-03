@@ -1,0 +1,313 @@
+<!doctype html>
+<!--
+  title: Crystal Synthesizer — rich — which phonons are fast
+  born: 2026-11-03
+  links: [[Crystal Synthesizer]] connects-to · rich-face-piece · listed in [[Crystal Synthesizer — rich.json]] · [[Progressive Staging]] exemplifies · a walk in steps · [[Dispersion]] connects-to
+  forward_vector: I am the page's own equation, the monatomic chain's dispersion curve, walked up to a test of the sentence beside it. Three steps: the curve, its slope as speed, and a click sent through a chain built from that curve, so the ear can tell which waves arrive first. I change when the section's physics does.
+  engine: a = 1 and √(K/m) = 1, so ω(k) = 2|sin(k/2)|, v_g = cos(k/2), v_p = ω/k. For sound, the zone boundary ω_max is 8 kHz and the chain is long enough that a wave at the speed of sound crosses it in 120 ms; each pitch arrives after L / v_g, the real group delay, not a bounded stand-in. Built in the frequency domain: the magnitude is left flat, only the phase bends.
+  checks: rich-checks/check-rich-pieces.mjs, in the bundle, runs the CHECK block headless: the slope, the all-pass, the arrival of five pitches.
+  dress: Loudon Live, Graphite skin.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:size" content="flow">
+<title>Which phonons are fast</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Manrope:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root { --bg:#0a0a0f; --e1:#12121a; --e2:#181822; --soft:rgba(255,255,255,.07); --border:#4a4a5e; --fg1:#e8e8f0; --fg2:#c8c8d8; --fg3:#8a8aa0; --fg4:#4a4a5a;
+    --amber:#e8b84a; --amberline:rgba(232,184,74,.5); --violet:#a99cf0;
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --sans:'Manrope',system-ui,sans-serif; --serif:'Cormorant Garamond',Georgia,serif; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); font-weight: 300; }
+  .ph-piece { padding: 22px 22px 18px; }
+  .ph-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; }
+  .ph-kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; }
+  .ph-title { font-family: var(--serif); font-size: 28px; font-weight: 300; color: var(--fg1); margin: 0 0 6px; }
+  .ph-sub { font-size: 14px; line-height: 1.6; color: var(--fg2); max-width: 76ch; margin: 0 0 14px; }
+  .ph-tabs { display: flex; flex-wrap: wrap; margin: 4px 0 14px; border: 1px solid var(--border); width: fit-content; max-width: 100%; border-radius: 2px; }
+  .ph-tabs button { border: 0; border-right: 1px solid var(--border); border-radius: 0; background: var(--bg); color: var(--fg3); padding: 7px 11px; }
+  .ph-tabs button:last-child { border-right: 0; }
+  .ph-tabs button[aria-pressed="true"] { color: var(--amber); background: var(--e1); }
+  .ph-step { border: 1px solid var(--soft); background: var(--e1); border-radius: 2px; padding: 14px 16px 16px; }
+  .ph-stephead { font-family: var(--mono); font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--fg3); display: flex; justify-content: space-between; margin-bottom: 8px; }
+  .ph-teach { font-size: 14px; line-height: 1.62; color: var(--fg2); max-width: 78ch; margin: 0 0 10px; }
+  .ph-eq { margin: 10px 0 12px; padding: 8px 0 2px; border-top: 1px solid var(--soft); }
+  .ph-sym { font-family: var(--serif); font-size: 20px; color: var(--fg1); }
+  .ph-words { font-size: 13px; line-height: 1.5; color: var(--fg3); margin: 1px 0 8px; }
+  canvas { display: block; width: 100%; background: var(--bg); border: 1px solid var(--soft); border-radius: 2px; }
+  .ph-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin: 12px 0 4px; }
+  button { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--fg2); background: var(--bg); border: 1px solid var(--border); border-radius: 2px; padding: 7px 12px; cursor: pointer; }
+  button:hover { border-color: var(--amberline); color: var(--fg1); }
+  button.ph-go { color: var(--amber); border-color: var(--amberline); box-shadow: 0 0 14px rgba(232,184,74,.16); }
+  button.ph-on { color: var(--amber); border-color: var(--amberline); }
+  label.ph-sl { display: block; min-width: 260px; flex: 1; font-family: var(--mono); font-size: 11px; letter-spacing: .06em; color: var(--fg3); }
+  label.ph-sl b { color: var(--fg1); font-weight: 500; }
+  input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 3px; background: var(--fg4); margin: 12px 0 4px; outline: none; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 13px; height: 13px; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  input[type=range]::-moz-range-thumb { width: 13px; height: 13px; border: 0; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  .ph-read { display: flex; flex-wrap: wrap; gap: 6px 22px; margin-top: 10px; font-family: var(--mono); font-size: 11.5px; letter-spacing: .04em; color: var(--fg3); }
+  .ph-read b { color: var(--fg1); font-weight: 500; }
+  .ph-back { font-family: var(--mono); font-size: 11px; color: var(--fg3); margin: 10px 0 0; }
+  .ph-nav { display: flex; justify-content: space-between; gap: 10px; margin-top: 14px; }
+  .ph-quote { font-family: var(--serif); font-style: italic; font-size: 17px; color: var(--fg1); border-left: 2px solid var(--amberline); padding: 2px 0 2px 12px; margin: 12px 0; max-width: 72ch; }
+  .ph-answer { font-size: 14px; line-height: 1.6; color: var(--fg2); max-width: 78ch; margin: 10px 0 0; padding-top: 10px; border-top: 1px solid var(--soft); }
+  .ph-answer b { color: var(--fg1); font-weight: 500; }
+  .ph-note { font-size: 12.5px; line-height: 1.55; color: var(--fg3); max-width: 80ch; margin: 10px 0 0; }
+  .ph-foot { display: flex; justify-content: space-between; margin-top: 16px; font-family: var(--mono); font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--fg4); }
+</style>
+</head>
+<body>
+<div class="ph-piece">
+  <div class="ph-head">
+    <div>
+      <div class="ph-kicker">made · study · a walk in three steps</div>
+      <h3 class="ph-title">Which phonons are fast</h3>
+    </div>
+    <svg width="30" height="30" viewBox="-1.2 -1.2 2.4 2.4" aria-label="Lissajous sigil"><circle r="1.12" fill="none" stroke="#4a4a5e" stroke-width=".04"/><path id="sigil" fill="none" stroke="#e8b84a" stroke-width=".06"/></svg>
+  </div>
+  <p class="ph-sub">The section gives one equation, the dispersion curve of the simplest crystal, a line of equal masses on equal springs, and says the curve's shape decides how the crystal resonates. Three steps: the curve, its slope, and a click sent through a crystal built from it. Nothing sounds until you press play.</p>
+  <div class="ph-tabs" id="tabs" role="group" aria-label="steps"></div>
+  <div id="stage"></div>
+  <div class="ph-nav"><button id="back">← back</button><button id="next">next step →</button></div>
+  <div class="ph-foot"><span>Crystal Synthesizer · the monatomic chain</span><span>Loud’n Live</span></div>
+</div>
+
+<script>
+/*CHECK-START*/
+// The chain, in units where the spacing a = 1 and √(K/m) = 1: ω_max = 2, the speed of sound v₀ = 1.
+const PH = (() => {
+  const SR = 44100, N = 65536, F_EDGE = 8000, T0 = 0.12;   // ω_max played at 8 kHz; sound crosses the chain in 120 ms
+  const omega = (ka) => 2 * Math.abs(Math.sin(ka / 2));
+  const vg = (ka) => Math.cos(ka / 2);                       // dω/dk
+  const vp = (ka) => (ka < 1e-9 ? 1 : omega(ka) / ka);       // ω/k
+  // A pitch f is a wave whose ω/ω_max = f / F_EDGE; it crosses the chain at v_g = √(1 − (f/F_EDGE)²).
+  const tArrive = (f) => T0 / Math.sqrt(1 - Math.min(0.999999, (f / F_EDGE) ** 2));
+
+  function fft(re, im, inv = false) {
+    const n = re.length;
+    for (let i = 1, j = 0; i < n; i++) { let b = n >> 1; for (; j & b; b >>= 1) j ^= b; j ^= b; if (i < j) { [re[i], re[j]] = [re[j], re[i]]; [im[i], im[j]] = [im[j], im[i]]; } }
+    for (let len = 2; len <= n; len <<= 1) {
+      const a = (inv ? 2 : -2) * Math.PI / len, wr = Math.cos(a), wi = Math.sin(a);
+      for (let i = 0; i < n; i += len) { let cr = 1, ci = 0;
+        for (let k = 0; k < len / 2; k++) { const p = i + k, q = p + len / 2, tr = re[q] * cr - im[q] * ci, ti = re[q] * ci + im[q] * cr;
+          re[q] = re[p] - tr; im[q] = im[p] - ti; re[p] += tr; im[p] += ti; const nr = cr * wr - ci * wi; ci = cr * wi + ci * wr; cr = nr; } }
+    }
+    if (inv) for (let i = 0; i < n; i++) { re[i] /= n; im[i] /= n; }
+  }
+  // The band the chain carries: flat, tapered at the very bottom and just under ω_max. Nothing above ω_max travels.
+  const amp = (f) => { if (f < 10 || f >= 0.995 * F_EDGE) return 0; let a = 1;
+    if (f < 40) a *= 0.5 - 0.5 * Math.cos(Math.PI * (f - 10) / 30);
+    if (f > 0.97 * F_EDGE) a *= 0.5 + 0.5 * Math.cos(Math.PI * (f - 0.97 * F_EDGE) / (0.025 * F_EDGE));
+    return a; };
+  // The click, through a crystal with no dispersion (every pitch at T0) or through the chain (each at L / v_g).
+  function click(dispersed) {
+    const re = new Float64Array(N), im = new Float64Array(N), df = SR / N;
+    let phase = 0;
+    for (let k = 0; k <= N / 2; k++) {
+      const f = k * df;
+      if (dispersed) { if (k) phase -= 2 * Math.PI * df * 0.5 * (tArrive(f) + tArrive(f - df)); }
+      else phase = -2 * Math.PI * f * T0;
+      const a = amp(f); re[k] = a * Math.cos(phase); im[k] = a * Math.sin(phase);
+      if (k && k < N / 2) { re[N - k] = re[k]; im[N - k] = -im[k]; }
+    }
+    im[N / 2] = 0;
+    fft(re, im, true);
+    return Float32Array.from(re);
+  }
+  function mag(x) { const re = Float64Array.from(x), im = new Float64Array(x.length); fft(re, im); const m = new Float64Array(x.length / 2); for (let i = 0; i < m.length; i++) m[i] = Math.hypot(re[i], im[i]); return m; }
+  // When the energy near pitch f arrives: a narrow band around f, its envelope's peak.
+  function arrival(x, f, rel = 0.01) {
+    const re = Float64Array.from(x), im = new Float64Array(x.length), n = x.length, df = SR / n; fft(re, im);
+    for (let k = 0; k < n; k++) { const fk = k <= n / 2 ? k * df : 0; const w = k <= n / 2 && k > 0 ? 2 * Math.exp(-0.5 * ((fk - f) / (rel * f)) ** 2) : 0; re[k] *= w; im[k] *= w; }
+    fft(re, im, true);
+    let best = 0, at = 0; for (let i = 0; i < n; i++) { const e = re[i] * re[i] + im[i] * im[i]; if (e > best) { best = e; at = i; } }
+    return at / SR;
+  }
+  // A spectrogram for the picture: Hann 1024, hop 256, in dB.
+  function spectrogram(x, tMax = 0.6, fMax = 8500) {
+    const W = 1024, H = 256, frames = Math.floor((tMax * SR) / H), bins = Math.ceil(fMax / (SR / W)), out = [];
+    for (let j = 0; j < frames; j++) {
+      const re = new Float64Array(W), im = new Float64Array(W);
+      for (let i = 0; i < W; i++) { const s = j * H + i - W / 2; re[i] = (s >= 0 && s < x.length ? x[s] : 0) * (0.5 - 0.5 * Math.cos(2 * Math.PI * i / W)); }
+      fft(re, im); const col = new Float32Array(bins); for (let b = 0; b < bins; b++) col[b] = 10 * Math.log10(re[b] * re[b] + im[b] * im[b] + 1e-12); out.push(col);
+    }
+    return { out, t: (j) => (j * H) / SR, f: (b) => b * SR / W };
+  }
+  return { SR, N, F_EDGE, T0, omega, vg, vp, tArrive, click, mag, arrival, spectrogram };
+})();
+/*CHECK-END*/
+
+// ───────────────────────── sound: silent until a click ─────────────────────────
+let actx = null, out = null, osc = null, oscGain = null, sources = [];
+function ctx() {
+  if (!actx) {
+    actx = new (window.AudioContext || window.webkitAudioContext)();
+    const comp = actx.createDynamicsCompressor(); comp.threshold.value = -6; comp.ratio.value = 4;
+    out = actx.createGain(); out.gain.value = 0.9; out.connect(comp); comp.connect(actx.destination);
+  }
+  if (actx.state === 'suspended') actx.resume();
+  return actx;
+}
+function stopSound() {
+  for (const s of sources) { try { s.stop(); } catch (e) {} } sources = [];
+  if (osc) { const g = oscGain, o = osc; g.gain.setTargetAtTime(0, actx.currentTime, 0.02); setTimeout(() => { try { o.stop(); } catch (e) {} }, 150); osc = null; }
+  document.querySelectorAll('[data-tone]').forEach((b) => { b.textContent = '▸ play the mode'; b.classList.add('ph-go'); });
+}
+const toneHz = (ka) => 1760 * Math.sin(ka / 2);              // the zone boundary played at 1760 Hz, for the ear's comfort
+function tone(on, ka) {
+  const a = ctx();
+  if (on && !osc) { osc = a.createOscillator(); oscGain = a.createGain(); oscGain.gain.value = 0; osc.connect(oscGain); oscGain.connect(out); osc.frequency.value = Math.max(20, toneHz(ka)); osc.start(); oscGain.gain.setTargetAtTime(0.18, a.currentTime, 0.03); }
+  else if (!on) stopSound();
+}
+function retune(ka) { if (osc) osc.frequency.setTargetAtTime(Math.max(20, toneHz(ka)), actx.currentTime, 0.02); }
+function playBuf(x) {
+  const a = ctx(); let p = 1e-9; for (const v of x) p = Math.max(p, Math.abs(v));
+  const b = a.createBuffer(1, x.length, PH.SR), ch = b.getChannelData(0); for (let i = 0; i < x.length; i++) ch[i] = x[i] * 0.7 / p;
+  const s = a.createBufferSource(); s.buffer = b; s.connect(out); s.start(a.currentTime + 0.03); sources.push(s);
+}
+
+// ───────────────────────── helpers ─────────────────────────
+const $ = (s, r = document) => r.querySelector(s);
+function el(tag, attrs = {}, ...kids) {
+  const e = document.createElement(tag);
+  for (const [k, v] of Object.entries(attrs)) { if (k === 'class') e.className = v; else if (k.startsWith('on')) e.addEventListener(k.slice(2), v); else e.setAttribute(k, v); }
+  for (const k of kids.flat()) if (k != null) e.append(k.nodeType ? k : document.createTextNode(String(k)));
+  return e;
+}
+const eq = (sym, words) => el('div', {}, el('div', { class: 'ph-sym' }, sym), el('div', { class: 'ph-words' }, words));
+function canvas(h) { const c = el('canvas'); c.style.height = h + 'px'; return c; }
+function fit(c) { const dpr = window.devicePixelRatio || 1, w = c.clientWidth || 600, h = parseInt(c.style.height, 10); c.width = Math.round(w * dpr); c.height = Math.round(h * dpr); const g = c.getContext('2d'); g.setTransform(dpr, 0, 0, dpr, 0, 0); return { g, w, h }; }
+function kSlider(onInput) {
+  const inp = el('input', { type: 'range', min: 0.02, max: Math.PI, step: 0.001, 'aria-label': 'wavenumber ka' }); inp.value = S.ka;
+  const b = el('b'); const lab = el('label', { class: 'ph-sl' }, 'how short the wave is, ka ', b, inp);
+  const upd = () => { S.ka = +inp.value; b.textContent = S.ka.toFixed(2) + (S.ka > 3.1 ? ' · the zone boundary' : ''); retune(S.ka); onInput(); };
+  inp.addEventListener('input', upd); lab._upd = upd; return lab;
+}
+function toneButton() { const b = el('button', { class: 'ph-go', 'data-tone': '1', onclick: () => { if (osc) stopSound(); else { tone(true, S.ka); b.textContent = '■ stop'; b.classList.remove('ph-go'); } } }, '▸ play the mode'); return b; }
+function drawCurve(c, { tangent = false } = {}) {
+  const { g, w, h } = fit(c); const L = 46, R = 14, T = 14, B = 26;
+  const X = (ka) => L + (w - L - R) * ka / Math.PI, Y = (om) => h - B - (h - T - B) * om / 2;
+  g.clearRect(0, 0, w, h); g.font = '10px JetBrains Mono, monospace';
+  g.strokeStyle = 'rgba(255,255,255,.07)'; g.fillStyle = '#4a4a5a';
+  for (const [v, t] of [[0, '0'], [Math.PI / 2, 'π/2'], [Math.PI, 'π · zone boundary']]) { g.beginPath(); g.moveTo(X(v), T); g.lineTo(X(v), h - B); g.stroke(); g.fillText(t, Math.min(X(v) - 4, w - R - g.measureText(t).width), h - 8); }
+  for (const [v, t] of [[0, '0'], [1, 'ω_max/2'], [2, 'ω_max']]) { g.beginPath(); g.moveTo(L, Y(v)); g.lineTo(w - R, Y(v)); g.stroke(); g.fillText(t, 2, Y(v) + 3); }
+  g.strokeStyle = 'rgba(138,138,160,.55)'; g.setLineDash([4, 4]); g.beginPath(); g.moveTo(X(0), Y(0)); g.lineTo(X(2), Y(2)); g.stroke(); g.setLineDash([]);
+  g.fillStyle = '#8a8aa0'; g.fillText('no dispersion: a straight line', X(1.05), Y(2.0) + 12);
+  g.strokeStyle = '#e8b84a'; g.lineWidth = 2; g.beginPath(); for (let i = 0; i <= 300; i++) { const ka = Math.PI * i / 300; i ? g.lineTo(X(ka), Y(PH.omega(ka))) : g.moveTo(X(ka), Y(PH.omega(ka))); } g.stroke(); g.lineWidth = 1;
+  const ka = S.ka, om = PH.omega(ka);
+  if (tangent) { const s = PH.vg(ka), dk = 0.55; g.strokeStyle = '#a99cf0'; g.lineWidth = 1.6; g.beginPath(); g.moveTo(X(ka - dk), Y(om - s * dk)); g.lineTo(X(Math.min(Math.PI, ka + dk)), Y(om + s * (Math.min(Math.PI, ka + dk) - ka))); g.stroke(); g.lineWidth = 1; g.fillStyle = '#a99cf0'; g.fillText('slope = v_g', X(Math.min(ka + 0.1, 2.6)), Y(om) + 16); }
+  g.fillStyle = '#e8b84a'; g.beginPath(); g.arc(X(ka), Y(om), 4.5, 0, 2 * Math.PI); g.fill();
+}
+
+// ───────────────────────── the steps ─────────────────────────
+const S = { step: 1, ka: 0.6, raf: 0, guess: null };
+const STEPS = [];
+
+STEPS.push({ name: 'the curve', build() {
+  const cv = canvas(220), read = el('div', { class: 'ph-read' });
+  const draw = () => { drawCurve(cv); const f = toneHz(S.ka);
+    read.innerHTML = `<span>one wave spans <b>${(2 * Math.PI / S.ka).toFixed(1)}</b> atoms</span><span>ω / ω_max = <b>${(PH.omega(S.ka) / 2).toFixed(3)}</b></span><span>played at <b>${f.toFixed(0)} Hz</b>${f < 30 ? ' · below hearing' : ''}</span>`; };
+  const sl = kSlider(draw);
+  const node = [
+    el('p', { class: 'ph-teach' }, 'Picture a line of equal atoms joined by equal springs. A wave runs along it, and the shorter the wave, the faster each atom shakes. But not in proportion: the curve rises steeply for long waves, then flattens, and stops at the shortest wave a row of atoms can hold, two atoms long, where neighbours move in opposite directions. That end is the zone boundary. Drag along the curve and hear each mode’s pitch.'),
+    el('div', { class: 'ph-eq' }, eq('ω(k) = 2 √(K⁄m) · |sin(ka⁄2)|', '(how fast an atom shakes) = (twice the springs’ stiffness over the mass, square-rooted) × (a sine of how much of the wave fits between two atoms)')),
+    cv, read, el('div', { class: 'ph-row' }, toneButton(), sl),
+    el('p', { class: 'ph-note' }, 'The zone boundary is played at 1760 Hz here, for comfort. In a real crystal it sits at a few terahertz, which the synthesizer scales down.'),
+  ];
+  node._after = () => sl._upd(); node._redraw = draw;
+  return node;
+} });
+
+STEPS.push({ name: 'slope is speed', build() {
+  const cv = canvas(200), chain = canvas(130), read = el('div', { class: 'ph-read' });
+  const draw = () => { drawCurve(cv, { tangent: true });
+    read.innerHTML = `<span>the pulse travels at <b>${PH.vg(S.ka).toFixed(3)}</b> × the speed of sound</span><span>the crests at <b>${PH.vp(S.ka).toFixed(3)}</b> ×</span><span>one wave spans ${(2 * Math.PI / S.ka).toFixed(1)} atoms</span>`; };
+  const sl = kSlider(draw);
+  let t0 = performance.now();
+  const anim = () => {
+    if (!chain.isConnected) return;
+    const { g, w, h } = fit(chain), n = 64, sp = (w - 40) / (n - 1), mid = h / 2 + 6, t = (performance.now() - t0) / 1000 * 6;
+    const k = S.ka, om = PH.omega(k), v = PH.vg(k), sig = 6, x0 = ((10 + v * t) % (n + 20)) - 10;
+    g.clearRect(0, 0, w, h); g.font = '10px JetBrains Mono, monospace';
+    g.strokeStyle = 'rgba(255,255,255,.12)'; g.beginPath(); g.moveTo(20, mid); g.lineTo(w - 20, mid); g.stroke();
+    for (let i = 0; i < n; i++) {
+      const env = Math.exp(-((i - x0) ** 2) / (2 * sig * sig));
+      const y = mid - 34 * env * Math.cos(k * i - om * t);
+      g.fillStyle = `rgba(232,232,240,${0.35 + 0.65 * env})`; g.beginPath(); g.arc(20 + i * sp, y, 3.2, 0, 2 * Math.PI); g.fill();
+    }
+    g.fillStyle = '#e8b84a'; g.beginPath(); g.moveTo(20 + x0 * sp, mid + 46); g.lineTo(20 + x0 * sp - 5, mid + 54); g.lineTo(20 + x0 * sp + 5, mid + 54); g.fill();
+    g.fillStyle = '#8a8aa0'; g.fillText('▲ the pulse, moving at v_g · each atom’s shake drawn sideways so it can be seen', 20, 14);
+    requestAnimationFrame(anim);
+  };
+  const node = [
+    el('p', { class: 'ph-teach' }, 'A pulse of waves carries its energy at the slope of the curve, not at its height. Where the curve is steep, near the long-wave end, the pulse runs at the speed of sound. Where it flattens, the pulse slows, and at the zone boundary it stands still: a standing wave, going nowhere. Drag toward short waves and watch the pulse stop.'),
+    el('div', { class: 'ph-eq' }, eq('v_g = dω⁄dk = a √(K⁄m) · cos(ka⁄2)', '(how fast a pulse’s energy travels) = (the slope of the curve): the speed of sound for long waves, falling to zero at the zone boundary')),
+    cv, chain, read, el('div', { class: 'ph-row' }, toneButton(), sl),
+    el('p', { class: 'ph-note' }, 'The crests travel at ω/k, the phase velocity, and it falls too, from the speed of sound to 2/π of it. By either measure, long waves are the faster ones. The picture leaves out how a real pulse spreads as it goes.'),
+    el('p', { class: 'ph-back' }, 'The curve and the tone are step 1’s, unchanged; the slope and the moving pulse are new.'),
+  ];
+  node._after = () => { sl._upd(); requestAnimationFrame(anim); }; node._redraw = draw;
+  return node;
+} });
+
+STEPS.push({ name: 'a click through the chain', build() {
+  const cv = canvas(240), read = el('div', { class: 'ph-read' }), answer = el('div');
+  const memo = {}; const get = (d) => (memo[d] ??= PH.click(d));
+  let shown = true;
+  const draw = () => {
+    const x = get(shown), sg = PH.spectrogram(x, 0.6), { g, w, h } = fit(cv), L = 46, R = 12, T = 12, B = 24;
+    g.clearRect(0, 0, w, h); g.font = '10px JetBrains Mono, monospace';
+    const cols = sg.out.length, bins = sg.out[0].length, cw = (w - L - R) / cols, bh = (h - T - B) / bins;
+    let top = -1e9; for (const c of sg.out) for (const v of c) top = Math.max(top, v);
+    for (let j = 0; j < cols; j++) for (let b = 0; b < bins; b++) { const v = Math.max(0, (sg.out[j][b] - top + 60) / 60); if (v <= 0) continue; g.fillStyle = `rgba(232,184,74,${(v * v).toFixed(3)})`; g.fillRect(L + j * cw, h - B - (b + 1) * bh, cw + 0.6, bh + 0.6); }
+    g.fillStyle = '#4a4a5a'; for (const t of [0, 0.1, 0.2, 0.3, 0.4, 0.5]) g.fillText(t * 1000 + ' ms', L + (w - L - R) * t / 0.6 - 10, h - 8);
+    for (const f of [0, 2000, 4000, 6000, 8000]) g.fillText(f / 1000 + ' kHz', 2, h - B - (h - T - B) * f / 8500 + 3);
+    g.strokeStyle = 'rgba(169,156,240,.8)'; g.setLineDash([3, 3]); g.beginPath();
+    for (let i = 0; i <= 200; i++) { const f = 7980 * i / 200, t = shown ? PH.tArrive(f) : PH.T0; const xx = L + (w - L - R) * t / 0.6, yy = h - B - (h - T - B) * f / 8500; if (xx > w - R) break; i ? g.lineTo(xx, yy) : g.moveTo(xx, yy); }
+    g.stroke(); g.setLineDash([]);
+    g.fillStyle = '#a99cf0'; g.fillText(shown ? 'predicted: each pitch at L / v_g' : 'no dispersion: every pitch at once', L + 8, T + 10);
+    read.innerHTML = [250, 1000, 4000, 7500].map((f) => `<span>${f >= 1000 ? f / 1000 + ' kHz' : f + ' Hz'} arrives at <b>${(PH.arrival(x, f) * 1000).toFixed(0)} ms</b></span>`).join('');
+  };
+  const pick = (v) => { S.guess = v; const lo = PH.arrival(get(true), 250), hi = PH.arrival(get(true), 7500);
+    answer.innerHTML = `<p class="ph-answer">${v === 'long' ? 'Yes.' : 'Listen again: the thump comes first and the whistle climbs after it.'} The long waves, the low pitches, arrived first: 250 Hz at <b>${(lo * 1000).toFixed(0)} ms</b>, 7.5 kHz at <b>${(hi * 1000).toFixed(0)} ms</b>. In this chain, long-wavelength phonons are the fast ones and short-wavelength phonons the slow ones, by group velocity and by phase velocity alike. The sentence has them the other way round, unless by slow it means slowly shaking, which is the curve’s height, not a speed.</p>`; };
+  const which = el('div', { class: 'ph-row' }, el('span', { class: 'ph-words' }, 'Which arrived first?'),
+    el('button', { onclick: () => pick('long') }, 'the long waves · low pitches'), el('button', { onclick: () => pick('short') }, 'the short waves · high pitches'));
+  const node = [
+    el('p', { class: 'ph-teach' }, 'Now the test. A click holds every pitch at once. Send it through a crystal with no dispersion and every pitch arrives together. Send it through the chain and each pitch crosses at its own group velocity: the click comes apart in time, the way a prism parts white light in space. Play the two, then answer the question under the section’s own sentence.'),
+    el('div', { class: 'ph-eq' }, eq('t(ω) = L ⁄ v_g = (L ⁄ v₀) ⁄ √(1 − (ω⁄ω_max)²)', '(when a pitch arrives) = (the crystal’s length) ÷ (its speed); near ω_max the speed falls toward zero and the highest pitches crawl')),
+    cv, read,
+    el('div', { class: 'ph-row' },
+      el('button', { class: 'ph-go', onclick: () => { stopSound(); shown = false; draw(); playBuf(get(false)); } }, '▸ play the click, no dispersion'),
+      el('button', { class: 'ph-go', onclick: () => { stopSound(); shown = true; draw(); playBuf(get(true)); } }, '▸ play it through the chain')),
+    el('div', { class: 'ph-quote' }, '“Long-wavelength phonons (small k) are slow; short-wavelength phonons are fast.” — the section, as printed when this piece was made'),
+    which, answer,
+    el('p', { class: 'ph-note' }, 'The magnitude is untouched: only arrival times differ, so this is dispersion and not a filter. ω_max is set at 8 kHz, and nothing above it crosses, since a row of atoms can’t carry a wave shorter than two of them. The bundle’s dispersion renders, in the next section, use a bounded stand-in for this delay; this one uses L / v_g itself.'),
+    el('p', { class: 'ph-back' }, 'Each pitch arrives at the speed step 2’s pulse moved for that wave.'),
+  ];
+  node._after = draw; node._redraw = draw;
+  return node;
+} });
+
+// ───────────────────────── the walk ─────────────────────────
+const tabs = $('#tabs'), stage = $('#stage');
+STEPS.forEach((s, i) => tabs.append(el('button', { 'aria-pressed': 'false', onclick: () => go(i + 1) }, (i + 1) + ' · ' + s.name)));
+function go(n) {
+  if (n !== S.step) stopSound();                 // changing step stops the sound
+  S.step = Math.max(1, Math.min(STEPS.length, n));
+  [...tabs.children].forEach((b, i) => b.setAttribute('aria-pressed', String(i + 1 === S.step)));
+  stage.innerHTML = '';
+  const s = STEPS[S.step - 1], nodes = s.build(); stage._after = nodes._after; stage._redraw = nodes._redraw;
+  stage.append(el('section', { class: 'ph-step', 'aria-label': 'step ' + S.step }, el('div', { class: 'ph-stephead' }, el('span', {}, S.step + ' · ' + s.name), el('span', {}, 'step ' + S.step + ' of ' + STEPS.length)), ...nodes));
+  requestAnimationFrame(() => stage._after?.());
+  $('#back').disabled = S.step === 1; $('#next').disabled = S.step === STEPS.length;
+}
+$('#back').onclick = () => go(S.step - 1);
+$('#next').onclick = () => go(S.step + 1);
+let rz = 0; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(() => stage._redraw?.(), 150); });
+(() => { let d = ''; for (let i = 0; i <= 400; i++) { const t = i / 400 * 2 * Math.PI; d += (i ? 'L' : 'M') + Math.sin(3 * t + Math.PI / 2).toFixed(3) + ' ' + Math.sin(2 * t).toFixed(3); } $('#sigil').setAttribute('d', d); })();
+go(1);
+</script>
+</body>
+</html>
