@@ -1,0 +1,316 @@
+<!doctype html>
+<!--
+  title: Floquet Time-Modulated Loops — rich — sideband ladder
+  born: 2026-11-03
+  links: [[Floquet Time-Modulated Loops]] connects-to · rich-face-piece-of · [[Mathieu Equation]] connects-to · the equation it plays · [[Progressive Staging]] exemplifies · a walk up to its test
+  forward_vector: I am the sidebands section as a walk of three steps: ring modulation, four modulator shapes each laid
+    against its own Fourier coefficients (the derivation holds to the last digit), and then the test — the same
+    modulators pumping a resonator, where the coefficients are only the first rung of the envelope and rungs appear
+    that the modulator does not have. I want the reader to own the derivation and know where it stops.
+  dress: Loudon Live house style, Graphite skin, tokens inlined. Equations twice, symbols and words.
+  engine: the script marked id="fq-engine" — modShape (the build's media-13 shapes), coeffs (c_n by a 4800-point sum),
+    renderOpen (carrier × m), renderLoop (x'' + 2ζω₀x' + ω₀²(1 + h·m)x = ω₀² cos ω₀t, RK4 per sample), lineAmp (a DFT
+    at one frequency over exactly one second), firstOrder (h·|c_n|·ω₀²|H(ω_n)|). Sound is the rendered second, looped.
+  checks: Floquet Time-Modulated Loops — proof — rich checks.mjs, beside this file, pulls the fq-engine script out of
+    this file and re-runs each step's claim in Node.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:size" content="flow">
+<title>Where the ladder comes from</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Manrope:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root { --bg:#0a0a0f; --e1:#12121a; --e2:#1a1a28; --border:#4a4a5e; --soft:rgba(255,255,255,.06);
+    --fg1:#e8e8f0; --fg2:#c8c8d8; --fg3:#8a8aa0; --fg4:#4a4a5a; --amber:#e8b84a; --amberline:rgba(232,184,74,.5);
+    --cyan:#6aa8e8; --cyanline:rgba(106,168,232,.55);
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --sans:'Manrope',system-ui,sans-serif; --serif:'Cormorant Garamond',Georgia,serif;
+    --ease:cubic-bezier(.4,0,.2,1); }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); font-weight: 300; }
+  .fq-piece { padding: 22px 22px 16px; max-width: 1100px; }
+  .fq-kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; }
+  .fq-title { font-family: var(--serif); font-size: 28px; font-weight: 300; color: var(--fg1); margin: 0 0 6px; }
+  .fq-sub { font-size: 14px; line-height: 1.6; max-width: 76ch; margin: 0 0 16px; }
+  .fq-rail { display: flex; flex-wrap: wrap; margin-bottom: 14px; border: 1px solid var(--border); width: fit-content; max-width: 100%; border-radius: 2px; }
+  .fq-rail button { border: 0; border-right: 1px solid var(--border); border-radius: 0; }
+  .fq-rail button:last-child { border-right: 0; }
+  button { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--fg2); background: var(--bg);
+    border: 1px solid var(--border); border-radius: 2px; padding: 8px 12px; cursor: pointer; transition: color 220ms var(--ease), border-color 220ms var(--ease); }
+  button:hover { border-color: rgba(232,184,74,.55); color: var(--fg1); }
+  button:disabled { opacity: .4; cursor: default; }
+  button[aria-pressed="true"] { color: var(--amber); border-color: var(--amberline); background: rgba(232,184,74,.08); }
+  .fq-rail button[aria-pressed="true"] { border-right: 1px solid var(--border); }
+  button.fq-go { color: var(--amber); border-color: var(--amberline); min-width: 120px; }
+  button.fq-go.fq-on { box-shadow: 0 0 14px rgba(232,184,74,.22); }
+  button:focus-visible, input:focus-visible { outline: 1px dashed var(--amber); outline-offset: 2px; }
+  .fq-step { display: none; border: 1px solid var(--soft); background: var(--e1); border-radius: 2px; padding: 16px 16px 14px; }
+  .fq-step.fq-shown { display: block; }
+  .fq-step h2 { font-family: var(--serif); font-weight: 400; font-size: 23px; color: var(--fg1); margin: 0 0 4px; }
+  .fq-idea { font-size: 14.5px; line-height: 1.6; color: var(--fg1); max-width: 78ch; margin: 0 0 12px; }
+  .fq-p { font-size: 13.5px; line-height: 1.6; max-width: 78ch; margin: 8px 0; }
+  .fq-label { font-family: var(--mono); font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--fg3); margin: 10px 0 6px; display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+  canvas { display: block; width: 100%; background: var(--bg); border: 1px solid var(--soft); border-radius: 2px; touch-action: none; }
+  .fq-row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 10px 0; }
+  .fq-row label { font-family: var(--mono); font-size: 11px; color: var(--fg3); letter-spacing: .08em; min-width: 11ch; }
+  input[type=range] { accent-color: var(--amber); flex: 1; min-width: 160px; max-width: 420px; }
+  .fq-val { font-family: var(--mono); font-size: 12px; color: var(--fg1); min-width: 9ch; font-variant-numeric: tabular-nums; }
+  .fq-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 8px; margin: 10px 0; }
+  .fq-cell { border: 1px solid var(--soft); background: var(--bg); border-radius: 2px; padding: 8px 10px; }
+  .fq-cell .fq-k { font-family: var(--mono); font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--fg3); }
+  .fq-cell .fq-v { font-family: var(--mono); font-size: 17px; color: var(--fg1); font-variant-numeric: tabular-nums; margin-top: 2px; }
+  .fq-cell.fq-a .fq-v { color: var(--amber); } .fq-cell.fq-c .fq-v { color: var(--cyan); }
+  .fq-eq { border-left: 2px solid var(--amberline); padding: 6px 12px; margin: 12px 0; }
+  .fq-eq .fq-sym { font-family: var(--mono); font-size: 15px; color: var(--fg1); }
+  .fq-eq .fq-words { font-family: var(--serif); font-style: italic; font-size: 16px; color: var(--fg2); margin-top: 2px; }
+  .fq-test { font-size: 14px; line-height: 1.6; color: var(--fg1); border: 1px solid var(--soft); background: var(--e2); padding: 10px 12px; border-radius: 2px; max-width: 86ch; margin: 12px 0 4px; }
+  .fq-test b { color: var(--amber); font-weight: 500; }
+  .fq-note { font-family: var(--mono); font-size: 11px; color: var(--fg3); line-height: 1.6; margin: 6px 0 0; }
+  table.fq-t { border-collapse: collapse; font-family: var(--mono); font-size: 12px; margin: 10px 0; }
+  table.fq-t th, table.fq-t td { border: 1px solid var(--soft); padding: 4px 10px; text-align: right; font-variant-numeric: tabular-nums; }
+  table.fq-t th { color: var(--fg3); font-weight: 400; letter-spacing: .08em; }
+  table.fq-t td:first-child, table.fq-t th:first-child { text-align: left; }
+  .fq-nav { display: flex; justify-content: space-between; margin-top: 12px; }
+  .fq-foot { display: flex; align-items: center; gap: 8px; margin-top: 16px; font-family: var(--mono); font-size: 11px; letter-spacing: .14em; color: var(--fg3); }
+  .fq-foot i { color: var(--amber); font-weight: 300; }
+  .fq-legend { font-family: var(--mono); font-size: 11px; color: var(--fg3); }
+  .fq-legend .fq-sw { display: inline-block; width: 18px; height: 3px; vertical-align: middle; margin: 0 4px 0 10px; }
+
+</style>
+</head>
+
+<body>
+<main class="fq-piece">
+  <div class="fq-kicker">Floquet · where the ladder comes from</div>
+  <h1 class="fq-title">The modulator’s Fourier series, and what a loop does to it</h1>
+  <p class="fq-sub">The page derives the sideband ladder by multiplying a carrier by a periodic modulation, and says the modulation’s Fourier series is the spectral envelope. Three steps: ring modulation, the simplest case; four modulator shapes, each laid against its own coefficients; and then the test, the same modulators put inside a resonating loop, where the page’s Stage 1 instrument lives.</p>
+  <nav class="fq-rail" aria-label="steps">
+    <button data-go="1" aria-pressed="true">1 · ring modulation</button>
+    <button data-go="2" aria-pressed="false">2 · shape the modulator</button>
+    <button data-go="3" aria-pressed="false">3 · inside the loop</button>
+  </nav>
+
+  <section class="fq-step fq-shown" data-step="1">
+    <h2>1 · Ring modulation</h2>
+    <p class="fq-idea">Multiply a 220 Hz tone by an 80 Hz cosine. The 220 Hz is gone; in its place are two tones, at 220 − 80 and 220 + 80. That is the whole of ring modulation, and the simplest system whose coefficient changes in time.</p>
+    <canvas id="c1"></canvas>
+    <div class="fq-row"><button class="fq-go" id="p1a" data-label="hear the 220 Hz tone">hear the 220 Hz tone</button><button class="fq-go" id="p1b" data-label="hear it times cos 80 Hz">hear it times cos 80 Hz</button></div>
+    <div class="fq-eq"><div class="fq-sym">cos(2π·220t) · cos(2π·80t) = ½ cos(2π·140t) + ½ cos(2π·300t)</div>
+      <div class="fq-words">(the tone) times (the modulator) = half a tone at the difference + half a tone at the sum</div></div>
+  </section>
+
+  <section class="fq-step" data-step="2">
+    <h2>2 · Shape the modulator</h2>
+    <p class="fq-idea">Any periodic modulator is a sum of cosines at 80, 160, 240 Hz and so on, with weights c<sub>n</sub>. Each one makes its own pair of sidebands, so the rung at 220 + n·80 Hz should stand exactly as tall as |c<sub>n</sub>|. Pick a shape: the amber stems are measured off the sound, the blue rings are the modulator’s own coefficients.</p>
+    <div class="fq-row" id="k2"></div>
+    <canvas id="c2m"></canvas>
+    <canvas id="c2"></canvas>
+    <div class="fq-row"><button class="fq-go" id="p2" data-label="hear it">hear it</button></div>
+    <p class="fq-test" id="t2"></p>
+  </section>
+
+  <section class="fq-step" data-step="3">
+    <h2>3 · Inside the loop</h2>
+    <p class="fq-idea">The test. Stage 1 is not a multiplier; it is a resonator whose stiffness is pumped, so every sideband goes round the loop and meets the modulator again. Here a resonator tuned to 220 Hz (ζ = 0.05) is driven at 220 Hz while the same modulator pumps it by depth h. Amber is measured, relative to the carrier; blue is the first-order prediction, each c<sub>n</sub> weighed by the resonator’s own response at that rung.</p>
+    <div class="fq-row" id="k3"></div>
+    <div class="fq-row"><label for="h3">depth h</label><input id="h3" type="range" min="0.02" max="0.5" step="0.01" value="0.3"><span class="fq-val" id="h3v"></span></div>
+    <canvas id="c3"></canvas>
+    <div class="fq-row"><button class="fq-go" id="p3" data-label="hear it">hear it</button></div>
+    <table class="fq-t" id="tab3"></table>
+    <p class="fq-test" id="t3"></p>
+    <p class="fq-note">Each setting is computed afresh: half a second to settle, then exactly one second read. Levels are dB relative to the 220 Hz line. A rung reads “none” below −120 dB.</p>
+  </section>
+
+  <div class="fq-nav"><button id="back">back</button><button id="next">next</button></div>
+  <div class="fq-foot">
+    <svg width="22" height="22" viewBox="-11 -11 22 22" aria-hidden="true"><circle r="10" fill="none" stroke="#4a4a5e" stroke-width="1"/><path id="sig" fill="none" stroke="#e8b84a" stroke-width="1"/></svg>
+    <span>Loud’n <i>Live</i></span>
+  </div>
+</main>
+
+<script id="fq-engine">
+/* The ladder, computed. A 220 Hz carrier and an 80 Hz modulator m(t) of four shapes (the build's media-13 shapes).
+   Open loop: y = cos(2π·220 t) · m(t), the derivation on the page.
+   In the loop: a resonator tuned to 220 Hz whose stiffness the modulator pumps, driven by the same carrier:
+     x'' + 2ζω₀x' + ω₀²(1 + h·m(t))·x = ω₀² cos(2π·220 t),  RK4, one step per sample.
+   Lines are read by a DFT at each frequency over exactly one second (a whole number of 20 Hz periods), so a line
+   that is there is read exactly and a line that isn't reads zero. */
+const SB = { SR: 48000, F: 220, FM: 80, TAU: 2 * Math.PI };
+function modShape(kind, ph) {
+  if (kind === 'cosine') return Math.cos(ph);
+  if (kind === 'fm') return Math.cos(ph + 2.4 * Math.cos(ph));
+  if (kind === 'square') { const s = Math.sin(ph); return s > 0 ? 1 : s < 0 ? -1 : 0; }
+  const p = ((ph % SB.TAU) + SB.TAU) % SB.TAU; return 2 * Math.exp(-(((p - Math.PI) / 0.6) ** 2)) + 0.3 * Math.cos(2 * ph) - 0.6;
+}
+/* Complex Fourier coefficients c_n of one period of m, n = −N..N, by a 4800-point sum (exact for the 600-sample
+   period the audio uses, 8 points per sample). */
+function coeffs(kind, N) {
+  const P = 4800, out = {};
+  for (let n = -N; n <= N; n++) { let re = 0, im = 0; for (let k = 0; k < P; k++) { const ph = SB.TAU * (k + 0.5) / P, v = modShape(kind, ph); re += v * Math.cos(n * ph); im -= v * Math.sin(n * ph); } out[n] = { re: re / P, im: im / P, mag: Math.hypot(re, im) / P }; }
+  return out;
+}
+function renderOpen(kind, secs) {
+  const n = Math.round(SB.SR * secs), y = new Float32Array(n);
+  for (let i = 0; i < n; i++) { const t = i / SB.SR; y[i] = Math.cos(SB.TAU * SB.F * t) * modShape(kind, SB.TAU * SB.FM * t); }
+  return y;
+}
+function renderLoop(kind, h, zeta, secs, settle) {
+  const SR = SB.SR, w0 = SB.TAU * SB.F, dt = 1 / SR, n = Math.round(SR * (settle + secs)), y = new Float32Array(Math.round(SR * secs)), k0 = Math.round(SR * settle);
+  const f = (t, x, v) => -2 * zeta * w0 * v - w0 * w0 * (1 + h * modShape(kind, SB.TAU * SB.FM * t)) * x + w0 * w0 * Math.cos(w0 * t);
+  let x = 0, v = 0;
+  for (let i = 0; i < n; i++) {
+    const t = i * dt;
+    const k1x = v, k1v = f(t, x, v);
+    const k2x = v + dt / 2 * k1v, k2v = f(t + dt / 2, x + dt / 2 * k1x, v + dt / 2 * k1v);
+    const k3x = v + dt / 2 * k2v, k3v = f(t + dt / 2, x + dt / 2 * k2x, v + dt / 2 * k2v);
+    const k4x = v + dt * k3v, k4v = f(t + dt, x + dt * k3x, v + dt * k3v);
+    x += dt / 6 * (k1x + 2 * k2x + 2 * k3x + k4x); v += dt / 6 * (k1v + 2 * k2v + 2 * k3v + k4v);
+    if (i >= k0) y[i - k0] = x;
+  }
+  return y;
+}
+/* Peak amplitude of the line at hz, over the whole buffer (one second). */
+function lineAmp(y, hz) {
+  let re = 0, im = 0; const w = SB.TAU * hz / SB.SR;
+  for (let i = 0; i < y.length; i++) { re += y[i] * Math.cos(w * i); im -= y[i] * Math.sin(w * i); }
+  return 2 * Math.hypot(re, im) / y.length;
+}
+/* First order in h: each rung n is the modulator's c_n, times the depth, times the resonator's own response at
+   that rung, relative to the carrier. The modulator's mean c₀ only retunes the resonator, so it goes in the stiffness. */
+function firstOrder(c, n, h, zeta) {
+  const w0 = SB.TAU * SB.F, wn = Math.abs(SB.TAU * (SB.F + n * SB.FM)), k = w0 * w0 * (1 + h * c[0].re);
+  return h * c[n].mag * w0 * w0 / Math.hypot(k - wn * wn, 2 * zeta * w0 * wn);
+}
+</script>
+<script>
+/* Shared by every step: canvases, a looping player, the step rail, the sigil. */
+const $ = (id) => document.getElementById(id);
+const COL = { bg: '#0a0a0f', e1: '#12121a', e2: '#1a1a28', fg1: '#e8e8f0', fg2: '#c8c8d8', fg3: '#8a8aa0', fg4: '#4a4a5a',
+  amber: '#e8b84a', cyan: '#6aa8e8', grid: 'rgba(255,255,255,.07)' };
+const dB = (v) => 20 * Math.log10(Math.max(v, 1e-12));
+function cv(id, hRatio, hMin) {
+  const c = $(id), dpr = window.devicePixelRatio || 1, w = c.clientWidth || 600;
+  const h = Math.max(hMin || 120, Math.round(w * hRatio));
+  if (c.width !== Math.round(w * dpr) || c.height !== Math.round(h * dpr)) { c.width = Math.round(w * dpr); c.height = Math.round(h * dpr); c.style.height = h + 'px'; }
+  const g = c.getContext('2d'); g.setTransform(dpr, 0, 0, dpr, 0, 0); g.clearRect(0, 0, w, h); g.fillStyle = COL.bg; g.fillRect(0, 0, w, h);
+  return { g, w, h };
+}
+let actx = null, src = null;
+async function ensureAudio() { if (!actx) actx = new (window.AudioContext || window.webkitAudioContext)(); if (actx.state !== 'running') await actx.resume(); }
+/* Loop one second of y (whole periods of 20 Hz, so the loop is seamless), scaled to a fixed peak. */
+function loop(y, peak) {
+  stopLoop(); let pk = 1e-9; for (let i = 0; i < y.length; i++) pk = Math.max(pk, Math.abs(y[i]));
+  const b = actx.createBuffer(2, y.length, SB.SR), L = b.getChannelData(0), R = b.getChannelData(1), g = (peak || 0.35) / pk;
+  for (let i = 0; i < y.length; i++) { L[i] = y[i] * g; R[i] = L[i]; }
+  src = actx.createBufferSource(); src.buffer = b; src.loop = true;
+  const env = actx.createGain(); env.gain.setValueAtTime(0, actx.currentTime); env.gain.linearRampToValueAtTime(1, actx.currentTime + 0.03);
+  src.connect(env).connect(actx.destination); src.start();
+}
+function stopLoop() { if (src) { try { src.stop(); } catch (e) {} src = null; } }
+function sigil() { let d = ''; for (let i = 0; i <= 200; i++) { const t = i / 200 * 2 * Math.PI; d += (i ? 'L' : 'M') + (8 * Math.sin(3 * t + Math.PI / 4)).toFixed(2) + ' ' + (8 * Math.sin(2 * t)).toFixed(2); } $('sig').setAttribute('d', d); }
+</script>
+<script>
+// no-engine
+(() => {
+  let step = 1;
+  const KINDS = [['cosine', 'cosine'], ['fm', 'cos of cos (FM)'], ['square', 'square'], ['bump', 'drawn bump']];
+  const NS = [-3, -2, -1, 0, 1, 2, 3, 4, 5, 6];
+  const st = { k2: 'square', k3: 'cosine', h3: 0.3 };
+  const C = {}; KINDS.forEach(([k]) => { C[k] = coeffs(k, 8); });
+  function stopAll() { stopLoop(); document.querySelectorAll('.fq-go').forEach((b) => { b.classList.remove('fq-on'); b.textContent = b.dataset.label; }); }
+
+  /* a stem plot over 0..800 Hz; stems = [{hz, v, col, ring}] in linear (step 1, 2) or dB (step 3) */
+  function stems(id, items, mode) {
+    const { g, w, h } = cv(id, 0.24, 150), x0 = 44, x1 = w - 10, y0 = 10, y1 = h - 22, X = (f) => x0 + f / 800 * (x1 - x0);
+    const Y = mode === 'db' ? (v) => y0 + (1 - (Math.max(-80, Math.min(0, dB(v))) + 80) / 80) * (y1 - y0) : (v) => y0 + (1 - v / 0.7) * (y1 - y0);
+    g.strokeStyle = COL.grid; g.font = '11px JetBrains Mono, monospace'; g.fillStyle = COL.fg3; g.textAlign = 'right';
+    (mode === 'db' ? [0, -20, -40, -60, -80] : [0, 0.25, 0.5]).forEach((v) => { const yy = mode === 'db' ? y0 + (1 - (v + 80) / 80) * (y1 - y0) : Y(v); g.beginPath(); g.moveTo(x0, yy); g.lineTo(x1, yy); g.stroke(); g.fillText(mode === 'db' ? v + ' dB' : String(v), x0 - 4, yy + 4); });
+    g.textAlign = 'center'; for (let f = 0; f <= 800; f += 100) g.fillText(String(f), X(f), h - 6);
+    g.strokeStyle = 'rgba(255,255,255,.18)'; g.setLineDash([3, 4]); g.beginPath(); g.moveTo(X(220), y0); g.lineTo(X(220), y1); g.stroke(); g.setLineDash([]);
+    g.fillStyle = COL.fg3; g.fillText('220', X(220), y0 + 8);
+    items.forEach((s) => {
+      if (s.ring) { if (s.v > 1e-6) { g.strokeStyle = COL.cyan; g.lineWidth = 1.5; g.beginPath(); g.arc(X(s.hz), Y(s.v), 6, 0, 7); g.stroke(); g.lineWidth = 1; } return; }
+      if (s.v < 1e-6) return;
+      g.strokeStyle = s.col || COL.amber; g.lineWidth = 2; g.beginPath(); g.moveTo(X(s.hz), y1); g.lineTo(X(s.hz), Y(s.v)); g.stroke(); g.lineWidth = 1;
+      g.fillStyle = s.col || COL.amber; g.beginPath(); g.arc(X(s.hz), Y(s.v), 3, 0, 7); g.fill();
+    });
+  }
+
+  /* step 1 */
+  let y1a = null, y1b = null;
+  function draw1() {
+    if (!y1a) { y1a = new Float32Array(SB.SR); for (let i = 0; i < SB.SR; i++) y1a[i] = Math.cos(SB.TAU * 220 * i / SB.SR); y1b = renderOpen('cosine', 1); }
+    const items = [{ hz: 220, v: lineAmp(y1a, 220), col: COL.fg4 }];
+    [140, 300].forEach((hz) => items.push({ hz, v: lineAmp(y1b, hz) }));
+    stems('c1', items, 'lin');
+  }
+
+  /* step 2 */
+  let y2 = null, y2k = null;
+  function drawShape(id, kind) {
+    const { g, w, h } = cv(id, 0.09, 64), x0 = 44, x1 = w - 10, y0 = 6, yb = h - 6;
+    let lo = Infinity, hi = -Infinity; const v = []; for (let i = 0; i <= 400; i++) { const m = modShape(kind, SB.TAU * i / 400); v.push(m); lo = Math.min(lo, m); hi = Math.max(hi, m); }
+    const Y = (m) => y0 + (1 - (m - lo) / (hi - lo || 1)) * (yb - y0);
+    g.strokeStyle = COL.grid; g.beginPath(); g.moveTo(x0, Y(0)); g.lineTo(x1, Y(0)); g.stroke();
+    g.strokeStyle = COL.cyan; g.lineWidth = 1.5; g.beginPath(); v.forEach((m, i) => { const xx = x0 + i / 400 * (x1 - x0); if (i) g.lineTo(xx, Y(m)); else g.moveTo(xx, Y(m)); }); g.stroke(); g.lineWidth = 1;
+    g.font = '11px JetBrains Mono, monospace'; g.fillStyle = COL.fg3; g.fillText('m(t), one period (12.5 ms)', x0 + 4, y0 + 10);
+  }
+  function draw2() {
+    if (y2k !== st.k2) { y2 = renderOpen(st.k2, 1); y2k = st.k2; }
+    drawShape('c2m', st.k2);
+    const c = C[st.k2], items = []; let worst = 0, worstN = 0;
+    NS.forEach((n) => { const hz = Math.abs(220 + 80 * n), m = lineAmp(y2, hz); items.push({ hz, v: m }); items.push({ hz, v: c[n].mag, ring: true }); const e = Math.abs(m - c[n].mag); if (e > worst) { worst = e; worstN = n; } });
+    stems('c2', items, 'lin');
+    const zeros = NS.filter((n) => c[n].mag < 1e-6).map((n) => 220 + 80 * n);
+    $('t2').innerHTML = '<b>Open loop, the page’s derivation holds to the last digit you can read.</b> Every rung from 20 to 700 Hz stands at |c<sub>n</sub>|: the largest difference is <b>' + worst.toExponential(1) + '</b> (at n = ' + worstN + (st.k2 === 'square' ? ', where the square’s jump falls between samples' : '') + ').'
+      + (zeros.length ? ' Where the shape has no harmonic, there is no rung: nothing at ' + zeros.filter((f) => f > 0).join(', ') + ' Hz.' : '') + (Math.abs(c[0].re) > 1e-6 ? ' This shape has a mean, c₀ = ' + c[0].re.toFixed(3) + ', so some of the 220 Hz carrier survives.' : ' This shape has no mean, so the 220 Hz carrier itself is gone.');
+  }
+
+  /* step 3 */
+  let y3 = null, y3key = '';
+  function draw3() {
+    const key = st.k3 + '|' + st.h3; if (key !== y3key) { y3 = renderLoop(st.k3, st.h3, 0.05, 1, 0.5); y3key = key; }
+    const c = C[st.k3], X0 = lineAmp(y3, 220), items = [], rows = [];
+    NS.forEach((n) => { if (!n) return; const hz = Math.abs(220 + 80 * n), m = lineAmp(y3, hz) / X0, p = firstOrder(c, n, st.h3, 0.05); items.push({ hz, v: m }); items.push({ hz, v: p, ring: true }); rows.push({ n, hz, cn: c[n].mag, p, m }); });
+    items.push({ hz: 220, v: 1, col: COL.fg4 });
+    stems('c3', items, 'db');
+    $('h3v').textContent = st.h3.toFixed(2);
+    const f = (v) => v < 1e-6 ? 'none' : dB(v).toFixed(1);
+    $('tab3').innerHTML = '<tr><th>rung n</th><th>Hz</th><th>|c<sub>n</sub>|</th><th>first order, dB</th><th>measured, dB</th></tr>' + rows.map((r) => '<tr><td>' + (r.n > 0 ? '+' : '') + r.n + '</td><td>' + r.hz + '</td><td>' + r.cn.toFixed(3) + '</td><td>' + f(r.p) + '</td><td>' + f(r.m) + '</td></tr>').join('');
+    const r1 = rows.find((r) => r.n === -1), r2 = rows.find((r) => r.n === 1), zeroRungs = rows.filter((r) => r.cn < 1e-6 && r.m > 1e-6).sort((a, b) => b.m - a.m);
+    let s = '<b>Inside the loop the modulator’s Fourier series is not the envelope; it is the first rung of one.</b> ';
+    if (r1.cn > 1e-6) s += 'c₋₁ and c₊₁ are equal, ' + r1.cn.toFixed(3) + ' each, but the rungs at 140 and 300 Hz come out ' + f(r1.m) + ' and ' + f(r2.m) + ' dB: the resonator answers 140 Hz and 300 Hz differently, and the first-order prediction, which weighs each c<sub>n</sub> by that answer, lands within ' + Math.max(Math.abs(dB(r1.m) - dB(r1.p)), Math.abs(dB(r2.m) - dB(r2.p))).toFixed(1) + ' dB of both. ';
+    if (zeroRungs.length) s += 'And there are rungs the modulator does not have: c<sub>n</sub> = 0 at ' + zeroRungs.slice(0, 3).map((r) => r.hz + ' Hz').join(', ') + ', yet the loop puts <b>' + f(zeroRungs[0].m) + ' dB</b> at ' + zeroRungs[0].hz + ' Hz. A sideband that goes round once meets the modulator again and makes sidebands of its own. ';
+    s += 'Bring h down to 0.02 and the rungs the derivation knows land on their predictions while the extra ones sink toward nothing; push it to 0.5 and the extra rungs climb toward the others.';
+    $('t3').innerHTML = s;
+  }
+
+  function kindRow(id, key, after) {
+    const row = $(id); KINDS.forEach(([k, label]) => { const b = document.createElement('button'); b.textContent = label; b.setAttribute('aria-pressed', st[key] === k ? 'true' : 'false'); b.onclick = () => { st[key] = k; row.querySelectorAll('button').forEach((x) => x.setAttribute('aria-pressed', x === b ? 'true' : 'false')); after(); }; row.appendChild(b); });
+  }
+  const UPD = { 1: draw1, 2: draw2, 3: draw3 };
+  function show(n) {
+    stopAll(); step = n;
+    document.querySelectorAll('.fq-step').forEach((s) => s.classList.toggle('fq-shown', +s.dataset.step === n));
+    document.querySelectorAll('.fq-rail button').forEach((b) => b.setAttribute('aria-pressed', +b.dataset.go === n ? 'true' : 'false'));
+    $('back').disabled = n === 1; $('next').disabled = n === 3;
+    UPD[n]();
+  }
+  const playing = (btn, y) => async () => { if (btn.classList.contains('fq-on')) { stopAll(); return; } await ensureAudio(); stopAll(); loop(y()); btn.classList.add('fq-on'); btn.textContent = 'stop'; };
+  function wire() {
+    document.querySelectorAll('.fq-rail button').forEach((b) => b.onclick = () => show(+b.dataset.go));
+    $('back').onclick = () => show(Math.max(1, step - 1)); $('next').onclick = () => show(Math.min(3, step + 1));
+    $('p1a').onclick = playing($('p1a'), () => y1a); $('p1b').onclick = playing($('p1b'), () => y1b);
+    kindRow('k2', 'k2', () => { const on = $('p2').classList.contains('fq-on'); draw2(); if (on) loop(y2); });
+    kindRow('k3', 'k3', () => { const on = $('p3').classList.contains('fq-on'); draw3(); if (on) loop(y3); });
+    $('p2').onclick = playing($('p2'), () => y2); $('p3').onclick = playing($('p3'), () => y3);
+    let ht = null; $('h3').oninput = () => { st.h3 = +$('h3').value; $('h3v').textContent = st.h3.toFixed(2); clearTimeout(ht); ht = setTimeout(() => { const on = $('p3').classList.contains('fq-on'); draw3(); if (on) loop(y3); }, 120); };
+    let rz = null; new ResizeObserver(() => { clearTimeout(rz); rz = setTimeout(() => UPD[step](), 80); }).observe(document.querySelector('.fq-piece'));
+  }
+  sigil(); wire(); $('back').disabled = true; draw1();
+})();
+</script>
+</body>
+</html>
