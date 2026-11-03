@@ -83,6 +83,52 @@
         "round": "proposal-round-2026-11"
       },
       "made": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "proofs/2026-05-04-five-flavors.png",
+            "verdict": "keep",
+            "why": "A record; the caption states what was measured on the WAVs and the image matches it."
+          },
+          {
+            "file": "Categorizing Inharmonicity — rich — threshold.html",
+            "verdict": "keep",
+            "why": "Tests the Open Questions threshold blind and walks up to it; textbook 2-down 1-up. Notes for a later round: the reference is never roved (pitch and brightness count as cues), it never tests kind against kind, and its symbol m collides with the Bessel order."
+          },
+          {
+            "file": "proofs/2026-05-04-01-harmonic.wav",
+            "verdict": "keep",
+            "why": "A record; partials measured on their places, 220.0 to 3520.0 Hz."
+          },
+          {
+            "file": "proofs/2026-05-04-02-stretched.wav",
+            "verdict": "remake",
+            "why": "Caption only: partial 16 at 3863.7 Hz is 161.3 cents above 3520 (160.6 against 16 x 220.09), not 162; write 161."
+          },
+          {
+            "file": "proofs/2026-05-04-03-bessel.wav",
+            "verdict": "keep",
+            "why": "A record; the J0 family and the near-even 287 Hz spacing re-measured independently, and the caption says one family is a comb slid up."
+          },
+          {
+            "file": "proofs/2026-05-04-04-stochastic.wav",
+            "verdict": "keep",
+            "why": "A record; partial 1 near 229 Hz, scatter up to 58 Hz, frozen, as the caption says."
+          },
+          {
+            "file": "proofs/2026-05-04-05-chaotic.wav",
+            "verdict": "remake",
+            "why": "Caption only: by ear claims a hearing nobody made; write by its spectrum. Frozen and nothing below 220 Hz both re-measured."
+          },
+          {
+            "file": "Categorizing Inharmonicity — rich — phase loop.html",
+            "verdict": "remake",
+            "why": "Wording only, engine unchanged: line 80 drops the section’s in a feedback path, and the step-4 verdict (line 425) says the condition is one the section doesn’t state; its first sentence states it, and it is the synthesis list that drops it."
+          }
+        ]
+      },
       "pieces": [
         {
           "file": "proofs/2026-05-04-five-flavors.png",
