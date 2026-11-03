@@ -1,0 +1,40 @@
+# Validator warnings on main, 2026-11-03 — 292 ok, 0 FAIL. Each is deliberate per its family agent's report; none blocks.
+ok   acid-bass.yaml  (1 warning)
+     warn  essential osc1.glide = 'legato only' is not a glide word; the voice will fall back
+ok   acid-sequence.yaml  (1 warning)
+     warn  essential osc1.glide = 'legato only' is not a glide word; the voice will fall back
+ok   daft-punk-vocoder.yaml  (1 warning)
+     warn  fx.chain 'vocoder' is not a known effect (['bitcrusher', 'chorus', 'compressor', 'delay', 'distortion', 'drive', 'echo', 'ensemble', 'eq', 'filter', 'flanger', 'limiter', 'phaser', 'reverb', 'ring mod', 'saturation', 'stereo widener', 'tremolo', 'vibrato']); it is drawn by name and not heard
+ok   fast-lfo-into-audio-range.yaml  (1 warning)
+     warn  essential lfo1.rate = 'swept, medium to past very fast' is not a rate word; the voice will fall back
+ok   filter-thunk.yaml  (1 warning)
+     warn  modulation to filter2.level: 'level' is not a standard filter jack (['cutoff', 'drive', 'in', 'res', 'resonance']); it will be added to the block
+ok   granular-pad.yaml  (1 warning)
+     warn  modulation to osc1.position: 'position' is not a standard oscillator jack (['detune', 'fm', 'glide', 'level', 'pitch', 'pw', 'shape', 'sync']); it will be added to the block
+ok   hammond-b3.yaml  (1 warning)
+     warn  fx.chain 'rotary' is not a known effect (['bitcrusher', 'chorus', 'compressor', 'delay', 'distortion', 'drive', 'echo', 'ensemble', 'eq', 'filter', 'flanger', 'limiter', 'phaser', 'reverb', 'ring mod', 'saturation', 'stereo widener', 'tremolo', 'vibrato']); it is drawn by name and not heard
+ok   karplus-strong-damping.yaml  (1 warning)
+     warn  no key → pitch route: the keyboard does not play the pitch (fine only for noise and drums)
+ok   karplus-strong-string.yaml  (2 warnings)
+     warn  no key → pitch route: the keyboard does not play the pitch (fine only for noise and drums)
+     warn  essential filter1.cutoff = 'keytracked' is not a cutoff word; the voice will fall back
+ok   legato-glide-default.yaml  (1 warning)
+     warn  essential osc1.glide = 'legato only' is not a glide word; the voice will fall back
+ok   noise-wash.yaml  (1 warning)
+     warn  no key → pitch route: the keyboard does not play the pitch (fine only for noise and drums)
+ok   portamento-bass.yaml  (1 warning)
+     warn  essential osc1.glide = 'legato only' is not a glide word; the voice will fall back
+ok   portamento-control-phantom-note.yaml  (1 warning)
+     warn  essential osc1.glide = 'always on' is not a glide word; the voice will fall back
+ok   resonator-chime.yaml  (1 warning)
+     warn  no key → pitch route: the keyboard does not play the pitch (fine only for noise and drums)
+ok   shimmer-pad.yaml  (1 warning)
+     warn  fx.chain 'pitch shift' is not a known effect (['bitcrusher', 'chorus', 'compressor', 'delay', 'distortion', 'drive', 'echo', 'ensemble', 'eq', 'filter', 'flanger', 'limiter', 'phaser', 'reverb', 'ring mod', 'saturation', 'stereo widener', 'tremolo', 'vibrato']); it is drawn by name and not heard
+ok   sitar.yaml  (1 warning)
+     warn  essential filter1.cutoff = 'keytracked' is not a cutoff word; the voice will fall back
+ok   svf-morph-in-motion.yaml  (1 warning)
+     warn  modulation to filter1.morph: 'morph' is not a standard filter jack (['cutoff', 'drive', 'in', 'res', 'resonance']); it will be added to the block
+ok   tb-303-line.yaml  (1 warning)
+     warn  essential osc1.glide = 'legato only' is not a glide word; the voice will fall back
+ok   tempo-synced-filter-lfo.yaml  (1 warning)
+     warn  essential lfo1.rate = '1/8' is not a rate word; the voice will fall back

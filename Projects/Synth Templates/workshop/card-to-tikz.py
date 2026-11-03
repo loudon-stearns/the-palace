@@ -346,6 +346,7 @@ def main(path):
         if param not in ins: param = ins[0]
         if param == "gate": style = "gatewire"
         lab = esc(m.get("amount", ""))
+        if str(m.get("polarity", "")).lower() in ("negative", "inverted", "-") or m.get("invert") is True: lab = ("$-$ " + lab).strip()   # a negative route reads "− amount" (2026-11-03)
         bus = (LAYOUT["bus2"] if src in PERF else LAYOUT["bus"]) - k * OFF   # each wire its own bus lane
         sx = X(src) + W/2 + 0.45 + k * OFF                                   # and its own drop
         sy = Y(src) if src in PERF else Y(src) + bh(src)/2 - JACK_TOP        # leave at the out jack's own height: no diagonals

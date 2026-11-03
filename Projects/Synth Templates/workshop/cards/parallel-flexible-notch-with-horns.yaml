@@ -32,7 +32,7 @@ graph:
     - [filter2, amp]
     - [amp, out]
   modulation:
-    - {from: fenv, to: filter2.cutoff, amount: generous, invert: true, essential: true}
+    - {from: fenv, to: filter2.cutoff, amount: generous, polarity: negative, essential: true}
     - {from: aenv, to: amp.level, essential: true}
     - {from: key,  to: osc1.pitch, essential: true}
     - {from: key,  to: fenv.gate, essential: true}

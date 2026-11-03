@@ -1,6 +1,11 @@
 # Synth Templates — builds picker.html (the completeness tracker) from catalog.json. One file, no build step, Drafting Table paper ground.
-import json
+import json, glob, yaml
 data = json.load(open("catalog.json"))
+# the cards on disk set a floor: a card whose yaml says drafted is at least drafted on any machine (2026-11-03)
+NAMES = ["todo", "drafted", "rendered", "verified"]
+floor = {}
+for f in glob.glob("cards/*.yaml"):
+    c = yaml.safe_load(open(f)); floor[c["id"]] = NAMES.index(c.get("status", "drafted")) if c.get("status") in NAMES else 1
 n = sum(len(f["items"]) for f in data["families"])
 html = r'''<!doctype html>
 <html lang="en" data-theme="paper">
@@ -119,7 +124,7 @@ let st={}; try{st=JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){}
 let view='tier', filt='all', q='', concept=null;
 const items=[]; DATA.families.forEach((f,fi)=>f.items.forEach((it,ii)=>items.push({...it,family:f.name,fi,ii})));
 const byId=Object.fromEntries(items.map(i=>[i.id,i]));
-const S=id=>st[id]|0;
+const FLOOR=__FLOOR__; const S=id=>Math.max(st[id]|0, FLOOR[id]|0);
 function save(){try{localStorage.setItem(KEY,JSON.stringify(st))}catch(e){}}
 function row(it,num){
   const tr=document.createElement('tr'); tr.className='item'; tr.dataset.id=it.id;
@@ -200,6 +205,6 @@ document.getElementById('reset').addEventListener('click',()=>{if(confirm('Reset
 build();
 </script>
 </body></html>'''
-html = html.replace("__DATA__", json.dumps(data)).replace("__N__", str(n)).replace("__F__", str(len(data["families"]))).replace("__C__", str(len(data["concepts"])))
+html = html.replace("__DATA__", json.dumps(data)).replace("__FLOOR__", json.dumps(floor)).replace("__N__", str(n)).replace("__F__", str(len(data["families"]))).replace("__C__", str(len(data["concepts"])))
 open("picker.html","w").write(html)
 print("picker.html written:", n, "templates,", len(data["concepts"]), "concepts")

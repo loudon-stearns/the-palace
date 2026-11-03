@@ -47,6 +47,13 @@ Where this is going: a website generated from the cards, a catalog to choose fro
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="synth-templates-2026-11-03-without-me" -->
+### 2026-11-03 — Three small moves without him: the tracker's floor, negative routes labelled, the warnings written down
+
+Loudon: "what can you do without me … move forward where possible." Three things that needed no ruling. The Completeness Tracker (`workshop/build-picker.py`, `picker.html`) now reads each card's `status` from the cards at build time as a floor, so every card shows at least drafted on any machine, and the browser can still raise one to rendered or verified. `card-to-tikz.py` labels a modulation route with `polarity: negative` (or `inverted`) as "− amount" on the sheet, which closes the "nothing draws polarity" gap from the swarm's list; `parallel-flexible-notch-with-horns.yaml` had `invert: true` and was normalised to `polarity: negative`; six cards re-rendered (keytracked-decay, inverted-filter-envelope, parallel-flexible-notch-with-horns and velocity-attack-negative changed in sheet and preview; steel-drum and trumpet only in their preview PNGs, their sheets unchanged). The twenty validator warnings on main are written down in `workshop/_swarm/WARNINGS-2026-11-03.txt`, each deliberate per its family agent. `build-site.py` and `site/` untouched; another agent is at work there.
+
+_Left rough:_ the rest of the swarm's gap list and the three questions for him stand.
+<!-- /scroll:entry -->
 <!-- scroll:entry id="synth-templates-2026-11-03-swarm-landed" -->
 ### 2026-11-03 — "Merge it": the swarm's drafts landed on main
 
