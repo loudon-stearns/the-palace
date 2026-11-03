@@ -1,0 +1,139 @@
+{
+  "title": "Signal-Rate CV Architecture — rich",
+  "born": "2026-11-03",
+  "links": [
+    {
+      "target": "[[Signal-Rate CV Architecture]]",
+      "type": "connects-to",
+      "label": "rich-face-of"
+    },
+    {
+      "target": "[[Enrichment]]",
+      "type": "connects-to",
+      "label": "made-by"
+    },
+    {
+      "target": "[[Action Potential Oscillator]]",
+      "type": "connects-to",
+      "label": "engines-from"
+    },
+    {
+      "target": "[[Progressive Staging]]",
+      "type": "connects-to",
+      "label": "walks-built-by-the-method"
+    }
+  ],
+  "forward_vector": "I am the manifest of Signal-Rate CV Architecture's rich face: two walks the Shop made, the leak on a jack ending on signal rate against block rate and the zero guard ending on whether the guard's floor still sings, beside the steward's RNBO phrase where every control is a signal inlet, with the fingerprint of the words each was made against. I grow when the entry is enriched again; I never hold the entry's words.",
+  "entry": "Signal-Rate CV Architecture",
+  "tier": "study",
+  "made": "2026-11-03",
+  "round": 1,
+  "offers": [
+    {
+      "section": "Three Converging Arguments",
+      "kind": "claim-change",
+      "what": "The slow example earns the jack, not the per-sample rate; this sharpens the page rather than refuting it. Measured on the face's engine (stage 2, 110 Hz, τ swung 1–15 ms, 48 kHz, τ held per 128-sample block against read every sample), and confirmed by the challenger to the tenth: the block version sits 63.5 dB under the voice at a 0.25 Hz LFO and 54.9 dB under at 0.5 Hz; −41.0 at 2 Hz, −29.0 at 8, −17.6 at 30; past half the block rate the held τ follows the wrong motion (a 300 Hz LFO is read as 75 Hz), and at the block rate it is a constant 3.873 ms. A gen~ param can't take the LFO at all without a conversion, which is the boundary the modular argument names; the rate starts to matter from tens of Hz up. Proposed, one sentence after the example: 'Read once a block, a slow LFO would sound nearly the same; what it needs is the jack. Speed it up and the block version zippers, past half the block rate it reads the wrong motion, and at the block rate none at all, which is where hearing the equation needs the equation run every sample.'",
+      "status": "open"
+    },
+    {
+      "section": "Three Converging Arguments",
+      "kind": "claim-change",
+      "what": "Signal rate means writing the math for an input that moves, not only reading it every sample. In the face's engine a drive worked out as if τ held still (the one that reaches threshold from rest in a period) bends the pitch when τ moves inside a cycle: 4 / 12 / 32 / 139 / 560 cents swing at 0.1 / 0.25 / 0.5 / 2 / 8 Hz (110 Hz, τ 1–15 ms; challenger confirmed). The cause: the leak's resting level is drive × τ, so a moving τ makes the same voltage a different point in the cycle (a first-order estimate gives 34 / 137 / 546 cents at 0.5 / 2 / 8 Hz). A drive recomputed every sample from where the charge is, for what is left of the period, holds it at 437 samples. The numbers belong to the engines, not this page (neuropulse.dsp v0.4 bends less, 60 cents at 2 Hz, because its charge is only part of the period). The sweep's direction holds as written: with the pitch held the leakier membrane is the brighter (τ 0.5 ms: 31 harmonics within 20 dB; 50 ms: 10). Proposed, after the example: 'Running the math every sample isn't the whole of it: anything worked out as if an input held still, like the drive that keeps the pitch, has to be worked out again for an input that moves.'",
+      "status": "open"
+    },
+    {
+      "section": "Practical Consequences in Gen~ / RNBO",
+      "kind": "claim-change",
+      "what": "'Every input that appears in a denominator or as an argument to exp() must be guarded against zero using max() or clamp()': the rule holds, and it is half the job. On the dev plan's Gen~ stage 2, line for line (doubles, 48 kHz): unguarded, τ = 0 gives NaN on the first sample (0 · −∞ + ∞) and the History keeps it NaN after τ comes back (a negative τ does not NaN). With the plan's max(in2, 0.1) nothing becomes NaN, but the floor is silent for every note up to 283 Hz on a fine scan (challenger: 282.8): once the period runs past about 35 time constants the charge meets threshold only within the last bit of a double, and rounding decides whether it fires. This happens with any drive aimed exactly at threshold, so it is the guard's finding. (The sharpness above the floor is the plan's drive, not the guard; see the offer to the Action Potential Oscillator.) Proposed: '…must be guarded against zero using max() or clamp(), with the floor set where the math still holds, not just above zero; for a leaky charge that floor depends on the note.'",
+      "status": "open"
+    },
+    {
+      "section": "→ Action Potential Oscillator",
+      "kind": "claim-change",
+      "what": "Two findings for the Action Potential Oscillator's engines, from this face and its challenge. (1) The dev plan's stage 2 drive, 1/(τ(1 − e^(−P/τ))), mixes the continuous decay with the discrete leak 1 − 1/τ and plays sharp by about 1/(2τ) at every τ: 17 cents at τ = 1 ms on any note, 186–194 cents at the 0.1 ms floor; held notes stay within a sample of their period only from τ ≈ 3.34 / 1.93 / 1.05 ms at 110 / 220 / 440 Hz (48 kHz). The plan expects it to 'compensate exactly' (neural_oscillator_dev_plan.md:217); the discrete drive (1 − c)/(1 − c^P) does, in tune at 110 Hz from τ 0.29 ms (challenger). (2) The same 0.1 ms floor silences the built engines (challenger's runs): neuropulse.dsp v0.4 at τ 0.1 ms, which is its knob's own minimum, is silent up to about 294 Hz in double precision and through 440 Hz in single, Faust's default; at 110 Hz single precision is silent up to τ 0.5 ms. The crowd codebox is silent up to about 156 Hz. With the default spreads part of the crowd misfires instead of going quiet. A floor tied to the period, or a threshold test that doesn't rest on the last bit, would fix both.",
+      "status": "open"
+    }
+  ],
+  "sections": [
+    {
+      "heading": "Three Converging Arguments",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "made": "2026-11-03",
+      "pieces": [
+        {
+          "file": "Signal-Rate CV Architecture — rich — the leak on a jack.html",
+          "origin": "made",
+          "by": "Web Audio Worklet",
+          "height": 1260,
+          "title": "the leak on a jack · a walk in five steps",
+          "caption": "**Does the equation need to run every sample to be heard?** One leaky ramp, then its time constant turned by hand, then an LFO patched into it, then the LFO raised past 20 Hz until motion turns into colour. The last step feeds the same LFO to two membranes, one reading τ every sample and one once per 128-sample block, and lets you hear only what they don't share. The engine is the Action Potential Oscillator's stage 2; step 3 also shows the pitch bending under the drive the palace's engines use, and a drive that holds it.",
+          "near": "Patch an LFO into the leak time constant"
+        }
+      ],
+      "made_against": "02250de168c3",
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Signal-Rate CV Architecture — rich — the leak on a jack.html",
+            "verdict": "keep",
+            "why": "A real test: block against signal rate could have sounded different at every rate and does not at slow ones, which is offer 1; re-run to the tenth of a dB, and the result holds under the engines’ own drive too (pitch within a sample up to 0.5 Hz). Walks up in five steps; note only that step 3 carries two ideas, the jack and the drive’s pitch bend."
+          }
+        ]
+      }
+    },
+    {
+      "heading": "Practical Consequences in Gen~ / RNBO",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "made": "2026-11-03",
+      "pieces": [
+        {
+          "file": "/Projects/Action Potential Oscillator/neuropulse-codebox-phrase.wav",
+          "origin": "gathered",
+          "title": "every control an inlet · the steward's RNBO crowd, 14 October",
+          "caption": "24 s from the hand-written RNBO codebox of the Action Potential Oscillator's crowd, where every control is an in~ with a sig~ default and nothing is a param. A four-note phrase, A2 C3 E3 D3, with the coupling breathing on a 0.2 Hz sine patched into its inlet while the spread between neurons widens: early breaths lock into a clear tone, the last ones only reach about a third of the way. Rendered by the steward's Node harness running the codebox text; it hasn't been heard in Max.",
+          "near": "Default values provided by"
+        },
+        {
+          "file": "Signal-Rate CV Architecture — rich — the zero guard.html",
+          "origin": "made",
+          "by": "Web Audio Worklet",
+          "height": 1160,
+          "title": "the zero guard · a walk in four steps",
+          "caption": "**Is a guard against zero enough?** The dev plan's Gen~ stage 2, line for line: one exp() in a denominator, then the cable pulled so the inlet reads 0 and the membrane turns to NaN and stays there, then the plan's max(in2, 0.1). The last step maps every note against every τ, guarded and not, and sweeps τ to zero and back so you can listen along. A NaN leaves the piece as silence; the state is left as the plan's code leaves it.",
+          "near": "must be guarded against zero"
+        }
+      ],
+      "made_against": "e94d869ef6bc",
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "/Projects/Action Potential Oscillator/neuropulse-codebox-phrase.wav",
+            "verdict": "keep",
+            "why": "Decoration, honestly labelled: the section’s only built instance of every control an in~ with a sig~ default, caption matching the steward’s scroll and saying it was never heard in Max. Its 0.2 Hz LFO witnesses the jack, not the rate, and the caption claims no more."
+          },
+          {
+            "file": "Signal-Rate CV Architecture — rich — the zero guard.html",
+            "verdict": "remake",
+            "why": "A good test with one misattribution: step 4’s verdict blames the floor for the sharpness, which is the plan’s exp()-against-(1 − 1/τ) drive at every τ (17 cents at 1 ms, any note; with a pow() drive 110 Hz is in tune from 0.29 ms). Keep the silent limit as the guard’s finding, name the sharp one as the plan’s drive, and give the in-tune edges from a fine scan (3.34 / 1.93 / 1.05 ms at 48 kHz), not the map grid."
+          }
+        ]
+      }
+    }
+  ]
+}

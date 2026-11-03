@@ -1,0 +1,433 @@
+<!doctype html>
+<!--
+  title: Signal-Rate CV Architecture — rich — the leak on a jack
+  born: 2026-11-03
+  links: [[Signal-Rate CV Architecture]] (connects-to · rich-face-piece) · [[Action Potential Oscillator]] (connects-to · the engine is its stage 2) · [[Progressive Staging]] (exemplifies · a walk in five steps) · listed in [[Signal-Rate CV Architecture — rich.json]]
+  forward_vector: I am the section's pedagogical and modular arguments as a walk you can play. One leaky
+    ramp, then its time constant turned by hand, then an LFO patched into it, then the LFO raised past
+    hearing-as-motion into colour, and last the test: the same jack read once a sample or once a
+    128-sample block, side by side, with what the block version adds measured and audible on its own.
+    I play inside the entry's rich face and stand alone opened directly; I change only when the section
+    I serve does.
+  engine: stage 2 of the Action Potential Oscillator's dev plan (a leaky charge to 1, hard reset to 0),
+    two membranes fed the same inputs: one reads tau every sample, one holds it for 128 samples. The
+    drive is either "as built" (worked out as if tau held for the whole cycle, as neuropulse.dsp and the
+    Gen~ plan do) or "tracking" (recomputed every sample from where the charge is, for what is left of
+    the period). The same engine runs in the worklet and draws every picture. Checked headless by
+    "Signal-Rate CV Architecture — rich — checks.mjs", beside this file.
+  dress: Loudon Live house style, Graphite skin.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:needs" content="">
+<title>Signal-Rate CV Architecture — the leak on a jack</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Manrope:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root { --bg:#0a0a0f; --e1:#12121a; --border:#4a4a5e; --soft:rgba(255,255,255,.07); --fg1:#e8e8f0; --fg2:#c8c8d8; --fg3:#8a8aa0; --fg4:#4a4a5a;
+    --amber:#e8b84a; --amberline:rgba(232,184,74,.5); --blue:#4aadff; --violet:#a64aff;
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --sans:'Manrope',system-ui,sans-serif; --serif:'Cormorant Garamond',Georgia,serif; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); font-weight: 300; }
+  .srcv-piece { padding: 22px 22px 20px; }
+  .srcv-kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; display: flex; align-items: center; gap: 10px; }
+  .srcv-kicker svg { width: 18px; height: 18px; }
+  .srcv-title { font-family: var(--serif); font-size: 27px; font-weight: 300; color: var(--fg1); margin: 0 0 6px; }
+  .srcv-sub { font-size: 14px; line-height: 1.6; color: var(--fg2); max-width: 76ch; margin: 0 0 16px; }
+  .srcv-rail { display: flex; flex-wrap: wrap; gap: 0; margin: 0 0 14px; }
+  .srcv-rail button { border-radius: 0; margin-right: -1px; }
+  .srcv-rail button[aria-pressed="true"] { color: var(--amber); border-color: var(--amberline); position: relative; z-index: 1; }
+  button { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--fg2); background: var(--bg); border: 1px solid var(--border); border-radius: 2px; padding: 8px 12px; cursor: pointer; transition: border-color 220ms cubic-bezier(.4,0,.2,1), color 220ms cubic-bezier(.4,0,.2,1); }
+  button:hover { border-color: rgba(232,184,74,.55); color: var(--fg1); }
+  button:disabled { opacity: .35; cursor: default; }
+  button.srcv-go { color: var(--amber); border-color: var(--amberline); box-shadow: 0 0 14px rgba(232,184,74,.18); min-width: 104px; }
+  button.srcv-on { color: var(--amber); border-color: var(--amberline); }
+  .srcv-step { border: 1px solid var(--soft); background: var(--e1); border-radius: 2px; padding: 14px 16px 16px; }
+  .srcv-stephead { font-family: var(--mono); font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--fg3); display: flex; justify-content: space-between; gap: 10px; margin-bottom: 6px; }
+  .srcv-says { font-size: 14.5px; line-height: 1.62; color: var(--fg2); max-width: 78ch; margin: 0 0 12px; }
+  .srcv-says b { color: var(--fg1); font-weight: 500; }
+  .srcv-grid { display: grid; grid-template-columns: 3fr 2fr; gap: 14px; }
+  @media (max-width: 720px) { .srcv-grid { grid-template-columns: 1fr; } }
+  .srcv-panel { border: 1px solid var(--soft); border-radius: 2px; background: var(--bg); padding: 8px 10px; }
+  .srcv-plabel { font-family: var(--mono); font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+  canvas { display: block; width: 100%; }
+  .srcv-controls { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px 22px; align-items: end; margin-top: 14px; }
+  .srcv-btns { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+  label.srcv-sl { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: .06em; color: var(--fg3); }
+  label.srcv-sl b { color: var(--fg1); font-weight: 500; }
+  input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 3px; background: var(--fg4); margin: 12px 0 4px; outline: none; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 13px; height: 13px; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  input[type=range]::-moz-range-thumb { width: 13px; height: 13px; border: 0; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  .srcv-read { display: flex; flex-wrap: wrap; gap: 6px 22px; margin-top: 12px; font-family: var(--mono); font-size: 11.5px; letter-spacing: .04em; color: var(--fg3); }
+  .srcv-read b { color: var(--fg1); font-weight: 500; }
+  .srcv-read .srcv-flag { color: var(--amber); }
+  .srcv-eqs { margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--soft); }
+  .srcv-eq { font-family: var(--serif); font-size: 19px; color: var(--fg1); }
+  .srcv-words { font-size: 13px; line-height: 1.55; color: var(--fg2); margin: 2px 0 10px; max-width: 78ch; }
+  .srcv-back { font-family: var(--mono); font-size: 11px; letter-spacing: .04em; color: var(--fg3); margin-top: 10px; }
+  .srcv-nav { display: flex; justify-content: space-between; gap: 10px; margin-top: 14px; }
+  .srcv-key { display: flex; gap: 14px; flex-wrap: wrap; font-family: var(--mono); font-size: 10.5px; color: var(--fg3); margin-top: 6px; }
+  .srcv-key i { display: inline-block; width: 14px; height: 2px; vertical-align: middle; margin-right: 5px; }
+  .srcv-verdict { margin-top: 12px; font-size: 14px; line-height: 1.6; color: var(--fg1); max-width: 78ch; border-left: 2px solid var(--amberline); padding-left: 12px; }
+</style>
+</head>
+<body>
+<div class="srcv-piece">
+  <div class="srcv-kicker"><svg id="sigil" viewBox="0 0 18 18" aria-hidden="true"></svg><span>made · Web Audio Worklet · study · a walk in five steps</span></div>
+  <h3 class="srcv-title">The leak on a jack</h3>
+  <p class="srcv-sub">One neuron's membrane, charging to a threshold and starting again. Its leak time constant τ begins as a knob and ends as a jack you can patch anything into. Nothing sounds until you press play. The last step reads the same jack two ways, once a sample and once a block, and lets you hear what the block costs.</p>
+
+  <div class="srcv-rail" id="rail" role="group" aria-label="steps"></div>
+  <div class="srcv-step">
+    <div class="srcv-stephead"><span id="stepname"></span><span id="stepof"></span></div>
+    <p class="srcv-says" id="says"></p>
+    <div class="srcv-grid">
+      <div class="srcv-panel">
+        <div class="srcv-plabel"><span>membrane voltage, and τ beneath it</span><span id="wavenote"></span></div>
+        <canvas id="wave" height="220"></canvas>
+        <div class="srcv-key" id="key"></div>
+      </div>
+      <div class="srcv-panel">
+        <div class="srcv-plabel"><span>spectrum, loudest = 0 dB</span><span>0 – 2.4 kHz</span></div>
+        <canvas id="spec" height="220"></canvas>
+      </div>
+    </div>
+    <div class="srcv-panel" id="resPanel" style="margin-top:14px;display:none">
+      <div class="srcv-plabel"><span>what the block version adds, against LFO rate</span><span id="resnote"></span></div>
+      <canvas id="res" height="210"></canvas>
+      <div class="srcv-key"><span><i style="background:#e8b84a"></i>difference between the two, in dB under the voice</span><span><i style="background:rgba(166,74,255,.7)"></i>half the block rate and the block rate</span><span><i style="background:#e8e8f0"></i>where your LFO is</span></div>
+    </div>
+    <div class="srcv-controls" id="controls"></div>
+    <div class="srcv-read" id="read"></div>
+    <div class="srcv-verdict" id="verdict" style="display:none"></div>
+    <div class="srcv-eqs" id="eqs"></div>
+    <div class="srcv-back" id="backline"></div>
+    <div class="srcv-nav"><button id="prev">← back</button><button id="next">next step →</button></div>
+  </div>
+</div>
+
+<script id="engine">
+/* ENGINE:START — stage 2 of the Action Potential Oscillator (a leaky charge to 1, hard reset to 0), two
+   membranes fed the same inputs. Membrane S reads tau every sample (signal rate); membrane B holds tau for
+   a block of 128 samples, read at the block's first sample (block rate, as a k-rate parameter does).
+   Shared by the AudioWorklet and the headless check; it touches nothing of the page. */
+function LeakJack(SR) {
+  const BLOCK = 128;
+  const P = { freq: 110, tau: 5, lfo: false, lfoHz: 0.25, lo: 1, hi: 15, drive: 'track' };
+  let ph = 0, n = 0, held = P.tau;
+  const S = { V: 0, el: 0 }, B = { V: 0, el: 0 };
+  const out = { s: 0, b: 0, tauS: 0, tauB: 0, fireS: false, fireB: false };
+  // the LFO swings tau between lo and hi on a log scale, so it spends as long leaky as tight
+  function tauNow() { return P.lfo ? Math.exp(Math.log(P.lo) + (Math.log(P.hi) - Math.log(P.lo)) * (0.5 + 0.5 * Math.sin(ph))) : P.tau; }
+  // one sample of one membrane: V[n] = V[n-1] * (1 - 1/tau) + drive; at 1, back to 0
+  function charge(m, tauMs, period) {
+    const tau = tauMs * 0.001 * SR, c = 1 - 1 / tau;
+    let d;
+    if (P.drive === 'steady') {
+      // as built: the drive that reaches 1 in one period from 0, as if tau held for the whole cycle
+      d = (1 - c) / (1 - Math.pow(c, period));
+    } else {
+      // tracking: the drive that reaches 1 from where the charge is now, in what is left of the period
+      const cr = Math.pow(c, Math.max(1, period - m.el));
+      d = (1 - m.V * cr) * (1 - c) / (1 - cr);
+    }
+    m.V = m.V * c + d; m.el++;
+    if (m.V >= 1 - 1e-12) { m.V = 0; m.el = 0; return true; }
+    return false;
+  }
+  function reset() { S.V = B.V = 0; S.el = B.el = 0; ph = 0; n = 0; held = tauNow(); }
+  function set(o) { for (const k in o) if (k in P) P[k] = o[k]; }
+  function tick() {
+    const tS = tauNow();
+    if (n % BLOCK === 0) held = tS;
+    const period = SR / Math.max(1, P.freq);
+    out.fireS = charge(S, tS, period); out.fireB = charge(B, held, period);
+    out.s = S.V * 2 - 1; out.b = B.V * 2 - 1; out.tauS = tS; out.tauB = held;
+    ph += 2 * Math.PI * P.lfoHz / SR; if (ph >= 2 * Math.PI) ph -= 2 * Math.PI;
+    n++;
+    return out;
+  }
+  return { P, set, reset, tick, BLOCK };
+}
+/* ENGINE:END */
+</script>
+<script id="measure">
+/* MEASURE:START — what the pictures and readouts say, from the same engine. Also run by the headless check. */
+function render(params, SR, N, warm) {
+  const e = LeakJack(SR); e.set(params); e.reset();
+  for (let i = 0; i < warm; i++) e.tick();
+  const s = new Float64Array(N), b = new Float64Array(N), tS = new Float64Array(N), tB = new Float64Array(N), fS = [], fB = [];
+  for (let i = 0; i < N; i++) { const o = e.tick(); s[i] = o.s; b[i] = o.b; tS[i] = o.tauS; tB[i] = o.tauB; if (o.fireS) fS.push(i); if (o.fireB) fB.push(i); }
+  return { s, b, tS, tB, fS, fB };
+}
+// a steady tau: one exact period, its harmonics, how many stand within 20 dB of the loudest, the centroid over the whole band
+function steadyTone(freq, tau, SR) {
+  const r = render({ freq, tau, lfo: false }, SR, Math.ceil(SR / freq) * 6, Math.ceil(SR / freq) * 4);
+  const f = r.fS, P = f[f.length - 1] - f[f.length - 2];
+  const seg = r.s.slice(f[f.length - 2], f[f.length - 1]);
+  const mean = seg.reduce((a, v) => a + v, 0) / P, H = [];
+  for (let k = 1; k <= Math.floor(P / 2); k++) { let re = 0, im = 0; for (let i = 0; i < P; i++) { const w = 2 * Math.PI * k * i / P; re += (seg[i] - mean) * Math.cos(w); im -= (seg[i] - mean) * Math.sin(w); } H.push(2 * Math.hypot(re, im) / P); }
+  const loud = Math.max(...H); let num = 0, den = 0; H.forEach((m, i) => { num += (i + 1) * m; den += m; });
+  return { P, f0: SR / P, H, within20: H.filter(m => m >= loud * 0.1).length, centroidHz: num / den * SR / P };
+}
+// how far the pitch swings: shortest and longest period over two seconds
+function pitchSwing(params, SR) {
+  const r = render(params, SR, SR * 2, Math.round(SR * 0.25));
+  const per = (f) => { let lo = Infinity, hi = 0; for (let i = 1; i < f.length; i++) { const p = f[i] - f[i - 1]; lo = Math.min(lo, p); hi = Math.max(hi, p); } return { lo, hi, cents: 1200 * Math.log2(hi / lo) }; };
+  return { s: per(r.fS), b: per(r.fB) };
+}
+// what the block version adds: the difference between the two membranes, in dB under the signal-rate one.
+// With the tracking drive both fire on the same samples, so the difference is the shape alone.
+function residueDb(params, SR) {
+  const r = render(Object.assign({}, params, { drive: 'track' }), SR, SR, Math.round(SR * 0.1));
+  let ms = 0, md = 0, mean = 0; for (const v of r.s) mean += v; mean /= r.s.length;
+  for (let i = 0; i < r.s.length; i++) { ms += (r.s[i] - mean) ** 2; md += (r.s[i] - r.b[i]) ** 2; }
+  let tlo = Infinity, thi = 0; for (const v of r.tB) { tlo = Math.min(tlo, v); thi = Math.max(thi, v); }
+  return { db: md > 0 ? 10 * Math.log10(md / ms) : -Infinity, blockTau: [tlo, thi] };
+}
+function fftMag(x) {
+  let n = 1; while (n < x.length) n <<= 1;
+  const re = new Float64Array(n), im = new Float64Array(n); let mean = 0; for (const v of x) mean += v; mean /= x.length;
+  for (let i = 0; i < x.length; i++) re[i] = (x[i] - mean) * (0.5 - 0.5 * Math.cos(2 * Math.PI * i / (x.length - 1)));
+  for (let i = 1, j = 0; i < n; i++) { let bit = n >> 1; for (; j & bit; bit >>= 1) j ^= bit; j ^= bit; if (i < j) { [re[i], re[j]] = [re[j], re[i]]; [im[i], im[j]] = [im[j], im[i]]; } }
+  for (let len = 2; len <= n; len <<= 1) { const a = -2 * Math.PI / len, wr = Math.cos(a), wi = Math.sin(a); for (let i = 0; i < n; i += len) { let cr = 1, ci = 0; for (let k = 0; k < len / 2; k++) { const h = i + k + len / 2, xr = re[h] * cr - im[h] * ci, xi = re[h] * ci + im[h] * cr; re[h] = re[i + k] - xr; im[h] = im[i + k] - xi; re[i + k] += xr; im[i + k] += xi; const t = cr * wr - ci * wi; ci = cr * wi + ci * wr; cr = t; } } }
+  const mag = new Float64Array(n / 2); for (let k = 0; k < n / 2; k++) mag[k] = Math.hypot(re[k], im[k]); return { mag, n };
+}
+/* MEASURE:END */
+</script>
+<script>
+'use strict';
+let SR = 48000;                       // the pictures run at 48 kHz until the sound starts, then at the device's rate
+(function sigil() { const s = document.getElementById('sigil'); let d = ''; for (let i = 0; i <= 160; i++) { const t = 2 * Math.PI * i / 160; d += (i ? 'L' : 'M') + (9 + 7.5 * Math.sin(3 * t + Math.PI / 2)).toFixed(2) + ',' + (9 + 7.5 * Math.sin(2 * t)).toFixed(2); } s.innerHTML = '<path d="' + d + '" fill="none" stroke="#e8b84a" stroke-width="1"/>'; })();
+
+const St = { step: 1, freq: 110, tau: 5, lfoHz: 0.25, fastHz: 60, testHz: 0.25, drive: 'steady', listen: 'signal', playing: false };
+const $ = id => document.getElementById(id);
+const el = (tag, attrs = {}, ...kids) => { const n = document.createElement(tag); for (const k in attrs) { if (k === 'on') for (const ev in attrs.on) n.addEventListener(ev, attrs.on[ev]); else if (k === 'html') n.innerHTML = attrs[k]; else n.setAttribute(k, attrs[k]); } kids.forEach(c => n.append(c)); return n; };
+const blockRate = () => SR / 128;
+
+function params() {
+  const s = St.step;
+  if (s <= 2) return { freq: St.freq, tau: s === 1 ? 5 : St.tau, lfo: false, drive: 'track', lfoHz: 0 };
+  if (s === 3) return { freq: St.freq, lfo: true, lfoHz: St.lfoHz, lo: 1, hi: 15, drive: St.drive };
+  if (s === 4) return { freq: St.freq, lfo: true, lfoHz: St.fastHz, lo: 1, hi: 15, drive: 'track' };
+  return { freq: St.freq, lfo: true, lfoHz: St.testHz, lo: 1, hi: 15, drive: 'track' };
+}
+const listenMode = () => St.step === 5 ? St.listen : 'signal';
+
+// ───────── sound: one worklet runs the engine; silent until a click ─────────
+let ctx = null, node = null, master = null;
+const WORKLET = () => document.getElementById('engine').textContent + `
+class SrcvJack extends AudioWorkletProcessor {
+  constructor() { super(); this.e = LeakJack(sampleRate); this.mode = 'signal'; this.x1 = 0; this.y1 = 0;
+    this.port.onmessage = (ev) => { const d = ev.data; if (d.set) this.e.set(d.set); if (d.mode) this.mode = d.mode; if (d.reset) this.e.reset(); }; }
+  process(_, outs) { const L = outs[0][0], R = outs[0][1] || L;
+    for (let i = 0; i < L.length; i++) { const o = this.e.tick();
+      let x = this.mode === 'block' ? o.b : this.mode === 'diff' ? (o.s - o.b) : o.s;
+      if (!isFinite(x)) x = 0;
+      const y = x - this.x1 + 0.9987 * this.y1; this.x1 = x; this.y1 = y;   // a DC blocker
+      L[i] = y * 0.36; if (R !== L) R[i] = L[i]; }
+    return true; }
+}
+registerProcessor('srcv-jack', SrcvJack);`;
+
+async function play() {
+  if (!ctx) {
+    ctx = new AudioContext();
+    const url = URL.createObjectURL(new Blob([WORKLET()], { type: 'application/javascript' }));
+    await ctx.audioWorklet.addModule(url); URL.revokeObjectURL(url);
+    node = new AudioWorkletNode(ctx, 'srcv-jack', { numberOfInputs: 0, numberOfOutputs: 1, outputChannelCount: [2] });
+    const comp = ctx.createDynamicsCompressor(); comp.threshold.value = -16; comp.ratio.value = 4;
+    master = ctx.createGain(); master.gain.value = 0;
+    node.connect(comp).connect(master).connect(ctx.destination);
+    ctx.onstatechange = () => { if (ctx.state !== 'running' && St.playing) { St.playing = false; paint(); } };
+    if (ctx.sampleRate !== SR) { SR = ctx.sampleRate; resCurve = null; build(); }
+  }
+  send(true);
+  await ctx.resume();
+  master.gain.cancelScheduledValues(ctx.currentTime);
+  master.gain.setTargetAtTime(0.8, ctx.currentTime, 0.05);
+  St.playing = true; paint();
+}
+function stopSound() {
+  if (!ctx || !St.playing) { St.playing = false; return; }
+  master.gain.setTargetAtTime(0, ctx.currentTime, 0.03);
+  const c = ctx; setTimeout(() => { if (!St.playing) c.suspend(); }, 160);
+  St.playing = false; paint();
+}
+function send(reset) { if (node) node.port.postMessage({ set: params(), mode: listenMode(), reset: !!reset }); }
+
+// ───────── pictures ─────────
+function fit(cv) { const r = window.devicePixelRatio || 1, w = cv.clientWidth, h = cv.height / (cv._r || 1); cv._r = r; cv.style.height = h + 'px'; cv.width = Math.round(w * r); cv.height = Math.round(h * r); const g = cv.getContext('2d'); g.setTransform(r, 0, 0, r, 0, 0); return { g, w, h }; }
+function drawWave(r) {
+  const { g, w, h } = fit($('wave'));
+  g.clearRect(0, 0, w, h);
+  const top = 6, vb = h * 0.66, tt = vb + 12, tb = h - 6;
+  g.strokeStyle = 'rgba(255,255,255,.06)'; g.lineWidth = 1;
+  for (const v of [0, 0.5, 1]) { const y = top + (1 - v) * (vb - top); g.beginPath(); g.moveTo(0, y); g.lineTo(w, y); g.stroke(); }
+  g.fillStyle = '#4a4a5a'; g.font = '10px "JetBrains Mono", monospace';
+  g.fillText('threshold 1', w - 74, top + 10);
+  const n = r.s.length, X = i => i / (n - 1) * w, Yv = v => top + (1 - (v + 1) / 2) * (vb - top);
+  const lt = v => Math.log(v / 0.5) / Math.log(50 / 0.5), Yt = v => tb - lt(v) * (tb - tt);
+  g.fillRect(0, tt - 6, w, 1);
+  for (const t of [1, 5, 15]) { g.fillStyle = 'rgba(255,255,255,.05)'; g.fillRect(0, Yt(t), w, 1); g.fillStyle = '#4a4a5a'; g.fillText('τ ' + t + ' ms', w - 56, Yt(t) - 2); }
+  const path = (arr, Y, col, lw, dash) => { g.strokeStyle = col; g.lineWidth = lw; g.setLineDash(dash || []); g.beginPath(); for (let i = 0; i < n; i++) { const x = X(i), y = Y(arr[i]); i ? g.lineTo(x, y) : g.moveTo(x, y); } g.stroke(); g.setLineDash([]); };
+  if (St.step === 5) { path(r.b, Yv, 'rgba(74,173,255,.85)', 1.3); path(r.tB, Yt, 'rgba(74,173,255,.9)', 1.3); }
+  path(r.s, Yv, '#e8b84a', 1.6); path(r.tS, Yt, '#e8b84a', 1.2, St.step === 5 ? [3, 3] : null);
+}
+function drawSpec(r) {
+  const { g, w, h } = fit($('spec'));
+  g.clearRect(0, 0, w, h);
+  const top = 10, bot = h - 16, dbMin = -70, fMax = 2400, L = 24;
+  g.fillStyle = '#4a4a5a'; g.font = '10px "JetBrains Mono", monospace';
+  for (const db of [0, -20, -40, -60]) { const y = top + (-db / -dbMin) * (bot - top); g.fillRect(L, y, w - L, 1); g.fillText(db + '', 0, y + 3); }
+  const X = f => L + f / fMax * (w - L - 2);
+  for (let k = 1; k * St.freq <= fMax; k++) { g.fillStyle = 'rgba(232,184,74,.10)'; g.fillRect(X(k * St.freq), top, 1, bot - top); }
+  for (const f of [0, 1000, 2000]) g.fillText(f ? f / 1000 + 'k' : '0', X(f) - 4, h - 3);
+  const line = (x, col) => {
+    const { mag, n } = fftMag(x), loud = Math.max(...mag);
+    g.strokeStyle = col; g.lineWidth = 1.2; g.beginPath(); let started = false;
+    for (let k = 1; k < n / 2; k++) { const f = k * SR / n; if (f > fMax) break; const db = Math.max(dbMin, 20 * Math.log10(mag[k] / loud + 1e-12)); const y = top + (-db / -dbMin) * (bot - top); if (!started) { g.moveTo(X(f), y); started = true; } else g.lineTo(X(f), y); }
+    g.stroke();
+  };
+  const seg = (a) => a.slice(a.length - 8192);
+  if (St.step === 5) line(seg(r.bLong), 'rgba(74,173,255,.8)');
+  line(seg(r.sLong), '#e8b84a');
+}
+let resCurve = null;
+const RES_RATES = Array.from({ length: 25 }, (_, i) => 0.05 * Math.pow(1000 / 0.05, i / 24));
+function residueCurve() {
+  if (resCurve) return resCurve;
+  const extra = [blockRate() / 2, blockRate()];
+  const rates = RES_RATES.concat(extra).sort((a, b) => a - b);
+  resCurve = rates.map(f => ({ f, ...residueDb({ freq: 110, lfo: true, lfoHz: f, lo: 1, hi: 15 }, SR) }));
+  return resCurve;
+}
+function drawRes() {
+  const { g, w, h } = fit($('res'));
+  g.clearRect(0, 0, w, h);
+  const L = 34, R = w - 10, T = 8, B = h - 22, dbMin = -80;
+  const X = f => L + Math.log(f / 0.05) / Math.log(1000 / 0.05) * (R - L), Y = db => T + Math.min(1, Math.max(0, db / dbMin)) * (B - T);
+  g.font = '10px "JetBrains Mono", monospace';
+  for (const db of [0, -20, -40, -60, -80]) { g.fillStyle = 'rgba(255,255,255,.05)'; g.fillRect(L, Y(db), R - L, 1); g.fillStyle = '#4a4a5a'; g.fillText(db + '', 4, Y(db) + 3); }
+  for (const f of [0.1, 1, 10, 100, 1000]) { g.fillStyle = '#4a4a5a'; g.fillRect(X(f), B, 1, 4); g.fillText((f < 1 ? f : f) + ' Hz', X(f) - 12, h - 6); }
+  for (const f of [blockRate() / 2, blockRate()]) { g.strokeStyle = 'rgba(166,74,255,.7)'; g.setLineDash([3, 3]); g.beginPath(); g.moveTo(X(f), T); g.lineTo(X(f), B); g.stroke(); g.setLineDash([]); }
+  const pts = residueCurve();
+  g.strokeStyle = '#e8b84a'; g.lineWidth = 1.6; g.beginPath(); pts.forEach((p, i) => { const x = X(p.f), y = Y(p.db); i ? g.lineTo(x, y) : g.moveTo(x, y); }); g.stroke();
+  const x = X(Math.min(1000, Math.max(0.05, St.testHz)));
+  g.strokeStyle = '#e8e8f0'; g.lineWidth = 1; g.beginPath(); g.moveTo(x, T); g.lineTo(x, B); g.stroke();
+}
+
+// ───────── the steps ─────────
+let syncs = [];
+const fmtHz = f => f < 1 ? f.toFixed(2) : f < 10 ? f.toFixed(1) : Math.round(f) + '';
+function slider({ label, min, max, get, set, fmt }) {
+  const span = el('b'); const input = el('input', { type: 'range', min: 0, max: 1000, step: 1, 'aria-label': label });
+  const toPos = v => Math.round(Math.log(v / min) / Math.log(max / min) * 1000), fromPos = p => min * Math.pow(max / min, p / 1000);
+  input.value = toPos(get());
+  const show = () => { span.textContent = fmt(get()); };
+  input.addEventListener('input', () => { set(fromPos(+input.value)); show(); send(); update(); });
+  show(); syncs.push(() => { if (document.activeElement !== input) input.value = toPos(get()); show(); });
+  return el('label', { class: 'srcv-sl' }, label + ' · ', span, input);
+}
+const pitchSlider = () => slider({ label: 'pitch', min: 110, max: 440, get: () => St.freq, set: v => { St.freq = v; }, fmt: v => fmtHz(v) + ' Hz' });
+const toggle = (opts, get, set) => el('div', { class: 'srcv-btns' }, ...opts.map(([v, label]) => el('button', { 'aria-pressed': String(get() === v), class: get() === v ? 'srcv-on' : '', on: { click: () => { set(v); send(); build(); } } }, label)));
+
+const STEPS = [
+  { n: 1, name: 'one ramp', key: [['#e8b84a', 'the membrane'], ['#e8b84a', 'τ, held at 5 ms']],
+    says: '<b>One concept: a leaky charge.</b> The membrane fills toward a threshold of 1, and at 1 it empties to 0 and starts again. Because it leaks, a little of the charge drains away every sample, so the ramp bends: quick at first, slower as it nears the top. The drive is worked out so the cycle still takes one period, whatever the leak. Here the leak is a fixed 5 ms.',
+    eqs: [['V[n] = V[n−1] · (1 − 1⁄τ) + I[n]      at V ≥ 1:  V → 0', 'Each sample keeps all but one τ-th of the voltage, then adds the drive I. When it reaches the threshold it resets. τ is counted in samples here, 5 ms is 240 of them at 48 kHz.']],
+    controls: () => [pitchSlider()], back: 'This is the Action Potential Oscillator’s stage 2, the leaky integrate-and-fire neuron, with nothing patched in yet.' },
+  { n: 2, name: 'turn the leak', key: [['#e8b84a', 'the membrane'], ['#e8b84a', 'τ, your knob']],
+    says: '<b>τ is the shape.</b> Turn it down and the membrane leaks harder: the ramp shoots up and flattens under the threshold, close to a square edge. Turn it up and the leak barely matters: the ramp straightens toward a sawtooth. The pitch stays where you set it. Listen to which end is brighter, then read the count of harmonics.',
+    eqs: [['leaky (small τ) → curved ramp      tight (large τ) → straight ramp', 'The leak sets how strongly the charge is pulled back toward rest. A pull that is strong compared with one period bends the ramp into a quick rise and a long plateau.']],
+    controls: () => [slider({ label: 'leak time constant τ', min: 0.5, max: 50, get: () => St.tau, set: v => { St.tau = v; }, fmt: v => v.toFixed(v < 10 ? 2 : 1) + ' ms' }), pitchSlider()],
+    back: 'Set τ to 5 ms and you are back at step 1.' },
+  { n: 3, name: 'patch an LFO into τ', key: [['#e8b84a', 'the membrane'], ['#e8b84a', 'τ, now a signal: 1 to 15 ms']],
+    says: '<b>The knob becomes a jack.</b> An LFO now swings τ between 1 and 15 ms, so the ramp curves and straightens on its own and the colour sweeps with it. This is the section’s own example, and the jack is the new thing here.<br><br><b>A second thing, about the drive.</b> Watch the pitch readout. With the drive as the palace’s engines compute it, worked out each sample as if τ would hold for the whole cycle, a τ that moves inside a cycle lands the charge early or late, and the note bends. Switch the drive to track the charge in flight and the bend is gone. The lesson reaches past this neuron: reading an inlet every sample is not enough; anything worked out as if the input held still has to be worked out again for an input that moves.',
+    eqs: [['drive as built:  I = (1 − c) ⁄ (1 − c<sup>P</sup>)      tracking:  I = (1 − V·c<sup>r</sup>)(1 − c) ⁄ (1 − c<sup>r</sup>)', 'Here c is the leak coefficient 1 − 1⁄τ and P the period in samples. As built, the drive is the one that would reach 1 from 0 in a whole period. Tracking, it is the one that reaches 1 from where the voltage is now, in the r samples left of the period. With τ still, the two are the same drive.']],
+    controls: () => [slider({ label: 'LFO rate', min: 0.05, max: 8, get: () => St.lfoHz, set: v => { St.lfoHz = v; }, fmt: v => fmtHz(v) + ' Hz' }),
+                     toggle([['steady', 'drive as built'], ['track', 'drive tracks the charge']], () => St.drive, v => { St.drive = v; }), pitchSlider()],
+    back: 'Take the LFO down to 0.05 Hz and it is step 2 with a slow hand on the knob.' },
+  { n: 4, name: 'past 20 Hz', key: [['#e8b84a', 'the membrane'], ['#e8b84a', 'τ, at audio rate']],
+    says: '<b>Any output into any input.</b> Raise the LFO past about 20 Hz and you stop hearing τ move: each cycle now gets its own shape, and the motion turns into colour, new lines in the spectrum on both sides of every harmonic. Nothing in the patch changed but the rate. This is the modular argument: an LFO and an audio oscillator differ only in frequency and intent, and a jack that reads every sample takes either. From here on the drive tracks the charge, so only the shape moves.',
+    eqs: [['sidebands at  k·f₀ ± m·f<sub>LFO</sub>', 'A shape that changes periodically, f<sub>LFO</sub> times a second, on a tone of pitch f₀ puts energy at every harmonic plus and minus every multiple of the modulation rate.']],
+    controls: () => [slider({ label: 'LFO rate', min: 0.5, max: 1000, get: () => St.fastHz, set: v => { St.fastHz = v; }, fmt: v => fmtHz(v) + ' Hz' }), pitchSlider()],
+    back: 'Bring the rate under 8 Hz and you are back at step 3.' },
+  { n: 5, name: 'the test', key: [['#e8b84a', 'τ read every sample'], ['#4aadff', 'τ read once a block']],
+    says: '<b>The claim.</b> The section says per-sample math lets you hear the equation directly, and that a control-rate parameter puts a boundary in the patch. Two membranes now take the same LFO. The amber one reads τ every sample. The blue one reads it once per block of 128 samples and holds it, as a block-rate parameter does: the browser’s k-rate parameters work this way, and Max’s signal vector plays the same part. Listen to either, or to only what they don’t share, at its true level. Then walk the LFO from slow to fast.',
+    eqs: [['block rate = sample rate ⁄ 128', 'At 48 kHz the held value changes 375 times a second. An LFO slower than that is followed as a staircase; one faster than half of it is read at the wrong rate, and one at exactly the block rate is read at the same point of its cycle every time.']],
+    controls: () => [toggle([['signal', 'hear signal rate'], ['block', 'hear block rate'], ['diff', 'hear only the difference']], () => St.listen, v => { St.listen = v; }),
+                     slider({ label: 'LFO rate', min: 0.05, max: 1000, get: () => St.testHz, set: v => { St.testHz = v; }, fmt: v => fmtHz(v) + ' Hz' }),
+                     el('div', { class: 'srcv-btns' }, el('button', { on: { click: () => { St.testHz = blockRate(); send(); update(); } } }, 'LFO at the block rate'), el('button', { on: { click: () => { St.testHz = 0.25; send(); update(); } } }, 'back to 0.25 Hz'))],
+    back: 'Hear signal rate and you are at steps 3 and 4 again; the blue membrane is the only new thing.' },
+];
+
+function build() {
+  const s = STEPS[St.step - 1];
+  const rail = $('rail'); rail.innerHTML = '';
+  STEPS.forEach(t => rail.append(el('button', { 'aria-pressed': String(t.n === St.step), on: { click: () => goTo(t.n) } }, t.n + ' · ' + t.name)));
+  $('stepname').textContent = s.n + ' · ' + s.name; $('stepof').textContent = 'step ' + s.n + ' of ' + STEPS.length;
+  $('says').innerHTML = s.says;
+  const c = $('controls'); c.innerHTML = ''; syncs = [];
+  c.append(el('div', { class: 'srcv-btns' }, el('button', { class: 'srcv-go', id: 'go', on: { click: () => St.playing ? stopSound() : play() } }, St.playing ? '❚❚ stop' : '▸ play')));
+  s.controls().forEach(x => c.append(x));
+  $('eqs').innerHTML = ''; s.eqs.forEach(([sym, words]) => { $('eqs').append(el('div', { class: 'srcv-eq', html: sym.replace(/ {2,}/g, '&emsp;&emsp;') }), el('div', { class: 'srcv-words', html: words })); });
+  $('key').innerHTML = s.key.map(([col, name], i) => '<span><i style="background:' + (i === 1 && St.step === 5 ? 'repeating-linear-gradient(90deg,' + col + ' 0 4px,transparent 4px 7px)' : col) + '"></i>' + name + '</span>').join('') + (St.step === 5 ? '<span><i style="background:repeating-linear-gradient(90deg,#e8b84a 0 3px,transparent 3px 6px)"></i>τ as each reads it, beneath</span>' : '');
+  $('backline').textContent = s.back;
+  $('resPanel').style.display = St.step === 5 ? '' : 'none';
+  $('verdict').style.display = (St.step === 2 || St.step === 3 || St.step === 5) ? '' : 'none';
+  $('prev').disabled = St.step === 1; $('next').disabled = St.step === STEPS.length;
+  update();
+}
+function goTo(n) { if (n !== St.step) { stopSound(); St.step = n; send(true); build(); } }
+function paint() { const g = $('go'); if (g) g.textContent = St.playing ? '❚❚ stop' : '▸ play'; }
+
+const memo = new Map();
+const residueAt = (lfoHz) => { const k = SR + '|' + lfoHz.toFixed(4); if (!memo.has(k)) memo.set(k, residueDb({ freq: 110, lfo: true, lfoHz, lo: 1, hi: 15 }, SR)); return memo.get(k); };
+const cents = c => (c < 0.05 ? '0' : c.toFixed(c < 10 ? 1 : 0));
+function update() {
+  const p = params();
+  const period = SR / p.freq, win = Math.round(Math.min(SR * 0.03, period * 3.2));
+  const warm = Math.round(SR * 0.5);
+  const long = render(p, SR, 8192 + win, warm);
+  const r = { s: long.s.slice(long.s.length - win), b: long.b.slice(long.b.length - win), tS: long.tS.slice(long.tS.length - win), tB: long.tB.slice(long.tB.length - win), sLong: long.s, bLong: long.b };
+  drawWave(r); drawSpec(r);
+  $('wavenote').textContent = (win / SR * 1000).toFixed(1) + ' ms window';
+  const parts = [];
+  if (St.step <= 2) {
+    const t = steadyTone(p.freq, p.tau, SR);
+    parts.push('plays <b>' + fmtHz(t.f0) + ' Hz</b>', 'τ <b>' + Math.round(p.tau * 0.001 * SR) + ' samples</b>', 'leak coefficient <b>' + (1 - 1 / (p.tau * 0.001 * SR)).toFixed(5) + '</b>', 'harmonics within 20 dB <b>' + t.within20 + '</b>', 'centroid <b>' + Math.round(t.centroidHz) + ' Hz</b>');
+    if (St.step === 2) {
+      const a = steadyTone(p.freq, 0.5, SR), b = steadyTone(p.freq, 50, SR);
+      $('verdict').innerHTML = 'Measured on this engine at ' + fmtHz(p.freq) + ' Hz: at τ = 0.5 ms, <b>' + a.within20 + '</b> harmonics stand within 20 dB of the loudest and the centroid sits at <b>' + Math.round(a.centroidHz) + ' Hz</b>; at τ = 50 ms, <b>' + b.within20 + '</b> and <b>' + Math.round(b.centroidHz) + ' Hz</b>. With the pitch held, the leakier membrane is the brighter one: the curved ramp is nearly a square edge, and an edge is bright.';
+    }
+  } else if (St.step === 3) {
+    const sw = pitchSwing(p, SR), other = pitchSwing(Object.assign({}, p, { drive: St.drive === 'steady' ? 'track' : 'steady' }), SR);
+    const asBuilt = St.drive === 'steady' ? sw.s : other.s, tracking = St.drive === 'steady' ? other.s : sw.s;
+    parts.push('period <b>' + sw.s.lo + (sw.s.hi !== sw.s.lo ? '–' + sw.s.hi : '') + ' samples</b>', 'pitch swings <b>' + cents(sw.s.cents) + ' cents</b>' + (sw.s.cents > 25 ? ' <span class="srcv-flag">· a bend you can hear</span>' : ''));
+    $('verdict').innerHTML = 'Measured over two seconds at ' + fmtHz(p.lfoHz) + ' Hz: with the drive as built the period runs <b>' + asBuilt.lo + '–' + asBuilt.hi + '</b> samples, a swing of <b>' + cents(asBuilt.cents) + ' cents</b>; tracking the charge it runs <b>' + tracking.lo + (tracking.hi !== tracking.lo ? '–' + tracking.hi : '') + '</b>, <b>' + cents(tracking.cents) + ' cents</b>. The faster τ moves within a cycle, the more the built drive misses: the section’s example is a pitch bend as well as a sweep of colour, unless the drive tracks the charge.';
+  } else if (St.step === 4) {
+    parts.push('LFO <b>' + fmtHz(p.lfoHz) + ' Hz</b>', 'cycles per LFO swing <b>' + (p.freq / p.lfoHz).toFixed(p.freq / p.lfoHz < 10 ? 2 : 0) + '</b>');
+  } else {
+    const here = residueDb(p, SR);
+    parts.push('LFO <b>' + fmtHz(p.lfoHz) + ' Hz</b>', 'block rate <b>' + fmtHz(blockRate()) + ' Hz</b>', 'difference <b>' + (isFinite(here.db) ? here.db.toFixed(1) + ' dB' : 'none') + '</b> under the voice', 'τ the block version sees <b>' + here.blockTau[0].toFixed(2) + (Math.abs(here.blockTau[1] - here.blockTau[0]) > 0.005 ? '–' + here.blockTau[1].toFixed(2) : ', fixed') + ' ms</b>');
+    drawRes();
+    const curve = residueCurve(), at = f => curve.reduce((a, b) => Math.abs(Math.log(b.f / f)) < Math.abs(Math.log(a.f / f)) ? b : a);
+    const slow = residueAt(0.25), eight = residueAt(8), thirty = residueAt(30);
+    const atBlock = at(blockRate());
+    $('resnote').textContent = 'at 110 Hz, τ 1–15 ms';
+    $('verdict').innerHTML = 'Measured on this engine at 110 Hz: at a 0.25 Hz LFO the block version differs by <b>' + slow.db.toFixed(0) + ' dB</b> under the voice, too little to hear. At 8 Hz the difference is <b>' + eight.db.toFixed(0) + ' dB</b>, at 30 Hz <b>' + thirty.db.toFixed(0) + ' dB</b>: the zipper is there, and it grows as the LFO speeds up. Past half the block rate (' + fmtHz(blockRate() / 2) + ' Hz) the block version reads the LFO at the wrong rate, and at the block rate itself it sees a fixed τ of <b>' + atBlock.blockTau[0].toFixed(2) + ' ms</b>: the cable is patched and nothing comes through. So the slow sweep the section describes sounds the same either way: what it needs is the jack, not the rate. What the per-sample rate buys is everything faster, up to the audio-rate patch of step 4, which a block-rate input cannot take.';
+  }
+  $('read').innerHTML = parts.map(x => '<span>' + x + '</span>').join('');
+  syncs.forEach(f => f());
+  paint();
+}
+
+$('prev').addEventListener('click', () => goTo(Math.max(1, St.step - 1)));
+$('next').addEventListener('click', () => goTo(Math.min(STEPS.length, St.step + 1)));
+window.addEventListener('resize', () => update());
+build();
+</script>
+</body>
+</html>
