@@ -4,11 +4,11 @@ Every page in `census.md`, after `furnish.py --apply`. "Dressed here" is the fur
 
 ## Summary
 
-- 484 pages updated, 34 left alone.
+- 487 pages updated, 34 left alone.
 - left, 22: a template a script fills in; the page it makes is the artifact
 - left, 10: STIGMERGY dress: the board keeps its own furniture (the .bbs look), which the sheets grew from
 - left, 2: machinery, not an artifact: the rich-face renderer or the eval server's page; a change there is its owner's code change
-- no tab icon, 235: rich-face piece: a framed piece never owns a tab, and the page framing it wears the avatar
+- no tab icon, 238: rich-face piece: a framed piece never owns a tab, and the page framing it wears the avatar
 - no tab icon, 5: its entry, Cycle 5 Explorer, has no avatar yet
 - no tab icon, 5: its entry, Rational Hearing, has no avatar yet
 - no tab icon, 5: no entry, and not a public-channel page: Loudon Live gives favicon.svg only to the public channel, and Drafting Table gives no mark
@@ -74,6 +74,9 @@ Every page in `census.md`, after `furnish.py --apply`. "Dressed here" is the fur
 |---|---|---|---|---|---|
 | `1D Wavetable Scanning/1D Wavetable Scanning — rich — switch or scan.html` | controls.css (inline), theme-color | focus motion number range scheme scrollbar scroller selection | button field | rich-face piece: a framed piece never owns a tab, and the pa |  |
 | `1D Wavetable Scanning/1D Wavetable Scanning — rich — which order is brightness.html` | controls.css (inline), theme-color | focus motion number range scheme scrollbar scroller selection | button field | rich-face piece: a framed piece never owns a tab, and the pa |  |
+| `Adopt the Craft, Author the Seam/Adopt the Craft, Author the Seam — rich — match it by ear.html` | controls.css (inline), theme-color | focus motion number range scheme scrollbar scroller selection | button code field | rich-face piece: a framed piece never owns a tab, and the pa |  |
+| `Adopt the Craft, Author the Seam/Adopt the Craft, Author the Seam — rich — where it stops being a groove.html` | controls.css (inline), theme-color | focus motion number range scheme scrollbar scroller selection | button code field | rich-face piece: a framed piece never owns a tab, and the pa |  |
+| `Adopt the Craft, Author the Seam/Adopt the Craft, Author the Seam — rich — which one is the drummer.html` | controls.css (inline), theme-color | focus motion number range scheme scrollbar scroller selection | button code field | rich-face piece: a framed piece never owns a tab, and the pa |  |
 | `Adopt the Craft, Author the Seam/proofs/2026-10-19-hand-the-groove-to-a-machine/hand-the-groove-to-a-machine-2.html` | controls.css (inline), icon (avatar), theme-color | focus grip motion number range scheme scrollbar scroller selection | button code field textarea | ✓ |  |
 | `Adopt the Craft, Author the Seam/proofs/2026-10-19-hand-the-groove-to-a-machine/hand-the-groove-to-a-machine.html` | controls.css (inline), icon (avatar), theme-color | focus grip motion number range scheme scrollbar scroller selection | button code field textarea | ✓ |  |
 | `Boundary-Crossing Instruments/Boundary-Crossing Instruments — rich — ratio and slope.html` | controls.css (inline), theme-color | focus motion number range scheme scrollbar scroller selection | button field | rich-face piece: a framed piece never owns a tab, and the pa |  |

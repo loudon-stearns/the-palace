@@ -2,6 +2,8 @@
 
 518 tracked HTML files (`git ls-files`, less node_modules, .claude, _tools and the design-system folders), read 2026-11-03 by `census.py`, before the fan-out touched them. One row per file is in `census.json`; the full table is below the summary.
 
+Three rich-face pieces in *Adopt the Craft, Author the Seam* (match it by ear, where it stops being a groove, which one is the drummer) arrived on main after this read; they were classified the same day, added to `census.json` (marked `late`) and furnished. Their sample is `shots/5-before.png` and `5-after.png`.
+
 ## Summary
 
 | | count |
