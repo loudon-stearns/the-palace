@@ -1,0 +1,532 @@
+<!doctype html>
+<!--
+  title: Adopt the Craft, Author the Seam — rich — match it by ear
+  born: 2026-11-03
+  links: [[Adopt the Craft, Author the Seam]] (connects-to · rich-face-piece) · listed in [[Adopt the Craft, Author the Seam — rich.json]] · grew from rough two of the Daily Page of 2026-10-19, "Hand the Groove, Loosened", whose match-by-ear game Loudon called a great ear-training quiz · its siblings on this face are "which one is the drummer" and "where it stops being a groove", which share its engine byte for byte
+  forward_vector: I am the walk up to the section's convergence signal, carried into music: one groove written three ways, each of its two numbers heard alone, rough two's game to practise on, and last two scored rounds asking whether the ear can read the record back from the sound. I change only when the section I serve does.
+  sound: nothing plays until a click; the AudioContext is made on that click. Changing step stops the sound. Every sound is made here, from sines and noise.
+  check: "Adopt the Craft, Author the Seam — rich — check.mjs", beside this file, runs the engine in Node.
+-->
+<html lang="en" class="skin-graphite">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- needs nothing of its host: no device, no storage, no file, no host; sound only on a click -->
+<meta name="piece:needs" content="">
+<title>Match it by ear · Adopt the Craft, Author the Seam</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@300;400;500&display=swap">
+<style>
+  :root{
+    --bg:#0a0a0f; --bg-elev-1:#12121a; --bg-elev-2:#1a1a28; --border:#4a4a5e; --border-soft:rgba(255,255,255,0.06);
+    --fg-1:#e8e8f0; --fg-2:#c8c8d8; --fg-3:#8a8aa0; --fg-4:#4a4a5a;
+    --accent:#e8b84a; --accent-dim:#7a6030; --accent-soft:rgba(232,184,74,0.10); --accent-line:rgba(232,184,74,0.5);
+    --coral:#e07a5f; --info:#4a8fff;
+    --serif:'Cormorant Garamond','Source Serif 4',Georgia,serif; --sans:'Manrope',system-ui,sans-serif;
+    --display:'Anton','Bebas Neue',Impact,sans-serif; --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--fg-1)}
+  body{font-family:var(--serif);font-size:17px;line-height:1.7;padding:28px 16px 36px}
+  main{max-width:960px;margin:0 auto}
+  [hidden]{display:none !important}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--fg-3)}
+  h1{font-family:var(--display);font-weight:400;font-size:42px;line-height:1.05;margin:6px 0 10px}
+  h2{font-family:var(--display);font-weight:400;font-size:26px;line-height:1.1;margin:2px 0 8px;letter-spacing:.01em}
+  p.lead{font-size:19px;color:var(--fg-2);margin:0 0 18px;max-width:66ch}
+  p{margin:0 0 10px;max-width:70ch}
+  .rail{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 18px}
+  .rail button{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-3);background:transparent;border:1px solid var(--border);border-radius:4px;padding:7px 11px;cursor:pointer;transition:all .22s cubic-bezier(.4,0,.2,1)}
+  .rail button[aria-current="step"]{color:var(--fg-1);border-color:var(--fg-3);background:var(--bg-elev-2)}
+  .panel{background:var(--bg-elev-1);border:1px solid var(--border-soft);border-radius:4px;padding:18px;margin:0 0 14px}
+  .chart{font-family:var(--mono);font-size:14px;color:var(--fg-1);background:var(--bg-elev-2);border-left:2px solid var(--fg-4);padding:10px 14px;border-radius:2px;margin:6px 0 14px}
+  .chart span{color:var(--fg-3)}
+  .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:10px 0}
+  button{font-family:var(--sans);font-size:13px;color:var(--fg-2);background:transparent;border:1px solid var(--border);border-radius:4px;padding:7px 13px;cursor:pointer}
+  button[aria-pressed="true"]{color:var(--accent);border-color:var(--accent-line);background:var(--accent-soft)}
+  button:disabled{opacity:.35;cursor:default}
+  button.play{font-weight:500;font-size:14px;color:#0a0a0f;background:var(--accent);border:0;padding:9px 20px}
+  button.play.on{background:var(--fg-2)}
+  canvas.grid{width:100%;height:210px;display:block;background:var(--bg-elev-2);border-radius:2px;margin:10px 0 4px}
+  .now{font-family:var(--sans);font-size:13px;color:var(--fg-3);min-height:1.5em}
+  .now b{color:var(--fg-1);font-weight:500}
+  .ctl{display:grid;grid-template-columns:110px 1fr 170px;gap:10px 14px;align-items:center;margin:12px 0}
+  .ctl label{font-family:var(--sans);font-size:14px;color:var(--fg-2)}
+  .ctl input[type=range]{width:100%;accent-color:var(--accent)}
+  .ctl .v{font-family:var(--mono);font-size:13px;color:var(--fg-1);text-align:right;white-space:nowrap}
+  .eq{font-family:var(--mono);font-size:13px;color:var(--fg-1);margin:12px 0 0;overflow-wrap:anywhere}
+  .eq.words{font-family:var(--sans);color:var(--fg-3);font-size:12px;margin-top:2px}
+  .hint{font-family:var(--sans);font-size:13px;color:var(--fg-3);line-height:1.55}
+  .rules{border-left:2px solid var(--accent-dim);background:var(--bg-elev-2);padding:12px 16px;margin:10px 0 14px;font-family:var(--sans);font-size:14px;line-height:1.6;color:var(--fg-2)}
+  .rules b{color:var(--fg-1);font-weight:500}
+  .rules p{margin:0 0 8px}
+  .trial{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-3)}
+  .lamp{display:inline-block;font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--fg-4);border:1px solid var(--border-soft);border-radius:2px;padding:4px 10px;margin-right:6px}
+  .lamp.on{color:var(--accent);border-color:var(--accent-line)}
+  .result{font-family:var(--sans);font-size:15px;line-height:1.6;color:var(--fg-2);margin-top:12px}
+  .result b{color:var(--fg-1);font-weight:500}
+  table.log{border-collapse:collapse;font-family:var(--mono);font-size:12px;margin-top:10px;width:100%}
+  table.log td,table.log th{padding:3px 8px;border-bottom:1px solid var(--border-soft);text-align:left;color:var(--fg-2);font-weight:400}
+  table.log th{color:var(--fg-3);font-size:10px;letter-spacing:.14em;text-transform:uppercase}
+  .record{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;margin-top:10px}
+  .record div{background:var(--bg-elev-2);border-radius:2px;padding:12px 14px}
+  .record b{font-family:var(--mono);font-weight:400;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-3);display:block;margin-bottom:4px}
+  .record code{font-family:var(--mono);font-size:13px;color:var(--fg-1);white-space:pre-wrap;overflow-wrap:anywhere}
+  .walk{display:flex;gap:10px;margin:16px 0 0}
+  footer{margin-top:24px;font-family:var(--sans);font-size:12px;color:var(--fg-4);display:flex;align-items:center;gap:10px}
+  footer b{font-family:var(--display);font-weight:400;letter-spacing:.06em;color:var(--fg-3)}
+  footer svg{flex:none}
+  @media (max-width:640px){ h1{font-size:34px} .ctl{grid-template-columns:80px 1fr} .ctl .v{grid-column:1 / -1;text-align:left} }
+</style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">made · Web Audio · sketch · proposal · One vocabulary, three jobs</div>
+  <h1>Match it by ear</h1>
+  <p class="lead">The section's sign that you've found the right seam: one vocabulary serves the human read, the machine and the handoff between them. BLUELINE's vocabulary is staging. In music it is two numbers. The machine and the handoff read them by construction. Whether a person can read them back off the sound is the part that can be tested.</p>
+
+  <div class="rail" id="rail"></div>
+
+  <section class="panel" data-step="0">
+    <h2>One record, three jobs</h2>
+    <p>Set the groove. The machine's instructions and the file any other tool reads carry the same two numbers and a switch. The chart doesn't: a real chart says <i>medium swing, laid back</i>, never 64%. So in music the human's vocabulary is words and the machine's is numbers, and the one vocabulary the section prizes has to be built here; it isn't already there. Nothing crosses from the drummer's taste to the machine except what is in the last two boxes.</p>
+    <div class="ctl"><label for="s0">Swing</label><input type="range" id="s0" min="50" max="80" step="1" value="64"><span class="v" id="s0v"></span></div>
+    <div class="ctl"><label for="l0">Lay-back</label><input type="range" id="l0" min="-20" max="60" step="1" value="22"><span class="v" id="l0v"></span></div>
+    <div class="row"><button id="a0" aria-pressed="true">Lean on 2 and 4</button><button class="play" id="p0">Play the machine reading it</button></div>
+    <div class="record">
+      <div><b>On a chart, as charts say it</b><code id="r1"></code></div>
+      <div><b>To the machine (the conditioning)</b><code id="r2"></code></div>
+      <div><b>To any other tool (the handoff)</b><code id="r3"></code></div>
+    </div>
+    <canvas class="grid" id="g0"></canvas>
+    <div class="eq">t(skip) = t(beat) + s × T &nbsp;·&nbsp; t(hit) = t(grid) + L</div>
+    <div class="eq words">(when the skip note lands) = (when its beat starts) + (swing ratio) × (one beat) · (when the ride or hat is struck) = (when the grid says) + (lay-back)</div>
+  </section>
+
+  <section class="panel" data-step="1" hidden>
+    <h2>A fourth reader: hear one number</h2>
+    <p>Before an ear can read a number back, it has to know what the number sounds like. Here is swing alone, at three settings, with the kit on the grid and nothing leaning. Listen to the little pickup on the ride into 2 and into 4.</p>
+    <div class="row"><button id="h50" aria-pressed="true">50% · straight</button><button id="h64" aria-pressed="false">64% · the drummer's</button><button id="h75" aria-pressed="false">75% · hard</button><button class="play" id="p1">Play</button></div>
+    <canvas class="grid" id="g1"></canvas>
+  </section>
+
+  <section class="panel" data-step="2" hidden>
+    <h2>Hear the other number</h2>
+    <p>Now lay-back alone, swing held at 64%. The bass and the feathered kick stay on the grid; the ride and hat move behind them. Listen to where the hat on 2 and 4 sits against the bass note.</p>
+    <div class="row"><button id="k0" aria-pressed="true">0 ms · on the grid</button><button id="k22" aria-pressed="false">22 ms · the drummer's</button><button id="k50" aria-pressed="false">50 ms · way back</button><button class="play" id="p2">Play</button></div>
+    <canvas class="grid" id="g2"></canvas>
+  </section>
+
+  <section class="panel" data-step="3" hidden>
+    <h2>Practise: rough two's game</h2>
+    <p>A hidden groove plays, its ride and hat hidden from the grid. Move your slider until yours sounds like it, then check. This is the game from the Daily Page rough, unscored: play as long as you like.</p>
+    <div class="row"><button id="qs" aria-pressed="true">Swing only</button><button id="qb" aria-pressed="false">Swing and lay-back</button></div>
+    <div class="ctl"><label for="s3">Swing</label><input type="range" id="s3" min="50" max="80" step="1" value="61"><span class="v" id="s3v"></span></div>
+    <div class="ctl" id="row3l"><label for="l3">Lay-back</label><input type="range" id="l3" min="-20" max="60" step="1" value="15"><span class="v" id="l3v"></span></div>
+    <div class="row"><button id="m3" aria-pressed="true">Hear the hidden one</button><button id="y3" aria-pressed="false">Hear mine</button><button id="x3" aria-pressed="false">Alternate every two bars</button><button class="play" id="p3">Play</button></div>
+    <div class="row"><button id="c3">Check</button><button id="f3">A new one</button></div>
+    <canvas class="grid" id="g3"></canvas>
+    <div class="now" id="n3"></div>
+    <div class="result" id="q3"></div>
+  </section>
+
+  <section class="panel" data-step="4" hidden>
+    <h2>The test: does the ear read the record?</h2>
+    <div class="rules">
+      <p><b>Two rounds of six.</b> Round one, swing: each hidden groove's swing is a whole number from 50 to 72%, drawn at random; the kit is on the grid. Your slider starts at 61 every trial. Within 3 counts as locked in. Round two, lay-back: swing held at 64% in both; the hidden lay-back is a whole number from −10 to 40 ms; your slider starts at 15. Within 8 counts.</p>
+      <p><b>Chance.</b> A reader who never listens does best by leaving the slider where it starts, and locks in 7 times in 23 in round one (30%) and 17 times in 51 in round two (33%). Locking in 5 or 6 of 6 that way happens <span id="c1"></span> of the time in round one and <span id="c2"></span> in round two.</p>
+      <p><b>The rule, fixed now:</b> 5 or 6 of 6 in a round means your ear reads that number off the sound: the vocabulary does the human's job too. 4 or fewer, this didn't show it.</p>
+      <p><b>Nothing else gives it away.</b> The hidden groove and yours have the same hits, the same weights, the same length and the same loudness; only the one number moves. Its ride and hat stay off the grid until you lock in. Each answer is shown after you lock it in, as in the game; the score waits for the end.</p>
+    </div>
+    <div class="row"><button class="play" id="start">Start the two rounds</button></div>
+    <div id="tbox" hidden>
+      <div class="trial" id="tn"></div>
+      <div class="ctl"><label for="ts" id="tlab">Swing</label><input type="range" id="ts" min="50" max="80" step="1" value="61"><span class="v" id="tsv"></span></div>
+      <div class="row"><button id="tm" aria-pressed="true">Hear the hidden one</button><button id="ty" aria-pressed="false">Hear mine</button><button id="tx" aria-pressed="false">Alternate every two bars</button><button class="play" id="tp">Play</button></div>
+      <div class="row"><button id="tl">Lock it in</button><button id="tnext" hidden>Next</button></div>
+      <canvas class="grid" id="g4"></canvas>
+      <div class="now" id="n4"></div>
+    </div>
+    <div class="result" id="res"></div>
+  </section>
+
+  <div class="walk"><button id="back">Back</button><button id="next">Next</button></div>
+
+  <footer><svg id="sigil" width="22" height="22" viewBox="-11 -11 22 22" aria-hidden="true"></svg><b>LOUD’N LIVE</b> · Adopt the Craft, Author the Seam · match it by ear · Sketch, 2026-11-03 · proposal</footer>
+</main>
+
+<script id="gr-core">
+// The engine, the same in all three of this face's pieces, byte for byte: the reader, the sounds, the
+// level match and the chance figures. Plain functions, shared by the picture, the sound and the headless
+// check beside the pieces. It grew from rough two of the Daily Page (2026-10-19), "Hand the Groove,
+// Loosened": the same chart, the same ride pattern, the same drummer's numbers.
+const GR = (() => {
+  const SR = 44100, BPM = 96, T = 60 / BPM, BEATS = 8, LOOP = BEATS * T;   // two bars of 4/4, 5 seconds
+  const BASS = [50, 48, 45, 41, 43, 45, 47, 49];                           // | Dm7 D C A F | G7 G A B C# |
+  // Who reads the chart. swing: where the skip note lands, as a share of the beat. lay: how far the ride
+  // and hat sit behind the grid, in ms (the bass and the feathered kick stay on it). accent: lean on 2
+  // and 4. feel: hits wandering in time and weight, as rough two had them. leftovers: rough two's other
+  // leftovers, the ghost notes on beats 3 and 7 and the pickup into the turnaround, notes the chart never
+  // asks for and the record has no field for. DRUMMER is the seam plus the wander, by construction;
+  // DRUMMER_FULL adds the leftovers.
+  const DRUMMER = { swing: 0.64, lay: 22, accent: true, feel: true };
+  const DRUMMER_FULL = { swing: 0.64, lay: 22, accent: true, feel: true, leftovers: true };
+  const MACHINE = { swing: 0.50, lay: 0, accent: false, feel: false };
+  const SEAM = { swing: 0.64, lay: 22, accent: true, feel: false };
+  const FEEL = { time: 0.007, weight: 0.15 };
+  function rng(seed) { let s = seed >>> 0; return () => { s = (s + 0x6D2B79F5) >>> 0; let t = s; t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
+  // The reader: the chart and one reading of it -> every hit of the two bars. at = seconds from the loop's start.
+  //   t(skip) = t(beat) + s·T + L        t(hit) = t(grid) + L
+  function read(P, seed) {
+    const r = rng(seed || 1), L = P.lay / 1000, hits = [];
+    const wander = () => P.feel ? (r() + r() - 1) * FEEL.time : 0;          // triangular, within ±7 ms
+    const weight = () => P.feel ? 1 - FEEL.weight + r() * 2 * FEEL.weight : 1; // within ±15%
+    for (let i = 0; i < BEATS; i++) {
+      const g = i * T, back = i % 2 === 1;
+      hits.push({ lane: 'ride', beat: i, grid: g, at: g + L + wander(), v: P.accent && back ? 0.8 : 0.55, w: weight(), id: i * 4 });
+      if (back) hits.push({ lane: 'ride', beat: i, grid: g + 0.5 * T, at: g + P.swing * T + L + wander(), v: 0.38, w: weight(), id: i * 4 + 1, skip: true });
+      if (back) hits.push({ lane: 'hat', beat: i, grid: g, at: g + L + wander(), v: P.accent ? 0.7 : 0.5, w: weight(), id: i * 4 + 2 });
+      hits.push({ lane: 'kick', beat: i, grid: g, at: g, v: 0.28, w: 1, id: i * 4 + 3 });
+      hits.push({ lane: 'bass', beat: i, grid: g, at: g, v: 0.8, w: 1, midi: BASS[i] });
+    }
+    // The leftovers draw from their own stream, so turning them on leaves the wander exactly as it was.
+    // As rough two had them: a ghost on the skip of beats 3 and 7 six times in ten, and a pickup on the
+    // skip of beat 8, 4 ms early, half the time.
+    if (P.leftovers) {
+      const q = rng((seed || 1) + 104729);
+      for (const i of [2, 6]) if (q() < 0.6) hits.push({ lane: 'ghost', beat: i, grid: i * T + 0.5 * T, at: i * T + P.swing * T + L + (q() + q() - 1) * FEEL.time, v: 0.22, w: 1, id: 2000 + i });
+      if (q() < 0.5) hits.push({ lane: 'ghost', beat: 7, grid: 7.5 * T, at: 7 * T + P.swing * T + L - 0.004, v: 0.3, w: 1, id: 2007 });
+    }
+    // The wander in weight is centred lane by lane: its mean square is 1, so the drummer is no louder
+    // than the reading without it, only less even.
+    for (const lane of ['ride', 'hat']) {
+      const hs = hits.filter((h) => h.lane === lane), ms = hs.reduce((a, h) => a + h.w * h.w, 0) / hs.length;
+      hs.forEach((h) => { h.w /= Math.sqrt(ms); });
+    }
+    return hits;
+  }
+  // ── the sounds, made here from sines and noise ──
+  // Each hit writes into a stem. wrap: a looping two bars, each tail coming round to the start. Otherwise
+  // the take starts `pre` seconds before the grid and runs `tail` seconds past it, so nothing is cut.
+  function put(x, start, len, f, o) {
+    const n = x.length;
+    for (let i = 0; i < len; i++) { let j = start + i; if (o.wrap) j = ((j % n) + n) % n; else if (j < 0 || j >= n) continue; x[j] += f(i / SR); }
+  }
+  // Noise is seeded by the hit's place in the bar, not by the order of drawing, so the same hit has the
+  // same grain in every reading: two takes differ only in where and how hard.
+  function noise(seed) { const r = rng(seed); let p1 = 0, p2 = 0; return () => { const w = r() * 2 - 1, d1 = w - p1, d2 = d1 - p2; p1 = w; p2 = d1; return d2; }; }
+  const RIDE = [[2980, 1], [4170, 0.7], [5320, 0.55], [6650, 0.4], [7910, 0.3]];
+  function ride(x, at, a, id, o) {
+    // The partials turn as phasors, one small rotation a sample, rather than a sine call each.
+    const nz = noise(7000 + id), K = RIDE.length, re = new Float64Array(K), im = new Float64Array(K), c = RIDE.map((p) => Math.cos(2 * Math.PI * p[0] / SR)), sn = RIDE.map((p) => Math.sin(2 * Math.PI * p[0] / SR));
+    for (let k = 0; k < K; k++) { re[k] = 1; im[k] = 0; }
+    let e1 = 1, e2 = 1, e3 = 1; const k1 = Math.exp(-1 / (0.5 * SR)), k2 = Math.exp(-1 / (0.35 * SR)), k3 = Math.exp(-1 / (0.01 * SR));
+    put(x, at, Math.round(1.0 * SR), (t) => {
+      let s = 0; for (let k = 0; k < K; k++) { const r = re[k] * c[k] - im[k] * sn[k]; im[k] = re[k] * sn[k] + im[k] * c[k]; re[k] = r; s += RIDE[k][1] * im[k]; }
+      const env = Math.min(1, t / 0.0005), y = a * env * (0.05 * s * e1 + 0.22 * nz() * e2 + 0.35 * nz() * e3);
+      e1 *= k1; e2 *= k2; e3 *= k3; return y;                     // e^(−t/0.5), e^(−t/0.35), e^(−t/0.01), one multiply a sample
+    }, o);
+  }
+  // A ghost note: a soft snare, noise through a band around 1.9 kHz, 90 ms.
+  function ghost(x, at, a, id, o) { const r = rng(11000 + id); let y1 = 0, y2 = 0; const w = 2 * Math.PI * 1900 / SR, al = Math.sin(w) / (2 * 0.9), b0 = al / (1 + al), a1 = -2 * Math.cos(w) / (1 + al), a2 = (1 - al) / (1 + al); let x1 = 0, x2 = 0;
+    put(x, at, Math.round(0.12 * SR), (t) => { const v = r() * 2 - 1, y = b0 * v - b0 * x2 - a1 * y1 - a2 * y2; x2 = x1; x1 = v; y2 = y1; y1 = y; return a * 1.4 * y * Math.min(1, t / 0.001) * Math.exp(-t / 0.09); }, o); }
+  function hat(x, at, a, id, o) { const nz = noise(9000 + id); put(x, at, Math.round(0.12 * SR), (t) => a * 0.5 * nz() * Math.min(1, t / 0.0005) * Math.exp(-t / 0.03), o); }
+  function kick(x, at, a, o) { let ph = 0; put(x, at, Math.round(0.5 * SR), (t) => { ph += 2 * Math.PI * (48 + 62 * Math.exp(-t / 0.02)) / SR; return a * 0.9 * Math.sin(ph) * Math.min(1, t / 0.002) * Math.exp(-t / 0.18); }, o); }
+  function bass(x, at, midi, a, o) {
+    const f = 440 * Math.pow(2, (midi - 69) / 12), L = T * 0.95, c = Math.cos(2 * Math.PI * f / SR), sn = Math.sin(2 * Math.PI * f / SR); let re = 1, im = 0;
+    put(x, at, Math.round(L * SR), (t) => { const r = re * c - im * sn; im = re * sn + im * c; re = r; const env = Math.min(1, t / 0.01, (L - t) / 0.02) * Math.exp(-t / 0.6);
+      return a * 0.5 * env * (im + 0.45 * 2 * im * re + 0.2 * im * (3 - 4 * im * im)); }, o);   // sin φ, sin 2φ = 2 sin φ cos φ, sin 3φ = sin φ (3 − 4 sin² φ)
+  }
+  // render: hits -> { drums, bass } stems, each a Float64Array.
+  function render(hits, o) {
+    o = o || { wrap: true };
+    const pre = o.wrap ? 0 : (o.pre || 0.06), n = Math.round((o.wrap ? LOOP : pre + LOOP + (o.tail || 1.0)) * SR);
+    const drums = new Float64Array(n), low = new Float64Array(n);
+    for (const h of hits) {
+      const at = Math.round((h.at + pre) * SR), a = h.v * h.w;
+      if (h.lane === 'ride') ride(drums, at, a, h.id, o);
+      else if (h.lane === 'hat') hat(drums, at, a, h.id, o);
+      else if (h.lane === 'kick') kick(drums, at, a, o);
+      else if (h.lane === 'ghost') ghost(drums, at, a, h.id, o);
+      else bass(low, at, h.midi, a, o);
+    }
+    // A take played once ends on a 150 ms fade, the same in every take, so no tail is cut off with a click.
+    if (!o.wrap) { const f = Math.round(0.15 * SR); for (let i = 0; i < f; i++) { const g = i / f; drums[n - 1 - i] *= g; low[n - 1 - i] *= g; } }
+    return { drums, bass: low, pre, n };
+  }
+  function rms(x, a = 0, b = x.length) { let s = 0; for (let i = a; i < b; i++) s += x[i] * x[i]; return Math.sqrt(s / Math.max(1, b - a)); }
+  // The level match. Every take's drums are set to one RMS over the whole take, and the bass, the same
+  // in every take, to another: so louder never tells you which is which.
+  const DRUMS_RMS = 0.06, BASS_RMS = 0.05;
+  function mix(st) {
+    const kd = DRUMS_RMS / Math.max(rms(st.drums), 1e-12), kb = BASS_RMS / Math.max(rms(st.bass), 1e-12), y = new Float32Array(st.n);
+    for (let i = 0; i < st.n; i++) y[i] = st.drums[i] * kd + st.bass[i] * kb;
+    return y;
+  }
+  function take(P, seed, o) { return mix(render(read(P, seed), o)); }
+  // Chance: the probability of k or more right out of n, each right with probability p.
+  function atLeast(k, n, p) { let s = 0; for (let j = k; j <= n; j++) { let c = 1; for (let i = 0; i < j; i++) c = c * (n - i) / (i + 1); s += c * Math.pow(p, j) * Math.pow(1 - p, n - j); } return s; }
+  // The edge finder for the breaking-point probe. answers: [{ level index, broke: bool }]. For every cut
+  // between levels it counts the answers on the wrong side ("groove" at or above it, "broke" below it);
+  // the fewest wrong is the fit. Cut 0: every level broke; cut = levels: none did.
+  function edge(answers, levels) {
+    const errs = [];
+    for (let c = 0; c <= levels; c++) errs.push(answers.reduce((e, a) => e + ((a.level >= c) !== a.broke ? 1 : 0), 0));
+    const best = Math.min(...errs), cuts = errs.map((e, c) => e === best ? c : -1).filter((c) => c >= 0);
+    // A fit whose only best cuts are the ends finds no edge inside the range.
+    const inside = cuts.some((c) => c > 0 && c < levels);
+    const kind = !inside ? (best <= 3 ? 'none' : 'fog') : best <= 1 ? 'sharp' : best <= 3 ? 'zone' : 'fog';
+    return { errs, best, cuts, kind };
+  }
+  // How often an answerer who doesn't listen lands in each kind: every one of the 2^n answer sets,
+  // weighted. q: how often it says "it broke", whatever it hears; 0.5 is a coin flip.
+  function edgeChance(levels, reps, q) {
+    q = q == null ? 0.5 : q;
+    const n = levels * reps, count = { none: 0, sharp: 0, zone: 0, fog: 0 };
+    for (let m = 0; m < (1 << n); m++) { const ans = []; let b = 0; for (let k = 0; k < n; k++) { const br = !!(m & (1 << k)); b += br; ans.push({ level: k % levels, broke: br }); } count[edge(ans, levels).kind] += Math.pow(q, b) * Math.pow(1 - q, n - b); }
+    return count;
+  }
+  return { SR, BPM, T, BEATS, LOOP, BASS, DRUMMER, DRUMMER_FULL, MACHINE, SEAM, FEEL, rng, read, render, rms, mix, take, atLeast, edge, edgeChance, DRUMS_RMS, BASS_RMS };
+})();
+</script>
+<script id="gr-grid">
+// The grid: two bars, a solid line on each beat, a dashed line where a straight skip note would land
+// (half the beat) and a dotted one where a triplet's would (two thirds). Each layer is one reading's hits.
+const GRID = (() => {
+  const LANES = ['ride', 'hat', 'ghost', 'kick', 'bass'];
+  function css(v) { return getComputedStyle(document.documentElement).getPropertyValue(v).trim(); }
+  function draw(cv, layers, head) {
+    const dpr = window.devicePixelRatio || 1, W = cv.clientWidth, H = cv.clientHeight, g = cv.getContext('2d');
+    if (cv.width !== Math.round(W * dpr) || cv.height !== Math.round(H * dpr)) { cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr); }
+    g.setTransform(dpr, 0, 0, dpr, 0, 0); g.clearRect(0, 0, W, H);
+    const L = 46, R = 8, top = 10, bot = 20, laneH = (H - top - bot) / LANES.length, bw = (W - L - R) / GR.BEATS;
+    g.font = '10px JetBrains Mono, monospace'; g.textBaseline = 'middle';
+    LANES.forEach((n, l) => { g.fillStyle = css('--fg-3'); g.fillText(n, 6, top + laneH * (l + 0.5)); });
+    for (let b = 0; b <= GR.BEATS; b++) {
+      const x = L + b * bw;
+      g.setLineDash([]); g.strokeStyle = b % 4 === 0 ? css('--fg-3') : css('--border'); g.lineWidth = b % 4 === 0 ? 1.2 : 0.8;
+      g.beginPath(); g.moveTo(x, top); g.lineTo(x, H - bot); g.stroke();
+      if (b < GR.BEATS) {
+        g.strokeStyle = css('--fg-4'); g.setLineDash([2, 4]); g.beginPath(); g.moveTo(x + bw / 2, top); g.lineTo(x + bw / 2, H - bot); g.stroke();
+        g.setLineDash([1, 6]); g.beginPath(); g.moveTo(x + bw * 2 / 3, top); g.lineTo(x + bw * 2 / 3, H - bot); g.stroke();
+        g.setLineDash([]); g.fillStyle = css('--fg-4'); g.fillText(String((b % 4) + 1), x + 3, H - 9);
+      }
+    }
+    const px = (t) => { let u = t / GR.LOOP; u -= Math.floor(u); return L + u * GR.BEATS * bw; };
+    for (const ly of layers) {
+      for (const h of ly.hits) {
+        const l = LANES.indexOf(h.lane); if (l < 0) continue;
+        const grey = h.lane === 'bass' || h.lane === 'kick';
+        if (ly.drumsOnly && grey) continue;
+        const r = 2.5 + h.v * h.w * 5, x = px(h.at), y = top + laneH * (l + 0.5), col = grey ? css('--fg-3') : css(ly.color);
+        g.globalAlpha = grey ? 0.55 : 1; g.beginPath(); g.arc(x, y, ly.ring ? r + 2 : r, 0, Math.PI * 2);
+        if (ly.ring) { g.lineWidth = 1.6; g.strokeStyle = col; g.stroke(); } else { g.fillStyle = col; g.fill(); }
+        g.globalAlpha = 1;
+      }
+    }
+    if (head != null) { const x = L + head * GR.BEATS * bw; g.strokeStyle = css('--fg-1'); g.lineWidth = 1; g.beginPath(); g.moveTo(x, top); g.lineTo(x, H - bot); g.stroke(); }
+  }
+  return { draw, LANES };
+})();
+</script>
+<script id="gr-ui">
+// The scaffolding every piece here shares: sound only on a click, one buffer at a time, the walk, the sigil.
+const UI = (() => {
+  const $ = (id) => document.getElementById(id);
+  let ctx = null, src = null, startedAt = 0, len = 0, looping = false;
+  function audio() { if (!ctx) ctx = new (window.AudioContext || window.webkitAudioContext)(); if (ctx.state === 'suspended') ctx.resume(); return ctx; }
+  // Play a mono take. loop: round and round; keep: a new loop picks up where the old one was, so a slider
+  // moves the groove without restarting it. ended: called when a take played once runs out.
+  function play(y, o) {
+    o = o || {}; const c = audio();
+    let off = 0; if (o.keep && src && looping && o.loop) off = (c.currentTime - startedAt) % (y.length / GR.SR);
+    stop();
+    const b = c.createBuffer(1, y.length, GR.SR); b.getChannelData(0).set(y);
+    const s = c.createBufferSource(); s.buffer = b; s.loop = !!o.loop; s.connect(c.destination);
+    const at = c.currentTime + 0.03; s.start(at, Math.max(0, off)); startedAt = at - off; len = y.length / GR.SR; looping = !!o.loop;
+    s.onended = () => { if (src === s) { src = null; if (o.ended) o.ended(); } };
+    src = s;
+  }
+  function stop() { if (src) { const s = src; src = null; s.onended = null; try { s.stop(); } catch (e) { /* already stopped */ } } }
+  function playing() { return !!src; }
+  // Where the playhead is: seconds into the current buffer.
+  function at() { if (!src || !ctx) return null; const t = ctx.currentTime - startedAt; return t < 0 ? 0 : looping ? t % len : Math.min(t, len); }
+  function sigil(el) { const pts = []; for (let i = 0; i <= 240; i++) { const t = i / 240 * 2 * Math.PI; pts.push((9 * Math.sin(3 * t + Math.PI / 2)).toFixed(2) + ',' + (9 * Math.sin(2 * t)).toFixed(2)); }
+    el.innerHTML = '<polyline points="' + pts.join(' ') + '" fill="none" stroke="#e8b84a" stroke-width="1"/>'; }
+  // The walk: one step shows at a time; changing step stops the sound; the rail stays open.
+  function walk(names, onStep) {
+    let cur = 0; const rail = $('rail');
+    names.forEach((n, i) => { const b = document.createElement('button'); b.textContent = (i + 1) + ' · ' + n; b.addEventListener('click', () => go(i)); rail.appendChild(b); });
+    function go(i) {
+      stop(); cur = Math.max(0, Math.min(names.length - 1, i));
+      Array.from(rail.children).forEach((b, k) => b.setAttribute('aria-current', k === cur ? 'step' : 'false'));
+      document.querySelectorAll('[data-step]').forEach((el) => { el.hidden = +el.dataset.step !== cur; });
+      $('back').disabled = cur === 0; $('next').disabled = cur === names.length - 1;
+      onStep(cur);
+    }
+    $('back').addEventListener('click', () => go(cur - 1)); $('next').addEventListener('click', () => go(cur + 1));
+    return { go, get cur() { return cur; } };
+  }
+  function shuffle(a, r) { r = r || Math.random; for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(r() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
+  function swingWord(p) { return p < 48 ? 'inverted' : p <= 52 ? 'straight' : p <= 60 ? 'light' : p <= 70 ? 'triplet feel' : p <= 78 ? 'hard' : 'limping'; }
+  function layWord(ms) { return ms < -5 ? 'pushing' : ms <= 5 ? 'on the grid' : ms <= 30 ? 'laid back' : ms <= 50 ? 'way back' : 'coming loose'; }
+  function lay(ms) { return ms < 0 ? 'pushing ' + (-ms) + ' ms ahead' : ms === 0 ? 'on the grid' : 'laid back ' + ms + ' ms'; }
+  return { $, audio, play, stop, playing, at, sigil, walk, shuffle, swingWord, layWord, lay };
+})();
+</script>
+<script>
+(() => {
+  const $ = UI.$;
+  const plain = (s, l, a) => ({ swing: s, lay: l, accent: !!a, feel: false });
+  const seed0 = 20261019;
+  const loopTake = (P) => GR.mix(GR.render(GR.read(P, seed0), { wrap: true }));
+  // Two readings back to back, two bars each, looping: the hidden one, then yours.
+  function alternate(P, Q) { const a = loopTake(P), b = loopTake(Q), y = new Float32Array(a.length * 2); y.set(a, 0); y.set(b, a.length); return y; }
+  let cur = { layers: [], label: '' }, playBtn = null, pend = false, source = null;
+  function setPlay(b, on) { b.textContent = on ? 'Stop' : (b.dataset.label || 'Play'); b.classList.toggle('on', on); }
+  // source() returns { y, layers, label, alt } for what should be sounding now.
+  function refresh() {
+    const s = source(); cur = s;
+    if (UI.playing() && playBtn && !pend) { pend = true; setTimeout(() => { pend = false; if (UI.playing()) { const n = source(); cur = n; UI.play(n.y(), { loop: true, keep: true }); } }, 40); }
+  }
+  function toggle(btn) {
+    if (UI.playing()) { UI.stop(); setPlay(btn, false); playBtn = null; return; }
+    const s = source(); cur = s; UI.play(s.y(), { loop: true }); playBtn = btn; setPlay(btn, true);
+  }
+  function press(ids, on) { ids.forEach((id) => $(id).setAttribute('aria-pressed', String(id === on))); }
+
+  // ── step 1: one record ──
+  let a0 = true;
+  function rec() {
+    const s = +$('s0').value, l = +$('l0').value;
+    $('s0v').textContent = s + '% · ' + UI.swingWord(s); $('l0v').textContent = l + ' ms · ' + UI.layWord(l); $('a0').setAttribute('aria-pressed', String(a0));
+    $('r1').textContent = (s <= 52 ? 'Straight eighths' : s <= 60 ? 'Light swing' : s <= 70 ? 'Medium swing' : 'Hard swing') + (l > 30 ? ' · way back' : l > 5 ? ' · laid back' : l < -5 ? ' · on top' : '') + (a0 ? ' · 2 and 4' : '');
+    $('r2').textContent = 'reader({ swing: ' + (s / 100).toFixed(2) + ', layback_ms: ' + l + ', accent_2_4: ' + a0 + ' })';
+    $('r3').textContent = '{ "swing": ' + (s / 100).toFixed(2) + ', "layback_ms": ' + l + ', "accent": ' + (a0 ? '[2, 4]' : '[]') + ' }';
+    const P = plain(s / 100, l, a0);
+    source = () => ({ y: () => loopTake(P), layers: [{ hits: GR.read(P, seed0), color: '--accent' }] }); refresh();
+  }
+  $('s0').addEventListener('input', rec); $('l0').addEventListener('input', rec);
+  $('a0').addEventListener('click', () => { a0 = !a0; rec(); });
+  $('p0').dataset.label = 'Play the machine reading it'; $('p0').addEventListener('click', () => { rec(); toggle($('p0')); });
+
+  // ── step 2 and 3: one number at a time ──
+  function one(P, ids, on) { press(ids, on); source = () => ({ y: () => loopTake(P), layers: [{ hits: GR.read(P, seed0), color: '--accent' }] }); refresh(); }
+  const sw = { h50: 0.5, h64: 0.64, h75: 0.75 }, ly = { k0: 0, k22: 22, k50: 50 };
+  let on1 = 'h50', on2 = 'k0';
+  Object.keys(sw).forEach((id) => $(id).addEventListener('click', () => { on1 = id; one(plain(sw[id], 0, false), Object.keys(sw), id); }));
+  Object.keys(ly).forEach((id) => $(id).addEventListener('click', () => { on2 = id; one(plain(0.64, ly[id], false), Object.keys(ly), id); }));
+  $('p1').addEventListener('click', () => { one(plain(sw[on1], 0, false), Object.keys(sw), on1); toggle($('p1')); });
+  $('p2').addEventListener('click', () => { one(plain(0.64, ly[on2], false), Object.keys(ly), on2); toggle($('p2')); });
+
+  // ── step 4: the game, unscored ──
+  const rint = (a, b) => a + Math.floor(Math.random() * (b - a + 1));
+  const game = { both: false, hidden: null, hear: 'hidden', alt: false, shown: false };
+  function gameNew() { game.hidden = plain(rint(50, 72) / 100, game.both ? rint(-10, 40) : 0, false); game.shown = false; $('q3').textContent = 'A new hidden groove. Listen, then set yours to match.'; gameRead(); }
+  function mine3() { return plain(+$('s3').value / 100, game.both ? +$('l3').value : 0, false); }
+  function gameRead() {
+    $('s3v').textContent = $('s3').value + '% · ' + UI.swingWord(+$('s3').value); $('l3v').textContent = $('l3').value + ' ms · ' + UI.layWord(+$('l3').value);
+    $('row3l').style.opacity = game.both ? 1 : 0.3; $('l3').disabled = !game.both;
+    press(['qs', 'qb'], game.both ? 'qb' : 'qs'); press(['m3', 'y3'], game.alt ? null : game.hear === 'hidden' ? 'm3' : 'y3'); $('x3').setAttribute('aria-pressed', String(game.alt));
+    const H = game.hidden, M = mine3();
+    source = () => ({
+      y: () => game.alt ? alternate(H, M) : loopTake(game.hear === 'hidden' ? H : M),
+      alt: game.alt, hiddenFirst: true,
+      layers: (game.shown ? [{ hits: GR.read(H, seed0), color: '--coral', ring: true, drumsOnly: true }] : []).concat(game.alt || game.hear === 'mine' || game.shown ? [{ hits: GR.read(M, seed0), color: '--accent' }] : [{ hits: GR.read(H, seed0).filter((h) => h.lane === 'bass' || h.lane === 'kick'), color: '--accent' }])
+    }); refresh();
+  }
+  $('qs').addEventListener('click', () => { game.both = false; $('l3').value = 15; gameNew(); });
+  $('qb').addEventListener('click', () => { game.both = true; gameNew(); });
+  $('s3').addEventListener('input', gameRead); $('l3').addEventListener('input', gameRead);
+  $('m3').addEventListener('click', () => { game.hear = 'hidden'; game.alt = false; gameRead(); });
+  $('y3').addEventListener('click', () => { game.hear = 'mine'; game.alt = false; gameRead(); });
+  $('x3').addEventListener('click', () => { game.alt = !game.alt; gameRead(); });
+  $('p3').addEventListener('click', () => { gameRead(); toggle($('p3')); });
+  $('f3').addEventListener('click', gameNew);
+  $('c3').addEventListener('click', () => {
+    const H = game.hidden, ts = Math.round(H.swing * 100), ys = +$('s3').value, eS = Math.abs(ts - ys), eL = Math.abs(H.lay - +$('l3').value);
+    const lock = eS <= 3 && (!game.both || eL <= 8), close = eS <= 7 && (!game.both || eL <= 15);
+    game.shown = true; gameRead();
+    $('q3').innerHTML = 'The hidden groove was <b>' + ts + '% swing (' + UI.swingWord(ts) + ')' + (game.both ? ', ' + UI.lay(H.lay) : '') + '</b>. You set <b>' + ys + '%' + (game.both ? ', ' + UI.lay(+$('l3').value) : '') + '</b>. ' +
+      (lock ? 'Locked in.' : close ? 'Close. ' : 'Not yet. ') + (!lock && eS > 3 ? 'Listen to the skip note, the ride’s pickup into 2 and 4. ' : '') + (!lock && game.both && eL > 8 ? 'Then listen to where the hat sits against the bass.' : '');
+  });
+
+  // ── step 5: the test ──
+  const R = { swing: { n: 6, lo: 50, hi: 72, start: 61, tol: 3, min: 50, max: 80, word: (v) => v + '% · ' + UI.swingWord(v) },
+              lay: { n: 6, lo: -10, hi: 40, start: 15, tol: 8, min: -20, max: 60, word: (v) => v + ' ms · ' + UI.layWord(v) } };
+  const pNull = (r) => { const c = r.start; let hit = 0; for (let v = r.lo; v <= r.hi; v++) if (Math.abs(v - c) <= r.tol) hit++; return hit / (r.hi - r.lo + 1); };
+  const pc = (p) => (p * 100).toFixed(1) + '%';
+  $('c1').textContent = pc(GR.atLeast(5, 6, pNull(R.swing))); $('c2').textContent = pc(GR.atLeast(5, 6, pNull(R.lay)));
+  let run = [], k = 0, test = { hear: 'hidden', alt: false, locked: false };
+  function startRun() {
+    run = []; ['swing', 'lay'].forEach((round) => { for (let i = 0; i < R[round].n; i++) run.push({ round, target: rint(R[round].lo, R[round].hi) }); });
+    k = 0; $('res').innerHTML = ''; $('tbox').hidden = false; $('start').textContent = 'Start again'; showT();
+  }
+  const P4 = (t, v) => t.round === 'swing' ? plain(v / 100, 0, false) : plain(0.64, v, false);
+  function showT() {
+    const t = run[k], r = R[t.round];
+    test = { hear: 'hidden', alt: false, locked: false };
+    $('tn').textContent = (t.round === 'swing' ? 'round one, swing' : 'round two, lay-back') + ' · trial ' + ((k % 6) + 1) + ' of 6';
+    $('tlab').textContent = t.round === 'swing' ? 'Swing' : 'Lay-back';
+    $('ts').min = r.min; $('ts').max = r.max; $('ts').value = r.start; $('ts').disabled = false;
+    $('tl').hidden = false; $('tnext').hidden = true; $('n4').textContent = ''; readT();
+  }
+  function readT() {
+    const t = run[k], r = R[t.round], v = +$('ts').value; $('tsv').textContent = r.word(v);
+    press(['tm', 'ty'], test.alt ? null : test.hear === 'hidden' ? 'tm' : 'ty'); $('tx').setAttribute('aria-pressed', String(test.alt));
+    const H = P4(t, t.target), M = P4(t, v);
+    source = () => ({
+      y: () => test.alt ? alternate(H, M) : loopTake(test.hear === 'hidden' ? H : M), alt: test.alt,
+      layers: (test.locked ? [{ hits: GR.read(H, seed0), color: '--coral', ring: true, drumsOnly: true }] : []).concat(test.alt || test.hear === 'mine' || test.locked ? [{ hits: GR.read(M, seed0), color: '--accent' }] : [{ hits: GR.read(H, seed0).filter((h) => h.lane === 'bass' || h.lane === 'kick'), color: '--accent' }])
+    }); refresh();
+  }
+  $('ts').addEventListener('input', readT);
+  $('tm').addEventListener('click', () => { test.hear = 'hidden'; test.alt = false; readT(); });
+  $('ty').addEventListener('click', () => { test.hear = 'mine'; test.alt = false; readT(); });
+  $('tx').addEventListener('click', () => { test.alt = !test.alt; readT(); });
+  $('tp').addEventListener('click', () => { readT(); toggle($('tp')); });
+  $('tl').addEventListener('click', () => {
+    const t = run[k], r = R[t.round]; t.set = +$('ts').value; t.lock = Math.abs(t.set - t.target) <= r.tol;
+    test.locked = true; $('ts').disabled = true; readT(); $('tl').hidden = true; $('tnext').hidden = false;
+    $('n4').innerHTML = 'The hidden one was <b>' + r.word(t.target) + '</b>; you set <b>' + r.word(t.set) + '</b>. ' + (t.lock ? 'Locked in.' : 'Not within ' + r.tol + '.') + ' Rings are the hidden one, dots are yours.';
+  });
+  $('tnext').addEventListener('click', () => { UI.stop(); setPlay($('tp'), false); k++; if (k < run.length) showT(); else finishT(); });
+  function finishT() {
+    $('tbox').hidden = true;
+    const line = (round, name) => {
+      const n = run.filter((t) => t.round === round && t.lock).length, p = GR.atLeast(n, 6, pNull(R[round]));
+      return '<p><b>' + name + ': ' + n + ' of 6 locked in.</b> A reader who never listened would do this well or better ' + pc(p) + ' of the time. ' +
+        (n >= 5 ? 'Your ear reads this number back off the sound, so the record is no finer than a listener can use. That is a necessary part of the section’s “human read”, not the whole of it: reading a record is not the same as hearing one.' : 'This didn’t show that your ear reads it. That is a score, not a ruling on the page: the record may still serve a trained ear.') + '</p>';
+    };
+    const rows = run.map((t, i) => '<tr><td>' + (i + 1) + '</td><td>' + (t.round === 'swing' ? 'swing' : 'lay-back') + '</td><td>' + t.target + '</td><td>' + t.set + '</td><td>' + (t.lock ? 'locked in' : '·') + '</td></tr>').join('');
+    $('res').innerHTML = line('swing', 'Swing') + line('lay', 'Lay-back') + '<table class="log"><tr><th>trial</th><th>round</th><th>hidden</th><th>yours</th><th></th></tr>' + rows + '</table>';
+  }
+  $('start').addEventListener('click', () => { UI.stop(); setPlay($('tp'), false); startRun(); });
+
+  // ── the picture ──
+  const grids = ['g0', 'g1', 'g2', 'g3', 'g4'];
+  function frame() {
+    const s = walk.cur, el = $(grids[s]);
+    if (el && !el.closest('[hidden]') && cur.layers) {
+      let t = UI.at(), head = null, who = '';
+      if (t != null) { if (cur.alt) { const half = t >= GR.LOOP; who = half ? 'yours' : 'the hidden one'; t = t % GR.LOOP; } head = t / GR.LOOP; }
+      GRID.draw(el, cur.layers, head);
+      const nowEl = s === 3 ? $('n3') : null;
+      if (nowEl) nowEl.innerHTML = UI.playing() && cur.alt ? 'Now playing: <b>' + who + '</b>' : '';
+      if (s === 4 && UI.playing() && cur.alt && !test.locked) $('n4').innerHTML = 'Now playing: <b>' + who + '</b>';
+    }
+    requestAnimationFrame(frame);
+  }
+  const plays = ['p0', 'p1', 'p2', 'p3', 'tp'];
+  const walk = UI.walk(['one record', 'hear swing', 'hear lay-back', 'practise', 'the test'], (s) => {
+    plays.forEach((id) => setPlay($(id), false)); playBtn = null;
+    if (s === 0) rec();
+    if (s === 1) one(plain(sw[on1], 0, false), Object.keys(sw), on1);
+    if (s === 2) one(plain(0.64, ly[on2], false), Object.keys(ly), on2);
+    if (s === 3) { if (!game.hidden) gameNew(); else gameRead(); }
+    if (s === 4) { if (run.length && k < run.length) readT(); else cur = { layers: [] }; }
+  });
+  UI.sigil($('sigil')); walk.go(0); requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>
