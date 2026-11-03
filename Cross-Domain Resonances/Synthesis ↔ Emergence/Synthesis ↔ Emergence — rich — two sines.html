@@ -1,0 +1,358 @@
+<!doctype html>
+<!--
+  title: Synthesis ↔ Emergence — rich — two sines
+  born: 2026-11-03
+  links: [[Synthesis ↔ Emergence]] connects-to · rich-face-piece · listed in [[Synthesis ↔ Emergence — rich.json]] under "The Technical Side"
+  forward_vector: I am the page's own demonstration, at the page's own numbers, 400 Hz and 200 Hz: a carrier
+    alone, a modulator alone, the two added, then the modulator turned to work on the carrier and the depth
+    raised until partials appear that neither wave had. I end on the section's claim that depth 5 sounds like
+    a bell, and measure it: at 2 : 1 every partial stays on one harmonic grid at every depth, and the scattered
+    spread a bell has comes from the ratio, not the depth. I change only when the section does.
+  engine: one carrier, one modulator, sin(2π·fc·t + I·sin(2π·fm·t)), with the carrier and the modulator also
+    playable on their own and added. The measurement renders the engine offline and reads each partial by an
+    exact sum over whole cycles. Synthesis ↔ Emergence — rich — checks.mjs runs ENGINE_SRC in Node.
+  dress: Loudon Live house style, Graphite skin.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:size" content="flow">
+<title>Two sines, one rule — and is it a bell?</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Manrope:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root { --bg:#0a0a0f; --e1:#12121a; --soft:rgba(255,255,255,.06); --border:#4a4a5e; --fg1:#e8e8f0; --fg2:#c8c8d8; --fg3:#8a8aa0; --fg4:#4a4a5a;
+    --amber:#e8b84a; --amberline:rgba(232,184,74,.5); --indigo:#8b8df5;
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --sans:'Manrope',system-ui,sans-serif; --serif:'Cormorant Garamond',Georgia,serif; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); font-weight: 300; }
+  .piece { padding: 22px 22px 20px; }
+  .kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
+  .kicker svg { width: 18px; height: 18px; }
+  .title { font-family: var(--serif); font-size: 27px; font-weight: 300; color: var(--fg1); margin: 0 0 6px; }
+  .sub { font-size: 14px; line-height: 1.6; color: var(--fg2); max-width: 74ch; margin: 0 0 16px; }
+  .tabs { display: flex; flex-wrap: wrap; margin-bottom: 14px; }
+  .tabs button { border-radius: 0; margin: 0 -1px -1px 0; }
+  .tabs button.ahead { color: var(--fg4); }
+  button { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--fg2); background: var(--bg); border: 1px solid var(--border); border-radius: 2px; padding: 7px 12px; cursor: pointer; }
+  button:hover { border-color: var(--amberline); color: var(--fg1); }
+  button[aria-pressed="true"] { color: var(--amber); border-color: var(--amberline); }
+  button.go { color: var(--amber); border-color: var(--amberline); box-shadow: 0 0 14px rgba(232,184,74,.18); min-width: 92px; }
+  button:focus-visible, input:focus-visible { outline: 1px dashed var(--amber); outline-offset: 2px; }
+  .step { border: 1px solid var(--soft); background: var(--e1); padding: 12px 14px; margin-bottom: 12px; }
+  .stephead { font-family: var(--mono); font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--fg3); display: flex; justify-content: space-between; gap: 10px; margin-bottom: 6px; }
+  .stephead b { color: var(--fg1); font-weight: 500; }
+  .teach { font-size: 14px; line-height: 1.6; max-width: 76ch; margin: 0 0 8px; }
+  .back { font-family: var(--mono); font-size: 11px; color: var(--fg3); margin: 6px 0 0; }
+  .row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 8px 0; }
+  label.sl { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: .08em; color: var(--fg3); min-width: 220px; flex: 1; }
+  label.sl b { color: var(--fg1); font-weight: 500; }
+  input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 3px; background: var(--fg4); margin: 12px 0 4px; outline: none; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 13px; height: 13px; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  input[type=range]::-moz-range-thumb { width: 13px; height: 13px; border: 0; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  .panel { border: 1px solid var(--soft); background: var(--e1); padding: 10px 12px; margin-bottom: 10px; }
+  .plabel { font-family: var(--mono); font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--fg3); margin-bottom: 8px; display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+  canvas { display: block; width: 100%; }
+  #wave { height: 90px; } #spec { height: 230px; }
+  .walk { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin: 12px 0; }
+  .read { display: flex; flex-wrap: wrap; gap: 6px 22px; margin-top: 4px; font-family: var(--mono); font-size: 11.5px; letter-spacing: .05em; color: var(--fg3); }
+  .read b { color: var(--fg1); font-weight: 500; }
+  .verdict { margin-top: 10px; font-size: 15px; line-height: 1.55; color: var(--fg1); min-height: 1.5em; max-width: 80ch; }
+  .verdict .fam { color: var(--amber); font-family: var(--mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; margin-right: 8px; }
+  .eqs { margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--soft); }
+  .eq { font-family: var(--serif); font-size: 19px; color: var(--fg1); font-variant-numeric: lining-nums; }
+  .words { font-size: 13px; line-height: 1.55; color: var(--fg2); margin: 2px 0 10px; max-width: 80ch; }
+  .hint { font-family: var(--mono); font-size: 11px; letter-spacing: .06em; color: var(--fg3); margin-top: 8px; line-height: 1.6; }
+  .key i { display: inline-block; width: 10px; height: 2px; vertical-align: middle; margin: 0 4px 0 10px; }
+  .foot { font-family: var(--mono); font-size: 10px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg4); margin-top: 14px; }
+</style>
+</head>
+<body>
+<div class="piece">
+  <div class="kicker"><svg viewBox="-1.1 -1.1 2.2 2.2" aria-hidden="true"><path id="sigil" fill="none" stroke="#e8b84a" stroke-width="0.06"/></svg>made · Web Audio Worklet · sketch</div>
+  <h3 class="title">Two sines, one rule — and is it a bell?</h3>
+  <p class="sub">The section's own pair: a carrier at 400 Hz and a modulator at 200 Hz. The walk is the demonstration the page scripts under Teaching Notes, one sine, then the other, then the two together, then the rule between them, and it ends on the section's claim that depth 5 sounds like a bell. Every line drawn below is measured from the sound itself, not drawn from a formula.</p>
+
+  <div class="tabs" id="tabs" role="group" aria-label="steps"></div>
+  <div class="step" id="step" aria-live="polite">
+    <div class="stephead"><b id="stepname"></b><span id="stepcount"></span></div>
+    <p class="teach" id="teach"></p>
+    <div id="controls"></div>
+    <p class="back" id="backline"></p>
+  </div>
+
+  <div class="walk">
+    <button id="back">◂ back</button>
+    <button id="go" class="go">▸ play</button>
+    <button id="next">next ▸</button>
+    <span class="hint" id="state">silent until you press play</span>
+  </div>
+
+  <div class="panel">
+    <div class="plabel"><span>the wave · 10 ms</span><span id="wavenote"></span></div>
+    <canvas id="wave"></canvas>
+  </div>
+  <div class="panel">
+    <div class="plabel"><span>the spectrum, measured · dB, −60 to 0 · 0 to 3 kHz</span><span class="key"><i style="background:#8a8aa0"></i>a frequency one of the two waves had<i style="background:#e8b84a"></i>new: neither had it<i style="background:rgba(139,141,245,.6)"></i>the grid</span></div>
+    <canvas id="spec"></canvas>
+  </div>
+  <div class="read">
+    <span>what you hear <b id="r-mode"></b></span>
+    <span>partials within 40 dB <b id="r-count"></b></span>
+    <span>new ones <b id="r-new"></b></span>
+    <span>on the <span id="r-gridname"></span> grid <b id="r-share"></b></span>
+    <span>grid slots filled <b id="r-slots"></b></span>
+  </div>
+  <div class="verdict" id="verdict"></div>
+
+  <div class="eqs">
+    <div class="eq">y = sin( 2π f<sub>c</sub> t + I · sin 2π f<sub>m</sub> t )</div>
+    <div class="words">(what you hear) = a sine at the carrier's speed, whose phase is pushed back and forth by the modulator, as hard as the depth I says. At I = 0 nothing pushes, and the modulator is never heard at all.</div>
+    <div class="eq">f = f<sub>c</sub> ± n · f<sub>m</sub>, &nbsp; n = 0, 1, 2, …</div>
+    <div class="words">The partials sit at the carrier plus and minus whole numbers of the modulator; one that lands below 0 Hz folds back up. At 400 and 200 every one of them is a whole number of 200 Hz, whatever the depth.</div>
+  </div>
+  <div class="hint">The measurement renders the same engine you hear, offline at 48 kHz, and reads each partial by an exact sum over whole cycles of the grid. Whether a sound is brass or a bell is the ear's call; what the piece can measure is where the partials sit.</div>
+  <div class="foot">Loud'n Live</div>
+</div>
+
+<script>
+(() => {
+// ───────────── the engine: one carrier, one modulator, heard alone, added, or as FM ─────────────
+const ENGINE_SRC = String.raw`
+// mode weights: carrier alone, modulator alone, the two added, FM
+const MIX = { carrier: [1, 0, 0], mod: [0, 1, 0], sum: [0.5, 0.5, 0], fm: [0, 0, 1] };
+class TwoSines {
+  constructor(sr) {
+    this.sr = sr; this.pc = 0; this.pm = 0;
+    this.fc = 400; this.fm = 200; this.index = 0; this.mode = 'carrier'; this.gate = 0;
+    this.I = 0; this.g = 0; this.w = [1, 0, 0]; this.f2 = 200;
+    this.sm = 1 - Math.exp(-1 / (0.015 * sr)); this.gm = 1 - Math.exp(-1 / (0.006 * sr));
+  }
+  set(d) {
+    for (const k of ['fc', 'fm', 'index', 'mode', 'gate']) if (d[k] !== undefined) this[k] = d[k];
+    if (d.snap) { this.I = this.index; this.w = MIX[this.mode].slice(); this.f2 = this.fm; }
+  }
+  step() {
+    const TP = 2 * Math.PI, t = MIX[this.mode];
+    this.I += (this.index - this.I) * this.sm;
+    this.f2 += (this.fm - this.f2) * this.sm;
+    for (let j = 0; j < 3; j++) this.w[j] += (t[j] - this.w[j]) * this.sm;
+    const c = Math.sin(TP * this.pc), m = Math.sin(TP * this.pm), f = Math.sin(TP * this.pc + this.I * m);
+    this.pc += this.fc / this.sr; this.pc -= Math.floor(this.pc);
+    this.pm += this.f2 / this.sr; this.pm -= Math.floor(this.pm);
+    return this.w[0] * c + this.w[1] * m + this.w[2] * f;
+  }
+  render(L, R, n) {
+    for (let i = 0; i < n; i++) { this.g += (this.gate - this.g) * this.gm; L[i] = 0.3 * this.g * this.step(); R[i] = L[i]; }
+  }
+}
+// The shared grid of two whole-number frequencies: their greatest common divisor.
+function gcd(a, b) { a = Math.round(a); b = Math.round(b); while (b) [a, b] = [b, a % b]; return a; }
+// Measure: render the engine offline at 48 kHz, settled, and read every multiple of the grid up to fmax by an
+// exact sum over whole grid cycles. Also the share of the power those multiples hold.
+function measure(mode, fc, fm, I, fmax = 3000) {
+  const SR = 48000, grid = mode === 'carrier' ? fc : mode === 'mod' ? fm : gcd(fc, fm), P = SR / grid;
+  const e = new TwoSines(SR); e.set({ fc, fm, index: I, mode, snap: true });
+  const C = Math.max(4, Math.ceil(4800 / P)), N = P * C, x = new Float64Array(N);
+  for (let i = 0; i < N; i++) x[i] = e.step();
+  const parts = []; let cap = 0, pow = 0;
+  for (let i = 0; i < N; i++) pow += x[i] * x[i];
+  pow /= N;
+  for (let k = 1; k * grid <= Math.max(fmax, 12000); k++) {
+    let re = 0, im = 0;
+    for (let i = 0; i < N; i++) { const a = 2 * Math.PI * k * i / P; re += x[i] * Math.cos(a); im -= x[i] * Math.sin(a); }
+    const a = Math.hypot(re, im) * 2 / N; cap += a * a / 2;
+    if (k * grid <= fmax) parts.push({ f: k * grid, k, a });
+  }
+  return { grid, parts, share: pow ? cap / pow : 1, wave: Array.from(x.subarray(0, Math.round(SR * 0.01))) };
+}
+`;
+const PROC_SRC = ENGINE_SRC + `
+class Proc extends AudioWorkletProcessor {
+  constructor() { super(); this.e = new TwoSines(sampleRate); this.port.onmessage = ({ data }) => this.e.set(data); }
+  process(_, outs) { const o = outs[0]; this.e.render(o[0], o[1] || o[0], o[0].length); return true; }
+}
+registerProcessor('se-two-sines', Proc);`;
+const { TwoSines, measure } = new Function(ENGINE_SRC + '; return { TwoSines, measure };')();
+
+// ───────────── the walk ─────────────
+const FC = 400;
+const S = { step: 0, reached: 0, index: 0, mode: 'carrier', fm: 200, playing: false };
+const STEPS = [
+  { name: 'the carrier · one sine', mode: 'carrier', index: 0, fm: 200, ctl: [],
+    teach: 'A sine at 400 Hz, the simplest sound there is. One line in the spectrum, and a wave with nothing on it. Press play.' },
+  { name: 'the modulator · another', mode: 'mod', index: 0, fm: 200, ctl: [],
+    teach: 'A second sine, at 200 Hz, an octave lower. Same simplicity, one line.',
+    back: 'Step 1 is the carrier again.' },
+  { name: 'added · two lines', mode: 'sum', index: 0, fm: 200, ctl: [],
+    teach: 'Play them together. Two lines, at 200 and 400, and nothing else: added, two waves give back exactly what went in. This is the section\'s "linear addition".',
+    back: 'Each line is one of steps 1 and 2.' },
+  { name: 'FM at depth 0 · one line', mode: 'fm', index: 0, fm: 200, ctl: [],
+    teach: 'Now the rule changes. The modulator is no longer heard; it pushes on the carrier\'s phase instead. At depth 0 it pushes with nothing, so what you hear is the carrier alone again: one line, not two. In FM the modulator never sounds at all; only what it does to the carrier does.',
+    back: 'This is step 1\'s sound, reached a different way.' },
+  { name: 'depth rising · new lines', mode: 'fm', index: 1, fm: 200, ctl: ['index'],
+    teach: 'Raise the depth. Lines appear at 600, 800, 1000 Hz and on up, amber, at frequencies neither sine had. They come from the rule, the carrier plus and minus whole numbers of the modulator. The section names depth 1 as brass; listen at 1 and decide for yourself.',
+    back: 'At depth 0 it is step 4 again.' },
+  { name: 'depth 5 · the test: a bell?', mode: 'fm', index: 5, fm: 200, ctl: ['index', 'ratio'],
+    teach: 'The section says depth 5 sounds like a bell. A bell\'s partials are scattered, off any one harmonic series. Look at the grid: at 400 and 200, every partial sits on a whole number of 200 Hz, at depth 5 and at every depth, and at depth 5 every slot up to the top one is filled. Then move the modulator to 560 Hz, a ratio of 1 : 1.4, and look again.' },
+];
+
+const $ = id => document.getElementById(id);
+function el(tag, attrs = {}, ...kids) {
+  const e = document.createElement(tag);
+  for (const [k, v] of Object.entries(attrs)) { if (k === 'class') e.className = v; else if (k.startsWith('on')) e.addEventListener(k.slice(2), v); else e.setAttribute(k, v); }
+  for (const c of kids) if (c != null) e.append(c.nodeType ? c : document.createTextNode(c));
+  return e;
+}
+let syncers = [];
+function controls(list) {
+  syncers = [];
+  const out = [];
+  for (const c of list) {
+    if (c === 'index') {
+      const val = el('b'), input = el('input', { type: 'range', min: 0, max: 5, step: 0.01, 'aria-label': 'depth' });
+      syncers.push(() => { input.value = S.index; val.textContent = S.index.toFixed(2); });
+      input.addEventListener('input', () => { S.index = +input.value; update(); });
+      out.push(el('div', { class: 'row' }, el('label', { class: 'sl' }, 'depth (the index I) ', val, input)));
+    }
+    if (c === 'ratio') {
+      const a = el('button', { onclick: () => { S.fm = 200; update(); } }, 'modulator 200 Hz · 2 : 1, the page\'s');
+      const b = el('button', { onclick: () => { S.fm = 560; update(); } }, 'modulator 560 Hz · 1 : 1.4');
+      syncers.push(() => { a.setAttribute('aria-pressed', String(S.fm === 200)); b.setAttribute('aria-pressed', String(S.fm === 560)); });
+      out.push(el('div', { class: 'row' }, a, b));
+    }
+  }
+  return out;
+}
+function go(i) {
+  if (i !== S.step) stop();                          // changing step stops the sound
+  S.step = i; S.reached = Math.max(S.reached, i);
+  const s = STEPS[i]; S.index = s.index; S.mode = s.mode; S.fm = s.fm;
+  $('stepname').textContent = (i + 1) + ' · ' + s.name;
+  $('stepcount').textContent = 'step ' + (i + 1) + ' of ' + STEPS.length;
+  $('teach').textContent = s.teach;
+  $('backline').textContent = s.back || ''; $('backline').hidden = !s.back;
+  const host = $('controls'); host.textContent = ''; host.append(...controls(s.ctl));
+  $('back').hidden = i === 0; $('next').hidden = i === STEPS.length - 1;
+  const tabs = $('tabs'); tabs.textContent = '';
+  STEPS.forEach((t, j) => tabs.append(el('button', { 'aria-pressed': String(j === i), class: j > S.reached ? 'ahead' : '', onclick: () => go(j) }, (j + 1) + ' · ' + t.name.split(' · ')[0])));
+  update(); send(true);
+}
+$('back').addEventListener('click', () => go(Math.max(0, S.step - 1)));
+$('next').addEventListener('click', () => go(Math.min(STEPS.length - 1, S.step + 1)));
+
+// ───────────── audio: nothing exists before the first click ─────────────
+let ctx = null, port = null, booting = null;
+function boot() {
+  if (booting) return booting;
+  ctx = new AudioContext();
+  const comp = ctx.createDynamicsCompressor(); comp.threshold.value = -14; comp.ratio.value = 4;
+  comp.connect(ctx.destination);
+  // the kit may quiet the context (a hidden tab, a minute untouched): the button follows it
+  ctx.addEventListener('statechange', () => { if (ctx.state !== 'running' && S.playing) { S.playing = false; send(true); paint(); } });
+  booting = (async () => {
+    try {
+      const url = URL.createObjectURL(new Blob([PROC_SRC], { type: 'application/javascript' }));
+      await ctx.audioWorklet.addModule(url); URL.revokeObjectURL(url);
+      const node = new AudioWorkletNode(ctx, 'se-two-sines', { numberOfInputs: 0, outputChannelCount: [2] });
+      node.connect(comp); port = node.port;
+    } catch (e) {                                    // a page opened from a file: the same engine on the main thread
+      const eng = new TwoSines(ctx.sampleRate), sp = ctx.createScriptProcessor(1024, 0, 2);
+      sp.onaudioprocess = ev => eng.render(ev.outputBuffer.getChannelData(0), ev.outputBuffer.getChannelData(1), 1024);
+      sp.connect(comp); port = { postMessage: d => eng.set(d) };
+    }
+    send(true);
+  })();
+  return booting;
+}
+function send(snap) { if (port) port.postMessage({ fc: FC, fm: S.fm, index: S.index, mode: S.mode, gate: S.playing ? 1 : 0, snap: !!snap }); }
+async function play() {
+  await boot();
+  if (ctx.state !== 'running') await ctx.resume();
+  S.playing = true; send(false); paint();
+}
+function stop() { if (!S.playing) return; S.playing = false; send(false); paint(); }
+$('go').addEventListener('click', () => (S.playing ? stop() : play()));
+function paint() {
+  $('go').textContent = S.playing ? '❚❚ stop' : '▸ play';
+  $('state').textContent = S.playing ? 'playing' : 'silent until you press play';
+}
+
+// ───────────── readouts and drawing ─────────────
+let M = null;
+const MODE_WORDS = { carrier: 'the carrier, 400 Hz', mod: 'the modulator, 200 Hz', sum: 'the two, added', fm: 'FM' };
+function update() {
+  for (const f of syncers) f();
+  M = measure(S.mode, FC, S.fm, S.index);
+  const top = Math.max(...M.parts.map(p => p.a));
+  const inputs = S.mode === 'carrier' ? [FC] : S.mode === 'mod' ? [S.fm] : [FC, S.fm];
+  const present = M.parts.filter(p => 20 * Math.log10(p.a / top) > -40);
+  const fresh = present.filter(p => !inputs.some(f => Math.abs(f - p.f) < 0.5));
+  const hiK = present.length ? Math.max(...present.map(p => p.k)) : 0;
+  $('r-mode').textContent = MODE_WORDS[S.mode] + (S.mode === 'fm' ? ' · depth ' + S.index.toFixed(2) + ' · ' + FC + ' : ' + S.fm : '');
+  $('r-count').textContent = String(present.length);
+  $('r-new').textContent = String(fresh.length);
+  $('r-gridname').textContent = M.grid + ' Hz';
+  $('r-share').textContent = (100 * M.share).toFixed(1) + ' % of the power';
+  $('r-slots').textContent = present.length + ' of the first ' + hiK;
+  $('wavenote').textContent = MODE_WORDS[S.mode];
+  const v = $('verdict'); v.textContent = '';
+  if (S.step === STEPS.length - 1) {
+    const lowest = present.length ? Math.min(...present.map(p => p.f)) : 0;
+    if (S.index < 0.05) v.append(el('span', { class: 'fam' }, 'a sine'), 'At depth 0 the modulator pushes with nothing: the carrier alone, whatever the ratio. Raise the depth.');
+    else if (present.length >= 0.75 * hiK) v.append(el('span', { class: 'fam' }, 'harmonic'),
+      'Every partial is on the ' + M.grid + ' Hz grid (' + (100 * M.share).toFixed(1) + ' % of the power), and ' + (present.length === hiK ? 'every one of the first ' + hiK + ' slots is filled' : present.length + ' of the first ' + hiK + ' slots are filled') + ': one harmonic series on ' + M.grid + ' Hz, the note an octave under the carrier. Raise the depth and it fills further up; it never leaves the grid. Brassy or buzzy, as your ear has it, but not scattered the way a bell is.');
+    else v.append(el('span', { class: 'fam' }, 'scattered'),
+      'The shared grid drops to ' + M.grid + ' Hz, since 400 : 560 is 5 : 7, and only ' + present.length + ' of its first ' + hiK + ' slots are filled, the lowest at ' + Math.round(lowest) + ' Hz with the ' + M.grid + ' Hz note itself missing. Strictly these are still harmonics, of a note no one hears; to the ear they are a spread. At this ratio even depth 1 is spread: the scatter comes from the ratio, and the depth fills it in. Whether it is a bell is still for the ear, and a bell is also struck and left to ring.');
+  } else if (S.mode === 'fm' && fresh.length) v.append(el('span', { class: 'fam' }, 'new'), fresh.length + ' partial' + (fresh.length > 1 ? 's' : '') + ' neither sine had: ' + fresh.slice(0, 8).map(p => Math.round(p.f)).join(', ') + (fresh.length > 8 ? ' …' : '') + ' Hz.');
+  else if (S.mode === 'fm') v.append(el('span', { class: 'fam' }, 'one line'), 'Two sines in, one line out: the modulator is not heard.');
+  else if (S.mode === 'sum') v.append(el('span', { class: 'fam' }, 'addition'), 'Two in, two out, nothing new.');
+  send(false); paint(); drawAll();
+}
+function drawAll() { drawWave(); drawSpec(); }
+function sized(cv) {
+  const d = devicePixelRatio || 1, w = cv.clientWidth, h = cv.clientHeight;
+  if (!w) return null;
+  if (cv.width !== Math.round(w * d)) { cv.width = Math.round(w * d); cv.height = Math.round(h * d); }
+  const g = cv.getContext('2d'); g.setTransform(d, 0, 0, d, 0, 0); g.clearRect(0, 0, w, h);
+  return { g, w, h };
+}
+function drawWave() {
+  const c = sized($('wave')); if (!c || !M) return;
+  const { g, w, h } = c, x = M.wave, mx = Math.max(1e-9, ...x.map(Math.abs));
+  g.strokeStyle = 'rgba(255,255,255,.12)'; g.beginPath(); g.moveTo(0, h / 2); g.lineTo(w, h / 2); g.stroke();
+  g.strokeStyle = S.mode === 'fm' && S.index > 0.01 ? '#e8b84a' : '#c8c8d8'; g.lineWidth = 1.4; g.beginPath();
+  x.forEach((v, i) => { const X = i / (x.length - 1) * w, Y = h / 2 - v / mx * (h / 2 - 6); i ? g.lineTo(X, Y) : g.moveTo(X, Y); });
+  g.stroke();
+}
+function drawSpec() {
+  const c = sized($('spec')); if (!c || !M) return;
+  const { g, w, h } = c, FMAX = 3000, DB = -60;
+  const X = f => 12 + f / FMAX * (w - 24), Y = db => h - 20 - (Math.max(DB, db) - DB) / -DB * (h - 36);
+  g.font = '10px "JetBrains Mono", monospace';
+  // the grid
+  g.strokeStyle = 'rgba(139,141,245,.22)'; g.lineWidth = 1;
+  for (let f = M.grid; f <= FMAX; f += M.grid) { g.beginPath(); g.moveTo(X(f), Y(DB)); g.lineTo(X(f), Y(DB) + 5); g.stroke(); }
+  g.strokeStyle = 'rgba(255,255,255,.14)'; g.beginPath(); g.moveTo(10, Y(DB)); g.lineTo(w - 10, Y(DB)); g.stroke();
+  for (const db of [-20, -40]) { g.fillStyle = '#4a4a5a'; g.fillText(db + ' dB', 14, Y(db) - 3); g.strokeStyle = 'rgba(255,255,255,.05)'; g.beginPath(); g.moveTo(10, Y(db)); g.lineTo(w - 10, Y(db)); g.stroke(); }
+  for (let f = 0; f <= FMAX; f += 500) { g.fillStyle = '#5a5a6e'; g.fillText(String(f), X(f) - 8, h - 4); }
+  const top = Math.max(...M.parts.map(p => p.a));
+  const inputs = S.mode === 'carrier' ? [FC] : S.mode === 'mod' ? [S.fm] : [FC, S.fm];
+  g.lineWidth = 2.6;
+  for (const p of M.parts) {
+    const db = 20 * Math.log10(p.a / top + 1e-12); if (db < DB) continue;
+    g.strokeStyle = inputs.some(f => Math.abs(f - p.f) < 0.5) ? '#8a8aa0' : '#e8b84a';
+    g.beginPath(); g.moveTo(X(p.f), Y(DB)); g.lineTo(X(p.f), Y(db)); g.stroke();
+  }
+}
+addEventListener('resize', drawAll);
+
+// the sigil: the house's Lissajous, 3 : 2
+(() => { let d = ''; for (let i = 0; i <= 400; i++) { const t = i / 400 * 2 * Math.PI; d += (i ? 'L' : 'M') + Math.sin(3 * t + Math.PI / 2).toFixed(3) + ' ' + Math.sin(2 * t).toFixed(3); } $('sigil').setAttribute('d', d); })();
+
+go(0);
+})();
+</script>
+</body>
+</html>
