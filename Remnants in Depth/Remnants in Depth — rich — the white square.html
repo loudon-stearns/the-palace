@@ -1,0 +1,331 @@
+<!doctype html>
+<!--
+  title: Remnants in Depth — rich — the white square
+  born: 2026-11-03
+  links: [[Remnants in Depth]] connects-to · rich-face-piece-of · [[BLUELINE]] re-runs · blob_swarm.py's street, camera, line style, billboard material and two-layer compositor · [[Shop/Blender]] connects-to · freestyle-occluders · [[Progressive Staging]] exemplifies · a walk up to its test
+  forward_vector: I am "The clean composite" as a walk of five steps on BLUELINE's own street: the line drawing alone,
+    one billboard over a building's edge in one view layer (the white square), the DITHERED fix alone, the two view
+    layers alone, and last the test of "neither fix alone is enough", with the material's other guards undone to
+    find where a plane edge can still show. I want the next Shop worker to know which fix carries the weight.
+  dress: Loudon Live house style, Graphite skin, tokens inlined. Equations twice, symbols and words.
+  engine: the script marked id="rd-engine". Dark is grey below 128; the corners are the quad minus the ink grown 2 px;
+    the ring is 3 px either side of the quad's edge, minus the ink grown 3 px and the lines grown 2 px; a ring pixel
+    moved when it differs from the plain street by more than 4 of 255. Growing and shrinking use the 4-neighbour
+    cross, as scipy's binary_dilation and binary_erosion do.
+  checks: Remnants in Depth — proof — rich checks.mjs pulls rd-engine out of this file and checks it against the numbers
+    in sheets/sheets.json, which "Remnants in Depth — rich — make sheets.py" measured with scipy.
+  files: sheets/sheets.json and sheets/comp/ (13 renders by "Remnants in Depth — rich — render plates.py", Blender 5.1.2,
+    each in a fresh Blender, cropped 780 x 340 from 1120 x 880).
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:files" content="sheets/sheets.json sheets/comp/">
+<title>The white square</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Manrope:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root { --bg:#0a0a0f; --e1:#12121a; --e2:#1a1a28; --border:#4a4a5e; --soft:rgba(255,255,255,.06);
+    --fg1:#e8e8f0; --fg2:#c8c8d8; --fg3:#8a8aa0; --amber:#e8b84a; --amberline:rgba(232,184,74,.5);
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --sans:'Manrope',system-ui,sans-serif; --serif:'Cormorant Garamond',Georgia,serif;
+    --ease:cubic-bezier(.4,0,.2,1); }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); font-weight: 300; }
+  .rd-piece { padding: 22px 22px 16px; max-width: 1100px; }
+  .rd-kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; }
+  .rd-title { font-family: var(--serif); font-size: 28px; font-weight: 300; color: var(--fg1); margin: 0 0 6px; }
+  .rd-sub { font-size: 14px; line-height: 1.6; max-width: 78ch; margin: 0 0 16px; }
+  .rd-rail { display: flex; flex-wrap: wrap; margin-bottom: 14px; border: 1px solid var(--border); width: fit-content; max-width: 100%; border-radius: 2px; }
+  .rd-rail button { border: 0; border-right: 1px solid var(--border); border-radius: 0; }
+  .rd-rail button:last-child { border-right: 0; }
+  button { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--fg2); background: var(--bg);
+    border: 1px solid var(--border); border-radius: 2px; padding: 8px 12px; cursor: pointer; transition: color 220ms var(--ease), border-color 220ms var(--ease); }
+  button:hover { border-color: rgba(232,184,74,.55); color: var(--fg1); }
+  button:disabled { opacity: .4; cursor: default; }
+  button[aria-pressed="true"] { color: var(--amber); border-color: var(--amberline); background: rgba(232,184,74,.08); }
+  button:focus-visible { outline: 1px dashed var(--amber); outline-offset: 2px; }
+  .rd-step { display: none; border: 1px solid var(--soft); background: var(--e1); border-radius: 2px; padding: 16px 16px 14px; }
+  .rd-step.rd-shown { display: block; }
+  .rd-step h2 { font-family: var(--serif); font-weight: 400; font-size: 23px; color: var(--fg1); margin: 0 0 4px; }
+  .rd-idea { font-size: 14.5px; line-height: 1.6; color: var(--fg1); max-width: 80ch; margin: 0 0 12px; }
+  .rd-p { font-size: 13.5px; line-height: 1.6; max-width: 80ch; margin: 8px 0; }
+  .rd-label { font-family: var(--mono); font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--fg3); margin: 0 0 6px; }
+  .rd-two { display: grid; grid-template-columns: minmax(260px, 2fr) minmax(200px, 1fr); gap: 14px; align-items: start; }
+  @media (max-width: 760px) { .rd-two { grid-template-columns: 1fr; } }
+  canvas { display: block; width: 100%; height: auto; background: #fff; border: 1px solid var(--soft); border-radius: 2px; image-rendering: pixelated; }
+  .rd-row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 10px 0; }
+  .rd-seg { display: inline-flex; flex-wrap: wrap; } .rd-seg button + button { border-left: 0; }
+  .rd-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 8px; margin: 10px 0; }
+  .rd-cell { border: 1px solid var(--soft); background: var(--bg); border-radius: 2px; padding: 8px 10px; }
+  .rd-k { font-family: var(--mono); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--fg3); }
+  .rd-v { font-family: var(--mono); font-size: 16px; color: var(--fg1); font-variant-numeric: tabular-nums; margin-top: 2px; }
+  .rd-eq { border-left: 2px solid var(--amberline); padding: 6px 12px; margin: 12px 0; }
+  .rd-sym { font-family: var(--mono); font-size: 14px; color: var(--fg1); }
+  .rd-words { font-family: var(--serif); font-style: italic; font-size: 16px; color: var(--fg2); margin-top: 2px; }
+  table.rd-tab { border-collapse: collapse; font-family: var(--mono); font-size: 12px; margin: 10px 0; }
+  table.rd-tab th, table.rd-tab td { border: 1px solid var(--soft); padding: 6px 10px; text-align: left; font-weight: 400; }
+  table.rd-tab th { color: var(--fg3); font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase; }
+  table.rd-tab td { color: var(--fg1); font-variant-numeric: tabular-nums; cursor: pointer; }
+  table.rd-tab td.rd-on { color: var(--amber); background: rgba(232,184,74,.08); }
+  .rd-test { font-size: 14px; line-height: 1.6; color: var(--fg1); border: 1px solid var(--soft); background: var(--e2); padding: 10px 12px; border-radius: 2px; max-width: 88ch; margin: 12px 0 4px; }
+  .rd-test b { color: var(--amber); font-weight: 500; }
+  .rd-note { font-family: var(--mono); font-size: 11px; color: var(--fg3); line-height: 1.6; margin: 6px 0 0; max-width: 100ch; }
+  .rd-nav { display: flex; justify-content: space-between; margin-top: 12px; }
+  .rd-foot { display: flex; align-items: center; gap: 8px; margin-top: 16px; font-family: var(--mono); font-size: 11px; letter-spacing: .14em; color: var(--fg3); }
+  .rd-foot i { color: var(--amber); font-weight: 300; }
+  .rd-wait { font-family: var(--mono); font-size: 12px; color: var(--fg3); padding: 18px 0; }
+</style>
+</head>
+<body>
+<main class="rd-piece">
+  <div class="rd-kicker">Remnants in depth · the clean composite</div>
+  <h1 class="rd-title">The white square</h1>
+  <p class="rd-sub">BLUELINE's street from blob_swarm.py, with its own camera, Freestyle line style, billboard material and two-layer compositor, run headless in Blender 5.1.2. Two billboards: A in front of a building's edge, B behind the building across the street. Five steps: the line drawing, the square, each fix alone, and last the test of "neither fix alone is enough".</p>
+  <nav class="rd-rail" aria-label="steps">
+    <button data-go="1" aria-pressed="true">1 · the lines</button>
+    <button data-go="2" aria-pressed="false">2 · the square</button>
+    <button data-go="3" aria-pressed="false">3 · DITHERED alone</button>
+    <button data-go="4" aria-pressed="false">4 · two layers alone</button>
+    <button data-go="5" aria-pressed="false">5 · the test</button>
+  </nav>
+  <p class="rd-wait" id="wait">loading the renders…</p>
+
+  <section class="rd-step rd-shown" data-step="1">
+    <h2>1 · The lines</h2>
+    <p class="rd-idea">The street as Freestyle draws it: building edges in black ink on paper. Nothing else in the scene. Every later step is held against this picture.</p>
+    <div class="rd-two">
+      <div><div class="rd-label">the street · no billboards</div><canvas id="c1" width="780" height="340"></canvas></div>
+      <div><p class="rd-p">The page's warning starts here: always check a mark sitting over a line, never on white. On blank paper the square is invisible, because what goes missing is line.</p></div>
+    </div>
+  </section>
+
+  <section class="rd-step" data-step="2">
+    <h2>2 · A billboard over the line</h2>
+    <p class="rd-idea">Add the two billboards in the same view layer as the buildings. They are kept out of Freestyle's line set by collection, so they get no outline. But Freestyle still asks them which edges they hide.</p>
+    <div class="rd-two">
+      <div><div class="rd-label" id="l2"></div><canvas id="c2" width="780" height="340"></canvas>
+        <div class="rd-row"><button id="o2" aria-pressed="true">mark the missing line</button></div></div>
+      <div>
+        <div class="rd-grid">
+          <div class="rd-cell"><div class="rd-k">line kept in A's empty corners</div><div class="rd-v" id="m2a"></div></div>
+          <div class="rd-cell"><div class="rd-k">line pixels lost, in view</div><div class="rd-v" id="m2b"></div></div>
+        </div>
+        <p class="rd-p" id="p2"></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="rd-step" data-step="3">
+    <h2>3 · DITHERED alone</h2>
+    <p class="rd-idea">The first fix the page names: make the billboard's material a DITHERED alpha clip, which throws the empty fragments away. Still one view layer. Switch between BLENDED and DITHERED.</p>
+    <div class="rd-two">
+      <div><div class="rd-label" id="l3"></div><canvas id="c3" width="780" height="340"></canvas>
+        <div class="rd-row"><span class="rd-seg"><button data-m3="blend" aria-pressed="false">BLENDED</button><button data-m3="dith" aria-pressed="true">DITHERED</button></span></div></div>
+      <div>
+        <div class="rd-grid">
+          <div class="rd-cell"><div class="rd-k">line kept in A's corners</div><div class="rd-v" id="m3a"></div></div>
+          <div class="rd-cell"><div class="rd-k">pixels that differ, BLENDED vs DITHERED</div><div class="rd-v" id="m3b"></div></div>
+        </div>
+        <p class="rd-p" id="p3"></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="rd-step" data-step="4">
+    <h2>4 · Two view layers alone</h2>
+    <p class="rd-idea">The other fix: render the buildings in one view layer, where Freestyle sees nothing else, and the billboards in another, then lay the billboards over the street only where they are nearer than it. Keep the material BLENDED, so this is the layers alone.</p>
+    <div class="rd-eq"><div class="rd-sym">show(p) = [ z_street(p) − z_mark(p) &gt; 0 ]</div><div class="rd-words">At each pixel the mark shows only where the street behind it is farther away than the mark: the factor blob_swarm.py feeds to its Alpha Over.</div></div>
+    <div class="rd-two">
+      <div><div class="rd-label">two view layers · BLENDED</div><canvas id="c4" width="780" height="340"></canvas></div>
+      <div>
+        <div class="rd-grid">
+          <div class="rd-cell"><div class="rd-k">line kept in A's corners</div><div class="rd-v" id="m4a"></div></div>
+          <div class="rd-cell"><div class="rd-k">A's edge ring, pixels moved</div><div class="rd-v" id="m4b"></div></div>
+          <div class="rd-cell"><div class="rd-k">B hidden by the building</div><div class="rd-v" id="m4c"></div></div>
+        </div>
+        <p class="rd-p" id="p4"></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="rd-step" data-step="5">
+    <h2>5 · The test: is either fix enough alone?</h2>
+    <p class="rd-idea">The page: "Neither fix alone is enough." All four corners of the two switches, and three more with the billboard material's own edge guards undone. Choose a render; the close view is billboard A, with the moved edge pixels in amber.</p>
+    <table class="rd-tab" id="tab"></table>
+    <div class="rd-two">
+      <div><div class="rd-label" id="l5"></div><canvas id="c5" width="780" height="340"></canvas></div>
+      <div><div class="rd-label">billboard A, close · amber = edge pixel moved</div><canvas id="z5" width="240" height="240"></canvas></div>
+    </div>
+    <div class="rd-eq"><div class="rd-sym">moved(p) = [ |r(p) − s(p)| &gt; 4 ],  p in the quad's edge ring</div><div class="rd-words">An edge pixel counts as moved when it differs from the plain street by more than 4 of 255, within 3 pixels of the billboard's square edge, away from its ink and the lines.</div></div>
+    <p class="rd-test" id="t5"></p>
+    <p class="rd-note" id="n5"></p>
+  </section>
+
+  <div class="rd-nav"><button id="back">back</button><button id="next">next</button></div>
+  <div class="rd-foot">
+    <svg width="22" height="22" viewBox="-11 -11 22 22" aria-hidden="true"><circle r="10" fill="none" stroke="#4a4a5e" stroke-width="1"/><path id="sig" fill="none" stroke="#e8b84a" stroke-width="1"/></svg>
+    <span>Loud’n <i>Live</i></span>
+  </div>
+</main>
+
+<script id="rd-engine">
+/* Grey frames (0..255) as Uint8Arrays, W x H; masks are Uint8Arrays of 0/1. */
+const RD = (() => {
+  const dark = (a, t = 128) => { const m = new Uint8Array(a.length); for (let i = 0; i < a.length; i++) m[i] = a[i] < t ? 1 : 0; return m; };
+  function grow(m, W, H, k) {          // scipy binary_dilation, cross, k iterations, outside = 0
+    let a = m;
+    for (let it = 0; it < k; it++) { const b = new Uint8Array(a.length);
+      for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) { const i = y * W + x;
+        b[i] = a[i] || (x > 0 && a[i - 1]) || (x < W - 1 && a[i + 1]) || (y > 0 && a[i - W]) || (y < H - 1 && a[i + W]) ? 1 : 0; }
+      a = b; }
+    return a;
+  }
+  function shrink(m, W, H, k) {        // scipy binary_erosion, cross, k iterations, outside = 0
+    let a = m;
+    for (let it = 0; it < k; it++) { const b = new Uint8Array(a.length);
+      for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) { const i = y * W + x;
+        b[i] = a[i] && x > 0 && a[i - 1] && x < W - 1 && a[i + 1] && y > 0 && a[i - W] && y < H - 1 && a[i + W] ? 1 : 0; }
+      a = b; }
+    return a;
+  }
+  const and = (...ms) => { const o = new Uint8Array(ms[0].length); for (let i = 0; i < o.length; i++) { let v = 1; for (const m of ms) if (!m[i]) { v = 0; break; } o[i] = v; } return o; };
+  const not = (m) => { const o = new Uint8Array(m.length); for (let i = 0; i < m.length; i++) o[i] = m[i] ? 0 : 1; return o; };
+  const count = (m) => { let n = 0; for (let i = 0; i < m.length; i++) n += m[i]; return n; };
+  /* the measures for one render T, against the plain street R, for billboard k */
+  function prepare(G, W, H) {
+    const lines = dark(G.ref), P = { W, H, lines, linesGrown: grow(lines, W, H, 2) };
+    for (const k of ['A', 'B']) {
+      const Q = dark(G['quad' + k]), I = dark(G['ink' + k]);
+      P[k] = { Q, corners: and(Q, not(grow(I, W, H, 2))), ring: and(grow(Q, W, H, 3), not(shrink(Q, W, H, 3)), not(grow(I, W, H, 3)), not(P.linesGrown)) };
+    }
+    P.truthB = and(dark(G.truthB), P.B.Q, not(lines));
+    P.hiddenB = 1 - count(dark(G.truthB)) / count(dark(G.inkB));
+    return P;
+  }
+  function measure(P, R, T) {
+    const td = dark(T), out = {};
+    for (const k of ['A', 'B']) {
+      const c = P[k].corners; let base = 0, kept = 0, rp = 0, moved = 0, mx = 0;
+      for (let i = 0; i < td.length; i++) {
+        if (P.lines[i] && c[i]) { base++; if (td[i]) kept++; }
+        if (P[k].ring[i]) { rp++; const d = Math.abs(T[i] - R[i]); if (d > 4) moved++; if (d > mx) mx = d; }
+      }
+      out[k] = { corner_lines: base, kept, kept_share: base ? kept / base : 1, ring_px: rp, ring_moved: moved, ring_max: mx };
+    }
+    let vis = 0, xor = 0, lost = 0;
+    for (let i = 0; i < td.length; i++) {
+      const v = td[i] && !P.lines[i] && P.B.Q[i] ? 1 : 0; vis += v; if (v !== P.truthB[i]) xor++;
+      if (P.lines[i] && !td[i]) lost++;
+    }
+    out.B_visible = vis; out.B_truth = count(P.truthB); out.B_xor = xor; out.lines_lost = lost;
+    return out;
+  }
+  function differ(a, b, t = 4) { let n = 0; for (let i = 0; i < a.length; i++) if (Math.abs(a[i] - b[i]) > t) n++; return n; }
+  return { dark, grow, shrink, prepare, measure, differ, count };
+})();
+</script>
+<script>
+const $ = (id) => document.getElementById(id);
+const BASE = 'sheets/';
+const ROWS = [
+  ['L1_blend', 'one layer', 'BLENDED', 'as written'], ['L1_dith', 'one layer', 'DITHERED', 'as written'],
+  ['L2_blend', 'two layers', 'BLENDED', 'as written'], ['L2_dith', 'two layers', 'DITHERED', 'as written'],
+  ['L2_blend_raw', 'two layers', 'BLENDED', 'raw alpha'], ['L2_blend_repeat', 'two layers', 'BLENDED', 'texture repeats'],
+  ['L2_blend_raw_repeat', 'two layers', 'BLENDED', 'raw alpha, texture repeats'],
+];
+let meta, W = 780, H = 340, F = {}, P, MS = {}, step = 1, o2 = true, m3 = 'dith', pick = 'L2_blend';
+const pct = (v) => (100 * v).toFixed(1) + ' %';
+
+function loadImg(src) { return new Promise((res, rej) => { const im = new Image(); im.onload = () => res(im); im.onerror = () => rej(new Error('could not load ' + src)); im.src = src; }); }
+function greyOf(im) {
+  const c = document.createElement('canvas'); c.width = im.naturalWidth; c.height = im.naturalHeight;
+  const g = c.getContext('2d', { willReadFrequently: true }); g.drawImage(im, 0, 0);
+  const d = g.getImageData(0, 0, c.width, c.height).data, a = new Uint8Array(c.width * c.height);
+  for (let i = 0; i < a.length; i++) a[i] = d[4 * i];
+  return a;
+}
+async function boot() {
+  meta = await (await fetch(BASE + 'sheets.json')).json();
+  W = meta.comp.crop[2]; H = meta.comp.crop[3];
+  const keys = ['ref', 'inkA', 'quadA', 'inkB', 'quadB', 'truthB', ...ROWS.map((r) => r[0])];
+  const ims = await Promise.all(keys.map((k) => loadImg(BASE + 'comp/' + k + '.png')));
+  keys.forEach((k, i) => { F[k] = greyOf(ims[i]); });
+  P = RD.prepare(F, W, H);
+  ROWS.forEach(([k]) => { MS[k] = RD.measure(P, F.ref, F[k]); });
+  MS.L1_blend_vs_L1_dith = RD.differ(F.L1_blend, F.L1_dith);
+  window.__rdComp = MS;
+  $('wait').remove(); show(1);
+}
+/* paint a render; amber marks pixels where `mark` is set */
+function paint(canvas, a, mark, x0 = 0, y0 = 0, w = W, h = H) {
+  const g = canvas.getContext('2d'), img = g.createImageData(w, h), o = img.data;
+  for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) {
+    const i = (y + y0) * W + (x + x0), j = 4 * (y * w + x);
+    if (mark && mark[i]) { o[j] = 232; o[j + 1] = 184; o[j + 2] = 74; } else { o[j] = o[j + 1] = o[j + 2] = a[i]; }
+    o[j + 3] = 255;
+  }
+  g.putImageData(img, 0, 0);
+}
+function lostMask(T) { const td = RD.dark(T), m = new Uint8Array(T.length); for (let i = 0; i < T.length; i++) m[i] = P.lines[i] && !td[i] ? 1 : 0; return m; }
+function movedMask(T) { const m = new Uint8Array(T.length); for (let i = 0; i < T.length; i++) m[i] = (P.A.ring[i] || P.B.ring[i]) && Math.abs(T[i] - F.ref[i]) > 4 ? 1 : 0; return m; }
+
+function draw1() { paint($('c1'), F.ref); }
+function draw2() {
+  $('o2').setAttribute('aria-pressed', String(o2));
+  paint($('c2'), F.L1_dith, o2 ? lostMask(F.L1_dith) : null);
+  $('l2').textContent = 'one view layer · DITHERED, as blob_swarm.py writes it' + (o2 ? ' · amber = line that went missing' : '');
+  const m = MS.L1_dith;
+  $('m2a').textContent = pct(m.A.kept_share); $('m2b').textContent = m.lines_lost.toLocaleString('en-US');
+  $('p2').innerHTML = 'Inside billboard A\'s square, where the card is empty, ' + m.A.kept + ' of ' + m.A.corner_lines.toLocaleString('en-US') + ' line pixels survive. The building edges behind its transparent corners are simply not drawn: a white square cut out of the linework around the blob. B, mostly behind its building, cuts its own square out of the lines it stands in front of.';
+}
+function draw3() {
+  document.querySelectorAll('[data-m3]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.m3 === m3)));
+  const k = 'L1_' + m3; paint($('c3'), F[k], lostMask(F[k]));
+  $('l3').textContent = 'one view layer · ' + (m3 === 'dith' ? 'DITHERED' : 'BLENDED') + ' · amber = line that went missing';
+  $('m3a').textContent = pct(MS[k].A.kept_share); $('m3b').textContent = String(MS.L1_blend_vs_L1_dith);
+  $('p3').innerHTML = 'Pixel for pixel the same: ' + MS.L1_blend_vs_L1_dith + ' pixels differ between the two renders. The square is not a material problem. Freestyle works out which edges are visible from the geometry, and to it each billboard is a whole square of geometry, whatever its material throws away. As the page says, DITHERED alone is not enough.';
+}
+function draw4() {
+  paint($('c4'), F.L2_blend);
+  const m = MS.L2_blend;
+  $('m4a').textContent = pct(m.A.kept_share); $('m4b').textContent = m.A.ring_moved + ' of ' + m.A.ring_px.toLocaleString('en-US');
+  $('m4c').textContent = pct(P.hiddenB);
+  $('p4').innerHTML = 'Every line is back: ' + m.lines_lost + ' line pixels lost in view. The depth gate still lets the building cover B: ' + pct(P.hiddenB) + ' of B\'s ink sits behind it, and the composite shows B where a plain one-layer depth test does, to within ' + m.B_xor + ' pixels of ' + m.B_truth.toLocaleString('en-US') + '. And around A\'s square edge, with the material still BLENDED, ' + m.A.ring_moved + ' of ' + m.A.ring_px.toLocaleString('en-US') + ' pixels move by more than 4 of 255 (the largest change is ' + m.A.ring_max + ').';
+}
+function table() {
+  let h = '<tr><th>layers</th><th>material</th><th>its edge guards</th><th>line kept in A\'s corners</th><th>A\'s edge ring moved</th><th>largest change</th></tr>';
+  ROWS.forEach(([k, l, mat, g]) => { const m = MS[k], on = k === pick ? ' class="rd-on"' : '';
+    h += '<tr data-k="' + k + '"><td' + on + '>' + l + '</td><td' + on + '>' + mat + '</td><td' + on + '>' + g + '</td><td' + on + '>' + pct(m.A.kept_share) + '</td><td' + on + '>' + m.A.ring_moved + ' of ' + m.A.ring_px + '</td><td' + on + '>' + m.A.ring_max + ' ⁄ 255</td></tr>'; });
+  $('tab').innerHTML = h;
+  $('tab').querySelectorAll('tr[data-k]').forEach((tr) => tr.addEventListener('click', () => { pick = tr.dataset.k; draw5(); }));
+}
+function draw5() {
+  table();
+  const T = F[pick], r = ROWS.find((x) => x[0] === pick);
+  const mark = pick.startsWith('L1') ? lostMask(T) : movedMask(T);
+  paint($('c5'), T, mark);
+  $('l5').textContent = r[1] + ' · ' + r[2] + ' · ' + r[3] + ' · amber = ' + (pick.startsWith('L1') ? 'line that went missing' : 'edge pixel moved');
+  const qa = meta.comp.quadA_in_crop;
+  paint($('z5'), T, movedMask(T), qa[0], qa[1], 240, 240);
+  const a = MS.L2_blend.A, rr = MS.L2_blend_raw_repeat.A, rp = MS.L2_blend_repeat.A;
+  $('t5').innerHTML = '<b>Here, one fix is enough: the two view layers.</b> With blob_swarm.py\'s material as it stands, a BLENDED billboard in its own layer leaves no edge: ' + a.ring_moved + ' of ' + a.ring_px.toLocaleString('en-US') + ' ring pixels move, the largest change ' + a.ring_max + ' of 255, the same as DITHERED. The material already carries two guards against the plane edge: its texture is clipped at the border (CLIP, "kills the square frame" in the script\'s own comment), and its alpha is cut hard at 0.45 before it mixes. Undo them both and an edge appears, faintly: ' + rr.ring_moved + ' pixels, at most ' + rr.ring_max + ' of 255. Undo only the clip and nothing passes the 4-of-255 line (largest change ' + rp.ring_max + '). DITHERED alone does nothing for the square (step 3).';
+  $('n5').textContent = 'What this can\'t see: the June material, before the clip and the hard alpha, which may be why BLENDED showed an edge then; a render at other sizes or other mattes; motion. Full-frame numbers in sheets.json match these crops.';
+}
+function show(n) {
+  step = Math.max(1, Math.min(5, n));
+  document.querySelectorAll('.rd-step').forEach((s) => s.classList.toggle('rd-shown', +s.dataset.step === step));
+  document.querySelectorAll('.rd-rail button').forEach((b) => b.setAttribute('aria-pressed', String(+b.dataset.go === step)));
+  $('back').disabled = step === 1; $('next').disabled = step === 5;
+  [draw1, draw2, draw3, draw4, draw5][step - 1]();
+}
+document.querySelectorAll('.rd-rail button').forEach((b) => b.addEventListener('click', () => show(+b.dataset.go)));
+$('back').addEventListener('click', () => show(step - 1)); $('next').addEventListener('click', () => show(step + 1));
+$('o2').addEventListener('click', () => { o2 = !o2; draw2(); });
+document.querySelectorAll('[data-m3]').forEach((b) => b.addEventListener('click', () => { m3 = b.dataset.m3; draw3(); }));
+function sigil() { let d = ''; for (let i = 0; i <= 200; i++) { const t = i / 200 * 2 * Math.PI; d += (i ? 'L' : 'M') + (8 * Math.sin(3 * t + Math.PI / 4)).toFixed(2) + ' ' + (8 * Math.sin(2 * t)).toFixed(2); } $('sig').setAttribute('d', d); }
+sigil();
+boot().catch((err) => { $('wait').textContent = 'The renders did not load: ' + err.message; throw err; });
+</script>
+</body>
+</html>
