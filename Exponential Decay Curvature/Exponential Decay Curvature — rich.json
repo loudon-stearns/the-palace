@@ -84,6 +84,17 @@
         "by": "maker · claude-opus-5-5 · proposal round",
         "round": "proposal-round-2026-11"
       },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Exponential Decay Curvature — rich — the straight line.html",
+            "verdict": "remake",
+            "why": "A real test, faithful, walks up; but step 4's try text says \"in 64-bit the grit is shorter\", and its own engine gives the same length, only later (32-bit 0.216–0.360 s, 64-bit 0.615–0.762 s, 5733 vs 5723 samples off). Replace with: \"In 64-bit the grit comes later, at about 0.6 s instead of 0.2 s, and lasts about as long; then the same silence.\""
+          }
+        ]
+      },
       "pieces": [
         {
           "file": "Exponential Decay Curvature — rich — the straight line.html",
@@ -107,6 +118,17 @@
         "date": "2026-11-03",
         "by": "maker · claude-opus-5-5 · proposal round",
         "round": "proposal-round-2026-11"
+      },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Exponential Decay Curvature — rich — curvature is timbre.html",
+            "verdict": "keep",
+            "why": "Measures the alias from its own engine in four versions and could have cleared the claim; it found PolyBLEP alone leaves −9.5 dB at 1760 Hz, c = 60 (reproduced to 0.1 dB by an independent periodic FFT). Note: PolyBLAMP does nothing at 3520 Hz, c = 60 (−1.4 → −1.0 dB); one clause in the try text would warn a reader who pushes the pitch."
+          }
+        ]
       },
       "pieces": [
         {
@@ -132,6 +154,17 @@
         "by": "maker · claude-opus-5-5 · proposal round",
         "round": "proposal-round-2026-11"
       },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Exponential Decay Curvature — rich — the RC contour.html",
+            "verdict": "keep",
+            "why": "Its test is an identity that cannot fail (V(xT) ÷ L is exactly the rising member at c = −ln(1 − L)), but it names the member the section leaves unnamed and walks up from one capacitor; its decay from the peak is right where the text's s + e^(−t/RC) is not (offer 5)."
+          }
+        ]
+      },
       "pieces": [
         {
           "file": "Exponential Decay Curvature — rich — the RC contour.html",
@@ -155,6 +188,22 @@
         "date": "2026-11-03",
         "by": "maker · claude-opus-5-5 · proposal round",
         "round": "proposal-round-2026-11"
+      },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Exponential Decay Curvature — rich — the heard rise.html",
+            "verdict": "keep",
+            "why": "A blind trial (shuffled, hidden until reveal) of the figure's own candidate, which only a listener can settle; landmarks match the text. Note: the rounded rise reaches full at 1.15 T and sits 0.33 dB short at T; say so in step 4, not only in the caption's equation."
+          },
+          {
+            "file": "/Projects/Synth Templates/workshop/cards/envelope-curves.svg",
+            "verdict": "keep",
+            "why": "Tracked (17e9e298), byte-identical to the owner's copy, beside the sentence that names it; its quoted A/B cue is the card's own line. Illustrates rather than tests, as a gathered record the paragraph points to should."
+          }
+        ]
       },
       "pieces": [
         {
