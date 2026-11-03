@@ -74,14 +74,16 @@ const r = await page.evaluate(async ({ typeset03, consts03, texts03 }) => {
     const built = S.portraitScore(cur, DW, DH, CELL, o), mult = S.portraitScore(cur, DW, DH, CELL, { ...o, multiply: true }), ctl = S.controlScore(cur, DW, DH, CELL, o);
     const ib = { ...o, inBand: true }, bB = S.portraitScore(cur, DW, DH, CELL, ib), bM = S.portraitScore(cur, DW, DH, CELL, { ...ib, multiply: true }), bK = S.portraitScore(cur, DW, DH, CELL, { ...ib, pick: 'ink' });
     const tr = S.transfer(built.lay, built.R, 50), inBand = tr.map((v, k) => [(k + .5) / 50, v]).filter(([x, v]) => v != null && x >= 0.30 && x < 0.78).map(p => p[1]);
+    const sc = S.squintControls(built.lay, built.R, DW, DH, 1), db = S.drawnBands(built.lay, built.R);
     let tot = 0, tile = 0; built.lay.B.forEach((b, i) => { tot += built.R[i]; if (S.tierOf(b) === 'tile') tile += built.R[i]; });
     out[nm] = { built: built.r, mult: mult.r, ctl, bandBuilt: bB.r, bandMult: bM.r, bandInk: bK.r, slopeBuilt: bB.slope, slopeInk: bK.slope, slopeMult: bM.slope,
-      flat: Math.max(...inBand) - Math.min(...inBand), tileShare: tile / tot,
+      flat: Math.max(...inBand) - Math.min(...inBand), tileShare: tile / tot, sc, db,
       churn: [0, 0.7, 0.95].map(s => S.churn(raw, DW, DH, 0.02, s, { textIdx: 0 })) };
   }
-  const ABC = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('').map(c => S.inkOf(c));
+  const ABC = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('').map(c => S.cellInk(c, 9));
   out.letters = [Math.min(...ABC), Math.max(...ABC)];
-  out.words = S.inkReach(S.bankFor(S.TEXTS[0].body));
+  const wci = w => { let t = 0; for (const c of w) t += S.cellInk(c, 9); return t / w.length; }, ws = S.bankFor(S.TEXTS[0].body).map(wci);
+  out.words = [Math.min(...ws), Math.max(...ws)];
   return out;
 }, { typeset03, consts03, texts03 });
 
@@ -96,11 +98,13 @@ for (const nm of ['hopper', 'waves']) {
   check(`${nm} · ramp 5 · as built, the word band ignores the light`, Math.abs(x.bandBuilt) < 0.2 && Math.abs(x.slopeBuilt) < 0.06, `r ${f(x.bandBuilt)}, slope ${x.slopeBuilt.toFixed(3)}`);
   check(`${nm} · ramp 5 · a literal multiply makes the band follow`, x.bandMult > 0.4, `r ${f(x.bandMult)}, slope ${x.slopeMult.toFixed(3)}; whole frame ${f(x.mult)}`);
   check(`${nm} · band 5 · words picked by ink sit between`, x.bandInk > x.bandBuilt + 0.1 && x.bandInk < x.bandMult, `r ${f(x.bandInk)}, slope ${x.slopeInk.toFixed(3)}`);
+  check(`${nm} · ramp 5 · the whole-frame score is the tiers: six even greys beat the words, an empty band trails them`, x.sc.even > x.built && x.sc.empty < x.built, `even ${f(x.sc.even)}, own-mean stair ${f(x.sc.stair)}, flat band ${f(x.sc.flat)}, empty band ${f(x.sc.empty)}, built ${f(x.built)}`);
+  check(`${nm} · band 3 · two drawn bands, apart: letter cells below letter tiles`, x.db.word[2] < x.db.tile[0], `letters ${x.db.word[0].toFixed(2)}–${x.db.word[2].toFixed(2)}, tiles ${x.db.tile[0].toFixed(2)}–${x.db.tile[2].toFixed(2)} (5th–95th pct)`);
   check(`${nm} · band 4 · the curve is flat across the word band`, x.flat < 0.1, `range ${x.flat.toFixed(3)}`);
   check(`${nm} · ramp 4 · more smoothing, fewer letters change (σ 0.02)`, x.churn[0] > x.churn[1] && x.churn[1] > x.churn[2], x.churn.map(v => (100 * v).toFixed(0) + '%').join(' → '));
 }
 check('hopper · band 3 · the white tiles carry a large share of the light', r.hopper.tileShare > 0.35, `${(100 * r.hopper.tileShare).toFixed(0)}%`);
-check('band 2 · the capitals span a narrow band of ink', r.letters[1] - r.letters[0] < 0.2, `${r.letters[0].toFixed(3)} – ${r.letters[1].toFixed(3)}`);
+check('band 2 · the capitals, drawn in a 9 px cell, span a band of ink well short of the cell', r.letters[1] - r.letters[0] < 0.35 && r.letters[1] < 0.5, `${r.letters[0].toFixed(3)} – ${r.letters[1].toFixed(3)}`);
 check('band 2 · whole words span less than the letters', r.words[0] >= r.letters[0] && r.words[1] <= r.letters[1], `${r.words[0].toFixed(3)} – ${r.words[1].toFixed(3)}`);
 
 /* every step of both pieces, clicked, no console errors */

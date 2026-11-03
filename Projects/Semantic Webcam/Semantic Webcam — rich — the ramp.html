@@ -133,7 +133,7 @@
   </section>
 
   <section class="sw-step">
-    <h2>4 · Smoothing holds the words still</h2>
+    <h2>4 · Does smoothing hold the words still?</h2>
     <p class="sw-idea">A camera never sends the same frame twice. Each cell's grey wobbles, a run's edge moves by a cell, and the words in it are chosen again. 03 keeps a running average of each cell, so a wobble has to last before it counts.</p>
     <div class="sw-row"><button id="play" aria-pressed="false">▸ run the noise</button>
       <label for="sig">camera noise σ</label><input type="range" id="sig" min="0" max="0.05" step="0.005" value="0.02"><span class="sw-val" id="sigv"></span>
@@ -145,13 +145,13 @@
     </div>
     <div class="sw-grid"><div class="sw-cell sw-r"><div class="sw-k">letters changed, this frame</div><div class="sw-v" id="live">–</div></div></div>
     <table class="sw-t" id="churnT"></table>
-    <p class="sw-note">The noise is a model: σ is a guess at how much a cell's grey wobbles on a real webcam, and a still has none of your own movement. A run that splits or joins also reseeds every run to its right on that row, since 03 seeds each run's words by its place in the row.</p>
+    <p class="sw-note">The noise is a model, and the number moves with it: σ is a guess at how much a cell's grey wobbles on a real webcam (try 0.005 and 0.03), and a still has none of your own movement. Here the average takes one step per frame of noise; 03 takes one per frame of the display, so a 30 fps camera on a 60 Hz screen is blended in twice and keeps less of the past than s says. Settling this needs a few seconds of real webcam frames, which no card yet holds. What holds whatever σ is: a run that splits or joins reseeds every run to its right on that row, since 03 seeds each run's words by its place in the row. Watch whole rows turn rose at once.</p>
     <div class="sw-nav"><button data-go="-1">◂ back</button><button data-go="1">next ▸</button></div>
   </section>
 
   <section class="sw-step">
     <h2>5 · Squint: is it still the picture?</h2>
-    <p class="sw-idea">Blur the drawn frame and the source alike, as your eye does from across a room, and ask how closely the drawn light follows the source light. The control draws the same cells shuffled, so it has the same marks and none of the picture.</p>
+    <p class="sw-idea">Blur the drawn frame and the source alike, as your eye does from across a room, and ask how closely the drawn light follows the source light. One control draws the same cells shuffled, so it has the same marks and none of the picture. Four more ask whether the words are what earns the score: the tiers as plain greys, two ways, and 03 with its word band flattened or emptied.</p>
     <div class="sw-row"><label for="sq">squint (cells)</label><input type="range" id="sq" min="0" max="4" step="1" value="1"><span class="sw-val" id="sqv"></span>
       <button id="mul" aria-pressed="false">letters × light</button></div>
     <div class="sw-pair">
@@ -208,6 +208,32 @@ window.SW = (function () {
     const d = ictx.getImageData(0, 0, 24, 32).data; let s = 0; for (let i = 3; i < d.length; i += 4) s += d[i];
     return inkTable[ch] = s / 255 / (24 * 32);
   }
+  /* the same glyph as 03 draws it in a cell: type 1.22 × the cell, centred, clipped to the cell */
+  const cellCache = {};
+  function cellInk(ch, CELL = 9) {
+    const key = ch + '@' + CELL; if (key in cellCache) return cellCache[key];
+    const c = document.createElement('canvas'); c.width = c.height = CELL; const g = c.getContext('2d', { willReadFrequently: true });
+    g.fillStyle = '#fff'; g.font = (CELL * 1.22).toFixed(1) + 'px ' + FONT; g.textAlign = 'center'; g.textBaseline = 'middle'; g.fillText(ch, CELL / 2, CELL / 2);
+    const d = g.getImageData(0, 0, CELL, CELL).data; let t = 0; for (let i = 3; i < d.length; i += 4) t += d[i];
+    return cellCache[key] = t / 255 / (CELL * CELL);
+  }
+  /* light read back off a drawn frame, per tier, for cells that carry a letter: 5th, 50th and 95th percentile */
+  function drawnBands(lay, R) {
+    const pick = { word: [], tile: [] };
+    lay.B.forEach((b, i) => { const t = S_tier(b); if (t === 'word' && lay.mid[i]) pick.word.push(R[i]); if (t === 'tile' && lay.white[i]) pick.tile.push(R[i]); });
+    const q = (a, p) => { const s = a.slice().sort((x, y) => x - y); return s.length ? s[Math.min(s.length - 1, Math.floor(p * s.length))] : NaN; };
+    return { word: [q(pick.word, .05), q(pick.word, .5), q(pick.word, .95)], tile: [q(pick.tile, .05), q(pick.tile, .5), q(pick.tile, .95)] };
+  }
+  /* the squint's controls, built on the drawn light itself: each tier as one flat grey (a plain staircase),
+     the word band alone made one flat grey, and the word band left empty */
+  function squintControls(lay, R, DW, DH, r) {
+    const sum = {}, n = {}; lay.B.forEach((b, i) => { const t = S_tier(b); sum[t] = (sum[t] || 0) + R[i]; n[t] = (n[t] || 0) + 1; });
+    const mean = t => sum[t] / n[t], ground = mean('blank');
+    const stair = lay.B.map(b => mean(S_tier(b))), flat = R.map((v, i) => S_tier(lay.B[i]) === 'word' ? mean('word') : v), empty = R.map((v, i) => S_tier(lay.B[i]) === 'word' ? ground : v);
+    const ORDER = ['blank', 'period', 'dash', 'word', 'shade', 'tile'], even = lay.B.map(b => ORDER.indexOf(S_tier(b)) / 5);
+    const sB = blur(lay.B, DW, DH, r), sc = a => pearson(sB, blur(Float32Array.from(a), DW, DH, r));
+    return { even: sc(even), stair: sc(stair), flat: sc(flat), empty: sc(empty) };
+  }
   function wordInk(w) { let s = 0; for (const c of w) s += inkOf(c); return s / w.length; }
 
   /* the still → a grid of grey cells: luminance, then 03's contrast, clamped (the smoothed value, before gain) */
@@ -224,6 +250,7 @@ window.SW = (function () {
     for (let i = 0; i < raw.length; i++) { let L = (raw[i] - 0.5) * contrast + 0.5; out[i] = L < 0 ? 0 : L > 1 ? 1 : L; }
     return out;
   }
+  const S_tier = B => tierOf(B);
   function tierOf(B) {
     if (B < T.BLANK) return 'blank'; if (B < T.PERIOD) return 'period'; if (B < T.MIDLO) return 'dash';
     if (B < T.MIDHI) return 'word'; if (B < T.WHITELO) return 'shade'; return 'tile';
@@ -431,7 +458,7 @@ window.SW = (function () {
   }
 
   return { T, CONTRAST, GAIN, AMBER, FONT, TEXTS, rngMake, bankFor, inkOf, wordInk, inkReach, lumGrid, contrastOf, tierOf,
-    typesetFill, typesetInk, layout, draw, cellLight, blur, maskedBlur, slope, pearson, shuffled, portraitScore, controlScore, churn, transfer, wordsOn, loadImg, wavesImg };
+    typesetFill, typesetInk, layout, draw, cellLight, blur, maskedBlur, slope, pearson, shuffled, portraitScore, controlScore, churn, transfer, wordsOn, cellInk, drawnBands, squintControls, loadImg, wavesImg };
 })();
 </script>
 <script>
@@ -546,7 +573,7 @@ function step5() {
   const sq = +$('#sq').value; $('#sqv').textContent = sq;
   const o = { textIdx: st.textIdx, squint: sq };
   const built = S.portraitScore(st.cur, st.DW, st.DH, CELL, o), mult = S.portraitScore(st.cur, st.DW, st.DH, CELL, { ...o, multiply: true });
-  const ctl = S.controlScore(st.cur, st.DW, st.DH, CELL, o);
+  const ctl = S.controlScore(st.cur, st.DW, st.DH, CELL, o), sc = S.squintControls(built.lay, built.R, st.DW, st.DH, sq);
   const bandB = S.portraitScore(st.cur, st.DW, st.DH, CELL, { ...o, inBand: true, squint: Math.max(1, sq) }), bandM = S.portraitScore(st.cur, st.DW, st.DH, CELL, { ...o, inBand: true, squint: Math.max(1, sq), multiply: true });
   greyFrame($('#c5a'), built.lay.B, st.DW, st.DH);
   S.draw($('#c5b'), built.lay, CELL, { multiply: st.mult });
@@ -556,11 +583,15 @@ function step5() {
   $('#testT').innerHTML = '<tr><th></th><th>whole frame · r</th><th>word band · r (blur ' + bs + ')</th><th>word band · drawn light per unit of source light</th></tr>' +
     '<tr><td>as 03 draws it</td><td class="sw-hi">' + swFmt(built.r) + '</td><td class="sw-hi">' + swFmt(bandB.r) + '</td><td>' + bandB.slope.toFixed(3) + '</td></tr>' +
     '<tr><td>letters × light (a literal multiply)</td><td>' + swFmt(mult.r) + '</td><td>' + swFmt(bandM.r) + '</td><td>' + bandM.slope.toFixed(3) + '</td></tr>' +
-    '<tr><td>control · the same cells shuffled</td><td>' + swFmt(ctl) + '</td><td>–</td><td>–</td></tr>';
-  $('#verdict').innerHTML = 'Squinting ' + sq + ' cell' + (sq === 1 ? '' : 's') + ', the frame follows the source at <b>r ' + swFmt(built.r) + '</b>; shuffled, <b>' + swFmt(ctl) + '</b>. The tiers carry the picture. ' +
+    '<tr><td>control · the same cells shuffled</td><td>' + swFmt(ctl) + '</td><td>–</td><td>–</td></tr>' +
+    '<tr><td>control · six tiers as six evenly spaced greys</td><td>' + swFmt(sc.even) + '</td><td>–</td><td>–</td></tr>' +
+    '<tr><td>control · each tier at its own mean drawn light, no marks</td><td>' + swFmt(sc.stair) + '</td><td>–</td><td>–</td></tr>' +
+    '<tr><td>control · 03, its word band one flat grey</td><td>' + swFmt(sc.flat) + '</td><td>–</td><td>–</td></tr>' +
+    '<tr><td>control · 03, its word band left empty</td><td>' + swFmt(sc.empty) + '</td><td>–</td><td>–</td></tr>';
+  $('#verdict').innerHTML = 'Squinting ' + sq + ' cell' + (sq === 1 ? '' : 's') + ', the frame follows the source at <b>r ' + swFmt(built.r) + '</b>; shuffled, <b>' + swFmt(ctl) + '</b>. But six evenly spaced greys, one per tier and no marks at all, score <b>' + swFmt(sc.even) + '</b>; each tier at its own mean light ' + swFmt(sc.stair) + '; 03 with its word band one flat grey ' + swFmt(sc.flat) + ', and with it left empty still ' + swFmt(sc.empty) + '. So the whole-frame number measures the tiers, not the words: the words beat an empty band, and do about what a flat grey does.' +
     'Inside the word band it is <b>' + swFmt(bandB.r) + '</b>: every letter is drawn at one brightness, so a cell\'s light picks the band and the band reads as one grey. ' +
     '03 selects by the light; it does not multiply by it. A literal multiply lifts the band to <b>' + swFmt(bandM.r) + '</b> and moves the whole frame to ' + swFmt(mult.r) + '.';
-  window.SW_LAST = { built: built.r, ctl, mult: mult.r, bandBuilt: bandB.r, bandMult: bandM.r, slopeBuilt: bandB.slope, slopeMult: bandM.slope };
+  window.SW_LAST = { built: built.r, ctl, even: sc.even, stair: sc.stair, flat: sc.flat, empty: sc.empty, mult: mult.r, bandBuilt: bandB.r, bandMult: bandM.r, slopeBuilt: bandB.slope, slopeMult: bandM.slope };
 }
 $('#mul').onclick = () => { st.mult = !st.mult; $('#mul').setAttribute('aria-pressed', String(st.mult)); step5(); };
 

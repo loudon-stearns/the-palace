@@ -99,15 +99,15 @@
 
   <section class="sw-step">
     <h2>1 · One letter is one grey</h2>
-    <p class="sw-idea">Set one letter in one cell and count how much of the cell it covers. That share is its ink, and seen from far enough away it is simply a grey.</p>
+    <p class="sw-idea">Set one letter in one cell, the way card 03 draws it, and count how much of the cell it covers. That share is its ink, and seen from far enough away it is simply a grey.</p>
     <div class="sw-row"><label for="ch">letter</label><input type="range" id="ch" min="0" max="25" step="1" value="4"><span class="sw-val" id="chv"></span></div>
     <div class="sw-pair">
-      <figure><canvas id="one" width="240" height="320" style="width:150px"></canvas><figcaption><b>the letter</b> · in 03's measuring box</figcaption></figure>
+      <figure><canvas id="one" width="240" height="320" style="width:150px"></canvas><figcaption><b>the letter</b> · as 03 draws it: type 1.22 × the cell, clipped to the cell</figcaption></figure>
       <figure><canvas id="oneg" width="240" height="320" style="width:150px"></canvas><figcaption><b>the same ink, spread</b> · its grey</figcaption></figure>
     </div>
     <div class="sw-eq">
-      <div class="sw-sym">ink(c) = (1 / N) · Σ coverage of each pixel,  N = 24 × 32</div>
-      <div class="sw-words">a letter's ink is the share of its box it darkens, between none and all</div>
+      <div class="sw-sym">ink(c) = (1 / N) · Σ coverage of each pixel in the cell,  N = 9 × 9</div>
+      <div class="sw-words">a letter's ink is the share of its cell it covers, between none and all</div>
     </div>
     <div class="sw-nav"><span></span><button data-go="1">next ▸</button></div>
   </section>
@@ -117,17 +117,17 @@
     <p class="sw-idea">Measure every capital and set them on one line from no ink to a full cell. They do not spread across it. They bunch in a narrow band, and whole words, which average their letters, bunch tighter still.</p>
     <canvas id="axis" width="960" height="200" style="width:100%"></canvas>
     <div class="sw-grid" id="bandCells"></div>
-    <p class="sw-note">Measured live in your browser's monospace font, the way 03 measures it, so the numbers can differ a little from machine to machine.</p>
+    <p class="sw-note">Ink here is measured in the cell as 03 draws it, live in your browser's monospace font, so the numbers move a little from machine to machine. 03 also keeps its own ink table, measured in a 24 × 32 box with smaller type (there the capitals span <span id="boxBand"></span>), but its drawing never reads it. The shaded strip under the letters is the light actually read back off the drawn Hopper frame, letter cells only, 5th to 95th percentile: the letters' amber at 0.94 opacity, and the neighbouring cell's overhang, move it from the bare ink.</p>
     <div class="sw-nav"><button data-go="-1">◂ back</button><button data-go="1">next ▸</button></div>
   </section>
 
   <section class="sw-step">
     <h2>3 · Turned inside out</h2>
-    <p class="sw-idea">Punch the same letter out of a white tile and the cell's light is everything the letter does not cover. That is a second band, up near white. Here the picture is drawn in the white space of the letters.</p>
+    <p class="sw-idea">Punch the same letter out of a white tile and the cell's light is what the letter leaves uncovered. That is a second band, up toward white. Here the picture is drawn in the white space of the letters.</p>
     <canvas id="axis2" width="960" height="120" style="width:100%"></canvas>
     <div class="sw-eq">
-      <div class="sw-sym">light(tile) = 1 − ink(c)</div>
-      <div class="sw-words">on a white tile the letter takes light away, so the tile's grey is what is left around it</div>
+      <div class="sw-sym">light(tile) ≈ T(B) · (1 − 0.92 · ink(c)),  T(B) = amber mixed toward white by 0.6 → 1 as B goes 0.90 → 1.00</div>
+      <div class="sw-words">a tile is not pure white: it starts as amber with a little white and whitens as you brighten, and the letter, dark at 0.92 opacity, takes its share of that away</div>
     </div>
     <div class="sw-pair"><figure><canvas id="c3"></canvas><figcaption><b>the frame, tiles only</b> · the white tiles and their punched letters, nothing else</figcaption></figure></div>
     <div class="sw-grid" id="share"></div>
@@ -203,6 +203,32 @@ window.SW = (function () {
     const d = ictx.getImageData(0, 0, 24, 32).data; let s = 0; for (let i = 3; i < d.length; i += 4) s += d[i];
     return inkTable[ch] = s / 255 / (24 * 32);
   }
+  /* the same glyph as 03 draws it in a cell: type 1.22 × the cell, centred, clipped to the cell */
+  const cellCache = {};
+  function cellInk(ch, CELL = 9) {
+    const key = ch + '@' + CELL; if (key in cellCache) return cellCache[key];
+    const c = document.createElement('canvas'); c.width = c.height = CELL; const g = c.getContext('2d', { willReadFrequently: true });
+    g.fillStyle = '#fff'; g.font = (CELL * 1.22).toFixed(1) + 'px ' + FONT; g.textAlign = 'center'; g.textBaseline = 'middle'; g.fillText(ch, CELL / 2, CELL / 2);
+    const d = g.getImageData(0, 0, CELL, CELL).data; let t = 0; for (let i = 3; i < d.length; i += 4) t += d[i];
+    return cellCache[key] = t / 255 / (CELL * CELL);
+  }
+  /* light read back off a drawn frame, per tier, for cells that carry a letter: 5th, 50th and 95th percentile */
+  function drawnBands(lay, R) {
+    const pick = { word: [], tile: [] };
+    lay.B.forEach((b, i) => { const t = S_tier(b); if (t === 'word' && lay.mid[i]) pick.word.push(R[i]); if (t === 'tile' && lay.white[i]) pick.tile.push(R[i]); });
+    const q = (a, p) => { const s = a.slice().sort((x, y) => x - y); return s.length ? s[Math.min(s.length - 1, Math.floor(p * s.length))] : NaN; };
+    return { word: [q(pick.word, .05), q(pick.word, .5), q(pick.word, .95)], tile: [q(pick.tile, .05), q(pick.tile, .5), q(pick.tile, .95)] };
+  }
+  /* the squint's controls, built on the drawn light itself: each tier as one flat grey (a plain staircase),
+     the word band alone made one flat grey, and the word band left empty */
+  function squintControls(lay, R, DW, DH, r) {
+    const sum = {}, n = {}; lay.B.forEach((b, i) => { const t = S_tier(b); sum[t] = (sum[t] || 0) + R[i]; n[t] = (n[t] || 0) + 1; });
+    const mean = t => sum[t] / n[t], ground = mean('blank');
+    const stair = lay.B.map(b => mean(S_tier(b))), flat = R.map((v, i) => S_tier(lay.B[i]) === 'word' ? mean('word') : v), empty = R.map((v, i) => S_tier(lay.B[i]) === 'word' ? ground : v);
+    const ORDER = ['blank', 'period', 'dash', 'word', 'shade', 'tile'], even = lay.B.map(b => ORDER.indexOf(S_tier(b)) / 5);
+    const sB = blur(lay.B, DW, DH, r), sc = a => pearson(sB, blur(Float32Array.from(a), DW, DH, r));
+    return { even: sc(even), stair: sc(stair), flat: sc(flat), empty: sc(empty) };
+  }
   function wordInk(w) { let s = 0; for (const c of w) s += inkOf(c); return s / w.length; }
 
   /* the still → a grid of grey cells: luminance, then 03's contrast, clamped (the smoothed value, before gain) */
@@ -219,6 +245,7 @@ window.SW = (function () {
     for (let i = 0; i < raw.length; i++) { let L = (raw[i] - 0.5) * contrast + 0.5; out[i] = L < 0 ? 0 : L > 1 ? 1 : L; }
     return out;
   }
+  const S_tier = B => tierOf(B);
   function tierOf(B) {
     if (B < T.BLANK) return 'blank'; if (B < T.PERIOD) return 'period'; if (B < T.MIDLO) return 'dash';
     if (B < T.MIDHI) return 'word'; if (B < T.WHITELO) return 'shade'; return 'tile';
@@ -426,7 +453,7 @@ window.SW = (function () {
   }
 
   return { T, CONTRAST, GAIN, AMBER, FONT, TEXTS, rngMake, bankFor, inkOf, wordInk, inkReach, lumGrid, contrastOf, tierOf,
-    typesetFill, typesetInk, layout, draw, cellLight, blur, maskedBlur, slope, pearson, shuffled, portraitScore, controlScore, churn, transfer, wordsOn, loadImg, wavesImg };
+    typesetFill, typesetInk, layout, draw, cellLight, blur, maskedBlur, slope, pearson, shuffled, portraitScore, controlScore, churn, transfer, wordsOn, cellInk, drawnBands, squintControls, loadImg, wavesImg };
 })();
 </script>
 <script>
@@ -454,17 +481,21 @@ const st = { src: 'hopper', textIdx: 0, DW: 80, cur: null, imgs: {}, step: 0, mo
 S.TEXTS.forEach((t, i) => { const o = document.createElement('option'); o.value = i; o.textContent = t.name; $('#txt').appendChild(o); });
 function regrid() { const [w, h] = st.src === 'hopper' ? [512, 600] : [640, 480]; st.DH = Math.round(st.DW * h / w); st.cur = S.contrastOf(S.lumGrid(st.imgs[st.src], w, h, st.DW, st.DH)); }
 const words = () => S.bankFor(S.TEXTS[st.textIdx].body);
-function band() { const v = ABC.map(c => S.inkOf(c)); return [Math.min(...v), Math.max(...v)]; }
-function argOf(f) { let best = ABC[0]; for (const c of ABC) if (f(S.inkOf(c), S.inkOf(best))) best = c; return best; }
 
 /* step 1 */
+const cink = c => S.cellInk(c, CELL);
+function band() { const v = ABC.map(cink); return [Math.min(...v), Math.max(...v)]; }
+function argOf(f) { let best = ABC[0]; for (const c of ABC) if (f(cink(c), cink(best))) best = c; return best; }
+const wordCellInk = w => { let t = 0; for (const c of w) t += cink(c); return t / w.length; };
+function drawnFrame() { const lay = S.layout(st.cur, st.DW, st.DH, { textIdx: st.textIdx }), cv = document.createElement('canvas'); S.draw(cv, lay, CELL); return { lay, R: S.cellLight(cv, st.DW, st.DH, CELL) }; }
 function step1() {
-  const c = ABC[+$('#ch').value], ink = S.inkOf(c);
-  $('#chv').textContent = c + ' · ink ' + ink.toFixed(3);
-  const g = $('#one').getContext('2d'); g.fillStyle = '#08080c'; g.fillRect(0, 0, 240, 320);
-  g.strokeStyle = 'rgba(255,255,255,.12)'; g.strokeRect(.5, .5, 239, 319);
-  g.fillStyle = '#fff'; g.font = '260px ' + S.FONT; g.textAlign = 'center'; g.textBaseline = 'middle'; g.fillText(c, 120, 160);
-  const v = (ink * 255) | 0, h = $('#oneg').getContext('2d'); h.fillStyle = 'rgb(' + v + ',' + v + ',' + v + ')'; h.fillRect(0, 0, 240, 320);
+  const c = ABC[+$('#ch').value], ink = cink(c);
+  $('#chv').textContent = c + ' · ink ' + ink.toFixed(3) + ' of the cell';
+  const t = document.createElement('canvas'); t.width = t.height = CELL; const tg = t.getContext('2d');
+  tg.fillStyle = '#08080c'; tg.fillRect(0, 0, CELL, CELL); tg.fillStyle = '#fff'; tg.font = (CELL * 1.22).toFixed(1) + 'px ' + S.FONT; tg.textAlign = 'center'; tg.textBaseline = 'middle'; tg.fillText(c, CELL / 2, CELL / 2);
+  const g = $('#one').getContext('2d'); g.imageSmoothingEnabled = false; g.fillStyle = '#08080c'; g.fillRect(0, 0, 240, 320); g.drawImage(t, 0, 40, 240, 240);
+  g.strokeStyle = 'rgba(255,255,255,.18)'; g.strokeRect(.5, 40.5, 239, 239);
+  const v = (ink * 255) | 0, h = $('#oneg').getContext('2d'); h.fillStyle = '#08080c'; h.fillRect(0, 0, 240, 320); h.fillStyle = 'rgb(' + v + ',' + v + ',' + v + ')'; h.fillRect(0, 40, 240, 240);
 }
 
 /* step 2 */
@@ -474,46 +505,51 @@ function step2() {
   for (let x = pad; x < W - pad; x++) { const v = (((x - pad) / (W - 2 * pad)) * 255) | 0; g.fillStyle = 'rgb(' + v + ',' + v + ',' + v + ')'; g.fillRect(x, 150, 1, 14); }
   g.font = '10px ui-monospace,Menlo,monospace'; g.textAlign = 'center'; g.fillStyle = '#8a8aa0';
   for (let k = 0; k <= 10; k++) { g.fillRect(X(k / 10), 164, 1, 5); g.fillText((k / 10).toFixed(1), X(k / 10), 181); }
-  g.fillText('ink: the share of a cell a glyph covers', W / 2, 196);
+  g.fillText('ink: the share of a drawn cell a glyph covers', W / 2, 196);
   const [lo, hi] = band();
-  g.fillStyle = 'rgba(243,200,121,.14)'; g.fillRect(X(lo), 12, X(hi) - X(lo), 134);
-  const ws = words().map(S.wordInk), wlo = Math.min(...ws), whi = Math.max(...ws);
-  g.fillStyle = 'rgba(116,230,216,.22)'; g.fillRect(X(wlo), 118, X(whi) - X(wlo), 26);
+  g.fillStyle = 'rgba(243,200,121,.14)'; g.fillRect(X(lo), 12, X(hi) - X(lo), 106);
+  const ws = words().map(wordCellInk), wlo = Math.min(...ws), whi = Math.max(...ws);
+  g.fillStyle = 'rgba(116,230,216,.22)'; g.fillRect(X(wlo), 118, X(whi) - X(wlo), 14);
+  const { lay, R } = drawnFrame(), db = S.drawnBands(lay, R);
+  g.fillStyle = 'rgba(255,93,143,.35)'; g.fillRect(X(db.word[0]), 134, X(db.word[2]) - X(db.word[0]), 14);
   g.font = '13px ' + S.FONT; g.fillStyle = 'rgb(243,200,121)';
-  const sorted = ABC.slice().sort((a, b) => S.inkOf(a) - S.inkOf(b));
-  sorted.forEach((c, k) => { const x = X(S.inkOf(c)); g.fillRect(x, 106, 1, 8); g.fillText(c, x, 20 + (k % 6) * 15); });
-  g.fillStyle = '#c8c8d8'; [['.', '.'], ['-', '-'], ['▓', '▓'], ['█', '█']].forEach(([c], k) => { const x = X(S.inkOf(c)); g.fillRect(x, 106, 1, 8); g.fillText(c, x, 100); });
-  g.fillStyle = '#74e6d8'; g.font = '10px ui-monospace,Menlo,monospace'; g.fillText('whole words', (X(wlo) + X(whi)) / 2, 134);
+  const sorted = ABC.slice().sort((a, b) => cink(a) - cink(b));
+  sorted.forEach((c, k) => { const x = X(cink(c)); g.fillRect(x, 106, 1, 8); g.fillText(c, x, 20 + (k % 6) * 15); });
+  g.fillStyle = '#c8c8d8'; ['.', '-', '▓', '█'].forEach(c => { const x = X(cink(c)); g.fillRect(x, 106, 1, 8); g.fillText(c, x, 100); });
+  g.font = '10px ui-monospace,Menlo,monospace'; g.textAlign = 'left';
+  g.fillStyle = '#74e6d8'; g.fillText('whole words', X(whi) + 6, 128);
+  g.fillStyle = '#ff5d8f'; g.fillText('read back off the drawn frame', X(db.word[2]) + 6, 144);
+  const bv = ABC.map(c => S.inkOf(c)); $('#boxBand').textContent = Math.min(...bv).toFixed(2) + '–' + Math.max(...bv).toFixed(2);
   $('#bandCells').innerHTML =
-    '<div class="sw-cell sw-a"><div class="sw-k">letters span</div><div class="sw-v">' + lo.toFixed(3) + ' – ' + hi.toFixed(3) + '</div></div>' +
+    '<div class="sw-cell sw-a"><div class="sw-k">capitals cover</div><div class="sw-v">' + lo.toFixed(3) + ' – ' + hi.toFixed(3) + '</div></div>' +
     '<div class="sw-cell"><div class="sw-k">lightest · heaviest</div><div class="sw-v">' + argOf((a, b) => a < b) + ' · ' + argOf((a, b) => a > b) + '</div></div>' +
-    '<div class="sw-cell sw-c"><div class="sw-k">words of "' + S.TEXTS[st.textIdx].name + '" span</div><div class="sw-v">' + wlo.toFixed(3) + ' – ' + whi.toFixed(3) + '</div></div>' +
-    '<div class="sw-cell"><div class="sw-k">a full cell</div><div class="sw-v">0 – 1</div></div>';
-  window.SW_BAND = { lo, hi, wlo, whi };
+    '<div class="sw-cell sw-c"><div class="sw-k">words of "' + S.TEXTS[st.textIdx].name + '" cover</div><div class="sw-v">' + wlo.toFixed(3) + ' – ' + whi.toFixed(3) + '</div></div>' +
+    '<div class="sw-cell sw-r"><div class="sw-k">letter cells, drawn light</div><div class="sw-v">' + db.word[0].toFixed(2) + ' – ' + db.word[2].toFixed(2) + '</div></div>';
+  window.SW_BAND = { lo, hi, wlo, whi, word: db.word, tile: db.tile };
 }
 
 /* step 3 */
 function step3() {
+  const { lay, R } = drawnFrame(), db = S.drawnBands(lay, R);
   const cv = $('#axis2'), g = cv.getContext('2d'), W = cv.width, pad = 30, X = v => pad + v * (W - 2 * pad);
   g.fillStyle = '#08080c'; g.fillRect(0, 0, W, cv.height);
   for (let x = pad; x < W - pad; x++) { const v = (((x - pad) / (W - 2 * pad)) * 255) | 0; g.fillStyle = 'rgb(' + v + ',' + v + ',' + v + ')'; g.fillRect(x, 80, 1, 12); }
-  const [lo, hi] = band();
-  g.fillStyle = 'rgba(243,200,121,.18)'; g.fillRect(X(lo), 20, X(hi) - X(lo), 56);
-  g.fillStyle = 'rgba(250,244,230,.22)'; g.fillRect(X(1 - hi), 20, X(1 - lo) - X(1 - hi), 56);
+  g.fillStyle = 'rgba(243,200,121,.18)'; g.fillRect(X(db.word[0]), 20, X(db.word[2]) - X(db.word[0]), 56);
+  g.fillStyle = 'rgba(250,244,230,.22)'; g.fillRect(X(db.tile[0]), 20, X(db.tile[2]) - X(db.tile[0]), 56);
   g.font = '11px ui-monospace,Menlo,monospace'; g.textAlign = 'center';
-  g.fillStyle = 'rgb(243,200,121)'; g.fillText('letters · ' + lo.toFixed(2) + '–' + hi.toFixed(2), (X(lo) + X(hi)) / 2, 50);
-  g.fillStyle = 'rgb(250,244,230)'; g.fillText('punched into white · ' + (1 - hi).toFixed(2) + '–' + (1 - lo).toFixed(2), (X(1 - hi) + X(1 - lo)) / 2, 50);
+  g.fillStyle = 'rgb(243,200,121)'; g.fillText('letters · ' + db.word[0].toFixed(2) + '–' + db.word[2].toFixed(2), (X(db.word[0]) + X(db.word[2])) / 2, 50);
+  g.fillStyle = 'rgb(250,244,230)'; g.fillText('punched into white · ' + db.tile[0].toFixed(2) + '–' + db.tile[2].toFixed(2), (X(db.tile[0]) + X(db.tile[2])) / 2, 50);
   g.fillStyle = '#8a8aa0'; g.font = '10px ui-monospace,Menlo,monospace'; for (let k = 0; k <= 10; k++) g.fillText((k / 10).toFixed(1), X(k / 10), 108);
-  const lay = S.layout(st.cur, st.DW, st.DH, { textIdx: st.textIdx });
   S.draw($('#c3'), lay, CELL, { show: { tile: true } });
-  const all = document.createElement('canvas'); S.draw(all, lay, CELL); const R = S.cellLight(all, st.DW, st.DH, CELL);
   let tot = 0, tile = 0, word = 0, nt = 0, nd = 0; lay.B.forEach((b, i) => { const t = S.tierOf(b); tot += R[i]; if (t !== 'blank') nd++; if (t === 'tile') { tile += R[i]; nt++; } if (t === 'word') word += R[i]; });
   $('#share').innerHTML =
+    '<div class="sw-cell"><div class="sw-k">letter cells · drawn light</div><div class="sw-v">' + db.word[0].toFixed(2) + ' – ' + db.word[2].toFixed(2) + '</div></div>' +
+    '<div class="sw-cell"><div class="sw-k">letter tiles · drawn light</div><div class="sw-v">' + db.tile[0].toFixed(2) + ' – ' + db.tile[2].toFixed(2) + '</div></div>' +
     '<div class="sw-cell"><div class="sw-k">tiles · of the cells with a mark</div><div class="sw-v">' + (100 * nt / nd).toFixed(0) + '%</div></div>' +
-    '<div class="sw-cell sw-a"><div class="sw-k">tiles · of the frame\'s light</div><div class="sw-v">' + (100 * tile / tot).toFixed(0) + '%</div></div>' +
-    '<div class="sw-cell"><div class="sw-k">word letters · of the frame\'s light</div><div class="sw-v">' + (100 * word / tot).toFixed(0) + '%</div></div>';
-  window.SW_SHARE = { tileCells: nt / nd, tileLight: tile / tot, wordLight: word / tot };
+    '<div class="sw-cell sw-a"><div class="sw-k">tiles · of the frame\'s light</div><div class="sw-v">' + (100 * tile / tot).toFixed(0) + '%</div></div>';
+  window.SW_SHARE = { tileCells: nt / nd, tileLight: tile / tot, wordLight: word / tot, bands: db };
 }
+$('#axis2').insertAdjacentHTML('afterend', '<p class="sw-note">Both bands are read back off the drawn frame of the still above, cells that carry a letter only, 5th to 95th percentile.</p>');
 
 /* step 4 */
 function step4() {
@@ -557,9 +593,9 @@ function step5() {
   $('#testT').innerHTML = '<tr><th>in the word band</th><th>r</th><th>drawn light per unit of source light</th><th>different words on the frame</th></tr>' +
     row('as 03 picks · by length', s.fill, st.mode === 'fill') + row('words picked by ink', s.ink, st.mode === 'ink') + row('letters × light · no word choice', s.mult, st.mode === 'mult');
   const B = window.SW_BAND || (step2(), window.SW_BAND);
-  $('#verdict').innerHTML = 'Yes, legibility is a band, two of them: letters, ' + B.lo.toFixed(2) + '–' + B.hi.toFixed(2) + ' of a cell, and letters punched into white, ' + (1 - B.hi).toFixed(2) + '–' + (1 - B.lo).toFixed(2) + '. ' +
+  $('#verdict').innerHTML = 'Yes, legibility is a band, two of them. Read back off the drawn frame, cells holding a letter sit at ' + B.word[0].toFixed(2) + '–' + B.word[2].toFixed(2) + ' of full light, and white tiles with a letter punched in at ' + B.tile[0].toFixed(2) + '–' + B.tile[2].toFixed(2) + '. ' +
     'Inside the word band, as built, the drawn light ignores you: <b>r ' + swFmt(s.fill.r) + '</b>. Picked by ink, words lift it to <b>' + swFmt(s.ink.r) + '</b>, with ' + s.ink.words + ' different words on the frame where 03 uses ' + s.fill.words + '. ' +
-    'Light alone, with no choice of word, reaches <b>' + swFmt(s.mult.r) + '</b>. Words are a narrow brush: from the airiest word to the heaviest, their ink spans ' + (B.whi - B.wlo).toFixed(2) + ' of a cell. Whether the ink-picked frame still reads as language is a reader\'s call; the count of different words is the only part of it measured here.';
+    'Light alone, with no choice of word, reaches <b>' + swFmt(s.mult.r) + '</b>. Words are a narrow brush: from the airiest word to the heaviest, they cover ' + B.wlo.toFixed(2) + '–' + B.whi.toFixed(2) + ' of a drawn cell. Whether the ink-picked frame still reads as language is a reader\'s call; the count of different words is the only part of it measured here.';
   window.SW_LAST = { fill: s.fill, ink: s.ink, mult: s.mult };
 }
 document.querySelectorAll('.mode').forEach(b => b.onclick = () => { st.mode = b.dataset.m; document.querySelectorAll('.mode').forEach(x => x.setAttribute('aria-pressed', String(x === b))); step5(); });

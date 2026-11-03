@@ -88,7 +88,7 @@
           "origin": "made",
           "by": "the Maker · canvas · card 03's engine on a still",
           "title": "the ramp · card 03's pipeline, walked up on a still",
-          "caption": "Five steps on the Grace Hopper still (or soft waves): a grid of greys, the ramp, words into runs, smoothing under a modelled camera noise, and the test. Squinting one cell, the drawn frame follows the source at r +0.87, the shuffled control at −0.01. Inside the word band it is +0.03: 03 selects by light and draws every letter at one brightness, where the section says it multiplies.",
+          "caption": "Five steps on the Grace Hopper still (or soft waves): a grid of greys, the ramp, words into runs, smoothing under a modelled camera noise, and the test. Squinting one cell, the drawn frame follows the source at r +0.87, the shuffled control at −0.01. But six evenly spaced greys, one per tier, score +0.98 and the word band left empty still +0.69, so that number measures the tiers. Inside the word band it is +0.03: 03 selects by light and draws every letter at one brightness, where the section says it multiplies.",
           "near": "Downsample the webcam",
           "place": "band",
           "height": 1100
@@ -128,7 +128,7 @@
           "origin": "made",
           "by": "the Maker · canvas · the carried question, measured",
           "title": "legibility band · is legibility a band of light?",
-          "caption": "One letter is one grey; the capitals span only 0.11–0.23 of a cell; punched into white they make a second band near 0.8–0.9, and on the Hopper still those tiles carry 45% of the frame's light. Then the test: inside 03's word band the drawn light stays flat (r +0.03), words picked by ink lift it to +0.23, light alone to +0.53.",
+          "caption": "One letter is one grey: drawn as 03 draws it, a capital covers 0.12–0.38 of its cell. Read back off the drawn Hopper frame, letter cells sit at 0.15–0.34 of full light and white tiles with a letter punched in at 0.69–0.87, two bands; the tiles carry 45% of the frame's light. Then the test: inside 03's word band the drawn light stays flat (r +0.03), words picked by ink lift it to +0.23, light alone to +0.53.",
           "near": "The unnamed concept underneath",
           "place": "band",
           "height": 1100
@@ -183,25 +183,31 @@
     {
       "section": "How it works",
       "kind": "claim-change",
-      "what": "The section says 'the camera-luminance × character-ink multiply is literally a Convolution-flavored blend'. Card 03 doesn't multiply: a cell's light selects a tier, every word letter is drawn at one fixed brightness (alpha 0.94), and the ink table 03 measures is never read in its render. Measured on the Hopper still (squint 1 cell), the whole frame follows the source at r +0.87 (shuffled control −0.01), but inside the word band r is +0.03 and drawn light rises 0.03 per unit of source light. A literal multiply would give the band +0.53 (slope 0.18) and the whole frame +0.82. What 03 does is select by brightness band, a mask, and a pointwise product isn't a convolution in any case (it is convolution's dual under the Fourier transform). The same wording is in The line of iterations bullet, in the deck's card 03, and in Language as a Tonal Medium's step 3. Offer: say 'brightness selects the glyph', or have the steward make 03 actually multiply.",
+      "what": "The section says 'the camera-luminance × character-ink multiply is literally a Convolution-flavored blend'. Card 03 doesn't multiply. A cell's light selects a tier, and every word letter is drawn at one fixed brightness (alpha 0.94, 03:260). 03 fills an ink table but never reads it: ink() at 03:124 has no caller. Measured on the Hopper still (squint 1 cell): inside the word band r is +0.03 and drawn light rises 0.03 per unit of source light. A literal multiply would give the band +0.53 (slope 0.18) and the whole frame +0.82 (+0.87 as built, which measures the tiers: six even greys score +0.98). It is selection by brightness band. A pointwise product isn't a convolution either; it is convolution's dual under the Fourier transform. 'Literally … -flavored' contradicts itself. The same claim is in The line of iterations bullet (loose, then right in the same breath), in the Cross-Domain Resonance bullet ('[[Convolution]] — two layers multiplied into one image'), in the frontmatter link label 'multiply-blend', and on the deck's card 03. Offer: say 'brightness selects the glyph', or have the steward make 03 actually multiply.",
       "status": "open"
     },
     {
       "section": "How it works",
       "kind": "claim-change",
-      "what": "'Temporal smoothing settles the words near-still.' In a model (the Hopper still, Gaussian cell noise σ 0.02, which is an assumption and not measured off a webcam), 27% of the word letters change each frame at 03's default smooth of 0.7, 62% at 0 and 6% at 0.95. Each run's words are seeded by the run's index along its row, so a run that splits or joins reseeds every run to its right, and whole rows turn over at once. Offer: say the smoothing calms the words rather than stills them, or have the steward seed words by run position rather than run index. Not checked on a real camera.",
+      "what": "'Temporal smoothing settles the words near-still.' Two halves. The reseed half holds whatever the noise: 03 seeds each run's words by the run's index along its row (03:209), so a run that splits, joins or appears reseeds every run to its right. The challenger counted 46% of changed letters, at smooth 0.7, sitting in runs whose start and length didn't change. The rate half needs a real measurement. In a model (the Hopper still with Gaussian cell noise), letters changing per frame at 03's default smooth of 0.7 are 8% / 16% / 27% / 36% at σ 0.005 / 0.01 / 0.02 / 0.03 (the challenger’s sweep; the piece reproduces 27% at 0.02). 03 also smooths once per display frame, not once per camera frame (03:170–185, 276): a 30 fps camera on a 60 Hz screen keeps 0.49 of the past per camera frame, not 0.7 (39% at σ 0.02). Settling it needs a few seconds of real webcam frames with someone sitting still, and card 08 holds only stills; card 10's sitting is the natural moment. Offer now: 'smoothing calms the words; a run that splits reseeds the runs to its right'. Hold the number until then.",
       "status": "open"
     },
     {
       "section": "Lost branches",
       "kind": "claim-change",
-      "what": "The carried question now has a measured answer the bullet could carry: legibility is two bands of light. The capitals span ink 0.11–0.23 of a cell (L lightest, N heaviest, in the browser's monospace font); punched into a white tile they span 0.77–0.89. Across 03's word band (B 0.26 to 0.80) the drawn light stays between 0.16 and 0.22, flat. Inside the band, words picked by ink alone lift the patch match from +0.03 to +0.23, against the steward's +0.17 with grammar kept (card 08), so language carries tone there, but faintly.",
+      "what": "The carried question now has a measured answer the bullet could carry: legibility is two bands of light. Drawn as 03 draws it (type 1.22 × the cell), a capital covers 0.12–0.38 of its cell (T lightest, N heaviest). Read back off the drawn Hopper frame, 5th to 95th percentile, cells holding a letter sit at 0.15–0.34 of full light, and white tiles with a letter punched in at 0.69–0.87. Across 03's word band (B 0.26 to 0.80) the drawn light stays between 0.16 and 0.22, flat. Inside the band, words picked by ink alone lift the patch match from +0.03 to +0.23. The steward got +0.17 with grammar kept (card 08), so language carries tone there, but faintly. Measured in headless Chromium's monospace font on this Mac; another font moves the numbers a little.",
       "status": "open"
     },
     {
       "section": "Lost branches",
       "kind": "no-claim-edit",
       "what": "'Possibly its own future entry' is out of date: it is [[Language as a Tonal Medium]], as Forward Vectors already says. Offer: link it there.",
+      "status": "open"
+    },
+    {
+      "section": "→ Language as a Tonal Medium",
+      "kind": "claim-change",
+      "what": "Not this page's text: a sibling offer for Language as a Tonal Medium.md:46. Its step 3 says 'luminance × character-ink as a [[Convolution]]-flavored multiply', and 'a region is both the right darkness and a readable word'. Card 03 selects by light and doesn't multiply (offer 1). The 'right darkness' holds only at tier level: inside the word band, r is +0.03. That page's rich face landed 2026-10-13 with no status, so it stands approved. The offer belongs there and should be carried to it by whoever lands this one.",
       "status": "open"
     },
     {
