@@ -1,0 +1,163 @@
+{
+  "title": "Compressor Design — rich",
+  "born": "2026-11-03",
+  "links": [
+    {
+      "target": "[[Compressor Design]]",
+      "type": "connects-to",
+      "label": "rich-face-of"
+    },
+    {
+      "target": "[[Enrichment]]",
+      "type": "connects-to",
+      "label": "made-by"
+    },
+    {
+      "target": "[[Progressive Staging]]",
+      "type": "connects-to",
+      "label": "the-test-is-the-last-step"
+    }
+  ],
+  "forward_vector": "I am the manifest of Compressor Design's rich face, its first round at Sketch tier, a proposal: for the detector, the teaching retrospective gathered from the bundle, a walk from a sixteen-slot ring to a blind test of the page's 100, 500 and 1000 samples, and one ring read as a level and a delay at once; for the knee, a walk from the straight line to the question of whether the knee's harmonics ever stop. The ratio-and-slope wall belongs to Boundary-Crossing Instruments' face, not mine. I grow when the page's teaching retrospective gets its recorded evidence. I never hold the entry's words.",
+  "entry": "Compressor Design",
+  "tier": "sketch",
+  "made": "2026-11-03",
+  "round": 1,
+  "offers": [
+    {
+      "section": "FILO Circular Buffer RMS",
+      "kind": "no-claim-edit",
+      "what": "The buffer adds the newest sample and subtracts the oldest, so the first sample in is the first out: first-in, first-out (FIFO), not FILO. Change 'FILO (First-In-Last-Out)' to 'FIFO (first-in, first-out)'. The check ran 384 samples through a 16-slot ring and every sample that left was x[n−N]², the oldest. The heading says FILO too: renaming it strands this face's section under 'Lost its place' until the manifest's heading is renamed with it, so change both in one commit and re-stamp. One other page uses the word: Projects/Retrospective Delay/Archive/Retrospective Delay — Staging.md:42 ('uses a FILO circular buffer'), an archive page; leave it or fix it on the same yes.",
+      "status": "open"
+    },
+    {
+      "section": "Soft Knee Mathematics",
+      "kind": "claim-change",
+      "what": "'A sharp discontinuity in the gain curve is infinitely broadband … The smooth quadratic transition has bounded Fourier content.' Measured on a tone through the page's own curve (threshold −18 dB, 4:1, no detector): the hard knee is a jump in the curve's slope, not in the curve, and its harmonics fall about 12 dB per octave (11.6, 10.8 and 11.3 at three levels; 1/k²). The quadratic knee's fall faster, 15.6 to 19.3 dB per octave (1/k³ is 18), but they do not stop: at every width from 3 to 24 dB there is still a harmonic above −140 dB at the piece's chart top, the 255th, and the challenger's independent FFT finds them above −140 dB to the 323rd–737th. Only a curve that is a polynomial in the signal itself has bounded content (a cubic stops at the 3rd); the knee is quadratic in decibels. Suggested: 'A hard knee is a sudden change in the curve's slope, and its harmonics fall only 12 dB per octave. The quadratic knee turns the slope gradually, so its harmonics fall about 18 dB per octave: not bounded, but quieter, sooner.' The measurement is the curve acting on the signal directly; in the compressor the detector smooths the level first, so the curve shapes how the gain moves. Blood Compressor's cubic Hermite knee equals this quadratic to 1.4e−14 dB (see the offer for → Blood Compressor), so the offer applies there too.",
+      "status": "open"
+    },
+    {
+      "section": "→ Blood Compressor",
+      "kind": "claim-change",
+      "what": "Projects/Blood Compressor.md:74 calls its knee a 'soft-knee with cubic interpolation'. The challenger measured its pieces' cubic Hermite knee (ends T − K/2 and T + K/(2R), end slopes 1 and 1/R) against this page's quadratic: they differ by at most 1.4e−14 dB for R 0.5 to 20 and K 1 to 24 dB, since the cubic term vanishes. So it is this same quadratic, a polynomial in decibels, and the bounded-content correction in the Soft Knee Mathematics offer applies there too. A question for that page's maker and Loudon, not settled here.",
+      "status": "open"
+    },
+    {
+      "section": "Soft Knee Mathematics",
+      "kind": "no-claim-edit",
+      "what": "The region lines read 'gain = input' and 'gain = threshold + (input − threshold) / R', but what they give is the output level, as the code block's 'output =' does; the gain is output minus input. They also hold only with levels in decibels. Suggest 'output = input' and 'output = threshold + (input − threshold) / R', and 'levels in dB' once. The pieces use the lines that way, and the check matches them to the page's three regions with no gap.",
+      "status": "open"
+    },
+    {
+      "section": "Soft Knee Mathematics",
+      "kind": "no-claim-edit",
+      "what": "'R=∞ … approaches a step function': the curve does not. Above the threshold it goes flat, a clamp (at −6 dB in, out is the −18 dB threshold). What becomes a step is its slope, 1 below the threshold and 0 above (measured 1.000 and 0.000). With a knee wider than 0 the slope runs from 1 to 0 across the knee, so it is a step only at W = 0. Suggest 'with a hard knee, its slope becomes a step function'.",
+      "status": "open"
+    },
+    {
+      "section": "Soft Knee Mathematics",
+      "kind": "claim-change",
+      "what": "'Fractional R < 1 (expansion) … Expanders are compressors inverted': with R < 1 this formula expands only above the threshold (R = 0.5: +12 dB at −6 dB in, 0 dB at −30 dB in), which is upward expansion. The expander most studios mean works below the threshold, downward, and no value of R reaches it here, since below T − W/2 the output is the input for every R. It is the same algorithm mirrored to the region below. Suggest 'upward expansion', and a clause that the downward expander is the mirror.",
+      "status": "open"
+    }
+  ],
+  "sections": [
+    {
+      "heading": "FILO Circular Buffer RMS",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Compressor Design — rich — the window you can hear.html",
+            "verdict": "keep",
+            "why": "A real test: a blind, level-matched sort of the page's 100, 500 and 1000 that can come out against the page, reached by a walk from a 16-slot ring; every number rechecks (wobble 11.22/1.37/0.98 dB from the boxcar's 110 Hz response; grab ~0.661·N). Note: the lead's 'this compressor … nothing else' is the piece's model, not necessarily the Gen~ build (the proof's Moment 2 runs attack and release apart); say 'the compressor here'."
+          },
+          {
+            "file": "Compressor Design — rich — one ring two clocks.html",
+            "verdict": "keep",
+            "why": "Tests 'below perception here, fully perceptual there' with a hidden-length mark that can land under 500 and say so, and holds the section's tension (the 500-slot comb is audible as colour). Note: it measures an echo threshold, one reading of the page's ~20 ms; have the reveal set the mark beside 882 samples (20 ms) too, and name what it measures."
+          },
+          {
+            "file": "Compressor Design — proof — pedagogical-retrospective.md",
+            "verdict": "remake",
+            "why": "A fair record for the forward vector, but the caption says 'as remembered' where the proof says students 'reportedly' heard and it came in with the May 2026 proof batch (a5ca537b) with no one's memory on record. Change 'as remembered' to 'as reconstructed' and the sentence to: 'It says it was reconstructed, not recorded; it came in with the May 2026 proofs, and whose memory it draws on is not on record.'"
+          }
+        ]
+      },
+      "made": "2026-11-03",
+      "pieces": [
+        {
+          "file": "Compressor Design — rich — the window you can hear.html",
+          "origin": "made",
+          "by": "maker · claude-opus-5-5 · Web Audio",
+          "title": "The window you can hear · a ring of slots, walked up to a blind test",
+          "caption": "**Is 500 samples a time you can hear?** A drum loop made here from sine and noise, and a model compressor (not necessarily the Gen~ build) whose only smoothing is a ring of squared samples and its running sum. Five steps: a sixteen-slot ring where you watch the first sample in be the first one out; the sum read as a level; the window's attack and release, one straight shape that ends after exactly N samples, beside slide~'s curve that never arrives; the window as a knob, with two measures, the gain's wobble on a 55 Hz note and the time it takes to grab a sudden tone (100 samples: 11.2 dB and 1.6 ms; 500: 1.4 dB and 7.6 ms; 1000: 1.0 dB and 14.9 ms); and last a blind test of the page's three windows, matched in level, labelled by ear and then revealed.",
+          "near": "The 500-sample window is 11ms at 44.1kHz",
+          "place": "band",
+          "height": 1430
+        },
+        {
+          "file": "Compressor Design — rich — one ring two clocks.html",
+          "origin": "made",
+          "by": "maker · claude-opus-5-5 · Web Audio",
+          "title": "One ring, two clocks · the detector's buffer and Retrospective Delay's",
+          "caption": "**One primitive at two time scales, heard.** One ring read two ways at once: the sum of what it holds is the detector's level, and the slot that leaves it is a delay. At the detector's 500 slots what leaves is heard as a colour, a comb with notches at 44.1 Hz and every 88.2 Hz above, not as a repeat. Stretched to 44 100 slots, one second, it plays back the phrase, and the level follows the phrase instead of each note. The last step hides the numbers and asks you to mark where the ring turns into time, and sets the mark beside 500 slots, 882 (the page's 20 ms) and 44 100; the mark is an echo threshold, one reading of the page's 20 ms. It also holds a tension in the section: the window is time you can hear in what the compressor does, and below perception as a duration.",
+          "near": "The same buffer, stretched to about a second",
+          "place": "band",
+          "height": 1305
+        },
+        {
+          "file": "Compressor Design — proof — pedagogical-retrospective.md",
+          "origin": "gathered",
+          "title": "Three teaching beats · the bundle's May proof",
+          "caption": "**The window heard in a room, as reconstructed.** Gathered from the bundle as it is. Its first moment is this section's claim told as a lesson: a window dropped from 1024 samples to 32 turns the compressor clicky, and 500 sits in between. It says it was reconstructed, not recorded; it came in with the May 2026 proofs, and whose memory it draws on is not on record. One tension to hold: the proof calls 1024 samples smooth and natural, where the page calls 1000 sluggish. The blind test above is one way to settle it for your own ear.",
+          "place": "margin"
+        }
+      ],
+      "made_against": "6cf1f5f3d239",
+      "stamped": "2026-11-03"
+    },
+    {
+      "heading": "Soft Knee Mathematics",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Compressor Design — rich — the knee in the spectrum.html",
+            "verdict": "remake",
+            "why": "The strongest test on the face, and its findings recheck independently (corner ~−11 dB/oct, knee −15.6 to −19.3, no stop; cubic stops at the 3rd). But its tone loop is 88 200 samples of a 400-sample cycle, 220.5 cycles, so every 2 s the tone flips polarity with a slope jump (seam 2nd difference 127× anything inside): a corner in the piece about corners. Fix: n = 400 * Math.round(sec * SR / 400) in KN.tone, and a check that the loop is whole cycles."
+          }
+        ]
+      },
+      "made": "2026-11-03",
+      "pieces": [
+        {
+          "file": "Compressor Design — rich — the knee in the spectrum.html",
+          "origin": "made",
+          "by": "maker · claude-opus-5-5 · Web Audio",
+          "title": "The knee in the spectrum · from a straight line to whether the harmonics stop",
+          "caption": "**Does the quadratic knee have bounded Fourier content?** A 110 Hz tone through the page's own curve, with no detector in front, so the curve's shape goes straight into the sound. Five steps: the straight line and one spectral line; the hard corner, whose harmonics fall about 12 dB per octave; the quadratic knee, whose fall about 18; the page's four edge cases (R below 1, R = ∞, R = 0, W = 0); and last you answer whether the knee's harmonics ever stop before the numbers show. They fall faster than the corner's and do not stop: the chart ends at the 255th, but they stay above −140 dB to somewhere between the 323rd and 737th; a cubic beside them stops at the 3rd harmonic.",
+          "near": "The quadratic is not arbitrary",
+          "place": "band",
+          "height": 1340
+        }
+      ],
+      "made_against": "9c9a0cbdbcdb",
+      "stamped": "2026-11-03"
+    }
+  ]
+}
