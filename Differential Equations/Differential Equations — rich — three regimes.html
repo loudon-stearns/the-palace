@@ -1,0 +1,399 @@
+<!doctype html>
+<!--
+  title: Differential Equations — rich — three regimes
+  born: 2026-11-03
+  links: [[Differential Equations]] (connects-to · rich-face-piece) · listed in [[Differential Equations — rich.json]] · [[Progressive Staging]] (exemplifies · a walk up to its test) · [[Resonance and Damping]] (connects-to · the same swing, measured for Q)
+  forward_vector: I am "The Taxonomy" played: a rule for the slope, then the same rule with weight, then one number, ζ, turning that one equation from ringing through critical to sluggish as a pluck, a filter and an envelope at once. My last step measures the regimes on the engine you heard and checks what the section says about them. I change only when that section does.
+  engine: the page's own equations, stepped exactly per sample (the matrix exponential of the system over one step, the input held across it), so nothing you hear is a solver's error; the other piece on this page is about that error.
+  checks: Differential Equations/Differential Equations — rich — check.mjs runs this file's own engine against the claim.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:size" content="flow"><!-- needs nothing of its host: no device, no storage, no files, no network but the fonts -->
+<title>Differential Equations — three regimes</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Manrope:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root { --bg:#0e1f4d; --e1:#14275c; --e2:#1c3066; --border:#2a4080; --soft:rgba(232,236,255,.07);
+    --fg1:#e8ecff; --fg2:#c0c6e4; --fg3:#8a92c4; --fg4:#5a6694;
+    --accent:#a8e040; --accent-dim:#6f9626; --accent-soft:rgba(168,224,64,.10); --accent-line:rgba(168,224,64,.5);
+    --grow:#e8b84a; --grow-soft:rgba(232,184,74,.16); --still:#7fa6ff;
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --sans:'Manrope',system-ui,sans-serif; --serif:'Cormorant Garamond',Georgia,serif;
+    --ease:cubic-bezier(.4,0,.2,1); }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); font-weight: 300; }
+  .piece { padding: 22px 22px 20px; }
+  .kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; display: flex; align-items: center; gap: 10px; }
+  .kicker svg { flex: none; }
+  .title { font-family: var(--serif); font-size: 28px; font-weight: 300; color: var(--fg1); margin: 0 0 6px; }
+  .sub { font-size: 14px; line-height: 1.6; color: var(--fg2); max-width: 76ch; margin: 0 0 16px; }
+  .rail { display: flex; flex-wrap: wrap; gap: 0; margin: 4px 0 18px; border: 1px solid var(--border); border-radius: 2px; width: fit-content; max-width: 100%; }
+  .rail button { border: 0; border-right: 1px solid var(--border); border-radius: 0; background: transparent; padding: 7px 12px; color: var(--fg3); }
+  .rail button:last-child { border-right: 0; }
+  .rail button[aria-current="step"] { background: var(--accent-soft); color: var(--accent); }
+  .step { display: none; }
+  .step.on { display: block; }
+  .step h3 { font-family: var(--serif); font-size: 23px; font-weight: 400; color: var(--fg1); margin: 0 0 6px; }
+  .teach { font-size: 14px; line-height: 1.65; max-width: 76ch; margin: 0 0 12px; }
+  .back { font-family: var(--mono); font-size: 11px; letter-spacing: .04em; color: var(--fg3); margin: 0 0 14px; }
+  .eqs { margin: 4px 0 16px; padding: 10px 14px; border-left: 1px solid var(--accent-line); background: var(--e1); max-width: 76ch; }
+  .eq { font-family: var(--serif); font-size: 20px; color: var(--fg1); }
+  .eq i { font-style: italic; }
+  .words { font-size: 13px; line-height: 1.55; color: var(--fg2); margin: 2px 0 8px; }
+  .words:last-child { margin-bottom: 0; }
+  .panel { border: 1px solid var(--soft); border-radius: 2px; background: var(--e1); padding: 10px 12px; margin-bottom: 12px; }
+  .plabel { font-family: var(--mono); font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--fg3); margin-bottom: 8px; display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+  canvas { display: block; width: 100%; }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .controls { display: flex; flex-wrap: wrap; gap: 14px 24px; align-items: end; margin: 6px 0 12px; }
+  .controls label.sl { flex: 1 1 220px; }
+  button { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--fg2); background: var(--bg); border: 1px solid var(--border); border-radius: 2px; padding: 8px 12px; cursor: pointer; transition: border-color 220ms var(--ease), color 220ms var(--ease); }
+  button:hover { border-color: var(--accent-line); color: var(--fg1); }
+  button.go { color: var(--accent); border-color: var(--accent-line); }
+  button[aria-pressed="true"] { color: var(--accent); border-color: var(--accent-line); background: var(--accent-soft); }
+  .btns { display: flex; gap: 8px; flex-wrap: wrap; }
+  label.sl { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: .06em; color: var(--fg3); }
+  label.sl b { color: var(--fg1); font-weight: 500; }
+  input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 3px; background: var(--fg4); margin: 12px 0 4px; outline: none; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 13px; height: 13px; border-radius: 50%; background: var(--accent); cursor: pointer; }
+  input[type=range]::-moz-range-thumb { width: 13px; height: 13px; border: 0; border-radius: 50%; background: var(--accent); cursor: pointer; }
+  .read { display: flex; flex-wrap: wrap; gap: 6px 22px; margin: 8px 0 4px; font-family: var(--mono); font-size: 11.5px; letter-spacing: .04em; color: var(--fg3); }
+  .read b { color: var(--fg1); font-weight: 500; }
+  .grow { color: var(--grow); } .still { color: var(--still); } .ok { color: var(--accent); }
+  table.meas { border-collapse: collapse; font-family: var(--mono); font-size: 11.5px; color: var(--fg2); width: 100%; max-width: 860px; margin: 6px 0 10px; }
+  table.meas th { text-align: left; font-weight: 400; color: var(--fg3); letter-spacing: .08em; text-transform: uppercase; font-size: 10px; border-bottom: 1px solid var(--border); padding: 6px 8px; }
+  table.meas td { border-bottom: 1px solid var(--soft); padding: 6px 8px; }
+  table.meas td b { color: var(--fg1); font-weight: 500; }
+  .verdict { font-size: 13.5px; line-height: 1.6; max-width: 76ch; padding: 10px 14px; border: 1px solid var(--accent-line); border-radius: 2px; background: var(--accent-soft); color: var(--fg1); margin: 8px 0 12px; }
+  .note { font-size: 12.5px; line-height: 1.55; color: var(--fg3); max-width: 76ch; margin: 6px 0 0; }
+  nav.walk { display: flex; gap: 10px; align-items: center; margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--soft); }
+  nav.walk .where { font-family: var(--mono); font-size: 11px; color: var(--fg3); letter-spacing: .08em; margin-left: auto; }
+  .busy { font-family: var(--mono); font-size: 11px; color: var(--fg3); }
+  .foot { font-family: var(--mono); font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--fg4); margin-top: 14px; }
+  @media (max-width: 680px) { .grid2 { grid-template-columns: 1fr; } }
+
+</style>
+
+<style>.g { text-transform: none; letter-spacing: 0; }</style>
+</head>
+<body>
+<div class="piece">
+  <div class="kicker"><span id="sigil"></span>made · study · a walk in four steps</div>
+  <h2 class="title">One equation, three regimes</h2>
+  <p class="sub">A rule for how fast something moves, given where it is. Then the same rule with weight, so it can swing. Then one number, ζ, that decides whether the swing rings, stops dead, or crawls. Silent until you press a button.</p>
+  <div class="rail" id="rail"></div>
+
+  <section class="step">
+    <h3>A rule, not a number</h3>
+    <p class="teach">A differential equation doesn't give you a value. It gives you a rule: wherever the level is, here is how fast it moves. Every short line in the field below is that rule, read at one spot. Any curve that follows the lines everywhere is a solution, and the starting point picks which one. Click anywhere in the field to start a curve there.</p>
+    <div class="eqs">
+      <div class="eq">τ · <i>dy</i>/<i>dt</i> + <i>y</i> = <i>u</i></div>
+      <div class="words">(the time constant) × (how fast the level moves) + (the level) = (where it is being pulled). The page writes it <i>dy</i>/<i>dt</i> + <i>a</i>·<i>y</i> = <i>b</i>; it is the same rule with τ = 1/<i>a</i> and <i>u</i> = <i>b</i>/<i>a</i>. The farther it still has to go, the faster it goes, so it never quite arrives.</div>
+    </div>
+    <div class="controls">
+      <div class="btns"><button class="go" id="s1go">▸ hear it swell and fade</button></div>
+      <label class="sl">time constant τ = <b id="s1tv"></b><input id="s1t" type="range" min="0" max="1" step="0.001" value="0.55"></label>
+    </div>
+    <div class="read"><span>after τ <b id="s1a"></b> of the way</span><span>after 3τ <b id="s1b"></b></span><span>after 5τ <b id="s1c"></b></span></div>
+    <div class="panel"><div class="plabel"><span>the rule as a field · time in units of τ</span><span id="s1hint">click to start a curve</span></div><canvas id="s1cv" style="cursor:crosshair"></canvas></div>
+    <p class="note">τ only stretches time. The field looks the same at 5 ms and at 500 ms; you hear the difference. This is an RC charge, an envelope's stage, a smoothed control.</p>
+  </section>
+
+  <section class="step">
+    <h3>Give it weight</h3>
+    <p class="teach">Now let the rule set how fast the speed changes, not the speed itself. A second derivative is inertia: the level arrives at its target still moving, so it goes past and swings back. Strike it and it rings. With almost no friction, as here, that swing is a tone.</p>
+    <div class="eqs">
+      <div class="eq"><i>d</i>²<i>y</i>/<i>dt</i>² + 2ζω<sub>n</sub> · <i>dy</i>/<i>dt</i> + ω<sub>n</sub>² <i>y</i> = ω<sub>n</sub>² <i>u</i></div>
+      <div class="words">(how fast the speed changes) + (friction, 2ζω<sub>n</sub>, times the speed) + (the spring, ω<sub>n</sub>², times the distance) = (the spring, pulling toward <i>u</i>). Here ω<sub>n</sub> is 220 Hz and ζ is 0.01.</div>
+    </div>
+    <p class="back">Take the weight away and the rule is step 1's again: it can only approach, never pass.</p>
+    <div class="controls"><div class="btns"><button class="go" id="s2go">▸ strike it</button></div></div>
+    <div class="read"><span>rings at <b id="s2f"></b></span><span>fades at <b id="s2d"></b></span></div>
+    <div class="panel"><div class="plabel"><span>the first 30 ms · and the level over 2.5 s</span><span></span></div><canvas id="s2cv"></canvas></div>
+  </section>
+
+  <section class="step">
+    <h3>Turn ζ</h3>
+    <p class="teach">ζ is the friction, measured against the spring. Turn it and the same equation does three jobs at once. Struck at 220 Hz, it is a pluck. Fed noise, it is a resonant filter at 660 Hz. Slowed to 3 Hz and fed a held note's on and off, it is an envelope on a tone. Try each job at a few values of ζ: below 1 all three ring (close to 1, too little for an ear to catch), at 1 all three stop clean, above 1 all three go slow.</p>
+    <div class="eqs">
+      <div class="eq">ζ &lt; 1 rings &nbsp;·&nbsp; ζ = 1 critical &nbsp;·&nbsp; ζ &gt; 1 sluggish</div>
+      <div class="words">(below one, the spring wins and it swings) · (at one, the fastest return that never passes) · (above one, the friction wins and it crawls).</div>
+    </div>
+    <p class="back">ζ = 0.01 puts you back at step 2.</p>
+    <div class="controls">
+      <label class="sl">ζ = <b id="s3zv"></b><input id="s3z" type="range" min="0" max="1" step="0.001" value="0.5"></label>
+      <div class="btns"><button class="go" data-job="strike">▸ pluck · 220 Hz</button><button class="go" data-job="filter">▸ filter · noise at 660 Hz</button><button class="go" data-job="env">▸ envelope · 3 Hz on a tone</button></div>
+    </div>
+    <div class="read"><span id="s3reg"></span><span>overshoot <b id="s3os"></b></span><span>settles within 2% after <b id="s3st"></b></span></div>
+    <div class="panel"><div class="plabel"><span>pulled from 0 to 1 · time in units of 1/ω<sub>n</sub> · faint: ζ 0.1, 1, 3</span><span id="s3job"></span></div><canvas id="s3cv"></canvas></div>
+    <p class="note">The filter is held at one loudness so a ringing ζ doesn't blast; a low ζ makes it much louder than this, by about 1/(2ζ) at its peak (Resonance and Damping measures that).</p>
+  </section>
+
+  <section class="step">
+    <h3>Where does ringing stop?</h3>
+    <p class="teach">The section makes four claims about this equation. Three of them, that below ζ = 1 it overshoots, that ζ = 1 is the fastest return with none, and that above 1 it is slower, follow from the equation's own algebra: the overshoot is e<sup>−πζ/√(1−ζ²)</sup>, above zero for every ζ below 1. The engine can show those, not discover them. The fourth could come out either way: a struck one rings "at its natural frequency ω<sub>n</sub>, damped at rate ζ". So could a question the section leaves open: is "no overshoot" really the fastest way to arrive?</p>
+    <p class="teach">The rules, set before the run. A swing has <i>arrived</i> once it stays within 2% of its target for good; it <i>overshoots</i> if it ever passes the target at all. Pitch is counted from the ring's zero crossings and its fade from the slope of its peaks, struck at ω<sub>n</sub> = 220 Hz. Every ζ is pulled from 0 to 1 on the engine you have been hearing.</p>
+    <div class="panel"><div class="plabel"><span>time to settle within 2% (solid) and overshoot (dashed), against ζ</span><span>click to hear the envelope job at that ζ</span></div><canvas id="s4cv" style="cursor:crosshair"></canvas></div>
+    <table class="meas"><thead><tr><th>ζ</th><th>regime</th><th>overshoot</th><th>settles within 2% after</th><th>struck at ω<sub>n</sub> = 220 Hz, rings at</th><th>ω<sub>n</sub>√(1 − ζ²)</th><th>fades at</th><th>ζω<sub>n</sub></th></tr></thead><tbody id="s4t"></tbody></table>
+    <div class="verdict" id="s4v"></div>
+    <div class="controls"><div class="btns">
+      <button class="go" id="s4a">▸ envelope · ζ 0.78</button><button class="go" id="s4b">▸ envelope · ζ 1</button><button class="go" id="s4c">▸ envelope · ζ 1.5</button>
+    </div></div>
+    <div class="panel"><div class="plabel"><span>what you hear</span><span id="s4r"></span></div><canvas id="s4cv2"></canvas></div>
+    <p class="note">Settling is read at steps of 0.002/ω<sub>n</sub>. The ring's pitch is counted from its zero crossings, its fade from the slope of its peaks; a heavily damped swing passes too few crossings to count, so those cells stay empty.</p>
+  </section>
+
+  <nav class="walk"><button id="back">← back</button><button id="next">next step →</button><span class="where" id="where"></span></nav>
+  <div class="foot">Loud’n Live</div>
+</div>
+<script id="engine">
+// The engine: pure functions, no page. The check script runs this same block in Node.
+const TWO_PI = 2 * Math.PI;
+const eye = n => Array.from({ length: n }, (_, i) => Array.from({ length: n }, (_, j) => +(i === j)));
+const mmul = (A, B) => A.map(r => B[0].map((_, j) => r.reduce((s, v, k) => s + v * B[k][j], 0)));
+const madd = (A, B) => A.map((r, i) => r.map((v, j) => v + B[i][j]));
+function expm(A) { // matrix exponential: scaling and squaring around an 18-term Taylor series
+  let nrm = 0; for (const r of A) nrm = Math.max(nrm, r.reduce((s, v) => s + Math.abs(v), 0));
+  const sq = Math.max(0, Math.ceil(Math.log2(nrm || 1)) + 1), k = Math.pow(2, -sq);
+  const X = A.map(r => r.map(v => v * k)); let E = eye(A.length), T = eye(A.length);
+  for (let j = 1; j <= 18; j++) { T = mmul(T, X).map(r => r.map(v => v / j)); E = madd(E, T); }
+  for (let j = 0; j < sq; j++) E = mmul(E, E);
+  return E;
+}
+// First order, the page's dy/dt + a·y = b written τ·y' + y = u (τ = 1/a, u = b/a), stepped exactly:
+// over a step of h with u held, y moves (1 − e^(−h/τ)) of the way to u.
+function firstOrder(tau, h) { const a = 1 - Math.exp(-h / tau); return (s, u) => (s[0] += (u - s[0]) * a); }
+// Second order, the page's y'' + 2ζω y' + ω² y = ω²·u, as two first-order rules on (y, v), stepped exactly:
+// (y, v, u) → expm([[0, 1, 0], [−ω², −2ζω, ω²], [0, 0, 0]]·h)·(y, v, u). Nothing is approximated but the input, held over each step.
+function secondOrder(w, zeta, h) {
+  const E = expm([[0, h, 0], [-w * w * h, -2 * zeta * w * h, w * w * h], [0, 0, 0]]);
+  return (s, u) => { const y = E[0][0] * s[0] + E[0][1] * s[1] + E[0][2] * u, v = E[1][0] * s[0] + E[1][1] * s[1] + E[1][2] * u; s[0] = y; s[1] = v; return y; };
+}
+function run(step, n, u, s0) { // u: a number or a function of the sample index
+  const s = s0.slice(), out = new Float64Array(n), f = typeof u === 'function';
+  for (let i = 0; i < n; i++) out[i] = step(s, f ? u(i) : u);
+  return out;
+}
+// ── measures, all read off the engine's samples ──
+const regime = z => z < 1 - 1e-9 ? 'ringing' : z <= 1 + 1e-9 ? 'critical' : 'sluggish';
+function overshoot(y, target = 1) { let m = -Infinity; for (const v of y) m = Math.max(m, v); return Math.max(0, m - target); }
+function settleIndex(y, tol, target = 1) { for (let i = y.length - 1; i >= 0; i--) if (Math.abs(y[i] - target) > tol) return i + 1; return 0; }
+function ringFreq(y, sr) { // upward zero crossings, interpolated, over every cycle above a floor
+  let pk = 0; for (const v of y) pk = Math.max(pk, Math.abs(v));
+  const xs = []; for (let i = 1; i < y.length; i++) if (y[i - 1] < 0 && y[i] >= 0 && Math.abs(y[i]) + Math.abs(y[i - 1]) > pk * 1e-13) xs.push(i - 1 + (-y[i - 1]) / (y[i] - y[i - 1]));
+  return xs.length >= 3 ? (xs.length - 1) / ((xs[xs.length - 1] - xs[0]) / sr) : NaN;
+}
+function decayRate(y, sr) { // least-squares slope of ln(peak) over the positive peaks: nepers per second (positive = fading)
+  const t = [], l = []; let pk = 0; for (const v of y) pk = Math.max(pk, Math.abs(v));
+  for (let i = 1; i < y.length - 1; i++) if (y[i] > 0 && y[i] >= y[i - 1] && y[i] > y[i + 1] && y[i] > pk * 1e-12) {
+    const a = y[i - 1], b = y[i], c = y[i + 1], d = (a - c) / (2 * (a - 2 * b + c)); t.push((i + d) / sr); l.push(Math.log(b - (a - c) * d / 4)); }
+  if (t.length < 3) return NaN;
+  const n = t.length, mt = t.reduce((s, v) => s + v) / n, ml = l.reduce((s, v) => s + v) / n;
+  let num = 0, den = 0; for (let i = 0; i < n; i++) { num += (t[i] - mt) * (l[i] - ml); den += (t[i] - mt) ** 2; }
+  return -num / den;
+}
+// The step response in the equation's own time (ω = 1): overshoot, and when it last leaves a band around the target
+function stepMeasure(zeta, tol = 0.02, h = 0.002, T = Math.max(40, 2.5 * Math.log(1 / tol) / zeta)) {
+  const y = run(secondOrder(1, zeta, h), Math.round(T / h), 1, [0, 0]);
+  return { zeta, overshoot: overshoot(y), settle: settleIndex(y, tol) * h, y, h };
+}
+// The ring of a struck swing at a real pitch: measured pitch and decay against ω and against ω√(1 − ζ²), ζω
+function ringMeasure(zeta, f = 220, sr = 48000, secs = 0.6) {
+  const w = TWO_PI * f, y = run(secondOrder(w, zeta, 1 / sr), Math.round(sr * secs), 0, [0, w]);
+  return { zeta, f, fm: ringFreq(y, sr), fd: f * Math.sqrt(Math.max(0, 1 - zeta * zeta)), sm: decayRate(y, sr), s: zeta * w };
+}
+const cents = (a, b) => 1200 * Math.log2(a / b);
+</script>
+<script>
+// ───────── shared: the sigil, the walk, the sound, the drawings ─────────
+const $ = id => document.getElementById(id);
+// Greek letters keep their case: an uppercase label would turn τ into Τ and ζ into Ζ, which read as T and Z
+function keepGreek(root = document.body) {
+  const tw = document.createTreeWalker(root, NodeFilter.SHOW_TEXT), hits = [];
+  while (tw.nextNode()) { const n = tw.currentNode; if (/[α-ωΩ]/.test(n.nodeValue) && n.parentElement && !n.parentElement.classList.contains('g') && getComputedStyle(n.parentElement).textTransform === 'uppercase') hits.push(n); }
+  for (const n of hits) { const f = document.createDocumentFragment(); n.nodeValue.split(/([α-ωΩ]+)/).forEach((part, i) => { if (!part) return; if (i % 2) { const s = document.createElement('span'); s.className = 'g'; s.textContent = part; f.appendChild(s); } else f.appendChild(document.createTextNode(part)); }); n.replaceWith(f); }
+}
+
+function sigil(el) { // the Lissajous trace, 3:2, small
+  const p = []; for (let i = 0; i <= 240; i++) { const t = i / 240 * 2 * Math.PI; p.push((11 + 9 * Math.sin(3 * t + Math.PI / 4)).toFixed(2) + ',' + (11 + 9 * Math.sin(2 * t)).toFixed(2)); }
+  el.innerHTML = '<svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true"><circle cx="11" cy="11" r="10.4" fill="none" stroke="#2a4080" stroke-width="1"/><polyline points="' + p.join(' ') + '" fill="none" stroke="#a8e040" stroke-width="1"/></svg>';
+}
+// Sound: nothing exists before a click. One buffer at a time, through a compressor.
+const SND = { ctx: null, out: null, src: null };
+function soundOn() {
+  if (!SND.ctx) {
+    SND.ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const comp = SND.ctx.createDynamicsCompressor(); comp.threshold.value = -12; comp.ratio.value = 4;
+    SND.out = SND.ctx.createGain(); SND.out.gain.value = 0.9; SND.out.connect(comp); comp.connect(SND.ctx.destination);
+  }
+  if (SND.ctx.state === 'suspended') SND.ctx.resume();
+  return SND.ctx.sampleRate;
+}
+function stopSound() { if (SND.src) { try { SND.src.stop(); } catch (e) {} SND.src = null; } }
+function playBuffer(buf, sr) {
+  stopSound(); const c = SND.ctx, b = c.createBuffer(2, buf.length, sr || c.sampleRate);
+  const f = Float32Array.from(buf); b.copyToChannel(f, 0); b.copyToChannel(f, 1);
+  const s = c.createBufferSource(); s.buffer = b; s.connect(SND.out); s.start(); SND.src = s; s.onended = () => { if (SND.src === s) SND.src = null; };
+}
+function fadeTail(buf, sr, ms = 20) { const n = Math.min(buf.length >> 1, Math.floor(sr * ms / 1000)); for (let i = 0; i < n; i++) buf[buf.length - 1 - i] *= i / n; return buf; } // a strike starts from zero, so only its end is faded
+function fade(buf, sr, ms = 20) { const n = Math.min(buf.length >> 1, Math.floor(sr * ms / 1000)); for (let i = 0; i < n; i++) { buf[i] *= i / n; buf[buf.length - 1 - i] *= i / n; } return buf; }
+function walk(steps) {
+  const rail = $('rail'); let cur = 0;
+  steps.forEach((s, i) => { const b = document.createElement('button'); b.textContent = (i + 1) + ' · ' + s.name; b.onclick = () => go(i); rail.appendChild(b); });
+  function go(i) {
+    stopSound(); cur = Math.max(0, Math.min(steps.length - 1, i));
+    document.querySelectorAll('.step').forEach((el, k) => el.classList.toggle('on', k === cur));
+    rail.querySelectorAll('button').forEach((b, k) => b.setAttribute('aria-current', k === cur ? 'step' : 'false'));
+    $('back').disabled = cur === 0; $('next').disabled = cur === steps.length - 1;
+    $('where').textContent = 'step ' + (cur + 1) + ' of ' + steps.length;
+    if (steps[cur].enter) steps[cur].enter();
+  }
+  $('back').onclick = () => go(cur - 1); $('next').onclick = () => go(cur + 1);
+  go(0); return go;
+}
+function fitCanvas(cv, h) {
+  const dpr = window.devicePixelRatio || 1, w = cv.clientWidth || cv.parentNode.clientWidth || 600;
+  cv.style.height = h + 'px'; cv.width = Math.round(w * dpr); cv.height = Math.round(h * dpr);
+  const g = cv.getContext('2d'); g.setTransform(dpr, 0, 0, dpr, 0, 0); g.font = '10px JetBrains Mono, monospace'; return [g, w, h];
+}
+const C = { grid: 'rgba(232,236,255,.08)', dim: '#5a6694', soft: '#8a92c4', fg: '#e8ecff', acc: '#a8e040', amb: '#e8b84a', blue: '#7fa6ff' };
+function line(g, pts, color, width = 1.5, dash) { g.strokeStyle = color; g.lineWidth = width; g.setLineDash(dash || []); g.beginPath(); pts.forEach(([x, y], i) => i ? g.lineTo(x, y) : g.moveTo(x, y)); g.stroke(); g.setLineDash([]); g.lineWidth = 1; }
+function envDb(buf, sr, win) { const n = Math.max(1, Math.floor(sr * win)), out = []; for (let i = 0; i + n <= buf.length; i += n) { let z = 0; for (let j = i; j < i + n; j++) z += buf[j] * buf[j]; out.push(10 * Math.log10(z / n + 1e-14)); } return out; }
+function drawSound(cv, buf, sr, opts = {}) { // the first stretch of the wave, and the level over the whole render
+  const [g, W, H] = fitCanvas(cv, opts.h || 150), zw = Math.min(260, W * 0.36), ew = W - zw - 14;
+  g.clearRect(0, 0, W, H);
+  const n = Math.min(buf.length, Math.floor(sr * (opts.zoom || 0.03))), s0 = opts.zoomAt ? Math.floor(sr * opts.zoomAt) : 0; let pk = 1e-9;
+  for (let i = s0; i < s0 + n; i++) pk = Math.max(pk, Math.abs(buf[i] || 0));
+  g.strokeStyle = C.grid; g.strokeRect(.5, 4.5, zw - 1, H - 25);
+  line(g, Array.from({ length: n }, (_, i) => [i / (n - 1) * zw, 4 + (H - 24) / 2 * (1 - (buf[s0 + i] || 0) / pk)]), opts.color || C.acc, 1.2);
+  g.fillStyle = C.soft; g.fillText('the first ' + Math.round((opts.zoom || 0.03) * 1000) + ' ms', 2, H - 4);
+  const env = envDb(buf, sr, Math.max(0.005, buf.length / sr / 300)), lo = -80, x0 = zw + 14;
+  for (const d of [-60, -40, -20]) { const y = 4 + (H - 20) * (-d / -lo); g.strokeStyle = C.grid; g.beginPath(); g.moveTo(x0, y); g.lineTo(W, y); g.stroke(); g.fillStyle = C.dim; g.fillText(d + ' dB', x0 + 2, y - 2); }
+  const top = Math.max(...env);
+  line(g, env.map((d, i) => [x0 + i / (env.length - 1) * ew, 4 + (H - 20) * Math.min(1, (top - d) / -lo)]), opts.color || C.acc);
+  g.fillStyle = C.soft; g.fillText('level over ' + (buf.length / sr).toFixed(1) + ' s, from its peak', x0 + 2, H - 4);
+}
+const fmt = (x, d = 2) => Number.isFinite(x) ? x.toFixed(d) : '—';
+function tone(sr, n, f = 220) { const out = new Float64Array(n); for (let i = 0; i < n; i++) { const t = i / sr; let v = 0; for (let k = 1; k <= 6; k++) v += Math.sin(TWO_PI * k * f * t) / k; out[i] = v * 0.55; } return out; }
+
+// ───────── step 1: the rule as a field ─────────
+const tauOf = v => 0.005 * Math.pow(100, v); // 5 ms to 500 ms
+let s1starts = [[0, 0], [0, 1.4], [1.2, -0.2]];
+function s1draw() {
+  const tau = tauOf(+$('s1t').value); $('s1tv').textContent = (tau * 1000).toFixed(tau < 0.05 ? 1 : 0) + ' ms';
+  // the landmarks, read off the engine at a 48 kHz step with this τ
+  const sr = 48000, y = run(firstOrder(tau, 1 / sr), Math.round(sr * tau * 5) + 2, 1, [0]);
+  $('s1a').textContent = (y[Math.round(sr * tau) - 1] * 100).toFixed(1) + '%'; $('s1b').textContent = (y[Math.round(3 * sr * tau) - 1] * 100).toFixed(1) + '%'; $('s1c').textContent = (y[Math.round(5 * sr * tau) - 1] * 100).toFixed(1) + '%';
+  const [g, W, H] = fitCanvas($('s1cv'), 240), T = 5, Y0 = -0.3, Y1 = 1.5, X = t => 34 + t / T * (W - 44), Yp = v => 10 + (Y1 - v) / (Y1 - Y0) * (H - 34);
+  g.clearRect(0, 0, W, H);
+  for (const v of [0, 1]) { g.strokeStyle = v ? 'rgba(168,224,64,.35)' : C.grid; g.beginPath(); g.moveTo(X(0), Yp(v)); g.lineTo(W, Yp(v)); g.stroke(); g.fillStyle = C.dim; g.fillText(v ? 'u = 1' : '0', 4, Yp(v) + 3); }
+  for (const t of [1, 3]) { g.strokeStyle = C.grid; g.setLineDash([3, 4]); g.beginPath(); g.moveTo(X(t), Yp(Y1)); g.lineTo(X(t), Yp(Y0)); g.stroke(); g.setLineDash([]); g.fillStyle = C.dim; g.fillText(t + 'τ', X(t) + 3, H - 6); }
+  // the field: at each point, the slope the rule gives, (1 − y) per τ
+  const sx = (W - 44) / T, sy = (H - 34) / (Y1 - Y0);
+  g.strokeStyle = 'rgba(127,166,255,.55)';
+  for (let t = 0.125; t < T; t += 0.25) for (let v = Y0 + 0.075; v < Y1; v += 0.15) {
+    const dx = sx, dy = -(1 - v) * sy, L = Math.hypot(dx, dy), k = 8 / L; g.beginPath(); g.moveTo(X(t) - dx * k, Yp(v) - dy * k); g.lineTo(X(t) + dx * k, Yp(v) + dy * k); g.stroke(); }
+  // the curves that follow it, stepped by the engine in units of τ
+  s1starts.forEach(([t0, v0], i) => { const n = Math.round((T - t0) / 0.01), c = run(firstOrder(1, 0.01), n, 1, [v0]), pts = [[X(t0), Yp(v0)]];
+    for (let k = 0; k < n; k++) pts.push([X(t0 + (k + 1) * 0.01), Yp(c[k])]); line(g, pts, i === 0 ? C.acc : C.amb, i === 0 ? 2 : 1.4);
+    g.fillStyle = i === 0 ? C.acc : C.amb; g.beginPath(); g.arc(X(t0), Yp(v0), 3, 0, 7); g.fill(); });
+  const c = run(firstOrder(1, 0.001), 3000, 1, [0]); for (const t of [1, 3]) { g.fillStyle = C.fg; g.fillText((c[t * 1000 - 1] * 100).toFixed(1) + '%', X(t) + 4, Yp(c[t * 1000 - 1]) + 13); }
+  s1draw.map = { X, Yp, T, Y0, Y1, W, H };
+}
+$('s1t').oninput = s1draw;
+$('s1cv').onclick = e => { const m = s1draw.map, r = $('s1cv').getBoundingClientRect(), x = e.clientX - r.left, y = e.clientY - r.top;
+  const t = (x - 34) / (m.W - 44) * m.T, v = m.Y1 - (y - 10) / (m.H - 34) * (m.Y1 - m.Y0); if (t < 0 || t > m.T) return;
+  s1starts = [s1starts[0], ...s1starts.slice(1).slice(-4), [t, v]]; $('s1hint').textContent = 'started at y = ' + v.toFixed(2); s1draw(); };
+$('s1go').onclick = () => { const sr = soundOn(), tau = tauOf(+$('s1t').value), n = Math.round(sr * 3.2), st = firstOrder(tau, 1 / sr), s = [0], tn = tone(sr, n), out = new Float64Array(n);
+  for (let i = 0; i < n; i++) { const u = i >= 0.1 * sr && i < 1.7 * sr ? 1 : 0; out[i] = 0.42 * tn[i] * st(s, u); }
+  playBuffer(fade(out, sr, 5)); };
+
+// ───────── step 2: weight ─────────
+function strike(zeta, sr, secs = 2.5, f = 220) { const w = TWO_PI * f; return run(secondOrder(w, zeta, 1 / sr), Math.round(sr * secs), 0, [0, w]); }
+function s2(play) { const sr = play ? soundOn() : 48000, y = strike(0.01, sr), out = y.map(v => 0.38 * v);
+  const m = ringMeasure(0.01, 220, sr); $('s2f').textContent = fmt(m.fm, 2) + ' Hz'; $('s2d').textContent = fmt(m.sm, 1) + ' /s, gone (−60 dB) in ' + fmt(6.9078 / m.sm, 2) + ' s';
+  drawSound($('s2cv'), out, sr); if (play) playBuffer(fadeTail(out, sr, 5)); }
+$('s2go').onclick = () => s2(true);
+
+// ───────── step 3: turn ζ ─────────
+const zetaOf = v => 0.01 * Math.pow(300, v); // 0.01 to 3
+let s3jobName = '';
+function job(name, zeta, sr) {
+  const secs = 2.6, n = Math.round(sr * secs);
+  if (name === 'strike') return fadeTail(strike(zeta, sr, secs).map(v => 0.38 * v), sr, 5);
+  if (name === 'filter') { let s = 12345; const rnd = () => { s ^= s << 13; s >>>= 0; s ^= s >> 17; s ^= s << 5; s >>>= 0; return s / 4294967296 * 2 - 1; };
+    const y = run(secondOrder(TWO_PI * 660, zeta, 1 / sr), n, () => rnd(), [0, 0]); let z = 0; for (const v of y) z += v * v; const g = 0.12 / Math.sqrt(z / n); return fade(y.map(v => v * g), sr, 30); }
+  const st = secondOrder(TWO_PI * 3, zeta, 1 / sr), s = [0, 0], tn = tone(sr, n), out = new Float64Array(n);
+  for (let i = 0; i < n; i++) { const u = i >= 0.15 * sr && i < 1.65 * sr ? 1 : 0; out[i] = 0.24 * tn[i] * Math.max(0, st(s, u)); }
+  return fade(out, sr, 5);
+}
+const jobLabel = { strike: 'pluck · 220 Hz', filter: 'filter · noise at 660 Hz', env: 'envelope · 3 Hz on a tone' };
+function s3() {
+  const z = zetaOf(+$('s3z').value), m = stepMeasure(z); $('s3zv').textContent = z < 0.1 ? z.toFixed(3) : z.toFixed(2);
+  const reg = regime(Math.abs(z - 1) < 0.006 ? 1 : z), r = $('s3reg'); r.textContent = '● ' + reg; r.className = reg === 'ringing' ? 'grow' : reg === 'critical' ? 'ok' : 'still';
+  $('s3os').textContent = (m.overshoot * 100).toFixed(m.overshoot < 0.01 ? 3 : 1) + '%';
+  $('s3st').innerHTML = fmt(m.settle, 2) + '/ω<sub>n</sub> · ' + (m.settle / (TWO_PI * 3) * 1000).toFixed(0) + ' ms on the envelope';
+  const [g, W, H] = fitCanvas($('s3cv'), 220), T = 24, X = t => 30 + t / T * (W - 36), Yp = v => 10 + (2 - v) / 2.3 * (H - 30);
+  g.clearRect(0, 0, W, H);
+  for (const v of [0, 1, 1.02, 0.98]) { g.strokeStyle = v === 1 ? 'rgba(168,224,64,.35)' : C.grid; g.beginPath(); g.moveTo(X(0), Yp(v)); g.lineTo(W, Yp(v)); g.stroke(); }
+  g.fillStyle = C.dim; g.fillText('1', 6, Yp(1) + 3); g.fillText('0', 6, Yp(0) + 3); for (const t of [0, 6, 12, 18, 24]) g.fillText(t, X(t) - 3, H - 4);
+  for (const zr of [0.1, 1, 3]) { const y = stepMeasure(zr, 0.02, 0.02, T).y; line(g, Array.from(y, (v, i) => [X((i + 1) * 0.02), Yp(v)]), 'rgba(138,146,196,.35)', 1); }
+  line(g, [[X(0), Yp(0)], ...Array.from(m.y.subarray(0, Math.round(T / m.h)), (v, i) => [X((i + 1) * m.h), Yp(v)])], C.acc, 2);
+  if (m.settle < T) { g.strokeStyle = C.amb; g.setLineDash([3, 3]); g.beginPath(); g.moveTo(X(m.settle), Yp(1.6)); g.lineTo(X(m.settle), Yp(0)); g.stroke(); g.setLineDash([]); g.fillStyle = C.amb; g.fillText('within 2%', X(m.settle) + 4, Yp(1.55)); }
+}
+$('s3z').oninput = s3;
+document.querySelectorAll('[data-job]').forEach(b => b.onclick = () => { const sr = soundOn(), z = zetaOf(+$('s3z').value); s3jobName = b.dataset.job; $('s3job').textContent = jobLabel[s3jobName] + ' · ζ ' + (z < 0.1 ? z.toFixed(3) : z.toFixed(2)); playBuffer(job(s3jobName, z, sr)); });
+
+// ───────── step 4: the test ─────────
+const ZROWS = [0.05, 0.1, 0.3, 0.5, 0.78, 0.9, 1, 1.5, 3];
+let s4data = null;
+function s4measure() {
+  const curve = []; for (let i = 0; i <= 90; i++) { const z = 0.05 * Math.pow(60, i / 90); const m = stepMeasure(z, 0.02, 0.004); curve.push({ z, os: m.overshoot, st: m.settle }); }
+  const rows = ZROWS.map(z => { const m = stepMeasure(z), r = z < 1 ? ringMeasure(z) : null; return { z, os: m.overshoot, st: m.settle, r }; });
+  // the fastest settle of all, found finely near its basin
+  let best = { st: Infinity }; for (let z = 0.6; z <= 0.95; z += 0.0025) { const m = stepMeasure(z); if (m.settle < best.st) best = { z, st: m.settle, os: m.overshoot }; }
+  s4data = { curve, rows, best }; s4draw(); s4table();
+}
+function s4draw() {
+  const { curve, best } = s4data, [g, W, H] = fitCanvas($('s4cv'), 230), L = 40, R = 40, top = 12, bot = H - 22;
+  const X = z => L + Math.log(z / 0.05) / Math.log(60) * (W - L - R), Ys = s => bot - (Math.log(s) - Math.log(2)) / (Math.log(120) - Math.log(2)) * (bot - top), Yo = o => bot - o * (bot - top);
+  g.clearRect(0, 0, W, H);
+  for (const s of [3, 6, 12, 24, 48, 96]) { g.strokeStyle = C.grid; g.beginPath(); g.moveTo(L, Ys(s)); g.lineTo(W - R, Ys(s)); g.stroke(); g.fillStyle = C.dim; g.fillText(s + '/ω', 4, Ys(s) + 3); }
+  for (const o of [0, 0.5, 1]) { g.fillStyle = C.dim; g.fillText((o * 100) + '%', W - R + 4, Yo(o) + 3); }
+  for (const z of [0.05, 0.1, 0.3, 1, 3]) { g.fillStyle = C.soft; g.fillText('ζ ' + z, X(z) - 10, H - 6); }
+  g.strokeStyle = 'rgba(168,224,64,.45)'; g.beginPath(); g.moveTo(X(1), top); g.lineTo(X(1), bot); g.stroke();
+  line(g, curve.map(p => [X(p.z), Yo(p.os)]), C.amb, 1.2, [4, 3]);
+  line(g, curve.map(p => [X(p.z), Ys(p.st)]), C.acc, 1.8);
+  g.fillStyle = C.fg; g.beginPath(); g.arc(X(best.z), Ys(best.st), 3.5, 0, 7); g.fill(); g.fillText('fastest: ζ ' + best.z.toFixed(2), X(best.z) - 40, Ys(best.st) + 16);
+  g.fillStyle = C.acc; g.beginPath(); g.arc(X(1), Ys(stepMeasure(1).settle), 3.5, 0, 7); g.fill(); g.fillText('critical', X(1) + 6, Ys(stepMeasure(1).settle) - 6);
+  s4draw.map = { X, W, L, R };
+}
+function s4table() {
+  const { rows, best } = s4data, tb = $('s4t'); tb.innerHTML = '';
+  for (const r of rows) {
+    const tr = document.createElement('tr'), reg = regime(r.z);
+    tr.innerHTML = '<td><b>' + r.z + '</b></td><td class="' + (reg === 'ringing' ? 'grow' : reg === 'critical' ? 'ok' : 'still') + '">' + reg + '</td><td>' + (r.os > 1e-9 ? (r.os * 100).toFixed(r.os < 0.01 ? 3 : 1) + '%' : '0') + '</td><td>' + r.st.toFixed(2) + ' / ω<sub>n</sub></td>' +
+      (r.r ? '<td><b>' + fmt(r.r.fm, 2) + ' Hz</b> (' + fmt(cents(r.r.fm, 220), 1) + ' ¢)</td><td>' + r.r.fd.toFixed(2) + ' Hz</td><td><b>' + fmt(r.r.sm, 1) + ' /s</b></td><td>' + r.r.s.toFixed(1) + ' /s</td>' : '<td>no ring</td><td>—</td><td>—</td><td>—</td>');
+    tb.appendChild(tr);
+  }
+  const under = rows.filter(r => r.z < 1), over = rows.filter(r => r.z > 1), crit = rows.find(r => r.z === 1);
+  const c1 = under.every(r => r.os > 1e-9), c2 = crit.os <= 1e-9 && over.every(r => r.os <= 1e-9 && r.st > crit.st);
+  const rr = under.filter(r => r.r && Number.isFinite(r.r.fm)), c4 = rr.every(r => Math.abs(r.r.fm - r.r.fd) < 0.01 && Math.abs(r.r.sm / r.r.s - 1) < 1e-3);
+  const r3 = rows.find(r => r.z === 0.3);
+  const below = stepMeasure(Math.round((best.z - 0.005) * 1000) / 1000);
+  $('s4v').innerHTML =
+    (c4 ? '<b>A struck swing does not ring at ω<sub>n</sub>, and ζ is not its rate.</b> It rings at ω<sub>n</sub>√(1 − ζ²), ' + r3.r.fm.toFixed(2) + ' Hz at ζ = 0.3, ' + Math.abs(cents(r3.r.fm, 220)).toFixed(0) + ' cents flat of 220, and fades at ζω<sub>n</sub> per second. The ear forgives it: where the gap is wide the ring is too short to carry a pitch (at ζ = 0.3 it is gone, −60 dB, in ' + (6.9078 / r3.r.sm * 1000).toFixed(0) + ' ms), and below ζ = 0.05, where a plucked string lives, the gap is under 3 cents. ' : 'The ring did not match ω<sub>n</sub>√(1 − ζ²). ') +
+    '<b>And no overshoot is not the fastest way to arrive.</b> Allow the 2% band and ζ = ' + best.z.toFixed(3) + ' settles after ' + best.st.toFixed(2) + '/ω<sub>n</sub>, ' + Math.round((1 - best.st / crit.st) * 100) + '% sooner than critical, its one bump (' + (best.os * 100).toFixed(1) + '%) just inside the band. It is a cliff: at ζ = ' + below.zeta.toFixed(3) + ' the bump leaves the band and settling jumps to ' + below.settle.toFixed(2) + '/ω<sub>n</sub>, and the best ζ moves with the band you call arrived. ' +
+    (c1 && c2 ? 'The algebra’s three claims show as they must: every ζ below 1 overshoots, even 0.9 (by ' + (rows.find(r => r.z === 0.9).os * 100).toFixed(2) + '%), ζ = 1 never does and settles after ' + crit.st.toFixed(2) + '/ω<sub>n</sub>, and every ζ above 1 is slower (' + over.map(r => r.st.toFixed(1)).join(', ') + ').' : 'The engine broke one of the algebra’s three claims, which means the engine is wrong.');
+}
+function hearEnv(z, label) { const sr = soundOn(), b = job('env', z, sr); playBuffer(b); drawSound($('s4cv2'), b, sr, { zoom: 0.6, zoomAt: 0.1 }); $('s4r').textContent = label; }
+$('s4cv').onclick = e => { if (!s4data) return; const m = s4draw.map, r = $('s4cv').getBoundingClientRect(), u = (e.clientX - r.left - m.L) / (m.W - m.L - m.R); const z = 0.05 * Math.pow(60, Math.max(0, Math.min(1, u))); hearEnv(z, 'envelope · ζ ' + (z < 0.1 ? z.toFixed(3) : z.toFixed(2))); };
+$('s4a').onclick = () => hearEnv(0.78, 'envelope · ζ 0.78'); $('s4b').onclick = () => hearEnv(1, 'envelope · ζ 1'); $('s4c').onclick = () => hearEnv(1.5, 'envelope · ζ 1.5');
+sigil($('sigil'));
+const goStep = walk([{ name: 'a rule', enter: s1draw }, { name: 'weight', enter: () => s2(false) }, { name: 'turn ζ', enter: s3 }, { name: 'where ringing stops', enter: () => { if (!s4data) s4measure(); else s4draw(); } }]);
+keepGreek(); document.addEventListener('click', () => setTimeout(() => keepGreek(), 0));
+window.addEventListener('resize', () => { const on = document.querySelector('.step.on'); if (!on) return; if (on.contains($('s1cv'))) s1draw(); else if (on.contains($('s3cv'))) s3(); else if (on.contains($('s4cv')) && s4data) s4draw(); });
+</script>
+</body>
+</html>

@@ -64,3 +64,4 @@ What each enrichment taught the ceremony, appended after a run that taught it so
 - run · 2026-11-03 · v2.7 with the proposal-round settings · Progressive Staging · nothing new
 - run · 2026-11-03 · v2.7 with the proposal-round settings · GenAI Camera · nothing new
 - run · 2026-11-03 · v2.7 with the proposal-round settings · The Lens · nothing new
+- run · 2026-11-03 · v2.7 with the proposal-round settings · Differential Equations · nothing new
