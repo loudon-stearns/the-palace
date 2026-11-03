@@ -3,7 +3,7 @@
   title: Piano String Inharmonicity — rich — click through the string
   born: 2026-11-03
   links: [[Piano String Inharmonicity]] (connects-to · rich-face-piece) · listed in [[Piano String Inharmonicity — rich.json]] · [[Progressive Staging]] (exemplifies · a walk up to its test)
-  forward_vector: I am "Why This Is Linear Time-Invariant" played: one decaying sine, then the section's sum of them with the click smearing as it travels, then any sound convolved with it, and last the test: the string run as a bank of resonators, checked against the convolution and against the four properties of an LTI system, with a second dial that makes the string go sharp when struck hard, so dispersion and nonlinearity can be told apart. I change only when that section does.
+  forward_vector: I am "Why This Is Linear Time-Invariant" played: one decaying sine, then the section's sum of them with the click smearing as it travels, then any sound convolved with it, and last two dials set side by side: dispersion (B) and a drive that makes the partials go sharp when struck hard, run through the four checks of an LTI system, so the two can be told apart. The checks hold by construction when the drive is off; what the step shows is which dial can break them. I change only when that section does.
   engine: the section's h(t) = Σ A_n·e^(−α_n·t)·sin(2π·f_n·t + φ_n) and a resonator bank that computes the same string another way; the block is byte-identical in this face's three pieces.
   checks: Piano String Inharmonicity/workshop/rich-face-checks.mjs runs this file's own engine against the claim.
 -->
@@ -77,7 +77,7 @@
 <div class="piece">
   <div class="kicker"><span id="sigil"></span>made · sketch · a walk in four steps</div>
   <h2 class="title">A click through the string</h2>
-  <p class="sub">A string at A2, 110 Hz. The section says its whole behaviour fits in one impulse response, so convolution can make it. We build that response one ring at a time, then test whether the string really is linear and time-invariant. Silent until you press a button.</p>
+  <p class="sub">A string at A2, 110 Hz. The section says its whole behaviour fits in one impulse response, so convolution can make it. We build that response one ring at a time, then set dispersion beside nonlinearity, two dials that are easy to confuse. Silent until you press a button.</p>
   <div class="rail" id="rail"></div>
 
   <section class="step">
@@ -123,8 +123,8 @@
   </section>
 
   <section class="step">
-    <h3>Is the string linear and time-invariant?</h3>
-    <p class="teach">The test. The string here is no longer a convolution: it is forty resonators, one per partial, each a filter run sample by sample on the input, a different computation from the formula for h(t). If the section is right, that string and the convolution with h(t) give the same output, and the string passes the four checks below. There are two dials. B is dispersion. Drive makes each partial go sharp when it swings wide, as a real string's tension rises when it is struck hard. Move each, and watch which one breaks the checks.</p>
+    <h3>Two dials: dispersion and nonlinearity</h3>
+    <p class="teach">Here the string is h(t) rebuilt as forty filters, one per term, run sample by sample. Be clear about what that can show. With the drive off it is linear by construction, so it passes the four checks below whatever B is; so would any linear model, a finite-difference string included. Whether a real piano string is linear is a question for a measurement, not a simulation. What this step can show is that two things often run together are separate dials. B is dispersion: it tunes the partials. Drive makes each partial go sharp when it swings wide, as a real string's tension rises when it is struck hard. Move each, and watch which one breaks the checks.</p>
     <div class="controls">
       <label class="sl">dispersion · <i>B</i> = <b id="s4Bv"></b><input id="s4B" type="range" min="0" max="0.002" step="0.00002" value="0.0008"></label>
       <label class="sl">nonlinearity · drive = <b id="s4Dv"></b><input id="s4D" type="range" min="0" max="0.01" step="0.0005" value="0"></label>
@@ -132,7 +132,7 @@
     <div class="controls"><div class="btns"><button class="go" id="s4soft">▸ soft, then loud, at matched level</button><button class="go" id="s4bank">▸ the resonators</button><button class="go" id="s4conv">▸ the convolution</button></div><span class="busy" id="s4busy"></span></div>
     <table class="meas"><thead><tr><th>check</th><th>what is compared</th><th>worst difference</th><th></th></tr></thead><tbody id="s4t"></tbody></table>
     <div class="verdict" id="s4v"></div>
-    <p class="note">Each difference is the largest gap between the two signals over 2.6 s, against the peak of the reference signal. Three clicks and a burst of noise are the inputs; the arithmetic is 64-bit, and "none" means the two came out bit for bit the same. The drive is a sketch of tension modulation, not a model of a piano.</p>
+    <p class="note">Each difference is the largest gap between the two signals over 2.6 s, against the peak of the reference signal. Three clicks and a burst of noise are the inputs; the arithmetic is 64-bit (its floor is about −313 dB), and "none" means the two came out bit for bit the same. The drive is a sketch of tension modulation, not a model of a piano. The section's sentence about real stiff strings, that their dispersion is still LTI, rests on the wave equation being linear, not on this step.</p>
   </section>
 
   <nav class="walk"><button id="back">← back</button><button id="next">next step →</button><span class="where" id="where"></span></nav>
@@ -380,15 +380,15 @@ function s4() { const B = +$('s4B').value, dr = +$('s4D').value; $('s4Bv').textC
   $('s4busy').textContent = 'measuring…'; clearTimeout(s4timer);
   s4timer = setTimeout(() => { const r = lti({ f0: F0, B, drive: dr, sr: SR }); s4res = r; $('s4busy').textContent = '';
     const holds = e => e < -120, rows = [
-      ['the string = x ∗ h(t)', 'the resonators, against the input convolved with the section\'s h(t)', r.conv],
+      ['filters = x ∗ h(t)', 'the forty filters, against the input convolved with h(t): a check of the code', r.conv],
       ['twice as loud', 'the string\'s answer to 2x, against twice its answer to x', r.scale],
       ['two at once', 'its answer to the clicks plus the noise, against the two answers added', r.add],
       ['0.1 s later', 'its answer to x delayed, against its answer to x, delayed', r.shift]];
     $('s4t').innerHTML = rows.map(([a, b, e]) => `<tr><td><b>${a}</b></td><td>${b}</td><td><b>${dbTxt(e)}</b></td><td class="${holds(e) ? 'ok' : 'bad'}">${holds(e) ? 'holds' : 'breaks'}</td></tr>`).join('');
     const broke = rows.filter(r => !holds(r[2])).map(r => r[0]);
     $('s4v').innerHTML = !broke.length
-      ? `At B = ${B.toFixed(5)} with no drive, all four hold. The resonators and the convolution with h(t) agree to ${dbTxt(r.conv)}, rounding error, so the section's h(t) is the whole of this string, and convolving with it makes it. Move B anywhere and the checks keep holding: dispersion tunes the partials, but it does not make the string depend on how hard you hit it.`
-      : `With drive at ${dr.toFixed(4)}, ${broke.length === 3 ? 'three checks break' : broke.length + ' checks break'}: ${broke.join(', ')}. The loud strike now rings sharper than the soft one, so no single h(t) can stand for the string, and convolution can no longer make it. The delay check still holds: the string is nonlinear but still time-invariant. B is ${B.toFixed(5)} either way. Set drive to 0 and every check holds again, whatever B is.`;
+      ? `At B = ${B.toFixed(5)} with no drive, all four hold, as they must: nothing in this model depends on how hard it is struck. The filters and the convolution agree to ${dbTxt(r.conv)}, which is rounding between two ways of doing the same arithmetic (about 85 dB above double precision's floor): a check of the code, not of a piano. The point is the B dial. Move it anywhere and nothing breaks. Dispersion moves the partials and leaves the model linear.`
+      : `With drive at ${dr.toFixed(4)}, ${broke.length === 3 ? 'three checks break' : broke.length + ' checks break'}: ${broke.join(', ')}. The loud strike now rings sharper than the soft one, so no single h(t) can stand for this model, and convolution can no longer make it. The delay check still holds: the string is nonlinear but still time-invariant. B is ${B.toFixed(5)} either way. Set drive to 0 and every check holds again, whatever B is.`;
   }, 30); }
 function s4play(which, btn) { if (!s4res) return; const r = s4res;
   if (which === 'bank') playBuffer(toF32(r.y1), btn); else if (which === 'conv') playBuffer(toF32(r.conv1), btn);
@@ -405,7 +405,7 @@ INPUTS.forEach(([k, lab]) => { const b = document.createElement('button'); b.tex
 $('s3x').onclick = e => playBuffer(toF32(inputSignal(s3kind, SR, LEN), 0.5), e.currentTarget);
 $('s3y').onclick = e => playBuffer(toF32(s3calc().y), e.currentTarget);
 $('s4soft').onclick = e => s4play('pair', e.currentTarget); $('s4bank').onclick = e => s4play('bank', e.currentTarget); $('s4conv').onclick = e => s4play('conv', e.currentTarget);
-walk([{ name: 'one ring', enter: s1 }, { name: 'every partial', enter: s2 }, { name: 'convolve', enter: s3 }, { name: 'is it LTI?', enter: s4 }]);
+walk([{ name: 'one ring', enter: s1 }, { name: 'every partial', enter: s2 }, { name: 'convolve', enter: s3 }, { name: 'two dials', enter: s4 }]);
 redrawOnResize(() => [s1, s2, s3].forEach(f => { try { f(); } catch (e) {} }));
 </script>
 </body>

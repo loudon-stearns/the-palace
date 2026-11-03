@@ -129,10 +129,10 @@
 
   <section class="step">
     <h3>Is it a cube?</h3>
-    <p class="teach">The section says the stretch is about B·n³·f₀/2, so it grows with the cube of n: double the partial number and the stretch should grow eight times. Here the exact formula is measured against that, on a log–log plot, where a cube is a straight line of slope 3. The table reads the slope between doublings, and the buttons play three partials against their ghosts so you can hear the eightfold jumps.</p>
+    <p class="teach">The section says the stretch is about B·n³·f₀/2, so it grows with the cube of n: double the partial number and the stretch should grow eight times. Here the exact formula is measured against that, on a log–log plot, where a cube is a straight line of slope 3. The table reads the slope between doublings. The button plays partials slow enough to count, each double the last, against their ghosts, so you can hear the eightfold jumps.</p>
     <div class="controls">
       <label class="sl">inharmonicity <i>B</i> = <b id="s4Bv"></b><input id="s4B" type="range" min="0.0001" max="0.004" step="0.00002" value="0.001"></label>
-      <div class="btns"><button class="go" id="s4ear">▸ hear partials 2, 4 and 8 against their ghosts</button></div>
+      <div class="btns"><button class="go" id="s4ear">▸ hear countable partials</button></div>
     </div>
     <div class="panel"><div class="plabel"><span>stretch in hertz against partial number, both on log scales</span><span>amber · the formula &nbsp; dashed · B·n³·f₀/2</span></div><canvas id="s4cv"></canvas></div>
     <table class="meas"><thead><tr><th>from n to 2n</th><th>stretch at n</th><th>stretch at 2n</th><th>grew by</th><th>slope (3 is a cube)</th><th>B·n³·f₀/2 at 2n</th></tr></thead><tbody id="s4t"></tbody></table>
@@ -408,8 +408,11 @@ function s4() {
   const e12 = 100 * (stretchApprox(12, F0, B) / stretchHz(12, F0, B) - 1);
   $('s4v').innerHTML = `At B = ${B.toFixed(5)} the stretch grows with an exponent of 2.9 or more up to partial ${nGood}, so the cube holds there: doubling from 2 to 4 multiplies it by ${(stretchHz(4, F0, B) / stretchHz(2, F0, B)).toFixed(2)}. It holds while B·n² is small, not just while B is small. Past n ≈ 1/√B = ${nc.toFixed(0)}, where B·n² reaches 1, the exponent falls toward 2, and the estimate B·n³·f₀/2 runs high: ${e12.toFixed(1)}% at n = 12, ${(100 * (stretchApprox(32, F0, B) / stretchHz(32, F0, B) - 1)).toFixed(0)}% at n = 32.`;
   $('s4ex').textContent = stretchHz(12, F0, 0.001).toFixed(1);
+  const ns = countable(B); $('s4ear').textContent = '▸ hear partials ' + ns.join(', ').replace(/, (\d+)$/, ' and $1') + ' against their ghosts · ' + ns.map(n => stretchHz(n, F0, B).toFixed(1)).join(', ') + ' beats a second';
 }
-function earSeq(ns, B, btn) { playBuffer(joinBuffers(ns.map(n => pair(n * F0, partialHz(n, F0, B), { seconds: 3.2 })), 0.4), btn); }
+// Partials whose beats can be counted: the first with at least 0.4 a second, then doublings while under 16 a second
+function countable(B) { let n = 1; while (stretchHz(n, F0, B) < 0.4 && n < 64) n++; const ns = [n]; while (ns.length < 3 && stretchHz(2 * ns[ns.length - 1], F0, B) <= 16) ns.push(2 * ns[ns.length - 1]); return ns; }
+function earSeq(ns, B, btn) { playBuffer(joinBuffers(ns.map(n => pair(n * F0, partialHz(n, F0, B), { seconds: 4 })), 0.4), btn); }
 // ── wiring ──
 sigil($('sigil'));
 onSlide('s1B', s1); onSlide('s2B', s2); onSlide('s3B', s3); onSlide('s4B', s4);
@@ -418,7 +421,7 @@ $('s2play').onclick = e => toggleLive(e.currentTarget, () => Array.from({ length
 [2, 3, 4, 6, 8].forEach(n => { const b = document.createElement('button'); b.textContent = 'n = ' + n; b.dataset.n = n; b.onclick = () => { s3n = n; stopSound(); s3(); }; $('s3n').appendChild(b); });
 $('s3one').onclick = e => playBuffer(pair(s3n * F0, partialHz(s3n, F0, +$('s3B').value)), e.currentTarget);
 $('s3two').onclick = e => earSeq([s3n, 2 * s3n], +$('s3B').value, e.currentTarget);
-$('s4ear').onclick = e => earSeq([2, 4, 8], +$('s4B').value, e.currentTarget);
+$('s4ear').onclick = e => earSeq(countable(+$('s4B').value), +$('s4B').value, e.currentTarget);
 const steps = [{ name: 'one partial', enter: s1 }, { name: 'the whole row', enter: s2 }, { name: 'beats', enter: s3 }, { name: 'is it a cube?', enter: s4 }];
 walk(steps);
 redrawOnResize(() => [s1, s2, s3, s4].forEach(f => { try { f(); } catch (e) {} }));

@@ -38,6 +38,9 @@ console.log('The Physics — stretch');
   ok(Math.abs(o12 - 3.48) < 0.01 && Math.abs(o32 - 21.13) < 0.02, `B·n³·f₀/2 runs high: ${o12.toFixed(2)}% at n = 12, ${o32.toFixed(2)}% at n = 32 (B = 0.001)`);
   const b3 = E.stretchHz(3, f0, 0.0004), b6 = E.stretchHz(6, f0, 0.0004);
   ok(Math.abs(b6 / b3 - 8) < 0.05, `step 3's default: partial 3 beats ${b3.toFixed(3)}/s, partial 6 ${b6.toFixed(3)}/s, ratio ${(b6 / b3).toFixed(3)} (8 for a cube)`);
+  { const S = readFileSync(files[0], 'utf8'), m = S.match(/function countable\(B\) \{[^\n]*\}/); const countable = new Function('stretchHz', 'F0', m[0] + '; return countable;')(E.stretchHz, f0);
+    const lists = [0.0001, 0.0004, 0.001, 0.002, 0.004].map(B => [B, countable(B)]);
+    ok(lists.every(([B, ns]) => ns.length >= 2 && ns.every(n => { const b = E.stretchHz(n, f0, B); return b >= 0.4 && b <= 16; })), 'step 4 plays only countable beats, at least two partials a doubling apart: ' + lists.map(([B, ns]) => `B ${B} → ${ns.join(',')} (${ns.map(n => E.stretchHz(n, f0, B).toFixed(2)).join(', ')}/s)`).join('; ')); }
   // the sound: the pair really beats at the printed rate — envelope period from the rendered buffer
   const sr = 48000, p = E.pair(3 * f0, E.partialHz(3, f0, 0.001), { seconds: 4 }), env = []; const w = 480;
   for (let i = 0; i + w <= p.length; i += w) { let z = 0; for (let j = i; j < i + w; j++) z += p[j] * p[j]; env.push(Math.sqrt(z / w)); }
@@ -55,6 +58,8 @@ console.log('String Bending and Timbre Change — bend or fret');
     ok(Math.abs(fb - r.target) < 1e-9 && Math.abs(ff - r.target) < 1e-9 && Math.abs(f.B / b.B - Math.pow(2, 4 * c / 1200)) < 1e-6 * Math.pow(2, 4 * c / 1200) * 100,
       `${c} ¢: bent and fretted both sound ${fb.toFixed(4)} Hz; B ${b.B.toExponential(3)} against ${f.B.toExponential(3)}, ratio ${(f.B / b.B).toFixed(4)} (r⁴ = ${Math.pow(2, 4 * c / 1200).toFixed(4)}); partial 10 ${sc(b, 10).toFixed(2)} against ${sc(f, 10).toFixed(2)} ¢, partial 16 ${sc(b, 16).toFixed(2)} against ${sc(f, 16).toFixed(2)} ¢`);
     ok(Math.abs(b.f0 - s.f0 * Math.sqrt(b.k)) < 1e-9 && Math.abs(b.B - s.B / b.k) < 1e-18, `${c} ¢: the bend is the section's f₀ → √k·f₀, B → B/k with k = ${b.k.toFixed(5)}`); }
+  for (const m of [2, 5, 9]) { const from = E.raiseBy(s, 100 * m).fret, st = { T: s.T, f0: from.f0, B: from.B }, r = E.raiseBy(st, 200);
+    ok(Math.abs(r.fret.B / r.bend.B / Math.pow(2, 800 / 1200) - 1) < 1e-4, `bending a whole tone from fret ${m} against fretting at ${m + 2}: ratio ${(r.fret.B / r.bend.B).toFixed(5)} (r⁴ = ${Math.pow(2, 800 / 1200).toFixed(5)}; the exact pitch match moves it by about 1 part in 10⁵) — the same from any fret`); }
   // the sound: the pluck's partial 10 and 16 sit where the table says, bent against fretted
   const r = E.raiseBy(s, 200), sr = 48000, n = 48000;
   for (const [name, x] of [['bent', r.bend], ['fretted', r.fret]]) { const buf = E.pluck({ f0: x.f0, B: x.B, sr });
@@ -96,7 +101,7 @@ if (chromium) {
     const ctx = await pg.evaluate(() => window.__ctx);
     ok(errs.length === 0, `${name}: no script errors${errs.length ? ' — ' + errs.join('; ') : ''}`);
     ok(ctx === 0, `${name}: walked to step ${steps} with no audio context made before a click`);
-    ok(v.length > 0, `${name}: the last step shows its verdict`); console.log('         verdict: ' + v.slice(0, 700));
+    ok(v.length > 0 && (!name.startsWith('click') || /as they must/.test(v) && /check of the code/.test(v) && !/whole of this string/.test(v)), `${name}: the last step shows its verdict${name.startsWith('click') ? ', saying the no-drive checks hold by construction' : ''}`); console.log('         verdict: ' + v.slice(0, 700));
     if (name.startsWith('click')) { await pg.fill('#s4D', '0.005'); await pg.dispatchEvent('#s4D', 'input'); let v2 = ''; for (let k = 0; k < 40; k++) { await pg.waitForTimeout(500); if (!/measuring/.test(await pg.textContent('#s4busy'))) { v2 = await pg.textContent('#s4v'); if (/drive at 0.005/.test(v2)) break; } }
       ok(/three checks break/.test(v2), 'click through the string: with drive at 0.005 the verdict says three checks break'); console.log('         verdict: ' + v2.slice(0, 400)); }
     await pg.screenshot({ path: join(process.env.SHOTS || '/tmp', `psi-${name.replace(/\W+/g, '-')}.png`), fullPage: true }).catch(() => {});
