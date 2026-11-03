@@ -29,3 +29,18 @@ By the working Claude, against `palace-map.py` on the same build: Q1 29 edges an
 ## What it says
 
 The shape the 10-23 test pointed to holds when built: whole map to see, scripts to count, the checker before anything leaves. The one reversed-triple slip was caught by its own check, which is the point of the check. Move 2's done-when is met; Move 3, the first runs, is next.
+
+## First use: a constellation for the Daily Page sit
+
+Move 3's first real run, the same resident re-addressed. Loudon's word: "Run the first use." The dealt page, not yet sat: [[Quantization ↔ Precision vs Flow]]. The keeper drew **"The Grid and the Flock"**: Quantization ↔ Precision vs Flow, Flocking, Synthesis ↔ Emergence, Brian Eno, Cross-Domain Resonances, Kuramoto Coupling, Haptic Handwheel. `sit.md` holds the ten triples it cited; the plain-words reading and the opening question it wrote for the sit were relayed to Loudon in the session and are not in that file.
+
+| | Checked against the script, 2026-11-03 build |
+|---|---|
+| Cited edges real | **10/10** (`verify-triples.py sit.md`; re-run by the Concierge when placing this: 10/10) |
+| `connected` | yes — 13 inner edges, four types: `connects-to`, `member-of`, `mirrors`, `spawned` (re-run by the Concierge: same) |
+| Rhyme | Synthesis ↔ Emergence is unlinked to the home, two hops apart, ranked first at 0.23 sharing Brian Eno, Cross-Domain Resonances and Flocking; proposed `couples-with` as a candidate only — it reaches the Weave on Loudon's yes, not before |
+| Pillars | read by role, since the map carries none; checked against frontmatter, and every page carries the pillar it was placed under |
+| Log | a first set crossed only two relation types and was swapped for one that crosses four |
+| Tokens | 127,623 cumulative on the resident |
+
+What it taught, the ledger's first line: a set that crosses two types reads as one idea; ask for three before the eye settles.
