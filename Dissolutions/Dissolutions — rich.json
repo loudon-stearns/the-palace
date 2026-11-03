@@ -1,0 +1,72 @@
+{
+  "title": "Dissolutions — rich",
+  "born": "2026-11-03",
+  "links": [
+    {
+      "target": "[[Dissolutions]]",
+      "type": "connects-to",
+      "label": "rich-face-of"
+    },
+    {
+      "target": "[[Enrichment]]",
+      "type": "connects-to",
+      "label": "made-by"
+    },
+    {
+      "target": "[[Progressive Staging]]",
+      "type": "connects-to",
+      "label": "the-test-is-the-last-step"
+    }
+  ],
+  "forward_vector": "I am the manifest of Dissolutions' rich face, its first round at Sketch tier, a proposal: one walk up to the seam in perception, made, and the rough it leads to, gathered, both at the paragraph they test, with the fingerprint of the words they were laid against. I grow when the learning sequences for the six 2026-10-20 proofs land on main; then the catalogue gathers each sequence with its proof as the last step, as Loudon asked. I never hold the entry's words.",
+  "entry": "Dissolutions",
+  "tier": "sketch",
+  "made": "2026-11-03",
+  "round": 1,
+  "offers": [
+    {
+      "section": "Identity, isomorphism, analogy",
+      "kind": "claim-change",
+      "what": "'Somewhere near 20 Hz' names a point where hearing research finds a zone: loudness fluctuation gives way to roughness around 15 to 20 Hz (Zwicker and Fastl), and the lower limit of pitch is near 30 Hz (Krumbholz, Patterson and Pressnitzer 2000; Pressnitzer, Patterson and Krumbholz 2001). Proposed: 'somewhere between 20 and 30 Hz it stops being heard as a change in loudness and starts being heard as a sound'. This comes from the literature, not a measurement; the piece's last step lets a listener mark their own crossing, gliding up and gliding down.",
+      "status": "open"
+    }
+  ],
+  "sections": [
+    {
+      "heading": "Identity, isomorphism, analogy",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "made": "2026-11-03",
+      "pieces": [
+        {
+          "file": "Dissolutions — rich — the seam.html",
+          "origin": "made",
+          "by": "maker · claude-opus-5-5 · Web Audio Worklet",
+          "title": "One curve, read faster · a walk up to the seam",
+          "caption": "**Where does loudness become a sound, and who decides?** One curve, read out and back by one reader, goes out on two wires: one sets the loudness of a 220 Hz tone, the other sends the curve straight out. There are five steps: a fade you can count, the same fade faster, the straight wire alone, both wires together, and then the test, a 24-second glide from 4 to 64 Hz and back where you mark the change. The engine has no crossfade and no filter. Both levels stay the same at every speed, and it reports them at your mark. Use headphones: laptop speakers push the straight wire's seam far up.\n\ny = A × f(t, c) × sin(2π × 220 × time) + B × (f(t, c) − m(c))\n\n(what you hear) = (a fixed level) × (the curve's height at the reader) × (a 220 Hz tone) + (a fixed level) × ((the curve's height) − (its average))",
+          "near": "A dissolution in the math can leave a seam in perception",
+          "place": "band",
+          "height": 1565
+        },
+        {
+          "file": "proofs/2026-10-18-one-curve-three-doorways/one-curve-three-doorways-2.html",
+          "origin": "gathered",
+          "contract": {
+            "needs": "storage"
+          },
+          "title": "One curve, three readers · the 2026-10-18 rough",
+          "caption": "**The proof the walk leads to.** This is the second rough from the 2026-10-18 Daily Page, played in its sit and gathered as it was. The gold curve stays put while the reader changes: an envelope, an oscillator, an effect. One thing to know first: this proof draws the seam in. Below 12 Hz it plays the curve only as a tone's loudness, above 30 Hz only as the sound itself, and it crossfades in between, so its line 'Crossing the seam' is the code's, not your ear's. The piece above keeps both wires open at fixed levels and leaves the seam to you.",
+          "near": "A dissolution in the math can leave a seam in perception",
+          "place": "band",
+          "height": 1830
+        }
+      ],
+      "made_against": "9c8b729a0d36",
+      "stamped": "2026-11-03"
+    }
+  ]
+}
