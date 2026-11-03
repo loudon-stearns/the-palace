@@ -30,3 +30,8 @@ What Preset Oracle's steward cycles taught the page, and the changes to the hous
    > The oracle's value is in the encounter, so the encounter is kept. After a challenge, the maker fills in the encounter journal (encounters/Preset Oracle — encounter journal.html): the instrument they reached for, their moves, the recorded phrase, their own reading of the anchor, the surprise where intent and result came apart, and the miss they threw away. The journal asks for consent before writing anything. Each record is saved as one file in the bundle's encounters/ folder. Once a few records exist they are read together, and that reading, not any single record, is what grows the method.
 
 - run · 2026-11-03 · cycle 1 · proposed item 1 for canon
+
+## From cycle 2 — 2026-11-03
+
+2. An encounter record has to say how the surprise was found, heard or measured, because an agent's surprise is a gap it measured between what it meant and what it got, and it reads as a different kind of evidence from a student's. *(offered by the steward, cycle 2)*
+- run · 2026-11-03 · cycle 2 · taught item 2

@@ -37,3 +37,7 @@ Once a few records exist, they are read together: which cards teach and which on
 ## Known gap
 
 The original 140-card queue isn't in the palace or on this Mac. The journal carries a seven-card seed deck built from the challenges the page names, and says so on its face. When the 140 turn up, they replace the seed deck.
+
+## Records so far
+
+- 2026-11-03 · *Parmenides Dying Alone in a Warehouse* · the steward's own encounter, an AI answering its own card in Python. A calibration of the form, not a student record: its surprise was measured, not heard. Its render script, both takes and the headless journal driver (`drive-journal.mjs`, which draws the card and writes the record through the journal's own code) are in `parmenides-steward/`.

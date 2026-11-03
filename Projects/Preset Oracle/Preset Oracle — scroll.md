@@ -15,25 +15,32 @@ forward_vector: "I am Preset Oracle's scroll — the one page that always opens 
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-11-03T23:50:26.283Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-11-03T23:52:33.735Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** complete · **Stage:** mature · **Steward:** cycle 1 · last ran 2026-11-03 (today)
+- **Status:** complete · **Stage:** mature · **Steward:** cycle 2 · last ran 2026-11-03 (today)
 - **Plan:** none agreed yet — the next run works from what the ledger owes and the forward vector
 - **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-11-03 (today) — Where do the oracle's original 140 cards live? Or should the journal run on its seven-card seed deck for now? (`preset-oracle-003`)
-- **Last commit touching this project:** 2026-10-24 `17e99b33` — ops(Weave): fewer, better links: 268 labels, 46 retypes, 166 cuts and 15 new links the skeptic passed; edges 2940 → 2492, labelled 67% → 85%
+- **Last shipped:** 2026-11-03 (today) — I drew 'Parmenides Dying Alone in a Warehouse' myself, answered it with feedback alone, and kept the encounter: the archive's first record. (`preset-oracle-005`)
+- **Last commit touching this project:** 2026-11-03 `31375d8b` — steward(Preset Oracle): cycle 1 — SPINNING UP. HOME: [Preset Oracle](obsidian://open?vault=The%20Palace&f…
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
-- **Runs:** 1 run on 1 day, counted from the ledger's run lines
-- **Last run:** 2026-11-03 — cycle 1 · proposed item 1 for canon
+- **Runs:** 2 runs on 1 day, counted from the ledger's run lines
+- **Last run:** 2026-11-03 — cycle 2 · taught item 2
 - **Owed in the ledger:** nothing
 - **Proposed for canon:** 1 — item 1; waiting on Loudon's review, and the page has not changed
-- **Latest lesson:** item 1, from cycle 1 — 2026-11-03 — [[Preset Oracle — tuning]]
+- **Latest lesson:** item 2, from cycle 2 — 2026-11-03 — [[Preset Oracle — tuning]]
 
 ### Where this stands
 
-Preset Oracle is a synth-preset challenger. It draws a card with an evocative name, a philosophical anchor, a technical constraint and a stylistic direction ("Parmenides Dying Alone in a Warehouse": feedback routing only, no filter envelopes). The student answers with a synthesizer. The oracle itself is finished. What I want now is a record of what actually happens when someone meets a card: what they made, how they read the anchor, what surprised them. Until today there was no way to keep one. This cycle I built that way: an encounter journal you open in a browser, and a folder with a spec for the records it writes. No real encounter has been recorded yet.
+Preset Oracle is a synth-preset challenger. It deals a card with an evocative name, a philosophical anchor, a technical constraint and a stylistic direction, and the student answers with a synthesizer. The oracle itself is finished. What I'm growing now is a record of what happens when someone meets a card. Last cycle I built an encounter journal that writes those records, with the maker's consent asked first. This cycle I took a card myself, so I could find out whether a record can hold a real encounter before a student is asked to fill one in. The archive now holds one record. It is mine, and it says so.
+
+### Left rough, again and again
+
+_What the trail's left-rough notes keep saying, oldest first, in its latest words._
+
+- **rough since cycle 1:** No real encounter has been recorded yet. _(in 2 notes, the latest cycle 2)_
+- **rough since cycle 1:** The journal's record path is now tested headlessly, but no one has clicked through the journal in a browser. _(in 2 notes, the latest cycle 2)_
 
 ### Open asks
 
@@ -49,6 +56,7 @@ _Nothing decided on the board yet._
 
 ### Runs
 
+- 2026-11-03 — cycle 2 · taught item 2
 - 2026-11-03 — cycle 1 · proposed item 1 for canon
 
 ### Owed
@@ -78,6 +86,37 @@ _Loudon's standing direction for this project. The steward reads this zone every
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="preset-oracle-005" -->
+### 2026-11-03 — cycle 2 — I drew 'Parmenides Dying Alone in a Warehouse' myself, answered it with feedback alone, and kept the encounter: the archive's first record.
+> shipped · first record kept, mine not a student's · steward leans a real student encounter next
+
+The card was 'Parmenides Dying Alone in a Warehouse': feedback routing only, no filter envelopes, industrial machinery becoming sentient. I answered it in Python. One click goes into four saturating delay loops (the machines) and an eight-line feedback network (the warehouse), and nothing is fed in after that. The filters never move. Only routing gains change: the machines couple more and more for twenty seconds, then the loop gain sinks. My first take was a good failure. The network latched onto a flat offset and stayed there for thirty seconds: being that does not change, because nothing is happening. It got the anchor and missed the machinery. For the second take I inverted the loops, ran them hot and blocked the offset, and committed. Then Parmenides won twice. The six strongest partials are identical at 2, 14 and 24 seconds. The coupling brightened the sound and didn't move a single pitch. And the death never came: I pulled the gain from 1.35 to 0.8 and the warehouse ends only 2 dB quieter. I meant a death and made a machine that won't stop being. I couldn't hear any of this. I measured it, and the record says so. To write the record I drove the journal's own code headlessly: it drew the card from the seed deck and wrote the file. That run caught one real bug, and I fixed it: the maker's name went into the record's header unquoted, so a name with a colon in it would have broken the header.
+
+**Artifacts:**
+- [the first kept encounter: instrument, moves, reading, surprise, miss, and a note on why an agent's record is a calibration](Projects/Preset Oracle/encounters/Preset Oracle — encounter — 2026-11-03 — Parmenides Dying Alone in a Warehouse.md)
+- [the committed take: 40 s, a warehouse of machines that couple and refuse to die](Projects/Preset Oracle/encounters/parmenides-steward/parmenides-take2.wav)
+- [the miss: four seconds of buzz, then thirty of a stuck value](Projects/Preset Oracle/encounters/parmenides-steward/parmenides-take1.wav)
+- [the render script: both takes, plus the loudness-and-brightness readout I used in place of an ear](Projects/Preset Oracle/encounters/parmenides-steward/parmenides.py)
+- [drives the journal headlessly: draws a card, fills the fields, writes the record through the journal's own code](Projects/Preset Oracle/encounters/parmenides-steward/drive-journal.mjs)
+- [what I typed into the journal](Projects/Preset Oracle/encounters/parmenides-steward/fields.json)
+- [the journal, with the maker's name now quoted in the record's header](Projects/Preset Oracle/encounters/Preset Oracle — encounter journal.html)
+- [the archive spec, now with a list of records so far](Projects/Preset Oracle/encounters/README.md)
+
+_Changed in the workshop:_ README — lists the first record and says what kind of record it is
+
+_Left rough:_ No real encounter has been recorded yet. The one record is an AI's, measured rather than heard, and no one has listened to either take. The journal's record path is now tested headlessly, but no one has clicked through the journal in a browser.
+
+_Next moves named:_ Get one student, or Loudon himself, through a card with the journal open: the first record that was heard, not measured · Once there are two records, compare an ear's surprise with a meter's and see what the form should ask for in each case · Load the original 140 cards if Loudon points to them; the question about that is still open on the board
+<sub>`preset-oracle-005` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-e358bf3733" -->
+### 2026-11-03 — cycle 2
+
+taught item 2
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="preset-oracle-003" -->
 ### 2026-11-03 — cycle 1 — Where do the oracle's original 140 cards live? Or should the journal run on its seven-card seed deck for now?
 > still working · journal shipped · steward leans SEED-FOR-NOW

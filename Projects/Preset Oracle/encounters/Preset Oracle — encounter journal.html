@@ -207,7 +207,7 @@ document.getElementById("make").onclick = () => {
     "date: " + today,
     "challenge: \"" + card.name.replace(/"/g, "'") + "\"",
     "card_source: " + card.source,
-    "maker: " + maker,
+    "maker: \"" + maker.replace(/"/g, "'") + "\"",
     "setting: \"" + v("setting").replace(/"/g, "'") + "\"",
     "minutes_to_commit: " + (spent == null ? "not timed" : spent),
     "consent: " + v("consent"),
