@@ -1,0 +1,312 @@
+<!doctype html>
+<!--
+  title: Radio Play — rich — audio first, picture last
+  born: 2026-11-03
+  links: [[Radio Play]] (connects-to · rich-face-piece) · listed in [[Radio Play — rich.json]] · serves § Audio-first production and the VO-as-clock line under § Enrichments · uses The Unsung Path's [[Kokoro]] takes, its [[Stable Audio Open]] bed and laugh, and its [[ffmpeg]] / Manim film
+  forward_vector: I am one minute of the Shop's first radio play built again in the page's own order: voices,
+    then score and foley, then balance, then the picture last, and the clock checked. I play the voices alone
+    on the times they set, add the bed and the laugh, hand you the bed's fader with a loudness meter beside it,
+    and then run the film's own picture against the sound's clock to see where it lands. I play inside the
+    entry's rich face and stand alone opened directly; I change only when the section I serve does.
+  engine: steps 1 to 3 lay the Shop's own stems (rich-face/unsung-path-stems/, copied unchanged from
+    _ops/scratch/weave-video) on a 48 kHz timeline in JavaScript, at build_audio.py's gains and offsets, and
+    meter them with ITU-R BS.1770 (K-weighting, 400 ms blocks, both gates) written out below. Step 4 plays the
+    film itself (rich-face/The Unsung Path.mp4) from 12.95 s; the picture's beats and lengths it shows were
+    measured from that file by "Radio Play — rich — checks.py" and are copied in as MEASURED.
+  sound: nothing plays until a play button is clicked; the AudioContext is made on that click. Changing step
+    stops the sound. The kit quiets it when the page hides or is left alone.
+  dress: Loudon Live house style, Graphite skin.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:needs" content="">
+<meta name="piece:files" content="rich-face/">
+<title>Radio Play — audio first, picture last</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Manrope:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root { --bg:#0a0a0f; --e1:#12121a; --border:#4a4a5e; --soft:rgba(255,255,255,.07); --fg1:#e8e8f0; --fg2:#c8c8d8; --fg3:#8a8aa0; --fg4:#4a4a5a;
+    --amber:#e8b84a; --amberline:rgba(232,184,74,.5); --indigo:#8b8df8; --teal:#33e0c8; --rose:#e86a8a;
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --sans:'Manrope',system-ui,sans-serif; --serif:'Cormorant Garamond',Georgia,serif; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); font-weight: 300; }
+  .rp-piece { padding: 22px 22px 20px; }
+  .rp-kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; display: flex; align-items: center; gap: 10px; }
+  .rp-kicker svg { width: 18px; height: 18px; }
+  .rp-title { font-family: var(--serif); font-size: 27px; font-weight: 300; color: var(--fg1); margin: 0 0 6px; }
+  .rp-sub { font-size: 14px; line-height: 1.6; color: var(--fg2); max-width: 76ch; margin: 0 0 16px; }
+  .rp-rail { display: flex; flex-wrap: wrap; margin: 0 0 14px; }
+  .rp-rail button { border-radius: 0; margin-right: -1px; }
+  .rp-rail button[aria-pressed="true"] { color: var(--amber); border-color: var(--amberline); position: relative; z-index: 1; }
+  button { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--fg2); background: var(--bg); border: 1px solid var(--border); border-radius: 2px; padding: 8px 12px; cursor: pointer; }
+  button:hover { border-color: rgba(232,184,74,.55); color: var(--fg1); }
+  button:disabled { opacity: .35; cursor: default; }
+  button.rp-go { color: var(--amber); border-color: var(--amberline); box-shadow: 0 0 14px rgba(232,184,74,.18); }
+  button.rp-on { color: var(--amber); border-color: var(--amberline); }
+  .rp-step { border: 1px solid var(--soft); background: var(--e1); border-radius: 2px; padding: 14px 16px 16px; }
+  .rp-stephead { font-family: var(--mono); font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--fg3); display: flex; justify-content: space-between; gap: 10px; margin-bottom: 6px; }
+  .rp-says { font-size: 14.5px; line-height: 1.62; color: var(--fg2); max-width: 78ch; margin: 0 0 12px; }
+  .rp-says b { color: var(--fg1); font-weight: 500; }
+  .rp-says q { color: var(--fg1); font-style: italic; }
+  .rp-panel { border: 1px solid var(--soft); border-radius: 2px; background: var(--bg); padding: 8px 10px; margin-bottom: 10px; }
+  .rp-plabel { font-family: var(--mono); font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+  canvas { display: block; width: 100%; }
+  video { display: block; width: 100%; aspect-ratio: 16 / 9; background: #000; border: 1px solid var(--soft); border-radius: 2px; }
+  .rp-controls { display: flex; flex-wrap: wrap; gap: 12px 22px; align-items: end; margin-top: 4px; }
+  .rp-controls label.rp-sl { flex: 1 1 260px; }
+  .rp-btns { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+  label.rp-sl { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: .06em; color: var(--fg3); }
+  label.rp-sl b { color: var(--fg1); font-weight: 500; }
+  input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 3px; background: var(--fg4); margin: 12px 0 4px; outline: none; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 13px; height: 13px; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  input[type=range]::-moz-range-thumb { width: 13px; height: 13px; border: 0; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  .rp-read { display: flex; flex-wrap: wrap; gap: 6px 22px; margin-top: 12px; font-family: var(--mono); font-size: 11.5px; letter-spacing: .04em; color: var(--fg3); }
+  .rp-read b { color: var(--fg1); font-weight: 500; }
+  .rp-read .rp-flag { color: var(--amber); }
+  .rp-table { width: 100%; border-collapse: collapse; font-family: var(--mono); font-size: 11.5px; margin-top: 10px; }
+  .rp-table th, .rp-table td { text-align: right; padding: 4px 8px; border-bottom: 1px solid var(--soft); color: var(--fg2); }
+  .rp-table th:first-child, .rp-table td:first-child { text-align: left; }
+  .rp-table th { color: var(--fg3); font-weight: 400; letter-spacing: .08em; }
+  .rp-back { font-family: var(--mono); font-size: 11px; letter-spacing: .04em; color: var(--fg3); margin-top: 10px; }
+  .rp-nav { display: flex; justify-content: space-between; gap: 10px; margin-top: 14px; }
+  .rp-verdict { margin-top: 12px; font-size: 14px; line-height: 1.6; color: var(--fg1); max-width: 80ch; border-left: 2px solid var(--amberline); padding-left: 12px; }
+  .rp-verdict b { font-weight: 500; color: var(--amber); }
+  .rp-eqs { margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--soft); }
+  .rp-eq { font-family: var(--serif); font-size: 19px; color: var(--fg1); }
+  .rp-words { font-size: 13px; line-height: 1.55; color: var(--fg2); margin: 2px 0 8px; max-width: 78ch; }
+  .rp-status { font-family: var(--mono); font-size: 11px; color: var(--fg3); margin-top: 8px; min-height: 1em; }
+</style>
+</head>
+<body>
+<div class="rp-piece">
+  <div class="rp-kicker"><svg id="rp-sigil" viewBox="0 0 18 18" aria-hidden="true"></svg><span>made · Web Audio · sketch · a walk in four steps</span></div>
+  <h3 class="rp-title">Audio first, picture last</h3>
+  <p class="rp-sub">The second segment of <i>The Unsung Path</i>, thirty-six seconds, rebuilt in the order the page names: <q>voices, then score and foley, then balance</q>, and only then the picture, which the page says is made to fit the sound and never the reverse. The last step checks that against the film.</p>
+  <div class="rp-rail" id="rp-rail" role="group" aria-label="steps"></div>
+  <div class="rp-step">
+    <div class="rp-stephead"><span id="rp-stepname"></span><span id="rp-stepof"></span></div>
+    <p class="rp-says" id="rp-says"></p>
+    <div id="rp-body"></div>
+    <div class="rp-status" id="rp-status"></div>
+    <div class="rp-back" id="rp-backnote"></div>
+    <div class="rp-nav"><button id="rp-prev">← back</button><button id="rp-next">next step →</button></div>
+  </div>
+</div>
+<script>
+'use strict';
+// ---------- what "Radio Play — rich — checks.py" measured from the film (copied; checks.mjs keeps it honest)
+const MEASURED = /*MEASURED*/{"segments":[{"segment":"s1_title","audio_s":12.95,"picture_s":12.933,"picture_minus_audio_ms":-16.7},{"segment":"s2_problem","audio_s":35.725,"picture_s":35.7,"picture_minus_audio_ms":-25.0},{"segment":"s3_loop","audio_s":36.225,"picture_s":36.2,"picture_minus_audio_ms":-25.0},{"segment":"s4_demo","audio_s":43.6,"picture_s":43.6,"picture_minus_audio_ms":0.0},{"segment":"s5_close","audio_s":23.7,"picture_s":23.7,"picture_minus_audio_ms":0.0}],"film":{"picture_s":152.175,"audio_sum_s":152.2,"worst_segment_ms":25.0,"frame_ms":33.3},"joins":[{"audio_join_s":12.95,"picture_cut_s":12.967,"off_ms":16.7,"change":6.07},{"audio_join_s":48.675,"picture_cut_s":48.667,"off_ms":-8.3,"change":4.16},{"audio_join_s":84.9,"picture_cut_s":84.9,"off_ms":0.0,"change":4.07},{"audio_join_s":128.5,"picture_cut_s":128.5,"off_ms":0.0,"change":6.64}],"loudness":{"s1_title":-16.0,"s2_problem":-15.7,"s3_loop":-15.8,"s4_demo":-16.4,"s5_close":-15.6,"film_audio":-15.9},"s2":{"line_onsets_s":[0.6,8.175,16.8,25.0],"line_lengths_s":[7.075,8.125,7.7,6.225],"laugh_at_s":31.725,"planned_total_s":36.425,"stretch":1.2319,"picture_beats_designed_s":[0.0,8.623,18.355,26.239],"picture_beats_measured_s":[0.433,8.833,18.433,26.267],"lag_s":[-0.6,0.448,1.555,1.239],"first_words_s":[0.87,8.433,17.119,25.41],"lag_measured_s":[-0.437,0.4,1.314,0.857],"counter_rests_designed_s":31.167,"counter_rests_measured_s":31.2,"foreman_says_913_at_s":25.41,"motion":[0.0,0.0,0.003,0.013,0.022,0.039,0.084,0.093,0.108,0.134,0.133,0.096,0.118,0.052,0.044,0.072,0.018,0.029,0.014,0.008,0.003,0.004,0.004,0.013,0.018,0.008,0.018,0.011,0.014,0.009,0.009,0.007,0.005,0.002,0.003,0.003,0.003,0.016,0.011,0.01,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.009,0.0,0.0,0.006,0.013,0.023,0.084,0.137,0.159,0.121,0.074,0.043,0.041,0.054,0.078,0.112,0.158,0.157,0.104,0.051,0.026,0.04,0.001,0.001,0.001,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.012,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.001,0.024,0.038,0.055,0.048,0.078,0.096,0.11,0.099,0.078,0.119,0.123,0.072,0.067,0.045,0.043,0.021,0.017,0.04,0.012,0.017,0.026,0.037,0.041,0.064,0.069,0.067,0.041,0.031,0.021,0.032,0.01,0.012,0.002,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.013,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.033,0.01,0.07,0.076,0.19,0.209,0.283,0.27,0.32,0.219,0.097,0.027,0.021,2.493,4.199,2.244,2.236,2.294,2.27,2.018,2.815,2.085,2.205,2.347,2.4,2.029,1.821,2.477,2.555,2.477,2.095,2.398,2.703,2.565,1.552,1.781,1.798,1.781,1.546,2.259,1.614,1.735,1.933,0.846,1.622,1.473,1.473,1.616,1.774,1.455,0.823,0.002,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.01,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"motion_fps":10},"s2_balance":{"voice_lufs":-26.3,"bed_lufs":-36.0,"bed_under_voice_lu":9.7,"span_s":[0.6,31.225]},"heard":{"s1_beat":{"set_s":[0.6],"heard_s":[1.454]},"s2_lines":{"set_s":[0.5,0.5,0.5],"heard_s":[1.247,1.523,1.35]},"s4_exchange":{"set_s":[0.4,0.4,0.3],"heard_s":[1.359,1.391,1.255]},"s4_laugh_after_last_word_s":0.634}}/*END*/;
+
+const DIR = 'rich-face/unsung-path-stems/', FILM = 'rich-face/The%20Unsung%20Path.mp4';
+const CAST = { NARRATOR: '#e8b84a', FOREMAN: '#8b8df8', SKEPTIC: '#e86a8a', WIKILINK: '#33e0c8' };
+const LINES = [
+  { file: 's2_problem__00__NARRATOR', who: 'NARRATOR', text: 'Sometimes a page mentions another one, right in its body text. A wikilink. A little nod across the room.' },
+  { file: 's2_problem__01__WIKILINK', who: 'WIKILINK', text: 'I mention you. All the time. In my prose. It is just, never been made official.' },
+  { file: 's2_problem__02__NARRATOR', who: 'NARRATOR', text: 'No typed link in the frontmatter. The relationship is real, but the graph cannot see it. We call that an unsung path.' },
+  { file: 's2_problem__03__FOREMAN', who: 'FOREMAN', text: 'Nine hundred and thirteen of them in this palace. The place is emotionally repressed.' },
+];
+const SR = 48000, V_VO = 0.92, V_BED = 0.13, V_LAUGH = 0.62, MASTER = 1.6;   // build_audio.py's gains, then one gain for the whole rebuild
+const SEG_START = 12.95;   // segment two's place in the film
+
+// ---------- WAV, read by hand: no audio context before a click
+function parseWav(buf) {
+  const v = new DataView(buf); let p = 12, fmt = null, data = null;
+  while (p + 8 <= v.byteLength) {
+    const id = String.fromCharCode(v.getUint8(p), v.getUint8(p + 1), v.getUint8(p + 2), v.getUint8(p + 3)), len = v.getUint32(p + 4, true);
+    if (id === 'fmt ') fmt = { ch: v.getUint16(p + 10, true), sr: v.getUint32(p + 12, true), bits: v.getUint16(p + 22, true) };
+    if (id === 'data') data = { off: p + 8, len: Math.min(len, v.byteLength - p - 8) };
+    p += 8 + len + (len & 1);
+  }
+  if (!fmt || !data || fmt.bits !== 16) throw new Error('expects 16-bit PCM WAV');
+  const n = Math.floor(data.len / 2 / fmt.ch), out = new Float32Array(n);
+  for (let i = 0; i < n; i++) { let s = 0; for (let c = 0; c < fmt.ch; c++) s += v.getInt16(data.off + (i * fmt.ch + c) * 2, true); out[i] = s / fmt.ch / 32768; }
+  return { sr: fmt.sr, x: out };
+}
+function toSR(w) { if (w.sr === SR) return w.x; const n = Math.round(w.x.length * SR / w.sr), o = new Float32Array(n), r = w.sr / SR;
+  for (let i = 0; i < n; i++) { const t = i * r, k = Math.floor(t), f = t - k; o[i] = (w.x[k] || 0) * (1 - f) + (w.x[k + 1] || 0) * f; } return o; }
+const BUF = {};
+async function loadAll() {
+  await Promise.all(LINES.map(l => l.file).concat(['bed_low', 'laugh']).map(async n => {
+    const r = await fetch(DIR + n + '.wav'); if (!r.ok) throw new Error(n + '.wav: ' + r.status); BUF[n] = toSR(parseWav(await r.arrayBuffer())); }));
+}
+const len = n => BUF[n].length / SR;
+
+// ---------- build_audio.py's plan for s2_problem, from the takes' own lengths
+function plan() {
+  let t = 0.6; const ev = [];
+  LINES.forEach((l, i) => { ev.push({ key: l.file, who: l.who, at: t, gain: V_VO, lane: 'voice' }); t += len(l.file) + (i < 3 ? 0.5 : 0.6); });
+  const laughAt = t - 0.1;
+  ev.push({ key: 'bed_low', at: 0, gain: V_BED, lane: 'bed' });
+  ev.push({ key: 'laugh', at: laughAt, gain: V_LAUGH, lane: 'laugh' });
+  return { ev, end: laughAt + len('laugh') };
+}
+function mix(ev, end, which) {
+  const out = new Float32Array(Math.ceil(end * SR));
+  ev.filter(e => which.includes(e.lane)).forEach(e => { const x = BUF[e.key], o = Math.round(e.at * SR), g = e.gain * MASTER * (e.lane === 'bed' ? S.bedGain : 1);
+    for (let i = 0; i < x.length && o + i < out.length; i++) out[o + i] += g * x[i]; });
+  return out;
+}
+
+// ---------- ITU-R BS.1770 integrated loudness, mono, 48 kHz
+function biquad(x, b, a) { const y = new Float64Array(x.length); let x1 = 0, x2 = 0, y1 = 0, y2 = 0;
+  for (let i = 0; i < x.length; i++) { const v = b[0] * x[i] + b[1] * x1 + b[2] * x2 - a[1] * y1 - a[2] * y2; x2 = x1; x1 = x[i]; y2 = y1; y1 = v; y[i] = v; } return y; }
+function lufs(x) {
+  let y = biquad(x, [1.53512485958697, -2.69169618940638, 1.19839281085285], [1, -1.69065929318241, 0.73248077421585]);
+  y = biquad(y, [1, -2, 1], [1, -1.99004745483398, 0.99007225036621]);
+  const N = Math.round(0.4 * SR), hop = Math.round(0.1 * SR), z = [];
+  for (let s = 0; s + N <= y.length; s += hop) { let e = 0; for (let i = s; i < s + N; i++) e += y[i] * y[i]; z.push(e / N); }
+  const L = q => -0.691 + 10 * Math.log10(q);
+  let g = z.filter(q => L(q) > -70); if (!g.length) return -Infinity;
+  const rel = L(g.reduce((a, b) => a + b, 0) / g.length) - 10; g = g.filter(q => L(q) > rel);
+  return L(g.reduce((a, b) => a + b, 0) / g.length);
+}
+
+// ---------- sound
+let ac = null, src = null, playing = null, t0 = 0, video = null;
+function ctx() { if (!ac) ac = new (window.AudioContext || window.webkitAudioContext)(); if (ac.state === 'suspended') ac.resume(); return ac; }
+function stopSound() { if (src) { try { src.stop(); } catch (e) {} src.onended = null; src = null; } if (video) video.pause(); playing = null; draw(); }
+function play(x, tag) { stopSound(); const c = ctx(), b = c.createBuffer(1, x.length, SR);
+  let pk = 0; for (let i = 0; i < x.length; i++) pk = Math.max(pk, Math.abs(x[i]));
+  if (pk > 0.98) { const k = 0.98 / pk; x = x.map(v => v * k); $('rp-status').textContent = 'turned the whole mix down ' + (20 * Math.log10(1 / k)).toFixed(1) + ' dB so it does not clip; the balance is unchanged'; } else $('rp-status').textContent = '';
+  b.copyToChannel(x, 0);
+  src = c.createBufferSource(); src.buffer = b; src.connect(c.destination); src.start(c.currentTime + 0.03); t0 = c.currentTime + 0.03; playing = { tag };
+  src.onended = () => { src = null; playing = null; draw(); }; tick(); }
+function nowT() { if (playing && playing.tag === 'film' && video) return video.currentTime - SEG_START; if (playing && ac) return ac.currentTime - t0; return null; }
+function tick() { draw(); if (playing) requestAnimationFrame(tick); }
+
+// ---------- the timeline
+let current = null;
+function drawTimeline(cv, o) {
+  const dpr = window.devicePixelRatio || 1, W = cv.clientWidth, lanes = o.lanes, H = 14 + lanes.reduce((a, l) => a + l.h + 6, 0) + 16;
+  cv.width = W * dpr; cv.height = H * dpr; cv.style.height = H + 'px';
+  const g = cv.getContext('2d'); g.setTransform(dpr, 0, 0, dpr, 0, 0); g.clearRect(0, 0, W, H);
+  const span = 36.5, px = s => 70 + (W - 78) * s / span;
+  g.strokeStyle = 'rgba(255,255,255,.06)'; g.beginPath(); for (let s = 0; s <= span; s += 2) { g.moveTo(px(s) + .5, 4); g.lineTo(px(s) + .5, H - 14); } g.stroke();
+  g.fillStyle = '#4a4a5a'; g.font = '10px JetBrains Mono, monospace'; for (let s = 0; s <= span; s += 4) g.fillText(s + ' s', px(s) + 2, H - 3);
+  let y = 8;
+  lanes.forEach(l => {
+    g.fillStyle = '#8a8aa0'; g.font = '10px JetBrains Mono, monospace'; g.fillText(l.name, 4, y + l.h / 2 + 3);
+    l.draw(g, px, y, l.h); y += l.h + 6;
+  });
+  (o.marks || []).forEach(m => { g.strokeStyle = m.color; g.setLineDash([3, 3]); g.beginPath(); g.moveTo(px(m.t) + .5, 4); g.lineTo(px(m.t) + .5, H - 14); g.stroke(); g.setLineDash([]); });
+  const t = nowT(); if (t !== null && t >= 0) { g.strokeStyle = '#e8e8f0'; g.beginPath(); g.moveTo(px(t) + .5, 2); g.lineTo(px(t) + .5, H - 12); g.stroke(); }
+}
+function waveLane(e, color, scale = 1.3) { return (g, px, y, h) => { const x = BUF[e.key], a = px(e.at), b = px(e.at + len(e.key)), cols = Math.max(1, Math.floor(b - a)), per = Math.floor(x.length / cols), mid = y + h / 2;
+  const on = !e.off; g.fillStyle = color + (on ? '1f' : '0a'); g.fillRect(a, y, b - a, h); g.strokeStyle = on ? color : color + '55'; g.beginPath();
+  for (let c = 0; c < cols; c++) { let m = 0; for (let k = c * per; k < (c + 1) * per; k += 8) m = Math.max(m, Math.abs(x[k])); const hh = Math.min(1, m * scale * (e.lane === 'bed' ? S.bedGain * 2.2 : 1)) * h / 2; g.moveTo(a + c + .5, mid - hh); g.lineTo(a + c + .5, mid + hh); } g.stroke(); }; }
+function lanesFor(P, show) {
+  const lanes = [{ name: 'voices', h: 44, draw: (g, px, y, h) => P.ev.filter(e => e.lane === 'voice').forEach(e => waveLane(e, CAST[e.who])(g, px, y, h)) }];
+  if (show.includes('bed')) lanes.push({ name: 'bed', h: 24, draw: (g, px, y, h) => waveLane({ ...P.ev.find(e => e.lane === 'bed'), off: !S.on.bed }, '#9a9ab0', 1.0)(g, px, y, h) });
+  if (show.includes('laugh')) lanes.push({ name: 'laugh', h: 24, draw: (g, px, y, h) => waveLane({ ...P.ev.find(e => e.lane === 'laugh'), off: !S.on.laugh }, '#9a9ab0', 1.6)(g, px, y, h) });
+  return lanes;
+}
+
+// ---------- steps
+const S = { step: 1, on: { voice: true, bed: true, laugh: true }, bedGain: 1 };
+const $ = id => document.getElementById(id);
+function el(tag, attrs = {}, ...kids) { const e = document.createElement(tag); for (const [k, v] of Object.entries(attrs)) { if (k === 'on') for (const [ev, f] of Object.entries(v)) e.addEventListener(ev, f); else if (k === 'class') e.className = v; else if (k === 'html') e.innerHTML = v; else e.setAttribute(k, v); } kids.flat().forEach(k => e.append(k)); return e; }
+function panel(label, right) { const cv = el('canvas', { 'aria-label': label }); return { p: el('div', { class: 'rp-panel' }, el('div', { class: 'rp-plabel' }, el('span', {}, label), el('span', {}, right || '')), cv), cv }; }
+const dbOf = g => 20 * Math.log10(g);
+
+const STEPS = [
+  { n: 1, name: 'the voices',
+    says: 'First the voices, alone, on a silent track. Four takes, three people, laid end to end with the Shop’s gaps: 600 ms in, then 500 ms between each file and the next. Each Kokoro take carries its own quiet at both ends, so between the words you hear more than that, as the table shows. The takes’ measured lengths are the clock for everything after this step: nothing later moves a line, and the picture in step 4 has to fit what they add up to.',
+    back: 'This is the spine the page means. Play it and ask whether the segment already makes sense with nothing else in it.',
+    build(body, P) {
+      const { p, cv } = panel('voices only · the clock', 'last take ends at ' + (P.ev[3].at + len(P.ev[3].key)).toFixed(3) + ' s');
+      body.append(p);
+      body.append(el('div', { class: 'rp-controls' }, el('div', { class: 'rp-btns' }, el('button', { class: 'rp-go', on: { click: () => playing ? stopSound() : play(mix(P.ev, P.end, ['voice']), 'v') } }, '▸ play / stop'))));
+      const tb = el('table', { class: 'rp-table' }, el('tr', {}, el('th', {}, 'line'), el('th', {}, 'file starts'), el('th', {}, 'first word'), el('th', {}, 'take'), el('th', {}, 'gap set'), el('th', {}, 'silence heard')));
+      const H = MEASURED.heard.s2_lines.heard_s;
+      P.ev.filter(e => e.lane === 'voice').forEach((e, i) => tb.append(el('tr', {}, el('td', { style: 'color:' + CAST[e.who] }, e.who.toLowerCase() + ' · “' + LINES[i].text.slice(0, 30) + '…”'), el('td', {}, e.at.toFixed(3) + ' s'), el('td', {}, MEASURED.s2.first_words_s[i].toFixed(3) + ' s'), el('td', {}, len(e.key).toFixed(3) + ' s'), el('td', {}, i < 3 ? '500 ms' : '\u2014'), el('td', {}, i < 3 ? Math.round(H[i] * 1000) + ' ms' : '\u2014'))));
+      body.append(tb);
+      current = { cv, o: { lanes: lanesFor(P, []) } };
+    } },
+  { n: 2, name: 'score and foley',
+    says: 'Then the score and the foley go in around the voices, and never move them. The bed, a Stable Audio 3 pad, starts under the first word; the laugh lands 100 ms after the foreman’s last one. Switch each layer on and off and listen for what it adds that the words didn’t already say.',
+    back: 'The voices are step 1’s, on the same times. Switch the bed and the laugh off to get back there.',
+    build(body, P) {
+      const { p, cv } = panel('voices, bed, laugh', P.end.toFixed(3) + ' s');
+      body.append(p);
+      const tog = k => el('button', { class: S.on[k] ? 'rp-on' : '', on: { click: () => { S.on[k] = !S.on[k]; stopSound(); build(false); } } }, (S.on[k] ? '● ' : '○ ') + k);
+      body.append(el('div', { class: 'rp-controls' }, el('div', { class: 'rp-btns' }, el('button', { class: 'rp-go', on: { click: () => playing ? stopSound() : play(mix(P.ev, P.end, ['voice'].concat(S.on.bed ? ['bed'] : [], S.on.laugh ? ['laugh'] : [])), 'sf') } }, '▸ play / stop'), tog('bed'), tog('laugh'))));
+      current = { cv, o: { lanes: lanesFor(P, ['bed', 'laugh']) } };
+    } },
+  { n: 3, name: 'balance',
+    says: 'Then the balance, which the page says is set <b>by meter</b>: the bed <q>well under</q> the voices, the whole thing brought to −16 LUFS. Here is the bed’s fader, starting at the Shop’s level, with a loudness meter on the voices and on the bed while the voices speak. Move it and watch the gap between them; play it and hear where “under” stops being under.',
+    back: 'At 0 dB the mix is step 2’s, at the Shop’s gains. The −16 LUFS is the Shop’s last pass (ffmpeg loudnorm) over the whole segment, and here is measured from the film, not redone in the piece.',
+    build(body, P) {
+      const { p, cv } = panel('the bed against the voices', '');
+      body.append(p);
+      const span = [P.ev[0].at, P.ev[3].at + len(P.ev[3].key)], a = Math.round(span[0] * SR), b = Math.round(span[1] * SR);
+      const v = mix(P.ev, P.end, ['voice']).subarray(a, b), bd = mix(P.ev, P.end, ['bed']).subarray(a, b);
+      const lv = lufs(v), lb = lufs(bd), gap = lv - lb; S.meter = { lv, lb, gap };
+      const lab = el('b', {}, (dbOf(S.bedGain) >= 0 ? '+' : '') + dbOf(S.bedGain).toFixed(1) + ' dB' + (S.bedGain === 1 ? ' · the Shop’s' : ''));
+      const inp = el('input', { type: 'range', min: -24, max: 18, step: 0.5, 'aria-label': 'bed fader' }); inp.value = dbOf(S.bedGain);
+      inp.addEventListener('input', () => { S.bedGain = Math.pow(10, parseFloat(inp.value) / 20); if (Math.abs(parseFloat(inp.value)) < 0.01) S.bedGain = 1; stopSound(); build(false); });
+      body.append(el('div', { class: 'rp-controls' }, el('div', { class: 'rp-btns' }, el('button', { class: 'rp-go', on: { click: () => playing ? stopSound() : play(mix(P.ev, P.end, ['voice', 'bed', 'laugh']), 'bal') } }, '▸ play / stop')), el('label', { class: 'rp-sl' }, 'bed fader ', lab, inp)));
+      const L = MEASURED.loudness;
+      body.append(el('div', { class: 'rp-read' },
+        el('span', {}, 'voices, in this rebuild ', el('b', {}, lv.toFixed(1) + ' LUFS')),
+        el('span', {}, 'bed under them ', el('b', {}, lb.toFixed(1) + ' LUFS')),
+        el('span', { class: gap < 6 ? 'rp-flag' : '' }, 'the bed sits ', el('b', {}, gap.toFixed(1) + ' LU'), gap >= 0 ? ' under' : ' over'),
+        el('span', {}, 'the Shop’s finished segment ', el('b', {}, L.s2_problem.toFixed(1) + ' LUFS'), ', the whole film ', el('b', {}, L.film_audio.toFixed(1)))));
+      body.append(el('div', { class: 'rp-eqs' },
+        el('div', { class: 'rp-eq', html: 'L<sub>K</sub> = −0.691 + 10 log<sub>10</sub> ⟨ z ⟩<sub>gated</sub>' }),
+        el('div', { class: 'rp-words' }, 'In words: loudness is the mean power of the signal after a filter shaped like the ear’s sensitivity, taken in 400 ms blocks, ignoring blocks below −70 and then those more than 10 LU under the average. The meter is written out in this page.')));
+      current = { cv, o: { lanes: lanesFor(P, ['bed']).slice(0, 2) } };
+    } },
+  { n: 4, name: 'the picture',
+    says: 'Last, the picture: the film’s own segment two, cut and played as the Shop made it. The page says the picture <b>fills and syncs to</b> the audio, its scene lengths set by the audio’s measured durations. Play it with the lanes above it: the voices as they sit on the clock, and under them how much the picture is moving, frame to frame, measured from the file. Then look at where each picture beat starts against the first word of the line it belongs to.',
+    back: 'The sound here is the finished segment, the Shop’s mix after loudnorm, not the piece’s rebuild. Steps 1 to 3 are how it was made.',
+    build(body, P) {
+      const M = MEASURED, s2 = M.s2, mot = s2.motion, fps = s2.motion_fps;
+      const { p, cv } = panel('the clock and the picture', 'segment two, ' + M.segments[1].audio_s.toFixed(3) + ' s of sound · ' + M.segments[1].picture_s.toFixed(3) + ' s of picture');
+      body.append(p);
+      video = el('video', { src: FILM, preload: 'metadata', playsinline: '' });
+      video.addEventListener('loadedmetadata', () => { if (video.currentTime < SEG_START) video.currentTime = SEG_START + 0.5; }, { once: true });
+      video.addEventListener('timeupdate', () => { if (video.currentTime >= SEG_START + M.segments[1].picture_s) { video.pause(); playing = null; draw(); } });
+      body.append(video);
+      body.append(el('div', { class: 'rp-controls', style: 'margin-top:10px' }, el('div', { class: 'rp-btns' }, el('button', { class: 'rp-go', on: { click: () => {
+        if (playing) { stopSound(); return; } stopSound(); video.currentTime = SEG_START; const pr = video.play(); playing = { tag: 'film' }; tick(); if (pr && pr.catch) pr.catch(() => { playing = null; }); } } }, '▸ play segment two'))));
+      const lanes = lanesFor(P, []);
+      lanes.push({ name: 'picture', h: 34, draw: (g, px, y, h) => { g.strokeStyle = '#33e0c8'; g.beginPath(); mot.forEach((m, i) => { const xx = px(i / fps), hh = Math.min(1, Math.sqrt(m / 3)) * h; g.moveTo(xx + .5, y + h); g.lineTo(xx + .5, y + h - hh); }); g.stroke(); } });
+      const marks = s2.first_words_s.map(t => ({ t, color: 'rgba(232,184,74,.55)' })).concat(s2.picture_beats_measured_s.map(t => ({ t, color: 'rgba(51,224,200,.55)' })));
+      current = { cv, o: { lanes, marks } };
+      const tb = el('table', { class: 'rp-table' }, el('tr', {}, el('th', {}, 'line'), el('th', {}, 'first word'), el('th', {}, 'its picture beat starts'), el('th', {}, 'picture trails by')));
+      LINES.forEach((l, i) => tb.append(el('tr', {}, el('td', { style: 'color:' + CAST[l.who] }, l.who.toLowerCase()), el('td', {}, s2.first_words_s[i].toFixed(2) + ' s'), el('td', {}, s2.picture_beats_measured_s[i].toFixed(2) + ' s'), el('td', {}, (s2.lag_measured_s[i] >= 0 ? '+' : '') + s2.lag_measured_s[i].toFixed(2) + ' s'))));
+      body.append(tb);
+      const seg = el('table', { class: 'rp-table' }, el('tr', {}, el('th', {}, 'segment'), el('th', {}, 'sound'), el('th', {}, 'picture'), el('th', {}, 'picture − sound')));
+      M.segments.forEach(x => seg.append(el('tr', {}, el('td', {}, x.segment), el('td', {}, x.audio_s.toFixed(3) + ' s'), el('td', {}, x.picture_s.toFixed(3) + ' s'), el('td', {}, (x.picture_minus_audio_ms > 0 ? '+' : '') + x.picture_minus_audio_ms.toFixed(1) + ' ms'))));
+      body.append(seg);
+      const worst = Math.max(...s2.lag_measured_s), worstJoin = Math.max(...M.joins.map(j => Math.abs(j.off_ms)));
+      body.append(el('div', { class: 'rp-verdict', html:
+        '<b>At the scale of a segment, the claim holds.</b> Every one of the film’s five pictures is as long as its sound to within ' + M.film.worst_segment_ms.toFixed(0) + ' ms, less than one frame (' + M.film.frame_ms + ' ms), and each cut between them falls within ' + worstJoin.toFixed(0) + ' ms of the join in the sound. The sound was finished first and the picture made to its measured length. ' +
+        '<b>Inside a segment, it was stretched, not synced.</b> Each Manim scene was designed at a nominal length (29 s for this one) and every beat scaled by one factor, here ×' + s2.stretch.toFixed(3) + ', to fill the sound. So the picture drifts against its lines, from ' + Math.abs(Math.min(...s2.lag_measured_s)).toFixed(2) + ' s early to ' + worst.toFixed(1) + ' s late in this segment; the foreman starts saying \u201cnine hundred and thirteen\u201d at ' + s2.foreman_says_913_at_s.toFixed(1) + ' s and the counter comes to rest on 913 at ' + s2.counter_rests_measured_s.toFixed(1) + ' s, just after his last word. ' +
+        'Everything the picture spells out here, the stamp, “no typed link in the frontmatter”, the 913, the voices have already said, apart from the names of the two example pages; the one thing the picture says differently is the wikilink’s line, which is shown as <q>…I link to you. [[in my prose]].</q> while it says <q>I mention you</q>. Did the picture tell you anything the sound hadn’t?' }));
+    } },
+];
+
+let PLAN = null;
+function build(fresh = true) {
+  const s = STEPS[S.step - 1], rail = $('rp-rail'); rail.innerHTML = '';
+  STEPS.forEach(t => rail.append(el('button', { 'aria-pressed': String(t.n === S.step), on: { click: () => goTo(t.n) } }, t.n + ' · ' + t.name)));
+  $('rp-stepname').textContent = s.n + ' · ' + s.name; $('rp-stepof').textContent = 'step ' + s.n + ' of ' + STEPS.length;
+  $('rp-says').innerHTML = s.says; $('rp-backnote').textContent = s.back;
+  const body = $('rp-body'); body.innerHTML = ''; current = null; if (s.n !== 4) video = null; s.build(body, PLAN); draw();
+  $('rp-prev').disabled = S.step === 1; $('rp-next').disabled = S.step === STEPS.length;
+}
+function draw() { if (current && current.cv.isConnected) drawTimeline(current.cv, current.o); }
+function goTo(n) { if (n !== S.step) { stopSound(); S.step = n; build(); } }
+$('rp-prev').addEventListener('click', () => goTo(Math.max(1, S.step - 1)));
+$('rp-next').addEventListener('click', () => goTo(Math.min(STEPS.length, S.step + 1)));
+window.addEventListener('resize', draw);
+(function sigil() { const s = $('rp-sigil'); let d = ''; for (let i = 0; i <= 160; i++) { const t = 2 * Math.PI * i / 160; d += (i ? 'L' : 'M') + (9 + 7.5 * Math.sin(3 * t + Math.PI / 2)).toFixed(2) + ',' + (9 + 7.5 * Math.sin(2 * t)).toFixed(2); } s.innerHTML = '<path d="' + d + '" fill="none" stroke="#e8b84a" stroke-width="1"/>'; })();
+
+$('rp-status').textContent = 'loading the stems…';
+loadAll().then(() => { $('rp-status').textContent = ''; PLAN = plan(); build(); window.__rp = { S, STEPS, PLAN, mix, lufs, BUF, len, SR, MEASURED, goTo }; })
+  .catch(e => { $('rp-status').textContent = 'could not load the stems: ' + e.message; throw e; });
+</script>
+</body>
+</html>
