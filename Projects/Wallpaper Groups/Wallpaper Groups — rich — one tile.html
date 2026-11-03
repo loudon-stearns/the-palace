@@ -1,0 +1,440 @@
+<!doctype html>
+<!--
+  title: Wallpaper Groups — rich — one tile
+  born: 2026-11-03
+  links: [[Wallpaper Groups]] (connects-to · rich-face-piece) · listed in [[Wallpaper Groups — rich.json]] · [[Hyperdimensional Prism]] (exemplifies · one tile, many casts) · [[Progressive Staging]] (exemplifies · a walk up to its test)
+  forward_vector: I am the Prism Machine Principle made to turn. I start on one tile with no symmetry of its own, add one operation at a time until all seventeen groups stand side by side from that same tile, and last ask the kaleidoscope sentence whether the copies really turn in lockstep. I play inside the entry's rich face and stand alone opened directly; I change only when the section I serve does.
+  engine: everything between ENGINE-START and ENGINE-END is pure and runs in Node too; it is byte for byte the engine in "Wallpaper Groups — rich — which turns fit.html", and Projects/Wallpaper Groups/workshop/rich-checks.mjs re-runs the claims on it.
+  dress: Loudon Live house style, Graphite skin. Silent: no sound.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:needs" content="">
+<title>One tile, and only the operations change</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Manrope:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root { --bg:#0a0a0f; --e1:#12121a; --ring:#22222e; --border:#4a4a5e; --soft:rgba(255,255,255,.06); --fg1:#e8e8f0; --fg2:#c8c8d8; --fg3:#8a8aa0; --fg4:#4a4a5a;
+    --amber:#e8b84a; --amberline:rgba(232,184,74,.5); --cool:#7f9cff;
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --sans:'Manrope',system-ui,sans-serif; --serif:'Cormorant Garamond',Georgia,serif; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); font-weight: 300; }
+  .piece { padding: 22px 22px 16px; }
+  .kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; }
+  .title { font-family: var(--serif); font-size: 27px; font-weight: 300; color: var(--fg1); margin: 0 0 6px; }
+  .sub { font-size: 14px; line-height: 1.6; color: var(--fg2); max-width: 76ch; margin: 0 0 14px; }
+  .rail { display: flex; flex-wrap: wrap; margin: 0 0 12px; }
+  .rail button { border-radius: 0; margin-right: -1px; }
+  .rail button.here { color: var(--amber); border-color: var(--amberline); position: relative; z-index: 1; }
+  .rail button.ahead { color: var(--fg3); }
+  .stephead { font-family: var(--mono); font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--amber); margin: 4px 0 4px; }
+  .says { font-size: 14px; line-height: 1.6; color: var(--fg1); max-width: 76ch; margin: 0 0 14px; min-height: 4.8em; }
+  .panel { border: 1px solid var(--soft); border-radius: 2px; background: var(--e1); padding: 10px 12px; }
+  .plabel { font-family: var(--mono); font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--fg3); margin-bottom: 8px; display: flex; justify-content: space-between; gap: 10px; }
+  canvas { display: block; width: 100%; }
+  .legend { display: flex; flex-wrap: wrap; gap: 4px 18px; font-family: var(--mono); font-size: 10.5px; color: var(--fg3); margin-top: 6px; }
+  .legend i { display: inline-block; width: 12px; height: 8px; vertical-align: middle; margin-right: 6px; }
+  .controls { display: flex; flex-wrap: wrap; gap: 14px 26px; align-items: end; margin-top: 16px; min-height: 40px; }
+  .ctl { min-width: 220px; flex: 1; }
+  .seg { display: inline-flex; flex-wrap: wrap; } .seg button + button { border-left: 0; }
+  .seglabel { display: block; font-family: var(--mono); font-size: 10.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; }
+  button { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--fg2); background: var(--bg); border: 1px solid var(--border); border-radius: 2px; padding: 8px 12px; cursor: pointer; transition: border-color 220ms cubic-bezier(.4,0,.2,1), color 220ms cubic-bezier(.4,0,.2,1); }
+  button:hover { border-color: rgba(232,184,74,.55); color: var(--fg1); }
+  button:disabled { opacity: .4; cursor: default; }
+  button.on { color: var(--amber); border-color: var(--amberline); }
+  button.go { color: var(--amber); border-color: var(--amberline); box-shadow: 0 0 14px rgba(232,184,74,.18); min-width: 96px; }
+  button:focus-visible, input:focus-visible { outline: 1px dashed var(--amber); outline-offset: 2px; }
+  label.sl { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: .08em; color: var(--fg3); }
+  label.sl b { color: var(--fg1); font-weight: 500; }
+  input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 3px; background: var(--fg4); margin: 12px 0 4px; outline: none; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 13px; height: 13px; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  input[type=range]::-moz-range-thumb { width: 13px; height: 13px; border: 0; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  .read { display: flex; flex-wrap: wrap; gap: 6px 22px; margin-top: 14px; font-family: var(--mono); font-size: 11.5px; letter-spacing: .05em; color: var(--fg3); }
+  .read b { color: var(--fg1); font-weight: 500; }
+  .verdict { margin-top: 10px; font-size: 14px; line-height: 1.55; color: var(--amber); max-width: 80ch; min-height: 1.6em; }
+  .nav { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 16px; }
+  .hint { font-family: var(--mono); font-size: 11px; letter-spacing: .05em; line-height: 1.6; color: var(--fg3); margin-top: 10px; max-width: 90ch; }
+  .eqs { margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--soft); }
+  .eq { font-family: var(--serif); font-size: 19px; color: var(--fg1); }
+  .words { font-size: 13px; line-height: 1.55; color: var(--fg2); margin: 2px 0 10px; max-width: 86ch; }
+  .grid17 { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; }
+  .cellbox { border: 1px solid var(--soft); border-radius: 2px; background: var(--e1); padding: 6px 6px 4px; }
+  .cellbox canvas { aspect-ratio: 1 / 1; }
+  .cellname { display: flex; justify-content: space-between; font-family: var(--mono); font-size: 10.5px; letter-spacing: .06em; color: var(--fg3); margin-top: 4px; }
+  .cellname b { color: var(--fg1); font-weight: 500; }
+  .bin { margin-bottom: 14px; }
+  .binhead { font-family: var(--mono); font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--fg3); margin: 0 0 6px; display: flex; gap: 14px; flex-wrap: wrap; }
+  .binhead b { color: var(--fg1); font-weight: 500; }
+  .binhead .text { color: var(--amber); }
+  .sigil { position: absolute; top: 18px; right: 20px; opacity: .55; }
+  .piece { position: relative; }
+  @media (max-width: 680px) { .ctl { min-width: 100%; } }
+  #cv { aspect-ratio: 16 / 9; }
+</style>
+</head>
+<body>
+<div class="piece">
+  <svg class="sigil" id="sigil" width="28" height="28" viewBox="0 0 28 28" aria-hidden="true"></svg>
+  <div class="kicker">made · canvas · sketch · a walk in six steps</div>
+  <h3 class="title">One tile, and only the operations change</h3>
+  <p class="sub">The section's prism machine, run: one tile, then one operation at a time, until every wallpaper group stands beside the others. The tile never changes. Silent; nothing here makes sound.</p>
+  <div class="rail" id="rail" role="group" aria-label="steps"></div>
+  <div class="stephead" id="stephead"></div>
+  <p class="says" id="says"></p>
+  <div id="single" class="panel">
+    <div class="plabel"><span id="plabel"></span><span>amber = as drawn · blue = reflected</span></div>
+    <canvas id="cv"></canvas>
+    <div class="legend" id="legend"></div>
+  </div>
+  <div id="allwrap" style="display:none"><div class="grid17" id="all"></div></div>
+  <div class="controls" id="controls"></div>
+  <div class="read" id="read"></div>
+  <div class="verdict" id="verdict"></div>
+  <div class="nav"><button id="back">← back</button><button id="next">next step →</button></div>
+  <div class="hint">Each group is drawn from its operations as the International Tables list them, on a lattice of the shape it needs; the tile sits at the point of the cell farthest from its own copies. The orbifold names (Conway's) count what is left when the pattern is folded up by its symmetry.</div>
+</div>
+<script>
+/*ENGINE-START*/
+// The seventeen, as International Tables write them: each group is its general-position
+// operations in lattice (fractional) coordinates, x' = a·x + b·y + t. The same block sits in
+// "Wallpaper Groups — rich — one tile.html" and "… — which turns fit.html", byte for byte;
+// Projects/Wallpaper Groups/workshop/rich-checks.mjs runs it in Node.
+const R3 = Math.sqrt(3);
+const LATTICES = {
+  oblique: [[1, 0], [0.3, 0.88]],
+  rect: [[1, 0], [0, 0.72]],
+  square: [[1, 0], [0, 1]],
+  hex: [[1, 0], [-0.5, R3 / 2]],
+};
+const P2 = ['x,y', '-x,-y'];
+const PMM = [...P2, '-x,y', 'x,-y'];
+const P4 = [...P2, '-y,x', 'y,-x'];
+const P3 = ['x,y', '-y,x-y', '-x+y,-x'];
+const P6 = [...P3, '-x,-y', 'y,-x+y', 'x-y,x'];
+const GROUPS = [
+  { id: 'p1', orb: 'o', lattice: 'oblique', ops: ['x,y'], words: 'slides only' },
+  { id: 'p2', orb: '2222', lattice: 'oblique', ops: P2, words: 'half-turns' },
+  { id: 'pm', orb: '**', lattice: 'rect', ops: ['x,y', '-x,y'], words: 'parallel mirrors' },
+  { id: 'pg', orb: '××', lattice: 'rect', ops: ['x,y', '-x,y+1/2'], words: 'parallel glides' },
+  { id: 'cm', orb: '*×', lattice: 'rect', ops: ['x,y', '-x,y'], centred: true, words: 'mirrors with glides between' },
+  { id: 'pmm', orb: '*2222', lattice: 'rect', ops: PMM, words: 'mirrors both ways' },
+  { id: 'pmg', orb: '22*', lattice: 'rect', ops: [...P2, '-x+1/2,y', 'x+1/2,-y'], words: 'mirrors one way, glides the other' },
+  { id: 'pgg', orb: '22×', lattice: 'rect', ops: [...P2, '-x+1/2,y+1/2', 'x+1/2,-y+1/2'], words: 'glides both ways' },
+  { id: 'cmm', orb: '2*22', lattice: 'rect', ops: PMM, centred: true, words: 'mirrors both ways, centred' },
+  { id: 'p4', orb: '442', lattice: 'square', ops: P4, words: 'quarter-turns' },
+  { id: 'p4m', orb: '*442', lattice: 'square', ops: [...P4, '-x,y', 'x,-y', 'y,x', '-y,-x'], words: 'quarter-turns on mirrors' },
+  { id: 'p4g', orb: '4*2', lattice: 'square', ops: [...P4, '-x+1/2,y+1/2', 'x+1/2,-y+1/2', 'y+1/2,x+1/2', '-y+1/2,-x+1/2'], words: 'quarter-turns off the mirrors' },
+  { id: 'p3', orb: '333', lattice: 'hex', ops: P3, words: 'third-turns' },
+  { id: 'p3m1', orb: '*333', lattice: 'hex', ops: [...P3, '-y,-x', '-x+y,y', 'x,x-y'], words: 'third-turns, all on mirrors' },
+  { id: 'p31m', orb: '3*3', lattice: 'hex', ops: [...P3, 'y,x', 'x-y,-y', '-x,-x+y'], words: 'third-turns, some off the mirrors' },
+  { id: 'p6', orb: '632', lattice: 'hex', ops: P6, words: 'sixth-turns' },
+  { id: 'p6m', orb: '*632', lattice: 'hex', ops: [...P6, '-y,-x', '-x+y,y', 'x,x-y', 'y,x', 'x-y,-y', '-x,-x+y'], words: 'sixth-turns on mirrors' },
+];
+function parseOp(s) {
+  const rows = s.split(',').map((part) => {
+    let a = 0, b = 0, t = 0;
+    for (const tok of part.match(/[+-]?[^+-]+/g)) {
+      const sg = tok[0] === '-' ? -1 : 1, body = tok.replace(/^[+-]/, '');
+      if (body === 'x') a += sg; else if (body === 'y') b += sg;
+      else { const [p, q] = body.split('/'); t += sg * Number(p) / (q ? Number(q) : 1); }
+    }
+    return [a, b, t];
+  });
+  return { m: [[rows[0][0], rows[0][1]], [rows[1][0], rows[1][1]]], t: [rows[0][2], rows[1][2]] };
+}
+function fracOps(g) {
+  const base = g.ops.map(parseOp);
+  if (!g.centred) return base;
+  return [...base, ...base.map((o) => ({ m: o.m, t: [o.t[0] + 0.5, o.t[1] + 0.5] }))];
+}
+const mul = (A, B) => [[A[0][0] * B[0][0] + A[0][1] * B[1][0], A[0][0] * B[0][1] + A[0][1] * B[1][1]], [A[1][0] * B[0][0] + A[1][1] * B[1][0], A[1][0] * B[0][1] + A[1][1] * B[1][1]]];
+const app = (M, v) => [M[0][0] * v[0] + M[0][1] * v[1], M[1][0] * v[0] + M[1][1] * v[1]];
+const det = (M) => M[0][0] * M[1][1] - M[0][1] * M[1][0];
+const inv = (M) => { const d = det(M); return [[M[1][1] / d, -M[0][1] / d], [-M[1][0] / d, M[0][0] / d]]; };
+const basis = (g) => { const [a, b] = LATTICES[g.lattice]; return [[a[0], b[0]], [a[1], b[1]]]; };
+// Cartesian isometries: M = B·Mf·B⁻¹, t = B·tf.
+function cartOps(g) {
+  const B = basis(g), Bi = inv(B);
+  return fracOps(g).map((o) => ({ M: mul(mul(B, o.m), Bi), t: app(B, o.t) }));
+}
+const toCart = (g, f) => app(basis(g), f);
+// The point of the cell farthest from all its own images: the tile sits there, in general position.
+function generalPoint(g) {
+  const ops = fracOps(g), B = basis(g);
+  let best = null;
+  for (let i = 1; i < 24; i++) for (let j = 1; j < 24; j++) {
+    const p = [i / 24 + 0.013, j / 24 + 0.007];
+    let dmin = Infinity;
+    for (const o of ops) {
+      const q = [o.m[0][0] * p[0] + o.m[0][1] * p[1] + o.t[0], o.m[1][0] * p[0] + o.m[1][1] * p[1] + o.t[1]];
+      for (let u = -2; u <= 2; u++) for (let v = -2; v <= 2; v++) {
+        const d = app(B, [q[0] + u - p[0], q[1] + v - p[1]]);
+        const r = Math.hypot(d[0], d[1]);
+        if (r > 1e-9 && r < dmin) dmin = r;
+      }
+    }
+    if (!best || dmin > best.d) best = { p, d: dmin };
+  }
+  return best;
+}
+// Every copy of the tile in a window: centre, linear part (the tile turned by theta first), handedness.
+function copies(g, theta, reach) {
+  const B = basis(g), ops = cartOps(g), gp = generalPoint(g), p0 = toCart(g, gp.p);
+  const c = Math.cos(theta), s = Math.sin(theta), Rt = [[c, -s], [s, c]];
+  const out = [];
+  for (let i = -reach; i <= reach; i++) for (let j = -reach; j <= reach; j++) {
+    const L = app(B, [i, j]);
+    for (const o of ops) {
+      const q = app(o.M, p0);
+      out.push({ c: [q[0] + o.t[0] + L[0], q[1] + o.t[1] + L[1]], M: mul(o.M, Rt), flip: det(o.M) < 0 });
+    }
+  }
+  return { list: out, size: gp.d, perCell: ops.length };
+}
+// What each operation is: a turn of some order, or a reflection that is a mirror or only a glide.
+function kind(g, o) {
+  if (det(o.M) > 0) {
+    const ang = Math.atan2(o.M[1][0], o.M[0][0]);
+    return Math.abs(ang) < 1e-9 ? { type: 'slide', order: 1 } : { type: 'turn', order: Math.round(2 * Math.PI / Math.abs(ang)) };
+  }
+  // fixed direction u of the reflection; its glide part is (t + lattice)·u, least over the lattice
+  const ang = Math.atan2(o.M[1][0], o.M[0][0]) / 2, u = [Math.cos(ang), Math.sin(ang)], B = basis(g);
+  let gmin = Infinity;
+  for (let i = -3; i <= 3; i++) for (let j = -3; j <= 3; j++) { const L = app(B, [i, j]); gmin = Math.min(gmin, Math.abs((o.t[0] + L[0]) * u[0] + (o.t[1] + L[1]) * u[1])); }
+  return { type: gmin < 1e-9 ? 'mirror' : 'glide', dir: u };
+}
+function profile(g) {
+  const ks = cartOps(g).map((o) => kind(g, o));
+  const turn = Math.max(1, ...ks.filter((k) => k.type === 'turn').map((k) => k.order));
+  const mirrors = ks.filter((k) => k.type === 'mirror').length, glides = ks.filter((k) => k.type === 'glide').length;
+  const [a, b] = LATTICES[g.lattice], short = Math.min(Math.hypot(...a), Math.hypot(...b), Math.hypot(a[0] + b[0], a[1] + b[1]), Math.hypot(a[0] - b[0], a[1] - b[1]));
+  const shortVecs = [a, b, [a[0] + b[0], a[1] + b[1]], [a[0] - b[0], a[1] - b[1]]].filter((v) => Math.abs(Math.hypot(...v) - short) < 1e-9);
+  const mirrorAlongShort = ks.some((k) => k.type === 'mirror' && shortVecs.some((v) => Math.abs(v[0] * k.dir[1] - v[1] * k.dir[0]) < 1e-9));
+  return { turn, mirrors, glides, reflects: mirrors + glides > 0, mirrorAlongShort, perCell: ks.length };
+}
+// The section's four bins, read the only way they can all be filled: a glide counts as a reflection.
+function textBin(p) {
+  if (p.turn === 1 && !p.reflects) return 'translation only';
+  if (p.turn === 1) return 'translation and reflection';
+  if (!p.reflects) return 'translation and rotation';
+  return 'rotation with reflection or glide';
+}
+// The crystallographic restriction: a turn by 360°/n fits a lattice only if 2·cos(360°/n) is whole.
+const twoCos = (n) => 2 * Math.cos(2 * Math.PI / n);
+const turnFits = (n) => Math.abs(twoCos(n) - Math.round(twoCos(n))) < 1e-9;
+// Points of a lattice within radius r turned by 360°/n about a lattice point: how many land on points.
+function landing(lat, n, r) {
+  const [a, b] = LATTICES[lat], B = [[a[0], b[0]], [a[1], b[1]]], Bi = inv(B), th = 2 * Math.PI / n, c = Math.cos(th), s = Math.sin(th);
+  let all = 0, hit = 0; const pts = [];
+  const R = Math.ceil(r / 0.8) + 1;
+  for (let i = -R; i <= R; i++) for (let j = -R; j <= R; j++) {
+    const p = app(B, [i, j]); if (Math.hypot(...p) > r + 1e-9) continue;
+    const q = [c * p[0] - s * p[1], s * p[0] + c * p[1]], f = app(Bi, q);
+    const on = Math.hypot(f[0] - Math.round(f[0]), f[1] - Math.round(f[1])) < 1e-6;
+    all++; if (on) hit++; pts.push({ p, q, on });
+  }
+  return { all, hit, pts };
+}
+// Close a lattice under a fifth-turn: every sum of the five fifth-turn unit steps with whole
+// coefficients up to m in size. Its shortest step keeps shrinking: no lattice has that.
+function fiveFold(m) {
+  const e = [0, 1, 2, 3].map((k) => [Math.cos(2 * Math.PI * k / 5), Math.sin(2 * Math.PI * k / 5)]);
+  const pts = []; let dmin = Infinity;
+  for (let a = -m; a <= m; a++) for (let b = -m; b <= m; b++) for (let c = -m; c <= m; c++) for (let d = -m; d <= m; d++) {
+    const x = a * e[0][0] + b * e[1][0] + c * e[2][0] + d * e[3][0], y = a * e[0][1] + b * e[1][1] + c * e[2][1] + d * e[3][1];
+    const r = Math.hypot(x, y); if (r > 1e-9 && r < dmin) dmin = r;
+    if (r < 2.6) pts.push([x, y]);
+  }
+  return { dmin, pts };
+}
+const pentagonsAround = (k) => 360 - 108 * k; // > 0 a gap, < 0 an overlap, in degrees
+/*ENGINE-END*/
+
+// Drawing (not part of the engine): one group's pattern from the one tile, with its mirrors,
+// glides and turn centres if asked. World y is up; the canvas's is down.
+const TILE = [[-0.55, -0.95], [-0.25, -0.95], [-0.25, 0.05], [0.78, 0.45], [-0.25, 0.95], [-0.55, 0.95]];
+const COL = { direct: 'rgba(232,184,74,.86)', flipped: 'rgba(127,156,255,.82)', cell: 'rgba(255,255,255,.07)', cell0: 'rgba(255,255,255,.2)', mirror: 'rgba(200,200,216,.55)', glide: 'rgba(200,200,216,.4)', centre: '#e8e8f0' };
+const DECO = new Map();
+function decorations(g, reach) {
+  const key = g.id + ':' + reach; if (DECO.has(key)) return DECO.get(key);
+  const B = basis(g), lines = new Map(), centres = new Map();
+  for (const o of cartOps(g)) {
+    const d = det(o.M);
+    for (let i = -reach; i <= reach; i++) for (let j = -reach; j <= reach; j++) {
+      const L = app(B, [i, j]), t = [o.t[0] + L[0], o.t[1] + L[1]];
+      if (d > 0) {
+        const ang = Math.atan2(o.M[1][0], o.M[0][0]); if (Math.abs(ang) < 1e-9) continue;
+        const k = Math.round(2 * Math.PI / Math.abs(ang)), A = [[1 - o.M[0][0], -o.M[0][1]], [-o.M[1][0], 1 - o.M[1][1]]], p = app(inv(A), t);
+        const ck = p[0].toFixed(5) + ',' + p[1].toFixed(5); if (!centres.has(ck) || centres.get(ck).k < k) centres.set(ck, { p, k });
+      } else {
+        let a = Math.atan2(o.M[1][0], o.M[0][0]) / 2; a = ((a % Math.PI) + Math.PI) % Math.PI;
+        const u = [Math.cos(a), Math.sin(a)], n = [-u[1], u[0]], c = (t[0] * n[0] + t[1] * n[1]) / 2, gl = Math.abs(t[0] * u[0] + t[1] * u[1]);
+        const lk = a.toFixed(5) + ':' + c.toFixed(5), prev = lines.get(lk);
+        if (!prev || gl < prev.gl) lines.set(lk, { u, n, c, gl });
+      }
+    }
+  }
+  const out = { lines: [...lines.values()].map((l) => ({ ...l, mirror: l.gl < 1e-6 })), centres: [...centres.values()] };
+  DECO.set(key, out); return out;
+}
+function drawPattern(ctx, w, h, g, theta, opt = {}) {
+  const across = opt.across || 3.4, B = basis(g), a = LATTICES[g.lattice][0];
+  const s = w / (across * Math.hypot(a[0], a[1])), mid = app(B, [0.5, 0.5]);
+  const X = (p) => w / 2 + s * (p[0] - mid[0]), Y = (p) => h / 2 - s * (p[1] - mid[1]);
+  const reach = Math.ceil(across * 0.9) + 2;
+  ctx.clearRect(0, 0, w, h);
+  ctx.lineWidth = 1;
+  for (let i = -reach; i <= reach; i++) for (let j = -reach; j <= reach; j++) {
+    const q = [app(B, [i, j]), app(B, [i + 1, j]), app(B, [i + 1, j + 1]), app(B, [i, j + 1])];
+    ctx.beginPath(); q.forEach((p, k) => (k ? ctx.lineTo(X(p), Y(p)) : ctx.moveTo(X(p), Y(p)))); ctx.closePath();
+    ctx.strokeStyle = i === 0 && j === 0 ? COL.cell0 : COL.cell; ctx.stroke();
+  }
+  const C = copies(g, theta, reach), r = 0.4 * C.size * s;
+  const id0 = (k) => k === 0;
+  C.list.forEach((cp, k) => {
+    const cx = X(cp.c), cy = Y(cp.c); if (cx < -r * 2 || cx > w + r * 2 || cy < -r * 2 || cy > h + r * 2) return;
+    ctx.beginPath();
+    TILE.forEach((p, m) => { const v = app(cp.M, p); const x = cx + r * v[0], y = cy - r * v[1]; m ? ctx.lineTo(x, y) : ctx.moveTo(x, y); });
+    ctx.closePath(); ctx.fillStyle = cp.flip ? COL.flipped : COL.direct; ctx.fill();
+  });
+  // the tile itself, the one drawn by hand: the identity at the origin cell
+  const per = C.perCell, home = C.list[(reach * (2 * reach + 1) + reach) * per];
+  if (home && opt.markHome !== false) {
+    ctx.beginPath(); TILE.forEach((p, m) => { const v = app(home.M, p); const x = X(home.c) + r * v[0], y = Y(home.c) - r * v[1]; m ? ctx.lineTo(x, y) : ctx.moveTo(x, y); });
+    ctx.closePath(); ctx.strokeStyle = '#e8e8f0'; ctx.lineWidth = 1.5; ctx.stroke(); ctx.lineWidth = 1;
+  }
+  if (opt.deco) {
+    const D = decorations(g, reach), big = 4 * across;
+    for (const l of D.lines) {
+      const p0 = [l.c * l.n[0] - big * l.u[0], l.c * l.n[1] - big * l.u[1]], p1 = [l.c * l.n[0] + big * l.u[0], l.c * l.n[1] + big * l.u[1]];
+      ctx.setLineDash(l.mirror ? [] : [5, 5]); ctx.strokeStyle = l.mirror ? COL.mirror : COL.glide; ctx.lineWidth = l.mirror ? 1.25 : 1;
+      ctx.beginPath(); ctx.moveTo(X(p0), Y(p0)); ctx.lineTo(X(p1), Y(p1)); ctx.stroke();
+    }
+    ctx.setLineDash([]); ctx.lineWidth = 1;
+    for (const c of D.centres) {
+      const x = X(c.p), y = Y(c.p); if (x < -10 || x > w + 10 || y < -10 || y > h + 10) continue;
+      ctx.fillStyle = COL.centre; ctx.beginPath();
+      if (c.k === 2) ctx.ellipse(x, y, 5, 2.6, Math.PI / 4, 0, 2 * Math.PI);
+      else for (let m = 0; m < c.k; m++) { const an = Math.PI / 2 + 2 * Math.PI * m / c.k, rr = c.k === 6 ? 5 : 5.5; m ? ctx.lineTo(x + rr * Math.cos(an), y - rr * Math.sin(an)) : ctx.moveTo(x + rr * Math.cos(an), y - rr * Math.sin(an)); }
+      ctx.closePath(); ctx.fill();
+    }
+  }
+  return C;
+}
+function sizeCanvas(cv) {
+  const dpr = window.devicePixelRatio || 1, w = cv.clientWidth, h = cv.clientHeight;
+  if (cv.width !== Math.round(w * dpr) || cv.height !== Math.round(h * dpr)) { cv.width = Math.round(w * dpr); cv.height = Math.round(h * dpr); }
+  const ctx = cv.getContext('2d'); ctx.setTransform(dpr, 0, 0, dpr, 0, 0); return { ctx, w, h };
+}
+
+const $ = (id) => document.getElementById(id);
+const G = Object.fromEntries(GROUPS.map((g) => [g.id, g]));
+const STEPS = [
+  { n: 1, name: 'one tile', says: 'This is the fundamental domain: one tile, drawn once, with no symmetry of its own. Turn it with the slider. Whatever symmetry appears in the next steps comes from the operations, because the tile brings none.' },
+  { n: 2, name: 'slide it', says: 'Add the one operation every wallpaper pattern has: slide the tile a whole cell, across and up, without end. That alone is p1. Turn the tile now: every copy turns the same way, at the same moment.' },
+  { n: 3, name: 'turn it', says: 'Keep the slides and add a turn about a point: a half-turn, a third, a quarter, a sixth. Four groups, p2, p3, p4 and p6, and the lattice changes shape to carry the third and sixth. Turn the tile: every copy still turns your way, because a turned copy keeps its hand.' },
+  { n: 4, name: 'reflect it', says: 'Now reflect instead of turning: a mirror (pm), a mirror with a slide along it, the glide (pg), or both on a centred cell (cm). Reflected copies are drawn blue: they are the tile turned over, the other hand. Turn the tile and watch them: they turn the other way.' },
+  { n: 5, name: 'combine', says: 'Turns and reflections together make the other nine. Some put the turn centres on the mirrors (p4m, p3m1), some off them (p4g, p31m); some use only glides (pgg). Show the lines and centres to see where each operation acts.' },
+  { n: 6, name: 'the test · seventeen from one tile', says: 'The section says the single tile, put through the seventeen groups, makes every periodic pattern, and that a kaleidoscope turns with its fragment in lockstep. Here are all seventeen from this one tile, nothing added. Turn the tile and watch which copies go with you.' },
+];
+const S = { step: 1, theta: 0, deco: false, g3: 'p4', g4: 'pm', g5: 'p4m', spinning: false, last: 0 };
+function groupFor(step) { return step === 1 ? null : step === 2 ? G.p1 : step === 3 ? G[S.g3] : step === 4 ? G[S.g4] : step === 5 ? G[S.g5] : null; }
+function seg(label, items, get, set) {
+  const wrap = document.createElement('div'); wrap.className = 'ctl';
+  wrap.innerHTML = `<span class="seglabel">${label}</span>`;
+  const row = document.createElement('div'); row.className = 'seg';
+  for (const [txt, val] of items) {
+    const b = document.createElement('button'); b.textContent = txt; if (get() === val) b.classList.add('on');
+    b.onclick = () => { set(val); [...row.children].forEach((c) => c.classList.toggle('on', c === b)); draw(); };
+    row.append(b);
+  }
+  wrap.append(row); return wrap;
+}
+function controls() {
+  const c = $('controls'); c.innerHTML = '';
+  const turn = document.createElement('div'); turn.className = 'ctl';
+  turn.innerHTML = `<label class="sl">turn the tile · <b id="th-val"></b><input id="th" type="range" min="-180" max="180" step="1"></label>`;
+  c.append(turn);
+  const th = turn.querySelector('#th'); th.value = Math.round(S.theta * 180 / Math.PI);
+  th.oninput = () => { S.theta = th.value * Math.PI / 180; draw(); };
+  const btns = document.createElement('div'); btns.className = 'ctl'; btns.style.flex = '0 0 auto'; btns.style.minWidth = '0';
+  const spin = document.createElement('button'); spin.id = 'spin'; spin.textContent = S.spinning ? 'stop turning' : 'keep turning'; spin.className = S.spinning ? 'on' : '';
+  spin.onclick = () => { S.spinning = !S.spinning; spin.textContent = S.spinning ? 'stop turning' : 'keep turning'; spin.classList.toggle('on', S.spinning); if (S.spinning) { S.last = performance.now(); requestAnimationFrame(tick); } };
+  btns.append(spin);
+  if (S.step >= 3 && S.step <= 5) {
+    const d = document.createElement('button'); d.textContent = 'lines and centres'; d.classList.toggle('on', S.deco);
+    d.onclick = () => { S.deco = !S.deco; d.classList.toggle('on', S.deco); draw(); }; btns.append(d);
+  }
+  c.append(btns);
+  if (S.step === 3) c.append(seg('the turn', [['p2 · half', 'p2'], ['p3 · third', 'p3'], ['p4 · quarter', 'p4'], ['p6 · sixth', 'p6']], () => S.g3, (v) => (S.g3 = v)));
+  if (S.step === 4) c.append(seg('the reflection', [['pm · mirror', 'pm'], ['pg · glide', 'pg'], ['cm · both', 'cm']], () => S.g4, (v) => (S.g4 = v)));
+  if (S.step === 5) c.append(seg('turns with reflections', ['pmm', 'pmg', 'pgg', 'cmm', 'p4m', 'p4g', 'p3m1', 'p31m', 'p6m'].map((v) => [v, v]), () => S.g5, (v) => (S.g5 = v)));
+}
+function tick(now) {
+  if (!S.spinning) return;
+  const dt = Math.min(0.05, (now - S.last) / 1000); S.last = now;
+  S.theta += dt * 0.6; if (S.theta > Math.PI) S.theta -= 2 * Math.PI;
+  const th = $('th'); if (th) th.value = Math.round(S.theta * 180 / Math.PI);
+  draw(); requestAnimationFrame(tick);
+}
+function drawTileAlone(ctx, w, h) {
+  ctx.clearRect(0, 0, w, h);
+  const r = Math.min(w, h) * 0.28, c = Math.cos(S.theta), s = Math.sin(S.theta);
+  ctx.strokeStyle = 'rgba(255,255,255,.07)'; ctx.beginPath(); ctx.arc(w / 2, h / 2, r * 1.25, 0, 2 * Math.PI); ctx.stroke();
+  ctx.beginPath(); TILE.forEach((p, m) => { const x = w / 2 + r * (c * p[0] - s * p[1]), y = h / 2 - r * (s * p[0] + c * p[1]); m ? ctx.lineTo(x, y) : ctx.moveTo(x, y); });
+  ctx.closePath(); ctx.fillStyle = COL.direct; ctx.fill(); ctx.strokeStyle = '#e8e8f0'; ctx.lineWidth = 1.5; ctx.stroke(); ctx.lineWidth = 1;
+}
+function countTurning(g) { const ops = cartOps(g); const back = ops.filter((o) => det(o.M) < 0).length; return { all: ops.length, back }; }
+function draw() {
+  const thv = $('th-val'); if (thv) thv.textContent = `${Math.round(S.theta * 180 / Math.PI)}°`;
+  if (S.step === 6) return drawAll();
+  const { ctx, w, h } = sizeCanvas($('cv'));
+  const g = groupFor(S.step);
+  if (!g) { drawTileAlone(ctx, w, h); $('read').innerHTML = '<span>tiles <b>1</b></span><span>symmetry of its own <b>none</b></span>'; $('legend').innerHTML = '<span><i style="background:#e8b84a"></i>the tile</span>'; $('plabel').textContent = 'the fundamental domain'; return; }
+  drawPattern(ctx, w, h, g, S.theta, { deco: S.deco && S.step >= 3, across: g.lattice === 'hex' ? 3.6 : 3.4 });
+  const p = profile(g), t = countTurning(g);
+  $('plabel').textContent = `${g.id} · ${g.words}`;
+  $('read').innerHTML = `<span>group <b>${g.id}</b></span><span>orbifold <b>${g.orb}</b></span><span>copies per cell <b>${p.perCell}</b></span><span>highest turn <b>${p.turn === 1 ? 'none' : '1/' + p.turn}</b></span><span>turning with you <b>${t.all - t.back} of ${t.all}</b></span><span>turning against you <b>${t.back} of ${t.all}</b></span>`;
+  $('legend').innerHTML = '<span><i style="background:#e8b84a"></i>the tile, turned or slid</span><span><i style="background:#7f9cff"></i>the tile reflected</span><span><i style="border:1.5px solid #e8e8f0;background:none"></i>the one drawn by hand</span>' + (S.deco && S.step >= 3 ? '<span>— mirror · - - glide · turn centres: lens half · ▲ third · ◆ quarter · ⬢ sixth</span>' : '');
+}
+let THUMBS = null;
+function buildAll() {
+  const box = $('all'); box.innerHTML = ''; THUMBS = [];
+  for (const g of GROUPS) {
+    const d = document.createElement('div'); d.className = 'cellbox';
+    const cv = document.createElement('canvas'); d.append(cv);
+    const t = countTurning(g);
+    const nm = document.createElement('div'); nm.className = 'cellname'; nm.innerHTML = `<b>${g.id}</b><span>${t.back ? t.back + '/' + t.all + ' turn back' : 'all with you'}</span>`;
+    d.append(nm); box.append(d); THUMBS.push({ g, cv });
+  }
+}
+function drawAll() {
+  if (!THUMBS) buildAll();
+  for (const { g, cv } of THUMBS) { const { ctx, w, h } = sizeCanvas(cv); drawPattern(ctx, w, h, g, S.theta, { across: 2.3, markHome: true }); }
+  const back = GROUPS.filter((g) => countTurning(g).back > 0), fwd = GROUPS.filter((g) => countTurning(g).back === 0);
+  const half = back.every((g) => { const t = countTurning(g); return 2 * t.back === t.all; });
+  $('read').innerHTML = `<span>patterns <b>${GROUPS.length}</b></span><span>tiles drawn <b>1</b></span><span>every copy turns with you <b>${fwd.length}</b> · ${fwd.map((g) => g.id).join(' ')}</span><span>${half ? 'exactly half' : 'some'} the copies turn against you <b>${back.length}</b></span>`;
+  $('verdict').textContent = `One tile, ${GROUPS.length} patterns, nothing added but operations: that half of the claim holds. The kaleidoscope half holds in part. In the ${fwd.length} groups with no mirror or glide every copy turns with the tile, in lockstep. In the other ${back.length} half the copies turn the other way, and a kaleidoscope is made of mirrors (three of them make p3m1, p4m or p6m), so it is one of those. In all ${GROUPS.length} the pattern as a whole never turns: its lattice, centres and mirrors stay put while what fills them changes.`;
+}
+function goStep(n) {
+  n = Math.max(1, Math.min(STEPS.length, n)); S.step = n; const s = STEPS[n - 1];
+  $('stephead').textContent = `step ${n} of ${STEPS.length} · ${s.name}`; $('says').textContent = s.says;
+  $('single').style.display = n === 6 ? 'none' : ''; $('allwrap').style.display = n === 6 ? '' : 'none';
+  if (n !== 6) $('verdict').textContent = '';
+  $('back').disabled = n === 1; $('next').textContent = n === STEPS.length ? 'the last step' : 'next step →'; $('next').disabled = n === STEPS.length;
+  const r = $('rail'); r.innerHTML = '';
+  for (const t of STEPS) { const b = document.createElement('button'); b.textContent = `${t.n} · ${t.name.split(' · ')[0]}`; if (t.n === n) b.classList.add('here'); else if (t.n > n) b.classList.add('ahead'); b.onclick = () => goStep(t.n); r.append(b); }
+  controls(); draw();
+}
+$('back').onclick = () => goStep(S.step - 1);
+$('next').onclick = () => goStep(S.step + 1);
+window.addEventListener('resize', () => draw());
+goStep(1);
+
+// the Lissajous sigil, 3 : 2, small
+(() => { const s = document.getElementById('sigil'); if (!s) return; let d = ''; for (let i = 0; i <= 240; i++) { const t = (i / 240) * 2 * Math.PI, x = 14 + 12 * Math.sin(3 * t + Math.PI / 2), y = 14 + 12 * Math.sin(2 * t); d += (i ? 'L' : 'M') + x.toFixed(2) + ' ' + y.toFixed(2); } s.innerHTML = `<path d="${d}" fill="none" stroke="#e8b84a" stroke-width="1"/>`; })();
+
+</script>
+</body>
+</html>
