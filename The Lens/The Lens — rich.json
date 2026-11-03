@@ -2,10 +2,26 @@
   "title": "The Lens — rich",
   "born": "2026-11-03",
   "links": [
-    { "target": "[[The Lens]]", "type": "connects-to", "label": "rich-face-of" },
-    { "target": "[[Enrichment]]", "type": "connects-to", "label": "made-by" },
-    { "target": "[[Progressive Staging]]", "type": "connects-to", "label": "each-piece-walks-up" },
-    { "target": "[[STIGMERGY]]", "type": "connects-to", "label": "runs-the-pickers-rule" }
+    {
+      "target": "[[The Lens]]",
+      "type": "connects-to",
+      "label": "rich-face-of"
+    },
+    {
+      "target": "[[Enrichment]]",
+      "type": "connects-to",
+      "label": "made-by"
+    },
+    {
+      "target": "[[Progressive Staging]]",
+      "type": "connects-to",
+      "label": "each-piece-walks-up"
+    },
+    {
+      "target": "[[STIGMERGY]]",
+      "type": "connects-to",
+      "label": "runs-the-pickers-rule"
+    }
   ],
   "forward_vector": "I am the manifest of The Lens's rich face, its first round, a Study and still a proposal: two walks that each start from one idea and end on a test of the page's own claim (move the glass over four of the page's paragraphs, read live, until three hidden rules are judged blind; and the [L]ens picker's ranking on the real typed-link graph, until two hops turns out to hold four tenths of the palace), beside the two Daily Page proofs that set the bar and the two sketches the text already names. I grow when the page is enriched again; I never hold the entry's words.",
   "entry": "The Lens",
@@ -16,7 +32,7 @@
     {
       "section": "The Signal Problem (the actual design)",
       "kind": "claim-change",
-      "what": "'Already-linked or two-hop-apart pages are reliable sparks; distant unlinked pages are mostly noise.' On the live graph of 2026-11-03 (328 entries, 2490 typed links, walked as the [L]ens picker walks it), one hop holds 4% of the palace for the average entry; two hops hold 41% (median 39%, from 12% to 96%); no pair of entries is unreachable, and the farthest apart any two sit is 5 hops. So one hop is a filter and two hops is not, and 'distant unlinked' can only mean three or more hops. The nine spark scores on record (3 from the July prototype, 2 woken lensings, 4 written by hand, one pair not on the graph) by distance: 1 hop 5, 4, 3; 2 hops 3.5, 1.5; 3 hops 1.5, 3.5, 4. Too few to back 'reliable' either way. Offer: say one hop is the filter and two hops is most of the palace, and hold 'reliable sparks' until the lensings the forward vector asks for are in.",
+      "what": "'Already-linked or two-hop-apart pages are reliable sparks; distant unlinked pages are mostly noise.' The sentence entered on 2026-06-09 (c79de58f), before any spark score existed, and the evidence since is thin: the three-pair July prototype the code cites (lens-suggest.js:8-11) had no two-hop pair, so 'two-hop-apart' has never been measured. On the live graph of 2026-11-03 (328 entries, 2490 typed links, walked as the [L]ens picker walks it), one hop holds 4.2% of the palace for the average entry; two hops hold 41.0% (median 39.4%, from 11.9% to 96.3%); no pair of entries is unreachable, and the farthest apart any two sit is 5 hops. So one hop is a filter and two hops is not, and 'distant unlinked' can only mean three or more hops. The nine scores on record by distance: 1 hop 5, 4, 3; 2 hops 3.5, 1.5 (both hand-written); 3 hops 1.5, 3.5, 4. Offer: say the claim came before its evidence, that one hop is the filter and two hops is most of the palace, and hold 'reliable sparks' until the lensings the forward vector asks for are in.",
       "status": "open"
     },
     {
@@ -28,7 +44,7 @@
     {
       "section": "The Fidelity Test (generalized)",
       "kind": "claim-change",
-      "what": "'Move the glass to a new patch (or swap the lens) and the reading must change in a way specific to that text.' The piece's borrowing rule fills one template with each paragraph's first sentence and its two commonest words. Its readings change on every paragraph, so it passes 'must change'. Counted as shared words of four letters or more, its readings share 49% (Ohm's Law) and 65% (Kuramoto) across paragraphs, against 3% to 7% for the hand-written readings and 100% for a formula; with each paragraph's own words taken out, 93% and 88%, beside the formulas' 96% and 93%. So 'specific to that text' carries the whole test, and the change that counts is in what the glass brings, not the words it quotes. The procedure's self-check already names this ('did I deploy my real apparatus, or borrow A's vocabulary?'). Offer: join the two in this section's test sentence. A word count is a crude meter, and the faithful readings were written by one model.",
+      "what": "'Move the glass to a new patch (or swap the lens) and the reading must change in a way specific to that text.' A rule that only fills a fixed template with each paragraph's own words changes on every paragraph, so it passes 'must change'; 'specific to that text' carries the whole test. The procedure's self-check already names this failure ('did I deploy my real apparatus, or borrow A's vocabulary?'). Offer: join the two in this section's test sentence, so the change that counts is in what the glass brings, not the words it borrows. This rests on reading, not on the piece's meter: the borrower sits beside the formula once each paragraph's words are taken out (0.93 and 0.88 against 0.96 and 0.93) by construction, since its only other words are its fixed template, so the meter shows the definition rather than finding it.",
       "status": "open"
     }
   ],
@@ -39,8 +55,22 @@
       "made": "2026-11-03",
       "stamped": "2026-11-03",
       "status": "proposal",
-      "proposed": { "date": "2026-11-03", "by": "maker · claude-opus-5-5 · proposal round", "round": "proposal-round-2026-11" },
-      "challenge": {"date": "2026-11-03", "by": "challenger · claude-opus-5-5", "verdicts": [{"file": "The Lens — rich — nearest on the graph.html", "verdict": "keep", "why": "A real test: two hops could have come out a short list and came out 41% of the palace; my own BFS on the snapshot gets the same 4% / 41% / 0 unreachable / 5 hops, and the walk climbs from one entry's links to every entry. Note: the two July scores it calls inferred (1.5, 3.5) are on record in _ops/scratch/lens-prototype-2026-07-02.md:27,37, so cite that and drop 'inferred'."}]},
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "The Lens — rich — nearest on the graph.html",
+            "verdict": "keep",
+            "why": "A real test: two hops could have come out a short list and came out 41% of the palace; my own BFS on the snapshot gets the same 4% / 41% / 0 unreachable / 5 hops, and the walk climbs from one entry's links to every entry. Note: the two July scores it calls inferred (1.5, 3.5) are on record in _ops/scratch/lens-prototype-2026-07-02.md:27,37, so cite that and drop 'inferred'."
+          }
+        ]
+      },
       "pieces": [
         {
           "file": "The Lens — rich — nearest on the graph.html",
@@ -59,8 +89,32 @@
       "made": "2026-11-03",
       "stamped": "2026-11-03",
       "status": "proposal",
-      "proposed": { "date": "2026-11-03", "by": "maker · claude-opus-5-5 · proposal round", "round": "proposal-round-2026-11" },
-      "challenge": {"date": "2026-11-03", "by": "challenger · claude-opus-5-5", "verdicts": [{"file": "The Lens — rich — move the glass.html", "verdict": "remake", "why": "Steps 1-5 hold, but the blind test is decoded by length alone: on all four paragraphs the faithful reading is longest (358-391 chars), the formula next (280), the borrowed shortest (233-259), and a length-only marker scored 3 of 3 at one look; it also states no chance level or verdict rule before the first trial and says the page predicts something it doesn't. Fix: match lengths and openings, state chance and the rule first, tally several trials (record has the detail)."}, {"file": "proofs/2026-10-23-daily-page/name-the-glass.html", "verdict": "keep", "why": "The run the paragraph quotes, as it ran; the caption matches the scroll (2026-10-23 entry) and says the readings were written by hand. A record, so it is not held to walk up."}, {"file": "proofs/2026-10-23-daily-page/careful-or-bold.html", "verdict": "keep", "why": "The second test the paragraph quotes, as it ran; the caption's note that his verdict came in chat and the picks stayed empty matches the scroll."}]},
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "The Lens — rich — move the glass.html",
+            "verdict": "remake",
+            "why": "Steps 1-5 hold, but the blind test is decoded by length alone: on all four paragraphs the faithful reading is longest (358-391 chars), the formula next (280), the borrowed shortest (233-259), and a length-only marker scored 3 of 3 at one look; it also states no chance level or verdict rule before the first trial and says the page predicts something it doesn't. Fix: match lengths and openings, state chance and the rule first, tally several trials (record has the detail)."
+          },
+          {
+            "file": "proofs/2026-10-23-daily-page/name-the-glass.html",
+            "verdict": "keep",
+            "why": "The run the paragraph quotes, as it ran; the caption matches the scroll (2026-10-23 entry) and says the readings were written by hand. A record, so it is not held to walk up."
+          },
+          {
+            "file": "proofs/2026-10-23-daily-page/careful-or-bold.html",
+            "verdict": "keep",
+            "why": "The second test the paragraph quotes, as it ran; the caption's note that his verdict came in chat and the picks stayed empty matches the scroll."
+          }
+        ]
+      },
       "pieces": [
         {
           "file": "The Lens — rich — move the glass.html",
@@ -68,7 +122,7 @@
           "by": "the Maker · hand-written readings, rules in code",
           "height": 1150,
           "title": "move the glass · a walk in six steps",
-          "caption": "**The test in your hand, on this page's own words.** Four paragraphs of The Lens, read live, under a glass you drag: Simondon, the Trickster and Ohm's Law, each in its own register with a distortion check; then a glass that says the same thing everywhere and one that only borrows the paragraph's words; last, one glass with three hidden rules, judged at one look and again after moving it.",
+          "caption": "**The test in your hand, on this page's own words.** Four paragraphs of The Lens, read live, under a glass you drag: Simondon, the Trickster and Ohm's Law, each in its own register with a distortion check; then a glass that says the same thing everywhere and one that only borrows the paragraph's words; last, one glass with three hidden rules over three trials, chance and the verdict rule stated before the first. The three readings match in length within 8% and open alike: marking by length alone scored 3.25 of 9 over 40 headless sessions, where luck averages 3.",
           "near": "The danger across all lens-kinds"
         },
         {
@@ -78,7 +132,9 @@
           "caption": "The blind test this paragraph records, as it ran: one Kuramoto passage under four hidden glasses, then Simondon over three passages. Loudon named all seven and called it a miss. The readings were written by hand, not woken through [L]ens.",
           "near": "Recognisable is not enough",
           "height": 1500,
-          "contract": { "needs": "storage" }
+          "contract": {
+            "needs": "storage"
+          }
         },
         {
           "file": "proofs/2026-10-23-daily-page/careful-or-bold.html",
@@ -87,7 +143,9 @@
           "caption": "The second test, as it ran: Trickster, Simondon and Ohm's Law, each careful beside bold, with a distortion check on every bold card. \"The bold side is BY FAR better.\" Its answers sat on the page for the session to read; he gave his verdict in chat.",
           "near": "A second test put the same three glasses",
           "height": 1500,
-          "contract": { "needs": "storage" }
+          "contract": {
+            "needs": "storage"
+          }
         }
       ]
     },
@@ -97,8 +155,27 @@
       "made": "2026-11-03",
       "stamped": "2026-11-03",
       "status": "proposal",
-      "proposed": { "date": "2026-11-03", "by": "maker · claude-opus-5-5 · proposal round", "round": "proposal-round-2026-11" },
-      "challenge": {"date": "2026-11-03", "by": "challenger · claude-opus-5-5", "verdicts": [{"file": "The Lens — any-page-through-any-page mockup.html", "verdict": "keep", "why": "The sketch the section names, playable in place; the caption keeps the section's own words (Ohm's Law reads LOW on purpose, readings hand-authored)."}, {"file": "The Lens — philosopher refraction+confrontation mockup.html", "verdict": "keep", "why": "The second sketch the section names, playable in place; loads clean at both widths."}]},
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "The Lens — any-page-through-any-page mockup.html",
+            "verdict": "keep",
+            "why": "The sketch the section names, playable in place; the caption keeps the section's own words (Ohm's Law reads LOW on purpose, readings hand-authored)."
+          },
+          {
+            "file": "The Lens — philosopher refraction+confrontation mockup.html",
+            "verdict": "keep",
+            "why": "The second sketch the section names, playable in place; loads clean at both widths."
+          }
+        ]
+      },
       "pieces": [
         {
           "file": "The Lens — any-page-through-any-page mockup.html",
@@ -106,7 +183,9 @@
           "title": "any page through any page · mockup",
           "caption": "The first sketch, playable in place: five glasses over a Granular Synthesis entry, with the spark meter and the propose-link affordance. Ohm's Law reads LOW on purpose. Its readings are hand-authored.",
           "near": "the general operation",
-          "contract": { "size": "fill 4/3" }
+          "contract": {
+            "size": "fill 4/3"
+          }
         },
         {
           "file": "The Lens — philosopher refraction+confrontation mockup.html",
@@ -114,7 +193,9 @@
           "title": "philosopher refraction and confrontation · mockup",
           "caption": "The second sketch, playable in place: THROUGH against CONFRONT, and the focal control.",
           "near": "the philosopher special case",
-          "contract": { "size": "fill 4/3" }
+          "contract": {
+            "size": "fill 4/3"
+          }
         }
       ]
     }

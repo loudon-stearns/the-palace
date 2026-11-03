@@ -129,11 +129,13 @@
   </section>
   <section class="step">
     <h3>The test, blind</h3>
-    <p class="teach">One glass, Kuramoto Coupling, three hidden rules behind ◇ 1, ◇ 2 and ◇ 3, shuffled each time: one reading written for each paragraph, one fixed formula, one that borrows the paragraph's words. You haven't seen any of them. First, one look: the glass is held on one paragraph. Mark each as faithful, formula or borrowed. Then let it move and change your marks if you want. The page predicts that one look can't tell a formula from a faithful reading and that moving the glass can. Reveal says what you found.</p>
+    <p class="teach">One glass, Kuramoto Coupling, three hidden rules behind ◇ 1, ◇ 2 and ◇ 3: one reading written for each paragraph, one fixed formula, one that borrows the paragraph's words. You haven't seen any of them, and the three are the same length, give or take a tenth, and open the same way, so neither length nor form gives a rule away. Three trials, each held on a different paragraph, with the rules shuffled and the formula and borrower worded afresh each time. First every trial at one look, the glass held; then all three again with the glass free to move, changing any mark you want.</p>
+    <p class="teach"><b>Before you start: chance and the rule.</b> Guessing gets one mark in three right on average, so 3 of the 9 one-look marks is what luck alone scores. The page's test is to move the glass. My reading of it, not the page's words, is that one look may not be enough and moving should be. The verdict counts all nine marks: moving helped if your after-moving total beats your one-look total by 2 or more; worse if it falls by 2 or more; anything closer is no clear difference at this size.</p>
     <div class="test" id="test">
       <div class="phase" id="phase"></div>
+      <div class="btns" id="trials" role="group" aria-label="the trial"></div>
       <div class="marks" id="marks"></div>
-      <div class="btns"><button id="unlock">Now move it</button><button id="reveal" disabled>Reveal</button><button id="again">Shuffle again</button></div>
+      <div class="btns"><button id="nexttrial">Next trial</button><button id="unlock">Now move it</button><button id="reveal" disabled>Reveal</button><button id="again">Shuffle again</button></div>
       <div id="result"></div>
     </div>
   </section>
@@ -247,25 +249,37 @@ var LensEngine = (function () {
       text: 'This passage claims more than it has shown. The confidence runs ahead of the evidence, and a careful reader would want the numbers before believing it. Hold it more loosely.' },
     ohmBorrow: { name: 'Ohm\'s Law, borrowing', rule: 'borrowed',
       template: '“{quote}”\n\nAs a circuit: {w1} is the voltage, {w2} is the resistance, and the reading is the current that gets through. More {w1}, more reading; more {w2}, less. I = V ÷ R.' },
+    // The blind test's three rules. Rewritten after the challenge (2026-11-03): no reading opens
+    // with a quotation or names "this passage", and each paragraph's three readings sit within
+    // about a tenth of each other in length, so neither form nor length gives the rule away.
+    // The formula and the borrower each come in three wordings, one per trial, so a formula met
+    // in trial 1 is not recognised in trial 2 by its words.
     kFaithful: { name: 'Kuramoto Coupling', rule: 'faithful', reads: {
-      P1: { text: 'Three oscillators, "the operation", "the instrument" and "the genre", each at its own natural frequency. The operation runs fastest: it is a prompt, it can run tonight. The genre runs slowest: pages written to be worn take seasons. The instrument is the coupling between them. Below the critical K you have three projects under one name. Above it, one thing seen three ways.' },
-      P2: { text: '"Most are noise" is a frequency gap. Two pages whose natural frequencies differ by more than twice their coupling, |Δω| > 2K, cannot lock however long you look. A typed link is coupling that already exists; two hops is weaker coupling through a third oscillator. And the gold: two unlinked pages at almost the same frequency, a gap so small that any coupling at all locks them.' },
-      P3: { text: '"They swap", but the pull does not. An arrow is asymmetric coupling: the glass sends hard and barely listens, the subject listens. Where a pair settles is each voice weighted by K_send ÷ K_receive, so it settles near the glass. Granular through Kuramoto lands near oscillators; Kuramoto through Granular lands near texture. Same two pages, two settle points.' },
-      P4: { text: '"They all sounded like Claude" is over-coupling. One strong oscillator, the model doing the reading, drove all seven glasses hard enough that each fell into its phase. Each kept a trace of its own frequency, which is why you could still name it. Color is what comes back when the coupling drops toward critical: near the lock, still at its own speed. Too much and every glass sings one note.' }
+      P1: { text: 'Three oscillators: an operation, an instrument and a genre, each at its own natural frequency. The operation runs fastest, a prompt you can run tonight; the genre runs slowest, pages that take seasons. The instrument is the coupling. Below the critical K, three projects share a name. Above it, one thing seen three ways.' },
+      P2: { text: 'Most pairs are noise because of a frequency gap: two pages whose natural frequencies differ by more than twice their coupling cannot lock, however long you look. A typed link is coupling that already exists; two hops is weak coupling through a third. The gold is two unlinked pages so close that any coupling locks them.' },
+      P3: { text: 'An arrow is asymmetric coupling. The glass sends hard and barely listens; the subject listens. A locked pair settles at each voice weighted by K_send over K_receive, so it settles near the glass. Granular through Kuramoto lands near oscillators, Kuramoto through Granular near texture: one pair, two settle points.' },
+      P4: { text: 'Seven glasses with one voice is over-coupling. One strong oscillator, the model doing the reading, drove all seven until each fell into its phase. Each kept a trace of its own frequency, which is why you could name it. Color comes back as the coupling drops toward critical: near the lock, still at its own speed.' }
     } },
-    kFormula: { name: 'Kuramoto Coupling', rule: 'formula',
-      text: 'Every idea in this passage is an oscillator with its own natural frequency. Raise the coupling K past its critical value and the ideas fall into step; below it they drift apart. How much of the passage has locked is its order parameter, r, and this passage sits somewhere between.' },
-    kBorrow: { name: 'Kuramoto Coupling', rule: 'borrowed',
-      template: '“{quote}”\n\nHere {w1} and {w2} are two oscillators, each at its own natural frequency. Couple them past the critical K and {w1} locks to {w2}; below it they drift apart, and the order parameter stays near zero.' }
+    kFormula: { name: 'Kuramoto Coupling', rule: 'formula', variants: [
+      'Every idea here is an oscillator with its own natural frequency. Raise the coupling K past its critical value and the ideas fall into step; below it they drift apart. How much of it has locked is the order parameter, r, and the answer sits somewhere between scatter and lock, waiting on how hard you are willing to couple.',
+      'Read as a population of oscillators, the ideas here each keep their own natural speed until the coupling grows strong enough. Past the critical K they phase-lock into one rhythm; short of it they slide past each other. The order parameter measures how far that has gone, and here it is partway, not scattered, not locked.',
+      'Coupling is the whole story. Each claim is a voice with its own frequency, pulled on by every other. Too little coupling and nothing cooperates; too much and one voice takes over the rest. Somewhere between lies the critical point where the population locks, and the ideas set out here sit right at its very edge.'
+    ] },
+    kBorrow: { name: 'Kuramoto Coupling', rule: 'borrowed', templates: [
+      'Here {w1} and {w2} are two oscillators, each at its own natural frequency. Couple them past the critical K and {w1} locks to {w2}; below it they drift apart and the order parameter stays near zero. Raise the coupling slowly and listen for the moment {w1} and {w2} stop sliding and move as one.',
+      'Think of {w1} as one oscillator and {w2} as another, running at slightly different speeds. With weak coupling, {w1} slips past {w2} again and again. Turn K up past its threshold and the slipping stops: {w1} and {w2} phase-lock, and what was two rhythms becomes one, which is the point of coupling them at all.',
+      'The coupling to watch is between {w1} and {w2}. Left alone, {w1} keeps its own frequency and {w2} keeps its own. Pull them together hard enough, past the critical K, and {w2} falls into step with {w1}; pull too hard and {w1} drowns {w2} out, one voice where there were two, nothing left to hear.'
+    ] }
   };
 
   // What a glass says over a patch, by its rule.
-  function reading(key, patch) {
-    var g = GLASSES[key];
-    if (g.rule === 'formula') return { text: g.text };
+  function reading(key, patch, variant) {
+    var g = GLASSES[key], v = variant || 0;
+    if (g.rule === 'formula') return { text: g.variants ? g.variants[v % g.variants.length] : g.text };
     if (g.rule === 'borrowed') {
       var w = commonest(patch.text || patch.anchor), q = firstSentence(patch.text || patch.anchor);
-      return { text: g.template.replace(/\{quote\}/g, q).replace(/\{w1\}/g, w[0] || 'the first') .replace(/\{w2\}/g, w[1] || 'the second') };
+      var t = g.templates ? g.templates[v % g.templates.length] : g.template;
+      return { text: t.replace(/\{quote\}/g, q).replace(/\{w1\}/g, w[0] || 'the first').replace(/\{w2\}/g, w[1] || 'the second') };
     }
     var r = g.reads[patch.id];
     return { text: r.text, check: r.check || '' };
@@ -279,10 +293,10 @@ var LensEngine = (function () {
   }
   // How alike a glass's readings are across the patches: mean pairwise overlap of
   // their content words (raw), and again with each patch's own words taken out (own).
-  function sameness(key, patches) {
+  function sameness(key, patches, variant) {
     var ps = patches.filter(function (p) { return p.found; });
     var raw = [], own = [];
-    var sets = ps.map(function (p) { var r = setOf(contentWords(reading(key, p).text)); var mine = setOf(contentWords(p.text)); var o = {}; Object.keys(r).forEach(function (w) { if (!mine[w]) o[w] = 1; }); return { r: r, o: o }; });
+    var sets = ps.map(function (p) { var r = setOf(contentWords(reading(key, p, variant).text)); var mine = setOf(contentWords(p.text)); var o = {}; Object.keys(r).forEach(function (w) { if (!mine[w]) o[w] = 1; }); return { r: r, o: o }; });
     for (var i = 0; i < sets.length; i++) for (var j = i + 1; j < sets.length; j++) { raw.push(jaccard(sets[i].r, sets[j].r)); own.push(jaccard(sets[i].o, sets[j].o)); }
     var mean = function (a) { return a.length ? a.reduce(function (x, y) { return x + y; }, 0) / a.length : NaN; };
     return { raw: mean(raw), own: mean(own), pairs: raw.length };
@@ -316,13 +330,14 @@ let cur = 0, glassKey = 'simondon', at = 0, locked = true;
 
 // ── the test's hidden rules ──
 let T = null;
+function shuffle(a) { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
 function newTest() {
-  const keys = ['kFaithful', 'kFormula', 'kBorrow'];
-  for (let i = keys.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [keys[i], keys[j]] = [keys[j], keys[i]]; }
-  const live = patches.filter(p => p.found).map(p => patches.indexOf(p));
-  T = { hidden: keys, phase: 'look', held: live.length ? live[Math.floor(Math.random() * live.length)] : 0, marks: keys.map(() => ({ look: null, moved: null })), loaded: 0, revealed: false };
-  T.seen = new Set([T.held]);
+  const live = shuffle(patches.filter(p => p.found).map(p => patches.indexOf(p)));
+  const trials = [0, 1, 2].map(k => ({ held: live.length ? live[k % live.length] : 0, variant: k, hidden: shuffle(['kFaithful', 'kFormula', 'kBorrow']), marks: [0, 1, 2].map(() => ({ look: null, moved: null })) }));
+  T = { trials, ti: 0, phase: 'look', loaded: 0, revealed: false, reached: 0 };
 }
+const tr = () => T.trials[T.ti];
+const variantNow = () => (STEPS[cur].test && T ? tr().variant : 0);
 
 // ── drawing the stage ──
 const stage = $('stage');
@@ -343,13 +358,13 @@ function drawPatches() {
   render();
 }
 
-function currentKey() { return STEPS[cur].test ? T.hidden[T.loaded] : glassKey; }
+function currentKey() { return STEPS[cur].test ? tr().hidden[T.loaded] : glassKey; }
 function render() {
   const p = patches[at], key = currentKey(), g = E.GLASSES[key];
   const test = !!STEPS[cur].test;
   $('gname').textContent = test ? '◇ ' + (T.loaded + 1) + ' · ' + g.name : g.name;
   $('gon').textContent = 'reading § ' + p.section + (locked ? ' · held' : ' · drag the top edge');
-  const r = p.found ? E.reading(key, p) : { text: '(nothing to read: the paragraph is gone)' };
+  const r = p.found ? E.reading(key, p, variantNow()) : { text: '(nothing to read: the paragraph is gone)' };
   const body = $('gbody'); body.textContent = r.text; body.classList.toggle('eqn', !!g.eqn && !test);
   const chk = $('gcheck');
   if (r.check && !test) { chk.innerHTML = '<b>Distortion check.</b> '; chk.appendChild(document.createTextNode(r.check)); chk.style.display = ''; }
@@ -366,7 +381,7 @@ function place() {
   if (!glass.classList.contains('dragging')) glass.style.top = el.offsetTop + 'px';
 }
 function lift(on) { glass.classList.toggle('lifted', on); stage.classList.toggle('peek', on); $('lift').setAttribute('aria-pressed', String(on)); $('lift').textContent = on ? 'set it down' : 'lift'; }
-function moveTo(i) { at = i; if (STEPS[cur].test) T.seen = (T.seen || new Set()).add(i); render(); }
+function moveTo(i) { at = i; render(); }
 
 // Dragging: the glass follows the pointer, reads the patch under its top, and settles on release.
 (function drag() {
@@ -382,7 +397,7 @@ function moveTo(i) { at = i; if (STEPS[cur].test) T.seen = (T.seen || new Set())
     const els = [...stage.querySelectorAll('.patch')];
     let best = at, bd = 1e9;
     els.forEach((el, i) => { if (!patches[i].found) return; const d = Math.abs(el.offsetTop - top); if (d < bd) { bd = d; best = i; } });
-    if (best !== at) { at = best; const k = currentKey(); const r = E.reading(k, patches[at]); $('gbody').textContent = r.text; $('gon').textContent = 'reading § ' + patches[at].section + ' · let go to settle'; }
+    if (best !== at) { at = best; const k = currentKey(); const r = E.reading(k, patches[at], variantNow()); $('gbody').textContent = r.text; $('gon').textContent = 'reading § ' + patches[at].section + ' · let go to settle'; }
   });
   const end = () => { if (!on) return; on = false; glass.classList.remove('dragging'); moveTo(at); };
   glass.addEventListener('pointerup', end); glass.addEventListener('pointercancel', end);
@@ -401,7 +416,7 @@ function drawGlassButtons() {
   if ($('lift')) lift(false);
   if (s.test) {
     box.innerHTML = '<span class="lbl">load</span>';
-    T.hidden.forEach((k, i) => { const b = document.createElement('button'); b.textContent = '◇ ' + (i + 1); b.setAttribute('aria-pressed', String(i === T.loaded)); b.onclick = () => { T.loaded = i; drawGlassButtons(); render(); }; box.appendChild(b); });
+    tr().hidden.forEach((k, i) => { const b = document.createElement('button'); b.textContent = '◇ ' + (i + 1); b.setAttribute('aria-pressed', String(i === T.loaded)); b.onclick = () => { T.loaded = i; drawGlassButtons(); render(); }; box.appendChild(b); });
     return;
   }
   if (s.glasses.length < 2) { box.innerHTML = '<span class="lbl">the glass · ' + E.GLASSES[s.glasses[0]].name + '</span>'; return; }
@@ -427,54 +442,59 @@ function drawMeters() {
 }
 
 // ── the test ──
-const RULES = [['faithful', 'faithful'], ['formula', 'formula'], ['borrowed', 'borrowed']];
+const RULES = ['faithful', 'formula', 'borrowed'];
+function goTrial(k) { T.ti = k; T.loaded = 0; at = tr().held; locked = T.phase === 'look' && !T.revealed; drawGlassButtons(); render(); drawTest(); }
 function drawTest() {
   const box = $('test');
   if (!STEPS[cur].test) { box.classList.remove('on'); return; }
   box.classList.add('on');
-  $('phase').textContent = T.revealed ? 'revealed' : T.phase === 'look'
-    ? 'one look · the glass is held on § ' + patches[T.held].section + ' · mark all three'
-    : 'moving · drag the glass to any paragraph, and change a mark if you want';
+  const t = tr();
+  $('phase').textContent = T.revealed ? 'revealed · ' + (T.ti + 1) + ' of 3 shown'
+    : T.phase === 'look' ? 'one look · trial ' + (T.ti + 1) + ' of 3 · the glass is held on § ' + patches[t.held].section + ' · mark all three'
+    : 'moving · trial ' + (T.ti + 1) + ' of 3 · drag the glass to any paragraph, and change a mark if you want';
+  const tb = $('trials'); tb.innerHTML = '<span class="lbl">trial</span>';
+  T.trials.forEach((x, k) => { const b = document.createElement('button'); b.textContent = String(k + 1); b.disabled = T.phase === 'look' && !T.revealed && k > T.reached; b.setAttribute('aria-pressed', String(k === T.ti)); b.onclick = () => goTrial(k); tb.appendChild(b); });
   const marks = $('marks'); marks.innerHTML = '';
-  T.hidden.forEach((k, i) => {
+  t.hidden.forEach((k, i) => {
     const row = document.createElement('div'); row.className = 'mark';
     row.innerHTML = '<span class="who">◇ ' + (i + 1) + '</span>';
-    RULES.forEach(([v, label]) => {
-      const b = document.createElement('button'); b.textContent = label; b.disabled = T.revealed;
-      const m = T.marks[i], now = T.phase === 'look' ? m.look : m.moved;
+    RULES.forEach(v => {
+      const b = document.createElement('button'); b.textContent = v; b.disabled = T.revealed;
+      const m = t.marks[i], now = T.phase === 'look' ? m.look : m.moved;
       b.setAttribute('aria-pressed', String(now === v));
       b.onclick = () => { if (T.phase === 'look') { m.look = v; m.moved = v; } else m.moved = v; T.loaded = i; drawGlassButtons(); render(); drawTest(); };
       row.appendChild(b);
     });
     marks.appendChild(row);
   });
-  const allLook = T.marks.every(m => m.look);
-  $('unlock').disabled = T.phase !== 'look' || !allLook || T.revealed;
+  const done = x => x.marks.every(m => m.look);
+  $('nexttrial').style.display = T.phase === 'look' && !T.revealed && T.ti < 2 ? '' : 'none';
+  $('nexttrial').disabled = !done(t);
+  $('unlock').disabled = T.phase !== 'look' || !T.trials.every(done) || T.revealed;
   $('reveal').disabled = T.phase === 'look' || T.revealed;
   if (!T.revealed) $('result').innerHTML = '';
 }
-$('unlock').onclick = () => { T.phase = 'moved'; locked = false; render(); drawTest(); };
+$('nexttrial').onclick = () => { T.reached = Math.max(T.reached, T.ti + 1); goTrial(T.ti + 1); };
+$('unlock').onclick = () => { T.phase = 'moved'; goTrial(0); };
 $('reveal').onclick = () => {
-  T.revealed = true; locked = false;
-  const rows = T.hidden.map((k, i) => {
-    const truth = E.GLASSES[k].rule, m = T.marks[i], s = E.sameness(k, patches);
-    return { i, truth, look: m.look, moved: m.moved, s };
-  });
-  const nLook = rows.filter(r => r.look === r.truth).length, nMoved = rows.filter(r => r.moved === r.truth).length;
-  let h = '<table class="res"><tr><th>glass</th><th>rule</th><th>one look</th><th>after moving</th><th>alike · as written</th><th>· without its words</th></tr>';
-  rows.forEach(r => {
-    h += '<tr><td>◇ ' + (r.i + 1) + '</td><td>' + r.truth + '</td><td class="' + (r.look === r.truth ? 'ok' : 'no') + '">' + r.look + '</td><td class="' + (r.moved === r.truth ? 'ok' : 'no') + '">' + r.moved + '</td><td>' + f2(r.s.raw) + '</td><td>' + f2(r.s.own) + '</td></tr>';
-  });
+  T.revealed = true;
+  let nLook = 0, nMoved = 0;
+  let h = '<table class="res"><tr><th>trial · held on</th><th>glass</th><th>rule</th><th>one look</th><th>after moving</th><th>alike · as written</th><th>· without its words</th></tr>';
+  const rows = [];
+  T.trials.forEach((t, k) => t.hidden.forEach((key, i) => {
+    const truth = E.GLASSES[key].rule, m = t.marks[i], s = E.sameness(key, patches, t.variant);
+    if (m.look === truth) nLook++; if (m.moved === truth) nMoved++;
+    rows.push({ trial: k + 1, held: patches[t.held].section, glass: i + 1, rule: truth, look: m.look, moved: m.moved, raw: +f2(s.raw), own: +f2(s.own) });
+    h += '<tr><td>' + (i === 0 ? (k + 1) + ' · § ' + patches[t.held].section : '') + '</td><td>◇ ' + (i + 1) + '</td><td>' + truth + '</td><td class="' + (m.look === truth ? 'ok' : 'no') + '">' + m.look + '</td><td class="' + (m.moved === truth ? 'ok' : 'no') + '">' + m.moved + '</td><td>' + f2(s.raw) + '</td><td>' + f2(s.own) + '</td></tr>';
+  }));
   h += '</table>';
-  const seen = T.seen ? T.seen.size : 1;
-  const said = nMoved > nLook ? 'Moving the glass helped: you named ' + nLook + ' of 3 at one look and ' + nMoved + ' of 3 after moving it over ' + seen + ' paragraph' + (seen === 1 ? '' : 's') + '. That is what the page predicts.'
-    : nMoved === nLook && nLook === 3 ? 'You named all three at one look, and moving kept them. On these readings one look was enough for you, which is more than the page predicts. Was it the rule you heard, or something else, length or a quotation?'
-    : nMoved === nLook ? 'Moving the glass changed nothing for you: ' + nLook + ' of 3 at one look and ' + nMoved + ' of 3 after. The page predicts moving would help; here it didn\'t.'
-    : 'Moving the glass made it worse: ' + nLook + ' of 3 at one look, ' + nMoved + ' of 3 after. Worth a note on the section.';
-  const borrowedRow = rows.find(r => r.truth === 'borrowed');
-  const tail = borrowedRow && borrowedRow.moved !== 'borrowed' ? ' The borrowing glass got past you after moving, which is the gap the second meter was built for: its readings change with every paragraph, and what it brings does not.' : '';
+  const d = nMoved - nLook;
+  const said = 'One look: ' + nLook + ' of 9 (luck alone averages 3). After moving: ' + nMoved + ' of 9. '
+    + (d >= 2 ? 'By the rule set before the first trial, moving helped.' : d <= -2 ? 'By the rule set before the first trial, moving made it worse.' : 'By the rule set before the first trial, that is no clear difference at this size.');
+  const missed = rows.filter(r => r.rule === 'borrowed' && r.moved !== 'borrowed').length;
+  const tail = missed ? ' The borrowing rule got past you ' + missed + ' time' + (missed === 1 ? '' : 's') + ' after moving: its readings change with every paragraph, and what it brings does not, which is what the second meter showed in step 5.' : '';
   $('result').innerHTML = h + '<div class="verdict">' + said + tail + '</div>';
-  window.lensResults = { piece: 'The Lens — rich — move the glass', held: patches[T.held].section, rows: rows.map(r => ({ glass: r.i + 1, rule: r.truth, look: r.look, moved: r.moved, raw: +f2(r.s.raw), own: +f2(r.s.own) })), seen };
+  window.lensResults = { piece: 'The Lens — rich — move the glass', rows, look: nLook, moved: nMoved };
   drawTest(); render();
 };
 $('again').onclick = () => { newTest(); setStep(cur); };
@@ -489,7 +509,7 @@ function setStep(i) {
   $('where').textContent = 'step ' + (cur + 1) + ' of ' + stepEls.length;
   const s = STEPS[cur];
   if ($('lift')) lift(false);
-  if (s.test) { if (!T) newTest(); at = T.held; locked = T.phase === 'look' && !T.revealed; }
+  if (s.test) { if (!T) newTest(); at = tr().held; locked = T.phase === 'look' && !T.revealed; }
   else { if (!s.glasses.includes(glassKey)) glassKey = s.glasses[0]; locked = !!s.locked; if (s.locked) at = s.at; if (!patches[at] || !patches[at].found) at = Math.max(0, patches.findIndex(p => p.found)); }
   drawGlassButtons(); render(); drawMeters(); drawTest();
 }
@@ -509,7 +529,7 @@ async function readPage() {
     mdSeen = md; patches = E.readPatches(md); $('err').textContent = '';
     const lost = patches.filter(p => !p.found).length;
     if (lost) $('err').textContent = lost + ' of the four paragraphs are no longer on the page; their readings are held back.';
-    if (T && !patches[T.held].found) newTest();
+    if (T && T.trials.some(t => !patches[t.held].found)) newTest();
     drawPatches(); drawMeters();
   } catch (e) {
     $('err').textContent = 'Could not read The Lens.md (' + e.message + '). The passages show only their first words until it can.';

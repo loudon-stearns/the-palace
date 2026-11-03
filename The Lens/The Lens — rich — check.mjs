@@ -45,18 +45,33 @@ for (const [key, g] of Object.entries(E.GLASSES)) {
 }
 const S = Object.fromEntries(Object.keys(E.GLASSES).map((k) => [k, E.sameness(k, patches)]));
 ok(S.deflator.raw === 1 && S.kFormula.raw === 1, 'a formula glass is 1.00 alike as written');
-ok(S.ohmBorrow.raw < 0.8 && S.kBorrow.raw < 0.8, `a borrower changes as written (Ohm ${f2(S.ohmBorrow.raw)}, Kuramoto ${f2(S.kBorrow.raw)})`);
-ok(Math.abs(S.ohmBorrow.own - S.deflator.own) < 0.1 && Math.abs(S.kBorrow.own - S.kFormula.own) < 0.1,
-  `once each paragraph's words are out, a borrower sits beside the formula (Ohm ${f2(S.ohmBorrow.own)} by the deflator's ${f2(S.deflator.own)}, Kuramoto ${f2(S.kBorrow.own)} by its formula's ${f2(S.kFormula.own)})`);
-ok(S.ohmBorrow.own - S.ohmBorrow.raw > 0.2 && S.kBorrow.own - S.kBorrow.raw > 0.2, 'taking the words out moves a borrower toward the formula by more than 0.2');
+// Step 5's claims are about the borrowing Ohm's Law, which quotes each paragraph's first sentence.
+ok(S.ohmBorrow.raw < 0.8, `step 5's borrower changes as written (${f2(S.ohmBorrow.raw)})`);
+ok(Math.abs(S.ohmBorrow.own - S.deflator.own) < 0.1, `once each paragraph's words are out, it sits beside the formula (${f2(S.ohmBorrow.own)} by the deflator's ${f2(S.deflator.own)})`);
+ok(S.ohmBorrow.own - S.ohmBorrow.raw > 0.2, 'taking the words out moves it toward the formula by more than 0.2');
+// The test's borrower no longer quotes (the challenge's form tell), so it changes only by two words.
+ok(S.kBorrow.raw > 0.5 && S.kBorrow.own > 0.8 && S.kFaithful.own < 0.25, `the test's borrower, unquoted, reads ${f2(S.kBorrow.raw)} alike as written and ${f2(S.kBorrow.own)} without the paragraph's words; the faithful ${f2(S.kFaithful.own)}`);
 for (const k of ['simondon', 'trickster', 'ohm', 'kFaithful']) ok(S[k].own < 0.25, `${k} (faithful) stays apart without the paragraph's words (${f2(S[k].own)})`);
 const words = live.map((p) => `${p.id}: ${E.commonest(p.text).join(', ')} · “${E.firstSentence(p.text)}”`);
 console.log('       the borrower fills in:\n         ' + words.join('\n         '));
 // The page's one-sentence test, taken literally: "the reading must change". Does it pass the borrower?
 const changes = (k) => new Set(live.map((p) => E.reading(k, p).text)).size === live.length;
 console.log(`       the sentence's test, "the reading must change": formula ${changes('kFormula') ? 'passes' : 'fails'}, borrower ${changes('kBorrow') ? 'passes' : 'fails'}, faithful ${changes('kFaithful') ? 'passes' : 'fails'}`);
-const lens = { words: live.map((p) => E.contentWords(E.reading('kFaithful', p).text).length), formula: E.contentWords(E.GLASSES.kFormula.text).length, borrow: live.map((p) => E.contentWords(E.reading('kBorrow', p).text).length) };
-console.log(`       content words per test reading · faithful ${lens.words.join('/')} · formula ${lens.formula} · borrowed ${lens.borrow.join('/')}`);
+// The blind test after the challenge: each paragraph's three readings within a tenth of each other in
+// length, none opening with a quotation, and marking by length alone no better than chance.
+const order = ['faithful', 'formula', 'borrowed'];
+let spreadMax = 0, marker = 0, combos = 0, opensQuote = 0, saysPassage = 0;
+for (const p of live) for (let v = 0; v < 3; v++) {
+  const t = { faithful: E.reading('kFaithful', p, v).text, formula: E.reading('kFormula', p, v).text, borrowed: E.reading('kBorrow', p, v).text };
+  const L = Object.fromEntries(Object.entries(t).map(([k, x]) => [k, x.length]));
+  spreadMax = Math.max(spreadMax, (Math.max(...Object.values(L)) - Math.min(...Object.values(L))) / Math.min(...Object.values(L)));
+  const byLen = Object.keys(L).sort((a, b) => L[b] - L[a]);
+  marker += byLen.filter((r, i) => r === order[i]).length; combos++;
+  for (const x of Object.values(t)) { if (/^["“'‘]/.test(x)) opensQuote++; if (/this passage/i.test(x)) saysPassage++; }
+}
+ok(spreadMax <= 0.1, `the three test readings sit within ${(spreadMax * 100).toFixed(1)}% of each other in length, on every paragraph and wording`);
+ok(opensQuote === 0 && saysPassage === 0, 'no test reading opens with a quotation or says "this passage"');
+ok(marker / combos <= 1.2, `marking by length alone (longest faithful, then formula, then borrowed) scores ${(marker / combos).toFixed(2)} of 3 per trial, chance 1`);
 
 // ── 2. nearest on the graph ────────────────────────────────────────────────
 console.log('\nnearest on the graph · snapshot against the live graph');
