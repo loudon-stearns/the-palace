@@ -66,7 +66,18 @@
           "caption": "**Who decides where the figure stands: tested on the record's own shootout.** It builds up from the environment lens alone, then a figure lens from the same camera that lands on the floor with no offset, then the region the inpaint lets the barbarian grow in. Last come renders 012 and 013, each diffed against the base it was painted into. The inpaint changed 11% of the frame, 99.4% of it inside his region. The segment changed 46%, only 26% of it inside: a giant, cut out faithfully. The region's edge shows no seam. Render 013 ran on the thin pose plate, so the region did the placing, not the pose."
         }
       ],
-      "stamped": "2026-11-03"
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "GenAI Camera — rich — segment or inpaint.html",
+            "verdict": "remake",
+            "why": "A real test and the conclusion holds, but the region is grown 16 px where VAEEncodeForInpaint grows about 8 (nodes.py:411–414; at the true grow inpaint 98.6% inside, segment 23.2%), and the seam is measured where the edit has already died (change 3.5 levels there), so 2.67 vs 2.62 is equal by construction. Fix the grow, re-bake, and show the fall-off instead (73/34/9/3.5 levels in 4-px rings: a 12-px feather, not a cut)."
+          }
+        ]
+      }
     },
     {
       "heading": "How it runs (proven 2026-07-09)",
@@ -90,7 +101,18 @@
           "caption": "**How much of the gradient the body gets, measured.** It builds up from one depth pass you can probe, then the same figure before the near/far fix, then both stretched to show they carry the same shape. Last, the body's interior on 0–255, before and after. The fix about triples the range, from 12% of the scale to 35%. It doesn't fill the gradient: the bracket spans the whole mesh, back included, and the hands take the top. The plates are renders 005 and 008."
         }
       ],
-      "stamped": "2026-11-03"
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "GenAI Camera — rich — depth auto-range.html",
+            "verdict": "keep",
+            "why": "Tests 'always fills the gradient' and finds it doesn't. Numbers reproduce (11.8% to 35.3%); 005/008 silhouettes IoU 0.998; and 30 levels of 1.2 bu over 35.3% implies a 0.40 bu bracket, the whole mesh, confirming the cam_z_range reading by a second route."
+          }
+        ]
+      }
     },
     {
       "heading": "Gotchas & recipes (accumulated 2026-07-09)",
@@ -124,7 +146,23 @@
           "caption": "**Does the pose take? Shown where it matters.** It builds up from two drawings of one skeleton (the thick plate carries 1.59 times the ink on the same joints), then the record's own check with the skeleton laid over each drawing, where the difference is small. Last, the barbarian sweep run on each plate. At pose only, the thin plate's figure outgrows the skeleton and drops his arms, while the thick plate's figure stands in it. From depth 0.15 up, depth holds both."
         }
       ],
-      "stamped": "2026-11-03"
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "GenAI Camera — rich — the costume dial.html",
+            "verdict": "remake",
+            "why": "Depth locking the surface holds, but the count it calls fur and robes is in good part the barbarian's sword (62% of his count at 0.30, 69% at 0.45; fur alone about 100/64/21/12/0/0) and the sorceress's hair, and 'falls steadily, not in bands' misreads its own shelf at 0.30–0.45. Mask or name the sword and hair, re-run both routes, and say the count is one proxy for the eye's bands."
+          },
+          {
+            "file": "GenAI Camera — rich — thin plate, thick plate.html",
+            "verdict": "keep",
+            "why": "An honest overlay test that moves the evidence to where the fault shows: 020 is near-identical, while 019 vs 022 at pose only puts the thin-plate figure's hands and feet about 50 px low and depth carries both from 0.15. Note one seed per plate and two separate runs."
+          }
+        ]
+      }
     }
   ]
 }
