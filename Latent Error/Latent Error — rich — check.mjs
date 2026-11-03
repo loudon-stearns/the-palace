@@ -88,7 +88,18 @@ const says = (html, list) => list.filter((s) => !html.includes(s));
   const words = P.LE.RUNS.map((r) => P.fits(P.analyze(P.simulate({ ...r, manual: null, window: true }))).word);
   const pAlone = P.LE.RUNS.filter((r) => r.ki === 0 && r.kd === 0);
   check('the page’s first clause holds: every P-alone run is off the target', pAlone.every((r) => Math.abs(an(r).offset) > 0.05), pAlone.map((r) => an(r).offset.toFixed(2)).join(', '));
-  check('the page’s second clause fits no P-alone run fully, and fits the run with Ki 0.07', JSON.stringify(words) === JSON.stringify(['no', 'no', 'no', 'no', 'half', 'no', 'yes', 'no']), words.join(' · '));
+  check('the scoring: “high P, no I” fits the lagged high-gain runs, half-fits the rest, and nothing that settles on 20',
+    JSON.stringify(words) === JSON.stringify(['half', 'half', 'half', 'half', 'yes', 'yes', 'no', 'no', 'half', 'no']), words.join(' · '));
+  // the page's high P: with lag, Kp 1 to 5 swings across 20, centred short of it, and never settles
+  const hiP = [1, 2, 5].map((kp) => an({ lag: true, kp }));
+  check('with lag and a high gain (Kp 1, 2, 5) P alone does what the page says: swings across 20, centred short, never settles',
+    hiP.every((a) => a.state === 'sustained' && a.lo < 20 && a.hi > 20 && a.offset > 0.4 && P.fits(a).word === 'yes'), hiP.map((a) => `${a.lo.toFixed(2)}–${a.hi.toFixed(2)} around ${a.centre.toFixed(2)}`).join('; '));
+  const k2 = hiP[1];
+  check('Kp 2 with lag swings 18.23 to 20.67 around 19.37', near(k2.lo, 18.23, 0.006) && near(k2.hi, 20.67, 0.006) && near(k2.centre, 19.37, 0.006), `${k2.lo.toFixed(3)}, ${k2.hi.toFixed(3)}, ${k2.centre.toFixed(3)}`);
+  // "A system with I term will converge": not where the swing comes from gain and lag
+  const k2i = an({ lag: true, kp: 2, ki: 0.02 }), k2id = an({ lag: true, kp: 2, ki: 0.02, kd: 1 });
+  check('“with I it converges” fails at high gain: Kp 2 with Ki 0.02 still swings 18.30 to 20.73', !P.converges(k2i) && near(k2i.lo, 18.30, 0.006) && near(k2i.hi, 20.73, 0.006), `${k2i.state}, ${k2i.lo.toFixed(3)} to ${k2i.hi.toFixed(3)}`);
+  check('D settles it: Kp 2, Ki 0.02, Kd 1 is calm and creeping in, 19.94 at four hours', P.converges(k2id) && k2id.settled && near(k2id.centre, 19.94, 0.006), `${k2id.state}, ${k2id.centre.toFixed(3)}`);
 
   // the step is fine enough: halve it and the numbers hold
   {
@@ -98,7 +109,7 @@ const says = (html, list) => list.filter((s) => !html.includes(s));
     check('halving the time step moves no printed number by more than 0.005', near(h1.lo, b7.lo, 0.005) && near(h1.hi, b7.hi, 0.005) && near(h2.lo, k07.lo, 0.005) && near(h2.hi, k07.hi, 0.005) && near(h3.overshoot, b4.overshoot, 0.005), `${h1.lo.toFixed(3)} ${h1.hi.toFixed(3)} ${h2.hi.toFixed(3)} ${h3.overshoot.toFixed(3)}`);
   }
   check('the sound: one degree off beats at 2 Hz; it never strays more than 40 Hz', P.roomHz(21) - 220 === 2 && P.roomHz(5) === 190 && P.roomHz(-100) === 180, `${P.roomHz(21)}, ${P.roomHz(5)}, ${P.roomHz(-100)}`);
-  const missing = says(html, ['17.14', '19.87', '0.00', '1.06', '18.46', '0.65', '0.66', '7.8 minutes', '18.24', '19.91', '0.667', '0.063', '20.00', '18.28', '21.54', '0.53', '1.17', '1.97']);
+  const missing = says(html, ['17.14', '19.87', '0.00', '1.06', '18.46', '0.65', '0.66', '7.8 minutes', '18.24', '19.91', '0.667', '0.063', '20.00', '18.28', '21.54', '18.23', '20.67', '19.37', '0.53', '1.17', '1.97']);
   check('the page prints the numbers measured here', missing.length === 0, missing.length ? `missing ${missing.join(', ')}` : 'all present');
   check('the page leaves the hush to the kit', !/rich:hush|visibilitychange/.test(html), 'no hush handler of its own');
 }

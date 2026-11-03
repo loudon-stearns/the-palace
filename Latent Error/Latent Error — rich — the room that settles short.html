@@ -108,7 +108,7 @@
       <span class="hint" id="hearHint">Two tones: the target, and the room. When they beat, the room is off; the slower the beat, the closer. 24 seconds, four hours of the room.</span>
     </div>
     <div class="meter" id="meter"></div>
-    <div class="tablewrap"><table class="runs" id="runs" hidden><thead><tr><th>run</th><th>overshoot</th><th>the last hour</th><th>“oscillate around the target, never settling”</th></tr></thead><tbody></tbody></table></div>
+    <div class="tablewrap"><table class="runs" id="runs" hidden><thead><tr><th>run</th><th>overshoot</th><th>the last hour</th><th>“always … steady-state error … oscillate around the target, never settling”</th><th>“with I term will converge”</th></tr></thead><tbody></tbody></table></div>
     <div class="eq" id="eq1"></div><div class="eq words" id="eq1w"></div>
     <div class="eq" id="eq2"></div><div class="eq words" id="eq2w"></div>
   </div>
@@ -189,24 +189,34 @@ LE.RUNS = [
   { name: 'P alone · with lag · Kp 0.4', lag: true, kp: 0.4, ki: 0, kd: 0 },
   { name: 'P alone · with lag · Kp 0.7', lag: true, kp: 0.7, ki: 0, kd: 0 },
   { name: 'P alone · with lag · Kp 2, high', lag: true, kp: 2, ki: 0, kd: 0 },
+  { name: 'P and I · with lag · Kp 2, Ki 0.02', lag: true, kp: 2, ki: 0.02, kd: 0 },
+  { name: 'P, I and D · with lag · Kp 2, Ki 0.02, Kd 1', lag: true, kp: 2, ki: 0.02, kd: 1 },
   { name: 'P and I · with lag · Kp 0.2, Ki 0.02', lag: true, kp: 0.2, ki: 0.02, kd: 0 },
   { name: 'P and I · with lag · Kp 0.2, Ki 0.07', lag: true, kp: 0.2, ki: 0.07, kd: 0 },
   { name: 'P, I and D · with lag · Kp 0.4, Ki 0.04, Kd 0.5', lag: true, kp: 0.4, ki: 0.04, kd: 0.5 }
 ];
 function f2(x){ return (Math.abs(x) < 0.005 ? 0 : x).toFixed(2); }
-// The last hour, in words
-function describe(a){
-  if (a.state === 'settled') return Math.abs(a.offset) <= 0.05 ? 'settles on the target, ' + f2(a.centre) + ' °C' : 'settles at ' + f2(a.centre) + ' °C, ' + f2(a.offset) + ' below the target';
+// The last hour, in words. ki says whether a memory is still pulling a calm room in.
+function describe(a, ki){
+  if (a.state === 'settled'){
+    if (Math.abs(a.offset) <= 0.05) return 'settles on the target, ' + f2(a.centre) + ' °C';
+    return (ki > 0 ? 'calm, still creeping in: ' : 'settles at ') + f2(a.centre) + ' °C, ' + f2(a.offset) + ' below the target' + (ki > 0 ? ' at four hours' : '');
+  }
   if (a.state === 'ringing') return 'still ringing but calming, ' + f2(a.lo) + ' to ' + f2(a.hi) + ' °C, around ' + f2(a.centre);
   return 'never settles: swings ' + f2(a.lo) + ' to ' + f2(a.hi) + ' °C, centred at ' + f2(a.centre) + (a.hi < LE.R ? ', and never reaches the target' : a.lo > LE.R ? ', and never comes down to the target' : '');
 }
-// Does the page's sentence describe this run?
+// Does the page's sentence describe this run? "Always have steady-state error" is the mean held off the
+// target; "oscillate around the target, never settling" is a swing across 20 that never calms. Both, or one.
 function fits(a){
-  if (a.state !== 'sustained') return { word: 'no', why: a.state === 'settled' ? 'it settles' : 'it is calming' };
-  if (a.hi < LE.R || a.lo > LE.R) return { word: 'no', why: 'it never settles, but never reaches the target either' };
-  if (Math.abs(a.offset) >= 0.1) return { word: 'half', why: 'it never settles, but swings around ' + f2(a.centre) + ', not the target' };
-  return { word: 'yes', why: 'it swings around the target and never settles' };
+  var off = Math.abs(a.offset) > 0.1, swing = a.state === 'sustained', across = a.lo < LE.R && a.hi > LE.R;
+  if (swing && across && off) return { word: 'yes', why: 'it swings across the target, centred ' + f2(a.offset) + ' short, and never settles' };
+  if (swing && across) return { word: 'half', why: 'it swings across the target and never settles, but its mean is on it' };
+  if (swing) return { word: 'half', why: 'it never settles, but never reaches the target either' };
+  if (off) return { word: 'half', why: 'the error stays, but it ' + (a.state === 'ringing' ? 'is calming' : 'settles') };
+  return { word: 'no', why: a.state === 'ringing' ? 'it is calming onto the target' : Math.abs(a.offset) > 0.05 ? 'it is calm, creeping onto the target' : 'it settles on the target' };
 }
+// "A system with I term will converge": for a run with memory, did it?
+function converges(a){ return a.state !== 'sustained'; }
 // The room as a pitch beside the target's: 2 Hz for every degree off, kept within 40 Hz
 function roomHz(T){ return 220 + Math.max(-40, Math.min(40, 2 * (T - LE.R))); }
 </script>
@@ -230,10 +240,10 @@ function roomHz(T){ return 220 + Math.max(-40, Math.min(40, 2 * (T - LE.R))); }
       eq2: ['with the window open:  e_rest = (20 − 5 + 5) ÷ (1 + 30·Kp)', '(where P leaves it) = 20 degrees of loss ÷ (1 + 30 × Kp): smaller as Kp grows, never zero'],
       tryText: 'Kp 0.2 settles at 17.14 °C. Kp 5 settles at 19.87. Read the overshoot in the meter at any setting: it stays at 0.00. The page says P alone creates oscillation; in this room it can’t.' },
     { title: 'P alone, with lag', short: 'Lag', ctl: ['cKp', 'cWin'], lag: true, kpMax: 2,
-      say: 'A real room is late. The radiator takes two minutes to warm, and the thermometer on the far wall reads a minute behind. Now the heat arrives after the error that asked for it, and a high Kp overshoots. Past about 0.65 the room never calms down. But look where it swings: around the blue line, below the target. P’s offset is still there inside the oscillation.',
+      say: 'A real room is late. The radiator takes two minutes to warm, and the thermometer on the far wall reads a minute behind. Now the heat arrives after the error that asked for it, and a high Kp overshoots. Past about 0.65 the room never calms down. This lag is what the page’s P paragraph takes for granted: without it, as in step 2, P alone can’t swing. Just past the edge the swing sits wholly below the target. Turn Kp higher and it crosses 20 on every swing, but its middle, the blue line, stays short. The offset is still there inside the oscillation.',
       eq1: ['2 · dH/dt = u − H      1 · dS/dt = T − S', 'the radiator’s output H follows the command over 2 minutes; the thermometer S follows the room over 1 minute; the controller sees only S'],
       eq2: ['20s³ + 32s² + 13s + 1 + 30·Kp = 0  →  edge at Kp ≈ 0.66, a swing every 7.8 minutes', 'the loop’s own equation: past 30 × Kp = 19.8 it can’t calm itself, and it swings about every 7.8 minutes'],
-      tryText: 'Kp 0.4 overshoots once by 1.06 and settles at 18.46. Kp 0.7 never settles, swinging between 18.24 and 19.91, never reaching 20. Then Hear it: a beat that won’t hold still, and never stops.' },
+      tryText: 'Kp 0.4 overshoots once by 1.06 and settles at 18.46. Kp 0.7 never settles, swinging between 18.24 and 19.91, never reaching 20. Kp 2 swings 18.23 to 20.67 around 19.37: the page’s high-P room. Then Hear it: a beat that won’t hold still, and never stops.' },
     { title: 'Add memory: the I term', short: 'I', ctl: ['cPlant', 'cKp', 'cKi', 'cWin'], lag: true, kpMax: 2, ki: true,
       say: 'I adds up the error over time. While the room sits short, the sum grows and pushes the heater harder, until the error is gone. The gold line below is the heater’s share that comes from memory. When the window opens it climbs again, and at rest it carries all of the heat: 0.667, exactly what the window and the walls take. But memory is late by its nature, so too much of it overshoots. With the lag and Kp 0.2, past about Ki 0.063 the room never settles at all.',
       eq1: ['u = Kp·e + Ki·∫e dt', '(the heater’s share) = Kp × (the error now) + Ki × (all the error so far, added up)'],
@@ -245,10 +255,10 @@ function roomHz(T){ return 220 + Math.max(-40, Math.min(40, 2 * (T - LE.R))); }
       eq2: ['Kd 0 → overshoot 1.17     Kd 0.5 → 0.00     Kd 2 → 1.97', 'measured on this room: a little prediction calms it; a lot slows the climb and lets the memory overshoot'],
       tryText: 'Start at Kd 0 and walk it up. Watch the overshoot in the meter fall to nothing around 0.5, then rise again past 1.' },
     { title: 'The test: the page’s sentence', short: 'The test', ctl: ['cPlant', 'cKp', 'cKi', 'cKd', 'cWin'], lag: true, kpMax: 2, ki: true, kd: true, test: true,
-      say: 'The page’s sentence, put against eight runs of this room, each measured over its last hour. Click a run to load it above, or set your own. The first half of the sentence holds: P alone always leaves an offset in this room. The second half describes none of the P-alone runs. The one run it describes has an I term.',
+      say: 'The page’s sentences, put against ten runs of this room, each measured over its last hour. Click a run to load it above, or set your own. “High P, no I”: with lag and a high gain, the room does just what the page says, a swing across the target, centred short of it, that never settles. Nearer the edge it swings below the target, and with no lag it simply settles short. “With I it converges”: not here. Add I to the high-P room and it still swings; D settles it, as the page’s own D paragraph says. And too much I makes a swing of its own.',
       eq1: ['steady-state error: the room settles, off the target', 'what P alone leaves, in every room here'],
-      eq2: ['oscillation: the room never settles', 'what lag and a high gain make, and what too much I makes; with P alone it swings around the offset, not the target'],
-      tryText: 'Pick the last row and turn Kd to 0, then Ki up past 0.06. Which half of the page’s sentence is about P, and which is about lag?' }
+      eq2: ['oscillation: the room never settles', 'what lag and a high gain make, and too much I; memory removes an offset, but it does not calm a swing'],
+      tryText: 'Load Kp 2 with Ki 0.02, then walk Kd up to 1 and watch it settle. Then load the last row and turn Ki past 0.06. Which part of the swing did memory fix?' }
   ];
 
   var Q = '“[P:] This alone creates <em>oscillation</em>.” … “A system with high P gain but no I term will always have steady-state error. It will oscillate around the target, never settling. A system with I term will converge.” · the page, § Control Theory Translation';
@@ -326,11 +336,11 @@ function roomHz(T){ return 220 + Math.max(-40, Math.min(40, 2 * (T - LE.R))); }
       h.push('heater at <b>' + c.manual.toFixed(3) + '</b> → the room settles at <b>' + f2(before) + ' °C</b>' + (c.window ? ' before the window, <b>' + f2(after) + ' °C</b> after it' : ''));
       h.push('at the end of four hours: <b>' + f2(an.finalT) + ' °C</b>, ' + (Math.abs(an.offset) <= 0.05 ? 'on the target' : f2(Math.abs(an.offset)) + (an.offset > 0 ? ' below' : ' above') + ' the target'));
     } else {
-      h.push('the last hour: <b>' + describe(an) + '</b>');
+      h.push('the last hour: <b>' + describe(an, c.ki) + '</b>');
       h.push('overshoot before the window: <b>' + f2(an.overshoot) + ' °C</b> above 20' + (an.overshoot < 0.005 ? ', it never crosses the target' : ''));
       if (c.ki === 0 && c.kd === 0 && c.window) h.push('P alone, where the sum says it rests: <i>' + f2(LE.R - pOffset(c.kp)) + ' °C</i>, ' + f2(pOffset(c.kp)) + ' short' + (an.state !== 'settled' ? ' (the swing is centred near it, not on 20)' : ''));
       if (c.ki > 0) h.push('the share from memory at the end: <b>' + trace.iTerm[trace.iTerm.length - 1].toFixed(3) + '</b>' + (c.window ? ' · the loss needs 0.667' : ' · the loss needs 0.500'));
-      if (s.test){ var v = fits(an); h.push('the page’s sentence, on your run: <b>' + v.word + '</b> · ' + v.why); }
+      if (s.test){ var v = fits(an); h.push('the page’s “high P, no I” sentence, on your run: <b>' + v.word + '</b> · ' + v.why); if (c.ki > 0) h.push('“with I term will converge”, on your run: <b>' + (converges(an) ? 'yes' : 'no') + '</b>'); }
     }
     $('meter').innerHTML = h.join('<br>');
   }
@@ -341,7 +351,7 @@ function roomHz(T){ return 220 + Math.max(-40, Math.min(40, 2 * (T - LE.R))); }
     LE.RUNS.forEach(function(run, i){
       var a = analyze(simulate({ lag: run.lag, kp: run.kp, ki: run.ki, kd: run.kd, manual: null, window: true })), v = fits(a);
       var tr = document.createElement('tr'); tr.className = 'pick' + (i === picked ? ' on' : ''); tr.tabIndex = 0;
-      tr.innerHTML = '<td>' + run.name + '</td><td>' + f2(a.overshoot) + ' °C</td><td>' + describe(a) + '</td><td>' + (v.word === 'yes' ? '<b>yes</b>' : v.word === 'half' ? '<i>half</i>' : 'no') + ' · ' + v.why + '</td>';
+      tr.innerHTML = '<td>' + run.name + '</td><td>' + f2(a.overshoot) + ' °C</td><td>' + describe(a, run.ki) + '</td><td>' + (v.word === 'yes' ? '<b>yes</b>' : v.word === 'half' ? '<i>half</i>' : 'no') + ' · ' + v.why + '</td><td>' + (run.ki > 0 ? (converges(a) ? 'yes' : '<i>no</i>') : '—') + '</td>';
       var load = function(){ picked = i; setPlant(run.lag); $('kp').value = run.kp; $('ki').value = run.ki; $('kd').value = run.kd; $('win').checked = true; table(); recompute(); };
       tr.addEventListener('click', load); tr.addEventListener('keydown', function(e){ if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); load(); } });
       tb.appendChild(tr);
@@ -389,10 +399,10 @@ function roomHz(T){ return 220 + Math.max(-40, Math.min(40, 2 * (T - LE.R))); }
     if (s.kpMax) $('kp').max = s.kpMax;
     // each step opens on its own example
     setPlant(s.lag); $('win').checked = true;
-    var start = [ { manual: 0.5 }, { kp: 0.2 }, { kp: 0.4 }, { kp: 0.2, ki: 0.02 }, { kp: 0.4, ki: 0.04, kd: 0 }, { kp: 0.2, ki: 0.07, kd: 0 } ][i];
+    var start = [ { manual: 0.5 }, { kp: 0.2 }, { kp: 0.4 }, { kp: 0.2, ki: 0.02 }, { kp: 0.4, ki: 0.04, kd: 0 }, { kp: 2, ki: 0.02, kd: 0 } ][i];
     if (start.manual != null) $('manual').value = start.manual;
     if (start.kp != null) $('kp').value = start.kp; if (start.ki != null) $('ki').value = start.ki; if (start.kd != null) $('kd').value = start.kd;
-    if (s.test) picked = 6;
+    if (s.test) picked = 5;
     $('quote').hidden = !(i === 1 || i === 2 || s.test); $('quote').innerHTML = Q;
     $('runs').hidden = !s.test; if (s.test) table();
     $('back').disabled = i === 0; $('next').disabled = i === STEPS.length - 1;
