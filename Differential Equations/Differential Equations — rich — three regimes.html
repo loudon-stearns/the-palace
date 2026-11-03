@@ -115,7 +115,7 @@
 
   <section class="step">
     <h3>Turn ζ</h3>
-    <p class="teach">ζ is the friction, measured against the spring. Turn it and the same equation does three jobs at once. Struck at 220 Hz, it is a pluck. Fed noise, it is a resonant filter at 660 Hz. Slowed to 3 Hz and fed a held note's on and off, it is an envelope on a tone. Try each job at a few values of ζ: below 1 all three ring, at 1 all three stop clean, above 1 all three go slow.</p>
+    <p class="teach">ζ is the friction, measured against the spring. Turn it and the same equation does three jobs at once. Struck at 220 Hz, it is a pluck. Fed noise, it is a resonant filter at 660 Hz. Slowed to 3 Hz and fed a held note's on and off, it is an envelope on a tone. Try each job at a few values of ζ: below 1 all three ring (close to 1, too little for an ear to catch), at 1 all three stop clean, above 1 all three go slow.</p>
     <div class="eqs">
       <div class="eq">ζ &lt; 1 rings &nbsp;·&nbsp; ζ = 1 critical &nbsp;·&nbsp; ζ &gt; 1 sluggish</div>
       <div class="words">(below one, the spring wins and it swings) · (at one, the fastest return that never passes) · (above one, the friction wins and it crawls).</div>
@@ -132,7 +132,8 @@
 
   <section class="step">
     <h3>Where does ringing stop?</h3>
-    <p class="teach">The section makes four claims about this equation. Below ζ = 1 it oscillates. At ζ = 1 it is the fastest approach with no overshoot. Above 1 it is slower. And a struck one rings "at its natural frequency ω<sub>n</sub>, damped at rate ζ". Each is measured below on the engine you have been hearing: every ζ pulled from 0 to 1, and struck at 220 Hz.</p>
+    <p class="teach">The section makes four claims about this equation. Three of them, that below ζ = 1 it overshoots, that ζ = 1 is the fastest return with none, and that above 1 it is slower, follow from the equation's own algebra: the overshoot is e<sup>−πζ/√(1−ζ²)</sup>, above zero for every ζ below 1. The engine can show those, not discover them. The fourth could come out either way: a struck one rings "at its natural frequency ω<sub>n</sub>, damped at rate ζ". So could a question the section leaves open: is "no overshoot" really the fastest way to arrive?</p>
+    <p class="teach">The rules, set before the run. A swing has <i>arrived</i> once it stays within 2% of its target for good; it <i>overshoots</i> if it ever passes the target at all. Pitch is counted from the ring's zero crossings and its fade from the slope of its peaks, struck at ω<sub>n</sub> = 220 Hz. Every ζ is pulled from 0 to 1 on the engine you have been hearing.</p>
     <div class="panel"><div class="plabel"><span>time to settle within 2% (solid) and overshoot (dashed), against ζ</span><span>click to hear the envelope job at that ζ</span></div><canvas id="s4cv" style="cursor:crosshair"></canvas></div>
     <table class="meas"><thead><tr><th>ζ</th><th>regime</th><th>overshoot</th><th>settles within 2% after</th><th>struck at ω<sub>n</sub> = 220 Hz, rings at</th><th>ω<sub>n</sub>√(1 − ζ²)</th><th>fades at</th><th>ζω<sub>n</sub></th></tr></thead><tbody id="s4t"></tbody></table>
     <div class="verdict" id="s4v"></div>
@@ -140,7 +141,7 @@
       <button class="go" id="s4a">▸ envelope · ζ 0.78</button><button class="go" id="s4b">▸ envelope · ζ 1</button><button class="go" id="s4c">▸ envelope · ζ 1.5</button>
     </div></div>
     <div class="panel"><div class="plabel"><span>what you hear</span><span id="s4r"></span></div><canvas id="s4cv2"></canvas></div>
-    <p class="note">Settling is read as the last moment the curve is more than 2% from its target, at steps of 0.002/ω<sub>n</sub>. The ring's pitch is counted from its zero crossings, its fade from the slope of its peaks; a heavily damped swing passes too few crossings to count, so those cells stay empty.</p>
+    <p class="note">Settling is read at steps of 0.002/ω<sub>n</sub>. The ring's pitch is counted from its zero crossings, its fade from the slope of its peaks; a heavily damped swing passes too few crossings to count, so those cells stay empty.</p>
   </section>
 
   <nav class="walk"><button id="back">← back</button><button id="next">next step →</button><span class="where" id="where"></span></nav>
@@ -235,6 +236,7 @@ function playBuffer(buf, sr) {
   const f = Float32Array.from(buf); b.copyToChannel(f, 0); b.copyToChannel(f, 1);
   const s = c.createBufferSource(); s.buffer = b; s.connect(SND.out); s.start(); SND.src = s; s.onended = () => { if (SND.src === s) SND.src = null; };
 }
+function fadeTail(buf, sr, ms = 20) { const n = Math.min(buf.length >> 1, Math.floor(sr * ms / 1000)); for (let i = 0; i < n; i++) buf[buf.length - 1 - i] *= i / n; return buf; } // a strike starts from zero, so only its end is faded
 function fade(buf, sr, ms = 20) { const n = Math.min(buf.length >> 1, Math.floor(sr * ms / 1000)); for (let i = 0; i < n; i++) { buf[i] *= i / n; buf[buf.length - 1 - i] *= i / n; } return buf; }
 function walk(steps) {
   const rail = $('rail'); let cur = 0;
@@ -311,7 +313,7 @@ $('s1go').onclick = () => { const sr = soundOn(), tau = tauOf(+$('s1t').value), 
 function strike(zeta, sr, secs = 2.5, f = 220) { const w = TWO_PI * f; return run(secondOrder(w, zeta, 1 / sr), Math.round(sr * secs), 0, [0, w]); }
 function s2(play) { const sr = play ? soundOn() : 48000, y = strike(0.01, sr), out = y.map(v => 0.38 * v);
   const m = ringMeasure(0.01, 220, sr); $('s2f').textContent = fmt(m.fm, 2) + ' Hz'; $('s2d').textContent = fmt(m.sm, 1) + ' /s, gone (−60 dB) in ' + fmt(6.9078 / m.sm, 2) + ' s';
-  drawSound($('s2cv'), out, sr); if (play) playBuffer(fade(out, sr, 5)); }
+  drawSound($('s2cv'), out, sr); if (play) playBuffer(fadeTail(out, sr, 5)); }
 $('s2go').onclick = () => s2(true);
 
 // ───────── step 3: turn ζ ─────────
@@ -319,7 +321,7 @@ const zetaOf = v => 0.01 * Math.pow(300, v); // 0.01 to 3
 let s3jobName = '';
 function job(name, zeta, sr) {
   const secs = 2.6, n = Math.round(sr * secs);
-  if (name === 'strike') return fade(strike(zeta, sr, secs).map(v => 0.38 * v), sr, 5);
+  if (name === 'strike') return fadeTail(strike(zeta, sr, secs).map(v => 0.38 * v), sr, 5);
   if (name === 'filter') { let s = 12345; const rnd = () => { s ^= s << 13; s >>>= 0; s ^= s >> 17; s ^= s << 5; s >>>= 0; return s / 4294967296 * 2 - 1; };
     const y = run(secondOrder(TWO_PI * 660, zeta, 1 / sr), n, () => rnd(), [0, 0]); let z = 0; for (const v of y) z += v * v; const g = 0.12 / Math.sqrt(z / n); return fade(y.map(v => v * g), sr, 30); }
   const st = secondOrder(TWO_PI * 3, zeta, 1 / sr), s = [0, 0], tn = tone(sr, n), out = new Float64Array(n);
@@ -379,11 +381,11 @@ function s4table() {
   const c1 = under.every(r => r.os > 1e-9), c2 = crit.os <= 1e-9 && over.every(r => r.os <= 1e-9 && r.st > crit.st);
   const rr = under.filter(r => r.r && Number.isFinite(r.r.fm)), c4 = rr.every(r => Math.abs(r.r.fm - r.r.fd) < 0.01 && Math.abs(r.r.sm / r.r.s - 1) < 1e-3);
   const r3 = rows.find(r => r.z === 0.3);
+  const below = stepMeasure(Math.round((best.z - 0.005) * 1000) / 1000);
   $('s4v').innerHTML =
-    (c1 ? 'Every ζ below 1 overshoots, even 0.9 (by ' + (rows.find(r => r.z === 0.9).os * 100).toFixed(2) + '%). ' : 'An underdamped row did not overshoot. ') +
-    (c2 ? 'At ζ = 1 the overshoot is zero and it settles within 2% after ' + crit.st.toFixed(2) + '/ω<sub>n</sub>; every ζ above 1 is slower (' + over.map(r => r.st.toFixed(1)).join(', ') + '). <b>The section’s three regimes hold.</b> ' : 'The critical row is not the fastest of those that never overshoot. ') +
-    'One thing the section leaves open: allow a 2% bump and ζ = ' + best.z.toFixed(2) + ' settles after ' + best.st.toFixed(2) + '/ω<sub>n</sub>, ' + Math.round((1 - best.st / crit.st) * 100) + '% sooner than critical, overshooting ' + (best.os * 100).toFixed(1) + '%. ' +
-    (c4 ? 'And a struck swing does not ring at ω<sub>n</sub>: it rings at ω<sub>n</sub>√(1 − ζ²), ' + r3.r.fm.toFixed(2) + ' Hz at ζ = 0.3, ' + Math.abs(cents(r3.r.fm, 220)).toFixed(0) + ' cents flat of 220, and it fades at ζω<sub>n</sub> per second, not at ζ. The ear forgives it: where the gap is wide the ring is too short to carry a pitch (at ζ = 0.3 it is gone, −60 dB, in ' + (6.9078 / r3.r.sm * 1000).toFixed(0) + ' ms), and below ζ = 0.05, where a plucked string lives, the gap is under 3 cents.' : 'The ring did not match ω_n√(1 − ζ²).');
+    (c4 ? '<b>A struck swing does not ring at ω<sub>n</sub>, and ζ is not its rate.</b> It rings at ω<sub>n</sub>√(1 − ζ²), ' + r3.r.fm.toFixed(2) + ' Hz at ζ = 0.3, ' + Math.abs(cents(r3.r.fm, 220)).toFixed(0) + ' cents flat of 220, and fades at ζω<sub>n</sub> per second. The ear forgives it: where the gap is wide the ring is too short to carry a pitch (at ζ = 0.3 it is gone, −60 dB, in ' + (6.9078 / r3.r.sm * 1000).toFixed(0) + ' ms), and below ζ = 0.05, where a plucked string lives, the gap is under 3 cents. ' : 'The ring did not match ω<sub>n</sub>√(1 − ζ²). ') +
+    '<b>And no overshoot is not the fastest way to arrive.</b> Allow the 2% band and ζ = ' + best.z.toFixed(3) + ' settles after ' + best.st.toFixed(2) + '/ω<sub>n</sub>, ' + Math.round((1 - best.st / crit.st) * 100) + '% sooner than critical, its one bump (' + (best.os * 100).toFixed(1) + '%) just inside the band. It is a cliff: at ζ = ' + below.zeta.toFixed(3) + ' the bump leaves the band and settling jumps to ' + below.settle.toFixed(2) + '/ω<sub>n</sub>, and the best ζ moves with the band you call arrived. ' +
+    (c1 && c2 ? 'The algebra’s three claims show as they must: every ζ below 1 overshoots, even 0.9 (by ' + (rows.find(r => r.z === 0.9).os * 100).toFixed(2) + '%), ζ = 1 never does and settles after ' + crit.st.toFixed(2) + '/ω<sub>n</sub>, and every ζ above 1 is slower (' + over.map(r => r.st.toFixed(1)).join(', ') + ').' : 'The engine broke one of the algebra’s three claims, which means the engine is wrong.');
 }
 function hearEnv(z, label) { const sr = soundOn(), b = job('env', z, sr); playBuffer(b); drawSound($('s4cv2'), b, sr, { zoom: 0.6, zoomAt: 0.1 }); $('s4r').textContent = label; }
 $('s4cv').onclick = e => { if (!s4data) return; const m = s4draw.map, r = $('s4cv').getBoundingClientRect(), u = (e.clientX - r.left - m.L) / (m.W - m.L - m.R); const z = 0.05 * Math.pow(60, Math.max(0, Math.min(1, u))); hearEnv(z, 'envelope · ζ ' + (z < 0.1 ? z.toFixed(3) : z.toFixed(2))); };

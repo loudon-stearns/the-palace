@@ -53,6 +53,8 @@ const B = engine('Differential Equations — rich — one step at a time.html', 
 { // step 2: forward Euler's bound, N > π/ζ
   const W2 = B.TWO_PI * 220, Z2 = 6.9078 / 2 / W2, A2 = B.sysA(W2, Z2), at = N => B.predict(B.RULES.euler.M(A2, 1 / (220 * N)), 1 / (220 * N)).sigma;
   yes('step 2 · forward Euler holds the 2 s ring only above π/ζ ≈ 1257 steps per cycle', at(1200) < 0 && at(1320) > 0, 'σ ' + at(1200).toFixed(3) + ' at 1200, ' + at(1320).toFixed(3) + ' at 1320');
+  const t60at = N => { const h = 1 / (220 * N), q = B.predict(B.RULES.euler.M(A2, h), h); return B.T60(q.sigma); };
+  yes('step 2 · …but stopping the growth is not holding the ring: about 3,700 s at 1,258 a cycle, near 2 s only at ~13,900', near(t60at(1258), 3700, 300) && t60at(13900) <= 2.2 && t60at(13000) > 2.2, t60at(1258).toFixed(0) + ' s, ' + t60at(13900).toFixed(3) + ' s');
   // the joined sound carries the rule's pitch and nothing else
   for (const rule of ['backward', 'symplectic', 'trapezoid']) { const N = 23, h = 1 / (220 * N), M = B.RULES[rule].M(A2, h), p = B.predict(M, h), r = B.stepRing(M, Math.ceil(2.4 * 220 * N), [0, W2, 1], 3), y = B.joinSteps(r.y, 220 * N, 48000, 48000 * 2.4);
     const fm = B.ringFreq(y.subarray(2400, 96000), 48000); yes(`step 3 · ${rule} at 23 per cycle: the joined sound rings at the rule’s own pitch`, near(B.cents(fm, p.f), 0, 0.1), B.cents(fm, p.f).toFixed(3) + ' ¢ off the matrix'); } }

@@ -86,7 +86,7 @@
 
   <section class="step">
     <h3>One step</h3>
-    <p class="teach">The fade from the first piece, τ · <i>dy</i>/<i>dt</i> + <i>y</i> = <i>u</i>, taken in steps. At each step the engine reads the slope where the level stands, walks one step along it, and reads again. The straight walk misses the curve a little each time. Make the step bigger and hear it: the level moves in stairs, and below one step per τ it arrives late.</p>
+    <p class="teach">The fade from the first piece, τ · <i>dy</i>/<i>dt</i> + <i>y</i> = <i>u</i>, taken in steps. At each step the engine reads the slope where the level stands, walks one step along it, and reads again. The straight walk misses the curve a little each time. Make the step bigger and hear it: the level moves in stairs and arrives early, ahead of the curve, and past one step per τ it overshoots.</p>
     <div class="eqs">
       <div class="eq"><i>y</i><sub>next</sub> = <i>y</i> + <i>h</i> · (<i>u</i> − <i>y</i>) / τ</div>
       <div class="words">(the level after one step) = (the level now) + (the step, <i>h</i>) × (the slope the rule gives here). This is Euler's step. The true curve would have kept e<sup>−<i>h</i>/τ</sup> of the gap; this keeps 1 − <i>h</i>/τ.</div>
@@ -102,7 +102,7 @@
 
   <section class="step">
     <h3>Step a swing</h3>
-    <p class="teach">Now the same walk on a swing: the page's second-order equation, a 220 Hz ring that should fade over two seconds. Euler's step goes straight along the circle's edge, so it always lands a little outside it. Every step the swing grows. Count the steps per cycle down and hear how soon it runs away.</p>
+    <p class="teach">Now the same walk on a swing: the page's second-order equation, a 220 Hz ring that should fade over two seconds. Euler's step goes straight along the circle's edge, so it always lands a little outside it. Every step the swing grows, and only friction can pay it back. Count the steps per cycle down and hear how soon it runs away.</p>
     <div class="eqs">
       <div class="eq">size after one step = √(1 + (ω<i>h</i>)²) × size before</div>
       <div class="words">(how big the swing is after a step) = (the square root of one, plus the angle the step should turn, squared) × (how big it was). It is always more than one, so friction has to pay it back every step or the ring grows.</div>
@@ -111,7 +111,7 @@
       <div class="btns"><button class="go" id="s2go">▸ hear it</button></div>
       <label class="sl">steps per cycle = <b id="s2nv"></b><input id="s2n" type="range" min="0" max="1" step="0.001" value="0.33"></label>
     </div>
-    <div class="read"><span>each cycle the swing becomes <b id="s2g"></b></span><span id="s2b"></span><span>to hold the 2 s ring it needs <b id="s2need"></b> steps per cycle</span></div>
+    <div class="read"><span>each cycle the swing becomes <b id="s2g"></b></span><span id="s2b"></span><span>it stops growing above <b id="s2need"></b> steps a cycle, and rings near its true 2 s only at about <b id="s2near"></b></span></div>
     <div class="grid2">
       <div class="panel"><div class="plabel"><span>position against speed · two cycles</span><span>circle: the true swing</span></div><canvas id="s2pp"></canvas></div>
       <div class="panel"><div class="plabel"><span>what you hear</span><span id="s2r"></span></div><canvas id="s2cv"></canvas></div>
@@ -121,7 +121,7 @@
 
   <section class="step">
     <h3>Other ways to take the step</h3>
-    <p class="teach">Euler isn't the only step. Read the slope at the end of the step instead of the start, and the swing shrinks instead of grows. Update the speed first and use the new speed for the position, and the size holds but the pitch drifts. Average the two ends, and the size holds and the pitch drifts the other way. Runge–Kutta reads the slope four times a step. And for a linear equation there is an exact step, which is the same difference equation every digital resonator runs. Each rule's error has a sign and a sound.</p>
+    <p class="teach">Euler isn't the only step. Read the slope at the end of the step instead of the start, and the swing shrinks instead of grows. Update the speed first and use the new speed for the position, and the size holds but the pitch drifts. Average the two ends, and the size holds and the pitch drifts the other way. Runge–Kutta reads the slope four times a step. And for a linear equation there is an exact step, which is the difference equation a modal resonator runs. Each rule's error has a sign and a sound.</p>
     <div class="eqs">
       <div class="eq">(<i>y</i>, <i>v</i>)<sub>next</sub> = <b>M</b> · (<i>y</i>, <i>v</i>)</div>
       <div class="words">(position and speed after one step) = (a two-by-two table of numbers each rule fixes) × (position and speed now). The table turns the swing by some angle each step, which is its pitch, and scales it by some amount, which is its fade. A rule's whole error is how far those two are from the true ones.</div>
@@ -142,6 +142,7 @@
   <section class="step">
     <h3>At 48 kHz, does it matter?</h3>
     <p class="teach">The page asks how much the difference matters for audio. A real engine steps once a sample, so what counts is how many samples each cycle gets. A struck bar has five partials, each its own copy of the page's equation, and the top ones get few samples: at 48 kHz a 440 Hz bar's fifth partial, near 5.9 kHz, gets eight. Pick a rule; each partial is stepped at the real sample rate, then its pitch and ring are read off the sound.</p>
+    <p class="teach">The rule, set before the run: a step rule <i>passes</i> on a partial if its pitch is within 5 cents of the exact one and its ring within 10% of the exact ring; it <i>fails</i> if it misses either, or runs away. The difference matters at a rate and pitch where some rule fails.</p>
     <div class="controls">
       <div class="btns" id="s4rules"></div>
     </div>
@@ -155,7 +156,7 @@
       <div class="panel"><div class="plabel"><span>what you hear</span><span id="s4r"></span></div><canvas id="s4cv"></canvas></div>
     </div>
     <div class="verdict" id="s4v"></div>
-    <p class="note">Each partial is a strike, stepped at the rate shown and played at it. A partial that passes three times its strike is cut, as a real engine would clip. The level is held so the exact bell peaks well below full scale, and a runaway rule is caught by a soft ceiling, so a blow-up is louder than the bell but never at full level. Pitch is counted from zero crossings and the ring from the slope of the level, both on the sound; the last column is what the rule's own matrix says they should be.</p>
+    <p class="note">Each partial is a strike, stepped at the rate shown and played at it. A partial that passes three times its strike is cut, as a real engine would clip. The level is linear up to a knee the exact bell never reaches, so the exact bell is heard unbent; a runaway rule rides a soft ceiling above it, louder than the bell but never at full level. Pitch is counted from zero crossings and the ring from the slope of the level, both on the sound; the last column is what the rule's own matrix says they should be.</p>
   </section>
 
   <nav class="walk"><button id="back">← back</button><button id="next">next step →</button><span class="where" id="where"></span></nav>
@@ -367,12 +368,16 @@ function ringReadout(c, sr) { // pitch and ring, measured from the sound, agains
   const px = predict(RULES.exact.M(sysA(W2, Z2), c.h), c.h), fm = ringFreq(c.blewAt ? c.y.subarray(0, Math.round(c.blewAt * sr * 0.98)) : c.y, sr), sm = decayRate(c.blewAt ? c.y.subarray(0, Math.round(c.blewAt * sr * 0.98)) : c.y, sr, F2);
   return { px, fm, sm };
 }
+function nearTrue() { // the fewest steps a cycle at which Euler's ring lasts within 10% of the true 2 s
+  const A = sysA(W2, Z2), t = N => { const h = 1 / (F2 * N), p = predict(RULES.euler.M(A, h), h); return p.sigma > 0 ? T60(p.sigma) : Infinity; };
+  let lo = Math.ceil(Math.PI / Z2), hi = 1e6; while (hi - lo > 1) { const m = (lo + hi) >> 1; if (t(m) <= RING_T60 * 1.1) hi = m; else lo = m; } return Math.ceil(hi / 100) * 100; }
 function s2(play) {
   const N = nOf(+$('s2n').value); $('s2nv').textContent = N;
   const sr = play ? soundOn() : 48000, c = coarse('euler', N, sr), perCycle = Math.pow(c.pr.r, N);
   $('s2g').textContent = '× ' + (perCycle < 100 ? perCycle.toFixed(4) : perCycle.toExponential(2));
   $('s2b').innerHTML = c.blewAt !== null ? '<span class="grow">● past 3× its strike after ' + ms(c.blewAt) + '</span>' : '<span class="ok">● stays inside 3× for the whole ring</span>';
-  $('s2need').textContent = Math.ceil(Math.PI / Z2); // Euler's step is stable only while friction pays for it: N > π / ζ
+  $('s2need').textContent = Math.ceil(Math.PI / Z2).toLocaleString('en'); // Euler's step is stable only while friction pays for it: N > π / ζ
+  $('s2near').textContent = nearTrue().toLocaleString('en') + ' (within 10%)';
   drawPhase($('s2pp'), c.M, N, W2);
   const ex = coarse('exact', 64, sr);
   drawLevel($('s2cv'), [{ buf: c.y, color: C.amb, label: 'Euler · ' + N + ' per cycle' }, { buf: ex.y, color: 'rgba(168,224,64,.7)', label: 'the true ring' }], sr, 2.4);
@@ -404,7 +409,8 @@ function pick(el, opts, cur, on) { el.innerHTML = ''; for (const [v, label] of o
 pick($('s4f0'), [[220, 'bar at 220 Hz'], [440, '440 Hz'], [880, '880 Hz']], () => s4f0, v => { s4f0 = v; s4(false); });
 pick($('s4sr'), [[24000, '24 kHz'], [48000, '48 kHz'], [96000, '96 kHz']], () => s4sr, v => { s4sr = v; s4(false); });
 function mixBell(parts, n) { const out = new Float64Array(n); for (const p of parts) { const k = Math.min(n, p.y.length), f = Math.round(s4sr * 0.004); for (let i = 0; i < k; i++) out[i] += p.y[i] * (p.blew >= 0 && i > k - f ? (k - i) / f : 1); } return out; }
-function bellOut(parts, secs) { const n = Math.round(s4sr * secs), m = mixBell(parts, n); return m.map(v => 0.6 * Math.tanh(0.45 * v)); }
+// Linear below a knee the exact bell can't reach (its five strikes sum to at most 2.43), soft above it for the runaways
+function bellOut(parts, secs) { const n = Math.round(s4sr * secs), m = mixBell(parts, n), K = 0.3; return m.map(v => { const y = 0.12 * v, a = Math.abs(y); return a <= K ? y : Math.sign(y) * (K + 0.2 * Math.tanh((a - K) / 0.2)); }); }
 function drawCents(cv, parts) { // one row a partial; the exact pitch is the centre line, the rule's lands left (flat) or right (sharp)
   const [g, W, H] = fitCanvas(cv, 170), L = 64, span = 100, X = c => L + (W - L - 12) * (0.5 + Math.max(-span, Math.min(span, c)) / (2 * span)), row = (H - 24) / parts.length;
   g.clearRect(0, 0, W, H);
@@ -436,13 +442,18 @@ function s4(play, which) {
     say[k] = k === 'backward' ? nm + ' kills it: the top partial rings ' + ms(t) + ' instead of ' + ms(T60(top.sx)) + ', and even the fundamental only ' + ms(T60(f0.pr.sigma))
       : k === 'symplectic' ? nm + ' keeps every ring and sharpens the top partial ' + sgn(c) + ' ¢'
       : k === 'trapezoid' ? 'the trapezoid flattens it ' + sgn(c) + ' ¢ and rings it ' + ms(t)
-      : k === 'rk4' ? nm + ' is within ' + Math.abs(c).toFixed(1) + ' ¢ but rings it ' + ms(t) + ' instead of ' + ms(T60(top.sx))
+      : k === 'rk4' ? nm + ' is off by about ' + Math.abs(c).toFixed(1) + ' ¢ but rings it ' + ms(t) + ' instead of ' + ms(T60(top.sx))
       : k === 'exact' ? 'the exact step is off by ' + Math.abs(c).toFixed(3) + ' ¢ and rings it ' + ms(t)
       : nm + ' moves it ' + sgn(c) + ' ¢ and rings it ' + ms(t);
   }
   const top = all[0].top;
+  // the rule stated before the trial: within 5 cents and within 10% of the exact ring, on every partial
+  const passes = p => !(p.blew >= 0) && p.pr.ring && p.pr.sigma > 0 && Math.abs(cents(Number.isFinite(p.fm) ? p.fm : p.pr.f, p.fx)) <= 5 && Math.abs(T60(Number.isFinite(p.sm) && p.sm > 0 ? p.sm : p.pr.sigma) / T60(p.sx) - 1) <= 0.1;
+  const pass = all.filter(r => r.ps.every(passes)), fail = all.filter(r => !r.ps.every(passes));
+  const firstFail = r => r.ps.find(p => !passes(p)), nm = k => (k === 'exact' ? 'the ' : '') + RULES[k].name, and = a => a.length < 2 ? a.join('') : a.slice(0, -1).join(', ') + ' and ' + a[a.length - 1];
   $('s4v').innerHTML = 'At ' + (s4sr / 1000) + ' kHz, a bar at ' + s4f0 + ' Hz, whose top partial gets ' + top.steps.toFixed(1) + ' samples a cycle: ' + say.euler + '; ' + say.backward + '; ' + say.symplectic + '; ' + say.trapezoid + '; ' + say.rk4 + '; ' + say.exact + '. ' +
-    '<b>So it matters, partial by partial, and it depends on the rule more than on the step:</b> the error grows as a partial gets fewer samples a cycle, each rule’s error has its own sign, and for a linear equation like this one the exact step costs the same as Euler’s while its settings hold still, and leaves nothing to hear. The approximation is a choice, not a fact of being digital. For a nonlinear equation there is no exact step, and the error comes back.';
+    '<b>By the rule above, ' + (pass.length ? and(pass.map(r => nm(r.k))) + ' pass' + (pass.length === 1 ? 'es' : '') + ' on every partial' : 'no rule passes on every partial') + (fail.length ? '; ' + and(fail.map(r => nm(r.k) + ' fails first at ' + firstFail(r).f.toFixed(0) + ' Hz')) : '') + '. ' + (fail.length ? 'So here it matters, and the rule decides as much as the rate.' : 'So here it does not matter: every rule is inside the line.') + '</b> ' +
+    'The error grows as a partial gets fewer samples a cycle, and each rule’s error has its own sign. For a linear equation left to ring, an exact step exists, costs the same as Euler’s while its settings hold still, and leaves nothing to hear; driven, it is exact only for an input held between samples. For a nonlinear equation there is no exact step, and the error comes back.';
   if (play) { const sr = soundOn(), buf = which === 'exact' ? bellOut(bellPartials(s4f0, s4sr, 'exact', secs), secs) : bellOut(parts, secs); playBuffer(fade(buf, s4sr, 3), s4sr); $('s4r').textContent = 'playing: ' + (which === 'exact' ? 'exact' : RULES[s4rule].name) + ' · ' + s4f0 + ' Hz bar at ' + s4sr / 1000 + ' kHz'; }
   const ex = which === 'exact' ? null : bellOut(bellPartials(s4f0, s4sr, 'exact', secs), secs);
   drawLevel($('s4cv'), [{ buf: bellOut(parts, secs), color: C.amb, label: RULES[s4rule].name }, { buf: ex || bellOut(bellPartials(s4f0, s4sr, 'exact', secs), secs), color: 'rgba(168,224,64,.7)', label: 'exact' }], s4sr, secs);
