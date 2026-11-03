@@ -83,7 +83,18 @@
         }
       ],
       "made_against": "7ae2a16fa1ee",
-      "stamped": "2026-11-03"
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Quadratic Interpolation in DSP — rich — the joints.html",
+            "verdict": "keep",
+            "why": "A real test that could have come out the other way: chained, the page’s three-point quadratic jumps in slope at every sample by −½ × the third difference (derived symbolically; 29.3/7.6/1.9% vs linear 82.8/39.8/19.7% recomputed), while Hermite and the chained Bézier are C¹. Walks up from one parabola; note only that the jump formula shows at step 3, one step before the test."
+          }
+        ]
+      }
     },
     {
       "heading": "Three Audio Applications",
@@ -117,7 +128,23 @@
         }
       ],
       "made_against": "55e39d37a98e",
-      "stamped": "2026-11-03"
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Quadratic Interpolation in DSP — rich — the table read.html",
+            "verdict": "remake",
+            "why": "Numbers all reproduce, but the cost half of the test leans on a 9-multiply Hermite; the common form (5 multiplies, 10 adds) is the same curve to 1e-15, so ‘about half the arithmetic’ / ‘twice the arithmetic’ must be recounted in the ops table, verdict and caption. And the headline ‘not for how close it lands’ reads as a correction, though the page already says cubic is ‘even closer’: reframe as the page’s concession measured (9–12 dB), with the time shift as the new finding."
+          },
+          {
+            "file": "Quadratic Interpolation in DSP — rich — the peak between bins.html",
+            "verdict": "keep",
+            "why": "Tests the formula as written and finds its sign flipped: page = −vertex exactly; 438.28 Hz true, tallest 433.59, vertex 435.81, page 431.38, all recomputed by FFT. Walks up from a sine on a bin to the test, and the beats make the miss audible."
+          }
+        ]
+      }
     },
     {
       "heading": "The Organic Imprecision Argument",
@@ -140,7 +167,18 @@
         }
       ],
       "made_against": "8ce484f12b6d",
-      "stamped": "2026-11-03"
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "/Projects/Portamento and Physical Pitch Modeling/threshold/overshoot-threshold.html",
+            "verdict": "keep",
+            "why": "A listener can answer ‘all sour’, so it tests Loudon’s suggestion that overshoot reads as alive; it walks from ‘can you hear it’ to ‘alive or sour’. The caption honestly says it sets overshoot against a clean landing, not the quadratic ramp; contract {} holds (no storage, fetch or host found)."
+          }
+        ]
+      }
     }
   ]
 }
