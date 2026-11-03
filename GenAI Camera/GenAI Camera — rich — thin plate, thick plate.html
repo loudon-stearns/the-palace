@@ -1,0 +1,176 @@
+<!doctype html>
+<!--
+  title: GenAI Camera — rich — thin plate, thick plate
+  born: 2026-11-03
+  links: [[GenAI Camera]] (connects-to · rich-face-piece) · listed in [[GenAI Camera — rich.json]] · serves § Gotchas & recipes (accumulated 2026-07-09) · gathers renders 019, 020 and 022
+  forward_vector: I am the page's pose-plate gotcha, walked up from two drawings of one skeleton: the hand-rolled stick figure and the controlnet_aux plate, then the record's own check with the skeleton laid over each drawing, and last the same barbarian sweep run on each plate, so a reader can see where the thin plate let the stance go and where depth was holding it anyway. I run no model; I read the bundle's own renders, and I change only when the section I serve does.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:needs" content="">
+<meta name="piece:files" content="renders/render_020.png renders/render_020_thin_plate.png renders/render_020_thick_plate.png renders/render_019.png renders/render_022.png rich-face/pose-skeletons.png">
+<title>GenAI Camera — thin plate, thick plate</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Manrope:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root { --bg:#0a0a0f; --e1:#12121a; --border:#4a4a5e; --soft:rgba(255,255,255,.06); --fg1:#e8e8f0; --fg2:#c8c8d8; --fg3:#8a8aa0; --fg4:#4a4a5a;
+    --amber:#e8b84a; --amberline:rgba(232,184,74,.5); --blue:#4a8fff;
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --sans:'Manrope',system-ui,sans-serif; --serif:'Cormorant Garamond',Georgia,serif; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); font-weight: 300; }
+  .piece { padding: 22px 22px 20px; }
+  .kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
+  .title { font-family: var(--serif); font-size: 27px; font-weight: 300; color: var(--fg1); margin: 0 0 6px; }
+  .sub { font-size: 14px; line-height: 1.6; color: var(--fg2); max-width: 78ch; margin: 0 0 14px; }
+  .rail { display: flex; flex-wrap: wrap; margin: 4px 0 14px; border: 1px solid var(--soft); border-radius: 2px; }
+  .rail button { flex: 1 1 140px; text-align: left; border: 0; border-right: 1px solid var(--soft); border-radius: 0; background: transparent; padding: 9px 12px; color: var(--fg3); }
+  .rail button:last-child { border-right: 0; }
+  .rail button b { display: block; font-weight: 500; color: var(--fg2); letter-spacing: .04em; text-transform: none; font-size: 12px; margin-top: 2px; }
+  .rail button.on { background: var(--e1); color: var(--amber); }
+  .rail button.on b { color: var(--fg1); }
+  .say { font-family: var(--serif); font-size: 18px; line-height: 1.55; color: var(--fg1); max-width: 80ch; margin: 0 0 14px; min-height: 3.1em; }
+  .say i { color: var(--amber); font-style: italic; }
+  .stage { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 16px; align-items: start; }
+  .panel { border: 1px solid var(--soft); border-radius: 2px; background: var(--e1); padding: 10px 12px; }
+  .plabel { font-family: var(--mono); font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--fg3); margin-bottom: 8px; display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+  canvas { display: block; width: 100%; height: auto; background: #000; }
+  .hidden { display: none !important; }
+  .controls { display: flex; flex-wrap: wrap; gap: 14px 22px; align-items: flex-end; margin-top: 16px; }
+  button { font-family: var(--mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--fg2); background: var(--bg); border: 1px solid var(--border); border-radius: 2px; padding: 8px 13px; cursor: pointer; }
+  button:hover { border-color: rgba(232,184,74,.55); color: var(--fg1); }
+  button:disabled { opacity: .35; cursor: default; }
+  button.on { color: var(--amber); border-color: var(--amberline); }
+  .seg { display: inline-flex; flex-wrap: wrap; } .seg button + button { border-left: 0; }
+  .seg button { letter-spacing: .04em; text-transform: none; font-size: 12px; padding: 7px 10px; }
+  .ctl { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: .06em; color: var(--fg3); }
+  .ctl .lab { display: block; margin-bottom: 6px; }
+  label.sl { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: .06em; color: var(--fg3); min-width: 220px; flex: 1 1 220px; }
+  label.sl b { color: var(--fg1); font-weight: 500; }
+  input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 3px; background: var(--fg4); margin: 12px 0 4px; outline: none; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 13px; height: 13px; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  input[type=range]::-moz-range-thumb { width: 13px; height: 13px; border: 0; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  .read { display: flex; flex-wrap: wrap; gap: 6px 22px; margin-top: 14px; font-family: var(--mono); font-size: 11.5px; letter-spacing: .04em; color: var(--fg3); }
+  .read b { color: var(--fg1); font-weight: 500; }
+  .read .hot { color: var(--amber); }
+  .verdict { margin-top: 14px; padding: 12px 14px; border-left: 2px solid var(--amber); background: var(--e1); font-family: var(--serif); font-size: 17px; line-height: 1.55; color: var(--fg1); max-width: 92ch; }
+  .verdict p { margin: 0 0 10px; } .verdict p:last-child { margin: 0; }
+  .verdict b { color: var(--amber); font-weight: 400; }
+  .nav { display: flex; gap: 10px; margin-top: 16px; }
+  .hint { font-family: var(--mono); font-size: 11px; letter-spacing: .03em; line-height: 1.6; color: var(--fg3); margin-top: 10px; max-width: 104ch; }
+  .eqs { margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--soft); }
+  .eq { font-family: var(--serif); font-size: 19px; color: var(--fg1); }
+  .words { font-size: 13px; line-height: 1.55; color: var(--fg2); margin: 2px 0 12px; max-width: 92ch; }
+  .note { font-family: var(--mono); font-size: 10.5px; line-height: 1.6; color: var(--fg3); margin-top: 8px; max-width: 110ch; }
+  .footer { font-family: var(--mono); font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--fg4); margin-top: 18px; }
+  @media (max-width: 760px) { .stage { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="piece">
+  <div class="kicker"><svg width="18" height="18" viewBox="-10 -10 20 20" aria-hidden="true"><path id="sigil" fill="none" stroke="#e8b84a" stroke-width="1.1"/></svg><span>gathered renders · overlaid · sketch</span></div>
+  <h3 class="title">Thin plate, thick plate: does the pose take?</h3>
+  <p class="sub">The section’s gotcha: the xinsir OpenPose ControlNet was trained on thick, tapered limbs, and a thin stick figure barely takes. Three steps: the two plates, the record’s own check with the skeleton laid over each drawing, and last the barbarian’s depth sweep run once on each plate, same seed, where you can see which column the plate decided.</p>
+
+  <div class="rail" id="rail"></div>
+  <p class="say" id="say"></p>
+
+  <div class="stage">
+    <div class="panel"><div class="plabel"><span id="aLabel"></span><span id="aUnits"></span></div><canvas id="a"></canvas></div>
+    <div class="panel"><div class="plabel"><span id="bLabel"></span><span id="bUnits"></span></div><canvas id="b"></canvas></div>
+  </div>
+
+  <div class="controls">
+    <label class="sl hidden" id="oCtl">the skeleton laid over <b id="oVal"></b><input id="o" type="range" min="0" max="100" step="1" value="70"></label>
+    <label class="sl hidden" id="dCtl">depth’s weight (pose held at 0.9) <b id="dVal"></b><input id="d" type="range" min="0" max="5" step="1" value="0"></label>
+  </div>
+  <div class="read" id="read"></div>
+  <div class="verdict hidden" id="verdict"></div>
+  <div class="hint" id="hint"></div>
+  <div class="nav"><button id="back">◂ back</button><button id="next">next ▸</button></div>
+  <div class="note" id="src"></div>
+  <div class="footer">Loud’n Live</div>
+</div>
+
+<script id="baked" type="application/json">{"dial":{"sorceress":{"body_px":15435,"steps":[{"depth":0.0,"bg":60.0,"outside":1.549},{"depth":0.15,"bg":40.0,"outside":1.117},{"depth":0.3,"bg":20.0,"outside":0.681},{"depth":0.45,"bg":20.0,"outside":0.488},{"depth":0.6,"bg":29.0,"outside":0.388},{"depth":0.8,"bg":38.0,"outside":0.101}]},"barbarian":{"body_px":15426,"steps":[{"depth":0.0,"bg":24.0,"outside":0.23},{"depth":0.15,"bg":19.0,"outside":0.163},{"depth":0.3,"bg":14.0,"outside":0.092},{"depth":0.45,"bg":16.0,"outside":0.064},{"depth":0.6,"bg":22.0,"outside":0.001},{"depth":0.8,"bg":27.0,"outside":0.0}]}},"plates":{"thin":21952,"thick":34987,"ratio":1.59},"autorange":{"before":{"hist":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,17,172,1202,2335,1822,1641,1374,1508,2106,2967,4150,4959,4826,840,166,93,64,32,15,3,5,11,23,50,56,12,24,9,6,8,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"interior_px":30497,"min":191,"max":221,"p5":194,"p95":203,"span_frac":0.118,"p5_95_frac":0.035},"after":{"hist":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,7,9,13,32,74,101,113,294,518,858,765,538,483,526,532,490,475,462,477,479,387,360,375,418,409,454,489,566,652,722,746,926,946,1114,1393,1478,1338,1400,1494,1772,2224,1824,717,201,100,95,65,41,45,34,20,33,19,32,8,19,11,7,7,3,0,2,2,1,1,2,2,2,5,7,6,16,10,20,29,23,16,7,6,4,7,10,7,6,2,1,5,5,3,3,1,0,0,0,0,0,0,0,0,0,0,0],"interior_px":30401,"min":154,"max":244,"p5":163,"p95":196,"span_frac":0.353,"p5_95_frac":0.129}},"shootout":{"segment":{"changed_frac":0.456,"inside_region":0.261},"inpaint":{"changed_frac":0.11,"inside_region":0.994},"seam":{"inpaint":2.67,"base":2.62,"frame_mean_inpaint":6.19},"region_frac":0.127}}</script>
+<script>
+const $ = (id) => document.getElementById(id);
+const BAKED = JSON.parse($('baked').textContent);
+const loadImg = (src) => new Promise((ok, no) => { const im = new Image(); im.onload = () => ok(im); im.onerror = () => no(new Error('could not load ' + src)); im.src = src; });
+// pixels of a crop, or null where the frame may not read them (a sandboxed public frame)
+function pixels(img, sx, sy, sw, sh) {
+  try { const c = document.createElement('canvas'); c.width = sw; c.height = sh; const x = c.getContext('2d', { willReadFrequently: true });
+    x.drawImage(img, sx, sy, sw, sh, 0, 0, sw, sh); return x.getImageData(0, 0, sw, sh).data; } catch (e) { return null; }
+}
+// PIL's own luma, so the page and checks.py count the same pixels
+const luma = (d) => { const n = d.length >> 2, L = new Int16Array(n); for (let i = 0; i < n; i++) L[i] = (d[4 * i] * 19595 + d[4 * i + 1] * 38470 + d[4 * i + 2] * 7471 + 0x8000) >> 16; return L; };
+// a square max (dilate) or min (erode) filter of half-width r on a 0/1 mask, separable
+function morph(m, w, h, r, isMax) {
+  const t = new Uint8Array(m.length), o = new Uint8Array(m.length), hit = isMax ? 1 : 0;
+  for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) { let v = 1 - hit; for (let k = Math.max(0, x - r); k <= Math.min(w - 1, x + r); k++) if (m[y * w + k] === hit) { v = hit; break; } t[y * w + x] = v; }
+  for (let x = 0; x < w; x++) for (let y = 0; y < h; y++) { let v = 1 - hit; for (let k = Math.max(0, y - r); k <= Math.min(h - 1, y + r); k++) if (t[k * w + x] === hit) { v = hit; break; } o[y * w + x] = v; }
+  return o;
+}
+const median = (a) => { const s = Float64Array.from(a).sort(), n = s.length; return n % 2 ? s[(n - 1) / 2] : (s[n / 2 - 1] + s[n / 2]) / 2; };
+const pctLower = (sorted, q) => sorted[Math.floor(q * (sorted.length - 1))];
+function sigil(a, b) { let d = ''; for (let i = 0; i <= 240; i++) { const t = (i / 240) * 2 * Math.PI; d += (i ? 'L' : 'M') + (8 * Math.sin(a * t + Math.PI / 2)).toFixed(2) + ' ' + (8 * Math.sin(b * t)).toFixed(2); } $('sigil').setAttribute('d', d); }
+function railWalk(STEPS, go) {
+  const rail = $('rail'); rail.innerHTML = '';
+  STEPS.forEach((s, i) => { const b = document.createElement('button'); b.innerHTML = `step ${i + 1}<b>${s.name}</b>`; b.onclick = () => go(i); rail.appendChild(b); });
+  $('back').onclick = () => go(Math.max(0, cur - 1)); $('next').onclick = () => go(Math.min(STEPS.length - 1, cur + 1));
+}
+let cur = 0;
+function markRail(i, n) { cur = i; [...$('rail').children].forEach((b, k) => b.classList.toggle('on', k === i)); $('back').disabled = i === 0; $('next').disabled = i === n - 1; }
+function fit(cv, w, h) { if (cv.width !== w || cv.height !== h) { cv.width = w; cv.height = h; } return cv.getContext('2d'); }
+const CW = 379, CH = 430, PAD = 10, LAB = 34, HDR = 26, DEPTHS = [0, 0.15, 0.30, 0.45, 0.60, 0.80];
+const cellXY = (i) => { const r = Math.floor(i / 3), c = i % 3; return [PAD + c * (CW + PAD), HDR + PAD + LAB + r * (CH + LAB + PAD)]; };
+const IMG = {}; let step = 0, op = 0.7, LIVE = null;
+const STEPS = [
+  { name: 'two drawings of one skeleton', say: 'The same eighteen points, drawn twice. On the left, the rig’s first hand-rolled draw: four-pixel lines. On the right, the real <i>controlnet_aux</i> draw: tapered, filled limbs, the shape the model was trained to read.' },
+  { name: 'the record’s check', say: 'The check the record ran: pose alone, text to image at full strength, seed 7, one drawing from each plate. Lay the skeleton over each and see where the drawn arms fall against its arms.' },
+  { name: 'the test: one sweep, each plate', say: 'The barbarian’s depth sweep, run once on the thin plate (render 019) and once on the thick (render 022): same prompt, seed 21, pose 0.9, denoise 0.9. Start at pose only, where pose works alone, then turn depth up.' },
+];
+function drawPlate(ctx, which) { const im = IMG[which]; ctx.drawImage(im, 0, 0, im.width, im.height); }
+function drawCheck(ctx, r) { // render_020: rows thin (0) and thick (1), result cell 341×480 at x 361
+  const y = 40 + r * 520; ctx.drawImage(IMG.check, 361, y, 341, 480, 0, 0, 341, 480);
+  ctx.globalAlpha = op; ctx.drawImage(IMG.skel, r * 341, 0, 341, 480, 0, 0, 341, 480); ctx.globalAlpha = 1; }
+function drawSweep(ctx, k, thick) { const [x, y] = cellXY(3 + step); ctx.drawImage(IMG[thick ? 's22' : 's19'], x, y, CW, CH, 0, 0, CW, CH); ctx.fillStyle = '#000'; ctx.fillRect(0, 0, CW, 1);
+  ctx.globalAlpha = op; ctx.drawImage(IMG.skel, (thick ? 1 : 0) * 379, 480, CW, CH, 0, 0, CW, CH); ctx.globalAlpha = 1; }
+function render() {
+  const A = $('a'), B = $('b');
+  if (cur === 0) { const im = IMG.thin; drawPlate(fit(A, im.width, im.height), 'thin'); drawPlate(fit(B, im.width, im.height), 'thick');
+    $('aLabel').textContent = 'thin plate · hand-rolled'; $('bLabel').textContent = 'thick plate · controlnet_aux'; $('aUnits').textContent = $('bUnits').textContent = '728 × 1024'; }
+  if (cur === 1) { drawCheck(fit(A, 341, 480), 0); drawCheck(fit(B, 341, 480), 1);
+    $('aLabel').textContent = 'from the thin plate'; $('bLabel').textContent = 'from the thick plate'; $('aUnits').textContent = $('bUnits').textContent = 'render 020 · seed 7'; }
+  if (cur === 2) { drawSweep(fit(A, CW, CH), step, false); drawSweep(fit(B, CW, CH), step, true);
+    const lab = step ? 'depth ' + DEPTHS[step].toFixed(2) : 'pose only';
+    $('aLabel').textContent = 'thin plate · render 019'; $('bLabel').textContent = 'thick plate · render 022'; $('aUnits').textContent = $('bUnits').textContent = lab; }
+  $('oVal').textContent = Math.round(op * 100) + '%'; $('dVal').textContent = step ? DEPTHS[step].toFixed(2) : '0.00 · pose only';
+  const P = (LIVE || BAKED).plates;
+  $('read').innerHTML = cur === 0 ? `<span>lit pixels, thin <b>${P.thin.toLocaleString()}</b></span><span>thick <b>${P.thick.toLocaleString()}</b></span><span>the thick plate carries <b class="hot">${P.ratio.toFixed(2)}×</b> the ink, on the same joints</span>` : '';
+  const v = $('verdict');
+  if (cur === 1) { v.classList.remove('hidden'); v.innerHTML = '<p><b>At this seed the check is close.</b> Both drawings put their hands near the skeleton’s wrists. The thick plate’s arms sit inside its limb bands; the thin plate’s ride a little lower. The record reads this pair as “thin plate, arms drift down”; laid over, the drift is small. The next step is where the plate decides the picture.</p>'; }
+  else if (cur === 2) { v.classList.remove('hidden'); v.innerHTML = '<p><b>Where pose works alone, the thin plate barely takes: tested, and it holds.</b> At pose only, the thin plate’s barbarian ignores the skeleton’s scale and stance: he grows past its feet and drops his hands to his hips, well below its wrists. The thick plate’s stands inside it, arms along its arms.</p><p>From depth 0.15 up, both hold the stance, because depth is holding it. So the page’s “the thin-pose ones let it drift” is true where depth was absent, which is exactly where the page’s recipe for costume puts a figure: pose, and little or no depth.</p>'; }
+  else v.classList.add('hidden');
+  $('hint').textContent = ['Both plates were drawn from keypoints_sorceress.json and cropped to the figure; the colours are OpenPose’s limb code. Lit means any channel above 60.',
+    'The skeleton is the plate itself with its black taken out, placed on the drawing it conditioned; both were cropped and sized together, so they line up.',
+    'Both sweeps start from the same mannequin init, so what differs between the columns is the plate. Slide the overlay to zero to see each drawing alone.'][cur];
+}
+function go(i) { markRail(i, STEPS.length); $('say').innerHTML = STEPS[i].say; $('oCtl').classList.toggle('hidden', i === 0); $('dCtl').classList.toggle('hidden', i !== 2); render(); }
+function measure() { const lit = (im) => { const d = pixels(im, 0, 0, im.width, im.height); if (!d) return null; let n = 0; for (let i = 0; i < d.length; i += 4) if (Math.max(d[i], d[i + 1], d[i + 2]) > 60) n++; return n; };
+  const thin = lit(IMG.thin), thick = lit(IMG.thick); if (thin == null || thick == null) return null; return { plates: { thin, thick, ratio: Math.round(100 * thick / thin) / 100 } }; }
+(async () => {
+  sigil(3, 2);
+  const F = { thin: 'renders/render_020_thin_plate.png', thick: 'renders/render_020_thick_plate.png', check: 'renders/render_020.png', s19: 'renders/render_019.png', s22: 'renders/render_022.png', skel: 'rich-face/pose-skeletons.png' };
+  for (const [k, f] of Object.entries(F)) IMG[k] = await loadImg(f);
+  $('o').oninput = (e) => { op = e.target.value / 100; render(); };
+  $('d').oninput = (e) => { step = +e.target.value; render(); };
+  railWalk(STEPS, go);
+  LIVE = measure(); const same = LIVE && JSON.stringify(LIVE.plates) === JSON.stringify(BAKED.plates);
+  window.__gc = { piece: 'thin plate, thick plate', live: LIVE, baked: BAKED.plates, same };
+  $('src').textContent = LIVE ? (same ? 'The pixel counts were re-measured in this page from the two plates, and match checks.py.' : 'Re-measured in this page; it differs from checks.py, so the page shows its own count.') : 'This frame may not read pixels, so the counts are the ones checks.py measured from the same plates.';
+  go(0);
+})();
+</script>
+</body>
+</html>
