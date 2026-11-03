@@ -54,6 +54,17 @@
         "by": "maker · claude-opus-5-5 · proposal round",
         "round": "proposal-round-2026-11"
       },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Brian Eno — rich — loops of different lengths.html",
+            "verdict": "remake",
+            "why": "A real test that walks up, but the test step shows the nudged set coming round 74 times an hour to the ear when it does so once (floor(3600/te) assumes a steady near-return; the 24.0625 s loop slides 1/8 s a cycle), so its verdict overstates. Count the returns in the hour, say near-simple ratios slow the drift rather than stop it, and use the page's words, \"the room made the piece\"."
+          }
+        ]
+      },
       "pieces": [
         {
           "file": "Brian Eno — rich — loops of different lengths.html",
@@ -77,6 +88,17 @@
         "date": "2026-11-03",
         "by": "maker · claude-opus-5-5 · proposal round",
         "round": "proposal-round-2026-11"
+      },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Brian Eno — rich — the frame, counted.html",
+            "verdict": "remake",
+            "why": "The counting is right (46.07 questions, 415 starts, 90.0%, 6.70 min), but step 4 is 1533 px in a 1000 px frame, so the verdict is clipped where the kit does not size it, and the verdict closes the page's open question: \"decided\" should be \"determined\", and \"tape loops have no coin\" holds only for ideal loops (the sibling piece names tape's wow, the page credits the room)."
+          }
+        ]
       },
       "pieces": [
         {
