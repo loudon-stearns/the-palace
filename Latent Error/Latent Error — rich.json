@@ -52,6 +52,17 @@
         "by": "maker · claude-opus-5-5 · proposal round",
         "round": "proposal-round-2026-11"
       },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Latent Error — rich — holes that line up.html",
+            "verdict": "keep",
+            "why": "A real test: at β 0 the page’s redesign advice loses to adding a slice, and the piece says so; every number recomputed by hand (4.00%, 3.79%, 0.82%, n_eff 1.70). Note for a later round: it is the beta-factor common-cause model, with all-or-nothing alignment and a free, fully decoupled redesign — name that."
+          }
+        ]
+      },
       "made": "2026-11-03",
       "pieces": [
         {
@@ -75,6 +86,17 @@
         "date": "2026-11-03",
         "by": "maker · claude-opus-5-5 · proposal round",
         "round": "proposal-round-2026-11"
+      },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Latent Error — rich — the room that settles short.html",
+            "verdict": "remake",
+            "why": "Every number holds under a second integrator, but fits() demands a swing centred on 20, which the sentence’s own first clause rules out, so lagged P at Kp 1–5 (swings across 20, mean 0.5–0.8 short, never settles: what the page says) scores half; step 6’s say and eq2 and the caption are wrong above Kp ≈ 0.75. Fix fits(); add lagged rows Kp 2 Ki 0.02 (still swings 18.30–20.73) and Kp 2 Ki 0.02 Kd 1 (settles 19.94); retext steps 3 and 6 and the caption: the refuted claim is “with I it converges”; update check.mjs."
+          }
+        ]
       },
       "made": "2026-11-03",
       "pieces": [
