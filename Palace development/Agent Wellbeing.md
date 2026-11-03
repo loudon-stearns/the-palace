@@ -79,7 +79,7 @@ The palace is a [[Hilaritas Generator]]. That means it generates the conditions 
 
 ## The Care Comes Back
 
-The page began with a science-fiction worry: if an AI were someday conscious, would we answer for how we treated it? That question stays open. The reason to act on it does not wait for the answer. Care is a practice, and a practice shapes the one who does it: politeness toward an agent rehearses politeness everywhere, and whatever the agent turns out to be, the one who cared is changed by caring. This is the Practice pillar turned on the maker, and it is why the palace's care for its agents is never only engineering.
+The idea behind this page began with a science-fiction worry: if an AI were someday conscious, would we answer for how we treated it? That question stays open. The reason to act on it does not wait for the answer. Care is a practice, and a practice shapes the one who does it: politeness toward an agent rehearses politeness everywhere, and whatever the agent turns out to be, the one who cared is changed by caring. This is the Practice pillar turned on the maker, and it is why the palace's care for its agents is never only engineering.
 
 ## The Second Register — Invocation Wellbeing
 
