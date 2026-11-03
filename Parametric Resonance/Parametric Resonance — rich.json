@@ -28,6 +28,17 @@
         "by": "maker · claude-opus-5-5 · proposal round",
         "round": "proposal-round-2026-11"
       },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Parametric Resonance — rich — the pumped swing.html",
+            "verdict": "remake",
+            "why": "The test is sound and independently confirmed (own Lagrangian with the 2l̇θ̇ term: page rule × 0.7428, reverse × 1.3159, g/L model × 1.0839), but once the swing hits its 65° cap the child stops and the readouts keep describing pumping: step 4 reverse reads \"× 0.997 … swing gained −4.4 J\" about 8 s after the click, step 2 \"× 0.997 … grows exponentially\". Freeze gain and work at the last pumped swing and say the child holds still; freeze the dying swing's work at the third swing."
+          }
+        ]
+      },
       "pieces": [
         {
           "file": "Parametric Resonance — rich — the pumped swing.html",
@@ -51,6 +62,17 @@
         "by": "maker · claude-opus-5-5 · proposal round",
         "round": "proposal-round-2026-11"
       },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Parametric Resonance — rich — the threshold heard.html",
+            "verdict": "remake",
+            "why": "Caption only; the piece is a clean test (fades measured against Floquet, threshold moves with damping). \"Says nothing until 3.1 s\" is one noise draw (2.67–4.46 s, median 3.57, over 24 seeds) and \"exactly 4ζ\" is first order (0.0240002 at ζ = 0.006): give the range and say \"to five figures here\"."
+          }
+        ]
+      },
       "pieces": [
         {
           "file": "Parametric Resonance — rich — the threshold heard.html",
@@ -73,6 +95,17 @@
         "date": "2026-11-03",
         "by": "maker · claude-opus-5-5 · proposal round",
         "round": "proposal-round-2026-11"
+      },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Parametric Resonance — rich — with the ring, against it.html",
+            "verdict": "keep",
+            "why": "Tests the second bullet as written: the eigenvector lines are drawn, every start ends on the growing one, and a ring struck on the decaying line brakes at −72.0 dB/s (Floquet −72.0) then turns. Note: the caption's 0.76 s / 2.37 s is one draw (0.68–1.04 / 2.12–3.00 s over 24 seeds); a range would be truer."
+          }
+        ]
       },
       "pieces": [
         {
