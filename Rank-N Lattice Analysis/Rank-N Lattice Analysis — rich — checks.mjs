@@ -28,6 +28,8 @@ const FS = 48000, TOLS = [2, 5, 10];
     const tot = P.reduce((a, p) => a + p[1] * p[1], 0), car = R.fit.assign.filter((q) => q.ok).reduce((a, q) => a + q.a * q.a, 0) / tot;
     console.log(`  ${s.name.padEnd(18)} τ=${String(tol).padStart(2)} n=${String(P.length).padStart(2)}: ${fmt(R)} · chance ranks ${Math.min(...ch)}–${Math.max(...ch)} · saves ${(R.fits[0].bits - R.fit.bits).toFixed(1)} bits, chance at most ${Math.max(...cs).toFixed(1)} · energy reached ${(100 * car).toFixed(1)} %`);
   }
+  const H24 = Array.from({ length: 24 }, (_, i) => [220 * (i + 1), 1 / (i + 1)]);
+  console.log('  24 perfect harmonics, rank by τ (the price, not the tone, above 5 c):', [5, 10, 20].map((tol) => `${tol} c → ${E.fitRanks(H24, { tol }).fit.rank}`).join(' · '));
   const A2 = E.SOURCES.find((s) => s.id === 'piano-A2');
   for (const tol of TOLS) console.log(`  piano A2, τ=${tol}, rank by partials counted:`, [4, 8, 12, 16, 20, 24].map((k) => `${k}→${E.fitRanks(top(A2, k), { tol }).fit.rank}`).join(' '));
   // a third clock: does it ever pay?
@@ -37,14 +39,15 @@ const FS = 48000, TOLS = [2, 5, 10];
 function SOURCESORDER(E) { return E.SOURCES; }
 
 // ── read both ways: the round trip ──
-{ const E = engine('read both ways', 'fitRanks, SOURCES, TWO_CLOCKS, buildField, readField, levelAt, roundTrip');
+{ const E = engine('read both ways', 'fitRanks, SOURCES, TWO_CLOCKS, buildField, readField, levelAt, roundTrip, torusFit, denseFit, freeBits');
   const top = (s) => s.P.slice().sort((a, b) => b[1] - a[1]).slice(0, 24).sort((a, b) => a[0] - b[0]);
   const snap = (d) => [1, 2, 3, 4, 5, 6].map((k) => [220 * k * (k === 5 ? Math.pow(2, d / 1200) : 1), 1 / k]);
-  console.log('read both ways — fit at τ, written onto a 256 × 256 torus, read back at 48 kHz, each reached partial measured at its lattice frequency');
-  const run = (name, P, tol, S = 256) => { const R = E.fitRanks(P, { tol }), T = E.buildField(R.fit, S, 5), rt = E.roundTrip(T, FS), tot = P.reduce((a, p) => a + p[1] * p[1], 0), car = T.pts.reduce((a, p) => a + p.a * p.a, 0) / tot;
-    console.log(`  ${name.padEnd(22)} τ=${String(tol).padStart(2)} S=${S}: ${R.fit.w.length} clock(s) ${R.fit.w.map((v) => v.toFixed(3)).join('/')} · back ${R.fit.on}/${R.fit.n} · rank ${R.fit.rank} · energy carried ${(100 * car).toFixed(1)} % · levels within ${rt.worstDb.toFixed(3)} dB · largest move ${Math.max(0, ...T.pts.map((p) => p.err)).toFixed(2)} c · most steps ${Math.max(0, ...T.pts.map((p) => Math.max(Math.abs(p.m), Math.abs(p.n))))}`); };
+  console.log('read both ways — fit at τ; one clock gets its loudest lone partial on θ₂; written onto a 256 × 256 torus, read back at 48 kHz, each reached partial measured at its lattice frequency');
+  const run = (name, P, tol, S = 256, free = false) => { const R = E.fitRanks(P, { tol }), D = free ? E.denseFit(P, tol) : null, tf = D ? D.fit : E.torusFit(P, R), T = E.buildField(tf, S, 5), rt = E.roundTrip(T, FS), tot = P.reduce((a, p) => a + p[1] * p[1], 0), car = T.pts.reduce((a, p) => a + p.a * p.a, 0) / tot;
+    console.log(`  ${name.padEnd(22)} τ=${String(tol).padStart(2)} S=${S} ${free ? 'free  ' : 'priced'}: clocks ${tf.w.map((v) => v.toFixed(3)).join('/')} · back ${tf.on}/${tf.n} · fit rank ${R.fit.rank} · field ${(D ? D.bits : tf.bits).toFixed(1)} bits vs list ${(P.length * E.freeBits(tol)).toFixed(1)} · energy carried ${(100 * car).toFixed(1)} % · levels within ${rt.worstDb.toFixed(3)} dB · largest move ${Math.max(0, ...T.pts.map((p) => p.err)).toFixed(2)} c · most steps ${Math.max(0, ...T.pts.map((p) => Math.max(Math.abs(p.m), Math.abs(p.n))))}`); };
   run('two partials', [[220, 1], [440, 0.6]], 5); run('two clocks', E.TWO_CLOCKS, 5);
   for (const d of [3, 5, 6, 8]) run(`fifth partial +${d} c`, snap(d), 5);
   for (const s of E.SOURCES) for (const tol of [5]) run(s.name, top(s), tol);
   for (const S of [32, 64]) run('piano A2 · 110 Hz', top(E.SOURCES.find((s) => s.id === 'piano-A2')), 5, S);
+  for (const id of ['piano-low-A1', 'piano-A2', 'bell-brooklyn-C6']) { const s = E.SOURCES.find((x) => x.id === id); run(s.name, top(s), 5, 256, true); }
 }

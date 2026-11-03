@@ -3,7 +3,7 @@
   title: Rank-N Lattice Analysis — rich — how many clocks
   born: 2026-11-03
   links: [[Rank-N Lattice Analysis]] (connects-to · rich-face-piece) · listed in [[Rank-N Lattice Analysis — rich.json]] · measures with [[Inharmonic Wavetable Synthesis]]'s trajectory library · rhymes with [[Three Kinds of Warp]]
-  forward_vector: I am the page's rank put to its own test: one sine, a harmonic tone, a tone on two clocks, random partials that two free clocks swallow whole, and last seven measured instruments, each fitted with the fewest bits and set beside chance. I play inside the entry's rich face and stand alone opened directly; I change only when the section I serve does.
+  forward_vector: I am the page's rank put to its own test: one sine, a harmonic tone, a tone on two clocks, random partials that two free clocks nearly swallow whole, and last seven measured instruments, each fitted with the fewest bits and set beside chance. I play inside the entry's rich face and stand alone opened directly; I change only when the section I serve does.
 -->
 <html lang="en">
 <head>
@@ -114,7 +114,7 @@
     <div class="ctl hidden" id="srcCtl"><span class="lab">source</span><span class="seg" id="srcSeg"></span></div>
   </div>
   <div class="controls">
-    <label class="sl hidden" id="tolCtl">tolerance τ = <b id="tolV"></b> cents<input id="tol" type="range" min="1" max="20" step="1" value="5"></label>
+    <label class="sl hidden" id="tolCtl">tolerance τ = <b id="tolV"></b> cents<input id="tol" type="range" min="1" max="10" step="1" value="5"></label>
     <label class="sl hidden" id="cntCtl">partials counted, loudest first: <b id="cntV"></b><input id="cnt" type="range" min="3" max="24" step="1" value="24"></label>
   </div>
   <div class="read" id="read"></div>
@@ -128,9 +128,9 @@
     <div class="eq">bits = (clocks + partials left alone) × log₂( band ⁄ 2τ ) + Σ steps’ bits</div>
     <div class="words">(what the naming costs) = (every frequency named outright, each clock and each partial no clock reaches) × (the bits it takes to pin one frequency to within τ anywhere from 20 Hz to 20 kHz: 10.2 at 5 cents) + (the bits to count out the steps of every partial the clocks reach, in a code where step 1 costs 3 bits and step 16 costs 9).</div>
     <div class="eq">N = clocks + partials left alone,   at the cheapest naming</div>
-    <div class="words">(the rank) = (how many frequencies the cheapest naming has to give outright). A partial no clock reaches is its own generator, so it counts. The fitter is a greedy search, so the N it reports is an upper bound: a cleverer search could find a cheaper naming, never a dearer one.</div>
+    <div class="words">(the rank) = (how many frequencies the cheapest naming has to give outright). A partial no clock reaches is its own generator, so it counts. The fitter is a greedy search, so the N it reports is an upper bound: a cleverer search could find a cheaper naming, never a dearer one. It is not the page's "smallest set" itself, which needs a tolerance and a price on steps before it is a number at all; the price is a choice, and it moves N (most above 10 cents, where this piece's slider stops).</div>
   </div>
-  <div class="note">Search: the first clock is tried at every loud partial divided by 1 to 8, the second at what is left of an unreached partial after a few steps of the first, divided by 1 to 3; each is refined by least squares on the partials it reaches. Steps: 0 to 64 along the first clock, −8 to +8 along the second. Two clocks at most, the most a 2D torus can play; a third never paid in the offline check on any source here at 2, 5 or 10 cents. Chance: the same count of partials with the same levels at random frequencies, evenly spread in log frequency between the source's lowest and highest partial, those two kept; twelve draws, seeded, fitted the same way. A source counts as more than chance when its clocks save more bits than they save on every draw. In a prefix code, d bits are saved on a random frequency with odds of at most 2⁻ᵈ; the fitter's choice of clocks among many tries is what lifts chance's best above a few bits. Measured sources: one frame 0.19 s after the strike from the steward's tracks in Inharmonic Wavetable Synthesis's trajectory library (Ableton Core Library samples, measured in place; the tracker looked for each piano partial near the stiff-string prediction). What you hear is those partials as sines, not the recording.</div>
+  <div class="note">Search: the first clock is tried at every loud partial divided by 1 to 8, then scanned finely (±1 % in steps of 1⁄20000 of itself), the second at what is left of an unreached partial after a few steps of the first, divided by 1 to 3; each is refined by least squares on the partials it reaches. Steps: 0 to 64 along the first clock, −8 to +8 along the second. Two clocks at most, the most a 2D torus can play; a third never paid in the offline check on any source here at 2, 5 or 10 cents. Chance: the same count of partials with the same levels at random frequencies, evenly spread in log frequency between the source's lowest and highest partial, those two kept; twelve draws, seeded, fitted the same way. A source counts as more than chance when its clocks save more bits than they save on every draw. In a prefix code, d bits are saved on a random frequency with odds of at most 2⁻ᵈ; the fitter's choice of clocks among many tries is what lifts chance's best above a few bits. Measured sources: one frame 0.19 s after the strike from the steward's tracks in Inharmonic Wavetable Synthesis's trajectory library (Ableton Core Library samples, measured in place; the tracker looked for each piano partial near the stiff-string prediction). What you hear is those partials as sines, not the recording.</div>
   <div class="footer">Loud’n Live</div>
 </div>
 
@@ -224,6 +224,9 @@ function fitRanks(P, opt = {}) {
   let pool = [];
   for (const f of strong) for (let k = 1; k <= o.sub; k++) pool.push(cost(P, [f / k], o));
   pool = dedupe(pool.sort(byCost).slice(0, o.keep * 3).map((s) => refine(P, s, o)).sort(byCost)).slice(0, o.keep);
+  // a fine scan of each one-clock candidate, ±1 % in steps of 1⁄20000 of the clock, keeping the cheapest: least squares
+  // alone can settle on a clock that reaches fewer partials than a nearby one would
+  pool = dedupe(pool.map((s) => { let best = s; const w = s.w[0], d = w / 20000; for (let k = -200; k <= 200; k++) { const c = cost(P, [w + k * d], o); if (better(c, best)) best = c; } return refine(P, best, o); }).sort(byCost)).slice(0, o.keep);
   out.push(pool[0]);
   for (let N = 2; N <= o.maxClocks; N++) {
     const cand = [];
@@ -312,7 +315,7 @@ const STEPS = [
   { key: 'sine', name: 'one sine', say: 'One sine at 220 Hz is one frequency. Name it and you are done: <i>rank 1</i>, nothing left over. Naming a frequency has a price, and the panel below counts it in bits: pinning one frequency to within 5 cents, anywhere from 20 Hz to 20 kHz, takes about 10.' },
   { key: 'harm', name: 'a harmonic tone', say: 'Twelve partials, 220 Hz and its whole-number multiples. Named one by one they cost twelve frequencies. Name <i>one clock</i>, 220 Hz, and every partial is just a count of its steps: the third partial is "three", a few bits. One clock reaches all twelve. Rank 1.' },
   { key: 'two', name: 'two clocks', say: 'Now a tone built on two clocks, 220 Hz and 220·φ ≈ 356 Hz, whose partials sit at whole steps of both, m·220 + n·356. One clock reaches a few of them and leaves the rest alone. <i>Two</i> reach every one, and each lands on a point of a flat grid of steps. Rank 2.' },
-  { key: 'rand', name: 'the catch', say: 'Twelve partials at random frequencies. Let the steps be free, up to 16 each way, and two clocks reach <i>all of them</i> within 5 cents: a dense enough lattice passes near anything. So counting clocks alone measures nothing. Make the steps cost bits, and the random partials are back to standing alone.' },
+  { key: 'rand', name: 'the catch', say: 'Twelve partials at random frequencies. Let the steps be free, up to 16 each way, and two clocks reach <i>all but one</i> of them within 5 cents (over forty such draws, all twelve in seventeen): a dense enough lattice passes near almost anything. So counting clocks alone measures nothing. Make the steps cost bits, and the random partials are back to standing alone.' },
   { key: 'test', name: 'the test: seven instruments', say: 'Measured partials from a piano at three pitches, a marimba bar, a vibraphone bar, a singing bowl and a small bell, each fitted the cheapest way, and each set beside random partials of the same count. Does the rank settle at 1 for a harmonic tone, at 2 or more for a string, a bar and a bell? And do the clocks <i>save more bits</i> than they save on random partials?' },
 ];
 const S = { key: 'sine', tol: 5, cnt: 24, free: true, src: 'piano-A2', R: null, P: null, chance: {}, table: {} };
@@ -410,7 +413,7 @@ async function buildTable() {
 }
 function showTable(rows) {
   const beat = (r) => (r.save > r.chSave ? 'more than chance' : 'no more than chance');
-  $('table').innerHTML = `<table class="t"><tr><th>source</th><th>partials</th><th>clocks</th><th>left alone</th><th>rank</th><th>chance's ranks</th><th>bits saved</th><th>chance saves, at most</th><th></th><th>energy the clocks reach</th></tr>` +
+  $('table').innerHTML = `<table class="t"><tr><th>source</th><th>partials</th><th>clocks</th><th>left alone</th><th>rank found</th><th>chance's ranks</th><th>bits saved</th><th>chance saves, at most</th><th></th><th>energy the clocks reach</th></tr>` +
     rows.map((r) => `<tr class="${r.id === S.src ? 'sel' : ''}"><td>${r.name}</td><td>${r.n}</td><td>${r.clocks}</td><td>${r.lone}</td><td class="hot">${r.rank}</td><td>${r.lo}–${r.hi}</td><td>${r.save.toFixed(1)}</td><td>${r.chSave.toFixed(1)}</td><td>${beat(r)}</td><td>${(100 * r.carried).toFixed(1)} %</td></tr>`).join('') + '</table>';
   const by = (id) => rows.find((r) => r.id === id), pA1 = by('piano-low-A1'), pA2 = by('piano-A2'), pA4 = by('piano-A4'), bell = by('bell-brooklyn-C6'), vib = by('vibraphone-C4'), mar = by('marimba-C3'), h1 = by('harm'), t2 = by('two');
   const below = (r) => r.save > r.chSave, pianos = [pA1, pA2, pA4], two = pianos.filter((r) => r.clocks > 1);
@@ -420,7 +423,7 @@ function showTable(rows) {
   $('verdict').innerHTML = `<p><b>One for the harmonic tone, two for the two-clock tone: the measure works where the page says it does.</b> Rank ${h1.rank} and ${t2.rank}, against ${h1.lo}–${h1.hi} and ${t2.lo}–${t2.hi} for random partials; the clocks save ${h1.save.toFixed(0)} and ${t2.save.toFixed(0)} bits, chance at most ${h1.chSave.toFixed(0)} and ${t2.chSave.toFixed(0)}.</p>` +
     `<p><b>The piano does not settle at 2.</b> ${pianoLine}: rank ${pA1.rank} of ${pA1.n} partials for the low A, ${pA2.rank} of ${pA2.n} for A2. The rank alone barely parts them from random partials (whose ranks run ${pA2.lo}–${pA2.hi} for A2), but the bits do: the clock saves ${pA1.save.toFixed(0)} and ${pA2.save.toFixed(0)} bits, against at most ${Math.max(pA1.chSave, pA2.chSave).toFixed(0)} for chance${below(pA1) && below(pA2) ? ', so the structure is real' : ''}. It is one clock and a bend: the stretch pushes each upper partial a little further off the clock's comb than the last. Count fewer partials, or loosen τ, and the piano's rank falls toward 1; count more, or tighten it, and it climbs toward the number of partials. Try the A2 with 8 partials counted.</p>` +
     `<p><b>The bell needs many, and so does chance.</b> Rank ${bell.rank} of ${bell.n}, against ${bell.lo}–${bell.hi} for random partials, and its clocks save ${bell.save.toFixed(1)} bits where chance saves up to ${bell.chSave.toFixed(1)}: ${below(bell) ? 'only just more than chance' : 'no more than chance'}. The clocks it does use reach ${(100 * bell.carried).toFixed(0)} % of its energy, since a few loud modes carry most of it: the rank counts a quiet mode the same as a loud one. The tuned bars: vibraphone rank ${vib.rank}, marimba rank ${mar.rank}, one clock each and ${vib.lone} and ${mar.lone} mode${mar.lone === 1 ? '' : 's'} the tuning left alone${below(mar) && below(vib) ? ', both more than chance' : ''}. The singing bowl's clock saves ${by('singing-bowl-D4').save.toFixed(1)} bits${below(by('singing-bowl-D4')) ? '' : ', no more than chance'}.</p>` +
-    `<p>So the rank is measured, but only against a stated tolerance, a stated count of partials and a price on steps; without that price, two clocks reach nearly any partials at all. The offers on this section carry the numbers.</p>`;
+    `<p><b>What this number is.</b> Not the page's smallest set of generators, which is degenerate both ways (exact, a stiff string's partials share no integer relation; with a tolerance and free steps, two clocks reach nearly anything), but the clocks plus the partials left alone in the cheapest naming a greedy search finds: an upper bound, measured against a tolerance, a count of partials and a price on steps, each of which moves it. The price moves it most at wide tolerances: 24 perfect harmonics of 220 Hz read rank 1 at 5 cents, 3 at 10 and 11 at 20, because naming a frequency outright gets cheaper as τ widens while a long step count does not. So the slider stops at 10 cents, and even there the harmonic tone's rank is the price's, not the tone's. The offers on this section carry the numbers.</p>`;
 }
 // ---- sound ----
 function take() { const P = S.P, struck = S.key === 'test'; return partialsSound(P, FS, struck ? 3 : 2.5, struck, 7); }
@@ -428,7 +431,7 @@ function take() { const P = S.P, struck = S.key === 'test'; return partialsSound
 function show(id, on) { $(id).classList.toggle('hidden', !on); }
 function readout() {
   const f = S.R.fit;
-  const parts = [`partials <b>${f.n}</b>`, `clocks <b>${f.w.length}</b>${f.w.length ? ' · ' + f.w.map((v) => v.toFixed(2)).join(', ') + ' Hz' : ''}`, `left alone <b>${f.lone}</b>`, `rank <b class="hot">${f.rank}</b>`, `${f.bits.toFixed(1)} bits, against ${S.R.fits[0].bits.toFixed(1)} named outright`];
+  const parts = [`partials <b>${f.n}</b>`, `clocks <b>${f.w.length}</b>${f.w.length ? ' · ' + f.w.map((v) => v.toFixed(2)).join(', ') + ' Hz' : ''}`, `left alone <b>${f.lone}</b>`, `rank of the cheapest naming found <b class="hot">${f.rank}</b> (an upper bound)`, `${f.bits.toFixed(1)} bits, against ${S.R.fits[0].bits.toFixed(1)} named outright`];
   if (f.w.length && f.on) parts.push(`reached within <b>${Math.max(...f.assign.filter((s) => s.ok).map((s) => s.err)).toFixed(2)}</b> cents`);
   $('read').innerHTML = parts.join(' · ');
 }

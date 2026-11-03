@@ -106,11 +106,12 @@
   <div class="controls">
     <button class="go" id="go">▸ play</button>
     <div class="ctl"><span class="lab">hear</span><span class="seg"><button data-h="heard" class="on">what was heard</button><button data-h="back">what plays back</button><button data-h="left">what was left over</button></span></div>
+    <div class="ctl hidden" id="stepCtl"><span class="lab">steps</span><span class="seg"><button data-st="priced" class="on">priced: the cheapest naming</button><button data-st="free">free: every partial placed</button></span></div>
     <div class="ctl hidden" id="srcCtl"><span class="lab">note</span><span class="seg" id="srcSeg"></span></div>
   </div>
   <div class="controls">
     <label class="sl hidden" id="offCtl">the fifth partial sits <b id="offV"></b> cents sharp<input id="off" type="range" min="0" max="30" step="0.5" value="3"></label>
-    <label class="sl hidden" id="tolCtl">tolerance τ = <b id="tolV"></b> cents<input id="tol" type="range" min="1" max="20" step="1" value="5"></label>
+    <label class="sl hidden" id="tolCtl">tolerance τ = <b id="tolV"></b> cents<input id="tol" type="range" min="1" max="10" step="1" value="5"></label>
   </div>
   <div class="read" id="read"></div>
   <div class="verdict hidden" id="verdict"></div>
@@ -123,9 +124,9 @@
     <div class="eq">y(t) = W(ω₁·t, ω₂·t) = Σₖ aₖ · cos( 2π·(mₖ·ω₁ + nₖ·ω₂)·t + φₖ )</div>
     <div class="words">(the sound) = (the field read by two phasors at the fitted clocks) = every reached partial again, now exactly at (mₖ × the first clock + nₖ × the second). Read back, a partial lands on its lattice point, not where it was heard; the two differ by at most τ.</div>
     <div class="eq">a partial no clock reaches has no (m, n), and so no place in W</div>
-    <div class="words">(what is left over) = the partials that stood alone in the fit. Each would need a loop of its own: a rank-N fit fills a torus of N dimensions, and the 2D synthesizer holds two.</div>
+    <div class="words">(what is left over) = the partials no lattice point of the field's two clocks reaches within τ. With the steps priced, a fit of rank two closes whole (one clock and one lone partial take one axis each); with free, long steps, two clocks can place every partial of anything, and the field then costs more bits than the list of partials it plays.</div>
   </div>
-  <div class="note">Field: 256 × 256 samples, read with bilinear interpolation at 48 kHz; random phases. The round trip is measured on the read-back itself: each reached partial's level at its lattice frequency through a Hann window 0.68 s long, against the level written. A smaller table reads worse: at 32 × 32 the piano A2's reached partials, up to 11 steps of its clock, come back as much as 3.5 dB off. Fit: the rank fitter of the piece under "Rank as a measured property", two clocks at most. Measured notes: one frame 0.19 s after the strike from the steward's tracks in Inharmonic Wavetable Synthesis's trajectory library (Ableton Core Library samples, measured in place; never copied). "What was heard" is those partials as sines with one shared decay, not the recording; the read-back wears the same decay.</div>
+  <div class="note">Field: 256 × 256 samples, read with bilinear interpolation at 48 kHz; random phases. The round trip is measured on the read-back itself: each reached partial's level at its lattice frequency through a Hann window 0.68 s long, against the level written. A smaller table reads worse: at 32 × 32 the piano A2's reached partials, up to 13 steps of its clock, come back as much as 5.0 dB off. Fit: the rank fitter of the piece under "Rank as a measured property", two clocks at most; when it names one clock, its loudest lone partial is written on the second axis as a clock of its own. Free steps: two clocks searched with steps up to 64 and ±16 and no price, then priced afterwards to compare with the list. The level match tests the table and its interpolation, which is exact by construction for any partial the clocks reach; the claim is tested by what is left over and by the bits. Measured notes: one frame 0.19 s after the strike from the steward's tracks in Inharmonic Wavetable Synthesis's trajectory library (Ableton Core Library samples, measured in place; never copied). "What was heard" is those partials as sines with one shared decay, not the recording; the read-back wears the same decay.</div>
   <div class="footer">Loud’n Live</div>
 </div>
 
@@ -219,6 +220,9 @@ function fitRanks(P, opt = {}) {
   let pool = [];
   for (const f of strong) for (let k = 1; k <= o.sub; k++) pool.push(cost(P, [f / k], o));
   pool = dedupe(pool.sort(byCost).slice(0, o.keep * 3).map((s) => refine(P, s, o)).sort(byCost)).slice(0, o.keep);
+  // a fine scan of each one-clock candidate, ±1 % in steps of 1⁄20000 of the clock, keeping the cheapest: least squares
+  // alone can settle on a clock that reaches fewer partials than a nearby one would
+  pool = dedupe(pool.map((s) => { let best = s; const w = s.w[0], d = w / 20000; for (let k = -200; k <= 200; k++) { const c = cost(P, [w + k * d], o); if (better(c, best)) best = c; } return refine(P, best, o); }).sort(byCost)).slice(0, o.keep);
   out.push(pool[0]);
   for (let N = 2; N <= o.maxClocks; N++) {
     const cand = [];
@@ -311,6 +315,20 @@ function strike(y, fs, struck) {
   for (let k = 0; k < n; k++) { let e = k < att ? k / att : 1; if (struck) e *= Math.exp(-k / (1.1 * fs)); if (k > n - rel) e *= (n - k) / rel; y[k] *= e; }
   return y;
 }
+// what the torus is given to play: the fit's clocks, and when the fit has only one, its loudest lone partial on the
+// second axis as a clock of its own (with none, the two loudest partials), so a sound of rank two closes on its own steps
+function torusFit(P, R) {
+  const f = R.fit, o = R.o, lone = f.assign.filter((s) => !s.ok).sort((a, b) => b.a - a.a);
+  if (f.w.length >= 2 || !lone.length) return f;
+  const w = f.w.length ? [f.w[0], lone[0].f] : lone.slice(0, 2).map((s) => s.f).sort((a, b) => a - b);
+  return cost(P, w, o);
+}
+// the same partials laid on two clocks with free steps (up to 64 and ±16): the dense reading, and what that field costs in bits
+function denseFit(P, tol) {
+  const R = fitRanks(P, { tol, free: true, M1: 64, M2: 16 }), f = R.fit;
+  const bits = f.w.length * freeBits(tol) + f.assign.reduce((s, a) => s + (a.ok ? stepBits(a.m) : freeBits(tol)), 0);
+  return { fit: f, bits };
+}
 
 </script>
 <script>
@@ -346,10 +364,10 @@ const FS = 48000, SIZE = 256;
 const STEPS = [
   { key: 'one', name: 'two partials, one clock', say: 'Two partials, 220 and 440 Hz. The fit names one clock, 220 Hz, and two steps. Written onto the torus, the field changes along θ₁ only: it is an ordinary <i>one-cycle wavetable</i>, laid across the square. Read it back at 220 Hz and the same two partials come out.' },
   { key: 'two', name: 'two clocks fill the torus', say: 'The tone on two clocks, 220 and 356 Hz. Now each partial turns m times one way and n times the other, and the field fills the square. Two phasors read it at the two clocks; the path <i>never closes</i>, and every partial comes back at m·220 + n·356.' },
-  { key: 'snap', name: 'a partial slightly off', say: 'Six harmonics of 220 Hz with the fifth pushed sharp. Within the tolerance the fit gives it a lattice point anyway, five steps of the clock, and the field plays it <i>there</i>: read back, it is in tune. Push it past the tolerance and it stands alone, and the field has nowhere to put it.' },
-  { key: 'test', name: 'the test: a measured note', say: 'A measured piano A2, and beside it the low A, a piano A4, a bell and three bars. Fitted, written, read back. Is the field <i>both</i> what was heard and what will be played, or only the part of it the clocks could reach?' },
+  { key: 'snap', name: 'a partial slightly off', say: 'Six harmonics of 220 Hz with the fifth pushed sharp. Within the tolerance the fit gives it a lattice point anyway, five steps of the clock, and the field plays it <i>there</i>: read back, it is in tune. Push it past the tolerance and it stands alone; the field\'s second axis takes it as a clock of its own, and it plays back where it was heard. Rank 2, closed.' },
+  { key: 'test', name: 'the test: a measured note', say: 'A measured piano A2, and beside it the low A, a piano A4, a bell and three bars. Fitted, written, read back. Is the field <i>both</i> what was heard and what will be played, or only the part of it two clocks could reach? And at what price could two clocks reach all of it?' },
 ];
-const S = { key: 'one', hear: 'heard', tol: 5, off: 3, src: 'piano-A2', job: null };
+const S = { key: 'one', hear: 'heard', tol: 5, off: 3, src: 'piano-A2', job: null, steps: 'priced' };
 function sourceP() {
   if (S.key === 'one') return [[220, 1], [440, 0.6]];
   if (S.key === 'two') return TWO_CLOCKS;
@@ -384,34 +402,38 @@ function drawSpec(job) {
   for (const v of [50, 100, 200, 500, 1000, 2000, 5000, 10000, 20000]) if (v > lo && v < hi) { g.fillText(v >= 1000 ? v / 1000 + 'k' : v, x(v), h - 6); g.strokeStyle = '#1a1a24'; g.beginPath(); g.moveTo(x(v), top); g.lineTo(x(v), base); g.stroke(); }
   g.textAlign = 'right'; g.fillText('0', L - 6, top + 4); g.fillText('−45', L - 6, base);
   const dB = (a) => 20 * Math.log10(Math.max(a, 1e-6));
-  for (const s of job.R.fit.assign) { const X = x(s.f); g.strokeStyle = s.ok ? '#8a8aa0' : '#ff9b4a'; g.lineWidth = s.ok ? 3 : 2; g.beginPath(); g.moveTo(X, base); g.lineTo(X, y(dB(s.a))); g.stroke(); }
+  for (const s of job.tf.assign) { const X = x(s.f); g.strokeStyle = s.ok ? '#8a8aa0' : '#ff9b4a'; g.lineWidth = s.ok ? 3 : 2; g.beginPath(); g.moveTo(X, base); g.lineTo(X, y(dB(s.a))); g.stroke(); }
   g.lineWidth = 1;
   for (const b of job.back) { const X = x(b.g); g.fillStyle = '#e8b84a'; g.beginPath(); g.arc(X, y(dB(b.level)), 3.5, 0, 2 * Math.PI); g.fill(); g.strokeStyle = '#e8b84a'; g.beginPath(); g.moveTo(X, base); g.lineTo(X, y(dB(b.level))); g.stroke(); }
-  $('specLabel').textContent = job.R.fit.w.length ? `clocks ${job.R.fit.w.map((v) => v.toFixed(2) + ' Hz').join(' and ')}` : 'no clock';
+  $('specLabel').textContent = job.tf.w.length ? `clocks ${job.tf.w.map((v) => v.toFixed(2) + ' Hz').join(' and ')}` : 'no clock';
 }
 // ---- the job: fit, write, read back, measure ----
 async function runJob() {
-  const P = sourceP(), R = fitRanks(P, { tol: S.tol }), T = buildField(R.fit, SIZE, 5);
+  const P = sourceP(), R = fitRanks(P, { tol: S.tol }), dense = S.key === 'test' && S.steps === 'free' ? denseFit(P, S.tol) : null;
+  const tf = dense ? dense.fit : torusFit(P, R), T = buildField(tf, SIZE, 5);
   await later();
   const len = 1 << 15, y = readField(T, len / FS + 0.01, FS), back = T.pts.map((p) => ({ g: p.g, f: p.f, err: p.err, a: p.a, level: levelAt(y, p.g, FS, 0, len) }));
   const worst = back.length ? Math.max(...back.map((b) => Math.abs(20 * Math.log10(b.level / b.a)))) : 0;
   const tot = P.reduce((s, p) => s + p[1] * p[1], 0), carried = back.reduce((s, b) => s + b.a * b.a, 0) / tot;
-  return { P, R, T, back, worst, carried };
+  const F = freeBits(S.tol), fieldBits = dense ? dense.bits : tf.bits;
+  return { P, R, tf, T, back, worst, carried, dense: !!dense, fieldBits, listBits: P.length * F };
 }
 function readout(J) {
-  const f = J.R.fit, moved = J.back.length ? Math.max(...J.back.map((b) => b.err)) : 0;
-  $('read').innerHTML = [`partials heard <b>${f.n}</b>`, `played back <b class="hot">${f.on}</b>`, `left over <b>${f.lone}</b>`, `energy carried <b>${(100 * J.carried).toFixed(1)} %</b>`, `largest move onto the lattice <b>${moved.toFixed(2)}</b> cents`, `read-back levels within <b>${J.worst.toFixed(2)} dB</b>`].join(' · ');
+  const f = J.tf, moved = J.back.length ? Math.max(...J.back.map((b) => b.err)) : 0;
+  $('read').innerHTML = [`partials heard <b>${f.n}</b>`, `played back <b class="hot">${f.on}</b>`, `left over <b>${f.lone}</b>`, `energy carried <b>${(100 * J.carried).toFixed(1)} %</b>`, `largest move onto the lattice <b>${moved.toFixed(2)}</b> cents`, `the field's naming <b>${J.fieldBits.toFixed(1)}</b> bits, the list ${J.listBits.toFixed(1)}`, `read-back levels within <b>${J.worst.toFixed(2)} dB</b> (a check of the table, not of the claim)`].join(' · ');
 }
 function verdict(J) {
-  const f = J.R.fit, name = SOURCES.find((s) => s.id === S.src).name;
-  $('verdict').innerHTML = `<p><b>The field plays back exactly what the clocks reach.</b> For the ${name}, ${f.on} of ${f.n} partials, ${(100 * J.carried).toFixed(1)} % of the energy, come back at their lattice points with their levels within ${J.worst.toFixed(2)} dB; each moved onto its point by at most ${Math.max(0, ...J.back.map((b) => b.err)).toFixed(2)} cents.</p>` +
-    `<p><b>The other ${f.lone} have no place in it.</b> The fit left them to stand alone, so its rank is ${f.rank}: a field that held them would need a torus of ${f.rank} dimensions, and the 2D synthesizer has two. Listen to "what was left over": ${S.src.startsWith('piano') ? 'for a piano it is the upper partials, the ones the bend pushed off the comb' : S.src.startsWith('bell') ? 'for the bell it is most of its modes, quiet but many' : 'the modes no clock reached'}. One stored field is both readings only for a sound whose rank is two or less; for this one the field is what will be played, and what was heard is the field plus what was left over.</p>`;
+  const f = J.tf, name = SOURCES.find((s) => s.id === S.src).name, moved = Math.max(0, ...J.back.map((b) => b.err)).toFixed(2), whole = f.lone === 0;
+  const head = J.dense
+    ? `<p><b>With free steps, two clocks place ${whole ? 'every partial' : f.on + ' of ' + f.n + ' partials'} of the ${name}</b>, each within ${moved} cents, at steps up to ${Math.max(0, ...f.assign.filter((a) => a.ok).map((a) => Math.max(...a.m.map(Math.abs))))}. The field plays them back. But naming it costs ${J.fieldBits.toFixed(1)} bits against ${J.listBits.toFixed(1)} for the plain list: it holds the note without compressing it. This is Three Kinds of Warp's dense lattice, placing energy near piano-stretched positions, approximately.</p>`
+    : `<p><b>With priced steps, the field plays back what its two clocks reach.</b> For the ${name}, ${f.on} of ${f.n} partials, ${(100 * J.carried).toFixed(1)} % of the energy, each moved onto its lattice point by at most ${moved} cents. ${whole ? 'Nothing is left over: this note closes on two clocks.' : `The other ${f.lone} are left over. ${S.src.startsWith('piano') ? 'For a piano they are the upper partials, the ones the bend pushed off the comb.' : S.src.startsWith('bell') ? 'For the bell they are most of its modes, quiet but many.' : 'They are the modes neither clock reached.'} Switch the steps to free to see them placed, and what that costs.`}</p>`;
+  $('verdict').innerHTML = head + `<p><b>So the round trip closes exactly, and for fewer bits than the list, only for a sound on a two-generator lattice</b> (the made tones, a tuned bar with one stray mode, a harmonic with one partial off). Any sound can be laid on two clocks to within τ with long enough steps, but then the field is longer than what was heard. A stiff string is on no lattice; the piano is played back either partly, or whole at a price.</p>`;
 }
 const HINTS = {
   one: 'The square is the torus: its left edge meets its right, its top meets its bottom. Amber is where W is high, indigo where it is low. With one clock the stripes run straight up, and the read crosses them along one line.',
   two: 'The read winds at the ratio of the two clocks, φ, so in time it passes near every point of the square. The read-back dots sit on the heard lines because these partials were made on the lattice.',
   snap: 'Slide the fifth partial sharp. Under the tolerance it is reached and read back in tune, moved by about the amount you pushed it (the clock shifts a hair to share the error); past the tolerance it turns orange and plays only in "what was left over".',
-  test: 'Try the bell, then the low A; change the tolerance. A wider tolerance lets more partials onto the lattice and moves each one further to get there.',
+  test: 'Try the vibraphone and the marimba, which close whole, then the bell and the low A. Then set the steps free. Between 1 and 10 cents a wider tolerance usually lets more partials onto the lattice, and moves each one further to get there.',
 };
 let gen = 0;
 async function refresh() {
@@ -422,7 +444,7 @@ async function refresh() {
 }
 function show(id, on) { $(id).classList.toggle('hidden', !on); }
 async function onStep(key) {
-  S.key = key; show('srcCtl', key === 'test'); show('offCtl', key === 'snap'); show('tolCtl', key === 'snap' || key === 'test'); show('verdict', key === 'test');
+  S.key = key; show('srcCtl', key === 'test'); show('stepCtl', key === 'test'); show('offCtl', key === 'snap'); show('tolCtl', key === 'snap' || key === 'test'); show('verdict', key === 'test');
   $('hint').textContent = HINTS[key];
   await refresh();
 }
@@ -431,7 +453,7 @@ function take() {
   const J = S.job, struck = S.key === 'test', dur = struck ? 3 : 2.5;
   let y;
   if (S.hear === 'back') y = J.T.pts.length ? readField(J.T, dur, FS) : new Float32Array(Math.round(dur * FS));
-  else if (S.hear === 'left') y = partialsSound(J.R.fit.assign.filter((s) => !s.ok).map((s) => [s.f, s.a]), FS, dur, false, 7);
+  else if (S.hear === 'left') y = partialsSound(J.tf.assign.filter((s) => !s.ok).map((s) => [s.f, s.a]), FS, dur, false, 7);
   else y = partialsSound(J.P, FS, dur, false, 7);
   strike(y, FS, struck);
   // one gain for all three, set by the heard note, so left over is as quiet as it really is
@@ -442,6 +464,7 @@ function take() {
 SOURCES.forEach((s) => { const b = document.createElement('button'); b.textContent = s.name; b.dataset.src = s.id; if (s.id === S.src) b.classList.add('on'); $('srcSeg').appendChild(b);
   b.onclick = () => { S.src = s.id; document.querySelectorAll('[data-src]').forEach((z) => z.classList.toggle('on', z === b)); stopSound(); $('go').textContent = '▸ play'; refresh(); }; });
 document.querySelectorAll('[data-h]').forEach((b) => (b.onclick = () => { S.hear = b.dataset.h; document.querySelectorAll('[data-h]').forEach((z) => z.classList.toggle('on', z === b)); if (playing) { stopSound(); playBuffer(take(), FS, () => ($('go').textContent = '▸ play')); $('go').textContent = '❚❚ stop'; } }));
+document.querySelectorAll('[data-st]').forEach((b) => (b.onclick = () => { S.steps = b.dataset.st; document.querySelectorAll('[data-st]').forEach((z) => z.classList.toggle('on', z === b)); stopSound(); $('go').textContent = '▸ play'; refresh(); }));
 $('tol').oninput = () => { S.tol = +$('tol').value; $('tolV').textContent = S.tol; refresh(); };
 $('off').oninput = () => { S.off = +$('off').value; $('offV').textContent = S.off; refresh(); };
 $('tolV').textContent = S.tol; $('offV').textContent = S.off;
