@@ -112,7 +112,43 @@
           }
         }
       ],
-      "stamped": "2026-11-03"
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "proofs/feel-lab/frets_landing.wav",
+            "verdict": "keep",
+            "why": "The steward's render, caption checked against feel_map_results.json (max 2.39 cents). Anchored at the struck-spring phrase; re-anchor to 'Pitch you can lean on'."
+          },
+          {
+            "file": "proofs/feel-lab/lock.wav",
+            "verdict": "keep",
+            "why": "Click phases in the caption match feel_lab_results.json. Anchored at the struck-spring phrase; re-anchor to 'The lock'."
+          },
+          {
+            "file": "proofs/feel-lab/follow_melody.wav",
+            "verdict": "keep",
+            "why": "The steward's render of haptic filtering, captioned honestly. Anchored at the struck-spring phrase; re-anchor to 'Haptic filtering'."
+          },
+          {
+            "file": "proofs/feel-lab/turntable_hold.wav",
+            "verdict": "keep",
+            "why": "The steward's cycle-7 render, captioned honestly. Anchored at the struck-spring phrase; re-anchor to 'The turntable'."
+          },
+          {
+            "file": "Haptic Handwheel — rich — the struck spring.html",
+            "verdict": "keep",
+            "why": "A test that found the page's condition (a hard strike); the engine matches the exact pendulum period at every measured swing. Notes: the caption should say the last two half swings are set aside, and the end dip is the meter timing zero crossings around a rest point friction moved 0.035 rad, not the spring slowing."
+          },
+          {
+            "file": "proofs/feel-lab/feel-lab.html",
+            "verdict": "keep",
+            "why": "The steward's lab framed whole, captioned honestly."
+          }
+        ]
+      }
     },
     {
       "heading": "Two kinds of force",
@@ -144,7 +180,23 @@
           "near": "delay makes a stiff spring unstable"
         }
       ],
-      "stamped": "2026-11-03"
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "proofs/feel-lab/stability.svg",
+            "verdict": "keep",
+            "why": "The steward's sweep; 'within about 10%' is his own figure."
+          },
+          {
+            "file": "Haptic Handwheel — rich — a stiff spring down a wire.html",
+            "verdict": "keep",
+            "why": "A real test: 24 of 24 verdict cells match the steward and the map agrees with K(T/2+d)<b away from the edge. Note: its step-5 verdict line should say 'on a knob with no friction', as its honest box already does; with the engine's 3 mN·m friction on, 0.03 settles over USB."
+          }
+        ]
+      }
     },
     {
       "heading": "Feedback folded into the control",
@@ -167,7 +219,18 @@
           "near": "Here the motor both senses and pushes"
         }
       ],
-      "stamped": "2026-11-03"
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Haptic Handwheel — rich — two parts or one.html",
+            "verdict": "remake",
+            "why": "Demonstrates the engine's detent rather than testing the Simondon claim: a snap-to-note plain knob would also land 9 of 9, so 'landed within 10 cents' can't come out against the claim. Remake: add a snap-to-note control way, score right note and cents separately, drive the verdict from the right-note column, and reword 'The one part carried the news'."
+          }
+        ]
+      }
     }
   ]
 }
