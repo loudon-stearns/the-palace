@@ -12,7 +12,7 @@ forward_vector: I re-render, headless, the plates two of the rich face's pieces 
 Run from the palace root, Blender 5.1.2:
   B=/Applications/Blender.app/Contents/MacOS/Blender; P="Remnants in Depth/Remnants in Depth — rich — render plates.py"
   $B -b --factory-startup -P "$P" -- orbit $OUT
-  for j in ref L1_blend L1_dith L2_blend L2_dith L2_blend_raw L2_blend_repeat L2_blend_raw_repeat inkA quadA inkB quadB truthB; do $B -b --factory-startup -P "$P" -- comp $OUT $j; done
+  for j in ref L1_blend L1_dith L2_blend L2_dith L2_blend_raw L2_blend_repeat L2_blend_raw_repeat OV_blend OV_dith inkA quadA inkB quadB truthB quadM truthM; do $B -b --factory-startup -P "$P" -- comp $OUT $j; done
 Writes PNGs under $OUT/orbit/ and $OUT/comp/. "Remnants in Depth — rich — make sheets.py" reads them.
 Each comp job runs in a fresh Blender, as the Hand-Drawn 3D Look plates did (Freestyle can keep state between
 renders in one session); this line style has no Spatial Noise, so it should not matter, but it costs nothing.
@@ -177,8 +177,11 @@ if MODE == "comp":
     PA = Vector((-4.545, 10.81, 3.6)); PB = Vector((4.73, 11.225, 3.0))
     LA = C + 0.42 * (PA - C); LB = C + 1.3 * (PB - C)
     def side(L): return 0.17 * (L - C).length * 36.0 / 26.0          # a sixth of the frame's width at its depth
+    # M: a near card whose empty square lies over B, the card the building hides (the challenger's placement):
+    # on the ray to half a card-width left of B, 0.4 of the way out.
+    LM = C + 0.4 * (LB + Vector((-0.5 * side(LB), 0, 0)) - C)
     tex = MARK
-    two_layer = JOB.startswith("L2")
+    two_layer = JOB.startswith(("L2", "OV"))
     blended = "blend" in JOB
     raw = "raw" in JOB                                                 # L2_blend_raw, L2_blend_repeat, L2_blend_raw_repeat: guards off
     G["configure_freestyle_scene_only"]()
@@ -186,16 +189,17 @@ if MODE == "comp":
     G["common"]()
     sc.render.image_settings.color_mode = "RGB"
 
-    if JOB in ("inkA", "quadA", "inkB", "quadB", "truthB"):
+    if JOB in ("inkA", "quadA", "inkB", "quadB", "truthB", "quadM", "truthM"):
         sc.render.use_freestyle = False
         mat = G["blob_material"](tex, 0) if JOB.startswith(("ink", "truth")) else emission_mat("quad", (0, 0, 0))
-        which = LA if JOB.endswith("A") else LB
+        which = {"A": LA, "B": LB, "M": LM}[JOB[-1]]
         card("bb", side(which), tuple(which), mat, face_cam=cam)
         G["link"](bpy.context.active_object, G["blob_coll"])
-        if JOB != "truthB":                                            # truthB keeps the buildings: plain z-buffer occlusion
+        if not JOB.startswith("truth"):                                # truth keeps the buildings: plain z-buffer occlusion
             for o in list(G["scene_coll"].objects): o.hide_render = True
     elif JOB != "ref":
-        for k, L in (("A", LA), ("B", LB)):
+        # OV_blend, OV_dith: the overlap case, B and M only, two layers
+        for k, L in ((("B", LB), ("M", LM)) if JOB.startswith("OV") else (("A", LA), ("B", LB))):
             mat = G["blob_material"](tex, k)
             if blended: set_blended(mat)
             if raw: unthreshold(mat, "REPEAT" if JOB.endswith("repeat") else None)
@@ -206,6 +210,6 @@ if MODE == "comp":
             G["setup_two_layer_composite"]()
     render(os.path.join(cdir, JOB + ".png"))
     if JOB == "ref":
-        json.dump(dict(res=list(G["RES"]), A=list(LA), B=list(LB), side_A=side(LA), side_B=side(LB),
+        json.dump(dict(res=list(G["RES"]), A=list(LA), B=list(LB), M=list(LM), side_A=side(LA), side_B=side(LB), side_M=side(LM),
                        camera=list(C), lens=26.0, mark=os.path.relpath(MARK, ROOT), blender=bpy.app.version_string),
                   open(os.path.join(cdir, "comp.json"), "w"), indent=1)

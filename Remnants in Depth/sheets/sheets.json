@@ -347,8 +347,14 @@
    16.467498779296875,
    3.4049999713897705
   ],
+  "M": [
+   1.3485695123672485,
+   2.8369998931884766,
+   2.3519999980926514
+  ],
   "side_A": 1.7560190131641393,
   "side_B": 5.555151720585699,
+  "side_M": 2.168670573255674,
   "camera": [
    0.0,
    -6.25,
@@ -687,11 +693,42 @@
    "B_hidden_share": 0.8358061974789917,
    "L1_blend_vs_L1_dith": 0
   },
+  "overlap": {
+   "OV_blend": {
+    "leak": 3130,
+    "in_square": 3130,
+    "last_col": 612,
+    "missing": 0
+   },
+   "OV_dith": {
+    "leak": 0,
+    "in_square": 0,
+    "last_col": null,
+    "missing": 1
+   },
+   "quadM_right": 611
+  },
+  "overlap_full_res": {
+   "OV_blend": {
+    "leak": 3130,
+    "in_square": 3130,
+    "last_col": 762,
+    "missing": 0
+   },
+   "OV_dith": {
+    "leak": 0,
+    "in_square": 0,
+    "last_col": null,
+    "missing": 1
+   },
+   "quadM_right": 761
+  },
   "rules": {
    "dark": "grey below 128",
    "corners": "quad minus the ink grown 2 px",
    "ring": "3 px either side of the quad's edge, minus the ink grown 3 px and the lines grown 2 px",
-   "moved": "differs from the plain street by more than 4 of 255"
+   "moved": "differs from the plain street by more than 4 of 255",
+   "leak": "ink the composite shows outside the lines and the truth (each grown 1 px)"
   }
  },
  "knobs": {

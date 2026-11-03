@@ -58,3 +58,4 @@ What each enrichment taught the ceremony, appended after a run that taught it so
 - run · 2026-11-03 · v2.7 with the proposal-round settings · Compressor Design · nothing new
 - run · 2026-11-03 · v2.7 with the proposal-round settings · Rational Hearing · nothing new
 - run · 2026-11-03 · v2.7 with the proposal-round settings · Dispersion · nothing new
+- run · 2026-11-03 · v2.7 with the proposal-round settings · Remnants in Depth · nothing new

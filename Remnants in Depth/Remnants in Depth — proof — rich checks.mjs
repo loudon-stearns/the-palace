@@ -27,7 +27,7 @@ const meta = JSON.parse(readFileSync(join(B, 'sheets', 'sheets.json'), 'utf8'));
 const pad = (n) => String(n).padStart(2, '0');
 const files = [];
 for (const th of meta.orbit.angles) for (const k of ['card_face', 'card_fixed', 'glob_ink', 'glob_lit']) files.push(`orbit/${k}_${pad(th)}.png`);
-const comps = ['ref', 'inkA', 'quadA', 'inkB', 'quadB', 'truthB', 'L1_blend', 'L1_dith', 'L2_blend', 'L2_dith', 'L2_blend_raw', 'L2_blend_repeat', 'L2_blend_raw_repeat'];
+const comps = ['ref', 'inkA', 'quadA', 'inkB', 'quadB', 'truthB', 'OV_blend', 'OV_dith', 'quadM', 'truthM', 'L1_blend', 'L1_dith', 'L2_blend', 'L2_dith', 'L2_blend_raw', 'L2_blend_repeat', 'L2_blend_raw_repeat'];
 comps.forEach((k) => files.push(`comp/${k}.png`));
 const dir = mkdtempSync(join(tmpdir(), 'rid-'));
 execFileSync('python3', ['-I', '-c', `
@@ -74,7 +74,7 @@ console.log('the white square — its engine against scipy');
   const [, , W, H] = meta.comp.crop, G = {};
   comps.forEach((k) => { G[k] = raw[`comp/${k}.png`]; });
   const P = RD.prepare(G, W, H), ref = meta.comp.measures;
-  for (const k of comps.slice(6)) {
+  for (const k of comps.slice(10)) {
     const m = RD.measure(P, G.ref, G[k]), r = ref[k];
     const same = ['A', 'B'].every((q) => ['corner_lines', 'kept', 'ring_px', 'ring_moved', 'ring_max'].every((f) => m[q][f] === r[q][f]))
       && ['B_visible', 'B_truth', 'B_xor', 'lines_lost'].every((f) => m[f] === r[f]);
@@ -88,6 +88,14 @@ console.log('the white square — its engine against scipy');
   ok(F.L2_blend.A.ring_moved === 0 && F.L2_blend.B.ring_moved === 0, 'two layers, BLENDED, material as written: no edge pixel moves more than 4 of 255 (max ' + F.L2_blend.A.ring_max + ')');
   ok(F.L2_blend_raw_repeat.A.ring_moved > 0, 'both guards undone: a faint edge (' + F.L2_blend_raw_repeat.A.ring_moved + ' px, max ' + F.L2_blend_raw_repeat.A.ring_max + ')');
   ok(F.L2_blend_repeat.A.ring_moved === 0 && F.L2_blend_raw.A.ring_moved === 0, 'one guard undone, either one: still no edge past 4 of 255');
+  for (const tag of ['OV_blend', 'OV_dith']) {
+    const o = RD.overlap(G, W, H, tag), r = meta.comp.overlap[tag];
+    ok(o.leak === r.leak && o.in_square === r.in_square && o.missing === r.missing, `${tag.padEnd(9)} hidden ink showing ${o.leak} (scipy ${r.leak}), within M's square ${o.in_square}, missing ${o.missing}`);
+  }
+  const OF = meta.comp.overlap_full_res;
+  ok(OF.OV_blend.leak > 1000 && OF.OV_blend.in_square === OF.OV_blend.leak, 'overlap, BLENDED: the hidden mark shows through, every leaked pixel within 2 px of the near card\'s square (' + OF.OV_blend.leak + ')');
+  ok(OF.OV_blend.last_col <= OF.quadM_right + 2, 'overlap, BLENDED: the leak stops at the near card\'s edge (last column ' + OF.OV_blend.last_col + ', edge ' + OF.quadM_right + ')');
+  ok(OF.OV_dith.leak === 0, 'overlap, DITHERED: nothing leaks (' + OF.OV_dith.leak + ')');
   ok(F.L2_dith.B_xor <= 0.01 * F.L2_dith.B_truth && F.L2_blend.B_xor <= 0.01 * F.L2_blend.B_truth, 'two layers: B shows where a plain depth test shows it, within 1 %');
 }
 

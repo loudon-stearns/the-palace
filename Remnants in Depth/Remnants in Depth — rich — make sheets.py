@@ -81,6 +81,22 @@ def comp_measures(G):
     return out
 
 
+def overlap_measures(G):
+    """The overlap case: near card M's empty square over B, which a building mostly hides. Leak = ink the
+    composite shows that a plain depth test (B alone, M alone, each with the buildings) does not, a pixel's
+    antialiasing allowed either side."""
+    if "OV_blend" not in G: return None
+    lines = dark(G["ref"]); truth = dark(G["truthB"]) | dark(G["truthM"]); QM = dark(G["quadM"])
+    out = {}
+    for tag in ("OV_blend", "OV_dith"):
+        T = dark(G[tag]); leak = T & ~dil(lines, 1) & ~dil(truth, 1)
+        cols = np.where(leak.any(0))[0]
+        out[tag] = dict(leak=int(leak.sum()), in_square=int((leak & dil(QM, 2)).sum()),
+                        last_col=int(cols.max()) if len(cols) else None, missing=int((truth & ~T).sum()))
+    xs = np.where(QM.any(0))[0]; out["quadM_right"] = int(xs.max())
+    return out
+
+
 def sheets(OUT):
     os.makedirs(os.path.join(SH, "orbit"), exist_ok=True); os.makedirs(os.path.join(SH, "comp"), exist_ok=True)
     meta = {"orbit": json.load(open(os.path.join(OUT, "orbit", "orbit.json"))),
@@ -117,7 +133,7 @@ def sheets(OUT):
     # comp: one crop holding both billboards and the street between
     cx, cy, CW, CH = 150, 140, 780, 340
     names = ["ref", "L1_blend", "L1_dith", "L2_blend", "L2_dith", "L2_blend_raw", "L2_blend_repeat", "L2_blend_raw_repeat",
-             "inkA", "quadA", "inkB", "quadB", "truthB"]
+             "inkA", "quadA", "inkB", "quadB", "truthB", "OV_blend", "OV_dith", "quadM", "truthM"]
     G = {}; FULL = {}
     for n in names:
         p = os.path.join(OUT, "comp", n + ".png")
@@ -127,9 +143,11 @@ def sheets(OUT):
         Image.fromarray(G[n], "L").save(os.path.join(SH, "comp", n + ".png"), optimize=True)
     ys, xs = np.where(dark(G["quadA"]))
     meta["comp"].update(crop=[cx, cy, CW, CH], quadA_in_crop=[int(xs.min()) - 20, int(ys.min()) - 20, 240, 240], measures=comp_measures(G), full_res=comp_measures(FULL),
+                        overlap=overlap_measures(G), overlap_full_res=overlap_measures(FULL),
                         rules=dict(dark="grey below 128", corners="quad minus the ink grown 2 px",
                                    ring="3 px either side of the quad's edge, minus the ink grown 3 px and the lines grown 2 px",
-                                   moved="differs from the plain street by more than 4 of 255"))
+                                   moved="differs from the plain street by more than 4 of 255",
+                                   leak="ink the composite shows outside the lines and the truth (each grown 1 px)"))
     json.dump(meta, open(os.path.join(SH, "sheets.json"), "w"), indent=1)
     print(json.dumps(meta["comp"]["measures"], indent=1)[:3000])
     for r in rows: print(r["angle"], {k: round(v["iou"], 3) for k, v in r.items() if k != "angle"}, {k: v["parts"] for k, v in r.items() if k != "angle"})
