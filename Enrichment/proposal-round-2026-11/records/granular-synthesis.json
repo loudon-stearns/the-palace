@@ -1,0 +1,32 @@
+{
+ "entry": "Granular Synthesis",
+ "path": "Granular Synthesis.md",
+ "type": "concept",
+ "stage": "growing",
+ "weight": 7,
+ "claim": "§ The Granular-Additive Attractor Hybrid + Three Coupling Regimes: loud partials are deep wells that capture grains, a swept bandpass drags the pile, and grain-to-grain coupling alone self-organizes a harmonic series nobody specified (with a nonlinearity).",
+ "pieces": [
+  {
+   "section": "The Granular-Additive Attractor Hybrid",
+   "what": "A grain cloud over an additive spectrum: drag the bandpass and hear and see grains pile up where it sits.",
+   "kind": "interactive",
+   "walks_up_from": "one grain drifting past one partial"
+  },
+  {
+   "section": "Three Coupling Regimes",
+   "what": "The three regimes on one switch: attractor-only, add weak grain-to-grain, grain-to-grain only; the last with a soft-clip toggle to test whether harmonic locking appears.",
+   "kind": "interactive",
+   "walks_up_from": "a random cloud with no coupling"
+  },
+  {
+   "section": "Open Questions",
+   "what": "Grain count against continuity: thin the cloud until the texture breaks.",
+   "kind": "audio",
+   "walks_up_from": "forty grains"
+  }
+ ],
+ "gathered": [],
+ "tier": "sketch",
+ "note": "Nothing to gather; the claims are audible and none is yet heard. The soft-clip claim is the one a piece would really test.",
+ "slice": 1
+}

@@ -1,0 +1,41 @@
+{
+ "entry": "Semantic Delay",
+ "path": "Projects/Semantic Delay.md",
+ "type": "project",
+ "stage": "growing",
+ "weight": 7,
+ "claim": "Rhythmic Coupling §: speech rhythm and musical meter as two oscillators phase-locking, 'the coupling strength is the constraint'; and Phase 1 Plan §: latency is musical — at RTF 1.65 the delay is a phrase-delay of seconds, not monitoring.",
+ "pieces": [
+  {
+   "section": "Rhythmic Coupling: Two-Stage Pool-Then-Select",
+   "what": "the same phrase echoed at K = 0, 0.5, 1.0 through the real SVC, with F0 contours overlaid; tests that coupling strength is audible as rhythm-hold",
+   "kind": "audio",
+   "walks_up_from": "one input phrase and its F0 contour"
+  },
+  {
+   "section": "The architectural forcing function: why two processes",
+   "what": "the real-daemon timeline: input phrase, compute time, echo landing seconds later; tests 'latency is musical, not monitoring'",
+   "kind": "image",
+   "walks_up_from": "one phrase entering the plugin"
+  },
+  {
+   "section": "Architecture (full vision, Phase 2)",
+   "what": "stage 3 multi-voice taps: one phrase returned in several voices",
+   "kind": "audio",
+   "walks_up_from": "a single voice-swapped echo"
+  }
+ ],
+ "gathered": [
+  "Projects/Semantic Delay/standalone/demo/stage4-real/echo-K0.0.wav",
+  "Projects/Semantic Delay/standalone/demo/stage4-real/echo-K0.5.wav",
+  "Projects/Semantic Delay/standalone/demo/stage4-real/echo-K1.0.wav",
+  "Projects/Semantic Delay/standalone/demo/stage4-real/stage4-real-coupling-contours.png",
+  "Projects/Semantic Delay/standalone/demo/stage15-real-daemon/stage15-real-daemon-timeline.png",
+  "Projects/Semantic Delay/standalone/demo/stage15-real-daemon/stage15-real-daemon-delay.wav",
+  "Projects/Semantic Delay/standalone/demo/stage3-multi-voice-taps-demo.wav",
+  "Projects/Semantic Delay/standalone/demo/listening-sheet.html",
+  "Projects/Semantic Delay/plugin/proofs/editor-900x600.png"
+ ],
+ "tier": "sketch",
+ "slice": 4
+}

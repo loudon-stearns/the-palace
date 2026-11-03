@@ -1,0 +1,55 @@
+{
+ "entry": "Crystal Synthesizer",
+ "path": "Projects/Crystal Synthesizer.md",
+ "type": "project",
+ "stage": "fruiting",
+ "weight": 10,
+ "claim": "Bravais Lattice Taxonomy: each lattice system's timbre is 'a hypothesis… the Crystal Synthesizer exists precisely to test them' — e.g. triclinic predicted 'the most alien, chaotic, bell-like'; the bundle found labradorite rings as a dull knock with a bright tick and diamond the only bell.",
+ "pieces": [
+  {
+   "section": "Bravais Lattice Taxonomy: Seven into Fourteen into 230",
+   "what": "One strike through each lattice system in order of falling symmetry, each beside its printed hypothesis, the reader marking held or failed; ends on diamond against labradorite through the same synth.",
+   "kind": "interactive",
+   "walks_up_from": "one sine, then one cubic partial pair"
+  },
+  {
+   "section": "The Optical-Sonic Bridge: Dispersion, Anisotropy, and Resonance",
+   "what": "A dry click, then the same click fanned out by frequency through diamond's dispersion: the prism in time. Beryl along the c-axis and across the basal plane.",
+   "kind": "audio",
+   "walks_up_from": "the dry click"
+  },
+  {
+   "section": "The Optical-Sonic Bridge: Dispersion, Anisotropy, and Resonance",
+   "what": "Birefringence made audible: ordinary family alone, extraordinary alone, their sum beating at 8.8 Hz.",
+   "kind": "audio",
+   "walks_up_from": "the ordinary family alone"
+  },
+  {
+   "section": "Open Questions",
+   "what": "The built face, playable, with Axis angle and Fire.",
+   "kind": "interactive",
+   "walks_up_from": "diamond at rest"
+  }
+ ],
+ "gathered": [
+  "playable-crystal/one_strike_nine_lattices.wav",
+  "triclinic-proof/diamond_strike.wav",
+  "triclinic-proof/labradorite_strike.wav",
+  "triclinic-proof/symmetry_arc_AB.wav",
+  "crystal-rings/ring_tour.wav",
+  "crystal-rings/strike_vs_ring.wav",
+  "dispersion-filter/01_dry_click.wav",
+  "dispersion-filter/02_dispersed_click.wav",
+  "dispersion-filter/beryl_c_axis.wav",
+  "dispersion-filter/beryl_basal_plane.wav",
+  "dispersion-filter/beryl_birefringence_plot.html",
+  "birefringence-proof/01_ordinary_only.wav",
+  "birefringence-proof/02_extraordinary_only.wav",
+  "birefringence-proof/03_birefringent_sum.wav",
+  "crystal-synthesizer-face.html",
+  "proofs-menu.html",
+  "proofs/2026-05-04-calcite-vs-quartz.wav"
+ ],
+ "tier": "study",
+ "slice": 3
+}

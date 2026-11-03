@@ -1,0 +1,38 @@
+{
+ "entry": "Categorizing Inharmonicity",
+ "path": "Projects/Categorizing Inharmonicity.md",
+ "type": "concept",
+ "stage": "mature",
+ "weight": 9,
+ "claim": "Opening: 'Inharmonicity is not a single dimension but a space' — stretched, Bessel, stochastic, chaotic and phase-accumulation are audibly different kinds, not degrees; and Open Questions: at what magnitude does each type become audibly distinct?",
+ "pieces": [
+  {
+   "section": "The Inharmonicity Space: Primary Dimensions",
+   "what": "One fundamental, a type selector and a magnitude slider from 0; spectrum drawn live. The reader raises each type from harmonic until they hear it leave, which is the open question's threshold, measured by ear.",
+   "kind": "interactive",
+   "walks_up_from": "the harmonic series alone"
+  },
+  {
+   "section": "The Inharmonicity Space: Primary Dimensions",
+   "what": "The five gathered flavours in a row with their figure.",
+   "kind": "audio",
+   "walks_up_from": "the harmonic render"
+  },
+  {
+   "section": "6. All-Pass Phase Accumulation: Spectral Ghosting",
+   "what": "A harmonic tone through an all-pass loop: magnitude unchanged, spacing shifted, to test 'inharmonicity can be entirely phase-based'.",
+   "kind": "interactive",
+   "walks_up_from": "the dry harmonic tone"
+  }
+ ],
+ "gathered": [
+  "proofs/2026-05-04-01-harmonic.wav",
+  "proofs/2026-05-04-02-stretched.wav",
+  "proofs/2026-05-04-03-bessel.wav",
+  "proofs/2026-05-04-04-stochastic.wav",
+  "proofs/2026-05-04-05-chaotic.wav",
+  "proofs/2026-05-04-five-flavors.png"
+ ],
+ "tier": "study",
+ "slice": 3
+}

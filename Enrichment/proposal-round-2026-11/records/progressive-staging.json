@@ -1,0 +1,28 @@
+{
+ "entry": "Progressive Staging",
+ "path": "Progressive Staging.md",
+ "type": "hub",
+ "stage": "growing",
+ "weight": 7,
+ "claim": "The Method: additive complexity, never retroactive — 'the student can set leak_tau to infinity and recover Stage 1 exactly.'",
+ "pieces": [
+  {
+   "section": "The Method",
+   "what": "The oscillator's four stages as a walk, one step showing at a time, each with a 'back to the last stage' control; at Stage 2 the leak slider runs to its stop and the waveform is overlaid on Stage 1's. Tests 'exactly' (the dev plan's Stage 2 hard-resets where Stage 1 wraps, so the overlay may not close).",
+   "kind": "interactive",
+   "walks_up_from": "Stage 1's bare ramp: charge to threshold, reset"
+  },
+  {
+   "section": "Inside One Piece",
+   "what": "The model walk itself, gathered: the Dissolutions table that travels, as the worked example of a step rail.",
+   "kind": "interactive",
+   "walks_up_from": "the table alone"
+  }
+ ],
+ "gathered": [
+  "/Dissolutions/proofs/2026-10-20-the-table-that-travels/the-table-that-travels.html",
+  "Projects/Action Potential Oscillator/neuron_oscillator.html"
+ ],
+ "tier": "sketch",
+ "slice": 3
+}

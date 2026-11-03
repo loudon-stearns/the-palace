@@ -1,0 +1,48 @@
+{
+ "entry": "Retrospective Delay",
+ "path": "Projects/Retrospective Delay.md",
+ "type": "project",
+ "stage": "growing",
+ "weight": 7,
+ "claim": "How It Differs From Standard Delay §: it thinks in phrases, 'here's what you just did, replayed', not 'echo, echo, echo'. Latent tension in The Core Architecture §: the gain knob 'multiplies the write amplitude' yet is said to summon the past phrase — material written at gain 0 is never recorded, so raising the knob can only summon what was written while it was up; a piece would show which.",
+ "pieces": [
+  {
+   "section": "How It Differs From Standard Delay",
+   "what": "the same phrase through a tapped delay and through the witness, A/B; tests phrase vs taps",
+   "kind": "audio",
+   "walks_up_from": "one phrase played into silence"
+  },
+  {
+   "section": "The Core Architecture",
+   "what": "write head, read head and buffer drawn live with a gain knob on the write side; play, set gain 0, raise it later, and see what comes back; tests the gain-summons claim",
+   "kind": "interactive",
+   "walks_up_from": "a phasor writing one measure"
+  },
+  {
+   "section": "Open Questions",
+   "what": "seam-hard vs seam-smoothed (the 5 ms crossfade Loudon asked for)",
+   "kind": "audio",
+   "walks_up_from": "the buffer's wrap point"
+  },
+  {
+   "section": "Interface Design Philosophy",
+   "what": "the face film: the séance cat's poses across the knob",
+   "kind": "video",
+   "walks_up_from": "the cat asleep at gain 0"
+  }
+ ],
+ "gathered": [
+  "Projects/Retrospective Delay/stage-5-portal/portal-web.html",
+  "Projects/Retrospective Delay/stage-1/witness/witness-A-as-specified.wav",
+  "Projects/Retrospective Delay/stage-1/witness/witness-B-silence-keeps.wav",
+  "Projects/Retrospective Delay/stage-2-seance/seam-hard.wav",
+  "Projects/Retrospective Delay/stage-2-seance/seam-smoothed.wav",
+  "Projects/Retrospective Delay/stage-2-seance/seance-performance.wav",
+  "Projects/Retrospective Delay/stage-3-grammar/shrinking-measure.wav",
+  "Projects/Retrospective Delay/stage-4-character/face/face-film.mp4",
+  "Projects/Retrospective Delay/stage-4-character/face/face-moments.png",
+  "Projects/Retrospective Delay/proofs/2026-05-04-seance-cat-poses-v2-7frames.svg"
+ ],
+ "tier": "sketch",
+ "slice": 4
+}

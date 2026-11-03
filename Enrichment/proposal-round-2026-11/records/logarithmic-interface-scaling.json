@@ -1,0 +1,35 @@
+{
+ "entry": "Logarithmic Interface Scaling",
+ "path": "Logarithmic Interface Scaling.md",
+ "type": "concept",
+ "stage": "mature",
+ "weight": 7,
+ "claim": "§ When to Use This Pattern: 'does doubling feel like the same gesture as halving? If not, the mapping is wrong.'",
+ "pieces": [
+  {
+   "section": "The Interface Design Problem",
+   "what": "Two sliders on one range, linear and log; the reader tries to double and halve from 1 on each and feels the distances.",
+   "kind": "interactive",
+   "walks_up_from": "one linear slider from 0.5 to 20"
+  },
+  {
+   "section": "Testing Your Control Implementation",
+   "what": "Run the symmetry test live and show the numbers. The text's example values (0.79, 1.26 = 10^±0.1) fit 10 % either side of centre only on a one-decade slider; on the page's own 0.1–10 slider 10 % gives 0.63 and 1.58, and the step 'move 20 % right from center' reads ambiguously. The piece would catch both.",
+   "kind": "interactive",
+   "walks_up_from": "the centre value 1.0"
+  },
+  {
+   "section": "When to Use This Pattern",
+   "what": "A filter cutoff swept linearly and logarithmically, heard.",
+   "kind": "audio",
+   "walks_up_from": "a cutoff at 1 kHz"
+  }
+ ],
+ "gathered": [
+  "logarithmic_scaling_guide.md",
+  "log_slider_python_pseudocode.md"
+ ],
+ "tier": "sketch",
+ "note": "The second piece tests the section's numbers; checked by hand here, not run. Carry home as an edit that changes no claim, shown to Loudon first.",
+ "slice": 1
+}

@@ -1,0 +1,39 @@
+{
+ "entry": "Flocking",
+ "path": "Flocking.md",
+ "type": "concept",
+ "stage": "growing",
+ "weight": 7,
+ "claim": "§ The Kuramoto Tie: 'Flocking is Kuramoto in two dimensions' with polarization R as the order parameter and a critical regime where coherent flow appears.",
+ "pieces": [
+  {
+   "section": "The Kuramoto Tie",
+   "what": "The D3 control lens with the alignment weight on a slider and R live; the reader finds the drift → milling → coherent flip by hand.",
+   "kind": "interactive",
+   "walks_up_from": "one boid steering by one rule"
+  },
+  {
+   "section": "The Kuramoto Tie",
+   "what": "The Observable Plot sweep, R(t) at three alignment weights on one axis, as the first sketch of the phase diagram.",
+   "kind": "interactive",
+   "walks_up_from": "R for a random flock"
+  },
+  {
+   "section": "Cross-Domain Mirrors",
+   "what": "The p5 expressive lens, hue as heading, beside the music-ensemble paragraph.",
+   "kind": "interactive",
+   "walks_up_from": "one coloured trail"
+  }
+ ],
+ "gathered": [
+  "flocking-d3-interactive-cobalt.html",
+  "flocking-observable-plot-graphite.html",
+  "flocking-p5-expressive-strobe.html",
+  "flocking-d3-interactive-control.html",
+  "flocking-observable-plot-analytical.html",
+  "flocking-p5-expressive.html"
+ ],
+ "tier": "sketch",
+ "note": "Mostly a gathering job: six tracked pieces in the bundle, three in house dress. A new piece would be the predator boid the page defers.",
+ "slice": 1
+}

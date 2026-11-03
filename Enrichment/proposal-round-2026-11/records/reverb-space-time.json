@@ -1,0 +1,37 @@
+{
+ "entry": "Reverb ↔ Space-Time",
+ "path": "Cross-Domain Resonances/Reverb ↔ Space-Time.md",
+ "type": "concept",
+ "stage": "mature",
+ "weight": 8,
+ "claim": "§ The Physics: 'A wall 10 meters away returns its reflection 29 milliseconds late. Your brain reads those arrival times as geometry' — and Loudon's comment asks how room dimensions and room size work together.",
+ "pieces": [
+  {
+   "section": "The Physics",
+   "what": "One clap and one wall: drag the wall, t = d/343 updates, hear the echo fuse into room as it nears; then add walls and a Sabine RT60 readout from the room's dimensions — answers the comment's question",
+   "kind": "interactive",
+   "walks_up_from": "a single reflection from one wall"
+  },
+  {
+   "section": "The Relativity Connection",
+   "what": "Haas slider: delay one channel 0–40 ms on headphones; width appears with no spatial change, then splits into an echo",
+   "kind": "interactive",
+   "walks_up_from": "the same click in both ears"
+  },
+  {
+   "section": "Teaching Notes",
+   "what": "One vocal dry / small room / hall / cathedral, asking 'where are you?'",
+   "kind": "audio",
+   "walks_up_from": "the dry vocal"
+  },
+  {
+   "section": "Advanced Applications",
+   "what": "Lucier's 'I Am Sitting in a Room' as an iteration slider: speech convolved with one room IR n times",
+   "kind": "interactive",
+   "walks_up_from": "one pass through the room"
+  }
+ ],
+ "gathered": [],
+ "tier": "study",
+ "slice": 0
+}

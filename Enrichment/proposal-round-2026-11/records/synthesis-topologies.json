@@ -1,0 +1,37 @@
+{
+ "entry": "Synthesis Topologies",
+ "path": "Synthesis Topologies.md",
+ "type": "concept",
+ "stage": "growing",
+ "weight": 8,
+ "claim": "What the Family Shares: the loop holds wavetable and waveguide together — 'a cycle read from a table and the same cycle going round a delay loop match sample for sample when the period is a whole number of samples'; the crowd holds partials, grains, neurons and birds; the wiring holds subtractive, FM and modular. And FM: 'past about 20 Hz a vibrato stops being heard as motion and turns into new partials'.",
+ "pieces": [
+  {
+   "section": "What the Family Shares",
+   "what": "One stored cycle played two ways — read from a table, and circulating in a delay loop — with a null-test meter reading zero at an integer period; then add loss to the loop and it becomes a plucked string.",
+   "kind": "interactive",
+   "walks_up_from": "one single-cycle waveform"
+  },
+  {
+   "section": "FM — the wiring, at audio rate",
+   "what": "A vibrato whose rate you sweep from 2 Hz to 200 Hz with a live spectrum: hear motion turn into sidebands near 20 Hz and see them land at carrier plus and minus multiples of the modulator.",
+   "kind": "interactive",
+   "walks_up_from": "a slow vibrato on one sine"
+  },
+  {
+   "section": "Additive and modal — the crowd, of partials",
+   "what": "Sum voices one at a time — partials, then grains — until the sum holds still; a counter of voices against a stability readout.",
+   "kind": "interactive",
+   "walks_up_from": "one voice"
+  },
+  {
+   "section": "The Distinction",
+   "what": "What a preset has to carry: the same sound saved as a knob list for a fixed topology and as cables-plus-knobs for a drawn one, sizes side by side — the page's own test for locating an instrument on the axis.",
+   "kind": "typeset",
+   "walks_up_from": "one preset"
+  }
+ ],
+ "gathered": [],
+ "tier": "study",
+ "slice": 6
+}

@@ -1,0 +1,29 @@
+{
+ "entry": "Phoneme Choir",
+ "path": "Projects/Phoneme Choir.md",
+ "type": "project",
+ "stage": "fruiting",
+ "weight": 7,
+ "claim": "The Two Lessons §: Kokoro syllabifies repeated consonants ('brrrrahhh' → 'be-ah-rah-rah-rah'), and onsets ranged 23–218 ms across voices, so without per-file trim 'the keyboard would feel inconsistently sluggish … with no audible reason'.",
+ "pieces": [
+  {
+   "section": "Per-file onset detection equalizes responsiveness across voices",
+   "what": "a small web keyboard of the 352 samples with a trim on/off switch; play 'knock' in bf_isabella (138 ms lead) and am_puck (31 ms); tests the felt-lag claim",
+   "kind": "interactive",
+   "walks_up_from": "one sample's lead silence drawn on its waveform"
+  },
+  {
+   "section": "Kokoro syllabifies repeated consonants",
+   "what": "the six 'brrrrahhh' spellings heard in a row; tests 'no spelling trick worked'",
+   "kind": "audio",
+   "walks_up_from": "the word you meant vs the word it spoke"
+  }
+ ],
+ "gathered": [
+  "_ops/sample-libraries/phoneme-choir/samples/",
+  "_ops/sample-libraries/phoneme-choir/offsets.json",
+  "_ops/sample-libraries/phoneme-choir/phoneme_choir.sfz"
+ ],
+ "tier": "sketch",
+ "slice": 4
+}

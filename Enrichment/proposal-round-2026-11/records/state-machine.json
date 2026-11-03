@@ -1,0 +1,36 @@
+{
+ "entry": "State Machine",
+ "path": "State Machine.md",
+ "type": "concept",
+ "stage": "growing",
+ "weight": 7,
+ "claim": "The Core Pattern: every state machine must solve state memory, transition logic, state-specific behaviour and transition actions — 'transition logic is where bugs live', and confusing a transition action with a state behaviour is 'the second most common state machine failure'. Boxes and Lines: past ~3-4 states, parallel-compute-then-select stops being readable.",
+ "pieces": [
+  {
+   "section": "The Core Pattern",
+   "what": "Start with one state variable and a counter; add the four-state action-potential oscillator, its state diagram lighting as each sample runs, with sound. Then three bug switches — an ambiguous transition, a missing guard, the V_start latch moved from transition action into the state behaviour — and hear and see each failure.",
+   "kind": "interactive",
+   "walks_up_from": "one integer that remembers which state"
+  },
+  {
+   "section": "Boxes and Lines: The Gen~ Module Approach",
+   "what": "The same oscillator drawn as parallel branches into a switch cascade at 3, 4 and 5 states: count the wires — tests the readability threshold.",
+   "kind": "image",
+   "walks_up_from": "one branch and one switch"
+  },
+  {
+   "section": "The Textual Transition: Codebox, JavaScript, Python, Faust",
+   "what": "The four code versions aligned line by line, the same four problems highlighted in each.",
+   "kind": "typeset",
+   "walks_up_from": "the phase == 0 branch"
+  }
+ ],
+ "gathered": [
+  "Projects/Action Potential Oscillator/codebox-vs-faust.png",
+  "Projects/Action Potential Oscillator/neuropulse.dsp",
+  "Projects/Action Potential Oscillator/neuropulse-signalflow-fixed.svg",
+  "Projects/Action Potential Oscillator/neuropulse-codebox-phrase.wav"
+ ],
+ "tier": "study",
+ "slice": 6
+}

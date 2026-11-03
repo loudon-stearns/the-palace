@@ -1,0 +1,49 @@
+{
+ "entry": "Tract Mirror",
+ "path": "Projects/Tract Mirror.md",
+ "type": "project",
+ "stage": "growing",
+ "weight": 9,
+ "claim": "Opening: \"The tubes on screen are not a visualization of the filter — they are the filter, drawn in space\"; the LPC reflection coefficients are the impedance mismatches between tube segments. A 446-word page asserting a playable identity.",
+ "pieces": [
+  {
+   "section": "Tract Mirror",
+   "what": "Opens on one junction between two tubes of different area: a pulse goes in, part reflects, and the reflection coefficient is read off the area ratio; then stacks segments into the tract and morphs /a/ to /i/ to /u/, with the same coefficients driving the lattice filter you hear",
+   "kind": "interactive",
+   "walks_up_from": "one impedance step between two cylinders"
+  },
+  {
+   "section": "Architecture (decided 2026-06-09)",
+   "what": "The vowel morph and the melody demo as audio beside the area-function plot, testing that one vowels.json drives sound and picture alike",
+   "kind": "audio",
+   "walks_up_from": "the /a/ area function alone"
+  },
+  {
+   "section": "Tract Mirror",
+   "what": "The three proof clips (glottal source, scattering junction, tube morph) as video in the band",
+   "kind": "video",
+   "walks_up_from": "the glottal pulse"
+  },
+  {
+   "section": "Architecture (decided 2026-06-09)",
+   "what": "Per-vowel spectrograms laid beside the tube profiles so formant positions can be checked against tract shapes",
+   "kind": "image",
+   "walks_up_from": "the schwa tube, uniform"
+  }
+ ],
+ "gathered": [
+  "Projects/Tract Mirror/artifacts/the-mirror/index.html",
+  "Projects/Tract Mirror/renders/clips/clip_scattering_junction.mp4",
+  "Projects/Tract Mirror/renders/clips/clip_tube_morph.mp4",
+  "Projects/Tract Mirror/renders/clips/clip_glottal_source.mp4",
+  "Projects/Tract Mirror/reference/renders/morph_a_i_u.wav",
+  "Projects/Tract Mirror/reference/renders/melody_demo.wav",
+  "Projects/Tract Mirror/reference/renders/breath_only.wav",
+  "Projects/Tract Mirror/reference/renders/tube_profiles.png",
+  "Projects/Tract Mirror/reference/renders/spectrogram_*.png (six vowels)",
+  "Projects/Tract Mirror/renders/ableton-proof.png",
+  "Projects/Tract Mirror/renders/the-mirror.png"
+ ],
+ "tier": "study",
+ "slice": 5
+}

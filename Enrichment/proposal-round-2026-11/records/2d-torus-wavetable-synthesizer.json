@@ -1,0 +1,50 @@
+{
+ "entry": "2D Torus Wavetable Synthesizer",
+ "path": "Projects/2D Torus Wavetable Synthesizer.md",
+ "type": "project",
+ "stage": "fruiting",
+ "weight": 9,
+ "claim": "Architecture: the ratio ω₁/ω₂ is the primary inharmonicity gate — rational closes the scan into a (p,q) cable, irrational opens it into a Kronecker flow — so 'the boundary between harmonic and inharmonic is a continuous geometric parameter, not a categorical line' (Four Pillars Design Plan).",
+ "pieces": [
+  {
+   "section": "Architecture",
+   "what": "The torus with the scan path drawn live and heard: a ratio slider closes and opens the knot while the spectrum f = mω₁ + nω₂ lights its lattice. Tests whether the harmonic-to-inharmonic move is continuous by ear.",
+   "kind": "interactive",
+   "walks_up_from": "one phasor on one circle: an ordinary 1D wavetable"
+  },
+  {
+   "section": "The Surfaces — Design Language",
+   "what": "The surface library as heard: each surface's image and its render side by side, nine voices from one scanning rule.",
+   "kind": "audio",
+   "walks_up_from": "the 16-anchor diagnostic table"
+  },
+  {
+   "section": "Hopf Fibration as Control Surface",
+   "what": "The built-but-unheard Hopf control surface, gathered as is, with the south pole (classic 1D wavetable) marked as the place to start.",
+   "kind": "interactive",
+   "walks_up_from": "the south pole"
+  },
+  {
+   "section": "Open Decisions",
+   "what": "The RMS dip: sine to sawtooth crossfaded linearly, then with constant-RMS, heard and plotted; tests the ~10 dB midpoint claim.",
+   "kind": "audio",
+   "walks_up_from": "two anchors at their ends"
+  }
+ ],
+ "gathered": [
+  "image1_t2_product_of_circles.png",
+  "audition/penrose_ratio_sweep.wav",
+  "Hopf/hopf-control-surface.html",
+  "Instruments/singer.html",
+  "proofs/voicing-atlas/voicing-atlas.html",
+  "Wavetables/*.png and *.wav (one pair per surface)",
+  "Wavetables/_rms_diagnostic.png",
+  "Wavetables/00_test_diagnostic_constant_rms.wav",
+  "Auditions/cycle-7/membrane_chladni_morph_spectral.wav",
+  "Auditions/cycle-7/membrane_chladni_morph_spatial.wav",
+  "Auditions/cycle-7/penrose_kuramoto_three_regimes.wav",
+  "Etude/etude_one_sphere.wav"
+ ],
+ "tier": "study",
+ "slice": 3
+}

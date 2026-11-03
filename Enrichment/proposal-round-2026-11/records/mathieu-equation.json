@@ -1,0 +1,45 @@
+{
+ "entry": "Mathieu Equation",
+ "path": "Mathieu Equation.md",
+ "type": "concept",
+ "stage": "growing",
+ "weight": 9,
+ "claim": "§ The Strutt diagram: unstable tongues rooted at a = n² that widen with q; inside, noise grows without bound; the first tongue is strongest.",
+ "pieces": [
+  {
+   "section": "The Strutt diagram",
+   "what": "The Strutt explorer with sound: click anywhere in (a, q) and hear the oscillator ring, decay or bloom from noise.",
+   "kind": "interactive",
+   "walks_up_from": "the bare oscillator, q = 0"
+  },
+  {
+   "section": "What the equation says",
+   "what": "A swing with a breathing spring constant: pump it at the right rate and it grows, at the wrong rate nothing.",
+   "kind": "interactive",
+   "walks_up_from": "a mass on a spring"
+  },
+  {
+   "section": "The Strutt diagram",
+   "what": "The audible sweep across the diagram, rendered.",
+   "kind": "audio",
+   "walks_up_from": "one point outside the tongues"
+  },
+  {
+   "section": "Open Questions",
+   "what": "Tongue 1 against tongue 2: the subharmonic and the harmonic case, heard.",
+   "kind": "audio",
+   "walks_up_from": "the first tongue"
+  }
+ ],
+ "gathered": [
+  "/Projects/Floquet Time-Modulated Loops/interactives/06_strutt_explorer.html",
+  "/Projects/Floquet Time-Modulated Loops/interactives/02_mathieu_simulator.html",
+  "/Projects/Floquet Time-Modulated Loops/interactives/03_pumped_swing.html",
+  "/Projects/Floquet Time-Modulated Loops/static/05_strutt_diagram.png",
+  "/Projects/Floquet Time-Modulated Loops/static/07_tongue_anatomy.png",
+  "/Projects/Floquet Time-Modulated Loops/audio/20_strutt_sweep.wav"
+ ],
+ "tier": "study",
+ "note": "The text points at the diagram by path rather than showing it; the explorer and simulator already have audio. Mostly gathering.",
+ "slice": 1
+}

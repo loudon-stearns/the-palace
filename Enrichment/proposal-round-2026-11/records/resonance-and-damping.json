@@ -1,0 +1,42 @@
+{
+ "entry": "Resonance and Damping",
+ "path": "Resonance and Damping.md",
+ "type": "concept",
+ "stage": "growing",
+ "weight": 10,
+ "claim": "§ One number, three faces: peak height, peak width and ring time are one Q; \"A peak that is sharp in frequency is long in time.\" The forward vector says it plainly: \"I want Q heard before it is read.\"",
+ "pieces": [
+  {
+   "section": "Building one",
+   "what": "The gathered staged walk: rings at its own rate, forgets, pushed it moves at your rate, the push piles up near resonance, the quarter-cycle lag",
+   "kind": "interactive",
+   "walks_up_from": "a resonator struck once, ringing at its own rate"
+  },
+  {
+   "section": "One number, three faces",
+   "what": "The gathered Q-you-can-hear sketch: strike, noise or swept sine through one resonator, with peak, ring and lag drawn from the same two numbers",
+   "kind": "interactive",
+   "walks_up_from": "one strike at low Q"
+  },
+  {
+   "section": "The string's loss filter",
+   "what": "A waveguide pluck with loop gain and loop filter as separate sliders, showing brightness and sustain are one damping-per-partial curve",
+   "kind": "interactive",
+   "walks_up_from": "one partial losing a fraction g per trip"
+  },
+  {
+   "section": "Pushing it",
+   "what": "Galileo's bell versus Young's sine push: the same pendulum struck and then driven off its own rate, testing 'half right'",
+   "kind": "interactive",
+   "walks_up_from": "a pendulum swinging at its own rate"
+  }
+ ],
+ "gathered": [
+  "Resonance and Damping/Resonance and Damping — sketch — q-step-by-step.html",
+  "Resonance and Damping/Resonance and Damping — sketch — q-you-can-hear.html",
+  "Resonance and Damping/Resonance and Damping — sketch — q-step-by-step — check.mjs",
+  "Resonance and Damping/Resonance and Damping — sketch — q-you-can-hear — check.mjs"
+ ],
+ "tier": "study",
+ "slice": 5
+}

@@ -1,0 +1,39 @@
+{
+ "entry": "Generative Wavetable Libraries",
+ "path": "Projects/Generative Wavetable Libraries.md",
+ "type": "project",
+ "stage": "growing",
+ "weight": 7,
+ "claim": "Phase 1 — Crystal Bravais Wavetable §: 'sweeping a wavetable position becomes a traversal through crystallographic symmetry space … made performable with a single knob'; and § What Requires Development: frame phases that don't align produce audible artifacts when swept.",
+ "pieces": [
+  {
+   "section": "Phase 1 — Crystal Bravais Wavetable",
+   "what": "a position scrubber over crystal_bravais.wav: drag the knob, see the current frame and which of the seven lattice systems it sits in, hear it; tests whether symmetry space is audible as one sweep",
+   "kind": "interactive",
+   "walks_up_from": "one single-cycle frame read in a loop"
+  },
+  {
+   "section": "What Requires Development",
+   "what": "same table swept with per-frame zero-phase reset vs carried phase, plus the loop-smoothing buzz probe; tests the phase-coherence claim by ear",
+   "kind": "audio",
+   "walks_up_from": "two adjacent frames crossfaded"
+  },
+  {
+   "section": "Phase 2 — Multi-Source Wavetables",
+   "what": "shepard_centroid audition sweep; tests 'one note brightens monotonically as the position sweeps'",
+   "kind": "audio",
+   "walks_up_from": "spectral centroid of one frame"
+  }
+ ],
+ "gathered": [
+  "Projects/Generative Wavetable Libraries/crystal-bravais/crystal_bravais.wav",
+  "Projects/Generative Wavetable Libraries/shepard-centroid/shepard_centroid_audition_sweep.wav",
+  "Projects/Generative Wavetable Libraries/floquet-modes/floquet_modes_audition_sweep.wav",
+  "Projects/Generative Wavetable Libraries/loop-smoothing/smoothing.png",
+  "Projects/Generative Wavetable Libraries/single-cycle/single_cycles_contact_sheet.png",
+  "Projects/Generative Wavetable Libraries/single-cycle/single_cycles_600_audition.wav",
+  "Projects/Generative Wavetable Libraries/ai-cycles/contact_sheet_family_chain.png"
+ ],
+ "tier": "sketch",
+ "slice": 4
+}

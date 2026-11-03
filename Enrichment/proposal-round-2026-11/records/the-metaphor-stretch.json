@@ -1,0 +1,35 @@
+{
+ "entry": "The Metaphor Stretch",
+ "path": "The Metaphor Stretch.md",
+ "type": "concept",
+ "stage": "growing",
+ "weight": 8,
+ "claim": "§ The Honest Artifact: beating between discrete partials is a rendering artifact set by bin count, wrong in detail but true in tendency; § The Pedagogical Gold: change one parameter, re-render, listen.",
+ "pieces": [
+  {
+   "section": "The Honest Artifact",
+   "what": "Strike a crystal tone and raise N from 8 to 300 partials: the beating dissolves into texture while high-first decay remains. Tests which part of the sound is the crystal and which is the rendering.",
+   "kind": "audio",
+   "walks_up_from": "one struck partial with its decay"
+  },
+  {
+   "section": "Confirmed Instances",
+   "what": "The four Decision Points as four controls (Frequency Anchor, Rendering Resolution, Decay Scaling, Fidelity Claim) ordered most audible to most conceptual, as the Forward Vectors' lesson asks.",
+   "kind": "interactive",
+   "walks_up_from": "Rendering Resolution alone"
+  },
+  {
+   "section": "Confirmed Instances",
+   "what": "The Fidelity Claim's three paths as three labelled renders of one crystal: discrete, continuous (noise per DOS bin), and the two separated.",
+   "kind": "audio",
+   "walks_up_from": "the discrete render"
+  }
+ ],
+ "gathered": [
+  "Projects/Crystal Synthesizer/crystal-rings/ring_tour.wav",
+  "Projects/Crystal Synthesizer/crystal-rings/strike_vs_ring.wav",
+  "Projects/Crystal Synthesizer/crystal-rings/ring_tour.svg"
+ ],
+ "tier": "study",
+ "slice": 7
+}

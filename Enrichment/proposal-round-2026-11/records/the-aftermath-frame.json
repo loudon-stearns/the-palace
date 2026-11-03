@@ -1,0 +1,36 @@
+{
+ "entry": "The Aftermath Frame",
+ "path": "The Aftermath Frame.md",
+ "type": "concept",
+ "stage": "growing",
+ "weight": 7,
+ "claim": "§ Real motion, amplified consequences: the motion is real; the consequences take direction and relative speed from the real contact velocity, and a comic gain scales only count, spread and streak-length, never the motion.",
+ "pieces": [
+  {
+   "section": "Real motion, amplified consequences",
+   "what": "Scrub 'now' after an authored swing; a comic-gain slider multiplies shards and streaks while their directions stay locked to the derived contact velocity, so you can see the gain never touches the motion.",
+   "kind": "interactive",
+   "walks_up_from": "one point on a rotating blade, v = ω × (r − pivot)"
+  },
+  {
+   "section": "The method — model the action as a rotation",
+   "what": "Set Δθ and peak ω for a chop; the piece derives the arc and tip speed and checks the page's numbers (133°, 23 rad/s, 33 m/s).",
+   "kind": "interactive",
+   "walks_up_from": "a single pivot and angle θ(t)"
+  },
+  {
+   "section": "The method — model the action as a rotation",
+   "what": "The three swings and the impact laid beside the method as one strip: chop, side, rising, wound.",
+   "kind": "image",
+   "walks_up_from": "the first aftermath still"
+  }
+ ],
+ "gathered": [
+  "Projects/BLUELINE/proofs/session-7-aftermath/out/s7_aftermath.png",
+  "Projects/BLUELINE/proofs/session-8-swing/out/s8_swing.png",
+  "Projects/BLUELINE/proofs/session-9-three-swings/out/s9_contact_sheet.png",
+  "Projects/BLUELINE/proofs/session-10-impact/out/s10_impact.png"
+ ],
+ "tier": "study",
+ "slice": 7
+}

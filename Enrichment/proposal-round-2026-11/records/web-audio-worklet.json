@@ -1,0 +1,36 @@
+{
+ "entry": "Web Audio Worklet",
+ "path": "Shop/Web Audio Worklet.md",
+ "type": "specialist",
+ "stage": "alive (status)",
+ "weight": 7,
+ "claim": "Gotchas (2026-05-30): granular phase-scatter must land at the Hann envelope zero, or it clicks — 'the window is the whole reason the scatter is free; respect its zeros'. And Recipes: the Murmuration flock's order parameter climbs 0.10 to 0.93 at eta = 0 and collapses at eta = 0.80, pitched tone melting into broadband cloud.",
+ "pieces": [
+  {
+   "section": "Gotchas",
+   "what": "One grain, then a cloud: a toggle moves the random phase reset from the window zero to mid-grain, and the click per grain appears; a scope shows the splice across a non-zero window.",
+   "kind": "interactive",
+   "walks_up_from": "one Hann-windowed grain"
+  },
+  {
+   "section": "Recipes",
+   "what": "Murmuration live with the Disorder eta macro and an order-parameter readout: hear the phase transition and watch phi fall at the same moment.",
+   "kind": "interactive",
+   "walks_up_from": "one boid as one grain"
+  },
+  {
+   "section": "Gotchas",
+   "what": "Mono-unless-asked: outputChannelCount set but out[1] unwritten — silent right channel.",
+   "kind": "audio",
+   "walks_up_from": "a stereo test tone"
+  }
+ ],
+ "gathered": [
+  "Projects/Murmuration/Murmuration.html",
+  "Projects/Murmuration/blind-X.wav, blind-Y.wav",
+  "Projects/Murmuration/ceiling-test.html",
+  "Projects/Wavetable Scanner/wavetable_scanner.html"
+ ],
+ "tier": "sketch",
+ "slice": 6
+}

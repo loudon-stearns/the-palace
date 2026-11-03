@@ -1,0 +1,42 @@
+{
+ "entry": "Action Potential Oscillator",
+ "path": "Projects/Action Potential Oscillator.md",
+ "type": "project",
+ "stage": "mature",
+ "weight": 9,
+ "claim": "Population Dynamics: the hypothesis that spike shape 'averages out' in a coupled crowd — which the bundle's own measurement found half wrong (shape stops mattering to when the crowd locks, not to how it sounds; locking darkens every shape). Also The Four Stages: fixed spike duration darkens the tone as pitch rises.",
+ "pieces": [
+  {
+   "section": "Population Dynamics",
+   "what": "Four spike shapes, each played scattered then locked at matched loudness, with the three-panel figure beside them; the reader hears each shape keep its colour through the lock. This is the test of the section's own hypothesis, already made.",
+   "kind": "audio",
+   "walks_up_from": "one neuron firing alone"
+  },
+  {
+   "section": "The Four Stages",
+   "what": "The four stages as a walk, each a playable oscillator; at Stage 3 a pitch sweep against the fixed 1 ms spike lets the reader hear the darkening and hit the ceiling.",
+   "kind": "interactive",
+   "walks_up_from": "Stage 1: the membrane as capacitor, a sawtooth"
+  },
+  {
+   "section": "The Artifact",
+   "what": "The eight-panel interactive document, gathered as is.",
+   "kind": "interactive",
+   "walks_up_from": "the 20 ms window at rest"
+  }
+ ],
+ "gathered": [
+  "neuropulse-spike-shapes.wav",
+  "spike-shape-findings.png",
+  "neuron_oscillator.html",
+  "neuropulse-population-audition.html",
+  "neuropulse-population-audition.wav",
+  "neuropulse-faust-sweep.wav",
+  "faust-vs-python.png",
+  "neuropulse-signalflow-fixed.svg",
+  "pitch-anchor-findings.png",
+  "proofs/2026-05-04-spike-oscillator.wav"
+ ],
+ "tier": "study",
+ "slice": 3
+}

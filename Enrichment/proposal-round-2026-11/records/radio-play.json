@@ -1,0 +1,34 @@
+{
+ "entry": "Radio Play",
+ "path": "Radio Play.md",
+ "type": "practice",
+ "stage": "growing",
+ "weight": 7,
+ "claim": "Opening: \"the voices, pacing, music, and effects carry the full meaning through sound alone\"; § The craft to master: \"Timing is the performance.\" The page describes a sound craft in prose and holds no sound.",
+ "pieces": [
+  {
+   "section": "The craft to master",
+   "what": "The same short exchange rendered twice, once with tight gaps and once with the beat held before the punchline, testing 'timing is the performance'",
+   "kind": "audio",
+   "walks_up_from": "one line, one voice"
+  },
+  {
+   "section": "Audio-first production",
+   "what": "A reference radio play heard as audio alone first, then with its VO-as-clock picture, testing whether the audio already carried the meaning",
+   "kind": "audio",
+   "walks_up_from": "the narrator's opening line"
+  },
+  {
+   "section": "Enrichments (outward from the audio spine)",
+   "what": "The gathered twenty-facet deck",
+   "kind": "interactive",
+   "walks_up_from": "the first facet"
+  }
+ ],
+ "gathered": [
+  "Radio Play/radio-play-deck.html",
+  "_ops/scratch/weave-video/The Unsung Path.mp4 (outside the bundle and gitignored; would need tracking for the public face)"
+ ],
+ "tier": "sketch",
+ "slice": 5
+}

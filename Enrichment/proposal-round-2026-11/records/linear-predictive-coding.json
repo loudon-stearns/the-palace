@@ -1,0 +1,32 @@
+{
+ "entry": "Linear Predictive Coding",
+ "path": "Linear Predictive Coding.md",
+ "type": "concept",
+ "stage": "growing",
+ "weight": 8,
+ "claim": "§ The residual is where the soul hides: LPC-10 kept the formants, threw the residual away for a pulse train, and the voice went robotic; CELP brought the body back.",
+ "pieces": [
+  {
+   "section": "The residual is where the soul hides",
+   "what": "One spoken phrase three ways: original, LPC filter driven by a pulse train, LPC filter driven by its own residual; then the residual alone.",
+   "kind": "audio",
+   "walks_up_from": "one vowel and its formants"
+  },
+  {
+   "section": "The autoregressive model and the residual",
+   "what": "Raise the order p from 1 to 20 and watch the residual shrink and hear what it holds.",
+   "kind": "interactive",
+   "walks_up_from": "predicting a sine from its last sample"
+  },
+  {
+   "section": "The source-filter model and its mirror-twin",
+   "what": "The lattice and the waveguide drawn as one structure read from two ends.",
+   "kind": "image",
+   "walks_up_from": "one tube junction"
+  }
+ ],
+ "gathered": [],
+ "tier": "sketch",
+ "note": "Nothing to gather and no artifact; the central claim is audible and unheard. A vocoder voice must be one Loudon can publish.",
+ "slice": 1
+}

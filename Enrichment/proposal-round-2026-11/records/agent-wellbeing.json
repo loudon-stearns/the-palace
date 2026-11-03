@@ -1,0 +1,36 @@
+{
+ "entry": "Agent Wellbeing",
+ "path": "Palace development/Agent Wellbeing.md",
+ "type": "concept",
+ "stage": "growing",
+ "weight": 7,
+ "claim": "Tone as transmitted character: workers born from a hedged guide caught the same flaw as warm-born ones but cut where the others added — 'hedged writing produces hedged moves, even in a calm voice'; and The Measurable Floor: instrument capacity, read quality.",
+ "pieces": [
+  {
+   "section": "Practical Implications for Entry Design",
+   "what": "The gathered Blind Sort laid in: read the four workers' answers unlabeled, guess the register, then reveal — the reader feels that voice can't tell them apart but the moves can",
+   "kind": "interactive",
+   "walks_up_from": "one worker's answer, unlabeled"
+  },
+  {
+   "section": "Health is multidimensional; one number hides it",
+   "what": "Five health dials feeding one green/yellow/red lamp; push acuity or drift into the red and the lamp stays green",
+   "kind": "interactive",
+   "walks_up_from": "one dial"
+  },
+  {
+   "section": "The one number we can read",
+   "what": "subagent_tokens plotted against occupancy across models: near-linear, ~46K baseline, the same content 30% full on Haiku and 8% on Opus",
+   "kind": "image",
+   "walks_up_from": "one dispatch's token count"
+  }
+ ],
+ "gathered": [
+  "Palace development/Agent Wellbeing/proofs/2026-11-02-blind-sort/blind-sort.html",
+  "Palace development/Agent Wellbeing/proofs/2026-11-02-blind-sort/guide-warm.md",
+  "Palace development/Agent Wellbeing/proofs/2026-11-02-blind-sort/guide-anxious.md",
+  "Palace development/Agent Wellbeing/Agent Wellbeing — proof — sensor-b-characterization.md"
+ ],
+ "tier": "study",
+ "slice": 2
+}

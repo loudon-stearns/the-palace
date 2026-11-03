@@ -1,0 +1,44 @@
+{
+ "entry": "Shimmer Cloud",
+ "path": "Projects/Shimmer Cloud.md",
+ "type": "project",
+ "stage": "growing",
+ "weight": 8,
+ "claim": "Open Questions § (grain count and density): 'How many pitch-shifted copies are needed before the listener perceives shimmer rather than chorus?' — and the progressed note that the first lens model was 'structurally a chorus/H3000 effect, not a prism'. Note the body still describes grains while the bundle and scroll moved to dispersive lenses.",
+ "pieces": [
+  {
+   "section": "Open Questions",
+   "what": "droplet-count ladder 30 → 100 → 300 → 800 → 2500 on one dry source; tests the chorus-to-shimmer threshold by ear",
+   "kind": "audio",
+   "walks_up_from": "the dry source"
+  },
+  {
+   "section": "Open Questions (pitch spread)",
+   "what": "cent-spread ladder 1¢ → 3¢ → 8¢ → 25¢ → 75¢; tests where unison becomes chorus becomes shimmer",
+   "kind": "audio",
+   "walks_up_from": "one droplet at unison"
+  },
+  {
+   "section": "Cross-Domain Parallels",
+   "what": "dispersion ladder 2 ms → 200 ms with highs-late vs highs-early; tests the prism claim (frequency-dependent delay as the cloud's colour)",
+   "kind": "audio",
+   "walks_up_from": "a click through a pure delay"
+  }
+ ],
+ "gathered": [
+  "Projects/Shimmer Cloud/02_droplet_cloud/dry.wav",
+  "Projects/Shimmer Cloud/02_droplet_cloud/variations/01_30_droplets.wav",
+  "Projects/Shimmer Cloud/02_droplet_cloud/variations/03_300_droplets.wav",
+  "Projects/Shimmer Cloud/02_droplet_cloud/variations/05_2500_droplets.wav",
+  "Projects/Shimmer Cloud/02_droplet_cloud/variations/06_unison_1c.wav",
+  "Projects/Shimmer Cloud/02_droplet_cloud/variations/09_chorus_25c.wav",
+  "Projects/Shimmer Cloud/02_droplet_cloud/variations/10_wide_75c.wav",
+  "Projects/Shimmer Cloud/03_dispersion_cloud/variations/01_disp_2ms.wav",
+  "Projects/Shimmer Cloud/03_dispersion_cloud/variations/05_disp_200ms.wav",
+  "Projects/Shimmer Cloud/03_dispersion_cloud/variations/10_highs_late_all.wav",
+  "Projects/Shimmer Cloud/03_dispersion_cloud/variations/11_highs_early_all.wav",
+  "Projects/Shimmer Cloud/01_feedback_lens/wet.wav"
+ ],
+ "tier": "sketch",
+ "slice": 4
+}

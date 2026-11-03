@@ -1,0 +1,33 @@
+{
+ "entry": "Generative Preset Development",
+ "path": "Projects/Generative Preset Development.md",
+ "type": "project",
+ "stage": "growing",
+ "weight": 7,
+ "claim": "The Profile Concept §: a parameter's numeric range hides its perceptual geometry; named regions ('closed / dark / open / bright') are what keep generated presets from wearing 'the same blank face'.",
+ "pieces": [
+  {
+   "section": "The Profile Concept",
+   "what": "one-knob ladders on Vital's init patch (cutoff, resonance, attack) with the proposed region bands drawn over the rendered measurements; tests whether the named regions sit where the ear hears the change",
+   "kind": "audio",
+   "walks_up_from": "one knob, cutoff, swept on a plain init patch"
+  },
+  {
+   "section": "Two Tracks: Generation and Analysis",
+   "what": "a library preset's render beside its Track B plain-language description; tests whether the description lets you hear what it says",
+   "kind": "audio",
+   "walks_up_from": "one preset, read parameter by parameter"
+  }
+ ],
+ "gathered": [
+  "Projects/Generative Preset Development/vital/renders/ladder-cutoff.wav",
+  "Projects/Generative Preset Development/vital/renders/ladder-resonance.wav",
+  "Projects/Generative Preset Development/vital/renders/ladder-attack.wav",
+  "Projects/Generative Preset Development/vital/renders/library/Analog Pad.wav",
+  "Projects/Generative Preset Development/vital/renders/library/Moog Pluck.wav",
+  "Projects/Generative Preset Development/ableton-wavetable/descriptions/preset-descriptions.html",
+  "Projects/Generative Preset Development/ableton-wavetable/audition-kit/ear-sheet.html"
+ ],
+ "tier": "sketch",
+ "slice": 4
+}

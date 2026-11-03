@@ -1,0 +1,52 @@
+{
+ "entry": "Shepard Tone Synthesizer",
+ "path": "Projects/Shepard Tone Synthesizer.md",
+ "type": "project",
+ "stage": "growing",
+ "weight": 10,
+ "claim": "Stage 2 — The Moving Staircase, and Why the Seam Is Free §: a voice dropped nine octaves at the wrap costs nothing perceptually — 'the eye sees the join the ear forgives'. The whole page is an auditory illusion; prose cannot make a reader fail to hear a seam.",
+ "pieces": [
+  {
+   "section": "Stage 1 — A Static Drone Is Already an Illusion",
+   "what": "seven sines under a log-frequency Gaussian, toggled one by one; tests 'fusion into one pitch class' before anything moves",
+   "kind": "interactive",
+   "walks_up_from": "one sine at C4"
+  },
+  {
+   "section": "Stage 2 — The Moving Staircase, and Why the Seam Is Free",
+   "what": "the staircase with the wrapping voice flashed red; tests the free seam by ear against eye",
+   "kind": "interactive",
+   "walks_up_from": "the static drone, stepped one semitone"
+  },
+  {
+   "section": "Stage 3 — The Glide, and Why the Stack Must Move as One",
+   "what": "lockstep vs ±15% / ±40% drift vs Hz-slew, A/B with the cents error shown; tests 'one glide or the staircase breaks'",
+   "kind": "audio",
+   "walks_up_from": "one shared glide on pitch"
+  },
+  {
+   "section": "Stage 4 — The Timbre, and Where the Window Lives",
+   "what": "filter tracking the voice vs tracking the note, and window on voice vs on sum; tests the brightness seam and the 6 Hz thump",
+   "kind": "audio",
+   "walks_up_from": "sawtooth voices with a fixed cutoff ratio"
+  }
+ ],
+ "gathered": [
+  "Projects/Shepard Tone Synthesizer/session-1-interactive.html",
+  "Projects/Shepard Tone Synthesizer/session-2-interactive.html",
+  "Projects/Shepard Tone Synthesizer/session-3-interactive.html",
+  "Projects/Shepard Tone Synthesizer/session-4-interactive.html",
+  "Projects/Shepard Tone Synthesizer/proofs/2026-10-18-stage3-A-lockstep.wav",
+  "Projects/Shepard Tone Synthesizer/proofs/2026-10-18-stage3-C-drift-040.wav",
+  "Projects/Shepard Tone Synthesizer/proofs/2026-10-18-stage3-E-hz-slew.wav",
+  "Projects/Shepard Tone Synthesizer/proofs/2026-10-18-stage3-glide-fusion.png",
+  "Projects/Shepard Tone Synthesizer/proofs/2026-10-18-stage4-A-ratio4.wav",
+  "Projects/Shepard Tone Synthesizer/proofs/2026-10-18-stage4-D-tracks-note.wav",
+  "Projects/Shepard Tone Synthesizer/proofs/2026-10-18-stage4-E-sum-window-11.wav",
+  "Projects/Shepard Tone Synthesizer/proofs/2026-10-18-stage4-timbre.png",
+  "Projects/Shepard Tone Synthesizer/proofs/2026-05-04-endless-ascent-v2.wav",
+  "Projects/Shepard Tone Synthesizer/proofs/2026-05-04-shepard-explanation.png"
+ ],
+ "tier": "study",
+ "slice": 4
+}

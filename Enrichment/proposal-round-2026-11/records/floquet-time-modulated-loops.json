@@ -1,0 +1,61 @@
+{
+ "entry": "Floquet Time-Modulated Loops",
+ "path": "Projects/Floquet Time-Modulated Loops.md",
+ "type": "project",
+ "stage": "growing",
+ "weight": 9,
+ "claim": "Parametric resonance § and Strutt diagram §: below a threshold q the pumped resonator settles; above it the noise floor 'cracks' into exponentially growing oscillation, and the tongue boundary is exactly where a characteristic multiplier crosses the unit circle. The text names twenty media items (media-01..20) and embeds none of them.",
+ "pieces": [
+  {
+   "section": "The Strutt diagram and tongues",
+   "what": "media-06 explorer: click/drag across a tongue edge and hear silence crack into ringing; tests that the stable/unstable boundary is audible, not just drawn",
+   "kind": "interactive",
+   "walks_up_from": "a plain undamped oscillator at q = 0, one ring"
+  },
+  {
+   "section": "Parametric resonance — the swing",
+   "what": "media-04 triple (q = 0.05 / 0.10 / 0.30, same noise seed) beside media-20's 30 s q sweep; tests the threshold claim by ear",
+   "kind": "audio",
+   "walks_up_from": "driving vs pumping: the right-hand side stays zero"
+  },
+  {
+   "section": "Floquet exponents and characteristic multipliers",
+   "what": "media-09: drag (a,q) and watch one multiplier leave the unit circle as the sound crosses the edge; tests 'the tongue boundary is the unit circle'",
+   "kind": "interactive",
+   "walks_up_from": "one period of the monodromy: where a state lands after T"
+  },
+  {
+   "section": "Sidebands — where the ladder comes from",
+   "what": "media-12 figure with the media-13 quartet (cosine/FM/square/wavetable pump on 220 Hz); tests 'the modulation's Fourier series is the spectral envelope'",
+   "kind": "audio",
+   "walks_up_from": "ring modulation as the simplest Floquet system"
+  }
+ ],
+ "gathered": [
+  "Projects/Floquet Time-Modulated Loops/interactives/02_mathieu_simulator.html",
+  "Projects/Floquet Time-Modulated Loops/interactives/03_pumped_swing.html",
+  "Projects/Floquet Time-Modulated Loops/interactives/06_strutt_explorer.html",
+  "Projects/Floquet Time-Modulated Loops/interactives/09_multiplier_visualizer.html",
+  "Projects/Floquet Time-Modulated Loops/interactives/15_kapitza_pendulum.html",
+  "Projects/Floquet Time-Modulated Loops/audio/04a_below_threshold.wav",
+  "Projects/Floquet Time-Modulated Loops/audio/04b_at_threshold.wav",
+  "Projects/Floquet Time-Modulated Loops/audio/04c_above_threshold.wav",
+  "Projects/Floquet Time-Modulated Loops/audio/13a_cosine.wav",
+  "Projects/Floquet Time-Modulated Loops/audio/13b_fm.wav",
+  "Projects/Floquet Time-Modulated Loops/audio/13c_square.wav",
+  "Projects/Floquet Time-Modulated Loops/audio/13d_wavetable.wav",
+  "Projects/Floquet Time-Modulated Loops/audio/20_strutt_sweep.wav",
+  "Projects/Floquet Time-Modulated Loops/static/01_lti_ltv_boundary.png",
+  "Projects/Floquet Time-Modulated Loops/static/05_strutt_diagram.png",
+  "Projects/Floquet Time-Modulated Loops/static/07_tongue_anatomy.png",
+  "Projects/Floquet Time-Modulated Loops/static/08_multipliers_vs_params.png",
+  "Projects/Floquet Time-Modulated Loops/static/10_phase_space_strobe.png",
+  "Projects/Floquet Time-Modulated Loops/static/11_bloch_floquet_duality.png",
+  "Projects/Floquet Time-Modulated Loops/static/12_sideband_ladder.png",
+  "Projects/Floquet Time-Modulated Loops/static/14_faraday_wave_pattern.png",
+  "Projects/Floquet Time-Modulated Loops/static/18_photonic_time_crystal.png",
+  "Projects/Floquet Time-Modulated Loops/Experiments/mathieu_tongue.wav"
+ ],
+ "tier": "study",
+ "slice": 4
+}

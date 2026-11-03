@@ -1,0 +1,50 @@
+{
+ "entry": "Particle Synthesis",
+ "path": "Projects/Particle Synthesis.md",
+ "type": "project",
+ "stage": "growing",
+ "weight": 8,
+ "claim": "Dispersion as Physics §: dispersion 'is not programmed … it emerges from the physics … high frequencies travel faster', the grain's trajectory through the medium is its timbre. Particle Fountain § also says the fountain particle is 'the numerical solution to the harmonic oscillator equation … the gravity constant IS the spring constant' — under m·y'' = −mg the path is a parabola, not a sinusoid, which a piece would show (latent error).",
+ "pieces": [
+  {
+   "section": "Dispersion as Physics",
+   "what": "one click through none / mild / strong dispersion, heard and seen as a chirp in a spectrogram; tests 'the temporal separation of frequency components is the spectral evolution'",
+   "kind": "audio",
+   "walks_up_from": "a click through a medium with no dispersion"
+  },
+  {
+   "section": "The Prism Metaphor",
+   "what": "the dispersion prism: drag the dispersion law, watch components fan out, hear the chirp",
+   "kind": "interactive",
+   "walks_up_from": "white light through a prism, one angle per colour"
+  },
+  {
+   "section": "Particle Fountain: First Build",
+   "what": "one particle's height under gravity plotted beside a mass-on-spring; shows the parabola is not a harmonic oscillator and tests the section's own sentence",
+   "kind": "interactive",
+   "walks_up_from": "one particle thrown up once"
+  },
+  {
+   "section": "Forward Vectors",
+   "what": "grains that meet vs pass through, A/B; tests 'collision as a compositional primitive'",
+   "kind": "audio",
+   "walks_up_from": "two grains crossing"
+  }
+ ],
+ "gathered": [
+  "Projects/Particle Synthesis/proofs/2026-06-08-dispersion-prism.html",
+  "Projects/Particle Synthesis/proofs/2026-06-08-dispersion-laws.png",
+  "Projects/Particle Synthesis/proofs/2026-06-23-dispersion-01-no-dispersion.wav",
+  "Projects/Particle Synthesis/proofs/2026-06-23-dispersion-02-mild.wav",
+  "Projects/Particle Synthesis/proofs/2026-06-23-dispersion-03-strong.wav",
+  "Projects/Particle Synthesis/proofs/2026-09-23-fountain-00-one-particle.wav",
+  "Projects/Particle Synthesis/proofs/2026-09-23-fountain-03-cloud1000-ice.wav",
+  "Projects/Particle Synthesis/proofs/2026-09-23-fountain-cloud64.png",
+  "Projects/Particle Synthesis/proofs/2026-10-22-gpu-fountain.html",
+  "Projects/Particle Synthesis/proofs/2026-10-22-gpu-grains-meet.html",
+  "Projects/Particle Synthesis/proofs/2026-10-22-gpu-grains-meet-AB.png",
+  "Projects/Particle Synthesis/proofs/2026-09-23-particle-synthesis-lesson.html"
+ ],
+ "tier": "study",
+ "slice": 4
+}

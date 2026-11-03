@@ -1,0 +1,37 @@
+{
+ "entry": "Parametric Resonance",
+ "path": "Parametric Resonance.md",
+ "type": "concept",
+ "stage": "growing",
+ "weight": 9,
+ "claim": "Driving vs. pumping: modulate a coefficient at twice the natural frequency and amplitude grows exponentially past a sharp threshold — 'silence, then a crack into self-oscillation' — and pumping at the wrong phase brakes instead of builds.",
+ "pieces": [
+  {
+   "section": "The pumped swing",
+   "what": "A swing you pump by squatting and standing; pump at 2 omega0 and it climbs, pump at omega0 or off-phase and it doesn't. Opens on the swing alone, then length changing, then the factor of 2",
+   "kind": "interactive",
+   "walks_up_from": "one swing at its natural frequency"
+  },
+  {
+   "section": "The threshold",
+   "what": "A Mathieu resonator you hear: sweep pump depth epsilon through epsilon_c and the decay turns into a crack into self-oscillation; a driven resonator under the same sweep 'warms up' for contrast. This is the page's own open psychoacoustic question",
+   "kind": "audio",
+   "walks_up_from": "one damped ring"
+  },
+  {
+   "section": "Where the phase lives",
+   "what": "Pump phase rotates the Floquet modes; start on the decaying mode and watch it decay briefly inside an unstable tongue until noise leaks it onto the growing one",
+   "kind": "interactive",
+   "walks_up_from": "one initial condition"
+  },
+  {
+   "section": "Driving vs. pumping",
+   "what": "Additive vs multiplicative: the same oscillator, the input moved from the right-hand side into the coefficient",
+   "kind": "interactive",
+   "walks_up_from": "the undriven oscillator"
+  }
+ ],
+ "gathered": [],
+ "tier": "study",
+ "slice": 2
+}

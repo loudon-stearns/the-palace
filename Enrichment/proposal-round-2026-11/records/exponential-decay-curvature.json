@@ -1,0 +1,40 @@
+{
+ "entry": "Exponential Decay Curvature",
+ "path": "Exponential Decay Curvature.md",
+ "type": "concept",
+ "stage": "growing",
+ "weight": 9,
+ "claim": "§ Audio-rate feasibility — and the dissolution: 'Run f once per note and it is an envelope. Run the identical f once per cycle at audio rate and it is an oscillator waveform.'",
+ "pieces": [
+  {
+   "section": "Audio-rate feasibility — and the dissolution",
+   "what": "One curve f(time, curvature) on a scope with a rate knob that slides from one read per second to hundreds; the envelope becomes a pitch without changing the equation.",
+   "kind": "interactive",
+   "walks_up_from": "a single decay drawn once"
+  },
+  {
+   "section": "The straight line is the hard case",
+   "what": "Sweep curvature through zero with and without the Taylor branch; hear and see the click at the 0/0 seam vanish.",
+   "kind": "interactive",
+   "walks_up_from": "the convex, linear and concave members side by side"
+  },
+  {
+   "section": "Shape is a confound on duration",
+   "what": "Three attacks at the same stated time (linear, Moog exponential approach, e^x) played back to back; the reader judges which sounds shortest.",
+   "kind": "audio",
+   "walks_up_from": "one 37 ms attack"
+  },
+  {
+   "section": "The curve in a synthesizer: the Moog contour",
+   "what": "RC charge and comparator switch drawn stage by stage: attack toward the peak, decay toward sustain, release toward zero, with the 95 % landmark marked.",
+   "kind": "interactive",
+   "walks_up_from": "one capacitor charging"
+  }
+ ],
+ "gathered": [
+  "/Projects/Synth Templates/workshop/cards/envelope-curves.svg (untracked as of today)"
+ ],
+ "tier": "study",
+ "note": "The 2026-05-28 teaching artifact is named as unretrieved; the first piece remakes it.",
+ "slice": 1
+}

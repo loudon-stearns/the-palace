@@ -1,0 +1,30 @@
+{
+ "entry": "Rational Hearing",
+ "path": "Projects/Rational Hearing.md",
+ "type": "project",
+ "stage": "sprout",
+ "weight": 7,
+ "claim": "The idea in one breath §: every interval is already inside a single note, and equal temperament 'misses every one of these except the octave' — the page draws the miss to scale and lets you hear it.",
+ "pieces": [
+  {
+   "section": "The page",
+   "what": "the playable handout itself laid as a band: tap partials, tap an edge to hear its ratio, just-vs-equal A/B per column; tests the 'misses all but the octave' claim by ear",
+   "kind": "interactive",
+   "walks_up_from": "partial 1 alone, then partial 2 over it"
+  },
+  {
+   "section": "The idea in one breath",
+   "what": "the printed v1 handout beside the live ladder, so the drawn offset and the heard beat meet",
+   "kind": "image",
+   "walks_up_from": "the handout's zigzag ladder"
+  }
+ ],
+ "gathered": [
+  "Projects/Rational Hearing/rational-hearing.html",
+  "Projects/Rational Hearing/rational-hearing-handout-v1.jpeg",
+  "Projects/Rational Hearing/back-row/backrow-temper-x5-strip.png",
+  "Projects/Rational Hearing/proofs/2026-10-29-projector.png"
+ ],
+ "tier": "sketch",
+ "slice": 4
+}
