@@ -1,0 +1,149 @@
+{
+ "t7": {
+  "samples": 192000,
+  "ref_peak": 0.4682153601964743,
+  "max_diff": 1.1657341758564144e-15,
+  "max_diff_dB_under_peak": -292.0769225621813,
+  "rms_diff_dB": -306.14168152531346
+ },
+ "t1": {
+  "ring_Hz": 220.018034423738,
+  "decay_per_s": -34.59040733634848,
+  "Q_measured": 19.982622172724273,
+  "Q_theory": 20,
+  "readme_says": "Q ≈ 33, 3 dB bandwidth ≈ 6.6 Hz"
+ },
+ "floor": {
+  "0.001": {
+   "floor_dBFS_q0": -18,
+   "ringing_dBFS_q03": -9.4,
+   "contrast_dB": 8.6
+  },
+  "0.0001": {
+   "floor_dBFS_q0": -35.5,
+   "ringing_dBFS_q03": -9.3,
+   "contrast_dB": 26.2
+  },
+  "0.00001": {
+   "floor_dBFS_q0": -55.4,
+   "ringing_dBFS_q03": -9.3,
+   "contrast_dB": 46.1
+  }
+ },
+ "threshold": {
+  "0.0125": {
+   "q_c_measured": 0.02500819073702587,
+   "q_c_theory_2zeta": 0.025,
+   "readme_says_4zeta": 0.05
+  },
+  "0.025": {
+   "q_c_measured": 0.05000655085550533,
+   "q_c_theory_2zeta": 0.05,
+   "readme_says_4zeta": 0.1
+  },
+  "0.05": {
+   "q_c_measured": 0.10005085047614555,
+   "q_c_theory_2zeta": 0.1,
+   "readme_says_4zeta": 0.2
+  }
+ },
+ "t2": {
+  "growth_per_s_at_0_05": -0.004526578528882537,
+  "growth_per_s_at_0_03": -13.82889582119845,
+  "note": "q = 0.05 sits on the threshold, not below it; 0.03 is below"
+ },
+ "t3": {
+  "0.001": {
+   "floor_dBFS": -14.5,
+   "top_dBFS": -8.2,
+   "crack_at_s": null,
+   "crack_at_q": null
+  },
+  "0.00001": {
+   "floor_dBFS": -47.1,
+   "top_dBFS": -8.2,
+   "crack_at_s": 1.25,
+   "crack_at_q": 0.063
+  },
+  "note": "crack = first 50 ms window 20 dB over the opening floor; the noise needs time to grow, so it lands after the exact threshold of 0.05"
+ },
+ "t4": {
+  "peaks_dB_rel_220": {
+   "110": -39.9,
+   "220": 0,
+   "440": -50.6,
+   "660": -19.7,
+   "880": -60.5,
+   "1100": -37.2,
+   "1540": -54.5
+  }
+ },
+ "t5": {
+  "lower_edge_ratio": 1.8023913020881537,
+  "upper_edge_ratio": 2.188527191786534,
+  "theory_first_order": [
+   1.8063508326896291,
+   2.1936491673103706
+  ],
+  "growth_per_s": {
+   "2": 103,
+   "1.95": 99.6,
+   "1.9": 86.2,
+   "1.85": 59.7,
+   "1.8": -7.1,
+   "1.75": -34.5
+  },
+  "readme_says": "detuning ≥ 5% exits the tongue"
+ },
+ "t6": {
+  "non_finite": 0,
+  "rms_dBFS_last_3s": -7.583288784317538,
+  "peak": 0.4933488698635725,
+  "without_state_clip_float32_overflow_at_s": 0.19322916666666667
+ },
+ "call1": [
+  {
+   "zeta": 0,
+   "crack_expected_s": 0,
+   "opening_rms_dBFS": -43.9
+  },
+  {
+   "zeta": 0.0125,
+   "crack_expected_s": 0.5,
+   "opening_rms_dBFS": -52.6
+  },
+  {
+   "zeta": 0.025,
+   "crack_expected_s": 1,
+   "opening_rms_dBFS": -55.2
+  },
+  {
+   "zeta": 0.05,
+   "crack_expected_s": 2,
+   "opening_rms_dBFS": -57.7
+  }
+ ],
+ "call2": [
+  {
+   "kind": "build",
+   "pitch_Hz_at_q06": 220,
+   "h3_dB": -15.5,
+   "h5_dB": -28.3,
+   "level_jump_dB_q015_to_q06": 4.6
+  },
+  {
+   "kind": "gentle",
+   "pitch_Hz_at_q06": 220,
+   "h3_dB": -23.1,
+   "h5_dB": -50.3,
+   "level_jump_dB_q015_to_q06": 7.9
+  },
+  {
+   "kind": "stiff",
+   "pitch_Hz_at_q06": 220,
+   "h3_dB": -24.3,
+   "h5_dB": -65.9,
+   "level_jump_dB_q015_to_q06": 7.1
+  }
+ ]
+}

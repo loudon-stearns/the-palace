@@ -15,25 +15,51 @@ forward_vector: "I am Floquet Time-Modulated Loops's scroll — the one page tha
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-09-26T09:22:50-04:00 from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-11-03T23:34:08.128Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** growing · **Steward:** none — this project has no permanent steward yet
-- **Plan:** agreed 2026-09-26 (today) · 0 made things since
-- **Waiting on you:** nothing
-- **Last shipped:** nothing on the board yet — but the bundle holds 28 media files (see the making trail)
-- **Last commit touching this project:** 2026-09-25 `57f7c67e` — ops(history): cited commit hashes follow the rewritten history
+- **Status:** active · **Stage:** growing · **Steward:** cycle 1 · last ran 2026-11-03 (today)
+- **Plan:** agreed 2026-09-26 (38 days ago) · 2 made things since
+- **Waiting on you:** 1 open ask
+- **Ready to advance:** no unread answers
+- **Last shipped:** 2026-11-03 (today) — The pumped resonator should crack out of silence. Which way of stopping its growth sounds right to you: build, gentle or stiff? (`floquet-steward-003`)
+- **Last commit touching this project:** 2026-11-03 `3a6c437a` — edit(Loudon Live Design System): the browser's furniture fan-out, batch 2 of 5: Projects, D to P (98 pages)
+- **Signal:** steady
+- **Drift:** no consolidation marker on the entry — nothing to measure against.
+- **Runs:** 1 run on 1 day, counted from the ledger's run lines
+- **Last run:** 2026-11-03 — cycle 1 · taught item 1, proposed item 2 for canon
+- **Owed in the ledger:** nothing
+- **Proposed for canon:** 1 — item 2; waiting on Loudon's review, and the page has not changed
+- **Latest lesson:** item 2, from cycle 1 — 2026-11-03 — [[Floquet Time-Modulated Loops — tuning]]
 
 ### Where this stands
 
-_No steward has spoken for this project. Its direction is the `forward_vector` in [[Floquet Time-Modulated Loops]]'s frontmatter; enchant a steward to start the trail._
+Floquet Time-Modulated Loops shows that the 'nothing changes over time' assumption under almost every audio loop is a choice. The first instrument is a resonator whose tuning gets pumped at twice its pitch. Push hard enough and it cracks out of silence into ringing. That is the Mathieu equation, written as an RNBO codebox. The codebox, a Python reference and twenty teaching pieces were built in April. Nobody ever checked the codebox against the reference, and the build made two choices on its own that you haven't ruled on. One is a little damping, so there's a threshold to cross. The other is a clip on the internal state, so it never blows up. The first step of the plan is to finish both. M…
 
 ### Open asks
 
-_None — nothing is waiting on you._
+- `floquet-steward-003` — directional_decision · posted 2026-11-03 · options: GENTLE · BUILD · STIFF · DAMPING-OTHER
+
+### Answered, not yet consumed
+
+_None._
 
 ### Decided
 
 _Nothing decided on the board yet._
+
+### Runs
+
+- 2026-11-03 — cycle 1 · taught item 1, proposed item 2 for canon
+
+### Owed
+
+_Nothing owed._
+
+### Proposed for canon
+
+_Changes the steward wants in the house, kept in its tuning ledger until Loudon's review. Its cycles work as if they hold; the pages have not changed._
+
+- **2.** 2026-11-03 · [[Floquet Time-Modulated Loops]] · § Open Questions, the bullet 'Does the tanh saturation in Stage 1 distort the Strutt picture?', a new progressed line after the existing one — The open question asked whether a different saturation is the right sound; now there is a measured, audible answer to choose from.
 
 <!-- scroll:now:end -->
 
@@ -62,6 +88,79 @@ _Loudon's standing direction for this project. The steward reads this zone every
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="floquet-steward-003" -->
+### 2026-11-03 — cycle 1 — The pumped resonator should crack out of silence. Which way of stopping its growth sounds right to you: build, gentle or stiff?
+> still working · damping 0.025 fits the lesson · steward leans GENTLE
+
+The pumped resonator is the first instrument of this project. Its code now matches the Python reference exactly. The plan says you rule on two choices the build made alone. Damping I'd keep at 0.025. The crack then lands at q = 0.05 with room on both sides, and the first recording lets you check that. Saturation is the real choice. All three versions hold the pitch at exactly 220 Hz. The build's clip adds odd harmonics right on top of the Floquet ladder, so the lesson's sidebands get buried. The gentle version lets the ring run its pump dry the way real parametric oscillators do, and leaves the ladder clean. The stiff version is the cleanest of all but adds a little haze near 300 Hz. I'll keep going on the comb either way.
+
+**Artifacts:**
+- [build, gentle, stiff back to back, levels matched](Projects/Floquet Time-Modulated Loops/audio/rulings/call2_saturation_three_ways.wav)
+- [the damping choice: the crack moves with damping 0, 0.0125, 0.025, 0.05](Projects/Floquet Time-Modulated Loops/audio/rulings/call1_damping_four_sweeps.wav)
+- [build alone](Projects/Floquet Time-Modulated Loops/audio/rulings/call2_build.wav)
+- [gentle alone](Projects/Floquet Time-Modulated Loops/audio/rulings/call2_gentle.wav)
+- [stiff alone](Projects/Floquet Time-Modulated Loops/audio/rulings/call2_stiff.wav)
+- [both choices, plotted](Projects/Floquet Time-Modulated Loops/audio/rulings/two_calls.png)
+<sub>`floquet-steward-003` · RESOURCE_REQUEST on TRICKSTER</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="floquet-steward-002" -->
+### 2026-11-03 — cycle 1 — The resonator's code matches its Python reference exactly, but four of its own test numbers are wrong. I also recorded the two build choices so you can rule by ear.
+> shipped · checked in Node, not in Max · steward leans keep the damping, switch to the gentle saturation
+
+**It matches.** Fed the same stored noise, the codebox reproduces the Python reference to within 1.2 × 10⁻¹⁵ over 4 seconds. That's rounding error. I didn't change the codebox file. The only stand-in is its random() call, which reads the reference's noise.
+
+**The test list doesn't match the instrument** (table). The pump threshold is 2ζ, not 4ζ, which agrees with what the rich-face enrichment found today. So the 'below threshold' test at q = 0.05 actually sits exactly on the threshold: the growth rate there is −0.005 per second. The resonator's Q is 20, not 33. The tongue is about twice as wide as the README says. At q = 0.2 it runs from ratio 1.80 to 2.19, and detuning to 1.85 still rings at 60 per second.
+
+**A new one: the default noise drowns the crack.** At noise_level 0.001, the resonance lifts its own noise to −18 dBFS before any pump, just 8.6 dB under full ringing. So the sweep test has no crack to hear. At 1e-5 the floor drops to −55 dBFS, you get 46 dB of contrast, and the crack lands at q ≈ 0.063, just after the true threshold, because noise needs a moment to grow.
+
+**The two choices, to hear.** [call1_damping_four_sweeps.wav](open:Projects/Floquet Time-Modulated Loops/audio/rulings/call1_damping_four_sweeps.wav) plays the same 6-second pump sweep at four amounts of damping. The crack moves from the very start to 2 seconds in, exactly at q = 2ζ (left panel of the figure). [call2_saturation_three_ways.wav](open:Projects/Floquet Time-Modulated Loops/audio/rulings/call2_saturation_three_ways.wav) plays three ways to stop the growth, each first just over threshold, then pushed hard. The first, **build**, is what the codebox does now: clip the state, then tanh on the way out. The second, **gentle**, is a sketch: damping that rises with the ring's energy, the way a real parametric oscillator runs its pump dry. The third, **stiff**, is a sketch: a spring that stiffens as it swings.
+
+What surprised me: all three stay on exactly 220 Hz. Inside the tongue the ring is locked to half the pump, so no saturation can move its pitch. What separates them is the overtones. The build's tanh puts its odd harmonics on the same frequencies as the Floquet sideband ladder (220 ± n·440), so you can't tell which harmonics come from the physics and which come from the clip. The gentle version leaves the ladder as the theory makes it: the 5th sits at −50 dB, against −28 for the build. For an instrument whose lesson is the ladder, that matters.
+
+The full write-up, with what the codebox and README will need once the Max pause lifts: [Mathieu Resonator — offline check](obsidian://open?vault=The%20Palace&file=Projects/Floquet%20Time-Modulated%20Loops/verify/Mathieu%20Resonator%20%E2%80%94%20offline%20check.md).
+
+**Artifacts:**
+- [Left: the crack moves to q = 2ζ as damping grows. Right: three saturations at q = 0.6. Only the build's clip pushes up the high ladder rungs and the noise floor.](Projects/Floquet Time-Modulated Loops/audio/rulings/two_calls.png)
+- [Choice 1: four 6 s pump sweeps at damping 0, 0.0125, 0.025 and 0.05.](Projects/Floquet Time-Modulated Loops/audio/rulings/call1_damping_four_sweeps.wav)
+- [Choice 2: build, gentle, stiff. Each 3 s just over threshold, then 3 s pushed hard, levels matched.](Projects/Floquet Time-Modulated Loops/audio/rulings/call2_saturation_three_ways.wav)
+- [The build's saturation alone.](Projects/Floquet Time-Modulated Loops/audio/rulings/call2_build.wav)
+- [Gentle (energy-dependent damping) alone.](Projects/Floquet Time-Modulated Loops/audio/rulings/call2_gentle.wav)
+- [Stiff (stiffening spring) alone.](Projects/Floquet Time-Modulated Loops/audio/rulings/call2_stiff.wav)
+- [The findings, and what the codebox and README will need once Max reopens.](Projects/Floquet Time-Modulated Loops/verify/Mathieu Resonator — offline check.md)
+- [Runs the codebox text as written: A/B, all seven tests, both auditions.](Projects/Floquet Time-Modulated Loops/verify/mathieu_mirror.mjs)
+- [Dumps the Python reference's raw output for the sample-by-sample A/B.](Projects/Floquet Time-Modulated Loops/verify/ref_dump.py)
+- [Draws the figure.](Projects/Floquet Time-Modulated Loops/verify/plot_rulings.py)
+- [Every number in this post.](Projects/Floquet Time-Modulated Loops/verify/mirror_report.json)
+- [Keeps the regenerable raw reference dumps out of git.](Projects/Floquet Time-Modulated Loops/verify/.gitignore)
+
+_Measured on the codebox's own text (Node, 48 kHz, ζ = 0.025 unless noted)_
+| test | README / codebox comments say | measured |
+| --- | --- | --- |
+| A/B against Python | under −90 dB | −292 dB (rounding) |
+| no pump: pitch, Q | Q ≈ 33, 6.6 Hz wide | 220.02 Hz, Q 19.98, ≈ 11 Hz wide |
+| threshold | q ≈ 4ζ = 0.10 | q = 0.0500 (2ζ); 0.0250 at ζ 0.0125; 0.1001 at ζ 0.05 |
+| 'below threshold' q = 0.05 | dim, nothing builds | on the threshold (−0.005 /s); below is q ≈ 0.03 |
+| crack in 0 → 0.5 sweep | near 0.10 | none audible at noise 1e-3; q ≈ 0.063 at noise 1e-5 |
+| tongue edges at q = 0.2 | ≥ 5% detune exits | 1.802 to 2.189 (theory 1.806–2.194) |
+| q = 0.8, state clip on / off | finite | 0 bad samples / overflows in 0.19 s |
+
+_Changed in the workshop:_ Mathieu Resonator — offline check — New workshop note: what the offline check found, and the comment and default changes the codebox will need when Max work reopens.
+_Proposed for canon:_ Floquet Time-Modulated Loops (§ Open Questions, the bullet 'Does the tanh saturation in Stage 1 distort the Strutt picture?', a new progressed line after the existing one) — The open question asked whether a different saturation is the right sound; now there is a measured, audible answer to choose from.; owed in the tuning ledger until Loudon's review
+
+_Left rough:_ Nothing has been opened in Max or heard by anyone, me included. The gentle and stiff saturations are sketches in the check script, not in the codebox. The 2ζ correction to the codebox comments and README waits for the Max pause to lift.
+
+_Next moves named:_ Once you rule on the two choices, write the chosen damping and saturation into the Python reference and media, and list the exact codebox changes for when Max reopens (signal flow and parameters are already in the offline check). · Start pumping the comb (the plan's next instrument) as a Python and browser proof: a Karplus-Strong loop with its gain and length each modulated, with a spectrum view beside the audio. · Still yours whenever you have a sitting: walk the media and pick the first instrument's cross-domain hook.
+<sub>`floquet-steward-002` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-97031fd1dc" -->
+### 2026-11-03 — cycle 1
+
+taught item 1, proposed item 2 for canon
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="plan-2026-09-26T09-22-50-04-00" -->
 ### 2026-09-26 — Plan revised: the stages are builds, not sessions
 
