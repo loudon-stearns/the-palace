@@ -1,0 +1,265 @@
+<!doctype html>
+<!--
+  title: Talking Keyboard — rich — 88 keys
+  born: 2026-11-03
+  links: [[Talking Keyboard]] (connects-to · rich-face-piece) · listed in [[Talking Keyboard — rich.json]] · serves § Talking Keyboard and § Why This Instrument First · plays the build's own talking_keyboard.sfz and its 352 samples from _ops/sample-libraries/talking-keyboard/
+  forward_vector: I am the instrument itself, played from its own SFZ: one key, then one key's four voices, then all 88, and last a hidden mapping bug to find by ear, so the claim that any mapping bug is obvious in the first second of play is something you test with your hands. I play inside the entry's rich face and stand alone opened directly; I change only when the section I serve does.
+  sound: nothing plays until a key is pressed; the AudioContext is made on that press. Changing step stops the sound. Quieting a hidden page and the one-minute cap are the kit's.
+  map: the page reads talking_keyboard.sfz itself and plays what its regions say, velocity curve (v/127)^2 and the group's ampeg_release=0.05 included; with no loop_mode, a sample stops 50 ms after its key comes up, as the SFZ spec's no_loop says.
+  check: Talking Keyboard — rich — check.mjs runs this page's SFZ reader against the file and generate.py's naming, and its planted-bug arithmetic by simulation.
+-->
+<html lang="en" class="skin-graphite">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- the build's SFZ and every sample it maps, from the build folder; no device, no storage, no host -->
+<meta name="piece:files" content="/_ops/sample-libraries/talking-keyboard/samples/kokoro_A0_v1.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_A0_v2.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_A0_v3.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_A0_v4.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_As0_v1.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_As0_v2.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_As0_v3.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_As0_v4.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_B0_v1.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_B0_v2.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_B0_v3.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_B0_v4.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_C1_v1.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_C1_v2.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_C1_v3.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_C1_v4.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_Cs1_v1.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_Cs1_v2.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_Cs1_v3.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_Cs1_v4.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_D1_v1.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_D1_v2.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_D1_v3.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_D1_v4.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_Ds1_v1.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_Ds1_v2.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_Ds1_v3.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_Ds1_v4.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_E1_v1.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_E1_v2.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_E1_v3.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_E1_v4.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_F1_v1.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_F1_v2.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_F1_v3.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_F1_v4.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_Fs1_v1.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_Fs1_v2.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_Fs1_v3.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_Fs1_v4.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_G1_v1.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_G1_v2.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_G1_v3.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_G1_v4.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_Gs1_v1.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_Gs1_v2.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_Gs1_v3.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_Gs1_v4.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_A1_v1.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_A1_v2.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_A1_v3.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_A1_v4.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_As1_v1.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_As1_v2.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_As1_v3.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_As1_v4.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_B1_v1.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_B1_v2.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_B1_v3.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_B1_v4.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_C2_v1.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_C2_v2.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_C2_v3.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_C2_v4.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_Cs2_v1.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_Cs2_v2.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_Cs2_v3.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_Cs2_v4.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_D2_v1.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_D2_v2.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_D2_v3.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_D2_v4.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_Ds2_v1.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_Ds2_v2.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_Ds2_v3.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_Ds2_v4.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_E2_v1.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_E2_v2.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_E2_v3.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_E2_v4.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_F2_v1.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_F2_v2.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_F2_v3.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_F2_v4.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_Fs2_v1.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_Fs2_v2.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_Fs2_v3.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_Fs2_v4.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_G2_v1.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_G2_v2.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_G2_v3.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_G2_v4.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_Gs2_v1.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_Gs2_v2.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_Gs2_v3.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_Gs2_v4.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_A2_v1.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_A2_v2.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_A2_v3.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_A2_v4.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_As2_v1.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_As2_v2.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_As2_v3.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_As2_v4.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_B2_v1.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_B2_v2.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_B2_v3.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_B2_v4.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_C3_v1.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_C3_v2.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_C3_v3.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_C3_v4.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_Cs3_v1.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_Cs3_v2.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_Cs3_v3.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_Cs3_v4.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_D3_v1.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_D3_v2.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_D3_v3.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_D3_v4.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_Ds3_v1.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_Ds3_v2.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_Ds3_v3.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_Ds3_v4.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_E3_v1.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_E3_v2.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_E3_v3.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_E3_v4.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_F3_v1.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_F3_v2.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_F3_v3.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_F3_v4.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_Fs3_v1.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_Fs3_v2.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_Fs3_v3.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_Fs3_v4.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_G3_v1.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_G3_v2.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_G3_v3.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_G3_v4.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_Gs3_v1.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_Gs3_v2.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_Gs3_v3.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_Gs3_v4.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_A3_v1.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_A3_v2.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_A3_v3.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_A3_v4.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_As3_v1.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_As3_v2.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_As3_v3.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_As3_v4.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_B3_v1.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_B3_v2.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_B3_v3.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_B3_v4.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_C4_v1.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_C4_v2.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_C4_v3.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_C4_v4.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_Cs4_v1.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_Cs4_v2.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_Cs4_v3.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_Cs4_v4.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_D4_v1.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_D4_v2.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_D4_v3.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_D4_v4.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_Ds4_v1.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_Ds4_v2.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_Ds4_v3.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_Ds4_v4.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_E4_v1.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_E4_v2.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_E4_v3.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_E4_v4.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_F4_v1.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_F4_v2.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_F4_v3.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_F4_v4.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_Fs4_v1.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_Fs4_v2.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_Fs4_v3.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_Fs4_v4.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_G4_v1.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_G4_v2.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_G4_v3.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_G4_v4.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_Gs4_v1.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_Gs4_v2.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_Gs4_v3.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_Gs4_v4.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_A4_v1.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_A4_v2.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_A4_v3.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_A4_v4.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_As4_v1.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_As4_v2.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_As4_v3.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_As4_v4.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_B4_v1.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_B4_v2.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_B4_v3.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_B4_v4.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_C5_v1.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_C5_v2.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_C5_v3.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_C5_v4.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_Cs5_v1.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_Cs5_v2.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_Cs5_v3.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_Cs5_v4.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_D5_v1.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_D5_v2.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_D5_v3.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_D5_v4.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_Ds5_v1.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_Ds5_v2.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_Ds5_v3.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_Ds5_v4.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_E5_v1.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_E5_v2.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_E5_v3.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_E5_v4.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_F5_v1.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_F5_v2.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_F5_v3.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_F5_v4.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_Fs5_v1.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_Fs5_v2.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_Fs5_v3.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_Fs5_v4.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_G5_v1.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_G5_v2.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_G5_v3.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_G5_v4.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_Gs5_v1.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_Gs5_v2.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_Gs5_v3.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_Gs5_v4.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_A5_v1.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_A5_v2.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_A5_v3.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_A5_v4.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_As5_v1.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_As5_v2.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_As5_v3.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_As5_v4.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_B5_v1.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_B5_v2.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_B5_v3.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_B5_v4.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_C6_v1.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_C6_v2.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_C6_v3.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_C6_v4.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_Cs6_v1.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_Cs6_v2.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_Cs6_v3.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_Cs6_v4.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_D6_v1.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_D6_v2.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_D6_v3.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_D6_v4.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_Ds6_v1.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_Ds6_v2.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_Ds6_v3.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_Ds6_v4.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_E6_v1.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_E6_v2.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_E6_v3.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_E6_v4.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_F6_v1.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_F6_v2.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_F6_v3.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_F6_v4.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_Fs6_v1.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_Fs6_v2.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_Fs6_v3.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_Fs6_v4.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_G6_v1.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_G6_v2.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_G6_v3.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_G6_v4.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_Gs6_v1.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_Gs6_v2.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_Gs6_v3.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_Gs6_v4.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_A6_v1.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_A6_v2.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_A6_v3.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_A6_v4.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_As6_v1.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_As6_v2.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_As6_v3.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_As6_v4.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_B6_v1.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_B6_v2.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_B6_v3.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_B6_v4.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_C7_v1.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_C7_v2.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_C7_v3.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_C7_v4.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_Cs7_v1.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_Cs7_v2.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_Cs7_v3.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_Cs7_v4.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_D7_v1.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_D7_v2.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_D7_v3.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_D7_v4.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_Ds7_v1.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_Ds7_v2.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_Ds7_v3.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_Ds7_v4.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_E7_v1.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_E7_v2.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_E7_v3.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_E7_v4.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_F7_v1.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_F7_v2.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_F7_v3.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_F7_v4.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_Fs7_v1.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_Fs7_v2.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_Fs7_v3.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_Fs7_v4.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_G7_v1.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_G7_v2.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_G7_v3.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_G7_v4.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_Gs7_v1.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_Gs7_v2.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_Gs7_v3.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_Gs7_v4.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_A7_v1.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_A7_v2.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_A7_v3.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_A7_v4.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_As7_v1.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_As7_v2.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_As7_v3.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_As7_v4.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_B7_v1.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_B7_v2.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_B7_v3.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_B7_v4.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_C8_v1.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_C8_v2.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_C8_v3.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_C8_v4.wav /_ops/sample-libraries/talking-keyboard/talking_keyboard.sfz">
+<title>88 keys</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@300;400;500&display=swap">
+<style>
+  :root{
+    --bg:#0a0a0f; --bg-elev-1:#12121a; --bg-elev-2:#1a1a28; --border:#4a4a5e; --border-soft:rgba(255,255,255,0.06);
+    --fg-1:#e8e8f0; --fg-2:#c8c8d8; --fg-3:#8a8aa0; --fg-4:#4a4a5a;
+    --accent:#e8b84a; --accent-soft:rgba(232,184,74,0.10); --accent-line:rgba(232,184,74,0.5);
+    --info:#4a8fff;
+    --serif:'Cormorant Garamond','Source Serif 4',Georgia,serif; --sans:'Manrope',system-ui,sans-serif;
+    --display:'Anton','Bebas Neue',Impact,sans-serif; --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--fg-1)}
+  body{font-family:var(--serif);font-size:17px;line-height:1.7;padding:28px 16px 36px}
+  main{max-width:960px;margin:0 auto}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--fg-3)}
+  h1{font-family:var(--display);font-weight:400;font-size:42px;line-height:1.05;margin:6px 0 10px}
+  h2{font-family:var(--display);font-weight:400;font-size:27px;line-height:1.1;margin:4px 0 8px;letter-spacing:.01em}
+  p.lead{font-size:19px;color:var(--fg-2);margin:0 0 18px;max-width:66ch}
+  .rail{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 18px}
+  .rail button{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-3);background:transparent;border:1px solid var(--border);border-radius:4px;padding:7px 11px;cursor:pointer;transition:all .22s cubic-bezier(.4,0,.2,1)}
+  .rail button[aria-current="step"]{color:var(--fg-1);border-color:var(--fg-3);background:var(--bg-elev-2)}
+  p.say{color:var(--fg-2);margin:0 0 14px;max-width:68ch}
+  .dwh{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:8px 18px;margin:0 0 14px;font-family:var(--sans);font-size:13.5px;color:var(--fg-2);line-height:1.55}
+  .dwh b{font-family:var(--mono);font-weight:400;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);display:block}
+  .panel{background:var(--bg-elev-1);border:1px solid var(--border-soft);border-radius:4px;padding:16px;margin:0 0 14px}
+  .plabel{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-3);display:flex;justify-content:space-between;gap:10px;margin-bottom:8px}
+  .kb{position:relative;width:100%;user-select:none;-webkit-user-select:none;touch-action:none;margin:0 auto}
+  .key{position:absolute;top:0;border:1px solid #2a2a36;border-radius:0 0 2px 2px;cursor:pointer}
+  .key.w{background:#e8e4da;z-index:1}
+  .key.b{background:#1a1a22;z-index:2;border-color:#000}
+  .key.on.w{background:var(--accent)} .key.on.b{background:#b8902f}
+  .key .nm{position:absolute;left:0;right:0;bottom:6px;text-align:center;font-family:var(--mono);font-size:10px;color:#4a4a5a;pointer-events:none}
+  .key .band{position:absolute;left:0;right:0;border-top:1px dashed rgba(10,10,15,.25);pointer-events:none}
+  .key .bl{position:absolute;left:8px;font-family:var(--mono);font-size:11px;color:#4a4a5a;pointer-events:none}
+  .rowb{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:12px}
+  .grp{display:inline-flex;gap:6px;align-items:center;flex-wrap:wrap}
+  .grp .l{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-3);margin-right:2px}
+  button.ghost{font-family:var(--sans);font-size:14px;color:var(--fg-2);background:transparent;border:1px solid var(--border);border-radius:4px;padding:8px 14px;cursor:pointer}
+  button.ghost.small{font-size:13px;padding:5px 10px}
+  button.ghost[aria-pressed="true"]{color:var(--fg-1);border-color:var(--accent-line);background:var(--bg-elev-2)}
+  button:disabled{opacity:.4;cursor:default}
+  .readout{font-family:var(--mono);font-size:13px;color:var(--fg-2);margin-top:12px;line-height:1.75;overflow-wrap:anywhere}
+  .readout b{color:var(--accent);font-weight:400}
+  .region{font-family:var(--mono);font-size:12.5px;color:var(--fg-1);background:var(--bg-elev-2);border-radius:2px;padding:8px 10px;margin-top:10px;overflow-wrap:anywhere}
+  .found{margin-top:12px;font-family:var(--sans);font-size:14px;color:var(--fg-2);max-width:72ch;line-height:1.6}
+  .eq{font-family:var(--mono);font-size:13.5px;color:var(--fg-1);margin:14px 0 0;overflow-wrap:anywhere}
+  .eq.words{font-family:var(--sans);color:var(--fg-3);font-size:13px;margin-top:2px}
+  .walk{display:flex;justify-content:space-between;gap:10px;margin-top:16px}
+  .hide{display:none!important}
+  footer{margin-top:28px;font-family:var(--sans);font-size:13px;color:var(--fg-4)}
+  footer b{font-family:var(--display);font-weight:400;letter-spacing:.06em;color:var(--fg-3)}
+  @media (max-width:640px){h1{font-size:32px}h2{font-size:23px}}
+</style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">Talking Keyboard · the instrument, from its own SFZ · four steps</div>
+  <h1>88 keys</h1>
+  <p class="lead">This plays the build’s own <code>talking_keyboard.sfz</code> and its 352 samples: no copy of the map, the file itself, read on load. Press a key and it says its name. Where you press on the key is how hard you hit it.</p>
+
+  <nav class="rail" id="rail" aria-label="steps"></nav>
+  <h2 id="st-title"></h2>
+  <p class="say" id="st-say"></p>
+  <div class="dwh"><div><b>do</b><span id="st-do"></span></div><div><b>watch</b><span id="st-watch"></span></div><div><b>hear</b><span id="st-hear"></span></div></div>
+
+  <div class="panel">
+    <div class="plabel"><span id="pic-l"></span><span id="pic-r"></span></div>
+    <div class="kb" id="kb"></div>
+    <div class="rowb">
+      <span class="grp" id="g-release"><span class="l">key up</span><button class="ghost small" data-rel="sfz">stop, as the SFZ does</button><button class="ghost small" data-rel="one">play on, one_shot</button></span>
+      <span class="grp" id="g-bug"><button class="ghost small" id="newbug">plant a new bug</button></span>
+    </div>
+    <div class="rowb hide" id="g-guess"><span class="l" style="font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-3)">the bug is</span></div>
+    <div class="region" id="region"></div>
+    <div class="readout" id="readout"></div>
+    <p class="found" id="found"></p>
+  </div>
+
+  <div class="eq" id="eq1"></div>
+  <div class="eq words" id="eq1w"></div>
+
+  <div class="walk"><button class="ghost" id="back">← back</button><button class="ghost" id="next">next →</button></div>
+  <footer><b>LOUD’N LIVE</b> · made for the rich face of Talking Keyboard · plays the build’s SFZ and samples as committed, 2026-05-02 and 2026-05-03</footer>
+</main>
+
+<script id="engine">
+// ---- engine: read the SFZ, find the region a key and a velocity reach, plant a bug ----
+const NAMES = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
+const STEMS = ['C', 'Cs', 'D', 'Ds', 'E', 'F', 'Fs', 'G', 'Gs', 'A', 'As', 'B'];
+const noteName = (m) => `${NAMES[m % 12]}${Math.floor(m / 12) - 1}`;
+const stemOf = (m) => `${STEMS[m % 12]}${Math.floor(m / 12) - 1}`;     // generate.py's midi_to_filename_stem
+const isBlack = (m) => [1, 3, 6, 8, 10].includes(m % 12);
+// the SFZ as plain text: // comments dropped, <group> opcodes inherited by each <region> after it
+function parseSfz(text) {
+  const clean = text.split('\n').map((l) => l.replace(/\/\/.*$/, '')).join(' ');
+  const parts = clean.split(/<(group|region|control|global)>/).slice(1), regions = []; let group = {};
+  for (let i = 0; i < parts.length; i += 2) {
+    const head = parts[i], ops = {}; for (const m of parts[i + 1].matchAll(/([a-z_0-9]+)=(\S+)/g)) ops[m[1]] = m[2];
+    if (head === 'group') group = ops; else if (head === 'region') { const r = { ...group, ...ops }; for (const k of ['lokey', 'hikey', 'pitch_keycenter', 'lovel', 'hivel']) if (r[k] != null) r[k] = +r[k]; regions.push(r); }
+  }
+  return { group, regions };
+}
+const regionFor = (map, key, vel) => map.regions.find((r) => key >= r.lokey && key <= r.hikey && vel >= (r.lovel ?? 1) && vel <= (r.hivel ?? 127)) || null;
+const layerOf = (r) => +(r.sample.match(/_v(\d)\.wav$/) || [])[1];
+const velGain = (v) => (v / 127) ** 2;               // amp_veltrack 100, the SFZ default: Gain(v) = 20·log10((v/127)²) dB
+// the four planted bugs: each turns the key or velocity you played into the one the bugged map answers with
+const LOW = 21, HIGH = 108, N = HIGH - LOW + 1;
+// the SFZ's four velocity layers (1–32, 33–64, 65–96, 97–127) and a velocity in the middle of each, for the reversed-voices bug
+const layerOfVel = (v) => (v <= 32 ? 1 : v <= 64 ? 2 : v <= 96 ? 3 : 4), LAYER_MID = [null, 16, 48, 80, 112];
+const BUGS = {
+  octave: { name: 'every key an octave off', touches: () => N, map: (k, v) => [k >= LOW + 12 ? k - 12 : k + 12, v] },
+  semitone: { name: 'every key a semitone off', touches: () => N, map: (k, v) => [k > LOW ? k - 1 : k + 1, v] },
+  swap: { name: 'two keys swapped', touches: () => 2, map: (k, v, b) => [k === b.a ? b.b : k === b.b ? b.a : k, v] },
+  layers: { name: 'the voices in reverse', touches: () => N, map: (k, v) => [k, LAYER_MID[5 - layerOfVel(v)]] },
+};
+function plant(kind, rand) { const b = { kind }; if (kind === 'swap') { b.a = LOW + Math.floor(rand() * N); do { b.b = LOW + Math.floor(rand() * N); } while (b.b === b.a); } return b; }
+// pressing distinct keys in a random order, the press on which you first meet one of the k keys a bug touches: E = (N + 1)/(k + 1)
+const expectedPresses = (k) => (N + 1) / (k + 1);
+</script>
+
+<script>
+const $ = (id) => document.getElementById(id);
+const BUILD = '../../_ops/sample-libraries/talking-keyboard/'; // the build's folder; the SFZ and every sample are named in piece:files
+const VOICE = { 1: 'af_nova · pp', 2: 'af_heart · mp', 3: 'bf_emma · mf', 4: 'am_michael · ff' };
+const S = { step: 0, rel: 'sfz', bug: null, presses: 0, distinct: new Set(), firstHit: null, guessed: null, last: null };
+let MAP = null; const cache = new Map();
+async function sfz() { if (!MAP) MAP = await fetch(BUILD + 'talking_keyboard.sfz').then((r) => { if (!r.ok) throw new Error('talking_keyboard.sfz: ' + r.status); return r.text(); }).then(parseSfz); return MAP; }
+function parseWav(buf) {
+  const dv = new DataView(buf); let p = 12, sr = 24000, ch = 1, bits = 16, data = null;
+  while (p + 8 <= dv.byteLength) { const id = String.fromCharCode(dv.getUint8(p), dv.getUint8(p + 1), dv.getUint8(p + 2), dv.getUint8(p + 3)), n = dv.getUint32(p + 4, true);
+    if (id === 'fmt ') { ch = dv.getUint16(p + 10, true); sr = dv.getUint32(p + 12, true); bits = dv.getUint16(p + 22, true); }
+    if (id === 'data') { data = [p + 8, Math.min(n, dv.byteLength - p - 8)]; break; } p += 8 + n + (n & 1); }
+  if (!data || bits !== 16) throw new Error('not a 16-bit PCM wav');
+  const len = data[1] / 2 / ch, x = new Float32Array(len); for (let i = 0; i < len; i++) x[i] = dv.getInt16(data[0] + i * 2 * ch, true) / 32768; return { x, sr };
+}
+async function load(sample) { if (!cache.has(sample)) cache.set(sample, fetch(BUILD + sample).then((r) => { if (!r.ok) throw new Error(sample + ': ' + r.status); return r.arrayBuffer(); }).then(parseWav)); return cache.get(sample); }
+
+// ---- sound: one voice per key, stopped 50 ms after key up as the SFZ says, or left to finish ----
+let ctx = null, out = null; const voices = new Map();
+async function audio() {
+  if (!ctx) { ctx = new (window.AudioContext || window.webkitAudioContext)(); const comp = ctx.createDynamicsCompressor(); comp.threshold.value = -12; comp.ratio.value = 4; out = ctx.createGain(); out.gain.value = 2.0; out.connect(comp); comp.connect(ctx.destination); }
+  if (ctx.state !== 'running') await ctx.resume(); return ctx;
+}
+function release(key) { const v = voices.get(key); if (!v || !ctx) return; if (S.rel === 'sfz') { const rel = +(MAP.group.ampeg_release || 0.05), t = ctx.currentTime; v.g.gain.setTargetAtTime(0, t, rel / 4); try { v.s.stop(t + rel * 2); } catch {} } voices.delete(key); }
+function stopAll() { for (const [k, v] of voices) { try { v.s.stop(); } catch {} } voices.clear(); }
+async function press(key, vel) {
+  const map = await sfz(); let k = key, v = vel;
+  if (S.step === 3 && S.bug) [k, v] = BUGS[S.bug.kind].map(key, vel, S.bug);
+  const r = regionFor(map, k, v), truth = regionFor(map, key, vel); if (!r) return;
+  S.last = { key, vel, r, bugged: r !== truth };
+  if (S.step === 3 && S.bug && !S.guessed) { S.presses++; S.distinct.add(key); if (S.firstHit == null && r !== truth) S.firstHit = S.presses; }
+  readout();
+  const w = await load(r.sample); await audio(); release(key);
+  const b = ctx.createBuffer(1, w.x.length, w.sr); b.copyToChannel(w.x, 0); const s = ctx.createBufferSource(), g = ctx.createGain(); s.buffer = b; g.gain.value = velGain(vel); s.connect(g); g.connect(out); s.start();
+  voices.set(key, { s, g }); s.onended = () => { if (voices.get(key)?.s === s) voices.delete(key); };
+  if (!held.has(key)) release(key);
+}
+
+// ---- the keyboard ----
+const held = new Set();
+function buildKeys(lo, hi, height, bands) {
+  const kb = $('kb'); kb.innerHTML = ''; kb.style.height = height + 'px';
+  const whites = []; for (let m = lo; m <= hi; m++) if (!isBlack(m)) whites.push(m);
+  const W = 100 / whites.length; let wi = 0;
+  for (let m = lo; m <= hi; m++) {
+    const el = document.createElement('div'); el.dataset.key = m;
+    if (!isBlack(m)) { el.className = 'key w'; el.style.left = wi * W + '%'; el.style.width = W + '%'; el.style.height = '100%'; wi++;
+      if (m % 12 === 0 || hi - lo < 13 || m === lo) el.innerHTML = `<span class="nm">${noteName(m)}</span>`; }
+    else { el.className = 'key b'; el.style.left = (wi - 0.3) * W + '%'; el.style.width = W * 0.6 + '%'; el.style.height = '62%'; }
+    if (bands) for (const [v, lab] of [[32.5, '1–32 · af_nova'], [64.5, '33–64 · af_heart'], [96.5, '65–96 · bf_emma'], [127.5, '97–127 · am_michael']]) {
+      const f = (v - 1) / 126; if (v < 127) { const b = document.createElement('div'); b.className = 'band'; b.style.top = f * 100 + '%'; el.appendChild(b); }
+      const l = document.createElement('div'); l.className = 'bl'; l.style.top = `calc(${(f - 0.25 + 0.125) * 100}% - 8px)`; l.textContent = lab; el.appendChild(l); }
+    kb.appendChild(el);
+  }
+}
+function velAt(el, y) { const r = el.getBoundingClientRect(); return Math.max(1, Math.min(127, Math.round(1 + 126 * (y - r.top) / r.height))); }
+$('kb').addEventListener('pointerdown', (e) => { const el = e.target.closest('.key'); if (!el) return; e.preventDefault(); const key = +el.dataset.key; held.add(key); el.classList.add('on'); press(key, STEPS[S.step].fixedVel || velAt(el, e.clientY)).catch((err) => { $('readout').textContent = 'Could not play: ' + err.message; }); });
+function up(e) { document.querySelectorAll('.key.on').forEach((el) => { const key = +el.dataset.key; el.classList.remove('on'); held.delete(key); release(key); }); }
+window.addEventListener('pointerup', up); window.addEventListener('pointercancel', up);
+
+function readout() {
+  const L = S.last; if (!L) { $('region').textContent = 'press a key'; $('readout').innerHTML = ''; return; }
+  const r = L.r, rl = `<region> sample=${r.sample} lokey=${r.lokey} hikey=${r.hikey} pitch_keycenter=${r.pitch_keycenter} lovel=${r.lovel} hivel=${r.hivel}`;
+  $('region').textContent = S.step === 3 && !S.guessed ? 'the region stays hidden until you name the bug' : rl;
+  const hunting = S.step === 3 && !S.guessed;
+  $('readout').innerHTML = `you pressed <b>${noteName(L.key)}</b> (MIDI ${L.key}) at velocity <b>${L.vel}</b>${hunting ? '' : ` → layer v${layerOf(r)}, ${VOICE[layerOf(r)]} · the file says ${noteName(r.lokey)}`} · gain ${(20 * Math.log10(velGain(L.vel))).toFixed(1)} dB${S.step === 3 ? ` · presses so far: ${S.presses}` : ''}`;
+  if (S.step === 3) document.querySelectorAll('#g-guess button').forEach((b) => { b.disabled = !!S.guessed || S.presses === 0; });
+}
+
+// ---- the four steps ----
+const STEPS = [
+  { name: 'one key', title: 'One key: C4, held',
+    say: 'Middle C, MIDI 60. Its region in the SFZ is one line: this key, this velocity range, this file. Hold the key and it says its name in af_nova, the softest of the four voices. Let go early and the word stops: the SFZ sets no <code>loop_mode</code>, which for a sample with no loop means <code>no_loop</code>, play until the end or until the key comes up, and its group fades in 50 ms after that.',
+    do: 'Hold the key until the word ends. Then tap it. Then switch key up to one_shot and tap again.', watch: 'The region line: the file, the key range, the velocity range.', hear: '“C four”, whole when held, cut when tapped as the SFZ stands.',
+    range: [60, 60], height: 200, fixedVel: 32, controls: ['g-release'] },
+  { name: 'four voices', title: 'One key, four voices',
+    say: 'The same key, split four ways by velocity. Press near the top for soft and near the front edge for hard, and the SFZ hands the press to a different file: af_nova to 32, af_heart to 64, bf_emma to 96, am_michael above. Each also plays louder with velocity, on the SFZ default curve.',
+    do: 'Press C4 at four heights, top to bottom.', watch: 'The layer and voice in the readout, and the gain.', hear: 'Gentle, warmer, British, bold: the page’s pp to ff.',
+    range: [60, 60], height: 320, bands: true, controls: ['g-release'] },
+  { name: '88 keys', title: 'All 88',
+    say: 'A0 to C8, the whole SFZ, 352 regions. Every key says its own name, and nothing else: <code>pitch_keycenter</code> equals the key, so no sample is retuned, and C1 and C7 speak at about the same voice pitch. The name is the only thing that tells you where you are.',
+    do: 'Play anywhere. Run up an octave from any C.', watch: 'The region line for each press: its file always names the key you pressed.', hear: 'Each key naming itself, at one voice pitch from bottom to top.',
+    range: [21, 108], height: 170, controls: ['g-release'] },
+  { name: 'the test', title: 'The test: find the planted bug',
+    say: 'The page says any mapping bug is obvious in the first second of play, because you press a key and hear what note the instrument claims it is. Here one of four bugs is planted in the map, hidden: every key an octave off, every key a semitone off, two keys swapped somewhere, or the voices in reverse. Play until you know which, then say so. The keys keep their labels: you know what you pressed, the voice tells you what the map thinks.',
+    do: 'Play. When you know, pick the bug. Plant a new one and go again.', watch: 'How many presses it took, and, after you guess, on which press the bug first spoke.', hear: 'A name that doesn’t match the key under your finger.',
+    range: [21, 108], height: 170, controls: ['g-release', 'g-bug'],
+    eq: ['E[presses] = (N + 1) ⁄ (k + 1) ·  N = 88 keys ·  k = keys the bug touches ·  k = 88 → 1 ·  k = 2 → 29.7', 'Pressing keys you haven’t pressed yet in no particular order, the press on which you first meet a key the bug touches comes, on average, at (N + 1)/(k + 1). A bug that touches every key speaks on the first press; a swapped pair waits, on average, for the thirtieth.'] },
+];
+
+function guessButtons() {
+  const g = $('g-guess'); g.querySelectorAll('button').forEach((b) => b.remove());
+  for (const [kind, b] of Object.entries(BUGS)) { const bt = document.createElement('button'); bt.className = 'ghost small'; bt.textContent = b.name; bt.dataset.kind = kind; bt.disabled = !!S.guessed || S.presses === 0; bt.setAttribute('aria-pressed', String(S.guessed === kind)); bt.addEventListener('click', () => { S.guessed = kind; guessButtons(); readout(); found(); }); g.appendChild(bt); }
+}
+function newBug() { const kinds = Object.keys(BUGS); S.bug = plant(kinds[Math.floor(Math.random() * kinds.length)], Math.random); S.presses = 0; S.distinct = new Set(); S.firstHit = null; S.guessed = null; S.last = null; guessButtons(); readout(); $('found').innerHTML = ''; }
+function found() {
+  if (!S.guessed) return; const b = S.bug, B = BUGS[b.kind], right = S.guessed === b.kind;
+  const where = b.kind === 'swap' ? ` The swapped pair was ${noteName(b.a)} and ${noteName(b.b)}.` : '';
+  const when = S.firstHit ? `It first spoke on press ${S.firstHit}.` : 'It never spoke in what you played.';
+  const kinds = { octave: 'An octave shift touches every key, so the first press shows it, if you know where you are: the octave word is the only cue, since the voice pitch never changes.', semitone: 'A semitone shift touches every key, so the first press shows it, unless that press lands on a key whose neighbour shares its letter, where only the sharp gives it away.', swap: `A swapped pair touches two keys of 88; on average you meet one on press ${expectedPresses(2).toFixed(1)}. Obvious when you hit it, not in the first second.`, layers: 'Reversed voices touch every key but never the name: every key still says the right note. You catch it only if you know which voice belongs to soft and which to loud, so it is not a mapping bug the names can show.' };
+  $('found').innerHTML = `<b>${right ? 'Right' : 'Not this one'}:</b> it was ${B.name}. ${when}${where} You pressed ${S.presses} time${S.presses === 1 ? '' : 's'}. ${kinds[b.kind]}<br><br><b>What the test finds.</b> The claim holds for a bug that moves names around the whole map: the first press you check against the key gives it away. It overstates two cases. A bug confined to a few keys is obvious the first time you press one, which can be the thirtieth press, not the first second. And a bug in the velocity split never shows in the names at all. A machine check found nothing of either kind in this map: every one of the 352 regions names its own key and tiles the four velocity ranges, and every file re-renders from <code>generate.py</code>’s text to within two sixteen-bit steps.`;
+}
+
+function show() {
+  stopAll(); const st = STEPS[S.step];
+  $('st-title').textContent = `${S.step + 1} · ${st.title}`; $('st-say').innerHTML = st.say; $('st-do').textContent = st.do; $('st-watch').textContent = st.watch; $('st-hear').textContent = st.hear;
+  for (const id of ['g-release', 'g-bug']) $(id).classList.toggle('hide', !st.controls.includes(id));
+  $('g-guess').classList.toggle('hide', S.step !== 3);
+  buildKeys(st.range[0], st.range[1], st.height, st.bands);
+  if (st.range[0] === st.range[1]) { $('kb').style.maxWidth = '220px'; } else $('kb').style.maxWidth = '';
+  $('pic-l').textContent = st.range[0] === st.range[1] ? `${noteName(st.range[0])} · MIDI ${st.range[0]}${st.bands ? ' · press height = velocity' : ''}` : `A0 to C8 · MIDI 21 to 108 · press height = velocity`;
+  $('pic-r').textContent = 'talking_keyboard.sfz';
+  $('eq1').textContent = st.eq ? st.eq[0] : ''; $('eq1w').textContent = st.eq ? st.eq[1] : ''; $('found').innerHTML = '';
+  S.last = null; if (S.step === 3) newBug(); readout();
+  [...$('rail').children].forEach((bt, j) => bt.setAttribute('aria-current', j === S.step ? 'step' : 'false'));
+  $('back').disabled = S.step === 0; $('next').disabled = S.step === STEPS.length - 1; sync();
+  sfz().then((m) => { $('pic-r').textContent = `talking_keyboard.sfz · ${m.regions.length} regions`; }).catch((e) => { $('readout').textContent = 'The SFZ did not load: ' + e.message; });
+}
+function sync() { document.querySelectorAll('[data-rel]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.rel === S.rel))); }
+STEPS.forEach((st, i) => { const b = document.createElement('button'); b.textContent = `${i + 1} · ${st.name}`; b.addEventListener('click', () => { S.step = i; show(); }); $('rail').appendChild(b); });
+$('back').addEventListener('click', () => { if (S.step > 0) { S.step--; show(); } });
+$('next').addEventListener('click', () => { if (S.step < STEPS.length - 1) { S.step++; show(); } });
+document.querySelectorAll('[data-rel]').forEach((b) => b.addEventListener('click', () => { S.rel = b.dataset.rel; sync(); }));
+$('newbug').addEventListener('click', () => { stopAll(); newBug(); });
+show();
+</script>
+</body>
+</html>

@@ -1,0 +1,356 @@
+<!doctype html>
+<!--
+  title: Talking Keyboard — rich — three spellings of A
+  born: 2026-11-03
+  links: [[Talking Keyboard]] (connects-to · rich-face-piece) · listed in [[Talking Keyboard — rich.json]] · serves § The Pronunciation Lesson · plays renders made by "Talking Keyboard — rich — render.py" into rich-face/, and the shipped A4 and C4 samples from _ops/sample-libraries/talking-keyboard/samples/
+  forward_vector: I am the bug only listening caught, played back. One key as it ships; then the A the spec asked for, which the front end read as the article; then "ay", which it read as "eye"; then the build's seven-spelling audition; and last, a blind test: name three A4s by ear, then see what the front end wrote for each before any sound existed. I play inside the entry's rich face and stand alone opened directly; I change only when the section I serve does.
+  sound: nothing plays until a play button or a row is clicked; the AudioContext is made on that click. Changing step stops the sound. Quieting a hidden page and the one-minute cap are the kit's.
+  renders: Kokoro (kokoro-onnx 0.5.0, kokoro-v1.0.onnx) in the build's four voices, en-us, speed 1.0, 2026-11-03; rich-face/renders.json records the phonemes the front end made of each string, and the re-render of all 352 shipped samples against the files in git.
+  check: Talking Keyboard — rich — check.mjs runs this page's vowel meter in Node over every render and holds it to what the page says.
+-->
+<html lang="en" class="skin-graphite">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- the renders and their record beside the piece in rich-face/, and eight shipped samples from the build; no device, no storage, no host -->
+<meta name="piece:files" content="rich-face/renders.json rich-face/lesson-A-af_nova.wav rich-face/lesson-A-af_heart.wav rich-face/lesson-A-bf_emma.wav rich-face/lesson-A-am_michael.wav rich-face/lesson-ay-af_nova.wav rich-face/lesson-ay-af_heart.wav rich-face/lesson-ay-bf_emma.wav rich-face/lesson-ay-am_michael.wav rich-face/lesson-eigh-af_nova.wav rich-face/lesson-eigh-af_heart.wav rich-face/lesson-eigh-bf_emma.wav rich-face/lesson-eigh-am_michael.wav rich-face/audition-ate-af_heart.wav rich-face/audition-ace-af_heart.wav rich-face/audition-aye-af_heart.wav rich-face/audition-ey-af_heart.wav rich-face/audition-A-dot-af_heart.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_A4_v1.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_A4_v2.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_A4_v3.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_A4_v4.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_C4_v1.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_C4_v2.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_C4_v3.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_C4_v4.wav">
+<title>Three spellings of A</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@300;400;500&display=swap">
+<style>
+  :root{
+    --bg:#0a0a0f; --bg-elev-1:#12121a; --bg-elev-2:#1a1a28; --border:#4a4a5e; --border-soft:rgba(255,255,255,0.06);
+    --fg-1:#e8e8f0; --fg-2:#c8c8d8; --fg-3:#8a8aa0; --fg-4:#4a4a5a;
+    --accent:#e8b84a; --accent-soft:rgba(232,184,74,0.10); --accent-line:rgba(232,184,74,0.5);
+    --info:#4a8fff; --violet:#8b7cf6;
+    --serif:'Cormorant Garamond','Source Serif 4',Georgia,serif; --sans:'Manrope',system-ui,sans-serif;
+    --display:'Anton','Bebas Neue',Impact,sans-serif; --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--fg-1)}
+  body{font-family:var(--serif);font-size:17px;line-height:1.7;padding:28px 16px 36px}
+  main{max-width:960px;margin:0 auto}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--fg-3)}
+  h1{font-family:var(--display);font-weight:400;font-size:42px;line-height:1.05;margin:6px 0 10px}
+  h2{font-family:var(--display);font-weight:400;font-size:27px;line-height:1.1;margin:4px 0 8px;letter-spacing:.01em}
+  p.lead{font-size:19px;color:var(--fg-2);margin:0 0 18px;max-width:66ch}
+  .rail{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 18px}
+  .rail button{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-3);background:transparent;border:1px solid var(--border);border-radius:4px;padding:7px 11px;cursor:pointer;transition:all .22s cubic-bezier(.4,0,.2,1)}
+  .rail button[aria-current="step"]{color:var(--fg-1);border-color:var(--fg-3);background:var(--bg-elev-2)}
+  p.say{color:var(--fg-2);margin:0 0 14px;max-width:68ch}
+  .dwh{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:8px 18px;margin:0 0 14px;font-family:var(--sans);font-size:13.5px;color:var(--fg-2);line-height:1.55}
+  .dwh b{font-family:var(--mono);font-weight:400;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);display:block}
+  .panel{background:var(--bg-elev-1);border:1px solid var(--border-soft);border-radius:4px;padding:16px;margin:0 0 14px}
+  .plabel{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-3);display:flex;justify-content:space-between;gap:10px;margin-bottom:8px}
+  canvas{width:100%;display:block;background:var(--bg-elev-2);border-radius:2px}
+  .rowb{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:12px}
+  .grp{display:inline-flex;gap:6px;align-items:center;flex-wrap:wrap}
+  .grp .l{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-3);margin-right:2px}
+  button.play{font-family:var(--sans);font-weight:500;font-size:14px;color:#0a0a0f;background:var(--accent);border:0;border-radius:4px;padding:9px 20px;cursor:pointer;transition:box-shadow .22s cubic-bezier(.4,0,.2,1)}
+  button.play:hover{box-shadow:0 0 24px var(--accent-soft)}
+  button.ghost{font-family:var(--sans);font-size:14px;color:var(--fg-2);background:transparent;border:1px solid var(--border);border-radius:4px;padding:8px 14px;cursor:pointer}
+  button.ghost.small{font-size:13px;padding:5px 10px}
+  button.ghost[aria-pressed="true"]{color:var(--fg-1);border-color:var(--accent-line);background:var(--bg-elev-2)}
+  button:disabled{opacity:.4;cursor:default}
+  .chain{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:8px 14px;margin-top:14px;font-family:var(--sans);font-size:13px;color:var(--fg-2)}
+  .chain div b{display:block;font-family:var(--mono);font-weight:400;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-3)}
+  .chain .big{font-family:var(--mono);font-size:19px;color:var(--fg-1)}
+  .chain .big.bad{color:var(--accent)}
+  .meter{font-family:var(--mono);font-size:13px;color:var(--fg-2);margin-top:12px;line-height:1.75}
+  .meter b{color:var(--accent);font-weight:400}
+  .eq{font-family:var(--mono);font-size:13.5px;color:var(--fg-1);margin:14px 0 0;overflow-wrap:anywhere}
+  .eq.words{font-family:var(--sans);color:var(--fg-3);font-size:13px;margin-top:2px}
+  table.t{border-collapse:collapse;margin-top:12px;font-family:var(--mono);font-size:13px;color:var(--fg-2);width:100%}
+  table.t td,table.t th{border-bottom:1px solid var(--border-soft);padding:6px 14px 6px 0;text-align:left;font-weight:400}
+  table.t th{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-3)}
+  table.t tr.row{cursor:pointer} table.t tr.row:hover td{color:var(--fg-1)} table.t tr.on td{color:var(--accent)}
+  .blind{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:12px}
+  .card{border:1px solid var(--border-soft);border-radius:4px;padding:12px;background:var(--bg-elev-2)}
+  .card .nm{font-family:var(--display);font-size:24px;letter-spacing:.04em}
+  .card .ans{font-family:var(--mono);font-size:12.5px;color:var(--fg-2);margin-top:8px;line-height:1.6;min-height:3.2em}
+  .card .ans b{color:var(--accent);font-weight:400}
+  .found{margin-top:12px;font-family:var(--sans);font-size:14px;color:var(--fg-2);max-width:72ch;line-height:1.6}
+  .walk{display:flex;justify-content:space-between;gap:10px;margin-top:16px}
+  .hide{display:none!important}
+  footer{margin-top:28px;font-family:var(--sans);font-size:13px;color:var(--fg-4)}
+  footer b{font-family:var(--display);font-weight:400;letter-spacing:.06em;color:var(--fg-3)}
+  @media (max-width:640px){h1{font-size:32px}h2{font-size:23px}.chain .big{font-size:16px}}
+</style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">Talking Keyboard · the pronunciation lesson · five steps</div>
+  <h1>Three spellings of A</h1>
+  <p class="lead">The spec said speak the letter A, and the script did. Kokoro said “uh”. Here is the A4 key as it ships, then each spelling the build tried, then a blind test of your ear against what the text-to-speech front end wrote down before any sound existed.</p>
+
+  <nav class="rail" id="rail" aria-label="steps"></nav>
+  <h2 id="st-title"></h2>
+  <p class="say" id="st-say"></p>
+  <div class="dwh"><div><b>do</b><span id="st-do"></span></div><div><b>watch</b><span id="st-watch"></span></div><div><b>hear</b><span id="st-hear"></span></div></div>
+
+  <div class="panel">
+    <div class="plabel"><span id="pic-l"></span><span id="pic-r"></span></div>
+    <canvas id="pic" height="300"></canvas>
+    <div class="rowb">
+      <button class="play" id="play">▸ play</button>
+      <span class="grp" id="g-voice"><span class="l">voice</span><button class="ghost small" data-voice="af_nova">af_nova · pp</button><button class="ghost small" data-voice="af_heart">af_heart · mp</button><button class="ghost small" data-voice="bf_emma">bf_emma · mf</button><button class="ghost small" data-voice="am_michael">am_michael · ff</button></span>
+      <span class="grp" id="g-cmp"><span class="l">beside it</span><button class="ghost small" id="cmp-c">▸ C four, as shipped</button></span>
+      <span class="grp" id="g-shuffle"><button class="ghost small" id="shuffle">shuffle again</button><button class="ghost small" id="reveal">reveal</button></span>
+    </div>
+    <div class="chain" id="chain"></div>
+    <table class="t" id="tab"></table>
+    <div class="blind" id="blind"></div>
+    <div class="meter" id="meter"></div>
+    <p class="found" id="found"></p>
+  </div>
+
+  <div class="eq" id="eq1"></div>
+  <div class="eq words" id="eq1w"></div>
+
+  <div class="walk"><button class="ghost" id="back">← back</button><button class="ghost" id="next">next →</button></div>
+  <footer><b>LOUD’N LIVE</b> · made for the rich face of Talking Keyboard · Kokoro renders made for this page, 2026-11-03, with the build’s settings · the vowel meter runs here and in its check</footer>
+</main>
+
+<script id="engine">
+// ---- engine: read a WAV, find the first vowel, read its two lowest resonances ----
+function parseWav(buf) {
+  const dv = new DataView(buf); let p = 12, sr = 24000, ch = 1, bits = 16, data = null;
+  while (p + 8 <= dv.byteLength) {
+    const id = String.fromCharCode(dv.getUint8(p), dv.getUint8(p + 1), dv.getUint8(p + 2), dv.getUint8(p + 3)), n = dv.getUint32(p + 4, true);
+    if (id === 'fmt ') { ch = dv.getUint16(p + 10, true); sr = dv.getUint32(p + 12, true); bits = dv.getUint16(p + 22, true); }
+    if (id === 'data') { data = [p + 8, Math.min(n, dv.byteLength - p - 8)]; break; }
+    p += 8 + n + (n & 1);
+  }
+  if (!data || bits !== 16) throw new Error('not a 16-bit PCM wav');
+  const len = data[1] / 2 / ch, x = new Float32Array(len);
+  for (let i = 0; i < len; i++) x[i] = dv.getInt16(data[0] + i * 2 * ch, true) / 32768;
+  return { x, sr };
+}
+// frames: 25 ms every 5 ms → level (dB) and zero crossings per sample (high for hiss, like the f of "four")
+function frames(x, sr) {
+  const w = Math.round(sr * 0.025), h = Math.round(sr * 0.005), out = [];
+  for (let s = 0; s + w <= x.length; s += h) {
+    let e = 0, z = 0; for (let i = s; i < s + w; i++) { e += x[i] * x[i]; if (i > s && (x[i] >= 0) !== (x[i - 1] >= 0)) z++; }
+    out.push({ t: (s + w / 2) / sr, db: 10 * Math.log10(e / w + 1e-12), zcr: z / w });
+  }
+  return out;
+}
+// the first word's vowel: the first run of loud, unhissed frames (within 20 dB of the loudest, under 0.2 crossings a sample),
+// one stray frame forgiven; its core is the part within 8 dB of the loudest
+function firstVowel(x, sr) {
+  const F = frames(x, sr); let top = -Infinity; for (const f of F) top = Math.max(top, f.db);
+  const ok = (f) => f && f.db > top - 20 && f.zcr < 0.2;
+  let a = F.findIndex(ok); if (a < 0) return null; let b = a;
+  while (b + 1 < F.length && (ok(F[b + 1]) || ok(F[b + 2]))) b++;
+  const run = F.slice(a, b + 1), loud = run.filter((f) => f.db > top - 8), core = loud.length ? loud : run;
+  return { from: core[0].t, to: core[core.length - 1].t };
+}
+// linear prediction (autocorrelation, Levinson-Durbin): an all-pole fit whose peaks are the vocal tract's resonances
+function lpc(seg, order) {
+  const n = seg.length, r = new Float64Array(order + 1);
+  for (let k = 0; k <= order; k++) { let s = 0; for (let i = k; i < n; i++) s += seg[i] * seg[i - k]; r[k] = s; }
+  r[0] *= 1 + 1e-9; const a = new Float64Array(order + 1); a[0] = 1; let err = r[0];
+  for (let i = 1; i <= order; i++) { let acc = r[i]; for (let j = 1; j < i; j++) acc += a[j] * r[i - j]; const k = -acc / err; const prev = a.slice(); for (let j = 1; j < i; j++) a[j] = prev[j] + k * prev[i - j]; a[i] = k; err *= 1 - k * k; }
+  return a;
+}
+// F1 and F2 at a moment: 25 ms, halved to 12 kHz, pre-emphasised, Hamming-windowed, 14 poles; the envelope's first two peaks above 200 Hz
+function formantsAt(x, sr, center) {
+  const half = Math.round(sr * 0.0125), s0 = Math.max(1, Math.round(center * sr) - half), s1 = Math.min(x.length - 1, s0 + 2 * half);
+  const y = []; for (let i = s0; i < s1; i += 2) y.push(0.25 * x[i - 1] + 0.5 * x[i] + 0.25 * x[i + 1]);
+  const fs = sr / 2, m = y.length, seg = new Float64Array(m);
+  for (let i = 0; i < m; i++) seg[i] = (y[i] - 0.97 * (i ? y[i - 1] : 0)) * (0.54 - 0.46 * Math.cos(2 * Math.PI * i / (m - 1)));
+  const a = lpc(seg, 14), env = [];
+  for (let f = 0; f <= 4000; f += 10) { const w = 2 * Math.PI * f / fs; let re = 0, im = 0; for (let k = 0; k < a.length; k++) { re += a[k] * Math.cos(w * k); im -= a[k] * Math.sin(w * k); } env.push(-10 * Math.log10(re * re + im * im)); }
+  const peaks = []; for (let i = 1; i < env.length - 1; i++) if (env[i] > env[i - 1] && env[i] >= env[i + 1] && i * 10 > 200) peaks.push(i * 10);
+  return { f1: peaks[0] || null, f2: peaks[1] || null };
+}
+function vowelPath(x, sr) {
+  const v = firstVowel(x, sr); if (!v) return null; const d = v.to - v.from;
+  return { from: v.from, to: v.to, ms: d * 1000, track: [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9].map((q) => ({ q, t: v.from + q * d, ...formantsAt(x, sr, v.from + q * d) })) };
+}
+// the reading, for these three vowels only, in the frame "X four": where F2 starts, how far it climbs, how long the vowel lasts
+const med = (a) => { const s = a.filter((v) => v).sort((p, q) => p - q); return s.length ? s[Math.floor(s.length / 2)] : null; };
+const RULE = { f2High: 1850, climb: 500, shortMs: 110 };
+function readVowel(p) {
+  const f2a = med(p.track.slice(0, 3).map((t) => t.f2)), f2b = med(p.track.slice(6).map((t) => t.f2)), f1a = med(p.track.slice(0, 3).map((t) => t.f1));
+  const rise = f2b - f2a;
+  const heard = f2a >= RULE.f2High ? 'ay' : rise > RULE.climb ? 'eye' : p.ms < RULE.shortMs ? 'uh' : '?';
+  return { ms: Math.round(p.ms), f1a, f2a, f2b, rise, heard };
+}
+// a spectrogram: 512-point frames every 4 ms, Hann window, magnitude in dB, up to 4 kHz
+function fft(re, im) {
+  const n = re.length; for (let i = 1, j = 0; i < n; i++) { let b = n >> 1; for (; j & b; b >>= 1) j ^= b; j ^= b; if (i < j) { [re[i], re[j]] = [re[j], re[i]]; [im[i], im[j]] = [im[j], im[i]]; } }
+  for (let len = 2; len <= n; len <<= 1) { const a = -2 * Math.PI / len, wr = Math.cos(a), wi = Math.sin(a);
+    for (let i = 0; i < n; i += len) { let cr = 1, ci = 0; for (let j = 0; j < len / 2; j++) { const ur = re[i + j], ui = im[i + j], vr = re[i + j + len / 2] * cr - im[i + j + len / 2] * ci, vi = re[i + j + len / 2] * ci + im[i + j + len / 2] * cr;
+      re[i + j] = ur + vr; im[i + j] = ui + vi; re[i + j + len / 2] = ur - vr; im[i + j + len / 2] = ui - vi; const t = cr * wr - ci * wi; ci = cr * wi + ci * wr; cr = t; } } }
+}
+function spectrogram(x, sr, fmax) {
+  const N = 512, hop = Math.round(sr * 0.004), bins = Math.floor(fmax / (sr / N)), cols = [], win = new Float64Array(N).map((_, i) => 0.5 - 0.5 * Math.cos(2 * Math.PI * i / (N - 1)));
+  for (let s = 0; s + N <= x.length; s += hop) { const re = new Float64Array(N), im = new Float64Array(N); for (let i = 0; i < N; i++) re[i] = x[s + i] * win[i]; fft(re, im);
+    const col = new Float32Array(bins); for (let k = 0; k < bins; k++) col[k] = 10 * Math.log10(re[k] * re[k] + im[k] * im[k] + 1e-12); cols.push(col); }
+  return { cols, bins, hopS: hop / sr, binHz: sr / N };
+}
+</script>
+
+<script>
+const $ = (id) => document.getElementById(id);
+const VOICES = ['af_nova', 'af_heart', 'bf_emma', 'am_michael'];
+const LAYER = { af_nova: 1, af_heart: 2, bf_emma: 3, am_michael: 4 };
+const SHIPPED = '../../_ops/sample-libraries/talking-keyboard/samples/'; // the build's own files, each named in piece:files
+const HEARD = { uh: '“uh”, the article', eye: '“eye”', ay: '“ay”, as in eight', '?': 'none of the three' };
+const S = { step: 0, voice: 'af_heart', row: 'eigh', order: null, guess: {}, revealed: false };
+let REC = null; const cache = new Map();
+async function rec() { if (!REC) REC = await fetch('rich-face/renders.json').then((r) => { if (!r.ok) throw new Error('renders.json: ' + r.status); return r.json(); }); return REC; }
+async function load(url) {
+  if (!cache.has(url)) cache.set(url, fetch(url).then((r) => { if (!r.ok) throw new Error(url.split('/').pop() + ': ' + r.status); return r.arrayBuffer(); })
+    .then((b) => { const w = parseWav(b), p = vowelPath(w.x, w.sr); return { url, ...w, path: p, read: p ? readVowel(p) : null }; }));
+  return cache.get(url);
+}
+const lessonUrl = (key, v) => `rich-face/lesson-${key}-${v}.wav`;
+const shippedUrl = (stem, v) => `${SHIPPED}kokoro_${stem}_v${LAYER[v]}.wav`;
+async function auditionUrl(key) { const R = await rec(); if (R.lesson[key]) return lessonUrl(key, 'af_heart'); return 'rich-face/' + R.audition[key].files.af_heart; }
+
+// ---- sound ----
+let ctx = null, out = null, live = [], timers = [], playing = false;
+async function audio() {
+  if (!ctx) { ctx = new (window.AudioContext || window.webkitAudioContext)(); const comp = ctx.createDynamicsCompressor(); comp.threshold.value = -12; comp.ratio.value = 4; out = ctx.createGain(); out.gain.value = 0.9; out.connect(comp); comp.connect(ctx.destination); }
+  if (ctx.state !== 'running') await ctx.resume(); return ctx;
+}
+function playX(x, sr, when) { const b = ctx.createBuffer(1, x.length, sr); b.copyToChannel(x, 0); const s = ctx.createBufferSource(); s.buffer = b; s.connect(out); s.start(when); live.push(s); return x.length / sr; }
+function stopSound() { for (const s of live) { try { s.stop(); } catch {} } live = []; timers.forEach(clearTimeout); timers = []; playing = false; syncPlay(); }
+function done(after) { playing = true; syncPlay(); timers.push(setTimeout(() => { playing = false; syncPlay(); }, after * 1000 + 150)); }
+function syncPlay() { $('play').textContent = playing ? '■ stop' : STEPS[S.step].playLabel || '▸ play'; }
+async function playUrl(url) { const m = await load(url); await audio(); stopSound(); done(playX(m.x, m.sr, ctx.currentTime + 0.05)); }
+
+// ---- drawing ----
+const COL = { fg2: '#c8c8d8', fg3: '#8a8aa0', fg4: '#4a4a5a', acc: '#e8b84a', info: '#4a8fff', vio: '#8b7cf6', grid: 'rgba(255,255,255,0.06)' };
+function canvasFit(h) { const c = $('pic'), d = window.devicePixelRatio || 1, w = c.clientWidth || 900; c.width = w * d; c.height = h * d; c.style.height = h + 'px'; const g = c.getContext('2d'); g.setTransform(d, 0, 0, d, 0, 0); return { g, w, h }; }
+function label(g, t, x, y, color, align) { g.fillStyle = color || COL.fg3; g.font = '11px JetBrains Mono, monospace'; g.textAlign = align || 'left'; g.fillText(t, x, y); }
+// a spectrogram to 4 kHz with the first vowel's core shaded and its F1 and F2 marked
+function drawSpec(m, title, right) {
+  const { g, w, h } = canvasFit(290), t1 = Math.max(1.0, m.x.length / m.sr), X = (t) => 44 + t / t1 * (w - 54), y0 = 10, H = h - 40, fmax = 4000;
+  const sp = spectrogram(m.x, m.sr, fmax); let top = -Infinity; for (const c of sp.cols) for (const v of c) if (v > top) top = v;
+  sp.cols.forEach((col, i) => { const x0 = X(i * sp.hopS + 256 / m.sr), x1 = X((i + 1) * sp.hopS + 256 / m.sr); for (let k = 0; k < sp.bins; k++) { const a = Math.max(0, Math.min(1, (col[k] - top + 70) / 70)); if (a < 0.05) continue;
+    g.fillStyle = `rgba(200,200,216,${(a * a * 0.85).toFixed(3)})`; g.fillRect(x0, y0 + H - (k + 1) / sp.bins * H, x1 - x0 + 0.6, H / sp.bins + 0.6); } });
+  const Y = (f) => y0 + H - f / fmax * H;
+  for (const f of [1000, 2000, 3000]) { g.strokeStyle = COL.grid; g.beginPath(); g.moveTo(44, Y(f)); g.lineTo(w - 10, Y(f)); g.stroke(); label(g, `${f / 1000} kHz`, 40, Y(f) + 4, COL.fg4, 'right'); }
+  for (let t = 0; t <= t1 + 1e-9; t += 0.2) label(g, `${Math.round(t * 1000)} ms`, X(t), h - 10, COL.fg4, 'center');
+  if (m.path) {
+    g.fillStyle = 'rgba(232,184,74,0.10)'; g.fillRect(X(m.path.from), y0, X(m.path.to) - X(m.path.from), H);
+    for (const p of m.path.track) { if (p.f1) { g.fillStyle = COL.info; g.beginPath(); g.arc(X(p.t), Y(p.f1), 3, 0, 7); g.fill(); } if (p.f2) { g.fillStyle = COL.acc; g.beginPath(); g.arc(X(p.t), Y(p.f2), 3, 0, 7); g.fill(); } }
+  }
+  $('pic-l').textContent = `${title} · spectrogram to 4 kHz · the first vowel shaded · F1 blue, F2 amber`; $('pic-r').textContent = right || '';
+}
+// a vowel chart: F2 across (high on the left, as front vowels sit), F1 down (open vowels low); one path per sound, start to arrow
+function drawChart(items) {
+  const { g, w, h } = canvasFit(300), x0 = 54, x1 = w - 20, y0 = 14, y1 = h - 34;
+  const X = (f2) => x0 + (3200 - f2) / (3200 - 900) * (x1 - x0), Y = (f1) => y0 + (f1 - 250) / (1250 - 250) * (y1 - y0);
+  for (const f of [1000, 1500, 2000, 2500, 3000]) { g.strokeStyle = COL.grid; g.beginPath(); g.moveTo(X(f), y0); g.lineTo(X(f), y1); g.stroke(); label(g, `${f}`, X(f), h - 18, COL.fg4, 'center'); }
+  for (const f of [400, 600, 800, 1000, 1200]) { g.strokeStyle = COL.grid; g.beginPath(); g.moveTo(x0, Y(f)); g.lineTo(x1, Y(f)); g.stroke(); label(g, `${f}`, x0 - 6, Y(f) + 4, COL.fg4, 'right'); }
+  label(g, 'F2, Hz  ← front   back →', (x0 + x1) / 2, h - 4, COL.fg3, 'center'); label(g, 'F1', 14, y0 + 10, COL.fg3);
+  for (const it of items) {
+    const pts = it.path.track.filter((p) => p.f1 && p.f2 && p.f1 < 1250 && p.f2 > 900 && p.f2 < 3200);
+    // a 3-point median along the path, so one merged peak does not throw a spike
+    const sm = pts.map((p, i) => ({ f1: med([pts[i - 1]?.f1, p.f1, pts[i + 1]?.f1]), f2: med([pts[i - 1]?.f2, p.f2, pts[i + 1]?.f2]) }));
+    if (sm.length < 2) continue;
+    g.strokeStyle = it.color; g.lineWidth = 2; g.beginPath(); sm.forEach((p, i) => (i ? g.lineTo(X(p.f2), Y(p.f1)) : g.moveTo(X(p.f2), Y(p.f1)))); g.stroke(); g.lineWidth = 1;
+    const a = sm[sm.length - 2], b = sm[sm.length - 1], ang = Math.atan2(Y(b.f1) - Y(a.f1), X(b.f2) - X(a.f2));
+    g.fillStyle = it.color; g.beginPath(); g.moveTo(X(b.f2), Y(b.f1)); g.lineTo(X(b.f2) - 9 * Math.cos(ang - 0.45), Y(b.f1) - 9 * Math.sin(ang - 0.45)); g.lineTo(X(b.f2) - 9 * Math.cos(ang + 0.45), Y(b.f1) - 9 * Math.sin(ang + 0.45)); g.fill();
+    g.beginPath(); g.arc(X(sm[0].f2), Y(sm[0].f1), 3.5, 0, 7); g.fill();
+    label(g, it.name, X(sm[0].f2) + 8, Y(sm[0].f1) - 6, it.color);
+  }
+  $('pic-l').textContent = 'vowel chart · each sound’s first vowel, from its dot to its arrow · F1 down, F2 across'; $('pic-r').textContent = S.voice;
+}
+function chain(spec, text, ipa, heard, bad) {
+  $('chain').innerHTML = `<div><b>the spec asked</b>${spec}</div><div><b>the string handed in</b><span class="big">“${text}”</span></div><div><b>what the front end wrote</b><span class="big${bad ? ' bad' : ''}">${ipa}</span></div><div><b>what you hear</b>${heard}</div>`;
+}
+const readText = (r) => r ? `first vowel ${r.ms} ms · F2 starts ${r.f2a} Hz, climbs ${r.rise > 0 ? '+' : ''}${r.rise} Hz · the meter reads <b>${HEARD[r.heard]}</b>` : 'no vowel found';
+
+// ---- the five steps ----
+const STEPS = [
+  { name: 'one key', title: 'One key: A4, as it ships',
+    say: 'Press A4 on the Talking Keyboard and this is what plays: <code>kokoro_A4_v2.wav</code> at mid-soft velocity, the file in git. The string <code>generate.py</code> handed Kokoro was “eigh four”, and Kokoro’s front end (espeak-ng, inside kokoro-onnx) turned it into phonemes before the voice model ever saw it. Those phonemes are the second line under the picture.',
+    do: 'Play it. Switch the voice: the four velocity layers.', watch: 'The shaded vowel at the start, and the amber dots, the second resonance, sitting high from the first moment.', hear: '“Ay four”, the letter name.',
+    controls: ['g-voice'], async draw() { const R = await rec(), m = await load(shippedUrl('A4', S.voice)); drawSpec(m, `kokoro_A4_v${LAYER[S.voice]}.wav`, S.voice);
+      chain('“speak the letter A”', R.lesson.eigh.text, R.lesson.eigh.ipa, 'the letter name, ay');
+      const v = R.verify; $('meter').innerHTML = `${readText(m.read)}${v ? ` · all ${v.files} shipped files, re-rendered today from <code>generate.py</code>’s own text, land within <b>${v.worst_lsb}</b> sixteen-bit step${v.worst_lsb === 1 ? '' : 's'} of the files in git, so the renders in the next steps are what the build itself would have made` : ''}`; },
+    async play() { await playUrl(shippedUrl('A4', S.voice)); } },
+
+  { name: 'the spec’s A', title: 'The A the spec asked for',
+    say: 'BUILD.md says it plainly: “Note letter spelled as the letter (no phonetic spelling)”, so the first render handed Kokoro “A four”. The front end read that A as the article, <b>ɐ</b>, the “uh” in “a cat”. It knows the letter: given “A” alone it writes /ˈeɪ/. It is the word after it that makes A an article. Nothing in the script or the spec is wrong, and nothing in either says what the front end will do with the string.',
+    do: 'Play “A four”. Then play C four beside it.', watch: 'A short vowel, the shaded strip barely there, with the amber F2 flat and low.', hear: '“Uh four” against “C four”: one letter read as a letter, one read as a word.',
+    controls: ['g-voice', 'g-cmp'], async draw() { const R = await rec(), m = await load(lessonUrl('A', S.voice)); drawSpec(m, '“A four”, the first render, re-rendered', S.voice);
+      chain('“speak the letter A”', R.lesson.A.text, R.lesson.A.ipa, '“uh four”', true);
+      $('meter').innerHTML = `${readText(m.read)} · the front end on “A” alone: <b>${R.probe.A}</b> · on “C four”: ${R.probe['C four']} · on “an A four”: ${R.probe['an A four']}`; },
+    async play() { await playUrl(lessonUrl('A', S.voice)); } },
+
+  { name: 'pass one', title: 'Pass one: “ay”',
+    say: 'The first fix spelled the sound out: “ay”, as in “say”. The front end read it as the word aye, <b>ˈaɪ</b>, the “eye” of “aye, captain”. The vowel now lasts long enough to hear, and its second resonance starts low and climbs: an open vowel gliding up to a close one.',
+    do: 'Play “ay four”. Go back a step and compare.', watch: 'The amber dots starting low and rising across the shaded strip.', hear: '“Eye four.”',
+    controls: ['g-voice'], async draw() { const R = await rec(), m = await load(lessonUrl('ay', S.voice)); drawSpec(m, '“ay four”, pass one', S.voice);
+      chain('the sound of A, spelled out', R.lesson.ay.text, R.lesson.ay.ipa, '“eye four”', true); $('meter').innerHTML = readText(m.read); },
+    async play() { await playUrl(lessonUrl('ay', S.voice)); } },
+
+  { name: 'the audition', title: 'Seven spellings, auditioned',
+    say: 'Pass two was an audition: seven candidates, by the build log, of which “eigh” “landed cleanest”. Here they are in the mid-soft voice (the log does not say which voice the audition used), with what the front end wrote for each. Three of them, ay, aye and ey, come out as the same phonemes, and so as the same file, sample for sample: the model never sees the spelling. Four reach /eɪ/; ate and ace carry a t or an s with it, and “A.” carries a pause.',
+    do: 'Click a row to hear it, or play them all.', watch: 'The phonemes column: three rows identical, four with eɪ.', hear: 'Which of the four eɪ rows you would have picked.',
+    controls: [], playLabel: '▸ play them all', async draw() {
+      const R = await rec(), keys = ['ate', 'ace', 'eigh', 'aye', 'ey', 'A-dot', 'ay'];
+      const rows = await Promise.all(keys.map(async (k) => { const e = R.lesson[k] || R.audition[k], m = await load(await auditionUrl(k)); return { k, e, m }; }));
+      $('tab').innerHTML = '<tr><th>spelling</th><th>string</th><th>phonemes</th><th>length</th><th>vowel meter</th></tr>' + rows.map((r) => `<tr class="row${r.k === S.row ? ' on' : ''}" data-row="${r.k}"><td>${r.k === 'A-dot' ? 'A.' : r.k}</td><td>${r.e.text}</td><td>${r.e.ipa}</td><td>${Math.round(r.m.x.length / r.m.sr * 1000)} ms</td><td>${r.m.read ? r.m.read.heard : '–'}</td></tr>`).join('');
+      $('tab').querySelectorAll('tr.row').forEach((tr) => tr.addEventListener('click', async () => { S.row = tr.dataset.row; await redraw(); await playUrl(await auditionUrl(S.row)); }));
+      const sel = rows.find((r) => r.k === S.row); drawSpec(sel.m, `“${sel.e.text}”`, 'af_heart');
+      const same = (a, b) => a.x.length === b.x.length && a.x.every((v, i) => v === b.x[i]);
+      const ay = rows.find((r) => r.k === 'ay').m, twins = rows.filter((r) => r.k !== 'ay' && same(r.m, ay)).map((r) => r.k);
+      $('meter').innerHTML = `identical to “ay four”, sample for sample: <b>${twins.join(', ') || 'none'}</b> · reach /eɪ/: ${rows.filter((r) => /eɪ/.test(r.e.ipa)).map((r) => r.k === 'A-dot' ? 'A.' : r.k).join(', ')}`; },
+    async play() { const R = await rec(); await audio(); stopSound(); let t = ctx.currentTime + 0.05; for (const k of ['ate', 'ace', 'eigh', 'aye', 'ey', 'A-dot', 'ay']) { const m = await load(await auditionUrl(k)); const at = t; timers.push(setTimeout(() => { S.row = k; redraw(); }, (at - ctx.currentTime) * 1000)); t += playX(m.x, m.sr, at) + 0.4; } done(t - ctx.currentTime); } },
+
+  { name: 'the test', title: 'The test: name them by ear',
+    say: 'Three A4s in one voice, in a shuffled order: the spec’s A, pass one and the fix. Name each by ear. Then reveal, and see what the front end wrote for each one, a line of text that existed before any sound did, and what a simple vowel meter reads from the sound itself.',
+    do: 'Play X, Y and Z. Pick uh, eye or ay for each. Reveal. Shuffle and switch the voice to go again.', watch: 'After the reveal, the vowel chart: one path stays put, one climbs from open to close, one starts front and high.', hear: 'Whether the bug is as obvious as the page says.',
+    controls: ['g-voice', 'g-shuffle'], playLabel: '▸ play X, Y, Z', async draw() {
+      const R = await rec(); if (!S.order) shuffle();
+      const ms = await Promise.all(S.order.map((k) => load(lessonUrl(k, S.voice))));
+      $('blind').innerHTML = S.order.map((k, i) => { const nm = 'XYZ'[i], g = S.guess[nm], m = ms[i];
+        return `<div class="card"><div class="nm">${nm}</div><div class="rowb"><button class="ghost small" data-hear="${i}">▸ hear ${nm}</button>${['uh', 'eye', 'ay'].map((c) => `<button class="ghost small" data-g="${nm}" data-c="${c}" aria-pressed="${g === c}"${S.revealed ? ' disabled' : ''}>${c}</button>`).join('')}</div>
+        <div class="ans">${S.revealed ? `the string <b>“${R.lesson[k].text}”</b> → ${R.lesson[k].ipa}<br>meter: ${m.read.heard} · ${m.read.ms} ms · F2 ${m.read.f2a}→${m.read.f2b} Hz<br>you said ${g || '–'}${g ? (g === truth(k) ? ' · right' : ' · not this one') : ''}` : '&nbsp;'}</div></div>`; }).join('');
+      $('blind').querySelectorAll('[data-hear]').forEach((b) => b.addEventListener('click', async () => { await playUrl(lessonUrl(S.order[+b.dataset.hear], S.voice)); }));
+      $('blind').querySelectorAll('[data-g]').forEach((b) => b.addEventListener('click', () => { S.guess[b.dataset.g] = b.dataset.c; redraw(); }));
+      if (!S.revealed) { const { g, w, h } = canvasFit(120); label(g, 'the vowel chart appears when you reveal', w / 2, h / 2, COL.fg4, 'center'); $('pic-l').textContent = 'vowel chart'; $('pic-r').textContent = S.voice; $('meter').innerHTML = `named so far: ${Object.keys(S.guess).length} of 3`; $('found').innerHTML = ''; return; }
+      const colors = { A: COL.fg2, ay: COL.info, eigh: COL.acc };
+      drawChart(S.order.map((k, i) => ({ name: `${'XYZ'[i]} · “${R.lesson[k].text.split(' ')[0]}”`, path: ms[i].path, color: colors[k] })));
+      const right = S.order.filter((k, i) => S.guess['XYZ'[i]] === truth(k)).length, meterRight = S.order.filter((k, i) => ms[i].read.heard === truth(k)).length;
+      const phonRight = S.order.filter((k) => /^ˈeɪ /.test(R.lesson[k].ipa) === (k === 'eigh')).length;
+      $('meter').innerHTML = `your ear: <b>${right} of 3</b> · the vowel meter: <b>${meterRight} of 3</b> · a check on the written phonemes (“does A come out as ˈeɪ?”): <b>${phonRight} of 3</b>, before any audio was made`;
+      $('found').innerHTML = `<b>What the test found.</b> The page is right that code review and spec review could not catch this: the spec said “speak the letter A”, the script handed over “A four”, and both are correct. But the bug was written down one layer below them, in text, before a sound was made: the front end wrote <b>${R.lesson.A.ipa}</b> for the spec’s A and <b>${R.lesson.ay.ipa}</b> for pass one. A one-line check that every A comes out as /ˈeɪ/ would have stopped both renders. What it could not have done is pick among the four spellings that pass it, ate, ace, “A.” and eigh: that took the audition, and an ear. So listening caught it, and listening is still the last gate; the phonemes are a gate that runs earlier and costs nothing. The meter is a rule for these three vowels in this frame, not a general ear.`; },
+    async play() { await audio(); stopSound(); let t = ctx.currentTime + 0.05; for (const k of S.order) { const m = await load(lessonUrl(k, S.voice)); t += playX(m.x, m.sr, t) + 0.6; } done(t - ctx.currentTime); },
+    eq: [`heard = ay  if F2(start) ≥ ${RULE.f2High} Hz ·  eye  if F2(end) − F2(start) > ${RULE.climb} Hz ·  uh  if the vowel lasts < ${RULE.shortMs} ms`, 'A vowel whose second resonance already starts high is the ay of “eight”; one that starts low and climbs by more than half a kilohertz is “eye”; one too short to move at all is the reduced “uh”. Start is the median of the first three of nine readings across the vowel, end the median of the last three.'] },
+];
+const truth = (k) => ({ A: 'uh', ay: 'eye', eigh: 'ay' })[k];
+function shuffle() { const a = ['A', 'ay', 'eigh']; for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } S.order = a; S.guess = {}; S.revealed = false; }
+
+// ---- controls ----
+function sync() { document.querySelectorAll('[data-voice]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.voice === S.voice))); }
+let drawing = 0;
+async function redraw() { const n = ++drawing; try { await STEPS[S.step].draw(); } catch (e) { if (n === drawing) $('meter').textContent = 'The renders did not load: ' + e.message; } }
+function show() {
+  stopSound(); const st = STEPS[S.step];
+  $('st-title').textContent = `${S.step + 1} · ${st.title}`; $('st-say').innerHTML = st.say; $('st-do').textContent = st.do; $('st-watch').textContent = st.watch; $('st-hear').textContent = st.hear;
+  for (const id of ['g-voice', 'g-cmp', 'g-shuffle']) $(id).classList.toggle('hide', !st.controls.includes(id));
+  $('found').innerHTML = ''; $('tab').innerHTML = ''; $('blind').innerHTML = ''; $('chain').innerHTML = ''; $('meter').innerHTML = '';
+  $('eq1').textContent = st.eq ? st.eq[0] : ''; $('eq1w').textContent = st.eq ? st.eq[1] : '';
+  [...$('rail').children].forEach((bt, j) => bt.setAttribute('aria-current', j === S.step ? 'step' : 'false'));
+  $('back').disabled = S.step === 0; $('next').disabled = S.step === STEPS.length - 1; sync(); syncPlay(); redraw();
+}
+STEPS.forEach((st, i) => { const b = document.createElement('button'); b.textContent = `${i + 1} · ${st.name}`; b.addEventListener('click', () => { S.step = i; show(); }); $('rail').appendChild(b); });
+$('back').addEventListener('click', () => { if (S.step > 0) { S.step--; show(); } });
+$('next').addEventListener('click', () => { if (S.step < STEPS.length - 1) { S.step++; show(); } });
+$('play').addEventListener('click', async () => { if (playing) { stopSound(); return; } try { await STEPS[S.step].play(); } catch (e) { $('meter').textContent = 'Could not play: ' + e.message; } });
+$('cmp-c').addEventListener('click', async () => { try { await playUrl(shippedUrl('C4', S.voice)); } catch (e) { $('meter').textContent = 'Could not play: ' + e.message; } });
+$('shuffle').addEventListener('click', () => { stopSound(); shuffle(); redraw(); });
+$('reveal').addEventListener('click', () => { S.revealed = true; redraw(); });
+document.querySelectorAll('[data-voice]').forEach((b) => b.addEventListener('click', () => { S.voice = b.dataset.voice; stopSound(); if (S.step === 4) shuffle(); sync(); redraw(); }));
+window.addEventListener('resize', () => redraw());
+show();
+</script>
+</body>
+</html>
