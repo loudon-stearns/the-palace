@@ -1,0 +1,300 @@
+<!doctype html>
+<!--
+  title: Parametric Resonance — rich — the pumped swing
+  born: 2026-11-03
+  links: [[Parametric Resonance]] connects-to · rich-face-piece-of · [[Progressive Staging]] exemplifies · a walk up to its test · [[Mathieu Equation]] connects-to · the model the page uses
+  forward_vector: I am the page's opening example as a walk of four steps you watch: a swing alone at its own
+    period; a child standing and squatting once, then twice, per swing; the page's rule in the page's own model,
+    where the length only sets the pitch; and last the same rule on a real swing, where the child's own rising and
+    sinking matters most. In the page's model the page's rule builds. On a real swing it brakes, and the reverse
+    builds, and the child's work each swing says why. I make no sound.
+  dress: Loudon Live house style, Graphite skin, tokens inlined. Equations twice, symbols and words.
+  engine: the script marked id="pr-swing" is the whole physics: a point-mass child at distance L from the pivot,
+    L set by the swing's own phase, stepped at 0.1 ms.
+  checks: "Parametric Resonance — proof — checks.mjs", beside this file, pulls id="pr-swing" out and re-runs every
+    number the steps print, in Node.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Parametric Resonance — the pumped swing</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Manrope:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root { --bg:#0a0a0f; --e1:#12121a; --e2:#1a1a28; --ring:#22222e; --border:#4a4a5e; --soft:rgba(255,255,255,.06);
+    --fg1:#e8e8f0; --fg2:#c8c8d8; --fg3:#8a8aa0; --fg4:#4a4a5a; --amber:#e8b84a; --amberline:rgba(232,184,74,.5); --indigo:#6366F1;
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --sans:'Manrope',system-ui,sans-serif; --serif:'Cormorant Garamond',Georgia,serif; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); font-weight: 300; }
+  .pr-piece { padding: 22px 22px 18px; max-width: 1100px; }
+  .pr-kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; display: flex; align-items: center; gap: 10px; }
+  .pr-title { font-family: var(--serif); font-size: 28px; font-weight: 300; color: var(--fg1); margin: 0 0 6px; }
+  .pr-sub { font-size: 14px; line-height: 1.6; color: var(--fg2); max-width: 78ch; margin: 0 0 16px; }
+  .pr-rail { display: flex; flex-wrap: wrap; margin-bottom: 14px; border: 1px solid var(--border); width: fit-content; max-width: 100%; border-radius: 2px; }
+  .pr-rail button { border: 0; border-right: 1px solid var(--border); border-radius: 0; }
+  .pr-rail button:last-child { border-right: 0; }
+  button { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--fg2); background: var(--bg); border: 1px solid var(--border); border-radius: 2px; padding: 8px 12px; cursor: pointer; }
+  button:hover { border-color: rgba(232,184,74,.55); color: var(--fg1); }
+  button[aria-pressed="true"] { color: var(--amber); border-color: var(--amberline); background: rgba(232,184,74,.06); }
+  .pr-rail button[aria-pressed="true"] { border-color: var(--border); }
+  button.pr-go { color: var(--amber); border-color: var(--amberline); box-shadow: 0 0 14px rgba(232,184,74,.16); }
+  button:disabled { opacity: .35; cursor: default; }
+  .pr-step { display: none; border: 1px solid var(--soft); background: var(--e1); border-radius: 2px; padding: 16px 16px 14px; }
+  .pr-step.pr-shown { display: block; }
+  .pr-step h2 { font-family: var(--serif); font-weight: 400; font-size: 23px; color: var(--fg1); margin: 0 0 4px; }
+  .pr-idea { font-size: 14px; line-height: 1.6; max-width: 80ch; margin: 0 0 12px; }
+  .pr-row { display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: center; margin: 10px 0; }
+  .pr-row label { font-family: var(--mono); font-size: 11px; letter-spacing: .06em; color: var(--fg3); display: flex; align-items: center; gap: 10px; }
+  .pr-row label b { color: var(--fg1); font-weight: 500; }
+  .pr-seg { display: inline-flex; } .pr-seg button + button { border-left: 0; }
+  input[type=range] { -webkit-appearance: none; appearance: none; width: 220px; height: 3px; background: var(--fg4); outline: none; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 13px; height: 13px; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  input[type=range]::-moz-range-thumb { width: 13px; height: 13px; border: 0; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  .pr-read { display: flex; flex-wrap: wrap; gap: 6px 22px; margin-top: 10px; font-family: var(--mono); font-size: 11.5px; letter-spacing: .04em; color: var(--fg3); }
+  .pr-read b { color: var(--fg1); font-weight: 500; }
+  .pr-say { font-size: 13.5px; line-height: 1.55; color: var(--fg2); margin-top: 10px; min-height: 1.5em; max-width: 84ch; }
+  .pr-say b { color: var(--amber); font-weight: 500; }
+  .pr-eqs { margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--soft); }
+  .pr-eq { font-family: var(--serif); font-size: 19px; color: var(--fg1); }
+  .pr-words { font-size: 13px; line-height: 1.55; color: var(--fg2); margin: 2px 0 10px; max-width: 84ch; }
+  .pr-plot { margin-top: 14px; border: 1px solid var(--soft); background: var(--e1); border-radius: 2px; padding: 10px 12px; }
+  .pr-plabel { font-family: var(--mono); font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+  canvas { display: block; width: 100%; }
+  .pr-nav { display: flex; gap: 10px; margin-top: 14px; align-items: center; }
+  .pr-foot { font-family: var(--mono); font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--fg4); margin-left: auto; display: flex; align-items: center; gap: 8px; }
+  .pr-key { display: inline-block; width: 18px; height: 2px; vertical-align: middle; margin-right: 6px; }
+  .pr-two { display: grid; grid-template-columns: minmax(260px, 1fr) minmax(260px, 1fr); gap: 14px; margin-top: 14px; }
+  .pr-two .pr-plot { margin-top: 0; }
+  @media (max-width: 720px) { .pr-two { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="pr-piece">
+  <div class="pr-kicker"><svg width="18" height="18" viewBox="-10 -10 20 20" aria-hidden="true"><circle r="9.2" fill="none" stroke="#4a4a5e" stroke-width=".8"/><path id="sig" fill="none" stroke="#e8b84a" stroke-width="1"/></svg>made · canvas · sketch</div>
+  <h3 class="pr-title">The pumped swing</h3>
+  <p class="pr-sub">A child on a swing, two metres from the pivot to their middle, raising and lowering that middle by 12 cm as they stand and squat. Four steps: the swing alone; standing and squatting once, then twice, per swing; the page's rule in the page's own equation; and then the same rule on a real swing. The child keeps time by watching the swing, as children do.</p>
+
+  <nav class="pr-rail" aria-label="steps">
+    <button data-go="1" aria-pressed="true">1 · the swing alone</button>
+    <button data-go="2" aria-pressed="false">2 · once or twice a swing</button>
+    <button data-go="3" aria-pressed="false">3 · the page's model</button>
+    <button data-go="4" aria-pressed="false">4 · a real swing</button>
+  </nav>
+
+  <section class="pr-step pr-shown" data-step="1">
+    <h2>The swing alone</h2>
+    <p class="pr-idea">Let it go and leave it. The child holds still. A swing has a period of its own, set by its length and nothing else, and the air takes a little of every swing.</p>
+    <div class="pr-row"><button class="pr-go" id="go1">▸ let go at 12°</button><span class="pr-seg spd"><button data-s="1" aria-pressed="true">real time</button><button data-s="3" aria-pressed="false">3 × faster</button></span></div>
+    <div class="pr-read"><span>period, measured <b id="T1">–</b></span><span>2π√(L⁄g) <b id="Tf1">–</b></span><span>last swing reached <b id="k1">–</b></span></div>
+    <div class="pr-say" id="say1"></div>
+    <div class="pr-eqs"><div class="pr-eq">ω₀ = √(g ⁄ L),&nbsp;&nbsp; T = 2π√(L ⁄ g)</div><div class="pr-words">(how fast the swing turns through its cycle) = the square root of (gravity ÷ the length to the child's middle). Two metres gives a swing every 2.84 seconds, high or low.</div></div>
+  </section>
+
+  <section class="pr-step" data-step="2">
+    <h2>Once or twice a swing</h2>
+    <p class="pr-idea">Now the child changes the swing's length: standing shortens it, squatting lengthens it. Try it once per swing, then twice. Once per swing, whatever is gained going one way is given back coming the other way. Twice per swing, at the rate the page names, the swing climbs. (The child here uses the timing that works; step 4 is where timing gets tested.)</p>
+    <div class="pr-row"><span class="pr-seg" id="n2"><button data-n="1" aria-pressed="false">once per swing</button><button data-n="2" aria-pressed="true">twice per swing</button></span><button class="pr-go" id="go2">▸ let go at 12°</button><span class="pr-seg spd"><button data-s="1" aria-pressed="false">real time</button><button data-s="3" aria-pressed="true">3 × faster</button></span></div>
+    <div class="pr-read"><span>each swing × <b id="g2">–</b></span><span>last swing reached <b id="k2">–</b></span></div>
+    <div class="pr-say" id="say2"></div>
+    <div class="pr-eqs"><div class="pr-eq">L = L₀(1 + δ sin(nα + φ)),&nbsp;&nbsp; δ = 0.06</div><div class="pr-words">(the length to the child's middle) = 2 m × (1 + 6% × a wave that runs n times per swing). α is where the swing is in its own cycle, so the child follows the swing, not a clock.</div></div>
+  </section>
+
+  <section class="pr-step" data-step="3">
+    <h2>The page's model</h2>
+    <p class="pr-idea">The page treats the length as setting only the swing's pitch, ω₀² = g⁄L, so standing and squatting make the spring stiffer and softer: the Mathieu equation. In that model, try the page's rule, "squat at the bottom of the arc, stand at the peaks", and then the reverse. In this equation the page's rule builds.</p>
+    <div class="pr-row"><span class="pr-seg rule"><button data-r="page" aria-pressed="true">page: squat at the bottom, stand at the peaks</button><button data-r="rev" aria-pressed="false">reverse: stand at the bottom, squat at the peaks</button></span></div>
+    <div class="pr-row"><button class="pr-go" id="go3">▸ let go at 12°</button><span class="pr-seg spd"><button data-s="1" aria-pressed="false">real time</button><button data-s="3" aria-pressed="true">3 × faster</button></span></div>
+    <div class="pr-read"><span>each swing × <b id="g3">–</b></span><span>last swing reached <b id="k3">–</b></span></div>
+    <div class="pr-say" id="say3"></div>
+    <div class="pr-eqs"><div class="pr-eq">θ̈ = −(g ⁄ L(t)) sin θ</div><div class="pr-words">(how the angle accelerates) = −(gravity ÷ the length right now) × sin(the angle). The length changes the stiffness and nothing else. Standing at the peaks stiffens the spring while the swing is farthest out, which is how a pumped spring is fed.</div></div>
+  </section>
+
+  <section class="pr-step" data-step="4">
+    <h2>A real swing</h2>
+    <p class="pr-idea">A real swing has one more thing in it. When the child stands up, their middle moves toward the pivot, and like a skater pulling in their arms they spin faster; squatting slows them. That effect is biggest at the bottom, where the swing is fastest. Same child, same 12 cm, same two rules. The test: which rule builds a real swing, and does the child's work each swing come out positive?</p>
+    <div class="pr-row"><span class="pr-seg rule"><button data-r="page" aria-pressed="true">page: squat at the bottom, stand at the peaks</button><button data-r="rev" aria-pressed="false">reverse: stand at the bottom, squat at the peaks</button></span></div>
+    <div class="pr-row"><button class="pr-go" id="go4">▸ let go at 12°</button><span class="pr-seg spd"><button data-s="1" aria-pressed="false">real time</button><button data-s="3" aria-pressed="true">3 × faster</button></span></div>
+    <div class="pr-read"><span>each swing × <b id="g4">–</b></span><span>last swing reached <b id="k4">–</b></span><span>child's work, last swing <b id="w4">–</b></span><span>swing's energy gained <b id="e4">–</b></span></div>
+    <div class="pr-say" id="say4"></div>
+    <div class="pr-eqs">
+      <div class="pr-eq">d⁄dt (L² θ̇) = −g L sin θ</div>
+      <div class="pr-words">(how fast the swing's spin changes, where spin is length² × angular speed) = −(gravity × length × sin of the angle). With L fixed this is step 3's equation. With L moving, shortening at the bottom speeds the swing up, which step 3's equation cannot see.</div>
+      <div class="pr-eq">u = Lθ:&nbsp;&nbsp; ü + ((g − L̈) ⁄ L) u = 0</div>
+      <div class="pr-words">Written for the distance along the arc, u, a real swing is a Mathieu oscillator after all, but its stiffness is (g − L̈)⁄L: the child's own up-and-down acceleration, L̈, pumps at four times the strength of the g⁄L term and the opposite way round. Net, the pump is three times stronger than step 3's and reversed. So the timing reverses.</div>
+    </div>
+  </section>
+
+  <div class="pr-two">
+    <div class="pr-plot"><div class="pr-plabel"><span>the swing</span><span id="tag">amber dot = the child's middle</span></div><canvas id="swing"></canvas></div>
+    <div class="pr-plot"><div class="pr-plabel"><span>how high each swing reaches</span><span>degrees</span></div><canvas id="bars"></canvas>
+      <div id="curvebox" hidden><div class="pr-plabel" style="margin-top:10px"><span>gain per swing, by when the child stands</span><span><span class="pr-key" style="background:#e8b84a"></span>real · <span class="pr-key" style="background:#8a8aa0"></span>page's model</span></div><canvas id="curve"></canvas></div>
+    </div>
+  </div>
+
+  <div class="pr-nav"><button id="back">◂ back</button><button id="next">next ▸</button><span class="pr-foot">Loud'n Live</span></div>
+</div>
+
+<script id="pr-swing">
+/* A child on a swing, as a point mass at distance L from the pivot. The child stands and squats by the swing's
+   own phase alpha (what a child does: watch the swing, not a clock): L = L0 (1 + d sin(n alpha + phi)).
+   real: d/dt (L^2 theta') = -g L sin theta     (the whole variable-length pendulum)
+   toy:  theta'' = -(g / L) sin theta           (L only sets the pitch, w0^2 = g / L: the page's equation)
+   Both lose a little to air: -b theta'. Per unit mass; Swing.M turns work and energy into joules. */
+const Swing = {
+  g: 9.81, L0: 2.0, M: 30, b: 0.01,
+  w0() { return Math.sqrt(this.g / this.L0); },
+  make(deg) { return { th: deg * Math.PI / 180, om: 0, L: this.L0, Ld: 0, t: 0, W: 0, lastOm: 0, peaks: [], marks: [] }; },
+  alpha(s) { return Math.atan2(-s.om / this.w0(), s.th); },
+  target(s, o) { return o.d ? this.L0 * (1 + o.d * Math.sin(o.n * this.alpha(s) + o.phi)) : this.L0; },
+  energy(s) { return this.M * (0.5 * (s.Ld * s.Ld + s.L * s.L * s.om * s.om) - this.g * s.L * Math.cos(s.th) + this.g * this.L0); },
+  /* one step of dt; o = { model: 'real' | 'toy', n, phi, d } */
+  step(s, dt, o) {
+    const L = s.L, Ld = s.Ld;
+    let acc = o.model === 'real' ? (-2 * Ld * s.om - this.g * Math.sin(s.th)) / L : -(this.g / L) * Math.sin(s.th);
+    acc -= this.b * s.om;
+    s.om += acc * dt; s.th += s.om * dt; s.t += dt;
+    const Ln = this.target(s, o), Ldn = (Ln - L) / dt, Ldd = (Ldn - Ld) / dt;
+    if (o.model === 'real') { const T = this.g * Math.cos(s.th) + L * s.om * s.om - Ldd; s.W += -this.M * T * (Ln - L); }
+    s.L = Ln; s.Ld = Ldn;
+    if (s.lastOm > 0 && s.om <= 0) { s.peaks.push({ t: s.t, deg: s.th * 180 / Math.PI, W: s.W, E: this.energy(s) }); s.W = 0; }
+    s.lastOm = s.om;
+  },
+  /* the gain per swing (ratio of successive right-hand peaks), averaged over `swings` swings from `deg` */
+  gain(o, deg, swings, dt) {
+    const s = this.make(deg); let guard = 0; const T = 2 * Math.PI / this.w0();
+    while (s.peaks.length < swings + 1 && guard++ < (swings + 2) * T / dt) this.step(s, dt, o);
+    const p = s.peaks; if (p.length < 2) return null;
+    return Math.pow(p[p.length - 1].deg / p[0].deg, 1 / (p.length - 1));
+  },
+};
+</script>
+<script>
+(() => {
+  const $ = (id) => document.getElementById(id);
+  const DT = 1e-4, D = 0.06, R2D = 180 / Math.PI;
+  const RULE = { rev: 0, page: Math.PI };   // phi in L = L0 (1 + d sin(2 alpha + phi)), alpha = 0 at the right-hand peak
+  const S = { step: 1, speed: 1, n: 2, rule: 'page' };
+  let sw = null, opts = null, ramp = 0, curves = null, frame = 0;
+
+  function go() {
+    sw = Swing.make(12); ramp = 0;
+    const model = S.step === 3 ? 'toy' : 'real', pump = S.step >= 2;
+    opts = { model, n: S.step === 2 ? S.n : 2, phi: S.step === 2 ? RULE.rev : RULE[S.rule], d: 0, dFull: pump ? D : 0 };
+  }
+  function tick(dtWall) {
+    if (!sw) return;
+    const steps = Math.min(2000, Math.round((dtWall * S.speed) / DT));
+    for (let i = 0; i < steps; i++) {
+      if (opts.d < opts.dFull) opts.d = Math.min(opts.dFull, opts.d + opts.dFull * DT / 1.0);   // the child eases in over a second
+      // The child stops when the swing is high enough (65°) or is dying (under 4°); from then on the
+      // readouts hold the last swing they pumped, so nothing describes pumping that is no longer happening.
+      const pk = sw.peaks.length ? Math.abs(sw.peaks[sw.peaks.length - 1].deg) : null;
+      if (opts.dFull > 0 && opts.stopAt == null && pk != null && (pk > 65 || pk < 4)) { opts.stopAt = sw.peaks.length; opts.why = pk > 65 ? 'high' : 'low'; opts.dFull = 0; }
+      if (opts.stopAt != null) opts.d = Math.max(0, opts.d - D * DT / 0.5);
+      Swing.step(sw, DT, opts);
+    }
+  }
+  const peaks = () => (sw ? (opts && opts.stopAt != null ? sw.peaks.slice(0, opts.stopAt) : sw.peaks) : []);
+  const held = () => (opts && opts.stopAt != null ? (opts.why === 'high' ? ' <b>High enough:</b> the child holds still now, and these numbers are from the last swing they pumped.' : ' <b>The swing is dying,</b> so the child gives up and holds still; these numbers are from the last swing they pumped.') : '');
+  function gainLast() { const p = peaks(); if (p.length < 3) return null; const a = p[p.length - 2].deg, b = p[p.length - 1].deg; return b / a; }
+  const fmtG = (g) => (g == null ? '–' : g.toFixed(3));
+  const fmtDeg = (d) => (d == null ? '–' : d.toFixed(1) + '°');
+  const lastDeg = () => { const p = sw ? sw.peaks : []; return p.length ? p[p.length - 1].deg : null; };   // the swing itself, pumped or not
+
+  function update1() {
+    const p = peaks(); $('Tf1').textContent = (2 * Math.PI / Swing.w0()).toFixed(2) + ' s';
+    $('T1').textContent = p.length >= 2 ? (p[p.length - 1].t - p[p.length - 2].t).toFixed(2) + ' s' : '–'; $('k1').textContent = fmtDeg(lastDeg());
+    $('say1').innerHTML = p.length >= 2 ? 'One swing every <b>' + (p[p.length - 1].t - p[p.length - 2].t).toFixed(2) + ' s</b>, against 2π√(L⁄g) = ' + (2 * Math.PI / Swing.w0()).toFixed(2) + ' s. The air takes about 1.4% of the height each swing.' : '';
+  }
+  function update2() {
+    $('g2').textContent = fmtG(gainLast()); $('k2').textContent = fmtDeg(lastDeg());
+    const g = gainLast(); $('say2').innerHTML = g == null ? '' : S.n === 1 ? 'Once per swing: <b>× ' + g.toFixed(3) + '</b> a swing, the same as holding still. What one half of the swing gains, the other half gives back.' : 'Twice per swing: <b>× ' + g.toFixed(3) + '</b> a swing. The same fraction every swing, so the height grows exponentially, and the child never pushes harder.' + held();
+  }
+  function update3() {
+    $('g3').textContent = fmtG(gainLast()); $('k3').textContent = fmtDeg(lastDeg());
+    const g = gainLast(); $('say3').innerHTML = g == null ? '' : (S.rule === 'page' ? 'The page’s rule, in the page’s equation: <b>× ' + g.toFixed(3) + '</b> a swing. It builds.' : 'The reverse, in the page’s equation: <b>× ' + g.toFixed(3) + '</b> a swing. It brakes.') + held();
+  }
+  function update4() {
+    const p = peaks(), g = gainLast(); $('g4').textContent = fmtG(g); $('k4').textContent = fmtDeg(lastDeg());
+    let W = null, dE = null; if (p.length >= 3) { W = p[p.length - 1].W; dE = p[p.length - 1].E - p[p.length - 2].E; }
+    $('w4').textContent = W == null ? '–' : (W >= 0 ? '+' : '−') + Math.abs(W).toFixed(1) + ' J'; $('e4').textContent = dE == null ? '–' : (dE >= 0 ? '+' : '−') + Math.abs(dE).toFixed(1) + ' J';
+    let s = '';
+    if (g != null) s = S.rule === 'page'
+      ? 'The page’s rule on a real swing: <b>× ' + g.toFixed(3) + '</b> a swing. It brakes. The child climbs at the peaks, where the rope pulls least, and sinks at the bottom, where it pulls most, so the swing does more work on the child than the child does on it: <b>' + (W >= 0 ? '+' : '−') + Math.abs(W).toFixed(1) + ' J</b> that swing. In the page’s model (step 3) the same rule built, at × ' + (curves ? curves.toy[16][1].toFixed(3) : '–') + '.'
+      : 'The reverse on a real swing: <b>× ' + g.toFixed(3) + '</b> a swing. The child stands against the hardest pull, at the bottom, and sinks against the softest, at the ends: <b>+' + Math.abs(W).toFixed(1) + ' J</b> of work that swing, and the swing gained ' + (dE >= 0 ? '+' : '−') + Math.abs(dE).toFixed(1) + ' J; the air took the difference.';
+    if (s) s += held();
+    $('say4').innerHTML = s;
+  }
+
+  /* ── drawing ── */
+  function fit(c, h) {
+    const w = c.clientWidth, d = devicePixelRatio || 1; h = h || w;
+    if (c.width !== Math.round(w * d) || c.height !== Math.round(h * d)) { c.width = Math.round(w * d); c.height = Math.round(h * d); c.style.height = h + 'px'; }
+    const g = c.getContext('2d'); g.setTransform(d, 0, 0, d, 0, 0); return { g, w, h };
+  }
+  function drawSwing() {
+    const { g, w, h } = fit($('swing'), 340), px = w / 2, py = 22, k = (h - 50) / 2.6, Lr = 2.35;
+    g.clearRect(0, 0, w, h); g.lineWidth = 1;
+    const th = sw ? sw.th : 0, L = sw ? sw.L : Swing.L0;
+    const at = (r, q) => [px + (r * Math.sin(th) + q * Math.cos(th)) * k, py + (r * Math.cos(th) - q * Math.sin(th)) * k];
+    const amp = lastDeg(); if (amp) { g.strokeStyle = '#22222e'; g.beginPath(); g.arc(px, py, Lr * k, Math.PI / 2 - amp / R2D, Math.PI / 2 + amp / R2D); g.stroke(); }
+    g.strokeStyle = '#4a4a5e'; g.beginPath(); g.moveTo(px - 30, py); g.lineTo(px + 30, py); g.stroke();
+    g.strokeStyle = '#8a8aa0'; g.lineWidth = 1.2; g.beginPath(); g.moveTo(px, py); g.lineTo(...at(Lr, 0)); g.stroke();
+    g.lineWidth = 3; g.strokeStyle = '#8a8aa0'; g.beginPath(); g.moveTo(...at(Lr, -0.16)); g.lineTo(...at(Lr, 0.16)); g.stroke();
+    // the child: stance 0 = deepest squat, 1 = fully up; their middle sits at L
+    const stance = Math.max(0, Math.min(1, ((Swing.L0 * (1 + D)) - L) / (2 * Swing.L0 * D))), hip = Lr - (0.2 + 0.22 * stance), knee = (hip + Lr) / 2, kneeOut = 0.12 * (1 - stance);
+    g.strokeStyle = '#c8c8d8'; g.lineWidth = 2; g.beginPath(); g.moveTo(...at(Lr, 0.04)); g.lineTo(...at(knee, kneeOut + 0.04)); g.lineTo(...at(hip, 0.02)); g.lineTo(...at(hip - 0.42, 0.02)); g.stroke();
+    g.beginPath(); g.moveTo(...at(hip - 0.34, 0.02)); g.lineTo(...at(hip - 0.12, -0.1)); g.stroke();
+    g.fillStyle = '#c8c8d8'; g.beginPath(); g.arc(...at(hip - 0.52, 0.02), 0.09 * k, 0, 7); g.fill();
+    g.fillStyle = '#e8b84a'; g.beginPath(); g.arc(...at(L, 0.02), 4, 0, 7); g.fill();
+    if (sw && opts && opts.d > 0.001) { const up = sw.Ld < -1e-3, dn = sw.Ld > 1e-3; g.font = '11px JetBrains Mono, monospace'; g.fillStyle = up ? '#e8b84a' : '#8a8aa0'; g.textAlign = 'left'; g.fillText(up ? 'standing up' : dn ? 'squatting' : '', 12, h - 12); }
+    g.font = '10px JetBrains Mono, monospace'; g.fillStyle = '#4a4a5a'; g.textAlign = 'right'; g.fillText(sw ? sw.t.toFixed(1) + ' s' : '', w - 10, h - 12);
+  }
+  function drawBars() {
+    const { g, w, h } = fit($('bars'), 180), L = 34, B = 18, T = 8, p = peaks().slice(-16), n = 16, bw = (w - L - 8) / n, Y = (d) => T + (1 - Math.min(d, 70) / 70) * (h - T - B);
+    g.clearRect(0, 0, w, h); g.font = '10px JetBrains Mono, monospace';
+    for (const d of [0, 20, 40, 60]) { g.strokeStyle = '#22222e'; g.beginPath(); g.moveTo(L, Y(d)); g.lineTo(w - 8, Y(d)); g.stroke(); g.fillStyle = '#4a4a5a'; g.textAlign = 'right'; g.fillText(d + '°', L - 5, Y(d) + 3); }
+    p.forEach((q, i) => { g.fillStyle = i === p.length - 1 ? '#e8b84a' : 'rgba(232,184,74,.45)'; g.fillRect(L + i * bw + 2, Y(q.deg), bw - 4, Y(0) - Y(q.deg)); });
+  }
+  function drawCurve() {
+    if (!curves) return;
+    const { g, w, h } = fit($('curve'), 170), L = 40, B = 30, T = 8, X = (phi) => L + (phi / (2 * Math.PI)) * (w - L - 10), Y = (v) => T + (1 - (v - 0.6) / 0.8) * (h - T - B);
+    g.clearRect(0, 0, w, h); g.font = '10px JetBrains Mono, monospace';
+    for (const v of [0.6, 0.8, 1, 1.2, 1.4]) { g.strokeStyle = v === 1 ? '#4a4a5e' : '#22222e'; g.beginPath(); g.moveTo(L, Y(v)); g.lineTo(w - 10, Y(v)); g.stroke(); g.fillStyle = '#4a4a5a'; g.textAlign = 'right'; g.fillText('×' + v.toFixed(1), L - 4, Y(v) + 3); }
+    for (const [key, col] of [['toy', '#8a8aa0'], ['real', '#e8b84a']]) { g.strokeStyle = col; g.lineWidth = 1.6; g.beginPath(); curves[key].forEach(([phi, v], i) => (i ? g.lineTo(X(phi), Y(v)) : g.moveTo(X(phi), Y(v)))); g.stroke(); g.lineWidth = 1; }
+    g.textAlign = 'center'; g.fillStyle = '#c8c8d8';
+    for (const [r, label] of [['rev', 'reverse'], ['page', 'page']]) { const x = X(RULE[r]); g.strokeStyle = S.rule === r ? '#e8e8f0' : '#4a4a5a'; g.setLineDash([2, 3]); g.beginPath(); g.moveTo(x, T); g.lineTo(x, h - B); g.stroke(); g.setLineDash([]); g.fillStyle = S.rule === r ? '#e8e8f0' : '#8a8aa0'; g.fillText(label, Math.min(w - 30, Math.max(L + 20, x)), h - 12); }
+  }
+  let lastT = null;
+  function loop(ts) {
+    requestAnimationFrame(loop); const dt = lastT == null ? 0 : Math.min(0.05, (ts - lastT) / 1000); lastT = ts;
+    tick(dt); drawSwing(); drawBars(); if (S.step === 4) drawCurve();
+    if (++frame % 6 === 0) UPD[S.step]();
+  }
+
+  const UPD = { 1: update1, 2: update2, 3: update3, 4: update4 };
+  function show(n) {
+    S.step = n; sw = null; opts = null;
+    document.querySelectorAll('.pr-step').forEach((s) => s.classList.toggle('pr-shown', +s.dataset.step === n));
+    document.querySelectorAll('.pr-rail button').forEach((b) => b.setAttribute('aria-pressed', +b.dataset.go === n ? 'true' : 'false'));
+    $('back').disabled = n === 1; $('next').disabled = n === 4;
+    S.speed = n === 1 ? 1 : 3; document.querySelectorAll('.spd button').forEach((b) => b.setAttribute('aria-pressed', +b.dataset.s === S.speed ? 'true' : 'false'));
+    $('curvebox').hidden = n !== 4;
+    if (n === 4 && !curves) {   // gain per swing against the child's timing, both models: 3 swings from 8°, at 0.5 ms
+      curves = { real: [], toy: [] };
+      for (let i = 0; i <= 32; i++) { const phi = (i / 32) * 2 * Math.PI; for (const m of ['real', 'toy']) curves[m].push([phi, Swing.gain({ model: m, n: 2, phi, d: D }, 8, 3, 5e-4)]); }
+    }
+  }
+  function sigil() { let d = ''; for (let i = 0; i <= 200; i++) { const t = i / 200 * 2 * Math.PI; d += (i ? 'L' : 'M') + (8 * Math.sin(3 * t + Math.PI / 4)).toFixed(2) + ' ' + (8 * Math.sin(2 * t)).toFixed(2); } $('sig').setAttribute('d', d); }
+  document.querySelectorAll('.pr-rail button').forEach((b) => (b.onclick = () => show(+b.dataset.go)));
+  $('back').onclick = () => show(Math.max(1, S.step - 1)); $('next').onclick = () => show(Math.min(4, S.step + 1));
+  for (const i of [1, 2, 3, 4]) $('go' + i).onclick = go;
+  document.querySelectorAll('.spd button').forEach((b) => (b.onclick = () => { S.speed = +b.dataset.s; document.querySelectorAll('.spd button').forEach((x) => x.setAttribute('aria-pressed', +x.dataset.s === S.speed ? 'true' : 'false')); }));
+  document.querySelectorAll('#n2 button').forEach((b) => (b.onclick = () => { S.n = +b.dataset.n; document.querySelectorAll('#n2 button').forEach((x) => x.setAttribute('aria-pressed', x === b ? 'true' : 'false')); go(); }));
+  document.querySelectorAll('.rule button').forEach((b) => (b.onclick = () => { S.rule = b.dataset.r; document.querySelectorAll('.rule button').forEach((x) => x.setAttribute('aria-pressed', x.dataset.r === S.rule ? 'true' : 'false')); go(); }));
+  sigil(); show(1); requestAnimationFrame(loop);
+})();
+</script>
+</body>
+</html>
