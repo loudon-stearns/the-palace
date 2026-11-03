@@ -6,12 +6,13 @@
   "manufacturer_code": "Loud",
   "plugin_code": "Rtrd",
   "kind": "effect",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "hostcheck": [
     "gain=1",
     "lag=quarter",
     "bpm=240",
-    "dry=0"
+    "dry=0",
+    "speed=-1"
   ],
   "ui": {
     "width": 900,

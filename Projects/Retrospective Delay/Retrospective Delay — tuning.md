@@ -35,3 +35,13 @@ What Retrospective Delay's steward cycles taught the page, and the changes to th
    > **The plugin's face is a séance table** (2026-11-03). On the CRT of the [[VST Template]] editor, the measure is the ring round a table and the write head is a candle-lit planchette, orange while the tape records and blue while it holds. What you play stands on the ring as columns of light, and Summon lifts a ghost ring above the table, with ectoplasm rising to it from the read head. The Gorey cat sits at the table's edge and wakes as Summon rises. Drag on the screen to summon.
 
 - run · 2026-11-03 · cycle 25 · taught item 1, proposed items 2, 3 for canon
+
+## From cycle 26 — 2026-11-03
+
+4. When a knob is added up over time, as Speed is into where the read head sits, VST Template's quarter-second loudness test can't hold while the knob moves; check the plugin against the sketch at every sample, and check the two agree once the knob settles. *(offered by the steward, cycle 26)*
+5. **Proposed for canon** · 2026-11-03 · `Projects/VST Template/machinery/src/PluginProcessor.cpp` · processBlock, before the sample loop · canon change owed *(proposed by the steward, cycle 26)*
+   Why: my next move, syncing the plugin to Live's tempo and bar, can't be built from my own folder: the template code that every plugin is built on doesn't pass the plugin the tempo or bar position yet
+   Path: `Projects/VST Template/machinery/src/PluginProcessor.cpp`
+   > Read the host's play head once per block (getPlayHead()->getPosition()) and pass its tempo, its position in quarter notes at the block's first sample, its time signature and whether it is playing to an optional Algorithm::transport(bpm, ppq, num, den, playing) hook, called only when Algorithm.h declares one, so plugins that don't need it stay unchanged. Retrospective Delay would set its measure to Live's bar and put its write head at the bar's downbeat.
+
+- run · 2026-11-03 · cycle 26 · taught item 4, proposed item 5 for canon

@@ -18,11 +18,16 @@
 //    as thick as the ghost is loud. At zero the ghost ring lies flat and dark on the
 //    table and the cat at the table's edge is asleep; turned up, its eyes open; near the
 //    top, it is all stars.
+//  - Speed sets the read head adrift: slower or faster than the planchette, or walking
+//    the ring backwards. The bright place on the ghost ring and the glow on the table
+//    travel with it, the arc between it and the planchette stretches and shrinks and
+//    reads "adrift", and the ectoplasm is dragged round the table the way it drifts.
+//    Bring Speed home to 1 and the head fades back onto the lag.
 //  - Drag up or down anywhere on the screen to turn Summon: lifting your hand raises the
 //    ghost. It is the knob moving, with automation and undo.
 //
 // Everything drawn comes from the plugin's probes: knob, presence, holding, head, lag,
-// level, ghost (Algorithm.h kProbes). The ring is rebuilt here from the head position,
+// level, ghost, speed (Algorithm.h kProbes). The ring is rebuilt here from the head position,
 // the input level and whether the tape is listening, read at every probe frame (about
 // 480 a second, window.editorProbes.h), so it is a picture of the tape's loudness, not
 // the tape itself.
@@ -40,7 +45,7 @@ const SeanceTable = (() => {
   let el = null, cv = null, g = null, W = 0, H = 0, dpr = 1, hooks = null;
   const amp = new Float32Array(N), age = new Float32Array(N).fill(99);
   let lastSlot = -1, time = 0, flick = 0;
-  let now = { knob: 0, presence: 0, holding: 1, head: 0, lag: 0.5, level: 0, ghost: 0, bpm: 120 };
+  let now = { knob: 0, presence: 0, holding: 1, head: 0, lag: 0.5, level: 0, ghost: 0, bpm: 120, speed: 1 };
   const motes = [];      // ectoplasm: { a (angle), y (0 table .. 1 ghost ring), s (size), life }
   const stars = [];
 
@@ -109,12 +114,15 @@ const SeanceTable = (() => {
     for (let i = 0; i < N; ++i) age[i] += dt;
     const p = probes || [];
     now = { knob: +p[0] || 0, presence: +p[1] || 0, holding: p[2] === undefined ? 1 : +p[2], head: +p[3] || 0,
-            lag: +p[4] || 0.5, level: +p[5] || 0, ghost: +p[6] || 0, bpm: +params.bpm || 120, lagi: Math.round(params.lag || 0) };
+            lag: +p[4] || 0.5, level: +p[5] || 0, ghost: +p[6] || 0, bpm: +params.bpm || 120, lagi: Math.round(params.lag || 0),
+            speed: p[7] === undefined ? 1 : +p[7] };
+    const adrift = Math.abs(now.speed - 1) > 1e-3;
     // ectoplasm rises from the read head, as thick as the ghost is loud
     const born = Math.min(6, now.ghost * 40 + now.knob * now.presence * 1.5);
     for (let i = 0; i < born; ++i) if (Math.random() < born / 6)
       motes.push({ a: now.head - now.lag + (Math.random() - 0.5) * 0.01, y: 0, s: 0.5 + Math.random(), life: 1, sw: Math.random() * 6.28 });
-    for (const m of motes) { m.y += dt * (0.5 + now.knob * 0.7); m.a += dt * 0.05 * Math.sin(time * 1.3 + m.sw); m.life -= dt * 0.55; }
+    const swirl = adrift ? (now.speed - 1) * 0.12 : 0;     // a drifting head drags its ectoplasm round the table
+    for (const m of motes) { m.y += dt * (0.5 + now.knob * 0.7); m.a += dt * (0.05 * Math.sin(time * 1.3 + m.sw) + swirl); m.life -= dt * 0.55; }
     while (motes.length && (motes[0].life <= 0 || motes[0].y > 1.15)) motes.shift();
     if (motes.length > 600) motes.splice(0, motes.length - 600);
     if (now.knob > 0.8 && Math.random() < (now.knob - 0.8) * 3)
@@ -212,7 +220,8 @@ const SeanceTable = (() => {
     const a0 = now.head - now.lag, steps = 48;
     for (let i = 0; i <= steps; ++i) { const [x, y] = P(a0 + now.lag * i / steps, 0.72, 0); i ? g.lineTo(x, y) : g.moveTo(x, y); }
     g.stroke();
-    { const [x, y] = P(a0 + now.lag / 2, 0.62, 0); g.fillStyle = rgba(VIOLET, 0.35 + 0.4 * k); g.fillText(LAGNAME[now.lagi] || "", x, y); }
+    { const [x, y] = P(a0 + now.lag / 2, 0.62, 0); g.fillStyle = rgba(VIOLET, 0.35 + 0.4 * k);
+      g.fillText(Math.abs(now.speed - 1) > 1e-3 ? "adrift" : (LAGNAME[now.lagi] || ""), x, y); }
     // the tape, on the table
     bars(1.0, 0, 0.32, 1.0, false);
     // the ghost ring, lifted by the knob
@@ -260,6 +269,8 @@ const SeanceTable = (() => {
     g.fillText(hold ? "HOLDING · silence keeps" : "LISTENING", ix, iy);
     g.fillStyle = rgba(INK, 0.45);
     g.fillText(`${Math.round(now.bpm)} bpm · lag ${LAGNAME[now.lagi] || ""} · summon ${Math.round(k * 100)}%`, ix, iy + H * 0.05);
+    const sp = now.speed, spWord = Math.abs(sp - 1) < 1e-3 ? "" : Math.abs(sp) < 0.05 ? "stalled" : sp < 0 ? `backwards ×${(-sp).toFixed(2)}` : `×${sp.toFixed(2)}`;
+    if (spWord) { g.fillStyle = rgba(ECTO, 0.75); g.fillText(`memory ${spWord}`, ix, iy + H * 0.1); }
     g.textAlign = "right";
     g.fillText(k < 0.04 ? "dormant" : k < 0.8 ? "awakening" : "triumphant", W - ix, iy);
   }

@@ -65,4 +65,19 @@ PATHS = [
          values={"gain": 0.8, "lag": "half", "bpm": lambda t: np.where(t < 4.0, 120.0, 150.0)},
          inputs=phrase(ONE_BAR),
          gate=dict(exact_until=None)),
+    # Speed: the held ghost slows to half (an octave down), runs backwards, races at
+    # double, stalls, then comes home to 1 and fades back onto the beat.
+    dict(name="speed", secs=12.0,
+         values={"gain": 0.8, "lag": "half",
+                 "speed": ramp([(0, 1), (2.5, 1), (3.0, 0.5), (5.0, 0.5), (5.4, -1), (7.4, -1),
+                                (7.8, 2), (9.0, 2), (9.6, 0), (10.2, 0), (10.6, 1), (12, 1)])},
+         inputs=phrase(ONE_BAR),
+         # The engine matches exactly. The plugin can't, while Speed is away from 1: where
+         # a head sits is Speed summed over time, so Speed's 60 ms smoothing leaves the
+         # plugin's ghost a few tens of ms of tape behind the sketch's, and a quarter-second
+         # window lands on a pluck in one and a gap in the other (up to 16 dB). Once Speed is
+         # home both fade back onto the lag: from 11 s on every window is within 1e-6 dB.
+         # This loudness gate is therefore wide open; the exact gate is the real check.
+         # Measured 2026-11-03.
+         gate=dict(exact_until=None, plugin_rms_db=17.0)),
 ]

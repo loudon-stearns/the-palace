@@ -15,33 +15,32 @@ forward_vector: "I am Retrospective Delay's scroll — the one page that always 
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-11-03T13:08:36.859Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-11-03T13:19:45.154Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** growing · **Steward:** cycle 25 · last ran 2026-11-03 (today)
-- **Plan:** agreed 2026-10-18 (16 days ago) · 2 made things since · **a proposed revision is waiting on you**
+- **Status:** active · **Stage:** growing · **Steward:** cycle 26 · last ran 2026-11-03 (today)
+- **Plan:** agreed 2026-10-18 (16 days ago) · 3 made things since · **a proposed revision is waiting on you**
 - **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-11-03 (today) — Make the plugin the plan: lock it to Live's clock, then my forward vectors as knobs; the Max teaching path waits for patching standards. (`retrospective-delay-steward-058`)
-- **Last commit touching this project:** 2026-10-24 `a75350ec` — Weave — 2026-10-24 — 79 links added, 647 links pruned, 268 labels added, 13 entries promoted, 25 stages moved, 35 flags closed, 13 decisions carried, 6 Contexts opened, 2 pages composted, 8 faces added
+- **Last shipped:** 2026-11-03 (today) — The plugin has a Speed knob: the ghost of your last measure comes back slower and lower, faster and higher, or backwards. (`retrospective-delay-steward-060`)
+- **Last commit touching this project:** 2026-11-03 `ef262b6e` — steward(Retrospective Delay): cycle 25 — SPINNING UP. HOME: [Retrospective Delay](obsidian://open?vault=The%20Pa…
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
-- **Runs:** 1 run on 1 day, counted from the ledger's run lines
-- **Last run:** 2026-11-03 — cycle 25 · taught item 1, proposed items 2, 3 for canon
+- **Runs:** 2 runs on 1 day, counted from the ledger's run lines
+- **Last run:** 2026-11-03 — cycle 26 · taught item 4, proposed item 5 for canon
 - **Owed in the ledger:** nothing
-- **Proposed for canon:** 2 — items 2, 3; waiting on Loudon's review, and the page has not changed
-- **Latest lesson:** item 3, from cycle 25 — 2026-11-03 — [[Retrospective Delay — tuning]]
+- **Proposed for canon:** 3 — items 2, 3, 5; waiting on Loudon's review, and the page has not changed
+- **Latest lesson:** item 5, from cycle 26 — 2026-11-03 — [[Retrospective Delay — tuning]]
 
 ### Where this stands
 
-Retrospective Delay records the last measure you played, all the time, and one knob, Summon, decides how loudly that measure comes back. When you stop playing, the tape holds what it has, so the last measure keeps returning. Five moves made it in Max for a Loudon Live teaching path, ending with an RNBO version of the sound. On 2026-10-21 you said make it a product: a VST you can play in Live, using the VST Template, with a visualizer of its own on the template's screen. This cycle built that. It's a VST3 and AU in this folder's plugin/ subfolder, installed on this Mac. The sound is the RNBO version, carried over line by line, and it matches its Python sketch to within rounding. The screen s…
+Retrospective Delay records the last measure you played, all the time, and one knob, Summon, decides how loudly that measure comes back. When you stop playing, the tape holds, so the last measure keeps returning. On 2026-10-21 you asked for it as a product, a plugin you can play in Live, and earlier today I built it with VST Template: a VST3 and AU in this folder's plugin/ subfolder, installed on this Mac, with a séance table on its screen. This cycle gave it the first idea from my page, variable-speed playback, as a sixth knob called Speed. The plugin is rebuilt and reinstalled, and every check passes. Nobody has heard it in Live yet.
 
 ### Left rough, again and again
 
 _What the trail's left-rough notes keep saying, oldest first, in its latest words._
 
-- **rough since cycle 19:** Nobody has played it in Live yet, and I can't listen to anything myself. _(in 2 notes, the latest cycle 25)_
+- **rough since cycle 19:** Nobody has played it in Live yet, and I can't listen to anything myself. _(in 3 notes, the latest cycle 26)_
 - **rough since cycle 20:** Nothing has run in Max, and the jsui finding its plates inside a frozen device is the likeliest break. _(in 4 notes, the latest cycle 23)_
-- **rough since cycle 20:** At 500 samples the gate's 100 ms release would wipe the tape, so the shrinking render uses a hand freeze instead. _(in 2 notes, the latest cycle 21)_
 
 ### Open asks
 
@@ -64,6 +63,7 @@ _None._
 
 ### Runs
 
+- 2026-11-03 — cycle 26 · taught item 4, proposed item 5 for canon
 - 2026-11-03 — cycle 25 · taught item 1, proposed items 2, 3 for canon
 
 ### Owed
@@ -76,6 +76,7 @@ _Changes the steward wants in the house, kept in its tuning ledger until Loudon'
 
 - **2.** 2026-11-03 · [[Retrospective Delay]] · § Open Questions, item 4 (Hardware target), after its 'progressed' line — you adopted the hardware answer on 2026-10-18 and the page still lists it as open
 - **3.** 2026-11-03 · [[Retrospective Delay]] · § Interface Design Philosophy, a new last paragraph — the page still describes the face only as JSUI frames; the plugin now has a face of its own
+- **5.** 2026-11-03 · `Projects/VST Template/machinery/src/PluginProcessor.cpp` · processBlock, before the sample loop — my next move, syncing the plugin to Live's tempo and bar, can't be built from my own folder: the template code that every plugin is built on doesn't pass the plugin the tempo or bar position yet
 
 <!-- scroll:now:end -->
 
@@ -114,6 +115,56 @@ Decided with Loudon when the Loudon Live arc was designed (April 2026), and seed
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="retrospective-delay-steward-060" -->
+### 2026-11-03 — cycle 26 — Off plan — The plugin has a Speed knob: the ghost of your last measure comes back slower and lower, faster and higher, or backwards.
+> shipped · installed, all checks pass · steward leans: you play it in Live next
+
+_Off plan — The agreed plan is still the Max teaching path. This is the 2026-10-21 standing order's product, and the second move of my pending plan change (my page's ideas as knobs), done before the first (the tempo sync) because the sync needs VST Template to change first.. Offered as proof of a different direction; the plan stands unless Loudon agrees to change it._
+
+Speed runs the read head at its own rate, from -2 to 2. At 1 nothing changes; the four old test paths still match the sketch sample for sample. At 0.5 the ghost comes back slower and an octave down, at 2 faster and an octave up, below 0 it plays backwards, and near 0 it stalls and fades. A moving read head eventually passes the write head, where what you just played meets a measure ago. It fades out over the last 5 ms before that crossing, so there's no click. When Speed comes back to 1, the head fades back onto its lag in 30 ms and the ghost lands on the beat again; the test shows plugin and sketch agreeing exactly from there on. Speed is smoothed over 60 ms, so turning it sounds like a tape speeding up or slowing down. Measured on the ghost in the performance below, the average brightness of the sound falls from 674 Hz to 277 Hz at half speed and rises to 1094 Hz at double. On the screen, the read head goes adrift: its glow and the bright spot on the ghost ring travel round on their own, the arc between the heads reads 'adrift', and the ectoplasm is dragged the way it drifts. The page below plays a 16-second performance with the picture: one bar held, summoned, slowed to half, turned backwards, raced at double, stalled, then brought home. The new test path checks the plugin against its sketch at every sample. The other test, which compares the real plugin's loudness a quarter-second at a time, is set wide open for this path on purpose. Where the read head sits is Speed added up over time, so the 60 ms smoothing leaves the plugin's ghost slightly behind the sketch's while Speed is away from 1. One more change: the read heads now read between samples, so a lag that falls between two samples is no longer rounded down.
+
+**Artifacts:**
+- [the Speed performance with its picture: press play; at half speed it drops an octave, then turns backwards, races, stalls and comes home](Projects/Retrospective Delay/plugin/proofs/speed-table.html)
+- [the same 16 seconds as audio, from the sketch the plugin matches](Projects/Retrospective Delay/plugin/proofs/speed-performance.wav)
+- [playing backwards: the read head adrift, ectoplasm dragged along the ghost ring](Projects/Retrospective Delay/plugin/proofs/speed-table-08.6s.png)
+- [home again: the arc reads ½ once more](Projects/Retrospective Delay/plugin/proofs/speed-table-15.0s.png)
+- [summoned at Speed 1, before it drifts](Projects/Retrospective Delay/plugin/proofs/speed-table-03.6s.png)
+- [half speed, an octave down](Projects/Retrospective Delay/plugin/proofs/speed-table-06.0s.png)
+- [double speed](Projects/Retrospective Delay/plugin/proofs/speed-table-11.2s.png)
+- [the original séance performance, rebuilt with the new picture code](Projects/Retrospective Delay/plugin/proofs/seance-table.html)
+- [the original performance's audio, rebuilt](Projects/Retrospective Delay/plugin/proofs/seance-performance.wav)
+- [the sound: Speed, read heads that drift, the fade where a head crosses, the fade back to the beat](Projects/Retrospective Delay/plugin/src/Algorithm.h)
+- [the Python sketch, changed line for line with the plugin](Projects/Retrospective Delay/plugin/reference/sketch.py)
+- [a fifth test path, speed, and why its loudness test is wide open](Projects/Retrospective Delay/plugin/reference/paths.py)
+- [the séance table shows a read head adrift](Projects/Retrospective Delay/plugin/ui/visualizer.js)
+- [--speed renders the Speed performance](Projects/Retrospective Delay/plugin/ui/preview.py)
+- [version 0.2.0; the host check now also sets Speed to -1](Projects/Retrospective Delay/plugin/plugin.json)
+- [the Speed knob, what the screen shows when the head drifts, and the checks](Projects/Retrospective Delay/plugin/README.md)
+
+_Speed, measured on the ghost in the performance_
+| Speed | average brightness (spectral centroid) | what you hear |
+| --- | --- | --- |
+| 1 | 674 Hz | the séance as before |
+| 0.5 | 277 Hz | slower, an octave down |
+| -1 | 580 Hz | backwards |
+| 2 | 1094 Hz | faster, an octave up |
+
+_Changed in the workshop:_ README — the Speed knob, the drifting head on the screen, and the checks after Speed
+_Proposed for canon:_ Projects/VST Template/machinery/src/PluginProcessor.cpp (processBlock, before the sample loop) — my next move, syncing the plugin to Live's tempo and bar, can't be built from my own folder: the template code that every plugin is built on doesn't pass the plugin the tempo or bar position yet; owed in the tuning ledger until Loudon's review
+
+_Left rough:_ Nobody has played it in Live yet, and I can't listen to anything myself. The plugin still doesn't follow Live's tempo, because VST Template doesn't pass the plugin the tempo or the bar position yet.
+
+_Next moves named:_ Sync the plugin to Live's tempo and bar, so the measure is Live's bar and the planchette sits on the downbeat, once VST Template passes the plugin the tempo and bar position (proposed below) · My page's next idea as a knob: tie the ghost's sound to dub production, or a first try at finding where a phrase begins · If Speed sounds right in Live: a Speed that snaps to octaves, as a choice alongside the smooth knob
+<sub>`retrospective-delay-steward-060` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-239e6f5452" -->
+### 2026-11-03 — cycle 26
+
+taught item 4, proposed item 5 for canon
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="plan-retrospective-delay-steward-055" -->
 ### 2026-10-18 — Plan revised: The H90 can't run RNBO yet. Should the portal aim at VST/AU, Max for Live and the browser instead, with hardware only if it opens up?
 

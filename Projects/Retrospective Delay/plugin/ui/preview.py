@@ -7,6 +7,7 @@ probes, with the performance's audio inline so picture and sound play together.
 
     python3 ui/preview.py                     -> proofs/seance-table.html, proofs/seance-performance.wav
     python3 ui/preview.py --shots             also photographs four moments with headless Chrome
+    python3 ui/preview.py --speed [--shots]   the Speed performance instead -> proofs/speed-table.html
 
 The performance: play one bar and stop (the tape holds it); summon the ghost; re-lag it
 to a quarter, then a whole bar; play a new phrase over it (the tape listens again and
@@ -30,6 +31,21 @@ from paths import ONE_BAR, phrase                # noqa: E402
 
 SR, SECS, FEED = 44100, 16.0, 480
 CHROME = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
+
+
+def speed_performance():
+    """Play one bar and stop; summon it; slow it to half (an octave down); turn it round
+    (backwards); race it at double; let it stall; bring it home to 1, onto the beat."""
+    steps = int(SR * SECS)
+    t = np.arange(steps) / SR
+    gain = np.interp(t, [0, 2.2, 3.0, 16], [0, 0, 0.85, 0.85])
+    speed = np.interp(t, [0, 4.4, 4.9, 7.0, 7.5, 10.0, 10.4, 12.2, 12.8, 13.5, 14.0, 16],
+                         [1, 1, 0.5, 0.5, -1, -1, 2, 2, 0, 0, 1, 1])
+    x = phrase(ONE_BAR)(t, SR)
+    v = dict(gain=gain, lag=np.ones(steps), bpm=np.full(steps, 120.0), thresh=np.full(steps, -50.0),
+             dry=np.ones(steps), speed=speed)
+    r = sketch.render(v, SR, x)
+    return r["out"], r["probes"], x
 
 
 def performance():
@@ -56,27 +72,29 @@ def wav_bytes(y, sr):
 
 
 def main():
-    out, pr, _ = performance()
-    names = ["knob", "presence", "holding", "head", "lag", "level", "ghost"]
+    sp = "--speed" in sys.argv
+    out, pr, _ = speed_performance() if sp else performance()
+    stem = "speed" if sp else "seance"
+    names = ["knob", "presence", "holding", "head", "lag", "level", "ghost", "speed"]
     hop = SR // FEED
     frames = [[round(float(pr[n][i]), 5) for n in names] + [0.0] for i in range(hop - 1, len(pr["knob"]), hop)]
     audio, mono = wav_bytes(out, SR)
     proofs = PLUG / "proofs"
     proofs.mkdir(exist_ok=True)
-    with wave.open(str(proofs / "seance-performance.wav"), "wb") as f:
+    with wave.open(str(proofs / f"{stem}-performance.wav"), "wb") as f:
         pcm = (np.clip(out.T, -1, 1) * 32767).astype("<i2")
         f.setnchannels(2); f.setsampwidth(2); f.setframerate(SR); f.writeframes(pcm.tobytes())
     vis = (HERE / "visualizer.js").read_text()
     page = PAGE.replace("/*VIS*/", vis).replace("/*FRAMES*/", json.dumps(frames, separators=(",", ":"))) \
                .replace("/*AUDIO*/", base64.b64encode(audio).decode())
-    (proofs / "seance-table.html").write_text(page)
-    print(f"{len(frames)} probe frames, {len(page) // 1024} KB -> {proofs / 'seance-table.html'}")
+    (proofs / f"{stem}-table.html").write_text(page)
+    print(f"{len(frames)} probe frames, {len(page) // 1024} KB -> {proofs / f'{stem}-table.html'}")
     if "--shots" in sys.argv:
-        for t in (1.2, 4.0, 8.2, 9.4, 12.0):
-            png = proofs / f"seance-table-{t:04.1f}s.png"
+        for t in ((3.6, 6.0, 8.6, 11.2, 15.0) if sp else (1.2, 4.0, 8.2, 9.4, 12.0)):
+            png = proofs / f"{stem}-table-{t:04.1f}s.png"
             subprocess.run([CHROME, "--headless=new", "--disable-gpu", "--hide-scrollbars", "--force-device-scale-factor=2",
                             "--window-size=760,440", "--virtual-time-budget=4000", f"--screenshot={png}",
-                            f"file://{proofs / 'seance-table.html'}?t={t}"], capture_output=True, timeout=90)
+                            f"file://{proofs / f'{stem}-table.html'}?t={t}"], capture_output=True, timeout=90)
             print("shot", png.name, png.exists())
 
 
