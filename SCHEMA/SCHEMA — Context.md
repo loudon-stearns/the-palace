@@ -76,6 +76,8 @@ Links: emerged-from [[SCHEMA]].
 
 > **Note (2026-09-26):** the `dialectic` bundle-file row changed — an archived Dialectic now lives in the bundle of the practice that ran it ([[Dialectic]]'s bundle, where every run gathers as a record of the method), not scattered across the entries it argued over. Same flat-companion migration as the §6 note above, not a Schema Ceremony (`291d0385`).
 
+> **Note (2026-11-03):** the `rich` row gained a section `status` (`proposal | approved | retired`), the `proposed` / `approved` / `challenge` blocks and the manifest's `offers` list, for [[Enrichment]] v2.8's proposal round — many pages at once, each section a proposal until Loudon approves it. Loudon: "keep the enrichments as pending or proposal until I approve them … clearly noted as proposal until I approve or revise them"; on the process, "all approve, proceed". A field inside a bundle file's own format, not a frontmatter field or a new bundle type: no §5 trigger, no version move. Shapes in `_ops/rich-face/README.md` § The manifest.
+
 ---
 
 ## §9 — The Coordination Schema
