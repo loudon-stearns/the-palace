@@ -1,0 +1,422 @@
+<!doctype html>
+<!--
+  title: Particle Synthesis — rich — one click, one law
+  born: 2026-11-03
+  links: [[Particle Synthesis]] (connects-to · rich-face-piece) · listed in [[Particle Synthesis — rich.json]] · serves § Dispersion as Physics · leans on [[Frequency-Time Duality]]
+  forward_vector: I am one click sent through a medium whose speed depends on frequency, the ice plate the GPU fountain is built on. I walk from a click, to a click carried whole, to a click pulled into a chirp, to the same law held between two ends where it makes a bar's partials, and show the inharmonicity is the law's too, since the straight law gives whole-number partials at the same ends. My test is the GPU build's own chirp: it writes each sweep down as a formula, and I set that formula against the click carried exactly through the law, where a wrong sign, factor or phase would part them. I play inside the entry's rich face and stand alone opened directly; I change only when the section I serve does.
+  sound: nothing plays until a play button is clicked; the AudioContext is made on that click. Changing step stops the sound. The kit quiets it when the page hides or is left alone.
+  check: Particle Synthesis — rich — check.mjs runs this page's engine in Node against every number the page shows.
+-->
+<html lang="en" class="skin-graphite">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- needs nothing of its host: no device, no storage, no file, no host; sound only on a click -->
+<meta name="piece:needs" content="">
+<title>One click, one law</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@300;400;500&display=swap">
+<style>
+  :root{
+    --bg:#0a0a0f; --bg-elev-1:#12121a; --bg-elev-2:#1a1a28; --border:#4a4a5e; --border-soft:rgba(255,255,255,0.06);
+    --fg-1:#e8e8f0; --fg-2:#c8c8d8; --fg-3:#8a8aa0; --fg-4:#4a4a5a;
+    --accent:#e8b84a; --accent-soft:rgba(232,184,74,0.10); --accent-line:rgba(232,184,74,0.5);
+    --violet:#8b7cf6;
+    --serif:'Cormorant Garamond','Source Serif 4',Georgia,serif; --sans:'Manrope',system-ui,sans-serif;
+    --display:'Anton','Bebas Neue',Impact,sans-serif; --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--fg-1)}
+  body{font-family:var(--serif);font-size:17px;line-height:1.7;padding:28px 16px 36px}
+  main{max-width:960px;margin:0 auto}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--fg-3)}
+  h1{font-family:var(--display);font-weight:400;font-size:42px;line-height:1.05;margin:6px 0 10px}
+  h2{font-family:var(--display);font-weight:400;font-size:27px;line-height:1.1;margin:4px 0 8px;letter-spacing:.01em}
+  p.lead{font-size:19px;color:var(--fg-2);margin:0 0 18px;max-width:66ch}
+  .rail{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 18px}
+  .rail button{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-3);background:transparent;border:1px solid var(--border);border-radius:4px;padding:7px 11px;cursor:pointer;transition:all .22s cubic-bezier(.4,0,.2,1)}
+  .rail button[aria-current="step"]{color:var(--fg-1);border-color:var(--fg-3);background:var(--bg-elev-2)}
+  p.say{color:var(--fg-2);margin:0 0 14px;max-width:68ch}
+  .dwh{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:8px 18px;margin:0 0 14px;font-family:var(--sans);font-size:13.5px;color:var(--fg-2);line-height:1.55}
+  .dwh b{font-family:var(--mono);font-weight:400;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);display:block}
+  .panel{background:var(--bg-elev-1);border:1px solid var(--border-soft);border-radius:4px;padding:16px;margin:0 0 14px}
+  .plabel{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-3);display:flex;justify-content:space-between;gap:10px;margin-bottom:8px;flex-wrap:wrap}
+  canvas{width:100%;display:block;background:var(--bg-elev-2);border-radius:2px}
+  .rowb{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:12px}
+  button.play{font-family:var(--sans);font-weight:500;font-size:14px;color:#0a0a0f;background:var(--accent);border:0;border-radius:4px;padding:9px 20px;cursor:pointer;transition:box-shadow .22s cubic-bezier(.4,0,.2,1)}
+  button.play:hover{box-shadow:0 0 24px var(--accent-soft)}
+  button.ghost{font-family:var(--sans);font-size:14px;color:var(--fg-2);background:transparent;border:1px solid var(--border);border-radius:4px;padding:8px 14px;cursor:pointer}
+  button.ghost.small{font-size:13px;padding:6px 11px}
+  button.ghost[aria-pressed="true"]{color:var(--fg-1);border-color:var(--accent-line);background:var(--bg-elev-2)}
+  button:disabled{opacity:.4;cursor:default}
+  .ctl{display:grid;grid-template-columns:170px 1fr auto;gap:6px 14px;align-items:center;margin-top:14px}
+  .ctl label{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-3)}
+  .ctl input[type=range]{width:100%;accent-color:var(--accent)}
+  .ctl .v{font-family:var(--mono);font-size:14px;color:var(--fg-1);text-align:right;white-space:nowrap;min-width:10ch}
+  .meter{font-family:var(--mono);font-size:13px;color:var(--fg-2);margin-top:12px;line-height:1.75}
+  .meter b{color:var(--accent);font-weight:400} .meter i{color:var(--violet);font-style:normal}
+  .eq{font-family:var(--mono);font-size:13.5px;color:var(--fg-1);margin:14px 0 0;overflow-wrap:anywhere}
+  .eq.words{font-family:var(--sans);color:var(--fg-3);font-size:13px;margin-top:2px}
+  .hint{font-family:var(--sans);font-size:13px;color:var(--fg-3)}
+  table.t{border-collapse:collapse;margin-top:12px;font-family:var(--mono);font-size:13px;color:var(--fg-2)}
+  table.t td,table.t th{border-bottom:1px solid var(--border-soft);padding:5px 14px 5px 0;text-align:right;font-weight:400}
+  table.t th{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-3)}
+  table.t td:first-child,table.t th:first-child{text-align:left}
+  table.t b{color:var(--accent);font-weight:400}
+  table.t i{color:var(--violet);font-style:normal}
+  .verdict{font-family:var(--sans);font-size:14px;color:var(--fg-1);margin-top:14px;max-width:72ch;border-left:1.5px solid var(--accent-line);padding-left:12px}
+  .walk{display:flex;justify-content:space-between;gap:10px;margin-top:16px}
+  .hide{display:none!important}
+  footer{margin-top:28px;font-family:var(--sans);font-size:13px;color:var(--fg-4);display:flex;align-items:center;gap:10px}
+  footer b{font-family:var(--display);font-weight:400;letter-spacing:.06em;color:var(--fg-3)}
+  @media (max-width:560px){h1{font-size:32px}h2{font-size:23px}.ctl{grid-template-columns:100px 1fr auto}}
+</style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">Particle Synthesis · Dispersion as Physics · five steps</div>
+  <h1>One click, one law</h1>
+  <p class="lead">The page says dispersion is not programmed into the sound: give a medium a speed that depends on frequency, and the separation in time, and the inharmonic partials of bells and bars, come out of that alone. Here is one click, and one law: the ice plate the GPU fountain is built on.</p>
+
+  <nav class="rail" id="rail" aria-label="steps"></nav>
+  <h2 id="st-title"></h2>
+  <p class="say" id="st-say"></p>
+  <div class="dwh"><div><b>do</b><span id="st-do"></span></div><div><b>watch</b><span id="st-watch"></span></div><div><b>hear</b><span id="st-hear"></span></div></div>
+
+  <div class="panel" id="p-main">
+    <div class="plabel"><span id="pic-l"></span><span id="pic-r"></span></div>
+    <canvas id="pic" height="320"></canvas>
+    <div class="ctl" id="c-r"><label for="r">distance</label><input id="r" type="range" min="1" max="20" step="0.5" value="8"><span class="v" id="r-v"></span></div>
+    <div class="rowb" id="c-bar">
+      <span class="eyebrow">law</span>
+      <button class="ghost small" id="law-straight" aria-pressed="false">straight · ω ∝ k</button>
+      <button class="ghost small" id="law-bent" aria-pressed="true">the ice’s · ω ∝ k²</button>
+      <span class="eyebrow" style="margin-left:10px">ends</span>
+      <button class="ghost small" id="ends-pinned" aria-pressed="true">pinned</button>
+      <button class="ghost small" id="ends-free" aria-pressed="false">free (a glockenspiel bar)</button>
+    </div>
+    <div class="rowb">
+      <button class="play" id="play">▸ play</button>
+      <button class="ghost small" id="overlay" aria-pressed="true">show the law’s prediction</button>
+    </div>
+    <div class="meter" id="meter"></div>
+  </div>
+
+  <div class="panel" id="p-test">
+    <div class="plabel"><span>the test · the build’s written chirp against the click carried exactly</span><span>amber · exact · violet · the build’s formula</span></div>
+    <canvas id="wave" height="200"></canvas>
+    <div class="rowb"><button class="ghost" id="measure">measure the sound itself</button><button class="play" id="hear-exact">▸ exact, 8 m</button><button class="play" id="hear-build" style="background:var(--violet)">▸ the build’s formula, 8 m</button></div>
+    <table class="t" id="test-t"></table>
+    <table class="t" id="bar-t"></table>
+    <p class="verdict" id="verdict"></p>
+  </div>
+
+  <div class="eq" id="eq1"></div>
+  <div class="eq words" id="eq1w"></div>
+  <div class="eq" id="eq2"></div>
+  <div class="eq words" id="eq2w"></div>
+
+  <div class="walk"><button class="ghost" id="back">← back</button><button class="ghost" id="next">next →</button></div>
+  <footer><svg width="22" height="22" viewBox="-11 -11 22 22" aria-hidden="true"><path id="sig" fill="none" stroke="#8a8aa0" stroke-width="1"/></svg><span><b>LOUD’N LIVE</b> · made for the rich face of Particle Synthesis · the engine runs here, in this page, and in its check</span></footer>
+</main>
+
+<script id="engine">
+// ---- engine: a click through a dispersive medium, and the same law between two ends (shared by the page and its check) ----
+// The medium is the GPU fountain's ice: bending waves in a plate, ω = C·k², C = 0.316 m²/s (room-sized, the build's one artistic choice).
+// A wave of frequency ω that has gone r metres has turned through k(ω)·r radians; applied exactly, bin by bin, in the frequency domain.
+const C_ICE = 0.316, C_AIR = 340, F_ATTEN = 80000, NFFT = 1 << 17, T0 = 0.02;
+function band(f) { return f <= 0 ? 0 : 1 / (1 + Math.pow(70 / f, 6)) / (1 + Math.pow(f / 16000, 8)); }   // the build's band: 70 Hz to 16 kHz
+function phaseOf(law, r, w) { return law === 'none' ? w * r / C_AIR : law === 'ice' ? r * Math.sqrt(w / C_ICE) : 0; }
+// when frequency f arrives, by the law: the group delay, d(phase) ⁄ dω
+function arrival(law, r, f) { const w = 2 * Math.PI * f; return law === 'none' ? r / C_AIR : law === 'ice' ? r / (2 * Math.sqrt(C_ICE * w)) : 0; }
+function fft(re, im, inverse) {
+  const n = re.length;
+  for (let i = 1, j = 0; i < n; i++) { let bit = n >> 1; for (; j & bit; bit >>= 1) j ^= bit; j ^= bit; if (i < j) { let t = re[i]; re[i] = re[j]; re[j] = t; t = im[i]; im[i] = im[j]; im[j] = t; } }
+  for (let len = 2; len <= n; len <<= 1) {
+    const a = (inverse ? 2 : -2) * Math.PI / len, wr = Math.cos(a), wi = Math.sin(a);
+    for (let i = 0; i < n; i += len) { let cr = 1, ci = 0; for (let j = 0; j < len / 2; j++) { const ur = re[i + j], ui = im[i + j], k = i + j + len / 2, vr = re[k] * cr - im[k] * ci, vi = re[k] * ci + im[k] * cr; re[i + j] = ur + vr; im[i + j] = ui + vi; re[k] = ur - vr; im[k] = ui - vi; const t = cr * wr - ci * wi; ci = cr * wi + ci * wr; cr = t; } }
+  }
+  if (inverse) for (let i = 0; i < n; i++) { re[i] /= n; im[i] /= n; }
+}
+// a click at T0, heard r metres away through the law ('none': every frequency at 340 m/s; 'ice': ω = C·k²); r = 0 is the click itself
+function clickThrough(law, r, fs) {
+  const N = NFFT, re = new Float64Array(N), im = new Float64Array(N);
+  for (let k = 1; k < N / 2; k++) {
+    const f = k * fs / N, w = 2 * Math.PI * f;
+    const mag = band(f) * (r > 0 && law === 'ice' ? Math.exp(-f * r / F_ATTEN) : 1) / Math.sqrt(Math.max(r, 1));
+    const ph = -w * T0 - (r > 0 ? phaseOf(law, r, w) : 0);
+    re[k] = mag * Math.cos(ph); im[k] = mag * Math.sin(ph); re[N - k] = re[k]; im[N - k] = -im[k];
+  }
+  fft(re, im, true);
+  return re;
+}
+// when does the band around fc peak? Filter y to one-sixth of an octave around fc (Gaussian on a log axis, positive
+// frequencies only), take the envelope, find its peak. Returns seconds after the click.
+function bandArrival(y, fc, fs, sigmaOct) {
+  const N = y.length, re = Float64Array.from(y), im = new Float64Array(N), s = sigmaOct || 1 / 6;
+  fft(re, im, false);
+  for (let k = 0; k < N; k++) {
+    if (k === 0 || k >= N / 2) { re[k] = 0; im[k] = 0; continue; }
+    const g = Math.exp(-0.5 * Math.pow(Math.log2((k * fs / N) / fc) / s, 2)) * 2; re[k] *= g; im[k] *= g;
+  }
+  fft(re, im, true);
+  let bi = 1, bv = 0; for (let i = 1; i < N - 1; i++) { const v = re[i] * re[i] + im[i] * im[i]; if (v > bv) { bv = v; bi = i; } }
+  const a = Math.hypot(re[bi - 1], im[bi - 1]), b = Math.hypot(re[bi], im[bi]), c = Math.hypot(re[bi + 1], im[bi + 1]);
+  const off = (a - c) / (2 * (a - 2 * b + c) || 1);
+  return (bi + off) / fs - T0;
+}
+// the same law between two ends. A bar of length L only lets in the wavenumbers its ends allow; the law turns each into a frequency.
+// pinned ends: k·L = jπ for both laws. free ends: k·L = jπ for the straight law (a bar ringing along its length), and for the
+// bending law the roots of cos(x)·cosh(x) = 1. Returns the partials as multiples of the first.
+function bendingFreeRoot(j) { let a = (j + 0.5) * Math.PI - 0.4, b = (j + 0.5) * Math.PI + 0.4; const F = (x) => Math.cos(x) * Math.cosh(x) - 1; for (let i = 0; i < 80; i++) { const m = (a + b) / 2; if (F(a) * F(m) <= 0) b = m; else a = m; } return (a + b) / 2; }
+function barRatios(law, ends, n) {
+  const k = []; for (let j = 1; j <= n; j++) k.push(ends === 'free' && law === 'bent' ? bendingFreeRoot(j) : j * Math.PI);
+  return k.map((x) => law === 'bent' ? (x / k[0]) ** 2 : x / k[0]);
+}
+// strike it: each partial a decaying sine, the higher ones quieter and shorter
+function barStrike(ratios, f1, fs, dur) {
+  const n = Math.round(dur * fs), y = new Float64Array(n);
+  ratios.forEach((r, j) => { const f = f1 * r; if (f >= fs / 2) return; const a = 1 / (j + 1), d = 1.4 + 0.25 * r; for (let i = 0; i < n; i++) { const t = i / fs; y[i] += a * Math.min(1, t / 0.002) * Math.exp(-t * d) * Math.sin(2 * Math.PI * f * t); } });
+  return y;
+}
+// the partials a sound actually holds: peaks of its spectrum within 50 dB of the loudest, lowest first
+function spectrum(y, fs, N) {
+  const re = new Float64Array(N), im = new Float64Array(N), L = Math.min(N, y.length);
+  for (let i = 0; i < L; i++) re[i] = y[i] * (0.5 - 0.5 * Math.cos(2 * Math.PI * i / (L - 1)));
+  fft(re, im, false);
+  const mag = new Float64Array(N / 2); for (let k = 0; k < N / 2; k++) mag[k] = Math.hypot(re[k], im[k]);
+  return mag;
+}
+function partialsOf(y, fs, count) {
+  const N = 1 << 16, mag = spectrum(y, fs, N); let mx = 0; for (const v of mag) mx = Math.max(mx, v);
+  const out = [];
+  for (let k = 2; k < N / 2 - 1 && out.length < count; k++) if (mag[k] > mag[k - 1] && mag[k] >= mag[k + 1] && mag[k] > mx * 10 ** (-50 / 20)) {
+    const a = Math.log(mag[k - 1]), b = Math.log(mag[k]), c = Math.log(mag[k + 1]); out.push((k + 0.5 * (a - c) / (a - 2 * b + c)) * fs / N);
+  }
+  return out;
+}
+// The GPU build does not propagate: it writes each chirp down as a formula (proofs/2026-10-22-gpu-fountain.html:252–259, chirpCPU,
+// the shader's twin at :119–128): at time t after the strike, frequency ω = r² ⁄ (4C·t²), phase −r² ⁄ (4C·t) + π⁄4, amplitude
+// (1⁄π)·S·√(2π ⁄ ψ''). Ported here line for line, with the same click spectrum S the exact render uses (the build's half-sine
+// contact set to a flat click), and divided by fs, the exact render's scale. Same cutoffs: nothing at or above fs⁄2 or at or below 20 Hz.
+function buildChirp(r, fs) {
+  const N = NFFT, y = new Float64Array(N), C = C_ICE;
+  for (let n = 0; n < N; n++) {
+    const t = n / fs - T0; if (t <= 0) continue;
+    const w = r * r / (4 * C * t * t), f = w / (2 * Math.PI);
+    if (f >= fs * 0.5 || f <= 20) continue;
+    const S = band(f) * Math.exp(-f * r / F_ATTEN) / Math.sqrt(Math.max(r, 1));
+    const psi2 = r / (4 * Math.sqrt(C) * Math.pow(w, 1.5));
+    y[n] = (1 / Math.PI) * S * Math.sqrt(2 * Math.PI / psi2) * Math.cos(-(r * r / (4 * C)) / t + Math.PI / 4) / fs;
+  }
+  return y;
+}
+function correlation(a, b) { let ab = 0, aa = 0, bb = 0; for (let i = 0; i < a.length; i++) { ab += a[i] * b[i]; aa += a[i] * a[i]; bb += b[i] * b[i]; } return ab / Math.sqrt(aa * bb); }
+function rmsRatio(a, b) { let aa = 0, bb = 0; for (let i = 0; i < a.length; i++) { aa += a[i] * a[i]; bb += b[i] * b[i]; } return Math.sqrt(bb / aa); }
+// ---- end engine ----
+</script>
+
+<script>
+const FS = 48000, BAR_F1 = 330;
+const $ = (id) => document.getElementById(id);
+const S = { step: 0, r: 8, law: 'bent', ends: 'pinned', overlay: true };
+const STEPS = [
+  { name: 'a click', title: 'A click',
+    say: 'One click, heard right where it was struck. A click is every frequency at once, all starting at the same instant. The picture is a spectrogram: time across, pitch up, from 70 Hz at the bottom to 16 kHz at the top.',
+    do: 'Play.', watch: 'One thin vertical line: every frequency at the same moment.', hear: 'A tick.',
+    show: { r: false, bar: false, overlay: false, test: false }, law: 'click' },
+  { name: 'a plain road', title: 'A road with one speed',
+    say: 'Now carry the click some metres through a medium where every frequency travels at the same speed, 340 m/s, as sound does in air. It arrives later, and whole: nothing separates, because nothing is faster than anything else.',
+    do: 'Play. Move the distance.', watch: 'The line moves right as the distance grows, and stays a line.', hear: 'The same tick, a little later.',
+    show: { r: true, bar: false, overlay: true, test: false }, law: 'none' },
+  { name: 'the ice', title: 'The ice: speed depends on frequency',
+    say: 'Now the same click through the ice the GPU fountain is built on: a stiff plate, where a bending wave’s frequency grows with the square of its wavenumber. Higher frequencies travel faster, so they arrive first, and the lows trail behind. Nothing in this engine says “sweep down”. It turns each frequency through the phase the law gives it, and the chirp is what that adds up to.',
+    do: 'Play. Move the distance.', watch: 'The line bends into a curve, highs early, lows late. The violet line is the law’s prediction, r ⁄ (2·√(C·ω)). Farther away, the curve stretches.', hear: 'A “pew”, the sound of a stone thrown onto lake ice. Farther, a longer sweep.',
+    show: { r: true, bar: false, overlay: true, test: false }, law: 'ice' },
+  { name: 'between two ends', title: 'The same law, held between two ends',
+    say: 'Cut the plate into a bar and strike it. A bar only lets in the waves that fit its ends, a set of wavenumbers, and the law turns each one into a frequency. With a straight law the frequencies keep the wavenumbers’ spacing and come out as whole-number partials. With the ice’s law, frequency goes with the square of the wavenumber, so the same ends give partials at 1, 4, 9, 16: a bell-like bar, not a string. Free ends, as on a glockenspiel bar, give the famous 1 : 2.76 : 5.40.',
+    do: 'Play under each law and each pair of ends.', watch: 'The spectrum, with a faint ruler at every whole multiple of the first partial. Do the partials sit on it?', hear: 'Straight: a pitched, string-like tone. The ice’s law: a struck bar, clangorous.',
+    show: { r: false, bar: true, overlay: true, test: false }, law: 'bar' },
+  { name: 'the test', title: 'The test: is the build’s sweep the law’s?',
+    say: 'Everything so far turned each frequency through the law exactly, so its timing could only come out as the law’s. The GPU build cannot afford that for a thousand strikes a sample. It writes each chirp down as a formula: a sweep whose frequency t seconds after the strike is r² ⁄ (4C·t²). If that formula is the law’s own answer, the two sounds are one sound. A wrong sign, a factor of two or a wrong phase would part them. One honest limit: for this law the formula is nearly exact by mathematics, so this tests the build’s code, not the ice.',
+    do: 'Press “measure the sound itself”. Then hear the exact click and the build’s formula one after the other.', watch: 'The two waveforms overlaid, and the table: how alike they are at four distances.', hear: 'The same “pew” twice.',
+    show: { r: false, bar: false, overlay: false, test: true }, law: 'test' },
+];
+
+const sigPath = (() => { let s = ''; for (let i = 0; i <= 200; i++) { const t = i / 200 * 2 * Math.PI; s += (i ? 'L' : 'M') + (9 * Math.sin(3 * t + 0.6)).toFixed(2) + ' ' + (9 * Math.sin(2 * t)).toFixed(2); } return s; })();
+$('sig').setAttribute('d', sigPath);
+
+// ---- renders, cached ----
+const cache = new Map();
+function render1(law, r) { const key = law + '|' + r; if (!cache.has(key)) { cache.set(key, law === 'click' ? clickThrough('none', 0, FS) : clickThrough(law, r, FS)); if (cache.size > 12) cache.delete(cache.keys().next().value); } return cache.get(key); }
+function barSound() { return barStrike(barRatios(S.law, S.ends, 8), BAR_F1, FS, 2.5); }
+
+// ---- sound ----
+let ctx = null, master = null, src = null;
+function ensureAudio() {
+  if (ctx) return;
+  ctx = new (window.AudioContext || window.webkitAudioContext)();
+  const comp = ctx.createDynamicsCompressor(); comp.threshold.value = -14; comp.ratio.value = 4;
+  master = ctx.createGain(); master.gain.value = 0.5; master.connect(comp).connect(ctx.destination);
+}
+function stop() { if (src) { try { src.stop(); } catch (e) {} src = null; } }
+function play() {
+  const st = STEPS[S.step]; if (st.show.test) return;
+  ensureAudio(); if (ctx.state !== 'running') ctx.resume(); stop();
+  let y, len;
+  if (st.law === 'bar') { y = barSound(); len = y.length; }
+  else { y = render1(st.law, S.r); len = Math.min(y.length, Math.round((T0 + arrival(st.law === 'ice' ? 'ice' : 'none', S.r || 1, 60) + 0.3) * FS)); }
+  let pk = 0; for (let i = 0; i < len; i++) pk = Math.max(pk, Math.abs(y[i]));
+  const b = ctx.createBuffer(1, len, FS), d = b.getChannelData(0), fade = Math.round(0.02 * FS);
+  for (let i = 0; i < len; i++) d[i] = 0.5 * y[i] / pk * Math.min(1, (len - 1 - i) / fade);
+  src = ctx.createBufferSource(); src.buffer = b; src.connect(master); src.start();
+}
+
+// ---- pictures ----
+function fit(c) { const dpr = window.devicePixelRatio || 1, w = c.clientWidth || 900, h = +c.getAttribute('height'); c.width = Math.round(w * dpr); c.height = Math.round(h * dpr); const g = c.getContext('2d'); g.setTransform(dpr, 0, 0, dpr, 0, 0); return { g, w, h }; }
+const css = (v) => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+const FMIN = 70, FMAX = 16000;
+function timeSpan(law) { if (law === 'click') return 0.12; return Math.max(0.12, T0 + arrival(law, S.r, law === 'ice' ? 90 : 1000) + 0.06); }
+function drawSpectrogram() {
+  const st = STEPS[S.step], law = st.law, y = render1(law, S.r), { g, w, h } = fit($('pic'));
+  const L = 52, R = 8, top = 8, bot = h - 22, span = timeSpan(law), W = 512, hop = Math.max(16, Math.round(span * FS / 360));
+  const frames = Math.floor((span * FS - W) / hop), img = g.createImageData(Math.max(1, frames), bot - top);
+  const re = new Float64Array(W), im = new Float64Array(W), win = new Float64Array(W); for (let i = 0; i < W; i++) win[i] = 0.5 - 0.5 * Math.cos(2 * Math.PI * i / (W - 1));
+  const rows = bot - top, bin = (row) => { const f = FMIN * Math.pow(FMAX / FMIN, 1 - row / (rows - 1)); return Math.min(W / 2 - 1, Math.max(1, Math.round(f * W / FS))); };
+  const cols = []; let mx = 1e-12;
+  for (let fr = 0; fr < frames; fr++) { for (let i = 0; i < W; i++) { re[i] = (y[fr * hop + i] || 0) * win[i]; im[i] = 0; } fft(re, im, false); const col = new Float64Array(W / 2); for (let k = 0; k < W / 2; k++) { col[k] = Math.hypot(re[k], im[k]); mx = Math.max(mx, col[k]); } cols.push(col); }
+  const amber = [232, 184, 74];
+  for (let fr = 0; fr < frames; fr++) for (let row = 0; row < rows; row++) {
+    const v = Math.max(0, 1 + 20 * Math.log10(cols[fr][bin(row)] / mx + 1e-12) / 60), o = (row * frames + fr) * 4;
+    img.data[o] = 26 + (amber[0] - 26) * v; img.data[o + 1] = 26 + (amber[1] - 26) * v; img.data[o + 2] = 40 + (amber[2] - 40) * v; img.data[o + 3] = 255;
+  }
+  g.clearRect(0, 0, w, h);
+  const off = document.createElement('canvas'); off.width = Math.max(1, frames); off.height = rows; off.getContext('2d').putImageData(img, 0, 0);
+  g.imageSmoothingEnabled = true; g.drawImage(off, L, top, w - L - R, rows);
+  const X = (t) => L + (w - L - R) * (t - W / 2 / FS) / (frames * hop / FS), Yf = (f) => top + rows * (1 - Math.log(f / FMIN) / Math.log(FMAX / FMIN));
+  g.font = '10px JetBrains Mono, monospace'; g.fillStyle = css('--fg-3');
+  for (const f of [100, 250, 500, 1000, 2000, 4000, 8000, 16000]) g.fillText(f >= 1000 ? f / 1000 + 'k' : String(f), 4, Yf(f) + 3);
+  const tick = span > 0.6 ? 0.2 : span > 0.25 ? 0.05 : 0.02;
+  for (let t = 0; t <= span; t += tick) g.fillText(Math.round((t) * 1000) + ' ms', X(t + T0) + 2, h - 6);
+  if (S.overlay && law !== 'click') {
+    g.strokeStyle = css('--violet'); g.lineWidth = 1.5; g.beginPath();
+    for (let i = 0; i <= 200; i++) { const f = FMIN * Math.pow(FMAX / FMIN, i / 200), x = X(T0 + arrival(law, S.r, f)), yy = Yf(f); i ? g.lineTo(x, yy) : g.moveTo(x, yy); }
+    g.stroke();
+  }
+  $('pic-l').textContent = 'spectrogram · time after the strike, across · frequency, up';
+  $('pic-r').textContent = law === 'click' ? 'at the strike' : `${S.r} m · ${law === 'ice' ? 'the ice, ω = C·k²' : 'one speed, 340 m/s'}`;
+}
+function drawBar() {
+  const { g, w, h } = fit($('pic')), y = barSound(), N = 1 << 16, mag = spectrum(y, FS, N), L = 52, R = 8, top = 10, bot = h - 22, fmax = 6000;
+  let mx = 0; for (const v of mag) mx = Math.max(mx, v);
+  const X = (f) => L + (w - L - R) * f / fmax, Y = (db) => top + (bot - top) * Math.min(1, -db / 70);
+  g.clearRect(0, 0, w, h); g.font = '10px JetBrains Mono, monospace';
+  g.strokeStyle = css('--border-soft'); g.fillStyle = css('--fg-3');
+  for (const db of [0, -20, -40, -60]) { g.beginPath(); g.moveTo(L, Y(db)); g.lineTo(w - R, Y(db)); g.stroke(); g.fillText(db + ' dB', 4, Y(db) + 3); }
+  if (S.overlay) { g.strokeStyle = 'rgba(139,124,246,0.35)'; for (let k = 1; k * BAR_F1 <= fmax; k++) { g.beginPath(); g.moveTo(X(k * BAR_F1), top); g.lineTo(X(k * BAR_F1), bot); g.stroke(); g.fillText(k + '×', X(k * BAR_F1) + 2, top + 9); } }
+  g.fillStyle = css('--fg-3'); for (let f = 0; f <= fmax; f += 1000) g.fillText(f / 1000 + ' kHz', X(f) + 2, h - 6);
+  g.strokeStyle = css('--accent'); g.lineWidth = 1.2; g.beginPath();
+  for (let px = 0; px <= w - L - R; px++) { const f0 = px / (w - L - R) * fmax, f1 = (px + 1) / (w - L - R) * fmax; let m = 0; for (let k = Math.floor(f0 * N / FS); k <= Math.ceil(f1 * N / FS); k++) m = Math.max(m, mag[k] || 0); const yy = Y(20 * Math.log10(m / mx + 1e-12)); px ? g.lineTo(L + px, yy) : g.moveTo(L + px, yy); }
+  g.stroke();
+  $('pic-l').textContent = 'spectrum of the struck bar · frequency across · level up';
+  $('pic-r').textContent = `${S.law === 'bent' ? 'the ice’s law, ω ∝ k²' : 'straight law, ω ∝ k'} · ${S.ends} ends · violet ruler: whole multiples of the first`;
+}
+function drawMeter() {
+  const st = STEPS[S.step], m = $('meter');
+  if (st.law === 'none') m.innerHTML = `every frequency arrives at r ⁄ c = <b>${(S.r / C_AIR * 1000).toFixed(1)} ms</b>`;
+  else if (st.law === 'ice') m.innerHTML = `by the law: 8 kHz at <b>${(arrival('ice', S.r, 8000) * 1000).toFixed(0)} ms</b> · 1 kHz at <b>${(arrival('ice', S.r, 1000) * 1000).toFixed(0)} ms</b> · 125 Hz at <b>${(arrival('ice', S.r, 125) * 1000).toFixed(0)} ms</b> · the sweep from 8 kHz to 125 Hz takes <b>${((arrival('ice', S.r, 125) - arrival('ice', S.r, 8000)) * 1000).toFixed(0)} ms</b>`;
+  else if (st.law === 'bar') { const r = barRatios(S.law, S.ends, 5); m.innerHTML = `partials, as multiples of the first (${BAR_F1} Hz): ${r.map((x) => `<b>${x.toFixed(3)}</b>`).join(' · ')}`; }
+  else m.innerHTML = '';
+}
+let measured = null;
+function measure() {
+  $('measure').disabled = true; $('measure').textContent = 'measuring…';
+  setTimeout(() => {
+    const bands = [125, 250, 500, 1000, 2000, 4000, 8000], rows = [];
+    for (const r of [1, 3, 8, 16]) {
+      const ex = clickThrough('ice', r, FS), bu = buildChirp(r, FS);
+      let worst = 0; for (const f of bands) worst = Math.max(worst, Math.abs(bandArrival(ex, f, FS) - bandArrival(bu, f, FS)));
+      rows.push({ r, corr: correlation(ex, bu), gain: rmsRatio(ex, bu), worst });
+    }
+    const bars = [];
+    for (const ends of ['pinned', 'free']) for (const law of ['straight', 'bent']) {
+      const pred = barRatios(law, ends, 4), got = partialsOf(barStrike(barRatios(law, ends, 8), BAR_F1, FS, 2.5), FS, 4);
+      bars.push({ ends, law, pred, got: got.map((f) => f / got[0]) });
+    }
+    measured = { rows, bars };
+    $('measure').disabled = false; $('measure').textContent = 'measure again'; drawTest();
+  }, 30);
+}
+function drawWave() {
+  if (!STEPS[S.step].show.test) return;
+  const { g, w, h } = fit($('wave')), ex = render1('ice', 8), bu = buildChirp(8, FS), t0 = T0 + 0.080, t1 = T0 + 0.090, L = 8, R = 8;
+  const i0 = Math.round(t0 * FS), i1 = Math.round(t1 * FS); let pk = 0; for (let i = i0; i < i1; i++) pk = Math.max(pk, Math.abs(ex[i]));
+  const X = (i) => L + (w - L - R) * (i - i0) / (i1 - i0), Y = (v) => h / 2 - (h / 2 - 14) * v / pk;
+  g.clearRect(0, 0, w, h); g.font = '10px JetBrains Mono, monospace'; g.fillStyle = css('--fg-3');
+  g.fillText(`8 m · ${Math.round((t0 - T0) * 1000)}–${Math.round((t1 - T0) * 1000)} ms after the strike, as 1 kHz passes`, L + 2, h - 6);
+  const line = (y, col, dash, lw) => { g.strokeStyle = col; g.setLineDash(dash); g.lineWidth = lw; g.beginPath(); for (let i = i0; i < i1; i++) i === i0 ? g.moveTo(X(i), Y(y[i])) : g.lineTo(X(i), Y(y[i])); g.stroke(); };
+  line(ex, css('--accent'), [], 2.2); line(bu, css('--violet'), [4, 3], 1.2); g.setLineDash([]);
+}
+function hearOne(y) {
+  ensureAudio(); if (ctx.state !== 'running') ctx.resume(); stop();
+  const len = Math.round((T0 + arrival('ice', 8, 60) + 0.3) * FS); let pk = 0; for (let i = 0; i < len; i++) pk = Math.max(pk, Math.abs(y[i]));
+  const b = ctx.createBuffer(1, len, FS), d = b.getChannelData(0), fade = Math.round(0.02 * FS);
+  for (let i = 0; i < len; i++) d[i] = 0.5 * y[i] / pk * Math.min(1, (len - 1 - i) / fade);
+  src = ctx.createBufferSource(); src.buffer = b; src.connect(master); src.start();
+}
+function drawTest() {
+  drawWave();
+  if (!STEPS[S.step].show.test || !measured) { $('test-t').innerHTML = ''; $('bar-t').innerHTML = ''; $('verdict').textContent = ''; return; }
+  const M = measured;
+  let t = '<tr><th>distance</th><th>waveform correlation</th><th>loudness, formula ÷ exact</th><th>worst band arrival gap, 125 Hz–8 kHz</th></tr>';
+  for (const q of M.rows) t += `<tr><td>${q.r} m</td><td><b>${q.corr.toFixed(4)}</b></td><td><b>${q.gain.toFixed(4)}</b></td><td><b>${(q.worst * 1000).toFixed(2)} ms</b></td></tr>`;
+  $('test-t').innerHTML = t;
+  let b = '<tr><th>ends · law</th><th>partial 2</th><th>partial 3</th><th>partial 4</th></tr>';
+  for (const q of M.bars) b += `<tr><td>${q.ends} · ${q.law === 'bent' ? 'ω ∝ k²' : 'ω ∝ k'}</td>${[1, 2, 3].map((j) => `<td><i>${q.pred[j].toFixed(3)}</i> · <b>${(q.got[j] || NaN).toFixed(3)}</b></td>`).join('')}</tr>`;
+  $('bar-t').innerHTML = b + '<tr><td colspan="4" class="hint" style="text-align:left">step 4, shown, not tested · each cell: <i>the law at these ends</i> · <b>what the struck sound holds</b>, as multiples of its first partial</td></tr>';
+  const r8 = M.rows.find((q) => q.r === 8), r1 = M.rows.find((q) => q.r === 1);
+  $('verdict').innerHTML = `The build’s sweep is the law’s. At 8 m its written formula and the click carried exactly correlate at ${r8.corr.toFixed(4)}, at ${r8.gain.toFixed(3)} of the loudness, every band within ${(r8.worst * 1000).toFixed(2)} ms; closest in, at 1 m, ${r1.corr.toFixed(4)}. So what the GPU fountain plays is the ice’s answer, not a chosen sweep. But the page’s “not programmed” needs one word of care: in the build the sweep <em>is</em> written into the code, derived from the law rather than designed, and the law itself is one programmed line, ω = C·k². What nobody chose is its shape.`;
+}
+function updateEq() {
+  const law = STEPS[S.step].law;
+  const build = ['y(t) ∝ cos(−r² ⁄ (4C·t) + π⁄4),  ω(t) = r² ⁄ (4C·t²)', '(the build’s chirp) is written down: at (time t after the strike) its frequency is (distance)² ÷ (4 × C × t²), the moment the law brings that frequency in'];
+  const ice = ['ω = C·k²   →   t(ω) = r ⁄ (2·√(C·ω))', '(frequency) grows with the square of (wavenumber); so (when a frequency arrives) = (distance) ÷ (2 × the square root of C times that frequency): higher arrives sooner'];
+  const one = ['ω = c·k   →   t(ω) = r ⁄ c', '(frequency) is (speed) × (wavenumber); every frequency arrives at (distance) ÷ (speed)'];
+  const bar = ['kⱼ·L fixed by the ends   →   fⱼ = ω(kⱼ) ⁄ 2π', 'the ends choose (the wavenumbers); the law turns each into (a partial): straight keeps their spacing, squared does not'];
+  const p = law === 'click' ? [null, null] : law === 'none' ? [one, null] : law === 'ice' ? [ice, one] : law === 'bar' ? [bar, ice] : [build, ice];
+  $('eq1').textContent = p[0] ? p[0][0] : ''; $('eq1w').textContent = p[0] ? p[0][1] : '';
+  $('eq2').textContent = p[1] ? p[1][0] : ''; $('eq2w').textContent = p[1] ? p[1][1] : '';
+}
+function draw() {
+  const st = STEPS[S.step];
+  $('r-v').textContent = S.r.toFixed(1) + ' m';
+  if (st.law === 'bar') drawBar(); else if (!st.show.test) drawSpectrogram();
+  drawMeter(); drawTest(); updateEq();
+}
+function setStep(i) {
+  stop();
+  S.step = Math.max(0, Math.min(STEPS.length - 1, i)); const st = STEPS[S.step];
+  $('st-title').textContent = `${S.step + 1} · ${st.title}`; $('st-say').textContent = st.say;
+  $('st-do').textContent = st.do; $('st-watch').textContent = st.watch; $('st-hear').textContent = st.hear;
+  [...$('rail').children].forEach((b, j) => b.setAttribute('aria-current', j === S.step ? 'step' : 'false'));
+  $('back').disabled = S.step === 0; $('next').disabled = S.step === STEPS.length - 1;
+  $('c-r').classList.toggle('hide', !st.show.r); $('c-bar').classList.toggle('hide', !st.show.bar);
+  $('overlay').classList.toggle('hide', !st.show.overlay);
+  $('p-main').classList.toggle('hide', st.show.test); $('p-test').classList.toggle('hide', !st.show.test);
+  draw();
+}
+const press = (on, off) => { $(on).setAttribute('aria-pressed', 'true'); $(off).setAttribute('aria-pressed', 'false'); };
+STEPS.forEach((st, i) => { const b = document.createElement('button'); b.textContent = `${i + 1} · ${st.name}`; b.onclick = () => setStep(i); $('rail').appendChild(b); });
+$('back').onclick = () => setStep(S.step - 1); $('next').onclick = () => setStep(S.step + 1);
+$('r').oninput = (e) => { S.r = +e.target.value; stop(); draw(); };
+$('play').onclick = play; $('measure').onclick = measure;
+$('hear-exact').onclick = () => hearOne(render1('ice', 8)); $('hear-build').onclick = () => hearOne(buildChirp(8, FS));
+$('overlay').onclick = () => { S.overlay = !S.overlay; $('overlay').setAttribute('aria-pressed', String(S.overlay)); draw(); };
+$('law-straight').onclick = () => { S.law = 'straight'; press('law-straight', 'law-bent'); stop(); draw(); };
+$('law-bent').onclick = () => { S.law = 'bent'; press('law-bent', 'law-straight'); stop(); draw(); };
+$('ends-pinned').onclick = () => { S.ends = 'pinned'; press('ends-pinned', 'ends-free'); stop(); draw(); };
+$('ends-free').onclick = () => { S.ends = 'free'; press('ends-free', 'ends-pinned'); stop(); draw(); };
+window.addEventListener('resize', draw);
+setStep(0);
+</script>
+</body>
+</html>

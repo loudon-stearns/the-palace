@@ -1,0 +1,431 @@
+<!doctype html>
+<!--
+  title: Particle Synthesis — rich — thrown, or on a spring
+  born: 2026-11-03
+  links: [[Particle Synthesis]] (connects-to · rich-face-piece) · listed in [[Particle Synthesis — rich.json]] · serves § Particle Fountain: First Build · leans on [[Differential Equations]]
+  forward_vector: I am one particle thrown up under gravity set beside a mass on a spring, so the ear can tell a parabola from a harmonic oscillator. I walk from one throw to the section's own sentence and test it: a spring keeps its tempo whatever its swing and sounds as one sine at audio rate; a thrown particle's timing grows with its throw, its bounces speed up by the restitution, and at audio rate it buzzes with harmonics at 1 ⁄ n². I play inside the entry's rich face and stand alone opened directly; I change only when the section I serve does.
+  sound: nothing plays until a play button is clicked; the AudioContext is made on that click. Changing step stops the sound. The kit quiets it when the page hides or is left alone.
+  check: Particle Synthesis — rich — check.mjs runs this page's engine in Node against every number the page shows.
+-->
+<html lang="en" class="skin-graphite">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- needs nothing of its host: no device, no storage, no file, no host; sound only on a click -->
+<meta name="piece:needs" content="">
+<title>Thrown, or on a spring</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@300;400;500&display=swap">
+<style>
+  :root{
+    --bg:#0a0a0f; --bg-elev-1:#12121a; --bg-elev-2:#1a1a28; --border:#4a4a5e; --border-soft:rgba(255,255,255,0.06);
+    --fg-1:#e8e8f0; --fg-2:#c8c8d8; --fg-3:#8a8aa0; --fg-4:#4a4a5a;
+    --accent:#e8b84a; --accent-soft:rgba(232,184,74,0.10); --accent-line:rgba(232,184,74,0.5);
+    --violet:#8b7cf6;
+    --serif:'Cormorant Garamond','Source Serif 4',Georgia,serif; --sans:'Manrope',system-ui,sans-serif;
+    --display:'Anton','Bebas Neue',Impact,sans-serif; --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--fg-1)}
+  body{font-family:var(--serif);font-size:17px;line-height:1.7;padding:28px 16px 36px}
+  main{max-width:960px;margin:0 auto}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--fg-3)}
+  h1{font-family:var(--display);font-weight:400;font-size:42px;line-height:1.05;margin:6px 0 10px}
+  h2{font-family:var(--display);font-weight:400;font-size:27px;line-height:1.1;margin:4px 0 8px;letter-spacing:.01em}
+  p.lead{font-size:19px;color:var(--fg-2);margin:0 0 18px;max-width:66ch}
+  .rail{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 18px}
+  .rail button{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-3);background:transparent;border:1px solid var(--border);border-radius:4px;padding:7px 11px;cursor:pointer;transition:all .22s cubic-bezier(.4,0,.2,1)}
+  .rail button[aria-current="step"]{color:var(--fg-1);border-color:var(--fg-3);background:var(--bg-elev-2)}
+  p.say{color:var(--fg-2);margin:0 0 14px;max-width:68ch}
+  .dwh{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:8px 18px;margin:0 0 14px;font-family:var(--sans);font-size:13.5px;color:var(--fg-2);line-height:1.55}
+  .dwh b{font-family:var(--mono);font-weight:400;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);display:block}
+  .panel{background:var(--bg-elev-1);border:1px solid var(--border-soft);border-radius:4px;padding:16px;margin:0 0 14px}
+  .plabel{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-3);display:flex;justify-content:space-between;gap:10px;margin-bottom:8px;flex-wrap:wrap}
+  .plabel .a{color:var(--accent)} .plabel .v{color:var(--violet)}
+  canvas{width:100%;display:block;background:var(--bg-elev-2);border-radius:2px}
+  .rowb{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:12px}
+  button.play{font-family:var(--sans);font-weight:500;font-size:14px;color:#0a0a0f;background:var(--accent);border:0;border-radius:4px;padding:9px 20px;cursor:pointer;transition:box-shadow .22s cubic-bezier(.4,0,.2,1)}
+  button.play:hover{box-shadow:0 0 24px var(--accent-soft)}
+  button.play.v{background:var(--violet)}
+  button.ghost{font-family:var(--sans);font-size:14px;color:var(--fg-2);background:transparent;border:1px solid var(--border);border-radius:4px;padding:8px 14px;cursor:pointer}
+  button.ghost.small{font-size:13px;padding:6px 11px}
+  button.ghost[aria-pressed="true"]{color:var(--fg-1);border-color:var(--accent-line);background:var(--bg-elev-2)}
+  button:disabled{opacity:.4;cursor:default}
+  .ctl{display:grid;grid-template-columns:170px 1fr auto;gap:6px 14px;align-items:center;margin-top:14px}
+  .ctl label{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-3)}
+  .ctl input[type=range]{width:100%;accent-color:var(--accent)}
+  .ctl .v{font-family:var(--mono);font-size:14px;color:var(--fg-1);text-align:right;white-space:nowrap;min-width:10ch}
+  .meter{font-family:var(--mono);font-size:13px;color:var(--fg-2);margin-top:12px;line-height:1.75}
+  .meter b{color:var(--accent);font-weight:400} .meter i{color:var(--violet);font-style:normal}
+  .eq{font-family:var(--mono);font-size:13.5px;color:var(--fg-1);margin:14px 0 0;overflow-wrap:anywhere}
+  .eq.words{font-family:var(--sans);color:var(--fg-3);font-size:13px;margin-top:2px}
+  .hint{font-family:var(--sans);font-size:13px;color:var(--fg-3)}
+  table.t{border-collapse:collapse;margin-top:12px;font-family:var(--mono);font-size:13px;color:var(--fg-2)}
+  table.t td,table.t th{border-bottom:1px solid var(--border-soft);padding:5px 16px 5px 0;text-align:right;font-weight:400}
+  table.t th{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-3)}
+  table.t td:first-child,table.t th:first-child{text-align:left}
+  table.t b{color:var(--accent);font-weight:400}
+  table.t i{color:var(--violet);font-style:normal}
+  .verdict{font-family:var(--sans);font-size:14px;color:var(--fg-1);margin-top:14px;max-width:72ch;border-left:1.5px solid var(--accent-line);padding-left:12px}
+  .walk{display:flex;justify-content:space-between;gap:10px;margin-top:16px}
+  .hide{display:none!important}
+  footer{margin-top:28px;font-family:var(--sans);font-size:13px;color:var(--fg-4);display:flex;align-items:center;gap:10px}
+  footer b{font-family:var(--display);font-weight:400;letter-spacing:.06em;color:var(--fg-3)}
+  @media (max-width:560px){h1{font-size:32px}h2{font-size:23px}.ctl{grid-template-columns:100px 1fr auto}}
+</style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">Particle Synthesis · Particle Fountain: First Build · five steps</div>
+  <h1>Thrown, or on a spring</h1>
+  <p class="lead">The page says a fountain particle solves a second-order equation, m·ÿ = −m·g + drag, and that watching it you are watching the harmonic oscillator, with the gravity constant as the spring constant. Throw one particle, put a mass on a spring beside it, and listen to whether they are the same thing.</p>
+
+  <nav class="rail" id="rail" aria-label="steps"></nav>
+  <h2 id="st-title"></h2>
+  <p class="say" id="st-say"></p>
+  <div class="dwh"><div><b>do</b><span id="st-do"></span></div><div><b>watch</b><span id="st-watch"></span></div><div><b>hear</b><span id="st-hear"></span></div></div>
+
+  <div class="panel" id="p-motion">
+    <div class="plabel"><span>top · height over time · bottom · acceleration over time</span><span id="legend"></span></div>
+    <canvas id="pic" height="360"></canvas>
+    <div class="ctl" id="c-v0"><label for="v0">throw speed</label><input id="v0" type="range" min="2" max="8" step="0.1" value="5"><span class="v" id="v0-v"></span></div>
+    <div class="ctl" id="c-e"><label for="e">bounce kept (e)</label><input id="e" type="range" min="0.3" max="0.9" step="0.01" value="0.45"><span class="v" id="e-v"></span></div>
+    <div class="ctl" id="c-z"><label for="z">spring damping</label><input id="z" type="range" min="0" max="0.12" step="0.005" value="0.04"><span class="v" id="z-v"></span></div>
+    <div class="rowb">
+      <button class="play" id="play-throw">▸ hear the throw</button>
+      <button class="play v" id="play-spring">▸ hear the spring</button>
+      <button class="ghost small" id="harder" aria-pressed="false">throw twice as hard</button>
+    </div>
+    <div class="meter" id="meter"></div>
+  </div>
+
+  <div class="panel" id="p-test">
+    <div class="plabel"><span>the test · the same two motions, sped up until the motion is the sound</span><span>harmonics in dB under the first</span></div>
+    <canvas id="spec" height="220"></canvas>
+    <div class="rowb">
+      <button class="play" id="ar-throw">▸ bouncing, at audio rate</button>
+      <button class="play v" id="ar-spring">▸ spring, at audio rate</button>
+      <button class="ghost small" id="ar-harder" aria-pressed="false">twice as hard</button>
+    </div>
+    <table class="t" id="test-t"></table>
+    <table class="t" id="time-t"></table>
+    <p class="verdict" id="verdict"></p>
+  </div>
+
+  <div class="eq" id="eq1"></div>
+  <div class="eq words" id="eq1w"></div>
+  <div class="eq" id="eq2"></div>
+  <div class="eq words" id="eq2w"></div>
+
+  <div class="walk"><button class="ghost" id="back">← back</button><button class="ghost" id="next">next →</button></div>
+  <footer><svg width="22" height="22" viewBox="-11 -11 22 22" aria-hidden="true"><path id="sig" fill="none" stroke="#8a8aa0" stroke-width="1"/></svg><span><b>LOUD’N LIVE</b> · made for the rich face of Particle Synthesis · the engine runs here, in this page, and in its check</span></footer>
+</main>
+
+<script id="engine">
+// ---- engine: one particle and one spring, stepped once per sample (shared by the page and its headless check) ----
+// The particle: m·ÿ = −m·g − k·|v|·v, once per sample.
+// With air drag it is stepped as the GPU build steps it: v += a·dt, then y += v·dt, and a strike reflects on the grid.
+// Without drag the pull is constant, so each step is solved exactly (y += v·dt − ½·g·dt²) and a strike is found
+// inside its step, reflected, and the rest of the step flown: the arcs are the equation's, not the grid's.
+// opts: { v0, g, e (bounce kept; 0 = no floor bounce, it lands and stops), drag (k/m, per metre), dur, fs }
+function simThrow(o) {
+  const fs = o.fs, dt = 1 / fs, n = Math.round(o.dur * fs), g = o.g, kd = o.drag || 0, e = o.e || 0;
+  const y = new Float64Array(n), a = new Float64Array(n), strikes = [];
+  let p = 0, v = o.v0, resting = false;
+  const land = (tHit, vDown) => { strikes.push(tHit); if (e <= 0 || vDown * e < 0.02 * o.v0) { resting = true; return false; } return true; };
+  for (let i = 0; i < n; i++) {
+    if (resting) { y[i] = 0; a[i] = 0; continue; }
+    const acc = -g - kd * Math.abs(v) * v;
+    if (kd) {
+      v += acc * dt; const pPrev = p; p += v * dt;
+      if (p < 0 && v < 0) { if (land((i + pPrev / (pPrev - p)) * dt, -v)) { p = -p * e; v = -v * e; } else { p = 0; v = 0; } }
+    } else {
+      const pn = p + v * dt - 0.5 * g * dt * dt;
+      if (pn < 0 && v - g * dt < 0) {
+        const s = (v + Math.sqrt(v * v + 2 * g * p)) / g, vh = v - g * s;       // when inside this step it reaches the floor, and how fast
+        if (land(i * dt + s, -vh)) { const r = dt - s, vu = -vh * e; p = vu * r - 0.5 * g * r * r; v = vu - g * r; } else { p = 0; v = 0; }
+      } else { p = pn; v -= g * dt; }
+    }
+    y[i] = p; a[i] = resting ? 0 : acc;
+  }
+  return { y, a, strikes };
+}
+// The spring: ÿ = −ω²·y − 2ζω·ẏ, launched from rest position with speed v0, stepped the same way.
+function simSpring(o) {
+  const fs = o.fs, dt = 1 / fs, n = Math.round(o.dur * fs), w = o.w, z = o.zeta || 0;
+  const y = new Float64Array(n), a = new Float64Array(n);
+  let p = 0, v = o.v0;
+  for (let i = 0; i < n; i++) { const acc = -w * w * p - 2 * z * w * v; v += acc * dt; p += v * dt; y[i] = p; a[i] = acc; }
+  return { y, a };
+}
+// times the motion crosses its own centre going up (interpolated); for the spring that is once a period
+function upCrossings(y, fs, centre) {
+  const c = centre || 0, out = [];
+  for (let i = 1; i < y.length; i++) if (y[i - 1] < c && y[i] >= c) out.push((i - 1 + (c - y[i - 1]) / (y[i] - y[i - 1])) / fs);
+  return out;
+}
+const diffs = (t) => t.slice(1).map((x, i) => x - t[i]);
+// the amplitude of y at frequency f, over the whole of y under a Hann window (one Goertzel bin)
+function amplitudeAt(y, f, fs) {
+  const n = y.length, w = 2 * Math.PI * f / fs; let re = 0, im = 0, hs = 0;
+  for (let i = 0; i < n; i++) { const h = 0.5 - 0.5 * Math.cos(2 * Math.PI * i / (n - 1)); hs += h; const v = y[i] * h; re += v * Math.cos(w * i); im -= v * Math.sin(w * i); }
+  return 2 * Math.hypot(re, im) / hs;
+}
+// the motion as a sound: drop its mean, find its pitch from its own repeats, and weigh harmonics 1..H
+function harmonics(y, fs, H, period) {
+  let m = 0; for (const v of y) m += v; m /= y.length;
+  const x = y.map((v) => v - m), f0 = 1 / period, a1 = amplitudeAt(x, f0, fs), out = [];
+  for (let k = 1; k <= H; k++) out.push({ k, f: k * f0, dB: 20 * Math.log10(Math.max(amplitudeAt(x, k * f0, fs), 1e-12) / a1) });
+  return { f0, rows: out };
+}
+// the audio-rate pair: a bouncing particle (e = 1) and a spring, each tuned so a gentle throw sounds at f Hz
+function audioRate(f, harder, fs, dur) {
+  const v0 = harder ? 2 : 1, g = 2 * 1 * f;                 // flight time 2·v0 ⁄ g = 1 ⁄ f for the gentle throw
+  const thr = simThrow({ v0, g, e: 1, fs, dur });
+  const spr = simSpring({ v0, w: 2 * Math.PI * f, zeta: 0, fs, dur });
+  return { thr, spr, thrPeriod: mean(diffs(thr.strikes)), sprPeriod: mean(diffs(upCrossings(spr.y, fs))) };
+}
+const mean = (a) => a.reduce((s, v) => s + v, 0) / a.length;
+// predicted harmonics of a train of parabolic arcs: 1 ⁄ n², in dB under the first
+const arcHarmonicDb = (k) => -40 * Math.log10(k);
+// ---- end engine ----
+</script>
+
+<script>
+const FS = 48000, G = 9.81, V0 = 5, W = Math.PI * G / V0;   // the spring's period equals the gentle throw's first flight, 2·v0 ⁄ g = 1.019 s
+const PITCH = (y) => 220 * Math.pow(2, y / 2);                // the page's mapping: height to pitch, one octave per 2 m
+const AR_F = 220;
+const $ = (id) => document.getElementById(id);
+const S = { step: 0, v0: 5, e: 0.45, z: 0.04, harder: false, arHarder: false };
+const STEPS = [
+  { name: 'thrown once', title: 'One particle, thrown up once',
+    say: 'One particle leaves the floor going up at 5 m/s. Gravity is its only force, so its acceleration is the same at every height: −9.81 m/s², up or down, high or low. That draws a parabola. Its height sets its pitch, as the page’s audio mapping says; the scale is this piece’s: one octave for every two metres.',
+    do: 'Hear the throw. Move the throw speed.', watch: 'Top: one arch. Bottom: a flat line. The acceleration never changes while it flies.', hear: 'A pitch that rises, slows at the top and falls faster than it rose. Then nothing: it has landed.',
+    show: { v0: true, e: false, z: false, throw: true, spring: false, harder: false, test: false } },
+  { name: 'the floor', title: 'Give it a floor',
+    say: 'Now it bounces, keeping a share e of its speed each time (the GPU build keeps 0.45). Each flight lasts twice its launch speed over g, so each flight is e times the one before. The bounces get quicker as they get lower, which is the sound of a ball settling on a table.',
+    do: 'Hear the throw. Move e.', watch: 'Top: arches shrinking, each one shorter. The meter lists each flight and its ratio to the last.', hear: 'Arcs of pitch speeding up into a rattle, then stillness.',
+    show: { v0: true, e: true, z: false, throw: true, spring: false, harder: false, test: false } },
+  { name: 'a spring', title: 'A mass on a spring',
+    say: 'Something else: a mass on a spring, pushed from its rest position at the same 5 m/s. The spring pulls back in proportion to how far the mass has gone, so its acceleration is a mirror of its height. That is the harmonic oscillator, and its motion is a sine. A little damping lets the swing die away.',
+    do: 'Hear the spring. Move the damping.', watch: 'Top: a sine, below and above rest. Bottom: the acceleration, the same sine upside down.', hear: 'A vibrato that keeps its rate exactly while it fades.',
+    show: { v0: false, e: false, z: true, throw: false, spring: true, harder: false, test: false } },
+  { name: 'throw harder', title: 'Throw both twice as hard',
+    say: 'Both together, then both twice as hard. The spring’s swing doubles and its period does not move: how long a cycle takes is set by the spring and the mass alone. The thrown particle’s flight doubles: how long it takes is set by how hard it was thrown. Near the top an arch and a sine look alike, which is why the two are easy to mistake for each other. Their timing is where they part.',
+    do: 'Hear each, then press “throw twice as hard” and hear each again.', watch: 'Amber: the thrown particle. Violet: the spring. The meter: each one’s period, gentle and hard.', hear: 'The spring’s rate stays put. The bounces stretch out.',
+    show: { v0: false, e: true, z: true, throw: true, spring: true, harder: true, test: false } },
+  { name: 'the test', title: 'The test: is the fountain particle a harmonic oscillator?',
+    say: 'Speed both motions up until a gentle throw repeats 220 times a second, and let the motion itself be the sound. A harmonic oscillator is a sine: one line, no harmonics, the same pitch however hard it is pushed. Give the particle a floor that keeps every bit of its speed (e = 1) so it repeats forever, then measure what it makes.',
+    do: 'Hear each at audio rate, then twice as hard.', watch: 'The spectrum: amber bars for the bouncing particle, violet for the spring. The tables: every number measured from the motion the engine computed, one sample at a time.', hear: 'The spring: a pure tone that stays at 220 Hz. The bouncing particle: a buzz, and an octave lower when thrown twice as hard.',
+    show: { v0: false, e: false, z: false, throw: false, spring: false, harder: false, test: true } },
+];
+
+const sigPath = (() => { let s = ''; for (let i = 0; i <= 200; i++) { const t = i / 200 * 2 * Math.PI; s += (i ? 'L' : 'M') + (9 * Math.sin(3 * t + 0.6)).toFixed(2) + ' ' + (9 * Math.sin(2 * t)).toFixed(2); } return s; })();
+$('sig').setAttribute('d', sigPath);
+
+// ---- the two motions for the slow steps (a picture at 2 kHz; the sound re-renders at 48 kHz) ----
+const VFS = 2000;
+function throwOf(fs, v0, mode) {
+  const e = mode === 'once' ? 0 : S.e, T1 = 2 * v0 / G;
+  const dur = mode === 'once' ? 1.15 * T1 : Math.min(8, Math.max(2.4, T1 / (1 - e) + 0.4));
+  return { ...simThrow({ v0, g: G, e, fs, dur }), dur };
+}
+function springOf(fs, v0, dur) { return { ...simSpring({ v0, w: W, zeta: S.z, fs, dur }), dur }; }
+function stepDur() { const n = STEPS[S.step].name; if (n === 'thrown once') return 1.15 * 2 * S.v0 / G; if (n === 'the floor') return Math.min(8, Math.max(2.4, 2 * S.v0 / G / (1 - S.e) + 0.4)); return 6; }
+
+// ---- sound ----
+let ctx = null, master = null, src = null;
+function ensureAudio() {
+  if (ctx) return;
+  ctx = new (window.AudioContext || window.webkitAudioContext)();
+  const comp = ctx.createDynamicsCompressor(); comp.threshold.value = -14; comp.ratio.value = 4;
+  master = ctx.createGain(); master.gain.value = 0.5; master.connect(comp).connect(ctx.destination);
+}
+function stop() { if (src) { try { src.stop(); } catch (e) {} src = null; } }
+function playBuffer(data) {
+  ensureAudio(); if (ctx.state !== 'running') ctx.resume(); stop();
+  const b = ctx.createBuffer(1, data.length, ctx.sampleRate); b.copyToChannel(data, 0);
+  src = ctx.createBufferSource(); src.buffer = b; src.connect(master); src.start();
+}
+// height to pitch, a sine following it; a soft tick at every strike; silence while at rest
+function sonify(y, strikes, fs, resting) {
+  const out = new Float32Array(y.length + Math.round(0.15 * fs)); let ph = 0, env = 0;
+  for (let i = 0; i < y.length; i++) {
+    const on = resting ? (resting(i) ? 0 : 1) : 1; env += (on - env) * 0.002;
+    ph += 2 * Math.PI * PITCH(y[i]) / fs; out[i] = 0.32 * env * Math.sin(ph);
+  }
+  for (const t of strikes || []) { const s = Math.round(t * fs); for (let j = 0; j < 0.03 * fs && s + j < out.length; j++) out[s + j] += 0.25 * Math.exp(-j / (0.004 * fs)) * Math.sin(2 * Math.PI * 1800 * j / fs); }
+  const fade = Math.round(0.01 * fs); for (let i = 0; i < fade; i++) { out[i] *= i / fade; }
+  return out;
+}
+function hearThrow() {
+  const v0 = S.v0 * (S.harder ? 2 : 1), mode = STEPS[S.step].name === 'thrown once' ? 'once' : 'floor';
+  const r = throwOf(FS, v0, mode); const last = r.strikes.length ? r.strikes[r.strikes.length - 1] : r.dur;
+  const restAt = mode === 'once' ? r.strikes[0] : last;
+  playBuffer(sonify(r.y, r.strikes, FS, (i) => i / FS > restAt));
+}
+function hearSpring() {
+  const v0 = S.v0 * (S.harder ? 2 : 1), r = springOf(FS, STEPS[S.step].name === 'throw harder' ? (S.harder ? 2 * V0 : V0) : V0, 6);
+  const out = sonify(r.y, [], FS, null), fade = Math.round(0.3 * FS); for (let i = 0; i < fade; i++) out[r.y.length - 1 - i] *= i / fade;
+  void v0; playBuffer(out);
+}
+function hearAudioRate(which) {
+  const ar = audioRate(AR_F, S.arHarder, FS, 2.0), y = which === 'throw' ? ar.thr.y : ar.spr.y;
+  let m = 0, pk = 0; for (const v of y) m += v; m /= y.length; for (const v of y) pk = Math.max(pk, Math.abs(v - m));
+  const out = new Float32Array(y.length), fade = Math.round(0.02 * FS);
+  for (let i = 0; i < y.length; i++) { const f = Math.min(1, i / fade, (y.length - 1 - i) / fade); out[i] = 0.3 * f * (y[i] - m) / pk; }
+  playBuffer(out);
+}
+
+// ---- pictures ----
+function fit(c) { const dpr = window.devicePixelRatio || 1, w = c.clientWidth || 900, h = +c.getAttribute('height'); c.width = Math.round(w * dpr); c.height = Math.round(h * dpr); const g = c.getContext('2d'); g.setTransform(dpr, 0, 0, dpr, 0, 0); return { g, w, h }; }
+const css = (v) => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+function drawMotion() {
+  const st = STEPS[S.step]; if (st.show.test) return;
+  const { g, w, h } = fit($('pic')), dur = stepDur(), L = 46, R = 10, top = 10, mid = h * 0.66, bot = h - 22;
+  g.clearRect(0, 0, w, h);
+  const series = [];
+  const hard = st.name === 'throw harder';
+  if (st.show.throw) {
+    const mode = st.name === 'thrown once' ? 'once' : 'floor';
+    if (hard) { series.push({ r: throwOf(VFS, V0, 'floor'), col: css('--accent'), dash: [] }); series.push({ r: throwOf(VFS, 2 * V0, 'floor'), col: css('--accent'), dash: [5, 4] }); }
+    else series.push({ r: throwOf(VFS, S.v0, mode), col: css('--accent'), dash: [] });
+  }
+  if (st.show.spring) {
+    if (hard) { series.push({ r: springOf(VFS, V0, 6), col: css('--violet'), dash: [] }); series.push({ r: springOf(VFS, 2 * V0, 6), col: css('--violet'), dash: [5, 4] }); }
+    else series.push({ r: springOf(VFS, V0, 6), col: css('--violet'), dash: [] });
+  }
+  let ymin = 0, ymax = 1, amin = -12, amax = 12;
+  for (const s of series) for (let i = 0; i < s.r.y.length && i / VFS <= dur; i++) { ymin = Math.min(ymin, s.r.y[i]); ymax = Math.max(ymax, s.r.y[i]); amin = Math.min(amin, s.r.a[i]); amax = Math.max(amax, s.r.a[i]); }
+  ymax *= 1.08; ymin = ymin < 0 ? ymin * 1.08 : 0;
+  const X = (t) => L + (w - L - R) * t / dur, Y = (v) => mid - 14 - (mid - 14 - top) * (v - ymin) / (ymax - ymin), A = (v) => bot - (bot - mid - 8) * (v - amin) / (amax - amin);
+  g.font = '10px JetBrains Mono, monospace'; g.fillStyle = css('--fg-3'); g.strokeStyle = css('--border-soft'); g.lineWidth = 1;
+  for (let t = 0; t <= dur + 1e-9; t += dur > 4 ? 1 : 0.25) { g.beginPath(); g.moveTo(X(t), top); g.lineTo(X(t), bot); g.stroke(); g.fillText(t.toFixed(dur > 4 ? 0 : 2) + ' s', X(t) + 2, h - 6); }
+  g.strokeStyle = css('--fg-4'); g.beginPath(); g.moveTo(L, Y(0)); g.lineTo(w - R, Y(0)); g.stroke(); g.fillText(st.show.throw ? 'floor 0 m' : 'rest 0 m', 4, Y(0) - 3);
+  g.fillText(ymax.toFixed(1) + ' m', 4, top + 8);
+  g.beginPath(); g.moveTo(L, A(0)); g.lineTo(w - R, A(0)); g.stroke(); g.fillText('0 m/s²', 4, A(0) - 3);
+  g.fillText('−9.81', 4, A(-G) + 3);
+  for (const s of series) {
+    g.strokeStyle = s.col; g.setLineDash(s.dash); g.lineWidth = 1.5;
+    g.beginPath(); for (let i = 0; i < s.r.y.length && i / VFS <= dur; i++) { const x = X(i / VFS), y = Y(s.r.y[i]); i ? g.lineTo(x, y) : g.moveTo(x, y); } g.stroke();
+    g.lineWidth = 1; g.globalAlpha = 0.85;
+    g.beginPath(); let started = false;
+    for (let i = 0; i < s.r.a.length && i / VFS <= dur; i++) {
+      const resting = s.r.a[i] === 0 && s.r.y[i] === 0 && i > 0; const x = X(i / VFS), y = A(s.r.a[i]);
+      if (resting) { started = false; continue; } started ? g.lineTo(x, y) : g.moveTo(x, y); started = true;
+    }
+    g.stroke(); g.globalAlpha = 1;
+    if (s.r.strikes) { g.fillStyle = s.col; for (const t of s.r.strikes) if (t <= dur) g.fillRect(X(t) - 0.5, Y(0) - 5, 1.5, 10); }
+  }
+  g.setLineDash([]);
+  $('legend').innerHTML = (st.show.throw ? '<span class="a">amber · thrown</span> ' : '') + (st.show.spring ? '<span class="v">violet · spring</span>' : '') + (hard ? ' · dashed · twice as hard' : '');
+}
+function fmt(x, d) { return x.toFixed(d); }
+function drawMeter() {
+  const st = STEPS[S.step], m = $('meter');
+  if (st.name === 'thrown once') {
+    const r = throwOf(FS, S.v0, 'once'), apex = Math.max(...r.y);
+    m.innerHTML = `flight <b>${fmt(r.strikes[0], 3)} s</b> (2·v0 ⁄ g = ${fmt(2 * S.v0 / G, 3)}) · top <b>${fmt(apex, 2)} m</b> (v0² ⁄ 2g = ${fmt(S.v0 * S.v0 / 2 / G, 2)}) · pitch 220 → <b>${PITCH(apex).toFixed(0)} Hz</b> → 220<br>acceleration in flight: <b>${fmt(Math.min(...r.a.slice(0, Math.round(r.strikes[0] * FS) - 2)), 2).replace('-', '−')} to ${fmt(Math.max(...r.a.slice(0, Math.round(r.strikes[0] * FS) - 2)), 2).replace('-', '−')} m/s²</b>, at every height`;
+  } else if (st.name === 'the floor') {
+    const r = throwOf(FS, S.v0, 'floor'), T = diffs([0, ...r.strikes]).slice(0, 6);
+    m.innerHTML = `flights: ${T.map((t) => `<b>${fmt(t, 3)}</b>`).join(' · ')} s<br>each ÷ the one before: ${T.slice(1).map((t, i) => `<b>${fmt(t / T[i], 3)}</b>`).join(' · ')} &nbsp; (e = ${fmt(S.e, 2)})`;
+  } else if (st.name === 'a spring') {
+    const r = springOf(FS, V0, 6), P = diffs(upCrossings(r.y, FS)), pk = [];
+    for (let k = 0; k < 5; k++) { let mx = 0; for (let i = Math.round(k * P[0] * FS); i < Math.round((k + 1) * P[0] * FS) && i < r.y.length; i++) mx = Math.max(mx, r.y[i]); pk.push(mx); }
+    m.innerHTML = `periods: ${P.slice(0, 5).map((t) => `<i>${fmt(t, 4)}</i>`).join(' · ')} s &nbsp; (2π ⁄ ω = ${fmt(2 * Math.PI / W, 4)}, damping moves it by √(1 − ζ²))<br>swing, cycle by cycle: ${pk.map((v) => `<i>${fmt(v, 2)}</i>`).join(' · ')} m`;
+  } else if (st.name === 'throw harder') {
+    const a = throwOf(FS, V0, 'floor'), b = throwOf(FS, 2 * V0, 'floor'), sa = springOf(FS, V0, 6), sb = springOf(FS, 2 * V0, 6);
+    const pa = diffs(upCrossings(sa.y, FS))[0], pb = diffs(upCrossings(sb.y, FS))[0];
+    m.innerHTML = `thrown · first flight <b>${fmt(a.strikes[0], 3)} s</b> gentle, <b>${fmt(b.strikes[0], 3)} s</b> twice as hard: × <b>${fmt(b.strikes[0] / a.strikes[0], 3)}</b><br>spring · first period <i>${fmt(pa, 4)} s</i> gentle, <i>${fmt(pb, 4)} s</i> twice as hard: × <i>${fmt(pb / pa, 4)}</i>`;
+  } else m.innerHTML = '';
+}
+let measured = null;
+function measureTest() {
+  const rows = [];
+  for (const hard of [false, true]) {
+    const ar = audioRate(AR_F, hard, FS, 1.0);
+    const ht = harmonics(ar.thr.y, FS, 6, ar.thrPeriod), hs = harmonics(ar.spr.y, FS, 6, ar.sprPeriod);
+    rows.push({ hard, ht, hs });
+  }
+  // slow-motion timing, from the steps before
+  const e = 0.45, fl = diffs([0, ...simThrow({ v0: V0, g: G, e, fs: FS, dur: 3 }).strikes]);
+  const drag = diffs([0, ...simThrow({ v0: V0, g: G, e, drag: 1e-4 / 0.010, fs: FS, dur: 3 }).strikes]);
+  const sp1 = diffs(upCrossings(simSpring({ v0: V0, w: W, zeta: 0.04, fs: FS, dur: 6 }).y, FS));
+  const sp2 = diffs(upCrossings(simSpring({ v0: 2 * V0, w: W, zeta: 0.04, fs: FS, dur: 6 }).y, FS));
+  measured = { rows, fl, drag, sp1, sp2 };
+}
+function drawTest() {
+  if (!STEPS[S.step].show.test) return;
+  if (!measured) measureTest();
+  const { g, w, h } = fit($('spec')), r = measured.rows[S.arHarder ? 1 : 0], L = 46, R = 10, top = 12, bot = h - 24;
+  g.clearRect(0, 0, w, h);
+  const maxF = 6 * AR_F, X = (f) => L + (w - L - R) * f / (maxF + AR_F * 0.5), Y = (db) => top + (bot - top) * Math.min(1, -db / 120);
+  g.font = '10px JetBrains Mono, monospace'; g.fillStyle = css('--fg-3'); g.strokeStyle = css('--border-soft');
+  for (const db of [0, -20, -40, -60, -80, -100, -120]) { g.beginPath(); g.moveTo(L, Y(db)); g.lineTo(w - R, Y(db)); g.stroke(); g.fillText(db + ' dB', 2, Y(db) + 3); }
+  for (let k = 1; k <= 6; k++) g.fillText(Math.round(k * AR_F) + ' Hz', X(k * AR_F) - 14, h - 8);
+  const bar = (rows, col, dx) => { g.fillStyle = col; for (const q of rows) { const x = X(q.f) + dx, y = Y(q.dB); g.fillRect(x - 3, y, 6, bot - y); } };
+  bar(r.ht.rows, css('--accent'), -5); bar(r.hs.rows, css('--violet'), 5);
+  g.strokeStyle = css('--fg-2'); g.setLineDash([3, 3]);
+  for (const q of r.ht.rows) { const y = Y(arcHarmonicDb(q.k)); g.beginPath(); g.moveTo(X(q.f) - 12, y); g.lineTo(X(q.f) + 2, y); g.stroke(); }
+  g.setLineDash([]);
+  const [a, b] = measured.rows;
+  let t = '<tr><th></th><th>pitch</th><th>2nd</th><th>3rd</th><th>4th</th><th>5th</th></tr>';
+  const row = (name, hh, cls) => `<tr><td>${name}</td><td><${cls}>${hh.f0.toFixed(1)} Hz</${cls}></td>${hh.rows.slice(1, 5).map((q) => `<td><${cls}>${q.dB < -119 ? 'below −120' : q.dB.toFixed(1)}</${cls}></td>`).join('')}</tr>`;
+  t += `<tr><td>a train of arcs, 1 ⁄ n²</td><td>—</td>${[2, 3, 4, 5].map((k) => `<td>${arcHarmonicDb(k).toFixed(1)}</td>`).join('')}</tr>`;
+  t += row('bouncing, gentle', a.ht, 'b') + row('bouncing, twice as hard', b.ht, 'b') + row('spring, gentle', a.hs, 'i') + row('spring, twice as hard', b.hs, 'i');
+  $('test-t').innerHTML = t;
+  const M = measured;
+  $('time-t').innerHTML = `<tr><th>slow motion</th><th>1st</th><th>2nd</th><th>3rd</th><th>4th</th><th>ratio</th></tr>`
+    + `<tr><td>thrown, e = 0.45 · flights (s)</td>${M.fl.slice(0, 4).map((v) => `<td><b>${v.toFixed(3)}</b></td>`).join('')}<td><b>${(M.fl[1] / M.fl[0]).toFixed(3)}</b></td></tr>`
+    + `<tr><td>same, with the build’s air drag</td>${M.drag.slice(0, 4).map((v) => `<td><b>${v.toFixed(3)}</b></td>`).join('')}<td><b>${(M.drag[1] / M.drag[0]).toFixed(3)}</b></td></tr>`
+    + `<tr><td>spring, ζ = 0.04 · periods (s)</td>${M.sp1.slice(0, 4).map((v) => `<td><i>${v.toFixed(4)}</i></td>`).join('')}<td><i>${(M.sp1[3] / M.sp1[0]).toFixed(4)}</i></td></tr>`
+    + `<tr><td>spring, twice as hard</td>${M.sp2.slice(0, 4).map((v) => `<td><i>${v.toFixed(4)}</i></td>`).join('')}<td><i>${(M.sp2[0] / M.sp1[0]).toFixed(4)}</i></td></tr>`;
+  const worstArc = Math.max(...a.ht.rows.slice(1, 5).map((q) => Math.abs(q.dB - arcHarmonicDb(q.k))));
+  const sprH = Math.max(...a.hs.rows.slice(1).map((q) => q.dB));
+  $('verdict').innerHTML = `Not a harmonic oscillator. The spring is one sine: its loudest harmonic sits at ${sprH < -119 ? 'below −120' : sprH.toFixed(0)} dB, and twice as hard it stays at ${b.hs.f0.toFixed(1)} Hz. The bouncing particle is a train of parabolic arcs: its harmonics fall as 1 ⁄ n², within ${worstArc.toFixed(2)} dB of the prediction, and twice as hard its pitch halves, ${a.ht.f0.toFixed(1)} → ${b.ht.f0.toFixed(1)} Hz. The particle does solve a second-order equation, as the page says; with a floor it even repeats. But its pull does not grow with distance, so it has no spring constant for g to be, and the time of each flight belongs to the throw, not to the equation. (A fountain that repeated by a fixed emission rate would keep its emitter’s period; the halving is the bounce’s.)`;
+}
+function updateEq() {
+  const st = STEPS[S.step], test = st.show.test;
+  const thrown = ['m·ÿ = −m·g   →   y(t) = v0·t − ½·g·t²', '(mass) × (acceleration) = −(mass) × (gravity): the pull is the same at every height, and the path is a parabola'];
+  const spring = ['m·ÿ = −k·y   →   y(t) = (v0 ⁄ ω)·sin(ω·t),  ω = √(k ⁄ m)', '(mass) × (acceleration) = −(stiffness) × (distance from rest): the pull grows with distance, and the path is a sine whose period, 2π ⁄ ω, ignores the throw'];
+  const flight = ['T = 2·v0 ⁄ g,   Tₙ₊₁ = e·Tₙ', '(time in the air) = 2 × (launch speed) ÷ (gravity); each bounce keeps e of the speed, so each flight is e times the last'];
+  const arcs = ['aₙ ∝ 1 ⁄ n²   (a train of parabolic arcs)', '(the n-th harmonic) falls as one over n squared: the 2nd 12 dB down, the 3rd 19 dB'];
+  let p = [thrown, flight];
+  if (st.name === 'thrown once') p = [thrown, null];
+  if (st.name === 'a spring') p = [spring, null];
+  if (st.name === 'throw harder') p = [flight, spring];
+  if (test) p = [arcs, spring];
+  $('eq1').textContent = p[0][0]; $('eq1w').textContent = p[0][1];
+  $('eq2').textContent = p[1] ? p[1][0] : ''; $('eq2w').textContent = p[1] ? p[1][1] : '';
+}
+function showControls() {
+  const sh = STEPS[S.step].show;
+  $('c-v0').classList.toggle('hide', !sh.v0); $('c-e').classList.toggle('hide', !sh.e); $('c-z').classList.toggle('hide', !sh.z);
+  $('play-throw').classList.toggle('hide', !sh.throw); $('play-spring').classList.toggle('hide', !sh.spring); $('harder').classList.toggle('hide', !sh.harder);
+  $('p-motion').classList.toggle('hide', sh.test); $('p-test').classList.toggle('hide', !sh.test);
+}
+function render() { $('v0-v').textContent = S.v0.toFixed(1) + ' m/s'; $('e-v').textContent = S.e.toFixed(2); $('z-v').textContent = 'ζ = ' + S.z.toFixed(3); drawMotion(); drawMeter(); drawTest(); updateEq(); }
+function setStep(i) {
+  stop();
+  S.step = Math.max(0, Math.min(STEPS.length - 1, i)); const st = STEPS[S.step];
+  if (st.name === 'throw harder') { S.v0 = V0; }
+  S.harder = false; $('harder').setAttribute('aria-pressed', 'false');
+  $('st-title').textContent = `${S.step + 1} · ${st.title}`; $('st-say').textContent = st.say;
+  $('st-do').textContent = st.do; $('st-watch').textContent = st.watch; $('st-hear').textContent = st.hear;
+  [...$('rail').children].forEach((b, j) => b.setAttribute('aria-current', j === S.step ? 'step' : 'false'));
+  $('back').disabled = S.step === 0; $('next').disabled = S.step === STEPS.length - 1;
+  showControls(); render();
+}
+STEPS.forEach((st, i) => { const b = document.createElement('button'); b.textContent = `${i + 1} · ${st.name}`; b.onclick = () => setStep(i); $('rail').appendChild(b); });
+$('back').onclick = () => setStep(S.step - 1); $('next').onclick = () => setStep(S.step + 1);
+$('v0').oninput = (e) => { S.v0 = +e.target.value; stop(); render(); };
+$('e').oninput = (e) => { S.e = +e.target.value; stop(); render(); };
+$('z').oninput = (e) => { S.z = +e.target.value; stop(); render(); };
+$('play-throw').onclick = hearThrow; $('play-spring').onclick = hearSpring;
+$('harder').onclick = () => { S.harder = !S.harder; $('harder').setAttribute('aria-pressed', String(S.harder)); stop(); render(); };
+$('ar-throw').onclick = () => hearAudioRate('throw'); $('ar-spring').onclick = () => hearAudioRate('spring');
+$('ar-harder').onclick = () => { S.arHarder = !S.arHarder; $('ar-harder').setAttribute('aria-pressed', String(S.arHarder)); stop(); drawTest(); };
+window.addEventListener('resize', () => { drawMotion(); drawTest(); });
+setStep(0);
+</script>
+</body>
+</html>
