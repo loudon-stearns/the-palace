@@ -15,17 +15,17 @@ forward_vector: "I am Palace Map's scroll — the page's front door, opening on 
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-11-03T12:56:27.776Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the page is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-11-03T13:02:17.314Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the page is steered by the **Plan** and **Standing Orders** below, never here._
 
 - **Status:** — · **Stage:** growing · **Steward:** none — this page has no permanent steward yet
-- **Plan:** agreed 2026-10-23 (12 days ago) · 1 made thing since
+- **Plan:** agreed 2026-10-23 (12 days ago) · 2 made things since
 - **Waiting on you:** nothing
-- **Last shipped:** 2026-11-03 (today) — Move 1 of the keeper plan landed: the keeper's tools (1c6da6a0) — the baton now carries Move 2, the keeper itself (`palace-map-keeper-move1-landed-2026-11-03`)
-- **Last commit touching this page:** 2026-10-25 `6b062fee` — deposit(D-2026-10-25-CONSTELLATION): Palace Map draws two skies: the counted one locates a page and bends its curiosity, the chosen sixteen locate it without bending it; the Jewel Context's first open question progresses
+- **Last shipped:** 2026-11-03 (today) — Move 2 of the keeper plan landed: the keeper has a profile, a charter and a spawn recipe (eb42b932) — its done-when check is open and running (`palace-map-keeper-move2-landed-2026-11-03`)
+- **Last commit touching this page:** 2026-11-03 `eb42b932` — ops(Palace Map): Move 2 of the keeper plan: the keeper — a palace-map-keeper profile (Read and Bash), its charter and spawn recipe, Palace Map says what it is
 
 ### Where this stands
 
-Loudon, 2026-11-03: "Catch the baton." The Palace Map baton of 2026-10-23 was caught from the file (never board-announced) and its move landed as 1c6da6a0. `_ops/swarm/verify-triples.py` checks every `[Source | relation | Target]` in a text against a build and exits 1 on a fake. `palace-map.py` gained `path --only`, `rhymes` (hubs set aside, the hybrid's chk2.py rule) and `connected` (a set's pieces and the relation types crossed); `--json` and `--map` work before or after the verb. `test-palace-map.py` holds the proof's ground truth against the 2026-10-23 build taken from git: 13 tests pass. On today's build the mirrors route Kuramoto Coupling → Haptic Handwheel is 5 hops, not 4, since the…
+Loudon, 2026-11-03: "Yes, place and test." eb42b932 makes the keeper: a `palace-map-keeper` profile in Agent Toolbox with Read and Bash only, generated into `.claude/agents/palace-map-keeper.md`; the charter at `_ops/palace-map-keeper/charter.md` (Sonnet, the newest TSV whole at boot, an intuition then the script, every edge a triple as the map spells it, `verify-triples.py` on its own answer, nothing written); the spawn recipe in `_ops/palace-map-keeper/README.md`; and Palace Map § Seeing and Counting saying what the keeper now is and is not yet (no postures, no ledger). The baton moves to Move 3, first runs. **Open check, running in this session:** the keeper spawned fresh by the recipe,…
 
 ### Open asks
 
@@ -95,6 +95,21 @@ _Loudon's standing direction for this page — never regenerated. A steward, if 
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="palace-map-keeper-move2-landed-2026-11-03" -->
+### 2026-11-03 — Move 2 of the keeper plan landed: the keeper has a profile, a charter and a spawn recipe (eb42b932) — its done-when check is open and running
+> shipped · Move 2 of the plan agreed 2026-10-23 · the check runs now, on today's build
+
+Loudon, 2026-11-03: "Yes, place and test." eb42b932 makes the keeper: a `palace-map-keeper` profile in Agent Toolbox with Read and Bash only, generated into `.claude/agents/palace-map-keeper.md`; the charter at `_ops/palace-map-keeper/charter.md` (Sonnet, the newest TSV whole at boot, an intuition then the script, every edge a triple as the map spells it, `verify-triples.py` on its own answer, nothing written); the spawn recipe in `_ops/palace-map-keeper/README.md`; and Palace Map § Seeing and Counting saying what the keeper now is and is not yet (no postures, no ledger). The baton moves to Move 3, first runs. **Open check, running in this session:** the keeper spawned fresh by the recipe, on today's build, answers the proof's two question sets with the facts exact and every cited edge real, and its invention answers carry the log; `verify-triples.py` on its return. The result goes on this trail; if it fails, the charter changes before Move 3.
+
+**Artifacts:**
+- [charter.md — the keeper](_ops/palace-map-keeper/charter.md)
+- [README.md — spawn once, hold the ID](_ops/palace-map-keeper/README.md)
+- [palace-map-keeper.md — the generated profile](.claude/agents/palace-map-keeper.md)
+
+_Next moves named:_ The done-when check on today's build, recorded here · Move 3: first runs — a constellation for a Daily Page sit first
+<sub>`palace-map-keeper-move2-landed-2026-11-03` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="palace-map-keeper-move1-landed-2026-11-03" -->
 ### 2026-11-03 — Move 1 of the keeper plan landed: the keeper's tools (1c6da6a0) — the baton now carries Move 2, the keeper itself
 > shipped · Move 1 of the plan agreed 2026-10-23 · baton updated, not closed
