@@ -106,7 +106,7 @@
     <button class="go" id="go">▸ play</button>
     <button id="next">next step →</button>
   </div>
-  <div class="hint" id="hint">Sound starts only when you press play, and changing step stops it. The loop rate is held at 110 Hz from step two on, so every path you compare repeats at the same pitch.</div>
+  <div class="hint" id="hint">Sound starts only when you press play, and changing step stops it. Steps two and three hold the loop at 110 Hz. The test holds the phase rate at 220 Hz instead, so (3, 2) loops at 73.3 Hz: every path reads the waveform cycle at one rate, and what differs is the frames.</div>
 
   <div class="eqs">
     <div class="eq">φ = p·u ,   θ = q·u ,   u = F·t</div>
@@ -157,6 +157,16 @@ function energyMoved(a, b) {
   let s = 0; for (let i = 0; i < a.length; i++) s += Math.min(a[i] / sa, b[i] / sb);
   return Math.max(0, 1 - s);
 }
+// The loop's energy placed at its frequencies in Hz: harmonic k of a loop read at F loops a second sounds at k*F.
+function spectrumHz(h, F) { const m = new Map(); h.forEach((v, i) => { if (v > 1e-12) { const f = Math.round((i + 1) * F * 1000) / 1000; m.set(f, (m.get(f) || 0) + v); } }); return m; }
+// Share of the energy at different frequencies in a and b (maps of Hz to energy): 0 = the same sound, 1 = nothing shared.
+function energyMovedHz(a, b) {
+  let sa = 0, sb = 0; for (const v of a.values()) sa += v; for (const v of b.values()) sb += v;
+  let s = 0; for (const [f, v] of a) if (b.has(f)) s += Math.min(v / sa, b.get(f) / sb);
+  return Math.max(0, 1 - s);
+}
+// The test holds the phase rate: every path reads the waveform cycle at PHASE Hz, so its loop runs at PHASE / p.
+const PHASE = 220;
 function dcAndPeak(terms, p, q) { const y = loopWave(terms, p, q, 2048); let m = 0; for (const v of y) m += v; m /= y.length; let pk = 0; for (const v of y) pk = Math.max(pk, Math.abs(v - m)); return { dc: m, peak: pk }; }
 /*ENGINE-END*/
 </script>
@@ -171,14 +181,14 @@ const STEPS = [
   { n: 3, name: 'other closures',
     says: 'Other whole-number pairs close too, and each pair is a knot or isn’t. A frame scanned at a quarter of the phase rate is (4, 1): it closes, but the path is the unknot, as is any frame LFO set to a whole-number division of the phase rate. (2, 5) is the cinquefoil, (3, 4) an eight-crossing knot. Each sounds different; the test is whether the knot is why.' },
   { n: 4, name: 'the test',
-    says: 'The page says a closed path brings “all the topological structure that implies.” Put the knot to the ear. (2, 3) and (3, 2) are one knot, the trefoil, and they sound different. Flatten the table so every frame is the same, and the trefoil (2, 3) and the cinquefoil (2, 5) sound exactly alike. The knot doesn’t decide the sound. The winding pair read through the table does.' },
+    says: 'The page says a closed path brings “all the topological structure that implies.” Put the knot to the ear, with the phase held at 220 Hz so every path reads the waveform cycle at the same rate. (2, 3) and (3, 2) are one knot, the trefoil, and they sound different. Flatten the table so every frame is the same, and the trefoil (2, 3) and the cinquefoil (2, 5) sound exactly alike. The knot doesn’t decide the sound. The winding pair read through the table does.' },
 ];
 const S = { step: 1, pair3: '2,5', pair4: '3,2', table: 'varied' };
 function current() {
   if (S.step === 1) return { p: 1, q: 0, F: 220, kind: 'varied' };
   if (S.step === 2) return { p: 2, q: 3, F, kind: 'varied' };
   if (S.step === 3) { const [p, q] = S.pair3.split(',').map(Number); return { p, q, F, kind: 'varied' }; }
-  const [p, q] = S.pair4.split(',').map(Number); return { p, q, F, kind: S.table };
+  const [p, q] = S.pair4.split(',').map(Number); return { p, q, F: PHASE / p, kind: S.table };
 }
 let CUR = null, REF = null;
 function recompute() {
@@ -186,20 +196,20 @@ function recompute() {
   const y = loopWave(terms, c.p, c.q, 1024); const h = harmonics(y, 24); const k = knotOf(c.p, c.q);
   CUR = { ...c, terms, y, h, k };
   REF = null;
-  if (S.step === 4) { const ry = loopWave(terms, 2, 3, 1024); REF = { y: ry, h: harmonics(ry, 24) }; }
+  if (S.step === 4) { const ry = loopWave(terms, 2, 3, 1024); REF = { y: ry, h: harmonics(ry, 24), F: PHASE / 2 }; }
   $('knotname').textContent = k.name + (k.crossings ? ` · ${k.crossings} crossings` : '');
   $('laps').textContent = `${c.p} φ laps · ${c.q} θ laps`;
-  $('looprate').textContent = `loop ${c.F} Hz · phase ${c.F * c.p} Hz`;
-  $('refnote').textContent = S.step === 4 ? 'grey: (2, 3) on this table' : '';
+  $('looprate').textContent = `loop ${+c.F.toFixed(1)} Hz · phase ${+(c.F * c.p).toFixed(1)} Hz`;
+  $('refnote').textContent = S.step === 4 ? 'in Hz · grey: (2, 3)' : '';
   $('legend').innerHTML = S.step === 4 ? '<span><i style="background:#e8b84a"></i>the path you chose</span><span><i style="background:#8a8aa0"></i>(2, 3), the trefoil the page names</span>' : '<span><i style="background:#e8b84a"></i>the loop</span>';
   const read = [`<span>path <b>(${c.p}, ${c.q})</b></span>`, `<span>closes after <b>${c.p}</b> phase lap${c.p === 1 ? '' : 's'} and <b>${c.q}</b> frame lap${c.q === 1 ? '' : 's'}</span>`, `<span>as a knot <b>${k.name}</b></span>`];
   let verdict = '';
   if (S.step === 4) {
-    const mv = energyMoved(REF.h, h);
-    read.push(`<span>table <b>${c.kind === 'flat' ? 'flat across frames' : 'varied across frames'}</b></span>`, `<span>energy on different harmonics from (2, 3) <b>${(100 * mv).toFixed(1)} %</b></span>`);
+    const mv = energyMovedHz(spectrumHz(REF.h, REF.F), spectrumHz(h, c.F));
+    read.push(`<span>table <b>${c.kind === 'flat' ? 'flat across frames' : 'varied across frames'}</b></span>`, `<span>energy at different frequencies from (2, 3) <b>${(100 * mv).toFixed(1)} %</b></span>`);
     const same = knotOf(2, 3).key === k.key;
     if (c.p === 2 && c.q === 3) verdict = 'This is the reference itself. Pick (3, 2) or (2, 5).';
-    else if (same) verdict = mv < 0.005 ? `The same knot, and here the same sound: ${(100 * mv).toFixed(1)} % moved.` : `The same knot as (2, 3), the trefoil, and ${(100 * mv).toFixed(1)} % of the loop’s energy sits on different harmonics. Same knot, different sound.`;
+    else if (same) verdict = mv < 0.005 ? `The same knot, and here the same sound: ${(100 * mv).toFixed(1)} % moved.` : `The same knot as (2, 3), the trefoil, and ${(100 * mv).toFixed(1)} % of the energy sits at different frequencies, with the waveform cycle read at the same 220 Hz. Same knot, different sound.`;
     else verdict = mv < 0.005 ? `A different knot from (2, 3), ${k.name} against the trefoil, and the sound is identical: ${(100 * mv).toFixed(1)} % moved. On a table with no change across frames, θ is never heard.` : `A different knot, and ${(100 * mv).toFixed(1)} % moved. Now flatten the table.`;
   }
   $('read').innerHTML = read.join('');
@@ -300,7 +310,17 @@ function drawWave() {
 }
 function drawBars() {
   const { g, w, h } = fit($('bars'), 0.42); g.clearRect(0, 0, w, h);
-  if (!CUR) return; const K = 16, bw = w / K;
+  if (!CUR) return;
+  if (S.step === 4 && REF) {
+    const top = 1400, base = h - 16, a = spectrumHz(CUR.h, CUR.F), b = spectrumHz(REF.h, REF.F);
+    let sa = 0, sb = 0; for (const v of a.values()) sa += v; for (const v of b.values()) sb += v;
+    let mx = 0; for (const v of a.values()) mx = Math.max(mx, v / sa); for (const v of b.values()) mx = Math.max(mx, v / sb);
+    for (const [f, v] of b) { const X = f / top * w + 2; g.strokeStyle = 'rgba(138,138,160,0.9)'; g.lineWidth = 5; g.beginPath(); g.moveTo(X, base); g.lineTo(X, base - v / sb / mx * (base - 6)); g.stroke(); }
+    for (const [f, v] of a) { const X = f / top * w - 2; g.strokeStyle = '#e8b84a'; g.lineWidth = 3; g.beginPath(); g.moveTo(X, base); g.lineTo(X, base - v / sa / mx * (base - 6)); g.stroke(); }
+    g.fillStyle = '#4a4a5a'; g.font = '9px JetBrains Mono, monospace'; g.textAlign = 'left';
+    for (let f = 0; f <= top; f += 200) g.fillText(f + ' Hz', f / top * w + 2, h - 3);
+    return;
+  } const K = 16, bw = w / K;
   const norm = (e) => { let s = 0; for (let i = 0; i < K; i++) s += e[i]; return Array.from(e.slice(0, K), (v) => v / (s || 1)); };
   const a = norm(CUR.h), b = REF ? norm(REF.h) : null; let mx = 0; for (let i = 0; i < K; i++) mx = Math.max(mx, a[i], b ? b[i] : 0);
   const base = h - 16;
