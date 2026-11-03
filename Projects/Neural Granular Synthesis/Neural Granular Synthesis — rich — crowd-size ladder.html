@@ -378,7 +378,7 @@ function verdict() {
     const got = Object.keys(d).length;
     if (got < 3) { v.innerHTML = 'Take readings on at least three rungs, low and high. Each one lands after three seconds on the rung.'; return; }
     lines.push(steadyD.length ? 'Uncoupled, your crowd came within a quarter of the steady-noise floor from <b>' + steadyD[0] + '</b> neurons, about ' + Math.round(steadyD[0] * 6) + ' grains a second' + (closeD.length ? ', and within a tenth from <b>' + closeD[0] + '</b>.' : '.') : 'None of your rungs came near the floor yet. Try 32 and above.');
-    lines.push('Three-second readings wobble; the steward’s crowds and this page’s headless run (three crowds, five seconds each) came within about a fifth of the floor at 16 to 32 neurons and within a tenth from 64.');
+    lines.push('Three-second readings wobble. The steward’s three crowds (cycle 7) came within about a fifth of the floor at 32 and within about a tenth from 128 to 256; this page’s headless run of its own port, at 16 to 32 and from 64. Three crowds each, so the rung moves by one either way.');
     v.innerHTML = lines.join(' '); return;
   }
   const lks = Object.keys(lk).map(Number).sort((a, b) => a - b);
