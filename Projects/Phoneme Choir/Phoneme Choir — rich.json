@@ -28,6 +28,22 @@
         "by": "maker · claude-opus-5-5 · proposal round",
         "round": "proposal-round-2026-11"
       },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Phoneme Choir — rich — the spelling is the prompt.html",
+            "verdict": "keep",
+            "why": "A real test that could have gone the other way: the trill symbol handed straight to the model reads a longest run of 1 against 6–8 for the modelled flutter, and the ruler reads 5 at 25.8 a second on a real recorded trill (Commons), so its no means something; walks up ruler → one spelling → six → the door. Note: cite 'close to 30 a second' (Ladefoged, Cochran & Disner 1977, 26–32 Hz)."
+          },
+          {
+            "file": "Phoneme Choir — rich — same word, four voices.html",
+            "verdict": "keep",
+            "why": "Runs the build's own onset rule on the build's own files (347/352 exact, recomputed independently) and walks one breath → onset → four voices → trim → twelve keys; its test found the trim aligns where sound starts, not where the word gets loud, and holds that as offer 2 rather than changing the text."
+          }
+        ]
+      },
       "pieces": [
         {
           "file": "Phoneme Choir — rich — the spelling is the prompt.html",
