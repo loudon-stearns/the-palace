@@ -88,7 +88,18 @@
         }
       ],
       "made_against": "6ea64db08b95",
-      "stamped": "2026-11-03"
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Mathieu Equation — rich — breathing spring.html",
+            "verdict": "remake",
+            "why": "Tests the mapping and walks up well, but at the default ε = 0.10 its own table puts the third peak at −1.89 /s (friction wins) while the verdict (line 382) and caption say the engine 'grows fastest'/'growth peaks' at 0.665. Make the verdict and caption name which peaks grow after friction and which are only the least decay, or open at a depth where all three grow."
+          }
+        ]
+      }
     },
     {
       "heading": "The Strutt diagram",
@@ -135,7 +146,33 @@
         }
       ],
       "made_against": "3200421c1ea8",
-      "stamped": "2026-11-03"
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "/Projects/Floquet Time-Modulated Loops/static/05_strutt_diagram.png",
+            "verdict": "keep",
+            "why": "The figure the text names; a record, not a test, and its caption is honest against the render (tongue 2 fades in near q ≈ 0.75, sub-grid below; Kapitza strip marked)."
+          },
+          {
+            "file": "/Projects/Floquet Time-Modulated Loops/audio/20_strutt_sweep.wav",
+            "verdict": "keep",
+            "why": "Measured: −31 dB at 2.00 s, −21 dB at 2.25 s, back to −34 dB by 28.25 s, so the crossing is q ≈ 0.05 = γ = 2ζ as the caption says; naming the script's 0.10 is right."
+          },
+          {
+            "file": "Mathieu Equation — rich — strutt walk.html",
+            "verdict": "keep",
+            "why": "Tests all three claims (roots at n², widening, first strongest) and shows the left ground the section omits; walks bare line → outside → inside → plane → measure. Note only: its A&S line omits a₀, which the caption includes."
+          },
+          {
+            "file": "/Projects/Floquet Time-Modulated Loops/interactives/06_strutt_explorer.html",
+            "verdict": "keep",
+            "why": "The project's proof as it was; caption verified (peak-normalised playback, line ~286; 'on the boundary' a = 1.30 is outside a₁(0.3) = 1.2883). Its self-fetch puts two CORS errors in the face console once loaded, so 'console clean' in the commit is slightly overstated."
+          }
+        ]
+      }
     },
     {
       "heading": "Open Questions",
@@ -158,7 +195,18 @@
         }
       ],
       "made_against": "7d3bcfcbecf9",
-      "stamped": "2026-11-03"
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Mathieu Equation — rich — two tongues.html",
+            "verdict": "keep",
+            "why": "Tests multiplier sign and the damping claim and measures audibility, answering the bullets without rewriting them; walks tongue 1 → tongue 2 → side by side → damping. Damped thresholds recomputed independently: 0.0200, 0.4018, 1.5820 at γ = 0.02."
+          }
+        ]
+      }
     }
   ]
 }
