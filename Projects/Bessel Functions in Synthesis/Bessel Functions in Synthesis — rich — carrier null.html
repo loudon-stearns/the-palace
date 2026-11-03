@@ -1,0 +1,457 @@
+<!doctype html>
+<!--
+  title: Bessel Functions in Synthesis — rich — carrier null
+  born: 2026-11-03
+  links: [[Bessel Functions in Synthesis]] connects-to · rich-face-piece · listed in [[Bessel Functions in Synthesis — rich.json]] under "The FM-Bessel Isomorphism"
+  forward_vector: I am the isomorphism as a walk: a carrier alone, the first pair of sidebands, the whole
+    landscape of Jn curves, a narrow window that lets you hear the carrier by itself, and last the section's
+    claim at its sharpest point: at beta = 2.4048, the first zero of J0, the carrier is gone. I measure every
+    sideband from my own engine's samples and set them against a printed table, and I show where "exactly
+    Jn" meets the fold: at 1:1 the carrier does not vanish. The FM page's index piece draws the fold itself;
+    I don't. I change only when the section does.
+  engine: phase modulation, sin(2pi fc t + beta sin(2pi fm t)), at fc : fm = 11 : 1 (1100 and 100 Hz), so no
+    lower sideband that matters folds back onto the carrier or the ladder drawn; a window of three band-pass stages at fc.
+    The checks beside this file run ENGINE_SRC in Node against every step's claim.
+  dress: Loudon Live house style, Graphite skin.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:size" content="flow">
+<title>The carrier null — Bessel functions in FM</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Manrope:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root { --bg:#0a0a0f; --e1:#12121a; --soft:rgba(255,255,255,.06); --border:#4a4a5e; --fg1:#e8e8f0; --fg2:#c8c8d8; --fg3:#8a8aa0; --fg4:#4a4a5a;
+    --amber:#e8b84a; --amberline:rgba(232,184,74,.5); --indigo:#8b8df5;
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --sans:'Manrope',system-ui,sans-serif; --serif:'Cormorant Garamond',Georgia,serif; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); font-weight: 300; }
+  .piece { padding: 22px 22px 20px; }
+  .kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
+  .kicker svg { width: 18px; height: 18px; }
+  .title { font-family: var(--serif); font-size: 27px; font-weight: 300; color: var(--fg1); margin: 0 0 6px; }
+  .sub { font-size: 14px; line-height: 1.6; color: var(--fg2); max-width: 74ch; margin: 0 0 16px; }
+  .tabs { display: flex; flex-wrap: wrap; margin-bottom: 14px; }
+  .tabs button { border-radius: 0; margin: 0 -1px -1px 0; }
+  .tabs button.ahead { color: var(--fg4); }
+  button { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--fg2); background: var(--bg); border: 1px solid var(--border); border-radius: 2px; padding: 7px 12px; cursor: pointer; }
+  button:hover { border-color: var(--amberline); color: var(--fg1); }
+  button[aria-pressed="true"] { color: var(--amber); border-color: var(--amberline); }
+  button.go { color: var(--amber); border-color: var(--amberline); box-shadow: 0 0 14px rgba(232,184,74,.18); min-width: 92px; }
+  button:focus-visible, input:focus-visible { outline: 1px dashed var(--amber); outline-offset: 2px; }
+  .step { border: 1px solid var(--soft); background: var(--e1); padding: 12px 14px; margin-bottom: 12px; }
+  .stephead { font-family: var(--mono); font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--fg3); display: flex; justify-content: space-between; gap: 10px; margin-bottom: 6px; }
+  .stephead b { color: var(--fg1); font-weight: 500; }
+  .teach { font-size: 14px; line-height: 1.6; max-width: 76ch; margin: 0 0 8px; }
+  .back { font-family: var(--mono); font-size: 11px; color: var(--fg3); margin: 6px 0 0; }
+  .row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 8px 0; }
+  label.sl { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: .08em; color: var(--fg3); min-width: 220px; flex: 1; }
+  label.sl b { color: var(--fg1); font-weight: 500; }
+  input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 3px; background: var(--fg4); margin: 12px 0 4px; outline: none; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 13px; height: 13px; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  input[type=range]::-moz-range-thumb { width: 13px; height: 13px; border: 0; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  .panel { border: 1px solid var(--soft); background: var(--e1); padding: 10px 12px; margin-bottom: 10px; }
+  .plabel { font-family: var(--mono); font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--fg3); margin-bottom: 8px; display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+  canvas { display: block; width: 100%; }
+  #land { height: 220px; } #spec { height: 220px; }
+  .walk { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin: 12px 0; }
+  .read { display: flex; flex-wrap: wrap; gap: 6px 22px; margin-top: 4px; font-family: var(--mono); font-size: 11.5px; letter-spacing: .05em; color: var(--fg3); }
+  .read b { color: var(--fg1); font-weight: 500; }
+  .verdict { margin-top: 10px; font-size: 15px; color: var(--fg1); min-height: 1.5em; line-height: 1.5; }
+  .verdict .fam { color: var(--amber); font-family: var(--mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; margin-right: 8px; }
+  table.ladder { border-collapse: collapse; font-family: var(--mono); font-size: 11px; margin-top: 10px; color: var(--fg2); }
+  table.ladder th, table.ladder td { padding: 3px 10px; border-bottom: 1px solid var(--soft); text-align: right; }
+  table.ladder th { color: var(--fg3); font-weight: 400; letter-spacing: .08em; }
+  .eqs { margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--soft); }
+  .eq { font-family: var(--serif); font-size: 19px; color: var(--fg1); }
+  .words { font-size: 13px; line-height: 1.55; color: var(--fg2); margin: 2px 0 10px; }
+  .hint { font-family: var(--mono); font-size: 11px; letter-spacing: .06em; color: var(--fg3); margin-top: 8px; line-height: 1.6; }
+  .key i { display: inline-block; width: 10px; height: 2px; vertical-align: middle; margin: 0 4px 0 10px; }
+  .nb { text-transform: none; }
+  .foot { font-family: var(--mono); font-size: 10px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg4); margin-top: 14px; }
+</style>
+</head>
+<body>
+<div class="piece">
+  <div class="kicker"><svg viewBox="-1.1 -1.1 2.2 2.2" aria-hidden="true"><path id="sigil" fill="none" stroke="#e8b84a" stroke-width="0.06"/></svg>made · Web Audio Worklet · sketch</div>
+  <h3 class="title">The carrier null — is it exactly J<sub>n</sub>?</h3>
+  <p class="sub">A carrier at 1100 Hz and a modulator at 100 Hz, eleven to one, so the sidebands have room to spread on both sides without folding back onto the carrier or each other. Only the index β moves. The upper panel is the Bessel functions themselves, drawn against β; the lower is the sound's spectrum, measured from the engine's own samples, with J<sub>n</sub>(β) outlined over it. Walk β up; the last step goes to the first zero of J<sub>0</sub>, where the section says the carrier must vanish.</p>
+
+  <div class="tabs" id="tabs" role="group" aria-label="steps"></div>
+  <div class="step" id="step" aria-live="polite">
+    <div class="stephead"><b id="stepname"></b><span id="stepcount"></span></div>
+    <p class="teach" id="teach"></p>
+    <div id="controls"></div>
+    <p class="back" id="backline"></p>
+  </div>
+
+  <div class="walk">
+    <button id="back">◂ back</button>
+    <button id="go" class="go">▸ play</button>
+    <button id="next">next ▸</button>
+    <span class="hint" id="state">silent until you press play</span>
+  </div>
+
+  <div class="panel">
+    <div class="plabel"><span>the Bessel functions J<sub>n</sub>(<span class="nb">β</span>), <span class="nb">β</span> from 0 to 6</span><span id="landkey"></span></div>
+    <canvas id="land"></canvas>
+  </div>
+  <div class="panel">
+    <div class="plabel"><span id="speclabel">the spectrum · dB, −80 to 0</span><span class="key"><i style="background:#e8b84a"></i>measured from the engine<i style="background:#8b8df5"></i>J<sub>n</sub>(β), outlined</span></div>
+    <canvas id="spec"></canvas>
+  </div>
+  <div class="read">
+    <span>β <b id="r-beta"></b></span>
+    <span>carrier, measured <b id="r-car"></b></span>
+    <span>J<sub>0</sub>(β) says <b id="r-j0"></b></span>
+    <span>worst sideband against J<sub>n</sub> <b id="r-worst"></b></span>
+    <span>power, J<sub>0</sub>² + 2ΣJ<sub>n</sub>² <b id="r-pow"></b></span>
+  </div>
+  <div class="verdict" id="verdict"></div>
+  <div id="ladder"></div>
+
+  <div class="eqs">
+    <div class="eq">sin( ω<sub>c</sub>t + β · sin ω<sub>m</sub>t ) = Σ<sub>n</sub> J<sub>n</sub>(β) · sin( (ω<sub>c</sub> + n · ω<sub>m</sub>) t )</div>
+    <div class="words">(the modulated carrier) = the sum, over every whole number n, of (the n-th Bessel function, at the index) × (a sine at the carrier plus n modulators). The carrier itself is the n = 0 term, so its loudness is J<sub>0</sub>(β) and nothing else, as long as no other sideband lands on its frequency.</div>
+    <div class="eq">J<sub>0</sub>(2.4048…) = 0</div>
+    <div class="words">The first index at which the zeroth Bessel function crosses zero. There the carrier's share of the sound is nothing; all of it has gone to the sidebands.</div>
+    <div class="eq">J<sub>0</sub>(β)² + 2 · Σ<sub>n≥1</sub> J<sub>n</sub>(β)² = 1</div>
+    <div class="words">(the carrier's power) + (both sides of every pair) is always the whole: modulation moves power out of the carrier into the sidebands and adds none.</div>
+  </div>
+  <div class="hint">The window is three band-pass stages at 1100 Hz, Q 40 each; the nearest sidebands, 100 Hz away, come through it about 50 dB down. The printed table is J<sub>n</sub> to ten places, computed apart from this piece. The fold at 1 : 1 is drawn in full on the FM Synthesis page, in its index piece.</div>
+  <div class="foot">Loud'n Live</div>
+</div>
+
+<script>
+(() => {
+// ───────────── the engine: a phase-modulated pair, and a window at the carrier ─────────────
+const ENGINE_SRC = String.raw`
+class NullPair {
+  constructor(sr) {
+    this.sr = sr; this.pc = 0; this.pm = 0;
+    this.fc = 1100; this.fm = 100; this.beta = 0; this.gate = 0; this.win = 0;
+    this.B = 0; this.g = 0; this.w = 0;
+    this.sm = 1 - Math.exp(-1 / (0.012 * sr)); this.gm = 1 - Math.exp(-1 / (0.006 * sr)); this.wm = 1 - Math.exp(-1 / (0.02 * sr));
+    this.st = [0, 1, 2].map(() => ({ x1: 0, x2: 0, y1: 0, y2: 0 }));
+    this.design();
+  }
+  // RBJ band-pass, 0 dB at the peak, Q 40, three in a row
+  design() {
+    const w0 = 2 * Math.PI * this.fc / this.sr, al = Math.sin(w0) / (2 * 40), a0 = 1 + al;
+    this.k = { b0: al / a0, b2: -al / a0, a1: -2 * Math.cos(w0) / a0, a2: (1 - al) / a0 };
+  }
+  set(d) {
+    const was = this.fc;
+    for (const k of ['fc', 'fm', 'beta', 'gate', 'win']) if (d[k] !== undefined) this[k] = d[k];
+    if (this.fc !== was) this.design();
+    if (d.snap) { this.B = this.beta; this.w = this.win; }
+  }
+  render(L, R, n) {
+    const TP = 2 * Math.PI, sr = this.sr, k = this.k;
+    for (let i = 0; i < n; i++) {
+      this.B += (this.beta - this.B) * this.sm;
+      this.g += (this.gate - this.g) * this.gm;
+      this.w += (this.win - this.w) * this.wm;
+      const y = Math.sin(TP * this.pc + this.B * Math.sin(TP * this.pm));
+      let v = y;
+      for (const s of this.st) { const o = k.b0 * v + k.b2 * s.x2 - k.a1 * s.y1 - k.a2 * s.y2; s.x2 = s.x1; s.x1 = v; s.y2 = s.y1; s.y1 = o; v = o; }
+      this.pc += this.fc / sr; this.pc -= Math.floor(this.pc);
+      this.pm += this.fm / sr; this.pm -= Math.floor(this.pm);
+      L[i] = 0.3 * this.g * ((1 - this.w) * y + this.w * v); R[i] = L[i];
+    }
+  }
+}
+// J_n(x) for whole n, by Bessel's own integral (exact to double precision for the x this piece uses)
+function besselJ(n, x) { const M = 128; let s = 0; for (let i = 0; i < M; i++) { const t = Math.PI * (i + 0.5) / M; s += Math.cos(n * t - x * Math.sin(t)); } return s / M; }
+// Measure: render the bare pair (no window) at a sample rate where every partial falls on an exact bin,
+// then read each frequency's amplitude by a plain DFT. Nothing in the measurement uses besselJ.
+function measure(fc, fm, beta, freqs) {
+  const sr = 44000, N = 4400, e = new NullPair(sr);
+  e.set({ fc, fm, beta, gate: 1, win: 0, snap: true }); e.g = 1;
+  const L = new Float64Array(N), R = new Float64Array(N);
+  e.render(L, R, N);
+  return freqs.map(f => {
+    let re = 0, im = 0;
+    for (let i = 0; i < N; i++) { const p = 2 * Math.PI * f * i / sr; re += L[i] * Math.cos(p); im -= L[i] * Math.sin(p); }
+    return 2 * Math.hypot(re, im) / N / 0.3;
+  });
+}
+`;
+const PROC_SRC = ENGINE_SRC + `
+class NullProc extends AudioWorkletProcessor {
+  constructor() { super(); this.e = new NullPair(sampleRate); this.port.onmessage = ({ data }) => this.e.set(data); }
+  process(_, outs) { const o = outs[0]; this.e.render(o[0], o[1] || o[0], o[0].length); return true; }
+}
+registerProcessor('bessel-null', NullProc);`;
+const { NullPair, besselJ, measure } = new Function(ENGINE_SRC + '; return { NullPair, besselJ, measure };')();
+
+// The printed table: J_n(beta) to ten places, computed apart from this piece (SciPy's jv).
+const TABLE = {
+  1: [0.7651976866, 0.4400505857, 0.1149034849, 0.0195633540, 0.0024766390, 0.0002497577],
+  2: [0.2238907791, 0.5767248078, 0.3528340286, 0.1289432495, 0.0339957198, 0.0070396298, 0.0012024290],
+  5: [-0.1775967713, -0.3275791376, 0.0465651163, 0.3648312306, 0.3912323605, 0.2611405461, 0.1310487318, 0.0533764102, 0.0184052167],
+};
+const ZERO = 2.404825557695773;
+
+// ───────────── the walk ─────────────
+const S = { step: 0, reached: 0, beta: 0, playing: false, win: 0, ratio: 11, sweep: null, curves: 1, max: 6, table: null };
+const STEPS = [
+  { name: 'β 0 · the carrier alone', beta: 0, curves: 1, max: 0, ctl: [],
+    teach: 'The modulator runs at 100 Hz, but β is 0, so it pushes with nothing. One line in the spectrum: the carrier, 1100 Hz, a sine. Above, one curve, J₀, and the cursor sits where it is 1: the carrier has all of the sound. Press play.' },
+  { name: 'a little β · the first pair', beta: 0.5, curves: 2, max: 1, ctl: ['beta'],
+    teach: 'Raise β a little. A pair of sidebands appears, at 1000 and 1200 Hz, one modulator either side, and their height is J₁(β), the second curve. Watch the carrier at the same time: it dips, along J₀. The power readout stays at 1.000. The sidebands are not added; they are paid for by the carrier.',
+    back: 'β at 0 is step 1 again.' },
+  { name: 'the landscape · J₀ to J₇', beta: 1.5, curves: 8, max: 6, ctl: ['beta'],
+    teach: 'Now the whole family, out to β = 6. Each pair n follows its own curve, Jₙ: it waits, rises, peaks and falls through zero, later and lower as n grows. Drag β and every outline in the spectrum tracks its curve; the measured line, from the engine\'s own samples, sits inside each outline. Look where J₀ crosses zero.',
+    back: 'Bring β under 1 and only the first pair is left.' },
+  { name: 'a window on the carrier', beta: 0, curves: 8, max: 6, win: 1, ctl: ['beta', 'win'],
+    teach: 'The whole spectrum is hard to hear one line at a time. So listen through a window: three narrow band-passes at 1100 Hz, which let the carrier through and hold its neighbours about 50 dB down. At β 0 you hear a plain 1100 Hz sine. Raise β and hear it thin as J₀ falls; past the zero it comes back, smaller, as J₀ swings negative. Turn the window off to hear the whole sound again.',
+    back: 'With the window off, this is step 3.' },
+  { name: '2.4048 · the test', beta: 1.4, curves: 8, max: 6, win: 1, ctl: ['beta', 'win', 'zero', 'sweep', 'table', 'ratio'],
+    teach: 'The section\'s claim: the sideband amplitudes are exactly Jₙ(β), not an approximation. Its sharpest consequence: at β = 2.4048, the first zero of J₀, the carrier vanishes. Go there, through the window, and listen for nothing. Then set the engine\'s measured ladder against a printed table at β = 1, 2 and 5. Last, try the ratio at 1 : 1, the case the section names for the sawtooth, and see what "exactly" means once a sideband lands on the carrier.' },
+];
+
+const $ = id => document.getElementById(id);
+function el(tag, attrs = {}, ...kids) {
+  const e = document.createElement(tag);
+  for (const [k, v] of Object.entries(attrs)) { if (k === 'class') e.className = v; else if (k.startsWith('on')) e.addEventListener(k.slice(2), v); else e.setAttribute(k, v); }
+  for (const c of kids) if (c != null) e.append(c.nodeType ? c : document.createTextNode(c));
+  return e;
+}
+// β set in an uppercase run would read as a B: keep it lower case
+function lbl(t) { const f = document.createDocumentFragment(); String(t).split('β').forEach((part, i) => { if (i) f.append(el('span', { class: 'nb' }, 'β')); f.append(part); }); return f; }
+function setLbl(node, t) { node.textContent = ''; node.append(lbl(t)); }
+let syncers = [];
+function controls(list) {
+  syncers = [];
+  const out = [], s = STEPS[S.step];
+  const row = el('div', { class: 'row' });
+  for (const c of list) {
+    if (c === 'beta') {
+      const val = el('b'), input = el('input', { type: 'range', min: 0, max: s.max, step: 0.001, 'aria-label': 'index beta' });
+      syncers.push(() => { input.value = S.beta; val.textContent = S.beta.toFixed(3); });
+      input.addEventListener('input', () => { S.sweep = null; S.table = null; S.beta = +input.value; update(); });
+      out.push(el('div', { class: 'row' }, el('label', { class: 'sl' }, 'index β ', val, input)));
+    }
+    if (c === 'win') {
+      const b = el('button', { onclick: () => { S.win = S.win ? 0 : 1; update(); } });
+      syncers.push(() => { b.setAttribute('aria-pressed', String(!!S.win)); b.textContent = S.win ? 'window on the carrier · on' : 'window on the carrier · off'; });
+      row.append(b);
+    }
+    if (c === 'zero') {
+      row.append(el('button', { onclick: () => { S.sweep = null; S.table = null; S.beta = ZERO; update(); } }, lbl('β = 2.4048 · J₀ is zero')));
+    }
+    if (c === 'sweep') {
+      const b = el('button', { onclick: async () => {
+        if (S.sweep) { S.sweep = null; update(); return; }
+        if (!S.playing) await play();
+        S.table = null;
+        const t0 = performance.now(), dur = 14000, me = S.sweep = {};
+        (function tick() { if (S.sweep !== me) return; const q = Math.min(1, (performance.now() - t0) / dur); S.beta = 1.4 + 2 * q; update(); if (q < 1) requestAnimationFrame(tick); else { S.sweep = null; update(); } })();
+      } });
+      syncers.push(() => { b.textContent = S.sweep ? 'stop the sweep' : 'sweep 1.4 → 3.4 over 14 s'; });
+      row.append(b);
+    }
+    if (c === 'table') {
+      for (const b of [1, 2, 5]) {
+        const btn = el('button', { onclick: () => { S.sweep = null; S.ratio = 11; S.beta = b; S.table = b; update(); } }, lbl('table at β ' + b));
+        syncers.push(() => btn.setAttribute('aria-pressed', String(S.table === b)));
+        row.append(btn);
+      }
+    }
+    if (c === 'ratio') {
+      const btn = el('button', { onclick: () => { S.ratio = S.ratio === 11 ? 1 : 11; S.table = null; update(); } });
+      syncers.push(() => { btn.setAttribute('aria-pressed', String(S.ratio === 1)); btn.textContent = S.ratio === 1 ? 'ratio 1 : 1 · back to 11 : 1' : 'try the ratio at 1 : 1'; });
+      row.append(btn);
+    }
+  }
+  if (row.childNodes.length) out.push(row);
+  return out;
+}
+function go(i) {
+  if (i !== S.step) stop();                          // changing step stops the sound
+  S.sweep = null; S.table = null; S.step = i; S.reached = Math.max(S.reached, i);
+  const s = STEPS[i]; S.beta = s.beta; S.curves = s.curves; S.win = s.win || 0; S.ratio = 11;
+  setLbl($('stepname'), (i + 1) + ' · ' + s.name);
+  $('stepcount').textContent = 'step ' + (i + 1) + ' of ' + STEPS.length;
+  $('teach').textContent = s.teach;
+  $('backline').textContent = s.back || ''; $('backline').hidden = !s.back;
+  const host = $('controls'); host.textContent = ''; host.append(...controls(s.ctl));
+  $('back').hidden = i === 0; $('next').hidden = i === STEPS.length - 1;
+  const tabs = $('tabs'); tabs.textContent = '';
+  STEPS.forEach((t, j) => tabs.append(el('button', { 'aria-pressed': String(j === i), class: j > S.reached ? 'ahead' : '', onclick: () => go(j) }, lbl((j + 1) + ' · ' + t.name.split(' · ')[0]))));
+  update(); send(true);
+}
+$('back').addEventListener('click', () => go(Math.max(0, S.step - 1)));
+$('next').addEventListener('click', () => go(Math.min(STEPS.length - 1, S.step + 1)));
+
+// ───────────── audio: nothing exists before the first click ─────────────
+let ctx = null, port = null, booting = null;
+function boot() {
+  if (booting) return booting;
+  ctx = new AudioContext();
+  const comp = ctx.createDynamicsCompressor(); comp.threshold.value = -14; comp.ratio.value = 4;
+  comp.connect(ctx.destination);
+  // the kit may quiet the context (a hidden tab, a minute untouched): the button and the sweep follow it
+  ctx.addEventListener('statechange', () => { if (ctx.state !== 'running' && S.playing) { S.playing = false; S.sweep = null; send(true); paint(); for (const f of syncers) f(); } });
+  booting = (async () => {
+    try {
+      const url = URL.createObjectURL(new Blob([PROC_SRC], { type: 'application/javascript' }));
+      await ctx.audioWorklet.addModule(url); URL.revokeObjectURL(url);
+      const node = new AudioWorkletNode(ctx, 'bessel-null', { numberOfInputs: 0, outputChannelCount: [2] });
+      node.connect(comp); port = node.port;
+    } catch (e) {                                    // a page opened from a file: the same engine on the main thread
+      const eng = new NullPair(ctx.sampleRate), sp = ctx.createScriptProcessor(1024, 0, 2);
+      sp.onaudioprocess = ev => eng.render(ev.outputBuffer.getChannelData(0), ev.outputBuffer.getChannelData(1), 1024);
+      sp.connect(comp); port = { postMessage: d => eng.set(d) };
+    }
+    send(true);
+  })();
+  return booting;
+}
+function rates() { return S.ratio === 1 ? { fc: 220, fm: 220 } : { fc: 1100, fm: 100 }; }
+function send(snap) { if (port) port.postMessage({ ...rates(), beta: S.beta, gate: S.playing ? 1 : 0, win: S.win, snap: !!snap }); }
+async function play() {
+  await boot();
+  if (ctx.state !== 'running') await ctx.resume();
+  S.playing = true; send(false); paint();
+}
+function stop() { S.sweep = null; if (!S.playing) return; S.playing = false; send(false); paint(); }
+$('go').addEventListener('click', () => (S.playing ? stop() : play()));
+function paint() {
+  $('go').textContent = S.playing ? '❚❚ stop' : '▸ play';
+  $('state').textContent = S.playing ? (S.win ? 'the carrier, through its window' : 'the pair, playing') : 'silent until you press play';
+}
+
+// ───────────── what is measured, what is predicted ─────────────
+const db = v => 20 * Math.log10(Math.abs(v) + 1e-12);
+const fmt = v => (Math.abs(v) < 1e-4 ? 'below −80 dB' : db(v).toFixed(1) + ' dB');
+let LINES = [];
+function lines() {
+  const { fc, fm } = rates(), B = S.beta;
+  if (S.ratio === 11) {
+    const ns = []; for (let n = -7; n <= 7; n++) ns.push(n);
+    const m = measure(fc, fm, B, ns.map(n => fc + n * fm));
+    return ns.map((n, i) => ({ f: fc + n * fm, n, label: n === 0 ? 'c' : (n > 0 ? '+' : '−') + Math.abs(n), meas: m[i], pred: besselJ(Math.abs(n), B) * (n < 0 && n % 2 ? -1 : 1) }));
+  }
+  // at 1 : 1 every sideband lands on a harmonic of 220 Hz; the outline is still J_n for the upper sideband that sits there
+  const ks = []; for (let k = 1; k <= 10; k++) ks.push(k);
+  const m = measure(fc, fm, B, ks.map(k => k * fc));
+  return ks.map((k, i) => ({ f: k * fc, n: k - 1, label: k === 1 ? 'c' : String(k), meas: m[i], pred: besselJ(k - 1, B), fold: besselJ(k - 1, B) + (k % 2 ? -1 : 1) * besselJ(k + 1, B) }));
+}
+function update() {
+  for (const f of syncers) f();
+  const B = S.beta;
+  LINES = lines();
+  const car = LINES.find(l => l.label === 'c');
+  $('r-beta').textContent = B.toFixed(3);
+  $('r-car').textContent = fmt(car.meas);
+  $('r-j0').textContent = fmt(besselJ(0, B));
+  let worst = 0;
+  for (const l of LINES) if (Math.abs(l.pred) > 1e-3) worst = Math.max(worst, Math.abs(db(l.meas) - db(l.pred)));
+  $('r-worst').textContent = S.ratio === 1 ? worst.toFixed(1) + ' dB, at 1 : 1' : (worst < 0.001 ? 'under 0.001 dB' : worst.toFixed(3) + ' dB');
+  let p = besselJ(0, B) ** 2; for (let n = 1; n < 30; n++) p += 2 * besselJ(n, B) ** 2;
+  $('r-pow').textContent = p.toFixed(4);
+  $('speclabel').textContent = S.ratio === 1 ? 'the spectrum at 1 : 1 · harmonics of 220 Hz · dB, −80 to 0' : 'the spectrum · 1100 Hz ± n × 100 Hz · dB, −80 to 0';
+  verdict(car, worst); ladder();
+  send(false); paint(); drawAll();
+}
+function verdict(car, worst) {
+  const v = $('verdict'); v.textContent = '';
+  const B = S.beta, near = Math.abs(B - ZERO) < 0.002;
+  if (S.ratio === 1) {
+    const sh = car.fold;
+    v.append(el('span', { class: 'fam' }, 'the fold'),
+      near ? `At 1 : 1 and β = 2.4048 the 220 Hz partial is still there, ${fmt(car.meas)}: J₀ is zero, but J₂'s lower sideband, at 220 − 2 × 220 = −220 Hz, folds back onto it with its sign turned. What you hear at the carrier is J₀ − J₂ = ${sh.toFixed(3)}. Every sideband is still exactly Jₙ; the ear's partial is a sum of two.`
+           : `At 1 : 1 the lower sidebands fold back onto the upper ones, so each harmonic you hear is Jₖ₋₁ plus or minus Jₖ₊₁, not one Bessel value. The outlines are the one value; the measured lines stray from them by up to ${worst.toFixed(1)} dB here. Set β to 2.4048 and look at the carrier.`);
+    return;
+  }
+  if (B < 0.0005) { v.append(el('span', { class: 'fam' }, 'a sine'), 'The carrier alone, at full height.'); return; }
+  if (near) {
+    v.append(el('span', { class: 'fam' }, 'it holds'),
+      `β = ${B.toFixed(4)}. The carrier, measured from the engine, is ${fmt(car.meas)}: gone, as J₀ says. Every other line sits on its outline to within ${worst < 0.001 ? '0.001' : worst.toFixed(3)} dB. ` +
+      (S.win ? 'Through the window you hear only what leaks from the sidebands either side, about 50 dB down.' : 'Turn the window on to hear the hole.'));
+    return;
+  }
+  const j0 = besselJ(0, B);
+  v.append(el('span', { class: 'fam' }, j0 > 0 ? 'thinning' : 'back, inverted'),
+    j0 > 0 ? `The carrier is at ${fmt(car.meas)}, and falling as β rises. It reaches nothing at 2.4048.` : `Past the zero, J₀ is negative: the carrier is back, upside down, at ${fmt(car.meas)}. Its next zero is at 5.5201.`);
+}
+function ladder() {
+  const host = $('ladder'); host.textContent = '';
+  if (!S.table || S.ratio !== 11) return;
+  const T = TABLE[S.table], { fc, fm } = rates();
+  const ns = T.map((_, n) => n), up = measure(fc, fm, S.table, ns.map(n => fc + n * fm)), dn = measure(fc, fm, S.table, ns.map(n => fc - n * fm));
+  const tb = el('table', { class: 'ladder' }, el('tr', {}, el('th', {}, 'n'), el('th', {}, 'table Jₙ(' + S.table + ')'), el('th', {}, 'engine, above'), el('th', {}, 'engine, below'), el('th', {}, 'worst gap')));
+  let worst = 0;
+  ns.forEach(n => {
+    const g = Math.max(Math.abs(up[n] - Math.abs(T[n])), Math.abs(dn[n] - Math.abs(T[n]))); worst = Math.max(worst, g);
+    tb.append(el('tr', {}, el('td', {}, String(n)), el('td', {}, T[n].toFixed(10)), el('td', {}, up[n].toFixed(10)), el('td', {}, n ? dn[n].toFixed(10) : '—'), el('td', {}, g.toExponential(1))));
+  });
+  host.append(tb, el('div', { class: 'hint' }, `At β = ${S.table}, the engine's sidebands match the printed table to ${worst.toExponential(1)} in amplitude` +
+    (worst < 1e-9 ? ': the ten places the table prints.' : '. The remainder is below the carrier: a far sideband, J₁₄ at β 5, folds back past 0 Hz onto the lowest rung, 3 millionths of the carrier.') +
+    ' The sign of a negative Jₙ shows as the phase of its sideband, not its height.'));
+}
+
+// ───────────── drawing ─────────────
+const COLS = ['#e8b84a', '#8b8df5', '#6fc3b2', '#c77dbb', '#d98a4e', '#5f8fd0', '#9a9aae', '#b7c46a'];
+function canvas(id) {
+  const cv = $(id), d = devicePixelRatio || 1, w = cv.clientWidth, h = cv.clientHeight;
+  if (!w) return null;
+  if (cv.width !== Math.round(w * d)) { cv.width = Math.round(w * d); cv.height = Math.round(h * d); }
+  const g = cv.getContext('2d'); g.setTransform(d, 0, 0, d, 0, 0); g.clearRect(0, 0, w, h);
+  g.font = '10px "JetBrains Mono", monospace';
+  return { g, w, h };
+}
+function drawLand() {
+  const c = canvas('land'); if (!c) return;
+  const { g, w, h } = c, X = b => 30 + b / 6 * (w - 44), Y = v => h / 2 - 8 - v * (h / 2 - 22);
+  g.strokeStyle = 'rgba(255,255,255,.14)'; g.lineWidth = 1;
+  g.beginPath(); g.moveTo(X(0), Y(0)); g.lineTo(X(6), Y(0)); g.stroke();
+  g.fillStyle = '#5a5a6e';
+  for (let b = 0; b <= 6; b++) g.fillText(String(b), X(b) - 3, h - 4);
+  g.fillText('1', 6, Y(1) + 4); g.fillText('0', 6, Y(0) + 4); g.fillText('−.4', 2, Y(-0.4) + 4);
+  for (let n = S.curves - 1; n >= 0; n--) {
+    g.strokeStyle = COLS[n]; g.lineWidth = n === 0 ? 2.2 : 1.4; g.beginPath();
+    for (let i = 0; i <= 300; i++) { const b = 6 * i / 300, v = besselJ(n, b); i ? g.lineTo(X(b), Y(v)) : g.moveTo(X(b), Y(v)); }
+    g.stroke();
+  }
+  // the first zero of J0
+  g.strokeStyle = 'rgba(232,184,74,.35)'; g.setLineDash([3, 4]);
+  g.beginPath(); g.moveTo(X(ZERO), 8); g.lineTo(X(ZERO), h - 16); g.stroke(); g.setLineDash([]);
+  g.fillStyle = '#e8b84a'; g.fillText('2.4048', X(ZERO) + 4, 16);
+  // the cursor
+  g.strokeStyle = '#e8e8f0'; g.lineWidth = 1; g.beginPath(); g.moveTo(X(S.beta), 8); g.lineTo(X(S.beta), h - 16); g.stroke();
+  for (let n = 0; n < S.curves; n++) { g.fillStyle = COLS[n]; g.beginPath(); g.arc(X(S.beta), Y(besselJ(n, S.beta)), 3, 0, 7); g.fill(); }
+  $('landkey').textContent = Array.from({ length: S.curves }, (_, n) => 'J' + '₀₁₂₃₄₅₆₇'[n]).join(' · ');
+}
+function drawSpec() {
+  const c = canvas('spec'); if (!c) return;
+  const { g, w, h } = c, DB = -80;
+  const fmin = S.ratio === 1 ? 0 : 1100 - 8 * 100, fmax = S.ratio === 1 ? 2420 : 1100 + 8 * 100;
+  const X = f => 14 + (f - fmin) / (fmax - fmin) * (w - 28), Y = d => h - 26 - (Math.max(DB, d) - DB) / -DB * (h - 44);
+  g.strokeStyle = 'rgba(255,255,255,.08)'; g.lineWidth = 1;
+  for (const d of [0, -20, -40, -60]) { g.beginPath(); g.moveTo(14, Y(d)); g.lineTo(w - 14, Y(d)); g.stroke(); g.fillStyle = '#4a4a5a'; g.fillText(String(d), w - 34, Y(d) - 3); }
+  for (const l of LINES) {
+    const x = X(l.f), dm = db(l.meas), dp = db(l.pred);
+    if (dm > DB) { g.strokeStyle = l.label === 'c' ? '#f2d27a' : '#e8b84a'; g.lineWidth = 3; g.beginPath(); g.moveTo(x, Y(DB)); g.lineTo(x, Y(dm)); g.stroke(); }
+    if (dp > DB) { g.strokeStyle = '#8b8df5'; g.lineWidth = 1.2; g.beginPath(); g.moveTo(x - 6, Y(dp)); g.lineTo(x + 6, Y(dp)); g.stroke(); }
+    g.fillStyle = l.label === 'c' ? '#e8b84a' : '#5a5a6e';
+    g.fillText(l.label, x - (l.label.length * 3), h - 12);
+    if (l.label === 'c' && dm <= DB) { g.fillStyle = '#e8b84a'; g.fillText('carrier: nothing', x - 44, Y(DB) - 6); }
+  }
+  g.fillStyle = '#5a5a6e'; g.fillText(Math.round(fmin) + ' Hz', 14, h - 1); g.fillText(Math.round(fmax) + ' Hz', w - 60, h - 1);
+}
+function drawAll() { drawLand(); drawSpec(); }
+addEventListener('resize', drawAll);
+
+// the sigil: the house's Lissajous, 3 : 2
+(() => { let d = ''; for (let i = 0; i <= 400; i++) { const t = i / 400 * 2 * Math.PI; d += (i ? 'L' : 'M') + Math.sin(3 * t + Math.PI / 2).toFixed(3) + ' ' + Math.sin(2 * t).toFixed(3); } $('sigil').setAttribute('d', d); })();
+
+go(0);
+})();
+</script>
+</body>
+</html>

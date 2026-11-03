@@ -1,0 +1,383 @@
+<!doctype html>
+<!--
+  title: Bessel Functions in Synthesis — rich — drum head
+  born: 2026-11-03
+  links: [[Bessel Functions in Synthesis]] connects-to · rich-face-piece · listed in [[Bessel Functions in Synthesis — rich.json]] under "Eigenfunction Principle: Geometry Determines Resonance"
+  forward_vector: I am the eigenfunction principle as a walk: one string, struck; where you strike it;
+    a drum head of the same pitch, whose modes sit at the zeros of the Bessel functions; the two side by
+    side; and last the section's claim tested where it bites: strike the drum anywhere you like and no
+    strike point makes it harmonic, because the circle, not the strike, decides where the modes are.
+    I find the zeros myself, from Jm, and check them against the printed table. I change only when the
+    section does.
+  engine: modal synthesis. String modes at n times f, height sin(n pi x) at the strike point x; ideal
+    membrane modes (m, k) at f times j(m,k) / j(0,1), height Jm(j(m,k) r) at the strike radius (each
+    m > 0 mode turns to face the strike), normalised, under one soft mallet. One decay law for both. No air, no radiation, no stiffness. The checks beside
+    this file run ENGINE_SRC in Node against every step's claim.
+  dress: Loudon Live house style, Graphite skin.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:size" content="flow">
+<title>A string and a drum head — Bessel zeros</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Manrope:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root { --bg:#0a0a0f; --e1:#12121a; --soft:rgba(255,255,255,.06); --border:#4a4a5e; --fg1:#e8e8f0; --fg2:#c8c8d8; --fg3:#8a8aa0; --fg4:#4a4a5a;
+    --amber:#e8b84a; --amberline:rgba(232,184,74,.5); --indigo:#8b8df5;
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --sans:'Manrope',system-ui,sans-serif; --serif:'Cormorant Garamond',Georgia,serif; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); font-weight: 300; }
+  .piece { padding: 22px 22px 20px; }
+  .kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
+  .kicker svg { width: 18px; height: 18px; }
+  .title { font-family: var(--serif); font-size: 27px; font-weight: 300; color: var(--fg1); margin: 0 0 6px; }
+  .sub { font-size: 14px; line-height: 1.6; color: var(--fg2); max-width: 74ch; margin: 0 0 16px; }
+  .tabs { display: flex; flex-wrap: wrap; margin-bottom: 14px; }
+  .tabs button { border-radius: 0; margin: 0 -1px -1px 0; }
+  .tabs button.ahead { color: var(--fg4); }
+  button { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--fg2); background: var(--bg); border: 1px solid var(--border); border-radius: 2px; padding: 7px 12px; cursor: pointer; }
+  button:hover { border-color: var(--amberline); color: var(--fg1); }
+  button[aria-pressed="true"] { color: var(--amber); border-color: var(--amberline); }
+  button.go { color: var(--amber); border-color: var(--amberline); box-shadow: 0 0 14px rgba(232,184,74,.18); min-width: 92px; }
+  button:focus-visible, input:focus-visible { outline: 1px dashed var(--amber); outline-offset: 2px; }
+  .step { border: 1px solid var(--soft); background: var(--e1); padding: 12px 14px; margin-bottom: 12px; }
+  .stephead { font-family: var(--mono); font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--fg3); display: flex; justify-content: space-between; gap: 10px; margin-bottom: 6px; }
+  .stephead b { color: var(--fg1); font-weight: 500; }
+  .teach { font-size: 14px; line-height: 1.6; max-width: 76ch; margin: 0 0 8px; }
+  .back { font-family: var(--mono); font-size: 11px; color: var(--fg3); margin: 6px 0 0; }
+  .row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 8px 0; }
+  label.sl { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: .08em; color: var(--fg3); min-width: 220px; flex: 1; }
+  label.sl b { color: var(--fg1); font-weight: 500; }
+  input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 3px; background: var(--fg4); margin: 12px 0 4px; outline: none; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 13px; height: 13px; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  input[type=range]::-moz-range-thumb { width: 13px; height: 13px; border: 0; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  .panel { border: 1px solid var(--soft); background: var(--e1); padding: 10px 12px; margin-bottom: 10px; }
+  .plabel { font-family: var(--mono); font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--fg3); margin-bottom: 8px; display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+  canvas { display: block; width: 100%; }
+  .duo { display: grid; grid-template-columns: 1fr 1.4fr; gap: 10px; } @media (max-width: 640px) { .duo { grid-template-columns: 1fr; } }
+  #face, #ladder { height: 280px; }
+  .walk { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin: 12px 0; }
+  .read { display: flex; flex-wrap: wrap; gap: 6px 22px; margin-top: 4px; font-family: var(--mono); font-size: 11.5px; letter-spacing: .05em; color: var(--fg3); }
+  .read b { color: var(--fg1); font-weight: 500; }
+  .verdict { margin-top: 10px; font-size: 15px; color: var(--fg1); min-height: 1.5em; line-height: 1.5; }
+  .verdict .fam { color: var(--amber); font-family: var(--mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; margin-right: 8px; }
+  table.ladder { border-collapse: collapse; font-family: var(--mono); font-size: 11px; margin-top: 10px; color: var(--fg2); }
+  table.ladder th, table.ladder td { padding: 3px 10px; border-bottom: 1px solid var(--soft); text-align: right; }
+  table.ladder th { color: var(--fg3); font-weight: 400; letter-spacing: .08em; }
+  .eqs { margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--soft); }
+  .eq { font-family: var(--serif); font-size: 19px; color: var(--fg1); }
+  .words { font-size: 13px; line-height: 1.55; color: var(--fg2); margin: 2px 0 10px; }
+  .hint { font-family: var(--mono); font-size: 11px; letter-spacing: .06em; color: var(--fg3); margin-top: 8px; line-height: 1.6; }
+  .key i { display: inline-block; width: 10px; height: 2px; vertical-align: middle; margin: 0 4px 0 10px; }
+  .foot { font-family: var(--mono); font-size: 10px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg4); margin-top: 14px; }
+</style>
+</head>
+<body>
+<div class="piece">
+  <div class="kicker"><svg viewBox="-1.1 -1.1 2.2 2.2" aria-hidden="true"><path id="sigil" fill="none" stroke="#e8b84a" stroke-width="0.06"/></svg>made · Web Audio · sketch</div>
+  <h3 class="title">A string and a drum head — who decides the partials?</h3>
+  <p class="sub">Two struck things at the same pitch, 140 Hz. A string, whose modes are sines, and an ideal round drum head, whose modes are Bessel functions. Each mode sounds at the height it has where you strike. The left panel is the instrument and the strike point; the right is where its partials fall, as multiples of the lowest one, with the whole numbers ruled in. Walk from the string to the drum; the last step lets you strike the drum anywhere.</p>
+
+  <div class="tabs" id="tabs" role="group" aria-label="steps"></div>
+  <div class="step" id="step" aria-live="polite">
+    <div class="stephead"><b id="stepname"></b><span id="stepcount"></span></div>
+    <p class="teach" id="teach"></p>
+    <div id="controls"></div>
+    <p class="back" id="backline"></p>
+  </div>
+
+  <div class="walk">
+    <button id="back">◂ back</button>
+    <button id="go" class="go">▸ strike</button>
+    <button id="next">next ▸</button>
+    <span class="hint" id="state">silent until you strike</span>
+  </div>
+
+  <div class="duo">
+    <div class="panel"><div class="plabel"><span id="facelabel">the instrument</span><span id="facehint"></span></div><canvas id="face"></canvas></div>
+    <div class="panel"><div class="plabel"><span>partials ÷ the lowest · dB, −40 to 0</span><span class="key"><i style="background:#e8b84a"></i>string<i style="background:#8b8df5"></i>drum head</span></div><canvas id="ladder"></canvas></div>
+  </div>
+  <div class="read">
+    <span>sounding modes <b id="r-count"></b></span>
+    <span>first ratios <b id="r-ratios"></b></span>
+    <span>overtone power on whole numbers, ±20 cents <b id="r-miss"></b></span>
+  </div>
+  <div class="verdict" id="verdict"></div>
+
+  <div class="eqs">
+    <div class="eq">y<sub>n</sub>(x) = sin( nπx ) &nbsp;·&nbsp; f<sub>n</sub> = n · f<sub>1</sub></div>
+    <div class="words">A string's n-th mode is a sine with n half-waves along it, and it sounds at n times the lowest: whole numbers, because a line's boundary is two points.</div>
+    <div class="eq">u<sub>m,k</sub>(r, θ) = J<sub>m</sub>( j<sub>m,k</sub> · r ) · cos( mθ ) &nbsp;·&nbsp; f<sub>m,k</sub> = f<sub>0,1</sub> · j<sub>m,k</sub> ⁄ j<sub>0,1</sub></div>
+    <div class="words">A round head's mode has m lines across it and k rings; its shape is the m-th Bessel function, and the rim, where it must be still, can only sit on a zero of it, j<sub>m,k</sub>. So it sounds at the ratio of that zero to the first one: 2.4048, 3.8317, 5.1356, 5.5201 … give 1, 1.593, 2.136, 2.295 …</div>
+  </div>
+  <div class="hint">An ideal membrane in a vacuum: no air, no stiffness, no shell. A real kettle drum's air pulls its (1,1), (2,1) and (3,1) modes toward 2 : 3 : 4, which is how a timpani gets a pitch. Each mode's height is its own shape at the strike point, softened by one mallet, the same for both; how it radiates is left out. One decay law serves both instruments, so only where the partials fall differs. A mode with lines across it comes as a pair at one frequency and turns to face the strike, so only the strike's distance from the centre matters; the test searches 99 of them, centre to rim.</div>
+  <div class="foot">Loud'n Live</div>
+</div>
+
+<script>
+(() => {
+// ───────────── the engine: modes, their heights at the strike point, and a render ─────────────
+const ENGINE_SRC = String.raw`
+function besselJ(n, x) { const M = 128; let s = 0; for (let i = 0; i < M; i++) { const t = Math.PI * (i + 0.5) / M; s += Math.cos(n * t - x * Math.sin(t)); } return s / M; }
+// The zeros of J_m, found here by scan and bisection, never typed in.
+function zeros(m, count) {
+  const out = []; let a = Math.max(0.3, m), fa = besselJ(m, a);   // every zero of J_m lies above m
+  for (let b = a + 0.05; out.length < count && b < 20; b += 0.05) {
+    const fb = besselJ(m, b);
+    if (fa * fb < 0) { let lo = b - 0.05, hi = b, flo = fa; for (let i = 0; i < 60; i++) { const mid = (lo + hi) / 2, fm = besselJ(m, mid); if (flo * fm <= 0) hi = mid; else { lo = mid; flo = fm; } } out.push((lo + hi) / 2); }
+    fa = fb;
+  }
+  return out;
+}
+const MAXR = 8;
+function membraneTable() {
+  const j01 = zeros(0, 1)[0], t = [];
+  for (let m = 0; m <= 12; m++) for (const [i, j] of zeros(m, 8).entries()) if (j / j01 <= MAXR) t.push({ m, k: i + 1, j, ratio: j / j01, norm: Math.abs(besselJ(m + 1, j)) * (m ? 1 / Math.SQRT2 : 1) });
+  return t.sort((a, b) => a.ratio - b.ratio);
+}
+// Each mode's height at the strike point, on a normalised mode, times one soft mallet for both.
+const mallet = ratio => 1 / (1 + (ratio / 3) ** 2);
+function stringModes(x) { const out = []; for (let n = 1; n <= MAXR; n++) out.push({ n, ratio: n, amp: Math.SQRT2 * Math.sin(n * Math.PI * x) * mallet(n) }); return out; }
+// A mode with lines across it (m > 0) comes as a pair, cos and sin, at one frequency, so it turns to face the strike:
+// only the strike's radius matters, never its angle.
+function drumModes(table, r) { return table.map(md => ({ ...md, amp: besselJ(md.m, md.j * r) / md.norm * mallet(md.ratio) })); }
+// Of the power above the lowest mode, the share within 20 cents of a whole multiple of it.
+function onWhole(list) { let on = 0, all = 0; for (const m of list) { if (m.ratio < 1.01) continue; const p = m.amp * m.amp; all += p; if (Math.abs(cents(m.ratio)) < 20) on += p; } return all ? on / all : 1; }
+// Heard modes: those within 'floor' dB of the loudest.
+function heardModes(list, floor = -40) { const top = Math.max(...list.map(x => Math.abs(x.amp))); return list.filter(x => 20 * Math.log10(Math.abs(x.amp) / top + 1e-12) > floor); }
+// How far a ratio sits from the nearest whole number, in cents.
+function cents(ratio) { const n = Math.max(1, Math.round(ratio)); return 1200 * Math.log2(ratio / n); }
+// One decay law for both: T60 of 2.4 s at the lowest mode, shorter as a mode rises.
+function render(list, f1, sr, secs) {
+  const N = Math.round(sr * secs), out = new Float32Array(N);
+  for (const md of list) {
+    const f = f1 * md.ratio; if (f > sr / 2.2 || !md.amp) continue;
+    const t60 = 2.4 * Math.pow(md.ratio, -0.6), d = Math.exp(-6.9078 / (t60 * sr));
+    const w = 2 * Math.PI * f / sr, c = 2 * Math.cos(w);
+    let y1 = 0, y2 = -Math.sin(w) * md.amp, g = 1;       // y[n] = sin(w n) · amp, by recursion
+    for (let i = 0; i < N; i++) { const y = c * y1 - y2; y2 = y1; y1 = y; out[i] += g * y; g *= d; }
+  }
+  const a = Math.round(sr * 0.0015);
+  for (let i = 0; i < a && i < N; i++) out[i] *= i / a;
+  return out;
+}
+`;
+const { besselJ, zeros, membraneTable, stringModes, drumModes, heardModes, cents, onWhole, render } = new Function(ENGINE_SRC + '; return { besselJ, zeros, membraneTable, stringModes, drumModes, heardModes, cents, onWhole, render };')();
+const TABLE = membraneTable();
+const F1 = 140;
+
+// ───────────── the walk ─────────────
+const S = { step: 0, reached: 0, x: 0.23, r: 0.6, th: 0.5, who: 'string', playing: false };
+const STEPS = [
+  { name: 'one string · struck', who: 'string', ctl: [],
+    teach: 'A string, struck near one end. Its modes are sines along its length, and they fall at whole-number multiples of the lowest: 1, 2, 3, 4 and on, every line in the right panel on a ruled whole number. That is a harmonic sound, one clear pitch. Strike it.' },
+  { name: 'where you strike a string', who: 'string', ctl: ['x'],
+    teach: 'Move the strike point. A mode that has a still point, a node, where you strike gets nothing from the blow: strike at the middle and every even mode drops out. The strike chooses which modes sound and how loud; it never moves where they are. They stay on the whole numbers.',
+    back: 'The strike at 0.23 is step 1 again.' },
+  { name: 'a drum head', who: 'drum', ctl: [],
+    teach: 'Now a round head, an ideal membrane, tuned so its lowest mode is the same 140 Hz, struck part-way out. Its modes are Bessel functions, Jₘ(j r) cos(mθ), and the rim, which cannot move, has to sit on a zero of Jₘ. So the partials fall at the zeros over the first zero: 1, 1.593, 2.136, 2.295, 2.653, 2.917 … between the whole numbers, not on them. The engine found those zeros itself, by searching Jₘ.' },
+  { name: 'string beside drum', who: 'both', ctl: ['who'],
+    teach: 'Same pitch, same decay, same strike. Strike one, then the other; or both in turn. The string gives one pitch; the drum gives a pitch with a cloud around it, a thud with a tone. Only the geometry differs.',
+    back: 'Choose the string alone and it is step 2.' },
+  { name: 'strike anywhere · the test', who: 'drum', ctl: ['face', 'centre'],
+    teach: 'The section\'s claim: the boundary and the geometry force the modes; you do not choose them. Test it where it would break. Click anywhere on the drum head to strike there. At the centre only the ring modes sound, the ones with no line across them, J₀ alone, and they still fall at 1, 2.295, 3.598, 4.903. Near the rim the line modes join. Only the distance from the centre counts: a mode with lines across it turns to face the strike. Try to find a strike point that puts the overtones on whole numbers; the readout gives the share of their power that lands within 20 cents of one. Or let the piece search every strike point.' },
+];
+
+const $ = id => document.getElementById(id);
+function el(tag, attrs = {}, ...kids) {
+  const e = document.createElement(tag);
+  for (const [k, v] of Object.entries(attrs)) { if (k === 'class') e.className = v; else if (k.startsWith('on')) e.addEventListener(k.slice(2), v); else e.setAttribute(k, v); }
+  for (const c of kids) if (c != null) e.append(c.nodeType ? c : document.createTextNode(c));
+  return e;
+}
+let syncers = [];
+function controls(list) {
+  syncers = [];
+  const out = [], row = el('div', { class: 'row' });
+  for (const c of list) {
+    if (c === 'x') {
+      const val = el('b'), input = el('input', { type: 'range', min: 0.03, max: 0.5, step: 0.01, 'aria-label': 'strike point along the string' });
+      syncers.push(() => { input.value = S.x; val.textContent = S.x.toFixed(2) + ' of the length'; });
+      input.addEventListener('input', () => { S.x = +input.value; update(); });
+      out.push(el('div', { class: 'row' }, el('label', { class: 'sl' }, 'strike point ', val, input)));
+    }
+    if (c === 'who') {
+      for (const w of ['string', 'drum', 'both']) {
+        const b = el('button', { onclick: () => { S.who = w; update(); strike(); } }, w === 'both' ? 'both, in turn' : 'strike the ' + w);
+        syncers.push(() => b.setAttribute('aria-pressed', String(S.who === w)));
+        row.append(b);
+      }
+    }
+    if (c === 'centre') {
+      row.append(el('button', { onclick: () => { S.r = 0; S.th = 0; update(); strike(); } }, 'strike the centre'));
+      row.append(el('button', { onclick: () => { S.r = 0.92; S.th = 0.3; update(); strike(); } }, 'strike near the rim'));
+      const b = el('button', { onclick: () => { scan(); } }, 'search every strike point');
+      row.append(b);
+    }
+  }
+  if (row.childNodes.length) out.push(row);
+  return out;
+}
+function go(i) {
+  if (i !== S.step) hush();                          // changing step stops the sound
+  S.step = i; S.reached = Math.max(S.reached, i);
+  const s = STEPS[i]; S.who = s.who; S.scan = null;
+  if (i === 0) S.x = 0.23;
+  if (i === 2 || i === 3) { S.r = 0.6; S.th = 0.5; }
+  $('stepname').textContent = (i + 1) + ' · ' + s.name;
+  $('stepcount').textContent = 'step ' + (i + 1) + ' of ' + STEPS.length;
+  $('teach').textContent = s.teach;
+  $('backline').textContent = s.back || ''; $('backline').hidden = !s.back;
+  const host = $('controls'); host.textContent = ''; host.append(...controls(s.ctl));
+  $('back').hidden = i === 0; $('next').hidden = i === STEPS.length - 1;
+  const tabs = $('tabs'); tabs.textContent = '';
+  STEPS.forEach((t, j) => tabs.append(el('button', { 'aria-pressed': String(j === i), class: j > S.reached ? 'ahead' : '', onclick: () => go(j) }, (j + 1) + ' · ' + t.name.split(' · ')[0])));
+  update();
+}
+$('back').addEventListener('click', () => go(Math.max(0, S.step - 1)));
+$('next').addEventListener('click', () => go(Math.min(STEPS.length - 1, S.step + 1)));
+
+// ───────────── audio: nothing exists before the first click ─────────────
+let ctx = null, out = null, voices = [];
+function boot() {
+  if (ctx) return;
+  ctx = new AudioContext();
+  const comp = ctx.createDynamicsCompressor(); comp.threshold.value = -14; comp.ratio.value = 4;
+  out = ctx.createGain(); out.gain.value = 1; out.connect(comp); comp.connect(ctx.destination);
+  ctx.addEventListener('statechange', () => { if (ctx.state !== 'running') hush(); });
+}
+function buffer(list) {
+  const sr = ctx.sampleRate, data = render(list, F1, sr, 3);
+  let pk = 0; for (const v of data) pk = Math.max(pk, Math.abs(v));
+  const b = ctx.createBuffer(1, data.length, sr), ch = b.getChannelData(0);
+  for (let i = 0; i < data.length; i++) ch[i] = data[i] / (pk || 1) * 0.5;
+  return b;
+}
+async function strike() {
+  boot();
+  if (ctx.state !== 'running') await ctx.resume();
+  hush();
+  const plan = S.who === 'both' ? [['string', 0], ['drum', 1.6]] : [[S.who, 0]];
+  for (const [w, at] of plan) {
+    const src = ctx.createBufferSource(); src.buffer = buffer(w === 'string' ? stringModes(S.x) : drumModes(TABLE, S.r));
+    src.connect(out); src.start(ctx.currentTime + 0.02 + at);
+    src.onended = () => { voices = voices.filter(v => v !== src); if (!voices.length) { S.playing = false; paint(); } };
+    voices.push(src);
+  }
+  S.playing = true; paint();
+}
+function hush() { for (const v of voices) { try { v.stop(); } catch (e) {} } voices = []; S.playing = false; paint(); }
+$('go').addEventListener('click', () => (S.playing ? hush() : strike()));
+function paint() {
+  $('go').textContent = S.playing ? '❚❚ stop' : '▸ strike';
+  $('state').textContent = S.playing ? 'ringing' : 'silent until you strike';
+}
+
+// ───────────── readouts ─────────────
+function modesNow() { return S.who === 'string' ? stringModes(S.x) : drumModes(TABLE, S.r); }
+// The test's search: every strike point on a fine grid, the one that puts the most overtone power on whole numbers.
+function scan() {
+  let best = null;
+  for (let i = 0; i <= 98; i++) {
+    const r = i / 100, share = onWhole(drumModes(TABLE, r));
+    if (!best || share > best.share) best = { r, share };
+  }
+  S.r = best.r; S.scan = best; update(); strike();
+}
+function update() {
+  for (const f of syncers) f();
+  const list = modesNow(), heard = heardModes(list, -40), share = onWhole(list);
+  $('r-count').textContent = String(heard.length);
+  $('r-ratios').textContent = heard.slice(0, 6).map(m => m.ratio.toFixed(3)).join(' · ');
+  $('r-miss').textContent = Math.round(share * 100) + ' %';
+  const v = $('verdict'); v.textContent = '';
+  const s = S.step;
+  if (s <= 1) v.append(el('span', { class: 'fam' }, 'whole numbers'), S.x > 0.495 ? 'Struck at the middle: the even modes have a node there and are gone, 2, 4, 6, 8. The odd ones stay on their whole numbers.' : 'Every partial is on a whole number. The strike sets how loud each is.');
+  else if (s === 3 && S.who === 'string') v.append(el('span', { class: 'fam' }, 'the string'), 'One pitch: every partial on a whole number.');
+  else {
+    const centre = S.r < 0.01;
+    v.append(el('span', { class: 'fam' }, centre ? 'rings only' : 'between'),
+      (centre ? 'Struck at the dead centre, every mode with a line across it has a node there and stays silent; only J₀\'s rings sound. ' : '') +
+      `Of the power above the lowest mode, ${Math.round(share * 100)} % sits within 20 cents of a whole number; on the string it is all of it. ` +
+      (S.scan ? `That is the best of 99 strike radii searched, centre to rim (radius ${S.scan.r.toFixed(2)}): no strike puts a round head's overtones on whole numbers. The circle decides where they are; the strike only decides which.` : s === 4 ? 'Search every strike point for the nearest the drum comes to harmonic.' : ''));
+  }
+  draw();
+}
+
+// ───────────── drawing ─────────────
+function canvas(id) {
+  const cv = $(id), d = devicePixelRatio || 1, w = cv.clientWidth, h = cv.clientHeight;
+  if (!w) return null;
+  if (cv.width !== Math.round(w * d)) { cv.width = Math.round(w * d); cv.height = Math.round(h * d); }
+  const g = cv.getContext('2d'); g.setTransform(d, 0, 0, d, 0, 0); g.clearRect(0, 0, w, h);
+  g.font = '10px "JetBrains Mono", monospace';
+  return { g, w, h };
+}
+let geo = null;
+function drawFace() {
+  const c = canvas('face'); if (!c) return;
+  const { g, w, h } = c;
+  const showString = S.who !== 'drum', showDrum = S.who !== 'string';
+  $('facelabel').textContent = showString && showDrum ? 'the string and the drum head' : showDrum ? 'the drum head, from above' : 'the string';
+  $('facehint').textContent = S.step === 4 ? 'click to strike' : '';
+  if (showString) {
+    const y = showDrum ? 26 : h / 2, x0 = 20, x1 = w - 20;
+    g.strokeStyle = '#e8b84a'; g.lineWidth = 1.6; g.beginPath(); g.moveTo(x0, y); g.lineTo(x1, y); g.stroke();
+    g.fillStyle = '#4a4a5a'; g.fillRect(x0 - 3, y - 8, 3, 16); g.fillRect(x1, y - 8, 3, 16);
+    const sx = x0 + S.x * (x1 - x0); g.fillStyle = '#f2d27a'; g.beginPath(); g.arc(sx, y, 4.5, 0, 7); g.fill();
+  }
+  if (showDrum) {
+    const top = showString ? 46 : 10, R = Math.min(w / 2 - 16, (h - top - 10) / 2), cx = w / 2, cy = top + R;
+    geo = { cx, cy, R };
+    // the loudest mode under this strike, as a field, faint
+    const loud = drumModes(TABLE, S.r).reduce((a, b) => (Math.abs(b.amp) > Math.abs(a.amp) ? b : a));
+    const prof = []; for (let i = 0; i <= 200; i++) prof.push(besselJ(loud.m, loud.j * i / 200) / (loud.norm * 2.2));
+    const size = Math.ceil(2 * R), off = document.createElement('canvas'); off.width = off.height = size;
+    const oc = off.getContext('2d'), img = oc.createImageData(size, size);
+    for (let py = 0; py < size; py++) for (let px = 0; px < size; px++) {
+      const X = (px - R) / R, Y = (py - R) / R, rr = Math.hypot(X, Y); if (rr > 1) continue;
+      const u = prof[Math.round(rr * 200)] * Math.cos(loud.m * (Math.atan2(-Y, X) - S.th)), o = (py * size + px) * 4;
+      img.data[o] = u > 0 ? 232 : 139; img.data[o + 1] = u > 0 ? 184 : 141; img.data[o + 2] = u > 0 ? 74 : 245; img.data[o + 3] = Math.min(140, Math.abs(u) * 255);
+    }
+    oc.putImageData(img, 0, 0); g.drawImage(off, cx - R, cy - R);
+    g.strokeStyle = '#c8c8d8'; g.lineWidth = 1.2; g.beginPath(); g.arc(cx, cy, R, 0, 7); g.stroke();
+    const px = cx + S.r * R * Math.cos(S.th), py = cy - S.r * R * Math.sin(S.th);
+    g.fillStyle = '#f2d27a'; g.beginPath(); g.arc(px, py, 4.5, 0, 7); g.fill();
+    g.fillStyle = '#8a8aa0'; g.fillText(`loudest mode (${loud.m},${loud.k})`, 8, h - 6);
+  }
+}
+$('face').addEventListener('click', ev => {
+  if (S.step !== 4 || !geo) return;
+  const b = $('face').getBoundingClientRect(), X = (ev.clientX - b.left - geo.cx) / geo.R, Y = -(ev.clientY - b.top - geo.cy) / geo.R, r = Math.hypot(X, Y);
+  if (r > 1) return;
+  S.r = Math.min(0.98, r); S.th = Math.atan2(Y, X); S.scan = null; update(); strike();
+});
+function drawLadder() {
+  const c = canvas('ladder'); if (!c) return;
+  const { g, w, h } = c, DB = -40, mid = h / 2;
+  const X = r => 16 + r / 8.2 * (w - 32), H = d => (Math.max(DB, d) - DB) / -DB * (mid - 22);
+  g.strokeStyle = 'rgba(255,255,255,.12)'; g.lineWidth = 1;
+  for (let n = 1; n <= 8; n++) { g.beginPath(); g.moveTo(X(n), 8); g.lineTo(X(n), h - 8); g.stroke(); g.fillStyle = '#5a5a6e'; g.fillText(String(n), X(n) + 3, mid - 3); }
+  g.beginPath(); g.moveTo(10, mid); g.lineTo(w - 10, mid); g.stroke();
+  const bars = (list, col, dir) => {
+    const top = Math.max(...list.map(x => Math.abs(x.amp)));
+    g.strokeStyle = col; g.lineWidth = 2.4;
+    for (const m of list) { const d = 20 * Math.log10(Math.abs(m.amp) / top + 1e-12); if (d <= DB) continue; g.beginPath(); g.moveTo(X(m.ratio), mid + dir * 2); g.lineTo(X(m.ratio), mid + dir * (2 + H(d))); g.stroke(); }
+  };
+  if (S.who !== 'drum') bars(stringModes(S.x), '#e8b84a', -1);
+  if (S.who !== 'string') bars(drumModes(TABLE, S.r), '#8b8df5', 1);
+  g.fillStyle = '#8a8aa0'; if (S.who !== 'drum') g.fillText('string ↑', 12, 18); if (S.who !== 'string') g.fillText('drum head ↓', 12, h - 8);
+}
+function draw() { drawFace(); drawLadder(); }
+addEventListener('resize', draw);
+
+// the sigil: the house's Lissajous, 3 : 2
+(() => { let d = ''; for (let i = 0; i <= 400; i++) { const t = i / 400 * 2 * Math.PI; d += (i ? 'L' : 'M') + Math.sin(3 * t + Math.PI / 2).toFixed(3) + ' ' + Math.sin(2 * t).toFixed(3); } $('sigil').setAttribute('d', d); })();
+
+go(0);
+})();
+</script>
+</body>
+</html>

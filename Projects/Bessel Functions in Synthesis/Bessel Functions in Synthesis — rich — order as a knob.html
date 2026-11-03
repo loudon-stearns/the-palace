@@ -1,0 +1,381 @@
+<!doctype html>
+<!--
+  title: Bessel Functions in Synthesis — rich — order as a knob
+  born: 2026-11-03
+  links: [[Bessel Functions in Synthesis]] connects-to · rich-face-piece · listed in [[Bessel Functions in Synthesis — rich.json]] under "Synthesis Applications from Direct Bessel Waveforms"
+  forward_vector: I am the Bessel function played as the sound itself: J0 alone, J0 held against its
+    shadow, a sine fading as one over the root of time, J1 waking, the order turned as a knob, continuous,
+    and last the section's claim about the order: that the peak of Jn comes at about t = n. I measure
+    every zero and every peak from my own engine and say where the text's numbers hold and where they
+    lean. I change only when the section does.
+  engine: J_nu(x) for any real order nu >= 0: the power series up to x = 20, past it Hankel's expansion
+    for the fractional order and the order above it, then the recurrence up to nu. Played two ways:
+    as a sound, J_nu(2 pi 110 t); slowed, as a swell, J_nu(t / 25 ms) times a 440 Hz sine. The checks
+    beside this file run ENGINE_SRC in Node against every step's claim, and against SciPy's values.
+  dress: Loudon Live house style, Graphite skin.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:size" content="flow">
+<title>The order as a knob — Bessel functions as waveforms</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Manrope:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root { --bg:#0a0a0f; --e1:#12121a; --soft:rgba(255,255,255,.06); --border:#4a4a5e; --fg1:#e8e8f0; --fg2:#c8c8d8; --fg3:#8a8aa0; --fg4:#4a4a5a;
+    --amber:#e8b84a; --amberline:rgba(232,184,74,.5); --indigo:#8b8df5;
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --sans:'Manrope',system-ui,sans-serif; --serif:'Cormorant Garamond',Georgia,serif; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); font-weight: 300; }
+  .piece { padding: 22px 22px 20px; }
+  .kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
+  .kicker svg { width: 18px; height: 18px; }
+  .title { font-family: var(--serif); font-size: 27px; font-weight: 300; color: var(--fg1); margin: 0 0 6px; }
+  .sub { font-size: 14px; line-height: 1.6; color: var(--fg2); max-width: 74ch; margin: 0 0 16px; }
+  .tabs { display: flex; flex-wrap: wrap; margin-bottom: 14px; }
+  .tabs button { border-radius: 0; margin: 0 -1px -1px 0; }
+  .tabs button.ahead { color: var(--fg4); }
+  button { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--fg2); background: var(--bg); border: 1px solid var(--border); border-radius: 2px; padding: 7px 12px; cursor: pointer; }
+  button:hover { border-color: var(--amberline); color: var(--fg1); }
+  button[aria-pressed="true"] { color: var(--amber); border-color: var(--amberline); }
+  button.go { color: var(--amber); border-color: var(--amberline); box-shadow: 0 0 14px rgba(232,184,74,.18); min-width: 92px; }
+  button:focus-visible, input:focus-visible { outline: 1px dashed var(--amber); outline-offset: 2px; }
+  .step { border: 1px solid var(--soft); background: var(--e1); padding: 12px 14px; margin-bottom: 12px; }
+  .stephead { font-family: var(--mono); font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--fg3); display: flex; justify-content: space-between; gap: 10px; margin-bottom: 6px; }
+  .stephead b { color: var(--fg1); font-weight: 500; }
+  .teach { font-size: 14px; line-height: 1.6; max-width: 76ch; margin: 0 0 8px; }
+  .back { font-family: var(--mono); font-size: 11px; color: var(--fg3); margin: 6px 0 0; }
+  .row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 8px 0; }
+  label.sl { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: .08em; color: var(--fg3); min-width: 220px; flex: 1; }
+  label.sl b { color: var(--fg1); font-weight: 500; }
+  input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 3px; background: var(--fg4); margin: 12px 0 4px; outline: none; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 13px; height: 13px; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  input[type=range]::-moz-range-thumb { width: 13px; height: 13px; border: 0; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  .panel { border: 1px solid var(--soft); background: var(--e1); padding: 10px 12px; margin-bottom: 10px; }
+  .plabel { font-family: var(--mono); font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--fg3); margin-bottom: 8px; display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+  canvas { display: block; width: 100%; }
+  #wave { height: 260px; }
+  .walk { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin: 12px 0; }
+  .read { display: flex; flex-wrap: wrap; gap: 6px 22px; margin-top: 4px; font-family: var(--mono); font-size: 11.5px; letter-spacing: .05em; color: var(--fg3); }
+  .read b { color: var(--fg1); font-weight: 500; }
+  .verdict { margin-top: 10px; font-size: 15px; color: var(--fg1); min-height: 1.5em; line-height: 1.5; }
+  .verdict .fam { color: var(--amber); font-family: var(--mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; margin-right: 8px; }
+  table.ladder { border-collapse: collapse; font-family: var(--mono); font-size: 11px; margin-top: 10px; color: var(--fg2); }
+  table.ladder th, table.ladder td { padding: 3px 10px; border-bottom: 1px solid var(--soft); text-align: right; }
+  table.ladder th { color: var(--fg3); font-weight: 400; letter-spacing: .08em; }
+  .eqs { margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--soft); }
+  .eq { font-family: var(--serif); font-size: 19px; color: var(--fg1); }
+  .words { font-size: 13px; line-height: 1.55; color: var(--fg2); margin: 2px 0 10px; }
+  .hint { font-family: var(--mono); font-size: 11px; letter-spacing: .06em; color: var(--fg3); margin-top: 8px; line-height: 1.6; }
+  .key i { display: inline-block; width: 10px; height: 2px; vertical-align: middle; margin: 0 4px 0 10px; }
+  .nb { text-transform: none; }
+  .foot { font-family: var(--mono); font-size: 10px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg4); margin-top: 14px; }
+</style>
+</head>
+<body>
+<div class="piece">
+  <div class="kicker"><svg viewBox="-1.1 -1.1 2.2 2.2" aria-hidden="true"><path id="sigil" fill="none" stroke="#e8b84a" stroke-width="0.06"/></svg>made · Web Audio · sketch</div>
+  <h3 class="title">The order as a knob — when does J<sub>n</sub> arrive?</h3>
+  <p class="sub">The Bessel function itself, played as the waveform: x becomes time. As a sound, one unit of x is a 110 Hz cycle over 2π; slowed, one unit is 25 ms, and J<sub>n</sub> shapes the loudness of a 440 Hz tone so you can hear its timing. The panel draws J<sub>n</sub>(x) from 0 to 30. Walk from J<sub>0</sub> to the order as a knob; the last step tests what the section says about where the peak falls.</p>
+
+  <div class="tabs" id="tabs" role="group" aria-label="steps"></div>
+  <div class="step" id="step" aria-live="polite">
+    <div class="stephead"><b id="stepname"></b><span id="stepcount"></span></div>
+    <p class="teach" id="teach"></p>
+    <div id="controls"></div>
+    <p class="back" id="backline"></p>
+  </div>
+
+  <div class="walk">
+    <button id="back">◂ back</button>
+    <button id="go" class="go">▸ play</button>
+    <button id="next">next ▸</button>
+    <span class="hint" id="state">silent until you press play</span>
+  </div>
+
+  <div class="panel">
+    <div class="plabel"><span id="wavelabel">J<sub>n</sub>(x), x from 0 to 30</span><span class="key" id="wavekey"></span></div>
+    <canvas id="wave"></canvas>
+  </div>
+  <div class="read" id="read"></div>
+  <div class="verdict" id="verdict"></div>
+  <div id="table"></div>
+
+  <div class="eqs">
+    <div class="eq">J<sub>ν</sub>(x) = Σ<sub>k≥0</sub> (−1)<sup>k</sup> ( x⁄2 )<sup>2k+ν</sup> ⁄ ( k! · Γ(k+ν+1) )</div>
+    <div class="words">The Bessel function of order ν is a sum of powers of x, the first of them x to the ν. That is why a higher order stays near silent at first: for small x, x<sup>ν</sup> is tiny. ν need not be a whole number, so the order can turn like a knob.</div>
+    <div class="eq">J<sub>ν</sub>(x) ≈ √( 2 ⁄ πx ) · cos( x − νπ⁄2 − π⁄4 ) &nbsp; for large x</div>
+    <div class="words">Far out, every Bessel function is a cosine with its phase moved by a quarter turn per order and an eighth more, fading as one over the square root of x. Its zeros settle to a spacing of π.</div>
+  </div>
+  <div class="hint">Every zero and peak in the readouts is found on the engine's own values, not typed in. Each sound is scaled to the same peak, so you compare shapes, not levels.</div>
+  <div class="foot">Loud'n Live</div>
+</div>
+
+<script>
+(() => {
+// ───────────── the engine: J_nu for any real order, and the two ways of playing it ─────────────
+const ENGINE_SRC = String.raw`
+function gamma(z) {
+  if (z < 0.5) return Math.PI / (Math.sin(Math.PI * z) * gamma(1 - z));
+  const g = 7, c = [0.99999999999980993, 676.5203681218851, -1259.1392167224028, 771.32342877765313, -176.61502916214059, 12.507343278686905, -0.13857109526572012, 9.9843695780195716e-6, 1.5056327351493116e-7];
+  z -= 1; let a = c[0]; const t = z + g + 0.5;
+  for (let i = 1; i < 9; i++) a += c[i] / (z + i);
+  return Math.sqrt(2 * Math.PI) * Math.pow(t, z + 0.5) * Math.exp(-t) * a;
+}
+function seriesJ(nu, x) {
+  if (x === 0) return nu === 0 ? 1 : 0;
+  const h = x / 2, q = -h * h;
+  let term = Math.pow(h, nu) / gamma(nu + 1), sum = term;
+  for (let k = 1; k < 200; k++) { term *= q / (k * (k + nu)); sum += term; if (k > h && Math.abs(term) < 1e-17 * Math.abs(sum)) break; }
+  return sum;
+}
+function hankelJ(mu, x) {
+  const m4 = 4 * mu * mu; let P = 0, Q = 0, a = 1;
+  for (let k = 0; k < 30; k++) {
+    if (k > 0) { const na = a * (m4 - (2 * k - 1) ** 2) / (k * 8 * x); if (Math.abs(na) > Math.abs(a)) break; a = na; }
+    const s = (k >> 1) % 2 ? -1 : 1;
+    if (k % 2 === 0) P += s * a; else Q += s * a;
+    if (Math.abs(a) < 1e-17) break;
+  }
+  const w = x - mu * Math.PI / 2 - Math.PI / 4;
+  return Math.sqrt(2 / (Math.PI * x)) * (P * Math.cos(w) - Q * Math.sin(w));
+}
+function J(nu, x) {
+  if (x <= 20) return seriesJ(nu, x);
+  const f = nu - Math.floor(nu);
+  let a = hankelJ(f, x), b = hankelJ(f + 1, x);
+  if (nu < 1) return nu === f ? a : b;
+  for (let m = f + 1; m < nu - 1e-9; m++) { const c = 2 * m / x * b - a; a = b; b = c; }
+  return b;
+}
+// The far-out shadow of J0: a cosine an eighth of a turn late, fading as one over the root of x (held at 1 near 0).
+function shadow0(x) { return Math.sqrt(2 / (Math.PI * Math.max(x, 2 / Math.PI))) * Math.cos(x - Math.PI / 4); }
+// Zeros and the first peak, found on the function's own values.
+function zerosOf(f, upto, step = 0.01) {
+  const out = []; let a = 1e-6, fa = f(a);
+  for (let b = step; b <= upto; b += step) { const fb = f(b); if (fa * fb < 0) { let lo = b - step, hi = b, flo = fa; for (let i = 0; i < 50; i++) { const m = (lo + hi) / 2, fm = f(m); if (flo * fm <= 0) hi = m; else { lo = m; flo = fm; } } out.push((lo + hi) / 2); } fa = fb; }
+  return out;
+}
+function firstPeak(nu) {
+  let x = 1e-6, y = J(nu, x), step = 0.002;
+  for (;;) { const y2 = J(nu, x + step); if (y2 < y && x > 1e-3) break; x += step; y = y2; if (x > nu + 20) break; }
+  let lo = Math.max(0, x - step), hi = x + step;            // golden section on the bracket
+  for (let i = 0; i < 60; i++) { const m1 = lo + (hi - lo) * 0.382, m2 = lo + (hi - lo) * 0.618; if (J(nu, m1) < J(nu, m2)) lo = m1; else hi = m2; }
+  const p = (lo + hi) / 2; return { x: p, y: J(nu, p) };
+}
+// The two ways of playing it. as a sound: x = 2 pi 110 t. slowed: x = t / 25 ms, shaping a 440 Hz sine.
+function wave(nu, how, sr, secs) {
+  const N = Math.round(sr * secs), out = new Float32Array(N);
+  for (let i = 0; i < N; i++) {
+    const t = i / sr;
+    if (how === 'sound') out[i] = J(nu, 2 * Math.PI * 110 * t);
+    else if (how === 'shadow') out[i] = shadow0(2 * Math.PI * 110 * t);
+    else out[i] = J(nu, t / 0.025) * Math.sin(2 * Math.PI * 440 * t);
+  }
+  const fade = Math.round(sr * 0.25);
+  for (let i = 0; i < fade; i++) out[N - 1 - i] *= i / fade;
+  let pk = 0; for (const v of out) pk = Math.max(pk, Math.abs(v));
+  for (let i = 0; i < N; i++) out[i] = out[i] / (pk || 1) * 0.5;
+  return out;
+}
+`;
+const { J, shadow0, zerosOf, firstPeak, wave } = new Function(ENGINE_SRC + '; return { J, shadow0, zerosOf, firstPeak, wave };')();
+
+// ───────────── the walk ─────────────
+const S = { step: 0, reached: 0, nu: 0, how: 'sound', playing: false, shadow: false };
+const STEPS = [
+  { name: 'J₀ alone', nu: 0, how: 'sound', ctl: [],
+    teach: 'J₀, played as the waveform at 110 Hz: it starts at its full height, 1, and rings down. Its first zeros, found on the engine\'s values, are in the readout: 2.405, 5.520, 8.654, as the section says. Press play: a ping, struck once.' },
+  { name: 'J₀ against its shadow', nu: 0, how: 'sound', ctl: ['shadow'],
+    teach: 'Hold J₀ against a plain cosine, an eighth of a turn late, fading as one over the root of time. Drawn faint, it lies almost on J₀ after the first zero. The readout gives the gaps between J₀\'s zeros: the first is 3.115, and each after is closer to π, 3.1416. Play one, then the other.',
+    back: 'With the shadow off, this is step 1.' },
+  { name: 'J₁ · it wakes', nu: 1, how: 'sound', ctl: [],
+    teach: 'J₁ starts from nothing. It rises, peaks and rings down. The engine finds its first peak at x = 1.841, height 0.582, as the section says. As a sound, the start is softer than J₀\'s: no jump at the first sample.' },
+  { name: 'the order as a knob', nu: 3, how: 'swell', ctl: ['nu', 'how'],
+    teach: 'Now turn the order, smoothly: 3.5 is as real as 3. Slowed, so a unit of x is 25 ms, J sets the loudness of a 440 Hz tone, and you hear when it arrives. The higher the order, the longer it stays near silent before it swells. Every change of order strikes it again.',
+    back: 'Order 1, as a sound, is step 3.' },
+  { name: 'where the peak falls · the test', nu: 3, how: 'swell', ctl: ['nu', 'how', 'run'],
+    teach: 'The section\'s claim: the peak of Jₙ comes at about t = n, so the order alone sets the moment of maximum energy. The dashed line is x = n; the dot is the peak the engine finds. Play the orders 0 to 8 in turn, slowed, and hear the swell arrive later each time. The table sets each peak against n.' },
+];
+
+const $ = id => document.getElementById(id);
+function el(tag, attrs = {}, ...kids) {
+  const e = document.createElement(tag);
+  for (const [k, v] of Object.entries(attrs)) { if (k === 'class') e.className = v; else if (k.startsWith('on')) e.addEventListener(k.slice(2), v); else e.setAttribute(k, v); }
+  for (const c of kids) if (c != null) e.append(c.nodeType ? c : document.createTextNode(c));
+  return e;
+}
+let syncers = [];
+function controls(list) {
+  syncers = [];
+  const out = [], row = el('div', { class: 'row' });
+  for (const c of list) {
+    if (c === 'nu') {
+      const val = el('b'), input = el('input', { type: 'range', min: 0, max: 8, step: 0.05, 'aria-label': 'order' });
+      syncers.push(() => { input.value = S.nu; val.textContent = S.nu.toFixed(2); });
+      input.addEventListener('input', () => { S.nu = +input.value; update(); if (S.playing) retrigger(); });
+      out.push(el('div', { class: 'row' }, el('label', { class: 'sl' }, 'order ν ', val, input)));
+    }
+    if (c === 'shadow') {
+      for (const [w, label] of [[false, 'play J₀'], [true, 'play the shadow']]) {
+        const b = el('button', { onclick: () => { S.shadow = w; update(); play(); } }, label);
+        syncers.push(() => b.setAttribute('aria-pressed', String(S.shadow === w)));
+        row.append(b);
+      }
+    }
+    if (c === 'how') {
+      for (const [w, label] of [['sound', 'as a sound · 110 Hz'], ['swell', 'slowed · a swell on 440 Hz']]) {
+        const b = el('button', { onclick: () => { S.how = w; update(); if (S.playing) retrigger(); } }, label);
+        syncers.push(() => b.setAttribute('aria-pressed', String(S.how === w)));
+        row.append(b);
+      }
+    }
+    if (c === 'run') row.append(el('button', { onclick: () => runOrders() }, 'orders 0 to 8 in turn'));
+  }
+  if (row.childNodes.length) out.push(row);
+  return out;
+}
+function go(i) {
+  if (i !== S.step) stop();                          // changing step stops the sound
+  S.step = i; S.reached = Math.max(S.reached, i);
+  const s = STEPS[i]; S.nu = s.nu; S.how = s.how; S.shadow = false;
+  $('stepname').textContent = (i + 1) + ' · ' + s.name;
+  $('stepcount').textContent = 'step ' + (i + 1) + ' of ' + STEPS.length;
+  $('teach').textContent = s.teach;
+  $('backline').textContent = s.back || ''; $('backline').hidden = !s.back;
+  const host = $('controls'); host.textContent = ''; host.append(...controls(s.ctl));
+  $('back').hidden = i === 0; $('next').hidden = i === STEPS.length - 1;
+  const tabs = $('tabs'); tabs.textContent = '';
+  STEPS.forEach((t, j) => tabs.append(el('button', { 'aria-pressed': String(j === i), class: j > S.reached ? 'ahead' : '', onclick: () => go(j) }, (j + 1) + ' · ' + t.name.split(' · ')[0])));
+  update();
+}
+$('back').addEventListener('click', () => go(Math.max(0, S.step - 1)));
+$('next').addEventListener('click', () => go(Math.min(STEPS.length - 1, S.step + 1)));
+
+// ───────────── audio: nothing exists before the first click ─────────────
+let ctx = null, out = null, voices = [], lastKick = 0, pending = null;
+function boot() {
+  if (ctx) return;
+  ctx = new AudioContext();
+  const comp = ctx.createDynamicsCompressor(); comp.threshold.value = -14; comp.ratio.value = 4;
+  out = ctx.createGain(); out.connect(comp); comp.connect(ctx.destination);
+  ctx.addEventListener('statechange', () => { if (ctx.state !== 'running') stop(); });
+}
+function voice(data, at) {
+  const b = ctx.createBuffer(1, data.length, ctx.sampleRate); b.getChannelData(0).set(data);
+  const g = ctx.createGain(); g.connect(out);
+  const src = ctx.createBufferSource(); src.buffer = b; src.connect(g); src.start(at);
+  const v = { src, g }; voices.push(v);
+  src.onended = () => { voices = voices.filter(x => x !== v); if (!voices.length) { S.playing = false; paint(); } };
+}
+function fadeAll() { const t = ctx.currentTime; for (const v of voices) { v.g.gain.setTargetAtTime(0, t, 0.008); try { v.src.stop(t + 0.06); } catch (e) {} } voices = []; }
+async function play() {
+  boot();
+  if (ctx.state !== 'running') await ctx.resume();
+  fadeAll();
+  const how = S.shadow ? 'shadow' : S.how;
+  voice(wave(S.nu, how, ctx.sampleRate, 2), ctx.currentTime + 0.07);
+  S.playing = true; paint();
+}
+// a turn of the knob strikes again, at most every 140 ms
+function retrigger() {
+  const now = performance.now();
+  if (now - lastKick > 140) { lastKick = now; play(); return; }
+  clearTimeout(pending); pending = setTimeout(() => { lastKick = performance.now(); play(); }, 140);
+}
+async function runOrders() {
+  boot();
+  if (ctx.state !== 'running') await ctx.resume();
+  fadeAll(); S.how = 'swell'; update();
+  const t0 = ctx.currentTime + 0.08;
+  for (let n = 0; n <= 8; n++) voice(wave(n, 'swell', ctx.sampleRate, 1.3), t0 + n * 1.4);   // all nine orders, 0 to 8
+  S.playing = true; paint();
+}
+function stop() { clearTimeout(pending); if (ctx) fadeAll(); S.playing = false; paint(); }
+$('go').addEventListener('click', () => (S.playing ? stop() : play()));
+function paint() {
+  $('go').textContent = S.playing ? '❚❚ stop' : '▸ play';
+  $('state').textContent = S.playing ? 'playing' : 'silent until you press play';
+}
+
+// ───────────── readouts ─────────────
+const sub = n => String(n).split('').map(c => '₀₁₂₃₄₅₆₇₈₉'['0123456789'.indexOf(c)] || c).join('');
+function update() {
+  for (const f of syncers) f();
+  const s = S.step, nu = S.nu, rd = $('read'), v = $('verdict'), tb = $('table');
+  rd.textContent = ''; v.textContent = ''; tb.textContent = '';
+  const item = (k, val) => rd.append(el('span', {}, k + ' ', el('b', {}, val)));
+  if (s <= 1) {
+    const z = zerosOf(x => J(0, x), 30), gaps = z.map((x, i) => x - (i ? z[i - 1] : 0));
+    item('zeros', z.slice(0, 4).map(x => x.toFixed(3)).join(' · ') + ' …');
+    if (s === 1) {
+      item('gaps', gaps.slice(1, 6).map(x => x.toFixed(4)).join(' · '));
+      let worst = 0; for (let x = 5; x <= 30; x += 0.01) worst = Math.max(worst, Math.abs(J(0, x) - shadow0(x)));
+      item('J₀ minus its shadow, past x = 5', 'at most ' + worst.toFixed(4));
+      v.append(el('span', { class: 'fam' }, 'nearly even'), `After the first, the gaps between zeros differ from π by ${((Math.PI - gaps[1]) / Math.PI * 100).toFixed(1)} %, then ${((Math.PI - gaps[2]) / Math.PI * 100).toFixed(2)} %, then less. The spacing is uneven only at the start, and the slowing is under 1 %. What a plain sine lacks is the 1 ⁄ √t fade and the eighth-turn delay, and the shadow has both.`);
+    } else v.append(el('span', { class: 'fam' }, 'J₀'), 'Full height at the first sample, then a ring that fades.');
+  } else if (s === 2) {
+    const p = firstPeak(1);
+    item('first peak', 'x = ' + p.x.toFixed(3) + ', height ' + p.y.toFixed(3));
+    item('J₁(0)', '0');
+    v.append(el('span', { class: 'fam' }, 'it holds'), 'J₁ begins at zero and peaks at 1.841, as the section says.');
+  } else {
+    const p = firstPeak(nu);
+    item('order ν', nu.toFixed(2));
+    item('first peak at', 'x = ' + p.x.toFixed(3));
+    item('peak minus ν', (p.x - nu).toFixed(3));
+    item('at x = ν it is already', nu > 0 ? Math.round(J(nu, nu) / p.y * 100) + ' % of its peak' : 'at its peak');
+    if (s === 3) v.append(el('span', { class: 'fam' }, 'the wait'), nu < 0.5 ? 'Order near 0: it begins loud.' : `Near silent until about x = ${nu.toFixed(1)}, then it swells to its peak at ${p.x.toFixed(2)}.`);
+    else {
+      const t = el('table', { class: 'ladder' }, el('tr', {}, el('th', {}, 'n'), el('th', {}, 'the text: peak ≈ n'), el('th', {}, 'the engine: peak at'), el('th', {}, 'later by'), el('th', {}, 'n + 0.81 · n^⅓'), el('th', {}, 'at x = n, share of peak')));
+      for (let n = 1; n <= 8; n++) { const q = firstPeak(n); t.append(el('tr', {}, el('td', {}, String(n)), el('td', {}, n.toFixed(2)), el('td', {}, q.x.toFixed(3)), el('td', {}, (q.x - n).toFixed(3)), el('td', {}, (n + 0.8086 * Math.cbrt(n)).toFixed(3)), el('td', {}, Math.round(J(n, n) / q.y * 100) + ' %'))); }
+      tb.append(t);
+      v.append(el('span', { class: 'fam' }, 'it leans'), 'The order does set the moment of the peak, and later for higher n, as the section says. But the peak is not at n: it comes later, 0.84 at n = 1, 1.65 at n = 8, a gap that grows like 0.81 · n^⅓. What happens near x = n is the waking: there Jₙ is already about 70 % of the way to its peak, and before it, nearly silent.');
+    }
+  }
+  draw();
+}
+
+// ───────────── drawing ─────────────
+function draw() {
+  const cv = $('wave'), d = devicePixelRatio || 1, w = cv.clientWidth, h = cv.clientHeight;
+  if (!w) return;
+  if (cv.width !== Math.round(w * d)) { cv.width = Math.round(w * d); cv.height = Math.round(h * d); }
+  const g = cv.getContext('2d'); g.setTransform(d, 0, 0, d, 0, 0); g.clearRect(0, 0, w, h);
+  g.font = '10px "JetBrains Mono", monospace';
+  const XM = 30, X = x => 28 + x / XM * (w - 40), Y = y => 12 + (1.05 - y) / 1.55 * (h - 30);
+  g.strokeStyle = 'rgba(255,255,255,.14)'; g.lineWidth = 1;
+  g.beginPath(); g.moveTo(X(0), Y(0)); g.lineTo(X(XM), Y(0)); g.stroke();
+  g.fillStyle = '#5a5a6e'; for (let x = 0; x <= XM; x += 5) g.fillText(String(x), X(x) - 3, h - 4);
+  g.fillText('1', 8, Y(1) + 4); g.fillText('0', 8, Y(0) + 4);
+  const nu = S.step <= 1 ? 0 : S.step === 2 ? 1 : S.nu;
+  if (S.step === 1) {
+    g.strokeStyle = 'rgba(139,141,245,.7)'; g.lineWidth = 1.2; g.setLineDash([4, 3]); g.beginPath();
+    for (let i = 0; i <= 600; i++) { const x = Math.max(0.6, XM * i / 600), y = shadow0(x); i ? g.lineTo(X(x), Y(y)) : g.moveTo(X(x), Y(y)); }
+    g.stroke(); g.setLineDash([]);
+  }
+  g.strokeStyle = '#e8b84a'; g.lineWidth = 2; g.beginPath();
+  for (let i = 0; i <= 900; i++) { const x = XM * i / 900, y = J(nu, x); i ? g.lineTo(X(x), Y(y)) : g.moveTo(X(x), Y(y)); }
+  g.stroke();
+  if (S.step <= 1) for (const z of zerosOf(x => J(0, x), XM)) { g.fillStyle = '#e8e8f0'; g.beginPath(); g.arc(X(z), Y(0), 2.6, 0, 7); g.fill(); }
+  if (S.step >= 2 && nu > 0) {
+    const p = firstPeak(nu);
+    if (S.step === 4) { g.strokeStyle = 'rgba(232,232,240,.45)'; g.setLineDash([3, 4]); g.beginPath(); g.moveTo(X(nu), 8); g.lineTo(X(nu), h - 16); g.stroke(); g.setLineDash([]); g.fillStyle = '#c8c8d8'; g.fillText('x = ' + nu.toFixed(2), X(nu) - 60, 18); }
+    g.fillStyle = '#f2d27a'; g.beginPath(); g.arc(X(p.x), Y(p.y), 4, 0, 7); g.fill();
+    g.fillText('peak ' + p.x.toFixed(2), X(p.x) + 6, Y(p.y) - 4);
+  }
+  const wl = $('wavelabel'); wl.textContent = '';
+  wl.append(el('span', { class: 'nb' }, 'J' + sub(S.step <= 1 ? 0 : S.step === 2 ? 1 : '') + (S.step >= 3 ? 'ν(x), ν = ' + S.nu.toFixed(2) : '(x)')), ', x from 0 to 30');
+  $('wavekey').textContent = S.step === 1 ? 'dashed: the shadow, √(2⁄πx) · cos(x − π⁄4)' : '';
+}
+addEventListener('resize', draw);
+
+// the sigil: the house's Lissajous, 3 : 2
+(() => { let d = ''; for (let i = 0; i <= 400; i++) { const t = i / 400 * 2 * Math.PI; d += (i ? 'L' : 'M') + Math.sin(3 * t + Math.PI / 2).toFixed(3) + ' ' + Math.sin(2 * t).toFixed(3); } $('sigil').setAttribute('d', d); })();
+
+go(0);
+})();
+</script>
+</body>
+</html>
