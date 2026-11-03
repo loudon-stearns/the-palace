@@ -164,7 +164,7 @@
       if (fromUser && o.onChange) o.onChange(state.value);
     }
     gestures(s, state, apply, spec, bindHooks(o));
-    apply(toNorm(o.value == null ? spec.def : (o.binding ? o.binding.get() : o.value), spec), false);
+    apply(toNorm(o.binding ? o.binding.get() : (o.value == null ? spec.def : o.value), spec), false);
     var api = {
       el: root, set: function (v) { apply(toNorm(v, spec), false); }, get: function () { return state.value; },
       source: function (name) { setSource(out, name); },
@@ -197,7 +197,7 @@
       if (fromUser && o.onChange) o.onChange(state.value);
     }
     gestures(slot, state, apply, spec, bindHooks(o));
-    apply(toNorm(o.value == null ? spec.def : (o.binding ? o.binding.get() : o.value), spec), false);
+    apply(toNorm(o.binding ? o.binding.get() : (o.value == null ? spec.def : o.value), spec), false);
     return bindTo({ el: root, set: function (v) { apply(toNorm(v, spec), false); }, get: function () { return state.value; },
       source: function (name) { setSource(out, name); }, disable: function (b) { state.disabled = !!b; } }, o);
   }
