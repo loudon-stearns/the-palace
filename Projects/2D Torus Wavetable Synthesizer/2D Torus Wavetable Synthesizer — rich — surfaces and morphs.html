@@ -1,0 +1,410 @@
+<!doctype html>
+<!--
+  title: 2D Torus Wavetable Synthesizer — rich — surfaces and morphs
+  born: 2026-11-03
+  links: [[2D Torus Wavetable Synthesizer]] (connects-to · rich-face-piece) · listed in [[2D Torus Wavetable Synthesizer — rich.json]] · reads 2D Torus Wavetable Synthesizer — rich — lattices.json
+  forward_vector: I am the surface library heard one voice at a time, then as lattices, then two at once, and last the test of the section's closing claim — that a shared point group is what lets two surfaces crossfade cleanly. I play inside the entry's rich face and stand alone opened directly; I change only when the section I serve does.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:files" content="2D%20Torus%20Wavetable%20Synthesizer%20—%20rich%20—%20lattices.json">
+<title>2D Torus — surfaces and morphs</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Manrope:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root { --bg:#0a0a0f; --e1:#12121a; --ring:#22222e; --border:#4a4a5e; --soft:rgba(255,255,255,.06); --fg1:#e8e8f0; --fg2:#c8c8d8; --fg3:#8a8aa0; --fg4:#4a4a5a;
+    --amber:#e8b84a; --amberline:rgba(232,184,74,.5); --indigo:#6366F1;
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --sans:'Manrope',system-ui,sans-serif; --serif:'Cormorant Garamond',Georgia,serif; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); font-weight: 300; }
+  .piece { padding: 22px 22px 20px; }
+  .kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
+  .title { font-family: var(--serif); font-size: 27px; font-weight: 300; color: var(--fg1); margin: 0 0 6px; }
+  .sub { font-size: 14px; line-height: 1.6; color: var(--fg2); max-width: 78ch; margin: 0 0 14px; }
+  .rail { display: flex; flex-wrap: wrap; margin: 4px 0 14px; border: 1px solid var(--soft); border-radius: 2px; }
+  .rail button { flex: 1 1 140px; text-align: left; border: 0; border-right: 1px solid var(--soft); border-radius: 0; background: transparent; padding: 9px 12px; color: var(--fg3); }
+  .rail button:last-child { border-right: 0; }
+  .rail button b { display: block; font-weight: 500; color: var(--fg2); letter-spacing: .06em; text-transform: none; font-size: 12px; margin-top: 2px; }
+  .rail button.on { background: var(--e1); color: var(--amber); }
+  .rail button.on b { color: var(--fg1); }
+  .say { font-family: var(--serif); font-size: 18px; line-height: 1.55; color: var(--fg1); max-width: 80ch; margin: 0 0 14px; min-height: 3.1em; }
+  .say i { color: var(--amber); font-style: italic; }
+  .stage { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; align-items: start; }
+  .panel { border: 1px solid var(--soft); border-radius: 2px; background: var(--e1); padding: 10px 12px; }
+  .plabel { font-family: var(--mono); font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--fg3); margin-bottom: 8px; display: flex; justify-content: space-between; gap: 10px; }
+  canvas { display: block; width: 100%; }
+  .wide { grid-column: 1 / -1; }
+  .hidden { display: none !important; }
+  .controls { display: flex; flex-wrap: wrap; gap: 14px 22px; align-items: flex-end; margin-top: 16px; }
+  button { font-family: var(--mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--fg2); background: var(--bg); border: 1px solid var(--border); border-radius: 2px; padding: 8px 13px; cursor: pointer; }
+  button:hover { border-color: rgba(232,184,74,.55); color: var(--fg1); }
+  button.on { color: var(--amber); border-color: var(--amberline); }
+  button.go { color: var(--amber); border-color: var(--amberline); box-shadow: 0 0 14px rgba(232,184,74,.18); min-width: 96px; }
+  .seg { display: inline-flex; flex-wrap: wrap; } .seg button + button { border-left: 0; }
+  .seg button { letter-spacing: .04em; text-transform: none; font-size: 12px; padding: 7px 10px; }
+  label.sl { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: .06em; color: var(--fg3); min-width: 200px; flex: 1 1 200px; }
+  label.sl b { color: var(--fg1); font-weight: 500; }
+  select { font-family: var(--mono); font-size: 12px; background: var(--bg); color: var(--fg1); border: 1px solid var(--border); border-radius: 2px; padding: 7px 8px; display: block; margin-top: 6px; }
+  input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 3px; background: var(--fg4); margin: 12px 0 4px; outline: none; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 13px; height: 13px; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  input[type=range]::-moz-range-thumb { width: 13px; height: 13px; border: 0; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  .read { display: flex; flex-wrap: wrap; gap: 6px 22px; margin-top: 14px; font-family: var(--mono); font-size: 11.5px; letter-spacing: .04em; color: var(--fg3); }
+  .read b { color: var(--fg1); font-weight: 500; }
+  .read .hot { color: var(--amber); }
+  .nav { display: flex; gap: 10px; margin-top: 16px; }
+  .hint { font-family: var(--mono); font-size: 11px; letter-spacing: .04em; line-height: 1.6; color: var(--fg3); margin-top: 10px; max-width: 100ch; }
+  .eqs { margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--soft); }
+  .eq { font-family: var(--serif); font-size: 19px; color: var(--fg1); }
+  .words { font-size: 13px; line-height: 1.55; color: var(--fg2); margin: 2px 0 10px; max-width: 90ch; }
+  .note { font-family: var(--mono); font-size: 10.5px; color: var(--fg4); margin-top: 8px; }
+  @media (max-width: 760px) { .stage { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="piece">
+  <div class="kicker"><svg width="18" height="18" viewBox="-10 -10 20 20" aria-hidden="true"><path id="sigil" fill="none" stroke="#e8b84a" stroke-width="1.1"/></svg><span>made · surface library · study</span></div>
+  <h3 class="title">Does symmetry decide the morph?</h3>
+  <p class="sub">Nine surfaces, one scanning rule. The section ends on a claim: surfaces that share a point group crossfade cleanly, and surfaces of different symmetry classes need a different morph. Hear the voices first, then their lattices, then two at once. The last step tests the claim on the pairs the page itself names.</p>
+
+  <div class="rail" id="rail"></div>
+  <p class="say" id="say"></p>
+
+  <div class="stage">
+    <div class="panel">
+      <div class="plabel"><span id="mapLabel">the surface</span><span id="mapRight"></span></div>
+      <canvas id="map"></canvas>
+    </div>
+    <div class="panel" id="latPanel">
+      <div class="plabel"><span>its lattice · where the ripples are</span><span id="latRight"></span></div>
+      <canvas id="lat"></canvas>
+    </div>
+    <div class="panel wide hidden" id="curvePanel">
+      <div class="plabel"><span>level through the morph, predicted from the lattices · dot = measured, while it plays</span><span id="curveRight"></span></div>
+      <canvas id="curve"></canvas>
+    </div>
+    <div class="panel wide hidden" id="gridPanel">
+      <div class="plabel"><span>all 36 pairs · mid-morph level, height-map ⁄ spectral · the brighter, the more the law matters</span><span>symmetry as the page names it</span></div>
+      <canvas id="grid"></canvas>
+    </div>
+  </div>
+
+  <div class="controls">
+    <button class="go" id="go">▸ play</button>
+    <label class="sl" style="flex:0 0 auto;min-width:0" id="aCtl"><span id="aName">surface</span><select id="a"></select></label>
+    <label class="sl hidden" style="flex:0 0 auto;min-width:0" id="bCtl">and<select id="b"></select></label>
+    <label class="sl hidden" id="alphaCtl">morph α = <b id="alphaVal"></b><input id="alpha" type="range" min="0" max="1" step="0.005" value="0"></label>
+    <button class="hidden" id="sweep">sweep 0 → 1 → 0</button>
+    <div class="hidden" id="lawCtl"><div class="plabel" style="margin-bottom:6px"><span>morph law</span></div><div class="seg"><button id="lawSpatial">height-map</button><button id="lawSpectral">spectral</button></div></div>
+    <div class="hidden" id="pairCtl"><div class="plabel" style="margin-bottom:6px"><span>the page's pairs</span></div><div class="seg" id="pairs"></div></div>
+  </div>
+  <div class="read" id="read"></div>
+  <div class="hint" id="hint"></div>
+  <div class="nav"><button id="back">◂ back</button><button id="next">next ▸</button></div>
+
+  <div class="eqs">
+    <div class="eq">W<sub>α</sub> = (1 − α)·W<sub>A</sub> + α·W<sub>B</sub> &nbsp; ⇔ &nbsp; c<sub>α</sub> = (1 − α)·c<sub>A</sub> + α·c<sub>B</sub></div>
+    <div class="words">(a height-map crossfade) is the same thing as (crossfading every ripple as a complex number, size and angle together), because the Fourier series is linear. Where both surfaces hold a ripple at opposite angles, the two cancel on the way through.</div>
+    <div class="eq">|c<sub>α</sub>| = (1 − α)·|c<sub>A</sub>| + α·|c<sub>B</sub>|, &nbsp; arg c<sub>α</sub> turns the short way from arg c<sub>A</sub> to arg c<sub>B</sub></div>
+    <div class="words">(the spectral crossfade, as the project's own morph tool does it) blends each ripple's size, and turns its angle, so nothing cancels.</div>
+    <div class="eq">level(α) = Σ |c<sub>α</sub>|² ⁄ Σ |c<sub>A</sub>|², &nbsp; both ends scaled to the same energy</div>
+    <div class="words">(how loud the middle of the morph is) = the total energy of the blended ripples, over the energy at either end. Two surfaces that share no ripples dip exactly 3 dB at the middle under either law.</div>
+    <div class="note">Each surface is its lattice from the catalog WAV (the ripples holding 99.5% of its energy), scaled to equal energy, and scanned at f₁ ⁄ f₂ = φ with f₂ = 110 Hz, the ratio the catalog's own auditions used. At a ratio no fraction names no two ripples share a frequency, so the level heard is the lattice's energy, whichever surface.</div>
+  </div>
+</div>
+
+<script id="morph-math">
+// Pure functions, shared by the page and its offline check (Rich face checks/check-pieces.mjs).
+const MorphMath = (() => {
+  const key = (m, n) => m + ',' + n;
+  function unit(terms) { let e = 0; for (const t of terms) e += t[2] * t[2]; const g = 1 / Math.sqrt(e || 1); return terms.map(([m, n, a, th]) => [m, n, a * g, th]); }
+  function union(A, B) {
+    const map = new Map();
+    for (const [m, n, a, th] of unit(A)) map.set(key(m, n), { m, n, aA: a, tA: th, aB: 0, tB: th });
+    for (const [m, n, a, th] of unit(B)) { const k = key(m, n); const e = map.get(k); if (e) { e.aB = a; e.tB = th; } else map.set(k, { m, n, aA: 0, tA: th, aB: a, tB: th }); }
+    return [...map.values()];
+  }
+  const arc = (a, b) => { let d = (b - a) % (2 * Math.PI); if (d > Math.PI) d -= 2 * Math.PI; if (d < -Math.PI) d += 2 * Math.PI; return d; };
+  // one term's [amplitude, phase] under a law at alpha
+  function at(t, law, x) {
+    if (law === 'spatial') {
+      const re = (1 - x) * t.aA * Math.cos(t.tA) + x * t.aB * Math.cos(t.tB), im = (1 - x) * t.aA * Math.sin(t.tA) + x * t.aB * Math.sin(t.tB);
+      return [Math.hypot(re, im), Math.atan2(im, re)];
+    }
+    return [(1 - x) * t.aA + x * t.aB, t.tA + x * arc(t.tA, t.tB)];
+  }
+  function level(U, law, x) { let e = 0; for (const t of U) { const [a] = at(t, law, x); e += a * a; } return e; }
+  const db = (p) => 10 * Math.log10(Math.max(p, 1e-12));
+  function overlap(U) { let o = 0, c = 0; for (const t of U) { o += t.aA * t.aB; c += t.aA * t.aB * Math.cos(t.tA - t.tB); } return { overlap: o, corr: c }; }
+  function pair(A, B) { const U = union(A, B); return { ...overlap(U), spatial: db(level(U, 'spatial', 0.5)), spectral: db(level(U, 'spectral', 0.5)), U }; }
+  const WORKLET = `
+class AddScan extends AudioWorkletProcessor {
+  constructor() {
+    super(); this.K = 0; this.n = 0; this.acc = 0; this.cnt = 0; this.g = 0; this.tg = 0;
+    this.port.onmessage = (e) => {
+      const d = e.data;
+      if (d.freqs) {
+        const K = d.freqs.length; this.K = K;
+        this.zr = new Float64Array(K).fill(1); this.zi = new Float64Array(K); this.wr = new Float64Array(K); this.wi = new Float64Array(K);
+        for (let k = 0; k < K; k++) { const w = 2 * Math.PI * d.freqs[k] / sampleRate; this.wr[k] = Math.cos(w); this.wi[k] = Math.sin(w); }
+        this.A = new Float64Array(K); this.B = new Float64Array(K); this.tA = new Float64Array(K); this.tB = new Float64Array(K); this.dA = new Float64Array(K); this.dB = new Float64Array(K);
+      }
+      if (d.amp) { for (let k = 0; k < this.K; k++) { this.tA[k] = d.amp[k] * Math.cos(d.ph[k]); this.tB[k] = d.amp[k] * Math.sin(d.ph[k]); } if (d.jump) { this.A.set(this.tA); this.B.set(this.tB); } }
+      if (d.gain !== undefined) this.tg = d.gain;
+    };
+  }
+  process(_in, outs) {
+    const L = outs[0][0], R = outs[0][1] || L, K = this.K, n = L.length;
+    if (!K) { L.fill(0); if (R !== L) R.fill(0); return true; }
+    const kk = 1 - Math.exp(-n / (0.02 * sampleRate)), dA = this.dA, dB = this.dB;
+    for (let k = 0; k < K; k++) { dA[k] = (this.tA[k] - this.A[k]) * kk / n; dB[k] = (this.tB[k] - this.B[k]) * kk / n; }
+    const zr = this.zr, zi = this.zi, wr = this.wr, wi = this.wi, A = this.A, B = this.B, kg = 1 - Math.exp(-1 / (0.03 * sampleRate));
+    for (let s = 0; s < n; s++) {
+      let y = 0;
+      for (let k = 0; k < K; k++) {
+        const r = zr[k], i = zi[k];
+        y += A[k] * r - B[k] * i; A[k] += dA[k]; B[k] += dB[k];
+        zr[k] = r * wr[k] - i * wi[k]; zi[k] = r * wi[k] + i * wr[k];
+      }
+      this.g += (this.tg - this.g) * kg;
+      y *= this.g; L[s] = y; R[s] = y; this.acc += y * y; this.cnt++;
+    }
+    for (let k = 0; k < K; k++) { const m = Math.hypot(zr[k], zi[k]); zr[k] /= m; zi[k] /= m; }
+    if (this.cnt >= 4096) { this.port.postMessage({ rms: Math.sqrt(this.acc / this.cnt) / Math.max(this.g, 1e-6) }); this.acc = 0; this.cnt = 0; }
+    return true;
+  }
+}
+registerProcessor('add-scan', AddScan);`;
+  return { unit, union, at, level, db, overlap, pair, WORKLET };
+})();
+</script>
+
+<script>
+const $ = (id) => document.getElementById(id);
+const DATA_URL = '2D%20Torus%20Wavetable%20Synthesizer%20—%20rich%20—%20lattices.json';
+const PHI = (1 + Math.sqrt(5)) / 2, F2 = 110, F1 = PHI * F2, OUT = 0.32;
+const STEPS = [
+  { key: 'one', name: 'one surface, one voice', say: 'Pick a surface and play it. Every one is scanned the same way, at a ratio no fraction names, so the path wanders the whole surface. <i>The surface is the voice</i>: same rule, nine different worlds.' },
+  { key: 'lat', name: 'a surface is its lattice', say: 'Beside the height map, the same surface as its lattice of ripples c<sub>mn</sub>. Penrose is five ripples and their mirror images; Theta crowds the middle; Chladni sprays outward. <i>Where the ripples sit is what you hear</i>: each one is a partial.' },
+  { key: 'two', name: 'two lattices', say: 'Two surfaces at once, A in blue and B in amber. Where both hold a ripple at the same (m, n), the lattices <i>overlap</i>. Overlap is 0 when they share nothing and 1 when their ripples match in size. Whether the shared ripples point the same way is the second number.' },
+  { key: 'fade', name: 'crossfade the heights', say: 'Now morph from A to B by crossfading the height maps, the cheapest morph there is. That is the same as adding each ripple of A to its partner in B as a complex number. <i>Where partners point opposite ways they cancel</i>, and the middle of the morph goes quiet. Drag α, or sweep.' },
+  { key: 'test', name: 'the test: does symmetry decide?', say: 'The claim: surfaces that share a point group crossfade cleanly; different symmetry classes need another treatment. Try the pairs the page names: Membrane and Chladni, both 4-fold; Membrane and Theta, its own example of two classes. Then Theta and Matérn. Switch the law between height-map and spectral, and read the grid. <i>What predicts the dip: the symmetry, or the overlap?</i>' },
+];
+const PAIRS = [['Membrane', 'Chladni Ghost', 'both 4-fold'], ['Membrane', 'Theta Surface', '4-fold ↔ modular'], ['Theta Surface', 'Matérn Field', 'modular ↔ random field']];
+const S = { step: 0, a: 5, b: 1, alpha: 0, law: 'spatial', sweeping: false, sweepT0: 0 };
+let DATA = null, ctx = null, node = null, playing = false, U = null, measured = null;
+
+const sel = (i) => DATA.surfaces[i];
+const byName = (nm) => DATA.surfaces.findIndex((s) => s.name === nm);
+function twoUp() { const k = STEPS[S.step].key; return k === 'two' || k === 'fade' || k === 'test'; }
+function law() { return STEPS[S.step].key === 'test' ? S.law : 'spatial'; }
+function alpha() { return twoUp() && STEPS[S.step].key !== 'two' ? S.alpha : 0; }
+
+// the oscillator bank for what is playing: one surface, or the union of two
+function bank() {
+  if (!twoUp() || STEPS[S.step].key === 'two') {
+    const T = MorphMath.unit(sel(S.a).terms);
+    return T.map(([m, n, a, th]) => ({ m, n, aA: a, tA: th, aB: a, tB: th }));
+  }
+  return U;
+}
+function freqsOf(B) { return B.map((t) => t.m * F1 + t.n * F2); }
+function ampsOf(B, x, lw) {
+  const amp = new Float64Array(B.length), ph = new Float64Array(B.length), f = freqsOf(B);
+  B.forEach((t, k) => { const [a, p] = MorphMath.at(t, lw, x); amp[k] = a * OUT; ph[k] = f[k] < 0 ? -p : p; });
+  return { amp, ph };
+}
+function sendBank() {
+  if (!node) return;
+  const B = bank(), f = freqsOf(B).map(Math.abs);
+  node.port.postMessage({ freqs: f });
+  sendAmps(true);
+}
+function sendAmps(jump) { if (!node) return; const { amp, ph } = ampsOf(bank(), alpha(), law()); node.port.postMessage({ amp, ph, jump: !!jump }); }
+
+async function start() {
+  if (!DATA) return; // nothing to play until the surfaces have loaded
+  if (!ctx) {
+    ctx = new AudioContext();
+    const url = URL.createObjectURL(new Blob([MorphMath.WORKLET], { type: 'application/javascript' }));
+    await ctx.audioWorklet.addModule(url); URL.revokeObjectURL(url);
+    node = new AudioWorkletNode(ctx, 'add-scan', { numberOfInputs: 0, numberOfOutputs: 1, outputChannelCount: [2] });
+    node.port.onmessage = (e) => { if (e.data.rms != null) measured = e.data.rms; };
+    const comp = ctx.createDynamicsCompressor(); comp.threshold.value = -10; comp.ratio.value = 3;
+    const sub = ctx.createBiquadFilter(); sub.type = 'highpass'; sub.frequency.value = 20; sub.Q.value = 0.7;
+    node.connect(sub).connect(comp).connect(ctx.destination);
+    ctx.onstatechange = () => { if (ctx.state !== 'running' && playing) { playing = false; S.sweeping = false; paint(); } };
+    sendBank();
+  }
+  await ctx.resume(); node.port.postMessage({ gain: 1 }); playing = true; paint();
+}
+function stop() { if (!ctx || !playing) return; node.port.postMessage({ gain: 0 }); playing = false; S.sweeping = false; measured = null; paint(); setTimeout(() => { if (!playing && ctx) ctx.suspend(); }, 160); }
+function paint() { $('go').textContent = playing ? '❚❚ stop' : '▸ play'; $('sweep').classList.toggle('on', S.sweeping); }
+
+function fit(c, h) {
+  const w = c.clientWidth || 300, d = devicePixelRatio || 1, H = h || w;
+  if (c.width !== Math.round(w * d) || c.height !== Math.round(H * d)) { c.width = Math.round(w * d); c.height = Math.round(H * d); c.style.height = H + 'px'; }
+  const g = c.getContext('2d'); g.setTransform(d, 0, 0, d, 0, 0); return { g, w, h: H };
+}
+// height map of whatever is playing, at alpha, under the law
+const mapCache = new Map();
+function mapImage() {
+  const B = bank(), x = alpha(), lw = law(), k = `${S.a}|${S.b}|${STEPS[S.step].key}|${lw}|${x.toFixed(2)}`;
+  if (mapCache.has(k)) return mapCache.get(k);
+  const M = 96, W = new Float64Array(M * M);
+  for (const t of B) {
+    const [a, p] = MorphMath.at(t, lw, x); if (a < 1e-4) continue;
+    for (let j = 0; j < M; j++) { const y = t.n * 2 * Math.PI * j / M + p; for (let i = 0; i < M; i++) W[j * M + i] += a * Math.cos(t.m * 2 * Math.PI * i / M + y); }
+  }
+  let peak = 1e-9; for (const v of W) peak = Math.max(peak, Math.abs(v));
+  const cv = document.createElement('canvas'); cv.width = M; cv.height = M;
+  const g = cv.getContext('2d'), img = g.createImageData(M, M);
+  for (let j = 0; j < M; j++) for (let i = 0; i < M; i++) {
+    const v = W[j * M + i] / 0.9 / Math.max(peak, 0.6), o = ((M - 1 - j) * M + i) * 4, a = Math.min(1, Math.abs(v));
+    if (v >= 0) { img.data[o] = 10 + 222 * a; img.data[o + 1] = 10 + 174 * a; img.data[o + 2] = 15 + 59 * a; } else { img.data[o] = 10 + 89 * a; img.data[o + 1] = 10 + 92 * a; img.data[o + 2] = 15 + 226 * a; }
+    img.data[o + 3] = 255;
+  }
+  g.putImageData(img, 0, 0);
+  if (mapCache.size > 400) mapCache.clear();
+  mapCache.set(k, cv); return cv;
+}
+function drawMap() {
+  const { g, w } = fit($('map')); g.clearRect(0, 0, w, w);
+  const pad = 14; g.imageSmoothingEnabled = true; g.drawImage(mapImage(), pad, pad, w - 2 * pad, w - 2 * pad);
+  g.strokeStyle = '#4a4a5e'; g.strokeRect(pad, pad, w - 2 * pad, w - 2 * pad);
+  const k = STEPS[S.step].key;
+  $('mapLabel').textContent = k === 'fade' || k === 'test' ? `the morph at α = ${alpha().toFixed(2)}` : 'the surface, unrolled';
+  $('mapRight').textContent = k === 'fade' || k === 'test' ? (law() === 'spatial' ? 'height-map law' : 'spectral law') : sel(S.a).name;
+}
+function drawLat() {
+  const c = $('lat'); const { g, w } = fit(c); g.clearRect(0, 0, w, w);
+  const L = 12, cell = (w - 30) / (2 * L + 1), ox = w / 2, oy = w / 2, PX = (m) => ox + m * cell, PY = (n) => oy - n * cell;
+  g.fillStyle = '#4a4a5a'; for (let m = -L; m <= L; m++) for (let n = -L; n <= L; n++) { g.fillRect(PX(m) - 0.5, PY(n) - 0.5, 1, 1); }
+  g.strokeStyle = '#22222e'; g.beginPath(); g.moveTo(PX(-L), oy); g.lineTo(PX(L), oy); g.moveTo(ox, PY(-L)); g.lineTo(ox, PY(L)); g.stroke();
+  g.fillStyle = '#8a8aa0'; g.font = '10px JetBrains Mono, monospace'; g.fillText('m →', PX(L) - 22, oy - 6); g.fillText('n ↑', ox + 5, PY(L) + 8);
+  const k = STEPS[S.step].key, two = twoUp(), x = alpha(), lw = law();
+  const dot = (m, n, a, col) => { for (const sg of [1, -1]) { if (Math.abs(m) > L || Math.abs(n) > L) continue; g.fillStyle = col; g.globalAlpha = sg > 0 ? 1 : 0.4; g.beginPath(); g.arc(PX(sg * m), PY(sg * n), Math.max(1.2, 10 * Math.sqrt(a)), 0, 7); g.fill(); } g.globalAlpha = 1; };
+  let outside = 0;
+  if (!two) { for (const [m, n, a] of MorphMath.unit(sel(S.a).terms)) { if (Math.abs(m) > L || Math.abs(n) > L) outside++; dot(m, n, a, '#6366F1'); } }
+  else if (k === 'two') { for (const t of U) { if (Math.abs(t.m) > L || Math.abs(t.n) > L) outside++; if (t.aA > 0) dot(t.m, t.n, t.aA, 'rgba(99,102,241,0.85)'); if (t.aB > 0) dot(t.m, t.n, t.aB * 0.6, 'rgba(232,184,74,0.85)'); } }
+  else { for (const t of U) { const [a] = MorphMath.at(t, lw, x); if (Math.abs(t.m) > L || Math.abs(t.n) > L) outside++; const shared = t.aA > 0 && t.aB > 0; dot(t.m, t.n, a, shared ? '#e8b84a' : '#6366F1'); } }
+  $('latRight').textContent = (outside ? `${outside} ripples beyond |m|,|n| = 12 not drawn · ` : '') + (two ? `${U.length} ripples in A ∪ B` : `${sel(S.a).terms.length} ripples`);
+}
+function drawCurve() {
+  const { g, w, h } = fit($('curve'), 170); g.clearRect(0, 0, w, h);
+  const X = (x) => 46 + x * (w - 60), Y = (d) => 12 + (-d / 9) * (h - 34);
+  g.font = '10px JetBrains Mono, monospace'; g.fillStyle = '#4a4a5a'; g.textAlign = 'right';
+  for (let d = 0; d >= -9; d -= 3) { g.strokeStyle = '#22222e'; g.beginPath(); g.moveTo(X(0), Y(d)); g.lineTo(X(1), Y(d)); g.stroke(); g.fillText(d + ' dB', X(0) - 6, Y(d) + 3); }
+  g.textAlign = 'center'; for (let a = 0; a <= 1; a += 0.25) g.fillText('α ' + a, X(a), h - 4);
+  const draw = (lw, col, wd) => { g.strokeStyle = col; g.lineWidth = wd; g.beginPath(); for (let i = 0; i <= 100; i++) { const a = i / 100, d = Math.max(-9, MorphMath.db(MorphMath.level(U, lw, a))); i ? g.lineTo(X(a), Y(d)) : g.moveTo(X(a), Y(d)); } g.stroke(); };
+  const k = STEPS[S.step].key;
+  if (k === 'test') { draw(S.law === 'spatial' ? 'spectral' : 'spatial', 'rgba(138,138,160,0.5)', 1); }
+  draw(law(), '#e8b84a', 2);
+  g.strokeStyle = 'rgba(232,232,240,0.5)'; g.beginPath(); g.moveTo(X(alpha()), Y(0)); g.lineTo(X(alpha()), Y(-9)); g.stroke();
+  if (playing && measured != null) { const ref = Math.sqrt(0.5) * OUT; const d = Math.max(-9, 20 * Math.log10(measured / ref)); g.fillStyle = '#e8e8f0'; g.beginPath(); g.arc(X(alpha()), Y(d), 4, 0, 7); g.fill(); }
+  const mid = MorphMath.db(MorphMath.level(U, law(), 0.5));
+  $('curveRight').textContent = `mid-morph ${mid.toFixed(2)} dB · ${law() === 'spatial' ? 'height-map' : 'spectral'}${k === 'test' ? ' · grey = the other law' : ''}`;
+}
+let gridCache = null;
+function drawGrid() {
+  const c = $('grid'); const n = DATA.surfaces.length; const { g, w } = fit(c, Math.min(520, c.clientWidth * 0.62)); const h = c.height / (devicePixelRatio || 1);
+  g.clearRect(0, 0, w, h);
+  if (!gridCache) { gridCache = []; for (let i = 0; i < n; i++) { gridCache.push([]); for (let j = 0; j < n; j++) gridCache[i].push(i < j ? MorphMath.pair(sel(i).terms, sel(j).terms) : null); } }
+  const left = 150, top = 8, cell = Math.min((w - left - 10) / n, (h - top - 70) / n);
+  g.font = '10px JetBrains Mono, monospace';
+  for (let i = 0; i < n; i++) {
+    const s = sel(i), lab = s.name + (s.symmetry ? ' · ' + s.symmetry : '');
+    g.fillStyle = '#8a8aa0'; g.textAlign = 'right'; g.fillText(lab.length > 26 ? lab.slice(0, 25) + '…' : lab, left - 6, top + i * cell + cell / 2 + 3);
+    g.save(); g.translate(left + i * cell + cell / 2, top + n * cell + 6); g.rotate(Math.PI / 4); g.textAlign = 'left'; g.fillText(s.name, 0, 0); g.restore();
+  }
+  for (let i = 0; i < n; i++) for (let j = 0; j < n; j++) {
+    const x = left + j * cell, y = top + i * cell;
+    if (i >= j) { g.fillStyle = '#0d0d13'; g.fillRect(x + 1, y + 1, cell - 2, cell - 2); continue; }
+    const p = gridCache[i][j], gap = Math.max(0, p.spectral - p.spatial);
+    g.fillStyle = `rgba(232,184,74,${Math.min(0.85, 0.06 + gap / 7)})`; g.fillRect(x + 1, y + 1, cell - 2, cell - 2);
+    const sel2 = (S.a === i && S.b === j) || (S.a === j && S.b === i);
+    if (sel2) { g.strokeStyle = '#e8e8f0'; g.lineWidth = 1.5; g.strokeRect(x + 1.5, y + 1.5, cell - 3, cell - 3); }
+    g.fillStyle = gap > 3 ? '#0a0a0f' : '#c8c8d8'; g.textAlign = 'center';
+    if (cell > 44) { g.fillText(p.spatial.toFixed(1), x + cell / 2, y + cell / 2 - 2); g.fillText(p.spectral.toFixed(1), x + cell / 2, y + cell / 2 + 10); }
+  }
+  c.onclick = (e) => { const r = c.getBoundingClientRect(), j = Math.floor((e.clientX - r.left - left) / cell), i = Math.floor((e.clientY - r.top - top) / cell); if (i >= 0 && j > i && j < n) { S.a = i; S.b = j; $('a').value = i; $('b').value = j; changePair(); } };
+}
+
+function readouts() {
+  const k = STEPS[S.step].key, out = [];
+  if (!twoUp()) { const s = sel(S.a); out.push(`<b>${s.name}</b>`, `symmetry, as the page names it: <b>${s.symmetry || '—'}</b>`, `${s.terms.length} ripples hold 99.5% of its energy`, `scanned at f₁ ⁄ f₂ = <b>φ</b>, f₂ = <b>${F2} Hz</b>`); }
+  else {
+    const p = MorphMath.overlap(U), sa = sel(S.a), sb = sel(S.b);
+    out.push(`A <b>${sa.name}</b> (${sa.symmetry || '—'})`, `B <b>${sb.name}</b> (${sb.symmetry || '—'})`, `overlap <b>${p.overlap.toFixed(3)}</b>`, `phase agreement <b>${p.corr >= 0 ? '+' : ''}${p.corr.toFixed(3)}</b>`);
+    if (k === 'fade' || k === 'test') {
+      const sp = MorphMath.db(MorphMath.level(U, 'spatial', 0.5)), sc = MorphMath.db(MorphMath.level(U, 'spectral', 0.5));
+      out.push(`mid-morph · height-map <b class="${k === 'test' ? 'hot' : ''}">${sp.toFixed(2)} dB</b>`);
+      if (k === 'test') out.push(`spectral <b class="hot">${sc.toFixed(2)} dB</b>`, Math.abs(sp - sc) < 0.6 ? 'the law hardly matters for this pair' : `the law is worth <b>${(sc - sp).toFixed(1)} dB</b> here`);
+    }
+  }
+  $('read').innerHTML = out.map((x) => `<span>${x}</span>`).join('');
+  $('alphaVal').textContent = S.alpha.toFixed(2);
+}
+function hintFor(k) {
+  if (k === 'one') return 'Matérn and Fisher are smooth and dark; Chladni and Stiff String are bright; Penrose rings like a struck bar. The catalog says three of these (Kuramoto Bloom, Matérn, Fisher) have been rendered but not yet heard: this is one way to hear them.';
+  if (k === 'lat') return 'Dots far from the centre are high partials. A faint dot is a ripple\'s mirror image (−m, −n): the same partial, since the surface is real.';
+  if (k === 'two') return 'Membrane and Penrose share nothing: overlap 0. Theta and Matérn share almost everything: overlap near 0.9. Watch the second number for that pair.';
+  if (k === 'fade') return 'A pair that shares nothing dips exactly 3 dB at the middle: the two sets of partials just add in power. An equal-power crossfade is the whole fix for that. A deeper dip means shared ripples pointing opposite ways.';
+  return 'Clean here means level: how far the middle of the morph falls. Whether the middle sounds like a sensible blend is for the ear; the grid can\'t say. Click any cell to load that pair.';
+}
+function setStep(i) {
+  stop(); S.sweeping = false;
+  S.step = Math.max(0, Math.min(STEPS.length - 1, i));
+  const k = STEPS[S.step].key;
+  [...$('rail').children].forEach((b, j) => b.classList.toggle('on', j === S.step));
+  $('say').innerHTML = STEPS[S.step].say;
+  $('latPanel').classList.toggle('hidden', k === 'one');
+  $('bCtl').classList.toggle('hidden', !twoUp());
+  $('aName').textContent = twoUp() ? 'A' : 'surface';
+  $('alphaCtl').classList.toggle('hidden', !(k === 'fade' || k === 'test'));
+  $('sweep').classList.toggle('hidden', !(k === 'fade' || k === 'test'));
+  $('lawCtl').classList.toggle('hidden', k !== 'test');
+  $('pairCtl').classList.toggle('hidden', k !== 'test');
+  $('curvePanel').classList.toggle('hidden', !(k === 'fade' || k === 'test'));
+  $('gridPanel').classList.toggle('hidden', k !== 'test');
+  if (k === 'two' && S.a === S.b) S.b = (S.a + 1) % DATA.surfaces.length;
+  if (k === 'test') { const p = PAIRS[0]; S.a = byName(p[0]); S.b = byName(p[1]); $('a').value = S.a; $('b').value = S.b; }
+  $('hint').textContent = hintFor(k);
+  $('back').disabled = S.step === 0; $('next').disabled = S.step === STEPS.length - 1;
+  changePair();
+}
+function changePair() { U = MorphMath.union(sel(S.a).terms, sel(S.b).terms); mapCache.clear(); sendBank(); readouts(); paintLaw(); }
+function paintLaw() { $('lawSpatial').classList.toggle('on', S.law === 'spatial'); $('lawSpectral').classList.toggle('on', S.law === 'spectral'); [...$('pairs').children].forEach((b, i) => { const p = PAIRS[i]; b.classList.toggle('on', sel(S.a).name === p[0] && sel(S.b).name === p[1]); }); }
+
+function frame(now) {
+  requestAnimationFrame(frame);
+  if (!DATA) return;
+  if (S.sweeping) { const t = ((now - S.sweepT0) / 1000) % 16; S.alpha = t < 8 ? t / 8 : 2 - t / 8; $('alpha').value = S.alpha; sendAmps(); readouts(); }
+  drawMap();
+  if (STEPS[S.step].key !== 'one') drawLat();
+  if (!$('curvePanel').classList.contains('hidden')) drawCurve();
+  if (!$('gridPanel').classList.contains('hidden')) drawGrid();
+}
+(() => { let d = ''; for (let i = 0; i <= 240; i++) { const t = (i / 240) * 2 * Math.PI; d += (i ? 'L' : 'M') + (8 * Math.sin(3 * t + Math.PI / 2)).toFixed(2) + ' ' + (8 * Math.sin(2 * t)).toFixed(2); } $('sigil').setAttribute('d', d); })();
+
+async function boot() {
+  STEPS.forEach((s, i) => { const b = document.createElement('button'); b.innerHTML = `${i + 1}<b>${s.name}</b>`; b.onclick = () => setStep(i); $('rail').appendChild(b); });
+  $('back').onclick = () => setStep(S.step - 1); $('next').onclick = () => setStep(S.step + 1);
+  $('go').onclick = () => (playing ? stop() : start());
+  try { const res = await fetch(DATA_URL); if (!res.ok) throw new Error('HTTP ' + res.status); const d = await res.json(); if (!d || !Array.isArray(d.surfaces)) throw new Error('no surfaces in the file'); DATA = d; } catch (e) { $('say').textContent = 'The surfaces could not be loaded (' + e.message + ').'; return; }
+  for (const id of ['a', 'b']) DATA.surfaces.forEach((s, i) => { const o = document.createElement('option'); o.value = i; o.textContent = s.name; $(id).appendChild(o); });
+  $('a').value = S.a; $('b').value = S.b;
+  $('a').onchange = () => { S.a = +$('a').value; changePair(); };
+  $('b').onchange = () => { S.b = +$('b').value; changePair(); };
+  $('alpha').oninput = () => { S.alpha = +$('alpha').value; S.sweeping = false; paint(); sendAmps(); readouts(); };
+  $('sweep').onclick = async () => { S.sweeping = !S.sweeping; S.sweepT0 = performance.now() - S.alpha * 8000; if (S.sweeping && !playing) await start(); paint(); };
+  $('lawSpatial').onclick = () => { S.law = 'spatial'; mapCache.clear(); sendAmps(); readouts(); paintLaw(); };
+  $('lawSpectral').onclick = () => { S.law = 'spectral'; mapCache.clear(); sendAmps(); readouts(); paintLaw(); };
+  PAIRS.forEach(([x, y, why]) => { const b = document.createElement('button'); b.textContent = `${x.split(' ')[0]} ↔ ${y.split(' ')[0]} · ${why}`; b.onclick = () => { S.a = byName(x); S.b = byName(y); $('a').value = S.a; $('b').value = S.b; changePair(); }; $('pairs').appendChild(b); });
+  setStep(0);
+  requestAnimationFrame(frame);
+}
+boot();
+</script>
+</body>
+</html>

@@ -1,0 +1,329 @@
+{
+  "title": "2D Torus Wavetable Synthesizer — rich",
+  "born": "2026-11-03",
+  "links": [
+    {
+      "target": "[[2D Torus Wavetable Synthesizer]]",
+      "type": "connects-to",
+      "label": "rich-face-of"
+    },
+    {
+      "target": "[[Enrichment]]",
+      "type": "connects-to",
+      "label": "made-by"
+    }
+  ],
+  "forward_vector": "I am the manifest of the 2D Torus Wavetable Synthesizer's rich face, its first round at Study tier: three made pieces that each walk up to a test of their section's claim (the ratio gate, the symmetry-class morph rule, the RMS dip), and the bundle's renders, tours and étude gathered beside the sections they serve, with the fingerprint of the words each was laid against. I grow when the instrument is heard by hand and a piece has something new to test; I never hold the entry's words.",
+  "entry": "2D Torus Wavetable Synthesizer",
+  "tier": "study",
+  "made": "2026-11-03",
+  "round": 1,
+  "offers": [
+    {
+      "section": "Architecture",
+      "kind": "no-claim-edit",
+      "what": "The rational-ratio bullet says every output frequency is \"a rational multiple of a common fundamental ω₂/q\"; any frequency is a rational multiple of something, and that is not what makes it harmonic. The piece shows f = (m·p + n·q)·f₂/q: a whole-number multiple. Proposed: \"a whole-number multiple of a common fundamental ω₂/q\".",
+      "status": "open"
+    },
+    {
+      "section": "Architecture",
+      "kind": "no-claim-edit",
+      "what": "Units: with φ(t) = ω·t, ω is angular (radians per second), so f_mn = m·ω₁ + n·ω₂ reads as Hz only if ω means cycles per second. The piece writes φ = 2π·f·t and f = m·f₁ + n·f₂. Proposed: either say the scan rates are in Hz with φ = 2π·f·t, or write the spectrum as (m·ω₁ + n·ω₂)/2π.",
+      "status": "open"
+    },
+    {
+      "section": "Architecture",
+      "kind": "claim-change",
+      "what": "The two bullets read as a binary gate; by the spectrum it is a slope, which is the Four Pillars claim. Measured on the piece's engine: the rational/irrational line is everywhere and inaudible (1.5 closes in 18.18 ms, 1.5005 = 3001/2000 in 18.2 s, 1.5 + 10⁻⁹ in 53 days, with the same spectrum); what moves is the detune δ = f₁ − (p/q)·f₂ from the nearest simple ratio. Each partial slides by m·δ (Penrose dragged 1.49 → 1.51: 45 lines, worst 0.010 Hz from m·f₁ + n·f₂) and partials that shared a harmonic beat at multiples of |q·f₁ − p·f₂| (Membrane at 112 : 110: the 330 Hz pair measured at 331.99 and 334.00 Hz). Proposed sentence after the bullets: \"By ear the gate is not the line between rational and irrational, which is dense and inaudible, but the detune from the nearest simple ratio: each partial slides by m·δ, and partials that shared a harmonic beat apart at |q·ω₁ − p·ω₂|, slowing to stillness as the ratio arrives.\"",
+      "status": "open"
+    },
+    {
+      "section": "Why This Project Exists",
+      "kind": "claim-change",
+      "what": "The section credits the irrational-ratio gate with load-bearing work toward piano-style accumulating inharmonicity. The ratio-gate piece shows the gate alone moves each partial by m·δ: linear in the ripple's count, not the quadratic n·√(1 + B·n²) stretch the section starts from. The quadratic enters through the stiffness warp or the Stiff String surface (Architecture's \"second inharmonicity layer\"). Proposed: say the gate supplies a linear, surface-shaped detune and the quadratic accumulation comes from the B warp.",
+      "status": "open"
+    },
+    {
+      "section": "The Surfaces — Design Language",
+      "kind": "claim-change",
+      "what": "\"Surfaces sharing a common symmetry can crossfade cleanly; surfaces with different symmetry classes need a different morph treatment\" does not hold by level. Measured on the full 1024² tables (Rich face checks/mid-morph-direct.py): Membrane ↔ Chladni, both 4-fold, dips 3.14 dB at mid-morph under a height-map crossfade; Membrane ↔ Theta, the page's own cross-class example, 3.01 dB; Membrane ↔ Penrose, which share nothing, 3.01 dB. The law matters where lattices overlap with opposed phase: Theta ↔ Matérn (overlap 0.89) 6.47 dB height-map against 0.24 dB spectral; Matérn ↔ Fisher 4.17 against 0.56. Proposed: overlap and phase agreement, not point group, predict the dip; for pairs that share nothing an equal-power crossfade is the whole fix. This is the steward's cycle-7 finding, never folded in.",
+      "status": "open"
+    },
+    {
+      "section": "Open Decisions",
+      "kind": "claim-change",
+      "what": "\"Spectral-domain is the right tool for cross-symmetry surface morphs (Membrane ↔ Chladni)\": the Surfaces list calls both 4-fold, so the pair is not cross-symmetry, and the spectral law gains it 0.27 dB (3.14 → 2.87 dB at mid-morph). The pair where spectral morphing earns its FFT is Theta ↔ Matérn (6.47 → 0.24 dB). Proposed: name Theta ↔ Matérn, or say \"overlapping, opposed-phase pairs\".",
+      "status": "open"
+    },
+    {
+      "section": "Open Decisions",
+      "kind": "claim-change",
+      "what": "Measured from 00_test_diagnostic.wav, row by row: sine → rising saw bottoms 9.6 dB below the constant-RMS target at 55% of the segment (9.2 dB at the midpoint), so \"~10 dB\" holds; but the deepest dip in the table is rising saw → square, 11.7 dB below target at 36% (14.5 dB below the louder anchor), and when two anchors' levels differ the bottom of the dip moves off the midpoint. Proposed: \"~10–12 dB for negatively correlated anchors (sine → rising saw 9.6 dB; rising saw → square, the deepest, 11.7 dB, a third of the way across)\".",
+      "status": "open"
+    },
+    {
+      "section": "Open Questions",
+      "kind": "no-claim-edit",
+      "what": "The first question asks whether to crossfade \"c_mn coefficients in spectral space\" or \"W directly in spatial space\", saying they sound different. A linear crossfade of the c_mn is the same thing as a crossfade of W, since the Fourier series is linear; they differ only when the spectral morph blends magnitudes and turns phases, as Tools/morph_surfaces.py does. Proposed: \"crossfading the coefficients' magnitudes (phases turned the short way) in spectral space\".",
+      "status": "open"
+    }
+  ],
+  "sections": [
+    {
+      "heading": "Architecture",
+      "made_against": "774116eff3a1",
+      "made": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "image1_t2_product_of_circles.png",
+          "origin": "gathered",
+          "title": "T² = S¹ × S¹ · the wavetable space as a torus",
+          "caption": "The torus as a product of two circles: the familiar stack of single-cycle frames (waterfall, left) and the same data as a rectangle (right), whose opposite edges glue into the donut above.",
+          "near": "The wavetable is a function",
+          "place": "margin"
+        },
+        {
+          "file": "2D Torus Wavetable Synthesizer — rich — the ratio gate.html",
+          "origin": "made",
+          "by": "the Maker · Web Audio Worklet",
+          "height": 1500,
+          "title": "the ratio gate · five steps",
+          "caption": "**Line or slope?** One circle (an ordinary 1D wavetable), then two, then the surface's lattice projected onto the scan direction, then a ratio no fraction names, and last the page's own question: drag the ratio through 3 ⁄ 2 and watch whether the partials jump or slide. Checked offline on the piece's own worklet: every predicted line m·f₁ + n·f₂ found in the rendered spectrum; across 1.49 to 1.51 the worst line sits 0.010 Hz from its prediction; Membrane's shared 330 Hz harmonic splits to exactly |f₁ − f₂| at 112 : 110.",
+          "near": "The ratio ω₁/ω₂ is the primary inharmonicity gate"
+        },
+        {
+          "file": "audition/penrose_ratio_sweep.wav",
+          "origin": "gathered",
+          "title": "Penrose Lattice, six held ratios · scan_surface.py",
+          "caption": "The X phasor at 110 Hz and the rows at 1, 2, 3 ⁄ 2, 4 ⁄ 3, φ and √2 times that, 2.5 s each: four closed knots, then two that never close. The ratios were read back from the file's spectrum, not from a note; in the page's convention, f₁ ⁄ f₂ is the inverse of each.",
+          "near": "Detuning the ratio off rational opens a closed orbit",
+          "place": "margin"
+        }
+      ],
+      "stamped": "2026-11-03"
+    },
+    {
+      "heading": "The Surfaces — Design Language",
+      "made_against": "8a0f5acad357",
+      "made": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "2D Torus Wavetable Synthesizer — rich — surfaces and morphs.html",
+          "origin": "made",
+          "by": "the Maker · Web Audio Worklet",
+          "height": 1500,
+          "title": "surfaces and morphs · five steps",
+          "caption": "**Does symmetry decide the morph?** Nine voices from one scanning rule, then each as its lattice, then two lattices overlaid, then a height-map crossfade, and last the section's closing claim tested on the pairs the page names. Measured on the full tables: Membrane ↔ Chladni, both 4-fold, dips 3.1 dB at mid-morph, the same as Membrane ↔ Theta, the page's own cross-class example (3.0 dB), and as a pair that shares nothing. Theta ↔ Matérn, whose lattices overlap with opposed phase, dips 6.5 dB under the height-map law and 0.2 dB under the spectral one.",
+          "near": "A symmetric morph stack across these surfaces is constrained by point group"
+        },
+        {
+          "file": "Auditions/cycle-7/theta_matern_morph_spatial.wav",
+          "origin": "gathered",
+          "title": "Theta → Matérn, height-map crossfade · cycle 7",
+          "caption": "8 s, the morph the steward's cycle 7 surfaced from September's workshop. Listen for the middle going thin.",
+          "near": "A symmetric morph stack across these surfaces is constrained by point group",
+          "place": "margin"
+        },
+        {
+          "file": "Auditions/cycle-7/theta_matern_morph_spectral.wav",
+          "origin": "gathered",
+          "title": "Theta → Matérn, spectral crossfade · cycle 7",
+          "caption": "The same pair, magnitudes blended and phases turned: the middle keeps its body.",
+          "near": "A symmetric morph stack across these surfaces is constrained by point group",
+          "place": "margin"
+        }
+      ],
+      "stamped": "2026-11-03"
+    },
+    {
+      "heading": "The Five Generating Logics — Authoring Methods",
+      "made_against": "e7571a958889",
+      "made": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "Auditions/cycle-7/penrose_kuramoto_three_regimes.wav",
+          "origin": "gathered",
+          "title": "Penrose under the Kuramoto scan · below, at, above threshold",
+          "caption": "The bifurcation the third logic promises, heard side by side: shimmer below the coupling threshold, hiccups at it, lock above. Rendered by Tools/kuramoto_scan.py; not yet heard by Loudon.",
+          "near": "Replace the linear scan with coupled oscillator dynamics",
+          "place": "margin"
+        },
+        {
+          "file": "Auditions/cycle-7/penrose_kuramoto_ramp.png",
+          "origin": "gathered",
+          "title": "the coupling ramp, plotted",
+          "caption": "Coupling ramped from 0 to 1.6 Hz on Penrose at ratio 1.518, pulled to 3 ⁄ 2: the slip rate falls and the lock order and harmonicity jump together at 0.80 Hz. A snap, not a fade, where the linear scan's gate is a slope.",
+          "near": "Replace the linear scan with coupled oscillator dynamics",
+          "place": "margin"
+        }
+      ],
+      "stamped": "2026-11-03"
+    },
+    {
+      "heading": "Warps — A Second Surface Library",
+      "made_against": "8a1651da268c",
+      "made": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "Hopf/hands_tour_penrose.wav",
+          "origin": "gathered",
+          "title": "the three hands on Penrose · 24 s",
+          "caption": "Bend, shear and stir in turn on the locked 3 ⁄ 2 knot, then all three as it opens. Rendered offline by the browser engine; not yet heard by Loudon.",
+          "near": "The per-sample warps are built",
+          "place": "margin"
+        },
+        {
+          "file": "Hopf/hands_tour_penrose.png",
+          "origin": "gathered",
+          "title": "the hands tour, spectrogram",
+          "caption": "The harmonic lines never bend while the knot is locked; only their weights move, until it opens at 21 s. The warp catalog's lesson, seen: on a closed orbit a hand reweights partials, it doesn't retune them.",
+          "near": "The per-sample warps are built",
+          "place": "margin"
+        },
+        {
+          "file": "Warp Bank/warp_bank_tour_knot_shadow.wav",
+          "origin": "gathered",
+          "title": "the warp bank on Knot Shadow · 25 s",
+          "caption": "Five baked warps crossfaded on the locked 3 ⁄ 2 knot: blur, aimed blur, rotation, plate ring, stiff ridge. In the rotation (10–15 s), listen past 22.5° as the scan falls onto the surface's dead line. Rendered offline; not yet heard by Loudon.",
+          "near": "The bake-and-crossfade machinery is built too",
+          "place": "margin"
+        }
+      ],
+      "stamped": "2026-11-03"
+    },
+    {
+      "heading": "Hopf Fibration as Control Surface",
+      "made_against": "695bcc5cb59d",
+      "made": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "Hopf/hopf_tour_penrose.wav",
+          "origin": "gathered",
+          "title": "the Hopf tour on Penrose · 20 s",
+          "caption": "Start at the south pole: 0–5 s is the plain 1D wavetable at 440 Hz, longitude sweeping the rows. Then the climb up the sphere, catching and slipping through the 1 ⁄ 4, 1 ⁄ 3, 1 ⁄ 2 and 2 ⁄ 3 bands; parked just off 3 ⁄ 2 while coupling rises, snapping shut at 13.5 s; then the locked knot sliding. Rendered with the instrument's own engine; not yet heard by Loudon.",
+          "near": "A first mapping is built as a browser instrument",
+          "place": "margin"
+        },
+        {
+          "file": "Hopf/hopf-control-surface.html",
+          "origin": "gathered",
+          "contract": {
+            "needs": "storage"
+          },
+          "height": 1400,
+          "title": "the Hopf control surface · the cycle 7 study, as it was",
+          "caption": "**Start at the south pole.** Drag the dot to the bottom of the sphere and press play: that point is the classic 1D wavetable synth, and longitude chooses the row. Then climb. Gathered as built, including its own note boxes, which keep nothing inside the face; the page says it has not been played in a real browser, and this is the first place it can be.",
+          "near": "A first mapping is built as a browser instrument"
+        }
+      ],
+      "stamped": "2026-11-03"
+    },
+    {
+      "heading": "Open Decisions",
+      "made_against": "c377a38bb5be",
+      "made": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "2D Torus Wavetable Synthesizer — rich — the RMS dip.html",
+          "origin": "made",
+          "by": "the Maker · Web Audio Worklet",
+          "height": 1300,
+          "title": "the RMS dip · five steps",
+          "caption": "**Where does the middle of a crossfade go?** Sine and rising saw alone, then crossfaded, then the inner product that sinks the middle (−1 ⁄ π), then the constant-RMS fix, and last the real diagnostic table, all 1024 rows measured. Sine → saw bottoms at 9.6 dB below the constant-RMS target, as the page says; the deepest dip in the table is rising saw → square, 11.7 dB, a third of the way across.",
+          "near": "Linear sample-domain interpolation between dissimilar anchor waveforms"
+        },
+        {
+          "file": "Wavetables/_rms_diagnostic.png",
+          "origin": "gathered",
+          "title": "per-row RMS of the diagnostic · the catalog's plot",
+          "caption": "The catalog's own plot of the dip, row by row: the two silence anchors fall to zero by design; the first two segments, sine → saw and saw → square, are the deep notches.",
+          "near": "Linear sample-domain interpolation between dissimilar anchor waveforms",
+          "place": "margin"
+        },
+        {
+          "file": "Wavetables/00_test_diagnostic.wav",
+          "origin": "gathered",
+          "title": "the diagnostic table, played straight",
+          "caption": "The table's 1024 rows read one after another at 48 kHz: a 46.9 Hz buzz (48000 ⁄ 1024) whose shape walks all sixteen anchors in 21.8 s. The level sags between anchors.",
+          "near": "Linear sample-domain interpolation between dissimilar anchor waveforms",
+          "place": "margin"
+        },
+        {
+          "file": "Wavetables/00_test_diagnostic_constant_rms.wav",
+          "origin": "gathered",
+          "title": "the same table, constant-RMS",
+          "caption": "Every row scaled to the straight line between its anchors' levels (checked: within 0.000 dB of the target). The sag is gone; the shapes are unchanged.",
+          "near": "Linear sample-domain interpolation between dissimilar anchor waveforms",
+          "place": "margin"
+        }
+      ],
+      "stamped": "2026-11-03"
+    },
+    {
+      "heading": "Forward Vectors",
+      "made_against": "3426b0f14c52",
+      "made": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "Etude/etude_two_e_heros_journey.m4a",
+          "origin": "gathered",
+          "title": "Étude No. 2, fifth draft · the hero's journey, 4:27",
+          "caption": "Loudon, 2026-10-18: “The example is great as it is.” Twelve chapters, every voice played by the Hopf codebox's own text and rendered offline: a test piece for the engine, not yet for the prototype in Max this bullet names.",
+          "near": "The piece is the proof",
+          "place": "margin"
+        },
+        {
+          "file": "Etude/etude_two_e_heros_journey.png",
+          "origin": "gathered",
+          "title": "its spectrogram, chapters labelled",
+          "caption": "Home to the elixir: the refusal's slides, the threshold's open shimmer, the Farey staircase into the cave, the ordeal's spread, and the silence before the reward.",
+          "near": "The piece is the proof",
+          "place": "margin"
+        }
+      ],
+      "stamped": "2026-11-03"
+    }
+  ]
+}
