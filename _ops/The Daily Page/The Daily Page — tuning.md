@@ -252,3 +252,7 @@ What each morning taught the practice. Each item names what the morning showed a
 89. **Item 59 seen again.** The dealer listed BLUELINE's own bundle pages and `Shop/Blender` as forward ghosts; all exist. Still owed in `deal.py`.
 - Also: the woken page asked for a cut with sound and one finish over its six boards. The prep made two blind cuts over the real song with the boards as they were; the finish went to the page's baton.
 - run · 2026-10-29 · v1.2 · BLUELINE, tune · taught items 86–89
+
+## From the map's keeper — 2026-11-03
+
+90. **The dealer's siblings came from frontmatter while the morning's ring came from the map.** Since v0.6 the prep builds the map before it deals and reads the page's ring with `near`, but the brief's siblings still came from a frontmatter scan, so the two could disagree on a page's links and the sit saw both. Parked at the keeper plan's Move 3, picked up on Loudon, 2026-11-03: "pick them up". Forced: **v1.3** — `deal.py` reads the brief's siblings from the newest map in `_ops/maps/` through `palace-map.py`'s own loader, so the dealer and `near` answer from one graph; with no map, or a page born since the build, it falls back to frontmatter and the brief says which it used ("siblings, from the map 2026-11-03"). Step 1 says so. The scheduled task's command list is unchanged; `--peek` on the day's page verified.

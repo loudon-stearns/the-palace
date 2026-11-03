@@ -14,6 +14,7 @@ Verbs:
   connected "<A>" "<B>" …                 whether a set holds together through edges inside it, and the types it crosses
   hubs [--n N]                            highest inbound degree
   quiet [--n N]                           high degree, low recent use
+  types                                   every relation type and its edge count
   ghosts [--persistent]                   forward ghosts; those in the last three maps
   diff <date> <date>                      what changed between two builds
   list                                    every node, type and stage
@@ -258,6 +259,27 @@ def verb_hubs(d, a):
                                              "inbound": n.get("inbound_count", 0), "outbound": n.get("outbound_count", 0)} for n in ns]}
     return "\n".join([header(d)] + [f"{n.get('inbound_count',0):4d} in  {n['id']}  [{n.get('type')}/{n.get('stage')}]" for n in ns])
 
+def verb_types(d, a):
+    """Every relation type in the map and how many edges carry it; node-to-node
+    edges counted apart from edges that land on a ghost (a bundle file, a page
+    not yet written). The keeper used `cut | sort | uniq` on the TSV for this
+    (2026-11-03); this is the verb for it."""
+    from collections import Counter
+    total, between, ghost = Counter(), Counter(), Counter()
+    for e in d["edges"]:
+        total[e["type"]] += 1
+        if e["target"] in d["_nodes"]:
+            between[e["type"]] += 1
+        else:
+            ghost[e["type"]] += 1
+    rows = sorted(total, key=lambda t: (-total[t], t))
+    if a.json:
+        return {"map": d["_path"], "types": [{"type": t, "edges": total[t], "node_to_node": between[t],
+                                              "to_ghost": ghost[t]} for t in rows]}
+    out = [header(d), f"{len(rows)} relation types; edges / node-to-node / to a ghost"]
+    out += [f"{total[t]:5d} {between[t]:5d} {ghost[t]:5d}  {t}" for t in rows]
+    return "\n".join(out)
+
 def verb_quiet(d, a):
     if not any("use" in n for n in d["nodes"]):
         sys.exit("this map carries no `use` (built before 2026-08-26); rebuild it")
@@ -374,6 +396,7 @@ def main():
     s = sub.add_parser("hubs", help="highest inbound degree"); s.add_argument("--n", type=int, default=20); s.set_defaults(fn=verb_hubs)
     s = sub.add_parser("quiet", help="high degree, low recent use"); s.add_argument("--n", type=int, default=20)
     s.add_argument("--min-degree", type=int, default=8); s.add_argument("--pillar"); s.set_defaults(fn=verb_quiet)
+    s = sub.add_parser("types", help="relation types and their edge counts"); s.set_defaults(fn=verb_types)
     s = sub.add_parser("ghosts", help="forward ghosts"); s.add_argument("--persistent", action="store_true"); s.set_defaults(fn=verb_ghosts)
     s = sub.add_parser("diff", help="what changed between two builds"); s.add_argument("old"); s.add_argument("new")
     s.add_argument("--threshold", type=int, default=3); s.add_argument("--limit", type=int, default=40); s.set_defaults(fn=verb_diff)

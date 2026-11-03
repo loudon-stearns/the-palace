@@ -29,6 +29,17 @@ class PalaceMapTool(unittest.TestCase):
         cls.nodes = {n["id"]: n for n in cls.m["nodes"]}
         cls.date = cls.m["meta"]["generated"]
 
+    def test_types_sums_to_every_edge_and_splits_ghosts_by_the_node_rule(self):
+        r = run("types")
+        self.assertEqual(sum(t["edges"] for t in r["types"]), len(self.m["edges"]))
+        for t in r["types"]:
+            self.assertEqual(t["edges"], t["node_to_node"] + t["to_ghost"], t["type"])
+            # node-to-node by type must equal what the edges say under the builder's rule
+            real = sum(1 for e in self.m["edges"] if e["type"] == t["type"] and e["target"] in self.nodes)
+            self.assertEqual(t["node_to_node"], real, t["type"])
+        self.assertEqual(sum(t["node_to_node"] for t in r["types"]),
+                         sum(n["inbound_count"] for n in self.m["nodes"]))
+
     def test_near_matches_builder_degree_for_every_node(self):
         for nid, n in self.nodes.items():
             r = run("near", nid, "--hops", "1")
