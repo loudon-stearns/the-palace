@@ -1,0 +1,217 @@
+{
+  "title": "Typography as Meaning — rich",
+  "born": "2026-11-03",
+  "links": [
+    {
+      "target": "[[Typography as Meaning]]",
+      "type": "connects-to",
+      "label": "rich-face-of"
+    },
+    {
+      "target": "[[Enrichment]]",
+      "type": "connects-to",
+      "label": "made-by"
+    },
+    {
+      "target": "[[Progressive Staging]]",
+      "type": "connects-to",
+      "label": "each-piece-walks-up"
+    },
+    {
+      "target": "[[BLUELINE — Text Layer]]",
+      "type": "connects-to",
+      "label": "renders-gathered"
+    }
+  ],
+  "forward_vector": "I am the manifest of Typography as Meaning's rich face, its first round, a Study and still a proposal. Two made walks test the page's grammar: one reads it blind, one part at a time, and asks the reader before any label shows; the other puts all 120 answer-sets through the page's own lettering function and runs it backwards, to count what the form can give back. Beside them sit the page's two proofs and BLUELINE's renders, gathered as they were. I grow when the page is enriched again; I never hold the entry's words.",
+  "entry": "Typography as Meaning",
+  "tier": "study",
+  "made": "2026-11-03",
+  "round": 1,
+  "offers": [
+    {
+      "section": "The three axes",
+      "kind": "claim-change",
+      "what": "Counted on whos-talking.html's own letter() over all 120 answer-sets: 80 forms to the eye (95 to a ruler, 58 if size isn't read). Inside or outside reads back 120/120, so the missed margin caption was a matter of being seen, not of the mark being absent. To whom reads back least (80/120): in the margin, \"to B\" and \"to us\" differ by 2 px. Source outranks emotion only on the balloon and the face. The feeling moves into size and case, so a menacing radio differs from a calm one only by 24 → 30 px; the narrator takes size and case too, and inside the story its five feelings make 2 forms. A possible line: 'Run as a function, the precedence is per channel: the source takes the balloon and the face, the feeling keeps size and case, and only the narrator takes everything.'",
+      "status": "open"
+    },
+    {
+      "section": "The letterform as material",
+      "kind": "claim-change",
+      "what": "In BLUELINE's canny sweep (one bleeding 'too late' bubble, control 0.35 and 0.5 × end 0.4 and 0.7, four renders), the word reads in all four and the guide's tail is gone in all four; at 0.35 the balloon body dissolves too. Seen by eye in four images of one word, so it is not a measure. If it holds, the model can supply the material for the word and the body, but the tail (the part that says who and to whom) has to be drawn last, by the letterer, the way Comic Chat routes tails last. A possible clause after 'let the model supply the material': '…and keep the tail for last: in BLUELINE's sweep the renders kept the word and lost the tail every time.'",
+      "status": "open"
+    }
+  ],
+  "sections": [
+    {
+      "heading": "The grammar (inherited from comics lettering)",
+      "made_against": "6232af1b4b96",
+      "made": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "Typography as Meaning — rich — the grammar, blind.html",
+          "origin": "made",
+          "by": "the Maker · SVG and type",
+          "title": "the grammar, blind · a walk in four steps",
+          "caption": "**Read the grammar before the labels.** One part changes at a time, and you order or name the forms before the key shows: weight (quiet to loud), case (private to public), hand or type (the author or someone in the story), and last the balloon's outline alone, with no tail and the same words in all seven. Then the tally against chance. One reader is a sign, not a measurement.",
+          "near": "Placement = diegesis",
+          "place": "band",
+          "height": 800
+        }
+      ],
+      "stamped": "2026-11-03"
+    },
+    {
+      "heading": "The three axes",
+      "made_against": "710be32d1d48",
+      "made": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "Typography as Meaning — rich — the function, counted.html",
+          "origin": "made",
+          "by": "the Maker · SVG",
+          "title": "the function, counted · a walk in four steps",
+          "caption": "**Is the form really chosen by the four answers, and can you read them back?** One balloon, then one answer changed at a time, then a menacing radio under either order of precedence, and last all 120 answer-sets put through the page's own function (whos-talking.html's `letter()`, copied unchanged) and counted: 95 forms to a ruler, 80 to the eye, 58 if size isn't read.",
+          "near": "That is what makes lettering a language rather than decoration",
+          "place": "band",
+          "height": 1100
+        },
+        {
+          "file": "proofs/2026-10-22-daily-page/whos-talking.html",
+          "origin": "gathered",
+          "title": "Who's talking? · the 2026-10-22 Daily Page proof",
+          "caption": "**The proof this section cites, gathered as it was.** Six cards letter the word *stay* six ways; guess who, where, to whom and the feeling from the form alone, then reveal. Below it the same rules run forwards, and last the nine-beat frame whose crossing tails sent the page toward the conversation. The blind read is where the quiet margin caption was missed.",
+          "near": "it is easy not to see at all",
+          "place": "band",
+          "height": 6240,
+          "contract": {
+            "needs": ""
+          }
+        }
+      ],
+      "stamped": "2026-11-03"
+    },
+    {
+      "heading": "The conversation",
+      "made_against": "aef40886b39c",
+      "made": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "proofs/2026-10-22-daily-page/conversation-ladder.html",
+          "origin": "gathered",
+          "title": "the conversation ladder · the 2026-10-22 Daily Page proof",
+          "caption": "**Six frames, one rule each, the fix beside the mistake.** Bodies placed by hand; tails, joins, trails and every check computed. Switch to the mistake and the checker names what broke. Frame 3 is the one it cannot see: the one-breath version breaks no rule, and only a reader hears the missing beat.",
+          "near": "a checker cannot see a beat",
+          "place": "band",
+          "height": 5760,
+          "contract": {
+            "needs": ""
+          }
+        }
+      ],
+      "stamped": "2026-11-03"
+    },
+    {
+      "heading": "The letterform as material",
+      "made_against": "5f0d14c2b96f",
+      "made": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "rich-face/lyric-burning_skeleton_s1111.png",
+          "origin": "gathered",
+          "title": "BURNING · skeleton and canny, BLUELINE text layer, 2026-06-24",
+          "caption": "**The word made of its material.** A hand-drawn skeleton in Metal Mania, held by a canny lock while SDXL supplies \"living flame and streaming light\". BLUELINE's render, copied here so the public face can show it.",
+          "near": "Generative rendering lets the strokes be made of the feeling itself",
+          "place": "margin"
+        },
+        {
+          "file": "/Projects/BLUELINE/proofs/text-layer/balloons-genai/sweep/guide.png",
+          "origin": "gathered",
+          "title": "the guide · BLUELINE balloon sweep, 2026-07-01",
+          "caption": "**The authored structure.** The canny guide for the bleeding *too late* bubble: outline, word skeleton and a tail.",
+          "near": "Generative rendering lets the strokes be made of the feeling itself",
+          "place": "margin"
+        },
+        {
+          "file": "/Projects/BLUELINE/proofs/text-layer/balloons-genai/sweep/cn0.35_end0.4.png",
+          "origin": "gathered",
+          "title": "control 0.35 · the structure let go",
+          "caption": "**Too loose.** At canny strength 0.35 the word still reads, but the balloon dissolves into the ink field.",
+          "near": "Generative rendering lets the strokes be made of the feeling itself",
+          "place": "margin"
+        },
+        {
+          "file": "/Projects/BLUELINE/proofs/text-layer/balloons-genai/sweep/cn0.5_end0.4.png",
+          "origin": "gathered",
+          "title": "control 0.5 · the structure held",
+          "caption": "**Held.** At 0.5 the bubble reads as a bubble and the drama moves inside it (BLUELINE's sweet spot). In all four renders of the sweep the guide's tail is gone.",
+          "near": "Generative rendering lets the strokes be made of the feeling itself",
+          "place": "margin"
+        },
+        {
+          "file": "rich-face/lyric-burning_negspace_s1111.png",
+          "origin": "gathered",
+          "title": "BURNING · negative space, BLUELINE text layer, 2026-06-24",
+          "caption": "**The font left black.** The same word as a void the ink flows around. BLUELINE's render, copied here so the public face can show it.",
+          "near": "leave the font black, put the word in negative space",
+          "place": "margin"
+        }
+      ],
+      "stamped": "2026-11-03"
+    },
+    {
+      "heading": "Where it's used",
+      "made_against": "6212e66d016a",
+      "made": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "/Projects/BLUELINE/proofs/blender-handdrawn/followups/rig-openpose/renders/text-anchor/balloons/catalog_grid.png",
+          "origin": "gathered",
+          "title": "BLUELINE's balloon catalog · balloon_lib.py",
+          "caption": "**The grammar as BLUELINE's letterer draws it**: twelve balloons, each named for what it means. The page's list, plus a rounded rectangle for speech, a double rim for loud, and an off-panel tail.",
+          "near": "noir-tragedy voices first",
+          "place": "margin"
+        },
+        {
+          "file": "/Projects/BLUELINE/proofs/text-layer/balloons-genai/montage.png",
+          "origin": "gathered",
+          "title": "the hero's NO and the dying woman's stay · balloon × gen-AI, 2026-07-01",
+          "caption": "**The two voices the section names, four ways each**: the material in the box, the word escaping, the word clipped inside, and the balloon as a window on inner weather (BLUELINE's standout).",
+          "near": "noir-tragedy voices first",
+          "place": "band"
+        }
+      ],
+      "stamped": "2026-11-03"
+    }
+  ]
+}

@@ -1,0 +1,385 @@
+<!doctype html>
+<!--
+  title: Typography as Meaning — rich — the function, counted
+  born: 2026-11-03
+  links: [[Typography as Meaning]] (connects-to · rich-face-piece) · listed in [[Typography as Meaning — rich.json]] · [[Progressive Staging]] (exemplifies · a walk up to its test) · [[BLUELINE — Text Layer]] (connects-to · the grammar as a function)
+  forward_vector: I am "answer who, where and to whom, and the form is chosen for you", counted. One balloon, then one answer changed at a time, then two answers that want the same balloon, and last every one of the 120 answer-sets put through the function and run backwards, to count how many forms come out and which answers can be read back off them. The function is whos-talking.html's own letter(), copied unchanged; I change only when the section I serve does, or when that function does.
+  engine: the script block with id "engine" holds the grammar (OPTS and letter(), verbatim from Typography as Meaning/proofs/2026-10-22-daily-page/whos-talking.html), the other order of precedence made here, the form a reader sees, and the counting.
+  checks: Typography as Meaning/Typography as Meaning — rich — check.mjs runs this engine against what the piece claims, and checks letter() is still the proof's own.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:needs" content=""><!-- needs nothing of its host: no device, no storage, no files, no network but the fonts -->
+<title>Typography as Meaning — the function, counted</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Bangers&family=Caveat&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Creepster&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@300;400;500;600&family=Permanent+Marker&family=Shadows+Into+Light&family=Special+Elite&display=swap">
+<style>
+  /* Loudon Live house style, Drafting skin: paper, ink, engineering red. Blue marks what the function did. */
+  :root { --paper:#f0eee5; --paper2:#e7e4d8; --fill:#dcd9ca; --ink:#1a1916; --ink2:#3a3833; --mute:#6b675c; --faint:#a19d90; --line:#b9b5a7;
+    --red:#c8261a; --red-soft:rgba(200,38,26,.08); --red-line:rgba(200,38,26,.45); --blue:#2a4f8f; --blue-soft:rgba(42,79,143,.09);
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --sans:'Manrope',system-ui,sans-serif; --serif:'Cormorant Garamond',Georgia,serif; --display:'Anton',Impact,sans-serif;
+    --ease:cubic-bezier(.4,0,.2,1); }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--paper); color: var(--ink2); font-family: var(--sans); font-weight: 400; }
+  .piece { padding: 22px 22px 20px; }
+  .kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: var(--mute); margin-bottom: 6px; display: flex; align-items: center; gap: 10px; }
+  .title { font-family: var(--display); font-weight: 400; font-size: 34px; line-height: 1.05; letter-spacing: .01em; text-transform: uppercase; color: var(--ink); margin: 0 0 8px; }
+  .sub { font-size: 14px; line-height: 1.6; max-width: 76ch; margin: 0 0 16px; }
+  .rail { display: flex; flex-wrap: wrap; margin: 4px 0 18px; border: 1px solid var(--line); border-radius: 2px; width: fit-content; max-width: 100%; }
+  .rail button { border: 0; border-right: 1px solid var(--line); border-radius: 0; background: transparent; padding: 7px 12px; color: var(--mute); }
+  .rail button:last-child { border-right: 0; }
+  .rail button[aria-current="step"] { background: var(--red-soft); color: var(--red); }
+  .step { display: none; }
+  .step.on { display: block; }
+  .step h3 { font-family: var(--serif); font-size: 25px; font-weight: 500; color: var(--ink); margin: 0 0 6px; }
+  .teach { font-size: 14px; line-height: 1.65; max-width: 76ch; margin: 0 0 12px; }
+  .back { font-family: var(--mono); font-size: 11px; letter-spacing: .03em; color: var(--mute); margin: 0 0 14px; }
+  .eqs { margin: 4px 0 16px; padding: 10px 14px; border-left: 1px solid var(--red-line); background: var(--paper2); max-width: 78ch; }
+  .eq { font-family: var(--serif); font-size: 20px; color: var(--ink); font-variant-numeric: lining-nums; }
+  .eq i { font-style: italic; }
+  .words { font-size: 13px; line-height: 1.55; margin: 2px 0 8px; }
+  .words:last-child { margin-bottom: 0; }
+  button, select { font-family: var(--mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink2); background: var(--paper); border: 1px solid var(--line); border-radius: 2px; padding: 7px 11px; cursor: pointer; transition: border-color 220ms var(--ease), color 220ms var(--ease), background 220ms var(--ease); }
+  select { text-transform: none; letter-spacing: .02em; padding: 5px 6px; width: 100%; border-color: var(--ink2); }
+  button:hover { border-color: var(--red-line); color: var(--ink); }
+  button[aria-pressed="true"] { color: var(--red); border-color: var(--red-line); background: var(--red-soft); }
+  .btns { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin: 6px 0 12px; }
+  .qs { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 8px 14px; margin: 8px 0 12px; max-width: 820px; }
+  .qs label { display: block; font-family: var(--mono); font-size: 10.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--mute); margin-bottom: 3px; }
+  svg.panel { width: 100%; height: auto; display: block; border: 1px solid var(--ink); background: var(--paper); }
+  .one { max-width: 640px; }
+  .three { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .three figure { margin: 0; }
+  .three figcaption { font-family: var(--mono); font-size: 11px; color: var(--mute); margin-top: 5px; line-height: 1.45; }
+  .three figcaption b { color: var(--ink); font-weight: 500; }
+  .chain { font-family: var(--mono); font-size: 11.5px; line-height: 1.6; color: var(--blue); margin: 8px 0 4px; max-width: 80ch; }
+  .diff { font-size: 13px; line-height: 1.55; min-height: 2.6em; padding: 8px 12px; border-left: 1px solid var(--red-line); background: var(--paper2); color: var(--ink); margin: 8px 0 10px; max-width: 80ch; }
+  .diff b { color: var(--red); font-weight: 600; }
+  .read { display: flex; flex-wrap: wrap; gap: 6px 22px; margin: 8px 0 8px; font-family: var(--mono); font-size: 12px; letter-spacing: .03em; color: var(--mute); }
+  .read b { color: var(--ink); font-weight: 500; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(132px, 1fr)); gap: 8px; margin: 8px 0 12px; }
+  .tile { position: relative; border: 1px solid var(--line); border-radius: 2px; background: var(--paper); padding: 0; cursor: pointer; text-transform: none; letter-spacing: 0; }
+  .tile svg { display: block; width: 100%; height: auto; }
+  .tile .n { position: absolute; top: 3px; right: 3px; font-family: var(--mono); font-size: 10.5px; padding: 1px 5px; border-radius: 2px; background: var(--paper); border: 1px solid var(--line); color: var(--mute); }
+  .tile.many .n { background: var(--red); border-color: var(--red); color: var(--paper); }
+  .tile[aria-pressed="true"] { border-color: var(--red); box-shadow: 0 0 0 1px var(--red); background: var(--paper); }
+  .detail { display: grid; grid-template-columns: minmax(240px, 380px) 1fr; gap: 16px; align-items: start; margin: 8px 0 12px; }
+  .detail ul { margin: 0; padding-left: 18px; font-size: 13px; line-height: 1.6; }
+  .detail .plabel { font-family: var(--mono); font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--mute); margin-bottom: 6px; }
+  table.t { border-collapse: collapse; font-family: var(--mono); font-size: 12px; color: var(--ink2); width: 100%; max-width: 720px; margin: 6px 0 10px; }
+  table.t th { text-align: left; font-weight: 400; color: var(--mute); letter-spacing: .06em; font-size: 10.5px; border-bottom: 1px solid var(--ink2); padding: 5px 8px; }
+  table.t td { border-bottom: 1px solid var(--line); padding: 4px 8px; }
+  table.t td.n { text-align: right; font-variant-numeric: tabular-nums; }
+  table.t tr.on td { color: var(--ink); font-weight: 500; background: var(--red-soft); }
+  .verdict { font-size: 14px; line-height: 1.6; max-width: 80ch; padding: 10px 14px; border: 1px solid var(--red-line); border-radius: 2px; background: var(--red-soft); color: var(--ink); margin: 10px 0 12px; }
+  .note { font-size: 12.5px; line-height: 1.55; color: var(--mute); max-width: 78ch; margin: 6px 0 0; }
+  nav.walk { display: flex; gap: 10px; align-items: center; margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--line); }
+  nav.walk .where { font-family: var(--mono); font-size: 11px; color: var(--mute); letter-spacing: .08em; margin-left: auto; }
+  .foot { font-family: var(--mono); font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--faint); margin-top: 14px; }
+  @media (max-width: 760px) { .three { grid-template-columns: 1fr; } .detail { grid-template-columns: 1fr; } }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+<div class="piece">
+  <div class="kicker"><span id="sigil"></span>made · study · a walk in four steps</div>
+  <h2 class="title">The function, counted</h2>
+  <p class="sub">The section says every text event is a point in four answers (who speaks, inside or outside the story, to whom, and the feeling) and that the lettering is a function of those four, not a free choice. Here is that function, the one <code>whos-talking.html</code> wrote down, copied unchanged. It starts from one balloon and ends by putting all 120 answer-sets through it and running it backwards: how many forms come out, and which answers can you read back off them?</p>
+  <div class="rail" id="rail"></div>
+
+  <!-- step 1 -->
+  <section class="step">
+    <h3>One balloon</h3>
+    <p class="teach">A speaks, inside the story, to B, calmly. Four answers go in; one balloon comes out. The blue line underneath is the function showing its work, rule by rule, in the order it applies them.</p>
+    <div class="eqs">
+      <div class="eq">form = <i>f</i>(source, diegesis, addressee, emotion)</div>
+      <div class="words">(how the words look: balloon, tail, face, case, size, where they sit) is decided by (who speaks, whether inside the story, to whom, how they feel), and by nothing else. Same four answers, same balloon.</div>
+    </div>
+    <div class="one"><svg class="panel" id="p1" viewBox="0 0 640 400"></svg></div>
+    <div class="chain" id="c1"></div>
+  </section>
+
+  <!-- step 2 -->
+  <section class="step">
+    <h3>Change one answer</h3>
+    <p class="teach">Now the four answers are yours. Change one at a time and watch which part of the form moves. Each answer has its own job: the feeling picks the balloon and the face, the source can take them over, inside or outside picks frame or margin, and the listener moves the balloon and its size.</p>
+    <p class="back">At A · inside · to B · calm this is step 1's balloon.</p>
+    <div class="qs" id="q2"></div>
+    <div class="one"><svg class="panel" id="p2" viewBox="0 0 640 400"></svg></div>
+    <div class="diff" id="d2"></div>
+    <div class="chain" id="c2"></div>
+  </section>
+
+  <!-- step 3 -->
+  <section class="step">
+    <h3>Two answers want the same balloon</h3>
+    <p class="teach">A radio speaking with menace. Menace wants the icicle balloon and a dripping face; a radio wants its serrated balloon and a typewriter. A balloon has one outline and one face, so one answer has to give way. The page says source outranks emotion. Switch the order and see what each order costs.</p>
+    <p class="back">The left panel is step 2 set to A · inside · to B · cold menace; the middle, the radio · inside · to B · calm.</p>
+    <div class="btns"><button id="ordS" aria-pressed="true">source first · the page's order</button><button id="ordE" aria-pressed="false">emotion first · the other order</button></div>
+    <div class="three">
+      <figure><svg class="panel" id="p3a" viewBox="0 0 640 400"></svg><figcaption><b>menace alone</b> · A, inside, to B, cold menace</figcaption></figure>
+      <figure><svg class="panel" id="p3b" viewBox="0 0 640 400"></svg><figcaption><b>the radio alone</b> · radio, inside, to B, calm</figcaption></figure>
+      <figure><svg class="panel" id="p3c" viewBox="0 0 640 400"></svg><figcaption><b>a radio, with menace</b> · <span id="ordName"></span></figcaption></figure>
+    </div>
+    <div class="diff" id="d3"></div>
+    <p class="note">The other order is made here, not in the proof: it runs the same rules, then lets the feeling take the balloon and the face back. Only the page's order is the function.</p>
+  </section>
+
+  <!-- step 4 -->
+  <section class="step">
+    <h3>The test: all 120, run backwards</h3>
+    <p class="teach">If the form is chosen by the four answers, then running it backwards should give the answers back. So put every answer-set through the function and count what comes out. Each tile is one form a reader could see; its number says how many answer-sets make exactly that form. A red number is a form that can't tell you which of them it was. Press a tile to see them.</p>
+    <p class="back">Every tile is drawn by step 2's function; the answer-sets are every setting of step 2's four menus.</p>
+    <div class="eqs">
+      <div class="eq">4 × 2 × 3 × 5 = 120 answer-sets &nbsp;→&nbsp; <span id="eqN"></span> forms</div>
+      <div class="words">(4 speakers) × (inside or outside) × (3 listeners) × (5 feelings) = 120 ways to answer the four questions. If every one drew a different form, all 120 could be read back. Each form shared by two or more is a place where running it backwards loses an answer.</div>
+    </div>
+    <div class="btns" id="readings"></div>
+    <div class="read"><span>forms <b id="rN"></b></span><span>answer-sets with a form of their own <b id="rU"></b></span><span>shared forms <b id="rS"></b></span></div>
+    <table class="t" id="tbl"></table>
+    <div class="grid" id="grid"></div>
+    <div class="detail" id="detail"></div>
+    <div class="verdict" id="verdict"></div>
+    <p class="note">Counted on the function, not on a reader. The function marks inside or outside every time; whether a reader sees the mark is the other test, the blind read in <code>whos-talking.html</code>, where a quiet margin caption was looked straight past. Tremor is drawn at random each time, so the tiles shake differently on each look; whether a form shakes is fixed. Two answer-sets count as one form when they differ only in what a reading can't see: under "to the eye", a 2 px shift; under "without size", the type size too.</p>
+  </section>
+
+  <nav class="walk"><button id="back">◀ back</button><button id="next">next ▶</button><span class="where" id="where"></span></nav>
+  <div class="foot">Loud’n Live</div>
+</div>
+
+<script id="engine">
+// ---- the grammar: OPTS and letter(), verbatim from whos-talking.html (2026-10-22) ----
+const OPTS={
+  source:[["A","A speaks"],["mindA","A thinks"],["narrator","the narrator"],["radio","the radio"]],
+  diegesis:[["in","inside the story"],["out","outside it"]],
+  addressee:[["B","to B"],["self","to A's self"],["us","to us"]],
+  emotion:[["calm","calm"],["fury","fury"],["weak","weak, fading"],["whisper","whisper"],["menace","cold menace"]]
+};
+function letter(s){
+  const r={chain:[]};
+  const E={
+    calm:   {shape:"oval",   font:"Marker",  caps:true,  size:24},
+    fury:   {shape:"spiky",  font:"Bangers", caps:true,  size:40},
+    weak:   {shape:"wavy",   font:"Shadows", caps:false, size:24, tremor:true},
+    whisper:{shape:"dashed", font:"Caveat",  caps:false, size:21},
+    menace: {shape:"icicle", font:"Creepster",caps:true, size:30}
+  }[s.emotion];
+  Object.assign(r,E); r.chain.push(`${s.emotion} → ${E.shape} balloon · ${E.font} · ${E.caps?"CAPS":"lowercase"}`);
+  if(s.source==="mindA"){r.shape="cloud";r.caps=false;r.trail=true;if(r.font==="Marker"||r.font==="Bangers")r.font="Caveat";r.chain.push("a mind → cloud, bubble trail, lowercase");}
+  if(s.source==="radio"){r.shape="radio";r.font="SpecialElite";r.italic=true;r.chain.push("a machine → serrated radio balloon · typewriter italic");}
+  if(s.source==="narrator"){r.shape="rect";r.font="Anton";r.caps=true;r.size=26;r.tail=false;r.chain.push("the narrator → typeset caption box, no tail");}
+  if(s.diegesis==="out"){
+    r.where="margin";
+    if(s.source!=="narrator"){r.shape="rect";r.trail=false;r.tail=false;r.chain.push("outside the story → a caption box in the margin, the speaker's own hand (voiceover)");}
+    else r.chain.push("outside the story → the margin");
+  } else {r.where="frame";r.chain.push("inside the story → in the frame, tail to the speaker");}
+  r.to=s.addressee;
+  if(s.addressee==="self"){r.size*=.8;r.caps=false;r.chain.push("to oneself → small, lowercase, close to the head");}
+  if(s.addressee==="B")r.chain.push("to B → the balloon leans toward B");
+  if(s.addressee==="us")r.chain.push("to us → the balloon breaks the frame toward the reader");
+  if(r.tail===undefined)r.tail=!r.trail;
+  r.source=s.source; r.text=s.text||"stay";
+  return r;
+}
+// ---- end of the verbatim copy ----
+
+// The other order, made here (not in the proof): the same rules, then the feeling takes the outline and the face back.
+const FEEL={calm:["oval","Marker"],fury:["spiky","Bangers"],weak:["wavy","Shadows"],whisper:["dashed","Caveat"],menace:["icicle","Creepster"]};
+function letterEmotionFirst(s){
+  const r=letter(s);
+  if(r.where==="frame"&&s.source!=="narrator"){const [shape,font]=FEEL[s.emotion];if(r.shape!==shape||r.font!==font){r.shape=shape;r.font=font;r.italic=false;r.chain.push(`emotion first → ${shape} balloon · ${font}, back from the source`);}}
+  return r;
+}
+
+// The form a reader sees: every property the drawing uses, and where draw() puts the balloon.
+// draw() places a margin balloon "to us" 2 px lower than one "to B" (cy 32 vs 30); `ruler` keeps that difference.
+function where(r,ruler){
+  if(r.where==="margin"){const x=r.to==="self"?"over A":r.source==="narrator"?"margin, left":"margin, middle";return x+(ruler&&r.to==="us"&&r.to!=="self"?" (2 px lower)":"");}
+  if(r.to==="self")return r.source==="radio"?"by the radio, small":"by A's head, small";
+  if(r.to==="us")return (r.source==="radio"?"over the radio":"over A")+", breaking the frame";
+  return r.source==="radio"?"between the radio and B":"between A and B";
+}
+// readings: ruler = every difference counts; eye = a 2 px shift does not; nosize = the type size does not either
+function formOf(r,reading){
+  const f={balloon:r.shape,face:r.font,caps:!!r.caps,size:+(+r.size).toFixed(1),slant:!!r.italic,shake:!!r.tremor,
+    tail:r.tail?(r.source==="radio"?"to the radio":"to A"):"none",trail:!!r.trail,place:where(r,reading==="ruler"),tilt:r.where==="frame"&&r.to==="us"};
+  if(reading==="nosize")f.size=0;
+  return f;
+}
+const key=f=>JSON.stringify(f);
+const AXES=["source","diegesis","addressee","emotion"];
+function everyAnswer(){const out=[];for(const [source] of OPTS.source)for(const [diegesis] of OPTS.diegesis)for(const [addressee] of OPTS.addressee)for(const [emotion] of OPTS.emotion)out.push({source,diegesis,addressee,emotion});return out;}
+// put all 120 through f, group by the form, and count what reads back
+function count(reading,fn){
+  fn=fn||letter;
+  const groups=new Map();
+  for(const s of everyAnswer()){const r=fn(s),k=key(formOf(r,reading));if(!groups.has(k))groups.set(k,{form:formOf(r,reading),r,sets:[]});groups.get(k).sets.push(s);}
+  const back={};
+  for(const a of AXES){let ok=0;for(const g of groups.values()){const vals=new Set(g.sets.map(s=>s[a]));if(vals.size===1)ok+=g.sets.length;}back[a]=ok;}
+  let unique=0,shared=0;for(const g of groups.values()){if(g.sets.length===1)unique++;else shared++;}
+  return {groups:[...groups.values()],forms:groups.size,unique,shared,back};
+}
+// how many of the five feelings still look different, for one speaker inside the story, to B
+function feelingsKept(source,reading,fn){fn=fn||letter;return new Set(OPTS.emotion.map(([e])=>key(formOf(fn({source,diegesis:"in",addressee:"B",emotion:e}),reading)))).size;}
+// what differs between two forms, in words
+const PART={balloon:"balloon",face:"face",caps:"case",size:"size",slant:"slant",shake:"shake",tail:"tail",trail:"bubble trail",place:"place",tilt:"tilt"};
+function differs(a,b){return Object.keys(PART).filter(k=>a[k]!==b[k]);}
+</script>
+
+<script>
+const $=id=>document.getElementById(id);
+const LABEL=k=>Object.fromEntries(OPTS[k]);
+const FAM={Marker:"'Permanent Marker', cursive",Bangers:"Bangers, Impact, sans-serif",Shadows:"'Shadows Into Light', cursive",Caveat:"Caveat, cursive",Creepster:"Creepster, cursive",SpecialElite:"'Special Elite', monospace",Anton:"Anton, Impact, sans-serif"};
+const FACE={Marker:"Permanent Marker",Bangers:"Bangers",Shadows:"Shadows Into Light",Caveat:"Caveat",Creepster:"Creepster",SpecialElite:"Special Elite",Anton:"Anton"};
+(function sigil(el){const p=[];for(let i=0;i<=240;i++){const t=i/240*2*Math.PI;p.push((11+9*Math.sin(3*t+Math.PI/4)).toFixed(2)+','+(11+9*Math.sin(2*t)).toFixed(2));}
+  el.innerHTML='<svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true"><circle cx="11" cy="11" r="10.4" fill="none" stroke="#b9b5a7" stroke-width="1"/><polyline points="'+p.join(' ')+'" fill="none" stroke="#c8261a" stroke-width="1"/></svg>';})($('sigil'));
+
+// ---- drawing: scene() and draw() from whos-talking.html, with the face names mapped to Google Fonts ----
+const NS="http://www.w3.org/2000/svg";
+function el(t,a,p){const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);p&&p.appendChild(e);return e}
+function ellipsePts(cx,cy,rx,ry,n,f){const p=[];for(let i=0;i<n;i++){const t=i/n*Math.PI*2,k=f?f(i,t):1;p.push([cx+Math.cos(t)*rx*k,cy+Math.sin(t)*ry*k])}return p}
+const poly=p=>"M"+p.map(q=>q[0].toFixed(1)+","+q[1].toFixed(1)).join("L")+"Z";
+function shapePath(sh,cx,cy,w,h){
+  const rx=w/2,ry=h/2;
+  switch(sh){
+    case"spiky":return poly(ellipsePts(cx,cy,rx*1.15,ry*1.25,26,i=>i%2?0.72:1.08));
+    case"radio":return poly(ellipsePts(cx,cy,rx,ry,72,i=>i%2?0.95:1.02));
+    case"wavy":return poly(ellipsePts(cx,cy,rx,ry,90,(i,t)=>1+0.045*Math.sin(t*11)));
+    case"cloud":{const n=11,p=ellipsePts(cx,cy,rx,ry,n);let d="M"+p[0].join(",");for(let i=1;i<=n;i++){const q=p[i%n];d+=` A ${rx*.32} ${ry*.42} 0 0 1 ${q[0].toFixed(1)},${q[1].toFixed(1)}`}return d+"Z"}
+    case"rect":return `M${cx-rx},${cy-ry}H${cx+rx}V${cy+ry}H${cx-rx}Z`;
+    case"icicle":{let d=`M${cx-rx},${cy-ry}H${cx+rx}V${cy+ry*.55}`;const n=7;for(let i=0;i<n;i++){const x0=cx+rx-i*(w/n),x1=x0-w/n;d+=`L${(x0+x1)/2},${cy+ry*(i%2?1.25:1.6)}L${x1},${cy+ry*.55}`}return d+"Z"}
+    default:return poly(ellipsePts(cx,cy,rx,ry,72));
+  }
+}
+function scene(svg){
+  svg.innerHTML="";
+  el("rect",{x:0,y:0,width:640,height:400,fill:"#dcd9ca"},svg);
+  el("rect",{x:0,y:60,width:640,height:280,fill:"#f0eee5",stroke:"#1a1916","stroke-width":2},svg);
+  const fig=(x,flip)=>{const g=el("g",{fill:"#1a1916"},svg);
+    el("circle",{cx:x,cy:200,r:20},g);
+    el("path",{d:`M${x-34},340 Q${x-30},236 ${x},228 Q${x+30},236 ${x+34},340Z`},g);
+    el("path",{d:`M${x+(flip?-18:18)},204 l${flip?-9:9},4 l${flip?9:-9},3Z`},g);};
+  fig(190,false); fig(450,true);
+  const t=(x,s)=>{el("text",{x,y:332,"text-anchor":"middle",fill:"#f0eee5",style:"font:500 13px 'JetBrains Mono', monospace"},svg).textContent=s};
+  t(190,"A");t(450,"B");
+  const g=el("g",{},svg);
+  el("rect",{x:560,y:270,width:56,height:34,fill:"#1a1916"},g);
+  el("circle",{cx:578,cy:287,r:9,fill:"#f0eee5"},g);
+  el("line",{x1:606,y1:270,x2:616,y2:246,stroke:"#1a1916","stroke-width":2},g);
+  el("line",{x1:548,y1:304,x2:630,y2:304,stroke:"#1a1916","stroke-width":2},g);
+}
+function draw(svg,r){
+  scene(svg);
+  const fs=r.size, txt=r.caps?r.text.toUpperCase():r.text.toLowerCase();
+  const fam=FAM[r.font]||r.font;
+  const probe=el("text",{style:`font-family:${fam};font-size:${fs}px;${r.italic?"font-style:italic;":""}`},svg);probe.textContent=txt;
+  let tw; try{tw=probe.getComputedTextLength()}catch(e){tw=txt.length*fs*.55} probe.remove(); if(!tw)tw=txt.length*fs*.55;
+  let w=Math.max(tw+46,90),h=fs*1.9+16;
+  let cx,cy, mouth=r.source==="radio"?[580,268]:[205,203];
+  if(r.where==="margin"){w=Math.max(tw+30,80);h=fs*1.5+8;cx=r.source==="narrator"?120+w/2-50:320;cy=30;
+    if(r.to==="us"){cy=32}}
+  else if(r.to==="self"){cx=r.source==="radio"?540:150;cy=118;w*=.95}
+  else if(r.to==="us"){cx=r.source==="radio"?500:250;cy=62;w*=1.1;h*=1.1}
+  else {cx=r.source==="radio"?470:330;cy=r.source==="radio"?130:120}
+  if(r.where==="margin"&&r.to==="self")cx=200;
+  const g=el("g",{},svg);
+  const stroke={stroke:"#1a1916","stroke-width":2.2,"stroke-linejoin":"round",fill:"#fff"};
+  const body=shapePath(r.shape,cx,cy,w,h);
+  if(r.tail){
+    const [mx,my]=mouth, dx=mx-cx, dy=my-cy, L=Math.hypot(dx,dy), ux=dx/L, uy=dy/L, px=-uy, py=ux;
+    const tip=[mx-ux*14,my-uy*14], bw=12, bx=cx+ux*(h*.3), by=cy+uy*(h*.3);
+    const tail=`M${bx+px*bw},${by+py*bw}L${tip[0]},${tip[1]}L${bx-px*bw},${by-py*bw}Z`;
+    el("path",Object.assign({d:tail},stroke),g);
+    const bo=el("path",Object.assign({d:body},stroke),g);
+    if(r.shape==="dashed")bo.setAttribute("stroke-dasharray","7 6");
+    el("path",{d:tail,fill:"#fff",stroke:"none",transform:`translate(${-ux*2.5},${-uy*2.5})`},g);
+  } else {
+    const bo=el("path",Object.assign({d:body},stroke),g);
+    if(r.shape==="dashed")bo.setAttribute("stroke-dasharray","7 6");
+  }
+  if(r.trail){const bx=cx,by=cy+h/2,[hx,hy]=[192,176];[0.3,0.58,0.82].forEach((f,i)=>el("circle",Object.assign({cx:bx+(hx-bx)*f,cy:by+(hy-by)*f,r:7-i*2},stroke),g))}
+  const T=el("text",{x:cx,y:cy+fs*.34,"text-anchor":"middle",fill:"#1a1916",style:`font-family:${fam};font-size:${fs}px;${r.italic?"font-style:italic;":""}`},g);
+  if(r.tremor){[...txt].forEach((c,i)=>{const s=el("tspan",{dy:(i%2?2:-2)+(Math.random()-.5)*2,rotate:((Math.random()-.5)*12).toFixed(1)},T);s.textContent=c})}
+  else T.textContent=txt;
+  if(r.where==="frame"&&r.to==="us")T.setAttribute("transform",`rotate(-3 ${cx} ${cy})`);
+}
+const chainOf=r=>r.chain.map(c=>c.replace(/\b(Marker|Shadows|SpecialElite|Anton|Bangers|Caveat|Creepster)\b/g,m=>FACE[m])).join("<br>");
+const say=s=>`${LABEL("source")[s.source]} · ${LABEL("diegesis")[s.diegesis]} · ${LABEL("addressee")[s.addressee]} · ${LABEL("emotion")[s.emotion]}`;
+const WORD={balloon:f=>f.balloon+" balloon",face:f=>FACE[f.face],caps:f=>f.caps?"CAPS":"lowercase",size:f=>f.size+" px",slant:f=>f.slant?"slanted":"upright",shake:f=>f.shake?"shaking":"steady",tail:f=>"tail "+f.tail,trail:f=>f.trail?"a bubble trail":"no trail",place:f=>f.place,tilt:f=>f.tilt?"tilted":"level"};
+const diffWords=(a,b,ks)=>ks.map(k=>`${PART[k]}: <b>${WORD[k](a)}</b> → <b>${WORD[k](b)}</b>`).join(" · ");
+
+// ---- step 1 ----
+const S1={source:"A",diegesis:"in",addressee:"B",emotion:"calm"};
+function step1(){const r=letter(S1);draw($('p1'),r);$('c1').innerHTML=chainOf(r);}
+
+// ---- step 2 ----
+const S2=Object.assign({},S1);let prev2=null;
+$('q2').innerHTML=AXES.map(k=>`<div><label>${{source:"who",diegesis:"where",addressee:"to whom",emotion:"feeling"}[k]}</label><select id="m${k}">${OPTS[k].map(([v,l])=>`<option value="${v}">${l}</option>`).join("")}</select></div>`).join("");
+AXES.forEach(k=>{$('m'+k).value=S2[k];$('m'+k).addEventListener('change',()=>{S2[k]=$('m'+k).value;step2();});});
+function step2(){
+  const r=letter(S2),f=formOf(r,"ruler");draw($('p2'),r);$('c2').innerHTML=chainOf(r);
+  if(prev2){const ks=differs(prev2,f);$('d2').innerHTML=ks.length?"What moved: "+diffWords(prev2,f,ks)+".":"Nothing moved. That answer changes nothing a reader can see here.";}
+  else $('d2').textContent="Change one answer above and this line will say what moved.";
+  prev2=f;
+}
+
+// ---- step 3 ----
+let order="source";
+const M={source:"A",diegesis:"in",addressee:"B",emotion:"menace"},R={source:"radio",diegesis:"in",addressee:"B",emotion:"calm"},RM={source:"radio",diegesis:"in",addressee:"B",emotion:"menace"};
+function step3(){
+  draw($('p3a'),letter(M));draw($('p3b'),letter(R));
+  const fn=order==="source"?letter:letterEmotionFirst, r=fn(RM);draw($('p3c'),r);
+  $('ordName').textContent=order==="source"?"source first":"emotion first";
+  $('ordS').setAttribute('aria-pressed',order==="source");$('ordE').setAttribute('aria-pressed',order!=="source");
+  const fRM=formOf(r,"ruler"),fR=formOf(letter(R),"ruler"),fM=formOf(letter(M),"ruler");
+  const vsR=differs(fR,fRM),vsM=differs(fM,fRM);
+  const kept=feelingsKept("radio","eye",fn),keptNo=feelingsKept("radio","nosize",fn);
+  $('d3').innerHTML=order==="source"
+    ?`Against the calm radio, the menacing radio differs only in ${diffWords(fR,fRM,vsR)}. The radio kept the balloon and the face; the menace kept ${vsR.map(k=>"the "+PART[k]).join(" and ")}. Across all five feelings a radio speaking to B still looks ${kept} ways to the eye, but only ${keptNo} once size is set aside: calm, fury and menace are then the same capitals in the same balloon.`
+    :`Now the menacing radio looks like menace from A, except ${diffWords(fM,fRM,vsM)}. The feeling kept the balloon and the face; the radio kept only ${vsM.map(k=>"the "+PART[k]).join(" and ")}. Who is speaking now rests on where the balloon sits and which way a thin wedge points.`;
+}
+$('ordS').onclick=()=>{order="source";step3();};$('ordE').onclick=()=>{order="emotion";step3();};
+
+// ---- step 4 ----
+let reading="eye",picked=-1,tiles=[];
+const READ={ruler:"to a ruler",eye:"to the eye",nosize:"to the eye, without size"};
+$('readings').innerHTML=Object.entries(READ).map(([k,v])=>`<button data-r="${k}">${v}</button>`).join("");
+$('readings').querySelectorAll('button').forEach(b=>b.onclick=()=>{reading=b.dataset.r;picked=-1;step4();});
+function step4(){
+  $('readings').querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.r===reading));
+  const C=count(reading),all=["ruler","eye","nosize"].map(k=>[k,count(k)]);
+  $('eqN').textContent=C.forms;$('rN').textContent=C.forms+" of 120";$('rU').textContent=C.unique;$('rS').textContent=C.shared+" (holding "+(120-C.unique)+" answer-sets)";
+  $('tbl').innerHTML=`<tr><th>reads back off the form</th>${all.map(([k])=>`<th>${READ[k]}</th>`).join("")}</tr>`+
+    [["forms","forms"],...AXES.map(a=>[a,{source:"who speaks",diegesis:"inside or outside",addressee:"to whom",emotion:"the feeling"}[a]])].map(([a,lab])=>
+      `<tr><td>${lab}</td>${all.map(([k,c])=>`<td class="n${k===reading?" on":""}">${a==="forms"?c.forms:c.back[a]} / 120</td>`).join("")}</tr>`).join("");
+  const gs=C.groups.slice().sort((a,b)=>b.sets.length-a.sets.length);
+  const grid=$('grid');grid.innerHTML="";tiles=[];
+  gs.forEach((g,i)=>{const b=document.createElement('button');b.className='tile'+(g.sets.length>1?' many':'');b.setAttribute('aria-pressed',i===picked);
+    b.setAttribute('aria-label',`form ${i+1}, made by ${g.sets.length} answer-set${g.sets.length>1?"s":""}`);
+    b.innerHTML=`<svg viewBox="0 0 640 400"></svg><span class="n">×${g.sets.length}</span>`;grid.appendChild(b);
+    draw(b.querySelector('svg'),g.r);b.onclick=()=>{picked=i;grid.querySelectorAll('.tile').forEach((t,k)=>t.setAttribute('aria-pressed',k===i));detail(g);};tiles.push(b);});
+  if(picked<0){picked=0;grid.firstChild.setAttribute('aria-pressed',true);}detail(gs[picked]);
+  const eye=count("eye"),ns=count("nosize"),ru=count("ruler");
+  $('verdict').innerHTML=`It is a function: the same four answers always draw the same form. It does not run all the way backwards. <b>${ru.forms}</b> forms come out of 120 answer-sets to a ruler, <b>${eye.forms}</b> to the eye, <b>${ns.forms}</b> if size is not read. Inside or outside reads back every time (${eye.back.diegesis} / 120): the margin always marks it. To whom reads back least (${eye.back.addressee} / 120): in the margin, "to B" and "to us" differ by 2 px. Source outranks emotion on the balloon and the face, as the page says, and the feeling moves into size and case, so a menacing radio differs from a calm one only by its size. The narrator is where the feeling is lost: inside the story, its five feelings make ${feelingsKept("narrator","eye")} forms, since it takes size and case too and only the shake of "weak" survives.`;
+}
+function detail(g){
+  const f=g.form;
+  $('detail').innerHTML=`<div><svg class="panel" viewBox="0 0 640 400" id="pd"></svg></div><div><div class="plabel">${g.sets.length} answer-set${g.sets.length>1?"s":""} draw${g.sets.length>1?"":"s"} this form</div><ul>${g.sets.map(s=>`<li>${say(s)}</li>`).join("")}</ul>
+  <p class="note">${Object.keys(PART).filter(k=>!(k==="size"&&reading==="nosize")).map(k=>WORD[k](f)).join(" · ")}</p></div>`;
+  draw($('pd'),g.r);
+}
+
+// ---- the walk ----
+const STEPS=[{name:"one balloon",run:step1},{name:"one answer",run:step2},{name:"two want one",run:step3},{name:"all 120",run:step4}];
+let cur=0;const secs=[...document.querySelectorAll('.step')];
+STEPS.forEach((s,i)=>{const b=document.createElement('button');b.textContent=(i+1)+' · '+s.name;b.onclick=()=>go(i);$('rail').appendChild(b);});
+function go(i){cur=Math.max(0,Math.min(STEPS.length-1,i));secs.forEach((s,k)=>s.classList.toggle('on',k===cur));
+  $('rail').querySelectorAll('button').forEach((b,k)=>b.setAttribute('aria-current',k===cur?'step':'false'));
+  $('back').disabled=cur===0;$('next').disabled=cur===STEPS.length-1;$('where').textContent=`step ${cur+1} of ${STEPS.length}`;STEPS[cur].run();}
+$('back').onclick=()=>go(cur-1);$('next').onclick=()=>go(cur+1);
+go(0);
+document.fonts.ready.then(()=>STEPS[cur].run());
+</script>
+</body>
+</html>
