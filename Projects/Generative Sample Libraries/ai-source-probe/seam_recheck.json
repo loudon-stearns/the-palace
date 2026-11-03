@@ -1,0 +1,1514 @@
+{
+ "instruments/in_range/flute_looped": {
+  "keys": 21,
+  "clean_was": 21,
+  "clean_now": 20,
+  "worst_step_now": {
+   "key": "G4",
+   "step_was_db": 0.41,
+   "ok_was": true,
+   "step_now_db": 6.83,
+   "jump_excess_db": 2.36,
+   "click_db": -0.17,
+   "hold": "on_target",
+   "ok_now": false
+  },
+  "worst_jump": {
+   "key": "G4",
+   "step_was_db": 0.41,
+   "ok_was": true,
+   "step_now_db": 6.83,
+   "jump_excess_db": 2.36,
+   "click_db": -0.17,
+   "hold": "on_target",
+   "ok_now": false
+  },
+  "rows": [
+   {
+    "key": "C4",
+    "step_was_db": -0.77,
+    "ok_was": true,
+    "step_now_db": -0.5,
+    "jump_excess_db": 0.19,
+    "click_db": 0.44,
+    "hold": "on_target",
+    "ok_now": true
+   },
+   {
+    "key": "C#4",
+    "step_was_db": -9.05,
+    "ok_was": true,
+    "step_now_db": -9.05,
+    "jump_excess_db": -5.87,
+    "click_db": 4.75,
+    "hold": "on_target",
+    "ok_now": true
+   },
+   {
+    "key": "D4",
+    "step_was_db": -6.11,
+    "ok_was": true,
+    "step_now_db": -6.11,
+    "jump_excess_db": -1.76,
+    "click_db": -0.14,
+    "hold": "on_target",
+    "ok_now": true
+   },
+   {
+    "key": "D#4",
+    "step_was_db": -1.42,
+    "ok_was": true,
+    "step_now_db": -1.42,
+    "jump_excess_db": -1.38,
+    "click_db": 4.45,
+    "hold": "on_target",
+    "ok_now": true
+   },
+   {
+    "key": "E4",
+    "step_was_db": -0.16,
+    "ok_was": true,
+    "step_now_db": -0.12,
+    "jump_excess_db": -2.86,
+    "click_db": -1.14,
+    "hold": "on_target",
+    "ok_now": true
+   },
+   {
+    "key": "F4",
+    "step_was_db": -1.48,
+    "ok_was": true,
+    "step_now_db": -1.37,
+    "jump_excess_db": -1.19,
+    "click_db": -0.57,
+    "hold": "on_target",
+    "ok_now": true
+   },
+   {
+    "key": "G4",
+    "step_was_db": 0.41,
+    "ok_was": true,
+    "step_now_db": 6.83,
+    "jump_excess_db": 2.36,
+    "click_db": -0.17,
+    "hold": "on_target",
+    "ok_now": false
+   },
+   {
+    "key": "G#4",
+    "step_was_db": 0.57,
+    "ok_was": true,
+    "step_now_db": 0.92,
+    "jump_excess_db": -0.56,
+    "click_db": 0.09,
+    "hold": "on_target",
+    "ok_now": true
+   },
+   {
+    "key": "A4",
+    "step_was_db": -1.78,
+    "ok_was": true,
+    "step_now_db": -1.73,
+    "jump_excess_db": -0.54,
+    "click_db": 3.94,
+    "hold": "on_target",
+    "ok_now": true
+   },
+   {
+    "key": "B4",
+    "step_was_db": -12.58,
+    "ok_was": true,
+    "step_now_db": -12.77,
+    "jump_excess_db": -4.34,
+    "click_db": 2.28,
+    "hold": "on_target",
+    "ok_now": true
+   },
+   {
+    "key": "C5",
+    "step_was_db": 0.58,
+    "ok_was": true,
+    "step_now_db": 0.76,
+    "jump_excess_db": -0.94,
+    "click_db": 3.74,
+    "hold": "on_target",
+    "ok_now": true
+   },
+   {
+    "key": "C#5",
+    "step_was_db": -0.71,
+    "ok_was": true,
+    "step_now_db": -0.89,
+    "jump_excess_db": 1.01,
+    "click_db": 3.5,
+    "hold": "on_target",
+    "ok_now": true
+   },
+   {
+    "key": "D5",
+    "step_was_db": -2.24,
+    "ok_was": true,
+    "step_now_db": -2.25,
+    "jump_excess_db": -1.51,
+    "click_db": 0.36,
+    "hold": "on_target",
+    "ok_now": true
+   },
+   {
+    "key": "E5",
+    "step_was_db": -1.73,
+    "ok_was": true,
+    "step_now_db": -1.72,
+    "jump_excess_db": -2.54,
+    "click_db": -0.95,
+    "hold": "on_target",
+    "ok_now": true
+   },
+   {
+    "key": "F5",
+    "step_was_db": -4.58,
+    "ok_was": true,
+    "step_now_db": -4.65,
+    "jump_excess_db": -2.51,
+    "click_db": 1.47,
+    "hold": "on_target",
+    "ok_now": true
+   },
+   {
+    "key": "F#5",
+    "step_was_db": -1.62,
+    "ok_was": true,
+    "step_now_db": -1.41,
+    "jump_excess_db": -1.32,
+    "click_db": 0.53,
+    "hold": "on_target",
+    "ok_now": true
+   },
+   {
+    "key": "G5",
+    "step_was_db": -0.81,
+    "ok_was": true,
+    "step_now_db": 0.33,
+    "jump_excess_db": 0.81,
+    "click_db": 0.2,
+    "hold": "on_target",
+    "ok_now": true
+   },
+   {
+    "key": "G#5",
+    "step_was_db": -5.11,
+    "ok_was": true,
+    "step_now_db": -5.13,
+    "jump_excess_db": -2.85,
+    "click_db": 1.04,
+    "hold": "on_target",
+    "ok_now": true
+   },
+   {
+    "key": "A#5",
+    "step_was_db": -11.35,
+    "ok_was": true,
+    "step_now_db": -11.29,
+    "jump_excess_db": -4.75,
+    "click_db": 1.93,
+    "hold": "on_target",
+    "ok_now": true
+   },
+   {
+    "key": "C6",
+    "step_was_db": -2.79,
+    "ok_was": true,
+    "step_now_db": -0.42,
+    "jump_excess_db": 0.66,
+    "click_db": 3.86,
+    "hold": "on_target",
+    "ok_now": true
+   },
+   {
+    "key": "C#6",
+    "step_was_db": -11.42,
+    "ok_was": true,
+    "step_now_db": -11.51,
+    "jump_excess_db": -4.46,
+    "click_db": 0.82,
+    "hold": "on_target",
+    "ok_now": true
+   }
+  ]
+ },
+ "instruments/finished/flute": {
+  "keys": 21,
+  "clean_was": 20,
+  "clean_now": 20,
+  "worst_step_now": {
+   "key": "G4",
+   "step_was_db": 3.43,
+   "ok_was": false,
+   "step_now_db": 6.83,
+   "jump_excess_db": 2.36,
+   "click_db": -0.24,
+   "hold": "on_target",
+   "ok_now": false
+  },
+  "worst_jump": {
+   "key": "G4",
+   "step_was_db": 3.43,
+   "ok_was": false,
+   "step_now_db": 6.83,
+   "jump_excess_db": 2.36,
+   "click_db": -0.24,
+   "hold": "on_target",
+   "ok_now": false
+  },
+  "rows": [
+   {
+    "key": "C4",
+    "step_was_db": -0.58,
+    "ok_was": true,
+    "step_now_db": -0.5,
+    "jump_excess_db": 0.19,
+    "click_db": 0.44,
+    "hold": "on_target",
+    "ok_now": true
+   },
+   {
+    "key": "C#4",
+    "step_was_db": -9.05,
+    "ok_was": true,
+    "step_now_db": -9.05,
+    "jump_excess_db": -5.87,
+    "click_db": 4.75,
+    "hold": "on_target",
+    "ok_now": true
+   },
+   {
+    "key": "D4",
+    "step_was_db": -6.11,
+    "ok_was": true,
+    "step_now_db": -6.11,
+    "jump_excess_db": -1.76,
+    "click_db": -0.14,
+    "hold": "on_target",
+    "ok_now": true
+   },
+   {
+    "key": "D#4",
+    "step_was_db": -1.42,
+    "ok_was": true,
+    "step_now_db": -1.42,
+    "jump_excess_db": -1.38,
+    "click_db": 4.45,
+    "hold": "on_target",
+    "ok_now": true
+   },
+   {
+    "key": "E4",
+    "step_was_db": -0.11,
+    "ok_was": true,
+    "step_now_db": -0.12,
+    "jump_excess_db": -2.86,
+    "click_db": -1.15,
+    "hold": "on_target",
+    "ok_now": true
+   },
+   {
+    "key": "F4",
+    "step_was_db": -1.45,
+    "ok_was": true,
+    "step_now_db": -1.37,
+    "jump_excess_db": -1.19,
+    "click_db": -0.57,
+    "hold": "on_target",
+    "ok_now": true
+   },
+   {
+    "key": "G4",
+    "step_was_db": 3.43,
+    "ok_was": false,
+    "step_now_db": 6.83,
+    "jump_excess_db": 2.36,
+    "click_db": -0.24,
+    "hold": "on_target",
+    "ok_now": false
+   },
+   {
+    "key": "G#4",
+    "step_was_db": 0.93,
+    "ok_was": true,
+    "step_now_db": 0.92,
+    "jump_excess_db": -0.56,
+    "click_db": 0.07,
+    "hold": "on_target",
+    "ok_now": true
+   },
+   {
+    "key": "A4",
+    "step_was_db": -1.78,
+    "ok_was": true,
+    "step_now_db": -1.73,
+    "jump_excess_db": -0.54,
+    "click_db": 3.94,
+    "hold": "on_target",
+    "ok_now": true
+   },
+   {
+    "key": "B4",
+    "step_was_db": -12.58,
+    "ok_was": true,
+    "step_now_db": -12.77,
+    "jump_excess_db": -4.34,
+    "click_db": 2.28,
+    "hold": "on_target",
+    "ok_now": true
+   },
+   {
+    "key": "C5",
+    "step_was_db": 0.78,
+    "ok_was": true,
+    "step_now_db": 0.76,
+    "jump_excess_db": -0.94,
+    "click_db": 3.72,
+    "hold": "on_target",
+    "ok_now": true
+   },
+   {
+    "key": "C#5",
+    "step_was_db": -0.71,
+    "ok_was": true,
+    "step_now_db": -0.89,
+    "jump_excess_db": 1.01,
+    "click_db": 3.5,
+    "hold": "on_target",
+    "ok_now": true
+   },
+   {
+    "key": "D5",
+    "step_was_db": -2.23,
+    "ok_was": true,
+    "step_now_db": -2.25,
+    "jump_excess_db": -1.51,
+    "click_db": 0.36,
+    "hold": "on_target",
+    "ok_now": true
+   },
+   {
+    "key": "E5",
+    "step_was_db": -1.72,
+    "ok_was": true,
+    "step_now_db": -1.72,
+    "jump_excess_db": -2.54,
+    "click_db": -0.98,
+    "hold": "on_target",
+    "ok_now": true
+   },
+   {
+    "key": "F5",
+    "step_was_db": -4.56,
+    "ok_was": true,
+    "step_now_db": -4.65,
+    "jump_excess_db": -2.51,
+    "click_db": 1.47,
+    "hold": "on_target",
+    "ok_now": true
+   },
+   {
+    "key": "F#5",
+    "step_was_db": -1.42,
+    "ok_was": true,
+    "step_now_db": -1.41,
+    "jump_excess_db": -1.32,
+    "click_db": 0.52,
+    "hold": "on_target",
+    "ok_now": true
+   },
+   {
+    "key": "G5",
+    "step_was_db": -0.33,
+    "ok_was": true,
+    "step_now_db": 0.33,
+    "jump_excess_db": 0.81,
+    "click_db": 0.2,
+    "hold": "on_target",
+    "ok_now": true
+   },
+   {
+    "key": "G#5",
+    "step_was_db": -5.11,
+    "ok_was": true,
+    "step_now_db": -5.13,
+    "jump_excess_db": -2.85,
+    "click_db": 1.04,
+    "hold": "on_target",
+    "ok_now": true
+   },
+   {
+    "key": "A#5",
+    "step_was_db": -11.35,
+    "ok_was": true,
+    "step_now_db": -11.29,
+    "jump_excess_db": -4.75,
+    "click_db": 1.93,
+    "hold": "on_target",
+    "ok_now": true
+   },
+   {
+    "key": "C6",
+    "step_was_db": -1.66,
+    "ok_was": true,
+    "step_now_db": -0.42,
+    "jump_excess_db": 0.66,
+    "click_db": 3.47,
+    "hold": "on_target",
+    "ok_now": true
+   },
+   {
+    "key": "C#6",
+    "step_was_db": -11.42,
+    "ok_was": true,
+    "step_now_db": -11.51,
+    "jump_excess_db": -4.46,
+    "click_db": 0.74,
+    "hold": "on_target",
+    "ok_now": true
+   }
+  ]
+ },
+ "instruments/finished/flute_r1": {
+  "keys": 21,
+  "clean_was": 21,
+  "clean_now": 21,
+  "worst_step_now": {
+   "key": "G#4",
+   "step_was_db": 0.93,
+   "ok_was": true,
+   "step_now_db": 0.92,
+   "jump_excess_db": -0.56,
+   "click_db": 0.07,
+   "hold": "on_target",
+   "ok_now": true
+  },
+  "worst_jump": {
+   "key": "G5",
+   "step_was_db": -0.33,
+   "ok_was": true,
+   "step_now_db": 0.33,
+   "jump_excess_db": 0.81,
+   "click_db": 0.2,
+   "hold": "on_target",
+   "ok_now": true
+  },
+  "rows": [
+   {
+    "key": "C4",
+    "step_was_db": -0.58,
+    "ok_was": true,
+    "step_now_db": -0.5,
+    "jump_excess_db": 0.19,
+    "click_db": 0.44,
+    "hold": "on_target",
+    "ok_now": true
+   },
+   {
+    "key": "C#4",
+    "step_was_db": -2.86,
+    "ok_was": true,
+    "step_now_db": -1.47,
+    "jump_excess_db": -1.37,
+    "click_db": -0.22,
+    "hold": "on_target",
+    "ok_now": true
+   },
+   {
+    "key": "D4",
+    "step_was_db": -6.11,
+    "ok_was": true,
+    "step_now_db": -6.11,
+    "jump_excess_db": -1.76,
+    "click_db": -0.14,
+    "hold": "on_target",
+    "ok_now": true
+   },
+   {
+    "key": "D#4",
+    "step_was_db": -1.42,
+    "ok_was": true,
+    "step_now_db": -1.42,
+    "jump_excess_db": -1.38,
+    "click_db": 4.45,
+    "hold": "on_target",
+    "ok_now": true
+   },
+   {
+    "key": "E4",
+    "step_was_db": -0.11,
+    "ok_was": true,
+    "step_now_db": -0.12,
+    "jump_excess_db": -2.86,
+    "click_db": -1.15,
+    "hold": "on_target",
+    "ok_now": true
+   },
+   {
+    "key": "F4",
+    "step_was_db": -1.45,
+    "ok_was": true,
+    "step_now_db": -1.37,
+    "jump_excess_db": -1.19,
+    "click_db": -0.57,
+    "hold": "on_target",
+    "ok_now": true
+   },
+   {
+    "key": "G4",
+    "step_was_db": -0.75,
+    "ok_was": true,
+    "step_now_db": -0.73,
+    "jump_excess_db": -0.16,
+    "click_db": 0.57,
+    "hold": "on_target",
+    "ok_now": true
+   },
+   {
+    "key": "G#4",
+    "step_was_db": 0.93,
+    "ok_was": true,
+    "step_now_db": 0.92,
+    "jump_excess_db": -0.56,
+    "click_db": 0.07,
+    "hold": "on_target",
+    "ok_now": true
+   },
+   {
+    "key": "A4",
+    "step_was_db": -1.78,
+    "ok_was": true,
+    "step_now_db": -1.73,
+    "jump_excess_db": -0.54,
+    "click_db": 3.94,
+    "hold": "on_target",
+    "ok_now": true
+   },
+   {
+    "key": "B4",
+    "step_was_db": -12.58,
+    "ok_was": true,
+    "step_now_db": -12.77,
+    "jump_excess_db": -4.34,
+    "click_db": 2.28,
+    "hold": "on_target",
+    "ok_now": true
+   },
+   {
+    "key": "C5",
+    "step_was_db": 0.78,
+    "ok_was": true,
+    "step_now_db": 0.76,
+    "jump_excess_db": -0.94,
+    "click_db": 3.72,
+    "hold": "on_target",
+    "ok_now": true
+   },
+   {
+    "key": "C#5",
+    "step_was_db": -0.92,
+    "ok_was": true,
+    "step_now_db": -0.92,
+    "jump_excess_db": -0.21,
+    "click_db": 0.46,
+    "hold": "on_target",
+    "ok_now": true
+   },
+   {
+    "key": "D5",
+    "step_was_db": -2.23,
+    "ok_was": true,
+    "step_now_db": -2.25,
+    "jump_excess_db": -1.51,
+    "click_db": 0.36,
+    "hold": "on_target",
+    "ok_now": true
+   },
+   {
+    "key": "E5",
+    "step_was_db": -1.72,
+    "ok_was": true,
+    "step_now_db": -1.72,
+    "jump_excess_db": -2.54,
+    "click_db": -0.98,
+    "hold": "on_target",
+    "ok_now": true
+   },
+   {
+    "key": "F5",
+    "step_was_db": -4.56,
+    "ok_was": true,
+    "step_now_db": -4.65,
+    "jump_excess_db": -2.51,
+    "click_db": 1.47,
+    "hold": "on_target",
+    "ok_now": true
+   },
+   {
+    "key": "F#5",
+    "step_was_db": -1.42,
+    "ok_was": true,
+    "step_now_db": -1.41,
+    "jump_excess_db": -1.32,
+    "click_db": 0.52,
+    "hold": "on_target",
+    "ok_now": true
+   },
+   {
+    "key": "G5",
+    "step_was_db": -0.33,
+    "ok_was": true,
+    "step_now_db": 0.33,
+    "jump_excess_db": 0.81,
+    "click_db": 0.2,
+    "hold": "on_target",
+    "ok_now": true
+   },
+   {
+    "key": "G#5",
+    "step_was_db": -5.11,
+    "ok_was": true,
+    "step_now_db": -5.13,
+    "jump_excess_db": -2.85,
+    "click_db": 1.04,
+    "hold": "on_target",
+    "ok_now": true
+   },
+   {
+    "key": "A#5",
+    "step_was_db": -11.35,
+    "ok_was": true,
+    "step_now_db": -11.29,
+    "jump_excess_db": -4.75,
+    "click_db": 1.93,
+    "hold": "on_target",
+    "ok_now": true
+   },
+   {
+    "key": "C6",
+    "step_was_db": -1.66,
+    "ok_was": true,
+    "step_now_db": -0.42,
+    "jump_excess_db": 0.66,
+    "click_db": 3.47,
+    "hold": "on_target",
+    "ok_now": true
+   },
+   {
+    "key": "C#6",
+    "step_was_db": -11.42,
+    "ok_was": true,
+    "step_now_db": -11.51,
+    "jump_excess_db": -4.46,
+    "click_db": 0.74,
+    "hold": "on_target",
+    "ok_now": true
+   }
+  ]
+ },
+ "instruments/in_range/violin_looped": {
+  "keys": 24,
+  "clean_was": 24,
+  "clean_now": 24,
+  "worst_step_now": {
+   "key": "A4",
+   "step_was_db": 0.24,
+   "ok_was": true,
+   "step_now_db": 1.06,
+   "jump_excess_db": -0.78,
+   "click_db": -0.5,
+   "hold": "on_target",
+   "ok_now": true
+  },
+  "worst_jump": {
+   "key": "A3",
+   "step_was_db": 0.26,
+   "ok_was": true,
+   "step_now_db": 0.34,
+   "jump_excess_db": 0.49,
+   "click_db": 0.51,
+   "hold": "on_target",
+   "ok_now": true
+  },
+  "rows": [
+   {
+    "key": "G3",
+    "step_was_db": -2.38,
+    "ok_was": true,
+    "step_now_db": -0.91,
+    "jump_excess_db": -0.88,
+    "click_db": 1.14,
+    "hold": "on_target",
+    "ok_now": true
+   },
+   {
+    "key": "A3",
+    "step_was_db": 0.26,
+    "ok_was": true,
+    "step_now_db": 0.34,
+    "jump_excess_db": 0.49,
+    "click_db": 0.51,
+    "hold": "on_target",
+    "ok_now": true
+   },
+   {
+    "key": "A#3",
+    "step_was_db": 0.31,
+    "ok_was": true,
+    "step_now_db": 0.31,
+    "jump_excess_db": 0.09,
+    "click_db": -0.59,
+    "hold": "on_target",
+    "ok_now": true
+   },
+   {
+    "key": "B3",
+    "step_was_db": -2.01,
+    "ok_was": true,
+    "step_now_db": -2.0,
+    "jump_excess_db": -0.88,
+    "click_db": 1.47,
+    "hold": "on_target",
+    "ok_now": true
+   },
+   {
+    "key": "C4",
+    "step_was_db": -8.48,
+    "ok_was": true,
+    "step_now_db": -1.73,
+    "jump_excess_db": -0.63,
+    "click_db": -1.04,
+    "hold": "on_target",
+    "ok_now": true
+   },
+   {
+    "key": "C#4",
+    "step_was_db": 0.41,
+    "ok_was": true,
+    "step_now_db": 0.41,
+    "jump_excess_db": -0.43,
+    "click_db": -0.37,
+    "hold": "on_target",
+    "ok_now": true
+   },
+   {
+    "key": "D4",
+    "step_was_db": -4.19,
+    "ok_was": true,
+    "step_now_db": -4.33,
+    "jump_excess_db": -1.94,
+    "click_db": 0.87,
+    "hold": "on_target",
+    "ok_now": true
+   },
+   {
+    "key": "D#4",
+    "step_was_db": -7.3,
+    "ok_was": true,
+    "step_now_db": -7.55,
+    "jump_excess_db": -1.58,
+    "click_db": 3.04,
+    "hold": "on_target",
+    "ok_now": true
+   },
+   {
+    "key": "E4",
+    "step_was_db": -0.48,
+    "ok_was": true,
+    "step_now_db": -0.19,
+    "jump_excess_db": -1.16,
+    "click_db": 0.77,
+    "hold": "on_target",
+    "ok_now": true
+   },
+   {
+    "key": "F4",
+    "step_was_db": -2.08,
+    "ok_was": true,
+    "step_now_db": -1.96,
+    "jump_excess_db": -1.89,
+    "click_db": 1.06,
+    "hold": "on_target",
+    "ok_now": true
+   },
+   {
+    "key": "F#4",
+    "step_was_db": -0.27,
+    "ok_was": true,
+    "step_now_db": -0.28,
+    "jump_excess_db": -0.98,
+    "click_db": 0.35,
+    "hold": "on_target",
+    "ok_now": true
+   },
+   {
+    "key": "G4",
+    "step_was_db": -3.9,
+    "ok_was": true,
+    "step_now_db": -3.99,
+    "jump_excess_db": -4.34,
+    "click_db": 2.44,
+    "hold": "on_target",
+    "ok_now": true
+   },
+   {
+    "key": "G#4",
+    "step_was_db": -0.53,
+    "ok_was": true,
+    "step_now_db": 0.19,
+    "jump_excess_db": -0.67,
+    "click_db": 0.11,
+    "hold": "on_target",
+    "ok_now": true
+   },
+   {
+    "key": "A4",
+    "step_was_db": 0.24,
+    "ok_was": true,
+    "step_now_db": 1.06,
+    "jump_excess_db": -0.78,
+    "click_db": -0.5,
+    "hold": "on_target",
+    "ok_now": true
+   },
+   {
+    "key": "A#4",
+    "step_was_db": -0.95,
+    "ok_was": true,
+    "step_now_db": -0.93,
+    "jump_excess_db": -0.94,
+    "click_db": -2.69,
+    "hold": "on_target",
+    "ok_now": true
+   },
+   {
+    "key": "B4",
+    "step_was_db": 0.02,
+    "ok_was": true,
+    "step_now_db": 0.65,
+    "jump_excess_db": -0.22,
+    "click_db": 0.16,
+    "hold": "on_target",
+    "ok_now": true
+   },
+   {
+    "key": "C5",
+    "step_was_db": -1.82,
+    "ok_was": true,
+    "step_now_db": -1.8,
+    "jump_excess_db": -1.27,
+    "click_db": 1.01,
+    "hold": "on_target",
+    "ok_now": true
+   },
+   {
+    "key": "C#5",
+    "step_was_db": -12.78,
+    "ok_was": true,
+    "step_now_db": -12.8,
+    "jump_excess_db": -4.95,
+    "click_db": 0.44,
+    "hold": "on_target",
+    "ok_now": true
+   },
+   {
+    "key": "E5",
+    "step_was_db": -0.24,
+    "ok_was": true,
+    "step_now_db": -0.28,
+    "jump_excess_db": -1.03,
+    "click_db": 1.29,
+    "hold": "on_target",
+    "ok_now": true
+   },
+   {
+    "key": "F5",
+    "step_was_db": -0.19,
+    "ok_was": true,
+    "step_now_db": -0.16,
+    "jump_excess_db": -1.66,
+    "click_db": 1.05,
+    "hold": "on_target",
+    "ok_now": true
+   },
+   {
+    "key": "F#5",
+    "step_was_db": -1.65,
+    "ok_was": true,
+    "step_now_db": -1.34,
+    "jump_excess_db": 0.46,
+    "click_db": 1.07,
+    "hold": "on_target",
+    "ok_now": true
+   },
+   {
+    "key": "G5",
+    "step_was_db": -3.44,
+    "ok_was": true,
+    "step_now_db": -3.66,
+    "jump_excess_db": -2.75,
+    "click_db": 0.52,
+    "hold": "on_target",
+    "ok_now": true
+   },
+   {
+    "key": "A#5",
+    "step_was_db": -2.3,
+    "ok_was": true,
+    "step_now_db": -2.3,
+    "jump_excess_db": -1.01,
+    "click_db": -0.37,
+    "hold": "on_target",
+    "ok_now": true
+   },
+   {
+    "key": "C6",
+    "step_was_db": -2.98,
+    "ok_was": true,
+    "step_now_db": -2.96,
+    "jump_excess_db": -3.34,
+    "click_db": 1.27,
+    "hold": "on_target",
+    "ok_now": true
+   }
+  ]
+ },
+ "instruments/finished/violin": {
+  "keys": 24,
+  "clean_was": 24,
+  "clean_now": 24,
+  "worst_step_now": {
+   "key": "A4",
+   "step_was_db": 0.82,
+   "ok_was": true,
+   "step_now_db": 1.06,
+   "jump_excess_db": -0.78,
+   "click_db": -0.5,
+   "hold": "on_target",
+   "ok_now": true
+  },
+  "worst_jump": {
+   "key": "A3",
+   "step_was_db": 0.26,
+   "ok_was": true,
+   "step_now_db": 0.34,
+   "jump_excess_db": 0.49,
+   "click_db": 0.51,
+   "hold": "on_target",
+   "ok_now": true
+  },
+  "rows": [
+   {
+    "key": "G3",
+    "step_was_db": -0.89,
+    "ok_was": true,
+    "step_now_db": -0.91,
+    "jump_excess_db": -0.88,
+    "click_db": 0.77,
+    "hold": "on_target",
+    "ok_now": true
+   },
+   {
+    "key": "A3",
+    "step_was_db": 0.26,
+    "ok_was": true,
+    "step_now_db": 0.34,
+    "jump_excess_db": 0.49,
+    "click_db": 0.51,
+    "hold": "on_target",
+    "ok_now": true
+   },
+   {
+    "key": "A#3",
+    "step_was_db": 0.31,
+    "ok_was": true,
+    "step_now_db": 0.31,
+    "jump_excess_db": 0.09,
+    "click_db": -0.59,
+    "hold": "on_target",
+    "ok_now": true
+   },
+   {
+    "key": "B3",
+    "step_was_db": -2.01,
+    "ok_was": true,
+    "step_now_db": -2.0,
+    "jump_excess_db": -0.88,
+    "click_db": 1.47,
+    "hold": "on_target",
+    "ok_now": true
+   },
+   {
+    "key": "C4",
+    "step_was_db": -4.96,
+    "ok_was": true,
+    "step_now_db": -1.73,
+    "jump_excess_db": -0.63,
+    "click_db": -1.02,
+    "hold": "on_target",
+    "ok_now": true
+   },
+   {
+    "key": "C#4",
+    "step_was_db": 0.41,
+    "ok_was": true,
+    "step_now_db": 0.41,
+    "jump_excess_db": -0.43,
+    "click_db": -0.37,
+    "hold": "on_target",
+    "ok_now": true
+   },
+   {
+    "key": "D4",
+    "step_was_db": -4.19,
+    "ok_was": true,
+    "step_now_db": -4.33,
+    "jump_excess_db": -1.94,
+    "click_db": 0.87,
+    "hold": "on_target",
+    "ok_now": true
+   },
+   {
+    "key": "D#4",
+    "step_was_db": -7.3,
+    "ok_was": true,
+    "step_now_db": -7.55,
+    "jump_excess_db": -1.58,
+    "click_db": 2.98,
+    "hold": "on_target",
+    "ok_now": true
+   },
+   {
+    "key": "E4",
+    "step_was_db": -0.25,
+    "ok_was": true,
+    "step_now_db": -0.19,
+    "jump_excess_db": -1.16,
+    "click_db": 0.76,
+    "hold": "on_target",
+    "ok_now": true
+   },
+   {
+    "key": "F4",
+    "step_was_db": -2.07,
+    "ok_was": true,
+    "step_now_db": -1.96,
+    "jump_excess_db": -1.89,
+    "click_db": 1.07,
+    "hold": "on_target",
+    "ok_now": true
+   },
+   {
+    "key": "F#4",
+    "step_was_db": -0.26,
+    "ok_was": true,
+    "step_now_db": -0.28,
+    "jump_excess_db": -0.98,
+    "click_db": 0.31,
+    "hold": "on_target",
+    "ok_now": true
+   },
+   {
+    "key": "G4",
+    "step_was_db": -3.9,
+    "ok_was": true,
+    "step_now_db": -3.99,
+    "jump_excess_db": -4.34,
+    "click_db": 2.38,
+    "hold": "on_target",
+    "ok_now": true
+   },
+   {
+    "key": "G#4",
+    "step_was_db": -0.52,
+    "ok_was": true,
+    "step_now_db": 0.19,
+    "jump_excess_db": -0.67,
+    "click_db": 0.11,
+    "hold": "on_target",
+    "ok_now": true
+   },
+   {
+    "key": "A4",
+    "step_was_db": 0.82,
+    "ok_was": true,
+    "step_now_db": 1.06,
+    "jump_excess_db": -0.78,
+    "click_db": -0.5,
+    "hold": "on_target",
+    "ok_now": true
+   },
+   {
+    "key": "A#4",
+    "step_was_db": -0.94,
+    "ok_was": true,
+    "step_now_db": -0.93,
+    "jump_excess_db": -0.94,
+    "click_db": -2.69,
+    "hold": "on_target",
+    "ok_now": true
+   },
+   {
+    "key": "B4",
+    "step_was_db": 0.02,
+    "ok_was": true,
+    "step_now_db": 0.65,
+    "jump_excess_db": -0.22,
+    "click_db": 0.16,
+    "hold": "on_target",
+    "ok_now": true
+   },
+   {
+    "key": "C5",
+    "step_was_db": -1.82,
+    "ok_was": true,
+    "step_now_db": -1.8,
+    "jump_excess_db": -1.27,
+    "click_db": 1.01,
+    "hold": "on_target",
+    "ok_now": true
+   },
+   {
+    "key": "C#5",
+    "step_was_db": -12.78,
+    "ok_was": true,
+    "step_now_db": -12.8,
+    "jump_excess_db": -4.95,
+    "click_db": 0.44,
+    "hold": "on_target",
+    "ok_now": true
+   },
+   {
+    "key": "E5",
+    "step_was_db": -0.24,
+    "ok_was": true,
+    "step_now_db": -0.28,
+    "jump_excess_db": -1.03,
+    "click_db": 1.29,
+    "hold": "on_target",
+    "ok_now": true
+   },
+   {
+    "key": "F5",
+    "step_was_db": -0.19,
+    "ok_was": true,
+    "step_now_db": -0.16,
+    "jump_excess_db": -1.66,
+    "click_db": 1.04,
+    "hold": "on_target",
+    "ok_now": true
+   },
+   {
+    "key": "F#5",
+    "step_was_db": -1.28,
+    "ok_was": true,
+    "step_now_db": -1.35,
+    "jump_excess_db": 0.46,
+    "click_db": 1.05,
+    "hold": "on_target",
+    "ok_now": true
+   },
+   {
+    "key": "G5",
+    "step_was_db": -3.44,
+    "ok_was": true,
+    "step_now_db": -3.66,
+    "jump_excess_db": -2.75,
+    "click_db": 0.5,
+    "hold": "on_target",
+    "ok_now": true
+   },
+   {
+    "key": "A#5",
+    "step_was_db": -2.3,
+    "ok_was": true,
+    "step_now_db": -2.3,
+    "jump_excess_db": -1.01,
+    "click_db": -0.37,
+    "hold": "on_target",
+    "ok_now": true
+   },
+   {
+    "key": "C6",
+    "step_was_db": -2.98,
+    "ok_was": true,
+    "step_now_db": -2.96,
+    "jump_excess_db": -3.34,
+    "click_db": 1.27,
+    "hold": "on_target",
+    "ok_now": true
+   }
+  ]
+ },
+ "instruments/finished/violin_r1": {
+  "keys": 24,
+  "clean_was": 24,
+  "clean_now": 24,
+  "worst_step_now": {
+   "key": "A4",
+   "step_was_db": 0.82,
+   "ok_was": true,
+   "step_now_db": 1.06,
+   "jump_excess_db": -0.78,
+   "click_db": -0.5,
+   "hold": "on_target",
+   "ok_now": true
+  },
+  "worst_jump": {
+   "key": "A3",
+   "step_was_db": 0.26,
+   "ok_was": true,
+   "step_now_db": 0.34,
+   "jump_excess_db": 0.49,
+   "click_db": 0.51,
+   "hold": "on_target",
+   "ok_now": true
+  },
+  "rows": [
+   {
+    "key": "G3",
+    "step_was_db": -0.89,
+    "ok_was": true,
+    "step_now_db": -0.91,
+    "jump_excess_db": -0.88,
+    "click_db": 0.77,
+    "hold": "on_target",
+    "ok_now": true
+   },
+   {
+    "key": "A3",
+    "step_was_db": 0.26,
+    "ok_was": true,
+    "step_now_db": 0.34,
+    "jump_excess_db": 0.49,
+    "click_db": 0.51,
+    "hold": "on_target",
+    "ok_now": true
+   },
+   {
+    "key": "A#3",
+    "step_was_db": -1.19,
+    "ok_was": true,
+    "step_now_db": -0.25,
+    "jump_excess_db": 0.11,
+    "click_db": -0.0,
+    "hold": "on_target",
+    "ok_now": true
+   },
+   {
+    "key": "B3",
+    "step_was_db": -2.01,
+    "ok_was": true,
+    "step_now_db": -2.0,
+    "jump_excess_db": -0.88,
+    "click_db": 1.47,
+    "hold": "on_target",
+    "ok_now": true
+   },
+   {
+    "key": "C4",
+    "step_was_db": 0.15,
+    "ok_was": true,
+    "step_now_db": 0.12,
+    "jump_excess_db": -0.35,
+    "click_db": -0.13,
+    "hold": "on_target",
+    "ok_now": true
+   },
+   {
+    "key": "C#4",
+    "step_was_db": 0.41,
+    "ok_was": true,
+    "step_now_db": 0.41,
+    "jump_excess_db": -0.43,
+    "click_db": -0.37,
+    "hold": "on_target",
+    "ok_now": true
+   },
+   {
+    "key": "D4",
+    "step_was_db": -4.19,
+    "ok_was": true,
+    "step_now_db": -4.33,
+    "jump_excess_db": -1.94,
+    "click_db": 0.87,
+    "hold": "on_target",
+    "ok_now": true
+   },
+   {
+    "key": "D#4",
+    "step_was_db": -7.3,
+    "ok_was": true,
+    "step_now_db": -7.55,
+    "jump_excess_db": -1.58,
+    "click_db": 2.98,
+    "hold": "on_target",
+    "ok_now": true
+   },
+   {
+    "key": "E4",
+    "step_was_db": -0.25,
+    "ok_was": true,
+    "step_now_db": -0.19,
+    "jump_excess_db": -1.16,
+    "click_db": 0.76,
+    "hold": "on_target",
+    "ok_now": true
+   },
+   {
+    "key": "F4",
+    "step_was_db": -2.07,
+    "ok_was": true,
+    "step_now_db": -1.96,
+    "jump_excess_db": -1.89,
+    "click_db": 1.07,
+    "hold": "on_target",
+    "ok_now": true
+   },
+   {
+    "key": "F#4",
+    "step_was_db": -0.26,
+    "ok_was": true,
+    "step_now_db": -0.28,
+    "jump_excess_db": -0.98,
+    "click_db": 0.31,
+    "hold": "on_target",
+    "ok_now": true
+   },
+   {
+    "key": "G4",
+    "step_was_db": -3.9,
+    "ok_was": true,
+    "step_now_db": -3.99,
+    "jump_excess_db": -4.34,
+    "click_db": 2.38,
+    "hold": "on_target",
+    "ok_now": true
+   },
+   {
+    "key": "G#4",
+    "step_was_db": -0.52,
+    "ok_was": true,
+    "step_now_db": 0.19,
+    "jump_excess_db": -0.67,
+    "click_db": 0.11,
+    "hold": "on_target",
+    "ok_now": true
+   },
+   {
+    "key": "A4",
+    "step_was_db": 0.82,
+    "ok_was": true,
+    "step_now_db": 1.06,
+    "jump_excess_db": -0.78,
+    "click_db": -0.5,
+    "hold": "on_target",
+    "ok_now": true
+   },
+   {
+    "key": "A#4",
+    "step_was_db": -0.94,
+    "ok_was": true,
+    "step_now_db": -0.93,
+    "jump_excess_db": -0.94,
+    "click_db": -2.69,
+    "hold": "on_target",
+    "ok_now": true
+   },
+   {
+    "key": "B4",
+    "step_was_db": 0.02,
+    "ok_was": true,
+    "step_now_db": 0.65,
+    "jump_excess_db": -0.22,
+    "click_db": 0.16,
+    "hold": "on_target",
+    "ok_now": true
+   },
+   {
+    "key": "C5",
+    "step_was_db": -7.41,
+    "ok_was": true,
+    "step_now_db": -7.01,
+    "jump_excess_db": 0.04,
+    "click_db": 0.13,
+    "hold": "on_target",
+    "ok_now": true
+   },
+   {
+    "key": "C#5",
+    "step_was_db": -12.78,
+    "ok_was": true,
+    "step_now_db": -12.8,
+    "jump_excess_db": -4.95,
+    "click_db": 0.44,
+    "hold": "on_target",
+    "ok_now": true
+   },
+   {
+    "key": "E5",
+    "step_was_db": -0.24,
+    "ok_was": true,
+    "step_now_db": -0.28,
+    "jump_excess_db": -1.03,
+    "click_db": 1.29,
+    "hold": "on_target",
+    "ok_now": true
+   },
+   {
+    "key": "F5",
+    "step_was_db": -0.19,
+    "ok_was": true,
+    "step_now_db": -0.16,
+    "jump_excess_db": -1.66,
+    "click_db": 1.04,
+    "hold": "on_target",
+    "ok_now": true
+   },
+   {
+    "key": "F#5",
+    "step_was_db": -1.28,
+    "ok_was": true,
+    "step_now_db": -1.34,
+    "jump_excess_db": 0.46,
+    "click_db": 1.05,
+    "hold": "on_target",
+    "ok_now": true
+   },
+   {
+    "key": "G5",
+    "step_was_db": -3.44,
+    "ok_was": true,
+    "step_now_db": -3.66,
+    "jump_excess_db": -2.75,
+    "click_db": 0.5,
+    "hold": "on_target",
+    "ok_now": true
+   },
+   {
+    "key": "A#5",
+    "step_was_db": -2.3,
+    "ok_was": true,
+    "step_now_db": -2.3,
+    "jump_excess_db": -1.01,
+    "click_db": -0.37,
+    "hold": "on_target",
+    "ok_now": true
+   },
+   {
+    "key": "C6",
+    "step_was_db": -2.98,
+    "ok_was": true,
+    "step_now_db": -2.96,
+    "jump_excess_db": -3.34,
+    "click_db": 1.27,
+    "hold": "on_target",
+    "ok_now": true
+   }
+  ]
+ }
+}

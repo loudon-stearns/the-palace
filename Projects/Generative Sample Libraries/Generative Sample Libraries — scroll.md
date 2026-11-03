@@ -15,34 +15,32 @@ forward_vector: "I am Generative Sample Libraries's scroll — the one page that
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-11-03T13:38:22.697Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-11-03T13:47:43.099Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** growing · **Steward:** cycle 39 · last ran 2026-11-03 (today)
-- **Plan:** agreed 2026-09-25 (39 days ago) · 9 made things since
+- **Status:** active · **Stage:** growing · **Steward:** cycle 40 · last ran 2026-11-03 (today)
+- **Plan:** agreed 2026-09-25 (39 days ago) · 10 made things since
 - **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-11-03 (today) — The flute got the violin's pass. Does it sound like one flute, or which keys give it away? (`gsl-steward-082`)
-- **Last commit touching this project:** 2026-10-24 `a75350ec` — Weave — 2026-10-24 — 79 links added, 647 links pruned, 268 labels added, 13 entries promoted, 25 stages moved, 35 flags closed, 13 decisions carried, 6 Contexts opened, 2 pages composted, 8 faces added
+- **Last shipped:** 2026-11-03 (today) — The finishing pass never broke the flute's G4 loop: my seam checker misread it. Fixed it; both playable builds are clean on every key. (`gsl-steward-084`)
+- **Last commit touching this project:** 2026-11-03 `ca591304` — steward(Generative Sample Libraries): cycle 39 — SPINNING UP. HOME: [Generative Sample Libraries](obsidian://open?vault=…
 - **Signal:** steady
-- **Left uncommitted:** ⚠ 18 files in the bundle that no cycle declared, so no cycle commits them — `Projects/Generative Sample Libraries/ai-source-probe/instruments/finished/decentsampler.check.json`, `Projects/Generative Sample Libraries/ai-source-probe/instruments/finished/flute/MusicGen Flute.dslibrary`, `Projects/Generative Sample Libraries/ai-source-probe/instruments/redo/r1/build.json`, `Projects/Generative Sample Libraries/ai-source-probe/instruments/redo/r1/flute/keycheck.json`, `Projects/Generative Sample Libraries/ai-source-probe/instruments/redo/r1/flute/picks.json`, and 13 more. Look, then commit or clear them.
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
-- **Runs:** 1 run on 1 day, counted from the ledger's run lines
-- **Last run:** 2026-11-03 — cycle 39 · taught item 11, proposed item 12 for canon
+- **Runs:** 2 runs on 1 day, counted from the ledger's run lines
+- **Last run:** 2026-11-03 — cycle 40 · taught item 13
 - **Owed in the ledger:** nothing
 - **Proposed for canon:** 1 — item 12; waiting on Loudon's review, and the page has not changed
-- **Latest lesson:** item 12, from cycle 39 — 2026-11-03 — [[Generative Sample Libraries — tuning]]
+- **Latest lesson:** item 13, from cycle 40 — 2026-11-03 — [[Generative Sample Libraries — tuning]]
 
 ### Where this stands
 
-Generative Sample Libraries turns a conversation into a playable sampled instrument. Crystal and Shepard-tone came first, from the palace's own synthesis. The current step of the plan is your June idea: an audio AI (MusicGen, guided by a hummed tone) plays each note, pitch detection checks it, and the takes that pass become an instrument. On 2026-10-18 you heard the redone violin and called it good enough, one violin, the first finished AI instrument, and asked for the same pass on the flute. This cycle did that. The finishing pass put every key at one level and shaped how each key swells into its loop. Then the re-render step went back to MusicGen for the three keys the measurements liked…
+Generative Sample Libraries turns a conversation into a playable sampled instrument. The current step of the plan is your June idea: MusicGen, guided by a hummed tone, plays each note, pitch detection checks it, and the passing takes become an instrument. You called the redone violin good enough on 2026-10-18 and asked for the same pass on the flute; this morning's cycle did that and asked you whether it sounds like one flute. That cycle also reported that the finishing pass (the step that evens out the volume across keys) had broken one loop seam, on G4. This cycle found that report was wrong: the loop was always weak, and the tool that checks seams had been grading it with a bad baseline.…
 
 ### Left rough, again and again
 
 _What the trail's left-rough notes keep saying, oldest first, in its latest words._
 
-- **rough since cycle 21:** the numbers come from a Python model of SFZ playback, and the velocity filter is my model of sforzando's, not sforzando itself. _(in 2 notes, the latest cycle 37)_
 - **rough since cycle 21:** The new C4 is an older take, not a fresh one, and it sits 10 cents sharp (inside the 20-cent limit, but now the worst key; _(in 2 notes, the latest cycle 38)_
-- **rough since cycle 22:** Nobody has heard the flute yet. _(in 17 notes, the latest cycle 39)_
+- **rough since cycle 22:** Nobody has heard the flute yet. _(in 18 notes, the latest cycle 40)_
 - **rough since cycle 36:** both were only read back as files. _(in 3 notes, the latest 2026-10-20)_
 - **rough since 2026-10-20:** A note still starts at full level: the tear is the whole attack. _(in 2 notes, the latest 2026-10-20)_
 - **rough since 2026-10-20:** The WAVs, the demos and the four `.dslibrary` zips (11 to 15 MB each) live only on the Mac, in the worktree where they were rendered. _(in 2 notes, the latest 2026-10-20)_
@@ -67,6 +65,7 @@ _None._
 
 ### Runs
 
+- 2026-11-03 — cycle 40 · taught item 13
 - 2026-11-03 — cycle 39 · taught item 11, proposed item 12 for canon
 
 ### Owed
@@ -107,6 +106,67 @@ Never start a render you can't finish and post inside one cycle. Chunk long swee
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="gsl-steward-084" -->
+### 2026-11-03 — cycle 40 — The finishing pass never broke the flute's G4 loop: my seam checker misread it. Fixed it; both playable builds are clean on every key.
+> shipped · seam checker fixed, six builds rechecked · steward leans: the flute question stands as asked
+
+A held note loops a short stretch of the take, and the seam check listens for a jump in level each time the loop wraps around. It scored a wrap as the level spread around it minus how much the take wobbles on its own. But it measured that wobble over the note's opening as well as the loop, and for 18 of the flute's 21 keys that opening was included. G4 sags before its loop, so its baseline read 12.91 dB and hid a weak seam (pass). The finishing pass lifted the sag, the baseline fell to 9.90 dB, and the same seam, measuring 13.32 dB at the wrap both times, now failed. The finishing pass never touches the loop itself; it only scales it.
+
+The fix, in loop_sustain.py: the baseline is measured only while the loop is playing. Every check now also reports the seam's own jump: the level in the 50 ms either side of each wrap, less the loop's normal 50 ms movement. That number can't be moved by any volume change. Rechecking all six builds changed exactly one verdict: G4 on the looped-only build, which now fails as it should have from the start. The redone flute (G4 replaced by a fresh take, seam jump −0.16 dB) and the redone violin pass on every key; the worst seam jump anywhere is 0.81 dB, on flute G5. To hear the G4 difference, the existing [ab.wav](open:Projects/Generative Sample Libraries/ai-source-probe/instruments/finished/flute_r1/ab.wav) holds G4 from the old build, then the redone one.
+
+This cycle also lists the flute files from this morning that no cycle had declared, so they commit.
+
+**Artifacts:**
+- [the seam check, fixed: its baseline counts only the loop, and it reports the seam's own jump](Projects/Generative Sample Libraries/ai-source-probe/loop_sustain.py)
+- [splits G4's score into the wrap and the baseline, before and after finishing](Projects/Generative Sample Libraries/ai-source-probe/seam_probe.py)
+- [both measures, every key of the four finished builds](Projects/Generative Sample Libraries/ai-source-probe/seam_table.py)
+- [its output](Projects/Generative Sample Libraries/ai-source-probe/seam_table.json)
+- [reruns the fixed check over built instruments beside the recorded verdicts](Projects/Generative Sample Libraries/ai-source-probe/seam_recheck.py)
+- [its output: six builds, one verdict changed](Projects/Generative Sample Libraries/ai-source-probe/seam_recheck.json)
+- [new section: the seam that wasn't broken by finishing](Projects/Generative Sample Libraries/ai-source-probe/DESIGN.md)
+- [G4, C#4, C#5 held 4 s: the earlier flute build, then the redone one (rendered cycle 39, stays on the Mac)](Projects/Generative Sample Libraries/ai-source-probe/instruments/finished/flute_r1/ab.wav)
+- [cycle 39's undeclared file: the finished flute before the redo, for DecentSampler](Projects/Generative Sample Libraries/ai-source-probe/instruments/finished/flute/MusicGen Flute.dslibrary)
+- [cycle 39's undeclared file: the DecentSampler map check](Projects/Generative Sample Libraries/ai-source-probe/instruments/finished/decentsampler.check.json)
+- [cycle 39's undeclared file: the redo round's rejections and fresh runs](Projects/Generative Sample Libraries/ai-source-probe/instruments/redo/r1/build.json)
+- [cycle 39's undeclared file](Projects/Generative Sample Libraries/ai-source-probe/instruments/redo/r1/flute/keycheck.json)
+- [cycle 39's undeclared file](Projects/Generative Sample Libraries/ai-source-probe/instruments/redo/r1/flute/picks.json)
+- [cycle 39's undeclared file](Projects/Generative Sample Libraries/ai-source-probe/instruments/redo/r1/flute/range+flute_names56_bo3+flute_names57_bo3+flute_r1_G4+flute_r1_Cs4+flute_r1_Cs5_flute.sfz)
+- [cycle 39's undeclared file](Projects/Generative Sample Libraries/ai-source-probe/instruments/redo/r1/flute_looped/loopcheck.json)
+- [cycle 39's undeclared file](Projects/Generative Sample Libraries/ai-source-probe/instruments/redo/r1/flute_looped/range+flute_names56_bo3+flute_names57_bo3+flute_r1_G4+flute_r1_Cs4+flute_r1_Cs5_flute_looped.sfz)
+- [cycle 39's undeclared file](Projects/Generative Sample Libraries/ai-source-probe/instruments/redo/r1/flute_looped/shaping.json)
+- [cycle 39's undeclared file](Projects/Generative Sample Libraries/ai-source-probe/instruments/redo/r1/flute_shaped/keycheck.json)
+- [cycle 39's undeclared file](Projects/Generative Sample Libraries/ai-source-probe/instruments/redo/r1/flute_shaped/range+flute_names56_bo3+flute_names57_bo3+flute_r1_G4+flute_r1_Cs4+flute_r1_Cs5_flute_shaped.sfz)
+- [cycle 39's undeclared file](Projects/Generative Sample Libraries/ai-source-probe/instruments/redo/r1/flute_shaped/shaping.json)
+- [cycle 39's undeclared file: the G4 re-render log](Projects/Generative Sample Libraries/ai-source-probe/renders.flute_r1_G4.jsonl)
+- [cycle 39's undeclared file: the C#4 re-render log](Projects/Generative Sample Libraries/ai-source-probe/renders.flute_r1_Cs4.jsonl)
+- [cycle 39's undeclared file: the C#5 re-render log](Projects/Generative Sample Libraries/ai-source-probe/renders.flute_r1_Cs5.jsonl)
+- [cycle 39's undeclared file: the G4 pitch grades](Projects/Generative Sample Libraries/ai-source-probe/results.flute_r1_G4.jsonl)
+- [cycle 39's undeclared file: the C#4 pitch grades](Projects/Generative Sample Libraries/ai-source-probe/results.flute_r1_Cs4.jsonl)
+- [cycle 39's undeclared file: the C#5 pitch grades](Projects/Generative Sample Libraries/ai-source-probe/results.flute_r1_Cs5.jsonl)
+
+_Loop seams on every built instrument, as first recorded and with the fixed check_
+| build | clean as recorded | clean, fixed check | worst seam jump beyond the loop's own |
+| --- | --- | --- | --- |
+| flute, looped only | 21 / 21 | 20 / 21 (G4) | 2.36 dB (G4) |
+| flute, finished | 20 / 21 (G4) | 20 / 21 (G4) | 2.36 dB (G4) |
+| flute, finished + redo | 21 / 21 | 21 / 21 | 0.81 dB (G5) |
+| violin, all three builds | 24 / 24 | 24 / 24 | 0.49 dB (A3) |
+
+_Changed in the workshop:_ DESIGN — new cycle-40 section: G4's seam was misgraded, not broken by finishing; the fix and the recheck of six builds
+
+_Left rough:_ Nobody has heard the flute yet. That's yours to do (the open question from this morning), not another cycle's. Not yet shown: that the fixed check, run where loops are first chosen, picks a better loop for a weak key like G4 without asking the model again.
+
+_Next moves named:_ When you answer the flute question: GOOD-ENOUGH closes the AI-source step once the re-render step is in the interview; REDO-KEYS runs redo_keys.py on the keys you name · Re-run loop_sustain.py on the flute's shaped build with the fixed check and confirm it now picks a clean loop for the old G4 take without new renders · While the flute waits: write the SF2 path through ConvertWithMoss (java is on the Mac; ConvertWithMoss isn't), the one open format the plan still lists
+<sub>`gsl-steward-084` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-a6ef1ad280" -->
+### 2026-11-03 — cycle 40
+
+taught item 13
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="gsl-steward-082" -->
 ### 2026-11-03 — cycle 39 — The flute got the violin's pass. Does it sound like one flute, or which keys give it away?
 > still working · flute finished, 3 keys re-rendered · steward leans GOOD-ENOUGH

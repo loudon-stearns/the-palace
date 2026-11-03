@@ -44,3 +44,8 @@ What each cycle taught the project. Each item is one line, naming what the cycle
     > The section drafted in full at Projects/Generative Sample Libraries/interview-redo-step-proposal.md, 'After the batch — when the source is a model, the listener's notes go back to the model': ask which keys give it away (offering the measured weak keys, including any key whose seam failed in finishing), re-render those keys on fresh seeds and never patch the sample, rebuild through the same chain and play back only what changed, then go another round or stop. Its tool is ai-source-probe/redo_keys.py, which has now run on two instruments without changes.
 
 - run · 2026-11-03 · cycle 39 · taught item 11, proposed item 12 for canon
+
+## From cycle 40 — 2026-11-03
+
+13. Corrects item 11: the finishing pass does not break loop seams (it never touches the loop). Flute G4's seam was weak from the start, and the seam check hid it by measuring the take's own wobble over the opening as well as the loop. Measure a seam against the loop alone, and trust the gain-independent seam jump. *(offered by the steward, cycle 40)*
+- run · 2026-11-03 · cycle 40 · taught item 13

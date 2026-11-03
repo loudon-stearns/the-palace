@@ -1,67 +1,71 @@
 [
  {
-  "arm": "range+violin_bo5+violin_names56_bo3+violin_names57_bo3+violin_r1_As3+violin_r1_C4+violin_r1_C5",
-  "instrument": "violin",
-  "probe_verdict": "RETUNABLE",
+  "arm": "range+flute_names56_bo3+flute_names57_bo3+flute_r1_G4+flute_r1_Cs4+flute_r1_Cs5",
+  "instrument": "flute",
+  "probe_verdict": "TEXTURE ONLY",
   "cells": {
-   "on_target": 41,
-   "retunable": 99,
-   "texture": 32,
+   "on_target": 30,
+   "retunable": 48,
+   "texture": 30,
    "error": 0,
-   "n": 172
+   "n": 108
   },
-  "notes_kept": 24,
+  "notes_kept": 21,
   "filed_by": "played",
   "range": [
-   "G3",
-   "A7"
+   "C4",
+   "D7"
   ],
   "dropped_out_of_range": [
-   "E3"
-  ],
-  "notes_steady": 36,
-  "built": true,
-  "sfz": "range+violin_bo5+violin_names56_bo3+violin_names57_bo3+violin_r1_As3+violin_r1_C4+violin_r1_C5_violin.sfz",
-  "keys": [
+   "D#3",
+   "E3",
    "G3",
-   "C7"
+   "A#3",
+   "B3"
+  ],
+  "notes_steady": 38,
+  "built": true,
+  "sfz": "range+flute_names56_bo3+flute_names57_bo3+flute_r1_G4+flute_r1_Cs4+flute_r1_Cs5_flute.sfz",
+  "keys": [
+   "C4",
+   "C#7"
   ],
   "silent_gaps": [],
   "notes_missing": [
    "G1",
-   "A#1",
-   "E2",
-   "A#2",
-   "E7"
+   "G5",
+   "C#6"
   ],
   "notes_folded": [
    "E1",
+   "A#1",
    "C#2",
+   "E2",
    "G2",
+   "A#2",
    "C#3",
    "E3",
-   "G4",
+   "G3",
+   "A#3",
+   "A#4",
    "E5",
    "A#5",
-   "C#6",
    "E6",
-   "G6",
-   "A#6",
-   "C#7",
-   "D4",
-   "G#4",
+   "B3",
+   "F4",
+   "A4",
    "D#5",
    "F#5"
   ],
   "trimmed": {
-   "before_on_target": 42,
-   "before_keys": 42,
+   "before_on_target": 38,
+   "before_keys": 38,
    "dropped": []
   },
   "keycheck": {
-   "keys_played": 42,
-   "on_target": 42,
-   "worst_abs_cents_on_target": 10.0,
+   "keys_played": 38,
+   "on_target": 38,
+   "worst_abs_cents_on_target": 4.66,
    "misses": []
   },
   "audition": "audition.wav"
