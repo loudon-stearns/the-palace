@@ -40,6 +40,7 @@
       "stamped": "2026-11-03",
       "status": "proposal",
       "proposed": { "date": "2026-11-03", "by": "maker · claude-opus-5-5 · proposal round", "round": "proposal-round-2026-11" },
+      "challenge": {"date": "2026-11-03", "by": "challenger · claude-opus-5-5", "verdicts": [{"file": "The Lens — rich — nearest on the graph.html", "verdict": "keep", "why": "A real test: two hops could have come out a short list and came out 41% of the palace; my own BFS on the snapshot gets the same 4% / 41% / 0 unreachable / 5 hops, and the walk climbs from one entry's links to every entry. Note: the two July scores it calls inferred (1.5, 3.5) are on record in _ops/scratch/lens-prototype-2026-07-02.md:27,37, so cite that and drop 'inferred'."}]},
       "pieces": [
         {
           "file": "The Lens — rich — nearest on the graph.html",
@@ -59,6 +60,7 @@
       "stamped": "2026-11-03",
       "status": "proposal",
       "proposed": { "date": "2026-11-03", "by": "maker · claude-opus-5-5 · proposal round", "round": "proposal-round-2026-11" },
+      "challenge": {"date": "2026-11-03", "by": "challenger · claude-opus-5-5", "verdicts": [{"file": "The Lens — rich — move the glass.html", "verdict": "remake", "why": "Steps 1-5 hold, but the blind test is decoded by length alone: on all four paragraphs the faithful reading is longest (358-391 chars), the formula next (280), the borrowed shortest (233-259), and a length-only marker scored 3 of 3 at one look; it also states no chance level or verdict rule before the first trial and says the page predicts something it doesn't. Fix: match lengths and openings, state chance and the rule first, tally several trials (record has the detail)."}, {"file": "proofs/2026-10-23-daily-page/name-the-glass.html", "verdict": "keep", "why": "The run the paragraph quotes, as it ran; the caption matches the scroll (2026-10-23 entry) and says the readings were written by hand. A record, so it is not held to walk up."}, {"file": "proofs/2026-10-23-daily-page/careful-or-bold.html", "verdict": "keep", "why": "The second test the paragraph quotes, as it ran; the caption's note that his verdict came in chat and the picks stayed empty matches the scroll."}]},
       "pieces": [
         {
           "file": "The Lens — rich — move the glass.html",
@@ -96,6 +98,7 @@
       "stamped": "2026-11-03",
       "status": "proposal",
       "proposed": { "date": "2026-11-03", "by": "maker · claude-opus-5-5 · proposal round", "round": "proposal-round-2026-11" },
+      "challenge": {"date": "2026-11-03", "by": "challenger · claude-opus-5-5", "verdicts": [{"file": "The Lens — any-page-through-any-page mockup.html", "verdict": "keep", "why": "The sketch the section names, playable in place; the caption keeps the section's own words (Ohm's Law reads LOW on purpose, readings hand-authored)."}, {"file": "The Lens — philosopher refraction+confrontation mockup.html", "verdict": "keep", "why": "The second sketch the section names, playable in place; loads clean at both widths."}]},
       "pieces": [
         {
           "file": "The Lens — any-page-through-any-page mockup.html",
