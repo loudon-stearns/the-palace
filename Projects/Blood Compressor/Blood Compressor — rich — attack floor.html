@@ -112,6 +112,7 @@
         <button class="ab" data-take="1" aria-pressed="true">B</button>
         <button class="ab" data-take="2" aria-pressed="false">C</button>
         <button class="ab" data-take="3" aria-pressed="false">D</button>
+        <button class="ab" data-take="4" aria-pressed="false">E</button>
         <span class="hint">Press Play, then switch takes as often as you like. Each is matched to the same loudness.</span>
       </div>
       <table class="marks" id="marks" hidden><thead><tr><th>take</th><th>reflex</th><th>nerve</th><th>closed as the kick lands</th><th>closes in its first 5 ms</th><th>by 10 ms</th><th>crest</th></tr></thead><tbody></tbody></table>
@@ -321,6 +322,7 @@ const Player = (() => {
   const bypass = () => take('bypass', { bypass: 1, attack: 0.06 });
   const atk = (s) => take('atk' + s.toFixed(6), { attack: s });
   const unbodied = () => take('unbodied', { attack: 0 }, { floor: 0, nerve: 0 });
+  const nerveOnly = () => take('nerveOnly', { attack: 0 }, { floor: 0 });
 
   // ── steps ──
   const STEPS = [
@@ -333,19 +335,19 @@ const Player = (() => {
       hint: 'the loop, attack 200 ms', view: { pressure: true, baro: true, front: false }, take: () => atk(0.2),
       tryText: 'Find the gap between the first lit baroreceptor and the wall starting to move. That gap is the nerve.' },
     { rail: '3 · the knob', eyebrow: 'Step 3 of 4 · attack, swept to its floor', title: 'Sweep the reflex down',
-      say: 'Now the attack is yours. Sweep it down from 200 ms and the vessel closes sooner and harder after each hit. Keep going. The knob stops at 5 ms; that is the plugin’s floor, the body’s fastest reflex, and the DSP section says so too: it cannot be set to 0. Watch the shaded band at the front of the hit while you sweep. It runs from the hit landing to the wall first moving, the part of the hit no reflex can touch, and it never gets shorter than the nerve.',
+      say: 'Now the attack is yours. Sweep it down from 200 ms and the vessel closes sooner and harder after each hit. Keep going. The knob stops at 5 ms. That is one of two floors the plugin keeps: the reflex can’t act faster than 5 ms, and before it, at every setting, sits a fixed 5 ms nerve delay. The DSP section names one floor, a nerve-conduction delay, and says the attack cannot be set to 0; the build has both. Watch the shaded band at the front of the hit while you sweep. It runs from the hit landing to the wall first moving, the part of the hit no reflex can touch, and it never gets shorter than the nerve.',
       hint: 'the loop, attack where you set it', view: { pressure: true, baro: true, front: true }, attack: true, take: () => atk(atkOf(+$('atk').value)),
       tryText: 'Drag all the way left. That is as far as it goes. Listen to what the floor does to the kick: the click, then the boom.' },
     { rail: '4 · the test', eyebrow: 'Step 4 of 4 · the sentence, tested', title: 'Does the floor lunge?',
-      say: 'The page: “When students set attack=0 and feel the compressor lunge at the audio, they are feeling what the body would do without baroreceptors — instant clamping, no breath, no give.” Attack can’t reach 0 here, so test the nearest thing: the floor. Answer first, then listen. Take A is the loop as it arrives. B is this compressor at its floor. C is the body the sentence imagines: no floor and no nerve, attack 0, not this compressor. D is 200 ms, the sentence’s other half.',
+      say: 'The page: “When students set attack=0 and feel the compressor lunge at the audio, they are feeling what the body would do without baroreceptors — instant clamping, no breath, no give.” Attack can’t reach 0 here, so test the nearest thing: the floor. Answer first, then listen. Take A is the loop as it arrives. B is this compressor at its floor. C is the body the sentence imagines: no floor and no nerve, attack 0, not this compressor. D is 200 ms, the sentence’s other half. E takes away only the reflex floor and keeps the nerve, so you can hear which floor does what.',
       hint: 'four takes, loudness matched', view: { pressure: true, baro: true, front: true }, test: true, take: () => guessed ? testTakes()[sel] : bypass(),
       tryText: 'Flip between B and C on the kick. One lets the click through and clamps the boom; the other catches the click too.' }
   ];
   let step = 0, sel = 1, guessed = false;
-  const testTakes = () => [bypass(), atk(0.005), unbodied(), atk(0.2)];
-  const TAKE_NAMES = ['A · as it arrives', 'B · this compressor, floor', 'C · no nerve, no floor', 'D · this compressor, 200 ms'];
-  const TAKE_REFLEX = ['—', '5 ms (floor)', '0 ms', '200 ms'];
-  const TAKE_NERVE = ['—', '5 ms', '0 ms', '5 ms'];
+  const testTakes = () => [bypass(), atk(0.005), unbodied(), atk(0.2), nerveOnly()];
+  const TAKE_NAMES = ['A · as it arrives', 'B · this compressor, floor', 'C · no nerve, no floor', 'D · this compressor, 200 ms', 'E · no floor, nerve kept'];
+  const TAKE_REFLEX = ['—', '5 ms (floor)', '0 ms', '200 ms', '0 ms'];
+  const TAKE_NERVE = ['—', '5 ms', '0 ms', '5 ms', '5 ms'];
 
   // ── picture ──
   const cv = $('stage'), cx = cv.getContext('2d');
@@ -449,10 +451,11 @@ const Player = (() => {
   function table() {
     const T = testTakes(), by = T[0];
     $('marks').querySelector('tbody').innerHTML = T.map((r, k) => '<tr class="' + (k === sel ? 'sel' : '') + '"><td>' + TAKE_NAMES[k] + '</td><td>' + TAKE_REFLEX[k] + '</td><td>' + TAKE_NERVE[k] + '</td><td>' + (k ? Math.abs(r.k.pre).toFixed(1) + ' dB' : '—') + '</td><td><b>' + (k ? f1(r.k.close5) + ' dB' : '—') + '</b></td><td>' + (k ? f1(r.k.close10) + ' dB' : '—') + '</td><td>' + r.st.crest.toFixed(1) + ' dB</td></tr>').join('');
-    const B = T[1], C = T[2], D = T[3];
+    const B = T[1], C = T[2], D = T[3], E = T[4];
     $('verdict').innerHTML = 'The knob stops at 5 ms, and the nerve’s 5 ms sits before it. At the floor the vessel does not close at all in the kick’s first 5 ms (' + f1(B.k.close5) + ' dB: it is still letting go of the last hit). The front comes through at whatever opening the vessel already had, ' + Math.abs(B.k.pre).toFixed(1) + ' dB closed in this loop, and only then does it clamp, ' + f1(B.k.close10) + ' dB by 10 ms in. A click, then a flattened boom. ' +
       'The instant clamp the sentence describes is take C, and it takes two things this compressor refuses, no floor and no nerve: C moves ' + f1(C.k.close5) + ' dB inside those same 5 ms. D, at 200 ms, moves only ' + f1(D.k.close10) + ' dB by 10 ms: the body has noticed and is still deciding. ' +
-      'The crest does not tell B from C: both raise it, from ' + by.st.crest.toFixed(1) + ' dB to ' + B.st.crest.toFixed(1) + ' and ' + C.st.crest.toFixed(1) + '. What tells them apart is the first 5 ms.' +
+      'E keeps the nerve and drops only the reflex floor: it moves ' + f1(E.k.close5) + ' dB in the first 5 ms, like B, and ' + f1(E.k.close10) + ' dB by 10 ms, harder than B. The nerve decides the first 5 ms; the reflex floor decides how hard the vessel closes after. ' +
+      'The crest does not tell B from C: both raise it, from ' + by.st.crest.toFixed(1) + ' dB to ' + B.st.crest.toFixed(1) + ' and ' + C.st.crest.toFixed(1) + ', because the squeeze lowers the average, not because the front gets through. What tells them apart is the first 5 ms.' +
       '<br><br>You answered <b>' + (guessed === 'yes' ? 'most of the way' : 'not at all') + '</b>. Whether the floor sounds like a lunge is for your ear; what the numbers rule out is “instant clamping” at any setting this compressor has.';
   }
 

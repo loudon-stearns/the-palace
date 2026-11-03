@@ -68,6 +68,7 @@ for (const [name, file] of Object.entries(PIECES)) {
   const R = (set, opts) => { const r = BC.render(Object.assign({}, BASE, set), opts, FIRST); r.st = BC.stats(r.L); return r; };
   const by = R({ bypass: 1, attack: 0.06 }), fl = R({ attack: 0.005 }), un = R({ attack: 0 }, { floor: 0, nerve: 0 }), d2 = R({ attack: 0.2 });
   const z0 = R({ attack: 0 }), z1 = R({ attack: 0.001 });
+  const ne = R({ attack: 0 }, { floor: 0 }), kn = BC.kicks(ne.g);
   const K = (r) => BC.kicks(r.g), kf = K(fl), ku = K(un), kd = K(d2);
   let move = -1; for (let i = 0; i < FIRST; i++) if (fl.one.g[i] < -0.1) { move = i / BC.SR * 1000; break; }
   check('attack: asking for 0 or 1 ms gives the floor, bit for bit (it cannot be set to 0)', maxDiff(z0.L, fl.L) === 0 && maxDiff(z1.L, fl.L) === 0, `differences ${maxDiff(z0.L, fl.L)}, ${maxDiff(z1.L, fl.L)}`);
@@ -75,10 +76,11 @@ for (const [name, file] of Object.entries(PIECES)) {
   check('attack: in the loop, at the floor, the vessel does not close in a kick\'s first 5 ms, then clamps', kf.close5 > -0.05 && kf.close10 < -6, `already ${f(kf.pre)} dB as it lands; ${f(kf.close5)} dB in 5 ms; ${f(kf.close10)} dB by 10 ms`);
   check('attack: the instant clamp takes no floor and no nerve, and then the vessel does close inside 5 ms', ku.close5 < -10, `${f(ku.close5)} dB in 5 ms (already ${f(ku.pre)}), ${f(ku.close10)} by 10 ms`);
   check('attack: at 200 ms the body is still deciding 10 ms in', kd.close10 > -3 && kd.close10 > kf.close10, `${f(kd.close10)} dB by 10 ms (floor ${f(kf.close10)})`);
+  check('attack: no floor with the nerve kept — the nerve decides the first 5 ms, the floor how hard after', kn.close5 > -0.05 && kn.close10 < kf.close10 - 3, `${f(kn.close5)} dB in 5 ms, ${f(kn.close10)} by 10 ms (floor kept: ${f(kf.close10)})`);
   check('attack: the crest rises at the floor and with the instant clamp alike, so crest cannot tell them apart', fl.st.crest > by.st.crest + 6 && un.st.crest > by.st.crest + 6, `${f(by.st.crest, 1)} dB as it arrives → ${f(fl.st.crest, 1)} at the floor, ${f(un.st.crest, 1)} with no floor and no nerve`);
   // matching: every take the page can make stays under the ceiling
   let worst = -99, worstAt = '';
-  const takes = [by, fl, un, d2];
+  const takes = [by, fl, un, d2, ne];
   for (let u = 0; u <= 1.0001; u += 0.02) takes.push(R({ attack: 0.005 * Math.pow(40, u) }));
   for (const r of takes) { const out = r.st.peak + 20 * Math.log10(BC.matchGain(r.st)); if (out > worst) { worst = out; worstAt = f(r.st.crest, 1) + ' dB crest'; } }
   check('attack: every matched take peaks at or under −1 dBFS', worst <= -1 + 1e-9, `worst ${f(worst)} dBFS (${worstAt})`);
