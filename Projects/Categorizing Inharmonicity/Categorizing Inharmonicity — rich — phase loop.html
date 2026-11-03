@@ -77,7 +77,7 @@
 <div class="piece">
   <div class="kicker"><span id="sigil"></span>made · study · a walk in four steps</div>
   <h2 class="title">Phase only, in a loop</h2>
-  <p class="sub">§ 6 says a chain of all-pass filters changes no level, only phase, and still makes a tone inharmonic. We start with a loop that only delays and end on that claim, measured on the sound itself. Every spectrum here is read from the rendered audio, not drawn from a formula. Silent until you press a button.</p>
+  <p class="sub">§ 6 says a chain of all-pass filters in a feedback path changes no level, only phase, and still makes a tone inharmonic; its synthesis list then says to feed a harmonic tone through the chain. We start with a loop that only delays and end on that claim, measured on the sound itself. Every spectrum here is read from the rendered audio, not drawn from a formula. Silent until you press a button.</p>
   <div class="rail" id="rail"></div>
 
   <section class="step">
@@ -422,7 +422,7 @@ function s4() {
     row('which kind? the stiff-string formula fitted to all sixteen', 'B = ' + fit.B.toExponential(2).replace('-', '\u2212') + ' · ' + fit.rms.toFixed(2) + ' ¢ rms off', fit.rms < 2 ? 'the loop’s partials sit on a stiff string’s curve' : 'it departs from the stiff string’s curve here');
   const moved = Math.abs(L4.m.c[15]) > 2, held = Math.max(...[3, 7, 15].map(i => Math.abs(C4.m.c[i]))) < 0.5;
   $('s4v').textContent = !moved ? `At a = ${a.toFixed(2)} the partials hardly move (partial 16 is ${fmtCs(L4.m.c[15])}). Push the coefficient further from zero.` :
-    `Yes, with a condition the section doesn’t state. The chain changes no level (${gain.toExponential(1)} dB at worst) and inside the loop it puts partial 16 ${fmtCs(L4.m.c[15])} off its ghost, while the straight-line control stays within ${Math.max(...[3, 7, 15].map(i => Math.abs(C4.m.c[i]))).toFixed(2)} ¢${held ? '' : ' (not quite on: its integer delay rounds)'}: the inharmonicity is all phase. But it takes the loop. Passed through once, as the synthesis list says, the same chain moved no partial more than ${fmtCs(out)}; a fixed filter can’t make a frequency that wasn’t there. And what the loop makes is the stretch: the stiff-string formula fits its sixteen partials to ${fit.rms.toFixed(2)} ¢ (B = ${fit.B.toExponential(2).replace('-', '\u2212')}).`;
+    `Yes, and it takes the feedback path the section’s first sentence names. The chain changes no level (${gain.toExponential(1)} dB at worst) and inside the loop it puts partial 16 ${fmtCs(L4.m.c[15])} off its ghost, while the straight-line control stays within ${Math.max(...[3, 7, 15].map(i => Math.abs(C4.m.c[i]))).toFixed(2)} ¢${held ? '' : ' (not quite on: its integer delay rounds)'}: the inharmonicity is all phase. Passed through once, as the synthesis list says instead, the same chain moved no partial more than ${fmtCs(out)}; a fixed filter can’t make a frequency that wasn’t there. And what the loop makes is the stretch: the stiff-string formula fits its sixteen partials to ${fit.rms.toFixed(2)} ¢ (B = ${fit.B.toExponential(2).replace('-', '\u2212')}).`;
 }
 // ── wiring ──
 sigil($('sigil'));
