@@ -40,7 +40,18 @@
         }
       ],
       "made_against": "0d8dd9dbba20",
-      "stamped": "2026-11-03"
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Linear Predictive Coding — rich — how much is left over.html",
+            "verdict": "keep",
+            "why": "A test that walks up from one sine to the voice; recomputed with an independent Levinson-Durbin: G(1) 10.13, G(18) 19.05, G(32) 19.49 dB, +0.44 after 18, exactly as printed. Note: name the 256 kbps the 50.6 kbps is out of, and point to the swap piece for where the rest of the compression comes from."
+          }
+        ]
+      }
     },
     {
       "heading": "The source-filter model and its mirror-twin",
@@ -63,7 +74,18 @@
         }
       ],
       "made_against": "8cda9eb19c17",
-      "stamped": "2026-11-03"
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "/Projects/Tract Mirror/Tract Mirror — rich — junction to mirror.html",
+            "verdict": "keep",
+            "why": "Tests the lattice-equals-mismatch claim and finds its conditions; walks up from one joint. Caption and offer state the finding in the same terms and numbers as Tract Mirror's landed face; the two conform warnings are its sandboxed fetch, with an in-piece fallback it names."
+          }
+        ]
+      }
     },
     {
       "heading": "The residual is where the soul hides",
@@ -86,7 +108,18 @@
         }
       ],
       "made_against": "e94c093f3f89",
-      "stamped": "2026-11-03"
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Linear Predictive Coding — rich — the residual swap.html",
+            "verdict": "remake",
+            "why": "A real test (made vowel 99.5 % on the beat, the voice 49.5 %) that walks up, but three wordings outrun it: 'a real voice' (it is Kokoro); 'without copying the leftover' / 'not by how close it sits to the leftover' (the search target is the leftover through 1/A(z/0.8), where the match is 0.87); 'that half, off the beat, is what the page calls the soul' (jitter and shimmer are on the beat). Fix those in the subtitle, step 4 and 5 texts and the caption; optionally say the own-leftover identity cannot fail."
+          }
+        ]
+      }
     }
   ],
   "offers": [
