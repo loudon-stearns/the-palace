@@ -65,6 +65,27 @@
         "by": "maker · claude-opus-5-5 · proposal round",
         "round": "proposal-round-2026-11"
       },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "01_feedback_lens/wet.wav",
+            "verdict": "keep",
+            "why": "The H3000 idea as the bundle built it; the caption’s 69/21/7 % and the README quote match the steward’s findings.json and README exactly."
+          },
+          {
+            "file": "rich-face/fifth.wav",
+            "verdict": "keep",
+            "why": "Byte-identical to the steward’s take, now tracked; the caption matches findings.json (100 % on +7, 2.17 s) and says it waits on Loudon’s ear. Its claim against the text is carried as offer 4."
+          },
+          {
+            "file": "proofs/2026-10-22-interval/interval.png",
+            "verdict": "keep",
+            "why": "The caption’s left-to-right order matches the figure’s five panel titles; the long loop’s steady lines are visible."
+          }
+        ]
+      },
       "pieces": [
         {
           "file": "01_feedback_lens/wet.wav",
@@ -101,6 +122,17 @@
         "by": "maker · claude-opus-5-5 · proposal round",
         "round": "proposal-round-2026-11"
       },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Shimmer Cloud — rich — how many.html",
+            "verdict": "remake",
+            "why": "A real test that walks up, but its smallest count is 30, and count is a dial only below about a dozen: on cloud.py at 25 ¢ the swirl’s top-1 % power share falls 0.95, 0.67, 0.34 from 2 to 6 copies, then sits at 0.19 from 12 to 100 and 0.16 at 300. Add 2/3/6/12-copy takes (cloud.py, seed 42), a 3-copy row in the square, a regularity readout, and ear verdicts that don’t say count doesn’t matter."
+          }
+        ]
+      },
       "pieces": [
         {
           "file": "Shimmer Cloud — rich — how many.html",
@@ -124,6 +156,22 @@
         "date": "2026-11-03",
         "by": "maker · claude-opus-5-5 · proposal round",
         "round": "proposal-round-2026-11"
+      },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Shimmer Cloud — rich — white light.html",
+            "verdict": "keep",
+            "why": "A fair test that walks up; recomputed on the steward’s own engine, prisms land highs 213–240 ms after lows across five seeds (τ predicts ~225), pitch copies −0.7 to +1.2 ms. Note: say in step 5 that even laid out along pitch each copy carries every frequency, so nothing is separated."
+          },
+          {
+            "file": "proofs/2026-10-22-pushed/pushed.png",
+            "verdict": "keep",
+            "why": "The caption matches the figure and the steward’s 3 and 213 ms. Note: the turbulence paragraph claims high-pitch-shift particles decay faster, which nothing pitch-shifted here tests; drop the “one reading of dispersing faster” gloss."
+          }
+        ]
       },
       "pieces": [
         {
