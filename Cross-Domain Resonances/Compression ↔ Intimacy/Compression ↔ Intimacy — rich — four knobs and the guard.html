@@ -1,0 +1,439 @@
+<!doctype html>
+<!--
+  title: Compression ↔ Intimacy — rich — four knobs and the guard
+  born: 2026-11-03
+  links: [[Compression ↔ Intimacy]] (connects-to · rich-face-piece) · listed in [[Compression ↔ Intimacy — rich.json]] · shares its engine, byte for byte, with the face's other two pieces
+  forward_vector: I am the walk up to The Vulnerability Parallel. The 4:1 voice from the blind test with its gain reduction drawn under it; then threshold, ratio and attack, each heard and measured against the page's line for it; and last release, where the page's line and its other three part ways, measured. I change only when the section I serve does.
+  sound: nothing plays until a button is clicked; the AudioContext is made on that click. Changing step stops the sound. Every sound is made in this page by the engine below: a pulse train and noise through formant resonators. No recording, no sample, no file.
+  check: Cross-Domain Resonances/Compression ↔ Intimacy/Compression ↔ Intimacy — rich — check.mjs runs this page's engine in Node and checks every number it prints.
+-->
+<html lang="en" class="skin-graphite">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- needs nothing of its host: no device, no storage, no file, no host; sound only on a click -->
+<meta name="piece:needs" content="">
+<title>Four knobs and the guard · Compression ↔ Intimacy</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@300;400;500&display=swap">
+<style>
+  :root{
+    --bg:#0a0a0f; --bg-elev-1:#12121a; --bg-elev-2:#1a1a28; --border:#4a4a5e; --border-soft:rgba(255,255,255,0.06);
+    --fg-1:#e8e8f0; --fg-2:#c8c8d8; --fg-3:#8a8aa0; --fg-4:#4a4a5a;
+    --accent:#e8b84a; --accent-soft:rgba(232,184,74,0.10); --info:#4a8fff; --warn:#e8651b; --indigo:#6366F1;
+    --serif:'Cormorant Garamond','Source Serif 4',Georgia,serif; --sans:'Manrope',system-ui,sans-serif;
+    --display:'Anton','Bebas Neue',Impact,sans-serif; --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--fg-1)}
+  body{font-family:var(--serif);font-size:17px;line-height:1.7;padding:28px 16px 36px}
+  main{max-width:960px;margin:0 auto}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--fg-3)}
+  h1{font-family:var(--display);font-weight:400;font-size:44px;line-height:1.05;margin:6px 0 10px}
+  h2{font-family:var(--display);font-weight:400;font-size:28px;line-height:1.1;margin:4px 0 8px;letter-spacing:.01em}
+  p.lead{font-size:19px;color:var(--fg-2);margin:0 0 18px;max-width:66ch}
+  .rail{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 18px}
+  .rail button{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-3);background:transparent;border:1px solid var(--border);border-radius:4px;padding:7px 11px;cursor:pointer;transition:all .22s cubic-bezier(.4,0,.2,1)}
+  .rail button[aria-current="step"]{color:var(--fg-1);border-color:var(--fg-3);background:var(--bg-elev-2)}
+  p.say{color:var(--fg-2);margin:0 0 14px;max-width:68ch}
+  .panel{background:var(--bg-elev-1);border:1px solid var(--border-soft);border-radius:4px;padding:18px;margin:0 0 14px}
+  .tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;align-items:center}
+  button.play{font-family:var(--sans);font-weight:500;font-size:14px;color:#0a0a0f;background:var(--accent);border:0;border-radius:4px;padding:9px 20px;cursor:pointer;margin-left:auto;transition:box-shadow .22s cubic-bezier(.4,0,.2,1)}
+  button.play:hover{box-shadow:0 0 24px var(--accent-soft)}
+  canvas{width:100%;display:block;background:var(--bg-elev-2);border-radius:4px}
+  .legend{display:flex;gap:6px 18px;flex-wrap:wrap;margin-top:10px;font-family:var(--sans);font-size:13px;color:var(--fg-3);line-height:1.5}
+  .legend i{display:inline-block;width:14px;height:2px;margin-right:6px;vertical-align:3px}
+  [hidden]{display:none !important}
+  .meter{font-family:var(--mono);font-size:13px;color:var(--fg-2);margin-top:12px;line-height:1.7}
+  .meter b{color:var(--accent);font-weight:400}
+  .eq{font-family:var(--mono);font-size:13px;color:var(--fg-1);margin:14px 0 0;overflow-wrap:anywhere}
+  .eq.words{color:var(--fg-3);font-size:12px;margin-top:2px}
+  .rowb{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:12px}
+  button.ghost{font-family:var(--sans);font-size:14px;color:var(--fg-2);background:transparent;border:1px solid var(--border);border-radius:4px;padding:8px 14px;cursor:pointer}
+  button.ghost[aria-pressed="true"]{color:var(--fg-1);border-color:var(--fg-3);background:var(--bg-elev-2)}
+  button.ghost:disabled{opacity:.35;cursor:default}
+  button.ab{font-family:var(--display);font-size:22px;letter-spacing:.06em;color:var(--fg-2);background:transparent;border:1px solid var(--border);border-radius:4px;padding:6px 22px;cursor:pointer}
+  button.ab[aria-pressed="true"]{color:#0a0a0f;background:var(--accent);border-color:var(--accent)}
+  .hint{font-family:var(--sans);font-size:13px;color:var(--fg-3)}
+  label.sl{display:block;font-family:var(--mono);font-size:12px;letter-spacing:.06em;color:var(--fg-3);min-width:240px;flex:1}
+  label.sl b{color:var(--fg-1);font-weight:500}
+  input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:3px;background:var(--fg-4);margin:12px 0 4px;outline:none}
+  input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:13px;height:13px;border-radius:50%;background:var(--accent);cursor:pointer}
+  input[type=range]::-moz-range-thumb{width:13px;height:13px;border:0;border-radius:50%;background:var(--accent);cursor:pointer}
+  table.marks{border-collapse:collapse;margin-top:12px;font-family:var(--mono);font-size:12.5px;color:var(--fg-2)}
+  table.marks td,table.marks th{border-bottom:1px solid var(--border-soft);padding:5px 14px 5px 0;text-align:left;font-weight:400;vertical-align:middle}
+  table.marks th{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-3)}
+  table.marks b{color:var(--accent);font-weight:400}
+  .quote{font-family:var(--serif);font-style:italic;color:var(--fg-1);border-left:2px solid var(--accent);padding:2px 0 2px 12px;margin:10px 0}
+  .score{font-family:var(--serif);font-size:19px;color:var(--fg-1);margin-top:14px;max-width:66ch}
+  .walk{display:flex;justify-content:space-between;gap:10px;margin-top:16px}
+  .wrapx{overflow-x:auto}
+  footer{margin-top:28px;font-family:var(--sans);font-size:13px;color:var(--fg-4);display:flex;align-items:center;gap:10px}
+  footer b{font-family:var(--display);font-weight:400;letter-spacing:.06em;color:var(--fg-3)}
+  footer svg{flex:none}
+  @media (max-width:520px){h1{font-size:34px}h2{font-size:23px}}
+</style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">Compression ↔ Intimacy · the vulnerability parallel · five steps</div>
+  <h1>Four knobs and the guard</h1>
+  <p class="lead">The page maps a compressor’s four knobs onto trust, authenticity and guard. Here each knob is turned on one voice with its gain reduction drawn underneath, and set beside the page’s line for it, until the last knob, where the line and the meter part ways. Nothing plays until you press Play.</p>
+  <nav class="rail" aria-label="Steps" id="rail"></nav>
+  <section aria-live="polite">
+    <div class="eyebrow" id="stepEyebrow"></div>
+    <h2 id="stepTitle"></h2>
+    <p class="say" id="stepSay"></p>
+    <p class="quote" id="pageLine"></p>
+  </section>
+  <div class="panel">
+    <div class="tabs"><span class="eyebrow">Hear</span><span class="hint" id="hearHint"></span><button class="play" id="play">Play</button></div>
+    <canvas id="view" aria-label="the voice in and out of the compressor, and its gain reduction"></canvas>
+    <div class="legend" id="legend"></div>
+    <div class="rowb" id="knobRow" hidden><label class="sl"><span id="kname"></span> · <b id="kv"></b><input id="k" type="range" min="0" max="1000" step="1"></label></div>
+    <div class="meter" id="meter"></div>
+    <div class="wrapx"><table class="marks" id="table"></table></div>
+    <div class="eq" id="eq1"></div><div class="eq words" id="eq1w"></div>
+  </div>
+  <div class="walk"><button class="ghost" id="back">Back</button><button class="ghost" id="next">Next</button></div>
+  <footer><svg id="sigil" width="22" height="22" viewBox="-11 -11 22 22" aria-hidden="true"></svg><b>LOUD’N LIVE</b> · Compression ↔ Intimacy · four knobs and the guard · Sketch, 2026-11-03 · the voice is synthetic</footer>
+</main>
+
+<script id="ci-core">
+const CI = (() => {
+  // The engine every piece on this face shares, byte for byte: a synthetic voice (a pulse train and
+  // noise through four formant resonators; no recording of anyone), a feed-forward compressor, a
+  // close-cardioid proximity shelf, BS.1770-4 loudness, a distance model, and the counts the blind
+  // test prints. Deterministic: the same seed makes the same voice in the page and in Node.
+  const RATE = 48000, LEN = 3.9;
+  function rng(seed) { let a = seed >>> 0; return () => { a = (a + 0x6D2B79F5) >>> 0; let t = a; t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
+  const gauss = (r) => { let u = 0; while (u === 0) u = r(); return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * r()); };
+  const VOWELS = { a: [730, 1090, 2440, 3400], i: [270, 2290, 3010, 3700], u: [300, 870, 2240, 3300], e: [530, 1840, 2480, 3500], o: [570, 840, 2410, 3400] };
+  // one phrase, whisper to shout and back. t start, d length (s); e effort, 0 a whisper, 1 a shout; f0 Hz (0 = whispered)
+  const PHRASE = [
+    { t: 0.32, d: 0.34, v: 'a', e: 0.00, f0: 0, c: 'h', name: 'whisper' },
+    { t: 0.74, d: 0.34, v: 'i', e: 0.08, f0: 0, c: 's', name: 'whisper' },
+    { t: 1.14, d: 0.34, v: 'e', e: 0.35, f0: 196, c: 'l', name: 'soft' },
+    { t: 1.52, d: 0.30, v: 'e', e: 0.60, f0: 220, c: 't', name: 'half voice' },
+    { t: 1.90, d: 0.56, v: 'a', e: 1.00, f0: 294, c: 'h', name: 'shout' },
+    { t: 2.58, d: 0.34, v: 'a', e: 0.35, f0: 220, c: 'l', name: 'soft' },
+    { t: 3.02, d: 0.44, v: 'a', e: 0.00, f0: 0, c: 'h', name: 'whisper' },
+  ];
+  const BREATHS = [{ t: 0.03, d: 0.24 }, { t: 3.52, d: 0.30 }];
+  const SHOUT_DB = -12;                              // the shout's body, RMS dBFS, at the microphone
+  const effortDb = (e, voiced) => (voiced ? -24 + 24 * e : -32 + 12 * e);   // each syllable's level re the shout
+  const BREATH_DB = -40;
+  const body = (s) => [Math.round((s.t + 0.08) * RATE), Math.round((s.t + s.d - 0.06) * RATE)];   // where a syllable is measured
+  function resonators(F, B) { return F.map((f, i) => { const r = Math.exp(-Math.PI * B[i] / RATE), b1 = 2 * r * Math.cos(2 * Math.PI * f / RATE), b2 = -r * r; return { A: 1 - b1 - b2, b1, b2, y1: 0, y2: 0 }; }); }
+  const runRes = (rs, x) => { for (const q of rs) { const y = q.A * x + q.b1 * q.y1 + q.b2 * q.y2; q.y2 = q.y1; q.y1 = y; x = y; } return x; };
+  // one syllable, rendered alone: its vowel body normalised to unit RMS, its consonant to a level of its own
+  const CONS = { s: { dur: 0.08, db: -12 }, t: { dur: 0.015, db: -6 }, h: { dur: 0.06, db: -14 }, l: { dur: 0, db: 0 } };
+  function syllable(s, r, effortOverride) {
+    const e = effortOverride == null ? s.e : effortOverride, voiced = effortOverride == null ? s.f0 > 0 : effortOverride > 0.2;
+    const f0b = voiced ? (s.f0 || 196 + 98 * e) : 0;
+    const n = Math.round((s.d + 0.12) * RATE), v = new Float64Array(n), c = new Float64Array(n), F = VOWELS[s.v];
+    const vr = resonators(voiced ? F : F.map((f, i) => (i ? f : f * 1.15)), voiced ? [80, 90, 120, 160] : [200, 220, 260, 300]);
+    const cr = resonators(s.c === 's' ? [5200, 7600] : [F[0] * 1.15, F[1]], s.c === 's' ? [900, 1400] : [300, 400]);
+    const beta = 1.6 - 0.8 * e;                     // source tilt: a shout is brighter than a soft voice
+    const K = voiced ? Math.floor(9000 / (f0b * 1.04)) : 0, amps = new Float64Array(K + 1);
+    for (let k = 1; k <= K; k++) amps[k] = Math.pow(k, -beta);
+    const cd = CONS[s.c].dur, vOn = cd * 0.6;
+    let ph = 0, prev = 0, hp = 0, lastn = 0;
+    for (let i = 0; i < n; i++) {
+      const t = i / RATE;
+      const env = t < vOn ? 0 : t < vOn + 0.025 ? 0.5 - 0.5 * Math.cos(Math.PI * (t - vOn) / 0.025) : t < s.d ? 1 : t < s.d + 0.06 ? 0.5 + 0.5 * Math.cos(Math.PI * (t - s.d) / 0.06) : 0;
+      let src = 0;
+      if (voiced) {
+        const vib = 1 + 0.012 * Math.sin(2 * Math.PI * 5.5 * t) * Math.min(1, Math.max(0, (t - 0.12) / 0.1));
+        const f = f0b * (0.97 + 0.03 * Math.min(1, t / 0.06)) * vib; ph += 2 * Math.PI * f / RATE; if (ph > 2 * Math.PI * 1e3) ph -= 2 * Math.PI * 1e3;
+        for (let k = 1; k <= K; k++) src += amps[k] * Math.sin(k * ph);
+        src += 0.06 * (1.1 - e) * gauss(r);         // breath in the voice, more of it when soft
+      } else src = 0.5 * gauss(r);
+      const rad = src - prev; prev = src;             // lip radiation, +6 dB per octave
+      v[i] = runRes(vr, rad) * env;
+      if (cd && t < cd) {                             // the consonant before the vowel
+        const w = gauss(r); hp = 0.6 * hp + 0.4 * (w - lastn); lastn = w;
+        c[i] = runRes(cr, s.c === 'h' ? w : hp) * Math.sin(Math.PI * t / cd);
+      }
+    }
+    const a = Math.round(0.08 * RATE), b = Math.round((s.d - 0.06) * RATE);
+    let sv = 0; for (let i = a; i < b; i++) sv += v[i] * v[i];
+    const gv = 1 / Math.sqrt(sv / (b - a)), y = new Float64Array(n);
+    let sc = 0; const m = Math.round(cd * RATE); for (let i = 0; i < m; i++) sc += c[i] * c[i];
+    const gc = m ? Math.pow(10, CONS[s.c].db / 20) / Math.sqrt(sc / m * 2) : 0;   // its RMS over its middle, re the vowel
+    for (let i = 0; i < n; i++) y[i] = gv * v[i] + gc * c[i];
+    return y;
+  }
+  function breath(b, r) {
+    const n = Math.round(b.d * RATE), y = new Float64Array(n), rs = resonators([900, 1700, 2600], [500, 600, 800]);
+    let prev = 0, ss = 0;
+    for (let i = 0; i < n; i++) { const w = gauss(r), d = w - prev; prev = w; y[i] = runRes(rs, d) * Math.pow(Math.sin(Math.PI * i / n), 2); ss += y[i] * y[i]; }
+    const g = 1 / Math.sqrt(ss / n * 2.67); for (let i = 0; i < n; i++) y[i] *= g;   // ~unit RMS at its middle
+    return y;
+  }
+  // the dry voice, as it leaves the singer at the microphone. effort: null for the phrase as written, or one effort for every syllable
+  function voice(opts) {
+    const o = opts || {}, r = rng(o.seed == null ? 20261103 : o.seed), N = Math.round(LEN * RATE), x = new Float64Array(N);
+    const sy = PHRASE.map((s) => {
+      const e = o.effort == null ? s.e : o.effort, voiced = o.effort == null ? s.f0 > 0 : o.effort > 0.2;
+      const y = syllable(s, r, o.effort), lev = SHOUT_DB + effortDb(e, voiced) + (o.effort == null ? 0 : (o.wobble || [0, 0, 0, 0, 0, 0, 0])[PHRASE.indexOf(s)]);
+      const g = Math.pow(10, lev / 20), at = Math.round(s.t * RATE);
+      for (let i = 0; i < y.length && at + i < N; i++) x[at + i] += g * y[i];
+      return { name: s.name, e, voiced, designDb: lev, win: body(s) };
+    });
+    if (!o.noBreath) for (const b of BREATHS) { const y = breath(b, r), g = Math.pow(10, (SHOUT_DB + BREATH_DB) / 20), at = Math.round(b.t * RATE); for (let i = 0; i < y.length && at + i < N; i++) x[at + i] += g * y[i]; }
+    return { x, syl: sy };
+  }
+  // ── level ──
+  const dB = (v) => 10 * Math.log10(Math.max(v, 1e-30));
+  const rmsDb = (x, a, b) => { a = a || 0; b = b || x.length; let s = 0; for (let i = a; i < b; i++) s += x[i] * x[i]; return dB(s / (b - a)); };
+  const peakDb = (x) => { let m = 0; for (let i = 0; i < x.length; i++) m = Math.max(m, Math.abs(x[i])); return 20 * Math.log10(Math.max(m, 1e-15)); };
+  const sylDb = (x, syl) => syl.map((s) => rmsDb(x, s.win[0], s.win[1]));
+  const range = (lv) => Math.max(...lv) - Math.min(...lv);
+  function biquad(x, b0, b1, b2, a1, a2) { const y = new Float64Array(x.length); let x1 = 0, x2 = 0, y1 = 0, y2 = 0; for (let i = 0; i < x.length; i++) { const v = b0 * x[i] + b1 * x1 + b2 * x2 - a1 * y1 - a2 * y2; x2 = x1; x1 = x[i]; y2 = y1; y1 = v; y[i] = v; } return y; }
+  // BS.1770-4 K-weighting at 48 kHz, the standard's own coefficients
+  const kweight = (x) => biquad(biquad(x, 1.53512485958697, -2.69169618940638, 1.19839281085285, -1.69065929318241, 0.73248077421585), 1, -2, 1, -1.99004745483398, 0.99007225036621);
+  function loudness(x) {
+    const k = kweight(x), B = Math.round(0.4 * RATE), H = Math.round(0.1 * RATE), z = [];
+    let all = 0; for (let i = 0; i < k.length; i++) all += k[i] * k[i];
+    for (let s = 0; s + B <= k.length; s += H) { let q = 0; for (let i = s; i < s + B; i++) q += k[i] * k[i]; z.push(q / B); }
+    const L = (v) => -0.691 + dB(v), abs = z.filter((v) => L(v) > -70);
+    const rel = L(abs.reduce((a, b) => a + b, 0) / abs.length) - 10, gated = abs.filter((v) => L(v) > rel);
+    return { lufs: L(gated.reduce((a, b) => a + b, 0) / gated.length), ungated: L(all / k.length), momentaryMax: L(Math.max(...z)), blocks: z.length, kept: gated.length };
+  }
+  // A-weighting (IEC 61672 poles, bilinear at 48 kHz), for a second reading of level
+  function aweight(x) {
+    const f1 = 20.598997, f2 = 107.65265, f3 = 737.86223, f4 = 12194.217, w = (f) => 2 * RATE * Math.tan(Math.PI * f / RATE);
+    const hp = (y, f) => { const c = w(f) / (2 * RATE); return biquad(y, 1 / (1 + c), -1 / (1 + c), 0, (c - 1) / (1 + c), 0); };
+    const lp = (y, f) => { const c = w(f) / (2 * RATE); return biquad(y, c / (1 + c), c / (1 + c), 0, (c - 1) / (1 + c), 0); };
+    let y = hp(hp(x, f1), f1); y = hp(y, f2); y = hp(y, f3); y = lp(lp(y, f4), f4);
+    return y;
+  }
+  const scale = (x, g) => { const y = new Float64Array(x.length); for (let i = 0; i < x.length; i++) y[i] = x[i] * g; return y; };
+  // ── the compressor: RMS detector (10 ms), soft knee, gain smoothed with its own attack and release. It looks
+  // ahead by p.look seconds: rendered offline, the gain the detector reaches at n + D lands on sample n, so the
+  // output is not delayed and every version keeps the same length and start ──
+  function compress(x, p) {
+    const N = x.length, y = new Float64Array(N), gr = new Float64Array(N), wt = new Float64Array(N), W = p.knee == null ? 6 : p.knee, T = p.T, iR = p.ratio === Infinity ? 0 : 1 / p.ratio;
+    const am = Math.exp(-1 / ((p.tau || 0.010) * RATE)), aA = Math.exp(-1 / (p.att * RATE)), aR = Math.exp(-1 / (p.rel * RATE)), D = Math.round((p.look || 0) * RATE);
+    const g0 = new Float64Array(N), w0 = new Float64Array(N);
+    let ms = 0, g = 0;
+    for (let n = 0; n < N; n++) {
+      ms = am * ms + (1 - am) * x[n] * x[n];
+      const L = dB(ms), over = L - T;
+      const Lo = 2 * over < -W ? L : 2 * Math.abs(over) <= W ? L + (iR - 1) * (over + W / 2) * (over + W / 2) / (2 * W) : T + over * iR;
+      const want = L - Lo;
+      g = want > g ? aA * g + (1 - aA) * want : aR * g + (1 - aR) * want;
+      g0[n] = g; w0[n] = want;
+    }
+    for (let n = 0; n < N; n++) { const m = Math.min(N - 1, n + D); gr[n] = g0[m]; wt[n] = w0[m]; y[n] = x[n] * Math.pow(10, -gr[n] / 20); }
+    return { y, gr, want: wt };
+  }
+  // the settings the page names: Part 1 of Teaching the Resonance
+  const SETTINGS = {
+    none: null,
+    r4: { T: -30, ratio: 4, att: 0.010, rel: 0.120, look: 0.005 },    // 4:1, medium attack and release
+    r20: { T: -44, ratio: 20, att: 0.001, rel: 0.040, look: 0.005 },  // 20:1, fast attack and release
+  };
+  // the proximity effect of a cardioid at r metres: 1 + c/(2·r·s), held finite below 70 Hz (bilinear)
+  const PROX_R = 0.05;
+  function proxCoef(r) { const a = 343 / (2 * r), b = 2 * Math.PI * 70, k = 2 * RATE; return { b0: (k + a) / (k + b), b1: (a - k) / (k + b), a1: (b - k) / (k + b) }; }
+  function proximity(x, r) { const c = proxCoef(r || PROX_R); return biquad(x, c.b0, c.b1, 0, c.a1, 0); }
+  function proxGainDb(f, r) { const c = proxCoef(r || PROX_R), w = 2 * Math.PI * f / RATE, re = (z) => z; const nr = c.b0 + c.b1 * Math.cos(w), ni = -c.b1 * Math.sin(w), dr = 1 + c.a1 * Math.cos(w), di = -c.a1 * Math.sin(w); return 10 * Math.log10((nr * nr + ni * ni) / (dr * dr + di * di)); }
+  // ── spectrum: three bands of the whole buffer, dB re its total, and the centroid ──
+  function fft(re, im) { const n = re.length; for (let i = 1, j = 0; i < n; i++) { let bit = n >> 1; for (; j & bit; bit >>= 1) j ^= bit; j ^= bit; if (i < j) { [re[i], re[j]] = [re[j], re[i]]; [im[i], im[j]] = [im[j], im[i]]; } }
+    for (let len = 2; len <= n; len <<= 1) { const a = -2 * Math.PI / len, wr = Math.cos(a), wi = Math.sin(a); for (let i = 0; i < n; i += len) { let cr = 1, ci = 0; for (let j = 0; j < len / 2; j++) { const ur = re[i + j], ui = im[i + j], vr = re[i + j + len / 2] * cr - im[i + j + len / 2] * ci, vi = re[i + j + len / 2] * ci + im[i + j + len / 2] * cr; re[i + j] = ur + vr; im[i + j] = ui + vi; re[i + j + len / 2] = ur - vr; im[i + j + len / 2] = ui - vi; const t = cr * wr - ci * wi; ci = cr * wi + ci * wr; cr = t; } } } }
+  function bands(x) {
+    let n = 1; while (n < x.length) n <<= 1; const re = new Float64Array(n), im = new Float64Array(n); re.set(x); fft(re, im);
+    let lo = 0, mid = 0, hi = 0, tot = 0, cen = 0;
+    for (let k = 1; k < n / 2; k++) { const f = k * RATE / n, p = re[k] * re[k] + im[k] * im[k]; tot += p; cen += f * p; if (f < 300) lo += p; else if (f < 3000) mid += p; else hi += p; }
+    return { lo: dB(lo / tot), mid: dB(mid / tot), hi: dB(hi / tot), centroid: cen / tot };
+  }
+  // each syllable's own spectrum: below 300 Hz and above 3 kHz, dB re that syllable's total
+  function sylBands(x, syl) { return syl.map((q) => { const [a, b] = q.win, n = 16384, re = new Float64Array(n), im = new Float64Array(n); for (let i = a; i < b && i - a < n; i++) re[i - a] = x[i] * (0.5 - 0.5 * Math.cos(2 * Math.PI * (i - a) / (b - a))); fft(re, im);
+    let lo = 0, hi = 0, tot = 0; for (let k = 1; k < n / 2; k++) { const f = k * RATE / n, p = re[k] * re[k] + im[k] * im[k]; tot += p; if (f < 300) lo += p; else if (f >= 3000) hi += p; } return { lo: dB(lo / tot), hi: dB(hi / tot) }; }); }
+  // ── the four versions of the blind test, each matched to TARGET LUFS (BS.1770-4, gated) ──
+  const TARGET = -20;
+  function versions(v) {
+    const dry = v.x, out = {};
+    const mk = (key, y, gr) => { const L = loudness(y), g = Math.pow(10, (TARGET - L.lufs) / 20), z = scale(y, g); out[key] = { key, y: z, gr, matchDb: 20 * Math.log10(g), syl: sylDb(z, v.syl) }; };
+    mk('none', dry, null);
+    for (const k of ['r4', 'r20']) { const c = compress(dry, SETTINGS[k]); mk(k, c.y, c.gr); }
+    mk('prox', proximity(dry), null);
+    for (const k in out) { const o = out[k]; o.range = range(o.syl); o.L = loudness(o.y); o.aDb = rmsDb(aweight(o.y)); o.rmsDb = rmsDb(o.y); o.peak = peakDb(o.y); o.bands = bands(o.y); o.sb = sylBands(o.y, v.syl); o.len = o.y.length; }
+    return out;
+  }
+  // how far the gain moves inside a held vowel that a slow gain would not: the part of the output a 20 Hz
+  // smoothed gain would not have made, re the output, over the shout's body
+  function ripple(x, gr, s) {
+    const [a, b] = s.win; let lo = Infinity, hi = -Infinity; for (let i = a + 2400; i < b; i++) { lo = Math.min(lo, gr[i]); hi = Math.max(hi, gr[i]); }
+    const c = Math.exp(-2 * Math.PI * 20 / RATE); let sm = gr[0]; const sg = new Float64Array(gr.length);
+    for (let i = 0; i < gr.length; i++) { sm = c * sm + (1 - c) * gr[i]; sg[i] = sm; }
+    let back = gr[gr.length - 1]; for (let i = gr.length - 1; i >= 0; i--) { back = c * back + (1 - c) * sg[i]; sg[i] = back; }   // zero phase
+    let e = 0, t = 0; for (let i = a; i < b; i++) { const y = x[i] * Math.pow(10, -gr[i] / 20), z = x[i] * Math.pow(10, -sg[i] / 20); e += (y - z) * (y - z); t += y * y; }
+    return { pp: hi - lo, residueDb: dB(e / t) };
+  }
+  // ── distance: direct sound falls as 1/r from the microphone's 5 cm; a room adds a diffuse tail whose level
+  // doesn't depend on r and equals the direct sound at the critical distance; a fixed floor sits under both ──
+  const REF = 0.05, RC = 0.8, RT = 0.6, FLOOR_DB = -80;
+  function convolve(x, h) { let n = 1; while (n < x.length + h.length) n <<= 1; const ar = new Float64Array(n), ai = new Float64Array(n), br = new Float64Array(n), bi = new Float64Array(n); ar.set(x); br.set(h); fft(ar, ai); fft(br, bi);
+    for (let k = 0; k < n; k++) { const r = ar[k] * br[k] - ai[k] * bi[k], i = ar[k] * bi[k] + ai[k] * br[k]; ar[k] = r; ai[k] = -i; } fft(ar, ai); const y = new Float64Array(x.length); for (let i = 0; i < x.length; i++) y[i] = ar[i] / n; return y; }
+  function roomTail(x, seed) { const r = rng(seed || 7), n = Math.round(RT * 1.2 * RATE), h = new Float64Array(n); let e = 0; for (let i = 0; i < n; i++) { h[i] = gauss(r) * Math.exp(-6.9078 * i / (RT * RATE)); e += h[i] * h[i]; } const g = 1 / Math.sqrt(e); for (let i = 0; i < n; i++) h[i] *= g; return convolve(x, h); }
+  function floorNoise(N, seed) { const r = rng(seed || 11), y = new Float64Array(N); let lp = 0, s = 0; for (let i = 0; i < N; i++) { lp = 0.97 * lp + 0.03 * gauss(r); y[i] = lp; s += lp * lp; } const g = Math.pow(10, FLOOR_DB / 20) / Math.sqrt(s / N); for (let i = 0; i < N; i++) y[i] *= g; return y; }
+  function place(x, tail, fl, r, room, withFloor) { const d = REF / r, w = room ? REF / RC : 0, y = new Float64Array(x.length); for (let i = 0; i < x.length; i++) y[i] = d * x[i] + w * tail[i] + (withFloor ? fl[i] : 0); return y; }
+  // ── the counts the blind test prints ──
+  const C = (n, k) => { let c = 1; for (let i = 1; i <= k; i++) c = c * (n - k + i) / i; return c; };
+  const tail = (n, k) => { let p = 0; for (let j = k; j <= n; j++) p += C(n, j); return p / Math.pow(2, n); };
+  const shuffle = (a, r) => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(r() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+  return { RATE, LEN, PHRASE, BREATHS, SHOUT_DB, TARGET, SETTINGS, PROX_R, REF, RC, RT, FLOOR_DB, rng, voice, compress, proximity, proxGainDb, loudness, aweight, kweight, rmsDb, peakDb, sylDb, range, bands, versions, sylBands, ripple, roomTail, floorNoise, place, scale, C, tail, shuffle, dB };
+})();
+</script>
+<script id="ci-baked">
+const BAKED = {"dryRange": 32, "target": -20, "len": 187200, "secs": 3.9, "versions": {"none": {"range": 32, "match": -3.1, "lufs": -20, "ungated": 0, "mmax": 0, "a": 0, "peak": -7.5, "len": 187200, "loMax": 0, "hiMax": 0, "loMin": 0, "loTop": 0, "ltasLo": 0, "ltasHi": 0}, "r4": {"range": 18.6, "match": 8.7, "lufs": -20, "ungated": 0.9, "mmax": -1.7, "a": 0.6, "peak": -4.4, "len": 187200, "loMax": 0, "hiMax": 0, "loMin": 0, "loTop": 0, "ltasLo": 2.8, "ltasHi": 7.2, "ripple": 0.34, "residue": -43, "maxGr": 13.8, "onsetExcess": 4.9}, "r20": {"range": 2.7, "match": 24.4, "lufs": -20, "ungated": 2.9, "mmax": -2.9, "a": 2.5, "peak": -6.6, "len": 187200, "loMax": 0.1, "hiMax": 0, "loMin": 0, "loTop": 0.1, "ltasLo": 2.2, "ltasHi": 18.3, "ripple": 0.62, "residue": -47, "maxGr": 31, "onsetExcess": 2}, "prox": {"range": 32.4, "match": -4.7, "lufs": -20, "ungated": 0, "mmax": -0.1, "a": -0.2, "peak": -7.8, "len": 187200, "loMax": 8.1, "hiMax": 3.3, "loMin": 4.7, "loTop": 8.1, "ltasLo": 5.4, "ltasHi": -1.5}}, "prox200": 7.7, "prox100": 12, "tail7of8": 0.03515625, "tail8": 0.00390625, "open": {"1": [32, 31.58], "2": [32, 30.54], "4": [32, 27.87], "8": [32, 23.36], "16": [32, 17.86], "32": [32, 12.17], "0.05": [32, 32], "0.5": [32, 31.89]}, "rooms": {"mean": 0.5, "lo": -2.5, "hi": 3.6}, "pair": {"whisper": {"50": {"range": 0.98, "top": -79.6}, "0.05": {"range": 4, "top": -44}}, "shout": {"50": {"range": 3.17, "top": -71.4}, "0.05": {"range": 4, "top": -12}}}, "release": {"1": {"soft": 11, "softWant": 1.8, "whisper": 7, "hangMs": 1380}, "0.04": {"soft": 1.9, "softWant": 1.8, "whisper": 0, "hangMs": 79}}, "attack": {"0.001": 2.3, "0.05": 8.2, "dry": 1}, "thresh": {"-10": 0, "-30": 4, "-50": 7}, "ratio": {"1": {"maxGr": 0, "shoutOut": -12}, "4": {"maxGr": 13.8, "shoutOut": -25.6}, "inf": {"maxGr": 18.5, "shoutOut": -30.1}}};
+</script>
+<script id="ci-ui">
+const UI = (() => {
+  // playback, drawing and the walk, shared by this face's pieces. Sound starts only from a click: the
+  // AudioContext is made on the first one. The kit quiets it when the page asks or goes hidden.
+  const $ = (id) => document.getElementById(id);
+  const css = (n) => getComputedStyle(document.documentElement).getPropertyValue(n).trim() || '#888';
+  let ctx = null, out = null, src = null, hook = null;
+  async function ensure() {
+    if (!ctx) { ctx = new AudioContext({ sampleRate: CI.RATE }); out = ctx.createGain(); out.gain.value = 0.9; out.connect(ctx.destination); ctx.onstatechange = () => { if (ctx.state !== 'running') stop(); }; }
+    if (ctx.state !== 'running') await ctx.resume();
+  }
+  const cache = new WeakMap();
+  const buf = (y) => { let b = cache.get(y); if (!b) { b = ctx.createBuffer(1, y.length, CI.RATE); b.copyToChannel(Float32Array.from(y), 0); cache.set(y, b); } return b; };
+  async function play(y, onStop, loop) {
+    await ensure(); stop();
+    const s = ctx.createBufferSource(); s.buffer = buf(y); s.loop = !!loop; s.connect(out); src = s; hook = onStop || null;
+    s.onended = () => { if (src === s) { src = null; const h = hook; hook = null; if (h) h(); } };
+    s.start();
+  }
+  function stop() { const s = src, h = hook; src = null; hook = null; if (s) { try { s.stop(); } catch (e) { /* already stopped */ } } if (h) h(); }
+  const playing = () => !!src;
+  // short-term level, 10 ms windows, dB
+  function env(y, ms) { const W = Math.round((ms || 10) / 1000 * CI.RATE), n = Math.floor(y.length / W), o = new Float64Array(n); for (let k = 0; k < n; k++) { let s = 0; for (let i = k * W; i < (k + 1) * W; i++) s += y[i] * y[i]; o[k] = 10 * Math.log10(s / W + 1e-20); } return o; }
+  function fit(cv, h) { const r = window.devicePixelRatio || 1, w = cv.clientWidth || 640; cv.width = Math.round(w * r); cv.height = Math.round(h * r); cv.style.height = h + 'px'; const g = cv.getContext('2d'); g.setTransform(r, 0, 0, r, 0, 0); return { g, w, h }; }
+  // levels over time: envelopes, each syllable's level as a tick, a threshold line, gain reduction hanging below
+  function levels(cv, o) {
+    const grH = o.gr ? 74 : 0, { g, w, h } = fit(cv, (o.height || 280) + grH), l = 44, r = 12, t = 22, b = 24 + grH, pw = w - l - r, ph = h - t - b;
+    const top = o.top, bot = o.bot, X = (s) => l + s / CI.LEN * pw, Y = (d) => t + (top - Math.max(bot, Math.min(top, d))) / (top - bot) * ph;
+    g.font = '10px ' + css('--mono'); g.lineWidth = 1;
+    for (let d = top; d >= bot; d -= 10) { g.strokeStyle = css('--border-soft'); g.beginPath(); g.moveTo(l, Y(d)); g.lineTo(l + pw, Y(d)); g.stroke(); g.fillStyle = css('--fg-4'); g.fillText(String(d), 6, Y(d) + 3); }
+    for (let s = 0; s <= CI.LEN; s += 0.5) { g.fillStyle = css('--fg-4'); g.fillText(s.toFixed(1) + ' s', X(s) - 10, t + ph + 16); }
+    g.fillStyle = css('--fg-3'); g.fillText(o.label || 'level, dB, 10 ms windows', l + 4, 12);
+    (o.series || []).forEach((sr) => {
+      const e = sr.e, n = e.length; g.strokeStyle = sr.color; g.lineWidth = sr.width || 1.2; g.beginPath();
+      for (let k = 0; k < n; k++) { const x = X((k + 0.5) / n * CI.LEN), y = Y(e[k]); k ? g.lineTo(x, y) : g.moveTo(x, y); } g.stroke();
+      if (sr.fill) { g.lineTo(X(CI.LEN), Y(bot)); g.lineTo(X(0), Y(bot)); g.closePath(); g.fillStyle = sr.fill; g.fill(); }
+    });
+    if (o.thresh != null) { g.strokeStyle = css('--accent'); g.setLineDash([4, 4]); g.beginPath(); g.moveTo(l, Y(o.thresh)); g.lineTo(l + pw, Y(o.thresh)); g.stroke(); g.setLineDash([]); g.fillStyle = css('--accent'); g.fillText('threshold ' + o.thresh.toFixed(0) + ' dB (RMS)', l + pw - 150, Y(o.thresh) - 5); }
+    (o.ticks || []).forEach((tk) => { const x0 = X(tk.win[0] / CI.RATE), x1 = X(tk.win[1] / CI.RATE); g.strokeStyle = tk.color; g.lineWidth = 2.4; g.beginPath(); g.moveTo(x0, Y(tk.db)); g.lineTo(x1, Y(tk.db)); g.stroke(); if (tk.name) { g.fillStyle = css('--fg-3'); g.fillText(tk.name, x0, Math.max(t + 9, Y(tk.db) - 6)); } });
+    if (o.gr) {
+      const y0 = t + ph + 30, gh = grH - 18, mx = o.grMax || 20, n = o.gr.length, step = Math.max(1, Math.floor(n / pw));
+      g.fillStyle = css('--bg-elev-1'); g.fillRect(l, y0, pw, gh); g.fillStyle = css('--fg-3'); g.fillText('gain reduction, 0 to ' + mx + ' dB', l + 4, y0 + 11);
+      g.fillStyle = 'rgba(74,143,255,0.55)'; g.beginPath(); g.moveTo(l, y0);
+      for (let i = 0; i < n; i += step) g.lineTo(X(i / CI.RATE), y0 + Math.min(1, o.gr[i] / mx) * gh);
+      g.lineTo(l + pw, y0); g.closePath(); g.fill();
+    }
+    if (o.playhead != null) { g.strokeStyle = css('--fg-2'); g.lineWidth = 1; g.beginPath(); g.moveTo(X(o.playhead), t); g.lineTo(X(o.playhead), t + ph); g.stroke(); }
+  }
+  function sigil(el) { const pts = []; for (let i = 0; i <= 240; i++) { const tt = i / 240 * 2 * Math.PI; pts.push((9 * Math.sin(3 * tt + Math.PI / 2)).toFixed(2) + ',' + (9 * Math.sin(2 * tt)).toFixed(2)); } el.innerHTML = `<polyline points="${pts.join(' ')}" fill="none" stroke="#e8b84a" stroke-width="1"/>`; }
+  const mark = (sel, attr, val) => document.querySelectorAll(sel).forEach((b) => b.setAttribute('aria-pressed', String(b.dataset[attr] === String(val))));
+  const fmt = (v, n) => (v > 0 ? '+' : v < 0 ? '−' : '') + Math.abs(v).toFixed(n == null ? 1 : n);
+  return { $, css, play, stop, playing, ensure, env, fit, levels, sigil, mark, fmt };
+})();
+</script>
+<script>
+(() => {
+  const { $, css, fmt } = UI, B = BAKED, RL = B.release, AT = B.attack;
+  const DEF = { T: -30, ratio: 4, att: 0.010, rel: 0.120, look: 0.005 };
+  const S = { step: 0, p: { ...DEF } };
+  let D = null;
+  const need = () => { if (!D) { const v = CI.voice(); D = { v, envIn: UI.env(v.x) }; } return D; };
+  const R = CI.RATE;
+  // each knob's slider: 0..1000 mapped onto its range
+  const KNOBS = {
+    T: { name: 'threshold', to: (u) => -60 + 60 * u / 1000, from: (x) => Math.round((x + 60) / 60 * 1000), show: (x) => fmt(x) + ' dB' },
+    ratio: { name: 'ratio', to: (u) => (u >= 1000 ? Infinity : 1 + Math.pow(u / 1000, 2.2) * 49), from: (x) => (x === Infinity ? 1000 : Math.round(1000 * Math.pow((x - 1) / 49, 1 / 2.2))), show: (x) => (x === Infinity ? '∞:1' : x.toFixed(x < 10 ? 1 : 0) + ':1') },
+    att: { name: 'attack', to: (u) => 0.0005 * Math.pow(200, u / 1000), from: (x) => Math.round(1000 * Math.log(x / 0.0005) / Math.log(200)), show: (x) => (x * 1000).toFixed(x < 0.01 ? 1 : 0) + ' ms' },
+    rel: { name: 'release', to: (u) => 0.02 * Math.pow(100, u / 1000), from: (x) => Math.round(1000 * Math.log(x / 0.02) / Math.log(100)), show: (x) => (x < 1 ? Math.round(x * 1000) + ' ms' : x.toFixed(2) + ' s') },
+  };
+  const STEPS = [
+    { key: 'meter', knob: null, rail: 'the 4:1 voice', title: 'The 4:1 voice and its hold',
+      say: 'The voice from the blind test under Teaching the Resonance, through the same 4:1 compressor: threshold −30 dB, attack 10 ms, release 120 ms. Grey is the voice going in, amber what comes out, before any makeup gain; the blue strip under it is the gain reduction, how far the compressor is holding the voice down at each moment. Only the half voice, the shout and the soft lines go over the threshold, so only they are held. Everything on this piece is that hold, turned four ways. Played back, the output is turned up to one loudness.',
+      line: '', hear: 'the 4:1 voice', eq: ['Lout = T + (L − T) ÷ R   above the threshold T;   Lout = L   below it', '(level out) = threshold + (how far over it the level is) ÷ ratio; under the threshold the voice passes as it is, with a 6 dB soft knee between'] },
+    { key: 'threshold', knob: 'T', rail: 'threshold', title: 'Threshold',
+      say: `Move the threshold. Below it nothing is held: at −10 dB the compressor touches ${B.thresh['-10']} of the 7 syllables, at −30 dB ${B.thresh['-30']}, at −50 dB all ${B.thresh['-50']}. The page reads the threshold as trust: the level at which defenses begin.`,
+      line: '“Threshold = Trust level. Below threshold: No compression (safe to be authentic). Above threshold: Compression kicks in (defenses activate).”', hear: 'the voice at this threshold',
+      eq: ['hold(t) > 0  only where  L(t) > T − knee ÷ 2', '(the compressor holds the voice down) only where (its level) is over (the threshold), less half the soft knee'] },
+    { key: 'ratio', knob: 'ratio', rail: 'ratio', title: 'Ratio',
+      say: `Move the ratio. At 1:1 the hold is ${B.ratio['1'].maxGr.toFixed(1)} dB everywhere and the shout leaves at ${fmt(B.ratio['1'].shoutOut)} dB, as it came in; at 4:1 it is held ${B.ratio['4'].maxGr.toFixed(1)} dB at most; at ∞:1 the shout leaves at ${fmt(B.ratio.inf.shoutOut)} dB, pinned to the threshold. The page reads the ratio as how much of the truth is held back.`,
+      line: '“Ratio = Degree of authenticity. 1:1 ratio: No compression (fully authentic). ∞:1 ratio: Limiter (complete guard up).”', hear: 'the voice at this ratio',
+      eq: ['hold = (L − T) · (1 − 1 ÷ R)', '(how far a level over the threshold is held down) = (how far over it is) × (1 − 1 ÷ ratio): nothing at 1:1, all of it at ∞:1'] },
+    { key: 'attack', knob: 'att', rail: 'attack', title: 'Attack',
+      say: `Move the attack and watch the start of the shout. With a ${KNOBS.att.show(0.001)} attack the loudest 5 ms of its first 100 ms stand ${AT['0.001']} dB above the held part of the shout; with ${KNOBS.att.show(0.05)}, ${AT['0.05']} dB (uncompressed, ${AT.dry.toFixed(1)}). A slow attack lets the start of each line through before the hold arrives. The page reads attack as how quickly you guard.`,
+      line: '“Attack = How quickly you guard. Fast attack: Immediate defense. Slow attack: Let initial vulnerability through.”', hear: 'the voice at this attack',
+      eq: ['hold(t) → target with time constant τ_attack while the target rises', '(the hold) moves toward (what the level asks for) in steps whose speed is the attack: a slow attack arrives late'] },
+    { key: 'release', knob: 'rel', rail: 'release, the test', title: 'Release: the test',
+      say: `The other three lines read the hold as the guard: no hold is safe and authentic, a full hold is the guard all the way up, a fast attack is a fast defense. Read the same way, a slow release keeps the guard up after the threat has passed. The page’s release line says the opposite, that a slow release keeps you open longer. Which way does it go? Watch the soft line and the whisper after the shout. The test can fail: if a slower release held them down less, the page’s line would hold on its own section’s reading. Measured: with a ${KNOBS.rel.show(0.04)} release the soft line after the shout is held ${RL['0.04'].soft} dB, about what its own level asks (${RL['0.04'].softWant}), and the extra hold is gone ${RL['0.04'].hangMs} ms after the shout ends; with ${KNOBS.rel.show(1)}, the soft line is held ${RL['1'].soft} dB, the whisper after it ${RL['1'].whisper} dB, and the extra hold lasts ${(RL['1'].hangMs / 1000).toFixed(2)} s. A slow release keeps the hold. So the release line holds only if the hold is the openness, which is how the page’s opening and its Part 3 read compression: more compression, more intimacy. The section uses both readings at once.`,
+      line: '“Release = How long you stay vulnerable. Fast release: Quickly return to protected state. Slow release: Stay open longer.”', hear: 'the voice at this release',
+      eq: ['hold(t) → target with time constant τ_release while the target falls', '(the hold) lets go of the voice in steps whose speed is the release: a slow release keeps holding after the loud moment is over'] },
+  ];
+  let cur = null;
+  function current() {
+    const key = JSON.stringify(S.p); if (cur && cur.key === key) return cur;
+    const d = need(), c = CI.compress(d.v.x, S.p), syl = d.v.syl;
+    const mean = (a, w) => { let s = 0; for (let i = w[0]; i < w[1]; i++) s += a[i]; return s / (w[1] - w[0]); };
+    const on = Math.round(CI.PHRASE[4].t * R); let mx = -1e9; for (let i = on; i < on + Math.round(0.1 * R); i += 48) mx = Math.max(mx, CI.rmsDb(c.y, i, i + 240));
+    const n0 = Math.round((CI.PHRASE[4].t + CI.PHRASE[4].d + 0.06) * R); let n = n0; while (n < c.gr.length && c.gr[n] - c.want[n] > 1) n++;
+    const touched = syl.map((q) => { let m = 0; for (let i = q.win[0]; i < q.win[1]; i++) m = Math.max(m, c.want[i]); return m > 0.5; });
+    let maxGr = 0; for (const g of c.gr) maxGr = Math.max(maxGr, g);
+    const lv = CI.sylDb(c.y, syl);
+    cur = { key, c, env: UI.env(c.y), lv, range: CI.range(lv), maxGr, touched, onset: mx - CI.rmsDb(c.y, syl[4].win[0], syl[4].win[1]),
+      soft: mean(c.gr, syl[5].win), softWant: mean(c.want, syl[5].win), whisper: mean(c.gr, syl[6].win), hang: (n - n0) / R };
+    return cur;
+  }
+  function draw() {
+    if (!D) { const { g, h } = UI.fit($('view'), 120); g.fillStyle = css('--fg-3'); g.font = '12px ' + css('--mono'); g.fillText('making the voice…', 16, h / 2); setTimeout(() => { need(); draw(); }, 30); return; }
+    const st = STEPS[S.step], c = current(), d = need();
+    UI.levels($('view'), { top: 0, bot: -70, height: 280, series: [{ e: d.envIn, color: css('--fg-3'), width: 1 }, { e: c.env, color: css('--accent'), width: 1.4 }], thresh: S.p.T, gr: c.c.gr, grMax: 30, label: 'level, dB RMS, 10 ms windows, before makeup gain' });
+    $('legend').innerHTML = `<span><i style="background:${css('--fg-3')}"></i>in</span><span><i style="background:${css('--accent')}"></i>out</span><span><i style="background:${css('--info')}"></i>the hold (gain reduction)</span>`;
+    const names = d.v.syl.map((s) => s.name);
+    let m = `threshold <b>${fmt(S.p.T)} dB</b> · ratio <b>${KNOBS.ratio.show(S.p.ratio)}</b> · attack <b>${KNOBS.att.show(S.p.att)}</b> · release <b>${KNOBS.rel.show(S.p.rel)}</b><br>`;
+    if (st.key === 'meter') m += `the most it holds: <b>${c.maxGr.toFixed(1)} dB</b> · range out <b>${c.range.toFixed(1)} dB</b> (in: ${B.dryRange.toFixed(1)})`;
+    if (st.key === 'threshold') m += `held: <b>${c.touched.filter(Boolean).length} of 7</b> syllables · left alone: <b>${names.filter((_, i) => !c.touched[i]).join(', ') || 'none'}</b>`;
+    if (st.key === 'ratio') m += `the shout leaves at <b>${fmt(c.lv[4])} dB</b> · the most it holds: <b>${c.maxGr.toFixed(1)} dB</b> · range out <b>${c.range.toFixed(1)} dB</b>`;
+    if (st.key === 'attack') m += `the loudest 5 ms of the shout’s first 100 ms stand <b>${c.onset.toFixed(1)} dB</b> above its held part (uncompressed, ${AT.dry.toFixed(1)})`;
+    if (st.key === 'release') m += `after the shout: the soft line held <b>${c.soft.toFixed(1)} dB</b> (its own level asks ${c.softWant.toFixed(1)}) · the whisper held <b>${c.whisper.toFixed(1)} dB</b> · extra hold lasts <b>${c.hang < 1 ? Math.round(c.hang * 1000) + ' ms' : c.hang.toFixed(2) + ' s'}</b>`;
+    $('meter').innerHTML = m;
+    $('table').innerHTML = st.key === 'release' ? `<tr><th>the page’s line</th><th>what the meter shows</th><th>true if the hold is the guard</th><th>true if the hold is the closeness</th></tr>
+      <tr><td>threshold: below it, safe</td><td>below it, no hold</td><td><b>yes</b></td><td>no</td></tr>
+      <tr><td>ratio: ∞:1, guard all the way up</td><td>∞:1, the most hold</td><td><b>yes</b></td><td>no</td></tr>
+      <tr><td>attack: fast, immediate defense</td><td>fast, the hold arrives at once</td><td><b>yes</b></td><td>no</td></tr>
+      <tr><td>release: slow, stay open longer</td><td>slow, the hold stays on</td><td>no</td><td><b>yes</b></td></tr><tr><td colspan="4" class="hint">the middle column is the meter; the last two are a reading of it, which way each line needs the hold to point</td></tr>` : '';
+  }
+  let raf = 0;
+  $('k').oninput = () => { const st = STEPS[S.step]; if (!st.knob) return; S.p[st.knob] = KNOBS[st.knob].to(+$('k').value); $('kv').textContent = KNOBS[st.knob].show(S.p[st.knob]); if (UI.playing()) UI.stop(); cancelAnimationFrame(raf); raf = requestAnimationFrame(draw); };
+  function playLabel() { $('play').textContent = UI.playing() ? 'Stop' : 'Play'; }
+  $('play').onclick = async () => { if (UI.playing()) { UI.stop(); return; } const c = current(); if (!c.play) c.play = CI.scale(c.c.y, Math.pow(10, (CI.TARGET - CI.loudness(c.c.y).lufs) / 20)); await UI.play(c.play, playLabel); playLabel(); };
+  function go(i) {
+    UI.stop(); S.step = Math.max(0, Math.min(STEPS.length - 1, i)); const s = STEPS[S.step]; S.p = { ...DEF };
+    $('stepEyebrow').textContent = `step ${S.step + 1} of ${STEPS.length}`; $('stepTitle').textContent = s.title; $('stepSay').textContent = s.say; $('hearHint').textContent = s.hear;
+    $('pageLine').textContent = s.line; $('pageLine').hidden = !s.line;
+    $('eq1').textContent = s.eq[0]; $('eq1w').textContent = s.eq[1];
+    $('knobRow').hidden = !s.knob; if (s.knob) { $('kname').textContent = KNOBS[s.knob].name; $('k').value = KNOBS[s.knob].from(S.p[s.knob]); $('kv').textContent = KNOBS[s.knob].show(S.p[s.knob]); }
+    document.querySelectorAll('#rail button').forEach((b, j) => (j === S.step ? b.setAttribute('aria-current', 'step') : b.removeAttribute('aria-current')));
+    $('back').disabled = S.step === 0; $('next').disabled = S.step === STEPS.length - 1;
+    draw(); playLabel();
+  }
+  $('rail').innerHTML = STEPS.map((s, i) => `<button>${i + 1} · ${s.rail}</button>`).join('');
+  document.querySelectorAll('#rail button').forEach((b, i) => (b.onclick = () => go(i)));
+  $('back').onclick = () => go(S.step - 1); $('next').onclick = () => go(S.step + 1);
+  window.addEventListener('resize', () => draw());
+  UI.sigil($('sigil'));
+  go(0);
+})();
+</script>
+</body>
+</html>
