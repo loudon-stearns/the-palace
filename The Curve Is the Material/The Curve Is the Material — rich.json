@@ -2,9 +2,21 @@
   "title": "The Curve Is the Material — rich",
   "born": "2026-11-03",
   "links": [
-    { "target": "[[The Curve Is the Material]]", "type": "connects-to", "label": "rich-face-of" },
-    { "target": "[[Enrichment]]", "type": "connects-to", "label": "made-by" },
-    { "target": "[[Progressive Staging]]", "type": "connects-to", "label": "each-piece-walks-up" }
+    {
+      "target": "[[The Curve Is the Material]]",
+      "type": "connects-to",
+      "label": "rich-face-of"
+    },
+    {
+      "target": "[[Enrichment]]",
+      "type": "connects-to",
+      "label": "made-by"
+    },
+    {
+      "target": "[[Progressive Staging]]",
+      "type": "connects-to",
+      "label": "each-piece-walks-up"
+    }
   ],
   "forward_vector": "I am the manifest of The Curve Is the Material's rich face, its first round, a Sketch and still a proposal: one walk that starts on the flat harmonic line and ends on a measurement of the section's distinction, between morphing a stiff string's one number and blending its two end curves point by point. I grow when the page is enriched again, toward the function picker its forward vector asks for; I never hold the entry's words.",
   "entry": "The Curve Is the Material",
@@ -14,20 +26,20 @@
   "offers": [
     {
       "section": "The Morphing Quality Distinction",
-      "kind": "claim-change",
-      "what": "The piece measures how far the curve blend strays, and for the section's own pair it is not far. Blended point by point in cents, as frames of Wavetable B are scanned, 0.001 → 0.003 is never one string between its ends (at t = 0.5 partial 1 reads B = 0.00200, partial 24 reads 0.00186), but its worst partial stays within 1.56 ¢ of a real string at 16 partials, 4.03 ¢ at 24 and 12.3 ¢ at 64, which is 0.5–0.7 % of the stretch it carries (fit with B and f₀ both free). The gap grows as the ends move apart and the partials go higher: 0.0002 → 0.004 gives 15.7 ¢ at 24 partials and 65.3 ¢ at 64; 0.001 → 0.1 gives 149 ¢. Suggest the first paragraph say so: the blend leaves the family by an amount set by how far apart the frames are and how many partials there are. For nearby strings it is a few cents, so a Wavetable B with closely spaced frames already morphs almost as a string would.",
+      "kind": "no-claim-edit",
+      "what": "An emphasis, quantified; the text's \"may\" already stands. Blended point by point in cents, the way Wavetable B frames are scanned, the section's own pair 0.001 → 0.003 is never one string between its ends: at t = 0.5, partial 1 reads B = 0.00200 and partial 24 reads 0.00186. But its worst partial stays within 1.56 ¢ of a real string at 16 partials, 4.03 ¢ at 24 and 12.3 ¢ at 64, which is 0.5–0.7 % of the stretch it carries (fit with B and f₀ both free; the challenger reproduced these independently). The gap grows as the ends move apart and the partials go higher: 0.0002 → 0.004 gives 15.7 ¢ at 24 partials and 65.3 ¢ at 64; 0.001 → 0.1 gives 149 ¢. Suggest the paragraph give the size. Two limits: the bound holds only when both frames are strings, and freely drawn frames have none; and whether a few cents is audible wasn't checked.",
       "status": "open"
     },
     {
       "section": "The Morphing Quality Distinction",
-      "kind": "claim-change",
-      "what": "The third paragraph sets function-type interpolation (\"the weighted sum of two real physical models\") against arbitrary curve blending. But a weighted sum taken partial by partial is the same operation as the curve blend the first paragraph warns about. The piece shows that what decides whether a blend stays near a physical model is its two ends, not the blending: the same point-by-point blend stays within 4 ¢ of a string between 0.001 and 0.003 and is 149 ¢ off between 0.001 and 0.1. So \"qualitatively different from arbitrary curve blending\" holds because of the ends it picks (two physical models instead of any two drawn curves), not because it takes a different path. That is reasoning from the piece; a string-to-Bessel blend was not measured.",
+      "kind": "no-claim-edit",
+      "what": "The third paragraph sets function-type interpolation (\"the weighted sum of two real physical models\") against arbitrary curve blending, but a weighted sum taken partial by partial is the curve blend the first paragraph warns about. The piece shows that the blending is what makes the departure from a physical model, and the two ends set its size: the same point-by-point blend is 4 ¢ off a string between 0.001 and 0.003 and 149 ¢ off between 0.001 and 0.1, while the number morph between the same ends stays at 0. So the paragraph's distinction holds only for a path through one unified family, which is what Open Questions' \"string-to-bell morph function\" asks for, and the paragraph could point there. A string-to-Bessel blend also has to choose an order for the membrane's (m, k) modes before \"partial n\" means anything. This is reasoning from the piece; that blend was not measured.",
       "status": "open"
     },
     {
       "section": "Design Implication: Function Library Over Freehand Curve",
       "kind": "claim-change",
-      "what": "Calculated on the coefficient formula B = π³·E·d⁴/(64·T·L²), not tested by a piece. \"B ≈ 0.004 (heavy piano bass string)\" seems to have the piano upside down: B is lowest in the wound bass and highest in the short treble strings. It is of order 10⁻⁴ mid-keyboard and 10⁻² at the top (Acta Acustica 2021, doi 10.1051/aacus/2021002), and the Piano String Inharmonicity May proof gives 0.0001 (bass) to 0.004 (treble). A plain steel string of 0.775 mm, 51 mm long, at 700 N (assumed dimensions, close to C8) gives B = 0.019. So \"B > 0.01: no real material\" is crossed by the top of a piano.",
+      "what": "Calculated on the coefficient formula B = π³·E·d⁴/(64·T·L²), not tested by a piece. A plain steel string of 0.775 mm, 51 mm long, at 700 N (assumed dimensions; f₀ = 4263 Hz, close to C8) gives B = 0.0192, so the top of a piano crosses \"B > 0.01: no real material\" (the challenger recomputed it). Separately, 0.004 as a \"heavy piano bass string\" looks high for a bass string: the palace's own May proof (Piano String Inharmonicity, proofs/2026-05-04-B-slider.html) gives 0.004 as a treble value, and Projects/Piano String Inharmonicity.md gives 0.0001–0.001. B is lowest mid-keyboard and rises toward both ends, much more steeply in the treble. The palace's three ranges disagree, so a sourced range is still wanted before this goes home.",
       "status": "open"
     },
     {
@@ -44,8 +56,22 @@
       "made": "2026-11-03",
       "stamped": "2026-11-03",
       "status": "proposal",
-      "proposed": { "date": "2026-11-03", "by": "maker · claude-opus-5-5 · proposal round", "round": "proposal-round-2026-11" },
-      "challenge": { "date": "2026-11-03", "by": "challenger · claude-opus-5-5", "verdicts": [ { "file": "The Curve Is the Material — rich — two morphs.html", "verdict": "remake", "why": "Tests the claim: step 5 measures both morphs against the nearest string and reproduces independently (1.56 / 4.03 / 12.3 ¢), walks up in five steps, runs clean. One line to fix: the step-5 verdict (line 405) says the size is set 'not by the blending', which its own green line refutes; replace that clause with 'Its size is set by how far apart the two ends are and how many partials there are:'." } ] },
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "The Curve Is the Material — rich — two morphs.html",
+            "verdict": "remake",
+            "why": "Tests the claim: step 5 measures both morphs against the nearest string and reproduces independently (1.56 / 4.03 / 12.3 ¢), walks up in five steps, runs clean. One line to fix: the step-5 verdict (line 405) says the size is set 'not by the blending', which its own green line refutes; replace that clause with 'Its size is set by how far apart the two ends are and how many partials there are:'."
+          }
+        ]
+      },
       "pieces": [
         {
           "file": "The Curve Is the Material — rich — two morphs.html",
