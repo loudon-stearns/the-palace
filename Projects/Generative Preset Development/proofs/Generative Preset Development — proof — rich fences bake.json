@@ -1,0 +1,544 @@
+{
+ "cutoff": {
+  "param": "filter_1_cutoff",
+  "N": 14,
+  "stride": 127889,
+  "rung_len_s": 2.599977,
+  "stride_s": 2.8999773242630384,
+  "names": [
+   "closed",
+   "dark",
+   "warm",
+   "open",
+   "bright"
+  ],
+  "splits": [
+   35.560208,
+   60.0,
+   62.611436,
+   80.66481
+  ],
+  "proposal": [
+   2,
+   4,
+   5,
+   8
+  ],
+  "even_number": [
+   3,
+   6,
+   9,
+   12
+  ],
+  "even_measure": [
+   6,
+   9,
+   10,
+   12
+  ],
+  "arms_vs_proposal": {
+   "even_number": 1,
+   "even_measure": 0
+  },
+  "chance_ge3": 0.183,
+  "chance_4": 0.0396,
+  "chance_le1": 0.5725,
+  "placements": 1820,
+  "feature_null_worst_rel": 8.968330714051057e-06,
+  "rungs": [
+   {
+    "value": 20.0,
+    "json_feature": 178.4216,
+    "feature": 178.4217,
+    "lufs": -41.45,
+    "peak": 0.02795642986893654,
+    "gap_max": 0.0,
+    "gain_db": 29.13,
+    "peak_matched": 0.8
+   },
+   {
+    "value": 30.0,
+    "json_feature": 181.0763,
+    "feature": 181.0773,
+    "lufs": -32.09,
+    "peak": 0.06209412217140198,
+    "gap_max": 0.0,
+    "gain_db": 19.77,
+    "peak_matched": 0.605
+   },
+   {
+    "value": 40.0,
+    "json_feature": 189.5559,
+    "feature": 189.5576,
+    "lufs": -23.91,
+    "peak": 0.12138915807008743,
+    "gap_max": 0.0,
+    "gain_db": 11.59,
+    "peak_matched": 0.461
+   },
+   {
+    "value": 50.0,
+    "json_feature": 212.0678,
+    "feature": 212.0694,
+    "lufs": -17.95,
+    "peak": 0.20136219263076782,
+    "gap_max": 0.0,
+    "gain_db": 5.63,
+    "peak_matched": 0.385
+   },
+   {
+    "value": 60.0,
+    "json_feature": 260.6609,
+    "feature": 260.6627,
+    "lufs": -14.53,
+    "peak": 0.2768576443195343,
+    "gap_max": 0.0,
+    "gain_db": 2.21,
+    "peak_matched": 0.357
+   },
+   {
+    "value": 66.0,
+    "json_feature": 307.0983,
+    "feature": 307.0994,
+    "lufs": -13.36,
+    "peak": 0.309988409280777,
+    "gap_max": 0.0,
+    "gain_db": 1.04,
+    "peak_matched": 0.349
+   },
+   {
+    "value": 72.0,
+    "json_feature": 369.7692,
+    "feature": 369.7704,
+    "lufs": -12.58,
+    "peak": 0.33332210779190063,
+    "gap_max": 0.0,
+    "gain_db": 0.26,
+    "peak_matched": 0.343
+   },
+   {
+    "value": 78.0,
+    "json_feature": 452.3968,
+    "feature": 452.398,
+    "lufs": -12.05,
+    "peak": 0.3492833375930786,
+    "gap_max": 0.0,
+    "gain_db": -0.27,
+    "peak_matched": 0.339
+   },
+   {
+    "value": 84.0,
+    "json_feature": 559.785,
+    "feature": 559.7858,
+    "lufs": -11.68,
+    "peak": 0.3602239191532135,
+    "gap_max": 0.0,
+    "gain_db": -0.64,
+    "peak_matched": 0.335
+   },
+   {
+    "value": 90.0,
+    "json_feature": 697.7554,
+    "feature": 697.7561,
+    "lufs": -11.41,
+    "peak": 0.3677324950695038,
+    "gap_max": 0.0,
+    "gain_db": -0.91,
+    "peak_matched": 0.331
+   },
+   {
+    "value": 100.0,
+    "json_feature": 1013.7581,
+    "feature": 1013.7585,
+    "lufs": -11.11,
+    "peak": 0.3753744065761566,
+    "gap_max": 0.0,
+    "gain_db": -1.21,
+    "peak_matched": 0.327
+   },
+   {
+    "value": 110.0,
+    "json_feature": 1462.4773,
+    "feature": 1462.4774,
+    "lufs": -10.9,
+    "peak": 0.3794102370738983,
+    "gap_max": 0.0,
+    "gain_db": -1.42,
+    "peak_matched": 0.322
+   },
+   {
+    "value": 120.0,
+    "json_feature": 2053.1417,
+    "feature": 2053.1418,
+    "lufs": -10.76,
+    "peak": 0.3847044110298157,
+    "gap_max": 0.0,
+    "gain_db": -1.56,
+    "peak_matched": 0.321
+   },
+   {
+    "value": 136.0,
+    "json_feature": 3120.6467,
+    "feature": 3120.6467,
+    "lufs": -10.64,
+    "peak": 0.5,
+    "gap_max": 0.0,
+    "gain_db": -1.68,
+    "peak_matched": 0.412
+   }
+  ],
+  "keys": {
+   "generator": {
+    "fences": [
+     2,
+     4,
+     8,
+     10
+    ],
+    "chance_all": 0.0445,
+    "chance_partly": 0.5143,
+    "arms": {
+     "even in knob number": 2,
+     "even in the measure": 0,
+     "bottom of the ladder": 1
+    },
+    "bottom_best": 2,
+    "confirmable": true
+   },
+   "fifths": {
+    "fences": [
+     2,
+     4,
+     5,
+     8
+    ],
+    "chance_all": 0.0396,
+    "chance_partly": 0.3879,
+    "arms": {
+     "even in knob number": 1,
+     "even in the measure": 0,
+     "bottom of the ladder": 1
+    },
+    "bottom_best": 3,
+    "confirmable": true
+   }
+  },
+  "fence_names": [
+   "dark",
+   "warm",
+   "open",
+   "bright"
+  ],
+  "arms": {
+   "even in knob number": [
+    3,
+    6,
+    9,
+    12
+   ],
+   "even in the measure": [
+    6,
+    9,
+    10,
+    12
+   ],
+   "bottom of the ladder": [
+    1,
+    2,
+    3,
+    4
+   ]
+  },
+  "placements_n": 1820,
+  "generator_bands": {
+   "dark": [
+    80,
+    250
+   ],
+   "warm": [
+    250,
+    800
+   ],
+   "open": [
+    800,
+    2500
+   ],
+   "bright": [
+    2500,
+    9000
+   ]
+  },
+  "generator_measure_at_edges": [
+   [
+    189.1129,
+    256.465
+   ],
+   [
+    256.465,
+    474.6055
+   ],
+   [
+    474.6055,
+    979.373
+   ],
+   [
+    979.373,
+    2121.5292
+   ]
+  ]
+ },
+ "attack": {
+  "param": "env_1_attack",
+  "N": 12,
+  "stride": 260190,
+  "rung_len_s": 5.599977,
+  "stride_s": 5.9,
+  "names": [
+   "clicky",
+   "punchy",
+   "natural",
+   "soft",
+   "swell"
+  ],
+  "splits": [
+   0.1495,
+   0.1495,
+   0.181099,
+   0.519175
+  ],
+  "proposal": [
+   1,
+   1,
+   2,
+   5
+  ],
+  "even_number": [
+   3,
+   5,
+   8,
+   10
+  ],
+  "even_measure": [
+   2,
+   5,
+   7,
+   9
+  ],
+  "arms_vs_proposal": {
+   "even_number": 0,
+   "even_measure": 1
+  },
+  "chance_ge3": 0.0919,
+  "chance_4": 0.021,
+  "chance_le1": 0.7712,
+  "placements": 1001,
+  "feature_null_worst_rel": 0.0,
+  "rungs": [
+   {
+    "value": 0.0,
+    "json_feature": 0.002,
+    "feature": 0.002,
+    "lufs": -10.63,
+    "peak": 0.5,
+    "gap_max": 0.0,
+    "gain_db": 0.0,
+    "peak_matched": 0.5
+   },
+   {
+    "value": 0.15,
+    "json_feature": 0.002,
+    "feature": 0.002,
+    "lufs": -10.63,
+    "peak": 0.5,
+    "gap_max": 0.0,
+    "gain_db": 0.0,
+    "peak_matched": 0.5
+   },
+   {
+    "value": 0.25,
+    "json_feature": 0.0096,
+    "feature": 0.0096,
+    "lufs": -10.63,
+    "peak": 0.5,
+    "gap_max": 0.0,
+    "gain_db": 0.0,
+    "peak_matched": 0.5
+   },
+   {
+    "value": 0.35,
+    "json_feature": 0.0111,
+    "feature": 0.0111,
+    "lufs": -10.63,
+    "peak": 0.5,
+    "gap_max": 0.0,
+    "gain_db": 0.0,
+    "peak_matched": 0.5
+   },
+   {
+    "value": 0.45,
+    "json_feature": 0.025,
+    "feature": 0.025,
+    "lufs": -10.63,
+    "peak": 0.5,
+    "gap_max": 0.0,
+    "gain_db": 0.0,
+    "peak_matched": 0.5
+   },
+   {
+    "value": 0.55,
+    "json_feature": 0.0555,
+    "feature": 0.0555,
+    "lufs": -10.63,
+    "peak": 0.5,
+    "gap_max": 0.0,
+    "gain_db": 0.0,
+    "peak_matched": 0.5
+   },
+   {
+    "value": 0.65,
+    "json_feature": 0.1146,
+    "feature": 0.1146,
+    "lufs": -10.63,
+    "peak": 0.5,
+    "gap_max": 0.0,
+    "gain_db": 0.0,
+    "peak_matched": 0.5
+   },
+   {
+    "value": 0.75,
+    "json_feature": 0.1995,
+    "feature": 0.1995,
+    "lufs": -10.63,
+    "peak": 0.5,
+    "gap_max": 0.0,
+    "gain_db": 0.0,
+    "peak_matched": 0.5
+   },
+   {
+    "value": 0.85,
+    "json_feature": 0.3295,
+    "feature": 0.3295,
+    "lufs": -10.63,
+    "peak": 0.5,
+    "gap_max": 0.0,
+    "gain_db": 0.0,
+    "peak_matched": 0.5
+   },
+   {
+    "value": 1.0,
+    "json_feature": 0.6345,
+    "feature": 0.6345,
+    "lufs": -10.63,
+    "peak": 0.5,
+    "gap_max": 0.0,
+    "gain_db": 0.0,
+    "peak_matched": 0.5
+   },
+   {
+    "value": 1.15,
+    "json_feature": 1.1084,
+    "feature": 1.1084,
+    "lufs": -10.63,
+    "peak": 0.5,
+    "gap_max": 0.0,
+    "gain_db": 0.0,
+    "peak_matched": 0.5
+   },
+   {
+    "value": 1.3,
+    "json_feature": 1.8044,
+    "feature": 1.8044,
+    "lufs": -10.63,
+    "peak": 0.5,
+    "gap_max": 0.0,
+    "gain_db": 0.0,
+    "peak_matched": 0.5
+   }
+  ],
+  "keys": {
+   "generator": {
+    "fences": [
+     1,
+     5,
+     9
+    ],
+    "chance_all": 0.0629,
+    "chance_partly": 0.2937,
+    "arms": {
+     "even in knob number": 2,
+     "even in the measure": 2,
+     "bottom of the ladder": 1
+    },
+    "bottom_best": 2,
+    "confirmable": true
+   },
+   "fifths": {
+    "fences": [
+     1,
+     2,
+     5
+    ],
+    "chance_all": 0.0524,
+    "chance_partly": 0.1713,
+    "arms": {
+     "even in knob number": 0,
+     "even in the measure": 0,
+     "bottom of the ladder": 2
+    },
+    "bottom_best": 3,
+    "confirmable": false
+   }
+  },
+  "fence_names": [
+   "punchy",
+   "soft",
+   "swell"
+  ],
+  "arms": {
+   "even in knob number": [
+    3,
+    6,
+    9
+   ],
+   "even in the measure": [
+    3,
+    6,
+    8
+   ],
+   "bottom of the ladder": [
+    1,
+    2,
+    3
+   ]
+  },
+  "placements_n": 286,
+  "generator_bands": {
+   "punchy": [
+    0.0005,
+    0.01
+   ],
+   "soft": [
+    0.05,
+    0.3
+   ],
+   "swell": [
+    0.9,
+    2.5
+   ]
+  },
+  "generator_measure_at_edges": [
+   [
+    null,
+    0.0106
+   ],
+   [
+    0.0304,
+    0.1895
+   ],
+   [
+    0.5706,
+    1.5808
+   ]
+  ]
+ }
+}
