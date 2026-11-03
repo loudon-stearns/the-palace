@@ -270,6 +270,8 @@ def brief(root: Path, s: dict, title: str, today: str) -> dict:
         "has_rich_face": (bundle / f"{title} — rich.json").exists(),
         "rich_face_waiting": rich_face_waiting(bundle / f"{title} — rich.json"),
         "has_scroll": (bundle / f"{title} — scroll.md").exists(),
+        "plan": scroll_zone(bundle / f"{title} — scroll.md", "plan"),
+        "standing_orders": scroll_zone(bundle / f"{title} — scroll.md", "orders"),
         "has_context": (path.parent / f"{title} — Context.md").exists()
                        or (bundle / f"{title} — Context.md").exists(),
         "bundle": str(bundle.relative_to(root)) if bundle.is_dir() else None,
@@ -280,6 +282,23 @@ def brief(root: Path, s: dict, title: str, today: str) -> dict:
         "yesterday": yesterday,
         "standing": standing(s),
     }
+
+
+def scroll_zone(scroll: Path, zone: str):
+    """The text of one zone of the page's scroll — `plan` or `orders` (SCHEMA — Reference §8, `scroll`):
+    what sits between `<!-- scroll:<zone>:start -->` and its end marker. None when the page has no
+    scroll, the zone is missing, or it holds only its italic placeholder line."""
+    if not scroll.exists():
+        return None
+    text = scroll.read_text(encoding="utf-8")
+    m = re.search(rf"<!--\s*scroll:{zone}:start\s*-->\n?([\s\S]*?)<!--\s*scroll:{zone}:end\s*-->", text)
+    if not m:
+        return None
+    body = m.group(1).strip()
+    lines = [l for l in body.splitlines() if l.strip()]
+    if not lines or all(l.strip().startswith("_") and l.strip().endswith("_") for l in lines):
+        return None
+    return body
 
 
 def rich_face_waiting(manifest: Path):
@@ -314,6 +333,13 @@ def print_brief(b: dict):
     if b["times_dealt_before"]:
         print("  dealt on an earlier day and not sat with; this is its second turn")
     print(f"\n  forward vector: {b['forward_vector'] or '(none)'}")
+    for name, key in (("plan", "plan"), ("standing orders", "standing_orders")):
+        if b.get(key):
+            print(f"\n  {name}, from the scroll:")
+            for line in b[key].splitlines():
+                print(f"    {line}")
+        else:
+            print(f"  {name}: (none on the scroll)" if b["has_scroll"] else f"  {name}: (no scroll)")
     if asleep(b["stage"], b.get("type", "")):
         print(f"  this page is asleep ({b['stage']}{', a spore' if b.get('type','').strip(chr(34)+chr(39)) == 'spore' else ''}): the morning's question is whether it should be revived")
         print(f"  revival conditions: {b['revival_conditions'] or '(none written)'}")
