@@ -87,7 +87,7 @@ The working implementation lives in this entry's bundle (`GenAI Camera/`): `gena
 headless driver — reuses BLUELINE's `lib/comfy.py` pattern), `blender_panel.py` (the reproducible
 Blender N-panel — prompt / denoise / seed / fast / pose, Render · Save · Multi-Cam, with the
 auto-range depth; register via `exec(open(...).read())`), `live.html` (the hovering window), and the
-scroll (`GenAI Camera — scroll.html`) with its proof `renders/`.
+scroll (`GenAI Camera — scroll.html`) with its proof `GenAI Camera/renders/`.
 
 ## Gotchas & recipes (accumulated 2026-07-09)
 
