@@ -28,6 +28,22 @@
         "by": "maker · claude-opus-5-5 · proposal round",
         "round": "proposal-round-2026-11"
       },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "chord-belief.png",
+            "verdict": "keep",
+            "why": "Gathered, the engine's posterior through the take; its caption matches render_chord_belief.js event for event. It illustrates the opening, as it should, and is honest that V8 was never recovered."
+          },
+          {
+            "file": "chord-belief.wav",
+            "verdict": "keep",
+            "why": "The same take, heard; tracked, palace-made, nothing licensed."
+          }
+        ]
+      },
       "pieces": [
         {
           "file": "chord-belief.png",
@@ -57,6 +73,27 @@
         "date": "2026-11-03",
         "by": "maker · claude-opus-5-5 · proposal round",
         "round": "proposal-round-2026-11"
+      },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Bayesian Granular Synthesizer — rich — prior to belief.html",
+            "verdict": "keep",
+            "why": "A real test, walked up in five steps: the same seed coupled, all short and all long puts 92.4% of grains on C E G in all three but 85.7% / 13.6% / 85.6% of the sound (I got 86.6 / 14.4 / 85.9 with another estimator, and seed 999 agrees). Note: the all-long leg differs from coupled only by construction (median length); a spectral-flatness read of the off-chord band would make \"ring as wrong notes\" measured."
+          },
+          {
+            "file": "belief-instrument.html",
+            "verdict": "keep",
+            "why": "The mechanism to play, gathered unchanged. The midi grant-missing error stands on Loudon's yes; the page falls back to the keys with no script error (requestMIDIAccess().catch), so there is nothing a remake could fix."
+          },
+          {
+            "file": "belief-helix-states.png",
+            "verdict": "keep",
+            "why": "Gathered illustration of the same belief on the plugin's helix; the caption matches the scroll."
+          }
+        ]
       },
       "pieces": [
         {
@@ -99,6 +136,17 @@
         "by": "maker · claude-opus-5-5 · proposal round",
         "round": "proposal-round-2026-11"
       },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Bayesian Granular Synthesizer — rich — equal energy.html",
+            "verdict": "keep",
+            "why": "A test that could have failed, walked up from one grain, and it discloses the engine's N + 1 and energy-not-loudness. Numbers reproduce exactly (A2 61.7%, +13.7 dB without the rule; 29.7%, +0.7 dB with). Note: the √f half alone fixes A2's share (31.2%) and the √(1/N) half alone fixes the jump (+0.5 dB); naming which half does which would sharpen step 3."
+          }
+        ]
+      },
       "pieces": [
         {
           "file": "Bayesian Granular Synthesizer — rich — equal energy.html",
@@ -122,6 +170,17 @@
         "by": "maker · claude-opus-5-5 · proposal round",
         "round": "proposal-round-2026-11"
       },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Bayesian Granular Synthesizer — rich — one e, many grains.html",
+            "verdict": "keep",
+            "why": "Points each statistical name at something countable and tests the CLT on the output (kurtosis 2.95 at ~56 overlapping, 4.49 at ~4; seeds 777 and 4242 agree). It walks up in four steps and found three of the four offers without touching the text. Its default KS seed is the closest of six I tried to the 5% line (0.0225 against 0.0237), which the piece already allows for."
+          }
+        ]
+      },
       "pieces": [
         {
           "file": "Bayesian Granular Synthesizer — rich — one e, many grains.html",
@@ -144,6 +203,42 @@
         "date": "2026-11-03",
         "by": "maker · claude-opus-5-5 · proposal round",
         "round": "proposal-round-2026-11"
+      },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "belief-cloud-face.html",
+            "verdict": "keep",
+            "why": "The plugin face with the paintable prior, serving the vector it sits under. Same midi grant as belief-instrument, waiting on Loudon; the __JUCE__ warning is the template's own and harmless."
+          },
+          {
+            "file": "rich-face/belief-cloud-take.wav",
+            "verdict": "keep",
+            "why": "The C++ engine's own take, now tracked; the caption's 1.1 dB matches plugin/out/take-levels.json (−19.8 to −20.9 dB)."
+          },
+          {
+            "file": "prior-tone-ab.png",
+            "verdict": "keep",
+            "why": "A real A/B on the vector's open question; its numbers are the scroll's own (23% and 52% long)."
+          },
+          {
+            "file": "prior-tone-A.wav",
+            "verdict": "keep",
+            "why": "Take A of the A/B, captioned faithfully."
+          },
+          {
+            "file": "prior-tone-B.wav",
+            "verdict": "keep",
+            "why": "Take B of the A/B, captioned faithfully."
+          },
+          {
+            "file": "prior-tone-C.wav",
+            "verdict": "keep",
+            "why": "Take C of the A/B, captioned faithfully."
+          }
+        ]
       },
       "pieces": [
         {
