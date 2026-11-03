@@ -1,0 +1,145 @@
+{
+  "title": "Lossy Compression with Intent Alignment — rich",
+  "born": "2026-11-03",
+  "links": [
+    {
+      "target": "[[Lossy Compression with Intent Alignment]]",
+      "type": "connects-to",
+      "label": "rich-face-of"
+    },
+    {
+      "target": "[[Enrichment]]",
+      "type": "connects-to",
+      "label": "made-by"
+    },
+    {
+      "target": "[[Progressive Staging]]",
+      "type": "connects-to",
+      "label": "the-test-is-the-last-step"
+    },
+    {
+      "target": "[[Resonant Link Labels]]",
+      "type": "connects-to",
+      "label": "its-origin-line-is-quoted"
+    }
+  ],
+  "forward_vector": "I am the manifest of Lossy Compression with Intent Alignment's rich face, its first round, at Sketch tier, a proposal. For the rate-distortion-perception tradeoff: a cymbal made in the page, coded at a fixed rate and decoded two ways from the same bits, the least-error average and a draw, walked up from one sample at fewer bits to a blind test of your ear against the error meter; and the same for the eye, on four textures. For soft labels: the page's own link to Resonant Link Labels, typed then labelled, the palace's links counted, what distillation means by soft, and sixteen real links to rebuild from the type or the label. Every blind test states its chance and its rule first. The memory, the deposit and the cross-domain sections have nothing a piece could test, so they have nothing. I grow when a reader's results come back. I never hold the entry's words.",
+  "entry": "Lossy Compression with Intent Alignment",
+  "tier": "sketch",
+  "made": "2026-11-03",
+  "round": 1,
+  "sections": [
+    {
+      "heading": "The Rate-Distortion-Perception Tradeoff",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Lossy Compression with Intent Alignment — rich — same bits, two decoders.html",
+            "verdict": "keep",
+            "why": "A real test on one bitstream decoded two ways: 31.97 kbps counted from the stream, ratio 1.995–2.012 across rates, loudness matched within 0.01 LU by an independent BS.1770 meter, no non-audio leak, rule first and both arms scored. Notes: step 3 should cite the bound as 2019 (Theorem 2), not 2018; the caption should say “for a named decoder” (either side by guessing is 1 in 14)."
+          },
+          {
+            "file": "Lossy Compression with Intent Alignment — rich — same bits, two pictures.html",
+            "verdict": "keep",
+            "why": "The same test for the eye, which can fail. MSE is computed live from the pictures’ own arrays, not from canvas pixels, so the public frame needs no baked numbers; pairs share block means within 2.7 grey, and contrast is the only difference. Note: step 1 packs the coder into one step and leans on the sound piece for the slow walk."
+          }
+        ]
+      },
+      "made": "2026-11-03",
+      "pieces": [
+        {
+          "file": "Lossy Compression with Intent Alignment — rich — same bits, two decoders.html",
+          "origin": "made",
+          "by": "maker · claude-opus-5-5 · Web Audio",
+          "title": "Same bits, two decoders · from one sample at fewer bits to a blind test of ear against meter",
+          "caption": "**Does the decoding with the least error sound like the original?** Five steps, one synthetic cymbal (square waves at inharmonic pitches and seeded noise; no sample, no recording). Each sample at fewer bits, and the error that leaves. A transform coder at 32 kbps: 341 bits a frame, 125 of them band levels, 78 % of coefficients given no bits. What a decoder writes where the bits ran out: the cell’s average, the least error, or a draw from the cell; the draw’s error is twice the average’s, 2.00 measured, the theorem’s number. The three axes at 32, 64 and 128 kbps, on the cymbal and on a held tone where the effect is smaller; this coder needs about 67 kbps for the draw to reach the average’s error at 32, a figure of this coder’s, not the theory’s; the theory’s is an upper bound, at most twice the error at the same bits. Last, eight blind trials of the two decodings of the same bits, matched in K-weighted loudness, against the original. The rule is stated before the first: 7 or 8 of 8 for a named decoder happens by guessing about 1 time in 28, and for one side or the other about 1 time in 14. Noise is where the effect is largest; a tone shows less of it.",
+          "near": "But a 2019 reframing shattered this",
+          "place": "band",
+          "height": 1500
+        },
+        {
+          "file": "Lossy Compression with Intent Alignment — rich — same bits, two pictures.html",
+          "origin": "made",
+          "by": "maker · claude-opus-5-5 · canvas",
+          "title": "Same bits, two pictures · the tradeoff for the eye, blind",
+          "caption": "**The same claim, seen.** Four textures made from seeded noise; a block coder at 0.35, 0.5 or 1 bit a pixel against the original’s 8. The average of each cell gives the least error and a smoother picture; a draw from each cell gives the grain back and about 3 dB less PSNR, an error 1.77 to 2.14 times the average’s. Then eight blind pairs, four textures at two rates, sides at random: which is more like the original? Same rule, stated first: 7 or 8 of 8 for a named decoder is about 1 time in 28 by guessing, and for one side or the other about 1 time in 14. Every number is worked out from the pictures’ own values, never read off the screen.",
+          "near": "A faithful summary has low distortion",
+          "place": "band",
+          "height": 1500
+        }
+      ],
+      "made_against": "32601e5bd418",
+      "stamped": "2026-11-03"
+    },
+    {
+      "heading": "Knowledge Distillation and Soft Labels",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Lossy Compression with Intent Alignment — rich — the type and the label.html",
+            "verdict": "remake",
+            "why": "Every count recounts exactly and all 48 links and 144 decoys are real, but the rule’s promise that no label spells its target fails: “drawn-not-damped” → Resonance and Damping shares “damp”, which the five-letter stem test misses. Widen the stem test to four letters or drop that link, and re-run check.mjs. Also set step 3’s “28 of 1,600” against the 83 labels used more than once (34 %), not only 1,600, and drop “how rarely”.",
+            "remade": "2026-11-03, once, by the maker: the leak test widened to a shared first three letters, a word inside a word, three-letter words and numbers (it catches drawn-not-damped and board/Blackboard); the 16 redrawn from a new pool of 48 with no link from or to this page; 28 set against the 83 reused labels (34 %) and 'how rarely' dropped; check.mjs carries the same test."
+          }
+        ]
+      },
+      "made": "2026-11-03",
+      "pieces": [
+        {
+          "file": "Lossy Compression with Intent Alignment — rich — the type and the label.html",
+          "origin": "made",
+          "by": "maker · claude-opus-5-5 · HTML",
+          "title": "The type and the label · sixteen of the palace’s links, rebuilt",
+          "caption": "**Does a link’s label let you rebuild it where its type can’t?** Four steps on the palace’s own links. This page’s link to Resonant Link Labels as the type says it, spawned, one of 107 of 2,087 links; then with its label, midwifed, one of 2. What distillation means by a soft label, a spread over the same classes, and how often a palace label is one: most labels are used once and can’t spread; of the 83 used more than once, 28 (34 %) sit under more than one type. Last, sixteen real links from sixteen pages, eight shown with the type alone and eight with the label too, each with four of the source’s real targets: pick the right one. Chance is 1 in 4; 5 or more of 8 in an arm happens by guessing about 1 time in 37. Labels that share any spelling with their target were left out of the pool, by a strict test (remade after the challenge caught drawn-not-damped → Resonance and Damping). Counts as at commit 3bd902d3; the check recounts.",
+          "near": "Applied to the palace: the typed links",
+          "place": "band",
+          "height": 1300
+        }
+      ],
+      "made_against": "3a5fe3f6302e",
+      "stamped": "2026-11-03"
+    }
+  ],
+  "offers": [
+    {
+      "section": "The Rate-Distortion-Perception Tradeoff",
+      "kind": "claim-change",
+      "status": "open",
+      "what": "The section defines Perception as how well the compressed version functions for its intended receiver, and presents the three axes as the 2019 reframing’s. In that paper (Blau and Michaeli, ICML 2019, http://proceedings.mlr.press/v97/blau19a/blau19a.pdf) perception is a divergence between the distribution of decoded outputs and the distribution of real ones, whether a decoding looks or sounds like a real sample; it names no receiver and no purpose. Serving a purpose is closer to task-oriented or semantic compression, and the page’s next sentences (a generative entry has high perception) rest on that sense. The pieces test the paper’s sense, and the tradeoff holds there. Suggest naming both: the theory’s perception, and the palace’s reading of it as fitness for the receiver."
+    },
+    {
+      "section": "The Rate-Distortion-Perception Tradeoff",
+      "kind": "claim-change",
+      "status": "open",
+      "what": "The section says high perception costs more, and reads the cost as deliberate work. The theory prices it in bits or in error, and its Theorem 2 is an upper bound: perfect perception costs at most twice the least error at the same rate. The pieces measured it: the posterior draw sits on that bound, 2.00 times the least error on the synthetic cymbal at every rate from 16 to 128 kbps (1.77 to 2.14 on four synthetic textures). The piece’s 67 kbps, 2.09 times the bits for the draw to reach the average’s 32 kbps error, belongs to this coder on this cymbal, not to the theory. Suggest the text say the price is paid in bits or in error, up to twice the error at the same bits, and keep deliberate work as the palace’s reading of it."
+    },
+    {
+      "section": "Knowledge Distillation and Soft Labels",
+      "kind": "claim-change",
+      "status": "open",
+      "what": "In distillation a soft label is a spread of probability over the same classes the hard label picks from; its signal is in what the wrong classes get. A palace label is a new, finer name, not a spread over the types: of 1,600 labels on 2,087 entry-to-entry links (commit 3bd902d3), 1,517 are used once and so can’t spread at all; of the 83 used more than once, 28 (34 %) sit under more than one type; midwifed sits wholly in spawned. A label does add specificity (a type alone 2.51 bits on average, type and label 10.70), but any unique name would score that too, so it measures which link this is, not signal about the relation. Suggest “finer label” or “named register” for “soft label”, or say where the analogy holds and where it doesn’t."
+    },
+    {
+      "section": "Knowledge Distillation and Soft Labels",
+      "kind": "no-claim-edit",
+      "status": "open",
+      "what": "The paragraph says “the typed links between entries are soft labels”, then calls a type, enables, a hard label. It means the label a typed link carries. Suggest: “the labels on the palace’s typed links are soft labels” — and if offer 3 is taken, this wording changes with it."
+    }
+  ]
+}

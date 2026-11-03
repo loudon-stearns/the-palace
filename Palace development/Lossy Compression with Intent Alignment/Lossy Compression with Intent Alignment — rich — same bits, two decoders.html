@@ -1,0 +1,532 @@
+<!doctype html>
+<!--
+  title: Lossy Compression with Intent Alignment — rich — same bits, two decoders
+  born: 2026-11-03
+  links: [[Lossy Compression with Intent Alignment]] (connects-to · rich-face-piece) · listed in [[Lossy Compression with Intent Alignment — rich.json]] · the picture of the same claim is "same bits, two pictures", beside me on this face
+  forward_vector: I am the walk up to the rate-distortion-perception tradeoff, heard. One cymbal made in this page; each sample at fewer bits and the error that leaves; a budget of 32 kbps spent band by band; what a decoder writes where the bits ran out, the cell's average or a draw from it, and why the draw's error is twice the average's; the three axes at three rates, on the cymbal and on a held tone, where the effect is smaller; last, the two decodings of the same bits, matched in loudness, with their names hidden, for your ear against the meter. Noise is where the effect is largest; a tone shows less of it. I change only when the section I serve does.
+  sound: nothing plays until Play is clicked; the AudioContext is made on that click. Changing step stops the sound. Every sound is made in this page by the core below: square waves, seeded noise, sines. No sample, no file, no recording.
+  check: Palace development/Lossy Compression with Intent Alignment/Lossy Compression with Intent Alignment — rich — check.mjs runs this page's core in Node.
+-->
+<html lang="en" class="skin-graphite">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- needs nothing of its host: no device, no storage, no file, no host; sound only on a click -->
+<meta name="piece:needs" content="">
+<title>Same bits, two decoders · Lossy Compression with Intent Alignment</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@300;400;500&display=swap">
+<style>
+  :root{
+    --bg:#0a0a0f; --bg-elev-1:#12121a; --bg-elev-2:#1a1a28; --border:#4a4a5e; --border-soft:rgba(255,255,255,0.06);
+    --fg-1:#e8e8f0; --fg-2:#c8c8d8; --fg-3:#8a8aa0; --fg-4:#4a4a5a;
+    --accent:#e8b84a; --accent-soft:rgba(232,184,74,0.10); --info:#4a8fff; --warn:#e8651b;
+    --serif:'Cormorant Garamond','Source Serif 4',Georgia,serif; --sans:'Manrope',system-ui,sans-serif;
+    --display:'Anton','Bebas Neue',Impact,sans-serif; --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--fg-1)}
+  body{font-family:var(--serif);font-size:17px;line-height:1.7;padding:28px 16px 36px}
+  main{max-width:960px;margin:0 auto}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--fg-3)}
+  h1{font-family:var(--display);font-weight:400;font-size:44px;line-height:1.05;margin:6px 0 10px}
+  h2{font-family:var(--display);font-weight:400;font-size:28px;line-height:1.1;margin:4px 0 8px;letter-spacing:.01em}
+  p.lead{font-size:19px;color:var(--fg-2);margin:0 0 18px;max-width:66ch}
+  .rail{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 18px}
+  .rail button{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-3);background:transparent;border:1px solid var(--border);border-radius:4px;padding:7px 11px;cursor:pointer;transition:all .22s cubic-bezier(.4,0,.2,1)}
+  .rail button[aria-current="step"]{color:var(--fg-1);border-color:var(--fg-3);background:var(--bg-elev-2)}
+  p.say{color:var(--fg-2);margin:0 0 14px;max-width:68ch}
+  .panel{background:var(--bg-elev-1);border:1px solid var(--border-soft);border-radius:4px;padding:18px;margin:0 0 14px}
+  .tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;align-items:center}
+  button.play{font-family:var(--sans);font-weight:500;font-size:14px;color:#0a0a0f;background:var(--accent);border:0;border-radius:4px;padding:9px 20px;cursor:pointer;margin-left:auto;transition:box-shadow .22s cubic-bezier(.4,0,.2,1)}
+  button.play:hover{box-shadow:0 0 24px var(--accent-soft)}
+  canvas{width:100%;display:block;background:var(--bg-elev-2);border-radius:4px}
+  .legend{display:flex;gap:6px 18px;flex-wrap:wrap;margin-top:10px;font-family:var(--sans);font-size:13px;color:var(--fg-3);line-height:1.5}
+  .legend i{display:inline-block;width:14px;height:2px;margin-right:6px;vertical-align:3px}
+  [hidden]{display:none !important}
+  .meter{font-family:var(--mono);font-size:13px;color:var(--fg-2);margin-top:12px;line-height:1.7}
+  .meter b{color:var(--accent);font-weight:400}
+  .eq{font-family:var(--mono);font-size:13px;color:var(--fg-1);margin:14px 0 0;overflow-wrap:anywhere}
+  .eq.words{color:var(--fg-3);font-size:12px;margin-top:2px}
+  .rowb{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:12px}
+  button.ghost{font-family:var(--sans);font-size:14px;color:var(--fg-2);background:transparent;border:1px solid var(--border);border-radius:4px;padding:8px 14px;cursor:pointer}
+  button.ghost[aria-pressed="true"]{color:var(--fg-1);border-color:var(--fg-3);background:var(--bg-elev-2)}
+  button.ghost:disabled{opacity:.35;cursor:default}
+  button.ab{font-family:var(--display);font-size:22px;letter-spacing:.06em;color:var(--fg-2);background:transparent;border:1px solid var(--border);border-radius:4px;padding:6px 22px;cursor:pointer}
+  button.ab[aria-pressed="true"]{color:#0a0a0f;background:var(--accent);border-color:var(--accent)}
+  .hint{font-family:var(--sans);font-size:13px;color:var(--fg-3)}
+  .rule{font-family:var(--sans);font-size:14px;color:var(--fg-2);border-left:2px solid var(--accent);padding:4px 0 4px 12px;margin:4px 0 12px;max-width:72ch;line-height:1.6}
+  table.marks{border-collapse:collapse;margin-top:12px;font-family:var(--mono);font-size:13px;color:var(--fg-2)}
+  table.marks td,table.marks th{border-bottom:1px solid var(--border-soft);padding:5px 14px 5px 0;text-align:left;font-weight:400;vertical-align:middle}
+  table.marks th{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-3)}
+  table.marks b{color:var(--accent);font-weight:400}
+  .score{font-family:var(--serif);font-size:19px;color:var(--fg-1);margin-top:14px;max-width:66ch}
+  input[type=range]{width:220px;accent-color:var(--accent)}
+  .walk{display:flex;justify-content:space-between;gap:10px;margin-top:16px}
+  footer{margin-top:28px;font-family:var(--sans);font-size:13px;color:var(--fg-4);display:flex;align-items:center;gap:10px}
+  footer b{font-family:var(--display);font-weight:400;letter-spacing:.06em;color:var(--fg-3)}
+  footer svg{flex:none}
+  @media (max-width:520px){h1{font-size:34px}h2{font-size:23px}}
+</style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">Lossy Compression with Intent Alignment · the rate-distortion-perception tradeoff · five steps</div>
+  <h1>Same bits, two decoders</h1>
+  <p class="lead">The section’s claim, heard: at a fixed number of bits, the decoding with the least error and the decoding that sounds right are different decodings, so the meter that counts error and the ear can disagree. The last step asks yours. Everything here is made in this page — a cymbal of square waves and seeded noise, a coder, two decoders, the meters. Noise is where the effect is largest, so the test is on the cymbal; step 4 has a held tone, where it is smaller. Nothing plays until you press Play.</p>
+
+  <nav class="rail" aria-label="Steps" id="rail"></nav>
+
+  <section aria-live="polite">
+    <div class="eyebrow" id="stepEyebrow"></div>
+    <h2 id="stepTitle"></h2>
+    <p class="say" id="stepSay"></p>
+  </section>
+
+  <div class="panel">
+    <div class="tabs"><span class="eyebrow">Hear</span><span class="hint" id="hearHint"></span><button class="play" id="play">Play</button></div>
+    <canvas id="view" aria-label="the picture for this step"></canvas>
+    <div class="legend" id="legend"></div>
+    <div class="rowb" id="bitsRow" hidden><span class="eyebrow">bits a sample</span><input id="bits" type="range" min="1" max="8" step="1" value="3"><span class="hint" id="bitsVal"></span></div>
+    <div class="rowb" id="whoRow" hidden><span class="eyebrow">listen to</span>
+      <button class="ghost" data-who="0">the original</button><button class="ghost" data-who="1" id="who1">the average</button><button class="ghost" data-who="2" id="who2">the draw</button>
+    </div>
+    <div class="rowb" id="rateRow" hidden><span class="eyebrow">rate</span>
+      <button class="ghost" data-rate="32">32 kbps</button><button class="ghost" data-rate="64">64 kbps</button><button class="ghost" data-rate="128">128 kbps</button>
+    </div>
+    <div class="rowb" id="srcRow" hidden><span class="eyebrow">source</span>
+      <button class="ghost" data-src="cymbal">the cymbal</button><button class="ghost" data-src="tone">a held tone</button>
+    </div>
+    <div class="rowb" id="matchRow" hidden><span class="eyebrow">loudness</span>
+      <button class="ghost" data-m="1">matched</button><button class="ghost" data-m="0">as decoded</button>
+    </div>
+    <div class="meter" id="meter"></div>
+    <div class="eq" id="eq1"></div><div class="eq words" id="eq1w"></div>
+    <div class="eq" id="eq2"></div><div class="eq words" id="eq2w"></div>
+
+    <div id="test" hidden>
+      <div class="rule" id="rule"></div>
+      <div class="rowb"><span class="eyebrow" id="trialNo"></span>
+        <button class="ab" data-x="0">R</button><button class="ab" data-x="1">X</button><button class="ab" data-x="2">Y</button>
+        <span class="hint">R is the original; press a letter to hear it; switching keeps your place in the loop</span>
+      </div>
+      <div class="rowb"><span class="eyebrow">more like R</span><button class="ghost" data-pick="1">X</button><button class="ghost" data-pick="2">Y</button><span class="hint" id="tally"></span></div>
+      <div id="result" hidden></div>
+      <div class="rowb"><button class="ghost" id="again">Start again</button></div>
+    </div>
+  </div>
+
+  <div class="walk"><button class="ghost" id="back">Back</button><button class="ghost" id="next">Next</button></div>
+
+  <footer><svg id="sigil" width="22" height="22" viewBox="-11 -11 22 22" aria-hidden="true"></svg><b>LOUD’N LIVE</b> · Lossy Compression with Intent Alignment · same bits, two decoders · Sketch, 2026-11-03</footer>
+</main>
+
+<script id="rd-core">
+const RD = (() => {
+  const RATE = 48000, M = 512, N = 2 * M, FRAMES = 282, LEN = M * FRAMES;   // 3.008 s, a loop the coder treats as a circle
+  function rng(seed) { let s = seed >>> 0; return () => { s = (s + 0x6D2B79F5) >>> 0; let t = s; t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
+  function gauss(r) { let u = 0; while (u < 1e-12) u = r(); return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * r()); }
+  // ── the sources: made here, no sample ──
+  // a cymbal: six square waves at the 808 cymbal's inharmonic pitches (raised 2.4 times), plus seeded noise, high-passed three times at 3 kHz,
+  // low-passed at 14 kHz, struck four times in the loop, every 0.752 s, each hit decaying to a wash
+  function onePole(x, fc, hp) { const a = Math.exp(-2 * Math.PI * fc / RATE); const y = new Float64Array(x.length); let lp = 0; for (let i = 0; i < x.length; i++) { lp = (1 - a) * x[i] + a * lp; y[i] = hp ? x[i] - lp : lp; } return y; }
+  function cymbal() {
+    const r = rng(11), F = [205.3, 304.4, 369.6, 522.7, 540.0, 800.0].map((f) => f * 2.4), ph = F.map(() => r());
+    const raw = new Float64Array(LEN);
+    for (let i = 0; i < LEN; i++) { let s = 0; for (let k = 0; k < 6; k++) { const p = (ph[k] + F[k] * i / RATE) % 1; s += p < 0.5 ? 1 : -1; } raw[i] = s / 6 * 0.6 + 0.55 * gauss(r); }
+    let y = onePole(onePole(onePole(raw, 3000, true), 3000, true), 14000, false);
+    const HIT = LEN / 4, amps = [1, 0.55, 0.8, 0.5];
+    for (let i = 0; i < LEN; i++) { const h = Math.floor(i / HIT), t = (i - h * HIT) / RATE; y[i] *= amps[h] * (Math.min(1, t / 0.002) * (0.12 + 0.88 * Math.exp(-t / 0.28))); }
+    return toLoud(y);
+  }
+  // a held tone, for contrast: a soft A major chord of plain harmonics, each pitch nudged to a whole number of cycles in the loop so it wraps without a click
+  function tone() {
+    const T = LEN / RATE, y = new Float64Array(LEN), notes = [220, 277.18, 329.63].map((f) => Math.round(f * T) / T);
+    for (let i = 0; i < LEN; i++) { const t = i / RATE; let s = 0; for (const f of notes) for (let h = 1; h <= 8; h++) s += Math.sin(2 * Math.PI * f * h * t + h) / (h * h); y[i] = s * (0.7 + 0.3 * Math.cos(2 * Math.PI * t / (LEN / RATE))); }
+    return toLoud(y);
+  }
+  // both sources set to the same loudness, −20 LUFS by the K-weighted meter below, so switching between them doesn't jump
+  const LOUD = -20;
+  function toLoud(y) { const g = Math.pow(10, (LOUD - kLoud(y)) / 20); for (let i = 0; i < y.length; i++) y[i] *= g; return y; }
+  // ── the transform: MDCT, sine window, 512 new samples a frame, orthonormal, wrapped round the loop ──
+  // done with one 1024-point FFT a frame: pre-twiddle, transform, post-twiddle (checked against the sum written out)
+  let WIN = null, TW = null;
+  function fft(re, im, inv) {
+    const n = re.length;
+    for (let i = 1, j = 0; i < n; i++) { let bit = n >> 1; for (; j & bit; bit >>= 1) j ^= bit; j ^= bit; if (i < j) { let t = re[i]; re[i] = re[j]; re[j] = t; t = im[i]; im[i] = im[j]; im[j] = t; } }
+    for (let len = 2; len <= n; len <<= 1) { const a = (inv ? 2 : -2) * Math.PI / len, wr = Math.cos(a), wi = Math.sin(a); for (let i = 0; i < n; i += len) { let cr = 1, ci = 0; for (let k = 0; k < len / 2; k++) { const p = i + k, q = p + len / 2, vr = re[q] * cr - im[q] * ci, vi = re[q] * ci + im[q] * cr; re[q] = re[p] - vr; im[q] = im[p] - vi; re[p] += vr; im[p] += vi; const t = cr * wr - ci * wi; ci = cr * wi + ci * wr; cr = t; } } }
+  }
+  const N0 = 0.5 + M / 2;
+  function tables() {
+    if (WIN) return; WIN = new Float64Array(N); TW = { pre: [new Float64Array(N), new Float64Array(N)], post: [new Float64Array(M), new Float64Array(M)], ipre: [new Float64Array(M), new Float64Array(M)], ipost: [new Float64Array(N), new Float64Array(N)] };
+    for (let n = 0; n < N; n++) { WIN[n] = Math.sin(Math.PI * (n + 0.5) / N); TW.pre[0][n] = Math.cos(-Math.PI * n / N); TW.pre[1][n] = Math.sin(-Math.PI * n / N); TW.ipost[0][n] = Math.cos(Math.PI * (n + N0) / N); TW.ipost[1][n] = Math.sin(Math.PI * (n + N0) / N); }
+    for (let k = 0; k < M; k++) { TW.post[0][k] = Math.cos(-Math.PI * N0 * (k + 0.5) / M); TW.post[1][k] = Math.sin(-Math.PI * N0 * (k + 0.5) / M); TW.ipre[0][k] = Math.cos(Math.PI * N0 * k / M); TW.ipre[1][k] = Math.sin(Math.PI * N0 * k / M); }
+  }
+  const SC = Math.sqrt(2 / M);
+  function mdct(x) {
+    tables(); const C = new Float64Array(FRAMES * M), re = new Float64Array(N), im = new Float64Array(N);
+    for (let f = 0; f < FRAMES; f++) {
+      for (let n = 0; n < N; n++) { const v = WIN[n] * x[(f * M + n) % LEN]; re[n] = v * TW.pre[0][n]; im[n] = v * TW.pre[1][n]; }
+      fft(re, im, false);
+      for (let k = 0; k < M; k++) C[f * M + k] = SC * (re[k] * TW.post[0][k] - im[k] * TW.post[1][k]);
+    }
+    return C;
+  }
+  function imdct(C) {
+    tables(); const y = new Float64Array(LEN), re = new Float64Array(N), im = new Float64Array(N);
+    for (let f = 0; f < FRAMES; f++) {
+      re.fill(0); im.fill(0);
+      for (let k = 0; k < M; k++) { const c = C[f * M + k]; re[k] = c * TW.ipre[0][k]; im[k] = c * TW.ipre[1][k]; }
+      fft(re, im, true);
+      for (let n = 0; n < N; n++) y[(f * M + n) % LEN] += WIN[n] * SC * (re[n] * TW.ipost[0][n] - im[n] * TW.ipost[1][n]);
+    }
+    return y;
+  }
+  // the same transform written out as the sum, for the check
+  function mdctSlow(x, f) { tables(); const out = new Float64Array(M); for (let k = 0; k < M; k++) { let s = 0; for (let n = 0; n < N; n++) s += WIN[n] * x[(f * M + n) % LEN] * Math.cos(Math.PI / M * (n + N0) * (k + 0.5)); out[k] = SC * s; } return out; }
+  // ── the bands: 25, roughly as wide as the ear's ──
+  const EDGES_HZ = [0, 100, 200, 300, 400, 510, 630, 770, 920, 1080, 1270, 1480, 1720, 2000, 2320, 2700, 3150, 3700, 4400, 5300, 6400, 7700, 9500, 12000, 15500, 24000];
+  const BIN = RATE / 2 / M, EDGES = EDGES_HZ.map((h) => Math.min(M, Math.round(h / BIN))), NB = EDGES.length - 1;
+  // ── the bitstream ──
+  // A frame carries: each band's level, 5 bits (3 dB steps up from −90 dB); for each band that gets bits, a 2-bit range;
+  // then each coefficient's cell, in the bits the allocation gave it. The allocation is worked out from the levels alone,
+  // so the decoder works it out too and it costs nothing to send.
+  const LEVEL_BITS = 5, LEVEL_DB = 3, LEVEL_FLOOR = -90, RANGE_BITS = 2, MAXB = 12;
+  const RANGES = [1, 1.5, 2.25, 3.4];
+  // the step of a uniform quantizer for a unit Gaussian, by bits (Max, 1960, to 6 bits; worked out the same way for 7 and 8; above 8, each bit halves the step and the error is step² ⁄ 12),
+  // and the error it leaves when each cell is written back as its centroid
+  const STEP = [0, 1.596, 0.9957, 0.5860, 0.3352, 0.1881, 0.1041, 0.0568, 0.0307, 0.01658, 0.008953, 0.004835, 0.002611];
+  const DIST = [1, 0.3634, 0.1175, 0.03599, 0.01092, 0.003292, 0.000981, 0.000288, 0.0000832, 2.29e-5, 6.68e-6, 1.95e-6, 5.68e-7];
+  const levelSig2 = (q) => Math.pow(10, (LEVEL_FLOOR + q * LEVEL_DB) / 10);
+  // greedy allocation: each next bit goes where it takes away the most expected error per bit spent
+  function allocate(sig2, budget) {
+    const base = new Int32Array(NB), extra = new Int32Array(NB); let left = budget;
+    for (;;) {
+      let best = -1, bestV = 0;
+      for (let b = 0; b < NB; b++) {
+        if (base[b] >= MAXB) continue;
+        const cost = base[b] === 0 && extra[b] === 0 ? 1 + RANGE_BITS : 1;
+        if (cost > left) continue;
+        const v = sig2[b] * (DIST[base[b]] - DIST[base[b] + 1]) / cost;
+        if (v > bestV) { bestV = v; best = b; }
+      }
+      if (best < 0) break;
+      left -= base[best] === 0 && extra[best] === 0 ? 1 + RANGE_BITS : 1;
+      if (++extra[best] === EDGES[best + 1] - EDGES[best]) { base[best]++; extra[best] = 0; }
+    }
+    return { base, extra, left };
+  }
+  const bitsOf = (al, b, j) => al.base[b] + (j < al.extra[b] ? 1 : 0);   // j: the coefficient's place in its band
+  function cellOf(i, nb, st) { const L = 1 << nb; return [i === 0 ? -Infinity : (i - L / 2) * st, i === L - 1 ? Infinity : (i + 1 - L / 2) * st]; }
+  function encode(C, kbps) {
+    const perFrame = Math.floor(kbps * 1000 * M / RATE), side = NB * LEVEL_BITS;
+    const lev = new Int32Array(FRAMES * NB), rng2 = new Int32Array(FRAMES * NB), idx = new Int32Array(FRAMES * M), nbits = new Int32Array(FRAMES * M);
+    let used = 0;
+    for (let f = 0; f < FRAMES; f++) {
+      const sig2 = new Float64Array(NB);
+      for (let b = 0; b < NB; b++) {
+        let s = 0; for (let k = EDGES[b]; k < EDGES[b + 1]; k++) s += C[f * M + k] ** 2; s /= (EDGES[b + 1] - EDGES[b]);
+        const q = Math.max(0, Math.min((1 << LEVEL_BITS) - 1, Math.round((10 * Math.log10(s + 1e-30) - LEVEL_FLOOR) / LEVEL_DB)));
+        lev[f * NB + b] = q; sig2[b] = levelSig2(q);
+      }
+      const al = allocate(sig2, perFrame - side);
+      used += perFrame - al.left;
+      for (let b = 0; b < NB; b++) {
+        if (!al.base[b] && !al.extra[b]) continue;
+        const sd = Math.sqrt(sig2[b]);
+        // the range: the one of four that leaves this band the least error, cell midpoints standing in for the decoder
+        let bestR = 0, bestE = Infinity;
+        for (let r = 0; r < RANGES.length; r++) {
+          let e = 0;
+          for (let k = EDGES[b]; k < EDGES[b + 1]; k++) { const nb = bitsOf(al, b, k - EDGES[b]); if (!nb) { e += C[f * M + k] ** 2; continue; } const st = STEP[nb] * RANGES[r], L = 1 << nb, z = C[f * M + k] / sd; const i = Math.max(0, Math.min(L - 1, Math.floor(z / st) + L / 2)); const [lo, hi] = cellOf(i, nb, st); const m = isFinite(lo) && isFinite(hi) ? (lo + hi) / 2 : isFinite(lo) ? lo + st / 2 : hi - st / 2; e += (z - m) ** 2; }
+          if (e < bestE) { bestE = e; bestR = r; }
+        }
+        rng2[f * NB + b] = bestR;
+        for (let k = EDGES[b]; k < EDGES[b + 1]; k++) { const nb = bitsOf(al, b, k - EDGES[b]); nbits[f * M + k] = nb; if (!nb) continue; const st = STEP[nb] * RANGES[bestR], L = 1 << nb; idx[f * M + k] = Math.max(0, Math.min(L - 1, Math.floor(C[f * M + k] / sd / st) + L / 2)); }
+      }
+    }
+    return { lev, rng: rng2, idx, nbits, kbps, perFrame, side, bitsUsed: used, kbpsUsed: used * RATE / M / FRAMES / 1000 };
+  }
+  // ── the two decoders read the same bits ──
+  function erf(x) { const s = Math.sign(x); x = Math.abs(x); const t = 1 / (1 + 0.3275911 * x); const y = 1 - (((((1.061405429 * t - 1.453152027) * t) + 1.421413741) * t - 0.284496736) * t + 0.254829592) * t * Math.exp(-x * x); return s * y; }
+  const Phi = (z) => z === Infinity ? 1 : z === -Infinity ? 0 : 0.5 * (1 + erf(z / Math.SQRT2));
+  const phi = (z) => isFinite(z) ? Math.exp(-z * z / 2) / Math.sqrt(2 * Math.PI) : 0;
+  function PhiInv(p) { // Acklam
+    const a = [-3.969683028665376e+01, 2.209460984245205e+02, -2.759285104469687e+02, 1.383577518672690e+02, -3.066479806614716e+01, 2.506628277459239e+00], b = [-5.447609879822406e+01, 1.615858368580409e+02, -1.556989798598866e+02, 6.680131188771972e+01, -1.328068155288572e+01], c = [-7.784894002430293e-03, -3.223964580411365e-01, -2.400758277161838e+00, -2.549732539343734e+00, 4.374664141464968e+00, 2.938163982698783e+00], d = [7.784695709041462e-03, 3.224671290700398e-01, 2.445134137142996e+00, 3.754408661907416e+00];
+    p = Math.min(1 - 1e-12, Math.max(1e-12, p)); const pl = 0.02425;
+    if (p < pl) { const q = Math.sqrt(-2 * Math.log(p)); return (((((c[0] * q + c[1]) * q + c[2]) * q + c[3]) * q + c[4]) * q + c[5]) / ((((d[0] * q + d[1]) * q + d[2]) * q + d[3]) * q + 1); }
+    if (p > 1 - pl) { const q = Math.sqrt(-2 * Math.log(1 - p)); return -(((((c[0] * q + c[1]) * q + c[2]) * q + c[3]) * q + c[4]) * q + c[5]) / ((((d[0] * q + d[1]) * q + d[2]) * q + d[3]) * q + 1); }
+    const q = p - 0.5, r = q * q; return (((((a[0] * r + a[1]) * r + a[2]) * r + a[3]) * r + a[4]) * r + a[5]) * q / (((((b[0] * r + b[1]) * r + b[2]) * r + b[3]) * r + b[4]) * r + 1);
+  }
+  function decode(bs, mode, seed) {
+    const r = rng(seed || 5), C = new Float64Array(FRAMES * M);
+    for (let f = 0; f < FRAMES; f++) {
+      const sig2 = new Float64Array(NB); for (let b = 0; b < NB; b++) sig2[b] = levelSig2(bs.lev[f * NB + b]);
+      const al = allocate(sig2, bs.perFrame - bs.side);   // the decoder's own allocation, from the levels: the same as the encoder's
+      for (let b = 0; b < NB; b++) {
+        const sd = Math.sqrt(sig2[b]);
+        for (let k = EDGES[b]; k < EDGES[b + 1]; k++) {
+          const nb = bitsOf(al, b, k - EDGES[b]);
+          const [lo, hi] = nb ? cellOf(bs.idx[f * M + k], nb, STEP[nb] * RANGES[bs.rng[f * NB + b]]) : [-Infinity, Infinity];
+          const pa = Phi(lo), pz = Phi(hi);
+          let v;
+          if (mode === 'mean') v = pz - pa > 1e-12 ? (phi(lo) - phi(hi)) / (pz - pa) : (isFinite(lo) ? lo : hi);   // the cell's centroid: least error on average
+          else v = pz - pa > 1e-12 ? PhiInv(pa + r() * (pz - pa)) : (isFinite(lo) ? lo : hi);                    // a draw from the cell: what a real one looks like
+          C[f * M + k] = v * sd;
+        }
+      }
+    }
+    return C;
+  }
+  function mse(x, y) { let s = 0; for (let i = 0; i < x.length; i++) s += (x[i] - y[i]) ** 2; return s / x.length; }
+  function power(x) { let s = 0; for (const v of x) s += v * v; return s / x.length; }
+  // each band's energy in the decoded signal against the original's, in dB: 0 where the texture's level is kept
+  function bandDb(C0, C1) { const out = []; for (let b = 0; b < NB; b++) { let e0 = 0, e1 = 0; for (let f = 0; f < FRAMES; f++) for (let k = EDGES[b]; k < EDGES[b + 1]; k++) { e0 += C0[f * M + k] ** 2; e1 += C1[f * M + k] ** 2; } out.push(10 * Math.log10((e1 + 1e-30) / (e0 + 1e-30))); } return out; }
+  // ── the meters ──
+  const snr = (x, y) => 10 * Math.log10(power(x) / mse(x, y));
+  // one sample at b bits: a uniform quantizer across the loop's peak, each value written back as its cell's middle
+  function pcm(x, b) { let p = 0; for (const v of x) p = Math.max(p, Math.abs(v)); const L = 1 << b, st = 2 * p / L, y = new Float64Array(x.length); for (let i = 0; i < x.length; i++) { const k = Math.max(0, Math.min(L - 1, Math.floor((x[i] + p) / st))); y[i] = -p + (k + 0.5) * st; } return y; }
+  // loudness: ITU-R BS.1770 K-weighting at 48 kHz, ungated, the loop read twice and the second pass kept
+  const KW = [[1.53512485958697, -2.69169618940638, 1.19839281085285, -1.69065929318241, 0.73248077421585], [1, -2, 1, -1.99004745483398, 0.99007225036621]];
+  function kLoud(x) { const st = KW.map(() => [0, 0, 0, 0]); let s = 0; for (let pass = 0; pass < 2; pass++) for (let i = 0; i < x.length; i++) { let v = x[i]; for (let j = 0; j < 2; j++) { const [b0, b1, b2, a1, a2] = KW[j], z = st[j]; const o = b0 * v + b1 * z[0] + b2 * z[1] - a1 * z[2] - a2 * z[3]; z[1] = z[0]; z[0] = v; z[3] = z[2]; z[2] = o; v = o; } if (pass) s += v * v; } return -0.691 + 10 * Math.log10(s / x.length); }
+  const scale = (x, g) => x.map((v) => v * g);
+  // the level gap: how far, on average, each band's energy sits from the original's, as a share of it, over the bands
+  // the original fills (within 30 dB of its loudest band); g is a gain on the decoding. 0 is every band at its level; an empty band counts 1.
+  // It reads levels only, not the whole distribution, so it is a stand-in for the perception axis, not the thing itself.
+  function gap(C0, C1, g) { g = g || 1; const e0 = [], e1 = []; for (let b = 0; b < NB; b++) { let s0 = 0, s1 = 0; for (let f = 0; f < FRAMES; f++) for (let k = EDGES[b]; k < EDGES[b + 1]; k++) { s0 += C0[f * M + k] ** 2; s1 += (g * C1[f * M + k]) ** 2; } e0.push(s0); e1.push(s1); } const top = Math.max(...e0); let n = 0, t = 0; for (let b = 0; b < NB; b++) if (e0[b] > top * 1e-3) { t += Math.abs(e1[b] / e0[b] - 1); n++; } return t / n; }
+  // everything one rate needs: the bits, both decodings, their meters, and each matched to the original's loudness
+  function render(x, C, kbps, seed) {
+    const bs = encode(C, kbps), CA = decode(bs, 'mean'), CB = decode(bs, 'draw', seed || 9), a = imdct(CA), b = imdct(CB), L0 = kLoud(x);
+    const ga = Math.pow(10, (L0 - kLoud(a)) / 20), gb = Math.pow(10, (L0 - kLoud(b)) / 20), ah = scale(a, ga), bh = scale(b, gb);
+    let zero = 0; for (const v of bs.nbits) if (!v) zero++;
+    return { kbps, bs, CA, CB, a, b, ah, bh, ga, gb, zeroShare: zero / bs.nbits.length,
+      snrA: snr(x, a), snrB: snr(x, b), snrAh: snr(x, ah), snrBh: snr(x, bh), ratio: mse(x, b) / mse(x, a),
+      gapA: gap(C, CA), gapB: gap(C, CB), gapAh: gap(C, CA, ga), gapBh: gap(C, CB, gb), bandA: bandDb(C, CA), bandB: bandDb(C, CB) };
+  }
+  return { snr, pcm, kLoud, scale, gap, render, RATE, M, FRAMES, LEN, NB, EDGES, EDGES_HZ, STEP, DIST, RANGES, allocate, levelSig2, rng, gauss, cymbal, tone, mdct, imdct, mdctSlow, encode, decode, mse, power, bandDb, Phi, PhiInv, phi };
+})();
+</script>
+
+<script>
+(() => {
+  const $ = (id) => document.getElementById(id);
+  const MASTER = 0.8;   // the loudest loop, the draw matched, peaks near 0.73 before this
+  // The error at every rate, both decoders, as decoded: computed by the core above, in Node, by this face's check.mjs,
+  // which fails if the core's numbers drift from these. Baked so the curve needs no ten renders in your browser.
+  const SWEEP = {"cymbal":[[16,0.27,-2.76],[24,0.74,-2.28],[32,1.24,-1.77],[40,1.78,-1.24],[48,2.41,-0.61],[56,3.07,0.05],[64,3.82,0.83],[80,6.26,3.24],[96,8.35,5.31],[128,11.49,8.47]],"tone":[[16,15.13,11.91],[24,25.49,22.08],[32,32.82,29.33],[40,39.93,36.55],[48,48.16,44.26],[56,55.65,51.69],[64,60.69,56.39],[80,63.57,58.63],[96,63.77,58.78],[128,63.75,58.86]]};
+  const SRC = {}; const getSrc = (n) => SRC[n] || (SRC[n] = (() => { const x = RD[n](); return { x, C: RD.mdct(x) }; })());
+  const RENDERS = {}; const getR = (n, k) => RENDERS[n + k] || (RENDERS[n + k] = RD.render(getSrc(n).x, getSrc(n).C, k));
+  const S = { step: 0, who: 0, rate: 32, src: 'cymbal', match: 1, bits: 3, trial: 0, trials: null, picks: [], pcmCache: {} };
+  const sgn = (v, n) => { const a = Math.abs(v).toFixed(n); return (+a === 0 ? '' : v > 0 ? '+' : '−') + a; }, f1 = (v) => sgn(v, 1), f2 = (v) => sgn(v, 2);
+  const dB = (g) => 20 * Math.log10(g);
+  // where the draw's error reaches the average's at 32 kbps, read off the sweep
+  function meetRate(name) { const sw = SWEEP[name], target = sw.find((r) => r[0] === 32)[1]; for (let i = 1; i < sw.length; i++) if (sw[i - 1][2] < target && sw[i][2] >= target) return sw[i - 1][0] + (sw[i][0] - sw[i - 1][0]) * (target - sw[i - 1][2]) / (sw[i][2] - sw[i - 1][2]); return null; }
+
+  const STEPS = [
+    { key: 'pcm', rail: 'fewer bits', title: 'One sample, fewer bits',
+      say: 'Start with the plainest coder there is. Each sample of the cymbal is written with b bits: the span from its lowest value to its highest is cut into 2^b equal cells, and each sample comes back as the middle of its cell. The rate is b bits times 48,000 samples a second; at 3 bits that is 144 kbps, against 768 kbps at 16 bits. What comes back differs from what went in, and the meter for that is the error: the average squared gap, or the signal-to-error ratio in dB. Fewer bits, more error: that is distortion, the second axis. Slide the bits and listen.',
+      hear: 'the original, or every sample at b bits',
+      eq: ['R = b · fₛ', '(rate, bits a second) = (bits a sample) × (samples a second, 48,000)'],
+      eq2: ['D = (1/n) · Σᵢ (xᵢ − x̂ᵢ)²     SNR = 10 · log₁₀( Σ x² ⁄ Σ (x − x̂)² )', '(the error) = the average, over every sample, of the squared gap between what went in and what came back; (the signal-to-error ratio) says the same in dB, higher is closer'] },
+    { key: 'budget', rail: 'a budget', title: 'A budget, spent where it counts',
+      say: 'Plain sampling pays the same bits for every sample, loud or quiet, bright or dark. A transform coder pays by the band. Every 10.7 ms the cymbal becomes 512 frequency coefficients (an MDCT) cut into 25 bands. Each band’s level goes first, 5 bits apiece; then the bits that are left go out one at a time, each to wherever it takes away the most expected error. At 32 kbps a frame has 341 bits, 125 of them levels: under half a bit a coefficient. The picture is where they went: time across, frequency up, brighter for more bits. Black is a coefficient that got none. Hear what the bits say when each unknown is written back as its cell’s average, the meter’s best guess.',
+      hear: 'the original, or the bits read back as averages',
+      eq: ['bits a frame = 25 · 5 + Σ (2 a band given bits) + Σₖ bₖ ≤ ⌊R · 512 ⁄ fₛ⌋', '(bits in a frame) = the 25 levels at 5 bits, plus a 2-bit range for each band that gets bits, plus each coefficient’s bits; never more than the rate allows, 341 at 32 kbps'],
+      eq2: ['next bit → the band with the largest σ²_band · ( D(b) − D(b+1) )', 'the next bit goes to the band where it removes the most expected error: (the band’s power) × (how much one more bit shrinks the error at the bits it has)'] },
+    { key: 'decoders', rail: 'two decoders', title: 'What to write where the bits ran out',
+      say: 'The decoder knows two things about each coefficient: its band’s level, and the cell it fell in. It still has to write a number. One choice is the cell’s average. If each band is noise at its level, the average is the guess with the least error, and for a coefficient that got no bits the cell is the whole line and its average is zero: silence. The other choice is a draw, a value picked at random from the cell, as likely as a real one; for a coefficient with no bits that is noise at the band’s level. The picture is one band, 9.5 to 12 kHz: how the original’s coefficients spread, and how each decoder’s do. The average piles them onto a few values; the draw spreads like the original. Its error is twice the average’s. Same bits; the decoders differ only in what they write.',
+      hear: 'the original, the average or the draw, all at the original’s loudness',
+      eq: ['x̂_avg = E[ x | cell ]      x̂_draw ~ p( x | cell )', '(the average) = the expected value of the coefficient, given its cell; (the draw) = a value chosen at random, as likely as a real coefficient in that cell would be'],
+      eq2: ['E (x − x̂_draw)² = 2 · E (x − x̂_avg)²', 'a draw’s expected error is exactly twice the average’s, when the model fits. Blau and Michaeli’s Theorem 2 (2019) makes twice an upper bound: perfect perception costs at most twice the least error at the same rate, and the draw sits right on that bound'] },
+    { key: 'axes', rail: 'three axes', title: 'Rate, distortion, perception',
+      say: 'All three axes at once. Rate: 32, 64 or 128 kbps. Distortion: the signal-to-error ratio. Perception: here, the level gap, how far each band’s energy sits from the original’s; it stands in for the real measure, how far the spread of decodings sits from the spread of real cymbals, and reads levels only. Left, each band’s level against the original’s. Right, the error at every rate for both decoders: the draw runs 3 dB below the average all the way up. Bringing the draw’s error down to the average’s at 32 kbps takes this coder about twice the bits, on this cymbal; that figure belongs to this coder, not to the theory. Switch to the held tone: most of its bits land on a few peaks, there is little noise left to guess, and the effect is smaller. Switch loudness to “as decoded”: the average is also quieter. Everywhere else on this page it is turned up to the original’s loudness, so level can’t decide for you.',
+      hear: 'any of the three, at any rate, either source',
+      eq: ['SNR_draw ≈ SNR_avg − 10 · log₁₀ 2 ≈ SNR_avg − 3.01 dB', '(the draw’s signal-to-error ratio) = (the average’s) less 3 dB, when the model fits'],
+      eq2: ['R_draw(D) > R_avg(D)', '(the rate the draw needs to reach an error) is more than (the rate the average needs): perception is paid for in bits, or, at the same bits, in error'] },
+    { key: 'blind', rail: 'blind', title: 'Same bits, blind',
+      say: 'The cymbal at 32 kbps, decoded both ways from the same bits, each matched to the original’s loudness. R is the original. X and Y are the two decodings, in an order chosen at random each trial, and the draw is a fresh draw each trial. Eight trials; in each, say which of X and Y is more like R. Nothing is shown until the eighth. The meter’s answer is the same every trial: the average, with less error.',
+      hear: 'press R, X or Y',
+      eq: ['P(7 or 8 of 8 for a named decoder, by guessing) = ( C(8,7) + C(8,8) ) ⁄ 2⁸ = 9 ⁄ 256', 'a coin gives one named side 7 or 8 heads in 8 tosses about 1 time in 28'], eq2: ['', ''] },
+  ];
+  const RULE = 'Set before the first trial. Chance: if X and Y sound alike to you, each answer is a coin toss, 1 in 2. The rule: 7 or 8 of 8 for one decoder is a preference; a coin does that for a named decoder about 1 time in 28, and for one side or the other about 1 time in 14. If it is the draw, your ear disagreed with the meter, which is the section’s claim. If it is the average, your ear agreed with the meter, and the claim failed here, for you. 6 or fewer can’t be told from a coin. Both decoders’ counts are shown.';
+
+  // ── what plays: the loops for this step, started together; the one heard is chosen by gain ──
+  function loops() {
+    const k = STEPS[S.step].key;
+    if (k === 'pcm') { const x = getSrc('cymbal').x; return [x, S.pcmCache[S.bits] || (S.pcmCache[S.bits] = RD.pcm(x, S.bits))]; }
+    if (k === 'budget') { const r = getR('cymbal', 32); return [getSrc('cymbal').x, r.ah]; }
+    if (k === 'decoders') { const r = getR('cymbal', 32); return [getSrc('cymbal').x, r.ah, r.bh]; }
+    if (k === 'axes') { const r = getR(S.src, S.rate); return [getSrc(S.src).x, S.match ? r.ah : r.a, S.match ? r.bh : r.b]; }
+    const t = trialNow(); return [getSrc('cymbal').x, t.X, t.Y];
+  }
+  let ctx = null, master = null, voices = [], playing = false;
+  async function ensure() {
+    if (!ctx) { ctx = new AudioContext({ sampleRate: RD.RATE }); master = ctx.createGain(); master.gain.value = MASTER; master.connect(ctx.destination); ctx.onstatechange = () => { if (ctx.state !== 'running' && playing) stopSound(); }; }
+    if (ctx.state !== 'running') await ctx.resume();
+  }
+  function setGains(t) { if (!ctx || !voices.length) return; const now = ctx.currentTime; voices.forEach((v, i) => v.g.gain.setTargetAtTime(i === S.who ? 1 : 0, now, t || 0.012)); }
+  function stopSound() { playing = false; if (ctx) { const now = ctx.currentTime; for (const v of voices) { try { v.g.gain.setTargetAtTime(0, now, 0.01); v.s.stop(now + 0.08); } catch (e) { /* already stopped */ } } } voices = []; $('play').textContent = 'Play'; markWho(); }
+  async function play() {
+    $('play').textContent = '…'; await new Promise((r) => setTimeout(r, 0));
+    const ys = loops(); await ensure(); playing = true; $('play').textContent = 'Stop';
+    const now = ctx.currentTime + 0.05; voices = [];
+    ys.forEach((y) => { const b = ctx.createBuffer(1, y.length, RD.RATE); b.copyToChannel(Float32Array.from(y), 0); const s = ctx.createBufferSource(); s.buffer = b; s.loop = true; const g = ctx.createGain(); g.gain.value = 0; s.connect(g).connect(master); s.start(now); voices.push({ s, g }); });
+    setGains(0.02); markWho();
+  }
+  async function restart() { if (playing) { stopSound(); await play(); } }
+  $('play').onclick = () => (playing ? stopSound() : play());
+
+  // ── the blind round ──
+  function newRound() {
+    const r = RD.rng((Date.now() ^ (Math.random() * 1e9)) >>> 0);
+    S.trials = Array.from({ length: 8 }, () => ({ avgOnX: r() < 0.5, seed: 1 + Math.floor(r() * 1e9), X: null, Y: null }));
+    S.trial = 0; S.picks = []; S.who = 0; $('result').hidden = true; markPick(); tallyLine();
+  }
+  function trialNow() {
+    const t = S.trials[Math.min(S.trial, 7)];
+    if (!t.X) {
+      const base = getR('cymbal', 32), src = getSrc('cymbal'), CB = RD.decode(base.bs, 'draw', t.seed), b = RD.imdct(CB), gb = Math.pow(10, (RD.kLoud(src.x) - RD.kLoud(b)) / 20), bh = RD.scale(b, gb);
+      t.draw = { y: bh, snr: RD.snr(src.x, bh), gainDb: dB(gb) }; t.avg = { y: base.ah, snr: base.snrAh, gainDb: dB(base.ga) };
+      t.X = t.avgOnX ? t.avg.y : t.draw.y; t.Y = t.avgOnX ? t.draw.y : t.avg.y;
+    }
+    return t;
+  }
+  function tallyLine() { const done = S.picks.length; $('trialNo').textContent = done < 8 ? `trial ${done + 1} of 8` : 'eight of eight'; $('tally').textContent = done < 8 ? `${done} answered` : ''; document.querySelectorAll('[data-pick]').forEach((b) => (b.disabled = done >= 8)); }
+  function markPick() { document.querySelectorAll('[data-pick]').forEach((b) => b.setAttribute('aria-pressed', 'false')); }
+  document.querySelectorAll('[data-pick]').forEach((b) => b.onclick = async () => {
+    if (S.picks.length >= 8) return;
+    const t = trialNow(), pick = +b.dataset.pick, chose = (pick === 1) === t.avgOnX ? 'avg' : 'draw';
+    S.picks.push({ chose, avgOnX: t.avgOnX, avgSnr: t.avg.snr, drawSnr: t.draw.snr, avgGain: t.avg.gainDb, drawGain: t.draw.gainDb });
+    S.trial = S.picks.length; tallyLine();
+    if (S.picks.length === 8) { stopSound(); showResult(); draw(); return; }
+    S.who = 0; if (playing) { stopSound(); await play(); } markWho();
+  });
+  function showResult() {
+    const nA = S.picks.filter((p) => p.chose === 'avg').length, nD = 8 - nA;
+    const verdict = nD >= 7 ? `The draw, <b>${nD} of 8</b>. A coin gives a named side that often about 1 time in 28. Your ear disagreed with the meter, which counted the average as closer every trial: the section’s claim, heard.`
+      : nA >= 7 ? `The average, <b>${nA} of 8</b>. A coin gives a named side that often about 1 time in 28. Your ear agreed with the meter. The section’s claim failed here, for you, on this cymbal at this rate.`
+      : `The average ${nA}, the draw ${nD}. Under 7 for either, so this round can’t be told from a coin. It may mean they sound alike to you, or that your preference is weaker than eight trials can show.`;
+    const rows = S.picks.map((p, i) => `<tr><td>${i + 1}</td><td>${p.avgOnX ? 'average' : 'draw'}</td><td>${p.avgOnX ? 'draw' : 'average'}</td><td><b>${p.chose === 'avg' ? 'the average' : 'the draw'}</b></td><td>${f2(p.avgSnr)} dB</td><td>${f2(p.drawSnr)} dB</td></tr>`).join('');
+    const p0 = S.picks[0];
+    $('result').innerHTML = `<p class="score">${verdict}</p><table class="marks"><tr><th>trial</th><th>X was</th><th>Y was</th><th>you chose</th><th>error meter, average</th><th>error meter, draw</th></tr>${rows}</table>
+      <p class="hint">The error meter is the signal-to-error ratio against R, as you heard them: higher is closer, and the average was higher in every trial. Both were matched to R’s loudness by the K-weighted meter (ITU-R BS.1770, ungated): the average turned up ${f1(p0.avgGain)} dB, the draw ${f1(p0.drawGain)} dB. Same bits, same length, same loop. What still differs besides the spread is part of it: the average’s empty bands come and go frame to frame, which can sound watery. One ear, one sitting, one pair of speakers: it says what you heard, not what everyone hears.</p>`;
+    $('result').hidden = false;
+  }
+  $('again').onclick = () => { stopSound(); newRound(); draw(); };
+
+  // ── drawing ──
+  const CV = $('view');
+  function fit(h) { const r = window.devicePixelRatio || 1, w = CV.clientWidth || 600; CV.width = Math.round(w * r); CV.height = Math.round(h * r); CV.style.height = h + 'px'; const g = CV.getContext('2d'); g.setTransform(r, 0, 0, r, 0, 0); return { g, w, h }; }
+  const css = (n) => getComputedStyle(document.documentElement).getPropertyValue(n).trim() || '#888';
+  const COL = () => [css('--fg-3'), css('--info'), css('--accent')];
+  const NAMES = ['the original', 'the average', 'the draw'];
+  function legend(list, names) { $('legend').innerHTML = list.map((i) => `<span><i style="background:${COL()[i]}"></i>${(names || NAMES)[i]}</span>`).join(''); }
+  function drawPcm() {
+    const { g, w, h } = fit(260), x = getSrc('cymbal').x, y = S.pcmCache[S.bits] || (S.pcmCache[S.bits] = RD.pcm(x, S.bits)), n0 = 0, n1 = 480, l = 10, pw = w - 20, mid = h / 2;
+    let p = 0; for (const v of x) p = Math.max(p, Math.abs(v)); const amp = (h * 0.44) / p, X = (n) => l + (n - n0) / (n1 - n0) * pw;
+    g.strokeStyle = css('--border-soft'); g.lineWidth = 1;
+    if (S.bits <= 5) { const L = 1 << S.bits, st = 2 * p / L; for (let k = 0; k <= L; k++) { const v = -p + k * st; g.beginPath(); g.moveTo(l, mid - v * amp); g.lineTo(l + pw, mid - v * amp); g.stroke(); } }
+    g.strokeStyle = COL()[0]; g.lineWidth = 1.2; g.beginPath(); for (let n = n0; n < n1; n++) { const yy = mid - x[n] * amp; n ? g.lineTo(X(n), yy) : g.moveTo(X(n), yy); } g.stroke();
+    g.strokeStyle = COL()[2]; g.lineWidth = 1.6; g.beginPath(); for (let n = n0; n < n1; n++) { const yy = mid - y[n] * amp; if (n) g.lineTo(X(n), yy); else g.moveTo(X(n), yy); g.lineTo(X(n + 1), yy); } g.stroke();
+    g.fillStyle = css('--fg-3'); g.font = '10px ' + css('--mono'); g.fillText(`the first 10 ms of the cymbal’s first hit · ${S.bits <= 5 ? 'faint lines: the cells’ edges' : 'too many cells to draw'}`, l + 4, 14);
+    legend([0, 2], ['the original', '', `at ${S.bits} bit${S.bits > 1 ? 's' : ''} a sample`]);
+    const snr = RD.snr(x, y);
+    return `rate <b>${S.bits * 48} kbps</b> (${S.bits} × 48,000 samples a second) · signal-to-error <b>${f1(snr)} dB</b> · error <b>${RD.mse(x, y).toExponential(2)}</b> · ${1 << S.bits} cells`;
+  }
+  function drawBudget() {
+    const r = getR('cymbal', 32), { g, w, h } = fit(260), l = 44, t = 8, b = 22, pw = w - l - 8, ph = h - t - b, NB = RD.NB;
+    const bandY = (bb) => t + ph - (bb + 1) / NB * ph;
+    for (let f = 0; f < RD.FRAMES; f++) for (let bb = 0; bb < NB; bb++) {
+      let s = 0; const w0 = RD.EDGES[bb + 1] - RD.EDGES[bb]; for (let k = RD.EDGES[bb]; k < RD.EDGES[bb + 1]; k++) s += r.bs.nbits[f * RD.M + k]; const mean = s / w0;
+      g.fillStyle = mean ? `rgba(232,184,74,${Math.min(1, 0.18 + mean / 3)})` : '#000'; g.fillRect(l + f / RD.FRAMES * pw, bandY(bb), pw / RD.FRAMES + 0.6, ph / NB - 0.5);
+    }
+    g.fillStyle = css('--fg-3'); g.font = '10px ' + css('--mono');
+    for (const bb of [0, 8, 14, 18, 21, 24]) g.fillText(RD.EDGES_HZ[bb] >= 1000 ? (RD.EDGES_HZ[bb] / 1000) + 'k' : String(RD.EDGES_HZ[bb]), 4, bandY(bb) + ph / NB - 2);
+    g.fillText('time → (3 s, four hits) · frequency up, Hz at the left · brighter = more bits a coefficient, black = none', l, h - 6);
+    legend([0, 1]);
+    return `rate <b>32 kbps</b> · <b>${r.bs.perFrame}</b> bits a frame, <b>${RD.NB * 5}</b> of them levels · spent: <b>${r.bs.kbpsUsed.toFixed(2)} kbps</b> · coefficients given no bits: <b>${(100 * r.zeroShare).toFixed(1)} %</b> · the average’s signal-to-error, as decoded: <b>${f1(r.snrA)} dB</b>; as decoded it is ${Math.abs(dB(r.ga)).toFixed(1)} dB quieter than the original, and it is played turned up to the original’s loudness`;
+  }
+  function drawDecoders() {
+    const r = getR('cymbal', 32), src = getSrc('cymbal'), BAND = 22, { g, w, h } = fit(260), l = 10, pw = w - 20, t = 18, ph = h - t - 22;
+    const NBINS = 81, lo = -4, hi = 4, hist = [new Float64Array(NBINS), new Float64Array(NBINS), new Float64Array(NBINS)];
+    let n = 0, zero = 0;
+    for (let f = 0; f < RD.FRAMES; f++) { const sd = Math.sqrt(RD.levelSig2(r.bs.lev[f * RD.NB + BAND])); for (let k = RD.EDGES[BAND]; k < RD.EDGES[BAND + 1]; k++) { const i = f * RD.M + k; [src.C[i], r.CA[i], r.CB[i]].forEach((v, j) => { const z = v / sd, bin = Math.round((z - lo) / (hi - lo) * (NBINS - 1)); if (bin >= 0 && bin < NBINS) hist[j][bin]++; }); n++; if (!r.bs.nbits[i]) zero++; } }
+    const top = Math.max(...hist[0]) * 1.15, X = (i) => l + i / (NBINS - 1) * pw, Y = (v) => t + ph - Math.min(1, v / top) * ph;
+    g.strokeStyle = css('--border-soft'); g.beginPath(); g.moveTo(X((NBINS - 1) / 2), t); g.lineTo(X((NBINS - 1) / 2), t + ph); g.stroke();
+    [0, 2, 1].forEach((j) => { g.strokeStyle = COL()[j]; g.lineWidth = j === 1 ? 2 : 1.4; g.beginPath(); for (let i = 0; i < NBINS; i++) { const yy = Y(hist[j][i]); i ? g.lineTo(X(i), yy) : g.moveTo(X(i), yy); } g.stroke(); });
+    const spike = hist[1][(NBINS - 1) / 2] / n;
+    g.fillStyle = css('--fg-3'); g.font = '10px ' + css('--mono'); g.fillText(`one band, 9.5–12 kHz, every frame · each coefficient ÷ its band’s level · the average’s line runs off the top at 0: ${(100 * spike).toFixed(0)} % of its values`, l + 4, 12);
+    g.fillText('−4σ', l, h - 6); g.fillText('0', X((NBINS - 1) / 2) - 3, h - 6); g.fillText('+4σ', l + pw - 22, h - 6);
+    legend([0, 1, 2]);
+    return `this band: <b>${(100 * zero / n).toFixed(0)} %</b> of its coefficients got no bits · signal-to-error, as decoded: the average <b>${f1(r.snrA)} dB</b>, the draw <b>${f1(r.snrB)} dB</b> · the draw’s error ÷ the average’s: <b>${r.ratio.toFixed(3)}</b> (the theorem: 2; it fails if this sits far from 2 on the cymbal)`;
+  }
+  function drawAxes() {
+    const r = getR(S.src, S.rate), { g, w, h } = fit(300), split = Math.round(w * 0.58), t = 18, b = 24, ph = h - t - b;
+    // left: each band's level against the original's, as heard (or as decoded)
+    const NB = RD.NB, l = 36, pw = split - l - 18, lo = -40, hi = 10, Y = (d) => t + (hi - Math.max(lo, Math.min(hi, d))) / (hi - lo) * ph, bw = pw / NB;
+    g.strokeStyle = css('--border-soft'); g.lineWidth = 1; g.font = '10px ' + css('--mono'); g.fillStyle = css('--fg-3');
+    for (let d = hi; d >= lo; d -= 10) { g.beginPath(); g.moveTo(l, Y(d)); g.lineTo(l + pw, Y(d)); g.stroke(); g.fillText(String(d), 6, Y(d) + 3); }
+    const ga = S.match ? dB(r.ga) : 0, gb = S.match ? dB(r.gb) : 0;
+    const src = getSrc(S.src), E0 = []; for (let bb = 0; bb < NB; bb++) { let s = 0; for (let f = 0; f < RD.FRAMES; f++) for (let k = RD.EDGES[bb]; k < RD.EDGES[bb + 1]; k++) s += src.C[f * RD.M + k] ** 2; E0.push(s); } const E0top = Math.max(...E0);
+    for (let bb = 0; bb < NB; bb++) { const x0 = l + bb * bw; g.globalAlpha = E0[bb] > E0top * 1e-3 ? 1 : 0.25; [[r.bandA[bb] + ga, 1], [r.bandB[bb] + gb, 2]].forEach(([d, j], q) => { g.fillStyle = COL()[j]; const y0 = Y(0), y1 = Y(d); g.fillRect(x0 + 1 + q * (bw / 2 - 1), Math.min(y0, y1), bw / 2 - 1.5, Math.max(1, Math.abs(y1 - y0))); }); }
+    g.globalAlpha = 1; g.fillStyle = css('--fg-3');
+    for (const bb of [0, 13, 18, 21, 24]) g.fillText(RD.EDGES_HZ[bb] >= 1000 ? (RD.EDGES_HZ[bb] / 1000) + 'k' : String(RD.EDGES_HZ[bb]), l + bb * bw, h - 6);
+    g.fillText(`each band’s level − the original’s, dB · ${S.match ? 'as heard' : 'as decoded'} · faint: bands 30 dB or more under the loudest`, l, 12);
+    // right: the error at every rate, from the sweep
+    const sw = SWEEP[S.src], rl = split + 34, rpw = w - rl - 10, rmin = 16, rmax = 128, Xr = (k) => rl + Math.log(k / rmin) / Math.log(rmax / rmin) * rpw;
+    const vals = sw.flatMap((p) => [p[1], p[2]]), smax = Math.ceil(Math.max(...vals) / 5) * 5, smin = Math.floor(Math.min(...vals) / 5) * 5, Ys = (v) => t + (smax - v) / (smax - smin) * ph;
+    g.strokeStyle = css('--border-soft'); for (let v = smin; v <= smax; v += 5) { g.beginPath(); g.moveTo(rl, Ys(v)); g.lineTo(rl + rpw, Ys(v)); g.stroke(); g.fillStyle = css('--fg-3'); g.fillText(String(v), split + 6, Ys(v) + 3); }
+    for (const k of [16, 32, 64, 128]) g.fillText(String(k), Xr(k) - 6, h - 6);
+    [1, 2].forEach((j) => { g.strokeStyle = COL()[j]; g.lineWidth = 1.6; g.beginPath(); sw.forEach((p, i) => (i ? g.lineTo(Xr(p[0]), Ys(p[j])) : g.moveTo(Xr(p[0]), Ys(p[j])))); g.stroke(); const cur = sw.find((p) => p[0] === S.rate); g.fillStyle = COL()[j]; g.beginPath(); g.arc(Xr(cur[0]), Ys(cur[j]), 3.5, 0, 7); g.fill(); });
+    const meet = meetRate(S.src);
+    if (meet && S.src === 'cymbal') { const a32 = sw.find((p) => p[0] === 32)[1]; g.strokeStyle = css('--fg-3'); g.setLineDash([3, 4]); g.beginPath(); g.moveTo(Xr(32), Ys(a32)); g.lineTo(Xr(meet), Ys(a32)); g.stroke(); g.setLineDash([]); }
+    g.fillStyle = css('--fg-3'); g.fillText('signal-to-error, dB · kbps →', rl, 12);
+    legend([1, 2]);
+    const meetTxt = meet ? ` · the draw reaches the average’s 32 kbps error at about <b>${meet.toFixed(0)} kbps</b>` : '';
+    return `${S.src === 'cymbal' ? 'the cymbal' : 'the held tone'} at <b>${S.rate} kbps</b> · signal-to-error ${S.match ? 'as heard' : 'as decoded'}: the average <b>${f1(S.match ? r.snrAh : r.snrA)} dB</b>, the draw <b>${f1(S.match ? r.snrBh : r.snrB)} dB</b> · error ratio <b>${r.ratio.toFixed(2)}</b> · level gap: the average <b>${(100 * (S.match ? r.gapAh : r.gapA)).toFixed(0)} %</b>, the draw <b>${(100 * (S.match ? r.gapBh : r.gapB)).toFixed(0)} %</b> · as decoded the average sits <b>${Math.abs(dB(r.ga)).toFixed(1)} dB</b> under the original’s loudness${meetTxt}`;
+  }
+  function drawBlind() {
+    if (S.picks.length < 8) { const { g, h } = fit(120); g.fillStyle = css('--fg-3'); g.font = '12px ' + css('--mono'); g.fillText('hidden until the eighth answer', 16, h / 2); $('legend').innerHTML = ''; return ''; }
+    const save = { src: S.src, rate: S.rate, match: S.match }; S.src = 'cymbal'; S.rate = 32; S.match = 1; const m = drawAxes(); Object.assign(S, save); return m;
+  }
+  function draw() {
+    const k = STEPS[S.step].key; let m = '';
+    if (k === 'pcm') m = drawPcm(); if (k === 'budget') m = drawBudget(); if (k === 'decoders') m = drawDecoders(); if (k === 'axes') m = drawAxes(); if (k === 'blind') m = drawBlind();
+    $('meter').innerHTML = m; $('bitsVal').textContent = `${S.bits} · ${S.bits * 48} kbps`;
+  }
+
+  // ── the walk ──
+  function markWho() { document.querySelectorAll('[data-who]').forEach((b) => b.setAttribute('aria-pressed', String(+b.dataset.who === S.who))); document.querySelectorAll('[data-x]').forEach((b) => b.setAttribute('aria-pressed', String(playing && +b.dataset.x === S.who))); }
+  const mark = (sel, attr, val) => document.querySelectorAll(sel).forEach((b) => b.setAttribute('aria-pressed', String(b.dataset[attr] === String(val))));
+  function go(i) {
+    stopSound(); S.step = Math.max(0, Math.min(STEPS.length - 1, i)); const s = STEPS[S.step];
+    $('stepEyebrow').textContent = `step ${S.step + 1} of ${STEPS.length}`; $('stepTitle').textContent = s.title; $('stepSay').textContent = s.say; $('hearHint').textContent = s.hear;
+    $('eq1').textContent = s.eq[0]; $('eq1w').textContent = s.eq[1]; $('eq2').textContent = s.eq2[0]; $('eq2w').textContent = s.eq2[1];
+    $('bitsRow').hidden = s.key !== 'pcm'; $('whoRow').hidden = s.key === 'blind'; $('who2').hidden = s.key === 'pcm' || s.key === 'budget';
+    $('who1').textContent = s.key === 'pcm' ? 'at b bits' : 'the average';
+    $('rateRow').hidden = $('srcRow').hidden = $('matchRow').hidden = s.key !== 'axes'; $('test').hidden = s.key !== 'blind';
+    if (s.key === 'blind') { $('rule').textContent = RULE; if (!S.trials) newRound(); }
+    S.who = 0; markWho();
+    document.querySelectorAll('#rail button').forEach((b, j) => (j === S.step ? b.setAttribute('aria-current', 'step') : b.removeAttribute('aria-current')));
+    $('back').disabled = S.step === 0; $('next').disabled = S.step === STEPS.length - 1;
+    $('meter').textContent = 'working out the bits…'; setTimeout(draw, 0);
+  }
+  $('rail').innerHTML = STEPS.map((s, i) => `<button>${i + 1} · ${s.rail}</button>`).join('');
+  document.querySelectorAll('#rail button').forEach((b, i) => b.onclick = () => go(i));
+  $('back').onclick = () => go(S.step - 1); $('next').onclick = () => go(S.step + 1);
+  document.querySelectorAll('[data-who]').forEach((b) => b.onclick = async () => { S.who = +b.dataset.who; if (!playing) await play(); else setGains(); markWho(); });
+  document.querySelectorAll('[data-x]').forEach((b) => b.onclick = async () => { if (S.picks.length >= 8) return; S.who = +b.dataset.x; if (!playing) await play(); else setGains(); markWho(); });
+  document.querySelectorAll('[data-rate]').forEach((b) => b.onclick = async () => { S.rate = +b.dataset.rate; mark('[data-rate]', 'rate', S.rate); draw(); await restart(); });
+  document.querySelectorAll('[data-src]').forEach((b) => b.onclick = async () => { S.src = b.dataset.src; mark('[data-src]', 'src', S.src); draw(); await restart(); });
+  document.querySelectorAll('[data-m]').forEach((b) => b.onclick = async () => { S.match = +b.dataset.m; mark('[data-m]', 'm', S.match); draw(); await restart(); });
+  $('bits').oninput = () => { S.bits = +$('bits').value; draw(); };
+  $('bits').onchange = () => restart();
+  mark('[data-rate]', 'rate', S.rate); mark('[data-src]', 'src', S.src); mark('[data-m]', 'm', S.match);
+  window.addEventListener('resize', () => draw());
+  go(0);
+
+  // the sigil: the Lissajous trace, 3 : 2
+  { const pts = []; for (let i = 0; i <= 240; i++) { const t = i / 240 * 2 * Math.PI; pts.push((9 * Math.sin(3 * t + Math.PI / 2)).toFixed(2) + ',' + (9 * Math.sin(2 * t)).toFixed(2)); } $('sigil').innerHTML = `<polyline points="${pts.join(' ')}" fill="none" stroke="#e8b84a" stroke-width="1"/>`; }
+})();
+</script>
+</body>
+</html>

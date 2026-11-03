@@ -1,0 +1,337 @@
+<!doctype html>
+<!--
+  title: Lossy Compression with Intent Alignment — rich — same bits, two pictures
+  born: 2026-11-03
+  links: [[Lossy Compression with Intent Alignment]] (connects-to · rich-face-piece) · listed in [[Lossy Compression with Intent Alignment — rich.json]] · the sound of the same claim, and the walk up to the theorem, is "same bits, two decoders", beside me on this face
+  forward_vector: I am the rate-distortion-perception tradeoff, seen. Four textures made in this page from seeded noise; a coder that spends a fixed budget of bits a pixel block by block; the bits read back two ways, as each cell's average, which leaves the least error and a smoother picture, and as a draw from each cell, which leaves twice the error and the grain; last, eight blind pairs, four textures at two rates, for your eye against the error meter. I change only when the section I serve does.
+  sound: none.
+  check: Palace development/Lossy Compression with Intent Alignment/Lossy Compression with Intent Alignment — rich — check.mjs runs this page's core in Node.
+-->
+<html lang="en" class="skin-graphite">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- needs nothing of its host: no device, no storage, no file, no host -->
+<meta name="piece:needs" content="">
+<title>Same bits, two pictures · Lossy Compression with Intent Alignment</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@300;400;500&display=swap">
+<style>
+  :root{
+    --bg:#0a0a0f; --bg-elev-1:#12121a; --bg-elev-2:#1a1a28; --border:#4a4a5e; --border-soft:rgba(255,255,255,0.06);
+    --fg-1:#e8e8f0; --fg-2:#c8c8d8; --fg-3:#8a8aa0; --fg-4:#4a4a5a;
+    --accent:#e8b84a; --accent-soft:rgba(232,184,74,0.10); --info:#4a8fff; --warn:#e8651b;
+    --serif:'Cormorant Garamond','Source Serif 4',Georgia,serif; --sans:'Manrope',system-ui,sans-serif;
+    --display:'Anton','Bebas Neue',Impact,sans-serif; --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--fg-1)}
+  body{font-family:var(--serif);font-size:17px;line-height:1.7;padding:28px 16px 36px}
+  main{max-width:960px;margin:0 auto}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--fg-3)}
+  h1{font-family:var(--display);font-weight:400;font-size:44px;line-height:1.05;margin:6px 0 10px}
+  h2{font-family:var(--display);font-weight:400;font-size:28px;line-height:1.1;margin:4px 0 8px;letter-spacing:.01em}
+  p.lead{font-size:19px;color:var(--fg-2);margin:0 0 18px;max-width:66ch}
+  .rail{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 18px}
+  .rail button{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-3);background:transparent;border:1px solid var(--border);border-radius:4px;padding:7px 11px;cursor:pointer;transition:all .22s cubic-bezier(.4,0,.2,1)}
+  .rail button[aria-current="step"]{color:var(--fg-1);border-color:var(--fg-3);background:var(--bg-elev-2)}
+  p.say{color:var(--fg-2);margin:0 0 14px;max-width:68ch}
+  .panel{background:var(--bg-elev-1);border:1px solid var(--border-soft);border-radius:4px;padding:18px;margin:0 0 14px}
+  .pics{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+  .pics figure{margin:0}
+  .pics canvas{width:100%;height:auto;display:block;border-radius:2px;background:var(--bg-elev-2)}
+  .pics figcaption{font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:var(--fg-3);margin-top:6px}
+  canvas#bars{width:100%;display:block;background:var(--bg-elev-2);border-radius:4px;margin-top:14px}
+  [hidden]{display:none !important}
+  .meter{font-family:var(--mono);font-size:13px;color:var(--fg-2);margin-top:12px;line-height:1.7}
+  .meter b{color:var(--accent);font-weight:400}
+  .eq{font-family:var(--mono);font-size:13px;color:var(--fg-1);margin:14px 0 0;overflow-wrap:anywhere}
+  .eq.words{color:var(--fg-3);font-size:12px;margin-top:2px}
+  .rowb{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:12px}
+  button.ghost{font-family:var(--sans);font-size:14px;color:var(--fg-2);background:transparent;border:1px solid var(--border);border-radius:4px;padding:8px 14px;cursor:pointer}
+  button.ghost[aria-pressed="true"]{color:var(--fg-1);border-color:var(--fg-3);background:var(--bg-elev-2)}
+  button.ghost:disabled{opacity:.35;cursor:default}
+  .hint{font-family:var(--sans);font-size:13px;color:var(--fg-3)}
+  .rule{font-family:var(--sans);font-size:14px;color:var(--fg-2);border-left:2px solid var(--accent);padding:4px 0 4px 12px;margin:4px 0 12px;max-width:72ch;line-height:1.6}
+  table.marks{border-collapse:collapse;margin-top:12px;font-family:var(--mono);font-size:13px;color:var(--fg-2)}
+  table.marks td,table.marks th{border-bottom:1px solid var(--border-soft);padding:5px 14px 5px 0;text-align:left;font-weight:400;vertical-align:middle}
+  table.marks th{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-3)}
+  table.marks b{color:var(--accent);font-weight:400}
+  .score{font-family:var(--serif);font-size:19px;color:var(--fg-1);margin-top:14px;max-width:66ch}
+  .walk{display:flex;justify-content:space-between;gap:10px;margin-top:16px}
+  footer{margin-top:28px;font-family:var(--sans);font-size:13px;color:var(--fg-4);display:flex;align-items:center;gap:10px}
+  footer b{font-family:var(--display);font-weight:400;letter-spacing:.06em;color:var(--fg-3)}
+  footer svg{flex:none}
+  @media (max-width:620px){.pics{grid-template-columns:1fr}h1{font-size:34px}h2{font-size:23px}}
+</style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">Lossy Compression with Intent Alignment · the rate-distortion-perception tradeoff, seen · three steps</div>
+  <h1>Same bits, two pictures</h1>
+  <p class="lead">The same claim as the sound beside this one, for the eye: at a fixed budget of bits, the picture with the least error is smoother than the original, and the picture that keeps the original’s grain carries about twice the error. The last step asks which your eye calls closer. Four textures are made in this page from seeded noise; no photograph. The coder and both decoders run here, and every number under a picture is worked out from the picture’s own values, not read off the screen.</p>
+
+  <nav class="rail" aria-label="Steps" id="rail"></nav>
+
+  <section aria-live="polite">
+    <div class="eyebrow" id="stepEyebrow"></div>
+    <h2 id="stepTitle"></h2>
+    <p class="say" id="stepSay"></p>
+  </section>
+
+  <div class="panel">
+    <div class="rule" id="rule" hidden></div>
+    <div class="pics">
+      <figure><canvas id="c0" width="256" height="256"></canvas><figcaption id="cap0"></figcaption></figure>
+      <figure><canvas id="c1" width="256" height="256"></canvas><figcaption id="cap1"></figcaption></figure>
+      <figure id="fig2"><canvas id="c2" width="256" height="256"></canvas><figcaption id="cap2"></figcaption></figure>
+    </div>
+    <canvas id="bars" aria-label="each band’s level in each decoding, against the original’s"></canvas>
+    <div class="rowb" id="texRow"><span class="eyebrow">texture</span></div>
+    <div class="rowb" id="rateRow"><span class="eyebrow">bits a pixel</span>
+      <button class="ghost" data-rate="0.35">0.35</button><button class="ghost" data-rate="0.5">0.5</button><button class="ghost" data-rate="1">1.0</button><span class="hint">the original has 8</span>
+    </div>
+    <div id="test" hidden>
+      <div class="rowb"><span class="eyebrow" id="trialNo"></span><span class="eyebrow">more like the original</span><button class="ghost" data-pick="1">X</button><button class="ghost" data-pick="2">Y</button></div>
+      <div id="result" hidden></div>
+      <div class="rowb"><button class="ghost" id="again">Start again</button></div>
+    </div>
+    <div class="meter" id="meter"></div>
+    <div class="eq" id="eq1"></div><div class="eq words" id="eq1w"></div>
+    <div class="eq" id="eq2"></div><div class="eq words" id="eq2w"></div>
+  </div>
+
+  <div class="walk"><button class="ghost" id="back">Back</button><button class="ghost" id="next">Next</button></div>
+
+  <footer><svg id="sigil" width="22" height="22" viewBox="-11 -11 22 22" aria-hidden="true"></svg><b>LOUD’N LIVE</b> · Lossy Compression with Intent Alignment · same bits, two pictures · Sketch, 2026-11-03</footer>
+</main>
+
+<script id="im-core">
+const IM = (() => {
+  const W = 256, H = 256, B = 16, BX = W / B, BY = H / B, NBLK = BX * BY;
+  function rng(seed) { let s = seed >>> 0; return () => { s = (s + 0x6D2B79F5) >>> 0; let t = s; t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
+  function gauss(r) { let u = 0; while (u < 1e-12) u = r(); return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * r()); }
+  // ── the textures: made here, from seeded noise; no photograph ──
+  // value noise, smoothed by a separable box blur run three times (close to a Gaussian), with its own stretch in x and y
+  function field(seed, sx, sy) {
+    const r = rng(seed), a = new Float64Array(W * H); for (let i = 0; i < a.length; i++) a[i] = gauss(r);
+    const blur = (src, rx, ry) => { let o = src;
+      for (let pass = 0; pass < 3; pass++) {
+        if (rx > 0) { const t = new Float64Array(W * H); for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) { let s = 0; for (let d = -rx; d <= rx; d++) s += o[y * W + ((x + d + W) % W)]; t[y * W + x] = s / (2 * rx + 1); } o = t; }
+        if (ry > 0) { const t = new Float64Array(W * H); for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) { let s = 0; for (let d = -ry; d <= ry; d++) s += o[((y + d + H) % H) * W + x]; t[y * W + x] = s / (2 * ry + 1); } o = t; }
+      } return o; };
+    const o = blur(a, sx, sy); let m = 0, v = 0; for (const x of o) m += x; m /= o.length; for (const x of o) v += (x - m) ** 2; v = Math.sqrt(v / o.length);
+    return o.map((x) => (x - m) / v);
+  }
+  const clamp = (v) => Math.max(0, Math.min(255, v));
+  const TEXTURES = [
+    { id: 'reeds', name: 'reeds', make() { const f = field(21, 0, 4), g = field(22, 1, 6), l = field(23, 24, 24); return Float64Array.from({ length: W * H }, (_, i) => clamp(110 + 38 * f[i] + 18 * g[i] + 26 * l[i])); } },
+    { id: 'gravel', name: 'gravel', make() { const f = field(31, 2, 2), g = field(32, 0, 0), l = field(33, 16, 16); return Float64Array.from({ length: W * H }, (_, i) => clamp(128 + 46 * Math.tanh(1.6 * f[i]) + 14 * g[i] + 18 * l[i])); } },
+    { id: 'bark', name: 'bark', make() { const f = field(41, 1, 10), g = field(42, 0, 2), l = field(43, 30, 30); return Float64Array.from({ length: W * H }, (_, i) => clamp(96 + 40 * f[i] + 22 * g[i] + 20 * l[i])); } },
+    { id: 'sand', name: 'sand and sky', make() { const f = field(51, 0, 0), g = field(52, 1, 1), l = field(53, 20, 8); return Float64Array.from({ length: W * H }, (_, i) => { const y = Math.floor(i / W); return y < 96 ? clamp(200 - 0.5 * y + 8 * l[i]) : clamp(150 + 26 * f[i] + 18 * g[i] + 14 * l[i]); }); } },
+  ];
+  // ── the transform: a 16×16 DCT a block, orthonormal ──
+  const DC = new Float64Array(B * B);
+  for (let k = 0; k < B; k++) for (let n = 0; n < B; n++) DC[k * B + n] = (k ? Math.sqrt(2 / B) : Math.sqrt(1 / B)) * Math.cos(Math.PI * (n + 0.5) * k / B);
+  function dct2(img, inv) {
+    const out = new Float64Array(W * H), t = new Float64Array(B * B);
+    for (let by = 0; by < BY; by++) for (let bx = 0; bx < BX; bx++) {
+      const o = (y, x) => (by * B + y) * W + bx * B + x;
+      for (let y = 0; y < B; y++) for (let k = 0; k < B; k++) { let s = 0; for (let n = 0; n < B; n++) s += (inv ? DC[n * B + k] : DC[k * B + n]) * img[o(y, n)]; t[y * B + k] = s; }
+      for (let x = 0; x < B; x++) for (let k = 0; k < B; k++) { let s = 0; for (let n = 0; n < B; n++) s += (inv ? DC[n * B + k] : DC[k * B + n]) * t[n * B + x]; out[o(k, x)] = s; }
+    }
+    return out;
+  }
+  // the bands in a block: DC alone, then five rings of frequency u+v, each split in two, the side that runs across
+  // (more horizontal frequency: upright detail, blades and grain) and the side that runs down; ten bands
+  const RING = [[1, 2], [3, 5], [6, 9], [10, 14], [15, 30]], NB = RING.length * 2;
+  const bandOf = new Int32Array(B * B).fill(-1), WIDTH = new Int32Array(NB), ORDER = [];
+  for (let b = 0; b < NB; b++) ORDER.push([]);
+  for (let v = 0; v < B; v++) for (let u = 0; u < B; u++) { const s = u + v; const ring = RING.findIndex(([lo, hi]) => s >= lo && s <= hi); if (ring < 0) continue; const b = ring * 2 + (u > v ? 0 : 1); bandOf[v * B + u] = b; WIDTH[b]++; ORDER[b].push(v * B + u); }
+  // ── the bitstream, a block at a time: the mean, 7 bits; each band’s level, 4 bits (4 dB steps up from σ = 0.25);
+  // a 2-bit range for each band given bits; each coefficient's cell. As in the sound piece, the allocation is worked out from the levels.
+  const DC_BITS = 7, LEVEL_BITS = 4, LEVEL_DB = 4, LEVEL_FLOOR = -12, RANGE_BITS = 2, MAXB = 12, RANGES = [1, 1.5, 2.25, 3.4];
+  const STEP = [0, 1.596, 0.9957, 0.5860, 0.3352, 0.1881, 0.1041, 0.0568, 0.0307, 0.01658, 0.008953, 0.004835, 0.002611], DIST = [1, 0.3634, 0.1175, 0.03599, 0.01092, 0.003292, 0.000981, 0.000288, 0.0000832, 2.29e-5, 6.68e-6, 1.95e-6, 5.68e-7];
+  const levelSig2 = (q) => Math.pow(10, (LEVEL_FLOOR + q * LEVEL_DB) / 10);
+  function allocate(sig2, budget) {
+    const base = new Int32Array(NB), extra = new Int32Array(NB); let left = budget;
+    for (;;) {
+      let best = -1, bestV = 0;
+      for (let b = 0; b < NB; b++) { if (base[b] >= MAXB) continue; const cost = base[b] === 0 && extra[b] === 0 ? 1 + RANGE_BITS : 1; if (cost > left) continue; const v = sig2[b] * (DIST[base[b]] - DIST[base[b] + 1]) / cost; if (v > bestV) { bestV = v; best = b; } }
+      if (best < 0) break;
+      left -= base[best] === 0 && extra[best] === 0 ? 1 + RANGE_BITS : 1;
+      if (++extra[best] === WIDTH[best]) { base[best]++; extra[best] = 0; }
+    }
+    return { base, extra, left };
+  }
+  const bitsOf = (al, b, j) => al.base[b] + (j < al.extra[b] ? 1 : 0);
+  function cellOf(i, nb, st) { const L = 1 << nb; return [i === 0 ? -Infinity : (i - L / 2) * st, i === L - 1 ? Infinity : (i + 1 - L / 2) * st]; }
+  const SIDE = DC_BITS + NB * LEVEL_BITS;
+  function encode(C, bpp) {
+    const perBlock = Math.floor(bpp * B * B), lev = new Int32Array(NBLK * NB), dc = new Int32Array(NBLK), rg = new Int32Array(NBLK * NB), idx = new Int32Array(W * H);
+    let used = 0;
+    for (let k = 0; k < NBLK; k++) {
+      const by = Math.floor(k / BX), bx = k % BX, at = (j) => (by * B + Math.floor(j / B)) * W + bx * B + (j % B);
+      dc[k] = Math.max(0, Math.min(127, Math.round(C[at(0)] / (B * 2))));   // the block's mean, in steps of 2 grey levels
+      const sig2 = new Float64Array(NB);
+      for (let b = 0; b < NB; b++) { let s = 0; for (const j of ORDER[b]) s += C[at(j)] ** 2; s /= WIDTH[b]; const q = Math.max(0, Math.min((1 << LEVEL_BITS) - 1, Math.round((10 * Math.log10(s + 1e-30) - LEVEL_FLOOR) / LEVEL_DB))); lev[k * NB + b] = q; sig2[b] = levelSig2(q); }
+      const al = allocate(sig2, perBlock - SIDE); used += perBlock - al.left;
+      for (let b = 0; b < NB; b++) {
+        if (!al.base[b] && !al.extra[b]) continue;
+        const sd = Math.sqrt(sig2[b]); let bestR = 0, bestE = Infinity;
+        for (let r = 0; r < RANGES.length; r++) { let e = 0; ORDER[b].forEach((j, n) => { const nb = bitsOf(al, b, n), z = C[at(j)] / sd; if (!nb) { e += z * z; return; } const st = STEP[nb] * RANGES[r], L = 1 << nb, i = Math.max(0, Math.min(L - 1, Math.floor(z / st) + L / 2)), [lo, hi] = cellOf(i, nb, st), m = isFinite(lo) && isFinite(hi) ? (lo + hi) / 2 : isFinite(lo) ? lo + st / 2 : hi - st / 2; e += (z - m) ** 2; }); if (e < bestE) { bestE = e; bestR = r; } }
+        rg[k * NB + b] = bestR;
+        ORDER[b].forEach((j, n) => { const nb = bitsOf(al, b, n); if (!nb) return; const st = STEP[nb] * RANGES[bestR], L = 1 << nb; idx[at(j)] = Math.max(0, Math.min(L - 1, Math.floor(C[at(j)] / sd / st) + L / 2)); });
+      }
+    }
+    return { lev, dc, rg, idx, bpp, perBlock, bitsUsed: used, bppUsed: used / (W * H) };
+  }
+  function erf(x) { const s = Math.sign(x); x = Math.abs(x); const t = 1 / (1 + 0.3275911 * x); return s * (1 - (((((1.061405429 * t - 1.453152027) * t) + 1.421413741) * t - 0.284496736) * t + 0.254829592) * t * Math.exp(-x * x)); }
+  const Phi = (z) => z === Infinity ? 1 : z === -Infinity ? 0 : 0.5 * (1 + erf(z / Math.SQRT2));
+  const phi = (z) => isFinite(z) ? Math.exp(-z * z / 2) / Math.sqrt(2 * Math.PI) : 0;
+  function PhiInv(p) {
+    const a = [-3.969683028665376e+01, 2.209460984245205e+02, -2.759285104469687e+02, 1.383577518672690e+02, -3.066479806614716e+01, 2.506628277459239e+00], b = [-5.447609879822406e+01, 1.615858368580409e+02, -1.556989798598866e+02, 6.680131188771972e+01, -1.328068155288572e+01], c = [-7.784894002430293e-03, -3.223964580411365e-01, -2.400758277161838e+00, -2.549732539343734e+00, 4.374664141464968e+00, 2.938163982698783e+00], d = [7.784695709041462e-03, 3.224671290700398e-01, 2.445134137142996e+00, 3.754408661907416e+00];
+    p = Math.min(1 - 1e-12, Math.max(1e-12, p)); const pl = 0.02425;
+    if (p < pl) { const q = Math.sqrt(-2 * Math.log(p)); return (((((c[0] * q + c[1]) * q + c[2]) * q + c[3]) * q + c[4]) * q + c[5]) / ((((d[0] * q + d[1]) * q + d[2]) * q + d[3]) * q + 1); }
+    if (p > 1 - pl) { const q = Math.sqrt(-2 * Math.log(1 - p)); return -(((((c[0] * q + c[1]) * q + c[2]) * q + c[3]) * q + c[4]) * q + c[5]) / ((((d[0] * q + d[1]) * q + d[2]) * q + d[3]) * q + 1); }
+    const q = p - 0.5, r = q * q; return (((((a[0] * r + a[1]) * r + a[2]) * r + a[3]) * r + a[4]) * r + a[5]) * q / (((((b[0] * r + b[1]) * r + b[2]) * r + b[3]) * r + b[4]) * r + 1);
+  }
+  function decode(bs, mode, seed) {
+    const r = rng(seed || 3), C = new Float64Array(W * H);
+    for (let k = 0; k < NBLK; k++) {
+      const by = Math.floor(k / BX), bx = k % BX, at = (j) => (by * B + Math.floor(j / B)) * W + bx * B + (j % B);
+      C[at(0)] = bs.dc[k] * B * 2;
+      const sig2 = new Float64Array(NB); for (let b = 0; b < NB; b++) sig2[b] = levelSig2(bs.lev[k * NB + b]);
+      const al = allocate(sig2, bs.perBlock - SIDE);
+      for (let b = 0; b < NB; b++) {
+        const sd = Math.sqrt(sig2[b]);
+        ORDER[b].forEach((j, n) => {
+          const nb = bitsOf(al, b, n), [lo, hi] = nb ? cellOf(bs.idx[at(j)], nb, STEP[nb] * RANGES[bs.rg[k * NB + b]]) : [-Infinity, Infinity], pa = Phi(lo), pz = Phi(hi);
+          const v = mode === 'mean' ? (pz - pa > 1e-12 ? (phi(lo) - phi(hi)) / (pz - pa) : (isFinite(lo) ? lo : hi)) : (pz - pa > 1e-12 ? PhiInv(pa + r() * (pz - pa)) : (isFinite(lo) ? lo : hi));
+          C[at(j)] = v * sd;
+        });
+      }
+    }
+    return C;
+  }
+  function mse(x, y) { let s = 0; for (let i = 0; i < x.length; i++) s += (x[i] - y[i]) ** 2; return s / x.length; }
+  const psnr = (x, y) => 10 * Math.log10(255 * 255 / mse(x, y));
+  // each band's energy in the decoded image against the original's, in dB, summed over every block
+  function bandDb(C0, C1) { const e0 = new Float64Array(NB), e1 = new Float64Array(NB); for (let k = 0; k < NBLK; k++) { const by = Math.floor(k / BX), bx = k % BX; for (let j = 1; j < B * B; j++) { const b = bandOf[j]; if (b < 0) continue; const p = (by * B + Math.floor(j / B)) * W + bx * B + (j % B); e0[b] += C0[p] ** 2; e1[b] += C1[p] ** 2; } } return [...e0].map((v, b) => 10 * Math.log10((e1[b] + 1e-30) / (v + 1e-30))); }
+  // everything one picture at one rate needs: the bits, both decodings, their meters
+  function render(x, C, bpp, seed) {
+    const bs = encode(C, bpp), CA = decode(bs, 'mean'), CB = decode(bs, 'draw', seed || 7), a = dct2(CA, true).map(clamp), b = dct2(CB, true).map(clamp);   // clamped to 0–255, as shown, before any meter reads them
+    let zero = 0, n = 0; { for (let k = 0; k < NBLK; k++) { const sig2 = new Float64Array(NB); for (let q = 0; q < NB; q++) sig2[q] = levelSig2(bs.lev[k * NB + q]); const al = allocate(sig2, bs.perBlock - SIDE); for (let q = 0; q < NB; q++) for (let j = 0; j < WIDTH[q]; j++) { n++; if (!bitsOf(al, q, j)) zero++; } } }
+    return { bpp, bs, CA, CB, a, b, mseA: mse(x, a), mseB: mse(x, b), psnrA: psnr(x, a), psnrB: psnr(x, b), ratio: mse(x, b) / mse(x, a), bandA: bandDb(C, CA), bandB: bandDb(C, CB), zeroShare: zero / n };
+  }
+  return { render, NBLK, DC_BITS, LEVEL_BITS, W, H, B, NB, RING, WIDTH, SIDE, TEXTURES, rng, field, dct2, encode, decode, mse, psnr, bandDb };
+})();
+</script>
+
+<script>
+(() => {
+  const $ = (id) => document.getElementById(id);
+  const SRC = {}; const getSrc = (i) => SRC[i] || (SRC[i] = (() => { const x = IM.TEXTURES[i].make(); return { x, C: IM.dct2(x, false) }; })());
+  const RENDERS = {}; const getR = (i, bpp) => RENDERS[i + ':' + bpp] || (RENDERS[i + ':' + bpp] = IM.render(getSrc(i).x, getSrc(i).C, bpp));
+  const S = { step: 0, tex: 3, rate: 0.5, trials: null, picks: [] };
+  const sgn = (v, n) => { const a = Math.abs(v).toFixed(n); return (+a === 0 ? '' : v > 0 ? '+' : '−') + a; };
+  const STEPS = [
+    { key: 'budget', rail: 'a budget', title: 'One picture, one budget',
+      say: 'The original is 256 by 256 grey pixels at 8 bits each. The coder cuts it into 16 by 16 blocks and turns each block into 256 frequency coefficients (a DCT), grouped in ten bands: five rings from coarse to fine, each split into detail that runs upright and detail that runs across. A block sends its mean, 7 bits, and each band’s level, 4 bits; then the bits left go out one at a time, each to wherever it takes away the most expected error. At 0.5 bits a pixel a block has 128 bits, 47 of them mean and levels. On the right, the bits read back with each unknown written as its cell’s average: the least error the bits allow. Change the texture and the rate.',
+      eq: ['bits a block = 7 + 10 · 4 + Σ (2 a band given bits) + Σₖ bₖ ≤ ⌊bpp · 256⌋', '(bits in a block) = the mean, plus ten levels, plus a 2-bit range for each band that gets bits, plus each coefficient’s bits; never more than the budget, 128 at 0.5 bits a pixel'],
+      eq2: ['PSNR = 10 · log₁₀( 255² ⁄ D ),  D = (1/n) · Σ (x − x̂)²', '(peak signal-to-error, dB) compares the error with the brightest a pixel can be; higher is closer'] },
+    { key: 'draw', rail: 'a second decoder', title: 'Same bits, a draw',
+      say: 'The decoder knows each coefficient’s band level and the cell it fell in, and must still write a number. The average of the cell gives the least error; where a coefficient got no bits its cell is the whole line, the average is zero, and the detail is simply gone, so the picture comes out smooth. A draw writes a value picked at random from the cell, as likely as a real one; where there were no bits it writes noise at the band’s level, and the grain comes back. The error meter says the draw is worse, by close to twice the error: about 3 dB of PSNR. The bars are each band’s level against the original’s: the average’s fine bands fall away, the draw’s stay at the original’s. That is the perception axis, in the only form a level can show; the real measure is how far the spread of decoded pictures sits from the spread of real ones.',
+      eq: ['x̂_avg = E[ x | cell ]      x̂_draw ~ p( x | cell )', '(the average) = the expected value of the coefficient, given its cell; (the draw) = a value chosen at random, as likely as a real coefficient in that cell would be'],
+      eq2: ['E (x − x̂_draw)² = 2 · E (x − x̂_avg)²', 'a draw’s expected error is twice the average’s when each band really is noise at its level, the upper bound in Blau and Michaeli’s Theorem 2 (2019); on these textures it comes out near 2, and it moves off 2 where the model is wrong'] },
+    { key: 'blind', rail: 'blind', title: 'Same bits, blind',
+      say: 'Eight pairs: each of the four textures at 0.5 and at 1.0 bits a pixel, in a random order. On the left the original; X and Y are the two decodings of the same bits, sides chosen at random each time, and the draw is a fresh draw. Choose which of X and Y is more like the original. Nothing is shown until the eighth. The error meter’s answer is the same every time: the average.',
+      eq: ['P(7 or 8 of 8 for a named decoder, by guessing) = ( C(8,7) + C(8,8) ) ⁄ 2⁸ = 9 ⁄ 256', 'a coin gives one named side 7 or 8 heads in 8 tosses about 1 time in 28'], eq2: ['', ''] },
+  ];
+  const RULE = 'Set before the first pair. Chance: if X and Y look alike to you, each answer is a coin toss, 1 in 2. The rule: 7 or 8 of 8 for one decoder is a preference; a coin does that for a named decoder about 1 time in 28, and for one side or the other about 1 time in 14. If it is the draw, your eye disagreed with the meter, the section’s claim. If it is the average, your eye agreed with the meter, and the claim failed here, for you. 6 or fewer can’t be told from a coin. Both decoders’ counts are shown. What else differs: X and Y have the same mean in every block, so the same overall brightness; the draw is grainier and the average smoother, which is the thing under test.';
+
+  // ── pictures, drawn from their own values; nothing is read back from the screen ──
+  function paint(id, img) { const c = $(id), g = c.getContext('2d'), d = g.createImageData(IM.W, IM.H); for (let i = 0; i < img.length; i++) { const v = Math.max(0, Math.min(255, Math.round(img[i]))); d.data[4 * i] = d.data[4 * i + 1] = d.data[4 * i + 2] = v; d.data[4 * i + 3] = 255; } g.putImageData(d, 0, 0); }
+  const css = (n) => getComputedStyle(document.documentElement).getPropertyValue(n).trim() || '#888';
+  function bars(r) {
+    const c = $('bars'), dpr = window.devicePixelRatio || 1, w = c.clientWidth || 600, h = 170; c.width = Math.round(w * dpr); c.height = Math.round(h * dpr); c.style.height = h + 'px';
+    const g = c.getContext('2d'); g.setTransform(dpr, 0, 0, dpr, 0, 0); const l = 34, t = 18, ph = h - t - 24, pw = w - l - 10, lo = -30, hi = 5, Y = (d) => t + (hi - Math.max(lo, Math.min(hi, d))) / (hi - lo) * ph, bw = pw / IM.NB;
+    g.font = '10px ' + css('--mono'); g.strokeStyle = css('--border-soft'); g.fillStyle = css('--fg-3');
+    for (let d = 0; d >= lo; d -= 10) { g.beginPath(); g.moveTo(l, Y(d)); g.lineTo(l + pw, Y(d)); g.stroke(); g.fillText(String(d), 6, Y(d) + 3); }
+    for (let b = 0; b < IM.NB; b++) { [[r.bandA[b], css('--info')], [r.bandB[b], css('--accent')]].forEach(([d, col], q) => { g.fillStyle = col; const y0 = Y(0), y1 = Y(d); g.fillRect(l + b * bw + 2 + q * (bw / 2 - 2), Math.min(y0, y1), bw / 2 - 3, Math.max(1, Math.abs(y1 - y0))); }); g.fillStyle = css('--fg-3'); g.fillText(`${['coarse', 'coarse', '', '', 'middle', 'middle', '', '', 'fine', 'fine'][b]} ${b % 2 ? '↕' : '↔'}`, l + b * bw + 2, h - 6); }
+    g.fillStyle = css('--fg-3'); g.fillText('each band’s level − the original’s, dB · blue: the average · amber: the draw · ↔ detail across, ↕ detail upright', l, 12);
+  }
+  // ── the blind round ──
+  function newRound() {
+    const r = IM.rng((Date.now() ^ (Math.random() * 1e9)) >>> 0), list = [];
+    for (let i = 0; i < IM.TEXTURES.length; i++) for (const bpp of [0.5, 1]) list.push({ tex: i, bpp, avgOnX: r() < 0.5, seed: 1 + Math.floor(r() * 1e9) });
+    for (let i = list.length - 1; i > 0; i--) { const j = Math.floor(r() * (i + 1)); [list[i], list[j]] = [list[j], list[i]]; }
+    S.trials = list; S.picks = []; $('result').hidden = true;
+  }
+  function trial() {
+    const t = S.trials[Math.min(S.picks.length, 7)];
+    if (!t.draw) { const base = getR(t.tex, t.bpp), x = getSrc(t.tex).x, CB = IM.decode(base.bs, 'draw', t.seed), b = IM.dct2(CB, true).map((v) => Math.max(0, Math.min(255, v))); t.draw = { img: b, psnr: IM.psnr(x, b) }; t.avg = { img: base.a, psnr: base.psnrA }; }
+    return t;
+  }
+  function showTrial() {
+    const done = S.picks.length; $('trialNo').textContent = done < 8 ? `pair ${done + 1} of 8` : 'eight of eight';
+    document.querySelectorAll('[data-pick]').forEach((b) => (b.disabled = done >= 8));
+    if (done >= 8) return showResult();
+    const t = trial(); paint('c0', getSrc(t.tex).x); paint('c1', t.avgOnX ? t.avg.img : t.draw.img); paint('c2', t.avgOnX ? t.draw.img : t.avg.img);
+    $('cap0').textContent = `the original · ${IM.TEXTURES[t.tex].name}`; $('cap1').textContent = `X · ${t.bpp} bits a pixel`; $('cap2').textContent = `Y · ${t.bpp} bits a pixel`;
+    $('meter').textContent = '';
+  }
+  document.querySelectorAll('[data-pick]').forEach((b) => b.onclick = () => {
+    if (S.picks.length >= 8) return; const t = trial(), pick = +b.dataset.pick;
+    S.picks.push({ tex: t.tex, bpp: t.bpp, avgOnX: t.avgOnX, chose: (pick === 1) === t.avgOnX ? 'avg' : 'draw', avgPsnr: t.avg.psnr, drawPsnr: t.draw.psnr });
+    showTrial();
+  });
+  function showResult() {
+    const nA = S.picks.filter((p) => p.chose === 'avg').length, nD = 8 - nA;
+    const verdict = nD >= 7 ? `The draw, <b>${nD} of 8</b>. A coin gives a named side that often about 1 time in 28. Your eye disagreed with the meter, which counted the average as closer every time: the section’s claim, seen.`
+      : nA >= 7 ? `The average, <b>${nA} of 8</b>. A coin gives a named side that often about 1 time in 28. Your eye agreed with the meter; the section’s claim failed here, for you, on these textures at these rates.`
+      : `The average ${nA}, the draw ${nD}. Under 7 for either, so this round can’t be told from a coin.`;
+    const rows = S.picks.map((p, i) => `<tr><td>${i + 1}</td><td>${IM.TEXTURES[p.tex].name}</td><td>${p.bpp}</td><td>${p.avgOnX ? 'average' : 'draw'}</td><td><b>${p.chose === 'avg' ? 'the average' : 'the draw'}</b></td><td>${p.avgPsnr.toFixed(2)} dB</td><td>${p.drawPsnr.toFixed(2)} dB</td></tr>`).join('');
+    $('result').innerHTML = `<p class="score">${verdict}</p><table class="marks"><tr><th>pair</th><th>texture</th><th>bits a pixel</th><th>X was</th><th>you chose</th><th>PSNR, average</th><th>PSNR, draw</th></tr>${rows}</table><p class="hint">PSNR against the original, from each picture’s own values, clamped to 0–255 as shown: higher is closer, and the average was higher every time. One eye, one screen, one sitting: it says what you saw, not what everyone sees.</p>`;
+    $('result').hidden = false;
+  }
+  $('again').onclick = () => { newRound(); showTrial(); };
+
+  function draw() {
+    const k = STEPS[S.step].key;
+    if (k === 'blind') { $('bars').hidden = true; return showTrial(); }
+    $('bars').hidden = k !== 'draw';
+    const r = getR(S.tex, S.rate), x = getSrc(S.tex).x;
+    paint('c0', x); paint('c1', r.a); if (k === 'draw') paint('c2', r.b);
+    $('cap0').textContent = `the original · ${IM.TEXTURES[S.tex].name} · 8 bits a pixel`;
+    $('cap1').textContent = `the average · ${S.rate} bits a pixel · PSNR ${r.psnrA.toFixed(2)} dB`;
+    $('cap2').textContent = `the draw · the same bits · PSNR ${r.psnrB.toFixed(2)} dB`;
+    if (k === 'budget') $('meter').innerHTML = `<b>${r.bs.perBlock}</b> bits a block, <b>${IM.SIDE}</b> of them mean and levels · spent: <b>${r.bs.bppUsed.toFixed(3)}</b> bits a pixel · coefficients given no bits: <b>${(100 * r.zeroShare).toFixed(1)} %</b> · the average: PSNR <b>${r.psnrA.toFixed(2)} dB</b>, error <b>${r.mseA.toFixed(1)}</b> (grey levels²)`;
+    else { bars(r); $('meter').innerHTML = `same <b>${r.bs.perBlock}</b> bits a block · PSNR: the average <b>${r.psnrA.toFixed(2)} dB</b>, the draw <b>${r.psnrB.toFixed(2)} dB</b> · the draw’s error ÷ the average’s: <b>${r.ratio.toFixed(2)}</b> (the theorem: 2 when the model fits)`; }
+  }
+  const mark = (sel, attr, val) => document.querySelectorAll(sel).forEach((b) => b.setAttribute('aria-pressed', String(b.dataset[attr] === String(val))));
+  function go(i) {
+    S.step = Math.max(0, Math.min(STEPS.length - 1, i)); const s = STEPS[S.step];
+    $('stepEyebrow').textContent = `step ${S.step + 1} of ${STEPS.length}`; $('stepTitle').textContent = s.title; $('stepSay').textContent = s.say;
+    $('eq1').textContent = s.eq[0]; $('eq1w').textContent = s.eq[1]; $('eq2').textContent = s.eq2[0]; $('eq2w').textContent = s.eq2[1];
+    $('fig2').hidden = s.key === 'budget'; $('texRow').hidden = $('rateRow').hidden = s.key === 'blind'; $('test').hidden = s.key !== 'blind'; $('rule').hidden = s.key !== 'blind'; $('rule').textContent = RULE;
+    if (s.key === 'blind' && !S.trials) newRound();
+    document.querySelectorAll('#rail button').forEach((b, j) => (j === S.step ? b.setAttribute('aria-current', 'step') : b.removeAttribute('aria-current')));
+    $('back').disabled = S.step === 0; $('next').disabled = S.step === STEPS.length - 1;
+    $('meter').textContent = 'working out the bits…'; setTimeout(draw, 0);
+  }
+  $('texRow').insertAdjacentHTML('beforeend', IM.TEXTURES.map((t, i) => `<button class="ghost" data-tex="${i}">${t.name}</button>`).join(''));
+  $('rail').innerHTML = STEPS.map((s, i) => `<button>${i + 1} · ${s.rail}</button>`).join('');
+  document.querySelectorAll('#rail button').forEach((b, i) => b.onclick = () => go(i));
+  $('back').onclick = () => go(S.step - 1); $('next').onclick = () => go(S.step + 1);
+  document.querySelectorAll('[data-tex]').forEach((b) => b.onclick = () => { S.tex = +b.dataset.tex; mark('[data-tex]', 'tex', S.tex); draw(); });
+  document.querySelectorAll('[data-rate]').forEach((b) => b.onclick = () => { S.rate = +b.dataset.rate; mark('[data-rate]', 'rate', S.rate); draw(); });
+  mark('[data-tex]', 'tex', S.tex); mark('[data-rate]', 'rate', S.rate);
+  window.addEventListener('resize', () => { if (STEPS[S.step].key === 'draw') bars(getR(S.tex, S.rate)); });
+  go(0);
+
+  // the sigil: the Lissajous trace, 3 : 2
+  { const pts = []; for (let i = 0; i <= 240; i++) { const t = i / 240 * 2 * Math.PI; pts.push((9 * Math.sin(3 * t + Math.PI / 2)).toFixed(2) + ',' + (9 * Math.sin(2 * t)).toFixed(2)); } $('sigil').innerHTML = `<polyline points="${pts.join(' ')}" fill="none" stroke="#e8b84a" stroke-width="1"/>`; }
+})();
+</script>
+</body>
+</html>
