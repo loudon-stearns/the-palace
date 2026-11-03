@@ -9,14 +9,17 @@ read is never silent. No entry body is ever opened.
 
 Verbs:
   near "<Entry>" [--hops N] [--limit N]   the ring around an entry
-  path "<A>" "<B>"                        shortest typed path (undirected)
+  path "<A>" "<B>" [--only t1,t2]         shortest typed path (undirected); --only keeps to those relation types
+  rhymes "<Entry>" [--n N] [--hub-cutoff N]  unlinked pages sharing the most neighbours, hubs set aside
+  connected "<A>" "<B>" …                 whether a set holds together through edges inside it, and the types it crosses
   hubs [--n N]                            highest inbound degree
   quiet [--n N]                           high degree, low recent use
   ghosts [--persistent]                   forward ghosts; those in the last three maps
   diff <date> <date>                      what changed between two builds
   list                                    every node, type and stage
 
-Flags: --json (machine-readable, same data) · --map <path> (a specific build)
+Flags: --json (machine-readable, same data) · --map <path> (a specific build);
+both are accepted before or after the verb.
 
 Edges print one per line, never as "X: a, b, c" — no node is the parent of
 another ([[Palace Map]] § Format and the Reading Agent).
@@ -62,7 +65,9 @@ def load(path=None):
 
 def header(d):
     gen = d["meta"].get("generated", "?")
-    return f"map: {os.path.relpath(d['_path'], PALACE)}  (built {gen}, {len(d['nodes'])} nodes, {len(d['edges'])} edges)"
+    rel = os.path.relpath(d["_path"], PALACE)
+    shown = d["_path"] if rel.startswith("..") else rel
+    return f"map: {shown}  (built {gen}, {len(d['nodes'])} nodes, {len(d['edges'])} edges)"
 
 def resolve(d, name):
     if name in d["_nodes"]:
@@ -145,17 +150,22 @@ def verb_near(d, a):
 
 def verb_path(d, a):
     s, t = resolve(d, a.a), resolve(d, a.b)
+    only = set(x.strip() for x in a.only.split(",") if x.strip()) if getattr(a, "only", None) else None
     prev = {s: None}
     q = deque([s])
     while q and t not in prev:
         x = q.popleft()
         for _, e in d["_adj"].get(x, []):
+            if only and e["type"] not in only:
+                continue
             y = e["target"] if e["source"] == x else e["source"]
             if y not in prev:
                 prev[y] = (x, e)
                 q.append(y)
+    kept = f" keeping to {', '.join(sorted(only))}" if only else ""
     if t not in prev:
-        return json.dumps({"map": d["_path"], "path": None}) if a.json else f"{header(d)}\nno path from {s} to {t} (they sit in different components)"
+        return {"map": d["_path"], "from": s, "to": t, "only": sorted(only) if only else None, "hops": None} if a.json \
+            else f"{header(d)}\nno path from {s} to {t}{kept}" + ("" if only else " (they sit in different components)")
     hops = []
     x = t
     while prev[x]:
@@ -163,9 +173,81 @@ def verb_path(d, a):
         hops.append(e)
     hops.reverse()
     if a.json:
-        return {"map": d["_path"], "from": s, "to": t, "hops": hops}
-    out = [header(d), f"{s} → {t}: {len(hops)} hop(s)"]
+        return {"map": d["_path"], "from": s, "to": t, "only": sorted(only) if only else None, "hops": hops}
+    out = [header(d), f"{s} → {t}: {len(hops)} hop(s){kept}"]
     for e in hops:
+        out.append(f"{e['source']}  {e['type']}  {e['target']}" + (f"  ({e['label']})" if e.get("label") else ""))
+    return "\n".join(out)
+
+def neighbours(d):
+    """Undirected neighbour sets, nodes and ghost endpoints alike."""
+    nb = {}
+    for e in d["edges"]:
+        nb.setdefault(e["source"], set()).add(e["target"])
+        nb.setdefault(e["target"], set()).add(e["source"])
+    return nb
+
+def verb_rhymes(d, a):
+    """Pages that share many neighbours with the entry but have no edge to it.
+    Hubs (neighbour count >= --hub-cutoff) are set aside both as partners and as
+    shared neighbours, or FOUR PILLARS and Kuramoto Coupling rhyme with everything
+    (the map-agent test's hybrid, chk2.py)."""
+    home = resolve(d, a.entry)
+    nb = neighbours(d)
+    hubs = {n for n, s in nb.items() if len(s) >= a.hub_cutoff}
+    mine = nb.get(home, set())
+    rows = []
+    for other, theirs in nb.items():
+        if other == home or other in hubs or other in mine or home in theirs or other not in d["_nodes"]:
+            continue
+        common = (mine & theirs) - hubs
+        if len(common) < a.min_common:
+            continue
+        union = (mine | theirs) - hubs
+        rows.append({"page": other, "score": round(len(common) / len(union), 3), "shared": sorted(common),
+                     "type": d["_nodes"][other].get("type"), "stage": d["_nodes"][other].get("stage")})
+    rows.sort(key=lambda r: (-r["score"], -len(r["shared"]), r["page"]))
+    rows = rows[:a.n]
+    if a.json:
+        return {"map": d["_path"], "home": home, "hub_cutoff": a.hub_cutoff, "hubs_set_aside": sorted(hubs), "rhymes": rows}
+    out = [header(d), f"rhymes with {home}: pages with no edge to it that share its neighbours "
+           f"(hubs with ≥{a.hub_cutoff} neighbours set aside: {len(hubs)})"]
+    if home in hubs:
+        out.append(f"note: {home} is itself a hub by this cutoff; its rhymes are read with that in mind")
+    for r in rows:
+        out.append(f"{r['score']:.2f}  {r['page']}  [{r['type']}/{r['stage']}]  shares {len(r['shared'])}: " + ", ".join(r["shared"][:8]) + (" …" if len(r["shared"]) > 8 else ""))
+    if not rows:
+        out.append("none at this threshold")
+    return "\n".join(out)
+
+def verb_connected(d, a):
+    """Does a set of pages hold together through edges inside it?"""
+    members = [resolve(d, x) for x in a.pages]
+    inside = set(members)
+    edges = [e for e in d["edges"] if e["source"] in inside and e["target"] in inside]
+    adj = {m: set() for m in members}
+    for e in edges:
+        adj[e["source"]].add(e["target"]); adj[e["target"]].add(e["source"])
+    comps, seen = [], set()
+    for m in members:
+        if m in seen:
+            continue
+        comp, q = [], deque([m]); seen.add(m)
+        while q:
+            x = q.popleft(); comp.append(x)
+            for y in adj[x]:
+                if y not in seen:
+                    seen.add(y); q.append(y)
+        comps.append(sorted(comp))
+    types = sorted({e["type"] for e in edges})
+    ok = len(comps) == 1
+    if a.json:
+        return {"map": d["_path"], "pages": members, "connected": ok, "components": comps,
+                "inner_edges": edges, "relation_types": types}
+    out = [header(d), f"{len(members)} pages, {len(edges)} edges inside, {len(types)} relation type(s): " + (", ".join(types) or "none"),
+           "connected: yes — every page reaches every other through edges inside the set" if ok
+           else f"connected: no — {len(comps)} pieces: " + " | ".join(", ".join(c) for c in comps)]
+    for e in edges:
         out.append(f"{e['source']}  {e['type']}  {e['target']}" + (f"  ({e['label']})" if e.get("label") else ""))
     return "\n".join(out)
 
@@ -269,11 +351,26 @@ def main():
     p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     p.add_argument("--json", action="store_true", help="machine-readable output")
     p.add_argument("--map", help="a specific map JSON (default: the newest in _ops/maps/)")
+    # every verb takes the two flags too, so they work after the verb as well as before it;
+    # SUPPRESS keeps a verb's unset flag from overwriting one given before the verb
+    common = argparse.ArgumentParser(add_help=False)
+    common.add_argument("--json", action="store_true", default=argparse.SUPPRESS)
+    common.add_argument("--map", default=argparse.SUPPRESS)
     sub = p.add_subparsers(dest="verb", required=True)
+    _add = sub.add_parser
+    def add_parser(name, **kw):
+        return _add(name, parents=[common], **kw)
+    sub.add_parser = add_parser
 
     s = sub.add_parser("near", help="the ring around an entry"); s.add_argument("entry")
     s.add_argument("--hops", type=int, default=2); s.add_argument("--limit", type=int, default=60); s.set_defaults(fn=verb_near)
-    s = sub.add_parser("path", help="shortest typed path"); s.add_argument("a"); s.add_argument("b"); s.set_defaults(fn=verb_path)
+    s = sub.add_parser("path", help="shortest typed path"); s.add_argument("a"); s.add_argument("b")
+    s.add_argument("--only", help="comma-separated relation types the path may use"); s.set_defaults(fn=verb_path)
+    s = sub.add_parser("rhymes", help="unlinked pages sharing the most neighbours"); s.add_argument("entry")
+    s.add_argument("--n", type=int, default=10); s.add_argument("--hub-cutoff", type=int, default=40)
+    s.add_argument("--min-common", type=int, default=3); s.set_defaults(fn=verb_rhymes)
+    s = sub.add_parser("connected", help="does a set of pages hold together through its own edges"); s.add_argument("pages", nargs="+")
+    s.set_defaults(fn=verb_connected)
     s = sub.add_parser("hubs", help="highest inbound degree"); s.add_argument("--n", type=int, default=20); s.set_defaults(fn=verb_hubs)
     s = sub.add_parser("quiet", help="high degree, low recent use"); s.add_argument("--n", type=int, default=20)
     s.add_argument("--min-degree", type=int, default=8); s.add_argument("--pillar"); s.set_defaults(fn=verb_quiet)
