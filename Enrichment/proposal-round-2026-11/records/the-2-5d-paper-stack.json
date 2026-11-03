@@ -1,0 +1,43 @@
+{
+ "entry": "The 2.5D Paper Stack",
+ "path": "The 2.5D Paper Stack.md",
+ "type": "concept",
+ "stage": "growing",
+ "weight": 8,
+ "claim": "Why high contrast makes it work: 'the object's edge rides a black line' — a sharp cut hidden inside the ink is invisible, seams are hidden by occlusion, not blur, and 'the soft, smeary masks we started with were a confession that we didn't have the real edge yet'.",
+ "pieces": [
+  {
+   "section": "Why high contrast makes it work",
+   "what": "One inked plate cut two ways — soft feathered mask vs hard cut on the black line — then slid a few pixels apart: the feather shows a halo, the black-line cut disappears.",
+   "kind": "interactive",
+   "walks_up_from": "one sheet with one cut"
+  },
+  {
+   "section": "The two contraries — the flat stack and the break",
+   "what": "The track-VI plates as a parallax stack: tilt to reveal the air between sheets (reveal the stack), then a button that lets one sheet tear loose into depth (break the stack).",
+   "kind": "interactive",
+   "walks_up_from": "two sheets with air between"
+  },
+  {
+   "section": "The A/B duals — choose by what you hold",
+   "what": "The separate route and the generate route on the same scene side by side, with coherence and alpha quality marked — the duals table shown in its own evidence.",
+   "kind": "image",
+   "walks_up_from": "one frame you already have"
+  },
+  {
+   "section": "The stacking order means something",
+   "what": "A dialogue balloon placed at three stack depths — behind the figure, at the speaker's depth, on top — and drifting with its speaker on a camera move.",
+   "kind": "interactive",
+   "walks_up_from": "one balloon"
+  }
+ ],
+ "gathered": [
+  "Projects/BLUELINE/proofs/track-VI-elemental-motion/gallery.html",
+  "Projects/BLUELINE/proofs/track-VI-elemental-motion/debrief.html",
+  "Projects/BLUELINE/proofs/track-VI-elemental-motion/experiments.html",
+  "Projects/BLUELINE/proofs/track-VI-elemental-motion/plates/ and masks/",
+  "Projects/BLUELINE/proofs/track-VI-elemental-motion/report-assets/routes_compare.png, infill_compare.png, all_five_board.png, routeB_v2_compare.png"
+ ],
+ "tier": "study",
+ "slice": 6
+}

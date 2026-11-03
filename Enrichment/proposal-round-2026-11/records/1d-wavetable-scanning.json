@@ -1,0 +1,33 @@
+{
+ "entry": "1D Wavetable Scanning",
+ "path": "1D Wavetable Scanning.md",
+ "type": "concept",
+ "stage": "growing",
+ "weight": 8,
+ "claim": "§ The morph is a 2D linear interpolation: skip the frame blend and the instrument is a switcher, not a scanner — 'the difference between zipping between sounds and morphing through them.' § Frame ordering: the wrong order costs the user's axis intuition, not clicks.",
+ "pieces": [
+  {
+   "section": "The morph is a 2D linear interpolation",
+   "what": "One Position knob over the same 6 AKWF frames with a switcher/scanner toggle; you hear zipping vs morphing, and a sharp-transient pair shows the blend's dulling cost the text admits",
+   "kind": "interactive",
+   "walks_up_from": "a single-cycle frame looped at one pitch"
+  },
+  {
+   "section": "Frame ordering carries the axis's meaning",
+   "what": "Same table in authored, centroid-sorted and TSP order behind one knob, sort state hidden then revealed; tests whether the listener can tell which order is a brightness axis",
+   "kind": "interactive",
+   "walks_up_from": "two frames and a crossfade"
+  },
+  {
+   "section": "Default gate is drone, not gated",
+   "what": "The scanner opened gated vs drone: press Engage, sweep, hear nothing vs hear the sweep — replays the first build's failure",
+   "kind": "interactive",
+   "walks_up_from": "a held tone"
+  }
+ ],
+ "gathered": [
+  "Projects/Wavetable Scanner/wavetable_scanner.html (the first build, as a gathered proof with a contract)"
+ ],
+ "tier": "study",
+ "slice": 0
+}

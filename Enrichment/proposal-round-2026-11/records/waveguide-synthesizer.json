@@ -1,0 +1,53 @@
+{
+ "entry": "Waveguide Synthesizer",
+ "path": "Projects/Waveguide Synthesizer.md",
+ "type": "project",
+ "stage": "growing",
+ "weight": 9,
+ "claim": "§ The Interface: \"a learner who watches the wave reflect and lose its highs understands why a plucked string decays bright-to-dark in a way no decay-knob ever conveys\"; § Why This Project Exists: the drawn string is the delay-line state, not a picture of it.",
+ "pieces": [
+  {
+   "section": "The DSP: Digital Waveguide",
+   "what": "The Karplus-Strong sketch first (one delay line, one averaging filter), then the bidirectional study: pluck where you click and watch the two travelling waves sum, reflect and darken while you hear it",
+   "kind": "interactive",
+   "walks_up_from": "one delay line holding a noise burst"
+  },
+  {
+   "section": "Forward Vector",
+   "what": "The v1.12 seven-stop lesson (pluck, reflection, loss, pitch, stiffness, bow, body) run as video with its audio, so the 'understands' claim can be judged by a reader who cannot run the study",
+   "kind": "video",
+   "walks_up_from": "the first stop, the pluck"
+  },
+  {
+   "section": "The DSP: Digital Waveguide",
+   "what": "Stiffness tour and stretch-by-pitch chart side by side, testing that the dispersion allpass gives the stretched partials stiff strings have",
+   "kind": "audio",
+   "walks_up_from": "stiffness 0, a plain string"
+  },
+  {
+   "section": "Cross-Domain Resonance",
+   "what": "The v1.8 body walk: bridge feeding the soundboard, heard with and without the body",
+   "kind": "audio",
+   "walks_up_from": "the bare string"
+  }
+ ],
+ "gathered": [
+  "Projects/Waveguide Synthesizer/sketch-karplus-strong/index.html",
+  "Projects/Waveguide Synthesizer/study-v1.13-the-hair-holds-at-half/index.html",
+  "Projects/Waveguide Synthesizer/study-v1.12-the-lesson/index.html",
+  "Projects/Waveguide Synthesizer/offline-v1.12/lesson-run.mp4",
+  "Projects/Waveguide Synthesizer/offline-v1.12/lesson-run.wav",
+  "Projects/Waveguide Synthesizer/offline-v1.12/lesson-sheet.png",
+  "Projects/Waveguide Synthesizer/offline-v1.10/stiff-walk.mp4",
+  "Projects/Waveguide Synthesizer/offline-v1.10/stiffness-tour.wav",
+  "Projects/Waveguide Synthesizer/offline-v1.5/stretch-by-pitch.png",
+  "Projects/Waveguide Synthesizer/offline-v1.8/body-walk.mp4",
+  "Projects/Waveguide Synthesizer/offline-v1.8/bridge-feeds-body.wav",
+  "Projects/Waveguide Synthesizer/offline-v1.9/bow-walk.mp4",
+  "Projects/Waveguide Synthesizer/offline-v1.4/schelleng-map.png",
+  "Projects/Waveguide Synthesizer/offline-v1/spacetime-strike-stiffness-0-vs-1.png",
+  "Projects/Waveguide Synthesizer/offline-v1/audition-v1.1.wav"
+ ],
+ "tier": "study",
+ "slice": 5
+}

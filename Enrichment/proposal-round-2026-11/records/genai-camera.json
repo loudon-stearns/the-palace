@@ -1,0 +1,50 @@
+{
+ "entry": "GenAI Camera",
+ "path": "GenAI Camera.md",
+ "type": "concept",
+ "stage": "growing",
+ "weight": 7,
+ "claim": "§ Gotchas & recipes: 'Figure depth strength is a costume↔form dial' (0.0–0.15 garment, ~0.30–0.45 sweet spot, 0.60+ locks the nude), and 'Depth LOCKS the surface; pose FREES it.'",
+ "pieces": [
+  {
+   "section": "Gotchas & recipes (accumulated 2026-07-09)",
+   "what": "The depth sweep as a scrubbable strip: one figure, pose held, depth 0.0 to 0.8, costume giving way to body.",
+   "kind": "image",
+   "walks_up_from": "one pose plate alone"
+  },
+  {
+   "section": "Gotchas & recipes (accumulated 2026-07-09)",
+   "what": "Thin versus thick OpenPose plate, side by side with what each produced: the pose barely takes from the stick figure.",
+   "kind": "image",
+   "walks_up_from": "the two plates"
+  },
+  {
+   "section": "How it runs (proven 2026-07-09)",
+   "what": "Depth near/far auto-range: the same figure as flat silhouette and as volume.",
+   "kind": "image",
+   "walks_up_from": "one depth pass"
+  },
+  {
+   "section": "The multi-camera move",
+   "what": "Segment versus inpaint composite from the shootout, render_012 against render_013.",
+   "kind": "image",
+   "walks_up_from": "the env layer alone"
+  }
+ ],
+ "gathered": [
+  "renders/depth_sweep.png",
+  "renders/render_021.png",
+  "renders/render_022.png",
+  "renders/render_020_thin_plate.png",
+  "renders/render_020_thick_plate.png",
+  "renders/pose_check.png",
+  "renders/render_012.png",
+  "renders/render_013.png",
+  "renders/alpha_shootout.png",
+  "depth.png",
+  "GenAI Camera — scroll.html"
+ ],
+ "tier": "sketch",
+ "note": "Almost all gathering: the proofs are in the bundle and tracked. The claims are visual and the text strains to describe them.",
+ "slice": 1
+}

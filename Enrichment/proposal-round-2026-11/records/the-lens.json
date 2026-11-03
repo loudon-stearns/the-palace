@@ -1,0 +1,36 @@
+{
+ "entry": "The Lens",
+ "path": "The Lens.md",
+ "type": "concept",
+ "stage": "growing",
+ "weight": 7,
+ "claim": "§ The Fidelity Test (generalized): move the glass to a new patch, or swap the lens, and the reading must change in a way specific to that text; and a bold glass speaks in its own register.",
+ "pieces": [
+  {
+   "section": "The Fidelity Test (generalized)",
+   "what": "A draggable glass over a real passage with pre-rendered bold readings per patch and per glass; drag and swap to check that each reading changes specifically, and that a formula glass reads the same everywhere.",
+   "kind": "interactive",
+   "walks_up_from": "one paragraph under one glass"
+  },
+  {
+   "section": "The Fidelity Test (generalized)",
+   "what": "The 2026-10-23 blind test and the careful-versus-bold proof, gathered as they are.",
+   "kind": "interactive",
+   "walks_up_from": "naming one glass from its reading"
+  },
+  {
+   "section": "The Signal Problem (the actual design)",
+   "what": "The link-distance ranking over the real typed-link graph: pick a subject, see candidate glasses by hop distance, with the distant long shots still reachable.",
+   "kind": "interactive",
+   "walks_up_from": "one entry and its direct links"
+  }
+ ],
+ "gathered": [
+  "The Lens/The Lens — any-page-through-any-page mockup.html",
+  "The Lens/The Lens — philosopher refraction+confrontation mockup.html",
+  "The Lens/proofs/2026-10-23-daily-page/careful-or-bold.html",
+  "The Lens/proofs/2026-10-23-daily-page/name-the-glass.html"
+ ],
+ "tier": "study",
+ "slice": 7
+}

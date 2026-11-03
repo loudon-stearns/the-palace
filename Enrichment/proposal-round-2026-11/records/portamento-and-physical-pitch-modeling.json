@@ -1,0 +1,49 @@
+{
+ "entry": "Portamento and Physical Pitch Modeling",
+ "path": "Projects/Portamento and Physical Pitch Modeling.md",
+ "type": "project",
+ "stage": "mature",
+ "weight": 9,
+ "claim": "Characteristic Solution Regimes §: overdamped 'surrender', critically damped 'purposeful arrival', underdamped 'overshoot and ring-back' are audibly distinct regimes; the forward vector wants a student to name them by ear. Two latent errors a piece would expose: 'Two settling times (2/ω_n) to reach ~95%' (at t = 2/ω_n the critically damped curve has covered only ~59%; 95% needs ~4.7/ω_n), and the f_max formula's '+' sign (the first peak lies past the target, f_target − (f₀ − f_target)·e^(−πζ/√(1−ζ²))).",
+ "pieces": [
+  {
+   "section": "Characteristic Solution Regimes",
+   "what": "the ear-set quiz: hear a glide, name its regime, see its curve; tests whether the regimes are identifiable by ear",
+   "kind": "interactive",
+   "walks_up_from": "one glide with no overshoot"
+  },
+  {
+   "section": "Critically Damped (ζ = 1)",
+   "what": "the critical curve plotted with time marks at 1/ω_n, 2/ω_n and the true 95% point; tests the section's own settling-time sentence",
+   "kind": "interactive",
+   "walks_up_from": "an exponential approach to a target"
+  },
+  {
+   "section": "Underdamped (0 < ζ < 1)",
+   "what": "overshoot threshold page and ζ sweep (0.3 → 0.7), heard; tests 'perceptually apparent for ζ < 0.5' and checks the overshoot formula's sign",
+   "kind": "interactive",
+   "walks_up_from": "a pitch landing exactly"
+  },
+  {
+   "section": "Coupled Modes and Real Instrument Complexity",
+   "what": "multi-mode study: partials locking or slipping during a bowed glide, A/B",
+   "kind": "audio",
+   "walks_up_from": "an ideal harmonic string sliding"
+  }
+ ],
+ "gathered": [
+  "Projects/Portamento and Physical Pitch Modeling/curated-ear-set/quiz.html",
+  "Projects/Portamento and Physical Pitch Modeling/curated-ear-set/paired-exercises.html",
+  "Projects/Portamento and Physical Pitch Modeling/curated-ear-set/single-session-reel.html",
+  "Projects/Portamento and Physical Pitch Modeling/threshold/overshoot-threshold.html",
+  "Projects/Portamento and Physical Pitch Modeling/zeta-over-time/zeta-over-time.html",
+  "Projects/Portamento and Physical Pitch Modeling/multi-mode/mode-locking-listening.html",
+  "Projects/Portamento and Physical Pitch Modeling/multi-mode/figures/mode-locking.png",
+  "Projects/Portamento and Physical Pitch Modeling/model-fitter/fit_validation.png",
+  "Projects/Portamento and Physical Pitch Modeling/proofs/2026-05-04-three-glides.png",
+  "Projects/Portamento and Physical Pitch Modeling/proofs/2026-05-04-three-glides.wav",
+  "Projects/Portamento and Physical Pitch Modeling/portamento-tool-01.html"
+ ],
+ "tier": "study",
+ "slice": 4
+}

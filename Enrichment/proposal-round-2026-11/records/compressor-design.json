@@ -1,0 +1,31 @@
+{
+ "entry": "Compressor Design",
+ "path": "Projects/Compressor Design.md",
+ "type": "project",
+ "stage": "mature",
+ "weight": 8,
+ "claim": "FILO Circular Buffer RMS: the window becomes 'time they can hear' — 500 samples is 11 ms, 1000 sluggish, 100 twitchy; and Soft Knee Mathematics: a sharp knee is broadband while the quadratic knee has bounded Fourier content.",
+ "pieces": [
+  {
+   "section": "FILO Circular Buffer RMS",
+   "what": "The buffer drawn as a ring of samples filling and emptying, with a window slider (100, 500, 1000) on one drum loop; the reader hears sluggish and twitchy. (The buffer adds the newest and drops the oldest, so it is first-in-first-out; the piece would surface the name.)",
+   "kind": "interactive",
+   "walks_up_from": "one sample entering an empty ring"
+  },
+  {
+   "section": "Soft Knee Mathematics",
+   "what": "The gain curve with W and R sliders, including R < 1 and W = 0, beside the spectrum of a sine pushed through it; hard knee vs quadratic knee heard and seen. Tests the bounded-Fourier claim.",
+   "kind": "interactive",
+   "walks_up_from": "the straight unity line, no compression"
+  },
+  {
+   "section": "FILO Circular Buffer RMS",
+   "what": "The same buffer stretched to a second, holding a phrase (Retrospective Delay), to hear one primitive at two time scales.",
+   "kind": "audio",
+   "walks_up_from": "the 11 ms window"
+  }
+ ],
+ "gathered": [],
+ "tier": "sketch",
+ "slice": 3
+}

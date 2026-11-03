@@ -1,0 +1,35 @@
+{
+ "entry": "Piano String Inharmonicity",
+ "path": "Projects/Piano String Inharmonicity.md",
+ "type": "concept",
+ "stage": "growing",
+ "weight": 9,
+ "claim": "The Inharmonicity Formula § and String Bending and Timbre Change §: f_n = n·f₀·√(1+B·n²) stretches partials sharp with the cube of n, and because B ∝ 1/T 'a bent note has subtly different timbre than an unbent note at the same pitch'. The forward vector asks for exactly this: dial B and hear it.",
+ "pieces": [
+  {
+   "section": "The Inharmonicity Formula",
+   "what": "B slider: partials drawn against ghost harmonic lines and sounded; tests the n³ growth by ear and eye",
+   "kind": "interactive",
+   "walks_up_from": "one partial at n = 1, which never moves"
+  },
+  {
+   "section": "String Bending and Timbre Change",
+   "what": "same target pitch reached two ways — by bending (T up, B down) and by shortening (L down, B up as 1/L²) — A/B; tests the bent-timbre claim and shows the opposite move fretting makes",
+   "kind": "audio",
+   "walks_up_from": "one string at rest"
+  },
+  {
+   "section": "Why This Is Linear Time-Invariant",
+   "what": "an impulse convolved with the inharmonic IR; tests 'dispersion here is LTI and convolution can make it'",
+   "kind": "audio",
+   "walks_up_from": "a click through a sum of decaying sines"
+  }
+ ],
+ "gathered": [
+  "Projects/Piano String Inharmonicity/string-bending-inharmonicity.html",
+  "Projects/Piano String Inharmonicity/proofs/2026-05-04-B-slider.html",
+  "Projects/Piano String Inharmonicity/proofs/2026-05-04-real-piano-and-bending-curve.png"
+ ],
+ "tier": "sketch",
+ "slice": 4
+}

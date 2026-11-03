@@ -1,0 +1,31 @@
+{
+ "entry": "Saturation ↔ Richness",
+ "path": "Cross-Domain Resonances/Saturation ↔ Richness.md",
+ "type": "concept",
+ "stage": "mature",
+ "weight": 7,
+ "claim": "§ Common Misunderstandings: 'EQ boosts existing frequencies. Saturation CREATES new harmonics.' § The Technical Side: even-order = warmth, odd-order = edge.",
+ "pieces": [
+  {
+   "section": "Teaching Notes",
+   "what": "A sine through a drive knob with a live spectrum: harmonics appear; an EQ boost on the same sine adds nothing — the 'creates vs amplifies' test",
+   "kind": "interactive",
+   "walks_up_from": "one sine, one spike"
+  },
+  {
+   "section": "The Technical Side",
+   "what": "A symmetry knob on the transfer curve: symmetric clipping gives only odd harmonics, asymmetric adds the even — shows the warmth claim depends on asymmetry the text takes for granted",
+   "kind": "interactive",
+   "walks_up_from": "the drive knob above"
+  },
+  {
+   "section": "Teaching the Resonance",
+   "what": "Clean / light / medium / heavy on one vocal in a mix",
+   "kind": "audio",
+   "walks_up_from": "the clean vocal"
+  }
+ ],
+ "gathered": [],
+ "tier": "study",
+ "slice": 0
+}

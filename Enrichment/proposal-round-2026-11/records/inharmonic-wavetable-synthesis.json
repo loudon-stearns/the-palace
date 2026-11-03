@@ -1,0 +1,50 @@
+{
+ "entry": "Inharmonic Wavetable Synthesis",
+ "path": "Projects/Inharmonic Wavetable Synthesis.md",
+ "type": "project",
+ "stage": "growing",
+ "weight": 9,
+ "claim": "Opening and Wavetable B §: 'a flat horizontal line is the harmonic series. Every deviation from that line is inharmonicity. The shape of the deviation encodes the physics of a material.' The page asks you to draw a curve and hear it; text can only describe the bend.",
+ "pieces": [
+  {
+   "section": "Wavetable B — Inharmonicity Control",
+   "what": "draw on a flat line (cents vs partial number), hear the additive tone change; presets for piano bow, Bessel step, scatter; tests the flat-line claim directly",
+   "kind": "interactive",
+   "walks_up_from": "the flat line alone: a harmonic tone"
+  },
+  {
+   "section": "What This Sounds Like",
+   "what": "the settling piano and the dissolving bell from the dual-wavetable renders; tests 'the attack is metallic and settles into clarity over half a second'",
+   "kind": "audio",
+   "walks_up_from": "the amplitude wall alone, no bend"
+  },
+  {
+   "section": "Unison as a Bundle of Lines",
+   "what": "unison voices spread along τ_B, drawn as lines braiding at low partials and fanning at high ones, with sound; tests 'the bundle braids tightly at the left and fans outward at the right'",
+   "kind": "interactive",
+   "walks_up_from": "two voices on one curve"
+  },
+  {
+   "section": "At the Coupling Edge",
+   "what": "the coupling-edge instrument: hold the bend, turn the pull, hear the tone lock or tear; tests 'coupling is the cleaner performance knob'",
+   "kind": "interactive",
+   "walks_up_from": "one partial pulled toward its harmonic"
+  }
+ ],
+ "gathered": [
+  "Projects/Inharmonic Wavetable Synthesis/bent-line-editor.png",
+  "Projects/Inharmonic Wavetable Synthesis/bent-line-take.wav",
+  "Projects/Inharmonic Wavetable Synthesis/faust-prototype/multi-frame-wtb/settling-line-explorer.html",
+  "Projects/Inharmonic Wavetable Synthesis/dual-wavetable/dual-wavetable-instrument.html",
+  "Projects/Inharmonic Wavetable Synthesis/dual-wavetable/cube-walls.png",
+  "Projects/Inharmonic Wavetable Synthesis/dual-wavetable/02-organ-struck-piano-settling.wav",
+  "Projects/Inharmonic Wavetable Synthesis/dual-wavetable/03-organ-bell-dissolving.wav",
+  "Projects/Inharmonic Wavetable Synthesis/coupling-edge/coupling-edge-instrument.html",
+  "Projects/Inharmonic Wavetable Synthesis/coupling-edge/coupling-edge.png",
+  "Projects/Inharmonic Wavetable Synthesis/proofs/2026-05-04-bending-spectra-v2.png",
+  "Projects/Inharmonic Wavetable Synthesis/proofs/2026-05-04-bending-the-line-v2.wav",
+  "Projects/Inharmonic Wavetable Synthesis/trajectory-library/01-real-piano-two-walls.wav"
+ ],
+ "tier": "study",
+ "slice": 4
+}

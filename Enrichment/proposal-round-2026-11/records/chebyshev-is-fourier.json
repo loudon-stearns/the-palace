@@ -1,0 +1,33 @@
+{
+ "entry": "Chebyshev is Fourier",
+ "path": "Chebyshev is Fourier.md",
+ "type": "concept",
+ "stage": "growing",
+ "weight": 9,
+ "claim": "§ The identity itself: T_n(cos θ) = cos(nθ) — 'feed a cosine of amplitude 1 into T_n and out comes the n-th harmonic, exactly'; Chebyshev nodes are equal angles on the circle pushed onto the diameter.",
+ "pieces": [
+  {
+   "section": "Three approximation topics, one identity",
+   "what": "Chebyshev waveshaper: a cosine through a weighted sum of T_n, coefficient sliders = harmonic amplitudes, spectrum confirms; then drop the input amplitude below 1 and watch the harmonics stop matching — the claim's unstated condition",
+   "kind": "interactive",
+   "walks_up_from": "a cosine into T_2 giving one octave"
+  },
+  {
+   "section": "The identity itself",
+   "what": "Equally spaced points on a circle projected down to the diameter, clustering at the ends; overlay Runge's polynomial on equal vs Chebyshev nodes",
+   "kind": "interactive",
+   "walks_up_from": "one point going round a circle and its shadow on x"
+  },
+  {
+   "section": "Spending it back into the torus",
+   "what": "A 2D cos(mφ1)cos(nφ2) coefficient grid with a wallpaper-group selector that greys out forbidden (m,n) pairs, heard as a torus scan",
+   "kind": "interactive",
+   "walks_up_from": "a single (1,1) mode"
+  }
+ ],
+ "gathered": [
+  "Dissolutions/proofs/2026-10-20-the-circles-shadow/the-circles-shadow.html (likely this identity's proof; confirm before laying beside)"
+ ],
+ "tier": "study",
+ "slice": 0
+}

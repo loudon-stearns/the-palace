@@ -1,0 +1,51 @@
+{
+ "entry": "Quantum Synthesizer",
+ "path": "Projects/Quantum Synthesizer.md",
+ "type": "project",
+ "stage": "growing",
+ "weight": 9,
+ "claim": "One equation, two spacings §: a plucked string sounds 1·2·3·4 and Schrödinger's box, same walls, sounds 1·4·9·16; two roads (stiffen the equation, or bump the well) meet at the squares. Latent errors the bundle's own proofs already catch: Energy Eigenvalues § calls ħω(n+½) 'identical to the harmonic series', but read as pitches the rungs are 1:3:5 (ladder-checks: 'clock = odd multiples of 110'); Hermite-Gaussian § says φ_n gives n+1 partials, which hermite-checks finds holds in none of three readings.",
+ "pieces": [
+  {
+   "section": "One equation, two spacings",
+   "what": "the round trip: one held tone up the stiffness road and back down the well, with the ladder ratios on screen; tests 'one substance, two knobs'",
+   "kind": "video",
+   "walks_up_from": "a string's harmonic ladder, 1·2·3"
+  },
+  {
+   "section": "Energy Eigenvalues as Harmonic Partials",
+   "what": "the ladder proof: rungs as pitches give odd multiples, rung differences give the harmonic series; tests the section's 'identical to the harmonic series'",
+   "kind": "video",
+   "walks_up_from": "one rung alone, silent to the detector"
+  },
+  {
+   "section": "Anharmonicity through Potential Shaping",
+   "what": "pendulum slider: deepen the bump, hear the squares fold toward 1·2·3 and sag",
+   "kind": "interactive",
+   "walks_up_from": "a free ring, the squares"
+  },
+  {
+   "section": "Hermite-Gaussian Basis Functions as Spectral Shape",
+   "what": "the three readings of φ_n (evolved, |φ|² on a comb, one wavetable cycle); tests the n+1 partials sentence",
+   "kind": "video",
+   "walks_up_from": "the ground state, a Gaussian"
+  }
+ ],
+ "gathered": [
+  "Projects/Quantum Synthesizer/proofs/round-trip.mp4",
+  "Projects/Quantum Synthesizer/proofs/walls.mp4",
+  "Projects/Quantum Synthesizer/proofs/stiffness.mp4",
+  "Projects/Quantum Synthesizer/proofs/pendulum.mp4",
+  "Projects/Quantum Synthesizer/proofs/pendulum-slider.html",
+  "Projects/Quantum Synthesizer/proofs/ladder.mp4",
+  "Projects/Quantum Synthesizer/proofs/hermite.mp4",
+  "Projects/Quantum Synthesizer/proofs/drum.mp4",
+  "Projects/Quantum Synthesizer/proofs/timbre-atlas.mp4",
+  "Projects/Quantum Synthesizer/proofs/double-well-explorer.html",
+  "Projects/Quantum Synthesizer/proofs/well-morph-explorer.html",
+  "Projects/Quantum Synthesizer/proofs/instrument.html",
+  "Projects/Quantum Synthesizer/proofs/schrodinger-AB-harmonic-then-anharmonic.wav"
+ ],
+ "tier": "study",
+ "slice": 4
+}

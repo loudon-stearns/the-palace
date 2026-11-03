@@ -1,0 +1,27 @@
+{
+ "entry": "Ohm's Law",
+ "path": "Ohm's Law.md",
+ "type": "concept",
+ "stage": "mature",
+ "weight": 7,
+ "claim": "Cross-Domain Understanding / The Lock Mechanism Pattern: one equation, V = I x R, appears identically across domains, and locking one variable leaves two degrees of freedom you can feel ('one gives, the other takes away').",
+ "pieces": [
+  {
+   "section": "The Lock Mechanism Pattern",
+   "what": "The gathered explorer built and laid in: lock one variable, drag another on log sliders, watch the third answer",
+   "kind": "interactive",
+   "walks_up_from": "one slider moving one value"
+  },
+  {
+   "section": "Cross-Domain Understanding",
+   "what": "The same three sliders reskinned as water, sound, light, labour — and the piece checks each mapping against its own physics. Light through an opaque medium falls off exponentially (Beer-Lambert), not as 1/R, so the test will likely show some analogies break; that finding goes home through the Deposit map",
+   "kind": "interactive",
+   "walks_up_from": "the water pipe, the one analogy that holds"
+  }
+ ],
+ "gathered": [
+  "Ohm's Law/ohms_law_intuition.jsx"
+ ],
+ "tier": "study",
+ "slice": 2
+}

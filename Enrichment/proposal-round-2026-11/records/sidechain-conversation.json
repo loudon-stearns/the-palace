@@ -1,0 +1,31 @@
+{
+ "entry": "Sidechain ↔ Conversation",
+ "path": "Cross-Domain Resonances/Sidechain ↔ Conversation.md",
+ "type": "concept",
+ "stage": "mature",
+ "weight": 7,
+ "claim": "§ The Technical Side: kick and bass in 60–120 Hz mask each other; the duck turns mud into dialogue, and threshold/ratio/attack/release set 'the quality of the conversation'.",
+ "pieces": [
+  {
+   "section": "Teaching the Resonance",
+   "what": "Kick + bass loop with sidechain on/off and all four parameters, exaggerated to subtle, gain-reduction trace drawn under the waveform",
+   "kind": "interactive",
+   "walks_up_from": "kick and bass together, no sidechain"
+  },
+  {
+   "section": "Common Misunderstandings",
+   "what": "Infinite release (the bass never returns) and kick vs hi-hat (no shared band, no duck needed) as two failing settings",
+   "kind": "audio",
+   "walks_up_from": "the working sidechain"
+  },
+  {
+   "section": "The Technical Side",
+   "what": "Masking test: can you still pick out the bass under the kick without the duck? Tests the text's 'can't distinguish' — likely 'masked', not impossible",
+   "kind": "interactive",
+   "walks_up_from": "the bass alone"
+  }
+ ],
+ "gathered": [],
+ "tier": "study",
+ "slice": 0
+}

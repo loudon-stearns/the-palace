@@ -1,0 +1,43 @@
+{
+ "entry": "Bayesian Granular Synthesizer",
+ "path": "Projects/Bayesian Granular Synthesizer.md",
+ "type": "project",
+ "stage": "sprout",
+ "weight": 9,
+ "claim": "Opening and The mechanism: 'A chord is a hypothesis the cloud slowly comes to believe' — the posterior sharpens as notes are held, and coupling pitch distance to grain length makes the cloud resolve in character, clicky scatter condensing into tone.",
+ "pieces": [
+  {
+   "section": "The mechanism",
+   "what": "A walk: the uniform prior alone (the clicky cloud), then one held note pulling a bump out of it, then time on the evidence envelope, then the pitch-to-length coupling switched on; the last step A/Bs coupling on and off on the same chord. Tests 'resolves in character' by ear.",
+   "kind": "interactive",
+   "walks_up_from": "the prior alone, no notes held"
+  },
+  {
+   "section": "The mechanism",
+   "what": "The playable belief instrument and the helix, gathered as they are.",
+   "kind": "interactive",
+   "walks_up_from": "the posterior plot with nothing held"
+  },
+  {
+   "section": "The grain spec",
+   "what": "Equal-energy normalization off and on: the long low grains' rumble, then gone.",
+   "kind": "audio",
+   "walks_up_from": "one long low grain"
+  }
+ ],
+ "gathered": [
+  "belief-instrument.html",
+  "belief-helix.html",
+  "belief-helix-states.png",
+  "chord-belief.wav",
+  "chord-belief.png",
+  "prior-tone-A.wav",
+  "prior-tone-B.wav",
+  "prior-tone-C.wav",
+  "prior-tone-ab.png",
+  "belief-cloud-face.html",
+  "belief-cloud-take.wav"
+ ],
+ "tier": "study",
+ "slice": 3
+}

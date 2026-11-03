@@ -1,0 +1,37 @@
+{
+ "entry": "Quadratic Interpolation in DSP",
+ "path": "Quadratic Interpolation in DSP.md",
+ "type": "concept",
+ "stage": "growing",
+ "weight": 8,
+ "claim": "§ What It Is: quadratic \"has changing slope but continuous first derivative\" and is \"much smoother for audio\"; § 3 Pitch Detection gives a parabolic-peak formula. A piece checks both: the three-point parabola as written is not slope-continuous from one segment to the next, and the peak formula's sign points the wrong way against the standard (a - c)/(a - 2b + c) form.",
+ "pieces": [
+  {
+   "section": "What It Is",
+   "what": "Drag three points, see the parabola through them; then chain segments along a waveform and plot the slope at each joint, testing the 'no sharp corner' claim",
+   "kind": "interactive",
+   "walks_up_from": "three points and one parabola"
+  },
+  {
+   "section": "2. Wavetable Synthesis",
+   "what": "Read a single-cycle table at a gliding pitch with none / linear / quadratic / cubic interpolation, hear each and see its alias spectrum, testing 'quadratic is the sweet spot'",
+   "kind": "interactive",
+   "walks_up_from": "one sine table read at one fixed ratio"
+  },
+  {
+   "section": "3. Pitch Detection via Parabolic Interpolation on FFT Peaks",
+   "what": "A sine between two bins, the three magnitudes, and the refined estimate from the page's formula and from the standard one, showing which lands on the true frequency",
+   "kind": "interactive",
+   "walks_up_from": "one sine exactly on a bin"
+  },
+  {
+   "section": "The Organic Imprecision Argument",
+   "what": "A glide to a target by quadratic ramp and by a PID or second-order spring, heard back to back, testing whether overshoot sounds 'alive'",
+   "kind": "audio",
+   "walks_up_from": "one pitch step"
+  }
+ ],
+ "gathered": [],
+ "tier": "sketch",
+ "slice": 5
+}

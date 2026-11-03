@@ -1,0 +1,43 @@
+{
+ "entry": "Haptic Handwheel",
+ "path": "Projects/Haptic Handwheel.md",
+ "type": "project",
+ "stage": "sprout",
+ "weight": 7,
+ "claim": "What the hand should feel § (the struck spring): 'a spring wobbles at one rate all the way down, and a pendulum quickens as it settles'; and Two kinds of force §: delay makes a stiff spring unstable, so stiff feels must be computed near the motor. The central claim is touch, which no screen carries; the sound and the stability are what a face can test.",
+ "pieces": [
+  {
+   "section": "What the hand should feel",
+   "what": "struck spring vs struck pendulum vs braked, heard and plotted; tests the 'one rate vs quickening' claim",
+   "kind": "audio",
+   "walks_up_from": "one flick of a virtual spring with no damping"
+  },
+  {
+   "section": "Two kinds of force",
+   "what": "the feel-lab stability map: stiffness against loop delay, with the unstable region shaded; tests 'delay makes a stiff spring unstable'",
+   "kind": "image",
+   "walks_up_from": "one spring computed with zero delay"
+  },
+  {
+   "section": "What the hand should feel (the lock)",
+   "what": "lock.wav and turntable_bumps beside the feel map; tests whether a click landing on the same point of the wobble is audible as a lock",
+   "kind": "audio",
+   "walks_up_from": "an LFO and a beat click at unrelated rates"
+  }
+ ],
+ "gathered": [
+  "Projects/Haptic Handwheel/proofs/feel-lab/feel-lab.html",
+  "Projects/Haptic Handwheel/proofs/feel-lab/struck_spring.wav",
+  "Projects/Haptic Handwheel/proofs/feel-lab/struck_pendulum.wav",
+  "Projects/Haptic Handwheel/proofs/feel-lab/struck_brakes.wav",
+  "Projects/Haptic Handwheel/proofs/feel-lab/lock.wav",
+  "Projects/Haptic Handwheel/proofs/feel-lab/frets_landing.wav",
+  "Projects/Haptic Handwheel/proofs/feel-lab/follow_melody.wav",
+  "Projects/Haptic Handwheel/proofs/feel-lab/turntable.wav",
+  "Projects/Haptic Handwheel/proofs/feel-lab/stability.svg",
+  "Projects/Haptic Handwheel/proofs/feel-lab/feel_map.svg",
+  "Projects/Haptic Handwheel/proofs/feel-lab/turntable_hold.svg"
+ ],
+ "tier": "sketch",
+ "slice": 4
+}

@@ -1,0 +1,37 @@
+{
+ "entry": "Quantization ↔ Precision vs Flow",
+ "path": "Cross-Domain Resonances/Quantization ↔ Precision vs Flow.md",
+ "type": "concept",
+ "stage": "mature",
+ "weight": 8,
+ "claim": "§ The Technical Side: 'was the deviation a mistake to correct, or expression to preserve? Quantization assumes mistake.' — the page's own comment asks for show-and-tell audio that exports a sample matrix.",
+ "pieces": [
+  {
+   "section": "The Technical Side",
+   "what": "A freely played drum pattern with a quantize-strength slider 0–100%, one genuine mistake and one deliberate push planted in it; quantize removes both — 'Quantization can't tell the difference' made audible",
+   "kind": "interactive",
+   "walks_up_from": "one note off the grid by 37 ms"
+  },
+  {
+   "section": "Advanced Applications",
+   "what": "Swing and groove-template quantize: snap to a Dilla-feel template vs a straight grid; humanize to compare",
+   "kind": "interactive",
+   "walks_up_from": "straight 16ths"
+  },
+  {
+   "section": "The Final Insight: Resolution Determines Expression",
+   "what": "Bit depth slider on a held tone, 24-bit down to 1-bit, with the noise floor heard",
+   "kind": "audio",
+   "walks_up_from": "a sine at 24 bit"
+  },
+  {
+   "section": "Teaching the Resonance",
+   "what": "Exportable sample matrix: per-element quantize amounts (kick 100, hats 50, perc 0) as the comment asks",
+   "kind": "interactive",
+   "walks_up_from": "the strength slider above"
+  }
+ ],
+ "gathered": [],
+ "tier": "study",
+ "slice": 0
+}

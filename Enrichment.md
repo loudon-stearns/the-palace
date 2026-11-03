@@ -109,4 +109,4 @@ The manifest's sections all read *in step* under `fingerprint.mjs`; every made p
 
 ## Active Baton
 
-[[Enrichment — baton — rich-face nominations 2026-10]] — drafted 2026-10-25
+[[Enrichment — baton — proposal round 2026-11]] — drafted 2026-11-03

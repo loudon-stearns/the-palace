@@ -1,0 +1,31 @@
+{
+ "entry": "Dispersion",
+ "path": "Dispersion.md",
+ "type": "hub",
+ "stage": "mature",
+ "weight": 7,
+ "claim": "§ Three Meanings: one word, three jobs — wave (partials drift sharp, ω_n = n f0 √(1+Bn²)), loudspeaker (spatial beam, no pitch change), granular (statistical spread) — plus open question 1, whether convolved dispersion can be told from the real thing.",
+ "pieces": [
+  {
+   "section": "1. Wave Dispersion: Frequency-Dependent Propagation Speed",
+   "what": "A stiff string with a B slider: partials stretch, the tone goes bell-like; partial markers against the harmonic grid",
+   "kind": "interactive",
+   "walks_up_from": "an ideal harmonic string, B = 0"
+  },
+  {
+   "section": "Convolution and Artificial Dispersion",
+   "what": "A click through an allpass cascade becomes a chirp; then an A/B blind test of stiff-string synthesis vs allpass-dispersed harmonic tone — open question 1 as a listening test",
+   "kind": "interactive",
+   "walks_up_from": "a single click"
+  },
+  {
+   "section": "3. Granular Dispersion: Statistical Spread in Parameter Space",
+   "what": "Grain-pitch spread knob: tight pitched cloud dissolving into texture",
+   "kind": "interactive",
+   "walks_up_from": "one repeating grain"
+  }
+ ],
+ "gathered": [],
+ "tier": "study",
+ "slice": 0
+}

@@ -1,0 +1,44 @@
+{
+ "entry": "Blood Compressor",
+ "path": "Projects/Blood Compressor.md",
+ "type": "project",
+ "stage": "sprout",
+ "weight": 8,
+ "claim": "Pedagogical Framing: set attack to 0 and feel the compressor lunge, 'what the body would do without baroreceptors'; give it 200 ms and the body notices before it acts. (The DSP section says attack cannot reach 0, a ~5 ms floor; the piece would show which is true.)",
+ "pieces": [
+  {
+   "section": "Pedagogical Framing",
+   "what": "The attack lesson: one drum loop, attack swept from its floor to 200 ms, the vessel and baroreceptors moving with it; the floor is labelled so the reader meets the 5 ms limit the text claims.",
+   "kind": "interactive",
+   "walks_up_from": "the vessel at rest with no signal"
+  },
+  {
+   "section": "Interface Mythology",
+   "what": "The built face and the vessel prototype, gathered as they are.",
+   "kind": "interactive",
+   "walks_up_from": "the vessel at rest"
+  },
+  {
+   "section": "DSP Architecture",
+   "what": "Engine renders of each biology knob (sympathetic, vessel age, HRV) beside their input, at matched level.",
+   "kind": "audio",
+   "walks_up_from": "the dry input"
+  }
+ ],
+ "gathered": [
+  "blood-compressor-face.html",
+  "stage2-vessel-prototype-v3.html",
+  "vis05-baroreceptors-firing.html",
+  "blood-compressor-attack-lesson.wav",
+  "blood-compressor-body-take.wav",
+  "blood-compressor-face.png",
+  "plugin/out/attack-sweep-input.wav",
+  "plugin/out/attack-sweep-engine.wav",
+  "plugin/out/vessel-age-engine.wav",
+  "plugin/out/sympathetic-engine.wav",
+  "verify/threshold-steps.png",
+  "verify/threshold-steps.wav"
+ ],
+ "tier": "study",
+ "slice": 3
+}

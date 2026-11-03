@@ -1,0 +1,31 @@
+{
+ "entry": "Lossy Compression with Intent Alignment",
+ "path": "Palace development/Lossy Compression with Intent Alignment.md",
+ "type": "concept",
+ "stage": "growing",
+ "weight": 7,
+ "claim": "The Rate-Distortion-Perception Tradeoff: 'low distortion is not the same as high perceptual quality, and optimizing for one actively trades against the other.'",
+ "pieces": [
+  {
+   "section": "The Rate-Distortion-Perception Tradeoff",
+   "what": "One sound at a fixed bit budget, coded two ways: the distortion-optimal version (smaller error, dull and muffled) and the perception-optimal one (larger error, sounds right). An error meter and your ear disagree, which is the claim",
+   "kind": "audio",
+   "walks_up_from": "one sample quantised to fewer bits"
+  },
+  {
+   "section": "The Rate-Distortion-Perception Tradeoff",
+   "what": "The same with an image: MSE-optimal blur vs a texture-preserving reconstruction, the error number shown under each",
+   "kind": "image",
+   "walks_up_from": "one image at one bit rate"
+  },
+  {
+   "section": "Knowledge Distillation and Soft Labels",
+   "what": "One link shown as a hard type and then with its soft label; the reader rebuilds the relation from each",
+   "kind": "interactive",
+   "walks_up_from": "one link, `mirrors` vs `rhymes-with`"
+  }
+ ],
+ "gathered": [],
+ "tier": "study",
+ "slice": 2
+}

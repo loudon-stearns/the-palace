@@ -1,0 +1,28 @@
+{
+ "entry": "Playful Interface Design",
+ "path": "Playful Interface Design.md",
+ "type": "practice",
+ "stage": "growing",
+ "weight": 7,
+ "claim": "The principle: every interface is understood as something — the picture is not optional, you only choose whether it is accidental; and Four moves: make it legible before it is lovely, since juice past a middle amount stops meaning anything.",
+ "pieces": [
+  {
+   "section": "Four moves the direction asks for",
+   "what": "One compressor, one signal, a juice slider: at low juice the vessel narrows exactly with gain; turned up, the shake and sparkle bury which motion means gain. The reader tries to read gain reduction at each setting. Tests the inverted U.",
+   "kind": "interactive",
+   "walks_up_from": "a bare gain-reduction meter"
+  },
+  {
+   "section": "The principle: every interface is understood *as* something",
+   "what": "The same control drawn three ways (plain knob, vessel, thing with mass) on one engine; the reader is asked what each one wants them to do before touching it.",
+   "kind": "interactive",
+   "walks_up_from": "one plain knob"
+  }
+ ],
+ "gathered": [
+  "Projects/Blood Compressor/blood-compressor-face.html",
+  "Projects/Blood Compressor/stage2-vessel-prototype-v3.html"
+ ],
+ "tier": "sketch",
+ "slice": 3
+}

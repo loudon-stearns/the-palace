@@ -1,0 +1,41 @@
+{
+ "entry": "FM Synthesis",
+ "path": "FM Synthesis.md",
+ "type": "concept",
+ "stage": "growing",
+ "weight": 9,
+ "claim": "§ Ratios + What the ear hears as the index rises: whole-number ratios keep the harmonic series and anything else leaves it (bells), and raising the index shimmers rather than simply brightens.",
+ "pieces": [
+  {
+   "section": "What the ear hears as the index rises",
+   "what": "The existing seven-step staged patch: one operator, then the pair, the index sweep, the ratio, feedback, up to the DX7 keyboard.",
+   "kind": "interactive",
+   "walks_up_from": "one sine operator"
+  },
+  {
+   "section": "Ratios",
+   "what": "Nudge the ratio from 1:1 to 1:1.003 to 1:1.414 and hear harmonic, beating, then bell, with the spectrum showing partials leave the harmonic grid.",
+   "kind": "interactive",
+   "walks_up_from": "a 1:1 pair at fixed index"
+  },
+  {
+   "section": "Six operators, 32 algorithms",
+   "what": "Algorithms 1, 5 and 32 as technical diagrams, as the page's own forward vector asks.",
+   "kind": "image",
+   "walks_up_from": "one carrier, one modulator"
+  },
+  {
+   "section": "Feedback",
+   "what": "One operator with its feedback pushed from 0 to 7 and past, sine to saw to noise.",
+   "kind": "audio",
+   "walks_up_from": "one sine alone"
+  }
+ ],
+ "gathered": [
+  "FM Synthesis — rich — staged patch.html",
+  "FM Synthesis — proof — staged patch checks.mjs (the checks, not for the face)"
+ ],
+ "tier": "study",
+ "note": "The staged patch is already built and committed (4dc02656) and waits on Loudon's ears, per the page's Forward Vector. No manifest yet.",
+ "slice": 1
+}

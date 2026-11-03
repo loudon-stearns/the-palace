@@ -1,0 +1,40 @@
+{
+ "entry": "DSP in Looping Dimensions",
+ "path": "DSP in Looping Dimensions.md",
+ "type": "concept",
+ "stage": "growing",
+ "weight": 9,
+ "claim": "§ The Principle in Plain Language: each looping dimension adds one independent fundamental; irrational ratios open a lattice, rational ratios 'phase-lock' it back to a harmonic series; § Frame 3, above a critical coupling the spectrum collapses — bell to string as a bifurcation, not a morph.",
+ "pieces": [
+  {
+   "section": "The Principle in Plain Language",
+   "what": "Two loops with a ratio slider and a live spectrum: at 3/2 the partials fall on one harmonic series, nudge to golden ratio and the lattice opens — heard and seen",
+   "kind": "interactive",
+   "walks_up_from": "one loop and its harmonic series"
+  },
+  {
+   "section": "Three Operational Frames",
+   "what": "Frame 3: two coupled Karplus-Strong loops at an irrational ratio with a coupling knob; past threshold the bell snaps into a string — tests 'bifurcation, not a smooth morph'",
+   "kind": "interactive",
+   "walks_up_from": "one plucked delay loop"
+  },
+  {
+   "section": "Three Operational Frames",
+   "what": "Frame 2: two coupled combs give the same 2D lattice as the torus scan, shown side by side",
+   "kind": "interactive",
+   "walks_up_from": "one comb filter's peaks"
+  },
+  {
+   "section": "The Honest Limit",
+   "what": "Add loops one by one toward noise; the spectrum stays discrete — the limit heard",
+   "kind": "audio",
+   "walks_up_from": "the two-loop lattice"
+  }
+ ],
+ "gathered": [
+  "Dissolutions/proofs/2026-10-20-the-lattice-read-back/the-lattice-read-back.html (adjacent; check fit)",
+  "Projects/2D Torus Wavetable Synthesizer/ (the Frame 1 incarnation; check for a playable build)"
+ ],
+ "tier": "study",
+ "slice": 0
+}

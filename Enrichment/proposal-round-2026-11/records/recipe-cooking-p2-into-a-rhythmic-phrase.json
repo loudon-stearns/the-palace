@@ -1,0 +1,27 @@
+{
+ "entry": "Recipe — Cooking p2 into a rhythmic phrase",
+ "path": "Projects/Wallpaper Groups/recipe-p2.md",
+ "type": "none (bundle note, no frontmatter)",
+ "stage": "none",
+ "weight": 7,
+ "claim": "§ Method: \"Rotate 180°\" is implemented as n -> (n + 8) mod 16, and § What you should hear claims p2 \"balances\" where pm \"folds\". In one dimension that map is a half-cycle translation, so the recipe's p2 is a period-8 loop; the claim is testable by ear.",
+ "pieces": [
+  {
+   "section": "Method",
+   "what": "Puts the same three or four hits through this recipe and through the pm recipe and plays both, with a readout showing the p2 output repeats every 8 steps; tests 'dialogue vs echo' and shows what the recipe takes for granted about rotation in time",
+   "kind": "interactive",
+   "walks_up_from": "three hits in steps 1-8"
+  },
+  {
+   "section": "Where to break it",
+   "what": "Moves one second-half hit by a step and plays the clave beside it, testing whether the 'almost-p2' break is where the clave lives",
+   "kind": "audio",
+   "walks_up_from": "the unbroken recipe output"
+  }
+ ],
+ "gathered": [
+  "Projects/Wallpaper Groups/proofs/2026-05-04-animated-explorer-v2.html"
+ ],
+ "tier": "sketch",
+ "slice": 5
+}

@@ -1,0 +1,37 @@
+{
+ "entry": "Synthesis ↔ Emergence",
+ "path": "Cross-Domain Resonances/Synthesis ↔ Emergence.md",
+ "type": "concept",
+ "stage": "mature",
+ "weight": 9,
+ "claim": "§ The Technical Side: two sines in FM give sidebands at f_c ± n·f_m that 'existed in neither original wave' — depth 0 a sine, 1 brass, 5 a bell; and § Unpredictability ≠ Randomness: deterministic but 'cannot predict from parameters alone'.",
+ "pieces": [
+  {
+   "section": "Teaching Notes",
+   "what": "Carrier alone, modulator alone, summed (two spikes), then FM depth swept 0→5 with the spectrum growing sidebands — the live demonstration the page scripts",
+   "kind": "interactive",
+   "walks_up_from": "one sine wave"
+  },
+  {
+   "section": "Unpredictability ≠ Randomness",
+   "what": "Bessel-function bars predicted from the index beside the measured spectrum — they match, which tests (and partly contradicts) 'cannot predict'",
+   "kind": "interactive",
+   "walks_up_from": "the depth sweep above"
+  },
+  {
+   "section": "Common Student Discoveries",
+   "what": "Ratio 1.0 vs 1.01: harmonic tone vs beating, inharmonic — 'small changes, huge differences'",
+   "kind": "audio",
+   "walks_up_from": "ratio 1:1"
+  },
+  {
+   "section": "Advanced Applications",
+   "what": "Feedback FM: one operator modulating itself, from tone into chaos",
+   "kind": "interactive",
+   "walks_up_from": "feedback at 0"
+  }
+ ],
+ "gathered": [],
+ "tier": "study",
+ "slice": 0
+}

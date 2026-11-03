@@ -1,0 +1,50 @@
+{
+ "entry": "Harmonicity and Inharmonicity",
+ "path": "Harmonicity and Inharmonicity.md",
+ "type": "concept",
+ "stage": "growing",
+ "weight": 9,
+ "claim": "§ What the Sweeps Showed: stretch moves a tone frozen → alive → edge → torn → released; the top partials set the edge roughly as B·n³, so 40 partials tore over a hundred times sooner than six.",
+ "pieces": [
+  {
+   "section": "What the Sweeps Showed",
+   "what": "Hear the five places in order, singer alone then with the voices pulling.",
+   "kind": "audio",
+   "walks_up_from": "one harmonic tone holding still"
+  },
+  {
+   "section": "What the Sweeps Showed",
+   "what": "Six against forty against 120 partials through the same stretch sweep, with the edgemap marking where each tears.",
+   "kind": "audio",
+   "walks_up_from": "the six-partial sweep"
+  },
+  {
+   "section": "The Frustrated Coupling Insight",
+   "what": "A live slider on stretch with the fundamental's sag plotted, so the reader finds the edge by ear.",
+   "kind": "interactive",
+   "walks_up_from": "integer partials, one outside voice"
+  },
+  {
+   "section": "Open Questions",
+   "what": "Breathing across the edge and striking past it, the gestures the scroll says play.",
+   "kind": "audio",
+   "walks_up_from": "the warm tone alone"
+  }
+ ],
+ "gathered": [
+  "proofs/2026-10-17-frustration-sweeps/frustration-five-scenes.m4a",
+  "proofs/2026-10-17-frustration-sweeps/field-guide.md",
+  "proofs/2026-10-17-frustration-sweeps/edgemap.png",
+  "proofs/2026-10-17-frustration-sweeps/sweep-singer-alone.m4a",
+  "proofs/2026-10-17-frustration-sweeps/sweep-with-voices.m4a",
+  "proofs/2026-10-17-frustration-sweeps/sweep40-with-voices.m4a",
+  "proofs/2026-10-17-frustration-sweeps/sweep120-with-voices.m4a",
+  "proofs/2026-10-17-frustration-sweeps/sweeppin-with-voices.m4a",
+  "proofs/2026-10-17-frustration-sweeps/ride-breathe-warm.m4a",
+  "proofs/2026-10-17-frustration-sweeps/gestures-warm.m4a",
+  "proofs/2026-10-17-frustration-sweeps/frustration-fundamental.png"
+ ],
+ "tier": "study",
+ "note": "31 tracked m4a in the bundle and none on the page; the text says 'hear it' and points away to the scroll.",
+ "slice": 1
+}

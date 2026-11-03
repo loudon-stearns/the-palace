@@ -1,0 +1,31 @@
+{
+ "entry": "Wavetable Oscillator",
+ "path": "Wavetable Oscillator.md",
+ "type": "concept",
+ "stage": "growing",
+ "weight": 8,
+ "claim": "§ The same object as a loop + Forward Vector: a stored cycle read by a counter and the same cycle going round a lossless delay loop are one object; subtract them at a whole-sample period and silence is the proof.",
+ "pieces": [
+  {
+   "section": "The same object as a loop",
+   "what": "Play a cycle from a table and the same cycle round a delay loop, then flip one's polarity and sum: silence at whole-sample periods, a residue in between until the fractional filter is switched on.",
+   "kind": "audio",
+   "walks_up_from": "one stored cycle read around"
+  },
+  {
+   "section": "Why it can only be harmonic",
+   "what": "Loop one cycle of a bell and hear the loop's harmonics, not the bell; the spectrum shows the bell's partials snapped to the grid.",
+   "kind": "audio",
+   "walks_up_from": "a recorded bell strike"
+  },
+  {
+   "section": "Staying inside one loop",
+   "what": "Sweep Position slowly, then drive it fast at a rate unrelated to pitch: harmonics change strength, then sidebands leave the lattice as Position becomes a second clock.",
+   "kind": "interactive",
+   "walks_up_from": "a two-frame table with a Position knob"
+  }
+ ],
+ "gathered": [],
+ "tier": "study",
+ "slice": 7
+}

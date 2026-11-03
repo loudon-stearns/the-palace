@@ -1,0 +1,31 @@
+{
+ "entry": "ControlNet as Topology",
+ "path": "ControlNet as Topology.md",
+ "type": "concept",
+ "stage": "growing",
+ "weight": 8,
+ "claim": "§ The same truth, made precise: 'CFG reweights valleys that already exist; ControlNet carves a new canyon' — and denoise × ControlNet weight is one geometry.",
+ "pieces": [
+  {
+   "section": "The same truth, made precise: the landscape",
+   "what": "A 2D energy surface with balls rolling downhill under an annealing fog; a CFG knob deepens existing valleys, a ControlNet knob carves a new channel, a denoise knob lifts balls back into the fog — tests that only a steep canyon survives high denoise",
+   "kind": "interactive",
+   "walks_up_from": "one ball in one valley"
+  },
+  {
+   "section": "The sculptor's studio (a door in)",
+   "what": "The noise schedule shown as rough-to-fine: one generation's intermediate frames, coarse pose first and detail last",
+   "kind": "image",
+   "walks_up_from": "pure noise"
+  },
+  {
+   "section": "Pose vs depth — canyons of different shape (2026-07-09)",
+   "what": "Same mannequin conditioned on depth (garments painted on skin) vs pose (robes and fur)",
+   "kind": "image",
+   "walks_up_from": "the bare mannequin"
+  }
+ ],
+ "gathered": [],
+ "tier": "study",
+ "slice": 0
+}

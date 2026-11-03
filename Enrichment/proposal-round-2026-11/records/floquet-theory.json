@@ -1,0 +1,47 @@
+{
+ "entry": "Floquet Theory",
+ "path": "Floquet Theory.md",
+ "type": "concept",
+ "stage": "growing",
+ "weight": 8,
+ "claim": "§ The monodromy matrix + Stability boundaries: stability is where multipliers sit against the unit circle, and the kind of crossing (+1, −1, complex pair) sets the kind of bifurcation, each with its own audible signature.",
+ "pieces": [
+  {
+   "section": "The monodromy matrix",
+   "what": "Multiplier plane with the unit circle; drag (a, q) and watch the two multipliers move, collide on the real axis and leave.",
+   "kind": "interactive",
+   "walks_up_from": "one multiplier inside the circle"
+  },
+  {
+   "section": "Stability boundaries and bifurcations",
+   "what": "Hear the crossing: below, at and above threshold, the period-doubling case at audio rate.",
+   "kind": "audio",
+   "walks_up_from": "a damped tone with no pump"
+  },
+  {
+   "section": "Floquet ↔ Bloch — the duality",
+   "what": "The Bloch/Floquet figure laid beside the two equations it compares.",
+   "kind": "image",
+   "walks_up_from": "a periodic lattice in space"
+  },
+  {
+   "section": "Floquet engineering",
+   "what": "The Kapitza pendulum: a statically unstable inverted pendulum held up by shaking its pivot.",
+   "kind": "interactive",
+   "walks_up_from": "an inverted pendulum falling"
+  }
+ ],
+ "gathered": [
+  "/Projects/Floquet Time-Modulated Loops/interactives/09_multiplier_visualizer.html",
+  "/Projects/Floquet Time-Modulated Loops/audio/04a_below_threshold.wav",
+  "/Projects/Floquet Time-Modulated Loops/audio/04b_at_threshold.wav",
+  "/Projects/Floquet Time-Modulated Loops/audio/04c_above_threshold.wav",
+  "/Projects/Floquet Time-Modulated Loops/static/08_multipliers_vs_params.png",
+  "/Projects/Floquet Time-Modulated Loops/static/11_bloch_floquet_duality.png",
+  "/Projects/Floquet Time-Modulated Loops/static/10_phase_space_strobe.png",
+  "/Projects/Floquet Time-Modulated Loops/interactives/15_kapitza_pendulum.html"
+ ],
+ "tier": "study",
+ "note": "The bundle holds only hero and icon; the material lives in the parent project, tracked.",
+ "slice": 1
+}

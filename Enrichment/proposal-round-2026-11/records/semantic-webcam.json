@@ -1,0 +1,39 @@
+{
+ "entry": "Semantic Webcam",
+ "path": "Projects/Semantic Webcam.md",
+ "type": "project",
+ "stage": "growing",
+ "weight": 8,
+ "claim": "Opening and Forward Vector: 'the picture is drawn in the white space of the letters' — and the carried question, 'is legibility just another band of light — is language a tonal medium?' It is a visual claim the prose can only point at.",
+ "pieces": [
+  {
+   "section": "How it works",
+   "what": "the anchor cam (03) live on the reader's own face; tests that luminance choosing glyphs reads as a portrait",
+   "kind": "interactive",
+   "walks_up_from": "the camera downsampled to a grid of grey cells"
+  },
+  {
+   "section": "The line of iterations",
+   "what": "the eight cards as a strip, each a still proof frame, in build order",
+   "kind": "image",
+   "walks_up_from": "card 01, the amber terminal grid"
+  },
+  {
+   "section": "Lost branches",
+   "what": "the tonal bench (08): legibility measured as a band of the tonal ramp; tests the carried question directly",
+   "kind": "interactive",
+   "walks_up_from": "one word set in one grey"
+  }
+ ],
+ "gathered": [
+  "Projects/Semantic Webcam/03-character-multiply-cam.html",
+  "Projects/Semantic Webcam/08-tonal-bench.html",
+  "Projects/Semantic Webcam/08-tonal-bench — proof.png",
+  "Projects/Semantic Webcam/07-anatomy-cam — proof frame.png",
+  "Projects/Semantic Webcam/semantic-webcam-deck.html",
+  "Projects/Semantic Webcam/04-grammar-fit-cam.html",
+  "Projects/Semantic Webcam/06-true-features-cam.html"
+ ],
+ "tier": "sketch",
+ "slice": 4
+}

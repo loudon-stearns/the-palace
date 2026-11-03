@@ -1,0 +1,35 @@
+{
+ "entry": "Talking Keyboard",
+ "path": "Projects/Talking Keyboard.md",
+ "type": "project",
+ "stage": "fruiting",
+ "weight": 7,
+ "claim": "§ The Pronunciation Lesson: \"Code review couldn't catch this ... Only listening caught it.\" Three spellings of the spoken A ('A' -> 'uh', 'ay' -> 'eye', 'eigh' -> /eɪ/) are a claim only the ear can check.",
+ "pieces": [
+  {
+   "section": "The Pronunciation Lesson",
+   "what": "Plays the three spellings side by side with the spec line that produced each, so the reader hears the bug the code review passed and the fix that landed",
+   "kind": "audio",
+   "walks_up_from": "one key, A4, spoken once"
+  },
+  {
+   "section": "Talking Keyboard",
+   "what": "A playable 88-key strip: press a key, it says its name; velocity picks among the four Kokoro voices, so a mapping error is audible in the first second (tests 'instant audible verification')",
+   "kind": "interactive",
+   "walks_up_from": "a single key at one velocity"
+  },
+  {
+   "section": "Future Variants",
+   "what": "One octave rendered in a solfège variant beside the letter names, to hear whether positional verification survives losing the letter",
+   "kind": "audio",
+   "walks_up_from": "C4 in both namings"
+  }
+ ],
+ "gathered": [
+  "Projects/Talking Keyboard/proofs/2026-05-04-velocity-language-madlib-v2.html",
+  "Projects/Talking Keyboard/proofs/2026-05-04-velocity-language-madlib.html",
+  "_ops/sample-libraries/talking-keyboard/samples/ (352 WAVs, outside the bundle)"
+ ],
+ "tier": "sketch",
+ "slice": 5
+}

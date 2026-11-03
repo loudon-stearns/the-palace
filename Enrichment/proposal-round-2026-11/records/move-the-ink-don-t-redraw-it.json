@@ -1,0 +1,38 @@
+{
+ "entry": "Move the Ink, Don't Redraw It",
+ "path": "Move the Ink, Don't Redraw It.md",
+ "type": "concept",
+ "stage": "growing",
+ "weight": 8,
+ "claim": "Why redrawing fails: warping one inked still is exact and loops seamlessly (frame N = frame 0), while per-frame AI restyle 'boils' — measured 0.15/255 vs 1.50/255 frame-to-frame change. Boil is something you see, not read.",
+ "pieces": [
+  {
+   "section": "Why redrawing fails",
+   "what": "Two loops side by side on the same smoke, warp vs per-frame restyle, with a live frame-difference meter under each so the 10x gap is read off the motion itself; opens on one still frame, then one warp, then the loop closing on frame 0",
+   "kind": "video",
+   "walks_up_from": "a single inked still"
+  },
+  {
+   "section": "The honest edge",
+   "what": "A displacement field you can push from ripple to billow until topology has to change; the piece shows where warped ink tears and a redraw earns itself",
+   "kind": "interactive",
+   "walks_up_from": "one displacement vector moving one pixel of ink"
+  },
+  {
+   "section": "Ancestry",
+   "what": "BLUELINE M3 seed-lock vs per-step warp sequences laid as a pair — the same lesson twice",
+   "kind": "image",
+   "walks_up_from": "one locked seed"
+  }
+ ],
+ "gathered": [
+  "Projects/BLUELINE/proofs/m3-warped-noise/renders-seq/seedlock.gif",
+  "Projects/BLUELINE/proofs/m3-warped-noise/renders-seq/warped.gif",
+  "Projects/BLUELINE/proofs/track-VI-elemental-motion/report-assets/previews/smoke_sim_npr.mp4",
+  "Projects/BLUELINE/proofs/track-VI-elemental-motion/report-assets/previews/smoke_v1.mp4",
+  "Projects/BLUELINE/proofs/track-VI-elemental-motion/report-assets/previews/water_v1.mp4",
+  "Projects/BLUELINE/proofs/track-VI-elemental-motion/report-assets/previews/flame_v1.mp4"
+ ],
+ "tier": "study",
+ "slice": 2
+}

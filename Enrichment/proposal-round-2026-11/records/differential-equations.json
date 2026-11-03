@@ -1,0 +1,31 @@
+{
+ "entry": "Differential Equations",
+ "path": "Differential Equations.md",
+ "type": "hub",
+ "stage": "mature",
+ "weight": 7,
+ "claim": "§ The Taxonomy: one second-order equation covers the plucked string, the resonant filter and the transient — ζ alone moves it from ringing through critical to sluggish; driven at ω_n it swings Q times as far.",
+ "pieces": [
+  {
+   "section": "Second-Order Linear DEs — Underdamped",
+   "what": "One mass-spring-damper with a ζ slider, drawn and heard: a pluck that rings, then clicks clean at ζ=1, then goes dull — the same curve as filter resonance and envelope",
+   "kind": "interactive",
+   "walks_up_from": "first-order exponential approach (an RC charge)"
+  },
+  {
+   "section": "Driven (Forced) DEs",
+   "what": "Drive the same system with a swept sine and plot amplitude and phase lag; the peak flattens past ζ≈0.7",
+   "kind": "interactive",
+   "walks_up_from": "the unforced system above"
+  },
+  {
+   "section": "Open Tensions",
+   "what": "The same system solved as a difference equation at a coarse step; push the step and it blows up — the discrete-vs-continuous question made audible",
+   "kind": "interactive",
+   "walks_up_from": "the ζ slider at a fine step"
+  }
+ ],
+ "gathered": [],
+ "tier": "study",
+ "slice": 0
+}

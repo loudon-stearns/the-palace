@@ -1,0 +1,41 @@
+{
+ "entry": "The Curve Is the Material",
+ "path": "The Curve Is the Material.md",
+ "type": "concept",
+ "stage": "growing",
+ "weight": 9,
+ "claim": "§ The Morphing Quality Distinction: morphing a function's parameter (B 0.001 to 0.003) stays a real string at every point, a path through physics space; blending two curve shapes passes through states that are no physical model at all.",
+ "pieces": [
+  {
+   "section": "The Morphing Quality Distinction",
+   "what": "Play an additive tone while morphing two ways: sweep B inside the stiff-string family, then crossfade the same two endpoint curves point by point. Hear whether one stays a string and the other doesn't.",
+   "kind": "audio",
+   "walks_up_from": "one stiff string, f(n) = n·f0·√(1+B·n²), with B at zero"
+  },
+  {
+   "section": "Design Implication: Function Library Over Freehand Curve",
+   "what": "The function picker the page specifies: choose a family (B, Bessel zeros, log stretch, waveguide, free draw), move its one or two sliders, see the curve against the flat harmonic baseline and hear it.",
+   "kind": "interactive",
+   "walks_up_from": "the flat harmonic baseline"
+  },
+  {
+   "section": "The Constraint Is Generative",
+   "what": "Push B past any real material (0.01, 0.1) and hear that the hyper-stiff string stays navigable, against free-draw scatter that does not.",
+   "kind": "audio",
+   "walks_up_from": "the light-guitar B of 0.0002"
+  },
+  {
+   "section": "Analytic Efficiency",
+   "what": "One LFO on B moves all N partials coherently; the same LFO on a table of N independent detunings does not.",
+   "kind": "interactive",
+   "walks_up_from": "a single scalar driving N partials"
+  }
+ ],
+ "gathered": [
+  "Projects/2D Torus Wavetable Synthesizer/Wavetables/13_stiff_string.wav",
+  "Projects/2D Torus Wavetable Synthesizer/Wavetables/13_stiff_string.png",
+  "Projects/2D Torus Wavetable Synthesizer/audition/stiff_string_octave.wav"
+ ],
+ "tier": "study",
+ "slice": 7
+}

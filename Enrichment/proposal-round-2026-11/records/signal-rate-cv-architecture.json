@@ -1,0 +1,37 @@
+{
+ "entry": "Signal-Rate CV Architecture",
+ "path": "Signal-Rate CV Architecture.md",
+ "type": "concept",
+ "stage": "growing",
+ "weight": 8,
+ "claim": "The pedagogical argument: 'Patch an LFO into the leak time constant: you hear the membrane becoming leakier in real time, the ramp curving and straightening, the timbre sweeping from warm to bright' — per-sample math lets the student hear the equation directly, where a control-rate parameter puts a boundary in the patch.",
+ "pieces": [
+  {
+   "section": "Three Converging Arguments",
+   "what": "Start with one leaky integrate-and-fire ramp at a fixed leak; then patch an LFO into leak tau and switch between signal-rate and block-rate (128-sample steps) modulation — hear the ramp curve and straighten, and hear the zipper the control-rate version adds as the LFO speeds up.",
+   "kind": "interactive",
+   "walks_up_from": "one ramp charging to threshold"
+  },
+  {
+   "section": "Practical Consequences in Gen~ / RNBO",
+   "what": "The zero guard: sweep leak tau toward 0 with and without max() — the unguarded version goes NaN and silent; the guarded one hits a floor.",
+   "kind": "interactive",
+   "walks_up_from": "one exp() in a denominator"
+  },
+  {
+   "section": "Three Converging Arguments",
+   "what": "The modular argument: route an audio-rate oscillator into the same leak input and hear modulation become timbre — any output into any input.",
+   "kind": "audio",
+   "walks_up_from": "an LFO raised past 20 Hz"
+  }
+ ],
+ "gathered": [
+  "Projects/Action Potential Oscillator/neuropulse-codebox-phrase.wav",
+  "Projects/Action Potential Oscillator/neuropulse-faust-sweep.wav",
+  "Projects/Action Potential Oscillator/neuropulse-spike-shapes.wav",
+  "Projects/Action Potential Oscillator/neuropulse-signalflow-fixed.svg",
+  "Projects/Action Potential Oscillator/neuropulse.dsp (Faust source the piece can port)"
+ ],
+ "tier": "study",
+ "slice": 6
+}

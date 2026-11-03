@@ -1,0 +1,42 @@
+{
+ "entry": "Lettering",
+ "path": "Shop/Lettering.md",
+ "type": "specialist",
+ "stage": "alive (status)",
+ "weight": 7,
+ "claim": "Charter / The pipeline: 'the letterform carries the feeling' — a hand-drawn skeleton carries the source (Nosifer bleeds 'too late', Bangers shouts 'NO'), canny-lock keeps it legible, diffusion supplies the emotional material, and a negative-space knockout can make the void speak louder.",
+ "pieces": [
+  {
+   "section": "The pipeline (its working wisdom)",
+   "what": "One word walked through the four stages — bare skeleton, canny-locked photoreal, ink stylize, negative-space knockout — step by step, so the reader sees which stage adds the feeling and which keeps the spelling.",
+   "kind": "image",
+   "walks_up_from": "one word in one font"
+  },
+  {
+   "section": "Charter",
+   "what": "The seven BLUELINE voices as a grid (too late, NO, BURNING, THOOM, stay, real, ascension): read each without its caption, then reveal who says it to whom — does the letterform alone tell you the speaker's state?",
+   "kind": "interactive",
+   "walks_up_from": "a single lettered word"
+  },
+  {
+   "section": "Gotchas (hard-won)",
+   "what": "Same word, mechanical font vs hand-drawn skeleton through the same stylize pass — tests 'mechanical fonts dominate'.",
+   "kind": "image",
+   "walks_up_from": "two fonts, one word"
+  },
+  {
+   "section": "Gotchas (hard-won)",
+   "what": "Negative-space variant on a light vs dark energy field — tests 'negative space sings only on a light field'.",
+   "kind": "image",
+   "walks_up_from": "the knockout word"
+  }
+ ],
+ "gathered": [
+  "Projects/BLUELINE/proofs/text-layer/out/*_skeleton_s1111.png, *_stylize_s1111.png, *_negspace_s1111.png (seven voices)",
+  "Projects/BLUELINE/proofs/text-layer/contact-sheet.html",
+  "Projects/BLUELINE/proofs/text-layer/fonts/font-sampler.html and fonts/samples/*.png",
+  "Projects/BLUELINE/proofs/text-layer/text-on-black.html"
+ ],
+ "tier": "study",
+ "slice": 6
+}

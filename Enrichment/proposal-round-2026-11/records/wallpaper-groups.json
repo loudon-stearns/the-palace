@@ -1,0 +1,41 @@
+{
+ "entry": "Wallpaper Groups",
+ "path": "Projects/Wallpaper Groups.md",
+ "type": "concept",
+ "stage": "growing",
+ "weight": 9,
+ "claim": "§ The Seventeen Symmetries and § The Prism Machine Principle: \"exactly 17 ways\"; the crystallographic restriction forbids 5-fold rotation (\"you'll either leave gaps or create overlaps\"); a single fundamental domain plus group operations generates every periodic pattern. The text describes a kaleidoscope it cannot spin.",
+ "pieces": [
+  {
+   "section": "The Prism Machine Principle",
+   "what": "Starts from one motif tile and translation only (p1), then adds one operation at a time (2-fold, mirror, glide, 3-, 4-, 6-fold) to reach all 17, naming each group as it forms",
+   "kind": "interactive",
+   "walks_up_from": "one fundamental-domain tile, translated"
+  },
+  {
+   "section": "The Seventeen Symmetries",
+   "what": "Lets the reader try 5-fold rotation on a lattice and watch the gaps open, testing the crystallographic restriction; the same piece lists the 17 by family and will show the page's own count breakdown ('4 with no symmetry except translation') does not add up",
+   "kind": "interactive",
+   "walks_up_from": "a square lattice with a 4-fold centre"
+  },
+  {
+   "section": "Musical Symmetry: Rhythm as Wallpaper Group",
+   "what": "A 16-step sequencer that plays a cell under translation, reversal and shift, and tests the 'rhythmic impossibility theorem' sentence against what a 1D timeline can actually hold",
+   "kind": "interactive",
+   "walks_up_from": "one 4-step cell, looped"
+  },
+  {
+   "section": "The Alhambra: Hands Before Language",
+   "what": "The gathered p4m cell and the animated explorer laid beside the Alhambra section",
+   "kind": "image",
+   "walks_up_from": "the p4m cell"
+  }
+ ],
+ "gathered": [
+  "Projects/Wallpaper Groups/proofs/2026-05-04-animated-explorer-v2.html",
+  "Projects/Wallpaper Groups/proofs/2026-05-04-p4m-cell.svg",
+  "Projects/Wallpaper Groups/proofs/2026-05-05-recipe-p4mm.md"
+ ],
+ "tier": "study",
+ "slice": 5
+}

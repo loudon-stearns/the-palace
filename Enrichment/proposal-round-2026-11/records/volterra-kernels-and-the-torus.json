@@ -1,0 +1,31 @@
+{
+ "entry": "Volterra Kernels and the Torus",
+ "path": "Volterra Kernels and the Torus.md",
+ "type": "concept",
+ "stage": "growing",
+ "weight": 9,
+ "claim": "§ Cross-Domain Resonance + The reframe: a toroidal wavetable and a Volterra kernel are one N-D field distinguished only by how it is read; a single control surface toggled between synth-scan and input-process is the monism made audible.",
+ "pieces": [
+  {
+   "section": "Cross-Domain Resonance",
+   "what": "One stored 2D field with a button: scan-read by two phasors it is an oscillator, input-read by the input's own delayed samples it is an effect on a loop. Same table, two instruments.",
+   "kind": "audio",
+   "walks_up_from": "a 2D table read at one point"
+  },
+  {
+   "section": "The precedent and the diagonal",
+   "what": "Feed two tones in and read the second-order kernel along its diagonal (Hammerstein: harmonics only) and then off it (intermodulation appears); a spectrum marks which products each slice keeps.",
+   "kind": "interactive",
+   "walks_up_from": "one sine through a static waveshaper"
+  },
+  {
+   "section": "The reframe",
+   "what": "Ring modulation as the bilinear slice, shown as the simplest input-read special case of the same field.",
+   "kind": "interactive",
+   "walks_up_from": "x(t)·y(t) on two sines"
+  }
+ ],
+ "gathered": [],
+ "tier": "study",
+ "slice": 7
+}

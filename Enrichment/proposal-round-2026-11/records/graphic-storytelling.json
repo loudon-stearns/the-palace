@@ -1,0 +1,41 @@
+{
+ "entry": "Graphic Storytelling",
+ "path": "Graphic Storytelling.md",
+ "type": "concept",
+ "stage": "growing",
+ "weight": 8,
+ "claim": "§ The inherited grammar: 'time is rendered as space — a wider panel, or more gutter before the next, simply lasts longer', and closure happens in the gutter.",
+ "pieces": [
+  {
+   "section": "The inherited grammar (the canon, re-grounded)",
+   "what": "One three-panel strip with draggable panel widths and gutters; the reader times how long each beat feels, McCloud's claim put to a stopwatch.",
+   "kind": "interactive",
+   "walks_up_from": "two panels and the gap between them"
+  },
+  {
+   "section": "The live edge — black-and-white, plus one bold color",
+   "what": "The color-hold proof: the same page in pure B&W, then with one spot colour, then three.",
+   "kind": "interactive",
+   "walks_up_from": "one black-and-white panel"
+  },
+  {
+   "section": "3 · Dramatic storytelling — manufacturing time",
+   "what": "One strip, six stories: the same panels reordered or re-gapped change what happened.",
+   "kind": "interactive",
+   "walks_up_from": "one panel alone"
+  },
+  {
+   "section": "2 · Text & lettering — the letterer's discipline",
+   "what": "The balloon taxonomy drawn: whisper, shout, radio, thought, with tail termination at 50–60 %.",
+   "kind": "image",
+   "walks_up_from": "one plain balloon"
+  }
+ ],
+ "gathered": [
+  "proofs/2026-10-28-daily-page/2026-10-28-color-hold.html",
+  "proofs/2026-10-28-daily-page/2026-10-29-one-strip-six-stories.html"
+ ],
+ "tier": "study",
+ "note": "The page has an active baton and a revision draft in proofs; check before making.",
+ "slice": 1
+}
