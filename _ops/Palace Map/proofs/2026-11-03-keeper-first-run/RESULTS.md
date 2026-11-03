@@ -32,7 +32,7 @@ The shape the 10-23 test pointed to holds when built: whole map to see, scripts 
 
 ## First use: a constellation for the Daily Page sit
 
-Move 3's first real run, the same resident re-addressed. Loudon's word: "Run the first use." The dealt page, not yet sat: [[Quantization ↔ Precision vs Flow]]. The keeper drew **"The Grid and the Flock"**: Quantization ↔ Precision vs Flow, Flocking, Synthesis ↔ Emergence, Brian Eno, Cross-Domain Resonances, Kuramoto Coupling, Haptic Handwheel. `sit.md` holds the ten triples it cited; the plain-words reading and the opening question it wrote for the sit were relayed to Loudon in the session and are not in that file.
+Move 3's first real run, the same resident re-addressed. Loudon's word: "Run the first use." The dealt page, not yet sat: [[Quantization ↔ Precision vs Flow]]. The keeper drew **"The Grid and the Flock"**: Quantization ↔ Precision vs Flow, Flocking, Synthesis ↔ Emergence, Brian Eno, Cross-Domain Resonances, Kuramoto Coupling, Haptic Handwheel. `sit.md` holds the ten triples it cited; `sit-reading.md` is its prose as returned — what the set shows, the pillars by role, the opening question for the sit, and the log — closing with Loudon's word on the rhyme.
 
 | | Checked against the script, 2026-11-03 build |
 |---|---|
