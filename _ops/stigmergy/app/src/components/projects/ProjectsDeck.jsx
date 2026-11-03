@@ -140,7 +140,7 @@ export function ProjectRow({ row, onOpen, onOpenEntry, onAdvance, canAdvance, co
         ) : null}
       </span>
       <span style={dim}>{row.stage || '—'}</span>
-      <span style={{ ...dim, display: 'flex', alignItems: 'center', gap: 6 }}>{row.stewarded ? `cyc ${row.iteration ?? 0}` : '—'}{row.stewarded && row.health ?<Tag tone={row.health === 'green' ? 'ok' : row.health === 'red' ? 'err' : 'default'}>{row.health}</Tag> : null}</span>
+      <span style={{ ...dim, display: 'flex', alignItems: 'center', gap: 6 }}><span style={{ minWidth: '7ch', textAlign: 'right' }}>{row.stewarded ? `cyc ${row.iteration ?? 0}` : '—'}</span>{row.stewarded && row.health ?<Tag tone={row.health === 'green' ? 'ok' : row.health === 'red' ? 'err' : 'default'}>{row.health}</Tag> : null}</span>
       <span style={{ ...dim, overflow: 'hidden', textOverflow: 'ellipsis' }} title={row.last_shipped ? row.last_shipped.headline || '' : ''}>
         {row.last_shipped ? `${ageOf(row.last_shipped.ts)} · ${row.last_shipped.headline || row.last_shipped.id}` : (row.last_activity ? `${ageOf(row.last_activity)} · (no shipped thing on the board)` : 'nothing yet')}
       </span>
