@@ -14,7 +14,7 @@ const engine = (file, names) => {
   vm.runInContext(src + '\n;globalThis.X = { ' + names.join(', ') + ' };', C);
   return C.X;
 };
-const A = engine('Brian Eno — rich — loops of different lengths.html', ['G', 'period', 'nearReturn', 'startsIn', 'human']);
+const A = engine('Brian Eno — rich — loops of different lengths.html', ['G', 'period', 'nearReturn', 'returnsIn', 'startsIn', 'human']);
 const B = engine('Brian Eno — rich — the frame, counted.html', ['G', 'MENU', 'q', 'frameTally', 'frameQ', 'hourStarts', 'startsPerHour', 'H', 'account', 'coin', 'origin']);
 
 let fails = 0;
@@ -80,6 +80,19 @@ check('to within 1/16 s, the nudged four come round later than 48 s', nr(NUDGE, 
 check('to within 1/8 s, Eno\'s three come round after about 50.6 hours', near(nr(ENO, 2) / 3600, 50.636, 0.01), (nr(ENO, 2) / 3600).toFixed(3) + ' h');
 check('to within 1/16 s, after about 235 hours; to within 1/4 s, about 7.5 hours', near(nr(ENO, 1) / 3600, 235.117, 0.01) && near(nr(ENO, 4) / 3600, 7.468, 0.01));
 check('every ear return comes no later than the exact one', rows.every(([, l]) => [1, 2, 4].every(e => nr(l, e) <= Number(A.period(l)) / 16)));
+// the per-hour column: returns counted, against a brute count over every sixteenth of the hour of the spread of
+// each loop's nearest start to the longest loop's starts
+function bruteReturns(lens, eps) {
+  const M = Math.max(...lens); let c = 0;
+  for (let t = M; t <= 3600 * 16; t += M) { const offs = lens.map(l => { const k = Math.round(t / l); return k * l - t; }); if (Math.max(...offs, 0) - Math.min(...offs, 0) <= eps) c++; }
+  return c;
+}
+const cnt = (l, e) => A.returnsIn(l, e, 3600 * 16).length;
+check('the nudged four come round 0, 1, 2 times in the first hour at 1/16, 1/8, 1/4 s', cnt(NUDGE, 1) === 0 && cnt(NUDGE, 2) === 1 && cnt(NUDGE, 4) === 2);
+check('their one 1/8 s return sits on the tolerance\'s edge: spread exactly 1/8 s', A.returnsIn(NUDGE, 2, 57600)[0].spread === 2);
+check('the even four come round 75 times in the first hour at every ε', [1, 2, 4].every(e => cnt(EVEN, e) === 75));
+check('Eno\'s three come round 0 times in the first hour at every ε', [1, 2, 4].every(e => cnt(ENO, e) === 0));
+check('the per-hour counts agree with a brute count on 300 random sets', (() => { let ok = 0; for (let k = 0; k < 300; k++) { const n = 2 + Math.floor(rnd() * 4), l = Array.from({ length: n }, () => 32 + Math.floor(rnd() * 600)), e = 1 + Math.floor(rnd() * 4); if (cnt(l, e) === bruteReturns(l, e)) ok++; } return ok === 300; })());
 const st = A.startsIn([64, 96], 0, 24); // 4 s and 6 s over 24 s
 check('startsIn lists every start in order: 4 s and 6 s over 24 s give 6 + 4 starts', st.length === 10 && st.every((s, i) => i === 0 || s.t >= st[i - 1].t));
 

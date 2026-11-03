@@ -163,8 +163,8 @@
   <!-- step 4 -->
   <section class="step">
     <h3>The test: are different lengths enough?</h3>
-    <p class="teach">The section's line is that he set the lengths and the piece made itself. If that is right, the lengths alone decide when the piece repeats, and different lengths should keep it from repeating. Here four sets are measured two ways: when the whole comes back <i>exactly</i>, and when every loop's start lands within a small tolerance of the others again, which is what an ear would hear as the same moment returning. Choose the tolerance; play any row.</p>
-    <p class="back">The exact column is step 3's lcm. The ear column relaxes it: the starts need only be close, not equal.</p>
+    <p class="teach">The section's line is "he set the lengths, the room made the piece". If the lengths are what he set, they alone decide when the piece repeats, and different lengths should keep it from repeating. Here four sets are measured two ways: when the whole comes back <i>exactly</i>, and when every loop's start lands within a small tolerance of the others again, which is what an ear would hear as the same moment returning. Choose the tolerance; play any row.</p>
+    <p class="back">The exact column is step 3's lcm. The ear column relaxes it: the starts need only be close, not equal (their spread at most ε, so a return can sit right on the edge). The last column counts every such return in the first hour, one by one.</p>
     <div class="eqs">
       <div class="eq"><i>t</i><sub>ε</sub> = the smallest <i>t</i> &gt; 0 with every <i>n<sub>i</sub> L<sub>i</sub></i> within ε of each other</div>
       <div class="words">(when it sounds as if it has come round) = the first moment at which every loop has made a whole number of turns, give or take ε. Found by trying each turn of the longest loop in order, up to four million turns.</div>
@@ -198,6 +198,17 @@ function nearReturn(lens, eps, cap = 4e6) {
     if (hi - lo <= eps) return t;
   }
   return null;
+}
+// every return to within eps in (0, horizon] sixteenths, counted turn by turn of the longest loop (not
+// horizon / first return: a slow drift comes round once and then smears, so the returns are counted)
+function returnsIn(lens, eps, horizon16) {
+  const M = Math.max(...lens), out = [];
+  for (let t = M; t <= horizon16; t += M) {
+    let lo = 0, hi = 0;
+    for (const l of lens) { let r = t % l; if (r > l / 2) r -= l; if (r < lo) lo = r; if (r > hi) hi = r; }
+    if (hi - lo <= eps) out.push({ t, spread: hi - lo });
+  }
+  return out;
 }
 // every start in [t0, t1) seconds, all loops started together at 0: { loop, n, t }
 function startsIn(lens, t0, t1) {
@@ -420,14 +431,15 @@ const rowSet = r => r.key === 'yours' ? { lens: S3.lens.slice(), notes: S3.notes
 function measure() {
   return ROWS.map(r => {
     const s = rowSet(r), T = Number(period(s.lens)) / G, nr = nearReturn(s.lens, S4.eps), te = nr == null ? null : nr / G;
-    return { r, s, T, te, perHour: te == null ? 0 : Math.floor(3600 / te) };
+    const back = returnsIn(s.lens, S4.eps, 3600 * G);
+    return { r, s, T, te, perHour: back.length, back };
   });
 }
 function draw4() {
   document.querySelectorAll('#epsBtns button').forEach(b => b.setAttribute('aria-pressed', +b.dataset.eps === S4.eps ? 'true' : 'false'));
   const M = measure(), epsTxt = S4.eps === 1 ? '1⁄16 s' : S4.eps === 2 ? '1⁄8 s' : '1⁄4 s';
   const cap = l => human(4e6 * Math.max(...l) / G);
-  $('s4table').innerHTML = '<tr><th>set</th><th>lengths</th><th>comes back exactly after</th><th>comes back to within ' + epsTxt + ' after</th><th>times round in an hour, to the ear</th><th></th></tr>' +
+  $('s4table').innerHTML = '<tr><th>set</th><th>lengths</th><th>comes back exactly after</th><th>comes back to within ' + epsTxt + ' after</th><th>returns in the first hour, to the ear</th><th></th></tr>' +
     M.map((m, i) => '<tr><td class="lab">' + m.r.label + (m.r.small ? '<small>' + m.r.small + '</small>' : '') + '</td><td>' + m.s.lens.map(fmtLen).join(', ') +
       '</td><td><b>' + human(m.T) + '</b></td><td><b>' + (m.te == null ? 'more than ' + cap(m.s.lens) : human(m.te)) + '</b></td><td><b>' + m.perHour.toLocaleString('en') + '</b></td>' +
       '<td><button data-row="' + i + '">▸ play</button></td></tr>').join('');
@@ -436,13 +448,14 @@ function draw4() {
     const s = M[i].s, tk = play(s.lens, s.notes); tk.row = i; b.setAttribute('aria-pressed', 'true'); b.textContent = '❚❚ stop';
     tk.onStop = () => { b.textContent = '▸ play'; };
   });
-  const [ev, nu, en] = M;
+  const [ev, nu, en] = M, times = n => n === 0 ? 'not once' : n === 1 ? 'once' : n === 2 ? 'twice' : n + ' times';
+  const edge = nu.back.length && nu.back[0].spread === S4.eps ? ', right on the tolerance\'s edge' : '';
   $('s4verdict').innerHTML =
-    '<b>Different lengths are not enough.</b> Four different lengths whose ratios reduce to small whole numbers come round every ' + human(ev.T) + ', ' + ev.perHour + ' times an hour. ' +
-    'Cut one of them a sixteenth of a second longer and the arithmetic says ' + human(nu.T) + ' before an exact return, but to within ' + epsTxt + ' it comes round after ' + (nu.te == null ? 'more than ' + cap(nu.s.lens) : human(nu.te)) +
-    (nu.te != null && nu.te < 600 ? ': the ear hears the old cycle and the exact number lies.' : '.') + ' ' +
+    '<b>The lengths set how fast it drifts.</b> Four different lengths whose ratios reduce to small whole numbers don\'t drift at all: they come round every ' + human(ev.T) + ', ' + times(ev.perHour) + ' in the first hour. ' +
+    'Cut the 24 s loop a sixteenth of a second longer and it drifts, slowly. The other three stay locked at 48 s and the long one slides 1⁄8 s later against them every cycle, so the old cycle smears. Exactly, all four meet again after ' + human(nu.T) + '; to within ' + epsTxt + (nu.perHour ? ' they come round ' + times(nu.perHour) + ' in the first hour' : ' they never come round in the first hour') +
+    (nu.perHour ? ' (first at ' + human(nu.back[0].t / G) + edge + ')' : '') + '. ' +
     'Eno\'s three come back exactly after ' + human(en.T) + ' and to within ' + epsTxt + ' after ' + (en.te == null ? 'more than ' + cap(en.s.lens) : human(en.te)) + (en.te == null || en.te >= 3600 ? ', longer than a sitting. ' : '. ') +
-    'So the section holds, with a condition it doesn\'t state: the lengths decide everything about when the piece repeats, and only lengths whose ratios sit far from simple fractions, even to the ear, make the drift. Choosing them is the decision the piece hangs on.';
+    'So the section\'s line holds, and the test puts a measure on it: he set the lengths, and how near their ratios sit to simple ones decides how fast the room\'s piece drifts and how soon, if ever, it comes round. Near-equal lengths drift too, slowly; Reich\'s phasing tape loops are the famous case. The 27 days rests on the precision Eno quoted ("or something like that").';
 }
 document.querySelectorAll('#epsBtns button').forEach(b => b.onclick = () => { S4.eps = +b.dataset.eps; stop(); draw4(); });
 

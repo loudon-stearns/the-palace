@@ -26,20 +26,20 @@
   "offers": [
     {
       "section": "How his mind moves",
-      "kind": "claim-change",
-      "what": "'Tape loops of different lengths drifting out of phase' holds with a condition the section doesn't state: different lengths drift only when their ratios sit far from simple fractions, even to the ear. Measured on the loops piece's engine (checked by Brian Eno — rich — check.mjs): 8, 12, 16 and 24 s are four different lengths and come round every 48 s; cut the 24 s loop a sixteenth of a second longer and the exact return moves to 5.13 hours, yet every start lands within 1/8 s of the others again at 48.125 s, so an ear hears the old cycle. The three lengths Eno gave (23.5, 25.875 and 29.9375 s, in his 1996 talk 'Generative Music', printed in In Motion Magazine) come back exactly after 26.97 days, and within 1/8 s after 50.6 hours. A possible line: '…tape loops whose lengths share no simple ratio, drifting out of phase: he set the lengths, and the lengths decided when, if ever, it comes round again.'",
+      "kind": "no-claim-edit",
+      "what": "The sentence is right, just unquantified; the loops piece puts a measure on it. Different lengths drift at a speed set by how near their ratios sit to simple ones: 8, 12, 16 and 24 s never drift (back every 48 s); cut the 24 s loop a sixteenth longer and it drifts slowly, three loops locked at 48 s and the fourth sliding 1/8 s later each cycle (exact return 5.133 h; within 1/8 s once in the first hour, at 48.125 s, on the tolerance's edge). Eno's three (23.5, 25.875, 29.9375 s) come back exactly after 26.97 days and within 1/8 s after 50.6 h, a figure that rests on the precision he quoted ('or something like that'). Near-equal lengths drift too, as Reich's phasing loops do. Numbers confirmed by the challenger in exact fractions. A possible line: '…tape loops of different lengths drifting out of phase: he set the lengths, and how near their ratios sit to simple ones decided how fast it drifts and how soon, if ever, it comes round.'",
       "status": "open"
     },
     {
       "section": "How his mind moves",
       "kind": "claim-change",
-      "what": "Scope, from the source: in the 1996 talk Eno describes the three loops as 'at least one of the pieces on there', not the whole record. 'One piece on Music for Airports is tape loops…' would match his own words. Checked against the In Motion Magazine text of the talk; not checked against the record's credits or any other source.",
+      "what": "Scope: in his 1996 talk (In Motion Magazine) Eno describes the loops as 'at least one of the pieces on there'; Wikipedia's article on the record, citing that talk and Tannenbaum 1985, says 2/1 and 1/2 both use vocal loops, while 2/2 (the ARP 2600 piece) is not described as loops. 'Music for Airports is tape loops' slightly overstates; 'the loop pieces on Music for Airports are tape loops of different lengths…' or 'is built mostly from tape loops…' would match both sources. Not checked against the record's credits.",
       "status": "open"
     },
     {
       "section": "Where he can't see",
-      "kind": "claim-change",
-      "what": "Counted, the reading holds for tape loops and splits once chance is in the loop. With loops alone the machine decides nothing: an hour of a three-loop frame (Eno's three lengths, notes chosen in the piece) is 415 starts, every one n × a length the person cut, and the frame is about 46 yes/no questions on the piece's menus (609 lengths, 25 notes, 3 sounds, up to 7 loops); so 'the system did it' is true of the labour and false of the decisions. With a fair coin deciding whether each start sounds (Cage's move, which the section names), the coin decides 415 questions in the hour, 90% of all that was decided, and passes the frame after 6.7 minutes; it still only says yes or no to starts the frame placed. A line the section could carry: 'With fixed loops every decision is in the frame; the system adds time, not choices. Put a coin in it and the moments become the system's, while the room they happen in stays his.'",
+      "kind": "no-claim-edit",
+      "what": "Counted (46.07 questions on the piece's menus, 415 starts an hour, a fair coin 90.0% of the hour, passing the frame at 6.70 min; confirmed by the challenger), the frame piece puts numbers on one half of the blind spot: with ideal loops every start traces back to the frame, which is true of any deterministic machine, so it measures determination, not foresight or taste. A line that keeps the section's tension open rather than settling it: 'With fixed loops every start traces back to the frame; the system adds time, not information. What it adds that he didn't foresee (the chord at 37:12, the wow of the tape, the room) is where the argument starts, not where it ends.'",
       "status": "open"
     }
   ],
@@ -74,7 +74,7 @@
           "caption": "**He set the lengths. What did the lengths do?** One tape loop alone, then two drifting on a square where one moment is one point, then up to seven, and last a test: are different lengths enough to keep the whole from coming round again? Measured two ways, exactly and to the ear. The notes and the sound are made here; from Eno it takes only three loop lengths he gave in a 1996 talk.",
           "near": "is tape loops of different lengths drifting out of phase",
           "place": "band",
-          "height": 1360
+          "height": 1430
         }
       ],
       "stamped": "2026-11-03"
@@ -109,7 +109,7 @@
           "caption": "**How much of the drift was chosen?** One chosen loop length, sized in yes/no questions; then the whole frame, tallied; then an hour of loops where any note can be asked who decided it; and last a coin in the loop, Cage's move, to find when the system starts deciding more than the person who framed it.",
           "near": "He chooses the loops, the synths, the constraints, the take",
           "place": "band",
-          "height": 1000
+          "height": 1790
         }
       ],
       "stamped": "2026-11-03"

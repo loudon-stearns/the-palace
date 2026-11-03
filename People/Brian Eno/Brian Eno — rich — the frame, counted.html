@@ -125,7 +125,7 @@
   <!-- step 3 -->
   <section class="step">
     <h3>Let it run, and ask any note where it came from</h3>
-    <p class="teach">Now the machine runs for an hour. It lays down every start without anyone touching it, and that is the part that sounds free: chords that nobody wrote form and dissolve. Below is the whole hour, one row per loop, a tick for each start. Press any tick and the piece tells you who decided it.</p>
+    <p class="teach">Now the machine runs for an hour. It lays down every start without anyone touching it, and that is the part that sounds free: chords that nobody wrote form and dissolve. Below is the whole hour, one row per loop, a tick for each start. Press any tick and the piece tells you what determined it.</p>
     <p class="back">The loops are step 2's frame, unchanged.</p>
     <div class="eqs">
       <div class="eq"><i>t<sub>i,n</sub></i> = <i>n</i> · <i>L<sub>i</sub></i>, &nbsp; note<sub><i>i</i></sub> fixed</div>
@@ -134,7 +134,7 @@
     <div class="panel"><div class="plabel"><span>the hour · every start</span><span>press a tick</span></div><canvas id="c3"></canvas></div>
     <div class="why" id="s3why">Press a tick.</div>
     <div class="btns"><button class="go" id="s3play">▸ play from the top</button></div>
-    <div class="read"><span>starts the machine laid in the hour <b id="s3n"></b></span><span>choices you made <b id="s3k"></b></span><span>decisions the machine made <b>0</b></span></div>
+    <div class="read"><span>starts the machine laid in the hour <b id="s3n"></b></span><span>choices you made <b id="s3k"></b></span><span>questions the machine added <b>0</b></span></div>
   </section>
 
   <!-- step 4 -->
@@ -162,7 +162,7 @@
     <div class="panel"><div class="plabel"><span>the hour · bright ticks sound, dim ones the coin silenced</span><span>press a tick</span></div><canvas id="c4"></canvas></div>
     <div class="why" id="s4why">Press a tick.</div>
     <div class="verdict" id="s4verdict"></div>
-    <p class="note">The counts depend on the menus: a finer slider makes every choice of yours bigger, and the coin's count grows with every minute the hour runs. What does not depend on any menu is the first result: with loops alone, the machine decides nothing. The piece counts decisions, not taste; it cannot say which choices were good, and it cannot hear.</p>
+    <p class="note">The counts depend on the menus: a finer slider makes every choice of yours bigger, and the coin's count grows with every minute the hour runs. What does not depend on any menu is the first result: with ideal loops, the machine adds nothing to what the frame determines, as any machine without chance would. The piece counts determination, not foresight or taste: it cannot say whether anyone foresaw a given chord, which choices were good, or what you hear. And it counts ideal loops. Real tape stretches and wavers, and the room colours what it plays; that is unchosen variation the count leaves out, and by its own terms it would be the system's.</p>
   </section>
 
   <nav class="walk"><button id="back">◀ back</button><button id="next">next ▶</button><span class="where" id="where"></span></nav>
@@ -352,7 +352,7 @@ function explain(st, withCoin) {
   const o = origin(FR, st);
   let s = 'Loop ' + o.loop + ' sounds at ' + mmss(o.t) + '. It is there because ' + o.n + ' × ' + fmtLen(FR.lens[st.loop]) + ' = ' + (+o.t.toFixed(4)) + ' s: the length you cut for loop ' + o.loop + ', gone round ' + o.n + (o.n === 1 ? ' time' : ' times') + '. It sings ' + nn(o.note) + ', the note you gave loop ' + o.loop + ', in the sound you chose.';
   if (withCoin && S4.p < 1) s += keepCoin(st.loop, st.n) ? ' Then the coin let it sound. That yes was the coin\'s, not yours.' : ' Then the coin silenced it. That no was the coin\'s, not yours.';
-  else s += ' Nothing else had a say.';
+  else s += ' Nothing else in the machine entered into it.';
   return s;
 }
 function hookHits(cv, why, withCoin) {
@@ -381,10 +381,10 @@ function draw4(still) {
   const yours = A.you.toFixed(1), sounded = hourStarts(FR.lens).filter(st => keepCoin(st.loop, st.n)).length;
   const passes = A.passesAt < 60 ? A.passesAt.toFixed(0) + ' seconds' : (A.passesAt / 60).toFixed(1) + ' minutes';
   $('s4verdict').innerHTML = S4.p >= 1
-    ? '<b>With loops alone, the reading holds exactly.</b> The machine laid ' + A.n.toLocaleString('en') + ' starts this hour and decided none of them: every one traces back to a length and a note you chose. Your ' + yours + ' questions are the whole of what was decided. The machine did the labour, not the choosing. That is the section\'s blind spot, counted: "the system did it" is true of the work and false of the decisions. Now lower the chance a start sounds.'
+    ? '<b>With ideal loops, every start traces back to the frame.</b> The machine laid ' + A.n.toLocaleString('en') + ' starts this hour and added no information: each is a length and a note you chose, counted out. Your ' + yours + ' questions determine the whole hour. The machine did the labour, not the determining. That is one half of the section\'s blind spot, put in numbers, and it would come out the same for any machine without chance in it. The other half the count cannot reach: whether anyone foresaw the chord at 37:12, and whose taste kept it. The gardener and the control-freak are both still in the room. Now lower the chance a start sounds.'
     : A.share < 0.5
     ? '<b>A light coin: you still decided most of this hour.</b> The coin decided ' + A.sys.toFixed(1) + ' questions (' + sounded.toLocaleString('en') + ' of ' + A.n.toLocaleString('en') + ' starts sounded), against your ' + yours + '. At this chance it would pass you after ' + passes + '. Lower the chance further.'
-    : '<b>With a coin in it, the reading fails, by this count.</b> The coin decided ' + A.sys.toFixed(0) + ' questions this hour (' + sounded.toLocaleString('en') + ' of ' + A.n.toLocaleString('en') + ' starts sounded), against your ' + yours + '; it passed you after ' + passes + '. A system with chance in it really does decide most of what you hear, moment to moment. What it still cannot decide is anything outside the frame: it only says yes or no to starts you placed, on notes you chose. So the honest split is Cage\'s and Eno\'s at once: the moments are the coin\'s, the room they happen in is yours. Tape loops have no coin. That is why the section is right about <i>Music for Airports</i>.';
+    : '<b>With a coin in it, the reading fails, by this count.</b> The coin decided ' + A.sys.toFixed(0) + ' questions this hour (' + sounded.toLocaleString('en') + ' of ' + A.n.toLocaleString('en') + ' starts sounded), against your ' + yours + '; it passed you after ' + passes + '. A system with chance in it really does decide most of what you hear, moment to moment. What it still cannot decide is anything outside the frame: it only says yes or no to starts you placed, on notes you chose. So the honest split is Cage\'s and Eno\'s at once: the moments are the coin\'s, the room they happen in is yours. Ideal loops have no coin. Real tape has a little of one: it stretches and wavers, and the room it plays in colours it, unchosen variation this count leaves out.';
 }
 $('s4p').oninput = e => { S4.p = +e.target.value; draw4(); };
 $('s4a').oninput = e => { S4.takes = +e.target.value; draw4(); };
