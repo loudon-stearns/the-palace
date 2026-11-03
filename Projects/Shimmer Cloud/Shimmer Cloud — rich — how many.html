@@ -2,15 +2,15 @@
 <!--
   title: Shimmer Cloud — rich — how many
   born: 2026-11-03
-  links: [[Shimmer Cloud]] (connects-to · rich-face-piece) · listed in [[Shimmer Cloud — rich.json]] · [[Progressive Staging]] (exemplifies · a walk up to its test) · plays 02_droplet_cloud/ (May's droplet set) and rich-face/ (two corners rendered for this piece)
+  links: [[Shimmer Cloud]] (connects-to · rich-face-piece) · listed in [[Shimmer Cloud — rich.json]] · [[Progressive Staging]] (exemplifies · a walk up to its test) · remade after challenge, 2026-11-03: down to two copies · plays 02_droplet_cloud/ (May's droplet set) and rich-face/ (few-copies rungs and square corners rendered for this piece)
   forward_vector: I am the Open Questions' first question played: "how many pitch-shifted copies before shimmer rather than chorus?" One voice, then more copies, then a wider spread, and last a square that sets count against spread, so the ear can say which dial the chorus is on. I change only when the section I serve does.
-  measured: Shimmer Cloud — rich — count and spread.py renders the two new corners with May's own cloud.py and seed, and measures every number this piece shows; its output is Shimmer Cloud — rich — count and spread.json.
+  measured: Shimmer Cloud — rich — count and spread.py renders the few-copies rungs and the new corners with May's own cloud.py and seed, and measures every number this piece shows; its output is Shimmer Cloud — rich — count and spread.json.
 -->
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="piece:files" content="02_droplet_cloud/dry.wav 02_droplet_cloud/variations/ rich-face/30_droplets_25c.wav rich-face/2500_droplets_25c.wav">
+<meta name="piece:files" content="02_droplet_cloud/dry.wav 02_droplet_cloud/variations/ rich-face/2_droplets_5c.wav rich-face/3_droplets_5c.wav rich-face/6_droplets_5c.wav rich-face/12_droplets_5c.wav rich-face/3_droplets_25c.wav rich-face/30_droplets_25c.wav rich-face/2500_droplets_25c.wav">
 <title>Shimmer Cloud — how many copies?</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Manrope:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
 <style>
@@ -91,7 +91,7 @@
 
   <section class="step">
     <h3>More copies</h3>
-    <p class="teach">Now copies, all tuned within about 5 cents of the voice, the set May made to answer this question. Each copy starts at its own moment in the first 300 ms, so the number of copies is also how many onsets arrive per second. Thirty copies is a hundred onsets a second. An old rule for reverbs (Schroeder, 1962) puts a smooth, flutter-free tail at about a thousand.</p>
+    <p class="teach">Now copies, all tuned within about 5 cents of the voice. May's set starts at 30; the first four rungs, 2 to 12, were rendered for this piece with her engine and seed, because the line this question asks about may sit down there. Listen to how the swirl changes: two or three copies beat in a few regular pulses you could count, the chorus of a pedal; by about a dozen the pulses blur into a random swirl, and more copies leave it as it is. The regularity readout measures that. Count does one more thing: each copy starts at its own moment in the first 300 ms, so it is also how many onsets arrive a second. Schroeder (1962) found about a thousand a second makes a flutter-free reverb, and that the ear can't tell a thousand from any higher number even on short transients. So 300, 800 and 2500 copies should not differ in grain: a prediction your ear can check.</p>
     <div class="eqs">
       <div class="eq">onsets per second = <i>N</i> ⁄ <i>T</i></div>
       <div class="words">(how many copies begin each second) = (the number of copies) ÷ (the window they start in, here 300 ms)</div>
@@ -119,29 +119,32 @@
 
   <section class="step">
     <h3>Which dial makes the chorus?</h3>
-    <p class="teach">The question asks for a number of copies. Here are two counts and two spreads, as a square. Down the square, the count goes up 83 times. Across, the copies are tuned five times further apart. Listen to all four, then say which way the chorus lies; the measurements open once you have. The top-left and bottom-left are May's own takes (01 and 05); the right column was rendered for this piece with her engine and seed.</p>
+    <p class="teach">The question asks for a number of copies. Here are three counts and two spreads. Down the square, the count goes from 3 to 30 to 2500. Across, the copies are tuned five times further apart. Listen to all six, then say where the chorus lies; the measurements open once you have. The 30 and 2500 copies at 5 cents are May's own takes (01 and 05); the other four were rendered for this piece with her engine and seed.</p>
     <div class="grid" id="square">
       <div class="h corner"></div><div class="h">about 5 cents apart</div><div class="h">about 25 cents apart</div>
+      <div class="h rh">3 copies</div>
+      <button class="cell" data-take="n3c5"><b>▸ 3 · 5 ¢</b><span>new</span></button>
+      <button class="cell" data-take="n3c25"><b>▸ 3 · 25 ¢</b><span>new</span></button>
       <div class="h rh">30 copies</div>
       <button class="cell" data-take="n30c5"><b>▸ 30 · 5 ¢</b><span>May 01</span></button>
-      <button class="cell" data-take="n30c25"><b>▸ 30 · 25 ¢</b><span>new corner</span></button>
+      <button class="cell" data-take="n30c25"><b>▸ 30 · 25 ¢</b><span>new</span></button>
       <div class="h rh">2500 copies</div>
       <button class="cell" data-take="n2500c5"><b>▸ 2500 · 5 ¢</b><span>May 05</span></button>
-      <button class="cell" data-take="n2500c25"><b>▸ 2500 · 25 ¢</b><span>new corner</span></button>
+      <button class="cell" data-take="n2500c25"><b>▸ 2500 · 25 ¢</b><span>new</span></button>
     </div>
     <div class="bar"><span></span></div>
     <div class="ear">
       <div class="q">your ear: the chorus is</div>
       <div class="btns" id="earBtns">
         <button data-ear="right">in the right column</button>
-        <button data-ear="bottom">in the bottom row</button>
-        <button data-ear="corner">only in one corner</button>
-        <button data-ear="none">nowhere: all four are shimmer</button>
+        <button data-ear="top">in the top row</button>
+        <button data-ear="both">in the top row and the right column</button>
+        <button data-ear="none">nowhere: all six are shimmer</button>
       </div>
     </div>
     <table class="meas" id="sqTable" hidden></table>
     <div class="verdict" id="sqVerdict" hidden></div>
-    <p class="note" id="sqNote" hidden>The same steady-tone measurement across every take on these steps: from 2 copies to 2500, the swirl's depth stays between 0.44 and 0.53 (a crowd of random phases tends to 0.52) and its rate between 0.65 and 0.87 times a second; at 400 copies, 1 to 75 cents moves the rate from 0.23 to 9.4 times a second. The square is about copies, the question's own word. The question asked again for lenses (one swap: a dispersing lens for a pitch copy) belongs to the live cloud the project's plan builds next, with the count on a control.</p>
+    <p class="note" id="sqNote" hidden>The same steady-tone measurement across every take on these steps. The swirl's rate is set by spread (at 400 copies, 1 to 75 cents moves it from 0.23 to 9.4 times a second) and barely by count. Its depth sits near 0.5 everywhere. What count changes is the swirl's kind, and only at the bottom: at 25 cents its strongest lines carry 0.96 of its power with 2 copies, 0.88 with 3, 0.40 with 6, then 0.20 to 0.25 from 12 copies up. At 5 cents the swirl is so slow that ten seconds hold too few of its cycles to read below about 0.5. The 1.13 is copy against copy: these takes carry no dry voice; with the dry mixed in, copy against dry would bring 0.80. A rate-resampled copy is a Doppler shift, so the optical twin of this crowd is light scattered off moving particles, the flicker called speckle. The question asked again for lenses belongs to the live cloud the project's plan builds next, with count, and spread beside it, on controls.</p>
   </section>
 
   <nav class="walk"><button id="back">◂ back</button><button id="next">next ▸</button><span class="where" id="where"></span></nav>
@@ -151,17 +154,22 @@
 <script>
 // Every number below was measured by "Shimmer Cloud — rich — count and spread.py" on May's cloud.py
 // (02_droplet_cloud/cloud.py), a steady 200 Hz tone, four seeded runs each; its output is the .json beside it.
-// depth = std ÷ mean of the level at 200 Hz; rate = how often that level rises and falls, per second.
-const MEAS = {
-  count: { 30: [0.44, 0.87], 100: [0.50, 0.76], 300: [0.48, 0.78], 800: [0.52, 0.87], 2500: [0.53, 0.80] },
-  spread: { 1: [0.50, 0.23], 3: [0.45, 0.52], 8: [0.49, 1.22], 25: [0.53, 3.45], 75: [0.52, 9.38] },
-  square: { n30c5: [0.44, 0.87], n30c25: [0.50, 3.42], n2500c5: [0.53, 0.80], n2500c25: [0.55, 3.40] },
+// depth = std ÷ mean of the level at 200 Hz; rate = how often that level rises and falls, per second;
+// lines = the share of that swirl's power in its strongest 1 % of frequencies (near 1: a few regular beats; low: a random swirl).
+const MEAS = { // [depth, rate a second, lines]
+  count: { 2: [0.46, 0.82, 0.95], 3: [0.44, 0.65, 0.90], 6: [0.48, 0.67, 0.67], 12: [0.48, 0.73, 0.62], 30: [0.44, 0.87, 0.53], 100: [0.50, 0.76, 0.51], 300: [0.48, 0.78, 0.54], 800: [0.52, 0.87, 0.56], 2500: [0.53, 0.80, 0.60] },
+  spread: { 1: [0.50, 0.23, 0.94], 3: [0.45, 0.52, 0.71], 8: [0.49, 1.22, 0.44], 25: [0.53, 3.45, 0.19], 75: [0.52, 9.38, 0.10] },
+  square: { n3c5: [0.44, 0.65, 0.90], n3c25: [0.44, 2.81, 0.88], n30c5: [0.44, 0.87, 0.53], n30c25: [0.50, 3.42, 0.25], n2500c5: [0.53, 0.80, 0.60], n2500c25: [0.55, 3.40, 0.21] },
 };
 const F0 = 200, SCATTER = 0.3;
 const predicted = s => F0 * Math.LN2 / 1200 * 2 / Math.sqrt(Math.PI) * s;
 
 const TAKES = {
   dry: { url: '02_droplet_cloud/dry.wav', n: 1, s: 0 },
+  c2: { url: 'rich-face/2_droplets_5c.wav', n: 2, s: 5 },
+  c3: { url: 'rich-face/3_droplets_5c.wav', n: 3, s: 5 },
+  c6: { url: 'rich-face/6_droplets_5c.wav', n: 6, s: 5 },
+  c12: { url: 'rich-face/12_droplets_5c.wav', n: 12, s: 5 },
   c30: { url: '02_droplet_cloud/variations/01_30_droplets.wav', n: 30, s: 5 },
   c100: { url: '02_droplet_cloud/variations/02_100_droplets.wav', n: 100, s: 5 },
   c300: { url: '02_droplet_cloud/variations/03_300_droplets.wav', n: 300, s: 5 },
@@ -172,6 +180,8 @@ const TAKES = {
   s8: { url: '02_droplet_cloud/variations/08_natural_8c.wav', n: 400, s: 8 },
   s25: { url: '02_droplet_cloud/variations/09_chorus_25c.wav', n: 400, s: 25 },
   s75: { url: '02_droplet_cloud/variations/10_wide_75c.wav', n: 400, s: 75 },
+  n3c5: { url: 'rich-face/3_droplets_5c.wav', n: 3, s: 5 },
+  n3c25: { url: 'rich-face/3_droplets_25c.wav', n: 3, s: 25 },
   n30c5: { url: '02_droplet_cloud/variations/01_30_droplets.wav', n: 30, s: 5 },
   n30c25: { url: 'rich-face/30_droplets_25c.wav', n: 30, s: 25 },
   n2500c5: { url: '02_droplet_cloud/variations/05_2500_droplets.wav', n: 2500, s: 5 },
@@ -235,7 +245,8 @@ function readout(el, n, s, m) {
   el.innerHTML = '<span>copies <b>' + n + '</b></span><span>spread <b>about ' + s + ' ¢</b></span>' +
     '<span>onsets <b>' + ops.toLocaleString('en-US') + ' a second</b></span>' +
     '<span>swirl, measured <b>' + m[1].toFixed(2) + ' a second</b> (predicted ' + predicted(s).toFixed(2) + ')</span>' +
-    '<span>swirl depth <b>' + m[0].toFixed(2) + '</b></span>';
+    '<span>swirl depth <b>' + m[0].toFixed(2) + '</b></span>' +
+    '<span>regularity <b>' + m[2].toFixed(2) + '</b> (power in the strongest 1 % of lines)</span>';
 }
 
 function rung(container, keys, label, readEl, measOf, dotsCv) {
@@ -248,7 +259,7 @@ function rung(container, keys, label, readEl, measOf, dotsCv) {
 
 const steps = [...document.querySelectorAll('.step')];
 const dots = steps.map(s => s.querySelector('canvas.dots'));
-const countKeys = ['c30', 'c100', 'c300', 'c800', 'c2500'], spreadKeys = ['s1', 's3', 's8', 's25', 's75'];
+const countKeys = ['c2', 'c3', 'c6', 'c12', 'c30', 'c100', 'c300', 'c800', 'c2500'], spreadKeys = ['s1', 's3', 's8', 's25', 's75'];
 rung($('countBtns'), countKeys, t => t.n + ' copies', $('countRead'), t => MEAS.count[t.n], dots[1]);
 rung($('spreadBtns'), spreadKeys, t => t.s + ' ¢', $('spreadRead'), t => MEAS.spread[t.s], dots[2]);
 document.querySelector('[data-take="dry"]').onclick = e => play('dry', e.currentTarget);
@@ -256,18 +267,18 @@ document.querySelectorAll('#square .cell').forEach(b => { b.onclick = () => play
 
 // The square's table, from the measurement
 (function table() {
-  const rows = [['n30c5', '30', '5'], ['n30c25', '30', '25'], ['n2500c5', '2500', '5'], ['n2500c25', '2500', '25']];
-  let h = '<tr><th>copies</th><th>spread</th><th>onsets a second</th><th>swirl rate, measured</th><th>swirl depth</th></tr>';
-  for (const [k, n, s] of rows) h += '<tr><td><b>' + n + '</b></td><td><b>' + s + ' ¢</b></td><td>' + Math.round(n / SCATTER).toLocaleString('en-US') + '</td><td>' + MEAS.square[k][1].toFixed(2) + ' a second</td><td>' + MEAS.square[k][0].toFixed(2) + '</td></tr>';
+  const rows = [['n3c5', '3', '5'], ['n3c25', '3', '25'], ['n30c5', '30', '5'], ['n30c25', '30', '25'], ['n2500c5', '2500', '5'], ['n2500c25', '2500', '25']];
+  let h = '<tr><th>copies</th><th>spread</th><th>onsets a second</th><th>swirl rate, measured</th><th>swirl depth</th><th>regularity</th></tr>';
+  for (const [k, n, s] of rows) h += '<tr><td><b>' + n + '</b></td><td><b>' + s + ' ¢</b></td><td>' + Math.round(n / SCATTER).toLocaleString('en-US') + '</td><td>' + MEAS.square[k][1].toFixed(2) + ' a second</td><td>' + MEAS.square[k][0].toFixed(2) + '</td><td>' + MEAS.square[k][2].toFixed(2) + '</td></tr>';
   $('sqTable').innerHTML = h;
 })();
-const rateAcross = (MEAS.square.n30c25[1] / MEAS.square.n30c5[1] + MEAS.square.n2500c25[1] / MEAS.square.n2500c5[1]) / 2;
-const rateDown = (MEAS.square.n2500c5[1] / MEAS.square.n30c5[1] + MEAS.square.n2500c25[1] / MEAS.square.n30c25[1]) / 2;
+const sq = MEAS.square;
+const rateAcross = (sq.n30c25[1] / sq.n30c5[1] + sq.n2500c25[1] / sq.n2500c5[1]) / 2;
 const EAR = {
-  right: 'Your ear put the chorus across the square, on spread. That is the dial the measurement moves: across, the swirl runs ' + rateAcross.toFixed(1) + ' times faster; down, ' + rateDown.toFixed(2) + ' times, which is no change. If that holds, the question\'s number is a number of cents, not of copies.',
-  bottom: 'Your ear put the chorus down the square, on count. The measurement doesn\'t move that way: down, the swirl\'s rate changes ' + rateDown.toFixed(2) + ' times and its depth hardly at all, while the onsets go from 100 a second to 8,333. So what your ear followed down the square is likely the grain of the onsets, not the swirl. Say so in this section\'s note: it is a finding the measurement can\'t make.',
-  corner: 'One corner alone. Which one? The measurement says each step across speeds the swirl about ' + rateAcross.toFixed(1) + ' times and each step down thickens the onsets 83 times; a single corner would mean the two dials only matter together. Name the corner in this section\'s note.',
-  none: 'All four shimmer to your ear. Then neither 2500 copies nor 25 cents is past the line, and the next square is wider: try the spread step\'s 75 cents. Say so in this section\'s note.',
+  right: 'Your ear put the chorus across the square, on spread. That is the dial that moves the swirl\'s rate: across, it runs about ' + rateAcross.toFixed(1) + ' times faster. Count is a dial too, but only at the bottom: at 25 cents the swirl\'s strongest lines carry ' + sq.n3c25[2].toFixed(2) + ' of its power with 3 copies and ' + sq.n30c25[2].toFixed(2) + ' with 30. If the 3-copy row didn\'t sound different to you, say so in this section\'s note.',
+  top: 'Your ear put the chorus in the top row, at 3 copies. That is where the measurement finds count acting: 3 copies beat in a few regular lines (' + sq.n3c25[2].toFixed(2) + ' of the power at 25 cents), and by 30 the beating is a random swirl (' + sq.n30c25[2].toFixed(2) + '). From 30 to 2500, count changes the grain of the onsets and leaves the swirl alone. So the question\'s number of copies sits somewhere between 3 and about a dozen; the count rungs on step 2 can narrow it.',
+  both: 'Your ear heard two choruses: the regular beating of 3 copies, and the fast swirl of a wide spread. That matches both dials: count sets the swirl\'s kind up to about a dozen copies (' + sq.n3c25[2].toFixed(2) + ' against ' + sq.n30c25[2].toFixed(2) + ' at 25 cents), and spread sets its rate (about ' + rateAcross.toFixed(1) + ' times faster across). The question may need both numbers: a count below which it pulses, and a spread above which it wobbles.',
+  none: 'All six shimmer to your ear. Then neither 3 copies nor 25 cents is past your line. Try step 2\'s 2-copy rung and step 3\'s 75 cents, and say in this section\'s note where it finally turns.',
 };
 document.querySelectorAll('#earBtns button').forEach(b => {
   b.onclick = () => {
@@ -283,7 +294,7 @@ document.querySelectorAll('#earBtns button').forEach(b => {
   names.forEach((s, i) => { const b = document.createElement('button'); b.textContent = (i + 1) + ' · ' + s; b.onclick = () => go(i); rail.appendChild(b); });
   const enter = [
     () => drawDots(dots[0], 1, 0),
-    () => { readout($('countRead'), 30, 5, MEAS.count[30]); drawDots(dots[1], 30, 5); },
+    () => { readout($('countRead'), 2, 5, MEAS.count[2]); drawDots(dots[1], 2, 5); },
     () => { readout($('spreadRead'), 400, 1, MEAS.spread[1]); drawDots(dots[2], 400, 1); },
     () => {},
   ];

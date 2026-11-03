@@ -76,9 +76,12 @@ console.log('how many — the piece holds the measurement it shows');
 const hm = readFileSync(join(here, 'Shimmer Cloud — rich — how many.html'), 'utf8');
 const J = JSON.parse(readFileSync(join(here, 'Shimmer Cloud — rich — count and spread.json'), 'utf8'));
 const MEAS = new Function(hm.match(/const MEAS = (\{[\s\S]*?\n\});/)[0].replace('const MEAS = ', 'return '))();
-for (const r of J['count, at 5 cents']) if (MEAS.count[r.copies]) ok(MEAS.count[r.copies][0] === r.depth && MEAS.count[r.copies][1] === r.rate_hz, `count ${r.copies}: depth and rate as measured`, `${r.depth}, ${r.rate_hz}`);
-for (const r of J['spread, at 400 copies']) ok(MEAS.spread[r.cents][0] === r.depth && MEAS.spread[r.cents][1] === r.rate_hz, `spread ${r.cents} ¢: depth and rate as measured`, `${r.depth}, ${r.rate_hz}`);
-for (const r of J['the square: 30 or 2500 copies, 5 or 25 cents']) { const k = 'n' + r.copies + 'c' + r.cents; ok(MEAS.square[k][0] === r.depth && MEAS.square[k][1] === r.rate_hz, `square ${k}: as measured`, `${r.depth}, ${r.rate_hz}`); }
+const same = (m, r) => m && m[0] === r.depth && m[1] === r.rate_hz && m[2] === r.lines;
+for (const r of J['count, at 5 cents']) ok(same(MEAS.count[r.copies], r), `count ${r.copies}: depth, rate and regularity as measured`, `${r.depth}, ${r.rate_hz}, ${r.lines}`);
+for (const r of J['spread, at 400 copies']) ok(same(MEAS.spread[r.cents], r), `spread ${r.cents} ¢: depth, rate and regularity as measured`, `${r.depth}, ${r.rate_hz}, ${r.lines}`);
+for (const r of J['the square: 3, 30 or 2500 copies, 5 or 25 cents']) { const k = 'n' + r.copies + 'c' + r.cents; ok(same(MEAS.square[k], r), `square ${k}: as measured`, `${r.depth}, ${r.rate_hz}, ${r.lines}`); }
+const c25 = J['count, at 25 cents'], L = n => c25.find(r => r.copies === n).lines;
+ok(L(2) > 0.9 && L(3) > 0.8 && L(12) < 0.3 && c25.filter(r => r.copies >= 12).every(r => r.lines < 0.3), 'at 25 ¢, count changes the swirl’s kind below about a dozen copies and not above', c25.map(r => r.copies + ':' + r.lines).join(' '));
 const counts = J['count, at 5 cents'], spreads = J['spread, at 400 copies'];
 const cr = counts.map(r => r.rate_hz), cd = counts.map(r => r.depth);
 ok(Math.max(...cr) / Math.min(...cr) < 1.5, 'count 2 → 2500 leaves the swirl rate alone (max ÷ min under 1.5)', `${Math.min(...cr)} – ${Math.max(...cr)} Hz`);
