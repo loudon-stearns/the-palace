@@ -1,0 +1,475 @@
+<!doctype html>
+<!--
+  title: Cycle 5 Explorer — rich — the window
+  born: 2026-11-03
+  links: [[Cycle 5 Explorer]] (connects-to · rich-face-piece) · listed in [[Cycle 5 Explorer — rich.json]] · [[Progressive Staging]] (exemplifies · a walk up to its test) · [[Latent Error]] (connects-to · the view the claim assumes)
+  forward_vector: I am the page's one idea, walked: the line of fifths alone, then a seven-note window on it, then a tonic inside the window, then the tonic held while the window slides, and last a test of "each step darker lowers exactly one note" on every tonic the page allows, held both ways the page's header switch offers, and then on your ear. I change only when the section I serve does.
+  engine: the script block with id "engine" is the theory core, the same arithmetic as cycle5-explorer.html's (spell, stepOf, accOf, the window [L, L+6], T = L + m).
+  checks: Projects/Cycle 5 Explorer/workshop/rich-face-checks.mjs runs this file's own engine against what it claims, and against the explorer's own spell().
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:size" content="flow"><!-- needs nothing of its host: no device, no storage, no files, no network but the fonts -->
+<title>Cycle 5 Explorer — the window</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Manrope:wght@300;400;500&family=JetBrains+Mono:wght@400;500&family=Noto+Music&display=swap">
+<style>
+  /* Loudon Live house style, Drafting skin (ground #f0eee5, engineering red #c8261a), with the explorer's own
+     category colours so the window reads the same here as on the page: degrees amber, modes rose, the one
+     changed note in the accent. */
+  :root { --bg:#f0eee5; --e1:#e6e3d7; --e2:#dcd9ca; --rule:#b8b09a; --soft:rgba(26,25,22,.08);
+    --ink:#1a1916; --ink2:#3a3a35; --ink3:#6a6862; --ink4:#9a978c;
+    --accent:#c8261a; --accent-soft:rgba(200,38,26,.08); --accent-line:rgba(200,38,26,.55);
+    --degree:#a8730a; --mode:#b3356b; --func:#2b5fb0; --ok:#3a7d2c;
+    --mono:'JetBrains Mono','Noto Music',ui-monospace,Menlo,monospace; --sans:'Manrope','Noto Music',system-ui,sans-serif; --serif:'Cormorant Garamond','Noto Music',Georgia,serif;
+    --ease:cubic-bezier(.4,0,.2,1); }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--ink2); font-family: var(--sans); font-weight: 300; }
+  .piece { padding: 22px 22px 20px; }
+  .kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--ink3); margin-bottom: 6px; display: flex; align-items: center; gap: 10px; }
+  .kicker svg { flex: none; }
+  .title { font-family: var(--serif); font-size: 28px; font-weight: 400; color: var(--ink); margin: 0 0 6px; }
+  .sub { font-size: 14px; line-height: 1.6; max-width: 76ch; margin: 0 0 16px; }
+  .rail { display: flex; flex-wrap: wrap; margin: 4px 0 18px; border: 1px solid var(--rule); border-radius: 2px; width: fit-content; max-width: 100%; }
+  .rail button { border: 0; border-right: 1px solid var(--rule); border-radius: 0; background: transparent; padding: 7px 12px; color: var(--ink3); }
+  .rail button:last-child { border-right: 0; }
+  .rail button[aria-current="step"] { background: var(--accent-soft); color: var(--accent); }
+  .step { display: none; }
+  .step.on { display: block; }
+  .step h3 { font-family: var(--serif); font-size: 23px; font-weight: 400; color: var(--ink); margin: 0 0 6px; }
+  .teach { font-size: 14px; line-height: 1.65; max-width: 76ch; margin: 0 0 12px; }
+  .back { font-family: var(--mono); font-size: 11px; letter-spacing: .04em; color: var(--ink3); margin: 0 0 14px; }
+  .eqs { margin: 4px 0 16px; padding: 10px 14px; border-left: 1px solid var(--accent-line); background: var(--e1); max-width: 76ch; }
+  .eq { font-family: var(--serif); font-size: 20px; color: var(--ink); font-variant-numeric: lining-nums; }
+  .eq i { font-style: italic; }
+  .words { font-size: 13px; line-height: 1.55; margin: 2px 0 8px; }
+  .words:last-child { margin-bottom: 0; }
+  button { font-family: var(--mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink2); background: var(--bg); border: 1px solid var(--rule); border-radius: 2px; padding: 8px 12px; cursor: pointer; transition: border-color 220ms var(--ease), color 220ms var(--ease); }
+  button:hover { border-color: var(--accent-line); color: var(--ink); }
+  button:disabled { opacity: .4; cursor: default; }
+  button.go { color: var(--accent); border-color: var(--accent-line); }
+  button[aria-pressed="true"] { color: var(--accent); border-color: var(--accent-line); background: var(--accent-soft); }
+  .btns { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin: 6px 0 12px; }
+  .read { display: flex; flex-wrap: wrap; gap: 6px 22px; margin: 8px 0 4px; font-family: var(--mono); font-size: 12px; letter-spacing: .03em; color: var(--ink3); }
+  .read b { color: var(--ink); font-weight: 500; }
+  .panel { border: 1px solid var(--soft); border-radius: 2px; background: var(--e1); padding: 10px 12px; margin-bottom: 12px; }
+  .plabel { font-family: var(--mono); font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--ink3); margin-bottom: 8px; display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+  /* the line of fifths */
+  .strip-wrap { position: relative; overflow-x: auto; padding-bottom: 4px; }
+  .strip { position: relative; display: grid; grid-template-columns: repeat(27, minmax(25px, 1fr)); min-width: 675px; }
+  .cell { position: relative; text-align: center; padding: 22px 0 6px; cursor: pointer; border-top: 1px solid transparent; border-bottom: 1px solid transparent; user-select: none; }
+  .cell .n { font-family: var(--mono); font-size: 13px; color: var(--ink3); display: block; line-height: 1.2; }
+  .cell .k { font-family: var(--mono); font-size: 9px; color: var(--ink4); display: block; margin-top: 3px; }
+  .cell .dg { position: absolute; top: 4px; left: 0; right: 0; font-family: var(--mono); font-size: 10px; color: var(--degree); }
+  .cell.in { background: var(--bg); border-top-color: var(--ink); border-bottom-color: var(--ink); }
+  .cell.in .n { color: var(--ink); font-weight: 500; }
+  .cell.first { border-left: 1px solid var(--ink); }
+  .cell.last { border-right: 1px solid var(--ink); }
+  .cell.tonic .n { color: var(--bg); background: var(--ink); padding: 1px 0; }
+  .cell.kin .n { color: var(--func); }
+  .cell.hit .n { outline: 1px solid var(--accent); }
+  .cell.gone .n { color: var(--accent); text-decoration: line-through; }
+  .cell.came .n { color: var(--bg); background: var(--accent); }
+  .cell.came .dg, .cell.gone .dg { color: var(--accent); }
+  svg.arc { position: absolute; left: 0; top: 0; pointer-events: none; overflow: visible; }
+  .modes { display: flex; flex-wrap: wrap; gap: 6px; margin: 6px 0 10px; }
+  .modes button { text-transform: none; letter-spacing: .02em; font-size: 12px; padding: 6px 10px; color: var(--mode); }
+  .modes button[aria-pressed="true"] { background: var(--mode); color: var(--bg); border-color: var(--mode); }
+  .meter { display: flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 10px; letter-spacing: .14em; color: var(--ink3); margin: 4px 0 10px; }
+  .meter i { display: inline-block; width: 26px; height: 8px; border: 1px solid var(--rule); }
+  .meter i.on { background: var(--mode); border-color: var(--mode); }
+  table.meas { border-collapse: collapse; font-family: var(--mono); font-size: 11.5px; color: var(--ink2); width: 100%; margin: 4px 0 6px; }
+  table.meas th { text-align: left; font-weight: 400; color: var(--ink3); letter-spacing: .06em; font-size: 10px; border-bottom: 1px solid var(--rule); padding: 5px 6px; white-space: nowrap; }
+  table.meas td { border-bottom: 1px solid var(--soft); padding: 4px 6px; white-space: nowrap; cursor: pointer; }
+  table.meas td:first-child { cursor: default; color: var(--ink); }
+  table.meas td.one b { color: var(--ink); font-weight: 500; }
+  table.meas td.zero b { color: var(--ink3); }
+  table.meas td.edge { color: var(--accent); }
+  table.meas td:hover:not(:first-child) { background: var(--accent-soft); }
+  .tbl-wrap { overflow-x: auto; }
+  .seg { display: inline-flex; border: 1px solid var(--rule); border-radius: 2px; }
+  .seg button { border: 0; border-radius: 0; border-right: 1px solid var(--rule); }
+  .seg button:last-child { border-right: 0; }
+  .seg button[aria-pressed="true"] { background: var(--ink); color: var(--bg); }
+  .verdict { font-size: 13.5px; line-height: 1.6; max-width: 76ch; padding: 10px 14px; border: 1px solid var(--accent-line); border-radius: 2px; background: var(--accent-soft); color: var(--ink); margin: 8px 0 12px; }
+  .note { font-size: 12.5px; line-height: 1.55; color: var(--ink3); max-width: 76ch; margin: 6px 0 0; }
+  .answer button { min-width: 54px; font-size: 13px; padding: 10px 12px; color: var(--degree); }
+  nav.walk { display: flex; gap: 10px; align-items: center; margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--soft); }
+  nav.walk .where { font-family: var(--mono); font-size: 11px; color: var(--ink3); letter-spacing: .08em; margin-left: auto; }
+  .foot { font-family: var(--mono); font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--ink4); margin-top: 14px; }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+<div class="piece">
+  <div class="kicker"><span id="sigil"></span>made · study · a walk in five steps</div>
+  <h2 class="title">A seven-note window on the line of fifths</h2>
+  <p class="sub">The explorer's one idea, built up from nothing. We start with a strip of named notes and end on the section's claim, that each step darker lowers exactly one note, tested on every tonic the explorer allows and then on your ear. Silent until you press something.</p>
+  <div class="rail" id="rail"></div>
+
+  <!-- step 1 -->
+  <section class="step">
+    <h3>The line of fifths</h3>
+    <p class="teach">Every note has a place on one line, an integer <i>k</i>, each place a fifth above the one to its left: … F C G D A E B F♯ C♯ … with C at 0. The name comes from the place, never from a list of twelve, which is why G major will always say F♯ and never G♭. Press any note to hear it. The two notes seven places either side light up in blue: they have the same letter, one a half step from the next. Press <b>seven apart</b> to hear one of them and then the note seven places to its right.</p>
+    <div class="eqs">
+      <div class="eq">letter(<i>k</i>) = “FCGDAEB”[ (<i>k</i> + 1) mod 7 ], &nbsp; accidentals(<i>k</i>) = ⌊ (<i>k</i> + 1) ⁄ 7 ⌋</div>
+      <div class="words">(the letter) = count places from F and go round the seven letters; (sharps, or flats when negative) = how many whole laps of seven you have made. Every lap of seven adds one sharp to the same letter.</div>
+      <div class="eq"><i>k</i> + 7 &nbsp;→&nbsp; the same letter, 7 × 7 = 49 semitones higher = four octaves and a half step</div>
+      <div class="words">(seven places right) = the same letter, raised one half step, once the octaves are folded away.</div>
+    </div>
+    <div class="panel"><div class="plabel"><span>the line of fifths · G𝄫 to F𝄪, the explorer's whole range</span><span>k under each name</span></div>
+      <div class="strip-wrap"><div class="strip" id="strip1"></div></div></div>
+    <div class="btns"><button class="go" id="s1pair">▸ seven apart</button></div>
+    <div class="read"><span>pressed <b id="s1n">C</b> (k = <b id="s1k">0</b>)</span><span>seven to the right <b id="s1r">C♯</b></span><span>seven to the left <b id="s1l">C♭</b></span></div>
+  </section>
+
+  <!-- step 2 -->
+  <section class="step">
+    <h3>A window of seven</h3>
+    <p class="teach">A key is seven neighbours on that line, a window <i>[L, L + 6]</i>. Seven in a row cover every letter exactly once, so a key never spells a letter twice and never skips one. There is no home note yet; the window is only a set. Slide it with the arrows (that is the explorer's note ring, changing key) and play its seven notes in the order they sit on the line, rising by fifths.</p>
+    <p class="back">The line is step 1's; the window only marks seven places on it.</p>
+    <div class="eqs">
+      <div class="eq">key = { <i>L</i>, <i>L</i> + 1, …, <i>L</i> + 6 }</div>
+      <div class="words">(a key) = seven neighbouring places on the line; <i>L</i> is the window's left edge, its flattest note.</div>
+    </div>
+    <div class="panel"><div class="plabel"><span>one window</span><span id="s2lab"></span></div>
+      <div class="strip-wrap"><div class="strip" id="strip2"></div></div></div>
+    <div class="btns"><button id="s2l">◀ one place flat</button><button id="s2r">one place sharp ▶</button><button class="go" id="s2play">▸ the seven, by fifths</button></div>
+    <div class="read"><span>in letter order <b id="s2letters"></b></span><span>letters used <b id="s2count"></b></span></div>
+  </section>
+
+  <!-- step 3 -->
+  <section class="step">
+    <h3>A tonic inside the window</h3>
+    <p class="teach">Now pick a home. The window stays where it is (the notes of C major) and the tonic moves inside it: at the window's flat end it is Lydian, at the sharp end Locrian. Each note's degree, in amber above it, is its distance from the tonic. With the tonic at the flat end every other note sits sharpward of home, and that is the brightest mode; walk the tonic right and more of the window sits flatward of it, darker each time. Press a mode to hear its scale. Watch the line: no note moves. Only home does.</p>
+    <p class="back">The window is step 2's, held at the notes of C major.</p>
+    <div class="eqs">
+      <div class="eq"><i>T</i> = <i>L</i> + <i>m</i>, &nbsp; <i>d</i> = <i>k</i> − <i>T</i>, &nbsp; degree = step (4<i>d</i> mod 7) + 1 with ⌊ (<i>d</i> + 1) ⁄ 7 ⌋ sharps</div>
+      <div class="words">(the tonic) = the window's left edge plus the mode number, 0 for Lydian to 6 for Locrian; (a note's degree) = its distance from the tonic in places, read as a scale step and an accidental. Six places right of the tonic is ♯4; six places left is ♭5.</div>
+    </div>
+    <div class="modes" id="s3modes"></div>
+    <div class="meter"><span>BRIGHT</span><span id="s3meter"></span><span>DARK</span></div>
+    <div class="panel"><div class="plabel"><span>the window held, the tonic moving</span><span id="s3lab"></span></div>
+      <div class="strip-wrap"><div class="strip" id="strip3"></div></div></div>
+    <div class="read"><span>scale <b id="s3scale"></b></span><span>notes changed from the last mode <b id="s3moved">—</b></span></div>
+  </section>
+
+  <!-- step 4 -->
+  <section class="step">
+    <h3>Hold the tonic, slide the window</h3>
+    <p class="teach">Now the other way round, the explorer's <i>same tonic</i> switch. C stays home and the window slides one place flat under it, each slide one mode darker. One note falls off the window's sharp end; seven places to the left, the same letter comes in a half step lower. Press <b>darker</b>: you hear the note that left, then the one that came, and the line marks both. Walk from Lydian down to Locrian.</p>
+    <p class="back">At Ionian this is step 3's window, with C at home.</p>
+    <div class="eqs">
+      <div class="eq">[<i>L</i>, <i>L</i> + 6] &nbsp;→&nbsp; [<i>L</i> − 1, <i>L</i> + 5]: &nbsp; out goes <i>L</i> + 6, in comes <i>L</i> − 1 = (<i>L</i> + 6) − 7</div>
+      <div class="words">(one step darker, tonic held) = slide the window one place flat. The note that leaves and the note that arrives are seven places apart: step 1's same letter, a half step apart.</div>
+    </div>
+    <div class="btns"><button id="s4b">◀ brighter</button><button class="go" id="s4d">darker ▶</button><button id="s4scale">▸ scale</button><button id="s4pair">▸ the changed note, before and after</button></div>
+    <div class="meter"><span>BRIGHT</span><span id="s4meter"></span><span>DARK</span></div>
+    <div class="panel"><div class="plabel"><span id="s4title">C Lydian</span><span id="s4lab"></span></div>
+      <div class="strip-wrap" style="padding-bottom:34px"><div class="strip" id="strip4"></div></div></div>
+    <div class="read"><span>scale <b id="s4scaleTxt"></b></span><span>last step <b id="s4moved">—</b></span></div>
+    <p class="note" id="s4note"></p>
+  </section>
+
+  <!-- step 5 -->
+  <section class="step">
+    <h3>The test: exactly one note, every time?</h3>
+    <p class="teach">The section says each step darker lowers exactly one note. Here every darker step on every tonic the explorer allows, C♭ to C♯, is counted: the scale before, the scale after, and how many of the seven notes sounded a different pitch. The explorer's header switch decides what a mode change keeps, so the count is made both ways. Press any cell to hear the two scales, before then after.</p>
+    <p class="back">Each cell is one press of the explorer's darker button on that row's tonic, with the switch set as above; same tonic is step 4's.</p>
+    <div class="btns"><span class="seg" id="s5hold"><button data-h="tonic" aria-pressed="true">same tonic</button><button data-h="notes">same notes</button></span></div>
+    <div class="panel"><div class="plabel"><span id="s5lab">notes whose pitch changed · and which</span><span>every darker step, C♭ to C♯</span></div>
+      <div class="tbl-wrap"><table class="meas" id="s5t"></table></div></div>
+    <div class="verdict" id="s5v"></div>
+    <h3 style="font-size:20px;margin-top:18px">Your ear: which degree went down?</h3>
+    <p class="teach">The grids make the one note visible; the page says the sound makes it audible. This asks your ear. Two scales play on a random tonic, the second one step darker with the tonic held. Press the degree you heard go down. I could not check what a person hears; only you can.</p>
+    <div class="btns"><button class="go" id="s5q">▸ a new pair</button><button id="s5again" disabled>▸ play it again</button></div>
+    <div class="btns answer" id="s5ans"></div>
+    <div class="read"><span>this pair <b id="s5what">—</b></span><span>right <b id="s5score">0 of 0</b></span></div>
+  </section>
+
+  <nav class="walk"><button id="back">◀ back</button><button id="next">next ▶</button><span class="where" id="where"></span></nav>
+  <div class="foot">Loud’n Live</div>
+</div>
+
+<script id="engine">
+// The theory core: the same arithmetic as cycle5-explorer.html (spell, stepOf, accOf, the window, T = L + m).
+// Checked against the explorer's own spell() and against the claim by workshop/rich-face-checks.mjs.
+const mod = (a, n) => ((a % n) + n) % n;
+const FIFTHS = 'FCGDAEB', STEPS = 'CDEFGAB';
+const LETTER_SEMI = { C: 0, D: 2, E: 4, F: 5, G: 7, A: 9, B: 11 };
+const ACC = { '-3': '♭𝄫', '-2': '𝄫', '-1': '♭', '0': '', '1': '♯', '2': '𝄪', '3': '♯𝄪' };
+const spell = k => ({ letter: FIFTHS[mod(k + 1, 7)], acc: Math.floor((k + 1) / 7) });
+const nm = k => { const s = spell(k); return s.letter + ACC[s.acc]; };
+const pc = k => { const s = spell(k); return mod(LETTER_SEMI[s.letter] + s.acc, 12); };
+const stepOf = d => mod(4 * d, 7);
+const accOf = d => Math.floor((d + 1) / 7);
+const SD = d => ACC[accOf(d)] + (stepOf(d) + 1);
+const MODES = ['Lydian', 'Ionian', 'Mixolydian', 'Dorian', 'Aeolian', 'Phrygian', 'Locrian'];
+const KMIN = -13, KMAX = 13;                       // G𝄫 … F𝄪: every note the explorer can spell
+const okTonic = t => t >= -7 && t <= 7;            // C♭ … C♯, as on the explorer
+const windowKs = L => [0, 1, 2, 3, 4, 5, 6].map(i => L + i);
+// a scale: the window's notes in letter order from the tonic, with octaves so it rises
+function scale(T, m) {
+  const ks = windowKs(T - m).slice().sort((a, b) => stepOf(a - T) - stepOf(b - T));
+  let oct = 4, prev = -1;
+  return [...ks, T].map(k => { const li = STEPS.indexOf(spell(k).letter); if (li <= prev) oct++; prev = li;
+    return { k, midi: 12 * (oct + 1) + LETTER_SEMI[spell(k).letter] + spell(k).acc, deg: SD(k - T) }; });
+}
+// one step darker, holding either the tonic (the window slides) or the notes (the tonic moves)
+function darker(T, m, hold) { return hold === 'tonic' ? { T, m: m + 1 } : { T: T + 1, m: m + 1 }; }
+// compare two scales note by note, by letter position from the tonic, and by sounding pitch
+function compare(a, b) {
+  const A = scale(a.T, a.m), B = scale(b.T, b.m);
+  const pitchesA = new Set(windowKs(a.T - a.m).map(pc)), pitchesB = new Set(windowKs(b.T - b.m).map(pc));
+  const left = [...pitchesA].filter(p => !pitchesB.has(p)), came = [...pitchesB].filter(p => !pitchesA.has(p));
+  const degA = A.slice(0, 7).map(x => x.deg), degB = B.slice(0, 7).map(x => x.deg);
+  const degChanged = degA.map((d, i) => d !== degB[i] ? i : -1).filter(i => i >= 0);
+  const kLeft = windowKs(a.T - a.m).filter(k => !windowKs(b.T - b.m).includes(k));
+  const kCame = windowKs(b.T - b.m).filter(k => !windowKs(a.T - a.m).includes(k));
+  return { notesChanged: left.length, left, came, degChanged, degFrom: degChanged.map(i => degA[i]), degTo: degChanged.map(i => degB[i]),
+    kLeft, kCame, tonicMoved: a.T !== b.T, semis: left.length === 1 ? mod(came[0] - left[0] + 6, 12) - 6 : null };
+}
+</script>
+<script>
+// The sigil, the walk and the sound.
+const $ = id => document.getElementById(id);
+(function sigil(el) {
+  const p = []; for (let i = 0; i <= 240; i++) { const t = i / 240 * 2 * Math.PI; p.push((11 + 9 * Math.sin(3 * t + Math.PI / 4)).toFixed(2) + ',' + (11 + 9 * Math.sin(2 * t)).toFixed(2)); }
+  el.innerHTML = '<svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true"><circle cx="11" cy="11" r="10.4" fill="none" stroke="#b8b09a" stroke-width="1"/><polyline points="' + p.join(' ') + '" fill="none" stroke="#c8261a" stroke-width="1"/></svg>';
+})($('sigil'));
+
+// Sound: nothing exists before a click. One take at a time, through a compressor; a step change stops it.
+// The voice is the explorer's own: a triangle with a quiet sine an octave up, through a closing lowpass.
+const SND = { ctx: null, bus: null, take: null };
+function soundOn() {
+  if (!SND.ctx) {
+    SND.ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const comp = SND.ctx.createDynamicsCompressor(); comp.connect(SND.ctx.destination);
+    SND.bus = SND.ctx.createGain(); SND.bus.gain.value = 0.55; SND.bus.connect(comp);
+  }
+  if (SND.ctx.state === 'suspended') SND.ctx.resume();
+  stopSound();
+  const g = SND.ctx.createGain(); g.connect(SND.bus); SND.take = g; return g;
+}
+function stopSound() {
+  if (!SND.take) return; const g = SND.take, c = SND.ctx; SND.take = null;
+  g.gain.setTargetAtTime(0, c.currentTime, 0.02); setTimeout(() => g.disconnect(), 200);
+}
+function voice(take, midi, t, dur, vel = 0.2) {
+  const c = SND.ctx, f = 440 * Math.pow(2, (midi - 69) / 12);
+  const o1 = c.createOscillator(), o2 = c.createOscillator(), g2 = c.createGain(), lp = c.createBiquadFilter(), g = c.createGain();
+  o1.type = 'triangle'; o1.frequency.value = f; o2.type = 'sine'; o2.frequency.value = f * 2; g2.gain.value = 0.3;
+  lp.type = 'lowpass'; lp.frequency.setValueAtTime(Math.min(9000, 900 + f * 5), t); lp.frequency.exponentialRampToValueAtTime(Math.min(4000, 500 + f * 2), t + 0.6);
+  g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(vel, t + 0.01);
+  g.gain.exponentialRampToValueAtTime(vel * 0.35, t + 0.55); g.gain.setValueAtTime(vel * 0.35, t + Math.max(0.56, dur));
+  g.gain.exponentialRampToValueAtTime(0.0001, t + dur + 0.5);
+  o1.connect(lp); o2.connect(g2); g2.connect(lp); lp.connect(g); g.connect(take);
+  o1.start(t); o2.start(t); o1.stop(t + dur + 0.6); o2.stop(t + dur + 0.6);
+}
+function playMidis(list, gap = 0.2, last = 0.7) { // list of midi numbers, one after another
+  const take = soundOn(), t0 = SND.ctx.currentTime + 0.03;
+  list.forEach((m, i) => { if (m != null) voice(take, m, t0 + i * gap, i === list.length - 1 ? last : gap + 0.02); });
+}
+const midiNear = k => { const s = spell(k); return 60 + LETTER_SEMI[s.letter] + s.acc; }; // octave 4, by letter
+
+// The strip: 27 cells, k = −13 … 13
+function buildStrip(el, onPress) {
+  el.innerHTML = '';
+  for (let k = KMIN; k <= KMAX; k++) {
+    const c = document.createElement('div'); c.className = 'cell'; c.dataset.k = k;
+    c.innerHTML = '<span class="dg"></span><span class="n">' + nm(k) + '</span><span class="k">' + k + '</span>';
+    c.onclick = () => onPress && onPress(k); el.appendChild(c);
+  }
+  return el;
+}
+function paint(el, { L = null, T = null, kin = [], hit = null, gone = null, came = null, degrees = false } = {}) {
+  el.querySelectorAll('.cell').forEach(c => {
+    const k = +c.dataset.k, inW = L != null && k >= L && k <= L + 6;
+    c.className = 'cell' + (inW ? ' in' : '') + (inW && k === L ? ' first' : '') + (inW && k === L + 6 ? ' last' : '')
+      + (k === T ? ' tonic' : '') + (kin.includes(k) ? ' kin' : '') + (k === hit ? ' hit' : '') + (k === gone ? ' gone' : '') + (k === came ? ' came' : '');
+    c.querySelector('.dg').textContent = degrees && T != null && (inW || k === gone) ? SD(k - T) : '';
+  });
+  arc(el, gone, came);
+}
+function arc(el, a, b) { // a curved arrow under the strip from the note that left to the one that came
+  let svg = el.parentNode.querySelector('svg.arc'); if (svg) svg.remove();
+  if (a == null || b == null) return;
+  const ca = el.querySelector('[data-k="' + a + '"]'), cb = el.querySelector('[data-k="' + b + '"]');
+  const x1 = ca.offsetLeft + ca.offsetWidth / 2, x2 = cb.offsetLeft + cb.offsetWidth / 2, y = ca.offsetTop + ca.offsetHeight - 2;
+  svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg'); svg.setAttribute('class', 'arc');
+  svg.setAttribute('width', el.scrollWidth); svg.setAttribute('height', el.offsetHeight + 26);
+  const mid = (x1 + x2) / 2;
+  svg.innerHTML = '<path d="M' + x1 + ',' + y + ' Q' + mid + ',' + (y + 34) + ' ' + x2 + ',' + y + '" fill="none" stroke="#c8261a" stroke-width="1.2"/>'
+    + '<path d="M' + (x2 - 4) + ',' + (y + 7) + ' L' + x2 + ',' + y + ' L' + (x2 + 5) + ',' + (y + 6) + '" fill="none" stroke="#c8261a" stroke-width="1.2"/>';
+  el.parentNode.appendChild(svg);
+}
+function meter(el, m) { el.innerHTML = MODES.map((_, i) => '<i class="' + (i === m ? 'on' : '') + '" title="' + MODES[i] + '"></i>').join(' '); }
+const scaleText = (T, m) => scale(T, m).slice(0, 7).map(x => x.deg === '1' ? '<b>' + nm(x.k) + '</b>' : nm(x.k)).join(' ');
+
+// step 1 — the line
+let s1k = 0;
+const strip1 = buildStrip($('strip1'), k => { s1k = k; draw1(); playMidis([midiNear(k)], 0.2, 0.8); });
+function draw1() {
+  paint(strip1, { hit: s1k, kin: [s1k - 7, s1k + 7].filter(k => k >= KMIN && k <= KMAX) });
+  $('s1n').textContent = nm(s1k); $('s1k').textContent = s1k;
+  $('s1r').textContent = s1k + 7 <= KMAX ? nm(s1k + 7) : 'off the strip';
+  $('s1l').textContent = s1k - 7 >= KMIN ? nm(s1k - 7) : 'off the strip';
+}
+$('s1pair').onclick = () => {
+  const a = s1k + 7 <= KMAX ? s1k : s1k - 7, b = a + 7;
+  playMidis([midiNear(a), null, midiNear(b)], 0.45, 0.9);
+};
+
+// step 2 — a window
+let s2L = -1;
+const strip2 = buildStrip($('strip2'));
+function draw2() {
+  paint(strip2, { L: s2L });
+  const ks = windowKs(s2L), letters = ks.map(k => nm(k)).sort((a, b) => STEPS.indexOf(a[0]) - STEPS.indexOf(b[0]));
+  $('s2letters').textContent = letters.join(' ');
+  $('s2count').textContent = new Set(ks.map(k => spell(k).letter)).size + ' of 7, each once';
+  $('s2lab').textContent = 'L = ' + s2L + ' · the notes of ' + nm(s2L + 1) + ' major';
+  $('s2l').disabled = s2L - 1 < -8; $('s2r').disabled = s2L + 1 > 6;
+}
+$('s2l').onclick = () => { s2L--; draw2(); };
+$('s2r').onclick = () => { s2L++; draw2(); };
+$('s2play').onclick = () => { // by fifths, rising, from the window's flat end in octave 2
+  let prev = null; const ms = windowKs(s2L).map(k => { let m = midiNear(k) - 24; if (prev != null) { while (m <= prev) m += 12; if (m - prev > 12) m -= 12; } prev = m; return m; });
+  playMidis(ms, 0.28, 1.0);
+};
+
+// step 3 — a tonic inside the window (same notes)
+let s3m = 1, s3prev = null; const s3L = -1;
+const strip3 = buildStrip($('strip3'));
+MODES.forEach((name, m) => { const b = document.createElement('button'); b.textContent = nm(s3L + m) + ' ' + name; b.onclick = () => { s3prev = s3m; s3m = m; draw3(); playMidis(scale(s3L + m, m).map(x => x.midi)); }; $('s3modes').appendChild(b); });
+function draw3() {
+  const T = s3L + s3m; paint(strip3, { L: s3L, T, degrees: true });
+  $('s3modes').querySelectorAll('button').forEach((b, i) => b.setAttribute('aria-pressed', i === s3m ? 'true' : 'false'));
+  meter($('s3meter'), s3m);
+  $('s3scale').innerHTML = scaleText(T, s3m);
+  $('s3lab').textContent = nm(T) + ' ' + MODES[s3m] + ' · m = ' + s3m;
+  if (s3prev != null && s3prev !== s3m) {
+    const r = compare({ T: s3L + s3prev, m: s3prev }, { T, m: s3m });
+    $('s3moved').textContent = r.notesChanged + ' (the tonic moved from ' + nm(s3L + s3prev) + ' to ' + nm(T) + ')';
+  }
+}
+
+// step 4 — hold the tonic, slide the window
+let s4m = 0, s4last = null; const s4T = 0;
+const strip4 = buildStrip($('strip4'));
+function draw4() {
+  const L = s4T - s4m;
+  paint(strip4, { L, T: s4T, degrees: true, gone: s4last ? s4last.kLeft[0] : null, came: s4last ? s4last.kCame[0] : null });
+  meter($('s4meter'), s4m);
+  $('s4title').textContent = nm(s4T) + ' ' + MODES[s4m] + ' · m = ' + s4m;
+  $('s4lab').textContent = 'window ' + L + ' to ' + (L + 6);
+  $('s4scaleTxt').innerHTML = scaleText(s4T, s4m);
+  $('s4b').disabled = s4m === 0; $('s4d').disabled = s4m === 6; $('s4pair').disabled = !s4last;
+  if (s4last) {
+    const r = s4last;
+    $('s4moved').textContent = r.notesChanged + ' note: ' + nm(r.kLeft[0]) + ' (' + r.degFrom[0] + ') → ' + nm(r.kCame[0]) + ' (' + r.degTo[0] + '), ' + (r.semis < 0 ? 'a half step down' : 'a half step up');
+  } else $('s4moved').textContent = '—';
+  $('s4note').textContent = s4m === 6
+    ? 'Locrian is the end. One more slide would push C itself off the sharp end and bring in C♭: the tonic can no longer be held, and the window would be C♭ Lydian, the brightest mode again a half step down. That is why there are seven modes and not eight.'
+    : '';
+}
+function step4(dir) {
+  const a = { T: s4T, m: s4m }; s4m += dir; const b = { T: s4T, m: s4m };
+  s4last = compare(a, b);
+  draw4(); pair4();
+}
+function pair4() { // the note that left, then the one that came, in the scale's own octave
+  if (!s4last) return;
+  const before = scale(s4T, s4m - (s4last.semis < 0 ? 1 : -1)), after = scale(s4T, s4m);
+  const a = before.find(x => x.k === s4last.kLeft[0]), b = after.find(x => x.k === s4last.kCame[0]);
+  playMidis([a.midi, null, b.midi], 0.4, 0.9);
+}
+$('s4d').onclick = () => step4(1);
+$('s4b').onclick = () => step4(-1);
+$('s4pair').onclick = pair4;
+$('s4scale').onclick = () => playMidis(scale(s4T, s4m).map(x => x.midi));
+
+// step 5 — the test
+let s5hold = 'tonic';
+const TONICS = []; for (let t = -7; t <= 7; t++) TONICS.push(t);
+function count(hold) { // every darker step on every tonic: the claim, measured
+  const rows = TONICS.map(T => {
+    const cells = []; for (let m = 0; m < 6; m++) {
+      const a = { T, m }, b = darker(T, m, hold);
+      if (!okTonic(b.T)) { cells.push(null); continue; }
+      cells.push({ a, b, r: compare(a, b) });
+    }
+    // past Locrian, holding the tonic: the note that would leave is the tonic itself
+    const L = T - 6; cells.push({ edge: true, leaves: L + 6 === T });
+    return { T, cells };
+  });
+  return rows;
+}
+function draw5() {
+  $('s5hold').querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', b.dataset.h === s5hold ? 'true' : 'false'));
+  const rows = count(s5hold);
+  const head = '<tr><th>tonic</th>' + MODES.slice(0, 6).map((n, i) => '<th>' + n.slice(0, 3) + ' → ' + MODES[i + 1].slice(0, 3) + '</th>').join('') + '<th>' + (s5hold === 'tonic' ? 'Loc → ?' : '') + '</th></tr>';
+  let n = 0, ones = 0, zeros = 0, deg1 = 0, half = 0, sameLetter = 0;
+  const body = rows.map(row => '<tr><td>' + nm(row.T) + '</td>' + row.cells.map((c, i) => {
+    if (!c) return '<td class="zero" title="the tonic would leave the explorer\'s range">·</td>';
+    if (c.edge) return s5hold === 'tonic' ? '<td class="edge" title="the note that would leave is the tonic itself">tonic leaves</td>' : '<td></td>';
+    n++; const r = c.r; if (r.notesChanged === 1) ones++; if (r.notesChanged === 0) zeros++; if (r.degChanged.length === 1) deg1++;
+    if (r.semis === -1) half++; if (r.kLeft.length === 1 && spell(r.kLeft[0]).letter === spell(r.kCame[0]).letter) sameLetter++;
+    const label = s5hold === 'tonic'
+      ? '<b>' + r.notesChanged + '</b> ' + nm(r.kLeft[0]) + '→' + nm(r.kCame[0])
+      : '<b>' + r.notesChanged + '</b> · ' + r.degFrom[0] + '→' + r.degTo[0];
+    return '<td class="' + (r.notesChanged === 1 ? 'one' : 'zero') + '" data-r="' + rows.indexOf(row) + '" data-c="' + i + '">' + label + '</td>';
+  }).join('') + '</tr>').join('');
+  $('s5t').innerHTML = head + body;
+  $('s5t').querySelectorAll('td[data-r]').forEach(td => td.onclick = () => {
+    const c = rows[+td.dataset.r].cells[+td.dataset.c];
+    playMidis([...scale(c.a.T, c.a.m).map(x => x.midi), null, null, ...scale(c.b.T, c.b.m).map(x => x.midi)], 0.17, 0.8);
+  });
+  $('s5lab').textContent = s5hold === 'tonic' ? 'notes whose pitch changed · the note that went down' : 'notes whose pitch changed · the degree that went down';
+  $('s5v').innerHTML = s5hold === 'tonic'
+    ? '<b>Holding the tonic: ' + ones + ' of ' + n + ' steps change exactly one note.</b> In every one it goes down a half step (' + half + ' of ' + n + ') and keeps its letter (' + sameLetter + ' of ' + n + '), and the six steps lower ♯4, 7, 3, 6, 2 and 5 in that order, whatever the tonic. The claim holds. The last column is why it stops at Locrian: the next note to leave would be the tonic.'
+    : '<b>Holding the notes: ' + zeros + ' of ' + n + ' steps change no note at all.</b> The tonic moves up a fifth instead, and what darkens is the pattern of degrees: exactly one degree reads a half step lower in ' + deg1 + ' of ' + n + ' steps, the same ♯4, 7, 3, 6, 2, 5 as before. Read as notes, the claim is true only with the tonic held; read as degrees, it is true both ways.';
+}
+$('s5hold').onclick = e => { const b = e.target.closest('button'); if (!b) return; s5hold = b.dataset.h; stopSound(); draw5(); };
+
+// your ear
+let quiz = null, right = 0, asked = 0;
+['2', '3', '4', '5', '6', '7'].forEach(d => { const b = document.createElement('button'); b.textContent = d; b.disabled = true; b.onclick = () => answer(d); $('s5ans').appendChild(b); });
+function playQuiz() { const q = quiz; playMidis([...scale(q.T, q.m).map(x => x.midi), null, null, ...scale(q.T, q.m + 1).map(x => x.midi)], 0.2, 0.8); }
+$('s5q').onclick = () => {
+  const T = Math.floor(Math.random() * 11) - 5, m = Math.floor(Math.random() * 6);
+  const r = compare({ T, m }, { T, m: m + 1 });
+  quiz = { T, m, want: r.degFrom[0].replace(/[^0-9]/g, ''), r, done: false };
+  $('s5ans').querySelectorAll('button').forEach(b => { b.disabled = false; b.setAttribute('aria-pressed', 'false'); });
+  $('s5again').disabled = false; $('s5what').textContent = 'on ' + nm(T) + ', which degree went down?';
+  playQuiz();
+};
+$('s5again').onclick = () => quiz && playQuiz();
+function answer(d) {
+  if (!quiz || quiz.done) return; quiz.done = true; asked++; if (d === quiz.want) right++;
+  $('s5ans').querySelectorAll('button').forEach(b => { b.disabled = true; if (b.textContent === quiz.want) b.setAttribute('aria-pressed', 'true'); });
+  const r = quiz.r;
+  $('s5what').textContent = (d === quiz.want ? 'yes: ' : 'it was ' + quiz.want + ': ') + nm(quiz.T) + ' ' + MODES[quiz.m] + ' → ' + MODES[quiz.m + 1] + ', ' + nm(r.kLeft[0]) + ' → ' + nm(r.kCame[0]);
+  $('s5score').textContent = right + ' of ' + asked;
+}
+
+// the walk
+const STEPS_ = [{ name: 'the line', draw: draw1 }, { name: 'a window', draw: draw2 }, { name: 'a tonic', draw: draw3 }, { name: 'hold the tonic', draw: draw4 }, { name: 'the test', draw: draw5 }];
+let cur = 0;
+STEPS_.forEach((s, i) => { const b = document.createElement('button'); b.textContent = (i + 1) + ' · ' + s.name; b.onclick = () => go(i); $('rail').appendChild(b); });
+function go(i) {
+  stopSound(); cur = Math.max(0, Math.min(STEPS_.length - 1, i));
+  document.querySelectorAll('.step').forEach((el, k) => el.classList.toggle('on', k === cur));
+  $('rail').querySelectorAll('button').forEach((b, k) => b.setAttribute('aria-current', k === cur ? 'step' : 'false'));
+  STEPS_[cur].draw();
+  $('back').disabled = cur === 0; $('next').disabled = cur === STEPS_.length - 1;
+  $('where').textContent = 'step ' + (cur + 1) + ' of ' + STEPS_.length;
+}
+$('back').onclick = () => go(cur - 1);
+$('next').onclick = () => go(cur + 1);
+window.addEventListener('resize', () => STEPS_[cur].draw());
+go(0);
+</script>
+</body>
+</html>

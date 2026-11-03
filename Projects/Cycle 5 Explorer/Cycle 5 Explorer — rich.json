@@ -1,0 +1,218 @@
+{
+  "title": "Cycle 5 Explorer — rich",
+  "born": "2026-11-03",
+  "links": [
+    {
+      "target": "[[Cycle 5 Explorer]]",
+      "type": "connects-to",
+      "label": "rich-face-of"
+    },
+    {
+      "target": "[[Enrichment]]",
+      "type": "connects-to",
+      "label": "made-by"
+    },
+    {
+      "target": "[[Progressive Staging]]",
+      "type": "connects-to",
+      "label": "each-piece-walks-up"
+    }
+  ],
+  "forward_vector": "I am the manifest of Cycle 5 Explorer's rich face, its first round, a Study and still a proposal: one walk that builds the page's one idea from a strip of named notes and ends on a count of its claim, that each step darker lowers exactly one note (true with the tonic held, 90 of 90; with the notes held no note moves at all), and beside it the explorer itself, its own recorded voice, the rebuild's proofs beside the board, the steward's still that caught the grids clipping, and the review sheet that holds Loudon's four questions. I grow when the page is enriched again; I never hold the entry's words.",
+  "entry": "Cycle 5 Explorer",
+  "tier": "study",
+  "made": "2026-11-03",
+  "round": 1,
+  "offers": [
+    {
+      "section": "The one idea underneath",
+      "kind": "no-claim-edit",
+      "what": "A clarification, not a correction: 'Each step darker lowers exactly one note' picks no reading, and it is true on the explorer in both, read as degrees (as its inspector reads it). Measured on the window piece's engine, which spells as the explorer does: holding the tonic, 90 of 90 darker steps (every tonic C♭ to C♯) change exactly one pitch, a half step down on the same letter, ♯4, 7, 3, 6, 2, 5 in that order. Holding the notes (the header's same notes, which the review sheet says the page opens on), 84 of 84 steps change no pitch: the tonic moves up a fifth and the same one degree reads a half step lower (84, not 90, because the explorer refuses a tonic past C♯). Proposed, to name the reading: 'Each step darker with the tonic held lowers exactly one note: the one that falls off the window's sharp end comes back on its flat end, the same letter a half step lower. With the notes held, no note moves; home does, and the same degree reads a half step lower.'",
+      "status": "open"
+    },
+    {
+      "section": "The one idea underneath",
+      "kind": "claim-change",
+      "what": "Two things the window shows that the section could say in a line, if Loudon wants them: turning the note ring one key flatward is the same move and also lowers exactly one note (98 of 98, mode held); and past Locrian the next note to leave would be the tonic itself (the window would become C♭ Lydian; C is no longer in it), which is why the walk from bright to dark has seven stops and not eight.",
+      "status": "open"
+    }
+  ],
+  "sections": [
+    {
+      "heading": "Cycle 5 Explorer",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "proofs/2026-10-28-paper.png",
+            "verdict": "keep",
+            "why": "Caption checked against the image: C Ionian, not the scroll's drag to E♭; Scale Tones stops at 6, Chord Function cuts VII, Chord Tones has no B column; fallback mono fonts. It corrects the steward's scroll in a caption, not on the trail."
+          },
+          {
+            "file": "proofs/2026-10-28-phosphor.png",
+            "verdict": "keep",
+            "why": "Decoration, accurately captioned: the same C Ionian state on the dark ground; the Ground segment, P key and ?theme=phosphor all exist (cycle5-explorer.html:391, 1000)."
+          }
+        ]
+      },
+      "made": "2026-11-03",
+      "pieces": [
+        {
+          "file": "proofs/2026-10-28-paper.png",
+          "origin": "gathered",
+          "title": "the rebuild on Paper · 2026-10-28 proof",
+          "caption": "**The rebuild, beside the board above.** The page on its Paper ground at 1400 px, a headless screenshot from the day it was dressed. What the board couldn't do, done: every label on the ring stands upright, and the outside notes carry their own degrees and spellings (♯4 on F♯, ♭7 on B♭, the mode each is borrowed from). What it hasn't yet: the grids are bigger but already clip at this width (Scale Tones stops at 6, Chord Function cuts VII, Chord Tones drops its B column), the fault the class rehearsal measured below. The scroll calls this proof 'after a drag to E♭'; it shows C Ionian. The fonts are the fallback mono, since Google Fonts were not reachable from that run.",
+          "near": "original-full-board.png",
+          "place": "margin"
+        },
+        {
+          "file": "proofs/2026-10-28-phosphor.png",
+          "origin": "gathered",
+          "title": "the rebuild on Phosphor · 2026-10-28 proof",
+          "caption": "**Phosphor**, the dark ground for a projection room: the same page, the same five colour categories, switched by the Ground segment, the P key or ?theme=phosphor.",
+          "near": "Paper by default",
+          "place": "margin"
+        }
+      ],
+      "made_against": "bf8c4042b418",
+      "stamped": "2026-11-03"
+    },
+    {
+      "heading": "The one idea underneath",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Cycle 5 Explorer — rich — the window.html",
+            "verdict": "keep",
+            "why": "A test that walks up (line, window, tonic inside, tonic held, count): recomputed independently from mode interval patterns, 90/90 tonic held in the order ♯4 7 3 6 2 5, 84/84 notes held with no pitch changed; its verdict names both the pitch and the degree reading. Clean console, no AudioContext before a click, suspends when hidden."
+          }
+        ]
+      },
+      "made": "2026-11-03",
+      "pieces": [
+        {
+          "file": "Cycle 5 Explorer — rich — the window.html",
+          "origin": "made",
+          "by": "the Maker · Web Audio, the explorer's own voice and arithmetic",
+          "height": 1300,
+          "title": "a seven-note window on the line of fifths · a walk in five steps",
+          "caption": "**Does each step darker lower exactly one note?** Built up from nothing: the line of fifths alone, where seven places apart is the same letter a half step higher; a window of seven on it, every letter once; a tonic moved inside the window, where no note moves; the tonic held while the window slides, where one note falls off the sharp end and comes back seven places flat; and last the count, every darker step on every tonic from C♭ to C♯, both ways the explorer's header switch allows, then a short test of your ear. Checked headless against the piece's own engine and the explorer's own spelling: with the tonic held, 90 of 90 steps change exactly one note, each a half step down on the same letter, ♯4, 7, 3, 6, 2, 5 in order; with the notes held, 84 of 84 change no note (84, not 90, because the explorer refuses a tonic past C♯), and the same one degree reads lower. Past Locrian the note to leave would be the tonic itself. What a listener hears was not checked.",
+          "near": "Each step darker lowers exactly one note"
+        }
+      ],
+      "made_against": "7216050ae2f8",
+      "stamped": "2026-11-03"
+    },
+    {
+      "heading": "What is on the page",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "cycle5-explorer.html",
+            "verdict": "keep",
+            "why": "The page itself, caption true (T key, Borrow one chord, opens on C Ionian). Conform's two grant-missing errors (fonts.googleapis.com, fonts.gstatic.com) stand: a grants line is Loudon's yes, and the page is the paused steward's."
+          },
+          {
+            "file": "class/still-borrow-in-D.jpg",
+            "verdict": "keep",
+            "why": "Evidence against \"bigger\": the 1440 px still shows Scale Tones at 6 and Chord Tones short its C♯ column; re-measured overflow agrees with the steward at all four widths (Chord Function only 2 px short at 1440)."
+          },
+          {
+            "file": "rich-face/page-sound.wav",
+            "verdict": "keep",
+            "why": "Byte-identical to the steward's ignored render, copied by the README route; peak −6.5 dBFS matches page-sound.json. Note: 4.2 MB in history for good, unheard, and it will not follow a re-render."
+          }
+        ]
+      },
+      "made": "2026-11-03",
+      "pieces": [
+        {
+          "file": "cycle5-explorer.html",
+          "origin": "gathered",
+          "height": 2720,
+          "title": "the explorer itself · one file, Web Audio, Drafting Table",
+          "caption": "**The page, playing.** Drag the note ring to change key and the degree ring to change mode; the T key switches what a mode change keeps. For modal interchange, press **Borrow one chord** under Guided moments, then the → key twice: the ♭VI stays borrowed in the new key. Silent until a click. It opens on C Ionian.",
+          "near": "The hub is a small lit scope"
+        },
+        {
+          "file": "class/still-borrow-in-D.jpg",
+          "origin": "gathered",
+          "title": "the grids at 1440 px · the steward's class rehearsal, 2026-10-30",
+          "caption": "**Bigger, but not yet whole.** I ♭VI IV V moved to D, the ♭VI still borrowed from Aeolian. The steward measured the grids at four widths: at 1280, 1440 and 1920 px Scale Tones and Chord Tones scroll sideways and hide their seventh column, and Chord Function hides its VII column from 1024 to 1440. Here the Scale Tones grid stops at 6. Found and measured, not yet fixed; the page waits on Loudon's review.",
+          "near": "Every cell plays",
+          "place": "margin"
+        },
+        {
+          "file": "rich-face/page-sound.wav",
+          "origin": "gathered",
+          "title": "the page's own voice · 21.7 s, rendered offline",
+          "caption": "**The explorer's sound, as its own code makes it**: the C major scale, the Diatonic cycle 5 preset at 88 bpm (Imaj7 IVmaj7 VII–7(♭5) III–7 VI–7 II–7 V7 Imaj7), then IV to minor IV. Rendered by the steward on 2026-10-30 with the page's audio routed to an offline renderer; every scale note within about 1 cent of its target, peak −6.5 dBFS, nothing clipped. Measured, not listened to.",
+          "near": "stored as functions, so turning the key ring transposes them",
+          "place": "margin"
+        }
+      ],
+      "made_against": "302daaee2618",
+      "stamped": "2026-11-03"
+    },
+    {
+      "heading": "Open with Loudon",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "review/review-sheet.html",
+            "verdict": "keep",
+            "why": "Serves the section rather than testing it: the steward's own sheet of the four questions; the caption's details (opens on same notes, fifths-order chips, tick boxes) are on the sheet."
+          }
+        ]
+      },
+      "made": "2026-11-03",
+      "pieces": [
+        {
+          "file": "review/review-sheet.html",
+          "origin": "gathered",
+          "height": 4100,
+          "title": "the review sheet · the four questions on one page",
+          "caption": "**The four questions, with what each needs to be answered.** Read out of the explorer's own code by the steward on 2026-10-30, printable, with tick boxes: every chord of the seven modes on C in all four dialects, the feel word per mode, and the roadmap to pick from. It notes that the page opens on same notes today, and that the tension chips run in fifths order.",
+          "contract": {
+            "needs": "",
+            "files": "",
+            "size": "flow"
+          }
+        }
+      ],
+      "made_against": "82bef318c620",
+      "stamped": "2026-11-03"
+    }
+  ]
+}
