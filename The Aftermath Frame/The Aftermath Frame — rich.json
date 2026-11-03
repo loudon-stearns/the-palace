@@ -86,7 +86,23 @@
      "near": "it generalizes to any action",
      "caption": "Chop, side slash, rising cut: one solver, three authored vectors each (pivot, windup, contact). The rotation axis, the contact velocity and every consequence re-aim on their own: speed-lines down into the wound, across, and down behind a blade that came from below. Clay render, Blender 5.1.2."
     }
-   ]
+   ],
+   "challenge": {
+    "date": "2026-11-03",
+    "by": "challenger · claude-opus-5-5",
+    "verdicts": [
+     {
+      "file": "The Aftermath Frame — rich — a swing is a rotation.html",
+      "verdict": "keep",
+      "why": "Walks up from one angle to a wood check that fails, and the failure holds: rebuilt independently and in Blender, 197.3 ms, contact 22.1 cm off the wood. The page-number check is only a transcription check. Note: the caption should name the 1.42 m, 250 ms and k 2.5 the page doesn't."
+     },
+     {
+      "file": "/Projects/BLUELINE/proofs/session-9-three-swings/out/s9_contact_sheet.png",
+      "verdict": "remake",
+      "why": "Caption only: 'speed-lines down into the wound' is wrong, because session 9 has no wound (no kerf in build_swings.py; session-10 report: 'Sessions 7–9 left the column a static, undeformed cylinder'). Say 'into the contact'."
+     }
+    ]
+   }
   },
   {
    "heading": "Real motion, amplified consequences",
@@ -117,7 +133,23 @@
      "near": "The impact is real too",
      "caption": "The boolean wound and the speed-lines traced along the swing's own arc, stopping short of the blade. The wound is a slot cut along the drawn sword at the moment of impact, widened and run on through the column; the shards are spawned from it. Clay render, Blender 5.1.2."
     }
-   ]
+   ],
+   "challenge": {
+    "date": "2026-11-03",
+    "by": "challenger · claude-opus-5-5",
+    "verdicts": [
+     {
+      "file": "The Aftermath Frame — rich — the gain and the motion.html",
+      "verdict": "remake",
+      "why": "The test and null hold (Blender re-run: v_c −18.56 vs −188.57 m/s in the leaky copy). Fix three sentences: step 1's 'the only thing ... allowed to read' (the wake reads the whole path), step 4's '0.6 to 3.4' (it is 3.2), and 'little left to run it from' (the mean stays 6.7° off v_c and the swoosh holds the arc)."
+     },
+     {
+      "file": "/Projects/BLUELINE/proofs/session-10-impact/out/s10_impact.png",
+      "verdict": "keep",
+      "why": "The right proof beside 'The impact is real too', and the caption is accurate about the build. Note: label its disagreement with the text ('not, as the text says, where the blade passed')."
+     }
+    ]
+   }
   }
  ]
 }
