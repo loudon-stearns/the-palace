@@ -309,7 +309,7 @@ def plan_page(r):
         pl['inline'] = (block, cut)
         pl['adds'].append('controls.css (inline)')
     if not r['icon']:
-        if r['rich'] and not RICH_ICON: pl['icon_left'] = 'rich-face piece: a framed piece never owns a tab, and the page framing it wears the avatar'
+        if r['rich'] and not RICH_ICON: pl['icon_left'] = 'rich-face piece: a framed piece never owns a tab; the avatar belongs on the page that frames it'
         elif r['avatar']: pl['icon'] = href(rel(p, r['avatar'])); pl['adds'].append('icon (avatar)')
         elif r['entry']: pl['icon_left'] = f"its entry, {r['entry']}, has no avatar yet"
         else: pl['icon_left'] = 'no entry, and not a public-channel page: Loudon Live gives favicon.svg only to the public channel, and Drafting Table gives no mark'
