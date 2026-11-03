@@ -1,0 +1,113 @@
+{
+  "title": "Differential Equations — rich",
+  "born": "2026-11-03",
+  "links": [
+    {
+      "target": "[[Differential Equations]]",
+      "type": "connects-to",
+      "label": "rich-face-of"
+    },
+    {
+      "target": "[[Enrichment]]",
+      "type": "connects-to",
+      "label": "made-by"
+    },
+    {
+      "target": "[[Resonance and Damping]]",
+      "type": "connects-to",
+      "label": "gathered-from"
+    },
+    {
+      "target": "[[Progressive Staging]]",
+      "type": "connects-to",
+      "label": "every-made-piece-walks-up"
+    }
+  ],
+  "forward_vector": "I am the manifest of Differential Equations' rich face, its first round at Study tier and still a proposal: two made pieces that play what the page claims, one equation turned by ζ from ringing through critical to sluggish as a pluck, a filter and an envelope at once, and an audio engine's step taken six ways until its error is something you hear, with Resonance and Damping's driven swing gathered beside the paragraph it measures. I grow when Loudon has heard them; I never hold the entry's words.",
+  "entry": "Differential Equations",
+  "tier": "study",
+  "made": "2026-11-03",
+  "round": 1,
+  "sections": [
+    {
+      "heading": "The Taxonomy",
+      "made": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "made_against": "d242a9da3086",
+      "pieces": [
+        {
+          "file": "Differential Equations — rich — three regimes.html",
+          "origin": "made",
+          "by": "the Maker · Web Audio, offline-rendered",
+          "height": 1250,
+          "title": "One equation, three regimes · four steps",
+          "caption": "**Does ζ alone carry one equation from ringing through critical to sluggish?** A rule for the slope, drawn as a field you can start a curve in (an RC charge: 63.2% after τ, 95.0% after 3τ); the same rule with weight, struck at 220 Hz; then ζ turned on three jobs at once, a pluck, a filter fed noise and a 3 Hz envelope on a tone; and last the test, every ζ pulled from 0 to 1 and struck, on an engine that steps the page's equation exactly. Measured: every ζ below 1 overshoots (0.15% at 0.9), ζ = 1 never does and settles within 2% after 5.83/ωₙ, and every ζ above 1 is slower (10.65 at 1.5, 22.97 at 3). Two things the section leaves open: a 2% bump buys speed (ζ 0.78 settles after 3.60/ωₙ, 38% sooner), and a struck swing rings at ωₙ√(1 − ζ²), not ωₙ, fading at ζωₙ a second (209.87 Hz at ζ 0.3, 82 cents flat of 220).",
+          "near": "Heavily weighted mass-spring system"
+        },
+        {
+          "file": "/Resonance and Damping/Resonance and Damping — rich — who keeps time.html",
+          "origin": "gathered",
+          "height": 1210,
+          "title": "Who keeps the time · gathered from Resonance and Damping",
+          "caption": "**The resonance paragraph, measured on its own sister page.** Gathered as it is from Resonance and Damping's face, itself still a proposal. Its last two steps read this paragraph's claims off runs of the same driven equation: pushed at its own rate the swing is Q times as far as the same push held still (2.0000, 10.000, 50.000) and 90.00° behind; the peak slides below the natural rate as friction grows (0.935 of it at Q 2) and is gone below Q 0.707, which is ζ above 1/√2 ≈ 0.707, the page's \"about 0.7\". Its first steps are Galileo's ringer, who keeps the bell's time; Young's push, which keeps its own, settles the swing at the push's rate to four decimals.",
+          "near": "the system swings Q times as far"
+        }
+      ],
+      "stamped": "2026-11-03"
+    },
+    {
+      "heading": "Open Tensions",
+      "made": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "made_against": "d2ff12a3ad75",
+      "pieces": [
+        {
+          "file": "Differential Equations — rich — one step at a time.html",
+          "origin": "made",
+          "by": "the Maker · Web Audio, offline-rendered",
+          "height": 1250,
+          "title": "One step at a time · four steps",
+          "caption": "**How much does the difference matter for audio?** One Euler step on a fade, heard as stairs (at a 48 kHz engine's step on a 10 ms fade it misses by 0.037% of the way: for a fade the step hardly matters); the same step on a 220 Hz ring, which grows every step and holds a 2 s ring only above 1,257 steps a cycle; six ways to take the step, each with its own sign of error; and last the test, a struck bar's five partials stepped at the real sample rate under each rule, pitch and ring read off the sound and checked against each rule's own matrix. Measured, a 440 Hz bar at 48 kHz, whose top partial (5,871 Hz) gets 8.2 samples a cycle: forward Euler runs away on every partial (the fundamental in 15 ms); backward Euler rings the fundamental 84.5 ms instead of 3 s; semi-implicit Euler keeps every ring and sharpens the top +45.3 cents; the trapezoid flattens it −80.2 cents; Runge–Kutta 4 is within 4 cents but rings it 94 ms instead of 700; the exact step, a difference equation too, leaves 0.0001 cents. So it matters partial by partial, and the rule decides it more than the step does.",
+          "near": "Discrete vs. continuous"
+        }
+      ],
+      "stamped": "2026-11-03"
+    }
+  ],
+  "offers": [
+    {
+      "section": "The Taxonomy",
+      "kind": "no-claim-edit",
+      "status": "open",
+      "what": "Under Underdamped, \"The string oscillates at its natural frequency ω_n, damped at rate ζ\" and the grain bullet's \"The 'pitch' of the grain's oscillation is ω_n; the decay rate is ζ\": ζ is a ratio with no unit, so it can't be a rate. Measured on the three-regimes engine, struck at ω_n = 220 Hz: it rings at ω_n√(1 − ζ²), 219.99 Hz at ζ 0.01 (−0.09 cents), 218.90 at 0.1 (−8.7), 209.87 at 0.3 (−81.6), and fades at ζω_n per second (414.69 /s at ζ 0.3, matched to 1e−3). For a plucked string's small ζ the page's \"ω_n\" stands to the ear. Suggested: \"oscillates at ω_n√(1 − ζ²), within a few cents of ω_n when ζ is small, its envelope falling as e^(−ζω_n t)\", and for the grain, \"its pitch is ω_n√(1 − ζ²), close to ω_n; its decay rate is ζω_n\"."
+    },
+    {
+      "section": "The Taxonomy",
+      "kind": "claim-change",
+      "status": "open",
+      "what": "The page is right; this adds. Critically Damped says \"Fastest exponential approach to equilibrium without overshoot\" and \"The ideal transient shape: attack without ringing\". Both hold: measured, ζ = 1 settles within 2% after 5.83/ω_n (closed form 5.834) and every ζ above it is slower. But a transient designer who can accept a 2% bump gets there sooner: ζ 0.78 settles within 2% after 3.60/ω_n, 38% sooner than critical, overshooting 1.99% (checked against the closed-form response to 1e−13). Suggested, under Critically Damped: \"Allow a bump of a couple of percent and ζ ≈ 0.78 arrives sooner still: within 2% after 3.6/ω_n, against critical's 5.8/ω_n.\" It adds a claim, so through the Deposit map."
+    },
+    {
+      "section": "Open Tensions",
+      "kind": "claim-change",
+      "status": "open",
+      "what": "The first tension, \"How much does the difference matter for audio?\", has a measured answer on the one-step-at-a-time piece. It depends on how many steps a cycle gets and on the rule, and for a linear equation it need not exist at all. A 440 Hz bar at 48 kHz (top partial 5,871 Hz, 8.2 samples a cycle): forward Euler runs away on every partial; backward Euler rings the fundamental 84.5 ms instead of 3 s; semi-implicit Euler sharpens the top partial +45.3 cents and keeps its ring; the trapezoid (the bilinear transform's rule) flattens it −80.2 cents; Runge–Kutta 4 is within 4 cents but rings it 94 ms instead of 0.7 s; the exact step, itself a difference equation (the one in Resonance and Damping's resonator), is off by 0.0001 cents. For a 10 ms fade the step's error is 0.037% of the way. Also \"difference equations (discrete time approximations of DEs)\" is not always so: for a linear equation with steady settings the exact step costs the same as Euler's. Suggested, appended to the bullet: \"Measured, it depends on the rule more than on the step: at 48 kHz a 6 kHz partial gets eight samples a cycle, and Euler's step runs away on it, backward Euler kills it, the trapezoid flattens it by 80 cents; for a linear equation an exact step exists and leaves nothing to hear. For nonlinear ones it doesn't, and the error comes back.\" It answers an open question, so through the Deposit map."
+    },
+    {
+      "section": "The Taxonomy",
+      "kind": "claim-change",
+      "status": "open",
+      "what": "Under Driven (Forced) DEs, \"Kuramoto coupling: driven oscillators synchronize when the driving frequency is close to their natural frequency\" sits under the linear driven equation, which does not do that. A linear swing, pushed, always settles at the push's rate, near its own or not; only its size depends on how near (the gathered who-keeps-time piece measures Young's push settling the swing at the push's rate to four decimals, at several rates). Locking only within a range of the natural rate belongs to self-sustained, nonlinear oscillators, which is what Kuramoto's are. This rests on the gathered piece's measurement and on the Kuramoto page, not on a piece made this round. Suggested: \"Kuramoto coupling: a self-sustained oscillator nudged near its own rate locks to the drive, within a range set by the coupling; this linear equation instead always moves at the drive's rate, and only its size depends on the distance.\""
+    }
+  ]
+}

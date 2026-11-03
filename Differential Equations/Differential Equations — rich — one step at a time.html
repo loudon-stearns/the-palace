@@ -1,0 +1,458 @@
+<!doctype html>
+<!--
+  title: Differential Equations — rich — one step at a time
+  born: 2026-11-03
+  links: [[Differential Equations]] (connects-to · rich-face-piece) · listed in [[Differential Equations — rich.json]] · [[Progressive Staging]] (exemplifies · a walk up to its test) · [[Latent Error]] (connects-to · the solver's own error, heard) · [[DSP Frameworks]] (connects-to · difference equations)
+  forward_vector: I am "Open Tensions" played, its first question: how much does it matter that a digital system solves a difference equation, not the equation itself? I walk from one Euler step on a fade, through a swing stepped too coarsely, to six ways of taking the step, and end on a struck bar at a real sample rate, every partial's pitch and ring read off the sound under each rule. I change only when that section does.
+  engine: every rule is linear on the page's own equation, so one step is one 2×2 matrix; its eigenvalues predict the pitch and fade, and the sound is measured against them. The coarse steps are joined for the speaker by a windowed sinc, so what you hear is the rule's error and not the stairs.
+  checks: Differential Equations/Differential Equations — rich — check.mjs runs this file's own engine against the claim.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:size" content="flow"><!-- needs nothing of its host: no device, no storage, no files, no network but the fonts -->
+<title>Differential Equations — one step at a time</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Manrope:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root { --bg:#0e1f4d; --e1:#14275c; --e2:#1c3066; --border:#2a4080; --soft:rgba(232,236,255,.07);
+    --fg1:#e8ecff; --fg2:#c0c6e4; --fg3:#8a92c4; --fg4:#5a6694;
+    --accent:#a8e040; --accent-dim:#6f9626; --accent-soft:rgba(168,224,64,.10); --accent-line:rgba(168,224,64,.5);
+    --grow:#e8b84a; --grow-soft:rgba(232,184,74,.16); --still:#7fa6ff;
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --sans:'Manrope',system-ui,sans-serif; --serif:'Cormorant Garamond',Georgia,serif;
+    --ease:cubic-bezier(.4,0,.2,1); }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); font-weight: 300; }
+  .piece { padding: 22px 22px 20px; }
+  .kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; display: flex; align-items: center; gap: 10px; }
+  .kicker svg { flex: none; }
+  .title { font-family: var(--serif); font-size: 28px; font-weight: 300; color: var(--fg1); margin: 0 0 6px; }
+  .sub { font-size: 14px; line-height: 1.6; color: var(--fg2); max-width: 76ch; margin: 0 0 16px; }
+  .rail { display: flex; flex-wrap: wrap; gap: 0; margin: 4px 0 18px; border: 1px solid var(--border); border-radius: 2px; width: fit-content; max-width: 100%; }
+  .rail button { border: 0; border-right: 1px solid var(--border); border-radius: 0; background: transparent; padding: 7px 12px; color: var(--fg3); }
+  .rail button:last-child { border-right: 0; }
+  .rail button[aria-current="step"] { background: var(--accent-soft); color: var(--accent); }
+  .step { display: none; }
+  .step.on { display: block; }
+  .step h3 { font-family: var(--serif); font-size: 23px; font-weight: 400; color: var(--fg1); margin: 0 0 6px; }
+  .teach { font-size: 14px; line-height: 1.65; max-width: 76ch; margin: 0 0 12px; }
+  .back { font-family: var(--mono); font-size: 11px; letter-spacing: .04em; color: var(--fg3); margin: 0 0 14px; }
+  .eqs { margin: 4px 0 16px; padding: 10px 14px; border-left: 1px solid var(--accent-line); background: var(--e1); max-width: 76ch; }
+  .eq { font-family: var(--serif); font-size: 20px; color: var(--fg1); }
+  .eq i { font-style: italic; }
+  .words { font-size: 13px; line-height: 1.55; color: var(--fg2); margin: 2px 0 8px; }
+  .words:last-child { margin-bottom: 0; }
+  .panel { border: 1px solid var(--soft); border-radius: 2px; background: var(--e1); padding: 10px 12px; margin-bottom: 12px; }
+  .plabel { font-family: var(--mono); font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--fg3); margin-bottom: 8px; display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+  canvas { display: block; width: 100%; }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .controls { display: flex; flex-wrap: wrap; gap: 14px 24px; align-items: end; margin: 6px 0 12px; }
+  .controls label.sl { flex: 1 1 220px; }
+  button { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--fg2); background: var(--bg); border: 1px solid var(--border); border-radius: 2px; padding: 8px 12px; cursor: pointer; transition: border-color 220ms var(--ease), color 220ms var(--ease); }
+  button:hover { border-color: var(--accent-line); color: var(--fg1); }
+  button.go { color: var(--accent); border-color: var(--accent-line); }
+  button[aria-pressed="true"] { color: var(--accent); border-color: var(--accent-line); background: var(--accent-soft); }
+  .btns { display: flex; gap: 8px; flex-wrap: wrap; }
+  label.sl { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: .06em; color: var(--fg3); }
+  label.sl b { color: var(--fg1); font-weight: 500; }
+  input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 3px; background: var(--fg4); margin: 12px 0 4px; outline: none; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 13px; height: 13px; border-radius: 50%; background: var(--accent); cursor: pointer; }
+  input[type=range]::-moz-range-thumb { width: 13px; height: 13px; border: 0; border-radius: 50%; background: var(--accent); cursor: pointer; }
+  .read { display: flex; flex-wrap: wrap; gap: 6px 22px; margin: 8px 0 4px; font-family: var(--mono); font-size: 11.5px; letter-spacing: .04em; color: var(--fg3); }
+  .read b { color: var(--fg1); font-weight: 500; }
+  .grow { color: var(--grow); } .still { color: var(--still); } .ok { color: var(--accent); }
+  table.meas { border-collapse: collapse; font-family: var(--mono); font-size: 11.5px; color: var(--fg2); width: 100%; max-width: 860px; margin: 6px 0 10px; }
+  table.meas th { text-align: left; font-weight: 400; color: var(--fg3); letter-spacing: .08em; text-transform: uppercase; font-size: 10px; border-bottom: 1px solid var(--border); padding: 6px 8px; }
+  table.meas td { border-bottom: 1px solid var(--soft); padding: 6px 8px; }
+  table.meas td b { color: var(--fg1); font-weight: 500; }
+  .verdict { font-size: 13.5px; line-height: 1.6; max-width: 76ch; padding: 10px 14px; border: 1px solid var(--accent-line); border-radius: 2px; background: var(--accent-soft); color: var(--fg1); margin: 8px 0 12px; }
+  .note { font-size: 12.5px; line-height: 1.55; color: var(--fg3); max-width: 76ch; margin: 6px 0 0; }
+  nav.walk { display: flex; gap: 10px; align-items: center; margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--soft); }
+  nav.walk .where { font-family: var(--mono); font-size: 11px; color: var(--fg3); letter-spacing: .08em; margin-left: auto; }
+  .busy { font-family: var(--mono); font-size: 11px; color: var(--fg3); }
+  .foot { font-family: var(--mono); font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--fg4); margin-top: 14px; }
+  @media (max-width: 680px) { .grid2 { grid-template-columns: 1fr; } }
+
+</style>
+
+<style>.g { text-transform: none; letter-spacing: 0; }</style>
+</head>
+<body>
+<div class="piece">
+  <div class="kicker"><span id="sigil"></span>made · study · a walk in four steps</div>
+  <h2 class="title">One step at a time</h2>
+  <p class="sub">An audio engine never solves the equation. It takes a step: reads the rule where the sound is now, and moves a little. The size of the step, and the way it is taken, leave an error in the sound. Silent until you press a button.</p>
+  <div class="rail" id="rail"></div>
+
+  <section class="step">
+    <h3>One step</h3>
+    <p class="teach">The fade from the first piece, τ · <i>dy</i>/<i>dt</i> + <i>y</i> = <i>u</i>, taken in steps. At each step the engine reads the slope where the level stands, walks one step along it, and reads again. The straight walk misses the curve a little each time. Make the step bigger and hear it: the level moves in stairs, and below one step per τ it arrives late.</p>
+    <div class="eqs">
+      <div class="eq"><i>y</i><sub>next</sub> = <i>y</i> + <i>h</i> · (<i>u</i> − <i>y</i>) / τ</div>
+      <div class="words">(the level after one step) = (the level now) + (the step, <i>h</i>) × (the slope the rule gives here). This is Euler's step. The true curve would have kept e<sup>−<i>h</i>/τ</sup> of the gap; this keeps 1 − <i>h</i>/τ.</div>
+    </div>
+    <div class="controls">
+      <div class="btns"><button class="go" id="s1go">▸ hear the stepped fade</button></div>
+      <label class="sl">step <i>h</i> = <b id="s1hv"></b> of τ<input id="s1h" type="range" min="0" max="1" step="0.001" value="0.55"></label>
+    </div>
+    <div class="read"><span>each step keeps <b id="s1k"></b> of the gap</span><span>the curve keeps <b id="s1x"></b></span><span>worst miss <b id="s1e"></b> of the way</span></div>
+    <div class="panel"><div class="plabel"><span>the curve (faint) and the steps · time in units of τ · τ = 150 ms when heard</span><span></span></div><canvas id="s1cv"></canvas></div>
+    <p class="note">A 48 kHz engine on a 10 ms fade takes steps of 0.002 τ: set the slider all the way left and the miss is <b id="s1real"></b> of the way. For a fade, the step hardly matters. Past 1 τ the steps overshoot, and past 2 τ they grow without end.</p>
+  </section>
+
+  <section class="step">
+    <h3>Step a swing</h3>
+    <p class="teach">Now the same walk on a swing: the page's second-order equation, a 220 Hz ring that should fade over two seconds. Euler's step goes straight along the circle's edge, so it always lands a little outside it. Every step the swing grows. Count the steps per cycle down and hear how soon it runs away.</p>
+    <div class="eqs">
+      <div class="eq">size after one step = √(1 + (ω<i>h</i>)²) × size before</div>
+      <div class="words">(how big the swing is after a step) = (the square root of one, plus the angle the step should turn, squared) × (how big it was). It is always more than one, so friction has to pay it back every step or the ring grows.</div>
+    </div>
+    <div class="controls">
+      <div class="btns"><button class="go" id="s2go">▸ hear it</button></div>
+      <label class="sl">steps per cycle = <b id="s2nv"></b><input id="s2n" type="range" min="0" max="1" step="0.001" value="0.33"></label>
+    </div>
+    <div class="read"><span>each cycle the swing becomes <b id="s2g"></b></span><span id="s2b"></span><span>to hold the 2 s ring it needs <b id="s2need"></b> steps per cycle</span></div>
+    <div class="grid2">
+      <div class="panel"><div class="plabel"><span>position against speed · two cycles</span><span>circle: the true swing</span></div><canvas id="s2pp"></canvas></div>
+      <div class="panel"><div class="plabel"><span>what you hear</span><span id="s2r"></span></div><canvas id="s2cv"></canvas></div>
+    </div>
+    <p class="note">The sound is cut once the swing passes three times its strike, as a real engine would clip. The steps are joined smoothly for the speaker, so you hear the rule's error, not stairs.</p>
+  </section>
+
+  <section class="step">
+    <h3>Other ways to take the step</h3>
+    <p class="teach">Euler isn't the only step. Read the slope at the end of the step instead of the start, and the swing shrinks instead of grows. Update the speed first and use the new speed for the position, and the size holds but the pitch drifts. Average the two ends, and the size holds and the pitch drifts the other way. Runge–Kutta reads the slope four times a step. And for a linear equation there is an exact step, which is the same difference equation every digital resonator runs. Each rule's error has a sign and a sound.</p>
+    <div class="eqs">
+      <div class="eq">(<i>y</i>, <i>v</i>)<sub>next</sub> = <b>M</b> · (<i>y</i>, <i>v</i>)</div>
+      <div class="words">(position and speed after one step) = (a two-by-two table of numbers each rule fixes) × (position and speed now). The table turns the swing by some angle each step, which is its pitch, and scales it by some amount, which is its fade. A rule's whole error is how far those two are from the true ones.</div>
+    </div>
+    <p class="back">Forward Euler at the same steps per cycle puts you back at step 2.</p>
+    <div class="controls">
+      <div class="btns" id="s3rules"></div>
+      <label class="sl">steps per cycle = <b id="s3nv"></b><input id="s3n" type="range" min="0" max="1" step="0.001" value="0.25"></label>
+    </div>
+    <div class="controls"><div class="btns"><button class="go" id="s3go">▸ this rule</button><button id="s3ex">▸ exact</button></div></div>
+    <div class="read"><span>pitch <b id="s3p"></b></span><span>ring <b id="s3d"></b></span><span id="s3m"></span></div>
+    <div class="grid2">
+      <div class="panel"><div class="plabel"><span>position against speed · two cycles</span><span>circle: the true swing</span></div><canvas id="s3pp"></canvas></div>
+      <div class="panel"><div class="plabel"><span>what you hear</span><span id="s3r"></span></div><canvas id="s3cv"></canvas></div>
+    </div>
+  </section>
+
+  <section class="step">
+    <h3>At 48 kHz, does it matter?</h3>
+    <p class="teach">The page asks how much the difference matters for audio. A real engine steps once a sample, so what counts is how many samples each cycle gets. A struck bar has five partials, each its own copy of the page's equation, and the top ones get few samples: at 48 kHz a 440 Hz bar's fifth partial, near 5.9 kHz, gets eight. Pick a rule; each partial is stepped at the real sample rate, then its pitch and ring are read off the sound.</p>
+    <div class="controls">
+      <div class="btns" id="s4rules"></div>
+    </div>
+    <div class="controls">
+      <div class="btns" id="s4f0"></div><div class="btns" id="s4sr"></div>
+      <div class="btns"><button class="go" id="s4go">▸ this rule</button><button id="s4ex">▸ exact</button></div>
+    </div>
+    <table class="meas"><thead><tr><th>partial</th><th>samples per cycle</th><th>pitch, against exact</th><th>rings for (−60 dB)</th><th>exact rings for</th><th>the rule's matrix predicts</th></tr></thead><tbody id="s4t"></tbody></table>
+    <div class="grid2">
+      <div class="panel"><div class="plabel"><span>where each partial lands, in cents from exact</span><span>heard</span></div><canvas id="s4pc"></canvas></div>
+      <div class="panel"><div class="plabel"><span>what you hear</span><span id="s4r"></span></div><canvas id="s4cv"></canvas></div>
+    </div>
+    <div class="verdict" id="s4v"></div>
+    <p class="note">Each partial is a strike, stepped at the rate shown and played at it. A partial that passes three times its strike is cut, as a real engine would clip. The level is held so the exact bell peaks well below full scale, and a runaway rule is caught by a soft ceiling, so a blow-up is louder than the bell but never at full level. Pitch is counted from zero crossings and the ring from the slope of the level, both on the sound; the last column is what the rule's own matrix says they should be.</p>
+  </section>
+
+  <nav class="walk"><button id="back">← back</button><button id="next">next step →</button><span class="where" id="where"></span></nav>
+  <div class="foot">Loud’n Live</div>
+</div>
+<script id="engine">
+// The engine: pure functions, no page. The check script runs this same block in Node.
+const TWO_PI = 2 * Math.PI;
+const eye = n => Array.from({ length: n }, (_, i) => Array.from({ length: n }, (_, j) => +(i === j)));
+const mmul = (A, B) => A.map(r => B[0].map((_, j) => r.reduce((s, v, k) => s + v * B[k][j], 0)));
+const madd = (A, B) => A.map((r, i) => r.map((v, j) => v + B[i][j]));
+const msc = (A, k) => A.map(r => r.map(v => v * k));
+const inv2 = M => { const d = M[0][0] * M[1][1] - M[0][1] * M[1][0]; return [[M[1][1] / d, -M[0][1] / d], [-M[1][0] / d, M[0][0] / d]]; };
+function expm(A) { // matrix exponential: scaling and squaring around an 18-term Taylor series
+  let nrm = 0; for (const r of A) nrm = Math.max(nrm, r.reduce((s, v) => s + Math.abs(v), 0));
+  const sq = Math.max(0, Math.ceil(Math.log2(nrm || 1)) + 1), k = Math.pow(2, -sq);
+  let E = eye(A.length), T = eye(A.length); const X = msc(A, k);
+  for (let j = 1; j <= 18; j++) { T = msc(mmul(T, X), 1 / j); E = madd(E, T); }
+  for (let j = 0; j < sq; j++) E = mmul(E, E);
+  return E;
+}
+// ── first order: τ·y' + y = u, one step of h ──
+const firstEuler = (tau, h) => (s, u) => (s[0] += h * (u - s[0]) / tau);                 // read the slope where you stand, walk h along it
+const firstExact = (tau, h) => { const a = 1 - Math.exp(-h / tau); return (s, u) => (s[0] += (u - s[0]) * a); };
+// ── second order: the page's y'' + 2ζω y' + ω² y = 0, as the state (y, v) and A = [[0, 1], [−ω², −2ζω]] ──
+// Every rule below is linear, so one step is one 2×2 matrix M: (y, v) ← M·(y, v). Its eigenvalues r·e^(±iθ) say
+// everything the rule does to a ring: each step turns it θ (its pitch is θ/2πh) and scales it r (its fade is −ln r / h).
+const sysA = (w, zeta) => [[0, 1], [-w * w, -2 * zeta * w]];
+const RULES = {
+  euler:      { name: 'forward Euler',      M: (A, h) => madd(eye(2), msc(A, h)) },
+  backward:   { name: 'backward Euler',     M: (A, h) => inv2(madd(eye(2), msc(A, -h))) },
+  symplectic: { name: 'semi-implicit Euler', M: (A, h) => { const a = A[1][0], b = A[1][1]; return [[1 + h * h * a, h * (1 + h * b)], [h * a, 1 + h * b]]; } }, // speed first, then position with the new speed
+  trapezoid:  { name: 'trapezoid',          M: (A, h) => mmul(inv2(madd(eye(2), msc(A, -h / 2))), madd(eye(2), msc(A, h / 2))) },
+  rk4:        { name: 'Runge–Kutta 4',      M: (A, h) => { const X = msc(A, h), X2 = mmul(X, X), X3 = mmul(X2, X), X4 = mmul(X3, X); return [eye(2), X, msc(X2, 1 / 2), msc(X3, 1 / 6), msc(X4, 1 / 24)].reduce(madd); } },
+  exact:      { name: 'exact step',         M: (A, h) => expm(msc(A, h)) },
+};
+function predict(M, h) { // what one rule's matrix does to a ring, from its eigenvalues
+  const tr = M[0][0] + M[1][1], det = M[0][0] * M[1][1] - M[0][1] * M[1][0], disc = tr * tr - 4 * det;
+  if (disc < 0) { const r = Math.sqrt(det), th = Math.acos(Math.max(-1, Math.min(1, tr / (2 * r)))); return { ring: true, r, th, f: th / (TWO_PI * h), sigma: -Math.log(r) / h }; }
+  const l1 = (tr + Math.sqrt(disc)) / 2, l2 = (tr - Math.sqrt(disc)) / 2, big = Math.max(Math.abs(l1), Math.abs(l2));
+  return { ring: false, r: big, sigma: -Math.log(big) / h, flips: (Math.abs(l1) >= Math.abs(l2) ? l1 : l2) < 0 };
+}
+// Step a ring with a rule's matrix. Stops early, and says when, once the swing passes `cap` times where it started.
+function stepRing(M, n, s0, cap = Infinity) {
+  const out = new Float64Array(n), lim = cap * Math.abs(s0[2] || 1); let y = s0[0], v = s0[1], blew = -1;
+  for (let i = 0; i < n; i++) { const y2 = M[0][0] * y + M[0][1] * v, v2 = M[1][0] * y + M[1][1] * v; y = y2; v = v2; out[i] = y; if (Math.abs(y) > lim) { blew = i; break; } }
+  return { y: blew >= 0 ? out.subarray(0, blew) : out, blew };
+}
+// A stepped sequence at R steps a second, joined smoothly for a speaker at sr: a windowed sinc below both Nyquists, so what
+// you hear is the rule's error and not the stairs. Far finer steps than the speaker's are simply joined by straight lines.
+function joinSteps(seq, R, sr, n) {
+  const out = new Float64Array(n);
+  if (R >= 2 * sr) { for (let i = 0; i < n; i++) { const x = i / sr * R, k = Math.floor(x), f = x - k; out[i] = k + 1 < seq.length ? seq[k] * (1 - f) + seq[k + 1] * f : 0; } return out; }
+  const fc = 0.45 * Math.min(R, sr), half = 12 / (2 * fc);
+  for (let i = 0; i < n; i++) { const t = i / sr, k0 = Math.max(0, Math.ceil((t - half) * R)), k1 = Math.min(seq.length - 1, Math.floor((t + half) * R)); let acc = 0;
+    for (let k = k0; k <= k1; k++) { const d = t - k / R, x = 2 * fc * d, sinc = Math.abs(x) < 1e-12 ? 1 : Math.sin(Math.PI * x) / (Math.PI * x), w = 0.42 + 0.5 * Math.cos(Math.PI * d / half) + 0.08 * Math.cos(2 * Math.PI * d / half); acc += seq[k] * sinc * w; }
+    out[i] = acc * 2 * fc / R; }
+  return out;
+}
+// ── measures, read off samples ──
+function audible(y, floor = 1e-6) { // the stretch of a ring still within 120 dB of its loudest
+  let pk = 0, last = 0; for (const v of y) pk = Math.max(pk, Math.abs(v)); for (let i = 0; i < y.length; i++) if (Math.abs(y[i]) > pk * floor) last = i; return y.subarray ? y.subarray(0, last + 1) : y.slice(0, last + 1); }
+function ringFreq(y, sr) { // upward zero crossings, interpolated, while the ring is within 120 dB of its loudest
+  y = audible(y); const xs = []; for (let i = 1; i < y.length; i++) if (y[i - 1] < 0 && y[i] >= 0) xs.push(i - 1 + (-y[i - 1]) / (y[i] - y[i - 1]));
+  return xs.length >= 3 ? (xs.length - 1) / ((xs[xs.length - 1] - xs[0]) / sr) : NaN;
+}
+function decayRate(y, sr, f) { // slope of ln(RMS) over windows of four periods: nepers per second, positive = fading, negative = growing
+  const per = sr / f, win = Math.max(2, Math.round((y.length / per >= 12 ? 4 : 1) * per)), t = [], l = []; let top = -Infinity;
+  for (let i = 0; i + win <= y.length; i += win) { let z = 0; for (let j = i; j < i + win; j++) z += y[j] * y[j]; const lv = 0.5 * Math.log(z / win + 1e-300); top = Math.max(top, lv); t.push((i + win / 2) / sr); l.push(lv); }
+  const keep = t.map((_, i) => l[i] > top - 13.8 && l[i] > -300); const T = t.filter((_, i) => keep[i]), L = l.filter((_, i) => keep[i]); // the windows within 60 dB of the loudest
+  if (T.length < 3) return NaN;
+  const n = T.length, mt = T.reduce((s, v) => s + v) / n, ml = L.reduce((s, v) => s + v) / n; let num = 0, den = 0;
+  for (let i = 0; i < n; i++) { num += (T[i] - mt) * (L[i] - ml); den += (T[i] - mt) ** 2; }
+  return -num / den;
+}
+const cents = (a, b) => 1200 * Math.log2(a / b);
+const T60 = sigma => 6.9078 / sigma;
+// ── the bell: a free bar's first five modes, each its own copy of the page's equation ──
+const BELL = { ratio: [1, 2.756, 5.404, 8.933, 13.344], t60: [3.0, 2.0, 1.4, 1.0, 0.7], amp: [1, 0.55, 0.4, 0.28, 0.2] };
+function bellPartials(f0, sr, rule, secs = 3.5, cap = 3) { // each partial struck alone, stepped at the audio rate by one rule, and measured
+  const h = 1 / sr, n = Math.round(sr * secs);
+  return BELL.ratio.map((k, i) => {
+    const f = f0 * k, w = TWO_PI * f, zeta = T60inv(BELL.t60[i]) / w, A = sysA(w, zeta), M = RULES[rule].M(A, h), Mx = RULES.exact.M(A, h);
+    const pr = predict(M, h), px = predict(Mx, h), a = BELL.amp[i];
+    const run = stepRing(M, n, [0, a * w, a], cap);
+    const fm = ringFreq(run.y, sr), sm = decayRate(run.y, sr, f);
+    return { i, f, steps: sr / f, zeta, pr, px, y: run.y, blew: run.blew, fm, sm, fx: px.f, sx: px.sigma };
+  });
+}
+function T60inv(t) { return 6.9078 / t; }
+</script>
+<script>
+// ───────── shared: the sigil, the walk, the sound, the drawings ─────────
+const $ = id => document.getElementById(id);
+// Greek letters keep their case: an uppercase label would turn τ into Τ and ζ into Ζ, which read as T and Z
+function keepGreek(root = document.body) {
+  const tw = document.createTreeWalker(root, NodeFilter.SHOW_TEXT), hits = [];
+  while (tw.nextNode()) { const n = tw.currentNode; if (/[α-ωΩ]/.test(n.nodeValue) && n.parentElement && !n.parentElement.classList.contains('g') && getComputedStyle(n.parentElement).textTransform === 'uppercase') hits.push(n); }
+  for (const n of hits) { const f = document.createDocumentFragment(); n.nodeValue.split(/([α-ωΩ]+)/).forEach((part, i) => { if (!part) return; if (i % 2) { const s = document.createElement('span'); s.className = 'g'; s.textContent = part; f.appendChild(s); } else f.appendChild(document.createTextNode(part)); }); n.replaceWith(f); }
+}
+
+function sigil(el) {
+  const p = []; for (let i = 0; i <= 240; i++) { const t = i / 240 * 2 * Math.PI; p.push((11 + 9 * Math.sin(3 * t + Math.PI / 4)).toFixed(2) + ',' + (11 + 9 * Math.sin(2 * t)).toFixed(2)); }
+  el.innerHTML = '<svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true"><circle cx="11" cy="11" r="10.4" fill="none" stroke="#2a4080" stroke-width="1"/><polyline points="' + p.join(' ') + '" fill="none" stroke="#a8e040" stroke-width="1"/></svg>';
+}
+const SND = { ctx: null, out: null, src: null };
+function soundOn() {
+  if (!SND.ctx) {
+    SND.ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const comp = SND.ctx.createDynamicsCompressor(); comp.threshold.value = -12; comp.ratio.value = 4;
+    SND.out = SND.ctx.createGain(); SND.out.gain.value = 0.9; SND.out.connect(comp); comp.connect(SND.ctx.destination);
+  }
+  if (SND.ctx.state === 'suspended') SND.ctx.resume();
+  return SND.ctx.sampleRate;
+}
+function stopSound() { if (SND.src) { try { SND.src.stop(); } catch (e) {} SND.src = null; } }
+function playBuffer(buf, sr) {
+  stopSound(); const c = SND.ctx; let b;
+  try { b = c.createBuffer(2, buf.length, sr || c.sampleRate); } catch (e) { b = c.createBuffer(2, buf.length, c.sampleRate); }
+  const f = Float32Array.from(buf); b.copyToChannel(f, 0); b.copyToChannel(f, 1);
+  const s = c.createBufferSource(); s.buffer = b; s.connect(SND.out); s.start(); SND.src = s; s.onended = () => { if (SND.src === s) SND.src = null; };
+}
+function fade(buf, sr, ms = 20) { const n = Math.min(buf.length >> 1, Math.floor(sr * ms / 1000)); for (let i = 0; i < n; i++) { buf[i] *= i / n; buf[buf.length - 1 - i] *= i / n; } return buf; }
+function walk(steps) {
+  const rail = $('rail'); let cur = 0;
+  steps.forEach((s, i) => { const b = document.createElement('button'); b.textContent = (i + 1) + ' · ' + s.name; b.onclick = () => go(i); rail.appendChild(b); });
+  function go(i) {
+    stopSound(); cur = Math.max(0, Math.min(steps.length - 1, i));
+    document.querySelectorAll('.step').forEach((el, k) => el.classList.toggle('on', k === cur));
+    rail.querySelectorAll('button').forEach((b, k) => b.setAttribute('aria-current', k === cur ? 'step' : 'false'));
+    $('back').disabled = cur === 0; $('next').disabled = cur === steps.length - 1;
+    $('where').textContent = 'step ' + (cur + 1) + ' of ' + steps.length;
+    if (steps[cur].enter) steps[cur].enter();
+  }
+  $('back').onclick = () => go(cur - 1); $('next').onclick = () => go(cur + 1);
+  go(0); return go;
+}
+function fitCanvas(cv, h) {
+  const dpr = window.devicePixelRatio || 1, w = cv.clientWidth || cv.parentNode.clientWidth || 600;
+  cv.style.height = h + 'px'; cv.width = Math.round(w * dpr); cv.height = Math.round(h * dpr);
+  const g = cv.getContext('2d'); g.setTransform(dpr, 0, 0, dpr, 0, 0); g.font = '10px JetBrains Mono, monospace'; return [g, w, h];
+}
+const C = { grid: 'rgba(232,236,255,.08)', dim: '#5a6694', soft: '#8a92c4', fg: '#e8ecff', acc: '#a8e040', amb: '#e8b84a', blue: '#7fa6ff', red: '#ff7a5c' };
+function line(g, pts, color, width = 1.5, dash) { g.strokeStyle = color; g.lineWidth = width; g.setLineDash(dash || []); g.beginPath(); pts.forEach(([x, y], i) => i ? g.lineTo(x, y) : g.moveTo(x, y)); g.stroke(); g.setLineDash([]); g.lineWidth = 1; }
+function envDb(buf, sr, win) { const n = Math.max(1, Math.floor(sr * win)), out = []; for (let i = 0; i + n <= buf.length; i += n) { let z = 0; for (let j = i; j < i + n; j++) z += buf[j] * buf[j]; out.push(10 * Math.log10(z / n + 1e-14)); } return out; }
+function drawLevel(cv, bufs, sr, secs, h = 170) { // level in dB over time; bufs: [{ buf, color, label }]
+  const [g, W, H] = fitCanvas(cv, h), lo = -72, hi = 6, X = t => 30 + t / secs * (W - 36), Y = d => 6 + (hi - Math.max(lo, d)) / (hi - lo) * (H - 26);
+  g.clearRect(0, 0, W, H);
+  for (const d of [0, -20, -40, -60]) { g.strokeStyle = C.grid; g.beginPath(); g.moveTo(30, Y(d)); g.lineTo(W, Y(d)); g.stroke(); g.fillStyle = C.dim; g.fillText(d, 4, Y(d) + 3); }
+  for (let t = 0; t <= secs + 1e-9; t += secs > 2 ? 1 : 0.5) { g.fillStyle = C.dim; g.fillText(t + ' s', X(t) - 8, H - 4); }
+  bufs.forEach(({ buf, color, label, ref }, k) => { if (!buf || !buf.length) return; const win = 0.01, e = envDb(buf, sr, win), r = ref ?? 0;
+    line(g, e.map((d, i) => [X((i + 0.5) * win), Y(d - r)]), color, k ? 1.2 : 1.8); g.fillStyle = color; g.fillText(label, W - 8 - g.measureText(label).width, 14 + k * 13); });
+}
+function drawPhase(cv, M, N, w, h = 210) { // the rule's steps in the plane of position and speed (speed ÷ ω, so the true swing is a circle)
+  const [g, W, H] = fitCanvas(cv, h), cx = W / 2, cy = H / 2;
+  const pts = [[1, 0]]; let y = 1, v = 0; const n = Math.min(2 * N, 4000);
+  for (let i = 0; i < n; i++) { const y2 = M[0][0] * y + M[0][1] * v, v2 = M[1][0] * y + M[1][1] * v; y = y2; v = v2; pts.push([y, v / w]); if (Math.hypot(y, v / w) > 1e6) break; }
+  const rmax = Math.max(1.1, Math.min(3.2, Math.max(...pts.map(p => Math.hypot(p[0], p[1]))))), R = Math.min(W, H) / 2 - 12, k = R / rmax;
+  g.clearRect(0, 0, W, H);
+  g.strokeStyle = C.grid; g.beginPath(); g.moveTo(cx - R, cy); g.lineTo(cx + R, cy); g.moveTo(cx, cy - R); g.lineTo(cx, cy + R); g.stroke();
+  g.strokeStyle = 'rgba(168,224,64,.45)'; g.beginPath(); g.arc(cx, cy, k, 0, 7); g.stroke();
+  const P = pts.map(([a, b]) => [cx + a * k, cy - b * k]);
+  g.save(); g.beginPath(); g.rect(0, 0, W, H); g.clip(); line(g, P, 'rgba(232,184,74,.75)', 1.2);
+  if (N <= 64) { g.fillStyle = C.amb; for (const [a, b] of P) { g.beginPath(); g.arc(a, b, 2, 0, 7); g.fill(); } }
+  g.restore();
+  const out = Math.hypot(...pts[pts.length - 1]);
+  g.fillStyle = C.soft; g.fillText('after two cycles: ' + (out > 999 ? out.toExponential(1) : out.toFixed(3)) + ' × the circle', 6, H - 6);
+}
+const fmt = (x, d = 2) => Number.isFinite(x) ? x.toFixed(d) : '—';
+const sgn = x => (x >= 0 ? '+' : '−') + Math.abs(x).toFixed(Math.abs(x) < 10 ? 2 : 1);
+function tone(sr, n, f = 220) { const out = new Float64Array(n); for (let i = 0; i < n; i++) { const t = i / sr; let v = 0; for (let k = 1; k <= 6; k++) v += Math.sin(TWO_PI * k * f * t) / k; out[i] = v * 0.55; } return out; }
+function ms(sec) { return !Number.isFinite(sec) || sec < 0 ? '—' : sec < 0.0001 ? (sec * 1e6).toFixed(0) + ' µs' : sec < 0.01 ? (sec * 1000).toFixed(2) + ' ms' : sec < 0.9995 ? (sec * 1000).toFixed(0) + ' ms' : sec.toFixed(2) + ' s'; }
+
+// ───────── step 1: one Euler step on a fade ─────────
+const hOf = v => 0.002 * Math.pow(1250, v); // 0.002 τ to 2.5 τ
+function eulerFade(r, n, u) { const s = [0], out = new Float64Array(n), st = firstEuler(1, r); for (let i = 0; i < n; i++) out[i] = st(s, u(i)); return out; }
+function worstMiss(r, T = 5) { // Euler against the curve, at every step, over T time constants of rise from 0 toward 1
+  const n = Math.ceil(T / r), e = eulerFade(r, n, () => 1); let w = 0; for (let k = 0; k < n; k++) w = Math.max(w, Math.abs(e[k] - (1 - Math.exp(-(k + 1) * r)))); return w; }
+function s1() {
+  const r = hOf(+$('s1h').value); $('s1hv').textContent = r < 0.1 ? r.toFixed(3) : r.toFixed(2);
+  $('s1k').textContent = (1 - r).toFixed(3); $('s1x').textContent = Math.exp(-r).toFixed(3); $('s1e').textContent = (worstMiss(r) * 100).toFixed(r < 0.05 ? 3 : 1) + '%';
+  $('s1real').textContent = (worstMiss(0.002) * 100).toFixed(3) + '%';
+  const [g, W, H] = fitCanvas($('s1cv'), 220), T = 5, Y0 = -0.6, Y1 = 1.8, X = t => 30 + t / T * (W - 36), Yp = v => 8 + (Y1 - Math.max(Y0, Math.min(Y1, v))) / (Y1 - Y0) * (H - 28);
+  g.clearRect(0, 0, W, H);
+  for (const v of [0, 1]) { g.strokeStyle = v ? 'rgba(168,224,64,.3)' : C.grid; g.beginPath(); g.moveTo(X(0), Yp(v)); g.lineTo(W, Yp(v)); g.stroke(); g.fillStyle = C.dim; g.fillText(v, 8, Yp(v) + 3); }
+  for (let t = 1; t <= T; t++) { g.fillStyle = C.dim; g.fillText(t + 'τ', X(t) - 8, H - 4); }
+  line(g, Array.from({ length: 301 }, (_, i) => { const t = i / 300 * T; return [X(t), Yp(1 - Math.exp(-t))]; }), 'rgba(168,224,64,.6)', 2);
+  const n = Math.ceil(T / r), e = eulerFade(r, n, () => 1), pts = [[X(0), Yp(0)]]; let prev = 0;
+  for (let k = 0; k < n; k++) { const t = (k + 1) * r; if (t > T) break; pts.push([X(t), Yp(prev)], [X(t), Yp(e[k])]); prev = e[k]; }
+  line(g, pts, C.amb, 1.3); if (r > 0.04) { g.fillStyle = C.amb; for (let k = 0; k < n && (k + 1) * r <= T; k++) { g.beginPath(); g.arc(X((k + 1) * r), Yp(e[k]), 2.4, 0, 7); g.fill(); } }
+}
+$('s1h').oninput = s1;
+$('s1go').onclick = () => { const sr = soundOn(), r = hOf(+$('s1h').value), tau = 0.15, n = Math.round(sr * 3.2), per = r * tau * sr, tn = tone(sr, n), out = new Float64Array(n);
+  // the engine steps every h seconds and holds its level between steps, as a control-rate engine would
+  const st = firstEuler(1, r), s = [0]; let level = 0, next = 0;
+  for (let i = 0; i < n; i++) { if (i >= next) { const u = i >= 0.1 * sr && i < 1.7 * sr ? 1 : 0; level = Math.max(-3, Math.min(3, st(s, u))); next += per; } out[i] = 0.38 * tn[i] * level; }
+  playBuffer(fade(out, sr, 5)); };
+
+// ───────── steps 2 and 3: a 220 Hz ring, stepped coarsely ─────────
+const F2 = 220, RING_T60 = 2, W2 = TWO_PI * F2, Z2 = 6.9078 / RING_T60 / W2;
+const nOf = v => Math.round(4 * Math.pow(1024, v)); // 4 to 4096 steps per cycle
+function coarse(rule, N, sr, secs = 2.4) { // stepped at N per cycle, joined for the speaker, cut past 3× its strike
+  const h = 1 / (F2 * N), A = sysA(W2, Z2), M = RULES[rule].M(A, h), steps = Math.ceil(secs * F2 * N);
+  const r = stepRing(M, steps, [0, W2, 1], 3), n = Math.round(sr * secs), y = joinSteps(r.y, F2 * N, sr, n);
+  const blewAt = r.blew >= 0 ? r.blew * h : null; if (blewAt !== null) { const k = Math.min(n, Math.round(blewAt * sr)), f = Math.round(sr * 0.004); for (let i = Math.max(0, k - f); i < n; i++) y[i] *= i < k ? (k - i) / f : 0; }
+  return { y, M, h, pr: predict(M, h), blewAt };
+}
+function ringReadout(c, sr) { // pitch and ring, measured from the sound, against the exact swing
+  const px = predict(RULES.exact.M(sysA(W2, Z2), c.h), c.h), fm = ringFreq(c.blewAt ? c.y.subarray(0, Math.round(c.blewAt * sr * 0.98)) : c.y, sr), sm = decayRate(c.blewAt ? c.y.subarray(0, Math.round(c.blewAt * sr * 0.98)) : c.y, sr, F2);
+  return { px, fm, sm };
+}
+function s2(play) {
+  const N = nOf(+$('s2n').value); $('s2nv').textContent = N;
+  const sr = play ? soundOn() : 48000, c = coarse('euler', N, sr), perCycle = Math.pow(c.pr.r, N);
+  $('s2g').textContent = '× ' + (perCycle < 100 ? perCycle.toFixed(4) : perCycle.toExponential(2));
+  $('s2b').innerHTML = c.blewAt !== null ? '<span class="grow">● past 3× its strike after ' + ms(c.blewAt) + '</span>' : '<span class="ok">● stays inside 3× for the whole ring</span>';
+  $('s2need').textContent = Math.ceil(Math.PI / Z2); // Euler's step is stable only while friction pays for it: N > π / ζ
+  drawPhase($('s2pp'), c.M, N, W2);
+  const ex = coarse('exact', 64, sr);
+  drawLevel($('s2cv'), [{ buf: c.y, color: C.amb, label: 'Euler · ' + N + ' per cycle' }, { buf: ex.y, color: 'rgba(168,224,64,.7)', label: 'the true ring' }], sr, 2.4);
+  const m = ringReadout(c, sr); $('s2r').textContent = Number.isFinite(m.fm) ? 'measured: ' + m.fm.toFixed(2) + ' Hz' : '';
+  if (play) playBuffer(fade(c.y.map(v => 0.32 * v), sr, 5));
+}
+$('s2n').oninput = () => s2(false); $('s2go').onclick = () => s2(true);
+let s3rule = 'backward';
+function ruleButtons(el, cur, on) { el.innerHTML = ''; for (const k of Object.keys(RULES)) { const b = document.createElement('button'); b.textContent = RULES[k].name; b.setAttribute('aria-pressed', k === cur()); b.onclick = () => { on(k); el.querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', x === b)); }; el.appendChild(b); } }
+ruleButtons($('s3rules'), () => s3rule, k => { s3rule = k; s3(false); });
+function s3(play, which) {
+  const N = nOf(+$('s3n').value); $('s3nv').textContent = N;
+  const sr = play ? soundOn() : 48000, c = coarse(s3rule, N, sr), m = ringReadout(c, sr), ex = coarse('exact', N, sr);
+  const pf = c.pr.ring ? cents(c.pr.f, m.px.f) : NaN, pt = c.pr.sigma > 0 ? T60(c.pr.sigma) : -Infinity;
+  $('s3p').innerHTML = c.pr.ring ? sgn(pf) + ' ¢ <span class="note">(heard ' + (Number.isFinite(m.fm) ? sgn(cents(m.fm, m.px.f)) + ' ¢' : 'too short to count') + ')</span>' : 'no pitch: the rule no longer turns the swing';
+  $('s3d').innerHTML = c.pr.sigma > 0 ? ms(pt) + ' against the true ' + ms(T60(m.px.sigma)) + ' <span class="note">(heard ' + (Number.isFinite(m.sm) && m.sm > 0 ? ms(T60(m.sm)) : '—') + ')</span>' : '<span class="grow">grows, ×' + Math.exp(-c.pr.sigma / F2).toPrecision(4) + ' a cycle</span>';
+  $('s3m').innerHTML = c.blewAt !== null ? '<span class="grow">● past 3× after ' + ms(c.blewAt) + '</span>' : '';
+  drawPhase($('s3pp'), c.M, N, W2);
+  drawLevel($('s3cv'), [{ buf: c.y, color: C.amb, label: RULES[s3rule].name + ' · ' + N + ' per cycle' }, { buf: ex.y, color: 'rgba(168,224,64,.7)', label: 'exact' }], sr, 2.4);
+  $('s3r').textContent = '';
+  if (play) { playBuffer(fade((which === 'exact' ? ex.y : c.y).map(v => 0.32 * v), sr, 5)); $('s3r').textContent = 'playing: ' + (which === 'exact' ? 'exact' : RULES[s3rule].name); }
+}
+$('s3n').oninput = () => s3(false); $('s3go').onclick = () => s3(true); $('s3ex').onclick = () => s3(true, 'exact');
+
+// ───────── step 4: a struck bar at a real sample rate ─────────
+let s4rule = 'symplectic', s4f0 = 440, s4sr = 48000;
+ruleButtons($('s4rules'), () => s4rule, k => { s4rule = k; s4(false); });
+function pick(el, opts, cur, on) { el.innerHTML = ''; for (const [v, label] of opts) { const b = document.createElement('button'); b.textContent = label; b.setAttribute('aria-pressed', v === cur()); b.onclick = () => { on(v); el.querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', x === b)); }; el.appendChild(b); } }
+pick($('s4f0'), [[220, 'bar at 220 Hz'], [440, '440 Hz'], [880, '880 Hz']], () => s4f0, v => { s4f0 = v; s4(false); });
+pick($('s4sr'), [[24000, '24 kHz'], [48000, '48 kHz'], [96000, '96 kHz']], () => s4sr, v => { s4sr = v; s4(false); });
+function mixBell(parts, n) { const out = new Float64Array(n); for (const p of parts) { const k = Math.min(n, p.y.length), f = Math.round(s4sr * 0.004); for (let i = 0; i < k; i++) out[i] += p.y[i] * (p.blew >= 0 && i > k - f ? (k - i) / f : 1); } return out; }
+function bellOut(parts, secs) { const n = Math.round(s4sr * secs), m = mixBell(parts, n); return m.map(v => 0.6 * Math.tanh(0.45 * v)); }
+function drawCents(cv, parts) { // one row a partial; the exact pitch is the centre line, the rule's lands left (flat) or right (sharp)
+  const [g, W, H] = fitCanvas(cv, 170), L = 64, span = 100, X = c => L + (W - L - 12) * (0.5 + Math.max(-span, Math.min(span, c)) / (2 * span)), row = (H - 24) / parts.length;
+  g.clearRect(0, 0, W, H);
+  for (const c of [-100, -50, 0, 50, 100]) { g.strokeStyle = c ? C.grid : 'rgba(168,224,64,.5)'; g.beginPath(); g.moveTo(X(c), 4); g.lineTo(X(c), H - 18); g.stroke(); g.fillStyle = C.dim; g.fillText((c > 0 ? '+' : '') + c + ' ¢', X(c) - 14, H - 4); }
+  parts.forEach((p, i) => { const y = 4 + row * (i + 0.5), c = Number.isFinite(p.fm) ? cents(p.fm, p.fx) : p.pr.ring ? cents(p.pr.f, p.fx) : NaN;
+    g.fillStyle = C.soft; g.fillText(p.f.toFixed(0) + ' Hz', 4, y + 3);
+    if (!Number.isFinite(c)) { g.fillText('no pitch', X(0) + 6, y + 3); return; }
+    g.strokeStyle = C.amb; g.beginPath(); g.moveTo(X(0), y); g.lineTo(X(c), y); g.stroke(); g.fillStyle = Number.isFinite(p.fm) ? C.amb : C.dim; g.beginPath(); g.arc(X(c), y, 3.5, 0, 7); g.fill();
+    if (Math.abs(c) > span) { g.fillStyle = C.amb; g.fillText((c > 0 ? '+' : '') + c.toFixed(0) + ' ¢ →', c > 0 ? X(c) - 64 : X(c) + 6, y - 5); } });
+}
+function summary(f0, sr) { // every rule at once, at this bar and rate: the top partial is where the rules part
+  return Object.keys(RULES).map(k => { const ps = bellPartials(f0, sr, k, 1.2), top = ps[ps.length - 1]; return { k, ps, top }; });
+}
+function s4(play, which) {
+  const secs = 3.5, parts = bellPartials(s4f0, s4sr, s4rule, secs), tb = $('s4t'); tb.innerHTML = '';
+  for (const p of parts) {
+    const tr = document.createElement('tr'), heardP = Number.isFinite(p.fm) ? sgn(cents(p.fm, p.fx)) + ' ¢' : '—';
+    const ring = p.blew >= 0 ? '<span class="grow">runs away: past 3× after ' + ms((p.blew + 1) / s4sr) + '</span>' : Number.isFinite(p.sm) && p.sm > 0 ? '<b>' + ms(T60(p.sm)) + '</b>' : '—';
+    const pred = (p.pr.ring ? sgn(cents(p.pr.f, p.fx)) + ' ¢, ' : 'no pitch, ') + (p.pr.sigma > 0 ? ms(T60(p.pr.sigma)) : 'grows ×e every ' + ms(-1 / p.pr.sigma));
+    tr.innerHTML = '<td><b>' + p.f.toFixed(0) + ' Hz</b></td><td>' + p.steps.toFixed(1) + '</td><td><b>' + heardP + '</b></td><td>' + ring + '</td><td>' + ms(T60(p.sx)) + '</td><td>' + pred + '</td>';
+    tb.appendChild(tr);
+  }
+  drawCents($('s4pc'), parts);
+  const all = summary(s4f0, s4sr), say = { euler: '', backward: '', symplectic: '', trapezoid: '', rk4: '', exact: '' };
+  for (const { k, ps, top } of all) {
+    const c = top.pr.ring ? cents(top.pr.f, top.fx) : NaN, t = top.pr.sigma > 0 ? T60(top.pr.sigma) : null, nm = RULES[k].name, f0 = ps[0];
+    if (top.pr.sigma <= 0) { say[k] = nm + (ps.every(p => p.pr.sigma <= 0) ? ' runs away on every partial (the top one passes 3× in ' + ms((top.blew + 1) / s4sr) + ', the fundamental in ' + ms((f0.blew + 1) / s4sr) + ')' : ' runs away on the top partial (past 3× in ' + ms((top.blew + 1) / s4sr) + ')'); continue; }
+    if (!top.pr.ring) { say[k] = nm + ' can no longer turn the top partial at all'; continue; }
+    say[k] = k === 'backward' ? nm + ' kills it: the top partial rings ' + ms(t) + ' instead of ' + ms(T60(top.sx)) + ', and even the fundamental only ' + ms(T60(f0.pr.sigma))
+      : k === 'symplectic' ? nm + ' keeps every ring and sharpens the top partial ' + sgn(c) + ' ¢'
+      : k === 'trapezoid' ? 'the trapezoid flattens it ' + sgn(c) + ' ¢ and rings it ' + ms(t)
+      : k === 'rk4' ? nm + ' is within ' + Math.abs(c).toFixed(1) + ' ¢ but rings it ' + ms(t) + ' instead of ' + ms(T60(top.sx))
+      : k === 'exact' ? 'the exact step is off by ' + Math.abs(c).toFixed(3) + ' ¢ and rings it ' + ms(t)
+      : nm + ' moves it ' + sgn(c) + ' ¢ and rings it ' + ms(t);
+  }
+  const top = all[0].top;
+  $('s4v').innerHTML = 'At ' + (s4sr / 1000) + ' kHz, a bar at ' + s4f0 + ' Hz, whose top partial gets ' + top.steps.toFixed(1) + ' samples a cycle: ' + say.euler + '; ' + say.backward + '; ' + say.symplectic + '; ' + say.trapezoid + '; ' + say.rk4 + '; ' + say.exact + '. ' +
+    '<b>So it matters, partial by partial, and it depends on the rule more than on the step:</b> the error grows as a partial gets fewer samples a cycle, each rule’s error has its own sign, and for a linear equation like this one the exact step costs the same as Euler’s while its settings hold still, and leaves nothing to hear. The approximation is a choice, not a fact of being digital. For a nonlinear equation there is no exact step, and the error comes back.';
+  if (play) { const sr = soundOn(), buf = which === 'exact' ? bellOut(bellPartials(s4f0, s4sr, 'exact', secs), secs) : bellOut(parts, secs); playBuffer(fade(buf, s4sr, 3), s4sr); $('s4r').textContent = 'playing: ' + (which === 'exact' ? 'exact' : RULES[s4rule].name) + ' · ' + s4f0 + ' Hz bar at ' + s4sr / 1000 + ' kHz'; }
+  const ex = which === 'exact' ? null : bellOut(bellPartials(s4f0, s4sr, 'exact', secs), secs);
+  drawLevel($('s4cv'), [{ buf: bellOut(parts, secs), color: C.amb, label: RULES[s4rule].name }, { buf: ex || bellOut(bellPartials(s4f0, s4sr, 'exact', secs), secs), color: 'rgba(168,224,64,.7)', label: 'exact' }], s4sr, secs);
+}
+$('s4go').onclick = () => s4(true); $('s4ex').onclick = () => s4(true, 'exact');
+
+sigil($('sigil'));
+const goStep = walk([{ name: 'one step', enter: s1 }, { name: 'a swing, stepped', enter: () => s2(false) }, { name: 'other rules', enter: () => { ruleButtons($('s3rules'), () => s3rule, k => { s3rule = k; s3(false); }); s3(false); } }, { name: 'at 48 kHz', enter: () => s4(false) }]);
+keepGreek(); document.addEventListener('click', () => setTimeout(() => keepGreek(), 0));
+window.addEventListener('resize', () => { const on = document.querySelector('.step.on'); if (!on) return; if (on.contains($('s1cv'))) s1(); });
+</script>
+</body>
+</html>
