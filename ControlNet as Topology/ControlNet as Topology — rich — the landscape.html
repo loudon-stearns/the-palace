@@ -1,0 +1,393 @@
+<!doctype html>
+<!--
+  title: ControlNet as Topology — rich — the landscape
+  born: 2026-11-03
+  links: [[ControlNet as Topology]] (connects-to · rich-face-piece) · listed in [[ControlNet as Topology — rich.json]] · serves § The same truth, made precise: the landscape
+  forward_vector: I am the page's energy landscape you can carve, built up from one ball in one valley: the fog that cools from rough to fine, the commission leaned on (CFG), a canyon carved where no valley was (ControlNet), and last the test of denoise against weight from one init. I simulate the terrain in the browser and run no model; I play inside the entry's rich face and stand alone opened directly; I change only when the section I serve does.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:needs" content="">
+<title>ControlNet as Topology — the landscape</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Manrope:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root { --bg:#0a0a0f; --e1:#12121a; --ring:#22222e; --border:#4a4a5e; --soft:rgba(255,255,255,.06); --fg1:#e8e8f0; --fg2:#c8c8d8; --fg3:#8a8aa0; --fg4:#4a4a5a;
+    --amber:#e8b84a; --amberline:rgba(232,184,74,.5); --indigo:#6366F1; --blue:#4a8fff;
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --sans:'Manrope',system-ui,sans-serif; --serif:'Cormorant Garamond',Georgia,serif; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); font-weight: 300; }
+  .piece { padding: 22px 22px 20px; }
+  .kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
+  .title { font-family: var(--serif); font-size: 27px; font-weight: 300; color: var(--fg1); margin: 0 0 6px; }
+  .sub { font-size: 14px; line-height: 1.6; color: var(--fg2); max-width: 78ch; margin: 0 0 14px; }
+  .rail { display: flex; flex-wrap: wrap; margin: 4px 0 14px; border: 1px solid var(--soft); border-radius: 2px; }
+  .rail button { flex: 1 1 130px; text-align: left; border: 0; border-right: 1px solid var(--soft); border-radius: 0; background: transparent; padding: 9px 12px; color: var(--fg3); }
+  .rail button:last-child { border-right: 0; }
+  .rail button b { display: block; font-weight: 500; color: var(--fg2); letter-spacing: .04em; text-transform: none; font-size: 12px; margin-top: 2px; }
+  .rail button.on { background: var(--e1); color: var(--amber); }
+  .rail button.on b { color: var(--fg1); }
+  .say { font-family: var(--serif); font-size: 18px; line-height: 1.55; color: var(--fg1); max-width: 80ch; margin: 0 0 14px; min-height: 3.1em; }
+  .say i { color: var(--amber); font-style: italic; }
+  .stage { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 16px; align-items: start; }
+  .panel { border: 1px solid var(--soft); border-radius: 2px; background: var(--e1); padding: 10px 12px; }
+  .plabel { font-family: var(--mono); font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--fg3); margin-bottom: 8px; display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+  .key { font-family: var(--mono); font-size: 10.5px; color: var(--fg3); display: flex; gap: 14px; flex-wrap: wrap; margin-top: 6px; }
+  .key span::before { content: ''; display: inline-block; width: 10px; height: 2px; margin-right: 6px; vertical-align: middle; background: currentColor; }
+  canvas { display: block; width: 100%; touch-action: none; }
+  #map { aspect-ratio: 1 / 1; cursor: crosshair; }
+  #side { aspect-ratio: 1 / 1; }
+  .hidden { display: none !important; }
+  .controls { display: flex; flex-wrap: wrap; gap: 14px 22px; align-items: flex-end; margin-top: 16px; }
+  button { font-family: var(--mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--fg2); background: var(--bg); border: 1px solid var(--border); border-radius: 2px; padding: 8px 13px; cursor: pointer; }
+  button:hover { border-color: rgba(232,184,74,.55); color: var(--fg1); }
+  button:disabled { opacity: .35; cursor: default; }
+  button.on { color: var(--amber); border-color: var(--amberline); }
+  button.go { color: var(--amber); border-color: var(--amberline); box-shadow: 0 0 14px rgba(232,184,74,.18); min-width: 110px; }
+  .seg { display: inline-flex; flex-wrap: wrap; } .seg button + button { border-left: 0; }
+  .seg button { letter-spacing: .04em; text-transform: none; font-size: 12px; padding: 7px 10px; }
+  .ctl { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: .06em; color: var(--fg3); }
+  .ctl .lab { display: block; margin-bottom: 6px; }
+  label.sl { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: .06em; color: var(--fg3); min-width: 180px; flex: 1 1 180px; }
+  label.sl b { color: var(--fg1); font-weight: 500; }
+  input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 3px; background: var(--fg4); margin: 12px 0 4px; outline: none; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 13px; height: 13px; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  input[type=range]::-moz-range-thumb { width: 13px; height: 13px; border: 0; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  .read { display: flex; flex-wrap: wrap; gap: 6px 22px; margin-top: 14px; font-family: var(--mono); font-size: 11.5px; letter-spacing: .04em; color: var(--fg3); }
+  .read b { color: var(--fg1); font-weight: 500; }
+  .read .hot { color: var(--amber); }
+  .verdict { margin-top: 14px; padding: 12px 14px; border-left: 2px solid var(--amber); background: var(--e1); font-family: var(--serif); font-size: 17px; line-height: 1.55; color: var(--fg1); max-width: 92ch; }
+  .verdict p { margin: 0 0 10px; } .verdict p:last-child { margin: 0; }
+  .verdict b { color: var(--amber); font-weight: 400; }
+  .nav { display: flex; gap: 10px; margin-top: 16px; }
+  .hint { font-family: var(--mono); font-size: 11px; letter-spacing: .03em; line-height: 1.6; color: var(--fg3); margin-top: 10px; max-width: 104ch; }
+  .eqs { margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--soft); }
+  .eq { font-family: var(--serif); font-size: 19px; color: var(--fg1); }
+  .words { font-size: 13px; line-height: 1.55; color: var(--fg2); margin: 2px 0 12px; max-width: 92ch; }
+  .note { font-family: var(--mono); font-size: 10.5px; line-height: 1.6; color: var(--fg4); margin-top: 8px; max-width: 110ch; }
+  .footer { font-family: var(--mono); font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--fg4); margin-top: 18px; }
+  @media (max-width: 760px) { .stage { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="piece">
+  <div class="kicker"><svg width="18" height="18" viewBox="-10 -10 20 20" aria-hidden="true"><path id="sigil" fill="none" stroke="#e8b84a" stroke-width="1.1"/></svg><span>made · an energy landscape, simulated · sketch</span></div>
+  <h3 class="title">A terrain you can carve</h3>
+  <p class="sub">The page's landscape, built up from one ball in one valley. Five steps, one idea each: the ball rolls downhill, the fog cools rough to fine, the commission is leaned on, a canyon is carved where no valley was, and last the test of denoise against weight. Nothing here runs a model: it is a made-up terrain of six valleys, simulated in your browser, and it moves exactly as the equations below say.</p>
+
+  <div class="rail" id="rail"></div>
+  <p class="say" id="say"></p>
+
+  <div class="stage">
+    <div class="panel">
+      <div class="plabel"><span id="mapLabel">the terrain · from above</span><span id="mapFog"></span></div>
+      <canvas id="map"></canvas>
+      <div class="key" id="mapKey"></div>
+    </div>
+    <div class="panel">
+      <div class="plabel"><span id="sideLabel"></span><span id="sideUnits"></span></div>
+      <canvas id="side"></canvas>
+      <div class="key" id="sideKey"></div>
+    </div>
+  </div>
+
+  <div class="controls">
+    <button class="go" id="go">▸ cool</button>
+    <label class="sl hidden" id="fogCtl">fog σ <b id="fogVal"></b><input id="fog" type="range" min="0" max="1000" step="1"></label>
+    <label class="sl hidden" id="wCtl">CFG, how hard you lean on the commission · w <b id="wVal"></b><input id="w" type="range" min="0" max="12" step="0.5"></label>
+    <label class="sl hidden" id="lamCtl">ControlNet weight, how rigid the wire · λ <b id="lamVal"></b><input id="lam" type="range" min="0" max="12" step="0.5"></label>
+    <label class="sl hidden" id="angCtl">turn the canyon <b id="angVal"></b><input id="ang" type="range" min="0" max="180" step="1"></label>
+    <label class="sl hidden" id="dCtl">denoise strength <b id="dVal"></b><input id="d" type="range" min="0.05" max="1" step="0.05"></label>
+  </div>
+  <div class="controls hidden" id="presetCtl">
+    <div class="ctl"><span class="lab">where the canyon lies</span><span class="seg" id="presets"></span></div>
+    <button id="mapIt">map denoise × weight</button>
+  </div>
+  <div class="read" id="read"></div>
+  <div class="verdict hidden" id="verdict"></div>
+  <div class="hint" id="hint"></div>
+  <div class="nav"><button id="back">◂ back</button><button id="next">next ▸</button></div>
+
+  <div class="eqs">
+    <div class="eq">E(x) = −log p(x),&nbsp;&nbsp; score(x) = −∇E(x)</div>
+    <div class="words">(the energy at a point) = −log(how likely the model finds that image). The score is the steering force: (the downhill direction) = −(the slope of the energy). Likely images are valleys; the ball follows the score.</div>
+    <div class="eq">x ← x + (σᵢ² − σᵢ₊₁²) · score(x, σᵢ) + √(σᵢ² − σᵢ₊₁²) · z</div>
+    <div class="words">one stroke of the carving: (where the ball goes next) = (where it is) + (how much fog this stroke removes) × (the downhill direction, seen through the fog σᵢ) + (a fresh random nudge the same size). The fog σ falls from 1.6 to 0.004 over 160 strokes. Seen through fog σ, every valley is widened by σ in each direction: that is what adding noise does.</div>
+    <div class="eq">score = score_all + w · (score_lion − score_all)</div>
+    <div class="words">CFG: (the steering) = (the pull of all images) + w × (how much more the lion terrain pulls than all images do). w = 1 is the lion terrain itself; higher w overshoots it. It can only reweight what both terrains already hold.</div>
+    <div class="eq">score = score_terrain + λ · score_canyon</div>
+    <div class="words">ControlNet, as drawn here: (the steering) = (the terrain's pull) + λ × (the canyon's pull). The canyon is a separate shape added in, so it can put a valley where the terrain had none.</div>
+    <div class="eq">σ_start = σ at (1 − d) of the way through the strokes</div>
+    <div class="words">denoise strength d: image to image starts from the init, lifts it d of the way back up into the fog, and carves only the rest. d = 1 forgets the init; d = 0.2 keeps most of it.</div>
+  </div>
+  <div class="note">A model of the page's picture, not of a network. The terrain is six Gaussian valleys in two dimensions, not a million; the probabilities are exact, so the fog is exact too. The ControlNet weight here multiplies the canyon's pull; in a real network it scales the ControlNet's residuals inside the U-Net, which the page's picture reads as carving deeper. The schedule is geometric, where Stable Diffusion's is not, so a denoise value here is the same idea at a different place on the dial. The canyon is drawn into the terrain at every fog level, the way CFG and compositional diffusion add scores; that is approximate even in the model. A ball counts as in a valley within three of that valley's spreads; otherwise it is between. Every run is seeded, so the same knobs give the same balls.</div>
+  <div class="footer">Loud’n Live</div>
+</div>
+<script id="engine">
+// The terrain. A made-up space of images flattened to two directions: six valleys, each a Gaussian
+// with its own centre, spread and share of all the images. The fog (sigma) widens every valley by
+// sigma^2 in each direction, which is exactly what adding noise of size sigma does to a mixture.
+function rng(seed) { let s = seed >>> 0; return () => { s = (s + 0x6D2B79F5) >>> 0; let t = s; t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
+function gauss(r) { let u = 0; while (u === 0) u = r(); const v = r(); return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v); }
+function V(name, mx, my, sx, sy, ang, w, tag) { const c = Math.cos(ang), s = Math.sin(ang); return { name, m: [mx, my], C: [c * c * sx * sx + s * s * sy * sy, c * s * (sx * sx - sy * sy), s * s * sx * sx + c * c * sy * sy], sx, sy, ang, w, tag }; }
+const BASE = [
+  V('lion', 0.42, 0.40, 0.11, 0.08, 0.5, 0.16, 'lion'),
+  V('lioness', 0.60, 0.02, 0.09, 0.07, -0.3, 0.10, 'lion'),
+  V('house cat', 0.10, 0.62, 0.07, 0.06, 0, 0.10, 'cat'),
+  V('dog', -0.50, 0.42, 0.12, 0.09, 0.3, 0.16, 'dog'),
+  V('mountains', -0.45, -0.45, 0.20, 0.14, -0.4, 0.30, 'land'),
+  V('portrait', 0.25, -0.55, 0.05, 0.05, 0, 0.18, 'face'),
+];
+const ONE = [V('a valley', 0.0, 0.0, 0.22, 0.15, 0.4, 1, 'one')];
+// The commission, "a lion": the same valleys, reweighted. It names a figure; it carves nothing new.
+const PROMPT = { lion: 1.0, cat: 0.12, dog: 0.02, land: 0.01, face: 0.01 };
+function cond(base, pr) { const out = base.map((k) => ({ ...k, w: k.w * (pr[k.tag] ?? 0) })); const z = out.reduce((a, k) => a + k.w, 0); return out.map((k) => ({ ...k, w: k.w / z })); }
+// log p and the score (the downhill direction, -grad E) of a mixture seen through fog sigma^2 = s2
+function mix(comps, x, y, s2) {
+  let best = -Infinity; const n = comps.length, L = new Float64Array(n), GX = new Float64Array(n), GY = new Float64Array(n);
+  for (let i = 0; i < n; i++) { const k = comps[i]; if (k.w <= 0) { L[i] = -Infinity; continue; }
+    const a = k.C[0] + s2, b = k.C[1], d = k.C[2] + s2, det = a * d - b * b, dx = x - k.m[0], dy = y - k.m[1];
+    const ix = (d * dx - b * dy) / det, iy = (-b * dx + a * dy) / det;
+    L[i] = Math.log(k.w) - 0.5 * (dx * ix + dy * iy) - 0.5 * Math.log(det) - Math.log(2 * Math.PI); GX[i] = -ix; GY[i] = -iy; if (L[i] > best) best = L[i]; }
+  let z = 0, gx = 0, gy = 0; for (let i = 0; i < n; i++) if (L[i] > -Infinity) { const e = Math.exp(L[i] - best); z += e; gx += e * GX[i]; gy += e * GY[i]; }
+  return { logp: best + Math.log(z), gx: gx / z, gy: gy / z };
+}
+// The armature: a narrow channel carved where the terrain held no valley, over an almost flat floor.
+function canyon(cx, cy, ang) { return [{ ...V('canyon', cx, cy, 0.16, 0.025, ang, 0.02), tag: 'cn' }, { ...V('floor', 0, 0, 3, 3, 0, 0.98), tag: 'floor' }]; }
+// Steering, composed as scores at the same fog: CFG leans w on (commission - all images); the canyon is added at weight lam.
+function score(x, y, s2, P) {
+  const u = mix(P.base, x, y, s2); let gx = u.gx, gy = u.gy, lp = u.logp;
+  if (P.cfg && P.cond) { const c = mix(P.cond, x, y, s2); gx += P.cfg * (c.gx - u.gx); gy += P.cfg * (c.gy - u.gy); lp += P.cfg * (c.logp - u.logp); }
+  if (P.cn && P.lam > 0) { const k = mix(P.cn, x, y, s2); gx += P.lam * k.gx; gy += P.lam * k.gy; lp += P.lam * k.logp; }
+  return { gx, gy, E: -lp };
+}
+// The cooling schedule: the fog falls geometrically from SMAX to SMIN over NSTEPS strokes.
+const SMAX = 1.6, SMIN = 0.004, NSTEPS = 160;
+function sigmaAt(i, n = NSTEPS) { return SMAX * Math.pow(SMIN / SMAX, i / n); }
+// Denoise strength d: start d of the way back up the schedule (image to image).
+function startStep(d, n = NSTEPS) { return Math.round((1 - d) * n); }
+// One stroke for every ball: the reverse-diffusion step (variance exploding, ancestral):
+// x <- x + (s_i^2 - s_{i+1}^2) * score(x, s_i) + sqrt(s_i^2 - s_{i+1}^2) * z
+function fogUp(balls, from, r, n = NSTEPS) { const s0 = sigmaAt(from, n); for (const b of balls) { b.x += s0 * gauss(r); b.y += s0 * gauss(r); } }
+function stroke(P, balls, i, r, n = NSTEPS) { const s = sigmaAt(i, n), sn = sigmaAt(i + 1, n), dv = s * s - sn * sn, q = Math.sqrt(dv);
+  for (const b of balls) { const g = score(b.x, b.y, s * s, P); b.x += dv * g.gx + q * gauss(r); b.y += dv * g.gy + q * gauss(r); } }
+function carve(P, balls, from, r, n = NSTEPS) { fogUp(balls, from, r, n); for (let i = from; i < n; i++) stroke(P, balls, i, r, n); return balls; }
+// Which valley a ball came to rest in: the nearest centre, measured in that valley's own spread; past 3 spreads it is "between".
+function valleyOf(comps, x, y) { let best = null, bd = Infinity; for (const k of comps) { if (k.tag === 'floor') continue; const a = k.C[0], b = k.C[1], d = k.C[2], det = a * d - b * b, dx = x - k.m[0], dy = y - k.m[1]; const q = (d * dx * dx - 2 * b * dx * dy + a * dy * dy) / det; if (q < bd) { bd = q; best = k; } } return Math.sqrt(bd) < 3 ? best.name : 'between'; }
+function tally(comps, balls) { const t = {}; for (const b of balls) { const v = valleyOf(comps, b.x, b.y); t[v] = (t[v] || 0) + 1; } for (const k in t) t[k] /= balls.length; return t; }
+// The test grid: the share of balls the canyon catches, starting from the init, at each denoise and weight.
+const DGRID = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0], LGRID = [0.5, 1, 2, 3, 4, 6, 8, 12];
+function captureAt(base, cn, init, d, lam, nb, seed) { const P = { base, cn, lam }, B = Array.from({ length: nb }, () => ({ x: init[0], y: init[1] })); carve(P, B, startStep(d), rng(seed)); const all = [...base, ...cn]; let c = 0; for (const b of B) if (valleyOf(all, b.x, b.y) === 'canyon') c++; return c / nb; }
+// One ball, no fog: plain gradient flow down E, for the first step.
+function roll(comps, b, dt) { const g = mix(comps, b.x, b.y, 0); b.x += dt * g.gx * 0.004; b.y += dt * g.gy * 0.004; return g; }
+</script>
+<script>
+const $ = (id) => document.getElementById(id);
+const AMBER = '#e8b84a', FG1 = '#e8e8f0', FG2 = '#c8c8d8', FG3 = '#8a8aa0', FG4 = '#4a4a5a', BLUE = '#4a8fff', INDIGO = '#6366F1', E1 = '#12121a';
+const COND = cond(BASE, PROMPT), INIT = BASE.find((k) => k.name === 'dog').m;
+const PRESETS = [{ key: 'far', name: 'far from the init', x: -0.05, y: -0.02, ang: 69 }, { key: 'near', name: 'beside the init', x: -0.30, y: 0.25, ang: 52 }];
+const S = { step: 'one', fog: 0.3, w: 3, lam: 3, d: 0.9, cx: -0.05, cy: -0.02, ang: 69, balls: [], running: false, i: 0, n: NSTEPS, sigma: 0, ball: { x: -0.7, y: 0.75 }, trail: [], result: null, grid: null, gridKey: '', seed: 1 };
+const cnNow = () => canyon(S.cx, S.cy, S.ang * Math.PI / 180);
+function params(step = S.step) {
+  if (step === 'one') return { base: ONE };
+  if (step === 'fog') return { base: BASE };
+  if (step === 'cfg') return { base: BASE, cond: COND, cfg: S.w };
+  return { base: BASE, cn: cnNow(), lam: S.lam };
+}
+const comps = (step = S.step) => (step === 'one' ? ONE : step === 'cfg' || step === 'fog' ? BASE : [...BASE, ...cnNow()]);
+
+// ---- canvas plumbing ----
+function fit(cv) { const r = cv.getBoundingClientRect(), dpr = Math.min(2, window.devicePixelRatio || 1), w = Math.max(200, Math.round(r.width)); if (cv.width !== Math.round(w * dpr)) { cv.width = Math.round(w * dpr); cv.height = Math.round(w * dpr); } const g = cv.getContext('2d'); g.setTransform(dpr, 0, 0, dpr, 0, 0); return { g, w, h: w }; }
+const toPx = (w, x) => (x + 1) / 2 * w, toPy = (h, y) => (1 - y) / 2 * h, toWx = (w, px) => px / w * 2 - 1, toWy = (h, py) => 1 - py / h * 2;
+const RES = 180, off = document.createElement('canvas'); off.width = RES; off.height = RES;
+const ramp = (t) => { const a = [10, 10, 24], b = [38, 38, 72], c = [92, 84, 76]; const m = t < 0.32 ? [a, b, t / 0.32] : [b, c, (t - 0.32) / 0.68]; return m[0].map((v, i) => v + (m[1][i] - v) * m[2]); };
+function terrain(g, w, h, P, s2) {
+  const Ev = new Float64Array(RES * RES); let lo = Infinity;
+  for (let j = 0; j < RES; j++) for (let i = 0; i < RES; i++) { const x = (i + 0.5) / RES * 2 - 1, y = 1 - (j + 0.5) / RES * 2, e = score(x, y, s2, P).E; Ev[j * RES + i] = e; if (e < lo) lo = e; }
+  // colour and contours on a compressed energy, log(1 + (E - lowest)), so a deep canyon doesn't flatten every other valley
+  const oc = off.getContext('2d'), im = oc.createImageData(RES, RES), top = Math.log1p(40), LV = 14, T = (e) => Math.min(1, Math.log1p(e - lo) / top);
+  for (let j = 0; j < RES; j++) for (let i = 0; i < RES; i++) { const k = j * RES + i, t = T(Ev[k]), c = ramp(t); let r = c[0], gg = c[1], b = c[2];
+    const lv = Math.floor(t * LV), edge = t < 1 && ((i < RES - 1 && Math.floor(T(Ev[k + 1]) * LV) !== lv) || (j < RES - 1 && Math.floor(T(Ev[k + RES]) * LV) !== lv));
+    if (edge) { r = r * 0.62 + 232 * 0.38; gg = gg * 0.62 + 184 * 0.38; b = b * 0.62 + 74 * 0.38; }
+    const p = k * 4; im.data[p] = r; im.data[p + 1] = gg; im.data[p + 2] = b; im.data[p + 3] = 255; }
+  oc.putImageData(im, 0, 0); g.imageSmoothingEnabled = true; g.drawImage(off, 0, 0, w, h);
+}
+function ellipse(g, w, h, k, nsd, color, dash) { g.save(); g.translate(toPx(w, k.m[0]), toPy(h, k.m[1])); g.rotate(-k.ang); g.beginPath(); g.ellipse(0, 0, nsd * k.sx * w / 2, nsd * k.sy * h / 2, 0, 0, 2 * Math.PI); g.strokeStyle = color; g.lineWidth = 1.2; g.setLineDash(dash || []); g.stroke(); g.restore(); }
+function drawMap() {
+  const { g, w, h } = fit($('map')); const P = params(), s2 = S.sigma * S.sigma;
+  terrain(g, w, h, P, s2);
+  g.font = '10px JetBrains Mono, monospace'; g.textAlign = 'center';
+  for (const k of (S.step === 'one' ? ONE : BASE)) { g.fillStyle = 'rgba(200,200,216,.75)'; g.fillText(k.name, toPx(w, k.m[0]), toPy(h, k.m[1]) - 3 - k.sy * h / 2 * 1.2); }
+  if (S.step === 'cfg') { const k = cnNow()[0]; ellipse(g, w, h, k, 2, 'rgba(200,200,216,.6)', [4, 4]); g.fillStyle = 'rgba(200,200,216,.75)'; g.fillText('no valley here', toPx(w, k.m[0]), toPy(h, k.m[1]) + 4 + 2 * k.sx * h / 2); }
+  if (S.step === 'cn' || S.step === 'test') { const k = cnNow()[0]; ellipse(g, w, h, k, 2, BLUE, []); g.fillStyle = BLUE; g.fillText('canyon', toPx(w, k.m[0]), toPy(h, k.m[1]) + 4 + 2 * k.sx * h / 2); }
+  if (S.step === 'test') { g.beginPath(); g.arc(toPx(w, INIT[0]), toPy(h, INIT[1]), 7, 0, 2 * Math.PI); g.strokeStyle = AMBER; g.lineWidth = 1.4; g.setLineDash([]); g.stroke(); g.fillStyle = AMBER; g.fillText('the init', toPx(w, INIT[0]), toPy(h, INIT[1]) + 20); }
+  if (S.step === 'one') {
+    g.strokeStyle = 'rgba(232,184,74,.7)'; g.lineWidth = 1.2; g.beginPath(); S.trail.forEach((p, i) => { const X = toPx(w, p[0]), Y = toPy(h, p[1]); i ? g.lineTo(X, Y) : g.moveTo(X, Y); }); g.stroke();
+    g.fillStyle = FG1; g.beginPath(); g.arc(toPx(w, S.ball.x), toPy(h, S.ball.y), 5, 0, 2 * Math.PI); g.fill();
+    const gg = mix(ONE, S.ball.x, S.ball.y, 0), L = Math.hypot(gg.gx, gg.gy); if (L > 0.3) { const X = toPx(w, S.ball.x), Y = toPy(h, S.ball.y), u = 34 / L; g.strokeStyle = AMBER; g.lineWidth = 1.5; g.beginPath(); g.moveTo(X, Y); g.lineTo(X + gg.gx * u, Y - gg.gy * u); g.stroke(); }
+  } else {
+    g.fillStyle = 'rgba(232,232,240,.85)'; for (const b of S.balls) { const X = toPx(w, b.x), Y = toPy(h, b.y); if (X < -4 || Y < -4 || X > w + 4 || Y > h + 4) continue; g.fillRect(X - 1.5, Y - 1.5, 3, 3); }
+  }
+  $('mapFog').textContent = S.step === 'one' ? 'no fog' : `fog σ ${S.sigma.toFixed(3)}`;
+  $('mapKey').innerHTML = S.step === 'one' ? `<span style="color:${AMBER}">the score, −∇E: downhill</span><span style="color:${FG3}">dark = low energy = likely</span>` : `<span style="color:${AMBER}">contours of energy, closer near the floor</span><span style="color:${FG3}">dark = low energy = likely</span>${S.step === 'cn' || S.step === 'test' ? `<span style="color:${BLUE}">the canyon, drag to move</span>` : ''}`;
+}
+// ---- the side panel ----
+function drawBars() {
+  const { g, w, h } = fit($('side')); g.clearRect(0, 0, w, h);
+  const names = [...BASE.map((k) => k.name), ...(S.step === 'cn' ? ['canyon'] : S.step === 'cfg' ? ['no valley here'] : []), 'between'];
+  const T = S.result ? S.result.t : {}, top = 34, row = (h - top - 16) / names.length, x0 = 104, x1 = w - 46;
+  g.font = '10.5px JetBrains Mono, monospace'; g.textAlign = 'left'; g.fillStyle = FG3; g.fillText('landed', x0, 14); g.fillStyle = FG4; g.fillText('| share of all images', x0 + 58, 14);
+  if (S.step === 'cfg') { g.fillStyle = INDIGO; g.fillText('| under the commission', x0 + 58, 27); }
+  const X = (v) => x0 + (x1 - x0) * Math.min(1, v);
+  names.forEach((n, j) => { const y = top + j * row, k = BASE.find((q) => q.name === n), key = n === 'no valley here' ? 'canyon' : n, v = T[key] || 0;
+    g.fillStyle = FG2; g.textAlign = 'right'; g.fillText(n, x0 - 8, y + row * 0.6);
+    g.fillStyle = 'rgba(255,255,255,.05)'; g.fillRect(x0, y + row * 0.2, x1 - x0, row * 0.55);
+    g.fillStyle = AMBER; g.fillRect(x0, y + row * 0.2, X(v) - x0, row * 0.55);
+    if (k) { g.fillStyle = FG3; g.fillRect(X(k.w) - 1, y + row * 0.1, 2, row * 0.75); }
+    if (k && S.step === 'cfg') { const c = COND.find((q) => q.name === n); g.fillStyle = INDIGO; g.fillRect(X(c.w) - 1, y + row * 0.1, 2, row * 0.75); }
+    g.textAlign = 'left'; g.fillStyle = v > 0 ? FG1 : FG4; g.fillText(S.result ? (100 * v).toFixed(1) + '%' : '', x1 + 6, y + row * 0.6); });
+  $('sideLabel').textContent = 'where the balls came to rest'; $('sideUnits').textContent = S.result ? `${S.result.n} balls` : 'cool to count';
+  $('sideKey').innerHTML = '';
+}
+function drawOne() {
+  const { g, w, h } = fit($('side')); g.clearRect(0, 0, w, h);
+  const tr = S.trail.map((p) => -mix(ONE, p[0], p[1], 0).logp); if (!tr.length) return;
+  const lo = Math.min(...tr, -mix(ONE, 0, 0, 0).logp), hi = Math.max(...tr, lo + 1), L = 34, B = 26;
+  g.strokeStyle = FG4; g.lineWidth = 1; g.beginPath(); g.moveTo(L, 8); g.lineTo(L, h - B); g.lineTo(w - 8, h - B); g.stroke();
+  g.strokeStyle = AMBER; g.lineWidth = 1.6; g.beginPath(); tr.forEach((e, i) => { const x = L + (w - 8 - L) * i / Math.max(1, tr.length - 1), y = 8 + (h - B - 8) * (hi - e) / (hi - lo); i ? g.lineTo(x, y) : g.moveTo(x, y); }); g.stroke();
+  g.font = '10.5px JetBrains Mono, monospace'; g.fillStyle = FG3; g.textAlign = 'left'; g.fillText('time →', w - 60, h - 8); g.save(); g.translate(12, h / 2); g.rotate(-Math.PI / 2); g.textAlign = 'center'; g.fillText('energy E', 0, 0); g.restore();
+  $('sideLabel').textContent = 'the ball’s energy as it rolls'; $('sideUnits').textContent = 'only ever down'; $('sideKey').innerHTML = '';
+}
+function drawGrid() {
+  const { g, w, h } = fit($('side')); g.clearRect(0, 0, w, h);
+  const L = 40, B = 34, T = 10, R = 8, cw = (w - L - R) / DGRID.length, ch = (h - T - B) / LGRID.length;
+  g.font = '10px JetBrains Mono, monospace';
+  if (S.grid) S.grid.forEach((col, i) => col.forEach((v, j) => { if (v === null) return; const x = L + i * cw, y = h - B - (j + 1) * ch;
+    g.fillStyle = `rgb(${Math.round(26 + 48 * v)},${Math.round(26 + 117 * v)},${Math.round(40 + 215 * v)})`; g.fillRect(x + 1, y + 1, cw - 2, ch - 2);
+    g.fillStyle = v > 0.55 ? '#0a0a0f' : FG2; g.textAlign = 'center'; g.fillText(Math.round(100 * v), x + cw / 2, y + ch / 2 + 3); }));
+  if (S.grid) { g.strokeStyle = AMBER; g.lineWidth = 2; g.beginPath(); for (let i = 0; i < DGRID.length; i++) for (let j = 0; j < LGRID.length; j++) { const v = S.grid[i][j]; if (v === null) continue; const x = L + i * cw, y = h - B - (j + 1) * ch;
+    if (j > 0 && S.grid[i][j - 1] !== null && (v >= 0.5) !== (S.grid[i][j - 1] >= 0.5)) { g.moveTo(x, y + ch); g.lineTo(x + cw, y + ch); }
+    if (i > 0 && S.grid[i - 1][j] !== null && (v >= 0.5) !== (S.grid[i - 1][j] >= 0.5)) { g.moveTo(x, y); g.lineTo(x, y + ch); } } g.stroke(); }
+  const di = DGRID.reduce((b, v, i) => (Math.abs(v - S.d) < Math.abs(DGRID[b] - S.d) ? i : b), 0), lj = LGRID.reduce((b, v, j) => (Math.abs(v - S.lam) < Math.abs(LGRID[b] - S.lam) ? j : b), 0);
+  g.strokeStyle = FG1; g.lineWidth = 1.2; g.strokeRect(L + di * cw + 0.5, h - B - (lj + 1) * ch + 0.5, cw - 1, ch - 1);
+  g.fillStyle = FG3; g.textAlign = 'center'; DGRID.forEach((d, i) => g.fillText(d.toFixed(1), L + (i + 0.5) * cw, h - B + 13)); g.fillText('denoise strength →', L + (w - L - R) / 2, h - 6);
+  g.textAlign = 'right'; LGRID.forEach((l, j) => g.fillText(l, L - 6, h - B - (j + 0.5) * ch + 3)); g.save(); g.translate(10, (h - B) / 2); g.rotate(-Math.PI / 2); g.textAlign = 'center'; g.fillText('weight λ →', 0, 0); g.restore();
+  $('sideLabel').textContent = 'share the canyon caught, from the init'; $('sideUnits').textContent = S.grid ? (S.grid.flat().includes(null) ? 'mapping…' : '100 balls a square') : 'mapping…';
+  $('sideKey').innerHTML = `<span style="color:${AMBER}">half the balls caught</span><span style="color:${FG1}">your knobs</span>`;
+}
+function drawSide() { if (S.step === 'one') drawOne(); else if (S.step === 'test') drawGrid(); else drawBars(); }
+// ---- runs ----
+let raf = 0;
+function start() {
+  cancelAnimationFrame(raf); S.result = null; $('verdict').classList.add('hidden');
+  const test = S.step === 'test', nb = test ? 150 : 300, from = test ? startStep(S.d) : 0, r = rng(S.seed++);
+  S.balls = Array.from({ length: nb }, () => (test ? { x: INIT[0], y: INIT[1] } : { x: 0, y: 0 })); fogUp(S.balls, from, r); S.i = from; S.running = true; S.sigma = sigmaAt(from);
+  const P = params(), tick = () => { if (!S.running) return; stroke(P, S.balls, S.i, r); S.i++; S.sigma = sigmaAt(S.i); drawMap();
+    if (S.i >= NSTEPS) { S.running = false; S.result = { t: tally(comps(), S.balls), n: nb }; done(); return; } raf = requestAnimationFrame(tick); };
+  raf = requestAnimationFrame(tick); readout();
+}
+function stop() { S.running = false; cancelAnimationFrame(raf); }
+function done() { drawMap(); drawSide(); readout(); verdict(); }
+const pct = (v) => (100 * (v || 0)).toFixed(1) + '%';
+function readout() {
+  const R = $('read'), t = S.result ? S.result.t : null;
+  if (S.step === 'one') { const g = mix(ONE, S.ball.x, S.ball.y, 0); R.innerHTML = `<span>energy E <b>${(-g.logp).toFixed(2)}</b></span><span>slope |∇E| <b>${Math.hypot(g.gx, g.gy).toFixed(2)}</b></span><span>${Math.hypot(g.gx, g.gy) < 0.05 ? '<b class="hot">at the bottom</b>' : 'rolling'}</span>`; return; }
+  if (S.step === 'fog') { R.innerHTML = `<span>fog σ <b>${S.sigma.toFixed(3)}</b></span>` + (t ? `<span>deepest valley, portrait (E ${depth('portrait')}): <b class="hot">${pct(t.portrait)}</b> of balls, ${pct(w('portrait'))} of images</span><span>shallowest, widest, mountains (E ${depth('mountains')}): <b class="hot">${pct(t.mountains)}</b>, ${pct(w('mountains'))} of images</span>` : ''); return; }
+  if (S.step === 'cfg') { R.innerHTML = `<span>w <b>${S.w.toFixed(1)}</b></span>` + (t ? `<span>lion valleys <b class="hot">${pct((t.lion || 0) + (t.lioness || 0))}</b></span><span>where no valley was <b class="hot">${pct(t.canyon)}</b></span><span>lion balls pushed outward <b>${push().toFixed(3)}</b> (the lion’s spread is 0.11)</span>` : ''); return; }
+  if (S.step === 'cn') { R.innerHTML = `<span>λ <b>${S.lam.toFixed(1)}</b></span>` + (t ? `<span>in the canyon <b class="hot">${pct(t.canyon)}</b></span><span>spread across the channel <b>${S.spread ? S.spread.across.toFixed(3) : '–'}</b>, along it <b>${S.spread ? S.spread.along.toFixed(3) : '–'}</b> (carved 0.025 by 0.16)</span>` : ''); return; }
+  const s0 = sigmaAt(startStep(S.d)), R0 = Math.hypot(S.cx - INIT[0], S.cy - INIT[1]);
+  R.innerHTML = `<span>denoise <b>${S.d.toFixed(2)}</b> → fog at the start σ <b>${s0.toFixed(3)}</b></span><span>λ <b>${S.lam.toFixed(1)}</b></span><span>canyon <b>${R0.toFixed(2)}</b> from the init</span>` + (t ? `<span>this run: canyon caught <b class="hot">${pct(t.canyon)}</b>, the dog valley kept <b>${pct(t.dog)}</b></span>` : '');
+}
+const depth = (n) => (-mix(BASE, ...BASE.find((k) => k.name === n).m, 0).logp).toFixed(2), w = (n) => BASE.find((k) => k.name === n).w;
+function push() { const lion = BASE[0], mu = BASE.reduce((a, k) => [a[0] + k.w * k.m[0], a[1] + k.w * k.m[1]], [0, 0]); let dx = lion.m[0] - mu[0], dy = lion.m[1] - mu[1]; const n = Math.hypot(dx, dy); dx /= n; dy /= n;
+  const inL = S.balls.filter((b) => valleyOf(BASE, b.x, b.y) === 'lion'); if (!inL.length) return 0; const mx = inL.reduce((a, b) => a + b.x, 0) / inL.length, my = inL.reduce((a, b) => a + b.y, 0) / inL.length; return (mx - lion.m[0]) * dx + (my - lion.m[1]) * dy; }
+function spreadOf() { const k = cnNow()[0], ux = Math.cos(k.ang), uy = Math.sin(k.ang), all = comps(), cap = S.balls.filter((b) => valleyOf(all, b.x, b.y) === 'canyon'); if (cap.length < 3) return null;
+  const rms = (f) => Math.sqrt(cap.reduce((s, b) => s + f(b) ** 2, 0) / cap.length); return { across: rms((b) => -(b.x - k.m[0]) * uy + (b.y - k.m[1]) * ux), along: rms((b) => (b.x - k.m[0]) * ux + (b.y - k.m[1]) * uy) }; }
+function verdict() {
+  const V = $('verdict'), t = S.result && S.result.t; let html = '';
+  if (S.step === 'fog' && t) { const most = Object.entries(t).sort((a, b) => b[1] - a[1])[0];
+    html = `<p>The fog does not leave <b>only the deepest basin</b>. The deepest valley, the portrait, caught ${pct(t.portrait)} of the balls; the widest and shallowest, the mountains, caught ${pct(t.mountains)}, the most of any (${most[0]}). Each valley keeps about its share of the images: what fills a valley is how much of the terrain it holds, not how deep it goes.</p><p>That is the difference between this cooling and an optimiser’s: the carving ends with the fog gone, not with the temperature at zero, so it samples the terrain rather than finding its lowest point. Each ball is held by one basin; which one is chance, weighted by the basin’s size.</p>`; }
+  if (S.step === 'cfg' && t) html = `<p>At w ${S.w.toFixed(1)}, <b>${pct(t.canyon)}</b> of the balls came to rest where no valley was. The lion valleys hold ${pct((t.lion || 0) + (t.lioness || 0))}. Lean harder and the lion balls move a little further out (${push().toFixed(3)} past the lion’s centre, away from everything else): exaggeration, more lion than the lion valley holds. It deepens and pushes what is there. It never digs a new hollow.</p>`;
+  if (S.step === 'test' && S.grid && !S.grid.flat().includes(null)) html = testVerdict();
+  V.innerHTML = html; V.classList.toggle('hidden', !html);
+}
+function testVerdict() {
+  const G = S.grid, col = (d) => G[DGRID.indexOf(d)], top = col(1.0), l50 = (c) => { const j = c.findIndex((v) => v >= 0.5); return j < 0 ? null : LGRID[j]; };
+  const reach = DGRID.find((d, i) => Math.max(...G[i]) >= 0.05), below = DGRID.filter((d) => reach === undefined || d < reach), s0 = (d) => sigmaAt(startStep(d)), R0 = Math.hypot(S.cx - INIT[0], S.cy - INIT[1]);
+  const j2 = LGRID.indexOf(2), best = DGRID.reduce((b, d, i) => (G[i][j2] > G[b][j2] ? i : b), 0);
+  let p = `<p><b>High denoise, as the page says.</b> At denoise 1.0 the canyon caught ${Math.round(100 * top[0])}% at weight 0.5 and ${Math.round(100 * top[top.length - 1])}% at 12; half the balls need weight ${l50(top) ?? 'more than 12'}. Only a canyon deep enough wins, and once it is, it wins nearly every ball.</p>`;
+  const most = below.length ? Math.max(...below.map((d) => Math.max(...G[DGRID.indexOf(d)]))) : 0;
+  if (below.length) p += `<p><b>Low denoise, not as the page says.</b> At denoise ${below[below.length - 1].toFixed(1)} and below, the canyon caught ${most === 0 ? 'nothing' : `at most ${Math.round(100 * most)}%`} at any weight up to 12. That is not an even contest with the valley: lifted only to fog σ ${s0(below[below.length - 1]).toFixed(3)}, the ball barely feels a canyon ${R0.toFixed(2)} away. Denoise sets how far the armature can reach; weight sets how hard it holds once it does.</p>`;
+  else p += `<p><b>Low denoise:</b> the canyon lies within reach of the init even at the lowest denoise here, so it shares the balls with the valley, as the page says.</p>`;
+  if (best !== DGRID.length - 1 && G[best][j2] - top[j2] >= 0.1) p += `<p><b>And more fog is not always more armature.</b> With the canyon ${R0.toFixed(2)} from the init, a weight-2 canyon caught the most at denoise ${DGRID[best].toFixed(1)} (${Math.round(100 * G[best][j2])}%), against ${Math.round(100 * top[j2])}% at 1.0: full denoise forgets an init that lay near the canyon, and every valley competes for the ball again.</p>`;
+  return p;
+}
+// ---- the test grid, mapped a column at a time so the page stays live ----
+let mapJob = 0;
+function mapGrid() {
+  const job = ++mapJob, cn = cnNow(), key = `${S.cx.toFixed(3)},${S.cy.toFixed(3)},${S.ang}`; if (S.gridKey === key && S.grid && !S.grid.flat().includes(null)) { drawGrid(); verdict(); return; }
+  S.gridKey = key; S.grid = DGRID.map(() => LGRID.map(() => null)); $('verdict').classList.add('hidden'); drawGrid(); let i = 0;
+  const next = () => { if (job !== mapJob) return; S.grid[i] = LGRID.map((l, j) => captureAt(BASE, cn, INIT, DGRID[i], l, 100, 1000 + 37 * i + j)); i++; drawGrid(); if (i < DGRID.length) setTimeout(next, 0); else verdict(); };
+  setTimeout(next, 30);
+}
+// ---- step one: the ball rolls ----
+let rollRaf = 0;
+function rollBall() { cancelAnimationFrame(rollRaf); S.trail = [[S.ball.x, S.ball.y]]; const tick = () => { let g; for (let k = 0; k < 3; k++) g = roll(ONE, S.ball, 1); S.trail.push([S.ball.x, S.ball.y]); drawMap(); drawSide(); readout(); if (Math.hypot(g.gx, g.gy) > 0.05 && S.trail.length < 900) rollRaf = requestAnimationFrame(tick); }; rollRaf = requestAnimationFrame(tick); }
+// ---- the walk ----
+const STEPS = [
+  { key: 'one', name: 'one ball, one valley', say: 'One valley, one ball. The energy is the probability turned upside down, so the likely images sit low. The ball only ever goes downhill, and that direction is the <i>score</i>, the one thing a diffusion model learns. Click anywhere on the terrain to drop it.' },
+  { key: 'fog', name: 'the fog cools', say: 'Six valleys now, and fog. The fog is noise: at its thickest every valley is smoothed into one bowl, and as it thins the fine terrain shows through, rough to fine. Drag the fog to see the terrain at each strength, then <i>cool</i> three hundred balls from the thickest fog. Do they all end in the deepest valley?' },
+  { key: 'cfg', name: 'lean on the commission', say: 'The commission is <i>a lion</i>. CFG leans on it: it takes how much more the lion terrain pulls than the terrain of all images, and multiplies that by w. The lion valleys deepen and the rest rise into ridges. The dashed outline is a place no valley held. Lean as hard as you like, and count the balls that land there.' },
+  { key: 'cn', name: 'carve a canyon', say: 'ControlNet carves a canyon in that empty place, a narrow channel the terrain never held. Its weight is how rigid the wire is. Soft, and balls drift to the valleys they would have found anyway; iron, and every ball lies in the channel, pinned across it and freer along it. Drag the canyon to move it.' },
+  { key: 'test', name: 'denoise × weight', say: 'The test. The page says the two knobs are one geometry: high denoise lifts the ball into the fog where only a steep canyon survives; low denoise leaves it deep in its valley, where the valley competes evenly with the canyon. The ball starts from the init, in the dog valley. <i>Denoise</i> is how high into the fog it is lifted; <i>weight</i> is how deep the canyon is. The map runs every pair.' },
+];
+const HINTS = { one: 'The arrow is the score at the ball: the steepest way down. The energy only falls; the ball stops where the slope is zero.', fog: 'Grey ticks are each valley’s share of all the images. The fog slider shows the terrain at that strength; a run always starts at the thickest fog, σ 1.6.', cfg: 'Indigo ticks are each valley’s share under the commission alone, w = 1. Above 1, CFG overshoots it.', cn: 'Weight 0 is the bare terrain. The turn slider and a drag on the map both move the canyon; cool again to count.', test: 'Each square of the map is 100 balls carved from the init at that denoise and weight. The outlined square is your knobs; the amber line is where half the balls are caught. Move the canyon and the map redraws.' };
+let at = 0;
+function walk() {
+  STEPS.forEach((s, i) => { const b = document.createElement('button'); b.innerHTML = `${i + 1}<b>${s.name}</b>`; b.onclick = () => go(i); $('rail').appendChild(b); });
+  $('back').onclick = () => go(at - 1); $('next').onclick = () => go(at + 1);
+}
+function go(i) {
+  at = Math.max(0, Math.min(STEPS.length - 1, i)); stop(); cancelAnimationFrame(rollRaf); mapJob++;
+  [...$('rail').children].forEach((b, j) => b.classList.toggle('on', j === at)); $('back').disabled = at === 0; $('next').disabled = at === STEPS.length - 1;
+  const st = STEPS[at]; S.step = st.key; $('say').innerHTML = st.say; $('hint').textContent = HINTS[st.key]; S.result = null; S.balls = []; S.spread = null; $('verdict').classList.add('hidden');
+  const show = (id, on) => $(id).classList.toggle('hidden', !on);
+  show('fogCtl', st.key === 'fog'); show('wCtl', st.key === 'cfg'); show('lamCtl', st.key === 'cn' || st.key === 'test'); show('angCtl', st.key === 'cn'); show('dCtl', st.key === 'test'); show('presetCtl', st.key === 'test'); show('go', st.key !== 'one');
+  $('go').textContent = st.key === 'test' ? '▸ carve from the init' : '▸ cool';
+  if (st.key === 'one') { S.sigma = 0; S.ball = { x: -0.7, y: 0.75 }; rollBall(); }
+  else if (st.key === 'fog') S.sigma = fogSigma();
+  else S.sigma = st.key === 'test' ? sigmaAt(startStep(S.d)) : SMIN;
+  if (st.key === 'test') mapGrid();
+  drawMap(); drawSide(); readout();
+}
+const fogSigma = () => SMIN * Math.pow(SMAX / SMIN, +$('fog').value / 1000);
+function bind() {
+  $('fog').value = Math.round(1000 * Math.log(S.fog / SMIN) / Math.log(SMAX / SMIN)); $('w').value = S.w; $('lam').value = S.lam; $('ang').value = S.ang; $('d').value = S.d;
+  const labels = () => { $('fogVal').textContent = fogSigma().toFixed(3); $('wVal').textContent = (+$('w').value).toFixed(1); $('lamVal').textContent = (+$('lam').value).toFixed(1); $('angVal').textContent = $('ang').value + '°'; $('dVal').textContent = (+$('d').value).toFixed(2); };
+  labels();
+  $('fog').oninput = () => { labels(); if (!S.running) { S.sigma = fogSigma(); drawMap(); readout(); } };
+  $('w').oninput = () => { labels(); S.w = +$('w').value; if (!S.running) { S.result = null; S.balls = []; drawMap(); drawSide(); readout(); $('verdict').classList.add('hidden'); } };
+  $('lam').oninput = () => { labels(); S.lam = +$('lam').value; if (!S.running) { S.result = null; S.balls = []; drawMap(); drawSide(); readout(); if (S.step === 'test') verdict(); else $('verdict').classList.add('hidden'); } };
+  $('ang').oninput = () => { labels(); S.ang = +$('ang').value; S.result = null; S.balls = []; drawMap(); drawSide(); readout(); };
+  $('d').oninput = () => { labels(); S.d = +$('d').value; if (!S.running) { S.sigma = sigmaAt(startStep(S.d)); S.result = null; S.balls = []; drawMap(); drawSide(); readout(); } };
+  $('go').onclick = () => { if (S.step === 'fog') { start(); } else start(); };
+  PRESETS.forEach((p) => { const b = document.createElement('button'); b.textContent = p.name; b.onclick = () => { S.cx = p.x; S.cy = p.y; S.ang = p.ang; $('ang').value = p.ang; labels(); [...$('presets').children].forEach((q) => q.classList.toggle('on', q === b)); S.result = null; S.balls = []; drawMap(); readout(); mapGrid(); }; $('presets').appendChild(b); });
+  $('presets').children[0].classList.add('on');
+  $('mapIt').onclick = () => { S.gridKey = ''; mapGrid(); };
+  const cv = $('map'); let drag = false;
+  const wpt = (e) => { const r = cv.getBoundingClientRect(); return [toWx(r.width, e.clientX - r.left), toWy(r.height, e.clientY - r.top)]; };
+  cv.addEventListener('pointerdown', (e) => { const [x, y] = wpt(e);
+    if (S.step === 'one') { S.ball = { x, y }; rollBall(); return; }
+    if ((S.step === 'cn' || S.step === 'test') && !S.running && Math.hypot(x - S.cx, y - S.cy) < 0.3) { drag = true; cv.setPointerCapture(e.pointerId); } });
+  cv.addEventListener('pointermove', (e) => { if (!drag) return; const [x, y] = wpt(e); S.cx = Math.max(-0.95, Math.min(0.95, x)); S.cy = Math.max(-0.95, Math.min(0.95, y)); S.result = null; S.balls = []; [...$('presets').children].forEach((q) => q.classList.remove('on')); drawMap(); readout(); });
+  cv.addEventListener('pointerup', () => { if (!drag) return; drag = false; drawSide(); if (S.step === 'test') mapGrid(); });
+}
+// after a run in step four, measure the channel
+const _done = done; done = function () { if (S.step === 'cn') S.spread = spreadOf(); _done(); };
+function sigil(a, b) { let d = ''; for (let i = 0; i <= 240; i++) { const t = (i / 240) * 2 * Math.PI; d += (i ? 'L' : 'M') + (8 * Math.sin(a * t + Math.PI / 2)).toFixed(2) + ' ' + (8 * Math.sin(b * t)).toFixed(2); } $('sigil').setAttribute('d', d); }
+sigil(3, 2); walk(); bind(); go(0);
+let rz = 0; new ResizeObserver(() => { clearTimeout(rz); rz = setTimeout(() => { drawMap(); drawSide(); }, 60); }).observe(document.querySelector('.stage'));
+</script>
+</body>
+</html>
