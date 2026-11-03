@@ -29,7 +29,7 @@ links:
   - target: "[[Synthesis Topologies]]"
     type: member-of
     label: the-chord-grows-the-cloud
-forward_vector: "I want to become a working RNBO grain engine where the chord a player holds is a hypothesis the cloud slowly comes to believe — MIDI as Bayesian evidence sculpting a pitch posterior in real time. I want to expose the prior itself as a paintable belief, and to take a stage at Loudon Live."
+forward_vector: "I want to become Belief Cloud, a VST instrument Loudon plays in Live, where the chord a player holds is a hypothesis the cloud slowly comes to believe — MIDI as Bayesian evidence sculpting a pitch posterior in real time, the prior a belief the player paints, and a helix on its screen where you watch the fog condense into the chord. I want to take a stage at Loudon Live."
 ---
 # Bayesian Granular Synthesizer
 
@@ -82,9 +82,7 @@ The session grounded the design in foundational statistics, all braided back to 
 
 ## Artifact
 
-Eight audio renders (V1–V8) across three code generations; **V7/V8 confirmed good.** The V8 synthesis code lives in the source chat (2026-05-08) and could not be retrieved into this deposit — when pulled, store the code in the entry's bundle `[Entry]/` and, if audio examples are wanted in the palace, render V8 and place the files there too.
-
-— progressed: the V8 code was never retrieved. `bayes_engine.js` in the bundle is a reconstruction from this entry's spec (its header says so), and it runs both the offline render (`render_chord_belief.js`) and the playable page (`build_instrument.js`).
+The V8 code from the 2026-05-08 chat was never recovered. The cloud was rebuilt from this spec in October 2026 (bundle: bayes_engine.js, belief-instrument.html). On Loudon's order of 2026-10-21 it is becoming a VST, Belief Cloud: its sketch, C++ port and screen visualizer, the belief helix, live in the bundle's plugin/ folder and match one another sample for sample. They are waiting for VST Template to build plugins inside a steward's bundle.
 
 ---
 
