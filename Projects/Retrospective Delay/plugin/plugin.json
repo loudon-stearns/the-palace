@@ -1,0 +1,30 @@
+{
+  "name": "Retrospective Delay",
+  "target": "RetrospectiveDelay",
+  "company": "Loudon Live",
+  "bundle_id": "com.LoudonLive.RetrospectiveDelay",
+  "manufacturer_code": "Loud",
+  "plugin_code": "Rtrd",
+  "kind": "effect",
+  "version": "0.1.0",
+  "hostcheck": [
+    "gain=1",
+    "lag=quarter",
+    "bpm=240",
+    "dry=0"
+  ],
+  "ui": {
+    "width": 900,
+    "height": 600,
+    "min": [
+      820,
+      520
+    ],
+    "max": [
+      1500,
+      1000
+    ],
+    "direction": "bench",
+    "screen": true
+  }
+}
