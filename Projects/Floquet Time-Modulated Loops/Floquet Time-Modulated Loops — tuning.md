@@ -35,9 +35,19 @@ What Floquet Time-Modulated Loops's steward cycles taught the page, and the chan
 ## From cycle 2 — 2026-11-03
 
 3. Name a render after measuring it, not before: I titled the 2× comb 'octave' from the theory, and it measured as odd harmonics at the same pitch, because the noise chose which pulses fill the slots. *(offered by the steward, cycle 2)*
-4. **Proposed for canon** · 2026-11-03 · [[Floquet Time-Modulated Loops]] · § Stages 2–5 — the development arc, ### Stage 2 — Floquet Comb, a new paragraph after the first · canon change owed *(proposed by the steward, cycle 2)*
+4. **Proposed for canon** · 2026-11-03 · [[Floquet Time-Modulated Loops]] · § Stages 2–5 — the development arc, ### Stage 2 — Floquet Comb, a new paragraph after the first · superseded by item 6 *(proposed by the steward, cycle 2)*
    Why: The Stage 2 sketch predicted tongues and comb peaks that shift, but not where the tongues are or how narrow. Now that is measured, and it changes the instrument's knob design and its cross-domain hook.
    Path: `Projects/Floquet Time-Modulated Loops.md`
    > First proof (2026-11-03, Python, [[Pumped Comb — first proof|the proof note]]): pumping only the loop gain of a dying Karplus-Strong string makes it grow only when the pump runs at a whole-number multiple of the loop rate. The tongues sit at n, not at the resonator's 2/n, and they are a few cents wide, wider for a darker loop filter. Inside a tongue the ring narrows into pulses riding the gain peak, which is active mode-locking, the laser's way of making short pulses: a closer cross-domain hook for this stage than plasma decay. At 2× and 3× the seed noise picks which pulse slots fill, so the same knobs can give different timbres.
 
 - run · 2026-11-03 · cycle 2 · taught item 3, proposed item 4 for canon
+
+## From cycle 3 — 2026-11-03
+
+5. A tongue has two widths, and you have to measure both before setting a knob's range: the narrow range where a ring grows out of noise, and the wider range where a ring that's already loud keeps holding (here ±1.7 versus about ±8 cents). *(offered by the steward, cycle 3)*
+6. **Proposed for canon** · 2026-11-03 · [[Floquet Time-Modulated Loops]] · § Stages 2–5 — the development arc, ### Stage 2 — Floquet Comb, a new paragraph after the first · canon change owed *(proposed by the steward, cycle 3)*
+   Why: Adds what the two-pump proof measured to the Stage 2 sketch, and corrects the tongue width to its two meanings.
+   Path: `Projects/Floquet Time-Modulated Loops.md`
+   > First proofs (2026-11-03, Python and the browser; [[Pumped Comb — first proof|the first note]], [[Pumped Comb — two pumps|the two-pump note]]): pumping only the loop gain of a dying Karplus-Strong string makes it grow only when the pump runs at a whole-number multiple of the loop rate. The tongues sit at n, not at the resonator's 2/n. A ring grows out of noise only within a few cents, though a ring that's already loud keeps holding to about ±8 cents without following the pump. Inside a tongue the ring narrows into pulses riding the gain peak. That is active mode-locking, the laser's way of making short pulses, and a closer cross-domain hook for this stage than plasma decay. Add a length pump and the two together make a sustained tone with partials between the harmonics, which neither makes alone. It survives deep length wobble only when the length rate is a whole number (or a half) times the loop rate, so the pulse meets the gain peak each pass. At stray rates the tone dies.
+
+- run · 2026-11-03 · cycle 3 · taught item 5, proposed item 6 for canon
