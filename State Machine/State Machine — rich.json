@@ -63,6 +63,17 @@
         "by": "maker · claude-opus-5-5 · proposal round",
         "round": "proposal-round-2026-11"
       },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "State Machine — rich — four problems.html",
+            "verdict": "remake",
+            "why": "A real test that walks up well and runs clean, but two of its own readouts are wrong in places: the ambiguous bug is not inaudible above its floor (248.1–249.3 Hz both exits open on one sample, go = 2, the rise is skipped, 319.7 Hz, +435 c), and the silent line at τ = 0.1 ms is measured from rest (from rest it plays from 317.5 Hz; turned down while running it keeps sounding to 176.5 Hz). Name the band in the ambiguous verdict and add 248.5 Hz to checks.mjs; label the silent readout \"from rest\"."
+          }
+        ]
+      },
       "made": "2026-11-03",
       "pieces": [
         {
@@ -86,6 +97,17 @@
         "date": "2026-11-03",
         "by": "maker · claude-opus-5-5 · proposal round",
         "round": "proposal-round-2026-11"
+      },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "/Projects/Action Potential Oscillator/codebox-vs-faust.png",
+            "verdict": "keep",
+            "why": "A real test of the third question (6.0e-8 apart, synchrony identical), tracked and loading. Caption note: end \"the same music\" with \"at the same precision\", since against Faust single precision the samples part after 9 ms (scroll.md:206)."
+          }
+        ]
       },
       "made": "2026-11-03",
       "pieces": [
