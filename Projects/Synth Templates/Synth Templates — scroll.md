@@ -47,6 +47,13 @@ Where this is going: a website generated from the cards, a catalog to choose fro
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="synth-templates-2026-11-03-moog-decay-heard" -->
+### 2026-11-03 — The Moog time table heard as decay; release taken as the same (Loudon)
+
+Loudon sat the Moog `time` table as decay on the site and exported it. Three rungs moved up from the attack sitting: instant 0.001 → 0.00488 s, short 0.0499 → 0.0986, medium 0.336 → 0.575; fast, slow, long, very slow and very long stayed where the attack sitting put them. He did not sit release; his words: "I feel that decay and release are the same." The table keeps one number per word, so these numbers now stand for each word on every stage, attack included, which means the attack rungs he sat yesterday at the fast end are now a little longer than he heard them. `workshop/vocabulary.yaml` is draft 0.6, the table's comment carrying both dates and his quote; the linear table is unchanged; site rebuilt.
+
+_Left rough:_ the question the 2026-11-02 entry raised is now answered in the direction it feared: a short decay wants more time than a short attack, and with one number per word the decay sitting wins. Whether the words split by stage (`time_attack`, `time_decay`) or the attack learns to live with the decay's numbers is Loudon's call; the linear table has only its attack sitting and no decay.
+<!-- /scroll:entry -->
 <!-- scroll:entry id="synth-templates-2026-11-02-linear-matched" -->
 ### 2026-11-02 — Second sitting: the linear table matched by ear to the Moog table (Loudon)
 

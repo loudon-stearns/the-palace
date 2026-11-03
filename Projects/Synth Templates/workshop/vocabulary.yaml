@@ -1,4 +1,4 @@
-# Synth Templates — range vocabulary, draft 0.5. A table marked HEARD was sat by Loudon by ear on the site's vocabulary page; the rest are ASSUMED (numbers set by reasoning). Move 1 of the plan earns them table by table.
+# Synth Templates — range vocabulary, draft 0.6. A table marked HEARD was sat by Loudon by ear on the site's vocabulary page; the rest are ASSUMED (numbers set by reasoning). Move 1 of the plan earns them table by table.
 # The cards speak in these words. This file says what each word means to the reference voice. One word, one meaning, everywhere.
 # Sources for the word list: the archetype registry's perceptual regions (Generative Audio Devices) and Loudon's synthesis notes.
 #
@@ -10,11 +10,11 @@
 #   Sources: the Minimoog Model D service manual (contour generator, Board 2: RC envelope with variable attack, decay, sustain);
 #   AJH MiniMod DH-ADSR manual (circuit identical to the Model D contour generator): the attack "rises in an exponential manner,
 #   i.e. more quickly at first and then more slowly as it gets towards maximum level … the DECAY … again follows an exponential curve".
-time:            # envelope stages, seconds, on the MOOG curve (the standard) — HEARD as attack 2026-11-02 (Loudon, on the site's Moog-curve voice; time = the 95% point); second sitting the same day, re-sat alongside the linear match; decay and release roles not yet sat
-  instant: 0.001
+time:            # envelope stages, seconds, on the MOOG curve (the standard) — HEARD 2026-11-02 as attack and 2026-11-03 as decay (Loudon; time = the 95% point). The decay sitting moved three rungs up from the attack sitting (instant 0.001 → 0.00488, short 0.0499 → 0.0986, medium 0.336 → 0.575) and the table holds one number per word, so these are the words' meanings for every stage. Release not sat separately: "I feel that decay and release are the same" (Loudon, 2026-11-03).
+  instant: 0.00488
   fast: 0.0154
-  short: 0.0499
-  medium: 0.336
+  short: 0.0986
+  medium: 0.575
   slow: 1.41
   long: 3.16
   very slow: 4.18
