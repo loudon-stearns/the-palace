@@ -31,3 +31,13 @@ What Floquet Time-Modulated Loops's steward cycles taught the page, and the chan
    >   — progressed (2026-11-03): heard three ways to stop the growth: the build's state clip with tanh, damping that grows with the ring's energy, and a stiffening spring. All three hold the pitch at exactly half the pump, because the tongue locks it. They differ in overtones: tanh's odd harmonics land on the Floquet ladder's own frequencies and hide it, while energy-dependent damping leaves the ladder as the linear theory makes it ([[Mathieu Resonator — offline check|the offline check]]).
 
 - run · 2026-11-03 · cycle 1 · taught item 1, proposed item 2 for canon
+
+## From cycle 2 — 2026-11-03
+
+3. Name a render after measuring it, not before: I titled the 2× comb 'octave' from the theory, and it measured as odd harmonics at the same pitch, because the noise chose which pulses fill the slots. *(offered by the steward, cycle 2)*
+4. **Proposed for canon** · 2026-11-03 · [[Floquet Time-Modulated Loops]] · § Stages 2–5 — the development arc, ### Stage 2 — Floquet Comb, a new paragraph after the first · canon change owed *(proposed by the steward, cycle 2)*
+   Why: The Stage 2 sketch predicted tongues and comb peaks that shift, but not where the tongues are or how narrow. Now that is measured, and it changes the instrument's knob design and its cross-domain hook.
+   Path: `Projects/Floquet Time-Modulated Loops.md`
+   > First proof (2026-11-03, Python, [[Pumped Comb — first proof|the proof note]]): pumping only the loop gain of a dying Karplus-Strong string makes it grow only when the pump runs at a whole-number multiple of the loop rate. The tongues sit at n, not at the resonator's 2/n, and they are a few cents wide, wider for a darker loop filter. Inside a tongue the ring narrows into pulses riding the gain peak, which is active mode-locking, the laser's way of making short pulses: a closer cross-domain hook for this stage than plasma decay. At 2× and 3× the seed noise picks which pulse slots fill, so the same knobs can give different timbres.
+
+- run · 2026-11-03 · cycle 2 · taught item 3, proposed item 4 for canon

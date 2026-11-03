@@ -15,25 +15,25 @@ forward_vector: "I am Floquet Time-Modulated Loops's scroll — the one page tha
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-11-03T23:34:08.128Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-11-03T23:39:26.829Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** growing · **Steward:** cycle 1 · last ran 2026-11-03 (today)
-- **Plan:** agreed 2026-09-26 (38 days ago) · 2 made things since
+- **Status:** active · **Stage:** growing · **Steward:** cycle 2 · last ran 2026-11-03 (today)
+- **Plan:** agreed 2026-09-26 (38 days ago) · 3 made things since
 - **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-11-03 (today) — The pumped resonator should crack out of silence. Which way of stopping its growth sounds right to you: build, gentle or stiff? (`floquet-steward-003`)
-- **Last commit touching this project:** 2026-11-03 `3a6c437a` — edit(Loudon Live Design System): the browser's furniture fan-out, batch 2 of 5: Projects, D to P (98 pages)
+- **Last shipped:** 2026-11-03 (today) — I built the pumped comb in Python: a dying string that pumping brings back as a buzz, only at whole-number pump rates, and only a few cents wide. (`floquet-steward-005`)
+- **Last commit touching this project:** 2026-11-03 `77d8d360` — steward(Floquet Time-Modulated Loops): cycle 1 — SPINNING UP. HOME: [Floquet Time-Modulated Loops](obsidian://open?vault…
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
-- **Runs:** 1 run on 1 day, counted from the ledger's run lines
-- **Last run:** 2026-11-03 — cycle 1 · taught item 1, proposed item 2 for canon
+- **Runs:** 2 runs on 1 day, counted from the ledger's run lines
+- **Last run:** 2026-11-03 — cycle 2 · taught item 3, proposed item 4 for canon
 - **Owed in the ledger:** nothing
-- **Proposed for canon:** 1 — item 2; waiting on Loudon's review, and the page has not changed
-- **Latest lesson:** item 2, from cycle 1 — 2026-11-03 — [[Floquet Time-Modulated Loops — tuning]]
+- **Proposed for canon:** 2 — items 2, 4; waiting on Loudon's review, and the page has not changed
+- **Latest lesson:** item 4, from cycle 2 — 2026-11-03 — [[Floquet Time-Modulated Loops — tuning]]
 
 ### Where this stands
 
-Floquet Time-Modulated Loops shows that the 'nothing changes over time' assumption under almost every audio loop is a choice. The first instrument is a resonator whose tuning gets pumped at twice its pitch. Push hard enough and it cracks out of silence into ringing. That is the Mathieu equation, written as an RNBO codebox. The codebox, a Python reference and twenty teaching pieces were built in April. Nobody ever checked the codebox against the reference, and the build made two choices on its own that you haven't ruled on. One is a little damping, so there's a threshold to cross. The other is a clip on the internal state, so it never blows up. The first step of the plan is to finish both. M…
+Floquet Time-Modulated Loops shows that the 'nothing changes over time' assumption under almost every audio loop is a choice. The first instrument, a resonator that cracks into ringing when its tuning is pumped, is built and checked offline. It's waiting on you to pick how it stops growing: the build's clip, gentle energy damping, or a stiffening spring. That card is still open. The next instrument on the plan is a pumped comb: a Karplus-Strong string whose loop gain and loop length are each modulated. With Max paused, this cycle built it in Python and measured it. Pumping the gain at exactly 1×, 2× or 3× the string's own rate brings a dying string back as a held buzz made of pulses. Off th…
 
 ### Open asks
 
@@ -49,6 +49,7 @@ _Nothing decided on the board yet._
 
 ### Runs
 
+- 2026-11-03 — cycle 2 · taught item 3, proposed item 4 for canon
 - 2026-11-03 — cycle 1 · taught item 1, proposed item 2 for canon
 
 ### Owed
@@ -60,6 +61,7 @@ _Nothing owed._
 _Changes the steward wants in the house, kept in its tuning ledger until Loudon's review. Its cycles work as if they hold; the pages have not changed._
 
 - **2.** 2026-11-03 · [[Floquet Time-Modulated Loops]] · § Open Questions, the bullet 'Does the tanh saturation in Stage 1 distort the Strutt picture?', a new progressed line after the existing one — The open question asked whether a different saturation is the right sound; now there is a measured, audible answer to choose from.
+- **4.** 2026-11-03 · [[Floquet Time-Modulated Loops]] · § Stages 2–5 — the development arc, ### Stage 2 — Floquet Comb, a new paragraph after the first — The Stage 2 sketch predicted tongues and comb peaks that shift, but not where the tongues are or how narrow. Now that is measured, and it changes the instrument's knob design and its cross-domain hook.
 
 <!-- scroll:now:end -->
 
@@ -88,6 +90,55 @@ _Loudon's standing direction for this project. The steward reads this zone every
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="floquet-steward-005" -->
+### 2026-11-03 — cycle 2 — I built the pumped comb in Python: a dying string that pumping brings back as a buzz, only at whole-number pump rates, and only a few cents wide.
+> shipped · comb proof measured, five renders, unheard · steward leans keep building the comb while you pick the saturation
+
+The string has a loop gain of 0.98, so every ring dies on its own. Then I pumped the gain: g = 0.98·(1 + ε cos). I mapped where a ring grows from noise over pump rates from 0.4× to 3.6× the loop rate and depths up to 0.25. **The comb's tongues sit at whole numbers.** At 1×, 2× and 3×, growth starts once ε passes 0.025, which is just where the pump's peak lifts the loop above unity. Between them, nothing grows: −38.8 dB/s at best, against −39.9 unpumped. The resonator's tongues sit at 2/n and are about 10% wide. These are hair-thin: ±1.7 cents at ε 0.2 for plain Karplus-Strong. A darker loop filter lets the pump pull the pulse further, so the lock widens: ±9.5 cents at the same depth with a 16th-order smoother. **Inside a tongue the string becomes a train of pulses riding the gain peak.** That is active mode-locking, the way a laser with a modulated cavity makes short pulses, and I think it's a better cross-domain hook for this instrument than plasma decay. **At 2× and 3× the noise decides the timbre.** There are that many pulse slots per trip, and the seed noise picks which slots fill and with which sign. One 3× run filled all three equally, so only every third harmonic sounds and the pitch jumps a twelfth. Another came out mixed. One 2× run settled on equal opposite pulses, leaving odd harmonics only: the resonator's period-doubling case, now on a string. **Pumping the delay length instead adds partials but doesn't make anything grow.** At 1.5× it puts new partials halfway between the harmonics, at −39 to −46 dB where the unpumped string has nothing. The full account and rebuild command are in [the proof note](obsidian://open?vault=The%20Palace&file=Projects/Floquet%20Time-Modulated%20Loops/comb/Pumped%20Comb%20%E2%80%94%20first%20proof.md).
+
+**Artifacts:**
+- [The tongue map (orange spikes at 1×, 2×, 3×), lock width against filter darkness, and three pulse patterns the noise chose.](Projects/Floquet Time-Modulated Loops/comb/comb_tongues.png)
+- [1×: the pump ramps up over 8 s, and the dead string cracks into a held buzz at about 3.2 s.](Projects/Floquet Time-Modulated Loops/comb/comb_a_ratio1_crack.wav)
+- [2×: same ramp. The noise chose opposite pulses, so it's a hollow, odd-harmonics-only buzz at the same pitch.](Projects/Floquet Time-Modulated Loops/comb/comb_b_ratio2_hollow.wav)
+- [Pump held at 0.2 while its rate glides 0.99 → 1.01×: sound only as it passes through the lock.](Projects/Floquet Time-Modulated Loops/comb/comb_c_glide_through_lock.wav)
+- [A pluck, 2 s plain, then 2 s with its length pumped at 1.5×: new partials between the harmonics.](Projects/Floquet Time-Modulated Loops/comb/comb_d_length_pumped_pluck.wav)
+- [3×, same knobs, four noise seeds: three different strings. The second is pure, a twelfth up.](Projects/Floquet Time-Modulated Loops/comb/comb_e_three_slots_four_seeds.wav)
+- [What was measured, what each render is, what's left open, and the signal flow for the Max build.](Projects/Floquet Time-Modulated Loops/comb/Pumped Comb — first proof.md)
+- [Tongue map: growth from noise over pump rate × depth.](Projects/Floquet Time-Modulated Loops/comb/comb_tongues.py)
+- [Lock width against loop-filter order.](Projects/Floquet Time-Modulated Loops/comb/comb_filter_width.py)
+- [The five audition renders and their measurements.](Projects/Floquet Time-Modulated Loops/comb/comb_render.py)
+- [3× pump across four noise seeds.](Projects/Floquet Time-Modulated Loops/comb/comb_patterns.py)
+- [Draws the figure from the saved measurements.](Projects/Floquet Time-Modulated Loops/comb/comb_figure.py)
+- [Thresholds and lock ranges.](Projects/Floquet Time-Modulated Loops/comb/comb_tongues.json)
+- [The tongue-map grid data.](Projects/Floquet Time-Modulated Loops/comb/comb_tongues.npz)
+- [Lock widths per filter order.](Projects/Floquet Time-Modulated Loops/comb/comb_filter_width.json)
+- [Crack times, pitches, harmonic levels.](Projects/Floquet Time-Modulated Loops/comb/comb_render.json)
+- [Harmonic levels per seed at 3×.](Projects/Floquet Time-Modulated Loops/comb/comb_patterns.json)
+- [The last two trips of each seed, for the figure.](Projects/Floquet Time-Modulated Loops/comb/comb_patterns_trips.npy)
+
+_Lock half-width in cents (pump at 1× the loop rate) · loop gain 0.98 · f₀ ≈ 220 Hz_
+| loop filter | ε 0.05 | ε 0.1 | ε 0.2 | ε 0.4 |
+| --- | --- | --- | --- | --- |
+| Karplus-Strong (order 1) | 0.9 | 0.9 | 1.7 | 3.5 |
+| order 4 | 1.7 | 2.6 | 4.3 | 6.1 |
+| order 16 (dark) | 2.6 | 5.2 | 9.5 | 13.0 |
+
+_Changed in the workshop:_ Pumped Comb — first proof — New workshop note: the pumped comb's first measured proof, its renders, and what the Max build will need.
+_Proposed for canon:_ Floquet Time-Modulated Loops (§ Stages 2–5 — the development arc, ### Stage 2 — Floquet Comb, a new paragraph after the first) — The Stage 2 sketch predicted tongues and comb peaks that shift, but not where the tongues are or how narrow. Now that is measured, and it changes the instrument's knob design and its cross-domain hook.; owed in the tuning ledger until Loudon's review
+
+_Left rough:_ Nobody has heard the comb renders yet. I checked the seed dependence over only four seeds and runs of a few seconds, so I don't know whether a mixed pulse pattern evens out over longer runs. The narrowest lock widths sit near the edge of what the measurement can resolve. And the gain and length pumps haven't been run together yet.
+
+_Next moves named:_ Run both pumps at once, gain and length on separate rates (the plan's three-clock comb), and map where the two kinds of tongue cross. · Measure whether a mixed pulse pattern at 2× or 3× settles into an even one over 30 s, and whether a nudge can flip it (the seed of the time-crystal stage). · When Max reopens: the signal flow and parameters are written at the end of the proof note. The pump-ratio knob needs a fine control in cents near the whole numbers.
+<sub>`floquet-steward-005` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-0b50f19496" -->
+### 2026-11-03 — cycle 2
+
+taught item 3, proposed item 4 for canon
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="floquet-steward-003" -->
 ### 2026-11-03 — cycle 1 — The pumped resonator should crack out of silence. Which way of stopping its growth sounds right to you: build, gentle or stiff?
 > still working · damping 0.025 fits the lesson · steward leans GENTLE

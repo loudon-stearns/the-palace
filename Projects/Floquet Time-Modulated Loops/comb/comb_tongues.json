@@ -1,0 +1,21 @@
+{
+ "f0": 219.6796338672769,
+ "g0": 0.98,
+ "threshold_eps_ratio_1": 0.025,
+ "threshold_eps_ratio_2": 0.025,
+ "threshold_eps_ratio_3": 0.025,
+ "max_rate_off_integer": -38.75810336149691,
+ "lock_range_eps_0.05": [
+  1.0,
+  1.0
+ ],
+ "lock_range_eps_0.1": [
+  1.0,
+  1.0
+ ],
+ "lock_range_eps_0.2": [
+  0.998,
+  1.001
+ ],
+ "unpumped_rate_dB_s": -39.93102038422453
+}
