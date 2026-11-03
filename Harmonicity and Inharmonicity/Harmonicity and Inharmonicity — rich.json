@@ -72,7 +72,18 @@
         }
       ],
       "made_against": "af19f88107c8",
-      "stamped": "2026-11-03"
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Harmonicity and Inharmonicity — rich — frustration.html",
+            "verdict": "keep",
+            "why": "A real test that walks up: one phase alone, one voice, six that agree under a push, a stretch that sags 0.54 Hz and holds, then the edge found blind. The model is edgemap.py's run() line for line, and its revealed edges match an independent Python run (1.68–1.78e-3, 2.11–2.24e-3)."
+          }
+        ]
+      }
     },
     {
       "heading": "The Asymmetry",
@@ -102,7 +113,23 @@
         }
       ],
       "made_against": "4735c28ea322",
-      "stamped": "2026-11-03"
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "proofs/2026-10-17-frustration-sweeps/frustration-five-scenes.m4a",
+            "verdict": "keep",
+            "why": "The right evidence beside the asymmetry: scene 5's heavy master holds within 0.8 Hz where the light tone is dragged 18 Hz flat. The caption matches the scroll and says honestly there is no tone-alone take."
+          },
+          {
+            "file": "proofs/2026-10-17-frustration-sweeps/frustration-fundamental.png",
+            "verdict": "keep",
+            "why": "The pulse through the five scenes; the caption says only what the plot shows."
+          }
+        ]
+      }
     },
     {
       "heading": "What the Sweeps Showed",
@@ -166,7 +193,43 @@
         }
       ],
       "made_against": "78d63f21718a",
-      "stamped": "2026-11-03"
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "proofs/2026-10-17-frustration-sweeps/sweep4x-singer-alone.m4a",
+            "verdict": "keep",
+            "why": "The five places in one take, tone alone first; the edge time and B match sweep4x-report.json (13.48 s, 1.72e-5)."
+          },
+          {
+            "file": "Harmonicity and Inharmonicity — rich — six against forty.html",
+            "verdict": "remake",
+            "why": "A real test with a good walk up, and its disagreements with the text are honest offers. But step 2's tryText says the 6 Hz line marks where every partial would need more than one voice's reach: false on the model (lone reach 12 Hz; at B 1e-5, 18 partials bite past 6 Hz but only 8 voices let go). Drop or relabel the line, and in step 3 say 'up to about 17 Hz near the top' (partial 40 sits 12.2 Hz off)."
+          },
+          {
+            "file": "proofs/2026-10-17-frustration-sweeps/edgemap.png",
+            "verdict": "keep",
+            "why": "The map the sweeps were read against, K = 6 first tears read correctly. Note: 'reproduces' is a little strong, since forty's first tear lands one cell later in the check."
+          },
+          {
+            "file": "proofs/2026-10-17-frustration-sweeps/sweep-singer-alone.m4a",
+            "verdict": "keep",
+            "why": "Six partials, the bargain then the snap; 107.3 Hz and 40.75 s at B 0.0022 match sweep-report.json."
+          },
+          {
+            "file": "proofs/2026-10-17-frustration-sweeps/sweep40-singer-alone.m4a",
+            "verdict": "keep",
+            "why": "Forty partials, the fray; the edge at about 42 s and B 1.7e-5 matches sweep40-report.json. Beside the six-partial sweep it is the sentence 'few snap, many fray'."
+          },
+          {
+            "file": "proofs/2026-10-17-frustration-sweeps/sweeppin-singer-alone.m4a",
+            "verdict": "keep",
+            "why": "Pinned stretch, string to bar and periodic again, beside the sentence it is evidence for; the ratios match the scroll."
+          }
+        ]
+      }
     },
     {
       "heading": "Open Questions",
@@ -204,7 +267,28 @@
         }
       ],
       "made_against": "1a636f436e46",
-      "stamped": "2026-11-03"
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "proofs/2026-10-17-frustration-sweeps/ride-breathe-warm-alone.m4a",
+            "verdict": "keep",
+            "why": "Breathing across the edge, the first of the three plays the answer names; its timings match the scroll."
+          },
+          {
+            "file": "proofs/2026-10-17-frustration-sweeps/gestures-warm-alone.m4a",
+            "verdict": "keep",
+            "why": "Striking past and stepping through, the other two plays; its timings match the scroll."
+          },
+          {
+            "file": "proofs/2026-10-17-frustration-sweeps/ride-coupling-warm-alone.m4a",
+            "verdict": "keep",
+            "why": "'More coupling pushes it out', heard: at a fixed stretch, coupling alone decides lock or tear."
+          }
+        ]
+      }
     }
   ]
 }
