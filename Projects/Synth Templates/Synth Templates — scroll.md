@@ -47,6 +47,20 @@ Where this is going: a website generated from the cards, a catalog to choose fro
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="synth-templates-2026-11-03-finish-well" -->
+### 2026-11-03 — The finish-well pass: renders normalised, the stale cause rewritten, two cards reworded, the wordless eleven listed
+
+Loudon: "don't get sidetracked completely, make sure we are finishing our current work well, but know this is an eventual goal. use sub agents to preserve your context." So, before the next thing: `render-refs.mjs` normalises a render on write past −1 dBFS (28 scaled, the largest brass-pad at −6.17 dB, `normalised_db` per render in the manifest); `render-features.py` no longer flags a scaled render for its peak alone, and its stale "playDemo holds a chord 3.5 beats" cause is rewritten to quote the pattern the cue reader could not fully read; two cards now say their filter 2 cutoff and resonance in real words instead of "same as filter1" (serial-extreme-48-db, serial-notch-vs-band-pass-tug; re-validated, re-rendered); `workshop/_swarm/WORDLESS-2026-11-03.md` lists the eleven cards whose word is right while the voice reads the wrong table, with the voice fix each needs. Sanity flags 74 → 56: clipping 28 → 10, vocab 13 → 11, length 35 and silent 7 unchanged.
+
+_Left rough:_ the eleven wordless cards wait on their voice fixes; the seven silent cards on the routing decision.
+<!-- /scroll:entry -->
+<!-- scroll:entry id="synth-templates-2026-11-03-comparison-page" -->
+### 2026-11-03 — Plan move 5: the comparison page (Loudon: "Yes, comparison page")
+
+Asked whether to build the comparison page on the site first, as the plugin's proving ground, Loudon: "Yes, comparison page." `build-site.py` now also writes `site/compare.js`: an analyser with the same features as `render-features.py`, matched to the Python numbers on house-bass and supersaw-pad to within rounding, an FFT and a log-frequency spectrogram on canvas. Every card page gets Compare yours under Listening: Render ours renders the default pattern offline in the browser with the same voice (OfflineAudioContext, compressor on, then the live context handed back so the keys still work), measures it, draws its spectrogram and plays it; Yours takes a WAV by choose or drop, or records the input for `length_s` + 2 s after a 3-2-1 count; both trimmed at −50 dBFS; the report grades only the essentials, in the card's words, card / ours / yours / verdict, the verdict naming the block and parameter to move; peak, RMS and crest differences in dB as measurements, not grades; then the one question, "How does it sound to you beside ours?", with a notes box saved per card in the browser. Compared by feature and by ear, never by null test ([[Audition Gate]]). Checked in the browser: on House Bass with an acid-bass render dropped in as "yours", it read saw against square, high against moderate resonance, a slower filter attack, and matched the amp attack; the live context came back and the page played after. The record path is not yet tried with a real input.
+
+_Left rough, the eventual goal in his words:_ "a custom VST that is designed to TEACH synthesis through these presets and challenges students to re-create the patch in their own plugins and compare the output to ours … an audio effect that receives the output of another VST and assess how well they re-created the preset." This page is its proving ground; the plugin is the same comparator with a MIDI output and an audio input. Not on the plan yet, by his own word not to get sidetracked.
+<!-- /scroll:entry -->
 <!-- scroll:entry id="synth-templates-2026-11-03-voice-fixes" -->
 ### 2026-11-03 — The two voice fixes: the pattern honoured, chords scaled (Loudon: "Yes, fix both")
 
