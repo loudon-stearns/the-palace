@@ -61,7 +61,28 @@
         }
       ],
       "made_against": "4b64e74e0e0d",
-      "stamped": "2026-11-03"
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Three Kinds of Warp — rich — obstruction.html",
+            "verdict": "keep",
+            "why": "Steps 1–4 cannot move by construction (the wrap comes first, which the piece says), but step 4 tests the scope and step 5 the hypothesis, and it walks up clean. Note for the text, not the piece: Serum’s FM/AM from B warps are cross-oscillator and break the period (new offer in the challenge record)."
+          },
+          {
+            "file": "/Projects/2D Torus Wavetable Synthesizer/Hopf/hands_tour_penrose.png",
+            "verdict": "keep",
+            "why": "The theorem in the instrument; the caption’s 100 % under every hand matches the steward’s table (scroll:818–824)."
+          },
+          {
+            "file": "/Projects/2D Torus Wavetable Synthesizer/Hopf/hands_tour_penrose.wav",
+            "verdict": "keep",
+            "why": "The sound of the figure; the caption says plainly it was never listened to (scroll:827)."
+          }
+        ]
+      }
     },
     {
       "heading": "The typology",
@@ -84,7 +105,18 @@
         }
       ],
       "made_against": "b8674a6a015a",
-      "stamped": "2026-11-03"
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Three Kinds of Warp — rich — typology.html",
+            "verdict": "remake",
+            "why": "A real test (every line on m·ρ1 + n·ρ2 to 0.00015 Hz, recomputed independently), but step 4 and the caption state offer 1 as fact. Add one clause to each, ‘the page says the lattice bends; this step measures that it moves (the open offer)’, and make step 2’s ‘Every per-axis warp lives here’ read ‘a per-axis warp at this ratio stays harmonic’."
+          }
+        ]
+      }
     },
     {
       "heading": "Where piano-style stretching lives",
@@ -108,7 +140,18 @@
         }
       ],
       "made_against": "a9068d7adcc1",
-      "stamped": "2026-11-03"
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Three Kinds of Warp — rich — piano.html",
+            "verdict": "keep",
+            "why": "Reads the committed surface (loads as committed headless), names the text’s claim and points to the offer, test last. Taste note: ‘type 1’ in step 3 is the offer’s label; a row is a one-cycle table, not a warp."
+          }
+        ]
+      }
     },
     {
       "heading": "Cross-Domain Resonance",
@@ -144,7 +187,28 @@
         }
       ],
       "made_against": "33bf6b2ef137",
-      "stamped": "2026-11-03"
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "/Projects/2D Torus Wavetable Synthesizer/Auditions/cycle-7/penrose_kuramoto_three_regimes.wav",
+            "verdict": "keep",
+            "why": "Type 3 heard under its bullet; same ψ = bφ2 − aφ1 as kuramoto_scan.py:15 and the piece."
+          },
+          {
+            "file": "/Projects/2D Torus Wavetable Synthesizer/Auditions/cycle-7/penrose_kuramoto_ramp.png",
+            "verdict": "keep",
+            "why": "K* = 0.80 Hz matches the steward (scroll:837) and the maker’s 3 : 2 check; the 1.59 Hz ceiling unchecked."
+          },
+          {
+            "file": "/Projects/2D Torus Wavetable Synthesizer/Auditions/cycle-7/penrose_kuramoto_ramp.wav",
+            "verdict": "keep",
+            "why": "The ramp heard; unlistened, and the caption says so."
+          }
+        ]
+      }
     }
   ],
   "offers": [
