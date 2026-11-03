@@ -1,0 +1,181 @@
+{
+  "title": "Exponential Decay Curvature — rich",
+  "born": "2026-11-03",
+  "links": [
+    {
+      "target": "[[Exponential Decay Curvature]]",
+      "type": "connects-to",
+      "label": "rich-face-of"
+    },
+    {
+      "target": "[[Enrichment]]",
+      "type": "connects-to",
+      "label": "made-by"
+    },
+    {
+      "target": "[[Progressive Staging]]",
+      "type": "connects-to",
+      "label": "the-test-is-the-last-step"
+    },
+    {
+      "target": "[[Dissolutions]]",
+      "type": "connects-to",
+      "label": "the-seam-lives-there"
+    }
+  ],
+  "forward_vector": "I am the manifest of Exponential Decay Curvature's rich face, its first round at Sketch tier, a proposal: four walks up to four tests — where the closed form fails at the straight line and the Taylor branch saves it, what curvature does to an oscillator's harmonics and its aliasing, which member of the family a Moog stage is, and a blind trial of the corner as the heard jump — and one gathered card, each at the paragraph it tests, with the fingerprint of the words they were laid against. The envelope-to-pitch seam is Dissolutions' piece, not mine. I never hold the entry's words.",
+  "entry": "Exponential Decay Curvature",
+  "tier": "sketch",
+  "made": "2026-11-03",
+  "round": 1,
+  "offers": [
+    {
+      "section": "The straight line is the hard case",
+      "kind": "claim-change",
+      "status": "open",
+      "what": "The piece measured where the closed form fails, and the failure is sharper than 'near zero … clicks'. In 64-bit arithmetic, passing through zero is clean (a sweep of ±4 at 0.25 Hz through 8 crossings: 0 bad samples; 100 crossings at random phase: worst error 7e-11); only |c| below about 3 × 10^−14 goes wrong, and below about 10^−16 it is 0 ÷ 0. In 32-bit, as most plugins compute, |c| below about 3 × 10^−5 is off by more than 0.001 and below about 3 × 10^−8 is 0 ÷ 0; a slow sweep (±1 at 0.05 Hz) reached an error of 0.18 at a crossing. In both, a knob smoothed toward 0 gives 0 ÷ 0 on every sample after 0.36 s (32-bit) or 0.76 s (64-bit): a dropout for as long as it rests, then a click when it leaves. With the second-order Taylor branch below |c| = 0.001: no bad sample in any of these. Proposed: 'Evaluating the closed form at zero curvature, or within about 10^−5 of it in the 32-bit arithmetic most plugins use, divides by a vanishing denominator: a knob resting on the straight line gives 0 ÷ 0 for as long as it rests, and a slow pass through zero in 32-bit can click.'"
+    },
+    {
+      "section": "Audio-rate feasibility — and the dissolution",
+      "kind": "claim-change",
+      "status": "open",
+      "what": "The wave's harmonic levels are 1 ÷ √(c² + (2πn)²), the same for c and −c: the concave member is the convex one turned half round, f(t, −c) = 1 − f(1 − t, c) (checked to 3e−15; harmonic levels measured from each wave agree to 1e−13 dB). So as a steady tone, the size of the curvature sets the harmonic levels and its sign changes only the phases. Proposed, for 'a decaying-exponential wave whose timbre is set by curvature': '… whose harmonic levels are set by the size of the curvature; its sign turns the wave half round and moves only the phases.' Whether an ear hears the sign at low pitches is untested here; the nearest precedent is Patterson's ramped and damped sinusoids (JASA 96:1419, 1994), a different sound."
+    },
+    {
+      "section": "Audio-rate feasibility — and the dissolution",
+      "kind": "claim-change",
+      "status": "open",
+      "what": "Measured from the piece's engine at 1760 Hz, 48 kHz, as folded power against harmonic power: every member jumps from 0 back to 1 at the reset, so at curvature 0 the wave is a sawtooth and aliases like one (naive −13.3 dB, PolyBLEP −28.9). What grows with |curvature| is a corner in slope at the reset, exactly −c in size: at c = 60 naive is −1.7 dB, PolyBLEP leaves −9.5, PolyBLEP + PolyBLAMP −18.2, and 4× oversampling (with both, a 128-tap filter) −53.4. Proposed, for 'large |curvature| sharpens the waveform and aliases, so PolyBLEP or oversampling applies exactly as it would to any steep oscillator': 'every member jumps at the reset as a sawtooth does, so PolyBLEP applies at any curvature; large |curvature| adds a corner in slope as big as the curvature, which PolyBLEP leaves, and PolyBLAMP or oversampling takes it.'"
+    },
+    {
+      "section": "Cross-Domain Resonance",
+      "kind": "claim-change",
+      "status": "open",
+      "what": "Follows from the sign finding above: the carrier 'morphs from convex spike to linear saw to concave swell' in shape, but in harmonic levels a sweep from +c to −c goes bright, to sawtooth, to bright again, the same levels at ±c. Proposed: keep the shapes and add 'its harmonics brighten with the size of the curvature, either way from the sawtooth at zero'."
+    },
+    {
+      "section": "The curve in a synthesizer: the Moog contour",
+      "kind": "no-claim-edit",
+      "status": "open",
+      "what": "The decay is written 's + e^{−t/RC}', which starts at s + 1 rather than at the peak. With the peak at 1 it is s + (1 − s)e^{−t/RC}; the piece's decay follows that to 1.6e−13."
+    },
+    {
+      "section": "The curve in a synthesizer: the Moog contour",
+      "kind": "claim-change",
+      "status": "open",
+      "what": "The piece names the member. An RC stage cut at its switch point L and rescaled to run 0 to 1 is exactly the entry's curve at c = −ln(1 − L) = T ÷ τ (the engine against the member: worst gap 3.8e−10 over T from 0.05 to 3 s and L from 0.02 to 0.95). Under Synth Templates' 95 % landmark that is curvature 3 (2.996). A lower switch point straightens the stage (L = 0.1 gives c = 0.105), so an RC stage reaches the straight line only as a limit, as the formula does. Proposed, after '… the one member an RC stage never makes': 'Which member is set by where the stage is cut: a switch at fraction L of the way is curvature −ln(1 − L), so the 95 % landmark is curvature 3, and the straight line is the limit of a switch set ever lower.'"
+    },
+    {
+      "section": "Artifact",
+      "kind": "no-claim-edit",
+      "status": "open",
+      "what": "The section says the 2026-05-28 teaching artifact (oscilloscope, envelope and audio-rate modes) has not been retrieved. The rich face now carries a stand-in, not the artifact: the envelope-to-pitch seam is Dissolutions' piece, and the audio-rate scope is this face's 'curvature is timbre'. Proposed, appended: 'Until it is, the rich face carries a stand-in.'"
+    }
+  ],
+  "sections": [
+    {
+      "heading": "The straight line is the hard case",
+      "made_against": "80496629c464",
+      "made": "2026-11-03",
+      "stamped": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "Exponential Decay Curvature — rich — the straight line.html",
+          "origin": "made",
+          "by": "maker · claude-opus-5-5 · Web Audio Worklet",
+          "title": "The straight line, reached by a limit · a walk up to the Taylor branch",
+          "caption": "**Does the closed form really click at the straight line, and does the branch fix it?** Four steps: the three members as fades; curvature passing through zero while the formula's top and bottom shrink together and their ratio holds; where 32-bit and 64-bit arithmetic give up near zero, mapped and heard; and the test, a 110 Hz wave with a plugin-smoothed curvature knob you park on zero or sweep through it, with the bare closed form or the Taylor branch. The engine counts every 0 ÷ 0 and every sample off by more than a thousandth.\n\nf(t, c) = (e^(−c·t) − e^(−c)) ÷ (1 − e^(−c)),  near zero  f ≈ (1 − t)(1 − c·t/2 + c²·t(2t − 1)/12)\n\n(height) = (e to the minus (curvature × place) − e to the minus (curvature)) ÷ (1 − e to the minus (curvature)); near zero curvature, the expansion, which has no division",
+          "near": "But the singularity is real in code",
+          "place": "band",
+          "height": 1180
+        }
+      ]
+    },
+    {
+      "heading": "Audio-rate feasibility — and the dissolution",
+      "made_against": "fe31e9eceaa7",
+      "made": "2026-11-03",
+      "stamped": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "Exponential Decay Curvature — rich — curvature is timbre.html",
+          "origin": "made",
+          "by": "maker · claude-opus-5-5 · Web Audio Worklet",
+          "title": "Curvature is timbre · a walk up to the alias",
+          "caption": "**Large curvature aliases, so PolyBLEP or oversampling applies: does it, and which?** Four steps: the phasor alone; the phasor through the curve, where curvature becomes the tone's colour and the harmonic levels follow 1 ÷ √(c² + (2πn)²); what the sign of curvature changes, measured from both waves; and the test, the same oscillator four ways (naive, PolyBLEP, PolyBLEP + PolyBLAMP, 4× oversampled) at a pitch and curvature you choose, with the folded power measured from the engine's own output. The slow side, where the envelope becomes a pitch, is Dissolutions' piece, the seam.\n\n|aₙ| = 1 ÷ √(c² + (2πn)²)\n\n(level of harmonic n) = 1 ÷ the square root of ((curvature)² + (2π × n)²)",
+          "near": "Implementation notes carried from the session",
+          "place": "band",
+          "height": 1180
+        }
+      ]
+    },
+    {
+      "heading": "The curve in a synthesizer: the Moog contour",
+      "made_against": "1e222a8d5bca",
+      "made": "2026-11-03",
+      "stamped": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "Exponential Decay Curvature — rich — the RC contour.html",
+          "origin": "made",
+          "by": "maker · claude-opus-5-5 · Web Audio Worklet",
+          "title": "A capacitor, a comparator, and the curve · a walk up to the member",
+          "caption": "**Every Moog stage is this entry's curve: which member?** Four steps: one capacitor charging, with the 63, 86 and 95 % landmarks; the comparator that ends the stage, and the circuit noise that ends it when the switch sits at the maximum (a model, about 50 dB down); the three stages of a held note; and the test, an attack cut at its switch and rescaled beside the entry's rising member, with the gap measured from the engine's samples. The voice is Synth Templates' reference voice for its time tables.\n\nV(xT) ÷ L = 1 − f(x, c),  c = −ln(1 − L) = T ÷ τ\n\n(the stage, rescaled) = 1 − (the entry's curve) at (curvature) = −ln(1 − (switch level)) = (stated time) ÷ (time constant); at 95 %, curvature 3",
+          "near": "An approach never arrives, so a stage time needs a landmark",
+          "place": "band",
+          "height": 1180
+        }
+      ]
+    },
+    {
+      "heading": "How the ear takes the rise",
+      "made_against": "7b523de68f45",
+      "made": "2026-11-03",
+      "stamped": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "Exponential Decay Curvature — rich — the heard rise.html",
+          "origin": "made",
+          "by": "maker · claude-opus-5-5 · Web Audio",
+          "title": "Is the jump the corner? · a walk up to a blind trial",
+          "caption": "**The figure offers the arrival corner as the jump Loudon heard. Is it?** Four steps: one straight rise; the same rise in decibels, with a floor 30 dB down and an optional hiss there; the Moog rise beside it; and the test, a blind trial of three rises at one stated time — the straight rise, the Moog rise, and the straight rise with only its arrival rounded — where you mark the ones that jump and then reveal. If the rounded rise loses the jump, the corner is doing it; if it keeps it, the climb is. The page keeps the score; the ear decides.\n\ng(t) = t ÷ T until 0.85 T, then t ÷ T − (t ÷ T − 0.85)² ÷ 0.6, full from 1.15 T\n\nthe rounded rise: the straight rise until 85 % of the way, then a curve that leaves it at its own slope and lands flat at 115 %",
+          "near": "Put a landmark on each curve and the numbers follow",
+          "place": "band",
+          "height": 1180
+        },
+        {
+          "file": "/Projects/Synth Templates/workshop/cards/envelope-curves.svg",
+          "origin": "gathered",
+          "title": "Envelope Curves · the Synth Templates card",
+          "caption": "The technique template the paragraph names, as its signal-flow sheet: one sawtooth, one filter, one amplifier, and an amplitude envelope whose curve is the lesson. Its card's A/B cue: \"Switch exponential to linear without touching the times: the attack sounds slower and the release ends with a step.\"",
+          "near": "Put a landmark on each curve and the numbers follow",
+          "place": "margin"
+        }
+      ]
+    }
+  ]
+}

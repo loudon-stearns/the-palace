@@ -1,0 +1,433 @@
+<!doctype html>
+<!--
+  title: Exponential Decay Curvature — rich — the straight line
+  born: 2026-11-03
+  links: [[Exponential Decay Curvature]] (connects-to · rich-face-piece) · listed in [[Exponential Decay Curvature — rich.json]] · section "The straight line is the hard case"
+  forward_vector: I am the walk up to the hard case. I show the family's three members, then let curvature pass through zero while the formula turns into 0 ÷ 0 and its limit holds, then show where computer arithmetic gives up near zero, in 32 and in 64 bits, and last I let you park a plugin-smoothed curvature knob on the straight line and hear what the bare closed form does there, with and without the Taylor branch. The engine counts every 0 ÷ 0 and every sample it gets wrong. I change only when the section I serve does.
+  sound: nothing plays until a Play button is clicked; the AudioContext is made on that click. Changing step stops the sound.
+  check: Exponential Decay Curvature/Exponential Decay Curvature — rich — check.mjs runs this page's core and worklet in Node.
+-->
+<html lang="en" class="skin-graphite">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- needs nothing of its host: no device, no storage, no file, no host; sound only on a click -->
+<meta name="piece:needs" content="">
+<title>The straight line, reached by a limit</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@300;400;500&display=swap">
+<style>
+  :root{
+    --bg:#0a0a0f; --bg-elev-1:#12121a; --bg-elev-2:#1a1a28; --border:#4a4a5e; --border-soft:rgba(255,255,255,0.06);
+    --fg-1:#e8e8f0; --fg-2:#c8c8d8; --fg-3:#8a8aa0; --fg-4:#4a4a5a;
+    --accent:#e8b84a; --accent-dim:#7a6030; --accent-soft:rgba(232,184,74,0.10); --accent-line:rgba(232,184,74,0.5);
+    --info:#4a8fff; --warn:#ff6a4a;
+    --serif:'Cormorant Garamond','Source Serif 4',Georgia,serif; --sans:'Manrope',system-ui,sans-serif;
+    --display:'Anton','Bebas Neue',Impact,sans-serif; --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--fg-1)}
+  body{font-family:var(--serif);font-size:17px;line-height:1.7;padding:28px 16px 36px}
+  main{max-width:960px;margin:0 auto}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--fg-3)}
+  h1{font-family:var(--display);font-weight:400;font-size:44px;line-height:1.05;margin:6px 0 10px}
+  h2{font-family:var(--display);font-weight:400;font-size:28px;line-height:1.1;margin:4px 0 8px;letter-spacing:.01em}
+  p.lead{font-size:19px;color:var(--fg-2);margin:0 0 18px;max-width:66ch}
+  .rail{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 18px}
+  .rail button{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-3);background:transparent;border:1px solid var(--border);border-radius:4px;padding:7px 11px;cursor:pointer;transition:all .22s cubic-bezier(.4,0,.2,1)}
+  .rail button[aria-current="step"]{color:var(--fg-1);border-color:var(--fg-3);background:var(--bg-elev-2)}
+  p.say{color:var(--fg-2);margin:0 0 14px;max-width:68ch}
+  .panel{background:var(--bg-elev-1);border:1px solid var(--border-soft);border-radius:4px;padding:18px;margin:0 0 14px}
+  .tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;align-items:center}
+  button.play{font-family:var(--sans);font-weight:500;font-size:14px;color:#0a0a0f;background:var(--accent);border:0;border-radius:4px;padding:9px 20px;cursor:pointer;margin-left:auto;transition:box-shadow .22s cubic-bezier(.4,0,.2,1)}
+  button.play:hover{box-shadow:0 0 24px var(--accent-soft)}
+  canvas.stage{width:100%;display:block;background:var(--bg-elev-2);border-radius:4px}
+  .legend{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px 18px;margin-top:12px;font-family:var(--sans);font-size:13px;color:var(--fg-3);line-height:1.5}
+  .legend b{font-family:var(--mono);font-weight:400;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-2);display:block}
+  .ctl{display:grid;grid-template-columns:130px 1fr auto;gap:6px 14px;align-items:center;margin-top:14px}
+  .ctl label{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-3)}
+  .ctl input[type=range]{width:100%;accent-color:var(--accent)}
+  .ctl .v{font-family:var(--mono);font-size:14px;color:var(--fg-1);text-align:right;white-space:nowrap;min-width:10ch}
+  .ctl [hidden]{display:none}
+  .meter{font-family:var(--mono);font-size:13px;color:var(--fg-2);margin-top:12px;line-height:1.7}
+  .meter b{color:var(--accent);font-weight:400}
+  .meter .bad{color:var(--warn)}
+  .eq{font-family:var(--mono);font-size:13px;color:var(--fg-1);margin:14px 0 0;overflow-wrap:anywhere}
+  .eq.words{color:var(--fg-3);font-size:12px;margin-top:2px}
+  .try{margin:0 0 4px;padding:12px 16px;border-left:2px solid var(--accent-dim);background:var(--bg-elev-1);font-family:var(--sans);font-size:14px;color:var(--fg-2);line-height:1.6}
+  .try .eyebrow{color:var(--accent);display:block;margin-bottom:2px}
+  .rowb{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:12px}
+  .rowb[hidden]{display:none}
+  button.ghost{font-family:var(--sans);font-size:14px;color:var(--fg-2);background:transparent;border:1px solid var(--border);border-radius:4px;padding:8px 14px;cursor:pointer}
+  button.ghost[aria-pressed="true"]{color:var(--fg-1);border-color:var(--fg-3);background:var(--bg-elev-2)}
+  button.ghost:disabled{opacity:.35;cursor:default}
+  button.mark{font-family:var(--sans);font-weight:500;font-size:15px;color:var(--accent);background:var(--accent-soft);border:1px solid var(--accent-line);border-radius:4px;padding:10px 18px;cursor:pointer}
+  button.mark:disabled{opacity:.35;cursor:default}
+  .hint{font-family:var(--sans);font-size:13px;color:var(--fg-3)}
+  table.marks{border-collapse:collapse;margin-top:12px;font-family:var(--mono);font-size:13px;color:var(--fg-2)}
+  table.marks td,table.marks th{border-bottom:1px solid var(--border-soft);padding:5px 14px 5px 0;text-align:left;font-weight:400}
+  table.marks th{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-3)}
+  table.marks b{color:var(--accent);font-weight:400}
+  .walk{display:flex;justify-content:space-between;gap:10px;margin-top:16px}
+  footer{margin-top:28px;font-family:var(--sans);font-size:13px;color:var(--fg-4);display:flex;align-items:center;gap:10px}
+  footer b{font-family:var(--display);font-weight:400;letter-spacing:.06em;color:var(--fg-3)}
+  footer svg{flex:none}
+  @media (max-width:520px){h1{font-size:34px}h2{font-size:23px}.ctl{grid-template-columns:96px 1fr auto}}
+</style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">Exponential Decay Curvature · the straight line is the hard case · four steps</div>
+  <h1>The straight line, reached by a limit</h1>
+  <p class="lead">One family of curves, one knob that bends it. At the middle of the knob the formula reads 0 ÷ 0, and the family's straightest member is there only as a limit. Four steps: the family, the limit, where a computer's arithmetic gives up near it, and then the test: park the knob on the straight line and hear what the bare formula does. Nothing plays until you press Play.</p>
+
+  <nav class="rail" aria-label="Steps" id="rail"></nav>
+  <section aria-live="polite">
+    <div class="eyebrow" id="stepEyebrow"></div>
+    <h2 id="stepTitle"></h2>
+    <p class="say" id="stepSay"></p>
+  </section>
+  <div class="panel">
+    <div class="tabs"><span class="eyebrow">Hear</span><span class="hint" id="hearHint"></span><button class="play" id="play">Play</button></div>
+    <canvas class="stage" id="stage"></canvas>
+    <div class="legend" id="legend"></div>
+    <div class="ctl">
+      <label for="c" id="cLabel">curvature</label><input id="c" type="range" min="-6" max="6" step="0.01" value="2"><span class="v" id="cv"></span>
+      <label for="tiny" id="tinyLabel" hidden>size of curvature</label><input id="tiny" type="range" min="-17" max="0" step="0.05" value="-3" hidden><span class="v" id="tinyv" hidden></span>
+    </div>
+    <div class="rowb" id="bitsRow" hidden><span class="eyebrow">arithmetic</span>
+      <button class="ghost" data-bits="32" aria-pressed="true">32-bit, as most plugins</button>
+      <button class="ghost" data-bits="64" aria-pressed="false">64-bit</button>
+    </div>
+    <div class="rowb" id="testRow" hidden><span class="eyebrow">the code</span>
+      <button class="ghost" data-branch="0" aria-pressed="true">Closed form only</button>
+      <button class="ghost" data-branch="1" aria-pressed="false">With the Taylor branch</button>
+    </div>
+    <div class="rowb" id="knobRow" hidden><span class="eyebrow">the knob</span>
+      <button class="ghost" id="park">Park it on 0</button>
+      <button class="ghost" id="off">Move it to 2</button>
+      <button class="ghost" id="sweep">Sweep through 0</button>
+      <span class="hint">The knob glides to where you send it, 20 ms smoothing, as a plugin's does.</span>
+    </div>
+    <div class="meter" id="meter"></div>
+    <div id="eqs"></div>
+  </div>
+  <div class="try"><span class="eyebrow">Try</span><span id="tryText"></span></div>
+  <div class="walk"><button class="ghost" id="back">Back</button><button class="ghost" id="next">Next</button></div>
+  <footer><svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true"><circle cx="11" cy="11" r="10.2" fill="none" stroke="#4a4a5e" stroke-width="0.8"/><path d="M20.00 11.00L19.97 11.47L19.89 11.94L19.75 12.41L19.56 12.87L19.31 13.33L19.02 13.78L18.67 14.23L18.28 14.66L17.84 15.09L17.36 15.50L16.85 15.90L16.29 16.29L15.70 16.66L15.09 17.02L14.44 17.36L13.78 17.69L13.10 17.99L12.41 18.28L11.71 18.55L11.00 18.79L10.29 19.02L9.59 19.22L8.90 19.40L8.22 19.56L7.56 19.69L6.91 19.80L6.30 19.89L5.71 19.95L5.15 19.99L4.64 20.00L4.16 19.99L3.72 19.95L3.33 19.89L2.98 19.80L2.69 19.69L2.44 19.56L2.25 19.40L2.11 19.22L2.03 19.02L2.00 18.79L2.03 18.55L2.11 18.28L2.25 17.99L2.44 17.69L2.69 17.36L2.98 17.02L3.33 16.66L3.72 16.29L4.16 15.90L4.64 15.50L5.15 15.09L5.71 14.66L6.30 14.23L6.91 13.78L7.56 13.33L8.22 12.87L8.90 12.41L9.59 11.94L10.29 11.47L11.00 11.00L11.71 10.53L12.41 10.06L13.10 9.59L13.78 9.13L14.44 8.67L15.09 8.22L15.70 7.77L16.29 7.34L16.85 6.91L17.36 6.50L17.84 6.10L18.28 5.71L18.67 5.34L19.02 4.98L19.31 4.64L19.56 4.31L19.75 4.01L19.89 3.72L19.97 3.45L20.00 3.21L19.97 2.98L19.89 2.78L19.75 2.60L19.56 2.44L19.31 2.31L19.02 2.20L18.67 2.11L18.28 2.05L17.84 2.01L17.36 2.00L16.85 2.01L16.29 2.05L15.70 2.11L15.09 2.20L14.44 2.31L13.78 2.44L13.10 2.60L12.41 2.78L11.71 2.98L11.00 3.21L10.29 3.45L9.59 3.72L8.90 4.01L8.22 4.31L7.56 4.64L6.91 4.98L6.30 5.34L5.71 5.71L5.15 6.10L4.64 6.50L4.16 6.91L3.72 7.34L3.33 7.77L2.98 8.22L2.69 8.67L2.44 9.13L2.25 9.59L2.11 10.06L2.03 10.53L2.00 11.00L2.03 11.47L2.11 11.94L2.25 12.41L2.44 12.87L2.69 13.33L2.98 13.78L3.33 14.23L3.72 14.66L4.16 15.09L4.64 15.50L5.15 15.90L5.71 16.29L6.30 16.66L6.91 17.02L7.56 17.36L8.22 17.69L8.90 17.99L9.59 18.28L10.29 18.55L11.00 18.79L11.71 19.02L12.41 19.22L13.10 19.40L13.78 19.56L14.44 19.69L15.09 19.80L15.70 19.89L16.29 19.95L16.85 19.99L17.36 20.00L17.84 19.99L18.28 19.95L18.67 19.89L19.02 19.80L19.31 19.69L19.56 19.56L19.75 19.40L19.89 19.22L19.97 19.02L20.00 18.79L19.97 18.55L19.89 18.28L19.75 17.99L19.56 17.69L19.31 17.36L19.02 17.02L18.67 16.66L18.28 16.29L17.84 15.90L17.36 15.50L16.85 15.09L16.29 14.66L15.70 14.23L15.09 13.78L14.44 13.33L13.78 12.87L13.10 12.41L12.41 11.94L11.71 11.47L11.00 11.00L10.29 10.53L9.59 10.06L8.90 9.59L8.22 9.13L7.56 8.67L6.91 8.22L6.30 7.77L5.71 7.34L5.15 6.91L4.64 6.50L4.16 6.10L3.72 5.71L3.33 5.34L2.98 4.98L2.69 4.64L2.44 4.31L2.25 4.01L2.11 3.72L2.03 3.45L2.00 3.21L2.03 2.98L2.11 2.78L2.25 2.60L2.44 2.44L2.69 2.31L2.98 2.20L3.33 2.11L3.72 2.05L4.16 2.01L4.64 2.00L5.15 2.01L5.71 2.05L6.30 2.11L6.91 2.20L7.56 2.31L8.22 2.44L8.90 2.60L9.59 2.78L10.29 2.98L11.00 3.21L11.71 3.45L12.41 3.72L13.10 4.01L13.78 4.31L14.44 4.64L15.09 4.98L15.70 5.34L16.29 5.71L16.85 6.10L17.36 6.50L17.84 6.91L18.28 7.34L18.67 7.77L19.02 8.22L19.31 8.67L19.56 9.13L19.75 9.59L19.89 10.06L19.97 10.53L20.00 11.00" fill="none" stroke="#e8b84a" stroke-width="0.9"/></svg><span><b>LOUD’N LIVE</b> · Exponential Decay Curvature · the straight line · Sketch, 2026-11-03 · proposal</span></footer>
+</main>
+<!-- The engine's core: plain functions shared by the picture, the worklet and the headless check. -->
+<script id="edc-line-core">
+var LINE = { F0: 110, LEVEL: 0.35, EDGE: 1e-3, SMOOTH: 0.02, TONE: 220, NOTE: 1.2, GAP: 1.6 };
+// the curve, computed carefully: expm1 keeps its digits near zero, and curvature 0 is the straight line itself
+function fRef(t, c){ if (c === 0) return 1 - t; return (Math.expm1(-c * t) - Math.expm1(-c)) / (-Math.expm1(-c)); }
+// the closed form as the page writes it, in 64-bit and in 32-bit arithmetic (every step rounded to a float, as a plugin's DSP does)
+function fClosed64(t, c){ return (Math.exp(-c * t) - Math.exp(-c)) / (1 - Math.exp(-c)); }
+function fClosed32(t, c){ var F = Math.fround; c = F(c); t = F(t); var a = F(Math.exp(F(-F(c * t)))), b = F(Math.exp(F(-c))); return F(F(a - b) / F(1 - b)); }
+// the Taylor branch: the curve's expansion in curvature about 0, to second order
+function fTaylor(t, c){ return (1 - t) * (1 - c * t / 2 + c * c * t * (2 * t - 1) / 12); }
+function fCode(t, c, bits, branch){
+  if (branch && Math.abs(c) < LINE.EDGE) return bits === 32 ? Math.fround(fTaylor(t, c)) : fTaylor(t, c);
+  return bits === 32 ? fClosed32(t, c) : fClosed64(t, c);
+}
+// the curve's average height, so the wave can be centred
+function meanRef(c){ if (Math.abs(c) < 1e-3) return 0.5 - c / 12; return 1 / c - Math.exp(-c) / (1 - Math.exp(-c)); }
+// the closed form over one whole curve: its worst error against fRef, and how many of its points come out 0 ÷ 0
+function closedError(c, bits, K){
+  K = K || 1000; var worst = 0, nan = 0;
+  for (var i = 0; i <= K; i++){ var t = i / K, y = bits === 32 ? fClosed32(t, c) : fClosed64(t, c);
+    if (y !== y || !isFinite(y)){ nan++; continue; } var e = Math.abs(y - fRef(t, c)); if (e > worst) worst = e; }
+  return { worst: worst, nan: nan, of: K + 1 };
+}
+// the numerator and denominator at one place, to watch both go to zero together
+function parts(t, c){ return { num: Math.exp(-c * t) - Math.exp(-c), den: 1 - Math.exp(-c) }; }
+</script>
+<!-- The worklet, read as text and loaded from a Blob with the core above it. -->
+<script type="text/plain" id="edc-line-worklet">
+class LineProcessor extends AudioWorkletProcessor {
+  constructor(){
+    super();
+    this.mode = 'osc'; this.c = 2; this.target = 2; this.bits = 64; this.branch = true; this.smooth = false;
+    this.sweep = null; this.sw = 0.25;
+    this.ph = 0; this.tp = 0; this.nt = 0; this.member = 0;
+    this.k = 1 - Math.exp(-1 / (LINE.SMOOTH * sampleRate));
+    this.nan = 0; this.bad = 0; this.n = 0; this.totNan = 0; this.totBad = 0; this.tick = 0;
+    this.port.onmessage = (e) => {
+      const m = e.data || {};
+      if (m.mode) { this.mode = m.mode; this.nt = 0; this.member = 0; }
+      if (typeof m.bits === 'number') this.bits = m.bits;
+      if (typeof m.branch === 'boolean') this.branch = m.branch;
+      if (typeof m.smooth === 'boolean') this.smooth = m.smooth;
+      if (typeof m.target === 'number') { this.target = m.target; this.sweep = null; if (!this.smooth) this.c = m.target; }
+      if (typeof m.c === 'number') { this.c = m.c; this.target = m.c; }
+      if (m.sweep) { this.sweep = { amp: m.sweep.amp, rate: m.sweep.rate }; this.sw = 0.25; }
+      if (m.reset) { this.totNan = 0; this.totBad = 0; }
+    };
+  }
+  process(inputs, outputs){
+    const out = outputs[0], L = out[0], R = out[1] || out[0], sr = sampleRate, TWO_PI = 2 * Math.PI;
+    for (let i = 0; i < L.length; i++){
+      if (this.sweep){ this.sw += this.sweep.rate / sr; if (this.sw >= 1) this.sw -= 1; this.target = this.sweep.amp * Math.sin(TWO_PI * this.sw); }
+      if (this.smooth){ this.c += (this.target - this.c) * this.k; if (this.bits === 32) this.c = Math.fround(this.c); }
+      let y = 0;
+      if (this.mode === 'osc'){
+        this.ph += LINE.F0 / sr; if (this.ph >= 1) this.ph -= 1;
+        const v = fCode(this.ph, this.c, this.bits, this.branch), r = fRef(this.ph, this.c);
+        if (v !== v || !isFinite(v)) { this.nan++; y = 0; }   // a 0 ÷ 0 is sent as silence here, and counted
+        else { if (Math.abs(v - r) > 1e-3) this.bad++; y = LINE.LEVEL * 2 * (v - meanRef(this.c)); }
+        this.n++;
+      } else {
+        // the three members as fades on a plain tone, one every 1.6 s: convex, straight, concave
+        const cs = [4, 0, -4], c = cs[this.member % 3], t = this.nt / (LINE.NOTE * sr);
+        this.tp += LINE.TONE / sr; if (this.tp >= 1) this.tp -= 1;
+        if (t < 1) y = 0.3 * fCode(t, c, 64, true) * Math.sin(TWO_PI * this.tp);
+        if (++this.nt >= LINE.GAP * sr){ this.nt = 0; this.member++; }
+      }
+      L[i] = y; if (R !== L) R[i] = y;
+    }
+    if (++this.tick % 94 === 0){   // about every quarter second at 48 kHz
+      this.totNan += this.nan; this.totBad += this.bad;
+      this.port.postMessage({ c: this.c, nan: this.nan, bad: this.bad, n: this.n, totNan: this.totNan, totBad: this.totBad, member: this.member % 3, nt: this.nt / sr });
+      this.nan = 0; this.bad = 0; this.n = 0;
+    } else if (this.mode !== 'osc' && this.tick % 4 === 0) this.port.postMessage({ member: this.member % 3, nt: this.nt / sr, c: this.c });
+    return true;
+  }
+}
+registerProcessor('edc-line', LineProcessor);
+</script>
+<script>
+(function(){
+  'use strict';
+  var $ = function(id){ return document.getElementById(id); };
+  
+  function makeWalk(STEPS, onGo){
+    var rail = document.getElementById('rail'), cur = 0;
+    STEPS.forEach(function(s, i){
+      var b = document.createElement('button'); b.textContent = (i + 1) + ' · ' + s.short;
+      b.addEventListener('click', function(){ go(i); }); rail.appendChild(b);
+    });
+    function go(i){
+      cur = i; var s = STEPS[i];
+      Array.prototype.forEach.call(rail.children, function(b, j){ if (j === i) b.setAttribute('aria-current', 'step'); else b.removeAttribute('aria-current'); });
+      document.getElementById('stepEyebrow').textContent = 'Step ' + (i + 1) + ' of ' + STEPS.length + (s.test ? ' · the test' : '');
+      document.getElementById('stepTitle').textContent = s.title;
+      document.getElementById('stepSay').textContent = s.say;
+      document.getElementById('hearHint').textContent = s.hint || '';
+      var eqs = document.getElementById('eqs'); eqs.innerHTML = '';
+      (s.eq || []).forEach(function(e){
+        var a = document.createElement('div'); a.className = 'eq'; a.textContent = e[0];
+        var w = document.createElement('div'); w.className = 'eq words'; w.textContent = e[1];
+        eqs.appendChild(a); eqs.appendChild(w);
+      });
+      document.getElementById('tryText').textContent = s.tryText;
+      document.getElementById('back').disabled = i === 0;
+      document.getElementById('next').disabled = i === STEPS.length - 1;
+      onGo(i, s);
+    }
+    document.getElementById('back').addEventListener('click', function(){ if (cur > 0) go(cur - 1); });
+    document.getElementById('next').addEventListener('click', function(){ if (cur < STEPS.length - 1) go(cur + 1); });
+    return { go: go, step: function(){ return cur; } };
+  }
+  // a canvas sized by its column, in device pixels
+  function fitCanvas(cv, ratio, minH, maxH){
+    var r = cv.getBoundingClientRect(), d = window.devicePixelRatio || 1;
+    var cssH = Math.round(Math.max(minH, Math.min(maxH, r.width * ratio)));
+    if (cv.style.height !== cssH + 'px') cv.style.height = cssH + 'px';
+    var W = Math.round(r.width * d), H = Math.round(cssH * d);
+    if (cv.width !== W || cv.height !== H){ cv.width = W; cv.height = H; }
+    return { g: cv.getContext('2d'), W: W, H: H, d: d };
+  }
+  function cssVar(n, fb){ return getComputedStyle(document.documentElement).getPropertyValue(n).trim() || fb; }
+
+  var STEPS = [
+    { title: 'One family, three members', short: 'The family',
+      say: 'One formula, one knob. Positive curvature bends the fall convex: fast, then slow. Negative bends it concave: slow, then fast. Zero is the straight line between them. The duration never changes, only the bend. Press Play and hear the three, one after another, as the fade of a plain tone.',
+      hint: 'the three members as fades, in turn: convex, straight, concave',
+      eq: [['f(t, c) = (e^(−c·t) − e^(−c)) ÷ (1 − e^(−c))', '(height) = (e to the minus (curvature × place) − e to the minus (curvature)) ÷ (1 − e to the minus (curvature))'],
+           ['c = +4, 0, −4', 'convex, straight, concave: one knob, three positions']],
+      tryText: 'Listen to how each fade ends. The convex one is nearly gone long before the end; the concave one holds and then drops. The straight one sits between them, which is the point of the next step.' },
+    { title: 'Through zero, the formula reads 0 ÷ 0', short: 'The limit',
+      say: 'Drag the curvature toward zero and watch the two halves of the formula at the curve’s midpoint. The top and the bottom both shrink toward zero together, and their ratio settles on 0.5, the straight line’s height there. At exactly zero the formula has nothing to say. The straight line is what it approaches, and L’Hôpital’s rule names it: 1 − t. Now hear it as a wave: the curve read 110 times a second, passing through the straight line, which as a wave is a plain sawtooth.',
+      hint: 'the curve as a 110 Hz wave, computed with the branch, so it is safe at zero',
+      eq: [['lim c→0 f(t, c) = 1 − t', '(as curvature goes to zero) the height goes to (1 − place): the straight line'],
+           ['d/dc (e^(−c·t) − e^(−c)) → 1 − t,   d/dc (1 − e^(−c)) → 1', 'L’Hôpital: the slopes of top and bottom at zero curvature are (1 − place) and 1']],
+      tryText: 'Drag to exactly 0.00 and read the meter: 0 ÷ 0. Nudge to 0.01 and back. The sound passes through the sawtooth with no seam, because this step computes the curve with the fix the last step tests.' },
+    { title: 'Where the arithmetic gives up', short: 'The arithmetic',
+      say: 'On paper the limit is the end of it. In a computer, near zero, the top and the bottom are each the difference of two numbers that are almost equal, and the digits that would tell them apart run out. This step computes the bare closed form and nothing else, at a curvature as small as you like. The slider is the size of the curvature, in powers of ten. In 32-bit arithmetic, which most plugins compute in, the curve turns to steps below about 3 × 10^−5, and below about 3 × 10^−8 it is 0 ÷ 0 at every point. In 64-bit the same thing happens, much nearer to zero: steps below about 3 × 10^−14, 0 ÷ 0 below about 10^−16.',
+      hint: 'the bare closed form as a 110 Hz wave, at the curvature you set; a 0 ÷ 0 is sent as silence',
+      eq: [['e^(−c·t) − e^(−c) ≈ c·(1 − t),   1 − e^(−c) ≈ c', 'near zero, top and bottom are each about (curvature) × something: two tiny differences of nearly equal numbers'],
+           ['32-bit keeps about 7 digits, 64-bit about 16', 'when the curvature is smaller than the last digit kept, both differences are exactly zero']],
+      tryText: 'In 32-bit, slide from 10^−3 down to 10^−8 and listen: clean, then gritty, then nothing. Switch to 64-bit and do it again; the grit waits until about 10^−14. The map on the right is the worst error over the whole curve at each size.' },
+    { title: 'Park it on the straight line', short: 'The test', test: true,
+      say: 'The test of the page’s claim: the closed form near zero clicks, and a Taylor branch fixes it. Here is a curvature knob as a plugin has one, smoothed so it glides. Park it on zero and the knob glides toward the straight line forever, through every small number on the way. Sweep it and it passes through zero twice a cycle. Try the bare closed form, then the branch, in 32-bit and in 64-bit. The meter counts every sample that came out 0 ÷ 0 and every sample off by more than a thousandth.',
+      hint: 'a 110 Hz wave whose curvature knob you park or sweep',
+      eq: [['c ← c + (target − c) × (1 − e^(−1 / (0.02 × sr)))', '(knob) moves toward (where you sent it) by a small share each sample: 20 ms smoothing'],
+           ['|c| < 0.001:  f ≈ (1 − t)(1 − c·t/2 + c²·t(2t − 1)/12)', 'near zero, the code uses the expansion instead of the formula, and the expansion has no division']],
+      tryText: 'Closed form, 32-bit, park on 0: a burst of grit, then silence, then a click when you move it to 2. In 64-bit the grit is shorter and the silence the same. Now sweep: passing through zero is quick, and the meter stays at or near zero in either arithmetic, so the trouble is where the knob rests, not where it passes. Then the branch: every move, and the meter stays at zero.' }
+  ];
+
+  var step = 0, playing = false, bits = 32, branch = false, curv = 2, tinyExp = -3;
+  var ctx = null, node = null, master = null, loading = null;
+  var eng = { c: 2, nan: 0, bad: 0, n: 0, totNan: 0, totBad: 0, member: 0, nt: 0 };
+
+  function workletURL(){ return URL.createObjectURL(new Blob([$('edc-line-core').textContent + '\n' + $('edc-line-worklet').textContent], { type: 'application/javascript' })); }
+  function ensure(){
+    if (ctx) return loading;
+    ctx = new (window.AudioContext || window.webkitAudioContext)();
+    master = ctx.createGain(); master.gain.value = 0.5;
+    var comp = ctx.createDynamicsCompressor(); comp.threshold.value = -2; comp.knee.value = 0; comp.ratio.value = 20; comp.attack.value = 0.002; comp.release.value = 0.1;
+    master.connect(comp); comp.connect(ctx.destination);
+    loading = ctx.audioWorklet.addModule(workletURL());
+    return loading;
+  }
+  function config(){
+    if (step === 0) return { mode: 'env' };
+    if (step === 1) return { mode: 'osc', bits: 64, branch: true, smooth: false, c: curv };
+    if (step === 2) return { mode: 'osc', bits: bits, branch: false, smooth: false, c: Math.pow(10, tinyExp) };
+    return { mode: 'osc', bits: bits, branch: branch, smooth: true, c: 2, reset: true };
+  }
+  function start(){
+    ensure().then(function(){
+      if (!playing) return;
+      stopNode();
+      node = new AudioWorkletNode(ctx, 'edc-line', { numberOfInputs: 0, numberOfOutputs: 1, outputChannelCount: [2] });
+      node.port.onmessage = function(e){ var m = e.data || {}; for (var k in m) eng[k] = m[k]; if (step === 3) meter(); };
+      node.port.postMessage(config());
+      node.connect(master);
+    });
+  }
+  function stopNode(){ if (node){ try { node.disconnect(); } catch(e){} node.port.onmessage = null; node = null; } }
+  function stop(){ playing = false; stopNode(); $('play').textContent = 'Play'; }
+  function send(m){ if (node) node.port.postMessage(m); }
+  $('play').addEventListener('click', function(){
+    ensure(); if (ctx.state === 'suspended') ctx.resume();
+    if (playing){ stop(); return; }
+    playing = true; $('play').textContent = 'Stop'; eng.totNan = 0; eng.totBad = 0; start();
+  });
+
+  // ---------- controls ----------
+  function fmtC(c){ if (c === 0) return '0 exactly'; var a = Math.abs(c); return a >= 0.01 ? c.toFixed(2) : c.toExponential(1).replace('e', ' × 10^'); }
+  $('c').addEventListener('input', function(){ curv = parseFloat($('c').value); if (Math.abs(curv) < 0.005) curv = 0; showC(); send({ c: curv }); });
+  function showC(){ $('cv').textContent = (curv === 0 ? '0.00 straight' : curv.toFixed(2) + (curv > 0 ? ' convex' : ' concave')); meter(); }
+  $('tiny').addEventListener('input', function(){ tinyExp = parseFloat($('tiny').value); showTiny(); send({ c: Math.pow(10, tinyExp) }); });
+  function showTiny(){ $('tinyv').textContent = '10^' + tinyExp.toFixed(2); meter(); }
+  Array.prototype.forEach.call(document.querySelectorAll('[data-bits]'), function(b){ b.addEventListener('click', function(){ bits = parseInt(b.getAttribute('data-bits'), 10); syncButtons(); send({ bits: bits, reset: true }); eng.totNan = 0; eng.totBad = 0; meter(); }); });
+  Array.prototype.forEach.call(document.querySelectorAll('[data-branch]'), function(b){ b.addEventListener('click', function(){ branch = b.getAttribute('data-branch') === '1'; syncButtons(); send({ branch: branch, reset: true }); eng.totNan = 0; eng.totBad = 0; meter(); }); });
+  $('park').addEventListener('click', function(){ send({ target: 0 }); });
+  $('off').addEventListener('click', function(){ send({ target: 2 }); });
+  $('sweep').addEventListener('click', function(){ send({ sweep: { amp: 4, rate: 0.25 } }); });
+  function syncButtons(){
+    Array.prototype.forEach.call(document.querySelectorAll('[data-bits]'), function(b){ b.setAttribute('aria-pressed', String(parseInt(b.getAttribute('data-bits'), 10) === bits)); });
+    Array.prototype.forEach.call(document.querySelectorAll('[data-branch]'), function(b){ b.setAttribute('aria-pressed', String((b.getAttribute('data-branch') === '1') === branch)); });
+  }
+
+  function meter(){
+    var h = [];
+    if (step === 1){
+      var p = parts(0.5, curv);
+      if (curv === 0) h.push('at the midpoint: top <b>0</b> ÷ bottom <b>0</b> = nothing; the limit is <b>0.5</b>');
+      else h.push('at the midpoint: top <b>' + p.num.toPrecision(4) + '</b> ÷ bottom <b>' + p.den.toPrecision(4) + '</b> = <b>' + (p.num / p.den).toFixed(4) + '</b> · the straight line there: <b>0.5000</b>');
+    } else if (step === 2){
+      var c = Math.pow(10, tinyExp), e = closedError(c, bits, 400);
+      h.push('curvature <b>' + fmtC(c) + '</b>, ' + bits + '-bit closed form, over the whole curve: worst error <b' + (e.worst > 1e-3 ? ' class="bad"' : '') + '>' + (e.nan === e.of ? 'none: every point is 0 ÷ 0' : e.worst.toExponential(1)) + '</b>' + (e.nan ? ' · <span class="bad">' + e.nan + ' of ' + e.of + ' points 0 ÷ 0</span>' : ''));
+    } else if (step === 3){
+      h.push('knob now: <b>' + fmtC(eng.c) + '</b>');
+      h.push('last quarter second: <span class="' + (eng.nan ? 'bad' : '') + '">' + eng.nan + ' samples 0 ÷ 0</span> · <span class="' + (eng.bad ? 'bad' : '') + '">' + eng.bad + ' off by more than 0.001</span> · of ' + eng.n);
+      h.push('since you chose this code: <b>' + eng.totNan + '</b> samples 0 ÷ 0 · <b>' + eng.totBad + '</b> off by more than 0.001');
+    }
+    $('meter').innerHTML = h.join('<br>');
+  }
+
+  var LEG = [
+    '<div><b>Three members</b>Gold: convex, curvature +4. Dashed: straight, 0. Blue: concave, −4. The one playing is marked.</div><div><b>What you hear</b>Each curve as the fade of a 220 Hz tone, 1.2 seconds long.</div>',
+    '<div><b>The curve</b>Gold: the curve at your curvature. Dashed: the straight line. The dot is the midpoint the meter reads.</div><div><b>The wave</b>Right: two cycles of the same curve read 110 times a second.</div>',
+    '<div><b>The curve, as computed</b>Gold: the bare closed form at your curvature. Dashed: the true curve. Gaps are 0 ÷ 0.</div><div><b>The map</b>Right: worst error over the whole curve against the size of the curvature. Red: 32-bit. Grey: 64-bit. The line marks your setting.</div>',
+    '<div><b>The wave</b>Two cycles at the knob’s present value, as the chosen code computes it. Gaps are 0 ÷ 0.</div><div><b>The meter</b>Counted by the engine, sample by sample, against the curve computed carefully.</div>'
+  ];
+
+  // the error map is fixed; work it out once
+  var MAP = null;
+  function errMap(){ if (MAP) return MAP; MAP = []; for (var x = -17; x <= 0.001; x += 0.25){ var c = Math.pow(10, x); MAP.push({ x: x, e32: closedError(c, 32, 200), e64: closedError(c, 64, 200) }); } return MAP; }
+
+  var walk = makeWalk(STEPS, function(i, s){
+    if (playing) stop();
+    step = i;
+    var sl = i === 1, tn = i === 2;
+    $('c').hidden = !sl; $('cv').hidden = !sl; $('cLabel').hidden = !sl;
+    $('tiny').hidden = !tn; $('tinyv').hidden = !tn; $('tinyLabel').hidden = !tn;
+    $('bitsRow').hidden = i < 2; $('testRow').hidden = i !== 3; $('knobRow').hidden = i !== 3;
+    $('legend').innerHTML = LEG[i];
+    if (i === 2 || i === 3){ bits = 32; branch = false; syncButtons(); }
+    showC(); showTiny(); meter();
+  });
+
+  // ---------- the picture ----------
+  var cv = $('stage'), ACC = cssVar('--accent', '#e8b84a'), FG3 = cssVar('--fg-3', '#8a8aa0'), FG4 = cssVar('--fg-4', '#4a4a5a'), INFO = cssVar('--info', '#4a8fff'), WARN = cssVar('--warn', '#ff6a4a');
+  function box(g, x, y, w, h, d, label){ g.strokeStyle = 'rgba(255,255,255,0.06)'; g.lineWidth = d; g.strokeRect(x, y, w, h); g.font = (10 * d) + 'px JetBrains Mono, monospace'; g.fillStyle = FG4; g.fillText(label, x + 6 * d, y + 14 * d); }
+  function plot(g, x, y, w, h, d, fn, color, lw, dash){
+    var X = function(t){ return x + 8 * d + t * (w - 16 * d); }, Y = function(v){ return y + 22 * d + (1 - v) * (h - 32 * d); };
+    g.strokeStyle = color; g.lineWidth = lw * d; g.setLineDash(dash ? [4 * d, 4 * d] : []); g.beginPath(); var pen = false;
+    for (var i = 0; i <= 300; i++){ var t = i / 300, v = fn(t); if (v !== v || !isFinite(v)){ pen = false; continue; } v = Math.max(-0.1, Math.min(1.1, v)); if (pen) g.lineTo(X(t), Y(v)); else { g.moveTo(X(t), Y(v)); pen = true; } }
+    g.stroke(); g.setLineDash([]); return { X: X, Y: Y };
+  }
+  function wave(g, x, y, w, h, d, c, bitsW, br){
+    var mid = y + h / 2 + 6 * d, amp = (h - 34 * d) / 2 / 1.6, m = meanRef(c);
+    g.strokeStyle = ACC; g.lineWidth = 1.8 * d; g.beginPath(); var pen = false, gaps = 0;
+    for (var i = 0; i <= 400; i++){ var ph = (i / 400 * 2) % 1, v = fCode(ph, c, bitsW, br); if (v !== v || !isFinite(v)){ pen = false; gaps++; continue; }
+      var yy = mid - 2 * (v - m) * amp, xx = x + 6 * d + i / 400 * (w - 12 * d); if (pen) g.lineTo(xx, yy); else { g.moveTo(xx, yy); pen = true; } }
+    g.stroke();
+    g.strokeStyle = 'rgba(255,255,255,0.08)'; g.lineWidth = d; g.beginPath(); g.moveTo(x + 6 * d, mid); g.lineTo(x + w - 6 * d, mid); g.stroke();
+    if (gaps > 300){ g.fillStyle = WARN; g.font = (13 * d) + 'px JetBrains Mono, monospace'; g.fillText('0 ÷ 0 at every point: silence', x + 16 * d, mid - 8 * d); }
+  }
+  function draw(){
+    var c0 = fitCanvas(cv, 0.4, 220, 360), g = c0.g, W = c0.W, H = c0.H, d = c0.d, p = 14 * d, gap = 14 * d;
+    g.clearRect(0, 0, W, H);
+    if (step === 0){
+      var w3 = (W - 2 * p - 2 * gap) / 3, cs = [4, 0, -4], cols = [ACC, FG3, INFO], names = ['CONVEX · c = +4', 'STRAIGHT · c = 0', 'CONCAVE · c = −4'];
+      for (var k = 0; k < 3; k++){
+        var x = p + k * (w3 + gap), on = playing && node && eng.member === k;
+        box(g, x, p, w3, H - 2 * p, d, names[k]);
+        if (on){ g.strokeStyle = cols[k]; g.lineWidth = 1.5 * d; g.strokeRect(x, p, w3, H - 2 * p); }
+        var P = plot(g, x, p, w3, H - 2 * p, d, (function(c){ return function(t){ return fRef(t, c); }; })(cs[k]), cols[k], 2.4, k === 1);
+        if (on && eng.nt < LINE.NOTE){ var tt = eng.nt / LINE.NOTE; g.fillStyle = cols[k]; g.beginPath(); g.arc(P.X(tt), P.Y(fRef(tt, cs[k])), 5 * d, 0, 7); g.fill(); }
+      }
+    } else {
+      var S = Math.min(H - 2 * p, W * 0.42), sx = p, sy = (H - S) / 2, ox = sx + S + gap, ow = W - p - ox;
+      if (step === 1){
+        box(g, sx, sy, S, S, d, 'THE CURVE · c = ' + (curv === 0 ? '0' : curv.toFixed(2)));
+        plot(g, sx, sy, S, S, d, function(t){ return 1 - t; }, FG4, 1, true);
+        var P1 = plot(g, sx, sy, S, S, d, function(t){ return fRef(t, curv); }, ACC, 2.5, false);
+        g.fillStyle = INFO; g.beginPath(); g.arc(P1.X(0.5), P1.Y(fRef(0.5, curv)), 5 * d, 0, 7); g.fill();
+        box(g, ox, sy, ow, S, d, 'THE WAVE · two cycles at 110 Hz');
+        wave(g, ox, sy, ow, S, d, curv, 64, true);
+      } else if (step === 2){
+        var c2 = Math.pow(10, tinyExp);
+        box(g, sx, sy, S, S, d, 'CLOSED FORM · ' + bits + '-BIT');
+        plot(g, sx, sy, S, S, d, function(t){ return fRef(t, c2); }, FG4, 1, true);
+        plot(g, sx, sy, S, S, d, function(t){ return bits === 32 ? fClosed32(t, c2) : fClosed64(t, c2); }, ACC, 2, false);
+        box(g, ox, sy, ow, S, d, 'WORST ERROR · against size of curvature');
+        var M = errMap(), mx = function(x){ return ox + 30 * d + (x + 17) / 17 * (ow - 44 * d); }, my = function(e){ var l = Math.log10(Math.max(1e-17, Math.min(1, e))); return sy + 24 * d + (-l / 17) * (S - 50 * d); };
+        g.font = (9 * d) + 'px JetBrains Mono, monospace'; g.fillStyle = FG4;
+        [0, -4, -8, -12, -16].forEach(function(l){ var yy = my(Math.pow(10, l)); g.fillText('10^' + l, ox + 4 * d, yy + 3 * d); g.strokeStyle = 'rgba(255,255,255,0.05)'; g.beginPath(); g.moveTo(ox + 30 * d, yy); g.lineTo(ox + ow - 10 * d, yy); g.stroke(); });
+        [-16, -12, -8, -4, 0].forEach(function(x){ g.fillText('10^' + x, mx(x) - 12 * d, sy + S - 8 * d); });
+        [['e64', FG3], ['e32', WARN]].forEach(function(q){
+          g.strokeStyle = q[1]; g.lineWidth = 1.8 * d; g.beginPath(); var pen = false;
+          M.forEach(function(r){ var e = r[q[0]]; var yy = e.nan === e.of ? my(1) : my(e.worst); if (pen) g.lineTo(mx(r.x), yy); else { g.moveTo(mx(r.x), yy); pen = true; } });
+          g.stroke();
+        });
+        g.fillStyle = FG3; g.fillText('top line = 0 ÷ 0 everywhere', ox + 34 * d, sy + 34 * d);
+        g.strokeStyle = ACC; g.lineWidth = d; g.beginPath(); g.moveTo(mx(tinyExp), sy + 20 * d); g.lineTo(mx(tinyExp), sy + S - 20 * d); g.stroke();
+      } else {
+        box(g, sx, sy, S, S, d, 'THE CURVE AT THE KNOB');
+        plot(g, sx, sy, S, S, d, function(t){ return 1 - t; }, FG4, 1, true);
+        plot(g, sx, sy, S, S, d, function(t){ return fCode(t, eng.c, bits, branch); }, ACC, 2.4, false);
+        box(g, ox, sy, ow, S, d, 'THE WAVE · ' + (branch ? 'with the branch' : 'closed form only') + ' · ' + bits + '-bit');
+        wave(g, ox, sy, ow, S, d, eng.c, bits, branch);
+      }
+    }
+    requestAnimationFrame(draw);
+  }
+  syncButtons(); walk.go(0); requestAnimationFrame(draw);
+})();
+</script>
+</body>
+</html>

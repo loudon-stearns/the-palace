@@ -1,0 +1,442 @@
+<!doctype html>
+<!--
+  title: Exponential Decay Curvature — rich — curvature is timbre
+  born: 2026-11-03
+  links: [[Exponential Decay Curvature]] (connects-to · rich-face-piece) · listed in [[Exponential Decay Curvature — rich.json]] · section "Audio-rate feasibility — and the dissolution" · the envelope-to-pitch seam itself is Dissolutions' piece, "Dissolutions — rich — the seam.html", and is not rebuilt here
+  forward_vector: I am the walk up to the curve as an oscillator. A phasor alone, then the phasor through the shape function, where curvature becomes timbre and the harmonic levels follow 1 ÷ √(c² + (2πn)²); then the sign of curvature, which turns out to change only the phases; and last the section's claim that large curvature aliases and PolyBLEP or oversampling applies, tested by measuring the alias in four versions of the oscillator. I change only when the section I serve does.
+  sound: nothing plays until a Play button is clicked; the AudioContext is made on that click. Changing step stops the sound.
+  check: Exponential Decay Curvature/Exponential Decay Curvature — rich — check.mjs runs this page's core and worklet in Node.
+-->
+<html lang="en" class="skin-graphite">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- needs nothing of its host: no device, no storage, no file, no host; sound only on a click -->
+<meta name="piece:needs" content="">
+<title>Curvature is timbre</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@300;400;500&display=swap">
+<style>
+  :root{
+    --bg:#0a0a0f; --bg-elev-1:#12121a; --bg-elev-2:#1a1a28; --border:#4a4a5e; --border-soft:rgba(255,255,255,0.06);
+    --fg-1:#e8e8f0; --fg-2:#c8c8d8; --fg-3:#8a8aa0; --fg-4:#4a4a5a;
+    --accent:#e8b84a; --accent-dim:#7a6030; --accent-soft:rgba(232,184,74,0.10); --accent-line:rgba(232,184,74,0.5);
+    --info:#4a8fff; --warn:#ff6a4a;
+    --serif:'Cormorant Garamond','Source Serif 4',Georgia,serif; --sans:'Manrope',system-ui,sans-serif;
+    --display:'Anton','Bebas Neue',Impact,sans-serif; --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--fg-1)}
+  body{font-family:var(--serif);font-size:17px;line-height:1.7;padding:28px 16px 36px}
+  main{max-width:960px;margin:0 auto}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--fg-3)}
+  h1{font-family:var(--display);font-weight:400;font-size:44px;line-height:1.05;margin:6px 0 10px}
+  h2{font-family:var(--display);font-weight:400;font-size:28px;line-height:1.1;margin:4px 0 8px;letter-spacing:.01em}
+  p.lead{font-size:19px;color:var(--fg-2);margin:0 0 18px;max-width:66ch}
+  .rail{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 18px}
+  .rail button{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-3);background:transparent;border:1px solid var(--border);border-radius:4px;padding:7px 11px;cursor:pointer;transition:all .22s cubic-bezier(.4,0,.2,1)}
+  .rail button[aria-current="step"]{color:var(--fg-1);border-color:var(--fg-3);background:var(--bg-elev-2)}
+  p.say{color:var(--fg-2);margin:0 0 14px;max-width:68ch}
+  .panel{background:var(--bg-elev-1);border:1px solid var(--border-soft);border-radius:4px;padding:18px;margin:0 0 14px}
+  .tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;align-items:center}
+  button.play{font-family:var(--sans);font-weight:500;font-size:14px;color:#0a0a0f;background:var(--accent);border:0;border-radius:4px;padding:9px 20px;cursor:pointer;margin-left:auto;transition:box-shadow .22s cubic-bezier(.4,0,.2,1)}
+  button.play:hover{box-shadow:0 0 24px var(--accent-soft)}
+  canvas.stage{width:100%;display:block;background:var(--bg-elev-2);border-radius:4px}
+  .legend{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px 18px;margin-top:12px;font-family:var(--sans);font-size:13px;color:var(--fg-3);line-height:1.5}
+  .legend b{font-family:var(--mono);font-weight:400;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-2);display:block}
+  .ctl{display:grid;grid-template-columns:130px 1fr auto;gap:6px 14px;align-items:center;margin-top:14px}
+  .ctl label{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-3)}
+  .ctl input[type=range]{width:100%;accent-color:var(--accent)}
+  .ctl .v{font-family:var(--mono);font-size:14px;color:var(--fg-1);text-align:right;white-space:nowrap;min-width:10ch}
+  .ctl [hidden]{display:none}
+  .meter{font-family:var(--mono);font-size:13px;color:var(--fg-2);margin-top:12px;line-height:1.7}
+  .meter b{color:var(--accent);font-weight:400}
+  .meter .bad{color:var(--warn)}
+  .eq{font-family:var(--mono);font-size:13px;color:var(--fg-1);margin:14px 0 0;overflow-wrap:anywhere}
+  .eq.words{color:var(--fg-3);font-size:12px;margin-top:2px}
+  .try{margin:0 0 4px;padding:12px 16px;border-left:2px solid var(--accent-dim);background:var(--bg-elev-1);font-family:var(--sans);font-size:14px;color:var(--fg-2);line-height:1.6}
+  .try .eyebrow{color:var(--accent);display:block;margin-bottom:2px}
+  .rowb{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:12px}
+  .rowb[hidden]{display:none}
+  button.ghost{font-family:var(--sans);font-size:14px;color:var(--fg-2);background:transparent;border:1px solid var(--border);border-radius:4px;padding:8px 14px;cursor:pointer}
+  button.ghost[aria-pressed="true"]{color:var(--fg-1);border-color:var(--fg-3);background:var(--bg-elev-2)}
+  button.ghost:disabled{opacity:.35;cursor:default}
+  button.mark{font-family:var(--sans);font-weight:500;font-size:15px;color:var(--accent);background:var(--accent-soft);border:1px solid var(--accent-line);border-radius:4px;padding:10px 18px;cursor:pointer}
+  button.mark:disabled{opacity:.35;cursor:default}
+  .hint{font-family:var(--sans);font-size:13px;color:var(--fg-3)}
+  table.marks{border-collapse:collapse;margin-top:12px;font-family:var(--mono);font-size:13px;color:var(--fg-2)}
+  table.marks td,table.marks th{border-bottom:1px solid var(--border-soft);padding:5px 14px 5px 0;text-align:left;font-weight:400}
+  table.marks th{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-3)}
+  table.marks b{color:var(--accent);font-weight:400}
+  .walk{display:flex;justify-content:space-between;gap:10px;margin-top:16px}
+  footer{margin-top:28px;font-family:var(--sans);font-size:13px;color:var(--fg-4);display:flex;align-items:center;gap:10px}
+  footer b{font-family:var(--display);font-weight:400;letter-spacing:.06em;color:var(--fg-3)}
+  footer svg{flex:none}
+  @media (max-width:520px){h1{font-size:34px}h2{font-size:23px}.ctl{grid-template-columns:96px 1fr auto}}
+</style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">Exponential Decay Curvature · audio-rate feasibility · four steps</div>
+  <h1>Curvature is timbre</h1>
+  <p class="lead">Read the decay curve once per cycle and it is an oscillator. The phasor supplies time; the curve shapes it; curvature becomes the colour of the tone. Four steps: the phasor alone, the phasor through the curve, what the sign of curvature changes, and then the test of the section’s last claim, that steep curves alias and PolyBLEP or oversampling is the fix. The slow side of this, where the same curve is an envelope and the reading speeds up into a pitch, is the Dissolutions page’s piece, the seam. Nothing plays until you press Play.</p>
+
+  <nav class="rail" aria-label="Steps" id="rail"></nav>
+  <section aria-live="polite">
+    <div class="eyebrow" id="stepEyebrow"></div>
+    <h2 id="stepTitle"></h2>
+    <p class="say" id="stepSay"></p>
+  </section>
+  <div class="panel">
+    <div class="tabs"><span class="eyebrow">Hear</span><span class="hint" id="hearHint"></span><button class="play" id="play">Play</button></div>
+    <canvas class="stage" id="stage"></canvas>
+    <div class="legend" id="legend"></div>
+    <div class="ctl">
+      <label for="f0">pitch</label><input id="f0" type="range" min="0" max="1" step="0.001"><span class="v" id="f0v"></span>
+      <label for="c" id="cLabel">curvature</label><input id="c" type="range" min="-40" max="40" step="0.1" value="8"><span class="v" id="cv"></span>
+    </div>
+    <div class="rowb" id="signRow" hidden><span class="eyebrow">the sign</span>
+      <button class="ghost" data-sign="1" aria-pressed="true">+ convex</button>
+      <button class="ghost" data-sign="-1" aria-pressed="false">− concave</button>
+      <span class="hint">Flip back and forth while it plays.</span>
+    </div>
+    <div class="rowb" id="modeRow" hidden><span class="eyebrow">the oscillator</span>
+      <button class="ghost" data-mode="0" aria-pressed="true">Naive</button>
+      <button class="ghost" data-mode="1" aria-pressed="false">PolyBLEP</button>
+      <button class="ghost" data-mode="2" aria-pressed="false">PolyBLEP + PolyBLAMP</button>
+      <button class="ghost" data-mode="3" aria-pressed="false">4× oversampled</button>
+    </div>
+    <div class="rowb" id="glideRow" hidden>
+      <button class="ghost" id="glide">Glide 440 → 3520 Hz and back</button>
+      <span class="hint">Aliases are partials that move the wrong way: listen for tones falling while the pitch rises.</span>
+    </div>
+    <div class="meter" id="meter"></div>
+    <div id="eqs"></div>
+  </div>
+  <div class="try"><span class="eyebrow">Try</span><span id="tryText"></span></div>
+  <div class="walk"><button class="ghost" id="back">Back</button><button class="ghost" id="next">Next</button></div>
+  <footer><svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true"><circle cx="11" cy="11" r="10.2" fill="none" stroke="#4a4a5e" stroke-width="0.8"/><path d="M20.00 11.00L19.97 11.47L19.89 11.94L19.75 12.41L19.56 12.87L19.31 13.33L19.02 13.78L18.67 14.23L18.28 14.66L17.84 15.09L17.36 15.50L16.85 15.90L16.29 16.29L15.70 16.66L15.09 17.02L14.44 17.36L13.78 17.69L13.10 17.99L12.41 18.28L11.71 18.55L11.00 18.79L10.29 19.02L9.59 19.22L8.90 19.40L8.22 19.56L7.56 19.69L6.91 19.80L6.30 19.89L5.71 19.95L5.15 19.99L4.64 20.00L4.16 19.99L3.72 19.95L3.33 19.89L2.98 19.80L2.69 19.69L2.44 19.56L2.25 19.40L2.11 19.22L2.03 19.02L2.00 18.79L2.03 18.55L2.11 18.28L2.25 17.99L2.44 17.69L2.69 17.36L2.98 17.02L3.33 16.66L3.72 16.29L4.16 15.90L4.64 15.50L5.15 15.09L5.71 14.66L6.30 14.23L6.91 13.78L7.56 13.33L8.22 12.87L8.90 12.41L9.59 11.94L10.29 11.47L11.00 11.00L11.71 10.53L12.41 10.06L13.10 9.59L13.78 9.13L14.44 8.67L15.09 8.22L15.70 7.77L16.29 7.34L16.85 6.91L17.36 6.50L17.84 6.10L18.28 5.71L18.67 5.34L19.02 4.98L19.31 4.64L19.56 4.31L19.75 4.01L19.89 3.72L19.97 3.45L20.00 3.21L19.97 2.98L19.89 2.78L19.75 2.60L19.56 2.44L19.31 2.31L19.02 2.20L18.67 2.11L18.28 2.05L17.84 2.01L17.36 2.00L16.85 2.01L16.29 2.05L15.70 2.11L15.09 2.20L14.44 2.31L13.78 2.44L13.10 2.60L12.41 2.78L11.71 2.98L11.00 3.21L10.29 3.45L9.59 3.72L8.90 4.01L8.22 4.31L7.56 4.64L6.91 4.98L6.30 5.34L5.71 5.71L5.15 6.10L4.64 6.50L4.16 6.91L3.72 7.34L3.33 7.77L2.98 8.22L2.69 8.67L2.44 9.13L2.25 9.59L2.11 10.06L2.03 10.53L2.00 11.00L2.03 11.47L2.11 11.94L2.25 12.41L2.44 12.87L2.69 13.33L2.98 13.78L3.33 14.23L3.72 14.66L4.16 15.09L4.64 15.50L5.15 15.90L5.71 16.29L6.30 16.66L6.91 17.02L7.56 17.36L8.22 17.69L8.90 17.99L9.59 18.28L10.29 18.55L11.00 18.79L11.71 19.02L12.41 19.22L13.10 19.40L13.78 19.56L14.44 19.69L15.09 19.80L15.70 19.89L16.29 19.95L16.85 19.99L17.36 20.00L17.84 19.99L18.28 19.95L18.67 19.89L19.02 19.80L19.31 19.69L19.56 19.56L19.75 19.40L19.89 19.22L19.97 19.02L20.00 18.79L19.97 18.55L19.89 18.28L19.75 17.99L19.56 17.69L19.31 17.36L19.02 17.02L18.67 16.66L18.28 16.29L17.84 15.90L17.36 15.50L16.85 15.09L16.29 14.66L15.70 14.23L15.09 13.78L14.44 13.33L13.78 12.87L13.10 12.41L12.41 11.94L11.71 11.47L11.00 11.00L10.29 10.53L9.59 10.06L8.90 9.59L8.22 9.13L7.56 8.67L6.91 8.22L6.30 7.77L5.71 7.34L5.15 6.91L4.64 6.50L4.16 6.10L3.72 5.71L3.33 5.34L2.98 4.98L2.69 4.64L2.44 4.31L2.25 4.01L2.11 3.72L2.03 3.45L2.00 3.21L2.03 2.98L2.11 2.78L2.25 2.60L2.44 2.44L2.69 2.31L2.98 2.20L3.33 2.11L3.72 2.05L4.16 2.01L4.64 2.00L5.15 2.01L5.71 2.05L6.30 2.11L6.91 2.20L7.56 2.31L8.22 2.44L8.90 2.60L9.59 2.78L10.29 2.98L11.00 3.21L11.71 3.45L12.41 3.72L13.10 4.01L13.78 4.31L14.44 4.64L15.09 4.98L15.70 5.34L16.29 5.71L16.85 6.10L17.36 6.50L17.84 6.91L18.28 7.34L18.67 7.77L19.02 8.22L19.31 8.67L19.56 9.13L19.75 9.59L19.89 10.06L19.97 10.53L20.00 11.00" fill="none" stroke="#e8b84a" stroke-width="0.9"/></svg><span><b>LOUD’N LIVE</b> · Exponential Decay Curvature · curvature is timbre · Sketch, 2026-11-03 · proposal</span></footer>
+</main>
+<!-- The engine's core: plain functions shared by the picture, the worklet, the meter and the headless check. -->
+<script id="edc-timbre-core">
+var TIM = { LEVEL: 0.3, OS: 4, TAPS: 128 };
+// the shape function, with its Taylor branch at zero curvature
+function fShape(t, c){ if (Math.abs(c) < 1e-3) return (1 - t) * (1 - c * t / 2 + c * c * t * (2 * t - 1) / 12); return (Math.exp(-c * t) - Math.exp(-c)) / (1 - Math.exp(-c)); }
+function meanF(c){ if (Math.abs(c) < 1e-3) return 0.5 - c / 12; return 1 / c - Math.exp(-c) / (1 - Math.exp(-c)); }
+// harmonic n of the wave: its complex amplitude is 1 ÷ (c + i·2πn), so its level is 1 ÷ √(c² + (2πn)²), the same for c and −c
+function harmonic(c, n){ return 1 / Math.sqrt(c * c + 4 * Math.PI * Math.PI * n * n); }
+// the reset: every cycle the wave jumps from 0 back up to 1 (a step of +1) and its slope changes by −c (a corner)
+function stepRes(x){ return x < 0 ? (x + 1) * (x + 1) / 2 : -(1 - x) * (1 - x) / 2; }
+function rampRes(x){ return x < 0 ? (x + 1) * (x + 1) * (x + 1) / 6 : (1 - x) * (1 - x) * (1 - x) / 6; }
+// one sample at phase ph with phase step dt. mode 0: naive. 1: PolyBLEP smooths the step. 2: PolyBLEP + PolyBLAMP smooths the corner too.
+function oscSample(ph, dt, c, mode){
+  var v = fShape(ph, c) - meanF(c);
+  if (mode > 0){
+    var x = null; if (ph < dt) x = ph / dt; else if (ph > 1 - dt) x = (ph - 1) / dt;
+    if (x !== null){ v += stepRes(x); if (mode > 1) v += -c * dt * rampRes(x); }
+  }
+  return v;
+}
+// a windowed-sinc lowpass for the 4× oversampled oscillator (Blackman window), cutoff fc in cycles per oversampled sample
+function firTaps(N, fc){
+  var h = new Float64Array(N), s = 0, m = (N - 1) / 2;
+  for (var j = 0; j < N; j++){ var x = j - m, sinc = x === 0 ? 2 * fc : Math.sin(2 * Math.PI * fc * x) / (Math.PI * x);
+    var w = 0.42 - 0.5 * Math.cos(2 * Math.PI * j / (N - 1)) + 0.08 * Math.cos(4 * Math.PI * j / (N - 1)); h[j] = sinc * w; s += h[j]; }
+  for (j = 0; j < N; j++) h[j] /= s;
+  return h;
+}
+// one oscillator, stateful. mode 3: mode 2 run at four times the rate, then filtered and decimated.
+function makeOsc(sr){
+  var o = { ph: 0, ph4: 0, buf: new Float64Array(2 * TIM.TAPS), bi: 0, h: firTaps(TIM.TAPS, 0.45 / TIM.OS) };
+  o.next = function(f0, c, mode){
+    if (mode < 3){ var dt = f0 / sr; o.ph += dt; if (o.ph >= 1) o.ph -= 1; return oscSample(o.ph, dt, c, mode); }
+    var dt4 = f0 / (sr * TIM.OS), N = TIM.TAPS;
+    for (var k = 0; k < TIM.OS; k++){ o.ph4 += dt4; if (o.ph4 >= 1) o.ph4 -= 1; var v = oscSample(o.ph4, dt4, c, 2); o.buf[o.bi] = v; o.buf[o.bi + N] = v; o.bi = (o.bi + 1) % N; }
+    var s = 0, b = o.buf, h = o.h, base = o.bi; for (var j = 0; j < N; j++) s += h[j] * b[base + j];
+    return s;
+  };
+  return o;
+}
+function fftInPlace(re, im){
+  var n = re.length, i, j = 0, b, len, t;
+  for (i = 1; i < n; i++){ b = n >> 1; for (; j & b; b >>= 1) j ^= b; j ^= b; if (i < j){ t = re[i]; re[i] = re[j]; re[j] = t; t = im[i]; im[i] = im[j]; im[j] = t; } }
+  for (len = 2; len <= n; len <<= 1){ var a = -2 * Math.PI / len, wr = Math.cos(a), wi = Math.sin(a);
+    for (i = 0; i < n; i += len){ var cr = 1, ci = 0; for (var k = 0; k < len / 2; k++){ var p = i + k, q = p + len / 2, vr = re[q] * cr - im[q] * ci, vi = re[q] * ci + im[q] * cr;
+      re[q] = re[p] - vr; im[q] = im[p] - vi; re[p] += vr; im[p] += vi; t = cr * wr - ci * wi; ci = cr * wi + ci * wr; cr = t; } } }
+}
+// measure the alias: render the oscillator, window it, and split the power into what sits on a harmonic below Nyquist and everything else
+function aliasMeasure(f0, c, mode, sr, N){
+  N = N || 16384; var o = makeOsc(sr), i, re = new Float64Array(N), im = new Float64Array(N);
+  for (i = 0; i < 512; i++) o.next(f0, c, mode);
+  for (i = 0; i < N; i++){ var w = 0.35875 - 0.48829 * Math.cos(2 * Math.PI * i / (N - 1)) + 0.14128 * Math.cos(4 * Math.PI * i / (N - 1)) - 0.01168 * Math.cos(6 * Math.PI * i / (N - 1)); re[i] = o.next(f0, c, mode) * w; }
+  fftInPlace(re, im);
+  var bin = sr / N, harm = 0, alias = 0, P = new Float64Array(N / 2), isH = new Uint8Array(N / 2);
+  for (var k = 1; k < N / 2; k++){ P[k] = re[k] * re[k] + im[k] * im[k]; var n = Math.round(k * bin / f0); if (n >= 1 && Math.abs(k * bin - n * f0) <= 6 * bin) isH[k] = 1; }
+  for (k = 4; k < N / 2; k++){ if (isH[k]) harm += P[k]; else alias += P[k]; }
+  return { db: 10 * Math.log10(alias / harm), P: P, isH: isH, bin: bin };
+}
+// the levels of harmonics 1..H, measured from one cycle (midpoint rule, M points), for comparing c with −c
+function measuredLevels(c, H, M){
+  M = M || 8192; var L = [], m = meanF(c);
+  for (var n = 1; n <= H; n++){ var r = 0, s = 0; for (var k = 0; k < M; k++){ var t = (k + 0.5) / M, y = fShape(t, c) - m, a = 2 * Math.PI * n * t; r += y * Math.cos(a); s -= y * Math.sin(a); } L.push(Math.hypot(r, s) / M); }
+  return L;
+}
+</script>
+<!-- The worklet, read as text and loaded from a Blob with the core above it. -->
+<script type="text/plain" id="edc-timbre-worklet">
+class TimbreProcessor extends AudioWorkletProcessor {
+  constructor(){
+    super();
+    this.kind = 'phasor'; this.f0 = 110; this.c = 8; this.mode = 0; this.glide = null; this.ph = 0; this.tick = 0;
+    this.osc = makeOsc(sampleRate);
+    this.port.onmessage = (e) => {
+      const m = e.data || {};
+      if (m.kind) this.kind = m.kind;
+      if (typeof m.f0 === 'number') { this.f0 = m.f0; this.glide = null; }
+      if (typeof m.c === 'number') this.c = m.c;
+      if (typeof m.mode === 'number') this.mode = m.mode;
+      if (m.glide) this.glide = { from: m.glide.from, to: m.glide.to, n: 0, N: Math.round(m.glide.seconds * sampleRate) };
+    };
+  }
+  process(inputs, outputs){
+    const out = outputs[0], L = out[0], R = out[1] || out[0], sr = sampleRate;
+    for (let i = 0; i < L.length; i++){
+      if (this.glide){ const g = this.glide, u = g.n / g.N, tri = u < 0.5 ? 2 * u : 2 - 2 * u;
+        this.f0 = g.from * Math.pow(g.to / g.from, tri); if (++g.n > g.N){ this.glide = null; this.f0 = g.from; this.port.postMessage({ glideDone: true }); } }
+      let y;
+      if (this.kind === 'phasor'){ this.ph += this.f0 / sr; if (this.ph >= 1) this.ph -= 1; y = TIM.LEVEL * (2 * this.ph - 1); }
+      else y = TIM.LEVEL * 2 * this.osc.next(this.f0, this.c, this.mode);
+      L[i] = y; if (R !== L) R[i] = y;
+    }
+    if (++this.tick % 16 === 0) this.port.postMessage({ f0: this.f0 });
+    return true;
+  }
+}
+registerProcessor('edc-timbre', TimbreProcessor);
+</script>
+<script>
+(function(){
+  'use strict';
+  var $ = function(id){ return document.getElementById(id); };
+  
+  function makeWalk(STEPS, onGo){
+    var rail = document.getElementById('rail'), cur = 0;
+    STEPS.forEach(function(s, i){
+      var b = document.createElement('button'); b.textContent = (i + 1) + ' · ' + s.short;
+      b.addEventListener('click', function(){ go(i); }); rail.appendChild(b);
+    });
+    function go(i){
+      cur = i; var s = STEPS[i];
+      Array.prototype.forEach.call(rail.children, function(b, j){ if (j === i) b.setAttribute('aria-current', 'step'); else b.removeAttribute('aria-current'); });
+      document.getElementById('stepEyebrow').textContent = 'Step ' + (i + 1) + ' of ' + STEPS.length + (s.test ? ' · the test' : '');
+      document.getElementById('stepTitle').textContent = s.title;
+      document.getElementById('stepSay').textContent = s.say;
+      document.getElementById('hearHint').textContent = s.hint || '';
+      var eqs = document.getElementById('eqs'); eqs.innerHTML = '';
+      (s.eq || []).forEach(function(e){
+        var a = document.createElement('div'); a.className = 'eq'; a.textContent = e[0];
+        var w = document.createElement('div'); w.className = 'eq words'; w.textContent = e[1];
+        eqs.appendChild(a); eqs.appendChild(w);
+      });
+      document.getElementById('tryText').textContent = s.tryText;
+      document.getElementById('back').disabled = i === 0;
+      document.getElementById('next').disabled = i === STEPS.length - 1;
+      onGo(i, s);
+    }
+    document.getElementById('back').addEventListener('click', function(){ if (cur > 0) go(cur - 1); });
+    document.getElementById('next').addEventListener('click', function(){ if (cur < STEPS.length - 1) go(cur + 1); });
+    return { go: go, step: function(){ return cur; } };
+  }
+  // a canvas sized by its column, in device pixels
+  function fitCanvas(cv, ratio, minH, maxH){
+    var r = cv.getBoundingClientRect(), d = window.devicePixelRatio || 1;
+    var cssH = Math.round(Math.max(minH, Math.min(maxH, r.width * ratio)));
+    if (cv.style.height !== cssH + 'px') cv.style.height = cssH + 'px';
+    var W = Math.round(r.width * d), H = Math.round(cssH * d);
+    if (cv.width !== W || cv.height !== H){ cv.width = W; cv.height = H; }
+    return { g: cv.getContext('2d'), W: W, H: H, d: d };
+  }
+  function cssVar(n, fb){ return getComputedStyle(document.documentElement).getPropertyValue(n).trim() || fb; }
+
+  var STEPS = [
+    { title: 'The phasor alone', short: 'The phasor',
+      say: 'Time, made into a signal: a ramp that climbs from 0 to 1 and starts again. How fast it climbs is the only thing it knows. Read slowly it would be the progress through a note; read 110 times a second it is a pitch, and on its own, straight to the speaker, it is a plain sawtooth. Change the pitch and only the speed of the ramp changes.',
+      hint: 'the phasor itself, a rising ramp, straight out',
+      eq: [['φ ← frac(φ + f₀ ÷ sr)', '(phase) moves forward by (pitch) ÷ (sample rate) each sample, and wraps from 1 back to 0'],
+           ['duration = 1 ÷ f₀', 'one trip of the ramp lasts (1 ÷ pitch): changing duration at audio rate is frequency modulation']],
+      tryText: 'Drag the pitch. The shape on the left never changes; only how many trips fit in the window on the right.' },
+    { title: 'Through the curve', short: 'The shape',
+      say: 'Now the ramp goes through the curve before it reaches the speaker. The phasor still says where in the cycle we are; the curve says how loud the wave is there. At zero curvature the curve is the straight line, so the wave is the sawtooth turned over. Bend it and the tone changes colour. The bars are the harmonics: up to about harmonic |c| ÷ 2π they sit nearly level, and above it they fall away as a sawtooth’s do.',
+      hint: 'the phasor read through the curve, at 110 Hz',
+      eq: [['y = f(φ, c) − mean(c)', '(wave) = (the curve’s height at the phase) − (its average), so it swings about zero'],
+           ['|aₙ| = 1 ÷ √(c² + (2πn)²)', '(level of harmonic n) = 1 ÷ the square root of ((curvature)² + (2π × n)²)']],
+      tryText: 'Sweep the curvature slowly from 0 to 40 while it plays: the tone brightens and thins as the knee moves up the harmonics. That continuous motion is the c-morph the page offers as a performance gesture.' },
+    { title: 'What the sign changes', short: 'The sign',
+      say: 'Convex and concave look like opposites. Turn one half round, upside down and backwards, and it is the other: f(t, −c) = 1 − f(1 − t, c). A wave and its half-turn have the same harmonic levels; only their phases differ. So as a steady tone, the size of the curvature sets the levels and the sign does not. Whether you hear the sign is a question about your ear, not the formula. Ears are mostly deaf to phase in a steady high tone; at low pitches some people hear a difference between a wave and its time reversal.',
+      hint: 'the same size of curvature, either sign, at the pitch you set',
+      eq: [['f(t, −c) = 1 − f(1 − t, c)', '(the concave member) = the convex member turned half round: flipped in time and upside down'],
+           ['|aₙ(−c)| = |aₙ(c)|', 'harmonic levels are the same for either sign; only the phases move']],
+      tryText: 'Flip the sign while it plays at 880 Hz, then at 55 Hz. The meter compares the harmonic levels measured from each wave. If you hear a difference, it lives in the phases; listen low as well as high.' },
+    { title: 'Steep curves and aliasing', short: 'The test', test: true,
+      say: 'The test of the section’s last claim: large curvature sharpens the wave and aliases, so PolyBLEP or oversampling applies. A digital oscillator can only hold partials below half the sample rate; the rest fold back down as tones that are not harmonics. Four versions of the same oscillator. PolyBLEP smooths the jump at the reset. PolyBLAMP also smooths the corner in slope that the reset makes, which is as big as the curvature. Oversampling runs the PolyBLEP + PolyBLAMP oscillator four times faster, then filters it back down. Set a high pitch and a large curvature, try each, and read the meter: the folded power against the harmonics’ power, measured from this engine’s own output.',
+      hint: 'the oscillator at your pitch and curvature, in the version you choose',
+      eq: [['jump at the reset: +1    corner in slope at the reset: −c', 'every cycle the wave jumps from 0 to 1 (as a sawtooth does) and its slope changes by (minus the curvature)'],
+           ['alias = (power not on a harmonic) ÷ (power on harmonics), in dB', 'how loud the folded tones are, against the tone itself']],
+      tryText: 'Start at 1760 Hz with curvature 0: this is a sawtooth, and PolyBLEP alone takes most of the alias. Now push curvature to 60: PolyBLEP leaves much more, PolyBLAMP takes some of that back, oversampling the most. Glide the pitch with the naive version to hear the folded tones fall while the note rises.' }
+  ];
+
+  var step = 0, playing = false, f0 = 110, curv = 8, sign = 1, mode = 0;
+  var ctx = null, node = null, master = null, loading = null, engF0 = 110, gliding = false;
+  var RANGES = [[55, 880], [55, 880], [40, 1760], [110, 4000]];
+  function sliderToF(v){ var r = RANGES[step]; return r[0] * Math.pow(r[1] / r[0], v); }
+  function fToSlider(f){ var r = RANGES[step]; return Math.log(f / r[0]) / Math.log(r[1] / r[0]); }
+  function cNow(){ return step === 2 ? sign * Math.abs(curv) : curv; }
+  function workletURL(){ return URL.createObjectURL(new Blob([$('edc-timbre-core').textContent + '\n' + $('edc-timbre-worklet').textContent], { type: 'application/javascript' })); }
+  function ensure(){
+    if (ctx) return loading;
+    ctx = new (window.AudioContext || window.webkitAudioContext)();
+    master = ctx.createGain(); master.gain.value = 0.5;
+    var comp = ctx.createDynamicsCompressor(); comp.threshold.value = -2; comp.knee.value = 0; comp.ratio.value = 20; comp.attack.value = 0.002; comp.release.value = 0.1;
+    master.connect(comp); comp.connect(ctx.destination);
+    loading = ctx.audioWorklet.addModule(workletURL());
+    return loading;
+  }
+  function start(){
+    ensure().then(function(){
+      if (!playing) return; stopNode();
+      node = new AudioWorkletNode(ctx, 'edc-timbre', { numberOfInputs: 0, numberOfOutputs: 1, outputChannelCount: [2] });
+      node.port.onmessage = function(e){ var m = e.data || {}; if (typeof m.f0 === 'number') engF0 = m.f0; if (m.glideDone){ gliding = false; $('glide').disabled = false; } };
+      node.port.postMessage({ kind: step === 0 ? 'phasor' : 'osc', f0: f0, c: cNow(), mode: step === 3 ? mode : 0 });
+      node.connect(master);
+    });
+  }
+  function stopNode(){ if (node){ try { node.disconnect(); } catch(e){} node.port.onmessage = null; node = null; } }
+  function stop(){ playing = false; gliding = false; stopNode(); $('play').textContent = 'Play'; $('glide').disabled = false; }
+  function send(m){ if (node) node.port.postMessage(m); }
+  $('play').addEventListener('click', function(){ ensure(); if (ctx.state === 'suspended') ctx.resume(); if (playing){ stop(); return; } playing = true; $('play').textContent = 'Stop'; start(); });
+
+  function fmtHz(f){ return (f < 100 ? f.toFixed(1) : Math.round(f)) + ' Hz'; }
+  $('f0').addEventListener('input', function(){ f0 = sliderToF(parseFloat($('f0').value)); $('f0v').textContent = fmtHz(f0); send({ f0: f0 }); remeasure(); });
+  $('c').addEventListener('input', function(){ curv = parseFloat($('c').value); showC(); send({ c: cNow() }); remeasure(); });
+  function showC(){ var c = cNow(); $('cv').textContent = (step === 2 ? '|c| = ' + Math.abs(curv).toFixed(1) : c.toFixed(1) + (Math.abs(c) < 0.05 ? ' straight' : c > 0 ? ' convex' : ' concave')); meter(); }
+  Array.prototype.forEach.call(document.querySelectorAll('[data-sign]'), function(b){ b.addEventListener('click', function(){ sign = parseInt(b.getAttribute('data-sign'), 10); syncButtons(); showC(); send({ c: cNow() }); }); });
+  Array.prototype.forEach.call(document.querySelectorAll('[data-mode]'), function(b){ b.addEventListener('click', function(){ mode = parseInt(b.getAttribute('data-mode'), 10); syncButtons(); send({ mode: mode }); remeasure(); }); });
+  $('glide').addEventListener('click', function(){ if (!node) return; gliding = true; $('glide').disabled = true; send({ f0: 440 }); send({ glide: { from: 440, to: 3520, seconds: 8 } }); });
+  function syncButtons(){
+    Array.prototype.forEach.call(document.querySelectorAll('[data-sign]'), function(b){ b.setAttribute('aria-pressed', String(parseInt(b.getAttribute('data-sign'), 10) === sign)); });
+    Array.prototype.forEach.call(document.querySelectorAll('[data-mode]'), function(b){ b.setAttribute('aria-pressed', String(parseInt(b.getAttribute('data-mode'), 10) === mode)); });
+  }
+
+  // measurements, worked out off the audio thread and cached
+  var meas = null, measTimer = null, levels = null;
+  function remeasure(){
+    if (step === 2){ var a = measuredLevels(Math.abs(curv) || 1e-9, 24, 8192), b = measuredLevels(-Math.abs(curv) || -1e-9, 24, 8192), worst = 0;
+      for (var n = 0; n < 24; n++) worst = Math.max(worst, Math.abs(20 * Math.log10(a[n] / b[n])));
+      levels = { pos: a, neg: b, worstDb: worst }; meter(); return; }
+    if (step !== 3) return;
+    clearTimeout(measTimer);
+    measTimer = setTimeout(function(){ meas = aliasMeasure(f0, curv, mode, (ctx && ctx.sampleRate) || 48000, 16384); meter(); }, 120);
+  }
+  var MODE_NAME = ['naive', 'PolyBLEP', 'PolyBLEP + PolyBLAMP', '4× oversampled'];
+  function meter(){
+    var h = [], c = cNow();
+    if (step === 0) h.push('one trip of the ramp: <b>' + (1000 / f0).toFixed(2) + ' ms</b> · the phasor is the only thing that knows the pitch');
+    if (step === 1){ var knee = Math.abs(c) / (2 * Math.PI); h.push('the knee: harmonics up to about <b>n = ' + (knee < 1 ? 'below 1' : knee.toFixed(1)) + '</b> sit nearly level; above, they fall like a sawtooth’s');
+      h.push('harmonic 1 ÷ harmonic 8, in level: <b>' + (20 * Math.log10(harmonic(c, 1) / harmonic(c, 8))).toFixed(1) + ' dB</b> (a sawtooth: 18.1 dB)'); }
+    if (step === 2 && levels) h.push('harmonics 1 to 24, measured from one cycle of each wave: largest difference between +' + Math.abs(curv).toFixed(1) + ' and −' + Math.abs(curv).toFixed(1) + ' is <b>' + levels.worstDb.toFixed(4) + ' dB</b>');
+    if (step === 3) h.push(meas ? MODE_NAME[mode] + ' at ' + fmtHz(f0) + ', curvature ' + curv.toFixed(1) + ': folded power against harmonic power <b>' + meas.db.toFixed(1) + ' dB</b>' : 'measuring…');
+    if (step === 3 && gliding) h.push('gliding: the meter holds the setting before the glide');
+    $('meter').innerHTML = h.join('<br>');
+  }
+
+  var LEG = [
+    '<div><b>The phasor</b>Left: one trip of the ramp, 0 to 1.</div><div><b>What comes out</b>Right: three cycles, as the speaker gets them.</div>',
+    '<div><b>The map</b>Left: the phasor along the bottom, the curve’s height up the side.</div><div><b>The wave and its harmonics</b>Right: two cycles. Bars: the levels of harmonics 1 to 40 in dB, with a sawtooth’s as ticks.</div>',
+    '<div><b>The two waves</b>Gold: the sign you chose. Blue: the other sign.</div><div><b>The harmonics</b>Bars for both signs side by side, in dB, measured from each wave. Where they differ, a pair would split.</div>',
+    '<div><b>The wave</b>Left: two cycles from the engine itself, in the version chosen.</div><div><b>The spectrum</b>Right: measured from the engine’s output, 0 to half the sample rate. Gold: on a harmonic. Red: folded back.</div>'
+  ];
+  var walk = makeWalk(STEPS, function(i, s){
+    if (playing) stop();
+    step = i; f0 = [110, 110, 110, 1760][i]; $('f0').value = String(fToSlider(f0)); $('f0v').textContent = fmtHz(f0);
+    var cOn = i > 0; $('c').hidden = !cOn; $('cv').hidden = !cOn; $('cLabel').hidden = !cOn;
+    $('c').min = i === 2 ? '0' : i === 3 ? '-80' : '-40'; $('c').max = i === 3 ? '80' : '40';
+    curv = [8, 8, 12, 0][i]; $('c').value = String(curv);
+    $('signRow').hidden = i !== 2; $('modeRow').hidden = i !== 3; $('glideRow').hidden = i !== 3;
+    mode = 0; sign = 1; syncButtons(); meas = null; levels = null;
+    $('legend').innerHTML = LEG[i]; showC(); remeasure();
+  });
+
+  // ---------- the picture ----------
+  var cv = $('stage'), ACC = cssVar('--accent', '#e8b84a'), FG3 = cssVar('--fg-3', '#8a8aa0'), FG4 = cssVar('--fg-4', '#4a4a5a'), INFO = cssVar('--info', '#4a8fff'), WARN = cssVar('--warn', '#ff6a4a');
+  function box(g, x, y, w, h, d, label){ g.strokeStyle = 'rgba(255,255,255,0.06)'; g.lineWidth = d; g.strokeRect(x, y, w, h); g.font = (10 * d) + 'px JetBrains Mono, monospace'; g.fillStyle = FG4; g.fillText(label, x + 6 * d, y + 14 * d); }
+  function trace(g, x, y, w, h, d, n, fn, color, lw, scale){
+    var mid = y + h / 2 + 6 * d, amp = (h - 34 * d) / 2 * (scale || 1);
+    g.strokeStyle = color; g.lineWidth = lw * d; g.beginPath();
+    for (var i = 0; i <= n; i++){ var xx = x + 6 * d + i / n * (w - 12 * d), yy = mid - fn(i / n) * amp; if (i) g.lineTo(xx, yy); else g.moveTo(xx, yy); }
+    g.stroke();
+  }
+  function bars(g, x, y, w, h, d, lv, ref, color, alpha, offset){
+    var N = lv.length, bw = (w - 16 * d) / N, top = y + 22 * d, bot = y + h - 8 * d, Y = function(db){ return top + Math.min(1, Math.max(0, -db / 60)) * (bot - top); };
+    g.globalAlpha = alpha; g.fillStyle = color;
+    for (var n = 0; n < N; n++){ var db = 20 * Math.log10(lv[n] / lv0); var xx = x + 8 * d + n * bw + (offset || 0) * bw * 0.5; g.fillRect(xx, Y(db), bw * 0.45, bot - Y(db)); }
+    g.globalAlpha = 1;
+    if (ref){ g.strokeStyle = FG3; g.lineWidth = d; for (n = 0; n < N; n++){ var dr = 20 * Math.log10(ref[n] / lv0), xr = x + 8 * d + n * bw; g.beginPath(); g.moveTo(xr - d, Y(dr)); g.lineTo(xr + bw * 0.6, Y(dr)); g.stroke(); } }
+  }
+  var lv0 = 1 / (2 * Math.PI);   // 0 dB on the bars: a sawtooth’s first harmonic
+  function draw(){
+    var c0 = fitCanvas(cv, 0.42, 240, 380), g = c0.g, W = c0.W, H = c0.H, d = c0.d, p = 14 * d, gap = 14 * d;
+    g.clearRect(0, 0, W, H);
+    var S = Math.min(H - 2 * p, W * 0.34), sx = p, sy = (H - S) / 2, ox = sx + S + gap, ow = W - p - ox, c = cNow();
+    if (step === 0){
+      box(g, sx, sy, S, S, d, 'THE PHASOR · one trip');
+      g.strokeStyle = ACC; g.lineWidth = 2.5 * d; g.beginPath(); g.moveTo(sx + 8 * d, sy + S - 10 * d); g.lineTo(sx + S - 8 * d, sy + 22 * d); g.stroke();
+      box(g, ox, sy, ow, S, d, 'WHAT COMES OUT · three cycles = ' + (3000 / f0).toFixed(1) + ' ms');
+      trace(g, ox, sy, ow, S, d, 600, function(u){ var ph = (u * 3) % 1; return 2 * ph - 1; }, ACC, 1.8, 0.85);
+    } else if (step === 1 || step === 2){
+      box(g, sx, sy, S, S, d, step === 1 ? 'PHASOR → CURVE' : 'THE TWO WAVES');
+      if (step === 1){
+        g.strokeStyle = FG4; g.setLineDash([4 * d, 4 * d]); g.lineWidth = d; g.beginPath(); g.moveTo(sx + 8 * d, sy + 22 * d); g.lineTo(sx + S - 8 * d, sy + S - 10 * d); g.stroke(); g.setLineDash([]);
+        g.strokeStyle = ACC; g.lineWidth = 2.5 * d; g.beginPath();
+        for (var i = 0; i <= 300; i++){ var t = i / 300, xx = sx + 8 * d + t * (S - 16 * d), yy = sy + 22 * d + (1 - fShape(t, c)) * (S - 32 * d); if (i) g.lineTo(xx, yy); else g.moveTo(xx, yy); } g.stroke();
+      } else {
+        var m1 = meanF(c), m2 = meanF(-c);
+        trace(g, sx, sy, S, S, d, 400, function(u){ return 1.1 * (fShape((u * 2) % 1, -c) - m2); }, INFO, 1.2, 0.8);
+        trace(g, sx, sy, S, S, d, 400, function(u){ return 1.1 * (fShape((u * 2) % 1, c) - m1); }, ACC, 2, 0.8);
+      }
+      var top = (S - gap) * 0.42;
+      box(g, ox, sy, ow, top, d, 'TWO CYCLES · ' + fmtHz(f0));
+      var mm = meanF(c); trace(g, ox, sy, ow, top, d, 400, function(u){ return 1.1 * (fShape((u * 2) % 1, c) - mm); }, ACC, 1.8, 0.8);
+      box(g, ox, sy + top + gap, ow, S - top - gap, d, 'HARMONICS 1–' + (step === 1 ? 40 : 24) + ' · dB, 0 to −60');
+      var H1 = step === 1 ? 40 : 24, lvA = [], saw = [];
+      for (var n = 1; n <= H1; n++){ lvA.push(harmonic(c, n)); saw.push(harmonic(0, n)); }
+      if (step === 1) bars(g, ox, sy + top + gap, ow, S - top - gap, d, lvA, saw, ACC, 0.9, 0);
+      else if (levels){ bars(g, ox, sy + top + gap, ow, S - top - gap, d, sign > 0 ? levels.pos : levels.neg, null, ACC, 0.9, 0); bars(g, ox, sy + top + gap, ow, S - top - gap, d, sign > 0 ? levels.neg : levels.pos, null, INFO, 0.55, 1); }
+    } else {
+      box(g, sx, sy, S, S, d, 'TWO CYCLES · ' + ['NAIVE', 'POLYBLEP', 'BLEP + BLAMP', '4× OVERSAMPLED'][mode]);
+      var o = makeOsc(48000), per = 48000 / f0, ns = Math.max(8, Math.ceil(2 * per)), pts = [];
+      for (var k = 0; k < 256; k++) o.next(f0, curv, mode);
+      for (k = 0; k < ns; k++) pts.push(o.next(f0, curv, mode));
+      g.strokeStyle = ACC; g.lineWidth = 1.6 * d; g.beginPath();
+      var mid = sy + S / 2 + 6 * d, amp = (S - 40 * d) / 2 / 1.2;
+      for (k = 0; k < ns; k++){ var xx2 = sx + 8 * d + k / (ns - 1) * (S - 16 * d), yy2 = mid - pts[k] * amp; if (k) g.lineTo(xx2, yy2); else g.moveTo(xx2, yy2); }
+      g.stroke(); g.fillStyle = ACC; if (ns < 80) for (k = 0; k < ns; k++){ g.beginPath(); g.arc(sx + 8 * d + k / (ns - 1) * (S - 16 * d), mid - pts[k] * amp, 2 * d, 0, 7); g.fill(); }
+      box(g, ox, sy, ow, S, d, 'SPECTRUM · measured · gold harmonic · red folded');
+      if (meas){
+        var P = meas.P, isH = meas.isH, half = P.length, cols = Math.floor(ow - 16 * d), per2 = half / cols, pk = 0;
+        for (k = 1; k < half; k++) if (P[k] > pk) pk = P[k];
+        var Yd = function(db){ return sy + 22 * d + Math.min(1, -db / 100) * (S - 32 * d); };
+        for (var cc = 0; cc < cols; cc++){
+          var a0 = Math.floor(cc * per2), a1 = Math.max(a0 + 1, Math.floor((cc + 1) * per2)), mh = 0, ma = 0;
+          for (k = Math.max(1, a0); k < a1; k++){ if (isH[k]) mh = Math.max(mh, P[k]); else ma = Math.max(ma, P[k]); }
+          if (ma > 0){ g.fillStyle = WARN; var da = 10 * Math.log10(ma / pk); if (da > -100){ g.fillRect(ox + 8 * d + cc, Yd(da), Math.max(1, d), sy + S - 10 * d - Yd(da)); } }
+          if (mh > 0){ g.fillStyle = ACC; var dh = 10 * Math.log10(mh / pk); if (dh > -100){ g.fillRect(ox + 8 * d + cc, Yd(dh), Math.max(1, d), sy + S - 10 * d - Yd(dh)); } }
+        }
+        g.fillStyle = FG4; g.font = (9 * d) + 'px JetBrains Mono, monospace'; g.fillText('0 dB', ox + ow - 40 * d, Yd(0) + 10 * d); g.fillText('−100', ox + ow - 40 * d, Yd(-100) - 2 * d);
+      }
+    }
+    requestAnimationFrame(draw);
+  }
+  syncButtons(); walk.go(0); requestAnimationFrame(draw);
+})();
+</script>
+</body>
+</html>

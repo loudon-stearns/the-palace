@@ -1,0 +1,427 @@
+<!doctype html>
+<!--
+  title: Exponential Decay Curvature — rich — the RC contour
+  born: 2026-11-03
+  links: [[Exponential Decay Curvature]] (connects-to · rich-face-piece) · listed in [[Exponential Decay Curvature — rich.json]] · section "The curve in a synthesizer: the Moog contour" · the voice is Synth Templates' reference voice for its time tables (a saw at C3 through a 2500 Hz lowpass)
+  forward_vector: I am the walk up to the Moog contour as a capacitor and a comparator. One capacitor charging; then the comparator that decides where the stage ends, with the circuit noise that decides it when the switch sits at the maximum; then the three stages; and last the test that each stage, cut at its switch point and rescaled, is exactly this entry's curve at curvature c = −ln(1 − L), which is 3 at the 95 % landmark, and that a lower switch point gives a straighter stage, so the straight line comes only as a limit. I change only when the section I serve does.
+  sound: nothing plays until a key button is pressed; the AudioContext is made on that press. Changing step stops the sound.
+  check: Exponential Decay Curvature/Exponential Decay Curvature — rich — check.mjs runs this page's core and worklet in Node.
+-->
+<html lang="en" class="skin-graphite">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- needs nothing of its host: no device, no storage, no file, no host; sound only on a click -->
+<meta name="piece:needs" content="">
+<title>A capacitor, a comparator, and the curve</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@300;400;500&display=swap">
+<style>
+  :root{
+    --bg:#0a0a0f; --bg-elev-1:#12121a; --bg-elev-2:#1a1a28; --border:#4a4a5e; --border-soft:rgba(255,255,255,0.06);
+    --fg-1:#e8e8f0; --fg-2:#c8c8d8; --fg-3:#8a8aa0; --fg-4:#4a4a5a;
+    --accent:#e8b84a; --accent-dim:#7a6030; --accent-soft:rgba(232,184,74,0.10); --accent-line:rgba(232,184,74,0.5);
+    --info:#4a8fff; --warn:#ff6a4a;
+    --serif:'Cormorant Garamond','Source Serif 4',Georgia,serif; --sans:'Manrope',system-ui,sans-serif;
+    --display:'Anton','Bebas Neue',Impact,sans-serif; --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--fg-1)}
+  body{font-family:var(--serif);font-size:17px;line-height:1.7;padding:28px 16px 36px}
+  main{max-width:960px;margin:0 auto}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--fg-3)}
+  h1{font-family:var(--display);font-weight:400;font-size:44px;line-height:1.05;margin:6px 0 10px}
+  h2{font-family:var(--display);font-weight:400;font-size:28px;line-height:1.1;margin:4px 0 8px;letter-spacing:.01em}
+  p.lead{font-size:19px;color:var(--fg-2);margin:0 0 18px;max-width:66ch}
+  .rail{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 18px}
+  .rail button{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-3);background:transparent;border:1px solid var(--border);border-radius:4px;padding:7px 11px;cursor:pointer;transition:all .22s cubic-bezier(.4,0,.2,1)}
+  .rail button[aria-current="step"]{color:var(--fg-1);border-color:var(--fg-3);background:var(--bg-elev-2)}
+  p.say{color:var(--fg-2);margin:0 0 14px;max-width:68ch}
+  .panel{background:var(--bg-elev-1);border:1px solid var(--border-soft);border-radius:4px;padding:18px;margin:0 0 14px}
+  .tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;align-items:center}
+  button.play{font-family:var(--sans);font-weight:500;font-size:14px;color:#0a0a0f;background:var(--accent);border:0;border-radius:4px;padding:9px 20px;cursor:pointer;margin-left:auto;transition:box-shadow .22s cubic-bezier(.4,0,.2,1)}
+  button.play:hover{box-shadow:0 0 24px var(--accent-soft)}
+  canvas.stage{width:100%;display:block;background:var(--bg-elev-2);border-radius:4px}
+  .legend{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px 18px;margin-top:12px;font-family:var(--sans);font-size:13px;color:var(--fg-3);line-height:1.5}
+  .legend b{font-family:var(--mono);font-weight:400;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-2);display:block}
+  .ctl{display:grid;grid-template-columns:130px 1fr auto;gap:6px 14px;align-items:center;margin-top:14px}
+  .ctl label{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-3)}
+  .ctl input[type=range]{width:100%;accent-color:var(--accent)}
+  .ctl .v{font-family:var(--mono);font-size:14px;color:var(--fg-1);text-align:right;white-space:nowrap;min-width:10ch}
+  .ctl [hidden]{display:none}
+  .meter{font-family:var(--mono);font-size:13px;color:var(--fg-2);margin-top:12px;line-height:1.7}
+  .meter b{color:var(--accent);font-weight:400}
+  .meter .bad{color:var(--warn)}
+  .eq{font-family:var(--mono);font-size:13px;color:var(--fg-1);margin:14px 0 0;overflow-wrap:anywhere}
+  .eq.words{color:var(--fg-3);font-size:12px;margin-top:2px}
+  .try{margin:0 0 4px;padding:12px 16px;border-left:2px solid var(--accent-dim);background:var(--bg-elev-1);font-family:var(--sans);font-size:14px;color:var(--fg-2);line-height:1.6}
+  .try .eyebrow{color:var(--accent);display:block;margin-bottom:2px}
+  .rowb{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:12px}
+  .rowb[hidden]{display:none}
+  button.ghost{font-family:var(--sans);font-size:14px;color:var(--fg-2);background:transparent;border:1px solid var(--border);border-radius:4px;padding:8px 14px;cursor:pointer}
+  button.ghost[aria-pressed="true"]{color:var(--fg-1);border-color:var(--fg-3);background:var(--bg-elev-2)}
+  button.ghost:disabled{opacity:.35;cursor:default}
+  button.mark{font-family:var(--sans);font-weight:500;font-size:15px;color:var(--accent);background:var(--accent-soft);border:1px solid var(--accent-line);border-radius:4px;padding:10px 18px;cursor:pointer}
+  button.mark:disabled{opacity:.35;cursor:default}
+  .hint{font-family:var(--sans);font-size:13px;color:var(--fg-3)}
+  table.marks{border-collapse:collapse;margin-top:12px;font-family:var(--mono);font-size:13px;color:var(--fg-2)}
+  table.marks td,table.marks th{border-bottom:1px solid var(--border-soft);padding:5px 14px 5px 0;text-align:left;font-weight:400}
+  table.marks th{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-3)}
+  table.marks b{color:var(--accent);font-weight:400}
+  .walk{display:flex;justify-content:space-between;gap:10px;margin-top:16px}
+  footer{margin-top:28px;font-family:var(--sans);font-size:13px;color:var(--fg-4);display:flex;align-items:center;gap:10px}
+  footer b{font-family:var(--display);font-weight:400;letter-spacing:.06em;color:var(--fg-3)}
+  footer svg{flex:none}
+  @media (max-width:520px){h1{font-size:34px}h2{font-size:23px}.ctl{grid-template-columns:96px 1fr auto}}
+</style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">Exponential Decay Curvature · the Moog contour · four steps</div>
+  <h1>A capacitor, a comparator, and the curve</h1>
+  <p class="lead">The Minimoog’s contour is a capacitor charging through a resistor, with a comparator that says when to stop. Four steps: one capacitor charging, the comparator that ends the stage, the three stages of a note, and then the test: is each stage this entry’s curve, and which member? The voice is the one Synth Templates sat its time tables with: a sawtooth at C3 through a 2500 Hz lowpass. Nothing plays until you press the key.</p>
+
+  <nav class="rail" aria-label="Steps" id="rail"></nav>
+  <section aria-live="polite">
+    <div class="eyebrow" id="stepEyebrow"></div>
+    <h2 id="stepTitle"></h2>
+    <p class="say" id="stepSay"></p>
+  </section>
+  <div class="panel">
+    <div class="tabs"><span class="eyebrow">Hear</span><span class="hint" id="hearHint"></span><button class="play" id="play">Play</button></div>
+    <canvas class="stage" id="stage"></canvas>
+    <div class="legend" id="legend"></div>
+    <div class="ctl" id="ctl"></div>
+    <div class="rowb">
+      <button class="mark" id="key">Hold a key</button>
+      <button class="ghost" id="six" hidden>Play six notes</button>
+      <span class="hint" id="keyHint">Press and hold: the note sounds while you hold it. Play holds one for you.</span>
+    </div>
+    <div class="rowb" id="abRow" hidden><span class="eyebrow">switch point</span>
+      <button class="ghost" data-l="0.95">0.95, the landmark</button>
+      <button class="ghost" data-l="0.5">0.5</button>
+      <button class="ghost" data-l="0.1">0.1</button>
+    </div>
+    <div class="meter" id="meter"></div>
+    <table class="marks" id="trips" hidden><thead><tr><th>note</th><th>the stage ended at</th><th>in time constants</th></tr></thead><tbody></tbody></table>
+    <div id="eqs"></div>
+  </div>
+  <div class="try"><span class="eyebrow">Try</span><span id="tryText"></span></div>
+  <div class="walk"><button class="ghost" id="back">Back</button><button class="ghost" id="next">Next</button></div>
+  <footer><svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true"><circle cx="11" cy="11" r="10.2" fill="none" stroke="#4a4a5e" stroke-width="0.8"/><path d="M20.00 11.00L19.97 11.47L19.89 11.94L19.75 12.41L19.56 12.87L19.31 13.33L19.02 13.78L18.67 14.23L18.28 14.66L17.84 15.09L17.36 15.50L16.85 15.90L16.29 16.29L15.70 16.66L15.09 17.02L14.44 17.36L13.78 17.69L13.10 17.99L12.41 18.28L11.71 18.55L11.00 18.79L10.29 19.02L9.59 19.22L8.90 19.40L8.22 19.56L7.56 19.69L6.91 19.80L6.30 19.89L5.71 19.95L5.15 19.99L4.64 20.00L4.16 19.99L3.72 19.95L3.33 19.89L2.98 19.80L2.69 19.69L2.44 19.56L2.25 19.40L2.11 19.22L2.03 19.02L2.00 18.79L2.03 18.55L2.11 18.28L2.25 17.99L2.44 17.69L2.69 17.36L2.98 17.02L3.33 16.66L3.72 16.29L4.16 15.90L4.64 15.50L5.15 15.09L5.71 14.66L6.30 14.23L6.91 13.78L7.56 13.33L8.22 12.87L8.90 12.41L9.59 11.94L10.29 11.47L11.00 11.00L11.71 10.53L12.41 10.06L13.10 9.59L13.78 9.13L14.44 8.67L15.09 8.22L15.70 7.77L16.29 7.34L16.85 6.91L17.36 6.50L17.84 6.10L18.28 5.71L18.67 5.34L19.02 4.98L19.31 4.64L19.56 4.31L19.75 4.01L19.89 3.72L19.97 3.45L20.00 3.21L19.97 2.98L19.89 2.78L19.75 2.60L19.56 2.44L19.31 2.31L19.02 2.20L18.67 2.11L18.28 2.05L17.84 2.01L17.36 2.00L16.85 2.01L16.29 2.05L15.70 2.11L15.09 2.20L14.44 2.31L13.78 2.44L13.10 2.60L12.41 2.78L11.71 2.98L11.00 3.21L10.29 3.45L9.59 3.72L8.90 4.01L8.22 4.31L7.56 4.64L6.91 4.98L6.30 5.34L5.71 5.71L5.15 6.10L4.64 6.50L4.16 6.91L3.72 7.34L3.33 7.77L2.98 8.22L2.69 8.67L2.44 9.13L2.25 9.59L2.11 10.06L2.03 10.53L2.00 11.00L2.03 11.47L2.11 11.94L2.25 12.41L2.44 12.87L2.69 13.33L2.98 13.78L3.33 14.23L3.72 14.66L4.16 15.09L4.64 15.50L5.15 15.90L5.71 16.29L6.30 16.66L6.91 17.02L7.56 17.36L8.22 17.69L8.90 17.99L9.59 18.28L10.29 18.55L11.00 18.79L11.71 19.02L12.41 19.22L13.10 19.40L13.78 19.56L14.44 19.69L15.09 19.80L15.70 19.89L16.29 19.95L16.85 19.99L17.36 20.00L17.84 19.99L18.28 19.95L18.67 19.89L19.02 19.80L19.31 19.69L19.56 19.56L19.75 19.40L19.89 19.22L19.97 19.02L20.00 18.79L19.97 18.55L19.89 18.28L19.75 17.99L19.56 17.69L19.31 17.36L19.02 17.02L18.67 16.66L18.28 16.29L17.84 15.90L17.36 15.50L16.85 15.09L16.29 14.66L15.70 14.23L15.09 13.78L14.44 13.33L13.78 12.87L13.10 12.41L12.41 11.94L11.71 11.47L11.00 11.00L10.29 10.53L9.59 10.06L8.90 9.59L8.22 9.13L7.56 8.67L6.91 8.22L6.30 7.77L5.71 7.34L5.15 6.91L4.64 6.50L4.16 6.10L3.72 5.71L3.33 5.34L2.98 4.98L2.69 4.64L2.44 4.31L2.25 4.01L2.11 3.72L2.03 3.45L2.00 3.21L2.03 2.98L2.11 2.78L2.25 2.60L2.44 2.44L2.69 2.31L2.98 2.20L3.33 2.11L3.72 2.05L4.16 2.01L4.64 2.00L5.15 2.01L5.71 2.05L6.30 2.11L6.91 2.20L7.56 2.31L8.22 2.44L8.90 2.60L9.59 2.78L10.29 2.98L11.00 3.21L11.71 3.45L12.41 3.72L13.10 4.01L13.78 4.31L14.44 4.64L15.09 4.98L15.70 5.34L16.29 5.71L16.85 6.10L17.36 6.50L17.84 6.91L18.28 7.34L18.67 7.77L19.02 8.22L19.31 8.67L19.56 9.13L19.75 9.59L19.89 10.06L19.97 10.53L20.00 11.00" fill="none" stroke="#e8b84a" stroke-width="0.9"/></svg><span><b>LOUD’N LIVE</b> · Exponential Decay Curvature · the RC contour · Sketch, 2026-11-03 · proposal</span></footer>
+</main>
+<!-- The engine's core: plain functions shared by the picture, the worklet, the meter and the headless check. -->
+<script id="edc-contour-core">
+var RC = { F0: 130.81, CUT: 2500, Q: 0.7071, LEVEL: 0.4, NOISE_BW: 20, QUICK: 0.03 };
+// a seeded generator, so the check can repeat a run exactly
+function rng(seed){ var s = seed >>> 0 || 1; return function(){ s ^= s << 13; s >>>= 0; s ^= s >>> 17; s ^= s << 5; s >>>= 0; return s / 4294967296; }; }
+function gauss(r){ var u = Math.max(1e-12, r()), v = r(); return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v); }
+// the contour: a capacitor V charging toward 1 through the attack resistor until a comparator at level L trips,
+// then toward the sustain level s × L through the decay resistor; on release toward 0. Output V ÷ L, so the peak is 1.
+// noise: the comparator sees V plus slow circuit noise (std sigma, about 20 Hz wide), so a switch at L = 1 still trips.
+function makeContour(sr, seed){
+  var e = { V: 0, stage: 'idle', t: 0, trip: null, tauA: 0.2, tauD: 0.3, tauR: 0.3, L: 0.95, s: 0.5, sigma: 0, comparator: true, n: 0, r: rng(seed || 7) };
+  var a = 1 - Math.exp(-2 * Math.PI * RC.NOISE_BW / sr), g = Math.sqrt((2 - a) / a);   // one-pole noise, scaled to unit std
+  function k(tau){ return 1 - Math.exp(-1 / (Math.max(tau, 1e-4) * sr)); }
+  e.gateOn = function(){ e.stage = 'attack'; e.t = 0; e.trip = null; };
+  e.gateOff = function(quick){ if (e.stage !== 'idle'){ e.stage = 'release'; e.t = 0; e.quick = !!quick; } };
+  e.next = function(){
+    e.n += a * (g * gauss(e.r) - e.n);
+    if (e.stage === 'attack'){
+      e.V += (1 - e.V) * k(e.tauA);
+      if (e.comparator && e.V + e.sigma * e.n >= e.L){ e.stage = 'decay'; e.trip = (e.t + 1) / sr; }
+    } else if (e.stage === 'decay') e.V += (e.s * e.L - e.V) * k(e.tauD);
+    else if (e.stage === 'release'){ e.V += (0 - e.V) * k(e.quick ? RC.QUICK / 3 : e.tauR); if (e.V < 1e-5){ e.V = 0; e.stage = 'idle'; } }
+    e.t++;
+    return e.V / e.L;
+  };
+  return e;
+}
+// the member of the entry's family a stage is: switching at fraction L of the way gives curvature c = −ln(1 − L)
+function memberC(L){ return -Math.log(1 - L); }
+function fShape(t, c){ if (Math.abs(c) < 1e-3) return (1 - t) * (1 - c * t / 2 + c * c * t * (2 * t - 1) / 12); return (Math.exp(-c * t) - Math.exp(-c)) / (1 - Math.exp(-c)); }
+// render one noise-free attack of stated time T with the switch at L, and compare it, rescaled, with the rising member 1 − f(x, c)
+function attackVersusMember(T, L, sr){
+  var e = makeContour(sr, 1), c = memberC(L); e.L = L; e.tauA = T / c; e.sigma = 0; e.gateOn();
+  var worst = 0, pts = [], n = 0, x;
+  while (e.stage === 'attack' && n < sr * 30){ var y = e.next(); n++; x = n / (T * sr); var m = 1 - fShape(x, c); worst = Math.max(worst, Math.abs(y - m)); if (n % Math.max(1, Math.floor(T * sr / 200)) === 0) pts.push([x, y]); }
+  return { c: c, worst: worst, trip: e.trip, pts: pts };
+}
+// the same for a decay: the 95 % landmark convention (tau = T ÷ 3), rescaled between the peak and where it stands at T
+function decayVersusMember(T, s, sr){
+  var e = makeContour(sr, 1); e.L = 0.999999; e.tauA = 1e-4; e.tauD = T / 3; e.s = s; e.sigma = 0; e.gateOn();
+  while (e.stage === 'attack') e.next();
+  var V0 = e.V / e.L, VT = s + (V0 - s) * Math.exp(-3), worst = 0, N = Math.round(T * sr);
+  for (var n = 1; n <= N; n++){ var y = e.next(), x = n / (T * sr), z = (y - VT) / (V0 - VT); worst = Math.max(worst, Math.abs(z - fShape(x, 3))); }
+  return { worst: worst };
+}
+// the sawtooth (PolyBLEP) and the lowpass (RBJ biquad) of the voice
+function makeVoice(sr){
+  var v = { ph: 0, z1: 0, z2: 0 }, w = 2 * Math.PI * RC.CUT / sr, al = Math.sin(w) / (2 * RC.Q), cw = Math.cos(w), a0 = 1 + al;
+  var b0 = (1 - cw) / 2 / a0, b1 = (1 - cw) / a0, b2 = b0, a1 = -2 * cw / a0, a2 = (1 - al) / a0, dt = RC.F0 / sr;
+  v.next = function(){
+    v.ph += dt; if (v.ph >= 1) v.ph -= 1;
+    var x = 2 * v.ph - 1, t;
+    if (v.ph < dt){ t = v.ph / dt; x -= t + t - t * t - 1; } else if (v.ph > 1 - dt){ t = (v.ph - 1) / dt; x -= t * t + t + t + 1; }
+    var y = b0 * x + v.z1; v.z1 = b1 * x - a1 * y + v.z2; v.z2 = b2 * x - a2 * y;
+    return y;
+  };
+  return v;
+}
+</script>
+<!-- The worklet, read as text and loaded from a Blob with the core above it. -->
+<script type="text/plain" id="edc-contour-worklet">
+class ContourProcessor extends AudioWorkletProcessor {
+  constructor(){
+    super();
+    this.env = makeContour(sampleRate, 12345); this.voice = makeVoice(sampleRate); this.tick = 0; this.auto = null; this.noteNo = 0;
+    this.port.onmessage = (e) => {
+      const m = e.data || {}, E = this.env;
+      ['tauA', 'tauD', 'tauR', 'L', 's', 'sigma'].forEach((k) => { if (typeof m[k] === 'number') E[k] = m[k]; });
+      if (typeof m.comparator === 'boolean') E.comparator = m.comparator;
+      if (m.gate === 'on'){ this.auto = null; this.noteNo++; E.gateOn(); }
+      if (m.gate === 'off') E.gateOff(!!m.quick);
+      if (m.auto){ this.auto = { left: m.auto.count, hold: m.auto.hold, gap: m.auto.gap, t: 0, on: false }; }
+    };
+  }
+  process(inputs, outputs){
+    const out = outputs[0], L = out[0], R = out[1] || out[0], sr = sampleRate, E = this.env;
+    for (let i = 0; i < L.length; i++){
+      const A = this.auto;
+      if (A){
+        if (!A.on && A.t <= 0){ if (A.left-- <= 0){ this.auto = null; this.port.postMessage({ autoDone: true }); } else { A.on = true; A.t = A.hold * sr; this.noteNo++; E.gateOn(); } }
+        else if (A.on && --A.t <= 0){ A.on = false; A.t = A.gap * sr; E.gateOff(true); this.port.postMessage({ trip: E.trip, note: this.noteNo }); }
+        else if (!A.on) A.t--;
+      }
+      const g = E.next(), y = RC.LEVEL * g * this.voice.next();
+      L[i] = y; if (R !== L) R[i] = y;
+    }
+    if (++this.tick % 6 === 0) this.port.postMessage({ V: E.V / E.L, stage: E.stage, t: E.t / sr, trip: E.trip, note: this.noteNo });
+    return true;
+  }
+}
+registerProcessor('edc-contour', ContourProcessor);
+</script>
+<script>
+(function(){
+  'use strict';
+  var $ = function(id){ return document.getElementById(id); };
+  
+  function makeWalk(STEPS, onGo){
+    var rail = document.getElementById('rail'), cur = 0;
+    STEPS.forEach(function(s, i){
+      var b = document.createElement('button'); b.textContent = (i + 1) + ' · ' + s.short;
+      b.addEventListener('click', function(){ go(i); }); rail.appendChild(b);
+    });
+    function go(i){
+      cur = i; var s = STEPS[i];
+      Array.prototype.forEach.call(rail.children, function(b, j){ if (j === i) b.setAttribute('aria-current', 'step'); else b.removeAttribute('aria-current'); });
+      document.getElementById('stepEyebrow').textContent = 'Step ' + (i + 1) + ' of ' + STEPS.length + (s.test ? ' · the test' : '');
+      document.getElementById('stepTitle').textContent = s.title;
+      document.getElementById('stepSay').textContent = s.say;
+      document.getElementById('hearHint').textContent = s.hint || '';
+      var eqs = document.getElementById('eqs'); eqs.innerHTML = '';
+      (s.eq || []).forEach(function(e){
+        var a = document.createElement('div'); a.className = 'eq'; a.textContent = e[0];
+        var w = document.createElement('div'); w.className = 'eq words'; w.textContent = e[1];
+        eqs.appendChild(a); eqs.appendChild(w);
+      });
+      document.getElementById('tryText').textContent = s.tryText;
+      document.getElementById('back').disabled = i === 0;
+      document.getElementById('next').disabled = i === STEPS.length - 1;
+      onGo(i, s);
+    }
+    document.getElementById('back').addEventListener('click', function(){ if (cur > 0) go(cur - 1); });
+    document.getElementById('next').addEventListener('click', function(){ if (cur < STEPS.length - 1) go(cur + 1); });
+    return { go: go, step: function(){ return cur; } };
+  }
+  // a canvas sized by its column, in device pixels
+  function fitCanvas(cv, ratio, minH, maxH){
+    var r = cv.getBoundingClientRect(), d = window.devicePixelRatio || 1;
+    var cssH = Math.round(Math.max(minH, Math.min(maxH, r.width * ratio)));
+    if (cv.style.height !== cssH + 'px') cv.style.height = cssH + 'px';
+    var W = Math.round(r.width * d), H = Math.round(cssH * d);
+    if (cv.width !== W || cv.height !== H){ cv.width = W; cv.height = H; }
+    return { g: cv.getContext('2d'), W: W, H: H, d: d };
+  }
+  function cssVar(n, fb){ return getComputedStyle(document.documentElement).getPropertyValue(n).trim() || fb; }
+
+  var STEPS = [
+    { title: 'One capacitor charging', short: 'The capacitor',
+      say: 'A capacitor charging through a resistor toward a reference voltage. It moves fastest at first, when it is furthest from the reference, and slower the closer it gets, because what drives it is the distance still to go. After one time constant it has come 63 % of the way; after two, 86 %; after three, 95 %. It never arrives. Hold the key: this is the attack with nothing to stop it.',
+      hint: 'a held note whose loudness is the capacitor’s voltage',
+      eq: [['V(t) = 1 − e^(−t/τ),   τ = RC', '(voltage) = 1 − e to the minus ((time) ÷ (time constant)), and the time constant is (resistance × capacitance)'],
+           ['V(τ) = 0.632   V(2τ) = 0.865   V(3τ) = 0.950', 'one, two and three time constants in: 63 %, 86 % and 95 % of the way']],
+      tryText: 'Set a long time constant and hold the key through it. Listen to how the rise eases into full without ever quite getting there.' },
+    { title: 'The comparator decides', short: 'The comparator',
+      say: 'An approach never arrives, so something has to say when the attack is over. In the circuit it is a comparator: when the voltage crosses its level L, it switches the capacitor over to the decay. Lower L and the stage ends sooner, at a definite time. Set L at the maximum itself and, in theory, the stage never ends; in a real circuit the noise on the voltage gets it across, sooner on one note, later on the next. That is Atkinson’s point about long attacks varying from note to note. Here the noise is a model, a slow wobble about 50 dB down.',
+      hint: 'notes whose attack ends where the comparator trips',
+      eq: [['T = −τ · ln(1 − L)', '(when the stage ends) = (time constant) × −ln(1 − (switch level))'],
+           ['L = 0.95  →  T = 3.00 τ', 'a switch at 95 % ends the attack after three time constants']],
+      tryText: 'Set L to 0.95 and play six notes: the noise moves the end only a little, less than a fifth of a time constant. Now set L to 1.00 and play six more: the ends come later and wander much further. The table keeps each note’s end.' },
+    { title: 'Three stages, one approach', short: 'The contour',
+      say: 'Now the whole note. The attack charges toward the peak until the comparator trips at the landmark. The decay falls from the peak toward the sustain level. Let go and the release falls toward silence. Each stage is the same thing, an exponential approach, aimed at a different target. The times are the Synth Templates convention, each stage’s 95 % point, so each time constant is a third of its time.',
+      hint: 'a held note through the three stages',
+      eq: [['attack: V = 1 − e^(−t/τa)    decay: V = s + (1 − s)·e^(−t/τd)    release: V = V₀·e^(−t/τr)', 'each stage starts where the last left off and approaches its own target: the peak, the sustain level s, silence'],
+           ['τ = T ÷ 3', 'each (time constant) is a third of the stage’s (stated time): the time is the 95 % point']],
+      tryText: 'Hold through the attack and decay, let go, listen to the release. Then drop the sustain to zero: now the decay is a fade toward silence, the release has nothing left to do, and the note is percussive.' },
+    { title: 'Which member is a Moog stage?', short: 'The test', test: true,
+      say: 'The test of the section’s claim that every Moog stage is this entry’s curve, the positive-curvature member run toward a different endpoint. Take one attack of stated time T, cut it where the comparator trips, and rescale it to run from 0 to 1. Put the entry’s rising member beside it, at curvature c = −ln(1 − L). The meter reads the largest gap between them over the whole stage, from this engine’s own samples. Then move the switch point: the curvature follows it. At 95 % it is 3. Lower the switch and the stage straightens; the straight line, curvature 0, would need a switch at 0, a reference infinitely far above the peak.',
+      hint: 'a held note: the same stated attack time, the switch where you set it',
+      eq: [['V(xT) ÷ L = 1 − f(x, c)   with   c = −ln(1 − L) = T ÷ τ', '(the stage, rescaled) = 1 − (the entry’s curve) at (curvature) = −ln(1 − (switch level)) = (stated time) ÷ (time constant)'],
+           ['L = 0.95 → c = 3.00    L = 0.5 → c = 0.69    L → 0 → c → 0', 'the 95 % landmark is curvature 3; the straight line is the limit as the switch goes to zero']],
+      tryText: 'Hold a key at 0.95, then at 0.1, with the same attack time. The second is nearly a straight ramp. The decay follows the same rule: the meter’s second line checks a decay cut at its 95 % point against curvature 3.' }
+  ];
+
+  var step = 0, ctx = null, node = null, master = null, loading = null, held = false;
+  var P = { tau: 0.25, L: 0.95, sigma: 0.003, Ta: 0.6, Td: 0.9, s: 0.5, Tr: 1.2, Tt: 0.6, Lt: 0.95 };
+  var eng = { V: 0, stage: 'idle', t: 0, trip: null, note: 0 };
+  var trail = [], noteTrace = [], noteNo = -1;
+  function workletURL(){ return URL.createObjectURL(new Blob([$('edc-contour-core').textContent + '\n' + $('edc-contour-worklet').textContent], { type: 'application/javascript' })); }
+  function ensure(){
+    if (ctx) return loading;
+    ctx = new (window.AudioContext || window.webkitAudioContext)();
+    master = ctx.createGain(); master.gain.value = 0.6;
+    var comp = ctx.createDynamicsCompressor(); comp.threshold.value = -2; comp.knee.value = 0; comp.ratio.value = 20; comp.attack.value = 0.002; comp.release.value = 0.1;
+    master.connect(comp); comp.connect(ctx.destination);
+    loading = ctx.audioWorklet.addModule(workletURL()).then(function(){
+      node = new AudioWorkletNode(ctx, 'edc-contour', { numberOfInputs: 0, numberOfOutputs: 1, outputChannelCount: [2] });
+      node.port.onmessage = onMsg; node.connect(master); sendParams();
+    });
+    return loading;
+  }
+  var trips = [];
+  function onMsg(e){
+    var m = e.data || {};
+    if (typeof m.V === 'number'){ eng = m; trail.push([performance.now(), m.V, m.stage]); while (trail.length && performance.now() - trail[0][0] > 12000) trail.shift();
+      if (m.note !== noteNo){ noteNo = m.note; noteTrace = []; } if (m.stage === 'attack' || m.stage === 'decay') noteTrace.push([m.t, m.V]); }
+    if (m.trip !== undefined && m.note && step === 1 && m.stage === undefined){ addTrip(m.trip, m.note); }
+    if (m.autoDone){ $('six').disabled = false; }
+    meter();
+  }
+  function params(){
+    if (step === 0) return { tauA: P.tau, L: 1, comparator: false, sigma: 0, tauR: 0.01 };
+    if (step === 1) return { tauA: P.tau, L: P.L, comparator: true, sigma: P.sigma, tauD: 0.05, s: 1, tauR: 0.01 };
+    if (step === 2) return { tauA: P.Ta / memberC(0.95), L: 0.95, comparator: true, sigma: 0, tauD: P.Td / 3, s: P.s, tauR: P.Tr / 3 };
+    return { tauA: P.Tt / memberC(P.Lt), L: P.Lt, comparator: true, sigma: 0, tauD: 0.05, s: 1, tauR: 0.05 };
+  }
+  function sendParams(){ if (node) node.port.postMessage(params()); }
+  function keyDown(e){ if (e) e.preventDefault(); ensure().then(function(){ if (ctx.state === 'suspended') ctx.resume(); sendParams(); node.port.postMessage({ gate: 'on' }); held = true; trail = []; }); }
+  function keyUp(){ if (!held || !node) return; held = false; node.port.postMessage({ gate: 'off', quick: step < 2 }); if (step === 1 && eng.trip !== null) addTrip(eng.trip, eng.note); }
+  $('key').addEventListener('pointerdown', keyDown);
+  $('key').addEventListener('pointerup', keyUp); $('key').addEventListener('pointerleave', keyUp); $('key').addEventListener('pointercancel', keyUp);
+  $('six').addEventListener('click', function(){ ensure().then(function(){ if (ctx.state === 'suspended') ctx.resume(); sendParams(); $('six').disabled = true; trail = []; node.port.postMessage({ auto: { count: 6, hold: Math.max(0.8, 7 * P.tau), gap: 0.35 } }); }); });
+  function addTrip(t, note){
+    if (trips.length && trips[trips.length - 1].note === note) return;
+    trips.push({ note: note, t: t, L: P.L, tau: P.tau }); if (trips.length > 12) trips.shift();
+    var tb = $('trips').querySelector('tbody'); tb.innerHTML = '';
+    trips.forEach(function(r, i){ var tr = document.createElement('tr'); tr.innerHTML = '<td>' + (i + 1) + ' · L ' + r.L.toFixed(2) + '</td><td><b>' + (r.t === null ? 'never, while held' : (r.t * 1000).toFixed(0) + ' ms') + '</b></td><td>' + (r.t === null ? '—' : (r.t / r.tau).toFixed(2) + ' τ') + '</td>'; tb.appendChild(tr); });
+    $('trips').hidden = false;
+  }
+  // Play: one note held for long enough to hear the step through (in step 2, six notes)
+  var playTimer = null;
+  $('play').addEventListener('click', function(){
+    if (step === 1){ $('six').click(); return; }
+    keyDown(); clearTimeout(playTimer);
+    var hold = step === 0 ? 6 * P.tau : step === 2 ? P.Ta + 2 * P.Td + 0.5 : 1.3 * P.Tt + 0.4;
+    playTimer = setTimeout(keyUp, Math.min(10, hold) * 1000);
+  });
+  function stopAll(){ clearTimeout(playTimer); if (node){ node.port.postMessage({ gate: 'off', quick: true }); } held = false; }
+
+  // ---------- controls, per step ----------
+  var CTL = [
+    [['tau', 'time constant τ', 0.02, 1.5, true, function(v){ return (v * 1000).toFixed(0) + ' ms'; }]],
+    [['tau', 'time constant τ', 0.02, 0.6, true, function(v){ return (v * 1000).toFixed(0) + ' ms'; }], ['L', 'switch level L', 0.5, 1, false, function(v){ return v.toFixed(3); }]],
+    [['Ta', 'attack time', 0.01, 3, true, sec], ['Td', 'decay time', 0.02, 4, true, sec], ['s', 'sustain level', 0, 1, false, function(v){ return v.toFixed(2); }], ['Tr', 'release time', 0.02, 4, true, sec]],
+    [['Tt', 'attack time T', 0.05, 3, true, sec], ['Lt', 'switch level L', 0.02, 0.99, false, function(v){ return v.toFixed(2) + ' · c = ' + memberC(v).toFixed(2); }]]
+  ];
+  function sec(v){ return v < 1 ? (v * 1000).toFixed(0) + ' ms' : v.toFixed(2) + ' s'; }
+  function buildCtl(i){
+    var box = $('ctl'); box.innerHTML = '';
+    CTL[i].forEach(function(c){
+      var lab = document.createElement('label'); lab.textContent = c[1]; lab.htmlFor = 'k_' + c[0];
+      var inp = document.createElement('input'); inp.type = 'range'; inp.id = 'k_' + c[0]; inp.min = '0'; inp.max = '1'; inp.step = '0.001';
+      var val = document.createElement('span'); val.className = 'v';
+      var to = function(u){ return c[4] ? c[2] * Math.pow(c[3] / c[2], u) : c[2] + (c[3] - c[2]) * u; };
+      var from = function(v){ return c[4] ? Math.log(v / c[2]) / Math.log(c[3] / c[2]) : (v - c[2]) / (c[3] - c[2]); };
+      inp.value = String(from(P[c[0]])); val.textContent = c[5](P[c[0]]);
+      inp.addEventListener('input', function(){ P[c[0]] = to(parseFloat(inp.value)); val.textContent = c[5](P[c[0]]); sendParams(); meter(); });
+      inp._set = function(v){ P[c[0]] = v; inp.value = String(from(v)); val.textContent = c[5](v); };
+      box.appendChild(lab); box.appendChild(inp); box.appendChild(val);
+    });
+  }
+  Array.prototype.forEach.call(document.querySelectorAll('[data-l]'), function(b){ b.addEventListener('click', function(){ var v = parseFloat(b.getAttribute('data-l')); var inp = $('k_Lt'); if (inp) inp._set(v); sendParams(); meter(); }); });
+
+  var cache = {};
+  function test(){ var key = P.Tt.toFixed(4) + '|' + P.Lt.toFixed(4); if (!cache[key]) cache[key] = attackVersusMember(P.Tt, P.Lt, (ctx && ctx.sampleRate) || 48000); return cache[key]; }
+  var decayCheck = null;
+  function meter(){
+    var h = [];
+    if (step === 0) h.push('three time constants: <b>' + (3 * P.tau * 1000).toFixed(0) + ' ms</b> to 95 % · now: <b>' + (eng.stage === 'idle' ? 'silent' : (eng.V * 100).toFixed(1) + ' %') + '</b>');
+    if (step === 1) h.push(P.L >= 0.9995 ? 'switch at the maximum: in theory the stage never ends; the noise decides' : 'the stage ends at <b>' + (-P.tau * Math.log(1 - P.L) * 1000).toFixed(0) + ' ms</b> = <b>' + (-Math.log(1 - P.L)).toFixed(2) + ' τ</b> without noise');
+    if (step === 2) h.push('stage: <b>' + eng.stage + '</b> · level: <b>' + (eng.V * 100).toFixed(1) + ' %</b> · sustain target: <b>' + (P.s * 100).toFixed(0) + ' %</b>');
+    if (step === 3){ var r = test(); h.push('member: <b>c = ' + r.c.toFixed(3) + '</b> · largest gap between the engine’s stage, rescaled, and 1 − f(x, c): <b>' + r.worst.toExponential(1) + '</b> over ' + Math.round(P.Tt * ((ctx && ctx.sampleRate) || 48000)) + ' samples');
+      if (!decayCheck) decayCheck = decayVersusMember(0.9, 0.5, 48000);
+      h.push('a decay of 0.9 s toward 0.5, cut at its 95 % point and rescaled, against f(x, 3): largest gap <b>' + decayCheck.worst.toExponential(1) + '</b>'); }
+    $('meter').innerHTML = h.join('<br>');
+  }
+  var LEG = [
+    '<div><b>The charge</b>Gold: 1 − e^(−t/τ) over six time constants. Ticks at one, two and three.</div><div><b>Now</b>The dot is the engine’s voltage while you hold the key.</div>',
+    '<div><b>The charge and the switch</b>Gold: the charge. Blue line: the comparator’s level.</div><div><b>The note</b>Blue trace: what the engine did on the latest note, from the key: the charge, then the turn to the decay where the switch tripped.</div>',
+    '<div><b>The note</b>Blue: what the engine did, the last twelve seconds. Dashed: the sustain level.</div><div><b>The stages</b>Attack toward the peak, decay toward sustain, release toward silence.</div>',
+    '<div><b>Left</b>Gold: the engine’s attack, cut at the switch and rescaled. Blue dashed: the member 1 − f(x, c). Grey dashed: the straight line.</div><div><b>Right</b>The curvature a switch level gives: c = −ln(1 − L). The dot is yours.</div>'
+  ];
+  var walk = makeWalk(STEPS, function(i){
+    stopAll(); step = i; buildCtl(i); trips = []; $('trips').hidden = true; $('trips').querySelector('tbody').innerHTML = '';
+    $('six').hidden = i !== 1; $('abRow').hidden = i !== 3; $('legend').innerHTML = LEG[i]; trail = []; sendParams(); meter();
+  });
+
+  // ---------- the picture ----------
+  var cv = $('stage'), ACC = cssVar('--accent', '#e8b84a'), FG3 = cssVar('--fg-3', '#8a8aa0'), FG4 = cssVar('--fg-4', '#4a4a5a'), INFO = cssVar('--info', '#4a8fff');
+  function box(g, x, y, w, h, d, label){ g.strokeStyle = 'rgba(255,255,255,0.06)'; g.lineWidth = d; g.strokeRect(x, y, w, h); g.font = (10 * d) + 'px JetBrains Mono, monospace'; g.fillStyle = FG4; g.fillText(label, x + 6 * d, y + 14 * d); }
+  function draw(){
+    var c0 = fitCanvas(cv, 0.4, 230, 360), g = c0.g, W = c0.W, H = c0.H, d = c0.d, p = 14 * d, gap = 14 * d;
+    g.clearRect(0, 0, W, H);
+    var x0 = p + 10 * d, y0 = p + 22 * d, w = W - 2 * p - 20 * d, h = H - 2 * p - 34 * d;
+    var Y = function(v){ return y0 + (1 - Math.max(-0.05, Math.min(1.08, v))) * h; };
+    if (step === 0 || step === 1){
+      box(g, p, p, W - 2 * p, H - 2 * p, d, step === 0 ? 'THE CHARGE · six time constants' : 'THE CHARGE AND THE SWITCH');
+      var span = 6 * P.tau, X = function(t){ return x0 + t / span * w; };
+      g.strokeStyle = ACC; g.lineWidth = 2.4 * d; g.beginPath();
+      for (var i = 0; i <= 300; i++){ var t = i / 300 * span, v = 1 - Math.exp(-t / P.tau); if (i) g.lineTo(X(t), Y(v)); else g.moveTo(X(t), Y(v)); } g.stroke();
+      g.strokeStyle = FG4; g.setLineDash([3 * d, 4 * d]); g.lineWidth = d; g.beginPath(); g.moveTo(x0, Y(1)); g.lineTo(x0 + w, Y(1)); g.stroke(); g.setLineDash([]);
+      g.font = (10 * d) + 'px JetBrains Mono, monospace';
+      [1, 2, 3].forEach(function(k){ var v = 1 - Math.exp(-k); g.fillStyle = FG3; g.fillRect(X(k * P.tau) - d, Y(v) - 4 * d, 2 * d, 8 * d); g.fillText(k + 'τ · ' + (v * 100).toFixed(0) + '%', X(k * P.tau) + 5 * d, Y(v) + 14 * d); });
+      if (step === 1){ g.strokeStyle = INFO; g.lineWidth = 1.2 * d; g.beginPath(); g.moveTo(x0, Y(P.L)); g.lineTo(x0 + w, Y(P.L)); g.stroke(); g.fillStyle = INFO; g.fillText('L = ' + P.L.toFixed(3), x0 + w - 80 * d, Y(P.L) - 5 * d); }
+      if (step === 0 && eng.stage === 'attack'){ g.fillStyle = INFO; g.beginPath(); g.arc(X(Math.min(span, eng.t)), Y(eng.V), 5 * d, 0, 7); g.fill(); }
+      if (step === 1 && noteTrace.length){ g.strokeStyle = INFO; g.lineWidth = 1.8 * d; g.beginPath(); noteTrace.forEach(function(q, k){ var xx = X(Math.min(span, q[0])); if (k) g.lineTo(xx, Y(q[1])); else g.moveTo(xx, Y(q[1])); }); g.stroke(); }
+    } else if (step === 2){
+      box(g, p, p, W - 2 * p, H - 2 * p, d, 'THE NOTE · the last twelve seconds');
+      g.strokeStyle = FG4; g.setLineDash([3 * d, 4 * d]); g.lineWidth = d; g.beginPath(); g.moveTo(x0, Y(P.s)); g.lineTo(x0 + w, Y(P.s)); g.stroke(); g.setLineDash([]);
+      drawTrail(g, x0, w, Y, d, 12000);
+    } else {
+      var S = Math.min(H - 2 * p, W * 0.5), sx = p, sy = (H - S) / 2, ox = sx + S + gap, ow = W - p - ox, r = test();
+      box(g, sx, sy, S, S, d, 'THE STAGE, RESCALED · c = ' + r.c.toFixed(2));
+      var XX = function(x){ return sx + 8 * d + x * (S - 16 * d); }, YY = function(v){ return sy + 22 * d + (1 - v) * (S - 32 * d); };
+      g.strokeStyle = FG4; g.setLineDash([4 * d, 4 * d]); g.lineWidth = d; g.beginPath(); g.moveTo(XX(0), YY(0)); g.lineTo(XX(1), YY(1)); g.stroke();
+      g.strokeStyle = ACC; g.setLineDash([]); g.lineWidth = 4 * d; g.globalAlpha = 0.6; g.beginPath(); r.pts.forEach(function(q, k){ if (k) g.lineTo(XX(Math.min(1, q[0])), YY(q[1])); else g.moveTo(XX(q[0]), YY(q[1])); }); g.stroke(); g.globalAlpha = 1;
+      g.strokeStyle = INFO; g.lineWidth = 1.5 * d; g.setLineDash([5 * d, 4 * d]); g.beginPath(); for (var j = 0; j <= 200; j++){ var xx = j / 200, yy = 1 - fShape(xx, r.c); if (j) g.lineTo(XX(xx), YY(yy)); else g.moveTo(XX(xx), YY(yy)); } g.stroke(); g.setLineDash([]);
+      box(g, ox, sy, ow, S, d, 'CURVATURE FROM THE SWITCH · c = −ln(1 − L)');
+      var LX = function(L){ return ox + 30 * d + L * (ow - 44 * d); }, CY = function(c){ return sy + 22 * d + (1 - Math.min(5, c) / 5) * (S - 40 * d); };
+      g.strokeStyle = ACC; g.lineWidth = 2 * d; g.beginPath(); for (j = 0; j <= 200; j++){ var L = j / 200 * 0.995; if (j) g.lineTo(LX(L), CY(memberC(L))); else g.moveTo(LX(L), CY(memberC(L))); } g.stroke();
+      g.fillStyle = FG4; g.font = (9 * d) + 'px JetBrains Mono, monospace'; [0, 1, 2, 3, 4, 5].forEach(function(c){ g.fillText(String(c), ox + 8 * d, CY(c) + 3 * d); }); ['0', '0.5', '1'].forEach(function(s, k){ g.fillText('L ' + s, LX(k / 2) - 8 * d, sy + S - 6 * d); });
+      g.strokeStyle = FG3; g.setLineDash([2 * d, 3 * d]); g.lineWidth = d; g.beginPath(); g.moveTo(LX(0.95), CY(3)); g.lineTo(LX(0), CY(3)); g.stroke(); g.setLineDash([]); g.fillStyle = FG3; g.fillText('95 % → 3', LX(0.02), CY(3) - 4 * d);
+      g.fillStyle = INFO; g.beginPath(); g.arc(LX(P.Lt), CY(memberC(P.Lt)), 5 * d, 0, 7); g.fill();
+    }
+    requestAnimationFrame(draw);
+  }
+  function drawTrail(g, x0, w, Y, d, spanMs){
+    if (!trail.length) return; var now = performance.now();
+    g.strokeStyle = INFO; g.lineWidth = 1.8 * d; g.beginPath(); var pen = false;
+    trail.forEach(function(q){ var age = now - q[0]; if (age > spanMs) return; var xx = x0 + w - age / spanMs * w; if (pen) g.lineTo(xx, Y(q[1])); else { g.moveTo(xx, Y(q[1])); pen = true; } });
+    g.stroke();
+  }
+  walk.go(0); requestAnimationFrame(draw);
+})();
+</script>
+</body>
+</html>
