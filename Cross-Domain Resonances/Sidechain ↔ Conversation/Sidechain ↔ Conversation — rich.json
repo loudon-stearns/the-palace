@@ -1,0 +1,119 @@
+{
+  "title": "Sidechain ↔ Conversation — rich",
+  "born": "2026-11-03",
+  "links": [
+    {
+      "target": "[[Sidechain ↔ Conversation]]",
+      "type": "connects-to",
+      "label": "rich-face-of"
+    },
+    {
+      "target": "[[Enrichment]]",
+      "type": "connects-to",
+      "label": "made-by"
+    },
+    {
+      "target": "[[Progressive Staging]]",
+      "type": "connects-to",
+      "label": "the-test-is-the-last-step"
+    },
+    {
+      "target": "[[Blood Compressor]]",
+      "type": "connects-to",
+      "label": "same-smoother"
+    }
+  ],
+  "forward_vector": "I am the manifest of Sidechain ↔ Conversation's rich face, its first round at Sketch tier, a proposal: for the technical side, a walk from a bass note alone to eight blind trials naming the note under the kick; for the teaching, the page's own Part 1 assignment played through to a blind test of whether the subtle duck can be heard; for the conversational side, two synthetic voices sidechained, walked up to six blind pairs asking which release interrupts. One engine runs all three. I grow when a listener's scores come back. I never hold the entry's words.",
+  "entry": "Sidechain ↔ Conversation",
+  "tier": "sketch",
+  "made": "2026-11-03",
+  "round": 1,
+  "offers": [
+    {
+      "section": "The Technical Side",
+      "kind": "claim-change",
+      "what": "'Human hearing can't distinguish two simultaneous sounds in the same frequency band' is stronger than masking: the louder sound in a band masks the quieter one, by an amount that depends on their levels; it does not erase it. The piece 'under the kick' puts a bass note 6 dB under the kick (−6.01 and −5.97 dB RMS, measured), wholly inside it in time and with 96 to 98% of its energy in 60–120 Hz, and asks the reader to name it blind, eight trials, chance 4 of 8 (7 or more by guessing: 3.5%). An agent can't take that test, so the offer waits on a listener's score. Suggested: 'In the same band at the same moment, the louder sound masks the quieter: hard to hear, not impossible to hear.' The page's own Part 1 already says students hear 'muddy … both fighting', which is two sounds heard.",
+      "status": "open"
+    },
+    {
+      "section": "The Technical Side",
+      "kind": "claim-change",
+      "what": "Step 3 of the mechanism, 'Kick occupies the sonic space alone', and the table's 'Kick occupies sonic space': at the page's own kinds of setting the bass is turned down, not off. Measured on the piece's engine: 4 : 1 from −20 dB ducks the bass 12.8 dB at the kick, 20 : 1 ducks it 16.2 dB, the subtle 2 : 1 only 4.5 dB, and even ∞ : 1 turns it down by the kick's overshoot, not to silence. Suggested: 'Kick occupies the sonic space first' or 'nearly alone'. It bears on the conversational side too: the listener's inner voice ducked is quieter, not silent, which is the distance between a duck and Suzuki's 'no inner commentary'.",
+      "status": "open"
+    }
+  ],
+  "sections": [
+    {
+      "heading": "The Technical Side",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "made": "2026-11-03",
+      "pieces": [
+        {
+          "file": "Sidechain ↔ Conversation — rich — under the kick.html",
+          "origin": "made",
+          "by": "maker · claude-opus-5-5 · Web Audio",
+          "title": "Under the kick · from a bass note alone to naming it blind",
+          "caption": "**Can you still hear the bass under the kick?** The section says hearing can't tell two sounds apart in the same band at the same moment. Five steps: a bass note alone, a pure sine in the page's 60 to 120 Hz; the kick alone, 70% of its energy in the same band; the kick beside a hi-hat, which shares next to nothing with it (the page's own counter-case, from Common Misunderstandings); a note under every kick, named, 6 dB down and inside the kick's own shape; and last eight blind trials, a coin choosing the note each time, with the chance score beside yours. A score near 4 of 8 keeps the page's word; a score of 7 or 8 says the kick masks the bass without erasing it. Needs headphones or speakers that reach 60 Hz.",
+          "near": "Human hearing can't distinguish two simultaneous sounds",
+          "place": "band",
+          "height": 1290
+        }
+      ],
+      "made_against": "c726dbbcbf94",
+      "stamped": "2026-11-03"
+    },
+    {
+      "heading": "Teaching the Resonance",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "made": "2026-11-03",
+      "pieces": [
+        {
+          "file": "Sidechain ↔ Conversation — rich — mud into dialogue.html",
+          "origin": "made",
+          "by": "maker · claude-opus-5-5 · Web Audio",
+          "title": "Mud into dialogue · the Part 1 assignment, played, up to a blind test",
+          "caption": "**The page's first assignment, as written.** Kick and bass with no sidechain; then the sidechain, with the bass's gain drawn under the waveform; then exaggerated (20 : 1, 350 ms, the bass still climbing back when the next kick lands); then subtle (2 : 1, 50 ms, a duck of 4.5 dB); then the page's four knobs, each with the page's own question beside it, and a release of ∞ that never brings the bass back. Last, six blind trials of three level-matched loops, one with the subtle duck: guessing is right one time in three, 2 of 6 on average, and 5 or more happens by guessing 1.8% of the time. Then the page's own question, unscored: does this feel like dialogue to you?",
+          "near": "Does this feel like dialogue to you?",
+          "place": "band",
+          "height": 1270
+        }
+      ],
+      "made_against": "978c470abb0e",
+      "stamped": "2026-11-03"
+    },
+    {
+      "heading": "The Conversational Side",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "made": "2026-11-03",
+      "pieces": [
+        {
+          "file": "Sidechain ↔ Conversation — rich — who yields when.html",
+          "origin": "made",
+          "by": "maker · claude-opus-5-5 · Web Audio · Kokoro voices",
+          "title": "Who yields when · two voices, one sidechain, which release interrupts",
+          "caption": "**The page's four conversational knobs, turning.** A speaker (synthetic, Kokoro af_heart) says three short lines in the page's words; a listener (Kokoro am_michael) never stops planning what to say next, in the page's students' words. The same engine as the kick and bass, byte for byte, ducks the listener under the speaker, with the page's four questions beside the four knobs and three lanes drawing who has the room. Then the release alone: at 20 ms the listener leaps into every breath, at 300 ms it comes back about 0.3 s after each line, at 1 s barely in time, at ∞ never. Last, six blind pairs that differ only in release, matched in level: which one interrupts? There is no right answer, only the page's reading; a coin agrees with it 3 times in 6. One tension it holds: a duck only turns a voice down; the listener never stops talking underneath.",
+          "near": "How quickly do I formulate my response?",
+          "place": "band",
+          "height": 1220
+        }
+      ],
+      "made_against": "51f9dfbb0f6f",
+      "stamped": "2026-11-03"
+    }
+  ]
+}
