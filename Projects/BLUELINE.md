@@ -8,7 +8,7 @@ stage: growing
 confidence: working
 energy: high
 who_leads: loudon
-forward_vector: "I am an opinionated instrument for bold, comic-staged, surreal-mathematical music-video action — storyboard to final render, every frame pinned to a fixed-tempo song. My novelty is point of view and coupling, not components: nearly every piece I need already exists off the shelf. What I author is the curated vocabulary, the single-source flow-field *stack*, the comic↔cinema transduction, and — the last rung — the live performance of the page. The bias is the product."
+forward_vector: "I want to tell a story in frames alongside a song, every panel placed by the Ableton Set's own clock, until the page can be performed live — and to be the door to everything that grew from learning how."
 links:
   - target: "[[Retrospective Delay]]"
     type: mirrors
@@ -91,82 +91,35 @@ tags: [project, blueline, music-video, generative, pipeline, sprout]
 
 ![[BLUELINE — hero.png]]
 
-> **▸ Front door: [[BLUELINE — scroll]].** Where the project stands now and the plan it follows (what
-> comes next, agreed with Loudon) live on the scroll. [[BLUELINE — Production Plan]] is the map: what
-> BLUELINE is, its goals, where each thread stands, and every proof placed. This entry is the palace
-> *face*.
+BLUELINE tells a story in frames alongside a song. The song lives in an Ableton Set, and the Set's own clock places every panel: its tempo, its sections, its clips. The story is boarded, the boards become an animatic, the animatic becomes a cut with sound, and at the last rung the page is performed live. It has a point of view and a house look, and it is not a general generator. Nearly every part is adopted off the shelf. What it authors is the coupling between song and story ([[Adopt the Craft, Author the Seam]]).
 
-## What it is
+Where it stands and what comes next are on [[BLUELINE — scroll]]. It woke again at this sit, 2026-10-29, with its thesis back in Loudon's words.
 
-BLUELINE makes bold, dramatic, graphic-cinematic action in surreal, mathematical worlds — music videos built the way film is built: **storyboard → animatic → final render**, with every frame pinned to the song. It is *not* a general generator. It has a default style, a fixed visual language, and a point of view. The bias is the product.
+## Two ideas hold it up
 
-The pipeline moves between **two registers**: the storyboard speaks **comic**, the final render speaks **cinema**, and the system's whole job is the transduction between them — comic compresses and abstracts, cinema dilates and embodies. See [[Comic and Cinema — Two Ways of Seeing]] *(ghost — not yet deposited)*.
+- **[[Blocked, Not Prompted]].** Camera and pose are authored as geometry in [[Shop/Blender]], so the model fills a composition rather than choosing one.
+- **[[The Flow Field is the Spine]].** One authored field of motion carries the drawn speed lines, the effects and the staging. A panel holds a stack of them, one source per motion.
 
-## The two load-bearing ideas
+## The workflow, and who does each part
 
-- **[[Blocked, Not Prompted]]** — camera and pose are authored as geometry in a 3D block (in [[Shop/Blender]]); the model fills a composition Loudon dictated rather than choosing one. Drama becomes geometry, not adjectives, and the front-on default is defeated.
-- **[[The Flow Field is the Spine]]** — an authored vector field, rendered at three resolutions of reality: drawn speed lines (comic), dense motion conditioning (steering the render), and a simulated medium (cinema). *The arrow becomes the wind.* This is the novel bet, and the #1 risk. *(Reframed 2026-07-09: a panel carries a **stack** of such fields — wind, wake, impact, ambient — each single-source, composited like buses. The discipline is single-source-per-motion, not one field per panel. See [[BLUELINE — Motion and Flow]].)*
+Each stage leans on a page or a tool that does the work. BLUELINE's job is to keep them in order and to notice what each one needs.
 
-## Two AIs, opposite risk profiles
+- **The song and its clock.** The Set is read for tempo, sections and clips, at whatever tempo it runs, and each change lands at its exact time in the cut. Contract: [[BLUELINE — Board Record Schema]].
+- **The story, staged.** The sequential-art language comes from [[Graphic Storytelling]], and the seam between still and motion from [[Comic and Cinema — Two Ways of Seeing]]. [[Frame Designer]] turns a panel in words into a staged frame. [[Shop/Figure Rig]] poses the figure, and [[GenAI Camera]] shows the drawing while you aim. The runbook is [[Block It in Blender, Ink It in genAI]].
+- **The render.** [[BLUELINE — Render Backend]] on [[RunPod GPU Backend]], steered by [[Steer the Generator]] and [[ControlNet as Topology]].
+- **The look and the motion.**
+  - [[Hand-Drawn 3D Look]] gives the ink treatments.
+  - [[Move the Ink, Don't Redraw It]], [[Animate the Background]], [[Remnants in Depth]] and [[The 2.5D Paper Stack]] make a held frame breathe.
+  - [[The Aftermath Frame]] gives the dramatic still that remembers its motion.
+- **The word.** [[Shop/Lettering]], with the grammar in [[Typography as Meaning]].
+- **The page and the cut.** [[BLUELINE — The Page]] is the screen as a comic page, panels arriving in musical time, and it is where the live performance will run.
 
-A cheap, reliable **staging-AI** (language → editable proxies over a curated vocabulary — structured extraction, not pixels) and an expensive, uncertain **render-AI** (diffusion skin + simulation). Milestones are sequenced so the useful early tools never depend on the risky one. Mirrors [[Diversity of Thought in Many-Agent Systems]] from the tooling side: two intelligences with opposite temperaments.
+The stages, named with the industry's own words, are mapped in [[BLUELINE — Production Pipeline]]. Every runtime is pinned in [[BLUELINE — toolbox]].
 
-## Novelty is coupling, not components
+## Scope
 
-The June 2026 research found nearly every piece exists off the shelf: the Blender→ControlNet conditioning rig, humanoid locomotion libraries, declarative camera control, procedural environments, LLM-to-scene staging, flow-guided motion diffusion ([[Go-with-the-Flow]] — ghost), the ComfyUI multi-ControlNet render core. BLUELINE *authors* the opinionated vocabulary, the single-source coupling, and the comic↔cinema transduction — and adopts the rest. Full inventory and the build-vs-adopt map: [[BLUELINE — Deposit Map]].
-
-## Scope decisions (locked)
-
-- **Fixed tempo** — sync is deterministic arithmetic, not elastic alignment.
-- **Staged, not simulated** — comic motion is camera + FX + pose, never simulated *contact*. *(Updated 2026-07-03: the held-pose constraint is relaxed — **pose-blend-along-flow** is now in scope as a bounded experiment (interpolate key-poses along the flow direction). Simulated physical contact between figures stays out. Unblocks [[BLUELINE — Motion and Flow]] Edge 3.)*
-- **Animal motion is OUT of scope** *(2026-06-13)* — humanoid only; the one data-starved hard case retired by decision.
-- **Each milestone ships** — M0 previz → M1 animatic → M2 motion comic → M3 flow-field FX → M4 hyperreal impact → M5 sync server. Every rung is a usable tool.
-- **Live performance is the final stage** *(2026-07-09)* — the last rung of the production process, not a separate project. Everything offline is built to survive the crossing into real time (same record, same audio→parameter map, same warm-started render; only the clock source and the model's step-count change). See [[BLUELINE — The Page]].
-- **The flow field is a stack, not one field** *(2026-07-09)* — coherence is single-source-*per-motion*, not one field per panel; multiple fields (wind, wake, impact, ambient) compose like buses. Relaxes [[The Flow Field is the Spine]]'s singular framing.
-- **The page persists through the pipeline** *(2026-07-09)* — the screen is a comic page; panels arrive in musical time, layers breathe inside them. Adopt the comic lexicon: **panel** is the unit, "frame" is reserved for the 1/24s image. See [[BLUELINE — The Page]].
-
-## Where it stands
-
-`stage: growing`. **The full status map and threads are in [[BLUELINE — Production Plan]]**
-— every proof placed, each thread marked proven / partial / retired; what comes next is the plan on
-[[BLUELINE — scroll]]. In brief: **Clock & Sync** shipped and
-live-validated (the rendered-board **animatic** plays on *Ascension_v8*, 120 BPM → 12 fr/beat);
-**Figure & Pose** is mature ([[Shop/Figure Rig]], hands shipped); **Style & Identity** locked the
-`pen-flow` house look (identity → InstantID next); **Text & Lettering** proved rung 1 (material register
-+ the Living Balloon); **Line-Art Decomposition** validated the convert-first flat-cel path; the
-**Render Backend** runs Study(SDXL/pod)/Piece(FLUX/serverless) off one board record. **Motion & Flow**
-is the priority frontier — seven threads unified in [[BLUELINE — Motion and Flow]], with the render-noise
-warp **retired** (seed-lock wins) and the *pose → field → clock* coupling named as the next lift.
-
-The keystones still ground it: the **conditioning keystone** (Session 1 — Blender geometric passes → SDXL
-multi-ControlNet; [[Blocked, Not Prompted]]) and the **flow-field spine** (Session 3+4 — one field, now
-character-aware; [[The Flow Field is the Spine]]). The conceptual map is [[BLUELINE — Production Pipeline]];
-the contracts are [[BLUELINE — Render Backend]] · [[BLUELINE — Board Record Schema]] · [[BLUELINE — toolbox]].
-
-## Bundle
-
-> **New here?** Read `BLUELINE — scroll.md` (the front door), then `BLUELINE — Production Plan.md`
-> (the map), and stop there until you need depth. The historical/archived docs below are kept for
-> reasoning, not orientation — skip them.
-
-**Front door — read first**
-- `BLUELINE — scroll.md` — **read first**: where it stands now, the plan agreed with Loudon (what comes next), and everything made, newest first.
-- `BLUELINE — Production Plan.md` — the map: what it is · goals · where it stands · the threads. Every proof placed.
-
-**Conceptual map + contracts (canonical)**
-- `BLUELINE — Production Pipeline.md` — the established stage/role pipeline (anime backbone · comics skin · feature tissue · music-video clock) + the two seams.
-- `BLUELINE — The Page.md` — **the output aesthetic (locked 2026-07-09)**: screen = comic page, panels in musical time, the comic lexicon, the panel file structure, live as the final stage.
-- `BLUELINE — Motion and Flow.md` — the priority thread: seven motion threads unified + the pose → field → clock coupling.
-- `BLUELINE — Render Backend.md` — the render-AI half (Study/SDXL·pod, Piece/FLUX·serverless) + the canonical runner in `render-backend/`.
-- `BLUELINE — Board Record Schema.md` — the beat-addressed contract every thread reads/writes.
-- `BLUELINE — toolbox.md` — every runtime + version pinned (the reproduce anchor).
-
-**Historical (folded into the Production Plan) — skip if new**
-- `BLUELINE — Specialists and Seams.md` — its "how many Specialists" question is answered by the live [[Shop/Figure Rig]] / [[Shop/Lettering]] / [[Frame Designer]] entries.
-- `Archive/BLUELINE — Deposit Map.md`, `Archive/BLUELINE — Claude Code Job.md` — the original June 2026 proposal + single-thread spike (executed / superseded).
-
-- Proofs are in `proofs/`, one folder per track or session, each with its report; `text-layer/` holds the gen-AI typography ([[Shop/Lettering]], [[Typography as Meaning]]).
+Fixed tempo, staged not simulated, humanoid only, every rung ships, live is the last rung. The orders and their dates are on the scroll.
 
 ## Active Baton
 
-[[BLUELINE — baton]] — drafted 2026-07-04 (the Aftermath Frame tool → a guide that LEADS + gen-AI frames; hand to a fresh Claude). Lives on `main`.
+[[BLUELINE — baton]]: the reset — a Context, the scroll made true, the bundle moves, a record that works at any tempo, the six boards finished, and the Aftermath Frame's guide pick.
