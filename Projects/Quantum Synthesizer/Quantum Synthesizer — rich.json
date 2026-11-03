@@ -53,6 +53,17 @@
     "by": "maker · claude-opus-5-5 · proposal round",
     "round": "proposal-round-2026-11"
    },
+   "challenge": {
+    "date": "2026-11-03",
+    "by": "challenger · claude-opus-5-5",
+    "verdicts": [
+     {
+      "file": "proofs/schrodinger-AB-harmonic-then-anharmonic.wav",
+      "verdict": "keep",
+      "why": "A modest test of the opening: only the well changes, and a clean tone becomes a bell. The caption names its rule, gaps counted up from the lowest level."
+     }
+    ]
+   },
    "made": "2026-11-03",
    "pieces": [
     {
@@ -74,6 +85,27 @@
     "date": "2026-11-03",
     "by": "maker · claude-opus-5-5 · proposal round",
     "round": "proposal-round-2026-11"
+   },
+   "challenge": {
+    "date": "2026-11-03",
+    "by": "challenger · claude-opus-5-5",
+    "verdicts": [
+     {
+      "file": "proofs/wick.mp4",
+      "verdict": "keep",
+      "why": "A test that disagrees with \"complex conjugate poles\"; wick-checks.txt fits sin θ on every partial at four angles. The caption says so and points to tuning item 3."
+     },
+     {
+      "file": "Quantum Synthesizer — rich — two ears.html",
+      "verdict": "remake",
+      "why": "A real test that walks up, and every number agrees with an independent recompute. But it hears with two ears where the page hears with a third: gaps counted up from the lowest (A/B, well-morph, pendulum.py:101). Add that rule to step 5 (oscillator 1·2·3·4 ×220, box 3·8·15·24 ×110) and to the checks; say the clock assumes energy counted from the well floor (raised by ½ quantum the oscillator clock reads 1·2·3·4); widen \"under one rule\" to any of the three."
+     },
+     {
+      "file": "proofs/hermite.mp4",
+      "verdict": "keep",
+      "why": "A test that disagrees with \"n + 1 partials\"; every caption number matches hermite-checks.txt, and an independent recount agrees that the count is set by the comb."
+     }
+    ]
    },
    "made": "2026-11-03",
    "pieces": [
@@ -112,6 +144,17 @@
     "by": "maker · claude-opus-5-5 · proposal round",
     "round": "proposal-round-2026-11"
    },
+   "challenge": {
+    "date": "2026-11-03",
+    "by": "challenger · claude-opus-5-5",
+    "verdicts": [
+     {
+      "file": "proofs/ladder.mp4",
+      "verdict": "keep",
+      "why": "A test that disagrees with \"adds one overtone\"; ladder-checks.txt carries every number in the caption, and it walks move by move."
+     }
+    ]
+   },
    "made": "2026-11-03",
    "pieces": [
     {
@@ -132,6 +175,27 @@
     "date": "2026-11-03",
     "by": "maker · claude-opus-5-5 · proposal round",
     "round": "proposal-round-2026-11"
+   },
+   "challenge": {
+    "date": "2026-11-03",
+    "by": "challenger · claude-opus-5-5",
+    "verdicts": [
+     {
+      "file": "proofs/well-morph-explorer.html",
+      "verdict": "keep",
+      "why": "Tests unequal spacing as the quartic grows, opening on the parabola; conform is clean."
+     },
+     {
+      "file": "proofs/timbre-atlas.mp4",
+      "verdict": "keep",
+      "why": "Closer to a survey than a test. Its Morse check lives in timbre_atlas.py's printout, not in a checks file in the bundle; not re-run."
+     },
+     {
+      "file": "proofs/drum.mp4",
+      "verdict": "keep",
+      "why": "A test that disagrees with \"the circle\"; drum-checks.txt confirms the ladders and the repeat verdicts the caption quotes."
+     }
+    ]
    },
    "made": "2026-11-03",
    "pieces": [
@@ -171,6 +235,32 @@
     "date": "2026-11-03",
     "by": "maker · claude-opus-5-5 · proposal round",
     "round": "proposal-round-2026-11"
+   },
+   "challenge": {
+    "date": "2026-11-03",
+    "by": "challenger · claude-opus-5-5",
+    "verdicts": [
+     {
+      "file": "proofs/walls.mp4",
+      "verdict": "keep",
+      "why": "Tests line 84 by changing only the walls. It plays absolute levels, the only rule under which the hard box sounds the squares (offer 3)."
+     },
+     {
+      "file": "proofs/stiffness.mp4",
+      "verdict": "keep",
+      "why": "Tests the stiffness road; \"one part in fifty million\" is the page's own number, not re-run."
+     },
+     {
+      "file": "proofs/pendulum-slider.html",
+      "verdict": "keep",
+      "why": "Playable test, opening at the bare ring; its solver is within 1.1e-11 of numpy and it reads 1.97 · 2.89 · 3.78 at q = 32, as the page says."
+     },
+     {
+      "file": "proofs/round-trip.mp4",
+      "verdict": "keep",
+      "why": "Tests \"two knobs\"; worst FFT miss 0.017 Hz, and the seam is continuous (round-trip-checks.txt)."
+     }
+    ]
    },
    "made": "2026-11-03",
    "pieces": [
@@ -218,6 +308,17 @@
     "date": "2026-11-03",
     "by": "maker · claude-opus-5-5 · proposal round",
     "round": "proposal-round-2026-11"
+   },
+   "challenge": {
+    "date": "2026-11-03",
+    "by": "challenger · claude-opus-5-5",
+    "verdicts": [
+     {
+      "file": "proofs/instrument.html",
+      "verdict": "keep",
+      "why": "Not the artifact the section remembers, and the caption says so. It opens on every control at once but sits at the page's end; conform's play-silent at 760 px is its click missing the start control, not checked by hand."
+     }
+    ]
    },
    "made": "2026-11-03",
    "pieces": [
