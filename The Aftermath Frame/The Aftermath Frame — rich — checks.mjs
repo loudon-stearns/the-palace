@@ -41,10 +41,14 @@ expect(block(html('a swing is a rotation'), 'engine') === block(html('the gain a
   const same = (rs) => rs.every((r) => r.vc.every((x, i) => x === rs[0].vc[i]));
   console.log(`  the tool in Blender (baked): v_c identical across punch 0, 1, 3.9: ${same(honest)} · in the leaky copy: ${same(leaky)}`); expect(same(honest) && !same(leaky), 'baked tool run');
   const M = E.solveMotion('chop'); console.log(`  port vs Blender v_c (chop): ${M.vC.map((x, i) => f(x - honest[0].vc[i], 7)).join(', ')}`);
-  console.log('the gain and the motion · does the spray still point? pooled over 400 seeds (length of the mean unit direction; angle of the mean from v_c)');
-  for (const g of [1, 1.8, 2.6, 10]) { let s = [0, 0, 0], n = 0;
-    for (let seed = 1; seed <= 400; seed++) for (const sh of E.consequences(M, g, 0.018, seed).shards) { s = E.add(s, sh.dir); n++; }
-    const m = E.mul(s, 1 / n); console.log(`  gain ${String(g).padEnd(4)} coherence ${f(E.len(m))} · mean ${f(E.angleBetween(m, M.vC) * 180 / Math.PI, 2)}° off v_c · ${n} shards`); }
+  console.log('the gain and the motion · does the spray still point? about 200,000 port shards a gain, against the figures the piece and manifest state (from numpy, 200,000 draws)');
+  const STATED = { 1: [0.886, 10.3, 27], 1.8: [0.752, 9.3, 40], 2.6: [0.642, 8.6, 49], 10: [0.257, 6.6, 75] };
+  for (const g of [1, 1.8, 2.6, 10]) { let s = [0, 0, 0], n = 0, per = 0;
+    for (let seed = 1; n < 200000; seed++) for (const sh of E.consequences(M, g, 0.018, seed).shards) { s = E.add(s, sh.dir); per += E.angleBetween(sh.dir, M.vC); n++; }
+    const m = E.mul(s, 1 / n), coh = E.len(m), off = E.angleBetween(m, M.vC) * 180 / Math.PI, each = per / n * 180 / Math.PI, [c0, o0, e0] = STATED[g];
+    const ok = Math.abs(coh - c0) < 0.01 && Math.abs(off - o0) < 0.6 && Math.abs(each - e0) < 1;
+    console.log(`  gain ${String(g).padEnd(4)} coherence ${f(coh)} (stated ${c0}) · mean ${f(off, 2)}° off v_c (stated ${o0}) · each shard ${f(each, 1)}° (stated ${e0}) · ${n} shards · ${ok ? 'as stated' : 'NOT as stated'}`);
+    expect(ok, `spray figures at gain ${g}`); }
 }
 console.log(bad ? `${bad} unexpected` : 'every check came out as stated');
 process.exitCode = bad ? 1 : 0;

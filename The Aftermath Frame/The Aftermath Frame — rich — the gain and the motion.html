@@ -303,7 +303,7 @@ const TOOL_RUN = [{"leak": false, "punch": 0.0, "gains": [0.6, 0.6, 0.8], "omega
 const st = { step: 0, action: 'chop', now: DT_STILL, gain: 1, leak: false, ran: null };
 const STEPS = [
   { name: '1 · one arrow', h: 'One arrow',
-    p: 'At the instant of contact the swing comes down to one vector: the velocity of the blade where it meets the column. It is derived from the rotation (the section above), and it is the only thing about the motion the consequences are allowed to read. (Whether the authored contact sits on the wood is the section above\'s test; here the contact is taken as the tool takes it, and the wound is drawn where the tool cuts it.)',
+    p: 'At the instant of contact the swing comes down to one vector: the velocity of the blade where it meets the column. It is derived from the rotation (the section above). The shards read only this arrow; the air, two steps on, reads the whole swept path. (Whether the authored contact sits on the wood is the section above\'s test; here the contact is taken as the tool takes it, and the wound is drawn where the tool cuts it.)',
     eq: [['v_c = ω_impact · n̂ × (r_contact − pivot)', 'the contact velocity = the turning rate at impact, along the rotation axis, crossed with the contact\'s offset from the pivot.']] },
   { name: '2 · shards', h: 'The shards take their direction from it',
     p: 'Each shard leaves the wound along v_c, nudged a little by the wound\'s outward face and a small lift, at a speed between half and one and a half times |v_c|. Scrub "now": the frame is these shards sampled a few milliseconds after impact. The gain is still 1.',
@@ -313,7 +313,7 @@ const STEPS = [
     eq: [['kick = v(r, u) · age · 0.010,  age = (1 − u) · T + now', 'a mote\'s streak = the blade\'s velocity where and when it passed × how long ago that was × a small constant.']] },
   { name: '4 · the gain', h: 'Turn up the comic gain',
     p: 'Comics are super-physical. The gain multiplies three things: how many shards and motes, how wide the spray cone, how long the streaks. Watch the blue numbers while you drag it.',
-    eq: [['N = 40 · g · 0.45,   cone × g,   streak × g', 'shard count, spray width and streak length each grow with the gain g (the tool\'s "punch" dial sets three such gains, from 0.6 to 3.4).']] },
+    eq: [['N = 40 · g · 0.45,   cone × g,   streak × g', 'shard count, spray width and streak length each grow with the gain g (the tool\'s "punch" dial, 0 to 1, sets three such gains between 0.6 and 3.2).']] },
   { name: '5 · the test', h: 'Can the gain reach the motion?',
     p: 'Run the whole frame, swing and debris, at gain 1 and at gain 10, and compare. Then turn on the null, which wires the gain into the swing\'s speed the way a naive "impossibly fast" would, and run it again.',
     eq: [] },
@@ -408,7 +408,7 @@ function runCheck() {
     <table class="t"><tr><th>punch</th><th>gains: spread · count · streak</th><th>v_c (m/s)</th><th>ω</th><th>shards · motes</th></tr>${tool}</table>
     <p class="note">The impact tool's own model code (its header through the punch dial) run in Blender's Python at punch 0, 1 and 3.9; 3.9 is past the dial's 0 to 1 range, chosen to bring the gains near 10. ${toolSame ? '<span class="pass">v_c is identical in every row</span>: the tool\'s dial cannot reach its motion.' : '<span class="fail">v_c differs between rows</span>: in this copy the leak reaches the motion, as it should, so the check can fail on the tool too.'} Blender's vectors are single precision, so they agree with this page's double-precision port to five figures, not every digit.</p>
     <h5>What the gain does change: whether the spray still points</h5>
-    <p class="note">The gain never touches the motion, but it can hide it. How much the shards point one way (the length of their mean direction) falls from <b>${f(A.cons.stats.coherence, 2)}</b> at gain 1 to <b>${f(B.cons.stats.coherence, 2)}</b> at gain 10. Drawn 200,000 at a time from the tool's own formulas: 0.89 at gain 1, 0.75 at the tool's heroic spread (1.8), 0.64 at its super (2.6), 0.26 at 10. A reader runs the swing backwards from the debris; at gain 10 there is little left to run it from. The spread also pulls the shards' mean a few degrees toward v_c (10.3° off it at gain 1, 6.6° at 10), since the cone opens across v_c and not around the burst.</p>`;
+    <p class="note">The gain never touches the motion; what spread costs is each shard\'s aim. How much the shards point one way (the length of their mean direction) falls from <b>${f(A.cons.stats.coherence, 2)}</b> at gain 1 to <b>${f(B.cons.stats.coherence, 2)}</b> at gain 10, which is what a wider cone means. Drawn 200,000 at a time from the tool\'s own formulas, a single shard sits 27° off v_c on average at gain 1, 40° at the tool\'s heroic spread (1.8), 49° at its super (2.6) and 75° at 10. The swing is still there to read: the shards\' mean stays within about 10° of v_c at every gain (10.3° at gain 1, about 7° at 10, pulled toward v_c because the cone opens across it), and the swoosh traces the arc whatever the gain. Whether a reader still runs the swing backwards from a gain-10 spray is a question for a reader, not this check.</p>`;
   $('result').classList.remove('hidden');
 }
 buildSteps(); buildPanel();
