@@ -1,0 +1,148 @@
+{
+ "re-render error vs tracked takes": {
+  "01_30_droplets": 3.051558860045489e-05,
+  "05_2500_droplets": 3.0517169580753824e-05
+ },
+ "count, at 5 cents": [
+  {
+   "copies": 2,
+   "cents": 5,
+   "depth": 0.46,
+   "rate_hz": 0.82,
+   "predicted_hz": 0.65,
+   "onsets_per_s": 7
+  },
+  {
+   "copies": 3,
+   "cents": 5,
+   "depth": 0.44,
+   "rate_hz": 0.65,
+   "predicted_hz": 0.65,
+   "onsets_per_s": 10
+  },
+  {
+   "copies": 6,
+   "cents": 5,
+   "depth": 0.48,
+   "rate_hz": 0.67,
+   "predicted_hz": 0.65,
+   "onsets_per_s": 20
+  },
+  {
+   "copies": 30,
+   "cents": 5,
+   "depth": 0.44,
+   "rate_hz": 0.87,
+   "predicted_hz": 0.65,
+   "onsets_per_s": 100
+  },
+  {
+   "copies": 100,
+   "cents": 5,
+   "depth": 0.5,
+   "rate_hz": 0.76,
+   "predicted_hz": 0.65,
+   "onsets_per_s": 333
+  },
+  {
+   "copies": 300,
+   "cents": 5,
+   "depth": 0.48,
+   "rate_hz": 0.78,
+   "predicted_hz": 0.65,
+   "onsets_per_s": 1000
+  },
+  {
+   "copies": 800,
+   "cents": 5,
+   "depth": 0.52,
+   "rate_hz": 0.87,
+   "predicted_hz": 0.65,
+   "onsets_per_s": 2667
+  },
+  {
+   "copies": 2500,
+   "cents": 5,
+   "depth": 0.53,
+   "rate_hz": 0.8,
+   "predicted_hz": 0.65,
+   "onsets_per_s": 8333
+  }
+ ],
+ "spread, at 400 copies": [
+  {
+   "copies": 400,
+   "cents": 1,
+   "depth": 0.5,
+   "rate_hz": 0.23,
+   "predicted_hz": 0.13,
+   "onsets_per_s": 1333
+  },
+  {
+   "copies": 400,
+   "cents": 3,
+   "depth": 0.45,
+   "rate_hz": 0.52,
+   "predicted_hz": 0.39,
+   "onsets_per_s": 1333
+  },
+  {
+   "copies": 400,
+   "cents": 8,
+   "depth": 0.49,
+   "rate_hz": 1.22,
+   "predicted_hz": 1.04,
+   "onsets_per_s": 1333
+  },
+  {
+   "copies": 400,
+   "cents": 25,
+   "depth": 0.53,
+   "rate_hz": 3.45,
+   "predicted_hz": 3.26,
+   "onsets_per_s": 1333
+  },
+  {
+   "copies": 400,
+   "cents": 75,
+   "depth": 0.52,
+   "rate_hz": 9.38,
+   "predicted_hz": 9.78,
+   "onsets_per_s": 1333
+  }
+ ],
+ "the square: 30 or 2500 copies, 5 or 25 cents": [
+  {
+   "copies": 30,
+   "cents": 5,
+   "depth": 0.44,
+   "rate_hz": 0.87,
+   "predicted_hz": 0.65,
+   "onsets_per_s": 100
+  },
+  {
+   "copies": 30,
+   "cents": 25,
+   "depth": 0.5,
+   "rate_hz": 3.42,
+   "predicted_hz": 3.26,
+   "onsets_per_s": 100
+  },
+  {
+   "copies": 2500,
+   "cents": 5,
+   "depth": 0.53,
+   "rate_hz": 0.8,
+   "predicted_hz": 0.65,
+   "onsets_per_s": 8333
+  },
+  {
+   "copies": 2500,
+   "cents": 25,
+   "depth": 0.55,
+   "rate_hz": 3.4,
+   "predicted_hz": 3.26,
+   "onsets_per_s": 8333
+  }
+ ]
+}

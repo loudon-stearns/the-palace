@@ -1,0 +1,152 @@
+{
+  "title": "Shimmer Cloud — rich",
+  "born": "2026-11-03",
+  "links": [
+    {
+      "target": "[[Shimmer Cloud]]",
+      "type": "connects-to",
+      "label": "rich-face-of"
+    },
+    {
+      "target": "[[Enrichment]]",
+      "type": "connects-to",
+      "label": "made-by"
+    },
+    {
+      "target": "[[Progressive Staging]]",
+      "type": "connects-to",
+      "label": "each-piece-walks-up"
+    }
+  ],
+  "forward_vector": "I am the manifest of Shimmer Cloud's rich face, its first round, a Sketch and still a proposal: two walks that each start from one idea and end on a measurement (whether count or spread is the dial between chorus and shimmer, and whether a spectrum of pitch shifts disperses sound the way a prism disperses light, which it doesn't), beside the bundle's own lenses and figures, gathered as they were and captioned with what was measured on them. I grow when the page is enriched again; I never hold the entry's words.",
+  "entry": "Shimmer Cloud",
+  "tier": "sketch",
+  "made": "2026-11-03",
+  "round": 1,
+  "offers": [
+    {
+      "section": "Open Questions",
+      "kind": "claim-change",
+      "what": "Grain count and density asks how many pitch-shifted copies before shimmer rather than chorus. Measured on May's own droplet engine (02_droplet_cloud/cloud.py) with a steady 200 Hz tone, four seeded runs each: from 2 copies to 2500 at about 5 cents, the crowd's level swirls at the same rate (0.65 to 0.87 times a second) and depth (0.44 to 0.53; a crowd of random phases tends to 0.52). At 400 copies, widening the spread from 1 to 75 cents moves the rate through 0.23, 0.52, 1.22, 3.45 and 9.38 a second, within 20 % of f · ln2/1200 · 1.13 · σ from 8 cents up. What count does change is how many onsets land each second in the 300 ms scatter: 100 at 30 copies, 1,000 at 300 (Schroeder's 1962 mark for a flutter-free reverb), 8,333 at 2500. So the question may hold two dials, not one: chorus against shimmer on the spread, grainy against smooth on the count. Proposed, if Loudon's ear agrees on the face's square: 'How far apart can the copies be tuned before shimmer turns into chorus, and how many onsets a second before the cloud stops sounding grainy?' Nobody has listened yet; the square is there for the ear to settle it.",
+      "status": "open"
+    },
+    {
+      "section": "Cross-Domain Parallels",
+      "kind": "claim-change",
+      "what": "Light and optics says Shimmer Cloud disperses audio into a spectrum of pitch shifts and calls the metaphor structural. Struck with a click, audio's white light, on the white-light piece's engine: one pitch copy at any shift from −1200 to +1200 cents lands lows (100–500 Hz) and highs (3–8 kHz) together, within 0.1 ms; a cloud of 600 copies at ±25 cents lands them 3.3 ms apart, smeared over 22 ms; a cloud of 600 of the steward's pushed prisms (150–600 ms, highs late) lands the highs 226 ms after the lows (the steward's own engine: 213 ms, proofs/2026-10-22-pushed/findings.json). A prism sorts the frequencies already there by delay; a pitch shift moves them and sorts nothing. Proposed: 'A prism disperses white light by sending each colour out at its own delay and angle. Shimmer Cloud's lenses do the same to sound: each delays every frequency by its own amount, so a click comes out as a sweep. The metaphor is structural.' The page's forward vector already says it: 'each delaying its frequencies its own way.'",
+      "status": "open"
+    },
+    {
+      "section": "Why It Matters",
+      "kind": "claim-change",
+      "what": "Hyperprism connection: 'takes wideband audio, disperses it by pitch-shift depth'. The white-light piece measures the same thing as under Cross-Domain Parallels: what disperses is frequency-dependent delay, not pitch-shift depth (a click through 600 pitch copies lands highs 3 ms from lows; through 600 prisms, 226 ms). Proposed: 'takes wideband audio, delays each of its frequencies by its own amount, scatters it in time and space'.",
+      "status": "open"
+    },
+    {
+      "section": "What It Is",
+      "kind": "claim-change",
+      "what": "The four steps (granularize, pitch-shift each grain, scatter, decay) describe the grain model the bundle built first and moved past in May: the bundle README calls the octave-feedback lens 'structurally a chorus/H3000 effect, not a prism', and the page's own forward vector and § Where it stands describe a cloud of lenses, each delaying its frequencies its own way and drifting a few cents. The H3000 paragraph's 'instead of a fixed octave shift, use a cloud of many shifts' is also not where the project went: at the revival (scroll, 2026-10-21) Loudon asked for one interval jump at the door and then dispersion, and the steward built that as the interval lens, gathered here beside the paragraph. Proposed: rewrite the steps as the lens model (a population of all-pass lenses, each delaying every frequency on its own curve, a few cents of drift, at most one interval at the door), and keep the grain model as where it began.",
+      "status": "open"
+    },
+    {
+      "section": "What It Is",
+      "kind": "no-claim-edit",
+      "what": "'microdetunning' is a typo for 'microdetuning' (the paragraph beginning 'The result: an atmospheric texture').",
+      "status": "open"
+    }
+  ],
+  "sections": [
+    {
+      "heading": "What It Is",
+      "made": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "01_feedback_lens/wet.wav",
+          "origin": "gathered",
+          "title": "May's feedback lens · an octave every pass",
+          "caption": "**The H3000 idea, as the bundle first built it.** One pitch-shifter in a loop, an octave up on every pass, six passes: the phrase \"the prism, and the cloud.\" climbing in octaves. The steward struck the same lens with one 220 Hz tone on 2026-10-22: 69 % of its wet energy lands an octave up, 21 % two octaves up, 7 % three. The bundle's README calls it \"structurally a chorus/H3000 effect, not a prism\".",
+          "near": "Eventide H3000"
+        },
+        {
+          "file": "rich-face/fifth.wav",
+          "origin": "gathered",
+          "title": "the interval lens · a fifth, then the cloud",
+          "caption": "**Where the paragraph's generalization went instead.** At the revival Loudon asked for one jump, then dispersion: \"Repeated large jumps within a feedback loop are rarely good and often sound dated.\" The steward's take of 2026-10-22: the phrase jumps a fifth once at the door, then goes round eight passes, each through a fresh cloud of 600 prisms and a few cents of drift. The same tone test lands 100 % of it on the fifth, and it hangs 2.2 s past the phrase. Copied from the steward's takes so the public face can play it; the scroll still waits on Loudon's ear for it.",
+          "near": "Eventide H3000"
+        },
+        {
+          "file": "proofs/2026-10-22-interval/interval.png",
+          "origin": "gathered",
+          "title": "the two lenses, side by side · the steward's figure",
+          "caption": "Left to right: the phrase dry; May's octave every pass, which ends with the words; a fifth then the cloud, which hangs; the fifth with plain echoes in the loop and no prism; and the fourteen-pass loop, where the last vowel's harmonics hold as steady lines and shimmer starts to turn toward drone.",
+          "near": "Eventide H3000",
+          "place": "band"
+        }
+      ],
+      "made_against": "19a32031f8b5",
+      "stamped": "2026-11-03"
+    },
+    {
+      "heading": "Open Questions",
+      "made": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "Shimmer Cloud — rich — how many.html",
+          "origin": "made",
+          "by": "maker · claude-opus-5-5 · proposal round",
+          "title": "how many copies? · a walk in four steps",
+          "caption": "**Count, or spread?** The first question played on May's droplet set: one voice, then 30 to 2500 copies, then 1 to 75 cents of spread, and last a square, 30 or 2500 copies against 5 or 25 cents, for the ear to say which way the chorus lies. Two corners are May's takes; the other two were rendered for this face with her engine and seed (`Shimmer Cloud — rich — count and spread.py`). Every number is measured on that engine with a steady tone: count moves how many onsets land a second, and leaves the swirl's rate and depth alone; spread moves the swirl's rate. Which of those your ear calls chorus is the part no measurement can say.",
+          "near": "Grain count and density",
+          "place": "band",
+          "height": 900
+        }
+      ],
+      "made_against": "17799d7803d2",
+      "stamped": "2026-11-03"
+    },
+    {
+      "heading": "Cross-Domain Parallels",
+      "made": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "Shimmer Cloud — rich — white light.html",
+          "origin": "made",
+          "by": "maker · claude-opus-5-5 · proposal round",
+          "title": "white light through two kinds of lens · a walk in five steps",
+          "caption": "**Does a spectrum of pitch shifts disperse like a prism?** Strike each kind of lens with a click, every frequency at once, and read when its lows and highs come out. A pane of glass moves the click and sorts nothing. A pitch copy moves a note's harmonics and sorts nothing. One prism, the steward's pushed lens, fans the click into a sweep, landing where its delay curve says to within a few milliseconds. Last, 600 of each: the pitch copies land highs within a few milliseconds of lows; the prisms land them more than 200 ms apart. Then the steward's pair, the same two clouds with the phrase going in. The engine is checked in Node against every step (`Shimmer Cloud — rich — check.mjs`).",
+          "near": "Light and optics",
+          "place": "band",
+          "height": 1000
+        },
+        {
+          "file": "proofs/2026-10-22-pushed/pushed.png",
+          "origin": "gathered",
+          "title": "a block of noise against a fan · the steward's figure",
+          "caption": "Top: the phrase dry, through May's cloud, and through the pushed prism both ways. Bottom: each cloud struck by one click. May's prism sorted lows from highs by only 3 ms, so its 350 ms of scatter did all the work and it reads as a block; the pushed prism lands them about 213 ms apart, a fan. Turned around, highs early, the hiss arrives first and the body follows: the high frequencies arrive first, one reading of the turbulence paragraph's \"dispersing faster\".",
+          "near": "Particle dispersion in turbulence",
+          "place": "band"
+        }
+      ],
+      "made_against": "1e17a9219033",
+      "stamped": "2026-11-03"
+    }
+  ]
+}
