@@ -1,0 +1,259 @@
+{
+  "title": "Three Kinds of Warp — rich",
+  "born": "2026-11-03",
+  "links": [
+    {
+      "target": "[[Three Kinds of Warp]]",
+      "type": "connects-to",
+      "label": "rich-face-of"
+    },
+    {
+      "target": "[[Enrichment]]",
+      "type": "connects-to",
+      "label": "made-by"
+    },
+    {
+      "target": "[[2D Torus Wavetable Synthesizer]]",
+      "type": "connects-to",
+      "label": "gathered-from"
+    }
+  ],
+  "forward_vector": "I am the manifest of Three Kinds of Warp's rich face: three walks that each test a claim the page makes, and the 2D Torus project's own renders laid beside the sections they prove, with the fingerprint of the words each piece was made against. I grow when the entry is enriched again; I never hold the entry's words.",
+  "entry": "Three Kinds of Warp",
+  "tier": "sketch",
+  "made": "2026-11-03",
+  "round": 1,
+  "sections": [
+    {
+      "heading": "The 1D obstruction theorem",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "made": "2026-11-03",
+      "pieces": [
+        {
+          "file": "Three Kinds of Warp — rich — obstruction.html",
+          "origin": "made",
+          "by": "Web Audio Worklet",
+          "height": 1300,
+          "place": "band",
+          "title": "try to break the lattice · a walk in five steps",
+          "caption": "**The theorem, measured.** One sine read by one phasor; a shape in the table; the commercial warps; any warp you can draw; and last, the one move that escapes: a speed wobble whose cycle is not the lap. The readout counts the energy between the harmonic lines on an exact lap. Every warp leaves it at zero. Only breaking the period moves it.",
+          "near": "The theorem holds for any warp at all"
+        },
+        {
+          "file": "/Projects/2D Torus Wavetable Synthesizer/Hopf/hands_tour_penrose.png",
+          "origin": "gathered",
+          "title": "the hands tour on Penrose, as a spectrogram · 2D Torus steward",
+          "caption": "**The same fact in the instrument.** The 2D Torus project's Hopf surface parked on a locked 3 : 2 knot, then bent, sheared and stirred in turn: the harmonic lines never bend, only their weights move. At 21 s the coupling lets go, the knot opens, and the lines smear. The steward's measurement: 100 % of the energy on the knot's harmonics under every hand while locked.",
+          "near": "The theorem holds for any warp at all",
+          "place": "band"
+        },
+        {
+          "file": "/Projects/2D Torus Wavetable Synthesizer/Hopf/hands_tour_penrose.wav",
+          "origin": "gathered",
+          "title": "the hands tour on Penrose · 24 s",
+          "caption": "The sound of the spectrogram above. The steward's scroll entry (cycle 8, torus-steward-019) says it had not been listened to when it was posted.",
+          "near": "The theorem holds for any warp at all"
+        }
+      ],
+      "made_against": "4b64e74e0e0d",
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Three Kinds of Warp — rich — obstruction.html",
+            "verdict": "keep",
+            "why": "Steps 1–4 cannot move by construction (the wrap comes first, which the piece says), but step 4 tests the scope and step 5 the hypothesis, and it walks up clean. Note for the text, not the piece: Serum’s FM/AM from B warps are cross-oscillator and break the period (new offer in the challenge record)."
+          },
+          {
+            "file": "/Projects/2D Torus Wavetable Synthesizer/Hopf/hands_tour_penrose.png",
+            "verdict": "keep",
+            "why": "The theorem in the instrument; the caption’s 100 % under every hand matches the steward’s table (scroll:818–824)."
+          },
+          {
+            "file": "/Projects/2D Torus Wavetable Synthesizer/Hopf/hands_tour_penrose.wav",
+            "verdict": "keep",
+            "why": "The sound of the figure; the caption says plainly it was never listened to (scroll:827)."
+          }
+        ]
+      }
+    },
+    {
+      "heading": "The typology",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "made": "2026-11-03",
+      "pieces": [
+        {
+          "file": "Three Kinds of Warp — rich — typology.html",
+          "origin": "made",
+          "by": "Web Audio Worklet",
+          "height": 1400,
+          "place": "band",
+          "title": "two runners, three ways to keep or lose the lap · a walk in four steps",
+          "caption": "**The runners, on the torus and in the spectrum.** One pace; a whole-number ratio, where the path closes into a knot and the sound is still harmonic; an irrational ratio, where the path never closes, with summed oscillators beside a surface to show where the in-between lines come from; and last, coupling. Grey ticks are the lattice the set speeds predict, amber the lattice at the speeds the runners keep. Raise K and the lines follow the amber, then land on one harmonic series at lock. The page says type 3 bends the lattice; this step measures that it moves. That is the open offer on this section, and the text wins until Loudon decides. The coupling is the 2D Torus project's own Adler form."
+        }
+      ],
+      "made_against": "b8674a6a015a",
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Three Kinds of Warp — rich — typology.html",
+            "verdict": "remake",
+            "why": "A real test (every line on m·ρ1 + n·ρ2 to 0.00015 Hz, recomputed independently), but step 4 and the caption state offer 1 as fact. Add one clause to each, ‘the page says the lattice bends; this step measures that it moves (the open offer)’, and make step 2’s ‘Every per-axis warp lives here’ read ‘a per-axis warp at this ratio stays harmonic’."
+          }
+        ]
+      }
+    },
+    {
+      "heading": "Where piano-style stretching lives",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "made": "2026-11-03",
+      "pieces": [
+        {
+          "file": "Three Kinds of Warp — rich — piano.html",
+          "origin": "made",
+          "by": "Web Audio",
+          "height": 1150,
+          "place": "band",
+          "title": "the stiff string and the Stiff String surface · a walk in three steps",
+          "caption": "**The claim, put against the surface it names.** A stiff string's partials alone; then one row of the committed Stiff String surface, read the way the instrument reads it; then the two plucked side by side. Every line the surface makes is a whole-number harmonic. It reaches the stretch by weighting the harmonic below and the harmonic above each target, so the centre of each pair lands on it. A row is a one-cycle table, not a warp, so it is bound by the theorem as any table is. See the offer on this section.",
+          "near": "Type 2 alone gives"
+        }
+      ],
+      "made_against": "a9068d7adcc1",
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Three Kinds of Warp — rich — piano.html",
+            "verdict": "keep",
+            "why": "Reads the committed surface (loads as committed headless), names the text’s claim and points to the offer, test last. Taste note: ‘type 1’ in step 3 is the offer’s label; a row is a one-cycle table, not a warp."
+          }
+        ]
+      }
+    },
+    {
+      "heading": "Cross-Domain Resonance",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "made": "2026-11-03",
+      "pieces": [
+        {
+          "file": "/Projects/2D Torus Wavetable Synthesizer/Auditions/cycle-7/penrose_kuramoto_three_regimes.wav",
+          "origin": "gathered",
+          "title": "Penrose, Kuramoto-coupled: below, at and above threshold · 2D Torus, cycle 7",
+          "caption": "**Type 3, heard.** The Penrose surface scanned at 110 Hz and ratio 1.518, pulled toward 3 : 2: drifting, at the threshold, locked, side by side. Rendered by Tools/kuramoto_scan.py, the same equations the typology walk runs.",
+          "near": "Type-3 is where Kuramoto lives"
+        },
+        {
+          "file": "/Projects/2D Torus Wavetable Synthesizer/Auditions/cycle-7/penrose_kuramoto_ramp.png",
+          "origin": "gathered",
+          "title": "the ramp, plotted · 2D Torus, cycle 7",
+          "caption": "Coupling K ramped from 0 to 1.59 Hz. The slip rate (green) falls through hiccups and stops at K* = 0.80 Hz, where the lock order (blue) and the share of energy on one harmonic series (amber) jump to one: the bifurcation the bullet names, as a snap rather than a fade.",
+          "near": "Type-3 is where Kuramoto lives",
+          "place": "band"
+        },
+        {
+          "file": "/Projects/2D Torus Wavetable Synthesizer/Auditions/cycle-7/penrose_kuramoto_ramp.wav",
+          "origin": "gathered",
+          "title": "the ramp, heard",
+          "caption": "Shimmer, then hiccups, then lock, as the plot above. The steward's scroll entry says neither take had been listened to when it was posted.",
+          "near": "Type-3 is where Kuramoto lives"
+        }
+      ],
+      "made_against": "33bf6b2ef137",
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "/Projects/2D Torus Wavetable Synthesizer/Auditions/cycle-7/penrose_kuramoto_three_regimes.wav",
+            "verdict": "keep",
+            "why": "Type 3 heard under its bullet; same ψ = bφ2 − aφ1 as kuramoto_scan.py:15 and the piece."
+          },
+          {
+            "file": "/Projects/2D Torus Wavetable Synthesizer/Auditions/cycle-7/penrose_kuramoto_ramp.png",
+            "verdict": "keep",
+            "why": "K* = 0.80 Hz matches the steward (scroll:837) and the maker’s 3 : 2 check; the 1.59 Hz ceiling unchecked."
+          },
+          {
+            "file": "/Projects/2D Torus Wavetable Synthesizer/Auditions/cycle-7/penrose_kuramoto_ramp.wav",
+            "verdict": "keep",
+            "why": "The ramp heard; unlistened, and the caption says so."
+          }
+        ]
+      }
+    }
+  ],
+  "offers": [
+    {
+      "section": "The typology",
+      "kind": "claim-change",
+      "what": "Type 3 moves the lattice's two generators rather than bending partials off a lattice: at any fixed coupling below lock every line sits on m·ρ1 + n·ρ2, the speeds the phasors actually keep (maker, Adler coupling, 110 and 121.37 Hz pulled to 1 : 1: at 0.5, 0.9 and 0.98·K* every line below 400 Hz, up to 200, within 0.0003 Hz, 192 of 200 off the bare m·f1 + n·f2; challenger, independent DOP853 run: worst miss 0.00015 Hz against a random-frequency median of 0.32–0.39 Hz, and a non-Adler coupling lands on its own lattice to 0.00017 Hz, as a smooth flow on a two-torus must). Suggest 'bends the lattice itself' → 'moves the lattice's two generators until at lock they collapse onto one harmonic series' (the square-root path is Adler's alone; other couplings move them along other curves). It also bears on § Why the typology matters: at fixed coupling type 3 is lattice-bound too, so what type 3 adds is the generators moving, not the lattice bending.",
+      "status": "open"
+    },
+    {
+      "section": "The typology",
+      "kind": "claim-change",
+      "what": "Type 1 is defined as a degree-1 circle map, but the theorem covers more: W∘g is just another one-cycle table, so any function of the wrapped phase stays on the lattice (maker: 200 random drawn warps, 181 not circle maps of any degree, none off the grid; challenger: a mirror read, a sync at 3.4, a jump, a degree-2 bend and 500 drawn warps all ≤ 3.4 × 10⁻¹⁶ off; the text's own 'sync-window kink' and 'hand-drawn lookup' are already not degree-1). Suggest 'g : S¹ → S¹ with g(φ + 2π) = g(φ) + 2π' → 'any function of the wrapped phase; the degree-1 maps are the ones that read the table once, in order, per cycle' (a degree-0 mirror read keeps the pitch too, so degree 1 is not what keeps the pitch).",
+      "status": "open"
+    },
+    {
+      "section": "The typology",
+      "kind": "claim-change",
+      "what": "Narrowed after the challenge: the text says two summed sinusoids, and for two sines 'beating' is right. The offer is only about what the 2D readout adds: its cross terms m·f1 + n·f2 fill the lattice between the two series, which no sum of 1D oscillators gives (measured at the golden ratio with three-harmonic oscillators: summed, every line on one of the two harmonic series and none between; with a surface, all four tested cross lines present). Suggest the sentence name the cross terms as the difference rather than beating against a line spectrum.",
+      "status": "open"
+    },
+    {
+      "section": "The 1D obstruction theorem",
+      "kind": "claim-change",
+      "what": "Aliasing is not an exception to the theorem but a miss of its hypothesis: when the sample rate is not a whole multiple of the pitch, the sampled phase does not repeat every lap, so a sharp warp folds harmonics back between the slots (a sync-window saw read naively at 48 kHz: 5.150 % between the lines at 880 Hz, confirmed exactly by the challenger over whole periods, where the signal repeats every 11 laps; 0.0068 % at 110 Hz, the maker's 0.013 % being half window leakage; at 1000 Hz, 48 samples a lap, the aliases fold onto the harmonics, 1.9 × 10⁻¹⁴ %; the 2D Torus steward measured 18 % on Penrose stir). Suggest one clause after 'none of them creates a partial in between slots': 'in continuous time; a digital read whose sample rate is not a whole multiple of the pitch folds harmonics back between the slots, as error'.",
+      "status": "open"
+    },
+    {
+      "section": "Where piano-style stretching lives",
+      "kind": "claim-change",
+      "what": "The Stiff String surface is not type 2: it is a family of one-cycle tables bound by the theorem (not a warp, so 'type 1' only loosely): build_catalog.py's stiff_string() (Projects/2D Torus Wavetable Synthesizer/Tools/build_catalog.py:212–235) keeps every row a single cycle and splits each stretched partial between its floor and ceiling whole-number harmonic, so read by one phasor every line is a harmonic and only the weights approximate the stretch (the piece's regeneration of the rows, and the challenger's run of stiff_string() itself, match the committed 13_stiff_string.wav to 2.98 × 10⁻⁸; 96.8 % of the surface's energy does not change along Y). Suggest the paragraph say so, and that type-2 placement of energy at m·f1 + n·f2 near piano positions is not yet built; the surface's own page, 13 — Stiff String, already calls it the static-wavetable approximation.",
+      "status": "open"
+    },
+    {
+      "section": "Where piano-style stretching lives",
+      "kind": "claim-change",
+      "what": "Following the type-3 offer on § The typology: at any fixed coupling a type-3 spectrum is still a two-generator lattice (on ρ1, ρ2), and the piano's n·√(1 + B·n²) lies on no two-generator lattice, so type 3 approximates the stretch the way type 2 does; what it adds is that every line slides continuously with K and the set locks with a snap. Reasoned from offer 1 and accepted by the challenger as reasoning; unmeasured, nothing here was tested against a piano target. Suggest 'it bends the lattice itself via the coupling functions' → 'it slides the whole lattice via the coupling, so the partials move continuously as the coupling changes'.",
+      "status": "open"
+    },
+    {
+      "section": "The 1D obstruction theorem",
+      "kind": "claim-change",
+      "by": "challenger · claude-opus-5-5",
+      "what": "From the challenger, not the maker: 'every commercial wavetable warp lives here' and 'no commercial wavetable synth … can escape the harmonic series' fail for cross-oscillator warps. Serum's warp menu has FM from B and AM from B, which take oscillator B as the source, and at a non-whole B : A ratio they break the period. Suggest 'every warp that reads one oscillator's own phase; menu items that take a second oscillator as their source are type 2'. Rests on public descriptions of Serum's menu, not a palace measurement.",
+      "status": "open"
+    }
+  ]
+}

@@ -1,0 +1,423 @@
+<!doctype html>
+<!--
+  title: Three Kinds of Warp — rich — typology
+  born: 2026-11-03
+  links: [[Three Kinds of Warp]] (connects-to · rich-face-piece) · listed in [[Three Kinds of Warp — rich.json]] · [[Kuramoto Coupling]] (connects-to · type-3-engine) · [[Progressive Staging]] (exemplifies · a walk up to its test)
+  forward_vector: I am the typology as two runners on a torus. They start at one pace, then a whole-number ratio, then tracks that never line up, then pacing off each other. Under them a spectrum shows the lattice each move makes, with the lattice the bare speeds predict and the lattice the runners actually keep marked against it. I play inside the entry's rich face and stand alone opened directly; I change only when the section I serve does.
+  engine: everything between ENGINE-START and ENGINE-END is pure and runs in Node too; Three Kinds of Warp/workshop/rich-checks.mjs re-runs the claims on it. The coupling is the Adler form the 2D Torus project's kuramoto_scan.py and torus_2d_kuramoto.codebox use: psi = b*phi2 - a*phi1, dphi1/dt = w1 + K sin(2 pi psi), dphi2/dt = w2 - K sin(2 pi psi), one Euler step per sample. The audio worklet is built from the same functions.
+  dress: Loudon Live house style, Graphite skin.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:needs" content="">
+<title>Two runners, three ways to break the lap</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Manrope:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root { --bg:#0a0a0f; --e1:#12121a; --ring:#22222e; --border:#4a4a5e; --soft:rgba(255,255,255,.06); --fg1:#e8e8f0; --fg2:#c8c8d8; --fg3:#8a8aa0; --fg4:#4a4a5a;
+    --amber:#e8b84a; --amberline:rgba(232,184,74,.5); --indigo:#6366F1; --warn:#ff9b4a;
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --sans:'Manrope',system-ui,sans-serif; --serif:'Cormorant Garamond',Georgia,serif; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); font-weight: 300; }
+  .piece { padding: 22px 22px 16px; }
+  .kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; }
+  .title { font-family: var(--serif); font-size: 27px; font-weight: 300; color: var(--fg1); margin: 0 0 6px; }
+  .sub { font-size: 14px; line-height: 1.6; color: var(--fg2); max-width: 76ch; margin: 0 0 14px; }
+  .rail { display: flex; flex-wrap: wrap; margin: 0 0 12px; }
+  .rail button { border-radius: 0; margin-right: -1px; }
+  .rail button.here { color: var(--amber); border-color: var(--amberline); position: relative; z-index: 1; }
+  .rail button.ahead { color: var(--fg3); }
+  .stephead { font-family: var(--mono); font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--amber); margin: 4px 0 4px; }
+  .says { font-size: 14px; line-height: 1.6; color: var(--fg1); max-width: 76ch; margin: 0 0 14px; min-height: 3.2em; }
+  .stage { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; align-items: start; }
+  .panel { border: 1px solid var(--soft); border-radius: 2px; background: var(--e1); padding: 10px 12px; }
+  .plabel { font-family: var(--mono); font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--fg3); margin-bottom: 8px; display: flex; justify-content: space-between; gap: 10px; }
+  canvas { display: block; width: 100%; }
+  .spec { margin-top: 16px; }
+  .legend { display: flex; flex-wrap: wrap; gap: 4px 18px; font-family: var(--mono); font-size: 10.5px; color: var(--fg3); margin-top: 6px; }
+  .legend i { display: inline-block; width: 14px; height: 2px; vertical-align: middle; margin-right: 6px; }
+  .controls { display: flex; flex-wrap: wrap; gap: 14px 26px; align-items: end; margin-top: 16px; min-height: 40px; }
+  .ctl { min-width: 240px; flex: 1; }
+  .seg { display: inline-flex; flex-wrap: wrap; } .seg button + button { border-left: 0; }
+  button { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--fg2); background: var(--bg); border: 1px solid var(--border); border-radius: 2px; padding: 8px 12px; cursor: pointer; }
+  button:hover { border-color: rgba(232,184,74,.55); color: var(--fg1); }
+  button.on { color: var(--amber); border-color: var(--amberline); }
+  button.go { color: var(--amber); border-color: var(--amberline); box-shadow: 0 0 14px rgba(232,184,74,.18); min-width: 96px; }
+  button:focus-visible, input:focus-visible { outline: 1px dashed var(--amber); outline-offset: 2px; }
+  label.sl { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: .08em; color: var(--fg3); }
+  label.sl b { color: var(--fg1); font-weight: 500; }
+  input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 3px; background: var(--fg4); margin: 12px 0 4px; outline: none; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 13px; height: 13px; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  input[type=range]::-moz-range-thumb { width: 13px; height: 13px; border: 0; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  .read { display: flex; flex-wrap: wrap; gap: 6px 22px; margin-top: 14px; font-family: var(--mono); font-size: 11.5px; letter-spacing: .05em; color: var(--fg3); }
+  .read b { color: var(--fg1); font-weight: 500; }
+  .read .verdict { color: var(--amber); }
+  .nav { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 16px; }
+  .hint { font-family: var(--mono); font-size: 11px; letter-spacing: .05em; line-height: 1.6; color: var(--fg3); margin-top: 10px; max-width: 90ch; }
+  .eqs { margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--soft); }
+  .eq { font-family: var(--serif); font-size: 19px; color: var(--fg1); }
+  .words { font-size: 13px; line-height: 1.55; color: var(--fg2); margin: 2px 0 10px; }
+  .foot { display: flex; align-items: center; gap: 10px; margin-top: 14px; font-family: var(--mono); font-size: 10px; letter-spacing: .18em; text-transform: uppercase; color: var(--fg4); }
+  .foot svg { width: 22px; height: 22px; }
+  @media (max-width: 700px) { .stage { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="piece">
+  <div class="kicker">made · Web Audio Worklet · sketch · a walk in four steps</div>
+  <h3 class="title">Two runners, three ways to keep or lose the lap</h3>
+  <p class="sub">Two phasors read one surface: one runs across it, one runs up it. Drawn as runners, each has a track; drawn on the unrolled torus, the pair is one point leaving a trail. The spectrum underneath is what you hear. Grey ticks mark the lattice the runners' set speeds predict, m·f₁ + n·f₂. Amber ticks mark the lattice at the speeds the runners actually keep. Until the last step the two sets of ticks sit on each other.</p>
+
+  <div class="rail" id="rail" role="group" aria-label="steps"></div>
+  <div class="stephead" id="stephead"></div>
+  <p class="says" id="says"></p>
+
+  <div class="stage">
+    <div class="panel">
+      <div class="plabel"><span>the runners · slowed down to be seen</span><span id="together"></span></div>
+      <canvas id="tracks"></canvas>
+    </div>
+    <div class="panel">
+      <div class="plabel"><span>the torus, unrolled · the path the pair draws</span><span id="pathnote"></span></div>
+      <canvas id="torus"></canvas>
+    </div>
+  </div>
+  <div class="panel spec">
+    <div class="plabel"><span>spectrum · what you hear</span><span id="axisnote">Hz</span></div>
+    <canvas id="spec"></canvas>
+    <div class="legend"><span><i style="background:#e8b84a"></i>the sound</span><span><i style="background:#8a8aa0"></i>m·f₁ + n·f₂ at the set speeds</span><span><i style="background:#e8b84a;opacity:.6"></i>m·ρ₁ + n·ρ₂ at the speeds kept</span></div>
+  </div>
+  <div class="read" id="read"></div>
+
+  <div class="controls" id="controls"></div>
+
+  <div class="nav">
+    <button id="back">← back</button>
+    <button class="go" id="go">▸ play</button>
+    <button id="next">next step →</button>
+  </div>
+  <div class="hint" id="hint"></div>
+
+  <div class="eqs">
+    <div class="eq">ψ = b·φ₂ − a·φ₁ ,   dφ₁/dt = f₁ + K·sin 2πψ ,   dφ₂/dt = f₂ − K·sin 2πψ</div>
+    <div class="words">(how far the pair is from an a : b lock) = b × (runner two's laps) − a × (runner one's laps); each runner's speed = (its own set speed) ± (coupling strength) × sin(that distance): one is pulled forward, the other held back</div>
+    <div class="eq">slip = √(Δ² − ((a+b)·K)²) ,   Δ = b·f₂ − a·f₁ ,   ρ₁ = (b(f₁+f₂) − slip) ⁄ (a+b) ,   ρ₂ = (a(f₁+f₂) + slip) ⁄ (a+b)</div>
+    <div class="words">(how fast the pair slips past the lock) = the square root of (how far off the set speeds are)² minus ((a+b) × coupling)²; the speeds the runners keep, ρ₁ and ρ₂, are fixed by that slip and by their total pace, which coupling never changes. When (a+b)·K reaches |Δ| the slip is zero: they lock</div>
+  </div>
+  <div class="foot"><svg viewBox="-1.1 -1.1 2.2 2.2" aria-hidden="true"><path id="sigil" fill="none" stroke="#e8b84a" stroke-width="0.06"/></svg><span>Three Kinds of Warp · rich face · Loud’n Live</span></div>
+</div>
+
+<script id="engine">
+/*ENGINE-START*/
+const TWO_PI = 2 * Math.PI;
+// A surface is a list of terms [m, n, amplitude, phase]: W(p1, p2) = sum a sin(2 pi (m p1 + n p2) + th).
+// 'sum' has no cross terms: it is two 1D oscillators added. 'surface' adds the cross terms a 2D table carries.
+const SUM_TERMS = [[1, 0, 0.5, 0], [2, 0, 0.25, 0.4], [3, 0, 0.14, 0.9], [0, 1, 0.5, 0.2], [0, 2, 0.25, 0.7], [0, 3, 0.14, 1.1]];
+const SURFACES = {
+  sum: SUM_TERMS,
+  surface: SUM_TERMS.concat([[1, 1, 0.32, 0.3], [1, -1, 0.32, 1.3], [2, -1, 0.2, 0.5], [1, 2, 0.18, 2.1], [2, 1, 0.16, 0.8], [-1, 2, 0.2, 1.7]]),
+};
+function surfaceAt(terms, p1, p2) { let s = 0; for (let i = 0; i < terms.length; i++) { const t = terms[i]; s += t[2] * Math.sin(TWO_PI * (t[0] * p1 + t[1] * p2) + t[3]); } return s; }
+// One Euler step, as kuramoto_scan.py takes it. st = { p1, p2, u1, u2 } in laps; p wrapped, u unwrapped.
+function stepPair(st, w1, w2, a, b, K, dt) {
+  const c = K ? K * Math.sin(TWO_PI * (b * st.p2 - a * st.p1)) : 0;
+  const d1 = (w1 + c) * dt, d2 = (w2 - c) * dt;
+  st.p1 += d1; st.p2 += d2; st.u1 += d1; st.u2 += d2;
+  st.p1 -= Math.floor(st.p1); st.p2 -= Math.floor(st.p2);
+}
+function rotation(w1, w2, a, b, K) {
+  const Delta = b * w2 - a * w1, need = (a + b) * Math.abs(K);
+  const slip = need >= Math.abs(Delta) ? 0 : Math.sign(Delta) * Math.sqrt(Delta * Delta - need * need);
+  return { Delta, Kc: Math.abs(Delta) / (a + b), slip: Math.abs(slip), locked: slip === 0,
+    rho1: (b * (w1 + w2) - slip) / (a + b), rho2: (a * (w1 + w2) + slip) / (a + b) };
+}
+// M samples after `settle` samples. With wantSlip, returns the measured slip and kept speeds instead.
+function simulate(terms, w1, w2, a, b, K, M, sr, settle = 0, wantSlip = false) {
+  const st = { p1: 0, p2: 0.25, u1: 0, u2: 0 }, dt = 1 / sr;
+  for (let n = 0; n < settle; n++) stepPair(st, w1, w2, a, b, K, dt);
+  if (wantSlip) { const u1 = st.u1, u2 = st.u2; for (let n = 0; n < M; n++) stepPair(st, w1, w2, a, b, K, dt); const T = M / sr;
+    const r1 = (st.u1 - u1) / T, r2 = (st.u2 - u2) / T; return { rho1: r1, rho2: r2, slip: Math.abs(b * r2 - a * r1) }; }
+  const y = new Float64Array(M);
+  for (let n = 0; n < M; n++) { y[n] = surfaceAt(terms, st.p1, st.p2); stepPair(st, w1, w2, a, b, K, dt); }
+  return y;
+}
+function fft(re, im) {
+  const n = re.length;
+  for (let i = 1, j = 0; i < n; i++) { let bit = n >> 1; for (; j & bit; bit >>= 1) j ^= bit; j ^= bit; if (i < j) { [re[i], re[j]] = [re[j], re[i]]; [im[i], im[j]] = [im[j], im[i]]; } }
+  for (let len = 2; len <= n; len <<= 1) {
+    const ang = -TWO_PI / len, wr = Math.cos(ang), wi = Math.sin(ang);
+    for (let i = 0; i < n; i += len) { let cr = 1, ci = 0;
+      for (let k = 0; k < len / 2; k++) { const a = i + k, b = a + len / 2, xr = re[b] * cr - im[b] * ci, xi = re[b] * ci + im[b] * cr;
+        re[b] = re[a] - xr; im[b] = im[a] - xi; re[a] += xr; im[a] += xi; const t = cr * wr - ci * wi; ci = cr * wi + ci * wr; cr = t; } } }
+}
+// Windowed power spectrum, one-sided, bins of sr/M Hz. 'hann' for the page; 'bh' (Blackman-Harris,
+// sidelobes under -92 dB) for the checks, so no sidelobe is ever counted as a line.
+function spectrumHz(y, sr, win = 'hann') {
+  const M = y.length, re = new Float64Array(M), im = new Float64Array(M);
+  let mean = 0; for (let n = 0; n < M; n++) mean += y[n]; mean /= M;
+  const w = win === 'bh'
+    ? (n) => { const x = TWO_PI * n / M; return 0.35875 - 0.48829 * Math.cos(x) + 0.14128 * Math.cos(2 * x) - 0.01168 * Math.cos(3 * x); }
+    : (n) => 0.5 - 0.5 * Math.cos(TWO_PI * n / M);
+  for (let n = 0; n < M; n++) re[n] = (y[n] - mean) * w(n);
+  fft(re, im);
+  const pw = new Float64Array(M / 2); for (let i = 0; i < M / 2; i++) pw[i] = re[i] * re[i] + im[i] * im[i];
+  return pw;
+}
+// Local maxima above dbFloor (relative to the strongest), with parabolic interpolation on log power.
+function peaks(pw, sr, M, dbFloor) {
+  let mx = 0; for (let i = 1; i < pw.length; i++) mx = Math.max(mx, pw[i]);
+  const out = [], lim = mx * Math.pow(10, dbFloor / 10);
+  for (let i = 2; i < pw.length - 2; i++) {
+    if (pw[i] < lim || pw[i] < pw[i - 1] || pw[i] < pw[i + 1] || pw[i] < pw[i - 2] || pw[i] < pw[i + 2]) continue;
+    const l = Math.log(pw[i - 1] + 1e-300), c = Math.log(pw[i]), r = Math.log(pw[i + 1] + 1e-300), den = l - 2 * c + r;
+    const d = den ? 0.5 * (l - r) / den : 0;
+    out.push({ f: (i + d) * sr / M, db: 10 * Math.log10(pw[i] / mx) });
+  }
+  return out;
+}
+// How far f sits from the nearest m*r1 + n*r2 with |m|, |n| <= J.
+function latticeMiss(f, r1, r2, J = 40) {
+  let best = Infinity;
+  for (let m = -J; m <= J; m++) { const n0 = Math.round((f - m * r1) / r2); for (let n = n0 - 1; n <= n0 + 1; n++) { if (Math.abs(n) > J) continue; best = Math.min(best, Math.abs(f - m * r1 - n * r2)); } }
+  return best;
+}
+/*ENGINE-END*/
+</script>
+
+<script>
+const $ = (id) => document.getElementById(id);
+const GOLD = (1 + Math.sqrt(5)) / 2;
+const S = { step: 1, f1: 110, ratio: 1, ratioName: '1 : 1', kind: 'surface', lock: [1, 1], Kfrac: 0, preset: 'near' };
+const SR = 48000, MWIN = 1 << 16, SETTLE = 24000;
+
+const RATIOS2 = [['1 : 1', 1], ['3 : 2', 1.5], ['2 : 1', 2], ['5 : 4', 1.25]];
+const RATIOS3 = [['3 : 2', 1.5], ['golden', GOLD], ['√2', Math.SQRT2], ['1.518', 1.518181818]];
+const PRESETS4 = {
+  near: { label: 'near 1 : 1', ratio: 1.10336, lock: [1, 1], note: '110 and 121.37 Hz, pulled toward 1 : 1' },
+  penrose: { label: 'near 3 : 2', ratio: 1.518181818, lock: [3, 2], note: 'the 2D Torus project’s worked example: 110 Hz at ratio 1.518, pulled toward 3 : 2' },
+};
+
+const STEPS = [
+  { n: 1, name: 'Two runners, one pace', says: 'Both runners at 110 laps a second, side by side. They finish every lap together, the path on the torus closes after one lap, and the sound is a harmonic series on 110 Hz. One lap, the same grid as before.' },
+  { n: 2, name: 'A whole-number ratio', says: 'Give runner two a different pace, but a whole-number ratio of runner one’s. At 3 : 2 they finish together every second lap of runner one. The path closes into a knot, and the sound is still a harmonic series, now on 55 Hz: a longer lap. A per-axis warp at this ratio stays harmonic. 1 : 1 takes you back to step 1.' },
+  { n: 3, name: 'Tracks that never line up', says: 'Now an irrational ratio. They never finish together, the path never closes and slowly fills the torus, and lines appear between where any harmonic series would put them: m·f₁ + n·f₂. That is type 2. Switch to summed oscillators: two 1D tables added, no surface. You get the two harmonic series and nothing between them. The lines in between come from the surface’s cross terms. 3 : 2 takes you back to step 2.' },
+  { n: 4, name: 'Pacing off each other', says: 'The test. Let each runner watch the other: coupling K pulls them toward a lock. Raise K and watch the amber ticks leave the grey ones. The page says type 3 bends the lattice; this step measures that it moves: the lines do not smear, the lattice\u2019s two generators shift to the speeds the runners now keep, and every line follows. That reading is an open offer on this section, and until Loudon decides, the text wins. Near the threshold the lines crowd toward one harmonic series; past it they land on it and the path closes. K 0 takes you back to step 3.' },
+];
+
+function params() {
+  let ratio = 1, a = 1, b = 1, K = 0, kind = S.step >= 3 ? S.kind : 'surface';
+  if (S.step === 2) ratio = S.ratio2 ?? 1.5;
+  if (S.step === 3) ratio = S.ratio3 ?? GOLD;
+  if (S.step === 4) { const p = PRESETS4[S.preset]; ratio = p.ratio; [a, b] = p.lock; kind = 'surface'; }
+  const w1 = S.f1, w2 = S.f1 * ratio;
+  const R = rotation(w1, w2, a, b, 0);
+  if (S.step === 4) K = S.Kfrac * R.Kc;
+  return { w1, w2, a, b, K, kind, ratio };
+}
+let P = null, PW = null, ROT = null, PK = null;
+let pending = false;
+function recompute() {
+  if (pending) return; pending = true;
+  requestAnimationFrame(() => {
+    pending = false;
+    P = params();
+    ROT = rotation(P.w1, P.w2, P.a, P.b, P.K);
+    const y = simulate(SURFACES[P.kind], P.w1, P.w2, P.a, P.b, P.K, MWIN, SR, SETTLE);
+    PW = spectrumHz(y, SR);
+    PK = peaks(PW, SR, MWIN, -55);
+    resetRunners(); readouts(); send(); drawSpec();
+  });
+}
+function fmtR(r) { const e = [...RATIOS2, ...RATIOS3].find(([, v]) => Math.abs(v - r) < 1e-9); return e ? e[0] : r.toFixed(4); }
+function readouts() {
+  const r = $('read'); r.innerHTML = '';
+  const add = (html, cls) => { const s = document.createElement('span'); if (cls) s.className = cls; s.innerHTML = html; r.append(s); };
+  add(`f₁ <b>${P.w1.toFixed(2)}</b> Hz · f₂ <b>${P.w2.toFixed(2)}</b> Hz`);
+  if (S.step < 4) {
+    const rat = S.step === 1 ? 1 : S.step === 2 ? (S.ratio2 ?? 1.5) : (S.ratio3 ?? GOLD);
+    const fr = toFrac(rat);
+    add(fr ? `shared lap every <b>${(fr[1] / P.w1 * 1000).toFixed(2)}</b> ms · harmonic series on <b>${(P.w1 / fr[1]).toFixed(2)}</b> Hz` : 'no shared lap · lines at m·f₁ + n·f₂', 'verdict');
+    if (S.step === 3) add(P.kind === 'sum' ? 'summed oscillators: two harmonic series, no cross terms' : 'surface: cross terms fill the lattice between the series');
+  } else {
+    add(`K <b>${P.K.toFixed(3)}</b> Hz · K* <b>${ROT.Kc.toFixed(3)}</b> Hz`);
+    add(`slip <b>${ROT.slip.toFixed(3)}</b> Hz`);
+    add(`speeds kept ρ₁ <b>${ROT.rho1.toFixed(3)}</b> · ρ₂ <b>${ROT.rho2.toFixed(3)}</b> Hz`);
+    // the test the eye can follow: where did runner one's own line go?
+    const near = (f) => PK.filter((p) => Math.abs(p.f - f) < 1.2).sort((x, y) => y.db - x.db)[0];
+    const l1 = near(ROT.rho1);
+    if (!ROT.locked && P.K > 0) add(l1 ? `runner one\u2019s line: set at <b>${P.w1.toFixed(2)}</b> Hz, heard at <b>${l1.f.toFixed(2)}</b> Hz, ρ₁ says <b>${ROT.rho1.toFixed(2)}</b>` : 'runner one\u2019s line: too crowded to pick out at this resolution');
+    add(ROT.locked ? `locked: one harmonic series on ${((P.w1 + P.w2) / (P.a + P.b)).toFixed(2)} Hz` : P.K === 0 ? 'uncoupled: this is step 3' : 'slipping: the lattice has moved, not smeared', 'verdict');
+  }
+  $('hint').textContent = S.step === 4 ? `${PRESETS4[S.preset].note}. Bins are ${(SR / MWIN).toFixed(2)} Hz wide, so the page follows runner one\u2019s line to about a tenth of a hertz and loses it once the lines crowd closer than a bin. The workshop check runs the same engine for eleven seconds with a finer window and finds every line below 400 Hz within a fiftieth of a hertz of the kept lattice.` : 'The surface here is a short sum of terms sin 2π(m·φ₁ + n·φ₂), not one of the project’s wavetables, so each line can be named.';
+}
+function toFrac(x) { for (let q = 1; q <= 8; q++) { const p = Math.round(x * q); if (Math.abs(p / q - x) < 1e-9) return [p, q]; } return null; }
+
+function seg(items, get, set) {
+  const s = document.createElement('span'); s.className = 'seg';
+  for (const [label, val] of items) { const b = document.createElement('button'); b.textContent = label; if (get() === val) b.classList.add('on');
+    b.onclick = () => { set(val); [...s.children].forEach((c) => c.classList.toggle('on', c === b)); recompute(); }; s.append(b); }
+  return s;
+}
+function slider(label, min, max, step, get, set, fmt) {
+  const l = document.createElement('label'); l.className = 'sl ctl';
+  const b = document.createElement('b'); const i = document.createElement('input');
+  Object.assign(i, { type: 'range', min, max, step, value: get() });
+  const show = () => (b.textContent = fmt(get()));
+  i.oninput = () => { set(+i.value); show(); recompute(); };
+  l.append(label + ' ', b, i); show(); return l;
+}
+function buildControls() {
+  const c = $('controls'); c.innerHTML = '';
+  if (S.step === 2) c.append(seg(RATIOS2, () => S.ratio2 ?? 1.5, (v) => (S.ratio2 = v)));
+  if (S.step === 3) { c.append(seg(RATIOS3, () => S.ratio3 ?? GOLD, (v) => (S.ratio3 = v))); c.append(seg([['surface', 'surface'], ['summed oscillators', 'sum']], () => S.kind, (v) => (S.kind = v))); }
+  if (S.step === 4) {
+    c.append(seg(Object.entries(PRESETS4).map(([k, p]) => [p.label, k]), () => S.preset, (v) => (S.preset = v)));
+    c.append(slider('coupling K, as a share of the lock threshold K*', 0, 1.4, 0.005, () => S.Kfrac, (v) => (S.Kfrac = v), (v) => v.toFixed(3) + ' K*'));
+  }
+}
+function buildRail() {
+  const r = $('rail'); r.innerHTML = '';
+  for (const s of STEPS) { const b = document.createElement('button'); b.textContent = s.n + ' · ' + s.name;
+    if (s.n === S.step) b.classList.add('here'); else if (s.n > S.step) b.classList.add('ahead');
+    b.onclick = () => goStep(s.n); r.append(b); }
+}
+function goStep(n) {
+  n = Math.max(1, Math.min(STEPS.length, n));
+  if (n !== S.step) stop();
+  S.step = n; const s = STEPS[n - 1];
+  $('stephead').textContent = `step ${n} of ${STEPS.length} · ${s.name}`;
+  $('says').textContent = s.says;
+  $('back').disabled = n === 1; $('next').disabled = n === STEPS.length;
+  $('next').textContent = n === STEPS.length ? 'the last step' : 'next step →';
+  buildRail(); buildControls(); recompute();
+}
+$('back').onclick = () => goStep(S.step - 1);
+$('next').onclick = () => goStep(S.step + 1);
+
+// ── the runners: the same equations, slowed so runner one does half a lap a second ──
+const VIS = 0.5 / 110;
+let RS = null, trail = [], laps1 = 0, together = 0, lastP1 = 0;
+function resetRunners() { RS = { p1: 0, p2: 0.25 * (P && P.ratio !== 1 ? 1 : 0), u1: 0, u2: 0 }; trail = []; laps1 = 0; together = 0; lastP1 = 0; }
+let lastT = 0;
+function tick(t) {
+  requestAnimationFrame(tick);
+  if (!P || !RS) return;
+  const dtw = Math.min(0.05, (t - lastT) / 1000 || 0); lastT = t;
+  const sub = 40, h = dtw / sub;
+  for (let i = 0; i < sub; i++) {
+    const before = RS.p1;
+    stepPair(RS, P.w1 * VIS, P.w2 * VIS, P.a, P.b, P.K * VIS, h);
+    if (RS.p1 < before) { laps1++; const d = Math.min(RS.p2, 1 - RS.p2); if (d < 0.02) together++; }
+    if (i % 4 === 0) { trail.push([RS.p1, RS.p2]); if (trail.length > 2400) trail.shift(); }
+  }
+  $('together').textContent = laps1 ? `finished together ${together} of ${laps1} laps` : '';
+  drawRunners();
+}
+function fit(c, hgt) {
+  const w = c.clientWidth || 300, d = devicePixelRatio || 1;
+  if (c.width !== Math.round(w * d) || c.height !== Math.round(hgt * d)) { c.width = Math.round(w * d); c.height = Math.round(hgt * d); c.style.height = hgt + 'px'; }
+  const g = c.getContext('2d'); g.setTransform(d, 0, 0, d, 0, 0); return { g, w, h: hgt };
+}
+function drawRunners() {
+  { const { g, w, h } = fit($('tracks'), 230); g.clearRect(0, 0, w, h);
+    const cx = w / 2, cy = h / 2;
+    const tr = [[Math.min(w, h) * 0.42, RS.p1, '#e8b84a', 'one'], [Math.min(w, h) * 0.28, RS.p2, '#6366F1', 'two']];
+    g.strokeStyle = '#4a4a5a'; g.beginPath(); g.moveTo(cx, cy - tr[0][0] - 8); g.lineTo(cx, cy - tr[1][0] + 8); g.stroke();
+    g.fillStyle = '#4a4a5a'; g.font = '10px JetBrains Mono, monospace'; g.textAlign = 'center'; g.fillText('start', cx, cy - tr[0][0] - 12);
+    for (const [r, p, col] of tr) {
+      g.strokeStyle = '#22222e'; g.lineWidth = 6; g.beginPath(); g.arc(cx, cy, r, 0, TWO_PI); g.stroke(); g.lineWidth = 1;
+      const a = TWO_PI * p - Math.PI / 2; g.fillStyle = col; g.beginPath(); g.arc(cx + r * Math.cos(a), cy + r * Math.sin(a), 6, 0, TWO_PI); g.fill();
+    }
+    g.fillStyle = '#8a8aa0'; g.fillText(S.step === 4 && P.K > 0 ? 'watching each other' : '', cx, cy + 4);
+  }
+  { const { g, w, h } = fit($('torus'), 230); g.clearRect(0, 0, w, h);
+    const s = Math.min(w, h) - 20, ox = (w - s) / 2, oy = 10;
+    g.strokeStyle = '#22222e'; g.strokeRect(ox, oy, s, s);
+    g.fillStyle = '#4a4a5a'; g.font = '10px JetBrains Mono, monospace'; g.textAlign = 'left'; g.fillText('φ₁ →', ox + 4, oy + s - 4); g.save(); g.translate(ox + s - 4, oy + s - 4); g.rotate(-Math.PI / 2); g.fillText('φ₂ →', 0, 0); g.restore();
+    for (let i = 0; i < trail.length; i++) { const [p1, p2] = trail[i]; g.fillStyle = `rgba(232,184,74,${0.12 + 0.6 * i / trail.length})`; g.fillRect(ox + p1 * s - 0.8, oy + (1 - p2) * s - 0.8, 1.6, 1.6); }
+    g.fillStyle = '#e8e8f0'; g.beginPath(); g.arc(ox + RS.p1 * s, oy + (1 - RS.p2) * s, 3.5, 0, TWO_PI); g.fill();
+    $('pathnote').textContent = S.step === 1 ? 'closes after one lap' : S.step === 2 ? 'closes into a knot' : S.step === 3 ? 'never closes' : ROT.locked ? 'closed: locked' : P.K > 0 ? 'bunches where they pull' : 'never closes';
+  }
+}
+
+// ── spectrum ──
+let FMAX = 400;
+function drawSpec() {
+  const { g, w, h } = fit($('spec'), 240); g.clearRect(0, 0, w, h);
+  FMAX = S.step === 4 && S.preset === 'near' ? 400 : 500;
+  const FMIN = 0, padL = 34, padR = 10, top = 22, base = h - 22, X = (f) => padL + (w - padL - padR) * (f - FMIN) / (FMAX - FMIN);
+  $('axisnote').textContent = `0 – ${FMAX} Hz`;
+  let mx = 0; for (let i = 1; i < PW.length; i++) mx = Math.max(mx, PW[i]);
+  const FLOOR = -70, Y = (p) => top + (base - top) * Math.min(1, Math.max(0, (10 * Math.log10(p / mx + 1e-30)) / FLOOR));
+  g.font = '10px JetBrains Mono, monospace'; g.textAlign = 'center';
+  for (let f = 0; f <= FMAX; f += 50) { g.fillStyle = '#4a4a5a'; g.fillText(f, X(f), h - 6); g.strokeStyle = '#1a1a24'; g.beginPath(); g.moveTo(X(f), top); g.lineTo(X(f), base); g.stroke(); }
+  // lattice ticks: set speeds (grey, top row) and kept speeds (amber, second row)
+  const ticks = (r1, r2, y0, col) => { g.strokeStyle = col; for (let m = -8; m <= 8; m++) for (let n = -8; n <= 8; n++) { const f = m * r1 + n * r2; if (f <= 0 || f > FMAX) continue; if (Math.abs(m) + Math.abs(n) > 6) continue; g.beginPath(); g.moveTo(X(f), y0); g.lineTo(X(f), y0 + 7); g.stroke(); } };
+  ticks(P.w1, P.w2, 3, '#8a8aa0');
+  ticks(ROT.rho1, ROT.rho2, 12, 'rgba(232,184,74,.75)');
+  // the sound
+  const binHz = SR / MWIN, i0 = 1, i1 = Math.min(PW.length - 1, Math.ceil(FMAX / binHz));
+  g.strokeStyle = '#e8b84a'; g.lineWidth = 1.2; g.beginPath();
+  for (let i = i0; i <= i1; i++) { const xx = X(i * binHz), yy = Y(PW[i]); i === i0 ? g.moveTo(xx, yy) : g.lineTo(xx, yy); }
+  g.stroke(); g.lineWidth = 1;
+}
+
+// ── sound: the same step function and surface, per sample ──
+const WORKLET = `
+const TWO_PI = 2 * Math.PI;
+${surfaceAt.toString()}
+${stepPair.toString()}
+class Pair extends AudioWorkletProcessor {
+  constructor() { super(); this.st = { p1: 0, p2: 0.25, u1: 0, u2: 0 }; this.terms = []; this.w1 = 110; this.w2 = 110; this.a = 1; this.b = 1; this.K = 0; this.g = 0; this.tg = 0; this.norm = 1;
+    this.port.onmessage = (e) => { const m = e.data; for (const k of ['terms', 'w1', 'w2', 'a', 'b', 'K', 'norm']) if (m[k] !== undefined) this[k] = m[k]; if (m.on !== undefined) this.tg = m.on ? 0.2 : 0; }; }
+  process(_i, outs) {
+    const o = outs[0], L = o[0], R = o[1] || o[0], dt = 1 / sampleRate;
+    for (let n = 0; n < L.length; n++) {
+      this.g += (this.tg - this.g) * 0.0015;
+      const y = surfaceAt(this.terms, this.st.p1, this.st.p2) * this.norm * this.g;
+      stepPair(this.st, this.w1, this.w2, this.a, this.b, this.K, dt);
+      L[n] = y; R[n] = y;
+    }
+    return true;
+  }
+}
+registerProcessor('pair', Pair);`;
+let ctx = null, node = null, running = false;
+function send() {
+  if (!node || !P) return;
+  const terms = SURFACES[P.kind]; let sum = 0; for (const t of terms) sum += t[2];
+  node.port.postMessage({ terms, w1: P.w1, w2: P.w2, a: P.a, b: P.b, K: P.K, norm: 1 / sum });
+}
+async function start() {
+  if (!ctx) {
+    ctx = new AudioContext();
+    const url = URL.createObjectURL(new Blob([WORKLET], { type: 'application/javascript' }));
+    await ctx.audioWorklet.addModule(url); URL.revokeObjectURL(url);
+    node = new AudioWorkletNode(ctx, 'pair', { numberOfInputs: 0, numberOfOutputs: 1, outputChannelCount: [2] });
+    const comp = ctx.createDynamicsCompressor(); comp.threshold.value = -14; comp.ratio.value = 4;
+    node.connect(comp).connect(ctx.destination);
+    ctx.onstatechange = () => { if (ctx.state !== 'running' && running) { running = false; $('go').textContent = '▸ play'; } };
+  }
+  send();
+  await ctx.resume();
+  node.port.postMessage({ on: true });
+  running = true; $('go').textContent = '❚❚ stop';
+}
+function stop() {
+  if (!running) return;
+  running = false; $('go').textContent = '▸ play';
+  if (node) node.port.postMessage({ on: false });
+  if (ctx) setTimeout(() => { if (!running) ctx.suspend(); }, 250);
+}
+$('go').onclick = () => (running ? stop() : start());
+addEventListener('message', (e) => { if (e.data && e.data.type === 'rich:hush') stop(); });
+addEventListener('resize', () => P && drawSpec());
+
+{ let d = ''; for (let i = 0; i <= 240; i++) { const t = TWO_PI * i / 240; d += (i ? 'L' : 'M') + (Math.sin(3 * t + Math.PI / 2)).toFixed(3) + ' ' + (Math.sin(2 * t)).toFixed(3); } $('sigil').setAttribute('d', d); }
+
+goStep(1);
+requestAnimationFrame(tick);
+</script>
+</body>
+</html>
