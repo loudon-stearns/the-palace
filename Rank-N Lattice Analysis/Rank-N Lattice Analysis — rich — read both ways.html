@@ -1,0 +1,455 @@
+<!doctype html>
+<!--
+  title: Rank-N Lattice Analysis — rich — read both ways
+  born: 2026-11-03
+  links: [[Rank-N Lattice Analysis]] (connects-to · rich-face-piece) · listed in [[Rank-N Lattice Analysis — rich.json]] · plays the field the way [[2D Torus Wavetable Synthesizer]] does · measures with [[Inharmonic Wavetable Synthesis]]'s trajectory library
+  forward_vector: I am the round trip the section names, run: a fit written onto a torus and read back by its own clocks, from two harmonic partials to a measured piano and bell, with what was heard, what plays back and what was left over side by side. I play inside the entry's rich face and stand alone opened directly; I change only when the section I serve does.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:needs" content="">
+<title>Rank-N Lattice Analysis — read both ways</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Manrope:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root { --bg:#0a0a0f; --e1:#12121a; --ring:#22222e; --border:#4a4a5e; --soft:rgba(255,255,255,.06); --fg1:#e8e8f0; --fg2:#c8c8d8; --fg3:#8a8aa0; --fg4:#4a4a5a;
+    --amber:#e8b84a; --amberline:rgba(232,184,74,.5); --indigo:#6366F1; --blue:#4a8fff;
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --sans:'Manrope',system-ui,sans-serif; --serif:'Cormorant Garamond',Georgia,serif; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); font-weight: 300; }
+  .piece { padding: 22px 22px 20px; }
+  .kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
+  .title { font-family: var(--serif); font-size: 27px; font-weight: 300; color: var(--fg1); margin: 0 0 6px; }
+  .sub { font-size: 14px; line-height: 1.6; color: var(--fg2); max-width: 80ch; margin: 0 0 14px; }
+  .rail { display: flex; flex-wrap: wrap; margin: 4px 0 14px; border: 1px solid var(--soft); border-radius: 2px; }
+  .rail button { flex: 1 1 120px; text-align: left; border: 0; border-right: 1px solid var(--soft); border-radius: 0; background: transparent; padding: 9px 12px; color: var(--fg3); }
+  .rail button:last-child { border-right: 0; }
+  .rail button b { display: block; font-weight: 500; color: var(--fg2); letter-spacing: .04em; text-transform: none; font-size: 12px; margin-top: 2px; }
+  .rail button.on { background: var(--e1); color: var(--amber); }
+  .rail button.on b { color: var(--fg1); }
+  .say { font-family: var(--serif); font-size: 18px; line-height: 1.55; color: var(--fg1); max-width: 82ch; margin: 0 0 14px; min-height: 3.1em; }
+  .say i { color: var(--amber); font-style: italic; }
+  .stage { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; align-items: start; }
+  .panel { border: 1px solid var(--soft); border-radius: 2px; background: var(--e1); padding: 10px 12px; }
+  .plabel { font-family: var(--mono); font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--fg3); margin-bottom: 8px; display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+  .key { font-family: var(--mono); font-size: 10.5px; color: var(--fg3); display: flex; gap: 14px; flex-wrap: wrap; margin-top: 6px; }
+  .key span::before { content: ''; display: inline-block; width: 10px; height: 2px; margin-right: 6px; vertical-align: middle; background: currentColor; }
+  canvas { display: block; width: 100%; }
+  .wide { grid-column: 1 / -1; }
+  .hidden { display: none !important; }
+  .controls { display: flex; flex-wrap: wrap; gap: 14px 22px; align-items: flex-end; margin-top: 16px; }
+  button { font-family: var(--mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--fg2); background: var(--bg); border: 1px solid var(--border); border-radius: 2px; padding: 8px 13px; cursor: pointer; }
+  button:hover { border-color: rgba(232,184,74,.55); color: var(--fg1); }
+  button:disabled { opacity: .35; cursor: default; }
+  button.on { color: var(--amber); border-color: var(--amberline); }
+  button.go { color: var(--amber); border-color: var(--amberline); box-shadow: 0 0 14px rgba(232,184,74,.18); min-width: 110px; }
+  .seg { display: inline-flex; flex-wrap: wrap; } .seg button + button { border-left: 0; }
+  .seg button { letter-spacing: .04em; text-transform: none; font-size: 12px; padding: 7px 10px; }
+  .ctl { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: .06em; color: var(--fg3); }
+  .ctl .lab { display: block; margin-bottom: 6px; }
+  label.sl { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: .06em; color: var(--fg3); min-width: 200px; flex: 1 1 200px; }
+  label.sl b { color: var(--fg1); font-weight: 500; }
+  input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 3px; background: var(--fg4); margin: 12px 0 4px; outline: none; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 13px; height: 13px; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  input[type=range]::-moz-range-thumb { width: 13px; height: 13px; border: 0; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  .read { display: flex; flex-wrap: wrap; gap: 6px 22px; margin-top: 14px; font-family: var(--mono); font-size: 11.5px; letter-spacing: .04em; color: var(--fg3); }
+  .read b { color: var(--fg1); font-weight: 500; }
+  .read .hot { color: var(--amber); }
+  .verdict { margin-top: 14px; padding: 12px 14px; border-left: 2px solid var(--amber); background: var(--e1); font-family: var(--serif); font-size: 17px; line-height: 1.55; color: var(--fg1); max-width: 96ch; }
+  .verdict b { color: var(--amber); font-weight: 400; }
+  .verdict p { margin: 0 0 8px; } .verdict p:last-child { margin: 0; }
+  table.t { border-collapse: collapse; font-family: var(--mono); font-size: 11.5px; color: var(--fg2); width: 100%; }
+  table.t th { font-weight: 400; color: var(--fg3); text-align: right; padding: 4px 8px; border-bottom: 1px solid var(--soft); letter-spacing: .04em; }
+  table.t td { text-align: right; padding: 4px 8px; border-bottom: 1px solid var(--soft); }
+  table.t th:first-child, table.t td:first-child { text-align: left; }
+  table.t td.hot { color: var(--amber); }
+  table.t tr.sel td { background: rgba(232,184,74,.06); }
+  .nav { display: flex; gap: 10px; margin-top: 16px; }
+  .hint { font-family: var(--mono); font-size: 11px; letter-spacing: .03em; line-height: 1.6; color: var(--fg3); margin-top: 10px; max-width: 108ch; }
+  .eqs { margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--soft); }
+  .eq { font-family: var(--serif); font-size: 19px; color: var(--fg1); }
+  .words { font-size: 13px; line-height: 1.55; color: var(--fg2); margin: 2px 0 12px; max-width: 94ch; }
+  .note { font-family: var(--mono); font-size: 10.5px; line-height: 1.6; color: var(--fg4); margin-top: 8px; max-width: 112ch; }
+  .footer { font-family: var(--mono); font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--fg4); margin-top: 18px; }
+  @media (max-width: 760px) { .stage { grid-template-columns: 1fr; } }
+  .torusbox { display: grid; grid-template-columns: minmax(200px, 300px) 1fr; gap: 16px; align-items: start; }
+  @media (max-width: 760px) { .torusbox { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="piece">
+  <div class="kicker"><svg width="18" height="18" viewBox="-10 -10 20 20" aria-hidden="true"><path id="sigil" fill="none" stroke="#e8b84a" stroke-width="1.1"/></svg><span>made · a fit written onto a torus and read back · sketch</span></div>
+  <h3 class="title">Is what was heard what will be played?</h3>
+  <p class="sub">The section says the analyzer's output, a field W and its clocks ω, is exactly the object the 2D torus synthesizer plays, so one stored field is both what was heard and what will be played back. Here the fit is written onto a 256 × 256 torus and read back by two phasors at the fitted clocks. Four steps, one idea each; the last one runs a measured note through it.</p>
+
+  <div class="rail" id="rail"></div>
+  <p class="say" id="say"></p>
+
+  <div class="stage">
+    <div class="panel wide">
+      <div class="torusbox">
+        <div>
+          <div class="plabel"><span>the field W on the torus</span><span>θ₁ across · θ₂ up</span></div>
+          <canvas id="torus"></canvas>
+          <div class="key"><span style="color:#e8e8f0">the read: θ₁ = ω₁·t, θ₂ = ω₂·t, first 20 ms</span></div>
+        </div>
+        <div>
+          <div class="plabel"><span id="specLabel">heard, and read back</span><span>level dB · Hz, log scale</span></div>
+          <canvas id="spec"></canvas>
+          <div class="key"><span style="color:#8a8aa0">heard: the partials as analysed</span><span style="color:#e8b84a">read back from W, measured in the sound</span><span style="color:#ff9b4a">left over: no place on the torus</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="controls">
+    <button class="go" id="go">▸ play</button>
+    <div class="ctl"><span class="lab">hear</span><span class="seg"><button data-h="heard" class="on">what was heard</button><button data-h="back">what plays back</button><button data-h="left">what was left over</button></span></div>
+    <div class="ctl hidden" id="srcCtl"><span class="lab">note</span><span class="seg" id="srcSeg"></span></div>
+  </div>
+  <div class="controls">
+    <label class="sl hidden" id="offCtl">the fifth partial sits <b id="offV"></b> cents sharp<input id="off" type="range" min="0" max="30" step="0.5" value="3"></label>
+    <label class="sl hidden" id="tolCtl">tolerance τ = <b id="tolV"></b> cents<input id="tol" type="range" min="1" max="20" step="1" value="5"></label>
+  </div>
+  <div class="read" id="read"></div>
+  <div class="verdict hidden" id="verdict"></div>
+  <div class="nav"><button id="back">◂ back</button><button id="next">next ▸</button></div>
+  <div class="hint" id="hint"></div>
+
+  <div class="eqs">
+    <div class="eq">W(θ₁, θ₂) = Σₖ aₖ · cos( 2π·(mₖ·θ₁ + nₖ·θ₂) + φₖ )</div>
+    <div class="words">(the stored field) = a sum, over the partials the clocks reach, of (that partial's level) × a cosine that turns mₖ times across the torus one way and nₖ times the other. The fit's steps decide where each partial sits on the torus; its level decides how strongly.</div>
+    <div class="eq">y(t) = W(ω₁·t, ω₂·t) = Σₖ aₖ · cos( 2π·(mₖ·ω₁ + nₖ·ω₂)·t + φₖ )</div>
+    <div class="words">(the sound) = (the field read by two phasors at the fitted clocks) = every reached partial again, now exactly at (mₖ × the first clock + nₖ × the second). Read back, a partial lands on its lattice point, not where it was heard; the two differ by at most τ.</div>
+    <div class="eq">a partial no clock reaches has no (m, n), and so no place in W</div>
+    <div class="words">(what is left over) = the partials that stood alone in the fit. Each would need a loop of its own: a rank-N fit fills a torus of N dimensions, and the 2D synthesizer holds two.</div>
+  </div>
+  <div class="note">Field: 256 × 256 samples, read with bilinear interpolation at 48 kHz; random phases. The round trip is measured on the read-back itself: each reached partial's level at its lattice frequency through a Hann window 0.68 s long, against the level written. A smaller table reads worse: at 32 × 32 the piano A2's reached partials, up to 11 steps of its clock, come back as much as 3.5 dB off. Fit: the rank fitter of the piece under "Rank as a measured property", two clocks at most. Measured notes: one frame 0.19 s after the strike from the steward's tracks in Inharmonic Wavetable Synthesis's trajectory library (Ableton Core Library samples, measured in place; never copied). "What was heard" is those partials as sines with one shared decay, not the recording; the read-back wears the same decay.</div>
+  <div class="footer">Loud’n Live</div>
+</div>
+
+<script id="engine">
+// ---- engine: the rank fitter and the sources. Pure functions, no page. ----
+// A partial is named one of two ways: free, as a frequency to within tol cents, or as whole
+// steps of a few shared clocks, m1·w1 + m2·w2 (+ …), when that point sits within tol of it.
+// Naming a frequency free costs F = log2(band ÷ 2·tol) bits (band: 20 Hz to 20 kHz, in cents);
+// a clock is a frequency, so it costs F too. Steps cost their length in a prefix code (Elias
+// gamma), so a long walk of a tiny clock costs more than naming the partial outright.
+// The fit is the cheapest naming the search finds; its rank is the clocks plus the partials
+// left to stand alone, since each of those is one more frequency to name.
+const CENT = 1200 / Math.LN2;
+const BAND = 1200 * Math.log2(20000 / 20);
+function freeBits(tol) { return Math.log2(BAND / (2 * tol)); }
+function gamma(n) { return 2 * Math.floor(Math.log2(n)) + 1; }
+// steps along clock 1 are 0, 1, 2 …; along any other, signed (0, 1, −1, 2, −2 …)
+function stepBits(m) { let b = gamma(m[0] + 1); for (let i = 1; i < m.length; i++) { const v = m[i]; b += gamma((v > 0 ? 2 * v - 1 : -2 * v) + 1); } return b; }
+function rng(seed) { let a = seed >>> 0; return () => { a = (a + 0x6D2B79F5) | 0; let t = Math.imul(a ^ (a >>> 15), 1 | a); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
+
+// the lattice point nearest f: clock 1 taken 0..M1 steps, every other −M2..M2
+function nearest(f, w, o) {
+  const N = w.length, rest = new Array(N).fill(0);
+  let best = null;
+  const visit = (i, acc) => {
+    if (i === N) {
+      let m1 = Math.round((f - acc) / w[0]); if (m1 < 0) m1 = 0; if (m1 > o.M1) m1 = o.M1;
+      const g = acc + m1 * w[0]; if (g <= 0) return;
+      const m = [m1, ...rest.slice(1)]; if (m.every((v) => v === 0)) return;
+      const err = Math.abs(CENT * Math.log(f / g)), bits = o.free ? 0 : stepBits(m);
+      if (!best || err < best.err - 1e-9 || (Math.abs(err - best.err) <= 1e-9 && bits < best.bits)) best = { m, g, err, bits };
+      return;
+    }
+    for (let v = -o.M2; v <= o.M2; v++) { rest[i] = v; visit(i + 1, acc + v * w[i]); }
+  };
+  visit(1, 0);
+  return best;
+}
+// what naming the partials P with clocks w costs, and which partials the lattice holds
+function cost(P, w, o) {
+  const F = freeBits(o.tol);
+  let bits = w.length * F, on = 0, se = 0;
+  const assign = [];
+  for (const [f, a] of P) {
+    const r = w.length ? nearest(f, w, o) : null;
+    const ok = !!r && r.err <= o.tol && r.bits < F;
+    bits += ok ? r.bits : F;
+    if (ok) { on++; se += r.err * r.err; }
+    assign.push({ f, a, m: r ? r.m : null, g: r ? r.g : 0, err: r ? r.err : Infinity, ok });
+  }
+  return { w: w.slice(), bits, on, n: P.length, lone: P.length - on, rank: w.length + P.length - on, rms: on ? Math.sqrt(se / on) : 0, assign };
+}
+function solve(A, b) {
+  const n = b.length, M = A.map((r, i) => [...r, b[i]]);
+  for (let c = 0; c < n; c++) {
+    let p = c; for (let r = c + 1; r < n; r++) if (Math.abs(M[r][c]) > Math.abs(M[p][c])) p = r;
+    if (Math.abs(M[p][c]) < 1e-300) return null;
+    [M[c], M[p]] = [M[p], M[c]];
+    for (let r = 0; r < n; r++) if (r !== c) { const k = M[r][c] / M[c][c]; for (let j = c; j <= n; j++) M[r][j] -= k * M[c][j]; }
+  }
+  return M.map((r, i) => r[n] / r[i]);
+}
+// least squares on the partials the lattice holds, in relative error
+function refine(P, fit, o) {
+  let cur = fit;
+  for (let it = 0; it < 3; it++) {
+    const N = cur.w.length, A = Array.from({ length: N }, () => new Array(N).fill(0)), b = new Array(N).fill(0);
+    let n = 0;
+    for (const s of cur.assign) {
+      if (!s.ok) continue; n++;
+      const wt = 1 / (s.f * s.f);
+      for (let i = 0; i < N; i++) { b[i] += wt * s.m[i] * s.f; for (let j = 0; j < N; j++) A[i][j] += wt * s.m[i] * s.m[j]; }
+    }
+    if (n < N) return cur;
+    const x = solve(A, b);
+    if (!x || x.some((v) => !(v > 0))) return cur;
+    const nf = cost(P, x, o);
+    if (nf.bits < cur.bits - 1e-9 || (nf.bits <= cur.bits + 1e-9 && nf.rms < cur.rms)) cur = nf; else break;
+  }
+  return cur;
+}
+const better = (a, b) => a.bits < b.bits - 1e-9 || (Math.abs(a.bits - b.bits) <= 1e-9 && a.rms < b.rms);
+const byCost = (a, b) => (better(a, b) ? -1 : better(b, a) ? 1 : 0);
+function dedupe(list) { const seen = new Set(), o = []; for (const s of list) { const k = s.w.map((v) => v.toPrecision(5)).join(','); if (!seen.has(k)) { seen.add(k); o.push(s); } } return o; }
+
+// the cheapest naming with 0, 1 … maxClocks clocks; a greedy search, so its rank is an upper bound
+function fitRanks(P, opt = {}) {
+  const o = { tol: 5, M1: 64, M2: 8, maxClocks: 2, keep: 6, sub: 8, free: false, ...opt };
+  const out = [cost(P, [], o)];
+  const strong = P.slice().sort((x, y) => y[1] - x[1]).slice(0, 8).map((p) => p[0]);
+  let pool = [];
+  for (const f of strong) for (let k = 1; k <= o.sub; k++) pool.push(cost(P, [f / k], o));
+  pool = dedupe(pool.sort(byCost).slice(0, o.keep * 3).map((s) => refine(P, s, o)).sort(byCost)).slice(0, o.keep);
+  out.push(pool[0]);
+  for (let N = 2; N <= o.maxClocks; N++) {
+    const cand = [];
+    for (const base of pool) {
+      const miss = base.assign.filter((s) => !s.ok).sort((x, y) => y.a - x.a).slice(0, 6);
+      for (const s of miss) {
+        // what is left of this partial after a few steps of the clocks already held
+        const lefts = new Set([s.f]); const h = Math.round(s.f / base.w[0]);
+        for (let m1 = Math.max(0, h - 2); m1 <= h + 2; m1++) lefts.add(s.f - m1 * base.w[0]);
+        if (base.w.length > 1) for (const L of [...lefts]) for (let i = 1; i < base.w.length; i++) for (const v of [-1, 1]) lefts.add(L - v * base.w[i]);
+        for (const L of lefts) { const r = Math.abs(L); if (r < 0.5) continue; for (let q = 1; q <= 3; q++) cand.push(cost(P, base.w.concat(r / q), o)); }
+      }
+    }
+    if (!cand.length) break;
+    pool = dedupe(cand.sort(byCost).slice(0, o.keep * 3).map((s) => refine(P, s, o)).sort(byCost)).slice(0, o.keep);
+    out.push(pool[0]);
+  }
+  let best = 0; for (let i = 1; i < out.length; i++) if (better(out[i], out[best])) best = i;
+  return { fits: out, best, fit: out[best], F: freeBits(o.tol), o };
+}
+// chance: partials at random frequencies over the same span, with the same count and levels
+function chanceSet(P, seed) {
+  const r = rng(seed), fs = P.map((p) => p[0]), lo = Math.min(...fs), hi = Math.max(...fs);
+  return P.map(([, a], i) => [i === 0 ? lo : i === 1 ? hi : lo * Math.pow(hi / lo, r()), a]).sort((x, y) => x[0] - y[0]);
+}
+
+
+// the measured sources: Projects/Inharmonic Wavetable Synthesis/trajectory-library/*.wtb.json, the
+// steward's tracks of Ableton Core Library samples (2026-10-14; the samples were read in place, never
+// copied). One frame, 0.19 s after the strike; every partial within 40 dB of the loudest, the 24
+// loudest at most; [Hz, level as a share of the loudest].
+const SOURCES = [{"id":"piano-low-A1","name":"piano A1 · 55 Hz","t":0.1931,"P":[[110.24,1.0],[165.38,0.3665],[220.63,0.361],[275.71,0.475],[330.96,0.2612],[386.25,0.5101],[441.74,0.0771],[497.09,0.2763],[552.62,0.8093],[608.0,0.4023],[663.96,0.1212],[719.48,0.2449],[831.5,0.1724],[1000.01,0.1169],[1056.38,0.126],[1169.39,0.124],[1226.95,0.2222],[1284.12,0.1511],[1630.85,0.1405],[1689.73,0.1296],[1748.22,0.1126],[2105.2,0.0793],[2169.09,0.0885],[2226.23,0.0583]]},{"id":"piano-A2","name":"piano A2 · 110 Hz","t":0.1931,"P":[[220.68,1.0],[330.95,0.7297],[441.43,0.5848],[552.12,0.15],[663.0,0.2606],[773.51,0.1329],[884.41,0.0552],[995.87,0.2079],[1107.33,0.1431],[1218.95,0.0922],[1331.24,0.063],[1441.16,0.032],[1555.96,0.0783],[1675.98,0.0178],[1783.36,0.0371],[2011.63,0.0877],[2126.18,0.0417],[2242.1,0.0372],[2357.88,0.0209],[2474.31,0.0245],[2591.67,0.0156],[2946.21,0.0301],[3065.86,0.0371],[3430.4,0.0261]]},{"id":"piano-A4","name":"piano A4 · 440 Hz","t":0.1931,"P":[[443.39,1.0],[887.0,0.3181],[1332.84,0.1329],[1780.16,0.0601],[2234.48,0.0696],[2692.02,0.0497],[3156.22,0.0261],[3626.1,0.0671]]},{"id":"marimba-C3","name":"marimba C3","t":0.1154,"P":[[130.45,1.0],[391.95,0.0257],[522.62,0.0815],[1372.15,0.0788]]},{"id":"vibraphone-C4","name":"vibraphone C4","t":0.159,"P":[[261.55,1.0],[523.37,0.0324],[784.84,0.0376],[1046.68,0.6056],[1550.35,0.0152]]},{"id":"singing-bowl-D4","name":"singing bowl D4","t":0.1931,"P":[[299.11,0.0823],[599.6,0.4611],[1600.76,0.2116],[1719.62,1.0],[2496.55,0.1082],[2506.34,0.0738],[3224.92,0.16],[5028.62,0.1038]]},{"id":"bell-brooklyn-C6","name":"small bell C6","t":0.1443,"P":[[1043.79,1.0],[1183.74,0.0205],[1511.45,0.5511],[2268.27,0.0147],[2429.15,0.1147],[2606.11,0.035],[3598.46,0.0627],[3699.06,0.2421],[3978.34,0.0145],[4171.03,0.0158],[4505.74,0.0172],[5040.31,0.0201],[5232.56,0.058],[5761.21,0.0469],[5848.63,0.0138],[6727.84,0.0254],[6896.22,0.0156],[12512.52,0.0105],[14462.67,0.0154],[14864.03,0.027],[15272.63,0.0268],[17052.16,0.0306],[17460.98,0.0134],[17521.61,0.012]]}];
+const PHI = (1 + Math.sqrt(5)) / 2;
+// the made sources: one sine; a harmonic tone; a tone on two clocks at the golden ratio, every partial
+// m·220 + n·220φ for a few small m, n; and random partials over the harmonic tone's span
+const SINE = [[220, 1]];
+const HARMONIC = Array.from({ length: 12 }, (_, i) => [220 * (i + 1), 1 / (i + 1)]);
+const TWO_CLOCKS = [[0, 1, 1], [1, 0, 1], [1, 1, 0.7], [2, 0, 0.5], [0, 2, 0.4], [2, 1, 0.4], [1, 2, 0.3], [3, 0, 0.3], [2, -1, 0.25], [3, 1, 0.2], [1, 3, 0.15], [3, -1, 0.2]]
+  .map(([m, n, a]) => [m * 220 + n * 220 * PHI, a]).sort((x, y) => x[0] - y[0]);
+const RANDOM = chanceSet(HARMONIC, 5);
+// the partials as sound: sines at their levels, struck or held
+function partialsSound(P, fs, dur, struck, seed) {
+  const n = Math.round(dur * fs), y = new Float32Array(n), r = rng(seed || 2);
+  for (const [f, a] of P) { if (f >= fs / 2) continue; const w = 2 * Math.PI * f / fs, ph = r() * 2 * Math.PI; for (let k = 0; k < n; k++) y[k] += a * Math.sin(w * k + ph); }
+  const att = Math.round(0.005 * fs), rel = Math.round(0.06 * fs);
+  for (let k = 0; k < n; k++) { let e = k < att ? k / att : 1; if (struck) e *= Math.exp(-k / (1.1 * fs)); if (k > n - rel) e *= (n - k) / rel; y[k] *= e; }
+  return y;
+}
+
+// ---- the stored field: the fit written onto a torus, and read back by the same clocks ----
+// W(θ₁, θ₂) = Σ a·cos(2π(m·θ₁ + n·θ₂) + φ) over the partials the clocks reach, sampled S × S;
+// θ in turns. With one clock n = 0 everywhere, and W is a one-cycle table laid along θ₁.
+function buildField(fit, S, seed) {
+  const r = rng(seed || 5), W = new Float32Array(S * S), pts = [];
+  for (const s of fit.assign) if (s.ok) pts.push({ m: s.m[0], n: s.m.length > 1 ? s.m[1] : 0, a: s.a, ph: r() * 2 * Math.PI, f: s.f, g: s.g, err: s.err });
+  const cj = new Float64Array(S), sj = new Float64Array(S);
+  for (const p of pts) {
+    for (let j = 0; j < S; j++) { cj[j] = Math.cos(2 * Math.PI * p.n * j / S); sj[j] = Math.sin(2 * Math.PI * p.n * j / S); }
+    for (let i = 0; i < S; i++) { const ai = 2 * Math.PI * p.m * i / S + p.ph, ca = p.a * Math.cos(ai), sa = p.a * Math.sin(ai), row = i * S; for (let j = 0; j < S; j++) W[row + j] += ca * cj[j] - sa * sj[j]; }
+  }
+  return { W, S, pts, w: fit.w.slice() };
+}
+// y(t) = W(ω₁·t, ω₂·t): two phasors, one table, bilinear interpolation between its samples
+function readField(T, dur, fs) {
+  const { W, S, w } = T, n = Math.round(dur * fs), y = new Float32Array(n), d1 = w[0] / fs, d2 = (w.length > 1 ? w[1] : 0) / fs;
+  let p1 = 0, p2 = 0;
+  for (let k = 0; k < n; k++) {
+    const x = p1 * S, z = p2 * S, i = Math.floor(x), j = Math.floor(z), fx = x - i, fz = z - j, i0 = i % S, i1 = (i + 1) % S, j0 = j % S, j1 = (j + 1) % S;
+    y[k] = (W[i0 * S + j0] * (1 - fz) + W[i0 * S + j1] * fz) * (1 - fx) + (W[i1 * S + j0] * (1 - fz) + W[i1 * S + j1] * fz) * fx;
+    p1 += d1; p1 -= Math.floor(p1); p2 += d2; p2 -= Math.floor(p2);
+  }
+  return y;
+}
+// the level of a sine at exactly f in y, through a Hann window: what the read-back carries at that frequency
+function levelAt(y, f, fs, start, len) {
+  let c = 0, s = 0, wsum = 0; const om = 2 * Math.PI * f / fs;
+  for (let k = 0; k < len; k++) { const wk = 0.5 - 0.5 * Math.cos(2 * Math.PI * k / (len - 1)), v = y[start + k] * wk; c += v * Math.cos(om * k); s += v * Math.sin(om * k); wsum += wk; }
+  return 2 * Math.hypot(c, s) / wsum;
+}
+// the round trip measured: every reached partial's level in the read-back, against what was written
+function roundTrip(T, fs) {
+  const len = 1 << 15, y = readField(T, len / fs + 0.01, fs);
+  let worst = 0;
+  for (const p of T.pts) worst = Math.max(worst, Math.abs(20 * Math.log10(levelAt(y, p.g, fs, 0, len) / p.a)));
+  return { worstDb: worst };
+}
+// a struck envelope, shared by the heard note and the read-back so they differ only in their partials
+function strike(y, fs, struck) {
+  const n = y.length, att = Math.round(0.005 * fs), rel = Math.round(0.06 * fs);
+  for (let k = 0; k < n; k++) { let e = k < att ? k / att : 1; if (struck) e *= Math.exp(-k / (1.1 * fs)); if (k > n - rel) e *= (n - k) / rel; y[k] *= e; }
+  return y;
+}
+
+</script>
+<script>
+const $ = (id) => document.getElementById(id);
+let ctx = null, comp = null, src = null, playing = false;
+// silent until a click: no context exists before the first play
+async function playBuffer(x, fs, onEnd) {
+  stopSound();
+  if (!ctx) { ctx = new AudioContext({ sampleRate: fs }); comp = ctx.createDynamicsCompressor(); comp.threshold.value = -12; comp.ratio.value = 4; const g = ctx.createGain(); g.gain.value = 0.8; comp.connect(g).connect(ctx.destination); }
+  await ctx.resume();
+  const b = ctx.createBuffer(2, x.length, ctx.sampleRate), L = b.getChannelData(0), R = b.getChannelData(1);
+  for (let i = 0; i < x.length; i++) L[i] = R[i] = x[i];
+  src = ctx.createBufferSource(); src.buffer = b; src.connect(comp); const me = src;
+  src.onended = () => { if (src === me) { src = null; playing = false; if (onEnd) onEnd(); } };
+  src.start(); playing = true;
+}
+function stopSound() { if (src) { const s = src; src = null; try { s.stop(); } catch {} } playing = false; }
+function fit(c, hgt) {
+  const w = c.clientWidth || 600, d = devicePixelRatio || 1, H = hgt;
+  if (c.width !== Math.round(w * d) || c.height !== Math.round(H * d)) { c.width = Math.round(w * d); c.height = Math.round(H * d); c.style.height = H + 'px'; }
+  const g = c.getContext('2d'); g.setTransform(d, 0, 0, d, 0, 0); return { g, w, h: H };
+}
+function sigil(a, b) { let d = ''; for (let i = 0; i <= 240; i++) { const t = (i / 240) * 2 * Math.PI; d += (i ? 'L' : 'M') + (8 * Math.sin(a * t + Math.PI / 2)).toFixed(2) + ' ' + (8 * Math.sin(b * t)).toFixed(2); } $('sigil').setAttribute('d', d); }
+function walk(steps, onStep) {
+  let at = 0;
+  const go = (i) => { stopSound(); $('go').textContent = '▸ play'; at = Math.max(0, Math.min(steps.length - 1, i)); [...$('rail').children].forEach((b, j) => b.classList.toggle('on', j === at)); $('say').innerHTML = steps[at].say; $('back').disabled = at === 0; $('next').disabled = at === steps.length - 1; onStep(steps[at].key, at); };
+  steps.forEach((s, i) => { const b = document.createElement('button'); b.innerHTML = `${i + 1}<b>${s.name}</b>`; b.onclick = () => go(i); $('rail').appendChild(b); });
+  $('back').onclick = () => go(at - 1); $('next').onclick = () => go(at + 1);
+  return { go, get at() { return at; } };
+}
+const later = () => new Promise((r) => setTimeout(r, 0));
+const FS = 48000, SIZE = 256;
+const STEPS = [
+  { key: 'one', name: 'two partials, one clock', say: 'Two partials, 220 and 440 Hz. The fit names one clock, 220 Hz, and two steps. Written onto the torus, the field changes along θ₁ only: it is an ordinary <i>one-cycle wavetable</i>, laid across the square. Read it back at 220 Hz and the same two partials come out.' },
+  { key: 'two', name: 'two clocks fill the torus', say: 'The tone on two clocks, 220 and 356 Hz. Now each partial turns m times one way and n times the other, and the field fills the square. Two phasors read it at the two clocks; the path <i>never closes</i>, and every partial comes back at m·220 + n·356.' },
+  { key: 'snap', name: 'a partial slightly off', say: 'Six harmonics of 220 Hz with the fifth pushed sharp. Within the tolerance the fit gives it a lattice point anyway, five steps of the clock, and the field plays it <i>there</i>: read back, it is in tune. Push it past the tolerance and it stands alone, and the field has nowhere to put it.' },
+  { key: 'test', name: 'the test: a measured note', say: 'A measured piano A2, and beside it the low A, a piano A4, a bell and three bars. Fitted, written, read back. Is the field <i>both</i> what was heard and what will be played, or only the part of it the clocks could reach?' },
+];
+const S = { key: 'one', hear: 'heard', tol: 5, off: 3, src: 'piano-A2', job: null };
+function sourceP() {
+  if (S.key === 'one') return [[220, 1], [440, 0.6]];
+  if (S.key === 'two') return TWO_CLOCKS;
+  if (S.key === 'snap') return [1, 2, 3, 4, 5, 6].map((k) => [220 * k * (k === 5 ? Math.pow(2, S.off / 1200) : 1), 1 / k]);
+  const s = SOURCES.find((x) => x.id === S.src); return s.P.slice().sort((a, b) => b[1] - a[1]).slice(0, 24).sort((a, b) => a[0] - b[0]);
+}
+// ---- drawing ----
+function drawTorus(T) {
+  const c = $('torus'), { g, w } = fit(c, Math.min(300, c.clientWidth || 300)), side = w, img = g.createImageData(Math.round(side), Math.round(side));
+  let mx = 0; for (const v of T.W) mx = Math.max(mx, Math.abs(v));
+  const N = img.width;
+  for (let py = 0; py < N; py++) for (let px = 0; px < N; px++) {
+    const i = Math.floor(px / N * T.S), j = Math.floor((N - 1 - py) / N * T.S), v = mx ? T.W[i * T.S + j] / mx : 0, o = 4 * (py * N + px);
+    if (v >= 0) { img.data[o] = 18 + v * (232 - 18); img.data[o + 1] = 18 + v * (184 - 18); img.data[o + 2] = 26 + v * (74 - 26); }
+    else { const u = -v; img.data[o] = 18 + u * (99 - 18); img.data[o + 1] = 18 + u * (102 - 18); img.data[o + 2] = 26 + u * (241 - 26); }
+    img.data[o + 3] = 255;
+  }
+  g.putImageData(img, 0, 0);
+  // the read path: 20 ms of θ₁ = ω₁·t, θ₂ = ω₂·t, wrapped
+  const w1 = T.w[0], w2 = T.w.length > 1 ? T.w[1] : 0, X = (u) => u * side, Y = (v) => side - v * side - (w2 ? 0 : 3);
+  g.strokeStyle = 'rgba(232,232,240,.75)'; g.lineWidth = 1; g.beginPath();
+  let pu = 0, pv = 0; g.moveTo(X(0), Y(0));
+  for (let k = 1; k <= 2000; k++) { const t = 0.02 * k / 2000, u = (w1 * t) % 1, v = (w2 * t) % 1; if (Math.abs(u - pu) > 0.5 || Math.abs(v - pv) > 0.5) g.moveTo(X(u), Y(v)); else g.lineTo(X(u), Y(v)); pu = u; pv = v; }
+  g.stroke();
+}
+function drawSpec(job) {
+  const P = job.P, { g, w, h } = fit($('spec'), 270), fs = P.map((p) => p[0]), lo = Math.min(...fs) / 1.45, hi = Math.max(...fs) * 1.25, L = 46, Rr = 12, top = 22, base = h - 22;
+  const x = (v) => L + (Math.log(v / lo) / Math.log(hi / lo)) * (w - L - Rr), y = (d) => base - Math.max(0, Math.min(1, (d + 45) / 45)) * (base - top);
+  g.clearRect(0, 0, w, h);
+  g.strokeStyle = '#22222e'; g.beginPath(); g.moveTo(L, base); g.lineTo(w - Rr, base); g.stroke();
+  g.fillStyle = '#4a4a5a'; g.font = '10px JetBrains Mono, monospace'; g.textAlign = 'center';
+  for (const v of [50, 100, 200, 500, 1000, 2000, 5000, 10000, 20000]) if (v > lo && v < hi) { g.fillText(v >= 1000 ? v / 1000 + 'k' : v, x(v), h - 6); g.strokeStyle = '#1a1a24'; g.beginPath(); g.moveTo(x(v), top); g.lineTo(x(v), base); g.stroke(); }
+  g.textAlign = 'right'; g.fillText('0', L - 6, top + 4); g.fillText('−45', L - 6, base);
+  const dB = (a) => 20 * Math.log10(Math.max(a, 1e-6));
+  for (const s of job.R.fit.assign) { const X = x(s.f); g.strokeStyle = s.ok ? '#8a8aa0' : '#ff9b4a'; g.lineWidth = s.ok ? 3 : 2; g.beginPath(); g.moveTo(X, base); g.lineTo(X, y(dB(s.a))); g.stroke(); }
+  g.lineWidth = 1;
+  for (const b of job.back) { const X = x(b.g); g.fillStyle = '#e8b84a'; g.beginPath(); g.arc(X, y(dB(b.level)), 3.5, 0, 2 * Math.PI); g.fill(); g.strokeStyle = '#e8b84a'; g.beginPath(); g.moveTo(X, base); g.lineTo(X, y(dB(b.level))); g.stroke(); }
+  $('specLabel').textContent = job.R.fit.w.length ? `clocks ${job.R.fit.w.map((v) => v.toFixed(2) + ' Hz').join(' and ')}` : 'no clock';
+}
+// ---- the job: fit, write, read back, measure ----
+async function runJob() {
+  const P = sourceP(), R = fitRanks(P, { tol: S.tol }), T = buildField(R.fit, SIZE, 5);
+  await later();
+  const len = 1 << 15, y = readField(T, len / FS + 0.01, FS), back = T.pts.map((p) => ({ g: p.g, f: p.f, err: p.err, a: p.a, level: levelAt(y, p.g, FS, 0, len) }));
+  const worst = back.length ? Math.max(...back.map((b) => Math.abs(20 * Math.log10(b.level / b.a)))) : 0;
+  const tot = P.reduce((s, p) => s + p[1] * p[1], 0), carried = back.reduce((s, b) => s + b.a * b.a, 0) / tot;
+  return { P, R, T, back, worst, carried };
+}
+function readout(J) {
+  const f = J.R.fit, moved = J.back.length ? Math.max(...J.back.map((b) => b.err)) : 0;
+  $('read').innerHTML = [`partials heard <b>${f.n}</b>`, `played back <b class="hot">${f.on}</b>`, `left over <b>${f.lone}</b>`, `energy carried <b>${(100 * J.carried).toFixed(1)} %</b>`, `largest move onto the lattice <b>${moved.toFixed(2)}</b> cents`, `read-back levels within <b>${J.worst.toFixed(2)} dB</b>`].join(' · ');
+}
+function verdict(J) {
+  const f = J.R.fit, name = SOURCES.find((s) => s.id === S.src).name;
+  $('verdict').innerHTML = `<p><b>The field plays back exactly what the clocks reach.</b> For the ${name}, ${f.on} of ${f.n} partials, ${(100 * J.carried).toFixed(1)} % of the energy, come back at their lattice points with their levels within ${J.worst.toFixed(2)} dB; each moved onto its point by at most ${Math.max(0, ...J.back.map((b) => b.err)).toFixed(2)} cents.</p>` +
+    `<p><b>The other ${f.lone} have no place in it.</b> The fit left them to stand alone, so its rank is ${f.rank}: a field that held them would need a torus of ${f.rank} dimensions, and the 2D synthesizer has two. Listen to "what was left over": ${S.src.startsWith('piano') ? 'for a piano it is the upper partials, the ones the bend pushed off the comb' : S.src.startsWith('bell') ? 'for the bell it is most of its modes, quiet but many' : 'the modes no clock reached'}. One stored field is both readings only for a sound whose rank is two or less; for this one the field is what will be played, and what was heard is the field plus what was left over.</p>`;
+}
+const HINTS = {
+  one: 'The square is the torus: its left edge meets its right, its top meets its bottom. Amber is where W is high, indigo where it is low. With one clock the stripes run straight up, and the read crosses them along one line.',
+  two: 'The read winds at the ratio of the two clocks, φ, so in time it passes near every point of the square. The read-back dots sit on the heard lines because these partials were made on the lattice.',
+  snap: 'Slide the fifth partial sharp. Under the tolerance it is reached and read back in tune, moved by about the amount you pushed it (the clock shifts a hair to share the error); past the tolerance it turns orange and plays only in "what was left over".',
+  test: 'Try the bell, then the low A; change the tolerance. A wider tolerance lets more partials onto the lattice and moves each one further to get there.',
+};
+let gen = 0;
+async function refresh() {
+  const my = ++gen;
+  $('read').innerHTML = 'fitting, writing the field, reading it back…';
+  const J = await runJob(); if (my !== gen) return;
+  S.job = J; drawTorus(J.T); drawSpec(J); readout(J); if (S.key === 'test') verdict(J);
+}
+function show(id, on) { $(id).classList.toggle('hidden', !on); }
+async function onStep(key) {
+  S.key = key; show('srcCtl', key === 'test'); show('offCtl', key === 'snap'); show('tolCtl', key === 'snap' || key === 'test'); show('verdict', key === 'test');
+  $('hint').textContent = HINTS[key];
+  await refresh();
+}
+// ---- sound: the heard partials, the read-back, or what was left over, all with one shared envelope ----
+function take() {
+  const J = S.job, struck = S.key === 'test', dur = struck ? 3 : 2.5;
+  let y;
+  if (S.hear === 'back') y = J.T.pts.length ? readField(J.T, dur, FS) : new Float32Array(Math.round(dur * FS));
+  else if (S.hear === 'left') y = partialsSound(J.R.fit.assign.filter((s) => !s.ok).map((s) => [s.f, s.a]), FS, dur, false, 7);
+  else y = partialsSound(J.P, FS, dur, false, 7);
+  strike(y, FS, struck);
+  // one gain for all three, set by the heard note, so left over is as quiet as it really is
+  const ref = partialsSound(J.P, FS, 0.5, false, 7); let pk = 0; for (const v of ref) pk = Math.max(pk, Math.abs(v));
+  const sc = pk ? 0.8 / pk : 0; for (let i = 0; i < y.length; i++) y[i] *= sc;
+  return y;
+}
+SOURCES.forEach((s) => { const b = document.createElement('button'); b.textContent = s.name; b.dataset.src = s.id; if (s.id === S.src) b.classList.add('on'); $('srcSeg').appendChild(b);
+  b.onclick = () => { S.src = s.id; document.querySelectorAll('[data-src]').forEach((z) => z.classList.toggle('on', z === b)); stopSound(); $('go').textContent = '▸ play'; refresh(); }; });
+document.querySelectorAll('[data-h]').forEach((b) => (b.onclick = () => { S.hear = b.dataset.h; document.querySelectorAll('[data-h]').forEach((z) => z.classList.toggle('on', z === b)); if (playing) { stopSound(); playBuffer(take(), FS, () => ($('go').textContent = '▸ play')); $('go').textContent = '❚❚ stop'; } }));
+$('tol').oninput = () => { S.tol = +$('tol').value; $('tolV').textContent = S.tol; refresh(); };
+$('off').oninput = () => { S.off = +$('off').value; $('offV').textContent = S.off; refresh(); };
+$('tolV').textContent = S.tol; $('offV').textContent = S.off;
+const W = walk(STEPS, onStep);
+$('go').onclick = () => { if (playing) { stopSound(); $('go').textContent = '▸ play'; return; } if (!S.job) return; playBuffer(take(), FS, () => ($('go').textContent = '▸ play')); $('go').textContent = '❚❚ stop'; };
+window.addEventListener('resize', () => { if (S.job) { drawTorus(S.job.T); drawSpec(S.job); } });
+sigil(1, PHI);
+W.go(0);
+</script>
+</body>
+</html>
