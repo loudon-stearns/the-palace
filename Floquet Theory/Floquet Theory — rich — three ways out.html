@@ -1,0 +1,506 @@
+<!doctype html>
+<!--
+  title: Floquet Theory — rich — three ways out
+  born: 2026-11-03
+  links: [[Floquet Theory]] connects-to · rich-face-piece-of · [[Floquet Time-Modulated Loops]] connects-to · starts where its multipliers piece ends · [[Progressive Staging]] exemplifies · a walk up to its test
+  forward_vector: I am the bifurcations section as a walk of five steps: a damped ring and its two multipliers alone, then
+    the pump pushing one of them out at −1, then at +1, then the pair that leaves off the axis, and last the test of the
+    section's claim that the kind of crossing sets the kind of thing born, each with its own sound. I want the three
+    crossings to be three things you can tell apart by ear and by a stroboscope, and I say plainly where the page's
+    names hold and where this resonator says otherwise.
+  dress: Loudon Live house style, Graphite skin, tokens inlined. Equations twice, symbols and words.
+  engine: the script marked id="ft-engine": Ring (x'' + (κ + βx²)x' + (a − 2q cos 2t)x = σ·noise, symplectic Euler,
+    two steps per sample, t in units of 1/(2π·220) s so the pump is 440 Hz and a = 1 rings at 220 Hz) renders every run
+    offline; what you hear is the run that is drawn. monodromy() integrates one pump period by RK4 and its eigenvalues
+    are the multipliers.
+  checks: Floquet Theory — proof — rich checks.mjs, beside this file, pulls the ft-engine script out of this file and
+    re-runs each claim in Node.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:size" content="flow">
+<title>Three ways out of the circle</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Manrope:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root { --bg:#0a0a0f; --e1:#12121a; --e2:#1a1a28; --border:#4a4a5e; --soft:rgba(255,255,255,.06);
+    --fg1:#e8e8f0; --fg2:#c8c8d8; --fg3:#8a8aa0; --fg4:#4a4a5a; --amber:#e8b84a; --amberline:rgba(232,184,74,.5);
+    --cyan:#6aa8e8; --cyanline:rgba(106,168,232,.55);
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --sans:'Manrope',system-ui,sans-serif; --serif:'Cormorant Garamond',Georgia,serif;
+    --ease:cubic-bezier(.4,0,.2,1); }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); font-weight: 300; }
+  .ft-piece { padding: 22px 22px 16px; max-width: 1100px; }
+  .ft-kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; }
+  .ft-title { font-family: var(--serif); font-size: 28px; font-weight: 300; color: var(--fg1); margin: 0 0 6px; }
+  .ft-sub { font-size: 14px; line-height: 1.6; max-width: 76ch; margin: 0 0 16px; }
+  .ft-rail { display: flex; flex-wrap: wrap; margin-bottom: 14px; border: 1px solid var(--border); width: fit-content; max-width: 100%; border-radius: 2px; }
+  .ft-rail button { border: 0; border-right: 1px solid var(--border); border-radius: 0; }
+  .ft-rail button:last-child { border-right: 0; }
+  button { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--fg2); background: var(--bg);
+    border: 1px solid var(--border); border-radius: 2px; padding: 8px 12px; cursor: pointer; transition: color 220ms var(--ease), border-color 220ms var(--ease); }
+  button:hover { border-color: rgba(232,184,74,.55); color: var(--fg1); }
+  button:disabled { opacity: .4; cursor: default; }
+  button[aria-pressed="true"] { color: var(--amber); border-color: var(--amberline); background: rgba(232,184,74,.08); }
+  .ft-rail button[aria-pressed="true"] { border-right: 1px solid var(--border); }
+  button.ft-go { color: var(--amber); border-color: var(--amberline); min-width: 120px; }
+  button.ft-go.ft-on { box-shadow: 0 0 14px rgba(232,184,74,.22); }
+  button:focus-visible, input:focus-visible { outline: 1px dashed var(--amber); outline-offset: 2px; }
+  .ft-step { display: none; border: 1px solid var(--soft); background: var(--e1); border-radius: 2px; padding: 16px 16px 14px; }
+  .ft-step.ft-shown { display: block; }
+  .ft-step h2 { font-family: var(--serif); font-weight: 400; font-size: 23px; color: var(--fg1); margin: 0 0 4px; }
+  .ft-idea { font-size: 14.5px; line-height: 1.6; color: var(--fg1); max-width: 78ch; margin: 0 0 12px; }
+  .ft-p { font-size: 13.5px; line-height: 1.6; max-width: 78ch; margin: 8px 0; }
+  .ft-label { font-family: var(--mono); font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--fg3); margin: 10px 0 6px; display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+  canvas { display: block; width: 100%; background: var(--bg); border: 1px solid var(--soft); border-radius: 2px; touch-action: none; }
+  .ft-two { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 10px; }
+  .ft-row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 10px 0; }
+  .ft-row label { font-family: var(--mono); font-size: 11px; color: var(--fg3); letter-spacing: .08em; min-width: 11ch; }
+  input[type=range] { accent-color: var(--amber); flex: 1; min-width: 160px; max-width: 420px; }
+  .ft-val { font-family: var(--mono); font-size: 12px; color: var(--fg1); min-width: 9ch; font-variant-numeric: tabular-nums; }
+  .ft-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 8px; margin: 10px 0; }
+  .ft-cell { border: 1px solid var(--soft); background: var(--bg); border-radius: 2px; padding: 8px 10px; }
+  .ft-cell .ft-k { font-family: var(--mono); font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--fg3); }
+  .ft-cell .ft-v { font-family: var(--mono); font-size: 15px; color: var(--fg1); font-variant-numeric: tabular-nums; margin-top: 2px; }
+  .ft-cell.ft-a .ft-v { color: var(--amber); } .ft-cell.ft-c .ft-v { color: var(--cyan); }
+  .ft-eq { border-left: 2px solid var(--amberline); padding: 6px 12px; margin: 12px 0; }
+  .ft-eq .ft-sym { font-family: var(--mono); font-size: 15px; color: var(--fg1); }
+  .ft-eq .ft-words { font-family: var(--serif); font-style: italic; font-size: 16px; color: var(--fg2); margin-top: 2px; }
+  .ft-test { font-size: 14px; line-height: 1.6; color: var(--fg1); border: 1px solid var(--soft); background: var(--e2); padding: 10px 12px; border-radius: 2px; max-width: 86ch; margin: 12px 0 4px; }
+  .ft-test b { color: var(--amber); font-weight: 500; }
+  .ft-note { font-family: var(--mono); font-size: 11px; color: var(--fg3); line-height: 1.6; margin: 6px 0 0; }
+  .ft-scroll { overflow-x: auto; }
+  table.ft-t { border-collapse: collapse; font-family: var(--mono); font-size: 12px; margin: 10px 0; }
+  table.ft-t th, table.ft-t td { border: 1px solid var(--soft); padding: 4px 10px; text-align: right; font-variant-numeric: tabular-nums; vertical-align: top; }
+  table.ft-t th { color: var(--fg3); font-weight: 400; letter-spacing: .08em; }
+  table.ft-t td:first-child, table.ft-t th:first-child { text-align: left; }
+  table.ft-t td.ft-l { text-align: left; }
+  .ft-nav { display: flex; justify-content: space-between; margin-top: 12px; }
+  .ft-foot { display: flex; align-items: center; gap: 8px; margin-top: 16px; font-family: var(--mono); font-size: 11px; letter-spacing: .14em; color: var(--fg3); }
+  .ft-foot i { color: var(--amber); font-weight: 300; }
+  .ft-legend { font-family: var(--mono); font-size: 11px; color: var(--fg3); }
+  .ft-legend .ft-sw { display: inline-block; width: 18px; height: 3px; vertical-align: middle; margin: 0 4px 0 10px; }
+</style>
+</head>
+<body>
+<main class="ft-piece">
+  <div class="ft-kicker">Floquet · stability boundaries and bifurcations</div>
+  <h1 class="ft-title">Three ways out of the circle</h1>
+  <p class="ft-sub">The page says a stability boundary is where a multiplier crosses the unit circle, and that the kind of crossing, at −1, at +1, or as a pair off the axis, sets the kind of thing that happens, each with its own sound. Five steps build up to that: one damped ring and its two multipliers, the pump pushing one out at −1, then at +1, then a pair leaving together, and last the test. Every run is rendered here and played as drawn.</p>
+  <nav class="ft-rail" aria-label="steps">
+    <button data-go="1" aria-pressed="true">1 · the ring alone</button>
+    <button data-go="2" aria-pressed="false">2 · out at −1</button>
+    <button data-go="3" aria-pressed="false">3 · out at +1</button>
+    <button data-go="4" aria-pressed="false">4 · a pair off the axis</button>
+    <button data-go="5" aria-pressed="false">5 · what each one makes</button>
+  </nav>
+
+  <section class="ft-step ft-shown" data-step="1">
+    <h2>1 · One ring, two multipliers</h2>
+    <p class="ft-idea">A resonator struck once, with no pump yet. Watch it once per pump period (440 times a second) and each look finds the ring smaller by the same factor and turned by the same angle. Those two numbers are the multipliers, a pair, and with damping they sit on a circle a little inside the unit circle. The pitch sets their angle: at 220 Hz, half the pump's rate, the pair sits together near −1; at 440 Hz, the pump's own rate, near +1. The plane is drawn with its radius stretched about the unit circle, ten times, so a difference in the third decimal shows.</p>
+    <div class="ft-row"><label for="a1">pitch, a</label><input id="a1" type="range" min="0.5" max="5" step="0.01" value="1"><span class="ft-val" id="a1v"></span>
+      <button data-a1="1">220 Hz · a = 1</button><button data-a1="2.4">341 Hz · a = 2.4</button><button data-a1="4">440 Hz · a = 4</button></div>
+    <div class="ft-row"><label for="k1">damping, κ</label><input id="k1" type="range" min="0.002" max="0.02" step="0.001" value="0.005"><span class="ft-val" id="k1v"></span>
+      <button class="ft-go" data-play="1" data-label="strike it">strike it</button></div>
+    <div class="ft-two"><div><div class="ft-label"><span>the multipliers</span><span>unit circle blue · the damping’s circle dashed</span></div><canvas id="p1"></canvas></div>
+      <div><div class="ft-label"><span>stroboscope · (x, ẋ) once per pump period</span></div><canvas id="s1"></canvas></div></div>
+    <div class="ft-label"><span>level of the run · measured, and the slope the multipliers predict (dashed)</span></div><canvas id="e1"></canvas>
+    <div class="ft-grid">
+      <div class="ft-cell ft-a"><div class="ft-k">ρ₁, ρ₂</div><div class="ft-v" id="r1a"></div></div>
+      <div class="ft-cell ft-c"><div class="ft-k">|ρ| · e^(−κπ/2)</div><div class="ft-v" id="r1b"></div></div>
+      <div class="ft-cell"><div class="ft-k">fade · predicted / measured</div><div class="ft-v" id="r1g"></div></div>
+      <div class="ft-cell"><div class="ft-k">pitch heard</div><div class="ft-v" id="r1f"></div></div>
+    </div>
+    <div class="ft-eq"><div class="ft-sym">ρ = e^(−κπ/2) · e^(±i·√a·π)</div>
+      <div class="ft-words">each pump period the ring comes back smaller by e to the minus κπ over two, and turned by √a half-turns</div></div>
+    <p class="ft-test" id="t1"></p>
+  </section>
+
+  <section class="ft-step" data-step="2">
+    <h2>2 · Out at −1</h2>
+    <p class="ft-idea">Now pump the stiffness at 440 Hz, twice the ring's 220. The pair that sat together near −1 splits along the real axis: one multiplier slides toward 0, the other toward −1. Below the threshold the pump only slows the fade; at it the ring hangs; past it the ring grows out of the whisper. The stroboscope shows why this is period doubling: each look finds the state on the other side.</p>
+    <div class="ft-row"><label for="q2">pump depth, q</label><input id="q2" type="range" min="0" max="0.03" step="0.0005" value="0.01"><span class="ft-val" id="q2v"></span></div>
+    <div class="ft-row"><button data-q2="0.0025">below</button><button data-q2="0.005">at the threshold</button><button data-q2="0.01">above</button><button data-q2="0.02">well above</button>
+      <button class="ft-go" data-play="2" data-label="play the run">play the run</button><span class="ft-legend">κ = 0.005, a = 1 (220 Hz), pump 440 Hz</span></div>
+    <div class="ft-two"><div><div class="ft-label"><span>the multipliers · their path as q rises (faint)</span></div><canvas id="p2"></canvas></div>
+      <div><div class="ft-label"><span>stroboscope · even looks amber, odd looks blue</span></div><canvas id="s2"></canvas></div></div>
+    <div class="ft-label"><span>level of the run · measured, and the slope the multipliers predict (dashed)</span></div><canvas id="e2"></canvas>
+    <div class="ft-grid">
+      <div class="ft-cell ft-a"><div class="ft-k">ρ₁, ρ₂</div><div class="ft-v" id="r2a"></div></div>
+      <div class="ft-cell ft-c"><div class="ft-k">threshold, q_c</div><div class="ft-v" id="r2b"></div></div>
+      <div class="ft-cell"><div class="ft-k">per second · predicted / measured</div><div class="ft-v" id="r2g"></div></div>
+      <div class="ft-cell"><div class="ft-k">pitch heard</div><div class="ft-v" id="r2f"></div></div>
+    </div>
+    <div class="ft-eq"><div class="ft-sym">ρ → −1  :  x(t + T) = −x(t)</div>
+      <div class="ft-words">a multiplier at minus one brings the state back upside down after one pump period, so the ring repeats only every two: it sounds at half the pump's rate</div></div>
+    <p class="ft-test" id="t2"></p>
+  </section>
+
+  <section class="ft-step" data-step="3">
+    <h2>3 · Out at +1</h2>
+    <p class="ft-idea">Tune the ring up to 440 Hz, the pump's own rate, and pump again. Now the pair splits near +1, and the one that leaves does so through +1. It takes a much deeper pump with the same damping, because this is the second tongue. Past it the ring grows again, but the stroboscope tells a different story: each look finds the state on the same side.</p>
+    <div class="ft-row"><label for="q3">pump depth, q</label><input id="q3" type="range" min="0" max="0.5" step="0.005" value="0.35"><span class="ft-val" id="q3v"></span></div>
+    <div class="ft-row"><button data-q3="0.15">below</button><button data-q3="0.2">at the threshold</button><button data-q3="0.35">above</button>
+      <button class="ft-go" data-play="3" data-label="play the run">play the run</button><span class="ft-legend" id="l3"></span></div>
+    <div class="ft-two"><div><div class="ft-label"><span>the multipliers · their path as q rises (faint)</span></div><canvas id="p3"></canvas></div>
+      <div><div class="ft-label"><span>stroboscope · even looks amber, odd looks blue</span></div><canvas id="s3"></canvas></div></div>
+    <div class="ft-label"><span>level of the run · measured, and the slope the multipliers predict (dashed)</span></div><canvas id="e3"></canvas>
+    <div class="ft-grid">
+      <div class="ft-cell ft-a"><div class="ft-k">ρ₁, ρ₂</div><div class="ft-v" id="r3a"></div></div>
+      <div class="ft-cell ft-c"><div class="ft-k">threshold, q_c</div><div class="ft-v" id="r3b"></div></div>
+      <div class="ft-cell"><div class="ft-k">per second · predicted / measured</div><div class="ft-v" id="r3g"></div></div>
+      <div class="ft-cell"><div class="ft-k">pitch heard</div><div class="ft-v" id="r3f"></div></div>
+    </div>
+    <div class="ft-eq"><div class="ft-sym">ρ → +1  :  x(t + T) = x(t)</div>
+      <div class="ft-words">a multiplier at plus one brings the state back the same way up after one pump period: the ring repeats every period and sounds at the pump's own rate</div></div>
+    <p class="ft-test" id="t3"></p>
+  </section>
+
+  <section class="ft-step" data-step="4">
+    <h2>4 · A pair off the axis</h2>
+    <p class="ft-idea">The third way out is a pair leaving together, off the real axis. Set the ring between the tongues, at 341 Hz, and push the pump as hard as you like: the pair turns, but it never moves out. Their product is fixed by the damping alone, and a pair off the axis shares one size, so the pump can't touch it. Only one thing moves it: turn the damping negative, a ring that feeds itself. Then the pair leaves together and the ring grows at its own pitch, owing nothing to the pump.</p>
+    <div class="ft-row"><label for="q4">pump depth, q</label><input id="q4" type="range" min="0" max="0.3" step="0.005" value="0.15"><span class="ft-val" id="q4v"></span></div>
+    <div class="ft-row"><label for="k4">damping, κ</label><input id="k4" type="range" min="-0.006" max="0.006" step="0.0005" value="0.005"><span class="ft-val" id="k4v"></span>
+      <button data-k4="0.005">damped</button><button data-k4="-0.005">feeding itself</button>
+      <button class="ft-go" data-play="4" data-label="play the run">play the run</button></div>
+    <div class="ft-two"><div><div class="ft-label"><span>the multipliers · their path as q rises (faint)</span></div><canvas id="p4"></canvas></div>
+      <div><div class="ft-label"><span>stroboscope · once per pump period</span></div><canvas id="s4"></canvas></div></div>
+    <div class="ft-label"><span>level of the run · measured, and the slope the multipliers predict (dashed)</span></div><canvas id="e4"></canvas>
+    <div class="ft-grid">
+      <div class="ft-cell ft-a"><div class="ft-k">ρ₁, ρ₂</div><div class="ft-v" id="r4a"></div></div>
+      <div class="ft-cell ft-c"><div class="ft-k">|ρ₁| = |ρ₂| · e^(−κπ/2)</div><div class="ft-v" id="r4b"></div></div>
+      <div class="ft-cell"><div class="ft-k">per second · predicted / measured</div><div class="ft-v" id="r4g"></div></div>
+      <div class="ft-cell"><div class="ft-k">pitch · predicted / heard</div><div class="ft-v" id="r4f"></div></div>
+    </div>
+    <div class="ft-eq"><div class="ft-sym">ρ₁ · ρ₂ = det M = e^(−κπ)</div>
+      <div class="ft-words">the two multipliers multiply to a number set by the damping alone; off the axis they are mirror images and share one size, so only the damping can carry them out</div></div>
+    <p class="ft-test" id="t4"></p>
+  </section>
+
+  <section class="ft-step" data-step="5">
+    <h2>5 · What each crossing makes</h2>
+    <p class="ft-idea">The test. For each way out, the multiplier the monodromy predicts against the growth the engine measures, the pitch against the one the crossing calls for, and what settles once the soft brake catches the ring: eight runs from eight different whispers, read on the stroboscope. One point that flips side each look is a ring at twice the period. One point that stays put, but on a side the whisper chose, is two mirror rings born at once. A closed curve of points is a ring on a torus, keeping a pitch of its own.</p>
+    <div class="ft-row"><button class="ft-go" id="go5" data-label="run the test again">run the test again</button><span class="ft-legend" id="l5"></span></div>
+    <div class="ft-row"><span class="ft-legend">the first run of each, from a whisper:</span><button data-hear="0" data-label="hear −1">hear −1</button><button data-hear="1" data-label="hear +1">hear +1</button><button data-hear="2" data-label="hear the pair">hear the pair</button></div>
+    <div class="ft-scroll"><table class="ft-t" id="tab5"></table></div>
+    <canvas id="s5"></canvas>
+    <p class="ft-note">The three stroboscopes above are the last 200 looks of one run each, at the settings in the table.</p>
+    <p class="ft-test" id="t5"></p>
+  </section>
+
+  <div class="ft-nav"><button id="back">back</button><button id="next">next</button></div>
+  <div class="ft-foot">
+    <svg width="22" height="22" viewBox="-11 -11 22 22" aria-hidden="true"><circle r="10" fill="none" stroke="#4a4a5e" stroke-width="1"/><path id="sig" fill="none" stroke="#e8b84a" stroke-width="1"/></svg>
+    <span>Loud’n <i>Live</i></span>
+  </div>
+</main>
+<script id="ft-engine">
+/* The resonator, in Mathieu time: one unit of t is 1/(2π·220) s, so the pump cos 2t is 440 Hz and a = 1 rings at 220 Hz.
+     x'' + (κ + β x²) x' + (a − 2q cos 2t) x = σ·noise
+   κ the damping (negative feeds the ring), β x² a soft brake that only matters once the ring is loud, σ the
+   whisper it can grow from. Symplectic Euler, two steps per sample. Every pump period (t = π) it keeps the
+   state (x, ẋ): the stroboscope. The same class runs in the AudioWorklet and, for the tests, on the page. */
+class Ring {
+  constructor(sr, seed) {
+    this.sr = sr; this.os = 2; this.dt = 2 * Math.PI * 220 / sr / this.os; this.sq = Math.sqrt(this.dt);
+    this.x = 0; this.v = 0; this.t = 0;
+    this.p = { a: 1, q: 0, kappa: 0.005, beta: 0.2, sigma: 1e-4 };
+    this.seed = (seed >>> 0) || 1; this.spare = null; this.strobe = null;
+  }
+  rand() { let t = (this.seed = (this.seed + 0x6D2B79F5) >>> 0); t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }
+  gauss() {
+    if (this.spare !== null) { const g = this.spare; this.spare = null; return g; }
+    let u = 0; while (u < 1e-12) u = this.rand(); const w = this.rand(), r = Math.sqrt(-2 * Math.log(u));
+    this.spare = r * Math.sin(2 * Math.PI * w); return r * Math.cos(2 * Math.PI * w);
+  }
+  set(o) { for (const k in o) if (k in this.p) this.p[k] = o[k]; }
+  pluck(e) { this.v += e; }
+  reset() { this.x = 0; this.v = 0; this.t = 0; }
+  tick() {
+    const p = this.p, dt = this.dt;
+    for (let s = 0; s < this.os; s++) {
+      const x = this.x;
+      this.v += dt * (-(p.kappa + p.beta * x * x) * this.v - (p.a - 2 * p.q * Math.cos(2 * this.t)) * x) + (p.sigma ? p.sigma * this.sq * this.gauss() : 0);
+      this.x += dt * this.v;
+      this.t += dt; if (this.t >= Math.PI) { this.t -= Math.PI; if (this.strobe) this.strobe.push(this.x, this.v); }
+    }
+    return this.x;
+  }
+  /* n samples offline: the signal, and every pump period's (x, ẋ) */
+  render(n) { const x = new Float32Array(n); this.strobe = []; for (let i = 0; i < n; i++) x[i] = this.tick(); const s = this.strobe; this.strobe = null; return { x, strobe: s }; }
+}
+/* One pump period of the linear part (no whisper, no brake): the monodromy M, by RK4 from (1,0) and (0,1).
+   Row-major [m00, m01, m10, m11]; its columns are where those two starts land at t = π. */
+function monodromy(a, q, kappa, N) {
+  N = N || 256; const h = Math.PI / N, M = [0, 0, 0, 0];
+  const f = (t, x, v) => -kappa * v - (a - 2 * q * Math.cos(2 * t)) * x;
+  for (let c = 0; c < 2; c++) {
+    let x = c ? 0 : 1, v = c ? 1 : 0, t = 0;
+    for (let i = 0; i < N; i++) {
+      const k1x = v, k1v = f(t, x, v);
+      const k2x = v + h / 2 * k1v, k2v = f(t + h / 2, x + h / 2 * k1x, v + h / 2 * k1v);
+      const k3x = v + h / 2 * k2v, k3v = f(t + h / 2, x + h / 2 * k2x, v + h / 2 * k2v);
+      const k4x = v + h * k3v, k4v = f(t + h, x + h * k3x, v + h * k3v);
+      x += h / 6 * (k1x + 2 * k2x + 2 * k3x + k4x); v += h / 6 * (k1v + 2 * k2v + 2 * k3v + k4v); t += h;
+    }
+    M[c] = x; M[2 + c] = v;
+  }
+  return M;
+}
+/* The two multipliers, the eigenvalues of M, as [re, im] pairs. */
+function multipliers(M) {
+  const tr = M[0] + M[3], det = M[0] * M[3] - M[1] * M[2], disc = tr * tr - 4 * det;
+  if (disc >= 0) { const r = Math.sqrt(disc); return { tr, det, real: true, r1: [(tr + r) / 2, 0], r2: [(tr - r) / 2, 0] }; }
+  const r = Math.sqrt(-disc) / 2; return { tr, det, real: false, r1: [tr / 2, r], r2: [tr / 2, -r] };
+}
+const mag = (r) => Math.hypot(r[0], r[1]);
+const rhoMax = (m) => Math.max(mag(m.r1), mag(m.r2));
+/* Where growth starts: q along a fixed a, bisected on |ρ|max = 1. */
+function onsetQ(a, kappa, qHi) {
+  let lo = 0, hi = qHi || 2; if (rhoMax(multipliers(monodromy(a, hi, kappa))) <= 1) return null;
+  for (let i = 0; i < 50; i++) { const m = (lo + hi) / 2; if (rhoMax(multipliers(monodromy(a, m, kappa))) > 1) hi = m; else lo = m; }
+  return (lo + hi) / 2;
+}
+/* Measured, from a run: growth per pump period (geometric mean of state-size ratios over strobes i0..i1),
+   whether the strobe flips side each period, and the pitch by zero crossings over samples j0..j1. */
+function growth(st, i0, i1) { const n = (i) => Math.hypot(st[2 * i], st[2 * i + 1] / 2); return Math.pow(n(i1) / n(i0), 1 / (i1 - i0)); }
+function flips(st, i0, i1) { let f = 0, c = 0; for (let i = i0; i < i1; i++) { c++; if (st[2 * i] * st[2 * i + 2] < 0) f++; } return f / c; }
+function pitch(x, j0, j1, sr) { let z = 0, f0 = -1, f1 = -1; for (let j = j0 + 1; j < j1; j++) if (x[j - 1] <= 0 && x[j] > 0) { const fr = j - 1 + (-x[j - 1]) / (x[j] - x[j - 1]); if (f0 < 0) f0 = fr; f1 = fr; z++; } return z > 2 ? (z - 1) * sr / (f1 - f0) : 0; }
+</script>
+<script>
+/* The page: canvases, the step rail, playback of the run that is drawn. Sound starts only on a click. */
+const $ = (id) => document.getElementById(id);
+const COL = { bg: '#0a0a0f', fg1: '#e8e8f0', fg2: '#c8c8d8', fg3: '#8a8aa0', fg4: '#4a4a5a', amber: '#e8b84a', cyan: '#6aa8e8', grid: 'rgba(255,255,255,.07)' };
+const SR = 48000, SECS = 5, PUMP = 440, KAP = 0.005;
+const dB = (v) => 20 * Math.log10(Math.max(v, 1e-9));
+const cpx = (r) => Math.abs(r[1]) < 5e-7 ? r[0].toFixed(4) : r[0].toFixed(3) + (r[1] < 0 ? '−' : '+') + Math.abs(r[1]).toFixed(3) + 'i';
+function cv(id, ratio, hMin) {
+  const c = $(id), dpr = window.devicePixelRatio || 1, w = c.clientWidth || 500;
+  const h = Math.max(hMin || 120, Math.round(w * ratio));
+  if (c.width !== Math.round(w * dpr) || c.height !== Math.round(h * dpr)) { c.width = Math.round(w * dpr); c.height = Math.round(h * dpr); c.style.height = h + 'px'; }
+  const g = c.getContext('2d'); g.setTransform(dpr, 0, 0, dpr, 0, 0); g.clearRect(0, 0, w, h); g.fillStyle = COL.bg; g.fillRect(0, 0, w, h);
+  g.font = '11px JetBrains Mono, monospace'; return { g, w, h };
+}
+function sigil() { let d = ''; for (let i = 0; i <= 200; i++) { const t = i / 200 * 2 * Math.PI; d += (i ? 'L' : 'M') + (8 * Math.sin(3 * t + Math.PI / 4)).toFixed(2) + ' ' + (8 * Math.sin(2 * t)).toFixed(2); } $('sig').setAttribute('d', d); }
+
+/* one run, as heard: struck softly, then left to the pump and the whisper */
+function runCase(p, seed, strike) {
+  const r = new Ring(SR, seed || 7); r.set(p); r.v = strike * Math.sqrt(Math.max(p.a, 0.05));
+  const o = r.render(SR * SECS), w = SR / 20, env = [];
+  for (let i = 0; i + w <= o.x.length; i += w) { let s = 0; for (let j = i; j < i + w; j++) s += o.x[j] * o.x[j]; env.push(dB(Math.sqrt(s / w))); }
+  const n = o.strobe.length / 2;
+  let best = 0, bi = 0; for (let k = 0; k + 20 <= env.length; k += 2) { let s = 0; for (let j = k; j < k + 20; j++) s += Math.pow(10, env[j] / 10); if (s > best) { best = s; bi = k; } }
+  return { x: o.x, strobe: o.strobe, env, pitch: pitch(o.x, bi * w, bi * w + SR, SR), flips: flips(o.strobe, n - 400, n - 1) };
+}
+/* growth per pump period measured on the engine's own linear part: no whisper, no brake */
+function measuredGrowth(p) { const r = new Ring(SR, 5); r.set(Object.assign({}, p, { beta: 0, sigma: 0 })); r.x = 0.3; r.v = 0.7; const o = r.render(SR * 3); return growth(o.strobe, 400, 1300); }
+const perSec = (rho) => 20 * Math.log10(rho) * PUMP;
+
+/* playback */
+let actx = null, src = null, playStep = 0, playT0 = 0;
+function stopSound() { if (src) { try { src.stop(); } catch (e) {} src = null; } playStep = 0; document.querySelectorAll('[data-play], [data-hear]').forEach((b) => { b.classList.remove('ft-on'); b.textContent = b.dataset.label; }); }
+async function playRun(step, x, btnEl) {
+  if (!actx) actx = new (window.AudioContext || window.webkitAudioContext)();
+  if (actx.state !== 'running') await actx.resume();
+  stopSound();
+  const b = actx.createBuffer(2, x.length, SR), L = b.getChannelData(0), R = b.getChannelData(1), fade = 480;
+  for (let i = 0; i < x.length; i++) { let y = 0.6 * Math.tanh(1.6 * x[i]); if (i < fade) y *= i / fade; if (i > x.length - fade) y *= (x.length - i) / fade; L[i] = y; R[i] = y; }
+  const comp = actx.createDynamicsCompressor(); comp.threshold.value = -12; comp.ratio.value = 3;
+  src = actx.createBufferSource(); src.buffer = b; src.connect(comp).connect(actx.destination);
+  src.onended = () => { if (playStep === step) stopSound(); };
+  src.start(); playStep = step; playT0 = actx.currentTime;
+  const btn = btnEl || document.querySelector('[data-play="' + step + '"]'); if (btn) { btn.classList.add('ft-on'); btn.textContent = 'stop'; }
+  (function tick() { if (playStep !== step) { draw(step); return; } draw(step); requestAnimationFrame(tick); })();
+}
+
+/* drawing */
+/* The multiplier plane, its radius stretched about the unit circle so that a hair's breadth shows: a point at
+   ρ = r·e^(iθ) is drawn at radius 1 + STRETCH·ln r, angle θ. The circle stays the circle; angles are true. */
+const STRETCH = 10;
+function plane(id, m, rInner, path) {
+  const { g, w, h } = cv(id, 0.78, 220), cx = w / 2, cy = h / 2, sc = Math.min(w, h) / 2 / 1.5;
+  const at = ([x, y]) => { const r = Math.hypot(x, y), R = Math.max(0.05, Math.min(1.45, 1 + STRETCH * Math.log(Math.max(r, 1e-9)))), th = Math.atan2(y, x); return [cx + R * Math.cos(th) * sc, cy - R * Math.sin(th) * sc]; };
+  g.strokeStyle = COL.grid; g.beginPath(); g.moveTo(0, cy); g.lineTo(w, cy); g.moveTo(cx, 0); g.lineTo(cx, h); g.stroke();
+  g.strokeStyle = COL.cyan; g.lineWidth = 1.5; g.beginPath(); g.arc(cx, cy, sc, 0, 7); g.stroke(); g.lineWidth = 1;
+  if (rInner && rInner !== 1) { const R = Math.max(0.05, 1 + STRETCH * Math.log(rInner)); g.setLineDash([3, 4]); g.strokeStyle = COL.fg3; g.beginPath(); g.arc(cx, cy, sc * R, 0, 7); g.stroke(); g.setLineDash([]); }
+  g.fillStyle = COL.fg3; g.fillText('−1', cx - sc - 20, cy + 14); g.fillText('+1', cx + sc + 4, cy + 14);
+  g.fillStyle = COL.fg4; g.fillText('radius drawn as 1 + ' + STRETCH + '·ln|ρ|', 8, h - 8);
+  if (path) { g.fillStyle = 'rgba(232,184,74,.3)'; path.forEach((r) => { const [X, Y] = at(r); g.fillRect(X - 1, Y - 1, 2, 2); }); }
+  [m.r1, m.r2].forEach((r) => { const [X, Y] = at(r); g.fillStyle = COL.amber; g.strokeStyle = COL.bg; g.lineWidth = 2; g.beginPath(); g.arc(X, Y, 6, 0, 7); g.fill(); g.stroke(); g.lineWidth = 1; });
+}
+function strobeDraw(id, st, a, look, parity, early) {
+  const { g, w, h } = cv(id, 0.78, 220), cx = w / 2, cy = h / 2, n0 = st.length / 2, n = early ? Math.min(n0, look) : n0, from = early ? 0 : Math.max(0, n - look);
+  const om = Math.sqrt(Math.max(a, 0.05)); let mx = 1e-9;
+  for (let i = from; i < n; i++) mx = Math.max(mx, Math.abs(st[2 * i]), Math.abs(st[2 * i + 1] / om));
+  const sc = Math.min(w, h) / 2 * 0.86 / mx;
+  g.strokeStyle = COL.grid; g.beginPath(); g.moveTo(0, cy); g.lineTo(w, cy); g.moveTo(cx, 0); g.lineTo(cx, h); g.stroke();
+  g.fillStyle = COL.fg3; g.fillText('x', w - 14, cy - 6); g.fillText('ẋ', cx + 6, 14);
+  for (let i = from; i < n; i++) {
+    const al = 0.25 + 0.75 * (i - from) / Math.max(1, n - from);
+    g.fillStyle = parity && (i % 2) ? `rgba(106,168,232,${al})` : `rgba(232,184,74,${al})`;
+    g.fillRect(cx + st[2 * i] * sc - 1.5, cy - st[2 * i + 1] / om * sc - 1.5, 3, 3);
+  }
+  g.fillStyle = COL.fg4; g.fillText((early ? 'first ' : 'last ') + Math.min(look, n) + ' looks, scaled to fit', 8, h - 8);
+}
+function envDraw(id, run, slope, step) {
+  const { g, w, h } = cv(id, 0.2, 130), x0 = 36, y = (d) => 8 + (h - 24) * (-d / 90), xs = (t) => x0 + (w - x0 - 8) * t / SECS;
+  g.strokeStyle = COL.grid; for (let d = 0; d >= -90; d -= 30) { g.beginPath(); g.moveTo(x0, y(d)); g.lineTo(w - 8, y(d)); g.stroke(); g.fillStyle = COL.fg4; g.fillText(d + '', 4, y(d) + 4); }
+  for (let s = 1; s < SECS; s++) { g.fillStyle = COL.fg4; g.fillText(s + ' s', xs(s) - 8, h - 3); }
+  const e = run.env, i0 = 3, d0 = e[i0];
+  g.setLineDash([4, 4]); g.strokeStyle = COL.cyan; g.beginPath();
+  for (let i = i0; i < e.length; i++) { const d = d0 + slope * (i - i0) / 20; if (d > 0 || d < -90) break; const X = xs(i / 20), Y = y(d); i === i0 ? g.moveTo(X, Y) : g.lineTo(X, Y); } g.stroke(); g.setLineDash([]);
+  g.strokeStyle = COL.amber; g.lineWidth = 1.5; g.beginPath(); e.forEach((d, i) => { const X = xs((i + 0.5) / 20), Y = y(Math.max(-90, d)); i ? g.lineTo(X, Y) : g.moveTo(X, Y); }); g.stroke(); g.lineWidth = 1;
+  if (playStep === step && actx) { const t = actx.currentTime - playT0; if (t < SECS) { g.strokeStyle = COL.fg2; g.beginPath(); g.moveTo(xs(t), 8); g.lineTo(xs(t), h - 16); g.stroke(); } }
+}
+/* growth slope read off the run itself, between two levels, for the readout */
+function runSlope(run) { const e = run.env, a = 4, b = Math.min(e.length - 1, 24); return (e[b] - e[a]) / ((b - a) / 20); }
+
+/* state */
+const st = { a1: 1, k1: 0.005, q2: 0.01, q3: 0.35, q4: 0.15, k4: 0.005 };
+const P = {
+  1: () => ({ a: st.a1, q: 0, kappa: st.k1, sigma: 1e-5 }),
+  2: () => ({ a: 1, q: st.q2, kappa: KAP }),
+  3: () => ({ a: 4 + st.q3 * st.q3 / 6, q: st.q3, kappa: KAP }),
+  4: () => ({ a: 2.4, q: st.q4, kappa: st.k4 }),
+};
+const runs = {}, meas = {}, paths = {};
+function pathFor(step) {
+  const out = [];
+  if (step === 1) { for (let a = 0.5; a <= 5; a += 0.03) { const m = multipliers(monodromy(a, 0, st.k1)); out.push(m.r1, m.r2); } return out; }
+  const qMax = { 2: 0.03, 3: 0.5, 4: 0.3 }[step];
+  for (let i = 0; i <= 80; i++) { const q = qMax * i / 80, p = step === 2 ? { a: 1, q, kappa: KAP } : step === 3 ? { a: 4 + q * q / 6, q, kappa: KAP } : { a: 2.4, q, kappa: st.k4 }; const m = multipliers(monodromy(p.a, p.q, p.kappa)); out.push(m.r1, m.r2); }
+  return out;
+}
+/* the threshold along each step's line, from the multipliers */
+function qc(step) {
+  const f = step === 2 ? (q) => rhoMax(multipliers(monodromy(1, q, KAP))) : (q) => rhoMax(multipliers(monodromy(4 + q * q / 6, q, KAP)));
+  let lo = 0, hi = step === 2 ? 0.03 : 0.5; for (let i = 0; i < 40; i++) { const m = (lo + hi) / 2; if (f(m) > 1) hi = m; else lo = m; } return (lo + hi) / 2;
+}
+const QC = {};
+function compute(step) {
+  const p = P[step]();
+  runs[step] = runCase(p, 7, 0.02); meas[step] = measuredGrowth(p); paths[step] = pathFor(step);
+  if (step > 1 && step < 4 && QC[step] === undefined) QC[step] = qc(step);
+}
+let pending = {};
+function schedule(step) { if (pending[step]) return; pending[step] = requestAnimationFrame(() => { pending[step] = 0; compute(step); draw(step); if (playStep === step) playRun(step, runs[step].x); }); }
+
+function draw(step) {
+  if (step === 5) return draw5();
+  const p = P[step](), M = monodromy(p.a, p.q, p.kappa), m = multipliers(M), run = runs[step];
+  const rIn = Math.exp(-p.kappa * Math.PI / 2), rho = rhoMax(m), pred = perSec(rho), got = perSec(meas[step]);
+  plane('p' + step, m, rIn, paths[step]);
+  strobeDraw('s' + step, run.strobe, p.a, step === 4 ? 600 : step === 1 ? 600 : 160, step < 4, step === 1);
+  envDraw('e' + step, run, pred, step);
+  $('r' + step + 'a').textContent = cpx(m.r1) + ',  ' + cpx(m.r2);
+  const sgn = (v) => (v >= 0 ? '+' : '−') + Math.abs(v).toFixed(1);
+  $('r' + step + 'g').textContent = sgn(pred) + ' / ' + sgn(got) + ' dB';
+  const hz = run.pitch;
+  if (step === 1) {
+    $('a1v').textContent = st.a1.toFixed(2) + ' · ' + (Math.sqrt(st.a1) * 220).toFixed(0) + ' Hz'; $('k1v').textContent = st.k1.toFixed(3);
+    $('r1b').textContent = Math.hypot(...m.r1).toFixed(5) + ' · ' + rIn.toFixed(5); $('r1f').textContent = hz.toFixed(1) + ' Hz';
+    $('t1').innerHTML = '<b>One factor, one angle.</b> Both multipliers sit at |ρ| = ' + Math.hypot(...m.r1).toFixed(5) + ', which is e^(−κπ/2) = ' + rIn.toFixed(5) + ': the damping alone sets how far inside the circle they are. That is a fade of ' + Math.abs(pred).toFixed(1) + ' dB a second, and the engine fades at ' + Math.abs(got).toFixed(1) + '. Their angle is ±' + (Math.abs(Math.atan2(m.r1[1], m.r1[0])) / Math.PI * 180).toFixed(0) + '°, the turn a ' + (Math.sqrt(st.a1) * 220).toFixed(0) + ' Hz ring makes in one 440 Hz pump period' + (Math.abs(st.a1 - 1) < 0.02 ? ': half a turn, so they sit together by −1.' : Math.abs(st.a1 - 4) < 0.02 ? ': a whole turn, so they sit together by +1.' : '.');
+  } else if (step === 4) {
+    $('q4v').textContent = st.q4.toFixed(3); $('k4v').textContent = (st.k4 >= 0 ? '+' : '−') + Math.abs(st.k4).toFixed(4);
+    const arg = Math.abs(Math.atan2(m.r1[1], m.r1[0])), fp = (2 - arg / Math.PI) * 220;
+    $('r4b').textContent = m.real ? 'on the axis' : Math.hypot(...m.r1).toFixed(6) + ' · ' + rIn.toFixed(6);
+    $('r4f').textContent = fp.toFixed(1) + ' / ' + hz.toFixed(1) + ' Hz';
+    $('t4').innerHTML = m.real ? '<b>On the axis.</b> At these settings the pair has met on the real axis; move back toward the middle of the range.'
+      : '<b>' + (p.kappa > 0 ? 'The pump turns the pair; it cannot push it out.' : p.kappa < 0 ? 'Out together, off the axis.' : 'On the circle, both of them.') + '</b> At q = ' + st.q4.toFixed(3) + ' both multipliers have |ρ| = ' + Math.hypot(...m.r1).toFixed(6) + ', and e^(−κπ/2) = ' + rIn.toFixed(6) + '. Move q anywhere from 0 to 0.3 and that number does not change in the sixth place; move κ and it does.'
+        + (p.kappa < 0 ? ' The ring grows ' + got.toFixed(1) + ' dB a second and settles at ' + hz.toFixed(1) + ' Hz, the pitch the multipliers’ angle calls for (' + fp.toFixed(1) + '), which is no simple fraction of the pump’s 440. On the stroboscope the looks go round a closed curve: never the same point twice.' : ' The ring fades, at any depth.');
+  } else {
+    const q = step === 2 ? st.q2 : st.q3, qcv = QC[step];
+    $('q' + step + 'v').textContent = q.toFixed(step === 2 ? 4 : 3);
+    if (step === 3) $('l3').textContent = 'κ = 0.005, a = ' + p.a.toFixed(4) + ' (' + (Math.sqrt(p.a) * 220).toFixed(0) + ' Hz), pump 440 Hz';
+    $('r' + step + 'b').textContent = qcv.toFixed(4);
+    $('r' + step + 'f').textContent = hz.toFixed(2) + ' Hz';
+    const where = q < qcv * 0.97 ? 'below' : q > qcv * 1.03 ? 'above' : 'at';
+    const half = step === 2, flipPct = Math.round(run.flips * 100);
+    const lead = where === 'below' ? 'Below the threshold the pump only slows the fade' : where === 'at' ? 'At the threshold the ring hangs' : 'Past the threshold the ring grows out of the whisper';
+    $('t' + step).innerHTML = '<b>' + lead + '.</b> The larger multiplier is ' + cpx(mag(m.r1) >= mag(m.r2) ? m.r1 : m.r2) + ', a rate of ' + (pred >= 0 ? '+' : '') + pred.toFixed(1) + ' dB a second, and the engine measures ' + (got >= 0 ? '+' : '') + got.toFixed(1) + '. '
+      + (where === 'below' ? 'Unpumped it would fade at ' + Math.abs(perSec(Math.exp(-KAP * Math.PI / 2))).toFixed(1) + '.' : '')
+      + ' On the stroboscope the state changes side on ' + flipPct + '% of looks' + (half ? ', and the ring sounds at ' + hz.toFixed(2) + ' Hz: half the pump. The period has doubled.' : ', and the ring sounds at ' + hz.toFixed(2) + ' Hz: the pump’s own rate. Nothing has doubled.');
+  }
+}
+
+/* step 5, the test */
+const CASES = [
+  { key: '−1', name: 'at −1 · tongue 1', p: { a: 1, q: 0.02, kappa: KAP }, calls: 'half the pump, 220 Hz', want: 220 },
+  { key: '+1', name: 'at +1 · tongue 2', p: { a: 4 + 0.35 * 0.35 / 6, q: 0.35, kappa: KAP }, calls: 'the pump, 440 Hz', want: 440 },
+  { key: 'pair', name: 'a pair off the axis', p: { a: 2.4, q: 0.15, kappa: -0.005 }, calls: 'its own, from the angle', want: null },
+];
+let test5 = null;
+function runTest() {
+  const rows = CASES.map((c) => {
+    const m = multipliers(monodromy(c.p.a, c.p.q, c.p.kappa)), pr = rhoMax(m), g = measuredGrowth(c.p);
+    const arg = Math.abs(Math.atan2(m.r1[1], m.r1[0])), want = c.want || (2 - arg / Math.PI) * 220;
+    const seeds = [], strobes = [];
+    for (let s = 1; s <= 8; s++) {
+      const r = new Ring(SR, s); r.set(c.p); const o = r.render(SR * 4), S = o.strobe, n = S.length / 2;
+      const bins = new Set(); for (let i = n - 200; i < n; i++) bins.add(Math.floor((Math.atan2(S[2 * i + 1] / Math.sqrt(c.p.a), S[2 * i]) + Math.PI) / (2 * Math.PI) * 36));
+      seeds.push({ bins: bins.size, flips: flips(S, n - 200, n - 1), side: Math.sign(S[2 * n - 2]), hz: pitch(o.x, SR * 3, SR * 4, SR) });
+      if (s === 1) { strobes.push(S); var heard = o.x; }
+    }
+    return { c, m, pr, g, want, seeds, S: strobes[0], x: heard };
+  });
+  test5 = rows;
+}
+function draw5() {
+  if (!test5) return;
+  const rows = test5;
+  const born = (r) => {
+    const all = r.seeds, fl = all.filter((s) => s.flips > 0.99).length, one = all.filter((s) => s.bins <= 2).length, ring = all.filter((s) => s.bins >= 30).length;
+    if (r.c.key === '−1') return fl + ' of 8 flip side every look: one ring at twice the period';
+    if (r.c.key === '+1') { const up = all.filter((s) => s.side > 0).length; return one + ' of 8 hold one point; ' + up + ' settle on + and ' + (8 - up) + ' on −: two mirror rings'; }
+    return ring + ' of 8 fill 30+ of 36 directions: a closed curve, a torus';
+  };
+  let html = '<tr><th>way out</th><th>ρ predicted</th><th>measured per period</th><th>pitch called for</th><th>heard (8 runs)</th><th>what settles</th></tr>';
+  rows.forEach((r) => {
+    const hz = r.seeds.map((s) => s.hz), lo = Math.min(...hz), hi = Math.max(...hz);
+    html += '<tr><td>' + r.c.name + '</td><td>' + (r.m.real ? (r.c.key === '−1' ? Math.min(r.m.r1[0], r.m.r2[0]) : Math.max(r.m.r1[0], r.m.r2[0])).toFixed(5) : '|' + r.pr.toFixed(5) + '|, off the axis') + '</td><td>' + r.g.toFixed(5) + '</td><td>' + r.want.toFixed(2) + ' Hz</td><td>' + lo.toFixed(2) + '–' + hi.toFixed(2) + ' Hz</td><td class="ft-l">' + born(r) + '</td></tr>';
+  });
+  $('tab5').innerHTML = html;
+  const { g, w, h } = cv('s5', 0.3, 170), pw = w / 3;
+  rows.forEach((r, k) => {
+    const S = r.S, n = S.length / 2, om = Math.sqrt(r.c.p.a); let mx = 1e-9; for (let i = n - 200; i < n; i++) mx = Math.max(mx, Math.abs(S[2 * i]), Math.abs(S[2 * i + 1] / om));
+    const cx = pw * k + pw / 2, cy = h / 2, sc = Math.min(pw, h) / 2 * 0.8 / mx;
+    g.strokeStyle = COL.grid; g.beginPath(); g.moveTo(pw * k + 8, cy); g.lineTo(pw * (k + 1) - 8, cy); g.moveTo(cx, 6); g.lineTo(cx, h - 20); g.stroke();
+    for (let i = n - 200; i < n; i++) { g.fillStyle = (i % 2) ? COL.cyan : COL.amber; g.fillRect(cx + S[2 * i] * sc - 2, cy - S[2 * i + 1] / om * sc - 2, 4, 4); }
+    g.fillStyle = COL.fg3; g.fillText(r.c.name, pw * k + 10, h - 6);
+  });
+  const ok1 = rows.every((r) => Math.abs(r.g - r.pr) < 2e-4);
+  const t1 = rows[0], t2 = rows[1], t3 = rows[2];
+  const pf = t2.seeds.filter((s) => s.side > 0).length;
+  $('l5').textContent = '24 runs of 4 s, rendered here';
+  $('t5').innerHTML = '<b>' + (ok1 ? 'The multipliers predict every growth' : 'A growth disagrees') + '</b>, to ' + Math.max(...rows.map((r) => Math.abs(r.g - r.pr))).toExponential(0) + ' a period. '
+    + '<b>At −1</b> the ring sounds at half the pump and flips side every look: the period doubles, as the page says. '
+    + '<b>Off the axis</b> the ring keeps a pitch of its own (' + t3.want.toFixed(1) + ' Hz called for) and the looks trace a closed curve: a torus, as the page says, but in one resonator only negative damping gets there, since the pump cannot change the pair’s size. '
+    + '<b>At +1</b> the page names a transcritical bifurcation, two states colliding and trading stability. That is not what this resonator does. The state at rest loses its stability and two new rings appear together, mirror images, and the whisper picks one: ' + pf + ' of 8 runs settled on one side, ' + (8 - pf) + ' on the other. That is a pitchfork, because the ring has no preferred sign. In general a crossing at +1 is a fold, and transcritical and pitchfork are its special cases; which one you get is set by more than the multiplier.';
+}
+
+/* the rail */
+let step = 1;
+function show(n) {
+  stopSound(); step = Math.max(1, Math.min(5, n));
+  document.querySelectorAll('.ft-step').forEach((s) => s.classList.toggle('ft-shown', +s.dataset.step === step));
+  document.querySelectorAll('.ft-rail button').forEach((b) => b.setAttribute('aria-pressed', String(+b.dataset.go === step)));
+  $('back').disabled = step === 1; $('next').disabled = step === 5;
+  if (step === 5) { if (!test5) { $('l5').textContent = 'running 24 runs…'; setTimeout(() => { runTest(); draw5(); }, 30); } else draw5(); }
+  else { if (!runs[step]) compute(step); draw(step); }
+}
+document.querySelectorAll('.ft-rail button').forEach((b) => b.addEventListener('click', () => show(+b.dataset.go)));
+$('back').addEventListener('click', () => show(step - 1)); $('next').addEventListener('click', () => show(step + 1));
+const bind = (id, key, s) => $(id).addEventListener('input', (e) => { st[key] = +e.target.value; if (key === 'k1' || key === 'k4') delete paths[s]; schedule(s); });
+bind('a1', 'a1', 1); bind('k1', 'k1', 1); bind('q2', 'q2', 2); bind('q3', 'q3', 3); bind('q4', 'q4', 4); bind('k4', 'k4', 4);
+const preset = (attr, key, id, s) => document.querySelectorAll('[' + attr + ']').forEach((b) => b.addEventListener('click', () => { st[key] = +b.getAttribute(attr); $(id).value = st[key]; schedule(s); }));
+preset('data-a1', 'a1', 'a1', 1); preset('data-q2', 'q2', 'q2', 2); preset('data-q3', 'q3', 'q3', 3); preset('data-k4', 'k4', 'k4', 4);
+document.querySelectorAll('[data-play]').forEach((b) => b.addEventListener('click', () => { const s = +b.dataset.play; if (playStep === s) { stopSound(); draw(s); } else playRun(s, runs[s].x); }));
+document.querySelectorAll('[data-hear]').forEach((b) => b.addEventListener('click', () => { const i = +b.dataset.hear; if (b.classList.contains('ft-on')) { stopSound(); return; } if (test5) playRun(5, test5[i].x, b); }));
+$('go5').addEventListener('click', () => { $('l5').textContent = 'running 24 runs…'; setTimeout(() => { runTest(); draw5(); }, 30); });
+window.addEventListener('resize', () => draw(step));
+sigil(); show(1);
+</script>
+</body>
+</html>

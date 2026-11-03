@@ -1,0 +1,318 @@
+<!doctype html>
+<!--
+  title: Floquet Theory — rich — standing on a shake
+  born: 2026-11-03
+  links: [[Floquet Theory]] connects-to · rich-face-piece-of · [[Floquet Time-Modulated Loops]] connects-to · its media-15 pendulum, tested · [[Mathieu Equation]] connects-to · the band left of a = 0 · [[Progressive Staging]] exemplifies · a walk up to its test
+  forward_vector: I am the Floquet engineering section's first example as a walk of four steps: an upside-down pendulum
+    falling, shaken slowly and still falling, shaken fast and standing, and then the test of "fast enough" against the
+    multipliers of one shake period, across every stroke and rate. I want Floquet engineering to be a thing you can
+    watch stand up, and its rule to come with the edge where it stops being true.
+  dress: Loudon Live house style, Graphite skin, tokens inlined. Equations twice, symbols and words.
+  engine: the script marked id="ft-engine": swingStep() integrates the full swing θ'' = ((g − hΩ² cos Ωt)/L)·sin θ by
+    RK4 for the animation; pair() integrates the small-θ line over one shake period (the Mathieu equation with
+    a = −4g/(LΩ²), q = 2h/L) and returns its two multipliers.
+  checks: Floquet Theory — proof — rich checks.mjs, beside this file.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:size" content="flow">
+<title>Standing on a shake</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Manrope:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root { --bg:#0a0a0f; --e1:#12121a; --e2:#1a1a28; --border:#4a4a5e; --soft:rgba(255,255,255,.06);
+    --fg1:#e8e8f0; --fg2:#c8c8d8; --fg3:#8a8aa0; --fg4:#4a4a5a; --amber:#e8b84a; --amberline:rgba(232,184,74,.5);
+    --cyan:#6aa8e8; --cyanline:rgba(106,168,232,.55);
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --sans:'Manrope',system-ui,sans-serif; --serif:'Cormorant Garamond',Georgia,serif;
+    --ease:cubic-bezier(.4,0,.2,1); }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); font-weight: 300; }
+  .ft-piece { padding: 22px 22px 16px; max-width: 1100px; }
+  .ft-kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; }
+  .ft-title { font-family: var(--serif); font-size: 28px; font-weight: 300; color: var(--fg1); margin: 0 0 6px; }
+  .ft-sub { font-size: 14px; line-height: 1.6; max-width: 76ch; margin: 0 0 16px; }
+  .ft-rail { display: flex; flex-wrap: wrap; margin-bottom: 14px; border: 1px solid var(--border); width: fit-content; max-width: 100%; border-radius: 2px; }
+  .ft-rail button { border: 0; border-right: 1px solid var(--border); border-radius: 0; }
+  .ft-rail button:last-child { border-right: 0; }
+  button { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--fg2); background: var(--bg);
+    border: 1px solid var(--border); border-radius: 2px; padding: 8px 12px; cursor: pointer; transition: color 220ms var(--ease), border-color 220ms var(--ease); }
+  button:hover { border-color: rgba(232,184,74,.55); color: var(--fg1); }
+  button:disabled { opacity: .4; cursor: default; }
+  button[aria-pressed="true"] { color: var(--amber); border-color: var(--amberline); background: rgba(232,184,74,.08); }
+  .ft-rail button[aria-pressed="true"] { border-right: 1px solid var(--border); }
+  button.ft-go { color: var(--amber); border-color: var(--amberline); min-width: 120px; }
+  button.ft-go.ft-on { box-shadow: 0 0 14px rgba(232,184,74,.22); }
+  button:focus-visible, input:focus-visible { outline: 1px dashed var(--amber); outline-offset: 2px; }
+  .ft-step { display: none; border: 1px solid var(--soft); background: var(--e1); border-radius: 2px; padding: 16px 16px 14px; }
+  .ft-step.ft-shown { display: block; }
+  .ft-step h2 { font-family: var(--serif); font-weight: 400; font-size: 23px; color: var(--fg1); margin: 0 0 4px; }
+  .ft-idea { font-size: 14.5px; line-height: 1.6; color: var(--fg1); max-width: 78ch; margin: 0 0 12px; }
+  .ft-p { font-size: 13.5px; line-height: 1.6; max-width: 78ch; margin: 8px 0; }
+  .ft-label { font-family: var(--mono); font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--fg3); margin: 10px 0 6px; display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+  canvas { display: block; width: 100%; background: var(--bg); border: 1px solid var(--soft); border-radius: 2px; touch-action: none; }
+  .ft-two { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 10px; }
+  .ft-row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 10px 0; }
+  .ft-row label { font-family: var(--mono); font-size: 11px; color: var(--fg3); letter-spacing: .08em; min-width: 11ch; }
+  input[type=range] { accent-color: var(--amber); flex: 1; min-width: 160px; max-width: 420px; }
+  .ft-val { font-family: var(--mono); font-size: 12px; color: var(--fg1); min-width: 9ch; font-variant-numeric: tabular-nums; }
+  .ft-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 8px; margin: 10px 0; }
+  .ft-cell { border: 1px solid var(--soft); background: var(--bg); border-radius: 2px; padding: 8px 10px; }
+  .ft-cell .ft-k { font-family: var(--mono); font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--fg3); }
+  .ft-cell .ft-v { font-family: var(--mono); font-size: 15px; color: var(--fg1); font-variant-numeric: tabular-nums; margin-top: 2px; }
+  .ft-cell.ft-a .ft-v { color: var(--amber); } .ft-cell.ft-c .ft-v { color: var(--cyan); }
+  .ft-eq { border-left: 2px solid var(--amberline); padding: 6px 12px; margin: 12px 0; }
+  .ft-eq .ft-sym { font-family: var(--mono); font-size: 15px; color: var(--fg1); }
+  .ft-eq .ft-words { font-family: var(--serif); font-style: italic; font-size: 16px; color: var(--fg2); margin-top: 2px; }
+  .ft-test { font-size: 14px; line-height: 1.6; color: var(--fg1); border: 1px solid var(--soft); background: var(--e2); padding: 10px 12px; border-radius: 2px; max-width: 86ch; margin: 12px 0 4px; }
+  .ft-test b { color: var(--amber); font-weight: 500; }
+  .ft-note { font-family: var(--mono); font-size: 11px; color: var(--fg3); line-height: 1.6; margin: 6px 0 0; }
+  .ft-scroll { overflow-x: auto; }
+  table.ft-t { border-collapse: collapse; font-family: var(--mono); font-size: 12px; margin: 10px 0; }
+  table.ft-t th, table.ft-t td { border: 1px solid var(--soft); padding: 4px 10px; text-align: right; font-variant-numeric: tabular-nums; vertical-align: top; }
+  table.ft-t th { color: var(--fg3); font-weight: 400; letter-spacing: .08em; }
+  table.ft-t td:first-child, table.ft-t th:first-child { text-align: left; }
+  table.ft-t td.ft-l { text-align: left; }
+  .ft-nav { display: flex; justify-content: space-between; margin-top: 12px; }
+  .ft-foot { display: flex; align-items: center; gap: 8px; margin-top: 16px; font-family: var(--mono); font-size: 11px; letter-spacing: .14em; color: var(--fg3); }
+  .ft-foot i { color: var(--amber); font-weight: 300; }
+  .ft-legend { font-family: var(--mono); font-size: 11px; color: var(--fg3); }
+  .ft-legend .ft-sw { display: inline-block; width: 18px; height: 3px; vertical-align: middle; margin: 0 4px 0 10px; }
+</style>
+</head>
+<body>
+<main class="ft-piece">
+  <div class="ft-kicker">Floquet · Floquet engineering</div>
+  <h1 class="ft-title">Standing on a shake</h1>
+  <p class="ft-sub">The page's first example of Floquet engineering: a pendulum balanced upside down falls, but shake its pivot up and down fast enough and it stands. Four steps: the fall, a slow shake that changes nothing, a fast one that holds it up, and the test of "fast enough" against the multipliers of one shake period. The rod is 20 cm; there is no friction anywhere in this piece.</p>
+  <nav class="ft-rail" aria-label="steps">
+    <button data-go="1" aria-pressed="true">1 · it falls</button>
+    <button data-go="2" aria-pressed="false">2 · a slow shake</button>
+    <button data-go="3" aria-pressed="false">3 · a fast shake</button>
+    <button data-go="4" aria-pressed="false">4 · how fast is enough?</button>
+  </nav>
+
+  <section class="ft-step ft-shown" data-step="1">
+    <h2>1 · Balanced, and falling</h2>
+    <p class="ft-idea">Stand the pendulum on its pivot, six degrees off straight up, and let go. Nothing holds it there: every degree of lean makes gravity pull it further. Read once every fiftieth of a second, the lean is multiplied by the same factor each time. That factor is a multiplier, and it is outside the unit circle.</p>
+    <div class="ft-two"><div><div class="ft-label"><span>the pendulum</span><span id="h1"></span></div><canvas id="c1"></canvas></div>
+      <div><div class="ft-label"><span>the multipliers of one fiftieth of a second</span></div><canvas id="p1"></canvas></div></div>
+    <div class="ft-row"><button class="ft-go" data-run="1" data-label="let it go">let it go</button><button data-slow="1" aria-pressed="false">slow motion, 1/20</button></div>
+    <div class="ft-eq"><div class="ft-sym">θ'' = (g / L) · θ   ⇒   ρ = e^(±√(g/L) · T)</div>
+      <div class="ft-words">the lean grows at a rate set by gravity over the rod’s length; over any stretch of time T, one multiplier grows by e to that rate times T and the other shrinks by the same</div></div>
+    <p class="ft-test" id="t1"></p>
+  </section>
+
+  <section class="ft-step" data-step="2">
+    <h2>2 · A slow shake</h2>
+    <p class="ft-idea">Now move the pivot up and down, 2 cm each way, five times a second. When the pivot accelerates upward the pendulum feels heavier; downward, lighter. At this rate gravity still wins every cycle.</p>
+    <div class="ft-two"><div><div class="ft-label"><span>the pendulum · h = 2 cm, 5 Hz</span><span id="h2"></span></div><canvas id="c2"></canvas></div>
+      <div><div class="ft-label"><span>the multipliers of one shake period</span></div><canvas id="p2"></canvas></div></div>
+    <div class="ft-row"><button class="ft-go" data-run="2" data-label="let it go">let it go</button><button data-slow="2" aria-pressed="false">slow motion, 1/20</button></div>
+    <div class="ft-eq"><div class="ft-sym">θ'' = ((g − hΩ² cos Ωt) / L) · θ</div>
+      <div class="ft-words">the pull that tips it now breathes with the shake: gravity, less the pivot’s own acceleration, over the rod’s length</div></div>
+    <p class="ft-test" id="t2"></p>
+  </section>
+
+  <section class="ft-step" data-step="3">
+    <h2>3 · A fast shake</h2>
+    <p class="ft-idea">Same stroke, faster. Somewhere past fifteen shakes a second the pendulum stops falling and wobbles about the top instead. Nothing in the static pendulum has a stable upside-down state; the shaking made one. With no friction here it never settles, it just wobbles, and its two multipliers sit on the unit circle, not inside it.</p>
+    <div class="ft-row"><label for="h3">stroke, h</label><input id="h3" type="range" min="0" max="12" step="0.1" value="2"><span class="ft-val" id="h3v"></span></div>
+    <div class="ft-row"><label for="f3">rate, f</label><input id="f3" type="range" min="0" max="1" step="0.001" value="0.7383"><span class="ft-val" id="f3v"></span></div>
+    <div class="ft-row"><button data-p3="2,50">2 cm at 50 Hz</button><button data-p3="2,15">2 cm at 15 Hz</button><button data-p3="2,17">2 cm at 17 Hz</button><button data-p3="10,60">10 cm at 60 Hz</button></div>
+    <div class="ft-two"><div><div class="ft-label"><span>the pendulum</span><span id="h3s"></span></div><canvas id="c3"></canvas></div>
+      <div><div class="ft-label"><span>the multipliers of one shake period</span></div><canvas id="p3"></canvas></div></div>
+    <div class="ft-row"><button class="ft-go" data-run="3" data-label="let it go">let it go</button><button data-slow="3" aria-pressed="false">slow motion, 1/20</button></div>
+    <div class="ft-eq"><div class="ft-sym">(h · Ω)² > 2 g L</div>
+      <div class="ft-words">Kapitza’s rule: it stands when the pivot’s top speed, squared, beats twice gravity times the rod’s length</div></div>
+    <p class="ft-test" id="t3"></p>
+  </section>
+
+  <section class="ft-step" data-step="4">
+    <h2>4 · How fast is enough?</h2>
+    <p class="ft-idea">The test. Every stroke and every rate, each decided by the multipliers of one shake period: shaded where they sit on the circle and the pendulum stands. Over it, Kapitza's rule, the curve where hΩ = √(2gL). The page says "fast enough". The map says whether that is the whole condition.</p>
+    <canvas id="m4"></canvas>
+    <div class="ft-scroll"><table class="ft-t" id="tab4"></table></div>
+    <p class="ft-test" id="t4"></p>
+  </section>
+
+  <div class="ft-nav"><button id="back">back</button><button id="next">next</button></div>
+  <div class="ft-foot">
+    <svg width="22" height="22" viewBox="-11 -11 22 22" aria-hidden="true"><circle r="10" fill="none" stroke="#4a4a5e" stroke-width="1"/><path id="sig" fill="none" stroke="#e8b84a" stroke-width="1"/></svg>
+    <span>Loud’n <i>Live</i></span>
+  </div>
+</main>
+<script id="ft-engine">
+/* An upside-down pendulum, rod L, its pivot shaken up and down: y_pivot = h cos Ωt. θ is measured from straight up.
+     θ'' = ((g − hΩ² cos Ωt) / L) · sin θ                     (the full swing, for the animation)
+     θ'' = ((g − hΩ² cos Ωt) / L) · θ                         (small θ, for the multipliers)
+   With τ = Ωt/2 the small-θ line is the Mathieu equation θ_ττ + (a − 2q cos 2τ)θ = 0, a = −4g/(LΩ²), q = 2h/L:
+   one shake period is one Mathieu period, π. Kapitza's rule, from averaging over fast shaking: it stands when
+   (hΩ)² > 2gL, which is q² > −2a. */
+const G = 9.81;
+function toMathieu(L, h, f) { const W = 2 * Math.PI * f; return { a: -4 * G / (L * W * W), q: 2 * h / L }; }
+function monodromy(a, q, N) {
+  N = N || 400; const h = Math.PI / N, M = [0, 0, 0, 0];
+  const fn = (t, x) => -(a - 2 * q * Math.cos(2 * t)) * x;
+  for (let c = 0; c < 2; c++) {
+    let x = c ? 0 : 1, v = c ? 1 : 0, t = 0;
+    for (let i = 0; i < N; i++) {
+      const k1x = v, k1v = fn(t, x), k2x = v + h / 2 * k1v, k2v = fn(t + h / 2, x + h / 2 * k1x);
+      const k3x = v + h / 2 * k2v, k3v = fn(t + h / 2, x + h / 2 * k2x), k4x = v + h * k3v, k4v = fn(t + h, x + h * k3x);
+      x += h / 6 * (k1x + 2 * k2x + 2 * k3x + k4x); v += h / 6 * (k1v + 2 * k2v + 2 * k3v + k4v); t += h;
+    }
+    M[c] = x; M[2 + c] = v;
+  }
+  return M;
+}
+/* the pair for one shake period: on the unit circle when it stands (no friction here), a real pair ρ, 1/ρ when it falls */
+function pair(L, h, f, N) {
+  const { a, q } = toMathieu(L, h, f), M = monodromy(a, q, N), ht = (M[0] + M[3]) / 2, det = M[0] * M[3] - M[1] * M[2];
+  if (Math.abs(ht) <= 1) { const s = Math.sqrt(1 - ht * ht); return { stands: true, ht, det, r1: [ht, s], r2: [ht, -s], big: 1 }; }
+  const r = ht > 0 ? ht + Math.sqrt(ht * ht - 1) : ht - Math.sqrt(ht * ht - 1);
+  return { stands: false, ht, det, r1: [r, 0], r2: [1 / r, 0], big: Math.abs(r) };
+}
+const stands = (L, h, f, N) => pair(L, h, f, N).stands;
+const kapitzaF = (L, h) => Math.sqrt(2 * G * L) / (2 * Math.PI * h);
+/* the window of shaking rates that stands it, by the multipliers: scan up from half Kapitza's rate in steps of 1 %,
+   then bisect each edge. Returns { from, to } (to = null if it still stands at fMax), or null if no rate does. */
+function standWindow(L, h, fMax) {
+  fMax = fMax || 2000; const k = 1.01, N = 200; let f = 0.5 * kapitzaF(L, h); while (f < fMax && !stands(L, h, f, N)) f *= k; if (f >= fMax) return null;
+  let lo = f / k, hi = f; for (let i = 0; i < 40; i++) { const m = (lo + hi) / 2; if (stands(L, h, m, N)) hi = m; else lo = m; } const from = hi;
+  while (f < fMax && stands(L, h, f, N)) f *= k; if (f >= fMax) return { from, to: null };
+  lo = f / k; hi = f; for (let i = 0; i < 40; i++) { const m = (lo + hi) / 2; if (stands(L, h, m, N)) lo = m; else hi = m; } return { from, to: lo };
+}
+const onsetF = (L, h, fMax) => { const w = standWindow(L, h, fMax); return w ? w.from : null; };
+/* q at which tongue 1's lower edge reaches a = 0: past it, no rate of shaking stands the pendulum */
+function strokeLimitQ() { let lo = 0.5, hi = 1.2; for (let i = 0; i < 60; i++) { const m = (lo + hi) / 2; const M = monodromy(-1e-9, m), ht = (M[0] + M[3]) / 2; if (Math.abs(ht) < 1) lo = m; else hi = m; } return (lo + hi) / 2; }
+/* the full swing, one RK4 step of size dt from time t */
+function swingStep(s, L, h, f, dt) {
+  const W = 2 * Math.PI * f, acc = (t, th) => ((G - h * W * W * Math.cos(W * t)) / L) * Math.sin(th);
+  const t = s.t, th = s.th, w = s.w;
+  const k1t = w, k1w = acc(t, th), k2t = w + dt / 2 * k1w, k2w = acc(t + dt / 2, th + dt / 2 * k1t);
+  const k3t = w + dt / 2 * k2w, k3w = acc(t + dt / 2, th + dt / 2 * k2t), k4t = w + dt * k3w, k4w = acc(t + dt, th + dt * k3t);
+  s.th += dt / 6 * (k1t + 2 * k2t + 2 * k3t + k4t); s.w += dt / 6 * (k1w + 2 * k2w + 2 * k3w + k4w); s.t += dt;
+}
+/* run the full swing for `secs` from a tilt; return the largest tilt seen (radians), and when it passed 90° (or null) */
+function swingRun(L, h, f, tilt, secs) {
+  const s = { t: 0, th: tilt, w: 0 }, dt = Math.min(1e-3, 1 / (f * 200)); let mx = 0, fell = null;
+  while (s.t < secs) { swingStep(s, L, h, f, dt); const a = Math.abs(s.th); if (a > mx) mx = a; if (fell === null && a > Math.PI / 2) { fell = s.t; break; } }
+  return { max: mx, fell };
+}
+</script>
+<script>
+const $ = (id) => document.getElementById(id);
+const COL = { bg: '#0a0a0f', fg1: '#e8e8f0', fg2: '#c8c8d8', fg3: '#8a8aa0', fg4: '#4a4a5a', amber: '#e8b84a', cyan: '#6aa8e8', grid: 'rgba(255,255,255,.07)' };
+function cv(id, ratio, hMin) {
+  const c = $(id), dpr = window.devicePixelRatio || 1, w = c.clientWidth || 500;
+  const h = Math.max(hMin || 120, Math.round(w * ratio));
+  if (c.width !== Math.round(w * dpr) || c.height !== Math.round(h * dpr)) { c.width = Math.round(w * dpr); c.height = Math.round(h * dpr); c.style.height = h + 'px'; }
+  const g = c.getContext('2d'); g.setTransform(dpr, 0, 0, dpr, 0, 0); g.clearRect(0, 0, w, h); g.fillStyle = COL.bg; g.fillRect(0, 0, w, h);
+  g.font = '11px JetBrains Mono, monospace'; return { g, w, h };
+}
+function sigil() { let d = ''; for (let i = 0; i <= 200; i++) { const t = i / 200 * 2 * Math.PI; d += (i ? 'L' : 'M') + (8 * Math.sin(3 * t + Math.PI / 4)).toFixed(2) + ' ' + (8 * Math.sin(2 * t)).toFixed(2); } $('sig').setAttribute('d', d); }
+const L = 0.2, TILT = 6 * Math.PI / 180;
+const fOf = (u) => Math.pow(10, u * Math.log10(200));            // slider 0..1 → 1..200 Hz
+const uOf = (f) => Math.log10(f) / Math.log10(200);
+const st = { h3: 2, f3: 50, slow: { 1: false, 2: false, 3: false } };
+const SET = { 1: () => ({ h: 0, f: 50 }), 2: () => ({ h: 0.02, f: 5 }), 3: () => ({ h: st.h3 / 100, f: st.f3 }) };
+
+function plane(id, p) {
+  const { g, w, h } = cv(id, 0.78, 200), cx = w / 2, cy = h / 2, sc = Math.min(w, h) / 2 / 1.7;
+  g.strokeStyle = COL.grid; g.beginPath(); g.moveTo(0, cy); g.lineTo(w, cy); g.moveTo(cx, 0); g.lineTo(cx, h); g.stroke();
+  g.strokeStyle = COL.cyan; g.lineWidth = 1.5; g.beginPath(); g.arc(cx, cy, sc, 0, 7); g.stroke(); g.lineWidth = 1;
+  g.fillStyle = COL.fg3; g.fillText('−1', cx - sc - 20, cy + 14); g.fillText('+1', cx + sc + 4, cy + 14);
+  [p.r1, p.r2].forEach(([x, y]) => { const X = cx + Math.max(-1.62, Math.min(1.62, x)) * sc; g.fillStyle = COL.amber; g.strokeStyle = COL.bg; g.lineWidth = 2; g.beginPath(); g.arc(X, cy - y * sc, 6, 0, 7); g.fill(); g.stroke(); g.lineWidth = 1; if (Math.abs(x) > 1.62) { g.fillStyle = COL.fg3; g.fillText('→ ' + x.toFixed(1), X - 40, cy - 12); } });
+}
+const sims = {};
+function pend(step) {
+  const { g, w, h } = cv('c' + step, 0.78, 220), s = sims[step], set = SET[step](), sc = h * 0.36 / L;
+  const yp = s ? set.h * Math.cos(2 * Math.PI * set.f * s.t) : set.h, th = s ? s.th : TILT;
+  const px = w / 2, py = h * 0.66 - yp * sc;
+  g.strokeStyle = COL.grid; g.setLineDash([3, 5]); g.beginPath(); g.moveTo(px, h * 0.66); g.lineTo(px, h * 0.66 - L * sc * 1.1); g.stroke(); g.setLineDash([]);
+  g.fillStyle = '#1a1a28'; g.fillRect(px - 26, h * 0.66 - set.h * sc - 4, 52, (2 * set.h) * sc + 8 + 6);
+  g.strokeStyle = COL.fg4; g.strokeRect(px - 26, h * 0.66 - set.h * sc - 4, 52, (2 * set.h) * sc + 8 + 6);
+  const bx = px + L * sc * Math.sin(th), by = py - L * sc * Math.cos(th);
+  g.strokeStyle = COL.fg1; g.lineWidth = 3; g.beginPath(); g.moveTo(px, py); g.lineTo(bx, by); g.stroke(); g.lineWidth = 1;
+  g.fillStyle = COL.amber; g.beginPath(); g.arc(bx, by, 9, 0, 7); g.fill();
+  g.fillStyle = COL.cyan; g.beginPath(); g.arc(px, py, 4, 0, 7); g.fill();
+  g.fillStyle = COL.fg3; g.fillText('t = ' + (s ? s.t : 0).toFixed(2) + ' s', 8, 16); g.fillText('lean ' + (th * 180 / Math.PI).toFixed(1) + '°', 8, 32);
+  if (s && s.fell !== null) { g.fillStyle = COL.amber; g.fillText('fell past 90° at ' + s.fell.toFixed(2) + ' s', 8, 48); }
+  const lab = $(step === 3 ? 'h3s' : 'h' + step); if (lab) lab.textContent = s ? (s.fell !== null ? 'fallen' : s.mx < 0.5 ? 'standing' : '') : '';
+}
+let raf = 0, live = 0;
+function stopRun() { cancelAnimationFrame(raf); live = 0; document.querySelectorAll('[data-run]').forEach((b) => { b.classList.remove('ft-on'); b.textContent = b.dataset.label; }); }
+function run(step) {
+  stopRun(); const set = SET[step]; sims[step] = { t: 0, th: TILT, w: 0, mx: TILT, fell: null }; live = step;
+  const b = document.querySelector('[data-run="' + step + '"]'); b.classList.add('ft-on'); b.textContent = 'again';
+  let last = performance.now();
+  const tick = (now) => {
+    if (live !== step) return;
+    const s = sims[step], p = set(), dt = Math.min(1e-3, p.f > 0 && p.h > 0 ? 1 / (p.f * 200) : 1e-3);
+    let adv = Math.min(0.05, (now - last) / 1000) * (st.slow[step] ? 0.05 : 1); last = now;
+    while (adv > 0 && s.fell === null) { const d = Math.min(dt, adv); swingStep(s, L, p.h, p.f, d); adv -= d; const a = Math.abs(s.th); if (a > s.mx) s.mx = a; if (a > Math.PI / 2) s.fell = s.t; }
+    pend(step);
+    if (s.fell === null && s.t < 30) raf = requestAnimationFrame(tick); else stopRun();
+  };
+  raf = requestAnimationFrame(tick);
+}
+function texts(step) {
+  const set = SET[step](), p = pair(L, set.h, set.f), per = set.h > 0 ? 'one shake period' : 'one fiftieth of a second';
+  plane('p' + step, p);
+  const rule = set.h > 0 ? Math.pow(set.h * 2 * Math.PI * set.f, 2) > 2 * G * L : false;
+  const ruleTxt = set.h > 0 ? ' Kapitza’s rule says ' + (rule ? 'stand' : 'fall') + ': hΩ = ' + (set.h * 2 * Math.PI * set.f).toFixed(2) + ' m/s against √(2gL) = ' + Math.sqrt(2 * G * L).toFixed(2) + '.' : '';
+  const t = p.stands
+    ? '<b>It stands.</b> Over ' + per + ' the multipliers are ' + p.r1[0].toFixed(4) + ' ± ' + Math.abs(p.r1[1]).toFixed(4) + 'i, both exactly on the unit circle (|ρ| = 1, det M = ' + p.det.toFixed(9) + '). The lean neither grows nor fades: it wobbles.' + ruleTxt
+    : '<b>It falls.</b> Over ' + per + ' the multipliers are ' + p.r1[0].toFixed(4) + ' and ' + p.r2[0].toFixed(4) + ': one outside the circle, its partner inside, their product ' + p.det.toFixed(6) + '. Each ' + per.replace('one ', '') + ' multiplies the lean by ' + p.big.toFixed(3) + '.' + ruleTxt;
+  $('t' + step).innerHTML = t;
+  if (step === 3) { $('h3v').textContent = st.h3.toFixed(1) + ' cm'; $('f3v').textContent = st.f3.toFixed(1) + ' Hz'; }
+}
+
+/* step 4 */
+let map4 = null;
+function draw4() {
+  const { g, w, h } = cv('m4', 0.5, 300), x0 = 52, y1 = h - 34, xs = (f) => x0 + (w - x0 - 12) * Math.log10(f) / Math.log10(200), ys = (r) => y1 - (y1 - 10) * r / 0.6;
+  if (!map4) { map4 = []; for (let i = 0; i < 140; i++) for (let j = 0; j < 60; j++) { const f = Math.pow(200, (i + 0.5) / 140), r = (j + 0.5) / 60 * 0.6; if (r > 0 && stands(L, r * L, f, 200)) map4.push([i, j]); } }
+  g.fillStyle = 'rgba(106,168,232,.32)'; const cw = (w - x0 - 12) / 140, ch = (y1 - 10) / 60;
+  map4.forEach(([i, j]) => g.fillRect(x0 + i * cw, y1 - (j + 1) * ch, cw + 0.5, ch + 0.5));
+  g.strokeStyle = COL.grid; g.fillStyle = COL.fg4;
+  [1, 2, 5, 10, 20, 50, 100, 200].forEach((f) => { g.beginPath(); g.moveTo(xs(f), 10); g.lineTo(xs(f), y1); g.stroke(); g.fillText(f + '', xs(f) - 6, y1 + 14); });
+  [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6].forEach((r) => { g.beginPath(); g.moveTo(x0, ys(r)); g.lineTo(w - 12, ys(r)); g.stroke(); g.fillText(r.toFixed(1), 18, ys(r) + 4); });
+  g.fillStyle = COL.fg3; g.fillText('shake rate, Hz', w / 2 - 40, h - 4); g.save(); g.translate(10, h / 2 + 40); g.rotate(-Math.PI / 2); g.fillText('stroke h / rod L', 0, 0); g.restore();
+  g.strokeStyle = COL.amber; g.lineWidth = 2; g.beginPath(); let first = true;
+  for (let i = 0; i <= 300; i++) { const f = Math.pow(200, i / 300), r = kapitzaF(L, 1) / f / L; if (r > 0.6) continue; const X = xs(f), Y = ys(r); first ? g.moveTo(X, Y) : g.lineTo(X, Y); first = false; } g.stroke(); g.lineWidth = 1;
+  const lim = strokeLimitQ() / 2; g.setLineDash([5, 4]); g.strokeStyle = COL.fg2; g.beginPath(); g.moveTo(x0, ys(lim)); g.lineTo(w - 12, ys(lim)); g.stroke(); g.setLineDash([]);
+  g.fillStyle = COL.fg2; g.fillText('h / L = ' + lim.toFixed(3), w - 120, ys(lim) - 6);
+  g.fillStyle = COL.amber; g.fillText('Kapitza: hΩ = √(2gL)', xs(1.3), ys(0.56));
+  g.fillStyle = COL.cyan; g.fillText('shaded: stands, by the multipliers', xs(20), ys(0.05));
+  let html = '<tr><th>stroke h / L</th><th>stands from</th><th>falls again above</th><th>Kapitza’s rule: stands from</th><th>ratio</th></tr>';
+  const rows = [0.01, 0.1, 0.3, 0.45, 0.46, 0.5, 0.55, 0.6], out = [];
+  rows.forEach((r) => { const wdw = standWindow(L, r * L), k = kapitzaF(L, r * L); out.push({ r, w: wdw, k }); html += '<tr><td>' + r.toFixed(2) + '</td><td>' + (wdw ? wdw.from.toFixed(2) + ' Hz' : 'no rate') + '</td><td>' + (wdw ? (wdw.to ? wdw.to.toFixed(2) + ' Hz' : 'never, to 2 kHz') : '—') + '</td><td>' + k.toFixed(2) + ' Hz</td><td>' + (wdw ? (wdw.from / k).toFixed(4) : '—') + '</td></tr>'; });
+  $('tab4').innerHTML = html;
+  const r10 = out.find((x) => x.r === 0.1), r45 = out.find((x) => x.r === 0.45), r50 = out.find((x) => x.r === 0.5);
+  $('t4').innerHTML = '<b>For a short stroke, "fast enough" is the whole story.</b> With the stroke a tenth of the rod the multipliers stand it from ' + r10.w.from.toFixed(2) + ' Hz and Kapitza’s rule says ' + r10.k.toFixed(2) + ': within ' + ((r10.w.from / r10.k - 1) * 100).toFixed(1) + '%. Above that rate it stands at every rate tried, to 2 kHz. The rule runs a little early as the stroke grows (' + ((r45.w.from / r45.k - 1) * 100).toFixed(0) + '% at 0.45), since it is the first term of an average over fast shaking. '
+    + '<b>For a long stroke, faster topples it.</b> Past h / L = ' + lim.toFixed(3) + ' the shaded band has a top as well as a bottom: at a stroke of half the rod it stands from ' + r50.w.from.toFixed(2) + ' to ' + r50.w.to.toFixed(2) + ' Hz and falls again above, where the rule, which knows only a bottom, says it stands at every rate. At fast rates the shake itself pumps the wobble: the first Mathieu tongue reaches across a = 0 at q = ' + (2 * lim).toFixed(4) + ', which is h / L = ' + lim.toFixed(4) + '. So the condition is fast enough, and, for a stroke longer than about 0.45 of the rod, not too fast.';
+}
+
+let step = 1;
+function show(n) {
+  stopRun(); step = Math.max(1, Math.min(4, n));
+  document.querySelectorAll('.ft-step').forEach((s) => s.classList.toggle('ft-shown', +s.dataset.step === step));
+  document.querySelectorAll('.ft-rail button').forEach((b) => b.setAttribute('aria-pressed', String(+b.dataset.go === step)));
+  $('back').disabled = step === 1; $('next').disabled = step === 4;
+  if (step === 4) { $('tab4').innerHTML = '<tr><td>computing…</td></tr>'; setTimeout(draw4, 30); } else { delete sims[step]; pend(step); texts(step); }
+}
+document.querySelectorAll('.ft-rail button').forEach((b) => b.addEventListener('click', () => show(+b.dataset.go)));
+$('back').addEventListener('click', () => show(step - 1)); $('next').addEventListener('click', () => show(step + 1));
+document.querySelectorAll('[data-run]').forEach((b) => b.addEventListener('click', () => run(+b.dataset.run)));
+document.querySelectorAll('[data-slow]').forEach((b) => b.addEventListener('click', () => { const s = +b.dataset.slow; st.slow[s] = !st.slow[s]; b.setAttribute('aria-pressed', String(st.slow[s])); }));
+const upd3 = () => { stopRun(); delete sims[3]; pend(3); texts(3); };
+$('h3').addEventListener('input', (e) => { st.h3 = +e.target.value; upd3(); });
+$('f3').addEventListener('input', (e) => { st.f3 = fOf(+e.target.value); upd3(); });
+document.querySelectorAll('[data-p3]').forEach((b) => b.addEventListener('click', () => { const [hh, ff] = b.dataset.p3.split(',').map(Number); st.h3 = hh; st.f3 = ff; $('h3').value = hh; $('f3').value = uOf(ff); upd3(); }));
+window.addEventListener('resize', () => { if (step < 4) { pend(step); texts(step); } });
+sigil(); show(1);
+</script>
+</body>
+</html>
