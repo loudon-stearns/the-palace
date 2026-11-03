@@ -7,7 +7,8 @@
     one semitone step; twelve of them, which come home; the seam shown, the wrapping voice lit red with its level
     as it leaves and as it lands; then the test, done blind: twelve steps with the picture covered, and you press
     when you hear the join. Two switches pull apart what the page says hides the seam, the window and octave
-    equivalence, so the ear that plays me can find which one does the forgiving. I am a proposal until Loudon
+    equivalence, and two named comparisons read them, so the ear that plays me can find which one does
+    the forgiving. The window is session 2's, named so since the 2026-11-03 challenge. I am a proposal until Loudon
     has played me.
   dress: Loudon Live house style, Graphite skin, the Lissajous sigil in the foot.
   engine: the numbers are session-2-interactive.html's: nine sine voices C1 to C9, a Gaussian in log2(Hz) on
@@ -257,7 +258,7 @@ setInterval(() => { if (S.flash && performance.now() - S.flash.at < 1100) draw()
 
 // ───────────────────────── the blind test ─────────────────────────
 const KEY = () => (S.wide ? 'wide' : 'page') + '/' + (S.wrong ? 'wrong' : 'octave');
-const LABEL = { 'page/octave': 'the page’s window · lands on its octave', 'page/wrong': 'the page’s window · lands a semitone off', 'wide/octave': 'window opened wide · lands on its octave', 'wide/wrong': 'window opened wide · lands a semitone off' };
+const LABEL = { 'page/octave': 'session 2’s window · lands on its octave', 'page/wrong': 'session 2’s window · lands a semitone off', 'wide/octave': 'window opened wide · lands on its octave', 'wide/wrong': 'window opened wide · lands a semitone off' };
 let trialTimer = null;
 async function runTrial() {
   if (!playing) await start();
@@ -337,15 +338,15 @@ const STEPS = [
     tallyHost = el('div', {});
     const w = el('div', { class: 'fs-row' }), r = el('div', { class: 'fs-row' });
     const pick = (row, key, val) => row.querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.v === String(val))));
-    [[false, 'Window: the page’s, σ 1.6 oct'], [true, 'Window: opened wide, σ 4 oct']].forEach(([v, t]) => w.append(el('button', { 'data-v': String(v), 'aria-pressed': String(S.wide === v), onclick: () => { if (S.trial) return; S.wide = v; pick(w, 'wide', v); sound(); draw(); } }, t)));
+    [[false, 'Window: session 2’s, 600 Hz, σ 1.6 oct'], [true, 'Window: opened wide, σ 4 oct']].forEach(([v, t]) => w.append(el('button', { 'data-v': String(v), 'aria-pressed': String(S.wide === v), onclick: () => { if (S.trial) return; S.wide = v; pick(w, 'wide', v); sound(); draw(); } }, t)));
     [[false, 'Wrap lands on its octave'], [true, 'Wrap lands a semitone off']].forEach(([v, t]) => r.append(el('button', { 'data-v': String(v), 'aria-pressed': String(S.wrong === v), onclick: () => { if (S.trial) return; S.wrong = v; pick(r, 'wrong', v); } }, t)));
     const go = el('div', { class: 'fs-row' }, el('button', { class: 'fs-go', onclick: () => runTrial() }, '▸ Start a trial'), el('button', { onclick: () => guess() }, 'There'));
     setTimeout(() => renderTally(null), 0);
     return [
-      el('p', { class: 'fs-teach' }, 'The page’s claim, tested blind: the wrap costs nothing perceptually; the eye sees the join the ear forgives. A trial plays twelve steps from a random start with the picture covered. Exactly one wrap falls among them. Press THERE once, when you hear the join, and the piece tells you where it was.'),
-      el('p', { class: 'fs-teach' }, 'The page names two things that hide the seam. The window hides where the energy is; octave equivalence hides that a swap happened at all. Each switch takes one away. Open the window wide and the wrapping voice is loud at both ends. Let the wrap land a semitone off and it arrives as the wrong note. If the page is right, the page’s window with an on-octave wrap scores near chance.'),
+      el('p', { class: 'fs-teach' }, 'The page’s claim, tested blind: the wrap costs nothing perceptually; the eye sees the join the ear forgives. A trial plays twelve steps from a random start with the picture covered. Exactly one wrap falls among them. Press THERE once, when you hear the join, and the piece tells you where it was. Listen on headphones: the seam lives at the two ends of hearing, 14 kHz and 27 Hz, which laptop speakers can’t play and many ears don’t reach. A null on speakers says the rig can’t reach the ends, not that the seam is free.'),
+      el('p', { class: 'fs-teach' }, 'The page names two things that hide the seam: the window, and octave equivalence. The window here is session 2’s (600 Hz, σ 1.6 octaves); the page gives no numbers of its own. Two comparisons pull the causes apart. Session 2’s window against the wide one, both landing on the octave, gives the window’s share. The wide window landing on its octave against landing a semitone off gives octave equivalence’s share. Expect session 2’s window with a semitone-off landing to score near chance as well: the mislanded voice arrives 33 dB under the loudest and stays at least 19.8 dB down for the rest of the trial. That points at the window, not at octave equivalence doing nothing. If the page is right, session 2’s window on the octave scores near chance, and the wide window gives the seam away.'),
       w, r, go, tallyHost,
-      el('p', { class: 'fs-back' }, 'Page’s window, on its octave: this is step 4 with the picture covered. The proof this walk ends at stays as it is: session-2-interactive.html, in the bundle.'),
+      el('p', { class: 'fs-back' }, 'Session 2’s window, on its octave: this is step 4 with the picture covered. The proof this walk ends at stays as it is: session-2-interactive.html, in the bundle.'),
     ];
   } },
 ];

@@ -29,7 +29,7 @@ const near = (a, b, tol) => Math.abs(a - b) <= tol;
 
 // ───────────────────────── the still drone (Theory § Stage 1) ─────────────────────────
 {
-  const E = engine(DRONE, ['C4', 'OCTAVES', 'SIGMA', 'voiceFreq', 'wLog', 'wHz', 'weight', 'pcCents', 'stack', 'spread', 'lowShare']);
+  const E = engine(DRONE, ['C4', 'OCTAVES', 'SIGMA', 'voiceFreq', 'wLog', 'wHz', 'wBP', 'weight', 'pcCents', 'stack', 'spread', 'lowShare', 'highShare']);
   const P = 'still drone';
   // step 1
   const s1 = E.stack({ on: [4], shape: 'flat' });
@@ -47,11 +47,18 @@ const near = (a, b, tol) => Math.abs(a - b) <= tol;
   check(P, 3, 'the log2 window is symmetric in octaves: C3 = C5, C2 = C6, C1 = C7', sym);
   const one = dB(L[4].w), two = dB(L[5].w), three = dB(L[6].w);
   check(P, 3, 'one, two, three octaves from C4 cost 4.3, 17.4 and 39.1 dB (the words under the equation)', near(one, -4.34, 0.01) && near(two, -17.37, 0.01) && near(three, -39.09, 0.01), `${one.toFixed(2)} · ${two.toFixed(2)} · ${three.toFixed(2)} dB`);
-  check(P, 3, 'the Hz window is matched to the log window at C5', near(H[4].w, L[4].w, 1e-12), H[4].w.toFixed(4));
+  check(P, 3, 'the bell on a linear Hz axis is matched to the log window at C5', near(H[4].w, L[4].w, 1e-12), H[4].w.toFixed(4));
   const loL = E.lowShare(L), loH = E.lowShare(H);
-  console.log('      C1..C7 weight, log2 window: ' + L.map(v => v.w.toFixed(3)).join(' ') + '\n      C1..C7 weight, Hz window:   ' + H.map(v => v.w.toFixed(3)).join(' '));
-  check(P, 3, 'a Hz window over-weights the lower octaves (the page’s claim)', loH > 2 * loL && near(loL, (1 - L[3].w ** 2 / L.reduce((a, v) => a + v.w ** 2, 0)) / 2, 1e-9),
+  console.log('      C1..C7 weight, log2 window: ' + L.map(v => v.w.toFixed(3)).join(' ') + '\n      C1..C7 weight, linear-Hz bell: ' + H.map(v => v.w.toFixed(3)).join(' '));
+  check(P, 3, 'a bell drawn on a linear Hz axis over-weights the lower octaves', loH > 2 * loL && near(loL, (1 - L[3].w ** 2 / L.reduce((a, v) => a + v.w ** 2, 0)) / 2, 1e-9),
     `energy below C4: log2 ${(100 * loL).toFixed(1)} %, Hz ${(100 * loH).toFixed(1)} %`);
+  const B = E.stack({ shape: 'bp' });
+  console.log('      C1..C7 weight, 2-pole bandpass: ' + B.map(v => v.w.toFixed(3)).join(' '));
+  const bsym = [[2, 4], [1, 5], [0, 6]].every(([a, b]) => near(B[a].w, B[b].w, 1e-12));
+  check(P, 3, 'a real 2-pole bandpass on C4 (Q 2/3) is symmetric in octaves: C3 = C5, C2 = C6, C1 = C7', bsym && near(dB(B[2].w), -3.01, 0.01) && near(dB(B[1].w), -8.60, 0.01) && near(dB(B[0].w), -14.6, 0.05),
+    `C3 ${dB(B[2].w).toFixed(2)} · C2 ${dB(B[1].w).toFixed(2)} · C1 ${dB(B[0].w).toFixed(2)} dB`);
+  check(P, 3, 'the bandpass puts as much energy above C4 as below (28.7 % each): the page’s line-179 sentence does not hold for a real filter', near(E.lowShare(B), E.highShare(B), 1e-12) && near(E.lowShare(B), 0.287, 0.001),
+    `below ${(100 * E.lowShare(B)).toFixed(1)} %, above ${(100 * E.highShare(B)).toFixed(1)} %`);
   check(P, 3, 'flat with every octave on is step 2 again', JSON.stringify(E.stack({ on: E.OCTAVES.slice(), shape: 'flat' })) === JSON.stringify(s2));
   // the How Shepard Tones Work example, read against this window
   const ex = { C2: dB(L[1].w), C3: dB(L[2].w), C4: 0, C5: dB(L[4].w), C6: dB(L[5].w) };
@@ -100,7 +107,7 @@ let seamNumbers = {};
   check(P, 4, 'every wrap divides by exactly 512, nine octaves', minRatio === 512 && maxRatio === 512);
   check(P, 4, 'every wrap keeps its pitch class exactly', ok4);
   seamNumbers.page = worst;
-  check(P, 4, 'in the page’s window the wrapping voice leaves and lands more than 30 dB under the loudest voice', worst.leave < -30 && worst.land < -30, `loudest it leaves ${worst.leave.toFixed(1)} dB, lands ${worst.land.toFixed(1)} dB`);
+  check(P, 4, 'in session 2’s window the wrapping voice leaves and lands more than 30 dB under the loudest voice', worst.leave < -30 && worst.land < -30, `loudest it leaves ${worst.leave.toFixed(1)} dB, lands ${worst.land.toFixed(1)} dB`);
   // energy share of the wrapping voice, page vs wide
   const share = sg => { const g = E.gains(E.fresh(9), sg); const top = g.reduce((m, x, i) => x > g[m] ? i : m, 0); const sum = g.reduce((a, x) => a + x * x, 0); const hi = E.fresh(9).reduce((m, x, i, arr) => x.f > arr[m].f ? i : m, 0); return g[hi] ** 2 / sum; };
   // step 5 — the trial
@@ -121,13 +128,13 @@ let seamNumbers = {};
   let wrongPeak = -1e9;
   for (let st = 0; st < 12; st++) { const T2 = E.trial(st, true); const k = T2.wrapAt[0], id = T2.steps[k - 1].wraps[0].id; T2.steps.slice(k - 1).forEach(S => { const g = E.gain(S.voices.find(x => x.id === id).f, E.SIGMA_PAGE) / E.loudest(S.voices, E.SIGMA_PAGE); wrongPeak = Math.max(wrongPeak, dB(g)); }); }
   seamNumbers.wrongPeak = wrongPeak;
-  check(P, 5, 'in the page’s window the wrong note stays more than 15 dB under the loudest voice for the rest of a trial', wrongPeak < -15, `loudest it gets ${wrongPeak.toFixed(1)} dB`);
+  check(P, 5, 'in session 2’s window the wrong note stays more than 15 dB under the loudest voice for the rest of a trial', wrongPeak < -15, `loudest it gets ${wrongPeak.toFixed(1)} dB`);
   const mp = E.meanPower(E.SIGMA_PAGE), mw = E.meanPower(E.SIGMA_WIDE);
   check(P, 5, 'both windows play at one mean power, so loudness gives no condition away', mp > 0 && mw > 0, `mean summed power ${mp.toFixed(3)} and ${mw.toFixed(3)}, each scaled to 0.3 rms`);
   // power ripple over an octave of climb: the seam heard as a level change
   const ripple = sg => { let vv = E.fresh(0), ps = []; for (let k = 0; k < 12; k++) { ps.push(E.gains(vv, sg).reduce((a, g) => a + g * g, 0)); vv = E.step(vv, 1, false).voices; } return dB(Math.sqrt(Math.max(...ps) / Math.min(...ps))); };
   seamNumbers.ripple = { page: ripple(E.SIGMA_PAGE), wide: ripple(E.SIGMA_WIDE) };
-  console.log(`      summed level ripple over one octave of climb: page window ${seamNumbers.ripple.page.toFixed(3)} dB, wide ${seamNumbers.ripple.wide.toFixed(2)} dB`);
+  console.log(`      summed level ripple over one octave of climb: session 2’s window ${seamNumbers.ripple.page.toFixed(3)} dB, wide ${seamNumbers.ripple.wide.toFixed(2)} dB`);
 }
 
 // ───────────────────────── both pieces, in headless Chromium: the walk's rules ─────────────────────────

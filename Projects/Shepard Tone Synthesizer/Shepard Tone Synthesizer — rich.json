@@ -163,8 +163,9 @@
      "origin": "made",
      "by": "Web Audio · the Maker",
      "height": 900,
-     "caption": "**Stage 1, walked up to its test.** One sine at C4; its octaves added one at a time; the window, in log2(Hz) and in Hz; then the test: pull one voice off its octave, or stretch them all, and hear when seven sines stop being one note. The page says the still stack fuses. It doesn’t say how far a voice can stray before it is two, so that number is yours. The engine is shepard_synth.py’s: C1 to C7, σ 1 octave on C4.",
-     "near": "This is the claim the static drone makes"
+     "caption": "**Stage 1, walked up to its test.** One sine at C4; its octaves added one at a time; the window, set three ways against the page’s sentence about a bandpass in Hz (the page’s Gaussian in log2(Hz), a real 2-pole bandpass, a bell drawn on a linear Hz axis), with the energy either side of C4 for each; then the test: pull one voice off its octave, or stretch them all, and hear when seven sines stop being one note. The page says the still stack fuses. It doesn’t say how far a voice can stray before it is two, so that number is yours. The engine is shepard_synth.py’s: C1 to C7, σ 1 octave on C4.",
+     "near": "This is the claim the static drone makes",
+     "remade": "2026-11-03, after the challenge: the real bandpass added, the Hz bell named for what it is, step 3 asks instead of answering"
     },
     {
      "file": "proofs/2026-05-04-endless-ascent.wav",
@@ -178,8 +179,9 @@
      "origin": "made",
      "by": "Web Audio · the Maker",
      "height": 1000,
-     "caption": "**Stage 2, tested blind.** The still drone, one semitone step, twelve steps that come home, the seam lit red with its level as it leaves and lands. Then the test: twelve steps with the picture and the readout covered, and you press when you hear the join. Two switches take away, one at a time, the two things this section says hide the seam: open the window wide, or let the wrap land a semitone off. If the page is right, the page’s window with an on-octave wrap scores near chance. Measured, not heard: in the page’s window the wrapping voice leaves 35 dB and lands 33 dB under the loudest voice.",
-     "near": "This is the precise sense in which the Shepard illusion"
+     "caption": "**Stage 2, tested blind.** The still drone, one semitone step, twelve steps that come home, the seam lit red with its level as it leaves and lands. Then the test, on headphones: twelve steps with the picture and the readout covered, and you press when you hear the join. Two comparisons read the two things this section says hide the seam: session 2’s window against a wide one (the window’s share), and the wide window landing on its octave against a semitone off (octave equivalence’s share). The window is session 2’s, 600 Hz and σ 1.6 octaves; the page gives no numbers. Measured, not heard: in it the wrapping voice leaves 34.8 dB and lands 33.2 dB under the loudest voice.",
+     "near": "This is the precise sense in which the Shepard illusion",
+     "remade": "2026-11-03, after the challenge: session 2’s window named as such, the two comparisons named, headphones asked for"
     },
     {
      "file": "session-2-interactive.html",
@@ -350,25 +352,32 @@
   {
    "section": "Theory — Octave Equivalence",
    "kind": "claim-change",
-   "what": "Stage 2: the free-seam piece measured where the forgiving happens. In the page's window (600 Hz, σ 1.6 oct) the wrapping voice leaves 34.8 dB and lands 33.2 dB under the loudest voice, and the summed level moves 0.0003 dB across the wrap, so the window alone keeps the join quiet; octave equivalence decides what the landed voice becomes as it climbs (a wrong-landing wrap stays under −19.8 dB for the rest of a 12-step climb). 'In a world without octave equivalence that drop would be a catastrophe' may want to say that the window has already put the voice ~35 dB down at both ends. Not heard; the blind trial is for Loudon's ear.",
+   "what": "Stage 2: the free-seam piece measured where the forgiving happens, in session 2's window (600 Hz, σ 1.6 oct; the page states no window). The wrapping voice leaves 34.82 dB and lands 33.22 dB under the loudest voice, and the summed level moves 0.0002 dB across the swap, so the window alone keeps the join quiet; octave equivalence decides what the landed voice becomes as it climbs (a wrong-landing wrap stays under −19.8 dB for the rest of a 12-step climb). 'In a world without octave equivalence that drop would be a catastrophe' may want to say that the window has already put the voice ~35 dB down at both ends. Not heard; the blind trial is for Loudon's ear. Confirmed by the challenger.",
    "status": "open"
   },
   {
    "section": "How Shepard Tones Work",
    "kind": "no-claim-edit",
-   "what": "The worked example centres the window on C4 but puts C2 and C3 in the sweet spot and has C5 and C6 fading. Under any window symmetric in octaves on C4, C3 and C5 match (−4.3 dB at σ 1 oct) and C2 and C6 match (−17.4 dB). Suggest: C3, C4 and C5 in the sweet spot; C2 and C6 fading; C1 and C7 almost gone. Measured on the still-drone piece's engine.",
+   "what": "The worked example centres the window on C4 but puts C2 and C3 in the sweet spot and has C5 and C6 fading. Under any window symmetric in octaves on C4, C3 and C5 match (−4.34 dB at σ 1 oct) and C2 and C6 match (−17.37 dB); C1 and C7 sit at −39.09 dB. Suggest: C3, C4 and C5 in the sweet spot; C2 and C6 fading; C1 and C7 almost gone. The example's stack also lists C1 to C5, then has C6 fading. Confirmed by the challenger.",
    "status": "open"
   },
   {
    "section": "The Synthesizer Architecture",
    "kind": "no-claim-edit",
-   "what": "'A 2-octave window is typical (about 1.4 × center frequency)': a band from fc/2 to 2fc is 1.5 × fc wide, Q = 2/3 ≈ 0.67. Arithmetic, not a piece. 'All 128 MIDI octaves' (here and in Design Challenge 5) reads as 128 MIDI notes, about ten and a half octaves.",
+   "what": "'A 2-octave window is typical (about 1.4 × center frequency)': a band from fc/2 to 2fc is 1.5 × fc wide, Q = 2/3 ≈ 0.667 (1.4 × fc would be a 1.88-octave band). Arithmetic, not a piece. 'All 128 MIDI octaves' (here and in Design Challenge 5) reads as 128 MIDI notes, which span 10.58 octaves. Confirmed by the challenger.",
    "status": "open"
   },
   {
    "section": "Theory — Octave Equivalence",
    "kind": "no-claim-edit",
-   "what": "Stage 1 says 'Pair with Stage 1 above', and Stages 2 to 4 say the same, but the page has no Stage headings above Theory; the stages live in the scroll's plan and the bundle. Suggest 'Pair with the Stage 1 build (…)' or drop 'above'.",
+   "what": "'Pair with Stage N above' (Stages 1 to 4) points at Stage headings the page doesn't have above Theory; the only Stage headings are Theory's own ### subsections. Suggest 'Pair with the Stage 1 build (…)' or drop 'above'. Confirmed by the challenger.",
+   "status": "open"
+  },
+  {
+   "section": "Theory — Octave Equivalence",
+   "kind": "claim-change",
+   "by": "challenger · claude-opus-5-5",
+   "what": "Stage 1, line 179: 'A literal bandpass in Hz would over-emphasize the lower octaves … and break the symmetry' does not hold for a real bandpass filter. A 2-pole bandpass is geometrically symmetric about its centre (|H(f)| = |H(fc²/f)|), so on the Stage 1 stack at C4 with a 2-octave band (Q 0.667) C3 = C5 = −3.0 dB, C2 = C6 = −8.6 dB, C1 = C7 = −14.6 dB, with 28.7 % of the energy below C4 and 28.7 % above; two in series give C3 = C5 = −6.0 dB. What over-weights the lows is a window drawn symmetric on a linear Hz axis (57.0 % below C4 against 21.8 % for the log Gaussian). The live difference between a bandpass and the log Gaussian is the skirt (C1 and C7 at −14.6 dB vs −39 dB), which bears on Design Challenge 1's 'too wide … muddy'. The remade still-drone piece's step 3 now sets the three side by side.",
    "status": "open"
   }
  ]

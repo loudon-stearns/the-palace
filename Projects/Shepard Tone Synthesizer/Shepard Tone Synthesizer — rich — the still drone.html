@@ -4,13 +4,14 @@
   born: 2026-11-03
   links: [[Shepard Tone Synthesizer]] connects-to · rich-face-piece-of · [[Progressive Staging]] exemplifies · built-by-the-method
   forward_vector: I am Stage 1 of the Shepard tone as a walk of four steps, one showing at a time. One sine at
-    C4; its octaves added one by one; the window that weighs them, in log2(Hz) and in Hz; then the test: pull
+    C4; its octaves added one by one; the window that weighs them, in log2(Hz), as a real bandpass, and as a bell on a linear Hz axis; then the test: pull
     one voice off its octave, or stretch every octave, and hear when seven sines stop being one note. I end
     at the claim Theory § Stage 1 makes, that octave equivalence fuses a still stack into one pitch class, and
     I leave the verdict to the ear that plays me. I am a proposal until Loudon has played me.
   dress: Loudon Live house style, Graphite skin, the Lissajous sigil in the foot.
   engine: the numbers are shepard_synth.py's Stage 1 defaults: C1 to C7, a Gaussian in log2(Hz) centred on
-    C4 (261.63 Hz), sigma 1 octave. The Hz window is this piece's own, matched to the log window one octave up.
+    C4 (261.63 Hz), sigma 1 octave. The bandpass (2-pole, Q 2/3) and the linear-Hz bell (matched to the
+    log window one octave up) are this piece's own, set beside the page's window after the 2026-11-03 challenge.
   checks: Shepard Tone Synthesizer — proof — rich piece checks.mjs, beside this file, re-runs every step's
     claim on this file's engine, and the walk's own rules in a browser.
 -->
@@ -67,6 +68,10 @@
   .sd-eq .sd-words { font-size: 13px; line-height: 1.55; color: var(--fg2); margin: 2px 0 6px; }
   .sd-foot { margin-top: 16px; padding-top: 10px; border-top: 1px solid var(--soft); display: flex; align-items: center; gap: 10px; font-family: var(--mono); font-size: 10.5px; letter-spacing: .18em; text-transform: uppercase; color: var(--fg3); }
   .sd-foot svg { width: 22px; height: 22px; }
+  table.sd-tally { border-collapse: collapse; font-family: var(--mono); font-size: 11.5px; margin: 6px 0 4px; }
+  table.sd-tally th, table.sd-tally td { border: 1px solid var(--soft); padding: 5px 10px; text-align: left; }
+  table.sd-tally th { color: var(--fg3); font-weight: 400; }
+  table.sd-tally td b { color: var(--fg1); font-weight: 500; }
   .sd-err { color: var(--danger); font-family: var(--mono); font-size: 12px; }
 </style>
 </head>
@@ -102,7 +107,8 @@ const ENGINE_SRC = String.raw`
 const C4 = 261.6255653005986;
 const OCTAVES = [1, 2, 3, 4, 5, 6, 7];
 const SIGMA = 1.0;          // octaves, shepard_synth.py's default
-const SIGMA_HZ = C4;        // the Hz window: matched so C5 weighs the same in both
+const SIGMA_HZ = C4;        // the bell on a linear Hz axis: matched so C5 weighs the same as in log2
+const Q_BP = 2 / 3;         // a real 2-pole bandpass on C4, two octaves wide (C3 to C5 at -3 dB)
 function voiceFreq(oct, opt) {
   opt = opt || {};
   const k = oct - 4;
@@ -112,7 +118,8 @@ function voiceFreq(oct, opt) {
 }
 function wLog(f) { const d = Math.log2(f / C4); return Math.exp(-(d * d) / (2 * SIGMA * SIGMA)); }
 function wHz(f) { const d = (f - C4) / SIGMA_HZ; return Math.exp(-(d * d) / 2); }
-function weight(f, shape) { return shape === 'log' ? wLog(f) : shape === 'hz' ? wHz(f) : 1; }
+function wBP(f) { const x = f / C4 - C4 / f; return 1 / Math.sqrt(1 + Q_BP * Q_BP * x * x); }
+function weight(f, shape) { return shape === 'log' ? wLog(f) : shape === 'hz' ? wHz(f) : shape === 'bp' ? wBP(f) : 1; }
 function pcCents(f) { let c = (1200 * Math.log2(f / C4)) % 1200; if (c > 600) c -= 1200; if (c < -600) c += 1200; return c; }
 function stack(opt) {
   opt = opt || {};
@@ -135,9 +142,14 @@ function lowShare(st) { // share of the stack's energy below C4
   st.forEach(v => { const e = v.w * v.w; all += e; if (v.oct < 4) lo += e; });
   return all ? lo / all : 0;
 }
+function highShare(st) { // share of the stack's energy above C4
+  let hi = 0, all = 0;
+  st.forEach(v => { const e = v.w * v.w; all += e; if (v.oct > 4) hi += e; });
+  return all ? hi / all : 0;
+}
 `;
-const { C4, OCTAVES, SIGMA, voiceFreq, wLog, wHz, weight, pcCents, stack, spread, lowShare } =
-  new Function(ENGINE_SRC + '; return { C4, OCTAVES, SIGMA, voiceFreq, wLog, wHz, weight, pcCents, stack, spread, lowShare };')();
+const { C4, OCTAVES, SIGMA, voiceFreq, wLog, wHz, wBP, weight, pcCents, stack, spread, lowShare, highShare } =
+  new Function(ENGINE_SRC + '; return { C4, OCTAVES, SIGMA, voiceFreq, wLog, wHz, wBP, weight, pcCents, stack, spread, lowShare, highShare };')();
 
 // ───────────────────────── state ─────────────────────────
 const S = { step: 1, on: [4], shape: 'log', offOct: 5, offCents: 0, stretch: 0, mode: 'one' };
@@ -199,9 +211,9 @@ function draw() {
   if (shape !== 'flat') {
     x.beginPath();
     for (let py = 6; py <= h - 6; py += 2) { const f = Math.pow(2, lo + (h - 14 - py) / (h - 28) * (hi - lo)); const ww = weight(f, shape); const px = x0 + ww * bw; py === 6 ? x.moveTo(px, py) : x.lineTo(px, py); }
-    x.strokeStyle = shape === 'log' ? 'rgba(232,184,74,.55)' : 'rgba(74,143,255,.6)'; x.lineWidth = 1; x.stroke();
+    x.strokeStyle = shape === 'log' ? 'rgba(232,184,74,.55)' : shape === 'bp' ? 'rgba(107,212,90,.6)' : 'rgba(74,143,255,.6)'; x.lineWidth = 1; x.stroke();
     x.fillStyle = '#8a8aa0'; x.font = '10px JetBrains Mono'; x.textAlign = 'left';
-    x.fillText(shape === 'log' ? 'window in log2(Hz)' : 'window in Hz', x0 + 4, 14);
+    x.fillText(shape === 'log' ? 'Gaussian in log2(Hz)' : shape === 'bp' ? '2-pole bandpass on C4' : 'bell on a linear Hz axis', x0 + 4, 14);
   }
   st.forEach(v => {
     const py = y(v.f);
@@ -229,7 +241,7 @@ function draw() {
   // readout
   const heard = st.filter(v => v.on).length;
   const parts = ['voices sounding <b>' + heard + '</b>', 'pitch-class spread among the voices you can hear <b>' + spread(st).toFixed(1) + ' ¢</b>'];
-  if (S.step === 3) parts.push('energy below C4 <b>' + Math.round(lowShare(st) * 100) + ' %</b>');
+  if (S.step === 3) parts.push('energy below C4 <b>' + (lowShare(st) * 100).toFixed(1) + ' %</b>', 'above C4 <b>' + (highShare(st) * 100).toFixed(1) + ' %</b>');
   if (S.step === 4 && S.mode === 'one') parts.push(name(S.offOct) + ' at <b>' + (S.offCents >= 0 ? '+' : '') + S.offCents + ' ¢</b> off its octave');
   if (S.step === 4 && S.mode === 'all') parts.push('every octave <b>' + (2 * Math.pow(2, S.stretch / 1200)).toFixed(4) + ' : 1</b>');
   document.getElementById('read').innerHTML = parts.join('<span> · </span>');
@@ -269,20 +281,30 @@ const STEPS = [
   } },
   { n: 3, name: 'The window', build: () => {
     const row = el('div', { class: 'sd-row' });
-    [['flat', 'Flat'], ['log', 'Gaussian in log2(Hz)'], ['hz', 'Gaussian in Hz']].forEach(([k, t]) => {
+    const SHAPES = [['flat', 'Flat'], ['log', 'Gaussian in log2(Hz)'], ['bp', 'A real bandpass on C4'], ['hz', 'A bell on a linear Hz axis']];
+    SHAPES.forEach(([k, t]) => {
       const b = el('button', { 'aria-pressed': String(S.shape === k), 'data-shape': k, onclick: () => {
         S.shape = k; row.querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', String(x.dataset.shape === k))); changed();
         says(k === 'flat' ? 'Flat: all seven at one level. C1 and C7 sit at the edges of hearing, as loud as C4.'
-          : k === 'log' ? 'The page’s window: each octave away from C4 costs the same. C3 and C5 match, C2 and C6 match. The stack is balanced around the middle.'
-          : 'The same bell drawn in Hz, matched to the log window at C5. Every C below C4 is close to it in Hz, so they all stay loud, and the top dies. Listen to the weight sink.');
+          : k === 'log' ? 'The page’s window, a Gaussian in log2(Hz). Compare the bars above and below C4, and the energy either side.'
+          : k === 'bp' ? 'A 2-pole bandpass filter on C4, two octaves wide, the kind a synth or a DAW gives you. Is it lopsided toward the low octaves, as the page says a bandpass in Hz would be?'
+          : 'A Gaussian bell drawn symmetric on a linear Hz axis, matched to the log window at C5. Compare its bars and its energy either side of C4 with the bandpass’s.');
       } }, t);
       row.append(b);
     });
+    const table = el('table', { class: 'sd-tally' });
+    table.innerHTML = '<tr><th>window</th><th>energy below C4</th><th>above C4</th><th>C3</th><th>C5</th></tr>' + SHAPES.map(([k, t]) => {
+      const st = stack({ shape: k }), d = w => (20 * Math.log10(w)).toFixed(1) + ' dB';
+      return '<tr><td>' + t + '</td><td><b>' + (lowShare(st) * 100).toFixed(1) + ' %</b></td><td><b>' + (highShare(st) * 100).toFixed(1) + ' %</b></td><td>' + d(st[2].w) + '</td><td>' + d(st[4].w) + '</td></tr>';
+    }).join('');
     return [
-      el('p', { class: 'sd-teach' }, 'All seven, now weighed by a window centred on C4. The page draws it as a Gaussian in log2(Hz), so it is symmetric in octaves. Switch it to a Gaussian in Hz and watch the bars: the claim is that the lower octaves get too much.'),
+      el('p', { class: 'sd-teach' }, 'All seven, now weighed by a window centred on C4. The page uses a Gaussian in log2(Hz), and says a literal bandpass in Hz would over-weight the lower octaves and break the symmetry. Here are three windows to set against that sentence: the page’s, a real 2-pole bandpass filter, and a bell drawn symmetric on a linear Hz axis. Switch between them, watch the bars and the energy either side of C4, and listen to where the weight sits. Which of them breaks the symmetry?'),
       row,
+      table,
       eq('w(f) = exp( −(log₂ f − log₂ 261.63)² ⁄ 2σ² ),  σ = 1 octave',
-         'The loudness of a voice falls off with how many octaves it sits from C4, the same on both sides. One octave away costs 4.3 dB, two cost 17 dB, three cost 39 dB.'),
+         'The page’s window: the loudness of a voice falls off with how many octaves it sits from C4, the same on both sides. One octave away costs 4.3 dB, two cost 17 dB, three cost 39 dB.'),
+      eq('|H(f)| = 1 ⁄ √( 1 + Q² (f ⁄ 261.63 − 261.63 ⁄ f)² ),  Q = 2⁄3',
+         'A 2-pole bandpass on C4: how much it lets a voice through depends on the voice’s frequency over C4, minus C4 over the voice’s frequency. A Q of two thirds makes the band two octaves wide, C3 to C5 at 3 dB down.'),
       el('p', { class: 'sd-back' }, 'Flat puts you back at step 2 with every octave on.'),
     ];
   } },
