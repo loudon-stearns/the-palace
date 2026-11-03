@@ -16,6 +16,7 @@ What the round ran on, copied verbatim from the orchestrator's scratchpad on 202
 - `CHALLENGER-BRIEF.md` — what every challenger read: three questions, a verdict with a reason per piece, the record and the manifest block.
 - `ROUND-NOTES.md` — the round's findings as the orchestrator kept them: renderer and kit gotchas, the blind-test patterns, the pages found wrong by their own pieces.
 - `line.txt` — the ranked board (weight ≥ 7) the round drew from: weight, title, path, tier, pieces, gathered.
+- `landed-day-2.txt` — day 2's landings (2026-11-03, the baton pickup): the nine weight-7 pages, each with its merge and remake hash. The briefs are as day 2 ran them, each with a §6 carrying tuning item 11; `ROUND-NOTES.md` ends with the Day 2 block.
 - `records/<slug>.json` — one nomination record per page on the board, landed or not: the claim, the pieces proposed, what each walks up from.
 
 Written by hand, not by a tool; nothing here is read by the renderer or the ceremony's scripts.
