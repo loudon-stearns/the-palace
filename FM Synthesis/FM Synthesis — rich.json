@@ -50,7 +50,18 @@
         }
       ],
       "made_against": "912ba057ff96",
-      "stamped": "2026-11-03"
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "FM Synthesis — rich — staged patch.html",
+            "verdict": "keep",
+            "why": "Its checks pass 32/32 and it walks one operator up to the DX7. The page says it waits on Loudon's ears before joining the face, so it stands only as a proposal: if the round lands unplayed, it comes out."
+          }
+        ]
+      }
     },
     {
       "heading": "What the ear hears as the index rises",
@@ -73,7 +84,18 @@
         }
       ],
       "made_against": "9e443676dfc6",
-      "stamped": "2026-11-03"
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "FM Synthesis — rich — index.html",
+            "verdict": "keep",
+            "why": "A real test: the sweep's verdict could have read 'opening'. Its one disagreement with the text, the 0 Hz partner at 1:1, is flagged and recomputes exactly (−16.25 dB)."
+          }
+        ]
+      }
     },
     {
       "heading": "Ratios",
@@ -96,7 +118,18 @@
         }
       ],
       "made_against": "8dff192fb05b",
-      "stamped": "2026-11-03"
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "FM Synthesis — rich — ratios.html",
+            "verdict": "keep",
+            "why": "Walks 1:1 to any ratio and lets the scope line fail in view. The caption owns that its threshold reading and family edges are its own rule, unheard. The piece reads 1:1.1 correctly; offer 4's wording of it does not."
+          }
+        ]
+      }
     },
     {
       "heading": "Feedback",
@@ -119,7 +152,18 @@
         }
       ],
       "made_against": "a0b2d9a4d603",
-      "stamped": "2026-11-03"
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "FM Synthesis — rich — feedback.html",
+            "verdict": "keep",
+            "why": "Two meters on the engine test sine, lean, saw, fray, noise in order. The average and the edge near 7.3 also hold at 44.1 and 49.096 kHz and from 100 to 1600 Hz, which answers the maker's device-rate worry."
+          }
+        ]
+      }
     },
     {
       "heading": "Six operators, 32 algorithms",
@@ -151,7 +195,23 @@
         }
       ],
       "made_against": "681131dac5af",
-      "stamped": "2026-11-03"
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "FM Synthesis — rich — algorithms 1, 5 and 32.svg",
+            "verdict": "keep",
+            "why": "Illustrates rather than tests, but it is the drawing the Forward Vector asks for, and rendered it matches the routing rows and the DX7 panel. Taste note: the key's loop glyph looks like a plain wire."
+          },
+          {
+            "file": "FM Synthesis — rich — algorithms.html",
+            "verdict": "keep",
+            "why": "The test caught the text's 'than a pair can' overreaching, and 7 vs 17 recomputes exactly. Caption fix: the stack at index 2 has 17 of 22 harmonics, so say the pair catches it near index 9 and fills all 22 by 14."
+          }
+        ]
+      }
     }
   ],
   "offers": [
