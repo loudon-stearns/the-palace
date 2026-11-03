@@ -21,7 +21,7 @@ links:
     type: connects-to
     label: serves-the-stream
   - target: "[[The Shop]]"
-    type: connects-to
+    type: member-of
     label: producer-layer
   - target: "[[Loudon Live Post-producer — Log]]"
     type: connects-to
