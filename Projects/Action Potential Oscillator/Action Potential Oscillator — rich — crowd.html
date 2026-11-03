@@ -1,0 +1,405 @@
+<!doctype html>
+<!--
+  title: Action Potential Oscillator — rich — crowd
+  born: 2026-11-03
+  links: [[Action Potential Oscillator]] (connects-to · rich-face-piece) · [[Kuramoto Coupling]] (connects-to · the coupling) · [[Progressive Staging]] (exemplifies · a walk in steps) · listed in [[Action Potential Oscillator — rich.json]]
+  forward_vector: I am the crowd you can push: thirty-two slightly different neurons, the same Stage-4 neuron
+    the four stages end on, coupled through the share of the crowd spiking right now. I walk from one
+    neuron alone, to a scattered crowd, to coupling that pulls it into one voice, and end on the
+    section's hypothesis: does a spike's shape average out in the crowd? Change the shape, lock and
+    unlock, and measure the brightness yourself. I play inside the entry's rich face and stand alone
+    opened directly; I change only when the section I serve does.
+  engine: neuropulse.dsp v0.4's neuron and crowd, line for line (pitch anchor on, as the instrument ships),
+    N = 32 as in every measured crowd. Matches the Faust build within 6e-8 per sample; checked headless by
+    "Action Potential Oscillator — rich — checks.mjs", beside this file, which also measures the numbers
+    the last step quotes.
+  dress: Loudon Live house style, Graphite skin.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:needs" content="">
+<title>Action Potential Oscillator — a crowd of neurons</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Manrope:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root { --bg:#0a0a0f; --e1:#12121a; --border:#4a4a5e; --soft:rgba(255,255,255,.07); --fg1:#e8e8f0; --fg2:#c8c8d8; --fg3:#8a8aa0; --fg4:#4a4a5a;
+    --amber:#e8b84a; --amberline:rgba(232,184,74,.5);
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --sans:'Manrope',system-ui,sans-serif; --serif:'Cormorant Garamond',Georgia,serif; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); font-weight: 300; }
+  .apc-piece { padding: 22px 22px 20px; }
+  .apc-kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; display: flex; align-items: center; gap: 10px; }
+  .apc-kicker svg { width: 18px; height: 18px; }
+  .apc-title { font-family: var(--serif); font-size: 27px; font-weight: 300; color: var(--fg1); margin: 0 0 6px; }
+  .apc-sub { font-size: 14px; line-height: 1.6; color: var(--fg2); max-width: 76ch; margin: 0 0 16px; }
+  .apc-rail { display: flex; flex-wrap: wrap; margin: 0 0 14px; }
+  .apc-rail button { border-radius: 0; margin-right: -1px; }
+  .apc-rail button[aria-pressed="true"] { color: var(--amber); border-color: var(--amberline); position: relative; z-index: 1; }
+  button { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--fg2); background: var(--bg); border: 1px solid var(--border); border-radius: 2px; padding: 8px 12px; cursor: pointer; transition: border-color 220ms cubic-bezier(.4,0,.2,1), color 220ms cubic-bezier(.4,0,.2,1); }
+  button:hover { border-color: rgba(232,184,74,.55); color: var(--fg1); }
+  button.apc-go { color: var(--amber); border-color: var(--amberline); box-shadow: 0 0 14px rgba(232,184,74,.18); min-width: 104px; }
+  button.apc-on { color: var(--amber); border-color: var(--amberline); }
+  .apc-step { border: 1px solid var(--soft); background: var(--e1); border-radius: 2px; padding: 14px 16px 16px; }
+  .apc-stephead { font-family: var(--mono); font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--fg3); display: flex; justify-content: space-between; gap: 10px; margin-bottom: 6px; }
+  .apc-says { font-size: 14.5px; line-height: 1.62; color: var(--fg2); max-width: 78ch; margin: 0 0 12px; }
+  .apc-says b { color: var(--fg1); font-weight: 500; }
+  .apc-says q { color: var(--fg1); font-style: italic; }
+  .apc-grid { display: grid; grid-template-columns: 3fr 2fr; gap: 14px; }
+  @media (max-width: 720px) { .apc-grid { grid-template-columns: 1fr; } }
+  .apc-panel { border: 1px solid var(--soft); border-radius: 2px; background: var(--bg); padding: 8px 10px; }
+  .apc-plabel { font-family: var(--mono); font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+  canvas { display: block; width: 100%; }
+  .apc-controls { display: flex; flex-wrap: wrap; gap: 12px 22px; align-items: end; margin-top: 14px; }
+  .apc-controls label.apc-sl { flex: 1 1 280px; }
+  .apc-btns { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+  label.apc-sl { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: .06em; color: var(--fg3); }
+  label.apc-sl b { color: var(--fg1); font-weight: 500; }
+  input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 3px; background: var(--fg4); margin: 12px 0 4px; outline: none; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 13px; height: 13px; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  input[type=range]::-moz-range-thumb { width: 13px; height: 13px; border: 0; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  .apc-read { display: flex; flex-wrap: wrap; gap: 6px 22px; margin-top: 12px; font-family: var(--mono); font-size: 11.5px; letter-spacing: .04em; color: var(--fg3); }
+  .apc-read b { color: var(--fg1); font-weight: 500; }
+  .apc-read .apc-flag { color: var(--amber); }
+  .apc-eqs { margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--soft); }
+  .apc-eq { font-family: var(--serif); font-size: 19px; color: var(--fg1); }
+  .apc-words { font-size: 13px; line-height: 1.55; color: var(--fg2); margin: 2px 0 10px; max-width: 78ch; }
+  .apc-back { font-family: var(--mono); font-size: 11px; letter-spacing: .04em; color: var(--fg3); margin-top: 10px; }
+  .apc-nav { display: flex; justify-content: space-between; gap: 10px; margin-top: 14px; }
+  table.apc-t { border-collapse: collapse; font-family: var(--mono); font-size: 11.5px; margin-top: 12px; width: 100%; max-width: 760px; }
+  table.apc-t th, table.apc-t td { border-bottom: 1px solid var(--soft); padding: 5px 8px; text-align: right; color: var(--fg2); }
+  table.apc-t th:first-child, table.apc-t td:first-child { text-align: left; }
+  table.apc-t th { color: var(--fg3); font-weight: 400; letter-spacing: .06em; }
+  table.apc-t td.apc-you { color: var(--amber); }
+  .apc-verdict { margin-top: 12px; font-size: 14px; line-height: 1.6; color: var(--fg1); max-width: 78ch; border-left: 2px solid var(--amberline); padding-left: 12px; }
+</style>
+</head>
+<body>
+<div class="apc-piece">
+  <div class="apc-kicker"><svg id="sigil" viewBox="0 0 18 18" aria-hidden="true"></svg><span>made · Web Audio Worklet · study · a walk in four steps</span></div>
+  <h3 class="apc-title">A crowd of thirty-two neurons</h3>
+  <p class="apc-sub">The Stage-4 neuron, thirty-two times over, each a little different, run by the instrument's own engine. Walk from one neuron alone to a crowd you can pull into a single voice, then test the section's hypothesis about the spike's shape. Nothing sounds until you press play.</p>
+
+  <div class="apc-rail" id="rail" role="group" aria-label="steps"></div>
+  <div class="apc-step">
+    <div class="apc-stephead"><span id="stepname"></span><span id="stepof"></span></div>
+    <p class="apc-says" id="says"></p>
+    <div class="apc-grid">
+      <div class="apc-panel">
+        <div class="apc-plabel"><span>raster · one row per neuron · last 120 ms</span><span id="rastnote"></span></div>
+        <canvas id="raster" height="220"></canvas>
+      </div>
+      <div class="apc-panel">
+        <div class="apc-plabel"><span>what you hear · 40 ms</span><span>sum of the crowd</span></div>
+        <canvas id="scope" height="100"></canvas>
+        <div class="apc-plabel" style="margin-top:10px"><span>togetherness R</span><span id="rnote"></span></div>
+        <canvas id="rmeter" height="96"></canvas>
+      </div>
+    </div>
+    <div class="apc-controls" id="controls"></div>
+    <div class="apc-read" id="read"></div>
+    <div id="testbox" style="display:none">
+      <table class="apc-t" id="table"></table>
+      <div class="apc-verdict" id="verdict"></div>
+    </div>
+    <div class="apc-eqs" id="eqs"></div>
+    <div class="apc-back" id="backline"></div>
+    <div class="apc-nav"><button id="prev">← back</button><button id="next">next step →</button></div>
+  </div>
+</div>
+
+<script id="engine">
+/* ENGINE:START — a line-for-line port of neuropulse.dsp v0.4's neuron and crowd.
+   Shared by the AudioWorklet and the headless check; it touches nothing of the page. */
+function CrowdEngine(SR, N) {
+  const P = { freq: 110, tau_ms: 5, spike_ms: 1, rise_frac: 0.3, peak: 1.5, hyp: -0.2,
+              damp: 0.3, refr_ms: 1.5, h_f: 0.05, h_tau: 0.05, h_thr: 0.02, K: 0, anchor: 0, n: N };
+  const fract = x => x - Math.floor(x);
+  const jitter = i => fract(Math.sin(i * 12.9898 + 78.233) * 43758.5453) * 2.0 - 1.0;
+  const ms2samp = t => t * 0.001 * SR;
+  const S = { V: new Float64Array(N), ph: new Int32Array(N), t: new Float64Array(N), vel: new Float64Array(N),
+              el: new Float64Array(N), v0: new Float64Array(N) };
+  let mf = 0;                                   // the mean field, fed back one sample late
+  const C = [];                                 // per-neuron constants, rebuilt when a parameter moves
+  function topJitter(n) { let m = jitter(0); for (let k = 1; k < n; k++) m = Math.max(m, jitter(k)); return m; }
+  function rebuild() {
+    const n = P.n;
+    const fBase = P.freq / (1.0 + P.anchor * P.h_f * topJitter(n));
+    for (let i = 0; i < n; i++) {
+      const j = jitter(i);
+      const myFreq = Math.max(1.0, fBase * (1.0 + P.h_f * j));
+      const myTau = Math.max(0.1, P.tau_ms * (1.0 + P.h_tau * jitter(i + 101)));
+      const thr = Math.max(0.1, 1.0 + P.h_thr * jitter(i + 211));
+      const leakTau = Math.max(2.0, ms2samp(myTau));
+      const spikeS = Math.max(2.0, ms2samp(P.spike_ms));
+      const riseS = Math.max(1.0, spikeS * P.rise_frac);
+      const fallS = Math.max(1.0, spikeS - riseS);
+      const springK = 1.0 / leakTau;
+      C[i] = { thr, leakTau, leakCoeff: 1.0 - 1.0 / leakTau, period: SR / myFreq, riseS, fallS,
+               refrS: Math.max(1.0, ms2samp(P.refr_ms)),
+               riseRate: (P.peak - thr) / riseS, fallRate: (P.hyp - P.peak) / fallS,
+               springK, dampK: P.damp * 2.0 * Math.sqrt(springK), myFreq };
+    }
+  }
+  rebuild();
+  function set(obj) { let dirty = false; for (const k in obj) if (k in P && P[k] !== obj[k]) { P[k] = obj[k]; dirty = true; } if (dirty) rebuild(); }
+  function reset() { S.V.fill(0); S.ph.fill(0); S.t.fill(0); S.vel.fill(0); S.el.fill(0); S.v0.fill(0); mf = 0; }
+  // one sample of the whole crowd. Returns audio (sum of outputs / n); spikes[i] = 1 on the sample neuron i enters its rise.
+  function tick(spikes, outs) {
+    const n = P.n, coupling = mf, K = P.K, hyp = P.hyp, peak = P.peak;
+    let sumV = 0, sumS = 0;
+    for (let i = 0; i < n; i++) {
+      const c = C[i];
+      const V = S.V[i], p = S.ph[i], t = S.t[i], vel = S.vel[i], el = S.el[i], v0 = S.v0[i];
+      const m = Math.max(1.0, c.period - (el - t) - 0.5);
+      const cc = Math.pow(c.leakCoeff, m);
+      const drive = (c.thr - v0 * cc) / (c.leakTau * (1.0 - cc)) + K * coupling;
+      const chargeV = V * c.leakCoeff + drive;
+      const fires = chargeV >= c.thr;
+      const recVel = vel + (-c.springK * V - c.dampK * vel);
+      let nV, nph;
+      if (p === 0)      { nV = fires ? c.thr : chargeV;            nph = fires ? 1 : 0; }
+      else if (p === 1) { nV = Math.min(peak, V + c.riseRate);     nph = (t + 1) >= c.riseS ? 2 : 1; }
+      else if (p === 2) { nV = Math.max(hyp, V + c.fallRate);      nph = (t + 1) >= c.fallS ? 3 : 2; }
+      else              { nV = V + recVel;                         nph = ((t + 1) >= c.refrS && V > hyp * 0.3) ? 0 : 3; }
+      S.t[i]   = nph !== p ? 0 : t + 1;
+      S.vel[i] = (p === 3 ? recVel : 0.0) * (nph === 3 ? 1 : 0);
+      S.el[i]  = (p === 0 && nph === 1) ? 0 : el + 1;
+      S.v0[i]  = (p === 3 && nph === 0) ? nV : v0;
+      S.V[i] = nV; S.ph[i] = nph;
+      const o = (nV - hyp) / (peak - hyp) * 2.0 - 1.0;
+      if (outs) outs[i] = o;
+      const s = nph === 1 ? 1 : 0;
+      if (spikes) spikes[i] = (s && p === 0) ? 1 : 0;
+      sumV += o; sumS += s;
+    }
+    mf = sumS / n;
+    return sumV / n;
+  }
+  return { P, set, reset, tick, consts: C, jitter, get mf() { return mf; } };
+}
+/* ENGINE:END */
+</script>
+<script id="tally">
+/* TALLY:START — the togetherness R the page shows: each neuron's phase runs 0 → 2π between its last two
+   spikes, carried forward at that pace; R is the length of the crowd's mean phase arrow. Also run headless. */
+function Tally(N) {
+  const last = new Float64Array(N).fill(-1), prev = new Float64Array(N).fill(-1);
+  return {
+    spike(i, n) { prev[i] = last[i]; last[i] = n; },
+    R(n, count) { let re = 0, im = 0, k = 0; for (let i = 0; i < count; i++) { if (prev[i] < 0) continue; const isi = last[i] - prev[i]; const ph = 2 * Math.PI * Math.min(1, (n - last[i]) / isi); re += Math.cos(ph); im += Math.sin(ph); k++; } return k ? Math.hypot(re, im) / k : 0; },
+    rate(SR, count) { const r = []; for (let i = 0; i < count; i++) if (prev[i] >= 0) r.push(SR / (last[i] - prev[i])); r.sort((a, b) => a - b); return r.length ? { med: r[r.length >> 1], lo: r[0], hi: r[r.length - 1] } : null; },
+    clear() { last.fill(-1); prev.fill(-1); },
+  };
+}
+/* TALLY:END */
+</script>
+<script>
+'use strict';
+(function sigil() { const s = document.getElementById('sigil'); let d = ''; for (let i = 0; i <= 160; i++) { const t = 2 * Math.PI * i / 160; d += (i ? 'L' : 'M') + (9 + 7.5 * Math.sin(3 * t + Math.PI / 2)).toFixed(2) + ',' + (9 + 7.5 * Math.sin(2 * t)).toFixed(2); } s.innerHTML = '<path d="' + d + '" fill="none" stroke="#e8b84a" stroke-width="1"/>'; })();
+
+// The four shapes the steward measured on 2026-10-14 (spike-shape/sweep.py), and each one's half-lock
+// coupling measured headless on this engine at 48 kHz (anchor on). "lock" plays 3 × K½, as the steward's audition did.
+const SHAPES = {
+  full: { label: 'full spike', note: '1 ms, ringing undershoot', p: { spike_ms: 1, hyp: -0.2, damp: 0.3 }, Khalf: 0.00342 },
+  flat: { label: 'no undershoot', note: 'same spike, flat tail', p: { spike_ms: 1, hyp: -0.01, damp: 2.0 }, Khalf: 0.0037 },
+  bare: { label: 'click', note: '0.06 ms, a bare reset', p: { spike_ms: 0.06, hyp: -0.01, damp: 2.0 }, Khalf: 0.0364 },
+  wide: { label: 'slow spike', note: '3 ms, ringing undershoot', p: { spike_ms: 3, hyp: -0.2, damp: 0.3 }, Khalf: 0.00257 },
+};
+// Measured headless on this engine (the checks file): brightness scattered → locked, Hz.
+const HEADLESS = { full: [980, 498], flat: [967, 474], bare: [4953, 2548], wide: [578, 249] };
+
+const S = { step: 1, spread: 0.05, K: 0, shape: 'full', lock: false, playing: false, since: 0, you: {} };
+const $ = id => document.getElementById(id);
+const el = (tag, attrs = {}, ...kids) => { const n = document.createElement(tag); for (const k in attrs) { if (k === 'on') for (const ev in attrs.on) n.addEventListener(ev, attrs.on[ev]); else if (k === 'html') n.innerHTML = attrs[k]; else n.setAttribute(k, attrs[k]); } kids.forEach(c => n.append(c)); return n; };
+
+function engineSet() {
+  const sh = SHAPES[S.step === 4 ? S.shape : 'full'].p;
+  const one = S.step === 1;
+  return Object.assign({ n: one ? 1 : 32, h_f: one ? 0 : S.spread, h_tau: one ? 0 : 0.05, h_thr: one ? 0 : 0.02, anchor: 1, freq: 110 }, sh);
+}
+function kNow() { if (S.step <= 2) return 0; if (S.step === 3) return S.K; return S.lock ? 3 * SHAPES[S.shape].Khalf : 0; }
+
+// ───────── sound ─────────
+let ctx = null, node = null, master = null, an = null, live = { R: 0, rate: null, events: [], now: 0, sr: 48000 };
+const WORKLET = () => document.getElementById('engine').textContent + document.getElementById('tally').textContent + `
+class ApoCrowd extends AudioWorkletProcessor {
+  constructor() { super(); this.e = CrowdEngine(sampleRate, 32); this.T = Tally(32); this.spk = new Uint8Array(32); this.n = 0; this.ev = []; this.Racc = 0; this.Rk = 0; this.x1 = 0; this.y1 = 0;
+    this.port.onmessage = (m) => { const d = m.data; if (d.set) this.e.set(d.set); if (d.K != null) this.e.P.K = d.K; if (d.reset) { this.e.reset(); this.T.clear(); } }; }
+  process(_, outs) { const L = outs[0][0], R = outs[0][1] || L, e = this.e, cnt = e.P.n;
+    for (let i = 0; i < L.length; i++) {
+      const x = e.tick(this.spk); const y = x - this.x1 + 0.9987 * this.y1; this.x1 = x; this.y1 = y;
+      L[i] = y * 0.5; if (R !== L) R[i] = L[i];
+      for (let j = 0; j < cnt; j++) if (this.spk[j]) { this.T.spike(j, this.n); this.ev.push(j, this.n); }
+      if (this.n % 24 === 0) { this.Racc += this.T.R(this.n, cnt); this.Rk++; }
+      this.n++;
+      if (this.n % 2048 === 0) { this.port.postMessage({ ev: this.ev, R: this.Rk ? this.Racc / this.Rk : 0, rate: this.T.rate(sampleRate, cnt), now: this.n, sr: sampleRate }); this.ev = []; this.Racc = 0; this.Rk = 0; }
+    }
+    return true; }
+}
+registerProcessor('apo-crowd', ApoCrowd);`;
+
+async function play() {
+  if (!ctx) {
+    ctx = new AudioContext();
+    const url = URL.createObjectURL(new Blob([WORKLET()], { type: 'application/javascript' }));
+    await ctx.audioWorklet.addModule(url); URL.revokeObjectURL(url);
+    node = new AudioWorkletNode(ctx, 'apo-crowd', { numberOfInputs: 0, numberOfOutputs: 1, outputChannelCount: [2] });
+    an = ctx.createAnalyser(); an.fftSize = 8192; an.smoothingTimeConstant = 0.6;
+    const comp = ctx.createDynamicsCompressor(); comp.threshold.value = -16; comp.ratio.value = 4;
+    master = ctx.createGain(); master.gain.value = 0;
+    node.connect(an); node.connect(comp).connect(master).connect(ctx.destination);
+    node.port.onmessage = (m) => { const d = m.data; live.R = live.R * 0.6 + d.R * 0.4; live.rate = d.rate; live.now = d.now; live.sr = d.sr; for (let i = 0; i < d.ev.length; i += 2) live.events.push([d.ev[i], d.ev[i + 1]]); const keep = d.now - d.sr * 0.15; while (live.events.length && live.events[0][1] < keep) live.events.shift(); };
+    ctx.onstatechange = () => { if (ctx.state !== 'running' && S.playing) { S.playing = false; paint(); } };
+  }
+  node.port.postMessage({ set: engineSet(), K: kNow(), reset: true }); live.events = []; live.R = 0; S.since = performance.now();
+  await ctx.resume();
+  master.gain.cancelScheduledValues(ctx.currentTime);
+  master.gain.setTargetAtTime(0.8, ctx.currentTime, 0.05);
+  S.playing = true; paint(); requestAnimationFrame(frame);
+}
+function stopSound() {
+  if (!ctx || !S.playing) { S.playing = false; return; }
+  master.gain.setTargetAtTime(0, ctx.currentTime, 0.03);
+  const c = ctx; setTimeout(() => { if (!S.playing) c.suspend(); }, 160);
+  S.playing = false; paint();
+}
+function send(reset) { if (node) node.port.postMessage({ set: engineSet(), K: kNow(), reset: !!reset }); if (reset) { live.events = []; live.R = 0; } S.since = performance.now(); }
+
+// ───────── live brightness: spectral centroid of what is playing, amplitude-weighted, 20 Hz to the top of the band ─────────
+let fbuf = null, cent = null, centAcc = [];
+function centroidNow() {
+  if (!an) return null; if (!fbuf) fbuf = new Float32Array(an.frequencyBinCount);
+  an.getFloatFrequencyData(fbuf); const df = ctx.sampleRate / an.fftSize; let a = 0, b = 0;
+  for (let k = Math.ceil(20 / df); k < fbuf.length; k++) { const m = Math.pow(10, fbuf[k] / 20); a += k * df * m; b += m; }
+  return b > 0 ? a / b : null;
+}
+
+// ───────── pictures ─────────
+function fit(cv) { const r = window.devicePixelRatio || 1, w = cv.clientWidth, h = cv.height / (cv._r || 1); cv._r = r; cv.style.height = h + 'px'; cv.width = Math.round(w * r); cv.height = Math.round(h * r); const g = cv.getContext('2d'); g.setTransform(r, 0, 0, r, 0, 0); return { g, w, h }; }
+let tbuf = null;
+function draw() {
+  const cnt = S.step === 1 ? 1 : 32;
+  { const { g, w, h } = fit($('raster')); g.clearRect(0, 0, w, h);
+    const win = live.sr * 0.12, t1 = live.now, rowH = h / cnt;
+    g.fillStyle = 'rgba(255,255,255,.04)'; for (let i = 0; i < cnt; i += 2) g.fillRect(0, i * rowH, w, rowH);
+    const together = live.R > 0.9;
+    g.fillStyle = together ? '#e8b84a' : '#c8c8d8';
+    for (const [i, n] of live.events) { if (i >= cnt) continue; const x = w - (t1 - n) / win * w; if (x < 0) continue; g.fillRect(x - 0.75, i * rowH + (cnt > 1 ? 1 : rowH * 0.3), 1.5, cnt > 1 ? Math.max(1, rowH - 2) : rowH * 0.4); }
+    if (!S.playing) { g.fillStyle = '#8a8aa0'; g.font = '11px "JetBrains Mono", monospace'; g.fillText('press play', 10, 18); }
+  }
+  { const { g, w, h } = fit($('scope')); g.clearRect(0, 0, w, h); g.fillStyle = 'rgba(255,255,255,.06)'; g.fillRect(0, h / 2, w, 1);
+    if (an && S.playing) { if (!tbuf) tbuf = new Float32Array(an.fftSize); an.getFloatTimeDomainData(tbuf); const n = Math.min(tbuf.length, Math.round(ctx.sampleRate * 0.04)); let mx = 1e-6; for (let i = 0; i < n; i++) mx = Math.max(mx, Math.abs(tbuf[i])); g.strokeStyle = '#e8b84a'; g.lineWidth = 1.3; g.beginPath(); for (let i = 0; i < n; i++) { const x = i / (n - 1) * w, y = h / 2 - tbuf[i] / mx * (h / 2 - 4); i ? g.lineTo(x, y) : g.moveTo(x, y); } g.stroke(); }
+  }
+  { const { g, w, h } = fit($('rmeter')); g.clearRect(0, 0, w, h);
+    const R = S.playing ? live.R : 0; const y = h - 18;
+    g.fillStyle = '#4a4a5a'; g.fillRect(0, y, w, 2); g.fillStyle = '#e8b84a'; g.fillRect(0, y - 8, R * w, 10);
+    g.font = '10px "JetBrains Mono", monospace'; g.fillStyle = '#8a8aa0'; g.fillText('0 · scattered', 0, h - 3); g.fillText('1 · one voice', w - 82, h - 3);
+    g.fillStyle = '#e8e8f0'; g.font = '22px "Cormorant Garamond", Georgia, serif'; g.fillText(S.playing ? 'R = ' + R.toFixed(2) : 'R = ·', 0, 28);
+  }
+  $('rnote').textContent = cnt === 1 ? 'one neuron: always 1' : (live.R > 0.9 ? 'locked' : live.R > 0.5 ? 'pulling together' : 'scattered');
+  $('rastnote').textContent = S.step === 1 ? '1 neuron' : '32 neurons';
+}
+
+// ───────── the steps ─────────
+function slider({ label, min, max, get, set, fmt, log }) {
+  const span = el('b'); const input = el('input', { type: 'range', min: 0, max: 1000, step: 1, 'aria-label': label });
+  const toPos = v => Math.round(log ? (v <= min ? 0 : Math.log(v / min) / Math.log(max / min) * 1000) : (v - min) / (max - min) * 1000);
+  const fromPos = p => log ? (p === 0 ? 0 : min * Math.pow(max / min, p / 1000)) : min + (max - min) * p / 1000;
+  input.value = toPos(get()); const show = () => { span.textContent = fmt(get()); };
+  input.addEventListener('input', () => { set(fromPos(+input.value)); show(); send(false); update(); }); show();
+  return el('label', { class: 'apc-sl' }, label + ' · ', span, input);
+}
+const STEPS = [
+  { n: 1, name: 'one neuron',
+    says: '<b>One neuron, alone.</b> This is the Stage-4 neuron the four stages end on: charge, spike, undershoot, recovery, 110 times a second. It has one colour, set by the shape of its spike. In the raster it is a single row of evenly spaced ticks: one per spike.',
+    eqs: [['one neuron, one row, one tick per spike', 'Every later step is this neuron, copied and nudged.']],
+    controls: () => [], back: 'This is the four stages’ step 4, at its defaults.' },
+  { n: 2, name: 'a scattered crowd',
+    says: '<b>Thirty-two, each a little different.</b> Every neuron gets its own rate, leak and threshold, spread around the same settings. Uncoupled, each keeps its own time, and the crowd is a buzzing smear: the ticks scatter and the sum never settles. Widen the spread and the smear thickens.',
+    eqs: [['f<sub>i</sub> = f · (1 + h · j<sub>i</sub>),   j<sub>i</sub> ∈ [−1, 1]', 'Each neuron’s rate is the dial times one plus the spread times its own fixed offset. The offsets are the same every time you open the page, so the crowd is too.']],
+    controls: () => [slider({ label: 'rate spread h', min: 0, max: 0.2, get: () => S.spread, set: v => { S.spread = v; }, fmt: v => (v * 100).toFixed(1) + '%' })],
+    back: 'Spread at 0 makes thirty-two copies of step 1, firing as one.' },
+  { n: 3, name: 'couple them',
+    says: '<b>Coupling.</b> Now each charging neuron gets a push proportional to how much of the crowd is spiking right now. A neuron near its threshold is tipped over by its neighbours’ spikes, and they start firing together. Raise K slowly from zero. Between about 0.003 and 0.005 the smear snaps into one tone and R climbs toward 1.',
+    eqs: [['drive<sub>i</sub> += K · (1⁄N) Σ<sub>j</sub> s<sub>j</sub>(t)', 'Each neuron’s drive gets K times the share of the crowd spiking at this moment: coupling through the crowd’s mean field, the same mean field Kuramoto’s model couples through.'],
+          ['R = | (1⁄N) Σ<sub>j</sub> e<sup>iφ<sub>j</sub></sup> |', 'Give each neuron a phase that runs once around a circle between its spikes, and average the arrows. Scattered, they cancel and R sits low; locked, they point one way and R reaches 1.']],
+    controls: () => [slider({ label: 'coupling K', min: 0.0001, max: 0.1, log: true, get: () => S.K, set: v => { S.K = v; }, fmt: v => v === 0 ? '0' : v.toPrecision(2) })],
+    back: 'K at 0 (slide all the way left) is step 2.' },
+  { n: 4, name: 'the test',
+    says: '<b>The hypothesis.</b> The section guesses that spike shape matters for one neuron but less for a crowd, <q>which operate at a statistical level where individual spike shape averages out.</q> Pick a shape, let the crowd scatter, then lock it, and listen for whether the shape survives. The table fills with the brightness you measured. Lock each shape at three times the coupling where it half-locks, so every shape gets the same push relative to what it needs.',
+    eqs: [['brightness = Σ f · |X(f)| ⁄ Σ |X(f)|', 'The spectral centroid: the average frequency of what you hear, each frequency weighted by how loud it is. Measured live from this piece’s own output, across the whole band. The headless column is the same measure taken offline on the same engine over a steadier window: expect your readings near it, not on it.']],
+    controls: () => [el('div', { class: 'apc-btns' }, ...Object.entries(SHAPES).map(([k, s]) => el('button', { 'aria-pressed': String(S.shape === k), class: S.shape === k ? 'apc-on' : '', title: s.note, on: { click: () => { S.shape = k; S.lock = false; send(true); build(); } } }, s.label))),
+                     el('div', { class: 'apc-btns' }, el('button', { 'aria-pressed': String(!S.lock), class: !S.lock ? 'apc-on' : '', on: { click: () => { S.lock = false; send(false); build(); } } }, 'scatter · K = 0'),
+                                                       el('button', { 'aria-pressed': String(S.lock), class: S.lock ? 'apc-on' : '', on: { click: () => { S.lock = true; send(false); build(); } } }, 'lock · K = 3 × K½'))],
+    back: 'The steward’s audition and figure from 14 October, beside this piece, are the same test rendered offline.' },
+];
+
+function build() {
+  const s = STEPS[S.step - 1];
+  const rail = $('rail'); rail.innerHTML = '';
+  STEPS.forEach(t => rail.append(el('button', { 'aria-pressed': String(t.n === S.step), on: { click: () => goTo(t.n) } }, t.n + ' · ' + t.name)));
+  $('stepname').textContent = s.n + ' · ' + s.name; $('stepof').textContent = 'step ' + s.n + ' of ' + STEPS.length;
+  $('says').innerHTML = s.says;
+  const c = $('controls'); c.innerHTML = '';
+  c.append(el('div', { class: 'apc-btns' }, el('button', { class: 'apc-go', id: 'go', on: { click: () => S.playing ? stopSound() : play() } }, S.playing ? '❚❚ stop' : '▸ play')));
+  s.controls().forEach(x => c.append(x));
+  $('eqs').innerHTML = ''; s.eqs.forEach(([sym, words]) => $('eqs').append(el('div', { class: 'apc-eq', html: sym }), el('div', { class: 'apc-words' }, words)));
+  $('backline').textContent = s.back;
+  $('testbox').style.display = S.step === 4 ? '' : 'none';
+  $('prev').disabled = S.step === 1; $('next').disabled = S.step === STEPS.length;
+  update();
+}
+function goTo(n) { if (n !== S.step) { stopSound(); S.step = n; S.lock = false; send(true); build(); } }
+function paint() { const g = $('go'); if (g) g.textContent = S.playing ? '❚❚ stop' : '▸ play'; }
+
+function table() {
+  const rows = Object.entries(SHAPES).map(([k, s]) => { const y = S.you[k] || {}; const h = HEADLESS[k];
+    const fmt = v => v == null ? '·' : Math.round(v) + ' Hz';
+    const fall = (y.s != null && y.l != null) ? Math.round((1 - y.l / y.s) * 100) + '%' : '·';
+    return '<tr><td>' + s.label + ' <span style="color:#8a8aa0">· ' + s.note + '</span></td><td>' + s.Khalf.toPrecision(2) + '</td><td class="apc-you">' + fmt(y.s) + '</td><td class="apc-you">' + fmt(y.l) + '</td><td class="apc-you">' + fall + '</td><td>' + h[0] + ' → ' + h[1] + ' Hz</td></tr>'; }).join('');
+  $('table').innerHTML = '<tr><th>shape</th><th>K½</th><th>you · scattered</th><th>you · locked</th><th>darker by</th><th>headless</th></tr>' + rows;
+  const got = Object.entries(S.you).filter(([, y]) => y.s != null && y.l != null);
+  if (got.length < 2) { $('verdict').innerHTML = 'Measure at least two shapes, scattered and locked. Each reading is taken after the crowd has settled for a second and a half.'; return; }
+  const name = k => SHAPES[k].label;
+  const darker = got.filter(([, y]) => y.l < y.s * 0.85), lighter = got.filter(([, y]) => y.l >= y.s * 0.85);
+  const ls = got.map(([, y]) => y.l), spread = Math.max(...ls) / Math.min(...ls);
+  const lines = [];
+  lines.push(lighter.length ? 'In your readings, ' + lighter.map(([k]) => name(k)).join(' and ') + ' did not darken much when it locked; ' + (darker.length ? darker.map(([k]) => name(k)).join(' and ') + ' did.' : 'try again, letting each state settle.')
+                            : 'Every shape you locked got darker: ' + got.map(([k, y]) => name(k) + ' ' + Math.round(y.s) + ' → ' + Math.round(y.l) + ' Hz').join(', ') + '. Coupling acts on the colour like a lowpass.');
+  lines.push(spread > 1.5 ? 'Locked, the shapes you tried still sit far apart (the brightest is ' + spread.toFixed(1) + '× the darkest), so the crowd has not averaged the spike away: its colour survives the lock.'
+                          : 'Locked, the shapes you tried sit close together (within ' + spread.toFixed(1) + '×). Try the click against the slow spike: that is where width shows most.');
+  const f = S.you.full, n = S.you.flat;
+  if (f && n && f.l != null && n.l != null) lines.push('Full spike against no undershoot, locked: ' + Math.round(f.l) + ' against ' + Math.round(n.l) + ' Hz. The tail alone changes little; it is the spike’s width that carries the colour.');
+  lines.push('Measured headless on this engine: the click needs ' + (SHAPES.bare.Khalf / SHAPES.full.Khalf).toFixed(1) + '× the coupling of the full spike to half-lock.');
+  $('verdict').innerHTML = lines.join(' ');
+}
+let lastKey = '';
+function frame() {
+  if (!S.playing) { draw(); return; }
+  draw();
+  if (S.step === 4) {
+    const c = centroidNow(); const key = S.shape + (S.lock ? 'L' : 'S');
+    if (key !== lastKey) { centAcc = []; lastKey = key; }
+    if (c && performance.now() - S.since > 1500) { centAcc.push(c); if (centAcc.length > 50) { const v = centAcc.slice(-50).reduce((a, b) => a + b) / 50; S.you[S.shape] = Object.assign(S.you[S.shape] || {}, S.lock ? { l: v } : { s: v }); table(); } }
+  }
+  readouts();
+  requestAnimationFrame(frame);
+}
+function readouts() {
+  const parts = [];
+  const K = kNow(); parts.push('K <b>' + (K ? K.toPrecision(2) : '0') + '</b>');
+  if (live.rate && S.playing) { parts.push('crowd pitch <b>' + live.rate.med.toFixed(1) + ' Hz</b>'); if (S.step >= 2) parts.push('fastest to slowest <b>' + live.rate.lo.toFixed(1) + '–' + live.rate.hi.toFixed(1) + ' Hz</b>'); }
+  if (S.playing && S.step >= 3) parts.push(live.R > 0.9 ? '<span class="apc-flag">locked: one voice</span>' : 'not locked');
+  if (S.step === 4 && S.playing) { const c = centroidNow(); if (c) parts.push('brightness now <b>' + Math.round(c) + ' Hz</b>'); if (performance.now() - S.since < 1500) parts.push('settling…'); }
+  $('read').innerHTML = parts.map(x => '<span>' + x + '</span>').join('');
+}
+function update() { draw(); readouts(); if (S.step === 4) table(); }
+
+$('prev').addEventListener('click', () => goTo(Math.max(1, S.step - 1)));
+$('next').addEventListener('click', () => goTo(Math.min(STEPS.length, S.step + 1)));
+window.addEventListener('resize', () => draw());
+build();
+</script>
+</body>
+</html>

@@ -1,0 +1,269 @@
+{
+  "title": "Action Potential Oscillator — rich",
+  "born": "2026-11-03",
+  "links": [
+    {
+      "target": "[[Action Potential Oscillator]]",
+      "type": "connects-to",
+      "label": "rich-face-of"
+    },
+    {
+      "target": "[[Enrichment]]",
+      "type": "connects-to",
+      "label": "made-by"
+    },
+    {
+      "target": "[[Progressive Staging]]",
+      "type": "connects-to",
+      "label": "walks-built-by-the-method"
+    }
+  ],
+  "forward_vector": "I am the manifest of Action Potential Oscillator's rich face: two walks the Shop made, the four stages ending on the fixed spike against a rising pitch and the crowd ending on the spike-shape hypothesis, laid beside the steward's own renders and the March artifact, with the fingerprint of the words each was made against. I grow when the entry is enriched again; I never hold the entry's words.",
+  "entry": "Action Potential Oscillator",
+  "tier": "study",
+  "made": "2026-11-03",
+  "round": 1,
+  "offers": [
+    {
+      "section": "The Four Stages",
+      "kind": "claim-change",
+      "what": "Stage 4 says underdamped recovery is a 'ringing oscillation that adds subharmonic growl' (also § The Refractory Period as Threshold Conatus). In the engine the face ships, neuropulse.dsp v0.4, it can't: every spike latches the full state at threshold, so each cycle repeats sample for sample (the challenger's Faust build down to damping 0.01, 4,032 engine settings, none aperiodic) and nothing stands at half the note. The dev plan's literal Gen~ pseudocode has no latch at threshold, and at raw damping 0.012–0.03 about 1 setting in 1,000 alternates the period by one sample, putting a line at half the note 43–49 dB down: faint, not a growl. Damping otherwise moves harmonics 1–8 by about ±1.7 dB at 110 Hz. Proposed: 'underdamped (the voltage rings past rest before the next charge, reshaping each cycle; in an engine that latches the spike at threshold the period never changes, so it colours the harmonics and adds no subharmonics)'. The March Gen~ Stage 4 codebox was not found to check (see the Implementation Status offer). Progressive Staging and the artifact say the same and would follow.",
+      "status": "open"
+    },
+    {
+      "section": "The Four Stages",
+      "kind": "no-claim-edit",
+      "what": "Stage 3's 'a natural spectral darkening with pitch' holds against the note, not in hertz. With the 1 ms spike, harmonics within 20 dB of the loudest fall 14 → 9 → 5 → 2 from 55 to 440 Hz (the stage 1 sawtooth keeps 10). Over the whole band the centroid rises 764 → 1206 Hz, as any harmonic tone's does: the sawtooth's rises 4054 → 5765 Hz, and the spike's stays near a fifth of it (0.19–0.21). Proposed: 'a natural darkening relative to the note: the spike's fixed length fixes where its energy sits, so a rising note keeps fewer harmonics, the way a voice climbs into its own formants.' Measured too: the ceiling is 960 Hz for stage 3 and 393 Hz for stage 4 (1 ms spike + 1.5 ms recovery), and right at the ceiling the tone brightens again.",
+      "status": "open"
+    },
+    {
+      "section": "Implementation Status",
+      "kind": "no-claim-edit",
+      "what": "'a crowd of 32 slightly different neurons runs in Faust (neuropulse.dsp)': neuropulse.dsp sets N = 16. Every measured crowd of 32 comes from a render harness that sets its own N (faust-render/neuropulse_render.dsp, spike-shape/shape_render.dsp, pitch-anchor/anchor_render.dsp). Proposed: 'a crowd of slightly different neurons runs in Faust (neuropulse.dsp builds 16; every measurement so far used 32)'.",
+      "status": "open"
+    },
+    {
+      "section": "Implementation Status",
+      "kind": "no-claim-edit",
+      "what": "'The Stage 4 codebox and its interface text are in this page's folder': neither maker nor challenger found a March Gen~ Stage 4 codebox in the bundle or anywhere tracked; the folder holds only the crowd's codeboxes (rnbo/neuropulse.codebox, Faust-generated, and rnbo/neuropulse-crowd.codebox, hand-written). Either the file is restored to the folder or the line says where it lives; until then whether the built Gen~ neuron latches at threshold can't be checked.",
+      "status": "open"
+    },
+    {
+      "section": "Population Dynamics",
+      "kind": "claim-change",
+      "what": "The hypothesis that spike shape 'averages out' at the population level is half wrong, as the steward found on 2026-10-14 (apo-steward-018, still waiting on Loudon). Re-measured on the current engine (v0.4, pitch anchor on, 32 neurons, the same four shapes): when the crowd locks barely depends on the tail (half-lock K 0.0034 with the undershoot, 0.0037 without) and the click needs 10.6× the coupling; the sound keeps the shape (spectral shape scattered against locked correlates 0.993–0.996; the shapes sit 9.5 dB apart scattered, 14.3 dB locked, averaged over pairs); locking darkens every shape by 48–57% (full 980 → 498 Hz, click 4953 → 2548 Hz). One refinement to the steward's paragraph: the undershoot alone changes almost nothing in the sound either (full against no undershoot, 1.0 dB scattered, 1.1 dB locked), so it is the spike's width, not its tail, that survives as the crowd's colour.",
+      "status": "open"
+    },
+    {
+      "section": "The Artifact",
+      "kind": "no-claim-edit",
+      "what": "No change to the page's words. The artifact itself (neuron_oscillator.html) labels τ 'small = warm exponential (fewer upper harmonics), large = bright linear ramp'. With the pitch held, as the oscillator holds it, the measurement runs the other way: at 110 Hz a 0.5 ms membrane keeps 31 harmonics within 20 dB and a linear ramp 10. Left as is, since a gathered record isn't edited; a one-line correction in the artifact is Loudon's call.",
+      "status": "open"
+    }
+  ],
+  "sections": [
+    {
+      "heading": "The Four Stages",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "made": "2026-11-03",
+      "pieces": [
+        {
+          "file": "Action Potential Oscillator — rich — four stages.html",
+          "origin": "made",
+          "by": "Web Audio Worklet",
+          "height": 1180,
+          "title": "four stages, one neuron · a walk in five steps",
+          "caption": "**Build the neuron one mechanism at a time, then test the spike against the pitch.** The capacitor, the leak, the spike, the recovery: each step a whole oscillator, each able to turn back into the one before. The last step sweeps the note from 55 Hz into the ceiling and counts the harmonics as it goes, with the centroid over the whole band beside the sawtooth's. The engine is the Faust crowd's own neuron, so step 4 is one member of the crowd below.",
+          "near": "Hyperpolarization and refractory period"
+        }
+      ],
+      "made_against": "b63c4cf32945",
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Action Potential Oscillator — rich — four stages.html",
+            "verdict": "remake",
+            "why": "A real test that walks up and runs clean, but its centroid in Hz sums only the first 64 harmonics, so the band slides with the note (3.5 kHz at 55 Hz, full only above about 375 Hz); measure over one fixed band (full band: 764 → 1206 Hz, not 481 → 1206) and draw the sawtooth's centroid beside it. Also fix the silent corner at τ 0.5 ms / 55 Hz (fire at thr − 1e-9, or floor τ at 0.6 ms)."
+          }
+        ]
+      }
+    },
+    {
+      "heading": "Implementation Status",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "made": "2026-11-03",
+      "pieces": [
+        {
+          "file": "neuropulse-faust-sweep.wav",
+          "origin": "gathered",
+          "title": "the Faust crowd, coupling up and down · 14 October",
+          "caption": "The first crowd that compiled: 32 neurons, coupling rising from 0 to 0.016 and back over 30 s. A buzzy smear, then a clean tone near 4.7 s, held until about 25.7 s. It locks near 116 Hz, not the 110 dialled: this render predates the pitch anchor.",
+          "near": "Since 14 October a crowd"
+        },
+        {
+          "file": "faust-vs-python.png",
+          "origin": "gathered",
+          "title": "Faust against the June audition",
+          "caption": "Top, how much of the crowd spikes together as the coupling rides up and down; middle, the Faust render's spectrogram, harmonics appearing at the lock; bottom, the June Python audition, where no lock shows.",
+          "near": "Since 14 October a crowd"
+        }
+      ],
+      "made_against": "058040d75e88",
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "neuropulse-faust-sweep.wav",
+            "verdict": "keep",
+            "why": "An honest record of the first Faust crowd; the caption matches render_sweep.py (32 neurons from the render harness, K 0 → 0.016 → 0 over 30 s, the pre-anchor 116 Hz lock)."
+          },
+          {
+            "file": "faust-vs-python.png",
+            "verdict": "keep",
+            "why": "A record whose caption says what each panel shows; it is the evidence behind the section's 14 October line."
+          }
+        ]
+      }
+    },
+    {
+      "heading": "The Artifact",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "made": "2026-11-03",
+      "pieces": [
+        {
+          "file": "neuron_oscillator.html",
+          "origin": "gathered",
+          "contract": {
+            "size": "fill 3/4"
+          },
+          "title": "the March artifact · eight canvases, unchanged",
+          "caption": "The research document as it was made: the biology, the math and the pseudocode for each stage, with the Stage 2 and Stage 4 interactives in their fixed 20 ms windows. It draws; it doesn't sound. One label reads the other way from what the engine measures: with the pitch held, a short τ is brighter, not warmer."
+        }
+      ],
+      "made_against": "2724dc75b58c",
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "neuron_oscillator.html",
+            "verdict": "keep",
+            "why": "The artifact the section describes, unchanged; its caption flags the τ label that measurement contradicts (31 vs 10 harmonics within 20 dB at 110 Hz, confirmed), carried as offer 5."
+          }
+        ]
+      }
+    },
+    {
+      "heading": "Population Dynamics",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "made": "2026-11-03",
+      "pieces": [
+        {
+          "file": "Action Potential Oscillator — rich — crowd.html",
+          "origin": "made",
+          "by": "Web Audio Worklet",
+          "height": 1120,
+          "title": "a crowd of thirty-two neurons · a walk in four steps",
+          "caption": "**Does the spike's shape average out in the crowd?** One neuron, then thirty-two scattered, then coupled until they lock, then the test: four spike shapes, each scattered and locked, with the brightness measured from what you hear. The engine is neuropulse.dsp v0.4, matched to the Faust build within 6e-8 per sample.",
+          "near": "Hodgkin-Huxley vs. simplified models"
+        },
+        {
+          "file": "neuropulse-spike-shapes.wav",
+          "origin": "gathered",
+          "title": "four spike shapes, scattered then locked · the steward, 14 October",
+          "caption": "The same test rendered offline at matched loudness: full spike 0–5.5 s (locks at 2.5), no undershoot 5.9–11.4 s (locks at 8.4), click 11.8–17.3 s (locks at 14.3), slow spike 17.7–23.2 s (locks at 20.2). Listen for each one keeping its colour as it locks, and getting darker.",
+          "near": "Hodgkin-Huxley vs. simplified models"
+        },
+        {
+          "file": "spike-shape-findings.png",
+          "origin": "gathered",
+          "title": "lock curves and spectra · the steward, 14 October",
+          "caption": "Left, how much coupling each shape needs to lock; middle, the same against the charge each spike hands its neighbours; right, each shape's spectrum scattered (dashed) and locked (solid). Measured on the October engine (v0.2.1); the walk above re-measures it on v0.4 and the numbers move a little and the tail's small effect on the lock even changes sign (0.0039 against 0.0033 on v0.2.1, 0.0034 against 0.0037 on v0.4), but the finding doesn't: the tail barely matters.",
+          "near": "Hodgkin-Huxley vs. simplified models",
+          "place": "band"
+        }
+      ],
+      "made_against": "37f4b3cca523",
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Action Potential Oscillator — rich — crowd.html",
+            "verdict": "keep",
+            "why": "Tests the section's own hypothesis live and walks up to it (one neuron, scatter, couple, test); the engine matches Faust v0.4 within 5.4e-8, every quoted number re-ran, console clean."
+          },
+          {
+            "file": "neuropulse-spike-shapes.wav",
+            "verdict": "keep",
+            "why": "The steward's offline version of the same test; the caption's timings match analysis.py (5.5 s per shape, 0.4 s gaps, 23.6 s)."
+          },
+          {
+            "file": "spike-shape-findings.png",
+            "verdict": "keep",
+            "why": "The right evidence, honestly captioned. Note: the tail's small effect on the lock changed sign between v0.2.1 (0.0039 vs 0.0033) and v0.4 (0.0034 vs 0.0037), and 'the numbers move a little' could say so."
+          }
+        ]
+      }
+    },
+    {
+      "heading": "Open Questions",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "made": "2026-11-03",
+      "pieces": [
+        {
+          "file": "proofs/2026-05-04-spike-oscillator.wav",
+          "origin": "gathered",
+          "title": "a FitzHugh–Nagumo cycle · May sketch",
+          "caption": "Six seconds of a different neuron model, FitzHugh–Nagumo, a two-variable cousin of Hodgkin–Huxley: one cycle per period at A2 (110 Hz), morphing as its input current rises from 0.45 to 0.85. Here the spike's shape comes out of the equations rather than being prescribed: a first listen at what lies past Stage 4. The script that made it isn't in the bundle.",
+          "near": "When does the oscillator become Hodgkin-Huxley?"
+        }
+      ],
+      "made_against": "756998e44690",
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "proofs/2026-05-04-spike-oscillator.wav",
+            "verdict": "keep",
+            "why": "A first listen at a spike whose shape emerges, beside the Hodgkin–Huxley question; the caption agrees with the May proof-showcase record (FitzHugh–Nagumo, A2, I 0.45 → 0.85, 6 s)."
+          }
+        ]
+      }
+    }
+  ]
+}
