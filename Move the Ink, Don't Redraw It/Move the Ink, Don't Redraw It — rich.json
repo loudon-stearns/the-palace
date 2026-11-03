@@ -1,0 +1,213 @@
+{
+  "title": "Move the Ink, Don't Redraw It — rich",
+  "born": "2026-11-03",
+  "links": [
+    {
+      "target": "[[Move the Ink, Don't Redraw It]]",
+      "type": "connects-to",
+      "label": "rich-face-of"
+    },
+    {
+      "target": "[[Enrichment]]",
+      "type": "connects-to",
+      "label": "made-by"
+    },
+    {
+      "target": "[[BLUELINE]]",
+      "type": "connects-to",
+      "label": "gathered-from"
+    }
+  ],
+  "forward_vector": "I am the manifest of Move the Ink, Don't Redraw It's rich face, its first round at Sketch tier: three made pieces that each walk up to a test the page's own text sets (the boil meter read where nothing moves, a paper grain fixed or carried, and the exact place a warp folds), with BLUELINE's own loops, boards and M3.7 pair gathered beside the sections they prove, the fingerprint of the words each was laid against, and the offers the pieces measured for the text. I grow when a piece has something new to test; I never hold the entry's words.",
+  "entry": "Move the Ink, Don't Redraw It",
+  "tier": "sketch",
+  "made": "2026-11-03",
+  "round": 1,
+  "offers": [
+    {
+      "section": "Why redrawing fails",
+      "kind": "claim-change",
+      "status": "open",
+      "what": "The 0.15/255 was never a warp's number. The bench measured it on its NPR stylizer run over a Blender smoke sim (track-VI report.md:85, Tier C), against per-frame SDXL img2img on the same sim; the warp was measured only for its loop seam (0.0). Read with the same meter (stylize.py's flicker: mean |frame − frame before| × 255) on the bench's own warp loops, which cannot boil: smoke 0.86, sky 1.79, water 1.98, dust 4.77, flame 8.72 (mp4 previews in report-assets; the piece's own smoke loop reads 0.64). The meter counts motion and boil together, so a warp scores whatever its motion is. Proposed first bullet: \"deterministic NPR on one fixed grain — 0.15 / 255, all of it the sim's own motion\", and a line that the warp's boil is zero by construction, which the piece shows as exactly 0 where nothing moves."
+    },
+    {
+      "section": "Why redrawing fails",
+      "kind": "claim-change",
+      "status": "open",
+      "what": "\"~10× worse, and that figure flatters the AI\" runs the wrong way. The bench's debrief (debrief.html:189) gives the reason: the AI run \"sampled sparse frames with more real motion between them\", and more motion per pair raises the AI's number, so it overstates the AI's boil rather than flattering it. Measured on the NPR clip read k frames apart: 0.12 (1), 0.24 (2), 0.45 (4), 0.84 (8), 1.41 (15). Part of the 1.50, perhaps most of it, is motion; how much can't be re-measured, because renders/smoke_ai_flick is gitignored and not on this Mac. On the mp4 preview the 0.15 itself reads 0.12 within the 90-frame sim and 0.16 counting the restart jump. Proposed: \"per-frame AI restyle — 1.50 / 255, read on sparser frames, so part of it is motion. Boil is the change where nothing moved, and you see it before you can read it.\""
+    },
+    {
+      "section": "The same rule, the substrate too",
+      "kind": "claim-change",
+      "status": "open",
+      "what": "\"A static substrate cannot boil\" holds: on the piece's port of stylize.py (npr_ink matches to 1.5e-7, the blur to scipy's to 6e-8), a grain made once reads exactly 0 on plain paper where nothing moves, a fresh grain each frame 0.63. But a static grain can slide: it stays on the screen while the ink moves through it, the shower-door effect (Meier, Painterly Rendering for Animation, SIGGRAPH 1996). Measured after following the motion: 8.77/255 with the grain fixed, 0.33 with the grain carried by the same motion. Carrying it is inking once and warping, so it needs a displacement; a billowing sim has none, and the slide is the fixed grain's cost there. Proposed after \"A static substrate cannot boil.\": \"It can slide, though: a grain fixed to the screen stays put while the ink moves through it. Where the motion is a warp, carry the grain with it.\""
+    },
+    {
+      "section": "The honest edge",
+      "kind": "claim-change",
+      "status": "open",
+      "what": "The warp's own edge has a number, and the bench's fields sit on it. A warp only rearranges the drawing while its source map x − d(x) doesn't fold, det J > 0; for one ripple of length λ that is a push under λ/2π. On the piece's engine the drawing keeps 4 islands and 1 hole over 480 frames up to 0.95 of the fold, and at 1.4 of it shows anything from 4 to 8 islands and 1 to 4 holes, as mirrored creases, not new shapes. Measured on fields.py at default push with each plate's mask and anchor: sky's tightest det J 0.90, dust 0.05, water 0.02, smoke 0.01, flame −0.07 (folded on at most 318 of 1,011,712 pixels, in 54 of 60 frames; dust on 1 pixel in 1 frame). Proposed, after the first paragraph: \"The warp has an edge of its own: it rearranges the ink only while it doesn't fold back on itself (det J > 0; for a ripple of length λ, a push under λ/2π). The bench's water, smoke and dust fields run within a few percent of it, and the flame crosses it on a few hundred pixels.\" It answers part of the forward vector's \"map the boundary precisely\"."
+    },
+    {
+      "section": "Ancestry",
+      "kind": "no-claim-edit",
+      "status": "open",
+      "what": "In the M3 rhyme the word \"warp\" changes sides. What lost in M3.7 was warping the diffusion noise one step along the motion while the model still redrew every frame (adjacent embedding coherence 0.858 seed-lock vs 0.809 warped, m3.7-report.md); here the warp is what wins. The lesson is the same, but read beside this page, \"a locked seed beat per-step warp\" can sound like the opposite. Proposed: \"a locked seed beat per-step warping of the noise\"."
+    }
+  ],
+  "sections": [
+    {
+      "heading": "Why redrawing fails",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "made": "2026-11-03",
+      "pieces": [
+        {
+          "file": "Move the Ink, Don't Redraw It — rich — move it or redraw it.html",
+          "origin": "made",
+          "by": "the Maker · canvas",
+          "height": 1650,
+          "title": "move it, or redraw it · five steps",
+          "caption": "**Move it, or redraw it.** The bench's inked smoke plate, one still, pushed by the bench's own smoke field (fields.py, seed 3, ported and matched to 2e-6 px), then the loop closed: frame 60 against frame 0 reads exactly 0 with whole turns, 7.97/255 with a turn and a half. Then a twin redrawn every frame (a stand-in made here: each mark re-placed by a fresh nudge, not an image model), with the meter split into change where the field moves the ink and change where nothing moves. The test: the moved loop reads exactly 0 where nothing moves; read further apart, motion grows (0.88, 3.20, 8.52 at 1, 4, 15 frames) while boil holds (4.26, 4.33, 4.28). Then the page's numbers on the bench's clips: the 0.15 is the NPR stylizer on a sim, the 1.50 was read on sparser frames, and the warp loops, which cannot boil, read 0.86 to 8.72. Checked in Node on the piece's own engine.",
+          "near": "Measured on the same moving smoke"
+        },
+        {
+          "file": "Projects/BLUELINE/proofs/track-VI-elemental-motion/report-assets/flicker_compare.png",
+          "origin": "gathered",
+          "title": "Tier C board · BLUELINE",
+          "caption": "The bench's board for the page's numbers: the same Blender smoke through two stylizers, six frames each. NPR on one fixed grain, 0.15; per-frame SDXL img2img, 1.50. The AI frames were never committed (renders/ is ignored), so this strip is all of them the palace keeps.",
+          "near": "Measured on the same moving smoke",
+          "place": "margin"
+        }
+      ],
+      "made_against": "433ff7ad99f5",
+      "stamped": "2026-11-03"
+    },
+    {
+      "heading": "The same rule, the substrate too",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "made": "2026-11-03",
+      "pieces": [
+        {
+          "file": "Move the Ink, Don't Redraw It — rich — one grain.html",
+          "origin": "made",
+          "by": "the Maker · canvas",
+          "height": 1150,
+          "title": "one grain · five steps",
+          "caption": "**One grain.** stylize.py's paper tooth and NPR ink, ported (npr_ink matched to 1.5e-7), on a swaying puff of smoke: the grain alone, one still inked on it, a fresh grain each frame (boil 0.63 on plain paper where nothing moves), one grain made once (boil exactly 0, the page's claim). The test is the moving edge: a grain fixed to the screen slides under the ink, 8.77/255 after following the motion, the shower-door effect; carried with the puff it reads 0.33, and carrying it is the page's own rule again, ink once and move. Checked in Node on the piece's own engine.",
+          "near": "A static substrate cannot boil"
+        }
+      ],
+      "made_against": "ec3d46324744",
+      "stamped": "2026-11-03"
+    },
+    {
+      "heading": "How it shows up",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "made": "2026-11-03",
+      "pieces": [
+        {
+          "file": "Projects/BLUELINE/proofs/track-VI-elemental-motion/report-assets/previews/water_v1.mp4",
+          "origin": "gathered",
+          "place": "margin",
+          "title": "water · BLUELINE warp loop",
+          "caption": "Ripple for water: traveling waves, bigger toward the foreground, on the bottom half of the plate. One still, 60 frames. Frame to frame it changes 1.98/255, all of it motion.",
+          "near": "Displacement fields warp the drawn ink"
+        },
+        {
+          "file": "Projects/BLUELINE/proofs/track-VI-elemental-motion/report-assets/previews/flame_v1.mp4",
+          "origin": "gathered",
+          "place": "margin",
+          "title": "flame · BLUELINE warp loop",
+          "caption": "An upward lick: a fast field with lateral curl, the base pinned and the tips free. The busiest loop on the bench, 8.72/255 frame to frame, and the one field that crosses the fold on a few hundred pixels (The honest edge).",
+          "near": "Displacement fields warp the drawn ink"
+        },
+        {
+          "file": "Projects/BLUELINE/proofs/track-VI-elemental-motion/report-assets/previews/sky_v1.mp4",
+          "origin": "gathered",
+          "place": "margin",
+          "title": "cloud · BLUELINE warp loop",
+          "caption": "A low slow billow for cloud: one sway and drift per loop over the top of the plate. The gentlest field on the bench; its det J never drops below 0.90.",
+          "near": "Displacement fields warp the drawn ink"
+        }
+      ],
+      "made_against": "886654824764",
+      "stamped": "2026-11-03"
+    },
+    {
+      "heading": "The honest edge",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "made": "2026-11-03",
+      "pieces": [
+        {
+          "file": "Move the Ink, Don't Redraw It — rich — where the warp folds.html",
+          "origin": "made",
+          "by": "the Maker · canvas",
+          "height": 1300,
+          "title": "where the warp folds · five steps",
+          "caption": "**Where the warp folds.** One arrow moving one dot of ink, then a ripple over a small drawing (a ring, two blobs, a curl), pushed until the ink smears (det J toward 0) and then past the fold, where the frame reads the still backwards. The test counts islands and holes: short of the fold the drawing keeps 4 and 1 at every push and phase (480 frames checked); a billow that wants a puff to break off and a hole to open (5 and 2) is out of reach, and past the fold the count changes only as mirrored creases. Last, BLUELINE's five fields at their default push: sky's tightest det J 0.90, dust 0.05, water 0.02, smoke 0.01, flame −0.07. Checked in Node on the piece's engine and in Python on fields.py.",
+          "near": "That boundary is where a redraw earns itself"
+        },
+        {
+          "file": "Projects/BLUELINE/proofs/track-VI-elemental-motion/report-assets/phys-motion/phys_motion_compare.png",
+          "origin": "gathered",
+          "place": "margin",
+          "title": "physical motion bench · BLUELINE, 2026-06-26",
+          "caption": "The second boundary as the bench left it: the smoke plate warped by the procedural field (middle) and by velocity from a Mantaflow sim, read with block-matching optical flow (right), each as an anaglyph, frame 0 red against mid-loop cyan. The velocity-driven warp moves less and only where the flow lives.",
+          "near": "A second boundary, finer"
+        }
+      ],
+      "made_against": "85e6e3497134",
+      "stamped": "2026-11-03"
+    },
+    {
+      "heading": "Ancestry",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "made": "2026-11-03",
+      "pieces": [
+        {
+          "file": "Projects/BLUELINE/proofs/m3-warped-noise/renders-seq/seedlock.gif",
+          "origin": "gathered",
+          "place": "margin",
+          "title": "M3.7 seed-lock · BLUELINE",
+          "caption": "BLUELINE M3.7: six frames of a coil into a leap, each rendered fresh by FLUX with a pose ControlNet, every frame from the same noise. Adjacent-frame coherence 0.858.",
+          "near": "the same lesson twice"
+        },
+        {
+          "file": "Projects/BLUELINE/proofs/m3-warped-noise/renders-seq/warped.gif",
+          "origin": "gathered",
+          "place": "margin",
+          "title": "M3.7 warped noise · BLUELINE",
+          "caption": "The same six frames with the noise warped one step along the motion each frame. 0.809: it wanders. Here what geometry moved was the noise, and it lost, because the model still redrew every frame. The rhyme holds and the word \"warp\" changes sides.",
+          "near": "the same lesson twice"
+        }
+      ],
+      "made_against": "b6126317c426",
+      "stamped": "2026-11-03"
+    }
+  ]
+}

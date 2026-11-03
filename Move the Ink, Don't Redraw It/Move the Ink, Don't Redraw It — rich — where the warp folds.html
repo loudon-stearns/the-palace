@@ -1,0 +1,307 @@
+<!doctype html>
+<!--
+  title: Move the Ink, Don't Redraw It — rich — where the warp folds
+  born: 2026-11-03
+  links: [[Move the Ink, Don't Redraw It]] (connects-to · rich-face-piece) · listed in [[Move the Ink, Don't Redraw It — rich.json]] · [[BLUELINE]] (connects-to · the bench's five fields, measured) · [[Progressive Staging]] (exemplifies · a walk up to its test)
+  forward_vector: I am "The honest edge" made exact. I start on one arrow moving one dot of ink, ripple a small drawing, push the ripple until the ink smears, then past the point where the warp folds back on itself, and last count the drawing's islands and holes: a warp that does not fold can never change them, so a billow that needs a new puff or a new hole needs a redraw. I play inside the entry's rich face and stand alone opened directly; I change only when the section I serve does.
+  engine: everything between ENGINE-START and ENGINE-END is pure and runs in Node too; "Move the Ink, Don't Redraw It/workshop/rich-checks.mjs" re-runs the claims on it.
+  presets: the five BLUELINE numbers in the last step were measured in Python on the bench's own fields.py and warp.py, at their default push, with each plate's mask and anchor; rich-checks.mjs prints how.
+  dress: Loudon Live house style, Graphite skin. Silent: no sound.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:needs" content="">
+<title>Where the warp folds</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Manrope:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root { --bg:#0a0a0f; --e1:#12121a; --border:#4a4a5e; --soft:rgba(255,255,255,.06); --fg1:#e8e8f0; --fg2:#c8c8d8; --fg3:#8a8aa0; --fg4:#4a4a5a;
+    --amber:#e8b84a; --amberline:rgba(232,184,74,.5); --cool:#7f9cff; --red:#ff5a4a;
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --sans:'Manrope',system-ui,sans-serif; --serif:'Cormorant Garamond',Georgia,serif; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); font-weight: 300; }
+  .piece { padding: 22px 22px 16px; position: relative; }
+  .sigil { position: absolute; top: 18px; right: 20px; opacity: .55; }
+  .kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; }
+  .title { font-family: var(--serif); font-size: 27px; font-weight: 300; color: var(--fg1); margin: 0 0 6px; }
+  .sub { font-size: 14px; line-height: 1.6; color: var(--fg2); max-width: 76ch; margin: 0 0 14px; }
+  .rail { display: flex; flex-wrap: wrap; margin: 0 0 12px; }
+  .rail button { border-radius: 0; margin-right: -1px; }
+  .rail button.here { color: var(--amber); border-color: var(--amberline); position: relative; z-index: 1; }
+  .rail button.ahead { color: var(--fg3); }
+  .stephead { font-family: var(--mono); font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--amber); margin: 4px 0 4px; }
+  .says { font-size: 14px; line-height: 1.6; color: var(--fg1); max-width: 76ch; margin: 0 0 14px; min-height: 4.8em; }
+  .panel { border: 1px solid var(--soft); border-radius: 2px; background: var(--e1); padding: 10px 12px; }
+  .plabel { font-family: var(--mono); font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--fg3); margin-bottom: 8px; display: flex; justify-content: space-between; gap: 10px; }
+  canvas { display: block; width: 100%; max-width: 720px; image-rendering: auto; }
+  .legend { display: flex; flex-wrap: wrap; gap: 4px 18px; font-family: var(--mono); font-size: 10.5px; color: var(--fg3); margin-top: 8px; }
+  .legend i { display: inline-block; width: 12px; height: 8px; vertical-align: middle; margin-right: 6px; }
+  .controls { display: flex; flex-wrap: wrap; gap: 14px 26px; align-items: end; margin-top: 16px; min-height: 40px; }
+  .ctl { min-width: 220px; flex: 1; }
+  .seg { display: inline-flex; flex-wrap: wrap; } .seg button + button { border-left: 0; }
+  .seglabel { display: block; font-family: var(--mono); font-size: 10.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; }
+  button { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--fg2); background: var(--bg); border: 1px solid var(--border); border-radius: 2px; padding: 8px 12px; cursor: pointer; transition: border-color 220ms cubic-bezier(.4,0,.2,1), color 220ms cubic-bezier(.4,0,.2,1); }
+  button:hover { border-color: rgba(232,184,74,.55); color: var(--fg1); }
+  button:disabled { opacity: .4; cursor: default; }
+  button.on { color: var(--amber); border-color: var(--amberline); }
+  button.go { color: var(--amber); border-color: var(--amberline); box-shadow: 0 0 14px rgba(232,184,74,.18); }
+  button:focus-visible, input:focus-visible { outline: 1px dashed var(--amber); outline-offset: 2px; }
+  label.sl { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: .08em; color: var(--fg3); }
+  label.sl b { color: var(--fg1); font-weight: 500; }
+  input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 3px; background: var(--fg4); margin: 12px 0 4px; outline: none; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 13px; height: 13px; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  input[type=range]::-moz-range-thumb { width: 13px; height: 13px; border: 0; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  .read { display: flex; flex-wrap: wrap; gap: 6px 22px; margin-top: 14px; font-family: var(--mono); font-size: 11.5px; letter-spacing: .05em; color: var(--fg3); }
+  .read b { color: var(--fg1); font-weight: 500; }
+  .read b.bad { color: var(--red); }
+  .verdict { margin-top: 12px; font-size: 14px; line-height: 1.6; color: var(--amber); max-width: 80ch; min-height: 1.6em; }
+  .nav { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 16px; }
+  .hint { font-family: var(--mono); font-size: 11px; letter-spacing: .05em; line-height: 1.6; color: var(--fg3); margin-top: 10px; max-width: 90ch; }
+  .eqs { margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--soft); }
+  .eq { font-family: var(--serif); font-size: 19px; color: var(--fg1); }
+  .words { font-size: 13px; line-height: 1.55; color: var(--fg2); margin: 2px 0 10px; max-width: 86ch; }
+  table.nums { border-collapse: collapse; font-family: var(--mono); font-size: 11.5px; color: var(--fg2); margin-top: 10px; width: 100%; }
+  table.nums td, table.nums th { border-bottom: 1px solid var(--soft); padding: 5px 8px 5px 0; text-align: left; font-weight: 400; }
+  table.nums th { color: var(--fg3); font-size: 10.5px; letter-spacing: .12em; text-transform: uppercase; }
+  table.nums td b { color: var(--fg1); font-weight: 500; }
+  table.nums td b.bad { color: var(--red); }
+  .hide { display: none !important; }
+</style>
+</head>
+<body>
+<div class="piece">
+  <svg class="sigil" id="sigil" width="28" height="28" viewBox="0 0 28 28" aria-hidden="true"></svg>
+  <div class="kicker">made · canvas · sketch · a walk in five steps</div>
+  <h3 class="title">Where the warp folds</h3>
+  <p class="sub">A small ink drawing (a ring, two blobs and a curl) pushed by one ripple, harder and harder. Watch where the ink smears, where the warp folds back on itself, and what that does to the drawing's islands and holes. Silent; nothing here makes sound.</p>
+  <div class="rail" id="rail" role="group" aria-label="steps"></div>
+  <div class="stephead" id="stephead"></div>
+  <p class="says" id="says"></p>
+  <div class="panel">
+    <div class="plabel"><span id="plabel"></span><span id="pright"></span></div>
+    <canvas id="cv" width="360" height="220"></canvas>
+    <div class="legend" id="legend"></div>
+  </div>
+  <div class="controls" id="controls"></div>
+  <div class="read" id="read"></div>
+  <div id="tablebox" class="hide">
+    <table class="nums" id="presets">
+      <tr><th>BLUELINE field, default push</th><th>tightest det J</th><th>push that folds</th><th>reads as</th></tr>
+      <tr><td>sky · slow billow</td><td><b>0.90</b></td><td>× 9.5</td><td>far from the edge</td></tr>
+      <tr><td>dust · shimmer</td><td><b>0.05</b></td><td>× 0.94</td><td>at the edge; one pixel in one frame folds on both axes</td></tr>
+      <tr><td>water · ripple</td><td><b>0.02</b></td><td>× 1.02</td><td>at the edge</td></tr>
+      <tr><td>smoke · wisp</td><td><b>0.01</b></td><td>× 1.01</td><td>at the edge</td></tr>
+      <tr><td>flame · lick</td><td><b class="bad">−0.07</b></td><td>× 0.94</td><td>past it, on at most 318 of 1,011,712 pixels, in 54 of 60 frames</td></tr>
+    </table>
+    <div class="hint">Measured in Python on the bench's own fields.py at full plate size (832 × 1216), each field times its plate's mask and anchor as warp.py applies them, over the 60 frames of a loop; det J by central differences. "Push that folds" is the factor on the field's amplitude at which det J first reaches zero somewhere in the loop; below 1 means the default push has already crossed it there.</div>
+  </div>
+  <div class="verdict" id="verdict"></div>
+  <div class="nav"><button id="back">← back</button><button id="next">next step →</button></div>
+  <div class="eqs">
+    <div class="eq">s(x) = x − d(x), &nbsp; det J = det ∂s/∂x</div>
+    <div class="words">Each pixel x takes its ink from s(x), the place its arrow points back to. det J says how much of the still one pixel of the frame reads: 1 is a plain move, near 0 one sliver of ink is smeared across many pixels, below 0 the frame reads the still backwards.</div>
+    <div class="eq">d = A · sin(2πx / λ), &nbsp; det J = 1 − (2πA / λ) cos(2πx / λ), &nbsp; folds when A &gt; λ / 2π</div>
+    <div class="words">For one ripple the edge has a number: the push can grow until it equals the ripple's length divided by 2π. Up to there the warp only rearranges the drawing; past it, it folds.</div>
+  </div>
+</div>
+<script>
+/*ENGINE-START*/
+// A small ink drawing from distance fields, one ripple, the source map's Jacobian, and a count
+// of the drawing's islands and holes. Pure; Node runs it.
+const CW = 360, CH = 220, LAMBDA = 60;
+function smooth(e) { return e <= -0.75 ? 0 : e >= 0.75 ? 1 : (e + 0.75) / 1.5; }   // 1.5 px soft edge
+// signed distance to the ink, negative inside. variant: 'drawing' | 'dot' | 'billow'
+function sdf(x, y, variant) {
+  if (variant === 'dot') return Math.hypot(x - 180, y - 110) - 6;
+  const ring = Math.abs(Math.hypot(x - 78, y - 110) - 40) - 8;                         // a ring: one hole
+  const blob = (Math.hypot((x - 182) / 30, (y - 78) / 20) - 1) * 20;                   // an ellipse
+  const dot = Math.hypot(x - 196, y - 160) - 17;                                       // a round blob
+  let curl = 1e9;                                                                       // a thick curl
+  if (x >= 248 && x <= 334) curl = Math.abs(y - (110 + 32 * Math.sin((x - 248) / 15))) / Math.sqrt(1 + Math.pow(32 / 15 * Math.cos((x - 248) / 15), 2)) - 8;
+  curl = Math.max(curl, Math.max(244 - x, x - 338));
+  let d = Math.min(ring, blob, dot, curl);
+  if (variant === 'billow') d = Math.min(d, Math.hypot(x - 238, y - 52) - 11);          // a puff breaks off the blob
+  return d;
+}
+function drawing(variant = 'drawing', w = CW, h = CH) {
+  const g = new Float32Array(w * h);
+  for (let y = 0, i = 0; y < h; y++) for (let x = 0; x < w; x++, i++) {
+    let v = smooth(sdf(x, y, variant));
+    if (variant === 'billow' && Math.hypot(x - 196, y - 160) < 8) v = 1;              // the billow opens a hole in the round blob
+    g[i] = v;
+  }
+  return g;
+}
+// one ripple, push p in units of the fold: amplitude A = p · λ / 2π, on both axes
+function ripple(p, t, dx, dy, w = CW, h = CH) {
+  const A = p * LAMBDA / (2 * Math.PI), k = 2 * Math.PI / LAMBDA, ph = 2 * Math.PI * t;
+  for (let y = 0, i = 0; y < h; y++) for (let x = 0; x < w; x++, i++) { dx[i] = A * Math.sin(k * x - ph); dy[i] = A * Math.sin(k * y - ph + 1.3); }
+}
+function refl(i, n) { if (i < 0) i = -i - 1; if (i >= n) i = 2 * n - i - 1; return i < 0 ? 0 : i >= n ? n - 1 : i; }
+function warp(img, w, h, dx, dy, out) {
+  for (let y = 0, i = 0; y < h; y++) for (let x = 0; x < w; x++, i++) {
+    const sx = x - dx[i], sy = y - dy[i], x0 = Math.floor(sx), y0 = Math.floor(sy), fx = sx - x0, fy = sy - y0;
+    const xa = refl(x0, w), xb = refl(x0 + 1, w), ya = refl(y0, h), yb = refl(y0 + 1, h);
+    out[i] = (img[ya * w + xa] * (1 - fx) + img[ya * w + xb] * fx) * (1 - fy) + (img[yb * w + xa] * (1 - fx) + img[yb * w + xb] * fx) * fy;
+  }
+  return out;
+}
+// det of the source map's Jacobian, I − ∇d, by central differences (one-sided at the edge)
+function detJ(dx, dy, w, h, out) {
+  for (let y = 0, i = 0; y < h; y++) for (let x = 0; x < w; x++, i++) {
+    const xl = x > 0 ? i - 1 : i, xr = x < w - 1 ? i + 1 : i, yu = y > 0 ? i - w : i, yd = y < h - 1 ? i + w : i;
+    const sx = (xr - xl) || 1, sy = ((yd - yu) / w) || 1;
+    const dxx = (dx[xr] - dx[xl]) / sx, dxy = (dx[yd] - dx[yu]) / sy, dyx = (dy[xr] - dy[xl]) / sx, dyy = (dy[yd] - dy[yu]) / sy;
+    out[i] = (1 - dxx) * (1 - dyy) - dxy * dyx;
+  }
+  return out;
+}
+// islands: ink (< 0.5) joined 8 ways; holes: paper joined 4 ways that does not reach the edge
+function topo(g, w = CW, h = CH) {
+  const lab = new Int32Array(w * h), st = new Int32Array(w * h);
+  function fill(i0, want, eight, id) {
+    let n = 0, edge = false; st[n++] = i0; lab[i0] = id;
+    while (n) {
+      const i = st[--n], x = i % w, y = (i / w) | 0;
+      if (x === 0 || y === 0 || x === w - 1 || y === h - 1) edge = true;
+      for (let oy = -1; oy <= 1; oy++) for (let ox = -1; ox <= 1; ox++) {
+        if (!ox && !oy) continue; if (!eight && ox && oy) continue;
+        const X = x + ox, Y = y + oy; if (X < 0 || Y < 0 || X >= w || Y >= h) continue;
+        const j = Y * w + X; if (lab[j] || (g[j] < 0.5) !== want) continue;
+        lab[j] = id; st[n++] = j;
+      }
+    }
+    return edge;
+  }
+  let islands = 0, holes = 0, id = 0;
+  for (let i = 0; i < w * h; i++) {
+    if (lab[i]) continue;
+    const ink = g[i] < 0.5, edge = fill(i, ink, ink, ++id);
+    if (ink) islands++; else if (!edge) holes++;
+  }
+  return { islands, holes };
+}
+/*ENGINE-END*/
+
+const $ = (id) => document.getElementById(id);
+const N = CW * CH, dx = new Float32Array(N), dy = new Float32Array(N), det = new Float32Array(N), out = new Float32Array(N);
+const BASE = drawing('drawing'), DOT = drawing('dot'), BILLOW = drawing('billow');
+const T0 = topo(BASE), TB = topo(BILLOW);
+const STEPS = [
+  { head: 'one arrow', says: 'One arrow. A warp gives each pixel an arrow, and the pixel takes the ink it finds where its arrow points back to. Here every arrow is the same, so the dot simply slides. Nothing is drawn; the dot\'s ink is read from somewhere else.' },
+  { head: 'a ripple', says: 'A ripple. Now the arrows vary across the sheet, so the drawing sways: the ring rocks, the curl breathes. Count what the drawing is made of, its islands of ink and the holes inside them, and keep counting as the ripple runs.' },
+  { head: 'push it', says: 'Push it. As the ripple grows, some pixels read a thinner and thinner sliver of the still: the ink there is smeared across them (amber). Others read a wider patch, so the ink there is squeezed (blue). det J is the ratio; it starts at 1 and the tightest place falls toward 0 as the push nears the fold.' },
+  { head: 'past the fold', says: 'Past the fold. Push beyond the line and det J goes below zero in bands (red): there the frame reads the still backwards, so the ink comes out mirrored and doubled. The warp is no longer a rearrangement of the drawing. Watch the counts.' },
+  { head: 'a billow', says: 'A billow. Say the motion wants a puff to break off the blob and a hole to open in it, on the right. That drawing has a different count of islands and holes. Run every push short of the fold, across the whole loop: the count never moves. A warp short of the fold cannot make that billow, and one past it makes a mirrored crease instead. That is where a redraw earns itself.' },
+];
+let step = 0, push = 0.35, t = 0, playing = true, lastT = 0, sweep = null;
+
+function setLegend(kind) {
+  $('legend').innerHTML = kind === 'det'
+    ? '<span><i style="background:#e8b84a"></i>smeared: det J below 0.35</span><span><i style="background:#7f9cff"></i>squeezed: det J above 1.8</span><span><i style="background:#ff5a4a"></i>folded: det J below 0</span>'
+    : kind === 'billow' ? '<span>left: the drawing, warped short of the fold</span><span>right: what the billow wants</span>' : '';
+}
+function paint(g, overlay) {
+  const ctx = $('cv').getContext('2d'), im = ctx.createImageData(CW, CH), d = im.data;
+  for (let i = 0, j = 0; i < N; i++, j += 4) {
+    let r = 244, gg = 241, b = 234; const v = g[i];
+    r = r * v + 10 * (1 - v); gg = gg * v + 10 * (1 - v); b = b * v + 15 * (1 - v);
+    if (overlay) {
+      const q = det[i];
+      if (q < 0) { r = r * 0.45 + 255 * 0.55; gg = gg * 0.45 + 90 * 0.55; b = b * 0.45 + 74 * 0.55; }
+      else if (q < 0.35) { r = r * 0.55 + 232 * 0.45; gg = gg * 0.55 + 184 * 0.45; b = b * 0.55 + 74 * 0.45; }
+      else if (q > 1.8) { r = r * 0.6 + 127 * 0.4; gg = gg * 0.6 + 156 * 0.4; b = b * 0.6 + 255 * 0.4; }
+    }
+    d[j] = r; d[j + 1] = gg; d[j + 2] = b; d[j + 3] = 255;
+  }
+  ctx.putImageData(im, 0, 0);
+}
+function minOf(a) { let m = Infinity; for (const v of a) if (v < m) m = v; return m; }
+
+function draw() {
+  const A = push * LAMBDA / (2 * Math.PI), fold = LAMBDA / (2 * Math.PI);
+  if (step === 0) {
+    const sh = 40 * push;
+    for (let i = 0; i < N; i++) { dx[i] = sh; dy[i] = 0; }
+    warp(DOT, CW, CH, dx, dy, out); paint(out);
+    const ctx = $('cv').getContext('2d'), x = 180 + sh, y = 110;
+    ctx.strokeStyle = '#e8b84a'; ctx.fillStyle = '#e8b84a'; ctx.lineWidth = 1.5;
+    ctx.beginPath(); ctx.moveTo(x, y + 14); ctx.lineTo(x - sh, y + 14); ctx.stroke();
+    ctx.beginPath(); ctx.arc(x - sh, y + 14, 2.5, 0, 2 * Math.PI); ctx.fill();
+    ctx.beginPath(); ctx.arc(180, 110, 6, 0, 2 * Math.PI); ctx.setLineDash([3, 3]); ctx.strokeStyle = '#8a8aa0'; ctx.stroke(); ctx.setLineDash([]);
+    $('plabel').textContent = 'one dot, one arrow'; $('pright').textContent = 'dashed: where the ink sits in the still';
+    $('read').innerHTML = `<span>arrow <b>${sh.toFixed(1)} px</b></span><span>ink drawn <b>none</b></span>`;
+    $('verdict').textContent = '';
+    return;
+  }
+  if (step === 4) {
+    ripple(push, t, dx, dy); warp(BASE, CW, CH, dx, dy, out);
+    // left: the warped drawing; right: the billow target, side by side at half size
+    const g = new Float32Array(N).fill(1), half = (src, ox) => { for (let y = 0; y < CH / 2; y++) for (let x = 0; x < CW / 2; x++) g[(y + CH / 4) * CW + x + ox] = src[(2 * y) * CW + 2 * x]; };
+    half(out, 0); half(BILLOW, CW / 2);
+    paint(g);
+    const c = topo(out);
+    $('plabel').textContent = 'warped, short of the fold · the billow'; $('pright').textContent = 'push ' + push.toFixed(2) + ' of the fold';
+    $('read').innerHTML = `<span>warped: islands <b>${c.islands}</b> holes <b>${c.holes}</b></span><span>the billow: islands <b>${TB.islands}</b> holes <b>${TB.holes}</b></span>` + (sweep ? `<span>sweep: <b>${sweep.frames}</b> frames, pushes 0 to ${sweep.pmax.toFixed(2)}, counts seen <b>${sweep.seen}</b></span>` : '');
+    $('verdict').textContent = sweep ? (sweep.seen === `${T0.islands} · ${T0.holes}` ? `Every push short of the fold, at every phase of the loop: always ${T0.islands} islands and ${T0.holes} hole. The billow needs ${TB.islands} and ${TB.holes}. No warp short of the fold gets there.` : 'The sweep saw the count change short of the fold; see the read-out.') : 'Run the sweep to check every push short of the fold.';
+    return;
+  }
+  ripple(push, t, dx, dy); warp(BASE, CW, CH, dx, dy, out); detJ(dx, dy, CW, CH, det);
+  const c = topo(out), md = minOf(det);
+  paint(out, step >= 2);
+  $('plabel').textContent = step === 1 ? 'the drawing, rippled' : 'the drawing, pushed';
+  $('pright').textContent = 'push ' + push.toFixed(2) + ' of the fold';
+  const same = c.islands === T0.islands && c.holes === T0.holes;
+  $('read').innerHTML = `<span>islands <b class="${same ? '' : 'bad'}">${c.islands}</b> holes <b class="${same ? '' : 'bad'}">${c.holes}</b> <span style="color:#4a4a5a">(still: ${T0.islands} · ${T0.holes})</span></span>` +
+    (step >= 2 ? `<span>tightest det J <b class="${md < 0 ? 'bad' : ''}">${md.toFixed(3)}</b></span><span>push A <b>${A.toFixed(2)} px</b> · folds at λ/2π = <b>${fold.toFixed(2)} px</b></span>` : `<span>push A <b>${A.toFixed(2)} px</b></span>`);
+  $('verdict').textContent = step === 1 ? '' : step === 2
+    ? (md > 0 ? 'Short of the fold every pixel still reads its own piece of the still, so the drawing keeps its islands and its hole, however smeared.' : 'This is past the fold; the next step is about that.')
+    : (md < 0 ? (same ? 'Folded, and this phase of the loop happens to keep the count; let it run.' : 'Folded: the ink is read backwards in the red bands, and the count of islands and holes has changed. This is a crease, not a billow.') : 'Push past 1.00 to cross the fold.');
+}
+
+function controls() {
+  const c = $('controls'); c.innerHTML = '';
+  const max = step === 0 ? 1 : step === 1 ? 0.6 : step === 2 ? 0.99 : step === 3 ? 2 : 0.99;
+  push = Math.min(push, max);
+  c.innerHTML = `<label class="sl ctl">${step === 0 ? 'arrow length' : 'push, in parts of the fold'} <b id="pv">${push.toFixed(2)}</b><input id="pu" type="range" min="0" max="${max}" step="0.01" value="${push}"></label>` +
+    (step >= 1 ? `<div class="ctl"><span class="seglabel">the loop</span><div class="seg"><button id="pl">${playing ? 'pause' : 'play'}</button></div></div>` : '') +
+    (step === 4 ? `<div class="ctl"><span class="seglabel">the test</span><button class="go" id="sw">run the sweep</button></div>` : '');
+  $('pu').oninput = (e) => { push = +e.target.value; $('pv').textContent = push.toFixed(2); draw(); };
+  if ($('pl')) $('pl').onclick = () => { playing = !playing; $('pl').textContent = playing ? 'pause' : 'play'; };
+  if ($('sw')) $('sw').onclick = runSweep;
+}
+function runSweep() {
+  // every push from 0 to 0.95 of the fold in steps of 0.05, at 24 phases of the loop
+  const seen = new Set(); let frames = 0;
+  const ddx = new Float32Array(N), ddy = new Float32Array(N), o = new Float32Array(N);
+  for (let p = 0; p <= 0.951; p += 0.05) for (let k = 0; k < 24; k++) { ripple(p, k / 24, ddx, ddy); warp(BASE, CW, CH, ddx, ddy, o); const c = topo(o); seen.add(c.islands + ' · ' + c.holes); frames++; }
+  sweep = { frames, pmax: 0.95, seen: [...seen].join(', ') };
+  draw();
+}
+
+function goStep(n) {
+  step = Math.max(0, Math.min(STEPS.length - 1, n));
+  const r = $('rail'); r.innerHTML = '';
+  STEPS.forEach((s, i) => { const b = document.createElement('button'); b.textContent = (i + 1) + ' · ' + s.head; b.className = i === step ? 'here' : i > step ? 'ahead' : ''; b.onclick = () => goStep(i); r.appendChild(b); });
+  $('stephead').textContent = 'step ' + (step + 1) + ' of ' + STEPS.length + ' · ' + STEPS[step].head;
+  $('says').textContent = STEPS[step].says;
+  $('back').disabled = step === 0; $('next').disabled = step === STEPS.length - 1;
+  if (step === 0) push = 0.5; else if (step === 1) push = 0.35; else if (step === 2) push = 0.8; else if (step === 3) push = 1.4; else push = 0.9;
+  $('tablebox').classList.toggle('hide', step !== 4);
+  setLegend(step === 2 || step === 3 ? 'det' : step === 4 ? 'billow' : '');
+  controls(); draw();
+}
+$('back').onclick = () => goStep(step - 1); $('next').onclick = () => goStep(step + 1);
+function tick(now) {
+  requestAnimationFrame(tick);
+  if (!playing || step === 0) return;
+  if (now - lastT < 1000 / 20) return;
+  lastT = now; t = (t + 1 / 60) % 1; draw();
+}
+(() => { const s = $('sigil'); let d = ''; for (let i = 0; i <= 240; i++) { const a = (i / 240) * 2 * Math.PI, x = 14 + 12 * Math.sin(3 * a + Math.PI / 2), y = 14 + 12 * Math.sin(2 * a); d += (i ? 'L' : 'M') + x.toFixed(2) + ' ' + y.toFixed(2); } s.innerHTML = `<path d="${d}" fill="none" stroke="#e8b84a" stroke-width="1"/>`; })();
+goStep(0);
+requestAnimationFrame(tick);
+</script>
+</body>
+</html>
