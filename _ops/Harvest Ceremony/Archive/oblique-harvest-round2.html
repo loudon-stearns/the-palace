@@ -4,6 +4,47 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Oblique Harvest — Round 2</title>
+<meta name="theme-color" content="#0a0a0f">
+<link rel="icon" href="../Harvest%20Ceremony%20%E2%80%94%20icon.png">
+<style data-furniture="_ops/loudon-live/design-system/controls.css 2026-11-03">
+/* The browser's furniture, re-dressed: inlined from _ops/loudon-live/design-system/controls.css on 2026-11-03 (_ops/furniture-fanout/furnish.py).
+   In a layer, so every rule this page writes wins. Left out, because the page dresses it: button, field, range, textarea. */
+@layer furniture {
+:where(*) { --fx-bg: var(--bg, #0a0a0f); --fx-bg-elev-1: var(--surface, #12121a); --fx-bg-elev-2: #1a1a28; --fx-bg-elev-3: #22222e; --fx-fg-1: var(--text, #e8e8f0); --fx-fg-2: #c8c8d8; --fx-fg-3: var(--text-dim, #8a8aa0); --fx-fg-4: #4a4a5a; --fx-fg-on-accent: #0a0a0f; --fx-border: var(--border, #4a4a5e); --fx-border-soft: rgba(255,255,255,0.06); --fx-border-hover: rgba(232,184,74,0.55); --fx-accent: var(--accent, #e8b84a); --fx-accent-soft: rgba(232,184,74,0.10); --fx-accent-line: rgba(232,184,74,0.50); --fx-danger: #ff2a2a; --fx-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace; --fx-r-xs: 1px; --fx-r-sm: 2px; --fx-r-md: 4px; --fx-r-pill: 999px; --fx-s-1: 4px; --fx-s-2: 8px; --fx-s-3: 12px; --fx-s-4: 16px; --fx-s-5: 20px; --fx-s-6: 24px; --fx-t-fast: 120ms; --fx-ease: cubic-bezier(.4, 0, .2, 1); --fx-lh-normal: 1.5; --fx-t-eyebrow: 11px; --fx-tr-eyebrow: 0.18em; --fx-t-caption: 13px; --fx-shadow-2: inset 0 1px 0 rgba(255,255,255,0.07), 0 6px 16px rgba(0,0,0,0.55), 0 1px 2px rgba(0,0,0,0.50); --fx-shadow-3: inset 0 1px 0 rgba(255,255,255,0.10), 0 18px 40px -8px rgba(0,0,0,0.70), 0 4px 10px rgba(0,0,0,0.45); }
+:root { color-scheme: dark; }
+::-webkit-scrollbar {width: 11px; height: 11px;}
+::-webkit-scrollbar-track {background: linear-gradient(to right, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-track:horizontal {background: linear-gradient(to bottom, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-thumb {background: var(--fx-fg-4); border: 0 solid transparent; border-width: 0 2.5px; background-clip: padding-box; border-radius: 0;}
+::-webkit-scrollbar-thumb:horizontal {border-width: 2.5px 0;}
+::-webkit-scrollbar-thumb:hover {background-color: var(--fx-fg-3);}
+::-webkit-scrollbar-thumb:active {background-color: var(--fx-accent);}
+::-webkit-scrollbar-corner {background: transparent;}
+::-webkit-scrollbar-button {display: none; width: 0; height: 0;}
+@supports not selector(::-webkit-scrollbar) {* {scrollbar-width: thin; scrollbar-color: var(--fx-fg-4) transparent;}
+*:hover {scrollbar-color: var(--fx-fg-3) transparent;}}
+::selection {background: var(--fx-accent); color: var(--fx-fg-on-accent); text-shadow: none;}
+:focus {outline: none;}
+:focus-visible {outline: 1px solid var(--fx-accent); outline-offset: 2px; border-radius: var(--fx-r-xs);}
+textarea {resize: vertical; min-height: 3.5em;}
+textarea::-webkit-resizer {background: linear-gradient(135deg, transparent 0 58%, var(--fx-fg-4) 58% 64%, transparent 64% 76%, var(--fx-fg-4) 76% 82%, transparent 82%); background-clip: content-box;}
+input[type="number"] {-moz-appearance: textfield;}
+input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button {-webkit-appearance: none; margin: 0;}
+input[type="checkbox"], input[type="radio"] {appearance: none; -webkit-appearance: none; width: 14px; height: 14px; margin: 0 var(--fx-s-2) 0 0; vertical-align: -2px; flex: none; border: 1px solid var(--fx-border); border-radius: var(--fx-r-xs); background: var(--fx-bg-elev-1); cursor: pointer; transition: border-color var(--fx-t-fast) var(--fx-ease), background-color var(--fx-t-fast) var(--fx-ease);}
+input[type="radio"] {border-radius: var(--fx-r-pill);}
+input[type="checkbox"]:hover, input[type="radio"]:hover {border-color: var(--fx-border-hover);}
+input[type="checkbox"]:checked, input[type="radio"]:checked {border-color: var(--fx-accent); background: var(--fx-accent); box-shadow: inset 0 0 0 3px var(--fx-bg-elev-1);}
+input[type="checkbox"]:indeterminate {border-color: var(--fx-accent); background: linear-gradient(var(--fx-accent), var(--fx-accent)) center / 8px 2px no-repeat var(--fx-bg-elev-1);}
+a {color: var(--fx-accent); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; text-decoration-color: var(--fx-accent-line);}
+a:hover {text-decoration-color: currentColor;}
+a:visited {color: var(--fx-accent);}
+.num, td, th, time, output {font-variant-numeric: tabular-nums;}
+[style*="overflow"], .scroll, .scroller {overscroll-behavior: contain; scrollbar-gutter: stable;}
+* {-webkit-tap-highlight-color: transparent;}
+label, input[type="checkbox"], input[type="radio"] {user-select: none; -webkit-user-select: none;}
+@media (prefers-reduced-motion: reduce) {*, *::before, *::after {animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important;}}
+}
+</style>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Inter:wght@300;400;500;600&display=swap');
 
