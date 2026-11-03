@@ -1,0 +1,218 @@
+{
+  "title": "Mathieu Equation — rich",
+  "born": "2026-11-03",
+  "links": [
+    {
+      "target": "[[Mathieu Equation]]",
+      "type": "connects-to",
+      "label": "rich-face-of"
+    },
+    {
+      "target": "[[Enrichment]]",
+      "type": "connects-to",
+      "label": "made-by"
+    },
+    {
+      "target": "[[Floquet Time-Modulated Loops]]",
+      "type": "connects-to",
+      "label": "gathered-from"
+    },
+    {
+      "target": "[[Progressive Staging]]",
+      "type": "connects-to",
+      "label": "each-piece-walks-up"
+    }
+  ],
+  "forward_vector": "I am the manifest of the Mathieu Equation's rich face, its first round, at Study tier and still a proposal: three walks that each start from one idea and end on a measurement of what the section claims (the breathing rate becomes a, the tongues root at n² and the first is the strongest, damping lifts the upper tongues first), beside the Floquet project's diagram, sweep and explorer, gathered as they were. I grow when the page is enriched again; I never hold the entry's words.",
+  "entry": "Mathieu Equation",
+  "tier": "study",
+  "made": "2026-11-03",
+  "round": 1,
+  "offers": [
+    {
+      "section": "The Strutt diagram",
+      "kind": "claim-change",
+      "what": "\"Outside, all solutions stay bounded\" holds only right of a left edge the section never names. Everything left of a₀(q) also grows (a < 0 at q = 0; a₀ = −0.045 at q = 0.3, −0.455 at q = 1, matching the tabulated a₀), and just right of that edge, at negative a, a thin band is stable: a = −0.1, q = 0.6 stays bounded, the Kapitza pendulum the project's own diagram marks. Proposed: one sentence naming the left region and the Kapitza band.",
+      "status": "open"
+    },
+    {
+      "section": "The Strutt diagram",
+      "kind": "claim-change",
+      "what": "\"Subsequent tongues weaken rapidly\" could carry its measured rate: each tongue's width grows about as qⁿ. At q = 0.3 the widths are 0.599, 0.045 and 0.00084, and the growth per pump cycle 0.469, 0.018 and 0.00022; the roots run back to q = 0 land at 1.0000, 4.0001 and 9.0000.",
+      "status": "open"
+    },
+    {
+      "section": "The Strutt diagram",
+      "kind": "no-claim-edit",
+      "what": "The text names the diagram by a path in backticks (`Projects/Floquet Time-Modulated Loops/static/05_strutt_diagram.png`), which shows as code, not the picture. The text is talking about an image, so by the placement rule it could embed it: ![[05_strutt_diagram.png]]. The rich face already lays it beside the line.",
+      "status": "open"
+    },
+    {
+      "section": "What the equation says",
+      "kind": "no-claim-edit",
+      "what": "\"q proportional to the modulation depth\" can be exact for the commonest form: with stiffness ω₀²(1 − 2ε cos Ωt), q = a·ε. The breathing-spring piece runs on that mapping and confirms a = (2ω₀/Ω)²: the growth curve peaks at Ω/ω₀ = 1.999, 0.997, 0.665 at ε = 0.1. The challenger confirmed the substitution exact, so the page's \"a ∼ (2ω₀/Ω)²\" could also become \"=\".",
+      "status": "open"
+    },
+    {
+      "section": "Open Questions",
+      "kind": "claim-change",
+      "what": "Three of the questions now have measured partial answers. Damping: tongue 1 opens at q ≈ γ, tongue 2 at q ≈ √(8γ) (γ = 0.02 gives 0.0200, 0.4018 and, for tongue 3, 1.5820; confirmed by the challenger's independent integration), so damping silences the upper tongues first, and one physical resonator counts as n times more damped in tongue n. Audibility, measured on this face's engine: from its whisper (noise 1e−5 per sample) to a −30 dB target within one second takes q ≈ 0.01, 0.41 and 1.85 for tongues 1, 2, 3. These depths depend on that noise floor and that target, not on the equation alone; the bullet should say what they were measured against. Subharmonic vs harmonic: confirmed, the multiplier is negative in tongue 1 (tone at half the pump) and positive in tongue 2 (tone in unison). Proposed: a clause on each bullet, pointing at the two-tongues piece.",
+      "status": "open"
+    },
+    {
+      "section": "Philosophical Lens",
+      "kind": "claim-change",
+      "what": "\"Parametric pumping crosses into self-oscillation only at the resonant rate\": the breathing-spring piece measures growth at three rates, Ω = 2ω₀, ω₀ and 2ω₀/3, each a band that widens with depth. \"Only at the resonant rates\" would be exact; the line is quoted from a Dialectic, so leaving its compression is also fair. The challenger confirmed the three bands; whether to change a quoted line is Loudon's taste call.",
+      "status": "open"
+    },
+    {
+      "section": "→ Floquet Time-Modulated Loops",
+      "kind": "claim-change",
+      "what": "For the Floquet project, not this page. In static/07_tongue_anatomy.png the green \"outside, bounded\" point (a = 0.85, q = 0.3) is inside tongue 1, whose lower edge there is b₁ = 0.689 (Hill matrix 0.689166); its inset grows to about 2×10⁵ in 30 periods (ρ = −1.537). Its \"on boundary, marginal\" inset (a = 1.28733) is also inside the tongue (a₁ = 1.28832), which is why that trace climbs. Fix: move the outside point below 0.689 (say a = 0.6) and set the boundary sample on a₁, or relabel it slow growth. And audio/20_strutt_sweep.py's docstring puts the crack at q ≈ 0.10; the wav crosses at 2.0–2.25 s, q ≈ 0.05 = 2ζ, the damped threshold.",
+      "status": "open"
+    }
+  ],
+  "sections": [
+    {
+      "heading": "What the equation says",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "made": "2026-11-03",
+      "pieces": [
+        {
+          "file": "Mathieu Equation — rich — breathing spring.html",
+          "origin": "made",
+          "by": "the Maker · Web Audio, rendered buffers",
+          "height": 740,
+          "title": "the breathing spring · a walk in four steps",
+          "caption": "**Does the breathing rate become a?** A mass on a spring at 220 Hz; then its stiffness breathes slowly, and the pitch only wobbles; then faster, from a whisper of noise, until one rate makes the whisper grow by itself. The last step measures where the growth curve peaks against the breathing rate and checks it against a = (2ω₀/Ω)²: the peaks land at Ω/ω₀ = 1.999, 0.997 and 0.665 at depth 0.1, the places where a = 1, 4, 9. After friction only the first two grow at that depth; at 0.665 the curve peaks below zero, so friction wins until ε passes about 0.15.",
+          "near": "Any physical situation where a parameter oscillates"
+        }
+      ],
+      "made_against": "6ea64db08b95",
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Mathieu Equation — rich — breathing spring.html",
+            "verdict": "remake",
+            "why": "Tests the mapping and walks up well, but at the default ε = 0.10 its own table puts the third peak at −1.89 /s (friction wins) while the verdict (line 382) and caption say the engine 'grows fastest'/'growth peaks' at 0.665. Make the verdict and caption name which peaks grow after friction and which are only the least decay, or open at a depth where all three grow."
+          }
+        ]
+      }
+    },
+    {
+      "heading": "The Strutt diagram",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "made": "2026-11-03",
+      "pieces": [
+        {
+          "file": "/Projects/Floquet Time-Modulated Loops/static/05_strutt_diagram.png",
+          "origin": "gathered",
+          "title": "The Strutt diagram · the Floquet project's render",
+          "caption": "**The diagram the text points at.** Growth rate over (a, q), by direct integration on a 240 × 180 grid. Two things it shows that the text doesn't say: the unstable ground left of a = 0, with the thin Kapitza band inside it. And one thing the grid can't show: the second tongue looks as if it starts near q = 0.75 and the third barely appears, because below that they are thinner than a grid cell (at q = 0.3 the second is 0.045 wide and the third 0.00084). Both reach down to the axis, as the walk beside it measures.",
+          "near": "The full diagram is shown in"
+        },
+        {
+          "file": "/Projects/Floquet Time-Modulated Loops/audio/20_strutt_sweep.wav",
+          "origin": "gathered",
+          "title": "a sweep up the first tongue · the Floquet project, 30 s",
+          "caption": "**Up the first tongue and back.** A 220 Hz resonator pumped at 440 Hz, with light damping (ζ = 0.025), its depth ramped from 0 to 0.3 over 12 s, held 6 s, and ramped back. The tone climbs out of the noise between 2 and 3 s, as q passes 0.05, the threshold that damping sets; it fades back between 27 and 29 s. Its script places the crack nearer q = 0.10; the measured level says sooner.",
+          "near": "Inside the unstable regions",
+          "place": "margin"
+        },
+        {
+          "file": "Mathieu Equation — rich — strutt walk.html",
+          "origin": "made",
+          "by": "the Maker · Web Audio, rendered buffers",
+          "height": 880,
+          "title": "the Strutt diagram, walked · five steps",
+          "caption": "**Do the tongues root at n², and is the first the strongest?** The bare line first, where a only sets a pitch; one point outside a tongue, one inside, both from the same whisper; the whole plane to click and hear; and last a table that measures each tongue at the depth you choose. Roots run back to q = 0 land at 1.000, 4.000, 9.000; at q = 0.3 the widths fall 0.599, 0.045, 0.00084. At q = 1 its edges match Mathieu's tabulated characteristic values to four decimals. It also shows what the section leaves out: the unstable ground left of a = 0 and the stable Kapitza band inside it.",
+          "near": "The widening of each tongue with"
+        },
+        {
+          "file": "/Projects/Floquet Time-Modulated Loops/interactives/06_strutt_explorer.html",
+          "origin": "gathered",
+          "height": 1300,
+          "contract": {},
+          "title": "Strutt explorer · the Floquet project's proof",
+          "caption": "**The project's own explorer, as it was.** Click or drag on the diagram and play the trajectory there. Two things to know: each click starts from a pluck (x = 0.5), not from noise, and its playback scales every sound to the same peak, so a bounded point and a blooming one play equally loud; listen for the shape, not the level. Its *on the boundary* preset, a = 1.30 at q = 0.30, sits just outside the tongue, whose edge there is a = 1.288.",
+          "near": "The widening of each tongue with"
+        }
+      ],
+      "made_against": "3200421c1ea8",
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "/Projects/Floquet Time-Modulated Loops/static/05_strutt_diagram.png",
+            "verdict": "keep",
+            "why": "The figure the text names; a record, not a test, and its caption is honest against the render (tongue 2 fades in near q ≈ 0.75, sub-grid below; Kapitza strip marked)."
+          },
+          {
+            "file": "/Projects/Floquet Time-Modulated Loops/audio/20_strutt_sweep.wav",
+            "verdict": "keep",
+            "why": "Measured: −31 dB at 2.00 s, −21 dB at 2.25 s, back to −34 dB by 28.25 s, so the crossing is q ≈ 0.05 = γ = 2ζ as the caption says; naming the script's 0.10 is right."
+          },
+          {
+            "file": "Mathieu Equation — rich — strutt walk.html",
+            "verdict": "keep",
+            "why": "Tests all three claims (roots at n², widening, first strongest) and shows the left ground the section omits; walks bare line → outside → inside → plane → measure. Note only: its A&S line omits a₀, which the caption includes."
+          },
+          {
+            "file": "/Projects/Floquet Time-Modulated Loops/interactives/06_strutt_explorer.html",
+            "verdict": "keep",
+            "why": "The project's proof as it was; caption verified (peak-normalised playback, line ~286; 'on the boundary' a = 1.30 is outside a₁(0.3) = 1.2883). Its self-fetch puts two CORS errors in the face console once loaded, so 'console clean' in the commit is slightly overstated."
+          }
+        ]
+      }
+    },
+    {
+      "heading": "Open Questions",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "made": "2026-11-03",
+      "pieces": [
+        {
+          "file": "Mathieu Equation — rich — two tongues.html",
+          "origin": "made",
+          "by": "the Maker · Web Audio, rendered buffers",
+          "height": 800,
+          "title": "two tongues, and damping · four steps",
+          "caption": "**Three of these questions, measured.** One resonator at 220 Hz, pumped in its first tongue (the pump an octave above, the tone at half the pump) and in its second (the pump in unison). Then all three tongues at one depth, timed from a whisper to a tone: inside one second takes q ≈ 0.01, 0.41 and 1.85. Last, damping: set how long the resonator rings and read where each tongue opens. The first opens at q ≈ γ, the second at q ≈ √(8γ), the third later still, so a little damping silences the upper tongues first.",
+          "near": "Subharmonic locking and the n=1 vs. n=2 distinction"
+        }
+      ],
+      "made_against": "7d3bcfcbecf9",
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Mathieu Equation — rich — two tongues.html",
+            "verdict": "keep",
+            "why": "Tests multiplier sign and the damping claim and measures audibility, answering the bullets without rewriting them; walks tongue 1 → tongue 2 → side by side → damping. Damped thresholds recomputed independently: 0.0200, 0.4018, 1.5820 at γ = 0.02."
+          }
+        ]
+      }
+    }
+  ]
+}
