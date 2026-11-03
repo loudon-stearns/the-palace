@@ -1,0 +1,400 @@
+<!doctype html>
+<!--
+  title: 2D Torus Wavetable Synthesizer — rich — the RMS dip
+  born: 2026-11-03
+  links: [[2D Torus Wavetable Synthesizer]] (connects-to · rich-face-piece) · listed in [[2D Torus Wavetable Synthesizer — rich.json]] · reads Wavetables/00_test_diagnostic.wav
+  forward_vector: I am the Open Decisions section's level dip, heard: two anchors alone, then crossfaded, then the inner product that makes the middle go quiet, then the constant-RMS fix, and last the whole diagnostic table measured row by row against the numbers the page gives. I play inside the entry's rich face and stand alone opened directly; I change only when the section I serve does.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:files" content="Wavetables/00_test_diagnostic.wav">
+<title>2D Torus — the RMS dip</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Manrope:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root { --bg:#0a0a0f; --e1:#12121a; --ring:#22222e; --border:#4a4a5e; --soft:rgba(255,255,255,.06); --fg1:#e8e8f0; --fg2:#c8c8d8; --fg3:#8a8aa0; --fg4:#4a4a5a;
+    --amber:#e8b84a; --amberline:rgba(232,184,74,.5); --indigo:#6366F1;
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --sans:'Manrope',system-ui,sans-serif; --serif:'Cormorant Garamond',Georgia,serif; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); font-weight: 300; }
+  .piece { padding: 22px 22px 20px; }
+  .kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
+  .title { font-family: var(--serif); font-size: 27px; font-weight: 300; color: var(--fg1); margin: 0 0 6px; }
+  .sub { font-size: 14px; line-height: 1.6; color: var(--fg2); max-width: 78ch; margin: 0 0 14px; }
+  .rail { display: flex; flex-wrap: wrap; margin: 4px 0 14px; border: 1px solid var(--soft); border-radius: 2px; }
+  .rail button { flex: 1 1 140px; text-align: left; border: 0; border-right: 1px solid var(--soft); border-radius: 0; background: transparent; padding: 9px 12px; color: var(--fg3); }
+  .rail button:last-child { border-right: 0; }
+  .rail button b { display: block; font-weight: 500; color: var(--fg2); letter-spacing: .06em; text-transform: none; font-size: 12px; margin-top: 2px; }
+  .rail button.on { background: var(--e1); color: var(--amber); }
+  .rail button.on b { color: var(--fg1); }
+  .say { font-family: var(--serif); font-size: 18px; line-height: 1.55; color: var(--fg1); max-width: 80ch; margin: 0 0 14px; min-height: 3.1em; }
+  .say i { color: var(--amber); font-style: italic; }
+  .stage { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; align-items: start; }
+  .panel { border: 1px solid var(--soft); border-radius: 2px; background: var(--e1); padding: 10px 12px; }
+  .plabel { font-family: var(--mono); font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--fg3); margin-bottom: 8px; display: flex; justify-content: space-between; gap: 10px; }
+  canvas { display: block; width: 100%; }
+  .wide { grid-column: 1 / -1; }
+  .hidden { display: none !important; }
+  .controls { display: flex; flex-wrap: wrap; gap: 14px 22px; align-items: flex-end; margin-top: 16px; }
+  button { font-family: var(--mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--fg2); background: var(--bg); border: 1px solid var(--border); border-radius: 2px; padding: 8px 13px; cursor: pointer; }
+  button:hover { border-color: rgba(232,184,74,.55); color: var(--fg1); }
+  button.on { color: var(--amber); border-color: var(--amberline); }
+  button.go { color: var(--amber); border-color: var(--amberline); box-shadow: 0 0 14px rgba(232,184,74,.18); min-width: 96px; }
+  .seg { display: inline-flex; flex-wrap: wrap; } .seg button + button { border-left: 0; }
+  .seg button { letter-spacing: .04em; text-transform: none; font-size: 12px; padding: 7px 10px; }
+  label.sl { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: .06em; color: var(--fg3); min-width: 220px; flex: 1 1 220px; }
+  label.sl b { color: var(--fg1); font-weight: 500; }
+  input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 3px; background: var(--fg4); margin: 12px 0 4px; outline: none; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 13px; height: 13px; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  input[type=range]::-moz-range-thumb { width: 13px; height: 13px; border: 0; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  .read { display: flex; flex-wrap: wrap; gap: 6px 22px; margin-top: 14px; font-family: var(--mono); font-size: 11.5px; letter-spacing: .04em; color: var(--fg3); }
+  .read b { color: var(--fg1); font-weight: 500; }
+  .read .hot { color: var(--amber); }
+  .nav { display: flex; gap: 10px; margin-top: 16px; }
+  .hint { font-family: var(--mono); font-size: 11px; letter-spacing: .04em; line-height: 1.6; color: var(--fg3); margin-top: 10px; max-width: 100ch; }
+  table.segs { width: 100%; border-collapse: collapse; font-family: var(--mono); font-size: 11px; color: var(--fg2); margin-top: 10px; }
+  table.segs td, table.segs th { padding: 3px 8px; border-bottom: 1px solid var(--soft); text-align: right; }
+  table.segs th { color: var(--fg3); font-weight: 400; letter-spacing: .06em; }
+  table.segs td:first-child, table.segs th:first-child { text-align: left; }
+  table.segs tr.worst td { color: var(--amber); }
+  table.segs tr.named td:first-child::after { content: ' · the page names this one'; color: var(--fg3); }
+  .eqs { margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--soft); }
+  .eq { font-family: var(--serif); font-size: 19px; color: var(--fg1); }
+  .words { font-size: 13px; line-height: 1.55; color: var(--fg2); margin: 2px 0 10px; max-width: 90ch; }
+  .note { font-family: var(--mono); font-size: 10.5px; color: var(--fg4); margin-top: 8px; }
+  @media (max-width: 760px) { .stage { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="piece">
+  <div class="kicker"><svg width="18" height="18" viewBox="-10 -10 20 20" aria-hidden="true"><path id="sigil" fill="none" stroke="#e8b84a" stroke-width="1.1"/></svg><span>made · Y-axis crossfade · study</span></div>
+  <h3 class="title">Where does the middle of a crossfade go?</h3>
+  <p class="sub">The page leaves a decision open: crossfading two anchor waveforms sample by sample drops the level in between, "up to ~3 dB for orthogonal anchors, ~10 dB for the worst negatively-correlated case (sine → rising sawtooth in the diagnostic)". Two anchors alone first, then the crossfade, then why it dips, then the cheapest fix. The last step measures the real diagnostic table, row by row.</p>
+
+  <div class="rail" id="rail"></div>
+  <p class="say" id="say"></p>
+
+  <div class="stage">
+    <div class="panel">
+      <div class="plabel"><span id="waveLabel">one cycle</span><span id="waveRight"></span></div>
+      <canvas id="wave"></canvas>
+    </div>
+    <div class="panel" id="curvePanel">
+      <div class="plabel"><span id="curveLabel">level across the crossfade</span><span id="curveRight"></span></div>
+      <canvas id="curve"></canvas>
+    </div>
+    <div class="panel wide hidden" id="tablePanel">
+      <div class="plabel"><span>00 — Test Diagnostic Wavetable · RMS of every row, read from the WAV · dashed = the constant-RMS target</span><span id="tableRight"></span></div>
+      <canvas id="whole"></canvas>
+      <table class="segs" id="segs"></table>
+    </div>
+  </div>
+
+  <div class="controls">
+    <button class="go" id="go">▸ play</button>
+    <div id="pairCtl"><div class="plabel" style="margin-bottom:6px"><span>anchors</span></div><div class="seg" id="pairs"></div></div>
+    <div id="endCtl"><div class="plabel" style="margin-bottom:6px"><span>hear</span></div><div class="seg"><button id="endA">A alone</button><button id="endB">B alone</button></div></div>
+    <label class="sl hidden" id="alphaCtl"><span id="alphaName">crossfade α</span> = <b id="alphaVal"></b><input id="alpha" type="range" min="0" max="1" step="0.002" value="0.5"></label>
+    <button class="hidden" id="sweep">sweep</button>
+    <div class="hidden" id="lawCtl"><div class="plabel" style="margin-bottom:6px"><span>law</span></div><div class="seg"><button id="lawLin">linear</button><button id="lawRms">constant-RMS</button></div></div>
+  </div>
+  <div class="read" id="read"></div>
+  <div class="hint" id="hint"></div>
+  <div class="nav"><button id="back">◂ back</button><button id="next">next ▸</button></div>
+
+  <div class="eqs">
+    <div class="eq">W(α) = (1 − α)·W₁ + α·W₂</div>
+    <div class="words">(the waveform partway across) = a share of the first anchor plus a share of the second, sample by sample.</div>
+    <div class="eq">RMS²(α) = (1 − α)²·RMS₁² + α²·RMS₂² + 2α(1 − α)·⟨W₁, W₂⟩</div>
+    <div class="words">(its power) = each anchor's power, weighted, plus a cross term: the average of the two waveforms multiplied together. When that average is negative, the two partly cancel and the middle sinks.</div>
+    <div class="eq">target(α) = (1 − α)·RMS₁ + α·RMS₂ &nbsp; · &nbsp; constant-RMS: W(α) × target(α) ⁄ RMS(α)</div>
+    <div class="words">(the level the catalog wants partway across) = a straight line between the two anchors' levels; the constant-RMS fix scales each row back up to it, changing gain and nothing else.</div>
+    <div class="note">The anchors are the diagnostic's own (Tools/rebuild_diagnostic.py), one cycle each, 1024 samples, played at 110 Hz. RMS is a level, not loudness: a sawtooth sounds louder than a sine of the same RMS.</div>
+  </div>
+</div>
+
+<script id="rms-math">
+// Pure functions, shared by the page and its offline check (Rich face checks/check-pieces.mjs).
+const RmsMath = (() => {
+  const L = 1024, TP = 2 * Math.PI;
+  const x = (i) => i / L, ph = (i) => (TP * i) / L;
+  const A = {
+    'sine': (i) => Math.sin(ph(i)), 'saw up': (i) => 2 * x(i) - 1, 'square': (i) => (x(i) < 0.5 ? 1 : -1),
+    'sine 2×': (i) => Math.sin(2 * ph(i)), 'sine 4×': (i) => Math.sin(4 * ph(i)),
+  };
+  const wave = (name) => Float64Array.from({ length: L }, (_, i) => A[name](i));
+  const rms = (w) => { let e = 0; for (const v of w) e += v * v; return Math.sqrt(e / w.length); };
+  const dot = (a, b) => { let e = 0; for (let i = 0; i < a.length; i++) e += a[i] * b[i]; return e / a.length; };
+  const mix = (a, b, t) => Float64Array.from(a, (v, i) => (1 - t) * v + t * b[i]);
+  function curve(a, b, steps = 200) {
+    const r1 = rms(a), r2 = rms(b), c = dot(a, b), out = [];
+    for (let k = 0; k <= steps; k++) { const t = k / steps, r = Math.sqrt(Math.max(0, (1 - t) ** 2 * r1 * r1 + t * t * r2 * r2 + 2 * t * (1 - t) * c)), tg = (1 - t) * r1 + t * r2; out.push({ t, r, tg, db: 20 * Math.log10(Math.max(r, 1e-9) / tg) }); }
+    return out;
+  }
+  // a WAV's float32 samples, by hand (no audio context needed before a click)
+  function parseWav(buf) {
+    const v = new DataView(buf); let o = 12, fmt = null;
+    while (o + 8 <= v.byteLength) {
+      const id = String.fromCharCode(v.getUint8(o), v.getUint8(o + 1), v.getUint8(o + 2), v.getUint8(o + 3)), n = v.getUint32(o + 4, true);
+      if (id === 'fmt ') fmt = { tag: v.getUint16(o + 8, true), bits: v.getUint16(o + 22, true) };
+      if (id === 'data') { if (!fmt || fmt.tag !== 3 || fmt.bits !== 32) throw new Error('expected 32-bit float'); return new Float32Array(buf.slice(o + 8, o + 8 + n)); }
+      o += 8 + n + (n & 1);
+    }
+    throw new Error('no data chunk');
+  }
+  // per-segment dips of a 16-anchor, 64-sub-row table: deepest point below the linear target
+  function segments(rowRms, anchors = 16, sub = 64) {
+    const out = [];
+    for (let k = 0; k < anchors; k++) {
+      const a = rowRms[k * sub], b = rowRms[((k + 1) % anchors) * sub];
+      if (a < 1e-6 || b < 1e-6) { out.push({ k, a, b, silent: true }); continue; }
+      let worst = 0, at = 0;
+      for (let j = 0; j < sub; j++) { const t = j / sub, tg = (1 - t) * a + t * b, d = 20 * Math.log10(rowRms[k * sub + j] / tg); if (d < worst) { worst = d; at = t; } }
+      const mid = 20 * Math.log10(rowRms[k * sub + sub / 2] / ((a + b) / 2));
+      out.push({ k, a, b, worst, at, mid });
+    }
+    return out;
+  }
+  const WORKLET = `
+class RowScan extends AudioWorkletProcessor {
+  constructor() {
+    super(); this.T = null; this.R = 0; this.G = null; this.p = 0; this.y = 0; this.ty = 0; this.law = 0; this.lw = 0; this.g = 0; this.tg = 0; this.acc = 0; this.cnt = 0;
+    this.port.onmessage = (e) => { const d = e.data;
+      if (d.table) { this.T = d.table; this.R = d.rows; this.G = d.gains; }
+      if (d.y !== undefined) { this.ty = d.y; if (d.jump) this.y = d.y; }
+      if (d.law !== undefined) this.law = d.law;
+      if (d.gain !== undefined) this.tg = d.gain; };
+  }
+  process(_in, outs) {
+    const L = outs[0][0], Rt = outs[0][1] || L, T = this.T;
+    if (!T) { L.fill(0); if (Rt !== L) Rt.fill(0); return true; }
+    const sr = sampleRate, N = 1024, R = this.R, f = 110 / sr, ky = 1 - Math.exp(-1 / (0.012 * sr)), kg = 1 - Math.exp(-1 / (0.03 * sr));
+    for (let s = 0; s < L.length; s++) {
+      this.y += (this.ty - this.y) * ky; this.lw += (this.law - this.lw) * kg; this.g += (this.tg - this.g) * kg;
+      const yy = this.y * (R - 1), j0 = Math.min(R - 2, Math.floor(yy)), fy = yy - j0, x = this.p * N, i0 = Math.floor(x) % N, i1 = (i0 + 1) % N, fx = x - Math.floor(x);
+      const a = T[j0 * N + i0] + (T[j0 * N + i1] - T[j0 * N + i0]) * fx, b = T[(j0 + 1) * N + i0] + (T[(j0 + 1) * N + i1] - T[(j0 + 1) * N + i0]) * fx;
+      const gain = 1 + (this.G[j0] + (this.G[j0 + 1] - this.G[j0]) * fy - 1) * this.lw;
+      const v = (a + (b - a) * fy) * gain;
+      this.acc += v * v; this.cnt++;
+      L[s] = v * 0.3 * this.g; Rt[s] = L[s];
+      this.p += f; this.p -= Math.floor(this.p);
+    }
+    if (this.cnt >= 2048) { this.port.postMessage({ rms: Math.sqrt(this.acc / this.cnt) }); this.acc = 0; this.cnt = 0; }
+    return true;
+  }
+}
+registerProcessor('row-scan', RowScan);`;
+  return { wave, rms, dot, mix, curve, parseWav, segments, WORKLET, L };
+})();
+</script>
+
+<script>
+const $ = (id) => document.getElementById(id);
+const WAV_URL = 'Wavetables/00_test_diagnostic.wav';
+const NAMES = ['sine', 'saw up', 'square', 'triangle', 'silence', 'saw down', '25% pulse', 'sine 2×', 'sine 4×', 'silence', 'sine 8×', 'noise', 'bl saw', 'bl square', 'two-tone', 'sine'];
+const PAIRS = [['sine', 'saw up'], ['sine 2×', 'sine 4×']];
+const STEPS = [
+  { key: 'ends', name: 'two anchors, alone', say: 'Two of the diagnostic\'s sixteen anchors, the first two in the table: a sine and a rising sawtooth, one cycle each, played at 110 Hz. Hear each <i>alone</i>. Their levels differ by under 2 dB.' },
+  { key: 'fade', name: 'crossfade them', say: 'Now slide from one to the other the way the table does between rows: <i>a share of each, sample by sample</i>. Drag α slowly and listen to the level, not the colour. Somewhere past halfway the sound thins out.' },
+  { key: 'why', name: 'why the middle sinks', say: 'Multiply the two anchors together, sample by sample, and average. For sine and rising saw the average is negative, −1 ⁄ π: where the sine is up, the saw is mostly down. That <i>cross term</i> subtracts from the power in the middle. Switch to sine 2× and sine 4×: the average is zero, and the dip is the gentle 3 dB of two things simply sharing the room.' },
+  { key: 'fix', name: 'hold the level', say: 'The cheapest fix the page names: crossfade as before, then <i>scale each row back up</i> to a straight line between the two anchors\' levels. The waveform shape is untouched; only gain changes. Toggle the law while you sweep.' },
+  { key: 'test', name: 'the test: the whole table', say: 'The real <i>00 — Test Diagnostic Wavetable</i>, read from its WAV, every one of its 1024 rows measured. The page measures <i>at the midpoint</i>, and there sine → rising saw is the deepest, as it says (the right-hand column). Measured anywhere in the segment, the deepest trough is somewhere else: find it, and where it falls. Then play the table and sweep Y.' },
+];
+const S = { step: 0, pair: 0, alpha: 0.5, law: 0, end: null, sweeping: false, t0: 0 };
+let ctx = null, node = null, playing = false, measured = null, WT = null, rowRms = null, segs = null, gainsLin = null;
+
+const wA = () => RmsMath.wave(PAIRS[S.pair][0]), wB = () => RmsMath.wave(PAIRS[S.pair][1]);
+const key = () => STEPS[S.step].key;
+
+// a little table for two anchors: 65 rows from A to B, with the constant-RMS gains
+function pairTable() {
+  const a = wA(), b = wB(), R = 65, T = new Float32Array(R * 1024), G = new Float32Array(R), r1 = RmsMath.rms(a), r2 = RmsMath.rms(b);
+  for (let j = 0; j < R; j++) { const t = j / (R - 1), m = RmsMath.mix(a, b, t); T.set(m, j * 1024); const r = RmsMath.rms(m); G[j] = r > 1e-6 ? ((1 - t) * r1 + t * r2) / r : 1; }
+  return { T, R, G };
+}
+function wholeTable() { // the WAV's rows, with constant-RMS gains toward each segment's linear target
+  const R = 1024, G = new Float32Array(R);
+  for (let j = 0; j < R; j++) { const k = Math.floor(j / 64), t = (j % 64) / 64, a = rowRms[k * 64], b = rowRms[((k + 1) % 16) * 64], tg = (1 - t) * a + t * b; G[j] = rowRms[j] > 1e-6 && tg > 1e-6 ? tg / rowRms[j] : 1; }
+  return { T: WT, R, G };
+}
+function sendTable() {
+  if (!node) return;
+  const t = key() === 'test' ? (WT ? wholeTable() : null) : pairTable();
+  if (!t) return;
+  node.port.postMessage({ table: t.T.slice(), rows: t.R, gains: t.G });
+  sendY(true);
+}
+function yNow() { if (key() === 'ends') return S.end === 'B' ? 1 : 0; return S.alpha; }
+function sendY(jump) { if (!node) return; node.port.postMessage({ y: yNow(), jump: !!jump, law: (key() === 'fix' || key() === 'test') ? S.law : 0 }); }
+
+async function start() {
+  if (!ctx) {
+    ctx = new AudioContext();
+    const url = URL.createObjectURL(new Blob([RmsMath.WORKLET], { type: 'application/javascript' }));
+    await ctx.audioWorklet.addModule(url); URL.revokeObjectURL(url);
+    node = new AudioWorkletNode(ctx, 'row-scan', { numberOfInputs: 0, numberOfOutputs: 1, outputChannelCount: [2] });
+    node.port.onmessage = (e) => { if (e.data.rms != null) measured = e.data.rms; };
+    const comp = ctx.createDynamicsCompressor(); comp.threshold.value = -6; comp.ratio.value = 2;
+    node.connect(comp).connect(ctx.destination);
+    ctx.onstatechange = () => { if (ctx.state !== 'running' && playing) { playing = false; S.sweeping = false; paint(); } };
+    sendTable();
+  }
+  await ctx.resume(); node.port.postMessage({ gain: 1 }); playing = true; paint();
+}
+function stop() { if (!ctx || !playing) return; node.port.postMessage({ gain: 0 }); playing = false; S.sweeping = false; measured = null; paint(); setTimeout(() => { if (!playing && ctx) ctx.suspend(); }, 160); }
+function paint() {
+  $('go').textContent = playing ? '❚❚ stop' : '▸ play'; $('sweep').classList.toggle('on', S.sweeping);
+  $('endA').classList.toggle('on', S.end === 'A'); $('endB').classList.toggle('on', S.end === 'B');
+  $('lawLin').classList.toggle('on', S.law === 0); $('lawRms').classList.toggle('on', S.law === 1);
+  [...$('pairs').children].forEach((b, i) => b.classList.toggle('on', i === S.pair));
+}
+
+function fit(c, h) {
+  const w = c.clientWidth || 300, d = devicePixelRatio || 1, H = h || Math.round(w * 0.62);
+  if (c.width !== Math.round(w * d) || c.height !== Math.round(H * d)) { c.width = Math.round(w * d); c.height = Math.round(H * d); c.style.height = H + 'px'; }
+  const g = c.getContext('2d'); g.setTransform(d, 0, 0, d, 0, 0); return { g, w, h: H };
+}
+function plotWave(g, w, h, arr, col, lw, scale = 1) { g.strokeStyle = col; g.lineWidth = lw; g.beginPath(); for (let i = 0; i < arr.length; i += 2) { const x = 10 + (i / arr.length) * (w - 20), y = h / 2 - arr[i] * scale * (h / 2 - 12); i ? g.lineTo(x, y) : g.moveTo(x, y); } g.stroke(); }
+function currentWave() {
+  if (key() === 'test') { if (!WT) return null; const j = Math.round(S.alpha * 1023); const row = WT.subarray(j * 1024, j * 1024 + 1024); const sc = S.law ? wholeTable().G[j] : 1; return Float64Array.from(row, (v) => v * sc); }
+  if (key() === 'ends') return S.end === 'B' ? wB() : wA();
+  const m = RmsMath.mix(wA(), wB(), S.alpha);
+  if (key() === 'fix' && S.law) { const r1 = RmsMath.rms(wA()), r2 = RmsMath.rms(wB()), tg = (1 - S.alpha) * r1 + S.alpha * r2, r = RmsMath.rms(m); return m.map((v) => (v * tg) / r); }
+  return m;
+}
+function drawWave() {
+  const { g, w, h } = fit($('wave')); g.clearRect(0, 0, w, h);
+  g.strokeStyle = '#22222e'; g.beginPath(); g.moveTo(10, h / 2); g.lineTo(w - 10, h / 2); g.stroke();
+  const k = key();
+  if (k === 'why') {
+    const a = wA(), b = wB(), p = a.map((v, i) => v * b[i]), mean = RmsMath.dot(a, b);
+    plotWave(g, w, h, a, 'rgba(99,102,241,0.5)', 1); plotWave(g, w, h, b, 'rgba(138,138,160,0.5)', 1);
+    g.fillStyle = 'rgba(232,184,74,0.18)'; g.beginPath(); g.moveTo(10, h / 2); for (let i = 0; i < p.length; i += 2) g.lineTo(10 + (i / p.length) * (w - 20), h / 2 - p[i] * (h / 2 - 12)); g.lineTo(w - 10, h / 2); g.fill();
+    plotWave(g, w, h, p, '#e8b84a', 1.6);
+    const y = h / 2 - mean * (h / 2 - 12); g.strokeStyle = '#e8e8f0'; g.setLineDash([5, 4]); g.beginPath(); g.moveTo(10, y); g.lineTo(w - 10, y); g.stroke(); g.setLineDash([]);
+    $('waveLabel').textContent = 'A × B, sample by sample'; $('waveRight').textContent = `average ${mean >= 0 ? '+' : ''}${mean.toFixed(3)}`;
+    return;
+  }
+  if (k !== 'test') { plotWave(g, w, h, wA(), 'rgba(99,102,241,0.35)', 1); plotWave(g, w, h, wB(), 'rgba(138,138,160,0.35)', 1); }
+  const cw = currentWave(); if (cw) plotWave(g, w, h, cw, '#e8b84a', 2);
+  $('waveLabel').textContent = k === 'test' ? `row ${Math.round(S.alpha * 1023)} of the table` : 'one cycle · blue = A, grey = B';
+  $('waveRight').textContent = cw ? `RMS ${RmsMath.rms(cw).toFixed(3)}` : '';
+}
+function drawCurve() {
+  const { g, w, h } = fit($('curve')); g.clearRect(0, 0, w, h);
+  const lo = -15, X = (t) => 44 + t * (w - 56), Y = (db) => 10 + (db / lo) * (h - 34);
+  g.font = '10px JetBrains Mono, monospace'; g.fillStyle = '#4a4a5a'; g.textAlign = 'right';
+  for (let d = 0; d >= lo; d -= 3) { g.strokeStyle = '#22222e'; g.beginPath(); g.moveTo(X(0), Y(d)); g.lineTo(X(1), Y(d)); g.stroke(); g.fillText(d + ' dB', X(0) - 5, Y(d) + 3); }
+  g.textAlign = 'center'; for (let t = 0; t <= 1; t += 0.25) g.fillText('α ' + t, X(t), h - 4);
+  const a = wA(), b = wB(), cv = RmsMath.curve(a, b), ref = Math.max(RmsMath.rms(a), RmsMath.rms(b));
+  // level re the louder anchor: the target (dashed), linear (amber), constant-RMS (grey) when it is in play
+  g.setLineDash([5, 4]); g.strokeStyle = 'rgba(232,232,240,0.5)'; g.beginPath(); cv.forEach((p, i) => { const y = Y(20 * Math.log10(p.tg / ref)); i ? g.lineTo(X(p.t), y) : g.moveTo(X(p.t), y); }); g.stroke(); g.setLineDash([]);
+  const showLin = key() !== 'fix' || S.law === 0;
+  g.strokeStyle = showLin ? '#e8b84a' : 'rgba(232,184,74,0.3)'; g.lineWidth = 2; g.beginPath(); cv.forEach((p, i) => { const y = Y(Math.max(lo, 20 * Math.log10(p.r / ref))); i ? g.lineTo(X(p.t), y) : g.moveTo(X(p.t), y); }); g.stroke(); g.lineWidth = 1;
+  const t = key() === 'ends' ? (S.end === 'B' ? 1 : 0) : S.alpha;
+  g.strokeStyle = 'rgba(232,232,240,0.4)'; g.beginPath(); g.moveTo(X(t), Y(0)); g.lineTo(X(t), Y(lo)); g.stroke();
+  if (playing && measured != null) { const db = Math.max(lo, 20 * Math.log10(measured / ref)); g.fillStyle = '#e8e8f0'; g.beginPath(); g.arc(X(t), Y(db), 4, 0, 7); g.fill(); }
+  let worst = cv[0]; for (const p of cv) if (p.db < worst.db) worst = p;
+  $('curveLabel').textContent = 'level across the crossfade, re the louder anchor';
+  $('curveRight').textContent = key() === 'ends' ? '' : `deepest ${worst.db.toFixed(1)} dB below the dashed target, at α ${worst.t.toFixed(2)}`;
+}
+function drawWhole() {
+  const { g, w, h } = fit($('whole'), 200); g.clearRect(0, 0, w, h);
+  if (!rowRms) { g.fillStyle = '#8a8aa0'; g.font = '12px JetBrains Mono, monospace'; g.fillText(WT === false ? 'the table could not be read' : 'reading the table…', 16, 30); return; }
+  const X = (j) => 40 + (j / 1024) * (w - 50), top = Math.max(...rowRms), Y = (r) => 10 + (1 - r / top) * (h - 36);
+  g.font = '10px JetBrains Mono, monospace';
+  for (let k = 0; k < 16; k++) { g.strokeStyle = '#22222e'; g.beginPath(); g.moveTo(X(k * 64), 8); g.lineTo(X(k * 64), h - 24); g.stroke(); g.save(); g.translate(X(k * 64) + 3, h - 4); g.fillStyle = '#4a4a5a'; g.fillText(NAMES[k], 0, 0); g.restore(); }
+  g.setLineDash([5, 4]); g.strokeStyle = 'rgba(232,232,240,0.45)'; g.beginPath();
+  for (let j = 0; j <= 1024; j++) { const k = Math.floor(j / 64) % 16, t = (j % 64) / 64, a = rowRms[k * 64], b = rowRms[((k + 1) % 16) * 64], tg = j === 1024 ? rowRms[0] : (1 - t) * a + t * b; j ? g.lineTo(X(j), Y(tg)) : g.moveTo(X(j), Y(tg)); }
+  g.stroke(); g.setLineDash([]);
+  g.strokeStyle = '#e8b84a'; g.lineWidth = 1.6; g.beginPath(); for (let j = 0; j < 1024; j++) { j ? g.lineTo(X(j), Y(rowRms[j])) : g.moveTo(X(j), Y(rowRms[j])); } g.stroke(); g.lineWidth = 1;
+  const worst = segs.filter((s) => !s.silent).reduce((a, b) => (b.worst < a.worst ? b : a));
+  const jw = worst.k * 64 + Math.round(worst.at * 64); g.fillStyle = '#e8b84a'; g.beginPath(); g.arc(X(jw), Y(rowRms[jw]), 4, 0, 7); g.fill();
+  g.strokeStyle = '#e8e8f0'; g.beginPath(); g.moveTo(X(S.alpha * 1023), 8); g.lineTo(X(S.alpha * 1023), h - 24); g.stroke();
+  $('tableRight').textContent = `deepest: ${NAMES[worst.k]} → ${NAMES[(worst.k + 1) % 16]}, ${worst.worst.toFixed(1)} dB at ${Math.round(worst.at * 100)}% of the way`;
+}
+function fillSegs() {
+  const worst = segs.filter((s) => !s.silent).reduce((a, b) => (b.worst < a.worst ? b : a));
+  const rows = segs.map((s) => s.silent ? `<tr><td>${NAMES[s.k]} → ${NAMES[(s.k + 1) % 16]}</td><td colspan="3">a fade to or from silence, by design</td></tr>`
+    : `<tr class="${s === worst ? 'worst' : ''} ${s.k === 0 ? 'named' : ''}"><td>${NAMES[s.k]} → ${NAMES[(s.k + 1) % 16]}</td><td>${s.worst.toFixed(1)} dB</td><td>${Math.round(s.at * 100)}%</td><td>${s.mid.toFixed(1)} dB</td></tr>`);
+  $('segs').innerHTML = '<tr><th>segment</th><th>deepest, below target</th><th>where</th><th>at the midpoint</th></tr>' + rows.join('');
+}
+async function loadTable() {
+  if (WT || WT === false) return;
+  try { const buf = await (await fetch(WAV_URL)).arrayBuffer(); const f = RmsMath.parseWav(buf); if (f.length !== 1024 * 1024) throw new Error(f.length + ' samples'); WT = f; }
+  catch (e) { WT = false; $('hint').textContent = 'The table could not be read: ' + e.message; return; }
+  rowRms = new Float64Array(1024); for (let j = 0; j < 1024; j++) { let e = 0; for (let i = 0; i < 1024; i++) e += WT[j * 1024 + i] ** 2; rowRms[j] = Math.sqrt(e / 1024); }
+  segs = RmsMath.segments(rowRms); fillSegs(); if (key() === 'test') sendTable(); readouts();
+}
+
+function readouts() {
+  const k = key(), out = [], a = wA(), b = wB(), r1 = RmsMath.rms(a), r2 = RmsMath.rms(b);
+  if (k === 'ends') out.push(`A ${PAIRS[S.pair][0]} RMS <b>${r1.toFixed(3)}</b>`, `B ${PAIRS[S.pair][1]} RMS <b>${r2.toFixed(3)}</b>`, `apart <b>${(20 * Math.log10(r1 / r2)).toFixed(1)} dB</b>`);
+  else if (k === 'test') {
+    if (segs) { const named = segs[0], worst = segs.filter((s) => !s.silent).reduce((x, y) => (y.worst < x.worst ? y : x)); out.push(`sine → saw up, the page's case: <b>${named.worst.toFixed(1)} dB</b> at ${Math.round(named.at * 100)}%, <b>${named.mid.toFixed(1)} dB</b> at the midpoint`, `deepest in the table: <b class="hot">${NAMES[worst.k]} → ${NAMES[(worst.k + 1) % 16]}, ${worst.worst.toFixed(1)} dB</b> at ${Math.round(worst.at * 100)}%`, `sine 2× → sine 4×: <b>${segs[7].worst.toFixed(1)} dB</b>`); }
+    out.push(`Y = <b>${S.alpha.toFixed(3)}</b>`, S.law ? 'constant-RMS' : 'linear, as the table is');
+  } else {
+    const m = RmsMath.mix(a, b, S.alpha), r = RmsMath.rms(m), tg = (1 - S.alpha) * r1 + S.alpha * r2;
+    out.push(`α <b>${S.alpha.toFixed(2)}</b>`, `RMS <b>${(k === 'fix' && S.law ? tg : r).toFixed(3)}</b>`, `target <b>${tg.toFixed(3)}</b>`, `below target <b class="hot">${(k === 'fix' && S.law ? 0 : 20 * Math.log10(r / tg)).toFixed(1)} dB</b>`);
+    if (k === 'why') out.push(`⟨A, B⟩ = <b>${RmsMath.dot(a, b).toFixed(4)}</b>${S.pair === 0 ? ' = −1 ⁄ π' : ''}`);
+  }
+  $('read').innerHTML = out.map((x) => `<span>${x}</span>`).join('');
+  $('alphaVal').textContent = S.alpha.toFixed(3);
+}
+function hintFor(k) {
+  if (k === 'ends') return 'The sawtooth has more upper partials, so most ears hear it as louder even though its RMS is lower. Level and loudness are not the same thing; this piece measures level.';
+  if (k === 'fade') return 'The dip is deepest a little past halfway, not at it, because the two ends are not equally loud.';
+  if (k === 'why') return 'The page\'s formula, with the cross term written out. Sine 2× and sine 4× are orthogonal: the cross term vanishes and the middle falls by √2 in RMS, 3 dB, which is the "~3 dB for orthogonal anchors" case.';
+  if (k === 'fix') return 'Constant-RMS needs the target at every row; the catalog defines it as the straight line between the two anchors\' levels. An equal-power crossfade would fix the orthogonal pair but overshoot correlated ones by up to 3 dB.';
+  return 'Played straight, the table is a 110 Hz tone whose shape walks all sixteen anchors as Y rises. Sweep it, and listen to the second segment, rising saw into square, with the law on linear.';
+}
+function setStep(i) {
+  stop(); S.sweeping = false;
+  S.step = Math.max(0, Math.min(STEPS.length - 1, i));
+  const k = key();
+  [...$('rail').children].forEach((b, j) => b.classList.toggle('on', j === S.step));
+  $('say').innerHTML = STEPS[S.step].say;
+  $('pairCtl').classList.toggle('hidden', !(k === 'why' || k === 'fix'));
+  if (!(k === 'why' || k === 'fix')) S.pair = 0;
+  $('endCtl').classList.toggle('hidden', k !== 'ends');
+  if (k === 'ends' && !S.end) S.end = 'A';
+  $('alphaCtl').classList.toggle('hidden', k === 'ends');
+  $('alphaName').textContent = k === 'test' ? 'Y, down the table' : 'crossfade α';
+  $('sweep').classList.toggle('hidden', k === 'ends');
+  $('lawCtl').classList.toggle('hidden', !(k === 'fix' || k === 'test'));
+  $('tablePanel').classList.toggle('hidden', k !== 'test');
+  $('curvePanel').classList.toggle('hidden', k === 'test');
+  if (k === 'test') { S.alpha = 0.09; $('alpha').value = S.alpha; loadTable(); } else if (S.alpha < 0.02) { S.alpha = 0.5; $('alpha').value = 0.5; }
+  if (k !== 'fix' && k !== 'test') S.law = 0;
+  $('hint').textContent = hintFor(k);
+  $('back').disabled = S.step === 0; $('next').disabled = S.step === STEPS.length - 1;
+  sendTable(); readouts(); paint();
+}
+
+function frame(now) {
+  requestAnimationFrame(frame);
+  if (S.sweeping) { const per = key() === 'test' ? 24 : 8, t = ((now - S.t0) / 1000) % (2 * per); S.alpha = key() === 'test' ? t / (2 * per) : (t < per ? t / per : 2 - t / per); $('alpha').value = S.alpha; sendY(); readouts(); }
+  drawWave();
+  if (key() !== 'test') drawCurve(); else drawWhole();
+}
+(() => { let d = ''; for (let i = 0; i <= 240; i++) { const t = (i / 240) * 2 * Math.PI; d += (i ? 'L' : 'M') + (8 * Math.sin(3 * t + Math.PI / 2)).toFixed(2) + ' ' + (8 * Math.sin(2 * t)).toFixed(2); } $('sigil').setAttribute('d', d); })();
+
+function boot() {
+  STEPS.forEach((s, i) => { const b = document.createElement('button'); b.innerHTML = `${i + 1}<b>${s.name}</b>`; b.onclick = () => setStep(i); $('rail').appendChild(b); });
+  PAIRS.forEach(([a, b], i) => { const el = document.createElement('button'); el.textContent = `${a} → ${b}`; el.onclick = () => { S.pair = i; sendTable(); readouts(); paint(); }; $('pairs').appendChild(el); });
+  $('back').onclick = () => setStep(S.step - 1); $('next').onclick = () => setStep(S.step + 1);
+  $('go').onclick = () => (playing ? stop() : start());
+  $('endA').onclick = async () => { S.end = 'A'; sendY(); readouts(); paint(); if (!playing) await start(); };
+  $('endB').onclick = async () => { S.end = 'B'; sendY(); readouts(); paint(); if (!playing) await start(); };
+  $('alpha').oninput = () => { S.alpha = +$('alpha').value; S.sweeping = false; paint(); sendY(); readouts(); };
+  $('sweep').onclick = async () => { S.sweeping = !S.sweeping; const per = key() === 'test' ? 24 : 8; S.t0 = performance.now() - (key() === 'test' ? S.alpha * 2 * per : S.alpha * per) * 1000; if (S.sweeping && !playing) await start(); paint(); };
+  $('lawLin').onclick = () => { S.law = 0; sendY(); readouts(); paint(); };
+  $('lawRms').onclick = () => { S.law = 1; sendY(); readouts(); paint(); };
+  setStep(0);
+  requestAnimationFrame(frame);
+}
+boot();
+</script>
+</body>
+</html>
