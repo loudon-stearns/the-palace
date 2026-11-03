@@ -1,0 +1,381 @@
+<!doctype html>
+<!--
+  title: Radio Play — rich — timing is the performance
+  born: 2026-11-03
+  links: [[Radio Play]] (connects-to · rich-face-piece) · listed in [[Radio Play — rich.json]] · serves § The craft to master · uses [[Kokoro]] takes the Shop rendered for The Unsung Path (2026-06-19) and its [[Stable Audio Open]] laugh
+  forward_vector: I am the page's "Timing is the performance", walked up and put to a blind test. I open on the
+    cast, one voice each, then one voice and the beat before its own punchline, then an exchange whose gaps you
+    stretch, then a laugh you slide from under the joke to on it, and last two renders of one exchange that
+    differ only in a held beat, played in an order you don't know. I play inside the entry's rich face and
+    stand alone opened directly; I change only when the section I serve does.
+  engine: every take is a Kokoro render copied unchanged from The Unsung Path's stems (rich-face/unsung-path-stems/).
+    The piece reads the WAV files itself, lays them on a 48 kHz timeline in JavaScript at the Shop's own gains
+    (voice 0.92, laugh 0.62, from build_audio.py), and plays the sum as one buffer. The numbers it prints are
+    computed from those same arrays; "Radio Play — rich — checks.py" measures the laugh's masking independently.
+  sound: nothing plays until a play button is clicked; the AudioContext is made on that click. Changing step
+    stops the sound. The kit quiets it when the page hides or is left alone.
+  dress: Loudon Live house style, Graphite skin.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:needs" content="">
+<meta name="piece:files" content="rich-face/unsung-path-stems/">
+<title>Radio Play — timing is the performance</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Manrope:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root { --bg:#0a0a0f; --e1:#12121a; --border:#4a4a5e; --soft:rgba(255,255,255,.07); --fg1:#e8e8f0; --fg2:#c8c8d8; --fg3:#8a8aa0; --fg4:#4a4a5a;
+    --amber:#e8b84a; --amberline:rgba(232,184,74,.5); --indigo:#8b8df8; --teal:#33e0c8; --rose:#e86a8a;
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --sans:'Manrope',system-ui,sans-serif; --serif:'Cormorant Garamond',Georgia,serif; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); font-weight: 300; }
+  .rp-piece { padding: 22px 22px 20px; }
+  .rp-kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; display: flex; align-items: center; gap: 10px; }
+  .rp-kicker svg { width: 18px; height: 18px; }
+  .rp-title { font-family: var(--serif); font-size: 27px; font-weight: 300; color: var(--fg1); margin: 0 0 6px; }
+  .rp-sub { font-size: 14px; line-height: 1.6; color: var(--fg2); max-width: 76ch; margin: 0 0 16px; }
+  .rp-rail { display: flex; flex-wrap: wrap; margin: 0 0 14px; }
+  .rp-rail button { border-radius: 0; margin-right: -1px; }
+  .rp-rail button[aria-pressed="true"] { color: var(--amber); border-color: var(--amberline); position: relative; z-index: 1; }
+  button { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--fg2); background: var(--bg); border: 1px solid var(--border); border-radius: 2px; padding: 8px 12px; cursor: pointer; }
+  button:hover { border-color: rgba(232,184,74,.55); color: var(--fg1); }
+  button:disabled { opacity: .35; cursor: default; }
+  button.rp-go { color: var(--amber); border-color: var(--amberline); box-shadow: 0 0 14px rgba(232,184,74,.18); }
+  button.rp-on { color: var(--amber); border-color: var(--amberline); }
+  .rp-step { border: 1px solid var(--soft); background: var(--e1); border-radius: 2px; padding: 14px 16px 16px; }
+  .rp-stephead { font-family: var(--mono); font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--fg3); display: flex; justify-content: space-between; gap: 10px; margin-bottom: 6px; }
+  .rp-says { font-size: 14.5px; line-height: 1.62; color: var(--fg2); max-width: 78ch; margin: 0 0 12px; }
+  .rp-says b { color: var(--fg1); font-weight: 500; }
+  .rp-says q { color: var(--fg1); font-style: italic; }
+  .rp-panel { border: 1px solid var(--soft); border-radius: 2px; background: var(--bg); padding: 8px 10px; }
+  .rp-plabel { font-family: var(--mono); font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+  canvas { display: block; width: 100%; }
+  .rp-cast { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  @media (max-width: 700px) { .rp-cast { grid-template-columns: 1fr; } }
+  .rp-who { border: 1px solid var(--soft); border-radius: 2px; background: var(--bg); padding: 10px 12px; display: grid; grid-template-columns: auto 1fr; gap: 6px 12px; align-items: center; }
+  .rp-who .rp-name { font-family: var(--mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; }
+  .rp-who .rp-line { grid-column: 1 / -1; font-family: var(--serif); font-size: 17px; color: var(--fg1); font-style: italic; line-height: 1.35; }
+  .rp-who .rp-meta { grid-column: 1 / -1; font-family: var(--mono); font-size: 10.5px; color: var(--fg3); letter-spacing: .04em; }
+  .rp-controls { display: flex; flex-wrap: wrap; gap: 12px 22px; align-items: end; margin-top: 14px; }
+  .rp-controls label.rp-sl { flex: 1 1 260px; }
+  .rp-btns { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+  label.rp-sl { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: .06em; color: var(--fg3); }
+  label.rp-sl b { color: var(--fg1); font-weight: 500; }
+  input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 3px; background: var(--fg4); margin: 12px 0 4px; outline: none; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 13px; height: 13px; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  input[type=range]::-moz-range-thumb { width: 13px; height: 13px; border: 0; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  .rp-read { display: flex; flex-wrap: wrap; gap: 6px 22px; margin-top: 12px; font-family: var(--mono); font-size: 11.5px; letter-spacing: .04em; color: var(--fg3); }
+  .rp-read b { color: var(--fg1); font-weight: 500; }
+  .rp-read .rp-flag { color: var(--amber); }
+  .rp-back { font-family: var(--mono); font-size: 11px; letter-spacing: .04em; color: var(--fg3); margin-top: 10px; }
+  .rp-nav { display: flex; justify-content: space-between; gap: 10px; margin-top: 14px; }
+  .rp-verdict { margin-top: 12px; font-size: 14px; line-height: 1.6; color: var(--fg1); max-width: 80ch; border-left: 2px solid var(--amberline); padding-left: 12px; }
+  .rp-verdict b { font-weight: 500; color: var(--amber); }
+  .rp-script { font-family: var(--serif); font-size: 16px; line-height: 1.5; color: var(--fg2); margin: 0 0 10px; }
+  .rp-script span { font-family: var(--mono); font-size: 10.5px; letter-spacing: .12em; text-transform: uppercase; margin-right: 8px; }
+  .rp-status { font-family: var(--mono); font-size: 11px; color: var(--fg3); margin-top: 8px; min-height: 1em; }
+</style>
+</head>
+<body>
+<div class="rp-piece">
+  <div class="rp-kicker"><svg id="rp-sigil" viewBox="0 0 18 18" aria-hidden="true"></svg><span>made · Web Audio · sketch · a walk in five steps</span></div>
+  <h3 class="rp-title">Timing is the performance</h3>
+  <p class="rp-sub">The Shop's first radio play, <i>The Unsung Path</i>, taken apart. Its voices are fixed takes: nothing below changes a word, a voice or a level. Only where the takes sit in time moves, and the last step asks you, blind, whether that alone changes the joke.</p>
+  <div class="rp-rail" id="rp-rail" role="group" aria-label="steps"></div>
+  <div class="rp-step">
+    <div class="rp-stephead"><span id="rp-stepname"></span><span id="rp-stepof"></span></div>
+    <p class="rp-says" id="rp-says"></p>
+    <div id="rp-body"></div>
+    <div class="rp-status" id="rp-status"></div>
+    <div class="rp-back" id="rp-backnote"></div>
+    <div class="rp-nav"><button id="rp-prev">← back</button><button id="rp-next">next step →</button></div>
+  </div>
+</div>
+<script>
+'use strict';
+// ---------- the takes (The Unsung Path, script.json and audio/manifest.json, 2026-06-19)
+const DIR = 'rich-face/unsung-path-stems/';
+const CAST = {
+  NARRATOR: { voice: 'af_heart', color: '#e8b84a', persona: 'warm narrator' },
+  FOREMAN:  { voice: 'am_michael', color: '#8b8df8', persona: 'gruff foreman' },
+  SKEPTIC:  { voice: 'af_bella', color: '#e86a8a', persona: 'alarmed skeptic' },
+  WIKILINK: { voice: 'af_nicole', color: '#33e0c8', persona: 'shy wikilink' },
+};
+const T = {
+  n0: { file: 's1_title__00__NARRATOR', who: 'NARRATOR', text: 'In the palace, every page is connected to every other. That is the whole idea.' },
+  n1: { file: 's1_title__01__NARRATOR', who: 'NARRATOR', text: 'Mostly.' },
+  w0: { file: 's2_problem__01__WIKILINK', who: 'WIKILINK', text: 'I mention you. All the time. In my prose. It is just, never been made official.' },
+  f0: { file: 's2_problem__03__FOREMAN', who: 'FOREMAN', text: 'Nine hundred and thirteen of them in this palace. The place is emotionally repressed.' },
+  k1: { file: 's4_demo__02__SKEPTIC', who: 'SKEPTIC', text: 'Hold on. Does clicking that rewrite my whole palace?!' },
+  f1: { file: 's4_demo__03__FOREMAN', who: 'FOREMAN', text: 'Relax. The first click is a dry run. It reads only. Writing takes a second, deliberate click.' },
+  k2: { file: 's4_demo__04__SKEPTIC', who: 'SKEPTIC', text: 'Oh. Honest software.' },
+  f2: { file: 's4_demo__05__FOREMAN', who: 'FOREMAN', text: 'Don’t sound so shocked.' },
+};
+const LAUGH = 'laugh';
+const SR = 48000, V_VO = 0.92, V_LAUGH = 0.62, MASTER = 1.5;   // the Kokoro takes peak low; one gain for every render   // the Shop's gains, build_audio.py
+const SHOP_SET = { beat: 0.6, gaps: [0.4, 0.4, 0.3], laughAfter: 0.1 };   // what build_audio.py set, between the files
+let SHOP = null;   // the same cut, as heard between the words: filled in once the takes are read
+const EXCH = ['k1', 'f1', 'k2', 'f2'];
+
+// ---------- reading a WAV ourselves: no audio context before a click
+function parseWav(buf) {
+  const v = new DataView(buf); let p = 12, fmt = null, data = null;
+  while (p + 8 <= v.byteLength) {
+    const id = String.fromCharCode(v.getUint8(p), v.getUint8(p + 1), v.getUint8(p + 2), v.getUint8(p + 3)), len = v.getUint32(p + 4, true);
+    if (id === 'fmt ') fmt = { ch: v.getUint16(p + 10, true), sr: v.getUint32(p + 12, true), bits: v.getUint16(p + 22, true), code: v.getUint16(p + 8, true) };
+    if (id === 'data') data = { off: p + 8, len: Math.min(len, v.byteLength - p - 8) };
+    p += 8 + len + (len & 1);
+  }
+  if (!fmt || !data || fmt.bits !== 16) throw new Error('expects 16-bit PCM WAV');
+  const n = Math.floor(data.len / 2 / fmt.ch), chs = [];
+  for (let c = 0; c < fmt.ch; c++) { const x = new Float32Array(n); for (let i = 0; i < n; i++) x[i] = v.getInt16(data.off + (i * fmt.ch + c) * 2, true) / 32768; chs.push(x); }
+  return { sr: fmt.sr, chs };
+}
+function toSR(x, sr) { // linear resample to the timeline's 48 kHz
+  if (sr === SR) return x;
+  const n = Math.round(x.length * SR / sr), out = new Float32Array(n), r = sr / SR;
+  for (let i = 0; i < n; i++) { const t = i * r, k = Math.floor(t), f = t - k; out[i] = (x[k] || 0) * (1 - f) + (x[k + 1] || 0) * f; }
+  return out;
+}
+// Each stem in stereo, the way the Shop's ffmpeg chain heard it: a mono Kokoro take at -3 dB on each side
+// (aformat=channel_layouts=stereo), the Stable Audio laugh in its own two channels. BUF is a mono view for
+// drawing and for finding the words.
+const UPMIX = Math.SQRT1_2, ST = {}, BUF = {};
+async function loadAll() {
+  const names = [...new Set(Object.values(T).map(t => t.file).concat([LAUGH]))];
+  await Promise.all(names.map(async n => {
+    const r = await fetch(DIR + n + '.wav'); if (!r.ok) throw new Error(n + '.wav: ' + r.status);
+    const w = parseWav(await r.arrayBuffer()), chs = w.chs.map(x => toSR(x, w.sr));
+    ST[n] = chs.length === 1 ? [chs[0].map(v => v * UPMIX), chs[0].map(v => v * UPMIX)] : [chs[0], chs[1]];
+    BUF[n] = chs.length === 1 ? chs[0] : chs[0].map((v, i) => (v + chs[1][i]) / 2);
+  }));
+}
+const fileOf = key => key in T ? T[key].file : key;
+const dur = key => BUF[fileOf(key)].length / SR;
+// where the words are in a take: a 10 ms RMS envelope, first and last point within 40 dB of its peak
+// (the same rule as checks.py's speech(); a Kokoro take carries its own silence at both ends)
+const SPEECH = {};
+function speechOf(x) {
+  const n = Math.round(0.01 * SR), c = new Float64Array(x.length + 1); for (let i = 0; i < x.length; i++) c[i + 1] = c[i] + x[i] * x[i];
+  const e = new Float64Array(x.length); let pk = 0;
+  for (let i = 0; i < x.length; i++) { const a = Math.min(x.length, Math.max(0, i - (n >> 1))), b = Math.min(x.length, Math.max(0, i - (n >> 1) + n)); e[i] = Math.sqrt(Math.max(0, c[b] - c[a]) / n); if (e[i] > pk) pk = e[i]; }
+  const th = pk * Math.pow(10, -40 / 20); let on = 0, off = x.length - 1; while (e[on] <= th) on++; while (e[off] <= th) off--;
+  return { on: on / SR, off: (off + 1) / SR };
+}
+const on = key => SPEECH[fileOf(key)].on, off = key => SPEECH[fileOf(key)].off;
+const tail = key => dur(key) - off(key);
+function shopHeard() {
+  return { beat: tail('n0') + SHOP_SET.beat + on('n1'),
+    gaps: EXCH.slice(0, 3).map((k, i) => tail(k) + SHOP_SET.gaps[i] + on(EXCH[i + 1])),
+    laughAfter: tail('f2') + SHOP_SET.laughAfter + on(LAUGH) };
+}
+
+// ---------- the timeline: events {key, at, gain} summed at 48 kHz, stereo; x is the two channels interleaved
+function render(events) {
+  const end = Math.max(...events.map(e => e.at + dur(e.key))) + 0.4, n = Math.ceil(end * SR);
+  const out = new Float32Array(2 * n);
+  for (const e of events) {
+    const [l, r] = ST[fileOf(e.key)], o = Math.round(e.at * SR), g = e.gain * MASTER;
+    for (let i = 0; i < l.length && o + i < n; i++) { out[2 * (o + i)] += g * l[i]; out[2 * (o + i) + 1] += g * r[i]; }
+  }
+  return { events, x: out, n, end };
+}
+// lay takes so the silence between one take's last word and the next one's first is exactly silences[i]
+function sequence(keys, silences, firstWord = 0.5) {
+  const ev = []; let w = firstWord;
+  keys.forEach((k, i) => { const at = Math.round((w - on(k)) * SR) / SR; ev.push({ key: k, at, gain: V_VO }); w = at + off(k) + (i < silences.length ? silences[i] : 0); });
+  return ev;
+}
+function exchange(silences, laughAfter) {
+  const ev = sequence(EXCH, silences), last = ev[ev.length - 1], lastWord = last.at + off(last.key);
+  if (laughAfter !== null) ev.push({ key: LAUGH, at: Math.round((lastWord + laughAfter - on(LAUGH)) * SR) / SR, gain: V_LAUGH });
+  return ev;
+}
+// power summed over both channels, as a stereo mix carries it
+function powDb(key, gain, a, b) { const [l, r] = ST[fileOf(key)]; let s = 0; for (let i = a; i < b; i++) s += (l[i] || 0) * (l[i] || 0) + (r[i] || 0) * (r[i] || 0); return 10 * Math.log10(gain * gain * s / Math.max(1, b - a) + 1e-24); }
+
+// ---------- sound: one buffer at a time
+let ac = null, src = null, playing = null, t0 = 0;
+function ctx() { if (!ac) ac = new (window.AudioContext || window.webkitAudioContext)(); if (ac.state === 'suspended') ac.resume(); return ac; }
+function stopSound() { if (src) { try { src.stop(); } catch (e) {} src.onended = null; src = null; } playing = null; draw(); }
+function play(r, tag, from = 0) {
+  stopSound(); const c = ctx(); const b = c.createBuffer(2, r.n, SR), L = new Float32Array(r.n), R = new Float32Array(r.n);
+  for (let i = 0; i < r.n; i++) { L[i] = r.x[2 * i]; R[i] = r.x[2 * i + 1]; } b.copyToChannel(L, 0); b.copyToChannel(R, 1);
+  src = c.createBufferSource(); src.buffer = b; src.connect(c.destination); src.start(c.currentTime + 0.03, from);
+  t0 = c.currentTime + 0.03 - from; playing = { r, tag };
+  src.onended = () => { src = null; playing = null; draw(); };
+  tick();
+}
+function tick() { draw(); if (playing) requestAnimationFrame(tick); }
+
+// ---------- drawing a timeline
+let current = null; // { r, canvas, lanes }
+function drawTimeline(cv, r, opts = {}) {
+  const hasLaugh = r.events.some(e => e.key === LAUGH), dpr = window.devicePixelRatio || 1, W = cv.clientWidth, H = hasLaugh ? 140 : 112;
+  cv.width = W * dpr; cv.height = H * dpr; cv.style.height = H + 'px';
+  const g = cv.getContext('2d'); g.setTransform(dpr, 0, 0, dpr, 0, 0); g.clearRect(0, 0, W, H);
+  const span = opts.span || r.end, px = s => 8 + (W - 16) * s / span;
+  const laneY = { voice: 8, laugh: 98 }, laneH = { voice: 64, laugh: 24 };
+  g.strokeStyle = 'rgba(255,255,255,.07)'; g.beginPath();
+  for (let s = 0; s <= span; s += 1) { g.moveTo(px(s) + .5, 0); g.lineTo(px(s) + .5, H - 6); } g.stroke();
+  g.fillStyle = '#4a4a5a'; g.font = '10px JetBrains Mono, monospace';
+  for (let s = 0; s <= span; s += (span > 14 ? 2 : 1)) g.fillText(s + ' s', px(s) + 2, H - 2);
+  r.events.forEach((e, i) => {
+    const isL = e.key === LAUGH, who = isL ? null : T[e.key].who, col = isL ? '#8a8aa0' : CAST[who].color;
+    const y = isL ? laneY.laugh : laneY.voice, h = isL ? laneH.laugh : laneH.voice;
+    const x = BUF[isL ? LAUGH : T[e.key].file], a = px(e.at), b = px(e.at + dur(e.key));
+    g.fillStyle = col + '0d'; g.fillRect(a, y, b - a, h); g.fillStyle = col + '24'; g.fillRect(px(e.at + on(e.key)), y, px(e.at + off(e.key)) - px(e.at + on(e.key)), h);
+    g.strokeStyle = col; g.lineWidth = 1; g.beginPath();
+    const cols = Math.max(1, Math.floor(b - a)), per = Math.floor(x.length / cols), mid = y + h / 2;
+    for (let c = 0; c < cols; c++) { let m = 0; for (let k = c * per; k < (c + 1) * per; k += 8) m = Math.max(m, Math.abs(x[k])); const hh = Math.min(1, m * (isL ? 1.6 : 1.3)) * h / 2; g.moveTo(a + c + .5, mid - hh); g.lineTo(a + c + .5, mid + hh); }
+    g.stroke();
+    if (!isL && opts.labels !== false) { g.fillStyle = col; g.font = '10px JetBrains Mono, monospace'; g.fillText(who.toLowerCase(), px(e.at + on(e.key)) + 3, y + 11); }
+  });
+  (opts.gaps || []).forEach(gp => { const a = px(gp.from), b = px(gp.to); g.strokeStyle = '#e8b84a'; g.beginPath(); g.moveTo(a, laneY.voice + laneH.voice + 6); g.lineTo(b, laneY.voice + laneH.voice + 6); g.stroke();
+    g.fillStyle = '#e8b84a'; g.font = '10px JetBrains Mono, monospace'; g.fillText(Math.round((gp.to - gp.from) * 1000) + ' ms', a, laneY.voice + laneH.voice + 18); });
+  if (playing && playing.r === r) { const t = ac.currentTime - t0; if (t >= 0) { g.strokeStyle = '#e8e8f0'; g.beginPath(); g.moveTo(px(t) + .5, 0); g.lineTo(px(t) + .5, H - 8); g.stroke(); } }
+}
+function gapsOf(r) { const v = r.events.filter(e => e.key !== LAUGH); const out = []; for (let i = 1; i < v.length; i++) out.push({ from: v[i - 1].at + off(v[i - 1].key), to: v[i].at + on(v[i].key) }); return out; }
+
+// ---------- the steps
+const S = { step: 1, beat: null, pace: 1, laugh: null, pair: null, pick: null };
+const $ = id => document.getElementById(id);
+function el(tag, attrs = {}, ...kids) { const e = document.createElement(tag); for (const [k, v] of Object.entries(attrs)) { if (k === 'on') for (const [ev, f] of Object.entries(v)) e.addEventListener(ev, f); else if (k === 'class') e.className = v; else if (k === 'html') e.innerHTML = v; else e.setAttribute(k, v); } kids.flat().forEach(k => e.append(k)); return e; }
+function slider(label, min, max, step, get, set, fmt) {
+  const b = el('b'), inp = el('input', { type: 'range', min, max, step, 'aria-label': label }); inp.value = get();
+  const upd = () => { b.textContent = fmt(get()); }; upd();
+  inp.addEventListener('input', () => { set(parseFloat(inp.value)); upd(); if (playing) stopSound(); build(false); });
+  return el('label', { class: 'rp-sl' }, label + ' ', b, inp);
+}
+function canvasPanel(label, right) { const cv = el('canvas', { 'aria-label': label }); const p = el('div', { class: 'rp-panel' }, el('div', { class: 'rp-plabel' }, el('span', {}, label), el('span', { id: 'rp-right' }, right || '')), cv); return { p, cv }; }
+function scriptLines(keys) { return el('div', {}, keys.map(k => el('p', { class: 'rp-script' }, el('span', { style: 'color:' + CAST[T[k].who].color }, T[k].who.toLowerCase()), T[k].text))); }
+
+const STEPS = [
+  { n: 1, name: 'the cast',
+    says: 'A radio play starts with people you never see, so each one has to be <b>a voice you can tell apart</b> before anyone says anything clever. Here is the first cast: four Kokoro voices, each given a persona. Play them one at a time and listen only for who is speaking.',
+    back: 'These four takes are the whole stock for the rest of the walk. Nothing later re-renders them.',
+    build(body) {
+      const grid = el('div', { class: 'rp-cast' });
+      [['NARRATOR', 'n0'], ['FOREMAN', 'f0'], ['SKEPTIC', 'k1'], ['WIKILINK', 'w0']].forEach(([who, k]) => {
+        const r = render([{ key: k, at: 0.05, gain: V_VO }]);
+        const b = el('button', { class: 'rp-go', on: { click: () => playing && playing.tag === who ? stopSound() : play(r, who) } }, '▸ play');
+        grid.append(el('div', { class: 'rp-who' }, el('span', { class: 'rp-name', style: 'color:' + CAST[who].color }, who.toLowerCase() + ' · ' + CAST[who].persona), b,
+          el('div', { class: 'rp-line' }, '“' + T[k].text + '”'), el('div', { class: 'rp-meta' }, 'Kokoro ' + CAST[who].voice + ' · ' + dur(k).toFixed(2) + ' s take')));
+      });
+      body.append(grid);
+    } },
+  { n: 2, name: 'the beat',
+    says: 'One voice, two lines, and the only thing that moves is <b>the silence between them</b>. The narrator sets up the palace’s whole idea; then a single word takes it back. Drag the beat from nothing to two and a half seconds and play it each time. One thing to know first: the Shop set 600 ms here, but between the two files, and each Kokoro take carries its own quiet before its first word and after its last. So what you hear between <q>idea</q> and <q>Mostly</q> in the Shop’s cut is longer. The slider measures the silence you actually hear.',
+    back: 'The cast from step 1 is untouched: the same narrator take, the same level. The Shop’s cut is marked on the slider.',
+    build(body) {
+      const r = render(sequence(['n0', 'n1'], [S.beat]));
+      body.append(scriptLines(['n0', 'n1']));
+      const { p, cv } = canvasPanel('one voice · the gap before “Mostly.”', (r.end).toFixed(2) + ' s');
+      body.append(p);
+      body.append(el('div', { class: 'rp-controls' }, el('div', { class: 'rp-btns' }, el('button', { class: 'rp-go', on: { click: () => playing ? stopSound() : play(r, 'beat') } }, '▸ play / stop')),
+        slider('silence between the words', 0, 2.5, 0.01, () => S.beat, v => { S.beat = v; }, v => Math.round(v * 1000) + ' ms' + (Math.abs(v - SHOP.beat) < 0.006 ? ' · the Shop’s cut (600 ms set between the files)' : ''))));
+      body.append(el('div', { class: 'rp-read' }, el('span', {}, 'the narrator’s first take: ', el('b', {}, Math.round(on('n0') * 1000) + ' ms'), ' of quiet before its first word, ', el('b', {}, Math.round(tail('n0') * 1000) + ' ms'), ' after its last'),
+        el('span', {}, '“Mostly.”: ', el('b', {}, Math.round(on('n1') * 1000) + ' ms'), ' before it')));
+      current = { r, cv, opts: { gaps: gapsOf(r), span: 9 } };
+    } },
+  { n: 3, name: 'the exchange',
+    says: 'Now two voices trading lines, and <b>the rhythm of the turns</b>. The Shop set 400, 400 and 300 ms between these files, which you hear as about 1.4, 1.4 and 1.3 seconds of silence between the words. The slider scales all three silences at once, from none to twice the Shop’s. Same takes, same order, same levels: listen to what the space does to who sounds nervous and who sounds calm.',
+    back: 'Set the pace to ×1 for the Shop’s cut. The narrator’s beat from step 2 is the same move, made once; here it is made three times in a row.',
+    build(body) {
+      const gaps = SHOP.gaps.map(g => g * S.pace), r = render(exchange(gaps, null));
+      body.append(scriptLines(EXCH));
+      const { p, cv } = canvasPanel('two voices · four turns', r.end.toFixed(2) + ' s');
+      body.append(p);
+      body.append(el('div', { class: 'rp-controls' }, el('div', { class: 'rp-btns' }, el('button', { class: 'rp-go', on: { click: () => playing ? stopSound() : play(r, 'ex') } }, '▸ play / stop')),
+        slider('the pace', 0, 2, 0.05, () => S.pace, v => { S.pace = v; }, v => '×' + v.toFixed(2) + (Math.abs(v - 1) < 0.001 ? ' · the Shop’s' : ''))));
+      current = { r, cv, opts: { gaps: gapsOf(r), span: 22 } };
+    } },
+  { n: 4, name: 'the laugh',
+    says: 'The page says the audience track goes <b><q>on the joke, not under it</q></b>. Here is the exchange at the Shop’s gaps with its laugh, which you can slide. Pull it left and it starts while the foreman is still saying the punchline; the readout measures how much of the line it covers and how loud the line is against it there, both in stereo as the Shop mixed them. Laid right on the first word, the laughter sits about 9 dB over the line. In the Shop’s cut the laughter begins about 630 ms after the last word: 100 ms set after the file, plus the quiet at the end of the take.',
+    back: 'The turns are step 3’s at ×1, the Shop’s cut. The laugh is a Stable Audio 3 render the Shop made for this play, at its own level, 0.62 against the voices’ 0.92.',
+    build(body) {
+      const r = render(exchange(SHOP.gaps, S.laugh));
+      const pl = r.events[3], plA = Math.round((pl.at + on('f2')) * SR), plB = Math.round((pl.at + off('f2')) * SR), la = r.events[4];
+      const ovA = Math.max(plA, Math.round((la.at + on(LAUGH)) * SR)), ovB = plB, ov = Math.max(0, ovB - ovA) / SR;
+      let readout;
+      if (ov > 0.01) {
+        const pS = Math.round(pl.at * SR), lS = Math.round(la.at * SR), w = ovB - ovA;
+        const d = powDb('f2', V_VO, ovA - pS, ovA - pS + w) - powDb(LAUGH, V_LAUGH, ovA - lS, ovA - lS + w);
+        readout = [el('span', {}, 'laugh starts ', el('b', {}, (S.laugh >= 0 ? '+' : '') + Math.round(S.laugh * 1000) + ' ms'), ' from the last word'),
+          el('span', {}, 'covers ', el('b', {}, Math.round(100 * ov / (off('f2') - on('f2'))) + '%'), ' of “Don’t sound so shocked.”'),
+          el('span', { class: d < 0 ? 'rp-flag' : '' }, 'the line is ', el('b', {}, (d >= 0 ? '+' : '') + d.toFixed(1) + ' dB'), ' against the laugh there' + (d < 0 ? ': under it' : ''))];
+      } else {
+        readout = [el('span', {}, 'laugh starts ', el('b', {}, (S.laugh >= 0 ? '+' : '') + Math.round(S.laugh * 1000) + ' ms'), ' from the last word'),
+          el('span', {}, 'covers ', el('b', {}, '0%'), ' of the punchline: every word is in the clear')];
+      }
+      const { p, cv } = canvasPanel('two voices and an audience', r.end.toFixed(2) + ' s');
+      body.append(p);
+      body.append(el('div', { class: 'rp-controls' }, el('div', { class: 'rp-btns' }, el('button', { class: 'rp-go', on: { click: () => playing ? stopSound() : play(r, 'laugh', Math.max(0, pl.at - 3.2)) } }, '▸ play from “Oh.”')),
+        slider('where the laughter starts, from the last word', -1.8, 1.2, 0.01, () => S.laugh, v => { S.laugh = v; }, v => (v >= 0 ? '+' : '') + Math.round(v * 1000) + ' ms' + (Math.abs(v - SHOP.laughAfter) < 0.006 ? ' · the Shop’s' : ''))));
+      body.append(el('div', { class: 'rp-read' }, readout));
+      current = { r, cv, opts: { gaps: gapsOf(r), span: 22 } };
+    } },
+  { n: 5, name: 'the test',
+    says: 'Two renders of the whole exchange, <b>A</b> and <b>B</b>, in an order the piece chose at random and won’t tell you yet. Same four takes, same levels, the same first two turns and the same laugh. One thing differs: the silence before <q>Don’t sound so shocked</q>. One rushes it, 100 ms between the words; one holds it for 1.25 seconds. Play both, as often as you like, and say which one lands the joke.',
+    back: 'Every earlier step is inside these two: the cast, a beat, the turns as the Shop cut them, the laugh on the joke. Only one silence has moved, once.',
+    build(body) {
+      if (!S.pair) {
+        const rushed = render(exchange([SHOP.gaps[0], SHOP.gaps[1], 0.1], SHOP.laughAfter)), held = render(exchange([SHOP.gaps[0], SHOP.gaps[1], SHOP.gaps[2]], SHOP.laughAfter));
+        const flip = Math.random() < 0.5; S.pair = { A: flip ? held : rushed, B: flip ? rushed : held, heldIs: flip ? 'A' : 'B', rushed, held };
+        // the engine's own check. Each render is the sum of its events, so split each in two: the three turns
+        // that don't move, and the punchline with its laugh, which do. Compare the parts sample by sample.
+        const cut = Math.round(held.events[3].at * SR), shift = cut - Math.round(rushed.events[3].at * SR);
+        const part = (r, a, b) => render(r.events.slice(a, b)).x;
+        const stayR = part(rushed, 0, 3), stayH = part(held, 0, 3), moveR = render(rushed.events.slice(3).map(e => ({ ...e, at: e.at - rushed.events[3].at + 0.5 }))).x, moveH = render(held.events.slice(3).map(e => ({ ...e, at: e.at - held.events[3].at + 0.5 }))).x;
+        let maxHead = 0, maxTail = 0;
+        for (let i = 0; i < Math.max(stayR.length, stayH.length); i++) maxHead = Math.max(maxHead, Math.abs((stayR[i] || 0) - (stayH[i] || 0)));
+        for (let i = 0; i < Math.max(moveR.length, moveH.length); i++) maxTail = Math.max(maxTail, Math.abs((moveR[i] || 0) - (moveH[i] || 0)));
+        const lagMs = (held.events[4].at - held.events[3].at - (rushed.events[4].at - rushed.events[3].at)) * 1000;
+        S.pair.check = { maxHead, maxTail, lagMs, diffMs: shift / SR * 1000, peak: Math.max(...[rushed.x, held.x].map(x => x.reduce((m, v) => Math.max(m, Math.abs(v)), 0))) };
+      }
+      const P = S.pair;
+      const row = el('div', { class: 'rp-btns' },
+        el('button', { class: 'rp-go', on: { click: () => playing && playing.tag === 'A' ? stopSound() : play(P.A, 'A', 0) } }, '▸ play A'),
+        el('button', { class: 'rp-go', on: { click: () => playing && playing.tag === 'B' ? stopSound() : play(P.B, 'B', 0) } }, '▸ play B'),
+        el('span', { style: 'width:18px' }),
+        el('button', { class: S.pick === 'A' ? 'rp-on' : '', on: { click: () => { S.pick = 'A'; stopSound(); build(false); } } }, 'A lands it'),
+        el('button', { class: S.pick === 'B' ? 'rp-on' : '', on: { click: () => { S.pick = 'B'; stopSound(); build(false); } } }, 'B lands it'),
+        el('button', { class: S.pick === 'same' ? 'rp-on' : '', on: { click: () => { S.pick = 'same'; stopSound(); build(false); } } }, 'I can’t tell them apart'));
+      body.append(row);
+      const c = S.pair.check;
+      body.append(el('div', { class: 'rp-read' },
+        el('span', {}, 'A and B differ by ', el('b', {}, Math.round(c.diffMs) + ' ms'), ' of silence in one place'),
+        el('span', {}, 'the three turns that stay: largest sample difference ', el('b', {}, c.maxHead === 0 ? '0' : c.maxHead.toExponential(1))),
+        el('span', {}, 'the punchline and its laugh, which move: ', el('b', {}, c.maxTail === 0 ? '0' : c.maxTail.toExponential(1)))));
+      if (S.pick) {
+        const held = P.heldIs, rushed = held === 'A' ? 'B' : 'A';
+        const { p, cv } = canvasPanel('the held render, ' + held, P.held.end.toFixed(2) + ' s');
+        const yours = S.pick === 'same' ? 'You heard no difference worth choosing between.' : 'You chose <b>' + S.pick + '</b>, the ' + (S.pick === held ? 'held beat (' + Math.round(SHOP.gaps[2] * 1000) + ' ms, the Shop’s)' : 'rushed beat (100 ms)') + '.';
+        body.append(el('div', { class: 'rp-verdict', html: yours + ' <b>' + held + '</b> was the held one, <b>' + rushed + '</b> the rushed. Each render is three turns that stay put plus a punchline and its laugh that move together; the engine above compared those parts sample by sample, in both channels, and ' + (c.maxHead === 0 && c.maxTail === 0 ? 'found no difference at all' : 'found differences up to ' + Math.max(c.maxHead, c.maxTail).toExponential(1)) + '. The punchline simply arrives ' + Math.round(c.diffMs) + ' ms later in one than the other. So whatever changed for you between them, a laugh, a wince, nothing at all, came from that much silence and nothing else. That is the page’s claim made into something you can try; whether the held beat is the funnier one is yours to say, and the piece won’t answer for you. The held one is the Shop’s own cut. Reload to draw the order again.' }));
+        body.append(p); current = { r: P.held, cv, opts: { gaps: gapsOf(P.held), span: 22 } };
+      } else current = null;
+    } },
+];
+
+function build(fresh = true) {
+  const s = STEPS[S.step - 1], rail = $('rp-rail'); rail.innerHTML = '';
+  STEPS.forEach(t => rail.append(el('button', { 'aria-pressed': String(t.n === S.step), on: { click: () => goTo(t.n) } }, t.n + ' · ' + t.name)));
+  $('rp-stepname').textContent = s.n + ' · ' + s.name; $('rp-stepof').textContent = 'step ' + s.n + ' of ' + STEPS.length;
+  $('rp-says').innerHTML = s.says; $('rp-backnote').textContent = s.back;
+  const body = $('rp-body'); body.innerHTML = ''; current = null; s.build(body); draw();
+  $('rp-prev').disabled = S.step === 1; $('rp-next').disabled = S.step === STEPS.length;
+}
+function draw() { if (current && current.cv.isConnected) drawTimeline(current.cv, current.r, current.opts); }
+function goTo(n) { if (n !== S.step) { stopSound(); S.step = n; build(); } }
+$('rp-prev').addEventListener('click', () => goTo(Math.max(1, S.step - 1)));
+$('rp-next').addEventListener('click', () => goTo(Math.min(STEPS.length, S.step + 1)));
+window.addEventListener('resize', draw);
+(function sigil() { const s = $('rp-sigil'); let d = ''; for (let i = 0; i <= 160; i++) { const t = 2 * Math.PI * i / 160; d += (i ? 'L' : 'M') + (9 + 7.5 * Math.sin(3 * t + Math.PI / 2)).toFixed(2) + ',' + (9 + 7.5 * Math.sin(2 * t)).toFixed(2); } s.innerHTML = '<path d="' + d + '" fill="none" stroke="#e8b84a" stroke-width="1"/>'; })();
+
+$('rp-status').textContent = 'loading the takes…';
+loadAll().then(() => { for (const n in BUF) SPEECH[n] = speechOf(BUF[n]); SHOP = shopHeard(); S.beat = SHOP.beat; S.laugh = SHOP.laughAfter; $('rp-status').textContent = ''; build(); window.__rp = { S, STEPS, render, exchange, sequence, BUF, ST, SPEECH, SHOP, dur, on, off, powDb, SR, V_VO, V_LAUGH, T, goTo }; })
+  .catch(e => { $('rp-status').textContent = 'could not load the takes: ' + e.message; throw e; });
+</script>
+</body>
+</html>
