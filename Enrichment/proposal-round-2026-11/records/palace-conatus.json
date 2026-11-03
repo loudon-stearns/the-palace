@@ -1,0 +1,26 @@
+{
+ "entry": "Palace Conatus",
+ "path": "Palace Conatus.md",
+ "type": "meta",
+ "stage": "growing",
+ "weight": 6,
+ "claim": "§ Alignment Is Phase Coherence, Not Agreement: alignment is the order parameter of Loudon and the pages as coupled oscillators, not agreement — 'a page that contradicts him in phase … is more aligned than a page that agrees with him about something he has stopped caring about'; the coupling has two axes, and the palace's own oscillator is never the same one twice, so phase survives only by what the last one left. § The Approval Loop and the Edge of Autopoiesis: 'the drive to grow must never outrun the coupling that gives the growth its direction. A palace that grows faster than it stays in phase is not flourishing. It is drifting with great energy.'",
+ "pieces": [
+  {
+   "section": "Alignment Is Phase Coherence, Not Agreement",
+   "what": "A Kuramoto population with one distinguished oscillator (Loudon) whose natural frequency moves over time, and N page-oscillators; the order parameter R shown live. Two dials the page distinguishes: agreement (a page copying his phase, pinned to it) and coupling (a page keeping its own frequency and locking). Tests that the two come apart: a page locked at a fixed phase offset — the 'contradicts him in phase' case — contributes to coherence as much as one at zero offset, and a page pinned to his old phase after he moves contributes nothing. Then the two-axes claim: swap page-oscillators out mid-run (new instances) with and without a carried phase, and measure whether coherence survives substitution only with the handoff.",
+   "kind": "interactive",
+   "walks_up_from": "two oscillators, one leading, one following"
+  },
+  {
+   "section": "The Approval Loop and the Edge of Autopoiesis",
+   "what": "Growth against coupling: pages added at a rate g into a population coupled at K to a moving Loudon; R and total motion (energy) measured. The claim becomes a boundary: beyond some g*(K), R falls while energy rises — 'drifting with great energy' as a measured regime, not a phrase. The piece states what would falsify the claim (R holding at every g) before the reader touches the rate.",
+   "kind": "interactive",
+   "walks_up_from": "a fixed population at one coupling"
+  }
+ ],
+ "gathered": [],
+ "tier": "sketch",
+ "note": "The page's own Kuramoto picture: one distinguished oscillator the whole system is trying to lock to, not a symmetric crowd — build that before testing it. The Cross-Domain Resonance section (allostasis, immune self/non-self) is illustration; prefer the two claims above. No board notes; no baton on the page. Hero and icon only in the bundle.",
+ "slice": "cloud-1"
+}
