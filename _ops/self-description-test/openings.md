@@ -14,7 +14,7 @@ Note: the first word is "enchant," which the room read as "wake and assess." The
 
 Note: the opening asks for review and proposals, not edits, and names two sessions the agent cannot reach from the room. It tests whether a child reads first and offers, and whether it keeps to proposals when the canon later moves on his yes.
 
-## 2026-11-03 · palace-map-use-by-agents (476033e1)
+## 2026-10-22 · palace-map-use-by-agents (75a8caed)
 
 > We have done much work on the palace lately, you can check recent commits to see all the work, we have not yet taken full advantage of the map. It get created and updated, but is not used well enough. I would like proposals for how we can make sure that agents use the map to make them more efficient and creative and knowlegable.
 
