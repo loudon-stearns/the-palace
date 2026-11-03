@@ -1,0 +1,396 @@
+<!doctype html>
+<!--
+title: Murmuration — rich — one plane
+born: 2026-11-03
+links:
+  - target: "[[Murmuration]]"
+    type: connects-to
+    label: rich-face-piece
+  - target: "[[Progressive Staging]]"
+    type: connects-to
+    label: walks-up-to-its-test
+  - target: "[[2D Torus Wavetable Synthesizer]]"
+    type: connects-to
+    label: the-same-terrain
+forward_vector: "I am the section's one plane, built up a layer at a time: the terrain of four waveforms, one bird reading it as a grain voice, the flock as a cloud, and then the section's claim that Cohesion morphs a unified pitched tone into a broadband cloud, put to the page's own flock and measured. I change only when the section I serve does."
+status: "proposal, Enrichment's proposal round 2026-11; not yet heard by Loudon"
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:needs" content="">
+<title>One plane</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Manrope:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root { --bg:#0a0a0f; --e1:#12121a; --border:#4a4a5e; --soft:rgba(255,255,255,.07); --fg1:#e8e8f0; --fg2:#c8c8d8; --fg3:#8a8aa0; --fg4:#4a4a5a;
+    --amber:#e8b84a; --amberline:rgba(232,184,74,.5); --teal:#3fd6c0; --warn:#ff9b4a; --ok:#7fd49a;
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --sans:'Manrope',system-ui,sans-serif; --serif:'Cormorant Garamond',Georgia,serif;
+    --ease:cubic-bezier(.4,0,.2,1); }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); font-weight: 300; }
+  .piece { padding: 22px 22px 18px; max-width: 1180px; }
+  .kicker, .eyebrow { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg3); }
+  .kicker { margin-bottom: 6px; }
+  .title { font-family: var(--serif); font-size: 28px; font-weight: 300; color: var(--fg1); margin: 0 0 6px; }
+  .sub { font-size: 14px; line-height: 1.6; color: var(--fg2); max-width: 76ch; margin: 0 0 14px; }
+  .rail { display: flex; flex-wrap: wrap; margin: 4px 0 16px; border-bottom: 1px solid var(--soft); }
+  .rail button { font-family: var(--mono); font-size: 11px; letter-spacing: .1em; text-transform: none; color: var(--fg3); background: none; border: 0; border-bottom: 2px solid transparent; border-radius: 0; padding: 8px 12px 7px; cursor: pointer; transition: color 220ms var(--ease); }
+  .rail button:hover { color: var(--fg1); }
+  .rail button[aria-current=step] { color: var(--amber); border-bottom-color: var(--amber); }
+  .rail button .n { color: var(--fg4); margin-right: 6px; }
+  .rail button[aria-current=step] .n { color: var(--amber); }
+  .step h3 { font-family: var(--serif); font-size: 23px; font-weight: 300; color: var(--fg1); margin: 4px 0 8px; }
+  .say { font-size: 14px; line-height: 1.65; color: var(--fg2); max-width: 78ch; margin: 0 0 14px; }
+  .panel { border: 1px solid var(--soft); border-radius: 2px; background: var(--e1); padding: 12px 14px; }
+  .bar { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 10px; }
+  .bar .hint { flex: 1 1 260px; }
+  canvas { display: block; width: 100%; }
+  button { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--fg2); background: var(--bg); border: 1px solid var(--border); border-radius: 2px; padding: 8px 13px; cursor: pointer; transition: border-color 220ms var(--ease), color 220ms var(--ease); }
+  button:hover { border-color: rgba(232,184,74,.55); color: var(--fg1); }
+  button.go { color: var(--amber); border-color: var(--amberline); box-shadow: 0 0 14px rgba(232,184,74,.16); }
+  button:disabled { opacity: .4; cursor: default; }
+  .ctls { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 10px 26px; margin-top: 12px; }
+  label.sl { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: .08em; color: var(--fg3); }
+  label.sl b { color: var(--fg1); font-weight: 500; }
+  input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 3px; background: var(--fg4); margin: 12px 0 4px; outline: none; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 13px; height: 13px; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  input[type=range]::-moz-range-thumb { width: 13px; height: 13px; border: 0; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  .read { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 8px 22px; margin-top: 14px; padding-top: 10px; border-top: 1px solid var(--soft); font-family: var(--mono); font-size: 11.5px; letter-spacing: .03em; color: var(--fg3); line-height: 1.5; }
+  .read b { color: var(--fg1); font-weight: 500; }
+  .hint { font-family: var(--mono); font-size: 11px; letter-spacing: .05em; color: var(--fg3); }
+  .state { color: var(--amber); }
+  .eqs { margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--soft); }
+  .eq { font-family: var(--serif); font-size: 19px; color: var(--fg1); }
+  .words { font-size: 13px; line-height: 1.55; color: var(--fg2); margin: 2px 0 8px; }
+  .try { font-size: 13.5px; line-height: 1.6; color: var(--fg2); margin: 14px 0 0; max-width: 80ch; }
+  .try .eyebrow { margin-right: 10px; color: var(--amber); }
+  .marks { margin-top: 12px; display: grid; gap: 8px; }
+  .marks div { font-size: 13.5px; line-height: 1.6; }
+  .marks b { font-family: var(--mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; font-weight: 500; margin-right: 8px; }
+  .walk { display: flex; justify-content: space-between; margin-top: 18px; }
+  .foot { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: 20px; padding-top: 10px; border-top: 1px solid var(--soft); font-family: var(--mono); font-size: 10.5px; letter-spacing: .18em; text-transform: uppercase; color: var(--fg4); }
+  .foot .mark { display: inline-flex; align-items: center; gap: 8px; color: var(--fg3); letter-spacing: .12em; text-transform: none; }
+  .foot .mark i { font-family: var(--serif); color: var(--amber); font-weight: 300; }
+</style>
+</head>
+<body>
+<div class="piece">
+  <div class="kicker">made · study · four steps · the terrain, one bird, the cloud, cohesion</div>
+  <h1 class="title">One plane</h1>
+  <p class="sub">The section builds the instrument on one plane: a field of waveforms underfoot, a flock walking it, every bird a grain reading the waveform beneath it. Here that plane is built up one layer at a time, ending on the section's claim about the Cohesion knob, tried on the page's own flock. Nothing plays until you press sound.</p>
+  <nav class="rail" aria-label="Steps"></nav>
+
+  <section class="step" data-title="The terrain">
+    <div class="eyebrow">Step 1 of 4 · a field of waveforms</div>
+    <h3>Every point on the plane is one waveform</h3>
+    <p class="say">Start with the ground alone. Each corner holds a single cycle of sound: sine at top left, saw at top right, square at bottom left, an inharmonic bell at bottom right. Every point between is a blend of the four, mixed by how near it sits to each, so moving across the plane changes the timbre smoothly. Drag across the field and hear the point under your finger as a steady tone.</p>
+    <div class="panel">
+      <div class="bar"><span class="hint">left: the field, coloured by position · right: the one cycle at your point</span><button class="go" data-sound>▶ sound</button><button data-stop>stop</button></div>
+      <canvas id="c1" style="cursor:crosshair"></canvas>
+      <div class="read"><div>position (u, v)<br><b id="r1a"></b></div><div>leans toward<br><b id="r1b"></b></div><div class="state" data-state></div></div>
+      <div class="eqs">
+        <div class="eq">w(u, v) = (1 − v)·[(1 − u)·sine + u·saw] + v·[(1 − u)·square + u·bell]</div>
+        <div class="words">(the waveform at a point) = blend sine into saw across the top and square into bell across the bottom, by how far right the point is; then blend top into bottom by how far down it is.</div>
+      </div>
+    </div>
+    <p class="try"><span class="eyebrow">Try</span>Run along the top edge, sine to saw: the tone brightens. Then drop to the bottom right corner and hear the bell's inharmonic clang.</p>
+  </section>
+
+  <section class="step" data-title="One bird, one grain voice" hidden>
+    <div class="eyebrow">Step 2 of 4 · a bird reads the ground</div>
+    <h3>A bird is a stream of grains reading the waveform under it</h3>
+    <p class="say">Release one bird. It plays the waveform under it, chopped into short grains, each with a smooth rise and fall. Where it is sets the timbre. How high on the plane sets the pitch: the top is higher, across a span of 19 semitones. How fast it flies sets how many grains a second. This is the mapping the section describes, the instrument's first build. The bird here flies alone, speeding up and slowing down, so only the ground and its own pace change what you hear.</p>
+    <div class="panel">
+      <div class="bar"><span class="hint">the bird, its trail, and the field under it</span><button class="go" data-sound>▶ sound</button><button data-stop>stop</button></div>
+      <canvas id="c2"></canvas>
+      <div class="read"><div>position (u, v)<br><b id="r2a"></b></div><div>pitch<br><b id="r2b"></b></div><div>grains a second<br><b id="r2c"></b></div><div class="state" data-state></div></div>
+      <div class="eqs">
+        <div class="eq">pitch = 110 Hz · 2^((0.5 − v)·19 ÷ 12),   grains a second = 18 + 90 · (speed ÷ top speed)</div>
+        <div class="words">(the pitch) rises 19 semitones from the bottom of the plane to the top, centred on 110 Hz · (how often a new grain starts) runs from 18 a second at rest to 108 at full speed.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="step" data-title="The flock as a cloud" hidden>
+    <div class="eyebrow">Step 3 of 4 · sixty birds, sixty grain voices</div>
+    <h3>Where the flock is, is what the cloud is</h3>
+    <p class="say">Now sixty birds flocking, each the bird from step 2. Nobody sets the cloud's spread of pitches or timbres. It is wherever the flock happens to be: spread over the plane, many pitches and many waveforms at once; gathered in one spot, few. The bars at the right count the birds at each pitch, which is the cloud's pitch spread, read straight off the flock. This flock runs at the instrument's defaults: cohesion 1.0, separation 1.5, disorder η 0.06.</p>
+    <div class="panel">
+      <div class="bar"><span class="hint">left: the flock on the field · right: how many birds sound each pitch</span><button class="go" data-sound>▶ sound</button><button data-stop>stop</button></div>
+      <canvas id="c3"></canvas>
+      <div class="read"><div>spread of the pitches<br><b data-psd></b></div><div>spread of the flock on the plane<br><b data-spread></b></div><div>neighbours per bird<br><b data-nb></b></div><div class="state" data-state></div></div>
+    </div>
+  </section>
+
+  <section class="step" data-title="Cohesion" hidden>
+    <div class="eyebrow">Step 4 of 4 · the test</div>
+    <h3>Does Cohesion morph a pitched tone into a broadband cloud?</h3>
+    <p class="say">The section says it does: clustered birds read nearby waveforms at nearby pitches, one tone; scattered birds read waveforms all over the plane, a cloud; and the morph is a flocking parameter, not a crossfade. Here is the Cohesion knob over the instrument's whole range, 0 to 3. The curves are the page's flock settled at each setting, four starts each, measured: how spread the flock is on the plane, and how spread its pitches are. The dot is the live flock.</p>
+    <div class="panel">
+      <div class="bar"><span class="hint">top: spread on the plane, pixels · bottom: spread of the pitches, semitones · dashed: sixty birds placed at random</span><button class="go" data-sound>▶ sound</button><button data-stop>stop</button></div>
+      <canvas id="c4f"></canvas>
+      <canvas id="c4" style="margin-top:12px"></canvas>
+      <div class="ctls"><label class="sl">Cohesion (the instrument's knob) <b id="cval"></b><input id="coh" type="range" min="0" max="300"></label></div>
+      <div class="read"><div>spread of the pitches, live<br><b data-psd></b></div><div>spread on the plane, live<br><b data-spread></b></div><div>neighbours per bird, live<br><b data-nb></b></div><div class="state" data-state></div></div>
+      <div class="marks" id="marks"></div>
+    </div>
+  </section>
+
+  <div class="walk"><button id="back">◂ back</button><button id="next">next ▸</button></div>
+  <div class="foot"><span>Murmuration · rich · one plane · study · 2026-11-03</span><span class="mark"><svg width="22" height="22" viewBox="-11 -11 22 22" aria-hidden="true"><path id="sigil" fill="none" stroke="#e8b84a" stroke-width="1"/></svg>Loud’n <i>Live</i></span></div>
+</div>
+
+<script>
+// ---- math (pure: the check runs this block in node) ----
+// The page's own flock, copied from engine/murmur_engine.js (Flock.step with the startle, the attractor and the
+// predator left out). At 920 × 520 it is the engine's flock exactly.
+const MAX_SPEED = 3, MAX_FORCE = 0.05, NEIGHBOR_R = 56, NEIGHBOR_R2 = NEIGHBOR_R * NEIGHBOR_R, FW = 920, FH = 520;
+function mulberry32(a) { return function () { a |= 0; a = (a + 0x6D2B79F5) | 0; let t = Math.imul(a ^ (a >>> 15), 1 | a); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
+function setMag(x, y, m) { const n = Math.hypot(x, y); return n > 0 ? [x / n * m, y / n * m] : [0, 0]; }
+function limit(x, y, mx) { const n = Math.hypot(x, y); return (n > mx && n > 0) ? [x / n * mx, y / n * mx] : [x, y]; }
+function makeFlock(n, seed, W, H) {
+  const rng = mulberry32(seed), b = [];
+  for (let i = 0; i < n; i++) { const x = rng() * W, y = rng() * H, a = rng() * Math.PI * 2, sp = 0.5 * MAX_SPEED + rng() * 0.5 * MAX_SPEED; b.push({ x, y, vx: Math.cos(a) * sp, vy: Math.sin(a) * sp, nb: 0 }); }
+  return { boids: b, rng, W, H, vx: new Float64Array(n), vy: new Float64Array(n), nbN: new Int32Array(n) };
+}
+function stepFlock(fl, w) {
+  const boids = fl.boids, rng = fl.rng, N = boids.length, W = fl.W, H = fl.H, hW = W * 0.5, hH = H * 0.5;
+  const nvx = fl.vx, nvy = fl.vy, nbN = fl.nbN;
+  for (let i = 0; i < N; i++) {
+    const b = boids[i];
+    let sepX = 0, sepY = 0, sepN = 0, aliX = 0, aliY = 0, aliN = 0, cohX = 0, cohY = 0, cohN = 0;
+    for (let j = 0; j < N; j++) {
+      if (i === j) continue;
+      const o = boids[j];
+      let dx = o.x - b.x, dy = o.y - b.y;
+      if (dx > hW) dx -= W; else if (dx < -hW) dx += W;
+      if (dy > hH) dy -= H; else if (dy < -hH) dy += H;
+      const d2 = dx * dx + dy * dy;
+      if (d2 > 0 && d2 < NEIGHBOR_R2) { sepX -= dx / d2; sepY -= dy / d2; sepN++; aliX += o.vx; aliY += o.vy; aliN++; cohX += dx; cohY += dy; cohN++; }
+    }
+    let fx = 0, fy = 0;
+    if (sepN > 0) { const [dx, dy] = setMag(sepX, sepY, MAX_SPEED); const [sx, sy] = limit(dx - b.vx, dy - b.vy, MAX_FORCE); fx += w.sep * sx; fy += w.sep * sy; }
+    if (aliN > 0) { const [dx, dy] = setMag(aliX / aliN, aliY / aliN, MAX_SPEED); const [sx, sy] = limit(dx - b.vx, dy - b.vy, MAX_FORCE); fx += w.ali * sx; fy += w.ali * sy; }
+    if (cohN > 0) { const [dx, dy] = setMag(cohX / cohN, cohY / cohN, MAX_SPEED); const [sx, sy] = limit(dx - b.vx, dy - b.vy, MAX_FORCE); fx += w.coh * sx; fy += w.coh * sy; }
+    let vx = b.vx + fx, vy = b.vy + fy;
+    if (w.eta > 0) { const ang = (rng() * 2 - 1) * w.eta * Math.PI; const c = Math.cos(ang), s = Math.sin(ang); const rx = vx * c - vy * s, ry = vx * s + vy * c; vx = rx; vy = ry; }
+    [vx, vy] = limit(vx, vy, MAX_SPEED);
+    nvx[i] = vx; nvy[i] = vy; nbN[i] = cohN;
+  }
+  for (let i = 0; i < N; i++) { const b = boids[i]; b.vx = nvx[i]; b.vy = nvy[i]; b.nb = nbN[i]; b.x = (b.x + b.vx + W) % W; b.y = (b.y + b.vy + H) % H; }
+}
+// = the engine's mapBoids, "place" mapping (the first build, the one the section describes):
+// position is timbre, height is pitch over 19 semitones, radial velocity a Doppler nudge, speed the grain rate.
+function mapPlace(boids, W, H, base) {
+  const N = boids.length, f = new Float32Array(N * 6), cx = W * 0.5, cy = H * 0.5;
+  for (let i = 0; i < N; i++) {
+    const b = boids[i], u = b.x / W, v = b.y / H, semis = (0.5 - v) * 19;
+    const rdx = b.x - cx, rdy = b.y - cy, rd = Math.hypot(rdx, rdy) + 1e-6, vrad = (b.vx * rdx + b.vy * rdy) / rd, dopp = 1 - 0.012 * vrad;
+    const k = i * 6; f[k] = u; f[k + 1] = v; f[k + 2] = base * Math.pow(2, semis / 12) * dopp; f[k + 3] = 0.55 + 0.45 * Math.min(1, b.nb / 6); f[k + 4] = 18 + Math.hypot(b.vx, b.vy) / MAX_SPEED * 90; f[k + 5] = u;
+  }
+  return f;
+}
+// what step 4 reads off a flock: its spread on the plane about its circular mean (the engine's cloudStats),
+// the spread of its voices' pitches in semitones, and its neighbours per bird
+function cloudOf(fl, f) {
+  const B = fl.boids, N = B.length, W = fl.W, H = fl.H;
+  let cx = 0, sx = 0, cy = 0, sy = 0; for (const b of B) { const ax = b.x / W * 2 * Math.PI, ay = b.y / H * 2 * Math.PI; cx += Math.cos(ax); sx += Math.sin(ax); cy += Math.cos(ay); sy += Math.sin(ay); }
+  const mx = ((Math.atan2(sx, cx) / (2 * Math.PI)) + 1) % 1 * W, my = ((Math.atan2(sy, cy) / (2 * Math.PI)) + 1) % 1 * H;
+  let d2 = 0, nb = 0, a = 0, a2 = 0;
+  for (let i = 0; i < N; i++) { const b = B[i]; let dx = b.x - mx, dy = b.y - my; if (dx > W / 2) dx -= W; else if (dx < -W / 2) dx += W; if (dy > H / 2) dy -= H; else if (dy < -H / 2) dy += H; d2 += dx * dx + dy * dy; nb += b.nb; const st = 12 * Math.log2(f[i * 6 + 2] / 110); a += st; a2 += st * st; }
+  a /= N; return { spread: Math.sqrt(d2 / N), pitchSd: Math.sqrt(Math.max(0, a2 / N - a * a)), nb: nb / N };
+}
+// the measurements on the page (made by the check that sits beside this piece, with this block's own flock)
+const DATA = /*DATA*/{"coh":[{"coh":0,"spread":274.4,"spreadSd":10.3,"pitchSd":5.48,"pitchSdSd":0.12,"nb":0.58},{"coh":0.25,"spread":286,"spreadSd":3.7,"pitchSd":5.36,"pitchSdSd":0.12,"nb":0.63},{"coh":0.5,"spread":280.9,"spreadSd":3.2,"pitchSd":5.27,"pitchSdSd":0.13,"nb":0.69},{"coh":0.75,"spread":270.4,"spreadSd":7.7,"pitchSd":5.47,"pitchSdSd":0.28,"nb":1.02},{"coh":1,"spread":261.6,"spreadSd":13.1,"pitchSd":5.41,"pitchSdSd":0.23,"nb":1.36},{"coh":1.25,"spread":253.8,"spreadSd":26.6,"pitchSd":5.28,"pitchSdSd":0.19,"nb":2.4},{"coh":1.5,"spread":213.9,"spreadSd":30.8,"pitchSd":5.01,"pitchSdSd":0.51,"nb":5.47},{"coh":1.75,"spread":204.6,"spreadSd":34.9,"pitchSd":5.07,"pitchSdSd":0.35,"nb":7.19},{"coh":2,"spread":109.2,"spreadSd":31.1,"pitchSd":3.39,"pitchSdSd":0.5,"nb":27.53},{"coh":2.25,"spread":128.1,"spreadSd":65.2,"pitchSd":3.16,"pitchSdSd":1.06,"nb":37.53},{"coh":2.5,"spread":105.8,"spreadSd":82.8,"pitchSd":2.04,"pitchSdSd":1.07,"nb":42.04},{"coh":2.75,"spread":164.9,"spreadSd":70.7,"pitchSd":3.27,"pitchSdSd":1.03,"nb":34.97},{"coh":3,"spread":41,"spreadSd":45.8,"pitchSd":1.09,"pitchSdSd":0.98,"nb":51.58}],"randomSpread":305.0682983639347,"randomPitchSd":5.484827557301445,"marks":[{"label":"cohesion gathers the flock","holds":true,"text":"It does, at the top of the knob. At the instrument's disorder (η 0.06), cohesion 3 is the tightest: the flock's spread on the plane is 41 px and its pitches spread 1.1 semitones, against 262 px and 5.4 at the default 1.0. With less disorder (η 0 and 0.03, the challenger's sweep) the tightest setting is 2.5 (56 and 59 px), so the tone lives between 2.5 and 3. Clustered birds read nearby waveforms at nearby pitches, as the section says."},{"label":"only over the top of the knob","holds":null,"text":"Up to 1.25 the flock stays spread nearly as wide as sixty birds dropped at random (254–286 px against 305; pitches 5.3–5.5 semitones against 5.5). It starts to gather at 1.5 (214 px) and falls away at 2 (109 px, 3.4 semitones). Between 2 and 3 the four starts disagree by up to 83 px: the flock splits into a few clumps, a chord more than a tone. The instrument's default, 1.0, sits on the flat, cloud end of the knob."},{"label":"a flocking parameter, not a crossfade","holds":true,"text":"Nothing in the sound is faded: the knob changes how hard each bird steers toward its neighbours, and the cloud follows from where the birds go. The curves are not straight lines in the knob either."},{"label":"what this measures","holds":null,"text":"Pitch spread is a measure of focus, read off the grain voices' pitches under the section's own mapping (height is pitch). It is not a measure of how broadband the sound is, and nobody has listened for that here. The instrument's default mapping is now \"order\" (heading is pitch); this piece doesn't measure cohesion under it."}]}/*END*/;
+// ---- end math ----
+
+// ---- the walk: one step showing, Next and Back, the rail always open; changing step stops the sound ----
+const STEPS = [...document.querySelectorAll('.step')];
+const rail = document.querySelector('.rail');
+let cur = 0;
+STEPS.forEach((s, i) => { const b = document.createElement('button'); b.innerHTML = `<span class="n">${i + 1}</span>${s.dataset.title}`; b.addEventListener('click', () => show(i)); rail.appendChild(b); });
+function show(i) {
+  stopSound();
+  cur = Math.max(0, Math.min(STEPS.length - 1, i));
+  STEPS.forEach((s, k) => { s.hidden = k !== cur; });
+  [...rail.children].forEach((b, k) => { if (k === cur) b.setAttribute('aria-current', 'step'); else b.removeAttribute('aria-current'); });
+  document.getElementById('back').disabled = cur === 0;
+  document.getElementById('next').disabled = cur === STEPS.length - 1;
+}
+document.getElementById('back').addEventListener('click', () => show(cur - 1));
+document.getElementById('next').addEventListener('click', () => show(cur + 1));
+
+// ---- sound: nothing exists before a click. The grain voice is the engine's, in a worklet from a Blob URL; one
+// difference, for step 1 only: a voice given no grain rate holds a steady tone. The kit quiets the context itself
+// (a hush from the page around it, a hidden tab, a minute untouched); the piece only keeps its words in step. Never
+// name the page's hush message in this script: the kit reads a script that names it as one that answers it. ----
+const WORKLET = `
+const L = 2048, LM = L - 1;
+class Grains extends AudioWorkletProcessor {
+  constructor() { super(); this.v = []; this.n = 0;
+    const TL = new Float32Array(L), TR = new Float32Array(L), BL = new Float32Array(L), BR = new Float32Array(L);
+    for (let i = 0; i < L; i++) { const ph = i / L, t = ph * 2 * Math.PI; TL[i] = Math.sin(t); TR[i] = 2 * ph - 1; BL[i] = ph < 0.5 ? 1 : -1; BR[i] = 0.6 * Math.sin(t) + 0.4 * Math.sin(2.76 * t) + 0.28 * Math.sin(5.4 * t) + 0.18 * Math.sin(8.93 * t); }
+    let mx = 0; for (let i = 0; i < L; i++) mx = Math.max(mx, Math.abs(BR[i])); for (let i = 0; i < L; i++) BR[i] /= mx;
+    Object.assign(this, { TL, TR, BL, BR });
+    this.port.onmessage = e => { const f = e.data.f, n = e.data.n; while (this.v.length < n) this.v.push({ phase: Math.random(), gp: Math.random() }); this.n = n;
+      for (let i = 0; i < n; i++) { const o = this.v[i], k = i * 6; o.u = f[k]; o.vv = f[k + 1]; o.freq = f[k + 2]; o.gain = f[k + 3]; o.gh = f[k + 4]; o.pan = f[k + 5]; } };
+  }
+  process(_, outs) {
+    const oL = outs[0][0], oR = outs[0][1] || outs[0][0], n = oL.length, sr = sampleRate, { TL, TR, BL, BR } = this, norm = 0.7 / Math.sqrt(Math.max(1, this.n));
+    for (let s = 0; s < n; s++) {
+      let aL = 0, aR = 0;
+      for (let vi = 0; vi < this.n; vi++) { const o = this.v[vi]; if (!(o.gain > 0)) continue;
+        const env = o.gh > 0 ? 0.5 - 0.5 * Math.cos(2 * Math.PI * o.gp) : 0.6, idx = o.phase * L, i0 = idx | 0, fr = idx - i0, i1 = (i0 + 1) & LM;
+        const stl = TL[i0] + fr * (TL[i1] - TL[i0]), str = TR[i0] + fr * (TR[i1] - TR[i0]), sbl = BL[i0] + fr * (BL[i1] - BL[i0]), sbr = BR[i0] + fr * (BR[i1] - BR[i0]);
+        const top = stl + o.u * (str - stl), bot = sbl + o.u * (sbr - sbl), smp = (top + o.vv * (bot - top)) * env * o.gain;
+        aL += smp * Math.cos(o.pan * Math.PI * 0.5); aR += smp * Math.sin(o.pan * Math.PI * 0.5);
+        o.phase += o.freq / sr; if (o.phase >= 1) o.phase -= 1;
+        if (o.gh > 0) { o.gp += o.gh / sr; if (o.gp >= 1) { o.gp -= 1; o.phase = 0.45 * o.phase + 0.55 * Math.random(); } } }
+      oL[s] = aL * norm; oR[s] = aR * norm; }
+    return true;
+  }
+}
+registerProcessor('murmur-grains', Grains);`;
+let actx = null, node = null, ready = null, sounding = false;
+async function startSound() {
+  if (!actx) {
+    actx = new (window.AudioContext || window.webkitAudioContext)();
+    ready = actx.audioWorklet.addModule(URL.createObjectURL(new Blob([WORKLET], { type: 'application/javascript' }))).then(() => {
+      node = new AudioWorkletNode(actx, 'murmur-grains', { numberOfInputs: 0, outputChannelCount: [2] });
+      const comp = actx.createDynamicsCompressor(); comp.threshold.value = -14; comp.ratio.value = 6;
+      const g = actx.createGain(); g.gain.value = 0.55;
+      node.connect(comp).connect(g).connect(actx.destination);
+    });
+    actx.onstatechange = () => { if (actx.state !== 'running') setSounding(false); };
+  }
+  await ready; await actx.resume(); setSounding(true);
+}
+function stopSound() { if (node) node.port.postMessage({ f: new Float32Array(0), n: 0 }); if (actx && actx.state === 'running') actx.suspend(); setSounding(false); }
+function setSounding(on) { sounding = on; document.querySelectorAll('[data-state]').forEach(s => { s.textContent = on ? 'sounding' : ''; }); }
+document.querySelectorAll('[data-sound]').forEach(b => b.addEventListener('click', startSound));
+document.querySelectorAll('[data-stop]').forEach(b => b.addEventListener('click', stopSound));
+function voice(f, n) { if (sounding && node) node.port.postMessage({ f, n }); }
+
+// ---- the field, painted once: hue follows u, depth follows v, as on the instrument ----
+let fieldImg = null;
+function paintField() {
+  const cv = document.createElement('canvas'); cv.width = 230; cv.height = 130; const g = cv.getContext('2d');
+  for (let x = 0; x < 230; x++) for (let y = 0; y < 130; y++) { const u = x / 229, v = y / 129; g.fillStyle = `hsl(${(20 + u * 300) % 360},${28 + v * 34}%,${10 + (u * 0.5 + v * 0.5) * 22}%)`; g.fillRect(x, y, 1, 1); }
+  fieldImg = cv;
+}
+const CORNERS = ['sine', 'saw', 'square', 'bell'];
+const bellAt = t => 0.6 * Math.sin(t) + 0.4 * Math.sin(2.76 * t) + 0.28 * Math.sin(5.4 * t) + 0.18 * Math.sin(8.93 * t);
+const BELL_MAX = (() => { let m = 0; for (let i = 0; i < 2048; i++) m = Math.max(m, Math.abs(bellAt(i / 2048 * 2 * Math.PI))); return m; })();   // the worklet's own normalisation
+function cycleAt(u, v) {
+  const out = [];
+  for (let i = 0; i < 256; i++) { const ph = i / 256, t = ph * 2 * Math.PI, s = Math.sin(t), sw = 2 * ph - 1, sq = ph < 0.5 ? 1 : -1, bl = bellAt(t) / BELL_MAX; out.push((1 - v) * ((1 - u) * s + u * sw) + v * ((1 - u) * sq + u * bl)); }
+  return out;
+}
+// step 1: the point under the finger
+let pt = { u: 0.25, v: 0.25 }, drag = false;
+const c1 = document.getElementById('c1');
+function fieldBox(w, h) { const fw = Math.min(w * 0.55, (h - 4) * 920 / 520), fh = fw * 520 / 920; return { x: 0, y: (h - fh) / 2, w: fw, h: fh }; }
+function pick(ev) { const r = c1.getBoundingClientRect(), b = fieldBox(r.width, 300); pt.u = Math.max(0, Math.min(1, (ev.clientX - r.left - b.x) / b.w)); pt.v = Math.max(0, Math.min(1, (ev.clientY - r.top - b.y) / b.h)); }
+c1.addEventListener('pointerdown', ev => { drag = true; pick(ev); if (!sounding) startSound(); });
+window.addEventListener('pointermove', ev => { if (drag) pick(ev); });
+window.addEventListener('pointerup', () => { drag = false; });
+function drawStep1() {
+  const { g, w, h } = fit(c1, 300), b = fieldBox(w, h);
+  g.drawImage(fieldImg, b.x, b.y, b.w, b.h);
+  g.font = '10px JetBrains Mono, monospace'; g.fillStyle = 'rgba(232,232,240,.75)'; g.textBaseline = 'middle';
+  g.textAlign = 'left'; g.fillText('sine', b.x + 6, b.y + 10); g.fillText('square', b.x + 6, b.y + b.h - 10); g.textAlign = 'right'; g.fillText('saw', b.x + b.w - 6, b.y + 10); g.fillText('bell', b.x + b.w - 6, b.y + b.h - 10);
+  const px = b.x + pt.u * b.w, py = b.y + pt.v * b.h; g.strokeStyle = '#e8b84a'; g.lineWidth = 1.5; g.beginPath(); g.arc(px, py, 7, 0, 2 * Math.PI); g.stroke(); g.lineWidth = 1;
+  const x0 = b.w + 30, x1 = w - 10, T = 20, B = h - 20, mid = (T + B) / 2, cyc = cycleAt(pt.u, pt.v);
+  axes(g, x0, x1, T, B); g.strokeStyle = 'rgba(255,255,255,.08)'; g.beginPath(); g.moveTo(x0, mid); g.lineTo(x1, mid); g.stroke();
+  g.strokeStyle = '#e8b84a'; g.lineWidth = 1.6; g.beginPath(); cyc.forEach((s, i) => { const x = x0 + (x1 - x0) * i / 255, y = mid - s * (B - T) * 0.42; i ? g.lineTo(x, y) : g.moveTo(x, y); }); g.stroke(); g.lineWidth = 1;
+  const wts = [(1 - pt.u) * (1 - pt.v), pt.u * (1 - pt.v), (1 - pt.u) * pt.v, pt.u * pt.v], k = wts.indexOf(Math.max(...wts));
+  txt('r1a', `${pt.u.toFixed(2)}, ${pt.v.toFixed(2)}`); txt('r1b', `${CORNERS[k]}, ${Math.round(wts[k] * 100)}%`);
+  const f = new Float32Array(6); f.set([pt.u, pt.v, 110, 0.9, 0, 0.5]); voice(f, 1);
+}
+// step 2: one bird alone (no neighbours, so only its own small wander), read with the place mapping
+const lone = makeFlock(1, 3, FW, FH), loneTrail = [], wander = mulberry32(5);
+let loneT = 0;
+function drawStep2() {
+  // it wanders, and its speed swells and slackens over about twelve seconds, so the grain rate moves too
+  const b0 = lone.boids[0], sp = MAX_SPEED * (0.55 + 0.4 * Math.sin(loneT++ / 115)); const a = Math.atan2(b0.vy, b0.vx) + (wander() - 0.5) * 0.12; b0.vx = Math.cos(a) * sp; b0.vy = Math.sin(a) * sp;
+  b0.x = (b0.x + b0.vx + FW) % FW; b0.y = (b0.y + b0.vy + FH) % FH; b0.nb = 0;
+  loneTrail.push([b0.x, b0.y]); if (loneTrail.length > 240) loneTrail.shift();
+  const c = document.getElementById('c2'), { g, w, h } = fit(c, 300), fw = Math.min(w, (h - 4) * 920 / 520), fh = fw * 520 / 920, s = fw / FW, ox = (w - fw) / 2, oy = (h - fh) / 2;
+  g.drawImage(fieldImg, ox, oy, fw, fh);
+  g.fillStyle = 'rgba(232,184,74,.4)'; for (const [x, y] of loneTrail) g.fillRect(ox + x * s - 1, oy + y * s - 1, 2, 2);
+  dart(g, ox + b0.x * s, oy + b0.y * s, a, '#e8b84a', 10);
+  const f = mapPlace(lone.boids, FW, FH, 110); voice(f, 1);
+  txt('r2a', `${(b0.x / FW).toFixed(2)}, ${(b0.y / FH).toFixed(2)}`); txt('r2b', `${f[2].toFixed(0)} Hz, ${((0.5 - b0.y / FH) * 19 >= 0 ? '+' : '') + ((0.5 - b0.y / FH) * 19).toFixed(1)} semitones`); txt('r2c', f[4].toFixed(0));
+}
+// steps 3 and 4: the flock
+let coh = 1.0, flock = makeFlock(60, 7, FW, FH), live = { spread: 0, pitchSd: 0, nb: 0 };
+const cohIn = document.getElementById('coh'); cohIn.value = 100;
+cohIn.addEventListener('input', () => { coh = cohIn.value / 100; txt('cval', coh.toFixed(2)); }); txt('cval', coh.toFixed(2));
+function stepCloud() {
+  stepFlock(flock, { sep: 1.5, ali: 1.0, coh: cur === 3 ? coh : 1.0, eta: 0.06 });
+  const f = mapPlace(flock.boids, FW, FH, 110); voice(f, 60);
+  const m = cloudOf(flock, f); for (const k in live) live[k] = 0.9 * live[k] + 0.1 * m[k];
+  return f;
+}
+function drawCloud(id, h, f) {
+  const c = document.getElementById(id), { g, w } = fit(c, h);
+  const fw = Math.min(w * 0.6, (h - 4) * 920 / 520), fh = fw * 520 / 920, s = fw / FW, oy = (h - fh) / 2;
+  g.drawImage(fieldImg, 0, oy, fw, fh);
+  for (const b of flock.boids) dart(g, b.x * s, oy + b.y * s, Math.atan2(b.vy, b.vx), 'rgba(240,240,248,.9)', 6);
+  // the pitch histogram, one bar per semitone
+  const x0 = fw + 40, x1 = w - 10, T = 14, B = h - 24, bins = new Array(21).fill(0);
+  for (let i = 0; i < 60; i++) { const st = Math.round(12 * Math.log2(f[i * 6 + 2] / 110)) + 10; if (st >= 0 && st < 21) bins[st]++; }
+  axes(g, x0, x1, T, B); const bw = (x1 - x0) / 21, mx = Math.max(8, ...bins);
+  bins.forEach((n, k) => { const bh = (B - T - 4) * n / mx; g.fillStyle = '#3fd6c0'; g.fillRect(x0 + k * bw + 1, B - bh, bw - 2, bh); });
+  g.font = '10px JetBrains Mono, monospace'; g.fillStyle = '#4a4a5a'; g.textAlign = 'center'; g.textBaseline = 'middle';
+  for (const st of [-9, 0, 9]) g.fillText((st > 0 ? '+' : '') + st, x0 + (st + 10.5) * bw, B + 12);
+  g.textAlign = 'left'; g.fillText('birds per semitone', x0 + 4, T + 8);
+  allTxt('[data-psd]', `${live.pitchSd.toFixed(1)} semitones`); allTxt('[data-spread]', `${live.spread.toFixed(0)} px`); allTxt('[data-nb]', live.nb.toFixed(1));
+}
+function drawStep4() {
+  const c = document.getElementById('c4'), { g, w, h } = fit(c, 340), D = DATA.coh;
+  const x0 = 50, x1 = w - 16, T1 = 12, B1 = 150, T2 = 178, B2 = h - 30, XX = k => x0 + (x1 - x0) * k / 3;
+  const Y1 = v => B1 - (B1 - T1) * v / 320, Y2 = v => B2 - (B2 - T2) * v / 6.5;
+  axes(g, x0, x1, T1, B1); axes(g, x0, x1, T2, B2);
+  g.font = '10px JetBrains Mono, monospace'; g.textBaseline = 'middle'; g.fillStyle = '#4a4a5a';
+  for (const v of [0, 150, 300]) { g.textAlign = 'right'; g.fillText(String(v), x0 - 4, Y1(v)); }
+  for (const v of [0, 3, 6]) { g.textAlign = 'right'; g.fillText(String(v), x0 - 4, Y2(v)); }
+  for (const k of [0, 0.5, 1, 1.5, 2, 2.5, 3]) { g.textAlign = 'center'; g.fillText(k.toFixed(1), XX(k), B2 + 12); }
+  g.textAlign = 'left'; g.fillText('cohesion', x1 - 60, B2 + 24);
+  g.strokeStyle = 'rgba(200,200,216,.45)'; g.setLineDash([5, 4]);
+  g.beginPath(); g.moveTo(x0, Y1(DATA.randomSpread)); g.lineTo(x1, Y1(DATA.randomSpread)); g.stroke();
+  g.beginPath(); g.moveTo(x0, Y2(DATA.randomPitchSd)); g.lineTo(x1, Y2(DATA.randomPitchSd)); g.stroke(); g.setLineDash([]);
+  g.strokeStyle = 'rgba(255,255,255,.25)'; g.beginPath(); g.moveTo(XX(1), T1); g.lineTo(XX(1), B2); g.stroke(); g.fillStyle = '#8a8aa0'; g.textAlign = 'left'; g.fillText('the default', XX(1) + 4, T1 + 8);
+  const band = (Y, key, sdKey, col) => { g.fillStyle = col.replace('1)', '.14)'); g.beginPath(); D.forEach((r, i) => { const y = Y(r[key] + r[sdKey]); i ? g.lineTo(XX(r.coh), y) : g.moveTo(XX(r.coh), y); }); for (let i = D.length - 1; i >= 0; i--) g.lineTo(XX(D[i].coh), Y(Math.max(0, D[i][key] - D[i][sdKey]))); g.fill();
+    g.strokeStyle = col; g.lineWidth = 1.8; g.beginPath(); D.forEach((r, i) => { const y = Y(r[key]); i ? g.lineTo(XX(r.coh), y) : g.moveTo(XX(r.coh), y); }); g.stroke(); g.lineWidth = 1; };
+  band(Y1, 'spread', 'spreadSd', 'rgba(63,214,192,1)'); band(Y2, 'pitchSd', 'pitchSdSd', 'rgba(232,184,74,1)');
+  g.fillStyle = '#e8e8f0'; for (const [Y, v] of [[Y1, live.spread], [Y2, live.pitchSd]]) { g.beginPath(); g.arc(XX(coh), Y(v), 4, 0, 2 * Math.PI); g.fill(); }
+  g.fillStyle = '#3fd6c0'; g.textAlign = 'right'; g.fillText('spread on the plane, px', x1 - 6, T1 + 8); g.fillStyle = '#e8b84a'; g.fillText('spread of the pitches, semitones', x1 - 6, T2 + 8);
+}
+function marks() {
+  document.getElementById('marks').innerHTML = DATA.marks.map(m => `<div><b style="color:${m.holds === true ? '#7fd49a' : m.holds === false ? '#ff9b4a' : '#e8b84a'}">${m.label}</b>${m.text}</div>`).join('');
+}
+
+// ---- drawing helpers ----
+function fit(c, h) { const dpr = window.devicePixelRatio || 1, w = c.clientWidth || 900; if (c.width !== Math.round(w * dpr) || c.height !== Math.round(h * dpr)) { c.width = Math.round(w * dpr); c.height = Math.round(h * dpr); c.style.height = h + 'px'; } const g = c.getContext('2d'); g.setTransform(dpr, 0, 0, dpr, 0, 0); g.clearRect(0, 0, w, h); return { g, w, h }; }
+function axes(g, x0, x1, T, B) { g.strokeStyle = 'rgba(255,255,255,.08)'; g.lineWidth = 1; g.strokeRect(x0, T, x1 - x0, B - T); }
+function dart(g, x, y, a, col, s) { g.save(); g.translate(x, y); g.rotate(a); g.fillStyle = col; g.beginPath(); g.moveTo(s, 0); g.lineTo(-s * 0.8, s * 0.5); g.lineTo(-s * 0.4, 0); g.lineTo(-s * 0.8, -s * 0.5); g.closePath(); g.fill(); g.restore(); }
+function txt(id, v) { const n = document.getElementById(id); if (n) n.textContent = v; }
+function allTxt(sel, v) { STEPS[cur].querySelectorAll(sel).forEach(n => { n.textContent = v; }); }
+
+// ---- one loop: only the showing step runs ----
+let last = 0, acc = 0, lastF = null;
+function frame(now) {
+  acc += Math.min(100, now - (last || now)); last = now;
+  let n = 0;
+  while (acc >= 1000 / 60 && n < 4) { acc -= 1000 / 60; n++; if (cur >= 2) lastF = stepCloud(); }
+  if (cur === 0) drawStep1(); else if (cur === 1) drawStep2(); else if (cur === 2) { if (lastF) drawCloud('c3', 300, lastF); } else { if (lastF) { drawCloud('c4f', 240, lastF); drawStep4(); } }
+  requestAnimationFrame(frame);
+}
+(() => { let d = ''; for (let i = 0; i <= 240; i++) { const t = i / 240 * 2 * Math.PI, x = 9 * Math.sin(3 * t + Math.PI / 2), y = 9 * Math.sin(2 * t); d += (i ? 'L' : 'M') + x.toFixed(2) + ' ' + y.toFixed(2); } document.getElementById('sigil').setAttribute('d', d); })();
+paintField(); marks(); show(0);
+requestAnimationFrame(frame);
+</script>
+</body>
+</html>

@@ -1,0 +1,370 @@
+{
+  "title": "Murmuration — rich",
+  "born": "2026-11-03",
+  "links": [
+    {
+      "target": "[[Murmuration]]",
+      "type": "connects-to",
+      "label": "rich-face-of"
+    },
+    {
+      "target": "[[Enrichment]]",
+      "type": "connects-to",
+      "label": "made-by"
+    },
+    {
+      "target": "[[Progressive Staging]]",
+      "type": "connects-to",
+      "label": "every-made-piece-walks-up"
+    }
+  ],
+  "forward_vector": "I am the manifest of Murmuration's rich face, its first round at Study tier and still a proposal: three made pieces that put the page's claims to the page's own flock (the one plane and its Cohesion knob, the Disorder knee tried as a phase transition, the blind pair put to the reader's ear), with the steward's renders, plots, 3D view and instrument gathered beside the sentences they answer. I grow when Loudon has heard them; I never hold the entry's words.",
+  "entry": "Murmuration",
+  "tier": "study",
+  "made": "2026-11-03",
+  "round": 1,
+  "offers": [
+    {
+      "section": "The phase transition as the signature macro",
+      "kind": "claim-change",
+      "status": "open",
+      "what": "Fact and emphasis. 'Second-order' is a fact claim the page can't keep: Grégoire and Chaté (2004) found the two-dimensional Vicsek transition first-order, with small flocks only looking continuous; disputed for this angular noise (Aldana et al. 2007) and answered (Chaté et al. 2008). What the page's flock shows, measured at 30 to 240 birds, is a real transition that turns continuously and steeply at the instrument's sizes: the wobble peaks at the knee at every size, the peak grows 1.01 to 2.65 and the 90-to-10% drop narrows from η 0.097 to 0.066 as the flock grows, and at 120 birds in the instrument's own field there is no memory up and down (largest gap 1.83 standard errors). 'Snap' is emphasis: a steep knee, not a jump. Offer: 'turns continuously and steeply, at the sizes the instrument plays' for 'the nonlinear snap of a real second-order transition', naming no order."
+    },
+    {
+      "section": "The phase transition as the signature macro",
+      "kind": "no-claim-edit",
+      "status": "open",
+      "what": "Emphasis only. The remapped slider (η = 0.25·x²) spreads the 90-to-10% drop (η 0.029 to 0.123) over 36% of the travel; on the first build's linear knob it took 9%, a ratio of 3.8. The knee's width in η is unchanged; only the hand's share moved, and 9% of a slider is a few pixels, so the remap is a playability gain as much as a softening. Nothing on the page about feel is contradicted (36% is still far from a crossfade's 80%). Offer: say which slider the 'snap' is felt on, if Loudon wants it said."
+    },
+    {
+      "section": "The phase transition as the signature macro",
+      "kind": "claim-change",
+      "status": "open",
+      "what": "Fact under the first mapping, emphasis under the order mapping. 'The flock crystallizes from broadband noise into a coherent tone': under the first build's mapping, the one the Architecture section describes, the sound's pitch focus does not follow the flock (3.38 to 3.46 bits of pitch-class entropy throughout; page-as-built.wav). Under the order mapping it narrows to 2.45 bits ordered and 2.50 regathered, about five or six equally loud pitch classes: a tightened cluster, not one tone (0 bits); the pad reaches 2.02. Offer: 'toward a tone, under the order mapping'."
+    },
+    {
+      "section": "The phase transition as the signature macro",
+      "kind": "no-claim-edit",
+      "status": "open",
+      "what": "The headless numbers hold on re-run (φ 0.099 to past 0.9 in 5.7 s at η 0, seed 7; 0.114 at η 0.80, the floor √(π/240) = 0.114), but η 0.80 is now beyond the instrument's Disorder slider, which tops out at η 0.25 (φ already 0.13 there). Offer: note the slider's range beside the numbers, and 'past 0.9' or the measured 0.96 at 60 s for '0.93'."
+    },
+    {
+      "section": "The Architecture — one plane, three readings",
+      "kind": "claim-change",
+      "status": "open",
+      "what": "Fact. Cohesion's morph lives at the top of the knob only. Measured on the page's flock at η 0.06, four starts: up to 1.25 the flock spreads nearly as wide as random (254 to 286 px against 305; pitches 5.3 to 5.5 semitones against 5.5); it gathers from 1.5 to 2, often into a few clumps (a chord more than a tone); it reaches one tone between 2.5 and 3 (41 px, 1.1 semitones at 3; at η 0 and 0.03 the tightest is 2.5, per the challenger). The challenger found the flat end the same at η 0 and 0.03. The instrument's default, 1.0, sits on the cloud end. Offer: say where on the knob the morph lives, or move the default."
+    },
+    {
+      "section": "The Architecture — one plane, three readings",
+      "kind": "claim-change",
+      "status": "open",
+      "what": "Fact, out of date. The grains reading as described (screen-height sets pitch, speed drives grain density, 'This is the reading the prototype builds') is the first build's mapping. Since 2026-10-14 the instrument's default is the order mapping (Murmuration.html:463, map:'order'; heading is pitch, one octave around; grain length follows how steady a bird's course is), and all three readings are built, as the Open Decisions answer already says. The same holds for Open Decisions' 'Pitch vs timbre decoupling' (Murmuration.md:81, 'the prototype maps height→pitch'): under the order mapping pitch comes from heading, not place, which is itself one answer to that decision. Offer: describe both mappings in both places, and drop 'the reading the prototype builds'."
+    },
+    {
+      "section": "Forward Vectors",
+      "kind": "claim-change",
+      "status": "open",
+      "what": "Fact, out of date. The blind verdict is in: Loudon answered 'can't tell' (_ops/swarm/persistent/blackboard.jsonl:824, a RESOURCE_GRANT to murmuration-steward-003, option CANT-TELL, stamped 2026-10-15T01:50Z), and the key is open in engine/blind-key.json. The line '— progressed: … the verdict is Loudon's, waiting on the board' is no longer true (the steward proposes the same, item 2 of its tuning). Measured on the takes: the flock's pitch is more focused in the ordered stretch (2.45 against 2.88 bits) and the scare (2.96 against 3.24), the same elsewhere; the steward's reading is that coordination alone isn't audible at this mapping."
+    }
+  ],
+  "sections": [
+    {
+      "heading": "Murmuration",
+      "made": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "3d-plate.png",
+          "origin": "gathered",
+          "place": "margin",
+          "title": "four moments in 3D · steward, cycle 4",
+          "caption": "The flock over its wavetable, from the steward's 3D view on the same engine as the renders. The ground is the terrain; a bird's altitude is how steady its course has been, the number that sets its grain length. Melted (φ 0.17), the birds skim low and click; ordering (φ 0.70), they lift as one sheet; a strike tears the sheet (35 birds alarmed); and the pad's pillars turn one hue as the chord collapses to one pitch class. Stills from headless Chrome.",
+          "near": "a flock walks a 2D wavetable and every boid is a grain"
+        }
+      ],
+      "made_against": "306f40bdfcca",
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "3d-plate.png",
+            "verdict": "keep",
+            "why": "Shows 'one plane' at a glance; φ 0.17 and 0.70 match three-d/3d-report.json (0.165, 0.699)."
+          }
+        ]
+      }
+    },
+    {
+      "heading": "The Architecture — one plane, three readings",
+      "made": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "Murmuration — rich — one plane.html",
+          "origin": "made",
+          "by": "the Maker · the page's flock and grain voice, live",
+          "height": 1080,
+          "title": "One plane · four steps",
+          "caption": "**The plane built up, and the Cohesion claim tried.** Four steps: the terrain of four corner waveforms, with the point under your finger as a steady tone; one bird as a grain voice under the section's own mapping (place is timbre, height is pitch, speed is grain rate); sixty birds as a cloud, their pitches counted; then Cohesion over the instrument's whole range, 0 to 3. Measured on the page's flock, equal to the engine, four starts a setting: cohesion does gather the flock into one tone at the top of the knob (at η 0.06 the tightest is 3, a spread of 41 px and pitches within 1.1 semitones; with less disorder it is 2.5), but only there. Up to 1.25 the flock spreads nearly as wide as birds dropped at random (254 to 286 px against 305); it gathers between 1.5 and 2, often into a few clumps; the instrument's default, 1.0, sits on the cloud end. Pitch spread measures focus, not how broadband the sound is; heard by no ear.",
+          "near": "Define a 2D field where every coordinate"
+        },
+        {
+          "file": "murmuration-3d.html",
+          "origin": "gathered",
+          "height": 860,
+          "title": "the flock in 3D, all three readings · steward, cycle 4",
+          "caption": "**All three readings from one engine, playable.** The steward's 3D view pastes the engine in unchanged: grains by default, the density pad as a field of pillars, and a click that sends a startle through the flock. A 48-second demo plays itself (melt, crystallise, three strikes, melt again); press sound on, drag to orbit. Unheard in a browser by anyone yet; if it stays silent inside the face, open the file on its own.",
+          "contract": {
+            "needs": ""
+          },
+          "near": "The same flock can then be"
+        },
+        {
+          "file": "readings.png",
+          "origin": "gathered",
+          "place": "margin",
+          "title": "the second reading against the first · steward, cycle 2",
+          "caption": "The same 40-second performance through the grains and through the density pad. The pad focuses hardest when the flock orders (pitch-class entropy 2.02 bits against 2.67 for the grains). Below: order barely gathers the flock in space (31 to 37 of 40 cells sound either way); dragging an attractor does, down to about 9.",
+          "near": "Flock-as-distribution."
+        },
+        {
+          "file": "reading-distribution.wav",
+          "origin": "gathered",
+          "place": "margin",
+          "title": "the breathing pad · 40 s",
+          "caption": "Flock-as-distribution through the blind pair's performance: listen for the cluster collapsing to one pitch class around 15 to 20 s, and again after the scare at 21 s.",
+          "near": "Flock-as-distribution."
+        },
+        {
+          "file": "gesture.png",
+          "origin": "gathered",
+          "place": "margin",
+          "title": "one click, four answers · steward, cycle 3",
+          "caption": "Four identical clicks land in four different flocks. A settled flock hit at the centre loses order from 0.94 to 0.54 and is back in 4.2 s; the same click upper left shatters it to 0.13; a third, into the broken flock, alarms only 5 birds. An authored envelope would give four copies.",
+          "near": "Predator-as-gesture."
+        },
+        {
+          "file": "gesture-place.wav",
+          "origin": "gathered",
+          "place": "margin",
+          "title": "the four-click étude, place grains · 30 s",
+          "caption": "Where the startle swell stands clearest, at 3 s and 10 s: +3.3 and +5.6 dB over a no-click floor of 1.9 dB.",
+          "near": "Predator-as-gesture."
+        }
+      ],
+      "made_against": "8606791e6471",
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Murmuration — rich — one plane.html",
+            "verdict": "keep",
+            "why": "A real test that pushes back: cohesion is flat to 1.25 and gathers only at 1.5–3, and my sweep at η 0, 0.03 and 0.06 shows that holds off the knee too. Note: at η 0 and 0.03 the tightest setting is 2.5, not 3, so 'one tone near 3' is true at the default η only."
+          },
+          {
+            "file": "murmuration-3d.html",
+            "verdict": "keep",
+            "why": "All three readings from one engine, playable; the caption is honest that nobody has heard it in the face."
+          },
+          {
+            "file": "readings.png",
+            "verdict": "keep",
+            "why": "2.02 against 2.67 bits matches engine/distribution_analysis.json (ordered stretch)."
+          },
+          {
+            "file": "reading-distribution.wav",
+            "verdict": "keep",
+            "why": "Gives the pad's sentence a sound; the caption points the ear at the right seconds."
+          },
+          {
+            "file": "gesture.png",
+            "verdict": "keep",
+            "why": "The nearest thing on the page to a test of 'an organic swell no envelope produces'; 0.94→0.54 in 4.17 s, 0.13, 5 birds all match engine/gesture_analysis.json."
+          },
+          {
+            "file": "gesture-place.wav",
+            "verdict": "keep",
+            "why": "+3.3 and +5.6 dB over a 1.9 dB floor match the place strikes A and B."
+          }
+        ]
+      }
+    },
+    {
+      "heading": "The phase transition as the signature macro",
+      "made": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "Murmuration — rich — the knee.html",
+          "origin": "made",
+          "by": "the Maker · the page's flock and grain voice, live",
+          "height": 1180,
+          "title": "The knee · four steps",
+          "caption": "**Snap, or a curved knob?** The page's own flock, equal to the engine to the last digit over 1200 frames, heard through its own grain voice and walked up: one bird turning toward its neighbours against the Disorder knob, then sixty birds and their one number φ, then the slider swept against a crossfade, then the test. Measured here: on the instrument's slider the flock gives up its order, 90% of the way to 10%, over 36% of the travel (a crossfade: 80%; the first build's linear knob: 9%). The wobble, N times the variance of φ, peaks at η 0.06 to 0.07, where φ is halfway down, at every size from 30 to 240 birds; growing the flock at the same crowding raises that peak from 1.01 to 2.65 and narrows the drop from η 0.097 to 0.066. Those are the marks of a real phase transition, which a curved knob doesn't leave. It comes back the way it went at 60 and 120 birds, and at 240 no memory holds up across other starts and longer settling. That is a continuous-looking turn at these sizes; it doesn't name the transition's order, which the literature puts at first for large flocks. The section's own numbers hold: at η 0 φ goes from 0.10 past 0.9 in 5.7 s; at η 0.80 it sits at 0.114, the floor for sixty random birds. Checked by the check beside it; heard by no ear.",
+          "near": "Raising a Vicsek-style heading-noise term"
+        },
+        {
+          "file": "transition.png",
+          "origin": "gathered",
+          "place": "margin",
+          "title": "the knee, and the first mapping that missed it · steward, cycle 1",
+          "caption": "Top: φ against η, eight starts, with slow sweeps up and down; on the first build's linear slider the whole transition sat in its first sixth. Bottom: a 40-second performance where the flock orders and melts. Under the first mapping (height is pitch) the sound's pitch focus hardly moves; under the order mapping (heading is pitch) it follows the flock.",
+          "near": "Headless verification of the prototype model"
+        },
+        {
+          "file": "page-as-built.wav",
+          "origin": "gathered",
+          "place": "margin",
+          "title": "the first build, ordering and melting · 40 s",
+          "caption": "The same performance through the mapping as first built: the flock crystallises and melts, and the sound barely changes (pitch-class entropy 3.38 to 3.46 bits throughout). The section's \"crystallizes from broadband noise into a coherent tone\" needed the order mapping to come true.",
+          "near": "the flock crystallizes from broadband noise"
+        }
+      ],
+      "made_against": "f90d73d74512",
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Murmuration — rich — the knee.html",
+            "verdict": "remake",
+            "why": "Wording only, in check.mjs summarise() then --build: the 240-bird memory does not hold (new seeds 0.088 at 2.5 se; 60 s settling gives −0.004; a −2.56 se gap of the other sign sits at η 0.11), so say no memory is established; and Grégoire–Chaté was 'disputed for this angular noise, and answered' (Chaté et al. 2008), not just 'disputed'."
+          },
+          {
+            "file": "transition.png",
+            "verdict": "keep",
+            "why": "Evidence, honestly captioned; 'first sixth' of the old linear slider matches Murmuration.html:464-466."
+          },
+          {
+            "file": "page-as-built.wav",
+            "verdict": "keep",
+            "why": "Makes offer 3 heard: the flock orders and the sound doesn't follow (3.38–3.46 bits, engine/takes_analysis.json)."
+          }
+        ]
+      }
+    },
+    {
+      "heading": "Status",
+      "made": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "Murmuration.html",
+          "origin": "gathered",
+          "height": 1320,
+          "title": "the instrument · p5.js and an AudioWorklet",
+          "caption": "**The instrument itself.** Press Engage, then play: Disorder is the phase-transition macro (η = 0.25·x², the knee at mid-slider), Listen by chooses the reading (order, place or density), a click drops the predator and a drag pulls the flock. It carries its own review layer. Proven equal to the engine on 1200 frames; heard in a browser by no agent.",
+          "contract": {
+            "needs": "storage"
+          },
+          "near": "The instrument is"
+        }
+      ],
+      "made_against": "286d710874ec",
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Murmuration.html",
+            "verdict": "keep",
+            "why": "The instrument, proven equal to the engine (check_page_mapping.js: 0). Note: 'knee at mid-slider' is true at 60 birds; at 120 in the same field the middle moves to about η 0.085, x 0.58."
+          }
+        ]
+      }
+    },
+    {
+      "heading": "Open Decisions",
+      "made": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "ceiling/ceiling-done.png",
+          "origin": "gathered",
+          "place": "margin",
+          "title": "the ceiling climb in headless Chrome · steward, cycle 5",
+          "caption": "The ceiling test after a full climb, 60 birds to 720, one strike a step: clean through 360, 420 right on the line (59% of the audio thread), strained from 480, over at 720 (101%, 858 dropouts). Headless Chrome on an M1 Max; Firefox and Safari still unmeasured.",
+          "near": "Voice ceiling."
+        }
+      ],
+      "made_against": "d8e56f0ee429",
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "ceiling/ceiling-done.png",
+            "verdict": "keep",
+            "why": "Matches ceiling-headless-chrome.json; the report reads 420 as clean (cleanUpTo 420), so 'right on the line' is the stricter reading, which is fine."
+          }
+        ]
+      }
+    },
+    {
+      "heading": "Forward Vectors",
+      "made": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "Murmuration — rich — blind pair.html",
+          "origin": "made",
+          "by": "the Maker · the steward's blind takes",
+          "height": 1070,
+          "title": "The blind pair · four steps",
+          "caption": "**The wager, put to your ear.** The steward's two 40-second takes of one performance: one the flock, one a cloud handed the flock's centre, spread, speed, heading agreement and grain-length mix every frame, with only who-steers-by-whom left out. The piece walks up from the score both takes follow, through what a hand can copy, to the two on one switch, and only then asks which is alive. The key, Loudon's own answer and a measurement of the two open after you answer, not before.",
+          "near": "The honest test is blind"
+        }
+      ],
+      "made_against": "e4c69197599b",
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Murmuration — rich — blind pair.html",
+            "verdict": "remake",
+            "why": "The walk-up unblinds it: step 2, 'the other take … the hard version of a hand-dialed cloud', plays take Y, and Y is the copy (blind-key.json). Play one take and the other with neither named, explain the copy away from any take, or shuffle A/B per visit and let the key name both."
+          }
+        ]
+      }
+    }
+  ]
+}
