@@ -100,9 +100,9 @@
 
   <div class="eqs">
     <div class="eq">heard bend(t) = Σ a<sub>n</sub>(t)² · |Δ<sub>n</sub>(t)| ⁄ Σ a<sub>n</sub>(t)²</div>
-    <div class="words">(the bend you hear at time t) is (each partial’s distance from the flat line, in cents), weighted by (how much power that partial carries right then). It falls if the line flattens, and it also falls if the bent partials go quiet.</div>
+    <div class="words">(the bend you hear at time t) is (each partial’s distance from the flat line, in cents), weighted by (how much power that partial carries right then). It falls if the line flattens, and it also falls if the bent partials go quiet. Weighted by power, it mostly reads the lowest partials: at this string’s strike partials 2 and 3 carry 70 % of it, partials 10 and up 3 %.</div>
     <div class="eq">string: Δ<sub>n</sub>(t) ≈ 1200 · log<sub>2</sub> √(1 + B n²), B steady · recipe: Δ<sub>n</sub>(t) = 1200 · log<sub>2</sub> √(1 + B n²) · max(0, 1 − t ⁄ 0.5 s)</div>
-    <div class="words">(the real string’s bend) stays on one stiffness curve the whole note, give or take a few cents at the lowest partials in the first 60 ms; (the page’s recipe) shrinks that curve to the flat line over half a second.</div>
+    <div class="words">(the real string’s bend) stays on one stiffness curve the whole note, give or take a few cents at the lowest partials in the first 60 ms, which may be the tracker; (the page’s recipe) shrinks that curve to the flat line over half a second.</div>
   </div>
   <div class="foot"><svg viewBox="-1.1 -1.1 2.2 2.2" aria-hidden="true"><path id="sigil" fill="none" stroke="#e8b84a" stroke-width="0.06"/></svg><span>Inharmonic Wavetable Synthesis · rich face · Loud’n Live</span></div>
 </div>
@@ -153,10 +153,10 @@ const $ = (id) => document.getElementById(id);
 const S = { step: 1, B: 0.002, view: 0.03, line: 'measured', lev: 'measured' };
 const STEPS = [
   { n: 1, name: 'The struck wall alone', says: 'A real piano string’s loudness, partial by partial, with every partial put back on its harmonic: the flat line under a measured amplitude wall. Strike it. The right end of the line goes dark first, because the upper partials die first. Nothing bends, so the bend you hear is zero.' },
-  { n: 2, name: 'The string’s own bend', says: 'Now give each partial back its measured place. The line bows up, partial 32 about 71 cents sharp, and the bow holds for the whole note: the fitted stiffness moves 3 % in 8 seconds. Yet the bend you hear falls from 4.7 to 1.8 cents in the first tenth of a second. Something settled. Was it the line, or the loudness? Depth 0 takes you back to step 1.' },
-  { n: 3, name: 'Pull them apart', says: 'Two ways to ask. Hold the line on the string’s stiffness curve and let only the levels move (dashed amber). Or keep the measured line and freeze the levels at the strike (blue). The early drop follows the blue curve: at the strike partials 2 and 3 sit 3.6 and −6.1 cents off, and by 0.09 s they are within 2 cents. The loudness wall alone lowers the bow’s bend only slowly, over seconds. Strike any of the three.' },
+  { n: 2, name: 'The string’s own bend', says: 'Now give each partial back its measured place. The line bows up, partial 32 about 71 cents sharp, and the bow holds for the whole note: the fitted stiffness moves 3 % in 8 seconds. Yet the bend you hear falls from 4.7 to 1.8 cents in the first tenth of a second, and on to 1.3 by 2.6 s. Something settled. Was it the line, or the loudness? Depth 0 takes you back to step 1.' },
+  { n: 3, name: 'Pull them apart', says: 'Two ways to ask. Hold the line on the string’s stiffness curve and let only the levels move (dashed amber). Or keep the measured line and freeze the levels at the strike (blue). There are two settlings, on two time scales. In the first tenth of a second the drop follows the blue curve: partials 2 and 3 sit 3.6 and −6.1 cents off at the strike and within 2 cents by 0.09 s. That may be the string, or it may be the tracker’s first frames; the data can’t say. After that the measured line holds (blue, about 2.0 to 1.7 cents) while the bend you hear keeps falling, 1.83 to 1.34 cents by 2.6 s: the slow settling is the loudness wall dimming. Strike any of the three.' },
   { n: 4, name: 'The page’s recipe', says: 'The settling piano as the page writes it: a bright saw-like wall held by a gate, Wavetable B bowed at the strike and flattened over 500 ms. Here the whole line relaxes, and the bend you hear falls to zero with it. The stiffness slider starts at the page’s 0.002; slide it down to the string’s own 8.3 × 10⁻⁵ to hear the difference in size.' },
-  { n: 5, name: 'Side by side', says: 'The test. Both curves on one chart, both sounds a click apart. The page says the attack is “slightly metallic” and settles “into clarity” over half a second, “exactly as a piano note does.” Read the two curves: the string’s bow holds and its heard bend moves by a few cents; the recipe starts eight times higher and goes to zero.' },
+  { n: 5, name: 'Side by side', says: 'The test. Both curves on one chart, both sounds a click apart. The page says the attack is “slightly metallic” and settles “into clarity” over half a second, “exactly as a piano note does.” Read the two curves: the string’s bow holds and its heard bend moves by a few cents; the recipe, set here at the A2 string’s pitch, starts eight times higher and goes to zero.' },
 ];
 let D = 1;
 function tracks() {
@@ -180,7 +180,7 @@ function readouts() {
   if (S.step >= 4) { r2 = `recipe: partial 20 starts ${bowCents(20, S.B).toFixed(0)} ¢ sharp (the string: ${bowCents(20, A2.B).toFixed(0)} ¢) · heard bend ${at(H.rec, 0.03).toFixed(0)} ¢ → 0 at 0.5 s`; }
   if (S.step === 5) v = 'the string’s bow holds, moving a few cents at most; the recipe’s whole line relaxes';
   if (S.step === 2) v = 'the bow holds; the heard bend still drops';
-  if (S.step === 3) v = 'the early drop is the line’s low partials settling, not the bent end going quiet';
+  if (S.step === 3) v = 'first 0.1 s: partials 2 and 3 move (string or tracker, unsettled) · after: the line holds, the loudness falls';
   if (S.step === 4) v = 'the whole line flattens';
   $('r1').textContent = r1; $('r2').textContent = r2; $('verdict').textContent = v;
 }

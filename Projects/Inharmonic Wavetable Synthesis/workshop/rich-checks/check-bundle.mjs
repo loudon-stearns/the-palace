@@ -26,5 +26,5 @@ const w = (W, n) => W[n - 1][1] - W[n - 1][0];
 // measured: frames barely differ
 { const vs = E.voices({ V: 3, kind: 'measured', B: 0, tau: 0.5, delta: 0.08, detune: 0 }); const W = E.widths(vs);
   const bow = E.voices({ V: 3, kind: 'bow', B: 8.301e-5, tau: 0.5, delta: 0.08, detune: 0 }); const Wb = E.widths(bow);
-  r('measured string: barely fans', true, `width at 8 ${w(W, 8).toFixed(2)} ¢, at 32 ${w(W, 32).toFixed(2)} ¢ (a relaxing bow at the same B: ${w(Wb, 32).toFixed(2)} ¢)`);
-  let mx = 0; for (let n = 1; n <= 32; n++) mx = Math.max(mx, w(W, n)); r('measured string: widest anywhere', true, mx.toFixed(2) + ' ¢'); }
+  r('measured string: barely fans', w(W, 32) < 0.1 * w(Wb, 32), `width at 8 ${w(W, 8).toFixed(2)} ¢, at 32 ${w(W, 32).toFixed(2)} ¢ (a relaxing bow at the same B: ${w(Wb, 32).toFixed(2)} ¢)`);
+  let mx = 0; for (let n = 1; n <= 32; n++) mx = Math.max(mx, w(W, n)); r('measured string: widest gap is tracker noise, not a fan', mx < 10 && w(W, 32) < 1, mx.toFixed(2) + ' ¢ anywhere, ' + w(W, 32).toFixed(2) + ' ¢ at 32'); }
