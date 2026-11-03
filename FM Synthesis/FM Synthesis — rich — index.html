@@ -1,0 +1,342 @@
+<!doctype html>
+<!--
+  title: FM Synthesis — rich — index
+  born: 2026-11-03
+  links: [[FM Synthesis]] connects-to · rich-face-piece · listed in [[FM Synthesis — rich.json]] under "What the ear hears as the index rises"
+  forward_vector: I am the index section as a walk, at the 1:1 ratio the section holds: a sine, the first
+    pair of sidebands, the index-plus-one rule, and last the section's claim tested on a slow sweep, that
+    the sound shimmers rather than simply opening. I draw the sidebands twice, as FM makes them and as
+    they reach the ear, because at 1:1 the two are not the same. I change only when the section does.
+  engine: phase modulation, sin(2π·fc·t + I·sin(2π·fm·t)), the same pair as the Ratios piece. The
+    checks beside this file run ENGINE_SRC in Node against every step's claim.
+  dress: Loudon Live house style, Graphite skin.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:size" content="flow">
+<title>FM index — what the ear hears as it rises</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Manrope:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root { --bg:#0a0a0f; --e1:#12121a; --soft:rgba(255,255,255,.06); --border:#4a4a5e; --fg1:#e8e8f0; --fg2:#c8c8d8; --fg3:#8a8aa0; --fg4:#4a4a5a;
+    --amber:#e8b84a; --amberline:rgba(232,184,74,.5); --indigo:#8b8df5;
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --sans:'Manrope',system-ui,sans-serif; --serif:'Cormorant Garamond',Georgia,serif; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); font-weight: 300; }
+  .piece { padding: 22px 22px 20px; }
+  .kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
+  .kicker svg { width: 18px; height: 18px; }
+  .title { font-family: var(--serif); font-size: 27px; font-weight: 300; color: var(--fg1); margin: 0 0 6px; }
+  .sub { font-size: 14px; line-height: 1.6; color: var(--fg2); max-width: 74ch; margin: 0 0 16px; }
+  .tabs { display: flex; flex-wrap: wrap; margin-bottom: 14px; }
+  .tabs button { border-radius: 0; margin: 0 -1px -1px 0; }
+  .tabs button.ahead { color: var(--fg4); }
+  button { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--fg2); background: var(--bg); border: 1px solid var(--border); border-radius: 2px; padding: 7px 12px; cursor: pointer; }
+  button:hover { border-color: var(--amberline); color: var(--fg1); }
+  button[aria-pressed="true"] { color: var(--amber); border-color: var(--amberline); }
+  button.go { color: var(--amber); border-color: var(--amberline); box-shadow: 0 0 14px rgba(232,184,74,.18); min-width: 92px; }
+  button:focus-visible, input:focus-visible { outline: 1px dashed var(--amber); outline-offset: 2px; }
+  .step { border: 1px solid var(--soft); background: var(--e1); padding: 12px 14px; margin-bottom: 12px; }
+  .stephead { font-family: var(--mono); font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--fg3); display: flex; justify-content: space-between; gap: 10px; margin-bottom: 6px; }
+  .stephead b { color: var(--fg1); font-weight: 500; }
+  .teach { font-size: 14px; line-height: 1.6; max-width: 76ch; margin: 0 0 8px; }
+  .back { font-family: var(--mono); font-size: 11px; color: var(--fg3); margin: 6px 0 0; }
+  .row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 8px 0; }
+  label.sl { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: .08em; color: var(--fg3); min-width: 220px; flex: 1; }
+  label.sl b { color: var(--fg1); font-weight: 500; }
+  input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 3px; background: var(--fg4); margin: 12px 0 4px; outline: none; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 13px; height: 13px; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  input[type=range]::-moz-range-thumb { width: 13px; height: 13px; border: 0; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  .panel { border: 1px solid var(--soft); background: var(--e1); padding: 10px 12px; }
+  .plabel { font-family: var(--mono); font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--fg3); margin-bottom: 8px; display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+  canvas { display: block; width: 100%; height: 300px; }
+  .walk { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin: 12px 0; }
+  .read { display: flex; flex-wrap: wrap; gap: 6px 22px; margin-top: 12px; font-family: var(--mono); font-size: 11.5px; letter-spacing: .05em; color: var(--fg3); }
+  .read b { color: var(--fg1); font-weight: 500; }
+  .verdict { margin-top: 10px; font-size: 15px; color: var(--fg1); min-height: 1.5em; }
+  .verdict .fam { color: var(--amber); font-family: var(--mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; margin-right: 8px; }
+  .eqs { margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--soft); }
+  .eq { font-family: var(--serif); font-size: 19px; color: var(--fg1); }
+  .words { font-size: 13px; line-height: 1.55; color: var(--fg2); margin: 2px 0 10px; }
+  .hint { font-family: var(--mono); font-size: 11px; letter-spacing: .06em; color: var(--fg3); margin-top: 8px; line-height: 1.6; }
+  .key i { display: inline-block; width: 10px; height: 2px; vertical-align: middle; margin: 0 4px 0 10px; }
+  .foot { font-family: var(--mono); font-size: 10px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg4); margin-top: 14px; }
+</style>
+</head>
+<body>
+<div class="piece">
+  <div class="kicker"><svg viewBox="-1.1 -1.1 2.2 2.2" aria-hidden="true"><path id="sigil" fill="none" stroke="#e8b84a" stroke-width="0.06"/></svg>made · Web Audio Worklet · sketch</div>
+  <h3 class="title">The index — brighter, or shimmering?</h3>
+  <p class="sub">A carrier at 220 Hz and a modulator at the same speed, 1 : 1, as the section holds it. Only the index moves. The upper row is the sidebands as FM makes them, the carrier plus and minus whole numbers of the modulator, some of them below 0 Hz. The lower row is what reaches the ear, once those have folded back. Walk the index up; the last step sweeps it slowly and tests the section's claim.</p>
+
+  <div class="tabs" id="tabs" role="group" aria-label="steps"></div>
+  <div class="step" id="step" aria-live="polite">
+    <div class="stephead"><b id="stepname"></b><span id="stepcount"></span></div>
+    <p class="teach" id="teach"></p>
+    <div id="controls"></div>
+    <p class="back" id="backline"></p>
+  </div>
+
+  <div class="walk">
+    <button id="back">◂ back</button>
+    <button id="go" class="go">▸ play</button>
+    <button id="next">next ▸</button>
+    <span class="hint" id="state">silent until you press play</span>
+  </div>
+
+  <div class="panel">
+    <div class="plabel"><span>above: as FM makes them · below: as they reach the ear · dB, −40 to 0</span><span class="key"><i style="background:#e8b84a"></i>above 0 Hz<i style="background:#8b8df5"></i>below 0 Hz, folds back<i style="background:rgba(232,184,74,.25)"></i>index + 1 pairs</span></div>
+    <canvas id="spec"></canvas>
+  </div>
+  <div class="read">
+    <span>index <b id="r-index"></b></span>
+    <span>pairs holding 98 % of the power <b id="r-pairs"></b></span>
+    <span>index + 1 <b id="r-rule"></b></span>
+    <span>brightness centre <b id="r-cent"></b></span>
+  </div>
+  <div class="verdict" id="verdict"></div>
+
+  <div class="eqs">
+    <div class="eq">sin( ω<sub>c</sub>t + I · sin ω<sub>m</sub>t ) = Σ<sub>k</sub> J<sub>k</sub>(I) · sin( (ω<sub>c</sub> + k · ω<sub>m</sub>) t )</div>
+    <div class="words">(the pair's sound) = the sum, over every whole number k, of (the k-th Bessel function, at the index) × (a sine at the carrier plus k modulators). Each sideband's loudness rises and falls with the index in its own rhythm; that is the Bessel shape.</div>
+    <div class="eq">J<sub>0</sub>(I)² + 2 · Σ<sub>k=1…I+1</sub> J<sub>k</sub>(I)² ≈ 0.98</div>
+    <div class="words">(the carrier's share of the power) + (both sides of the first index-plus-one pairs) comes to about 98 % of all of it: Carson's rule, the section's "index-plus-one pairs".</div>
+  </div>
+  <div class="hint">The brightness centre is the power-weighted mean frequency of what reaches the ear. The sheet of the Bessel functions themselves is on Bessel Functions in Synthesis.</div>
+  <div class="foot">Loud'n Live</div>
+</div>
+
+<script>
+(() => {
+// ───────────── the engine and its maths: the same pair as the Ratios piece, held at 1 : 1 ─────────────
+const ENGINE_SRC = String.raw`
+class PairFM {
+  constructor(sr) {
+    this.sr = sr; this.pc = 0; this.pm = 0;
+    this.fc = 220; this.ratio = 1; this.index = 0; this.gate = 0; this.g = 0; this.I = 0;
+    this.sm = 1 - Math.exp(-1 / (0.012 * sr)); this.gm = 1 - Math.exp(-1 / (0.006 * sr));
+  }
+  set(d) { for (const k of ['fc', 'ratio', 'index', 'gate']) if (d[k] !== undefined) this[k] = d[k]; if (d.snap) this.I = this.index; }
+  render(L, R, n) {
+    const TP = 2 * Math.PI, sr = this.sr;
+    for (let i = 0; i < n; i++) {
+      this.I += (this.index - this.I) * this.sm;
+      this.g += (this.gate - this.g) * this.gm;
+      const y = Math.sin(TP * this.pc + this.I * Math.sin(TP * this.pm));
+      this.pc += this.fc / sr; this.pc -= Math.floor(this.pc);
+      this.pm += this.fc * this.ratio / sr; this.pm -= Math.floor(this.pm);
+      L[i] = 0.3 * this.g * y; R[i] = L[i];
+    }
+  }
+}
+function besselJ(n, x) { const M = 128; let s = 0; for (let i = 0; i < M; i++) { const t = Math.PI * (i + 0.5) / M; s += Math.cos(n * t - x * Math.sin(t)); } return s / M; }
+// As FM makes them: sideband k at fc + k·fm with amplitude J_k(I) (J_−k = (−1)^k J_k), negative frequencies kept.
+function sidebands(fc, ratio, I, K = 12) {
+  const out = [];
+  for (let k = -K; k <= K; k++) out.push({ k, f: fc + k * fc * ratio, a: (k < 0 && (-k) % 2 ? -1 : 1) * besselJ(Math.abs(k), I) });
+  return out;
+}
+// As they reach the ear: a sideband below 0 Hz folds back with its sign turned; one at exactly 0 Hz is sin(0), nothing.
+function heard(fc, ratio, I) {
+  const map = new Map();
+  for (const s of sidebands(fc, ratio, I, Math.ceil(I + 12))) {
+    let f = s.f, a = s.a;
+    if (Math.abs(f) < 1e-6) continue;
+    if (f < 0) { f = -f; a = -a; }
+    const key = Math.round(f * 1e4), had = map.get(key);
+    map.set(key, { f, a: (had ? had.a : 0) + a });
+  }
+  return [...map.values()].sort((x, y) => x.f - y.f);
+}
+// How many pairs, carrier included, hold 98 % of the power, counted on the sidebands as FM makes them.
+function pairs98(I) { let p = besselJ(0, I) ** 2, k = 0; while (p < 0.98 && k < 60) { k++; p += 2 * besselJ(k, I) ** 2; } return k; }
+function centroid(list) { let a = 0, b = 0; for (const x of list) { a += x.f * x.a * x.a; b += x.a * x.a; } return b ? a / b : 0; }
+// Which heard partials, within 40 dB of the loudest, are getting quieter as the index rises from here.
+function falling(fc, ratio, I, dI = 0.05) {
+  const now = heard(fc, ratio, I), next = heard(fc, ratio, I + dI), top = Math.max(...now.map(x => Math.abs(x.a)));
+  const nx = new Map(next.map(x => [Math.round(x.f), Math.abs(x.a)]));
+  return now.filter(x => Math.abs(x.a) > top * 0.01 && (nx.get(Math.round(x.f)) || 0) < Math.abs(x.a)).map(x => Math.round(x.f / fc * 100) / 100);
+}
+`;
+const PROC_SRC = ENGINE_SRC + `
+class PairProc extends AudioWorkletProcessor {
+  constructor() { super(); this.e = new PairFM(sampleRate); this.port.onmessage = ({ data }) => this.e.set(data); }
+  process(_, outs) { const o = outs[0]; this.e.render(o[0], o[1] || o[0], o[0].length); return true; }
+}
+registerProcessor('fm-index', PairProc);`;
+const { PairFM, sidebands, heard, pairs98, centroid, falling } = new Function(ENGINE_SRC + '; return { PairFM, sidebands, heard, pairs98, centroid, falling };')();
+
+// ───────────── the walk ─────────────
+const FC = 220, RATIO = 1;
+const S = { step: 0, reached: 0, index: 0, playing: false, sweep: null };
+const STEPS = [
+  { name: 'index 0 · a sine', index: 0, ctl: [],
+    teach: 'The modulator runs, but pushes with nothing. One line in each row: the carrier, alone, at 220 Hz. Press play.' },
+  { name: 'a breath · the first pair', index: 0.3, ctl: [['index', 0, 1]],
+    teach: 'Raise the index a little and the tone warms. Above, the first pair has appeared, one either side of the carrier, spaced by the modulator. But at 1 : 1 that spacing is the carrier itself, so the lower one lands on 0 Hz, where a sine is nothing at all. Below, you can see what you hear: one new partial, an octave up, not two.',
+    back: 'Index 0 is step 1 again.' },
+  { name: 'index + 1 pairs', index: 4, ctl: [['index', 0, 8]],
+    teach: 'Keep raising it. The shaded band is index-plus-one pairs either side of the carrier, and the readout counts how many pairs actually hold 98 % of the power: the count never strays a whole pair from the rule. Below, the lower half has folded onto the upper, so the loud partials reach to about the index-plus-second harmonic: reedy, brassy, buzzy, glaring.',
+    back: 'Bring the index under 1 and it is step 2\'s first pair.' },
+  { name: 'a slow sweep · the test', index: 0, ctl: [['index', 0, 8], 'sweep'],
+    teach: 'The section\'s claim: the sound doesn\'t simply get brighter; each partial swells and dips in its own rhythm, so a slow sweep shimmers rather than opens. Sweep the index from 0 to 8. Watch the list of partials getting quieter while the index climbs, and the brightness centre, which at 1 : 1 does not even climb steadily.' },
+];
+
+const $ = id => document.getElementById(id);
+function el(tag, attrs = {}, ...kids) {
+  const e = document.createElement(tag);
+  for (const [k, v] of Object.entries(attrs)) { if (k === 'class') e.className = v; else if (k.startsWith('on')) e.addEventListener(k.slice(2), v); else e.setAttribute(k, v); }
+  for (const c of kids) if (c != null) e.append(c.nodeType ? c : document.createTextNode(c));
+  return e;
+}
+let syncers = [];
+function controls(list) {
+  syncers = [];
+  const out = [];
+  for (const c of list) {
+    if (Array.isArray(c) && c[0] === 'index') {
+      const [, lo, hi] = c, val = el('b'), input = el('input', { type: 'range', min: lo, max: hi, step: 0.01, 'aria-label': 'index' });
+      syncers.push(() => { input.value = S.index; val.textContent = S.index.toFixed(2); });
+      input.addEventListener('input', () => { S.sweep = null; S.index = +input.value; update(); });
+      out.push(el('div', { class: 'row' }, el('label', { class: 'sl' }, 'index ', val, input)));
+    }
+    if (c === 'sweep') {
+      const b = el('button', { onclick: async () => {
+        if (S.sweep) { S.sweep = null; return; }
+        if (!S.playing) await play();
+        const t0 = performance.now(), dur = 16000, me = S.sweep = {};
+        (function tick() { if (S.sweep !== me) return; const q = Math.min(1, (performance.now() - t0) / dur); S.index = 8 * q; update(); if (q < 1) requestAnimationFrame(tick); else S.sweep = null; })();
+      } }, 'sweep 0 → 8 over 16 s');
+      syncers.push(() => { b.textContent = S.sweep ? 'stop the sweep' : 'sweep 0 → 8 over 16 s'; });
+      out.push(el('div', { class: 'row' }, b));
+    }
+  }
+  return out;
+}
+function go(i) {
+  if (i !== S.step) stop();                          // changing step stops the sound
+  S.sweep = null; S.step = i; S.reached = Math.max(S.reached, i);
+  const s = STEPS[i]; S.index = s.index;
+  $('stepname').textContent = (i + 1) + ' · ' + s.name;
+  $('stepcount').textContent = 'step ' + (i + 1) + ' of ' + STEPS.length;
+  $('teach').textContent = s.teach;
+  $('backline').textContent = s.back || ''; $('backline').hidden = !s.back;
+  const host = $('controls'); host.textContent = ''; host.append(...controls(s.ctl));
+  $('back').hidden = i === 0; $('next').hidden = i === STEPS.length - 1;
+  const tabs = $('tabs'); tabs.textContent = '';
+  STEPS.forEach((t, j) => tabs.append(el('button', { 'aria-pressed': String(j === i), class: j > S.reached ? 'ahead' : '', onclick: () => go(j) }, (j + 1) + ' · ' + t.name.split(' · ')[0])));
+  update(); send(true);
+}
+$('back').addEventListener('click', () => go(Math.max(0, S.step - 1)));
+$('next').addEventListener('click', () => go(Math.min(STEPS.length - 1, S.step + 1)));
+
+// ───────────── audio: nothing exists before the first click ─────────────
+let ctx = null, port = null, booting = null;
+function boot() {
+  if (booting) return booting;
+  ctx = new AudioContext();
+  const comp = ctx.createDynamicsCompressor(); comp.threshold.value = -14; comp.ratio.value = 4;
+  comp.connect(ctx.destination);
+  // the kit may quiet the context (a hush, a hidden tab, a minute untouched): the button and the sweep follow it
+  ctx.addEventListener('statechange', () => { if (ctx.state !== 'running' && S.playing) { S.playing = false; S.sweep = null; send(true); paint(); for (const f of syncers) f(); } });
+  booting = (async () => {
+    try {
+      const url = URL.createObjectURL(new Blob([PROC_SRC], { type: 'application/javascript' }));
+      await ctx.audioWorklet.addModule(url); URL.revokeObjectURL(url);
+      const node = new AudioWorkletNode(ctx, 'fm-index', { numberOfInputs: 0, outputChannelCount: [2] });
+      node.connect(comp); port = node.port;
+    } catch (e) {                                    // a page opened from a file: the same engine on the main thread
+      const eng = new PairFM(ctx.sampleRate), sp = ctx.createScriptProcessor(1024, 0, 2);
+      sp.onaudioprocess = ev => eng.render(ev.outputBuffer.getChannelData(0), ev.outputBuffer.getChannelData(1), 1024);
+      sp.connect(comp); port = { postMessage: d => eng.set(d) };
+    }
+    send(true);
+  })();
+  return booting;
+}
+function send(snap) { if (port) port.postMessage({ fc: FC, ratio: RATIO, index: S.index, gate: S.playing ? 1 : 0, snap: !!snap }); }
+async function play() {
+  await boot();
+  if (ctx.state !== 'running') await ctx.resume();
+  S.playing = true; send(false); paint();
+}
+function stop() { S.sweep = null; if (!S.playing) return; S.playing = false; send(false); paint(); }
+$('go').addEventListener('click', () => (S.playing ? stop() : play()));
+function paint() {
+  $('go').textContent = S.playing ? '❚❚ stop' : '▸ play';
+  $('state').textContent = S.playing ? 'the pair, playing' : 'silent until you press play';
+}
+
+// ───────────── readouts and drawing ─────────────
+let SB = null, H = null, last = { I: 0, c: 0 };
+function update() {
+  for (const f of syncers) f();
+  const I = S.index;
+  SB = sidebands(FC, RATIO, I); H = heard(FC, RATIO, I);
+  const c = centroid(H), p = pairs98(I);
+  $('r-index').textContent = I.toFixed(2);
+  $('r-pairs').textContent = I < 0.005 ? '0 (the carrier alone)' : String(p);
+  $('r-rule').textContent = (I + 1).toFixed(2);
+  $('r-cent').textContent = Math.round(c) + ' Hz';
+  const fall = I > 0.05 ? falling(FC, RATIO, I) : [];
+  const v = $('verdict'); v.textContent = '';
+  if (I < 0.005) v.append(el('span', { class: 'fam' }, 'sine'), 'The carrier alone.');
+  else {
+    const dc = centroid(heard(FC, RATIO, I + 0.05)) - c;
+    v.append(el('span', { class: 'fam' }, fall.length ? 'shimmer' : 'opening'),
+      (fall.length ? 'As the index climbs from here, harmonic' + (fall.length > 1 ? 's ' : ' ') + fall.join(', ') + (fall.length > 1 ? ' are' : ' is') + ' getting quieter'
+        : 'As the index climbs from here, every partial is getting louder or holding')
+      + (dc < -0.5 ? ', and even the brightness centre is falling.' : fall.length ? ', while the brightness centre climbs.' : ': here the sound is simply opening.'));
+  }
+  send(false); paint(); drawAll();
+}
+const cv = $('spec');
+function drawAll() {
+  if (!SB) return;
+  const d = devicePixelRatio || 1, w = cv.clientWidth, h = cv.clientHeight;
+  if (!w) return;
+  if (cv.width !== Math.round(w * d)) { cv.width = Math.round(w * d); cv.height = Math.round(h * d); }
+  const g = cv.getContext('2d'); g.setTransform(d, 0, 0, d, 0, 0); g.clearRect(0, 0, w, h);
+  const FMIN = -2000, FMAX = 2600, DB = -40;
+  const X = f => 10 + (f - FMIN) / (FMAX - FMIN) * (w - 20);
+  const row = (y0, y1) => db => y1 - (Math.max(DB, db) - DB) / -DB * (y1 - y0);
+  const top = row(14, h / 2 - 16), bot = row(h / 2 + 14, h - 18);
+  g.font = '10px "JetBrains Mono", monospace';
+  // the index-plus-one band, on the upper row
+  const band = (S.index + 1) * FC;
+  if (S.index > 0.005) { g.fillStyle = 'rgba(232,184,74,.08)'; g.fillRect(X(FC - band), 10, X(FC + band) - X(FC - band), h / 2 - 22); }
+  g.strokeStyle = 'rgba(255,255,255,.18)'; g.lineWidth = 1;
+  g.beginPath(); g.moveTo(X(0), 8); g.lineTo(X(0), h - 14); g.stroke();
+  g.fillStyle = '#5a5a6e'; g.fillText('0 Hz', X(0) + 4, 20);
+  g.beginPath(); g.moveTo(10, h / 2); g.lineTo(w - 10, h / 2); g.stroke();
+  for (let k = -9; k <= 11; k++) { const f = k * FC; if (f < FMIN || f > FMAX) continue; g.fillStyle = '#4a4a5a'; if (k > 0 && k % 2 === 1) g.fillText(String(f), X(f) - 10, h - 4); }
+  const maxS = Math.max(...SB.map(s => Math.abs(s.a))), maxH = Math.max(...H.map(s => Math.abs(s.a)));
+  g.lineWidth = 2.4;
+  for (const s of SB) {
+    if (s.f < FMIN || s.f > FMAX) continue;
+    const db = 20 * Math.log10(Math.abs(s.a) / maxS + 1e-12); if (db < DB) continue;
+    g.strokeStyle = Math.abs(s.f) < 1e-6 ? '#5a5a6e' : s.f < 0 ? '#8b8df5' : '#e8b84a';
+    g.beginPath(); g.moveTo(X(s.f), top(DB)); g.lineTo(X(s.f), top(db)); g.stroke();
+    if (Math.abs(s.f) < 1e-6) { g.fillStyle = '#8a8aa0'; g.fillText('silent', X(0) + 4, top(db) + 10); }
+  }
+  for (const s of H) {
+    if (s.f > FMAX) continue;
+    const db = 20 * Math.log10(Math.abs(s.a) / maxH + 1e-12); if (db < DB) continue;
+    g.strokeStyle = '#e8b84a';
+    g.beginPath(); g.moveTo(X(s.f), bot(DB)); g.lineTo(X(s.f), bot(db)); g.stroke();
+  }
+  g.fillStyle = '#8a8aa0';
+  g.fillText('as FM makes them', 12, 20); g.fillText('as they reach the ear', 12, h / 2 + 20);
+}
+addEventListener('resize', drawAll);
+
+// the sigil: the house's Lissajous, 3 : 2
+(() => { let d = ''; for (let i = 0; i <= 400; i++) { const t = i / 400 * 2 * Math.PI; d += (i ? 'L' : 'M') + Math.sin(3 * t + Math.PI / 2).toFixed(3) + ' ' + Math.sin(2 * t).toFixed(3); } $('sigil').setAttribute('d', d); })();
+
+go(0);
+})();
+</script>
+</body>
+</html>
