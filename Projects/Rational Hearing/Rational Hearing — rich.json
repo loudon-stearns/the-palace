@@ -34,6 +34,12 @@
       "kind": "claim-change",
       "status": "open",
       "what": "\"Lets you hear it\" holds unevenly, measured on the page's own A/B wave (seven harmonics at 1/i, root C4, each dyad about 1.4 s). The thirds and the major sixth beat fast when tempered (M3 10.4, -3 14.1, M6 11.9 times a second). The fifth and fourth beat 0.89 and 1.18 times a second, so the 1.4 s dyad holds about 1.2 and 1.7 swells. For six columns (-6, M2, -7, M7, -2, T.T.) no partials meet inside seven harmonics, so tempering only shifts a roughness 15 Hz or more fast, never a slow beat. Suggested: \"draws the offset to scale and lets you hear it, as beating where the two notes share a partial\". The plan's A/B decision may prefer a fix in the page: a longer hold, or more harmonics."
+    },
+    {
+      "section": "→ rational-hearing.html",
+      "kind": "no-claim-edit",
+      "status": "open",
+      "what": "hush-loud, found by conform and confirmed by hand in headless Chromium: the page answers rich:hush itself (line 418), so the kit leaves it alone, and its answer is setSound(false), which only sets the master gain to 0 (line 409). The context stays running with sixteen oscillators at zero gain, and an A/B already sounding plays on, because playCompare routes its dyads to the compressor directly, past the master (lines 659–661): 0.5 s after a hush its oscillators were still scheduled to stop 0.7 and 2.3 s later, so up to about 3 s of sound after the face asked for quiet, e.g. over a piece the reader just started. Suggested for the steward: on rich:hush, stop the A/B's oscillators (keep them in a list) and clear compareTimer, then suspend A.ctx once the master's fade (a 0.04 s time constant) has settled, about 200 ms; setSound(true) already resumes it. A side finding from the same code: the A/B's oscillators all start at sine phase 0, so the just dyad plays about 0.5 dB louder than the tempered one (recomputed 0.504 dB for the fifth), a small level cue the blind piece removes with random phases."
     }
   ],
   "sections": [
@@ -59,7 +65,18 @@
         }
       ],
       "made_against": "c00b23328389",
-      "stamped": "2026-11-03"
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Rational Hearing — rich — the miss, blind.html",
+            "verdict": "keep",
+            "why": "A real test: it walks 3:2 still → beating → sines → the piano's five → a blind 2-down-1-up staircase whose answer can land on either side of the miss, and every number it shows recomputes (0.907 Hz rule, 10.75 % vs 0.015 % swing, the five ET misses and beat rates). Notes: say in step 5 that the root rove takes away the top-note step the page's own A/B gives (2–16 ¢), so the test measures hearing the ratio, not hearing the page's A/B; say in step 4 why only five intervals; 'stray by a third' is nearer 'up to 40 %'."
+          }
+        ]
+      }
     },
     {
       "heading": "The page",
@@ -92,7 +109,23 @@
         }
       ],
       "made_against": "47336ff35513",
-      "stamped": "2026-11-03"
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "rational-hearing.html",
+            "verdict": "keep",
+            "why": "The section is about this page, so laying it whole is the section's substance, not decoration; it loads clean and reports its height. Its three conform errors are the steward's to fix, not this round's: two Google Fonts grants (Loudon's call), and hush-loud, which is real and is held as an offer to → rational-hearing.html."
+          },
+          {
+            "file": "back-row/backrow-temper-x5-strip.png",
+            "verdict": "keep",
+            "why": "A measurement that could have failed: it tests 'Magnify ×5 for the back of the room' and finds ×5 just enough for the fifth's 2 ¢ gap (about 5 arcmin at 8 screen-heights), and the caption matches the steward's report and says it is headless. Note: the report's own table gives 1.8 px at ×1 at 720p where its prose and this caption say 1.4 px; harmless, both hide under the 10 px bar."
+          }
+        ]
+      }
     }
   ]
 }
