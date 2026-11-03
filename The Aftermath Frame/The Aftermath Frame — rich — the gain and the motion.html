@@ -1,0 +1,418 @@
+<!doctype html>
+<!--
+  title: The Aftermath Frame — rich — the gain and the motion
+  born: 2026-11-03
+  links: [[The Aftermath Frame]] (connects-to · rich-face-piece) · listed in [[The Aftermath Frame — rich.json]] · ports Projects/BLUELINE/proofs/session-11-outline/impact_tool.py
+  forward_vector: I am the section's split made testable: the contact velocity as the one source, shards and air read from it, a comic gain you can drag, and a check that fails if the gain ever reaches the swing, run on this port and on the impact tool itself. I change when the section's split or the tool's debris code does.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:needs" content="">
+<title>The Aftermath Frame — the gain and the motion</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Manrope:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root { --ground:#f0eee5; --ground1:#e6e3d7; --ground2:#dcd9ca; --ink:#1a1916; --ink2:#3a3a35; --ink3:#6a6862; --rule:#b8b09a; --rule-soft:#cfc9b6;
+    --slab:#d8d4c6; --design:#1a1916; --derived:#2b5fb0; --gain:#a8730a; --measure:#c8261a; --ok:#3a7d2c;
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --sans:'Manrope',system-ui,sans-serif; --serif:'Cormorant Garamond',Georgia,serif; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--ground); color: var(--ink2); font-family: var(--sans); font-weight: 400; }
+  .piece { padding: 20px 22px 22px; }
+  .kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: var(--ink3); margin-bottom: 6px; }
+  .title { font-family: var(--serif); font-size: 28px; font-weight: 400; color: var(--ink); margin: 0 0 6px; }
+  .sub { font-size: 14px; line-height: 1.6; max-width: 76ch; margin: 0 0 14px; }
+  .legend { font-family: var(--mono); font-size: 11px; letter-spacing: .04em; color: var(--ink3); display: flex; flex-wrap: wrap; gap: 4px 18px; margin: 0 0 14px; }
+  .legend i { display: inline-block; width: 10px; height: 10px; margin-right: 6px; vertical-align: -1px; border-radius: 1px; }
+  .steps { display: flex; flex-wrap: wrap; gap: 0; margin-bottom: 14px; border: 1px solid var(--rule); border-radius: 2px; width: max-content; max-width: 100%; }
+  .steps button { font-family: var(--mono); font-size: 11px; letter-spacing: .08em; color: var(--ink3); background: transparent; border: 0; border-right: 1px solid var(--rule); padding: 8px 12px; cursor: pointer; }
+  .steps button:last-child { border-right: 0; }
+  .steps button.on { color: var(--ground); background: var(--ink); }
+  .steps button:hover:not(.on) { color: var(--ink); background: var(--ground1); }
+  .stage { display: grid; grid-template-columns: minmax(0, 1fr) minmax(260px, 340px); gap: 18px; align-items: start; }
+  .view { border: 1px solid var(--rule); border-radius: 2px; background: var(--ground1); position: relative; }
+  .view canvas { display: block; width: 100%; }
+  .vlabel { position: absolute; top: 8px; left: 10px; font-family: var(--mono); font-size: 10.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--ink3); pointer-events: none; }
+  .panel { border: 1px solid var(--rule); border-radius: 2px; background: var(--ground); padding: 12px 14px; }
+  .panel h4 { font-family: var(--serif); font-size: 21px; font-weight: 500; color: var(--ink); margin: 0 0 6px; }
+  .panel p { font-size: 13.5px; line-height: 1.55; margin: 0 0 10px; }
+  .ctl { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: .04em; color: var(--ink3); margin: 10px 0 2px; }
+  .ctl b { color: var(--ink); font-weight: 500; }
+  input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 2px; background: var(--rule); margin: 10px 0 4px; outline: none; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 13px; height: 13px; border-radius: 50%; background: var(--ink); cursor: pointer; }
+  input[type=range]::-moz-range-thumb { width: 13px; height: 13px; border: 0; border-radius: 50%; background: var(--ink); cursor: pointer; }
+  input.gain::-webkit-slider-thumb { background: var(--gain); } input.gain::-moz-range-thumb { background: var(--gain); }
+  .seg { display: inline-flex; margin: 2px 0 6px; } .seg button { font-family: var(--mono); font-size: 11px; letter-spacing: .06em; color: var(--ink3); background: transparent; border: 1px solid var(--rule); padding: 6px 10px; cursor: pointer; }
+  .seg button + button { border-left: 0; } .seg button.on { color: var(--ink); background: var(--ground2); }
+  button.act { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--ground); background: var(--ink); border: 1px solid var(--ink); border-radius: 2px; padding: 8px 13px; cursor: pointer; margin: 6px 8px 0 0; }
+  button.ghost { color: var(--ink2); background: transparent; border-color: var(--rule); }
+  label.tog { display: flex; gap: 8px; align-items: flex-start; font-size: 12.5px; line-height: 1.45; margin: 10px 0 4px; cursor: pointer; }
+  .read { font-family: var(--mono); font-size: 11.5px; line-height: 1.75; color: var(--ink3); margin-top: 10px; border-top: 1px solid var(--rule-soft); padding-top: 8px; }
+  .read b { color: var(--ink); font-weight: 500; } .read .d { color: var(--derived); } .read .g { color: var(--gain); }
+  .eq { margin-top: 12px; border-top: 1px solid var(--rule-soft); padding-top: 10px; }
+  .eq .sym { font-family: var(--serif); font-size: 18px; color: var(--ink); }
+  .eq .words { font-size: 12.5px; line-height: 1.5; color: var(--ink2); margin: 2px 0 8px; }
+  .result { margin-top: 16px; }
+  table.t { border-collapse: collapse; width: 100%; font-family: var(--mono); font-size: 11.5px; }
+  table.t th, table.t td { text-align: left; padding: 5px 8px; border-bottom: 1px solid var(--rule-soft); vertical-align: top; }
+  table.t th { font-weight: 500; color: var(--ink3); letter-spacing: .04em; font-size: 10.5px; }
+  table.t td.n { font-variant-numeric: tabular-nums; }
+  .pass { color: var(--ok); font-weight: 500; } .fail { color: var(--measure); font-weight: 500; }
+  .verdict { font-family: var(--serif); font-size: 21px; color: var(--ink); margin: 12px 0 4px; }
+  .note { font-size: 12.5px; line-height: 1.55; color: var(--ink2); max-width: 90ch; margin: 8px 0 0; }
+  .rule { font-size: 13px; line-height: 1.55; border-left: 2px solid var(--measure); padding: 2px 0 2px 10px; margin: 6px 0 10px; }
+  h5 { font-family: var(--mono); font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--ink3); margin: 18px 0 6px; font-weight: 500; }
+  .hidden { display: none !important; }
+  @media (max-width: 760px) { .stage { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="piece">
+  <div class="kicker">made · the impact tool's debris, ported from BLUELINE · study</div>
+  <h3 class="title">Turn the comic gain up. Does the swing change?</h3>
+  <p class="sub">The section's split: the motion is real; the consequences take their direction and relative speed from the real contact velocity, and a comic gain scales only their count, spread and streak length, never the motion. Five steps, from the one arrow everything comes from to a check that would fail if the gain leaked into the swing.</p>
+  <div class="legend"><span><i style="background:#1a1916"></i>authored</span><span><i style="background:#2b5fb0"></i>derived motion</span><span><i style="background:#a8730a"></i>amplified consequence</span><span><i style="background:#c8261a"></i>the check</span></div>
+  <div class="steps" id="steps"></div>
+  <div class="stage">
+    <div id="views">
+      <div class="view"><canvas id="cv"></canvas><div class="vlabel" id="vlabel"></div></div>
+      <div class="view hidden" id="view2" style="margin-top:10px"><canvas id="cv2"></canvas><div class="vlabel" id="vlabel2"></div></div>
+    </div>
+    <div class="panel">
+      <div class="seg" id="acts"></div>
+      <h4 id="sh"></h4>
+      <p id="sp"></p>
+      <div id="ctls"></div>
+      <div class="read" id="read"></div>
+      <div class="eq" id="eq"></div>
+    </div>
+  </div>
+  <div class="result hidden" id="result"></div>
+</div>
+<script id="engine">
+// The swing model of BLUELINE's impact tool (Projects/BLUELINE/proofs/session-11-outline/impact_tool.py),
+// ported line for line: author {pivot, windup direction, contact, reach, time to impact, accel exponent};
+// derive the axis, the amplitude, omega(t), every point's velocity and the contact velocity.
+const add = (a, b) => [a[0] + b[0], a[1] + b[1], a[2] + b[2]];
+const sub = (a, b) => [a[0] - b[0], a[1] - b[1], a[2] - b[2]];
+const mul = (a, s) => [a[0] * s, a[1] * s, a[2] * s];
+const dot = (a, b) => a[0] * b[0] + a[1] * b[1] + a[2] * b[2];
+const cross = (a, b) => [a[1] * b[2] - a[2] * b[1], a[2] * b[0] - a[0] * b[2], a[0] * b[1] - a[1] * b[0]];
+const len = (a) => Math.hypot(a[0], a[1], a[2]);
+const unit = (a) => mul(a, 1 / len(a));
+const rotate = (v, k, a) => { // Rodrigues: v turned by angle a about unit axis k
+  const c = Math.cos(a), s = Math.sin(a);
+  return add(add(mul(v, c), mul(cross(k, v), s)), mul(k, dot(k, v) * (1 - c)));
+};
+const angleBetween = (a, b) => Math.acos(Math.max(-1, Math.min(1, dot(unit(a), unit(b)))));
+
+const COLUMN = [1.30, 0.05, 1.05], COLUMN_R = 0.16;
+const ACTIONS = {
+  chop:   { pivot: [0.12, 0.00, 1.40], dWind: [-0.34, 0.00, 0.94], contact: [0.92, 0.02, 1.06] },
+  side:   { pivot: [0.10, 0.00, 1.16], dWind: [-0.15, -0.96, 0.05], contact: [0.90, 0.02, 1.16] },
+  rising: { pivot: [0.08, 0.00, 0.92], dWind: [-0.30, 0.00, -0.90], contact: [0.90, 0.02, 1.32] },
+};
+const RIG = { R_GRIP: 0.52, R_TIP: 1.42, T_IMPACT: 0.25, ACCEL_K: 2.5 };
+const DENSITY = 0.45, DT_STILL = 0.018;
+
+// The motion. Note what it takes: an action and a rig. No gain.
+function solveMotion(action, rig = RIG) {
+  const A = ACTIONS[action] || action;
+  const P = A.pivot, C = A.contact, dWind = unit(A.dWind), dImp = unit(sub(C, P));
+  const axis = unit(cross(dWind, dImp)), dTheta = angleBetween(dWind, dImp), Rc = len(sub(C, P));
+  const { R_GRIP, R_TIP, T_IMPACT, ACCEL_K } = rig;
+  const bladeDir = (u) => rotate(dWind, axis, dTheta * Math.pow(u, ACCEL_K));
+  const omega = (u) => dTheta * ACCEL_K * Math.pow(Math.max(u, 1e-6), ACCEL_K - 1) / T_IMPACT;
+  const vel = (r, u) => cross(mul(axis, omega(u)), sub(r, P));
+  const vC = vel(C, 1);
+  return { P, C, dWind, dImp, axis, dTheta, Rc, rig, bladeDir, omega, vel, vC,
+           omegaPeak: omega(1), tip: omega(1) * R_TIP };
+}
+
+// A small seeded generator (mulberry32) and a normal draw; numpy's stream is not reproduced,
+// so single shards differ from the render while their statistics match.
+function rng(seed) {
+  let s = seed >>> 0;
+  const next = () => { s = (s + 0x6D2B79F5) >>> 0; let t = s; t = Math.imul(t ^ (t >>> 15), t | 1);
+    t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; };
+  const uniform = (a, b) => a + (b - a) * next();
+  const normal = (m, sd) => m + sd * Math.sqrt(-2 * Math.log(1 - next())) * Math.cos(2 * Math.PI * next());
+  return { uniform, normal };
+}
+
+// The consequences: the tool's debris block (spray = arc, its locked look), sampled `now` seconds after impact.
+// The gain reaches only here: count, spread, streak.
+function consequences(M, gain, now = DT_STILL, seed = 8) {
+  const R = rng(seed), gS = gain, gC = gain, gK = gain;
+  const vd = unit(M.vC), vm = len(M.vC), tangent = M.axis, perp = unit(cross(vd, M.axis));
+  const OUTN = unit(sub(M.C, COLUMN)), bdir = M.dImp;
+  const shards = [], wake = [];
+  const NSH = Math.max(6, Math.floor(40 * gC * DENSITY));
+  for (let i = 0; i < NSH; i++) {
+    const burst = unit(add(add(vd, mul(OUTN, 0.20)), [0, 0, R.uniform(-0.05, 0.15)]));
+    const dir = unit(add(burst, mul(add(mul(tangent, R.normal(0, 0.4)), mul(perp, R.normal(0, 0.4))), gS)));
+    const speed = vm * R.uniform(0.5, 1.4);
+    const origin = add(add(M.C, mul(bdir, R.uniform(-0.14, 0.05))), [R.normal(0, 0.025), R.normal(0, 0.025), R.normal(0, 0.025)]);
+    const flight = speed * now * gK * R.uniform(0.6, 1.7);
+    shards.push({ origin, dir, speed, flight, pos: add(origin, mul(dir, flight)), size: R.uniform(0.02, 0.06) });
+  }
+  const NW = Math.max(20, Math.floor(180 * gC * DENSITY));
+  for (let k = 0; k < NW; k++) {
+    const u = R.uniform(0.2, 1.0), base = add(M.P, mul(M.bladeDir(u), R.uniform(M.rig.R_GRIP, M.rig.R_TIP)));
+    const age = (1 - u) * M.rig.T_IMPACT + now, spread = (0.02 + 0.14 * age) * gS;
+    const kick = mul(M.vel(base, u), age * 0.010 * gK);
+    const jitter = [R.normal(0, spread), R.normal(0, spread), R.normal(0, spread)];
+    wake.push({ base, u, kick, pos: add(add(base, kick), jitter) });
+  }
+  const mean = (xs) => xs.reduce((a, b) => a + b, 0) / xs.length;
+  const meanDir = shards.reduce((a, s) => add(a, s.dir), [0, 0, 0]).map((x) => x / shards.length);
+  return { gain, now, shards, wake,
+    stats: { shards: NSH, wake: NW, flight: mean(shards.map((s) => s.flight)), streak: mean(wake.map((w) => len(w.kick))),
+             offAxisDeg: angleBetween(meanDir, M.vC) * 180 / Math.PI, coherence: len(meanDir) } };
+}
+
+// The guide: one swoosh along the arc at the contact radius, angle-uniform over 10% to 90% of the swing (the tool's GU0, GU1).
+function guide(M, n = 40) {
+  const pts = [];
+  for (let i = 0; i < n; i++) { const a = (0.10 + 0.80 * i / (n - 1)) * M.dTheta; pts.push(add(M.P, mul(rotate(M.dWind, M.axis, a), M.Rc))); }
+  return pts;
+}
+
+// The tool's own scene, built in Blender 5.1.2 on 2026-11-03 by the bundle's 'The Aftermath Frame — rich — tool check.py':
+// the posed right hand the sword is drawn from, the drawn sword (hand to contact + 5 cm), the kerf the wound is cut with
+// (the drawn sword widened and run 0.7 m on), and the first moment the model's blade is inside the column.
+const POSED = {"chop": {"grip": [0.62, -0.05, 1.0], "swordLen": 0.3638, "swordEndGap": 0.1727, "swordVsModelDeg": 35.92, "kerfLen": 1.0638, "firstInWood": {"u": 0.7894, "ms": 197.3, "turnedDeg": 73.6, "r": 1.267}}, "side": {"grip": [0.6, -0.11, 1.14], "swordLen": 0.3776, "swordEndGap": 0.1944, "swordVsModelDeg": 22.26, "kerfLen": 1.0776, "firstInWood": {"u": 0.9727, "ms": 243.2, "turnedDeg": 93.6, "r": 1.186}}, "rising": {"grip": [0.6, -0.05, 1.16], "swordLen": 0.3971, "swordEndGap": 0.1973, "swordVsModelDeg": 10.58, "kerfLen": 1.0971, "firstInWood": {"u": 0.7559, "ms": 189.0, "turnedDeg": 66.8, "r": 1.42}}};
+const COLUMN_Z = [-0.05, 2.15];
+const POST = { c: COLUMN, r: COLUMN_R, z: COLUMN_Z };   // the tool's column: 0.16 m radius, 2.2 m tall
+const inColumn = (p, col = POST) => Math.hypot(p[0] - col.c[0], p[1] - col.c[1]) < col.r && p[2] > col.z[0] && p[2] < col.z[1];
+const toSurface = (p, col = POST) => Math.hypot(p[0] - col.c[0], p[1] - col.c[1]) - col.r;
+// Where does the rigid blade (grip to tip) first meet the wood? Scanned at 1/4000 of the swing and 1/200 of the blade.
+// Rule: pass only if nothing of the blade is inside the column before impact (u = 1) and the contact sits on the surface (within 1 cm).
+function woodCheck(action, rig = RIG, col = POST) {
+  const M = solveMotion(action, rig);
+  let first = null;
+  for (let i = 0; i <= 4000 && !first; i++) { const u = i / 4000, d = M.bladeDir(u);
+    for (let j = 0; j <= 200; j++) { const r = rig.R_GRIP + (rig.R_TIP - rig.R_GRIP) * j / 200, p = add(M.P, mul(d, r));
+      if (inColumn(p, col)) { first = { u, r, p, ms: u * rig.T_IMPACT * 1000, turnedDeg: M.dTheta * Math.pow(u, rig.ACCEL_K) * 180 / Math.PI }; break; } } }
+  let rIn = null; for (let j = 0; j <= 2000; j++) { const r = rig.R_TIP * j / 2000; if (inColumn(add(M.P, mul(M.dImp, r)), col)) { rIn = r; break; } }
+  const contactGap = toSurface(M.C, col);
+  return { M, col, first, contactGap, rIn, speedAtWood: rIn === null ? null : M.omegaPeak * rIn,
+           pass: (!first || first.u >= 0.999) && Math.abs(contactGap) <= 0.01 };
+}
+// The control, built so the rule can pass: the chop's blade ending at the contact, against a stump whose near top edge is the contact.
+function woodControl() {
+  const M = solveMotion('chop'), h = unit([M.dImp[0], M.dImp[1], 0]);
+  const col = { c: add(M.C, mul(h, COLUMN_R + 0.002)), r: COLUMN_R, z: [-0.05, M.C[2] - 0.002] };
+  return woodCheck('chop', { ...RIG, R_TIP: M.Rc }, col);
+}
+
+// One frame. `leak` is the null: the gain wired into the swing's speed, the way a naive "impossibly fast" would be.
+function frame(action, gain, { now = DT_STILL, leak = false, seed = 8 } = {}) {
+  const rig = leak ? { ...RIG, T_IMPACT: RIG.T_IMPACT / gain } : RIG;
+  const M = solveMotion(action, rig);
+  return { motion: M, cons: consequences(M, gain, now, seed) };
+}
+
+// The check, rule stated before it runs: PASS only if the swing's angle, peak omega, tip speed and every component of
+// v_c are bit-for-bit equal at gain 1 and gain 10, AND the shard count and the mean streak both grew.
+function gainCheck(action, { leak = false, lo = 1, hi = 10 } = {}) {
+  const a = frame(action, lo, { leak }), b = frame(action, hi, { leak });
+  const keys = ['dTheta', 'omegaPeak', 'tip'];
+  const motionSame = keys.every((k) => a.motion[k] === b.motion[k]) && a.motion.vC.every((x, i) => x === b.motion.vC[i]);
+  const dv = Math.max(...a.motion.vC.map((x, i) => Math.abs(x - b.motion.vC[i])));
+  const countUp = b.cons.stats.shards > a.cons.stats.shards, streakUp = b.cons.stats.streak > a.cons.stats.streak;
+  return { action, leak, lo: a, hi: b, motionSame, dv, countUp, streakUp, pass: motionSame && countUp && streakUp };
+}
+
+// The page's figures, and the rule they're held to: each derived value must round to the page's figure.
+const PAGE = { dThetaDeg: 133, omega: 23, tip: 33 };
+const S9 = { chop: [133, 23.2, 32.9], side: [100, 17.5, 24.9], rising: [134, 23.5, 33.3] }; // session-9 report's table
+function pageCheck(rig = RIG) {
+  const M = solveMotion('chop', rig), deg = M.dTheta * 180 / Math.PI;
+  const rows = [['Δθ', deg, PAGE.dThetaDeg, '°'], ['ω at impact', M.omegaPeak, PAGE.omega, 'rad/s'], ['tip speed', M.tip, PAGE.tip, 'm/s']]
+    .map(([name, got, page, unitName]) => ({ name, got, page, unitName, pass: Math.round(got) === page }));
+  return { M, rows, pass: rows.every((r) => r.pass) };
+}
+</script>
+<script>
+// Drawing: the swing seen face-on to its plane. Chop and rising are seen from the side (forward right, up up);
+// the side slash from above (forward right, the swinger's right up).
+const C_ = { ink: '#1a1916', ink3: '#6a6862', rule: '#b8b09a', soft: '#cfc9b6', slab: '#d8d4c6', shade: '#b9b4a3',
+  derived: '#2b5fb0', gain: '#a8730a', measure: '#c8261a', ok: '#3a7d2c', ground: '#e6e3d7' };
+const VIEWS = { chop: 'side', rising: 'side', side: 'top' };
+const flat = (v, view) => view === 'top' ? [v[0], -v[1]] : [v[0], v[2]];
+function makeView(canvas, action, M, box) {
+  const view = VIEWS[action];
+  const dpr = window.devicePixelRatio || 1, W = canvas.clientWidth, H = Math.round(W * (box.h || 0.78));
+  canvas.width = Math.round(W * dpr); canvas.height = Math.round(H * dpr); canvas.style.height = H + 'px';
+  const g = canvas.getContext('2d'); g.setTransform(dpr, 0, 0, dpr, 0, 0); g.clearRect(0, 0, W, H);
+  const pts = [];
+  for (let i = 0; i <= 24; i++) pts.push(flat(add(M.P, mul(rotate(M.dWind, M.axis, M.dTheta * i / 24), M.rig.R_TIP)), view));
+  pts.push(flat(M.P, view), flat(COLUMN, view));
+  let x0 = Math.min(...pts.map((p) => p[0])) - 0.25, x1 = Math.max(...pts.map((p) => p[0])) + 0.45;
+  let y0 = Math.min(...pts.map((p) => p[1])) - 0.25, y1 = Math.max(...pts.map((p) => p[1])) + 0.2;
+  const s = Math.min(W / (x1 - x0), H / (y1 - y0)), ox = (W - s * (x1 - x0)) / 2, oy = (H - s * (y1 - y0)) / 2;
+  const P = (v) => { const f = flat(v, view); return [ox + (f[0] - x0) * s, H - oy - (f[1] - y0) * s]; };
+  return { g, W, H, s, P, view, x0, x1, y0, y1, ox, oy };
+}
+function line(g, a, b, color, w = 1.5, dash) { g.save(); g.strokeStyle = color; g.lineWidth = w; if (dash) g.setLineDash(dash); g.beginPath(); g.moveTo(a[0], a[1]); g.lineTo(b[0], b[1]); g.stroke(); g.restore(); }
+function dot2(g, p, r, color) { g.fillStyle = color; g.beginPath(); g.arc(p[0], p[1], r, 0, 2 * Math.PI); g.fill(); }
+function arrow(g, a, b, color, w = 2, head = 9) {
+  line(g, a, b, color, w); const ang = Math.atan2(b[1] - a[1], b[0] - a[0]);
+  g.fillStyle = color; g.beginPath(); g.moveTo(b[0], b[1]);
+  g.lineTo(b[0] - head * Math.cos(ang - 0.4), b[1] - head * Math.sin(ang - 0.4)); g.lineTo(b[0] - head * Math.cos(ang + 0.4), b[1] - head * Math.sin(ang + 0.4)); g.closePath(); g.fill();
+}
+function label(g, p, text, color, dx = 8, dy = -8, align = 'left') { g.font = '11px "JetBrains Mono", monospace'; g.fillStyle = color; g.textAlign = align; g.fillText(text, p[0] + dx, p[1] + dy); g.textAlign = 'left'; }
+function drawColumn(V, M, wound) {
+  const { g, P, s, view } = V;
+  g.fillStyle = C_.slab; g.strokeStyle = C_.shade; g.lineWidth = 1;
+  if (view === 'side') {
+    const a = P([COLUMN[0] - COLUMN_R, 0, COLUMN[2] + 1.1]), b = P([COLUMN[0] + COLUMN_R, 0, COLUMN[2] - 1.1]);
+    g.fillRect(a[0], a[1], b[0] - a[0], b[1] - a[1]); g.strokeRect(a[0], a[1], b[0] - a[0], b[1] - a[1]);
+  } else { const c = P(COLUMN); g.beginPath(); g.arc(c[0], c[1], COLUMN_R * s, 0, 2 * Math.PI); g.fill(); g.stroke(); }
+  if (wound && wound.grip) { // the tool's kerf: the drawn sword (from the posed hand), widened and run 0.7 m on, clipped to the wood
+    const bd = unit(sub(M.C, wound.grip)), pts = [];
+    for (let i = 0; i <= 200; i++) { const p = add(wound.grip, mul(bd, wound.kerfLen * i / 200)); if (inColumn(p)) pts.push(P(p)); }
+    if (pts.length > 1) { line(g, pts[0], pts[pts.length - 1], C_.ink, Math.max(3, 0.05 * s)); label(g, pts[pts.length - 1], 'wound', C_.ink3, 6, 14); }
+  }
+}
+function drawBlade(V, M, dir, color = C_.ink, ghost = false) {
+  const { g, P } = V, grip = add(M.P, mul(dir, M.rig.R_GRIP)), tip = add(M.P, mul(dir, M.rig.R_TIP));
+  line(g, P(M.P), P(grip), ghost ? C_.soft : C_.ink3, ghost ? 1 : 1.2, [3, 3]);
+  line(g, P(grip), P(tip), ghost ? C_.soft : color, ghost ? 1.5 : 3);
+  if (!ghost) dot2(g, P(grip), 3.5, color);
+}
+function drawPivot(V, M) { dot2(V.g, V.P(M.P), 5, C_.ink); label(V.g, V.P(M.P), 'pivot', C_.ink3, -8, -10, 'right'); }
+function plot(canvas, fx, t, tMax, yMax, color, yLabel, hLine) {
+  const dpr = window.devicePixelRatio || 1, W = canvas.clientWidth, H = 110;
+  canvas.width = Math.round(W * dpr); canvas.height = Math.round(H * dpr); canvas.style.height = H + 'px';
+  const g = canvas.getContext('2d'); g.setTransform(dpr, 0, 0, dpr, 0, 0); g.clearRect(0, 0, W, H);
+  const L = 34, R = 8, T = 10, B = 20, X = (x) => L + (W - L - R) * x / tMax, Y = (y) => H - B - (H - T - B) * y / yMax;
+  g.strokeStyle = C_.rule; g.lineWidth = 1; g.beginPath(); g.moveTo(L, T); g.lineTo(L, H - B); g.lineTo(W - R, H - B); g.stroke();
+  g.font = '10px "JetBrains Mono", monospace'; g.fillStyle = C_.ink3; g.fillText(yLabel, L + 4, T + 8); g.fillText('t →', W - R - 22, H - 6); g.fillText('0', L - 12, H - B + 3);
+  if (hLine !== undefined) line(g, [L, Y(hLine)], [W - R, Y(hLine)], C_.soft, 1, [3, 3]);
+  g.strokeStyle = color; g.lineWidth = 1.8; g.beginPath();
+  for (let i = 0; i <= 120; i++) { const x = tMax * i / 120, y = fx(x); i ? g.lineTo(X(x), Y(y)) : g.moveTo(X(x), Y(y)); } g.stroke();
+  if (t !== undefined) { dot2(g, [X(t), Y(fx(t))], 4, C_.measure); line(g, [X(t), H - B], [X(t), Y(fx(t))], C_.measure, 1, [2, 3]); }
+}
+const f = (x, d = 2) => (Math.abs(x) < 1e-12 ? 0 : x).toFixed(d);
+const vec = (v, d = 2) => '(' + v.map((x) => f(x, d)).join(', ') + ')';
+// The impact tool's own model code (impact_tool.py, its header through the punch dial), run in Blender 5.1.2 with mathutils on 2026-11-03
+// by the bundle's 'The Aftermath Frame — rich — tool check.py' (part 1). Baked in: a public face can't run Blender.
+const TOOL_RUN = [{"leak": false, "punch": 0.0, "gains": [0.6, 0.6, 0.8], "omega": 23.194828, "tip": 32.936656, "vc": [-7.877399445, -0.431027532, -18.560409546], "shards": 10, "wake": 48}, {"leak": false, "punch": 1.0, "gains": [2.6, 3.2, 3.2], "omega": 23.194828, "tip": 32.936656, "vc": [-7.877399445, -0.431027532, -18.560409546], "shards": 57, "wake": 259}, {"leak": false, "punch": 3.9, "gains": [8.4, 10.74, 10.16], "omega": 23.194828, "tip": 32.936656, "vc": [-7.877399445, -0.431027532, -18.560409546], "shards": 193, "wake": 869}, {"leak": true, "punch": 0.0, "gains": [0.6, 0.6, 0.8], "omega": 18.555862, "tip": 26.349325, "vc": [-6.30191946, -0.344822049, -14.84832859], "shards": 10, "wake": 48}, {"leak": true, "punch": 1.0, "gains": [2.6, 3.2, 3.2], "omega": 74.22345, "tip": 105.397299, "vc": [-25.207677841, -1.379288197, -59.393314362], "shards": 57, "wake": 259}, {"leak": true, "punch": 3.9, "gains": [8.4, 10.74, 10.16], "omega": 235.659453, "tip": 334.636423, "vc": [-80.034378052, -4.379240036, -188.573776245], "shards": 193, "wake": 869}];
+const st = { step: 0, action: 'chop', now: DT_STILL, gain: 1, leak: false, ran: null };
+const STEPS = [
+  { name: '1 · one arrow', h: 'One arrow',
+    p: 'At the instant of contact the swing comes down to one vector: the velocity of the blade where it meets the column. It is derived from the rotation (the section above), and it is the only thing about the motion the consequences are allowed to read. (Whether the authored contact sits on the wood is the section above\'s test; here the contact is taken as the tool takes it, and the wound is drawn where the tool cuts it.)',
+    eq: [['v_c = ω_impact · n̂ × (r_contact − pivot)', 'the contact velocity = the turning rate at impact, along the rotation axis, crossed with the contact\'s offset from the pivot.']] },
+  { name: '2 · shards', h: 'The shards take their direction from it',
+    p: 'Each shard leaves the wound along v_c, nudged a little by the wound\'s outward face and a small lift, at a speed between half and one and a half times |v_c|. Scrub "now": the frame is these shards sampled a few milliseconds after impact. The gain is still 1.',
+    eq: [['d = unit(v̂_c + 0.2 · n̂_wound + lift),  speed = |v_c| · U(0.5, 1.4)', 'a shard\'s direction = mostly the contact velocity\'s direction, a fifth of the wound\'s outward normal, a little lift; its speed = the contact speed × a random factor between 0.5 and 1.4.']] },
+  { name: '3 · the air', h: 'The air remembers the path',
+    p: 'Dust is seeded along the blade\'s swept path, each mote kicked along the velocity the blade had where it passed, and spread by how long ago that was. The black swoosh is the swing\'s own arc. None of it is drawn by hand: change the swing and all of it re-aims.',
+    eq: [['kick = v(r, u) · age · 0.010,  age = (1 − u) · T + now', 'a mote\'s streak = the blade\'s velocity where and when it passed × how long ago that was × a small constant.']] },
+  { name: '4 · the gain', h: 'Turn up the comic gain',
+    p: 'Comics are super-physical. The gain multiplies three things: how many shards and motes, how wide the spray cone, how long the streaks. Watch the blue numbers while you drag it.',
+    eq: [['N = 40 · g · 0.45,   cone × g,   streak × g', 'shard count, spray width and streak length each grow with the gain g (the tool\'s "punch" dial sets three such gains, from 0.6 to 3.4).']] },
+  { name: '5 · the test', h: 'Can the gain reach the motion?',
+    p: 'Run the whole frame, swing and debris, at gain 1 and at gain 10, and compare. Then turn on the null, which wires the gain into the swing\'s speed the way a naive "impossibly fast" would, and run it again.',
+    eq: [] },
+];
+const $ = (id) => document.getElementById(id);
+function ctl(id, label, min, max, step, val, cls = '') {
+  return `<label class="ctl" for="${id}">${label} <b id="${id}-v"></b></label><input id="${id}" class="${cls}" type="range" min="${min}" max="${max}" step="${step}" value="${val}">`;
+}
+function buildSteps() {
+  $('steps').innerHTML = STEPS.map((s, i) => `<button data-i="${i}" class="${i === st.step ? 'on' : ''}">${s.name}</button>`).join('');
+  $('steps').querySelectorAll('button').forEach((b) => b.onclick = () => { st.step = +b.dataset.i; buildSteps(); buildPanel(); });
+  $('acts').innerHTML = Object.keys(ACTIONS).map((a) => `<button data-a="${a}" class="${a === st.action ? 'on' : ''}">${a}</button>`).join('');
+  $('acts').querySelectorAll('button').forEach((b) => b.onclick = () => { st.action = b.dataset.a; st.ran = null; buildSteps(); buildPanel(); });
+}
+function buildPanel() {
+  const S = STEPS[st.step];
+  $('sh').textContent = S.h; $('sp').textContent = S.p;
+  $('eq').innerHTML = S.eq.map(([a, b]) => `<div class="sym">${a}</div><div class="words">${b}</div>`).join(''); $('eq').classList.toggle('hidden', !S.eq.length);
+  if (st.step < 3) st.gain = 1;
+  let h = '';
+  if (st.step >= 1 && st.step <= 3) h += ctl('nw', 'now, after impact', 0, 0.04, 0.0005, st.now);
+  if (st.step === 3) h += ctl('gn', 'comic gain g', 1, 10, 0.1, st.gain, 'gain');
+  if (st.step === 4) h += `<label class="tog"><input type="checkbox" id="lk" ${st.leak ? 'checked' : ''}> <span><b>the null:</b> wire the gain into the swing's speed (time to impact ÷ g)</span></label><div><button class="act" id="run">run the check</button></div>`;
+  $('ctls').innerHTML = h;
+  const bind = (id, fn) => { const e = $(id); if (e) e.oninput = () => { fn(+e.value); draw(); }; };
+  bind('nw', (v) => st.now = v); bind('gn', (v) => st.gain = v);
+  if ($('lk')) $('lk').onchange = (e) => { st.leak = e.target.checked; st.ran = null; draw(); $('result').classList.add('hidden'); };
+  if ($('run')) $('run').onclick = runCheck;
+  if (st.step !== 4) { $('result').classList.add('hidden'); st.ran = null; }
+  draw();
+}
+function scene(cv, action, gain, opts, vl, tag) {
+  const F = frame(action, gain, opts), M = F.motion, K = F.cons;
+  // draw in the honest frame's box, so a leaked swing is seen against the real one
+  const V = makeView(cv, action, solveMotion(action), { h: 0.74 }); const { g, P, s } = V;
+  vl.textContent = (V.view === 'top' ? 'seen from above' : 'seen from the side') + ' · ' + action + (tag ? ' · ' + tag : '');
+  drawColumn(V, M, POSED[action]);
+  const show = opts.layers;
+  if (show.air) {
+    const gp = guide(M).map(P); g.strokeStyle = C_.ink; g.lineWidth = 4; g.lineCap = 'round'; g.beginPath(); gp.forEach((p, i) => i ? g.lineTo(p[0], p[1]) : g.moveTo(p[0], p[1])); g.stroke(); g.lineCap = 'butt';
+    for (const w of K.wake) { const a = P(w.pos), b = P(sub(w.pos, w.kick)); line(g, b, a, 'rgba(58,58,53,.55)', 1); dot2(g, a, 1.6, C_.ink3); }
+  }
+  drawBlade(V, M, M.dImp, C_.ink);
+  const tipIn = P(add(M.P, mul(M.dImp, M.rig.R_TIP))); line(g, P(M.C), tipIn, C_.soft, 3);
+  if (show.shards) for (const sh of K.shards) {
+    const a = P(sh.pos), o = P(sh.origin); line(g, o, a, 'rgba(168,115,10,.25)', 1);
+    const r = Math.max(2, sh.size * s * 0.6); g.save(); g.translate(a[0], a[1]); g.rotate(sh.size * 97); g.fillStyle = C_.gain; g.fillRect(-r / 2, -r / 2, r, r * 0.7); g.restore();
+  }
+  drawPivot(V, M);
+  const c = P(M.C), SC = 0.02; arrow(g, c, P(add(M.C, mul(M.vC, SC))), C_.derived, 2.6, 10);
+  label(g, P(add(M.C, mul(M.vC, SC))), 'v_c ' + f(len(M.vC), 1) + ' m/s', C_.derived, 8, 4);
+  return F;
+}
+function draw() {
+  const layers = { shards: st.step >= 1, air: st.step >= 2 };
+  if ($('nw')) $('nw-v').textContent = f(st.now * 1000, 1) + ' ms';
+  if ($('gn')) $('gn-v').textContent = f(st.gain, 1);
+  const two = st.step === 4;
+  $('view2').classList.toggle('hidden', !two);
+  const g1 = two ? 1 : st.gain;
+  const F = scene($('cv'), st.action, g1, { now: st.now, leak: two && st.leak, layers }, $('vlabel'), two ? 'gain 1' : st.step >= 3 ? 'gain ' + f(st.gain, 1) : '');
+  let F2 = null;
+  if (two) F2 = scene($('cv2'), st.action, 10, { now: st.now, leak: st.leak, layers }, $('vlabel2'), 'gain 10' + (st.leak ? ' · the null' : ''));
+  const M = F.motion, K = F.cons.stats;
+  let r = `<span>v_c <b class="d">${vec(M.vC, 3)}</b> m/s</span><br><span>|v_c| <b class="d">${f(len(M.vC), 2)}</b> · ω <b class="d">${f(M.omegaPeak, 2)}</b> rad/s · tip <b class="d">${f(M.tip, 2)}</b> m/s</span>`;
+  if (st.step >= 1 && !two) r += `<br><span>shards <b class="g">${K.shards}</b> · mean flight <b class="g">${f(K.flight * 100, 1)} cm</b></span>`;
+  if (st.step >= 2 && !two) r += `<br><span>motes <b class="g">${K.wake}</b> · mean streak <b class="g">${f(K.streak * 1000, 1)} mm</b></span>`;
+  if (st.step >= 1 && !two) r += `<br><span>spray points one way: <b class="g">${f(K.coherence, 2)}</b> (1 = all shards parallel, 0 = no direction)</span>`;
+  if (two) r += `<br><span>left: gain 1 · right: gain 10, same "now"</span>`;
+  $('read').innerHTML = r;
+}
+function runCheck() {
+  const c = gainCheck(st.action, { leak: st.leak }), A = c.lo, B = c.hi;
+  const row = (name, a, b, cls = 'd', d = 6) => `<tr><td>${name}</td><td class="n ${cls}">${a}</td><td class="n ${cls}">${b}</td></tr>`;
+  const vcs = (M) => M.vC.map((x) => f(x, 6)).join('<br>');
+  const tool = TOOL_RUN.filter((r) => r.leak === st.leak).map((r) => `<tr><td class="n">${f(r.punch, 1)}</td><td class="n">${r.gains.join(' · ')}</td><td class="n">${r.vc.map((x) => f(x, 6)).join(', ')}</td><td class="n">${f(r.omega, 3)}</td><td class="n">${r.shards} · ${r.wake}</td></tr>`).join('');
+  const toolSame = (() => { const rs = TOOL_RUN.filter((r) => r.leak === st.leak); return rs.every((r) => r.vc.every((x, i) => x === rs[0].vc[i])); })();
+  $('result').innerHTML = `
+    <div class="rule"><b>The rule, set before the run.</b> Pass only if the swing's angle, its turning rate at impact, its tip speed and all three components of v_c are bit-for-bit the same at gain 1 and gain 10, <i>and</i> the shard count and the mean streak both grew. Any difference in the motion, however small, fails. The null is there to prove the check can fail.</div>
+    <table class="t"><tr><th>${st.action}${st.leak ? ' · the null' : ''}</th><th>gain 1</th><th>gain 10</th></tr>
+      ${row('v_c (m/s)', vcs(A.motion), vcs(B.motion))}
+      ${row('ω at impact (rad/s)', f(A.motion.omegaPeak, 6), f(B.motion.omegaPeak, 6))}
+      ${row('tip speed (m/s)', f(A.motion.tip, 6), f(B.motion.tip, 6))}
+      ${row('Δθ (°)', f(A.motion.dTheta * 180 / Math.PI, 6), f(B.motion.dTheta * 180 / Math.PI, 6))}
+      ${row('shards · motes', A.cons.stats.shards + ' · ' + A.cons.stats.wake, B.cons.stats.shards + ' · ' + B.cons.stats.wake, 'g')}
+      ${row('mean streak (mm)', f(A.cons.stats.streak * 1000, 2), f(B.cons.stats.streak * 1000, 2), 'g')}
+      ${row('mean shard flight (cm)', f(A.cons.stats.flight * 100, 1), f(B.cons.stats.flight * 100, 1), 'g')}
+    </table>
+    <div class="verdict">${c.pass ? '<span class="pass">Pass.</span> The largest difference in v_c is ' + f(c.dv, 0) + ' m/s; count and streaks grew tenfold.' : '<span class="fail">Fail.</span> v_c moved by up to ' + f(c.dv, 2) + ' m/s: the gain reached the motion.'}</div>
+    <p class="note">${st.leak ? 'With the gain wired into the swing\'s speed, the arrow is ten times longer at gain 10, and the shards fly ten times farther than an honest gain 10 sends them, most of them out of the frame. Nothing in the debris code changed; the leak is one line upstream of it.' : 'This holds by construction: the swing is solved before the gain exists, and nothing downstream writes back. The check is there to catch the day someone wires "impossibly fast" into the swing; turn on the null to see it catch that.'}</p>
+    <h5>The same check on the tool itself${st.leak ? ', with the same leak written into a copy' : ''} · Blender 5.1.2 · chop</h5>
+    <table class="t"><tr><th>punch</th><th>gains: spread · count · streak</th><th>v_c (m/s)</th><th>ω</th><th>shards · motes</th></tr>${tool}</table>
+    <p class="note">The impact tool's own model code (its header through the punch dial) run in Blender's Python at punch 0, 1 and 3.9; 3.9 is past the dial's 0 to 1 range, chosen to bring the gains near 10. ${toolSame ? '<span class="pass">v_c is identical in every row</span>: the tool\'s dial cannot reach its motion.' : '<span class="fail">v_c differs between rows</span>: in this copy the leak reaches the motion, as it should, so the check can fail on the tool too.'} Blender's vectors are single precision, so they agree with this page's double-precision port to five figures, not every digit.</p>
+    <h5>What the gain does change: whether the spray still points</h5>
+    <p class="note">The gain never touches the motion, but it can hide it. How much the shards point one way (the length of their mean direction) falls from <b>${f(A.cons.stats.coherence, 2)}</b> at gain 1 to <b>${f(B.cons.stats.coherence, 2)}</b> at gain 10. Drawn 200,000 at a time from the tool's own formulas: 0.89 at gain 1, 0.75 at the tool's heroic spread (1.8), 0.64 at its super (2.6), 0.26 at 10. A reader runs the swing backwards from the debris; at gain 10 there is little left to run it from. The spread also pulls the shards' mean a few degrees toward v_c (10.3° off it at gain 1, 6.6° at 10), since the cone opens across v_c and not around the burst.</p>`;
+  $('result').classList.remove('hidden');
+}
+buildSteps(); buildPanel();
+addEventListener('resize', draw);
+</script>
+</body>
+</html>

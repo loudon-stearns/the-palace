@@ -1,0 +1,123 @@
+{
+ "title": "The Aftermath Frame — rich",
+ "born": "2026-11-03",
+ "links": [
+  {
+   "target": "[[The Aftermath Frame]]",
+   "type": "connects-to",
+   "label": "rich-face-of"
+  },
+  {
+   "target": "[[Enrichment]]",
+   "type": "connects-to",
+   "label": "made-by"
+  },
+  {
+   "target": "[[BLUELINE]]",
+   "type": "connects-to",
+   "label": "the-proofs-gathered"
+  }
+ ],
+ "forward_vector": "I am the manifest of The Aftermath Frame's rich face, its first round at Study tier: the swing solver laid open up to a check of the page's numbers and of where its blade meets the wood, the comic gain made draggable up to a check that fails if the gain reaches the motion (run on a port and on BLUELINE's impact tool in Blender), and two of BLUELINE's proofs laid beside the lines they prove, with the fingerprint of the words each was made against. The grain is the page's own two ## sections. I grow when the page is rewritten or the tool changes; I never hold the entry's words.",
+ "entry": "The Aftermath Frame",
+ "tier": "study",
+ "made": "2026-11-03",
+ "round": 1,
+ "offers": [
+  {
+   "section": "The method — model the action as a rotation",
+   "kind": "claim-change",
+   "status": "open",
+   "what": "The numbers hold (the solver gives 132.897°, 23.195 rad/s, 32.937 m/s; the impact tool's own code in Blender agrees), but the chop they come from runs its blade through the column before the contact. With the solver's 1.42 m reach, the blade enters the top of the tool's column at 197 ms of the 250 ms swing, after 73.6° of 132.9°, and cuts down through it for the rest; the authored contact sits 22 cm in front of the wood, so v_c (20.2 m/s) is read in air, and where the impact-pose blade enters the wood it moves at 25.8 m/s. Rising enters at 189 ms (66.8° of 134.4°), side at 243 ms; both contacts are 24 cm off the wood. The drawn sword is another blade: 0.36 m from the posed hands, 36° off the model's, ending 17 cm short of the wood (all measured in the tool's own scene in Blender 5.1.2; a control built to pass, passes). A blade brought over the top at an upright post taller than its pivot meets it first at or above the pivot's height. Proposed, until the solver finds its contact instead of taking it: after the numbers, \"These assume a 1.42 m reach and an authored contact; in the proof the blade reaches the column before the contact does, and the drawn sword is shorter than the modelled one.\" Also seen: the rising cut's tip is below z = 0, where the tool plants the feet, until 190 ms."
+  },
+  {
+   "section": "The method — model the action as a rotation",
+   "kind": "no-claim-edit",
+   "status": "open",
+   "what": "Name what the figures rest on, and what is authored. The solver authors pivot, windup direction, contact, pivot-to-tip reach (1.42 m), time to impact (0.25 s) and the exponent of θ(t) = Δθ·(t/T)^k (2.5); the axis (d_windup × d_impact) and Δθ are derived, where the text lists the axis and θ(t) as authored. ω at impact is Δθ·k/T and the tip that × 1.42, so at T = 300 ms the page's 23 rad/s becomes 19.3. Proposed: \"(an overhead chop: pivot at the upper chest, 1.42 m to the tip, 0.25 s to impact — Δθ 133°, ω 23 rad/s, tip 33 m/s)\" and \"{pivot, windup direction, contact, θ(t) with a peak-at-impact ω, blade as a rigid body}; the axis and the amplitude are derived.\""
+  },
+  {
+   "section": "Real motion, amplified consequences",
+   "kind": "claim-change",
+   "status": "open",
+   "what": "\"a boolean wound removes material exactly where the blade passed\": in the tool (and session 10, whose report says \"the blade's swept volume\") the kerf is the drawn sword at its impact pose, widened to 0.11 × 0.05 m and run 0.7 m on (1.06 m long, from the posed hands), so it removes where the drawn sword lies at impact, not where the modelled blade passed; that blade passed through the column's top from 197 ms on and none of that path is cut (Blender, the tool's own scene). Proposed: \"a boolean wound removes a slot along the blade at the moment of impact, and the shards spray from that gash.\""
+  },
+  {
+   "section": "Real motion, amplified consequences",
+   "kind": "claim-change",
+   "status": "open",
+   "what": "An addition; the split itself held. The gain never reaches the motion: v_c is bit-identical at gain 1 and 10 on the port, and identical across the tool's punch 0, 1 and 3.9 in Blender, while a copy with the gain wired into time-to-impact fails both. But it can hide the motion: how much the shards point one way (length of their mean unit direction) is 0.89 at gain 1, 0.75 at the tool's heroic spread 1.8, 0.64 at super 2.6, 0.26 at 10, so the reader the page's first paragraph describes, running the swing backwards from the debris, has less to run it from. Proposed after \"never the motion\": \"— though spread can hide it: the wider the spray, the less it points back at the swing.\""
+  },
+  {
+   "section": "Real motion, amplified consequences",
+   "kind": "no-claim-edit",
+   "status": "open",
+   "what": "\"take their direction … from the real contact velocity\": the shards burst along v_c plus the wound's outward normal and a lift. In the tool's locked arc spray (0.2 × normal) the mean shard flies about 10° off v_c; in session 10's build, the impact proof the page names (1.5 × normal), about 47° off. And the spread gain moves that mean a few degrees toward v_c (10.3° at gain 1, 6.6° at 10), since the cone opens across v_c rather than around the burst. Proposed: \"from the real contact velocity and the wound's outward face\"."
+  }
+ ],
+ "sections": [
+  {
+   "heading": "The method — model the action as a rotation",
+   "made_against": "b3a1ffd3ff6b",
+   "made": "2026-11-03",
+   "stamped": "2026-11-03",
+   "status": "proposal",
+   "proposed": {
+    "date": "2026-11-03",
+    "by": "maker · claude-opus-5-5 · proposal round",
+    "round": "proposal-round-2026-11"
+   },
+   "pieces": [
+    {
+     "file": "The Aftermath Frame — rich — a swing is a rotation.html",
+     "origin": "made",
+     "by": "the impact tool's swing model, ported · checked against Blender",
+     "height": 1150,
+     "place": "band",
+     "near": "Real numbers fall out",
+     "title": "a swing is a rotation · five steps",
+     "caption": "**The page's numbers, derived and held to the page; then the question they take for granted.** One blade turning about one pivot, its angle on a schedule, its speed peaking at impact, every point's velocity. Last, two checks with their rules stated first: the chop gives 132.9°, 23.2 rad/s and 32.9 m/s, so the page's 133, 23 and 33 pass (move the time to impact and they fail); and the blade, at the solver's 1.42 m reach, is inside the column 53 ms before the authored contact, which sits 22 cm in front of the wood. A control built to pass, passes."
+    },
+    {
+     "file": "/Projects/BLUELINE/proofs/session-9-three-swings/out/s9_contact_sheet.png",
+     "origin": "gathered",
+     "title": "three swings, one solver · BLUELINE session 9",
+     "place": "band",
+     "near": "it generalizes to any action",
+     "caption": "Chop, side slash, rising cut: one solver, three authored vectors each (pivot, windup, contact). The rotation axis, the contact velocity and every consequence re-aim on their own: speed-lines down into the wound, across, and down behind a blade that came from below. Clay render, Blender 5.1.2."
+    }
+   ]
+  },
+  {
+   "heading": "Real motion, amplified consequences",
+   "made_against": "270c1ed0732e",
+   "made": "2026-11-03",
+   "stamped": "2026-11-03",
+   "status": "proposal",
+   "proposed": {
+    "date": "2026-11-03",
+    "by": "maker · claude-opus-5-5 · proposal round",
+    "round": "proposal-round-2026-11"
+   },
+   "pieces": [
+    {
+     "file": "The Aftermath Frame — rich — the gain and the motion.html",
+     "origin": "made",
+     "by": "the impact tool's debris block, ported · checked against Blender",
+     "height": 1250,
+     "place": "band",
+     "near": "scales only their count",
+     "title": "the gain and the motion · five steps",
+     "caption": "**Turn the comic gain to 10 and the swing does not move: tested, with a null that fails.** From the one arrow everything reads (v_c), to the shards and the air read from it, to a gain you can drag. Last, the whole frame at gain 1 and gain 10: v_c, ω and the tip are bit-identical while shards and streaks grow tenfold; wire the gain into the swing's speed and the same check fails. The tool itself, run in Blender, gives the same answer across its punch dial. What the gain does change: the wider the spray, the less it points back at the swing, about a quarter as much at gain 10."
+    },
+    {
+     "file": "/Projects/BLUELINE/proofs/session-10-impact/out/s10_impact.png",
+     "origin": "gathered",
+     "title": "the wound and the arc speed-lines · BLUELINE session 10",
+     "near": "The impact is real too",
+     "caption": "The boolean wound and the speed-lines traced along the swing's own arc, stopping short of the blade. The wound is a slot cut along the drawn sword at the moment of impact, widened and run on through the column; the shards are spawned from it. Clay render, Blender 5.1.2."
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,438 @@
+<!doctype html>
+<!--
+  title: The Aftermath Frame — rich — a swing is a rotation
+  born: 2026-11-03
+  links: [[The Aftermath Frame]] (connects-to · rich-face-piece) · listed in [[The Aftermath Frame — rich.json]] · ports Projects/BLUELINE/proofs/session-11-outline/impact_tool.py
+  forward_vector: I am the swing solver laid open: one blade turning about one pivot, its angle on a schedule, its speed peaking at impact, every point's velocity, and last two checks, that the page's 133°, 23 rad/s and 33 m/s are what the solver derives, and whether the contact they feed is where the blade meets the wood. I change when the section's numbers or the solver's authored chop do.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:needs" content="">
+<title>The Aftermath Frame — a swing is a rotation</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Manrope:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root { --ground:#f0eee5; --ground1:#e6e3d7; --ground2:#dcd9ca; --ink:#1a1916; --ink2:#3a3a35; --ink3:#6a6862; --rule:#b8b09a; --rule-soft:#cfc9b6;
+    --slab:#d8d4c6; --design:#1a1916; --derived:#2b5fb0; --gain:#a8730a; --measure:#c8261a; --ok:#3a7d2c;
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --sans:'Manrope',system-ui,sans-serif; --serif:'Cormorant Garamond',Georgia,serif; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--ground); color: var(--ink2); font-family: var(--sans); font-weight: 400; }
+  .piece { padding: 20px 22px 22px; }
+  .kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: var(--ink3); margin-bottom: 6px; }
+  .title { font-family: var(--serif); font-size: 28px; font-weight: 400; color: var(--ink); margin: 0 0 6px; }
+  .sub { font-size: 14px; line-height: 1.6; max-width: 76ch; margin: 0 0 14px; }
+  .legend { font-family: var(--mono); font-size: 11px; letter-spacing: .04em; color: var(--ink3); display: flex; flex-wrap: wrap; gap: 4px 18px; margin: 0 0 14px; }
+  .legend i { display: inline-block; width: 10px; height: 10px; margin-right: 6px; vertical-align: -1px; border-radius: 1px; }
+  .steps { display: flex; flex-wrap: wrap; gap: 0; margin-bottom: 14px; border: 1px solid var(--rule); border-radius: 2px; width: max-content; max-width: 100%; }
+  .steps button { font-family: var(--mono); font-size: 11px; letter-spacing: .08em; color: var(--ink3); background: transparent; border: 0; border-right: 1px solid var(--rule); padding: 8px 12px; cursor: pointer; }
+  .steps button:last-child { border-right: 0; }
+  .steps button.on { color: var(--ground); background: var(--ink); }
+  .steps button:hover:not(.on) { color: var(--ink); background: var(--ground1); }
+  .stage { display: grid; grid-template-columns: minmax(0, 1fr) minmax(260px, 340px); gap: 18px; align-items: start; }
+  .view { border: 1px solid var(--rule); border-radius: 2px; background: var(--ground1); position: relative; }
+  .view canvas { display: block; width: 100%; }
+  .vlabel { position: absolute; top: 8px; left: 10px; font-family: var(--mono); font-size: 10.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--ink3); pointer-events: none; }
+  .panel { border: 1px solid var(--rule); border-radius: 2px; background: var(--ground); padding: 12px 14px; }
+  .panel h4 { font-family: var(--serif); font-size: 21px; font-weight: 500; color: var(--ink); margin: 0 0 6px; }
+  .panel p { font-size: 13.5px; line-height: 1.55; margin: 0 0 10px; }
+  .ctl { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: .04em; color: var(--ink3); margin: 10px 0 2px; }
+  .ctl b { color: var(--ink); font-weight: 500; }
+  input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 2px; background: var(--rule); margin: 10px 0 4px; outline: none; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 13px; height: 13px; border-radius: 50%; background: var(--ink); cursor: pointer; }
+  input[type=range]::-moz-range-thumb { width: 13px; height: 13px; border: 0; border-radius: 50%; background: var(--ink); cursor: pointer; }
+  input.gain::-webkit-slider-thumb { background: var(--gain); } input.gain::-moz-range-thumb { background: var(--gain); }
+  .seg { display: inline-flex; margin: 2px 0 6px; } .seg button { font-family: var(--mono); font-size: 11px; letter-spacing: .06em; color: var(--ink3); background: transparent; border: 1px solid var(--rule); padding: 6px 10px; cursor: pointer; }
+  .seg button + button { border-left: 0; } .seg button.on { color: var(--ink); background: var(--ground2); }
+  button.act { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--ground); background: var(--ink); border: 1px solid var(--ink); border-radius: 2px; padding: 8px 13px; cursor: pointer; margin: 6px 8px 0 0; }
+  button.ghost { color: var(--ink2); background: transparent; border-color: var(--rule); }
+  label.tog { display: flex; gap: 8px; align-items: flex-start; font-size: 12.5px; line-height: 1.45; margin: 10px 0 4px; cursor: pointer; }
+  .read { font-family: var(--mono); font-size: 11.5px; line-height: 1.75; color: var(--ink3); margin-top: 10px; border-top: 1px solid var(--rule-soft); padding-top: 8px; }
+  .read b { color: var(--ink); font-weight: 500; } .read .d { color: var(--derived); } .read .g { color: var(--gain); }
+  .eq { margin-top: 12px; border-top: 1px solid var(--rule-soft); padding-top: 10px; }
+  .eq .sym { font-family: var(--serif); font-size: 18px; color: var(--ink); }
+  .eq .words { font-size: 12.5px; line-height: 1.5; color: var(--ink2); margin: 2px 0 8px; }
+  .result { margin-top: 16px; }
+  table.t { border-collapse: collapse; width: 100%; font-family: var(--mono); font-size: 11.5px; }
+  table.t th, table.t td { text-align: left; padding: 5px 8px; border-bottom: 1px solid var(--rule-soft); vertical-align: top; }
+  table.t th { font-weight: 500; color: var(--ink3); letter-spacing: .04em; font-size: 10.5px; }
+  table.t td.n { font-variant-numeric: tabular-nums; }
+  .pass { color: var(--ok); font-weight: 500; } .fail { color: var(--measure); font-weight: 500; }
+  .verdict { font-family: var(--serif); font-size: 21px; color: var(--ink); margin: 12px 0 4px; }
+  .note { font-size: 12.5px; line-height: 1.55; color: var(--ink2); max-width: 90ch; margin: 8px 0 0; }
+  .rule { font-size: 13px; line-height: 1.55; border-left: 2px solid var(--measure); padding: 2px 0 2px 10px; margin: 6px 0 10px; }
+  h5 { font-family: var(--mono); font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--ink3); margin: 18px 0 6px; font-weight: 500; }
+  .hidden { display: none !important; }
+  @media (max-width: 760px) { .stage { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="piece">
+  <div class="kicker">made · the swing solver, ported from BLUELINE · study</div>
+  <h3 class="title">A swing is a rotation</h3>
+  <p class="sub">Author a pivot and how the angle grows in time; everything else falls out. Five steps, from one blade turning about one point to a check of the three numbers the section gives for a chop: <b>133°</b>, <b>23 rad/s</b>, <b>33 m/s</b>.</p>
+  <div class="legend"><span><i style="background:#1a1916"></i>authored</span><span><i style="background:#2b5fb0"></i>derived</span><span><i style="background:#c8261a"></i>measured, or the check</span></div>
+  <div class="steps" id="steps"></div>
+  <div class="stage">
+    <div>
+      <div class="view"><canvas id="cv"></canvas><div class="vlabel" id="vlabel"></div></div>
+      <div class="view" id="plotbox" style="margin-top:10px"><canvas id="pl"></canvas></div>
+    </div>
+    <div class="panel">
+      <div class="seg" id="acts"></div>
+      <h4 id="sh"></h4>
+      <p id="sp"></p>
+      <div id="ctls"></div>
+      <div class="read" id="read"></div>
+      <div class="eq" id="eq"></div>
+    </div>
+  </div>
+  <div class="result hidden" id="result"></div>
+</div>
+<script id="engine">
+// The swing model of BLUELINE's impact tool (Projects/BLUELINE/proofs/session-11-outline/impact_tool.py),
+// ported line for line: author {pivot, windup direction, contact, reach, time to impact, accel exponent};
+// derive the axis, the amplitude, omega(t), every point's velocity and the contact velocity.
+const add = (a, b) => [a[0] + b[0], a[1] + b[1], a[2] + b[2]];
+const sub = (a, b) => [a[0] - b[0], a[1] - b[1], a[2] - b[2]];
+const mul = (a, s) => [a[0] * s, a[1] * s, a[2] * s];
+const dot = (a, b) => a[0] * b[0] + a[1] * b[1] + a[2] * b[2];
+const cross = (a, b) => [a[1] * b[2] - a[2] * b[1], a[2] * b[0] - a[0] * b[2], a[0] * b[1] - a[1] * b[0]];
+const len = (a) => Math.hypot(a[0], a[1], a[2]);
+const unit = (a) => mul(a, 1 / len(a));
+const rotate = (v, k, a) => { // Rodrigues: v turned by angle a about unit axis k
+  const c = Math.cos(a), s = Math.sin(a);
+  return add(add(mul(v, c), mul(cross(k, v), s)), mul(k, dot(k, v) * (1 - c)));
+};
+const angleBetween = (a, b) => Math.acos(Math.max(-1, Math.min(1, dot(unit(a), unit(b)))));
+
+const COLUMN = [1.30, 0.05, 1.05], COLUMN_R = 0.16;
+const ACTIONS = {
+  chop:   { pivot: [0.12, 0.00, 1.40], dWind: [-0.34, 0.00, 0.94], contact: [0.92, 0.02, 1.06] },
+  side:   { pivot: [0.10, 0.00, 1.16], dWind: [-0.15, -0.96, 0.05], contact: [0.90, 0.02, 1.16] },
+  rising: { pivot: [0.08, 0.00, 0.92], dWind: [-0.30, 0.00, -0.90], contact: [0.90, 0.02, 1.32] },
+};
+const RIG = { R_GRIP: 0.52, R_TIP: 1.42, T_IMPACT: 0.25, ACCEL_K: 2.5 };
+const DENSITY = 0.45, DT_STILL = 0.018;
+
+// The motion. Note what it takes: an action and a rig. No gain.
+function solveMotion(action, rig = RIG) {
+  const A = ACTIONS[action] || action;
+  const P = A.pivot, C = A.contact, dWind = unit(A.dWind), dImp = unit(sub(C, P));
+  const axis = unit(cross(dWind, dImp)), dTheta = angleBetween(dWind, dImp), Rc = len(sub(C, P));
+  const { R_GRIP, R_TIP, T_IMPACT, ACCEL_K } = rig;
+  const bladeDir = (u) => rotate(dWind, axis, dTheta * Math.pow(u, ACCEL_K));
+  const omega = (u) => dTheta * ACCEL_K * Math.pow(Math.max(u, 1e-6), ACCEL_K - 1) / T_IMPACT;
+  const vel = (r, u) => cross(mul(axis, omega(u)), sub(r, P));
+  const vC = vel(C, 1);
+  return { P, C, dWind, dImp, axis, dTheta, Rc, rig, bladeDir, omega, vel, vC,
+           omegaPeak: omega(1), tip: omega(1) * R_TIP };
+}
+
+// A small seeded generator (mulberry32) and a normal draw; numpy's stream is not reproduced,
+// so single shards differ from the render while their statistics match.
+function rng(seed) {
+  let s = seed >>> 0;
+  const next = () => { s = (s + 0x6D2B79F5) >>> 0; let t = s; t = Math.imul(t ^ (t >>> 15), t | 1);
+    t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; };
+  const uniform = (a, b) => a + (b - a) * next();
+  const normal = (m, sd) => m + sd * Math.sqrt(-2 * Math.log(1 - next())) * Math.cos(2 * Math.PI * next());
+  return { uniform, normal };
+}
+
+// The consequences: the tool's debris block (spray = arc, its locked look), sampled `now` seconds after impact.
+// The gain reaches only here: count, spread, streak.
+function consequences(M, gain, now = DT_STILL, seed = 8) {
+  const R = rng(seed), gS = gain, gC = gain, gK = gain;
+  const vd = unit(M.vC), vm = len(M.vC), tangent = M.axis, perp = unit(cross(vd, M.axis));
+  const OUTN = unit(sub(M.C, COLUMN)), bdir = M.dImp;
+  const shards = [], wake = [];
+  const NSH = Math.max(6, Math.floor(40 * gC * DENSITY));
+  for (let i = 0; i < NSH; i++) {
+    const burst = unit(add(add(vd, mul(OUTN, 0.20)), [0, 0, R.uniform(-0.05, 0.15)]));
+    const dir = unit(add(burst, mul(add(mul(tangent, R.normal(0, 0.4)), mul(perp, R.normal(0, 0.4))), gS)));
+    const speed = vm * R.uniform(0.5, 1.4);
+    const origin = add(add(M.C, mul(bdir, R.uniform(-0.14, 0.05))), [R.normal(0, 0.025), R.normal(0, 0.025), R.normal(0, 0.025)]);
+    const flight = speed * now * gK * R.uniform(0.6, 1.7);
+    shards.push({ origin, dir, speed, flight, pos: add(origin, mul(dir, flight)), size: R.uniform(0.02, 0.06) });
+  }
+  const NW = Math.max(20, Math.floor(180 * gC * DENSITY));
+  for (let k = 0; k < NW; k++) {
+    const u = R.uniform(0.2, 1.0), base = add(M.P, mul(M.bladeDir(u), R.uniform(M.rig.R_GRIP, M.rig.R_TIP)));
+    const age = (1 - u) * M.rig.T_IMPACT + now, spread = (0.02 + 0.14 * age) * gS;
+    const kick = mul(M.vel(base, u), age * 0.010 * gK);
+    const jitter = [R.normal(0, spread), R.normal(0, spread), R.normal(0, spread)];
+    wake.push({ base, u, kick, pos: add(add(base, kick), jitter) });
+  }
+  const mean = (xs) => xs.reduce((a, b) => a + b, 0) / xs.length;
+  const meanDir = shards.reduce((a, s) => add(a, s.dir), [0, 0, 0]).map((x) => x / shards.length);
+  return { gain, now, shards, wake,
+    stats: { shards: NSH, wake: NW, flight: mean(shards.map((s) => s.flight)), streak: mean(wake.map((w) => len(w.kick))),
+             offAxisDeg: angleBetween(meanDir, M.vC) * 180 / Math.PI, coherence: len(meanDir) } };
+}
+
+// The guide: one swoosh along the arc at the contact radius, angle-uniform over 10% to 90% of the swing (the tool's GU0, GU1).
+function guide(M, n = 40) {
+  const pts = [];
+  for (let i = 0; i < n; i++) { const a = (0.10 + 0.80 * i / (n - 1)) * M.dTheta; pts.push(add(M.P, mul(rotate(M.dWind, M.axis, a), M.Rc))); }
+  return pts;
+}
+
+// The tool's own scene, built in Blender 5.1.2 on 2026-11-03 by the bundle's 'The Aftermath Frame — rich — tool check.py':
+// the posed right hand the sword is drawn from, the drawn sword (hand to contact + 5 cm), the kerf the wound is cut with
+// (the drawn sword widened and run 0.7 m on), and the first moment the model's blade is inside the column.
+const POSED = {"chop": {"grip": [0.62, -0.05, 1.0], "swordLen": 0.3638, "swordEndGap": 0.1727, "swordVsModelDeg": 35.92, "kerfLen": 1.0638, "firstInWood": {"u": 0.7894, "ms": 197.3, "turnedDeg": 73.6, "r": 1.267}}, "side": {"grip": [0.6, -0.11, 1.14], "swordLen": 0.3776, "swordEndGap": 0.1944, "swordVsModelDeg": 22.26, "kerfLen": 1.0776, "firstInWood": {"u": 0.9727, "ms": 243.2, "turnedDeg": 93.6, "r": 1.186}}, "rising": {"grip": [0.6, -0.05, 1.16], "swordLen": 0.3971, "swordEndGap": 0.1973, "swordVsModelDeg": 10.58, "kerfLen": 1.0971, "firstInWood": {"u": 0.7559, "ms": 189.0, "turnedDeg": 66.8, "r": 1.42}}};
+const COLUMN_Z = [-0.05, 2.15];
+const POST = { c: COLUMN, r: COLUMN_R, z: COLUMN_Z };   // the tool's column: 0.16 m radius, 2.2 m tall
+const inColumn = (p, col = POST) => Math.hypot(p[0] - col.c[0], p[1] - col.c[1]) < col.r && p[2] > col.z[0] && p[2] < col.z[1];
+const toSurface = (p, col = POST) => Math.hypot(p[0] - col.c[0], p[1] - col.c[1]) - col.r;
+// Where does the rigid blade (grip to tip) first meet the wood? Scanned at 1/4000 of the swing and 1/200 of the blade.
+// Rule: pass only if nothing of the blade is inside the column before impact (u = 1) and the contact sits on the surface (within 1 cm).
+function woodCheck(action, rig = RIG, col = POST) {
+  const M = solveMotion(action, rig);
+  let first = null;
+  for (let i = 0; i <= 4000 && !first; i++) { const u = i / 4000, d = M.bladeDir(u);
+    for (let j = 0; j <= 200; j++) { const r = rig.R_GRIP + (rig.R_TIP - rig.R_GRIP) * j / 200, p = add(M.P, mul(d, r));
+      if (inColumn(p, col)) { first = { u, r, p, ms: u * rig.T_IMPACT * 1000, turnedDeg: M.dTheta * Math.pow(u, rig.ACCEL_K) * 180 / Math.PI }; break; } } }
+  let rIn = null; for (let j = 0; j <= 2000; j++) { const r = rig.R_TIP * j / 2000; if (inColumn(add(M.P, mul(M.dImp, r)), col)) { rIn = r; break; } }
+  const contactGap = toSurface(M.C, col);
+  return { M, col, first, contactGap, rIn, speedAtWood: rIn === null ? null : M.omegaPeak * rIn,
+           pass: (!first || first.u >= 0.999) && Math.abs(contactGap) <= 0.01 };
+}
+// The control, built so the rule can pass: the chop's blade ending at the contact, against a stump whose near top edge is the contact.
+function woodControl() {
+  const M = solveMotion('chop'), h = unit([M.dImp[0], M.dImp[1], 0]);
+  const col = { c: add(M.C, mul(h, COLUMN_R + 0.002)), r: COLUMN_R, z: [-0.05, M.C[2] - 0.002] };
+  return woodCheck('chop', { ...RIG, R_TIP: M.Rc }, col);
+}
+
+// One frame. `leak` is the null: the gain wired into the swing's speed, the way a naive "impossibly fast" would be.
+function frame(action, gain, { now = DT_STILL, leak = false, seed = 8 } = {}) {
+  const rig = leak ? { ...RIG, T_IMPACT: RIG.T_IMPACT / gain } : RIG;
+  const M = solveMotion(action, rig);
+  return { motion: M, cons: consequences(M, gain, now, seed) };
+}
+
+// The check, rule stated before it runs: PASS only if the swing's angle, peak omega, tip speed and every component of
+// v_c are bit-for-bit equal at gain 1 and gain 10, AND the shard count and the mean streak both grew.
+function gainCheck(action, { leak = false, lo = 1, hi = 10 } = {}) {
+  const a = frame(action, lo, { leak }), b = frame(action, hi, { leak });
+  const keys = ['dTheta', 'omegaPeak', 'tip'];
+  const motionSame = keys.every((k) => a.motion[k] === b.motion[k]) && a.motion.vC.every((x, i) => x === b.motion.vC[i]);
+  const dv = Math.max(...a.motion.vC.map((x, i) => Math.abs(x - b.motion.vC[i])));
+  const countUp = b.cons.stats.shards > a.cons.stats.shards, streakUp = b.cons.stats.streak > a.cons.stats.streak;
+  return { action, leak, lo: a, hi: b, motionSame, dv, countUp, streakUp, pass: motionSame && countUp && streakUp };
+}
+
+// The page's figures, and the rule they're held to: each derived value must round to the page's figure.
+const PAGE = { dThetaDeg: 133, omega: 23, tip: 33 };
+const S9 = { chop: [133, 23.2, 32.9], side: [100, 17.5, 24.9], rising: [134, 23.5, 33.3] }; // session-9 report's table
+function pageCheck(rig = RIG) {
+  const M = solveMotion('chop', rig), deg = M.dTheta * 180 / Math.PI;
+  const rows = [['Δθ', deg, PAGE.dThetaDeg, '°'], ['ω at impact', M.omegaPeak, PAGE.omega, 'rad/s'], ['tip speed', M.tip, PAGE.tip, 'm/s']]
+    .map(([name, got, page, unitName]) => ({ name, got, page, unitName, pass: Math.round(got) === page }));
+  return { M, rows, pass: rows.every((r) => r.pass) };
+}
+</script>
+<script>
+// Drawing: the swing seen face-on to its plane. Chop and rising are seen from the side (forward right, up up);
+// the side slash from above (forward right, the swinger's right up).
+const C_ = { ink: '#1a1916', ink3: '#6a6862', rule: '#b8b09a', soft: '#cfc9b6', slab: '#d8d4c6', shade: '#b9b4a3',
+  derived: '#2b5fb0', gain: '#a8730a', measure: '#c8261a', ok: '#3a7d2c', ground: '#e6e3d7' };
+const VIEWS = { chop: 'side', rising: 'side', side: 'top' };
+const flat = (v, view) => view === 'top' ? [v[0], -v[1]] : [v[0], v[2]];
+function makeView(canvas, action, M, box) {
+  const view = VIEWS[action];
+  const dpr = window.devicePixelRatio || 1, W = canvas.clientWidth, H = Math.round(W * (box.h || 0.78));
+  canvas.width = Math.round(W * dpr); canvas.height = Math.round(H * dpr); canvas.style.height = H + 'px';
+  const g = canvas.getContext('2d'); g.setTransform(dpr, 0, 0, dpr, 0, 0); g.clearRect(0, 0, W, H);
+  const pts = [];
+  for (let i = 0; i <= 24; i++) pts.push(flat(add(M.P, mul(rotate(M.dWind, M.axis, M.dTheta * i / 24), M.rig.R_TIP)), view));
+  pts.push(flat(M.P, view), flat(COLUMN, view));
+  let x0 = Math.min(...pts.map((p) => p[0])) - 0.25, x1 = Math.max(...pts.map((p) => p[0])) + 0.45;
+  let y0 = Math.min(...pts.map((p) => p[1])) - 0.25, y1 = Math.max(...pts.map((p) => p[1])) + 0.2;
+  const s = Math.min(W / (x1 - x0), H / (y1 - y0)), ox = (W - s * (x1 - x0)) / 2, oy = (H - s * (y1 - y0)) / 2;
+  const P = (v) => { const f = flat(v, view); return [ox + (f[0] - x0) * s, H - oy - (f[1] - y0) * s]; };
+  return { g, W, H, s, P, view, x0, x1, y0, y1, ox, oy };
+}
+function line(g, a, b, color, w = 1.5, dash) { g.save(); g.strokeStyle = color; g.lineWidth = w; if (dash) g.setLineDash(dash); g.beginPath(); g.moveTo(a[0], a[1]); g.lineTo(b[0], b[1]); g.stroke(); g.restore(); }
+function dot2(g, p, r, color) { g.fillStyle = color; g.beginPath(); g.arc(p[0], p[1], r, 0, 2 * Math.PI); g.fill(); }
+function arrow(g, a, b, color, w = 2, head = 9) {
+  line(g, a, b, color, w); const ang = Math.atan2(b[1] - a[1], b[0] - a[0]);
+  g.fillStyle = color; g.beginPath(); g.moveTo(b[0], b[1]);
+  g.lineTo(b[0] - head * Math.cos(ang - 0.4), b[1] - head * Math.sin(ang - 0.4)); g.lineTo(b[0] - head * Math.cos(ang + 0.4), b[1] - head * Math.sin(ang + 0.4)); g.closePath(); g.fill();
+}
+function label(g, p, text, color, dx = 8, dy = -8, align = 'left') { g.font = '11px "JetBrains Mono", monospace'; g.fillStyle = color; g.textAlign = align; g.fillText(text, p[0] + dx, p[1] + dy); g.textAlign = 'left'; }
+function drawColumn(V, M, wound) {
+  const { g, P, s, view } = V;
+  g.fillStyle = C_.slab; g.strokeStyle = C_.shade; g.lineWidth = 1;
+  if (view === 'side') {
+    const a = P([COLUMN[0] - COLUMN_R, 0, COLUMN[2] + 1.1]), b = P([COLUMN[0] + COLUMN_R, 0, COLUMN[2] - 1.1]);
+    g.fillRect(a[0], a[1], b[0] - a[0], b[1] - a[1]); g.strokeRect(a[0], a[1], b[0] - a[0], b[1] - a[1]);
+  } else { const c = P(COLUMN); g.beginPath(); g.arc(c[0], c[1], COLUMN_R * s, 0, 2 * Math.PI); g.fill(); g.stroke(); }
+  if (wound && wound.grip) { // the tool's kerf: the drawn sword (from the posed hand), widened and run 0.7 m on, clipped to the wood
+    const bd = unit(sub(M.C, wound.grip)), pts = [];
+    for (let i = 0; i <= 200; i++) { const p = add(wound.grip, mul(bd, wound.kerfLen * i / 200)); if (inColumn(p)) pts.push(P(p)); }
+    if (pts.length > 1) { line(g, pts[0], pts[pts.length - 1], C_.ink, Math.max(3, 0.05 * s)); label(g, pts[pts.length - 1], 'wound', C_.ink3, 6, 14); }
+  }
+}
+function drawBlade(V, M, dir, color = C_.ink, ghost = false) {
+  const { g, P } = V, grip = add(M.P, mul(dir, M.rig.R_GRIP)), tip = add(M.P, mul(dir, M.rig.R_TIP));
+  line(g, P(M.P), P(grip), ghost ? C_.soft : C_.ink3, ghost ? 1 : 1.2, [3, 3]);
+  line(g, P(grip), P(tip), ghost ? C_.soft : color, ghost ? 1.5 : 3);
+  if (!ghost) dot2(g, P(grip), 3.5, color);
+}
+function drawPivot(V, M) { dot2(V.g, V.P(M.P), 5, C_.ink); label(V.g, V.P(M.P), 'pivot', C_.ink3, -8, -10, 'right'); }
+function plot(canvas, fx, t, tMax, yMax, color, yLabel, hLine) {
+  const dpr = window.devicePixelRatio || 1, W = canvas.clientWidth, H = 110;
+  canvas.width = Math.round(W * dpr); canvas.height = Math.round(H * dpr); canvas.style.height = H + 'px';
+  const g = canvas.getContext('2d'); g.setTransform(dpr, 0, 0, dpr, 0, 0); g.clearRect(0, 0, W, H);
+  const L = 34, R = 8, T = 10, B = 20, X = (x) => L + (W - L - R) * x / tMax, Y = (y) => H - B - (H - T - B) * y / yMax;
+  g.strokeStyle = C_.rule; g.lineWidth = 1; g.beginPath(); g.moveTo(L, T); g.lineTo(L, H - B); g.lineTo(W - R, H - B); g.stroke();
+  g.font = '10px "JetBrains Mono", monospace'; g.fillStyle = C_.ink3; g.fillText(yLabel, L + 4, T + 8); g.fillText('t →', W - R - 22, H - 6); g.fillText('0', L - 12, H - B + 3);
+  if (hLine !== undefined) line(g, [L, Y(hLine)], [W - R, Y(hLine)], C_.soft, 1, [3, 3]);
+  g.strokeStyle = color; g.lineWidth = 1.8; g.beginPath();
+  for (let i = 0; i <= 120; i++) { const x = tMax * i / 120, y = fx(x); i ? g.lineTo(X(x), Y(y)) : g.moveTo(X(x), Y(y)); } g.stroke();
+  if (t !== undefined) { dot2(g, [X(t), Y(fx(t))], 4, C_.measure); line(g, [X(t), H - B], [X(t), Y(fx(t))], C_.measure, 1, [2, 3]); }
+}
+const f = (x, d = 2) => (Math.abs(x) < 1e-12 ? 0 : x).toFixed(d);
+const vec = (v, d = 2) => '(' + v.map((x) => f(x, d)).join(', ') + ')';
+const st = { step: 0, action: 'chop', theta: 0.6, t: 0.2, k: RIG.ACCEL_K, T: RIG.T_IMPACT, R: RIG.R_TIP };
+const rigNow = () => ({ ...RIG, ACCEL_K: st.k, T_IMPACT: st.T, R_TIP: st.R });
+const STEPS = [
+  { name: '1 · one angle', h: 'One pivot, one angle',
+    p: 'A blade turning about a fixed point is the whole motion. Hold the pivot still and give the blade one number, the angle θ it has turned from the top of the windup. The windup direction and the contact point fix where the swing starts and ends; the angle between them is the swing\'s size, Δθ.',
+    eq: [['θ ∈ [0, Δθ],  Δθ = ∠(d_windup, d_impact)', 'how far the blade has turned runs from zero to the angle between where it starts (the top of the windup) and where it ends (pointing at the contact).']] },
+  { name: '2 · in time', h: 'The angle has a schedule',
+    p: 'A chop loads slowly and snaps. The solver says so with one exponent: θ grows as a power of time. The grey ghosts are the blade at equal steps of time; see them bunch near the windup and spread near impact.',
+    eq: [['θ(t) = Δθ · (t ⁄ T)ᵏ', 'the angle at time t = the whole swing × (the fraction of the time to impact that has passed) raised to the power k. k = 1 is a steady turn; k = 2.5 is BLUELINE\'s chop.']] },
+  { name: '3 · speed', h: 'Speed peaks at impact',
+    p: 'The rate the angle turns, ω, is the slope of the schedule. With k above 1 it is largest at the very end, at the moment of contact, which is what a strike is.',
+    eq: [['ω(t) = dθ⁄dt = Δθ · k · tᵏ⁻¹ ⁄ Tᵏ,   ω_impact = Δθ · k ⁄ T', 'how fast the blade turns = the slope of the schedule; at impact it is the whole swing × the exponent ÷ the time to impact.']] },
+  { name: '4 · every point', h: 'Every point on the blade',
+    p: 'A rigid blade turning about a pivot gives every point on it a velocity at right angles to the blade, growing with its distance from the pivot. The tip moves fastest. The point that meets the column carries the contact velocity, which the next section uses as the source of every consequence.',
+    eq: [['v = ω × (r − pivot),   |v| = ω · |r − pivot|', 'a point\'s velocity = the turning rate (along the rotation axis) crossed with the point\'s offset from the pivot; its speed is the turning rate × its distance from the pivot.'],
+         ['tip speed = ω_impact · R_tip', 'the tip\'s speed at impact = the turning rate at impact × the pivot-to-tip reach.']] },
+  { name: '5 · the test', h: 'The page\'s numbers',
+    p: 'The section says an overhead chop gives Δθ 133°, ω 23 rad/s and a tip at 33 m/s. Derive all three from the solver\'s authored chop and hold them to the page. Then ask the question the numbers take for granted: is the contact where this blade first meets the wood?',
+    eq: [] },
+];
+const $ = (id) => document.getElementById(id);
+function ctl(id, label, min, max, step, val, fmt) {
+  return `<label class="ctl" for="${id}">${label} <b id="${id}-v">${fmt(val)}</b></label><input id="${id}" type="range" min="${min}" max="${max}" step="${step}" value="${val}">`;
+}
+function buildSteps() {
+  $('steps').innerHTML = STEPS.map((s, i) => `<button data-i="${i}" class="${i === st.step ? 'on' : ''}">${s.name}</button>`).join('');
+  $('steps').querySelectorAll('button').forEach((b) => b.onclick = () => { st.step = +b.dataset.i; buildSteps(); buildPanel(); });
+  $('acts').innerHTML = Object.keys(ACTIONS).map((a) => `<button data-a="${a}" class="${a === st.action ? 'on' : ''}">${a}</button>`).join('');
+  $('acts').querySelectorAll('button').forEach((b) => b.onclick = () => { st.action = b.dataset.a; buildSteps(); buildPanel(); });
+}
+function buildPanel() {
+  const S = STEPS[st.step], M = solveMotion(st.action, rigNow());
+  $('sh').textContent = S.h; $('sp').textContent = S.p;
+  $('eq').innerHTML = S.eq.map(([a, b]) => `<div class="sym">${a}</div><div class="words">${b}</div>`).join('');
+  $('eq').classList.toggle('hidden', !S.eq.length);
+  let h = '';
+  if (st.step === 0) h = ctl('th', 'θ', 0, 1, 0.005, st.theta, (x) => f(x * M.dTheta * 180 / Math.PI, 0) + '°');
+  if (st.step >= 1 && st.step <= 3) h = ctl('tt', 'time since the top of the windup', 0, 1, 0.005, st.t / st.T, (x) => f(x * st.T * 1000, 0) + ' ms');
+  if (st.step >= 1) h += ctl('kk', 'exponent k', 1, 4, 0.05, st.k, (x) => f(x, 2));
+  if (st.step >= 2) h += ctl('TT', 'time to impact T', 0.12, 0.5, 0.005, st.T, (x) => f(x * 1000, 0) + ' ms');
+  if (st.step >= 3) h += ctl('RR', 'pivot to tip R_tip', 0.9, 1.8, 0.01, st.R, (x) => f(x, 2) + ' m');
+  if (st.step === 4) h += `<div><button class="act" id="run">run the check</button><button class="act ghost" id="reset">reset to BLUELINE's chop</button></div>`;
+  $('ctls').innerHTML = h;
+  const bind = (id, fn) => { const e = $(id); if (e) e.oninput = () => { fn(+e.value); draw(); }; };
+  bind('th', (v) => st.theta = v); bind('tt', (v) => st.t = v * st.T); bind('kk', (v) => st.k = v);
+  bind('TT', (v) => { const frac = st.t / st.T; st.T = v; st.t = frac * v; }); bind('RR', (v) => st.R = v);
+  if ($('run')) $('run').onclick = runCheck;
+  if ($('reset')) $('reset').onclick = () => { st.k = RIG.ACCEL_K; st.T = RIG.T_IMPACT; st.R = RIG.R_TIP; st.action = 'chop'; buildSteps(); buildPanel(); runCheck(); };
+  if (st.step !== 4) $('result').classList.add('hidden');
+  draw();
+}
+function draw() {
+  const M = solveMotion(st.action, rigNow()), cv = $('cv');
+  ['th', 'tt', 'kk', 'TT', 'RR'].forEach((id) => { const e = $(id); if (e) $(id + '-v').textContent = ({
+    th: () => f(st.theta * M.dTheta * 180 / Math.PI, 0) + '°', tt: () => f(st.t * 1000, 0) + ' ms', kk: () => f(st.k, 2), TT: () => f(st.T * 1000, 0) + ' ms', RR: () => f(st.R, 2) + ' m' })[id](); });
+  const V = makeView(cv, st.action, M, { h: 0.72 }); const { g, P } = V;
+  $('vlabel').textContent = (V.view === 'top' ? 'seen from above' : 'seen from the side') + ' · ' + st.action;
+  drawColumn(V, M, false);
+  // the arc the tip sweeps
+  g.strokeStyle = C_.soft; g.lineWidth = 1; g.setLineDash([4, 4]); g.beginPath();
+  for (let i = 0; i <= 60; i++) { const p = P(add(M.P, mul(rotate(M.dWind, M.axis, M.dTheta * i / 60), M.rig.R_TIP))); i ? g.lineTo(p[0], p[1]) : g.moveTo(p[0], p[1]); }
+  g.stroke(); g.setLineDash([]);
+  drawBlade(V, M, M.dWind, C_.ink, true); drawBlade(V, M, M.dImp, C_.ink, true);
+  label(g, P(add(M.P, mul(M.dWind, M.rig.R_TIP))), 'windup', C_.ink3, 6, 0);
+  dot2(g, P(M.C), 4, C_.ink); label(g, P(M.C), 'contact', C_.ink3, 8, 14);
+  const u = st.step === 0 ? null : st.step === 4 ? 1 : Math.min(1, st.t / st.T);
+  if (st.step === 0) {
+    const a = st.theta * M.dTheta; drawBlade(V, M, rotate(M.dWind, M.axis, a), C_.ink);
+    // the angle mark
+    g.strokeStyle = C_.ink3; g.lineWidth = 1; g.beginPath();
+    for (let i = 0; i <= 30; i++) { const p = P(add(M.P, mul(rotate(M.dWind, M.axis, a * i / 30), 0.32))); i ? g.lineTo(p[0], p[1]) : g.moveTo(p[0], p[1]); } g.stroke();
+    label(g, P(add(M.P, mul(rotate(M.dWind, M.axis, a / 2), 0.36))), 'θ ' + f(a * 180 / Math.PI, 0) + '°', C_.ink, 4, 4);
+  } else {
+    if (st.step >= 1) for (let i = 0; i <= 12; i++) { const ui = i / 12; if (ui > u) break; const d = M.bladeDir(ui), tp = P(add(M.P, mul(d, M.rig.R_TIP))), gp = P(add(M.P, mul(d, M.rig.R_GRIP))); line(g, gp, tp, C_.shade, 1.2); }
+    const d = M.bladeDir(u); drawBlade(V, M, d, C_.ink);
+    if (st.step >= 3) { // velocity arrows along the blade, 0.02 m drawn per m/s
+      const SC = 0.02;
+      for (const r of [M.rig.R_GRIP, (M.rig.R_GRIP + M.Rc) / 2, M.Rc, (M.Rc + M.rig.R_TIP) / 2, M.rig.R_TIP]) {
+        const pt = add(M.P, mul(d, r)), v = M.vel(pt, u);
+        arrow(g, P(pt), P(add(pt, mul(v, SC))), C_.derived, r === M.rig.R_TIP || r === M.Rc ? 2.2 : 1.4, 7);
+      }
+      const tp = add(M.P, mul(d, M.rig.R_TIP)); label(g, P(add(tp, mul(M.vel(tp, u), 0.02))), f(len(M.vel(tp, u)), 1) + ' m/s tip', C_.derived, 6, 4);
+    }
+  }
+  if (st.step === 4) {
+    const w = woodCheck(st.action, rigNow());
+    if (w.first) {
+      const d = M.bladeDir(w.first.u); drawBlade(V, M, d, C_.measure);
+      dot2(g, P(w.first.p), 5, C_.measure); label(g, P(w.first.p), 'first in the wood · ' + f(w.first.ms, 0) + ' ms', C_.measure, 8, -8);
+      // the stretch of the swing spent inside the column, at the tip's radius
+      g.strokeStyle = 'rgba(200,38,26,.35)'; g.lineWidth = 6; g.beginPath();
+      for (let i = 0; i <= 40; i++) { const uu = w.first.u + (1 - w.first.u) * i / 40, p = P(add(M.P, mul(M.bladeDir(uu), w.first.r))); i ? g.lineTo(p[0], p[1]) : g.moveTo(p[0], p[1]); } g.stroke();
+    }
+    const gp = P(M.C); label(g, gp, f(w.contactGap * 100, 0) + ' cm to the wood', C_.measure, 8, 28);
+  }
+  drawPivot(V, M);
+  // the plot
+  const pb = $('plotbox'); pb.classList.toggle('hidden', st.step === 0);
+  if (st.step >= 1) {
+    if (st.step === 1) plot($('pl'), (t) => M.dTheta * Math.pow(t / st.T, st.k) * 180 / Math.PI, st.t, st.T, Math.max(140, M.dTheta * 180 / Math.PI * 1.05), C_.ink, 'θ (°)');
+    else plot($('pl'), (t) => M.omega(Math.max(t, 1e-6) / st.T), st.step === 4 ? st.T : st.t, st.T, Math.max(M.omegaPeak * 1.08, 10), C_.derived, 'ω (rad/s)', M.dTheta / st.T);
+  }
+  const deg = M.dTheta * 180 / Math.PI;
+  let r = `<span>Δθ <b class="d">${f(deg, 1)}°</b> · axis <b class="d">${vec(M.axis)}</b></span>`;
+  if (st.step >= 1 && st.step < 4) r += `<br><span>θ now <b>${f(M.dTheta * Math.pow(Math.min(1, st.t / st.T), st.k) * 180 / Math.PI, 1)}°</b></span>`;
+  if (st.step >= 2 && st.step < 4) r += ` · <span>ω now <b class="d">${f(M.omega(Math.max(st.t / st.T, 1e-6)), 1)}</b> rad/s · at impact <b class="d">${f(M.omegaPeak, 1)}</b> · mean <b class="d">${f(M.dTheta / st.T, 1)}</b></span>`;
+  if (st.step >= 3) r += `<br><span>at impact: tip <b class="d">${f(M.tip, 1)} m/s</b> · contact <b class="d">${f(len(M.vC), 1)} m/s</b> at ${f(M.Rc, 2)} m from the pivot</span>`;
+  $('read').innerHTML = r;
+}
+function runCheck() {
+  const rig = rigNow(), pc = pageCheck(rig), authored = st.k === RIG.ACCEL_K && st.T === RIG.T_IMPACT && st.R === RIG.R_TIP;
+  const rows = pc.rows.map((x) => `<tr><td>${x.name}</td><td class="n">${f(x.got, 3)} ${x.unitName}</td><td class="n">${x.page} ${x.unitName}</td><td class="n">${Math.round(x.got)}</td><td class="${x.pass ? 'pass' : 'fail'}">${x.pass ? 'pass' : 'fail'}</td></tr>`).join('');
+  const s9 = Object.keys(ACTIONS).map((a) => { const M = solveMotion(a, rig), got = [M.dTheta * 180 / Math.PI, M.omegaPeak, M.tip];
+    const ok = got.map((x, i) => i === 0 ? Math.round(x) === S9[a][0] : Math.round(x * 10) / 10 === S9[a][i]);
+    return `<tr><td>${a}</td>${got.map((x, i) => `<td class="n ${ok[i] ? '' : 'fail'}">${f(x, i ? 1 : 0)} <span style="color:var(--ink3)">/ ${S9[a][i]}</span></td>`).join('')}<td class="${ok.every(Boolean) ? 'pass' : 'fail'}">${ok.every(Boolean) ? 'pass' : 'fail'}</td></tr>`; }).join('');
+  const woodRows = Object.keys(ACTIONS).map((a) => [a, woodCheck(a, rig)]).concat([['control', woodControl()]]);
+  const wood = woodRows.map(([a, w]) => `<tr><td>${a === 'control' ? 'control: blade ends at the contact, a stump whose top edge is the contact' : a}</td><td class="n">${f(w.contactGap * 100, 1)} cm</td><td class="n">${w.first ? f(w.first.ms, 0) + ' ms · ' + f(w.first.turnedDeg, 1) + '° of ' + f(w.M.dTheta * 180 / Math.PI, 1) + '°' : 'only at impact'}</td><td class="n">${w.speedAtWood === null ? '–' : f(w.speedAtWood, 1) + ' m/s'}</td><td class="${w.pass ? 'pass' : 'fail'}">${w.pass ? 'pass' : 'fail'}</td></tr>`).join('');
+  const wc = woodCheck('chop', rig), woodVerdict = wc.pass ? '<span class="pass">Pass.</span> The chop\'s blade meets the wood first at the contact.' : '<span class="fail">Fail.</span> The chop\'s blade is in the wood ' + f(rig.T_IMPACT * 1000 - wc.first.ms, 0) + ' ms before the contact, and the contact is not on the wood. The control passes, so the rule can.';
+  const woodNote = wc.first ? `<p class="note">The rotation is sound, and the numbers are what it gives. What it is aimed at is not: in the chop, the outer blade enters the top of the column ${f(wc.first.ms, 0)} ms into a ${f(rig.T_IMPACT * 1000, 0)} ms swing, after ${f(wc.first.turnedDeg, 0)}° of its ${f(wc.M.dTheta * 180 / Math.PI, 0)}°, and spends the rest of the swing cutting down through it (the red stretch). The contact the consequences read is ${f(wc.contactGap * 100, 0)} cm in front of the wood, so v_c (${f(len(wc.M.vC), 1)} m/s) is taken in the air; where the impact blade enters the wood it moves at ${f(wc.speedAtWood, 1)} m/s. A still shows only the final pose, so none of this is in the render. Built in Blender from the tool's own scene, the drawn sword is a different blade: ${f(POSED.chop.swordLen, 2)} m from the posed hands, ${f(POSED.chop.swordVsModelDeg, 0)}° off the model's blade, ending ${f(POSED.chop.swordEndGap * 100, 0)} cm short of the wood, with the wound cut by a slot run 0.7 m past it. Blender finds the same first touch: ${f(POSED.chop.firstInWood.ms, 0)} ms, ${f(POSED.chop.firstInWood.turnedDeg, 1)}°. A blade brought over the top in a vertical plane, at an upright post taller than its pivot, meets the post first at or above the pivot's height, so a chop that lands at chest height needs a shorter target, a different plane, or a contact found rather than authored.</p>` : '<p class="note">At these inputs nothing of the blade reaches the wood before impact.</p>';
+  $('result').innerHTML = `
+    <div class="rule"><b>The rule, set before the run.</b> The page gives whole numbers, so each derived value passes only if it rounds to the page's figure; any other value fails. The inputs are the solver's authored chop: pivot (0.12, 0, 1.40) m, windup direction (−0.34, 0, 0.94), contact (0.92, 0.02, 1.06) m, and the three the page does not name: pivot to tip <b>${f(rig.R_TIP, 2)} m</b>, windup to impact <b>${f(rig.T_IMPACT * 1000, 0)} ms</b>, exponent <b>${f(rig.ACCEL_K, 2)}</b>.${authored ? '' : ' <span class="fail">These are not the authored values: you moved a slider.</span>'}</div>
+    <table class="t"><tr><th>quantity</th><th>derived</th><th>the page</th><th>rounded</th><th></th></tr>${rows}</table>
+    <div class="verdict">${pc.pass ? '<span class="pass">Pass.</span> The page\'s three numbers are what the solver derives.' : '<span class="fail">Fail.</span> At these inputs the solver does not give the page\'s numbers.'}</div>
+    <p class="note">The figures rest on the three unnamed inputs as much as on the geometry: ω at impact is Δθ × k ÷ T, and the tip is that × R_tip. Slide T to 300 ms, or k to 2, and the check fails. A fourth figure the page does not give falls out too: the point that meets the column moves at ${f(len(pc.M.vC), 1)} m/s, since it sits ${f(pc.M.Rc, 2)} m from the pivot, not ${f(rig.R_TIP, 2)}.</p>
+    <h5>Against BLUELINE's session-9 table, all three swings (to the report's precision)</h5>
+    <table class="t"><tr><th>swing</th><th>Δθ (°)</th><th>ω (rad/s)</th><th>tip (m/s)</th><th></th></tr>${s9}</table>
+    <p class="note">Each cell is this port / the report. The same numbers came from the tool itself: the impact tool's own model code, run in Blender 5.1.2, gives 132.897°, 23.195 rad/s and 32.937 m/s for the chop.</p>
+    <h5>The question the numbers take for granted: is the contact where this blade meets the wood?</h5>
+    <div class="rule"><b>The rule, set before the run.</b> The section's blade is a rigid body reaching ${f(rig.R_TIP, 2)} m from the pivot, and the column is the tool's own: 0.16 m in radius, 2.2 m tall, centred at (1.30, 0.05). Pass only if no point of the blade, grip to tip, is inside the column before impact, and the authored contact sits on the column's surface to within 1 cm. A control built to pass runs beside it.</div>
+    <table class="t"><tr><th>swing</th><th>contact to the wood</th><th>blade first in the wood</th><th>speed where the impact blade enters the wood</th><th></th></tr>${wood}</table>
+    <div class="verdict">${woodVerdict}</div>
+    ${woodNote}`;
+  $('result').classList.remove('hidden');
+}
+buildSteps(); buildPanel();
+addEventListener('resize', draw);
+</script>
+</body>
+</html>
