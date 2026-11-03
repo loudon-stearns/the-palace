@@ -54,7 +54,23 @@
         }
       ],
       "made_against": "6e443c274ae0",
-      "stamped": "2026-11-03"
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Hand-Drawn 3D Look — rich — one config away.html",
+            "verdict": "keep",
+            "why": "A real test that walks up; engine matches scipy and the configs are cat_stills_lines.py's #1 and #9 exactly; a fresh re-render of c1n1s1p1 is byte-identical to the tracked sheet. Note: the pen knob also moves base 2.6→3.2 and crease 130→132, and the noise knob drops Perlin; step 4 could name both."
+          },
+          {
+            "file": "/Projects/BLUELINE/proofs/blender-handdrawn/followups/grease-pencil-lineart/comparison_HOLDOUT_3wide.png",
+            "verdict": "keep",
+            "why": "Tracked; the caption matches the follow-up's side-by-side verdict (Freestyle #9 | GP B | GP C) and the page's 'GP renders thinner'."
+          }
+        ]
+      }
     },
     {
       "heading": "The seam is a redraw, not a filter",
@@ -86,7 +102,23 @@
         }
       ],
       "made_against": "ab719e78964a",
-      "stamped": "2026-11-03"
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Hand-Drawn 3D Look — rich — the seam is a redraw.html",
+            "verdict": "remake",
+            "why": "A real test with the right chance control, and it walks up. Fix: d072's Canny end is 0.85 (02_stylize.py:51), not 1.0, in make sheets.py; step 3 should say the rungs also change prompt, cfg (6.5→7.5), steps and seed (2211→7); #t5's 'every seed keeps the two walls' overstates 55555 and 70707, where the near walls survive only as faint outline."
+          },
+          {
+            "file": "/Projects/BLUELINE/proofs/blender-handdrawn/followups/redraw-posed-figure/pose_survival_strip.png",
+            "verdict": "keep",
+            "why": "Tracked; D2 at 0.93 and A/B/C at 0.95 confirmed in report.md:33-37 and 04_redraw_D_depth_freestyle.py:124; one seed, one pose (report.md:86)."
+          }
+        ]
+      }
     },
     {
       "heading": "Motion is atmosphere",
@@ -118,7 +150,23 @@
         }
       ],
       "made_against": "d96268a025a6",
-      "stamped": "2026-11-03"
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Hand-Drawn 3D Look — rich — the boil, measured.html",
+            "verdict": "remake",
+            "why": "The strongest test on the face, reproduced in Blender (frame 5 alone vs the run 2.64 %, exact with Spatial Noise 0). Fix the word 'small' in the caption and step 3: the dark ink is 2.2 % of the frame, so a twos step moves 26-32 % of the ink's area (0.67/255, the size of Move the Ink's fresh-grain boil); it is swamped in the clip, not small."
+          },
+          {
+            "file": "rich-face/clouds.mp4",
+            "verdict": "keep",
+            "why": "Tracked; 24 frames at 12 fps as captioned (ffprobe)."
+          }
+        ]
+      }
     },
     {
       "heading": "Ink that lives in 3D",
@@ -156,7 +204,28 @@
         }
       ],
       "made_against": "76a540a5c790",
-      "stamped": "2026-11-03"
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "rich-face/blobspace.mp4",
+            "verdict": "keep",
+            "why": "Tracked; 30 frames at 15 fps as captioned; the parallax is the page's claim, shown."
+          },
+          {
+            "file": "/Projects/BLUELINE/proofs/blender-handdrawn/followups/seam-comp-layer/compare_occlusion.png",
+            "verdict": "keep",
+            "why": "Tracked; four panels as described, and the depth gate's 22.6 % recomputed from occlusion_mask.png (9204 of 40668 blob pixels)."
+          },
+          {
+            "file": "/Projects/BLUELINE/proofs/blender-handdrawn/followups/seam-comp-layer/inked_baked.png",
+            "verdict": "keep",
+            "why": "Tracked; shows the bake route the page names, the blobs absorbed into one drawing, with nothing to parallax."
+          }
+        ]
+      }
     }
   ],
   "offers": [
