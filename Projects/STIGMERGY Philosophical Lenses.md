@@ -21,7 +21,7 @@ links:
   - target: "[[BBS Blackboard]]"
     type: connects-to
     label: dialectic-board-and-lens-channel
-  - target: "[[BBS Design System]]"
+  - target: "[[STIGMERGY]]"
     type: connects-to
     label: locked-aesthetic
   - target: "[[Trickster]]"
@@ -73,7 +73,7 @@ forward_vector: "I want the palace's philosophy to stop being a neighborhood Lou
 
 ![[STIGMERGY Philosophical Lenses — hero.png]]
 
-> *A design proposal layered on [[STIGMERGY v1.0 — Palace Front-End]]. It changes nothing about the locked [[BBS Design System]] aesthetic and adds no new top-level deck; it proposes how the philosophy neighborhood lives **inside** the three decks (STATE / QUEUE / LOG), plus one genuinely new swarm mode. A contract to react to, not yet built.*
+> *A design proposal layered on [[STIGMERGY v1.0 — Palace Front-End]]. It changes nothing about the locked aesthetic ([[STIGMERGY#The look|STIGMERGY § The look]]) and adds no new top-level deck; it proposes how the philosophy neighborhood lives **inside** the three decks (STATE / QUEUE / LOG), plus one genuinely new swarm mode. A contract to react to, not yet built.*
 
 ## Thesis
 
@@ -133,7 +133,7 @@ A Stoic note on the honesty discipline itself: "nothing is real until committed 
 
 ## Design constraints (non-negotiable)
 
-- **[[BBS Design System]] governs.** Phosphor on black, VT323 banners, IBM Plex Mono body, CP437-evoked borders, `steps()` motion, color as signal, no emoji, 80-column discipline. A philosopher's lens is a **color assignment**, not a new visual language. (Spinoza amber, Zhuangzi a drifting dim-green, Deleuze a high-intensity cyan-forbidden→use bright phosphor, etc. — palette per the design system only.)
+- **[[STIGMERGY#The look|STIGMERGY's look]] governs.** Phosphor on black, VT323 banners, IBM Plex Mono body, CP437-evoked borders, `steps()` motion, color as signal, no emoji, 80-column discipline. A philosopher's lens is a **color assignment**, not a new visual language. (Spinoza amber, Zhuangzi a drifting dim-green, Deleuze a high-intensity cyan-forbidden→use bright phosphor, etc. — palette per the design system only.)
 - **Merleau-Ponty's test:** every lens must be absorbable. If switching a lens makes Loudon *think about STIGMERGY* instead of *through it*, the lens has failed.
 - **The honesty discipline holds:** lenses and dialectics live in QUEUE until git proves them in LOG. A lens annotation is never written to an entry file by the act of viewing — only a committed Visit card is real.
 

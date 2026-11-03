@@ -139,3 +139,8 @@ What each deposit taught the ceremony. Each item names what the run showed and t
 
 The DH-ADSR citation was first reported by the working session, then verified by two readers (the Concierge and the cold reader, each from the PDF's text) before landing; item 30's rule held.
 - run · 2026-11-02 · v2.7 · D-2026-11-02-MOOGCURVE · nothing new
+
+## From the BBS Design System fold — 2026-11-02
+
+A fold commissioned by a Daily Page baton, caught and placed in the same session as the morning that wrote it. The emptied page took the composting note in the same commit, and its Weave flag waits on Loudon's yes to the flag's text.
+- run · 2026-11-02 · v2.8 · D-2026-11-02-BBSLOOK · nothing new

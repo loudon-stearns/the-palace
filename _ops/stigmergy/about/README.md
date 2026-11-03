@@ -25,7 +25,7 @@ paths resolve from there). See the `about` config in `.claude/launch.json`,
 then open `/_ops/stigmergy/about/index.html`.
 
 ## Design notes
-- Uses the [[BBS Design System]] grammar (green phosphor, VT323 + IBM Plex Mono,
+- Uses [[STIGMERGY#The look|STIGMERGY's look]] (green phosphor, VT323 + IBM Plex Mono,
   80-column, CP437-weight **CSS** borders, scanline + vignette overlays). This is
   the sanctioned visual-language override; the Loudon Live default does not apply.
 - "blackboard" never appears in UI copy — the product name is STIGMERGY.
