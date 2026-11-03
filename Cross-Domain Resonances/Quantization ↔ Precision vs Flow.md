@@ -12,7 +12,7 @@ energy: very high
 hook_quality: 9
 beauty: 8
 who_leads: shared
-forward_vector: "I keep showing learners that precision and flow are the same question at every scale — in MIDI timing, in structuring a song, in planning a creative practice — and I push them to name the resolution they need before they reach for the grid."
+forward_vector: "I keep showing learners that precision and flow are the same question at every scale — in MIDI timing, in structuring a song, in planning a creative practice — and I push them, before they reach for the grid, to name the resolution they need, and to notice when the better resolution is listening to each other."
 links:
   - target: "[[Cross-Domain Resonances]]"
     type: member-of
