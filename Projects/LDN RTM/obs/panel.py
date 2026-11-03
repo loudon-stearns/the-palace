@@ -9,7 +9,7 @@ can't do from a shell, so there is one behaviour to trust, not two.
 
 To add a button, add one row to BUTTONS. That is the whole extension story.
 
-Aesthetic per [[BBS Design System]], the palace's one standing override to the
+Aesthetic per [[STIGMERGY]] § The look, the palace's one standing override to the
 Loudon Live house style, documented in [[LDN RTM]] § The control panel: this is an
 instrument, not a teaching artifact. Tokens and fonts are served from the real
 design system rather than copied, so the panel drifts when the system does.

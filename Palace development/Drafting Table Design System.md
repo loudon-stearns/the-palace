@@ -23,9 +23,9 @@ links:
   - target: "[[Loudon Live Design System]]"
     type: mirrors
     label: sibling-system-grew-from-its-drafting-skin
-  - target: "[[BBS Design System]]"
-    type: mirrors
-    label: sibling-system-shares-the-phosphor
+  - target: "[[STIGMERGY]]"
+    type: connects-to
+    label: sibling-dress-shares-the-phosphor
   - target: "[[CAD Drafter]]"
     type: emerged-from
     label: drafting-sheets-as-third-source
@@ -53,7 +53,7 @@ links:
 
 ![[Drafting Table Design System — hero.png]]
 
-The dress for the work Loudon makes with his hands and ears: plugin faces, instrument panels, 3D parts, and the pages that document a build. It is the [[BBS Design System]]'s terminal grown up and moved onto the [[CAD Drafter]]'s sheet. The grammar stays: monospace everywhere, a hairline is the card, nothing is rounded unless it was turned on a lathe, every word is text you can grep. What changes is the ground and the mass. The sheet is paper by day and phosphor by night, and a control has a solid surface you could pick up.
+The dress for the work Loudon makes with his hands and ears: plugin faces, instrument panels, 3D parts, and the pages that document a build. It is [[STIGMERGY#The look|STIGMERGY's]] terminal grown up and moved onto the [[CAD Drafter]]'s sheet. The grammar stays: monospace everywhere, a hairline is the card, nothing is rounded unless it was turned on a lathe, every word is text you can grep. What changes is the ground and the mass. The sheet is paper by day and phosphor by night, and a control has a solid surface you could pick up.
 
 > Drawn, not rendered. Every surface is outlined in ink, every number says where it came from.
 
@@ -67,7 +67,7 @@ Three systems, one rule for which to wear:
 |---|---|---|
 | **Drafting Table** | the work itself: a plugin or AU face, an instrument panel, a part drawing, a tool's UI, a page about a build | `_ops/drafting-table/design-system/SKILL.md` |
 | [[Loudon Live Design System]] | anything the public channel shows: a stream card, a session artifact, Loud'n Live's pages | `_ops/loudon-live/design-system/SKILL.md` |
-| [[BBS Design System]] | STIGMERGY, the board and its app | `_ops/stigmergy/design-system/` |
+| [[STIGMERGY#The look]] | STIGMERGY, the board and its app | `_ops/stigmergy/design-system/` |
 
 Loudon's word for Drafting Table, 2026-10-21, was "the standard for the work I do." The palace's settled posture for its one default dress is a floor, not a cage ([[Loudon Live Design System]] § The house style); Drafting Table takes the same posture for the workshop: the reliable default a face reaches for, departed from deliberately and with a reason written down. The first wearer is the [[VST Template]]'s WebView editor, by Loudon's decision the same day.
 

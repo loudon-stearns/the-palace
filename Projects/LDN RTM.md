@@ -100,7 +100,7 @@ The stated purpose is to become genuinely comfortable making screen content and 
 
 ## The control panel — a documented aesthetic override
 
-The recording control panel — the operator's surface, on a second screen — wears the [[BBS Design System]] terminal aesthetic rather than the [[Loudon Live Design System]] house style. CLAUDE.md requires a new override to be a deliberate decision documented in the artifact's parent entry, so: **this is an instrument, not a teaching artifact.** It is read at a glance by one person mid-work, it displays live state — queue position, levels, dropped frames, coverage — and that is the register the swarm terminal already speaks. The house style governs everything the audience sees; the terminal governs what the operator sees. Because capture is scoped to Live's application windows, a panel on a second screen cannot leak into a recording.
+The recording control panel — the operator's surface, on a second screen — wears [[STIGMERGY#The look|STIGMERGY's]] terminal aesthetic rather than the [[Loudon Live Design System]] house style. CLAUDE.md requires a new override to be a deliberate decision documented in the artifact's parent entry, so: **this is an instrument, not a teaching artifact.** It is read at a glance by one person mid-work, it displays live state — queue position, levels, dropped frames, coverage — and that is the register the swarm terminal already speaks. The house style governs everything the audience sees; the terminal governs what the operator sees. Because capture is scoped to Live's application windows, a panel on a second screen cannot leak into a recording.
 
 ## Cross-Domain Resonances
 

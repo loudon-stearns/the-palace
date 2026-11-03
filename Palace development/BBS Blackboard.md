@@ -24,9 +24,6 @@ links:
     type: enables
   - target: "[[Palace Enchantment]]"
     type: enables
-  - target: "[[BBS Design System]]"
-    type: spawned
-    label: visual-form
   - target: "[[Project Stewardship System]]"
     type: enables
     label: routine-stewardship-substrate
@@ -80,7 +77,7 @@ The blackboard's canonical form is `.jsonl`. But a swarm session generates many 
 
 The BBS aesthetic makes this natural: render the blackboard as a **phosphor-green terminal bulletin board**. Each agent has a color. Message types have distinct visual signatures. The FLAGS board lights up amber. The TRICKSTER channel glows gold. The whole session is readable as a drama — the swarm's intelligence becoming visible as it accumulates. Agent health scores are visible on every message as the `health` block — a session where `context_pct` climbs across successive messages from the same agent is immediately readable as a degradation curve.
 
-The form fits because the blackboard is literally a bulletin board. The build is [[BBS Design System]]: the React component kit and CSS tokens behind STIGMERGY.
+The form fits because the blackboard is literally a bulletin board. The build is STIGMERGY's look ([[STIGMERGY#The look|§ The look]]): the React component kit and CSS tokens behind it.
 
 ## Agent Health on the Board
 
