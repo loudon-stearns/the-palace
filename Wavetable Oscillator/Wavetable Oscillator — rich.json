@@ -29,6 +29,17 @@
         "by": "maker · claude-opus-5-5 · proposal round",
         "round": "proposal-round-2026-11"
       },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Wavetable Oscillator — rich — one cycle, two ways.html",
+            "verdict": "keep",
+            "why": "A real test: no filter restores the null at P + d. Recomputed by simulation and in closed form (linear |H| = cos(ω/2), h10 −0.431 dB a trip; allpass phase delay 1.499 at h1, 1.444 at h10, so +0.955 ¢), and it agrees with Synthesis Topologies' face at the whole period and at N + ½. Note: step 4's 'table' is the exact read; a stored table read between samples has a fixed floor of its own, which a clause could say."
+          }
+        ]
+      },
       "pieces": [
         {
           "file": "Wavetable Oscillator — rich — one cycle, two ways.html",
@@ -52,6 +63,17 @@
         "date": "2026-11-03",
         "by": "maker · claude-opus-5-5 · proposal round",
         "round": "proposal-round-2026-11"
+      },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Wavetable Oscillator — rich — a bell on the grid.html",
+            "verdict": "remake",
+            "why": "Words only. (a) The caption's 6 dB at P = 137 (8 to under 1 dB) holds at 48 kHz only; at 44.1 kHz the piece shows −4.2. Say 'at 48 kHz' in the caption and in offer 2. (b) In step 4, say the still rows are bit-identical by construction (the read depends on n mod P alone). (c) The moving bend peaks at 1.14, past the engine's own |b| < 1: cap it (b ≤ 0.52) or say so. The finding holds one-to-one: −9.5 to −1.1 dB."
+          }
+        ]
       },
       "pieces": [
         {
@@ -77,6 +99,17 @@
         "by": "maker · claude-opus-5-5 · proposal round",
         "round": "proposal-round-2026-11"
       },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Wavetable Oscillator — rich — position as a second clock.html",
+            "verdict": "keep",
+            "why": "A real test: repeats after 1, 1, 2, never as the rate goes tied, 3/2 or unrelated, and −7.02 dB recomputed (−7.021 over 10 s). Note: step 4's 'where the page's reading predicts' should say 'where the blend's algebra predicts'; the page predicts leaving the grid, not the number."
+          }
+        ]
+      },
       "pieces": [
         {
           "file": "Wavetable Oscillator — rich — position as a second clock.html",
@@ -100,6 +133,17 @@
         "date": "2026-11-03",
         "by": "maker · claude-opus-5-5 · proposal round",
         "round": "proposal-round-2026-11"
+      },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Wavetable Oscillator — rich — reading between samples.html",
+            "verdict": "keep",
+            "why": "Measures what the page says it hasn't, and the closed-form error over a uniform fractional offset matches: linear and cubic to 0.1 dB, sample-before within 0.6. The asymptotic slopes are 6.02, 12.04 and 18.06 dB a doubling; the piece's 19 is measured before the asymptote and is honest as measured."
+          }
+        ]
       },
       "pieces": [
         {
