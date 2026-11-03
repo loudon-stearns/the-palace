@@ -1,0 +1,79 @@
+---
+title: "Sidechain ↔ Conversation — rich — challenge"
+born: 2026-11-03
+links:
+  - target: "[[Sidechain ↔ Conversation]]"
+    type: connects-to
+    label: challenge-of
+forward_vector: "I am the challenger's record for Sidechain ↔ Conversation's first rich face: one keep and two remakes, each with its reason, the numbers recomputed and the masking offer weighed against a primary source, so the maker's next round and Loudon's approval start from what was checked rather than what was claimed."
+---
+
+# Sidechain ↔ Conversation — rich — challenge
+
+Proposal round, 2026-11-03. Challenger: claude-opus-5-5, which did not make this face. Judged against the page as it stands (`Sidechain ↔ Conversation.md`, untouched by the maker, fingerprints in step), the manifest, all three pieces' source, the voices' recipe, the maker's check, and the maker's commit body (1f3fe1c8) as its only account. Nothing was heard by me either. An agent can't hear the mix, so every judgement below about what a listener would hear rests on measurement and the literature.
+
+## Checks run
+
+- `node _ops/rich-face/conform.mjs "Sidechain ↔ Conversation"`: 3 pieces, introduced 3, errors 0, warnings 0, browser pass at 760 and 1130 px.
+- `node _ops/rich-face/fingerprint.mjs "Sidechain ↔ Conversation"`: The Technical Side `c726dbbcbf94`, Teaching the Resonance `978c470abb0e`, The Conversational Side `51f9dfbb0f6f`, all in step. The `.md` is not in the maker's commit.
+- The maker's `Sidechain ↔ Conversation — rich — check.mjs`: all PASS, 49 lines.
+- Face served with `rich-server.mjs --detach` on this worktree, `?entry=Sidechain ↔ Conversation` opened in headless Chromium: three frames, three `proposal · 2026-11-03` chips, nothing in *Lost its place*, no missing-file boxes, console clean. Each piece then opened alone with `AudioContext` wrapped: no context before a click, one after the first trial or pair was pressed, consoles clean. Server stopped.
+- Blind tests read for leaks. In all three the answers live only inside the script's closure: the test step draws circles, not the waveform; the buttons carry only `class` and `aria-pressed`; the loops are the same length, so switching keeps the playhead and a crossfade between identical loops sums to exactly one. Nothing on the page, in the DOM, in the order or in the timing gives an answer away. A file name can't, since all sound is made in the page.
+- Recomputed on my own (a script of mine, in the scratchpad, that loads the engine but does its own counting): the three binomials as exact fractions; the detector's reading of the kick and the static gain law against the engine's deepest duck; the band shares with the whole 0.9 s hit zero-padded to 2¹⁷ and against the Lorentzian of the decay alone; the 6 dB placement in five windows; level matching by RMS and by K-weighted loudness (the BS.1770 two-stage filter, derived at 44.1 and 16 kHz), whole loop and by passage.
+- The voices: the recipe `Sidechain ↔ Conversation — rich — two voices.py` re-run with the local Kokoro. It gives the same two voices saying the same lines, 172156 samples against the piece's 172139, phrase starts within 1 ms. Kokoro is not bit-for-bit repeatable run to run, so the piece's bytes aren't reproduced exactly, but its voices are generated, not licensed. No audio file, no fetch, no Splice path anywhere in the bundle.
+- The tuning ledger: the maker's run line, `- run · 2026-11-03 · v2.7 with the proposal-round settings · Sidechain ↔ Conversation · nothing new`, matches the ledger's line format and its five siblings from this round.
+- Not checked: anything by ear. Hidden-tab hush and the one-minute cap are left to the kit (no piece answers `rich:hush` itself; the check confirms the kit's message is never named). Conform's browser pass is the only play-and-hush check I relied on.
+
+## Under the kick: The Technical Side: **remake** (one sentence, plus a caption phrase)
+
+1. **Test or decoration?** A test, and a well-placed one. A bass note sits under each kick, inside its shape, 6 dB down. Eight blind trials then ask the reader to name the note. If the page's "can't distinguish" is right, the score sits at chance. If it is wrong, it doesn't. The 6 dB sits almost exactly on a standard masking estimate (below), so the outcome is really open. This piece could come out either way.
+2. **Faithful?** Up to the verdict, yes. Step 3 is the page's own counter-case from Common Misunderstandings, and the caption names it. The fault is in what a chance score is said to mean. At 4 of 8 or fewer the piece says "the page's word held: under the kick, the note was gone." The test can't show that. A reader who can't *name* the pitch may still hear a second sound there. The page's own Part 1 says students hear "muddy … both fighting", which is two sounds heard and neither named. Or the reader's speakers may stop above 73 Hz. A chance score leaves the page's word standing. It doesn't show the note gone. The caption's "a score near 4 of 8 keeps the page's word" has the same lean, more mildly.
+   **Remake:** at ≤ 4, say what was shown: "You couldn't name the note better than a coin. That's what the page predicts, though it doesn't prove the note was gone: you may have heard something there without telling which." Change the caption to "a score near 4 of 8 doesn't contradict the page". Nothing else.
+3. **Walks up?** Yes: the bass alone, the kick alone, two bands, one band named, then blind.
+
+Notes, not reasons. The two notes are matched in RMS, not in loudness to the ear. Equal-loudness contours rise steeply below 100 Hz (ISO 226), so the G at 98 Hz will tend to stand out more than the D at 73.4 Hz at the same level. A good score can come from "is there a note at all", answered "high" when there is one. That is still the ear telling two sounds apart, so it doesn't break the test, but the step could say so. On playback that rolls off above 60 Hz, the D goes before the G. Step 1's "if you can't hear them at all … put on headphones" is the right guard. Eight trials is a small test: a listener who is truly right 75% of the time reaches 7 of 8 only 37% of the time. The 5 to 6 band, "doesn't settle it", is honest about that.
+
+## Mud into dialogue: Teaching the Resonance: **keep**
+
+1. **Test or decoration?** The first four steps are the page's Part 1, played in its order, and those alone would only illustrate. The last step makes it a test. The page's step 4 says of the subtle duck, "the conversation is still there, just quieter". Six odd-one-out trials ask whether a 4.5 dB duck can be heard at all, and at chance the piece says plainly that it wasn't. Then the page's own question is left unscored, which is right, since the page reports "students always say yes" and that isn't a score.
+2. **Faithful?** Yes. Heavy ratio and long release (20 : 1, 350 ms) and light ratio and fast release (2 : 1, 50 ms) are the page's words made into numbers. The higher threshold on the subtle setting is the piece's choice, and its step says so. Release ∞ never comes back, and the meter says so, which is the page's "bass never returns". The verdicts claim no more than the score.
+3. **Walks up?** Yes: none, sidechain, exaggerated, subtle, the four knobs, then blind.
+
+**Is "level-matched" honest?** Yes, and the tradeoff it makes is the right one. Each version is scaled to −18 dB RMS over the whole 2 s bar, and the peak cap never engages (raw peaks 0.957 and 0.854, both under 0.9 once scaled). The duck takes 0.47 dB out of the bar, so the ducked loop gets 0.47 dB more gain. In K-weighted loudness the two matched loops are −20.24 and −20.25 LUFS, the same. Matching doesn't erase the duck. In the first 80 ms after each kick the ducked bass is still 3.5 dB under the dry bass (−24.03 against −20.51 dB), and the difference signal is −18.4 dB under the loop. Matching does leave a small level cue. In the open part of each beat (200 to 500 ms) the ducked loop runs 0.40 dB hotter, and its kick is 0.47 dB hotter. That is at the edge of a level difference you'd notice, it is exactly the makeup gain a real compressor adds, and the louder kick is part of what a sidechain is for. Note for the next round: the step should say "matched in RMS over the whole bar", so a reader knows which matching was done.
+
+## Who yields when: The Conversational Side: **remake** (two fixes)
+
+1. **Test or decoration?** A test of the page's claim that the release "determines the quality of the conversation". If release alone doesn't change who seems to cut in, readers land at chance, and the piece says "release alone didn't decide". Holding "no right answer" is honest: the verdicts speak only of the reader's ear ("for you, the release time read as manners"), never of what is true. And the piece holds the tension the page doesn't: a duck only turns a voice down, and the listener keeps talking underneath. The page itself calls the beginner's mind "perfect sidechain".
+2. **Faithful?** Two faults, both fixable.
+   - **"Only the release differs" isn't quite true.** Each version is scaled to −24 dB RMS over the loop. A quick release lets more of the listener through, so the mix is louder before scaling (−20.56 dB at 20 ms, −21.62 at 800 ms), and scaling turns the *speaker* down to make up for it. After matching, the speaker sits at −25.57 dB RMS at 20 ms, −25.42 at 80, −25.12 at 300 and −24.52 at 800. So within a pair the speaker is 0.3 to 1.05 dB quieter in the quick version. That is a second difference, and it pushes toward the reading under test: a fainter speaker makes the listener sound more like he is cutting in. **Fix:** give every version one fixed gain, so the speaker is identical in X and Y and only the listener's return changes. Then drop "matched in level" from the step and caption, or say "the speaker identical in both".
+   - **"The page's reading" isn't on the page.** The page maps release to "How quickly do I formulate my response?" and calls only the infinite release bad. It never says a quick release interrupts. That reading is a fair inference, and the piece's to make, but it is the piece's. **Fix:** in the step text, the verdicts ("the page's reading turned over") and the caption, say "one reading of the page's release question" or "the piece's reading", not "the page's reading".
+3. **Walks up?** Yes: the speaker, the listener, no yielding, the duck with the page's four questions, release alone, then blind pairs.
+
+## The offers
+
+**Offer 1: "can't distinguish" is stronger than masking. Confirmed in its finding, disputed in its suggested sentence.**
+The finding is real. Masking raises the threshold for the quieter sound by an amount set by the louder one's level. It is not an absolute bar on hearing two sounds in a band.
+- *Palace:* the palace holds no masking literature. Its nearest line is [[Kick Drum ↔ Foundation]]: "Frequency masking: Kick and bass fight (neither clear)" (`Cross-Domain Resonances/Kick Drum ↔ Foundation.md:143`), which, like this page's Part 1 "muddy … both fighting", describes two sounds heard and neither clear.
+- *Primary source:* Johnston 1988, IEEE J. Sel. Areas Commun. 6(2), 314–323, p. 317. A noise-like masker masks a tone in its critical band down to about **5.5 dB** below the masker's band energy. A tone masks noise down to **14.5 + z dB** below (z in Bark). The classical critical band is about 100 Hz wide below 500 Hz, so the page's 60–120 Hz is within about one band. The ERB, 24.7 + 0.108·f Hz (Moore and Glasberg), gives ERB(73 Hz) ≈ 33 Hz and ERB(98 Hz) ≈ 35 Hz. That stretches the formula, which is stated for 100 Hz to 10 kHz. On that scale the page's band is about 1.75 ERBs wide. The kick settles at 58 Hz. The D is 0.5 ERB from it and the G is 1.2 ERB from it.
+- What that does to the suggested sentence: "hard to hear, not impossible to hear" overcorrects. Below the masked threshold the quieter sound is not heard at all, and "can't" is right. The page is wrong only above the threshold. The piece's 6 dB sits about where Johnston's 5.5 dB puts the edge for a noise-like masker. The kick is a decaying sweep, part tone and part noise, so this is the edge, and that is why the test is a real one. **Suggested instead:** "In the same band at the same moment, the louder sound masks the quieter: below a level set by the louder one it isn't heard at all; above it, it's heard but blurred, which is the mud." As the maker says, it waits on a listener's score.
+
+**Offer 2: "Kick occupies the sonic space alone". Confirmed, with one qualification.**
+On the engine, the detector reads the kick at −2.65 dBFS (5 ms mean square, as a sine's peak; the sample peak is −2.06). The static law then gives, against the engine's deepest duck:
+- 4 : 1 from −20: 13.01 against 12.77 dB (offer: 12.8)
+- 20 : 1 from −20: 16.48 against 16.18 dB (offer: 16.2)
+- 2 : 1 from −12: 4.68 against 4.51 dB (offer: 4.5)
+- ∞ : 1 from −20: 17.35 against 17.02 dB, the whole overshoot and no more
+
+So the numbers stand, and the bass is turned down, not off. The qualification: "only by the overshoot" depends on the threshold. From −40 dB, ∞ : 1 ducks 37.0 dB and 20 : 1 ducks 35.2. That isn't silence, but under a kick it is as good as alone, and volume-shaper ducking in practice goes all the way to zero. The suggested "first" or "nearly alone" is fair to the page's proportional compressor. The extension to the inner voice also bears on the page's own "the beginner's mind ducks completely (perfect sidechain)", which imagines the complete duck no setting of this engine gives.
+
+**The chance figures, recomputed exactly.** P(≥ 7 of 8 | ½) = 9/256 = 3.516%. P(≥ 5 of 6 | ⅓) = 13/729 = 1.783%. P(6 of 6 | ½) = 1/64 = 1.563%. All match what the pieces print. The 4-of-6 middle band in mud into dialogue is 73/729 = 10.0%, as its verdict says. Every rule and chance figure is on the step before the first trial.
+
+**The band shares.** The D has 96.15% of its energy in 60–120 Hz (whole hit, 2¹⁷ points; the engine's 0.74 s window gives 96.22%). The G has 97.57% (97.63%). The decay alone, as a Lorentzian, accounts for 94.6% and 96.0%, and the 4 ms onset spreads the rest. The kick has 68.7% in band (engine 69.6%, "70%") and 99.04% under 200 Hz. The note-to-kick level is −6.01 dB (D) and −5.97 dB (G) in RMS over 0.1 s, 0.5 s and the whole beat alike, −6.17 and −6.07 over the first 50 ms, and −6.47 and −6.37 in peak. In the K-weighted loudness of the two matched trial sounds they differ by 0.05 LU, so loudness gives nothing away.
+
+## The face as a whole
+
+It makes the idea felt, not just busy. All three pieces share one engine, byte for byte, so the kick and bass, and the speaker and listener, really are the same machine. That is the page's "structural identity" built rather than asserted, and it lets the conversation piece say something the page can't: that a duck only turns a voice down. Each piece ends in a test that could embarrass the page, and each says plainly what chance would give. The two remakes are about honesty, not craft. One piece says more than its test can show; the other has a second difference hiding in its level matching and lends its reading to the page. Both are a sentence or a gain away. The face's real limit is the one the maker named: none of it has been heard, and two of its three claims wait on a listener with headphones that reach 60 Hz.
+
+---
+
+Web sources consulted: Johnston, "Transform Coding of Audio Signals Using Perceptual Noise Criteria" (https://www.ee.columbia.edu/~dpwe/papers/Johns88-audiocoding.pdf), p. 317; the ERB formula and the classical 100 Hz critical band below 500 Hz, as given in J. O. Smith, *Spectral Audio Signal Processing*, "Equivalent Rectangular Bandwidth" (https://ccrma.stanford.edu/~jos/sasp/Equivalent_Rectangular_Bandwidth.html). The masking indices of MPEG-1 psychoacoustic model 1 were looked for and not confirmed, so they aren't used here.
