@@ -1,0 +1,101 @@
+{
+ "title": "recipe-p2 — rich",
+ "born": "2026-11-03",
+ "links": [
+  {
+   "target": "[[recipe-p2]]",
+   "type": "connects-to",
+   "label": "rich-face-of"
+  },
+  {
+   "target": "[[Wallpaper Groups]]",
+   "type": "belongs-to",
+   "label": "bundle-entry"
+  },
+  {
+   "target": "[[Enrichment]]",
+   "type": "connects-to",
+   "label": "made-by"
+  }
+ ],
+ "forward_vector": "I am the manifest of the p2 recipe's rich face, its first round at Sketch tier: two made pieces that build the recipe exactly as it is written and then test it, one on the Method's rule (a slide, or a half-turn?) and one on the break and the clave (one break away, or by a mirror?), with the fingerprint of the words each was laid against and the offers the pieces measured for the text. The page is a bundle note with no frontmatter, so I am keyed by its file name, recipe-p2. I grow when a piece has something new to test; I never hold the recipe's words.",
+ "entry": "recipe-p2",
+ "tier": "sketch",
+ "made": "2026-11-03",
+ "round": 1,
+ "grain": "The page's own ## grain: five sections, two carry pieces. The opening (the H1's section) and What you should hear carry offers only.",
+ "offers": [
+  {
+   "section": "Method",
+   "kind": "claim-change",
+   "status": "open",
+   "what": "Step 2's rule, n → (n + 8) mod 16, is a slide, not a 180° turn. Built as written on every half step 1 allows (126 halves of 3 or 4 hits in 1–8), it makes the half played twice 126 times, with a smallest repeat of 8 steps or fewer in all 126; the same meter reads 16 on pm's loop in 120 of 126, so it could have read 16 here. The 180° is real on the clock face: drawn round a circle, n → n + 8 is a half-turn, and on a loop a turn of the clock is a slide in time. Drawn as a strip, a half-turn about the point between 8 and 9 sends n to 17 − n, which is recipe-pm's mirror (126 of 126 on one voice). Step 2's own words, \"mirror each hit's position and invert its placement\", describe the real half-turn once placement is a second direction (low and high, or pitch): (n, voice) → (17 − n, other voice). That parts from pm on 1568 of 1568 voicings, and 1540 of them are the strip's p2 (a half-turn, no mirror, no glide). Proposed step 2: \"Rotate 180°: play each hit at the mirrored position and on the other voice. A low hit at n becomes a high hit at 17 − n (low 1 → high 16, low 3 → high 14). With one voice there is nothing to invert, and this is pm's mirror.\" Step 3: \"Loop. The second half is the first half backwards, answered in the other voice.\" Ingredients would add a second voice. If the slide is kept anywhere, write it n + 8: on 1–16 the mod sends step 8 to 0. The parent face's offer on Musical Symmetry measured the same slide; this carries it to the recipe's own text."
+  },
+  {
+   "section": "Recipe — Cooking p2 into a rhythmic phrase",
+   "kind": "claim-change",
+   "status": "open",
+   "what": "\"Every half-cycle is a 180° rotation of the first half … a center of rotational symmetry — but no mirror axis.\" On the rule as written, 62 of the 126 loops have a mirror in time anyway (the cooked tresillo has two, through 4|12 and 8|16). On one voice a centre of half-turn always is a mirror axis (126 of 126), so \"no mirror axis\" holds only with the second voice the Method offer adds. Proposed: \"Every second half is the first half turned 180°: played backwards, on the other voice. The pattern has a centre of rotation and, with two voices, no mirror axis.\""
+  },
+  {
+   "section": "What you should hear",
+   "kind": "claim-change",
+   "status": "open",
+   "what": "\"It echoes itself at a distance. What you played in the first half returns in the second half\" describes what the rule makes, the half again (126 of 126), and the section then calls it question and answer, while \"What this teaches\" and recipe-pm.md:35 call p2 dialogue and pm echo. On the rule as written the labels are crossed: the recipe's p2 is the plain repeat, and pm is the one that changes the half (it reverses it). The answer comes from somewhere else only with the second voice, where the half returns backwards on the other drum. Proposed: \"What you played in the first half returns in the second, backwards and in the other voice: not a repeat and not a fold, a reply.\" The clave line here goes with the Where to break it offer. Not heard: an agent can't judge balance or dialogue by ear; the piece lets the reader switch between the three maps with matched voices."
+  },
+  {
+   "section": "Where to break it",
+   "kind": "claim-change",
+   "status": "open",
+   "what": "\"This is exactly where the clave lives\" (and :24, \"not quite p2 … almost-p2\") fails on the recipe's own terms. No loop the recipe can cook, broken once as the section says, becomes the son clave or the rumba clave: 0 of 8960 tries each (126 halves × every one-step move of a second-half hit onto an empty step × 16 starting steps, so 3-2 and 2-3 both count). Parity forbids it: every hit the rule makes has a partner, so a cooked loop has an even number of hits, a break keeps the count, and a clave has five. By the recipe's count both claves are as far as five hits can be: none of their hits has a partner eight steps on. By the same count against a mirror, the son clave (1 4 7 11 13) is exact: reversed through steps 4 and 12 it lands on itself, the mirror the cooked tresillo already had. It keeps that mirror and drops the slide. The rumba clave (1 4 8 11 13) is the son clave with one hit moved one step, 7 to 8: the section's break, made on a mirror. Proposed for :24: \"The Afro-Cuban clave lives by pm, not here: the son clave reversed through its fourth step lands on itself, and no hit sits half a bar from another.\" For :28, keep the break and drop the clave sentence, or point it at pm: \"Move one hit of the son clave a step later and you have the rumba clave; the asymmetric break is the groove's engine.\" Its home may be recipe-pm."
+  }
+ ],
+ "sections": [
+  {
+   "heading": "Method",
+   "status": "proposal",
+   "proposed": {
+    "date": "2026-11-03",
+    "by": "maker · claude-opus-5-5 · proposal round",
+    "round": "proposal-round-2026-11"
+   },
+   "pieces": [
+    {
+     "file": "recipe-p2 — rich — the recipe cooked.html",
+     "origin": "made",
+     "by": "the Maker · Web Audio",
+     "height": 1100,
+     "title": "the recipe, cooked · five steps",
+     "caption": "**The Method, done as written.** Write three or four hits in steps 1 to 8; the rule n → (n + 8) mod 16 makes the rest, and it is the half played twice: the smallest repeat is 8 steps. pm's 17 − n beside it, its arcs nesting. Then 180° drawn two ways: turned on the clock, hits land at n + 8, the recipe; turned on the strip, at 17 − n, pm. The test, last: give the hits a second voice, as \"invert its placement\" asks, and the strip's half-turn plays the half backwards on the other drum. Over all 126 halves the rule is the half twice every time, and the real half-turn needs the second voice. Checked in Node on the piece's own engine; the mix was not heard.",
+     "near": "maps to position (n + 8) mod 16",
+     "place": "band"
+    }
+   ],
+   "made_against": "05fb95199c5a",
+   "stamped": "2026-11-03"
+  },
+  {
+   "heading": "Where to break it",
+   "status": "proposal",
+   "proposed": {
+    "date": "2026-11-03",
+    "by": "maker · claude-opus-5-5 · proposal round",
+    "round": "proposal-round-2026-11"
+   },
+   "pieces": [
+    {
+     "file": "recipe-p2 — rich — the break and the clave.html",
+     "origin": "made",
+     "by": "the Maker · Web Audio",
+     "height": 1000,
+     "title": "the break and the clave · four steps",
+     "caption": "**One break from the clave?** The tresillo, 1 4 7, cooked by the recipe into 1 4 7 9 12 15; one second-half hit moved one step, as the section says; the son clave beside it on the clock. The test, its rule set first: no loop the recipe can cook reaches the son or rumba clave by one break (0 of 8960 each), because a cooked loop always has an even number of hits. Scored the same way against a mirror, the son clave is exact, reversed through steps 4 and 12, and the rumba clave is it with one hit moved one step. Checked in Node on the piece's own engine; the mix was not heard.",
+     "near": "This is exactly where the clave lives",
+     "place": "band"
+    }
+   ],
+   "made_against": "6c2daf3ea3db",
+   "stamped": "2026-11-03"
+  }
+ ]
+}
