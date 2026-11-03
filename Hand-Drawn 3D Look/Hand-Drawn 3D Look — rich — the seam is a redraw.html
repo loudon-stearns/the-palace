@@ -1,0 +1,410 @@
+<!doctype html>
+<!--
+  title: Hand-Drawn 3D Look — rich — the seam is a redraw
+  born: 2026-11-03
+  links: [[Hand-Drawn 3D Look]] connects-to · rich-face-piece-of · [[BLUELINE]] gathers-from · blender-handdrawn's seam proofs · [[Steer the Generator]] connects-to · redraw-not-filter · [[Progressive Staging]] exemplifies · a walk up to its test
+  forward_vector: I am "the seam is a redraw, not a filter" as a walk of five steps on BLUELINE's own city plate:
+    the plate alone, one timid redraw that hands it back, the ladder up to 0.95, the test of "composition seed,
+    not an appearance", and the eight seeds that test "the structure stays locked". I want the reader to see the
+    render turn into a drawing, and to see in numbers that the corridor survives while the marks are new.
+  dress: Loudon Live house style, Graphite skin, tokens inlined. Equations twice, symbols and words.
+  engine: the script marked id="hd-engine". Edges: Gaussian σ 1.2, Sobel, magnitude over 8 above 0.06, on the
+    grey sheet at 416 × 520 (scipy's own definitions, reflect at the border). Distances: exact Euclidean (Felzenszwalb).
+    held = share of the plate's edge pixels with an edge in the redraw within r; new = share of the redraw's edge
+    pixels with no plate edge within r; chance = held for the plate's edges slid four ways (wrapping); changed =
+    share of pixels whose blurred grey moved more than a quarter of the way from paper to ink.
+  checks: Hand-Drawn 3D Look — proof — rich checks.mjs pulls hd-engine out of this file and checks it against the
+    scipy numbers in sheets/sheets.json, written by Hand-Drawn 3D Look — rich — make sheets.py.
+  files: sheets/sheets.json and sheets/seam/ (the plate, its line pass, three rungs and eight seeds, cut from
+    Projects/BLUELINE/proofs/blender-handdrawn/blender and stylized, which git ignores).
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:files" content="sheets/sheets.json sheets/seam/">
+<title>The seam is a redraw</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Manrope:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root { --bg:#0a0a0f; --e1:#12121a; --e2:#1a1a28; --border:#4a4a5e; --soft:rgba(255,255,255,.06);
+    --fg1:#e8e8f0; --fg2:#c8c8d8; --fg3:#8a8aa0; --amber:#e8b84a; --amberline:rgba(232,184,74,.5); --violet:#cc8cf2;
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --sans:'Manrope',system-ui,sans-serif; --serif:'Cormorant Garamond',Georgia,serif;
+    --ease:cubic-bezier(.4,0,.2,1); }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); font-weight: 300; }
+  .hd-piece { padding: 22px 22px 16px; max-width: 1100px; }
+  .hd-kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; }
+  .hd-title { font-family: var(--serif); font-size: 28px; font-weight: 300; color: var(--fg1); margin: 0 0 6px; }
+  .hd-sub { font-size: 14px; line-height: 1.6; max-width: 78ch; margin: 0 0 16px; }
+  .hd-rail { display: flex; flex-wrap: wrap; margin-bottom: 14px; border: 1px solid var(--border); width: fit-content; max-width: 100%; border-radius: 2px; }
+  .hd-rail button { border: 0; border-right: 1px solid var(--border); border-radius: 0; }
+  .hd-rail button:last-child { border-right: 0; }
+  button { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--fg2); background: var(--bg);
+    border: 1px solid var(--border); border-radius: 2px; padding: 8px 12px; cursor: pointer; transition: color 220ms var(--ease), border-color 220ms var(--ease); }
+  button:hover { border-color: rgba(232,184,74,.55); color: var(--fg1); }
+  button:disabled { opacity: .4; cursor: default; }
+  button[aria-pressed="true"] { color: var(--amber); border-color: var(--amberline); background: rgba(232,184,74,.08); }
+  button:focus-visible, input:focus-visible { outline: 1px dashed var(--amber); outline-offset: 2px; }
+  .hd-step { display: none; border: 1px solid var(--soft); background: var(--e1); border-radius: 2px; padding: 16px 16px 14px; }
+  .hd-step.hd-shown { display: block; }
+  .hd-step h2 { font-family: var(--serif); font-weight: 400; font-size: 23px; color: var(--fg1); margin: 0 0 4px; }
+  .hd-idea { font-size: 14.5px; line-height: 1.6; color: var(--fg1); max-width: 80ch; margin: 0 0 12px; }
+  .hd-p { font-size: 13.5px; line-height: 1.6; max-width: 80ch; margin: 8px 0; }
+  .hd-label { font-family: var(--mono); font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--fg3); margin: 0 0 6px; display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+  .hd-views { display: grid; grid-template-columns: minmax(240px, 416px) minmax(220px, 1fr); gap: 16px; align-items: start; }
+  @media (max-width: 720px) { .hd-views { grid-template-columns: 1fr; } }
+  canvas { display: block; width: 100%; height: auto; background: #fff; border: 1px solid var(--soft); border-radius: 2px; }
+  .hd-row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 10px 0; }
+  .hd-row label { font-family: var(--mono); font-size: 11px; color: var(--fg3); letter-spacing: .08em; min-width: 10ch; }
+  input[type=range] { accent-color: var(--amber); flex: 1; min-width: 140px; max-width: 360px; }
+  .hd-val { font-family: var(--mono); font-size: 12px; color: var(--fg1); min-width: 8ch; font-variant-numeric: tabular-nums; }
+  .hd-seg { display: inline-flex; flex-wrap: wrap; } .hd-seg button + button { border-left: 0; }
+  .hd-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 8px; margin: 0 0 10px; }
+  .hd-cell { border: 1px solid var(--soft); background: var(--bg); border-radius: 2px; padding: 8px 10px; }
+  .hd-k { font-family: var(--mono); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--fg3); }
+  .hd-v { font-family: var(--mono); font-size: 16px; color: var(--fg1); font-variant-numeric: tabular-nums; margin-top: 2px; }
+  .hd-eq { border-left: 2px solid var(--amberline); padding: 6px 12px; margin: 12px 0; }
+  .hd-sym { font-family: var(--mono); font-size: 14px; color: var(--fg1); }
+  .hd-words { font-family: var(--serif); font-style: italic; font-size: 16px; color: var(--fg2); margin-top: 2px; }
+  .hd-test { font-size: 14px; line-height: 1.6; color: var(--fg1); border: 1px solid var(--soft); background: var(--e2); padding: 10px 12px; border-radius: 2px; max-width: 88ch; margin: 12px 0 4px; }
+  .hd-test b { color: var(--amber); font-weight: 500; }
+  .hd-note { font-family: var(--mono); font-size: 11px; color: var(--fg3); line-height: 1.6; margin: 6px 0 0; max-width: 100ch; }
+  .hd-scroll { overflow-x: auto; }
+  table.hd-t { border-collapse: collapse; font-family: var(--mono); font-size: 12px; margin: 10px 0; }
+  table.hd-t th, table.hd-t td { border: 1px solid var(--soft); padding: 4px 10px; text-align: right; font-variant-numeric: tabular-nums; }
+  table.hd-t th { color: var(--fg3); font-weight: 400; letter-spacing: .06em; }
+  table.hd-t td:first-child, table.hd-t th:first-child { text-align: left; }
+  table.hd-t tr.hd-hi td { color: var(--amber); }
+  table.hd-t tr { cursor: default; }
+  .hd-thumbs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+  .hd-thumbs button { padding: 0; border-radius: 2px; background: #fff; overflow: hidden; }
+  .hd-thumbs button canvas { border: 0; }
+  .hd-thumbs button[aria-pressed="true"] { outline: 2px solid var(--amber); outline-offset: 1px; }
+  .hd-key { display: inline-block; width: 10px; height: 10px; vertical-align: -1px; margin-right: 4px; }
+  .hd-nav { display: flex; justify-content: space-between; margin-top: 12px; }
+  .hd-foot { display: flex; align-items: center; gap: 8px; margin-top: 16px; font-family: var(--mono); font-size: 11px; letter-spacing: .14em; color: var(--fg3); }
+  .hd-foot i { color: var(--amber); font-weight: 300; }
+  .hd-wait { font-family: var(--mono); font-size: 12px; color: var(--fg3); padding: 18px 0; }
+</style>
+</head>
+<body>
+<main class="hd-piece">
+  <div class="hd-kicker">Hand-drawn 3D look · the seam is a redraw, not a filter</div>
+  <h1 class="hd-title">Where the render becomes a drawing</h1>
+  <p class="hd-sub">BLUELINE's city plate, rendered by Blender, sent through SDXL img2img with a Canny ControlNet. These are the proof's own images, not new runs. Five steps: the plate alone, one timid redraw, the ladder up to 0.95, the test of "a composition seed, not an appearance", and last the eight seeds.</p>
+  <nav class="hd-rail" aria-label="steps">
+    <button data-go="1" aria-pressed="true">1 · the plate</button>
+    <button data-go="2" aria-pressed="false">2 · a timid redraw</button>
+    <button data-go="3" aria-pressed="false">3 · the ladder</button>
+    <button data-go="4" aria-pressed="false">4 · seed, not appearance</button>
+    <button data-go="5" aria-pressed="false">5 · eight seeds</button>
+  </nav>
+  <p class="hd-wait" id="wait">loading the plates…</p>
+
+  <section class="hd-step hd-shown" data-step="1">
+    <h2>1 · The plate</h2>
+    <p class="hd-idea">This is what Blender hands the seam: line, flat value and exact composition, in about two seconds. Everything after this step is measured against it, so first see what the measure sees: the plate's edges, every place the grey jumps.</p>
+    <div class="hd-views">
+      <div><div class="hd-label"><span>the Blender plate · 416 × 520</span><span id="l1"></span></div><canvas id="c1" width="416" height="520"></canvas></div>
+      <div>
+        <div class="hd-row"><span class="hd-seg"><button data-v1="plate" aria-pressed="true">the plate</button><button data-v1="edges" aria-pressed="false">its edges</button><button data-v1="lines" aria-pressed="false">what Canny was given</button></span></div>
+        <p class="hd-p" id="p1"></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="hd-step" data-step="2">
+    <h2>2 · A timid redraw hands it back</h2>
+    <p class="hd-idea">Denoise 0.72 with Canny held hard at 0.85. Drag the line across: the left is the plate, the right is what the model drew. The page says low denoise "just hands your 3D render back". Look first, then read the numbers.</p>
+    <div class="hd-views">
+      <div><div class="hd-label"><span>plate ← | → redraw at 0.72</span></div><canvas id="c2" width="416" height="520"></canvas>
+        <div class="hd-row"><label for="w2">wipe</label><input id="w2" type="range" min="0" max="416" step="1" value="208"></div></div>
+      <div>
+        <div class="hd-grid">
+          <div class="hd-cell"><div class="hd-k">pixels changed</div><div class="hd-v" id="m2c"></div></div>
+          <div class="hd-cell"><div class="hd-k">plate edges held</div><div class="hd-v" id="m2h"></div></div>
+          <div class="hd-cell"><div class="hd-k">new marks</div><div class="hd-v" id="m2n"></div></div>
+        </div>
+        <p class="hd-p" id="p2"></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="hd-step" data-step="3">
+    <h2>3 · The ladder</h2>
+    <p class="hd-idea">Three rungs from the same plate and the same line pass. Step up and watch for the moment the model stops tracing and starts drawing. Turn on the marks: <span class="hd-key" style="background:#e8b84a"></span>amber is ink the plate never had, <span class="hd-key" style="background:#cc8cf2"></span>violet is a plate edge the redraw lost.</p>
+    <div class="hd-views">
+      <div><div class="hd-label"><span id="l3"></span></div><canvas id="c3" width="416" height="520"></canvas></div>
+      <div>
+        <div class="hd-row"><span class="hd-seg" id="rungs3"></span></div>
+        <div class="hd-row"><button id="mk3" aria-pressed="false">show the marks</button><button id="pl3" aria-pressed="false">the plate</button></div>
+        <div class="hd-grid">
+          <div class="hd-cell"><div class="hd-k">pixels changed</div><div class="hd-v" id="m3c"></div></div>
+          <div class="hd-cell"><div class="hd-k">plate edges held</div><div class="hd-v" id="m3h"></div></div>
+          <div class="hd-cell"><div class="hd-k">new marks</div><div class="hd-v" id="m3n"></div></div>
+        </div>
+        <p class="hd-note" id="n3"></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="hd-step" data-step="4">
+    <h2>4 · A composition seed, not an appearance</h2>
+    <p class="hd-idea">The page's claim, as a test: at 0.95 with loose Canny the model should redraw the medium (many new marks) while the plate's composition still guides it (its edges still held, well above what chance would hold). Both numbers, every rung, at a tolerance you choose.</p>
+    <div class="hd-eq"><div class="hd-sym">held = |{ p ∈ E<sub>plate</sub> : d(p, E<sub>redraw</sub>) ≤ r }| ⁄ |E<sub>plate</sub>| &nbsp;·&nbsp; new = |{ q ∈ E<sub>redraw</sub> : d(q, E<sub>plate</sub>) &gt; r }| ⁄ |E<sub>redraw</sub>|</div>
+      <div class="hd-words">Held is the share of the plate's edges that still find an edge in the redraw within r pixels; new is the share of the redraw's edges with no plate edge within r. Chance is held again, with the plate's edges slid about 35 pixels four ways: what a drawing this busy would hold by accident.</div></div>
+    <div class="hd-row"><label for="r4">tolerance r</label><input id="r4" type="range" min="2" max="8" step="1" value="4"><span class="hd-val" id="r4v"></span></div>
+    <div class="hd-scroll"><table class="hd-t" id="tab4"></table></div>
+    <p class="hd-test" id="t4"></p>
+    <p class="hd-note">Each rung moved more than denoise: Canny went 0.85 → 0.55 → 0.42 and stopped earlier, and the 0.95 rung has its own seed. The proofs never moved denoise alone, so the ladder shows the balance the page names ("the denoise/ControlNet balance decides everything"), not denoise by itself.</p>
+  </section>
+
+  <section class="hd-step" data-step="5">
+    <h2>5 · Eight seeds, one plate</h2>
+    <p class="hd-idea">The same plate, the same 0.95 recipe, eight seeds. The page says the inking swings "from light line-sketch to splatter-bomb while the structure stays locked". The swing is plain to see. Does the structure stay locked? Pick a seed; violet is plate edge it lost.</p>
+    <div class="hd-views">
+      <div><div class="hd-label"><span id="l5"></span></div><canvas id="c5" width="416" height="520"></canvas>
+        <div class="hd-row"><button id="mk5" aria-pressed="true">show the marks</button></div></div>
+      <div>
+        <div class="hd-thumbs" id="thumbs5"></div>
+        <div class="hd-scroll"><table class="hd-t" id="tab5"></table></div>
+      </div>
+    </div>
+    <div class="hd-eq"><div class="hd-sym">above chance = (held − chance) ⁄ (1 − chance)</div>
+      <div class="hd-words">How much of the way from an accident to a perfect hold the seed got: zero is no better than a slid plate, one is every plate edge kept.</div></div>
+    <p class="hd-test" id="t5"></p>
+  </section>
+
+  <div class="hd-nav"><button id="back">back</button><button id="next">next</button></div>
+  <div class="hd-foot">
+    <svg width="22" height="22" viewBox="-11 -11 22 22" aria-hidden="true"><circle r="10" fill="none" stroke="#4a4a5e" stroke-width="1"/><path id="sig" fill="none" stroke="#e8b84a" stroke-width="1"/></svg>
+    <span>Loud’n <i>Live</i></span>
+  </div>
+</main>
+
+<script id="hd-engine">
+/* Edges and distances on a grey sheet (values 0..1, row-major, W × H), defined as scipy.ndimage defines them. */
+const HD = (() => {
+  // scipy 'reflect': d c b a | a b c d | d c b a
+  const refl = (i, n) => { while (i < 0 || i >= n) { if (i < 0) i = -i - 1; if (i >= n) i = 2 * n - i - 1; } return i; };
+  function corr1d(a, W, H, k, axis) {
+    const out = new Float64Array(W * H), r = (k.length - 1) / 2;
+    if (axis === 1) {
+      for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) {
+        let s = 0; for (let j = -r; j <= r; j++) s += k[j + r] * a[y * W + refl(x + j, W)]; out[y * W + x] = s;
+      }
+    } else {
+      for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) {
+        let s = 0; for (let j = -r; j <= r; j++) s += k[j + r] * a[refl(y + j, H) * W + x]; out[y * W + x] = s;
+      }
+    }
+    return out;
+  }
+  function gaussKernel(sigma, truncate = 4) {
+    const r = Math.floor(truncate * sigma + 0.5), k = []; let s = 0;
+    for (let i = -r; i <= r; i++) { const v = Math.exp(-0.5 * i * i / (sigma * sigma)); k.push(v); s += v; }
+    return k.map((v) => v / s);
+  }
+  const gauss = (a, W, H, sigma) => { const k = gaussKernel(sigma); return corr1d(corr1d(a, W, H, k, 0), W, H, k, 1); };
+  function sobel(a, W, H, axis) {          // scipy.ndimage.sobel: derivative along axis, [1,2,1] along the other
+    const d = corr1d(a, W, H, [-1, 0, 1], axis);
+    return corr1d(d, W, H, [1, 2, 1], axis === 1 ? 0 : 1);
+  }
+  function edges(a, W, H, sigma = 1.2, t = 0.06) {
+    const b = gauss(a, W, H, sigma), gx = sobel(b, W, H, 1), gy = sobel(b, W, H, 0), e = new Uint8Array(W * H);
+    for (let i = 0; i < W * H; i++) e[i] = Math.hypot(gx[i], gy[i]) / 8 > t ? 1 : 0;
+    return e;
+  }
+  // exact Euclidean distance to the nearest set pixel (Felzenszwalb & Huttenlocher)
+  function dt1(f, n) {
+    const d = new Float64Array(n), v = new Int32Array(n), z = new Float64Array(n + 1); let k = 0; v[0] = 0; z[0] = -Infinity; z[1] = Infinity;
+    for (let q = 1; q < n; q++) {
+      if (f[q] === Infinity) continue;
+      if (f[v[k]] === Infinity) { v[k] = q; z[k] = -Infinity; z[k + 1] = Infinity; continue; }
+      let s = ((f[q] + q * q) - (f[v[k]] + v[k] * v[k])) / (2 * q - 2 * v[k]);
+      while (s <= z[k]) { k--; s = ((f[q] + q * q) - (f[v[k]] + v[k] * v[k])) / (2 * q - 2 * v[k]); }
+      k++; v[k] = q; z[k] = s; z[k + 1] = Infinity;
+    }
+    if (f[v[0]] === Infinity) { d.fill(Infinity); return d; }
+    k = 0;
+    for (let q = 0; q < n; q++) { while (z[k + 1] < q) k++; d[q] = (q - v[k]) * (q - v[k]) + f[v[k]]; }
+    return d;
+  }
+  function edt(mask, W, H) {
+    const g = new Float64Array(W * H), col = new Float64Array(H), row = new Float64Array(W);
+    for (let x = 0; x < W; x++) {
+      for (let y = 0; y < H; y++) col[y] = mask[y * W + x] ? 0 : Infinity;
+      const d = dt1(col, H); for (let y = 0; y < H; y++) g[y * W + x] = d[y];
+    }
+    for (let y = 0; y < H; y++) {
+      for (let x = 0; x < W; x++) row[x] = g[y * W + x];
+      const d = dt1(row, W); for (let x = 0; x < W; x++) g[y * W + x] = Math.sqrt(d[x]);
+    }
+    return g;
+  }
+  /* one redraw against the plate. P: prepared plate {e, d, blur}; O: prepared redraw {e, d, blur} */
+  function prepare(a, W, H) { const e = edges(a, W, H); return { a, e, d: edt(e, W, H), blur: gauss(a, W, H, 1.0) }; }
+  function stats(P, O, W, H, r, shifts) {
+    let pe = 0, held = 0, oe = 0, nw = 0, ch = 0;
+    for (let i = 0; i < W * H; i++) {
+      if (P.e[i]) { pe++; if (O.d[i] <= r) held++; }
+      if (O.e[i]) { oe++; if (P.d[i] > r) nw++; }
+      if (Math.abs(O.blur[i] - P.blur[i]) > 0.25) ch++;
+    }
+    let chance = 0;
+    for (const [a, b] of shifts) {        // numpy roll(roll(pe, a, 0), b, 1): the edge at (y, x) moves to (y + a, x + b)
+      let c = 0;
+      for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) {
+        if (!P.e[y * W + x]) continue;
+        const Y = ((y + a) % H + H) % H, X = ((x + b) % W + W) % W;
+        if (O.d[Y * W + X] <= r) c++;
+      }
+      chance += c / pe;
+    }
+    chance /= shifts.length;
+    return { held: held / pe, chance, new: oe ? nw / oe : 0, changed: ch / (W * H), edge_px: oe };
+  }
+  return { gauss, edges, edt, prepare, stats };
+})();
+</script>
+<script>
+const $ = (id) => document.getElementById(id);
+const BASE = 'sheets/';
+let meta = null, W = 416, H = 520, items = {}, P = null, step = 1, view1 = 'plate', wipe2 = 208, rung3 = 'd095', marks3 = false, plate3 = false, r4 = 4, seed5 = 'seed70707', marks5 = true;
+const RUNGS = ['d072', 'd090', 'd095'];
+const pct = (v) => (100 * v).toFixed(1) + ' %';
+
+function loadImg(src) {
+  return new Promise((res, rej) => { const im = new Image(); im.onload = () => res(im); im.onerror = () => rej(new Error('could not load ' + src)); im.src = src; });
+}
+function grey(im) {
+  const c = document.createElement('canvas'); c.width = im.naturalWidth; c.height = im.naturalHeight;
+  const g = c.getContext('2d', { willReadFrequently: true }); g.drawImage(im, 0, 0);
+  const d = g.getImageData(0, 0, c.width, c.height).data, a = new Float64Array(c.width * c.height);
+  for (let i = 0; i < a.length; i++) a[i] = d[4 * i] / 255;
+  return a;
+}
+async function boot() {
+  meta = await (await fetch(BASE + 'sheets.json')).json();
+  [W, H] = meta.seam.size;
+  const ims = await Promise.all(meta.seam.items.map((it) => loadImg(BASE + it.file)));
+  meta.seam.items.forEach((it, i) => { items[it.key] = Object.assign({}, it, { a: grey(ims[i]) }); });
+  for (const k of Object.keys(items)) if (k !== 'lines') Object.assign(items[k], HD.prepare(items[k].a, W, H));
+  P = items.plate;
+  // the numbers this page computed, for the record (the checks file compares the engine against sheets.json)
+  window.__hdSeam = Object.fromEntries(Object.keys(items).filter((k) => k !== 'lines').map((k) => [k, HD.stats(P, items[k], W, H, meta.seam.r, meta.seam.shifts)]));
+  buildRungs(); buildThumbs();
+  $('wait').remove();
+  show(1);
+}
+
+/* paint a grey sheet, with optional marks: amber = new marks, violet = plate edge lost, amber-on-plate = edges */
+function paint(canvas, a, opts = {}) {
+  const g = canvas.getContext('2d'), img = g.createImageData(W, H), o = img.data;
+  for (let i = 0; i < W * H; i++) {
+    let v = Math.round(a[i] * 255), r = v, gg = v, b = v;
+    if (opts.fade) { r = gg = b = Math.round(255 - (255 - v) * 0.35); }
+    if (opts.edges && opts.edges[i]) { r = 232; gg = 184; b = 74; }
+    if (opts.O) {
+      if (opts.O.e[i] && P.d[i] > opts.r) { r = 232; gg = 184; b = 74; }
+      if (P.e[i] && opts.O.d[i] > opts.r) { r = 204; gg = 140; b = 242; }
+    }
+    o[4 * i] = r; o[4 * i + 1] = gg; o[4 * i + 2] = b; o[4 * i + 3] = 255;
+  }
+  g.putImageData(img, 0, 0);
+}
+function stat(k, r = meta.seam.r) { return HD.stats(P, items[k], W, H, r, meta.seam.shifts); }
+
+function draw1() {
+  if (view1 === 'plate') paint($('c1'), P.a);
+  else if (view1 === 'edges') paint($('c1'), P.a, { fade: true, edges: P.e });
+  else paint($('c1'), items.lines.a);
+  let n = 0; for (let i = 0; i < W * H; i++) n += P.e[i];
+  $('l1').textContent = view1 === 'edges' ? n + ' edge pixels' : '';
+  $('p1').innerHTML = view1 === 'lines'
+    ? 'The Freestyle line pass, the second render. ControlNet ran Canny on this one, not on the toon plate: these are the lines the model was told to respect, at strength 0.85 on the lowest rung and 0.42 on the highest.'
+    : view1 === 'edges'
+      ? 'In amber, the ' + n + ' pixels where the plate\'s grey jumps: Gaussian blur σ 1.2, Sobel, kept where the slope is over 0.06. Building edges, the street\'s horizon, the figure, the smoke. This is the plate\'s composition as the next steps count it.'
+      : 'EEVEE toon (a two-band ramp: ink shadow or paper) with Freestyle ink on top, at 832 × 1040, shown here at half size in grey. Blender does not invent the ink texture; that is what the seam is for.';
+}
+function draw2() {
+  const O = items.d072, c = $('c2'), g = c.getContext('2d');
+  paint(c, O.a);
+  const tmp = document.createElement('canvas'); tmp.width = W; tmp.height = H; paint(tmp, P.a);
+  g.drawImage(tmp, 0, 0, wipe2, H, 0, 0, wipe2, H);
+  g.fillStyle = '#e8b84a'; g.fillRect(wipe2 - 1, 0, 2, H);
+  const s = stat('d072');
+  $('m2c').textContent = pct(s.changed); $('m2h').textContent = pct(s.held); $('m2n').textContent = pct(s.new);
+  $('p2').innerHTML = 'Only <b>' + pct(s.changed) + '</b> of the pixels moved more than a quarter of the way between paper and ink. ' + pct(s.held) + ' of the plate\'s edges are still there, and ' + pct(s.new) + ' of the redraw\'s edges are marks the plate never had, mostly the line roughened a little. The grey toon sky, the flat walls: the render came back. The locked style\'s negative prompt says "3d render, smooth shading", and at this denoise it loses.';
+}
+function buildRungs() {
+  $('rungs3').innerHTML = RUNGS.map((k) => '<button data-r3="' + k + '" aria-pressed="' + (k === rung3) + '">' + items[k].settings.denoise.toFixed(2) + '</button>').join('');
+  document.querySelectorAll('[data-r3]').forEach((b) => b.addEventListener('click', () => { rung3 = b.dataset.r3; draw3(); }));
+}
+function draw3() {
+  document.querySelectorAll('[data-r3]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.r3 === rung3)));
+  $('mk3').setAttribute('aria-pressed', String(marks3)); $('pl3').setAttribute('aria-pressed', String(plate3));
+  const O = items[rung3], st = O.settings, s = stat(rung3);
+  if (plate3) paint($('c3'), P.a); else paint($('c3'), O.a, marks3 ? { O, r: meta.seam.r } : {});
+  $('l3').textContent = plate3 ? 'the plate' : 'denoise ' + st.denoise.toFixed(2) + ' · canny ' + st.canny.toFixed(2) + (st.end < 1 ? ' to ' + Math.round(st.end * 100) + ' %' : '') + ' · seed ' + st.seed;
+  $('m3c').textContent = pct(s.changed); $('m3h').textContent = pct(s.held); $('m3n').textContent = pct(s.new);
+  $('n3').textContent = rung3 === 'd095'
+    ? 'The jump happens here, and late: the street becomes a vanishing-point corridor with speed lines, the far blocks are redrawn with windows, splatter lands on the paper. 0.90 still mostly traced.'
+    : rung3 === 'd090' ? 'Still a tracing: the toon sky stays grey, the walls stay flat. The ink has begun at the edges (a black wall, a smudge of smoke).' : 'The render, handed back.';
+}
+function draw4() {
+  $('r4v').textContent = r4 + ' px';
+  const rows = RUNGS.map((k) => [k, stat(k, r4)]);
+  $('tab4').innerHTML = '<tr><th>rung</th><th>canny</th><th>pixels changed</th><th>plate edges held</th><th>chance</th><th>new marks</th></tr>' +
+    rows.map(([k, s]) => '<tr' + (k === 'd095' ? ' class="hd-hi"' : '') + '><td>denoise ' + items[k].settings.denoise.toFixed(2) + '</td><td>' + items[k].settings.canny.toFixed(2) + '</td><td>' + pct(s.changed) + '</td><td>' + pct(s.held) + '</td><td>' + pct(s.chance) + '</td><td>' + pct(s.new) + '</td></tr>').join('');
+  const lo = rows[0][1], hi = rows[2][1];
+  const seed = hi.held > hi.chance + 0.5 * (1 - hi.chance), redraw = hi.new > 2 * lo.new;
+  $('t4').innerHTML = (seed && redraw ? '<b>The claim holds on this plate.</b> ' : '<b>The claim does not hold at this tolerance.</b> ') +
+    'At 0.95 with Canny loosened to 0.42, ' + pct(hi.new) + ' of the drawing\'s edges are new (at 0.72: ' + pct(lo.new) + '), and still ' + pct(hi.held) + ' of the plate\'s edges are held, against ' + pct(hi.chance) + ' by chance. The plate decided where things are; the model decided what they look like. ' +
+    'Move r: at 2 px fewer edges count as held everywhere, at 8 px chance climbs, and the order of the rungs never changes.';
+}
+function buildThumbs() {
+  const seeds = Object.keys(items).filter((k) => k.startsWith('seed'));
+  $('thumbs5').innerHTML = seeds.map((k) => '<button data-s5="' + k + '" aria-pressed="' + (k === seed5) + '" title="seed ' + items[k].settings.seed + '"><canvas width="' + W + '" height="' + H + '"></canvas></button>').join('');
+  document.querySelectorAll('[data-s5]').forEach((b) => { paint(b.querySelector('canvas'), items[b.dataset.s5].a); b.addEventListener('click', () => { seed5 = b.dataset.s5; draw5(); }); });
+}
+function draw5() {
+  document.querySelectorAll('[data-s5]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.s5 === seed5)));
+  $('mk5').setAttribute('aria-pressed', String(marks5));
+  const O = items[seed5];
+  paint($('c5'), O.a, marks5 ? { O, r: meta.seam.r } : {});
+  $('l5').textContent = 'seed ' + O.settings.seed + ' · denoise 0.95 · canny 0.42 to 50 %';
+  const keys = ['d095'].concat(Object.keys(items).filter((k) => k.startsWith('seed')));
+  const rows = keys.map((k) => { const s = stat(k); return [k, s, (s.held - s.chance) / (1 - s.chance)]; });
+  $('tab5').innerHTML = '<tr><th>seed</th><th>held</th><th>chance</th><th>above chance</th><th>new</th></tr>' +
+    rows.map(([k, s, l]) => '<tr' + (k === seed5 ? ' class="hd-hi"' : '') + '><td>' + items[k].settings.seed + (k === 'd095' ? ' (the rung)' : '') + '</td><td>' + pct(s.held) + '</td><td>' + pct(s.chance) + '</td><td>' + l.toFixed(2) + '</td><td>' + pct(s.new) + '</td></tr>').join('');
+  const sr = rows.slice(1), lifts = sr.map((x) => x[2]), helds = sr.map((x) => x[1].held);
+  const worst = sr.reduce((a, b) => (b[2] < a[2] ? b : a)), best = sr.reduce((a, b) => (b[2] > a[2] ? b : a));
+  const weak = sr.filter((x) => x[2] < 0.5).map((x) => items[x[0]].settings.seed);
+  $('t5').innerHTML = '<b>Partly.</b> Every seed keeps the two walls, the ground line and the vanishing point, the corridor the field notes name. But the plate\'s edges held run from ' + pct(Math.min(...helds)) + ' to ' + pct(Math.max(...helds)) +
+    ', and above chance from ' + Math.min(...lifts).toFixed(2) + ' (seed ' + items[worst[0]].settings.seed + ') to ' + Math.max(...lifts).toFixed(2) + ' (seed ' + items[best[0]].settings.seed + '). ' +
+    weak.length + ' of 8 seeds (' + weak.join(', ') + ') hold less than half the way above chance: there the far blocks dissolve into one mass and the model draws a different skyline. The corridor is locked; the structure inside it is not.';
+}
+
+function show(n) {
+  step = Math.max(1, Math.min(5, n));
+  document.querySelectorAll('.hd-step').forEach((s) => s.classList.toggle('hd-shown', +s.dataset.step === step));
+  document.querySelectorAll('.hd-rail button').forEach((b) => b.setAttribute('aria-pressed', String(+b.dataset.go === step)));
+  $('back').disabled = step === 1; $('next').disabled = step === 5;
+  [draw1, draw2, draw3, draw4, draw5][step - 1]();
+}
+document.querySelectorAll('.hd-rail button').forEach((b) => b.addEventListener('click', () => show(+b.dataset.go)));
+$('back').addEventListener('click', () => show(step - 1)); $('next').addEventListener('click', () => show(step + 1));
+document.querySelectorAll('[data-v1]').forEach((b) => b.addEventListener('click', () => { view1 = b.dataset.v1; document.querySelectorAll('[data-v1]').forEach((x) => x.setAttribute('aria-pressed', String(x === b))); draw1(); }));
+$('w2').addEventListener('input', (e) => { wipe2 = +e.target.value; draw2(); });
+$('mk3').addEventListener('click', () => { marks3 = !marks3; plate3 = false; draw3(); });
+$('pl3').addEventListener('click', () => { plate3 = !plate3; draw3(); });
+$('r4').addEventListener('input', (e) => { r4 = +e.target.value; draw4(); });
+$('mk5').addEventListener('click', () => { marks5 = !marks5; draw5(); });
+function sigil() { let d = ''; for (let i = 0; i <= 200; i++) { const t = i / 200 * 2 * Math.PI; d += (i ? 'L' : 'M') + (8 * Math.sin(3 * t + Math.PI / 4)).toFixed(2) + ' ' + (8 * Math.sin(2 * t)).toFixed(2); } $('sig').setAttribute('d', d); }
+sigil();
+boot().catch((err) => { $('wait').textContent = 'The plates did not load: ' + err.message; throw err; });
+</script>
+</body>
+</html>

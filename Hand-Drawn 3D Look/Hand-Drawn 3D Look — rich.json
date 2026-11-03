@@ -1,0 +1,206 @@
+{
+  "title": "Hand-Drawn 3D Look — rich",
+  "born": "2026-11-03",
+  "links": [
+    {
+      "target": "[[Hand-Drawn 3D Look]]",
+      "type": "connects-to",
+      "label": "rich-face-of"
+    },
+    {
+      "target": "[[Enrichment]]",
+      "type": "connects-to",
+      "label": "made-by"
+    },
+    {
+      "target": "[[BLUELINE]]",
+      "type": "connects-to",
+      "label": "gathers-from"
+    }
+  ],
+  "forward_vector": "I am the manifest of Hand-Drawn 3D Look's rich face: three walks that test the page's claims on BLUELINE's own plates (the seam's redraw, the line's four knobs, the boil), the proofs gathered beside the sections they serve, and the findings held as offers for Loudon. I grow when the page is enriched again; I never hold the entry's words.",
+  "entry": "Hand-Drawn 3D Look",
+  "tier": "sketch",
+  "made": "2026-11-03",
+  "round": 1,
+  "sections": [
+    {
+      "heading": "What Blender draws for free",
+      "made": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "Hand-Drawn 3D Look — rich — one config away.html",
+          "origin": "made",
+          "by": "Blender (headless) · Freestyle",
+          "title": "one config away · five steps",
+          "place": "band",
+          "height": 1500,
+          "near": "Same scene, opposite feeling, one config away",
+          "caption": "**One config away.** BLUELINE's city street rendered seventeen times, each in a fresh Blender 5.1.2: one plain line, then four knobs (chaining, noise, smoothing, pen) at sixteen corners, two of them the catalogue's tentative #1 and confident #9. It walks from one line to the knobs, and last measures which knob moves the marks the page names. Noise carries the searching line; SKETCHY doubles the ink only with heavy noise behind it; Bézier smoothing barely moves it and on a noisy sketchy chain throws spears. The feeling is yours to judge."
+        },
+        {
+          "file": "/Projects/BLUELINE/proofs/blender-handdrawn/followups/grease-pencil-lineart/comparison_HOLDOUT_3wide.png",
+          "origin": "gathered",
+          "by": "BLUELINE",
+          "title": "Freestyle against Grease Pencil · BLUELINE",
+          "near": "Pick by whether the frame holds still or moves",
+          "caption": "The same scene three ways. Left, Freestyle's confident #9; centre and right, Grease Pencil Line Art at its confident and heavy settings, drawn over holdout geometry so the strokes sit on white. Grease Pencil's line is thinner and evener; Freestyle's thickens at silhouettes and with nearness. BLUELINE, 2026-06-25."
+        }
+      ],
+      "made_against": "6e443c274ae0",
+      "stamped": "2026-11-03"
+    },
+    {
+      "heading": "The seam is a redraw, not a filter",
+      "made": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "Hand-Drawn 3D Look — rich — the seam is a redraw.html",
+          "origin": "made",
+          "by": "SDXL img2img proofs · scipy-checked engine",
+          "title": "where the render becomes a drawing · five steps",
+          "place": "band",
+          "height": 1500,
+          "near": "The Blender plate becomes a",
+          "caption": "**Where the render becomes a drawing.** BLUELINE's own seam proofs, measured: the plate alone, one timid redraw (0.72: 1.8 % of pixels change), the ladder to 0.95, then the test. At 0.95 with Canny at 0.42, 44 % of the drawing's edges are new and 91 % of the plate's edges are still held (chance: 60 %). Last, eight seeds: the corridor holds in every one, but how much of the plate's structure holds runs from barely above chance to nearly all of it."
+        },
+        {
+          "file": "/Projects/BLUELINE/proofs/blender-handdrawn/followups/redraw-posed-figure/pose_survival_strip.png",
+          "origin": "gathered",
+          "by": "BLUELINE",
+          "title": "the figure under the redraw · BLUELINE",
+          "near": "The redraw survives on a figure",
+          "caption": "Four ways to anchor a posed figure through the redraw. A, Canny alone at 0.95; B, Canny and depth at 0.95; C, Canny and OpenPose at 0.95; D2, Canny 0.30, depth 0.60 and OpenPose 0.70, the one that holds both pose and ink. D2 ran at denoise 0.93, not 0.95 (the proof's report, and its script). One seed, one pose. BLUELINE, 2026-06-25."
+        }
+      ],
+      "made_against": "ab719e78964a",
+      "stamped": "2026-11-03"
+    },
+    {
+      "heading": "Motion is atmosphere",
+      "made": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "Hand-Drawn 3D Look — rich — the boil, measured.html",
+          "origin": "made",
+          "by": "Blender (headless) · Freestyle",
+          "title": "the boil, measured · five steps",
+          "place": "band",
+          "height": 1400,
+          "near": "re-seeding the Freestyle line noise",
+          "caption": "**The boil, measured.** BLUELINE's smoke plume rendered again, each job in a fresh Blender: one frame, twelve frames, the page's boil on twos (real, exact, and small: 0.6 % of pixels per new seed), the boil nobody set (Freestyle's Spatial Noise draws fresh on every render in a session: 3.1 %, on ones), and last the playhead test. Frame 5 rendered alone differs from frame 5 in the run; with Spatial Noise off they match exactly."
+        },
+        {
+          "file": "rich-face/clouds.mp4",
+          "origin": "gathered",
+          "by": "BLUELINE",
+          "title": "clouds · BLUELINE motion",
+          "near": "Water, clouds, smoke, and fire render hand-drawn",
+          "caption": "Clouds from 03_motion.py: displaced spheres through a toon ramp, drifting left, a sketchy Freestyle contour. 24 frames at 12 fps, no simulation bake. BLUELINE, 2026-06-25."
+        }
+      ],
+      "made_against": "d96268a025a6",
+      "stamped": "2026-11-03"
+    },
+    {
+      "heading": "Ink that lives in 3D",
+      "made": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "rich-face/blobspace.mp4",
+          "origin": "gathered",
+          "by": "BLUELINE",
+          "title": "the blob field · BLUELINE",
+          "near": "so they parallax with the camera",
+          "caption": "Ink blobs synthesised to match the locked style's measured shapes, placed as camera-facing billboards through a depth shell around the Freestyle city. The camera moves; near blobs sweep past, far ones barely drift. 30 frames at 15 fps, Blender only, no gen-AI pass. BLUELINE, 2026-06-25."
+        },
+        {
+          "file": "/Projects/BLUELINE/proofs/blender-handdrawn/followups/seam-comp-layer/compare_occlusion.png",
+          "origin": "gathered",
+          "by": "BLUELINE",
+          "title": "the comp layer and its depth gate · BLUELINE",
+          "near": "occluded by the inked buildings via a depth pass",
+          "caption": "The comp layer over the gen-AI-inked plate, four panels: blobs laid flat on top; the first gate (an ink mask, which hid nearly every blob); the depth gate from Blender's own depth pass; and its mask, white where a blob shows, grey where a building is in front. The depth gate hides 22.6 % of the blob pixels. BLUELINE, 2026-06-25."
+        },
+        {
+          "file": "/Projects/BLUELINE/proofs/blender-handdrawn/followups/seam-comp-layer/inked_baked.png",
+          "origin": "gathered",
+          "by": "BLUELINE",
+          "title": "baked into the plate · BLUELINE",
+          "near": "the model absorbs them into one cohesive drawing",
+          "caption": "The other way: the blobs rendered into the Blender plate before the redraw. The model absorbs them into one drawing, a different one, with the blobs reinterpreted; nothing here can parallax. BLUELINE, 2026-06-25."
+        }
+      ],
+      "made_against": "76a540a5c790",
+      "stamped": "2026-11-03"
+    }
+  ],
+  "offers": [
+    {
+      "section": "The seam is a redraw, not a filter",
+      "kind": "claim-change",
+      "status": "open",
+      "what": "\"Variation across seeds is high ... while the structure stays locked\" is half true. Across the eight seeds the corridor (walls, ground line, vanishing point) holds in every one, but the plate's edges held run 55 % to 93 % (above chance 0.26 to 0.83), and three seeds (88, 55555, 70707) are under halfway above chance. Suggest: \"the corridor stays locked; the structure inside it does not always.\""
+    },
+    {
+      "section": "The seam is a redraw, not a filter",
+      "kind": "claim-change",
+      "status": "open",
+      "what": "The low rung was denoise 0.72 with Canny held at 0.85, and each rung moved Canny too (0.85, 0.55, 0.42); the proofs never moved denoise alone. Measured, 0.90 still traces (new marks 20 %, 7.8 % of pixels changed) and the turn comes between 0.90 and 0.95 (new marks 44 %). Suggest naming the tight Canny on the low rung, and that the turn is late and narrow."
+    },
+    {
+      "section": "The seam is a redraw, not a filter",
+      "kind": "claim-change",
+      "status": "open",
+      "what": "\"A figure holds its authored pose all the way to denoise 0.95\": the winning stack D2 ran at denoise 0.93 (redraw-posed-figure/report.md's table; 04_redraw_D_depth_freestyle.py line 124); only A, B and C ran at 0.95. The report also calls D2 one good frame, one seed and one pose. Suggest 0.93, and \"on one seed and pose\"."
+    },
+    {
+      "section": "What Blender draws for free",
+      "kind": "claim-change",
+      "status": "open",
+      "what": "Which knob does the work, measured on sixteen fresh renders: noise moves ink off the edge most (-15.6 points on average, chaining -5.7, Bézier +3.0); SKETCHY chaining doubles the ink only with heavy noise behind it (1.75x heavy, 1.27x trace); Bézier smoothing barely moves the marks and, on a SKETCHY heavy-noise chain, throws long spears (6.7 % to 8.5 % of the ink more than 12 px off). The tentative #1 already carries a calligraphy pen (0.6 to 4.5 at 45 degrees), so thin-to-thick is in both. \"One config away\" is one line-style block of ten values. Suggest: tentative = SKETCHY and heavy noise together; confident = PLAIN and a trace of noise, with the wider pen for weight."
+    },
+    {
+      "section": "What Blender draws for free",
+      "kind": "claim-change",
+      "status": "open",
+      "what": "\"Fully deterministic\" holds only per fresh Blender. Freestyle's Spatial Noise draws new noise on every render inside one session: the confident #9 rendered twice in a row differs on 5.6 % of pixels, and today's fresh #9 differs from the catalogue's (rendered ninth in its session) on 5.3 %, while #1 and #2 (rendered first and second) match it pixel for pixel. With Spatial Noise at 0, repeated renders match exactly."
+    },
+    {
+      "section": "Motion is atmosphere",
+      "kind": "claim-change",
+      "status": "open",
+      "what": "The boil the page names is real, exact and small: re-seeding the Perlin noise on twos moves 0.6 % of the plume's pixels per new seed and nothing on the frames between. Most of the waver is a boil on ones nobody set: Spatial Noise redraws on every render (3.1 % per render with the plume held still, 4.9x the boil on twos). With the handler off, the smoke clip still changes 4.16 % per frame (on: 4.17 %), and the change does not alternate."
+    },
+    {
+      "section": "Motion is atmosphere",
+      "kind": "claim-change",
+      "status": "open",
+      "what": "\"Every frame is a pure function of the playhead\" is false for the line: frame 5 rendered alone differs from frame 5 in the twelve-frame run on 2.64 % of pixels (full size). Geometry and value are a function of the frame; two whole runs from a fresh Blender match byte for byte. Fix, tested: Spatial Noise amplitude 0, keeping the Perlin boil seeded from the frame, and frame 5 alone matches the run exactly. This is also why today's renders differ from June's (smoke was rendered third in its session)."
+    }
+  ]
+}
