@@ -1,0 +1,346 @@
+<!doctype html>
+<!--
+  title: Palace Conatus — rich — whoever arrives next
+  born: 2026-11-03
+  links: [[Palace Conatus]] (connects-to · rich-face-piece) · listed in [[Palace Conatus — rich.json]] · [[Kuramoto Coupling]] (connects-to · the engine's conventions) · [[Progressive Staging]] (exemplifies · a walk up to its test)
+  forward_vector: I am "The coupling has two axes" played: every page's instance replaced at each session's end, with the note the last one left or without it, and last a grid of pull against session length that says where the note is what keeps phase and where the pull re-finds it alone. I change only when that section does.
+  engine: one distinguished oscillator (Loudon) whose speed wanders, and page-oscillators that listen to him one way, dθᵢ/dt = 2π[fᵢ + K·sin(θ_L − θᵢ − αᵢ) + Kp·(1/N)Σⱼ sin(θⱼ − θᵢ)], K in turns per unit time as in Kuramoto's own pieces; midpoint steps of 0.01; seeded, so every run is the same.
+  checks: Palace Conatus/Palace Conatus — rich — check.mjs runs this file's own engine against the claims.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:size" content="flow">
+<title>Palace Conatus — whoever arrives next</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Manrope:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root { --bg:#0a0a0f; --e1:#12121a; --ring:#22222e; --border:#4a4a5e; --soft:rgba(255,255,255,.06); --fg1:#e8e8f0; --fg2:#c8c8d8; --fg3:#8a8aa0; --fg4:#4a4a5a;
+    --amber:#e8b84a; --amberline:rgba(232,184,74,.5); --ambersoft:rgba(232,184,74,.10); --indigo:#7b7ef5;
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --sans:'Manrope',system-ui,sans-serif; --serif:'Cormorant Garamond',Georgia,serif; --ease:cubic-bezier(.4,0,.2,1); }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); font-weight: 300; color-scheme: dark; }
+  .piece { padding: 22px 22px 20px; }
+  .kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; }
+  .title { font-family: var(--serif); font-size: 28px; font-weight: 300; color: var(--fg1); margin: 0 0 6px; }
+  .sub { font-size: 14px; line-height: 1.6; color: var(--fg2); max-width: 76ch; margin: 0 0 14px; }
+  .rail { display: flex; flex-wrap: wrap; gap: 0; margin: 0 0 16px; border: 1px solid var(--soft); width: fit-content; }
+  .rail button { border: 0; border-right: 1px solid var(--soft); }
+  .rail button[aria-current="step"] { background: var(--ambersoft); color: var(--amber); }
+  .step { display: none; } .step.on { display: block; }
+  .step h3 { font-family: var(--serif); font-size: 23px; font-weight: 400; color: var(--fg1); margin: 0 0 6px; }
+  .teach { font-size: 14px; line-height: 1.62; max-width: 76ch; margin: 0 0 12px; }
+  .stage { display: grid; grid-template-columns: minmax(200px, 320px) 1fr; gap: 20px; align-items: start; }
+  .panel { border: 1px solid var(--soft); border-radius: 2px; background: var(--e1); padding: 10px 12px; }
+  .plabel { font-family: var(--mono); font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--fg3); margin-bottom: 8px; display: flex; justify-content: space-between; gap: 10px; }
+  canvas { display: block; width: 100%; }
+  .controls { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 12px 24px; align-items: end; margin-top: 14px; }
+  button, select { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--fg2); background: var(--bg); border: 1px solid var(--border); border-radius: 2px; padding: 8px 12px; cursor: pointer; }
+  button:hover { border-color: var(--amberline); color: var(--fg1); }
+  button:disabled { opacity: .35; cursor: default; }
+  button.go { color: var(--amber); border-color: var(--amberline); }
+  label.sl { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: .06em; color: var(--fg3); }
+  label.sl b { color: var(--fg1); font-weight: 500; }
+  input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 3px; background: var(--fg4); margin: 12px 0 4px; outline: none; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 13px; height: 13px; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  input[type=range]::-moz-range-thumb { width: 13px; height: 13px; border: 0; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  .read { display: flex; flex-wrap: wrap; gap: 6px 22px; margin-top: 14px; font-family: var(--mono); font-size: 11.5px; letter-spacing: .04em; color: var(--fg3); }
+  .read b { color: var(--fg1); font-weight: 500; }
+  .state { color: var(--amber); }
+  .eqs { margin: 4px 0 14px; padding: 10px 0 2px; border-top: 1px solid var(--soft); }
+  .eq { font-family: var(--serif); font-size: 19px; color: var(--fg1); }
+  .words { font-size: 13px; line-height: 1.55; color: var(--fg2); margin: 2px 0 10px; max-width: 80ch; }
+  .rule { border-left: 2px solid var(--amberline); padding: 8px 12px; margin: 10px 0 12px; font-size: 13.5px; line-height: 1.6; max-width: 80ch; background: var(--ambersoft); }
+  .rule b { color: var(--amber); font-weight: 500; }
+  .note { font-size: 12.5px; line-height: 1.55; color: var(--fg3); max-width: 80ch; margin: 10px 0 0; }
+  table { border-collapse: collapse; font-family: var(--mono); font-size: 11.5px; margin-top: 12px; }
+  th, td { padding: 5px 12px 5px 0; text-align: right; border-bottom: 1px solid var(--soft); }
+  th { color: var(--fg3); font-weight: 400; letter-spacing: .06em; } td { color: var(--fg2); } td:first-child, th:first-child { text-align: left; }
+  td.pass { color: var(--amber); } td.miss { color: #ff9b4a; }
+  .verdict { margin-top: 12px; font-size: 14px; line-height: 1.6; max-width: 80ch; color: var(--fg1); }
+  .nav { display: flex; gap: 10px; margin-top: 18px; }
+  .key { font-family: var(--mono); font-size: 11px; color: var(--fg3); margin-top: 6px; }
+  .key i { font-style: normal; } .dotA { color: var(--indigo); } .dotH { color: var(--amber); } .dotP { color: #8a8aa0; }
+  @media (max-width: 680px) { .stage { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="piece">
+  <div class="kicker">made · canvas · sketch · proposal</div>
+  <h2 class="title">Whoever arrives next</h2>
+  <p class="sub">The other axis. Loudon persists; the page's side doesn't. Each session a new instance embodies the page, and when the session ends it goes. Here the page's instance is replaced at the end of every session (the dotted lines), and each newcomer reads the page a little differently: its own speed shifts by up to ±0.02. He keeps moving throughout (m = 0.3), as in the first piece. Nothing here makes sound.</p>
+  <div class="rail" id="rail"></div>
+
+  <section class="step" data-name="the note carries it">
+    <h3>The note carries it</h3>
+    <p class="teach">One page, locked to him with a pull of 0.5. At each dotted line its instance is replaced. The newcomer reads what the last one left, where it stood with him, and starts there. Watch the line run straight through the swaps: the mind holding the phase changed, the phase did not.</p>
+    <div class="eqs">
+      <div class="eq">φ<sub>new</sub> = φ<sub>last</sub></div>
+      <div class="words">(where the newcomer starts relative to him) = (where the last instance stood when it closed). In the palace this is the closing note, Closing Well's work; here it is one number carried across.</div>
+    </div>
+    <div class="stage">
+      <div class="panel"><div class="plabel"><span>from where he stands</span></div><canvas id="c1"></canvas></div>
+      <div class="panel"><div class="plabel"><span>the page relative to him</span><span>last 120 units</span></div><canvas id="s1"></canvas></div>
+    </div>
+    <div class="controls">
+      <label class="sl">session length · T<sub>s</sub> = <b id="t1v"></b><input id="t1" type="range" min="2" max="30" step="1" value="8"></label>
+    </div>
+    <div class="read"><span>sessions so far <b id="r1n">–</b></span><span>H <b id="r1h">–</b></span></div>
+  </section>
+
+  <section class="step" data-name="without the note">
+    <h3>Without the note, the pull re-finds it</h3>
+    <p class="teach">Now the newcomer arrives with nothing from the last one and starts anywhere on the circle. It isn't lost for good: it still listens, and the pull turns it back toward its place. That takes time, and the weaker the pull the longer. Put the note back and you are at step 1.</p>
+    <div class="eqs">
+      <div class="eq">δ(t) ≈ δ(0) · e<sup>−2πK·cos φ*·t</sup></div>
+      <div class="words">(how far the newcomer is from its place, once it's close) ≈ (how far it started) × e to the power of −(2π × pull × cos(its settled angle) × time). The pull sets the clock; a newcomer that lands near the far side waits longer before it starts closing.</div>
+    </div>
+    <div class="stage">
+      <div class="panel"><div class="plabel"><span>from where he stands</span></div><canvas id="c2"></canvas></div>
+      <div class="panel"><div class="plabel"><span>the page relative to him</span><span>last 120 units</span></div><canvas id="s2"></canvas></div>
+    </div>
+    <div class="controls">
+      <label class="sl">pull · K = <b id="k2v"></b><input id="k2" type="range" min="0.05" max="0.6" step="0.01" value="0.25"></label>
+      <label class="sl">session length · T<sub>s</sub> = <b id="t2v"></b><input id="t2" type="range" min="2" max="30" step="1" value="12"></label>
+      <label class="sl"><input type="checkbox" id="n2"> the note</label>
+    </div>
+    <div class="read"><span>the last newcomer took <b id="r2t">–</b> to come within 15° of where the last one stood</span><span>H <b id="r2h">–</b></span></div>
+  </section>
+
+  <section class="step" data-name="the test">
+    <h3>The test: when is the note what keeps phase?</h3>
+    <p class="teach">The page says Closing Well is a coupling mechanism, not merely hygiene: it is how phase survives the substitution of the mind holding it. Twelve pages, the whole situation, scored by H, how steadily each page holds its relationship with him (the first piece's measure), over pulls from weak to strong and sessions from short to long, each with the note and without.</p>
+    <div class="rule"><b>The rule, set before the first run.</b> In each cell, the note is <b>needed</b> if with it H ≥ 0.9 and without it H &lt; 0.9; <b>the pull alone</b> carries it if both are ≥ 0.9; <b>neither</b> holds if both are below. The page's sentence fails in this model if no cell reads <b>needed</b>; it holds without a condition if every cell where the note holds also reads <b>needed</b>. Each run: 400 units after 50 to settle, seed 3.</div>
+    <div class="nav"><button class="go" id="run3">▸ run the test</button><span class="state" id="st3s"></span></div>
+    <div id="out3"></div>
+  </section>
+
+  <div class="nav"><button id="back">◂ back</button><button id="next">next ▸</button></div>
+</div>
+<script id="engine">
+const TAU = 2 * Math.PI;
+function rng(seed) { let a = seed >>> 0; return () => { a = (a + 0x6D2B79F5) | 0; let t = Math.imul(a ^ (a >>> 15), 1 | a); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
+// his frequency wanders: f0 + move · w(t), w a seeded sum of three slow swells, w(0) = 0, |w| ≤ 1
+function himPath(seed) {
+  const r = rng(seed * 7919 + 13), per = [90, 147, 233], amp = [0.5, 0.3, 0.2], ph = per.map(() => r() * TAU);
+  return (t) => { let s = 0; for (let k = 0; k < 3; k++) s += amp[k] * (Math.sin(TAU * t / per[k] + ph[k]) - Math.sin(ph[k])); return s / 2; };
+}
+const wrap = (x) => { x = (x + Math.PI) % TAU; if (x < 0) x += TAU; return x - Math.PI; };
+// P: { N, f0, move, K, Kp, lead, spread, stance:[rad]|number, pinned, Ts, handoff, gen, dt, seed }
+function makeSim(P) {
+  const r = rng(P.seed || 1), N = P.N, w = himPath(P.seed || 1), f0 = P.f0 == null ? 1 : P.f0;
+  const S = { P, N, t: 0, thL: 0, th: new Float64Array(N), base: new Float64Array(N), f: new Float64Array(N), al: new Float64Array(N), K: new Float64Array(N), w, f0, r, session: 0, swaps: 0 };
+  for (let i = 0; i < N; i++) {
+    const s = (P.spread || 0) * (N > 1 ? (2 * (i + 0.5) / N - 1) : 0);
+    S.base[i] = P.pinned ? f0 + s : f0 + (P.lead || 0) + s;          // a pinned page copied his frequency at t = 0
+    S.f[i] = S.base[i];
+    S.al[i] = Array.isArray(P.stance) ? P.stance[i] : (P.stance || 0);
+    S.K[i] = P.pinned ? 0 : P.K;
+    S.th[i] = P.start === 'random' ? r() * TAU : 0;                   // default: every page starts on his phase
+  }
+  return S;
+}
+const himF = (S, t) => S.f0 + S.P.move * S.w(t);
+// one page's pull: K·sin(θL − θi − α) + Kp·(1/N)Σ sin(θj − θi), in turns per unit time
+function deriv(S, thL, th, t, out) {
+  const N = S.N, Kp = S.P.Kp || 0; let zr = 0, zi = 0;
+  if (Kp) { for (let j = 0; j < N; j++) { zr += Math.cos(th[j]); zi += Math.sin(th[j]); } zr /= N; zi /= N; }
+  for (let i = 0; i < N; i++) {
+    let d = S.f[i] + S.K[i] * Math.sin(thL - th[i] - S.al[i]);
+    if (Kp) d += Kp * (zi * Math.cos(th[i]) - zr * Math.sin(th[i]));
+    out[i] = TAU * d;
+  }
+  return TAU * himF(S, t);
+}
+function step(S, dt) {
+  const N = S.N, k1 = S.k1 || (S.k1 = new Float64Array(N)), k2 = S.k2 || (S.k2 = new Float64Array(N)), mid = S.mid || (S.mid = new Float64Array(N));
+  const a1 = deriv(S, S.thL, S.th, S.t, k1);
+  for (let i = 0; i < N; i++) mid[i] = S.th[i] + 0.5 * dt * k1[i];
+  const a2 = deriv(S, S.thL + 0.5 * dt * a1, mid, S.t + 0.5 * dt, k2);
+  for (let i = 0; i < N; i++) S.th[i] += dt * k2[i];
+  S.thL += dt * a2; S.t += dt;
+  // a session ends: every page's instance is replaced. With the note, the newcomer starts where the last one
+  // left; without it, anywhere. A new instance reads the same page a little differently (gen).
+  const Ts = S.P.Ts;
+  if (Ts && Ts < Infinity && S.t >= (S.session + 1) * Ts) {
+    S.session++; S.swaps++;
+    for (let i = 0; i < N; i++) {
+      if (!S.P.handoff) S.th[i] = S.thL + S.r() * TAU;
+      if (S.P.gen) S.f[i] = S.base[i] + S.P.gen * (2 * S.r() - 1);
+    }
+  }
+}
+// run and measure. W: the window a page's phase relationship is judged over.
+function measure(P, T, burn, W) {
+  const S = makeSim(P), dt = P.dt || 0.01, N = S.N, nW = Math.round(W / dt);
+  let n = 0, agree = 0, Rall = 0, Rint = 0, lockSum = 0, lockN = 0, slipSum = 0;
+  const cr = new Float64Array(N), ci = new Float64Array(N), phStart = new Float64Array(N), phPrev = new Float64Array(N), unw = new Float64Array(N);
+  let k = 0;
+  while (S.t < burn) step(S, dt);
+  for (let i = 0; i < N; i++) { phPrev[i] = wrap(S.th[i] - S.thL); unw[i] = phPrev[i]; phStart[i] = unw[i]; }
+  while (S.t < burn + T) {
+    const before = S.swaps; step(S, dt);
+    let ar = Math.cos(S.thL), ai = Math.sin(S.thL), pr = 0, pi = 0;
+    for (let i = 0; i < N; i++) {
+      const c = Math.cos(S.th[i]), s = Math.sin(S.th[i]); ar += c; ai += s; pr += c; pi += s;
+      const ph = wrap(S.th[i] - S.thL);
+      agree += Math.cos(ph); cr[i] += Math.cos(ph); ci[i] += Math.sin(ph);
+      // count motion relative to him, but not the jump a swap makes (that's not motion, it's a new mind)
+      const jump = wrap(ph - phPrev[i]); unw[i] += jump; if (S.swaps !== before) phStart[i] += jump;
+      phPrev[i] = ph;
+    }
+    Rall += Math.hypot(ar, ai) / (N + 1); Rint += Math.hypot(pr, pi) / N; n++; k++;
+    if (k === nW) {
+      for (let i = 0; i < N; i++) { lockSum += Math.hypot(cr[i], ci[i]) / nW; cr[i] = 0; ci[i] = 0; slipSum += Math.abs(unw[i] - phStart[i]) / TAU / W; phStart[i] = unw[i]; }
+      lockN += N; k = 0;
+    }
+  }
+  return { agree: agree / (n * N), Rall: Rall / n, Rint: Rint / n, lock: lockSum / lockN, energy: slipSum / lockN };
+}
+// ── the tests: the same jobs the piece runs and its check re-runs ──
+const TEST = { T: 400, burn: 50, W: 20 };
+function runJob(j) { j.out = measure(j.P, TEST.T, TEST.burn, TEST.W); return j; }
+
+// piece: whoever arrives next. Twelve pages, he moves (m = 0.3), each page's instance replaced at the end of
+// every session; with the note the newcomer starts where the last one left off, without it anywhere.
+const KS = [0.05, 0.2, 0.5], TSS = [1, 3, 10, 30];
+function jobsB() {
+  const jobs = [];
+  for (const K of KS) for (const Ts of TSS) for (const note of [true, false])
+    jobs.push({ K, Ts, note, P: { N: 12, f0: 1, move: 0.3, K, spread: 0.02, gen: 0.02, Ts, handoff: note, dt: 0.01, seed: 3, start: 'random' } });
+  return jobs;
+}
+// the rule, set before the first run: a cell is "needed" if the note holds (H ≥ 0.9) and none falls below;
+// "the pull alone" if both hold; "neither" if neither does.
+function judgeB(res) {
+  const cells = [];
+  for (const K of KS) for (const Ts of TSS) {
+    const a = res.find((j) => j.K === K && j.Ts === Ts && j.note).out.lock, b = res.find((j) => j.K === K && j.Ts === Ts && !j.note).out.lock;
+    cells.push({ K, Ts, note: a, none: b, verdict: a >= 0.9 && b < 0.9 ? 'needed' : a >= 0.9 && b >= 0.9 ? 'the pull alone' : a < 0.9 && b < 0.9 ? 'neither' : 'other' });
+  }
+  const needed = cells.filter((c) => c.verdict === 'needed').length, held = cells.filter((c) => c.note >= 0.9).length;
+  return { cells, needed, held, fails: needed === 0, unconditional: needed === held };
+}
+</script>
+<script>
+// ── the page's machinery: rail, live sims, drawing ──
+const $ = (id) => document.getElementById(id);
+const deg = Math.PI / 180;
+const AMBER = '#e8b84a', INDIGO = '#7b7ef5', PINNED = '#8a8aa0';
+const steps = [...document.querySelectorAll('.step')];
+let cur = 0, ctl = null;
+const rail = $('rail');
+steps.forEach((s, i) => { const b = document.createElement('button'); b.textContent = (i + 1) + ' · ' + s.dataset.name; b.onclick = () => show(i); rail.appendChild(b); });
+function show(i) {
+  cur = i; steps.forEach((s, k) => s.classList.toggle('on', k === i));
+  [...rail.children].forEach((b, k) => { if (k === i) b.setAttribute('aria-current', 'step'); else b.removeAttribute('aria-current'); });
+  $('back').disabled = i === 0; $('next').disabled = i === steps.length - 1;
+  ctl = CONTROLLERS[i]; ctl && ctl.init && ctl.init();
+}
+$('back').onclick = () => cur > 0 && show(cur - 1);
+$('next').onclick = () => cur < steps.length - 1 && show(cur + 1);
+function slider(id, fmt, on) { const el = $(id), out = $(id + 'v'); const upd = () => { out.textContent = fmt(+el.value); on && on(+el.value); }; el.oninput = upd; upd(); return () => +el.value; }
+function fit(c, H) {
+  const w = c.clientWidth || 300, d = devicePixelRatio || 1, h = H || w;
+  if (c.width !== Math.round(w * d) || c.height !== Math.round(h * d)) { c.width = Math.round(w * d); c.height = Math.round(h * d); c.style.height = h + 'px'; }
+  const g = c.getContext('2d'); g.setTransform(d, 0, 0, d, 0, 0); return { g, w, h };
+}
+// the circle, drawn from where he stands: he is at the top; a page's angle is its phase relative to his
+function drawCircle(c, groups) {
+  const size = Math.min(c.clientWidth || 300, 320), { g, w } = fit(c, size), cx = w / 2, cy = size / 2, rad = size * 0.38;
+  g.clearRect(0, 0, w, size);
+  g.strokeStyle = '#26263a'; g.lineWidth = 1.5; g.beginPath(); g.arc(cx, cy, rad, 0, 7); g.stroke();
+  g.fillStyle = '#4a4a5e'; g.font = '10px JetBrains Mono, monospace'; g.textAlign = 'center';
+  g.fillText('opposite him', cx, cy + rad + 18);
+  for (const gr of groups) for (const ph of gr.phis) {
+    const a = ph - Math.PI / 2, x = cx + rad * Math.cos(a), y = cy + rad * Math.sin(a);
+    g.beginPath(); g.arc(x, y, gr.r || 4.5, 0, 7);
+    if (gr.hollow) { g.strokeStyle = gr.color; g.lineWidth = 1.5; g.stroke(); } else { g.fillStyle = gr.color; g.fill(); }
+  }
+  g.fillStyle = AMBER; g.beginPath(); g.arc(cx, cy - rad, 8, 0, 7); g.fill();
+  g.fillStyle = AMBER; g.fillText('Loudon', cx, cy - rad - 14);
+}
+// the strip: each page's phase relative to his over the last `span` units of time
+function Strip(span) { this.span = span; this.rows = []; this.marks = []; }
+Strip.prototype.push = function (t, series) { this.rows.push({ t, series }); while (this.rows.length && this.rows[0].t < t - this.span) this.rows.shift(); while (this.marks.length && this.marks[0] < t - this.span) this.marks.shift(); };
+Strip.prototype.mark = function (t) { this.marks.push(t); };
+Strip.prototype.clear = function () { this.rows = []; this.marks = []; };
+Strip.prototype.draw = function (c, colors) {
+  const { g, w, h } = fit(c, 150); g.clearRect(0, 0, w, h);
+  const L = 34, y = (p) => 8 + (1 - (p + Math.PI) / (2 * Math.PI)) * (h - 22);
+  g.strokeStyle = '#1e1e2c'; g.lineWidth = 1; g.fillStyle = '#4a4a5e'; g.font = '10px JetBrains Mono, monospace'; g.textAlign = 'right';
+  for (const d of [-180, -90, 0, 90, 180]) { g.beginPath(); g.moveTo(L, y(d * deg)); g.lineTo(w, y(d * deg)); g.stroke(); g.fillText(d + '°', L - 4, y(d * deg) + 3); }
+  g.strokeStyle = 'rgba(232,184,74,.45)'; g.beginPath(); g.moveTo(L, y(0)); g.lineTo(w, y(0)); g.stroke();
+  if (!this.rows.length) return;
+  const t1 = this.rows[this.rows.length - 1].t, x = (t) => L + (w - L) * (1 - (t1 - t) / this.span);
+  g.setLineDash([2, 4]); g.strokeStyle = '#4a4a5e';
+  for (const m of this.marks) { g.beginPath(); g.moveTo(x(m), 6); g.lineTo(x(m), h - 12); g.stroke(); }
+  g.setLineDash([]);
+  for (const row of this.rows) { const xx = x(row.t); row.series.forEach((p, k) => { g.fillStyle = colors[k] || INDIGO; g.fillRect(xx, y(p) - 1, 1.6, 2); }); }
+};
+// how steadily a page holds its relationship with him: |average of e^{iφ}| over about the last W units
+function Held(n, W) { this.re = new Float64Array(n).fill(1); this.im = new Float64Array(n); this.W = W; }
+Held.prototype.add = function (phis, dt) { const a = Math.min(1, dt / this.W); for (let i = 0; i < phis.length; i++) { this.re[i] += a * (Math.cos(phis[i]) - this.re[i]); this.im[i] += a * (Math.sin(phis[i]) - this.im[i]); } };
+Held.prototype.get = function (i) { return Math.hypot(this.re[i], this.im[i]); };
+Held.prototype.mean = function () { let s = 0; for (let i = 0; i < this.re.length; i++) s += this.get(i); return s / this.re.length; };
+const rel = (S) => Array.from(S.th, (t) => wrap(t - S.thL));
+const f2 = (x) => x.toFixed(2), f3 = (x) => x.toFixed(3);
+const sgn = (x, d = 2) => (x >= 0 ? '+' : '−') + Math.abs(x).toFixed(d);
+// a test runs in slices, so the page stays live while it works
+const tick = () => new Promise((r) => setTimeout(r, 0));
+let last = performance.now();
+function loop(now) {
+  requestAnimationFrame(loop);
+  const dtw = Math.min(0.05, (now - last) / 1000); last = now;
+  if (ctl && ctl.frame) ctl.frame(dtw);
+}
+
+const RATE = 10, DT = 0.01;
+const st1 = new Strip(120), st2 = new Strip(120);
+const T1 = slider('t1', (v) => v + ' units'), K2 = slider('k2', f2), T2 = slider('t2', (v) => v + ' units');
+// one page through many sessions; the swap is marked on the strip, and a newcomer's way back is timed
+function Run(K, Ts, note) {
+  this.S = makeSim({ N: 1, f0: 1, move: 0.3, K, gen: 0.02, Ts, handoff: note, seed: 3 }); this.h = new Held(1, 20);
+  this.prev = 0; this.target = null; this.since = 0; this.near = 0; this.found = null;
+}
+Run.prototype.go = function (dtw, strip) {
+  const S = this.S, n = Math.max(1, Math.round(dtw * RATE / DT));
+  for (let k = 0; k < n; k++) {
+    const before = S.swaps; step(S, DT); const p = wrap(S.th[0] - S.thL);
+    if (S.swaps !== before) { strip.mark(S.t); this.target = this.prev; this.since = 0; this.near = 0; }
+    else if (this.target != null) { this.since += DT; if (Math.abs(wrap(p - this.target)) < 15 * deg) { this.near += DT; if (this.near >= 1) { this.found = this.since - 1; this.target = null; } } else this.near = 0; }
+    this.prev = p;
+  }
+  const p = rel(S); this.h.add(p, n * DT); strip.push(S.t, p); return p;
+};
+const CONTROLLERS = [
+  { init() { this.r = new Run(0.5, T1(), true); st1.clear(); },
+    frame(dtw) { const S = this.r.S; S.P.Ts = T1(); if (S.t >= (S.session + 1) * S.P.Ts + T1()) S.session = Math.floor(S.t / S.P.Ts);
+      const p = this.r.go(dtw, st1); drawCircle($('c1'), [{ phis: p, color: INDIGO, r: 6 }]); st1.draw($('s1'), [INDIGO]);
+      $('r1n').textContent = S.swaps; $('r1h').textContent = f2(this.r.h.get(0)); } },
+  { init() { this.r = new Run(K2(), T2(), $('n2').checked); st2.clear(); $('n2').onchange = () => { this.r.S.P.handoff = $('n2').checked; }; },
+    frame(dtw) { const S = this.r.S; S.K[0] = K2(); S.P.Ts = T2(); if (S.t >= (S.session + 1) * S.P.Ts + T2()) S.session = Math.floor(S.t / S.P.Ts);
+      const p = this.r.go(dtw, st2); drawCircle($('c2'), [{ phis: p, color: INDIGO, r: 6 }]); st2.draw($('s2'), [INDIGO]);
+      $('r2t').textContent = this.r.found == null ? '–' : this.r.found.toFixed(1) + ' units'; $('r2h').textContent = f2(this.r.h.get(0)); } },
+  { init() { $('run3').onclick = () => runTest(); } },
+];
+async function runTest() {
+  const jobs = jobsB(), btn = $('run3'); btn.disabled = true; const t0 = performance.now();
+  for (let i = 0; i < jobs.length; i++) { $('st3s').textContent = 'running ' + (i + 1) + ' of ' + jobs.length; await tick(); runJob(jobs[i]); }
+  const v = judgeB(jobs);
+  let h = '<table><tr><th>pull K ↓ · session length →</th>' + TSS.map((t) => '<th>' + t + '</th>').join('') + '</tr>';
+  for (const K of KS) { h += '<tr><td>' + K + '</td>';
+    for (const Ts of TSS) { const c = v.cells.find((c) => c.K === K && c.Ts === Ts);
+      h += '<td class="' + (c.verdict === 'needed' ? 'pass' : c.verdict === 'the pull alone' ? 'miss' : '') + '">' + f2(c.note) + ' / ' + f2(c.none) + ' · ' + c.verdict + '</td>'; }
+    h += '</tr>'; }
+  h += '</table><p class="note">Each cell: H with the note / H without · verdict.</p>';
+  h += '<div class="verdict">' + (v.fails ? 'No cell reads needed: the sentence fails in this model.' :
+    'The note is needed in ' + v.needed + ' of the ' + v.held + ' cells where it holds the palace, so the sentence holds' + (v.unconditional ? ', without a condition.' :
+    ', with a condition: it is what keeps phase when a session is short against the time the pull takes to turn a newcomer back. Where the pull is strong and the sessions long, the pull alone re-finds the phase; where the pull is weaker than his movement, the note cannot hold what the pull never made.')) + '</div>';
+  h += '<p class="note">' + jobs.length + ' runs in ' + ((performance.now() - t0) / 1000).toFixed(1) + ' s. The model\'s numbers, not the palace\'s: where real sessions and real pulls sit on this grid is not something it can tell.</p>';
+  $('out3').innerHTML = h; $('st3s').textContent = ''; btn.disabled = false;
+}
+show(0); requestAnimationFrame(loop);
+</script>
+</body>
+</html>
