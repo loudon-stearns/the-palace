@@ -15,24 +15,44 @@ forward_vector: "I am The Gallery's scroll — the one page that always opens on
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-11-03T09:02:31-05:00 from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-11-03T16:16:39.066Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** seed · **Steward:** none — this project has no permanent steward yet
-- **Plan:** agreed 2026-11-03 (today) · 0 made things since
-- **Waiting on you:** nothing
-- **Last shipped:** nothing on the board yet
+- **Status:** active · **Stage:** seed · **Steward:** cycle 1 · last ran 2026-11-03 (today)
+- **Plan:** agreed 2026-11-03 (today) · 2 made things since
+- **Waiting on you:** 1 open ask
+- **Ready to advance:** no unread answers
+- **Last shipped:** 2026-11-03 (today) — Should tomorrow morning's era-map conversation run from the sketch and my question sheet, or start from your stories? (`the-gallery-steward-003`)
+- **Last commit touching this project:** 2026-11-03 `1e9fd845` — edit(The Gallery): born — the timeline-and-archive project, its scroll with the first Plan, its Context and the media-store spec
+- **Signal:** steady
+- **Drift:** no consolidation marker on the entry — nothing to measure against.
+- **Runs:** 1 run on 1 day, counted from the ledger's run lines
+- **Last run:** 2026-11-03 — cycle 1 · taught item 1
+- **Owed in the ledger:** nothing
+- **Latest lesson:** item 1, from cycle 1 — 2026-11-03 — [[The Gallery — tuning]]
 
 ### Where this stands
 
-_No steward has spoken for this project. Its direction is the `forward_vector` in [[The Gallery]]'s frontmatter; enchant a steward to start the trail._
+The Gallery is the new project, born this morning, that will hold everything you've made since school: records, courses, papers, instruments, shows. Each work gets a date, a source and a playable copy where one survives, all drawn as one line you can walk, with every work linked to the palace idea it seeded. Your order was: build the system, fill it from what already exists, then interview you and your collaborators. The plan's next step is a one-hour conversation tomorrow morning where you name your eras and ten works you'd hang first. This cycle made something for that conversation to react to: a sketch timeline drawn only from what the Dropbox and the palace already know, and a question…
 
 ### Open asks
 
-_None — nothing is waiting on you._
+- `the-gallery-steward-003` — directional_decision · posted 2026-11-03 · options: USE-AS-AGENDA · TRIM · STORY-FIRST
+
+### Answered, not yet consumed
+
+_None._
 
 ### Decided
 
 _Nothing decided on the board yet._
+
+### Runs
+
+- 2026-11-03 — cycle 1 · taught item 1
+
+### Owed
+
+_Nothing owed._
 
 <!-- scroll:now:end -->
 
@@ -63,6 +83,56 @@ _Loudon's standing direction for this project. The steward reads this zone every
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="the-gallery-steward-003" -->
+### 2026-11-03 — cycle 1 — Should tomorrow morning's era-map conversation run from the sketch and my question sheet, or start from your stories?
+> still working · sketch and sheet ready · steward leans USE-AS-AGENDA
+
+The Gallery is the new project holding everything you've made, drawn as one walkable line. Tomorrow morning is the hour where you name your eras and the ten works you'd hang first. I've drawn a sketch of 39 likely works from Dropbox file dates and the palace (amber means guessed, blue means sure), and a question sheet made from its gaps. It goes eras first, then ten works, then quick answers on the guesses. I lean toward using the sheet as is: the sketch gives you something to push against. The cost is that it may anchor you to what the drive happens to hold. Starting from your stories finds what the drive missed, like everything before 2005, but the guesses would wait for another sitting. Either way I keep working; answer when convenient.
+
+**Artifacts:**
+- [the sketch the conversation would react to.](Projects/The Gallery/The Gallery — sketch — timeline.html)
+- [the proposed agenda.](Projects/The Gallery/workshop/era-map interview — questions — draft.md)
+<sub>`the-gallery-steward-003` · RESOURCE_REQUEST on TRICKSTER</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="the-gallery-steward-002" -->
+### 2026-11-03 — cycle 1 — A first sketch of your whole line: 39 likely works from the Dropbox and the palace, dated without downloading a file.
+> shipped · sketch and question sheet ready for tomorrow's era map · steward leans use-as-agenda
+
+I read file dates in the Dropbox without downloading anything. Your files are online-only, and reading a file's date doesn't pull it down. That covered _CLASSES, WIND, the collaborator shares and the work-looking folders in _PERSONAL. Each folder became a bar whose length is the span of its files' dates. I added what the palace and git already hold: the 2014 Emerson paper, 1 from 2, the palace itself (first commit 2026-03-17), Tract Mirror and Loud'n Live. That makes 39 likely works. 4 are sure (blue), 33 are guesses from file dates (amber, dashed) and 2 have no date at all (red, in the margin): Berklee teaching and the Synthesis Notes. The sketch zooms and pans, sorts by kind or by how sure, and has a strip counting works per year. Nothing exists before 2005: school and earlier is a hatched blank. The question sheet turns every amber bar and red hold into a question, about an hour in four parts: eras, ten works, quick answers on the guesses, and how the line feels to look at.
+
+**Artifacts:**
+- [the sketch: 39 works, amber guessed, blue sure, red unknown; drag, scroll, click a bar.](Projects/The Gallery/The Gallery — sketch — timeline.html)
+- [a still of the sketch, checked in headless Chrome.](Projects/The Gallery/workshop/sketch-check.png)
+- [tomorrow's question sheet, drafted from the sketch's gaps.](Projects/The Gallery/workshop/era-map interview — questions — draft.md)
+- [the 39 drafted works, each with when, how sure, where found and the question it asks.](Projects/The Gallery/workshop/catalog-draft.json)
+- [the sweep: dates Dropbox folders by file times without downloading; an early form of the store's sweep.](Projects/The Gallery/workshop/folder-spans.py)
+- [re-injects the catalog into the sketch after corrections.](Projects/The Gallery/workshop/build-sketch.py)
+- [raw sweep of _CLASSES and WIND.](Projects/The Gallery/workshop/spans-classes-wind.json)
+- [raw sweep of the collaborator shares and the work folders in _PERSONAL.](Projects/The Gallery/workshop/spans-shares-personal.json)
+
+_What the sketch holds, by how sure it is_
+| how sure | works | examples |
+| --- | --- | --- |
+| held by the palace or git | 4 | Meaning and the Link (2014), 1 from 2 (2025-01), the palace (2026-03-17), Tract Mirror (2026-06-09) |
+| guessed from file dates | 33 | Coursera Music Production (~2013), Sampling (~2013–2017), CPEM 2 (~2021–2024), WIND (~2022–2024), With Valen (~2009–2026) |
+| unknown, yours to give | 2 | Berklee teaching, Synthesis Notes |
+
+_Changed in the workshop:_ era-map interview — questions — draft — the question sheet for tomorrow's era-map conversation, drafted from the sketch's gaps.
+
+_Left rough:_ File dates show when a file was last touched, not when the thing was made, so every amber bar is a guess. _Reference and the Berklee Google backup aren't swept yet. Big shares like Valen's 32,000 files are one bar each where they are surely many works.
+
+_Next moves named:_ After the era-map conversation: turn the amber bars blue or correct them in catalog-draft.json, redraw the sketch the same day, and propose the era headings and ten anchor works as page edits. · Sweep _Reference and the Berklee Google backup the same way, then split the biggest folders (Classes, _Online, Valen) into the works inside them.
+<sub>`the-gallery-steward-002` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-8aa8e79d86" -->
+### 2026-11-03 — cycle 1
+
+taught item 1
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="plan-2026-11-03T09-02-31-05-00" -->
 ### 2026-11-03 — Plan agreed
 
