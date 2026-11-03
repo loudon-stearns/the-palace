@@ -37,6 +37,17 @@
         "by": "maker · claude-opus-5-5 · proposal round",
         "round": "proposal-round-2026-11"
       },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Compression ↔ Intimacy — rich — does distance narrow a voice.html",
+            "verdict": "remake",
+            "why": "Its test can't fail (open-air distance is one gain, so range is fixed by arithmetic), and it builds the page's pair with whisper and shout given the same 4 dB range, then reports they don't differ in range; made wider (12 dB), the shout arrives at 50 m with 7.21 dB against the whisper's 4.00 at 5 cm, the page's way. Remake: say the null is arithmetic, let the reader set the pair's made ranges, measure across consonants or say it doesn't, drop 'What is enormous in the pair is not range'."
+          }
+        ]
+      },
       "made": "2026-11-03",
       "pieces": [
         {
@@ -61,6 +72,17 @@
         "by": "maker · claude-opus-5-5 · proposal round",
         "round": "proposal-round-2026-11"
       },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Compression ↔ Intimacy — rich — four knobs and the guard.html",
+            "verdict": "remake",
+            "why": "Walks up and finds a real seam in the page's four-knob map, but step 5 says 'The test can fail: if a slower release held them down less', which a one-pole release cannot do. Replace that one sentence with: the meter can't go the other way; what is under test is which way the page reads the hold. Nothing else changes."
+          }
+        ]
+      },
       "made": "2026-11-03",
       "pieces": [
         {
@@ -84,6 +106,17 @@
         "date": "2026-11-03",
         "by": "maker · claude-opus-5-5 · proposal round",
         "round": "proposal-round-2026-11"
+      },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Compression ↔ Intimacy — rich — where is the singer.html",
+            "verdict": "keep",
+            "why": "A real blind test of Part 1: chance (9/256 per edge) and rule stated first, all three sets scored, loudness confirmed at −20.0 LUFS by ffmpeg ebur128 on the rendered buffers, no leak by length, start, onset, wobble or pumping. Note: 'level, not colour' holds inside vowels only (consonants rise +4.7 and +7.0 dB at 4:1), and the brightness leak is unclosed, not unclosable."
+          }
+        ]
       },
       "made": "2026-11-03",
       "pieces": [
