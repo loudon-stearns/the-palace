@@ -66,7 +66,23 @@
         }
       ],
       "made_against": "9c8b729a0d36",
-      "stamped": "2026-11-03"
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Dissolutions — rich — the seam.html",
+            "verdict": "remake",
+            "why": "A real test with a clean walk up, but during the glide it shows the live reader speed and a meter that jumps from 31% to 100% at exactly 20 Hz, and step 5 names \"near 20 Hz\" first, so the mark is anchored to the page’s number. Blind the glide (hide speed, slider motion and meter while gliding; reveal the speed only in the marks table) and move \"near 20 Hz\" to after the first mark; the engine and its 9 PASS stay."
+          },
+          {
+            "file": "proofs/2026-10-18-one-curve-three-doorways/one-curve-three-doorways-2.html",
+            "verdict": "keep",
+            "why": "The played record of line 59’s identity, one curve with three readers; its crossfaded seam contradicts the paragraph, and the caption says so plainly. Note: it is the proof of the identity more than of the seam, which the walk’s own last step tests better; the caption could say so."
+          }
+        ]
+      }
     }
   ]
 }
