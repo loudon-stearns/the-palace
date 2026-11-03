@@ -67,6 +67,22 @@
         "by": "maker · claude-opus-5-5 · proposal round",
         "round": "proposal-round-2026-11"
       },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "proofs/2026-05-04-three-glides.png",
+            "verdict": "keep",
+            "why": "Illustrates the three characters the opening names; the project's own proof, captioned accurately."
+          },
+          {
+            "file": "proofs/2026-05-04-three-glides.wav",
+            "verdict": "keep",
+            "why": "Makes the three characters heard; caption order (linear, overdamped, underdamped) confirmed from the file's pitch track, third peak ~459 Hz."
+          }
+        ]
+      },
       "pieces": [
         {
           "file": "proofs/2026-05-04-three-glides.png",
@@ -95,6 +111,17 @@
         "by": "maker · claude-opus-5-5 · proposal round",
         "round": "proposal-round-2026-11"
       },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "curated-ear-set/audio/10-underdamped.wav",
+            "verdict": "keep",
+            "why": "The bundle's singer model overshoots from below, against line 61's \"from above\"; the caption says so plainly and says it is a model, not a singer."
+          }
+        ]
+      },
       "pieces": [
         {
           "file": "curated-ear-set/audio/10-underdamped.wav",
@@ -115,6 +142,32 @@
         "date": "2026-11-03",
         "by": "maker · claude-opus-5-5 · proposal round",
         "round": "proposal-round-2026-11"
+      },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Portamento and Physical Pitch Modeling — rich — critical glide walked up.html",
+            "verdict": "keep",
+            "why": "A real test that walks up in four playable steps; measured 59.4% at 2/ωₙ against the page's ~95%, recomputed independently. Note: drop the quotation marks on \"Three time constants to 95%\" in the caption — the page never says it."
+          },
+          {
+            "file": "Portamento and Physical Pitch Modeling — rich — overshoot walked up.html",
+            "verdict": "keep",
+            "why": "A real test that walks up to the f_max sign, up and down; 371.0 Hz against the page's 289.0, recomputed independently. Note: step 4's hear line should say the glide meets the tone in unison for an instant, not that it settles there."
+          },
+          {
+            "file": "curated-ear-set/single-session-reel.html",
+            "verdict": "keep",
+            "why": "The forward vector's own one-sitting test, gathered as a record. Its play-silent warning was conform missing a native audio control; a real click posts rich:play."
+          },
+          {
+            "file": "curated-ear-set/paired-exercises.html",
+            "verdict": "keep",
+            "why": "The forward vector's pairs. Sandbox warnings are conform's opaque load only. Note: play-silent is real — a detached new Audio() posts no rich:play, so it does not hush other pieces. That is a kit gap; leave the record as it is."
+          }
+        ]
       },
       "pieces": [
         {
@@ -170,6 +223,22 @@
         "by": "maker · claude-opus-5-5 · proposal round",
         "round": "proposal-round-2026-11"
       },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "curated-ear-set/spectrograms/10-underdamped.png",
+            "verdict": "keep",
+            "why": "Shows ridge and ripple; the caption says honestly that it is an STFT (render.py:153), not a wavelet transform."
+          },
+          {
+            "file": "curated-ear-set/quiz.html",
+            "verdict": "keep",
+            "why": "Drills the section's Pedagogical Use. Note: like the pairs, a detached Audio() posts no rich:play; confirmed the reel kept playing under it. A kit gap; hush on hide works."
+          }
+        ]
+      },
       "pieces": [
         {
           "file": "curated-ear-set/spectrograms/10-underdamped.png",
@@ -201,6 +270,47 @@
         "date": "2026-11-03",
         "by": "maker · claude-opus-5-5 · proposal round",
         "round": "proposal-round-2026-11"
+      },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "multi-mode/audio/01-ideal-harmonic-control.wav",
+            "verdict": "keep",
+            "why": "The control the two stiff-string clips need."
+          },
+          {
+            "file": "multi-mode/audio/02-slide-up-the-neck.wav",
+            "verdict": "keep",
+            "why": "Tests line 181 from the study's own render: 27.6 → 105.49 cents, confirmed in multi-mode/manifest.json."
+          },
+          {
+            "file": "multi-mode/audio/03-bend-into-tune.wav",
+            "verdict": "keep",
+            "why": "The other half of that test (27.6 → 6.98 cents). Note: a slide down the neck also compresses the partials, so the caption should name \"a bend, or a slide down the neck\", not just the bend."
+          },
+          {
+            "file": "multi-mode/figures/coupling-ab-spectrogram.png",
+            "verdict": "keep",
+            "why": "Shows the Kuramoto paragraph in the study's own render; ζ 0.55 and K = 9 match the manifest."
+          },
+          {
+            "file": "multi-mode/audio/04-fast-glide-uncoupled.wav",
+            "verdict": "keep",
+            "why": "Half of an A/B that could have failed: if coupling did nothing, the two would match."
+          },
+          {
+            "file": "multi-mode/audio/05-fast-glide-locked.wav",
+            "verdict": "keep",
+            "why": "The locked half of the A/B; the caption matches the study's note."
+          },
+          {
+            "file": "multi-mode/mode-locking-listening.html",
+            "verdict": "keep",
+            "why": "Locking made audible, from the study. Its play-silent warning was a missed native control; a click posts rich:play."
+          }
+        ]
       },
       "pieces": [
         {
@@ -269,6 +379,17 @@
         "by": "maker · claude-opus-5-5 · proposal round",
         "round": "proposal-round-2026-11"
       },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "portamento-tool-10.html",
+            "verdict": "keep",
+            "why": "Evidence, not decoration: beside line 201 it shows the list does not describe the file. The caption is exact (silent PD visualizer, overshoot presets)."
+          }
+        ]
+      },
       "pieces": [
         {
           "file": "portamento-tool-10.html",
@@ -290,6 +411,32 @@
         "date": "2026-11-03",
         "by": "maker · claude-opus-5-5 · proposal round",
         "round": "proposal-round-2026-11"
+      },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "zeta-over-time/zeta-over-time.html",
+            "verdict": "keep",
+            "why": "Open question 1 rendered as asked (C3 → G3, with an exercise); honest that nobody has listened yet."
+          },
+          {
+            "file": "threshold/overshoot-threshold.html",
+            "verdict": "keep",
+            "why": "Open question 2 as a measurement, staircase then alive or sour; the right place for the page's \"apparent for ζ < 0.5\"."
+          },
+          {
+            "file": "multi-mode/loudness-listening.html",
+            "verdict": "keep",
+            "why": "Question 3's progress note made audible; slipping partials match loudness-manifest.json. Its play-silent warning was a missed native control."
+          },
+          {
+            "file": "model-fitter/fit_validation.png",
+            "verdict": "keep",
+            "why": "The caption says what the validation shows and what it does not: synthetic glides only."
+          }
+        ]
       },
       "pieces": [
         {
