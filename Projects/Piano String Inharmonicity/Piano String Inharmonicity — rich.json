@@ -87,7 +87,28 @@
         }
       ],
       "made_against": "ed9dfdb40526",
-      "stamped": "2026-11-03"
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Piano String Inharmonicity — rich — stretch.html",
+            "verdict": "keep",
+            "why": "Tests the cube claim against the exact formula and finds the B·n² condition the text lacks; walks up from one partial to the slope table. Note: step 4 promises countable eightfold jumps, but partial 8 at B = 0.001 beats 55 /s (roughness); partials 1, 2, 4 would count."
+          },
+          {
+            "file": "proofs/2026-05-04-B-slider.html",
+            "verdict": "keep",
+            "why": "Gathered as it was; caption honest about its wider, unsourced B range; sound only on a press."
+          },
+          {
+            "file": "proofs/2026-05-04-real-piano-and-bending-curve.png",
+            "verdict": "keep",
+            "why": "Reference figure with an honest caption; its +11, +43, +94 ¢ labels check out at B = 0.0008 for partials 4, 8, 12."
+          }
+        ]
+      }
     },
     {
       "heading": "String Bending and Timbre Change",
@@ -110,7 +131,18 @@
         }
       ],
       "made_against": "8d9458e32671",
-      "stamped": "2026-11-03"
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Piano String Inharmonicity — rich — bend or fret.html",
+            "verdict": "keep",
+            "why": "A real test: the claim holds against a fret (B ratio r⁴ = 1.587, recomputed) and not against a peg; walks up rest, bend, fret, both. Note: it bends from the open string; one line saying r⁴ holds from any starting fret would match the teaching text."
+          }
+        ]
+      }
     },
     {
       "heading": "Why This Is Linear Time-Invariant",
@@ -132,7 +164,18 @@
         }
       ],
       "made_against": "5dbd77f824b3",
-      "stamped": "2026-11-03"
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Piano String Inharmonicity — rich — click through the string.html",
+            "verdict": "remake",
+            "why": "Steps 1–3 walk up well, but step 4 cannot fail: the resonator bank is built from the same modes as h(t), so it equals the convolution for any modes; −228 dB (85 dB above double ε) checks the arithmetic, not the physics. Either drive step 4 with a finite-difference stiff string (Kirchhoff–Carrier as the drive), or relabel it as two separate dials and drop \"the whole of this string\"."
+          }
+        ]
+      }
     },
     {
       "heading": "Interactive Teaching Demonstration",
@@ -154,7 +197,18 @@
         }
       ],
       "made_against": "e7f1f60cdcbd",
-      "stamped": "2026-11-03"
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "string-bending-inharmonicity.html",
+            "verdict": "keep",
+            "why": "The section's own demo, gathered as it is; caption warns of no limiter; audio made only on the play toggle."
+          }
+        ]
+      }
     }
   ]
 }
