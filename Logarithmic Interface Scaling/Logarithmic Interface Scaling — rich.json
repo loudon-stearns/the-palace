@@ -58,6 +58,17 @@
         "round": "proposal-round-2026-11"
       },
       "made": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Logarithmic Interface Scaling — rich — double and halve.html",
+            "verdict": "keep",
+            "why": "A test: it derives the page's 2.6% / 97.4% and the doubling cost (v ÷ 19.5 linear, log 2 ÷ log 40 = 18.8% log) from its own mapping, and shows 1.0 off-centre on log 0.5–20 rather than hiding it. Walks up from one slider to the reader's hand; the hand test's travel is fixed by the mapping, only the times are the reader's, and it says so."
+          }
+        ]
+      },
       "pieces": [
         {
           "file": "Logarithmic Interface Scaling — rich — double and halve.html",
@@ -82,6 +93,17 @@
         "round": "proposal-round-2026-11"
       },
       "made": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Logarithmic Interface Scaling — rich — the symmetry test.html",
+            "verdict": "keep",
+            "why": "The best test on the face: runs the page's four steps under both readings of step 3 and both tests on five implementations; the S-curve (v = 10^(u³), odd in u) passes symmetry and fails constant ratio, plain log on 0.5–20 the reverse, derived and confirmed. Taste note: for 0.5–20 the symmetry test catches the centring line 44 promises, not a bad mapping."
+          }
+        ]
+      },
       "pieces": [
         {
           "file": "Logarithmic Interface Scaling — rich — the symmetry test.html",
@@ -106,6 +128,17 @@
         "round": "proposal-round-2026-11"
       },
       "made": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Logarithmic Interface Scaling — rich — cutoff by ear.html",
+            "verdict": "remake",
+            "why": "(a) The caption's last sentence ('a log taper doesn't fix a knob whose effect goes as one over its value') contradicts the page's Forward Vector section (inverse → log); name the real condition: the effect is heard in decibels, already a ratio ruler, which move evenly with 1/ratio. Same clause in the reveal note. (b) rulerOf ignores move e, which check.mjs calls the check: with e answered 'bigger' it still names octaves; name a ruler only when e was answered 'the same', as the Boundary-Crossing rule requires, and update the check's case."
+          }
+        ]
+      },
       "pieces": [
         {
           "file": "Logarithmic Interface Scaling — rich — cutoff by ear.html",
