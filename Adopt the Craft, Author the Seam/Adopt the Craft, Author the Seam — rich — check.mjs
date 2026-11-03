@@ -114,6 +114,17 @@ console.log('— the blind pairs: matched, and different only in the thing under
   check('no take clips', pk < 1, `highest peak ${pk.toFixed(3)}`);
   const sd = (v) => Math.sqrt(v.reduce((a, x) => a + x * x, 0) / v.length);
   info('what the second kind of pair asks the ear to hear', `the drummer's ride and hat against the seam's: timing off by ${sd(dt).toFixed(2)} ms RMS (at most ${Math.max(...dt.map(Math.abs)).toFixed(2)}), weight by ${sd(dw).toFixed(2)} dB RMS (at most ${Math.max(...dw.map(Math.abs)).toFixed(2)})`);
+  // The third kind: the leftovers come from their own stream, so the drummer's wander is the same with or without them.
+  let same = true, ghosts = 0, worst3 = 0;
+  for (let seed = 1; seed <= 200; seed++) {
+    const f = GR.read(GR.DRUMMER_FULL, seed), d = GR.read(GR.DRUMMER, seed), fx = f.filter((h) => h.lane !== 'ghost');
+    same = same && fx.length === d.length && fx.every((h, i) => h.at === d[i].at && h.w === d[i].w && h.lane === d[i].lane);
+    ghosts += f.length - fx.length;
+  }
+  check('leftovers: with the ghost notes taken out, the drummer is the same drummer, hit for hit', same, '200 drummers');
+  info('ghost notes a take', `${(ghosts / 200).toFixed(2)} on average (rough two: 0.6 + 0.6 + 0.5 = 1.7)`);
+  for (let seed = 1; seed <= 20; seed++) { const a = GR.take(GR.DRUMMER_FULL, seed * 104729, ONCE), b = GR.take(GR.SEAM, seed * 104729, ONCE); worst3 = Math.max(worst3, Math.abs(dB(rms(a)) - dB(rms(b)))); if (a.length !== b.length) same = false; }
+  check('leftovers: every pair matched in level and length too', worst3 < 0.25 && same, `largest gap over 20 pairs ${worst3.toFixed(3)} dB`);
   const hc = (h) => ['ride', 'hat', 'kick', 'bass'].map((l) => h.filter((x) => x.lane === l).length).join('/');
   check('the same hits in every reading', hc(GR.read(GR.DRUMMER, 3)) === hc(GR.read(GR.MACHINE, 3)) && hc(GR.read(GR.MACHINE, 3)) === hc(GR.read(GR.SEAM, 3)), `ride/hat/kick/bass = ${hc(GR.read(GR.MACHINE, 3))}`);
 }
@@ -136,6 +147,11 @@ console.log('— the hidden groove and yours —');
 console.log('— the chance figures each step prints —');
 {
   const binom = (k, n, p) => { let s = 0; const C = (n, j) => { let c = 1; for (let i = 0; i < j; i++) c = c * (n - i) / (i + 1); return c; }; for (let j = k; j <= n; j++) s += C(n, j) * p ** j * (1 - p) ** (n - j); return s; };
+  // The balance is disclosed (4 of 8 first), so the best non-listener answers "first" five times: every
+  // answer set of each size, against every placement of the four, counted exactly.
+  { let best = 0; const C = (n, k) => { let c = 1; for (let i = 0; i < k; i++) c = c * (n - i) / (i + 1); return c; };
+    for (let a = 0; a <= 8; a++) { let p = 0; for (let j = 0; j <= 4; j++) { const right = j + (4 - (a - j)); if (a - j < 0 || a - j > 4) continue; if (right >= 7) p += C(4, j) * C(4, a - j) / C(8, a); } best = Math.max(best, p); }
+    check('which one is the drummer: the best non-listener under the disclosed 4/4 balance is 4 in 56', Math.abs(best - 4 / 56) < 1e-12, `${(best * 100).toFixed(2)}%`); }
   check('which one is the drummer: 7 or more of 8 by guessing is 9 in 256', Math.abs(GR.atLeast(7, 8, 0.5) - 9 / 256) < 1e-12, `${(GR.atLeast(7, 8, 0.5) * 100).toFixed(2)}%`);
   const best = (lo, hi, tol) => { let m = 0; for (let c = lo - tol; c <= hi + tol; c++) { let n = 0; for (let v = lo; v <= hi; v++) if (Math.abs(v - c) <= tol) n++; m = Math.max(m, n); } return m / (hi - lo + 1); };
   check('match it by ear, swing: the best a non-listener can do is 7 in 23 a trial', Math.abs(best(50, 72, 3) - 7 / 23) < 1e-12, `${(best(50, 72, 3) * 100).toFixed(1)}%, the slider's start (61) reaches it`);
@@ -157,6 +173,12 @@ console.log('— the edge finder —');
   const exact = GR.edgeChance(L, 2), r = GR.rng(4242), cnt = { none: 0, sharp: 0, zone: 0, fog: 0 }, N = 200000;
   for (let i = 0; i < N; i++) { const a = []; for (let k = 0; k < 14; k++) a.push({ level: k % L, broke: r() < 0.5 }); cnt[GR.edge(a, L).kind]++; }
   const far = Object.keys(cnt).map((k) => Math.abs(cnt[k] / N - exact[k])).reduce((a, b) => Math.max(a, b));
+  for (const q of [0.1, 0.2]) {
+    const ex = GR.edgeChance(L, 2, q), c2 = { none: 0, sharp: 0, zone: 0, fog: 0 };
+    for (let i = 0; i < N; i++) { const a = []; for (let k = 0; k < 14; k++) a.push({ level: k % L, broke: r() < q }); c2[GR.edge(a, L).kind]++; }
+    const f2 = Object.keys(c2).map((k) => Math.abs(c2[k] / N - ex[k])).reduce((a, b) => Math.max(a, b));
+    check(`leaning answerer, "it broke" ${q * 10} in 10: exact and sampled agree`, f2 < 0.004, `sharp ${(ex.sharp * 100).toFixed(1)}%, blurred ${(ex.zone * 100).toFixed(1)}%, none ${(ex.none * 100).toFixed(1)}%`);
+  }
   check('coin-flip figures: the exact count and a sample of 200,000 agree', far < 0.004, `sharp ${(exact.sharp * 100).toFixed(2)}%, zone ${(exact.zone * 100).toFixed(1)}%, fog ${(exact.fog * 100).toFixed(1)}%, none ${(exact.none * 100).toFixed(2)}%; largest gap ${(far * 100).toFixed(2)} points`);
 }
 

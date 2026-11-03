@@ -3,7 +3,7 @@
   title: Adopt the Craft, Author the Seam — rich — where it stops being a groove
   born: 2026-11-03
   links: [[Adopt the Craft, Author the Seam]] (connects-to · rich-face-piece) · listed in [[Adopt the Craft, Author the Seam — rich.json]] · plays Loudon's open reading from the Daily Page sit of 2026-10-19 (the page's scroll, § Where this stands; [[Adopt the Craft, Author the Seam — baton]]), which the page's text does not carry and this piece does not settle · its siblings on this face are "which one is the drummer" and "match it by ear", which share its engine byte for byte
-  forward_vector: I am Loudon's open question made playable: the groove at its norm, the swing and the lay-back pushed past it until the groove comes apart, and last fourteen shuffled takes that find where your own edge is and how wide the zone around it, or that you have none. I am not the page's claim. I change when he answers the question, or when the section I sit beside does.
+  forward_vector: I am Loudon's open question made playable: the groove at its norm, the swing and the lay-back pushed past it until the groove comes apart, and last fourteen shuffled takes that find where your own breaking point is and how blurred, or that you have none: one end of his zone, the norm end set, not measured. I am not the page's claim. I change when he answers the question, or when the section I sit beside does.
   sound: nothing plays until a click; the AudioContext is made on that click. Changing step stops the sound. Every sound is made here, from sines and noise.
   check: "Adopt the Craft, Author the Seam — rich — check.mjs", beside this file, runs the engine in Node.
 -->
@@ -117,9 +117,10 @@
   <section class="panel" data-step="3" hidden>
     <h2>Find your edge</h2>
     <div class="rules">
-      <p><b>No right answer here.</b> What's measured is whether you have an edge, and how wide the zone around it is. Fourteen takes: seven swing amounts, 64, 68, 72, 76, 80, 84 and 88%, each played twice, in a shuffled order. The lay-back stays at 22 ms and two and four lean. For each, say whether it is still a groove or has broken.</p>
-      <p><b>The rule, fixed now.</b> We find the cut that best splits your "still a groove" answers below it from your "broke" answers above it, and count the answers on the wrong side. 0 or 1: <b>a sharp edge</b>, at that cut. 2 or 3: <b>an edge with a zone</b>, the amounts where you went both ways. 4 or more: <b>fog</b>, your answers don't sort by the number. No cut inside the range does best: <b>no edge in this range</b>.</p>
-      <p><b>If you answered by coin flip</b>, you'd find a sharp edge <span id="ch-sharp"></span> of the time, an edge with a zone <span id="ch-zone"></span>, fog <span id="ch-fog"></span> and no edge <span id="ch-none"></span>. A sharp edge is hard to get by chance; fog is what chance looks like.</p>
+      <p><b>No right answer here.</b> What's measured is whether you have a breaking point, and how blurred it is. Fourteen takes: seven swing amounts, 64, 68, 72, 76, 80, 84 and 88%, each played twice, in a shuffled order. The lay-back stays at 22 ms and two and four lean. For each, say whether it is still a groove or has broken.</p>
+      <p><b>What it finds.</b> Only one end of the zone Loudon named: the breaking point. The other end, the norm, is fixed here at 64%, not measured. So this is not a test of his reading; it asks whether there is a breaking point to stand near at all.</p>
+      <p><b>The rule, fixed now.</b> We find the cut that best splits your "still a groove" answers below it from your "broke" answers above it, and count the answers on the wrong side. 0 or 1: <b>a sharp edge</b>, at that cut. 2 or 3: <b>a blurred edge</b>, the amounts where you went both ways. 4 or more: <b>fog</b>, your answers don't sort by the number. No cut inside the range does best: <b>no edge in this range</b>.</p>
+      <p><b>Without listening.</b> A coin flipper finds a sharp edge <span id="ch-sharp"></span> of the time, a blurred edge <span id="ch-zone"></span>, fog <span id="ch-fog"></span> and no edge <span id="ch-none"></span>. An answerer who doesn't listen but leans one way, saying "it broke" one time in ten or two in ten, finds a sharp edge <span id="lean-sharp"></span> and a blurred edge <span id="lean-zone"></span>, and mostly no edge. So a sharp edge is hard to get without listening; a blurred one isn't.</p>
       <p><b>Nothing else gives it away.</b> Every take has the same hits, the same weights, the same length and the same loudness; only the swing moves. The grid stays dark.</p>
     </div>
     <div class="row"><button class="play" id="start">Start the fourteen</button></div>
@@ -147,9 +148,12 @@ const GR = (() => {
   const BASS = [50, 48, 45, 41, 43, 45, 47, 49];                           // | Dm7 D C A F | G7 G A B C# |
   // Who reads the chart. swing: where the skip note lands, as a share of the beat. lay: how far the ride
   // and hat sit behind the grid, in ms (the bass and the feathered kick stay on it). accent: lean on 2
-  // and 4. feel: the drummer's leftovers, hits wandering in time and weight, as rough two had them; its
-  // ghost notes are left out, so the drummer plays only what the chart asks for.
+  // and 4. feel: hits wandering in time and weight, as rough two had them. leftovers: rough two's other
+  // leftovers, the ghost notes on beats 3 and 7 and the pickup into the turnaround, notes the chart never
+  // asks for and the record has no field for. DRUMMER is the seam plus the wander, by construction;
+  // DRUMMER_FULL adds the leftovers.
   const DRUMMER = { swing: 0.64, lay: 22, accent: true, feel: true };
+  const DRUMMER_FULL = { swing: 0.64, lay: 22, accent: true, feel: true, leftovers: true };
   const MACHINE = { swing: 0.50, lay: 0, accent: false, feel: false };
   const SEAM = { swing: 0.64, lay: 22, accent: true, feel: false };
   const FEEL = { time: 0.007, weight: 0.15 };
@@ -167,6 +171,14 @@ const GR = (() => {
       if (back) hits.push({ lane: 'hat', beat: i, grid: g, at: g + L + wander(), v: P.accent ? 0.7 : 0.5, w: weight(), id: i * 4 + 2 });
       hits.push({ lane: 'kick', beat: i, grid: g, at: g, v: 0.28, w: 1, id: i * 4 + 3 });
       hits.push({ lane: 'bass', beat: i, grid: g, at: g, v: 0.8, w: 1, midi: BASS[i] });
+    }
+    // The leftovers draw from their own stream, so turning them on leaves the wander exactly as it was.
+    // As rough two had them: a ghost on the skip of beats 3 and 7 six times in ten, and a pickup on the
+    // skip of beat 8, 4 ms early, half the time.
+    if (P.leftovers) {
+      const q = rng((seed || 1) + 104729);
+      for (const i of [2, 6]) if (q() < 0.6) hits.push({ lane: 'ghost', beat: i, grid: i * T + 0.5 * T, at: i * T + P.swing * T + L + (q() + q() - 1) * FEEL.time, v: 0.22, w: 1, id: 2000 + i });
+      if (q() < 0.5) hits.push({ lane: 'ghost', beat: 7, grid: 7.5 * T, at: 7 * T + P.swing * T + L - 0.004, v: 0.3, w: 1, id: 2007 });
     }
     // The wander in weight is centred lane by lane: its mean square is 1, so the drummer is no louder
     // than the reading without it, only less even.
@@ -198,6 +210,9 @@ const GR = (() => {
       e1 *= k1; e2 *= k2; e3 *= k3; return y;                     // e^(−t/0.5), e^(−t/0.35), e^(−t/0.01), one multiply a sample
     }, o);
   }
+  // A ghost note: a soft snare, noise through a band around 1.9 kHz, 90 ms.
+  function ghost(x, at, a, id, o) { const r = rng(11000 + id); let y1 = 0, y2 = 0; const w = 2 * Math.PI * 1900 / SR, al = Math.sin(w) / (2 * 0.9), b0 = al / (1 + al), a1 = -2 * Math.cos(w) / (1 + al), a2 = (1 - al) / (1 + al); let x1 = 0, x2 = 0;
+    put(x, at, Math.round(0.12 * SR), (t) => { const v = r() * 2 - 1, y = b0 * v - b0 * x2 - a1 * y1 - a2 * y2; x2 = x1; x1 = v; y2 = y1; y1 = y; return a * 1.4 * y * Math.min(1, t / 0.001) * Math.exp(-t / 0.09); }, o); }
   function hat(x, at, a, id, o) { const nz = noise(9000 + id); put(x, at, Math.round(0.12 * SR), (t) => a * 0.5 * nz() * Math.min(1, t / 0.0005) * Math.exp(-t / 0.03), o); }
   function kick(x, at, a, o) { let ph = 0; put(x, at, Math.round(0.5 * SR), (t) => { ph += 2 * Math.PI * (48 + 62 * Math.exp(-t / 0.02)) / SR; return a * 0.9 * Math.sin(ph) * Math.min(1, t / 0.002) * Math.exp(-t / 0.18); }, o); }
   function bass(x, at, midi, a, o) {
@@ -215,6 +230,7 @@ const GR = (() => {
       if (h.lane === 'ride') ride(drums, at, a, h.id, o);
       else if (h.lane === 'hat') hat(drums, at, a, h.id, o);
       else if (h.lane === 'kick') kick(drums, at, a, o);
+      else if (h.lane === 'ghost') ghost(drums, at, a, h.id, o);
       else bass(low, at, h.midi, a, o);
     }
     // A take played once ends on a 150 ms fade, the same in every take, so no tail is cut off with a click.
@@ -245,21 +261,22 @@ const GR = (() => {
     const kind = !inside ? (best <= 3 ? 'none' : 'fog') : best <= 1 ? 'sharp' : best <= 3 ? 'zone' : 'fog';
     return { errs, best, cuts, kind };
   }
-  // How often a coin-flip answerer lands in each kind: every one of the 2^n answer sets, counted.
-  function edgeChance(levels, reps) {
+  // How often an answerer who doesn't listen lands in each kind: every one of the 2^n answer sets,
+  // weighted. q: how often it says "it broke", whatever it hears; 0.5 is a coin flip.
+  function edgeChance(levels, reps, q) {
+    q = q == null ? 0.5 : q;
     const n = levels * reps, count = { none: 0, sharp: 0, zone: 0, fog: 0 };
-    for (let m = 0; m < (1 << n); m++) { const ans = []; for (let k = 0; k < n; k++) ans.push({ level: k % levels, broke: !!(m & (1 << k)) }); count[edge(ans, levels).kind]++; }
-    for (const k in count) count[k] /= (1 << n);
+    for (let m = 0; m < (1 << n); m++) { const ans = []; let b = 0; for (let k = 0; k < n; k++) { const br = !!(m & (1 << k)); b += br; ans.push({ level: k % levels, broke: br }); } count[edge(ans, levels).kind] += Math.pow(q, b) * Math.pow(1 - q, n - b); }
     return count;
   }
-  return { SR, BPM, T, BEATS, LOOP, BASS, DRUMMER, MACHINE, SEAM, FEEL, rng, read, render, rms, mix, take, atLeast, edge, edgeChance, DRUMS_RMS, BASS_RMS };
+  return { SR, BPM, T, BEATS, LOOP, BASS, DRUMMER, DRUMMER_FULL, MACHINE, SEAM, FEEL, rng, read, render, rms, mix, take, atLeast, edge, edgeChance, DRUMS_RMS, BASS_RMS };
 })();
 </script>
 <script id="gr-grid">
 // The grid: two bars, a solid line on each beat, a dashed line where a straight skip note would land
 // (half the beat) and a dotted one where a triplet's would (two thirds). Each layer is one reading's hits.
 const GRID = (() => {
-  const LANES = ['ride', 'hat', 'kick', 'bass'];
+  const LANES = ['ride', 'hat', 'ghost', 'kick', 'bass'];
   function css(v) { return getComputedStyle(document.documentElement).getPropertyValue(v).trim(); }
   function draw(cv, layers, head) {
     const dpr = window.devicePixelRatio || 1, W = cv.clientWidth, H = cv.clientHeight, g = cv.getContext('2d');
@@ -362,6 +379,8 @@ const UI = (() => {
   // ── the probe ──
   const ch = GR.edgeChance(LEVELS.length, 2), pc = (p) => (p * 100 < 1 ? (p * 100).toFixed(1) : Math.round(p * 100)) + '%';
   ['sharp', 'zone', 'fog', 'none'].forEach((k) => { $('ch-' + k).textContent = pc(ch[k]); });
+  const l1 = GR.edgeChance(LEVELS.length, 2, 0.1), l2 = GR.edgeChance(LEVELS.length, 2, 0.2), rng2 = (a, b) => { const lo = Math.min(a, b), hi = Math.max(a, b); return (lo * 100).toFixed(1) + ' to ' + (hi * 100).toFixed(1) + '%'; };
+  $('lean-sharp').textContent = rng2(l1.sharp, l2.sharp); $('lean-zone').textContent = rng2(l1.zone, l2.zone);
   const PRE = 0.06, TAIL = 0.7;
   let takes = [], k = 0, heard = false;
   function startRun() {
@@ -383,12 +402,12 @@ const UI = (() => {
       return '<div class="' + (i === lo ? 'cut' : '') + '">' + s + '%<i>' + a + '</i></div>'; }).join('');
     const between = (c) => LEVELS[c - 1] + ' and ' + LEVELS[c] + '%';
     let say;
-    if (e.kind === 'sharp') say = '<b>A sharp edge</b>, between ' + between(lo) + (hi !== lo ? ' (the fit is as good anywhere up to ' + between(hi) + ')' : '') + ', with ' + e.best + ' answer' + (e.best === 1 ? '' : 's') + ' on the wrong side. A coin gets this ' + pc(ch.sharp) + ' of the time.';
-    else if (e.kind === 'zone') say = '<b>An edge with a zone</b>: the best cut is between ' + between(lo) + (hi !== lo ? ', or as well anywhere up to ' + between(hi) : '') + ', with ' + e.best + ' answers on the wrong side. Those are the amounts where you went both ways.';
+    if (e.kind === 'sharp') say = '<b>A sharp edge</b>, a breaking point between ' + between(lo) + (hi !== lo ? ' (the fit is as good anywhere up to ' + between(hi) + ')' : '') + ', with ' + e.best + ' answer' + (e.best === 1 ? '' : 's') + ' on the wrong side. A coin gets this ' + pc(ch.sharp) + ' of the time.';
+    else if (e.kind === 'zone') say = '<b>A blurred edge</b>: the best cut is between ' + between(lo) + (hi !== lo ? ', or as well anywhere up to ' + between(hi) : '') + ', with ' + e.best + ' answers on the wrong side. Those are the amounts where you went both ways. An answerer who doesn’t listen gets this ' + rng2(ch.zone, l2.zone) + ' of the time, so it says less than a sharp edge.';
     else if (e.kind === 'fog') say = '<b>Fog</b>: ' + e.best + ' answers sit on the wrong side of the best cut. Your answers don’t sort by the swing, which is what a coin’s answers look like.';
     else say = '<b>No edge in this range</b>: ' + (takes.every((t) => !t.broke) ? 'every take was still a groove to you. Your edge, if there is one, is past 88%.' : takes.every((t) => t.broke) ? 'every take broke for you, even 64%. Your norm may sit lower.' : 'the best fit puts every amount on one side, with ' + e.best + ' off.');
     $('res').innerHTML = '<div class="strip">' + cells + '</div><p class="hint">● still a groove · ✕ it broke · the amber line is the best cut</p><p>' + say + '</p>' +
-      '<p class="hint">Whether the zone between the norm and the breaking point is where an author works is Loudon’s question, and his to answer. The page’s text stays as it is until he does.</p>';
+      '<p class="hint">This found, at most, one end of the zone Loudon named; the norm end was set at 64%. Whether the zone between the norm and the breaking point is where an author works is Loudon’s question, and his to answer. The page’s text stays as it is until he does.</p>';
   }
   $('start').addEventListener('click', () => { UI.stop(); startRun(); });
 

@@ -3,7 +3,7 @@
   title: Adopt the Craft, Author the Seam — rich — which one is the drummer
   born: 2026-11-03
   links: [[Adopt the Craft, Author the Seam]] (connects-to · rich-face-piece) · listed in [[Adopt the Craft, Author the Seam — rich.json]] · grew from rough two of the Daily Page of 2026-10-19, "Hand the Groove, Loosened" (proofs/2026-10-19-hand-the-groove-to-a-machine/) · its siblings on this face are "match it by ear" and "where it stops being a groove", which share its engine byte for byte
-  forward_vector: I am the walk up to the section's claim, carried into music: a chart read by a drummer, the same chart read by a machine, the two numbers and one switch that author the seam, and last sixteen blind trials asking which take is the drummer, against the machine as written and against the machine reading the drummer's own seam. I change only when the section I serve does.
+  forward_vector: I am the walk up to the section's claim, carried into music: a chart read by a drummer, the same chart read by a machine, the two numbers and one switch that author the seam, and last twenty-four blind trials asking which take is the drummer: against the machine as written (a control), against the machine reading the drummer's own seam (is the wander heard?), and with rough two's leftovers put back (is the seam wider than its record?). I change only when the section I serve does.
   sound: nothing plays until a click; the AudioContext is made on that click. Changing step stops the sound. Every sound is made here, from sines and noise.
   check: "Adopt the Craft, Author the Seam — rich — check.mjs", beside this file, runs the engine in Node.
 -->
@@ -82,7 +82,7 @@
 <main>
   <div class="eyebrow">made · Web Audio · sketch · proposal · The generalization</div>
   <h1>Which one is the drummer?</h1>
-  <p class="lead">The page says its move works in any craft: the seam is where a reader who interpreted is replaced by one who needs it spelled out. Here is the craft it names and never works, music. A chart goes to a drummer, then to a machine; you author the seam; then you find out, blind, whether what you authored carries the groove.</p>
+  <p class="lead">The page says its move works in any craft: the seam is where a collaborator who interpreted is replaced by one who requires exactness. Here is the craft it names and never works, music. A chart goes to a drummer, then to a machine; you author the seam; then you find out, blind, whether what you authored carries the groove.</p>
 
   <div class="rail" id="rail"></div>
 
@@ -90,10 +90,10 @@
     <h2>The chart, read by a drummer</h2>
     <div class="chart">Medium swing · laid back · 96 bpm <span>·</span> | Dm7 | G7 | <span>· ride, hat on 2 and 4, feathered kick, walking bass</span></div>
     <p>This is the craft taken off the shelf whole: a lead sheet, a ride pattern, a walking bass, and two words of feel. A drummer reads <i>swing, laid back</i> loosely and supplies the rest from taste. The skip note on the ride lands late, near a triplet. The ride and hat sit a hair behind the bass. Two and four lean. No hit lands exactly where the last one did.</p>
-    <div class="row"><button class="play" id="p0">Play the drummer</button></div>
+    <div class="row"><button id="d0" aria-pressed="true">As the chart asks</button><button id="f0" aria-pressed="false">With rough two’s leftovers</button><button class="play" id="p0">Play the drummer</button></div>
     <canvas class="grid" id="g0"></canvas>
     <div class="now" id="n0"></div>
-    <p class="hint">Coral dots are the drummer's hits; grey are the bass and the feathered kick, which stay on the grid. This drummer is a model, not a person: swing 64%, the ride and hat 22 ms behind, every hit wandering up to 7 ms and 15% in weight, as rough two had it. It plays only what the chart asks for, with no ghost notes, so what you hear is feel and not extra notes.</p>
+    <p class="hint">Coral dots are the drummer's hits; grey are the bass and the feathered kick, which stay on the grid. This drummer is a model, not a person: swing 64%, the ride and hat 22 ms behind, every hit wandering up to 7 ms and 15% in weight, as rough two had it. As the chart asks, it plays only the chart's notes, so what you hear is feel. With rough two's leftovers it also drops a ghost note on the snare (the third lane) after 3 now and then, and a pickup into the turnaround: notes nobody wrote down, and no number in the record below has a field for them.</p>
   </section>
 
   <section class="panel" data-step="1" hidden>
@@ -106,7 +106,7 @@
     </div>
     <canvas class="grid" id="g1"></canvas>
     <div class="now" id="n1"></div>
-    <p class="hint">Amber dots are the machine's. Watch the skip note: the machine's sits on the dashed line, half the beat; the drummer's sits near the dotted one, two thirds. This is the seam. A reader with taste was replaced by a reader with defaults, and everything the drummer supplied is now missing.</p>
+    <p class="hint">Amber dots are the machine's. Watch the skip note: the machine's sits on the dashed line, half the beat; the drummer's sits near the dotted one, two thirds. This is the seam, in the page's words: a collaborator who interpreted replaced by one who requires exactness. (The page's outside read puts it more sharply: a reader with defaults in place of a reader with taste.) Everything the drummer supplied is now missing.</p>
   </section>
 
   <section class="panel" data-step="2" hidden>
@@ -143,14 +143,16 @@
   <section class="panel" data-step="4" hidden>
     <h2>The test: which one is the drummer?</h2>
     <div class="rules" id="rules">
-      <p><b>Sixteen trials.</b> Each plays two takes of the same two bars, one after the other. One of them is the drummer. Say which.</p>
-      <p><b>Two kinds, shuffled together.</b> In eight, the other take is the machine reading the chart as written: straight and on the grid. In the other eight, it is the machine reading the drummer's own seam: 64%, 22 ms back, leaning on 2 and 4, with nothing wandering. You aren't told which kind a trial is until the end.</p>
-      <p><b>Chance</b> is 4 of 8 in each kind. Guessing gets 7 or more of 8 in 9 runs out of 256, 3.5%.</p>
-      <p><b>The rule, fixed now:</b> in either kind, 7 or 8 of 8 means you can tell the drummer from that machine. 6 or fewer, the test didn't show that you can.</p>
-      <p><b>What the page predicts.</b> The machine as written should be easy, 7 or more: the swap of readers costs something you can hear. If the authored seam is the only new work, the second kind should be hard, near 4. Near 4 on the first kind would fail the page: the test wouldn't have shown that the swap costs anything you can hear. 7 or more on the second means the seam is wider than two numbers and a switch, and what's left is the wander, the part the record has no field for.</p>
-      <p><b>Nothing else tells them apart.</b> Every take's drums are set to the same loudness (the same RMS over the take), and the bass is the same in both. Each pair has the same length. The drummer comes first in four trials of each kind and second in the other four, shuffled. The grid stays dark. Every trial draws a fresh drummer.</p>
+      <p><b>Twenty-four trials.</b> Each plays two takes of the same two bars, one after the other. One of them is the drummer. Say which.</p>
+      <p><b>Three kinds, eight of each, shuffled together</b>; you aren't told which kind a trial is until the end.</p>
+      <p><b>The control:</b> the drummer against the machine reading the chart as written. The machine's straightness is built in here, so this tests your ear, not the page: if you can't tell these apart, the other two kinds can't speak.</p>
+      <p><b>The wander:</b> the drummer as the chart asks, against the machine reading the drummer's own seam (64%, 22 ms back, leaning on 2 and 4). By construction this drummer IS that seam plus a wander an agent sized: about 3 ms in timing and 0.7 dB in weight, on average. So this kind asks one thing: is that wander heard?</p>
+      <p><b>The leftovers:</b> the drummer with rough two's ghost notes and turnaround pickup, against the same seam. This is the kind that can go against the page's two-number record: 7 or more says the drummer played something you hear that the record has no field for, so the seam is wider than two numbers and a switch.</p>
+      <p><b>Chance</b> is 4 of 8 in each kind. A coin gets 7 or more of 8 in 9 runs out of 256, 3.5%. Because the drummer comes first in exactly four trials of each kind (said below), a non-listener who answers "first" five times in a kind does a little better: at most 4 in 56, 7.1%.</p>
+      <p><b>The rule, fixed now:</b> in any kind, 7 or 8 of 8 means you can tell the drummer from that machine. 6 or fewer, the test didn't show that you can, which is not the same as showing there was nothing to hear.</p>
+      <p><b>Nothing else tells them apart.</b> The trials differ in nothing but the takes: every take's drums are set to the same loudness (the same RMS over the take), and the bass is the same in both. Each pair has the same length. The drummer comes first in four trials of each kind and second in the other four, shuffled. The grid stays dark. Every trial draws a fresh drummer.</p>
     </div>
-    <div class="row"><button class="play" id="start">Start the sixteen</button></div>
+    <div class="row"><button class="play" id="start">Start the twenty-four</button></div>
     <div id="trialbox" hidden>
       <div class="trial" id="tn"></div>
       <div class="row"><span class="lamp" id="lA">first</span><span class="lamp" id="lB">second</span><button id="hear">Play the pair</button></div>
@@ -175,9 +177,12 @@ const GR = (() => {
   const BASS = [50, 48, 45, 41, 43, 45, 47, 49];                           // | Dm7 D C A F | G7 G A B C# |
   // Who reads the chart. swing: where the skip note lands, as a share of the beat. lay: how far the ride
   // and hat sit behind the grid, in ms (the bass and the feathered kick stay on it). accent: lean on 2
-  // and 4. feel: the drummer's leftovers, hits wandering in time and weight, as rough two had them; its
-  // ghost notes are left out, so the drummer plays only what the chart asks for.
+  // and 4. feel: hits wandering in time and weight, as rough two had them. leftovers: rough two's other
+  // leftovers, the ghost notes on beats 3 and 7 and the pickup into the turnaround, notes the chart never
+  // asks for and the record has no field for. DRUMMER is the seam plus the wander, by construction;
+  // DRUMMER_FULL adds the leftovers.
   const DRUMMER = { swing: 0.64, lay: 22, accent: true, feel: true };
+  const DRUMMER_FULL = { swing: 0.64, lay: 22, accent: true, feel: true, leftovers: true };
   const MACHINE = { swing: 0.50, lay: 0, accent: false, feel: false };
   const SEAM = { swing: 0.64, lay: 22, accent: true, feel: false };
   const FEEL = { time: 0.007, weight: 0.15 };
@@ -195,6 +200,14 @@ const GR = (() => {
       if (back) hits.push({ lane: 'hat', beat: i, grid: g, at: g + L + wander(), v: P.accent ? 0.7 : 0.5, w: weight(), id: i * 4 + 2 });
       hits.push({ lane: 'kick', beat: i, grid: g, at: g, v: 0.28, w: 1, id: i * 4 + 3 });
       hits.push({ lane: 'bass', beat: i, grid: g, at: g, v: 0.8, w: 1, midi: BASS[i] });
+    }
+    // The leftovers draw from their own stream, so turning them on leaves the wander exactly as it was.
+    // As rough two had them: a ghost on the skip of beats 3 and 7 six times in ten, and a pickup on the
+    // skip of beat 8, 4 ms early, half the time.
+    if (P.leftovers) {
+      const q = rng((seed || 1) + 104729);
+      for (const i of [2, 6]) if (q() < 0.6) hits.push({ lane: 'ghost', beat: i, grid: i * T + 0.5 * T, at: i * T + P.swing * T + L + (q() + q() - 1) * FEEL.time, v: 0.22, w: 1, id: 2000 + i });
+      if (q() < 0.5) hits.push({ lane: 'ghost', beat: 7, grid: 7.5 * T, at: 7 * T + P.swing * T + L - 0.004, v: 0.3, w: 1, id: 2007 });
     }
     // The wander in weight is centred lane by lane: its mean square is 1, so the drummer is no louder
     // than the reading without it, only less even.
@@ -226,6 +239,9 @@ const GR = (() => {
       e1 *= k1; e2 *= k2; e3 *= k3; return y;                     // e^(−t/0.5), e^(−t/0.35), e^(−t/0.01), one multiply a sample
     }, o);
   }
+  // A ghost note: a soft snare, noise through a band around 1.9 kHz, 90 ms.
+  function ghost(x, at, a, id, o) { const r = rng(11000 + id); let y1 = 0, y2 = 0; const w = 2 * Math.PI * 1900 / SR, al = Math.sin(w) / (2 * 0.9), b0 = al / (1 + al), a1 = -2 * Math.cos(w) / (1 + al), a2 = (1 - al) / (1 + al); let x1 = 0, x2 = 0;
+    put(x, at, Math.round(0.12 * SR), (t) => { const v = r() * 2 - 1, y = b0 * v - b0 * x2 - a1 * y1 - a2 * y2; x2 = x1; x1 = v; y2 = y1; y1 = y; return a * 1.4 * y * Math.min(1, t / 0.001) * Math.exp(-t / 0.09); }, o); }
   function hat(x, at, a, id, o) { const nz = noise(9000 + id); put(x, at, Math.round(0.12 * SR), (t) => a * 0.5 * nz() * Math.min(1, t / 0.0005) * Math.exp(-t / 0.03), o); }
   function kick(x, at, a, o) { let ph = 0; put(x, at, Math.round(0.5 * SR), (t) => { ph += 2 * Math.PI * (48 + 62 * Math.exp(-t / 0.02)) / SR; return a * 0.9 * Math.sin(ph) * Math.min(1, t / 0.002) * Math.exp(-t / 0.18); }, o); }
   function bass(x, at, midi, a, o) {
@@ -243,6 +259,7 @@ const GR = (() => {
       if (h.lane === 'ride') ride(drums, at, a, h.id, o);
       else if (h.lane === 'hat') hat(drums, at, a, h.id, o);
       else if (h.lane === 'kick') kick(drums, at, a, o);
+      else if (h.lane === 'ghost') ghost(drums, at, a, h.id, o);
       else bass(low, at, h.midi, a, o);
     }
     // A take played once ends on a 150 ms fade, the same in every take, so no tail is cut off with a click.
@@ -273,21 +290,22 @@ const GR = (() => {
     const kind = !inside ? (best <= 3 ? 'none' : 'fog') : best <= 1 ? 'sharp' : best <= 3 ? 'zone' : 'fog';
     return { errs, best, cuts, kind };
   }
-  // How often a coin-flip answerer lands in each kind: every one of the 2^n answer sets, counted.
-  function edgeChance(levels, reps) {
+  // How often an answerer who doesn't listen lands in each kind: every one of the 2^n answer sets,
+  // weighted. q: how often it says "it broke", whatever it hears; 0.5 is a coin flip.
+  function edgeChance(levels, reps, q) {
+    q = q == null ? 0.5 : q;
     const n = levels * reps, count = { none: 0, sharp: 0, zone: 0, fog: 0 };
-    for (let m = 0; m < (1 << n); m++) { const ans = []; for (let k = 0; k < n; k++) ans.push({ level: k % levels, broke: !!(m & (1 << k)) }); count[edge(ans, levels).kind]++; }
-    for (const k in count) count[k] /= (1 << n);
+    for (let m = 0; m < (1 << n); m++) { const ans = []; let b = 0; for (let k = 0; k < n; k++) { const br = !!(m & (1 << k)); b += br; ans.push({ level: k % levels, broke: br }); } count[edge(ans, levels).kind] += Math.pow(q, b) * Math.pow(1 - q, n - b); }
     return count;
   }
-  return { SR, BPM, T, BEATS, LOOP, BASS, DRUMMER, MACHINE, SEAM, FEEL, rng, read, render, rms, mix, take, atLeast, edge, edgeChance, DRUMS_RMS, BASS_RMS };
+  return { SR, BPM, T, BEATS, LOOP, BASS, DRUMMER, DRUMMER_FULL, MACHINE, SEAM, FEEL, rng, read, render, rms, mix, take, atLeast, edge, edgeChance, DRUMS_RMS, BASS_RMS };
 })();
 </script>
 <script id="gr-grid">
 // The grid: two bars, a solid line on each beat, a dashed line where a straight skip note would land
 // (half the beat) and a dotted one where a triplet's would (two thirds). Each layer is one reading's hits.
 const GRID = (() => {
-  const LANES = ['ride', 'hat', 'kick', 'bass'];
+  const LANES = ['ride', 'hat', 'ghost', 'kick', 'bass'];
   function css(v) { return getComputedStyle(document.documentElement).getPropertyValue(v).trim(); }
   function draw(cv, layers, head) {
     const dpr = window.devicePixelRatio || 1, W = cv.clientWidth, H = cv.clientHeight, g = cv.getContext('2d');
@@ -387,7 +405,11 @@ const UI = (() => {
     view.loop = true; UI.play(GR.mix(GR.render(view.hits, { wrap: true })), { loop: true }); setPlayLabel(btn, true, label);
   }
   // step 1
-  $('p0').addEventListener('click', () => { loopOf(GR.DRUMMER, '--coral', 'the drummer'); toggle($('p0'), 'Play the drummer'); });
+  let full0 = false;
+  const drum0 = () => full0 ? GR.DRUMMER_FULL : GR.DRUMMER;
+  function set0(f) { full0 = f; $('d0').setAttribute('aria-pressed', String(!f)); $('f0').setAttribute('aria-pressed', String(f)); loopOf(drum0(), '--coral', f ? 'the drummer, with the leftovers' : 'the drummer, as the chart asks'); }
+  $('d0').addEventListener('click', () => set0(false)); $('f0').addEventListener('click', () => set0(true));
+  $('p0').addEventListener('click', () => { set0(full0); toggle($('p0'), 'Play the drummer'); });
   // step 2
   let who1 = 'machine';
   function set1(w) { who1 = w; $('r1d').setAttribute('aria-pressed', String(w === 'drummer')); $('r1m').setAttribute('aria-pressed', String(w === 'machine'));
@@ -418,13 +440,13 @@ const UI = (() => {
   let trials = [], k = 0, heard = false;
   function newRun() {
     const r = Math.random, mk = (kind) => UI.shuffle([true, true, true, true, false, false, false, false]).map((first) => ({ kind, first }));
-    trials = UI.shuffle(mk('written').concat(mk('seam')));
+    trials = UI.shuffle(mk('written').concat(mk('seam'), mk('leftovers')));
     trials.forEach((t) => { t.seed = 1 + Math.floor(r() * 2147483646); });
     k = 0; $('res').innerHTML = ''; $('trialbox').hidden = false; $('start').textContent = 'Start again'; showTrial();
   }
   function pairOf(t) {
     const o = { wrap: false, pre: PRE, tail: TAIL }, other = t.kind === 'written' ? GR.MACHINE : GR.SEAM;
-    const d = GR.take(GR.DRUMMER, t.seed, o), m = GR.take(other, t.seed, o);
+    const d = GR.take(t.kind === 'leftovers' ? GR.DRUMMER_FULL : GR.DRUMMER, t.seed, o), m = GR.take(other, t.seed, o);
     const A = t.first ? d : m, B = t.first ? m : d, y = new Float32Array(A.length + B.length);
     y.set(A, 0); y.set(B, A.length); return { y, half: A.length / GR.SR };
   }
@@ -447,18 +469,22 @@ const UI = (() => {
   function verdict(kind, n) {
     const p = GR.atLeast(n, 8, 0.5), pc = (p * 100).toFixed(p < 0.1 ? 1 : 0) + '%';
     const can = n >= 7;
-    if (kind === 'written') return '<b>Against the machine as written: ' + n + ' of 8.</b> Guessing does this well or better ' + pc + ' of the time. ' +
-      (can ? 'You can tell them apart: the swap of readers cost something you can hear, as the page predicts.' : n <= 5 ? 'The test didn’t show you can tell them apart, so it didn’t support the page: it found no sign that the swap of readers cost something you could hear. One run can’t show the swap cost nothing; it only failed to show a cost.' : 'Close, but under the rule: the test didn’t show it.');
-    return '<b>Against the machine reading the drummer’s seam: ' + n + ' of 8.</b> Guessing does this well or better ' + pc + ' of the time. ' +
-      (can ? 'You can tell them apart: the two numbers and the switch didn’t carry all of it. What’s left is the wander, the part with no field in the record.' : 'The test didn’t show you can tell them apart: for your ear, the two numbers and the switch carried what this drummer played. That is what the page predicts, not proof that nothing was lost.');
+    const head = '. A coin does this well or better ' + pc + ' of the time. ';
+    if (kind === 'written') return '<b>The control, against the machine as written: ' + n + ' of 8</b>' + head +
+      (can ? 'Your ear hears the swap of readers, so the other two kinds can speak.' : 'The test didn’t show you hear the swap of readers, so read the other two kinds with care: they need an ear that can hear swing.');
+    if (kind === 'seam') return '<b>The wander, against the machine reading the drummer’s seam: ' + n + ' of 8</b>' + head +
+      (can ? 'You hear the wander: about 3 ms and 0.7 dB a hit is enough for your ear, and the record has no field for it.' : 'The test didn’t show you hear the wander at the size it was set. That speaks for this drummer’s wander, which an agent sized, not for a real drummer’s.');
+    return '<b>The leftovers, against the machine reading the drummer’s seam: ' + n + ' of 8</b>' + head +
+      (can ? 'You can tell them apart: the drummer played something you hear that the two numbers and the switch have no field for. Here the seam is wider than its record, and authoring it means more than two numbers.' : 'The test didn’t show you can tell them apart, even with notes nobody wrote down. It didn’t find the seam wider than its record; one run can’t show it isn’t.');
   }
   function finish() {
     $('trialbox').hidden = true;
     const n = (kind) => trials.filter((t) => t.kind === kind && t.right).length;
-    const rows = trials.map((t, i) => '<tr><td>' + (i + 1) + '</td><td>' + (t.kind === 'written' ? 'as written' : 'the seam') + '</td><td>' + (t.first ? 'first' : 'second') + '</td><td>' + (t.said ? 'first' : 'second') + '</td><td>' + (t.right ? 'right' : '·') + '</td></tr>').join('');
-    $('res').innerHTML = '<p>' + verdict('written', n('written')) + '</p><p>' + verdict('seam', n('seam')) + '</p>' +
-      '<p class="hint">One honest note: the drummer here is a model, and its wander was set by an agent, small on purpose (up to 7 ms and 15%). A score near 4 against the seam says these numbers carry this drummer, not a real one. The real test is a real record.</p>' +
-      '<table class="log"><tr><th>trial</th><th>the other take</th><th>drummer was</th><th>you said</th><th></th></tr>' + rows + '</table>';
+    const KN = { written: 'as written (control)', seam: 'the seam (wander)', leftovers: 'the seam (leftovers)' };
+    const rows = trials.map((t, i) => '<tr><td>' + (i + 1) + '</td><td>' + KN[t.kind] + '</td><td>' + (t.first ? 'first' : 'second') + '</td><td>' + (t.said ? 'first' : 'second') + '</td><td>' + (t.right ? 'right' : '·') + '</td></tr>').join('');
+    $('res').innerHTML = '<p>' + verdict('written', n('written')) + '</p><p>' + verdict('seam', n('seam')) + '</p><p>' + verdict('leftovers', n('leftovers')) + '</p>' +
+      '<p class="hint">One honest note: the drummer here is a model, its wander and its leftovers set by an agent after rough two. Whatever these scores say, they say it about this drummer. The real test is a real record.</p>' +
+      '<table class="log"><tr><th>trial</th><th>kind</th><th>drummer was</th><th>you said</th><th></th></tr>' + rows + '</table>';
   }
   $('start').addEventListener('click', () => { UI.stop(); newRun(); });
 
@@ -477,7 +503,7 @@ const UI = (() => {
   const labels = [['p0', 'Play the drummer'], ['p1', 'Play'], ['p2', 'Play'], ['p3', 'Play']];
   const walk = UI.walk(['the drummer', 'the machine', 'one number', 'the seam', 'which is the drummer'], (s) => {
     labels.forEach(([id, l]) => setPlayLabel($(id), false, l)); view.loop = false;
-    if (s === 0) view.hits = GR.read(GR.DRUMMER, seed0), view.color = '--coral';
+    if (s === 0) set0(full0);
     if (s === 1) set1(who1);
     if (s === 2) read2();
     if (s === 3) read3();

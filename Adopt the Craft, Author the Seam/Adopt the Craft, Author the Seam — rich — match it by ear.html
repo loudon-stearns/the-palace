@@ -88,12 +88,12 @@
 
   <section class="panel" data-step="0">
     <h2>One record, three jobs</h2>
-    <p>Set the groove. The same two numbers and a switch are written three ways at once: on the chart, as the machine's instructions, and as a file any other tool can read. Nothing crosses from the drummer's taste to the machine except what is in these boxes.</p>
+    <p>Set the groove. The machine's instructions and the file any other tool reads carry the same two numbers and a switch. The chart doesn't: a real chart says <i>medium swing, laid back</i>, never 64%. So in music the human's vocabulary is words and the machine's is numbers, and the one vocabulary the section prizes has to be built here; it isn't already there. Nothing crosses from the drummer's taste to the machine except what is in the last two boxes.</p>
     <div class="ctl"><label for="s0">Swing</label><input type="range" id="s0" min="50" max="80" step="1" value="64"><span class="v" id="s0v"></span></div>
     <div class="ctl"><label for="l0">Lay-back</label><input type="range" id="l0" min="-20" max="60" step="1" value="22"><span class="v" id="l0v"></span></div>
     <div class="row"><button id="a0" aria-pressed="true">Lean on 2 and 4</button><button class="play" id="p0">Play the machine reading it</button></div>
     <div class="record">
-      <div><b>On the chart (the schema)</b><code id="r1"></code></div>
+      <div><b>On a chart, as charts say it</b><code id="r1"></code></div>
       <div><b>To the machine (the conditioning)</b><code id="r2"></code></div>
       <div><b>To any other tool (the handoff)</b><code id="r3"></code></div>
     </div>
@@ -164,9 +164,12 @@ const GR = (() => {
   const BASS = [50, 48, 45, 41, 43, 45, 47, 49];                           // | Dm7 D C A F | G7 G A B C# |
   // Who reads the chart. swing: where the skip note lands, as a share of the beat. lay: how far the ride
   // and hat sit behind the grid, in ms (the bass and the feathered kick stay on it). accent: lean on 2
-  // and 4. feel: the drummer's leftovers, hits wandering in time and weight, as rough two had them; its
-  // ghost notes are left out, so the drummer plays only what the chart asks for.
+  // and 4. feel: hits wandering in time and weight, as rough two had them. leftovers: rough two's other
+  // leftovers, the ghost notes on beats 3 and 7 and the pickup into the turnaround, notes the chart never
+  // asks for and the record has no field for. DRUMMER is the seam plus the wander, by construction;
+  // DRUMMER_FULL adds the leftovers.
   const DRUMMER = { swing: 0.64, lay: 22, accent: true, feel: true };
+  const DRUMMER_FULL = { swing: 0.64, lay: 22, accent: true, feel: true, leftovers: true };
   const MACHINE = { swing: 0.50, lay: 0, accent: false, feel: false };
   const SEAM = { swing: 0.64, lay: 22, accent: true, feel: false };
   const FEEL = { time: 0.007, weight: 0.15 };
@@ -184,6 +187,14 @@ const GR = (() => {
       if (back) hits.push({ lane: 'hat', beat: i, grid: g, at: g + L + wander(), v: P.accent ? 0.7 : 0.5, w: weight(), id: i * 4 + 2 });
       hits.push({ lane: 'kick', beat: i, grid: g, at: g, v: 0.28, w: 1, id: i * 4 + 3 });
       hits.push({ lane: 'bass', beat: i, grid: g, at: g, v: 0.8, w: 1, midi: BASS[i] });
+    }
+    // The leftovers draw from their own stream, so turning them on leaves the wander exactly as it was.
+    // As rough two had them: a ghost on the skip of beats 3 and 7 six times in ten, and a pickup on the
+    // skip of beat 8, 4 ms early, half the time.
+    if (P.leftovers) {
+      const q = rng((seed || 1) + 104729);
+      for (const i of [2, 6]) if (q() < 0.6) hits.push({ lane: 'ghost', beat: i, grid: i * T + 0.5 * T, at: i * T + P.swing * T + L + (q() + q() - 1) * FEEL.time, v: 0.22, w: 1, id: 2000 + i });
+      if (q() < 0.5) hits.push({ lane: 'ghost', beat: 7, grid: 7.5 * T, at: 7 * T + P.swing * T + L - 0.004, v: 0.3, w: 1, id: 2007 });
     }
     // The wander in weight is centred lane by lane: its mean square is 1, so the drummer is no louder
     // than the reading without it, only less even.
@@ -215,6 +226,9 @@ const GR = (() => {
       e1 *= k1; e2 *= k2; e3 *= k3; return y;                     // e^(−t/0.5), e^(−t/0.35), e^(−t/0.01), one multiply a sample
     }, o);
   }
+  // A ghost note: a soft snare, noise through a band around 1.9 kHz, 90 ms.
+  function ghost(x, at, a, id, o) { const r = rng(11000 + id); let y1 = 0, y2 = 0; const w = 2 * Math.PI * 1900 / SR, al = Math.sin(w) / (2 * 0.9), b0 = al / (1 + al), a1 = -2 * Math.cos(w) / (1 + al), a2 = (1 - al) / (1 + al); let x1 = 0, x2 = 0;
+    put(x, at, Math.round(0.12 * SR), (t) => { const v = r() * 2 - 1, y = b0 * v - b0 * x2 - a1 * y1 - a2 * y2; x2 = x1; x1 = v; y2 = y1; y1 = y; return a * 1.4 * y * Math.min(1, t / 0.001) * Math.exp(-t / 0.09); }, o); }
   function hat(x, at, a, id, o) { const nz = noise(9000 + id); put(x, at, Math.round(0.12 * SR), (t) => a * 0.5 * nz() * Math.min(1, t / 0.0005) * Math.exp(-t / 0.03), o); }
   function kick(x, at, a, o) { let ph = 0; put(x, at, Math.round(0.5 * SR), (t) => { ph += 2 * Math.PI * (48 + 62 * Math.exp(-t / 0.02)) / SR; return a * 0.9 * Math.sin(ph) * Math.min(1, t / 0.002) * Math.exp(-t / 0.18); }, o); }
   function bass(x, at, midi, a, o) {
@@ -232,6 +246,7 @@ const GR = (() => {
       if (h.lane === 'ride') ride(drums, at, a, h.id, o);
       else if (h.lane === 'hat') hat(drums, at, a, h.id, o);
       else if (h.lane === 'kick') kick(drums, at, a, o);
+      else if (h.lane === 'ghost') ghost(drums, at, a, h.id, o);
       else bass(low, at, h.midi, a, o);
     }
     // A take played once ends on a 150 ms fade, the same in every take, so no tail is cut off with a click.
@@ -262,21 +277,22 @@ const GR = (() => {
     const kind = !inside ? (best <= 3 ? 'none' : 'fog') : best <= 1 ? 'sharp' : best <= 3 ? 'zone' : 'fog';
     return { errs, best, cuts, kind };
   }
-  // How often a coin-flip answerer lands in each kind: every one of the 2^n answer sets, counted.
-  function edgeChance(levels, reps) {
+  // How often an answerer who doesn't listen lands in each kind: every one of the 2^n answer sets,
+  // weighted. q: how often it says "it broke", whatever it hears; 0.5 is a coin flip.
+  function edgeChance(levels, reps, q) {
+    q = q == null ? 0.5 : q;
     const n = levels * reps, count = { none: 0, sharp: 0, zone: 0, fog: 0 };
-    for (let m = 0; m < (1 << n); m++) { const ans = []; for (let k = 0; k < n; k++) ans.push({ level: k % levels, broke: !!(m & (1 << k)) }); count[edge(ans, levels).kind]++; }
-    for (const k in count) count[k] /= (1 << n);
+    for (let m = 0; m < (1 << n); m++) { const ans = []; let b = 0; for (let k = 0; k < n; k++) { const br = !!(m & (1 << k)); b += br; ans.push({ level: k % levels, broke: br }); } count[edge(ans, levels).kind] += Math.pow(q, b) * Math.pow(1 - q, n - b); }
     return count;
   }
-  return { SR, BPM, T, BEATS, LOOP, BASS, DRUMMER, MACHINE, SEAM, FEEL, rng, read, render, rms, mix, take, atLeast, edge, edgeChance, DRUMS_RMS, BASS_RMS };
+  return { SR, BPM, T, BEATS, LOOP, BASS, DRUMMER, DRUMMER_FULL, MACHINE, SEAM, FEEL, rng, read, render, rms, mix, take, atLeast, edge, edgeChance, DRUMS_RMS, BASS_RMS };
 })();
 </script>
 <script id="gr-grid">
 // The grid: two bars, a solid line on each beat, a dashed line where a straight skip note would land
 // (half the beat) and a dotted one where a triplet's would (two thirds). Each layer is one reading's hits.
 const GRID = (() => {
-  const LANES = ['ride', 'hat', 'kick', 'bass'];
+  const LANES = ['ride', 'hat', 'ghost', 'kick', 'bass'];
   function css(v) { return getComputedStyle(document.documentElement).getPropertyValue(v).trim(); }
   function draw(cv, layers, head) {
     const dpr = window.devicePixelRatio || 1, W = cv.clientWidth, H = cv.clientHeight, g = cv.getContext('2d');
@@ -383,7 +399,7 @@ const UI = (() => {
   function rec() {
     const s = +$('s0').value, l = +$('l0').value;
     $('s0v').textContent = s + '% · ' + UI.swingWord(s); $('l0v').textContent = l + ' ms · ' + UI.layWord(l); $('a0').setAttribute('aria-pressed', String(a0));
-    $('r1').textContent = 'Medium swing · ' + s + '% · ' + UI.lay(l) + (a0 ? ' · lean on 2 & 4' : '');
+    $('r1').textContent = (s <= 52 ? 'Straight eighths' : s <= 60 ? 'Light swing' : s <= 70 ? 'Medium swing' : 'Hard swing') + (l > 30 ? ' · way back' : l > 5 ? ' · laid back' : l < -5 ? ' · on top' : '') + (a0 ? ' · 2 and 4' : '');
     $('r2').textContent = 'reader({ swing: ' + (s / 100).toFixed(2) + ', layback_ms: ' + l + ', accent_2_4: ' + a0 + ' })';
     $('r3').textContent = '{ "swing": ' + (s / 100).toFixed(2) + ', "layback_ms": ' + l + ', "accent": ' + (a0 ? '[2, 4]' : '[]') + ' }';
     const P = plain(s / 100, l, a0);
@@ -479,7 +495,7 @@ const UI = (() => {
     const line = (round, name) => {
       const n = run.filter((t) => t.round === round && t.lock).length, p = GR.atLeast(n, 6, pNull(R[round]));
       return '<p><b>' + name + ': ' + n + ' of 6 locked in.</b> A reader who never listened would do this well or better ' + pc(p) + ' of the time. ' +
-        (n >= 5 ? 'Your ear reads this number off the sound: here the record does the human’s job as well as the machine’s and the handoff’s.' : 'This didn’t show that your ear reads it. That is a score, not a ruling on the page: the record may still serve a trained ear.') + '</p>';
+        (n >= 5 ? 'Your ear reads this number back off the sound, so the record is no finer than a listener can use. That is a necessary part of the section’s “human read”, not the whole of it: reading a record is not the same as hearing one.' : 'This didn’t show that your ear reads it. That is a score, not a ruling on the page: the record may still serve a trained ear.') + '</p>';
     };
     const rows = run.map((t, i) => '<tr><td>' + (i + 1) + '</td><td>' + (t.round === 'swing' ? 'swing' : 'lay-back') + '</td><td>' + t.target + '</td><td>' + t.set + '</td><td>' + (t.lock ? 'locked in' : '·') + '</td></tr>').join('');
     $('res').innerHTML = line('swing', 'Swing') + line('lay', 'Lay-back') + '<table class="log"><tr><th>trial</th><th>round</th><th>hidden</th><th>yours</th><th></th></tr>' + rows + '</table>';
