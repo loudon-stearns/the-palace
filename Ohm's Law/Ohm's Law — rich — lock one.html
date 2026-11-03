@@ -1,0 +1,344 @@
+<!doctype html>
+<!--
+  title: Ohm's Law — rich — lock one
+  born: 2026-11-03
+  links: [[Ohm's Law]] (connects-to · rich-face-piece) · listed in [[Ohm's Law — rich.json]] · serves § The Lock Mechanism Pattern · built from the bundle's ohms_law_intuition.jsx
+  forward_vector: I am the page's explorer made playable, walked up. One log slider alone; then two tied by a lock, moving together; then two tied the other way, moving apart, where one gives and the other takes away; then the whole explorer, three sliders and three locks; and last the test, where the two degrees of freedom meet the ends of the sliders and the lock is seen narrowing what the other two can do. I change only when the section I serve does.
+  sound: none. This piece makes no sound.
+  check: Ohm's Law/Ohm's Law — rich — check.mjs runs this page's core in Node.
+-->
+<html lang="en" class="skin-graphite">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- needs nothing of its host: no device, no storage, no file, no host, no sound -->
+<meta name="piece:needs" content="">
+<title>Lock one · Ohm's law, two degrees of freedom</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@300;400;500&display=swap">
+<style>
+  :root{
+    --bg:#0a0a0f; --bg-elev-1:#12121a; --bg-elev-2:#1a1a28; --border:#4a4a5e; --border-soft:rgba(255,255,255,0.06);
+    --fg-1:#e8e8f0; --fg-2:#c8c8d8; --fg-3:#8a8aa0; --fg-4:#4a4a5a;
+    --accent:#e8b84a; --accent-dim:#7a6030; --info:#4a8fff; --warn:#e8651b; --ok:#7fc77f;
+    --cV:#4a8fff; --cI:#7fc77f; --cR:#e8b84a;
+    --serif:'Cormorant Garamond','Source Serif 4',Georgia,serif; --sans:'Manrope',system-ui,sans-serif;
+    --display:'Anton','Bebas Neue',Impact,sans-serif; --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--fg-1)}
+  body{font-family:var(--serif);font-size:17px;line-height:1.7;padding:28px 16px 36px}
+  main{max-width:960px;margin:0 auto}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--fg-3)}
+  h1{font-family:var(--display);font-weight:400;font-size:44px;line-height:1.05;margin:6px 0 10px}
+  h2{font-family:var(--display);font-weight:400;font-size:28px;line-height:1.1;margin:4px 0 8px;letter-spacing:.01em}
+  p.lead{font-size:19px;color:var(--fg-2);margin:0 0 18px;max-width:66ch}
+  .rail{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 18px}
+  .rail button{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-3);background:transparent;border:1px solid var(--border);border-radius:4px;padding:7px 11px;cursor:pointer;transition:all .22s cubic-bezier(.4,0,.2,1)}
+  .rail button[aria-current="step"]{color:var(--fg-1);border-color:var(--fg-3);background:var(--bg-elev-2)}
+  p.say{color:var(--fg-2);margin:0 0 14px;max-width:68ch}
+  .panel{background:var(--bg-elev-1);border:1px solid var(--border-soft);border-radius:4px;padding:18px;margin:0 0 14px}
+  .eqbig{text-align:left;margin:0 0 14px}
+  .eqbig .nums{font-family:var(--mono);font-size:28px;letter-spacing:.02em;display:flex;gap:12px;flex-wrap:wrap;align-items:baseline}
+  .eqbig .syms{font-family:var(--mono);font-size:15px;color:var(--fg-3);display:flex;gap:12px;flex-wrap:wrap;margin-top:2px}
+  .eqbig .op{color:var(--fg-4)}
+  .cV{color:var(--cV)} .cI{color:var(--cI)} .cR{color:var(--cR)}
+  .row{display:grid;grid-template-columns:150px 1fr 108px 70px;gap:12px;align-items:center;margin:10px 0}
+  .row[hidden]{display:none}
+  .row .name{font-family:var(--mono);font-size:13px;color:var(--fg-2)} .row .name b{font-size:17px;font-weight:500;margin-right:6px}
+  .row .val{font-family:var(--mono);font-size:17px;text-align:right}
+  .track{position:relative;height:30px}
+  .track .ticks{position:absolute;left:0;right:0;top:20px;height:12px;font-family:var(--mono);font-size:10px;color:var(--fg-4)}
+  .track .ticks span{position:absolute;transform:translateX(-50%)}
+  input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:4px;background:var(--fg-4);border-radius:2px;margin:8px 0 0;outline:none}
+  input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:15px;height:15px;border-radius:50%;background:var(--thumb,#e8b84a);cursor:pointer;border:0}
+  input[type=range]::-moz-range-thumb{width:15px;height:15px;border:0;border-radius:50%;background:var(--thumb,#e8b84a);cursor:pointer}
+  input[type=range]:disabled{opacity:.55}
+  input[type=range]:disabled::-webkit-slider-thumb{cursor:not-allowed}
+  button.lock{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--fg-3);background:transparent;border:1px solid var(--border);border-radius:4px;padding:6px 8px;cursor:pointer}
+  button.lock[aria-pressed="true"]{color:#0a0a0f;background:var(--accent);border-color:var(--accent)}
+  button.lock:disabled{opacity:.35;cursor:default}
+  .rowb{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:12px}
+  .rowb[hidden]{display:none}
+  button.ghost{font-family:var(--sans);font-size:14px;color:var(--fg-2);background:transparent;border:1px solid var(--border);border-radius:4px;padding:8px 14px;cursor:pointer}
+  button.ghost[aria-pressed="true"]{color:var(--fg-1);border-color:var(--fg-3);background:var(--bg-elev-2)}
+  button.ghost:disabled{opacity:.35;cursor:default}
+  button.play{font-family:var(--sans);font-weight:500;font-size:14px;color:#0a0a0f;background:var(--accent);border:0;border-radius:4px;padding:9px 20px;cursor:pointer}
+  .meter{font-family:var(--mono);font-size:13px;color:var(--fg-2);margin-top:12px;line-height:1.75}
+  .meter b{color:var(--accent);font-weight:400}
+  .meter i{color:var(--warn);font-style:normal}
+  .meter u{color:var(--ok);text-decoration:none}
+  .eq{font-family:var(--mono);font-size:13px;color:var(--fg-1);margin:14px 0 0;overflow-wrap:anywhere;white-space:pre-wrap}
+  .eq.words{color:var(--fg-3);font-size:12px;margin-top:2px}
+  .try{margin:0 0 4px;padding:12px 16px;border-left:2px solid var(--accent-dim);background:var(--bg-elev-1);font-family:var(--sans);font-size:14px;color:var(--fg-2);line-height:1.6}
+  .try .eyebrow{color:var(--accent);display:block;margin-bottom:2px}
+  table.marks{border-collapse:collapse;margin-top:12px;font-family:var(--mono);font-size:12.5px;color:var(--fg-2)}
+  table.marks td,table.marks th{border-bottom:1px solid var(--border-soft);padding:5px 18px 5px 0;text-align:left;font-weight:400}
+  table.marks th{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-3)}
+  table.marks[hidden]{display:none}
+  .walk{display:flex;justify-content:space-between;gap:10px;margin-top:16px}
+  footer{margin-top:28px;font-family:var(--sans);font-size:13px;color:var(--fg-4);display:flex;gap:10px;align-items:center}
+  footer b{font-family:var(--display);font-weight:400;letter-spacing:.06em;color:var(--fg-3)}
+  @media (max-width:620px){h1{font-size:34px}h2{font-size:23px}.row{grid-template-columns:1fr 92px 60px}.row .track{grid-column:1 / -1;order:3}.eqbig .nums{font-size:21px}}
+</style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">Ohm’s law · the lock mechanism · five steps</div>
+  <h1>Lock one, and feel the other two</h1>
+  <p class="lead">Three quantities, one equation, so two of them are free. This piece starts with one log slider on its own and ends with the whole explorer from the page, put to a test: when you lock one and move another, does the third always answer? This piece makes no sound.</p>
+
+  <nav class="rail" aria-label="Steps" id="rail"></nav>
+
+  <section aria-live="polite">
+    <div class="eyebrow" id="stepEyebrow"></div>
+    <h2 id="stepTitle"></h2>
+    <p class="say" id="stepSay"></p>
+  </section>
+
+  <div class="panel">
+    <div class="eqbig" id="eqbig">
+      <div class="nums"><span class="cV" id="nV"></span><span class="op">=</span><span class="cI" id="nI"></span><span class="op">×</span><span class="cR" id="nR"></span></div>
+      <div class="syms"><span class="cV">V voltage</span><span class="op">=</span><span class="cI">I current</span><span class="op">×</span><span class="cR">R resistance</span></div>
+    </div>
+    <div id="rows"></div>
+    <div class="rowb" id="scaleRow" hidden><span class="eyebrow">sliders</span>
+      <button class="ghost" data-scale="log">log, 0.1 to 10</button>
+      <button class="ghost" data-scale="lin">linear, 0.1 to 10</button>
+    </div>
+    <div class="rowb" id="testRow" hidden>
+      <button class="play" id="sweep">Lock R at 4 and sweep V down</button>
+      <button class="ghost" id="survey">Survey every lock</button>
+    </div>
+    <table class="marks" id="surveyT" hidden><thead><tr><th>locked at</th><th>share of each free slider that keeps the third on its own</th><th>the stretch left, for V with R locked</th></tr></thead><tbody></tbody></table>
+    <div class="meter" id="meter"></div>
+    <div class="eq" id="eq1"></div><div class="eq words" id="eq1w"></div>
+    <div class="eq" id="eq2"></div><div class="eq words" id="eq2w"></div>
+  </div>
+  <div class="try"><span class="eyebrow">Try</span><span id="tryText"></span></div>
+
+  <div class="walk"><button class="ghost" id="back">Back</button><button class="ghost" id="next">Next</button></div>
+
+  <footer><svg width="22" height="22" viewBox="-11 -11 22 22" aria-hidden="true"><path id="sigil" fill="none" stroke="#e8b84a" stroke-width="1"/></svg><span><b>LOUD’N LIVE</b> · Ohm’s law · lock one · Sketch, 2026-11-03</span></footer>
+</main>
+
+<!-- The core. Plain functions, shared by the page and the headless check. Slider travel p runs 0 to 1. -->
+<script id="ohm-a-core">
+var OHMA = { LO: 0.1, HI: 10, KEYS: ['V', 'I', 'R'] };
+// the explorer's log slider: 0.1 to 10 with 1 at the centre, as ohms_law_intuition.jsx maps it
+function pos(v){ return (Math.log10(v) + 1) / 2; }
+function val(p){ return Math.pow(10, 2 * p - 1); }
+// a linear slider over the same ends, for comparison
+function linPos(v){ return (v - 0.1) / 9.9; }
+function linVal(p){ return 0.1 + 9.9 * p; }
+// the third from the other two: V = I × R, I = V ÷ R, R = V ÷ I
+function third(k, s){ return k === 'V' ? s.I * s.R : k === 'I' ? s.V / s.R : s.V / s.I; }
+// with `locked` held and `driver` moved, the one left over answers
+function answerer(locked, driver){ return OHMA.KEYS.filter(function(k){ return k !== locked && k !== driver; })[0]; }
+// the stretch of the driver's values that keeps the answerer on its own slider, 0.1 to 10
+function band(locked, driver, s){
+  var L = s[locked], lo, hi;
+  if (locked === 'V'){ lo = L / OHMA.HI; hi = L / OHMA.LO; }                       // I = V ÷ R and R = V ÷ I: the driver must sit within V ÷ 10 to V ÷ 0.1
+  else { var k = driver === 'V' ? L : 1 / L; lo = OHMA.LO * k; hi = OHMA.HI * k; }   // V = I × R, I = V ÷ R, R = V ÷ I with I or R held
+  return [Math.max(OHMA.LO, lo), Math.min(OHMA.HI, hi)];
+}
+// share of the driver's travel that is live: 1 − |log10 L| ÷ 2 on a 0.1 to 10 log slider
+function liveShare(locked, driver, s){ var b = band(locked, driver, s); return pos(b[1]) - pos(b[0]); }
+// one move: the driver asks for v; the answer stays on its slider, so the driver stops at the band's edge
+function move(locked, driver, v, s){
+  var b = band(locked, driver, s), vv = Math.min(b[1], Math.max(b[0], v)), n = { V: s.V, I: s.I, R: s.R };
+  n[driver] = vv; var a = answerer(locked, driver); n[a] = third(a, n);
+  var want = { V: s.V, I: s.I, R: s.R }; want[driver] = v; var wouldBe = third(a, want);
+  return { s: n, stopped: Math.abs(vv - v) > 1e-12 * v, at: vv, answerer: a, wouldBe: wouldBe };
+}
+// what the gathered explorer (ohms_law_intuition.jsx) shows for the same move: it never stops the driver,
+// writes the answer into its readout as computed, and its thumb pins at the end of the slider
+function jsxMove(locked, driver, v, s){
+  var a = answerer(locked, driver), n = { V: s.V, I: s.I, R: s.R }; n[driver] = v; n[a] = third(a, n);
+  return { readout: n[a], thumb: Math.min(1, Math.max(0, pos(n[a]))), offSlider: pos(n[a]) < 0 || pos(n[a]) > 1 };
+}
+// how far the answer's thumb travels for the driver's travel, between two driver values: +1 together, −1 apart
+function travelRatio(locked, driver, v0, v1, s, scale){
+  var P = scale === 'lin' ? linPos : pos, a = answerer(locked, driver);
+  var s0 = { V: s.V, I: s.I, R: s.R }, s1 = { V: s.V, I: s.I, R: s.R }; s0[driver] = v0; s1[driver] = v1;
+  s0[a] = third(a, s0); s1[a] = third(a, s1);
+  return (P(s1[a]) - P(s0[a])) / (P(v1) - P(v0));
+}
+</script>
+
+<script>
+(function(){
+  'use strict';
+  var $ = function(id){ return document.getElementById(id); };
+  var f4 = function(v){ return v.toFixed(4); };
+  var pc = function(p){ return (Math.round(p * 1000) / 10).toFixed(1) + '%'; };
+  var COL = { V: '#4a8fff', I: '#7fc77f', R: '#e8b84a' };
+  var NAME = { V: 'voltage', I: 'current', R: 'resistance' };
+
+  var st = { s: { V: 2, I: 1, R: 2 }, locked: 'R', scale: 'log', last: null, jsx: null, surveyed: false };
+  var step = 0, sweepT = null;
+
+  var STEPS = [
+    { title: 'One slider', short: 'One slider', view: 'one', show: ['V'], locks: [],
+      say: 'Start with voltage alone, on the explorer’s own slider: a log scale from 0.1 to 10 with 1 in the middle. Equal distances along it are equal multiplications. A quarter of the way from the centre multiplies by 3.16, the square root of 10; half the way multiplies by 10.',
+      eq1: ['V = 10^(2p − 1)', '(voltage) = 10 to the power of (2 × how far along the slider, 0 to 1, minus 1)'],
+      eq2: ['p = ½ → 1        p = ¾ → 3.16        p = 1 → 10', 'halfway is 1, three quarters is the square root of 10, the end is 10'],
+      tryText: 'Drag V from 1 to 2, then from 2 to 4. Watch how far the thumb travels each time: the same distance, because each is a doubling.' },
+    { title: 'Lock R: two that move together', short: 'Lock R', view: 'lockR', show: ['V', 'I', 'R'], locks: [],
+      say: 'Now three sliders, and resistance is locked at 2. Move voltage and current answers: I = V ÷ R. On log sliders the two thumbs travel the same distance in the same direction, because dividing by a fixed 2 is a fixed shift on a log scale. Here neither takes away; both give.',
+      eq1: ['I = V ÷ R,   R = 2', '(current) = (voltage) ÷ (resistance), with resistance held at 2'],
+      eq2: ['log I = log V − log 2', 'on a log scale, current is voltage shifted by a fixed amount, so their thumbs move together'],
+      tryText: 'Drag V and watch I follow, the same distance. Then drag I: now V answers, V = I × R.' },
+    { title: 'Lock V: one gives, the other takes away', short: 'Lock V', view: 'lockV', show: ['V', 'I', 'R'], locks: [],
+      say: 'Lock voltage at 2 instead and move resistance. Current goes the other way, by the same distance: the mirror. This is the page’s closing line made physical, the numerator and the denominator with opposite characters. Which pair you feel opposing depends on which one is locked: with V locked, I and R oppose; with R or I locked, the two free ones move together.',
+      eq1: ['I = V ÷ R,   V = 2', '(current) = (voltage) ÷ (resistance), with voltage held at 2'],
+      eq2: ['log I = log 2 − log R', 'on a log scale, current is a fixed amount minus resistance, so the thumbs mirror each other'],
+      tryText: 'Drag R and watch I mirror it. Then switch the sliders to linear: the mirror breaks, and I travels much more than R near the left end and much less near the right.' },
+    { title: 'The explorer', short: 'Explorer', view: 'all', show: ['V', 'I', 'R'], locks: ['V', 'I', 'R'],
+      say: 'The whole explorer from the page: three log sliders, a lock on each, and only one locked at a time, like radio buttons. Choose what stays constant, as an experimenter would, move one of the other two, and the third answers. The equation shows the live values to four decimal places.',
+      eq1: ['V = I × R', '(voltage, the push) = (current, the flow) × (resistance, what opposes the flow)'],
+      eq2: ['I = V ÷ R        R = V ÷ I', '(current) = (voltage) ÷ (resistance);  (resistance) = (voltage) ÷ (current)'],
+      tryText: 'Lock each one in turn and move the other two. Then lock R and drag V all the way to the left. Something stops you.' },
+    { title: 'The test: does the third always answer?', short: 'The test', view: 'test', test: true, show: ['V', 'I', 'R'], locks: ['V', 'I', 'R'],
+      say: 'Three quantities and one equation leave two degrees of freedom, and on paper a lock spends one of them and leaves the other to you. On sliders that stop at 0.1 and 10, the third runs out of slider before you do. The shaded part of each free slider is where the third stays on its own slider. Lock R at 4 and the bottom 30.1% of V is dead: below V = 0.4, I would need to be under 0.1. The further the locked value sits from 1, the less room the other two have: all of it at 1, half at 0.1 or 10.',
+      eq1: ['live share = 1 − |log₁₀ L| ÷ 2', '(share of a free slider that keeps the third on its slider) = 1 − (how many decades the locked value sits from 1) ÷ 2'],
+      eq2: ['R = 4, V moving:  0.4 ≤ V ≤ 10', 'with resistance locked at 4, voltage can go from 0.4 to 10 before current leaves its slider'],
+      tryText: 'Press the sweep and read what the gathered explorer would have shown. Then survey every lock, and try locking V at 0.1.' }
+  ];
+
+  // ---------- the three slider rows ----------
+  var rowsEl = $('rows'), R = {};
+  OHMA.KEYS.forEach(function(k){
+    var row = document.createElement('div'); row.className = 'row';
+    row.innerHTML = '<div class="name"><b style="color:' + COL[k] + '">' + k + '</b>' + NAME[k] + '</div>' +
+      '<div class="track"><input type="range" min="0" max="1" step="0.001" aria-label="' + NAME[k] + '"><div class="ticks"></div></div>' +
+      '<div class="val" style="color:' + COL[k] + '"></div><div><button class="lock" aria-pressed="false" title="lock ' + NAME[k] + '">lock</button></div>';
+    rowsEl.appendChild(row);
+    var inp = row.querySelector('input'); inp.style.setProperty('--thumb', COL[k]);
+    R[k] = { row: row, inp: inp, val: row.querySelector('.val'), lock: row.querySelector('.lock'), ticks: row.querySelector('.ticks') };
+    inp.addEventListener('input', function(){ drag(k, P2V(+inp.value)); });
+    R[k].lock.addEventListener('click', function(){ if (STEPS[step].locks.indexOf(k) >= 0){ st.locked = k; st.last = null; st.jsx = null; sync(); } });
+  });
+  function V2P(v){ return st.scale === 'lin' ? linPos(v) : pos(v); }
+  function P2V(p){ return st.scale === 'lin' ? Math.max(0.1, linVal(p)) : val(p); }
+  function ticks(){
+    var marks = st.scale === 'lin' ? [0.1, 2.5, 5, 7.5, 10] : [0.1, 0.3, 1, 3, 10];
+    OHMA.KEYS.forEach(function(k){ R[k].ticks.innerHTML = marks.map(function(m){ return '<span style="left:' + (V2P(m) * 100) + '%">' + m + '</span>'; }).join(''); });
+  }
+
+  function drag(k, v){
+    var view = STEPS[step].view;
+    if (view === 'one'){ st.s.V = v; sync(); return; }
+    if (k === st.locked) return;
+    var m = move(st.locked, k, v, st.s);
+    st.jsx = view === 'test' && m.stopped ? { k: k, v: v, m: m, j: jsxMove(st.locked, k, v, st.s) } : (m.stopped ? st.jsx : null);
+    st.s = m.s; st.last = m; sync();
+  }
+
+  // ---------- the test's two buttons ----------
+  $('sweep').addEventListener('click', function(){
+    if (sweepT) clearInterval(sweepT);
+    st.locked = 'R'; st.s = { V: 10, I: 2.5, R: 4 }; st.last = null; st.jsx = null; sync();
+    var p = 1;
+    sweepT = setInterval(function(){
+      p -= 0.02; if (p < 0){ p = 0; }
+      drag('V', val(p));
+      if (p <= 0){ clearInterval(sweepT); sweepT = null; }
+    }, 30);
+  });
+  $('survey').addEventListener('click', function(){
+    st.surveyed = true; var tb = $('surveyT').querySelector('tbody'); tb.innerHTML = '';
+    [1, 2, 4, 10, 0.25, 0.1].forEach(function(L){
+      var s = { V: 1, I: 1, R: L }, b = band('R', 'V', s);
+      tb.innerHTML += '<tr><td>' + L + '</td><td>' + pc(liveShare('R', 'V', s)) + '</td><td>' + f4(b[0]) + ' to ' + f4(b[1]) + '</td></tr>';
+    });
+    sync();
+  });
+  Array.prototype.forEach.call(document.querySelectorAll('[data-scale]'), function(b){ b.addEventListener('click', function(){ st.scale = b.getAttribute('data-scale'); st.last = null; sync(); }); });
+
+  // ---------- the readout ----------
+  function meter(){
+    var v = STEPS[step].view, s = st.s, h = [];
+    if (v === 'one'){
+      h.push('V = <b>' + f4(s.V) + '</b> · thumb at <b>' + pc(pos(s.V)) + '</b> of the slider · ' + (s.V >= 1 ? '×' + (s.V).toFixed(3) + ' from the centre' : '÷' + (1 / s.V).toFixed(3) + ' from the centre'));
+    } else {
+      var a = st.last ? st.last.answerer : null;
+      h.push('locked: <b>' + st.locked + ' = ' + f4(s[st.locked]) + '</b>' + (a ? ' · ' + (st.last.answerer === 'I' ? 'current' : st.last.answerer === 'V' ? 'voltage' : 'resistance') + ' answered' : ''));
+      if (v === 'lockR' || v === 'lockV' || v === 'all' || v === 'test'){
+        var free = OHMA.KEYS.filter(function(k){ return k !== st.locked; });
+        var dir = travelRatio(st.locked, free[0], 0.5, 2, s, st.scale);
+        h.push(free[0] + ' and ' + free[1] + ' move <b>' + (dir > 0 ? 'together' : 'apart') + '</b>' + (st.scale === 'log' ? ', thumb for thumb (' + (dir > 0 ? '+' : '−') + '1.000)' : ''));
+      }
+      if (v === 'lockV' && st.scale === 'lin'){
+        var r1 = travelRatio('V', 'R', 0.2, 0.4, s, 'lin'), r2 = travelRatio('V', 'R', 5, 10, s, 'lin');
+        h.push('linear: for each step of R, I travels <i>' + Math.abs(r1).toFixed(2) + '×</i> as far between R 0.2 and 0.4, and <i>' + Math.abs(r2).toFixed(3) + '×</i> between 5 and 10 · the mirror is gone');
+      }
+      if (v === 'all' || v === 'test'){
+        var free2 = OHMA.KEYS.filter(function(k){ return k !== st.locked; }), b = band(st.locked, free2[0], s), b2 = band(st.locked, free2[1], s);
+        if (v === 'test') h.push('live: ' + free2[0] + ' from <b>' + f4(b[0]) + '</b> to <b>' + f4(b[1]) + '</b>, ' + free2[1] + ' from <b>' + f4(b2[0]) + '</b> to <b>' + f4(b2[1]) + '</b> · <b>' + pc(liveShare(st.locked, free2[0], s)) + '</b> of each free slider');
+        if (st.last && st.last.stopped) h.push('<i>' + st.last.answerer + ' reached the end of its slider</i>: ' + Object.keys(st.last.s).filter(function(k){ return k !== st.locked && k !== st.last.answerer; })[0] + ' stops at <b>' + f4(st.last.at) + '</b>');
+      }
+      if (v === 'lockR' || v === 'lockV'){ if (st.last && st.last.stopped) h.push('<i>' + st.last.answerer + ' has reached the end of its slider</i> · the last step says why'); }
+      if (v === 'test' && st.jsx){
+        var j = st.jsx.j;
+        h.push('the gathered explorer, asked for ' + st.jsx.k + ' = ' + f4(st.jsx.v) + ', reads <i>' + st.jsx.m.answerer + ' = ' + f4(j.readout) + '</i> with its ' + st.jsx.m.answerer + ' thumb pinned at the ' + (j.thumb <= 0 ? 'left' : 'right') + ' end, ' + (j.thumb <= 0 ? '0.1' : '10') + ' · a value its slider cannot show');
+      }
+    }
+    $('meter').innerHTML = h.join('<br>');
+  }
+
+  // ---------- paint the sliders: the shaded live stretch, on the test step ----------
+  function paint(){
+    var v = STEPS[step].view, s = st.s;
+    OHMA.KEYS.forEach(function(k){
+      var r = R[k], show = STEPS[step].show.indexOf(k) >= 0;
+      r.row.hidden = !show; if (!show) return;
+      r.inp.value = V2P(s[k]); r.val.textContent = f4(s[k]);
+      var locks = STEPS[step].locks, canLock = locks.indexOf(k) >= 0, isLocked = v !== 'one' && k === st.locked;
+      r.lock.hidden = v === 'one'; r.lock.disabled = !canLock && !isLocked; r.lock.setAttribute('aria-pressed', String(isLocked));
+      r.inp.disabled = isLocked;
+      var bg = '#4a4a5a';
+      if (v === 'test' && !isLocked){
+        var b = band(st.locked, k, s), a = V2P(b[0]) * 100, z = V2P(b[1]) * 100;
+        bg = 'linear-gradient(to right, #2a1a12 0%, #2a1a12 ' + a + '%, ' + COL[k] + ' ' + a + '%, ' + COL[k] + ' ' + z + '%, #2a1a12 ' + z + '%, #2a1a12 100%)';
+      }
+      r.inp.style.background = bg;
+    });
+    var all = v !== 'one';
+    $('eqbig').style.display = all ? '' : 'none';
+    $('nV').textContent = f4(s.V); $('nI').textContent = f4(s.I); $('nR').textContent = f4(s.R);
+  }
+
+  function press(attr, val){ Array.prototype.forEach.call(document.querySelectorAll('[' + attr + ']'), function(o){ o.setAttribute('aria-pressed', String(o.getAttribute(attr) === String(val))); }); }
+  function sync(){
+    press('data-scale', st.scale); ticks(); paint(); meter();
+    $('surveyT').hidden = !(STEPS[step].view === 'test' && st.surveyed);
+  }
+
+  function go(i){
+    if (sweepT){ clearInterval(sweepT); sweepT = null; }
+    step = i; var s = STEPS[i], v = s.view;
+    Array.prototype.forEach.call($('rail').children, function(b, j){ if (j === i) b.setAttribute('aria-current', 'step'); else b.removeAttribute('aria-current'); });
+    $('stepEyebrow').textContent = 'Step ' + (i + 1) + ' of ' + STEPS.length + (s.test ? ' · the test' : '');
+    $('stepTitle').textContent = s.title; $('stepSay').textContent = s.say;
+    $('eq1').textContent = s.eq1[0]; $('eq1w').textContent = s.eq1[1]; $('eq2').textContent = s.eq2[0]; $('eq2w').textContent = s.eq2[1];
+    $('tryText').textContent = s.tryText;
+    st.scale = 'log'; st.last = null; st.jsx = null;
+    if (v === 'one') st.s = { V: 1, I: 1, R: 1 };
+    if (v === 'lockR'){ st.locked = 'R'; st.s = { V: 2, I: 1, R: 2 }; }
+    if (v === 'lockV'){ st.locked = 'V'; st.s = { V: 2, I: 1, R: 2 }; }
+    if (v === 'all'){ st.locked = 'R'; st.s = { V: 3, I: 0.75, R: 4 }; }       // the jsx's own opening values
+    if (v === 'test'){ st.locked = 'R'; st.s = { V: 3, I: 0.75, R: 4 }; }
+    $('scaleRow').hidden = v !== 'lockV';
+    $('testRow').hidden = v !== 'test';
+    $('back').disabled = i === 0; $('next').disabled = i === STEPS.length - 1;
+    sync();
+  }
+  STEPS.forEach(function(s, i){ var b = document.createElement('button'); b.textContent = (i + 1) + ' · ' + s.short; b.addEventListener('click', function(){ go(i); }); $('rail').appendChild(b); });
+  $('back').addEventListener('click', function(){ if (step > 0) go(step - 1); });
+  $('next').addEventListener('click', function(){ if (step < STEPS.length - 1) go(step + 1); });
+  (function(){ var d = ''; for (var i = 0; i <= 200; i++){ var a = i / 200 * 2 * Math.PI; d += (i ? 'L' : 'M') + (9 * Math.sin(3 * a + 0.5)).toFixed(2) + ' ' + (9 * Math.sin(2 * a)).toFixed(2); } $('sigil').setAttribute('d', d); })();
+  go(0);
+})();
+</script>
+</body>
+</html>

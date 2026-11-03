@@ -1,0 +1,113 @@
+{
+  "title": "Ohm's Law — rich",
+  "born": "2026-11-03",
+  "links": [
+    {
+      "target": "[[Ohm's Law]]",
+      "type": "connects-to",
+      "label": "rich-face-of"
+    },
+    {
+      "target": "[[Enrichment]]",
+      "type": "connects-to",
+      "label": "made-by"
+    },
+    {
+      "target": "[[Progressive Staging]]",
+      "type": "connects-to",
+      "label": "the-test-is-the-last-step"
+    },
+    {
+      "target": "[[Logarithmic Interface Scaling]]",
+      "type": "connects-to",
+      "label": "the-sliders-cited"
+    }
+  ],
+  "forward_vector": "I am the manifest of Ohm's Law's rich face, its first round at Sketch tier, a proposal: two made walks, each ending in a test. The bundle's explorer made playable and asked whether the third always answers when you lock one; and the same three sliders carried into four rooms, water, light, sound and labour, each checked against its own physics. I grow toward the section the page wants, Ohm's law inside Loudon's DSP work; I never hold the entry's words.",
+  "entry": "Ohm's Law",
+  "tier": "sketch",
+  "made": "2026-11-03",
+  "round": 1,
+  "offers": [
+    {
+      "section": "Cross-Domain Understanding",
+      "kind": "claim-change",
+      "what": "Light, tested: no reading of 'medium opacity' makes light obey Ohm's law. Read as how much medium the light crosses (optical depth τ, thickness × absorption), the light through falls as source × e^(−τ) (Beer–Lambert), never as source ÷ τ: doubling a thin filter (τ 0.2 → 0.4) leaves 81.9% of the light and a dense one (2 → 4) 13.5%, where Ohm predicts 50% from anywhere. On the explorer's 0.1 to 10 range, 1 ÷ τ and e^(−τ) never agree within 1%, and at τ = 0.1 Ohm would pass ten times the source. Read as light in ÷ light out (a densitometer's opacity), flux = source ÷ opacity holds, but by definition: no passive filter sits below 1, and filters in series multiply their opacities (two of opacity 5 pass 20%, where two equal resistors in series halve the flow). The source half holds: double the source, double the light. Suggested: keep light as the instructive near-miss. 'Brighter source → proportionally more photons. But opacity acts exponentially (Beer–Lambert, Φ = Φ₀e^(−αd)): each layer passes the same fraction, so layers multiply where resistors add.' Measured by the four rooms piece and its check.",
+      "status": "open"
+    },
+    {
+      "section": "Cross-Domain Understanding",
+      "kind": "claim-change",
+      "what": "Physical labour, tested: with V read as applied force, as the page has it, the mapping fails. A steady lift takes exactly the box's weight in force: doubling the force from 20 N to 40 N on 10 N boxes moves no more boxes (× 1.000), and below the weight nothing lifts. Read as power, effort per second, boxes per second = power ÷ (weight × height), which is Ohm exactly: 50 W lifting 10 N boxes onto a 1 m shelf is 5 a second, and doubling the power or the weight gives × 2.000 or × 0.500. Suggested: 'V (Voltage) = Effort per second (power)' and 'More power → more boxes moved'. The piece models an ideal lift only; it did not test the page's friction case (dry friction is also a threshold by Coulomb's law, but that is not measured here). Measured by the four rooms piece and its check.",
+      "status": "open"
+    },
+    {
+      "section": "Cross-Domain Understanding",
+      "kind": "claim-change",
+      "what": "Water, tested: the row is exact while the flow is slow and smooth (laminar), where it is Poiseuille's law, R = 8μL ÷ (πr⁴), so halving the bore multiplies the resistance by 16. In a 1 m pipe, 1 kPa through a 2.53 mm bore gives 1 mL/s (Reynolds number about 503), and doubling the push, doubling the resistance and two pipes in series all give × 2.000, × 0.500, × 0.500. 8 kPa through a 3.78 mm bore is turbulent (Re about 4750): it carries 14.1 mL/s where Ohm says 40, and doubling the pressure raises the flow × 1.486, not × 2. Suggested addition under Water Flow: 'Exact for slow, smooth flow (Poiseuille's law; halve the bore and the resistance goes up 16 times). Once the flow churns, doubling it takes about 3.4 times the pressure.' Measured by the four rooms piece and its check (Blasius friction for the turbulent case, switching at Re 2300).",
+      "status": "open"
+    },
+    {
+      "section": "The Lock Mechanism Pattern",
+      "kind": "claim-change",
+      "what": "Two degrees of freedom on paper, fewer on sliders with ends. On the explorer's 0.1 to 10 sliders a lock also narrows the other two: the share of each free slider that keeps the third on its own slider is 1 − |log₁₀ L| ÷ 2, where L is the locked value (all of it at 1, 84.9% at 2, 69.9% at 4, half at 0.1 or 10). With R locked at 4, V can only go from 0.4 to 10 before I would fall below 0.1. And on log sliders the lock decides the pair's character: with V locked, I and R mirror each other thumb for thumb (one gives, the other takes away); with R or I locked, the two free ones move together. Suggested addition: 'On sliders with fixed ends, the lock narrows what the other two can do: lock R at 4 and V can only move from 0.4 to 10 before I runs off its slider.' Measured by the lock one piece and its check, matched by brute force.",
+      "status": "open"
+    },
+    {
+      "section": "Interactive Learning Tool",
+      "kind": "no-claim-edit",
+      "what": "The section's '<!-- Link to the html -->' waits for a playable explorer, and the only artifact is ohms_law_intuition.jsx, which needs React and lucide-react and cannot play on its own. The rich face's lock one piece is built from it (the same mapping, checked to 1e-12, the same radio locks, four-decimal readouts) and plays. Two faults in the jsx the piece does not carry: when the answer runs off its slider, the jsx writes the off-slider value into its readout while the thumb pins at the end (R locked at 4, V dragged to 0.1: it reads I = 0.0250 on a slider that stops at 0.1); and its scale note gives '1 → 0.5 → 0.25 → 0.1 (÷2 each step)' and '1 → 2 → 4 → 10 (×2 each step)', where the last step of each is ÷2.5 and ×2.5. Suggested: point the comment and the Artifacts line at the rich face's walk, and fix or retire the jsx's note.",
+      "status": "open"
+    }
+  ],
+  "sections": [
+    {
+      "heading": "Cross-Domain Understanding",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "made": "2026-11-03",
+      "pieces": [
+        {
+          "file": "Ohm's Law — rich — four rooms.html",
+          "origin": "made",
+          "by": "maker · claude-opus-5-5 · canvas",
+          "title": "Four rooms · does the same equation hold in each?",
+          "caption": "**Does the same equation hold in each room?** Five steps, no sound. The explorer's three log sliders, reskinned for each room, with the room's own physics marked beside Ohm's answer. Water first, the one that holds: Poiseuille's law is Ohm's law while the flow is slow, until a fast flow churns. Then light, where the source holds and the opacity doesn't. Beer–Lambert falls as e^(−τ), never as 1 ÷ τ. Then sound, exact for a travelling wave, p = ρc × u. Then labour, which holds once the push is read as power, not force. Last, the test: double the push, double the resistance, put two in series, from two starts in every room. Sound and labour read as power pass every move. Water passes slow and fails fast (× 1.486 for a doubled push). No reading of light passes all three.\n\nflow = push ÷ resistance\n\n(the flow) = (the push) ÷ (what opposes it), in every room, if the page is right",
+          "near": "More force → more work done",
+          "place": "band",
+          "height": 1000
+        }
+      ],
+      "made_against": "41b6aaa0ea13",
+      "stamped": "2026-11-03"
+    },
+    {
+      "heading": "The Lock Mechanism Pattern",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "made": "2026-11-03",
+      "pieces": [
+        {
+          "file": "Ohm's Law — rich — lock one.html",
+          "origin": "made",
+          "by": "maker · claude-opus-5-5 · built from ohms_law_intuition.jsx",
+          "title": "Lock one · does the third always answer?",
+          "caption": "**Lock one, and does the third always answer?** Five steps, no sound, built from the bundle's explorer (ohms_law_intuition.jsx, which needs React and couldn't play here). First voltage alone on the explorer's log slider, 0.1 to 10 with 1 at the centre. Then resistance locked: voltage and current move together, thumb for thumb. Then voltage locked: current and resistance mirror each other, the page's 'one gives, the other takes away'. On linear sliders the mirror breaks: current travels 25 times as far as resistance near the left end, and a twenty-fifth as far near the right. Then the whole explorer, three locks, four decimals. Last, the test. On sliders that stop at 0.1 and 10, a lock leaves only part of each free slider live. Lock R at 4 and V stops at 0.4; the gathered explorer would let it go on and read I = 0.0250 on a slider that ends at 0.1.\n\nlive share = 1 − |log₁₀ L| ÷ 2\n\n(the share of a free slider that keeps the third on its own slider) = 1 − (how many decades the locked value sits from 1) ÷ 2",
+          "near": "Lock one variable",
+          "place": "band",
+          "height": 900
+        }
+      ],
+      "made_against": "14cf5dd23aa7",
+      "stamped": "2026-11-03"
+    }
+  ]
+}
