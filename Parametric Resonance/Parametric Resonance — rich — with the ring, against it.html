@@ -1,0 +1,401 @@
+<!doctype html>
+<!--
+  title: Parametric Resonance — rich — with the ring, against it
+  born: 2026-11-03
+  links: [[Parametric Resonance]] connects-to · rich-face-piece-of · [[Progressive Staging]] exemplifies · a walk up to its test · [[Floquet Theory]] connects-to · the two modes, drawn · [[Phase Reduction]] connects-to · when in the cycle a push lands
+  forward_vector: I am "Where the phase lives" as a walk of four steps you hear and see: a ring looked at once per
+    cycle on the pump's clock, so its phase stands still; the pump switched on at twice the rate, where two lines
+    appear, one that grows and one that fades, and every starting phase finds the growing one; the pump at the
+    wrong rate, where no growing line exists; and last the page's own test, a ring struck exactly on the fading
+    line, which the pump brakes before noise tips it onto the growing one. The lines are the Floquet modes,
+    computed from one pump period; the dot is the sound.
+  dress: Loudon Live house style, Graphite skin, tokens inlined. Equations twice, symbols and words.
+  engine: the scripts marked id="pr-core" and id="pr-proc" are byte-identical to the ones in
+    "Parametric Resonance — rich — the threshold heard.html".
+  checks: "Parametric Resonance — proof — checks.mjs", beside this file, re-runs every claim the steps print, in Node.
+  sound: silent until a click; the kit quiets it when the page hides or after a minute untouched.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Parametric Resonance — with the ring, against it</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Manrope:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root { --bg:#0a0a0f; --e1:#12121a; --e2:#1a1a28; --ring:#22222e; --border:#4a4a5e; --soft:rgba(255,255,255,.06);
+    --fg1:#e8e8f0; --fg2:#c8c8d8; --fg3:#8a8aa0; --fg4:#4a4a5a; --amber:#e8b84a; --amberline:rgba(232,184,74,.5); --indigo:#6366F1;
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --sans:'Manrope',system-ui,sans-serif; --serif:'Cormorant Garamond',Georgia,serif; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); font-weight: 300; }
+  .pr-piece { padding: 22px 22px 18px; max-width: 1100px; }
+  .pr-kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; display: flex; align-items: center; gap: 10px; }
+  .pr-title { font-family: var(--serif); font-size: 28px; font-weight: 300; color: var(--fg1); margin: 0 0 6px; }
+  .pr-sub { font-size: 14px; line-height: 1.6; color: var(--fg2); max-width: 78ch; margin: 0 0 16px; }
+  .pr-rail { display: flex; flex-wrap: wrap; margin-bottom: 14px; border: 1px solid var(--border); width: fit-content; max-width: 100%; border-radius: 2px; }
+  .pr-rail button { border: 0; border-right: 1px solid var(--border); border-radius: 0; }
+  .pr-rail button:last-child { border-right: 0; }
+  button { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--fg2); background: var(--bg); border: 1px solid var(--border); border-radius: 2px; padding: 8px 12px; cursor: pointer; }
+  button:hover { border-color: rgba(232,184,74,.55); color: var(--fg1); }
+  button[aria-pressed="true"] { color: var(--amber); border-color: var(--amberline); background: rgba(232,184,74,.06); }
+  .pr-rail button[aria-pressed="true"] { border-color: var(--border); }
+  button.pr-go { color: var(--amber); border-color: var(--amberline); box-shadow: 0 0 14px rgba(232,184,74,.16); }
+  button:disabled { opacity: .35; cursor: default; }
+  .pr-step { display: none; border: 1px solid var(--soft); background: var(--e1); border-radius: 2px; padding: 16px 16px 14px; }
+  .pr-step.pr-shown { display: block; }
+  .pr-step h2 { font-family: var(--serif); font-weight: 400; font-size: 23px; color: var(--fg1); margin: 0 0 4px; }
+  .pr-idea { font-size: 14px; line-height: 1.6; max-width: 80ch; margin: 0 0 12px; }
+  .pr-row { display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: center; margin: 10px 0; }
+  .pr-row label { font-family: var(--mono); font-size: 11px; letter-spacing: .06em; color: var(--fg3); display: flex; align-items: center; gap: 10px; }
+  .pr-row label b { color: var(--fg1); font-weight: 500; }
+  .pr-seg { display: inline-flex; } .pr-seg button + button { border-left: 0; }
+  input[type=range] { -webkit-appearance: none; appearance: none; width: 220px; height: 3px; background: var(--fg4); outline: none; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 13px; height: 13px; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  input[type=range]::-moz-range-thumb { width: 13px; height: 13px; border: 0; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  .pr-read { display: flex; flex-wrap: wrap; gap: 6px 22px; margin-top: 10px; font-family: var(--mono); font-size: 11.5px; letter-spacing: .04em; color: var(--fg3); }
+  .pr-read b { color: var(--fg1); font-weight: 500; }
+  .pr-say { font-size: 13.5px; line-height: 1.55; color: var(--fg2); margin-top: 10px; min-height: 1.5em; max-width: 84ch; }
+  .pr-say b { color: var(--amber); font-weight: 500; }
+  .pr-eqs { margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--soft); }
+  .pr-eq { font-family: var(--serif); font-size: 19px; color: var(--fg1); }
+  .pr-words { font-size: 13px; line-height: 1.55; color: var(--fg2); margin: 2px 0 10px; max-width: 84ch; }
+  .pr-plot { margin-top: 14px; border: 1px solid var(--soft); background: var(--e1); border-radius: 2px; padding: 10px 12px; }
+  .pr-plabel { font-family: var(--mono); font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+  canvas { display: block; width: 100%; }
+  .pr-nav { display: flex; gap: 10px; margin-top: 14px; align-items: center; }
+  .pr-foot { font-family: var(--mono); font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--fg4); margin-left: auto; display: flex; align-items: center; gap: 8px; }
+  .pr-key { display: inline-block; width: 18px; height: 2px; vertical-align: middle; margin-right: 6px; }
+  .pr-two { display: grid; grid-template-columns: minmax(240px, 340px) 1fr; gap: 14px; margin-top: 14px; }
+  .pr-two .pr-plot { margin-top: 0; }
+  @media (max-width: 700px) { .pr-two { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="pr-piece">
+  <div class="pr-kicker"><svg width="18" height="18" viewBox="-10 -10 20 20" aria-hidden="true"><circle r="9.2" fill="none" stroke="#4a4a5e" stroke-width=".8"/><path id="sig" fill="none" stroke="#e8b84a" stroke-width="1"/></svg>made · Web Audio Worklet · sketch</div>
+  <h3 class="pr-title">With the ring, against it</h3>
+  <p class="pr-sub">The page asks where the pump's phase went, since the stability chart never mentions it. Four steps: a ring watched once per cycle on the pump's clock; the pump switched on at twice the rate, where two lines appear; the pump at the wrong rate; and the page's own test, a ring started on the line that fades. The same 220 Hz resonator as the threshold piece, pumped at three times its threshold depth.</p>
+
+  <nav class="pr-rail" aria-label="steps">
+    <button data-go="1" aria-pressed="true">1 · the ring, strobed</button>
+    <button data-go="2" aria-pressed="false">2 · pump at twice the rate</button>
+    <button data-go="3" aria-pressed="false">3 · the wrong rate</button>
+    <button data-go="4" aria-pressed="false">4 · struck on the fading line</button>
+  </nav>
+
+  <section class="pr-step pr-shown" data-step="1">
+    <h2>The ring, strobed</h2>
+    <p class="pr-idea">Look at the ring once per cycle, always at the same moment of the pump's clock. The pump is off; only its clock runs, at 440 Hz. A ring at exactly half that rate shows up in the same place at every look: its phase stands still and only its size shrinks. The dot's angle is the ring's phase; its distance from the middle is its size in decibels. Strike it at any phase. They all fade alike.</p>
+    <div class="pr-row"><label>ring phase at the strike <b id="a1v"></b><input id="a1" type="range" min="-180" max="180" step="1" value="0"></label><button class="pr-go" id="strike1">▸ strike</button><button id="stop1">stop</button></div>
+    <div class="pr-read"><span>fade, measured <b id="m1">–</b></span><span>predicted <b id="p1">–</b></span></div>
+    <div class="pr-say" id="say1"></div>
+    <div class="pr-eqs"><div class="pr-eq">x = A e<sup>−ζω₀t</sup> cos(ω₀t + φ)</div><div class="pr-words">(the ring) = (a size that shrinks by the same fraction every second) × (a wave at 220 Hz that started at phase φ). Looked at on a 220 Hz clock, the wave part never moves; only the size does.</div></div>
+  </section>
+
+  <section class="pr-step" data-step="2">
+    <h2>Pump at twice the rate</h2>
+    <p class="pr-idea">Switch the pump on: the spring stiffens and slackens by ε at 440 Hz. Two lines appear, worked out from one pump period of the equation before anything sounds. On the amber line a ring grows; on the indigo line it fades, faster than with no pump at all. Strike anywhere off the indigo line and watch the dot swing onto the amber one and ride out. Turn the dial: you change where the ring starts, not whether a way out exists.</p>
+    <div class="pr-row"><label>ring phase at the strike <b id="a2v"></b><input id="a2" type="range" min="-180" max="180" step="1" value="0"></label><button class="pr-go" id="strike2">▸ strike</button><button id="stop2">stop</button></div>
+    <div class="pr-read"><span>grows along amber <b id="g2">–</b></span><span>fades along indigo <b id="d2">–</b></span><span>the dot is <b id="m2">–</b> off the amber line</span></div>
+    <div class="pr-say" id="say2"></div>
+    <div class="pr-eqs"><div class="pr-eq">ẍ + 2ζω₀ẋ + ω₀²(1 + ε cos 2ω₀t) x = 0,&nbsp;&nbsp; ε = 3ε<sub>c</sub> = 0.018</div><div class="pr-words">Follow every starting state through one pump period and you get a 2 × 2 matrix. Its two eigenvectors are the lines; its two eigenvalues are how much a ring on each line grows or shrinks per period. The stability chart keeps only the eigenvalues. The lines, the phase, are what it leaves out.</div></div>
+  </section>
+
+  <section class="pr-step" data-step="3">
+    <h2>The wrong rate</h2>
+    <p class="pr-idea">Same depth, same ring, but run the pump at the ring's own rate, or at one and a half times it. Look at the lines. At once the rate, the two lines are both indigo: both fade. At one and a half there are no lines at all, the dot just spirals in. Only at twice the rate does a growing direction exist at this depth.</p>
+    <div class="pr-row">
+      <span class="pr-seg" id="r3"><button data-r="2" aria-pressed="true">pump at 2 × 220</button><button data-r="1" aria-pressed="false">1 × 220</button><button data-r="1.5" aria-pressed="false">1.5 × 220</button></span>
+      <label>ring phase at the strike <b id="a3v"></b><input id="a3" type="range" min="-180" max="180" step="1" value="0"></label>
+    </div>
+    <div class="pr-row"><button class="pr-go" id="strike3">▸ strike</button><button id="stop3">stop</button></div>
+    <div class="pr-read"><span>Floquet <b id="f3">–</b></span><span>fade, measured <b id="m3">–</b></span></div>
+    <div class="pr-say" id="say3"></div>
+    <div class="pr-eqs"><div class="pr-eq">Ω = 2ω₀ ⁄ n,&nbsp;&nbsp; n = 1, 2, 3 …</div><div class="pr-words">Pumping works near twice the natural rate divided by a whole number. n = 2, pumping at the ring's own rate, is the second tongue: real, but it needs a far deeper pump than this one, so at ε = 0.018 its lines both fade. 1.5 × is in no tongue at all.</div></div>
+  </section>
+
+  <section class="pr-step" data-step="4">
+    <h2>Start on the fading line</h2>
+    <p class="pr-idea">The page's test: "Start exactly on the decaying mode and you sit in an unstable tongue and still decay (briefly), until noise leaks you onto the growing direction." Strike the ring exactly on the indigo line, then exactly on the amber one, and compare. Then make the room noisier and strike on indigo again.</p>
+    <div class="pr-row">
+      <button class="pr-go" id="with4">▸ strike on amber (with)</button><button class="pr-go" id="against4">▸ strike on indigo (against)</button><button id="stop4">stop</button>
+      <span class="pr-seg" id="n4"><button data-n="2e-6" aria-pressed="true">floor −80 dB</button><button data-n="2e-5" aria-pressed="false">floor −60 dB</button></span>
+    </div>
+    <div class="pr-read"><span>first 0.3 s <b id="b4">–</b></span><span>Floquet fade <b id="fd4">–</b> · no pump <b id="u4">–</b></span><span>turned at <b id="t4">–</b></span><span>full at <b id="f4">–</b></span></div>
+    <div class="pr-say" id="say4"></div>
+    <div class="pr-eqs"><div class="pr-eq">fade on indigo ≈ −ω₀(ε⁄4 + ζ),&nbsp;&nbsp; growth on amber ≈ ω₀(ε⁄4 − ζ)</div><div class="pr-words">On the fading line the pump takes energy out, on top of the damping, so the ring falls faster than if the pump were off. Nothing in the equation moves it off that line; only noise does. The noisier the room, the sooner the growing part takes over.</div></div>
+  </section>
+
+  <div class="pr-two">
+    <div class="pr-plot"><div class="pr-plabel"><span>once per cycle</span><span>angle = phase · out = louder</span></div><canvas id="strobe"></canvas></div>
+    <div class="pr-plot"><div class="pr-plabel"><span>the ring's size, in dB, since the strike</span><span id="leg">amber = this run · dashed = Floquet rates</span></div><canvas id="env"></canvas></div>
+  </div>
+
+  <div class="pr-nav"><button id="back">◂ back</button><button id="next">next ▸</button><span class="pr-foot">Loud'n Live</span></div>
+</div>
+
+<script id="pr-core">
+/* The pumped resonator, one sample at a time.
+   x'' + 2 zeta w0 x' + w0^2 (1 + eps cos psi) x = F w0^2 cos(phd) + noise,  psi' = ratio w0,  phd' = 2 pi fd.
+   RK4 per sample. The pump weakens as the ring grows (pump depletion: eps / (1 + (A/sat)^4)), which is
+   what stops self-oscillation at a finite level; below about half of sat the oscillator is linear. */
+class PRes {
+  constructor(sr) {
+    this.sr = sr; this.dt = 1 / sr; this.f0 = 220; this.zeta = 0.0015; this.eps = 0; this.ratio = 2;
+    this.psi = 0; this.x = 0; this.v = 0; this.sat = 0.5; this.noise = 2e-6; this.F = 0; this.fd = 220; this.phd = 0;
+    this.seed = 12345; this.ramps = [];
+  }
+  get w0() { return 2 * Math.PI * this.f0; }
+  rand() { this.seed = (this.seed * 1664525 + 1013904223) >>> 0; return this.seed / 4294967296 - 0.5; }
+  amp() { return Math.hypot(this.x, this.v / this.w0); }
+  epsEff() { const r = this.amp() / this.sat, r2 = r * r; return this.eps / (1 + r2 * r2); }
+  acc(x, v, psi, phd, e) { const w = this.w0; return -w * w * (1 + e * Math.cos(psi)) * x - 2 * this.zeta * w * v + this.F * w * w * Math.cos(phd); }
+  ramp(key, to, seconds) { this.ramps = this.ramps.filter((r) => r.key !== key); this.ramps.push({ key, to, per: (to - this[key]) / Math.max(1, seconds * this.sr) }); }
+  step() {
+    for (const r of this.ramps) { const nx = this[r.key] + r.per; if ((r.per >= 0 && nx >= r.to) || (r.per < 0 && nx <= r.to)) { this[r.key] = r.to; r.done = true; } else this[r.key] = nx; }
+    if (this.ramps.some((r) => r.done)) this.ramps = this.ramps.filter((r) => !r.done);
+    const h = this.dt, W = this.ratio * this.w0, Wd = 2 * Math.PI * this.fd, e = this.epsEff();
+    const { x, v, psi, phd } = this;
+    const a1 = this.acc(x, v, psi, phd, e);
+    const x2 = x + 0.5 * h * v, v2 = v + 0.5 * h * a1, a2 = this.acc(x2, v2, psi + 0.5 * h * W, phd + 0.5 * h * Wd, e);
+    const x3 = x + 0.5 * h * v2, v3 = v + 0.5 * h * a2, a3 = this.acc(x3, v3, psi + 0.5 * h * W, phd + 0.5 * h * Wd, e);
+    const x4 = x + h * v3, v4 = v + h * a3, a4 = this.acc(x4, v4, psi + h * W, phd + h * Wd, e);
+    this.x = x + (h / 6) * (v + 2 * v2 + 2 * v3 + v4);
+    this.v = v + (h / 6) * (a1 + 2 * a2 + 2 * a3 + a4) + this.noise * this.w0 * this.rand();
+    this.psi = (psi + h * W) % (2 * Math.PI); this.phd = (phd + h * Wd) % (2 * Math.PI);
+    return this.x;
+  }
+  /* One pump period of the linear, undriven, noiseless oscillator from pump phase psi0, by the same RK4:
+     the monodromy matrix, in the coordinates (x, v / w0). */
+  monodromy(psi0) {
+    const w = this.w0, W = this.ratio * w, T = 2 * Math.PI / W, n = Math.ceil(T / this.dt), h = T / n, e = this.eps, z = this.zeta;
+    const f = (x, v, p) => -w * w * (1 + e * Math.cos(p)) * x - 2 * z * w * v;
+    const cols = [];
+    for (const [x0, y0] of [[1, 0], [0, 1]]) {
+      let x = x0, v = y0 * w, p = psi0;
+      for (let i = 0; i < n; i++) {
+        const a1 = f(x, v, p), x2 = x + 0.5 * h * v, v2 = v + 0.5 * h * a1, a2 = f(x2, v2, p + 0.5 * h * W);
+        const x3 = x + 0.5 * h * v2, v3 = v + 0.5 * h * a2, a3 = f(x3, v3, p + 0.5 * h * W);
+        const x4 = x + h * v3, v4 = v + h * a3, a4 = f(x4, v4, p + h * W);
+        x += (h / 6) * (v + 2 * v2 + 2 * v3 + v4); v += (h / 6) * (a1 + 2 * a2 + 2 * a3 + a4); p += h * W;
+      }
+      cols.push([x, v / w]);
+    }
+    return { m: [[cols[0][0], cols[1][0]], [cols[0][1], cols[1][1]]], T };
+  }
+  /* The Floquet picture at pump phase psi0: both multipliers, the growth rate, and (in a tongue) the two modes as
+     angles in the (x, -v/w0) plane, where a ring A cos(w0 t + phi) sits at angle phi. */
+  floquet(psi0 = this.psi) {
+    const { m, T } = this.monodromy(psi0), tr = m[0][0] + m[1][1], det = m[0][0] * m[1][1] - m[0][1] * m[1][0], disc = tr * tr / 4 - det;
+    if (disc < 0) { const mod = Math.sqrt(det); return { real: false, mu: Math.log(mod) / T, T }; }
+    const l1 = tr / 2 + Math.sqrt(disc), l2 = tr / 2 - Math.sqrt(disc);
+    const [big, small] = Math.abs(l1) >= Math.abs(l2) ? [l1, l2] : [l2, l1];
+    const vec = (l) => { const a = m[0][0] - l, b = m[0][1]; const u = Math.abs(b) > Math.abs(a) ? [b, -a] : [m[1][1] - l, -m[1][0]]; const r = Math.hypot(u[0], u[1]); return [u[0] / r, u[1] / r]; };
+    const g = vec(big), d = vec(small);
+    return { real: true, mu: Math.log(Math.abs(big)) / T, muDecay: Math.log(Math.abs(small)) / T, T,
+             phiGrow: Math.atan2(-g[1], g[0]), phiDecay: Math.atan2(-d[1], d[0]) };
+  }
+  /* Strike: set the ring to amplitude A at ring angle phi (x = A cos phi, v/w0 = -A sin phi), right now. */
+  strike(A, phi) { this.x = A * Math.cos(phi); this.v = -A * Math.sin(phi) * this.w0; }
+}
+</script>
+<script id="pr-proc" type="text/plain">
+/* The worklet around PRes: one resonator, stereo out, a report every 256 samples, and a strobe point once per
+   ring period (every second pump period), taken in the pump's frame. A strike waits for the next strobe instant. */
+class PRProc extends AudioWorkletProcessor {
+  constructor() {
+    super(); this.p = new PRes(sampleRate); this.chi = 0; this.t = 0; this.n = 0; this.strobe = []; this.pending = null; this.drive = 1.4; this.seq = 0;
+    this.port.onmessage = (e) => this.msg(e.data);
+  }
+  msg(d) {
+    const p = this.p;
+    if (d.reset) { p.x = 0; p.v = 0; p.ramps = []; this.t = 0; this.strobe = []; this.pending = null; this.seq = -1; }
+    if (d.set) for (const k in d.set) p[k] = d.set[k];
+    if (d.ramp) p.ramp(d.ramp[0], d.ramp[1], d.ramp[2]);
+    if (d.strike) this.pending = d.strike;            // carries its seq; the clock restarts when it lands
+    if (d.clock) { this.t = 0; this.seq = d.seq; this.strobe = []; }
+  }
+  process(_in, outs) {
+    const o = outs[0], L = o[0], R = o[1] || o[0], p = this.p, TP = 2 * Math.PI;
+    for (let i = 0; i < L.length; i++) {
+      const x = p.step();
+      this.chi += 0.5 * p.ratio * p.w0 * p.dt;
+      if (this.chi >= TP) {
+        this.chi -= TP;
+        const over = this.chi / (0.5 * p.ratio * p.w0);       // seconds since the strobe instant
+        if (this.pending) {
+          const s = this.pending; this.pending = null; let phi;
+          if (s.mode === 'with' || s.mode === 'against') {
+            const fl = p.floquet(p.psi);                        // the modes at this very pump phase: exact
+            phi = fl.real ? (s.mode === 'with' ? fl.phiGrow : fl.phiDecay) : (s.phi || 0) + p.w0 * over;
+            this.port.postMessage({ struck: { mode: s.mode, real: fl.real, mu: fl.mu, muDecay: fl.muDecay } });
+          } else { phi = (s.phi || 0) + p.w0 * over; this.port.postMessage({ struck: { mode: 'angle' } }); }
+          p.strike(s.A, phi); this.t = 0; this.seq = s.seq; this.strobe = [];
+        }
+        this.strobe.push(p.amp(), Math.atan2(-p.v / p.w0, p.x) - p.w0 * over);
+      }
+      const y = Math.tanh(this.drive * x);
+      L[i] = y; R[i] = y; this.t += p.dt;
+    }
+    this.n += L.length;
+    if (this.n >= 256) {
+      this.port.postMessage({ seq: this.seq, t: this.t, A: p.amp(), eps: p.eps, fd: p.fd, strobe: this.strobe.length ? Float32Array.from(this.strobe) : null });
+      this.strobe = []; this.n = 0;
+    }
+    return true;
+  }
+}
+registerProcessor('pr-resonator', PRProc);
+</script>
+<script>
+(() => {
+  const $ = (id) => document.getElementById(id);
+  const F0 = 220, W0 = 2 * Math.PI * F0, ZETA = 0.0015, EPS = 3 * 4 * ZETA, DB = 20 / Math.LN10, STRIKE = 0.25, D2R = Math.PI / 180;
+  const S = { step: 1, ratio: 2, noise: 2e-6, seq: 0 };
+  let ctx = null, node = null, master = null, ready = null, playing = false, frame = 0;
+  let run = null, last = null;   // run: { seq, pts:[[t,dB]], dots:[[A,phi]], mode, eps, ratio }
+
+  async function audio() {
+    if (!ready) ready = (async () => {
+      ctx = new (window.AudioContext || window.webkitAudioContext)();
+      const url = URL.createObjectURL(new Blob([$('pr-core').textContent + '\n' + $('pr-proc').textContent], { type: 'application/javascript' }));
+      await ctx.audioWorklet.addModule(url); URL.revokeObjectURL(url);
+      node = new AudioWorkletNode(ctx, 'pr-resonator', { numberOfInputs: 0, numberOfOutputs: 1, outputChannelCount: [2] });
+      const comp = ctx.createDynamicsCompressor(); comp.threshold.value = -6; comp.ratio.value = 4; comp.attack.value = 0.003; comp.release.value = 0.25;
+      master = ctx.createGain(); master.gain.value = 0;
+      node.connect(comp).connect(master).connect(ctx.destination);
+      node.port.onmessage = (e) => onReport(e.data);
+    })();
+    await ready;
+    if (ctx.state !== 'running') await ctx.resume();
+    master.gain.cancelScheduledValues(ctx.currentTime); master.gain.setTargetAtTime(0.8, ctx.currentTime, 0.015);
+    playing = true;
+  }
+  function stop() {
+    if (!ctx || !playing) return;
+    playing = false; master.gain.setTargetAtTime(0, ctx.currentTime, 0.02);
+    setTimeout(() => { if (!playing) { node.port.postMessage({ reset: true, set: { eps: 0 } }); ctx.suspend(); } }, 160);
+  }
+  function onReport(m) {
+    if (!run || m.seq !== run.seq) return;
+    run.pts.push([m.t, DB * Math.log(Math.max(m.A, 1e-7))]); if (run.pts.length > 3000) run.pts.shift();
+    if (m.strobe) for (let i = 0; i < m.strobe.length; i += 2) run.dots.push([m.strobe[i], m.strobe[i + 1]]);
+    if (run.dots.length > 1400) run.dots.splice(0, run.dots.length - 1400);
+  }
+  /* the Floquet lines at the strobe instant, from the same core the worklet runs */
+  const probe = new PRes(48000);
+  const memo = new Map();
+  function lines(eps, ratio) { const k = eps + '|' + ratio; if (!memo.has(k)) { probe.zeta = ZETA; probe.eps = eps; probe.ratio = ratio; memo.set(k, probe.floquet(0)); } return memo.get(k); }
+
+  async function strike(opts) {
+    await audio(); last = run && run.pts.length ? run : last;
+    const eps = opts.eps, ratio = opts.ratio, seq = ++S.seq;
+    run = { seq, pts: [], dots: [], mode: opts.mode || 'angle', eps, ratio, fl: lines(eps, ratio) };
+    node.port.postMessage({ reset: true, set: { zeta: ZETA, eps, ratio, F: 0, noise: S.noise }, strike: { A: STRIKE, mode: opts.mode, phi: (opts.deg || 0) * D2R, seq } });
+  }
+  function slope(tr, t0, t1, lo, hi) {
+    if (!tr) return null; let n = 0, sx = 0, sy = 0, sxx = 0, sxy = 0;
+    for (const [t, y] of tr.pts) if (t >= t0 && t <= t1 && y > lo && y < hi) { n++; sx += t; sy += y; sxx += t * t; sxy += t * y; }
+    return n < 12 ? null : (n * sxy - sx * sy) / (n * sxx - sx * sx);
+  }
+  const fade = (tr) => slope(tr, 0.2, 99, -50, -14);   // a fade, read while it is still 30 dB clear of the floor
+  const angDiff = (a, b) => Math.abs(((a - b + 3 * Math.PI) % (2 * Math.PI)) - Math.PI);
+  const offLine = (tr, phi) => { if (!tr || tr.dots.length < 5) return null; const a = tr.dots[tr.dots.length - 1][1]; return Math.min(angDiff(a, phi), angDiff(a, phi + Math.PI)) / D2R; };
+  const fmtRate = (r) => r == null ? '–' : (r >= 0 ? '+' : '−') + Math.abs(r).toFixed(1) + ' dB/s';
+  const fmtDb = (d) => (d < 0 ? '−' : '') + Math.abs(d).toFixed(0) + ' dB';
+  const fmtS = (s) => s == null ? '–' : s.toFixed(2) + ' s';
+  const deg = (id) => +$(id).value;
+
+  function update1() {
+    $('a1v').textContent = deg('a1') + '°'; $('p1').textContent = fmtRate(-ZETA * W0 * DB); $('m1').textContent = fmtRate(fade(run));
+    let drift = null; if (run && run.dots.length > 40) { const clear = run.dots.filter((d) => d[0] > 0.00316); /* above −50 dB: the floor's noise would turn the angle */ if (clear.length > 20) drift = angDiff(clear[clear.length - 1][1], clear[2][1]) / D2R; }
+    $('say1').innerHTML = drift != null ? 'While it is clear of the floor the dot has moved <b>' + drift.toFixed(1) + '°</b> in angle since the strike, and it fades at ' + fmtRate(fade(run)) + ' wherever you start it.' : '';
+  }
+  function update2() {
+    $('a2v').textContent = deg('a2') + '°'; const fl = lines(EPS, 2);
+    $('g2').textContent = fmtRate(fl.mu * DB); $('d2').textContent = fmtRate(fl.muDecay * DB); const off = offLine(run, fl.phiGrow); $('m2').textContent = off == null ? '–' : off.toFixed(1) + '°';
+    $('say2').innerHTML = run && run.pts.length ? 'The amber line sits at <b>' + (fl.phiGrow / D2R).toFixed(1) + '°</b>, the indigo at <b>' + (fl.phiDecay / D2R).toFixed(1) + '°</b>: a ring whose peak comes an eighth of a cycle before the pump’s stiffest moment grows, so the spring is stiffening as the ring reaches each peak and slackening as it passes through zero. The rates in amber and indigo do not change when you turn the dial.' : '';
+  }
+  function update3() {
+    $('a3v').textContent = deg('a3') + '°'; const fl = lines(EPS, S.ratio);
+    $('f3').textContent = !fl.real ? 'no lines · every ring fades at ' + fmtRate(fl.mu * DB) : fl.mu > 0 ? 'grows ' + fmtRate(fl.mu * DB) + ' · fades ' + fmtRate(fl.muDecay * DB) : 'both fade: ' + fmtRate(fl.mu * DB) + ' and ' + fmtRate(fl.muDecay * DB);
+    $('m3').textContent = fmtRate(fade(run));
+    $('say3').innerHTML = run && run.ratio !== 2 && run.pts.length ? 'Pumped at ' + run.ratio + ' × 220 Hz the ring fades at ' + fmtRate(fade(run)) + '; with no pump it would fade at ' + fmtRate(-ZETA * W0 * DB) + '. Same depth that grows it at twice the rate.' : '';
+  }
+  function update4() {
+    const fl = lines(EPS, 2);
+    $('fd4').textContent = fmtRate(fl.muDecay * DB); $('u4').textContent = fmtRate(-ZETA * W0 * DB);
+    const r = run && run.mode ? run : null;
+    $('b4').textContent = fmtRate(slope(r, 0.03, 0.3, -90, -10));
+    let tmin = null, dmin = 0, tfull = null;
+    if (r && r.pts.length) { for (const [t, y] of r.pts) if (y < dmin) { dmin = y; tmin = t; } const f = r.pts.find((p) => p[1] > -9); tfull = f ? f[0] : null; }
+    const turned = r && r.mode === 'against' && tfull != null;
+    $('t4').textContent = turned ? fmtS(tmin) + ' (' + fmtDb(dmin) + ')' : '–'; $('f4').textContent = fmtS(tfull);
+    let s = '';
+    if (r && r.mode === 'with' && tfull != null) s = 'On amber the pump feeds the ring at once: full in <b>' + fmtS(tfull) + '</b>.';
+    if (r && r.mode === 'against') s = tfull == null ? 'On indigo, falling at ' + fmtRate(slope(r, 0.03, 0.3, -90, -10)) + ': faster than with no pump. The pump is braking it.'
+      : 'On indigo it fell at <b>' + fmtRate(slope(r, 0.03, 0.3, -90, -10)) + '</b>, faster than no pump at all, down to <b>' + fmtDb(dmin) + '</b> at ' + fmtS(tmin) + '. Then the noise floor’s share of the amber line outgrew it, and the same pump brought it to full at <b>' + fmtS(tfull) + '</b>. Same tongue, same depth: the phase decided only how long it took.';
+    $('say4').innerHTML = s;
+  }
+
+  /* ── drawing ── */
+  function fit(c, h) {
+    const w = c.clientWidth, d = devicePixelRatio || 1; h = h || w;
+    if (c.width !== Math.round(w * d) || c.height !== Math.round(h * d)) { c.width = Math.round(w * d); c.height = Math.round(h * d); c.style.height = h + 'px'; }
+    const g = c.getContext('2d'); g.setTransform(d, 0, 0, d, 0, 0); return { g, w, h };
+  }
+  const FLOOR = -100;
+  function drawStrobe() {
+    const { g, w } = fit($('strobe')), cx = w / 2, cy = w / 2, R = w * 0.44, rad = (dB) => Math.max(0, Math.min(1, (dB - FLOOR) / -FLOOR)) * R;
+    g.clearRect(0, 0, w, w); g.font = '10px JetBrains Mono, monospace'; g.lineWidth = 1;
+    for (let dB = -80; dB <= 0; dB += 20) { g.strokeStyle = dB === 0 ? '#4a4a5e' : '#22222e'; g.beginPath(); g.arc(cx, cy, rad(dB), 0, 7); g.stroke(); g.fillStyle = '#4a4a5a'; g.textAlign = 'left'; const q = Math.PI * 0.6; if (dB > -80) g.fillText(dB + ' dB', cx + rad(dB) * Math.cos(q) + 3, cy - rad(dB) * Math.sin(q) + 3); }
+    const fl = S.step === 1 ? null : lines(EPS, S.step === 3 ? S.ratio : 2);
+    const line = (phi, col, dash) => { g.strokeStyle = col; g.lineWidth = 1.6; g.setLineDash(dash || []); g.beginPath(); g.moveTo(cx - R * Math.cos(phi), cy + R * Math.sin(phi)); g.lineTo(cx + R * Math.cos(phi), cy - R * Math.sin(phi)); g.stroke(); g.setLineDash([]); g.lineWidth = 1; };
+    if (fl && fl.real) { line(fl.phiDecay, 'rgba(99,102,241,.85)'); line(fl.phiGrow, fl.mu > 0 ? 'rgba(232,184,74,.9)' : 'rgba(99,102,241,.55)', fl.mu > 0 ? [] : [4, 4]); }
+    const dial = S.step === 1 ? deg('a1') : S.step === 2 ? deg('a2') : S.step === 3 ? deg('a3') : null;
+    if (dial != null) { const p = dial * D2R; g.strokeStyle = 'rgba(200,200,216,.5)'; g.setLineDash([2, 3]); g.beginPath(); g.moveTo(cx, cy); g.lineTo(cx + rad(DB * Math.log(STRIKE)) * Math.cos(p), cy - rad(DB * Math.log(STRIKE)) * Math.sin(p)); g.stroke(); g.setLineDash([]); }
+    if (run) { const n = run.dots.length; run.dots.forEach(([A, p], i) => { const r = rad(DB * Math.log(Math.max(A, 1e-7))); g.fillStyle = i === n - 1 ? '#e8e8f0' : 'rgba(232,184,74,' + (0.08 + 0.5 * i / n).toFixed(3) + ')'; g.beginPath(); g.arc(cx + r * Math.cos(p), cy - r * Math.sin(p), i === n - 1 ? 3.5 : 1.6, 0, 7); g.fill(); }); }
+    g.fillStyle = '#4a4a5a'; g.textAlign = 'center'; g.fillText('0°', cx + R + 0, cy + 14); g.fillText('90°', cx, cy - R - 4);
+  }
+  function drawEnv() {
+    const { g, w, h } = fit($('env'), 260), L = 44, Rm = 10, T = 8, B = 24, tmax = 6;
+    const X = (t) => L + (t / tmax) * (w - L - Rm), Y = (dB) => T + ((0 - dB) / 100) * (h - T - B);
+    g.clearRect(0, 0, w, h); g.font = '10px JetBrains Mono, monospace'; g.lineWidth = 1;
+    for (let dB = 0; dB >= -100; dB -= 20) { g.strokeStyle = '#22222e'; g.beginPath(); g.moveTo(L, Y(dB)); g.lineTo(w - Rm, Y(dB)); g.stroke(); g.fillStyle = '#4a4a5a'; g.textAlign = 'right'; g.fillText(dB + ' dB', L - 6, Y(dB) + 3); }
+    g.textAlign = 'center'; for (let t = 0; t <= tmax; t++) g.fillText(t + ' s', X(t), Y(-100) + 14);
+    g.save(); g.beginPath(); g.rect(L, T, w - L - Rm, Y(-100) - T); g.clip();
+    const from = DB * Math.log(STRIKE), dash = (rate, col) => { g.strokeStyle = col; g.setLineDash([5, 5]); g.beginPath(); g.moveTo(X(0), Y(from)); g.lineTo(X(tmax), Y(from + rate * tmax)); g.stroke(); g.setLineDash([]); };
+    dash(-ZETA * W0 * DB, 'rgba(138,138,160,.6)');
+    if (run && run.fl && run.eps > 0) { if (run.fl.real) { if (run.fl.mu > 0) dash(run.fl.mu * DB, 'rgba(232,184,74,.6)'); dash(run.fl.muDecay * DB, 'rgba(99,102,241,.8)'); } }
+    for (const tr of [last, run]) { if (!tr) continue; g.strokeStyle = tr === run ? '#e8b84a' : '#4a4a5a'; g.lineWidth = 1.6; g.beginPath(); tr.pts.forEach(([t, y], i) => { if (t > tmax) return; i ? g.lineTo(X(t), Y(y)) : g.moveTo(X(t), Y(y)); }); g.stroke(); g.lineWidth = 1; }
+    g.restore();
+  }
+  function draw() { requestAnimationFrame(draw); drawStrobe(); drawEnv(); if (++frame % 6 === 0) UPD[S.step](); }
+
+  const UPD = { 1: update1, 2: update2, 3: update3, 4: update4 };
+  function show(n) {
+    stop(); S.step = n; run = null; last = null;
+    document.querySelectorAll('.pr-step').forEach((s) => s.classList.toggle('pr-shown', +s.dataset.step === n));
+    document.querySelectorAll('.pr-rail button').forEach((b) => b.setAttribute('aria-pressed', +b.dataset.go === n ? 'true' : 'false'));
+    $('back').disabled = n === 1; $('next').disabled = n === 4;
+    $('leg').textContent = n === 1 ? 'amber = this run · grey dashed = no-pump fade' : 'amber = this run · grey = last run · dashed: amber grows, indigo fades, grey no pump';
+  }
+  function sigil() { let d = ''; for (let i = 0; i <= 200; i++) { const t = i / 200 * 2 * Math.PI; d += (i ? 'L' : 'M') + (8 * Math.sin(3 * t + Math.PI / 4)).toFixed(2) + ' ' + (8 * Math.sin(2 * t)).toFixed(2); } $('sig').setAttribute('d', d); }
+  document.querySelectorAll('.pr-rail button').forEach((b) => (b.onclick = () => show(+b.dataset.go)));
+  $('back').onclick = () => show(Math.max(1, S.step - 1)); $('next').onclick = () => show(Math.min(4, S.step + 1));
+  $('strike1').onclick = () => strike({ eps: 0, ratio: 2, deg: deg('a1') });
+  $('strike2').onclick = () => strike({ eps: EPS, ratio: 2, deg: deg('a2') });
+  $('strike3').onclick = () => strike({ eps: EPS, ratio: S.ratio, deg: deg('a3') });
+  $('with4').onclick = () => strike({ eps: EPS, ratio: 2, mode: 'with' });
+  $('against4').onclick = () => strike({ eps: EPS, ratio: 2, mode: 'against' });
+  for (const id of ['stop1', 'stop2', 'stop3', 'stop4']) $(id).onclick = stop;
+  const seg = (id, key, conv) => document.querySelectorAll('#' + id + ' button').forEach((b) => (b.onclick = () => {
+    S[key] = conv(b.dataset[Object.keys(b.dataset)[0]]); document.querySelectorAll('#' + id + ' button').forEach((x) => x.setAttribute('aria-pressed', x === b ? 'true' : 'false'));
+    if (key === 'ratio') { stop(); run = null; last = null; }
+  }));
+  seg('r3', 'ratio', Number); seg('n4', 'noise', Number);
+  sigil(); show(1); draw();
+})();
+</script>
+</body>
+</html>
