@@ -46,6 +46,22 @@
         "by": "maker · claude-opus-5-5 · proposal round",
         "round": "proposal-round-2026-11"
       },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "proofs/2026-10-28-paper.png",
+            "verdict": "keep",
+            "why": "Caption checked against the image: C Ionian, not the scroll's drag to E♭; Scale Tones stops at 6, Chord Function cuts VII, Chord Tones has no B column; fallback mono fonts. It corrects the steward's scroll in a caption, not on the trail."
+          },
+          {
+            "file": "proofs/2026-10-28-phosphor.png",
+            "verdict": "keep",
+            "why": "Decoration, accurately captioned: the same C Ionian state on the dark ground; the Ground segment, P key and ?theme=phosphor all exist (cycle5-explorer.html:391, 1000)."
+          }
+        ]
+      },
       "made": "2026-11-03",
       "pieces": [
         {
@@ -76,6 +92,17 @@
         "by": "maker · claude-opus-5-5 · proposal round",
         "round": "proposal-round-2026-11"
       },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Cycle 5 Explorer — rich — the window.html",
+            "verdict": "keep",
+            "why": "A test that walks up (line, window, tonic inside, tonic held, count): recomputed independently from mode interval patterns, 90/90 tonic held in the order ♯4 7 3 6 2 5, 84/84 notes held with no pitch changed; its verdict names both the pitch and the degree reading. Clean console, no AudioContext before a click, suspends when hidden."
+          }
+        ]
+      },
       "made": "2026-11-03",
       "pieces": [
         {
@@ -98,6 +125,27 @@
         "date": "2026-11-03",
         "by": "maker · claude-opus-5-5 · proposal round",
         "round": "proposal-round-2026-11"
+      },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "cycle5-explorer.html",
+            "verdict": "keep",
+            "why": "The page itself, caption true (T key, Borrow one chord, opens on C Ionian). Conform's two grant-missing errors (fonts.googleapis.com, fonts.gstatic.com) stand: a grants line is Loudon's yes, and the page is the paused steward's."
+          },
+          {
+            "file": "class/still-borrow-in-D.jpg",
+            "verdict": "keep",
+            "why": "Evidence against \"bigger\": the 1440 px still shows Scale Tones at 6 and Chord Tones short its C♯ column; re-measured overflow agrees with the steward at all four widths (Chord Function only 2 px short at 1440)."
+          },
+          {
+            "file": "rich-face/page-sound.wav",
+            "verdict": "keep",
+            "why": "Byte-identical to the steward's ignored render, copied by the README route; peak −6.5 dBFS matches page-sound.json. Note: 4.2 MB in history for good, unheard, and it will not follow a re-render."
+          }
+        ]
       },
       "made": "2026-11-03",
       "pieces": [
@@ -136,6 +184,17 @@
         "date": "2026-11-03",
         "by": "maker · claude-opus-5-5 · proposal round",
         "round": "proposal-round-2026-11"
+      },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "review/review-sheet.html",
+            "verdict": "keep",
+            "why": "Serves the section rather than testing it: the steward's own sheet of the four questions; the caption's details (opens on same notes, fifths-order chips, tick boxes) are on the sheet."
+          }
+        ]
       },
       "made": "2026-11-03",
       "pieces": [
