@@ -32,6 +32,7 @@ for (const [name, src] of Object.entries(pieces)) {
   const body = block.slice(block.indexOf('*/') + 3, block.lastIndexOf('/* ENGINE:END */') - 1);
   ok(body === STEWARD, `${name}: the engine is proofs/feel-lab/feel_engine.js, letter for letter`);
   ok(!src.includes('rich:' + 'hush'), `${name}: leaves hushing to the kit (never names its message)`);
+  { const body = src.slice(src.indexOf('<script>') + 8, src.lastIndexOf('</script>')); let err = null; try { new Function(body); } catch (e) { err = e.message; } ok(!err, `${name}: its whole script parses${err ? ' (' + err + ')' : ''}`); }
   ok(!/new\s+(window\.)?AudioContext[^]*?\)/.test(src.slice(0, src.indexOf('function soundOn') > 0 ? src.indexOf('function soundOn') : src.length)), `${name}: makes no audio context outside its click handler`);
 }
 
@@ -54,6 +55,8 @@ ok(Math.abs(r3i.sp.change) < 0.01 && r3i.pe.change > 0.2, `ideal knob, ${MP} rad
 { const e = S.makeEngine({ semisPerTurn: 6, basePitch: 57, tauC: 0, quantize: false }); e.setFeel(S.FEELS.struck({ law: 'spring' })); e.s.th = 3; e.s.lastSensedTh = 3; e.s.sensedTh = 3;
   const m = S.rateMeter(); m.reset(e); for (let i = 0; i < 4 * 48000; i++) { e.step(); m.feed(e); }
   console.log(`         for the record: struck from 3 rad (the renders' pull), the ideal spring's first half swing runs ${m.dots[0].hz.toFixed(2)} Hz, against ${m.dots[3].hz.toFixed(2)} once inside the cap`); }
+{ const d = S.strike('spring', MP, true, 4); ok(d.every(x => Math.abs(x.hz - 5.893) < 0.01), `friction off, the spring holds 5.89 Hz to its last half swing (${d.length} of them, ${Math.min(...d.map(x => x.hz)).toFixed(3)}–${Math.max(...d.map(x => x.hz)).toFixed(3)} Hz)`); }
+{ const e = S.struckKnob('spring', false); ok(Math.abs(e.P.tauC / 0.085 - 0.035) < 0.001 && 0.2 / 0.085 > MP && 0.2 / 0.085 < 2.36, `friction moves the rest point by τC/k = ${(e.P.tauC / 0.085).toFixed(4)} rad (the end dip is the meter's), and the clamp binds the spring at ${(0.2 / 0.085).toFixed(3)} rad, outside the ${MP} rad pull`); }
 const small = rows.find(r => r.ideal && r.pull === 0.3);
 ok(small.pe.change < 0.02, `ideal knob, 0.3 rad: the pendulum quickens by under 2% (${pct(small.pe.change)}): only a big swing tells the laws apart`);
 const tiny = rows.find(r => !r.ideal && r.pull === 0.3);
@@ -108,20 +111,30 @@ ok(agree === total, `the piece's verdict table agrees with the steward's feel_la
   ok(a.grows && b.grows, 'the softest feel on the page grows over USB and over an audio line with no hand and no local damping');
   ok(!c.grows && !d.grows && !e2.grows && !f.grows, 'it crosses calmly with damping kept on the device, with the motor\'s own brake, or held'); }
 
+// offer 1's sharper case: the pitch-wheel return as built (the engine's centre feel), friction on, hands off
+{ const run = (loopHz, delayMs, bMotor, pull) => { const e = D.makeEngine({ loopHz, delayMs, stick: true, bMotor }); e.setFeel(D.FEELS.centre()); e.s.th = pull; e.s.lastSensedTh = pull; e.s.sensedTh = pull;
+    let lo = Infinity, hi = -Infinity; for (let i = 0; i < 4 * 48000; i++) { e.step(); if (i > 3 * 48000) { lo = Math.min(lo, e.s.th); hi = Math.max(hi, e.s.th); } } return (hi - lo) / 2; };   // half the swing in the last second: a knob stuck off centre by friction reads 0
+  const au = run(48000, 5.33, 1e-4, 0.05), au5 = run(48000, 5.33, 1e-4, 0.5), us = run(1000, 4, 1e-4, 0.05), auB = run(48000, 5.33, D.BRAKE_LOW, 0.5), soft = (() => { const e = D.makeEngine({ loopHz: 1000, delayMs: 4, stick: true }); e.setFeel(D.FEELS.struck({ k: 0.03 })); e.s.th = 0.5; e.s.lastSensedTh = 0.5; e.s.sensedTh = 0.5; let lo = Infinity, hi = -Infinity; for (let i = 0; i < 4 * 48000; i++) { e.step(); if (i > 3 * 48000) { lo = Math.min(lo, e.s.th); hi = Math.max(hi, e.s.th); } } return (hi - lo) / 2; })();
+  console.log(`         friction on: a plain 0.03 spring over USB from 0.5 rad, swing in the last second ±${soft.toFixed(3)} rad (sticking friction stops it inside its 0.1 rad dead band) · the centre feel on the audio line ±${au.toFixed(3)} (from 0.05) and ±${au5.toFixed(3)} (from 0.5), over USB ±${us.toFixed(3)}, on the audio line with the brake's low guess ±${auB.toFixed(3)}`);
+  ok(soft < 0.01, 'with the engine\'s own friction, a plain 0.03 spring comes to rest over USB: the friction is damping on the device');
+  ok(au > 0.08 && au5 > 0.08 && us < 0.01 && auB < 0.01, 'the pitch-wheel return as built buzzes about ±0.1 rad on the audio line even with friction on, settles over USB from a small pull, and settles with the motor\'s brake at its low guess'); }
+
 // ─────────────────────────────── two parts or one ───────────────────────────────
 console.log('\ntwo parts or one — "the motor both senses and pushes, and what the synth is doing comes back through the thing already in the hand"');
-const T = load(pieces.two, 'HHW, plainKnob, motorKnob, centsOff, settle, makeEngine, FEELS');
+const T = load(pieces.two, 'HHW, plainKnob, motorKnob, snapPitch, centsOff, settle, makeEngine, FEELS');
 // the knob let go from rest where the player left it, some cents off the target (the steward's let-go test)
 let seed = 7; const rnd = () => ((seed = (seed * 1103515245 + 12345) & 0x7fffffff) / 0x7fffffff);
 function tryLand(make, iv, aimCents) {
   const e = make(); const target = T.HHW.basePitch + iv, th = (iv + aimCents / 100) / T.HHW.semisPerTurn * 2 * Math.PI;
   e.s.th = th; e.s.lastSensedTh = th; e.s.sensedTh = th; e.s.hand = false; T.settle(e, 2.5); return T.centsOff(e, target);
 }
-const N = 80; const plain = [], motor = [], aims = [];
-for (let k = 0; k < N; k++) { const iv = [2, 3, 4, 5, 7, 9, 10, 12][k % 8], aim = (rnd() * 2 - 1) * 45; aims.push(aim); plain.push(tryLand(T.plainKnob, iv, aim)); motor.push(tryLand(T.motorKnob, iv, aim)); }
+const N = 80; const plain = [], motor = [], snap = [], aims = [];
+for (let k = 0; k < N; k++) { const iv = [2, 3, 4, 5, 7, 9, 10, 12][k % 8], aim = (rnd() * 2 - 1) * 45; aims.push(aim); plain.push(tryLand(T.plainKnob, iv, aim)); motor.push(tryLand(T.motorKnob, iv, aim));
+  const e = T.plainKnob(), th = (iv + aim / 100) / T.HHW.semisPerTurn * 2 * Math.PI; e.s.th = th; e.s.lastSensedTh = th; e.s.sensedTh = th; T.settle(e, 2.5); snap.push((T.snapPitch(e) - (T.HHW.basePitch + iv)) * 100); }
 const within = (a, c) => a.filter(x => Math.abs(x) <= c).length, med = (a) => { const s = a.map(Math.abs).sort((x, y) => x - y); return s[s.length >> 1]; };
 console.log(`         ${N} let-gos left within ±45 cents of the target: plain knob lands within 10 ¢ ${within(plain, 10)}/${N} (median miss ${med(plain).toFixed(1)} ¢), motor knob ${within(motor, 10)}/${N} (median ${med(motor).toFixed(1)} ¢, worst ${Math.max(...motor.map(Math.abs)).toFixed(1)} ¢)`);
 ok(within(motor, 10) === N, 'the motor knob, let go within 45 cents of a note, lands on that note within 10 cents every time');
+ok(within(snap, 0.001) === N, `the control: the snap knob lands exactly in tune ${within(snap, 0.001)}/${N}, with no motor at all, so landing in tune can't tell the two apart (the piece scores the right note separately)`);
 ok(Math.abs(med(plain) - med(aims)) < 1, `the plain knob stays where it was let go (median miss ${med(plain).toFixed(1)} ¢ against an aim error of ${med(aims).toFixed(1)} ¢)`);
 { const far = []; for (let k = 0; k < 40; k++) far.push(tryLand(T.motorKnob, 5, 55 + rnd() * 40));
   ok(far.every(c => Math.abs(c - 100) < 10), 'left past the ridge (55 to 95 cents off), the motor lands a whole note away: it can only miss by a note'); }
@@ -130,7 +143,8 @@ ok(Math.abs(med(plain) - med(aims)) < 1, `the plain knob stays where it was let 
     for (let i = 0; i < n; i++) { e.s.handTarget = (i / n) * (6 / 24) * 2 * Math.PI; e.step(); const c = (e.pitch() - Math.round(e.pitch())) * 100; if (Math.abs(c) <= 15) near++; } return near / n; };
   const sp = share(T.plainKnob), sm = share(T.motorKnob);
   console.log(`         dragged slowly up six semitones: time within 15 cents of a note, plain knob ${(sp * 100).toFixed(0)}%, motor knob ${(sm * 100).toFixed(0)}%`);
-  ok(sm > 0.6 && sp < 0.4, 'dragged, the motor knob holds at the notes (the notches you count); the plain knob passes through evenly'); }
+  ok(sm > 0.6 && sp < 0.4, 'dragged, the motor knob holds at the notes (the notches you count); the plain knob, and so the snap knob, passes through evenly: this, not the landing, is what separates the motor from the control'); }
+{ const w = pieces.two; ok(!w.includes('The one part carried the news') && w.includes("id: 'snap'") && w.includes('found the right note'), 'the test has the snap knob as a fourth way, scores the right note apart from cents, and no longer says "The one part carried the news"'); }
 // the push the fingertip feels while dragging across the frets
 { const e = T.motorKnob(); e.s.hand = true; let mx = 0; const n = Math.round(2 * e.P.fs);
   for (let i = 0; i < n; i++) { e.s.handTarget = (i / n) * (6 / 24) * 2 * Math.PI; e.step(); mx = Math.max(mx, Math.abs(e.s.tauHand)); }

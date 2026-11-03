@@ -450,7 +450,7 @@ function finishMap() {
   const soft = rows[0].v, usb = soft[2], audio = soft[3], v = $('verdict');
   let say = '<b>Stiff feels need the motor.</b> With no hand on the knob, the frets, the string bend and the end stop sit far right of the edge on every lane that crosses a wire, and the bend and the end stop buzz there even when held. ';
   if (St.damp === 'none') say += (usb === 'fine' && audio === 'fine') ? 'And the soft feels cross the cable, as the page says.' :
-    `<b>But the softest feel on the page doesn’t cross a cable on its own.</b> The pitch-wheel return, at 0.03 N·m/rad, is “${usb}” over USB and “${audio}” as an audio line: with no hand on the knob, the motor’s own damping (0.0001 N·m·s/rad) can’t soak up even 4 ms of lateness. Choose <b>damping kept on the device</b> and it crosses.`;
+    `<b>But on a knob with no friction, the softest feel on the page doesn’t cross a cable on its own.</b> The pitch-wheel return, at 0.03 N·m/rad, is “${usb}” over USB and “${audio}” as an audio line: with no hand on the knob, the motor’s own damping (0.0001 N·m·s/rad) can’t soak up even 4 ms of lateness. Choose <b>damping kept on the device</b> and it crosses.`;
   else say += `With ${St.damp === 'rescue' ? 'the device adding 0.002 N·m·s/rad of its own' : 'the motor’s own brake on (its lowest guess)'}, the soft feels cross: the pitch-wheel return is “${usb}” over USB and “${audio}” as an audio line. Soft feels can cross a cable when the damping stays local.`;
   v.innerHTML = say; v.style.display = '';
 }

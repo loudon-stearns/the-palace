@@ -4,8 +4,9 @@
   born: 2026-11-03
   links: [[Haptic Handwheel]] (connects-to · rich-face-piece) · [[Simondon]] (exemplifies · one part doing several jobs) · [[Progressive Staging]] (exemplifies · a walk in four steps) · listed in [[Haptic Handwheel — rich.json]]
   forward_vector: I am the section's Simondon claim as a test you can play. A knob that only turns, then a
-    light beside it, then one motor that senses and pushes, and last the test: land a named note three ways
-    and see where the news had to come from. A screen can't push back, so I say what I can test (where the
+    light beside it, then one motor that senses and pushes, and last the test: land a named note four ways,
+    a snap-to-note knob among them as the control, and score finding the note apart from landing in tune,
+    so what's left is where the news had to come from. A screen can't push back, so I say what I can test (where the
     news lives) and what I can't (whether a hand feels it). I play inside the entry's rich face and stand
     alone opened directly; I change only when the section I serve does.
   engine: the steward's feel engine (Projects/Haptic Handwheel/proofs/feel-lab/feel_engine.js), inlined
@@ -82,7 +83,7 @@
 <div class="hhw-piece">
   <div class="hhw-kicker"><svg id="sigil" viewBox="0 0 18 18" aria-hidden="true"></svg><span>made · canvas + web audio · sketch · a walk in four steps</span></div>
   <h3 class="hhw-title">Two parts or one</h3>
-  <p class="hhw-sub">A knob with a light beside it is two parts: one to move, one to read. The handwheel's motor is one part that does both, and pushes back besides. This walk builds the two-part knob first, then the one-part knob, and ends on a test: land a named note three ways. It runs the steward's feel engine, the same code as the feel lab. Drag the knob around its centre. Sound starts only when you press <b>sound</b>.</p>
+  <p class="hhw-sub">A knob with a light beside it is two parts: one to move, one to read. The handwheel's motor is one part that does both, and pushes back besides. This walk builds the two-part knob first, then the one-part knob, and ends on a test: land a named note four ways, one of them a control that lands in tune without a motor. It runs the steward's feel engine, the same code as the feel lab. Drag the knob around its centre. Sound starts only when you press <b>sound</b>.</p>
 
   <div class="hhw-rail" id="rail" role="group" aria-label="steps"></div>
   <div class="hhw-step">
@@ -347,6 +348,9 @@ function motorKnob() {
   const e = makeEngine({ basePitch: HHW.basePitch, semisPerTurn: HHW.semisPerTurn, stick: true, cog: 1, cogLeft: 0.08 });
   e.setFeel(FEELS.frets({ kick: 0.006 })); return e;
 }
+// The snap knob, the control: the same plain knob, but the synth rounds its pitch to the nearest note
+// once you let go. In tune by a quantizer, with no motor, no push and nothing to feel on the way.
+const snapPitch = (e) => Math.round(e.pitch());
 // cents from a target pitch (MIDI number)
 const centsOff = (e, target) => (e.pitch() - target) * 100;
 // has the knob come to rest? (hand off, slow for a while)
@@ -366,6 +370,7 @@ function el(tag, attrs, ...kids) { const n = document.createElement(tag); for (c
 
 // ── state ──
 const St = { step: 1, mode: 'plain', eng: plainKnob(), drag: null, light: false, touchT: 0, released: 0, sound: false, test: null };
+// 'snap' is the plain knob; only its played pitch differs
 function setMode(mode) { const th = St.eng.s.th; St.mode = mode; St.eng = mode === 'motor' ? motorKnob() : plainKnob(); St.eng.s.th = th; St.eng.s.lastSensedTh = th; St.eng.s.sensedTh = th; }
 
 // ── sound: one voice that follows the knob's pitch, gated by touch and motion ──
@@ -467,8 +472,11 @@ function drawLamp() {
 const WAYS = [
   { id: 'plain', name: 'the knob alone', mode: 'plain', light: false, eyes: 'on the knob, ears on the pitch', parts: 'one part, no news but the sound' },
   { id: 'light', name: 'the knob and its light', mode: 'plain', light: true, eyes: 'on the light', parts: 'two parts: one moves, one tells' },
+  { id: 'snap', name: 'the snap knob, light covered', mode: 'snap', light: false, eyes: 'on the knob', parts: 'the control: in tune by a quantizer, no motor, nothing on the way' },
   { id: 'motor', name: 'the motor, light covered', mode: 'motor', light: false, eyes: 'on the knob', parts: 'one part: it moves, senses and tells' },
 ];
+// the pitch the synth plays: the snap knob rounds it once the hand lets go
+const played = () => (St.mode === 'snap' && !St.drag) ? snapPitch(St.eng) : St.eng.pitch();
 const PER_WAY = 3;
 function newTest() {
   const plan = []; const pool = [2, 3, 4, 5, 7, 9, 10, 12];
@@ -489,10 +497,10 @@ function testTick(dtSec) {
   const T = St.test; if (!T || T.phase !== 'settling') return;
   T.still = Math.abs(St.eng.s.om) < 0.01 ? T.still + dtSec : 0;
   if (T.still > 0.25 || performance.now() - T.relT > 2500) {
-    const tr = trial(), target = HHW.basePitch + tr.iv, c = centsOff(St.eng, target);
-    T.results.push({ way: tr.way, iv: tr.iv, cents: c, secs: (T.relT - T.grabT) / 1000 });
-    const cc = Math.abs(c).toFixed(0);
-    T.lastMsg = `landed ${Math.abs(c) < 0.5 ? 'right on it' : cc + (cc === '1' ? ' cent ' : ' cents ') + (c > 0 ? 'sharp' : 'flat')}${Math.abs(c) >= 50 ? ' (' + noteName(St.eng.pitch()) + ', the wrong note)' : ''} · ${((T.relT - T.grabT) / 1000).toFixed(1)} s`;
+    const tr = trial(), target = HHW.basePitch + tr.iv, p = played(), near = Math.round(p), c = (p - near) * 100, right = near === target;
+    T.results.push({ way: tr.way, iv: tr.iv, right, cents: c, secs: (T.relT - T.grabT) / 1000 });
+    const cc = Math.abs(c).toFixed(0), off = Math.abs(c) < 0.5 ? 'right in tune' : cc + (cc === '1' ? ' cent ' : ' cents ') + (c > 0 ? 'sharp' : 'flat');
+    T.lastMsg = (right ? 'the right note, ' : `the wrong note (${noteName(near)}, ${Math.abs(near - target)} ${near > target ? 'above' : 'below'}), `) + off + ` · ${((T.relT - T.grabT) / 1000).toFixed(1)} s`;
     T.phase = 'scored'; T.i++;
     if (T.i >= T.plan.length) { T.phase = 'done'; renderTrial(); renderResults(); return; }
     setTimeout(() => { if (St.test === T && St.step === 4) startTrial(); }, 900);
@@ -501,25 +509,25 @@ function testTick(dtSec) {
 }
 function median(a) { if (!a.length) return NaN; const s = a.slice().sort((x, y) => x - y), m = s.length >> 1; return s.length % 2 ? s[m] : (s[m - 1] + s[m]) / 2; }
 function summary(results) {
-  return WAYS.map(w => { const r = results.filter(x => x.way === w.id); return { w, n: r.length, med: median(r.map(x => Math.abs(x.cents))), inTune: r.filter(x => Math.abs(x.cents) <= 10).length, secs: median(r.map(x => x.secs)) }; });
+  return WAYS.map(w => { const r = results.filter(x => x.way === w.id); return { w, n: r.length, right: r.filter(x => x.right).length, med: median(r.map(x => Math.abs(x.cents))), secs: median(r.map(x => x.secs)) }; });
 }
 function renderTrial() {
   const T = St.test, box = $('trialbox'); if (!box) return;
-  if (T.phase === 'done') { box.innerHTML = '<div class="hhw-trial">All nine landed. The table below is yours.</div><div class="hhw-last">' + T.lastMsg + '</div>'; return; }
+  if (T.phase === 'done') { box.innerHTML = '<div class="hhw-trial">All twelve landed. The table below is yours.</div><div class="hhw-last">' + T.lastMsg + '</div>'; return; }
   const tr = trial(), w = wayOf(tr.way), k = T.plan.filter((p, j) => j < T.i && p.way === tr.way).length + 1, target = HHW.basePitch + tr.iv;
   box.innerHTML = `<div class="hhw-trial">${w.name} · try ${k} of ${PER_WAY}<br>Start on A. Land on <b>${noteName(target)}</b>, up ${INTERVALS[tr.iv]} (${tr.iv} semitones), then let go.</div><div class="hhw-last">${T.lastMsg || '&nbsp;'}</div>`;
 }
 function renderResults() {
   const S = summary(St.test.results), done = St.test.phase === 'done';
-  const rows = S.map(s => `<tr><td><b>${s.w.name}</b><br>${s.w.parts}</td><td>${s.n ? s.inTune + ' of ' + s.n : '—'}</td><td>${s.n ? s.med.toFixed(0) + ' ¢' : '—'}</td><td>${s.n ? s.secs.toFixed(1) + ' s' : '—'}</td><td>${s.w.eyes}</td></tr>`).join('');
-  $('results').innerHTML = `<table><tr><th>way</th><th>landed within 10 ¢</th><th>median miss</th><th>median time</th><th>your eyes were</th></tr>${rows}</table>`;
+  const rows = S.map(s => `<tr><td><b>${s.w.name}</b><br>${s.w.parts}</td><td>${s.n ? s.right + ' of ' + s.n : '—'}</td><td>${s.n ? s.med.toFixed(0) + ' ¢' : '—'}</td><td>${s.n ? s.secs.toFixed(1) + ' s' : '—'}</td><td>${s.w.eyes}</td></tr>`).join('');
+  $('results').innerHTML = `<table><tr><th>way</th><th>found the right note</th><th>cents off the note it landed on</th><th>median time</th><th>your eyes were</th></tr>${rows}</table>`;
   const v = $('verdict');
   if (!done) { v.style.display = 'none'; return; }
-  const [a, b, c] = S;
-  let say;
-  if (c.inTune >= b.inTune && c.inTune > a.inTune) say = `<b>The one part carried the news.</b> With the light covered, the motor landed ${c.inTune} of ${c.n} in tune (median miss ${c.med.toFixed(0)} ¢), against ${b.inTune} of ${b.n} for the knob read by its light and ${a.inTune} of ${a.n} for the knob alone. What told you where the note was came back through the part you were already moving, not through a second part beside it.`;
-  else if (c.inTune < b.inTune) say = `<b>The light did better this time.</b> The knob read by its light landed ${b.inTune} of ${b.n} in tune; the motor with the light covered landed ${c.inTune} of ${c.n}. When the motor misses, it misses by whole notes (it can only rest in tune), so a miss there is a wrong count of notches, not a sour landing. Try again counting the notches as they pass.`;
-  else say = `<b>No difference here.</b> The motor landed ${c.inTune} of ${c.n} in tune, the knob with its light ${b.inTune} of ${b.n}, the knob alone ${a.inTune} of ${a.n}.`;
+  const [a, b, sn, m] = S;
+  let say = `<b>Read the first column.</b> The second is mostly not yours: the motor lands in tune by its detent and the snap knob by its quantizer, wherever you let go, so their cents say little about where the news came from. `;
+  if (m.right > sn.right) say += `With the light covered, you found the right note ${m.right} of ${m.n} times with the motor and ${sn.right} of ${sn.n} with the snap knob (the light: ${b.right} of ${b.n}; the knob alone: ${a.right} of ${a.n}). Both land in tune once the note is right; what differs is finding it. The motor’s knob held at each note as you turned, so you could count them where your hand already was. That is the news coming back through the part already moving, as far as a screen can show it.`;
+  else if (m.right === sn.right) say += `With the light covered, the motor and the snap knob found the right note equally often (${m.right} of ${m.n}; the light: ${b.right} of ${b.n}; the knob alone: ${a.right} of ${a.n}). Here the notches added nothing a quantizer didn’t: whatever told you the note came from the sound or the angle, not the motor. Try again counting the notches as they pass.`;
+  else say += `The snap knob found the right note more often than the motor (${sn.right} of ${sn.n} against ${m.right} of ${m.n}; the light: ${b.right} of ${b.n}). The motor’s notches didn’t help you count this time; a miss there is a wrong count, not a sour landing.`;
   v.innerHTML = say; v.style.display = '';
 }
 
@@ -535,8 +543,8 @@ const STEPS = [
     says: 'Cover the light and give the knob its motor. The motor reads the knob’s angle (the encoder behind it) and pushes it toward the nearest in-tune note: the feel lab’s frets, 24 a turn. Drag slowly and the knob holds at each note, then jumps to the next. The amber band from the knob’s dimple is the stretch between your fingertip and the knob (drawn four times longer than it is): the push your fingertip would feel. It thickens with the force. Let go anywhere: it lands in tune by itself. <b>One part, three jobs: it moves, it senses, it tells.</b>',
     honest: '' },
   { n: 4, name: 'the test: land the note', mode: 'plain', light: false,
-    says: 'Nine tries, three each way, in order: the knob alone, the knob with its light, the motor with the light covered. Each starts on A and names a note to land on. <b>hear it</b> plays the target if you want it. The table fills as you go.',
-    honest: '<b>What this can test, and what it can’t.</b> A screen can’t push back. Here the motor’s push reaches you through your eyes and ears: the knob holding at each note, the band stretching, the pitch. So this tests where the news lives, in a second part or in the part already moving, and whether the motor, with the steward’s numbers, lands a released knob in tune. It can’t test whether a hand feels 30 mN·m through a light cap, or whether the notches can be counted by touch without looking. That is the touch gate, and only a hand on the built knob can pass it.' },
+    says: 'Twelve tries, three each way, in order: the knob alone, the knob with its light, the snap knob, the motor. The last two have the light covered. The <b>snap knob</b> is the control: the same plain knob, but the synth rounds its pitch to the nearest note when you let go, so it always lands in tune, with no motor and nothing to feel on the way. Each try starts on A and names a note. <b>hear it</b> plays the target if you want it. The table scores two things apart: whether you found the right note, and how far off that note it landed.',
+    honest: '<b>What this can test, and what it can’t.</b> A screen can’t push back. Here the motor’s push reaches you through your eyes and ears: the knob holding at each note, the band stretching, the pitch. So the snap knob is here to take the landing out of the test: both it and the motor land in tune by correction. What’s left is finding the note, by a light, by ear, or by notches in the knob itself. That is where the news lives, and it’s all a screen can show of it. It can’t test whether a hand feels 30 mN·m through a light cap, or whether the notches can be counted by touch without looking. That is the touch gate, and only a hand on the built knob can pass it.' },
 ];
 function renderSide() {
   const side = $('side'); side.innerHTML = '';
@@ -547,7 +555,7 @@ function renderSide() {
     side.append(el('div', { class: 'hhw-panel' }, el('div', { class: 'hhw-plabel', html: '<span>this try</span><span></span>' }), el('div', { id: 'trialbox' })));
     side.append(el('div', { class: 'hhw-panel' }, el('div', { class: 'hhw-plabel', html: '<span>so far</span><span>yours</span>' }), el('div', { id: 'results' })));
   }
-  $('wheellabel').textContent = St.mode === 'motor' ? 'the knob, with its motor' : 'the knob, no motor';
+  $('wheellabel').textContent = St.mode === 'motor' ? 'the knob, with its motor' : St.mode === 'snap' ? 'the snap knob, no motor' : 'the knob, no motor';
 }
 function build() {
   const s = STEPS[St.step - 1];
@@ -585,7 +593,7 @@ function frame(now) {
   for (let i = 0; i < n; i++) e.step();
   testTick(dt);
   const moving = !!St.drag || Math.abs(e.s.om) > 0.05 || now - St.released < 900;
-  voice(e.pitch(), moving);
+  voice(played(), moving);
   drawWheel(); if (St.light) drawLamp();
   const push = Math.abs(St.drag ? e.s.tauHand : 0) * 1000;
   $('wheelstate').textContent = St.drag ? 'held' : (Math.abs(e.s.om) > 0.01 ? 'turning' : 'at rest');

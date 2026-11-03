@@ -337,7 +337,8 @@ const FEELS = {
 
 /* SETUP:START — what this piece builds from the engine. Shared with the headless check. */
 const STRUCK = { semisPerTurn: 6, basePitch: 57, finger: 0.004, maxPull: 2.3 };   // the struck renders' mapping and finger
-// maxPull: the firmware clamps torque at 0.2 N·m, which the 0.085 spring reaches at 2.35 rad. Past it the spring is clipped and is no longer a spring.
+// maxPull: the firmware clamps torque at 0.2 N·m, which binds the 0.085 spring at 2.353 rad. Past it the spring is clipped
+// and its first swings run slow, so 2.3 stays inside. The pendulum's push never passes 0.085 N·m: the clamp never touches it.
 // ideal = no dry friction and a perfect encoder; otherwise the pretend motor: sticking friction, 14-bit encoder
 function struckKnob(law, ideal, bMotor) {
   const e = makeEngine(Object.assign({ semisPerTurn: STRUCK.semisPerTurn, basePitch: STRUCK.basePitch, stick: !ideal },
@@ -359,8 +360,9 @@ function strike(law, pull, ideal, seconds) {
   for (let i = 0; i < n; i++) { e.step(); m.feed(e); }
   return m.dots;
 }
-// trimEnd: on the pretend motor the last two half swings are where sticking friction catches the knob;
-// they are set aside from first → last and reported on their own as the end dip.
+// trimEnd: on the pretend motor, dry friction moves the point the knob rings about by τC/k = 0.035 rad. The meter
+// times crossings of θ = 0, which land late as the swing shrinks toward that offset, so the last two half swings
+// read slow though each still takes half a period. They are set aside from first → last and reported as the end dip.
 function rateSummary(dots, trimEnd) {
   const core = dots.slice(0, Math.max(0, dots.length - (trimEnd || 0)));
   if (core.length < 2) return null;
@@ -467,7 +469,7 @@ function drawRate() {
 // ── the steps ──
 const STEPS = [
   { n: 1, name: 'a spring, struck', laws: ['spring'], ideal: true,
-    says: 'One knob, one virtual spring: the further you turn it from rest, the harder it pushes back, in proportion. No friction yet. Press <b>strike</b> (it pulls the knob to 2.3 radians, as far as the motor’s 0.2 N·m torque cap lets this spring go, and lets go) or pull it yourself and let go. The dots below count each half swing. <b>Listen to the wobble’s rate as it dies away.</b>' },
+    says: 'One knob, one virtual spring: the further you turn it from rest, the harder it pushes back, in proportion. No friction yet. Press <b>strike</b> (it pulls the knob to 2.3 radians and lets go: the motor’s 0.2 N·m torque clamp would bind this spring at 2.353 radians, so 2.3 stays inside it, and the clamp never touches the pendulum) or pull it yourself and let go. The dots below count each half swing. <b>Listen to the wobble’s rate as it dies away.</b>' },
   { n: 2, name: 'a pendulum, struck the same', laws: ['pendulum'], ideal: true,
     says: 'Same knob, same stiffness near rest, but the push now follows a pendulum’s law: it grows with the swing at first and then falls off, the way gravity pulls less on a pendulum swung high. Strike it the same. <b>The first swings are slow, and the rate climbs as it settles.</b>' },
   { n: 3, name: 'a finger on it', laws: ['spring'], ideal: false,
@@ -529,7 +531,7 @@ function verdict() {
   }
   const pct = (x) => (x >= 0 ? '+' : '−') + Math.abs(x * 100).toFixed(1) + '%';
   let say = `<b>From a ${St.pull.toFixed(1)} rad pull${St.ideal ? ', ideal knob' : ', pretend motor'}:</b> the spring went ${sp.first.toFixed(2)} → ${sp.last.toFixed(2)} Hz (${pct(sp.change)}) over ${sp.halves} half swings; the pendulum went ${pe.first.toFixed(2)} → ${pe.last.toFixed(2)} Hz (${pct(pe.change)}) over ${pe.halves}. ` +
-    (trim ? `The last two half swings of each are set aside, where sticking friction catches the knob and slows it (spring ${pct(sp.endDip)}, pendulum ${pct(pe.endDip)} at the very end). ` : '');
+    (trim ? `The last two half swings of each are set aside. There the spring isn’t slowing: dry friction has moved the point it rings about by 0.035 rad, and the meter, timing crossings of the old rest point, reads them late (spring ${pct(sp.endDip)}, pendulum ${pct(pe.endDip)} at the very end). With friction off the spring holds 5.89 Hz to its last swing. ` : '');
   if (Math.abs(sp.change) < 0.03 && pe.change > 0.05) say += 'The page’s claim holds here: one rate for the spring, a quickening for the pendulum.';
   else if (Math.abs(sp.change) < 0.03 && pe.change <= 0.05) say += 'At this pull the two are hard to tell apart: the pendulum quickens only after a big swing.';
   else say += 'The spring’s rate moved by more than 3% here: look at the last dots, where friction stops the knob.';
@@ -545,7 +547,7 @@ function frame(now) {
   drawWheel(); drawTrace(); drawRate(); verdict();
   const k0 = St.knobs[0]; $('wheelstate').textContent = St.drag ? 'held' : Math.abs(k0.e.s.om) > 0.01 ? 'wobbling' : 'at rest';
   const trimR = St.ideal ? 0 : 2;
-  $('read').innerHTML = St.knobs.map(k => { const r = rateSummary(k.m.dots, trimR); return `<span class="${k.law === 'spring' ? 's' : 'p'}">${k.law}</span><span>half swings <b>${k.m.dots.length}</b></span><span>rate <b>${r ? r.first.toFixed(2) + ' → ' + r.last.toFixed(2) + ' Hz' : '—'}</b></span>` + (r && trimR ? `<span>as friction stops it <b>${(r.endDip * 100).toFixed(0)}%</b></span>` : ''); }).join('<span>·</span>') + (St.step === 3 ? `<span>finger <b>${St.knobs[0].e.s.brake ? 'on' : 'off'}</b></span>` : '');
+  $('read').innerHTML = St.knobs.map(k => { const r = rateSummary(k.m.dots, trimR); return `<span class="${k.law === 'spring' ? 's' : 'p'}">${k.law}</span><span>half swings <b>${k.m.dots.length}</b></span><span>rate <b>${r ? r.first.toFixed(2) + ' → ' + r.last.toFixed(2) + ' Hz' : '—'}</b></span>` + (r && trimR ? `<span>last swings, read late by the meter <b>${(r.endDip * 100).toFixed(0)}%</b></span>` : ''); }).join('<span>·</span>') + (St.step === 3 ? `<span>finger <b>${St.knobs[0].e.s.brake ? 'on' : 'off'}</b></span>` : '');
   requestAnimationFrame(frame);
 }
 sizeAll(); window.addEventListener('resize', sizeAll);
