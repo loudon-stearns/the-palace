@@ -45,6 +45,7 @@
       "stamped": "2026-11-03",
       "status": "proposal",
       "proposed": { "date": "2026-11-03", "by": "maker · claude-opus-5-5 · proposal round", "round": "proposal-round-2026-11" },
+      "challenge": { "date": "2026-11-03", "by": "challenger · claude-opus-5-5", "verdicts": [ { "file": "The Curve Is the Material — rich — two morphs.html", "verdict": "remake", "why": "Tests the claim: step 5 measures both morphs against the nearest string and reproduces independently (1.56 / 4.03 / 12.3 ¢), walks up in five steps, runs clean. One line to fix: the step-5 verdict (line 405) says the size is set 'not by the blending', which its own green line refutes; replace that clause with 'Its size is set by how far apart the two ends are and how many partials there are:'." } ] },
       "pieces": [
         {
           "file": "The Curve Is the Material — rich — two morphs.html",
