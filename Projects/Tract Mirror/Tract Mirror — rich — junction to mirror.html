@@ -1,0 +1,704 @@
+<!doctype html>
+<!--
+  title: Tract Mirror — rich — junction to mirror
+  born: 2026-11-03
+  links: [[Tract Mirror]] connects-to · rich-face-piece-of · [[Progressive Staging]] exemplifies · a walk up to its test · [[Linear Predictive Coding]] connects-to · the analysis end
+  forward_vector: I am the opening claim of Tract Mirror as a walk of five steps: one joint between two tubes,
+    a straight tube that rings, a shaped tube that says a vowel, a morph, and then the mirror run backward,
+    where Levinson-Durbin reads the tube back out of its own sound. Every step plays; the last one is the test,
+    and it says plainly where the mirror is exact and what it assumes. I read the tubes from vowels.json,
+    the page's single source of truth; a frame that can't fetch it (an opaque one) falls back to the copy
+    I carry, which my checks hold identical to the file.
+  dress: Loudon Live house style, Graphite skin, tokens inlined. Equations twice, symbols and words.
+  engine: the tube loop is reference/kl_reference.py's KellyLochbaumTract.step, line for line (glottis
+    +0.97, lips -0.9, junction loss 0.996, radiation lowpass 0.75 on the audio path, 0 on the analysis path).
+    Levinson-Durbin is the reference's levinson_durbin. The audio adds a slow level follower so every shape
+    plays at one loudness; that follower is this piece's, not the plugin's.
+  checks: Tract Mirror — proof — junction to mirror checks.mjs, beside this file, pulls the script marked
+    id="tm-engine" and the WORKLET string out of this file and re-runs every step's claim in Node.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:files" content="reference/vowels.json">
+<title>Tract Mirror — one joint, then the mirror</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Manrope:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root { --bg:#0a0a0f; --e1:#12121a; --e2:#1a1a28; --ring:#22222e; --border:#4a4a5e; --soft:rgba(255,255,255,.06);
+    --fg1:#e8e8f0; --fg2:#c8c8d8; --fg3:#8a8aa0; --fg4:#4a4a5a; --amber:#e8b84a; --amberline:rgba(232,184,74,.5);
+    --amberdim:#7a6030; --cyan:#6aa8e8; --cyanline:rgba(106,168,232,.55);
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --sans:'Manrope',system-ui,sans-serif; --serif:'Cormorant Garamond',Georgia,serif;
+    --ease:cubic-bezier(.4,0,.2,1); }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); font-weight: 300; }
+  .tm-piece { padding: 22px 22px 16px; max-width: 1100px; }
+  .tm-kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; }
+  .tm-title { font-family: var(--serif); font-size: 28px; font-weight: 300; color: var(--fg1); margin: 0 0 6px; }
+  .tm-sub { font-size: 14px; line-height: 1.6; max-width: 76ch; margin: 0 0 16px; }
+  .tm-rail { display: flex; flex-wrap: wrap; gap: 0; margin-bottom: 14px; border: 1px solid var(--border); width: fit-content; max-width: 100%; border-radius: 2px; }
+  .tm-rail button { border: 0; border-right: 1px solid var(--border); border-radius: 0; }
+  .tm-rail button:last-child { border-right: 0; }
+  button { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--fg2); background: var(--bg);
+    border: 1px solid var(--border); border-radius: 2px; padding: 8px 12px; cursor: pointer; transition: color 220ms var(--ease), border-color 220ms var(--ease); }
+  button:hover { border-color: rgba(232,184,74,.55); color: var(--fg1); }
+  button[aria-pressed="true"] { color: var(--amber); border-color: var(--amberline); background: rgba(232,184,74,.08); }
+  .tm-rail button[aria-pressed="true"] { border-right: 1px solid var(--border); }
+  button.tm-go { color: var(--amber); border-color: var(--amberline); min-width: 120px; }
+  button.tm-go.tm-on { box-shadow: 0 0 14px rgba(232,184,74,.22); }
+  button.tm-cy[aria-pressed="true"] { color: var(--cyan); border-color: var(--cyanline); background: rgba(106,168,232,.08); }
+  button:focus-visible, input:focus-visible { outline: 1px dashed var(--amber); outline-offset: 2px; }
+  .tm-step { display: none; border: 1px solid var(--soft); background: var(--e1); border-radius: 2px; padding: 16px 16px 14px; }
+  .tm-step.tm-shown { display: block; }
+  .tm-step h2 { font-family: var(--serif); font-weight: 400; font-size: 23px; color: var(--fg1); margin: 0 0 4px; }
+  .tm-idea { font-size: 14.5px; line-height: 1.6; color: var(--fg1); max-width: 78ch; margin: 0 0 12px; }
+  .tm-p { font-size: 13.5px; line-height: 1.6; max-width: 78ch; margin: 8px 0; }
+  .tm-label { font-family: var(--mono); font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--fg3); margin: 10px 0 6px; display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+  canvas { display: block; width: 100%; background: var(--bg); border: 1px solid var(--soft); border-radius: 2px; }
+  .tm-row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 10px 0; }
+  .tm-row label { font-family: var(--mono); font-size: 11px; color: var(--fg3); letter-spacing: .08em; }
+  input[type=range] { accent-color: var(--amber); flex: 1; min-width: 160px; max-width: 420px; }
+  .tm-val { font-family: var(--mono); font-size: 12px; color: var(--fg1); min-width: 9ch; font-variant-numeric: tabular-nums; }
+  .tm-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 8px; margin: 10px 0; }
+  .tm-cell { border: 1px solid var(--soft); background: var(--bg); border-radius: 2px; padding: 8px 10px; }
+  .tm-cell .tm-k { font-family: var(--mono); font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--fg3); }
+  .tm-cell .tm-v { font-family: var(--mono); font-size: 17px; color: var(--fg1); font-variant-numeric: tabular-nums; margin-top: 2px; }
+  .tm-cell.tm-a .tm-v { color: var(--amber); } .tm-cell.tm-c .tm-v { color: var(--cyan); }
+  .tm-eq { border-left: 2px solid var(--amberline); padding: 6px 12px; margin: 12px 0; }
+  .tm-eq .tm-sym { font-family: var(--mono); font-size: 15px; color: var(--fg1); }
+  .tm-eq .tm-words { font-family: var(--serif); font-style: italic; font-size: 16px; color: var(--fg2); margin-top: 2px; }
+  .tm-test { font-size: 14px; line-height: 1.6; color: var(--fg1); border: 1px solid var(--soft); background: var(--e2); padding: 10px 12px; border-radius: 2px; max-width: 86ch; margin: 12px 0 4px; }
+  .tm-test b { color: var(--amber); font-weight: 500; }
+  .tm-note { font-family: var(--mono); font-size: 11px; color: var(--fg3); line-height: 1.6; margin: 6px 0 0; }
+  table.tm-t { border-collapse: collapse; font-family: var(--mono); font-size: 12px; margin: 10px 0; }
+  table.tm-t th, table.tm-t td { border: 1px solid var(--soft); padding: 4px 10px; text-align: right; font-variant-numeric: tabular-nums; }
+  table.tm-t th { color: var(--fg3); font-weight: 400; letter-spacing: .08em; }
+  table.tm-t td:first-child, table.tm-t th:first-child { text-align: left; }
+  .tm-nav { display: flex; justify-content: space-between; margin-top: 12px; }
+  .tm-foot { display: flex; align-items: center; gap: 8px; margin-top: 16px; font-family: var(--mono); font-size: 11px; letter-spacing: .14em; color: var(--fg3); }
+  .tm-foot i { color: var(--amber); font-weight: 300; }
+  a { color: var(--cyan); }
+  .tm-err { color: #ff9b4a; font-family: var(--mono); font-size: 12px; }
+  .tm-legend { font-family: var(--mono); font-size: 11px; color: var(--fg3); }
+  .tm-legend .tm-sw { display: inline-block; width: 18px; height: 3px; vertical-align: middle; margin: 0 4px 0 10px; }
+</style>
+</head>
+<body>
+<main class="tm-piece">
+  <div class="tm-kicker">Tract Mirror · from one joint to the mirror</div>
+  <h1 class="tm-title">One joint, then the whole mirror</h1>
+  <p class="tm-sub">The page says the tubes on screen are the filter, not a picture of it. Five steps build that up: one joint between two tubes, a straight tube that rings, a shaped tube that says a vowel, a morph between shapes, and then the test, the machine run backward, from the sound to the tube. Each step plays. You can jump to any of them.</p>
+  <div id="tm-load" class="tm-err" hidden></div>
+
+  <nav class="tm-rail" aria-label="steps">
+    <button data-go="1" aria-pressed="true">1 · one joint</button>
+    <button data-go="2" aria-pressed="false">2 · a straight tube</button>
+    <button data-go="3" aria-pressed="false">3 · a vowel</button>
+    <button data-go="4" aria-pressed="false">4 · the morph</button>
+    <button data-go="5" aria-pressed="false">5 · the mirror</button>
+  </nav>
+
+  <!-- ───────────── STEP 1 ───────────── -->
+  <section class="tm-step tm-shown" data-step="1">
+    <h2>1 · One joint</h2>
+    <p class="tm-idea">Where a tube changes width, part of a wave turns back. How much turns back is set by the two areas and nothing else: that number is the joint's reflection, <i>k</i>.</p>
+    <canvas id="c1" height="220"></canvas>
+    <div class="tm-row">
+      <label for="s1">area after the joint</label>
+      <input id="s1" type="range" min="-2" max="2" step="0.01" value="-0.30">
+      <span class="tm-val" id="s1v"></span>
+    </div>
+    <div class="tm-row">
+      <button data-a2="0.04">almost closed</button>
+      <button data-a2="2">half the area</button>
+      <button data-a2="4">no change</button>
+      <button data-a2="8">twice the area</button>
+      <button data-a2="400">wide open</button>
+      <button id="pulse1">send a pulse</button>
+      <button class="tm-go" id="play1">click, hear it come back</button>
+    </div>
+    <div class="tm-grid">
+      <div class="tm-cell tm-a"><div class="tm-k">k</div><div class="tm-v" id="r1k"></div></div>
+      <div class="tm-cell"><div class="tm-k">pressure turned back</div><div class="tm-v" id="r1pb"></div></div>
+      <div class="tm-cell"><div class="tm-k">pressure carried on</div><div class="tm-v" id="r1pf"></div></div>
+      <div class="tm-cell"><div class="tm-k">power turned back</div><div class="tm-v" id="r1eb"></div></div>
+      <div class="tm-cell"><div class="tm-k">power carried on</div><div class="tm-v" id="r1ef"></div></div>
+      <div class="tm-cell tm-a"><div class="tm-k">power, all of it</div><div class="tm-v" id="r1es"></div></div>
+    </div>
+    <div class="tm-eq"><div class="tm-sym">k = (A₁ − A₂) ⁄ (A₁ + A₂)</div>
+      <div class="tm-words">(how much of the wave turns back) = (area before − area after) ÷ (area before + area after)</div></div>
+    <div class="tm-eq"><div class="tm-sym">k² + (1 + k)² · A₂ ⁄ A₁ = 1</div>
+      <div class="tm-words">(share of the power turned back) + (share carried on, in the new tube) = all of it</div></div>
+    <p class="tm-test" id="t1"></p>
+    <p class="tm-note">The area before the joint is fixed at 4 cm². The tubes are drawn with their widths squeezed so that 0.04 and 400 cm² both fit; the numbers are not squeezed. In the sound, the click goes in at once and the echo comes back 0.4 s later, slowed down so you can hear it apart: its loudness is |k|, and a widening joint sends it back upside down.</p>
+  </section>
+
+  <!-- ───────────── STEP 2 ───────────── -->
+  <section class="tm-step" data-step="2">
+    <h2>2 · A straight tube, closed at one end</h2>
+    <p class="tm-idea">Line up 22 equal sections. Inside, every joint has k = 0 and nothing turns back. Only the ends reflect: the nearly closed glottis sends the wave back the right way up (+0.97), the open lips send it back upside down (−0.90). Between them the tube rings at its own notes.</p>
+    <div class="tm-label"><span>the tube · glottis left, lips right</span><span id="l2"></span></div>
+    <canvas id="c2t" height="120"></canvas>
+    <div class="tm-label"><span>what the tube does to every frequency · 0 to 4 kHz</span><span class="tm-legend"><span class="tm-sw" style="background:var(--amber)"></span>the tube<span class="tm-sw" style="background:var(--cyan)"></span>quarter-wave notes</span></div>
+    <canvas id="c2s" height="170"></canvas>
+    <div class="tm-row">
+      <button class="tm-go" id="play2">play the tube</button>
+      <button id="src2" aria-pressed="false">the buzz alone</button>
+      <label for="f2">pitch</label><input id="f2" type="range" min="70" max="260" step="1" value="110"><span class="tm-val" id="f2v"></span>
+    </div>
+    <div class="tm-eq"><div class="tm-sym">Fₙ = (2n − 1) · c ⁄ 4L</div>
+      <div class="tm-words">(the tube's nth note) = (an odd number: 1, 3, 5 …) × (the speed of sound) ÷ (four times the tube's length)</div></div>
+    <p class="tm-test" id="t2"></p>
+    <p class="tm-note" id="n2"></p>
+  </section>
+
+  <!-- ───────────── STEP 3 ───────────── -->
+  <section class="tm-step" data-step="3">
+    <h2>3 · Shape the tube, and it says a vowel</h2>
+    <p class="tm-idea">Now narrow it in places. Every joint gets a k of its own from the two areas beside it, the same rule as step 1, 21 times. The notes move, and the moved notes are the vowel.</p>
+    <div class="tm-row" id="v3"></div>
+    <div class="tm-label"><span>the tube, and every joint's k beneath it</span><span id="l3"></span></div>
+    <canvas id="c3t" height="230"></canvas>
+    <div class="tm-label"><span>the tube's response · 0 to 4 kHz</span><span class="tm-legend"><span class="tm-sw" style="background:var(--amber)"></span>the tube<span class="tm-sw" style="background:var(--cyan)"></span>Peterson–Barney targets</span></div>
+    <canvas id="c3s" height="170"></canvas>
+    <table class="tm-t" id="tab3"></table>
+    <div class="tm-row"><button class="tm-go" id="play3">sing it</button></div>
+    <div class="tm-eq"><div class="tm-sym">kᵢ = (Aᵢ − Aᵢ₊₁) ⁄ (Aᵢ + Aᵢ₊₁)</div>
+      <div class="tm-words">(joint i's reflection) = (area of the section before it − area of the one after) ÷ (the two areas added)</div></div>
+    <p class="tm-test" id="t3"></p>
+  </section>
+
+  <!-- ───────────── STEP 4 ───────────── -->
+  <section class="tm-step" data-step="4">
+    <h2>4 · The morph</h2>
+    <p class="tm-idea">Move from one vowel to the next by blending the shapes, not the numbers: the areas mix, and then every k is worked out again from the blended tube. Watch the notes travel through vowel space as the tube changes.</p>
+    <div class="tm-row">
+      <label for="s4">/a/ → /i/ → /u/</label>
+      <input id="s4" type="range" min="0" max="2" step="0.005" value="0">
+      <span class="tm-val" id="s4v"></span>
+      <button id="glide4">glide through</button>
+      <button class="tm-go" id="play4">sing it</button>
+    </div>
+    <canvas id="c4t" height="210"></canvas>
+    <div class="tm-label"><span>vowel space · first note down, second note across</span><span class="tm-legend"><span class="tm-sw" style="background:var(--cyan)"></span>targets<span class="tm-sw" style="background:var(--amber)"></span>the tube now</span></div>
+    <canvas id="c4v" height="240"></canvas>
+    <div class="tm-eq"><div class="tm-sym">log A(t) = (1 − t) · log A<sub>from</sub> + t · log A<sub>to</sub> &nbsp;then&nbsp; kᵢ = (Aᵢ − Aᵢ₊₁) ⁄ (Aᵢ + Aᵢ₊₁)</div>
+      <div class="tm-words">(the blended tube) = the two shapes mixed by multiplying, not adding, at every point; then every joint's k comes from the blended areas, fresh</div></div>
+    <p class="tm-test" id="t4"></p>
+  </section>
+
+  <!-- ───────────── STEP 5 ───────────── -->
+  <section class="tm-step" data-step="5">
+    <h2>5 · The mirror: read the tube back out of its sound</h2>
+    <p class="tm-idea">Everything so far went one way, from shape to sound. Linear prediction goes the other way. Give it only the tube's answer to one click, and Levinson-Durbin peels a ladder of reflections off that sound, one rung at a time. Turn the ladder back into areas and you have a tube. Is it the tube that made the sound?</p>
+    <div class="tm-row" id="v5"></div>
+    <div class="tm-row">
+      <button class="tm-cy" data-model="ideal" aria-pressed="true">ideal tube · glottis closed (+1), no loss</button>
+      <button class="tm-cy" data-model="shipped" aria-pressed="false">as shipped · glottis +0.97, loss 0.996 per joint</button>
+    </div>
+    <div class="tm-label"><span>the tube that made the sound, and the tube read back from it</span><span class="tm-legend"><span class="tm-sw" style="background:var(--amber)"></span>the real tube<span class="tm-sw" style="background:var(--cyan)"></span>read from the sound</span></div>
+    <canvas id="c5t" height="150"></canvas>
+    <div class="tm-label"><span>every joint's k · bars from the shape, dots from the sound</span><span id="l5"></span></div>
+    <canvas id="c5k" height="170"></canvas>
+    <div class="tm-grid">
+      <div class="tm-cell tm-a"><div class="tm-k">largest gap, shape k vs sound k</div><div class="tm-v" id="r5gap"></div></div>
+      <div class="tm-cell"><div class="tm-k">last rung (the lips)</div><div class="tm-v" id="r5lip"></div></div>
+      <div class="tm-cell"><div class="tm-k">odd rungs</div><div class="tm-v" id="r5odd"></div></div>
+      <div class="tm-cell tm-c"><div class="tm-k">the two sounds, one level matched</div><div class="tm-v" id="r5same"></div></div>
+    </div>
+    <div class="tm-row">
+      <button class="tm-go" id="play5a">play the real tube</button>
+      <button class="tm-go" id="play5b">play the tube read back</button>
+    </div>
+    <div class="tm-eq"><div class="tm-sym">kₘ = (rₘ − Σⱼ aⱼ · rₘ₋ⱼ) ⁄ Eₘ₋₁ &nbsp;and&nbsp; Aᵢ₊₁ ⁄ Aᵢ = (1 − kᵢ) ⁄ (1 + kᵢ)</div>
+      <div class="tm-words">(the next rung) = (how much the sound still resembles itself m samples later, beyond what the rungs so far predict) ÷ (the error still left); and each rung gives back one area ratio</div></div>
+    <p class="tm-test" id="t5"></p>
+    <p class="tm-p">The analysis runs at order 44 for 22 sections because each section takes one sample each way, so a round trip is two samples: every odd rung comes back zero and the even rungs are the ladder. Both tubes in the sound play through the analysis model, with no radiation filter on the lip reflection, which is the model the formant table is measured on, and the piece's level follower plays them at one loudness, so the A/B compares the shape of the sound, not its level. The whole instrument, with the pad, the lattice drawn beside the tube and the glottal controls, is the next frame on this page, <a href="artifacts/the-mirror/index.html" target="_blank" rel="noopener">The Mirror</a>.</p>
+  </section>
+
+  <div class="tm-nav"><button id="back">back</button><button id="next">next</button></div>
+  <div class="tm-foot">
+    <svg width="22" height="22" viewBox="-11 -11 22 22" aria-hidden="true"><circle r="10" fill="none" stroke="#4a4a5e" stroke-width="1"/><path id="sig" fill="none" stroke="#e8b84a" stroke-width="1"/></svg>
+    <span>Loud’n <i>Live</i></span>
+  </div>
+</main>
+
+<script id="tm-engine">
+/* The engine: pure functions, no page. The checks pull this block out and run it in Node. */
+(function (root) {
+  const TM = {};
+  TM.L = 0.171; TM.C = 343.0; TM.FS = 44100;
+  TM.SHIPPED = { rg: 0.97, rl: -0.9, loss: 0.996 };
+  TM.IDEAL = { rg: 1.0, rl: -0.9, loss: 1.0 };
+  TM.nSections = (fs) => Math.round(fs * TM.L / TM.C);
+  /* log-domain resample of a control-point curve onto n sections (reference resample_area) */
+  TM.resample = (cp, n) => {
+    const C = cp.length, out = new Float64Array(n);
+    for (let j = 0; j < n; j++) {
+      const x = n === 1 ? 0 : j / (n - 1) * (C - 1), i = Math.min(C - 2, Math.floor(x)), t = x - i;
+      out[j] = Math.exp((1 - t) * Math.log(cp[i]) + t * Math.log(cp[i + 1]));
+    }
+    return out;
+  };
+  TM.blendLog = (a, b, t) => a.map((v, i) => Math.exp((1 - t) * Math.log(v) + t * Math.log(b[i])));
+  TM.kFromAreas = (A) => { const k = new Float64Array(A.length - 1); for (let i = 0; i < k.length; i++) k[i] = (A[i] - A[i + 1]) / (A[i] + A[i + 1]); return k; };
+  TM.areasFromK = (k, a0) => { const A = new Float64Array(k.length + 1); A[0] = a0; for (let i = 0; i < k.length; i++) A[i + 1] = A[i] * (1 - k[i]) / (1 + k[i]); return A; };
+  /* one joint: pressure and power, incident wave of 1 */
+  TM.junction = (A1, A2) => { const k = (A1 - A2) / (A1 + A2); const back = k * k, on = (1 + k) * (1 + k) * A2 / A1; return { k, pBack: k, pOn: 1 + k, eBack: back, eOn: on, eSum: back + on }; };
+  /* the tube's answer to one click: KellyLochbaumTract.step, radiation off, lowpass 0 (the analysis path) */
+  TM.tubeIR = (A, m, opt) => {
+    opt = opt || {};
+    const N = A.length, k = TM.kFromAreas(A), L = m.loss, rg = m.rg, rl = m.rl;
+    const maxN = opt.maxN || (1 << 20), minN = opt.minN || 4096, tol = opt.tol || 1e-7;
+    let f = new Float64Array(N), b = new Float64Array(N), nf = new Float64Array(N), nb = new Float64Array(N);
+    const cap = maxN; let y = new Float64Array(Math.min(cap, 1 << 14)); let n = 0, peak = 0, blockMax = 0;
+    for (;;) {
+      if (n >= y.length) { if (y.length >= cap) break; const z = new Float64Array(Math.min(cap, y.length * 2)); z.set(y); y = z; }
+      const x = n === 0 ? 1 : 0;
+      nf[0] = rg * b[0] + x;
+      for (let i = 0; i < N - 1; i++) { const w = k[i] * (f[i] - b[i + 1]); nf[i + 1] = (f[i] + w) * L; nb[i] = (b[i + 1] + w) * L; }
+      nb[N - 1] = rl * f[N - 1];
+      const out = (1 + rl) * f[N - 1];
+      y[n++] = out; const ao = Math.abs(out); if (ao > peak) peak = ao; if (ao > blockMax) blockMax = ao;
+      let t = f; f = nf; nf = t; t = b; b = nb; nb = t;
+      if ((n & 4095) === 0) { if (n >= minN && blockMax < tol * peak) break; blockMax = 0; }
+    }
+    return y.subarray(0, n);
+  };
+  TM.autocorr = (x, p) => { const r = new Float64Array(p + 1), n = x.length; for (let l = 0; l <= p; l++) { let s = 0; for (let i = 0; i + l < n; i++) s += x[i] * x[i + l]; r[l] = s; } return r; };
+  /* reference levinson_durbin: subtractive a (y = x + sum a y), and the ladder k */
+  TM.levinson = (r, p) => {
+    let a = new Float64Array(p); const k = new Float64Array(p); let e = r[0];
+    for (let i = 0; i < p; i++) {
+      let acc = r[i + 1]; for (let j = 0; j < i; j++) acc -= a[j] * r[i - j];
+      const ki = acc / e; k[i] = ki;
+      const nw = a.slice(); nw[i] = ki; for (let j = 0; j < i; j++) nw[j] = a[j] - ki * a[i - 1 - j];
+      a = nw; e *= (1 - ki * ki); if (e <= 0) break;
+    }
+    return { a, k };
+  };
+  /* the mirror run backward: tube -> its click -> LPC -> ladder -> tube */
+  TM.readBack = (A, m) => {
+    const N = A.length, p = 2 * N, ir = TM.tubeIR(A, m), r = TM.autocorr(ir, p), lv = TM.levinson(r, p);
+    const even = new Float64Array(N), odd = new Float64Array(N);
+    for (let i = 0; i < N; i++) { odd[i] = lv.k[2 * i]; even[i] = lv.k[2 * i + 1]; }
+    const interior = even.subarray(0, N - 1), lip = even[N - 1];
+    const back = TM.areasFromK(interior, A[0]);
+    let oddMax = 0; for (const v of odd) oddMax = Math.max(oddMax, Math.abs(v));
+    const kg = TM.kFromAreas(A); let gap = 0, gapAt = 0;
+    for (let i = 0; i < N - 1; i++) { const d = Math.abs(interior[i] - kg[i]); if (d > gap) { gap = d; gapAt = i; } }
+    return { a: lv.a, kAll: lv.k, interior: Float64Array.from(interior), lip, oddMax, areas: back, kGeom: kg, gap, gapAt, irLen: ir.length, ir };
+  };
+  /* do the two tubes make the same sound? fit one gain, report the worst sample miss as a share of the peak */
+  TM.sameSound = (ir1, ir2) => {
+    const n = Math.min(ir1.length, ir2.length); let num = 0, den = 0, pk = 0;
+    for (let i = 0; i < n; i++) { num += ir1[i] * ir2[i]; den += ir2[i] * ir2[i]; pk = Math.max(pk, Math.abs(ir1[i])); }
+    const g = num / den; let worst = 0; for (let i = 0; i < n; i++) worst = Math.max(worst, Math.abs(ir1[i] - g * ir2[i]));
+    return { gain: g, miss: worst / pk };
+  };
+  TM.allPoleDb = (a, fs, f) => { const w = 2 * Math.PI * f / fs; let re = 1, im = 0; for (let m = 1; m <= a.length; m++) { re -= a[m - 1] * Math.cos(w * m); im += a[m - 1] * Math.sin(w * m); } return -10 * Math.log10(re * re + im * im); };
+  /* the first resonances: peaks of the all-pole response, refined by a parabola */
+  TM.peaks = (a, fs, n, fmin, fmax, step) => {
+    fmin = fmin || 60; fmax = fmax || 5000; step = step || 1; const out = [];
+    let p2 = TM.allPoleDb(a, fs, fmin), p1 = TM.allPoleDb(a, fs, fmin + step);
+    for (let f = fmin + 2 * step; f <= fmax && out.length < n; f += step) {
+      const p0 = TM.allPoleDb(a, fs, f);
+      if (p1 > p2 && p1 >= p0) { const d = (p2 - p0) / (2 * (p2 - 2 * p1 + p0)); out.push(f - step + d * step); }
+      p2 = p1; p1 = p0;
+    }
+    return out;
+  };
+  /* the tube's poles: roots of z^p A(z) by Durand-Kerner; formants are the pole angles (reference find_formants) */
+  TM.poles = (a) => {
+    const p = a.length, c = [1]; for (let m = 1; m <= p; m++) c.push(-a[m - 1]);
+    const evalP = (zr, zi) => { let pr = 1, pi = 0; for (let m = 1; m <= p; m++) { const t = pr * zr - pi * zi; pi = pr * zi + pi * zr; pr = t + c[m]; } return [pr, pi]; };
+    const R = [], I = []; for (let j = 0; j < p; j++) { const ang = 2 * Math.PI * j / p + 0.4; R.push(0.9 * Math.cos(ang)); I.push(0.9 * Math.sin(ang)); }
+    for (let it = 0; it < 2000; it++) {
+      let moved = 0;
+      for (let j = 0; j < p; j++) {
+        let [nr, ni] = evalP(R[j], I[j]); let dr = 1, di = 0;
+        for (let q = 0; q < p; q++) if (q !== j) { const xr = R[j] - R[q], xi = I[j] - I[q], t = dr * xr - di * xi; di = dr * xi + di * xr; dr = t; }
+        const den = dr * dr + di * di; if (den === 0) continue;
+        const sr = (nr * dr + ni * di) / den, si = (ni * dr - nr * di) / den;
+        R[j] -= sr; I[j] -= si; moved = Math.max(moved, Math.hypot(sr, si));
+      }
+      if (moved < 1e-14) break;
+    }
+    return R.map((r, j) => [r, I[j]]);
+  };
+  TM.formants = (A, m, fs) => {
+    fs = fs || TM.FS; const out = [];
+    for (const [r, i] of TM.poles(TM.readBack(A, m).a)) { if (Math.hypot(r, i) > 1.0001 || i <= 0) continue; const f = Math.atan2(i, r) / (2 * Math.PI) * fs; if (f > 90 && f < 0.45 * fs) out.push(f); }
+    return out.sort((x, y) => x - y).slice(0, 3);
+  };
+  root.TM = TM;
+})(typeof window !== 'undefined' ? window : globalThis);
+</script>
+
+<script>
+/* The voice: a Kelly-Lochbaum tube driven by a Rosenberg pulse, the reference's step() per sample. */
+const WORKLET = `
+class TractWalk extends AudioWorkletProcessor {
+  constructor() {
+    super();
+    this.N = 0; this.cur = null; this.tgt = null; this.k = null;
+    this.rg = 0.97; this.rl = -0.9; this.loss = 0.996; this.lp = 0.75; this.lps = 0; this.radPrev = 0; this.xPrev = 0;
+    this.f0 = 110; this.f0t = 110; this.ph = 0; this.vph = 0; this.breath = 0.03; this.srcOnly = false;
+    this.on = false; this.env = 0; this.pow = 4e-5; this.g = 18; this.glide = 0.12; this.seed = 22222;
+    this.port.onmessage = (e) => this.msg(e.data);
+  }
+  msg(d) {
+    if (d.areas) {
+      const n = d.areas.length, L = new Float64Array(n);
+      for (let i = 0; i < n; i++) L[i] = Math.log(d.areas[i]);
+      if (n !== this.N || !this.cur || d.snap) {
+        this.N = n; this.cur = Float64Array.from(L);
+        this.f = new Float64Array(n); this.b = new Float64Array(n); this.nf = new Float64Array(n); this.nb = new Float64Array(n);
+        this.k = new Float64Array(n - 1); this.lps = 0; this.radPrev = 0;
+      }
+      this.tgt = L; this.updK();
+    }
+    for (const key of ['rg', 'rl', 'loss', 'lp', 'breath', 'glide']) if (d[key] !== undefined) this[key] = d[key];
+    if (d.f0 !== undefined) this.f0t = d.f0;
+    if (d.srcOnly !== undefined) this.srcOnly = d.srcOnly;
+    if (d.on !== undefined) this.on = d.on;
+    if (d.reset && this.f) { this.f.fill(0); this.b.fill(0); this.lps = 0; }
+  }
+  updK() { const c = this.cur; for (let i = 0; i < this.N - 1; i++) { const a = Math.exp(c[i]), b = Math.exp(c[i + 1]); this.k[i] = (a - b) / (a + b); } }
+  rnd() { this.seed = (this.seed * 1664525 + 1013904223) >>> 0; return this.seed / 4294967296 - 0.5; }
+  process(inputs, outputs) {
+    const oL = outputs[0][0], oR = outputs[0][1] || outputs[0][0], n = oL.length, sr = sampleRate;
+    if (!this.N) { oL.fill(0); if (oR !== oL) oR.fill(0); return true; }
+    const al = 1 - Math.exp(-n / (sr * Math.max(1e-3, this.glide)));
+    let moved = false;
+    for (let i = 0; i < this.N; i++) { const d = this.tgt[i] - this.cur[i]; if (Math.abs(d) > 1e-6) { this.cur[i] += d * al; moved = true; } }
+    if (moved) this.updK();
+    const N = this.N, k = this.k, L = this.loss, rg = this.rg, rl = this.rl, lp = this.lp;
+    for (let s = 0; s < n; s++) {
+      this.f0 += (this.f0t - this.f0) * 0.002;
+      this.vph += 5 / sr; if (this.vph >= 1) this.vph -= 1;
+      const f0 = this.f0 * (1 + 0.006 * Math.sin(2 * Math.PI * this.vph));
+      this.ph += f0 / sr; if (this.ph >= 1) this.ph -= 1;
+      const p = this.ph;
+      const flow = p < 0.3 ? 0.5 * (1 - Math.cos(Math.PI * p / 0.3)) : (p < 0.6 ? Math.cos(0.5 * Math.PI * (p - 0.3) / 0.3) : 0);
+      const x = (flow - 0.341) + this.breath * (this.rnd() + this.rnd() + this.rnd()) * 2 * (0.3 + 0.7 * flow);
+      let out;
+      if (this.srcOnly) { out = (x - this.xPrev) * 0.02; }
+      else {
+        const f = this.f, b = this.b, nf = this.nf, nb = this.nb;
+        nf[0] = rg * b[0] + x;
+        for (let i = 0; i < N - 1; i++) { const w = k[i] * (f[i] - b[i + 1]); nf[i + 1] = (f[i] + w) * L; nb[i] = (b[i + 1] + w) * L; }
+        const fl = f[N - 1];
+        this.lps = (1 - lp) * fl + lp * this.lps;
+        nb[N - 1] = rl * this.lps;
+        const tr = (1 + rl) * fl;
+        out = tr - this.radPrev; this.radPrev = tr;
+        this.f = nf; this.nf = f; this.b = nb; this.nb = b;
+      }
+      this.xPrev = x;
+      this.pow += (out * out - this.pow) / (0.25 * sr);
+      const gt = Math.min(4000, 0.1 / Math.sqrt(this.pow + 1e-14));
+      this.g += (gt - this.g) / (0.05 * sr);
+      this.env += ((this.on ? 1 : 0) - this.env) / ((this.on ? 0.02 : 0.08) * sr); if (!this.on && this.env < 1e-4) this.env = 0;
+      const y = out * this.g * this.env;
+      oL[s] = y; if (oR !== oL) oR[s] = y;
+    }
+    return true;
+  }
+}
+registerProcessor('tract-mirror-walk', TractWalk);
+`;
+</script>
+
+<script type="application/json" id="tm-vowels-copy">{"tract_length_m":0.171,"speed_of_sound":343.0,"control_points":64,"glottal_reflection":0.97,"lip_reflection":-0.9,"junction_loss":0.996,"vowels":{"a":{"area_cm2":[2.718865703340821,2.5440829630559962,2.122186225262031,1.6507245157304744,1.2589205098705896,0.9737347080050269,0.7701580353689093,0.6166202810043347,0.4942548132869759,0.39807802361457634,0.32944159775025444,0.28915851487202165,0.2760570012284633,0.28870578503168887,0.3268730756213634,0.3920770794705048,0.48839772432790285,0.6240186812852773,0.8114078982534382,1.0618526260746144,1.3714567130055384,1.705254410324159,2.0011390937720654,2.20758735441925,2.3241509484010914,2.3981624325571094,2.484219227135722,2.608432980731808,2.7583283226880826,2.8994670693838565,3.012993149416332,3.1293512533975574,3.3298334358161874,3.7225958306117914,4.417304594288399,5.494115586685888,6.947152136742905,8.629319177055866,10.282894320164802,11.671361742845278,12.0,12.0,12.0,12.0,11.337666762212741,9.787100839126495,8.342776365771781,7.302178007015949,6.771137079495033,6.716275696435274,7.030370928636696,7.580567217918139,8.287166230094304,9.23659055063755,10.762306089755134,12.0,12.0,12.0,12.0,12.0,12.0,12.0,12.0,12.0],"formant_targets_hz":[730.0,1090.0,2440.0],"formants_measured_44k_hz":[729.9138311302752,1090.1835856223895,2441.4475488807825],"formants_measured_48k_hz":[733.0713816082534,1090.3019148084804,2431.3727422990582]},"e":{"area_cm2":[0.32662970738846775,0.329350651432341,0.3370065497388838,0.34823060567623276,0.3612711927935065,0.37472877362926665,0.38828548265235463,0.40304783891287516,0.4213330462477471,0.4461034881579257,0.48043527857092305,0.5273054194141118,0.589793805767793,0.6716513001912716,0.778033805634309,0.9160035775730908,1.0942416695078607,1.321452961409502,1.6033705032545502,1.9392676644008813,2.3201099707585326,2.7304418191927406,3.1535098172753258,3.575747092424185,3.9867421647816057,4.375230824352425,4.726257789939447,5.024620234483121,5.264139153962772,5.455509259029015,5.624512989262913,5.799295180896999,5.993403264319546,6.193927204793173,6.3624182878765065,6.451927657288829,6.433871404378656,6.317360883873478,6.145617104826155,5.972364510588781,5.8358978017761425,5.745260639290863,5.681458895564461,5.6100012532894326,5.498676782980169,5.332071268735815,5.114948991985637,4.863874793824639,4.594776655033606,4.315370767858246,4.025830164636085,3.7249717528780333,3.416481840166405,3.1108004614340588,2.8220249280473912,2.5627472018415243,2.3403922004656055,2.1565927280311947,2.0088876653099477,1.893181714450847,1.8057343725804698,1.7441364406019442,1.7073260583747545,1.695057055313474],"formant_targets_hz":[530.0,1840.0,2480.0],"formants_measured_44k_hz":[529.9571007350381,1840.1587338091413,2480.644705281773],"formants_measured_48k_hz":[529.4813974014103,1837.4687720666152,2475.877132252484]},"i":{"area_cm2":[0.485527907690017,0.4971802566849136,0.5315029397903542,0.5865878402145119,0.6596936139680882,0.7489037789425373,0.8558399211243463,0.9879670341075046,1.159053689192166,1.387651584888687,1.694413724401353,2.0993649656052966,2.620726544432386,3.2766644080300855,4.088014542873109,5.074606929941096,6.2366402481684835,7.52280405049366,8.809241509028984,9.929292368794728,10.763504192051688,11.32579929447246,11.761577697175737,12.0,12.0,12.0,12.0,12.0,12.0,12.0,12.0,12.0,11.602419347849047,10.823042075346327,10.03992771637963,9.177193679400702,8.225043292573094,7.241246290414989,6.302103601984979,5.453575816102298,4.699092509970584,4.01978334715675,3.402061939506389,2.850779833665527,2.3819631302235678,2.006592319710202,1.7208918716405799,1.5077477438053286,1.344257285385397,1.2099955231097965,1.093036270839602,0.9915765193158507,0.9106594963365047,0.8567606443196233,0.8339112412918783,0.8424581817760322,0.879233117017256,0.9379959241579098,1.010116988560665,1.0857985461939703,1.1555793164770374,1.2114761166344992,1.2475133231889084,1.2599536103183364],"formant_targets_hz":[270.0,2290.0,3010.0],"formants_measured_44k_hz":[269.98016527278145,2290.0558928318283,3009.62588875744],"formants_measured_48k_hz":[269.1021636196945,2283.1842814320885,3009.4583902492127]},"o":{"area_cm2":[2.153297619894811,2.002721845802459,1.640889210075525,1.2435851089583603,0.9290676174329179,0.7247892120694437,0.6098849213465116,0.5517710468022397,0.5178160031683522,0.47864231465038076,0.41757808714671857,0.34037723906876866,0.26798000860289967,0.21803369111217422,0.1975215810581867,0.20868912373178078,0.25498452591679194,0.33716724903043466,0.4369660296954718,0.5083636049543123,0.5131117294346307,0.4668218845097307,0.4202432563284711,0.4142589348762212,0.4726022374609461,0.6095760562047934,0.8088969454833717,0.9805015662299075,1.0010339181964372,0.8626839841747403,0.6863208068661857,0.5774139025274112,0.5777179848836662,0.718395046258336,1.060916214945276,1.6744153414921374,2.535571921564183,3.479650133244043,4.386459595393022,5.402273975609772,6.9045555439984065,9.278087158075428,12.0,12.0,12.0,12.0,10.30401878112109,7.333419907102656,5.4653024515129305,4.478153164257843,3.970928895925024,3.5774800843709706,3.059129074331333,2.411001297115898,1.8064022013228265,1.394781694721368,1.2203135902943645,1.29385689114897,1.6812107238959035,2.549372240630359,4.11779480730449,6.3773651675018685,8.636831019919724,9.62310963134676],"formant_targets_hz":[570.0,840.0,2410.0],"formants_measured_44k_hz":[568.5747209329481,836.4526221328366,2391.8928131221783],"formants_measured_48k_hz":[573.4560631428008,847.5416706818237,2388.9908113201463]},"u":{"area_cm2":[12.0,12.0,12.0,12.0,12.0,12.0,10.894534456669476,9.119275943258916,7.172071299287383,5.35455099587386,3.875297424995444,2.7957117431786473,2.071724289255702,1.6216968287625808,1.371164702618872,1.2688936339896628,1.2863800799690865,1.4101862675959649,1.6305637697850595,1.9294307716377246,2.276132745702717,2.6399130679825706,3.0124561068384983,3.417736193079787,3.8956020892172334,4.467079108098618,5.098900759721967,5.691481761859917,6.117261618306136,6.2985928138232214,6.256493740044401,6.081168726279365,5.862529648342165,5.647740034657411,5.446079557962218,5.2590829235139855,5.104948502583595,5.018928722440625,5.033895808184957,5.15878272320082,5.369632190805255,5.62133581404057,5.879372701012771,6.151251811175165,6.485741208564648,6.928194253054979,7.4489946899414266,7.8806235978420585,7.934369223858358,7.370152543238935,6.224028781026458,4.821406060020297,3.528499183975514,2.536828576630836,1.8578923088235206,1.4221632510039761,1.1541457000051742,0.9988911963383575,0.922251164208851,0.9032057911226384,0.9253268165878994,0.9696593204044881,1.012145938318468,1.0296277750201097],"formant_targets_hz":[300.0,870.0,2240.0],"formants_measured_44k_hz":[300.01037671552956,870.1773659327279,2240.9675797268746],"formants_measured_48k_hz":[300.93447395425403,870.0462020941488,2232.1470641906453]},"schwa":{"area_cm2":[3.00671516186411,3.00671516186411,3.0067151618641104,3.0067151618641113,3.0067151618641113,3.0067151618641113,3.0067151618641113,3.0067151618641113,3.0067151618641113,3.0067151618641113,3.0067151618641113,3.0067151618641113,3.0067151618641113,3.0067151618641113,3.0067151618641113,3.0067151618641113,3.0067151618641113,3.0067151618641113,3.0067151618641113,3.0067151618641113,3.0067151618641113,3.0067151618641113,3.0067151618641113,3.0067151618641113,3.0067151618641113,3.0067151618641113,3.0067151618641113,3.0067151618641113,3.0067151618641113,3.0067151618641113,3.0067151618641113,3.0067151618641113,3.0067151618641113,3.0067151618641113,3.0067151618641113,3.0067151618641113,3.0067151618641113,3.0067151618641113,3.0067151618641113,3.0067151618641113,3.0067151618641113,3.0067151618641113,3.0067151618641113,3.0067151618641113,3.0067151618641113,3.0067151618641113,3.0067151618641113,3.0067151618641113,3.0067151618641113,3.0067151618641113,3.0067151618641113,3.0067151618641113,3.0067151618641113,3.0067151618641113,3.0067151618641113,3.0067151618641113,3.0067151618641113,3.0067151618641113,3.0067151618641113,3.0067151618641113,3.0067151618641117,3.0067151618641117,3.0067151618641126,3.0067151618641126],"formant_targets_hz":[500.0,1500.0,2500.0],"formants_measured_44k_hz":[501.1363636363615,1503.40909090909,2505.6818181818203],"formants_measured_48k_hz":[500.00000000000114,1500.0000000000007,2500.000000000001]}}}</script>
+
+<script>
+(function () {
+  const TM = window.TM, FS = TM.FS, N44 = TM.nSections(FS);
+  const $ = (id) => document.getElementById(id);
+  const VOW = ['a', 'e', 'i', 'o', 'u', 'schwa'], VLAB = { a: '/a/', e: '/e/', i: '/i/', o: '/o/', u: '/u/', schwa: '/ə/' };
+  const AMAX = 12;
+  let V = null, step = 1;
+
+  /* ── canvases ── */
+  function cv(id) {
+    const c = $(id), dpr = window.devicePixelRatio || 1, w = c.clientWidth || 600, h = +c.getAttribute('height');
+    c.style.height = h + 'px';
+    if (c.width !== Math.round(w * dpr) || c._h !== h) { c.width = Math.round(w * dpr); c.height = Math.round(h * dpr); c._h = h; }
+    const g = c.getContext('2d'); g.setTransform(dpr, 0, 0, dpr, 0, 0); g.clearRect(0, 0, w, h);
+    return { g, w, h };
+  }
+  const css = (n) => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+  const COL = { amber: '#e8b84a', cyan: '#6aa8e8', fg1: '#e8e8f0', fg2: '#c8c8d8', fg3: '#8a8aa0', fg4: '#4a4a5a', soft: 'rgba(255,255,255,.08)', amberFill: 'rgba(232,184,74,.16)', cyanFill: 'rgba(106,168,232,.22)' };
+  const MONO = '10px "JetBrains Mono", ui-monospace, monospace';
+
+  function tubePath(g, A, x0, y0, w, h) {
+    const N = A.length, sw = w / N, rmax = Math.sqrt(AMAX / Math.PI);
+    const r = (a) => Math.min(1, Math.sqrt(a / Math.PI) / rmax) * (h / 2 - 2);
+    g.beginPath();
+    for (let i = 0; i < N; i++) { const yy = y0 - r(A[i]); if (i === 0) g.moveTo(x0, yy); else g.lineTo(x0 + i * sw, yy); g.lineTo(x0 + (i + 1) * sw, yy); }
+    for (let i = N - 1; i >= 0; i--) { const yy = y0 + r(A[i]); g.lineTo(x0 + (i + 1) * sw, yy); g.lineTo(x0 + i * sw, yy); }
+    g.closePath();
+  }
+  function drawTube(g, A, x0, y0, w, h, fill, stroke, joints) {
+    tubePath(g, A, x0, y0, w, h);
+    if (fill) { g.fillStyle = fill; g.fill(); }
+    if (stroke) { g.strokeStyle = stroke; g.lineWidth = 1.2; g.stroke(); }
+    if (joints) { const sw = w / A.length; g.strokeStyle = COL.soft; g.lineWidth = 1; for (let i = 1; i < A.length; i++) { g.beginPath(); g.moveTo(x0 + i * sw, y0 - h / 2); g.lineTo(x0 + i * sw, y0 + h / 2); g.stroke(); } }
+  }
+  function ends(g, x0, x1, y, rg, rl) {
+    g.font = MONO; g.fillStyle = COL.fg3; g.textAlign = 'left'; g.fillText('glottis ' + (rg >= 0 ? '+' : '') + rg.toFixed(2), x0, y);
+    g.textAlign = 'right'; g.fillText('lips ' + rl.toFixed(2), x1, y);
+  }
+  function kStrip(g, k, x0, y0, w, h, sw, dots) {
+    const mid = y0 + h / 2, sc = h / 2 - 4;
+    g.strokeStyle = COL.fg4; g.lineWidth = 1; g.beginPath(); g.moveTo(x0, mid); g.lineTo(x0 + w, mid); g.stroke();
+    g.font = MONO; g.fillStyle = COL.fg4; g.textAlign = 'left'; g.fillText('+1', x0 + 2, y0 + 10); g.fillText('−1', x0 + 2, y0 + h - 3);
+    for (let i = 0; i < k.length; i++) {
+      const x = x0 + (i + 1) * sw, v = Math.max(-1, Math.min(1, k[i]));
+      g.fillStyle = v >= 0 ? COL.amber : 'rgba(232,184,74,.55)';
+      g.fillRect(x - Math.max(2, sw * 0.18), v >= 0 ? mid - v * sc : mid, Math.max(4, sw * 0.36), Math.abs(v) * sc);
+    }
+    if (dots) { g.fillStyle = COL.cyan; for (let i = 0; i < dots.length; i++) { const x = x0 + (i + 1) * sw, v = Math.max(-1, Math.min(1, dots[i])); g.beginPath(); g.arc(x, mid - v * sc, 3.2, 0, 7); g.fill(); } }
+  }
+  function spectrum(g, w, h, a, marks, markCol) {
+    const fmax = 4000, pad = 22; const ys = []; let mx = -1e9;
+    for (let px = 0; px <= w; px++) { const f = 20 + (fmax - 20) * px / w; const d = TM.allPoleDb(a, FS, f); ys.push(d); if (d > mx) mx = d; }
+    g.strokeStyle = COL.soft; g.lineWidth = 1; g.font = MONO; g.fillStyle = COL.fg4; g.textAlign = 'center';
+    for (let f = 1000; f < fmax; f += 1000) { const x = f / fmax * w; g.beginPath(); g.moveTo(x, 0); g.lineTo(x, h - pad); g.stroke(); g.fillText(f / 1000 + ' kHz', x, h - 7); }
+    (marks || []).forEach((f) => { const x = f / fmax * w; g.strokeStyle = markCol || COL.cyan; g.setLineDash([4, 4]); g.beginPath(); g.moveTo(x, 4); g.lineTo(x, h - pad); g.stroke(); g.setLineDash([]); });
+    g.strokeStyle = COL.amber; g.lineWidth = 1.5; g.beginPath();
+    ys.forEach((d, px) => { const y = 6 + Math.min(1, (mx - d) / 60) * (h - pad - 10); if (px === 0) g.moveTo(px, y); else g.lineTo(px, y); });
+    g.stroke();
+  }
+  const fmt = (v, d) => (v >= 0 ? '+' : '−') + Math.abs(v).toFixed(d);
+  const SUP = { '-': '⁻', '0': '⁰', '1': '¹', '2': '²', '3': '³', '4': '⁴', '5': '⁵', '6': '⁶', '7': '⁷', '8': '⁸', '9': '⁹' };
+  const sci = (v) => { const [m, e] = v.toExponential(0).split('e'); return m + ' × 10' + String(+e).split('').map((c) => SUP[c]).join(''); };
+  const hz = (v) => Math.round(v);
+
+  /* ── audio ── */
+  let ctx = null, node = null, master = null, buf1 = null, playing = null;
+  async function ensureAudio() {
+    if (!ctx) {
+      ctx = new (window.AudioContext || window.webkitAudioContext)();
+      const url = URL.createObjectURL(new Blob([WORKLET], { type: 'application/javascript' }));
+      await ctx.audioWorklet.addModule(url); URL.revokeObjectURL(url);
+      node = new AudioWorkletNode(ctx, 'tract-mirror-walk', { numberOfInputs: 0, numberOfOutputs: 1, outputChannelCount: [2] });
+      const comp = ctx.createDynamicsCompressor(); comp.threshold.value = -14; comp.ratio.value = 4;
+      master = ctx.createGain(); master.gain.value = 0.7;
+      node.connect(comp).connect(master).connect(ctx.destination);
+      ctx.onstatechange = () => { if (ctx.state !== 'running') stopAll(); };
+    }
+    if (ctx.state !== 'running') await ctx.resume();
+  }
+  function stopAll() {
+    if (node) node.port.postMessage({ on: false });
+    if (buf1) { try { buf1.stop(); } catch (e) {} buf1 = null; }
+    playing = null;
+    document.querySelectorAll('.tm-go').forEach((b) => { b.classList.remove('tm-on'); b.textContent = b.dataset.label || b.textContent; });
+  }
+  function markPlaying(btn) {
+    document.querySelectorAll('.tm-go').forEach((b) => { b.classList.remove('tm-on'); b.textContent = b.dataset.label; });
+    if (btn) { btn.classList.add('tm-on'); btn.textContent = 'stop'; }
+  }
+  document.querySelectorAll('.tm-go').forEach((b) => { b.dataset.label = b.textContent; });
+  const ctxN = () => TM.nSections(ctx.sampleRate);
+  function voice(msg) { if (node) node.port.postMessage(msg); }
+  async function toggleVoice(id, btn) {
+    if (playing === id) { stopAll(); return; }
+    await ensureAudio();
+    if (buf1) { try { buf1.stop(); } catch (e) {} buf1 = null; }
+    playing = id; markPlaying(btn);
+    const m = soundFor(id); m.on = true; m.snap = true; m.reset = true; voice(m);
+  }
+  function soundFor(id) {
+    const n = ctxN();
+    if (id === 'p2') return { areas: TM.resample(V.vowels.schwa.area_cm2, n), ...TM.SHIPPED, lp: 0.75, f0: +$('f2').value, srcOnly: s2src };
+    if (id === 'p3') return { areas: TM.resample(V.vowels[v3].area_cm2, n), ...TM.SHIPPED, lp: 0.75, f0: 110, srcOnly: false };
+    if (id === 'p4') return { areas: TM.resample(morphCp(t4), n), ...TM.SHIPPED, lp: 0.75, f0: 110, srcOnly: false, glide: 0.06 };
+    const m = m5 === 'ideal' ? TM.IDEAL : TM.SHIPPED, real = TM.resample(V.vowels[v5].area_cm2, n);
+    if (id === 'p5a') return { areas: real, ...m, lp: 0, f0: 110, srcOnly: false };
+    const rb = TM.readBack(real, m);
+    return { areas: rb.areas, rg: 1, rl: rb.lip, loss: 1, lp: 0, f0: 110, srcOnly: false };
+  }
+
+  /* ── step 1: one joint ── */
+  const A1 = 4; let a2 = 4 * Math.pow(10, -0.3), t1 = 0, anim1 = null, last1 = 0;
+  function draw1() {
+    const { g, w, h } = cv('c1'), j = TM.junction(A1, a2), xj = w / 2, yc = h / 2 + 10;
+    const rmax = Math.sqrt(400 / Math.PI) ** 0.5, rr = (a) => Math.max(1.5, Math.pow(Math.sqrt(a / Math.PI), 0.5) / rmax * (h / 2 - 16));
+    const r1 = rr(A1), r2 = rr(a2);
+    g.fillStyle = COL.amberFill; g.strokeStyle = COL.fg3; g.lineWidth = 1.2;
+    g.fillRect(20, yc - r1, xj - 20, 2 * r1); g.fillRect(xj, yc - r2, w - 20 - xj, 2 * r2);
+    g.beginPath(); g.moveTo(20, yc - r1); g.lineTo(xj, yc - r1); g.lineTo(xj, yc - r2); g.lineTo(w - 20, yc - r2);
+    g.moveTo(20, yc + r1); g.lineTo(xj, yc + r1); g.lineTo(xj, yc + r2); g.lineTo(w - 20, yc + r2); g.stroke();
+    g.strokeStyle = COL.amber; g.setLineDash([3, 4]); g.beginPath(); g.moveTo(xj, 18); g.lineTo(xj, h - 6); g.stroke(); g.setLineDash([]);
+    g.font = MONO; g.fillStyle = COL.fg3; g.textAlign = 'left'; g.fillText('A₁ = 4 cm²', 24, 16); g.textAlign = 'right'; g.fillText('A₂ = ' + (a2 < 1 ? a2.toFixed(2) : a2.toFixed(1)) + ' cm²', w - 24, 16);
+    g.textAlign = 'center'; g.fillStyle = COL.amber; g.fillText('k = ' + fmt(j.k, 3), xj, 30);
+    /* the pressure along the tubes: incident + reflected on the left, transmitted on the right */
+    const span = w - 40, pos = 20 + t1 * span * 1.0, sig = Math.max(10, span * 0.035), amp = 34;
+    const gs = (u) => Math.exp(-0.5 * (u / sig) * (u / sig));
+    g.strokeStyle = COL.fg1; g.lineWidth = 1.6; g.beginPath();
+    for (let x = 20; x <= w - 20; x++) {
+      const p = x < xj ? gs(x - pos) + j.k * gs((2 * xj - pos) - x) : (1 + j.k) * gs(x - pos);
+      const y = yc - p * amp; if (x === 20) g.moveTo(x, y); else g.lineTo(x, y);
+    }
+    g.stroke();
+  }
+  function loop1(ts) {
+    if (step !== 1) { anim1 = null; return; }
+    const dt = last1 ? (ts - last1) / 1000 : 0; last1 = ts; t1 += dt / 2.6; if (t1 > 1.1) { t1 = 1.1; anim1 = null; draw1(); return; }
+    draw1(); anim1 = requestAnimationFrame(loop1);
+  }
+  function pulse1() { t1 = -0.1; last1 = 0; if (!anim1) anim1 = requestAnimationFrame(loop1); }
+  function update1() {
+    const s = +$('s1').value; a2 = 4 * Math.pow(10, s); const j = TM.junction(A1, a2);
+    $('s1v').textContent = (a2 < 1 ? a2.toFixed(2) : a2.toFixed(1)) + ' cm²';
+    $('r1k').textContent = fmt(j.k, 3); $('r1pb').textContent = fmt(j.pBack, 3); $('r1pf').textContent = j.pOn.toFixed(3);
+    $('r1eb').textContent = j.eBack.toFixed(3); $('r1ef').textContent = j.eOn.toFixed(3); $('r1es').textContent = j.eSum.toFixed(6);
+    let s1;
+    if (Math.abs(j.k) < 1e-9) s1 = 'No change in width, <b>k = 0</b>: nothing turns back, all of the wave carries on.';
+    else if (j.k > 0) s1 = 'The tube narrows, so <b>k is positive</b> and the echo comes back the right way up. The pressure carried on is <b>' + j.pOn.toFixed(2) + '</b>, more than the 1 that went in, and still the power adds up: ' + j.eBack.toFixed(3) + ' back + ' + j.eOn.toFixed(3) + ' on = <b>' + j.eSum.toFixed(3) + '</b>. A narrower tube carries the same power at higher pressure.';
+    else s1 = 'The tube widens, so <b>k is negative</b> and the echo comes back upside down. The pressure carried on is <b>' + j.pOn.toFixed(2) + '</b>, less than went in, and the power adds up: ' + j.eBack.toFixed(3) + ' back + ' + j.eOn.toFixed(3) + ' on = <b>' + j.eSum.toFixed(3) + '</b>.';
+    if (Math.abs(j.k) > 0.9) s1 += ' This close to ' + (j.k > 0 ? 'a closed end' : 'an open end') + ', nearly everything turns back: that is what the glottis (+0.97) and the lips (−0.90) do in the next step.';
+    $('t1').innerHTML = s1;
+    if (!anim1) draw1();
+  }
+  async function play1() {
+    await ensureAudio(); stopAll();
+    const sr = ctx.sampleRate, b = ctx.createBuffer(1, Math.round(sr * 0.9), sr), d = b.getChannelData(0), k = TM.junction(A1, a2).k;
+    const burst = (t0, amp) => { const n0 = Math.round(t0 * sr), L = Math.round(0.008 * sr); for (let i = 0; i < L; i++) d[n0 + i] += amp * 0.8 * Math.sin(2 * Math.PI * 1000 * i / sr) * Math.sin(Math.PI * i / L) ** 2; };
+    burst(0.03, 1); burst(0.43, k);
+    const src = ctx.createBufferSource(); src.buffer = b; const gn = ctx.createGain(); gn.gain.value = 0.6; src.connect(gn).connect(ctx.destination); src.start(); buf1 = src;
+    src.onended = () => { if (buf1 === src) buf1 = null; };
+    pulse1();
+  }
+
+  /* ── step 2: a straight tube ── */
+  let s2src = false;
+  function update2() {
+    const A = TM.resample(V.vowels.schwa.area_cm2, N44), rb = TM.readBack(A, TM.SHIPPED), pk = TM.formants(A, TM.SHIPPED);
+    const qw = [1, 3, 5].map((m) => m * TM.C / (4 * TM.L));
+    { const { g, w, h } = cv('c2t'); drawTube(g, A, 10, h / 2, w - 20, h - 26, COL.amberFill, COL.amber, true); ends(g, 10, w - 10, h - 3, 0.97, -0.9); }
+    { const { g, w, h } = cv('c2s'); spectrum(g, w, h, rb.a, qw); }
+    $('l2').textContent = N44 + ' sections · every joint k = 0';
+    $('f2v').textContent = $('f2').value + ' Hz';
+    $('t2').innerHTML = 'The tube rings at <b>' + pk.map(hz).join(' · ') + ' Hz</b>. A quarter-wave tube of 17.1 cm should ring at ' + qw.map(hz).join(' · ') + ' Hz, and it does, within ' + Math.max(...pk.map((p, i) => Math.abs(p - qw[i]))).toFixed(1) + ' Hz: the 22 sections make a tube of ' + (N44 * TM.C / FS * 100).toFixed(2) + ' cm, a hair longer. Play the buzz alone, then the tube: those bumps are all the tube adds.';
+    $('n2').textContent = 'Numbers here are worked at 44.1 kHz, 22 sections of 7.8 mm.' + (ctx ? ' Your sound runs at ' + (ctx.sampleRate / 1000) + ' kHz with ' + ctxN() + ' sections; the 64-point area curve is the same.' : '');
+  }
+
+  /* ── step 3: a vowel ── */
+  let v3 = 'a';
+  function update3() {
+    const A = TM.resample(V.vowels[v3].area_cm2, N44), k = TM.kFromAreas(A), rb = TM.readBack(A, TM.SHIPPED), pk = TM.formants(A, TM.SHIPPED), tg = V.vowels[v3].formant_targets_hz;
+    { const { g, w, h } = cv('c3t'); const th = 120, sw = (w - 20) / N44; drawTube(g, A, 10, th / 2 + 4, w - 20, th, COL.amberFill, COL.amber, true); ends(g, 10, w - 10, th + 16, 0.97, -0.9); kStrip(g, k, 10, th + 24, w - 20, h - th - 28, sw); }
+    { const { g, w, h } = cv('c3s'); spectrum(g, w, h, rb.a, tg); }
+    let big = 0, at = 0; k.forEach((v, i) => { if (Math.abs(v) > Math.abs(big)) { big = v; at = i; } });
+    $('l3').textContent = '21 joints · largest k ' + fmt(big, 3) + ' at joint ' + (at + 1);
+    const err = pk.map((p, i) => Math.abs(p - tg[i]) / tg[i] * 100);
+    $('tab3').innerHTML = '<tr><th>' + VLAB[v3] + '</th><th>F1</th><th>F2</th><th>F3</th></tr>' +
+      '<tr><td>the tube</td>' + pk.map((p) => '<td>' + hz(p) + '</td>').join('') + '</tr>' +
+      '<tr><td>target</td>' + tg.map((p) => '<td>' + p + '</td>').join('') + '</tr>' +
+      '<tr><td>off by</td>' + err.map((e) => '<td>' + e.toFixed(1) + ' %</td>').join('') + '</tr>';
+    $('t3').innerHTML = v3 === 'schwa' ? 'The schwa is the straight tube of step 2: every k is zero, and the notes are the quarter-wave notes.'
+      : 'The shape alone puts ' + VLAB[v3] + '’s first three notes at <b>' + pk.map(hz).join(' · ') + ' Hz</b>, against Peterson–Barney’s ' + tg.join(' · ') + ', off by at most <b>' + Math.max(...err).toFixed(1) + ' %</b>. Nothing tuned a filter: the areas set the k values, and the k values put the notes there.';
+  }
+
+  /* ── step 4: the morph ── */
+  let t4 = 0, trail = [], glideRaf = null;
+  const morphCp = (t) => t <= 1 ? TM.blendLog(V.vowels.a.area_cm2, V.vowels.i.area_cm2, t) : TM.blendLog(V.vowels.i.area_cm2, V.vowels.u.area_cm2, t - 1);
+  function update4() {
+    const A = TM.resample(morphCp(t4), N44), k = TM.kFromAreas(A), pk = TM.formants(A, TM.SHIPPED);
+    $('s4v').textContent = t4 <= 1 ? (t4 < 0.5 ? 'near /a/' : 'toward /i/') + ' · ' + t4.toFixed(2) : (t4 < 1.5 ? 'past /i/' : 'toward /u/') + ' · ' + t4.toFixed(2);
+    { const { g, w, h } = cv('c4t'); const th = 110, sw = (w - 20) / N44; drawTube(g, A, 10, th / 2 + 4, w - 20, th, COL.amberFill, COL.amber, true); ends(g, 10, w - 10, th + 16, 0.97, -0.9); kStrip(g, k, 10, th + 22, w - 20, h - th - 26, sw); }
+    trail.push([pk[0], pk[1]]); if (trail.length > 400) trail.shift();
+    { const { g, w, h } = cv('c4v'); const X = (f2) => 30 + (2600 - f2) / (2600 - 600) * (w - 60), Y = (f1) => 18 + (f1 - 200) / (850 - 200) * (h - 40);
+      g.font = MONO; g.fillStyle = COL.fg4; g.textAlign = 'center';
+      [2500, 2000, 1500, 1000].forEach((f) => { g.strokeStyle = COL.soft; g.beginPath(); g.moveTo(X(f), 8); g.lineTo(X(f), h - 18); g.stroke(); g.fillText('F2 ' + f, X(f), h - 5); });
+      g.textAlign = 'left'; [300, 500, 700].forEach((f) => { g.beginPath(); g.moveTo(24, Y(f)); g.lineTo(w - 24, Y(f)); g.stroke(); g.fillText('F1 ' + f, 26, Y(f) - 3); });
+      VOW.forEach((v) => { const t = V.vowels[v].formant_targets_hz; g.strokeStyle = COL.cyan; g.beginPath(); g.arc(X(t[1]), Y(t[0]), 6, 0, 7); g.stroke(); g.fillStyle = COL.cyan; g.fillText(VLAB[v], X(t[1]) + 9, Y(t[0]) + 4); });
+      g.strokeStyle = 'rgba(232,184,74,.45)'; g.lineWidth = 1.2; g.beginPath(); trail.forEach((p, i) => { if (i === 0) g.moveTo(X(p[1]), Y(p[0])); else g.lineTo(X(p[1]), Y(p[0])); }); g.stroke();
+      g.fillStyle = COL.amber; g.beginPath(); g.arc(X(pk[1]), Y(pk[0]), 5, 0, 7); g.fill(); }
+    $('t4').innerHTML = 'Now: <b>F1 ' + hz(pk[0]) + ' Hz, F2 ' + hz(pk[1]) + ' Hz</b>. At each end of the slider the tube lands on its vowel’s target; in between, the notes travel because the shape does. Every k you see is recomputed from the blended areas on every move, never mixed from the two vowels’ k values.';
+    if (playing === 'p4' && node) voice({ areas: TM.resample(morphCp(t4), ctxN()) });
+  }
+  function glide4() {
+    if (glideRaf) { cancelAnimationFrame(glideRaf); glideRaf = null; $('glide4').setAttribute('aria-pressed', 'false'); return; }
+    $('glide4').setAttribute('aria-pressed', 'true'); trail = []; let t0 = null;
+    const run = (ts) => { if (step !== 4) { glideRaf = null; $('glide4').setAttribute('aria-pressed', 'false'); return; }
+      if (t0 === null) t0 = ts; const u = (ts - t0) / 4000; t4 = Math.min(2, u * 2); $('s4').value = t4; update4();
+      if (u < 1) glideRaf = requestAnimationFrame(run); else { glideRaf = null; $('glide4').setAttribute('aria-pressed', 'false'); } };
+    glideRaf = requestAnimationFrame(run);
+  }
+
+  /* ── step 5: the mirror ── */
+  let v5 = 'a', m5 = 'ideal'; const cache5 = {};
+  function get5(v, m) { const key = v + '|' + m; if (!cache5[key]) { const A = TM.resample(V.vowels[v].area_cm2, N44), model = m === 'ideal' ? TM.IDEAL : TM.SHIPPED, rb = TM.readBack(A, model);
+      const irB = TM.tubeIR(rb.areas, { rg: 1, rl: rb.lip, loss: 1 }, { maxN: rb.ir.length, minN: rb.ir.length }); cache5[key] = { A, rb, same: TM.sameSound(rb.ir, irB) }; } return cache5[key]; }
+  function update5() {
+    const { A, rb, same } = get5(v5, m5);
+    { const { g, w, h } = cv('c5t'); drawTube(g, rb.areas, 10, h / 2 - 6, w - 20, h - 26, COL.cyanFill, null, false); drawTube(g, A, 10, h / 2 - 6, w - 20, h - 26, null, COL.amber, true); ends(g, 10, w - 10, h - 3, m5 === 'ideal' ? 1 : 0.97, -0.9); }
+    { const { g, w, h } = cv('c5k'); kStrip(g, rb.kGeom, 10, 4, w - 20, h - 8, (w - 20) / N44, rb.interior); }
+    $('l5').textContent = 'LPC order ' + (2 * N44) + ' on ' + rb.irLen.toLocaleString() + ' samples of the click';
+    $('r5gap').textContent = rb.gap.toFixed(4) + ' · joint ' + (rb.gapAt + 1);
+    $('r5lip').textContent = fmt(rb.lip, 3);
+    $('r5odd').textContent = rb.oddMax < 1e-9 ? 'all zero' : 'max ' + rb.oddMax.toExponential(1);
+    const dB = -20 * Math.log10(same.gain), lvl = Math.abs(dB) < 0.05 ? 'same level' : 'read-back ' + dB.toFixed(1) + ' dB ' + (dB > 0 ? 'louder' : 'quieter');
+    const shape = same.miss < 1e-9 ? sci(same.miss) : (same.miss * 100).toFixed(3) + ' %';
+    $('r5same').textContent = 'shape within ' + shape + ' · ' + lvl;
+    let s;
+    if (m5 === 'ideal') s = 'With the glottis fully closed and no loss in the walls, the ladder Levinson-Durbin peels off the sound is the tube’s own, joint for joint: the largest gap is <b>' + sci(rb.gap) + '</b>, and the last rung reads the lips, <b>' + fmt(rb.lip, 3) + '</b>. The blue tube sits inside the amber outline. Here the page’s claim holds to the last decimal: the LPC reflection coefficients are the impedance mismatches between the sections.';
+    else s = 'Now give the tube what the plugin ships: a glottis that leaks a little (+0.97) and walls that lose 0.4 % at every joint. The sound still gives back a ladder, and that ladder makes <b>the same sound once one overall level is matched</b>: sample for sample the shape agrees to within ' + shape + ' of the peak, while the read-back tube plays <b>' + dB.toFixed(1) + ' dB louder</b> for the same click. But it draws <b>a different tube</b>: the largest gap is <b>' + rb.gap.toFixed(3) + '</b> at joint ' + (rb.gapAt + 1) + ', and the lips read ' + fmt(rb.lip, 3) + ' instead of −0.900, which is exactly 0.97 × 0.9 × 0.996⁴²: the leak and every wall loss of one round trip, gathered into the last rung. The analysis assumes a closed glottis and lossless walls, and either one alone is enough to break it, so the losses come back drawn as shape. The mirror is exact in the shape of the sound; what it shows of the geometry depends on what you assume about the ends and the walls.';
+    $('t5').innerHTML = s;
+  }
+
+  /* ── vowel buttons ── */
+  function vowelRow(id, get, set, after) {
+    const row = $(id);
+    VOW.forEach((v) => { const b = document.createElement('button'); b.textContent = VLAB[v]; b.setAttribute('aria-pressed', v === get() ? 'true' : 'false');
+      b.onclick = () => { set(v); row.querySelectorAll('button').forEach((x) => x.setAttribute('aria-pressed', x === b ? 'true' : 'false')); after(); }; row.appendChild(b); });
+  }
+
+  /* ── steps ── */
+  const UPD = { 1: () => { update1(); pulse1(); }, 2: update2, 3: update3, 4: update4, 5: update5 };
+  function show(n) {
+    if (n === step && document.querySelector('.tm-step.tm-shown')?.dataset.step == n) { UPD[n](); return; }
+    stopAll(); step = n;
+    document.querySelectorAll('.tm-step').forEach((s) => s.classList.toggle('tm-shown', +s.dataset.step === n));
+    document.querySelectorAll('.tm-rail button').forEach((b) => b.setAttribute('aria-pressed', +b.dataset.go === n ? 'true' : 'false'));
+    $('back').disabled = n === 1; $('next').disabled = n === 5;
+    UPD[n]();
+  }
+
+  function sigil() { let d = ''; for (let i = 0; i <= 200; i++) { const t = i / 200 * 2 * Math.PI; d += (i ? 'L' : 'M') + (8 * Math.sin(3 * t + Math.PI / 4)).toFixed(2) + ' ' + (8 * Math.sin(2 * t)).toFixed(2); } $('sig').setAttribute('d', d); }
+
+  function wire() {
+    document.querySelectorAll('.tm-rail button').forEach((b) => b.onclick = () => show(+b.dataset.go));
+    $('back').onclick = () => show(Math.max(1, step - 1)); $('next').onclick = () => show(Math.min(5, step + 1));
+    $('s1').oninput = update1;
+    document.querySelectorAll('[data-a2]').forEach((b) => b.onclick = () => { $('s1').value = Math.log10(+b.dataset.a2 / 4); update1(); pulse1(); });
+    $('pulse1').onclick = pulse1; $('play1').onclick = play1;
+    $('play2').onclick = () => toggleVoice('p2', $('play2'));
+    $('src2').onclick = () => { s2src = !s2src; $('src2').setAttribute('aria-pressed', s2src ? 'true' : 'false'); if (playing === 'p2') voice({ srcOnly: s2src }); };
+    $('f2').oninput = () => { $('f2v').textContent = $('f2').value + ' Hz'; if (playing === 'p2') voice({ f0: +$('f2').value }); };
+    vowelRow('v3', () => v3, (v) => { v3 = v; }, () => { update3(); if (playing === 'p3') voice({ areas: TM.resample(V.vowels[v3].area_cm2, ctxN()) }); });
+    $('play3').onclick = () => toggleVoice('p3', $('play3'));
+    $('s4').oninput = () => { t4 = +$('s4').value; update4(); };
+    $('glide4').onclick = glide4; $('play4').onclick = () => toggleVoice('p4', $('play4'));
+    vowelRow('v5', () => v5, (v) => { v5 = v; }, () => { update5(); if (playing === 'p5a' || playing === 'p5b') voice({ ...soundFor(playing), snap: true }); });
+    document.querySelectorAll('[data-model]').forEach((b) => b.onclick = () => { m5 = b.dataset.model; document.querySelectorAll('[data-model]').forEach((x) => x.setAttribute('aria-pressed', x === b ? 'true' : 'false')); update5(); if (playing === 'p5a' || playing === 'p5b') voice({ ...soundFor(playing), snap: true }); });
+    $('play5a').onclick = () => toggleVoice('p5a', $('play5a')); $('play5b').onclick = () => toggleVoice('p5b', $('play5b'));
+    let rz = null; new ResizeObserver(() => { clearTimeout(rz); rz = setTimeout(() => UPD[step] && (step === 1 ? draw1() : UPD[step]()), 80); }).observe(document.querySelector('.tm-piece'));
+  }
+
+  sigil();
+  const start = (j, note) => { V = j; wire(); $('back').disabled = true; update1(); pulse1(); if (note) { const el = $('tm-load'); el.hidden = false; el.textContent = note; } };
+  fetch('reference/vowels.json').then((r) => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+    .then((j) => start(j, ''))
+    .catch((e) => start(JSON.parse($('tm-vowels-copy').textContent),
+      'This frame could not read reference/vowels.json (' + e.message + '), so the tubes come from the copy inside this piece; the checks beside it hold that copy identical to the file.'));
+})();
+</script>
+</body>
+</html>
