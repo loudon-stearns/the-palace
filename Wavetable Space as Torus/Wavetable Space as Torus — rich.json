@@ -84,7 +84,23 @@
         }
       ],
       "made_against": "9d0b09e2888c",
-      "stamped": "2026-11-03"
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Wavetable Space as Torus — rich — which knot.html",
+            "verdict": "remake",
+            "why": "A real test whose first half is confounded: with the loop held at 110 Hz, (3, 2) reads the cycle a fifth higher, and the same swap on the flat table moves 92.3 %. Hold the phase rate at 220 Hz (or show the flat-table swap beside it) and quote the frames’ own share, 36.8 %, in the verdict, caption and T² offer."
+          },
+          {
+            "file": "/Projects/2D Torus Wavetable Synthesizer/audition/penrose_ratio_sweep.wav",
+            "verdict": "keep",
+            "why": "Tracked evidence beside the two bullets, already vetted on the 2D Torus face; the caption describes the paths, not the hearing, and points to the ratio gate."
+          }
+        ]
+      }
     },
     {
       "heading": "Monodromy and the Fiber Bundle",
@@ -106,7 +122,18 @@
         }
       ],
       "made_against": "4327fad78956",
-      "stamped": "2026-11-03"
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Wavetable Space as Torus — rich — one twist or many.html",
+            "verdict": "keep",
+            "why": "Tests the section’s sentence against its own π·B·n³ and could have found a twist; every number recomputes (3,973×; 3.1 %; 3.6 / 10.9 / 28.1 %) and it names the loop it takes."
+          }
+        ]
+      }
     },
     {
       "heading": "The Hopf Fibration",
@@ -130,7 +157,18 @@
         }
       ],
       "made_against": "4dd789897ee2",
-      "stamped": "2026-11-03"
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "/Projects/2D Torus Wavetable Synthesizer/Hopf/hopf-control-surface.html",
+            "verdict": "keep",
+            "why": "Decorates rather than tests, but it is the built instrument the section is about, and its caption says the latitude–ratio pairing is the instrument’s choice, not the fibration’s."
+          }
+        ]
+      }
     },
     {
       "heading": "Cross-Domain Resonances",
@@ -151,7 +189,18 @@
         }
       ],
       "made_against": "d5050e36fa33",
-      "stamped": "2026-11-03"
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "/Projects/2D Torus Wavetable Synthesizer/Auditions/cycle-7/penrose_kuramoto_three_regimes.wav",
+            "verdict": "keep",
+            "why": "The Kuramoto subsection heard, shimmer to lock; the caption’s numbers match the project scroll (scroll.md:837) and it says Loudon has not heard it."
+          }
+        ]
+      }
     },
     {
       "heading": "Open Questions",
@@ -173,7 +222,18 @@
         }
       ],
       "made_against": "26a8a1873b2a",
-      "stamped": "2026-11-03"
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Wavetable Space as Torus — rich — one winding three speeds.html",
+            "verdict": "keep",
+            "why": "Runs the page’s own experiment, then the version that can fail (17.2 %, 6.0 %); recomputed exactly, and its hint concedes the structural Berry point while testing the perceptual one."
+          }
+        ]
+      }
     }
   ]
 }
