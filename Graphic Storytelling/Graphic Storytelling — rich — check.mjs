@@ -57,10 +57,12 @@ check('a reader who answers size: the tall control comes out longer and the verd
 check('… and the wide gutter, which adds no panel area, does not come out longer', A.by.gutter.out !== 'longer' && /split them/.test(A.verdict[0]));
 
 A = X.analyse(hands(() => 1));
-check('a reader the layout never moves: every row unclear, and the verdict says the claim did not show', A.rows.every((r) => r.out === 'mixed') && /^Neither held/.test(A.verdict[0]) && /not drawn as space/.test(A.verdict[0]));
+check('a reader the layout never moves: every row unclear, and the verdict says one run can’t tell', A.rows.every((r) => r.out === 'mixed') && /^Neither the wider panel/.test(A.verdict[0]) && /can’t tell a small effect from none/.test(A.verdict[0]));
 
 A = X.analyse(hands((l, s) => (l.key === 'wide' ? 1.4 : l.key === 'gutter' ? (s.key === 'door' ? 1.3 : 0.95) : 1)));
-check('wide alone longer: the verdict splits the sentence and names the gutter as unclear', A.by.wide.out === 'longer' && A.by.gutter.out === 'mixed' && /The wider panel lasted longer.*wider gutter came out not clearly/.test(A.verdict[0]));
+check('wide clears the band, gutter does not, but not a tenth apart: no split claimed', A.by.wide.out === 'longer' && A.by.gutter.out === 'mixed' && A.split !== 'longer' && /can’t tell them apart/.test(A.verdict[0]) && !/split them/.test(A.verdict[0]));
+A = X.analyse(hands((l) => (l.key === 'wide' ? 1.5 : 1)));
+check('wide 1.5×, gutter 1×: a real split, and the verdict says so', A.split === 'longer' && /split them/.test(A.verdict[0]));
 
 // 4. the chance line: with no effect and a hand's own scatter, "longer in all three" comes up at most one run in eight
 const r = X.rng(7); const gauss = () => { let u = 0; while (!u) u = r(); return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * r()); };
@@ -80,8 +82,20 @@ for (let k = 0; k < 3000; k++) {
   if (/^Neither held/.test(v) && (a.by.wide.out === 'longer' || a.by.gutter.out === 'longer')) agree = false;
   if (/went the other way, shorter in all three/.test(v) !== (a.by.narrow.out === 'shorter')) agree = false;
   if (/may be size/.test(v) !== (a.by.tall.out === 'longer')) agree = false;
+  if (/split them/.test(v) && !((a.by.wide.out === 'longer') !== (a.by.gutter.out === 'longer') && a.split !== 'mixed')) agree = false;
 }
 check('3000 random runs: every verdict line agrees with the table', agree);
+
+// 6. equal effect for both halves (the challenger's case): the split line must stay rare, and the either-half chance under null within 1 in 4
+const r2 = X.rng(12345); const g2 = () => { let u = 0; while (!u) u = r2(); return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * r2()); };
+const eq = { plain: 1, wide: 1.3, gutter: 1.3, narrow: 1 / 1.3, tall: 1 };
+let splitN = 0, eitherN = 0; const M2 = 20000;
+for (let k = 0; k < M2; k++) {
+  if (X.analyse(hands((l) => eq[l.key] * Math.exp(0.25 * g2()))).verdict[0].includes('split them')) splitN++;
+  const a = X.analyse(hands(() => Math.exp(0.25 * g2()))); if (a.by.wide.out === 'longer' || a.by.gutter.out === 'longer') eitherN++;
+}
+check('equal 1.3× hands (25 % scatter): "split them" at most 1 in 8', splitN / M2 <= 1 / 8, `${(splitN / M2).toFixed(4)} of ${M2}`);
+check('null hands (25 % scatter): either half "longer" at most 1 in 4', eitherN / M2 <= 1 / 4, `${(eitherN / M2).toFixed(4)} of ${M2}`);
 
 console.log(fails ? `\n${fails} failed` : '\nall pass');
 process.exit(fails ? 1 : 0);
