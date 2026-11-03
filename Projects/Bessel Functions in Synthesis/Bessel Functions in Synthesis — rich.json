@@ -97,7 +97,23 @@
     }
    ],
    "made_against": "e9618f36aedb",
-   "stamped": "2026-11-03"
+   "stamped": "2026-11-03",
+   "challenge": {
+    "date": "2026-11-03",
+    "by": "challenger · claude-opus-5-5",
+    "verdicts": [
+     {
+      "file": "proofs/2026-05-04-bessel-fm-correlation.png",
+      "verdict": "remake",
+      "why": "Caption only. Its lower panels leave the sidebands below 0 Hz off the axis, and they fold back: at 5 : 1 and β 6 the 200 Hz partial is J₄ − J₆ = 0.11, drawn as 0.36, and 400 Hz is 0.015, drawn as 0.11. Add one sentence saying each stem is one sideband's Jₙ, not the partial heard."
+     },
+     {
+      "file": "Bessel Functions in Synthesis — rich — carrier null.html",
+      "verdict": "remake",
+      "why": "A real test that walks up and stops where 'exact' stops. One word wrong: step 4 says 'At β 0 you hear a plain 880 Hz sine'; the carrier is 1100 Hz (also the stale 880 in the checks file's comment). Note: '241 dB down' is the floating-point floor; say so."
+     }
+    ]
+   }
   },
   {
    "heading": "Eigenfunction Principle: Geometry Determines Resonance",
@@ -129,7 +145,23 @@
     }
    ],
    "made_against": "006828c4ed74",
-   "stamped": "2026-11-03"
+   "stamped": "2026-11-03",
+   "challenge": {
+    "date": "2026-11-03",
+    "by": "challenger · claude-opus-5-5",
+    "verdicts": [
+     {
+      "file": "proofs/2026-05-04-six-modes.png",
+      "verdict": "keep",
+      "why": "An honest illustration of the shapes the section names; the six zeros in its caption match A&S Table 9.5."
+     },
+     {
+      "file": "Bessel Functions in Synthesis — rich — drum head.html",
+      "verdict": "keep",
+      "why": "Walks up from a string to strike-anywhere; the centre strike is m = 0 only by symmetry, and the best of 99 radii is 8.5 % on whole numbers (recomputed 8.54 % at r 0.98). That modes don't move is by construction; the share is the real measurement. Fix two roundings: 1.594 is 1.593, 2.918 is 2.917."
+     }
+    ]
+   }
   },
   {
    "heading": "Synthesis Applications from Direct Bessel Waveforms",
@@ -153,7 +185,18 @@
     }
    ],
    "made_against": "c75d02ed04d2",
-   "stamped": "2026-11-03"
+   "stamped": "2026-11-03",
+   "challenge": {
+    "date": "2026-11-03",
+    "by": "challenger · claude-opus-5-5",
+    "verdicts": [
+     {
+      "file": "Bessel Functions in Synthesis — rich — order as a knob.html",
+      "verdict": "keep",
+      "why": "Walks J₀ to the order as a knob and measures the peak against the text's 'at t = n': peaks recomputed 1.841 to 9.647, n + 0.81·n^⅓ to within 0.036. The 'orders 0 to 8 in turn' button plays 0, 2, 4, 6, 8; say so or play all nine."
+     }
+    ]
+   }
   }
  ]
 }
