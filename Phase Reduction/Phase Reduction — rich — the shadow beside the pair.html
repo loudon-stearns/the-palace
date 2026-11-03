@@ -1,0 +1,678 @@
+<!doctype html>
+<!--
+title: Phase Reduction — rich — the shadow beside the pair
+born: 2026-11-03
+links:
+  - target: "[[Phase Reduction]]"
+    type: connects-to
+    label: rich-face-piece
+  - target: "[[Progressive Staging]]"
+    type: connects-to
+    label: walks-up-to-its-test
+  - target: "[[Dissolutions]]"
+    type: connects-to
+    label: borrows-the-shadow-that-locks-engine
+forward_vector: "I am two van der Pol oscillators and their phase shadow side by side: phase as time round the loop, the gap sliding when nothing couples them, the pull built from the phase response, and the two locking together. I walk up to the test of the page's numbers, how wide the full pair locks against how wide the shadow says, as the coupling grows, on three loops, and I change only when the section I serve does."
+status: "proposal, Enrichment's proposal round 2026-11; not yet heard by Loudon"
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:needs" content="">
+<title>The shadow beside the pair</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Manrope:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root { --bg:#0a0a0f; --e1:#12121a; --ring:#22222e; --border:#4a4a5e; --soft:rgba(255,255,255,.07); --fg1:#e8e8f0; --fg2:#c8c8d8; --fg3:#8a8aa0; --fg4:#4a4a5a;
+    --amber:#e8b84a; --amberline:rgba(232,184,74,.5); --blue:#4a8fff; --warn:#ff9b4a; --ok:#7fd49a;
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --sans:'Manrope',system-ui,sans-serif; --serif:'Cormorant Garamond',Georgia,serif;
+    --ease:cubic-bezier(.4,0,.2,1); }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); font-weight: 300; }
+  .piece { padding: 22px 22px 18px; max-width: 1180px; }
+  .kicker, .eyebrow { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg3); }
+  .kicker { margin-bottom: 6px; }
+  .title { font-family: var(--serif); font-size: 28px; font-weight: 300; color: var(--fg1); margin: 0 0 6px; }
+  .sub { font-size: 14px; line-height: 1.6; color: var(--fg2); max-width: 76ch; margin: 0 0 14px; }
+  .rail { display: flex; flex-wrap: wrap; gap: 0; margin: 4px 0 16px; border-bottom: 1px solid var(--soft); }
+  .rail button { font-family: var(--mono); font-size: 11px; letter-spacing: .1em; text-transform: none; color: var(--fg3); background: none; border: 0; border-bottom: 2px solid transparent; border-radius: 0; padding: 8px 12px 7px; cursor: pointer; transition: color 220ms var(--ease); }
+  .rail button:hover { color: var(--fg1); }
+  .rail button[aria-current=step] { color: var(--amber); border-bottom-color: var(--amber); }
+  .rail button .n { color: var(--fg4); margin-right: 6px; }
+  .rail button[aria-current=step] .n { color: var(--amber); }
+  .step h3 { font-family: var(--serif); font-size: 23px; font-weight: 300; color: var(--fg1); margin: 4px 0 8px; }
+  .say { font-size: 14px; line-height: 1.65; color: var(--fg2); max-width: 78ch; margin: 0 0 14px; }
+  .panel { border: 1px solid var(--soft); border-radius: 2px; background: var(--e1); padding: 12px 14px; }
+  .bar { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 10px; }
+  .bar .hint { flex: 1 1 260px; }
+  canvas { display: block; width: 100%; }
+  button { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--fg2); background: var(--bg); border: 1px solid var(--border); border-radius: 2px; padding: 8px 13px; cursor: pointer; transition: border-color 220ms var(--ease), color 220ms var(--ease); }
+  button:hover { border-color: rgba(232,184,74,.55); color: var(--fg1); }
+  button.go { color: var(--amber); border-color: var(--amberline); box-shadow: 0 0 14px rgba(232,184,74,.16); }
+  button[aria-pressed=true] { color: var(--amber); border-color: var(--amberline); }
+  button:disabled { opacity: .4; cursor: default; }
+  .seg { display: inline-flex; flex-wrap: wrap; } .seg button + button { border-left: 0; }
+  .seg button { text-transform: none; letter-spacing: .06em; white-space: nowrap; }
+  .ctls .full { grid-column: 1 / -1; }
+  .ctls { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 10px 26px; margin-top: 12px; align-items: end; }
+  label.sl { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: .08em; color: var(--fg3); }
+  label.sl b { color: var(--fg1); font-weight: 500; }
+  input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 3px; background: var(--fg4); margin: 12px 0 4px; outline: none; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 13px; height: 13px; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  input[type=range]::-moz-range-thumb { width: 13px; height: 13px; border: 0; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  .read { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 8px 22px; margin-top: 14px; padding-top: 10px; border-top: 1px solid var(--soft); font-family: var(--mono); font-size: 11.5px; letter-spacing: .03em; color: var(--fg3); line-height: 1.5; }
+  .read b { color: var(--fg1); font-weight: 500; }
+  .read .yes { color: var(--ok); } .read .no { color: var(--warn); }
+  .hint { font-family: var(--mono); font-size: 11px; letter-spacing: .05em; color: var(--fg3); }
+  .state { color: var(--amber); }
+  .eqs { margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--soft); }
+  .eq { font-family: var(--serif); font-size: 19px; color: var(--fg1); }
+  .words { font-size: 13px; line-height: 1.55; color: var(--fg2); margin: 2px 0 8px; }
+  .try { font-size: 13.5px; line-height: 1.6; color: var(--fg2); margin: 14px 0 0; max-width: 80ch; }
+  .try .eyebrow { margin-right: 10px; color: var(--amber); }
+  .walk { display: flex; justify-content: space-between; margin-top: 18px; }
+  .foot { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: 20px; padding-top: 10px; border-top: 1px solid var(--soft); font-family: var(--mono); font-size: 10.5px; letter-spacing: .18em; text-transform: uppercase; color: var(--fg4); }
+  .foot .mark { display: inline-flex; align-items: center; gap: 8px; color: var(--fg3); letter-spacing: .12em; text-transform: none; }
+  .foot .mark i { font-family: var(--serif); color: var(--amber); font-weight: 300; }
+  @media (max-width: 680px) { .ctls { grid-template-columns: 1fr; } .read { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="piece">
+  <div class="kicker">made · study · five steps · two van der Pol oscillators and their phase shadow</div>
+  <h1 class="title">The shadow beside the pair</h1>
+  <p class="sub">Phase reduction says you can forget almost everything about a pair of weakly coupled oscillators: keep one number each, where it is round its loop, and the two numbers obey Kuramoto's equation. That forgetting is the shadow. This walk builds it a piece at a time and then measures, as the coupling grows, where the shadow stops telling the truth. Nothing plays until you press a sound button; headphones help.</p>
+  <nav class="rail" aria-label="Steps"></nav>
+
+  <section class="step" data-title="One phase">
+    <div class="eyebrow">Step 1 of 5 · one loop, one number</div>
+    <h3>A phase is time round the loop, not an angle</h3>
+    <p class="say">One oscillator on its loop. Its phase is how far through the cycle it is, counted in time: it ticks round at a steady rate even when the point itself speeds up and slows down. On a nearly round loop the phase and the plain angle of the point almost agree. On the relaxation loop the point crawls, then jumps, and the angle races ahead of the phase and falls behind it. The phase is the one number the shadow keeps.</p>
+    <div class="panel">
+      <div class="bar"><span class="hint">left: the point on its loop (gold), the angle line (grey) · middle: the phase hand, steady · right: angle against phase</span><button class="go" data-sound="one">▶ hear this loop</button><button data-stop>stop</button></div>
+      <canvas id="c1"></canvas>
+      <div class="ctls"><div class="full"><span class="hint">the loop</span><br><span class="seg" data-mus></span></div></div>
+      <div class="read">
+        <div>one trip takes<br><b id="r1a"></b></div>
+        <div>largest gap between angle and phase<br><b id="r1b"></b></div>
+        <div class="state" data-state></div>
+      </div>
+      <div class="eqs">
+        <div class="eq">θ̇ = ω = 2π ÷ T</div>
+        <div class="words">(how fast the phase turns) = (one turn) ÷ (the time one trip takes), the same at every point of the loop.</div>
+      </div>
+    </div>
+    <p class="try"><span class="eyebrow">Try</span>Switch between the three loops and watch the right-hand curve: a straight diagonal for the round loop, a staircase for the relaxation loop.</p>
+  </section>
+
+  <section class="step" data-title="Two phases" hidden>
+    <div class="eyebrow">Step 2 of 5 · two loops, nothing between them</div>
+    <h3>Without coupling, the gap only slides</h3>
+    <p class="say">Two copies of the loop, the second one running a little faster, and nothing connecting them. Each phase ticks round at its own rate, so the gap between them, ψ, slides steadily: one whole turn every 1 ÷ δ trips. In the sound, one oscillator is in each ear; the slide is the slow beat you hear between them.</p>
+    <div class="panel">
+      <div class="bar"><span class="hint">left: the two on the loop · right: the gap ψ at each trip, time running down</span><button class="go" data-sound="free">▶ hear the two</button><button data-stop>stop</button></div>
+      <canvas id="c2"></canvas>
+      <div class="ctls">
+        <div class="full"><span class="hint">the loop</span><br><span class="seg" data-mus></span></div>
+        <label class="sl">the second runs faster by δ <b data-detval></b><input data-det type="range" min="-100" max="100" step="1"></label>
+      </div>
+      <div class="read">
+        <div>the gap slides, measured<br><b id="r2a"></b></div>
+        <div>one whole turn every<br><b id="r2b"></b></div>
+        <div class="state" data-state></div>
+      </div>
+      <div class="eqs">
+        <div class="eq">ψ = θ₂ − θ₁,   ψ̇ = δ·ω</div>
+        <div class="words">(the gap) = (where the second is) − (where the first is) · (how fast the gap slides) = (how much faster the second runs) × (the shared speed).</div>
+      </div>
+    </div>
+    <p class="try"><span class="eyebrow">Try</span>Set δ to zero and the gap holds wherever it started. Any δ at all and it slides for ever. Something has to hold it.</p>
+  </section>
+
+  <section class="step" data-title="The pull" hidden>
+    <div class="eyebrow">Step 3 of 5 · the collapse</div>
+    <h3>The pull, averaged round one cycle</h3>
+    <p class="say">Now let each oscillator feel ε times the other's x minus its own. Each push lands somewhere on the loop, and the phase response curve says how much a push there moves the phase. Multiply the curve (gold) by the push (blue) at every point of the cycle and average: that number, Γ(ψ), is the pull at gap ψ. Only part of it moves the gap. The part that is the same whichever oscillator is ahead speeds both up together; the part that flips sign draws them together or apart. Where that drawing part balances δ, the shadow locks.</p>
+    <div class="panel">
+      <div class="bar"><span class="hint">left: one cycle at gap ψ, curve × push · right, top: Γ(ψ) · right, bottom: the part that draws, against −δω ÷ ε</span><button class="go" data-sound="shadow">▶ hear the shadow</button><button data-stop>stop</button></div>
+      <canvas id="c3"></canvas>
+      <div class="ctls">
+        <div class="full"><span class="hint">the loop</span><br><span class="seg" data-mus></span></div>
+        <label class="sl">the gap ψ <b id="psival"></b><input id="psi" type="range" min="-180" max="180" step="1"></label>
+        <label class="sl">coupling ε <b data-epsval></b><input data-eps type="range" min="0" max="500" step="1"></label>
+        <label class="sl">the second runs faster by δ <b data-detval></b><input data-det type="range" min="-100" max="100" step="1"></label>
+      </div>
+      <div class="read" id="r3"></div>
+      <div class="eqs">
+        <div class="eq">θ̇ᵢ = ωᵢ + ε·Γ(θⱼ − θᵢ),   Γ(ψ) = ⟨ Z(θ) · (x(θ + ψ) − x(θ)) ⟩</div>
+        <div class="words">(phase speed) = (own speed) + (coupling) × (the pull at that gap) · (the pull) = the average over a cycle of (the phase response) × (the other's x minus its own).</div>
+        <div class="eq">ψ̇ = δ·ω + ε·[ Γ(−ψ) − Γ(ψ) ]</div>
+        <div class="words">(how fast the gap moves) = (the rate difference) + (coupling) × (the part of the pull that flips sign with the gap). The shadow locks where this is zero and falling.</div>
+      </div>
+    </div>
+    <p class="try"><span class="eyebrow">Try</span>Compare the bottom curve on the three loops. On the gentle loop it nearly vanishes: the pull is almost the same whichever way round the gap is, so it hardly draws at all. Hold that thought for step 5.</p>
+  </section>
+
+  <section class="step" data-title="Couple them" hidden>
+    <div class="eyebrow">Step 4 of 5 · the pair and its shadow, side by side</div>
+    <h3>Both lock, nearly together</h3>
+    <p class="say">Now run the full pair, every bit of both states, and the shadow, two phases and the pull, from the same start. Dots are the full pair's gap at each trip; the dashed line is the shadow's. At weak coupling they settle to nearly the same gap. Nearly: the shadow threw away how far each oscillator is pushed off its loop between kicks, and that leftover shows as a few degrees.</p>
+    <div class="panel">
+      <div class="bar"><span class="hint">left: the loop; full pair as dots, shadow as rings · right: the gap over 120 trips, dots full, dashed shadow</span><button class="go" data-sound="full">▶ the pair</button><button data-sound="shadow">▶ the shadow</button><button data-sound="diff">▶ what it leaves out</button><button data-stop>stop</button></div>
+      <canvas id="c4"></canvas>
+      <div class="ctls">
+        <div class="full"><span class="hint">the loop</span><br><span class="seg" data-mus></span></div>
+        <label class="sl">coupling ε <b data-epsval></b><input data-eps type="range" min="0" max="500" step="1"></label>
+        <label class="sl">the second runs faster by δ <b data-detval></b><input data-det type="range" min="-100" max="100" step="1"></label>
+      </div>
+      <div class="read" id="r4"></div>
+      <div class="hint state" data-state style="margin-top:8px"></div>
+    </div>
+    <p class="try"><span class="eyebrow">Try</span>At μ 1, ε 0.04 and δ 0.6% both lock a few degrees apart. Push ε up to 0.4 and δ to 9%: the pair still locks, and the shadow says it drifts.</p>
+  </section>
+
+  <section class="step" data-title="How wide each locks" hidden>
+    <div class="eyebrow">Step 5 of 5 · the test</div>
+    <h3>The shadow is right only as the coupling goes to zero</h3>
+    <p class="say">The page's claim, in numbers: on the van der Pol loop at μ 1 the shadow's locking range matches the pair's up to a coupling of 0.1, and by 0.4 the two have parted; on the gentle loop the shadow misses even at 0.05. Here the full pair's locking edge is found by bisection at six couplings, on each side, from runs long enough to tell a slow slide from a lock, and set beside the edge the shadow draws from its pull. Left: the pair's tongue. Right: the shadow's. Below: the pair's range over the shadow's.</p>
+    <div class="panel">
+      <div class="bar"><span class="hint" id="h5">measuring…</span><button class="go" data-sound="here">▶ hear the pair at the cross</button><button data-stop>stop</button></div>
+      <canvas id="c5"></canvas>
+      <div class="ctls"><div class="full"><span class="hint">the loop</span><br><span class="seg" data-mus></span></div><div class="hint full">click either tongue to put the cross there</div></div>
+      <div class="read" id="r5"></div>
+      <div class="hint state" data-state style="margin-top:8px"></div>
+      <div class="eqs">
+        <div class="eq">|δ| ≤ ε · max<sub>ψ</sub>[ Γ(ψ) − Γ(−ψ) ] ÷ ω</div>
+        <div class="words">(the shadow locks while the rate difference is no more than) (coupling) × (the most the pull can draw) ÷ (the shared speed): a straight-sided tongue. The pair's tongue is measured, not drawn.</div>
+      </div>
+    </div>
+    <p class="try"><span class="eyebrow">Try</span>Read the bottom curve on each loop. At μ 1 it starts at 1.00 and bends away as ε grows; on the gentle loop it is far from 1 already at 0.05, because the drawing part of the pull nearly vanishes there and what locks the pair is what the shadow dropped. The full proof this walk climbs to, <i>The shadow that locks</i>, sits further down this section; its tongue is a grid of points 0.01 apart, which is why the gentle loop's miss at 0.05 shows here and not there.</p>
+  </section>
+
+  <div class="walk"><button id="back">◂ back</button><button id="next">next ▸</button></div>
+  <div class="foot"><span>Phase Reduction · rich · the shadow beside the pair · study · 2026-11-03</span><span class="mark"><svg width="22" height="22" viewBox="-11 -11 22 22" aria-hidden="true"><path id="sigil" fill="none" stroke="#e8b84a" stroke-width="1"/></svg>Loud’n <i>Live</i></span></div>
+</div>
+
+<script>
+// ---- math (pure: the check runs this block in node and calls selfTest) ----
+// Two van der Pol oscillators, x' = y, y' = μ(1 − x²)·y − x, each feeling ε × (the other's x − its own) in its y equation,
+// the second running (1 + δ) faster; and their phase shadow, two phases pulled by Kuramoto's rule with the coupling
+// function built from the phase response. limitCycle, cycleAt, floquetAt, prcFloquet, gammaTable, gammaAt, tongue,
+// shadowLock, pairField, runFull and runShadow are the gathered proof's own (Dissolutions/proofs/2026-10-20-the-shadow-
+// that-locks), copied so this piece stands alone. New here: the phase against the angle (step 1), the pull's two parts
+// (step 3), and the full pair's locking edge found by bisection (step 5).
+const TWO_PI = 2 * Math.PI;
+function field(mu, x, y) { return [y, mu * (1 - x * x) * y - x]; }
+function rk4(f, s, h) {
+  const n = s.length, k1 = f(s), t = new Array(n);
+  for (let i = 0; i < n; i++) t[i] = s[i] + 0.5 * h * k1[i]; const k2 = f(t);
+  for (let i = 0; i < n; i++) t[i] = s[i] + 0.5 * h * k2[i]; const k3 = f(t);
+  for (let i = 0; i < n; i++) t[i] = s[i] + h * k3[i]; const k4 = f(t);
+  const o = new Array(n); for (let i = 0; i < n; i++) o[i] = s[i] + h / 6 * (k1[i] + 2 * k2[i] + 2 * k3[i] + k4[i]);
+  return o;
+}
+function limitCycle(mu, Ns) {
+  const f = (s) => field(mu, s[0], s[1]); let s = [2, 0.1], h = 0.002, t = 0; const cross = [];
+  for (let i = 0; i < 60 / h; i++) { s = rk4(f, s, h); t += h; }
+  let prev = s;
+  while (cross.length < 4) {
+    const nx = rk4(f, prev, h);
+    if (prev[1] > 0 && nx[1] <= 0 && nx[0] > 0) { const a = prev[1] / (prev[1] - nx[1]); cross.push({ t: t + a * h, s: [prev[0] + a * (nx[0] - prev[0]), prev[1] + a * (nx[1] - prev[1])] }); }
+    prev = nx; t += h;
+  }
+  const T = (cross[3].t - cross[1].t) / 2, s0 = cross[3].s, hh = T / Ns, xs = new Float64Array(Ns), ys = new Float64Array(Ns); let tr = 0;
+  s = s0;
+  for (let i = 0; i < Ns; i++) { xs[i] = s[0]; ys[i] = s[1]; tr += mu * (1 - s[0] * s[0]) * hh; s = rk4(f, s, hh); }
+  return { mu, T, w: TWO_PI / T, x: xs, y: ys, Ns, across: Math.exp(tr), logAcross: tr };
+}
+function cycleAt(cyc, th) { const u = ((th / TWO_PI) % 1 + 1) % 1 * cyc.Ns, i = Math.floor(u), q = u - i, j = (i + 1) % cyc.Ns; return [cyc.x[i] + q * (cyc.x[j] - cyc.x[i]), cyc.y[i] + q * (cyc.y[j] - cyc.y[i])]; }
+function floquetAt(cyc, k, steps) {
+  const mu = cyc.mu, h = cyc.T / steps;
+  const f = (s) => { const x = s[0], y = s[1], j21 = -2 * mu * x * y - 1, j22 = mu * (1 - x * x); return [y, mu * (1 - x * x) * y - x, s[4], s[5], j21 * s[2] + j22 * s[4], j21 * s[3] + j22 * s[5]]; };
+  let s = [cyc.x[k], cyc.y[k], 1, 0, 0, 1];
+  for (let i = 0; i < steps; i++) s = rk4(f, s, h);
+  const a = s[2], b = s[3], c = s[4], d = s[5], tr = a + d, det = a * d - b * c, disc = Math.sqrt(Math.max(0, tr * tr / 4 - det));
+  const l1 = tr / 2 + disc, l2 = tr / 2 - disc, lam = Math.abs(l1 - 1) < Math.abs(l2 - 1) ? l1 : l2;
+  const w = Math.abs(c) + Math.abs(a - lam) > Math.abs(b) + Math.abs(d - lam) ? [c, -(a - lam)] : [d - lam, -b];
+  const F = field(mu, cyc.x[k], cyc.y[k]), sc = cyc.w / (w[0] * F[0] + w[1] * F[1]);
+  return { Z: [w[0] * sc, w[1] * sc], one: lam };
+}
+function prcFloquet(cyc, K) { const out = []; for (let j = 0; j < K; j++) out.push(floquetAt(cyc, Math.round(j * cyc.Ns / K) % cyc.Ns, 1000)); return out; }
+function prcAt(prc, th) { const K = prc.length, u = ((th / TWO_PI) % 1 + 1) % 1 * K, i = Math.floor(u), q = u - i; return prc[i % K].Z[1] * (1 - q) + prc[(i + 1) % K].Z[1] * q; }
+// the pull at gap ψ: Γ(ψ) = (1/2π)∮ Z_y(θ) · (x(θ + ψ) − x(θ)) dθ, at P gaps
+function gammaTable(cyc, prc, P) {
+  const K = prc.length, out = new Float64Array(P), Ns = cyc.Ns;
+  for (let q = 0; q < P; q++) {
+    const psi = TWO_PI * q / P; let s = 0;
+    for (let i = 0; i < Ns; i++) {
+      const u = i / Ns * K, k0 = Math.floor(u), fr = u - k0, z = prc[k0 % K].Z[1] * (1 - fr) + prc[(k0 + 1) % K].Z[1] * fr;
+      const j = (i + Math.round(psi / TWO_PI * Ns)) % Ns;
+      s += z * (cyc.x[j] - cyc.x[i]);
+    }
+    out[q] = s / Ns;
+  }
+  return out;
+}
+function gammaAt(G, psi) { const P = G.length, u = ((psi / TWO_PI) % 1 + 1) % 1 * P, i = Math.floor(u), q = u - i; return G[i % P] * (1 - q) + G[(i + 1) % P] * q; }
+// the part of the pull that moves the gap: Γ(−ψ) − Γ(ψ). The rest, Γ(ψ) + Γ(−ψ), speeds both up alike.
+function drawPart(G, psi) { return gammaAt(G, -psi) - gammaAt(G, psi); }
+function evenPart(G, psi) { return gammaAt(G, -psi) + gammaAt(G, psi) - 2 * gammaAt(G, 0); }
+// how much of the pull draws the pair, against how much only speeds it: the largest of each over every gap
+function drawShare(G) { let o = 0, e = 0; for (let q = 0; q < 256; q++) { const p = TWO_PI * q / 256; o = Math.max(o, Math.abs(drawPart(G, p))); e = Math.max(e, Math.abs(evenPart(G, p))); } return o / e; }
+// where the shadow says locking ends: δ·ω + ε·[Γ(−ψ) − Γ(ψ)] = 0 must have a root; per unit of coupling
+function tongue(G, w) {
+  let lo = 1e9, hi = -1e9; const P = G.length;
+  for (let q = 0; q < P; q++) { const h = drawPart(G, TWO_PI * q / P); lo = Math.min(lo, h); hi = Math.max(hi, h); }
+  return { lo: -hi / w, hi: -lo / w };
+}
+// the gap the shadow settles at: a root of δ·ω + ε·[Γ(−ψ) − Γ(ψ)] where it falls through zero, nearest `near`
+function shadowLock(G, w, eps, det, near) {
+  const P = 720; let best = null; const rate = (psi) => det * w + eps * drawPart(G, psi);
+  for (let q = 0; q < P; q++) {
+    const a = -Math.PI + TWO_PI * q / P, b = a + TWO_PI / P, ra = rate(a), rb = rate(b);
+    if (ra > 0 && rb <= 0) { const z = a + (b - a) * ra / (ra - rb), dz = Math.abs(Math.atan2(Math.sin(z - near), Math.cos(z - near))); if (best === null || dz < best[1]) best = [z, dz]; }
+  }
+  return best && best[0];
+}
+function pairField(mu, eps, det) {
+  return (s) => { const a = field(mu, s[0], s[1]), b = field(mu, s[2], s[3]); return [a[0], a[1] + eps * (s[2] - s[0]), (1 + det) * b[0], (1 + det) * b[1] + eps * (s[0] - s[2])]; };
+}
+function unwrapSpan(g) { let u = g[0][1], lo = u, hi = u; for (let i = 1; i < g.length; i++) { let dd = g[i][1] - g[i - 1][1]; dd = Math.atan2(Math.sin(dd), Math.cos(dd)); u += dd; lo = Math.min(lo, u); hi = Math.max(hi, u); } return hi - lo; }
+// the full pair from two points on the loop: the gap ψ at each crossing of osc 2, and whether it locked
+function runFull(cyc, eps, det, psi0, trips, perTrip) {
+  const f = pairField(cyc.mu, eps, det), p1 = cycleAt(cyc, 0), p2 = cycleAt(cyc, psi0); let s = [p1[0], p1[1], p2[0], p2[1]];
+  const h = cyc.T / perTrip, n = Math.round(trips * perTrip), c1 = [], c2 = [], path = [], every = Math.max(1, Math.round(perTrip / 50)); let t = 0;
+  for (let i = 0; i < n; i++) {
+    const nx = rk4(f, s, h);
+    if (s[1] > 0 && nx[1] <= 0 && nx[0] > 0) c1.push(t + h * s[1] / (s[1] - nx[1]));
+    if (s[3] > 0 && nx[3] <= 0 && nx[2] > 0) c2.push(t + h * s[3] / (s[3] - nx[3]));
+    if (i % every === 0) path.push([t, s[0], s[1], s[2], s[3]]);
+    s = nx; t += h;
+  }
+  const gaps = [];
+  for (let k = 0, j = 0; k < c2.length; k++) {
+    while (j + 1 < c1.length && c1[j + 1] <= c2[k]) j++;
+    if (j + 1 >= c1.length || c1[j] > c2[k]) continue;
+    const g = TWO_PI * (c1[j + 1] - c2[k]) / (c1[j + 1] - c1[j]);
+    gaps.push([c2[k], Math.atan2(Math.sin(g), Math.cos(g))]);
+  }
+  const tail = gaps.filter((q) => q[0] > t * 0.6), alive = c1.length > trips * 0.5 && c2.length > trips * 0.5; let locked = false, at = NaN;
+  if (alive && tail.length > 4) {
+    let cx = 0, sx = 0; tail.forEach((q) => { cx += Math.cos(q[1]); sx += Math.sin(q[1]); });
+    const R = Math.hypot(cx, sx) / tail.length, drift = Math.abs(unwrapSpan(tail));
+    locked = R > 0.995 && drift < 0.6; at = Math.atan2(sx, cx);
+  }
+  return { gaps, locked, at, alive, path, T: t };
+}
+function runShadow(cyc, G, eps, det, psi0, trips, perTrip) {
+  const w = cyc.w, h = cyc.T / perTrip, n = Math.round(trips * perTrip), out = [];
+  const f = (s) => [w + eps * gammaAt(G, s[1] - s[0]), (1 + det) * w + eps * gammaAt(G, s[0] - s[1])];
+  let s = [0, psi0]; const every = Math.max(1, Math.round(perTrip / 50));
+  for (let i = 0; i < n; i++) { if (i % every === 0) out.push([i * h, s[0], s[1]]); s = rk4(f, s, h); }
+  const g = s[1] - s[0];
+  return { path: out, end: Math.atan2(Math.sin(g), Math.cos(g)) };
+}
+// ---- new here ----
+// step 1: around the loop, the phase (time since phase 0, as a turn) against the plain angle of the point
+function phaseAndAngle(cyc, K) {
+  const out = []; let a0 = Math.atan2(cyc.y[0], cyc.x[0]), un = 0, prev = a0;
+  for (let j = 0; j <= K; j++) { const i = Math.round(j * cyc.Ns / K) % cyc.Ns, a = Math.atan2(cyc.y[i], cyc.x[i]); let d = a - prev; d = Math.atan2(Math.sin(d), Math.cos(d)); un += d; prev = a; out.push([TWO_PI * j / K, -un]); }
+  return out; // [phase, angle swept clockwise], both from 0 to 2π
+}
+// step 5: the edge of the full pair's locking, by bisection on the detuning, on one side (+1: osc 2 faster, −1: slower).
+// Runs long enough to tell a slow slide from a lock near the edge: 40 ÷ ε trips, at least 300, at most 2000.
+function tripsFor(eps) { return Math.max(300, Math.min(2000, Math.round(40 / eps))); }
+// A generator, so the page can take one run per frame and stay awake; fullEdge runs it to the end.
+function* edgeSteps(cyc, eps, side, guess, iters) {
+  const trips = tripsFor(eps), per = cyc.mu > 2 ? 200 : 120, locks = (d) => runFull(cyc, eps, side * d, TWO_PI / 3, trips, per).locked;
+  let lo = 0, hi = Math.max(guess * 1.6, 0.002), l = locks(hi); yield;
+  while (l && hi < 0.5) { lo = hi; hi *= 1.6; l = locks(hi); yield; }
+  for (let k = 0; k < (iters || 11); k++) { const mid = (lo + hi) / 2; if (locks(mid)) lo = mid; else hi = mid; yield; }
+  return (lo + hi) / 2;
+}
+function fullEdge(cyc, eps, side, guess, iters) { const it = edgeSteps(cyc, eps, side, guess, iters); let r = it.next(); while (!r.done) r = it.next(); return r.value; }
+// two oscillators at audio rate, one in each ear: the full pair, and the shadow read back through the loop
+function renderPair(cyc, G, eps, det, psi0, f0, sr, secs) {
+  const n = Math.round(sr * secs), h = cyc.T * f0 / sr, f = pairField(cyc.mu, eps, det), p1 = cycleAt(cyc, 0), p2 = cycleAt(cyc, psi0);
+  let s = [p1[0], p1[1], p2[0], p2[1]]; const th = [0, psi0], full = [new Float32Array(n), new Float32Array(n)], shadow = [new Float32Array(n), new Float32Array(n)];
+  for (let i = 0; i < n; i++) {
+    full[0][i] = s[0]; full[1][i] = s[2];
+    const q1 = cycleAt(cyc, th[0]), q2 = cycleAt(cyc, th[1]); shadow[0][i] = q1[0]; shadow[1][i] = q2[0];
+    s = rk4(f, s, h);
+    const d0 = cyc.w + eps * gammaAt(G, th[1] - th[0]), d1 = (1 + det) * cyc.w + eps * gammaAt(G, th[0] - th[1]);
+    th[0] += h * d0; th[1] += h * d1;
+  }
+  return { full, shadow };
+}
+const EPS_LADDER = [0.02, 0.05, 0.1, 0.2, 0.3, 0.4];
+function loopAll(mu) { const cyc = limitCycle(mu, 2000), prc = prcFloquet(cyc, 64), G = gammaTable(cyc, prc, 128); return { cyc, prc, G, tg: tongue(G, cyc.w) }; }
+function selfTest() {
+  const lines = [], ok = (name, pass, detail) => lines.push(`${pass ? 'PASS' : 'FAIL'}  ${name}${detail ? ` (${detail})` : ''}`);
+  const L = { 0.3: loopAll(0.3), 1: loopAll(1), 3: loopAll(3) };
+  // step 1: on a round loop phase and angle agree; on a relaxation loop they part
+  const lag = (mu) => { let m = 0; phaseAndAngle(L[mu].cyc, 360).forEach(([p, a]) => { m = Math.max(m, Math.abs(Math.atan2(Math.sin(a - p), Math.cos(a - p)))); }); return m * 180 / Math.PI; };
+  ok('step 1 · phase is time round the loop: near the angle on a round loop, far from it on a relaxation loop', lag(0.3) < 15 && lag(3) > 40, `largest angle − phase: μ 0.3 ${lag(0.3).toFixed(1)}°, μ 3 ${lag(3).toFixed(1)}°`);
+  // step 2: uncoupled, the gap slides at δ·ω and never settles
+  { const r = runFull(L[1].cyc, 0, 0.02, 0, 80, 120); let un = 0; for (let i = 1; i < r.gaps.length; i++) { let d = r.gaps[i][1] - r.gaps[i - 1][1]; un += Math.atan2(Math.sin(d), Math.cos(d)); }
+    const rate = un / (r.gaps[r.gaps.length - 1][0] - r.gaps[0][0]);
+    ok('step 2 · no coupling: the gap slides at δ·ω and never settles', !r.locked && Math.abs(rate / (0.02 * L[1].cyc.w) - 1) < 0.01, `${(rate / L[1].cyc.w).toFixed(5)} of ω for δ 0.02`); }
+  // step 3: the pull's drawing part is small on the gentle loop, against its speeding part
+  const s03 = drawShare(L[0.3].G), s1 = drawShare(L[1].G);
+  ok('step 3 · on the gentle loop the part of the pull that draws the pair nearly vanishes', s03 < 0.5 * s1, `drawing ÷ speeding: μ 0.3 ${s03.toFixed(3)}, μ 1 ${s1.toFixed(3)}`);
+  // step 4: weak coupling, both lock, at nearly the same gap
+  { const { cyc, G } = L[1], eps = 0.04, det = 0.006, f = runFull(cyc, eps, det, TWO_PI / 3, 300, 120), sh = runShadow(cyc, G, eps, det, TWO_PI / 3, 300, 100), at = shadowLock(G, cyc.w, eps, det, sh.end);
+    const d = Math.abs(Math.atan2(Math.sin(f.at - at), Math.cos(f.at - at))) * 180 / Math.PI;
+    ok('step 4 · μ 1, ε 0.04, δ 0.006: pair and shadow both lock, a few degrees apart', f.locked && at !== null && d < 10, `pair ${(f.at * 180 / Math.PI).toFixed(1)}°, shadow ${(at * 180 / Math.PI).toFixed(1)}°`); }
+  // step 5: the test. How wide the pair locks, against how wide the shadow says, as coupling grows
+  const ratio = (mu, eps, side) => fullEdge(L[mu].cyc, eps, side, eps * L[mu].tg.hi) / (eps * L[mu].tg.hi);
+  const r1 = [0.02, 0.05, 0.1].map((e) => ratio(1, e, 1)), r1s = [0.4].map((e) => ratio(1, e, 1)), r1n = ratio(1, 0.1, -1);
+  ok('step 5 · μ 1, coupling up to 0.1: the pair locks as wide as the shadow says, within 6%', r1.every((r) => Math.abs(r - 1) < 0.06) && Math.abs(r1n - 1) < 0.06, `ε 0.02 ${r1[0].toFixed(3)}×, 0.05 ${r1[1].toFixed(3)}×, 0.1 ${r1[2].toFixed(3)}× (slower side at 0.1: ${r1n.toFixed(3)}×)`);
+  ok('step 5 · μ 1, coupling 0.4: the two have parted, the pair locking wider by a quarter or more', r1s[0] > 1.25, `${r1s[0].toFixed(3)}×`);
+  const r03 = ratio(0.3, 0.05, 1), r03s = ratio(0.3, 0.01, 1);
+  ok('step 5 · μ 0.3, coupling 0.05: the shadow misses, the pair locking far wider', r03 > 1.5, `${r03.toFixed(3)}× (at ε 0.01: ${r03s.toFixed(3)}×)`);
+  // the proof's own grid: detunings 0.01 apart, so at μ 0.3 and ε 0.05 both edges fall before its first point off centre
+  ok('step 5 · μ 0.3, ε 0.05: both edges fall short of the proof\'s grid point at 0.01, so its grid cannot show the miss', 0.05 * L[0.3].tg.hi < 0.005 && r03 * 0.05 * L[0.3].tg.hi < 0.01, `shadow edge ${(0.05 * L[0.3].tg.hi).toFixed(4)}, pair edge ${(r03 * 0.05 * L[0.3].tg.hi).toFixed(4)}, grid step 0.01`);
+  return lines;
+}
+// ---- end math ----
+
+// ---- the walk: one step showing, Next and Back, the rail always open; changing step stops the sound ----
+const STEPS = [...document.querySelectorAll('.step')];
+const rail = document.querySelector('.rail');
+let cur = 0;
+STEPS.forEach((s, i) => {
+  const b = document.createElement('button');
+  b.innerHTML = `<span class="n">${i + 1}</span>${s.dataset.title}`;
+  b.addEventListener('click', () => show(i));
+  rail.appendChild(b);
+});
+function show(i) {
+  stopSound();
+  cur = Math.max(0, Math.min(STEPS.length - 1, i));
+  STEPS.forEach((s, k) => { s.hidden = k !== cur; });
+  [...rail.children].forEach((b, k) => { if (k === cur) b.setAttribute('aria-current', 'step'); else b.removeAttribute('aria-current'); });
+  document.getElementById('back').disabled = cur === 0;
+  document.getElementById('next').disabled = cur === STEPS.length - 1;
+  redraw();
+}
+document.getElementById('back').addEventListener('click', () => show(cur - 1));
+document.getElementById('next').addEventListener('click', () => show(cur + 1));
+// ---- sound: nothing exists before a click; one buffer plays at a time. The kit quiets the page's context itself
+// (a hush from the page around it, a hidden tab, a minute untouched); the piece only keeps its words in step. Never name
+// the page's hush message in this script: the kit reads a script that names it as one that answers it. ----
+let actx = null, src = null, outGain = null;
+function audio() {
+  if (!actx) {
+    actx = new (window.AudioContext || window.webkitAudioContext)();
+    const comp = actx.createDynamicsCompressor(); comp.threshold.value = -10; comp.ratio.value = 8;
+    outGain = actx.createGain(); outGain.gain.value = 0.7;
+    outGain.connect(comp).connect(actx.destination);
+    actx.onstatechange = () => { if (actx.state !== 'running') setPlaying(null); };
+  }
+  return actx;
+}
+function setPlaying(label) {
+  document.querySelectorAll('[data-state]').forEach((el) => { el.textContent = label ? 'playing · ' + label : 'silent until you press a sound button'; });
+}
+function playStereo(ch, rate, label) {
+  stopSound();
+  const ctx = audio(), n = ch[0].length, buf = ctx.createBuffer(2, n, rate);
+  let pk = 1e-12; for (const c of ch) for (let i = 0; i < n; i++) pk = Math.max(pk, Math.abs(c[i]));
+  const g = 0.5 / pk, fade = Math.round(rate * 0.008);
+  ch.forEach((c, k) => { const d = buf.getChannelData(k); for (let i = 0; i < n; i++) d[i] = c[i] * g * Math.min(1, i / fade, (n - 1 - i) / fade); });
+  const s = ctx.createBufferSource(); s.buffer = buf; s.connect(outGain);
+  s.onended = () => { if (src === s) { src = null; setPlaying(null); } };
+  const go = () => { s.start(); src = s; setPlaying(label); };
+  if (ctx.state !== 'running') ctx.resume().then(go); else go();
+}
+function stopSound() { if (src) { try { src.stop(); } catch (e) {} src = null; } setPlaying(null); }
+document.addEventListener('visibilitychange', () => { if (document.hidden) stopSound(); });
+// ---- drawing helpers ----
+function fit(c, aspect, minH, maxH) {
+  const w = c.clientWidth || 600, d = window.devicePixelRatio || 1, h = Math.round(Math.max(minH || 200, Math.min(maxH || 460, w * aspect)));
+  if (c.width !== Math.round(w * d) || c.height !== Math.round(h * d)) { c.width = Math.round(w * d); c.height = Math.round(h * d); c.style.height = h + 'px'; }
+  const g = c.getContext('2d'); g.setTransform(d, 0, 0, d, 0, 0); g.clearRect(0, 0, w, h); return { g, w, h };
+}
+const COL = { dim: '#4a4a5a', grid: '#22222e', amber: '#e8b84a', blue: '#4a8fff', warn: '#ff9b4a', ok: '#7fd49a', fg1: '#e8e8f0', fg2: '#c8c8d8', fg3: '#8a8aa0' };
+function label(g, text, x, y, color, align) { g.fillStyle = color || COL.fg3; g.font = '10.5px JetBrains Mono, monospace'; g.textAlign = align || 'left'; g.fillText(text, x, y); }
+function box(g, x, y, w, h) { g.strokeStyle = 'rgba(255,255,255,.06)'; g.lineWidth = 1; g.strokeRect(x + 0.5, y + 0.5, w - 1, h - 1); }
+function loopMap(cyc, x, y, s) {
+  let xm = 1e-9, ym = 1e-9; for (let i = 0; i < cyc.Ns; i++) { xm = Math.max(xm, Math.abs(cyc.x[i])); ym = Math.max(ym, Math.abs(cyc.y[i])); }
+  xm *= 1.2; ym *= 1.25; const cx = x + s / 2, cy = y + s / 2 + 4, kx = (s / 2 - 10) / xm, ky = (s / 2 - 16) / ym;
+  return { X: (v) => cx + v * kx, Y: (v) => cy - v * ky, cx, cy };
+}
+function drawLoop(g, cyc, m, color, width) { g.strokeStyle = color; g.lineWidth = width || 2.2; g.beginPath(); for (let i = 0; i <= cyc.Ns; i += 4) { const k = i % cyc.Ns, X = m.X(cyc.x[k]), Y = m.Y(cyc.y[k]); i ? g.lineTo(X, Y) : g.moveTo(X, Y); } g.stroke(); }
+const deg = (r) => r * 180 / Math.PI;
+const wrap = (a) => Math.atan2(Math.sin(a), Math.cos(a));
+
+// ---- the piece ----
+const $ = (id) => document.getElementById(id);
+const F0 = 220, SR = 48000, PSI0 = TWO_PI / 3;
+const S = { mu: 1, eps: 0.04, det: 0.006, psi: 60 * Math.PI / 180 };
+const memo = {};
+function L(mu) { if (!memo['L' + mu]) memo['L' + mu] = loopAll(mu); return memo['L' + mu]; }
+document.querySelectorAll('[data-mus]').forEach((seg) => {
+  [0.3, 1, 3].forEach((mu) => {
+    const b = document.createElement('button'); b.textContent = mu === 0.3 ? 'gentle · μ 0.3' : mu === 1 ? 'van der Pol · μ 1' : 'relaxation · μ 3';
+    b.dataset.mu = mu; b.addEventListener('click', () => { S.mu = mu; stopSound(); redraw(); }); seg.appendChild(b);
+  });
+});
+document.querySelectorAll('[data-eps]').forEach((el) => el.addEventListener('input', () => { S.eps = +el.value / 1000; stopSound(); redraw(); }));
+document.querySelectorAll('[data-det]').forEach((el) => el.addEventListener('input', () => { S.det = +el.value / 1000; stopSound(); redraw(); }));
+$('psi').addEventListener('input', () => { S.psi = +$('psi').value * Math.PI / 180; redraw(); });
+function sync() {
+  document.querySelectorAll('[data-mu]').forEach((b) => b.setAttribute('aria-pressed', String(+b.dataset.mu === S.mu)));
+  document.querySelectorAll('[data-eps]').forEach((el) => { el.value = Math.round(S.eps * 1000); });
+  document.querySelectorAll('[data-epsval]').forEach((el) => { el.textContent = S.eps.toFixed(3); });
+  document.querySelectorAll('[data-det]').forEach((el) => { el.value = Math.round(S.det * 1000); });
+  document.querySelectorAll('[data-detval]').forEach((el) => { el.textContent = (S.det >= 0 ? '+' : '') + (S.det * 100).toFixed(1) + '%'; });
+  $('psi').value = Math.round(deg(S.psi)); $('psival').textContent = Math.round(deg(S.psi)) + '°';
+}
+let pend = 0;
+function redraw() { sync(); clearTimeout(pend); pend = setTimeout(() => { animJob++; [draw1, draw2, draw3, draw4, draw5][cur](); }, 20); }
+document.querySelectorAll('[data-stop]').forEach((b) => b.addEventListener('click', stopSound));
+document.querySelectorAll('[data-sound]').forEach((b) => b.addEventListener('click', () => {
+  const { cyc, G } = L(S.mu), kind = b.dataset.sound;
+  if (kind === 'one') { const r = renderPair(cyc, G, 0, 0, 0, F0, SR, 2.5); playStereo([r.full[0], r.full[0]], SR, 'the loop at μ ' + S.mu); return; }
+  if (kind === 'free') { const r = renderPair(cyc, G, 0, S.det, 0, F0, SR, 5); playStereo(r.full, SR, 'two loops, uncoupled, δ ' + (S.det * 100).toFixed(1) + '%'); return; }
+  const e = kind === 'here' ? here.eps : S.eps, dd = kind === 'here' ? here.det : S.det, r = renderPair(cyc, G, e, dd, PSI0, F0, SR, 5);
+  const tag = 'ε ' + e.toFixed(3) + ', δ ' + (dd * 100).toFixed(2) + '%';
+  if (kind === 'full' || kind === 'here') playStereo(r.full, SR, 'the pair, one in each ear, ' + tag);
+  else if (kind === 'shadow') playStereo(r.shadow, SR, 'the shadow read back through the loop, ' + tag);
+  else playStereo([r.full[0].map((v, i) => v - r.shadow[0][i]), r.full[1].map((v, i) => v - r.shadow[1][i])], SR, 'the pair minus its shadow, ' + tag);
+}));
+// ---- step 1: animated while showing ----
+let animJob = 0;
+function draw1() {
+  const { cyc } = L(S.mu), c = $('c1');
+  const pa = memo['pa' + S.mu] || (memo['pa' + S.mu] = phaseAndAngle(cyc, 360));
+  let worst = 0; pa.forEach(([p, a]) => { worst = Math.max(worst, Math.abs(wrap(a - p))); });
+  $('r1a').textContent = cyc.T.toFixed(4) + ' time units, ω = ' + cyc.w.toFixed(4);
+  $('r1b').textContent = deg(worst).toFixed(1) + '°';
+  const t0 = performance.now(), me = animJob;
+  const frame = () => {
+    if (me !== animJob || cur !== 0) return;
+    const { g, w, h } = fit(c, 0.36, 230, 380), s = Math.min(h - 8, w * 0.36), m = loopMap(cyc, 4, 4, s);
+    box(g, 4, 4, s, s); drawLoop(g, cyc, m, 'rgba(232,184,74,.45)', 2);
+    const ph = ((performance.now() - t0) / 3000 % 1) * TWO_PI, p = cycleAt(cyc, ph);
+    g.strokeStyle = COL.dim; g.lineWidth = 1; g.beginPath(); g.moveTo(m.cx, m.cy); g.lineTo(m.X(p[0]), m.Y(p[1])); g.stroke();
+    g.fillStyle = COL.amber; g.beginPath(); g.arc(m.X(p[0]), m.Y(p[1]), 5, 0, 7); g.fill();
+    label(g, 'THE LOOP · μ ' + S.mu, 12, 18);
+    // the phase hand
+    const r = Math.min(s * 0.32, (w - s) * 0.16), dx = s + 24 + r, dy = h / 2;
+    g.strokeStyle = COL.dim; g.lineWidth = 1; g.beginPath(); g.arc(dx, dy, r, 0, 7); g.stroke();
+    g.strokeStyle = COL.amber; g.lineWidth = 2; g.beginPath(); g.moveTo(dx, dy); g.lineTo(dx + r * Math.sin(ph), dy - r * Math.cos(ph)); g.stroke();
+    label(g, 'THE PHASE', dx, dy - r - 10, COL.fg3, 'center'); label(g, deg(ph).toFixed(0) + '°', dx, dy + r + 18, COL.fg1, 'center');
+    // angle against phase
+    const x0 = dx + r + 46, pw = w - x0 - 14, py = 16, phh = h - 40;
+    box(g, x0 - 10, 4, w - x0 + 6, h - 8);
+    const X = (v) => x0 + v / TWO_PI * pw, Y = (v) => py + phh - v / TWO_PI * phh;
+    g.strokeStyle = COL.grid; g.beginPath(); g.moveTo(X(0), Y(0)); g.lineTo(X(TWO_PI), Y(TWO_PI)); g.stroke();
+    g.strokeStyle = COL.amber; g.lineWidth = 2; g.beginPath(); pa.forEach(([pp, a], j) => { const yy = Y(Math.min(TWO_PI, Math.max(0, a))); j ? g.lineTo(X(pp), yy) : g.moveTo(X(pp), yy); }); g.stroke();
+    const ia = pa[Math.round(ph / TWO_PI * 360) % 361]; g.fillStyle = COL.fg1; g.beginPath(); g.arc(X(ia[0]), Y(Math.min(TWO_PI, Math.max(0, ia[1]))), 4, 0, 7); g.fill();
+    label(g, 'ANGLE ↑ AGAINST PHASE →', x0, py - 2); label(g, 'grey: where they would agree', w - 14, h - 10, COL.fg3, 'right');
+    requestAnimationFrame(frame);
+  };
+  requestAnimationFrame(frame);
+}
+// ---- step 2 ----
+function gapPlot(g, x, y, w, h, tEnd) {
+  const X = (psi) => x + (psi + Math.PI) / TWO_PI * w, Y = (t) => y + t / tEnd * h;
+  g.save(); g.setLineDash([2, 3]); g.strokeStyle = COL.dim; g.beginPath(); g.moveTo(X(0), y); g.lineTo(X(0), y + h); g.stroke(); g.restore();
+  label(g, '−180°', x, y - 6); label(g, '+180°', x + w, y - 6, COL.fg3, 'right'); label(g, '0', X(0), y - 6, COL.fg3, 'center');
+  return { X, Y };
+}
+function draw2() {
+  const { cyc } = L(S.mu), { g, w, h } = fit($('c2'), 0.4, 250, 420), s = Math.min(h - 8, w * 0.36), m = loopMap(cyc, 4, 4, s);
+  box(g, 4, 4, s, s); drawLoop(g, cyc, m, COL.amber, 2.2);
+  const r = runFull(cyc, 0, S.det, 0, 80, cyc.mu > 2 ? 200 : 120), last = r.path[r.path.length - 1];
+  g.fillStyle = COL.blue; g.beginPath(); g.arc(m.X(last[1]), m.Y(last[2]), 5, 0, 7); g.fill();
+  g.fillStyle = COL.fg1; g.beginPath(); g.arc(m.X(last[3]), m.Y(last[4]), 5, 0, 7); g.fill();
+  label(g, 'blue: the first · white: the second', 12, s - 6);
+  box(g, s + 12, 4, w - s - 16, h - 8);
+  const P = gapPlot(g, s + 30, 46, w - s - 50, h - 64, r.T);
+  g.fillStyle = COL.amber; r.gaps.forEach((q) => { g.beginPath(); g.arc(P.X(q[1]), P.Y(q[0]), 2, 0, 7); g.fill(); });
+  label(g, 'THE GAP ψ, 80 TRIPS, TIME ↓', s + 30, 16);
+  let un = 0; for (let i = 1; i < r.gaps.length; i++) un += wrap(r.gaps[i][1] - r.gaps[i - 1][1]);
+  const rate = r.gaps.length > 1 ? un / (r.gaps[r.gaps.length - 1][0] - r.gaps[0][0]) : 0;
+  $('r2a').textContent = (rate / cyc.w * 100).toFixed(3) + '% of ω a unit time · δ·ω predicts ' + (S.det * 100).toFixed(3) + '%';
+  $('r2b').textContent = S.det === 0 ? 'never: the gap holds still' : (1 / Math.abs(S.det)).toFixed(0) + ' trips';
+}
+// ---- step 3 ----
+function draw3() {
+  const { cyc, prc, G, tg } = L(S.mu), { g, w, h } = fit($('c3'), 0.46, 300, 460), lw = w * 0.46;
+  box(g, 4, 4, lw, h - 8);
+  // one cycle at gap ψ: the curve, the push, their product
+  const N = 256, z = [], p = [], pr = []; let mean = 0;
+  for (let j = 0; j < N; j++) { const th = TWO_PI * j / N, zz = prcAt(prc, th), pp = cycleAt(cyc, th + S.psi)[0] - cycleAt(cyc, th)[0]; z.push(zz); p.push(pp); pr.push(zz * pp); mean += zz * pp / N; }
+  const zm = Math.max(...z.map(Math.abs)) * 1.15, pm = Math.max(...p.map(Math.abs), 1e-9) * 1.15, rm = Math.max(...pr.map(Math.abs), 1e-9) * 1.15;
+  const x0 = 16, x1 = lw - 10, band = (h - 40) / 3, X = (j) => x0 + (x1 - x0) * j / N;
+  const lane = (k, arr, mx, color, name) => {
+    const yc = 26 + band * k + band / 2, Y = (v) => yc - v / mx * (band / 2 - 8);
+    g.strokeStyle = COL.grid; g.beginPath(); g.moveTo(x0, yc); g.lineTo(x1, yc); g.stroke();
+    g.strokeStyle = color; g.lineWidth = 1.8; g.beginPath(); arr.forEach((v, j) => { j ? g.lineTo(X(j), Y(v)) : g.moveTo(X(j), Y(v)); }); g.stroke();
+    label(g, name, x0, yc - band / 2 + 12, color); return Y;
+  };
+  lane(0, z, zm, COL.amber, 'THE PHASE RESPONSE Z(θ)');
+  lane(1, p, pm, COL.blue, 'THE PUSH x(θ + ψ) − x(θ)');
+  const Yp = lane(2, pr, rm, COL.fg1, 'THEIR PRODUCT · ITS AVERAGE IS Γ(ψ)');
+  g.save(); g.setLineDash([5, 4]); g.strokeStyle = COL.ok; g.beginPath(); g.moveTo(x0, Yp(mean)); g.lineTo(x1, Yp(mean)); g.stroke(); g.restore();
+  label(g, 'one cycle →', x1, h - 8, COL.fg3, 'right');
+  // right: Γ(ψ), and the part that draws
+  const rx = lw + 18, rw = w - rx - 10, th = (h - 30) / 2;
+  box(g, lw + 10, 4, w - lw - 14, h - 8);
+  const gs = [], ds = []; for (let q = 0; q <= 360; q++) { const ps = -Math.PI + TWO_PI * q / 360; gs.push([ps, gammaAt(G, ps)]); ds.push([ps, drawPart(G, ps)]); }
+  const gm = Math.max(...gs.map((q) => Math.abs(q[1])), 1e-9) * 1.2, line = -S.det * cyc.w / Math.max(S.eps, 1e-9), dm = Math.max(...ds.map((q) => Math.abs(q[1])), Math.min(Math.abs(line), gm), 1e-9) * 1.25;
+  const XX = (ps) => rx + (ps + Math.PI) / TWO_PI * rw;
+  const panel = (y0, arr, mx, color, name) => { const yc = y0 + th / 2, Y = (v) => yc - v / mx * (th / 2 - 14); g.strokeStyle = COL.grid; g.beginPath(); g.moveTo(rx, yc); g.lineTo(rx + rw, yc); g.stroke(); g.strokeStyle = color; g.lineWidth = 2; g.beginPath(); arr.forEach((q, j) => { j ? g.lineTo(XX(q[0]), Y(q[1])) : g.moveTo(XX(q[0]), Y(q[1])); }); g.stroke(); label(g, name, rx, y0 + 12, color); return Y; };
+  const Yg = panel(10, gs, gm, COL.ok, 'Γ(ψ), THE PULL AT EACH GAP');
+  g.fillStyle = COL.fg1; g.beginPath(); g.arc(XX(wrap(S.psi)), Yg(mean), 4, 0, 7); g.fill();
+  const Yd = panel(20 + th, ds, dm, COL.amber, 'Γ(−ψ) − Γ(ψ), THE PART THAT DRAWS');
+  if (S.eps > 0 && Math.abs(line) < dm) { g.save(); g.setLineDash([4, 4]); g.strokeStyle = COL.fg3; g.beginPath(); g.moveTo(rx, Yd(line)); g.lineTo(rx + rw, Yd(line)); g.stroke(); g.restore(); label(g, '−δω ÷ ε', rx + rw, Yd(line) - 4, COL.fg3, 'right'); }
+  const at = S.eps > 0 ? shadowLock(G, cyc.w, S.eps, S.det, 0) : null;
+  if (at !== null) { g.strokeStyle = COL.fg1; g.lineWidth = 1.5; g.beginPath(); g.arc(XX(at), Yd(line), 6, 0, 7); g.stroke(); }
+  label(g, '−180°', rx, h - 6); label(g, '+180°', rx + rw, h - 6, COL.fg3, 'right');
+  $('r3').innerHTML = `<div>the pull at ψ ${Math.round(deg(S.psi))}°<br><b>Γ = ${mean.toFixed(4)}</b></div>` +
+    `<div>drawing part ÷ speeding part<br><b>${drawShare(G).toFixed(3)}</b></div>` +
+    `<div>the shadow locks while |δ| ≤<br><b>ε × ${tg.hi.toFixed(4)} = ${(S.eps * tg.hi * 100).toFixed(2)}%</b></div>` +
+    `<div>here the shadow<br><b>${at !== null ? 'locks at ' + deg(at).toFixed(1) + '° (ringed)' : 'drifts'}</b></div><div class="state" data-state></div>`;
+  setPlaying(src ? 'the shadow' : null);
+}
+// ---- step 4 ----
+function draw4() {
+  const { cyc, G } = L(S.mu), { g, w, h } = fit($('c4'), 0.42, 260, 440), s = Math.min(h - 8, w * 0.36), m = loopMap(cyc, 4, 4, s);
+  const key = ['p4', S.mu, S.eps, S.det].join(':'), run = memo[key] || (memo[key] = { full: runFull(cyc, S.eps, S.det, PSI0, 120, cyc.mu > 2 ? 200 : 120), shadow: runShadow(cyc, G, S.eps, S.det, PSI0, 120, 100) });
+  const { full, shadow } = run;
+  box(g, 4, 4, s, s); drawLoop(g, cyc, m, COL.amber, 2.2);
+  const tail = full.path.filter((q) => q[0] > full.T - 3 * cyc.T);
+  [[1, COL.blue], [3, COL.fg1]].forEach(([k, c]) => { g.strokeStyle = c; g.globalAlpha = 0.6; g.lineWidth = 1.1; g.beginPath(); tail.forEach((q, j) => { j ? g.lineTo(m.X(q[k]), m.Y(q[k + 1])) : g.moveTo(m.X(q[k]), m.Y(q[k + 1])); }); g.stroke(); g.globalAlpha = 1; });
+  const last = full.path[full.path.length - 1], sh = shadow.path[shadow.path.length - 1];
+  [[1, COL.blue], [3, COL.fg1]].forEach(([k, c]) => { g.fillStyle = c; g.beginPath(); g.arc(m.X(last[k]), m.Y(last[k + 1]), 4.5, 0, 7); g.fill(); });
+  [[1, COL.blue], [2, COL.fg1]].forEach(([k, c]) => { const q = cycleAt(cyc, sh[k]); g.strokeStyle = c; g.lineWidth = 1.6; g.beginPath(); g.arc(m.X(q[0]), m.Y(q[1]), 8, 0, 7); g.stroke(); });
+  box(g, s + 12, 4, w - s - 16, h - 8);
+  const P = gapPlot(g, s + 30, 46, w - s - 50, h - 64, full.T);
+  g.fillStyle = COL.amber; full.gaps.forEach((q) => { g.beginPath(); g.arc(P.X(q[1]), P.Y(q[0]), 1.8, 0, 7); g.fill(); });
+  g.save(); g.setLineDash([5, 3]); g.strokeStyle = COL.blue; g.lineWidth = 2; g.beginPath(); let px = null;
+  shadow.path.forEach((q) => { const X = P.X(wrap(q[2] - q[1])), Y = P.Y(q[0]); if (px === null || Math.abs(X - px) > (w - s) / 3) g.moveTo(X, Y); else g.lineTo(X, Y); px = X; }); g.stroke(); g.restore();
+  label(g, 'THE GAP ψ, 120 TRIPS, TIME ↓ · dots: the pair · dashed: the shadow', s + 30, 16);
+  const at = S.eps > 0 ? shadowLock(G, cyc.w, S.eps, S.det, shadow.end) : null, gap = full.locked && at !== null ? Math.abs(deg(wrap(full.at - at))) : NaN;
+  $('r4').innerHTML = `<div>the pair<br><b>${full.alive ? (full.locked ? 'locks at ' + deg(full.at).toFixed(1) + '°' : 'drifts') : 'stops'}</b></div>` +
+    `<div>the shadow<br><b>${at !== null ? 'locks at ' + deg(at).toFixed(1) + '°' : 'drifts'}</b></div>` +
+    `<div>apart by<br><b>${isFinite(gap) ? gap.toFixed(1) + '°' : '—'}</b></div>`;
+}
+// ---- step 5: the test ----
+const here = { eps: 0.1, det: 0.01 };
+const tongues = {};                    // per loop: { rows: [{eps, lo, hi}], shadowHi }
+let job = 0;
+function startTongue(mu) {
+  if (tongues[mu]) return;
+  const { cyc, tg } = L(mu), t = tongues[mu] = { rows: [], done: false }, me = ++job, queue = [];
+  EPS_LADDER.forEach((e) => [1, -1].forEach((side) => queue.push({ e, side })));
+  let it = null, q = null;
+  const tick = () => {
+    if (me !== job) { delete tongues[mu]; return; }
+    const t0 = performance.now();
+    while (performance.now() - t0 < 40) {
+      if (!it) { q = queue.shift(); if (!q) { t.done = true; if (cur === 4) draw5(); return; } it = edgeSteps(cyc, q.e, q.side, q.e * tg.hi); }
+      const r = it.next();
+      if (r.done) { let row = t.rows.find((x) => x.eps === q.e); if (!row) t.rows.push(row = { eps: q.e }); row[q.side > 0 ? 'hi' : 'lo'] = r.value; it = null; if (cur === 4) draw5(); }
+    }
+    setTimeout(tick, 0);
+  };
+  setTimeout(tick, 0);
+}
+let tongueGeom = null;
+$('c5').addEventListener('click', (ev) => {
+  if (!tongueGeom) return; const r = $('c5').getBoundingClientRect(), x = ev.clientX - r.left, y = ev.clientY - r.top, G0 = tongueGeom;
+  for (const p of G0.panels) if (x >= p.x && x <= p.x + p.w && y >= G0.y && y <= G0.y + G0.h) { here.det = +((x - p.x) / p.w * 2 - 1).toFixed(4) * G0.dmax; here.eps = Math.max(0.005, (G0.y + G0.h - y) / G0.h * G0.emax); stopSound(); draw5(); return; }
+});
+function draw5() {
+  const mu = S.mu; startTongue(mu);
+  const { cyc, tg } = L(mu), t = tongues[mu] || { rows: [] }, { g, w, h } = fit($('c5'), 0.52, 320, 520);
+  const rows = t.rows.filter((r) => r.hi !== undefined && r.lo !== undefined).sort((a, b) => a.eps - b.eps);
+  const emax = 0.44, dmax = Math.max(0.03, ...rows.map((r) => Math.max(r.hi, r.lo)), emax * tg.hi) * 1.12;
+  const top = 26, th = (h - top) * 0.6, pw = (w - 30) / 2, panels = [{ x: 10, w: pw - 10, name: 'THE PAIR, MEASURED' }, { x: pw + 24, w: pw - 10, name: 'THE SHADOW, FROM ITS PULL' }];
+  tongueGeom = { panels, y: top, h: th, dmax, emax };
+  panels.forEach((p, k) => {
+    box(g, p.x - 4, top - 18, p.w + 8, th + 34); label(g, p.name, p.x, top - 6, k ? COL.blue : COL.amber);
+    const X = (d) => p.x + (d / dmax + 1) / 2 * p.w, Y = (e) => top + th - e / emax * th;
+    g.strokeStyle = COL.grid; g.beginPath(); g.moveTo(X(0), top); g.lineTo(X(0), top + th); g.stroke();
+    [0.1, 0.2, 0.3, 0.4].forEach((e) => { g.strokeStyle = COL.grid; g.beginPath(); g.moveTo(p.x, Y(e)); g.lineTo(p.x + p.w, Y(e)); g.stroke(); label(g, e.toFixed(1), p.x + 2, Y(e) - 3, COL.fg3); });
+    label(g, '−' + (dmax * 100).toFixed(1) + '%', p.x, top + th + 12); label(g, '+' + (dmax * 100).toFixed(1) + '%', p.x + p.w, top + th + 12, COL.fg3, 'right'); label(g, 'detuning δ', X(0), top + th + 12, COL.fg3, 'center');
+    if (k === 0) {
+      if (rows.length) { g.fillStyle = 'rgba(232,184,74,.28)'; g.strokeStyle = COL.amber; g.lineWidth = 1.8; g.beginPath(); g.moveTo(X(0), Y(0)); rows.forEach((r) => g.lineTo(X(r.hi), Y(r.eps))); for (let i = rows.length - 1; i >= 0; i--) g.lineTo(X(-rows[i].lo), Y(rows[i].eps)); g.closePath(); g.fill(); g.stroke(); rows.forEach((r) => { g.fillStyle = COL.amber; [r.hi, -r.lo].forEach((d) => { g.beginPath(); g.arc(X(d), Y(r.eps), 3, 0, 7); g.fill(); }); }); }
+      // the shadow's edge, faint, for reference
+      g.save(); g.setLineDash([3, 4]); g.strokeStyle = 'rgba(74,143,255,.6)'; g.beginPath(); g.moveTo(X(-0.4 * tg.hi), Y(0.4)); g.lineTo(X(0), Y(0)); g.lineTo(X(0.4 * tg.hi), Y(0.4)); g.stroke(); g.restore();
+    } else {
+      g.fillStyle = 'rgba(74,143,255,.22)'; g.strokeStyle = COL.blue; g.lineWidth = 1.8; g.beginPath(); g.moveTo(X(0), Y(0)); g.lineTo(X(0.4 * tg.hi), Y(0.4)); g.lineTo(X(-0.4 * tg.hi), Y(0.4)); g.closePath(); g.fill(); g.stroke();
+    }
+    g.strokeStyle = COL.fg1; g.lineWidth = 1.4; const mx = X(here.det), my = Y(here.eps); g.beginPath(); g.moveTo(mx - 6, my); g.lineTo(mx + 6, my); g.moveTo(mx, my - 6); g.lineTo(mx, my + 6); g.stroke();
+  });
+  // the ratio, the pair's range over the shadow's, against ε
+  const ry = top + th + 34, rh = h - ry - 22, rx = 60, rw = w - 80;
+  box(g, 6, ry - 6, w - 12, rh + 24);
+  const rmax = Math.max(1.4, ...rows.map((r) => (r.hi + r.lo) / 2 / (r.eps * tg.hi))) * 1.08;
+  const RX = (e) => rx + e / emax * rw, RY = (v) => ry + rh - (v - 0.9) / (rmax - 0.9) * (rh - 26);
+  g.strokeStyle = COL.dim; g.beginPath(); g.moveTo(rx, RY(1)); g.lineTo(rx + rw, RY(1)); g.stroke(); label(g, '1.00', rx - 6, RY(1) + 4, COL.fg3, 'right');
+  label(g, "THE PAIR'S RANGE ÷ THE SHADOW'S, AGAINST COUPLING", rx - 44, ry + 8);
+  g.strokeStyle = COL.amber; g.lineWidth = 2; g.beginPath(); rows.forEach((r, j) => { const v = (r.hi + r.lo) / 2 / (r.eps * tg.hi); j ? g.lineTo(RX(r.eps), RY(v)) : g.moveTo(RX(r.eps), RY(v)); }); g.stroke();
+  rows.forEach((r) => { const v = (r.hi + r.lo) / 2 / (r.eps * tg.hi); g.fillStyle = COL.amber; g.beginPath(); g.arc(RX(r.eps), RY(v), 3.5, 0, 7); g.fill(); label(g, v.toFixed(2) + '×', RX(r.eps), RY(v) - 8, COL.fg1, 'center'); label(g, String(r.eps), RX(r.eps), ry + rh + 14, COL.fg3, 'center'); });
+  const done = t.done, n = rows.length;
+  $('h5').textContent = done ? 'measured: the pair\'s edge on both sides at six couplings, ' + (mu > 2 ? 200 : 120) + ' steps a trip, 300 to 2000 trips a run' : 'measuring the pair\'s edges · ' + n + ' of ' + EPS_LADDER.length + ' couplings';
+  const ratio = (e) => { const r = rows.find((x) => x.eps === e); return r ? (r.hi + r.lo) / 2 / (e * tg.hi) : NaN; };
+  const yes = (c, s) => `<span class="${c ? 'yes' : 'no'}">${s}</span>`, f = (v) => (isFinite(v) ? v.toFixed(3) + '×' : '…');
+  const r02 = ratio(0.02), r05 = ratio(0.05), r1 = ratio(0.1), r4 = ratio(0.4);
+  let out = `<div>ε 0.02 · 0.05 · 0.1<br><b>${f(r02)} · ${f(r05)} · ${f(r1)}</b></div><div>ε 0.4<br><b>${f(r4)}</b></div>`;
+  if (mu === 1) out += `<div>the page: matches up to 0.1<br>${isFinite(r1) ? yes(Math.abs(r02 - 1) < 0.06 && Math.abs(r05 - 1) < 0.06 && Math.abs(r1 - 1) < 0.06, Math.abs(r1 - 1) < 0.06 ? 'holds, within ' + (100 * Math.max(Math.abs(r02 - 1), Math.abs(r05 - 1), Math.abs(r1 - 1))).toFixed(1) + '%' : 'does not hold') : '…'}</div><div>the page: parted by 0.4<br>${isFinite(r4) ? yes(r4 > 1.25, r4 > 1.25 ? 'holds, the pair locks ' + ((r4 - 1) * 100).toFixed(0) + '% wider' : 'does not hold') : '…'}</div>`;
+  else if (mu === 0.3) out += `<div>the page: misses even at 0.05<br>${isFinite(r05) ? yes(r05 > 1.5, r05 > 1.5 ? 'holds, the pair locks ' + r05.toFixed(2) + '× as wide' : 'does not hold') : '…'}</div><div>drawing part ÷ speeding part<br><b>${drawShare(L(mu).G).toFixed(3)}</b> (μ 1: ${drawShare(L(1).G).toFixed(3)})</div>`;
+  else out += `<div>the page<br><b>names no number for μ 3</b></div>`;
+  out += `<div>the cross<br><b>ε ${here.eps.toFixed(3)}, δ ${(here.det * 100).toFixed(2)}%</b></div>`;
+  $('r5').innerHTML = out;
+}
+(() => { let d = ''; for (let i = 0; i <= 240; i++) { const t = i / 240 * 2 * Math.PI, x = 9 * Math.sin(3 * t + Math.PI / 2), y = 9 * Math.sin(2 * t); d += (i ? 'L' : 'M') + x.toFixed(2) + ' ' + y.toFixed(2); } document.getElementById('sigil').setAttribute('d', d); })();
+window.addEventListener('resize', () => redraw());
+setPlaying(null);
+show(0);
+</script>
+</body>
+</html>

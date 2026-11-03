@@ -1,0 +1,537 @@
+<!doctype html>
+<!--
+title: Phase Reduction — rich — the kick that stays
+born: 2026-11-03
+links:
+  - target: "[[Phase Reduction]]"
+    type: connects-to
+    label: rich-face-piece
+  - target: "[[Progressive Staging]]"
+    type: connects-to
+    label: walks-up-to-its-test
+  - target: "[[Dissolutions]]"
+    type: connects-to
+    label: borrows-the-shadow-that-locks-engine
+forward_vector: "I am one van der Pol loop, kicked: what the kick does across the loop dies by the second Floquet multiplier, and what it does along the loop stays, and the phase it leaves, read at every point of the loop, is the phase response curve. I walk up from one kick to the test that the hand-built curve is Floquet's left eigenvector at multiplier 1, closer the smaller the kick, and I change only when the section I serve does."
+status: "proposal, Enrichment's proposal round 2026-11; not yet heard by Loudon"
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:needs" content="">
+<title>The kick that stays</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Manrope:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root { --bg:#0a0a0f; --e1:#12121a; --ring:#22222e; --border:#4a4a5e; --soft:rgba(255,255,255,.07); --fg1:#e8e8f0; --fg2:#c8c8d8; --fg3:#8a8aa0; --fg4:#4a4a5a;
+    --amber:#e8b84a; --amberline:rgba(232,184,74,.5); --blue:#4a8fff; --warn:#ff9b4a; --ok:#7fd49a;
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --sans:'Manrope',system-ui,sans-serif; --serif:'Cormorant Garamond',Georgia,serif;
+    --ease:cubic-bezier(.4,0,.2,1); }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); font-weight: 300; }
+  .piece { padding: 22px 22px 18px; max-width: 1180px; }
+  .kicker, .eyebrow { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg3); }
+  .kicker { margin-bottom: 6px; }
+  .title { font-family: var(--serif); font-size: 28px; font-weight: 300; color: var(--fg1); margin: 0 0 6px; }
+  .sub { font-size: 14px; line-height: 1.6; color: var(--fg2); max-width: 76ch; margin: 0 0 14px; }
+  .rail { display: flex; flex-wrap: wrap; gap: 0; margin: 4px 0 16px; border-bottom: 1px solid var(--soft); }
+  .rail button { font-family: var(--mono); font-size: 11px; letter-spacing: .1em; text-transform: none; color: var(--fg3); background: none; border: 0; border-bottom: 2px solid transparent; border-radius: 0; padding: 8px 12px 7px; cursor: pointer; transition: color 220ms var(--ease); }
+  .rail button:hover { color: var(--fg1); }
+  .rail button[aria-current=step] { color: var(--amber); border-bottom-color: var(--amber); }
+  .rail button .n { color: var(--fg4); margin-right: 6px; }
+  .rail button[aria-current=step] .n { color: var(--amber); }
+  .step h3 { font-family: var(--serif); font-size: 23px; font-weight: 300; color: var(--fg1); margin: 4px 0 8px; }
+  .say { font-size: 14px; line-height: 1.65; color: var(--fg2); max-width: 78ch; margin: 0 0 14px; }
+  .panel { border: 1px solid var(--soft); border-radius: 2px; background: var(--e1); padding: 12px 14px; }
+  .bar { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 10px; }
+  .bar .hint { flex: 1 1 260px; }
+  canvas { display: block; width: 100%; }
+  button { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--fg2); background: var(--bg); border: 1px solid var(--border); border-radius: 2px; padding: 8px 13px; cursor: pointer; transition: border-color 220ms var(--ease), color 220ms var(--ease); }
+  button:hover { border-color: rgba(232,184,74,.55); color: var(--fg1); }
+  button.go { color: var(--amber); border-color: var(--amberline); box-shadow: 0 0 14px rgba(232,184,74,.16); }
+  button[aria-pressed=true] { color: var(--amber); border-color: var(--amberline); }
+  button:disabled { opacity: .4; cursor: default; }
+  .seg { display: inline-flex; flex-wrap: wrap; } .seg button + button { border-left: 0; }
+  .seg button { text-transform: none; letter-spacing: .06em; white-space: nowrap; }
+  .ctls .full { grid-column: 1 / -1; }
+  .ctls { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 10px 26px; margin-top: 12px; align-items: end; }
+  label.sl { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: .08em; color: var(--fg3); }
+  label.sl b { color: var(--fg1); font-weight: 500; }
+  input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 3px; background: var(--fg4); margin: 12px 0 4px; outline: none; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 13px; height: 13px; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  input[type=range]::-moz-range-thumb { width: 13px; height: 13px; border: 0; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  .read { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 8px 22px; margin-top: 14px; padding-top: 10px; border-top: 1px solid var(--soft); font-family: var(--mono); font-size: 11.5px; letter-spacing: .03em; color: var(--fg3); line-height: 1.5; }
+  .read b { color: var(--fg1); font-weight: 500; }
+  .read .yes { color: var(--ok); } .read .no { color: var(--warn); }
+  .hint { font-family: var(--mono); font-size: 11px; letter-spacing: .05em; color: var(--fg3); }
+  .state { color: var(--amber); }
+  .eqs { margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--soft); }
+  .eq { font-family: var(--serif); font-size: 19px; color: var(--fg1); }
+  .words { font-size: 13px; line-height: 1.55; color: var(--fg2); margin: 2px 0 8px; }
+  .try { font-size: 13.5px; line-height: 1.6; color: var(--fg2); margin: 14px 0 0; max-width: 80ch; }
+  .try .eyebrow { margin-right: 10px; color: var(--amber); }
+  .walk { display: flex; justify-content: space-between; margin-top: 18px; }
+  .foot { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: 20px; padding-top: 10px; border-top: 1px solid var(--soft); font-family: var(--mono); font-size: 10.5px; letter-spacing: .18em; text-transform: uppercase; color: var(--fg4); }
+  .foot .mark { display: inline-flex; align-items: center; gap: 8px; color: var(--fg3); letter-spacing: .12em; text-transform: none; }
+  .foot .mark i { font-family: var(--serif); color: var(--amber); font-weight: 300; }
+  @media (max-width: 680px) { .ctls { grid-template-columns: 1fr; } .read { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="piece">
+  <div class="kicker">made · study · four steps · one van der Pol loop, kicked</div>
+  <h1 class="title">The kick that stays</h1>
+  <p class="sub">An oscillator that keeps falling back onto its loop forgets most of what you do to it. Kick it, and the part of the kick that pushed it off the loop dies away within a few trips. The part that pushed it along the loop never dies: it is now a little ahead, or a little behind, for good. Read that leftover at every point of the loop and you have the phase response curve. Nothing plays until you press a sound button; headphones help.</p>
+  <nav class="rail" aria-label="Steps"></nav>
+
+  <section class="step" data-title="One kick">
+    <div class="eyebrow">Step 1 of 4 · one loop, one kick</div>
+    <h3>Off the loop it dies; along the loop it stays</h3>
+    <p class="say">The gold loop is where the oscillator settles. Two copies run round it together; one of them gets a kick, a push straight up in y. Follow the blue one: it is thrown off the loop, falls back onto it, and ends up ahead of or behind the white twin. Each trip round, the distance off the loop is multiplied by the same small number. The distance along it is multiplied by 1. Those two numbers are the loop's Floquet multipliers.</p>
+    <div class="panel">
+      <div class="bar"><span class="hint">left: the loop, the kick, and the next three trips · right: each trip, off the loop and ahead of the twin</span><button class="go" data-sound="kick">▶ hear the kick</button><button data-stop>stop</button></div>
+      <canvas id="c1"></canvas>
+      <div class="ctls">
+        <div class="full"><span class="hint">the loop</span><br><span class="seg" data-mus></span></div>
+        <label class="sl">the kick lands at phase <b data-thval></b><input data-th type="range" min="0" max="359" step="1"></label>
+        <label class="sl">the kick's size <b data-dyval></b><input data-dy type="range" min="1" max="60" step="1"></label>
+      </div>
+      <div class="read">
+        <div>along the loop, each trip<br><b id="r1a"></b></div>
+        <div>across it, each trip<br><b id="r1b"></b></div>
+        <div>ahead of the twin<br><b id="r1c"></b></div>
+        <div class="state" data-state></div>
+      </div>
+      <div class="eqs">
+        <div class="eq">λ<sub>along</sub> = 1,   λ<sub>across</sub> = exp( ∮ μ(1 − x²) dt )</div>
+        <div class="words">(what one trip does to a nudge along the loop) = 1, it is never undone · (what one trip does to a nudge across it) = e raised to (how much the flow spreads, added up round one trip), less than 1 on a loop that pulls you back.</div>
+      </div>
+    </div>
+    <p class="try"><span class="eyebrow">Try</span>On the gentle loop, μ 0.3, watch the bars step down slowly, about seven times smaller a trip. At μ 1 they drop a thousandfold a trip. In both, the line of dots below stays flat: the kick's mark along the loop does not fade. In the sound, the kicked copy is in your right ear and its twin in your left; after the kick, a lead of a few tenths of a radian at 220 Hz usually pulls the sound toward the ear that is ahead, and it stays there.</p>
+  </section>
+
+  <section class="step" data-title="The curve, by hand" hidden>
+    <div class="eyebrow">Step 2 of 4 · a kick at every phase</div>
+    <h3>Where the kick lands decides what it leaves</h3>
+    <p class="say">The same kick, landing at different moments of the cycle, leaves different marks. Early in one stretch it pushes the oscillator ahead; in another it holds it back; at a few points it does almost nothing. Kick, wait for the loop to swallow the rest, and read how far ahead or behind it ended, per unit of kick. Plot that against where the kick landed. Do it at every phase and a curve draws itself.</p>
+    <div class="panel">
+      <div class="bar"><span class="hint">left: where on the loop · right: radians gained per unit kick, against the phase it landed at</span><button data-act="one">kick here</button><button data-act="sweep">sweep the loop</button><button data-act="clear">clear</button><button class="go" data-sound="kick">▶ hear this kick</button><button data-stop>stop</button></div>
+      <canvas id="c2"></canvas>
+      <div class="ctls">
+        <div class="full"><span class="hint">the loop</span><br><span class="seg" data-mus></span></div>
+        <label class="sl">the kick lands at phase <b data-thval></b><input data-th type="range" min="0" max="359" step="1"></label>
+        <label class="sl">the kick's size <b data-dyval></b><input data-dy type="range" min="1" max="60" step="1"></label>
+      </div>
+      <div class="read">
+        <div>this kick<br><b id="r2a"></b></div>
+        <div>points on the curve<br><b id="r2b"></b></div>
+        <div class="state" data-state></div>
+      </div>
+      <div class="eqs">
+        <div class="eq">Z(θ) ≈ Δθ<sub>after</sub> ÷ Δy</div>
+        <div class="words">(the curve at the phase the kick landed) ≈ (how far ahead it ends up, once the loop has swallowed the rest) ÷ (how big the kick was).</div>
+      </div>
+    </div>
+    <p class="try"><span class="eyebrow">Try</span>Press sweep and watch the dots fill in. Then find, by ear, a phase where the kick pulls the sound to the right and one where it leaves it centred.</p>
+  </section>
+
+  <section class="step" data-title="Another loop" hidden>
+    <div class="eyebrow">Step 3 of 4 · the loop's shape sets the curve's</div>
+    <h3>A different loop, a different curve</h3>
+    <p class="say">Change the loop and the curve changes with it. On the nearly round loop the curve is close to a plain sine: over half the cycle a push up in y moves the oscillator ahead, over the other half it holds it back, and the change between is smooth. On the relaxation loop, which crawls along two slow stretches and jumps between them, the curve sits nearly level along each slow stretch and swings over sharply near the jumps. This is what makes the curve something to design: shape the loop and you shape how it answers a push.</p>
+    <div class="panel">
+      <div class="bar"><span class="hint">top: the three loops · bottom: each one's curve, built by hand, 32 kicks of 0.05</span><button class="go" data-sound="loop">▶ hear this loop</button><button data-stop>stop</button></div>
+      <canvas id="c3"></canvas>
+      <div class="ctls">
+        <div class="full"><span class="hint">the loop you hear</span><br><span class="seg" data-mus></span></div>
+      </div>
+      <div class="read" id="r3"></div>
+      <div class="eqs">
+        <div class="eq">x' = y,   y' = μ(1 − x²)·y − x</div>
+        <div class="words">(how x moves) = y · (how y moves) = μ × (one minus x squared) × y, which feeds the swing while it is small and brakes it when it is wide, minus x, which pulls it back to the middle. μ sets how unevenly the loop is traced.</div>
+      </div>
+    </div>
+    <p class="try"><span class="eyebrow">Try</span>Listen to each loop: the round one is close to a pure tone, the relaxation one buzzes. The buzz and the sharp curve are the same fact, heard and measured.</p>
+  </section>
+
+  <section class="step" data-title="Floquet's curve" hidden>
+    <div class="eyebrow">Step 4 of 4 · the test</div>
+    <h3>The curve your kicks drew is Floquet data</h3>
+    <p class="say">The page says the phase response curve is derived from the left eigenvector of the monodromy at multiplier 1: take one trip round the loop as a matrix, find the direction it leaves alone, and read it at each phase. The gold line is that eigenvector, computed from the loop's equations with no kicking at all. The dots are kicks. If the page is right, the dots fall on the line, and fall closer the smaller the kick, because a finite kick also bends the loop a little and an infinitesimal one does not.</p>
+    <div class="panel">
+      <div class="bar"><span class="hint" id="h4">gold: Floquet's left eigenvector · dots: kicks at 16 phases</span><button class="go" data-sound="pair">▶ hear the peak, then the zero</button><button data-stop>stop</button></div>
+      <canvas id="c4"></canvas>
+      <div class="ctls">
+        <div class="full"><span class="hint">the loop</span><br><span class="seg" data-mus></span></div>
+        <label class="sl">the kick's size <b id="dy4val"></b><input id="dy4" type="range" min="0" max="1000" step="1"></label>
+      </div>
+      <div class="read" id="r4"></div>
+      <div class="hint state" data-state style="margin-top:8px"></div>
+      <div class="eqs">
+        <div class="eq">Z(θ) · M(θ) = Z(θ),   Z(θ) · F(γ(θ)) = 2π ÷ T</div>
+        <div class="words">(the curve at a phase) × (one trip round the loop from there) = (the curve): it is the left eigenvector at multiplier 1 · scaled so that (the curve) × (the loop's own velocity) = (the phase speed).</div>
+      </div>
+    </div>
+    <p class="try"><span class="eyebrow">Try</span>Drag the kick's size down and watch the largest gap shrink in step with it, ten times smaller kick, about ten times smaller gap. Do it on each loop. The proof this walk climbs to, <i>The shadow that locks</i>, sits further down this section; it draws the same two curves and goes on to what the curve is for.</p>
+  </section>
+
+  <div class="walk"><button id="back">◂ back</button><button id="next">next ▸</button></div>
+  <div class="foot"><span>Phase Reduction · rich · the kick that stays · study · 2026-11-03</span><span class="mark"><svg width="22" height="22" viewBox="-11 -11 22 22" aria-hidden="true"><path id="sigil" fill="none" stroke="#e8b84a" stroke-width="1"/></svg>Loud’n <i>Live</i></span></div>
+</div>
+
+<script>
+// ---- math (pure: the check runs this block in node and calls selfTest) ----
+// The van der Pol oscillator, a loop it keeps falling back onto:  x' = y,  y' = μ(1 − x²)·y − x.
+// The loop, its Floquet data and the kick-measured phase response are the gathered proof's own functions
+// (Dissolutions/proofs/2026-10-20-the-shadow-that-locks), copied so this piece stands alone; what is new is the kick
+// read trip by trip (step 1) and the sweep against the kick's size (step 4).
+const TWO_PI = 2 * Math.PI;
+function field(mu, x, y) { return [y, mu * (1 - x * x) * y - x]; }
+function rk4(f, s, h) {
+  const n = s.length, k1 = f(s), t = new Array(n);
+  for (let i = 0; i < n; i++) t[i] = s[i] + 0.5 * h * k1[i]; const k2 = f(t);
+  for (let i = 0; i < n; i++) t[i] = s[i] + 0.5 * h * k2[i]; const k3 = f(t);
+  for (let i = 0; i < n; i++) t[i] = s[i] + h * k3[i]; const k4 = f(t);
+  const o = new Array(n); for (let i = 0; i < n; i++) o[i] = s[i] + h / 6 * (k1[i] + 2 * k2[i] + 2 * k3[i] + k4[i]);
+  return o;
+}
+// the loop: settle onto it, time it between crossings of the section (y falls through 0 with x > 0), store one trip of
+// Ns points from the section. Phase 0 is the section. `across` is the second Floquet multiplier, by Liouville.
+function limitCycle(mu, Ns) {
+  const f = (s) => field(mu, s[0], s[1]); let s = [2, 0.1], h = 0.002, t = 0; const cross = [];
+  for (let i = 0; i < 60 / h; i++) { s = rk4(f, s, h); t += h; }
+  let prev = s;
+  while (cross.length < 4) {
+    const nx = rk4(f, prev, h);
+    if (prev[1] > 0 && nx[1] <= 0 && nx[0] > 0) { const a = prev[1] / (prev[1] - nx[1]); cross.push({ t: t + a * h, s: [prev[0] + a * (nx[0] - prev[0]), prev[1] + a * (nx[1] - prev[1])] }); }
+    prev = nx; t += h;
+  }
+  const T = (cross[3].t - cross[1].t) / 2, s0 = cross[3].s, hh = T / Ns, xs = new Float64Array(Ns), ys = new Float64Array(Ns); let tr = 0;
+  s = s0;
+  for (let i = 0; i < Ns; i++) { xs[i] = s[0]; ys[i] = s[1]; tr += mu * (1 - s[0] * s[0]) * hh; s = rk4(f, s, hh); }
+  return { mu, T, w: TWO_PI / T, x: xs, y: ys, Ns, across: Math.exp(tr), x0: s0[0] };
+}
+function cycleAt(cyc, th) { const u = ((th / TWO_PI) % 1 + 1) % 1 * cyc.Ns, i = Math.floor(u), q = u - i, j = (i + 1) % cyc.Ns; return [cyc.x[i] + q * (cyc.x[j] - cyc.x[i]), cyc.y[i] + q * (cyc.y[j] - cyc.y[i])]; }
+// Floquet: one trip from phase θ by the variational equation; the PRC is the left eigenvector at the multiplier nearest 1,
+// scaled so Z · F = 2π ÷ T. Returns Z (to kicks in x and in y) and both multipliers.
+function floquetAt(cyc, th, steps) {
+  const mu = cyc.mu, h = cyc.T / steps, p = cycleAt(cyc, th);
+  const f = (s) => { const x = s[0], y = s[1], j21 = -2 * mu * x * y - 1, j22 = mu * (1 - x * x); return [y, mu * (1 - x * x) * y - x, s[4], s[5], j21 * s[2] + j22 * s[4], j21 * s[3] + j22 * s[5]]; };
+  let s = [p[0], p[1], 1, 0, 0, 1];
+  for (let i = 0; i < steps; i++) s = rk4(f, s, h);
+  const a = s[2], b = s[3], c = s[4], d = s[5], tr = a + d, det = a * d - b * c, disc = Math.sqrt(Math.max(0, tr * tr / 4 - det));
+  const l1 = tr / 2 + disc, l2 = tr / 2 - disc, lam = Math.abs(l1 - 1) < Math.abs(l2 - 1) ? l1 : l2, other = lam === l1 ? l2 : l1;
+  const wv = Math.abs(c) + Math.abs(a - lam) > Math.abs(b) + Math.abs(d - lam) ? [c, -(a - lam)] : [d - lam, -b];
+  const F = field(mu, p[0], p[1]), sc = cyc.w / (wv[0] * F[0] + wv[1] * F[1]);
+  return { Z: [wv[0] * sc, wv[1] * sc], one: lam, other };
+}
+function prcFloquet(cyc, K) { const out = []; for (let j = 0; j < K; j++) out.push(floquetAt(cyc, TWO_PI * j / K, 1000)); return out; }
+function prcCurveAt(prc, th) { const K = prc.length, u = ((th / TWO_PI) % 1 + 1) % 1 * K, i = Math.floor(u), q = u - i; return prc[i % K].Z[1] * (1 - q) + prc[(i + 1) % K].Z[1] * q; }
+// section crossings, landed on y = 0 by false position, so the timing is as good as the integrator
+function crossings(f, s, h, steps) {
+  const out = []; let prev = s, t = 0;
+  for (let i = 0; i < steps; i++) {
+    const nx = rk4(f, prev, h);
+    if (prev[1] > 0 && nx[1] <= 0 && nx[0] > 0) {
+      let lo = 0, hi = h, ylo = prev[1], yhi = nx[1];
+      for (let r = 0; r < 4; r++) { const a = lo + (hi - lo) * ylo / (ylo - yhi), sm = rk4(f, prev, a); if (sm[1] > 0) { lo = a; ylo = sm[1]; } else { hi = a; yhi = sm[1]; } }
+      const tc = lo + (hi - lo) * ylo / (ylo - yhi), sm = rk4(f, prev, tc);
+      out.push({ t: t + tc, x: sm[0] });
+    }
+    prev = nx; t += h;
+  }
+  return out;
+}
+// kick y by dy at phase θ; let both the kicked oscillator and an unkicked twin run `trips` trips. At each crossing of the
+// section: how far the kicked one is off the loop (its x against the twin's, which is on it), and how far ahead it is.
+function kickTrips(cyc, th, dy, trips) {
+  const f = (s) => field(cyc.mu, s[0], s[1]), p = cycleAt(cyc, th), h = cyc.T / 1000, n = Math.round((trips + 0.5) * 1000);
+  const a = crossings(f, [p[0], p[1]], h, n), b = crossings(f, [p[0], p[1] + dy], h, n), out = [];
+  for (let k = 0; k < Math.min(a.length, b.length); k++) {
+    let gain = a[k].t - b[k].t; gain -= cyc.T * Math.round(gain / cyc.T);
+    out.push({ trip: k + 1, off: Math.abs(b[k].x - a[k].x), ahead: gain * cyc.w });
+  }
+  return out;
+}
+// the phase response measured by a kick: radians gained per unit of kick, after `trips` trips
+function prcKick(cyc, th, dy, trips) { const r = kickTrips(cyc, th, dy, trips || 8); return r[r.length - 1].ahead / dy; }
+// the largest gap between the kicked curve and Floquet's, as a share of the curve's height, at n phases
+function kickGap(cyc, prc, dy, n) {
+  let worst = 0, sc = 0; prc.forEach((p) => { sc = Math.max(sc, Math.abs(p.Z[1])); });
+  for (let j = 0; j < n; j++) { const th = TWO_PI * (j + 0.5) / n; worst = Math.max(worst, Math.abs(prcKick(cyc, th, dy, 8) - prcCurveAt(prc, th))); }
+  return worst / sc;
+}
+// two oscillators at audio rate from the same point on the loop, the right one kicked at given phases: [left, right]
+function renderKick(cyc, f0, sr, secs, kicks) {
+  const n = Math.round(sr * secs), h = cyc.T * f0 / sr, f = (s) => field(cyc.mu, s[0], s[1]), L = new Float32Array(n), R = new Float32Array(n);
+  let a = [cyc.x[0], cyc.y[0]], b = [cyc.x[0], cyc.y[0]], t = 0; const todo = kicks.map((k) => ({ ...k, done: false }));
+  for (let i = 0; i < n; i++) {
+    const env = Math.min(1, i / (0.01 * sr), (n - i) / (0.01 * sr));
+    L[i] = env * a[0]; R[i] = env * b[0];
+    for (const k of todo) if (!k.done && i / sr >= k.at && ((t / cyc.T) % 1) * TWO_PI >= k.phase && ((t / cyc.T) % 1) * TWO_PI - k.phase < TWO_PI * h / cyc.T * 1.01) { b = [b[0], b[1] + k.dy]; k.done = true; }
+    a = rk4(f, a, h); b = rk4(f, b, h); t += h;
+  }
+  return [L, R];
+}
+// the size of a curve's n-th harmonic against its first, from values at K evenly spaced phases starting at `start`
+function harmonic(vals, n, start) { const K = vals.length, s0 = start || 0; let a1 = 0, b1 = 0, an = 0, bn = 0; vals.forEach((v, j) => { const t = s0 + TWO_PI * j / K; a1 += v * Math.cos(t); b1 += v * Math.sin(t); an += v * Math.cos(n * t); bn += v * Math.sin(n * t); }); return Math.hypot(an, bn) / Math.hypot(a1, b1); }
+// the curve built by hand: K kicks of size dy, evenly spaced, starting half a step in
+function sweep(cyc, dy, K) { const out = []; for (let j = 0; j < K; j++) { const th = TWO_PI * (j + 0.5) / K; out.push([th, prcKick(cyc, th, dy, 8)]); } return out; }
+function selfTest() {
+  const lines = [], ok = (name, pass, detail) => lines.push(`${pass ? 'PASS' : 'FAIL'}  ${name}${detail ? ` (${detail})` : ''}`);
+  const loops = {}; for (const mu of [0.3, 1, 3]) { const c = limitCycle(mu, 2000); loops[mu] = { cyc: c, prc: prcFloquet(c, 64) }; }
+  // step 1: the kick's mark off the loop dies by the second multiplier each trip; its mark along the loop stays
+  for (const mu of [0.3, 1]) {
+    const { cyc } = loops[mu], r = kickTrips(cyc, 1.0, 0.01, 12), ratio = r[1].off / r[0].off, drift = Math.abs(r[11].ahead - r[5].ahead);
+    ok(`step 1 · μ ${mu}: off the loop, the kick shrinks each trip by the multiplier across it`, Math.abs(ratio / cyc.across - 1) < 0.05, `trip 2 ÷ trip 1 ${ratio.toExponential(3)}, Liouville ${cyc.across.toExponential(3)}`);
+    ok(`step 1 · μ ${mu}: along the loop, the phase it moved stays moved`, drift < 1e-4 * Math.abs(r[11].ahead) && Math.abs(r[11].ahead) > 1e-3, `${r[11].ahead.toFixed(7)} rad ahead after 12 trips, changed by ${drift.toExponential(1)} since trip 6`);
+  }
+  { const m = Math.max(...Object.values(loops).map((l) => Math.abs(l.prc[0].one - 1))); ok('step 1 · each loop\'s other multiplier is exactly 1', m < 1e-5, `largest |λ − 1| ${m.toExponential(1)}`); }
+  // step 2: a hand-built point: the kick measured on the loop, advance and delay both occur
+  { const { cyc } = loops[1]; const pts = []; for (let j = 0; j < 16; j++) pts.push(prcKick(cyc, TWO_PI * (j + 0.5) / 16, 0.2, 8));
+    ok('step 2 · μ 1, kicks of 0.2 at 16 phases: some advance, some delay', Math.max(...pts) > 0.1 && Math.min(...pts) < -0.1, `from ${Math.min(...pts).toFixed(3)} to ${Math.max(...pts).toFixed(3)} rad per unit kick`); }
+  // step 3: the loop's shape sets the curve's shape: near μ 0 the curve is a sine; the loop's symmetry (x, y → −x, −y)
+  // leaves it only odd harmonics, so the third is the first sign of shape
+  const hk = (mu) => harmonic(sweep(loops[mu].cyc, 0.05, 32).map((p) => p[1]), 3, TWO_PI * 0.5 / 32), hf = (mu) => harmonic(loops[mu].prc.map((p) => p.Z[1]), 3, 0);
+  const h03 = hk(0.3), h3 = hk(3);
+  ok('step 3 · built by hand, a round loop gives a near-sine curve and a relaxation loop does not', h03 < 0.05 && h3 > 5 * h03, `third harmonic ÷ first, 32 kicks of 0.05: μ 0.3 ${h03.toFixed(3)}, μ 3 ${h3.toFixed(3)} · from Floquet: ${hf(0.3).toFixed(3)}, ${hf(3).toFixed(3)}`);
+  // step 4: the test. The kicked curve converges on Floquet's left eigenvector as the kick shrinks, in step with the kick
+  for (const mu of [0.3, 1, 3]) {
+    const { cyc, prc } = loops[mu], g = [0.1, 0.01, 0.001].map((dy) => kickGap(cyc, prc, dy, 16));
+    ok(`step 4 · μ ${mu}: the gap between the kicked curve and Floquet's shrinks with the kick`, g[2] < 0.002 && g[0] / g[1] > 5 && g[1] / g[2] > 5, `kick 0.1 ${(100 * g[0]).toFixed(3)}%, 0.01 ${(100 * g[1]).toFixed(3)}%, 0.001 ${(100 * g[2]).toFixed(3)}%`);
+  }
+  // the sound: a kick heard as a lead in one ear, and none at the curve's zero
+  { const { cyc, prc } = loops[1]; let best = 0, zero = 0, bz = Infinity; for (let j = 0; j < 360; j++) { const th = TWO_PI * j / 360, z = prcCurveAt(prc, th); if (Math.abs(z) > Math.abs(prcCurveAt(prc, best))) best = th; }
+    for (let j = 0; j < 360; j++) { const th = TWO_PI * j / 360, z = Math.abs(prcCurveAt(prc, th)), dz = prcCurveAt(prc, th + 0.01) - prcCurveAt(prc, th - 0.01); if (z < bz && Math.abs(dz) > 1e-3) { bz = z; zero = th; } }
+    const lead = (th) => kickTrips(cyc, th, 0.3, 4)[3].ahead;
+    ok('sound · a kick of 0.3 at the curve\'s peak moves the right ear\'s phase; at its zero it barely does', Math.abs(lead(best)) > 0.15 && Math.abs(lead(zero)) < 0.25 * Math.abs(lead(best)), `peak ${(best * 180 / Math.PI).toFixed(0)}°: ${lead(best).toFixed(3)} rad · zero ${(zero * 180 / Math.PI).toFixed(0)}°: ${lead(zero).toFixed(3)} rad`); }
+  return lines;
+}
+// ---- end math ----
+
+// ---- the walk: one step showing, Next and Back, the rail always open; changing step stops the sound ----
+const STEPS = [...document.querySelectorAll('.step')];
+const rail = document.querySelector('.rail');
+let cur = 0;
+STEPS.forEach((s, i) => {
+  const b = document.createElement('button');
+  b.innerHTML = `<span class="n">${i + 1}</span>${s.dataset.title}`;
+  b.addEventListener('click', () => show(i));
+  rail.appendChild(b);
+});
+function show(i) {
+  stopSound();
+  cur = Math.max(0, Math.min(STEPS.length - 1, i));
+  STEPS.forEach((s, k) => { s.hidden = k !== cur; });
+  [...rail.children].forEach((b, k) => { if (k === cur) b.setAttribute('aria-current', 'step'); else b.removeAttribute('aria-current'); });
+  document.getElementById('back').disabled = cur === 0;
+  document.getElementById('next').disabled = cur === STEPS.length - 1;
+  redraw();
+}
+document.getElementById('back').addEventListener('click', () => show(cur - 1));
+document.getElementById('next').addEventListener('click', () => show(cur + 1));
+// ---- sound: nothing exists before a click; one buffer plays at a time. The kit quiets the page's context itself
+// (a hush from the page around it, a hidden tab, a minute untouched); the piece only keeps its words in step. Never name
+// the page's hush message in this script: the kit reads a script that names it as one that answers it. ----
+let actx = null, src = null, outGain = null;
+function audio() {
+  if (!actx) {
+    actx = new (window.AudioContext || window.webkitAudioContext)();
+    const comp = actx.createDynamicsCompressor(); comp.threshold.value = -10; comp.ratio.value = 8;
+    outGain = actx.createGain(); outGain.gain.value = 0.7;
+    outGain.connect(comp).connect(actx.destination);
+    actx.onstatechange = () => { if (actx.state !== 'running') setPlaying(null); };
+  }
+  return actx;
+}
+function setPlaying(label) {
+  document.querySelectorAll('[data-state]').forEach((el) => { el.textContent = label ? 'playing · ' + label : 'silent until you press a sound button'; });
+}
+// [left, right] at rate, scaled so the louder channel peaks at 0.5, with 8 ms fades so it never clicks
+function playStereo(ch, rate, label) {
+  stopSound();
+  const ctx = audio(), n = ch[0].length, buf = ctx.createBuffer(2, n, rate);
+  let pk = 1e-12; for (const c of ch) for (let i = 0; i < n; i++) pk = Math.max(pk, Math.abs(c[i]));
+  const g = 0.5 / pk, fade = Math.round(rate * 0.008);
+  ch.forEach((c, k) => { const d = buf.getChannelData(k); for (let i = 0; i < n; i++) d[i] = c[i] * g * Math.min(1, i / fade, (n - 1 - i) / fade); });
+  const s = ctx.createBufferSource(); s.buffer = buf; s.connect(outGain);
+  s.onended = () => { if (src === s) { src = null; setPlaying(null); } };
+  const go = () => { s.start(); src = s; setPlaying(label); };
+  if (ctx.state !== 'running') ctx.resume().then(go); else go();
+}
+function stopSound() { if (src) { try { src.stop(); } catch (e) {} src = null; } setPlaying(null); }
+// opened on its own from a file, with no kit around it, a hidden tab still goes quiet; nothing starts again on its own
+document.addEventListener('visibilitychange', () => { if (document.hidden) stopSound(); });
+// ---- drawing helpers ----
+function fit(c, aspect, minH, maxH) {
+  const w = c.clientWidth || 600, d = window.devicePixelRatio || 1, h = Math.round(Math.max(minH || 200, Math.min(maxH || 460, w * aspect)));
+  if (c.width !== Math.round(w * d) || c.height !== Math.round(h * d)) { c.width = Math.round(w * d); c.height = Math.round(h * d); c.style.height = h + 'px'; }
+  const g = c.getContext('2d'); g.setTransform(d, 0, 0, d, 0, 0); g.clearRect(0, 0, w, h); return { g, w, h };
+}
+const COL = { ink: '#c8c8d8', dim: '#4a4a5a', grid: '#22222e', amber: '#e8b84a', blue: '#4a8fff', warn: '#ff9b4a', ok: '#7fd49a', fg1: '#e8e8f0', fg3: '#8a8aa0', mu: { 0.3: '#7fd49a', 1: '#e8b84a', 3: '#b48cff' } };
+function label(g, text, x, y, color, align) { g.fillStyle = color || COL.fg3; g.font = '10.5px JetBrains Mono, monospace'; g.textAlign = align || 'left'; g.fillText(text, x, y); }
+function box(g, x, y, w, h) { g.strokeStyle = 'rgba(255,255,255,.06)'; g.lineWidth = 1; g.strokeRect(x + 0.5, y + 0.5, w - 1, h - 1); }
+// the loop drawn into a square: returns the mapping
+function loopMap(cyc, x, y, s) {
+  let xm = 1e-9, ym = 1e-9; for (let i = 0; i < cyc.Ns; i++) { xm = Math.max(xm, Math.abs(cyc.x[i])); ym = Math.max(ym, Math.abs(cyc.y[i])); }
+  xm *= 1.2; ym *= 1.25; const cx = x + s / 2, cy = y + s / 2 + 4, kx = (s / 2 - 10) / xm, ky = (s / 2 - 16) / ym;
+  return { X: (v) => cx + v * kx, Y: (v) => cy - v * ky };
+}
+function drawLoop(g, cyc, m, color, width) { g.strokeStyle = color; g.lineWidth = width || 2.2; g.beginPath(); for (let i = 0; i <= cyc.Ns; i += 4) { const k = i % cyc.Ns, X = m.X(cyc.x[k]), Y = m.Y(cyc.y[k]); i ? g.lineTo(X, Y) : g.moveTo(X, Y); } g.stroke(); }
+const deg = (r) => (r * 180 / Math.PI);
+
+// ---- the piece ----
+const $ = (id) => document.getElementById(id);
+const F0 = 220, SR = 48000;
+const S = { mu: 1, th: 60, dy: 0.3, dy4: 0.01 };
+const memo = {};
+function loop(mu) { if (!memo['L' + mu]) { const cyc = limitCycle(mu, 2000); memo['L' + mu] = { cyc, prc: prcFloquet(cyc, 64) }; } return memo['L' + mu]; }
+const thRad = () => S.th * Math.PI / 180;
+const handPts = {};                                    // the curve built by hand, per loop and kick size
+const handKey = () => S.mu + ':' + S.dy.toFixed(2);
+// controls shared across steps
+document.querySelectorAll('[data-mus]').forEach((seg) => {
+  [0.3, 1, 3].forEach((mu) => {
+    const b = document.createElement('button'); b.textContent = mu === 0.3 ? 'gentle · μ 0.3' : mu === 1 ? 'van der Pol · μ 1' : 'relaxation · μ 3';
+    b.dataset.mu = mu; b.addEventListener('click', () => { S.mu = mu; stopSound(); redraw(); }); seg.appendChild(b);
+  });
+});
+document.querySelectorAll('[data-th]').forEach((el) => el.addEventListener('input', () => { S.th = +el.value; stopSound(); redraw(); }));
+document.querySelectorAll('[data-dy]').forEach((el) => el.addEventListener('input', () => { S.dy = +el.value / 100; stopSound(); redraw(); }));
+const dy4From = (v) => 0.001 * Math.pow(300, v / 1000), dy4To = (d) => Math.round(1000 * Math.log(d / 0.001) / Math.log(300));
+$('dy4').addEventListener('input', () => { S.dy4 = +dy4From(+$('dy4').value).toPrecision(2); stopSound(); redraw(); });
+function sync() {
+  document.querySelectorAll('[data-mu]').forEach((b) => b.setAttribute('aria-pressed', String(+b.dataset.mu === S.mu)));
+  document.querySelectorAll('[data-th]').forEach((el) => { el.value = S.th; });
+  document.querySelectorAll('[data-thval]').forEach((el) => { el.textContent = S.th + '° of the cycle'; });
+  document.querySelectorAll('[data-dy]').forEach((el) => { el.value = Math.round(S.dy * 100); });
+  document.querySelectorAll('[data-dyval]').forEach((el) => { el.textContent = S.dy.toFixed(2) + ' in y'; });
+  $('dy4').value = dy4To(S.dy4); $('dy4val').textContent = S.dy4 + ' in y';
+}
+let pend = 0;
+function redraw() { sync(); clearTimeout(pend); pend = setTimeout(() => [draw1, draw2, draw3, draw4][cur](), 20); }
+document.querySelectorAll('[data-stop]').forEach((b) => b.addEventListener('click', stopSound));
+document.querySelectorAll('[data-sound]').forEach((b) => b.addEventListener('click', () => {
+  const { cyc, prc } = loop(S.mu), kind = b.dataset.sound;
+  if (kind === 'loop') { const ch = renderKick(cyc, F0, SR, 2.5, []); playStereo([ch[0], ch[0]], SR, 'the loop at μ ' + S.mu + ', both ears'); return; }
+  if (kind === 'kick') { playStereo(renderKick(cyc, F0, SR, 3.6, [{ at: 1.2, phase: thRad(), dy: S.dy }]), SR, 'twin left, kicked right, at ' + S.th + '°, kick ' + S.dy.toFixed(2)); return; }
+  // the peak, then the zero: two runs, each from a fresh start, each kicked once by 0.3
+  const pk = curvePeakAndZero(prc), a = renderKick(cyc, F0, SR, 2.6, [{ at: 0.9, phase: pk.peak, dy: 0.3 }]), z = renderKick(cyc, F0, SR, 2.6, [{ at: 0.9, phase: pk.zero, dy: 0.3 }]);
+  const gap = Math.round(0.25 * SR), n = a[0].length, L = new Float32Array(2 * n + gap), R = new Float32Array(2 * n + gap);
+  L.set(a[0], 0); R.set(a[1], 0); L.set(z[0], n + gap); R.set(z[1], n + gap);
+  playStereo([L, R], SR, 'a kick of 0.3 at the curve\'s peak (' + deg(pk.peak).toFixed(0) + '°), then at its zero (' + deg(pk.zero).toFixed(0) + '°)');
+}));
+function curvePeakAndZero(prc) {
+  let peak = 0, zero = 0, bz = Infinity;
+  for (let j = 0; j < 360; j++) { const th = TWO_PI * j / 360; if (Math.abs(prcCurveAt(prc, th)) > Math.abs(prcCurveAt(prc, peak))) peak = th; }
+  for (let j = 0; j < 360; j++) { const th = TWO_PI * j / 360, z = Math.abs(prcCurveAt(prc, th)), dz = prcCurveAt(prc, th + 0.01) - prcCurveAt(prc, th - 0.01); if (z < bz && Math.abs(dz) > 1e-3) { bz = z; zero = th; } }
+  return { peak, zero };
+}
+// ---- step 1 ----
+function draw1() {
+  const { cyc, prc } = loop(S.mu), { g, w, h } = fit($('c1'), 0.42, 260, 440), s = Math.min(h - 8, w * 0.46), m = loopMap(cyc, 4, 4, s);
+  box(g, 4, 4, s, s);
+  drawLoop(g, cyc, m, COL.amber, 2.4);
+  // the kick and the next three trips
+  const p = cycleAt(cyc, thRad()), f = (u) => field(cyc.mu, u[0], u[1]), hh = cyc.T / 400; let a = [p[0], p[1]], b = [p[0], p[1] + S.dy];
+  g.strokeStyle = COL.blue; g.lineWidth = 1.4; g.beginPath(); g.moveTo(m.X(b[0]), m.Y(b[1]));
+  for (let i = 0; i < 1200; i++) { a = rk4(f, a, hh); b = rk4(f, b, hh); g.globalAlpha = 1; g.lineTo(m.X(b[0]), m.Y(b[1])); }
+  g.globalAlpha = 0.85; g.stroke(); g.globalAlpha = 1;
+  g.strokeStyle = COL.fg1; g.lineWidth = 1.5; g.beginPath(); g.moveTo(m.X(p[0]), m.Y(p[1])); g.lineTo(m.X(p[0]), m.Y(p[1] + S.dy)); g.stroke();
+  g.fillStyle = COL.fg1; g.beginPath(); g.arc(m.X(p[0]), m.Y(p[1]), 3.5, 0, 7); g.fill();
+  g.strokeStyle = COL.fg1; g.lineWidth = 1.6; g.beginPath(); g.arc(m.X(a[0]), m.Y(a[1]), 7, 0, 7); g.stroke();
+  g.fillStyle = COL.blue; g.beginPath(); g.arc(m.X(b[0]), m.Y(b[1]), 4.5, 0, 7); g.fill();
+  label(g, 'THE LOOP · μ ' + S.mu, 12, 18); label(g, 'ring: the twin · dot: kicked, three trips on', 12, s - 4, COL.fg3);
+  // right: per trip
+  const tr = kickTrips(cyc, thRad(), S.dy, 10), x0 = s + 26, x1 = w - 10, top = 8, mid = top + (h - 16) * 0.55, bot = h - 8;
+  box(g, s + 12, 4, w - s - 16, h - 8);
+  const lo = -14, Yl = (v) => top + 22 + (mid - top - 34) * (0 - Math.log10(Math.max(v, 1e-14))) / (0 - lo), bw = (x1 - x0) / tr.length;
+  label(g, 'OFF THE LOOP, EACH TRIP (log)', x0, top + 14);
+  [0, -4, -8, -12].forEach((e) => { g.strokeStyle = COL.grid; g.beginPath(); g.moveTo(x0 + 34, Yl(Math.pow(10, e))); g.lineTo(x1, Yl(Math.pow(10, e))); g.stroke(); label(g, '1e' + e, x0 + 28, Yl(Math.pow(10, e)) + 4, COL.fg3, 'right'); });
+  tr.forEach((q, i) => { const X = x0 + 38 + i * (bw - 4), Y = Yl(q.off); g.fillStyle = q.off < 1e-12 ? COL.dim : COL.blue; g.fillRect(X, Y, Math.max(3, bw - 10), Yl(1e-14) - Y); });
+  if (tr[0].off > 1e-12) { g.save(); g.setLineDash([4, 4]); g.strokeStyle = COL.amber; g.beginPath(); for (let i = 0; i < tr.length; i++) { const v = tr[0].off * Math.pow(cyc.across, i), X = x0 + 38 + i * (bw - 4) + (bw - 10) / 2; if (v < 1e-14) break; i ? g.lineTo(X, Yl(v)) : g.moveTo(X, Yl(v)); } g.stroke(); g.restore(); }
+  label(g, 'dashed: the multiplier across, from Liouville', x1, top + 14, COL.fg3, 'right');
+  label(g, 'AHEAD OF THE TWIN, EACH TRIP', x0, mid + 18);
+  const am = Math.max(1e-6, ...tr.map((q) => Math.abs(q.ahead))) * 1.4, Ya = (v) => (mid + bot) / 2 + 8 - v / am * ((bot - mid) / 2 - 18);
+  g.strokeStyle = COL.grid; g.beginPath(); g.moveTo(x0 + 34, Ya(0)); g.lineTo(x1, Ya(0)); g.stroke(); label(g, '0', x0 + 28, Ya(0) + 4, COL.fg3, 'right');
+  tr.forEach((q, i) => { const X = x0 + 38 + i * (bw - 4) + (bw - 10) / 2; g.fillStyle = COL.blue; g.beginPath(); g.arc(X, Ya(q.ahead), 3.5, 0, 7); g.fill(); });
+  label(g, 'trips 1 to ' + tr.length + ' →', x1, bot - 4, COL.fg3, 'right');
+  const ratio = tr[1].off / tr[0].off, seen = tr[0].off > 1e-11 && tr[1].off > 1e-13;
+  $('r1a').textContent = loop(S.mu).prc[0].one.toFixed(6) + ' (Floquet)';
+  $('r1b').innerHTML = cyc.across.toExponential(2) + ' (Liouville) · ' + (seen ? 'trip 2 ÷ trip 1, measured: ' + ratio.toExponential(2) : 'measured: gone within a trip, below what the integrator sees');
+  $('r1c').textContent = (deg(tr[0].ahead) >= 0 ? '+' : '') + deg(tr[0].ahead).toFixed(2) + '° after one trip · ' + (deg(tr[9].ahead) >= 0 ? '+' : '') + deg(tr[9].ahead).toFixed(2) + '° after ten';
+}
+// ---- step 2 ----
+let sweeping = 0;
+function addPoint(th) { const { cyc } = loop(S.mu), k = handKey(); (handPts[k] = handPts[k] || []).push([th, prcKick(cyc, th, S.dy, 8)]); }
+document.querySelector('[data-act=one]').addEventListener('click', () => { addPoint(thRad()); redraw(); });
+document.querySelector('[data-act=clear]').addEventListener('click', () => { handPts[handKey()] = []; sweeping++; redraw(); });
+document.querySelector('[data-act=sweep]').addEventListener('click', () => {
+  const job = ++sweeping; let j = 0;
+  const next = () => { if (job !== sweeping || cur !== 1 || j >= 32) return; addPoint(TWO_PI * (j + 0.5) / 32); S.th = Math.round(360 * (j + 0.5) / 32) % 360; j++; sync(); draw2(); setTimeout(next, 45); };
+  next();
+});
+function prcPlot(g, x, y, w, h, lo, hi) {
+  const X = (th) => x + th / TWO_PI * w, Y = (v) => y + (hi - v) / (hi - lo) * h;
+  g.strokeStyle = COL.grid; g.beginPath(); g.moveTo(x, Y(0)); g.lineTo(x + w, Y(0)); g.stroke();
+  [0, 90, 180, 270, 360].forEach((d) => label(g, d + '°', X(d * Math.PI / 180), y + h + 14, COL.fg3, d === 0 ? 'left' : d === 360 ? 'right' : 'center'));
+  label(g, '+' + hi.toFixed(2), x - 4, y + 10, COL.fg3, 'right'); label(g, lo.toFixed(2), x - 4, y + h, COL.fg3, 'right');
+  return { X, Y };
+}
+function draw2() {
+  const { cyc } = loop(S.mu), { g, w, h } = fit($('c2'), 0.4, 250, 420), s = Math.min(h - 8, w * 0.32), m = loopMap(cyc, 4, 4, s);
+  box(g, 4, 4, s, s); drawLoop(g, cyc, m, COL.amber, 2.2);
+  const p = cycleAt(cyc, thRad());
+  g.strokeStyle = COL.fg1; g.lineWidth = 1.5; g.beginPath(); g.moveTo(m.X(p[0]), m.Y(p[1])); g.lineTo(m.X(p[0]), m.Y(p[1] + S.dy)); g.stroke();
+  g.fillStyle = COL.fg1; g.beginPath(); g.arc(m.X(p[0]), m.Y(p[1]), 4, 0, 7); g.fill();
+  const p0 = cycleAt(cyc, 0); g.fillStyle = COL.fg3; g.beginPath(); g.arc(m.X(p0[0]), m.Y(p0[1]), 2.5, 0, 7); g.fill(); label(g, 'phase 0', m.X(p0[0]) - 6, m.Y(p0[1]) - 8, COL.fg3, 'right');
+  label(g, 'μ ' + S.mu, 12, 18);
+  const pts = handPts[handKey()] || [], vals = pts.map((q) => q[1]), mx = Math.max(0.3, ...vals.map(Math.abs)) * 1.15;
+  const x0 = s + 60, pw = w - x0 - 12, P = prcPlot(g, x0, 18, pw, h - 44, -mx, mx);
+  label(g, 'RADIANS GAINED PER UNIT KICK', x0, 12);
+  g.strokeStyle = 'rgba(232,184,74,.35)'; g.beginPath(); g.moveTo(P.X(thRad()), 18); g.lineTo(P.X(thRad()), h - 26); g.stroke();
+  pts.slice().sort((a, b) => a[0] - b[0]).forEach((q) => { g.fillStyle = COL.blue; g.beginPath(); g.arc(P.X(q[0]), P.Y(q[1]), 4, 0, 7); g.fill(); });
+  const z = prcKick(cyc, thRad(), S.dy, 8);
+  $('r2a').textContent = (z >= 0 ? 'advances ' : 'delays ') + Math.abs(z * S.dy).toFixed(4) + ' rad (' + Math.abs(deg(z * S.dy)).toFixed(2) + '°), ' + (z >= 0 ? '+' : '') + z.toFixed(3) + ' per unit kick';
+  $('r2b').textContent = pts.length + ' at kick ' + S.dy.toFixed(2);
+}
+// ---- step 3 ----
+function draw3() {
+  const { g, w, h } = fit($('c3'), 0.5, 300, 470), top = Math.min(150, (h - 40) * 0.42), cw = (w - 16) / 3, curves = {};
+  [0.3, 1, 3].forEach((mu, i) => {
+    const { cyc } = loop(mu), m = loopMap(cyc, 8 + i * cw + (cw - top) / 2, 4, top);
+    drawLoop(g, cyc, m, COL.mu[mu], mu === S.mu ? 2.4 : 1.4);
+    label(g, 'μ ' + mu, 8 + i * cw + 6, 16, COL.mu[mu]);
+    const k = 'sw' + mu; if (!memo[k]) memo[k] = sweep(cyc, 0.05, 32); curves[mu] = memo[k];
+  });
+  let mx = 0; Object.values(curves).forEach((c) => c.forEach((q) => { mx = Math.max(mx, Math.abs(q[1])); })); mx *= 1.15;
+  const P = prcPlot(g, 56, top + 16, w - 70, h - top - 46, -mx, mx);
+  [0.3, 1, 3].forEach((mu) => { const c = curves[mu]; g.strokeStyle = COL.mu[mu]; g.lineWidth = mu === S.mu ? 2.2 : 1.2; g.beginPath(); c.forEach((q, j) => { j ? g.lineTo(P.X(q[0]), P.Y(q[1])) : g.moveTo(P.X(q[0]), P.Y(q[1])); }); g.stroke(); c.forEach((q) => { g.fillStyle = COL.mu[mu]; g.beginPath(); g.arc(P.X(q[0]), P.Y(q[1]), 2.4, 0, 7); g.fill(); }); });
+  label(g, 'RADIANS GAINED PER UNIT KICK · 32 KICKS OF 0.05 EACH', 56, top + 10);
+  $('r3').innerHTML = [0.3, 1, 3].map((mu) => `<div>μ ${mu}: third harmonic ÷ first<br><b>${harmonic(curves[mu].map((q) => q[1]), 3, TWO_PI * 0.5 / 32).toFixed(3)}</b></div>`).join('') + '<div class="state" data-state></div>';
+  setPlaying(src ? 'the loop' : null);
+}
+// ---- step 4: the test ----
+function draw4() {
+  const { cyc, prc } = loop(S.mu), { g, w, h } = fit($('c4'), 0.36, 240, 400);
+  const kicks = []; for (let j = 0; j < 16; j++) { const th = TWO_PI * (j + 0.5) / 16; kicks.push([th, prcKick(cyc, th, S.dy4, 8)]); }
+  let mx = 0; prc.forEach((p) => { mx = Math.max(mx, Math.abs(p.Z[1])); }); kicks.forEach((k) => { mx = Math.max(mx, Math.abs(k[1])); }); const sc = Math.max(...prc.map((p) => Math.abs(p.Z[1]))); mx *= 1.15;
+  const P = prcPlot(g, 56, 18, w - 70, h - 44, -mx, mx);
+  label(g, 'THE PHASE RESPONSE CURVE TO A KICK IN y · μ ' + S.mu, 56, 12);
+  g.strokeStyle = COL.amber; g.lineWidth = 2.4; g.beginPath(); for (let j = 0; j <= 256; j++) { const th = TWO_PI * j / 256, v = prcCurveAt(prc, th); j ? g.lineTo(P.X(th), P.Y(v)) : g.moveTo(P.X(th), P.Y(v)); } g.stroke();
+  let worst = 0; kicks.forEach((k) => { worst = Math.max(worst, Math.abs(k[1] - prcCurveAt(prc, k[0]))); g.fillStyle = COL.blue; g.beginPath(); g.arc(P.X(k[0]), P.Y(k[1]), 4.5, 0, 7); g.fill(); });
+  const key = 'gaps' + S.mu; if (!memo[key]) memo[key] = [0.1, 0.01, 0.001].map((dy) => kickGap(cyc, prc, dy, 16));
+  const gs = memo[key], conv = gs[0] / gs[1] > 5 && gs[1] / gs[2] > 5;
+  const yes = (c, t) => `<span class="${c ? 'yes' : 'no'}">${t}</span>`;
+  $('r4').innerHTML =
+    `<div>at this kick, ${S.dy4}<br><b>largest gap ${(100 * worst / sc).toFixed(3)}% of the curve's height</b></div>` +
+    `<div>kick 0.1 · 0.01 · 0.001<br><b>${gs.map((x) => (100 * x).toFixed(3) + '%').join(' · ')}</b> ${yes(conv, conv ? 'shrinks with the kick' : 'does not shrink')}</div>` +
+    `<div>multipliers of one trip<br><b>${prc[0].one.toFixed(6)} along · ${cyc.across.toExponential(2)} across</b></div>`;
+}
+(() => { let d = ''; for (let i = 0; i <= 240; i++) { const t = i / 240 * 2 * Math.PI, x = 9 * Math.sin(3 * t + Math.PI / 2), y = 9 * Math.sin(2 * t); d += (i ? 'L' : 'M') + x.toFixed(2) + ' ' + y.toFixed(2); } document.getElementById('sigil').setAttribute('d', d); })();
+window.addEventListener('resize', () => redraw());
+setPlaying(null);
+show(0);
+</script>
+</body>
+</html>
