@@ -64,11 +64,10 @@ out["npr"] = {"gray": ngray.ravel().tolist(), "tooth": ntooth.ravel().tolist(),
 
 PLATES = {"sky": ("auto:top:0.55", None), "dust": ("auto:bottom:0.6", None), "water": ("auto:bottom:0.5", None),
           "smoke": ("auto:top:0.7", "base"), "flame": ("auto:mid", "base")}   # plates/<name>.json
-pres = {}
-for name, (mask, anchor) in PLATES.items():
+def measure(name, mask, anchor, amp=1.0):
     fld = F.PRESETS[name](H, W)
     mk = Wp.build_mask(mask, H, W, feather=24)
-    cf = mk * (Wp.base_anchor_weight(mk) if anchor == "base" else 1.0)
+    cf = mk * (Wp.base_anchor_weight(mk) if anchor == "base" else 1.0) * amp
     tight, neg_px, neg_frames, fold = 9.0, 0, 0, 1e9
     fold_px, fold_frames = 0, 0
     for i in range(60):
@@ -78,7 +77,7 @@ for name, (mask, anchor) in PLATES.items():
         det = (1 - a) * (1 - d) - b * c2
         tight = min(tight, float(det.min()))
         n = int((det < 0).sum()); neg_px = max(neg_px, n); neg_frames += 1 if n else 0
-        # det(s) = 1 - s(a+d) + s^2(ad - bc): the smallest s > 0 where it reaches zero
+        # det(s) = 1 - s(a+d) + s^2(ad - bc) as the push s grows from 0: the smallest s > 0 where it reaches zero
         qa, qb = a * d - b * c2, -(a + d)
         with np.errstate(divide="ignore", invalid="ignore"):
             disc = qb * qb - 4 * qa
@@ -88,10 +87,16 @@ for name, (mask, anchor) in PLATES.items():
             cand = np.where(ok & (r1 > 0), r1, np.inf)
             cand = np.minimum(cand, np.where(ok & (r2 > 0), r2, np.inf))
         fold = min(fold, float(np.nanmin(cand)))
-        # folded at the default push: det reached zero somewhere on the way from 0 to 1
-        # (det below zero now, or below and back above: folded on both axes)
+        # folded at this push: det reached zero somewhere on the way up from no push
+        # (below zero now, or below and back above: folded on both axes)
         nf = int((cand <= 1.0).sum()); fold_px = max(fold_px, nf); fold_frames += 1 if nf else 0
-    pres[name] = {"tightest": tight, "neg_px": neg_px, "neg_frames": neg_frames, "fold_factor": fold,
-                  "folded_px": fold_px, "folded_frames": fold_frames, "pixels": H * W}
+    return {"tightest": tight, "neg_px": neg_px, "neg_frames": neg_frames, "fold_factor": fold,
+            "folded_px": fold_px, "folded_frames": fold_frames, "pixels": H * W, "amp": amp, "mask": mask}
+
+pres = {name: measure(name, mask, anchor) for name, (mask, anchor) in PLATES.items()}
+# the loops as the bench rendered them, where experiments.html records how:
+#   water_v1 "60f @24 · amp 1.3" (line 112); flame_v1 "full mask · base anchor" (line 127)
+pres["water_rendered"] = measure("water", "auto:bottom:0.5", None, 1.3)
+pres["flame_rendered"] = measure("flame", "full", "base", 1.0)
 out["presets"] = pres
 json.dump(out, sys.stdout)

@@ -51,6 +51,13 @@ console.log('move it or redraw it');
   const seam1 = E.change(frame(1), frame(0)), seam15 = E.change(frame(1, 1, 1.5), frame(0, 1, 1.5));
   ok(seam1 < 1e-9, `seam, whole turns: ${seam1.toExponential(2)} / 255`);
   ok(seam15 > 0.3, `seam, a turn and a half: ${seam15.toFixed(3)} / 255`);
+  { // why: at a turn and a half the field ends exactly reversed, so the seam is frame 0 against frame 30
+    const ax = new Float32Array(L.n), ay = new Float32Array(L.n), bx = new Float32Array(L.n), by = new Float32Array(L.n);
+    L.field(0, 1, 1.5, ax, ay); L.field(1, 1, 1.5, bx, by); let r = 0;
+    for (let i = 0; i < L.n; i++) r = Math.max(r, Math.abs(ax[i] + bx[i]), Math.abs(ay[i] + by[i]));
+    const s30 = E.change(frame(0.5), frame(0));
+    ok(r < 1e-9 && Math.abs(s30 - seam15) < 1e-6, `a turn and a half ends reversed, max |d(1) + d(0)| ${r.toExponential(1)}; frame 0 against 30 of the whole-turn loop ${s30.toFixed(4)}`);
+  }
   // 4. where nothing moves, the moved loop never changes; the redrawn one does
   let stillPct = 0; for (const v of L.still) stillPct += v; stillPct = stillPct / L.n * 100;
   const fr = []; for (let i = 0; i < 60; i++) fr.push(frame(i / 60));
@@ -74,7 +81,7 @@ console.log('move it or redraw it');
 // ── where the warp folds ─────────────────────────────────────────────────────────────────
 console.log('\nwhere the warp folds');
 {
-  const E = engine('where the warp folds', ['CW', 'CH', 'LAMBDA', 'drawing', 'ripple', 'warp', 'detJ', 'topo']);
+  const E = engine('where the warp folds', ['CW', 'CH', 'LAMBDA', 'drawing', 'ripple', 'warp', 'detJ', 'topo', 'folded']);
   const N = E.CW * E.CH, dx = new Float32Array(N), dy = new Float32Array(N), o = new Float32Array(N), det = new Float32Array(N);
   const base = E.drawing('drawing'), bil = E.drawing('billow');
   const t0 = E.topo(base), tb = E.topo(bil);
@@ -84,6 +91,11 @@ console.log('\nwhere the warp folds');
   const tight = (p) => { let m = Infinity; for (let k = 0; k < 24; k++) { E.ripple(p, k / 24, dx, dy); E.detJ(dx, dy, E.CW, E.CH, det); for (const v of det) if (v < m) m = v; } return m; };
   const a = tight(0.98), b = tight(1.02);
   ok(a > 0 && b < 0, `on the pixel grid, tightest det J at 0.98 of the fold ${a.toFixed(4)}, at 1.02 ${b.toFixed(4)} (A = λ/2π = ${(E.LAMBDA / 2 / Math.PI).toFixed(3)} px)`);
+  // folded along the path: none short of the fold; past it, some pixels fold on both axes and read positive
+  { const fm = new Uint8Array(N); let short = 0, both = 0, any = 0;
+    for (let k = 0; k < 24; k++) { E.ripple(0.95, k / 24, dx, dy); short += E.folded(dx, dy, E.CW, E.CH, fm); }
+    for (let k = 0; k < 24; k++) { E.ripple(1.8, k / 24, dx, dy); E.detJ(dx, dy, E.CW, E.CH, det); any += E.folded(dx, dy, E.CW, E.CH, fm); for (let i = 0; i < N; i++) if (fm[i] && det[i] > 0) both++; }
+    ok(short === 0 && any > 0 && both > 0, `folded on the way up: ${short} px at 0.95 of the fold; at 1.8, ${any} px over the loop, ${both} of them with det J back above 0 (folded on both axes)`); }
   // short of the fold the count never moves, at any push or phase
   const seen = new Set(); let frames = 0;
   for (let p = 0; p <= 0.951; p += 0.05) for (let k = 0; k < 24; k++) { E.ripple(p, k / 24, dx, dy); E.warp(base, E.CW, E.CH, dx, dy, o); const c = E.topo(o); seen.add(c.islands + '·' + c.holes); frames++; }
@@ -92,7 +104,7 @@ console.log('\nwhere the warp folds');
   const past = new Set(); for (let k = 0; k < 24; k++) { E.ripple(1.4, k / 24, dx, dy); E.warp(base, E.CW, E.CH, dx, dy, o); const c = E.topo(o); past.add(c.islands + '·' + c.holes); }
   ok([...past].some((v) => v !== '4·1'), `at 1.4 of the fold, counts seen over the loop: ${[...past].join(', ')}`);
   // the bench's presets, as the piece's table states them
-  const P = fx.presets, want = { sky: [0.90, 9.5], dust: [0.05, 0.94], water: [0.02, 1.02], smoke: [0.01, 1.01], flame: [-0.07, 0.94] };
+  const P = fx.presets, want = { sky: [0.90, 9.5], dust: [0.05, 0.94], water: [0.02, 1.02], smoke: [0.01, 1.01], flame: [-0.07, 0.94], water_rendered: [-0.27, 0.79], flame_rendered: [-0.20, 0.83] };
   for (const [k, [td, ff]] of Object.entries(want)) {
     const q = P[k];
     ok(Math.abs(q.tightest - td) < 0.005 && Math.abs(q.fold_factor - ff) < 0.05, `${k}: tightest det J ${q.tightest.toFixed(3)}, folds at push × ${q.fold_factor.toFixed(3)}, folded ${q.folded_px} px in ${q.folded_frames} frames`);

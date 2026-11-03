@@ -299,7 +299,7 @@ const STEPS = [
   { head: 'one still', says: 'One still. This is the bench\'s inked smoke plate, drawn once by an image model. Nothing moves, so every frame is this frame and the meter under it reads zero. Everything after this step is made from these pixels and no others.' },
   { head: 'one push', says: 'One push. A displacement field gives every pixel an arrow, and the pixel takes its ink from where the arrow points back to. Drag the phase: the smoke, the flame and the wash behind them sway, the table holds, and no mark is new. The amber arrow is one pixel\'s push, drawn four times longer than it is.' },
   { head: 'the loop closes', says: 'The loop closes. The field is five slow waves, and each turns a whole number of times over the 60 frames, so frame 60 is frame 0: not nearly, exactly, by construction. Switch the waves to a turn and a half and the loop point jumps.' },
-  { head: 'redraw it', says: 'Redraw it. Left, the still is moved. Right, the same motion, but every frame is drawn again: each mark re-placed by a fresh nudge of up to a pixel or so, moved and unmoved alike, as a re-tracing hand or a per-frame restyle does. This twin is a stand-in made here, not an image model. The meter now splits: change where the field moves the ink, and change where nothing moves. The second is the boil.' },
+  { head: 'redraw it', says: 'Redraw it. Left, the still is moved. Right, the same motion, but every frame is drawn again: each mark re-placed by a fresh nudge of up to a pixel or so, moved and unmoved alike, as a re-tracing hand or a per-frame restyle does. This twin is a stand-in made here, not an image model: its boil is whatever the nudge slider sets, and its size says nothing about the AI\'s 1.50. The meter now splits: change where the field moves the ink, and change where nothing moves. The second is the boil.' },
   { head: 'read the meter', says: 'Read the meter. The page\'s numbers are this meter over the whole frame, both halves at once. Measure k frames apart instead of one, and watch which half grows: motion grows with the gap, boil does not. Then the page\'s own numbers, re-read on the bench\'s clips below.' },
 ];
 let step = 0, amp = 1, cyc = 1, phase = 0.25, wob = 0.5, gap = 1, frame = 0, playing = false, lastT = 0, seamPop = 0;
@@ -362,7 +362,7 @@ function draw() {
     const seam = seamCache.v;
     meter($('mA'), [['change, frame to frame', change(g, gp), 2], ['frame 60 against frame 0', seam, 2, true]]);
     $('read').innerHTML = `<span>loop seam <b>${seam < 1e-6 ? '0.000000' : seam.toFixed(3)}</b> / 255</span><span>waves turn <b>${cyc === 1 ? 'a whole number of times' : 'one and a half times'}</b></span>`;
-    $('verdict').textContent = cyc === 1 ? 'Frame 60 against frame 0: zero to the last digit the browser keeps. The loop has no seam because nothing in it was drawn twice.' : 'At a turn and a half the field ends where it did not start, and the jump back to frame 0 is the seam you see each time the loop comes round.';
+    $('verdict').textContent = cyc === 1 ? 'Frame 60 against frame 0: zero to the last digit the browser keeps. The loop has no seam because nothing in it was drawn twice.' : 'At a turn and a half every wave ends half a turn out, so the field ends exactly reversed, d(1) = −d(0): the seam is the still pushed one way against the still pushed the other, the same change as frame 0 to frame 30 of the whole-turn loop. You see it as the jump back to frame 0 each time the loop comes round.';
     return;
   }
   // steps 3 and 4: moved beside redrawn
@@ -380,8 +380,8 @@ function draw() {
     meter($('mB'), [['where it moves', b1, max], ['where nothing moves', b2, max, true], ['whole frame', b3, max]]);
     $('read').innerHTML = `<span>read <b>${k}</b> frame${k > 1 ? 's' : ''} apart</span><span>boil, moved <b>${a2.toFixed(3)}</b></span><span>boil, redrawn <b>${b2.toFixed(3)}</b></span>`;
     $('verdict').textContent = step === 3
-      ? (wob === 0 ? 'At zero nudge the twin is the moved loop again, mark for mark: redrawing with no difference is just moving.' : 'Where nothing moves, the moved loop reads exactly zero and the redrawn one does not. That number, not the whole-frame one, is the boil.')
-      : 'Read further apart and "where it moves" climbs on both sides while "where nothing moves" holds: motion grows with the gap, boil does not. The whole-frame number mixes them, so it can only compare two clips with the same motion, read the same distance apart.';
+      ? (wob === 0 ? 'At zero nudge the twin is the moved loop again, mark for mark: redrawing with no difference is just moving.' : 'Where nothing moves, the moved loop reads exactly zero (that region is where the field is zero, so each pixel there is the still\'s own) and the redrawn one does not. That number, not the whole-frame one, is the boil.')
+      : 'Read further apart and "where it moves" climbs on both sides: motion grows with the gap. This twin\'s boil does not, because each of its redraws is fresh; whether an image model\'s does is not measured here. The whole-frame number mixes motion and boil, so it can only compare two clips with the same motion, read the same distance apart.';
   }
 }
 function maxPush() { let m = 0; for (let i = 0; i < L.n; i++) m = Math.max(m, Math.hypot(dx[i], dy[i])); return m; }
