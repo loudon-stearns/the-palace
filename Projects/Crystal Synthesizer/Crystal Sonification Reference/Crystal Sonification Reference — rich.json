@@ -51,7 +51,18 @@
         }
       ],
       "made_against": "848b24cd005d",
-      "stamped": "2026-11-03"
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Crystal Sonification Reference — rich — only ratios.html",
+            "verdict": "remake",
+            "why": "Walks up well and the 10⁻⁹ finding is real, but step 3's null is an algebraic identity in float64 and can't fail, and 'which two are the same chord' is answered by the button labels. Make the last test the ruby doublet's beat across the note range (0.04 × f_root: 2.2 Hz at MIDI 33, 41.9 Hz at 96), rule stated first, both outcomes scored."
+          }
+        ]
+      }
     },
     {
       "heading": "Creative Mapping Parameters",
@@ -81,7 +92,23 @@
         }
       ],
       "made_against": "800bfe4395ed",
-      "stamped": "2026-11-03"
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "charts/mapping_function_alpha_curves.png",
+            "verdict": "keep",
+            "why": "Caption true: the chart labels its x-axis r_n / r_max and its curves start at 0, so they plot (r_n − 1)/(r_max − 1)."
+          },
+          {
+            "file": "Crystal Sonification Reference — rich — where is the physics.html",
+            "verdict": "keep",
+            "why": "A test that could have read 0.00 Hz: the map is the page's formula verbatim, the 0.5 Hz rule is stated first, and it walks ruby, span, α, test. Recomputed: span 2 puts the top at 4.00, 444.4 Hz and 1217.4 c off, for every α."
+          }
+        ]
+      }
     },
     {
       "heading": "The Crystals",
@@ -218,7 +245,98 @@
         }
       ],
       "made_against": "27d995bac0bd",
-      "stamped": "2026-11-03"
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "charts/diamond_spectrum.png",
+            "verdict": "keep",
+            "why": "The page's own image prompt, drawn from its table, beside its paragraph; the linear-axis-under-a-log₂-label caption checked on ruby and fluorite."
+          },
+          {
+            "file": "triclinic-proof/diamond_strike.wav",
+            "verdict": "keep",
+            "why": "FFT'd myself: all five modes within 0.000 Hz over 110 Hz; 'five, not four' is right; honest about root and envelope."
+          },
+          {
+            "file": "charts/ruby_spectrum.png",
+            "verdict": "keep",
+            "why": "The page's own image prompt, drawn from its table, beside its paragraph; the linear-axis-under-a-log₂-label caption checked on ruby and fluorite."
+          },
+          {
+            "file": "palette-strikes/ruby_strike.wav",
+            "verdict": "keep",
+            "why": "FFT'd myself: all seven modes within 0.000 Hz; 4.4 Hz beat at A2 is 110 × 0.04; honest about root and envelope."
+          },
+          {
+            "file": "charts/amethyst_spectrum.png",
+            "verdict": "keep",
+            "why": "The page's own image prompt, drawn from its table, beside its paragraph; the linear-axis-under-a-log₂-label caption checked on ruby and fluorite."
+          },
+          {
+            "file": "palette-strikes/amethyst_strike.wav",
+            "verdict": "keep",
+            "why": "Same engine and check as the three I FFT'd; nine partials, the soft mode among them; honest about root and envelope."
+          },
+          {
+            "file": "charts/fluorite_spectrum.png",
+            "verdict": "keep",
+            "why": "The page's own image prompt, drawn from its table, beside its paragraph; the linear-axis-under-a-log₂-label caption checked on ruby and fluorite."
+          },
+          {
+            "file": "palette-strikes/fluorite_strike.wav",
+            "verdict": "keep",
+            "why": "FFT'd myself: all modes within 0.003 Hz, the degenerate TA as one partial; honest about root and envelope."
+          },
+          {
+            "file": "charts/emerald_spectrum.png",
+            "verdict": "keep",
+            "why": "The page's own image prompt, drawn from its table, beside its paragraph; the linear-axis-under-a-log₂-label caption checked on ruby and fluorite."
+          },
+          {
+            "file": "palette-strikes/emerald_strike.wav",
+            "verdict": "keep",
+            "why": "Same engine and check as the three I FFT'd; seven structural modes, no water, as the caption says."
+          },
+          {
+            "file": "Crystal Sonification Reference — rich — the intervals named.html",
+            "verdict": "remake",
+            "why": "The cents lookup is sound (one holds, three fail), but step 2 prints a verdict before the 50-cent rule appears in step 3, and the 'nearest' button shows only when the naming fails, so the buttons give the answer before the ear does. State the rule in step 2 and give every block the same buttons (or drop 'decide by ear')."
+          },
+          {
+            "file": "charts/topaz_spectrum.png",
+            "verdict": "keep",
+            "why": "The page's own image prompt, drawn from its table, beside its paragraph; the linear-axis-under-a-log₂-label caption checked on ruby and fluorite."
+          },
+          {
+            "file": "palette-strikes/topaz_strike.wav",
+            "verdict": "keep",
+            "why": "Same engine and check as the three I FFT'd; all eight modes, as the caption says."
+          },
+          {
+            "file": "charts/labradorite_spectrum.png",
+            "verdict": "keep",
+            "why": "The page's own image prompt, drawn from its table, beside its paragraph; the linear-axis-under-a-log₂-label caption checked on ruby and fluorite."
+          },
+          {
+            "file": "triclinic-proof/labradorite_strike.wav",
+            "verdict": "keep",
+            "why": "True as captioned, but the bell is the summer engine's shared ring; a clause pointing to the parent's ring study (crystal-rings/README.md:49–52, a dull knock at Q 30) would keep it from reading as confirmation."
+          },
+          {
+            "file": "charts/obsidian_vdos_comparison.png",
+            "verdict": "keep",
+            "why": "Caption true: bumps near r 3.1 and 7.0, i.e. 397 and 896 cm⁻¹."
+          },
+          {
+            "file": "Crystal Sonification Reference — rich — crystal to glass.html",
+            "verdict": "remake",
+            "why": "A real test that walks up, but step 2's 'the glass plays at the level of the quartz render' is false as played (playBuf peak-normalises; the glass alone is 3.3 dB under quartz; use the unused playBufAt), and the answer should say the crossfade prompt names no frame and the noise prompt fixes it at A4."
+          }
+        ]
+      }
     },
     {
       "heading": "Comparative Spectrum — All Eight Crystals",
@@ -246,7 +364,23 @@
         }
       ],
       "made_against": "c2f17f22770e",
-      "stamped": "2026-11-03"
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "charts/comparative_all_crystals.png",
+            "verdict": "remake",
+            "why": "Caption only: it says 'one log axis' but the chart is linear (ticks 2.5 to 17.5 evenly spaced, octave lines widening), though the page's prompt asks for log; say so, and add it to offer 8."
+          },
+          {
+            "file": "palette-strikes/palette_tour.wav",
+            "verdict": "keep",
+            "why": "Checked: 26.6 s, order diamond, fluorite, emerald, ruby, amethyst, topaz, labradorite (render_palette.py:48–60); honest that it is not the 90-second demonstration."
+          }
+        ]
+      }
     }
   ],
   "offers": [
