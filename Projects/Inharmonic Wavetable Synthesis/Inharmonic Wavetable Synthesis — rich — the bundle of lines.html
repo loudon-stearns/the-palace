@@ -1,0 +1,333 @@
+<!doctype html>
+<!--
+  title: Inharmonic Wavetable Synthesis — rich — the bundle of lines
+  born: 2026-11-03
+  links: [[Inharmonic Wavetable Synthesis]] (connects-to · rich-face-piece) · listed in [[Inharmonic Wavetable Synthesis — rich.json]] · [[Progressive Staging]] (exemplifies · a walk up to its test)
+  forward_vector: I am unison spread along the inharmonicity axis, drawn as a bundle of lines and played. One voice, then two detuned the ordinary way, then two spread along τ_B, then a bundle on any of three trajectories, and last the question the section's claim rests on: does the bundle fan where the curve is steep, or where it is high? I play inside the entry's rich face and stand alone opened directly; I change only when the section I serve does.
+  engine: everything between ENGINE-START and ENGINE-END is pure and runs in Node too; the checks re-run the claims on it. A trajectory here relaxes to the flat line as τ_B runs 0 to 1, as the page's settling frames do; the measured one is trajectory-library/piano-A2.wtb.json's 16 frames, first 32 partials.
+  dress: Loudon Live house style, Graphite skin.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:needs" content="">
+<title>The bundle of lines</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Manrope:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root { --bg:#0a0a0f; --e1:#12121a; --ring:#22222e; --border:#4a4a5e; --soft:rgba(255,255,255,.06); --fg1:#e8e8f0; --fg2:#c8c8d8; --fg3:#8a8aa0; --fg4:#4a4a5a;
+    --amber:#e8b84a; --amberline:rgba(232,184,74,.5); --indigo:#6366F1; --warn:#ff9b4a;
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --sans:'Manrope',system-ui,sans-serif; --serif:'Cormorant Garamond',Georgia,serif; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); font-weight: 300; }
+  .piece { padding: 22px 22px 16px; }
+  .kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; }
+  .title { font-family: var(--serif); font-size: 27px; font-weight: 300; color: var(--fg1); margin: 0 0 6px; }
+  .sub { font-size: 14px; line-height: 1.6; color: var(--fg2); max-width: 78ch; margin: 0 0 14px; }
+  .rail { display: flex; flex-wrap: wrap; margin: 0 0 12px; }
+  .rail button { border-radius: 0; margin-right: -1px; }
+  .rail button.here { color: var(--amber); border-color: var(--amberline); position: relative; z-index: 1; }
+  .rail button.ahead { color: var(--fg3); }
+  .stephead { font-family: var(--mono); font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--amber); margin: 4px 0 4px; }
+  .says { font-size: 14px; line-height: 1.6; color: var(--fg1); max-width: 78ch; margin: 0 0 14px; min-height: 3.2em; }
+  .stage { display: grid; grid-template-columns: 1.3fr 1fr; gap: 16px; align-items: start; }
+  .panel { border: 1px solid var(--soft); border-radius: 2px; background: var(--e1); padding: 10px 12px; }
+  .plabel { font-family: var(--mono); font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--fg3); margin-bottom: 8px; display: flex; justify-content: space-between; gap: 10px; }
+  canvas { display: block; width: 100%; }
+  .controls { display: flex; flex-wrap: wrap; gap: 14px 26px; align-items: end; margin-top: 16px; min-height: 40px; }
+  .ctl { min-width: 190px; flex: 1; }
+  .seg { display: inline-flex; flex-wrap: wrap; } .seg button + button { border-left: 0; }
+  button { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--fg2); background: var(--bg); border: 1px solid var(--border); border-radius: 2px; padding: 8px 12px; cursor: pointer; }
+  button:hover { border-color: rgba(232,184,74,.55); color: var(--fg1); }
+  button:disabled { opacity: .4; cursor: default; }
+  button.on { color: var(--amber); border-color: var(--amberline); }
+  button.go { color: var(--amber); border-color: var(--amberline); box-shadow: 0 0 14px rgba(232,184,74,.18); min-width: 96px; }
+  button:focus-visible, input:focus-visible { outline: 1px dashed var(--amber); outline-offset: 2px; }
+  label.sl { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: .08em; color: var(--fg3); }
+  label.sl b { color: var(--fg1); font-weight: 500; }
+  input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 3px; background: var(--fg4); margin: 12px 0 4px; outline: none; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 13px; height: 13px; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  input[type=range]::-moz-range-thumb { width: 13px; height: 13px; border: 0; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  .read { display: flex; flex-wrap: wrap; gap: 6px 22px; margin-top: 14px; font-family: var(--mono); font-size: 11.5px; letter-spacing: .05em; color: var(--fg3); }
+  .read b { color: var(--fg1); font-weight: 500; }
+  .read .verdict { color: var(--amber); }
+  .read .verdict.broke { color: var(--warn); }
+  .nav { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 16px; }
+  .hint { font-family: var(--mono); font-size: 11px; letter-spacing: .05em; line-height: 1.6; color: var(--fg3); margin-top: 10px; max-width: 92ch; }
+  .eqs { margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--soft); }
+  .eq { font-family: var(--serif); font-size: 19px; color: var(--fg1); }
+  .words { font-size: 13px; line-height: 1.55; color: var(--fg2); margin: 2px 0 10px; }
+  .foot { display: flex; align-items: center; gap: 10px; margin-top: 14px; font-family: var(--mono); font-size: 10px; letter-spacing: .18em; text-transform: uppercase; color: var(--fg4); }
+  .foot svg { width: 22px; height: 22px; }
+  @media (max-width: 700px) { .stage { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="piece">
+  <div class="kicker">made · Web Audio Worklet · study · a walk in five steps</div>
+  <h3 class="title">The bundle of lines</h3>
+  <p class="sub">Unison voices, each one a line in Wavetable B. Spread them along τ<sub>B</sub>, the position in Wavetable B’s frames, and each voice reads a slightly different moment of the bend. The left panel draws the bundle in cents. The right one shows how fast the voices beat against each other at each partial, in hertz: that beating is the shimmer the page is after.</p>
+
+  <div class="rail" id="rail" role="group" aria-label="steps"></div>
+  <div class="stephead" id="stephead"></div>
+  <p class="says" id="says"></p>
+
+  <div class="stage">
+    <div class="panel">
+      <div class="plabel"><span>the bundle · cents off each harmonic</span><span id="lnote"></span></div>
+      <canvas id="lines"></canvas>
+    </div>
+    <div class="panel">
+      <div class="plabel"><span>beating between the outer voices · Hz</span><span>log · log</span></div>
+      <canvas id="beats"></canvas>
+    </div>
+  </div>
+  <div class="read">
+    <span id="r1"></span>
+    <span id="r2"></span>
+    <span class="verdict" id="verdict"></span>
+  </div>
+
+  <div class="controls" id="controls"></div>
+
+  <div class="nav">
+    <button id="back">← back</button>
+    <button class="go" id="go">▸ play</button>
+    <button id="next">next step →</button>
+  </div>
+  <div class="hint">Every voice plays a saw-like wall, 32 partials, at 110 Hz, all summed to mono. The trajectories relax to the flat line as τ<sub>B</sub> runs from 0 to 1, the way the page’s settling frames do. The measured string is a Grand Piano A2 from the project’s trajectory library, its 16 frames laid along τ<sub>B</sub>.</div>
+
+  <div class="eqs">
+    <div class="eq">Δ<sub>n</sub>(τ) = (1 − τ) · S<sub>n</sub>  ⟹  Δ<sub>n</sub>(τ + δ) − Δ<sub>n</sub>(τ) = − δ · S<sub>n</sub></div>
+    <div class="words">(when the frames relax a shape S toward the flat line) then (two voices δ apart along τ<sub>B</sub> differ at partial n) by (δ times the shape’s height there), not by its steepness.</div>
+    <div class="eq">beat<sub>n</sub> ≈ n · f<sub>0</sub> · (ln 2 ⁄ 1200) · width<sub>n</sub></div>
+    <div class="words">(how fast partial n beats between two voices, in hertz) is about (n times the fundamental) times (how far apart the voices sit there, in cents). A plain detune keeps the width the same at every partial, so its beating grows as n.</div>
+  </div>
+  <div class="foot"><svg viewBox="-1.1 -1.1 2.2 2.2" aria-hidden="true"><path id="sigil" fill="none" stroke="#e8b84a" stroke-width="0.06"/></svg><span>Inharmonic Wavetable Synthesis · rich face · Loud’n Live</span></div>
+</div>
+
+<script id="engine">
+/*ENGINE-START*/
+const NP = 32, F0 = 110;
+const A2C = {"B":8.301e-05,"cents":[[null,3.62,-6.14,3.56,3.0,1.82,2.94,5.14,7.0,7.69,11.29,11.49,9.08,14.0,12.02,18.96,22.35,23.67,26.95,29.21,31.87,34.26,37.56,40.92,44.97,47.74,51.34,55.53,56.98,61.82,67.11,71.06],[null,4.16,-5.09,3.45,3.79,1.92,1.92,5.0,6.92,7.47,10.58,11.36,8.97,13.81,12.87,18.98,19.53,23.61,26.68,29.23,31.93,34.3,37.71,41.06,45.61,47.73,51.26,55.59,56.73,62.16,67.18,71.07],[null,0.88,-2.75,3.7,3.84,2.8,1.4,5.54,6.52,7.14,9.6,10.69,9.22,13.45,20.23,19.27,22.1,23.43,25.73,29.09,31.79,34.04,37.83,41.12,45.75,47.73,51.17,55.59,56.48,62.41,67.57,70.98],[null,0.66,1.64,2.16,2.54,2.71,1.99,5.05,6.41,6.9,9.14,10.33,12.16,13.41,31.32,19.53,21.69,23.51,26.29,28.87,31.75,34.1,37.68,41.16,45.83,47.69,51.11,55.45,56.31,63.09,67.4,71.0],[null,0.05,2.93,2.2,1.84,2.95,3.16,4.72,6.24,7.34,9.36,10.83,14.95,14.19,5.75,19.08,23.27,23.6,26.41,29.04,31.8,34.17,38.11,41.09,44.23,47.69,51.13,55.53,56.51,63.47,67.45,71.08],[null,1.46,1.09,1.7,2.74,3.95,3.96,4.75,6.33,7.59,8.85,10.77,9.56,13.94,23.14,18.92,23.03,23.53,25.81,28.91,31.61,34.52,37.79,41.04,44.7,47.51,51.09,55.54,57.38,63.19,67.15,71.06],[null,1.5,0.18,1.66,2.58,3.24,3.77,4.74,6.01,7.41,9.06,10.54,10.97,13.85,1.32,18.98,18.75,23.54,25.85,28.82,31.49,34.57,37.76,40.8,43.59,47.44,50.99,55.25,56.46,62.98,66.89,70.9],[null,1.47,0.68,1.67,2.54,3.24,3.95,4.72,6.04,7.45,8.87,10.56,11.55,13.88,6.36,18.77,20.88,23.43,25.79,28.76,31.46,34.59,37.65,40.66,43.83,47.35,50.88,55.04,57.43,62.93,66.89,70.94],[null,1.54,0.67,1.49,2.36,3.14,3.84,4.93,6.01,7.41,8.82,10.44,9.08,14.03,14.69,18.66,21.38,23.35,25.89,28.64,31.35,34.44,37.39,40.71,44.19,47.34,50.73,54.74,55.27,62.94,67.25,71.0],[null,1.33,0.71,1.39,2.44,3.04,3.72,4.7,5.93,7.38,8.69,10.38,9.16,13.86,4.71,18.88,19.52,23.21,25.92,28.51,31.37,34.24,37.27,40.56,43.07,47.28,50.6,55.01,57.16,62.99,67.19,70.97],[null,1.39,0.54,1.35,2.19,2.99,3.69,4.6,5.87,7.31,8.61,10.28,10.81,13.89,15.64,18.58,20.31,23.19,25.65,28.55,31.28,34.12,37.26,40.49,43.81,47.13,50.42,54.77,58.16,63.25,67.29,71.72],[null,1.3,0.49,1.19,2.15,2.95,3.58,4.19,5.88,7.08,8.47,10.22,11.7,13.62,9.81,18.87,20.7,23.13,25.86,28.38,31.24,34.19,37.33,40.57,43.66,47.08,50.64,54.04,57.99,63.15,67.94,70.9],[null,1.19,0.53,1.3,2.27,2.95,3.43,4.29,5.82,7.13,8.58,10.33,15.27,13.37,12.54,18.52,21.29,23.12,26.04,28.56,31.26,34.23,37.29,40.88,43.77,47.3,50.67,54.78,58.93,63.56,66.85,70.82],[null,1.53,0.28,0.01,2.95,3.2,3.29,4.52,5.26,7.34,8.75,10.35,8.73,13.86,9.08,17.76,20.96,23.19,25.86,28.73,31.38,34.14,36.99,40.9,44.32,47.23,50.63,55.09,58.19,63.45,66.92,70.88],[null,1.17,0.65,1.45,2.28,2.86,3.65,5.36,5.95,7.45,8.59,10.46,11.22,13.88,14.55,18.56,20.73,23.31,25.73,28.56,31.25,34.29,37.54,40.83,44.68,47.36,50.95,55.4,57.73,62.52,66.84,71.08],[null,1.08,2.43,1.41,1.35,2.87,3.69,4.23,5.87,7.4,8.81,10.25,14.83,13.83,12.34,18.63,21.37,23.28,25.56,28.76,31.43,34.23,36.67,40.41,null,47.26,null,null,null,62.54,null,null]]};
+const J0Z = [2.404826,5.520078,8.653728,11.791534,14.930918,18.071064,21.211637,24.352472,27.493479,30.634606,33.775820,36.917098,40.058426,43.199792,46.341188,49.482610,52.624052,55.765511,58.906984,62.048469,65.189965,68.331469,71.472982,74.614501,77.756026,80.897556,84.039091,87.180630,90.322173,93.463719,96.605268,99.746820];
+function bowCents(n, B) { return 600 * Math.log2(1 + B * n * n); }
+function besselCents(n) { return 1200 * Math.log2(J0Z[n - 1] / (n * J0Z[0])); }
+function shapeAt(kind, n, B) { return kind === 'bessel' ? besselCents(n) : bowCents(n, B); }
+// Wavetable B at frame position tau in [0,1]
+function bend(kind, n, tau, B) {
+  if (kind === 'measured') {
+    const F = A2C.cents.length, x = Math.max(0, Math.min(1, tau)) * (F - 1), k = Math.min(F - 2, Math.floor(x)), u = x - k;
+    const v = (f) => { const c = A2C.cents[f][n - 1]; return c == null ? bowCents(n, A2C.B) : c; };
+    return v(k) + (v(k + 1) - v(k)) * u;
+  }
+  return (1 - Math.max(0, Math.min(1, tau))) * shapeAt(kind, n, B);
+}
+// voices: V of them, centred on tau, spread by delta along tau_B, or detuned by cents apiece
+function voices(o) {
+  const out = [];
+  for (let v = 0; v < o.V; v++) { const k = o.V > 1 ? v - (o.V - 1) / 2 : 0;
+    out.push(Array.from({ length: NP }, (_, i) => bend(o.kind, i + 1, o.tau + k * o.delta, o.B) + k * o.detune)); }
+  return out;
+}
+function widths(vs) { return Array.from({ length: NP }, (_, i) => { let lo = Infinity, hi = -Infinity; for (const v of vs) { lo = Math.min(lo, v[i]); hi = Math.max(hi, v[i]); } return [lo, hi]; }); }
+function beatHz(vs) { return widths(vs).map(([lo, hi], i) => (i + 1) * F0 * (Math.pow(2, hi / 1200) - Math.pow(2, lo / 1200))); }
+function slopeLogLog(y, from = 2, to = NP) {     // fitted exponent k in y ~ n^k
+  let sx = 0, sy = 0, sxx = 0, sxy = 0, m = 0;
+  for (let n = from; n <= to; n++) { const v = y[n - 1]; if (!(v > 0)) continue; const x = Math.log(n), yy = Math.log(v); sx += x; sy += yy; sxx += x * x; sxy += x * yy; m++; }
+  return m > 1 ? (m * sxy - sx * sy) / (m * sxx - sx * sx) : NaN;
+}
+/*ENGINE-END*/
+</script>
+
+<script>
+const $ = (id) => document.getElementById(id);
+const S = { step: 1, kind: 'bow', B: 4e-4, tau: 0.3, delta: 0.08, detune: 4, V: 2 };
+const STEPS = [
+  { n: 1, name: 'One voice', says: 'One voice on a settling trajectory: the stiff-string bow, part-way through relaxing to the flat line. Move τ_B and the line flattens or bows. One line, so nothing beats.' },
+  { n: 2, name: 'Two voices, detuned', says: 'The ordinary chorus: a second voice a few cents above the first, at the same τ_B. In cents the two lines run parallel, the same gap at every partial. In hertz the beating still grows with partial number, as n, because the gap is a ratio. Partial 1 beats too.' },
+  { n: 3, name: 'Two voices along τ_B', says: 'No detune now. Spread the two voices along τ_B instead. Where the bow is near zero they nearly coincide; where it is high they part. Partial 1 sits still, and the gap opens toward the right: the braid at the left, the fan at the right.' },
+  { n: 4, name: 'A bundle', says: 'More voices, and three trajectories: the stiff-string bow, the Bessel positions, and a real piano string’s measured frames. Try each. The measured string barely fans at all: its frames hardly change along τ_B, so there is little to spread.' },
+  { n: 5, name: 'Steep or high?', says: 'The test. The page says the bundle braids at the left because the curve is “nearly flat there”, and fans at the right where “the slope is steep”. Put the Bessel shape on: it is steepest between partials 1 and 2 and nearly flat at the right. Where is its bundle widest? The bars compare the curve’s slope with the bundle’s width, partial by partial.' },
+];
+function opts() {
+  const o = { V: 1, kind: S.kind, B: S.B, tau: S.tau, delta: 0, detune: 0 };
+  if (S.step === 1) o.kind = 'bow';
+  if (S.step === 2) { o.V = 2; o.detune = S.detune; o.kind = 'bow'; }
+  if (S.step === 3) { o.V = 2; o.delta = S.delta; o.kind = 'bow'; }
+  if (S.step >= 4) { o.V = S.V; o.delta = S.delta; }
+  return o;
+}
+let VS = null, W = null, BT = null, O = null;
+function recompute() { O = opts(); VS = voices(O); W = widths(VS); BT = beatHz(VS); readouts(); send(); drawAll(); }
+const fmtB = (B) => { const e = Math.floor(Math.log10(B)); return (B / Math.pow(10, e)).toFixed(1) + ' × 10^' + e; };
+const hz = (x) => (x < 0.01 ? x.toExponential(1) : x.toFixed(x < 1 ? 2 : 1)) + ' Hz';
+function readouts() {
+  const w = (n) => W[n - 1][1] - W[n - 1][0];
+  let r1 = '', r2 = '', v = '';
+  if (S.step === 1) r1 = `partial 8 at ${VS[0][7].toFixed(1)} ¢, partial 32 at ${VS[0][31].toFixed(1)} ¢`;
+  if (S.step >= 2) r1 = `width: partial 1 ${w(1).toFixed(2)} ¢ · 2 ${w(2).toFixed(1)} ¢ · 8 ${w(8).toFixed(1)} ¢ · 32 ${w(32).toFixed(1)} ¢`;
+  if (S.step >= 2) r2 = `beating: partial 1 ${hz(BT[0])} · 8 ${hz(BT[7])} · 32 ${hz(BT[31])} · grows as n^${slopeLogLog(BT).toFixed(2)}`;
+  if (S.step === 2) v = 'same width everywhere; beating grows as n';
+  if (S.step === 3) v = w(1) < 0.02 * w(32) && w(32) > 4 * w(8) ? 'braided at the left, fanned at the right' : 'spread it wider to see the fan';
+  if (S.step === 4) v = O.kind === 'measured' ? `the measured string’s bundle is ${w(32).toFixed(1)} ¢ wide at partial 32: its frames barely change` : O.kind === 'bessel' ? 'Bessel: partial 1 still, partial 2 already wide' : 'the bow: braid, then fan';
+  if (S.step === 5) {
+    const slope = (n) => Math.abs(shapeAt(O.kind === 'measured' ? 'bow' : O.kind, n + 1, O.B) - shapeAt(O.kind === 'measured' ? 'bow' : O.kind, n, O.B));
+    let wMax = 1, sMax = 1; for (let n = 2; n <= NP; n++) { if (w(n) > w(wMax)) wMax = n; if (n < NP && slope(n) > slope(sMax)) sMax = n; }
+    v = O.kind === 'bessel' ? `steepest between partials ${sMax} and ${sMax + 1}; widest at partial ${wMax}: the fan follows the height, not the slope` : `steepest at partial ${sMax}, widest at partial ${wMax}: for the bow, height and slope rise together`;
+  }
+  $('r1').textContent = r1; $('r2').textContent = r2; $('verdict').textContent = v;
+}
+function seg(items, get, set) {
+  const s = document.createElement('span'); s.className = 'seg';
+  for (const [label, val] of items) { const b = document.createElement('button'); b.textContent = label; if (get() === val) b.classList.add('on');
+    b.onclick = () => { set(val); [...s.children].forEach((c) => c.classList.toggle('on', c === b)); recompute(); buildControls(); }; s.append(b); }
+  return s;
+}
+function slider(label, min, max, step, get, set, fmt) {
+  const l = document.createElement('label'); l.className = 'sl ctl';
+  const b = document.createElement('b'); const i = document.createElement('input');
+  Object.assign(i, { type: 'range', min, max, step, value: get() });
+  const show = () => (b.textContent = fmt(get()));
+  i.oninput = () => { set(+i.value); show(); recompute(); };
+  l.append(label + ' ', b, i); show(); return l;
+}
+function buildControls() {
+  const c = $('controls'); c.innerHTML = '';
+  if (S.step === 4) c.append(seg([['stiff-string bow', 'bow'], ['Bessel J₀', 'bessel'], ['measured string · A2', 'measured']], () => S.kind, (v) => (S.kind = v)));
+  if (S.step === 5) c.append(seg([['stiff-string bow', 'bow'], ['Bessel J₀', 'bessel']], () => S.kind, (v) => (S.kind = v)));
+  c.append(slider('τ_B, the centre', 0, 1, 0.01, () => S.tau, (v) => (S.tau = v), (v) => v.toFixed(2)));
+  if (S.step === 2) c.append(slider('detune, per voice', 0, 15, 0.1, () => S.detune, (v) => (S.detune = v), (v) => v.toFixed(1) + ' ¢'));
+  if (S.step >= 3) c.append(slider('spread along τ_B, per voice', 0, 0.2, 0.005, () => S.delta, (v) => (S.delta = v), (v) => v.toFixed(3)));
+  if (S.step >= 4) c.append(slider('voices', 2, 6, 1, () => S.V, (v) => (S.V = v), (v) => String(v)));
+  if ((S.step <= 3 || S.kind === 'bow')) c.append(slider('bow stiffness B', -4.5, -2.5, 0.01, () => Math.log10(S.B), (v) => (S.B = Math.pow(10, v)), (v) => fmtB(Math.pow(10, v))));
+}
+function buildRail() {
+  const r = $('rail'); r.innerHTML = '';
+  for (const s of STEPS) { const b = document.createElement('button'); b.textContent = s.n + ' · ' + s.name;
+    if (s.n === S.step) b.classList.add('here'); else if (s.n > S.step) b.classList.add('ahead');
+    b.onclick = () => goStep(s.n); r.append(b); }
+}
+function goStep(n) {
+  n = Math.max(1, Math.min(STEPS.length, n));
+  if (n !== S.step) stop();
+  if (n === 5 && (S.step !== 5 || S.kind === 'measured')) { S.kind = 'bessel'; S.V = 3; }
+  S.step = n; const s = STEPS[n - 1];
+  $('stephead').textContent = `step ${n} of ${STEPS.length} · ${s.name}`;
+  $('says').textContent = s.says;
+  $('back').disabled = n === 1; $('next').disabled = n === STEPS.length;
+  $('next').textContent = n === STEPS.length ? 'the last step' : 'next step →';
+  buildRail(); buildControls(); recompute();
+}
+$('back').onclick = () => goStep(S.step - 1);
+$('next').onclick = () => goStep(S.step + 1);
+
+function fit(c, hgt) {
+  const w = c.clientWidth || 300, d = devicePixelRatio || 1;
+  if (c.width !== Math.round(w * d) || c.height !== Math.round(hgt * d)) { c.width = Math.round(w * d); c.height = Math.round(hgt * d); c.style.height = hgt + 'px'; }
+  const g = c.getContext('2d'); g.setTransform(d, 0, 0, d, 0, 0); return { g, w, h: hgt };
+}
+function drawAll() {
+  if (!VS) return;
+  { const { g, w, h } = fit($('lines'), 240); g.clearRect(0, 0, w, h);
+    let hi = 30, lo = 0; for (const v of VS) for (const c of v) { hi = Math.max(hi, c); lo = Math.min(lo, c); }
+    hi *= 1.08; lo = Math.min(lo * 1.08, -hi * 0.06);
+    const padL = 40, padR = 10, top = 8, bot = h - 18, X = (k) => padL + (w - padL - padR) * (k - 1) / (NP - 1), Y = (v) => top + (bot - top) * (hi - v) / (hi - lo);
+    g.font = '10px JetBrains Mono, monospace'; g.fillStyle = '#4a4a5a'; g.textAlign = 'right';
+    for (const v of [0, Math.round(hi / 2), Math.round(hi * 0.9)]) g.fillText(v + '¢', padL - 4, Y(v) + 3);
+    g.textAlign = 'center'; for (let k = 1; k <= NP; k += 4) g.fillText(k, X(k), h - 5);
+    g.strokeStyle = '#e8e8f0'; g.lineWidth = 2.5; g.beginPath(); g.moveTo(padL, Y(0)); g.lineTo(w - padR, Y(0)); g.stroke(); g.lineWidth = 1;
+    if (S.step >= 3) { g.fillStyle = 'rgba(232,184,74,.10)'; g.beginPath(); W.forEach(([l], i) => (i ? g.lineTo(X(i + 1), Y(l)) : g.moveTo(X(1), Y(l)))); for (let i = NP - 1; i >= 0; i--) g.lineTo(X(i + 1), Y(W[i][1])); g.closePath(); g.fill(); }
+    VS.forEach((v, j) => { g.strokeStyle = `rgba(232,184,74,${0.45 + 0.4 * (j % 2)})`; g.lineWidth = 1.4; g.beginPath(); v.forEach((c, i) => (i ? g.lineTo(X(i + 1), Y(c)) : g.moveTo(X(1), Y(c)))); g.stroke(); });
+    g.lineWidth = 1;
+    $('lnote').textContent = O.kind === 'bessel' ? 'Bessel J₀' : O.kind === 'measured' ? 'measured string · A2' : 'stiff-string bow';
+  }
+  { const { g, w, h } = fit($('beats'), 240); g.clearRect(0, 0, w, h);
+    const padL = 44, padR = 10, top = 10, bot = h - 18, lx = (n) => padL + (w - padL - padR) * Math.log(n) / Math.log(NP);
+    const yMin = 0.01, yMax = 1000, Y = (v) => bot - (bot - top) * (Math.log10(Math.max(yMin, v)) - Math.log10(yMin)) / (Math.log10(yMax) - Math.log10(yMin));
+    g.font = '10px JetBrains Mono, monospace'; g.fillStyle = '#4a4a5a'; g.textAlign = 'right';
+    for (const v of [0.01, 0.1, 1, 10, 100, 1000]) { g.fillText(v, padL - 4, Y(v) + 3); g.strokeStyle = '#1a1a24'; g.beginPath(); g.moveTo(padL, Y(v)); g.lineTo(w - padR, Y(v)); g.stroke(); }
+    g.textAlign = 'center'; for (const n of [1, 2, 4, 8, 16, 32]) g.fillText(n, lx(n), h - 5);
+    if (S.step === 5) {
+      // slope of the shape against width of the bundle, both scaled to their own peak
+      const kind = O.kind === 'measured' ? 'bow' : O.kind, sl = Array.from({ length: NP }, (_, i) => (i ? Math.abs(shapeAt(kind, i + 1, O.B) - shapeAt(kind, i, O.B)) : 0));
+      const wd = W.map(([l, hh]) => hh - l), sm = Math.max(...sl) || 1, wm = Math.max(...wd) || 1;
+      g.fillStyle = '#8a8aa0'; g.textAlign = 'left'; g.fillText('blue: the curve’s slope · amber: the bundle’s width · each to its own peak', padL + 4, top + 8);
+      const bw = (w - padL - padR) / NP;
+      for (let i = 0; i < NP; i++) { const x0 = padL + i * bw; g.fillStyle = 'rgba(99,102,241,.8)'; g.fillRect(x0 + 1, bot - (bot - top - 14) * sl[i] / sm, bw / 2 - 1, (bot - top - 14) * sl[i] / sm);
+        g.fillStyle = 'rgba(232,184,74,.85)'; g.fillRect(x0 + bw / 2, bot - (bot - top - 14) * wd[i] / wm, bw / 2 - 1, (bot - top - 14) * wd[i] / wm); }
+      g.fillStyle = '#4a4a5a'; g.textAlign = 'center'; g.clearRect(0, bot + 1, w, h - bot); for (let k = 1; k <= NP; k += 4) g.fillText(k, padL + (k - 0.5) * bw, h - 5);
+      g.clearRect(0, 0, padL - 1, bot);
+    } else if (S.step >= 2) {
+      // a slope-1 guide through partial 1's value of a 4-cent detune
+      const ref = (n) => n * F0 * (Math.pow(2, 4 / 1200) - 1);
+      g.strokeStyle = 'rgba(138,138,160,.5)'; g.setLineDash([4, 4]); g.beginPath(); g.moveTo(lx(1), Y(ref(1))); g.lineTo(lx(NP), Y(ref(NP))); g.stroke(); g.setLineDash([]);
+      g.fillStyle = '#8a8aa0'; g.textAlign = 'left'; g.fillText('dashed: a 4 ¢ detune, which grows as n', padL + 4, top + 8);
+      g.strokeStyle = '#e8b84a'; g.lineWidth = 2; g.beginPath(); let st = false;
+      BT.forEach((b, i) => { if (b < yMin) { st = false; return; } st ? g.lineTo(lx(i + 1), Y(b)) : g.moveTo(lx(i + 1), Y(b)); st = true; }); g.stroke(); g.lineWidth = 1;
+      BT.forEach((b, i) => { g.fillStyle = b < yMin ? '#4a4a5a' : '#e8b84a'; g.beginPath(); g.arc(lx(i + 1), Y(b), 2, 0, 2 * Math.PI); g.fill(); });
+    } else { g.fillStyle = '#8a8aa0'; g.textAlign = 'left'; g.fillText('one voice: nothing to beat against', padL + 4, top + 8); }
+  }
+}
+addEventListener('resize', drawAll);
+
+// ── sound: every voice's partials in one bank ──
+const WORKLET = `
+const MAX = 192;
+class Bank extends AudioWorkletProcessor {
+  constructor() { super(); this.n = 0; this.f = new Float64Array(MAX); this.tf = new Float64Array(MAX); this.a = new Float64Array(MAX); this.ta = new Float64Array(MAX); this.ph = new Float64Array(MAX); this.g = 0; this.tg = 0;
+    for (let i = 0; i < MAX; i++) this.ph[i] = Math.random() * 2 * Math.PI;
+    this.port.onmessage = (e) => { const m = e.data;
+      if (m.f) { const k = Math.min(MAX, m.f.length); for (let i = 0; i < MAX; i++) { this.tf[i] = i < k ? m.f[i] : 0; this.ta[i] = i < k ? m.a[i] : 0; if (this.a[i] < 1e-6) this.f[i] = this.tf[i]; } this.n = MAX; }
+      if (m.on !== undefined) this.tg = m.on ? 1 : 0; }; }
+  process(_i, outs) {
+    const o = outs[0], Lc = o[0], R = o[1] || o[0], TP = 2 * Math.PI, inv = 1 / sampleRate;
+    for (let i = 0; i < this.n; i++) { this.a[i] += (this.ta[i] - this.a[i]) * 0.15; this.f[i] += (this.tf[i] - this.f[i]) * 0.3; }
+    for (let s = 0; s < Lc.length; s++) {
+      this.g += (this.tg - this.g) * 0.002;
+      let y = 0;
+      for (let i = 0; i < this.n; i++) { const a = this.a[i]; if (a < 1e-7) continue; y += a * Math.sin(this.ph[i]); this.ph[i] += TP * this.f[i] * inv; if (this.ph[i] > TP) this.ph[i] -= TP; }
+      y *= this.g; Lc[s] = y; R[s] = y;
+    }
+    return true;
+  }
+}
+registerProcessor('iws-bundle', Bank);`;
+let ctx = null, node = null, running = false;
+function send() {
+  if (!node || !VS) return;
+  const f = [], a = []; let e = 0; for (let i = 0; i < NP; i++) e += 1 / ((i + 1) * (i + 1));
+  const k = 0.2 / Math.sqrt(e * VS.length);
+  VS.forEach((v) => v.forEach((c, i) => { f.push((i + 1) * F0 * Math.pow(2, c / 1200)); a.push(k / (i + 1)); }));
+  node.port.postMessage({ f: Float64Array.from(f), a: Float64Array.from(a) });
+}
+async function start() {
+  if (!ctx) {
+    const c = new AudioContext();
+    const url = URL.createObjectURL(new Blob([WORKLET], { type: 'application/javascript' }));
+    try { await c.audioWorklet.addModule(url); } catch (e) { c.close(); throw e; } finally { URL.revokeObjectURL(url); }
+    ctx = c;
+    node = new AudioWorkletNode(ctx, 'iws-bundle', { numberOfInputs: 0, numberOfOutputs: 1, outputChannelCount: [2] });
+    const comp = ctx.createDynamicsCompressor(); comp.threshold.value = -14; comp.ratio.value = 4;
+    node.connect(comp).connect(ctx.destination);
+    ctx.onstatechange = () => { if (ctx.state !== 'running' && running) { running = false; $('go').textContent = '▸ play'; } };
+  }
+  send();
+  await ctx.resume();
+  node.port.postMessage({ on: true });
+  running = true; $('go').textContent = '❚❚ stop';
+}
+function stop() {
+  if (!running) return;
+  running = false; $('go').textContent = '▸ play';
+  if (node) node.port.postMessage({ on: false });
+  if (ctx) setTimeout(() => { if (!running) ctx.suspend(); }, 300);
+}
+$('go').onclick = () => (running ? stop() : start());
+
+{ let d = ''; for (let i = 0; i <= 240; i++) { const t = 2 * Math.PI * i / 240; d += (i ? 'L' : 'M') + (Math.sin(3 * t + Math.PI / 2)).toFixed(3) + ' ' + (Math.sin(2 * t)).toFixed(3); } $('sigil').setAttribute('d', d); }
+
+goStep(1);
+</script>
+</body>
+</html>
