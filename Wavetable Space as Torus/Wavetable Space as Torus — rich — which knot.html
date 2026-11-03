@@ -1,0 +1,397 @@
+<!doctype html>
+<!--
+  title: Wavetable Space as Torus — rich — which knot
+  born: 2026-11-03
+  links: [[Wavetable Space as Torus]] (connects-to · rich-face-piece) · listed in [[Wavetable Space as Torus — rich.json]] · [[2D Torus Wavetable Synthesizer]] (connects-to · the-same-two-phasors) · [[Progressive Staging]] (exemplifies · a walk up to its test)
+  forward_vector: I am the T² section's closed path put to the ear. I start on one circle, close a (2, 3) path into the trefoil, try other closures, and last ask whether the knot is what you hear: two paths that are one knot, and two knots that are one sound. I play inside the entry's rich face and stand alone opened directly; I change only when the section I serve does.
+  engine: everything between ENGINE-START and ENGINE-END is pure and runs in Node too; Wavetable Space as Torus/workshop/rich-checks.mjs re-runs the claims on it. The worklet is built from the same valueAt, one call per sample.
+  dress: Loudon Live house style, Graphite skin.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:needs" content="">
+<title>Which knot do you hear?</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Manrope:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root { --bg:#0a0a0f; --e1:#12121a; --ring:#22222e; --border:#4a4a5e; --soft:rgba(255,255,255,.06); --fg1:#e8e8f0; --fg2:#c8c8d8; --fg3:#8a8aa0; --fg4:#4a4a5a;
+    --amber:#e8b84a; --amberline:rgba(232,184,74,.5); --cool:#7f9cff;
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --sans:'Manrope',system-ui,sans-serif; --serif:'Cormorant Garamond',Georgia,serif; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); font-weight: 300; }
+  .piece { padding: 22px 22px 16px; }
+  .kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; }
+  .title { font-family: var(--serif); font-size: 27px; font-weight: 300; color: var(--fg1); margin: 0 0 6px; }
+  .sub { font-size: 14px; line-height: 1.6; color: var(--fg2); max-width: 76ch; margin: 0 0 14px; }
+  .rail { display: flex; flex-wrap: wrap; margin: 0 0 12px; }
+  .rail button { border-radius: 0; margin-right: -1px; }
+  .rail button.here { color: var(--amber); border-color: var(--amberline); position: relative; z-index: 1; }
+  .rail button.ahead { color: var(--fg3); }
+  .stephead { font-family: var(--mono); font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--amber); margin: 4px 0 4px; }
+  .says { font-size: 14px; line-height: 1.6; color: var(--fg1); max-width: 76ch; margin: 0 0 14px; min-height: 4.8em; }
+  .stage { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; align-items: start; }
+  .panel { border: 1px solid var(--soft); border-radius: 2px; background: var(--e1); padding: 10px 12px; }
+  .plabel { font-family: var(--mono); font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--fg3); margin-bottom: 8px; display: flex; justify-content: space-between; gap: 10px; }
+  canvas { display: block; width: 100%; }
+  .row2 { margin-top: 16px; }
+  .legend { display: flex; flex-wrap: wrap; gap: 4px 18px; font-family: var(--mono); font-size: 10.5px; color: var(--fg3); margin-top: 6px; }
+  .legend i { display: inline-block; width: 14px; height: 2px; vertical-align: middle; margin-right: 6px; }
+  .controls { display: flex; flex-wrap: wrap; gap: 14px 26px; align-items: end; margin-top: 16px; min-height: 40px; }
+  .ctl { min-width: 240px; flex: 1; }
+  .seg { display: inline-flex; flex-wrap: wrap; } .seg button + button { border-left: 0; }
+  .seglabel { display: block; font-family: var(--mono); font-size: 10.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; }
+  button { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--fg2); background: var(--bg); border: 1px solid var(--border); border-radius: 2px; padding: 8px 12px; cursor: pointer; transition: border-color 220ms cubic-bezier(.4,0,.2,1), color 220ms cubic-bezier(.4,0,.2,1); }
+  button:hover { border-color: rgba(232,184,74,.55); color: var(--fg1); }
+  button:disabled { opacity: .4; cursor: default; }
+  button.on { color: var(--amber); border-color: var(--amberline); }
+  button.go { color: var(--amber); border-color: var(--amberline); box-shadow: 0 0 14px rgba(232,184,74,.18); min-width: 96px; }
+  button:focus-visible, input:focus-visible { outline: 1px dashed var(--amber); outline-offset: 2px; }
+  label.sl { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: .08em; color: var(--fg3); }
+  label.sl b { color: var(--fg1); font-weight: 500; }
+  input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 3px; background: var(--fg4); margin: 12px 0 4px; outline: none; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 13px; height: 13px; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  input[type=range]::-moz-range-thumb { width: 13px; height: 13px; border: 0; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  .read { display: flex; flex-wrap: wrap; gap: 6px 22px; margin-top: 14px; font-family: var(--mono); font-size: 11.5px; letter-spacing: .05em; color: var(--fg3); }
+  .read b { color: var(--fg1); font-weight: 500; }
+  .verdict { margin-top: 10px; font-size: 14px; line-height: 1.55; color: var(--amber); max-width: 80ch; min-height: 1.6em; }
+  .nav { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 16px; }
+  .hint { font-family: var(--mono); font-size: 11px; letter-spacing: .05em; line-height: 1.6; color: var(--fg3); margin-top: 10px; max-width: 90ch; }
+  .eqs { margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--soft); }
+  .eq { font-family: var(--serif); font-size: 19px; color: var(--fg1); }
+  .words { font-size: 13px; line-height: 1.55; color: var(--fg2); margin: 2px 0 10px; }
+  .foot { display: flex; align-items: center; gap: 10px; margin-top: 14px; font-family: var(--mono); font-size: 10px; letter-spacing: .18em; text-transform: uppercase; color: var(--fg4); }
+  .foot svg { width: 22px; height: 22px; }
+  @media (max-width: 700px) { .stage { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="piece">
+  <div class="kicker">made · Web Audio Worklet · study · a walk in four steps</div>
+  <h3 class="title">Which knot do you hear?</h3>
+  <p class="sub">One table, read along a closed path on the torus. The phase φ runs across a waveform cycle; the frame θ runs through the table's frames. Left, the path drawn on a donut, where a closed path can be a knot. Right, the same path on the torus unrolled, opposite edges glued. Underneath, the one thing the ear gets: how the loop's energy sits on its harmonics.</p>
+
+  <div class="rail" id="rail" role="group" aria-label="steps"></div>
+  <div class="stephead" id="stephead"></div>
+  <p class="says" id="says"></p>
+
+  <div class="stage">
+    <div class="panel">
+      <div class="plabel"><span>the path on the donut</span><span id="knotname"></span></div>
+      <canvas id="donut"></canvas>
+    </div>
+    <div class="panel">
+      <div class="plabel"><span>the torus unrolled · φ across, θ up</span><span id="laps"></span></div>
+      <canvas id="square"></canvas>
+    </div>
+  </div>
+  <div class="stage row2">
+    <div class="panel">
+      <div class="plabel"><span>one loop of the sound</span><span id="looprate"></span></div>
+      <canvas id="wave"></canvas>
+    </div>
+    <div class="panel">
+      <div class="plabel"><span>energy on each harmonic of the loop</span><span id="refnote"></span></div>
+      <canvas id="bars"></canvas>
+      <div class="legend" id="legend"></div>
+    </div>
+  </div>
+  <div class="read" id="read"></div>
+  <div class="verdict" id="verdict"></div>
+
+  <div class="controls" id="controls"></div>
+
+  <div class="nav">
+    <button id="back">← back</button>
+    <button class="go" id="go">▸ play</button>
+    <button id="next">next step →</button>
+  </div>
+  <div class="hint" id="hint">Sound starts only when you press play, and changing step stops it. Steps two and three hold the loop at 110 Hz. The test holds the phase rate at 220 Hz instead, so (3, 2) loops at 73.3 Hz: every path reads the waveform cycle at one rate, and what differs is the frames.</div>
+
+  <div class="eqs">
+    <div class="eq">φ = p·u ,   θ = q·u ,   u = F·t</div>
+    <div class="words">(where the read is across the cycle, in laps) = p × (how many loops so far); (where it is through the frames, in laps) = q × (the same count); the count runs at the loop rate F. After one loop the read is home: p laps of phase, q laps of frame</div>
+    <div class="eq">W(φ, θ) = Σ a·sin(2π(m·φ + n·θ) + c)   →   y(t) sounds at harmonic  k = m·p + n·q  of F</div>
+    <div class="words">the table is a sum of ripples, each m times across the cycle and n times through the frames; read along the path, each ripple sounds at the whole number m·p + n·q times the loop rate. The table decides the ripples, the path decides where they land</div>
+    <div class="eq">crossings of the (p, q) torus knot = min(p(q − 1), q(p − 1)) ,   (p, q) and (q, p) are the same knot</div>
+    <div class="words">(how many times the knot must cross itself in any drawing) = the smaller of p × (q − 1) and q × (p − 1); swap the two numbers and the knot does not change. With p or q equal to 1 it is no knot at all: the unknot</div>
+  </div>
+  <div class="foot"><svg viewBox="-1.1 -1.1 2.2 2.2" aria-hidden="true"><path id="sigil" fill="none" stroke="#e8b84a" stroke-width="0.06"/></svg><span>Wavetable Space as Torus · rich face · Loud’n Live</span></div>
+</div>
+
+<script id="engine">
+/*ENGINE-START*/
+const TWO_PI = 2 * Math.PI;
+// The table: a list of ripples [m, n, a, c], W(phi, theta) = sum a sin(2 pi (m phi + n theta) + c), phi and theta in laps.
+// The first four ripples run across the cycle only (n = 0): they are an ordinary 1D wavetable, the same in every frame.
+const TABLE = [[1, 0, 1.0, 0], [2, 0, 0.5, 0.3], [3, 0, 0.33, 0.7], [4, 0, 0.25, 1.1],
+  [1, 1, 0.5, 0.4], [1, -1, 0.4, 1.2], [2, 1, 0.3, 2.0], [0, 1, 0.35, 0.9], [2, -1, 0.25, 0.2], [1, 2, 0.2, 1.6], [3, -1, 0.2, 2.4]];
+function tableOf(kind) { return kind === 'flat' ? TABLE.filter((t) => t[1] === 0) : TABLE; }
+function gcd(a, b) { a = Math.abs(a); b = Math.abs(b); while (b) { const t = a % b; a = b; b = t; } return a; }
+// What the closed (p, q) path is, as a knot in ordinary space.
+function knotOf(p, q) {
+  if (q === 0 || p === 0) return { name: 'a circle, no knot', crossings: 0, knot: false };
+  if (gcd(p, q) !== 1) return { name: 'retraces a shorter loop', crossings: null, knot: false };
+  if (Math.min(p, q) === 1) return { name: 'the unknot', crossings: 0, knot: false };
+  const c = Math.min(p * (q - 1), q * (p - 1));
+  const names = { '2,3': 'the trefoil', '2,5': 'the cinquefoil', '2,7': 'the 7₁ knot', '3,4': 'the 8₁₉ knot', '3,5': 'the 10₁₂₄ knot' };
+  const key = Math.min(p, q) + ',' + Math.max(p, q);
+  return { name: names[key] || `the (${key}) torus knot`, crossings: c, knot: true, key };
+}
+// The sound at loop position u (in loops). P = { terms, p, q }.
+function valueAt(P, u) {
+  const t = P.terms; let s = 0;
+  for (let i = 0; i < t.length; i++) s += t[i][2] * Math.sin(TWO_PI * (t[i][0] * P.p + t[i][1] * P.q) * u + t[i][3]);
+  return s;
+}
+function loopWave(terms, p, q, N = 1024) { const P = { terms, p, q }, y = new Float64Array(N); for (let i = 0; i < N; i++) y[i] = valueAt(P, i / N); return y; }
+// Energy on harmonics 1..K of one loop (the DC term is dropped: it is silence to the ear).
+function harmonics(y, K = 24) {
+  const N = y.length, e = new Float64Array(K);
+  for (let k = 1; k <= K; k++) { let re = 0, im = 0; for (let i = 0; i < N; i++) { const w = TWO_PI * k * i / N; re += y[i] * Math.cos(w); im -= y[i] * Math.sin(w); } e[k - 1] = 2 * (re * re + im * im) / (N * N); }
+  return e;
+}
+// The share of the energy that sits on different harmonics in a and b: 0 = the same spread, 1 = nothing shared.
+function energyMoved(a, b) {
+  let sa = 0, sb = 0; for (let i = 0; i < a.length; i++) { sa += a[i]; sb += b[i]; }
+  let s = 0; for (let i = 0; i < a.length; i++) s += Math.min(a[i] / sa, b[i] / sb);
+  return Math.max(0, 1 - s);
+}
+// The loop's energy placed at its frequencies in Hz: harmonic k of a loop read at F loops a second sounds at k*F.
+function spectrumHz(h, F) { const m = new Map(); h.forEach((v, i) => { if (v > 1e-12) { const f = Math.round((i + 1) * F * 1000) / 1000; m.set(f, (m.get(f) || 0) + v); } }); return m; }
+// Share of the energy at different frequencies in a and b (maps of Hz to energy): 0 = the same sound, 1 = nothing shared.
+function energyMovedHz(a, b) {
+  let sa = 0, sb = 0; for (const v of a.values()) sa += v; for (const v of b.values()) sb += v;
+  let s = 0; for (const [f, v] of a) if (b.has(f)) s += Math.min(v / sa, b.get(f) / sb);
+  return Math.max(0, 1 - s);
+}
+// The test holds the phase rate: every path reads the waveform cycle at PHASE Hz, so its loop runs at PHASE / p.
+const PHASE = 220;
+function dcAndPeak(terms, p, q) { const y = loopWave(terms, p, q, 2048); let m = 0; for (const v of y) m += v; m /= y.length; let pk = 0; for (const v of y) pk = Math.max(pk, Math.abs(v - m)); return { dc: m, peak: pk }; }
+/*ENGINE-END*/
+</script>
+<script>
+const $ = (id) => document.getElementById(id);
+const F = 110;
+const STEPS = [
+  { n: 1, name: 'one circle',
+    says: 'Hold the frame still and read across the phase circle: one waveform cycle, over and over. That is an ordinary wavetable. On the donut it is a single ring around the hole, and it is no knot. The sound repeats once per lap of φ, here 220 times a second.' },
+  { n: 2, name: 'a (2, 3) path',
+    says: 'Now move the frame too, three laps of θ for every two of φ. The read comes home after 2 phase laps and 3 frame laps, and on the donut that closed path is the trefoil, the knot the page names. The sound repeats once per closure, so the loop rate, 110 Hz, is an octave under the 220 Hz phase rate.' },
+  { n: 3, name: 'other closures',
+    says: 'Other whole-number pairs close too, and each pair is a knot or isn’t. A frame scanned at a quarter of the phase rate is (4, 1): it closes, but the path is the unknot, as is any frame LFO set to a whole-number division of the phase rate. (2, 5) is the cinquefoil, (3, 4) an eight-crossing knot. Each sounds different; the test is whether the knot is why.' },
+  { n: 4, name: 'the test',
+    says: 'The page says a closed path brings “all the topological structure that implies.” Put the knot to the ear, with the phase held at 220 Hz so every path reads the waveform cycle at the same rate. (2, 3) and (3, 2) are one knot, the trefoil, and they sound different. Flatten the table so every frame is the same, and the trefoil (2, 3) and the cinquefoil (2, 5) sound exactly alike. The knot doesn’t decide the sound. The winding pair read through the table does.' },
+];
+const S = { step: 1, pair3: '2,5', pair4: '3,2', table: 'varied' };
+function current() {
+  if (S.step === 1) return { p: 1, q: 0, F: 220, kind: 'varied' };
+  if (S.step === 2) return { p: 2, q: 3, F, kind: 'varied' };
+  if (S.step === 3) { const [p, q] = S.pair3.split(',').map(Number); return { p, q, F, kind: 'varied' }; }
+  const [p, q] = S.pair4.split(',').map(Number); return { p, q, F: PHASE / p, kind: S.table };
+}
+let CUR = null, REF = null;
+function recompute() {
+  const c = current(); const terms = tableOf(c.kind);
+  const y = loopWave(terms, c.p, c.q, 1024); const h = harmonics(y, 24); const k = knotOf(c.p, c.q);
+  CUR = { ...c, terms, y, h, k };
+  REF = null;
+  if (S.step === 4) { const ry = loopWave(terms, 2, 3, 1024); REF = { y: ry, h: harmonics(ry, 24), F: PHASE / 2 }; }
+  $('knotname').textContent = k.name + (k.crossings ? ` · ${k.crossings} crossings` : '');
+  $('laps').textContent = `${c.p} φ laps · ${c.q} θ laps`;
+  $('looprate').textContent = `loop ${+c.F.toFixed(1)} Hz · phase ${+(c.F * c.p).toFixed(1)} Hz`;
+  $('refnote').textContent = S.step === 4 ? 'in Hz · grey: (2, 3)' : '';
+  $('legend').innerHTML = S.step === 4 ? '<span><i style="background:#e8b84a"></i>the path you chose</span><span><i style="background:#8a8aa0"></i>(2, 3), the trefoil the page names</span>' : '<span><i style="background:#e8b84a"></i>the loop</span>';
+  const read = [`<span>path <b>(${c.p}, ${c.q})</b></span>`, `<span>closes after <b>${c.p}</b> phase lap${c.p === 1 ? '' : 's'} and <b>${c.q}</b> frame lap${c.q === 1 ? '' : 's'}</span>`, `<span>as a knot <b>${k.name}</b></span>`];
+  let verdict = '';
+  if (S.step === 4) {
+    const mv = energyMovedHz(spectrumHz(REF.h, REF.F), spectrumHz(h, c.F));
+    read.push(`<span>table <b>${c.kind === 'flat' ? 'flat across frames' : 'varied across frames'}</b></span>`, `<span>energy at different frequencies from (2, 3) <b>${(100 * mv).toFixed(1)} %</b></span>`);
+    const same = knotOf(2, 3).key === k.key;
+    if (c.p === 2 && c.q === 3) verdict = 'This is the reference itself. Pick (3, 2) or (2, 5).';
+    else if (same) verdict = mv < 0.005 ? `The same knot, and here the same sound: ${(100 * mv).toFixed(1)} % moved.` : `The same knot as (2, 3), the trefoil, and ${(100 * mv).toFixed(1)} % of the energy sits at different frequencies, with the waveform cycle read at the same 220 Hz. Same knot, different sound.`;
+    else verdict = mv < 0.005 ? `A different knot from (2, 3), ${k.name} against the trefoil, and the sound is identical: ${(100 * mv).toFixed(1)} % moved. On a table with no change across frames, θ is never heard.` : `A different knot, and ${(100 * mv).toFixed(1)} % moved. Now flatten the table.`;
+  }
+  $('read').innerHTML = read.join('');
+  $('verdict').textContent = verdict;
+  drawWave(); drawBars(); send();
+}
+function seg(label, items, get, set) {
+  const w = document.createElement('div'); w.className = 'ctl';
+  const l = document.createElement('span'); l.className = 'seglabel'; l.textContent = label; w.append(l);
+  const s = document.createElement('div'); s.className = 'seg';
+  for (const [text, v] of items) { const b = document.createElement('button'); b.textContent = text; if (get() === v) b.classList.add('on');
+    b.onclick = () => { set(v); for (const x of s.children) x.classList.remove('on'); b.classList.add('on'); recompute(); }; s.append(b); }
+  w.append(s); return w;
+}
+function buildControls() {
+  const c = $('controls'); c.innerHTML = '';
+  if (S.step === 3) c.append(seg('the closed path (p, q)', [['(4, 1) unknot', '4,1'], ['(2, 3) trefoil', '2,3'], ['(2, 5) cinquefoil', '2,5'], ['(3, 4) 8₁₉', '3,4']], () => S.pair3, (v) => (S.pair3 = v)));
+  if (S.step === 4) {
+    c.append(seg('the closed path (p, q)', [['(2, 3) trefoil', '2,3'], ['(3, 2) trefoil', '3,2'], ['(2, 5) cinquefoil', '2,5']], () => S.pair4, (v) => (S.pair4 = v)));
+    c.append(seg('the table', [['varied across frames', 'varied'], ['flat across frames', 'flat']], () => S.table, (v) => (S.table = v)));
+  }
+}
+function buildRail() {
+  const r = $('rail'); r.innerHTML = '';
+  for (const s of STEPS) { const b = document.createElement('button'); b.textContent = s.n + ' · ' + s.name;
+    if (s.n === S.step) b.classList.add('here'); else if (s.n > S.step) b.classList.add('ahead');
+    b.onclick = () => goStep(s.n); r.append(b); }
+}
+function goStep(n) {
+  n = Math.max(1, Math.min(STEPS.length, n));
+  if (n !== S.step) stop();
+  S.step = n; const s = STEPS[n - 1];
+  $('stephead').textContent = `step ${n} of ${STEPS.length} · ${s.name}`;
+  $('says').textContent = s.says;
+  $('back').disabled = n === 1; $('next').disabled = n === STEPS.length;
+  $('next').textContent = n === STEPS.length ? 'the last step' : 'next step →';
+  buildRail(); buildControls(); recompute();
+}
+$('back').onclick = () => goStep(S.step - 1);
+$('next').onclick = () => goStep(S.step + 1);
+
+// ── drawing ──
+function fit(cv, aspect) { const w = cv.clientWidth || 400, h = Math.round(w * aspect), d = devicePixelRatio || 1;
+  if (cv.width !== Math.round(w * d) || cv.height !== Math.round(h * d)) { cv.width = Math.round(w * d); cv.height = Math.round(h * d); cv.style.height = h + 'px'; }
+  const g = cv.getContext('2d'); g.setTransform(d, 0, 0, d, 0, 0); return { g, w, h }; }
+const R0 = 1, r0 = 0.42;
+function torusPoint(ph, th, spin) {
+  const A = TWO_PI * ph + spin, T = TWO_PI * th;
+  let x = (R0 + r0 * Math.cos(T)) * Math.cos(A), y = (R0 + r0 * Math.cos(T)) * Math.sin(A), z = r0 * Math.sin(T);
+  const tilt = 1.05, cy = Math.cos(tilt), sy = Math.sin(tilt);
+  const y2 = y * cy - z * sy, z2 = y * sy + z * cy;
+  return [x, y2, z2];
+}
+let spin = 0, uVis = 0, lastT = 0;
+function drawDonut() {
+  const { g, w, h } = fit($('donut'), 0.72); g.clearRect(0, 0, w, h);
+  const s = Math.min(w, h * 1.3) / 3.2, cx = w / 2, cy = h / 2;
+  g.lineWidth = 1; g.strokeStyle = 'rgba(200,200,216,0.10)';
+  for (let j = 0; j < 16; j++) { g.beginPath(); for (let i = 0; i <= 48; i++) { const P = torusPoint(j / 16, i / 48, spin); const X = cx + P[0] * s, Y = cy + P[1] * s; i ? g.lineTo(X, Y) : g.moveTo(X, Y); } g.stroke(); }
+  for (let j = 0; j < 6; j++) { g.beginPath(); for (let i = 0; i <= 96; i++) { const P = torusPoint(i / 96, j / 6, spin); const X = cx + P[0] * s, Y = cy + P[1] * s; i ? g.lineTo(X, Y) : g.moveTo(X, Y); } g.stroke(); }
+  if (!CUR) return;
+  const M = 720, pts = [];
+  for (let i = 0; i <= M; i++) { const u = i / M; pts.push(torusPoint(CUR.p * u, CUR.q * u, spin)); }
+  const segs = []; for (let i = 0; i < M; i++) segs.push([i, (pts[i][2] + pts[i + 1][2]) / 2]);
+  segs.sort((a, b) => a[1] - b[1]);
+  for (const [i, z] of segs) {
+    const a = pts[i], b = pts[i + 1];
+    g.lineCap = 'butt';
+    g.strokeStyle = '#12121a'; g.lineWidth = 7; g.beginPath(); g.moveTo(cx + a[0] * s, cy + a[1] * s); g.lineTo(cx + b[0] * s, cy + b[1] * s); g.stroke();
+    const lum = 0.45 + 0.55 * (z + 0.6) / 1.2;
+    g.strokeStyle = `rgba(232,184,74,${Math.max(0.35, Math.min(1, lum))})`; g.lineWidth = 2.4; g.beginPath(); g.moveTo(cx + a[0] * s, cy + a[1] * s); g.lineTo(cx + b[0] * s, cy + b[1] * s); g.stroke();
+  }
+  const D = torusPoint(CUR.p * uVis, CUR.q * uVis, spin);
+  g.fillStyle = '#e8e8f0'; g.beginPath(); g.arc(cx + D[0] * s, cy + D[1] * s, 4, 0, TWO_PI); g.fill();
+}
+function drawSquare() {
+  const { g, w, h } = fit($('square'), 0.72); g.clearRect(0, 0, w, h);
+  const side = Math.min(w - 40, h - 30), ox = (w - side) / 2, oy = (h - side) / 2;
+  g.strokeStyle = 'rgba(200,200,216,0.25)'; g.lineWidth = 1; g.strokeRect(ox, oy, side, side);
+  g.fillStyle = '#8a8aa0'; g.font = '10px JetBrains Mono, monospace'; g.fillText('φ →', ox + side - 26, oy + side + 14); g.fillText('θ', ox - 14, oy + 10);
+  if (!CUR) return;
+  g.strokeStyle = '#e8b84a'; g.lineWidth = 1.8; g.beginPath();
+  const M = 900; let px = null, py = null;
+  for (let i = 0; i <= M; i++) { const u = i / M; let a = (CUR.p * u) % 1, b = (CUR.q * u) % 1; if (i === M) { a = a || 1; b = b || 1; }
+    const X = ox + a * side, Y = oy + (1 - b) * side;
+    if (px === null || Math.abs(X - px) > side / 2 || Math.abs(Y - py) > side / 2) g.moveTo(X, Y); else g.lineTo(X, Y); px = X; py = Y; }
+  g.stroke();
+  const a = (CUR.p * uVis) % 1, b = (CUR.q * uVis) % 1;
+  g.fillStyle = '#e8e8f0'; g.beginPath(); g.arc(ox + a * side, oy + (1 - b) * side, 4, 0, TWO_PI); g.fill();
+}
+function drawWave() {
+  const { g, w, h } = fit($('wave'), 0.42); g.clearRect(0, 0, w, h);
+  g.strokeStyle = 'rgba(200,200,216,0.15)'; g.beginPath(); g.moveTo(0, h / 2); g.lineTo(w, h / 2); g.stroke();
+  const plot = (y, col, lw) => { let mn = 0, mx = 0; for (const v of y) { mn = Math.min(mn, v); mx = Math.max(mx, v); } const m = (mn + mx) / 2, sc = (h * 0.42) / Math.max(1e-9, (mx - mn) / 2);
+    g.strokeStyle = col; g.lineWidth = lw; g.beginPath(); for (let i = 0; i < y.length; i++) { const X = i / (y.length - 1) * w, Y = h / 2 - (y[i] - m) * sc; i ? g.lineTo(X, Y) : g.moveTo(X, Y); } g.stroke(); };
+  if (REF) plot(REF.y, 'rgba(138,138,160,0.7)', 1.2);
+  if (CUR) plot(CUR.y, '#e8b84a', 1.6);
+}
+function drawBars() {
+  const { g, w, h } = fit($('bars'), 0.42); g.clearRect(0, 0, w, h);
+  if (!CUR) return;
+  if (S.step === 4 && REF) {
+    const top = 1400, base = h - 16, a = spectrumHz(CUR.h, CUR.F), b = spectrumHz(REF.h, REF.F);
+    let sa = 0, sb = 0; for (const v of a.values()) sa += v; for (const v of b.values()) sb += v;
+    let mx = 0; for (const v of a.values()) mx = Math.max(mx, v / sa); for (const v of b.values()) mx = Math.max(mx, v / sb);
+    for (const [f, v] of b) { const X = f / top * w + 2; g.strokeStyle = 'rgba(138,138,160,0.9)'; g.lineWidth = 5; g.beginPath(); g.moveTo(X, base); g.lineTo(X, base - v / sb / mx * (base - 6)); g.stroke(); }
+    for (const [f, v] of a) { const X = f / top * w - 2; g.strokeStyle = '#e8b84a'; g.lineWidth = 3; g.beginPath(); g.moveTo(X, base); g.lineTo(X, base - v / sa / mx * (base - 6)); g.stroke(); }
+    g.fillStyle = '#4a4a5a'; g.font = '9px JetBrains Mono, monospace'; g.textAlign = 'left';
+    for (let f = 0; f <= top; f += 200) g.fillText(f + ' Hz', f / top * w + 2, h - 3);
+    return;
+  } const K = 16, bw = w / K;
+  const norm = (e) => { let s = 0; for (let i = 0; i < K; i++) s += e[i]; return Array.from(e.slice(0, K), (v) => v / (s || 1)); };
+  const a = norm(CUR.h), b = REF ? norm(REF.h) : null; let mx = 0; for (let i = 0; i < K; i++) mx = Math.max(mx, a[i], b ? b[i] : 0);
+  const base = h - 16;
+  for (let i = 0; i < K; i++) {
+    const x = i * bw;
+    if (b) { g.strokeStyle = 'rgba(138,138,160,0.9)'; g.lineWidth = 1; g.strokeRect(x + bw * 0.12, base - b[i] / mx * (base - 6), bw * 0.76, b[i] / mx * (base - 6)); }
+    g.fillStyle = 'rgba(232,184,74,0.85)'; const hh = a[i] / mx * (base - 6); g.fillRect(x + bw * 0.28, base - hh, bw * 0.44, hh);
+    g.fillStyle = '#4a4a5a'; g.font = '9px JetBrains Mono, monospace'; g.textAlign = 'center'; g.fillText(String(i + 1), x + bw / 2, h - 3);
+  }
+}
+function tick(t) {
+  const dt = Math.min(0.1, (t - lastT) / 1000 || 0); lastT = t;
+  spin += dt * 0.12; uVis = (uVis + dt * 0.12) % 1;
+  drawDonut(); drawSquare();
+  requestAnimationFrame(tick);
+}
+addEventListener('resize', () => { drawWave(); drawBars(); });
+
+// ── sound: the same valueAt, one call per sample ──
+const WORKLET = `const TWO_PI = 2 * Math.PI;
+${valueAt.toString()}
+class Reader extends AudioWorkletProcessor {
+  constructor() { super(); this.u = 0; this.cur = null; this.next = null; this.g = 0; this.on = false;
+    this.port.onmessage = (e) => { const d = e.data; if ('on' in d) this.on = d.on; if (d.params) { if (!this.cur) this.cur = d.params; else this.next = d.params; } }; }
+  process(_, outs) {
+    const o = outs[0], L = o[0], R = o[1] || o[0], dt = 1 / sampleRate;
+    for (let i = 0; i < L.length; i++) {
+      const target = this.on && !this.next ? 1 : 0;
+      this.g += (target - this.g) * 0.003;
+      if (this.next && this.g < 0.002) { this.cur = this.next; this.next = null; }
+      let y = 0;
+      if (this.cur) { if (this.g > 1e-5) y = (valueAt(this.cur, this.u) - this.cur.dc) * this.cur.norm; this.u += this.cur.F * dt; if (this.u >= 1) this.u -= Math.floor(this.u); }
+      L[i] = y * this.g; R[i] = y * this.g;
+    }
+    return true;
+  }
+}
+registerProcessor('reader', Reader);`;
+let ctx = null, node = null, running = false;
+function send() {
+  if (!node || !CUR) return;
+  const { dc, peak } = dcAndPeak(CUR.terms, CUR.p, CUR.q);
+  node.port.postMessage({ params: { terms: CUR.terms, p: CUR.p, q: CUR.q, F: CUR.F, dc, norm: 0.45 / peak } });
+}
+async function start() {
+  if (!ctx) {
+    ctx = new AudioContext();
+    const url = URL.createObjectURL(new Blob([WORKLET], { type: 'application/javascript' }));
+    await ctx.audioWorklet.addModule(url); URL.revokeObjectURL(url);
+    node = new AudioWorkletNode(ctx, 'reader', { numberOfInputs: 0, numberOfOutputs: 1, outputChannelCount: [2] });
+    const comp = ctx.createDynamicsCompressor(); comp.threshold.value = -14; comp.ratio.value = 4;
+    node.connect(comp).connect(ctx.destination);
+    ctx.onstatechange = () => { if (ctx.state !== 'running' && running) { running = false; $('go').textContent = '▸ play'; } };
+  }
+  send();
+  await ctx.resume();
+  node.port.postMessage({ on: true });
+  running = true; $('go').textContent = '❚❚ stop';
+}
+function stop() {
+  if (!running) return;
+  running = false; $('go').textContent = '▸ play';
+  if (node) node.port.postMessage({ on: false });
+  if (ctx) setTimeout(() => { if (!running) ctx.suspend(); }, 250);
+}
+$('go').onclick = () => (running ? stop() : start());
+
+{ let d = ''; for (let i = 0; i <= 240; i++) { const t = TWO_PI * i / 240; d += (i ? 'L' : 'M') + (Math.sin(3 * t + Math.PI / 2)).toFixed(3) + ' ' + (Math.sin(2 * t)).toFixed(3); } $('sigil').setAttribute('d', d); }
+
+goStep(1);
+requestAnimationFrame(tick);
+</script>
+</body>
+</html>

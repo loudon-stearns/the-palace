@@ -1,0 +1,233 @@
+{
+  "title": "Wavetable Space as Torus — rich",
+  "born": "2026-11-03",
+  "links": [
+    {
+      "target": "[[Wavetable Space as Torus]]",
+      "type": "connects-to",
+      "label": "rich-face-of"
+    },
+    {
+      "target": "[[Enrichment]]",
+      "type": "connects-to",
+      "label": "made-by"
+    },
+    {
+      "target": "[[2D Torus Wavetable Synthesizer]]",
+      "type": "connects-to",
+      "label": "gathered-from"
+    }
+  ],
+  "forward_vector": "I am the manifest of Wavetable Space as Torus's rich face, its first round at Study tier: three made pieces that each walk up to a test the page's own text sets (whether the knot is what you hear, whether B is one twist, and the page's own listening experiment, one winding at three speeds), and the 2D Torus project's renders and Hopf surface gathered beside the sections they serve, with the fingerprint of the words each was laid against. I grow when a piece has something new to test; I never hold the entry's words.",
+  "entry": "Wavetable Space as Torus",
+  "tier": "study",
+  "made": "2026-11-03",
+  "round": 1,
+  "offers": [
+    {
+      "section": "The T² Structure",
+      "kind": "claim-change",
+      "status": "open",
+      "what": "Aimed at the T³ section's line \"The discrete jumps in knot class at rational-ratio configurations are the timbral 'phase transitions' of modulation\" (and its echo in the Philosophical Lens, the visiting voice's to keep); the T² sentence \"a torus knot synthesis path with all the topological structure that implies\" is structural and true as written. The which-knot piece measured that the knot class is not what is heard. With the phase held at 220 Hz, (2, 3) and (3, 2), one knot, the trefoil, put 36.8 % of their energy at different frequencies; on a table flat across frames every path sounds the same, the trefoil (2, 3) and the cinquefoil (2, 5) included, 0.0 %. Swapping (p, q) for (q, p) keeps every topological fact and moves the table. The 2D Torus face's ratio gate agrees from the other side: 3 ⁄ 2 and 1.5005 sound alike and the partials slide with no jump. Proposed: \"…the two scan rates, read through the table, set the sound; neither the knot class nor whether the path closes is heard as such.\""
+    },
+    {
+      "section": "Monodromy and the Fiber Bundle",
+      "kind": "claim-change",
+      "status": "open",
+      "what": "\"B is a holonomy parameter\" with \"plays exactly this role\" treats what B does to a loop as one shift of φ. Measured on the one-twist piece's engine (16 partials, aₙ = 1 ⁄ n): B's excess per lap of the fundamental is cubic in n, partial 16 running 3,973 times as far as partial 1 at B = 0.0005, where any single shift of φ moves partial n by n·β, 16 times as far. The closest single twist, searched over every β, leaves the cycles 3.6 % unlike (1 − correlation) after one lap, 10.9 % after ten and 28.1 % after a hundred, each count searched afresh. The page's π·B·n³ holds (3.1 % over at n = 16). Also: the section's base loop is θ (\"one trip around θ shifts φ\"), but B's excess is measured \"after one fundamental period\", a lap of φ; the bundle's loop and B's holonomy loop are different loops. Proposed: \"B picks out a curve of monodromies on the torus of partial phases T^N, as the Quasicrystals subsection's T^k implies, measured over one fundamental period (a lap of φ, not of θ); a single β on T² is the case where every partial shares one twist, and that only retunes the tone.\""
+    },
+    {
+      "section": "Cross-Domain Resonances",
+      "kind": "claim-change",
+      "status": "open",
+      "what": "Berry Phase and Holonomy: \"two synthesis paths with different speeds but the same (p,q,r) winding class accumulate the same spectral transformation\" holds two claims. \"Different speeds\" is true of the holonomy itself: a line integral is unchanged by any change of speed along one path, uneven included. It fails for per-cycle timbre: on the three-speeds piece, an uneven speed along the same (2, 3, 1) path (ε = 0.2) moves 17.2 % of the energy to other harmonics; an even change of speed moves 0.0000 %, as it would for any closed path. \"Same winding class\" is wrong even as physics: Berry's phase depends on the curvature the loop encloses; only a flat connection, the Aharonov–Bohm case the page cites, gives a phase set by winding alone. And for timbre, a bend of 0.05 laps at the same winding moves 6.0 %. Proposed: \"the accumulated phase is unchanged by any change of speed along one path; Berry's depends on the curvature enclosed, and only Aharonov–Bohm's on the winding alone; per-cycle timbre is the path heard in time, so the winding class does not fix it.\""
+    },
+    {
+      "section": "Open Questions",
+      "kind": "claim-change",
+      "status": "open",
+      "what": "The listening experiment, run (the three-speeds piece): per cycle the (2, 3, 1) timbre is the same at every overall rate, 0.0000 % moved across 64, 96 and 144 Hz from 48 kHz renders, and so is (2, 5, 1)'s and plain (1, 0, 0)'s: any closed path passes, so passing says nothing about the winding. It can fail only perceptually, since scaling every rate scales the phase rate, and the three speeds are three pitches whose brightness rises (207, 311, 466 Hz); that would be psychoacoustics, not topology. The version that can fail on the winding is the same winding at one rate along a different speed profile or a bent path, and it does: 17.2 % and 6.0 % moved. Proposed: replace the experiment with that one, and \"if timbre character per cycle sounds speed-independent, the topological-invariant reading is perceptually real\" with \"the winding class is not a timbral invariant; what an even change of speed keeps is the path itself.\""
+    }
+  ],
+  "sections": [
+    {
+      "heading": "The T² Structure",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "Wavetable Space as Torus — rich — which knot.html",
+          "origin": "made",
+          "by": "the Maker · Web Audio Worklet",
+          "height": 1560,
+          "title": "which knot · four steps",
+          "caption": "**Which knot do you hear?** One circle read at a fixed frame, then a (2, 3) path closing into the trefoil, then other closures, (4, 1) the unknot among them, and last the section's structure put to the ear, with the phase held at 220 Hz so every path reads the waveform cycle at one rate: (2, 3) and (3, 2) are one knot and sound different (36.8 % of the energy at other frequencies), while on a table flat across frames every path sounds the same, the trefoil and the cinquefoil included (0.0 %). The knot doesn't decide the sound; the two scan rates read through the table do. Checked offline on the piece's own engine and worklet.",
+          "near": "A sawtooth oscillator modulating frame position"
+        },
+        {
+          "file": "/Projects/2D Torus Wavetable Synthesizer/audition/penrose_ratio_sweep.wav",
+          "origin": "gathered",
+          "place": "margin",
+          "title": "Penrose Lattice, six held ratios · scan_surface.py",
+          "caption": "The two bullets, heard on the 2D Torus project's engine: the frame scan at 1, 2, 3 ⁄ 2, 4 ⁄ 3, φ and √2 times a 110 Hz phase, 2.5 s each. Four closed paths, then two that never close. The ratio-gate walk on that project's face tests the same bullets by hand.",
+          "near": "covering the torus surface densely"
+        }
+      ],
+      "made_against": "9d0b09e2888c",
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Wavetable Space as Torus — rich — which knot.html",
+            "verdict": "remake",
+            "why": "A real test whose first half is confounded: with the loop held at 110 Hz, (3, 2) reads the cycle a fifth higher, and the same swap on the flat table moves 92.3 %. Hold the phase rate at 220 Hz (or show the flat-table swap beside it) and quote the frames’ own share, 36.8 %, in the verdict, caption and T² offer."
+          },
+          {
+            "file": "/Projects/2D Torus Wavetable Synthesizer/audition/penrose_ratio_sweep.wav",
+            "verdict": "keep",
+            "why": "Tracked evidence beside the two bullets, already vetted on the 2D Torus face; the caption describes the paths, not the hearing, and points to the ratio gate."
+          }
+        ]
+      }
+    },
+    {
+      "heading": "Monodromy and the Fiber Bundle",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "Wavetable Space as Torus — rich — one twist or many.html",
+          "origin": "made",
+          "by": "the Maker · Web Audio Worklet",
+          "height": 1560,
+          "title": "one twist or many · four steps",
+          "caption": "**One twist, or one per partial?** Sixteen partials as dials: the plain loop, where every dial comes home each lap; one twist of the cycle, which turns partial n by n·β and only retunes the tone; the page's B, whose excess grows as n³; and last the search for the single twist that would do what B does. At B = 0.0005 the closest leaves the cycles 3.6 % unlike after one lap and 28.1 % after a hundred. B's monodromy is one angle per partial, not one turn of φ.",
+          "near": "plays exactly this role"
+        }
+      ],
+      "made_against": "4327fad78956",
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Wavetable Space as Torus — rich — one twist or many.html",
+            "verdict": "keep",
+            "why": "Tests the section’s sentence against its own π·B·n³ and could have found a twist; every number recomputes (3,973×; 3.1 %; 3.6 / 10.9 / 28.1 %) and it names the loop it takes."
+          }
+        ]
+      }
+    },
+    {
+      "heading": "The Hopf Fibration",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "/Projects/2D Torus Wavetable Synthesizer/Hopf/hopf-control-surface.html",
+          "origin": "gathered",
+          "contract": {
+            "needs": "storage"
+          },
+          "height": 2040,
+          "title": "the Hopf control surface · from the 2D Torus project, as built",
+          "caption": "**A sphere that names every orbit.** The 2D Torus project's instrument built on the Hopf map: each point on its sphere names one orbit of the scanner. Each latitude is one Clifford torus of the family this section describes, and the instrument lets latitude set the scan's speed ratio, so the bands where the scan locks are the closed paths of the T² section. That pairing of latitude and ratio is the instrument's choice, not a fact of the fibration. Start at the south pole, where it is a plain 1D wavetable. Gathered as built; its note boxes keep on this Mac only.",
+          "near": "The wavetable synthesis surface is exactly this Clifford torus"
+        }
+      ],
+      "made_against": "4dd789897ee2",
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "/Projects/2D Torus Wavetable Synthesizer/Hopf/hopf-control-surface.html",
+            "verdict": "keep",
+            "why": "Decorates rather than tests, but it is the built instrument the section is about, and its caption says the latitude–ratio pairing is the instrument’s choice, not the fibration’s."
+          }
+        ]
+      }
+    },
+    {
+      "heading": "Cross-Domain Resonances",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "/Projects/2D Torus Wavetable Synthesizer/Auditions/cycle-7/penrose_kuramoto_three_regimes.wav",
+          "origin": "gathered",
+          "place": "margin",
+          "title": "lock or drift · the Penrose surface under the Kuramoto scan",
+          "caption": "The Kuramoto subsection, heard: the Penrose surface scanned at 110 Hz with the frame at 1.518 times that, pulled toward 3 ⁄ 2. Drifting shimmer below the coupling threshold, hiccups at it, the repeating knot above. The ratio is never 3 ⁄ 2 by itself: the coupling locks it. Rendered by the project's kuramoto_scan.py; not yet heard by Loudon.",
+          "near": "The psychoacoustic"
+        }
+      ],
+      "made_against": "d5050e36fa33",
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "/Projects/2D Torus Wavetable Synthesizer/Auditions/cycle-7/penrose_kuramoto_three_regimes.wav",
+            "verdict": "keep",
+            "why": "The Kuramoto subsection heard, shimmer to lock; the caption’s numbers match the project scroll (scroll.md:837) and it says Loudon has not heard it."
+          }
+        ]
+      }
+    },
+    {
+      "heading": "Open Questions",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "Wavetable Space as Torus — rich — one winding three speeds.html",
+          "origin": "made",
+          "by": "the Maker · Web Audio Worklet",
+          "height": 1500,
+          "title": "one winding, three speeds · five steps",
+          "caption": "**The page's listening experiment, run.** One circle, then a (2, 3) loop, then the third circle for the (2, 3, 1) winding, then that winding at three overall rates, which come out as three pitches with one waveform per cycle (0.0000 % moved, measured on 48 kHz renders), and last the test the experiment needs: the same winding at one rate along an uneven speed or a bent path, which moves 17.2 % and 6.0 % of the energy. Per-cycle timbre survives an even change of speed, because the loop is the same loop; the winding class does not fix it.",
+          "near": "Listening experiment: compare"
+        }
+      ],
+      "made_against": "26a8a1873b2a",
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Wavetable Space as Torus — rich — one winding three speeds.html",
+            "verdict": "keep",
+            "why": "Runs the page’s own experiment, then the version that can fail (17.2 %, 6.0 %); recomputed exactly, and its hint concedes the structural Berry point while testing the perceptual one."
+          }
+        ]
+      }
+    }
+  ]
+}
