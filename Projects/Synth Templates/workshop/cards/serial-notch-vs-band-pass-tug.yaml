@@ -42,7 +42,7 @@ essentials:
   - {block: filter1, param: type,      value: notch,          why: "pulls the mids down"}
   - {block: filter2, param: type,      value: bandpass,       why: "pulls them up; the two fight, and because each also shifts phase they do not cancel, the fight is the richness"}
   - {block: filter1, param: cutoff,    value: mid}
-  - {block: filter2, param: cutoff,    value: same as filter1, why: "the same frequency at rest, or there is no tug"}
+  - {block: filter2, param: cutoff,    value: mid,            why: "the same frequency as filter 1 at rest, or there is no tug"}
   - {block: filter1, param: resonance, value: little,         why: "low on the notch: a broad general cut of the mids"}
   - {block: filter2, param: resonance, value: high,           why: "high on the band-pass: a spike of resonance inside the cut, which the band-pass cutoff places wherever the mix needs it"}
   - {block: lfo1,    param: target,    value: notch cutoff,   why: "modulated differently from the band-pass, so the two drift against each other"}

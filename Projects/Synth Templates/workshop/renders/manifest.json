@@ -2,11 +2,11 @@
  "set": "Synth Templates — reference renders",
  "generator": "render-refs.mjs → site/voice.js (the site's own Web Audio voice) via node-web-audio-api OfflineAudioContext",
  "vocabulary": "vocabulary.yaml as on disk (the browser's tuned copy is not used)",
- "master_compressor": "BYPASSED: node-web-audio-api 2.2.0 DynamicsCompressor is unstable on fast onsets (gain runs to 4e5 then NaN on a 1.6 ms step); the browser plays through a -12 dB threshold compressor, so peaks here are up to ~6 dB hotter than the page",
+ "master_compressor": "BYPASSED: node-web-audio-api 2.2.0 DynamicsCompressor is unstable on fast onsets (gain runs to 4e5 then NaN on a 1.6 ms step); the browser plays through a -12 dB threshold compressor, so peaks here are up to ~6 dB hotter than the page; a render whose float peak passes -1 dBFS is scaled on write to -1 dBFS (a plain gain, no limiter; normalised_db per render), so the 16-bit file never clips",
  "sample_rate_hz": 48000,
  "channels": 2,
  "bit_depth": 16,
- "rendered": "2026-11-03T14:19:49.138Z",
+ "rendered": "2026-11-03T14:29:11.294Z",
  "renders": [
   {
    "id": "808-bass",
@@ -43,6 +43,7 @@
     "written_s": 9.012583333333334,
     "raw_peak_dbfs": -9.12
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -70,6 +71,7 @@
     "written_s": 9.252458333333333,
     "raw_peak_dbfs": -9.12
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -94,9 +96,10 @@
     "reverb_s": 0,
     "delay_tail_s": 0,
     "rendered_s": 5.48125,
-    "written_s": 3.5073333333333334,
-    "raw_peak_dbfs": -7.5
+    "written_s": 3.4890625,
+    "raw_peak_dbfs": -7.79
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -142,6 +145,7 @@
     "written_s": 1.3956458333333333,
     "raw_peak_dbfs": -3.21
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -187,6 +191,7 @@
     "written_s": 1.3985833333333333,
     "raw_peak_dbfs": -3.47
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -248,6 +253,7 @@
     "written_s": 3.8908125,
     "raw_peak_dbfs": -5.66
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -279,6 +285,7 @@
     "written_s": 6.33575,
     "raw_peak_dbfs": -2.98
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -311,6 +318,7 @@
     "written_s": 4.4323125,
     "raw_peak_dbfs": -5.16
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -338,6 +346,7 @@
     "written_s": 3.292895833333333,
     "raw_peak_dbfs": -9.21
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -365,6 +374,7 @@
     "written_s": 5.811791666666666,
     "raw_peak_dbfs": -9.21
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -392,6 +402,7 @@
     "written_s": 4.339583333333334,
     "raw_peak_dbfs": -7.59
    },
+   "normalised_db": 0,
    "warnings": [
     "vocabulary: no amount word \"a fifth\", using 0.5",
     "vocabulary: no amount word \"a fifth\", using 0.5"
@@ -422,6 +433,7 @@
     "written_s": 7.171333333333333,
     "raw_peak_dbfs": -12
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -454,6 +466,7 @@
     "written_s": 1.1275833333333334,
     "raw_peak_dbfs": -8.73
    },
+   "normalised_db": 0,
    "warnings": [
     "vocabulary: no amount word \"a fifth\", using 0.5",
     "vocabulary: no amount word \"a fifth\", using 0.5",
@@ -497,6 +510,7 @@
     "written_s": 6.051479166666667,
     "raw_peak_dbfs": -2.97
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -526,9 +540,10 @@
     "reverb_s": 2.5,
     "delay_tail_s": 0,
     "rendered_s": 12.13,
-    "written_s": 8.9623125,
-    "raw_peak_dbfs": -3.71
+    "written_s": 8.962291666666667,
+    "raw_peak_dbfs": -4.05
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -556,6 +571,7 @@
     "written_s": 4.4803125,
     "raw_peak_dbfs": -9.73
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -591,6 +607,7 @@
     "written_s": 5.124979166666667,
     "raw_peak_dbfs": -6.02
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -633,9 +650,10 @@
     "reverb_s": 0,
     "delay_tail_s": 0,
     "rendered_s": 3.903583333333333,
-    "written_s": 3.1503958333333335,
-    "raw_peak_dbfs": 1.35
+    "written_s": 3.1523958333333333,
+    "raw_peak_dbfs": 1.54
    },
+   "normalised_db": -2.54,
    "warnings": []
   },
   {
@@ -664,9 +682,10 @@
     "reverb_s": 2.5,
     "delay_tail_s": 0,
     "rendered_s": 14.407145833333333,
-    "written_s": 10.486479166666667,
-    "raw_peak_dbfs": -7.77
+    "written_s": 10.563333333333333,
+    "raw_peak_dbfs": -7.75
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -704,6 +723,7 @@
     "written_s": 2.5906041666666666,
     "raw_peak_dbfs": -4.6
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -736,6 +756,7 @@
     "written_s": 5.857520833333333,
     "raw_peak_dbfs": 5.17
    },
+   "normalised_db": -6.17,
    "warnings": []
   },
   {
@@ -772,6 +793,7 @@
     "written_s": 2.416354166666667,
     "raw_peak_dbfs": -1.37
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -808,6 +830,7 @@
     "written_s": 5.253645833333334,
     "raw_peak_dbfs": -4.54
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -839,6 +862,7 @@
     "written_s": 10.085708333333333,
     "raw_peak_dbfs": -6.89
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -875,6 +899,7 @@
     "written_s": 3.5434375,
     "raw_peak_dbfs": -8.78
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -906,6 +931,7 @@
     "written_s": 1,
     "raw_peak_dbfs": -10.82
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -935,9 +961,10 @@
     "reverb_s": 2.5,
     "delay_tail_s": 0,
     "rendered_s": 20.779104166666666,
-    "written_s": 16.313958333333332,
-    "raw_peak_dbfs": -12.71
+    "written_s": 16.313979166666666,
+    "raw_peak_dbfs": -12.6
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -970,6 +997,7 @@
     "written_s": 2.328291666666667,
     "raw_peak_dbfs": -3.59
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -1001,6 +1029,7 @@
     "written_s": 6.2665625,
     "raw_peak_dbfs": -4.72
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -1025,9 +1054,10 @@
     "reverb_s": 0.8,
     "delay_tail_s": 0,
     "rendered_s": 5.547208333333334,
-    "written_s": 2.548375,
-    "raw_peak_dbfs": -15.98
+    "written_s": 2.5541875,
+    "raw_peak_dbfs": -15.19
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -1060,6 +1090,7 @@
     "written_s": 4.154229166666667,
     "raw_peak_dbfs": -7.55
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -1087,6 +1118,7 @@
     "written_s": 1.8346458333333333,
     "raw_peak_dbfs": -9.56
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -1132,6 +1164,7 @@
     "written_s": 2.4931666666666668,
     "raw_peak_dbfs": -2.09
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -1156,9 +1189,10 @@
     "reverb_s": 0,
     "delay_tail_s": 0,
     "rendered_s": 3.1222083333333335,
-    "written_s": 2.2510416666666666,
-    "raw_peak_dbfs": -6.64
+    "written_s": 2.2514791666666665,
+    "raw_peak_dbfs": -6.55
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -1186,6 +1220,7 @@
     "written_s": 6.360125,
     "raw_peak_dbfs": -5
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -1213,6 +1248,7 @@
     "written_s": 6.489354166666667,
     "raw_peak_dbfs": -7.08
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -1248,6 +1284,7 @@
     "written_s": 2.2942708333333335,
     "raw_peak_dbfs": -8.88
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -1275,6 +1312,7 @@
     "written_s": 2.0112916666666667,
     "raw_peak_dbfs": -5.81
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -1299,9 +1337,10 @@
     "reverb_s": 0,
     "delay_tail_s": 0,
     "rendered_s": 10.870020833333333,
-    "written_s": 9.357395833333333,
-    "raw_peak_dbfs": 2.65
+    "written_s": 9.2680625,
+    "raw_peak_dbfs": 2.51
    },
+   "normalised_db": -3.51,
    "warnings": []
   },
   {
@@ -1334,6 +1373,7 @@
     "written_s": 11.006833333333333,
     "raw_peak_dbfs": 0.16
    },
+   "normalised_db": -1.16,
    "warnings": []
   },
   {
@@ -1363,9 +1403,10 @@
     "reverb_s": 0,
     "delay_tail_s": 0,
     "rendered_s": 6,
-    "written_s": 4.3935208333333335,
-    "raw_peak_dbfs": -4.6
+    "written_s": 4.3925833333333335,
+    "raw_peak_dbfs": -4.4
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -1394,9 +1435,10 @@
     "reverb_s": 2.5,
     "delay_tail_s": 0,
     "rendered_s": 20.155729166666667,
-    "written_s": 16.9944375,
-    "raw_peak_dbfs": -3.62
+    "written_s": 16.994395833333332,
+    "raw_peak_dbfs": -3.56
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -1424,6 +1466,7 @@
     "written_s": 4.028520833333333,
     "raw_peak_dbfs": -7.91
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -1461,6 +1504,7 @@
     "written_s": 6.304354166666666,
     "raw_peak_dbfs": -4.9
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -1493,6 +1537,7 @@
     "written_s": 1.205125,
     "raw_peak_dbfs": -9.1
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -1517,9 +1562,10 @@
     "reverb_s": 2.5,
     "delay_tail_s": 0,
     "rendered_s": 14.01875,
-    "written_s": 10.558041666666666,
-    "raw_peak_dbfs": -3.54
+    "written_s": 10.5346875,
+    "raw_peak_dbfs": -4.47
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -1565,6 +1611,7 @@
     "written_s": 2.6532708333333335,
     "raw_peak_dbfs": -3.6
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -1592,9 +1639,10 @@
     "reverb_s": 5,
     "delay_tail_s": 0,
     "rendered_s": 21,
-    "written_s": 11.392729166666667,
-    "raw_peak_dbfs": -1.53
+    "written_s": 11.453333333333333,
+    "raw_peak_dbfs": -2.11
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -1629,6 +1677,7 @@
     "written_s": 1.5681875,
     "raw_peak_dbfs": -9.12
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -1653,9 +1702,10 @@
     "reverb_s": 0.8,
     "delay_tail_s": 2.25,
     "rendered_s": 6,
-    "written_s": 3.895375,
-    "raw_peak_dbfs": -7.93
+    "written_s": 3.903020833333333,
+    "raw_peak_dbfs": -7.76
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -1697,6 +1747,7 @@
     "written_s": 6.3264375,
     "raw_peak_dbfs": -0.16
    },
+   "normalised_db": -0.84,
    "warnings": []
   },
   {
@@ -1724,6 +1775,7 @@
     "written_s": 7.933708333333334,
     "raw_peak_dbfs": -9.92
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -1766,9 +1818,10 @@
     "reverb_s": 0,
     "delay_tail_s": 0,
     "rendered_s": 4,
-    "written_s": 1.4254166666666668,
-    "raw_peak_dbfs": -3.46
+    "written_s": 1.4292083333333334,
+    "raw_peak_dbfs": -3.06
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -1801,6 +1854,7 @@
     "written_s": 2.6328541666666667,
     "raw_peak_dbfs": -7.76
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -1829,9 +1883,10 @@
     "reverb_s": 2.5,
     "delay_tail_s": 1.6363636363636362,
     "rendered_s": 10.686375,
-    "written_s": 7.2546875,
-    "raw_peak_dbfs": -3.3
+    "written_s": 7.037916666666667,
+    "raw_peak_dbfs": -4.03
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -1877,6 +1932,7 @@
     "written_s": 2.4079375,
     "raw_peak_dbfs": -8.55
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -1906,9 +1962,10 @@
     "reverb_s": 2.5,
     "delay_tail_s": 0,
     "rendered_s": 27.264291666666665,
-    "written_s": 24.09477083333333,
-    "raw_peak_dbfs": -2.57
+    "written_s": 24.0948125,
+    "raw_peak_dbfs": -2.54
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -1933,9 +1990,10 @@
     "reverb_s": 5,
     "delay_tail_s": 0,
     "rendered_s": 13.63,
-    "written_s": 10.2051875,
-    "raw_peak_dbfs": -6.45
+    "written_s": 10.261854166666666,
+    "raw_peak_dbfs": -6.76
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -1963,6 +2021,7 @@
     "written_s": 10.072729166666667,
     "raw_peak_dbfs": -11.43
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -1996,6 +2055,7 @@
     "written_s": 2.9759375,
     "raw_peak_dbfs": -11.41
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -2023,6 +2083,7 @@
     "written_s": 1,
     "raw_peak_dbfs": -180
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -2050,6 +2111,7 @@
     "written_s": 8.084625,
     "raw_peak_dbfs": -5.74
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -2077,6 +2139,7 @@
     "written_s": 4.472666666666667,
     "raw_peak_dbfs": -11.12
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -2104,6 +2167,7 @@
     "written_s": 4.1806875,
     "raw_peak_dbfs": -8.6
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -2145,6 +2209,7 @@
     "written_s": 6.702125,
     "raw_peak_dbfs": -2.82
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -2172,6 +2237,7 @@
     "written_s": 8.1784375,
     "raw_peak_dbfs": -9.7
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -2196,9 +2262,10 @@
     "reverb_s": 0,
     "delay_tail_s": 0,
     "rendered_s": 11.8,
-    "written_s": 11.006229166666667,
-    "raw_peak_dbfs": -6.67
+    "written_s": 11.005916666666666,
+    "raw_peak_dbfs": -6.04
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -2229,9 +2296,10 @@
     "reverb_s": 0,
     "delay_tail_s": 0,
     "rendered_s": 6.580541666666667,
-    "written_s": 5.8098125,
-    "raw_peak_dbfs": -9.91
+    "written_s": 5.806729166666667,
+    "raw_peak_dbfs": -9.86
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -2261,9 +2329,10 @@
     "reverb_s": 0,
     "delay_tail_s": 0,
     "rendered_s": 6,
-    "written_s": 3.9127708333333335,
-    "raw_peak_dbfs": -9.79
+    "written_s": 3.911875,
+    "raw_peak_dbfs": -9.77
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -2309,6 +2378,7 @@
     "written_s": 2.850041666666667,
     "raw_peak_dbfs": -8.35
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -2346,6 +2416,7 @@
     "written_s": 3.977145833333333,
     "raw_peak_dbfs": -8.4
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -2387,6 +2458,7 @@
     "written_s": 6.58725,
     "raw_peak_dbfs": 0.4
    },
+   "normalised_db": -1.4,
    "warnings": []
   },
   {
@@ -2424,6 +2496,7 @@
     "written_s": 1.9892916666666667,
     "raw_peak_dbfs": -8.54
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -2451,6 +2524,7 @@
     "written_s": 7.169666666666667,
     "raw_peak_dbfs": -12.01
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -2478,6 +2552,7 @@
     "written_s": 8.5125625,
     "raw_peak_dbfs": -11.43
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -2505,6 +2580,7 @@
     "written_s": 1,
     "raw_peak_dbfs": -67.24
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -2532,6 +2608,7 @@
     "written_s": 4.208270833333334,
     "raw_peak_dbfs": -9.96
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -2561,9 +2638,10 @@
     "reverb_s": 2.5,
     "delay_tail_s": 0,
     "rendered_s": 8.156541666666667,
-    "written_s": 6.92575,
-    "raw_peak_dbfs": 0.67
+    "written_s": 6.8934375,
+    "raw_peak_dbfs": 0.18
    },
+   "normalised_db": -1.18,
    "warnings": []
   },
   {
@@ -2592,9 +2670,10 @@
     "reverb_s": 5,
     "delay_tail_s": 0,
     "rendered_s": 26.05,
-    "written_s": 20.321729166666668,
-    "raw_peak_dbfs": -2.07
+    "written_s": 20.2815,
+    "raw_peak_dbfs": -2.61
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -2622,6 +2701,7 @@
     "written_s": 4.5005,
     "raw_peak_dbfs": -4.07
    },
+   "normalised_db": 0,
    "warnings": [
     "vocabulary: no amount word \"about an octave\", using 0.5",
     "vocabulary: no amount word \"about an octave\", using 0.5"
@@ -2652,6 +2732,7 @@
     "written_s": 18.010916666666667,
     "raw_peak_dbfs": -4.71
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -2680,9 +2761,10 @@
     "reverb_s": 5,
     "delay_tail_s": 0,
     "rendered_s": 20.55,
-    "written_s": 18.869604166666665,
-    "raw_peak_dbfs": 0.49
+    "written_s": 18.880520833333332,
+    "raw_peak_dbfs": 0.79
    },
+   "normalised_db": -1.79,
    "warnings": [
     "vocabulary: no amount word \"a fifth\", using 0.5",
     "vocabulary: no amount word \"a fifth\", using 0.5",
@@ -2718,9 +2800,10 @@
     "reverb_s": 5,
     "delay_tail_s": 0,
     "rendered_s": 30,
-    "written_s": 25.858375,
-    "raw_peak_dbfs": -6.7
+    "written_s": 25.796833333333332,
+    "raw_peak_dbfs": -7
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -2751,6 +2834,7 @@
     "written_s": 3.8642916666666665,
     "raw_peak_dbfs": -9.39
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -2785,6 +2869,7 @@
     "written_s": 5.582270833333333,
     "raw_peak_dbfs": 3.2
    },
+   "normalised_db": -4.2,
    "warnings": []
   },
   {
@@ -2817,6 +2902,7 @@
     "written_s": 5.001979166666667,
     "raw_peak_dbfs": -9.1
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -2844,6 +2930,7 @@
     "written_s": 4.468895833333334,
     "raw_peak_dbfs": -12.31
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -2871,6 +2958,7 @@
     "written_s": 10.374125,
     "raw_peak_dbfs": -8.74
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -2904,6 +2992,7 @@
     "written_s": 4.349125,
     "raw_peak_dbfs": -12.96
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -2943,6 +3032,7 @@
     "written_s": 8.60525,
     "raw_peak_dbfs": -3.13
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -2979,6 +3069,7 @@
     "written_s": 2.413708333333333,
     "raw_peak_dbfs": -10.45
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -3011,6 +3102,7 @@
     "written_s": 5.028375,
     "raw_peak_dbfs": 1
    },
+   "normalised_db": -2,
    "warnings": []
   },
   {
@@ -3042,6 +3134,7 @@
     "written_s": 2.1776666666666666,
     "raw_peak_dbfs": -0.11
    },
+   "normalised_db": -0.89,
    "warnings": []
   },
   {
@@ -3073,6 +3166,7 @@
     "written_s": 6.250958333333333,
     "raw_peak_dbfs": -0.53
    },
+   "normalised_db": -0.47,
    "warnings": []
   },
   {
@@ -3104,6 +3198,7 @@
     "written_s": 5.212979166666667,
     "raw_peak_dbfs": -8.4
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -3131,6 +3226,7 @@
     "written_s": 2.366833333333333,
     "raw_peak_dbfs": -3.65
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -3155,9 +3251,10 @@
     "reverb_s": 5,
     "delay_tail_s": 0,
     "rendered_s": 16.55,
-    "written_s": 13.6756875,
-    "raw_peak_dbfs": -8.18
+    "written_s": 13.5081875,
+    "raw_peak_dbfs": -7.68
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -3187,9 +3284,10 @@
     "reverb_s": 5,
     "delay_tail_s": 0,
     "rendered_s": 15.798583333333333,
-    "written_s": 9.1609375,
-    "raw_peak_dbfs": -12.09
+    "written_s": 9.333,
+    "raw_peak_dbfs": -12.41
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -3221,6 +3319,7 @@
     "written_s": 7.193104166666667,
     "raw_peak_dbfs": -1.37
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -3253,6 +3352,7 @@
     "written_s": 5.2236875,
     "raw_peak_dbfs": -7.88
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -3285,6 +3385,7 @@
     "written_s": 11.517125,
     "raw_peak_dbfs": -0.48
    },
+   "normalised_db": -0.52,
    "warnings": []
   },
   {
@@ -3317,6 +3418,7 @@
     "written_s": 4.7373125,
     "raw_peak_dbfs": -0.46
    },
+   "normalised_db": -0.54,
    "warnings": []
   },
   {
@@ -3362,6 +3464,7 @@
     "written_s": 3.7628958333333333,
     "raw_peak_dbfs": -6.4
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -3391,9 +3494,10 @@
     "reverb_s": 0,
     "delay_tail_s": 0,
     "rendered_s": 11.57,
-    "written_s": 8.74025,
-    "raw_peak_dbfs": -1.12
+    "written_s": 8.699479166666666,
+    "raw_peak_dbfs": -3.11
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -3425,9 +3529,10 @@
     "reverb_s": 0,
     "delay_tail_s": 0,
     "rendered_s": 9.838770833333333,
-    "written_s": 8.456541666666666,
-    "raw_peak_dbfs": -6.4
+    "written_s": 8.485125,
+    "raw_peak_dbfs": -4.93
    },
+   "normalised_db": 0,
    "warnings": [
     "vocabulary: no cutoff word \"keytracked\", using 1200",
     "vocabulary: no cutoff word \"keytracked\", using 1200",
@@ -3482,6 +3587,7 @@
     "written_s": 4.821729166666667,
     "raw_peak_dbfs": -6.27
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -3518,6 +3624,7 @@
     "written_s": 5.420145833333334,
     "raw_peak_dbfs": -7.59
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -3550,6 +3657,7 @@
     "written_s": 9.5093125,
     "raw_peak_dbfs": -0.68
    },
+   "normalised_db": -0.32,
    "warnings": []
   },
   {
@@ -3582,6 +3690,7 @@
     "written_s": 7.370375,
     "raw_peak_dbfs": -7.81
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -3616,6 +3725,7 @@
     "written_s": 3.705416666666667,
     "raw_peak_dbfs": -8.18
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -3640,9 +3750,10 @@
     "reverb_s": 0,
     "delay_tail_s": 0,
     "rendered_s": 10.757104166666666,
-    "written_s": 9.9275,
-    "raw_peak_dbfs": -9.04
+    "written_s": 9.92725,
+    "raw_peak_dbfs": -9.12
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -3679,6 +3790,7 @@
     "written_s": 4.065520833333333,
     "raw_peak_dbfs": -2.63
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -3724,6 +3836,7 @@
     "written_s": 2.689,
     "raw_peak_dbfs": -5.67
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -3756,6 +3869,7 @@
     "written_s": 1.4034166666666668,
     "raw_peak_dbfs": -11.88
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -3790,6 +3904,7 @@
     "written_s": 2.1109166666666668,
     "raw_peak_dbfs": -6.52
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -3822,6 +3937,7 @@
     "written_s": 17.405395833333333,
     "raw_peak_dbfs": -3.74
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -3854,6 +3970,7 @@
     "written_s": 7.708958333333333,
     "raw_peak_dbfs": -1.17
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -3883,9 +4000,10 @@
     "reverb_s": 0,
     "delay_tail_s": 0,
     "rendered_s": 16.37,
-    "written_s": 15.744625,
+    "written_s": 15.744645833333333,
     "raw_peak_dbfs": -1.17
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -3918,6 +4036,7 @@
     "written_s": 1.7337291666666668,
     "raw_peak_dbfs": -7.84
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -3963,6 +4082,7 @@
     "written_s": 3.4913333333333334,
     "raw_peak_dbfs": -5.64
    },
+   "normalised_db": 0,
    "warnings": [
     "vocabulary: no pitch_amount word \"little\", using 1200",
     "vocabulary: no pitch_amount word \"little\", using 1200",
@@ -4028,6 +4148,7 @@
     "written_s": 7.091770833333333,
     "raw_peak_dbfs": -17.61
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -4057,9 +4178,10 @@
     "reverb_s": 2.5,
     "delay_tail_s": 0,
     "rendered_s": 17.8375,
-    "written_s": 10.896770833333333,
-    "raw_peak_dbfs": -8.1
+    "written_s": 10.896791666666667,
+    "raw_peak_dbfs": -7.84
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -4084,9 +4206,10 @@
     "reverb_s": 2.5,
     "delay_tail_s": 0,
     "rendered_s": 7.8375,
-    "written_s": 2.4388541666666668,
-    "raw_peak_dbfs": -11.71
+    "written_s": 2.41175,
+    "raw_peak_dbfs": -11.74
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -4120,6 +4243,7 @@
     "written_s": 4.262645833333333,
     "raw_peak_dbfs": 1.92
    },
+   "normalised_db": -2.92,
    "warnings": []
   },
   {
@@ -4147,6 +4271,7 @@
     "written_s": 6.1700625,
     "raw_peak_dbfs": -8.83
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -4174,6 +4299,7 @@
     "written_s": 9.298208333333333,
     "raw_peak_dbfs": -5.32
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -4211,6 +4337,7 @@
     "written_s": 7.0847291666666665,
     "raw_peak_dbfs": -5.81
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -4243,6 +4370,7 @@
     "written_s": 7.7895,
     "raw_peak_dbfs": -5.49
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -4275,6 +4403,7 @@
     "written_s": 1.5723541666666667,
     "raw_peak_dbfs": -2.54
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -4308,9 +4437,10 @@
     "reverb_s": 0.8,
     "delay_tail_s": 0,
     "rendered_s": 8.1666875,
-    "written_s": 3.9640416666666667,
-    "raw_peak_dbfs": -8.08
+    "written_s": 3.9574166666666666,
+    "raw_peak_dbfs": -7.91
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -4342,6 +4472,7 @@
     "written_s": 1.294625,
     "raw_peak_dbfs": -24.62
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -4369,6 +4500,7 @@
     "written_s": 6.170145833333334,
     "raw_peak_dbfs": -8.85
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -4399,6 +4531,7 @@
     "written_s": 3.2394375,
     "raw_peak_dbfs": -9.1
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -4423,9 +4556,10 @@
     "reverb_s": 5,
     "delay_tail_s": 0,
     "rendered_s": 20.55,
-    "written_s": 11.498583333333332,
-    "raw_peak_dbfs": -23.08
+    "written_s": 11.422354166666667,
+    "raw_peak_dbfs": -23.06
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -4450,9 +4584,10 @@
     "reverb_s": 0,
     "delay_tail_s": 0,
     "rendered_s": 8,
-    "written_s": 7.170083333333333,
-    "raw_peak_dbfs": -12.09
+    "written_s": 7.16975,
+    "raw_peak_dbfs": -12.05
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -4481,9 +4616,10 @@
     "reverb_s": 0,
     "delay_tail_s": 0,
     "rendered_s": 13.37,
-    "written_s": 12.292395833333334,
-    "raw_peak_dbfs": -7.47
+    "written_s": 12.2618125,
+    "raw_peak_dbfs": -7.29
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -4512,9 +4648,10 @@
     "reverb_s": 0,
     "delay_tail_s": 0,
     "rendered_s": 9,
-    "written_s": 3.827958333333333,
-    "raw_peak_dbfs": -6.05
+    "written_s": 3.8278958333333333,
+    "raw_peak_dbfs": -6.2
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -4557,9 +4694,10 @@
     "reverb_s": 0,
     "delay_tail_s": 0,
     "rendered_s": 3,
-    "written_s": 1.88625,
-    "raw_peak_dbfs": -9.1
+    "written_s": 1.8860208333333333,
+    "raw_peak_dbfs": -9.06
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -4587,9 +4725,10 @@
     "reverb_s": 5,
     "delay_tail_s": 0,
     "rendered_s": 30,
-    "written_s": 22.847333333333335,
-    "raw_peak_dbfs": -22.64
+    "written_s": 22.821770833333332,
+    "raw_peak_dbfs": -23.18
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -4622,6 +4761,7 @@
     "written_s": 11.927916666666667,
     "raw_peak_dbfs": -2.13
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -4655,6 +4795,7 @@
     "written_s": 4.731729166666667,
     "raw_peak_dbfs": -16.43
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -4679,9 +4820,10 @@
     "reverb_s": 0,
     "delay_tail_s": 0,
     "rendered_s": 23.55,
-    "written_s": 22.900833333333335,
-    "raw_peak_dbfs": -14.04
+    "written_s": 22.90075,
+    "raw_peak_dbfs": -13.97
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -4709,6 +4851,7 @@
     "written_s": 7.680958333333334,
     "raw_peak_dbfs": -8.98
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -4736,6 +4879,7 @@
     "written_s": 3.177625,
     "raw_peak_dbfs": -8.58
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -4760,9 +4904,10 @@
     "reverb_s": 0,
     "delay_tail_s": 0,
     "rendered_s": 5.95,
-    "written_s": 3.2693958333333333,
-    "raw_peak_dbfs": -4.21
+    "written_s": 3.2645208333333335,
+    "raw_peak_dbfs": -4.92
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -4793,9 +4938,10 @@
     "reverb_s": 2.5,
     "delay_tail_s": 0,
     "rendered_s": 8.6875,
-    "written_s": 6.404270833333333,
-    "raw_peak_dbfs": -0.77
+    "written_s": 6.403208333333334,
+    "raw_peak_dbfs": -0.16
    },
+   "normalised_db": -0.84,
    "warnings": []
   },
   {
@@ -4828,6 +4974,7 @@
     "written_s": 16.11895833333333,
     "raw_peak_dbfs": -4.07
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -4860,6 +5007,7 @@
     "written_s": 1.653,
     "raw_peak_dbfs": -4.88
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -4892,6 +5040,7 @@
     "written_s": 4.863166666666666,
     "raw_peak_dbfs": -0.37
    },
+   "normalised_db": -0.63,
    "warnings": []
   },
   {
@@ -4924,6 +5073,7 @@
     "written_s": 5.3754375,
     "raw_peak_dbfs": -8.31
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -4951,6 +5101,7 @@
     "written_s": 8.1701875,
     "raw_peak_dbfs": -12.26
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -4980,9 +5131,10 @@
     "reverb_s": 2.5,
     "delay_tail_s": 0,
     "rendered_s": 8.825,
-    "written_s": 6.41475,
-    "raw_peak_dbfs": -6.66
+    "written_s": 6.4745625,
+    "raw_peak_dbfs": -7.11
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -5012,9 +5164,10 @@
     "reverb_s": 2.5,
     "delay_tail_s": 0,
     "rendered_s": 17.87,
-    "written_s": 14.315083333333334,
-    "raw_peak_dbfs": -3.24
+    "written_s": 14.235166666666666,
+    "raw_peak_dbfs": -4.04
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -5045,8 +5198,9 @@
     "delay_tail_s": 0,
     "rendered_s": 4,
     "written_s": 1,
-    "raw_peak_dbfs": -86.17
+    "raw_peak_dbfs": -86.34
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -5092,6 +5246,7 @@
     "written_s": 2.4087708333333335,
     "raw_peak_dbfs": -23.2
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -5128,6 +5283,7 @@
     "written_s": 1,
     "raw_peak_dbfs": -74.73
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -5159,6 +5315,7 @@
     "written_s": 2.4913125,
     "raw_peak_dbfs": -9.12
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -5196,6 +5353,7 @@
     "written_s": 2.630708333333333,
     "raw_peak_dbfs": -9.01
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -5223,6 +5381,7 @@
     "written_s": 4.4686875,
     "raw_peak_dbfs": -12.07
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -5250,9 +5409,10 @@
     "reverb_s": 0,
     "delay_tail_s": 0,
     "rendered_s": 10,
-    "written_s": 1.990375,
-    "raw_peak_dbfs": -5.37
+    "written_s": 1.9699791666666666,
+    "raw_peak_dbfs": -5.47
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -5284,6 +5444,7 @@
     "written_s": 4.987375,
     "raw_peak_dbfs": -8.68
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -5311,6 +5472,7 @@
     "written_s": 2.884895833333333,
     "raw_peak_dbfs": -7.63
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -5356,6 +5518,7 @@
     "written_s": 2.3644166666666666,
     "raw_peak_dbfs": -7.34
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -5401,6 +5564,7 @@
     "written_s": 2.2365208333333335,
     "raw_peak_dbfs": -6.4
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -5433,6 +5597,7 @@
     "written_s": 3.7139375,
     "raw_peak_dbfs": -6.71
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -5469,6 +5634,7 @@
     "written_s": 3.2369791666666665,
     "raw_peak_dbfs": -3.81
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -5502,6 +5668,7 @@
     "written_s": 1.971375,
     "raw_peak_dbfs": -6.22
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -5533,6 +5700,7 @@
     "written_s": 1.3727708333333333,
     "raw_peak_dbfs": -5.39
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -5566,6 +5734,7 @@
     "written_s": 2.9332291666666666,
     "raw_peak_dbfs": -8.35
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -5598,6 +5767,7 @@
     "written_s": 3.9895416666666668,
     "raw_peak_dbfs": -5.34
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -5634,6 +5804,7 @@
     "written_s": 1.9291041666666666,
     "raw_peak_dbfs": -8.48
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -5670,6 +5841,7 @@
     "written_s": 3.6082083333333332,
     "raw_peak_dbfs": -3.77
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -5706,6 +5878,7 @@
     "written_s": 1.9267291666666666,
     "raw_peak_dbfs": -8.81
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -5733,6 +5906,7 @@
     "written_s": 8.479479166666666,
     "raw_peak_dbfs": -9.13
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -5760,6 +5934,7 @@
     "written_s": 4.487354166666667,
     "raw_peak_dbfs": -4.92
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -5790,6 +5965,7 @@
     "written_s": 4.386854166666667,
     "raw_peak_dbfs": -6.55
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -5822,6 +5998,7 @@
     "written_s": 2.861645833333333,
     "raw_peak_dbfs": -4.99
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -5854,6 +6031,7 @@
     "written_s": 13.9403125,
     "raw_peak_dbfs": 2.04
    },
+   "normalised_db": -3.04,
    "warnings": []
   },
   {
@@ -5878,9 +6056,10 @@
     "reverb_s": 0.8,
     "delay_tail_s": 0,
     "rendered_s": 17.77,
-    "written_s": 16.825354166666667,
-    "raw_peak_dbfs": -4.35
+    "written_s": 16.8245,
+    "raw_peak_dbfs": -4.05
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -5911,6 +6090,7 @@
     "written_s": 4.295125,
     "raw_peak_dbfs": 4.56
    },
+   "normalised_db": -5.56,
    "warnings": []
   },
   {
@@ -5938,6 +6118,7 @@
     "written_s": 12.175770833333333,
     "raw_peak_dbfs": -8.56
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -5972,9 +6153,10 @@
     "reverb_s": 2.5,
     "delay_tail_s": 0,
     "rendered_s": 16.53125,
-    "written_s": 13.3313125,
-    "raw_peak_dbfs": 3.93
+    "written_s": 13.3105,
+    "raw_peak_dbfs": 4.57
    },
+   "normalised_db": -5.57,
    "warnings": []
   },
   {
@@ -6006,6 +6188,7 @@
     "written_s": 7.482666666666667,
     "raw_peak_dbfs": -7.49
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -6035,9 +6218,10 @@
     "reverb_s": 2.5,
     "delay_tail_s": 0,
     "rendered_s": 9.080541666666667,
-    "written_s": 7.567666666666667,
-    "raw_peak_dbfs": -6.68
+    "written_s": 7.4699583333333335,
+    "raw_peak_dbfs": -6.48
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -6069,6 +6253,7 @@
     "written_s": 9.484833333333333,
     "raw_peak_dbfs": -6.61
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -6101,6 +6286,7 @@
     "written_s": 5.888916666666667,
     "raw_peak_dbfs": -3.5
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -6134,9 +6320,10 @@
     "reverb_s": 0,
     "delay_tail_s": 0,
     "rendered_s": 5.6615416666666665,
-    "written_s": 2.8735833333333334,
-    "raw_peak_dbfs": -14.79
+    "written_s": 2.8996458333333335,
+    "raw_peak_dbfs": -14.52
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -6161,9 +6348,10 @@
     "reverb_s": 0,
     "delay_tail_s": 0,
     "rendered_s": 3.0183125,
-    "written_s": 2.2058958333333334,
-    "raw_peak_dbfs": -13.16
+    "written_s": 2.20575,
+    "raw_peak_dbfs": -13.87
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -6195,6 +6383,7 @@
     "written_s": 4.913354166666666,
     "raw_peak_dbfs": -7.25
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -6222,6 +6411,7 @@
     "written_s": 7.1714166666666666,
     "raw_peak_dbfs": -11.99
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -6246,9 +6436,10 @@
     "reverb_s": 2.5,
     "delay_tail_s": 0,
     "rendered_s": 11.247208333333333,
-    "written_s": 9.871625,
-    "raw_peak_dbfs": -2.07
+    "written_s": 9.853104166666666,
+    "raw_peak_dbfs": -2.76
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -6276,6 +6467,7 @@
     "written_s": 6.39425,
     "raw_peak_dbfs": -4.55
    },
+   "normalised_db": 0,
    "warnings": [
     "vocabulary: no amount word \"about an octave\", using 0.5",
     "vocabulary: no amount word \"about an octave\", using 0.5"
@@ -6306,6 +6498,7 @@
     "written_s": 4.47475,
     "raw_peak_dbfs": -8.56
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -6345,6 +6538,7 @@
     "written_s": 2.04475,
     "raw_peak_dbfs": -6.12
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -6380,6 +6574,7 @@
     "written_s": 3.9883125,
     "raw_peak_dbfs": -5.57
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -6409,9 +6604,10 @@
     "reverb_s": 0,
     "delay_tail_s": 0,
     "rendered_s": 7,
-    "written_s": 4.18725,
-    "raw_peak_dbfs": -7.21
+    "written_s": 4.1873125,
+    "raw_peak_dbfs": -6.75
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -6444,6 +6640,7 @@
     "written_s": 4.024479166666667,
     "raw_peak_dbfs": -0.92
    },
+   "normalised_db": -0.08,
    "warnings": []
   },
   {
@@ -6489,6 +6686,7 @@
     "written_s": 2.4613125,
     "raw_peak_dbfs": 1.28
    },
+   "normalised_db": -2.28,
    "warnings": [
     "vocabulary: no pitch_amount word \"little\", using 1200",
     "vocabulary: no pitch_amount word \"little\", using 1200",
@@ -6538,6 +6736,7 @@
     "written_s": 1,
     "raw_peak_dbfs": -180
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -6565,6 +6764,7 @@
     "written_s": 1,
     "raw_peak_dbfs": -81.35
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -6595,9 +6795,10 @@
     "reverb_s": 2.5,
     "delay_tail_s": 0,
     "rendered_s": 19.87,
-    "written_s": 16.1876875,
-    "raw_peak_dbfs": -5.98
+    "written_s": 16.201541666666667,
+    "raw_peak_dbfs": -6.13
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -6630,16 +6831,8 @@
     "written_s": 2.462458333333333,
     "raw_peak_dbfs": -4.32
    },
-   "warnings": [
-    "vocabulary: no cutoff word \"same as filter1\", using 1200",
-    "vocabulary: no cutoff word \"same as filter1\", using 1200",
-    "vocabulary: no cutoff word \"same as filter1\", using 1200",
-    "vocabulary: no cutoff word \"same as filter1\", using 1200",
-    "vocabulary: no cutoff word \"same as filter1\", using 1200",
-    "vocabulary: no cutoff word \"same as filter1\", using 1200",
-    "vocabulary: no cutoff word \"same as filter1\", using 1200",
-    "vocabulary: no cutoff word \"same as filter1\", using 1200"
-   ]
+   "normalised_db": 0,
+   "warnings": []
   },
   {
    "id": "serial-flexible-band-pass",
@@ -6671,6 +6864,7 @@
     "written_s": 2.6589375,
     "raw_peak_dbfs": -2.81
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -6703,6 +6897,7 @@
     "written_s": 2.6242916666666667,
     "raw_peak_dbfs": -10.11
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -6735,16 +6930,8 @@
     "written_s": 2.74925,
     "raw_peak_dbfs": -27.53
    },
-   "warnings": [
-    "vocabulary: no cutoff word \"same as filter1\", using 1200",
-    "vocabulary: no cutoff word \"same as filter1\", using 1200",
-    "vocabulary: no cutoff word \"same as filter1\", using 1200",
-    "vocabulary: no cutoff word \"same as filter1\", using 1200",
-    "vocabulary: no cutoff word \"same as filter1\", using 1200",
-    "vocabulary: no cutoff word \"same as filter1\", using 1200",
-    "vocabulary: no cutoff word \"same as filter1\", using 1200",
-    "vocabulary: no cutoff word \"same as filter1\", using 1200"
-   ]
+   "normalised_db": 0,
+   "warnings": []
   },
   {
    "id": "serial-source-and-resonator",
@@ -6778,6 +6965,7 @@
     "written_s": 5.855229166666667,
     "raw_peak_dbfs": -0.98
    },
+   "normalised_db": -0.02,
    "warnings": []
   },
   {
@@ -6805,6 +6993,7 @@
     "written_s": 8.697666666666667,
     "raw_peak_dbfs": -2.79
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -6841,6 +7030,7 @@
     "written_s": 1.4366041666666667,
     "raw_peak_dbfs": -3.94
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -6874,9 +7064,10 @@
     "reverb_s": 0,
     "delay_tail_s": 0,
     "rendered_s": 3.5,
-    "written_s": 2.5911458333333335,
-    "raw_peak_dbfs": -11.17
+    "written_s": 2.588604166666667,
+    "raw_peak_dbfs": -12.17
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -6905,9 +7096,10 @@
     "reverb_s": 5,
     "delay_tail_s": 0,
     "rendered_s": 19.227145833333335,
-    "written_s": 13.263479166666666,
-    "raw_peak_dbfs": -4.46
+    "written_s": 13.283520833333334,
+    "raw_peak_dbfs": -4.85
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -6932,9 +7124,10 @@
     "reverb_s": 0,
     "delay_tail_s": 1.7999999999999998,
     "rendered_s": 6,
-    "written_s": 4.985229166666667,
-    "raw_peak_dbfs": -5.72
+    "written_s": 4.9852083333333335,
+    "raw_peak_dbfs": -6.1
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -6971,6 +7164,7 @@
     "written_s": 2.2015833333333332,
     "raw_peak_dbfs": -2.13
    },
+   "normalised_db": 0,
    "warnings": [
     "vocabulary: no fm_index word \"off\", using 3",
     "vocabulary: no fm_index word \"off\", using 3",
@@ -7013,9 +7207,10 @@
     "reverb_s": 2.5,
     "delay_tail_s": 0,
     "rendered_s": 13.679541666666667,
-    "written_s": 11.764520833333334,
-    "raw_peak_dbfs": -1.7
+    "written_s": 11.7204375,
+    "raw_peak_dbfs": -1
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -7047,6 +7242,7 @@
     "written_s": 2.502083333333333,
     "raw_peak_dbfs": -4.62
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -7079,6 +7275,7 @@
     "written_s": 7.134229166666667,
     "raw_peak_dbfs": -8.9
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -7106,6 +7303,7 @@
     "written_s": 9.445270833333334,
     "raw_peak_dbfs": -8.09
    },
+   "normalised_db": 0,
    "warnings": [
     "vocabulary: no amount word \"about an octave\", using 0.5",
     "vocabulary: no amount word \"about an octave\", using 0.5"
@@ -7145,9 +7343,10 @@
     "reverb_s": 0.8,
     "delay_tail_s": 0,
     "rendered_s": 14.420020833333334,
-    "written_s": 9.619083333333334,
-    "raw_peak_dbfs": -1.61
+    "written_s": 9.6395,
+    "raw_peak_dbfs": -1.63
    },
+   "normalised_db": 0,
    "warnings": [
     "vocabulary: no cutoff word \"keytracked\", using 1200",
     "vocabulary: no cutoff word \"keytracked\", using 1200",
@@ -7189,9 +7388,10 @@
     "reverb_s": 0,
     "delay_tail_s": 0,
     "rendered_s": 6.4,
-    "written_s": 3.3737291666666667,
-    "raw_peak_dbfs": -1.63
+    "written_s": 3.3765625,
+    "raw_peak_dbfs": -2.17
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -7224,6 +7424,7 @@
     "written_s": 6.335,
     "raw_peak_dbfs": -5.96
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -7256,6 +7457,7 @@
     "written_s": 1.559125,
     "raw_peak_dbfs": -7.1
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -7283,6 +7485,7 @@
     "written_s": 7.6924166666666665,
     "raw_peak_dbfs": -6.67
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -7313,6 +7516,7 @@
     "written_s": 1.5194583333333334,
     "raw_peak_dbfs": -6.34
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -7340,9 +7544,10 @@
     "reverb_s": 2.5,
     "delay_tail_s": 0,
     "rendered_s": 12.536666666666667,
-    "written_s": 9.345625,
-    "raw_peak_dbfs": 0.56
+    "written_s": 9.366791666666666,
+    "raw_peak_dbfs": 0.94
    },
+   "normalised_db": -1.94,
    "warnings": []
   },
   {
@@ -7374,6 +7579,7 @@
     "written_s": 8.4165625,
     "raw_peak_dbfs": -8.74
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -7416,9 +7622,10 @@
     "reverb_s": 0.8,
     "delay_tail_s": 0,
     "rendered_s": 4.9375,
-    "written_s": 3.3304791666666667,
-    "raw_peak_dbfs": -7.06
+    "written_s": 3.301645833333333,
+    "raw_peak_dbfs": -7.17
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -7450,6 +7657,7 @@
     "written_s": 6.328854166666667,
     "raw_peak_dbfs": -1.32
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -7482,6 +7690,7 @@
     "written_s": 2.8414166666666665,
     "raw_peak_dbfs": -6.75
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -7513,6 +7722,7 @@
     "written_s": 7.312458333333334,
     "raw_peak_dbfs": -4.8
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -7542,9 +7752,10 @@
     "reverb_s": 0.8,
     "delay_tail_s": 0,
     "rendered_s": 13.170020833333334,
-    "written_s": 11.397854166666667,
-    "raw_peak_dbfs": -6.37
+    "written_s": 11.425125,
+    "raw_peak_dbfs": -5.82
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -7576,6 +7787,7 @@
     "written_s": 9.6455,
     "raw_peak_dbfs": -6.54
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -7608,6 +7820,7 @@
     "written_s": 1.4572708333333333,
     "raw_peak_dbfs": -6.58
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -7635,6 +7848,7 @@
     "written_s": 5.838375,
     "raw_peak_dbfs": -9.12
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -7659,9 +7873,10 @@
     "reverb_s": 2.5,
     "delay_tail_s": 0,
     "rendered_s": 21.05,
-    "written_s": 17.2534375,
-    "raw_peak_dbfs": -8.45
+    "written_s": 16.885270833333333,
+    "raw_peak_dbfs": -9.49
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -7689,6 +7904,7 @@
     "written_s": 6.484395833333333,
     "raw_peak_dbfs": -6.48
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -7722,9 +7938,10 @@
     "reverb_s": 5,
     "delay_tail_s": 0,
     "rendered_s": 10.460875,
-    "written_s": 7.616979166666667,
-    "raw_peak_dbfs": -3.57
+    "written_s": 7.6064375,
+    "raw_peak_dbfs": -3.39
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -7754,9 +7971,10 @@
     "reverb_s": 2.5,
     "delay_tail_s": 0,
     "rendered_s": 13.62,
-    "written_s": 10.321270833333333,
-    "raw_peak_dbfs": -4.66
+    "written_s": 10.321291666666667,
+    "raw_peak_dbfs": -4.73
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -7786,9 +8004,10 @@
     "reverb_s": 2.5,
     "delay_tail_s": 0,
     "rendered_s": 17.87,
-    "written_s": 14.666395833333333,
-    "raw_peak_dbfs": -6.87
+    "written_s": 14.6664375,
+    "raw_peak_dbfs": -6.83
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -7813,9 +8032,10 @@
     "reverb_s": 0,
     "delay_tail_s": 0,
     "rendered_s": 7.87,
-    "written_s": 5.6771875,
-    "raw_peak_dbfs": -19.21
+    "written_s": 5.5333125,
+    "raw_peak_dbfs": -18.87
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -7845,9 +8065,10 @@
     "reverb_s": 2.5,
     "delay_tail_s": 0,
     "rendered_s": 25.55,
-    "written_s": 22.219270833333333,
-    "raw_peak_dbfs": -6.07
+    "written_s": 22.074166666666667,
+    "raw_peak_dbfs": -6.09
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -7879,6 +8100,7 @@
     "written_s": 4.987479166666667,
     "raw_peak_dbfs": -8.21
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -7911,6 +8133,7 @@
     "written_s": 2.4624375,
     "raw_peak_dbfs": -5.86
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -7943,6 +8166,7 @@
     "written_s": 3.9893125,
     "raw_peak_dbfs": -5.79
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -7974,6 +8198,7 @@
     "written_s": 4.84475,
     "raw_peak_dbfs": -4.52
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -8015,6 +8240,7 @@
     "written_s": 6.2176875,
     "raw_peak_dbfs": -1.8
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -8059,6 +8285,7 @@
     "written_s": 2.3607916666666666,
     "raw_peak_dbfs": -4.14
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -8095,6 +8322,7 @@
     "written_s": 5.175458333333333,
     "raw_peak_dbfs": -1.52
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -8124,9 +8352,10 @@
     "reverb_s": 2.5,
     "delay_tail_s": 0,
     "rendered_s": 20.407145833333335,
-    "written_s": 17.2583125,
-    "raw_peak_dbfs": -7.29
+    "written_s": 17.260375,
+    "raw_peak_dbfs": -7.06
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -8172,6 +8401,7 @@
     "written_s": 1.3840416666666666,
     "raw_peak_dbfs": -2.8
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -8196,9 +8426,10 @@
     "reverb_s": 5,
     "delay_tail_s": 0,
     "rendered_s": 12.2,
-    "written_s": 8.321583333333333,
-    "raw_peak_dbfs": -5.88
+    "written_s": 8.415145833333334,
+    "raw_peak_dbfs": -6.43
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -8226,6 +8457,7 @@
     "written_s": 4.474020833333333,
     "raw_peak_dbfs": -7.63
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -8253,6 +8485,7 @@
     "written_s": 1,
     "raw_peak_dbfs": -9.12
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -8277,9 +8510,10 @@
     "reverb_s": 5,
     "delay_tail_s": 0,
     "rendered_s": 16.65,
-    "written_s": 15.967416666666667,
-    "raw_peak_dbfs": -16.92
+    "written_s": 16.09775,
+    "raw_peak_dbfs": -21.21
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -8312,9 +8546,10 @@
     "reverb_s": 0,
     "delay_tail_s": 0,
     "rendered_s": 6.0181875,
-    "written_s": 3.2662291666666667,
-    "raw_peak_dbfs": 1.01
+    "written_s": 3.2528125,
+    "raw_peak_dbfs": 0.95
    },
+   "normalised_db": -1.95,
    "warnings": []
   },
   {
@@ -8343,9 +8578,10 @@
     "reverb_s": 0,
     "delay_tail_s": 0,
     "rendered_s": 6.0181875,
-    "written_s": 3.103645833333333,
-    "raw_peak_dbfs": -7.22
+    "written_s": 3.1039166666666667,
+    "raw_peak_dbfs": -7.19
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -8391,6 +8627,7 @@
     "written_s": 3.4228958333333335,
     "raw_peak_dbfs": -1.95
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -8424,9 +8661,10 @@
     "reverb_s": 2.5,
     "delay_tail_s": 1.3043478260869565,
     "rendered_s": 7.732625,
-    "written_s": 4.2843125,
-    "raw_peak_dbfs": -2.87
+    "written_s": 4.210020833333333,
+    "raw_peak_dbfs": -3.32
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -8456,9 +8694,10 @@
     "reverb_s": 5,
     "delay_tail_s": 1.3043478260869565,
     "rendered_s": 10.22175,
-    "written_s": 6.288916666666666,
-    "raw_peak_dbfs": 0.14
+    "written_s": 6.302229166666667,
+    "raw_peak_dbfs": -0.13
    },
+   "normalised_db": -0.87,
    "warnings": []
   },
   {
@@ -8488,9 +8727,10 @@
     "reverb_s": 0.8,
     "delay_tail_s": 0,
     "rendered_s": 7.8,
-    "written_s": 6.843041666666666,
-    "raw_peak_dbfs": -4.74
+    "written_s": 6.798729166666667,
+    "raw_peak_dbfs": -4.99
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -8518,6 +8758,7 @@
     "written_s": 3.5971875,
     "raw_peak_dbfs": -10.99
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -8554,6 +8795,7 @@
     "written_s": 1.0865208333333334,
     "raw_peak_dbfs": -8.57
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -8590,6 +8832,7 @@
     "written_s": 1.9275625,
     "raw_peak_dbfs": -8.68
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -8622,6 +8865,7 @@
     "written_s": 3.407770833333333,
     "raw_peak_dbfs": -8.2
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -8649,6 +8893,7 @@
     "written_s": 1,
     "raw_peak_dbfs": -11.47
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -8685,6 +8930,7 @@
     "written_s": 2.01625,
     "raw_peak_dbfs": -6.95
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -8712,6 +8958,7 @@
     "written_s": 8.470541666666668,
     "raw_peak_dbfs": -4.87
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -8743,6 +8990,7 @@
     "written_s": 8.768270833333334,
     "raw_peak_dbfs": -6.44
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -8780,6 +9028,7 @@
     "written_s": 2.818791666666667,
     "raw_peak_dbfs": -9.39
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -8817,6 +9066,7 @@
     "written_s": 3.091270833333333,
     "raw_peak_dbfs": -7.37
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -8854,6 +9104,7 @@
     "written_s": 2.838625,
     "raw_peak_dbfs": -4.77
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -8891,6 +9142,7 @@
     "written_s": 2.6322083333333333,
     "raw_peak_dbfs": -4.78
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -8928,6 +9180,7 @@
     "written_s": 7.3856875,
     "raw_peak_dbfs": -7.49
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -8973,6 +9226,7 @@
     "written_s": 2.6485833333333333,
     "raw_peak_dbfs": -6.18
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -9002,9 +9256,10 @@
     "reverb_s": 0.8,
     "delay_tail_s": 0,
     "rendered_s": 8.028458333333333,
-    "written_s": 6.97125,
-    "raw_peak_dbfs": -6.78
+    "written_s": 6.908625,
+    "raw_peak_dbfs": -7.78
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -9032,6 +9287,7 @@
     "written_s": 6.170145833333334,
     "raw_peak_dbfs": -8.85
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -9059,6 +9315,7 @@
     "written_s": 3.471416666666667,
     "raw_peak_dbfs": -12.01
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -9083,9 +9340,10 @@
     "reverb_s": 0,
     "delay_tail_s": 0,
     "rendered_s": 12.866666666666667,
-    "written_s": 12.216291666666667,
-    "raw_peak_dbfs": -12.32
+    "written_s": 12.216375,
+    "raw_peak_dbfs": -11.35
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -9118,6 +9376,7 @@
     "written_s": 5.008958333333333,
     "raw_peak_dbfs": -43.85
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -9147,9 +9406,10 @@
     "reverb_s": 2.5,
     "delay_tail_s": 0,
     "rendered_s": 24.415458333333333,
-    "written_s": 19.863645833333333,
-    "raw_peak_dbfs": -15.91
+    "written_s": 19.809041666666666,
+    "raw_peak_dbfs": -16.15
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -9184,6 +9444,7 @@
     "written_s": 2.2731666666666666,
     "raw_peak_dbfs": -5.13
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -9215,6 +9476,7 @@
     "written_s": 13.365291666666666,
     "raw_peak_dbfs": -6.22
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -9247,6 +9509,7 @@
     "written_s": 11.538916666666667,
     "raw_peak_dbfs": 4.08
    },
+   "normalised_db": -5.08,
    "warnings": []
   },
   {
@@ -9282,6 +9545,7 @@
     "written_s": 3.54625,
     "raw_peak_dbfs": -9.12
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -9318,6 +9582,7 @@
     "written_s": 1.0825833333333332,
     "raw_peak_dbfs": -8.74
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -9345,6 +9610,7 @@
     "written_s": 8.478708333333334,
     "raw_peak_dbfs": -9.5
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -9377,6 +9643,7 @@
     "written_s": 4.307,
     "raw_peak_dbfs": -6.02
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -9410,6 +9677,7 @@
     "written_s": 5.474625,
     "raw_peak_dbfs": -10.97
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -9435,8 +9703,9 @@
     "delay_tail_s": 0,
     "rendered_s": 3,
     "written_s": 1,
-    "raw_peak_dbfs": -11.62
+    "raw_peak_dbfs": -11.58
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -9461,9 +9730,10 @@
     "reverb_s": 0,
     "delay_tail_s": 0,
     "rendered_s": 21.77,
-    "written_s": 21.116979166666667,
-    "raw_peak_dbfs": -22.94
+    "written_s": 21.120520833333334,
+    "raw_peak_dbfs": -24.06
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -9494,6 +9764,7 @@
     "written_s": 1.0191458333333334,
     "raw_peak_dbfs": -9.12
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -9526,9 +9797,10 @@
     "reverb_s": 0,
     "delay_tail_s": 0,
     "rendered_s": 3,
-    "written_s": 1.8348541666666667,
-    "raw_peak_dbfs": -7.65
+    "written_s": 1.8354166666666667,
+    "raw_peak_dbfs": -7.18
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -9570,6 +9842,7 @@
     "written_s": 4.661520833333333,
     "raw_peak_dbfs": -9.07
    },
+   "normalised_db": 0,
    "warnings": []
   },
   {
@@ -9605,6 +9878,7 @@
     "written_s": 2.3648333333333333,
     "raw_peak_dbfs": -8.92
    },
+   "normalised_db": 0,
    "warnings": []
   }
  ]

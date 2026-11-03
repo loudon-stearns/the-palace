@@ -42,8 +42,8 @@ essentials:
   - {block: filter1, param: type,      value: lowpass 24 dB, why: "four poles"}
   - {block: filter2, param: type,      value: lowpass 24 dB, why: "four more; in series the slopes add and the cut is 48 dB an octave"}
   - {block: filter1, param: cutoff,    value: mid}
-  - {block: filter2, param: cutoff,    value: same as filter1, why: "identical settings, or the two slopes do not stack at the same place"}
-  - {block: filter2, param: resonance, value: same as filter1}
+  - {block: filter2, param: cutoff,    value: mid,            why: "identical to filter 1 and slaved to it, or the two slopes do not stack at the same place"}
+  - {block: filter2, param: resonance, value: little,         why: "identical to filter 1, like the cutoff"}
   - {block: fenv,    param: target,    value: both filters,  why: "one envelope moves both, so the wall moves as one wall"}
   - {block: mode,    param: voices,    value: mono}
 

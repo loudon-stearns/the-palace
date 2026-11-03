@@ -12,7 +12,8 @@
   "lr_corr": "L/R correlation",
   "duration_s": "sounding length, first to last above -60 dBFS",
   "length_s_card": "the card's render.length_s",
-  "raw_peak_dbfs": "float peak before the 16-bit clamp, from the manifest"
+  "raw_peak_dbfs": "float peak before the write, from the manifest",
+  "normalised_db": "gain applied on write to bring a float peak past -1 dBFS down to -1 dBFS (0 = written as is)"
  },
  "cards": {
   "808-bass": {
@@ -27,7 +28,8 @@
    "duration_s": 8.655,
    "onset_s": 0.05,
    "length_s_card": 3.5,
-   "raw_peak_dbfs": -9.12
+   "raw_peak_dbfs": -9.12,
+   "normalised_db": 0
   },
   "808-kick": {
    "peak_dbfs": -9.12,
@@ -41,21 +43,23 @@
    "duration_s": 8.81,
    "onset_s": 0.05,
    "length_s_card": 3,
-   "raw_peak_dbfs": -9.12
+   "raw_peak_dbfs": -9.12,
+   "normalised_db": 0
   },
   "909-kick": {
-   "peak_dbfs": -7.5,
-   "rms_dbfs": -11.43,
-   "crest_db": 3.92,
-   "centroid_hz": 86.2,
+   "peak_dbfs": -7.79,
+   "rms_dbfs": -11.41,
+   "crest_db": 3.63,
+   "centroid_hz": 85.2,
    "rise_s": 0.005,
    "tail_s": 0.025,
    "width": 0.0,
    "lr_corr": 1.0,
-   "duration_s": 3.165,
+   "duration_s": 3.155,
    "onset_s": 0.05,
    "length_s_card": 2.5,
-   "raw_peak_dbfs": -7.5
+   "raw_peak_dbfs": -7.79,
+   "normalised_db": 0
   },
   "acid-bass": {
    "peak_dbfs": -3.21,
@@ -69,7 +73,8 @@
    "duration_s": 1.08,
    "onset_s": 0.05,
    "length_s_card": 2,
-   "raw_peak_dbfs": -3.21
+   "raw_peak_dbfs": -3.21,
+   "normalised_db": 0
   },
   "acid-lead": {
    "peak_dbfs": -3.47,
@@ -83,7 +88,8 @@
    "duration_s": 1.09,
    "onset_s": 0.05,
    "length_s_card": 2,
-   "raw_peak_dbfs": -3.47
+   "raw_peak_dbfs": -3.47,
+   "normalised_db": 0
   },
   "acid-sequence": {
    "peak_dbfs": -5.66,
@@ -97,7 +103,8 @@
    "duration_s": 3.545,
    "onset_s": 0.05,
    "length_s_card": 4,
-   "raw_peak_dbfs": -5.66
+   "raw_peak_dbfs": -5.66,
+   "normalised_db": 0
   },
   "additive-drawbars": {
    "peak_dbfs": -2.98,
@@ -111,7 +118,8 @@
    "duration_s": 6.035,
    "onset_s": 0.05,
    "length_s_card": 7,
-   "raw_peak_dbfs": -2.98
+   "raw_peak_dbfs": -2.98,
+   "normalised_db": 0
   },
   "additive-organ-drawbars": {
    "peak_dbfs": -5.16,
@@ -125,7 +133,8 @@
    "duration_s": 4.13,
    "onset_s": 0.05,
    "length_s_card": 5,
-   "raw_peak_dbfs": -5.16
+   "raw_peak_dbfs": -5.16,
+   "normalised_db": 0
   },
   "adsr-walkthrough": {
    "peak_dbfs": -9.21,
@@ -139,7 +148,8 @@
    "duration_s": 2.865,
    "onset_s": 0.05,
    "length_s_card": 4,
-   "raw_peak_dbfs": -9.21
+   "raw_peak_dbfs": -9.21,
+   "normalised_db": 0
   },
   "aftertouch-filter": {
    "peak_dbfs": -9.21,
@@ -153,7 +163,8 @@
    "duration_s": 5.5,
    "onset_s": 0.05,
    "length_s_card": 6,
-   "raw_peak_dbfs": -9.21
+   "raw_peak_dbfs": -9.21,
+   "normalised_db": 0
   },
   "alarm": {
    "peak_dbfs": -7.59,
@@ -167,7 +178,8 @@
    "duration_s": 4.04,
    "onset_s": 0.05,
    "length_s_card": 4,
-   "raw_peak_dbfs": -7.59
+   "raw_peak_dbfs": -7.59,
+   "normalised_db": 0
   },
   "amplitude-modulation": {
    "peak_dbfs": -12.0,
@@ -181,7 +193,8 @@
    "duration_s": 6.86,
    "onset_s": 0.05,
    "length_s_card": 7,
-   "raw_peak_dbfs": -12
+   "raw_peak_dbfs": -12,
+   "normalised_db": 0
   },
   "arpeggiated-chord": {
    "peak_dbfs": -8.73,
@@ -195,7 +208,8 @@
    "duration_s": 0.83,
    "onset_s": 0.05,
    "length_s_card": 2,
-   "raw_peak_dbfs": -8.73
+   "raw_peak_dbfs": -8.73,
+   "normalised_db": 0
   },
   "arpeggio": {
    "peak_dbfs": -2.97,
@@ -209,21 +223,23 @@
    "duration_s": 5.585,
    "onset_s": 0.05,
    "length_s_card": 4.5,
-   "raw_peak_dbfs": -2.97
+   "raw_peak_dbfs": -2.97,
+   "normalised_db": 0
   },
   "auto-pan-pad": {
-   "peak_dbfs": -3.71,
-   "rms_dbfs": -22.14,
-   "crest_db": 18.44,
-   "centroid_hz": 392.8,
+   "peak_dbfs": -4.05,
+   "rms_dbfs": -22.32,
+   "crest_db": 18.27,
+   "centroid_hz": 397.3,
    "rise_s": 1.155,
-   "tail_s": 4.03,
-   "width": 0.76,
-   "lr_corr": 0.569,
-   "duration_s": 7.345,
+   "tail_s": 4.085,
+   "width": 0.755,
+   "lr_corr": 0.565,
+   "duration_s": 7.285,
    "onset_s": 0.05,
    "length_s_card": 7,
-   "raw_peak_dbfs": -3.71
+   "raw_peak_dbfs": -4.05,
+   "normalised_db": 0
   },
   "auto-wah-lfo-filter": {
    "peak_dbfs": -9.73,
@@ -237,7 +253,8 @@
    "duration_s": 4.165,
    "onset_s": 0.05,
    "length_s_card": 5,
-   "raw_peak_dbfs": -9.73
+   "raw_peak_dbfs": -9.73,
+   "normalised_db": 0
   },
   "bagpipe": {
    "peak_dbfs": -6.02,
@@ -251,35 +268,38 @@
    "duration_s": 4.825,
    "onset_s": 0.05,
    "length_s_card": 6,
-   "raw_peak_dbfs": -6.02
+   "raw_peak_dbfs": -6.02,
+   "normalised_db": 0
   },
   "banjo": {
-   "peak_dbfs": -0.0,
-   "rms_dbfs": -13.55,
-   "crest_db": 13.55,
-   "centroid_hz": 968.2,
+   "peak_dbfs": -1.0,
+   "rms_dbfs": -16.02,
+   "crest_db": 15.02,
+   "centroid_hz": 968.5,
    "rise_s": 1.505,
-   "tail_s": 0.835,
+   "tail_s": 0.825,
    "width": 0.0,
    "lr_corr": 1.0,
-   "duration_s": 2.725,
+   "duration_s": 2.685,
    "onset_s": 0.05,
    "length_s_card": 2.5,
-   "raw_peak_dbfs": 1.35
+   "raw_peak_dbfs": 1.54,
+   "normalised_db": -2.54
   },
   "bell": {
-   "peak_dbfs": -7.77,
-   "rms_dbfs": -25.48,
-   "crest_db": 17.71,
-   "centroid_hz": 3579.4,
+   "peak_dbfs": -7.75,
+   "rms_dbfs": -25.54,
+   "crest_db": 17.79,
+   "centroid_hz": 3553.1,
    "rise_s": 0.01,
-   "tail_s": 6.81,
-   "width": 0.124,
-   "lr_corr": 0.971,
-   "duration_s": 8.7,
+   "tail_s": 7.055,
+   "width": 0.113,
+   "lr_corr": 0.975,
+   "duration_s": 8.825,
    "onset_s": 0.05,
    "length_s_card": 8,
-   "raw_peak_dbfs": -7.77
+   "raw_peak_dbfs": -7.75,
+   "normalised_db": 0
   },
   "brass-lead": {
    "peak_dbfs": -4.6,
@@ -293,21 +313,23 @@
    "duration_s": 2.25,
    "onset_s": 0.05,
    "length_s_card": 3,
-   "raw_peak_dbfs": -4.6
+   "raw_peak_dbfs": -4.6,
+   "normalised_db": 0
   },
   "brass-pad": {
-   "peak_dbfs": -0.0,
-   "rms_dbfs": -10.54,
-   "crest_db": 10.54,
-   "centroid_hz": 558.0,
-   "rise_s": 0.595,
+   "peak_dbfs": -1.0,
+   "rms_dbfs": -16.59,
+   "crest_db": 15.59,
+   "centroid_hz": 562.4,
+   "rise_s": 2.81,
    "tail_s": 0.94,
-   "width": 0.402,
+   "width": 0.401,
    "lr_corr": 0.723,
-   "duration_s": 5.39,
+   "duration_s": 5.295,
    "onset_s": 0.05,
    "length_s_card": 6,
-   "raw_peak_dbfs": 5.17
+   "raw_peak_dbfs": 5.17,
+   "normalised_db": -6.17
   },
   "cc-decay-on-percussive": {
    "peak_dbfs": -1.37,
@@ -321,7 +343,8 @@
    "duration_s": 2.04,
    "onset_s": 0.05,
    "length_s_card": 4,
-   "raw_peak_dbfs": -1.37
+   "raw_peak_dbfs": -1.37,
+   "normalised_db": 0
   },
   "cc73-cc72-attack-and-release": {
    "peak_dbfs": -4.54,
@@ -335,7 +358,8 @@
    "duration_s": 4.93,
    "onset_s": 0.05,
    "length_s_card": 7,
-   "raw_peak_dbfs": -4.54
+   "raw_peak_dbfs": -4.54,
+   "normalised_db": 0
   },
   "cc74-brightness": {
    "peak_dbfs": -6.89,
@@ -349,7 +373,8 @@
    "duration_s": 9.76,
    "onset_s": 0.05,
    "length_s_card": 8,
-   "raw_peak_dbfs": -6.89
+   "raw_peak_dbfs": -6.89,
+   "normalised_db": 0
   },
   "celesta": {
    "peak_dbfs": -8.78,
@@ -363,7 +388,8 @@
    "duration_s": 3.125,
    "onset_s": 0.05,
    "length_s_card": 3.5,
-   "raw_peak_dbfs": -8.78
+   "raw_peak_dbfs": -8.78,
+   "normalised_db": 0
   },
   "chip-arp-lead": {
    "peak_dbfs": -10.82,
@@ -377,21 +403,23 @@
    "duration_s": 0.195,
    "onset_s": 0.05,
    "length_s_card": 3.5,
-   "raw_peak_dbfs": -10.82
+   "raw_peak_dbfs": -10.82,
+   "normalised_db": 0
   },
   "choir-pad": {
-   "peak_dbfs": -12.71,
-   "rms_dbfs": -30.0,
-   "crest_db": 17.29,
-   "centroid_hz": 1062.3,
+   "peak_dbfs": -12.6,
+   "rms_dbfs": -29.73,
+   "crest_db": 17.13,
+   "centroid_hz": 1057.1,
    "rise_s": 7.525,
-   "tail_s": 3.995,
-   "width": 0.572,
-   "lr_corr": 0.507,
-   "duration_s": 15.17,
+   "tail_s": 3.845,
+   "width": 0.58,
+   "lr_corr": 0.497,
+   "duration_s": 14.675,
    "onset_s": 0.06,
    "length_s_card": 12,
-   "raw_peak_dbfs": -12.71
+   "raw_peak_dbfs": -12.6,
+   "normalised_db": 0
   },
   "chord-stab": {
    "peak_dbfs": -3.59,
@@ -405,7 +433,8 @@
    "duration_s": 1.99,
    "onset_s": 0.05,
    "length_s_card": 2.5,
-   "raw_peak_dbfs": -3.59
+   "raw_peak_dbfs": -3.59,
+   "normalised_db": 0
   },
   "chorus": {
    "peak_dbfs": -4.72,
@@ -419,21 +448,23 @@
    "duration_s": 5.805,
    "onset_s": 0.05,
    "length_s_card": 6,
-   "raw_peak_dbfs": -4.72
+   "raw_peak_dbfs": -4.72,
+   "normalised_db": 0
   },
   "clap": {
-   "peak_dbfs": -15.98,
-   "rms_dbfs": -35.36,
-   "crest_db": 19.38,
-   "centroid_hz": 2696.1,
-   "rise_s": 0.505,
-   "tail_s": -1.545,
+   "peak_dbfs": -15.19,
+   "rms_dbfs": -35.25,
+   "crest_db": 20.06,
+   "centroid_hz": 2685.6,
+   "rise_s": 0.005,
+   "tail_s": -1.54,
    "width": 0.061,
    "lr_corr": 0.993,
-   "duration_s": 1.955,
+   "duration_s": 1.96,
    "onset_s": 0.05,
    "length_s_card": 2.5,
-   "raw_peak_dbfs": -15.98
+   "raw_peak_dbfs": -15.19,
+   "normalised_db": 0
   },
   "clarinet": {
    "peak_dbfs": -7.55,
@@ -447,7 +478,8 @@
    "duration_s": 3.84,
    "onset_s": 0.05,
    "length_s_card": 5,
-   "raw_peak_dbfs": -7.55
+   "raw_peak_dbfs": -7.55,
+   "normalised_db": 0
   },
   "clave": {
    "peak_dbfs": -9.56,
@@ -461,7 +493,8 @@
    "duration_s": 1.535,
    "onset_s": 0.05,
    "length_s_card": 2,
-   "raw_peak_dbfs": -9.56
+   "raw_peak_dbfs": -9.56,
+   "normalised_db": 0
   },
   "clavinet": {
    "peak_dbfs": -2.09,
@@ -475,21 +508,23 @@
    "duration_s": 2.185,
    "onset_s": 0.05,
    "length_s_card": 2.5,
-   "raw_peak_dbfs": -2.09
+   "raw_peak_dbfs": -2.09,
+   "normalised_db": 0
   },
   "closed-hi-hat": {
-   "peak_dbfs": -6.64,
-   "rms_dbfs": -26.09,
-   "crest_db": 19.45,
-   "centroid_hz": 12421.4,
-   "rise_s": 1.25,
-   "tail_s": 0.155,
-   "width": 0.241,
-   "lr_corr": 0.89,
+   "peak_dbfs": -6.55,
+   "rms_dbfs": -26.21,
+   "crest_db": 19.66,
+   "centroid_hz": 12537.1,
+   "rise_s": 0.005,
+   "tail_s": 0.16,
+   "width": 0.245,
+   "lr_corr": 0.887,
    "duration_s": 1.92,
    "onset_s": 0.05,
    "length_s_card": 2,
-   "raw_peak_dbfs": -6.64
+   "raw_peak_dbfs": -6.55,
+   "normalised_db": 0
   },
   "comb-filter-for-thinning": {
    "peak_dbfs": -5.0,
@@ -503,7 +538,8 @@
    "duration_s": 5.97,
    "onset_s": 0.05,
    "length_s_card": 8,
-   "raw_peak_dbfs": -5
+   "raw_peak_dbfs": -5,
+   "normalised_db": 0
   },
   "comb-filter": {
    "peak_dbfs": -7.08,
@@ -517,7 +553,8 @@
    "duration_s": 6.16,
    "onset_s": 0.05,
    "length_s_card": 7,
-   "raw_peak_dbfs": -7.08
+   "raw_peak_dbfs": -7.08,
+   "normalised_db": 0
   },
   "conga": {
    "peak_dbfs": -8.88,
@@ -531,7 +568,8 @@
    "duration_s": 1.98,
    "onset_s": 0.05,
    "length_s_card": 2.5,
-   "raw_peak_dbfs": -8.88
+   "raw_peak_dbfs": -8.88,
+   "normalised_db": 0
   },
   "cowbell": {
    "peak_dbfs": -5.81,
@@ -545,41 +583,44 @@
    "duration_s": 1.68,
    "onset_s": 0.05,
    "length_s_card": 2,
-   "raw_peak_dbfs": -5.81
+   "raw_peak_dbfs": -5.81,
+   "normalised_db": 0
   },
   "crash": {
-   "peak_dbfs": -0.0,
-   "rms_dbfs": -15.76,
-   "crest_db": 15.76,
-   "centroid_hz": 11490.0,
-   "rise_s": 0.505,
-   "tail_s": 4.71,
+   "peak_dbfs": -1.0,
+   "rms_dbfs": -19.03,
+   "crest_db": 18.03,
+   "centroid_hz": 11469.5,
+   "rise_s": 1.505,
+   "tail_s": 4.74,
    "width": 0.112,
    "lr_corr": 0.975,
-   "duration_s": 7.855,
+   "duration_s": 7.395,
    "onset_s": 0.05,
    "length_s_card": 5,
-   "raw_peak_dbfs": 2.65
+   "raw_peak_dbfs": 2.51,
+   "normalised_db": -3.51
   },
   "cs-80-brass": {
-   "peak_dbfs": -0.0,
-   "rms_dbfs": -14.4,
-   "crest_db": 14.4,
+   "peak_dbfs": -1.0,
+   "rms_dbfs": -15.54,
+   "crest_db": 14.54,
    "centroid_hz": 513.9,
    "rise_s": 0.65,
    "tail_s": 0.725,
    "width": 0.346,
    "lr_corr": 0.786,
-   "duration_s": 10.505,
+   "duration_s": 10.47,
    "onset_s": 0.05,
    "length_s_card": 10,
-   "raw_peak_dbfs": 0.16
+   "raw_peak_dbfs": 0.16,
+   "normalised_db": -1.16
   },
   "daft-punk-vocoder": {
-   "peak_dbfs": -4.6,
+   "peak_dbfs": -4.4,
    "rms_dbfs": -17.8,
-   "crest_db": 13.2,
-   "centroid_hz": 1408.6,
+   "crest_db": 13.4,
+   "centroid_hz": 1403.2,
    "rise_s": 0.575,
    "tail_s": 0.135,
    "width": 0.509,
@@ -587,21 +628,23 @@
    "duration_s": 4.06,
    "onset_s": 0.05,
    "length_s_card": 5,
-   "raw_peak_dbfs": -4.6
+   "raw_peak_dbfs": -4.4,
+   "normalised_db": 0
   },
   "dark-pad": {
-   "peak_dbfs": -3.62,
-   "rms_dbfs": -15.91,
-   "crest_db": 12.29,
-   "centroid_hz": 106.2,
+   "peak_dbfs": -3.56,
+   "rms_dbfs": -15.96,
+   "crest_db": 12.4,
+   "centroid_hz": 109.0,
    "rise_s": 0.675,
-   "tail_s": 2.895,
-   "width": 0.091,
-   "lr_corr": 0.985,
+   "tail_s": 3.22,
+   "width": 0.093,
+   "lr_corr": 0.984,
    "duration_s": 16.265,
    "onset_s": 0.05,
    "length_s_card": 10,
-   "raw_peak_dbfs": -3.62
+   "raw_peak_dbfs": -3.56,
+   "normalised_db": 0
   },
   "detuned-dubstep-growl": {
    "peak_dbfs": -7.91,
@@ -615,7 +658,8 @@
    "duration_s": 3.72,
    "onset_s": 0.05,
    "length_s_card": 4,
-   "raw_peak_dbfs": -7.91
+   "raw_peak_dbfs": -7.91,
+   "normalised_db": 0
   },
   "distorted-lead": {
    "peak_dbfs": -4.9,
@@ -629,7 +673,8 @@
    "duration_s": 5.95,
    "onset_s": 0.05,
    "length_s_card": 5,
-   "raw_peak_dbfs": -4.9
+   "raw_peak_dbfs": -4.9,
+   "normalised_db": 0
   },
   "donk": {
    "peak_dbfs": -9.1,
@@ -643,21 +688,23 @@
    "duration_s": 0.9,
    "onset_s": 0.05,
    "length_s_card": 2,
-   "raw_peak_dbfs": -9.1
+   "raw_peak_dbfs": -9.1,
+   "normalised_db": 0
   },
   "downlifter": {
-   "peak_dbfs": -3.54,
-   "rms_dbfs": -25.85,
-   "crest_db": 22.31,
-   "centroid_hz": 3252.4,
+   "peak_dbfs": -4.47,
+   "rms_dbfs": -25.5,
+   "crest_db": 21.03,
+   "centroid_hz": 3309.5,
    "rise_s": 0.005,
-   "tail_s": 5.87,
-   "width": 0.39,
-   "lr_corr": 0.736,
-   "duration_s": 9.295,
+   "tail_s": 6.285,
+   "width": 0.394,
+   "lr_corr": 0.731,
+   "duration_s": 8.485,
    "onset_s": 0.05,
    "length_s_card": 7,
-   "raw_peak_dbfs": -3.54
+   "raw_peak_dbfs": -4.47,
+   "normalised_db": 0
   },
   "drive-by-velocity": {
    "peak_dbfs": -3.6,
@@ -671,21 +718,23 @@
    "duration_s": 2.33,
    "onset_s": 0.05,
    "length_s_card": 3,
-   "raw_peak_dbfs": -3.6
+   "raw_peak_dbfs": -3.6,
+   "normalised_db": 0
   },
   "drone": {
-   "peak_dbfs": -1.53,
-   "rms_dbfs": -16.01,
-   "crest_db": 14.48,
-   "centroid_hz": 98.4,
+   "peak_dbfs": -2.11,
+   "rms_dbfs": -16.92,
+   "crest_db": 14.81,
+   "centroid_hz": 103.2,
    "rise_s": 0.57,
-   "tail_s": 3.36,
-   "width": 0.544,
-   "lr_corr": 0.545,
-   "duration_s": 10.51,
+   "tail_s": 1.425,
+   "width": 0.509,
+   "lr_corr": 0.589,
+   "duration_s": 10.245,
    "onset_s": 0.05,
    "length_s_card": 20,
-   "raw_peak_dbfs": -1.53
+   "raw_peak_dbfs": -2.11,
+   "normalised_db": 0
   },
   "drum-bass-sub": {
    "peak_dbfs": -9.12,
@@ -699,35 +748,38 @@
    "duration_s": 1.27,
    "onset_s": 0.05,
    "length_s_card": 3,
-   "raw_peak_dbfs": -9.12
+   "raw_peak_dbfs": -9.12,
+   "normalised_db": 0
   },
   "dub-siren": {
-   "peak_dbfs": -7.93,
-   "rms_dbfs": -17.72,
-   "crest_db": 9.79,
-   "centroid_hz": 562.0,
+   "peak_dbfs": -7.76,
+   "rms_dbfs": -17.54,
+   "crest_db": 9.78,
+   "centroid_hz": 546.7,
    "rise_s": 0.005,
    "tail_s": 1.75,
    "width": 0.048,
-   "lr_corr": 0.996,
-   "duration_s": 3.575,
+   "lr_corr": 0.995,
+   "duration_s": 3.58,
    "onset_s": 0.05,
    "length_s_card": 5,
-   "raw_peak_dbfs": -7.93
+   "raw_peak_dbfs": -7.76,
+   "normalised_db": 0
   },
   "dx7-e-piano": {
-   "peak_dbfs": -0.16,
-   "rms_dbfs": -18.98,
+   "peak_dbfs": -1.0,
+   "rms_dbfs": -19.81,
    "crest_db": 18.81,
    "centroid_hz": 283.6,
    "rise_s": 3.075,
    "tail_s": 0.14,
    "width": 0.331,
    "lr_corr": 0.805,
-   "duration_s": 6.01,
+   "duration_s": 6.005,
    "onset_s": 0.05,
    "length_s_card": 6,
-   "raw_peak_dbfs": -0.16
+   "raw_peak_dbfs": -0.16,
+   "normalised_db": -0.84
   },
   "envelope-curves": {
    "peak_dbfs": -9.92,
@@ -741,21 +793,23 @@
    "duration_s": 6.985,
    "onset_s": 0.05,
    "length_s_card": 10,
-   "raw_peak_dbfs": -9.92
+   "raw_peak_dbfs": -9.92,
+   "normalised_db": 0
   },
   "envelope-follower-delay": {
-   "peak_dbfs": -3.46,
-   "rms_dbfs": -20.1,
-   "crest_db": 16.65,
-   "centroid_hz": 7699.1,
-   "rise_s": 0.505,
+   "peak_dbfs": -3.06,
+   "rms_dbfs": -20.01,
+   "crest_db": 16.96,
+   "centroid_hz": 7734.6,
+   "rise_s": 0.515,
    "tail_s": 0.155,
    "width": 0.0,
    "lr_corr": 1.0,
-   "duration_s": 1.09,
+   "duration_s": 1.085,
    "onset_s": 0.05,
    "length_s_card": 3,
-   "raw_peak_dbfs": -3.46
+   "raw_peak_dbfs": -3.06,
+   "normalised_db": 0
   },
   "envelope-pitch-attack-blip": {
    "peak_dbfs": -7.76,
@@ -769,21 +823,23 @@
    "duration_s": 2.31,
    "onset_s": 0.05,
    "length_s_card": 3,
-   "raw_peak_dbfs": -7.76
+   "raw_peak_dbfs": -7.76,
+   "normalised_db": 0
   },
   "euclidean-pluck": {
-   "peak_dbfs": -3.3,
-   "rms_dbfs": -15.02,
-   "crest_db": 11.72,
-   "centroid_hz": 197.0,
-   "rise_s": 0.83,
-   "tail_s": 1.55,
-   "width": 0.079,
-   "lr_corr": 0.988,
-   "duration_s": 6.63,
+   "peak_dbfs": -4.04,
+   "rms_dbfs": -15.47,
+   "crest_db": 11.44,
+   "centroid_hz": 203.2,
+   "rise_s": 0.42,
+   "tail_s": 1.28,
+   "width": 0.093,
+   "lr_corr": 0.983,
+   "duration_s": 6.395,
    "onset_s": 0.05,
    "length_s_card": 4.5,
-   "raw_peak_dbfs": -3.3
+   "raw_peak_dbfs": -4.03,
+   "normalised_db": 0
   },
   "eurorack-west-coast-bongo": {
    "peak_dbfs": -8.55,
@@ -797,35 +853,38 @@
    "duration_s": 2.095,
    "onset_s": 0.05,
    "length_s_card": 3,
-   "raw_peak_dbfs": -8.55
+   "raw_peak_dbfs": -8.55,
+   "normalised_db": 0
   },
   "evolving-pad": {
-   "peak_dbfs": -2.57,
-   "rms_dbfs": -19.92,
-   "crest_db": 17.35,
-   "centroid_hz": 463.5,
+   "peak_dbfs": -2.54,
+   "rms_dbfs": -19.97,
+   "crest_db": 17.43,
+   "centroid_hz": 462.0,
    "rise_s": 4.05,
-   "tail_s": 6.48,
-   "width": 0.581,
-   "lr_corr": 0.496,
-   "duration_s": 22.13,
+   "tail_s": 6.335,
+   "width": 0.584,
+   "lr_corr": 0.492,
+   "duration_s": 22.085,
    "onset_s": 0.06,
    "length_s_card": 18,
-   "raw_peak_dbfs": -2.57
+   "raw_peak_dbfs": -2.54,
+   "normalised_db": 0
   },
   "explosion": {
-   "peak_dbfs": -6.45,
-   "rms_dbfs": -14.44,
-   "crest_db": 7.99,
-   "centroid_hz": 182.9,
+   "peak_dbfs": -6.76,
+   "rms_dbfs": -15.78,
+   "crest_db": 9.02,
+   "centroid_hz": 232.6,
    "rise_s": 0.005,
-   "tail_s": 4.65,
-   "width": 0.185,
-   "lr_corr": 0.936,
-   "duration_s": 8.455,
+   "tail_s": 4.85,
+   "width": 0.154,
+   "lr_corr": 0.955,
+   "duration_s": 8.81,
    "onset_s": 0.05,
    "length_s_card": 6,
-   "raw_peak_dbfs": -6.45
+   "raw_peak_dbfs": -6.76,
+   "normalised_db": 0
   },
   "fast-lfo-into-audio-range": {
    "peak_dbfs": -11.43,
@@ -839,7 +898,8 @@
    "duration_s": 9.76,
    "onset_s": 0.05,
    "length_s_card": 10,
-   "raw_peak_dbfs": -11.43
+   "raw_peak_dbfs": -11.43,
+   "normalised_db": 0
   },
   "feedback-delay-texture": {
    "peak_dbfs": -11.41,
@@ -853,7 +913,8 @@
    "duration_s": 2.675,
    "onset_s": 0.05,
    "length_s_card": 12,
-   "raw_peak_dbfs": -11.41
+   "raw_peak_dbfs": -11.41,
+   "normalised_db": 0
   },
   "feedback-fm": {
    "peak_dbfs": -180.0,
@@ -867,7 +928,8 @@
    "duration_s": 0.0,
    "onset_s": null,
    "length_s_card": 7,
-   "raw_peak_dbfs": -180
+   "raw_peak_dbfs": -180,
+   "normalised_db": 0
   },
   "feedback-to-the-edge": {
    "peak_dbfs": -5.75,
@@ -881,7 +943,8 @@
    "duration_s": 7.285,
    "onset_s": 0.175,
    "length_s_card": 6,
-   "raw_peak_dbfs": -5.74
+   "raw_peak_dbfs": -5.74,
+   "normalised_db": 0
   },
   "filter-model-test": {
    "peak_dbfs": -11.12,
@@ -895,7 +958,8 @@
    "duration_s": 4.165,
    "onset_s": 0.05,
    "length_s_card": 5,
-   "raw_peak_dbfs": -11.12
+   "raw_peak_dbfs": -11.12,
+   "normalised_db": 0
   },
   "filter-slope": {
    "peak_dbfs": -8.6,
@@ -909,7 +973,8 @@
    "duration_s": 3.86,
    "onset_s": 0.05,
    "length_s_card": 4,
-   "raw_peak_dbfs": -8.6
+   "raw_peak_dbfs": -8.6,
+   "normalised_db": 0
   },
   "filter-thunk": {
    "peak_dbfs": -2.82,
@@ -923,7 +988,8 @@
    "duration_s": 6.33,
    "onset_s": 0.05,
    "length_s_card": 5,
-   "raw_peak_dbfs": -2.82
+   "raw_peak_dbfs": -2.82,
+   "normalised_db": 0
   },
   "filter-types": {
    "peak_dbfs": -9.7,
@@ -937,49 +1003,53 @@
    "duration_s": 7.85,
    "onset_s": 0.05,
    "length_s_card": 8,
-   "raw_peak_dbfs": -9.7
+   "raw_peak_dbfs": -9.7,
+   "normalised_db": 0
   },
   "flanger": {
-   "peak_dbfs": -6.67,
+   "peak_dbfs": -6.04,
    "rms_dbfs": -18.11,
-   "crest_db": 11.45,
-   "centroid_hz": 1525.2,
-   "rise_s": 0.07,
+   "crest_db": 12.08,
+   "centroid_hz": 1526.0,
+   "rise_s": 0.04,
    "tail_s": 0.825,
    "width": 0.0,
    "lr_corr": 1.0,
    "duration_s": 10.555,
    "onset_s": 0.05,
    "length_s_card": 9,
-   "raw_peak_dbfs": -6.67
+   "raw_peak_dbfs": -6.04,
+   "normalised_db": 0
   },
   "flute-lead": {
-   "peak_dbfs": -9.91,
-   "rms_dbfs": -19.15,
-   "crest_db": 9.24,
-   "centroid_hz": 648.0,
-   "rise_s": 0.76,
+   "peak_dbfs": -9.86,
+   "rms_dbfs": -19.16,
+   "crest_db": 9.3,
+   "centroid_hz": 649.4,
+   "rise_s": 1.425,
    "tail_s": 0.155,
    "width": 0.0,
    "lr_corr": 1.0,
    "duration_s": 5.49,
    "onset_s": 0.05,
    "length_s_card": 4,
-   "raw_peak_dbfs": -9.91
+   "raw_peak_dbfs": -9.86,
+   "normalised_db": 0
   },
   "flute": {
-   "peak_dbfs": -9.79,
-   "rms_dbfs": -18.76,
-   "crest_db": 8.97,
-   "centroid_hz": 717.0,
-   "rise_s": 0.4,
+   "peak_dbfs": -9.77,
+   "rms_dbfs": -18.74,
+   "crest_db": 8.96,
+   "centroid_hz": 717.1,
+   "rise_s": 0.425,
    "tail_s": 0.155,
    "width": 0.0,
    "lr_corr": 1.0,
    "duration_s": 3.59,
    "onset_s": 0.05,
    "length_s_card": 5,
-   "raw_peak_dbfs": -9.79
+   "raw_peak_dbfs": -9.77,
+   "normalised_db": 0
   },
   "fm-bass": {
    "peak_dbfs": -8.35,
@@ -993,7 +1063,8 @@
    "duration_s": 2.545,
    "onset_s": 0.05,
    "length_s_card": 2.5,
-   "raw_peak_dbfs": -8.35
+   "raw_peak_dbfs": -8.35,
+   "normalised_db": 0
   },
   "fm-bright-lead": {
    "peak_dbfs": -8.4,
@@ -1007,21 +1078,23 @@
    "duration_s": 3.665,
    "onset_s": 0.05,
    "length_s_card": 6,
-   "raw_peak_dbfs": -8.4
+   "raw_peak_dbfs": -8.4,
+   "normalised_db": 0
   },
   "fm-electric-piano": {
-   "peak_dbfs": -0.0,
-   "rms_dbfs": -17.62,
-   "crest_db": 17.61,
+   "peak_dbfs": -1.0,
+   "rms_dbfs": -18.98,
+   "crest_db": 17.98,
    "centroid_hz": 217.0,
    "rise_s": 2.88,
    "tail_s": 0.77,
    "width": 0.261,
    "lr_corr": 0.854,
-   "duration_s": 6.19,
+   "duration_s": 6.145,
    "onset_s": 0.05,
    "length_s_card": 6,
-   "raw_peak_dbfs": 0.4
+   "raw_peak_dbfs": 0.4,
+   "normalised_db": -1.4
   },
   "fm-percussion": {
    "peak_dbfs": -8.54,
@@ -1035,7 +1108,8 @@
    "duration_s": 1.675,
    "onset_s": 0.05,
    "length_s_card": 2,
-   "raw_peak_dbfs": -8.54
+   "raw_peak_dbfs": -8.54,
+   "normalised_db": 0
   },
   "fm-two-operator": {
    "peak_dbfs": -12.01,
@@ -1049,7 +1123,8 @@
    "duration_s": 6.855,
    "onset_s": 0.05,
    "length_s_card": 7,
-   "raw_peak_dbfs": -12.01
+   "raw_peak_dbfs": -12.01,
+   "normalised_db": 0
   },
   "fm-vs-additive-two-sines": {
    "peak_dbfs": -11.43,
@@ -1063,7 +1138,8 @@
    "duration_s": 8.155,
    "onset_s": 0.05,
    "length_s_card": 7,
-   "raw_peak_dbfs": -11.43
+   "raw_peak_dbfs": -11.43,
+   "normalised_db": 0
   },
   "formant-vowels": {
    "peak_dbfs": -67.39,
@@ -1077,7 +1153,8 @@
    "duration_s": 0.0,
    "onset_s": null,
    "length_s_card": 9,
-   "raw_peak_dbfs": -67.24
+   "raw_peak_dbfs": -67.24,
+   "normalised_db": 0
   },
   "free-running-vs-retriggered-oscillator": {
    "peak_dbfs": -9.96,
@@ -1091,35 +1168,38 @@
    "duration_s": 3.91,
    "onset_s": 0.05,
    "length_s_card": 4,
-   "raw_peak_dbfs": -9.96
+   "raw_peak_dbfs": -9.96,
+   "normalised_db": 0
   },
   "gated-pad": {
-   "peak_dbfs": -0.0,
-   "rms_dbfs": -14.96,
-   "crest_db": 14.96,
-   "centroid_hz": 526.9,
+   "peak_dbfs": -1.0,
+   "rms_dbfs": -16.08,
+   "crest_db": 15.08,
+   "centroid_hz": 528.2,
    "rise_s": 1.315,
-   "tail_s": 1.94,
-   "width": 0.499,
-   "lr_corr": 0.602,
-   "duration_s": 6.33,
+   "tail_s": 1.805,
+   "width": 0.498,
+   "lr_corr": 0.606,
+   "duration_s": 6.23,
    "onset_s": 0.05,
    "length_s_card": 5,
-   "raw_peak_dbfs": 0.67
+   "raw_peak_dbfs": 0.18,
+   "normalised_db": -1.18
   },
   "glass-bell-pad": {
-   "peak_dbfs": -2.07,
-   "rms_dbfs": -18.18,
-   "crest_db": 16.11,
-   "centroid_hz": 792.9,
-   "rise_s": 3.62,
-   "tail_s": 5.865,
-   "width": 0.395,
-   "lr_corr": 0.734,
-   "duration_s": 18.675,
+   "peak_dbfs": -2.61,
+   "rms_dbfs": -18.15,
+   "crest_db": 15.54,
+   "centroid_hz": 760.2,
+   "rise_s": 3.635,
+   "tail_s": 5.88,
+   "width": 0.37,
+   "lr_corr": 0.759,
+   "duration_s": 19.275,
    "onset_s": 0.055,
    "length_s_card": 14,
-   "raw_peak_dbfs": -2.07
+   "raw_peak_dbfs": -2.61,
+   "normalised_db": 0
   },
   "glitch-stutter": {
    "peak_dbfs": -4.07,
@@ -1133,7 +1213,8 @@
    "duration_s": 4.205,
    "onset_s": 0.05,
    "length_s_card": 4,
-   "raw_peak_dbfs": -4.07
+   "raw_peak_dbfs": -4.07,
+   "normalised_db": 0
   },
   "gong-long-decay": {
    "peak_dbfs": -4.71,
@@ -1147,35 +1228,38 @@
    "duration_s": 17.055,
    "onset_s": 0.05,
    "length_s_card": 10,
-   "raw_peak_dbfs": -4.71
+   "raw_peak_dbfs": -4.71,
+   "normalised_db": 0
   },
   "granular-cloud": {
-   "peak_dbfs": -0.0,
-   "rms_dbfs": -16.38,
-   "crest_db": 16.38,
-   "centroid_hz": 244.6,
+   "peak_dbfs": -1.0,
+   "rms_dbfs": -17.99,
+   "crest_db": 16.99,
+   "centroid_hz": 241.6,
    "rise_s": 0.01,
-   "tail_s": 10.75,
-   "width": 0.395,
-   "lr_corr": 0.731,
-   "duration_s": 18.24,
+   "tail_s": 10.32,
+   "width": 0.411,
+   "lr_corr": 0.711,
+   "duration_s": 18.14,
    "onset_s": 0.05,
    "length_s_card": 12,
-   "raw_peak_dbfs": 0.49
+   "raw_peak_dbfs": 0.79,
+   "normalised_db": -1.79
   },
   "granular-pad": {
-   "peak_dbfs": -6.7,
-   "rms_dbfs": -22.07,
-   "crest_db": 15.37,
-   "centroid_hz": 729.4,
-   "rise_s": 4.92,
-   "tail_s": 6.875,
-   "width": 0.461,
-   "lr_corr": 0.649,
-   "duration_s": 23.665,
+   "peak_dbfs": -7.0,
+   "rms_dbfs": -22.2,
+   "crest_db": 15.2,
+   "centroid_hz": 737.3,
+   "rise_s": 14.77,
+   "tail_s": 7.29,
+   "width": 0.456,
+   "lr_corr": 0.656,
+   "duration_s": 23.65,
    "onset_s": 0.055,
    "length_s_card": 18,
-   "raw_peak_dbfs": -6.7
+   "raw_peak_dbfs": -7,
+   "normalised_db": 0
   },
   "growl-bass": {
    "peak_dbfs": -9.39,
@@ -1189,21 +1273,23 @@
    "duration_s": 3.545,
    "onset_s": 0.05,
    "length_s_card": 4,
-   "raw_peak_dbfs": -9.39
+   "raw_peak_dbfs": -9.39,
+   "normalised_db": 0
   },
   "guitar-pluck": {
-   "peak_dbfs": -0.0,
-   "rms_dbfs": -12.04,
-   "crest_db": 12.04,
-   "centroid_hz": 315.6,
-   "rise_s": 0.355,
-   "tail_s": 0.49,
+   "peak_dbfs": -1.0,
+   "rms_dbfs": -16.06,
+   "crest_db": 15.06,
+   "centroid_hz": 316.5,
+   "rise_s": 2.155,
+   "tail_s": 0.3,
    "width": 0.0,
    "lr_corr": 1.0,
-   "duration_s": 5.14,
+   "duration_s": 4.95,
    "onset_s": 0.05,
    "length_s_card": 5,
-   "raw_peak_dbfs": 3.2
+   "raw_peak_dbfs": 3.2,
+   "normalised_db": -4.2
   },
   "hammond-b3": {
    "peak_dbfs": -9.1,
@@ -1217,7 +1303,8 @@
    "duration_s": 4.705,
    "onset_s": 0.05,
    "length_s_card": 5,
-   "raw_peak_dbfs": -9.1
+   "raw_peak_dbfs": -9.1,
+   "normalised_db": 0
   },
   "hard-sync-sweep": {
    "peak_dbfs": -12.31,
@@ -1231,7 +1318,8 @@
    "duration_s": 4.15,
    "onset_s": 0.05,
    "length_s_card": 5,
-   "raw_peak_dbfs": -12.31
+   "raw_peak_dbfs": -12.31,
+   "normalised_db": 0
   },
   "harmonic-series-oscillator-stack": {
    "peak_dbfs": -8.74,
@@ -1245,7 +1333,8 @@
    "duration_s": 10.02,
    "onset_s": 0.05,
    "length_s_card": 8,
-   "raw_peak_dbfs": -8.74
+   "raw_peak_dbfs": -8.74,
+   "normalised_db": 0
   },
   "harmonica": {
    "peak_dbfs": -12.96,
@@ -1259,7 +1348,8 @@
    "duration_s": 4.05,
    "onset_s": 0.05,
    "length_s_card": 5,
-   "raw_peak_dbfs": -12.96
+   "raw_peak_dbfs": -12.96,
+   "normalised_db": 0
   },
   "harp": {
    "peak_dbfs": -3.13,
@@ -1273,7 +1363,8 @@
    "duration_s": 7.81,
    "onset_s": 0.05,
    "length_s_card": 5,
-   "raw_peak_dbfs": -3.13
+   "raw_peak_dbfs": -3.13,
+   "normalised_db": 0
   },
   "harpsichord": {
    "peak_dbfs": -10.45,
@@ -1287,25 +1378,27 @@
    "duration_s": 2.11,
    "onset_s": 0.05,
    "length_s_card": 3,
-   "raw_peak_dbfs": -10.45
+   "raw_peak_dbfs": -10.45,
+   "normalised_db": 0
   },
   "hoover-bass": {
-   "peak_dbfs": -0.0,
-   "rms_dbfs": -14.65,
-   "crest_db": 14.64,
-   "centroid_hz": 169.4,
-   "rise_s": 0.03,
+   "peak_dbfs": -1.0,
+   "rms_dbfs": -16.61,
+   "crest_db": 15.61,
+   "centroid_hz": 169.5,
+   "rise_s": 0.055,
    "tail_s": 0.67,
    "width": 0.477,
    "lr_corr": 0.63,
-   "duration_s": 4.585,
+   "duration_s": 4.55,
    "onset_s": 0.05,
    "length_s_card": 3,
-   "raw_peak_dbfs": 1
+   "raw_peak_dbfs": 1,
+   "normalised_db": -2
   },
   "hoover": {
-   "peak_dbfs": -0.11,
-   "rms_dbfs": -16.26,
+   "peak_dbfs": -1.0,
+   "rms_dbfs": -17.15,
    "crest_db": 16.15,
    "centroid_hz": 749.8,
    "rise_s": 0.44,
@@ -1315,11 +1408,12 @@
    "duration_s": 1.64,
    "onset_s": 0.05,
    "length_s_card": 4,
-   "raw_peak_dbfs": -0.11
+   "raw_peak_dbfs": -0.11,
+   "normalised_db": -0.89
   },
   "horn-section": {
-   "peak_dbfs": -0.53,
-   "rms_dbfs": -15.07,
+   "peak_dbfs": -1.0,
+   "rms_dbfs": -15.54,
    "crest_db": 14.54,
    "centroid_hz": 275.4,
    "rise_s": 2.69,
@@ -1329,7 +1423,8 @@
    "duration_s": 5.89,
    "onset_s": 0.05,
    "length_s_card": 6,
-   "raw_peak_dbfs": -0.53
+   "raw_peak_dbfs": -0.53,
+   "normalised_db": -0.47
   },
   "horns-low-sustain": {
    "peak_dbfs": -8.4,
@@ -1343,7 +1438,8 @@
    "duration_s": 4.885,
    "onset_s": 0.05,
    "length_s_card": 5,
-   "raw_peak_dbfs": -8.4
+   "raw_peak_dbfs": -8.4,
+   "normalised_db": 0
   },
   "house-bass": {
    "peak_dbfs": -3.65,
@@ -1357,35 +1453,38 @@
    "duration_s": 1.945,
    "onset_s": 0.17,
    "length_s_card": 2,
-   "raw_peak_dbfs": -3.65
+   "raw_peak_dbfs": -3.65,
+   "normalised_db": 0
   },
   "impact": {
-   "peak_dbfs": -8.18,
-   "rms_dbfs": -17.04,
-   "crest_db": 8.86,
-   "centroid_hz": 43.5,
+   "peak_dbfs": -7.68,
+   "rms_dbfs": -17.24,
+   "crest_db": 9.56,
+   "centroid_hz": 43.9,
    "rise_s": 0.005,
-   "tail_s": 8.17,
-   "width": 0.154,
-   "lr_corr": 0.987,
-   "duration_s": 12.95,
+   "tail_s": 7.91,
+   "width": 0.226,
+   "lr_corr": 0.924,
+   "duration_s": 12.81,
    "onset_s": 0.05,
    "length_s_card": 6,
-   "raw_peak_dbfs": -8.18
+   "raw_peak_dbfs": -7.68,
+   "normalised_db": 0
   },
   "infinite-shimmer": {
-   "peak_dbfs": -12.1,
-   "rms_dbfs": -27.78,
-   "crest_db": 15.68,
-   "centroid_hz": 204.5,
-   "rise_s": 1.285,
-   "tail_s": 2.925,
-   "width": 0.159,
-   "lr_corr": 0.953,
-   "duration_s": 8.165,
+   "peak_dbfs": -12.41,
+   "rms_dbfs": -27.85,
+   "crest_db": 15.44,
+   "centroid_hz": 205.1,
+   "rise_s": 0.78,
+   "tail_s": 3.0,
+   "width": 0.153,
+   "lr_corr": 0.956,
+   "duration_s": 8.45,
    "onset_s": 0.06,
    "length_s_card": 12,
-   "raw_peak_dbfs": -12.09
+   "raw_peak_dbfs": -12.41,
+   "normalised_db": 0
   },
   "interval-stack-fifth": {
    "peak_dbfs": -1.37,
@@ -1399,7 +1498,8 @@
    "duration_s": 6.88,
    "onset_s": 0.05,
    "length_s_card": 7,
-   "raw_peak_dbfs": -1.37
+   "raw_peak_dbfs": -1.37,
+   "normalised_db": 0
   },
   "inverted-filter-envelope": {
    "peak_dbfs": -7.88,
@@ -1413,35 +1513,38 @@
    "duration_s": 4.895,
    "onset_s": 0.05,
    "length_s_card": 5,
-   "raw_peak_dbfs": -7.88
+   "raw_peak_dbfs": -7.88,
+   "normalised_db": 0
   },
   "juno-pad": {
-   "peak_dbfs": -0.48,
-   "rms_dbfs": -16.68,
-   "crest_db": 16.19,
+   "peak_dbfs": -1.0,
+   "rms_dbfs": -17.17,
+   "crest_db": 16.17,
    "centroid_hz": 366.1,
    "rise_s": 1.245,
    "tail_s": 4.27,
    "width": 0.338,
    "lr_corr": 0.795,
-   "duration_s": 10.69,
+   "duration_s": 10.635,
    "onset_s": 0.055,
    "length_s_card": 7,
-   "raw_peak_dbfs": -0.48
+   "raw_peak_dbfs": -0.48,
+   "normalised_db": -0.52
   },
   "jupiter-brass": {
-   "peak_dbfs": -0.46,
-   "rms_dbfs": -15.02,
-   "crest_db": 14.56,
+   "peak_dbfs": -1.0,
+   "rms_dbfs": -15.55,
+   "crest_db": 14.55,
    "centroid_hz": 436.8,
    "rise_s": 0.01,
    "tail_s": 0.15,
    "width": 0.36,
    "lr_corr": 0.77,
-   "duration_s": 4.41,
+   "duration_s": 4.405,
    "onset_s": 0.05,
    "length_s_card": 5,
-   "raw_peak_dbfs": -0.46
+   "raw_peak_dbfs": -0.46,
+   "normalised_db": -0.54
   },
   "kalimba": {
    "peak_dbfs": -6.4,
@@ -1455,35 +1558,38 @@
    "duration_s": 3.355,
    "onset_s": 0.05,
    "length_s_card": 3,
-   "raw_peak_dbfs": -6.4
+   "raw_peak_dbfs": -6.4,
+   "normalised_db": 0
   },
   "karplus-strong-damping": {
-   "peak_dbfs": -1.12,
-   "rms_dbfs": -21.92,
-   "crest_db": 20.8,
-   "centroid_hz": 839.0,
-   "rise_s": 1.83,
-   "tail_s": 3.415,
+   "peak_dbfs": -3.11,
+   "rms_dbfs": -21.55,
+   "crest_db": 18.44,
+   "centroid_hz": 831.9,
+   "rise_s": 1.235,
+   "tail_s": 3.405,
    "width": 0.0,
    "lr_corr": 1.0,
-   "duration_s": 7.835,
+   "duration_s": 8.08,
    "onset_s": 0.05,
    "length_s_card": 8,
-   "raw_peak_dbfs": -1.12
+   "raw_peak_dbfs": -3.11,
+   "normalised_db": 0
   },
   "karplus-strong-string": {
-   "peak_dbfs": -6.4,
-   "rms_dbfs": -24.43,
-   "crest_db": 18.03,
-   "centroid_hz": 965.1,
-   "rise_s": 1.26,
-   "tail_s": 4.055,
+   "peak_dbfs": -4.93,
+   "rms_dbfs": -24.68,
+   "crest_db": 19.75,
+   "centroid_hz": 959.6,
+   "rise_s": 1.27,
+   "tail_s": 4.155,
    "width": 0.0,
    "lr_corr": 1.0,
-   "duration_s": 7.445,
+   "duration_s": 7.685,
    "onset_s": 0.05,
    "length_s_card": 5,
-   "raw_peak_dbfs": -6.4
+   "raw_peak_dbfs": -4.93,
+   "normalised_db": 0
   },
   "key-filter-cutoff-keytracking": {
    "peak_dbfs": -6.27,
@@ -1497,7 +1603,8 @@
    "duration_s": 4.5,
    "onset_s": 0.05,
    "length_s_card": 4,
-   "raw_peak_dbfs": -6.27
+   "raw_peak_dbfs": -6.27,
+   "normalised_db": 0
   },
   "key-pan": {
    "peak_dbfs": -7.59,
@@ -1511,11 +1618,12 @@
    "duration_s": 5.015,
    "onset_s": 0.05,
    "length_s_card": 4,
-   "raw_peak_dbfs": -7.59
+   "raw_peak_dbfs": -7.59,
+   "normalised_db": 0
   },
   "keytracked-decay": {
-   "peak_dbfs": -0.68,
-   "rms_dbfs": -15.88,
+   "peak_dbfs": -1.0,
+   "rms_dbfs": -16.21,
    "crest_db": 15.21,
    "centroid_hz": 680.4,
    "rise_s": 2.44,
@@ -1525,7 +1633,8 @@
    "duration_s": 8.835,
    "onset_s": 0.05,
    "length_s_card": 6,
-   "raw_peak_dbfs": -0.68
+   "raw_peak_dbfs": -0.68,
+   "normalised_db": -0.32
   },
   "keytracked-lfo-rate": {
    "peak_dbfs": -7.81,
@@ -1539,7 +1648,8 @@
    "duration_s": 6.91,
    "onset_s": 0.05,
    "length_s_card": 7,
-   "raw_peak_dbfs": -7.81
+   "raw_peak_dbfs": -7.81,
+   "normalised_db": 0
   },
   "keytracking": {
    "peak_dbfs": -8.18,
@@ -1553,21 +1663,23 @@
    "duration_s": 3.395,
    "onset_s": 0.05,
    "length_s_card": 7,
-   "raw_peak_dbfs": -8.18
+   "raw_peak_dbfs": -8.18,
+   "normalised_db": 0
   },
   "kick-layered-click-body-sub": {
-   "peak_dbfs": -9.04,
+   "peak_dbfs": -9.12,
    "rms_dbfs": -14.61,
-   "crest_db": 5.57,
-   "centroid_hz": 69.4,
+   "crest_db": 5.49,
+   "centroid_hz": 69.1,
    "rise_s": 0.005,
-   "tail_s": 4.0,
+   "tail_s": 4.005,
    "width": 0.0,
    "lr_corr": 1.0,
    "duration_s": 9.59,
    "onset_s": 0.05,
    "length_s_card": 3,
-   "raw_peak_dbfs": -9.04
+   "raw_peak_dbfs": -9.12,
+   "normalised_db": 0
   },
   "koto": {
    "peak_dbfs": -2.63,
@@ -1581,7 +1693,8 @@
    "duration_s": 3.625,
    "onset_s": 0.05,
    "length_s_card": 4,
-   "raw_peak_dbfs": -2.63
+   "raw_peak_dbfs": -2.63,
+   "normalised_db": 0
   },
   "lately-bass": {
    "peak_dbfs": -5.67,
@@ -1595,7 +1708,8 @@
    "duration_s": 2.39,
    "onset_s": 0.05,
    "length_s_card": 3,
-   "raw_peak_dbfs": -5.67
+   "raw_peak_dbfs": -5.67,
+   "normalised_db": 0
   },
   "layered-sub-tone": {
    "peak_dbfs": -11.88,
@@ -1609,7 +1723,8 @@
    "duration_s": 1.105,
    "onset_s": 0.05,
    "length_s_card": 2.5,
-   "raw_peak_dbfs": -11.88
+   "raw_peak_dbfs": -11.88,
+   "normalised_db": 0
   },
   "legato-glide-default": {
    "peak_dbfs": -6.52,
@@ -1623,7 +1738,8 @@
    "duration_s": 1.785,
    "onset_s": 0.05,
    "length_s_card": 4,
-   "raw_peak_dbfs": -6.52
+   "raw_peak_dbfs": -6.52,
+   "normalised_db": 0
   },
   "lfo-pan": {
    "peak_dbfs": -3.74,
@@ -1637,35 +1753,38 @@
    "duration_s": 16.035,
    "onset_s": 0.05,
    "length_s_card": 10,
-   "raw_peak_dbfs": -3.74
+   "raw_peak_dbfs": -3.74,
+   "normalised_db": 0
   },
   "lo-fi-hip-hop-keys": {
    "peak_dbfs": -1.17,
-   "rms_dbfs": -8.64,
-   "crest_db": 7.47,
-   "centroid_hz": 54.9,
+   "rms_dbfs": -8.65,
+   "crest_db": 7.48,
+   "centroid_hz": 55.0,
    "rise_s": 0.02,
    "tail_s": 0.63,
    "width": 0.19,
-   "lr_corr": 0.878,
+   "lr_corr": 0.877,
    "duration_s": 7.305,
    "onset_s": 0.05,
    "length_s_card": 7,
-   "raw_peak_dbfs": -1.17
+   "raw_peak_dbfs": -1.17,
+   "normalised_db": 0
   },
   "lo-fi-tape-pad": {
    "peak_dbfs": -1.17,
-   "rms_dbfs": -9.52,
+   "rms_dbfs": -9.51,
    "crest_db": 8.35,
-   "centroid_hz": 334.8,
-   "rise_s": 0.1,
+   "centroid_hz": 334.5,
+   "rise_s": 0.115,
    "tail_s": 5.13,
    "width": 0.343,
    "lr_corr": 0.789,
    "duration_s": 15.445,
    "onset_s": 0.05,
    "length_s_card": 10,
-   "raw_peak_dbfs": -1.17
+   "raw_peak_dbfs": -1.17,
+   "normalised_db": 0
   },
   "low-res-notch-on-bass": {
    "peak_dbfs": -7.84,
@@ -1679,7 +1798,8 @@
    "duration_s": 1.415,
    "onset_s": 0.05,
    "length_s_card": 3,
-   "raw_peak_dbfs": -7.84
+   "raw_peak_dbfs": -7.84,
+   "normalised_db": 0
   },
   "marimba": {
    "peak_dbfs": -5.64,
@@ -1693,7 +1813,8 @@
    "duration_s": 3.095,
    "onset_s": 0.05,
    "length_s_card": 3,
-   "raw_peak_dbfs": -5.64
+   "raw_peak_dbfs": -5.64,
+   "normalised_db": 0
   },
   "mellotron-choir": {
    "peak_dbfs": -17.61,
@@ -1707,49 +1828,53 @@
    "duration_s": 6.765,
    "onset_s": 0.05,
    "length_s_card": 8,
-   "raw_peak_dbfs": -17.61
+   "raw_peak_dbfs": -17.61,
+   "normalised_db": 0
   },
   "mellotron-strings": {
-   "peak_dbfs": -8.1,
-   "rms_dbfs": -27.24,
-   "crest_db": 19.14,
-   "centroid_hz": 424.0,
+   "peak_dbfs": -7.84,
+   "rms_dbfs": -27.22,
+   "crest_db": 19.38,
+   "centroid_hz": 407.5,
    "rise_s": 0.35,
-   "tail_s": -4.408,
-   "width": 0.663,
-   "lr_corr": 0.39,
-   "duration_s": 8.73,
+   "tail_s": -4.193,
+   "width": 0.673,
+   "lr_corr": 0.377,
+   "duration_s": 8.945,
    "onset_s": 0.05,
    "length_s_card": 14,
-   "raw_peak_dbfs": -8.1
+   "raw_peak_dbfs": -7.84,
+   "normalised_db": 0
   },
   "metallic-hit": {
-   "peak_dbfs": -11.71,
-   "rms_dbfs": -27.18,
-   "crest_db": 15.47,
-   "centroid_hz": 3551.1,
+   "peak_dbfs": -11.74,
+   "rms_dbfs": -27.32,
+   "crest_db": 15.58,
+   "centroid_hz": 3592.5,
    "rise_s": 0.0,
-   "tail_s": -1.427,
-   "width": 0.117,
-   "lr_corr": 0.973,
-   "duration_s": 1.71,
+   "tail_s": -1.397,
+   "width": 0.105,
+   "lr_corr": 0.978,
+   "duration_s": 1.74,
    "onset_s": 0.05,
    "length_s_card": 4,
-   "raw_peak_dbfs": -11.71
+   "raw_peak_dbfs": -11.74,
+   "normalised_db": 0
   },
   "minimoog-lead": {
-   "peak_dbfs": -0.0,
-   "rms_dbfs": -11.57,
-   "crest_db": 11.57,
-   "centroid_hz": 600.2,
-   "rise_s": 0.635,
+   "peak_dbfs": -1.0,
+   "rms_dbfs": -14.47,
+   "crest_db": 13.47,
+   "centroid_hz": 600.8,
+   "rise_s": 1.27,
    "tail_s": 0.155,
    "width": 0.0,
    "lr_corr": 1.0,
-   "duration_s": 3.935,
+   "duration_s": 3.925,
    "onset_s": 0.05,
    "length_s_card": 4,
-   "raw_peak_dbfs": 1.92
+   "raw_peak_dbfs": 1.92,
+   "normalised_db": -2.92
   },
   "mod-wheel-vibrato-depth": {
    "peak_dbfs": -8.83,
@@ -1763,7 +1888,8 @@
    "duration_s": 5.705,
    "onset_s": 0.05,
    "length_s_card": 5,
-   "raw_peak_dbfs": -8.83
+   "raw_peak_dbfs": -8.83,
+   "normalised_db": 0
   },
   "modulation-matrix": {
    "peak_dbfs": -5.32,
@@ -1777,7 +1903,8 @@
    "duration_s": 9.0,
    "onset_s": 0.05,
    "length_s_card": 9,
-   "raw_peak_dbfs": -5.32
+   "raw_peak_dbfs": -5.32,
+   "normalised_db": 0
   },
   "modulation-template-init-patch": {
    "peak_dbfs": -5.81,
@@ -1791,7 +1918,8 @@
    "duration_s": 6.755,
    "onset_s": 0.05,
    "length_s_card": 5,
-   "raw_peak_dbfs": -5.81
+   "raw_peak_dbfs": -5.81,
+   "normalised_db": 0
   },
   "mono-vs-poly-vs-legato": {
    "peak_dbfs": -5.49,
@@ -1805,7 +1933,8 @@
    "duration_s": 7.425,
    "onset_s": 0.05,
    "length_s_card": 8,
-   "raw_peak_dbfs": -5.49
+   "raw_peak_dbfs": -5.49,
+   "normalised_db": 0
   },
   "moog-bass": {
    "peak_dbfs": -2.54,
@@ -1819,21 +1948,23 @@
    "duration_s": 1.275,
    "onset_s": 0.05,
    "length_s_card": 2.5,
-   "raw_peak_dbfs": -2.54
+   "raw_peak_dbfs": -2.54,
+   "normalised_db": 0
   },
   "music-box": {
-   "peak_dbfs": -8.08,
-   "rms_dbfs": -19.25,
-   "crest_db": 11.17,
-   "centroid_hz": 4860.8,
-   "rise_s": 0.51,
-   "tail_s": -1.657,
-   "width": 0.065,
-   "lr_corr": 0.992,
-   "duration_s": 3.51,
+   "peak_dbfs": -7.91,
+   "rms_dbfs": -19.33,
+   "crest_db": 11.43,
+   "centroid_hz": 4833.8,
+   "rise_s": 1.505,
+   "tail_s": -1.647,
+   "width": 0.058,
+   "lr_corr": 0.993,
+   "duration_s": 3.52,
    "onset_s": 0.05,
    "length_s_card": 4,
-   "raw_peak_dbfs": -8.08
+   "raw_peak_dbfs": -7.91,
+   "normalised_db": 0
   },
   "narrow-pulse-into-formant": {
    "peak_dbfs": -24.62,
@@ -1847,7 +1978,8 @@
    "duration_s": 0.98,
    "onset_s": 0.05,
    "length_s_card": 7,
-   "raw_peak_dbfs": -24.62
+   "raw_peak_dbfs": -24.62,
+   "normalised_db": 0
   },
   "natural-vibrato": {
    "peak_dbfs": -8.85,
@@ -1861,7 +1993,8 @@
    "duration_s": 5.7,
    "onset_s": 0.05,
    "length_s_card": 5,
-   "raw_peak_dbfs": -8.85
+   "raw_peak_dbfs": -8.85,
+   "normalised_db": 0
   },
   "neuro-bass": {
    "peak_dbfs": -9.1,
@@ -1875,27 +2008,29 @@
    "duration_s": 2.895,
    "onset_s": 0.05,
    "length_s_card": 4,
-   "raw_peak_dbfs": -9.1
+   "raw_peak_dbfs": -9.1,
+   "normalised_db": 0
   },
   "noise-bed": {
-   "peak_dbfs": -23.09,
-   "rms_dbfs": -40.15,
-   "crest_db": 17.07,
-   "centroid_hz": 1466.8,
-   "rise_s": 3.63,
-   "tail_s": 6.58,
-   "width": 0.154,
-   "lr_corr": 0.954,
-   "duration_s": 9.22,
-   "onset_s": 0.135,
+   "peak_dbfs": -23.06,
+   "rms_dbfs": -40.01,
+   "crest_db": 16.95,
+   "centroid_hz": 1462.7,
+   "rise_s": 3.28,
+   "tail_s": 5.745,
+   "width": 0.151,
+   "lr_corr": 0.955,
+   "duration_s": 9.09,
+   "onset_s": 0.115,
    "length_s_card": 12,
-   "raw_peak_dbfs": -23.08
+   "raw_peak_dbfs": -23.06,
+   "normalised_db": 0
   },
   "noise-colors": {
-   "peak_dbfs": -12.09,
-   "rms_dbfs": -19.43,
-   "crest_db": 7.34,
-   "centroid_hz": 11979.7,
+   "peak_dbfs": -12.05,
+   "rms_dbfs": -19.45,
+   "crest_db": 7.4,
+   "centroid_hz": 11993.8,
    "rise_s": 0.01,
    "tail_s": 0.155,
    "width": 0.0,
@@ -1903,63 +2038,68 @@
    "duration_s": 6.855,
    "onset_s": 0.05,
    "length_s_card": 7,
-   "raw_peak_dbfs": -12.09
+   "raw_peak_dbfs": -12.05,
+   "normalised_db": 0
   },
   "noise-for-softness": {
-   "peak_dbfs": -7.47,
-   "rms_dbfs": -21.91,
-   "crest_db": 14.44,
-   "centroid_hz": 371.1,
-   "rise_s": 1.235,
+   "peak_dbfs": -7.29,
+   "rms_dbfs": -21.93,
+   "crest_db": 14.63,
+   "centroid_hz": 371.3,
+   "rise_s": 0.945,
    "tail_s": 3.925,
    "width": 0.618,
    "lr_corr": 0.448,
-   "duration_s": 10.975,
+   "duration_s": 11.005,
    "onset_s": 0.055,
    "length_s_card": 8,
-   "raw_peak_dbfs": -7.47
+   "raw_peak_dbfs": -7.29,
+   "normalised_db": 0
   },
   "noise-oscillator-with-its-own-envelope": {
-   "peak_dbfs": -6.05,
-   "rms_dbfs": -19.38,
-   "crest_db": 13.34,
-   "centroid_hz": 740.1,
-   "rise_s": 0.055,
+   "peak_dbfs": -6.2,
+   "rms_dbfs": -19.35,
+   "crest_db": 13.15,
+   "centroid_hz": 736.4,
+   "rise_s": 0.025,
    "tail_s": 0.79,
    "width": 0.0,
    "lr_corr": 1.0,
-   "duration_s": 3.365,
+   "duration_s": 3.345,
    "onset_s": 0.05,
    "length_s_card": 8,
-   "raw_peak_dbfs": -6.05
+   "raw_peak_dbfs": -6.2,
+   "normalised_db": 0
   },
   "noise-percussion": {
-   "peak_dbfs": -9.1,
-   "rms_dbfs": -25.13,
-   "crest_db": 16.03,
-   "centroid_hz": 11955.4,
-   "rise_s": 0.405,
+   "peak_dbfs": -9.06,
+   "rms_dbfs": -25.15,
+   "crest_db": 16.09,
+   "centroid_hz": 12050.9,
+   "rise_s": 0.005,
    "tail_s": 0.135,
    "width": 0.0,
    "lr_corr": 1.0,
-   "duration_s": 1.565,
+   "duration_s": 1.57,
    "onset_s": 0.05,
    "length_s_card": 2,
-   "raw_peak_dbfs": -9.1
+   "raw_peak_dbfs": -9.06,
+   "normalised_db": 0
   },
   "noise-wash": {
-   "peak_dbfs": -22.64,
-   "rms_dbfs": -39.46,
-   "crest_db": 16.82,
-   "centroid_hz": 1345.1,
-   "rise_s": 3.935,
-   "tail_s": 4.905,
+   "peak_dbfs": -23.18,
+   "rms_dbfs": -39.38,
+   "crest_db": 16.21,
+   "centroid_hz": 1338.9,
+   "rise_s": 3.68,
+   "tail_s": 4.605,
    "width": 0.151,
    "lr_corr": 0.955,
-   "duration_s": 20.815,
-   "onset_s": 0.14,
+   "duration_s": 20.53,
+   "onset_s": 0.125,
    "length_s_card": 18,
-   "raw_peak_dbfs": -22.64
+   "raw_peak_dbfs": -23.18,
+   "normalised_db": 0
   },
   "oberheim-pad": {
    "peak_dbfs": -2.13,
@@ -1973,7 +2113,8 @@
    "duration_s": 10.585,
    "onset_s": 0.05,
    "length_s_card": 7,
-   "raw_peak_dbfs": -2.13
+   "raw_peak_dbfs": -2.13,
+   "normalised_db": 0
   },
   "oboe": {
    "peak_dbfs": -16.43,
@@ -1987,21 +2128,23 @@
    "duration_s": 4.405,
    "onset_s": 0.05,
    "length_s_card": 5,
-   "raw_peak_dbfs": -16.43
+   "raw_peak_dbfs": -16.43,
+   "normalised_db": 0
   },
   "ocean-waves": {
-   "peak_dbfs": -14.05,
-   "rms_dbfs": -30.91,
-   "crest_db": 16.86,
-   "centroid_hz": 789.0,
-   "rise_s": 1.225,
-   "tail_s": 2.875,
+   "peak_dbfs": -13.97,
+   "rms_dbfs": -31.13,
+   "crest_db": 17.15,
+   "centroid_hz": 801.1,
+   "rise_s": 1.69,
+   "tail_s": 2.845,
    "width": 0.0,
    "lr_corr": 1.0,
-   "duration_s": 22.59,
-   "onset_s": 0.065,
+   "duration_s": 22.595,
+   "onset_s": 0.06,
    "length_s_card": 20,
-   "raw_peak_dbfs": -14.04
+   "raw_peak_dbfs": -13.97,
+   "normalised_db": 0
   },
   "octave-stack-weight-and-shimmer": {
    "peak_dbfs": -8.98,
@@ -2015,7 +2158,8 @@
    "duration_s": 7.36,
    "onset_s": 0.05,
    "length_s_card": 7,
-   "raw_peak_dbfs": -8.98
+   "raw_peak_dbfs": -8.98,
+   "normalised_db": 0
   },
   "one-shot-trigger-mode": {
    "peak_dbfs": -8.58,
@@ -2029,49 +2173,53 @@
    "duration_s": 2.75,
    "onset_s": 0.05,
    "length_s_card": 3,
-   "raw_peak_dbfs": -8.58
+   "raw_peak_dbfs": -8.58,
+   "normalised_db": 0
   },
   "open-hi-hat": {
-   "peak_dbfs": -4.21,
-   "rms_dbfs": -20.46,
-   "crest_db": 16.26,
-   "centroid_hz": 12411.3,
-   "rise_s": 0.765,
-   "tail_s": -1.0,
+   "peak_dbfs": -4.92,
+   "rms_dbfs": -20.48,
+   "crest_db": 15.56,
+   "centroid_hz": 12418.1,
+   "rise_s": 1.525,
+   "tail_s": -0.995,
    "width": 0.225,
-   "lr_corr": 0.904,
-   "duration_s": 2.75,
+   "lr_corr": 0.903,
+   "duration_s": 2.755,
    "onset_s": 0.05,
    "length_s_card": 2.5,
-   "raw_peak_dbfs": -4.21
+   "raw_peak_dbfs": -4.92,
+   "normalised_db": 0
   },
   "orchestra-hit": {
-   "peak_dbfs": -0.77,
-   "rms_dbfs": -16.15,
-   "crest_db": 15.38,
-   "centroid_hz": 481.7,
-   "rise_s": 0.88,
-   "tail_s": 1.415,
-   "width": 0.315,
-   "lr_corr": 0.821,
-   "duration_s": 5.82,
+   "peak_dbfs": -1.0,
+   "rms_dbfs": -16.91,
+   "crest_db": 15.91,
+   "centroid_hz": 469.1,
+   "rise_s": 3.38,
+   "tail_s": 1.59,
+   "width": 0.307,
+   "lr_corr": 0.828,
+   "duration_s": 5.675,
    "onset_s": 0.05,
    "length_s_card": 4,
-   "raw_peak_dbfs": -0.77
+   "raw_peak_dbfs": -0.16,
+   "normalised_db": -0.84
   },
   "orchestral-strings": {
    "peak_dbfs": -4.07,
-   "rms_dbfs": -22.06,
-   "crest_db": 18.0,
-   "centroid_hz": 714.2,
+   "rms_dbfs": -22.04,
+   "crest_db": 17.97,
+   "centroid_hz": 719.2,
    "rise_s": 0.66,
-   "tail_s": 4.205,
-   "width": 0.577,
-   "lr_corr": 0.501,
+   "tail_s": 4.15,
+   "width": 0.573,
+   "lr_corr": 0.505,
    "duration_s": 14.235,
    "onset_s": 0.05,
    "length_s_card": 12,
-   "raw_peak_dbfs": -4.07
+   "raw_peak_dbfs": -4.07,
+   "normalised_db": 0
   },
   "organ-bass": {
    "peak_dbfs": -4.88,
@@ -2085,21 +2233,23 @@
    "duration_s": 1.355,
    "onset_s": 0.05,
    "length_s_card": 3,
-   "raw_peak_dbfs": -4.88
+   "raw_peak_dbfs": -4.88,
+   "normalised_db": 0
   },
   "organ": {
-   "peak_dbfs": -0.37,
-   "rms_dbfs": -13.15,
-   "crest_db": 12.79,
+   "peak_dbfs": -1.0,
+   "rms_dbfs": -13.78,
+   "crest_db": 12.78,
    "centroid_hz": 199.7,
    "rise_s": 1.45,
    "tail_s": 0.055,
    "width": 0.383,
    "lr_corr": 0.745,
-   "duration_s": 4.565,
+   "duration_s": 4.56,
    "onset_s": 0.05,
    "length_s_card": 5,
-   "raw_peak_dbfs": -0.37
+   "raw_peak_dbfs": -0.37,
+   "normalised_db": -0.63
   },
   "oscillator-drift": {
    "peak_dbfs": -8.31,
@@ -2113,7 +2263,8 @@
    "duration_s": 4.93,
    "onset_s": 0.05,
    "length_s_card": 9,
-   "raw_peak_dbfs": -8.31
+   "raw_peak_dbfs": -8.31,
+   "normalised_db": 0
   },
   "oscillator-mix-saw-square-tri-sine": {
    "peak_dbfs": -12.26,
@@ -2127,35 +2278,38 @@
    "duration_s": 7.85,
    "onset_s": 0.05,
    "length_s_card": 8,
-   "raw_peak_dbfs": -12.26
+   "raw_peak_dbfs": -12.26,
+   "normalised_db": 0
   },
   "pan-flute": {
-   "peak_dbfs": -6.66,
-   "rms_dbfs": -19.31,
-   "crest_db": 12.65,
-   "centroid_hz": 743.6,
-   "rise_s": 1.23,
-   "tail_s": 1.445,
-   "width": 0.12,
-   "lr_corr": 0.986,
-   "duration_s": 5.79,
+   "peak_dbfs": -7.11,
+   "rms_dbfs": -18.49,
+   "crest_db": 11.38,
+   "centroid_hz": 696.9,
+   "rise_s": 0.83,
+   "tail_s": 0.795,
+   "width": 0.093,
+   "lr_corr": 0.984,
+   "duration_s": 5.515,
    "onset_s": 0.05,
    "length_s_card": 6,
-   "raw_peak_dbfs": -6.66
+   "raw_peak_dbfs": -7.11,
+   "normalised_db": 0
   },
   "parallel-dual-low-pass": {
-   "peak_dbfs": -3.24,
-   "rms_dbfs": -17.45,
+   "peak_dbfs": -4.04,
+   "rms_dbfs": -18.25,
    "crest_db": 14.21,
-   "centroid_hz": 213.7,
-   "rise_s": 1.155,
-   "tail_s": 3.575,
-   "width": 0.47,
-   "lr_corr": 0.638,
-   "duration_s": 13.82,
+   "centroid_hz": 215.1,
+   "rise_s": 1.055,
+   "tail_s": 3.545,
+   "width": 0.463,
+   "lr_corr": 0.648,
+   "duration_s": 13.755,
    "onset_s": 0.05,
    "length_s_card": 10,
-   "raw_peak_dbfs": -3.24
+   "raw_peak_dbfs": -4.04,
+   "normalised_db": 0
   },
   "parallel-flexible-notch-with-horns": {
    "peak_dbfs": -180.0,
@@ -2169,7 +2323,8 @@
    "duration_s": 0.0,
    "onset_s": null,
    "length_s_card": 3,
-   "raw_peak_dbfs": -86.17
+   "raw_peak_dbfs": -86.34,
+   "normalised_db": 0
   },
   "parallel-low-pass-and-band-pass-accent": {
    "peak_dbfs": -23.2,
@@ -2183,7 +2338,8 @@
    "duration_s": 2.065,
    "onset_s": 0.06,
    "length_s_card": 3,
-   "raw_peak_dbfs": -23.2
+   "raw_peak_dbfs": -23.2,
+   "normalised_db": 0
   },
   "parallel-twin-peaks": {
    "peak_dbfs": -76.33,
@@ -2197,7 +2353,8 @@
    "duration_s": 0.0,
    "onset_s": null,
    "length_s_card": 4,
-   "raw_peak_dbfs": -74.73
+   "raw_peak_dbfs": -74.73,
+   "normalised_db": 0
   },
   "percussive-organ": {
    "peak_dbfs": -9.12,
@@ -2211,7 +2368,8 @@
    "duration_s": 2.19,
    "onset_s": 0.05,
    "length_s_card": 4,
-   "raw_peak_dbfs": -9.12
+   "raw_peak_dbfs": -9.12,
+   "normalised_db": 0
   },
   "phase-distortion-lead": {
    "peak_dbfs": -9.01,
@@ -2225,7 +2383,8 @@
    "duration_s": 2.315,
    "onset_s": 0.05,
    "length_s_card": 4,
-   "raw_peak_dbfs": -9.01
+   "raw_peak_dbfs": -9.01,
+   "normalised_db": 0
   },
   "phase-distortion": {
    "peak_dbfs": -12.07,
@@ -2239,21 +2398,23 @@
    "duration_s": 4.165,
    "onset_s": 0.05,
    "length_s_card": 8,
-   "raw_peak_dbfs": -12.07
+   "raw_peak_dbfs": -12.07,
+   "normalised_db": 0
   },
   "phaser": {
-   "peak_dbfs": -5.37,
-   "rms_dbfs": -20.42,
-   "crest_db": 15.05,
-   "centroid_hz": 766.9,
+   "peak_dbfs": -5.47,
+   "rms_dbfs": -20.41,
+   "crest_db": 14.94,
+   "centroid_hz": 756.6,
    "rise_s": 0.315,
-   "tail_s": 0.845,
+   "tail_s": 0.86,
    "width": 0.0,
    "lr_corr": 1.0,
    "duration_s": 1.535,
    "onset_s": 0.05,
    "length_s_card": 9,
-   "raw_peak_dbfs": -5.37
+   "raw_peak_dbfs": -5.47,
+   "normalised_db": 0
   },
   "piano-damper": {
    "peak_dbfs": -8.68,
@@ -2267,7 +2428,8 @@
    "duration_s": 4.685,
    "onset_s": 0.05,
    "length_s_card": 5,
-   "raw_peak_dbfs": -8.68
+   "raw_peak_dbfs": -8.68,
+   "normalised_db": 0
   },
   "pitch-bend-range": {
    "peak_dbfs": -7.63,
@@ -2281,7 +2443,8 @@
    "duration_s": 2.555,
    "onset_s": 0.05,
    "length_s_card": 8,
-   "raw_peak_dbfs": -7.63
+   "raw_peak_dbfs": -7.63,
+   "normalised_db": 0
   },
   "pizzicato": {
    "peak_dbfs": -7.34,
@@ -2295,7 +2458,8 @@
    "duration_s": 2.05,
    "onset_s": 0.05,
    "length_s_card": 2.5,
-   "raw_peak_dbfs": -7.34
+   "raw_peak_dbfs": -7.34,
+   "normalised_db": 0
   },
   "pluck-bass": {
    "peak_dbfs": -6.4,
@@ -2309,7 +2473,8 @@
    "duration_s": 1.92,
    "onset_s": 0.05,
    "length_s_card": 2,
-   "raw_peak_dbfs": -6.4
+   "raw_peak_dbfs": -6.4,
+   "normalised_db": 0
   },
   "pluck-strike-release-decay": {
    "peak_dbfs": -6.71,
@@ -2323,7 +2488,8 @@
    "duration_s": 3.28,
    "onset_s": 0.05,
    "length_s_card": 4,
-   "raw_peak_dbfs": -6.71
+   "raw_peak_dbfs": -6.71,
+   "normalised_db": 0
   },
   "pluck": {
    "peak_dbfs": -3.81,
@@ -2337,7 +2503,8 @@
    "duration_s": 2.88,
    "onset_s": 0.05,
    "length_s_card": 3,
-   "raw_peak_dbfs": -3.81
+   "raw_peak_dbfs": -3.81,
+   "normalised_db": 0
   },
   "portamento-bass": {
    "peak_dbfs": -6.22,
@@ -2351,7 +2518,8 @@
    "duration_s": 1.645,
    "onset_s": 0.05,
    "length_s_card": 3,
-   "raw_peak_dbfs": -6.22
+   "raw_peak_dbfs": -6.22,
+   "normalised_db": 0
   },
   "portamento-control-phantom-note": {
    "peak_dbfs": -5.39,
@@ -2365,7 +2533,8 @@
    "duration_s": 1.05,
    "onset_s": 0.05,
    "length_s_card": 7,
-   "raw_peak_dbfs": -5.39
+   "raw_peak_dbfs": -5.39,
+   "normalised_db": 0
   },
   "portamento": {
    "peak_dbfs": -8.35,
@@ -2379,7 +2548,8 @@
    "duration_s": 2.605,
    "onset_s": 0.05,
    "length_s_card": 4,
-   "raw_peak_dbfs": -8.35
+   "raw_peak_dbfs": -8.35,
+   "normalised_db": 0
   },
   "prophet-sync-lead": {
    "peak_dbfs": -5.34,
@@ -2393,7 +2563,8 @@
    "duration_s": 3.65,
    "onset_s": 0.05,
    "length_s_card": 4,
-   "raw_peak_dbfs": -5.34
+   "raw_peak_dbfs": -5.34,
+   "normalised_db": 0
   },
   "pulse-12-5": {
    "peak_dbfs": -8.48,
@@ -2407,7 +2578,8 @@
    "duration_s": 1.63,
    "onset_s": 0.05,
    "length_s_card": 2,
-   "raw_peak_dbfs": -8.48
+   "raw_peak_dbfs": -8.48,
+   "normalised_db": 0
   },
   "pulse-25": {
    "peak_dbfs": -3.77,
@@ -2421,7 +2593,8 @@
    "duration_s": 3.07,
    "onset_s": 0.05,
    "length_s_card": 2.5,
-   "raw_peak_dbfs": -3.77
+   "raw_peak_dbfs": -3.77,
+   "normalised_db": 0
   },
   "pulse-50-square": {
    "peak_dbfs": -8.81,
@@ -2435,7 +2608,8 @@
    "duration_s": 1.625,
    "onset_s": 0.05,
    "length_s_card": 2,
-   "raw_peak_dbfs": -8.81
+   "raw_peak_dbfs": -8.81,
+   "normalised_db": 0
   },
   "pulse-width-sweep": {
    "peak_dbfs": -9.13,
@@ -2449,7 +2623,8 @@
    "duration_s": 8.17,
    "onset_s": 0.05,
    "length_s_card": 9,
-   "raw_peak_dbfs": -9.13
+   "raw_peak_dbfs": -9.13,
+   "normalised_db": 0
   },
   "pulsing-bass": {
    "peak_dbfs": -4.92,
@@ -2463,7 +2638,8 @@
    "duration_s": 4.19,
    "onset_s": 0.05,
    "length_s_card": 4,
-   "raw_peak_dbfs": -4.92
+   "raw_peak_dbfs": -4.92,
+   "normalised_db": 0
   },
   "pwm-bass": {
    "peak_dbfs": -6.55,
@@ -2477,7 +2653,8 @@
    "duration_s": 4.075,
    "onset_s": 0.05,
    "length_s_card": 4,
-   "raw_peak_dbfs": -6.55
+   "raw_peak_dbfs": -6.55,
+   "normalised_db": 0
   },
   "pwm-lead": {
    "peak_dbfs": -4.99,
@@ -2491,49 +2668,53 @@
    "duration_s": 2.545,
    "onset_s": 0.05,
    "length_s_card": 6,
-   "raw_peak_dbfs": -4.99
+   "raw_peak_dbfs": -4.99,
+   "normalised_db": 0
   },
   "pwm-pad": {
-   "peak_dbfs": -0.0,
-   "rms_dbfs": -13.5,
-   "crest_db": 13.5,
+   "peak_dbfs": -1.0,
+   "rms_dbfs": -16.49,
+   "crest_db": 15.49,
    "centroid_hz": 399.1,
-   "rise_s": 0.83,
+   "rise_s": 2.545,
    "tail_s": 4.115,
    "width": 0.346,
    "lr_corr": 0.786,
-   "duration_s": 13.215,
+   "duration_s": 13.065,
    "onset_s": 0.055,
    "length_s_card": 10,
-   "raw_peak_dbfs": 2.04
+   "raw_peak_dbfs": 2.04,
+   "normalised_db": -3.04
   },
   "rain": {
-   "peak_dbfs": -4.35,
+   "peak_dbfs": -4.05,
    "rms_dbfs": -20.64,
-   "crest_db": 16.3,
-   "centroid_hz": 12718.4,
+   "crest_db": 16.59,
+   "centroid_hz": 12747.1,
    "rise_s": 0.6,
-   "tail_s": 6.58,
-   "width": 0.062,
-   "lr_corr": 0.992,
-   "duration_s": 16.305,
+   "tail_s": 6.56,
+   "width": 0.061,
+   "lr_corr": 0.993,
+   "duration_s": 16.295,
    "onset_s": 0.05,
    "length_s_card": 10,
-   "raw_peak_dbfs": -4.35
+   "raw_peak_dbfs": -4.05,
+   "normalised_db": 0
   },
   "reese-bass": {
-   "peak_dbfs": -0.0,
-   "rms_dbfs": -11.68,
-   "crest_db": 11.68,
-   "centroid_hz": 126.2,
-   "rise_s": 1.435,
+   "peak_dbfs": -1.0,
+   "rms_dbfs": -17.12,
+   "crest_db": 16.12,
+   "centroid_hz": 126.1,
+   "rise_s": 1.445,
    "tail_s": 0.74,
    "width": 0.404,
-   "lr_corr": 0.741,
-   "duration_s": 3.845,
+   "lr_corr": 0.742,
+   "duration_s": 3.785,
    "onset_s": 0.05,
    "length_s_card": 4,
-   "raw_peak_dbfs": 4.56
+   "raw_peak_dbfs": 4.56,
+   "normalised_db": -5.56
   },
   "resonance-sweep": {
    "peak_dbfs": -8.56,
@@ -2547,21 +2728,23 @@
    "duration_s": 11.86,
    "onset_s": 0.05,
    "length_s_card": 12,
-   "raw_peak_dbfs": -8.56
+   "raw_peak_dbfs": -8.56,
+   "normalised_db": 0
   },
   "resonator-chime": {
-   "peak_dbfs": -0.0,
-   "rms_dbfs": -14.12,
-   "crest_db": 14.12,
-   "centroid_hz": 1563.5,
-   "rise_s": 1.4,
-   "tail_s": 6.005,
-   "width": 0.107,
-   "lr_corr": 0.977,
-   "duration_s": 12.82,
+   "peak_dbfs": -1.0,
+   "rms_dbfs": -19.5,
+   "crest_db": 18.5,
+   "centroid_hz": 1568.4,
+   "rise_s": 2.825,
+   "tail_s": 6.065,
+   "width": 0.106,
+   "lr_corr": 0.978,
+   "duration_s": 12.18,
    "onset_s": 0.05,
    "length_s_card": 8,
-   "raw_peak_dbfs": 3.93
+   "raw_peak_dbfs": 4.57,
+   "normalised_db": -5.57
   },
   "retrigger-vs-free-lfo-chords": {
    "peak_dbfs": -7.49,
@@ -2575,21 +2758,23 @@
    "duration_s": 7.065,
    "onset_s": 0.05,
    "length_s_card": 7,
-   "raw_peak_dbfs": -7.49
+   "raw_peak_dbfs": -7.49,
+   "normalised_db": 0
   },
   "reverb-as-long-release": {
-   "peak_dbfs": -6.68,
-   "rms_dbfs": -21.09,
-   "crest_db": 14.41,
-   "centroid_hz": 349.5,
+   "peak_dbfs": -6.48,
+   "rms_dbfs": -21.01,
+   "crest_db": 14.54,
+   "centroid_hz": 330.1,
    "rise_s": 1.41,
-   "tail_s": 1.225,
-   "width": 0.496,
-   "lr_corr": 0.605,
-   "duration_s": 6.8,
+   "tail_s": 1.37,
+   "width": 0.483,
+   "lr_corr": 0.622,
+   "duration_s": 6.78,
    "onset_s": 0.05,
    "length_s_card": 8,
-   "raw_peak_dbfs": -6.68
+   "raw_peak_dbfs": -6.48,
+   "normalised_db": 0
   },
   "reverse-swell-and-stop": {
    "peak_dbfs": -6.61,
@@ -2603,7 +2788,8 @@
    "duration_s": 9.135,
    "onset_s": 0.06,
    "length_s_card": 6,
-   "raw_peak_dbfs": -6.61
+   "raw_peak_dbfs": -6.61,
+   "normalised_db": 0
   },
   "rhythmic-stab": {
    "peak_dbfs": -3.5,
@@ -2617,35 +2803,38 @@
    "duration_s": 5.575,
    "onset_s": 0.05,
    "length_s_card": 4,
-   "raw_peak_dbfs": -3.5
+   "raw_peak_dbfs": -3.5,
+   "normalised_db": 0
   },
   "ride": {
-   "peak_dbfs": -14.79,
-   "rms_dbfs": -31.04,
-   "crest_db": 16.25,
-   "centroid_hz": 6787.3,
+   "peak_dbfs": -14.52,
+   "rms_dbfs": -31.1,
+   "crest_db": 16.58,
+   "centroid_hz": 6786.0,
    "rise_s": 0.025,
-   "tail_s": -1.102,
-   "width": 0.271,
-   "lr_corr": 0.865,
-   "duration_s": 2.36,
+   "tail_s": -1.077,
+   "width": 0.272,
+   "lr_corr": 0.864,
+   "duration_s": 2.385,
    "onset_s": 0.05,
    "length_s_card": 3,
-   "raw_peak_dbfs": -14.79
+   "raw_peak_dbfs": -14.52,
+   "normalised_db": 0
   },
   "rimshot": {
-   "peak_dbfs": -13.16,
-   "rms_dbfs": -38.81,
-   "crest_db": 25.65,
-   "centroid_hz": 6137.5,
-   "rise_s": 0.875,
+   "peak_dbfs": -13.87,
+   "rms_dbfs": -38.93,
+   "crest_db": 25.06,
+   "centroid_hz": 6141.2,
+   "rise_s": 0.63,
    "tail_s": -0.038,
    "width": 0.0,
    "lr_corr": 1.0,
    "duration_s": 1.9,
    "onset_s": 0.05,
    "length_s_card": 2,
-   "raw_peak_dbfs": -13.16
+   "raw_peak_dbfs": -13.87,
+   "normalised_db": 0
   },
   "ring-mod-lead": {
    "peak_dbfs": -7.25,
@@ -2659,7 +2848,8 @@
    "duration_s": 4.55,
    "onset_s": 0.05,
    "length_s_card": 4,
-   "raw_peak_dbfs": -7.25
+   "raw_peak_dbfs": -7.25,
+   "normalised_db": 0
   },
   "ring-modulation": {
    "peak_dbfs": -11.99,
@@ -2673,21 +2863,23 @@
    "duration_s": 6.86,
    "onset_s": 0.05,
    "length_s_card": 7,
-   "raw_peak_dbfs": -11.99
+   "raw_peak_dbfs": -11.99,
+   "normalised_db": 0
   },
   "riser": {
-   "peak_dbfs": -2.07,
-   "rms_dbfs": -17.19,
-   "crest_db": 15.12,
-   "centroid_hz": 945.0,
-   "rise_s": 7.435,
-   "tail_s": 1.17,
-   "width": 0.454,
-   "lr_corr": 0.659,
-   "duration_s": 9.135,
+   "peak_dbfs": -2.76,
+   "rms_dbfs": -17.45,
+   "crest_db": 14.69,
+   "centroid_hz": 968.1,
+   "rise_s": 4.81,
+   "tail_s": 1.285,
+   "width": 0.436,
+   "lr_corr": 0.68,
+   "duration_s": 9.25,
    "onset_s": 0.06,
    "length_s_card": 9,
-   "raw_peak_dbfs": -2.07
+   "raw_peak_dbfs": -2.76,
+   "normalised_db": 0
   },
   "sample-and-hold-melody": {
    "peak_dbfs": -4.55,
@@ -2701,7 +2893,8 @@
    "duration_s": 5.89,
    "onset_s": 0.05,
    "length_s_card": 4,
-   "raw_peak_dbfs": -4.55
+   "raw_peak_dbfs": -4.55,
+   "normalised_db": 0
   },
   "sample-and-hold": {
    "peak_dbfs": -8.56,
@@ -2715,7 +2908,8 @@
    "duration_s": 4.16,
    "onset_s": 0.05,
    "length_s_card": 4,
-   "raw_peak_dbfs": -8.56
+   "raw_peak_dbfs": -8.56,
+   "normalised_db": 0
   },
   "saturated-bass": {
    "peak_dbfs": -6.12,
@@ -2729,7 +2923,8 @@
    "duration_s": 1.745,
    "onset_s": 0.05,
    "length_s_card": 3,
-   "raw_peak_dbfs": -6.12
+   "raw_peak_dbfs": -6.12,
+   "normalised_db": 0
   },
   "saw-lead": {
    "peak_dbfs": -5.57,
@@ -2743,13 +2938,14 @@
    "duration_s": 3.655,
    "onset_s": 0.05,
    "length_s_card": 4,
-   "raw_peak_dbfs": -5.57
+   "raw_peak_dbfs": -5.57,
+   "normalised_db": 0
   },
   "saxophone": {
-   "peak_dbfs": -7.21,
-   "rms_dbfs": -17.03,
-   "crest_db": 9.82,
-   "centroid_hz": 503.9,
+   "peak_dbfs": -6.75,
+   "rms_dbfs": -17.05,
+   "crest_db": 10.29,
+   "centroid_hz": 503.5,
    "rise_s": 0.345,
    "tail_s": 0.105,
    "width": 0.0,
@@ -2757,11 +2953,12 @@
    "duration_s": 3.89,
    "onset_s": 0.05,
    "length_s_card": 6,
-   "raw_peak_dbfs": -7.21
+   "raw_peak_dbfs": -6.75,
+   "normalised_db": 0
   },
   "screech-lead": {
-   "peak_dbfs": -0.92,
-   "rms_dbfs": -12.25,
+   "peak_dbfs": -1.0,
+   "rms_dbfs": -12.33,
    "crest_db": 11.33,
    "centroid_hz": 904.4,
    "rise_s": 1.015,
@@ -2771,21 +2968,23 @@
    "duration_s": 3.715,
    "onset_s": 0.05,
    "length_s_card": 4,
-   "raw_peak_dbfs": -0.92
+   "raw_peak_dbfs": -0.92,
+   "normalised_db": -0.08
   },
   "seinfeld-slap-bass": {
-   "peak_dbfs": -0.0,
-   "rms_dbfs": -17.66,
-   "crest_db": 17.66,
-   "centroid_hz": 484.5,
+   "peak_dbfs": -1.0,
+   "rms_dbfs": -19.83,
+   "crest_db": 18.83,
+   "centroid_hz": 485.8,
    "rise_s": 0.54,
    "tail_s": 0.835,
    "width": 0.0,
    "lr_corr": 1.0,
-   "duration_s": 2.005,
+   "duration_s": 1.955,
    "onset_s": 0.05,
    "length_s_card": 3,
-   "raw_peak_dbfs": 1.28
+   "raw_peak_dbfs": 1.28,
+   "normalised_db": -2.28
   },
   "self-oscillating-filter-as-oscillator": {
    "peak_dbfs": -180.0,
@@ -2799,7 +2998,8 @@
    "duration_s": 0.0,
    "onset_s": null,
    "length_s_card": 3,
-   "raw_peak_dbfs": -180
+   "raw_peak_dbfs": -180,
+   "normalised_db": 0
   },
   "serial-bring-out-the-noise": {
    "peak_dbfs": -80.77,
@@ -2813,21 +3013,23 @@
    "duration_s": 0.0,
    "onset_s": null,
    "length_s_card": 5,
-   "raw_peak_dbfs": -81.35
+   "raw_peak_dbfs": -81.35,
+   "normalised_db": 0
   },
   "serial-dual-notch-pad": {
-   "peak_dbfs": -5.98,
+   "peak_dbfs": -6.13,
    "rms_dbfs": -23.08,
-   "crest_db": 17.11,
-   "centroid_hz": 2197.0,
+   "crest_db": 16.95,
+   "centroid_hz": 2149.4,
    "rise_s": 4.69,
    "tail_s": 4.44,
-   "width": 0.452,
-   "lr_corr": 0.661,
+   "width": 0.449,
+   "lr_corr": 0.665,
    "duration_s": 14.91,
    "onset_s": 0.055,
    "length_s_card": 14,
-   "raw_peak_dbfs": -5.98
+   "raw_peak_dbfs": -6.13,
+   "normalised_db": 0
   },
   "serial-extreme-48-db": {
    "peak_dbfs": -4.32,
@@ -2841,7 +3043,8 @@
    "duration_s": 2.145,
    "onset_s": 0.05,
    "length_s_card": 3,
-   "raw_peak_dbfs": -4.32
+   "raw_peak_dbfs": -4.32,
+   "normalised_db": 0
   },
   "serial-flexible-band-pass": {
    "peak_dbfs": -2.81,
@@ -2855,7 +3058,8 @@
    "duration_s": 2.315,
    "onset_s": 0.05,
    "length_s_card": 3,
-   "raw_peak_dbfs": -2.81
+   "raw_peak_dbfs": -2.81,
+   "normalised_db": 0
   },
   "serial-notch-then-low-pass": {
    "peak_dbfs": -10.11,
@@ -2869,7 +3073,8 @@
    "duration_s": 2.305,
    "onset_s": 0.05,
    "length_s_card": 3,
-   "raw_peak_dbfs": -10.11
+   "raw_peak_dbfs": -10.11,
+   "normalised_db": 0
   },
   "serial-notch-vs-band-pass-tug": {
    "peak_dbfs": -27.53,
@@ -2883,21 +3088,23 @@
    "duration_s": 2.415,
    "onset_s": 0.055,
    "length_s_card": 3,
-   "raw_peak_dbfs": -27.53
+   "raw_peak_dbfs": -27.53,
+   "normalised_db": 0
   },
   "serial-source-and-resonator": {
-   "peak_dbfs": -0.98,
-   "rms_dbfs": -17.84,
+   "peak_dbfs": -1.0,
+   "rms_dbfs": -17.86,
    "crest_db": 16.86,
    "centroid_hz": 505.5,
    "rise_s": 0.61,
    "tail_s": 0.69,
    "width": 0.0,
    "lr_corr": 1.0,
-   "duration_s": 5.425,
+   "duration_s": 5.415,
    "onset_s": 0.05,
    "length_s_card": 4,
-   "raw_peak_dbfs": -0.98
+   "raw_peak_dbfs": -0.98,
+   "normalised_db": -0.02
   },
   "seven-cent-detune": {
    "peak_dbfs": -2.79,
@@ -2911,7 +3118,8 @@
    "duration_s": 8.27,
    "onset_s": 0.05,
    "length_s_card": 7,
-   "raw_peak_dbfs": -2.79
+   "raw_peak_dbfs": -2.79,
+   "normalised_db": 0
   },
   "sh-101-bass": {
    "peak_dbfs": -3.94,
@@ -2925,49 +3133,53 @@
    "duration_s": 1.115,
    "onset_s": 0.05,
    "length_s_card": 2,
-   "raw_peak_dbfs": -3.94
+   "raw_peak_dbfs": -3.94,
+   "normalised_db": 0
   },
   "shaker": {
-   "peak_dbfs": -11.17,
-   "rms_dbfs": -32.97,
-   "crest_db": 21.8,
-   "centroid_hz": 8022.3,
-   "rise_s": 0.015,
-   "tail_s": 0.155,
+   "peak_dbfs": -12.17,
+   "rms_dbfs": -32.84,
+   "crest_db": 20.67,
+   "centroid_hz": 8041.2,
+   "rise_s": 1.21,
+   "tail_s": 0.16,
    "width": 0.0,
    "lr_corr": 1.0,
    "duration_s": 2.255,
    "onset_s": 0.05,
    "length_s_card": 2.5,
-   "raw_peak_dbfs": -11.17
+   "raw_peak_dbfs": -12.17,
+   "normalised_db": 0
   },
   "shimmer-pad": {
-   "peak_dbfs": -4.46,
-   "rms_dbfs": -21.99,
-   "crest_db": 17.54,
-   "centroid_hz": 358.4,
+   "peak_dbfs": -4.85,
+   "rms_dbfs": -22.33,
+   "crest_db": 17.49,
+   "centroid_hz": 357.8,
    "rise_s": 4.415,
-   "tail_s": 4.16,
-   "width": 0.62,
-   "lr_corr": 0.446,
-   "duration_s": 12.07,
+   "tail_s": 4.265,
+   "width": 0.63,
+   "lr_corr": 0.432,
+   "duration_s": 12.025,
    "onset_s": 0.055,
    "length_s_card": 16,
-   "raw_peak_dbfs": -4.46
+   "raw_peak_dbfs": -4.85,
+   "normalised_db": 0
   },
   "short-delay-comb-filter": {
-   "peak_dbfs": -5.72,
-   "rms_dbfs": -17.05,
-   "crest_db": 11.33,
-   "centroid_hz": 10599.6,
-   "rise_s": 0.04,
-   "tail_s": 1.81,
+   "peak_dbfs": -6.1,
+   "rms_dbfs": -17.03,
+   "crest_db": 10.94,
+   "centroid_hz": 10573.8,
+   "rise_s": 0.015,
+   "tail_s": 1.815,
    "width": 0.0,
    "lr_corr": 1.0,
-   "duration_s": 4.245,
+   "duration_s": 4.25,
    "onset_s": 0.05,
    "length_s_card": 5,
-   "raw_peak_dbfs": -5.72
+   "raw_peak_dbfs": -6.1,
+   "normalised_db": 0
   },
   "sid-lead": {
    "peak_dbfs": -2.13,
@@ -2981,21 +3193,23 @@
    "duration_s": 1.885,
    "onset_s": 0.05,
    "length_s_card": 3,
-   "raw_peak_dbfs": -2.13
+   "raw_peak_dbfs": -2.13,
+   "normalised_db": 0
   },
   "sidechained-pad": {
-   "peak_dbfs": -1.7,
-   "rms_dbfs": -20.06,
-   "crest_db": 18.36,
-   "centroid_hz": 430.4,
-   "rise_s": 1.345,
-   "tail_s": 6.45,
-   "width": 0.404,
-   "lr_corr": 0.72,
-   "duration_s": 10.905,
+   "peak_dbfs": -1.0,
+   "rms_dbfs": -19.98,
+   "crest_db": 18.98,
+   "centroid_hz": 429.3,
+   "rise_s": 1.305,
+   "tail_s": 6.465,
+   "width": 0.431,
+   "lr_corr": 0.687,
+   "duration_s": 11.02,
    "onset_s": 0.05,
    "length_s_card": 5,
-   "raw_peak_dbfs": -1.7
+   "raw_peak_dbfs": -1,
+   "normalised_db": 0
   },
   "simple-delay": {
    "peak_dbfs": -4.62,
@@ -3009,7 +3223,8 @@
    "duration_s": 2.165,
    "onset_s": 0.05,
    "length_s_card": 4,
-   "raw_peak_dbfs": -4.62
+   "raw_peak_dbfs": -4.62,
+   "normalised_db": 0
   },
   "sine-lead": {
    "peak_dbfs": -8.9,
@@ -3023,7 +3238,8 @@
    "duration_s": 6.77,
    "onset_s": 0.05,
    "length_s_card": 5,
-   "raw_peak_dbfs": -8.9
+   "raw_peak_dbfs": -8.9,
+   "normalised_db": 0
   },
   "siren": {
    "peak_dbfs": -8.09,
@@ -3037,35 +3253,38 @@
    "duration_s": 9.08,
    "onset_s": 0.05,
    "length_s_card": 8,
-   "raw_peak_dbfs": -8.09
+   "raw_peak_dbfs": -8.09,
+   "normalised_db": 0
   },
   "sitar": {
-   "peak_dbfs": -1.61,
-   "rms_dbfs": -19.12,
-   "crest_db": 17.52,
-   "centroid_hz": 736.3,
+   "peak_dbfs": -1.63,
+   "rms_dbfs": -19.14,
+   "crest_db": 17.51,
+   "centroid_hz": 755.3,
    "rise_s": 0.9,
    "tail_s": 2.515,
-   "width": 0.054,
-   "lr_corr": 0.994,
+   "width": 0.069,
+   "lr_corr": 0.991,
    "duration_s": 8.765,
    "onset_s": 0.05,
    "length_s_card": 7,
-   "raw_peak_dbfs": -1.61
+   "raw_peak_dbfs": -1.63,
+   "normalised_db": 0
   },
   "snare": {
-   "peak_dbfs": -1.63,
-   "rms_dbfs": -18.35,
-   "crest_db": 16.72,
-   "centroid_hz": 9375.9,
-   "rise_s": 1.21,
-   "tail_s": -1.28,
+   "peak_dbfs": -2.17,
+   "rms_dbfs": -18.32,
+   "crest_db": 16.14,
+   "centroid_hz": 9367.6,
+   "rise_s": 1.805,
+   "tail_s": -1.285,
    "width": 0.0,
    "lr_corr": 1.0,
-   "duration_s": 2.92,
+   "duration_s": 2.915,
    "onset_s": 0.05,
    "length_s_card": 2.5,
-   "raw_peak_dbfs": -1.63
+   "raw_peak_dbfs": -2.17,
+   "normalised_db": 0
   },
   "soft-lead": {
    "peak_dbfs": -5.96,
@@ -3079,7 +3298,8 @@
    "duration_s": 6.015,
    "onset_s": 0.05,
    "length_s_card": 5,
-   "raw_peak_dbfs": -5.96
+   "raw_peak_dbfs": -5.96,
+   "normalised_db": 0
   },
   "square-lead": {
    "peak_dbfs": -7.1,
@@ -3093,7 +3313,8 @@
    "duration_s": 1.25,
    "onset_s": 0.05,
    "length_s_card": 4,
-   "raw_peak_dbfs": -7.1
+   "raw_peak_dbfs": -7.1,
+   "normalised_db": 0
   },
   "square-saw-octave-up-zipper": {
    "peak_dbfs": -6.67,
@@ -3107,7 +3328,8 @@
    "duration_s": 7.38,
    "onset_s": 0.05,
    "length_s_card": 7,
-   "raw_peak_dbfs": -6.67
+   "raw_peak_dbfs": -6.67,
+   "normalised_db": 0
   },
   "square-sub-techno-bass": {
    "peak_dbfs": -6.34,
@@ -3121,21 +3343,23 @@
    "duration_s": 1.22,
    "onset_s": 0.05,
    "length_s_card": 4,
-   "raw_peak_dbfs": -6.34
+   "raw_peak_dbfs": -6.34,
+   "normalised_db": 0
   },
   "stacked-fifth-pad": {
-   "peak_dbfs": -0.0,
-   "rms_dbfs": -17.55,
-   "crest_db": 17.55,
-   "centroid_hz": 358.0,
+   "peak_dbfs": -1.0,
+   "rms_dbfs": -19.23,
+   "crest_db": 18.23,
+   "centroid_hz": 350.2,
    "rise_s": 1.25,
-   "tail_s": 3.85,
-   "width": 0.594,
-   "lr_corr": 0.481,
-   "duration_s": 8.525,
+   "tail_s": 3.82,
+   "width": 0.6,
+   "lr_corr": 0.47,
+   "duration_s": 8.475,
    "onset_s": 0.05,
    "length_s_card": 7,
-   "raw_peak_dbfs": 0.56
+   "raw_peak_dbfs": 0.94,
+   "normalised_db": -1.94
   },
   "standard-sustaining": {
    "peak_dbfs": -8.74,
@@ -3149,21 +3373,23 @@
    "duration_s": 8.09,
    "onset_s": 0.05,
    "length_s_card": 7,
-   "raw_peak_dbfs": -8.74
+   "raw_peak_dbfs": -8.74,
+   "normalised_db": 0
   },
   "steel-drum": {
-   "peak_dbfs": -7.06,
-   "rms_dbfs": -18.21,
-   "crest_db": 11.15,
-   "centroid_hz": 608.4,
+   "peak_dbfs": -7.17,
+   "rms_dbfs": -18.23,
+   "crest_db": 11.05,
+   "centroid_hz": 607.0,
    "rise_s": 0.64,
-   "tail_s": 0.795,
-   "width": 0.069,
-   "lr_corr": 0.991,
+   "tail_s": 0.81,
+   "width": 0.06,
+   "lr_corr": 0.993,
    "duration_s": 2.895,
    "onset_s": 0.05,
    "length_s_card": 3,
-   "raw_peak_dbfs": -7.06
+   "raw_peak_dbfs": -7.17,
+   "normalised_db": 0
   },
   "stereo-width-by-detune-and-filter": {
    "peak_dbfs": -1.32,
@@ -3177,7 +3403,8 @@
    "duration_s": 5.875,
    "onset_s": 0.05,
    "length_s_card": 6,
-   "raw_peak_dbfs": -1.32
+   "raw_peak_dbfs": -1.32,
+   "normalised_db": 0
   },
   "stereo-width-by-l-r-delay": {
    "peak_dbfs": -6.75,
@@ -3191,7 +3418,8 @@
    "duration_s": 2.52,
    "onset_s": 0.05,
    "length_s_card": 4.5,
-   "raw_peak_dbfs": -6.75
+   "raw_peak_dbfs": -6.75,
+   "normalised_db": 0
   },
   "stereo-width": {
    "peak_dbfs": -4.8,
@@ -3205,21 +3433,23 @@
    "duration_s": 6.91,
    "onset_s": 0.05,
    "length_s_card": 7,
-   "raw_peak_dbfs": -4.8
+   "raw_peak_dbfs": -4.8,
+   "normalised_db": 0
   },
   "string-machine": {
-   "peak_dbfs": -6.37,
-   "rms_dbfs": -22.44,
-   "crest_db": 16.07,
-   "centroid_hz": 599.2,
+   "peak_dbfs": -5.82,
+   "rms_dbfs": -22.36,
+   "crest_db": 16.53,
+   "centroid_hz": 585.7,
    "rise_s": 0.57,
    "tail_s": 3.995,
-   "width": 0.051,
-   "lr_corr": 0.995,
+   "width": 0.074,
+   "lr_corr": 0.993,
    "duration_s": 10.045,
    "onset_s": 0.05,
    "length_s_card": 7,
-   "raw_peak_dbfs": -6.37
+   "raw_peak_dbfs": -5.82,
+   "normalised_db": 0
   },
   "strings-long-sustaining": {
    "peak_dbfs": -6.54,
@@ -3233,7 +3463,8 @@
    "duration_s": 8.865,
    "onset_s": 0.055,
    "length_s_card": 8,
-   "raw_peak_dbfs": -6.54
+   "raw_peak_dbfs": -6.54,
+   "normalised_db": 0
   },
   "sub-bass": {
    "peak_dbfs": -6.58,
@@ -3247,7 +3478,8 @@
    "duration_s": 1.155,
    "onset_s": 0.05,
    "length_s_card": 2.5,
-   "raw_peak_dbfs": -6.58
+   "raw_peak_dbfs": -6.58,
+   "normalised_db": 0
   },
   "sub-boom": {
    "peak_dbfs": -9.12,
@@ -3261,21 +3493,23 @@
    "duration_s": 5.495,
    "onset_s": 0.05,
    "length_s_card": 4,
-   "raw_peak_dbfs": -9.12
+   "raw_peak_dbfs": -9.12,
+   "normalised_db": 0
   },
   "sub-drone-with-overtones": {
-   "peak_dbfs": -8.45,
-   "rms_dbfs": -19.27,
-   "crest_db": 10.82,
-   "centroid_hz": 15.8,
-   "rise_s": 0.435,
-   "tail_s": 3.9,
-   "width": 0.048,
-   "lr_corr": 0.996,
-   "duration_s": 16.83,
+   "peak_dbfs": -9.49,
+   "rms_dbfs": -20.74,
+   "crest_db": 11.25,
+   "centroid_hz": 17.0,
+   "rise_s": 0.415,
+   "tail_s": 3.415,
+   "width": 0.079,
+   "lr_corr": 0.991,
+   "duration_s": 16.34,
    "onset_s": 0.05,
    "length_s_card": 15,
-   "raw_peak_dbfs": -8.45
+   "raw_peak_dbfs": -9.49,
+   "normalised_db": 0
   },
   "sub-oscillator": {
    "peak_dbfs": -6.48,
@@ -3289,77 +3523,83 @@
    "duration_s": 6.185,
    "onset_s": 0.05,
    "length_s_card": 7,
-   "raw_peak_dbfs": -6.48
+   "raw_peak_dbfs": -6.48,
+   "normalised_db": 0
   },
   "supersaw-lead": {
-   "peak_dbfs": -3.57,
-   "rms_dbfs": -21.04,
-   "crest_db": 17.47,
-   "centroid_hz": 990.1,
-   "rise_s": 0.23,
-   "tail_s": 3.435,
-   "width": 0.394,
-   "lr_corr": 0.731,
-   "duration_s": 6.685,
+   "peak_dbfs": -3.39,
+   "rms_dbfs": -20.92,
+   "crest_db": 17.53,
+   "centroid_hz": 972.2,
+   "rise_s": 1.095,
+   "tail_s": 3.34,
+   "width": 0.405,
+   "lr_corr": 0.719,
+   "duration_s": 6.78,
    "onset_s": 0.05,
    "length_s_card": 4,
-   "raw_peak_dbfs": -3.57
+   "raw_peak_dbfs": -3.39,
+   "normalised_db": 0
   },
   "supersaw-pad": {
-   "peak_dbfs": -4.66,
-   "rms_dbfs": -21.41,
-   "crest_db": 16.75,
-   "centroid_hz": 351.3,
-   "rise_s": 0.905,
-   "tail_s": 3.795,
-   "width": 0.485,
-   "lr_corr": 0.62,
+   "peak_dbfs": -4.73,
+   "rms_dbfs": -21.42,
+   "crest_db": 16.69,
+   "centroid_hz": 347.8,
+   "rise_s": 0.92,
+   "tail_s": 3.805,
+   "width": 0.479,
+   "lr_corr": 0.628,
    "duration_s": 9.03,
    "onset_s": 0.05,
    "length_s_card": 6,
-   "raw_peak_dbfs": -4.66
+   "raw_peak_dbfs": -4.73,
+   "normalised_db": 0
   },
   "svf-morph-in-motion": {
-   "peak_dbfs": -6.87,
-   "rms_dbfs": -22.54,
-   "crest_db": 15.67,
-   "centroid_hz": 428.1,
+   "peak_dbfs": -6.83,
+   "rms_dbfs": -22.22,
+   "crest_db": 15.39,
+   "centroid_hz": 411.5,
    "rise_s": 5.38,
-   "tail_s": 4.38,
-   "width": 0.481,
-   "lr_corr": 0.624,
-   "duration_s": 13.145,
+   "tail_s": 3.945,
+   "width": 0.498,
+   "lr_corr": 0.603,
+   "duration_s": 13.17,
    "onset_s": 0.05,
    "length_s_card": 10,
-   "raw_peak_dbfs": -6.87
+   "raw_peak_dbfs": -6.83,
+   "normalised_db": 0
   },
   "sweep-filter-whoosh": {
-   "peak_dbfs": -19.21,
-   "rms_dbfs": -36.74,
-   "crest_db": 17.54,
-   "centroid_hz": 3315.2,
-   "rise_s": 1.45,
-   "tail_s": 1.26,
+   "peak_dbfs": -18.87,
+   "rms_dbfs": -36.78,
+   "crest_db": 17.91,
+   "centroid_hz": 3361.2,
+   "rise_s": 1.39,
+   "tail_s": 0.93,
    "width": 0.0,
    "lr_corr": 1.0,
-   "duration_s": 4.935,
+   "duration_s": 4.915,
    "onset_s": 0.065,
    "length_s_card": 5,
-   "raw_peak_dbfs": -19.21
+   "raw_peak_dbfs": -18.87,
+   "normalised_db": 0
   },
   "sweep-pad": {
-   "peak_dbfs": -6.07,
-   "rms_dbfs": -21.78,
-   "crest_db": 15.71,
-   "centroid_hz": 473.8,
+   "peak_dbfs": -6.09,
+   "rms_dbfs": -21.69,
+   "crest_db": 15.6,
+   "centroid_hz": 478.2,
    "rise_s": 0.215,
-   "tail_s": 6.305,
-   "width": 0.634,
-   "lr_corr": 0.427,
-   "duration_s": 21.085,
+   "tail_s": 6.16,
+   "width": 0.638,
+   "lr_corr": 0.422,
+   "duration_s": 20.59,
    "onset_s": 0.05,
    "length_s_card": 16,
-   "raw_peak_dbfs": -6.07
+   "raw_peak_dbfs": -6.09,
+   "normalised_db": 0
   },
   "switch-organ": {
    "peak_dbfs": -8.21,
@@ -3373,7 +3613,8 @@
    "duration_s": 4.685,
    "onset_s": 0.05,
    "length_s_card": 4,
-   "raw_peak_dbfs": -8.21
+   "raw_peak_dbfs": -8.21,
+   "normalised_db": 0
   },
   "sync-bass": {
    "peak_dbfs": -5.86,
@@ -3387,7 +3628,8 @@
    "duration_s": 2.135,
    "onset_s": 0.05,
    "length_s_card": 2.5,
-   "raw_peak_dbfs": -5.86
+   "raw_peak_dbfs": -5.86,
+   "normalised_db": 0
   },
   "sync-lead": {
    "peak_dbfs": -5.79,
@@ -3401,7 +3643,8 @@
    "duration_s": 3.65,
    "onset_s": 0.05,
    "length_s_card": 4,
-   "raw_peak_dbfs": -5.79
+   "raw_peak_dbfs": -5.79,
+   "normalised_db": 0
   },
   "synth-brass": {
    "peak_dbfs": -4.52,
@@ -3415,7 +3658,8 @@
    "duration_s": 4.545,
    "onset_s": 0.05,
    "length_s_card": 6,
-   "raw_peak_dbfs": -4.52
+   "raw_peak_dbfs": -4.52,
+   "normalised_db": 0
   },
   "synth-piano": {
    "peak_dbfs": -1.8,
@@ -3429,7 +3673,8 @@
    "duration_s": 5.91,
    "onset_s": 0.05,
    "length_s_card": 6,
-   "raw_peak_dbfs": -1.8
+   "raw_peak_dbfs": -1.8,
+   "normalised_db": 0
   },
   "synthwave-bass": {
    "peak_dbfs": -4.14,
@@ -3443,7 +3688,8 @@
    "duration_s": 2.06,
    "onset_s": 0.05,
    "length_s_card": 2.5,
-   "raw_peak_dbfs": -4.14
+   "raw_peak_dbfs": -4.14,
+   "normalised_db": 0
   },
   "synthwave-pluck": {
    "peak_dbfs": -1.52,
@@ -3457,21 +3703,23 @@
    "duration_s": 4.475,
    "onset_s": 0.05,
    "length_s_card": 5,
-   "raw_peak_dbfs": -1.52
+   "raw_peak_dbfs": -1.52,
+   "normalised_db": 0
   },
   "tape-loop": {
-   "peak_dbfs": -7.29,
-   "rms_dbfs": -15.25,
-   "crest_db": 7.96,
-   "centroid_hz": 208.0,
+   "peak_dbfs": -7.06,
+   "rms_dbfs": -15.14,
+   "crest_db": 8.09,
+   "centroid_hz": 208.5,
    "rise_s": 0.125,
    "tail_s": 7.53,
-   "width": 0.563,
-   "lr_corr": 0.519,
-   "duration_s": 16.545,
+   "width": 0.565,
+   "lr_corr": 0.517,
+   "duration_s": 16.585,
    "onset_s": 0.05,
    "length_s_card": 12,
-   "raw_peak_dbfs": -7.29
+   "raw_peak_dbfs": -7.06,
+   "normalised_db": 0
   },
   "tb-303-line": {
    "peak_dbfs": -2.8,
@@ -3485,21 +3733,23 @@
    "duration_s": 1.07,
    "onset_s": 0.05,
    "length_s_card": 2,
-   "raw_peak_dbfs": -2.8
+   "raw_peak_dbfs": -2.8,
+   "normalised_db": 0
   },
   "techno-rumble-kick": {
-   "peak_dbfs": -5.88,
-   "rms_dbfs": -12.84,
-   "crest_db": 6.96,
-   "centroid_hz": 76.6,
+   "peak_dbfs": -6.43,
+   "rms_dbfs": -13.77,
+   "crest_db": 7.34,
+   "centroid_hz": 84.8,
    "rise_s": 0.005,
-   "tail_s": 2.975,
-   "width": 0.134,
+   "tail_s": 2.74,
+   "width": 0.151,
    "lr_corr": 0.966,
-   "duration_s": 7.73,
+   "duration_s": 7.645,
    "onset_s": 0.05,
    "length_s_card": 6,
-   "raw_peak_dbfs": -5.88
+   "raw_peak_dbfs": -6.43,
+   "normalised_db": 0
   },
   "tempo-synced-filter-lfo": {
    "peak_dbfs": -7.63,
@@ -3513,7 +3763,8 @@
    "duration_s": 4.175,
    "onset_s": 0.05,
    "length_s_card": 8,
-   "raw_peak_dbfs": -7.63
+   "raw_peak_dbfs": -7.63,
+   "normalised_db": 0
   },
   "the-funny-envelope": {
    "peak_dbfs": -9.12,
@@ -3527,41 +3778,44 @@
    "duration_s": 0.175,
    "onset_s": 0.05,
    "length_s_card": 7,
-   "raw_peak_dbfs": -9.12
+   "raw_peak_dbfs": -9.12,
+   "normalised_db": 0
   },
   "thunder": {
-   "peak_dbfs": -16.92,
-   "rms_dbfs": -43.03,
-   "crest_db": 26.11,
-   "centroid_hz": 180.8,
-   "rise_s": 0.025,
-   "tail_s": 1.965,
-   "width": 0.156,
-   "lr_corr": 0.952,
-   "duration_s": 15.155,
+   "peak_dbfs": -21.21,
+   "rms_dbfs": -43.01,
+   "crest_db": 21.8,
+   "centroid_hz": 187.2,
+   "rise_s": 0.04,
+   "tail_s": 4.43,
+   "width": 0.155,
+   "lr_corr": 0.953,
+   "duration_s": 15.165,
    "onset_s": 0.05,
    "length_s_card": 8,
-   "raw_peak_dbfs": -16.92
+   "raw_peak_dbfs": -21.21,
+   "normalised_db": 0
   },
   "timbale": {
-   "peak_dbfs": -0.0,
-   "rms_dbfs": -13.36,
-   "crest_db": 13.36,
-   "centroid_hz": 427.0,
+   "peak_dbfs": -1.0,
+   "rms_dbfs": -15.26,
+   "crest_db": 14.26,
+   "centroid_hz": 426.6,
    "rise_s": 0.005,
-   "tail_s": -0.943,
+   "tail_s": -0.988,
    "width": 0.0,
    "lr_corr": 1.0,
-   "duration_s": 2.875,
+   "duration_s": 2.83,
    "onset_s": 0.05,
    "length_s_card": 2.5,
-   "raw_peak_dbfs": 1.01
+   "raw_peak_dbfs": 0.95,
+   "normalised_db": -1.95
   },
   "tom": {
-   "peak_dbfs": -7.22,
-   "rms_dbfs": -20.42,
-   "crest_db": 13.2,
-   "centroid_hz": 439.2,
+   "peak_dbfs": -7.19,
+   "rms_dbfs": -20.43,
+   "crest_db": 13.24,
+   "centroid_hz": 443.8,
    "rise_s": 0.005,
    "tail_s": -1.108,
    "width": 0.0,
@@ -3569,7 +3823,8 @@
    "duration_s": 2.71,
    "onset_s": 0.05,
    "length_s_card": 3,
-   "raw_peak_dbfs": -7.22
+   "raw_peak_dbfs": -7.19,
+   "normalised_db": 0
   },
   "toy-piano": {
    "peak_dbfs": -1.95,
@@ -3583,49 +3838,53 @@
    "duration_s": 3.01,
    "onset_s": 0.05,
    "length_s_card": 3,
-   "raw_peak_dbfs": -1.95
+   "raw_peak_dbfs": -1.95,
+   "normalised_db": 0
   },
   "trance-pluck": {
-   "peak_dbfs": -2.87,
-   "rms_dbfs": -19.12,
-   "crest_db": 16.25,
-   "centroid_hz": 953.5,
+   "peak_dbfs": -3.32,
+   "rms_dbfs": -18.75,
+   "crest_db": 15.43,
+   "centroid_hz": 899.4,
    "rise_s": 1.31,
-   "tail_s": 1.62,
-   "width": 0.125,
-   "lr_corr": 0.969,
-   "duration_s": 3.645,
+   "tail_s": 1.4,
+   "width": 0.093,
+   "lr_corr": 0.984,
+   "duration_s": 3.585,
    "onset_s": 0.05,
    "length_s_card": 4,
-   "raw_peak_dbfs": -2.87
+   "raw_peak_dbfs": -3.32,
+   "normalised_db": 0
   },
   "trance-supersaw": {
-   "peak_dbfs": -0.0,
-   "rms_dbfs": -20.76,
-   "crest_db": 20.76,
-   "centroid_hz": 694.4,
+   "peak_dbfs": -1.0,
+   "rms_dbfs": -21.66,
+   "crest_db": 20.66,
+   "centroid_hz": 699.8,
    "rise_s": 1.1,
-   "tail_s": 3.305,
-   "width": 0.417,
-   "lr_corr": 0.704,
-   "duration_s": 5.61,
+   "tail_s": 3.065,
+   "width": 0.41,
+   "lr_corr": 0.712,
+   "duration_s": 5.46,
    "onset_s": 0.05,
    "length_s_card": 5,
-   "raw_peak_dbfs": 0.14
+   "raw_peak_dbfs": -0.13,
+   "normalised_db": -0.87
   },
   "tremolo-chord": {
-   "peak_dbfs": -4.74,
-   "rms_dbfs": -19.78,
-   "crest_db": 15.04,
-   "centroid_hz": 238.0,
+   "peak_dbfs": -4.99,
+   "rms_dbfs": -19.99,
+   "crest_db": 15.0,
+   "centroid_hz": 239.3,
    "rise_s": 0.31,
-   "tail_s": 1.265,
-   "width": 0.055,
+   "tail_s": 1.27,
+   "width": 0.053,
    "lr_corr": 0.994,
-   "duration_s": 6.345,
+   "duration_s": 6.37,
    "onset_s": 0.05,
    "length_s_card": 6,
-   "raw_peak_dbfs": -4.74
+   "raw_peak_dbfs": -4.99,
+   "normalised_db": 0
   },
   "tremolo-lfo-amp": {
    "peak_dbfs": -10.99,
@@ -3639,7 +3898,8 @@
    "duration_s": 3.3,
    "onset_s": 0.05,
    "length_s_card": 4,
-   "raw_peak_dbfs": -10.99
+   "raw_peak_dbfs": -10.99,
+   "normalised_db": 0
   },
   "triangle-bass-nes": {
    "peak_dbfs": -8.57,
@@ -3653,7 +3913,8 @@
    "duration_s": 0.785,
    "onset_s": 0.05,
    "length_s_card": 2,
-   "raw_peak_dbfs": -8.57
+   "raw_peak_dbfs": -8.57,
+   "normalised_db": 0
   },
   "triangle-chip-bass": {
    "peak_dbfs": -8.68,
@@ -3667,7 +3928,8 @@
    "duration_s": 1.625,
    "onset_s": 0.05,
    "length_s_card": 2,
-   "raw_peak_dbfs": -8.68
+   "raw_peak_dbfs": -8.68,
+   "normalised_db": 0
   },
   "trumpet": {
    "peak_dbfs": -8.2,
@@ -3681,7 +3943,8 @@
    "duration_s": 3.1,
    "onset_s": 0.05,
    "length_s_card": 6,
-   "raw_peak_dbfs": -8.2
+   "raw_peak_dbfs": -8.2,
+   "normalised_db": 0
   },
   "ui-blip": {
    "peak_dbfs": -11.47,
@@ -3695,7 +3958,8 @@
    "duration_s": 0.18,
    "onset_s": 0.05,
    "length_s_card": 1.5,
-   "raw_peak_dbfs": -11.47
+   "raw_peak_dbfs": -11.47,
+   "normalised_db": 0
   },
   "uk-garage-organ-bass": {
    "peak_dbfs": -6.95,
@@ -3709,7 +3973,8 @@
    "duration_s": 1.715,
    "onset_s": 0.05,
    "length_s_card": 2.5,
-   "raw_peak_dbfs": -6.95
+   "raw_peak_dbfs": -6.95,
+   "normalised_db": 0
   },
   "unison-and-detune": {
    "peak_dbfs": -4.87,
@@ -3723,7 +3988,8 @@
    "duration_s": 7.95,
    "onset_s": 0.05,
    "length_s_card": 8,
-   "raw_peak_dbfs": -4.87
+   "raw_peak_dbfs": -4.87,
+   "normalised_db": 0
   },
   "unison-voices-budget": {
    "peak_dbfs": -6.44,
@@ -3737,7 +4003,8 @@
    "duration_s": 7.375,
    "onset_s": 0.05,
    "length_s_card": 7,
-   "raw_peak_dbfs": -6.44
+   "raw_peak_dbfs": -6.44,
+   "normalised_db": 0
   },
   "velocity-amplitude-and-filter": {
    "peak_dbfs": -9.39,
@@ -3751,7 +4018,8 @@
    "duration_s": 2.505,
    "onset_s": 0.05,
    "length_s_card": 3,
-   "raw_peak_dbfs": -9.39
+   "raw_peak_dbfs": -9.39,
+   "normalised_db": 0
   },
   "velocity-attack-negative": {
    "peak_dbfs": -7.37,
@@ -3765,7 +4033,8 @@
    "duration_s": 2.77,
    "onset_s": 0.05,
    "length_s_card": 4,
-   "raw_peak_dbfs": -7.37
+   "raw_peak_dbfs": -7.37,
+   "normalised_db": 0
   },
   "velocity-filter-envelope-amount": {
    "peak_dbfs": -4.77,
@@ -3779,7 +4048,8 @@
    "duration_s": 2.51,
    "onset_s": 0.05,
    "length_s_card": 3,
-   "raw_peak_dbfs": -4.77
+   "raw_peak_dbfs": -4.77,
+   "normalised_db": 0
   },
   "velocity-filter": {
    "peak_dbfs": -4.78,
@@ -3793,7 +4063,8 @@
    "duration_s": 2.325,
    "onset_s": 0.05,
    "length_s_card": 4,
-   "raw_peak_dbfs": -4.78
+   "raw_peak_dbfs": -4.78,
+   "normalised_db": 0
   },
   "velocity-lfo-rate": {
    "peak_dbfs": -7.49,
@@ -3807,7 +4078,8 @@
    "duration_s": 6.925,
    "onset_s": 0.05,
    "length_s_card": 7,
-   "raw_peak_dbfs": -7.49
+   "raw_peak_dbfs": -7.49,
+   "normalised_db": 0
   },
   "velocity-pitch-envelope-amount": {
    "peak_dbfs": -6.18,
@@ -3821,21 +4093,23 @@
    "duration_s": 2.32,
    "onset_s": 0.05,
    "length_s_card": 3,
-   "raw_peak_dbfs": -6.18
+   "raw_peak_dbfs": -6.18,
+   "normalised_db": 0
   },
   "vibraphone": {
-   "peak_dbfs": -6.78,
-   "rms_dbfs": -15.86,
-   "crest_db": 9.08,
-   "centroid_hz": 275.3,
-   "rise_s": 0.225,
-   "tail_s": 0.445,
-   "width": 0.07,
-   "lr_corr": 0.991,
-   "duration_s": 6.51,
+   "peak_dbfs": -7.78,
+   "rms_dbfs": -15.97,
+   "crest_db": 8.2,
+   "centroid_hz": 274.6,
+   "rise_s": 0.035,
+   "tail_s": 0.315,
+   "width": 0.06,
+   "lr_corr": 0.993,
+   "duration_s": 6.48,
    "onset_s": 0.05,
    "length_s_card": 7,
-   "raw_peak_dbfs": -6.78
+   "raw_peak_dbfs": -7.78,
+   "normalised_db": 0
   },
   "vibrato-fade-in-lfo-attack": {
    "peak_dbfs": -8.85,
@@ -3849,7 +4123,8 @@
    "duration_s": 5.7,
    "onset_s": 0.05,
    "length_s_card": 5,
-   "raw_peak_dbfs": -8.85
+   "raw_peak_dbfs": -8.85,
+   "normalised_db": 0
   },
   "vibrato-lfo-pitch": {
    "peak_dbfs": -12.01,
@@ -3863,21 +4138,23 @@
    "duration_s": 3.16,
    "onset_s": 0.05,
    "length_s_card": 4,
-   "raw_peak_dbfs": -12.01
+   "raw_peak_dbfs": -12.01,
+   "normalised_db": 0
   },
   "vinyl-crackle": {
-   "peak_dbfs": -12.32,
-   "rms_dbfs": -28.41,
-   "crest_db": 16.09,
-   "centroid_hz": 2754.1,
-   "rise_s": 0.435,
+   "peak_dbfs": -11.35,
+   "rms_dbfs": -28.47,
+   "crest_db": 17.11,
+   "centroid_hz": 2757.6,
+   "rise_s": 1.27,
    "tail_s": 1.255,
    "width": 0.0,
    "lr_corr": 1.0,
    "duration_s": 11.92,
    "onset_s": 0.05,
    "length_s_card": 10,
-   "raw_peak_dbfs": -12.32
+   "raw_peak_dbfs": -11.35,
+   "normalised_db": 0
   },
   "vocal-formant-lead": {
    "peak_dbfs": -43.86,
@@ -3891,21 +4168,23 @@
    "duration_s": 4.67,
    "onset_s": 0.07,
    "length_s_card": 6,
-   "raw_peak_dbfs": -43.85
+   "raw_peak_dbfs": -43.85,
+   "normalised_db": 0
   },
   "vocal-pad": {
-   "peak_dbfs": -15.91,
-   "rms_dbfs": -32.42,
-   "crest_db": 16.5,
-   "centroid_hz": 965.7,
+   "peak_dbfs": -16.15,
+   "rms_dbfs": -32.51,
+   "crest_db": 16.36,
+   "centroid_hz": 958.0,
    "rise_s": 7.51,
    "tail_s": 3.98,
-   "width": 0.595,
-   "lr_corr": 0.477,
-   "duration_s": 18.285,
+   "width": 0.591,
+   "lr_corr": 0.483,
+   "duration_s": 18.29,
    "onset_s": 0.065,
    "length_s_card": 16,
-   "raw_peak_dbfs": -15.91
+   "raw_peak_dbfs": -16.15,
+   "normalised_db": 0
   },
   "voice-priority-last-top-bottom": {
    "peak_dbfs": -5.13,
@@ -3919,7 +4198,8 @@
    "duration_s": 1.96,
    "onset_s": 0.05,
    "length_s_card": 5,
-   "raw_peak_dbfs": -5.13
+   "raw_peak_dbfs": -5.13,
+   "normalised_db": 0
   },
   "volume-vs-expression-cc7-cc11": {
    "peak_dbfs": -6.22,
@@ -3933,21 +4213,23 @@
    "duration_s": 12.87,
    "onset_s": 0.05,
    "length_s_card": 12,
-   "raw_peak_dbfs": -6.22
+   "raw_peak_dbfs": -6.22,
+   "normalised_db": 0
   },
   "warm-analog-pad": {
-   "peak_dbfs": -0.0,
-   "rms_dbfs": -13.52,
-   "crest_db": 13.52,
-   "centroid_hz": 539.6,
-   "rise_s": 0.85,
+   "peak_dbfs": -1.0,
+   "rms_dbfs": -18.28,
+   "crest_db": 17.28,
+   "centroid_hz": 540.3,
+   "rise_s": 1.29,
    "tail_s": 4.005,
    "width": 0.333,
    "lr_corr": 0.801,
-   "duration_s": 11.22,
-   "onset_s": 0.05,
+   "duration_s": 10.47,
+   "onset_s": 0.055,
    "length_s_card": 8,
-   "raw_peak_dbfs": 4.08
+   "raw_peak_dbfs": 4.08,
+   "normalised_db": -5.08
   },
   "waveshaping": {
    "peak_dbfs": -9.12,
@@ -3961,7 +4243,8 @@
    "duration_s": 3.235,
    "onset_s": 0.05,
    "length_s_card": 8,
-   "raw_peak_dbfs": -9.12
+   "raw_peak_dbfs": -9.12,
+   "normalised_db": 0
   },
   "wavetable-chip": {
    "peak_dbfs": -8.74,
@@ -3975,7 +4258,8 @@
    "duration_s": 0.785,
    "onset_s": 0.05,
    "length_s_card": 2,
-   "raw_peak_dbfs": -8.74
+   "raw_peak_dbfs": -8.74,
+   "normalised_db": 0
   },
   "wavetable-position-sweep": {
    "peak_dbfs": -9.5,
@@ -3989,7 +4273,8 @@
    "duration_s": 8.16,
    "onset_s": 0.05,
    "length_s_card": 9,
-   "raw_peak_dbfs": -9.5
+   "raw_peak_dbfs": -9.5,
+   "normalised_db": 0
   },
   "wavetable-scan-lead": {
    "peak_dbfs": -6.02,
@@ -4003,7 +4288,8 @@
    "duration_s": 3.975,
    "onset_s": 0.05,
    "length_s_card": 4,
-   "raw_peak_dbfs": -6.02
+   "raw_peak_dbfs": -6.02,
+   "normalised_db": 0
   },
   "whistle": {
    "peak_dbfs": -10.97,
@@ -4017,13 +4303,14 @@
    "duration_s": 5.165,
    "onset_s": 0.05,
    "length_s_card": 4,
-   "raw_peak_dbfs": -10.97
+   "raw_peak_dbfs": -10.97,
+   "normalised_db": 0
   },
   "white-noise-burst": {
-   "peak_dbfs": -11.62,
-   "rms_dbfs": -25.58,
-   "crest_db": 13.96,
-   "centroid_hz": 12490.4,
+   "peak_dbfs": -11.58,
+   "rms_dbfs": -25.63,
+   "crest_db": 14.05,
+   "centroid_hz": 12373.5,
    "rise_s": 0.005,
    "tail_s": -1.53,
    "width": 0.0,
@@ -4031,21 +4318,23 @@
    "duration_s": 0.17,
    "onset_s": 0.05,
    "length_s_card": 2,
-   "raw_peak_dbfs": -11.62
+   "raw_peak_dbfs": -11.58,
+   "normalised_db": 0
   },
   "wind": {
-   "peak_dbfs": -22.94,
-   "rms_dbfs": -39.31,
-   "crest_db": 16.37,
-   "centroid_hz": 969.1,
-   "rise_s": 3.85,
-   "tail_s": 2.04,
+   "peak_dbfs": -24.06,
+   "rms_dbfs": -39.72,
+   "crest_db": 15.65,
+   "centroid_hz": 977.5,
+   "rise_s": 0.955,
+   "tail_s": 2.11,
    "width": 0.0,
    "lr_corr": 1.0,
-   "duration_s": 20.79,
-   "onset_s": 0.075,
+   "duration_s": 20.635,
+   "onset_s": 0.08,
    "length_s_card": 16,
-   "raw_peak_dbfs": -22.94
+   "raw_peak_dbfs": -24.06,
+   "normalised_db": 0
   },
   "wobble-bass": {
    "peak_dbfs": -9.12,
@@ -4059,21 +4348,23 @@
    "duration_s": 0.7,
    "onset_s": 0.05,
    "length_s_card": 4,
-   "raw_peak_dbfs": -9.12
+   "raw_peak_dbfs": -9.12,
+   "normalised_db": 0
   },
   "woodblock": {
-   "peak_dbfs": -7.65,
-   "rms_dbfs": -30.73,
-   "crest_db": 23.08,
-   "centroid_hz": 1288.4,
-   "rise_s": 1.0,
+   "peak_dbfs": -7.18,
+   "rms_dbfs": -30.6,
+   "crest_db": 23.42,
+   "centroid_hz": 1257.4,
+   "rise_s": 0.5,
    "tail_s": -0.215,
    "width": 0.0,
    "lr_corr": 1.0,
    "duration_s": 1.535,
    "onset_s": 0.05,
    "length_s_card": 2,
-   "raw_peak_dbfs": -7.65
+   "raw_peak_dbfs": -7.18,
+   "normalised_db": 0
   },
   "wurlitzer": {
    "peak_dbfs": -9.07,
@@ -4087,7 +4378,8 @@
    "duration_s": 4.18,
    "onset_s": 0.05,
    "length_s_card": 5.5,
-   "raw_peak_dbfs": -9.07
+   "raw_peak_dbfs": -9.07,
+   "normalised_db": 0
   },
   "zap-laser": {
    "peak_dbfs": -8.92,
@@ -4101,7 +4393,8 @@
    "duration_s": 2.06,
    "onset_s": 0.05,
    "length_s_card": 2,
-   "raw_peak_dbfs": -8.92
+   "raw_peak_dbfs": -8.92,
+   "normalised_db": 0
   }
  }
 }
