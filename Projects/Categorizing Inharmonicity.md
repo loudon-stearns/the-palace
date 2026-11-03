@@ -31,6 +31,9 @@ links:
   - target: "[[2D Torus Wavetable Synthesizer]]"
     type: enables
     label: taxonomy-informs-instrument
+  - target: "[[Categorizing Inharmonicity — Context]]"
+    type: spawned
+    label: rationale-archive
 forward_vector: "I map the space of inharmonicity types — stretched, Bessel, stochastic, chaotic, phase-accumulation — with image, sound and code, giving instrument designers and composers a palette of specific forms rather than a single undifferentiated deviation from harmony."
 ---
 
