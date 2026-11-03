@@ -15,26 +15,30 @@ forward_vector: "I am Shopkeeper's scroll — the page's front door, opening on 
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-18T18:13:32.893Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the page is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-11-03T23:31:34.913Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the page is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** alive · **Stage:** — · **Steward:** cycle 3 · last ran 2026-10-18 (today)
-- **Plan:** none agreed yet — the work leans on the forward vector
+- **Status:** alive · **Stage:** — · **Steward:** cycle 4 · last ran 2026-11-03 (today)
+- **Plan:** none agreed yet — the next run works from what the ledger owes and the forward vector
 - **Waiting on you:** nothing
-- **Ready to advance:** 1 answer filed since the steward last ran — a cycle will consume it
-- **Last shipped:** 2026-10-18 (today) — I confirmed a real pattern across two flagship Spaces, and found the Roster's FLUX entry is five months stale right as FLUX 3 shipped. (`shopkeeper-cycle-3-2026-10-18`)
-- **Last commit touching this page:** 2026-10-18 `ed2b4ff3` — edit(Shopkeeper): the roster follows the Shopkeeper's Shop edits on its own; The Shop page stays outside its reach
+- **Ready to advance:** no unread answers
+- **Last shipped:** 2026-11-03 (today) — LightOnOCR-3 is a real apache-2.0 candidate for the Roster's missing OCR slot, but two separate tools in my sandbox both can't reach it — I'm recommending we stop retrying from here. (`shopkeeper-cycle-4-2026-11-03`)
+- **Last commit touching this page:** 2026-10-24 `a75350ec` — Weave — 2026-10-24 — 79 links added, 647 links pruned, 268 labels added, 13 entries promoted, 25 stages moved, 35 flags closed, 13 decisions carried, 6 Contexts opened, 2 pages composted, 8 faces added
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
+- **Runs:** 1 run on 1 day, counted from the ledger's run lines
+- **Last run:** 2026-11-03 — cycle 4 · taught item 1
+- **Owed in the ledger:** nothing
+- **Latest lesson:** item 1, from cycle 4 — 2026-11-03 — [[Shopkeeper — tuning]]
 
 ### Where this stands
 
-I'm the Shopkeeper — I keep Loudon's catalogue of creative tools (the Shop) stocked and in repair: I find new tools, try them with my own hands, and only bring him the ones that earn it. Last cycle I landed AuK and the Image-to-3D Smith as approved stubs, then hit a wall trying to get a playable clip out of fish-audio's new Drama-3 Space. This cycle I went looking again, found a real gap in the Roster (no OCR tool at all), and hit the same kind of wall — which turns out to matter more than the miss itself.
+I'm the Shopkeeper — I stock Loudon's catalogue of creative tools (the Shop) and only bring him what I've actually tried. Since my last run (2026-10-18) the Roster still has no OCR tool at all — nothing reads a scanned page or a photo of a form back into structured text — and LightOnOCR-3 (lightonai, apache-2.0) has sat as the open candidate for that gap across three runs now, never actually tested, because its demo Space turned out to be a custom front-end with no standard API surface for my usual probing tool (gradio_client) to drive.
 
 ### Left rough, again and again
 
 _What the trail's left-rough notes keep saying, oldest first, in its latest words._
 
-- **rough since cycle 1:** I have zero evidence yet on whether LightOnOCR-3 actually delivers good layout grounding — I have a real gap and a real candidate, but no run of my own hands on it. _(in 2 notes, the latest cycle 3)_
+- **rough since cycle 1:** rough since cycle 1: I still have zero evidence of my own on whether LightOnOCR-3 actually delivers good layout grounding — but this is no longer an open-ended 'needs more tries' note. _(in 3 notes, the latest cycle 4)_
 
 ### Open asks
 
@@ -42,7 +46,7 @@ _None — nothing is waiting on you._
 
 ### Answered, not yet consumed
 
-- `shopkeeper-ask-2026-10-18-flux3` — GRANTED — option_id=LAND-NOTE · answered 2026-10-18 — waiting for the next cycle
+_None._
 
 ### Decided
 
@@ -56,6 +60,14 @@ d2 HI3DGEN: Hi3DGen is primary. It was the only engine in the shoot-out with wat
 d3 NOT-YET: Not yet. TripoSplat is a real separate lane (it makes a splat, not a mesh), but no job has asked for splats. Keep it as a lane note inside the Smith until a brief wants one.
 d4 BLENDER-IMPORT: The first real job is the Study→Blender import test. Watertight geometry is why Hi3DGen won, so prove that first.
 d5 YES: Yes, add a dated gotcha note on Stable Audio 3 to [[Stable Audio Open]]. The news is three months old, so re-check it on the Hub before writing." (2026-09-25)
+
+### Runs
+
+- 2026-11-03 — cycle 4 · taught item 1
+
+### Owed
+
+_Nothing owed._
 
 <!-- scroll:now:end -->
 
@@ -88,6 +100,30 @@ The Shop is yours to tend, not to write. Run the tools, keep the dossiers, and m
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="shopkeeper-cycle-4-2026-11-03" -->
+### 2026-11-03 — cycle 4 — LightOnOCR-3 is a real apache-2.0 candidate for the Roster's missing OCR slot, but two separate tools in my sandbox both can't reach it — I'm recommending we stop retrying from here.
+> shipped · same wall confirmed a second way · steward leans mac-or-token-handoff
+
+This cycle I went back at it from a second angle. First I confirmed the family grew: lightonai now ships LightOnOCR-3-4B and -0.8B alongside the -1B I'd found before, all apache-2.0, all with their own demo Space. Then, instead of gradio_client, I tried the Hugging Face connector's own dynamic_space invoke path on a comparable reachable OCR tool — but LightOnOCR-3's own demo Space still answered with the same single-html-component /config I found last time, and the connector's direct invoke path for Spaces outside its curated list came back 'invoke is disabled' for this session. So now it's two independent tools, two independent walls, not one flaky probe. I also pulled the vendor's own showcase test images straight off their Space repo — examples/docs-table.png and examples/annual-report-table.png, the exact images LightOnOCR-3's own team uses to demonstrate table and layout grounding — so whichever path finally gets through doesn't need a test image built from scratch first.
+
+**Artifacts:**
+- [updated probe notes — the second wall, and the vendor's own test images now on file](Shop/Shopkeeper/probes/lightonocr-3/lightonocr-3-probe-notes.md)
+
+_Changed in the workshop:_ lightonocr-3-probe-notes — recorded the second, independent wall (dynamic_space invoke disabled) and pulled the vendor's own table/layout test images for whichever path gets through next
+
+_Left rough:_ rough since cycle 1: I still have zero evidence of my own on whether LightOnOCR-3 actually delivers good layout grounding — but this is no longer an open-ended 'needs more tries' note. The honest state now is: two tools tried, two structural dead ends, and the only two paths left (a mac session with a real browser, or a pasted HF Inference token) both live outside this sandbox.
+
+_Next moves named:_ On a mac pass or with a pasted token: feed the vendor's own docs-table.png / annual-report-table.png to LightOnOCR-3 directly and judge the table/layout read against the bar · If that clears the bar, draft the OCR Specialist stub with the dossier beside it · Spend next cycle's remainder on the maintenance half (Roster status drift, stale gotchas) — it got crowded out this cycle by chasing this one wall
+<sub>`shopkeeper-cycle-4-2026-11-03` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-835bc605ae" -->
+### 2026-11-03 — cycle 4
+
+taught item 1
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="shopkeeper-cycle-3-2026-10-18" -->
 ### 2026-10-18 — cycle 3 — I confirmed a real pattern across two flagship Spaces, and found the Roster's FLUX entry is five months stale right as FLUX 3 shipped.
 > shipped · confirmed-not-fixed · steward leans mac/token handoff next

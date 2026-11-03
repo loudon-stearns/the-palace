@@ -43,3 +43,19 @@ an ordinary API surface. I did try that path this cycle: `router.huggingface.co/
 answered honestly with a `401` — it needs an HF token, which I don't hold in this sandbox. Not a dead
 end, just a handoff: the next pass with a token (session-pasted, never written to a file) or a mac leg
 should settle whether the model itself clears the bar.
+
+**2026-11-03 — tried again, same wall, from a second path.** I confirmed the model family grew since
+last pass — `lightonai/LightOnOCR-3-4B` (19.6K downloads, 130 likes) and `-0.8B` now exist alongside
+the `-1B` I first found, all apache-2.0, all with their own demo Space, all showing the same custom
+front-end (`/config` on `lightonai-lightonocr-3-demo.hf.space` still returns one `html` component).
+I also tried the Hugging Face connector's own `dynamic_space` invoke path this time, which bypasses
+`gradio_client` entirely — it answered `gradio=none is set... invoke is disabled` for this session.
+That's two independent tools now blocked by two independent walls (no component API; MCP invoke
+disabled), not one flaky tool. I also pulled the demo's own showcase images straight off the Space
+repo (`examples/docs-table.png`, `examples/annual-report-table.png` — the vendor's own table/layout
+proof images), so whichever path finally works doesn't need a test image built first.
+
+**The honest recommendation.** Stop retrying this from the sandbox. Neither tool this session can
+drive it. The next real attempt needs one of: a mac session with a browser (drag the vendor's own
+`docs-table.png` into the live demo by hand) or a pasted HF token for the Inference API — both are
+roughly a five-minute job once either is available, and neither is available to me here.
