@@ -1,0 +1,118 @@
+{
+  "title": "Linear Predictive Coding — rich",
+  "born": "2026-11-03",
+  "links": [
+    {
+      "target": "[[Linear Predictive Coding]]",
+      "type": "connects-to",
+      "label": "rich-face-of"
+    },
+    {
+      "target": "[[Enrichment]]",
+      "type": "connects-to",
+      "label": "made-by"
+    }
+  ],
+  "forward_vector": "I am the manifest of Linear Predictive Coding's rich face: the page's one equation walked up from a sine to a voice, the mirror-twin laid beside Tract Mirror's walk that tests it, and the soul made audible, one spoken sentence driven by its own leftover, a pulse train and a codebook through the same filter. I hold the fingerprint of the words each piece was made against; I grow when the entry is enriched again; I never hold the entry's words.",
+  "entry": "Linear Predictive Coding",
+  "tier": "sketch",
+  "made": "2026-11-03",
+  "round": 1,
+  "sections": [
+    {
+      "heading": "The autoregressive model and the residual",
+      "made": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "Linear Predictive Coding — rich — how much is left over.html",
+          "origin": "made",
+          "by": "Levinson-Durbin · Kokoro (af_heart) for the voice",
+          "height": 1250,
+          "title": "how much is left over",
+          "caption": "**The compression sentence, measured.** Three steps: a sine predicted from its last sample (one weight leaves sin² ω of it, two leave rounding error); then Wold's split, two sines that four weights take 47 dB out of, noise that no order touches, and a sine in noise whose gain climbs toward the noise's own 17 dB and stops; and last the page's sentence spoken, with the order raised from 1 to 32. The leftover falls 10.1 dB under the voice at one weight and 19.1 dB at eighteen, about 3.2 bits a sample, and the next fourteen weights buy 0.4 dB more. The voice is Kokoro, open weights, carried inside the piece; the checks beside it re-run every number.",
+          "near": "The whole art is choosing"
+        }
+      ],
+      "made_against": "0d8dd9dbba20",
+      "stamped": "2026-11-03"
+    },
+    {
+      "heading": "The source-filter model and its mirror-twin",
+      "made": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "/Projects/Tract Mirror/Tract Mirror — rich — junction to mirror.html",
+          "origin": "gathered",
+          "by": "Tract Mirror's rich face, proposal round 2026-11",
+          "height": 1150,
+          "title": "one joint, then the whole mirror · from Tract Mirror",
+          "caption": "**This section's claim, tested in the project that builds it.** Tract Mirror's walk goes from one joint between two tubes up to a vowel, then runs the mirror backward: linear prediction reads the tube out of its own click. The reflection coefficients come back equal to the tube's area-ratio mismatches, joint for joint, only in the ideal tube, with the glottis closed and the walls lossless (largest gap under 10⁻¹¹ on six vowels). With the plugin's leaky glottis and lossy walls they come back as a different tube with the same sound once one level is matched, up to 0.61 off on /o/. Either condition alone breaks the identity. Gathered as it stands, still a proposal on its own page; the finding waits here as an offer.",
+          "near": "This is exactly a waveguide"
+        }
+      ],
+      "made_against": "8cda9eb19c17",
+      "stamped": "2026-11-03"
+    },
+    {
+      "heading": "The residual is where the soul hides",
+      "made": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "Linear Predictive Coding — rich — the residual swap.html",
+          "origin": "made",
+          "by": "Levinson-Durbin · LPC-10 and CELP, their moves · Kokoro (af_heart) for the voice",
+          "height": 1350,
+          "title": "keep the filter, change what drives it",
+          "caption": "**The soul made audible, walked up.** A made vowel and its formants; ten weights reading them back to within 16 Hz and leaving the buzz (99.5 % of the leftover on the buzz's instants). Then the page's sentence spoken: its leftover puts only 49.5 % on the beat. The same ten weights, driven by its own leftover, give the voice back to 10⁻¹⁵; driven by LPC-10's pulse train (98.2 % on the beat) they keep every formant and lose the waveform (−2.8 dB). Last, a CELP-style codebook brings the waveform back to 8.8 dB for about 3.5 kbps more, without copying the leftover. All at 8 kHz; no agent has heard the mix.",
+          "near": "brought the body back by shipping"
+        }
+      ],
+      "made_against": "e94c093f3f89",
+      "stamped": "2026-11-03"
+    }
+  ],
+  "offers": [
+    {
+      "section": "The source-filter model and its mirror-twin",
+      "kind": "claim-change",
+      "what": "The page says the lattice's reflection coefficients are the impedance mismatches between the tube's segments. Tract Mirror's walk (gathered beside the sentence) runs LPC (Levinson-Durbin, order 44) on a tube's own click and finds that true only for the ideal tube: glottis closed and walls lossless, where every joint comes back within 10⁻¹¹. With the plugin's leaky glottis (+0.97) and lossy walls (0.996 a joint) the coefficients come back as a different tube with the same sound once one level is matched: gaps 0.25 on /a/, 0.61 on /o/, and either condition alone breaks it. Offer: name both conditions, and that the reading is of the tube's impulse response, where the page says 'they are the impedance mismatches'. The same finding waits as an open offer on Tract Mirror's opening section.",
+      "status": "open"
+    },
+    {
+      "section": "The residual is where the soul hides",
+      "kind": "no-claim-edit",
+      "what": "'The residual sounded like a buzzer because LPC-10 threw the residual away' reads as if the residual were the buzzer. It was the voice: the piece's leftover is the least buzz-like thing in it (49.5 % of its energy on the beat, against 98.2 % for the pulse train that replaced it). Offer: 'The voice sounded like a buzzer because LPC-10 threw the residual away and replaced it with a pulse train.'",
+      "status": "open"
+    },
+    {
+      "section": "The residual is where the soul hides",
+      "kind": "claim-change",
+      "what": "'A small codebook of excitations — quantized residuals' is looser than what the piece measured. Its CELP-style coder (512 noise vectors plus the last excitation a pitch period back, every 7.5 ms, chosen by analysis-by-synthesis through A(z)/A(z/0.8)) brings the voice's waveform back to 8.8 dB segmental SNR against the pulse train's −2.8, yet the excitation it chose matches the residual at only 0.43 correlation, puts less of itself on the beat (26.6 % against 49.5 %) and is noisier between the harmonics (5.4 against 6.6 dB). It is chosen by how the voice it makes compares, not by how close it sits to the residual. Offer: 'a small codebook of excitations, each chosen by synthesizing the voice it would make and keeping the closest'. It sharpens the page's thesis rather than weakening it: the life is judged by ear, not by copying the leftover.",
+      "status": "open"
+    },
+    {
+      "section": "The residual is where the soul hides",
+      "kind": "claim-change",
+      "what": "'The 2,400 bps secure-voice standard of the late 1970s': LPC-10 was developed through the 1970s and described by Tremain in 1982, but the standard dates from 1984 (NATO STANAG 4198, February 1984; FED-STD-1015, 28 November 1984; later FIPS 137). Offer: 'the 2,400 bps secure-voice standard of 1984, built through the 1970s'. Checked on the web, not by a piece (Wikipedia's LPC-10 article; the Crypto Museum's LPC-10 page).",
+      "status": "open"
+    }
+  ]
+}
