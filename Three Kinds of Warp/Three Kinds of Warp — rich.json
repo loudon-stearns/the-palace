@@ -101,7 +101,7 @@
           "height": 1400,
           "place": "band",
           "title": "two runners, three ways to keep or lose the lap · a walk in four steps",
-          "caption": "**The runners, on the torus and in the spectrum.** One pace; a whole-number ratio, where the path closes into a knot and the sound is still harmonic; an irrational ratio, where the path never closes, with summed oscillators beside a surface to show where the in-between lines come from; and last, coupling. Grey ticks are the lattice the set speeds predict, amber the lattice at the speeds the runners keep. Raise K and the lines follow the amber, then land on one harmonic series at lock. The coupling is the 2D Torus project's own Adler form."
+          "caption": "**The runners, on the torus and in the spectrum.** One pace; a whole-number ratio, where the path closes into a knot and the sound is still harmonic; an irrational ratio, where the path never closes, with summed oscillators beside a surface to show where the in-between lines come from; and last, coupling. Grey ticks are the lattice the set speeds predict, amber the lattice at the speeds the runners keep. Raise K and the lines follow the amber, then land on one harmonic series at lock. The page says type 3 bends the lattice; this step measures that it moves. That is the open offer on this section, and the text wins until Loudon decides. The coupling is the 2D Torus project's own Adler form."
         }
       ],
       "made_against": "b8674a6a015a",
@@ -135,7 +135,7 @@
           "height": 1150,
           "place": "band",
           "title": "the stiff string and the Stiff String surface · a walk in three steps",
-          "caption": "**The claim, put against the surface it names.** A stiff string's partials alone; then one row of the committed Stiff String surface, read the way the instrument reads it; then the two plucked side by side. Every line the surface makes is a whole-number harmonic. It reaches the stretch by weighting the harmonic below and the harmonic above each target, so the centre of each pair lands on it. See the offer on this section.",
+          "caption": "**The claim, put against the surface it names.** A stiff string's partials alone; then one row of the committed Stiff String surface, read the way the instrument reads it; then the two plucked side by side. Every line the surface makes is a whole-number harmonic. It reaches the stretch by weighting the harmonic below and the harmonic above each target, so the centre of each pair lands on it. A row is a one-cycle table, not a warp, so it is bound by the theorem as any table is. See the offer on this section.",
           "near": "Type 2 alone gives"
         }
       ],
@@ -215,37 +215,44 @@
     {
       "section": "The typology",
       "kind": "claim-change",
-      "what": "Type 3 moves the lattice's two generators rather than bending partials off a lattice: with the project's Adler coupling, at any fixed K below lock every line sits on m·ρ1 + n·ρ2, where ρ1 + ρ2 = f1 + f2 and bρ2 − aρ1 = √(Δ² − ((a+b)K)²) (measured on the typology piece's engine, 110 and 121.37 Hz pulled to 1 : 1: at K = 0.5, 0.9 and 0.98·K* every line below 400 Hz, up to 200 of them, within 0.0003 Hz of that lattice and 192 of 200 off the bare m·f1 + n·f2; the 3 : 2 preset the same). Suggest 'bends the lattice itself' → 'moves the lattice's two generators, along a square-root curve, until at lock they collapse onto one harmonic series of (f1 + f2)/(a + b)'; the 'curved manifolds' are true of the paths the lines trace as K moves.",
+      "what": "Type 3 moves the lattice's two generators rather than bending partials off a lattice: at any fixed coupling below lock every line sits on m·ρ1 + n·ρ2, the speeds the phasors actually keep (maker, Adler coupling, 110 and 121.37 Hz pulled to 1 : 1: at 0.5, 0.9 and 0.98·K* every line below 400 Hz, up to 200, within 0.0003 Hz, 192 of 200 off the bare m·f1 + n·f2; challenger, independent DOP853 run: worst miss 0.00015 Hz against a random-frequency median of 0.32–0.39 Hz, and a non-Adler coupling lands on its own lattice to 0.00017 Hz, as a smooth flow on a two-torus must). Suggest 'bends the lattice itself' → 'moves the lattice's two generators until at lock they collapse onto one harmonic series' (the square-root path is Adler's alone; other couplings move them along other curves). It also bears on § Why the typology matters: at fixed coupling type 3 is lattice-bound too, so what type 3 adds is the generators moving, not the lattice bending.",
       "status": "open"
     },
     {
       "section": "The typology",
       "kind": "claim-change",
-      "what": "Type 1 is defined as a degree-1 circle map, but the theorem covers more: the warp acts on the wrapped phase, so any function of it stays on the lattice (measured: 200 random hand-drawn warps, 181 of them not circle maps of any degree, all with no energy between the harmonic lines to one part in a trillion). Suggest 'g : S¹ → S¹ with g(φ + 2π) = g(φ) + 2π' → 'any function of the wrapped phase; the degree-1 circle maps are the continuous ones that keep the pitch'.",
+      "what": "Type 1 is defined as a degree-1 circle map, but the theorem covers more: W∘g is just another one-cycle table, so any function of the wrapped phase stays on the lattice (maker: 200 random drawn warps, 181 not circle maps of any degree, none off the grid; challenger: a mirror read, a sync at 3.4, a jump, a degree-2 bend and 500 drawn warps all ≤ 3.4 × 10⁻¹⁶ off; the text's own 'sync-window kink' and 'hand-drawn lookup' are already not degree-1). Suggest 'g : S¹ → S¹ with g(φ + 2π) = g(φ) + 2π' → 'any function of the wrapped phase; the degree-1 maps are the ones that read the table once, in order, per cycle' (a degree-0 mirror read keeps the pitch too, so degree 1 is not what keeps the pitch).",
       "status": "open"
     },
     {
       "section": "The typology",
       "kind": "claim-change",
-      "what": "The detuning sentence undersells the 1D case: two summed oscillators at an irrational ratio already give an inharmonic line spectrum, two harmonic series side by side, not only beating; what the 2D readout adds is the cross terms m·f1 + n·f2 between them (measured at the golden ratio: summed, every line on one of the two series and none between; with a surface, all four tested cross lines present). Suggest '…so detuning produces beating rather than a coherent inharmonic line spectrum' → '…so detuning gives two harmonic series side by side; the surface's cross terms are what fill the lattice between them'.",
+      "what": "Narrowed after the challenge: the text says two summed sinusoids, and for two sines 'beating' is right. The offer is only about what the 2D readout adds: its cross terms m·f1 + n·f2 fill the lattice between the two series, which no sum of 1D oscillators gives (measured at the golden ratio with three-harmonic oscillators: summed, every line on one of the two harmonic series and none between; with a surface, all four tested cross lines present). Suggest the sentence name the cross terms as the difference rather than beating against a line spectrum.",
       "status": "open"
     },
     {
       "section": "The 1D obstruction theorem",
       "kind": "claim-change",
-      "what": "The theorem is about the continuous signal; a digital oscillator that reads a sharp warp folds harmonics above half the sample rate back between the slots (measured: a saw through a sync window, read naively at 48 kHz, puts 0.013 % of its energy between the lines at 110 Hz and 5.15 % at 880 Hz; the 2D Torus steward measured 18 % on Penrose stir before the per-surface reach fix, scroll entry torus-steward-019). Suggest one clause after 'none of them creates a partial in between slots': 'in continuous time; a digital read that aliases does, as error rather than inharmonicity'.",
+      "what": "Aliasing is not an exception to the theorem but a miss of its hypothesis: when the sample rate is not a whole multiple of the pitch, the sampled phase does not repeat every lap, so a sharp warp folds harmonics back between the slots (a sync-window saw read naively at 48 kHz: 5.150 % between the lines at 880 Hz, confirmed exactly by the challenger over whole periods, where the signal repeats every 11 laps; 0.0068 % at 110 Hz, the maker's 0.013 % being half window leakage; at 1000 Hz, 48 samples a lap, the aliases fold onto the harmonics, 1.9 × 10⁻¹⁴ %; the 2D Torus steward measured 18 % on Penrose stir). Suggest one clause after 'none of them creates a partial in between slots': 'in continuous time; a digital read whose sample rate is not a whole multiple of the pitch folds harmonics back between the slots, as error'.",
       "status": "open"
     },
     {
       "section": "Where piano-style stretching lives",
       "kind": "claim-change",
-      "what": "The Stiff String surface is a type-1 approximation, not type 2: build_catalog.py's stiff_string() (Projects/2D Torus Wavetable Synthesizer/Tools/build_catalog.py:212–235) keeps every row a single cycle and splits each stretched partial between its floor and ceiling whole-number harmonic, so read by one phasor every line is a harmonic and only the weights approximate the stretch (the piece's regeneration of the rows matches the committed 13_stiff_string.wav to 3 × 10⁻⁸; 96.8 % of the surface's energy does not change along Y). Suggest the paragraph say so, and that type-2 placement of energy at m·f1 + n·f2 near piano positions is not yet built; the surface's own page, 13 — Stiff String, already calls it the static-wavetable approximation.",
+      "what": "The Stiff String surface is not type 2: it is a family of one-cycle tables bound by the theorem (not a warp, so 'type 1' only loosely): build_catalog.py's stiff_string() (Projects/2D Torus Wavetable Synthesizer/Tools/build_catalog.py:212–235) keeps every row a single cycle and splits each stretched partial between its floor and ceiling whole-number harmonic, so read by one phasor every line is a harmonic and only the weights approximate the stretch (the piece's regeneration of the rows, and the challenger's run of stiff_string() itself, match the committed 13_stiff_string.wav to 2.98 × 10⁻⁸; 96.8 % of the surface's energy does not change along Y). Suggest the paragraph say so, and that type-2 placement of energy at m·f1 + n·f2 near piano positions is not yet built; the surface's own page, 13 — Stiff String, already calls it the static-wavetable approximation.",
       "status": "open"
     },
     {
       "section": "Where piano-style stretching lives",
       "kind": "claim-change",
-      "what": "Following the type-3 offer on § The typology: at any fixed coupling a type-3 spectrum is still a two-generator lattice (on ρ1, ρ2), and the piano's n·√(1 + B·n²) lies on no two-generator lattice, so type 3 approximates the stretch the way type 2 does; what it adds is that every line slides continuously with K and the set locks with a snap. Reasoned from the 200-line fit, not measured against a piano target. Suggest 'it bends the lattice itself via the coupling functions' → 'it slides the whole lattice via the coupling, so the partials move continuously as the coupling changes'.",
+      "what": "Following the type-3 offer on § The typology: at any fixed coupling a type-3 spectrum is still a two-generator lattice (on ρ1, ρ2), and the piano's n·√(1 + B·n²) lies on no two-generator lattice, so type 3 approximates the stretch the way type 2 does; what it adds is that every line slides continuously with K and the set locks with a snap. Reasoned from offer 1 and accepted by the challenger as reasoning; unmeasured, nothing here was tested against a piano target. Suggest 'it bends the lattice itself via the coupling functions' → 'it slides the whole lattice via the coupling, so the partials move continuously as the coupling changes'.",
+      "status": "open"
+    },
+    {
+      "section": "The 1D obstruction theorem",
+      "kind": "claim-change",
+      "by": "challenger · claude-opus-5-5",
+      "what": "From the challenger, not the maker: 'every commercial wavetable warp lives here' and 'no commercial wavetable synth … can escape the harmonic series' fail for cross-oscillator warps. Serum's warp menu has FM from B and AM from B, which take oscillator B as the source, and at a non-whole B : A ratio they break the period. Suggest 'every warp that reads one oscillator's own phase; menu items that take a second oscillator as their source are type 2'. Rests on public descriptions of Serum's menu, not a palace measurement.",
       "status": "open"
     }
   ]

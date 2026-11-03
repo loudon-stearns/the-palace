@@ -154,7 +154,7 @@ const S = { step: 1, B: 0.03, surface: null, source: '', share: null };
 const STEPS = [
   { n: 1, name: 'A stiff string', says: 'A string with some stiffness: each partial lands a little sharp of its harmonic, and the higher the partial the further sharp. Drag B and watch the amber lines leave the grid. Pluck it. At B = 0 it is a plain harmonic series.' },
   { n: 2, name: 'One row of the surface', says: 'Now the real Stiff String surface, the file the instrument loads. Each row is the stiff string at one B, and the instrument reads a row the way a 1D oscillator reads its table: one lap per cycle. Its lines are the indigo bars. The amber marks are where the stiff string’s partials want to be.' },
-  { n: 3, name: 'Side by side', says: 'The test. Pluck one, then the other. Every indigo bar sits on a whole-number harmonic. The surface reaches toward each stretched partial by splitting it between the harmonic below and the harmonic above, weighted so its centre lands on the target. The lines never move; their weights do. That is the theorem’s type 1, not a two-clock lattice.' },
+  { n: 3, name: 'Side by side', says: 'The test. Pluck one, then the other. Every indigo bar sits on a whole-number harmonic. The surface reaches toward each stretched partial by splitting it between the harmonic below and the harmonic above, weighted so its centre lands on the target. The lines never move; their weights do. A row is not a warp but a one-cycle table, bound by the theorem as any one-cycle table is: not a two-clock lattice.' },
 ];
 
 async function loadSurface() {
