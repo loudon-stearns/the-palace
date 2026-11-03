@@ -79,7 +79,7 @@ Loudon's word for Drafting Table, 2026-10-21, was "the standard for the work I d
 - **The scope is always lit.** The oscilloscope's tokens are the same on both grounds: on a paper face it is the one dark window set into the sheet.
 - **Twelve components** built for a VST face: TitleBlock, Panel, Dimension, Legend, Knob, Fader, Toggle, Choice, Button, Readout, Meter, Scope. Their props mirror `tpl::ParamSpec` from the [[VST Template]], so a plugin's parameter table can be handed to the face as data. They ship twice: as plain functions in `dt-controls.js` for a plugin editor, and as a React 18 bundle for the artifact's live previews.
 - **Type.** JetBrains Mono for everything on the sheet (hosted, not yet a file), IBM Plex Mono for the terminal, VT323 for banners only.
-- **The browser draws nothing.** Scrollbars, selects, checkboxes, range thumbs, the textarea grip, spinners, the `<details>` triangle, focus, selection and autofill are drawn in the sheet's tokens by `controls.css` or do not appear; the scrollbar is the one part kept from STIGMERGY's terminal. A page wears its entry's avatar as its tab icon ([[Hero and Avatar Maker]]). Loudon, 2026-11-03: *"scroll bars look ugly and ordinary."*
+- **The browser draws nothing.** Scrollbars, selects, checkboxes, range thumbs, the textarea grip, spinners, the `<details>` triangle, focus, selection and autofill are drawn in the sheet's tokens by `controls.css` or do not appear; the scrollbar is a fader, a slab cap in a recess, square-ended. A page wears its entry's avatar as its tab icon ([[Hero and Avatar Maker]]). Loudon, 2026-11-03: *"scroll bars look ugly and ordinary."*
 
 ## Why a third system and not a seventh skin
 

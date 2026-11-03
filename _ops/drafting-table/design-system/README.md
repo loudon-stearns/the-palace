@@ -76,11 +76,11 @@ Typographic, as both parents have it. State glyphs: `●` on, `○` off, `▸` p
 
 ## The browser's furniture
 
-A browser supplies what a page does not: a scrollbar, a select's chevron and popup, the checkbox and the radio, a range slider's thumb, a textarea's resize grip, a number field's spinner, the `<details>` triangle, the focus ring, the selection colour, the autofill tint, the tab icon. Each arrives in the operating system's dress and sits on the sheet like a part from another drawing. The leverage diagnostic's textarea on 2026-11-03 was the one Loudon saw: a white scrollbar and a dotted grip on a dark panel.
+A browser supplies what a page does not: a scrollbar, a select's chevron and popup, the checkbox and the radio, a range slider's thumb, a textarea's resize grip, a number field's spinner, the `<details>` triangle, the focus ring, the selection colour, the autofill tint, the tab icon. Each arrives in the operating system's dress and sits on the sheet like a part from another drawing. A Graphite textarea in a daily-page rough on 2026-11-03 was the one Loudon saw: a white scrollbar and a dotted grip on a dark panel.
 
 `controls.css`, loaded after the tokens and before `bundle.css`, re-dresses all of it for the bare elements, so a page gets it for free and a class of its own still wins by order. The rules it follows are the grammar's: square; a hairline is the control; what the hand holds is a slab (the range thumb is a fader cap); the pointer's attention is `accent`; every value is also written as text beside the control. Three choices worth knowing:
 
-- **The scrollbar is the one thing the sheet keeps from the terminal** (`.bbs-scroll` in STIGMERGY's app tokens): radius 0, a thumb in `rule` that wakes to `ink-2` and goes `ink` while dragged, no track colour, no arrows. The board's pixel cursors still stay with the board.
+- **The scrollbar is a fader.** The track is a recess (`ground-100` with a hairline in `rule` on its outer edge) and the thumb is a cap: a slab outlined in `ink`, square-ended, radius 0, `slab-light` while dragged. It grew from STIGMERGY's `.bbs-scroll` (square, no OS chrome) and became a part with mass, as the grammar asks. The board's pixel cursors still stay with the board. Chrome and Safari draw it from the `::-webkit-scrollbar` rules; Chrome drops those the moment `scrollbar-width` is set and draws its own rounded thumb instead, so the standard properties are scoped to Firefox, where thin and coloured is all that can be asked. Loudon, 2026-11-03: *"they still have that capsule look ... in stigmergy we gave them a square top and bottom and it feels much more custom."*
 - **`color-scheme` follows the ground.** Paper is light, Phosphor is dark, and the select popup, the date picker and the body scrollbar follow; without it a dark page gets white furniture.
 - **Checked is ink, not accent.** A checkbox is not the one lit thing in a view; it fills in `ink` with the ground ringed inside, the terminal's `●` on. A radio is round because it is a turned part.
 
@@ -88,7 +88,7 @@ It also sets what the browser draws when nothing is asked: links (ink with a hai
 
 What it cannot dress: `<audio controls>` and `<video controls>` (the OS player; draw a `▸ ■` Button and a hairline scrub from the components) and the `title=` tooltip (write the note on the sheet). A Transport component is the next thing this system wants.
 
-**The tab icon.** Every canon entry wears an avatar and a hero ([[Hero and Avatar Maker]]). A page in an entry's bundle takes the avatar beside it as its tab icon, `<link rel="icon" href="<Entry> — icon.png">`, and may pin the hero behind its header where that fits. A page in a subfolder of the bundle reaches it by `../` on its own, and by `/palace/<Entry>/<Entry> — icon.png` when it is framed, because the frame refuses `..` (`_ops/rich-face/README.md` § Making pieces). The system has no mark of its own (§ Not in this system yet), so a page that belongs to no entry goes without. `<meta name="theme-color">` carries `ground-000`. The specimen is `preview/controls.html`.
+**The tab icon.** Every canon entry wears an avatar and a hero ([[Hero and Avatar Maker]]). A page in an entry's bundle takes the avatar beside it as its tab icon, `<link rel="icon" href="<Entry> — icon.png">`, and may pin the hero behind its header where that fits. A page in a subfolder of the bundle reaches it by `../` on its own, and by `/palace/<Entry>/<Entry> — icon.png` when it is framed, because the frame refuses `..` (`_ops/rich-face/README.md` § Making pieces). The system has no mark of its own (§ Not in this system yet), so a page that belongs to no entry goes without. `<meta name="theme-color">` carries `ground-000`. The specimens are `preview/controls.html` and, for the scrollbar at 3×, `preview/scrollbar-3x.html`.
 
 ## Components
 
@@ -167,5 +167,6 @@ Answers to what the VST Template's WebView editor asked of the system (2026-10-2
 | `reference/` | The CAD sheet the look was read from. |
 | `controls.css` | The browser's furniture re-dressed for the bare elements: scrollbars, selects, checkboxes, ranges, the textarea grip, spinners, `<details>`, focus, selection, autofill, links. Load after the tokens. |
 | `preview/controls.html` | The specimen: every control bare, on both grounds. |
+| `preview/scrollbar-3x.html` | The scrollbar at 3×, Paper and Phosphor: the cap in its recess, square-ended. |
 
 The living copy with live previews is the Design System artifact: https://claude.ai/artifact/5B7KLXdyRVpavzgpEgcRVH (private). This folder is its export; when one changes, the other is brought level by hand.

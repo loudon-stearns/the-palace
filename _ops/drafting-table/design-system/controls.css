@@ -12,23 +12,30 @@
    as the one thing of the terminal's that the sheet keeps: radius 0, a thumb in `rule`, no OS
    chrome. The board's pixel cursors still stay with the board.
 
-   Element selectors only, so any class a page writes wins by order. Chrome ignores the
-   ::-webkit-scrollbar rules once scrollbar-width is set, so the standard properties carry Chrome
-   and Firefox and the pseudo-elements carry Safari; both are kept level by hand. */
+   Element selectors only, so any class a page writes wins by order. Chrome and Safari draw the scrollbar from
+   the ::-webkit-scrollbar rules; Firefox, which has none, gets the standard properties under @supports. */
 
 /* 1 · which side of the light. Paper is light, Phosphor is dark; the popups and pickers follow. */
 :root, [data-theme="paper"] { color-scheme: light; }
 [data-theme="phosphor"] { color-scheme: dark; }
 
-/* 2 · scrollbars: a square mark in `rule`, lit to `ink` under the pointer, no track colour. */
-* { scrollbar-width: thin; scrollbar-color: var(--rule) transparent; }
-*:hover { scrollbar-color: var(--ink-2) transparent; }
-::-webkit-scrollbar { width: 10px; height: 10px; }
-::-webkit-scrollbar-track, ::-webkit-scrollbar-corner { background: transparent; }
-::-webkit-scrollbar-thumb { background: var(--rule); border: 3px solid transparent; background-clip: padding-box; border-radius: var(--radius-0); }
-::-webkit-scrollbar-thumb:hover  { background-color: var(--ink-2); }
-::-webkit-scrollbar-thumb:active { background-color: var(--ink); }
+/* 2 · scrollbars: a fader slot in the gutter. The track is a recess (ground-100 with a hairline in rule on
+   its outer edge); the thumb is a cap, a slab outlined in ink, square-ended, radius 0, that goes slab-light
+   while dragged. Chrome and Safari draw this from the ::-webkit-scrollbar rules; Chrome drops them the moment
+   scrollbar-width is set and draws its own rounded thumb, so the standard properties are scoped to the
+   browsers that have no ::-webkit-scrollbar (Firefox), where thin + colour is all that can be asked. */
+::-webkit-scrollbar { width: 11px; height: 11px; }
+::-webkit-scrollbar-track { background: var(--ground-100); border-left: var(--stroke-rule) solid var(--rule); }
+::-webkit-scrollbar-track:horizontal { border-left: 0; border-top: var(--stroke-rule) solid var(--rule); }
+::-webkit-scrollbar-thumb { background: var(--slab-face); border: var(--stroke-rule) solid var(--ink); border-radius: var(--radius-0); box-shadow: inset 0 1px 0 var(--slab-light); }
+::-webkit-scrollbar-thumb:hover  { background: var(--slab-light); }
+::-webkit-scrollbar-thumb:active { background: var(--slab-light); border-color: var(--accent); }
+::-webkit-scrollbar-corner { background: var(--ground-100); }
 ::-webkit-scrollbar-button { display: none; width: 0; height: 0; }
+@supports not selector(::-webkit-scrollbar) {
+  * { scrollbar-width: thin; scrollbar-color: var(--rule) var(--ground-100); }
+  *:hover { scrollbar-color: var(--ink-2) var(--ground-100); }
+}
 
 /* 3 · selection: ink on ground inverted, as the terminal has it. (bundle.css scopes it to .dt; this is the page.) */
 ::selection { background: var(--selection); color: var(--on-selection); text-shadow: none; }
