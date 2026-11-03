@@ -1,0 +1,482 @@
+{
+  "title": "Portamento and Physical Pitch Modeling — rich",
+  "born": "2026-11-03",
+  "links": [
+    {
+      "target": "[[Portamento and Physical Pitch Modeling]]",
+      "type": "connects-to",
+      "label": "rich-face-of"
+    },
+    {
+      "target": "[[Enrichment]]",
+      "type": "connects-to",
+      "label": "made-by"
+    }
+  ],
+  "forward_vector": "I am the manifest of Portamento and Physical Pitch Modeling's rich face: two made walks that test what the page says about the critically damped and underdamped glide, and the project's own ear set, renders and listening tests gathered beside the sections they serve, with the fingerprint of the words each was made against. I grow when the entry is enriched again; I never hold the entry's words.",
+  "entry": "Portamento and Physical Pitch Modeling",
+  "tier": "study",
+  "made": "2026-11-03",
+  "round": 1,
+  "offers": [
+    {
+      "section": "The Second-Order Physical Model",
+      "kind": "claim-change",
+      "status": "open",
+      "what": "Critically Damped, 'Time scale: Two settling times (1/ω_n each) = 2/ω_n total time to reach ~95% of target.' The critical-glide piece measured the page's own equation (RK4, checked at ω_n = 4, 8 and 30 rad/s): at 2/ω_n the glide has covered 59.4% of the jump (1 − 3e⁻²), at every ω_n; it comes within 5% at 4.744/ω_n and within 2% at 5.834/ω_n. 'Three time constants to 95%' is true of a first-order glide (95.0% at 3τ), which is likely where the sentence came from. On a fifth, 220 → 330 Hz, the glide is still 252 cents under the note at 2/ω_n. Suggested: 'Time scale: set by 1/ω_n. After 2/ω_n the glide has covered about 59% of the way; it reaches 95% at about 4.7/ω_n.'"
+    },
+    {
+      "section": "The Second-Order Physical Model",
+      "kind": "claim-change",
+      "status": "open",
+      "what": "Overshoot amount, 'f_max = f_target + (f₀ − f_target)·e^(−πζ/√(1−ζ²))'. The sign is wrong. The overshoot piece measured the first turning point of the integrated equation for ζ = 0.1 to 0.9, gliding up and down: it lies past the note, at f_target − (f₀ − f_target)·e^(−πζ/√(1−ζ²)), within 0.01 Hz, at t = π/ω_d. The page's '+' form gives a pitch between the start and the note, which the glide crosses once and never returns to: 289.0 Hz for 220 → 330 at ζ = 0.3, where the real peak is 371.0 Hz. The bundle's own bow-overshoot render (multi-mode/locking-manifest.json, ζ 0.2, 196 → 330 Hz) peaked at 400.6 Hz, the corrected form; the page's gives 259.4. 'Maximum' also only holds going up; going down the swing is a minimum. Suggested: 'Peak of the first swing past the note: f_peak = f_target − (f₀ − f_target)·e^(−πζ/√(1−ζ²)), reached at t = π/ω_d.'"
+    },
+    {
+      "section": "The Second-Order Physical Model",
+      "kind": "no-claim-edit",
+      "status": "open",
+      "what": "'For ζ = 0.3, overshoot is ~36%.' A rounding, not a wrong claim: e^(−πζ/√(1−ζ²)) at ζ = 0.3 is 0.3723, and the integrated glide measures 37.23%. Suggested: '~37%'. The ζ = 0.7 figure (~5%; measured 4.6%) stands."
+    },
+    {
+      "section": "The Physical Reality of Portamento",
+      "kind": "claim-change",
+      "status": "open",
+      "what": "'Vocalists typically overshoot slightly when landing on a note from above—they arrive sharp and then settle. This is underdamped behavior.' On the page's own model the two halves disagree: an underdamped landing from above swings past the note downward and arrives flat (the overshoot piece's last step, turned down: 330 → 220 Hz at ζ = 0.3 swings to 179.0 Hz, 357 cents flat); a landing from above that arrives sharp and settles has not overshot at all. The bundle's own singer render goes the other way (curated-ear-set #10, its spectrogram titled 'untrained singer overshooting from below'). Suggested: 'when landing on a note from below — they arrive sharp and then settle', or keep 'from above' and say 'they arrive flat'. Both suggested edits are consistent with the model; which is true is a question about voices, not the equation, and what real singers do is still open (the challenger's line)."
+    },
+    {
+      "section": "Artifacts and Interactive Exploration",
+      "kind": "claim-change",
+      "status": "open",
+      "what": "The first bullet says portamento-tool-01 … 10 are ten teaching tools: the three damping regimes, a wavelet spectrogram and ridge extractor, string and vocal glides, a bell mode analyzer, a string bend, five Kuramoto-coupled modes, an overshoot calculator and a regime ear-training quiz. The ten files in the bundle are ten versions of one silent pitch-glide visualizer, by their titles PID (01–03), PD (04–06, 08–10) and exponential smoothing (07). None contains the words wavelet, spectrogram, bell, Kuramoto, quiz, vocal tract or string bend, and none makes a sound (no AudioContext). curated-ear-set/README.md also calls tool-10 'Damping Regime Ear Training', which the file on disk is not. They arrived as they are in the 2026-05-28 bundle migration (a46062ea). Suggested: describe them as what they are, 'ten iterations of a pitch-glide controller visualizer (PID, PD, exponential smoothing)', and look in the 2026-01-06 conversation for the described tools, which may be lost."
+    },
+    {
+      "section": "Coupled Modes and Real Instrument Complexity",
+      "kind": "no-claim-edit",
+      "status": "open",
+      "what": "'A slider that begins with a bell-like inharmonic character can end with a nearly harmonic character as the modes compress together.' The sentence is incomplete, not backward: line 179 names a length change without a direction. The bundle's multi-mode study (multi-mode/manifest.json) rendered both ways to change pitch: sliding up the neck spreads the partials, 27.6 → 105.5 cents of inharmonicity, toward a bell; raising tension compresses them, 27.6 → 7.0 cents, toward a pure string. At fixed tension stiffness grows as the string shortens, so a slide down the neck compresses them too. These are the study's numbers, not this round's measurement; the challenger confirmed the physics. Suggested (the challenger's wording): 'A slide down the neck, or a bend that raises the tension, can begin bell-like and end nearly harmonic as the modes compress; a slide up the neck does the opposite.'"
+    }
+  ],
+  "sections": [
+    {
+      "heading": "Portamento and Physical Pitch Modeling",
+      "made_against": "ae800eef6d7d",
+      "made": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "proofs/2026-05-04-three-glides.png",
+            "verdict": "keep",
+            "why": "Illustrates the three characters the opening names; the project's own proof, captioned accurately."
+          },
+          {
+            "file": "proofs/2026-05-04-three-glides.wav",
+            "verdict": "keep",
+            "why": "Makes the three characters heard; caption order (linear, overdamped, underdamped) confirmed from the file's pitch track, third peak ~459 Hz."
+          }
+        ]
+      },
+      "pieces": [
+        {
+          "file": "proofs/2026-05-04-three-glides.png",
+          "origin": "gathered",
+          "title": "three glides, one fifth · the 2026-05-04 proof",
+          "caption": "**The three characters in one picture.** The same C4 → G4 three ways: a linear ramp (the toy every synth starts from), a second-order overdamped glide, and an underdamped one that swings to about 465 Hz and rings back around 392.",
+          "near": "This project models pitch as a second-order physical system"
+        },
+        {
+          "file": "proofs/2026-05-04-three-glides.wav",
+          "origin": "gathered",
+          "title": "the same three glides, heard",
+          "caption": "The plot's three glides in its legend's order, a short silence between: linear, overdamped, underdamped. (Order read from the file's own pitch track.)",
+          "near": "This project models pitch as a second-order physical system"
+        }
+      ],
+      "stamped": "2026-11-03"
+    },
+    {
+      "heading": "The Physical Reality of Portamento",
+      "made_against": "1c8cc8b394d7",
+      "made": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "curated-ear-set/audio/10-underdamped.wav",
+            "verdict": "keep",
+            "why": "The bundle's singer model overshoots from below, against line 61's \"from above\"; the caption says so plainly and says it is a model, not a singer."
+          }
+        ]
+      },
+      "pieces": [
+        {
+          "file": "curated-ear-set/audio/10-underdamped.wav",
+          "origin": "gathered",
+          "title": "an untrained singer's overshoot · rendered, not recorded",
+          "caption": "The ear set's #10: the page's model at ζ = 0.3, gliding **up** from 220 Hz to E4. It lands sharp and settles, the artifact this paragraph names. It is a model of a singer, not a singer. Note its direction: the paragraph says *from above*, and on this model a landing from above that overshoots arrives flat (the overshoot piece's last step turns the glide around to show it).",
+          "near": "Vocalists typically overshoot slightly"
+        }
+      ],
+      "stamped": "2026-11-03"
+    },
+    {
+      "heading": "The Second-Order Physical Model",
+      "made_against": "3f0e7ccc92d2",
+      "made": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Portamento and Physical Pitch Modeling — rich — critical glide walked up.html",
+            "verdict": "keep",
+            "why": "A real test that walks up in four playable steps; measured 59.4% at 2/ωₙ against the page's ~95%, recomputed independently. Note: drop the quotation marks on \"Three time constants to 95%\" in the caption — the page never says it."
+          },
+          {
+            "file": "Portamento and Physical Pitch Modeling — rich — overshoot walked up.html",
+            "verdict": "keep",
+            "why": "A real test that walks up to the f_max sign, up and down; 371.0 Hz against the page's 289.0, recomputed independently. Note: step 4's hear line should say the glide meets the tone in unison for an instant, not that it settles there."
+          },
+          {
+            "file": "curated-ear-set/single-session-reel.html",
+            "verdict": "keep",
+            "why": "The forward vector's own one-sitting test, gathered as a record. Its play-silent warning was conform missing a native audio control; a real click posts rich:play."
+          },
+          {
+            "file": "curated-ear-set/paired-exercises.html",
+            "verdict": "keep",
+            "why": "The forward vector's pairs. Sandbox warnings are conform's opaque load only. Note: play-silent is real — a detached new Audio() posts no rich:play, so it does not hush other pieces. That is a kit gap; leave the record as it is."
+          }
+        ]
+      },
+      "pieces": [
+        {
+          "file": "Portamento and Physical Pitch Modeling — rich — critical glide walked up.html",
+          "origin": "made",
+          "by": "Web Audio · canvas",
+          "height": 1180,
+          "place": "band",
+          "title": "the critically damped glide, walked up · four steps",
+          "caption": "**The time-scale sentence, tested.** An easing glide with no mass; the inertia that makes the critical glide start gently; the one clock 1⁄ωₙ that sets its pace; and last the test. Measured on the page's own equation: at 2⁄ωₙ the glide has covered **59.4%** of the way, not ~95%, at every ωₙ. It comes within 5% at **4.74⁄ωₙ**. Cut a fifth short at 2⁄ωₙ and the last leap is 252 cents; cut at the true 95% point, 29. The first-order rule, 3τ to 95%, belongs to step 1's glide, not this one; the page never states it, but it may be where the sentence came from.",
+          "near": "Two settling times"
+        },
+        {
+          "file": "Portamento and Physical Pitch Modeling — rich — overshoot walked up.html",
+          "origin": "made",
+          "by": "Web Audio · canvas",
+          "height": 1200,
+          "place": "band",
+          "title": "the overshoot, walked up · four steps",
+          "caption": "**The overshoot paragraphs, tested.** A pitch that lands exactly; a spring loosened until it swings past the note; the size of the swing from ζ = 0.3 to 0.7, as a sweep for the ear; and last the test of the f_max formula. The swing's size is right (37.2% at ζ = 0.3, 4.6% at 0.7). Its side is not: the first peak lies **past** the note, at f_target − (f₀ − f_target)·e^(−πζ⁄√(1−ζ²)), 371.0 Hz for 220 → 330 at ζ = 0.3, where the page's sign gives 289.0. Whether the ringing is \"perceptually apparent for ζ < 0.5\" is left to your ear; the threshold test under Open Questions measures it.",
+          "near": "For ζ = 0.3, overshoot is"
+        },
+        {
+          "file": "curated-ear-set/single-session-reel.html",
+          "origin": "gathered",
+          "height": 2400,
+          "contract": {
+            "files": "audio/ /Projects/Portamento%20and%20Physical%20Pitch%20Modeling/multi-mode/audio/"
+          },
+          "title": "Portamento by Ear · the single-session reel",
+          "caption": "**The forward vector's test: can the three regimes be named by ear in one sitting?** Six glides to name, then three bowed-string pairs that move the ear from the pitch line to the tone colour. About twenty minutes. Nobody has taken it yet; it is the project's own listening test, gathered as it was."
+        },
+        {
+          "file": "curated-ear-set/paired-exercises.html",
+          "origin": "gathered",
+          "height": 1700,
+          "contract": {
+            "files": "manifest.json audio/ spectrograms/"
+          },
+          "title": "paired exercises · A against B",
+          "caption": "The forward vector's *pairs*: eight curated A-versus-B glides. Tell two near neighbours apart, write one sentence on why, then read the model answer. One thing to know: it plays through an audio element the piece kit doesn't hear, so starting it doesn't quiet another piece on this face (hiding the page does). That is a gap in the kit, not in this page."
+        }
+      ],
+      "stamped": "2026-11-03"
+    },
+    {
+      "heading": "Wavelet Analysis for Pitch Trajectory Understanding",
+      "made_against": "d9dfc2f4ff78",
+      "made": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "curated-ear-set/spectrograms/10-underdamped.png",
+            "verdict": "keep",
+            "why": "Shows ridge and ripple; the caption says honestly that it is an STFT (render.py:153), not a wavelet transform."
+          },
+          {
+            "file": "curated-ear-set/quiz.html",
+            "verdict": "keep",
+            "why": "Drills the section's Pedagogical Use. Note: like the pairs, a detached Audio() posts no rich:play; confirmed the reel kept playing under it. A kit gap; hush on hide works."
+          }
+        ]
+      },
+      "pieces": [
+        {
+          "file": "curated-ear-set/spectrograms/10-underdamped.png",
+          "origin": "gathered",
+          "title": "ridge and ripple · ear set #10",
+          "caption": "An underdamped glide's ridge, with the ripple this section describes around the target, in every partial at once. It is a short-time Fourier spectrogram, the wavelet view's close cousin, not a wavelet transform: the bundle has no CWT render yet.",
+          "near": "Ridge with visible oscillation"
+        },
+        {
+          "file": "curated-ear-set/quiz.html",
+          "origin": "gathered",
+          "height": 1300,
+          "contract": {
+            "files": "manifest.json audio/ spectrograms/"
+          },
+          "title": "the ear-set quiz · hear, name, then see",
+          "caption": "**The pedagogical use, as a drill.** A glide plays with its regime hidden; name it, guess the physical system, then the spectrogram reveals whether the ridge rang. Twelve glides, four per regime. One thing to know: it plays through an audio element the piece kit doesn't hear, so starting it doesn't quiet another piece on this face (hiding the page does). That is a gap in the kit, not in this page.",
+          "near": "Wavelet spectrograms make the distinction"
+        }
+      ],
+      "stamped": "2026-11-03"
+    },
+    {
+      "heading": "Coupled Modes and Real Instrument Complexity",
+      "made_against": "5dbfeb07e51e",
+      "made": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "multi-mode/audio/01-ideal-harmonic-control.wav",
+            "verdict": "keep",
+            "why": "The control the two stiff-string clips need."
+          },
+          {
+            "file": "multi-mode/audio/02-slide-up-the-neck.wav",
+            "verdict": "keep",
+            "why": "Tests line 181 from the study's own render: 27.6 → 105.49 cents, confirmed in multi-mode/manifest.json."
+          },
+          {
+            "file": "multi-mode/audio/03-bend-into-tune.wav",
+            "verdict": "keep",
+            "why": "The other half of that test (27.6 → 6.98 cents). Note: a slide down the neck also compresses the partials, so the caption should name \"a bend, or a slide down the neck\", not just the bend."
+          },
+          {
+            "file": "multi-mode/figures/coupling-ab-spectrogram.png",
+            "verdict": "keep",
+            "why": "Shows the Kuramoto paragraph in the study's own render; ζ 0.55 and K = 9 match the manifest."
+          },
+          {
+            "file": "multi-mode/audio/04-fast-glide-uncoupled.wav",
+            "verdict": "keep",
+            "why": "Half of an A/B that could have failed: if coupling did nothing, the two would match."
+          },
+          {
+            "file": "multi-mode/audio/05-fast-glide-locked.wav",
+            "verdict": "keep",
+            "why": "The locked half of the A/B; the caption matches the study's note."
+          },
+          {
+            "file": "multi-mode/mode-locking-listening.html",
+            "verdict": "keep",
+            "why": "Locking made audible, from the study. Its play-silent warning was a missed native control; a click posts rich:play."
+          }
+        ]
+      },
+      "pieces": [
+        {
+          "file": "multi-mode/audio/01-ideal-harmonic-control.wav",
+          "origin": "gathered",
+          "title": "an ideal string slides an octave · the control",
+          "caption": "No stiffness: every partial slides with the fundamental, so the pitch moves and the tone does not.",
+          "near": "When the string length changes"
+        },
+        {
+          "file": "multi-mode/audio/02-slide-up-the-neck.wav",
+          "origin": "gathered",
+          "title": "a stiff string slides up the neck",
+          "caption": "The same octave on a stiff string, by shortening it. Stiffness grows as the string shortens, the partials spread (27.6 → 105.5 cents of inharmonicity, by the study's own count), and the tone walks toward a bell.",
+          "near": "When the string length changes"
+        },
+        {
+          "file": "multi-mode/audio/03-bend-into-tune.wav",
+          "origin": "gathered",
+          "title": "the same octave by tension",
+          "caption": "Raised by tension instead of length: the partials compress (27.6 → 7.0 cents) and the tone walks toward a pure string. This is the bell-to-harmonic glide the paragraph describes, and a slide down the neck, the string getting longer, compresses them the same way; the slide up, above, goes the other way.",
+          "near": "A slider that begins with a bell-like"
+        },
+        {
+          "file": "multi-mode/figures/coupling-ab-spectrogram.png",
+          "origin": "gathered",
+          "title": "uncoupled against locked · the same fast glide",
+          "caption": "A fast underdamped slide (ζ = 0.55), modes free on the left, Kuramoto-coupled at K = 9 on the right.",
+          "near": "If each mode is viewed as an oscillator"
+        },
+        {
+          "file": "multi-mode/audio/04-fast-glide-uncoupled.wav",
+          "origin": "gathered",
+          "title": "A · modes uncoupled",
+          "caption": "Each mode lags by its own amount and arrives out of register: listen for the smear through the overshoot.",
+          "near": "If each mode is viewed as an oscillator"
+        },
+        {
+          "file": "multi-mode/audio/05-fast-glide-locked.wav",
+          "origin": "gathered",
+          "title": "B · modes locked, K = 9",
+          "caption": "The identical glide with the modes pulling on each other: the tone stays fused through the same overshoot.",
+          "near": "If each mode is viewed as an oscillator"
+        },
+        {
+          "file": "multi-mode/mode-locking-listening.html",
+          "origin": "gathered",
+          "height": 1500,
+          "contract": {
+            "files": "audio/ figures/"
+          },
+          "title": "mode locking · a bowed string's partials hold or slip",
+          "caption": "**Locking, made physical.** A plucked string's partials ride free; a bowed one's are held to the harmonic series until a glide pulls one out of range. Five renders, the overshoot pair among them, with the study's figure.",
+          "near": "This connects to"
+        }
+      ],
+      "stamped": "2026-11-03"
+    },
+    {
+      "heading": "Artifacts and Interactive Exploration",
+      "made_against": "8b6cec3fd8fd",
+      "made": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "portamento-tool-10.html",
+            "verdict": "keep",
+            "why": "Evidence, not decoration: beside line 201 it shows the list does not describe the file. The caption is exact (silent PD visualizer, overshoot presets)."
+          }
+        ]
+      },
+      "pieces": [
+        {
+          "file": "portamento-tool-10.html",
+          "origin": "gathered",
+          "height": 760,
+          "contract": {},
+          "title": "portamento-tool-10 · what the file is",
+          "caption": "The last of the ten files this list names, shown as it is: a silent PD-controller visualizer of a pitch glide, with presets for overshoot. All ten are versions of one such visualizer (PID, PD, exponential smoothing); none is the wavelet, bell, Kuramoto or quiz tool the list describes. An offer on this face says so."
+        }
+      ],
+      "stamped": "2026-11-03"
+    },
+    {
+      "heading": "Open Questions",
+      "made_against": "82d8bccea2ef",
+      "made": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "zeta-over-time/zeta-over-time.html",
+            "verdict": "keep",
+            "why": "Open question 1 rendered as asked (C3 → G3, with an exercise); honest that nobody has listened yet."
+          },
+          {
+            "file": "threshold/overshoot-threshold.html",
+            "verdict": "keep",
+            "why": "Open question 2 as a measurement, staircase then alive or sour; the right place for the page's \"apparent for ζ < 0.5\"."
+          },
+          {
+            "file": "multi-mode/loudness-listening.html",
+            "verdict": "keep",
+            "why": "Question 3's progress note made audible; slipping partials match loudness-manifest.json. Its play-silent warning was a missed native control."
+          },
+          {
+            "file": "model-fitter/fit_validation.png",
+            "verdict": "keep",
+            "why": "The caption says what the validation shows and what it does not: synthetic glides only."
+          }
+        ]
+      },
+      "pieces": [
+        {
+          "file": "zeta-over-time/zeta-over-time.html",
+          "origin": "gathered",
+          "height": 2600,
+          "contract": {},
+          "title": "ζ over time · seven glides whose damping changes as they move",
+          "caption": "**Question 1, rendered.** One spring, C3 → G3, seven ways: caught gradually, grabbed at the crest, grabbed mid-swing, let go while moving, let go after arriving. The last sounds the same as a clean glide: damping acts only on motion. Then a 14-item exercise. Nobody has listened yet.",
+          "near": "Portamento as a compositional parameter"
+        },
+        {
+          "file": "threshold/overshoot-threshold.html",
+          "origin": "gathered",
+          "height": 1100,
+          "contract": {},
+          "title": "the overshoot threshold test · ten minutes, two numbers",
+          "caption": "**Question 2, measured one listener at a time.** A staircase finds the smallest overshoot you can hear on a glide up a fifth, then seven overshoots ask *alive or sour?* It also tests the page's \"perceptually apparent for ζ < 0.5\" for your ears. Synthesized in the browser; nobody has taken it yet.",
+          "near": "Overshoot aesthetics"
+        },
+        {
+          "file": "multi-mode/loudness-listening.html",
+          "origin": "gathered",
+          "height": 1500,
+          "contract": {
+            "files": "audio/ figures/"
+          },
+          "title": "the bow chooses · locking that follows bow force",
+          "caption": "Question 3's progress note, heard: a crescendo pulls partials into lock from the bottom up, and the same overshoot at three bow strengths slips a different partial each time.",
+          "near": "Mode selection in complex instruments"
+        },
+        {
+          "file": "model-fitter/fit_validation.png",
+          "origin": "gathered",
+          "title": "the model run backward · validation",
+          "caption": "The fitter recovering ζ and ωₙ from the twelve ear-set glides. Synthetic glides only, so far: it shows the fitter works, not that voices obey the model.",
+          "near": "Real vs. modeled"
+        }
+      ],
+      "stamped": "2026-11-03"
+    }
+  ]
+}

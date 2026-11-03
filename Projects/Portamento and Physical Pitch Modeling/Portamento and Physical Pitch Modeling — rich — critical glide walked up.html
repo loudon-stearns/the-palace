@@ -1,0 +1,368 @@
+<!doctype html>
+<!--
+  title: Portamento and Physical Pitch Modeling — rich — critical glide walked up
+  born: 2026-11-03
+  links: [[Portamento and Physical Pitch Modeling]] (connects-to · rich-face-piece) · listed in [[Portamento and Physical Pitch Modeling — rich.json]] · serves § The Second-Order Physical Model, its Critically Damped paragraph
+  forward_vector: I am the critically damped glide taken one idea at a time. An easing glide with no mass, then the inertia that makes it start gently, then the one clock 1/ω_n that sets every glide's pace, and last the test: does the page's 2/ω_n really reach 95% of the way? I play inside the entry's rich face and stand alone opened directly; I change only when the section I serve does.
+  sound: nothing plays until a glide button is clicked; the AudioContext is made on that click. Changing step stops the sound.
+  check: Portamento and Physical Pitch Modeling — rich — check.mjs runs this page's engine in Node against the numbers it shows.
+-->
+<html lang="en" class="skin-graphite">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- needs nothing of its host: no device, no storage, no file, no host; sound only on a click -->
+<meta name="piece:needs" content="">
+<title>The critically damped glide, walked up</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@300;400;500&display=swap">
+<style>
+  :root{
+    --bg:#0a0a0f; --bg-elev-1:#12121a; --bg-elev-2:#1a1a28; --border:#4a4a5e; --border-soft:rgba(255,255,255,0.06);
+    --fg-1:#e8e8f0; --fg-2:#c8c8d8; --fg-3:#8a8aa0; --fg-4:#4a4a5a;
+    --accent:#e8b84a; --accent-soft:rgba(232,184,74,0.10); --accent-line:rgba(232,184,74,0.5);
+    --violet:#8b7cf6; --warn:#ff8a6a;
+    --serif:'Cormorant Garamond',Georgia,serif; --sans:'Manrope',system-ui,sans-serif;
+    --display:'Anton',Impact,sans-serif; --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--fg-1)}
+  body{font-family:var(--serif);font-size:17px;line-height:1.7;padding:28px 16px 36px}
+  main{max-width:960px;margin:0 auto}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--fg-3)}
+  h1{font-family:var(--display);font-weight:400;font-size:40px;line-height:1.05;margin:6px 0 10px}
+  h2{font-family:var(--display);font-weight:400;font-size:26px;line-height:1.1;margin:4px 0 8px;letter-spacing:.01em}
+  p.lead{font-size:19px;color:var(--fg-2);margin:0 0 18px;max-width:66ch}
+  .rail{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 18px}
+  .rail button{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-3);background:transparent;border:1px solid var(--border);border-radius:4px;padding:7px 11px;cursor:pointer;transition:all .22s cubic-bezier(.4,0,.2,1)}
+  .rail button[aria-current="step"]{color:var(--fg-1);border-color:var(--fg-3);background:var(--bg-elev-2)}
+  p.say{color:var(--fg-2);margin:0 0 14px;max-width:68ch}
+  blockquote.page{margin:0 0 14px;padding:8px 14px;border-left:2px solid var(--warn);font-style:italic;color:var(--fg-2);background:var(--bg-elev-1)}
+  .dwh{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:8px 18px;margin:0 0 14px;font-family:var(--sans);font-size:13.5px;color:var(--fg-2);line-height:1.55}
+  .dwh b{font-family:var(--mono);font-weight:400;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);display:block}
+  .panel{background:var(--bg-elev-1);border:1px solid var(--border-soft);border-radius:4px;padding:16px;margin:0 0 14px}
+  .plabel{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-3);display:flex;justify-content:space-between;gap:10px;margin-bottom:8px}
+  canvas{width:100%;height:300px;display:block;background:var(--bg-elev-2);border-radius:2px}
+  .rowb{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:12px}
+  button.play{font-family:var(--sans);font-weight:500;font-size:14px;color:#0a0a0f;background:var(--accent);border:0;border-radius:4px;padding:9px 18px;cursor:pointer;transition:box-shadow .22s cubic-bezier(.4,0,.2,1)}
+  button.play:hover{box-shadow:0 0 24px var(--accent-soft)}
+  button.play.alt{background:transparent;color:var(--fg-1);border:1px solid var(--accent-line)}
+  button.ghost{font-family:var(--sans);font-size:14px;color:var(--fg-2);background:transparent;border:1px solid var(--border);border-radius:4px;padding:8px 14px;cursor:pointer}
+  button.ghost[aria-pressed="true"]{color:var(--fg-1);border-color:var(--accent-line);background:var(--bg-elev-2)}
+  button.ghost:disabled{opacity:.35;cursor:default}
+  .ctl{display:grid;grid-template-columns:170px 1fr auto;gap:6px 14px;align-items:center;margin-top:14px}
+  .ctl label{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-3)}
+  .ctl input[type=range]{width:100%;accent-color:var(--accent)}
+  .ctl .v{font-family:var(--mono);font-size:14px;color:var(--fg-1);text-align:right;white-space:nowrap;min-width:12ch}
+  .meter{font-family:var(--mono);font-size:13px;color:var(--fg-2);margin-top:12px;line-height:1.75}
+  .meter b{color:var(--accent);font-weight:400}
+  .meter i{color:var(--warn);font-style:normal}
+  .eq{font-family:var(--mono);font-size:13.5px;color:var(--fg-1);margin:14px 0 0;overflow-wrap:anywhere}
+  .eq.words{font-family:var(--sans);color:var(--fg-3);font-size:13px;margin-top:2px}
+  .hint{font-family:var(--sans);font-size:13px;color:var(--fg-3)}
+  table.t{border-collapse:collapse;margin-top:12px;font-family:var(--mono);font-size:13px;color:var(--fg-2)}
+  table.t td,table.t th{border-bottom:1px solid var(--border-soft);padding:5px 16px 5px 0;text-align:right;font-weight:400}
+  table.t th{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-3)}
+  table.t td:first-child,table.t th:first-child{text-align:left}
+  table.t b{color:var(--accent);font-weight:400}
+  table.t i{color:var(--warn);font-style:normal}
+  .walk{display:flex;justify-content:space-between;gap:10px;margin-top:16px}
+  .gk{text-transform:none!important}
+  .hide{display:none!important}
+  footer{margin-top:28px;font-family:var(--sans);font-size:13px;color:var(--fg-4)}
+  footer b{font-family:var(--display);font-weight:400;letter-spacing:.06em;color:var(--fg-3)}
+  @media (max-width:560px){h1{font-size:30px}h2{font-size:22px}.ctl{grid-template-columns:110px 1fr auto}}
+</style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">Portamento · the critically damped glide · four steps</div>
+  <h1>The critically damped glide, walked up</h1>
+  <p class="lead">A glide up a fifth, 220 Hz to 330 Hz, on the page's own law. Take it one idea at a time, then check the page's sentence about how long it takes.</p>
+
+  <nav class="rail" id="rail" aria-label="steps"></nav>
+  <h2 id="st-title"></h2>
+  <p class="say" id="st-say"></p>
+  <blockquote class="page hide" id="st-quote"></blockquote>
+  <div class="dwh"><div><b>do</b><span id="st-do"></span></div><div><b>watch</b><span id="st-watch"></span></div><div><b>hear</b><span id="st-hear"></span></div></div>
+
+  <div class="panel">
+    <div class="plabel"><span id="plot-label">pitch over time · the glide starts at 0</span><span>Hz · seconds</span></div>
+    <canvas id="plot"></canvas>
+    <div class="rowb" id="buttons"></div>
+    <div class="ctl" id="ctl-tau">
+      <label for="tau">time constant <span class="gk">τ</span></label><input id="tau" type="range" min="0.04" max="0.3" step="0.005" value="0.12"><span class="v" id="tau-v"></span>
+    </div>
+    <div class="ctl" id="ctl-wn">
+      <label for="wn">natural frequency <span class="gk">ωₙ</span></label><input id="wn" type="range" min="4" max="30" step="0.1" value="8"><span class="v" id="wn-v"></span>
+    </div>
+    <div class="meter" id="meter"></div>
+    <table class="t" id="table"></table>
+  </div>
+
+  <div class="eq" id="eq1"></div>
+  <div class="eq words" id="eq1w"></div>
+  <div class="eq" id="eq2"></div>
+  <div class="eq words" id="eq2w"></div>
+
+  <div class="walk"><button class="ghost" id="back">← back</button><button class="ghost" id="next">next →</button></div>
+  <footer><b>LOUD’N LIVE</b> · made for the rich face of Portamento and Physical Pitch Modeling · the engine runs here, in this page, and in its check</footer>
+</main>
+
+<script id="engine">
+// ---- engine: the page's second-order pitch law (shared by the page and its headless check) ----
+// f'' + 2ζωₙ f' + ωₙ² (f − f_target) = 0, with f(0) = f0 and f'(0) = 0, as the page's § Initial Conditions sets it.
+function glide(zeta, wn, f0, ft, t) {                 // the closed form, every regime
+  if (t <= 0) return f0;
+  const d = f0 - ft;
+  if (Math.abs(zeta - 1) < 1e-9) return ft + d * (1 + wn * t) * Math.exp(-wn * t);
+  if (zeta < 1) {
+    const q = Math.sqrt(1 - zeta * zeta), wd = wn * q;
+    return ft + d * Math.exp(-zeta * wn * t) * (Math.cos(wd * t) + (zeta / q) * Math.sin(wd * t));
+  }
+  const s = Math.sqrt(zeta * zeta - 1), r1 = -wn * (zeta - s), r2 = -wn * (zeta + s);
+  const A = d * r2 / (r2 - r1);
+  return ft + A * Math.exp(r1 * t) + (d - A) * Math.exp(r2 * t);
+}
+function firstOrder(tau, f0, ft, t) { return t <= 0 ? f0 : ft + (f0 - ft) * Math.exp(-t / tau); }
+function integrate(zeta, wn, f0, ft, T, dt) {           // RK4 on the page's equation itself, not on its solution
+  const n = Math.round(T / dt), out = new Float64Array(n + 1);
+  const acc = (f, v) => -2 * zeta * wn * v - wn * wn * (f - ft);
+  let f = f0, v = 0; out[0] = f;
+  for (let i = 1; i <= n; i++) {
+    const k1f = v, k1v = acc(f, v);
+    const k2f = v + 0.5 * dt * k1v, k2v = acc(f + 0.5 * dt * k1f, v + 0.5 * dt * k1v);
+    const k3f = v + 0.5 * dt * k2v, k3v = acc(f + 0.5 * dt * k2f, v + 0.5 * dt * k2v);
+    const k4f = v + dt * k3v, k4v = acc(f + dt * k3f, v + dt * k3v);
+    f += dt / 6 * (k1f + 2 * k2f + 2 * k3f + k4f); v += dt / 6 * (k1v + 2 * k2v + 2 * k3v + k4v);
+    out[i] = f;
+  }
+  return out;
+}
+function coveredAt(curve, dt, t, f0, ft) {               // the share of the jump done by time t, read off an integrated curve
+  const x = t / dt, i = Math.floor(x), a = x - i;
+  const f = i + 1 < curve.length ? curve[i] * (1 - a) + curve[i + 1] * a : curve[curve.length - 1];
+  return (f - f0) / (ft - f0);
+}
+function settleTime(curve, dt, f0, ft, share) {          // the last moment the glide is still more than (1 − share) of the jump from the note
+  const tol = (1 - share) * Math.abs(ft - f0);
+  for (let i = curve.length - 2; i >= 0; i--) if (Math.abs(curve[i] - ft) > tol) {
+    const e1 = Math.abs(curve[i] - ft) - tol, e2 = Math.abs(curve[i + 1] - ft) - tol;
+    return (i + e1 / (e1 - e2)) * dt;
+  }
+  return 0;
+}
+const cents = (a, b) => 1200 * Math.log2(a / b);
+</script>
+
+<script>
+const $ = (id) => document.getElementById(id);
+const F0 = 220, FT = 330, PRE = 0.3, DT = 1 / 4000;
+const S = { step: 0, tau: 0.12, wn: 8, ghost: true };
+
+const STEPS = [
+  { name: 'an easing glide', title: 'An easing glide, with no mass',
+    say: 'Start with the simplest glide a synth makes: the pitch closes a fixed share of the remaining gap every instant. It is the page’s first formula, the overdamped one in its simple form. Its pace is one number, the time constant τ.',
+    do: 'Glide, then move τ and glide again.', watch: 'The curve is steepest at the very start. At τ it has covered 63% of the way; at 3τ, 95%.', hear: 'The pitch leaves at full speed, then slows as it nears the note.',
+    ctl: 'tau', curves: ['first'] },
+  { name: 'add inertia', title: 'Add inertia',
+    say: 'Now give the pitch mass, as the page’s second-order law does. A mass at rest cannot leave at full speed: the page sets the starting velocity to zero. With damping ratio ζ = 1 the glide is critically damped. The dashed line is step 1’s glide with τ = 1⁄ωₙ, for comparison.',
+    do: 'Play the critical glide, then step 1’s glide. Move ωₙ.', watch: 'The solid curve leaves flat, then bends up. It starts behind the dashed one and never catches it.', hear: 'A gentler departure, then a firm, purposeful arrival. No overshoot.',
+    ctl: 'wn', curves: ['crit', 'ghost'] },
+  { name: 'one clock', title: 'One clock: 1⁄ωₙ',
+    say: 'The critical glide has one clock, 1⁄ωₙ. Change ωₙ and the whole curve stretches or squeezes in time, but its shape stays the same. So the share of the jump done after one, two or three ticks of that clock is the same at every ωₙ. The table measures it from the curve as you move the slider.',
+    do: 'Move ωₙ from one end to the other and watch the table.', watch: 'The tick marks slide; the percentages don’t.', hear: 'A faster or slower glide of the same shape.',
+    ctl: 'wn', curves: ['crit'], ticks: [1, 2, 3] },
+  { name: 'the test', title: 'The test: 95% at 2⁄ωₙ?',
+    say: 'Here is the page’s sentence about the critically damped glide. If it holds, then at 2⁄ωₙ only 5% of the jump is left, and cutting the glide short there by jumping straight to the note would be a small flick. Measure it, and hear it.',
+    quote: '“Time scale: Two settling times (1⁄ωₙ each) = 2⁄ωₙ total time to reach ~95% of target.”',
+    do: 'Play the whole glide, then the two cut-short versions.', watch: 'The coral mark is 2⁄ωₙ; the amber mark is where the curve really comes within 5%.', hear: 'Cut at 2⁄ωₙ, the last leap is a jump of over two semitones. Cut at the true 95% point, a small flick.',
+    ctl: 'wn', curves: ['crit'], test: true },
+];
+
+// ---- sound ----
+let ctx = null, master = null, voice = null, wave = null, t0 = 0, playDur = 0, playKind = null;
+function ensureAudio() {
+  if (ctx) return;
+  ctx = new (window.AudioContext || window.webkitAudioContext)();
+  const comp = ctx.createDynamicsCompressor(); comp.threshold.value = -14; comp.ratio.value = 4;
+  master = ctx.createGain(); master.gain.value = 0.5;
+  master.connect(comp).connect(ctx.destination);
+  const n = 10, re = new Float32Array(n + 1), im = new Float32Array(n + 1);
+  for (let k = 1; k <= n; k++) im[k] = 1 / (k * Math.sqrt(k));          // a soft, reedy tone
+  wave = ctx.createPeriodicWave(re, im);
+}
+function stopSound() {
+  if (voice) { try { voice.osc.stop(); } catch (e) {} voice = null; }
+  playKind = null;
+}
+function pitchAt(kind, t, cut) {                    // 'first': step 1's glide · 'ghost': the same with τ = 1/ωₙ · 'crit': ζ = 1
+  if (cut != null && t >= cut) return FT;
+  if (kind === 'first') return firstOrder(S.tau, F0, FT, t);
+  if (kind === 'ghost') return firstOrder(1 / S.wn, F0, FT, t);
+  return glide(1, S.wn, F0, FT, t);
+}
+function trajectory(kind, cut) {                    // pitch at control rate, PRE seconds of the start note first
+  const rate = 600, T = glideSpan(), n = Math.round((PRE + T) * rate), out = new Float32Array(n);
+  for (let i = 0; i < n; i++) {
+    const t = i / rate - PRE;
+    out[i] = pitchAt(kind, t, cut);
+  }
+  return out;
+}
+function play(kind, cut) {
+  ensureAudio(); stopSound();
+  if (ctx.state !== 'running') ctx.resume();
+  const curve = trajectory(kind, cut), dur = curve.length / 600;
+  const osc = ctx.createOscillator(); osc.setPeriodicWave(wave);
+  const g = ctx.createGain(); g.gain.value = 0;
+  osc.connect(g).connect(master);
+  t0 = ctx.currentTime + 0.04;
+  osc.frequency.setValueAtTime(curve[0], t0);
+  osc.frequency.setValueCurveAtTime(curve, t0, dur);
+  g.gain.setValueAtTime(0, t0); g.gain.linearRampToValueAtTime(0.8, t0 + 0.02);
+  g.gain.setValueAtTime(0.8, t0 + dur - 0.12); g.gain.linearRampToValueAtTime(0, t0 + dur);
+  osc.start(t0); osc.stop(t0 + dur + 0.02);
+  voice = { osc }; playDur = dur; playKind = { kind, cut };
+  osc.onended = () => { if (voice && voice.osc === osc) { voice = null; playKind = null; } };
+  // tell the face a sound started
+  if (window.parent !== window) { try { window.parent.postMessage({ type: 'rich:play' }, '*'); } catch (e) {} }
+}
+
+// ---- numbers, measured from the integrated equation ----
+function glideSpan() { return Math.max(1.4, Math.min(3.2, 8 / S.wn)); }
+let M = null;
+function measure() {
+  const T = 14 / S.wn, c = integrate(1, S.wn, F0, FT, T, DT / (S.wn / 8));
+  const dt = DT / (S.wn / 8);
+  M = {
+    c, dt,
+    at: [1, 2, 3, 4].map((k) => coveredAt(c, dt, k / S.wn, F0, FT)),
+    t95: settleTime(c, dt, F0, FT, 0.95), t98: settleTime(c, dt, F0, FT, 0.98),
+  };
+}
+
+// ---- drawing ----
+const plot = $('plot');
+function sizeCanvas() { const d = window.devicePixelRatio || 1; plot.width = Math.round(plot.clientWidth * d); plot.height = Math.round(plot.clientHeight * d); }
+function draw() {
+  const g = plot.getContext('2d'), d = window.devicePixelRatio || 1, W = plot.width / d, H = plot.height / d;
+  g.setTransform(d, 0, 0, d, 0, 0); g.clearRect(0, 0, W, H);
+  const st = STEPS[S.step], span = glideSpan(), tL = -PRE, tR = span;
+  const L = 46, R = 14, Tp = 14, B = 30;
+  const X = (t) => L + (t - tL) / (tR - tL) * (W - L - R), Y = (f) => Tp + (342 - f) / (342 - 208) * (H - Tp - B);
+  g.font = '10px JetBrains Mono, monospace'; g.lineWidth = 1;
+  // grid: start, target
+  for (const [f, lab] of [[F0, '220 · start'], [FT, '330 · the note']]) {
+    g.strokeStyle = 'rgba(255,255,255,0.14)'; g.setLineDash([4, 4]); g.beginPath(); g.moveTo(L, Y(f)); g.lineTo(W - R, Y(f)); g.stroke(); g.setLineDash([]);
+    g.fillStyle = '#8a8aa0'; g.textAlign = 'right'; g.fillText(String(f), L - 6, Y(f) + 3);
+    g.textAlign = 'left'; g.fillText(lab.split(' · ')[1], W - R - 70, Y(f) - 5);
+  }
+  // time axis
+  g.fillStyle = '#8a8aa0'; g.textAlign = 'center';
+  for (let t = 0; t <= tR + 1e-9; t += 0.25) { g.fillText(t.toFixed(2), X(t), H - 10); g.strokeStyle = 'rgba(255,255,255,0.06)'; g.beginPath(); g.moveTo(X(t), Tp); g.lineTo(X(t), H - B); g.stroke(); }
+  const curve = (fn, col, dash, w) => { g.strokeStyle = col; g.lineWidth = w || 2; g.setLineDash(dash || []); g.beginPath(); for (let i = 0; i <= 600; i++) { const t = tL + (tR - tL) * i / 600, f = fn(t); i ? g.lineTo(X(t), Y(f)) : g.moveTo(X(t), Y(f)); } g.stroke(); g.setLineDash([]); g.lineWidth = 1; };
+  const vmark = (t, col, label, row) => { if (t > tR) return; g.strokeStyle = col; g.setLineDash([3, 3]); g.beginPath(); g.moveTo(X(t), Tp); g.lineTo(X(t), H - B); g.stroke(); g.setLineDash([]); g.fillStyle = col; g.textAlign = 'left'; g.fillText(label, X(t) + 4, Tp + 12 + 13 * (row || 0)); };
+  if (st.curves.includes('ghost') && S.ghost) curve((t) => firstOrder(1 / S.wn, F0, FT, t), '#8b7cf6', [6, 5], 1.5);
+  if (st.curves.includes('first')) {
+    curve((t) => firstOrder(S.tau, F0, FT, t), '#e8b84a');
+    vmark(S.tau, '#c8c8d8', 'τ · 63%', 0); vmark(3 * S.tau, '#c8c8d8', '3τ · 95%', 1);
+  }
+  if (st.curves.includes('crit')) curve((t) => glide(1, S.wn, F0, FT, t), '#e8b84a');
+  if (st.ticks && M) st.ticks.forEach((k, j) => vmark(k / S.wn, '#c8c8d8', `${k}⁄ωₙ · ${(100 * M.at[k - 1]).toFixed(1)}%`, j));
+  if (st.test && M) {
+    vmark(2 / S.wn, '#ff8a6a', `2⁄ωₙ · ${(100 * M.at[1]).toFixed(1)}%`, 0);
+    vmark(M.t95, '#e8b84a', `${(M.t95 * S.wn).toFixed(2)}⁄ωₙ · 95%`, 1);
+  }
+  // playhead
+  if (voice && ctx && playKind) {
+    const t = ctx.currentTime - t0 - PRE;
+    if (t >= tL && t <= tR) {
+      const f = pitchAt(playKind.kind, t, playKind.cut);
+      g.fillStyle = '#e8e8f0'; g.beginPath(); g.arc(X(t), Y(f), 4.5, 0, 2 * Math.PI); g.fill();
+    }
+  }
+}
+function loop() { requestAnimationFrame(loop); draw(); }
+
+// ---- readouts ----
+function meter() {
+  const st = STEPS[S.step], m = $('meter'), tb = $('table');
+  tb.innerHTML = '';
+  if (st.ctl === 'tau') {
+    const at = (k) => 1 - Math.exp(-k);
+    m.innerHTML = `τ = <b>${S.tau.toFixed(3)} s</b> · covered at τ: <b>${(100 * at(1)).toFixed(1)}%</b> · at 2τ: <b>${(100 * at(2)).toFixed(1)}%</b> · at 3τ: <b>${(100 * at(3)).toFixed(1)}%</b>`;
+    return;
+  }
+  const clock = 1 / S.wn;
+  if (S.step === 1) {
+    m.innerHTML = `ωₙ = <b>${S.wn.toFixed(1)} rad/s</b> · one clock tick 1⁄ωₙ = <b>${(1000 * clock).toFixed(0)} ms</b><br>covered at 1⁄ωₙ: critical <b>${(100 * M.at[0]).toFixed(1)}%</b>, step 1’s glide 63.2% · at 3⁄ωₙ: critical <b>${(100 * M.at[2]).toFixed(1)}%</b>, step 1’s glide 95.0%`;
+    return;
+  }
+  if (S.step === 2) {
+    m.innerHTML = `ωₙ = <b>${S.wn.toFixed(1)} rad/s</b> · 1⁄ωₙ = <b>${(1000 * clock).toFixed(0)} ms</b> · the shares below are read off the integrated equation at this ωₙ`;
+    let h = '<tr><th>time</th><th>in seconds</th><th>share of the jump done</th></tr>';
+    [1, 2, 3, 4].forEach((k) => { h += `<tr><td>${k}⁄ωₙ</td><td>${(k * clock).toFixed(3)}</td><td><b>${(100 * M.at[k - 1]).toFixed(1)}%</b></td></tr>`; });
+    tb.innerHTML = h; return;
+  }
+  // the test
+  const left2 = FT - (F0 + M.at[1] * (FT - F0)), f2 = FT - left2, f95 = FT - 0.05 * (FT - F0);
+  m.innerHTML = `ωₙ = <b>${S.wn.toFixed(1)} rad/s</b> · 2⁄ωₙ = ${(2000 * clock).toFixed(0)} ms<br>`
+    + `at 2⁄ωₙ the glide has covered <i>${(100 * M.at[1]).toFixed(1)}%</i>, not 95%: it is at ${f2.toFixed(1)} Hz, still <i>${cents(FT, f2).toFixed(0)} cents</i> under the note<br>`
+    + `it comes within 5% at <b>${(M.t95 * S.wn).toFixed(2)}⁄ωₙ</b> (${(1000 * M.t95).toFixed(0)} ms), where it is ${cents(FT, f95).toFixed(0)} cents under · within 2% at <b>${(M.t98 * S.wn).toFixed(2)}⁄ωₙ</b>`;
+  let h = '<tr><th></th><th>the page</th><th>measured</th></tr>';
+  h += `<tr><td>share done at 2⁄ωₙ</td><td><i>~95%</i></td><td><b>${(100 * M.at[1]).toFixed(1)}%</b></td></tr>`;
+  h += `<tr><td>time to 95%</td><td><i>2⁄ωₙ</i></td><td><b>${(M.t95 * S.wn).toFixed(2)}⁄ωₙ</b></td></tr>`;
+  h += `<tr><td>what reaches 95% at three clock ticks</td><td></td><td>step 1’s glide (3τ), not this one (${(100 * M.at[2]).toFixed(1)}%)</td></tr>`;
+  tb.innerHTML = h;
+}
+
+// ---- buttons per step ----
+function buttons() {
+  const st = STEPS[S.step], el = $('buttons'); el.innerHTML = '';
+  const add = (label, cls, fn, pressed) => { const b = document.createElement('button'); b.className = cls; b.textContent = label; b.onclick = fn; if (pressed != null) b.setAttribute('aria-pressed', pressed); el.appendChild(b); return b; };
+  if (S.step === 0) add('▸ glide', 'play', () => play('first'));
+  if (S.step === 1) {
+    add('▸ critical glide', 'play', () => play('crit'));
+    add('▸ step 1’s glide', 'play alt', () => play('ghost'));
+    add('step 1’s curve · ' + (S.ghost ? 'shown' : 'hidden'), 'ghost', () => { S.ghost = !S.ghost; buttons(); }, String(S.ghost));
+  }
+  if (S.step === 2) add('▸ glide', 'play', () => play('crit'));
+  if (S.step === 3) {
+    add('▸ the whole glide', 'play', () => play('crit'));
+    add('▸ cut short at 2⁄ωₙ', 'play alt', () => play('crit', 2 / S.wn));
+    add('▸ cut short at the 95% point', 'play alt', () => play('crit', M.t95));
+  }
+}
+
+// ---- the walk ----
+function eqs() {
+  const st = STEPS[S.step];
+  const E = [
+    ['f(t) = f_target + (f₀ − f_target) · e^(−t⁄τ)', '(the pitch at time t) = (the note) + (how far it started from the note) × (a share that shrinks by the same fraction every moment, set by τ)', '', ''],
+    ['d²f⁄dt² + 2ζωₙ · df⁄dt + ωₙ² · (f − f_target) = 0,   f′(0) = 0', '(how fast the pitch’s speed changes) + (a drag on its speed) + (a pull toward the note, growing with the distance) = 0, and the pitch starts at rest', 'ζ = 1:   f(t) = f_target + (f₀ − f_target) · (1 + ωₙt) · e^(−ωₙt)', '(the pitch) = (the note) + (the starting gap) × (one plus the clock count) × (the decay over that many ticks)'],
+    ['share done at time t = 1 − (1 + ωₙt) · e^(−ωₙt)', '(how much of the jump is done) depends only on ωₙt, the number of clock ticks gone by, never on ωₙ alone', '', ''],
+    ['share done at 2⁄ωₙ = 1 − 3e⁻² ≈ 0.594', '(after two clock ticks) = one minus three times e to the minus two: about 59%, not 95%', '1 − (1 + x) · e^(−x) = 0.95   →   x ≈ 4.74', '(95% of the jump is done) when about four and three-quarter clock ticks have gone by'],
+  ][S.step];
+  $('eq1').textContent = E[0]; $('eq1w').textContent = E[1]; $('eq2').textContent = E[2]; $('eq2w').textContent = E[3];
+}
+function setStep(i) {
+  stopSound();
+  S.step = Math.max(0, Math.min(STEPS.length - 1, i)); const st = STEPS[S.step];
+  $('st-title').textContent = `${S.step + 1} · ${st.title}`; $('st-say').textContent = st.say;
+  $('st-quote').classList.toggle('hide', !st.quote); $('st-quote').textContent = st.quote || '';
+  $('st-do').textContent = st.do; $('st-watch').textContent = st.watch; $('st-hear').textContent = st.hear;
+  [...$('rail').children].forEach((b, j) => b.setAttribute('aria-current', j === S.step ? 'step' : 'false'));
+  $('ctl-tau').classList.toggle('hide', st.ctl !== 'tau'); $('ctl-wn').classList.toggle('hide', st.ctl !== 'wn');
+  $('back').disabled = S.step === 0; $('next').disabled = S.step === STEPS.length - 1;
+  measure(); buttons(); eqs(); meter();
+}
+STEPS.forEach((st, i) => { const b = document.createElement('button'); b.textContent = `${i + 1} · ${st.name}`; b.onclick = () => setStep(i); $('rail').appendChild(b); });
+$('back').onclick = () => setStep(S.step - 1); $('next').onclick = () => setStep(S.step + 1);
+$('tau').oninput = () => { S.tau = +$('tau').value; $('tau-v').textContent = `${(1000 * S.tau).toFixed(0)} ms`; stopSound(); meter(); };
+$('wn').oninput = () => { S.wn = +$('wn').value; $('wn-v').textContent = `${S.wn.toFixed(1)} rad/s`; stopSound(); measure(); meter(); };
+$('tau-v').textContent = `${(1000 * S.tau).toFixed(0)} ms`; $('wn-v').textContent = `${S.wn.toFixed(1)} rad/s`;
+window.addEventListener('resize', sizeCanvas);
+sizeCanvas(); setStep(0); loop();
+</script>
+</body>
+</html>

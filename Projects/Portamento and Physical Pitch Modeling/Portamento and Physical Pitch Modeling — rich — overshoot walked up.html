@@ -1,0 +1,356 @@
+<!doctype html>
+<!--
+  title: Portamento and Physical Pitch Modeling — rich — overshoot walked up
+  born: 2026-11-03
+  links: [[Portamento and Physical Pitch Modeling]] (connects-to · rich-face-piece) · listed in [[Portamento and Physical Pitch Modeling — rich.json]] · serves § The Second-Order Physical Model, its Underdamped paragraphs
+  forward_vector: I am the underdamped glide taken one idea at a time. A pitch that lands exactly, then a spring loosened until it swings past the note, then the size of that swing across ζ = 0.3 to 0.7, and last the test: on which side of the note does the swing peak, and does the page's f_max formula put it there? I play inside the entry's rich face and stand alone opened directly; I change only when the section I serve does.
+  sound: nothing plays until a glide button is clicked; the AudioContext is made on that click. Changing step stops the sound.
+  check: Portamento and Physical Pitch Modeling — rich — check.mjs runs this page's engine in Node against the numbers it shows.
+-->
+<html lang="en" class="skin-graphite">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- needs nothing of its host: no device, no storage, no file, no host; sound only on a click -->
+<meta name="piece:needs" content="">
+<title>The overshoot, walked up</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@300;400;500&display=swap">
+<style>
+  :root{
+    --bg:#0a0a0f; --bg-elev-1:#12121a; --bg-elev-2:#1a1a28; --border:#4a4a5e; --border-soft:rgba(255,255,255,0.06);
+    --fg-1:#e8e8f0; --fg-2:#c8c8d8; --fg-3:#8a8aa0; --fg-4:#4a4a5a;
+    --accent:#e8b84a; --accent-soft:rgba(232,184,74,0.10); --accent-line:rgba(232,184,74,0.5);
+    --violet:#8b7cf6; --warn:#ff8a6a;
+    --serif:'Cormorant Garamond',Georgia,serif; --sans:'Manrope',system-ui,sans-serif;
+    --display:'Anton',Impact,sans-serif; --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--fg-1)}
+  body{font-family:var(--serif);font-size:17px;line-height:1.7;padding:28px 16px 36px}
+  main{max-width:960px;margin:0 auto}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--fg-3)}
+  h1{font-family:var(--display);font-weight:400;font-size:40px;line-height:1.05;margin:6px 0 10px}
+  h2{font-family:var(--display);font-weight:400;font-size:26px;line-height:1.1;margin:4px 0 8px;letter-spacing:.01em}
+  p.lead{font-size:19px;color:var(--fg-2);margin:0 0 18px;max-width:66ch}
+  .rail{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 18px}
+  .rail button{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-3);background:transparent;border:1px solid var(--border);border-radius:4px;padding:7px 11px;cursor:pointer;transition:all .22s cubic-bezier(.4,0,.2,1)}
+  .rail button[aria-current="step"]{color:var(--fg-1);border-color:var(--fg-3);background:var(--bg-elev-2)}
+  p.say{color:var(--fg-2);margin:0 0 14px;max-width:68ch}
+  blockquote.page{margin:0 0 14px;padding:8px 14px;border-left:2px solid var(--warn);font-style:italic;color:var(--fg-2);background:var(--bg-elev-1)}
+  .dwh{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:8px 18px;margin:0 0 14px;font-family:var(--sans);font-size:13.5px;color:var(--fg-2);line-height:1.55}
+  .dwh b{font-family:var(--mono);font-weight:400;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);display:block}
+  .panel{background:var(--bg-elev-1);border:1px solid var(--border-soft);border-radius:4px;padding:16px;margin:0 0 14px}
+  .plabel{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-3);display:flex;justify-content:space-between;gap:10px;margin-bottom:8px}
+  canvas{width:100%;height:300px;display:block;background:var(--bg-elev-2);border-radius:2px}
+  .rowb{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:12px}
+  button.play{font-family:var(--sans);font-weight:500;font-size:14px;color:#0a0a0f;background:var(--accent);border:0;border-radius:4px;padding:9px 18px;cursor:pointer;transition:box-shadow .22s cubic-bezier(.4,0,.2,1)}
+  button.play:hover{box-shadow:0 0 24px var(--accent-soft)}
+  button.play.alt{background:transparent;color:var(--fg-1);border:1px solid var(--accent-line)}
+  button.play.warn{background:transparent;color:var(--fg-1);border:1px solid var(--warn)}
+  button.ghost{font-family:var(--sans);font-size:14px;color:var(--fg-2);background:transparent;border:1px solid var(--border);border-radius:4px;padding:8px 14px;cursor:pointer}
+  button.ghost[aria-pressed="true"]{color:var(--fg-1);border-color:var(--accent-line);background:var(--bg-elev-2)}
+  button.ghost:disabled{opacity:.35;cursor:default}
+  .ctl{display:grid;grid-template-columns:170px 1fr auto;gap:6px 14px;align-items:center;margin-top:14px}
+  .ctl label{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-3)}
+  .ctl input[type=range]{width:100%;accent-color:var(--accent)}
+  .ctl .v{font-family:var(--mono);font-size:14px;color:var(--fg-1);text-align:right;white-space:nowrap;min-width:12ch}
+  .meter{font-family:var(--mono);font-size:13px;color:var(--fg-2);margin-top:12px;line-height:1.75}
+  .meter b{color:var(--accent);font-weight:400}
+  .meter i{color:var(--warn);font-style:normal}
+  .eq{font-family:var(--mono);font-size:13.5px;color:var(--fg-1);margin:14px 0 0;overflow-wrap:anywhere}
+  .eq.words{font-family:var(--sans);color:var(--fg-3);font-size:13px;margin-top:2px}
+  .hint{font-family:var(--sans);font-size:13px;color:var(--fg-3)}
+  table.t{border-collapse:collapse;margin-top:12px;font-family:var(--mono);font-size:13px;color:var(--fg-2)}
+  table.t td,table.t th{border-bottom:1px solid var(--border-soft);padding:5px 16px 5px 0;text-align:right;font-weight:400}
+  table.t th{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-3)}
+  table.t td:first-child,table.t th:first-child{text-align:left}
+  table.t b{color:var(--accent);font-weight:400}
+  table.t i{color:var(--warn);font-style:normal}
+  table.t tr.now td{color:var(--fg-1)}
+  .walk{display:flex;justify-content:space-between;gap:10px;margin-top:16px}
+  .gk{text-transform:none!important}
+  .hide{display:none!important}
+  footer{margin-top:28px;font-family:var(--sans);font-size:13px;color:var(--fg-4)}
+  footer b{font-family:var(--display);font-weight:400;letter-spacing:.06em;color:var(--fg-3)}
+  @media (max-width:560px){h1{font-size:30px}h2{font-size:22px}.ctl{grid-template-columns:110px 1fr auto}}
+</style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">Portamento · the underdamped glide · four steps</div>
+  <h1>The overshoot, walked up</h1>
+  <p class="lead">A glide between 220 Hz and 330 Hz on the page’s own law, with the spring’s natural frequency held at ωₙ = 12 rad/s. Loosen the damping one idea at a time, then check where the page’s formula puts the peak.</p>
+
+  <nav class="rail" id="rail" aria-label="steps"></nav>
+  <h2 id="st-title"></h2>
+  <p class="say" id="st-say"></p>
+  <blockquote class="page hide" id="st-quote"></blockquote>
+  <div class="dwh"><div><b>do</b><span id="st-do"></span></div><div><b>watch</b><span id="st-watch"></span></div><div><b>hear</b><span id="st-hear"></span></div></div>
+
+  <div class="panel">
+    <div class="plabel"><span>pitch over time · the glide starts at 0</span><span>Hz · seconds</span></div>
+    <canvas id="plot"></canvas>
+    <div class="rowb" id="buttons"></div>
+    <div class="ctl" id="ctl-z">
+      <label for="z">damping ratio <span class="gk">ζ</span></label><input id="z" type="range" min="0.1" max="1" step="0.01" value="0.3"><span class="v" id="z-v"></span>
+    </div>
+    <div class="meter" id="meter"></div>
+    <table class="t" id="table"></table>
+  </div>
+
+  <div class="eq" id="eq1"></div>
+  <div class="eq words" id="eq1w"></div>
+  <div class="eq" id="eq2"></div>
+  <div class="eq words" id="eq2w"></div>
+
+  <div class="walk"><button class="ghost" id="back">← back</button><button class="ghost" id="next">next →</button></div>
+  <footer><b>LOUD’N LIVE</b> · made for the rich face of Portamento and Physical Pitch Modeling · the engine runs here, in this page, and in its check</footer>
+</main>
+
+<script id="engine">
+// ---- engine: the page's second-order pitch law (shared by the page and its headless check) ----
+// f'' + 2ζωₙ f' + ωₙ² (f − f_target) = 0, with f(0) = f0 and f'(0) = 0, as the page's § Initial Conditions sets it.
+function glide(zeta, wn, f0, ft, t) {                 // the closed form, every regime
+  if (t <= 0) return f0;
+  const d = f0 - ft;
+  if (Math.abs(zeta - 1) < 1e-9) return ft + d * (1 + wn * t) * Math.exp(-wn * t);
+  if (zeta < 1) {
+    const q = Math.sqrt(1 - zeta * zeta), wd = wn * q;
+    return ft + d * Math.exp(-zeta * wn * t) * (Math.cos(wd * t) + (zeta / q) * Math.sin(wd * t));
+  }
+  const s = Math.sqrt(zeta * zeta - 1), r1 = -wn * (zeta - s), r2 = -wn * (zeta + s);
+  const A = d * r2 / (r2 - r1);
+  return ft + A * Math.exp(r1 * t) + (d - A) * Math.exp(r2 * t);
+}
+function integrate(zeta, wn, f0, ft, T, dt) {           // RK4 on the page's equation itself, not on its solution
+  const n = Math.round(T / dt), out = new Float64Array(n + 1);
+  const acc = (f, v) => -2 * zeta * wn * v - wn * wn * (f - ft);
+  let f = f0, v = 0; out[0] = f;
+  for (let i = 1; i <= n; i++) {
+    const k1f = v, k1v = acc(f, v);
+    const k2f = v + 0.5 * dt * k1v, k2v = acc(f + 0.5 * dt * k1f, v + 0.5 * dt * k1v);
+    const k3f = v + 0.5 * dt * k2v, k3v = acc(f + 0.5 * dt * k2f, v + 0.5 * dt * k2v);
+    const k4f = v + dt * k3v, k4v = acc(f + dt * k3f, v + dt * k3v);
+    f += dt / 6 * (k1f + 2 * k2f + 2 * k3f + k4f); v += dt / 6 * (k1v + 2 * k2v + 2 * k3v + k4v);
+    out[i] = f;
+  }
+  return out;
+}
+function firstTurn(curve, dt, ft) {                       // the first turning point after the start: where the pitch stops and comes back
+  const s0 = Math.sign(curve[1] - curve[0]), jump = Math.abs(ft - curve[0]);
+  for (let i = 1; i + 1 < curve.length; i++) {
+    if (Math.sign(curve[i + 1] - curve[i]) === -s0) {
+      if (Math.abs(curve[i] - ft) < 1e-9 * jump) continue;                       // a wobble in the last digits at rest, not a swing
+      const a = curve[i - 1], b = curve[i], c = curve[i + 1], den = a - 2 * b + c;   // a parabola through three samples
+      const x = den !== 0 ? 0.5 * (a - c) / den : 0;
+      return { t: (i + x) * dt, f: b - 0.25 * (a - c) * x };
+    }
+  }
+  return null;                                           // no turn: it never passes the note
+}
+function swingShare(zeta) { return Math.exp(-Math.PI * zeta / Math.sqrt(1 - zeta * zeta)); }
+function pageFmax(zeta, f0, ft) { return ft + (f0 - ft) * swingShare(zeta); }      // the page's formula, as written
+function mirrorFmax(zeta, f0, ft) { return ft - (f0 - ft) * swingShare(zeta); }    // the same size of swing, on the far side of the note
+const cents = (a, b) => 1200 * Math.log2(a / b);
+</script>
+
+<script>
+const $ = (id) => document.getElementById(id);
+const WN = 12, PRE = 0.3, SPAN = 2.2, DT = 1 / 8000, LO = 220, HI = 330, SWEEP = [0.3, 0.4, 0.5, 0.6, 0.7];
+const S = { step: 0, zeta: 0.3, up: true, ref: true };
+const ends = () => (S.up ? [LO, HI] : [HI, LO]);
+
+const STEPS = [
+  { name: 'landing exactly', title: 'A pitch that lands exactly',
+    say: 'Start with the glide the page calls critically damped: ζ = 1, the fastest landing that never passes the note. The soft tone underneath is the note itself, 330 Hz, held steady so you can hear the glide arrive on it.',
+    do: 'Glide with the note sounding, then without it.', watch: 'The curve meets the dashed line from below and never crosses it.', hear: 'The glide slides into the held note and stops beating. Nothing past it.',
+    zeta: 1 },
+  { name: 'loosen the spring', title: 'Loosen the spring',
+    say: 'Lower ζ below one and the damping can no longer stop the pitch at the note: it arrives still moving, swings past, and rings back. The meter measures the first swing past the note from the integrated equation.',
+    do: 'Drag ζ down from 1 and glide at a few values.', watch: 'Below ζ = 1 the curve crosses the dashed line; the lower ζ, the bigger the first swing and the longer the ring.', hear: 'Against the held note, a burst of beating as the glide passes it, then a wobble that dies away.',
+    ctl: true },
+  { name: 'how big the swing', title: 'How big is the swing?',
+    say: 'The page gives the size of the first swing as a share of the jump, e^(−πζ⁄√(1−ζ²)), and two values: about 36% at ζ = 0.3 and about 5% at ζ = 0.7. It also says the ringing is perceptually apparent below ζ = 0.5. The table measures the swing; the sweep lets your ear judge the second claim, which no table can settle.',
+    quote: '“The ringing-back is perceptually apparent for ζ < 0.5. … For ζ = 0.3, overshoot is ~36%. For ζ = 0.7, overshoot is ~5%.”',
+    do: 'Play the sweep: ζ = 0.3, 0.4, 0.5, 0.6, 0.7 in turn. Then play single values.', watch: 'The table’s measured column against the formula’s.', hear: 'Where does the wobble stop being obvious to you? The page puts it near ζ = 0.5, a swing of about 92 cents here.',
+    ctl: true, table: true },
+  { name: 'the test', title: 'The test: which side of the note?',
+    say: 'The page writes the highest pitch the glide reaches as the note plus the starting gap times that share. Going up, the starting gap f₀ − f_target is negative, so the formula lands below the note, back toward where the glide began. Hear which of the two candidates the glide really touches: at its peak the pitch stands still for a moment, so a tone at the peak is met in unison.',
+    quote: '“Maximum frequency reached is: f_max = f_target + (f₀ − f_target) · e^(−πζ⁄√(1−ζ²))”',
+    do: 'Glide with the page’s f_max sounding, then with the mirrored value. Turn the glide downward too.', watch: 'Coral is the page’s f_max; amber is the same swing on the far side of the note. The dot marks the measured first peak.', hear: 'With the amber tone, the glide meets it in unison for an instant, at the top of its swing, then falls away. The coral tone it only rushes past.',
+    ctl: true, test: true },
+];
+
+// ---- sound ----
+let ctx = null, master = null, voice = null, wave = null, t0 = 0, playing = null;
+function ensureAudio() {
+  if (ctx) return;
+  ctx = new (window.AudioContext || window.webkitAudioContext)();
+  const comp = ctx.createDynamicsCompressor(); comp.threshold.value = -14; comp.ratio.value = 4;
+  master = ctx.createGain(); master.gain.value = 0.5;
+  master.connect(comp).connect(ctx.destination);
+  const n = 10, re = new Float32Array(n + 1), im = new Float32Array(n + 1);
+  for (let k = 1; k <= n; k++) im[k] = 1 / (k * Math.sqrt(k));
+  wave = ctx.createPeriodicWave(re, im);
+}
+function stopSound() {
+  if (voice) for (const o of voice) { try { o.stop(); } catch (e) {} }
+  voice = null; playing = null;
+}
+function glideCurve(zeta, rate) {
+  const [f0, ft] = ends(), n = Math.round((PRE + SPAN) * rate), out = new Float32Array(n);
+  for (let i = 0; i < n; i++) out[i] = glide(zeta, WN, f0, ft, i / rate - PRE);
+  return out;
+}
+function start(curves, refHz) {                 // curves: one glide after another, each PRE + SPAN long
+  ensureAudio(); stopSound();
+  if (ctx.state !== 'running') ctx.resume();
+  const rate = 600, seg = PRE + SPAN, dur = seg * curves.length;
+  const all = new Float32Array(Math.round(dur * rate)); curves.forEach((c, k) => all.set(c, Math.round(k * seg * rate)));
+  t0 = ctx.currentTime + 0.04;
+  const osc = ctx.createOscillator(); osc.setPeriodicWave(wave);
+  const g = ctx.createGain(); g.gain.value = 0; osc.connect(g).connect(master);
+  osc.frequency.setValueAtTime(all[0], t0); osc.frequency.setValueCurveAtTime(all, t0, dur);
+  for (let k = 0; k < curves.length; k++) {
+    const a = t0 + k * seg;
+    g.gain.setValueAtTime(0, a); g.gain.linearRampToValueAtTime(0.75, a + 0.02);
+    g.gain.setValueAtTime(0.75, a + seg - 0.14); g.gain.linearRampToValueAtTime(0, a + seg - 0.02);
+  }
+  osc.start(t0); osc.stop(t0 + dur + 0.02);
+  const nodes = [osc];
+  if (refHz) {
+    const r = ctx.createOscillator(); r.type = 'sine'; r.frequency.value = refHz;
+    const rg = ctx.createGain(); rg.gain.value = 0; r.connect(rg).connect(master);
+    rg.gain.setValueAtTime(0, t0); rg.gain.linearRampToValueAtTime(0.32, t0 + 0.05);
+    rg.gain.setValueAtTime(0.32, t0 + dur - 0.15); rg.gain.linearRampToValueAtTime(0, t0 + dur);
+    r.start(t0); r.stop(t0 + dur + 0.02); nodes.push(r);
+  }
+  voice = nodes; playing = { zetas: curves.zetas, seg };
+  osc.onended = () => { if (voice && voice[0] === osc) { voice = null; playing = null; } };
+  // tell the face a sound started
+  if (window.parent !== window) { try { window.parent.postMessage({ type: 'rich:play' }, '*'); } catch (e) {} }
+}
+function playOne(zeta, refHz) { const c = [glideCurve(zeta, 600)]; c.zetas = [zeta]; start(c, refHz); }
+function playSweep() { const c = SWEEP.map((z) => glideCurve(z, 600)); c.zetas = SWEEP.slice(); start(c, null); }
+
+// ---- measured ----
+let MS = null;
+function measureOne(zeta) {
+  const [f0, ft] = ends(), c = integrate(zeta, WN, f0, ft, 3, DT), turn = firstTurn(c, DT, ft);
+  return { turn, share: turn ? (turn.f - ft) / (ft - f0) : 0 };
+}
+function measure() { MS = measureOne(zetaNow()); }
+function zetaNow() { const st = STEPS[S.step]; return st.zeta != null ? st.zeta : S.zeta; }
+
+// ---- drawing ----
+const plot = $('plot');
+function sizeCanvas() { const d = window.devicePixelRatio || 1; plot.width = Math.round(plot.clientWidth * d); plot.height = Math.round(plot.clientHeight * d); }
+function draw() {
+  const g = plot.getContext('2d'), d = window.devicePixelRatio || 1, W = plot.width / d, H = plot.height / d;
+  g.setTransform(d, 0, 0, d, 0, 0); g.clearRect(0, 0, W, H);
+  const st = STEPS[S.step], [f0, ft] = ends();
+  let z = zetaNow();
+  if (playing && playing.zetas.length > 1 && ctx) { const k = Math.floor((ctx.currentTime - t0) / playing.seg); if (k >= 0 && k < playing.zetas.length) z = playing.zetas[k]; }
+  const sh = (playing && playing.zetas.length > 1) ? swingShare(0.3) : (z < 1 ? swingShare(z) : 0);
+  const fLo = (S.up ? LO : LO - (HI - LO) * sh) - 14, fHi = (S.up ? HI + (HI - LO) * sh : HI) + 14, tL = -PRE, tR = SPAN;
+  const L = 46, R = 14, Tp = 14, B = 30;
+  const X = (t) => L + (t - tL) / (tR - tL) * (W - L - R), Y = (f) => Tp + (fHi - f) / (fHi - fLo) * (H - Tp - B);
+  g.font = '10px JetBrains Mono, monospace'; g.lineWidth = 1;
+  const hline = (f, col, dash, label, left) => { g.strokeStyle = col; g.setLineDash(dash); g.beginPath(); g.moveTo(L, Y(f)); g.lineTo(W - R, Y(f)); g.stroke(); g.setLineDash([]); g.fillStyle = col; g.textAlign = left ? 'left' : 'right'; g.fillText(label, left ? X(0.9) : W - R - 4, Y(f) - 5); };
+  const step = fHi - fLo > 200 ? 40 : 20;
+  for (let f = Math.ceil(fLo / step) * step; f <= fHi; f += step) { g.fillStyle = '#8a8aa0'; g.textAlign = 'right'; g.fillText(String(f), L - 6, Y(f) + 3); }
+  hline(f0, 'rgba(255,255,255,0.18)', [4, 4], 'start');
+  hline(ft, 'rgba(255,255,255,0.35)', [4, 4], 'the note');
+  g.fillStyle = '#8a8aa0'; g.textAlign = 'center';
+  for (let t = 0; t <= tR + 1e-9; t += 0.5) { g.fillText(t.toFixed(1), X(t), H - 10); g.strokeStyle = 'rgba(255,255,255,0.06)'; g.beginPath(); g.moveTo(X(t), Tp); g.lineTo(X(t), H - B); g.stroke(); }
+  if (st.test && z < 1) {
+    hline(pageFmax(z, f0, ft), '#ff8a6a', [6, 4], `the page’s f_max · ${pageFmax(z, f0, ft).toFixed(1)}`, true);
+    hline(mirrorFmax(z, f0, ft), '#e8b84a', [6, 4], `mirrored · ${mirrorFmax(z, f0, ft).toFixed(1)}`, true);
+  }
+  g.strokeStyle = '#e8b84a'; g.lineWidth = 2; g.beginPath();
+  for (let i = 0; i <= 700; i++) { const t = tL + (tR - tL) * i / 700, f = glide(z, WN, f0, ft, t); i ? g.lineTo(X(t), Y(f)) : g.moveTo(X(t), Y(f)); }
+  g.stroke(); g.lineWidth = 1;
+  if (MS && MS.turn && (st.ctl || st.test) && z === zetaNow()) { g.strokeStyle = '#e8e8f0'; g.beginPath(); g.arc(X(MS.turn.t), Y(MS.turn.f), 6, 0, 2 * Math.PI); g.stroke(); }
+  if (voice && ctx && playing) {
+    const tt = ctx.currentTime - t0, t = (tt % playing.seg) - PRE;
+    if (tt >= 0 && t <= tR) { g.fillStyle = '#e8e8f0'; g.beginPath(); g.arc(X(t), Y(glide(z, WN, f0, ft, t)), 4.5, 0, 2 * Math.PI); g.fill(); }
+  }
+  if (playing && playing.zetas.length > 1) { g.fillStyle = '#e8e8f0'; g.textAlign = 'left'; g.font = '12px JetBrains Mono, monospace'; g.fillText(`sweep · ζ = ${z.toFixed(1)}`, L + 8, Tp + 14); }
+}
+function loop() { requestAnimationFrame(loop); draw(); }
+
+// ---- readouts ----
+function meter() {
+  const st = STEPS[S.step], m = $('meter'), tb = $('table'), [f0, ft] = ends(), z = zetaNow();
+  tb.innerHTML = '';
+  if (S.step === 0) { m.innerHTML = `ζ = <b>1</b> · ωₙ = ${WN} rad/s · the glide’s highest pitch: <b>${ft.toFixed(1)} Hz</b>, the note, approached and never passed`; return; }
+  const t = MS.turn;
+  let s = `ζ = <b>${z.toFixed(2)}</b> · ωₙ = ${WN} rad/s<br>`;
+  s += t ? `first swing past the note, measured: <b>${t.f.toFixed(1)} Hz</b> at ${(1000 * t.t).toFixed(0)} ms · <b>${(100 * MS.share).toFixed(1)}%</b> of the jump · <b>${Math.abs(cents(t.f, ft)).toFixed(0)} cents</b> ${t.f > ft ? 'sharp' : 'flat'}` : 'no swing past the note: at ζ = 1 and above, the glide never crosses it';
+  if (st.test && t) {
+    const p = pageFmax(z, f0, ft), q = mirrorFmax(z, f0, ft);
+    s += `<br>the page’s f_max: <i>${p.toFixed(1)} Hz</i>, ${p < Math.max(f0, ft) && p > Math.min(f0, ft) ? 'between the start and the note, a pitch the glide crosses once on its way and never returns to' : 'outside the glide'} · mirrored: <b>${q.toFixed(1)} Hz</b>, ${Math.abs(q - t.f).toFixed(2)} Hz from the measured peak`;
+    s += `<br>${S.up ? 'gliding up, the swing past the note is sharp' : 'gliding down, the swing past the note is flat: a landing from above that overshoots arrives flat, not sharp'}`;
+  }
+  m.innerHTML = s;
+  if (st.table) {
+    let h = '<tr><th class="gk">ζ</th><th>measured swing</th><th class="gk">e^(−πζ⁄√(1−ζ²))</th><th>the page</th><th>cents past 330</th></tr>';
+    SWEEP.forEach((zz) => {
+      const r = measureOne(zz), say = zz === 0.3 ? '~36%' : zz === 0.7 ? '~5%' : '';
+      h += `<tr${Math.abs(zz - z) < 1e-9 ? ' class="now"' : ''}><td>${zz.toFixed(1)}</td><td><b>${(100 * r.share).toFixed(1)}%</b></td><td>${(100 * swingShare(zz)).toFixed(1)}%</td><td>${say ? `<i>${say}</i>` : ''}</td><td>${Math.abs(cents(r.turn.f, ft)).toFixed(0)}</td></tr>`;
+    });
+    tb.innerHTML = h;
+  }
+}
+
+// ---- buttons per step ----
+function buttons() {
+  const st = STEPS[S.step], el = $('buttons'), [f0, ft] = ends(); el.innerHTML = '';
+  const add = (label, cls, fn, pressed) => { const b = document.createElement('button'); b.className = cls; b.textContent = label; b.onclick = fn; if (pressed != null) b.setAttribute('aria-pressed', pressed); el.appendChild(b); return b; };
+  if (S.step === 0 || S.step === 1) {
+    add('▸ glide', 'play', () => playOne(zetaNow(), S.ref ? ft : null));
+    add('the note underneath · ' + (S.ref ? 'on' : 'off'), 'ghost', () => { S.ref = !S.ref; stopSound(); buttons(); }, String(S.ref));
+  }
+  if (S.step === 2) {
+    add('▸ the sweep · 0.3 to 0.7', 'play', playSweep);
+    add('▸ glide at this ζ', 'play alt', () => playOne(S.zeta, null));
+  }
+  if (S.step === 3) {
+    add('▸ glide · the page’s f_max sounding', 'play warn', () => playOne(S.zeta, pageFmax(S.zeta, f0, ft)));
+    add('▸ glide · the mirrored value sounding', 'play alt', () => playOne(S.zeta, mirrorFmax(S.zeta, f0, ft)));
+    add('direction · ' + (S.up ? 'up, 220 → 330' : 'down, 330 → 220'), 'ghost', () => { S.up = !S.up; stopSound(); measure(); buttons(); meter(); }, 'false');
+  }
+}
+
+// ---- the walk ----
+function eqs() {
+  const E = [
+    ['ζ = 1:   f(t) = f_target + (f₀ − f_target) · (1 + ωₙt) · e^(−ωₙt)', '(the pitch) = (the note) + (the starting gap) × a factor that falls from one to zero without ever changing sign, so the pitch never passes the note', '', ''],
+    ['0 < ζ < 1:   f(t) = f_target + (f₀ − f_target) · e^(−ζωₙt) · [cos(ω_d t) + ζ⁄√(1−ζ²) · sin(ω_d t)],   ω_d = ωₙ√(1−ζ²)', '(the pitch) = (the note) + (the starting gap) × (a decay) × (a wave that swings through zero), so the pitch crosses the note and comes back, slower to die the smaller ζ is', '', ''],
+    ['swing past the note ⁄ the jump = e^(−πζ⁄√(1−ζ²))', '(how far the first swing goes past the note, as a share of the whole jump) = e to the minus (pi times ζ, over the square root of one minus ζ squared)', '', ''],
+    ['the page:   f_max = f_target + (f₀ − f_target) · e^(−πζ⁄√(1−ζ²))', '(the page’s peak) = (the note) + (the starting gap, which is negative going up) × (the share): a point back toward the start', 'measured:   f_peak = f_target − (f₀ − f_target) · e^(−πζ⁄√(1−ζ²))', '(the real peak) = (the note) minus (the starting gap) × (the share): the same swing, on the far side of the note, at t = π⁄ω_d'],
+  ][S.step];
+  $('eq1').textContent = E[0]; $('eq1w').textContent = E[1]; $('eq2').textContent = E[2]; $('eq2w').textContent = E[3];
+}
+function setStep(i) {
+  stopSound();
+  S.step = Math.max(0, Math.min(STEPS.length - 1, i)); const st = STEPS[S.step];
+  if (S.step !== 3) S.up = true;
+  if (S.step === 0) S.ref = true;
+  $('st-title').textContent = `${S.step + 1} · ${st.title}`; $('st-say').textContent = st.say;
+  $('st-quote').classList.toggle('hide', !st.quote); $('st-quote').textContent = st.quote || '';
+  $('st-do').textContent = st.do; $('st-watch').textContent = st.watch; $('st-hear').textContent = st.hear;
+  [...$('rail').children].forEach((b, j) => b.setAttribute('aria-current', j === S.step ? 'step' : 'false'));
+  $('ctl-z').classList.toggle('hide', !st.ctl);
+  $('back').disabled = S.step === 0; $('next').disabled = S.step === STEPS.length - 1;
+  measure(); buttons(); eqs(); meter();
+}
+STEPS.forEach((st, i) => { const b = document.createElement('button'); b.textContent = `${i + 1} · ${st.name}`; b.onclick = () => setStep(i); $('rail').appendChild(b); });
+$('back').onclick = () => setStep(S.step - 1); $('next').onclick = () => setStep(S.step + 1);
+$('z').oninput = () => { S.zeta = +$('z').value; $('z-v').textContent = S.zeta.toFixed(2); stopSound(); measure(); meter(); };
+$('z-v').textContent = S.zeta.toFixed(2);
+window.addEventListener('resize', sizeCanvas);
+sizeCanvas(); setStep(0); loop();
+</script>
+</body>
+</html>
