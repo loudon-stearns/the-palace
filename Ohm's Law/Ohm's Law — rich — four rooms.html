@@ -134,15 +134,17 @@ function ohm(V, R, n){ return V / (R * (n || 1)); }
 
 // Water. V = pressure difference (kPa), R = pipe resistance (kPa per mL/s), I = flow (mL/s), pipe 1 m long, water at 20 °C.
 // Laminar flow is Poiseuille's law, R = 8 μ L ÷ (π r⁴), which is Ohm exactly. Above Re = 2300 the flow is
-// turbulent and the Blasius friction factor, f = 0.3164 Re^−0.25, takes over: there ΔP grows as Q^1.75.
-var WATER = { L: 1, mu: 1.0e-3, rho: 998, ReT: 2300 };
+// turbulent and the Blasius friction factor, f = 0.3164 Re^−0.25, takes over: there ΔP grows as Q^1.75. Blasius holds from
+// about Re 4000; between laminar Re 2300 and Blasius Re 4000 the flow is transitional and neither law is exact (Blasius shown).
+var WATER = { L: 1, mu: 1.0e-3, rho: 998, ReT: 2300, ReB: 4000 };
 function waterRadius(R){ return Math.pow(8 * WATER.mu * WATER.L / (Math.PI * R * 1e9), 0.25); }   // R in kPa per mL/s = 1e9 Pa·s/m³
 function water(V, R, n){
   var L = WATER.L * (n || 1), r = waterRadius(R), D = 2 * r, dP = V * 1e3, A = Math.PI * r * r;
   var Ql = Math.PI * Math.pow(r, 4) * dP / (8 * WATER.mu * L), vl = Ql / A, Rel = WATER.rho * vl * D / WATER.mu;
   if (Rel < WATER.ReT) return { I: Ql * 1e6, Re: Rel, regime: 'laminar', bore: D * 1e3, speed: vl };
   var v = Math.pow(dP * Math.pow(D, 1.25) / (0.1582 * L * Math.pow(WATER.rho, 0.75) * Math.pow(WATER.mu, 0.25)), 1 / 1.75);
-  return { I: v * A * 1e6, Re: WATER.rho * v * D / WATER.mu, regime: 'turbulent', bore: D * 1e3, speed: v };
+  var Reb = WATER.rho * v * D / WATER.mu;
+  return { I: v * A * 1e6, Re: Reb, regime: Reb < WATER.ReB ? 'transitional' : 'turbulent', bore: D * 1e3, speed: v };
 }
 // Light. V = source (mW), I = light through (mW). Two readings of "medium opacity":
 // 'depth': R is optical depth τ, how much absorbing medium the beam crosses (thickness × absorption). Beer–Lambert: I = V e^(−τ).
@@ -220,9 +222,9 @@ function runStart(o){
 
   var STEPS = [
     { title: 'Water: the analogy that holds', short: 'Water', room: 'water',
-      say: 'A pipe a metre long, water at room temperature. The push is the pressure difference across the pipe, the flow is millilitres a second, and the resistance is set by the bore: a narrower pipe resists more, as the fourth power of the radius, so halving the bore multiplies the resistance by 16. For slow, smooth flow this is Poiseuille’s law, and it is Ohm’s law exactly: the white mark sits under the thumb. Push hard through a wide pipe and the flow turns turbulent; then the mark falls behind.',
+      say: 'A pipe a metre long, water at room temperature. The push is the pressure difference across the pipe, the flow is millilitres a second, and the resistance is set by the bore: a narrower pipe resists more, as the fourth power of the radius, so halving the bore multiplies the resistance by 16. For slow, smooth flow this is Poiseuille’s law, and it is Ohm’s law exactly: the white mark sits under the thumb. Push hard through a wide pipe and the flow passes through a transitional band, where neither law is exact, and turns turbulent; then the mark falls behind.',
       eq1: ['ΔP = Q × 8μL ÷ (πr⁴)', '(pressure difference) = (flow) × (8 × the water’s viscosity × the pipe’s length ÷ (π × the radius to the fourth))'],
-      eq2: ['turbulent, Re > 2300:  ΔP ∝ Q^1.75', 'once the flow is fast enough to churn, doubling the flow takes about 3.4 times the pressure, not 2'],
+      eq2: ['turbulent, Re above about 4000:  ΔP ∝ Q^1.75', 'once the flow is fast enough to churn, doubling the flow takes about 3.4 times the pressure, not 2; between Re 2300 and 4000 the flow is transitional and neither law is exact'],
       tryText: 'Keep the push near 1 kPa and move both sliders: the mark stays under the thumb. Now push 10 kPa through the widest pipe and read the Reynolds number.' },
     { title: 'Light: the push holds, the opacity doesn’t', short: 'Light', room: 'light',
       say: 'A source shining through a tinted filter. Brighter source, more light through: that half holds, in proportion. Opacity is where it parts. Read as how much medium the light crosses, the optical depth τ, the light through falls off exponentially (Beer–Lambert), never as one over τ. Ohm would even send ten times the source through a thin filter. Read the other way, as the ratio of light in to light out, the equation holds by definition, but then no filter can sit below 1.',
@@ -240,7 +242,7 @@ function runStart(o){
       eq2: ['steady lift: F = W', '(the force a steady lift takes) = (the box’s weight), whatever the rate'],
       tryText: 'Under force, push harder: the mark doesn’t move. Drop the force below the weight: nothing lifts. Then read the push as power.' },
     { title: 'The test: the same three moves in every room', short: 'The test', test: true,
-      say: 'Ohm’s law makes three predictions you can check in any room. Double the push and the flow doubles. Double the resistance and the flow halves, wherever you start. Put two equal resistances in series and the flow halves too, because resistances in series add. Each room is started twice, once gently and once hard, and the three moves are made from each start.',
+      say: 'Ohm’s law makes three predictions you can check in any room. Double the push and the flow doubles. Double the resistance and the flow halves, wherever you start. Put two equal resistances in series and the flow halves too, because resistances in series add. Each room is started twice, once gently and once hard, and the three moves are made from each start. Sound and labour read as power are Ohm’s law by their own physics, so they pass by construction; water, light and labour read as force are the rooms that could fail. None of this makes the page’s arrows wrong: more push, more flow, and more resistance, less flow, hold in every room. The strict proportion is what each room has to earn.',
       tryText: 'Make the moves. Which rooms pass all three from both starts? Which reading of light could pass all three?' }
   ];
 
@@ -266,7 +268,7 @@ function runStart(o){
     var gap = isFinite(p.I) && p.I > 0 ? p.I / o : NaN;
     h.push('Ohm: <b>' + fmt(o) + '</b> · the room’s physics: <b>' + (isFinite(p.I) ? fmt(p.I) : '—') + '</b> · ' +
       (!isFinite(p.I) ? '<i>' + p.why + '</i>' : p.I === 0 ? '<i>nothing moves</i>' : Math.abs(gap - 1) < OHMB.TOL ? '<u>they agree</u>' : '<i>the physics gives ' + fmt(gap) + '× Ohm’s answer</i>'));
-    if (room === 'water') h.push('bore <b>' + p.bore.toFixed(2) + ' mm</b> · mean speed <b>' + fmt(p.speed) + ' m/s</b> · Reynolds number <b>' + Math.round(p.Re) + '</b> · ' + (p.regime === 'laminar' ? '<u>laminar, smooth</u>' : '<i>turbulent, churning</i>'));
+    if (room === 'water') h.push('bore <b>' + p.bore.toFixed(2) + ' mm</b> · mean speed <b>' + fmt(p.speed) + ' m/s</b> · Reynolds number <b>' + Math.round(p.Re) + '</b> · ' + (p.regime === 'laminar' ? '<u>laminar, smooth</u>' : p.regime === 'transitional' ? '<i>transitional: neither law is exact here (Blasius shown)</i>' : '<i>turbulent, churning</i>'));
     if (room === 'light' && rd() === 'depth') h.push('passes <b>' + fmt(100 * Math.exp(-st.R)) + '%</b> of the source · Ohm would pass <b>' + fmt(100 / st.R) + '%</b>' + (st.R < 1 ? ' · <i>more than went in</i>' : ''));
     if (room === 'light' && rd() === 'ratio' && st.R >= 1) h.push('passes <b>' + fmt(100 / st.R) + '%</b> · the same filter as an optical depth of <b>τ = ' + fmt(Math.log(st.R)) + '</b>');
     if (room === 'sound') h.push('<b>' + spl(st.V).toFixed(1) + ' dB SPL</b> · impedance ' + (Math.abs(st.R - SOUND.air) < 0.01 ? '<b>air</b>' : Math.abs(st.R - SOUND.helium) < 0.006 ? '<b>helium</b>' : '<b>' + fmt(st.R / SOUND.air) + '× air’s</b>'));
@@ -320,10 +322,10 @@ function runStart(o){
     if (room === 'water'){
       var bore = p.bore / 3.8, ph = Math.max(6 * d, Math.min(1, bore) * 90 * d), cy = H / 2, x0 = 30 * d, x1 = W - 30 * d;
       g.fillStyle = '#12121a'; g.fillRect(x0, cy - ph / 2, x1 - x0, ph); g.strokeStyle = '#4a4a5e'; g.lineWidth = d; g.strokeRect(x0, cy - ph / 2, x1 - x0, ph);
-      var spd = rate * 0.35, turb = p.regime === 'turbulent';
+      var spd = rate * 0.35, turb = p.regime !== 'laminar';
       g.fillStyle = '#4a8fff';
       parts.forEach(function(q){ var x = x0 + ((q.x + t * spd * (0.5 + q.y)) % 1) * (x1 - x0), y = cy + (q.y - 0.5) * ph * 0.85 + (turb ? Math.sin(t * 9 + q.ph) * ph * 0.12 : 0); g.fillRect(x, y, 2 * d, 2 * d); });
-      g.fillText('WATER · ' + (turb ? 'TURBULENT' : 'LAMINAR') + ' · PRESSURE ' + fmt(st.V) + ' KPA →', 8 * d, 14 * d);
+      g.fillText('WATER · ' + p.regime.toUpperCase() + ' · PRESSURE ' + fmt(st.V) + ' KPA →', 8 * d, 14 * d);
     }
     if (room === 'light'){
       var cy2 = H / 2, src = Math.min(1, pos(st.V) + 0.1), outF = isFinite(p.I) ? Math.min(1, Math.max(0, pos(Math.max(p.I, 1e-3)) + 0.1)) : 0;
@@ -376,7 +378,7 @@ function runStart(o){
   }
   $('run').addEventListener('click', function(){
     st.ran = true; fillResults(); $('results').hidden = false;
-    $('tmeter').innerHTML = 'Two rooms hold from every start they were given: sound, for a travelling wave, and labour once the push is read as power. Water holds while it is slow. Light holds for the source and breaks for the opacity, and the two readings of opacity break in different places: <i>as depth, doubling a thin filter leaves 81.9% of the light and a dense one 13.5%, not 50%; as in ÷ out, two filters of opacity 5 in series leave 20%, not the 50% that two resistors in series would.</i>';
+    $('tmeter').innerHTML = 'Two rooms hold from every start they were given: sound, for a travelling wave, and labour once the push is read as power. Water holds while it is slow. Light holds for the source and breaks for the opacity, and the two readings of opacity break in different places: <i>as depth, doubling a thin filter (τ 0.2 → 0.4) leaves 81.9% of what it passed before, and doubling a dense one (τ 2 → 4) 13.5%, not 50%; as in ÷ out, a second filter of opacity 5 cuts the light to a fifth (20% of the source down to 4%), where a second equal resistor halves it.</i> Sound and labour read as power pass by construction: their own physics is Ohm’s law. The page’s arrows hold in every room; the strict proportion is what each room has to earn.';
   });
 
   // ---------- reading buttons ----------

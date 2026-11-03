@@ -95,13 +95,21 @@ const pct = (x) => (x * 100).toFixed(1) + '%';
   let lo = 0, hi = 50; for (let k = 0; k < 200; k++) { const v = (lo + hi) / 2, Re = rho * v * D8 / mu, f = 0.3164 * Re ** -0.25; if (f * (1 / D8) * rho * v * v / 2 < dP) lo = v; else hi = v; }
   const Qb = lo * Math.PI * (D8 / 2) ** 2 * 1e6;
   check('water, fast start: 8 kPa through a 3.78 mm bore is turbulent, and its flow is Blasius’s, solved here by bisection', w8.regime === 'turbulent' && near(w8.I / Qb, 1, 1e-6) && near(w8.bore, 3.78, 0.01), `${w8.I.toFixed(2)} mL/s vs ${Qb.toFixed(2)}, Re ${w8.Re.toFixed(0)}, Ohm would say 40`);
+  // the transitional band: laminar Re past 2300 but Blasius Re under 4000 is labelled so, never 'turbulent'
+  let trans = 0, mislabel = 0;
+  for (let q = 0; q <= 1; q += 0.002) for (let k = 0; k <= 1; k += 0.01) { const w = B.water(B.val(q), B.val(k), 1); if (w.regime === 'transitional') { trans++; if (w.Re >= 4000) mislabel++; } if (w.regime === 'turbulent' && w.Re < 4000) mislabel++; if (w.regime === 'laminar' && w.Re >= 2300) mislabel++; }
+  check('water: every regime label matches the Reynolds number shown (laminar < 2300, transitional, turbulent ≥ 4000), and the band exists on the sliders', mislabel === 0 && trans > 0, `${trans} transitional states, ${mislabel} mislabelled`);
+  const r3 = 8 * 1e-3 / (Math.PI * (1.5e-3) ** 4) / 1e9, near3 = B.water(2.8, r3, 1);
+  check('water: just past the switch (3 mm bore, 2.8 kPa, laminar Re would be 2358) the readout says transitional, not turbulent', near3.regime === 'transitional', `${near3.regime}, Re ${near3.Re.toFixed(0)}`);
+  check('water, fast: push × 2 gives × 1.486 = 2^(4/7), Blasius smooth pipe (√2 would be fully rough)', near(B.water(16, 0.2, 1).I / B.water(8, 0.2, 1).I, 2 ** (4 / 7), 1e-9), (B.water(16, 0.2, 1).I / B.water(8, 0.2, 1).I).toFixed(4));
   check('water: turbulent, doubling the flow takes 2^1.75 = 3.36× the pressure', near(2 ** 1.75, 3.36, 0.005), (2 ** 1.75).toFixed(3));
   // light
   check('light, depth: τ 0.2 → 0.4 leaves 81.9%; τ 2 → 4 leaves 13.5%', near(B.light(1, 0.4, 1, 'depth').I / B.light(1, 0.2, 1, 'depth').I, 0.819, 0.0005) && near(B.light(1, 4, 1, 'depth').I / B.light(1, 2, 1, 'depth').I, 0.135, 0.0005), 'Beer–Lambert, e^(−τ)');
   let never = true; for (let q = 0; q <= 1; q += 1e-4) { const t = B.val(q); if (Math.abs(B.light(1, t, 1, 'depth').I / B.ohm(1, t) - 1) < 0.01) never = false; }
   check('light, depth: Ohm’s 1 ÷ τ and e^(−τ) never agree within 1% anywhere on the slider (τ e^(−τ) ≤ 1/e)', never, 'max of τe^(−τ) is 0.368');
   check('light, depth: at τ = 0.1 Ohm passes 10× the source; the physics 90.5%', near(B.ohm(1, 0.1), 10, 1e-12) && near(B.light(1, 0.1, 1, 'depth').I, 0.905, 0.0005), `${B.ohm(1, 0.1)}, ${B.light(1, 0.1, 1, 'depth').I.toFixed(4)}`);
-  check('light, in ÷ out: no filter below 1; two of opacity 5 in series pass 20%, not 50%', !isFinite(B.light(1, 0.5, 1, 'ratio').I) && near(B.light(1, 5, 2, 'ratio').I / B.light(1, 5, 1, 'ratio').I, 0.2, 1e-12), 'opacities multiply');
+  check('light, in ÷ out: no filter below 1; two of opacity 5 in series pass 4% of the source, a second filter cutting 20% to 4% (a fifth), where a second resistor halves', !isFinite(B.light(1, 0.5, 1, 'ratio').I) && near(B.light(1, 5, 2, 'ratio').I, 0.04, 1e-12) && near(B.light(1, 5, 1, 'ratio').I, 0.2, 1e-12) && near(B.light(1, 5, 2, 'ratio').I / B.light(1, 5, 1, 'ratio').I, 0.2, 1e-12), 'opacities multiply');
+  check('light, depth: the 81.9% and 13.5% are of what the filter passed before, doubling τ from 0.2 and from 2 (from 0.1 and 1 they would be 90.5% and 36.8%)', near(Math.exp(-0.4) / Math.exp(-0.2), 0.819, 0.0005) && near(Math.exp(-4) / Math.exp(-2), 0.135, 0.0005) && near(B.light(1, 0.2, 1, 'depth').I / B.light(1, 0.1, 1, 'depth').I, 0.905, 0.0005) && near(B.light(1, 2, 1, 'depth').I / B.light(1, 1, 1, 'depth').I, 0.368, 0.0005), 'ratios, not shares of the source');
   // sound
   check('sound: air’s ρc = 413 Pa·s/m, helium’s 168, water’s 1.48 million', near(B.SOUND.air * 1000, 413, 0.5) && near(B.SOUND.helium * 1000, 167.6, 0.5) && near(B.SOUND.water * 1e3, 1.479e6, 2e3), `${(B.SOUND.air * 1000).toFixed(1)}, ${(B.SOUND.helium * 1000).toFixed(1)}, ${(B.SOUND.water * 1000).toExponential(3)}`);
   check('sound: 1 Pa is 94 dB SPL and moves air’s particles at 2.42 mm/s; 8 Pa is 112 dB', near(B.spl(1), 93.98, 0.01) && near(B.sound(1, B.SOUND.air, 1).I, 2.42, 0.005) && near(B.spl(8), 112.04, 0.01), `${B.spl(1).toFixed(2)} dB, ${B.sound(1, B.SOUND.air, 1).I.toFixed(3)} mm/s, ${B.spl(8).toFixed(2)} dB`);
