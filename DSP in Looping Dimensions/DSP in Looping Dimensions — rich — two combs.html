@@ -1,0 +1,278 @@
+<!doctype html>
+<!--
+  title: DSP in Looping Dimensions — rich — two combs
+  born: 2026-11-03
+  links: [[DSP in Looping Dimensions]] (connects-to · rich-face-piece) · listed in [[DSP in Looping Dimensions — rich.json]] · contrasts [[2D Torus Wavetable Synthesizer]] · rhymes with [[Frequency-Time Duality]]
+  forward_vector: I am Frame 2 put to its own test: one comb's peaks, then two combs in a row, then a torus scan at the same two rates, and last the measurement of where each puts its lines, and where the comb pair's lattice went instead. I play inside the entry's rich face and stand alone opened directly; I change only when the section I serve does.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:needs" content="">
+<title>DSP in Looping Dimensions — two combs</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Manrope:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root { --bg:#0a0a0f; --e1:#12121a; --ring:#22222e; --border:#4a4a5e; --soft:rgba(255,255,255,.06); --fg1:#e8e8f0; --fg2:#c8c8d8; --fg3:#8a8aa0; --fg4:#4a4a5a;
+    --amber:#e8b84a; --amberline:rgba(232,184,74,.5); --indigo:#6366F1; --blue:#4a8fff;
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --sans:'Manrope',system-ui,sans-serif; --serif:'Cormorant Garamond',Georgia,serif; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); font-weight: 300; }
+  .piece { padding: 22px 22px 20px; }
+  .kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
+  .title { font-family: var(--serif); font-size: 27px; font-weight: 300; color: var(--fg1); margin: 0 0 6px; }
+  .sub { font-size: 14px; line-height: 1.6; color: var(--fg2); max-width: 78ch; margin: 0 0 14px; }
+  .rail { display: flex; flex-wrap: wrap; margin: 4px 0 14px; border: 1px solid var(--soft); border-radius: 2px; }
+  .rail button { flex: 1 1 130px; text-align: left; border: 0; border-right: 1px solid var(--soft); border-radius: 0; background: transparent; padding: 9px 12px; color: var(--fg3); }
+  .rail button:last-child { border-right: 0; }
+  .rail button b { display: block; font-weight: 500; color: var(--fg2); letter-spacing: .04em; text-transform: none; font-size: 12px; margin-top: 2px; }
+  .rail button.on { background: var(--e1); color: var(--amber); }
+  .rail button.on b { color: var(--fg1); }
+  .say { font-family: var(--serif); font-size: 18px; line-height: 1.55; color: var(--fg1); max-width: 80ch; margin: 0 0 14px; min-height: 3.1em; }
+  .say i { color: var(--amber); font-style: italic; }
+  .stage { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; align-items: start; }
+  .panel { border: 1px solid var(--soft); border-radius: 2px; background: var(--e1); padding: 10px 12px; }
+  .plabel { font-family: var(--mono); font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--fg3); margin-bottom: 8px; display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+  .key { font-family: var(--mono); font-size: 10.5px; color: var(--fg3); display: flex; gap: 14px; flex-wrap: wrap; margin-top: 6px; }
+  .key span::before { content: ''; display: inline-block; width: 10px; height: 2px; margin-right: 6px; vertical-align: middle; background: currentColor; }
+  canvas { display: block; width: 100%; }
+  .wide { grid-column: 1 / -1; }
+  .hidden { display: none !important; }
+  .controls { display: flex; flex-wrap: wrap; gap: 14px 22px; align-items: flex-end; margin-top: 16px; }
+  button { font-family: var(--mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--fg2); background: var(--bg); border: 1px solid var(--border); border-radius: 2px; padding: 8px 13px; cursor: pointer; }
+  button:hover { border-color: rgba(232,184,74,.55); color: var(--fg1); }
+  button:disabled { opacity: .35; cursor: default; }
+  button.on { color: var(--amber); border-color: var(--amberline); }
+  button.go { color: var(--amber); border-color: var(--amberline); box-shadow: 0 0 14px rgba(232,184,74,.18); min-width: 110px; }
+  .seg { display: inline-flex; flex-wrap: wrap; } .seg button + button { border-left: 0; }
+  .seg button { letter-spacing: .04em; text-transform: none; font-size: 12px; padding: 7px 10px; }
+  .ctl { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: .06em; color: var(--fg3); }
+  .ctl .lab { display: block; margin-bottom: 6px; }
+  label.sl { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: .06em; color: var(--fg3); min-width: 220px; flex: 1 1 220px; }
+  label.sl b { color: var(--fg1); font-weight: 500; }
+  input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 3px; background: var(--fg4); margin: 12px 0 4px; outline: none; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 13px; height: 13px; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  input[type=range]::-moz-range-thumb { width: 13px; height: 13px; border: 0; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  .read { display: flex; flex-wrap: wrap; gap: 6px 22px; margin-top: 14px; font-family: var(--mono); font-size: 11.5px; letter-spacing: .04em; color: var(--fg3); }
+  .read b { color: var(--fg1); font-weight: 500; }
+  .read .hot { color: var(--amber); }
+  .verdict { margin-top: 14px; padding: 12px 14px; border-left: 2px solid var(--amber); background: var(--e1); font-family: var(--serif); font-size: 17px; line-height: 1.55; color: var(--fg1); max-width: 92ch; }
+  .verdict b { color: var(--amber); font-weight: 400; }
+  .nav { display: flex; gap: 10px; margin-top: 16px; }
+  .hint { font-family: var(--mono); font-size: 11px; letter-spacing: .03em; line-height: 1.6; color: var(--fg3); margin-top: 10px; max-width: 104ch; }
+  .eqs { margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--soft); }
+  .eq { font-family: var(--serif); font-size: 19px; color: var(--fg1); }
+  .words { font-size: 13px; line-height: 1.55; color: var(--fg2); margin: 2px 0 12px; max-width: 92ch; }
+  .note { font-family: var(--mono); font-size: 10.5px; line-height: 1.6; color: var(--fg4); margin-top: 8px; max-width: 110ch; }
+  .footer { font-family: var(--mono); font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--fg4); margin-top: 18px; }
+  @media (max-width: 760px) { .stage { grid-template-columns: 1fr; } }
+  .bars { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+</style>
+</head>
+<body>
+<div class="piece">
+  <div class="kicker"><svg width="18" height="18" viewBox="-10 -10 20 20" aria-hidden="true"><path id="sigil" fill="none" stroke="#e8b84a" stroke-width="1.1"/></svg><span>made · comb filters and a torus scan · sketch</span></div>
+  <h3 class="title">Where do two combs put their lines?</h3>
+  <p class="sub">Frame 2 says two coupled combs at an irrational ratio place their peaks on a 2D frequency lattice, the same spectral signature as scanning a torus. The lattice is every m·f₁ + n·f₂. Four steps, one idea each. The last one measures where the lines fall.</p>
+
+  <div class="rail" id="rail"></div>
+  <p class="say" id="say"></p>
+
+  <div class="stage">
+    <div class="panel wide" id="combPanel">
+      <div class="plabel"><span id="combLabel">the comb's response</span><span>dB · Hz</span></div>
+      <canvas id="comb"></canvas>
+      <div class="key" id="combKey"></div>
+    </div>
+    <div class="panel wide hidden" id="scanPanel">
+      <div class="plabel"><span>the torus scan's spectrum, at f₁ and f₂</span><span>dB · Hz</span></div>
+      <canvas id="scan"></canvas>
+      <div class="key"><span style="color:#6366F1">f₁'s harmonics</span><span style="color:#4a8fff">f₂'s harmonics</span><span style="color:#e8b84a">the mixed points this surface carries, m·f₁ + n·f₂ with m and n both non-zero</span></div>
+    </div>
+    <div class="panel hidden" id="barsPanel">
+      <div class="plabel"><span>how far each kind of point stands above the band's typical level</span><span>dB</span></div>
+      <canvas id="bars"></canvas>
+    </div>
+    <div class="panel hidden" id="irPanel">
+      <div class="plabel"><span>the comb pair's echoes · first 40 ms of its impulse response</span><span>ms</span></div>
+      <canvas id="ir"></canvas>
+    </div>
+  </div>
+
+  <div class="controls">
+    <button class="go" id="go">▸ play</button>
+    <div class="ctl hidden" id="hearCtl"><span class="lab">hear</span><span class="seg"><button data-h="combs" class="on">noise through the two combs</button><button data-h="scan">the torus scan</button></span></div>
+  </div>
+  <div class="read" id="read"></div>
+  <div class="verdict hidden" id="verdict"></div>
+  <div class="nav"><button id="back">◂ back</button><button id="next">next ▸</button></div>
+  <div class="hint" id="hint"></div>
+
+  <div class="eqs">
+    <div class="eq">h(t) = δ(t) + a·δ(t − T)     and its feedback cousin   y(t) = x(t) + a·y(t − T)</div>
+    <div class="words">(the comb) = (the sound now) + a × (the sound T seconds ago). The page writes the first; the second feeds its own output back, and rings. Both peak at f = k ⁄ T, every whole-number multiple of 1 ⁄ T.</div>
+    <div class="eq">two in a row:  H(f) = H₁(f) · H₂(f)</div>
+    <div class="words">(the pair's response) = (the first comb's) × (the second's). A product of two responses peaks where either one peaks: at k ⁄ T₁ and at l ⁄ T₂. A linear filter only reshapes the frequencies it is given, so nothing appears at a sum or difference of the two.</div>
+    <div class="eq">the scan:  y(t) = W(2π·f₁·t, 2π·f₂·t) = Σ c<sub>mn</sub> · cos( 2π·(m·f₁ + n·f₂)·t + φ<sub>mn</sub> )</div>
+    <div class="words">(the sound) = (the surface W read at two phases at once) = a sum, over the surface's lattice points, of (that point's strength) × a cosine at (m × f₁ + n × f₂). Reading two phases through one table multiplies them, and a product is what makes sums of frequencies.</div>
+    <div class="eq">the pair's impulse response:  h(t) = Σⱼ Σₖ aʲ · bᵏ · δ(t − j·T₁ − k·T₂)</div>
+    <div class="words">(what one click becomes) = an echo at every (j × the first delay + k × the second), each weaker by a for every pass through the first comb and b through the second: a 2D lattice, laid out in time.</div>
+  </div>
+  <div class="note">a = b = 0.95, T₁ = 1 ⁄ 220 s, T₂ = φ ⁄ 220 s. Checked offline on this page's own engine (the script marked engine): through the comb pair, the lattice's 58 mixed points with |m|, |n| ≤ 6 stand −0.3 dB above the band's median bin and the sixteen the scan's surface carries +0.6 dB, against +24.6 dB for the two series and +1.6 dB for 400 random frequencies; through the scan, those sixteen stand +60.3 dB. The pair's first thirty echoes land on j·T₁ + k·T₂ within 0.02 ms. Not heard by an agent.</div>
+  <div class="footer">Loud’n Live</div>
+</div>
+
+<script id="engine">
+// ---- engine: two comb filters in a row, and a torus scan at the same two rates. Pure functions, no page. ----
+const PHI = (1 + Math.sqrt(5)) / 2;
+function rng(seed) { let a = seed >>> 0; return () => { a = (a + 0x6D2B79F5) | 0; let t = Math.imul(a ^ (a >>> 15), 1 | a); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
+// a feedback comb: y[n] = x[n] + a·y[n − T·fs]. Its peaks sit at k ⁄ T, the same places as the page's h(t) = δ(t) + a·δ(t − T), only sharper
+function comb(x, T, a, fs) { const d = T * fs, L = 1 << Math.ceil(Math.log2(d + 4)), M = L - 1, b = new Float64Array(L), y = new Float32Array(x.length);
+  for (let n = 0; n < x.length; n++) { const pos = n - d, i = Math.floor(pos), f = pos - i, past = b[i & M] * (1 - f) + b[(i + 1) & M] * f; const v = x[n] + a * past; b[n & M] = v; y[n] = v; } return y; }
+function noise(len, seed) { const r = rng(seed || 3), x = new Float32Array(len); for (let n = 0; n < len; n++) x[n] = r() * 2 - 1; return x; }
+function impulse(len) { const x = new Float32Array(len); x[0] = 1; return x; }
+// the comb pair's magnitude response, |1 ⁄ ((1 − a·e^(−i2πfT₁))(1 − b·e^(−i2πfT₂)))|, straight from the formula
+function combPairGain(f, T1, T2, a, b, two) { const g = (T, k) => { const re = 1 - k * Math.cos(2 * Math.PI * f * T), im = k * Math.sin(2 * Math.PI * f * T); return 1 / Math.sqrt(re * re + im * im); }; return g(T1, a) * (two ? g(T2, b) : 1); }
+// the surface the scan reads: a few lattice points c_mn·cos(mθ₁ + nθ₂ + φ_mn), mixed ones (m and n both non-zero) included
+const SURF = []; (() => { const r = rng(9); for (let m = 0; m <= 3; m++) for (let n = -3; n <= 3; n++) { if (m === 0 && n <= 0) continue; SURF.push({ m, n, c: 1 / (1 + Math.abs(m) + Math.abs(n)), ph: r() * 2 * Math.PI }); } })();
+function scan(f1, f2, dur, fs) { const len = Math.round(dur * fs), y = new Float32Array(len); let pk = 0;
+  for (let n = 0; n < len; n++) { const t = n / fs, a = 2 * Math.PI * f1 * t, b = 2 * Math.PI * f2 * t; let v = 0; for (const s of SURF) v += s.c * Math.cos(s.m * a + s.n * b + s.ph); y[n] = v; pk = Math.max(pk, Math.abs(v)); } for (let n = 0; n < len; n++) y[n] /= pk; return y; }
+function fft(re, im) { const n = re.length; for (let i = 1, j = 0; i < n; i++) { let bit = n >> 1; for (; j & bit; bit >>= 1) j ^= bit; j ^= bit; if (i < j) { [re[i], re[j]] = [re[j], re[i]]; [im[i], im[j]] = [im[j], im[i]]; } }
+  for (let len = 2; len <= n; len <<= 1) { const a = -2 * Math.PI / len, wr = Math.cos(a), wi = Math.sin(a); for (let i = 0; i < n; i += len) { let cr = 1, ci = 0; for (let k = 0; k < len / 2; k++) { const ur = re[i + k], ui = im[i + k], vr = re[i + k + len / 2] * cr - im[i + k + len / 2] * ci, vi = re[i + k + len / 2] * ci + im[i + k + len / 2] * cr; re[i + k] = ur + vr; im[i + k] = ui + vi; re[i + k + len / 2] = ur - vr; im[i + k + len / 2] = ui - vi; const t = cr * wr - ci * wi; ci = cr * wi + ci * wr; cr = t; } } } }
+function power(x, start, n) { const re = new Float64Array(n), im = new Float64Array(n); for (let i = 0; i < n; i++) re[i] = (x[start + i] || 0) * (0.5 - 0.5 * Math.cos(2 * Math.PI * i / n)); fft(re, im); const p = new Float64Array(n / 2); for (let i = 0; i < n / 2; i++) p[i] = re[i] * re[i] + im[i] * im[i]; return p; }
+// average power spectrum over whole windows (Welch), so noise through a filter shows the filter's shape
+function welch(x, n) { const acc = new Float64Array(n / 2); let k = 0; for (let st = 0; st + n <= x.length; st += n / 2) { const p = power(x, st, n); for (let i = 0; i < p.length; i++) acc[i] += p[i]; k++; } for (let i = 0; i < acc.length; i++) acc[i] /= k; return acc; }
+// the lattice points m·f₁ + n·f₂ in a band, split into the two axes (one loop's own harmonics) and the mixed points between
+function latticePoints(f1, f2, fmin, fmax, K) { const axis = [], mixed = []; for (let m = -K; m <= K; m++) for (let n = -K; n <= K; n++) { const f = m * f1 + n * f2; if (f < fmin || f > fmax) continue; ((m === 0 || n === 0) ? axis : mixed).push({ m, n, f }); } return { axis, mixed }; }
+// the power at a set of frequencies (the strongest bin within ±w Hz), against the band's median bin: dB above the floor
+function standOut(p, fs, n, pts, w, fmin, fmax) { const lo = Math.ceil(fmin * n / fs), hi = Math.floor(fmax * n / fs), band = Array.from(p.subarray(lo, hi)).sort((a, b) => a - b), med = band[band.length >> 1];
+  const at = (f) => { const c = Math.round(f * n / fs), r = Math.max(1, Math.round(w * n / fs)); let m = 0; for (let i = c - r; i <= c + r; i++) m = Math.max(m, p[i] || 0); return m; };
+  const v = pts.map((q) => 10 * Math.log10(at(q.f) / med)); v.sort((a, b) => a - b); return { median: v[v.length >> 1], min: v[0], max: v[v.length - 1], count: v.length }; }
+</script>
+<script>
+// ---- the page's shared parts: sound from a rendered buffer, canvases, the walk ----
+const $ = (id) => document.getElementById(id);
+let ctx = null, comp = null, src = null, playing = false;
+// silent until a click: no context exists before the first play
+async function playBuffer(x, fs, onEnd) {
+  stopSound();
+  if (!ctx) { ctx = new AudioContext({ sampleRate: fs }); comp = ctx.createDynamicsCompressor(); comp.threshold.value = -12; comp.ratio.value = 4; const g = ctx.createGain(); g.gain.value = 0.8; comp.connect(g).connect(ctx.destination); }
+  await ctx.resume();
+  let pk = 0; for (let i = 0; i < x.length; i++) pk = Math.max(pk, Math.abs(x[i]));
+  const b = ctx.createBuffer(2, x.length, ctx.sampleRate), sc = pk ? 0.85 / pk : 0, L = b.getChannelData(0), R = b.getChannelData(1);
+  const fade = Math.min(x.length, Math.round(0.03 * ctx.sampleRate));
+  for (let i = 0; i < x.length; i++) { const e = i > x.length - fade ? (x.length - i) / fade : 1; L[i] = R[i] = x[i] * sc * e; }
+  src = ctx.createBufferSource(); src.buffer = b; src.connect(comp); const me = src;
+  src.onended = () => { if (src === me) { src = null; playing = false; if (onEnd) onEnd(); } };
+  src.start(); playing = true;
+}
+function stopSound() { if (src) { const s = src; src = null; try { s.stop(); } catch {} } playing = false; }
+function fit(c, hgt) {
+  const w = c.clientWidth || 600, d = devicePixelRatio || 1, H = hgt;
+  if (c.width !== Math.round(w * d) || c.height !== Math.round(H * d)) { c.width = Math.round(w * d); c.height = Math.round(H * d); c.style.height = H + 'px'; }
+  const g = c.getContext('2d'); g.setTransform(d, 0, 0, d, 0, 0); return { g, w, h: H };
+}
+const dB = (p, ref) => 10 * Math.log10(p / ref + 1e-12);
+// the house mark: a small Lissajous
+function sigil(a, b) { let d = ''; for (let i = 0; i <= 240; i++) { const t = (i / 240) * 2 * Math.PI; d += (i ? 'L' : 'M') + (8 * Math.sin(a * t + Math.PI / 2)).toFixed(2) + ' ' + (8 * Math.sin(b * t)).toFixed(2); } $('sigil').setAttribute('d', d); }
+// the walk: one step at a time, Next and Back, every step open from the rail; changing step stops the sound
+function walk(steps, onStep) {
+  let at = 0;
+  const go = (i) => { stopSound(); at = Math.max(0, Math.min(steps.length - 1, i)); [...$('rail').children].forEach((b, j) => b.classList.toggle('on', j === at)); $('say').innerHTML = steps[at].say; $('back').disabled = at === 0; $('next').disabled = at === steps.length - 1; onStep(steps[at].key, at); };
+  steps.forEach((s, i) => { const b = document.createElement('button'); b.innerHTML = `${i + 1}<b>${s.name}</b>`; b.onclick = () => go(i); $('rail').appendChild(b); });
+  $('back').onclick = () => go(at - 1); $('next').onclick = () => go(at + 1);
+  return { go, get at() { return at; } };
+}
+const later = () => new Promise((r) => setTimeout(r, 0));
+const FS = 48000, F1 = 220, F2 = 220 / PHI, T1 = 1 / F1, T2 = 1 / F2, A = 0.95, FMIN = 60, FMAX = 1500, NW = 16384;
+// the mixed points this surface carries (m and n both non-zero), inside the band
+const ownMixed = () => latticePoints(F1, F2, FMIN, FMAX, 3).mixed.filter((q) => SURF.some((s) => (s.m === q.m && s.n === q.n) || (s.m === -q.m && s.n === -q.n)));
+const S = { key: 'one', hear: 'combs', meas: null, scanP: null };
+const STEPS = [
+  { key: 'one', name: 'one comb', say: 'One comb: the sound plus a copy of itself T seconds late. With T = 1 ⁄ 220 s it peaks at every whole-number multiple of <i>220 Hz</i>. Play noise through it and the noise takes that pitch. One loop, one harmonic series.' },
+  { key: 'two', name: 'two combs in a row', say: 'A second comb after the first, its delay φ times longer, so it peaks at multiples of 220 ⁄ φ ≈ 136 Hz. The pair\'s response is the two responses multiplied. Two series of peaks, side by side.' },
+  { key: 'scan', name: 'a torus scan, same two rates', say: 'Now the other route: a surface on the torus read by two phasors at the same two rates, 220 and 136 Hz. Its lines sit on the two series too, and also on the <i>mixed</i> points between them, m·f₁ + n·f₂ with neither m nor n zero.' },
+  { key: 'test', name: 'the test: where the lines fall', say: 'Measured on the sound itself, noise through the comb pair beside the scan. Do the mixed points stand out of the comb pair\'s spectrum the way they stand out of the scan\'s? And if the comb pair has no lattice in frequency, where did its lattice go?' },
+];
+const latt = () => latticePoints(F1, F2, FMIN, FMAX, 6);
+// ---- drawing ----
+function axes(g, w, h, x, top, base, lo, hi) {
+  g.strokeStyle = '#22222e'; g.beginPath(); g.moveTo(40, base); g.lineTo(w - 10, base); g.stroke();
+  g.fillStyle = '#4a4a5a'; g.font = '10px JetBrains Mono, monospace'; g.textAlign = 'center';
+  for (let f = 0; f <= FMAX; f += 250) g.fillText(f, x(f), h - 5);
+  g.textAlign = 'right'; g.fillText(hi + '', 36, top + 4); g.fillText(lo + '', 36, base);
+}
+function ticks(g, x, y0, len, fs, color) { g.strokeStyle = color; g.lineWidth = 1; for (const f of fs) { if (f > FMAX) continue; g.beginPath(); g.moveTo(x(f), y0); g.lineTo(x(f), y0 + len); g.stroke(); } }
+const series = (f0) => { const a = []; for (let k = 1; k * f0 <= FMAX; k++) a.push(k * f0); return a; };
+function drawComb() {
+  const { g, w, h } = fit($('comb'), 230), x = (f) => 40 + (f / FMAX) * (w - 50), top = 30, base = h - 20, lo = -10, hi = 50;
+  g.clearRect(0, 0, w, h); axes(g, w, h, x, top, base, lo, hi);
+  const two = S.key !== 'one';
+  ticks(g, x, 4, 7, series(F1), '#6366F1'); if (two) ticks(g, x, 13, 7, series(F2), '#4a8fff'); if (S.key === 'scan' || S.key === 'test') ticks(g, x, 22, 6, ownMixed().map((q) => q.f), '#e8b84a');
+  const y = (d) => base - Math.max(0, Math.min(1, (d - lo) / (hi - lo))) * (base - top);
+  if (S.key === 'one') { g.strokeStyle = '#8a8aa0'; g.setLineDash([3, 3]); g.beginPath(); for (let i = 0; i <= 1600; i++) { const f = (i / 1600) * FMAX, re = 1 + A * Math.cos(2 * Math.PI * f * T1), im = -A * Math.sin(2 * Math.PI * f * T1), d = 10 * Math.log10(re * re + im * im); i ? g.lineTo(x(f), y(d)) : g.moveTo(x(f), y(d)); } g.stroke(); g.setLineDash([]); }
+  g.strokeStyle = '#c8c8d8'; g.beginPath(); for (let i = 0; i <= 3000; i++) { const f = (i / 3000) * FMAX, d = 20 * Math.log10(combPairGain(f, T1, T2, A, A, two)); i ? g.lineTo(x(f), y(d)) : g.moveTo(x(f), y(d)); } g.stroke();
+  $('combLabel').textContent = S.key === 'one' ? 'one comb · solid: feedback, y = x + a·y(t − T) · dashed: the page\'s h = δ + a·δ(t − T)' : 'two combs in a row · |H₁·H₂|, from the formula';
+  const k = [`<span style="color:#6366F1">k ⁄ T₁ = k·220 Hz</span>`]; if (two) k.push(`<span style="color:#4a8fff">l ⁄ T₂ = l·${F2.toFixed(1)} Hz</span>`); if (S.key === 'scan' || S.key === 'test') k.push(`<span style="color:#e8b84a">the scan's mixed points m·f₁ + n·f₂</span>`); $('combKey').innerHTML = k.join('');
+}
+function scanPower() { if (!S.scanP) S.scanP = power(scan(F1, F2, NW / FS + 0.01, FS), 0, NW); return S.scanP; }
+function drawScan() {
+  const p = scanPower(), { g, w, h } = fit($('scan'), 230), x = (f) => 40 + (f / FMAX) * (w - 50), top = 30, base = h - 20, lo = -80, hi = 0;
+  g.clearRect(0, 0, w, h); axes(g, w, h, x, top, base, lo, hi);
+  ticks(g, x, 4, 7, series(F1), '#6366F1'); ticks(g, x, 13, 7, series(F2), '#4a8fff'); ticks(g, x, 22, 6, ownMixed().map((q) => q.f), '#e8b84a');
+  let ref = 0; for (const v of p) ref = Math.max(ref, v);
+  const y = (d) => base - Math.max(0, Math.min(1, (d - lo) / (hi - lo))) * (base - top), bins = Math.floor(FMAX * NW / FS), st = Math.max(1, Math.floor(bins / (w * 2)));
+  g.strokeStyle = '#c8c8d8'; g.beginPath(); for (let i = 1; i < bins; i += st) { let m = 0; for (let j = i; j < i + st; j++) m = Math.max(m, p[j]); const X = x(i * FS / NW); i === 1 ? g.moveTo(X, y(dB(m, ref))) : g.lineTo(X, y(dB(m, ref))); } g.stroke();
+}
+// ---- the test ----
+async function measure() {
+  if (S.meas) return S.meas;
+  $('read').innerHTML = 'measuring…'; await later();
+  const y = comb(comb(noise(FS * 6, 3), T1, A, FS), T2, A, FS), py = welch(y, NW); await later();
+  const s = scan(F1, F2, 6, FS), ps = welch(s, NW), L = latt(), r = rng(21), rand = Array.from({ length: 400 }, () => ({ f: FMIN + r() * (FMAX - FMIN) }));
+  const own = ownMixed();
+  const so = (p, pts) => standOut(p, FS, NW, pts, 1.5, FMIN, FMAX);
+  const h = comb(comb(impulse(Math.round(FS * 0.04)), T1, 0.8, FS), T2, 0.8, FS);
+  return (S.meas = { combs: { axis: so(py, L.axis), mixed: so(py, L.mixed), own: so(py, own), rand: so(py, rand) }, scan: { axis: so(ps, L.axis), mixed: so(ps, L.mixed), own: so(ps, own), rand: so(ps, rand) }, nOwn: own.length, h });
+}
+function drawBars(M) {
+  const { g, w, h } = fit($('bars'), 240), rows = [['the two series', 'axis'], ['the surface\'s mixed points', 'own'], ['random frequencies', 'rand']], left = 150, maxDb = 70, X = (d) => left + (Math.max(-10, d) + 10) / (maxDb + 10) * (w - left - 50);
+  g.clearRect(0, 0, w, h); g.font = '11px JetBrains Mono, monospace';
+  rows.forEach(([name, k], i) => { const y0 = 16 + i * 74; g.fillStyle = '#8a8aa0'; g.textAlign = 'left'; g.fillText(name, 4, y0 + 14);
+    [['combs', '#c8c8d8'], ['scan', '#e8b84a']].forEach(([who, col], j) => { const v = M[who][k].median, y = y0 + 22 + j * 20; g.fillStyle = col; g.fillRect(X(0), y, X(v) - X(0), 12); g.fillStyle = '#8a8aa0'; g.textAlign = 'left'; g.fillText(`${who} ${v >= 0 ? '+' : ''}${v.toFixed(1)}`, Math.max(X(v), X(0)) + 6, y + 10); });
+    g.strokeStyle = '#4a4a5a'; g.beginPath(); g.moveTo(X(0), y0 + 18); g.lineTo(X(0), y0 + 66); g.stroke(); });
+}
+function drawIR(M) {
+  const { g, w, h } = fit($('ir'), 240), left = 10, base = h - 24, top = 14, X = (t) => left + (t / 0.04) * (w - left - 10), hh = M.h;
+  g.clearRect(0, 0, w, h); g.strokeStyle = '#22222e'; g.beginPath(); g.moveTo(left, base); g.lineTo(w - 10, base); g.stroke();
+  g.fillStyle = '#4a4a5a'; g.font = '10px JetBrains Mono, monospace'; g.textAlign = 'center'; for (let t = 0; t <= 40; t += 10) g.fillText(t, X(t / 1000), h - 6);
+  for (let n = 1; n < hh.length; n++) { const v = Math.abs(hh[n]); if (v < 0.01) continue; g.strokeStyle = '#c8c8d8'; g.beginPath(); g.moveTo(X(n / FS), base); g.lineTo(X(n / FS), base - v * (base - top)); g.stroke(); }
+  g.fillStyle = '#e8b84a'; g.font = '9.5px JetBrains Mono, monospace';
+  for (let j = 0; j < 9; j++) for (let k = 0; k < 6; k++) { const t = j * T1 + k * T2; if (t <= 0 || t > 0.0395) continue; const v = Math.pow(0.8, j + k); if (v < 0.2) continue; g.fillText(`${j},${k}`, X(t), base - v * (base - top) - 4); }
+}
+function verdict(M) {
+  $('verdict').innerHTML = `<b>The comb pair lights the lattice's two axes and nothing between.</b> Through it, the two series stand ${M.combs.axis.median.toFixed(1)} dB above the band's typical bin; the ${M.nOwn} mixed points the surface carries in this band stand ${M.combs.own.median >= 0 ? '+' : ''}${M.combs.own.median.toFixed(1)} dB, the same as random frequencies (${M.combs.rand.median >= 0 ? '+' : ''}${M.combs.rand.median.toFixed(1)}). The scan puts those same mixed points ${M.scan.own.median.toFixed(1)} dB up. So the two routes do not share a spectral signature: a linear filter keeps each loop's own harmonics, and only a product, here a table read at two phases at once, makes m·f₁ + n·f₂. The comb pair's lattice is real, but it is in time: an echo at every j·T₁ + k·T₂, labelled j,k on the right.`;
+  $('read').innerHTML = `combs · mixed points <b>${M.combs.mixed.median.toFixed(1)} dB</b> (median of ${M.combs.mixed.count}, |m|, |n| ≤ 6) · scan · its own mixed points <b class="hot">+${M.scan.own.median.toFixed(1)} dB</b>`;
+}
+// ---- sound ----
+function take() { if (S.key === 'one') return comb(noise(FS * 3, 4), T1, A, FS); if (S.key === 'two' || (S.key !== 'one' && S.hear === 'combs')) return comb(comb(noise(FS * 3, 4), T1, A, FS), T2, A, FS); return scan(F1, F2, 3, FS); }
+function show(id, on) { $(id).classList.toggle('hidden', !on); }
+async function onStep(key) {
+  S.key = key;
+  show('scanPanel', key === 'scan'); show('barsPanel', key === 'test'); show('irPanel', key === 'test'); show('verdict', key === 'test'); show('hearCtl', key === 'scan' || key === 'test'); show('combPanel', key !== 'test');
+  $('go').textContent = '▸ play';
+  $('hint').textContent = { one: 'Solid line: the feedback comb you hear. Dashed: the page\'s own h(t) = δ(t) + a·δ(t − T), gentler but peaked in the same places. Ticks mark k · 220 Hz.', two: 'Indigo ticks: the first comb\'s peaks. Blue: the second\'s. Every peak of the pair sits under one or the other.', scan: 'Amber ticks mark the mixed points this surface carries. The scan\'s lines stand on them; the comb pair\'s curve above has no peak there. Switch what you hear to compare.', test: 'Each kind of point is read as the strongest bin within 1.5 Hz of it, against the median bin from 60 to 1500 Hz, on six seconds of each sound.' }[key];
+  $('read').innerHTML = key === 'one' ? 'peaks at <b>k · 220 Hz</b>' : key === 'two' ? `peaks at <b>k · 220</b> and <b>l · ${F2.toFixed(2)} Hz</b>` : key === 'scan' ? `the surface carries <b>${SURF.length}</b> lattice points, <b>${SURF.filter((s) => s.m && s.n).length}</b> of them mixed` : '';
+  if (key !== 'test') drawComb();
+  if (key === 'scan') drawScan();
+  if (key === 'test') { const M = await measure(); if (S.key === 'test') { drawBars(M); drawIR(M); verdict(M); } }
+}
+const W = walk(STEPS, onStep);
+$('go').onclick = () => { if (playing) { stopSound(); $('go').textContent = '▸ play'; return; } playBuffer(take(), FS, () => ($('go').textContent = '▸ play')); $('go').textContent = '❚❚ stop'; };
+document.querySelectorAll('[data-h]').forEach((b) => (b.onclick = () => { S.hear = b.dataset.h; document.querySelectorAll('[data-h]').forEach((z) => z.classList.toggle('on', z === b)); stopSound(); $('go').textContent = '▸ play'; }));
+window.addEventListener('resize', () => { if (S.key !== 'test') drawComb(); if (S.key === 'scan') drawScan(); if (S.key === 'test' && S.meas) { drawBars(S.meas); drawIR(S.meas); } });
+sigil(1, 1.618);
+W.go(0);
+</script>
+</body>
+</html>
