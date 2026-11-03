@@ -103,7 +103,7 @@
       <div>
         <section class="bl-step bl-shown" data-step="1">
           <h2>1 · One balloon</h2>
-          <p class="bl-idea">A balloon, its tail pointing at the speaker's mouth. On a still frame it doesn't matter where in the stack it lives: it only has a position on the page.</p>
+          <p class="bl-idea">A balloon, its tail reaching down onto the speaker. On a still frame, only what covers what tells you where in the stack it lives; here it lies over him, and nothing yet says how deep it is.</p>
         </section>
         <section class="bl-step" data-step="2">
           <h2>2 · A depth for it</h2>
@@ -150,7 +150,7 @@
 const BL = (() => {
   const DEPTH = { sky: 0.3, ridge: 0.5, fig: 0.55 };
   const PANEL = { inset: 24, line: 8 };
-  const BALLOON = { cx: 590, cy: 318, rx: 128, ry: 62, tip: [385, 457], base: [[492, 352], [530, 368]], lines: ["THE WIND'S", 'TURNING.'], size: 27 };
+  const BALLOON = { cx: 590, cy: 318, rx: 128, ry: 62, tip: [374, 470], base: [[492, 352], [530, 368]], lines: ["THE WIND'S", 'TURNING.'], size: 27 };
   const PLACES = [
     { key: 'sky', name: 'with the sky', p: 0.3 },
     { key: 'behind', name: 'at his depth, behind him', p: 0.55, behind: true },
@@ -353,7 +353,7 @@ function runTable() {
   $('tab5').innerHTML = html;
   const R = Object.fromEntries(rows.map((r) => [r.pl.key, r.drift]));
   $('t5').innerHTML = '<b>Only a balloon at its speaker’s depth stays on his mouth.</b> At his depth its tail leaves his mouth by ' + R.speaker.toFixed(1) + ' px over the whole sweep; with the sky, by '
-    + R.sky.toFixed(1) + '; well in front of him, by ' + R.near.toFixed(1) + '. <b>The sticker is the worst of both:</b> it moves like the farthest thing in the frame (not at all) and covers like the nearest, so its tail slides '
+    + R.sky.toFixed(1) + '; well in front of him, by ' + R.near.toFixed(1) + '. <b>The sticker is the worst of both:</b> it moves like nothing in the frame (not at all, while even the sky moves 12 px) and covers like the nearest, so its tail slides '
     + R.sticker.toFixed(1) + ' px off his mouth and it sits over the panel border. At his depth but behind him, it drifts ' + R.behind.toFixed(1) + ' px, and his sheet covers ' + cover.tail.toFixed(0)
     + ' % of its tail’s last 30 pixels: the right depth and the wrong order. Depth decides the drift and order decides the cover, and the page’s rule names both: a place in the stack, in front of its speaker, behind the border. '
     + 'The narration in the margin is not in the stack at all, so the camera never touches it. One more thing the sweep shows: the depth has to be close. The drift grows by ' + (BL.CAM * 0.01).toFixed(1) + ' px for every 0.01 of depth between balloon and speaker on a ' + BL.CAM + '-pixel move.';

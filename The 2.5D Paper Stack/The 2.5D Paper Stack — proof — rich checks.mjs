@@ -61,6 +61,7 @@ for (const [k, ref] of Object.entries(meta.reference)) {
 const R = t.rows;
 ok(R.edge.carried === 0 && R.edge.left === 0 && R.edge.rest_mean === 0, 'the page: a hard cut at the ink\'s edge carries nothing, leaves nothing, and stacks back to the plate');
 ok(['f2', 'f6', 'f12'].every((k) => R[k].rest_visible > 1 && R[k].carried > 0.5 && R[k].left > 0.5), 'the page: every centred feather is off the plate at rest and carries sky (the halo)');
+ok(Math.abs(R.f6.edge_visible - 75.4) < 0.1 && R.f6.rim > 6 && R.f6.rim < 7.5, `a 6 px feather is visibly off on ${R.f6.edge_visible.toFixed(1)} % of the edge pixels, a rim ${R.f6.rim.toFixed(2)} px wide (the challenger's 75.4 %, 6.7 px)`);
 ok(R.o6.rest_visible < 1 && R.o6.carried > 4, 'a feather pushed outside is near the plate at rest but carries the widest band of sky');
 ok(R.in2.rest_mean === 0 && R.in2.left > 1.5 && R.in4.left > 3.5, 'the offer: a knife inside the ink is the plate at rest, but leaves the line on the back sheet');
 ok(R.density.left > 1.5 && R.trackvi.left < R.density.left && R.trackvi.carried < 1, 'track VI\'s 2 px dilation moves its density contour out toward the ink\'s edge');
@@ -71,16 +72,21 @@ ok(mx === 0, 'front and back sheets of the hard cut stack back to the plate exac
 // 2. the stack, revealed and broken
 console.log('\nreveal and break — the turn the eye sees before and in the break');
 const RB = engine('The 2.5D Paper Stack — rich — reveal and break.html', 'rb-engine', 'RB');
-const runs = RB.runs(14);
 ok(RB.ease(0) === 0 && RB.ease(1) === 1 && Math.abs(RB.ease(0.5) - 0.5) < 1e-12, 'the break eases from 0 to 1');
-ok(runs.flat.before === 0, `out of the flat stack the eye has seen 0° before the break (${runs.flat.before})`);
-ok(Math.abs(runs.flat.during - RB.BREAK.turn) < 1e-9, `the break itself turns ${runs.flat.during.toFixed(2)}° = the walker's ${RB.BREAK.turn}°`);
+const fl = RB.run('flat', 3.1, 14), sl = RB.run('still', 3.1, 14);
+ok(fl.before === 0 && sl.before === 0, `out of the flat stack and the revealed, still stack the eye has seen 0° before the break`);
+ok(Math.abs(fl.during - RB.BREAK.turn) < 1e-9, `the break itself turns ${fl.during.toFixed(2)}° = the walker's ${RB.BREAK.turn}°`);
+// the turning run eases in from the click: no snap, and the counted turn starts at 0
+let snap = 0; for (let tc = 0; tc < 6.5; tc += 0.1) snap = Math.max(snap, Math.abs(RB.leadTurn('turning', tc, 14)(tc + 1 / 60) - RB.leadTurn('turning', tc, 14)(tc)));
+ok(snap < 0.05, `the turning run opens with at most ${snap.toFixed(3)}° in its first frame (no snap)`);
+let rlo = Infinity, rhi = 0; for (let tc = 0; tc < 6.5; tc += 0.05) { const r = RB.run('turning', tc, 14); rlo = Math.min(rlo, r.during / r.before); rhi = Math.max(rhi, r.during / r.before); }
+ok(rlo > 1 && rhi < 3, `counted from the click, the turning run's break is ${rlo.toFixed(1)}× to ${rhi.toFixed(1)}× what came before (set by the ±14° sway and the 38° break)`);
 // a sway of ±14° over 6.5 s: in any 1.5 s window the turn seen lies between the window at the crest and the window at the zero crossing
 let lo = Infinity, hi = 0;
 for (let t0 = 0; t0 < 6.5; t0 += 0.05) { const v = RB.turnSpent((t) => RB.swayTurn(t, 14), t0, t0 + 1.5); lo = Math.min(lo, v); hi = Math.max(hi, v); }
 const crossing = 2 * 14 * Math.sin(Math.PI * 1.5 / 6.5);
 ok(Math.abs(hi - crossing) < 0.2, `the most turn a 1.5 s window of the sway shows is ${hi.toFixed(2)}° (analytic 2·14·sin(π·1.5/6.5) = ${crossing.toFixed(2)}°)`);
-ok(RB.BREAK.turn / hi < 3.5 && RB.BREAK.turn / lo > 2, `out of the turning stack the break is ${(RB.BREAK.turn / hi).toFixed(1)}× to ${(RB.BREAK.turn / lo).toFixed(1)}× what came before, not "all of it new"`);
+ok(Math.abs(lo - 2 * 14 * (1 - Math.cos(Math.PI * 1.5 / 6.5))) < 0.2, `the least a 1.5 s window shows is ${lo.toFixed(2)}° (analytic 2·14·(1 − cos(π·1.5/6.5)))`);
 
 // 3. the balloon
 console.log('\nthe balloon — drift by depth, cover by order');
@@ -96,7 +102,7 @@ ok(P2.speaker.indexOf('balloon') > P2.speaker.indexOf('fig') && P2.speaker.index
 ok(P2.behind.indexOf('balloon') < P2.behind.indexOf('fig'), 'at his depth, behind: the walker covers it');
 ok(P2.sticker.at(-1) === 'balloon', 'the sticker sits over the panel border');
 const cov = BLn.covered(FG, W);
-ok(cov.tail > 0, `behind him, his sheet covers ${cov.tail.toFixed(1)} % of the tail's last 30 px (the tip reaches him)`);
+ok(cov.tail > 30, `behind him, his sheet covers ${cov.tail.toFixed(1)} % of the tail's last 30 px (the tip reaches him)`);
 const om = BLn.outlineMotion(3);
 ok(om > 0 && om <= 4.8 + 1e-9, `the outline breathes by up to ${om.toFixed(2)} px; the letters are drawn unwarped unless asked`);
 

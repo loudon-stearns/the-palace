@@ -272,16 +272,18 @@ const PS = (() => {
   /* what one cut carries, leaves and changes. L: the plate's luminance; F: the fill's. Back sheet: the fill
      inside the cut, the plate outside it. */
   function measure(a, S, Z, L, F, Lb) {
-    let carried = 0, left = 0, dsum = 0, vis = 0, n = 0;
+    let carried = 0, left = 0, dsum = 0, vis = 0, n = 0, edgeVis = 0;
     for (let i = 0; i < S.length; i++) {
       if (!Z[i]) continue;
       n++;
       if (S[i] > 0) carried += a[i]; else if (S[i] < 0) left += 1 - a[i];
       const back = a[i] >= 0.5 ? F[i] : L[i];
       const c0 = a[i] * L[i] + (1 - a[i]) * back, d = Math.abs(c0 - L[i]);
-      dsum += d; if (d > 16 / 255) vis++;
+      dsum += d; if (d > 16 / 255) { vis++; if (S[i] < 0 && S[i] >= -1) edgeVis++; }
     }
-    return { carried: carried / Lb, left: left / Lb, rest_mean: 255 * dsum / n, rest_visible: 100 * vis / n };
+    /* rest_visible is a share of the whole 40-px zone; edge_visible a share of the edge pixels themselves;
+       rim the visibly-off pixels per unit of edge length, an average width in px */
+    return { carried: carried / Lb, left: left / Lb, rest_mean: 255 * dsum / n, rest_visible: 100 * vis / n, edge_visible: 100 * edgeVis / Lb, rim: vis / Lb };
   }
   /* mean luminance in rings across the edge */
   function profile(S, Z, L) {
@@ -437,7 +439,7 @@ function setup4() {
   $('s4v').textContent = sigma4 + ' px'; $('a4v').textContent = amp[4].toFixed(1) + ' px'; $('l4').textContent = 'feather, σ = ' + sigma4 + ' px';
   const m = PS.measure(PS.alphaMap(S, 0, sigma4, false), S, Z, L, LF, PS.edgeLength(S, Z));
   $('p4').textContent = 'Set the slide to 0 and the feather already shows: a pale rim where the fill behind shows through the fading ink, on '
-    + m.rest_visible.toFixed(1) + ' % of the edge zone. Slide the sky and a ' + m.carried.toFixed(1) + '-pixel band of the old sky rides along with the ridge, frozen while the rest moves: the halo. The hard cut on the left shows neither.';
+    + m.edge_visible.toFixed(0) + ' % of the edge pixels, about ' + m.rim.toFixed(1) + ' px wide on average (' + m.rest_visible.toFixed(1) + ' % of the 40-px zone around the edge). Slide the sky and a ' + m.carried.toFixed(1) + '-pixel band of the old sky rides along with the ridge, frozen while the rest moves: the halo. The hard cut on the left shows neither.';
   kick();
 }
 function setup5() {
@@ -462,23 +464,23 @@ function seen(r) {
 function runTable() {
   tab = PS.table(T, M, L, LF, W, H, meta.figure_box);
   const R = tab.rows;
-  let html = '<tr><th>cut</th><th>sky carried</th><th>line left</th><th>off the plate at rest</th><th>visible at rest</th><th>when the sky slides</th></tr>';
+  let html = '<tr><th>cut</th><th>sky carried</th><th>line left</th><th>off the plate at rest</th><th>visible at rest, of the zone</th><th>of the edge itself</th><th>rim width</th><th>when the sky slides</th></tr>';
   for (const c of PS.CUTS) {
     const r = R[c.key];
     html += '<tr' + (c.key === 'edge' ? ' class="ps-hi"' : '') + '><td>' + r.name + '</td><td>' + r.carried.toFixed(2) + ' px</td><td>' + r.left.toFixed(2) + ' px</td><td>'
-      + r.rest_mean.toFixed(2) + ' ⁄ 255</td><td>' + r.rest_visible.toFixed(1) + ' %</td><td class="ps-l">' + seen(r) + '</td></tr>';
+      + r.rest_mean.toFixed(2) + ' ⁄ 255</td><td>' + r.rest_visible.toFixed(1) + ' %</td><td>' + r.edge_visible.toFixed(1) + ' %</td><td>' + r.rim.toFixed(1) + ' px</td><td class="ps-l">' + seen(r) + '</td></tr>';
   }
   $('tab5').innerHTML = html;
-  $('n5').textContent = 'Measured over ' + tab.Lb + ' edge pixels of the ridge (the figure and the plate’s border left out), on brightness. “Visible” counts pixels more than 16 of 255 off the plate. The back sheet is the fill inside each cut and the plate outside it, as track VI makes it.';
+  $('n5').textContent = 'Measured over ' + tab.Lb + ' edge pixels of the ridge (the figure and the plate’s border left out), on brightness. “Visible” counts pixels more than 16 of 255 off the plate: first as a share of the zone within 40 px of the edge, then as a share of the edge pixels themselves, then as an average width in pixels along the edge. The hard cut’s zero is by the sheet maker’s ink line (brightness below 0.45): the one-pixel ring just outside it is still a little grey (0.69 against 0.78 further out), so about 0.2 px of grey stays on the back sheet and slides, which argues for a knife a hair outside the line. The back sheet is the fill inside each cut and the plate outside it, as track VI makes it.';
   const e = R.edge, f6 = R.f6, i2 = R.in2, tv = R.trackvi, dn = R.density;
   const featherShows = f6.rest_visible > 1 && f6.carried > 1;
   const edgeClean = e.carried === 0 && e.left === 0 && e.rest_mean === 0;
   $('t5').innerHTML = '<b>' + (featherShows && edgeClean ? 'The feather shows; the hard cut on the line does not.' : 'The measure disagrees with the page.') + '</b> '
-    + 'A 6-pixel feather is off the plate on ' + f6.rest_visible.toFixed(1) + ' % of the edge before anything moves, pins ' + f6.carried.toFixed(1) + ' px of sky to the ridge and leaves '
+    + 'Before anything moves, a 6-pixel feather is visibly off the plate on ' + f6.edge_visible.toFixed(1) + ' % of the edge pixels, a pale rim averaging ' + f6.rim.toFixed(1) + ' px wide (' + f6.rest_visible.toFixed(1) + ' % of the 40-px zone around the edge); it pins ' + f6.carried.toFixed(1) + ' px of sky to the ridge and leaves '
     + f6.left.toFixed(1) + ' px of its ink on the sky. The hard cut at the ink’s edge carries ' + e.carried.toFixed(0) + ', leaves ' + e.left.toFixed(0) + ', and stacks back to the plate exactly. '
     + '<b>One word more than the page says.</b> A knife inside the ink is invisible at rest (2 px in: ' + i2.rest_mean.toFixed(1) + ' off the plate), but it leaves ' + i2.left.toFixed(1)
     + ' px of the line on the back sheet, and that slides away with the sky. Black meets black only while nothing moves. The cut that hides in motion runs along the ink’s outer edge, so the front sheet takes the whole line. '
-    + 'Track VI’s cutter knows it: its density contour sits inside the ink (' + dn.left.toFixed(1) + ' px of line left), and its 2-pixel dilation brings the cut out to within about a pixel of the edge ('
+    + 'Track VI’s cutter knows it: its density contour sits inside the ink (' + dn.left.toFixed(1) + ' px of line left), and its 2-pixel dilation brings the cut out to within about a pixel of the edge, though not all the way ('
     + tv.carried.toFixed(1) + ' px of sky carried, ' + tv.left.toFixed(1) + ' px of line left).';
   window.__psTable = tab.rows;
 }
