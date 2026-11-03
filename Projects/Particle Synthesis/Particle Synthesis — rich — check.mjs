@@ -55,13 +55,25 @@ const FS = 48000;
 
 // ---- one click, one law — § Dispersion as Physics ----
 {
-  const E = engine('one click, one law', ['clickThrough', 'bandArrival', 'arrival', 'barRatios', 'barStrike', 'partialsOf']);
+  const E = engine('one click, one law', ['clickThrough', 'bandArrival', 'arrival', 'barRatios', 'barStrike', 'partialsOf', 'buildChirp', 'correlation', 'rmsRatio', 'band']);
+  // the test: the GPU build's written chirp (gpu-fountain.html:252–259) against the click carried exactly through the law
+  for (const r of [1, 3, 8, 16]) {
+    const ex = E.clickThrough('ice', r, FS), bu = E.buildChirp(r, FS); let worst = 0;
+    for (const f of [125, 250, 500, 1000, 2000, 4000, 8000]) worst = Math.max(worst, Math.abs(E.bandArrival(ex, f, FS) - E.bandArrival(bu, f, FS)));
+    const c = E.correlation(ex, bu), g = E.rmsRatio(ex, bu);
+    ok(c > 0.999 && Math.abs(g - 1) < 0.01 && worst < 0.0005, `the build's formula vs exact, ${r} m: correlation ${c.toFixed(5)}, loudness ${g.toFixed(4)}, bands within ${(worst * 1000).toFixed(3)} ms`);
+  }
+  // and it can fail: the same formula with its phase turned the wrong way (−π⁄4), or the build's C taken twice, parts from the exact sound
+  { const ex = E.clickThrough('ice', 8, FS), bu = E.buildChirp(8, FS), T0 = 0.02, C = 0.316, wrong = new Float64Array(bu.length), wrongC = E.clickThrough('ice', 8 / Math.SQRT2, FS);
+    for (let n = 0; n < bu.length; n++) { const t = n / FS - T0; if (t <= 0) continue; const w = 64 / (4 * C * t * t), f = w / (2 * Math.PI); if (f >= FS / 2 || f <= 20) continue; const S = E.band(f) * Math.exp(-f * 8 / 80000) / Math.sqrt(8), p2 = 8 / (4 * Math.sqrt(C) * Math.pow(w, 1.5)); wrong[n] = (1 / Math.PI) * S * Math.sqrt(2 * Math.PI / p2) * Math.cos(-(64 / (4 * C)) / t - Math.PI / 4) / FS; }
+    const c1 = E.correlation(ex, wrong), c2 = E.correlation(wrongC, bu);
+    ok(Math.abs(c1) < 0.2 && Math.abs(c2) < 0.5, `the test can fail: phase −π⁄4 correlates ${c1.toFixed(3)}; the law at twice C correlates ${c2.toFixed(3)}`); }
   const bands = [125, 250, 500, 1000, 2000, 4000, 8000], rows = [];
   for (const r of [4, 8, 16]) {
     const ice = E.clickThrough('ice', r, FS), none = E.clickThrough('none', r, FS);
     let worst = 0, worstN = 0;
     for (const f of bands) { const p = E.arrival('ice', r, f), m = E.bandArrival(ice, f, FS), n = E.bandArrival(none, f, FS); worst = Math.max(worst, Math.abs(m - p) / p); worstN = Math.max(worstN, Math.abs(n - r / 340)); if (r === 8) rows.push({ band: f, 'ice law ms': +(p * 1000).toFixed(2), 'ice measured ms': +(m * 1000).toFixed(2), 'one speed measured ms': +(n * 1000).toFixed(2) }); }
-    ok(worst < 0.015, `ice, ${r} m: every band peaks within ${(worst * 100).toFixed(2)} % of r ⁄ (2·√(C·ω)), highs first`);
+    ok(worst < 0.015, `check, not test (the engine sets the phase by the law), ice, ${r} m: every band peaks within ${(worst * 100).toFixed(2)} % of r ⁄ (2·√(C·ω)), highs first`);
     ok(worstN < 1e-4, `one speed, ${r} m: every band arrives at r ⁄ c within ${(worstN * 1e6).toFixed(1)} µs: the click arrives whole`);
   }
   console.table(rows);

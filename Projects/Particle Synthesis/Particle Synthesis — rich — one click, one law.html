@@ -3,7 +3,7 @@
   title: Particle Synthesis — rich — one click, one law
   born: 2026-11-03
   links: [[Particle Synthesis]] (connects-to · rich-face-piece) · listed in [[Particle Synthesis — rich.json]] · serves § Dispersion as Physics · leans on [[Frequency-Time Duality]]
-  forward_vector: I am one click sent through a medium whose speed depends on frequency, the ice plate the GPU fountain is built on. I walk from a click, to a click carried whole, to a click pulled into a chirp, to the same law held between two ends where it makes a bar's partials, and test the section's two claims: the separation in time is the law's, measured band by band against r ⁄ (2·√(C·ω)); and the inharmonicity is the law's too, because the straight law gives whole-number partials at the same ends. I play inside the entry's rich face and stand alone opened directly; I change only when the section I serve does.
+  forward_vector: I am one click sent through a medium whose speed depends on frequency, the ice plate the GPU fountain is built on. I walk from a click, to a click carried whole, to a click pulled into a chirp, to the same law held between two ends where it makes a bar's partials, and show the inharmonicity is the law's too, since the straight law gives whole-number partials at the same ends. My test is the GPU build's own chirp: it writes each sweep down as a formula, and I set that formula against the click carried exactly through the law, where a wrong sign, factor or phase would part them. I play inside the entry's rich face and stand alone opened directly; I change only when the section I serve does.
   sound: nothing plays until a play button is clicked; the AudioContext is made on that click. Changing step stops the sound. The kit quiets it when the page hides or is left alone.
   check: Particle Synthesis — rich — check.mjs runs this page's engine in Node against every number the page shows.
 -->
@@ -102,8 +102,9 @@
   </div>
 
   <div class="panel" id="p-test">
-    <div class="plabel"><span>the test · measured from the sound the engine made</span><span>8 m of the build’s ice · bands one-sixth of an octave wide</span></div>
-    <div class="rowb"><button class="ghost" id="measure">measure the sound itself</button><span class="hint">renders each case, filters it band by band, and finds when each band peaks</span></div>
+    <div class="plabel"><span>the test · the build’s written chirp against the click carried exactly</span><span>amber · exact · violet · the build’s formula</span></div>
+    <canvas id="wave" height="200"></canvas>
+    <div class="rowb"><button class="ghost" id="measure">measure the sound itself</button><button class="play" id="hear-exact">▸ exact, 8 m</button><button class="play" id="hear-build" style="background:var(--violet)">▸ the build’s formula, 8 m</button></div>
     <table class="t" id="test-t"></table>
     <table class="t" id="bar-t"></table>
     <p class="verdict" id="verdict"></p>
@@ -193,6 +194,24 @@ function partialsOf(y, fs, count) {
   }
   return out;
 }
+// The GPU build does not propagate: it writes each chirp down as a formula (proofs/2026-10-22-gpu-fountain.html:252–259, chirpCPU,
+// the shader's twin at :119–128): at time t after the strike, frequency ω = r² ⁄ (4C·t²), phase −r² ⁄ (4C·t) + π⁄4, amplitude
+// (1⁄π)·S·√(2π ⁄ ψ''). Ported here line for line, with the same click spectrum S the exact render uses (the build's half-sine
+// contact set to a flat click), and divided by fs, the exact render's scale. Same cutoffs: nothing at or above fs⁄2 or at or below 20 Hz.
+function buildChirp(r, fs) {
+  const N = NFFT, y = new Float64Array(N), C = C_ICE;
+  for (let n = 0; n < N; n++) {
+    const t = n / fs - T0; if (t <= 0) continue;
+    const w = r * r / (4 * C * t * t), f = w / (2 * Math.PI);
+    if (f >= fs * 0.5 || f <= 20) continue;
+    const S = band(f) * Math.exp(-f * r / F_ATTEN) / Math.sqrt(Math.max(r, 1));
+    const psi2 = r / (4 * Math.sqrt(C) * Math.pow(w, 1.5));
+    y[n] = (1 / Math.PI) * S * Math.sqrt(2 * Math.PI / psi2) * Math.cos(-(r * r / (4 * C)) / t + Math.PI / 4) / fs;
+  }
+  return y;
+}
+function correlation(a, b) { let ab = 0, aa = 0, bb = 0; for (let i = 0; i < a.length; i++) { ab += a[i] * b[i]; aa += a[i] * a[i]; bb += b[i] * b[i]; } return ab / Math.sqrt(aa * bb); }
+function rmsRatio(a, b) { let aa = 0, bb = 0; for (let i = 0; i < a.length; i++) { aa += a[i] * a[i]; bb += b[i] * b[i]; } return Math.sqrt(bb / aa); }
 // ---- end engine ----
 </script>
 
@@ -217,9 +236,9 @@ const STEPS = [
     say: 'Cut the plate into a bar and strike it. A bar only lets in the waves that fit its ends, a set of wavenumbers, and the law turns each one into a frequency. With a straight law the frequencies keep the wavenumbers’ spacing and come out as whole-number partials. With the ice’s law, frequency goes with the square of the wavenumber, so the same ends give partials at 1, 4, 9, 16: a bell-like bar, not a string. Free ends, as on a glockenspiel bar, give the famous 1 : 2.76 : 5.40.',
     do: 'Play under each law and each pair of ends.', watch: 'The spectrum, with a faint ruler at every whole multiple of the first partial. Do the partials sit on it?', hear: 'Straight: a pitched, string-like tone. The ice’s law: a struck bar, clangorous.',
     show: { r: false, bar: true, overlay: true, test: false }, law: 'bar' },
-  { name: 'the test', title: 'The test: is it the law, and only the law?',
-    say: 'The separation in time, measured: for each band, when does it peak in the sound the engine made, against when the law says it should arrive? With the one-speed law every band should arrive together. Then the inharmonicity, shown rather than tested: at the same ends the partials follow from the law in one line, and the table only confirms the struck sound holds them.',
-    do: 'Press “measure the sound itself”.', watch: 'The tables: predicted beside measured, band by band and partial by partial.', hear: 'Go back a step to hear any case again.',
+  { name: 'the test', title: 'The test: is the build’s sweep the law’s?',
+    say: 'Everything so far turned each frequency through the law exactly, so its timing could only come out as the law’s. The GPU build cannot afford that for a thousand strikes a sample. It writes each chirp down as a formula: a sweep whose frequency t seconds after the strike is r² ⁄ (4C·t²). If that formula is the law’s own answer, the two sounds are one sound. A wrong sign, a factor of two or a wrong phase would part them. One honest limit: for this law the formula is nearly exact by mathematics, so this tests the build’s code, not the ice.',
+    do: 'Press “measure the sound itself”. Then hear the exact click and the build’s formula one after the other.', watch: 'The two waveforms overlaid, and the table: how alike they are at four distances.', hear: 'The same “pew” twice.',
     show: { r: false, bar: false, overlay: false, test: true }, law: 'test' },
 ];
 
@@ -312,38 +331,58 @@ let measured = null;
 function measure() {
   $('measure').disabled = true; $('measure').textContent = 'measuring…';
   setTimeout(() => {
-    const bands = [125, 250, 500, 1000, 2000, 4000, 8000], r = 8;
-    const ice = clickThrough('ice', r, FS), none = clickThrough('none', r, FS);
-    const rows = bands.map((f) => ({ f, pi: arrival('ice', r, f), mi: bandArrival(ice, f, FS), pn: arrival('none', r, f), mn: bandArrival(none, f, FS) }));
+    const bands = [125, 250, 500, 1000, 2000, 4000, 8000], rows = [];
+    for (const r of [1, 3, 8, 16]) {
+      const ex = clickThrough('ice', r, FS), bu = buildChirp(r, FS);
+      let worst = 0; for (const f of bands) worst = Math.max(worst, Math.abs(bandArrival(ex, f, FS) - bandArrival(bu, f, FS)));
+      rows.push({ r, corr: correlation(ex, bu), gain: rmsRatio(ex, bu), worst });
+    }
     const bars = [];
     for (const ends of ['pinned', 'free']) for (const law of ['straight', 'bent']) {
       const pred = barRatios(law, ends, 4), got = partialsOf(barStrike(barRatios(law, ends, 8), BAR_F1, FS, 2.5), FS, 4);
       bars.push({ ends, law, pred, got: got.map((f) => f / got[0]) });
     }
-    measured = { rows, bars, r };
+    measured = { rows, bars };
     $('measure').disabled = false; $('measure').textContent = 'measure again'; drawTest();
   }, 30);
 }
+function drawWave() {
+  if (!STEPS[S.step].show.test) return;
+  const { g, w, h } = fit($('wave')), ex = render1('ice', 8), bu = buildChirp(8, FS), t0 = T0 + 0.080, t1 = T0 + 0.090, L = 8, R = 8;
+  const i0 = Math.round(t0 * FS), i1 = Math.round(t1 * FS); let pk = 0; for (let i = i0; i < i1; i++) pk = Math.max(pk, Math.abs(ex[i]));
+  const X = (i) => L + (w - L - R) * (i - i0) / (i1 - i0), Y = (v) => h / 2 - (h / 2 - 14) * v / pk;
+  g.clearRect(0, 0, w, h); g.font = '10px JetBrains Mono, monospace'; g.fillStyle = css('--fg-3');
+  g.fillText(`8 m · ${Math.round((t0 - T0) * 1000)}–${Math.round((t1 - T0) * 1000)} ms after the strike, as 1 kHz passes`, L + 2, h - 6);
+  const line = (y, col, dash, lw) => { g.strokeStyle = col; g.setLineDash(dash); g.lineWidth = lw; g.beginPath(); for (let i = i0; i < i1; i++) i === i0 ? g.moveTo(X(i), Y(y[i])) : g.lineTo(X(i), Y(y[i])); g.stroke(); };
+  line(ex, css('--accent'), [], 2.2); line(bu, css('--violet'), [4, 3], 1.2); g.setLineDash([]);
+}
+function hearOne(y) {
+  ensureAudio(); if (ctx.state !== 'running') ctx.resume(); stop();
+  const len = Math.round((T0 + arrival('ice', 8, 60) + 0.3) * FS); let pk = 0; for (let i = 0; i < len; i++) pk = Math.max(pk, Math.abs(y[i]));
+  const b = ctx.createBuffer(1, len, FS), d = b.getChannelData(0), fade = Math.round(0.02 * FS);
+  for (let i = 0; i < len; i++) d[i] = 0.5 * y[i] / pk * Math.min(1, (len - 1 - i) / fade);
+  src = ctx.createBufferSource(); src.buffer = b; src.connect(master); src.start();
+}
 function drawTest() {
+  drawWave();
   if (!STEPS[S.step].show.test || !measured) { $('test-t').innerHTML = ''; $('bar-t').innerHTML = ''; $('verdict').textContent = ''; return; }
-  const M = measured, ms = (s) => (s * 1000).toFixed(1);
-  let t = '<tr><th>band</th><th>ice · law</th><th>ice · measured</th><th>off by</th><th>one speed · law</th><th>one speed · measured</th></tr>';
-  for (const q of M.rows) t += `<tr><td>${q.f >= 1000 ? q.f / 1000 + ' kHz' : q.f + ' Hz'}</td><td><i>${ms(q.pi)} ms</i></td><td><b>${ms(q.mi)} ms</b></td><td>${(100 * (q.mi - q.pi) / q.pi).toFixed(2)} %</td><td><i>${ms(q.pn)} ms</i></td><td><b>${ms(q.mn)} ms</b></td></tr>`;
-  const spreadI = M.rows[0].mi - M.rows[M.rows.length - 1].mi, spreadN = Math.max(...M.rows.map((q) => q.mn)) - Math.min(...M.rows.map((q) => q.mn));
-  t += `<tr><td>125 Hz − 8 kHz</td><td><i>${ms(M.rows[0].pi - M.rows[6].pi)} ms</i></td><td><b>${ms(spreadI)} ms</b></td><td></td><td><i>0 ms</i></td><td><b>${ms(spreadN)} ms</b></td></tr>`;
+  const M = measured;
+  let t = '<tr><th>distance</th><th>waveform correlation</th><th>loudness, formula ÷ exact</th><th>worst band arrival gap, 125 Hz–8 kHz</th></tr>';
+  for (const q of M.rows) t += `<tr><td>${q.r} m</td><td><b>${q.corr.toFixed(4)}</b></td><td><b>${q.gain.toFixed(4)}</b></td><td><b>${(q.worst * 1000).toFixed(2)} ms</b></td></tr>`;
   $('test-t').innerHTML = t;
   let b = '<tr><th>ends · law</th><th>partial 2</th><th>partial 3</th><th>partial 4</th></tr>';
   for (const q of M.bars) b += `<tr><td>${q.ends} · ${q.law === 'bent' ? 'ω ∝ k²' : 'ω ∝ k'}</td>${[1, 2, 3].map((j) => `<td><i>${q.pred[j].toFixed(3)}</i> · <b>${(q.got[j] || NaN).toFixed(3)}</b></td>`).join('')}</tr>`;
-  $('bar-t').innerHTML = b + '<tr><td colspan="4" class="hint" style="text-align:left">shown, not tested · each cell: <i>the law at these ends</i> · <b>what the struck sound holds</b>, as multiples of its first partial</td></tr>';
-  const worst = Math.max(...M.rows.map((q) => Math.abs(q.mi - q.pi) / q.pi));
-  $('verdict').innerHTML = `The separation is the law’s. Through 8 m of the build’s ice every band peaks where r ⁄ (2·√(C·ω)) says, within ${(100 * worst).toFixed(1)} %, highs first, and 125 Hz trails 8 kHz by ${ms(spreadI)} ms. Through the one-speed medium the same click arrives whole: its bands land within ${ms(spreadN)} ms of each other. The inharmonicity is shown, not tested, since it follows from the law in one line: at the same ends the straight law gives 2, 3, 4 and the ice’s law 4, 9, 16, or, free, 2.76, 5.40, 8.93, the textbook glockenspiel bar. One honest edge: the law is programmed, one line, ω = C·k². What nobody wrote is the chirp, or the partials.`;
+  $('bar-t').innerHTML = b + '<tr><td colspan="4" class="hint" style="text-align:left">step 4, shown, not tested · each cell: <i>the law at these ends</i> · <b>what the struck sound holds</b>, as multiples of its first partial</td></tr>';
+  const r8 = M.rows.find((q) => q.r === 8), r1 = M.rows.find((q) => q.r === 1);
+  $('verdict').innerHTML = `The build’s sweep is the law’s. At 8 m its written formula and the click carried exactly correlate at ${r8.corr.toFixed(4)}, at ${r8.gain.toFixed(3)} of the loudness, every band within ${(r8.worst * 1000).toFixed(2)} ms; closest in, at 1 m, ${r1.corr.toFixed(4)}. So what the GPU fountain plays is the ice’s answer, not a chosen sweep. But the page’s “not programmed” needs one word of care: in the build the sweep <em>is</em> written into the code, derived from the law rather than designed, and the law itself is one programmed line, ω = C·k². What nobody chose is its shape.`;
 }
 function updateEq() {
   const law = STEPS[S.step].law;
+  const build = ['y(t) ∝ cos(−r² ⁄ (4C·t) + π⁄4),  ω(t) = r² ⁄ (4C·t²)', '(the build’s chirp) is written down: at (time t after the strike) its frequency is (distance)² ÷ (4 × C × t²), the moment the law brings that frequency in'];
   const ice = ['ω = C·k²   →   t(ω) = r ⁄ (2·√(C·ω))', '(frequency) grows with the square of (wavenumber); so (when a frequency arrives) = (distance) ÷ (2 × the square root of C times that frequency): higher arrives sooner'];
   const one = ['ω = c·k   →   t(ω) = r ⁄ c', '(frequency) is (speed) × (wavenumber); every frequency arrives at (distance) ÷ (speed)'];
   const bar = ['kⱼ·L fixed by the ends   →   fⱼ = ω(kⱼ) ⁄ 2π', 'the ends choose (the wavenumbers); the law turns each into (a partial): straight keeps their spacing, squared does not'];
-  const p = law === 'click' ? [null, null] : law === 'none' ? [one, null] : law === 'ice' ? [ice, one] : law === 'bar' ? [bar, ice] : [ice, bar];
+  const p = law === 'click' ? [null, null] : law === 'none' ? [one, null] : law === 'ice' ? [ice, one] : law === 'bar' ? [bar, ice] : [build, ice];
   $('eq1').textContent = p[0] ? p[0][0] : ''; $('eq1w').textContent = p[0] ? p[0][1] : '';
   $('eq2').textContent = p[1] ? p[1][0] : ''; $('eq2w').textContent = p[1] ? p[1][1] : '';
 }
@@ -370,6 +409,7 @@ STEPS.forEach((st, i) => { const b = document.createElement('button'); b.textCon
 $('back').onclick = () => setStep(S.step - 1); $('next').onclick = () => setStep(S.step + 1);
 $('r').oninput = (e) => { S.r = +e.target.value; stop(); draw(); };
 $('play').onclick = play; $('measure').onclick = measure;
+$('hear-exact').onclick = () => hearOne(render1('ice', 8)); $('hear-build').onclick = () => hearOne(buildChirp(8, FS));
 $('overlay').onclick = () => { S.overlay = !S.overlay; $('overlay').setAttribute('aria-pressed', String(S.overlay)); draw(); };
 $('law-straight').onclick = () => { S.law = 'straight'; press('law-straight', 'law-bent'); stop(); draw(); };
 $('law-bent').onclick = () => { S.law = 'bent'; press('law-bent', 'law-straight'); stop(); draw(); };

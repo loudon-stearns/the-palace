@@ -198,7 +198,7 @@ const $ = (id) => document.getElementById(id);
 const S = { step: 0, v0: 5, e: 0.45, z: 0.04, harder: false, arHarder: false };
 const STEPS = [
   { name: 'thrown once', title: 'One particle, thrown up once',
-    say: 'One particle leaves the floor going up at 5 m/s. Gravity is its only force, so its acceleration is the same at every height: −9.81 m/s², up or down, high or low. That draws a parabola. Its height sets its pitch, as the page’s audio mapping says: one octave for every two metres.',
+    say: 'One particle leaves the floor going up at 5 m/s. Gravity is its only force, so its acceleration is the same at every height: −9.81 m/s², up or down, high or low. That draws a parabola. Its height sets its pitch, as the page’s audio mapping says; the scale is this piece’s: one octave for every two metres.',
     do: 'Hear the throw. Move the throw speed.', watch: 'Top: one arch. Bottom: a flat line. The acceleration never changes while it flies.', hear: 'A pitch that rises, slows at the top and falls faster than it rose. Then nothing: it has landed.',
     show: { v0: true, e: false, z: false, throw: true, spring: false, harder: false, test: false } },
   { name: 'the floor', title: 'Give it a floor',
@@ -381,7 +381,7 @@ function drawTest() {
     + `<tr><td>spring, twice as hard</td>${M.sp2.slice(0, 4).map((v) => `<td><i>${v.toFixed(4)}</i></td>`).join('')}<td><i>${(M.sp2[0] / M.sp1[0]).toFixed(4)}</i></td></tr>`;
   const worstArc = Math.max(...a.ht.rows.slice(1, 5).map((q) => Math.abs(q.dB - arcHarmonicDb(q.k))));
   const sprH = Math.max(...a.hs.rows.slice(1).map((q) => q.dB));
-  $('verdict').innerHTML = `Not a harmonic oscillator. The spring is one sine: its loudest harmonic sits at ${sprH < -119 ? 'below −120' : sprH.toFixed(0)} dB, and twice as hard it stays at ${b.hs.f0.toFixed(1)} Hz. The bouncing particle is a train of parabolic arcs: its harmonics fall as 1 ⁄ n², within ${worstArc.toFixed(2)} dB of the prediction, and twice as hard its pitch halves, ${a.ht.f0.toFixed(1)} → ${b.ht.f0.toFixed(1)} Hz. The particle does solve a second-order equation, as the page says; with a floor it even repeats. But its pull does not grow with distance, so it has no spring constant for g to be, and its timing belongs to the throw, not to the equation.`;
+  $('verdict').innerHTML = `Not a harmonic oscillator. The spring is one sine: its loudest harmonic sits at ${sprH < -119 ? 'below −120' : sprH.toFixed(0)} dB, and twice as hard it stays at ${b.hs.f0.toFixed(1)} Hz. The bouncing particle is a train of parabolic arcs: its harmonics fall as 1 ⁄ n², within ${worstArc.toFixed(2)} dB of the prediction, and twice as hard its pitch halves, ${a.ht.f0.toFixed(1)} → ${b.ht.f0.toFixed(1)} Hz. The particle does solve a second-order equation, as the page says; with a floor it even repeats. But its pull does not grow with distance, so it has no spring constant for g to be, and the time of each flight belongs to the throw, not to the equation. (A fountain that repeated by a fixed emission rate would keep its emitter’s period; the halving is the bounce’s.)`;
 }
 function updateEq() {
   const st = STEPS[S.step], test = st.show.test;

@@ -45,7 +45,11 @@
      "file": "proofs/2026-10-22-gpu-fountain.html",
      "origin": "gathered",
      "by": "the Particle Synthesis steward, cycle 6 · WebGPU",
-     "contract": {},
+     "contract": {
+      "needs": "",
+      "files": "",
+      "net": ""
+     },
      "height": 1300,
      "title": "the fountain on the GPU · 2026-10-22",
      "caption": "**The architecture, built.** 1024 particles, each its own compute-shader thread, moved under gravity and drag once per audio sample, each strike sung by the same thread; a second pass sums them into one signal, and nothing on the CPU knows where a particle is. Checked against its own CPU copy: the same 96 throws and 349 strikes, the sound correlated at 0.99998. Cost barely grows with count: 6 s of sound in 0.73 s at 64 particles and 0.79 s at 1024. The page's 25× is not measured here; the nearest number is the CPU copy taking 2.1 s for what the GPU did in 0.5 s, at 64 particles. Needs WebGPU; without it, it falls back to the CPU copy at 48 particles. Press start.",
@@ -138,7 +142,7 @@
      "by": "Web Audio · canvas",
      "height": 1500,
      "title": "One click, one law · five steps",
-     "caption": "**One click through the fountain's ice, one idea at a time.** A click; the click carried whole through a one-speed medium; the same click through the ice, where ω = C·k² pulls it into a chirp, highs first; the same law held between two ends, where it makes a bar's partials; then the test. Through 8 m of the ice every band from 125 Hz to 8 kHz peaks where the law says, within 1 %, and 125 Hz trails 8 kHz by 220 ms; through the one-speed medium every band lands together. The bar is shown, not tested: at the same ends the straight law gives 2, 3, 4, the ice's 4, 9, 16, and free ends the glockenspiel's 2.76, 5.40, 8.93. The law itself is programmed, one line; the chirp and the partials are not.\n\nω = C·k²   →   t(ω) = r ⁄ (2·√(C·ω))\n\n(frequency) grows with the square of (wavenumber); so (when a frequency arrives) = (distance) ÷ (2 × the square root of C times that frequency): higher arrives sooner",
+     "caption": "**One click through the fountain's ice, one idea at a time, then the build's own chirp put to the test.** A click; the click carried whole through a one-speed medium; the same click through the ice, where ω = C·k² pulls it into a chirp, highs first; the same law held between two ends, where it makes a bar's partials (shown, not tested: the straight law gives 2, 3, 4, the ice's 4, 9, 16, free ends the glockenspiel's 2.76, 5.40, 8.93). The test: the GPU build writes each chirp as a formula (gpu-fountain.html:252–259) rather than propagating it. Set against the click carried exactly through the law, it correlates at 1.0000 at 8 m and 0.9998 at 1 m, at the same loudness, every band within 0.03 ms at 8 m; the same formula with its phase turned the wrong way correlates near zero. So the build plays the law's answer. For this law the formula is nearly exact by mathematics, so it tests the build's code, not the ice; and the sweep is written in the code, derived from the law, not designed.\n\nω(t) = r² ⁄ (4C·t²)   ⇔   t(ω) = r ⁄ (2·√(C·ω))\n\n(the build's frequency at time t) = (distance)² ÷ (4 × C × t²): the same law read the other way, (when a frequency arrives) = (distance) ÷ (2 × √(C × that frequency))",
      "near": "When different frequency components of a single grain propagate",
      "place": "band"
     }
@@ -173,7 +177,7 @@
      "by": "Web Audio · canvas",
      "height": 1300,
      "title": "Which way the colours run · five steps",
-     "caption": "**A real prism beside the fountain's ice.** White light through lens glass (Schott N-BK7, its own index): violet turned most. The same glass as a 1 km road: red arrives 161 ns before violet, heard forty octaves down as a rising run. A click through 8 m of the ice: highs first, a falling chirp. The deep-water law, scaled into hearing: lows first, a rising one. The test sets them on one table. All four are dispersion, and in each the law alone sets who arrives first; but glass and the sea hold back their higher frequencies, and the ice sends them first: blue trails red by 76 ns over a kilometre of glass, 20 s swell beats 10 s swell by 1.48 days over 2000 km, 250 Hz beats 8 kHz by 387 ms under the water law, and 8 kHz beats 250 Hz by 146.5 ms through the ice. One physics, two directions.\n\nω = C·k²   (ice: higher arrives sooner)   ·   ω = √(g·k)   (deep water: higher arrives later)\n\n(frequency) grows faster than (wavenumber) in the ice, so the highs outrun the lows; slower in deep water and, for light, in glass, so the lows lead",
+     "caption": "**A real prism beside the fountain's ice.** White light through lens glass (Schott N-BK7, its own index): violet turned most. The same glass as a 1 km road, a pulse travelling at the group index: red arrives 161 ns before violet, heard forty octaves down as a rising run. A click through 8 m of the ice: highs first, a falling chirp. The deep-water law, scaled into hearing: lows first, a rising one. The test sets them on one table. All four are dispersion, and in each the law alone sets who arrives first; but glass and the sea hold back their higher frequencies, and the ice sends them first: blue trails red by 76 ns over a kilometre of glass, 20 s swell beats 10 s swell by 1.48 days over 2000 km, 250 Hz beats 8 kHz by 387 ms under the water law, and 8 kHz beats 250 Hz by 146.5 ms through the ice. One physics, two directions.\n\nω = C·k²   (ice: higher arrives sooner)   ·   ω = √(g·k)   (deep water: higher arrives later)\n\n(frequency) grows faster than (wavenumber) in the ice, so the highs outrun the lows; slower in deep water and, for light, in glass, so the lows lead",
      "near": "The prism is not a metaphor",
      "place": "band"
     }
@@ -295,7 +299,11 @@
      "file": "proofs/2026-10-22-gpu-grains-meet.html",
      "origin": "gathered",
      "by": "the Particle Synthesis steward, cycle 7 · WebGPU",
-     "contract": {},
+     "contract": {
+      "needs": "",
+      "files": "",
+      "net": ""
+     },
      "height": 1400,
      "title": "grains that meet, live · 2026-10-22",
      "caption": "Two fountains, 1024 grains on the GPU: aim, pairs per second, ice stiffness, meet or pass through. Press start. Needs WebGPU.",
@@ -311,19 +319,19 @@
    "section": "Particle Fountain: First Build",
    "kind": "claim-change",
    "status": "open",
-   "what": "The paragraph beginning **The physics-as-DSP insight:** says a particle under gravity is 'the numerical solution to the harmonic oscillator equation' and that 'the gravity constant IS the spring constant'. The piece shows otherwise, by the page's own equation stepped once per sample. A thrown particle's pull is −9.81 m/s² at every height, so its path is a parabola, not a sine; with a floor its flights shrink by e each bounce (0.450 at e = 0.45) and double when thrown twice as hard, while a spring's period holds at 1.020 s through damping and a doubled push. At audio rate the spring is one sine (every harmonic below −120 dB) and stays at 220 Hz; the bouncing particle has harmonics at 1 ⁄ n² (−12.04, −19.08, −24.08, −27.96 dB) and drops to 110 Hz thrown twice as hard. The steward proposed the same correction with replacement words on 2026-10-22 ([[Particle Synthesis — tuning]] item 2, still waiting on Loudon); this offer adds the measured numbers and leans toward those words. Keep: 'second-order differential equation', which is right."
+   "what": "The paragraph beginning **The physics-as-DSP insight:** says a particle under gravity is 'the numerical solution to the harmonic oscillator equation' and that 'the gravity constant IS the spring constant'. The piece shows otherwise, by the page's own equation stepped once per sample. A thrown particle's pull is −9.81 m/s² at every height, so its path is a parabola, not a sine; with a floor its flights shrink by e each bounce (0.450 at e = 0.45) and double when thrown twice as hard, while a spring's period holds at 1.020 s through damping and a doubled push. At audio rate the spring is one sine (every harmonic below −120 dB) and stays at 220 Hz; the bouncing particle has harmonics at 1 ⁄ n² (−12.04, −19.08, −24.08, −27.96 dB) and drops to 110 Hz thrown twice as hard. The steward proposed the same correction with replacement words on 2026-10-22 ([[Particle Synthesis — tuning]] item 2, still waiting on Loudon); this offer adds the measured numbers and leans toward those words. Keep: 'second-order differential equation', which is right. Taking tuning item 2 closes this offer: it supplies the measurements as evidence for item 2's words, not competing words, so the edit is carried home once."
   },
   {
    "section": "Dispersion as Physics",
    "kind": "claim-change",
    "status": "open",
-   "what": "'High frequencies travel faster; low frequencies lag' is true of the ice plate and of stiff bars (ω ∝ k²), which is what the builds use, but not of dispersion in general, and the next paragraph's 'This mirrors optical dispersion exactly' runs the other way: in glass the higher frequency is the slower one. Measured in the Prism piece: over 1 km of N-BK7, red (656 nm) leads blue (486 nm) by 76 ns; over 2000 km of deep sea, 20 s swell leads 10 s swell by 1.48 days; through 8 m of the build's ice, 8 kHz leads 250 Hz by 146.5 ms. Possible words: 'In a stiff plate or bar, high frequencies travel faster and the lows lag … This mirrors optical dispersion in kind, with the order reversed: glass slows blue more than red.'"
+   "what": "Wrong in direction, not in kind. 'High frequencies travel faster; low frequencies lag' is the ice plate's and the stiff bar's case (ω ∝ k²), which the builds use; 'This mirrors optical dispersion exactly' runs the other way in glass. Numbers (maker, confirmed by the challenger): over 1 km of N-BK7 the group index differs by 0.0228 between 486 and 656 nm, so blue trails red by 76.0 ns; over 2000 km of deep sea 20 s swell leads 10 s swell by 1.483 days; through 8 m of the build's ice 8 kHz leads 250 Hz by 147.8 ms by the law, 146.5 ms measured. A second gap: a prism separates colours by angle at a surface (phase index, Snell's law), a grain spreads by arrival time along a path (group index); the page's 'the spatial trajectory through the prism is the frequency-dependent filtering path' runs the two together. Possible words: 'In a stiff plate or bar, high frequencies travel faster and the lows lag … This mirrors optical dispersion in kind, with the order reversed (glass slows blue more than red) and with time in place of angle: in the ice plate the builds use the high components lead; in a glass prism and on deep water the low ones do.' (Folds in the former Prism Metaphor offer, which the challenger judged a claim, not a no-claim edit.)"
   },
   {
-   "section": "The Prism Metaphor",
+   "section": "→ bundle",
    "kind": "no-claim-edit",
    "status": "open",
-   "what": "The page's 'Wideband grain enters … Different frequencies propagate at different velocities' list could name the medium the builds use, so the reader knows which way it runs: 'in the ice plate the builds use, the high components lead; in a glass prism and on deep water, the low ones do.' The claim 'the prism is not a metaphor' holds and the piece supports it: same physics, the direction is the medium's."
+   "what": "Bundle, not text: proofs/2026-06-08-dispersion-prism.html and its laws figure run the deep-water law the wrong way. Line 145 makes velocity rise with √k (highs first) while its comment says v ∝ 1/√k; the figure's 'ω ∝ √k' curve is convex, and its arrivals put partial 12 at ~0.54 s before partial 1 at ~1.30 s. The stiff-bar strike keeps harmonic partials (f0·n) though the note claims a bell's inharmonicity. Offer: on Loudon's word, the steward adds an erratum line to the scroll's 2026-06 entries naming both, or remakes the proof with c_g ∝ 1/√k and bending-law partials; the face does not gather either until then."
   }
  ]
 }
