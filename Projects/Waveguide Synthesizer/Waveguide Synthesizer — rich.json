@@ -47,7 +47,7 @@
           "by": "Web Audio · canvas",
           "height": 1500,
           "title": "two travelling waves · a walk in five steps",
-          "caption": "**The string is two delay lines, and their sum.** A pluck shared between a line running toward the bridge and one running back; the ends turning each half over; then the string at full speed, where a screen at sixty frames a second catches it only every three round trips or so, and a strobe that still draws the true state, once per period. The last step tests what “you pluck where you click” implies: plucked at a fraction p of the way along, every harmonic k with k·p a whole number is missing, and the rest follow |sin(kπp)| ⁄ k². Its check (`Waveguide Synthesizer — rich — check.mjs`) measures the missing ones at least 170 dB down and the rest within 0.07 dB. Drawn flat, in 2D.",
+          "caption": "**The string is two delay lines, and their sum.** A pluck shared between a line running toward the bridge and one running back; the ends turning each half over; then the string at full speed, where a screen at sixty frames a second catches it only every three round trips or so, and a strobe that still draws the true state, once per period. The last step tests what “you pluck where you click” implies: plucked at a fraction p of the way along, every harmonic k with k·p a whole number is missing, and the rest follow |sin(kπp)| ⁄ k². Its check (`Waveguide Synthesizer — rich — check.mjs`) finds the missing ones below the floor of its 32-bit render, about −170 dB; in 64-bit they come out near −335 dB, so they are zero, and −170 is a floor, not a measurement. The rest fall within 0.07 dB. Steps 1 and 2 are silent by design, slowed to one sample a frame for the eye. That sits against [[Progressive Staging]]'s one thing to hear in every step. Drawn flat, in 2D.",
           "near": "A digital waveguide is a pair of delay lines",
           "place": "band"
         }
@@ -118,7 +118,7 @@
           "file": "offline-v1.10/ladder-sheet.png",
           "origin": "gathered",
           "title": "the overtone ladder at four stiffnesses · Study v1.10",
-          "caption": "**The allpass's stretch, measured.** Dashed rungs are where a perfectly flexible string puts each overtone; amber bars are where this string puts it. G3 at stiffness 0, 0.4, 0.7 and 1.0, then C5 at 0.7, the same lean two octaves up. Overtone 16 runs +1.6, +35, +245 and +1195 cents sharp. Every bar was checked against the sound's own peaks, within 0.26 cents (`offline-v1.10/ladder-vs-sound.json`). At 1.0 the filter overshoots the stiff-string rule: overtone 8 at +476 cents against the rule's +420.",
+          "caption": "**The allpass's stretch, measured.** Dashed rungs are where a perfectly flexible string puts each overtone; amber bars are where this string puts it. G3 at stiffness 0, 0.4, 0.7 and 1.0, then C5 at 0.7, the same lean two octaves up. On the ladder, overtone 16 runs +1.6, +35, +245 and +1195 cents sharp. Every bar loud enough to measure was checked against the sound's own peaks, and each was within 0.26 cents (`offline-v1.10/ladder-vs-sound.json`). Overtone 16 at stiffness 1.0 was too quiet to check: the ladder says +1195, and the sound reads about +1188. At 1.0 the filter overshoots the stiff-string rule: overtone 8 at +476 cents against the rule's +420.",
           "near": "An allpass filter in the loop",
           "place": "band"
         },
@@ -172,7 +172,7 @@
             "size": "fill 16/9"
           },
           "title": "Study v1.13 · the instrument as it stands",
-          "caption": "**The study itself, as built.** Click to start the sound, then click the string to pluck it, hold B to bow, press L for the seven-stop lesson or W to walk the links. Raw Three.js r128 with OrbitControls, the engine in an AudioWorklet. Gathered as it was; it loads Three.js from unpkg, which is not on the rich face's library shelf.",
+          "caption": "**The study itself, as built.** Click to start the sound, then click the string to pluck it, hold B to bow, press L for the seven-stop lesson or W to walk the links. Raw Three.js r128 with OrbitControls, the engine in an AudioWorklet. Gathered as it was; its two Three.js scripts load from unpkg, and both are pinned on the rich face's library shelf.",
           "near": "The teaching claim the project is built to prove",
           "place": "band"
         }
@@ -210,7 +210,7 @@
           "file": "rich-face/lesson-run.mp4",
           "origin": "gathered",
           "title": "the seven-stop lesson, taken by a mouse · Study v1.12",
-          "caption": "**The lesson, for a reader who can't run the study.** Pluck, reflection, loss, pitch, stiffness, bow, body: each stop lights one control and says what to do, watch and hear. Recorded in Chrome with a real mouse driving it and the engine's own sound, about 112 s; every stop ticked from the hand. The sound went through a stand-in speaker clock, and nobody has yet taken the lesson by ear.",
+          "caption": "**The lesson, for a reader who can't run the study.** Pluck, reflection, loss, pitch, stiffness, bow, body: each stop lights one control and says what to do, watch and hear. Recorded in Chrome with a real mouse driving it and the engine's own sound, 116 s; every stop ticked from the hand. The sound went through a stand-in speaker clock, and nobody has yet taken the lesson by ear.",
           "near": "a seven-stop lesson",
           "place": "band"
         },
@@ -231,7 +231,7 @@
       "section": "The DSP: Digital Waveguide",
       "kind": "claim-change",
       "status": "open",
-      "what": "Item 1 says 'Frequency = sample_rate / delay_length'. The Karplus-Strong piece measured that this holds only for the bare loop (within 0.001 cents, N = 20 to 400, at 44.1 and 48 kHz). With the two-point average in the loop the pitch is sample_rate / (delay_length + ½), measured within 0.02 cents, so the page's formula runs sharp by 2.2 cents at N = 400, 8.6 at N = 100 and 42.8 at N = 20. The project's own cycle 8 found the same in Study v1 (+12.1 cents at 330 Hz). Suggested: 'Frequency = sample_rate / (delay_length + the delay inside the loop filter), half a sample for the classic average.'"
+      "what": "Item 1 says 'Frequency = sample_rate / delay_length'. The Karplus-Strong piece measured that this holds only for the bare loop (within 0.001 cents, N = 20 to 400, at 44.1 and 48 kHz). With the two-point average in the loop the pitch is sample_rate / (delay_length + ½), measured within 0.02 cents, so the page's formula runs sharp by 2.2 cents at N = 400, 8.6 at N = 100 and 42.8 at N = 20. The project's cycle 8 named the same hidden filter delay in Study v1, though its +12.1 cents at 330 Hz came mostly from rounding the loop down to a whole even number of samples, so it is not the same finding (the challenger's correction). The challenger confirmed these figures with its own Karplus-Strong in numpy: 8.635 cents at N = 100 and 42.749 at N = 20, landing within 0.016 cents of fs/(N+½). Suggested: 'Frequency = sample_rate / (delay_length + the delay inside the loop filter), half a sample for the classic average.'"
     },
     {
       "section": "The DSP: Digital Waveguide",
