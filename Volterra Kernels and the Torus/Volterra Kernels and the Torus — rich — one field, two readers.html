@@ -386,7 +386,7 @@ function readouts() {
 function hintFor(k) {
   if (k === 'point') return 'Amber is above zero, blue below. Try a slow drag, then a fast scribble: speed is what turns a place into a sound. Every step after this one is a different hand on the same table.';
   if (k === 'scan') return 'Switch fields while it plays: the path stays the same and the timbre changes, because the field is what the path reads. The path is drawn slowed down; the sound runs it 110 times a second.';
-  if (k === 'input') return 'Try "nothing": the reader parks at the centre of the quarter and the sound stops. Try the sine and slide D: at D = 0 the two readers agree and the reader rides the quarter\'s diagonal, the Hammerstein slice of the next section. "Hear the input dry" plays what goes in.';
+  if (k === 'input') return 'Try "nothing": the reader parks at the centre of the quarter and the sound stops. Try the sine and slide D: at D = 0 both coordinates read the same sample and the reader rides the quarter\'s diagonal, the Hammerstein slice of The precedent and the diagonal. "Hear the input dry" plays what goes in.';
   if (k === 'toggle') return 'Flip between scan and input on the plucked riff, with the a·b field, then with tanh. The scan keeps sounding when the input is "nothing"; the effect goes quiet. On a·b, half is ring modulation: the input times a 110 Hz cosine, sum and difference of every partial against 110 Hz.';
   return 'On a·b, tanh and the Chebyshev field the meter reads below −100 dB: the effect fed a full-scale sine is the synth at 1 : 1, sample for sample. On the ridge, which is not the same mirrored, the two come apart. Turn the input level below 1 on any field and they come apart too: a smaller sine draws a smaller path that no pair of phasors draws.';
 }
