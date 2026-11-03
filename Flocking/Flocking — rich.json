@@ -33,13 +33,13 @@
    "section": "The Kuramoto Tie",
    "kind": "claim-change",
    "status": "open",
-   "what": "Fact. 'The critical-coupling threshold becomes a critical-density-and-radius regime' leaves out what makes a threshold exist. On the bundle's own model with no noise there is no threshold in alignment, only a rate: in four starts every weight from 0.1 up reaches R 0.8 within four minutes (0.3 in 12 to 23 s, 0.1 in 45 to 233 s), and at 0.05 two of four by 167 s. Give each heading a random twist every frame (up to ±η half-turns) and a knee appears, R crossing 0.5 at alignment 0.08, 0.16, 0.38 for η 0.01, 0.02, 0.04; at η 0.04 it moves with density (0.81, 0.38, 0.14 for 40, 80, 160 birds) and reach (0.65, 0.38, 0.13 for 35, 50, 75 px), as the sentence says. Noise plays the part of Kuramoto's spread of natural frequencies (Kuramoto Coupling.md:66, 'oscillators with different natural frequencies'). Offer: 'becomes a critical regime of noise, density and radius, the noise standing where Kuramoto's spread of natural frequencies stood'."
+   "what": "Incomplete, not wrong. 'The critical-coupling threshold becomes a critical-density-and-radius regime' drops the main axis, noise. On the bundle's own model with no noise there is no threshold in alignment down to 0.05, only a rate: in the challenger's 12 starts 0.3 reaches R 0.8 in 10–26 s, 0.1 in 30–233 s, 0.05 in 167–499 s; at 0.02 none of 12 in 10 minutes, so below 0.05 a run can't tell a rate from a threshold. Jostle each heading with fresh noise every frame (up to ±η half-turns) and a knee appears, R crossing 0.5 (12 starts) at alignment 0.083, 0.145, 0.393 for η 0.01, 0.02, 0.04; at η 0.04, 0.77, 0.39, 0.136 for 40, 80, 160 birds and 0.66, 0.39, 0.125 for reach 35, 50, 75 px. Density and reach act as one knob, neighbours in reach (160 birds at 50 px ≈ 80 at 75 px). Vicsek's 1995 framing is noise and density, the reach as unit of length. The noise stands where noise stands for identical Kuramoto oscillators, whose threshold is K_c = 2D. Offer: 'becomes a critical regime of noise and density (neighbours in reach) in which coherent flow appears'."
   },
   {
    "section": "The Kuramoto Tie",
    "kind": "no-claim-edit",
    "status": "open",
-   "what": "Clarity. 'Kuramoto in two dimensions' can read as a two-dimensional phase. What alignment couples is still an angle on a circle, the heading, and the polarization the lenses compute is Kuramoto's R taken over the headings, the same formula (floor for 80 random headings 0.099 = √(π/4N)). The two dimensions are the space the birds move in, which decides who is coupled to whom and changes as they fly. Offer a clause saying so."
+   "what": "Clarity. 'Kuramoto in two dimensions' can read as a two-dimensional phase. What alignment couples is still an angle on a circle, the heading, and the polarization the lenses compute is Kuramoto's R taken over the headings, the same formula (floor for 80 random headings 0.099 = √(π/4N)). The two dimensions are the space the birds move in, which decides who is coupled to whom and changes as they fly. Offer a clause saying so. (Measured on 200,000 deals by the challenger: mean 0.0992; 1/√N = 0.112 is the root-mean-square, not the mean.)"
   },
   {
    "section": "The Shop's Interest",
@@ -51,25 +51,25 @@
    "section": "The Shop's Interest",
    "kind": "no-claim-edit",
    "status": "open",
-   "what": "Precision. 'Watch the regime label flip drift → milling → coherent': the D3 lens's label is R cut at 0.35 and 0.75 (flocking-d3-interactive-control.html, the line setting elRegime; the same in the Cobalt version), so 'milling' names a band of R, not circling, which nothing in the lens measures. Offer: say the label reads bands of R, or rename the middle band 'partial flow'."
+   "what": "Precision. The page's text says the label flips 'drift → milling → coherent'; the lenses themselves label the middle band 'milling / partial flow' (flocking-d3-interactive-control.html:220, cobalt :147), R cut at 0.35 and 0.75, and nothing measures circling. Offer: make the text match the lens's label, or say it reads bands of R."
+  },
+  {
+   "section": "The Shop's Interest",
+   "kind": "no-claim-edit",
+   "status": "open",
+   "what": "On the model, not the sentence: the page's cohesion line holds against its control (at 50 px the birds alone go 30–46 → 78–80 without cohesion; at 25 px with noise η 0.04, 0–1 → 6–9 and the largest group about 68 → 23). What the face found is in the shared model the three lenses run: separation reaching the whole 50 px, weighted 1.5 against cohesion's 1.0, leaves more birds alone at the defaults (mean 39 of 80) than no rules at all (24), so the lenses' 'coherent flock' at defaults is mostly a scattered parallel gas. Shiffman's Nature of Code flock, whose weights the bundle keeps, gives separation 25 px (processing.org/examples/flocking.html); there 0–3 are alone. Offer: change the shared model's separation reach to 25 px (the lenses' picture would change), or name the 50 px choice where 'The parameters live in the Sketch files'."
+  },
+  {
+   "section": "The Three Rules as Coordination Primitives",
+   "kind": "no-claim-edit",
+   "status": "open",
+   "what": "On the model, not the sentence. Without alignment the bundle's birds coast almost to rest (0.07 px a frame of 3 at 50 px, 0.26–0.30 at 25 px), circling index at most 0.12 against 0.20–0.36 by chance with no rules. The model has no speed floor, as Reynolds' default (1987, p. 27: a minimum speed 'defaults to zero'). With a floor of 1.5 (challenger) they keep moving and wander with no direction, R about 0.2: milling in the everyday sense, so the page's word holds once birds can't stop. Offer: give the shared model a minimum speed, or leave both as they are."
   },
   {
    "section": "The Three Rules as Coordination Primitives",
    "kind": "claim-change",
    "status": "open",
-   "what": "Fact, on the bundle's model. 'Cohesion prevents dispersal. Without it the population scatters.' At the bundle's defaults 30 to 46 of 80 birds have nobody within reach after a minute with cohesion on: the shared model gives all three rules one 50 px reach, and separation at 1.5 outpulls cohesion at 1.0 for any pair at any distance in reach. Shiffman's Nature of Code flock, whose weights 1.5/1.0/1.0 the bundle keeps, gives separation 25 px (processing.org/examples/flocking.html). There the flock holds (0 to 3 alone), and taking cohesion away does not scatter it: all 80 spread into one even sheet flying in step, R 1.00, nobody alone. In this noiseless model cohesion gives the flock a body with an edge; nothing disperses it without cohesion. Offer: reword the cohesion line to what it does here, and decide whether the shared model's separation reach should be 25 px (a model change, the lenses' default picture would change)."
-  },
-  {
-   "section": "The Three Rules as Coordination Primitives",
-   "kind": "claim-change",
-   "status": "open",
-   "what": "Fact, on the bundle's model. 'Without it the population mills without direction.' Without alignment the flow goes (R 0.04 to 0.18), but the birds don't mill: they coast almost to rest, 0.07 px a frame of 3 with the bundle's reach and 0.26 to 0.30 at 25 px, and no group circles its middle (at most 0.12 on a 0-to-1 scale). The model gives speed a ceiling and no floor. Offer: 'without it the population loses its direction' (and, in the bundle's model, its speed), or give the model a minimum speed if milling is wanted."
-  },
-  {
-   "section": "The Three Rules as Coordination Primitives",
-   "kind": "claim-change",
-   "status": "open",
-   "what": "Emphasis. 'The minimal set that makes coordination without communication work': alignment alone, separation and cohesion both off, gives R 1.00 and one group of all 80 in every start. Coordinated flow is alignment's; separation and cohesion shape the body it flows in. Vicsek's 1995 model, which the next section names, has only alignment and noise. Offer: 'the minimal set for a flock with a body; alignment alone is enough for coordinated flow'."
+   "what": "Emphasis. 'The minimal set that makes coordination without communication work': alignment alone gives R 1.00 and one group of 80 with no noise; jostled (η 0.04, 25 px, three minutes) it keeps the flow (R 0.81–0.94) but loses the body (6–8 alone, largest group about 30 against about 68 with all three). Vicsek's 1995 model has only alignment and noise. Offer: 'alignment is enough for coordinated flow; separation and cohesion make the body it flows in'."
   }
  ],
  "sections": [
@@ -100,7 +100,7 @@
      "by": "the Maker · the bundle's shared model, live",
      "height": 1380,
      "title": "Take one rule away · five steps",
-     "caption": "**Take one rule away.** The bundle's one shared Reynolds model, equal to the three lenses' code to the last digit, walked up: separation alone, alignment alone, cohesion alone, the three summed, then the test. Measured, four starts a minute each: take separation away and every bird sits on another, in two or three points (holds). Take alignment away and the flow goes (R 0.04 to 0.18), but the birds don't mill: they coast almost to rest, since the model gives speed a ceiling and no floor. Cohesion is the surprise. At the bundle's defaults 30 to 46 of 80 birds are already alone with it on, because separation, weighted 1.5 and reaching the whole 50 px, outpulls it. With separation reaching 25 px, as in Shiffman's *Nature of Code*, taking cohesion away leaves one even sheet of all 80 flying in step, not a scatter. Alignment alone gives R 1.00. Silent. Checked by the check beside it; not yet seen by Loudon.",
+     "caption": "**Take one rule away.** The bundle's one shared Reynolds model, equal to the three lenses' code to the last digit, walked up: separation alone, alignment alone, cohesion alone, the three summed, then the test, now read against a control (no rules at all) and with a noise switch, since a flock nothing jostles can't disperse whatever its rules. Measured, four starts each: take separation away and every bird sits on another, in two or three points (holds). Take alignment away and the flow goes (R 0.04 to 0.18); the birds then coast almost to rest, because the model, like Reynolds' default, has no floor on speed, so 'mills' needs one. Take cohesion away and the flock scatters: at 50 px the birds alone go from 30–46 to 78–80; at 25 px with noise, from 0–1 to 6–9 and the largest group falls from about 68 to 23 (holds). The one surprise is the model's: separation reaching the whole 50 px leaves more birds alone at the defaults than no rules do (39 against 24). Alignment alone keeps the flow but, jostled, loses the body. Silent. Checked by the check beside it; not yet seen by Loudon.",
      "near": "Changing the weights re-shapes what the flock IS"
     }
    ],
@@ -139,7 +139,7 @@
      "by": "the Maker · the bundle's shared model, live",
      "height": 1100,
      "title": "Where is the threshold? · four steps",
-     "caption": "**Where is the threshold?** A heading read as a phase, R built from the phases (its floor for 80 random headings is 0.099), then the search. With no noise there is none: every alignment weight from 0.1 up orders the flock within four minutes, only slower; the Plot sweep's 0.58 at weight 0.3 was read at fifteen seconds, and the same flock passes 0.8 at 23. Give every heading a random twist each frame, the flock's spread of natural speeds, and a knee appears: R crosses 0.5 at alignment 0.08, 0.16 and 0.38 as the noise doubles; at the strongest noise, at 0.81, 0.38 and 0.14 for 40, 80 and 160 birds, and 0.65, 0.38 and 0.13 for a reach of 35, 50 and 75 px. The section's density-and-radius regime holds once there is noise. Silent. Checked by the check beside it; not yet seen by Loudon.",
+     "caption": "**Where is the threshold?** A heading read as a phase, R built from the phases (its floor for 80 random headings is 0.099), then the search. With no noise there is none down to alignment 0.05, only a rate: every weight from 0.1 up orders the flock within four minutes; the Plot sweep's 0.58 at weight 0.3 was read at fifteen seconds, and the same flock passes 0.8 at 23. Jostle every heading with fresh noise each frame, the twin of identical Kuramoto oscillators under noise (K<sub>c</sub> = 2D), and a knee appears: R crosses 0.5 at about alignment 0.08, 0.16 and 0.38 as the noise doubles; at the strongest noise, at about 0.81, 0.38 and 0.14 for 40, 80 and 160 birds, and 0.65, 0.38 and 0.13 for a reach of 35, 50 and 75 px. Density and reach act as one knob, the neighbours in reach. The section's density-and-radius regime holds once there is noise; Vicsek's framing is noise and density. Silent. Checked by the check beside it; not yet seen by Loudon.",
      "near": "The critical-coupling threshold becomes"
     },
     {
@@ -147,7 +147,7 @@
      "origin": "gathered",
      "height": 1180,
      "title": "the knee · Murmuration's face, gathered",
-     "caption": "**Is it a phase transition?** Murmuration's knee, gathered from that page's face, where it is still a proposal too: a Vicsek-style flock, alignment plus heading noise, measured from 30 to 240 birds. The marks of a real transition hold: the wobble of R peaks at the knee at every size, and the knee sharpens as the flock grows (the peak wobble 1.01 to 2.65; the drop narrows from η 0.097 to 0.066). It turns continuously and steeply at those sizes, with no reliable memory; it doesn't name the transition's order, which the literature puts at first-order for large flocks (Grégoire and Chaté 2004; Chaté, Ginelli, Grégoire and Raynaud 2008). The section's 'non-equilibrium phase transition', tried. It carries a grain voice; nothing sounds until you press sound.",
+     "caption": "**Is it a phase transition?** Murmuration's knee, gathered from that page's face, where it is still a proposal too: a Vicsek-style flock, alignment plus heading noise, measured from 30 to 240 birds. The marks of a real transition hold: the wobble of R peaks at the knee at every size, and the knee sharpens as the flock grows (the peak wobble 1.01 to 2.65; the drop narrows from η 0.097 to 0.066). It turns continuously and steeply at those sizes, with no reliable memory; it doesn't name the transition's order, which the literature puts at first-order for large flocks (Grégoire and Chaté 2004; Chaté, Ginelli, Grégoire and Raynaud 2008). The section's 'non-equilibrium phase transition', tried. It is the same transition the threshold piece finds: the bundle's own model at alignment 1 crosses R 0.5 at η 0.066 (the challenger's sweep), where the knee puts φ halfway at 0.06–0.07. One critical line in the plane of noise and alignment, cut from two sides: the knee along the noise, the threshold piece along alignment. It carries a grain voice; nothing sounds until you press sound.",
      "near": "The Vicsek model (1995) made the connection explicit"
     }
    ],
@@ -190,7 +190,7 @@
      "origin": "gathered",
      "height": 820,
      "title": "control lens · D3.js · Cobalt Grid",
-     "caption": "**The control lens in Cobalt Grid.** The same seeded model as the plain D3 lens above, in the house dress, its colours read from the design system's stylesheet at load. That it renders in today's dress, five months on, with no edit, is the update-safe claim holding. Its regime label is R cut at 0.35 and 0.75, not a measure of milling.",
+     "caption": "**The control lens in Cobalt Grid.** The same seeded model as the plain D3 lens above, in the house dress, its colours read from the design system's stylesheet at load. That it renders in today's dress, five months on, with no edit to its dress (its CDN tag was pinned on 2026-10-21), is the update-safe claim holding. Its regime label is R cut at 0.35 and 0.75, not a measure of milling.",
      "contract": {
       "needs": ""
      },

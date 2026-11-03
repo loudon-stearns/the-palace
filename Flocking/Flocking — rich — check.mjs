@@ -19,7 +19,8 @@ const HERE = path.dirname(fileURLToPath(import.meta.url));
 const RULES = path.join(HERE, "Flocking — rich — three rules.html");
 const TIE = path.join(HERE, "Flocking — rich — the threshold.html");
 const PLOT = path.join(HERE, "flocking-observable-plot-analytical.html");
-const BUILD = process.argv.includes("--build");
+const BUILD = process.argv.includes("--build"), BUILD_RULES = BUILD || process.argv.includes("--build-rules");
+// with noise the flock is measured after three minutes: jostled birds take longer to show whether they hold
 
 function block(file, a, z) {
   const src = fs.readFileSync(file, "utf8"), i = src.indexOf(a), j = src.indexOf(z);
@@ -60,7 +61,8 @@ for (const [name, P] of [["three rules", A], ["the threshold", B]]) {
 
 // ---- measurements ----
 const SEEDS = [7, 11, 13, 17];
-const CASES = { all: { sep: 1.5, ali: 1, coh: 1 }, noSep: { sep: 0, ali: 1, coh: 1 }, noAli: { sep: 1.5, ali: 0, coh: 1 }, noCoh: { sep: 1.5, ali: 1, coh: 0 }, aliOnly: { sep: 0, ali: 1, coh: 0 } };
+const CASES = { all: { sep: 1.5, ali: 1, coh: 1 }, noSep: { sep: 0, ali: 1, coh: 1 }, noAli: { sep: 1.5, ali: 0, coh: 1 }, noCoh: { sep: 1.5, ali: 1, coh: 0 }, aliOnly: { sep: 0, ali: 1, coh: 0 }, noRules: { sep: 0, ali: 0, coh: 0 } };
+const NOISY = { eta: 0.04, frames: 10800 };
 function knock(reach, w, seed, frames = 3600) {
   const F = M.makeFlock(80, seed, 960, 540, 50, reach);
   for (let f = 0; f < frames; f++) M.stepFlock(F, w);
@@ -98,12 +100,17 @@ function noiseless(ali, seed) {
   return { t08: t08 === null ? null : r3(t08 / 60), at900: r3(at900), at4min: r3(M.polarization(F)) };
 }
 
-if (BUILD) {
-  console.log("\n--build: measuring");
-  const knockData = {};
-  for (const reach of [50, 25]) { knockData[reach] = {}; for (const [k, w] of Object.entries(CASES)) { const rows = SEEDS.map(s => knock(reach, w, s)); knockData[reach][k] = { seeds: rows, sum: summ(rows) }; console.log(" knock", reach, k, JSON.stringify(knockData[reach][k].sum.R), "alone", knockData[reach][k].sum.alone.mean); } }
+if (BUILD_RULES) {
+  console.log("\n--build: measuring the knockouts");
+  const knockData = {}, knockNoisy = {};
+  for (const reach of [50, 25]) { knockData[reach] = {}; knockNoisy[reach] = {}; for (const [k, w] of Object.entries(CASES)) {
+    const rows = SEEDS.map(s => knock(reach, w, s)); knockData[reach][k] = { seeds: rows, sum: summ(rows) };
+    const rn = SEEDS.map(s => knock(reach, { ...w, eta: NOISY.eta }, s, NOISY.frames)); knockNoisy[reach][k] = { seeds: rn, sum: summ(rn) };
+    console.log(" knock", reach, k, "alone", knockData[reach][k].sum.alone.mean, "noisy alone", knockNoisy[reach][k].sum.alone.mean); } }
   const cohSweep = [1, 1.5, 2, 2.5, 3].map(coh => { const rows = SEEDS.map(s => knock(50, { sep: 1.5, ali: 1, coh }, s)); return { coh, sum: summ(rows) }; });
-  writeData(RULES, { knock: knockData, cohSweep, seeds: SEEDS, frames: 3600 });
+  writeData(RULES, { knock: knockData, knockNoisy, noisy: NOISY, cohSweep, seeds: SEEDS, frames: 3600 });
+}
+if (BUILD) {
   const floor80 = r3(M.randomFloor(80));
   const nl = [0.05, 0.1, 0.2, 0.3, 0.5, 1, 2].map(ali => ({ ali, seeds: SEEDS.map(s => noiseless(ali, s)) }));
   console.log(" noiseless", JSON.stringify(nl.map(r => [r.ali, r.seeds.map(s => s.t08)])));
@@ -127,10 +134,16 @@ console.log("\n3. the claims the pieces make, against their data");
 const K50 = DR.knock[50], K25 = DR.knock[25];
 ok(K50.noSep.sum.nn.max < 0.5 && K25.noSep.sum.nn.max < 0.5, `separation off: every bird sits on another (nearest neighbour ≤ ${Math.max(K50.noSep.sum.nn.max, K25.noSep.sum.nn.max)} px), in ${K50.noSep.sum.groups.min}–${K50.noSep.sum.groups.max} points`);
 ok(K50.noAli.sum.R.max < 0.25 && K25.noAli.sum.R.max < 0.25, `alignment off: no flow (R ${K50.noAli.sum.R.min}–${K50.noAli.sum.R.max}; ${K25.noAli.sum.R.min}–${K25.noAli.sum.R.max} at 25 px)`);
-ok(K50.noAli.sum.speed.max < 0.6 && K25.noAli.sum.speed.max < 0.6 && K50.noAli.sum.mill.max < 0.2 && K25.noAli.sum.mill.max < 0.2, `alignment off: not milling but nearly still (speed ${K50.noAli.sum.speed.mean} and ${K25.noAli.sum.speed.mean} of 3 px a frame; milling ≤ ${Math.max(K50.noAli.sum.mill.max, K25.noAli.sum.mill.max)})`);
+ok(K50.noAli.sum.speed.max < 0.6 && K25.noAli.sum.speed.max < 0.6, `alignment off: the birds coast nearly to rest (speed ${K50.noAli.sum.speed.mean} and ${K25.noAli.sum.speed.mean} of 3 px a frame; milling ≤ ${Math.max(K50.noAli.sum.mill.max, K25.noAli.sum.mill.max)})`);
 ok(K50.all.sum.alone.min >= 20, `the bundle's defaults: ${K50.all.sum.alone.min}–${K50.all.sum.alone.max} of 80 birds have no one in reach, R ${K50.all.sum.R.mean}`);
 ok(K25.all.sum.alone.max <= 3, `separation reaching 25 px: ${K25.all.sum.alone.min}–${K25.all.sum.alone.max} alone, ${K25.all.sum.groups.min}–${K25.all.sum.groups.max} groups`);
-ok(K25.noCoh.sum.largest.min === 80 && K25.noCoh.sum.R.min > 0.95, `cohesion off at 25 px: one even sheet of all 80, R ${K25.noCoh.sum.R.min}–${K25.noCoh.sum.R.max}; not scattered`);
+ok(K25.noCoh.sum.largest.min === 80 && K25.noCoh.sum.R.min > 0.95, `cohesion off at 25 px: one even sheet of all 80, R ${K25.noCoh.sum.R.min}–${K25.noCoh.sum.R.max}, with no noise to jostle it`);
+const N50 = DR.knockNoisy[50], N25 = DR.knockNoisy[25];
+ok(K50.noCoh.sum.alone.mean > 1.5 * K50.all.sum.alone.mean, `cohesion off at 50 px, against all three: alone ${K50.all.sum.alone.mean} → ${K50.noCoh.sum.alone.mean}`);
+ok(K50.noRules.sum.alone.mean < K50.all.sum.alone.mean, `no rules at all leaves fewer alone (${K50.noRules.sum.alone.mean}) than the bundle's defaults (${K50.all.sum.alone.mean})`);
+ok(N25.noCoh.sum.alone.mean > N25.all.sum.alone.mean + 2 && N25.noCoh.sum.largest.mean < N25.all.sum.largest.mean, `with noise at 25 px cohesion holds the body: alone ${N25.all.sum.alone.mean} → ${N25.noCoh.sum.alone.mean}, largest ${N25.all.sum.largest.mean} → ${N25.noCoh.sum.largest.mean}`);
+ok(K50.noRules.sum.mill.min > Math.max(K50.noAli.sum.mill.max, K25.noAli.sum.mill.max), `circling index by chance (no rules) ${K50.noRules.sum.mill.min}–${K50.noRules.sum.mill.max}, above alignment-off's ${Math.max(K50.noAli.sum.mill.max, K25.noAli.sum.mill.max)}`);
+ok(N25.aliOnly.sum.R.min > 0.7 && N25.aliOnly.sum.largest.mean < N25.all.sum.largest.mean, `with noise, alignment alone keeps the flow (R ${N25.aliOnly.sum.R.min}–${N25.aliOnly.sum.R.max}) and loses the body (largest ${N25.aliOnly.sum.largest.mean} vs ${N25.all.sum.largest.mean})`);
 ok(K50.aliOnly.sum.R.min > 0.95, `alignment alone: R ${K50.aliOnly.sum.R.min}–${K50.aliOnly.sum.R.max}`);
 const cs = DR.cohSweep; ok(cs[2].sum.alone.mean < K50.all.sum.alone.mean / 3, `the bundle's flock gathers when cohesion rises: alone ${cs.map(c => c.coh + ":" + c.sum.alone.mean).join(" ")}`);
 const nlT = DT.noiseless; const by = a => nlT.find(r => r.ali === a).seeds;
