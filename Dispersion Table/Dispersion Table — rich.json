@@ -1,0 +1,188 @@
+{
+  "title": "Dispersion Table — rich",
+  "born": "2026-11-03",
+  "links": [
+    {
+      "target": "[[Dispersion Table]]",
+      "type": "connects-to",
+      "label": "rich-face-of"
+    },
+    {
+      "target": "[[Enrichment]]",
+      "type": "connects-to",
+      "label": "made-by"
+    },
+    {
+      "target": "[[Dissolutions]]",
+      "type": "connects-to",
+      "label": "gathered-from"
+    },
+    {
+      "target": "[[Waveguide Synthesizer]]",
+      "type": "connects-to",
+      "label": "gathered-from"
+    },
+    {
+      "target": "[[Progressive Staging]]",
+      "type": "connects-to",
+      "label": "every-made-piece-walks-up"
+    }
+  ],
+  "forward_vector": "I am the manifest of Dispersion Table's rich face, its first round, still a proposal: four walks that climb to what the page claims about the loop and its filter slot (a wavetable is a lossless loop, exactly, and a fractional length already fills the slot; partials land where the round trip comes to whole turns; the two axes of the table; one allpass knob from pure through piano to bell), the Dissolutions proof the first walk climbs to, and the Waveguide Synthesizer's own stiffness tour beside the warp knob. I grow when Loudon has heard them; I never hold the entry's words.",
+  "entry": "Dispersion Table",
+  "tier": "sketch",
+  "made": "2026-11-03",
+  "round": 1,
+  "sections": [
+    {
+      "heading": "The identity it rests on",
+      "made_against": "093841747501",
+      "made": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "Dispersion Table — rich — the table and the loop.html",
+          "origin": "made",
+          "by": "Web Audio · canvas",
+          "height": 1900,
+          "title": "the table and the loop · a walk in four steps",
+          "caption": "**Is a wavetable a lossless loop, and does a fractional length really put a filter in it?** The table alone, a reader sweeping a stored cycle; the loop alone, the cycle sliding past a still tap; their difference, which is zero at every sample (and stops being zero when the loop is one sample longer, so the test can fail); and last the loop made half a sample longer. There it has to read between samples on every trip, and the reading is a filter either way: a straight line, which at a half sample is Karplus-Strong's average, takes level (harmonic 10 at 110 Hz loses about 2.5 to 2.9 dB a second, the table none); an allpass keeps level and takes timing (at 1760 Hz the top harmonics sit 22 to 23 cents flat of the table's). Measured from the rendered loop at 44.1 and 48 kHz, within 0.005 cents of the round-trip condition. Not heard by the agent that made it.",
+          "near": "A delay line fed back on itself with unity gain",
+          "place": "band"
+        },
+        {
+          "file": "/Dissolutions/proofs/2026-10-20-the-table-that-travels/the-table-that-travels.html",
+          "origin": "gathered",
+          "by": "Dissolutions · proof, 2026-10-20",
+          "contract": {
+            "needs": "storage"
+          },
+          "height": 1500,
+          "title": "the table that travels · the Dissolutions proof",
+          "caption": "**The proof the walk above climbs to, gathered as it was.** Its three doors (the table, the loop, their difference) and its loop filter, eight first-order allpasses, with the partials followed to where the round-trip condition sends them. Loudon played it on 2026-10-25 and asked for the steps before it: the table alone, the loop alone, the two combined through their difference, then the filter. The walk above is those steps. Its notes keep only in this viewer.",
+          "near": "A delay line fed back on itself with unity gain",
+          "place": "band"
+        }
+      ],
+      "stamped": "2026-11-03"
+    },
+    {
+      "heading": "The round-trip phase condition",
+      "made_against": "e4ee339d977b",
+      "made": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "Dispersion Table — rich — where the partials land.html",
+          "origin": "made",
+          "by": "Web Audio · canvas",
+          "height": 1650,
+          "title": "where the partials land · a walk in four steps",
+          "caption": "**Do the partials land where the round trip comes to whole turns, and what takes them off the grid?** The condition drawn as a count of turns against frequency: a straight line for the bare loop; a steeper straight line for Karplus-Strong's average, where the Waveguide Synthesizer walk ends (the pitch drops to fs ⁄ (N + ½), the series stays harmonic); a bent line for eight first-order allpasses; and last each loop rendered and measured. The partials sit on the crossings within 0.003 Hz. A lag that grows in a straight line only retunes; one that bends moves partial 12 tens of cents off. Here θ(f) is drawn as a lag, positive for a delay. Not heard by the agent that made it.",
+          "near": "That migration is precisely dispersion",
+          "place": "band"
+        }
+      ],
+      "stamped": "2026-11-03"
+    },
+    {
+      "heading": "From one curve to a table",
+      "made_against": "17fbb2806dc5",
+      "made": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "Dispersion Table — rich — two knobs, one loop.html",
+          "origin": "made",
+          "by": "Web Audio · canvas",
+          "height": 1760,
+          "title": "two knobs, one loop · a walk in four steps",
+          "caption": "**Do the table's two axes stay apart?** A magnitude knob alone (a three-tap lowpass whose phase is a straight line), a phase knob alone (the page's eight allpasses), the two as a square you click to pluck, and last the test, at 110 and 440 Hz. In the filter they are apart. In the sound they are not quite: a one-pole brightness knob, the usual one, moves the pitch and bends the partials a few cents at 440 Hz; and the phase knob changes how fast partials die, a lot at 440 Hz, because decay is loss per trip times trips per second. Predicted from the engine and checked against the rendered string. Not heard by the agent that made it.",
+          "near": "This maps the project's 2D torus architecture",
+          "place": "band"
+        }
+      ],
+      "stamped": "2026-11-03"
+    },
+    {
+      "heading": "Cross-Domain Resonance",
+      "made_against": "ffa0800eaeda",
+      "made": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "Dispersion Table — rich — the warp knob.html",
+          "origin": "made",
+          "by": "Web Audio · canvas",
+          "height": 1510,
+          "title": "the warp knob · a walk in four steps",
+          "caption": "**Does one pole radius walk the loop from pure, through piano, to bell?** One second-order allpass (level one everywhere, a click smeared in time); eight in log steps, 300 Hz to 12 kHz, whose delay curve is what a table would store; the eight in a Karplus-Strong string at 110 Hz; and last the knob swept 0 to 0.97 and sorted. The page's recipe reads pure to about 0.22, piano to 0.90 (B from 2e-6 to 2.4e-4), then irregular, the low partials falling flat as the high ones go sharp. Eight identical first-order sections, the stiff string's recipe, only ever stretch. Whether the irregular end sounds like a bell is left to the ear: no agent has heard it.",
+          "near": "A cascade of second-order allpass sections",
+          "place": "band"
+        },
+        {
+          "file": "/Projects/Waveguide Synthesizer/offline-v1.10/stiffness-tour.wav",
+          "origin": "gathered",
+          "by": "Waveguide Synthesizer · Study v1.10's engine",
+          "title": "the stiffness tour · the same knob, built",
+          "caption": "**The stiff string's recipe in a built instrument.** G3 plucked at stiffness 0, 0.4, 0.7 and 1.0, two seconds each, then C3 up to C5 at 0.7: harmonic, to piano-like, to a struck bar. Its engine uses first-order allpasses, designed per note so one stiffness means one stretch at every pitch (study v1.10's own notes say one fixed coefficient had stretched A5 about 800 times more than E2). It stretches; it never turns irregular, as the walk above predicts for that recipe.",
+          "near": "A cascade of second-order allpass sections",
+          "place": "margin"
+        }
+      ],
+      "stamped": "2026-11-03"
+    }
+  ],
+  "offers": [
+    {
+      "section": "The round-trip phase condition",
+      "kind": "no-claim-edit",
+      "status": "open",
+      "what": "The page calls θ(f) 'the loop filter's phase response' and adds it to 2πfτ as accumulated phase. In the usual convention a filter's phase response is negative for a delay, so the θ in the equation is the phase lag: the phase response with its sign turned. The piece draws it that way. Suggested: '(the loop filter's phase lag θ(f), its phase response with the sign turned so a delay counts positive)'."
+    },
+    {
+      "section": "The identity it rests on",
+      "kind": "claim-change",
+      "status": "open",
+      "what": "The page's claim held, exactly: a whole-sample loop and the table give the same samples, difference 0 over 3 s at 110, 440 and 1760 Hz, three shapes, 44.1 and 48 kHz; one sample longer, they part. The piece adds which filter the fractional slot holds, depending on how the loop reads between samples. A straight line takes level and keeps timing: at a half sample it is Karplus-Strong's average, and harmonic 10 at 110 Hz loses 2.5 to 2.9 dB a second while the table loses none. A first-order allpass keeps level and takes timing: the top harmonic it keeps sits 0.015 to 0.019 cents flat at 110 Hz (harmonic 24), 1.06 to 1.40 at 440, and 22 to 23 cents flat at 1760 (harmonic 11 or 12), the range across 44.1 and 48 kHz. Suggested addition after 'is already a filter in the loop': 'Read between samples by a straight line, it takes level (at a half sample, it is Karplus-Strong's average); read by an allpass, it keeps level and bends the tuning, the first dispersion curve in the slot.'"
+    },
+    {
+      "section": "From one curve to a table",
+      "kind": "claim-change",
+      "status": "open",
+      "what": "The two axes are apart in the filter, not quite in the sound. Measured on the piece's engine, partials checked against rendered strings within 0.03 Hz. (1) The magnitude axis leaves the partials alone only if its filter's phase is a straight line: a three-tap lowpass moves no partial (0.000 cents at 110 and 440 Hz). A one-pole lowpass set to darken partial 8 as much, with the bare delay held, lowers the pitch 1.5 to 1.6 cents at 110 Hz and 6.3 to 6.9 at 440 (its low-frequency delay grows as it darkens), and bends the partials 2.7 to 3.2 cents against each other at 440 Hz, which no retune removes. (2) The phase axis reaches decay: a partial's decay is its loss per trip times its trips per second, and the warp sets both where it lands on the loss curve and how long its trip takes. At 440 Hz and darkness 0.6, sweeping the warp 0 to 0.9 takes partial 4 from 32 to 38 dB a second to 73 to 90; at 110 Hz the change is about 0.1. The same qualifier applies to Cross-Domain Resonance's 'Together they span the complex frequency response of the loop filter: magnitude on one axis, phase on the other'. Suggested: 'apart, if the magnitude filter has a straight phase; in the sound, the warp also moves how fast partials die.'"
+    },
+    {
+      "section": "From one curve to a table",
+      "kind": "claim-change",
+      "status": "open",
+      "what": "One stored curve does not select one inharmonic structure across the keyboard. On the page's recipe at warp 0.8 (8 sections, 300 Hz to 12 kHz, centres fixed in Hz), the fitted B over 12 partials is about 1.5e-5 to 1.7e-5 at 55 Hz, 1.2e-4 to 1.3e-4 at 110, 8.7e-4 to 9.9e-4 at 220 and 7.3e-3 to 8.7e-3 at 440 (48 and 44.1 kHz): roughly eight times per octave, about 500 times over three octaves. At 0.5: 1.5e-6 to 1.8e-6 at 55 Hz up to 6.6e-4 to 8.0e-4 at 440. The Waveguide Synthesizer met the same thing (study-v1.10 index.html, the v1.5 comment: one coefficient for eight sections 'stretched A5 about 800 times more than E2') and now designs its dispersion per note. Found by the engine and by reading the study, not by a piece step. Suggested: a clause that a table stored against frequency stretches high notes far more than low ones, so to mean one inharmonicity at every pitch its curves are keyed to the note."
+    },
+    {
+      "section": "Cross-Domain Resonance",
+      "kind": "claim-change",
+      "status": "open",
+      "what": "The claim held: one pole radius on the page's recipe goes pure, then piano, then irregular. At 110 Hz, 24 partials, 44.1 and 48 kHz: pure (every partial within 1 cent) to 0.21 to 0.24; piano (a stretch that follows fn = n f0 √(1 + B n²) within a tenth of its spread) from there to 0.90, B from 2e-6 to 2.4e-4; irregular (low partials flat while high ones go sharp) from 0.91 to 0.97. Two things the page could add. The bell end sits in the last tenth of the radius, where the poles near the unit circle. And it needs the second-order sections: eight identical first-order sections, the stiff string's recipe and the Waveguide Synthesizer's, only stretch (piano to about 0.70, then past the piano's law toward a stiff bar) and never turn irregular. Whether the irregular end sounds like a bell or a gong is untested by ear."
+    }
+  ]
+}
