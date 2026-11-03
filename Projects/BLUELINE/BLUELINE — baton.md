@@ -5,35 +5,31 @@ links:
   - target: "[[BLUELINE]]"
     type: connects-to
     label: baton-for
-forward_vector: "I carry the live move on BLUELINE's Aftermath Frame tool — from a working outline generator toward a swoosh that actually LEADS and gen-AI frames — across to a fresh Claude, waiting to be caught and deleted once the move is picked up."
+forward_vector: "I carry BLUELINE's reset, commissioned at the Daily Page of 2026-10-29: the bundle brought to current standards, a record that works at any tempo, the six boards finished, and the Aftermath Frame's open pick, waiting to be caught and deleted once the moves land."
 ---
 
-# Baton: BLUELINE — the Aftermath Frame tool → a leading guide + gen-AI frames
+# Baton: BLUELINE — the reset, after the Daily Page of 2026-10-29
 
 ## Move
-The Aftermath Frame solver is now a **tool** (`proofs/session-11-outline/impact_tool.py`): one authored
-ACTION → derived physics → an outline-inked frame + a manipulable `.blend`, with a named parameter
-surface Loudon can steer. **The move now:** make the single-sweep flow guide actually **LEAD** the frame
-(it is faint today), then carry the outline into the **gen-AI second pass** — the real target is
-*consistent, beautiful gen-AI action frames*, outline as the fast-feedback seed a diffusion model layers on.
+Bring BLUELINE's bundle up to the standard its new face set, and make its record work at any tempo. BLUELINE woke again at the Daily Page of 2026-10-29, with Loudon's thesis back: build a song and tell a story in frames alongside it. The vector and the body were landed that morning; this baton carries the rest. It replaces the July Aftermath Frame baton: the pause that held that move is over, so its pick is item 7 here.
 
 ## Why this move matters
-Loudon's stated goal is "**get the flow right — a strong single guide gen-AI can distinguish**." We shipped
-the single-sweep arc (it replaced the vertical 5-line fan) and locked the debris look to his taste
-(follow-arc, thinned, so the guide leads). But at the current default `guide-w 0.14` the swoosh reads
-**faint** — it does not yet lead. That gap is the top of this baton: the guide is the spine of the whole
-approach, and it isn't pulling its weight.
+The face now says BLUELINE is a workflow and a hub, a page that connects the works that grew from it and watches what they need. Its bundle still says otherwise: no Context, a Production Plan whose name collides with the scroll's Plan, a scroll that doesn't know it woke, and a record that assumes 120 BPM. Loudon, 2026-11-03: "we must be able to use any arbitrary tempo." That is now a Standing Order on the scroll.
 
 ## Current state
-- **The tool:** `impact_tool.py` — `--action chop|side|rising`, `--punch 0..1`, `--preset grounded|heroic|super`,
-  `--spray arc|out`, `--density`, `--guide-w`, `--style outline|greybox`, `--plates 0|1`, `--save`, `--render`,
-  and since 2026-10-13 `--guide-weight`, `--guide-rails`, `--rail-gap`, `--rail-side` (`3ac92372`).
-  Locked frame-5 defaults, unchanged: `spray=arc · density=0.45 · punch=0.6 · guide-w=0.14`. With no new flags
-  the chop frame is pixel-identical to `out/tool/chop_outline.png`. Named Blender collections
-  (FIGURE/BLADE/TARGET/WOUND/DEBRIS/GUIDE) so the saved `.blend` is hand-manipulable. Saves the `.blend`
-  **before** the flat-white render override touches materials. `contact_sheet.py` tiles a labelled range.
-- **The look call:** frame 5 (follow-arc, thinned) — recorded in memory `feedback_blueline_aftermath_debris.md`
-  and reproduced by `out/debris/d5_arc_thin.png`. The `contact_sheet.png`s show the range that got there.
+- `Projects/BLUELINE.md`: new vector and hub-shaped body (2026-10-29, landed at the close).
+- `BLUELINE — scroll.md`: Standing Orders carry **Any tempo** (2026-11-03); the old "beats falling on whole frames" is marked superseded, not deleted. Now and Plan are untouched.
+- The morning's cut: `proofs/2026-10-29-daily-page/` holds the notes, a board-by-beat timing table for both cuts, and `make_cuts.py` (the song is an argument). The cuts themselves stay on the Mac that made them, because the song is unreleased. Loudon picked cut 1, the Set's own 127 grid; cut 2, the record's 120, lands about a second early.
+- The standards read behind the items below is the Concierge's checklist of 2026-10-29, relayed in the sit; its citations are in the morning's commit body.
+
+## Next move — the items, roughly in order
+1. **A Context, grown from the Production Plan.** `BLUELINE — Context.md`: why the page is shaped as it is. Take the Plan's origin rationale (§7), what Specialists and Seams settled, the dated reframe asides cut from the body on 2026-10-29, and the "two AIs, opposite risk profiles" section the body dropped (the body before the 2026-10-29 edit: `git log -p -- Projects/BLUELINE.md`). Then decide what is left of the Production Plan: status belongs to the scroll's Now, proofs placed to the scroll's trail. Its name should stop colliding with the Plan.
+2. **The scroll made true to "awake".** Now's on-disk copy dates from 2026-09-25 and Now does not read the baton; regenerate it and check it no longer reads as paused. The Plan's moves predate the reset; any change to them is a `plan_revision` on Loudon's yes.
+3. **The bundle moves.** `BLUELINE — Specialists and Seams.md` to `Archive/` (it calls itself folded). `flow-field-spine.md` renamed to `BLUELINE — sketch — flow-field-spine.md`, or folded into [[The Flow Field is the Spine]]. The hero/icon folders `BLUELINE — Render Backend/` and `BLUELINE — Text Layer/` (a bundle folder pairs with an entry; decide whether either wants to be one — Text Layer is 30 KB). `render-backend/PLAN.md` renamed, so it isn't read as a second Plan. Each move names both sides to the committer.
+4. **The Board Record Schema, tempo-arbitrary.** `BLUELINE — Board Record Schema.md` assumes 120 BPM and 12 frames a beat. Make the record take the Set's tempo, and place each cut at the nearest frame of its absolute time (beat × 60 / BPM, rounded once), as `make_cuts.py` does, so nothing accumulates drift. Not edited on 2026-10-29 by Loudon's word; this is where it goes.
+5. **The shared finish over the six boards.** The woken page asked for one finish across the six boards and a cut with sound (plan move 5). The morning made the cut with the boards as they were; the finish is still owed.
+6. **The link pairs, once [[Graphic Storytelling]]'s revision lands.** Three pairs carry links both ways: Graphic Storytelling (`enables` in, `emerged-from` out), [[Frame Designer]] and [[Hand-Drawn 3D Look]]. Keep a reciprocal only where the lineage is direct (one link per pair, the Weave's Step 3d).
+7. **The Aftermath Frame's guide pick.** His full-size pick among the seven frames on `proofs/session-11-outline/out/guide/contact_sheet.png` (or a solid-black fill, untested); set the default to it and re-run `--plates 1`; update the memory note `feedback_blueline_aftermath_debris.md` ("gw 0.14"); give `side` a camera off the swing plane; only then the gen-AI pass, per [[BLUELINE — Render Backend]] and [[Steer the Generator]]. **A RunPod run costs money: a quote and Loudon's yes before any pod.** The tool's state:
 
 **2026-10-13 — the guide experiment, landed unjudged** (`3ac92372`, `93abb7af`, merged in `4277dfdb`). Loudon
 set BLUELINE aside before making a pick.
@@ -54,7 +50,11 @@ set BLUELINE aside before making a pick.
 - Blender 5.1.2 confirmed at both install paths. Nothing touched a GPU pod or a gen-AI model.
 - **Not yet:** a pick, so no new default · `side` with a usable camera · any gen-AI pass.
 
-## Tried and rejected (this session — don't re-walk)
+8. **The look at Loudon's separate Ableton-session parsing work (private; tools and techniques only).** In a session of its own, read how it parses a Set and what it learns from one, and bring only the tools, concepts and techniques here — Loudon: "the tools and concepts and techniques developed there absolutely can be applied here." No detail of that work goes into any page or commit. It is the natural source for item 4's tempo reading.
+
+When a pod script next runs, move it onto the resolver, `_ops/commons/runpod_config.py`, which knows where the RunPod key lives and falls back to the primary checkout. Eleven BLUELINE readers still find the key their own way: the ten pod and serverless orchestrators under `Projects/BLUELINE/proofs/` and `render-backend/serverless_runner.py`. Each points at the right path today, and each can only be proven with a live pod, so move it when it runs, not before. (Folded in from the Palace To-Do at its retirement, on Loudon's call of 2026-10-25.)
+
+## Tried and rejected (the Aftermath Frame, item 7 — don't re-walk)
 - **Vertical 5-line speed fan** → replaced by ONE arc-following swoosh (reads as the swing, not as streaks).
 - **Sampling the guide arc by `u`** → bunched near windup (the `u^2.5` accel); use **angle-uniform**
   `guide_dir(a)` — the guide shows the PATH, not the speed profile.
@@ -65,48 +65,20 @@ set BLUELINE aside before making a pick.
 - **Physical fidelity (Cell-Fracture, forward dynamics)** → still the WRONG direction. Keep the 3D model
   simple + FAST to iterate; amplify only the *consequences*, never the motion.
 
-## Next move
-**BLUELINE is paused.** Loudon, 2026-10-13: "lets put this work aside for now. I need to rethink and reset
-blueline." Nothing below starts until he comes back to it, and his reset may change the move itself.
-
-When he does:
-1. **His pick, full-size,** among the seven frames on `out/guide/contact_sheet.png`. If none leads, try a
-   solid-black fill for the swoosh; that is untested.
-2. **Set the default** to the pick, and re-run `--plates 1` at it.
-3. **Update the memory note** `feedback_blueline_aftermath_debris.md`, which still says "gw 0.14".
-4. **Give `side` a camera** off the swing plane, and render it again.
-5. **Only then, the gen-AI pass,** per [[BLUELINE — Render Backend]] and [[Steer the Generator]]
-   (rich-first/stylize-last). **The gen-AI render is RunPod and costs money — a quote and Loudon's yes before
-   any pod.**
-
-When a pod script next runs, move it onto the resolver, `_ops/commons/runpod_config.py`, which knows where the RunPod key lives and falls back to the primary checkout. Eleven BLUELINE readers still find the key their own way: the ten pod and serverless orchestrators under `Projects/BLUELINE/proofs/` and `render-backend/serverless_runner.py`. Each points at the right path today, and each can only be proven with a live pod, so move it when it runs, not before. (Folded in from the Palace To-Do at its retirement, on Loudon's call of 2026-10-25.)
-
-## Receiving environment
-Same surface (Claude Code, Mac). **This baton and all the session-11 work live on `main`**, the 2026-10-13
-guide experiment included. Catch it from the palace root `/Users/loudonstearns/Documents/The Palace`. If you
-want isolation for a GPU or Blender build, branch a fresh worktree from `main`: `node _ops/worktree/new-worktree.mjs
---name feature/blueline-<slug> --profile blueline`. Blender **5.1.2** local for the solver (no GPU rent); studio
-blends need **MPFB2 + Rigify** (installed). RunPod orchestrators and the Commons reaper exist (`_ops/commons`,
-`_ops/runpod/agent_ns.py`) — but **quote before any paid pod**.
-
-## Calibrations from this session
-- **Loudon steers by looking at renders.** Show a range full-size, let him pick, *then* build around the
-  pick. Don't accept a terse pick until you're sure he understood the question — he reversed "2"→"5" once
-  the frames were shown full-size and re-explained. The informed, full-size pick is the real signal.
-- **The look is settled: follow-arc debris, thinned, guide leading.** Not outward-splash, not a dense
-  cloud. `punch` is the one energy dial (toward 1.0 only for a deliberate super-hit). Confirm before
-  shipping any dense/splash look.
-- **Motion real, consequences super-physical.** Never amplify the motion.
-- **The target is consistent + beautiful gen-AI frames.** The outline is the fast seed, not the deliverable.
+## Calibrations
+- **"Hub" is the everyday sense.** A page that connects to many works, supports them by connecting them logically, and observes and responds to their needs. `type` stays `project`.
+- **A vector is the lean; the Plan is the route; Standing Orders are the fences.** Don't put a plan in the vector.
+- **The Set sets the clock.** Read tempo and sections from the Set, never from a number in a record.
+- **Loudon steers by looking and listening.** Show a range full-size, or play it, let him pick, then build around the pick.
+- **Unreleased music stays off the palace.** The repo is public: no song audio, no private paths or addresses in a tracked file.
 
 ## Load these files first
-1. `Projects/BLUELINE/proofs/session-11-outline/impact_tool.py` — the tool (this baton's subject).
-2. `Projects/BLUELINE/proofs/session-11-outline/{single_sweep.py, debris_spread.py}` — the guide + debris
-   prototypes the tool was distilled from (and `--diag` mode for guide placement).
-3. memory `feedback_blueline_aftermath_debris.md` — the look call, in Loudon's words.
-4. `The Aftermath Frame.md` — the concept + method.
-5. `Projects/BLUELINE/BLUELINE — Motion and Flow.md` — the motion subsystem + the aftermath §.
-6. `Steer the Generator.md` + `Projects/BLUELINE/BLUELINE — Render Backend.md` — the gen-AI target.
+1. `Projects/BLUELINE.md` and `Projects/BLUELINE/BLUELINE — scroll.md`.
+2. `Projects/BLUELINE/BLUELINE — Production Plan.md` — the seed of the Context.
+3. `Projects/BLUELINE/proofs/2026-10-29-daily-page/` — the cut notes, timing and script.
+4. `Projects/BLUELINE/BLUELINE — Board Record Schema.md` — item 4.
+5. `SCHEMA — Reference.md` §8 — the bundle kinds and names.
+6. For item 7: `proofs/session-11-outline/impact_tool.py` and `The Aftermath Frame.md`.
 
 ## On pickup (fixed — the catcher's checklist; do not rewrite per session)
 *Identical in every baton. It rides along because the catching Claude loads the
