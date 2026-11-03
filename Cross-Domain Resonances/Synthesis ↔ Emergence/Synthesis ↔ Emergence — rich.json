@@ -1,0 +1,113 @@
+{
+  "title": "Synthesis ↔ Emergence — rich",
+  "born": "2026-11-03",
+  "links": [
+    {
+      "target": "[[Synthesis ↔ Emergence]]",
+      "type": "connects-to",
+      "label": "rich-face-of"
+    },
+    {
+      "target": "[[Enrichment]]",
+      "type": "connects-to",
+      "label": "made-by"
+    },
+    {
+      "target": "[[Progressive Staging]]",
+      "type": "connects-to",
+      "label": "every-piece-walks-up"
+    },
+    {
+      "target": "[[FM Synthesis]]",
+      "type": "connects-to",
+      "label": "shares-the-loop"
+    }
+  ],
+  "forward_vector": "I am the manifest of Synthesis ↔ Emergence's rich face, its first round, a Sketch made in the proposal round of 2026-11: two made walks, each opening on one idea and ending on its section's claim, tested. The page's own pair, 400 and 200, walked from one sine to the depth-5 'bell' and measured; and a prediction set beside a measurement until the place where prediction really fails is found. I hold the fingerprint of the words each was laid against, and the offers the pieces found for the text. I grow when Loudon has played them and answered the offers; I never hold the entry's words.",
+  "entry": "Synthesis ↔ Emergence",
+  "tier": "sketch",
+  "made": "2026-11-03",
+  "round": 1,
+  "sections": [
+    {
+      "heading": "The Technical Side",
+      "made": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "Synthesis ↔ Emergence — rich — two sines.html",
+          "origin": "made",
+          "by": "Web Audio Worklet",
+          "title": "Two sines, one rule · and is it a bell?",
+          "caption": "**The section's own pair, 400 Hz and 200 Hz, walked as Teaching Notes scripts it.** The carrier alone, the modulator alone, the two added (two lines, nothing new), then FM at depth 0, which is one line: in FM the modulator is never heard. Raise the depth and partials appear that neither sine had. The last step tests the section's claim that depth 5 sounds like a bell. Measured at every depth from 0.05 to 5, the 200 Hz grid holds all the power, and at depth 5 all ten slots from 200 to 2000 Hz are filled: one harmonic series on 200 Hz, an octave under the carrier. Move the modulator to 560 Hz, 1 : 1.4, and the partials scatter: 11 of the first 37 slots of an 80 Hz grid, its own note missing. Brass and bell are the ear's words, and no ear has checked them; where the partials sit is measured.",
+          "near": "FM synthesis is the clearest demonstration",
+          "place": "band",
+          "height": 1080
+        }
+      ],
+      "made_against": "86d739a2e326",
+      "stamped": "2026-11-03"
+    },
+    {
+      "heading": "The Deeper Principle: Levels of Organization",
+      "made": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "Synthesis ↔ Emergence — rich — predicted beside measured.html",
+          "origin": "made",
+          "by": "Web Audio Worklet",
+          "title": "Predicted beside measured · where the formula stops",
+          "caption": "**\"You can't predict the sound from parameters alone\", put to the sound.** Rings are a formula's prediction from the parameters; lines are the sound, measured. The page's pair matches its Bessel prediction at every depth from 0 to 5, to a hundred-billionth of a dB, so the pair is predictable from its parameters. One sine feeding back on itself has a formula too while β ≤ 1, the series Bessel wrote for Kepler's equation: within 1.2 dB rms. Past 1 the series comes apart, 10 dB rms off by β 1.5 and 14 to 16 at 2 and π, yet the loop repeats exactly, so only running it tells you. That is the section's sentence, true here. The test is twins started a billionth apart. The pair keeps its tiny difference, and the loop up to about β 3.9 shrinks it away. From about 4.4, past the DX7's top of 7 (β = π), they part within a few milliseconds and stay apart, and only their averages agree, within about 1 %. That is the weather, and the only place on the page it holds. Between 3.9 and 4.4 the edge is ragged.",
+          "near": "But you can't predict the sound from parameters alone",
+          "place": "band",
+          "height": 1240
+        }
+      ],
+      "made_against": "f246dbbe9df6",
+      "stamped": "2026-11-03"
+    }
+  ],
+  "offers": [
+    {
+      "section": "The Technical Side",
+      "kind": "claim-change",
+      "status": "open",
+      "what": "\"At depth 5 like a bell\" doesn't hold for the pair the sentence names. With a 400 Hz carrier and a 200 Hz modulator, measured at every depth from 0.05 to 5, the 200 Hz grid holds 100.0000 % of the power, and at depth 5 all ten slots from 200 to 2000 Hz are filled. That is one harmonic series on 200 Hz, an octave under the carrier: buzzy or brassy, not a bell's scattered partials. At 1 : 1.4 (modulator 560 Hz), depth 5 scatters onto 11 of the first 37 slots of an 80 Hz grid, lowest 160 Hz. This measures the 2026-10-24 weave's finding, which was reasoned from the formula ([[Synthesis ↔ Emergence — Context]] § Found and left standing). Suggested: keep 400 and 200 for depth 0 and 1, and name a ratio for the bell: \"…at depth 5 it grows brighter and buzzier; move the modulator to 560 Hz, a ratio of 1 : 1.4, and the same depth rings like a bell.\" A smaller point: at this pair the first lower sideband, 200 Hz, is the modulator's own frequency, and the second lands on 0 Hz and is silent, so \"existed in neither original wave\" is true from 600 Hz up. Brass and bell are judged by ear; no ear has checked them."
+    },
+    {
+      "section": "Teaching Notes",
+      "kind": "claim-change",
+      "status": "open",
+      "what": "Step 3, \"FM with depth = 0 · Two sine waves together. Just addition\", runs two different patches together. Measured: FM at depth 0 is one partial, the carrier at 400 Hz. The modulator is never heard in FM, only what it does to the carrier. Two lines, 200 and 400, come only from mixing the two sines. Teaching the Resonance, Part 1 step 2 (\"Add modulator. No modulation depth yet. Notice: just two tones\") says the same thing. Suggested: split the step. \"Play both, mixed: two lines, just addition. Now route the modulator into the carrier at depth 0: one line, the carrier alone. The modulator has become a control, not a sound.\" The piece walks exactly that, as its steps 3 and 4."
+    },
+    {
+      "section": "The Deeper Principle: Levels of Organization",
+      "kind": "claim-change",
+      "status": "open",
+      "what": "Under Unpredictability ≠ Randomness, \"you can't predict the sound from parameters alone\" fails for the two-sine pair. The Bessel formula gives every partial from the depth and the ratio, and matches the rendered sound to within 8e-12 dB at every depth from 0 to 5, in steps of 0.01. The sentence holds for feedback FM pushed past β = 1. There the series that predicts the loop below 1 (within 1.22 dB rms at 192 kHz) is 10.0, 14.3 and 15.8 dB rms off at β 1.5, 2 and π. Yet the loop repeats every cycle (100.000 % at 48 kHz, up to β 3.90), so it is known by calculating, as the page says. The weather comparison, unpredictable even by calculation past a horizon, holds only past a further edge. From about β 4.4 (the DX7's feedback 7.5, above its top of 7), twins nudged a billionth apart part within about 5 ms (0.6 to 5.3 ms in Node) and stay apart a second later, in 64 of 65 settings from 4.4 to 4.8. Their 4-second averages agree within about 1 %. From 3.9 to 4.4 the edge is ragged. Suggested: \"The two-sine pair is predictable: one formula gives every partial from the depth and the ratio. What it can't tell you is what you'll hear it as. Feed an operator back into itself and prediction runs out in two stages: past a point only running it tells you the sound, and further on not even that, beyond a few milliseconds.\""
+    },
+    {
+      "section": "Advanced Applications",
+      "kind": "claim-change",
+      "status": "open",
+      "what": "Feedback FM's \"chaotic behavior, unpredictable waveforms\" holds only past an edge the DX7 never reaches. Up to β ≈ 3.9 (the DX7's feedback ≈ 7.3, which covers its whole 0 to 7 range), the DX7-style loop is the opposite of chaotic. It repeats every cycle, and a disturbance of a billionth shrinks below 1e-12 within 20 ms at every β from 0.05 to 3.85. Below β = 1 it even has a closed form, Bessel's series for Kepler's equation. Chaos, with twins parting within milliseconds and staying apart, begins in a ragged band from 3.9 and holds nearly everywhere from about 4.4. Suggested: \"A little feedback leans the tone toward a sawtooth; pushed past the point where the DX7 stops, the loop turns chaotic.\" This sits beside the FM Synthesis face's open feedback offer, which locates the same edge at 7.3 to 7.4 on its own meters."
+    },
+    {
+      "section": "Common Student Discoveries",
+      "kind": "claim-change",
+      "status": "open",
+      "what": "Under \"Small changes, huge differences\", \"Non-linear systems are sensitive to initial conditions (chaos theory)\" names the wrong mechanism for 1.0 against 1.01. The pair is not sensitive to initial conditions. Twins whose modulator phases differ by a billionth of a cycle stay exactly that far apart, 3.14e-8 in output at depth 5, the same in the first second and the tenth. What 1.01 changes is a parameter at a coincidence. At whole-number ratios the folded sidebands land on top of one another; a hair off, they sit side by side and beat (the FM Synthesis face's ratio offer puts 1 : 1.01 at 220 Hz at 4.4 Hz). Suggested: \"Non-linear systems can turn a tiny change into a large one\", with chaos left to feedback FM past its edge, where twins a billionth apart do part within milliseconds."
+    }
+  ]
+}
