@@ -365,9 +365,9 @@ function selfTest() {
     ok('step 4 · μ 1, ε 0.04, δ 0.006: pair and shadow both lock, a few degrees apart', f.locked && at !== null && d < 10, `pair ${(f.at * 180 / Math.PI).toFixed(1)}°, shadow ${(at * 180 / Math.PI).toFixed(1)}°`); }
   // step 5: the test. How wide the pair locks, against how wide the shadow says, as coupling grows
   const ratio = (mu, eps, side) => fullEdge(L[mu].cyc, eps, side, eps * L[mu].tg.hi) / (eps * L[mu].tg.hi);
-  const r1 = [0.02, 0.05, 0.1].map((e) => ratio(1, e, 1)), r1s = [0.4].map((e) => ratio(1, e, 1)), r1n = ratio(1, 0.1, -1);
+  const r1 = [0.02, 0.05, 0.1].map((e) => ratio(1, e, 1)), r1s = [(ratio(1, 0.4, 1) + ratio(1, 0.4, -1)) / 2], r1n = ratio(1, 0.1, -1), r4f = ratio(1, 0.4, 1), r4s = ratio(1, 0.4, -1);
   ok('step 5 · μ 1, coupling up to 0.1: the pair locks as wide as the shadow says, within 6%', r1.every((r) => Math.abs(r - 1) < 0.06) && Math.abs(r1n - 1) < 0.06, `ε 0.02 ${r1[0].toFixed(3)}×, 0.05 ${r1[1].toFixed(3)}×, 0.1 ${r1[2].toFixed(3)}× (slower side at 0.1: ${r1n.toFixed(3)}×)`);
-  ok('step 5 · μ 1, coupling 0.4: the two have parted, the pair locking wider by a quarter or more', r1s[0] > 1.25, `${r1s[0].toFixed(3)}×`);
+  ok('step 5 · μ 1, coupling 0.4: the two have parted, the pair locking wider by a quarter or more, both sides averaged as the page shows it', r1s[0] > 1.25, `${r1s[0].toFixed(3)}× averaged · faster side ${r4f.toFixed(3)}×, slower side ${r4s.toFixed(3)}×`);
   const r03 = ratio(0.3, 0.05, 1), r03s = ratio(0.3, 0.01, 1);
   ok('step 5 · μ 0.3, coupling 0.05: the shadow misses, the pair locking far wider', r03 > 1.5, `${r03.toFixed(3)}× (at ε 0.01: ${r03s.toFixed(3)}×)`);
   // the proof's own grid: detunings 0.01 apart, so at μ 0.3 and ε 0.05 both edges fall before its first point off centre
