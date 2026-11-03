@@ -28,6 +28,17 @@
         "by": "maker · claude-opus-5-5 · proposal round",
         "round": "proposal-round-2026-11"
       },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Talking Keyboard — rich — 88 keys.html",
+            "verdict": "remake",
+            "why": "A real test that walks up well (C4 → four voices → 88 → planted bug), but a swap can be named by elimination without being heard: the menu lists all four bugs and the other three show on press 1 (headless: 5 presses, guessed swap, \"Right … It never spoke in what you played\"). Plant a fifth case, no bug, ~1 in 5, and add it to the menu, or make a swap guess name a swapped key; and for reversed voices say \"first played the wrong voice\", not \"first spoke\"."
+          }
+        ]
+      },
       "pieces": [
         {
           "file": "Talking Keyboard — rich — 88 keys.html",
@@ -52,6 +63,17 @@
         "by": "maker · claude-opus-5-5 · proposal round",
         "round": "proposal-round-2026-11"
       },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Talking Keyboard — rich — three spellings of A.html",
+            "verdict": "remake",
+            "why": "Walks up and re-renders the build within 2 LSB, but its found text says a phoneme check could not pick among ate, ace, \"A.\" and eigh, while its own check (/^ˈeɪ /, line 322) passes eigh alone of all seven (ˈeɪt, ˈeɪs, ˈeɪ. fail). Rewrite: a strict check catches both bad passes and picks what the ear picked, once ˈeɪ is written down as the target; the ear confirms each voice speaks it. Show the strict check beside \"reach /eɪ/\" in step 4."
+          }
+        ]
+      },
       "pieces": [
         {
           "file": "Talking Keyboard — rich — three spellings of A.html",
@@ -75,6 +97,22 @@
         "date": "2026-11-03",
         "by": "maker · claude-opus-5-5 · proposal round",
         "round": "proposal-round-2026-11"
+      },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Talking Keyboard — rich — the next variant.html",
+            "verdict": "remake",
+            "why": "Steps 1–3 are real tests (solfège 1/7, respelt 7/7, Italian 7/7, French 6/7, all reproduced), but step 4 plays one identical file for every C, so its score is chance by construction, and its found text calls the loss \"total, not partial\" when pitch class still verifies. Say the octave is lost entirely, the letter not; call the game a demonstration, or add a retuned arm (one C at playbackRate 2^((m−60)/12), as pitch_keycenter=60 would) that could come out otherwise."
+          },
+          {
+            "file": "proofs/2026-05-04-velocity-language-madlib-v2.html",
+            "verdict": "keep",
+            "why": "A gathered record, honestly captioned, beside \"different voice schemes\"; silent, clean, tracked. Note: \"its words are placeholders\" is half true; keys 60–76 carry real words in five languages, the rest are blank."
+          }
+        ]
       },
       "pieces": [
         {
