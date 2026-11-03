@@ -1,0 +1,215 @@
+{
+  "title": "DSP in Looping Dimensions — rich",
+  "born": "2026-11-03",
+  "links": [
+    {
+      "target": "[[DSP in Looping Dimensions]]",
+      "type": "connects-to",
+      "label": "rich-face-of"
+    },
+    {
+      "target": "[[Enrichment]]",
+      "type": "connects-to",
+      "label": "made-by"
+    },
+    {
+      "target": "[[2D Torus Wavetable Synthesizer]]",
+      "type": "connects-to",
+      "label": "gathered-from"
+    },
+    {
+      "target": "[[Dissolutions]]",
+      "type": "connects-to",
+      "label": "gathered-from"
+    }
+  ],
+  "forward_vector": "I am the manifest of DSP in Looping Dimensions' rich face, its first round at Sketch tier: three made pieces that each walk up to a test of a claim the page makes (two combs against a torus scan, coupled plucked loops snapping or sliding, a dense lattice against noise), and two proofs and a plot gathered from the pages that already tested the rest, with the fingerprint of the words each was laid against. I grow when the page is rewritten or a piece has something new to test; I never hold the entry's words.",
+  "entry": "DSP in Looping Dimensions",
+  "tier": "sketch",
+  "made": "2026-11-03",
+  "round": 1,
+  "sections": [
+    {
+      "heading": "The Principle in Plain Language",
+      "made": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "/Projects/2D Torus Wavetable Synthesizer/2D Torus Wavetable Synthesizer — rich — the ratio gate.html",
+          "origin": "gathered",
+          "height": 1780,
+          "title": "the ratio gate · from the 2D Torus face",
+          "caption": "**The rational-ratio bullet, already on trial.** Made this round for the 2D Torus page's own face, gathered here because it tests this section's third bullet on a real torus scan: one circle, then two, then a ratio no fraction names, then the drag through 3 ⁄ 2. Its finding, from its maker and challenger, not re-measured here: a simple ratio closes the scan into one harmonic series, as the bullet says, but nothing locks and nothing jumps. Just off 3 ⁄ 2 each partial slides by m·δ, and 1.5 + 10⁻⁹ sounds as 1.5 does.",
+          "near": "This is why standard wavetables are stuck producing harmonic spectra"
+        },
+        {
+          "file": "/Dissolutions/proofs/2026-10-20-the-lattice-read-back/the-lattice-read-back.html",
+          "origin": "gathered",
+          "height": 2630,
+          "contract": {
+            "needs": "storage"
+          },
+          "title": "the lattice read back · a Dissolutions proof, 2026-10-20",
+          "caption": "**Count the fundamentals from the sound alone.** A proof made for Rank-N Lattice Analysis, gathered because it puts this paragraph's rank to a measurement: light points on the grid of whole-number pairs, play them through two generators, and hand only the audio to an analysis that finds the fewest generators explaining every partial. By its own account, at √2 it hands your points back at rank 2, and at 3 ⁄ 2 the rows fall onto one series and the rank drops to 1. Its own verdict bears on the word *independent*: with whole numbers allowed to grow without limit, any finite set of peaks is rank 1, so the rank is a property of the sound and a bound you choose. Gathered as built, notes box included, which keeps only on this Mac's live face.",
+          "near": "The mathematical name for the lattice of reachable frequencies"
+        }
+      ],
+      "made_against": "fa59acbcf41f",
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "/Projects/2D Torus Wavetable Synthesizer/2D Torus Wavetable Synthesizer — rich — the ratio gate.html",
+            "verdict": "keep",
+            "why": "Not re-judged, per the brief; the caption quotes its finding as its maker's and challenger's, says not re-measured, and its source challenge kept it."
+          },
+          {
+            "file": "/Dissolutions/proofs/2026-10-20-the-lattice-read-back/the-lattice-read-back.html",
+            "verdict": "keep",
+            "why": "A real test of the rank paragraph; the caption's rank-1 sentence is the proof's own, and the storage note is honest."
+          }
+        ]
+      }
+    },
+    {
+      "heading": "Three Operational Frames",
+      "made": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "DSP in Looping Dimensions — rich — two combs.html",
+          "origin": "made",
+          "by": "the Maker · comb filters and a torus scan",
+          "height": 1320,
+          "title": "two combs · four steps",
+          "caption": "**Where do two combs put their lines?** One comb's peaks, two combs in a row, a torus scan at the same two rates, and last the measurement. Through the comb pair the lattice's mixed points m·f₁ + n·f₂ stand no higher than random frequencies (+0.6 dB against +1.6, the two series +24.6); the scan puts the same points +60.3 dB up. The comb pair's lattice is real but sits in time: its first thirty echoes land on j·T₁ + k·T₂ within 0.02 ms. The page says coupled and the piece puts them in a row; the linear argument covers any join (side by side has the same poles, cross-coupling only moves them), and the time lattice holds in a row or cross-coupled.",
+          "near": "place their combined peaks on a 2D frequency lattice"
+        },
+        {
+          "file": "DSP in Looping Dimensions — rich — snap or slide.html",
+          "origin": "made",
+          "by": "the Maker · Karplus-Strong pair",
+          "height": 1300,
+          "title": "snap or slide · five steps",
+          "caption": "**Do coupled plucked loops snap?** One Karplus-Strong loop, then two apart at φ, then a knob that lets them hear each other, then plucks while it turns, and last the whole knob measured. They slide. At the steepest point of every reading, halving the notch about halves the change (×0.50, then ×0.25 on the distance reading), across two mixers, three ratios and two pitches. The lossless mixer reaches one harmonic series only at full swap; the crossfeed gets most of the way between c ≈ 0.17 and 0.33, an S-curve with a short-ringing middle. The crossfeed lands on the series of one loop as long as both, f₁·f₂ ⁄ (f₁ + f₂): 84 Hz for 220 and 136; the lossless mixer, which flips a sign on the way round, on its odd half-series, (k + ½)·84 Hz.",
+          "near": "quasi-periodic plucked-string algorithm"
+        },
+        {
+          "file": "/Projects/2D Torus Wavetable Synthesizer/Auditions/cycle-7/penrose_kuramoto_ramp.png",
+          "origin": "gathered",
+          "place": "margin",
+          "title": "where a snap does live · the 2D Torus coupled scan",
+          "caption": "The contrast. Here the two scan phasors themselves are coupled, Kuramoto-style, on the Penrose surface at ratio 1.518 pulled to 3 ⁄ 2: as coupling ramps from 0 to 1.6 Hz, the slip rate falls and the lock and the harmonicity jump together at 0.80 Hz. A snap, because phase dynamics are nonlinear; the plucked loops beside it are linear, and slide. Rendered by the 2D Torus steward (Tools/kuramoto_scan.py).",
+          "near": "quasi-periodic plucked-string algorithm"
+        }
+      ],
+      "made_against": "bfac25dbdeca",
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "DSP in Looping Dimensions — rich — two combs.html",
+            "verdict": "keep",
+            "why": "Tests Frame 2 and walks up; numbers re-ran and hold analytically (in a row: axes +26.5 dB, mixed −1.6, random −0.4). Note: the page says coupled, the piece puts them in a row; add a line that the linear argument covers every joining and the snap-or-slide piece tests the cross-coupled case."
+          },
+          {
+            "file": "DSP in Looping Dimensions — rich — snap or slide.html",
+            "verdict": "remake",
+            "why": "Piece is right, caption is not: the lossless mixer lands on the odd harmonics of f_S ⁄ 2 (42.0 Hz), not on 84 Hz's series. Change the caption's last sentence (and offer 4's \"Both land on…\") to name the crossfeed on 84 Hz and the lossless mixer on its odd half-series; say \"about ×0.50, ×0.25\" for the change reading."
+          },
+          {
+            "file": "/Projects/2D Torus Wavetable Synthesizer/Auditions/cycle-7/penrose_kuramoto_ramp.png",
+            "verdict": "keep",
+            "why": "The right contrast; its numbers match the 2D Torus manifest and the steward's codebox (K* = 0.80 Hz, 1.518 pulled to 3 ⁄ 2)."
+          }
+        ]
+      }
+    },
+    {
+      "heading": "The Honest Limit",
+      "made": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "DSP in Looping Dimensions — rich — listen longer.html",
+          "origin": "made",
+          "by": "the Maker · a scan on T^N, and noise",
+          "height": 1200,
+          "title": "listen longer · four steps",
+          "caption": "**Does it ever become noise?** One loop's lines, loops added up to six at golden, plastic, silver and other irrational rates, noise beside the tone, and last the measurement: the share of energy in the loudest tenth of bins as the window grows from 21 ms to 5.5 s. Noise never moves (34.5 to 36.2 %). The tone always pulls away, but slower with every loop: two loops reach 99.9 % by 0.68 s, six only 51.2 % by 5.5 s. The limit holds; how long you listen decides when it shows.",
+          "near": "It can be made arbitrarily rich by adding dimensions"
+        }
+      ],
+      "made_against": "2d3720aebd7e",
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "DSP in Looping Dimensions — rich — listen longer.html",
+            "verdict": "remake",
+            "why": "Tests the limit and walks up, but \"136,862 lines within 60 dB of the loudest\" counts lines above an absolute 10⁻³; the loudest is 0.0638, so that is 36 dB down. Within 60 dB there are about 4.10 million. Relabel or rethreshold in the note, the six-loop verdict, offer 6 and checks.mjs."
+          }
+        ]
+      }
+    }
+  ],
+  "offers": [
+    {
+      "section": "The Principle in Plain Language",
+      "kind": "claim-change",
+      "status": "open",
+      "what": "\"N loops at irrational ratios ⇒ N independent fundamentals, plus every integer combination of them\" holds when the loops are read together through one table, as a torus scan reads them. Loops that only filter or add give each loop's own harmonics and nothing between. Measured in the two-combs piece: through two combs in a row at 220 and 220 ⁄ φ Hz, the sixteen mixed points m·f₁ + n·f₂ a scan's surface carries stand +0.6 dB above the band's median bin, the same as 400 random frequencies (+1.6 dB), while the two series stand +24.6 dB; the scan puts those sixteen points +60.3 dB up. Proposed: \"…plus, when the loops are read together through one table, every integer combination of them; loops that only add or filter keep each one's own harmonic series.\""
+    },
+    {
+      "section": "The Principle in Plain Language",
+      "kind": "no-claim-edit",
+      "status": "open",
+      "what": "The third bullet's \"the system 'phase-locks'\": in a scan with a fixed rational ratio nothing locks; the lattice folds onto one series because m·f₁ + n·f₂ = (m·p + n·q)·f₂ ⁄ q. Locking names a dynamic, which Frame 3 calls up, and this round's snap-or-slide piece finds none in coupled plucked loops either. The 2D Torus face's ratio-gate piece (its maker and challenger, not re-measured here) found the fold is a slope by ear: just off 3 ⁄ 2 each partial slides by m·δ. Proposed: \"the scan closes\" for \"the system 'phase-locks'\"."
+    },
+    {
+      "section": "Three Operational Frames",
+      "kind": "claim-change",
+      "status": "open",
+      "what": "Frame 2: two combs at an irrational ratio do not give \"exactly the same spectral signature as toroidal scanning\". Measured in the two-combs piece (a = b = 0.95, T₁ = 1 ⁄ 220 s, T₂ = φ ⁄ 220 s, six seconds of noise through both): the pair's peaks are the lattice's two axes, k ⁄ T₁ and l ⁄ T₂ (+24.6 dB above the median bin); its mixed points sit at the noise floor (58 points with |m|, |n| ≤ 6: −0.3 dB; random frequencies +1.6 dB); a torus scan at the same rates puts its mixed points +60.3 dB up. A linear filter only reshapes the frequencies it is given; m·f₁ + n·f₂ needs a product (a table read at two phases, a ring modulator, a nonlinearity). The pair's 2D lattice is in time: its echoes land on j·T₁ + k·T₂, the first thirty within 0.02 ms. Proposed: \"Two combs with periods T₁ and T₂ at irrational ratio put their peaks on the lattice's two axes and, in a row or cross-coupled, their echoes on a 2D lattice in time, j·T₁ + k·T₂ — the frequency-time rhyme of toroidal scanning, which fills the lattice between the axes.\" The same holds for \"N coupled delay lines … spectral support on an N-dimensional lattice\": coupled, the modes leave the axes but do not land on the lattice either (see the Frame 3 offer). Challenger: side by side (H₁ + H₂) has the same poles, so the frequency finding holds for any linear join, but its echoes stay on the two axes in time too; the time lattice needs a row or cross-coupling."
+    },
+    {
+      "section": "Three Operational Frames",
+      "kind": "claim-change",
+      "status": "open",
+      "what": "Frame 3: coupled plucked loops slide; they do not snap. Measured in the snap-or-slide piece on two Karplus-Strong loops at 220 and 220 ⁄ φ Hz (ρ = 0.996), with two mixers, a crossfeed [1 − c, c; c, 1 − c] and a lossless rotation by c·90°: at the steepest point of the distance-from-one-series reading and of the spectral change, halving the notch halves the change in all twelve runs (the distance reading ×0.50, then ×0.25; the spectral change about ×0.42–0.51, then ×0.19–0.26) (golden, √2 and π ⁄ 2 ratios, 220 and 330 Hz, both mixers). Lossless: the distance falls 0.44 → 0.02 in a near-straight line and the series is reached only at c = 1; its modes are the roots of cos(πf(T₁ + T₂)) = cos(c·π⁄2)·cos(πf(T₂ − T₁)), matched by the rendered pluck within 0.03 Hz. Crossfeed: an S-curve, 0.56 → 0.01, most of it between c ≈ 0.17 and 0.33, with the middle ringing 0.4 to 1 s against 6.4 s apart. The crossfeed lands on the series of one loop as long as both, f₁·f₂ ⁄ (f₁ + f₂) (84 Hz here), lower than either loop, not on a common subdivision; the lossless mixer, which flips a sign on the way round, on that loop's odd half-series, (k + ½)·84 Hz. Why: plucked loops are linear and damped, and nothing in them is a self-sustaining oscillator, which Kuramoto locking needs; the snap the palace has measured is between coupled scan phasors (2D Torus, Penrose, 0.80 Hz). Proposed: \"Couple the loops and the modes slide from two harmonic series toward one, the series of a single loop as long as both, f₁f₂ ⁄ (f₁ + f₂) (or its odd half-series, if the mixer flips a sign), reached when the mixer fully swaps them. Bell to string is a morph here; a Kuramoto snap needs oscillators that sustain themselves, as in the coupled scan of the [[2D Torus Wavetable Synthesizer]].\" Untested here: whether bowed (self-sustaining, saturating) loops snap."
+    },
+    {
+      "section": "The Honest Limit",
+      "kind": "no-claim-edit",
+      "status": "open",
+      "what": "\"always a discrete, finitely-generated lattice in frequency space\": keep \"discrete\", in its spectral sense (a pure-point spectrum, single lines, as the page's own quasicrystal bullet uses it: \"discrete Fourier spectrum (so it's not noise)\"), and gloss it, since the lines are dense on the frequency line once two rates are irrational (Kronecker's theorem, the one the epigraph alludes to). Computed for 220 and 220·φ Hz, confirmed by the challenger by brute force: the nearest m·f₁ + n·f₂ to 300 Hz is 4.03 Hz away with whole numbers up to 20, 0.65 Hz up to 100, 0.033 Hz up to 1000. Proposed: \"always a discrete, finitely generated set of single lines (dense on the frequency line once two rates are irrational, but never a continuous spread)\". The page's own \"rank-N Z-module\" is already the exact name."
+    },
+    {
+      "section": "The Honest Limit",
+      "kind": "claim-change",
+      "status": "open",
+      "what": "An addition: the limit holds in the mathematics, and how long you listen decides when it shows. Measured in the listen-longer piece, share of a 100–4000 Hz band's energy in its loudest tenth of bins, windows 21 ms to 5.5 s: noise 34.5 to 36.2 % at every window; one loop past 99 % by 43 ms; two loops 99.9 % by 0.68 s; six loops 40.7 % at 21 ms, rising unevenly to 51.2 % at 5.5 s. With six loops, 136,862 lines within 36 dB of the loudest fall in that band (about 4.10 million within 60 dB, the challenger's count), against 21,299 bins in a 5.5 s window. Proposed, after \"remains discrete and lattice-structured\": \"The more loops, the longer one must listen before the lines part: with six, a five-second listen cannot part them all.\""
+    }
+  ]
+}
