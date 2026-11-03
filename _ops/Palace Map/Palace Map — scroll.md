@@ -15,10 +15,10 @@ forward_vector: "I am Palace Map's scroll — the page's front door, opening on 
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-11-03T13:12:56.006Z from the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the page is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-11-03T13:13:24.036Z from the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the page is steered by the **Plan** and **Standing Orders** below, never here._
 
 - **Status:** — · **Stage:** growing · **Steward:** none — this page has no permanent steward yet
-- **Plan:** agreed 2026-10-23 (12 days ago) · 3 made things since
+- **Plan:** agreed 2026-10-23 (12 days ago) · 4 made things since
 - **Runs:** 1 run on 1 day, counted from the ledger's run lines
 - **Last run:** 2026-11-03 — keeper · constellation for the Daily Page sit, Quantization ↔ Precision vs Flow · 7 pages, 13 edges, 4 types, 10/10 · taught: a set that crosses two types reads as one idea; ask for three before the eye settles
 - **Owed in the ledger:** nothing
@@ -92,6 +92,20 @@ _Loudon's standing direction for this page — never regenerated. A steward, if 
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="palace-map-keeper-first-use-2026-11-03" -->
+### 2026-11-03 — Move 3's first use: the keeper drew The Grid and the Flock for today's Daily Page sit (5a54034b) — the map's tuning ledger is open; Move 3 half met
+> shipped · Move 3 of the plan agreed 2026-10-23, first of four uses · done-when half met: the ledger is open, no Weave flag yet
+
+Loudon, 2026-11-03: "Run the first use." The keeper, re-addressed, drew a constellation for the dealt page Quantization ↔ Precision vs Flow: **The Grid and the Flock** — that page, Flocking, Synthesis ↔ Emergence, Brian Eno, Cross-Domain Resonances, Kuramoto Coupling, Haptic Handwheel. On the 2026-11-03 build: 10/10 triples real; `connected`, 13 inner edges across connects-to, member-of, mirrors, spawned; one rhyme, Synthesis ↔ Emergence (unlinked, two hops, 0.23, `couples-with` as a candidate only — the Weave sees it on Loudon's yes); pillars read by role and checked against frontmatter; a first set crossing two types swapped for one crossing four; 127,623 tokens. Record: `_ops/Palace Map/proofs/2026-11-03-keeper-first-run/` (`sit.md`, `RESULTS.md` § First use). The reading and the opening question went to Loudon in the session. **The map's tuning ledger opened** at `_ops/Palace Map/Palace Map — tuning.md` with the run's line and its lesson: a set that crosses two types reads as one idea; ask for three before the eye settles. Move 3's done-when is half met: the ledger is open; no Weave flag yet. Next: a route on one relation for a Walk's door.
+
+**Artifacts:**
+- [sit.md — the ten triples of The Grid and the Flock](_ops/Palace Map/proofs/2026-11-03-keeper-first-run/sit.md)
+- [Palace Map — tuning — the ledger, opened](_ops/Palace Map/Palace Map — tuning.md)
+
+_Next moves named:_ Move 3, second use: a route for a Walk's door, on Loudon's word
+<sub>`palace-map-keeper-first-use-2026-11-03` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="run-257a370310" -->
 ### 2026-11-03 — keeper · constellation for the Daily Page sit, Quantization ↔ Precision vs Flow · 7 pages, 13 edges, 4 types, 10/10
 
