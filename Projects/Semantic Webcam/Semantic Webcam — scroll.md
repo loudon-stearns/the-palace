@@ -15,35 +15,35 @@ forward_vector: "I am Semantic Webcam's scroll — the one page that always open
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-11-03T13:30:23.115Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-11-03T13:35:09.971Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** growing · **Steward:** cycle 11 · last ran 2026-11-03 (today)
-- **Plan:** agreed 2026-10-18 (16 days ago) · 1 made thing since
-- **Waiting on you:** nothing
+- **Status:** active · **Stage:** growing · **Steward:** cycle 12 · last ran 2026-11-03 (today)
+- **Plan:** agreed 2026-10-18 (16 days ago) · 3 made things since
+- **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-11-03 (today) — Card 09, the Reactive Cam: a blink rewrites the words on your eyes, and opening your mouth reads the speaking text on, one word per syllable. (`semantic-webcam-017`)
-- **Last commit touching this project:** 2026-11-02 `94b53d49` — deposit(D-2026-11-02-BBSLOOK): BBS Design System folds into STIGMERGY § The look; nine pages repointed; the emptied page composts
+- **Last shipped:** 2026-11-03 (today) — The tuning sitting is ready. Will you do it alone with card 10, or with me live? (`semantic-webcam-020`)
+- **Last commit touching this project:** 2026-11-03 `1cd8f5ca` — steward(Semantic Webcam): cycle 11 — SPINNING UP. HOME: [Semantic Webcam](obsidian://open?vault=The%20Palace…
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
-- **Runs:** 1 run on 1 day, counted from the ledger's run lines
-- **Last run:** 2026-11-03 — cycle 11 · taught item 1
+- **Runs:** 2 runs on 1 day, counted from the ledger's run lines
+- **Last run:** 2026-11-03 — cycle 12 · nothing new
 - **Owed in the ledger:** nothing
 - **Latest lesson:** item 1, from cycle 11 — 2026-11-03 — [[Semantic Webcam — tuning]]
 
 ### Where this stands
 
-Semantic Webcam is a live camera that draws you in typeset words: brightness picks the character in each cell, and whole words fill your mid-tones. Card 07 gave your eyes, mouth and hands their own texts. On 2026-10-18 you adopted a four-step plan. First, measure whether language really works as a tonal medium (card 08 did: yes for a whole line, faint letter by letter). Second, make the words react to the face. Third, tune it on your face in one sitting. Fourth, record a short demo for Loudon Live. This cycle built the second step as card 09. A blink gives your eyes a new sentence. Each time your mouth opens, the mouth region reads one word further through its passage. I also raised the ton…
+Semantic Webcam is a live camera that draws you in typeset words: brightness picks the character in each cell, and whole words fill your mid-tones. On 2026-10-18 you agreed a four-step plan. Card 08 did the first step and measured that language does work as a tonal medium (clearly for a whole line, faintly letter by letter). Card 09 did the second step: a blink rewrites the words on your eyes, and opening your mouth reads the speaking text on one word at a time. The third step is a single sitting at your face to tune it. This cycle built the tool for that sitting as card 10, so it takes minutes and doesn't need me in the room.
 
 ### Left rough, again and again
 
 _What the trail's left-rough notes keep saying, oldest first, in its latest words._
 
-- **rough since cycle 9:** Nobody has stood in front of the cams yet. _(in 2 notes, the latest cycle 11)_
-- **rough since cycle 9:** The thresholds are guesses from the mesh's documentation, never tested on a real blink, and I don't know whether 09 holds a usable frame rate on your Mac with expression readings switched on. _(in 2 notes, the latest cycle 11)_
+- **rough since cycle 9:** Nobody has stood in front of the cams yet. _(in 3 notes, the latest cycle 12)_
+- **rough since cycle 9:** The face numbers are from a synthetic signal, and the frame rate on your Mac is still unmeasured. _(in 3 notes, the latest cycle 12)_
 
 ### Open asks
 
-_None — nothing is waiting on you._
+- `semantic-webcam-020` — directional_decision · posted 2026-11-03 · options: SIT-ALONE · SIT-TOGETHER · LATER
 
 ### Answered, not yet consumed
 
@@ -56,6 +56,7 @@ _None._
 
 ### Runs
 
+- 2026-11-03 — cycle 12 · nothing new
 - 2026-11-03 — cycle 11 · taught item 1
 
 ### Owed
@@ -84,6 +85,51 @@ _Loudon's standing direction for this project. The steward reads this zone every
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="semantic-webcam-020" -->
+### 2026-11-03 — cycle 12 — The tuning sitting is ready. Will you do it alone with card 10, or with me live?
+> still working · card 10 shipped · steward leans SIT-ALONE
+
+Semantic Webcam draws you in words, and card 09 makes them react: a blink rewrites your eyes, speaking reads the mouth's text on. The plan's next step is one sitting at your face to set its sizes, tint and speed. Every number in it so far is a guess, and nobody has sat in front of it. I can't do this step for you. Card 10 makes the sitting short: ten seconds of calibration, sliders, a live trace, then save and copy one line to me. Sitting alone is quickest, and I can't change anything until I get the line. A live session lets me adjust the code as you react, which is better if something looks wrong past what a slider can fix. Or leave it for later, and I'll move to the demo recording using the guessed settings.
+
+**Artifacts:**
+- [what card 10 looks like: the panel, and the trace bottom right.](Projects/Semantic Webcam/10-sitting-cam — proof.png)
+- [09-reactive-cam — proof.png](Projects/Semantic Webcam/09-reactive-cam — proof.png)
+- [09-reactive-cam.html](Projects/Semantic Webcam/09-reactive-cam.html)
+- [07-anatomy-cam.html](Projects/Semantic Webcam/07-anatomy-cam.html)
+- [05-tonal-word-cam.html](Projects/Semantic Webcam/05-tonal-word-cam.html)
+<sub>`semantic-webcam-020` · RESOURCE_REQUEST on TRICKSTER</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="semantic-webcam-019" -->
+### 2026-11-03 — cycle 12 — Card 10, The Sitting: a ten-second calibration sets the blink and mouth triggers from your own face, with a tuning panel and save.
+> shipped · proof checked on a synthetic face · steward leans you sit alone with card 10
+
+Card 10 is card 09 with a tuning panel on the left and a live trace on the right. Every number card 09 guessed is now a slider. Press calibrate (or l) and three prompts come up on screen: sit still, blink a few times, count out loud. The cam records how far your eyes close and your jaw opens, then sets each trigger part-way between your resting level and your reach. A half-blink or a breath won't fire it. If it never sees a clear blink, it keeps the old guess and tells you so, rather than inventing a number. The trace shows the last six seconds of both signals against their trigger lines, with a tick for every event that fired, so you can see a real blink clear its line. The other sliders cover region sizes (eye, mouth, fingertip), tint strength, cell size and how often the face mesh runs. The last two are the frame-rate levers. Save keeps the settings in this browser. Copy line gives you one line of settings to paste to me, and I'll make it the cam's default. To check the cam headless, I ran the proof (add #sit to the address) on the Hopper still with a synthetic face. It rested at 0.11 and blinked to 0.68, so the solver set the eyes to shut at 0.45 and reopen at 0.28. The jaw rested at 0.04 and spoke at 0.35, which set it to open at 0.18 and shut at 0.11. Then two blinks and five words fired on the trace. I added card 10 to the deck.
+
+**Artifacts:**
+- [card 10, The Sitting: serve the folder over http, allow the camera, press calibrate.](Projects/Semantic Webcam/10-sitting-cam.html)
+- [the headless proof: panel set from a synthetic face, trace showing two blinks and five words clearing their lines.](Projects/Semantic Webcam/10-sitting-cam — proof.png)
+- [the deck, now ten cards.](Projects/Semantic Webcam/semantic-webcam-deck.html)
+
+_Proof calibration on the synthetic face (not yours)_
+| signal | at rest | reach | fires at | resets at |
+| --- | --- | --- | --- | --- |
+| blink | 0.11 | 0.68 | 0.45 | 0.28 |
+| jaw | 0.04 | 0.35 | 0.18 | 0.11 |
+
+_Left rough:_ Nobody has stood in front of the cams yet. Card 10 exists so that one sitting fixes this, but only you can do it. The face numbers are from a synthetic signal, and the frame rate on your Mac is still unmeasured.
+
+_Next moves named:_ When you paste the saved line, I'll make it the default in cards 09 and 10 and note what your face measured · Then the demo: a short screen recording of the cam for Loudon Live, with the deck as its index
+<sub>`semantic-webcam-019` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-97c0998819" -->
+### 2026-11-03 — cycle 12
+
+nothing new
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="plan-semantic-webcam-014" -->
 ### 2026-10-18 — Plan agreed: Semantic Webcam has never had a plan. Adopt this four-step one: measure tonal language, make the words react, then a demo?
 

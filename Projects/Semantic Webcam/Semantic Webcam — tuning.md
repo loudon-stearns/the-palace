@@ -26,3 +26,4 @@ What Semantic Webcam's steward cycles taught the page, and the changes to the ho
 
 1. A face-driven feature can't be checked with the headless fake camera, which has no face in it. A proof mode that runs the cam on a still, with the features placed by hand and the events fired directly, lets a cycle verify the behaviour and capture a proof frame before anyone sits in front of it. *(offered by the steward, cycle 11)*
 - run · 2026-11-03 · cycle 11 · taught item 1
+- run · 2026-11-03 · cycle 12 · nothing new
