@@ -3,7 +3,7 @@
   title: Generative Wavetable Libraries — rich — the crystal knob
   born: 2026-11-03
   links: [[Generative Wavetable Libraries]] (connects-to · rich-face-piece) · listed in [[Generative Wavetable Libraries — rich.json]] · serves § Plan, at Phase 1 — Crystal Bravais Wavetable · leans on [[Wavetable Oscillator]] (why one cycle read round can only be harmonic) · points on to [[Inharmonic Wavetable Synthesis]]
-  forward_vector: I am the crystal table's one knob, walked up to a question. One cycle read round; the seven systems and the four numbers that make each; the knob through all seven, 64 frames; and last, the test: what a single stored cycle keeps of the detune the recipe uses to stand for broken symmetry. I play inside the entry's rich face and stand alone opened directly; I change only when the section I serve does.
+  forward_vector: I am the crystal table's one knob, walked up to a question. One cycle read round; the seven systems and the four numbers that make each; the knob through all seven, 64 frames; and last, the test: whether the detune the recipe uses to stand for broken symmetry reaches the stored cycle at all, detune on against off, with cubic as the control that must read nothing. I play inside the entry's rich face and stand alone opened directly; I change only when the section I serve does.
   sound: nothing plays until a play button is clicked; the AudioContext is made on that click. Changing step stops the sound. Quieting and the time cap are the kit's.
   engine: crystal-bravais/generate.py ported line for line (keyframes, peak normalize, interpolate_table) and loop-smoothing/buzz_probe.py's naive_sweep as the player. It reproduces crystal_bravais.wav, all 131,072 samples, to within 3e-8 (float32 rounding).
   check: Generative Wavetable Libraries — rich — check.py runs this page's engine in Node, holds it to the shipped wav, and recomputes every number the page shows through the project's own Python.
@@ -93,7 +93,7 @@
       <span class="grp" id="g-sys"><span class="l">system</span></span>
     </div>
     <div class="rowb" id="g-sweep"><span class="grp"><span class="l">sweep the knob in</span><button class="ghost small" data-sweep="12">12 s</button><button class="ghost small" data-sweep="3">3 s</button></span></div>
-    <div class="rowb" id="g-ask"><span class="grp"><span class="l">hear, matched in level</span><button class="ghost small" id="ask">▸ what the recipe asks</button><button class="ghost small" id="held">▸ what the cycle holds</button></span></div>
+    <div class="rowb" id="g-ask"><span class="grp"><span class="l">hear, matched in level</span><button class="ghost small" id="held">▸ stored, detune on</button><button class="ghost small" id="off">▸ stored, detune off</button><button class="ghost small" id="ask">▸ free sines, as the recipe asks</button></span></div>
     <div class="ctl" id="ctl-pos"><label for="pos">Position</label><input id="pos" type="range" min="0" max="1" step="0.001" value="0"><span class="v" id="pos-v"></span></div>
     <div class="meter" id="meter"></div>
     <table class="t" id="tab"></table>
@@ -169,6 +169,8 @@ function fades(x, sr) { const r = Math.floor(0.05 * sr); for (let i = 0; i < r; 
 const dB = (v) => 20 * Math.log10(Math.max(v, 1e-12));
 const rms = (f) => { let s = 0; for (const v of f) s += v * v; return Math.sqrt(s / f.length); };
 // scale_up.py morph_dips_db: level of the 50/50 blend against the mean of its two ends, in dB
+// the same halfway blend as the table plays it: generate.py re-normalizes every frame to full peak
+function playedDips(K) { const out = []; for (let j = 0; j + 1 < K.length; j++) { const a = K[j], b = K[j + 1], m = new Float64Array(a.length); for (let s = 0; s < a.length; s++) m[s] = 0.5 * (a[s] + b[s]); normalize(m); out.push(20 * Math.log10(rms(m) / (0.5 * (rms(a) + rms(b))))); } return out; }
 function morphDips(K) { const out = []; for (let j = 0; j + 1 < K.length; j++) { const a = K[j], b = K[j + 1], m = new Float64Array(a.length); for (let s = 0; s < a.length; s++) m[s] = 0.5 * (a[s] + b[s]); out.push(20 * Math.log10(rms(m) / (0.5 * (rms(a) + rms(b))))); } return out; }
 // radix-2 FFT magnitude
 function fftMag(x) {
@@ -257,10 +259,11 @@ const $ = (id) => document.getElementById(id);
 const F0 = 110;
 const K = keyframes('zero'), T = interpolate(K);
 const NAMES = SYSTEMS.map((s) => s[0]);
-// what the project's own Python measured (check.py recomputes each): share of the sound more than 4 Hz off the 110 Hz harmonics, held 2 s
-const OFFGRID = { asked: [-112.5, -49.1, -16.7, -11.2, -8.8, -6.7, -4.6], bandlimited: [-112.5, -112.5, -112.4, -112.0, -110.7, -108.8, -109.0], plain: [-111.9, -64.2, -52.4, -42.9, -36.2, -31.4, -31.0] };
+// what the project's own Python measured (check.py recomputes each): the recipe as free sines at A2, energy more than 4 Hz off the 110 Hz harmonics against the energy on them, 2 s
+const OFFGRID = { asked: [-112.5, -49.1, -16.7, -11.2, -8.8, -6.7, -4.6] };
 // per system: the seam (end of the cycle to its start) against the sharpest step inside; how much of the sound the detune changes; energy above the system's own partial count
 const FACTS = SYSTEMS.map((_, j) => seamFacts(K, j));
+const KOFF = SYSTEMS.map((q) => systemFrame(q, { detune: false }));
 const CENT = T.map((f) => frameCentroid(f)), CF = falls(CENT), CENT2 = T.map((f) => frameCentroid(f, 2)), CF2 = falls(CENT2);
 const S = { step: 0, sys: 0, pos: 0 };
 const STEPS = [
@@ -270,8 +273,8 @@ const STEPS = [
     do: 'Play, then step through the seven systems.', watch: 'The bars fill in and the cycle roughens as the symmetry drops; the row lit in the table is the system playing.', hear: 'Each system brighter and buzzier than the one before.' },
   { t: 'One knob through all seven', say: 'The table holds 64 frames. The seven systems are pinned evenly along the knob, a system every 10.5 frames, and every frame between is a straight blend of its two neighbours, levelled to the same peak. So three of the seven (hexagonal, rhombohedral, monoclinic) never sit alone in a frame: the nearest frame is 95 % that system.',
     do: 'Drag Position, or sweep it.', watch: 'Which systems the current frame blends, and how much of each; the strip marks where each system is pinned.', hear: 'One note opening from near-sine to a dense buzz.' },
-  { t: 'The test: what the cycle keeps', say: 'The recipe stands for broken symmetry with detune: upper partials pushed off whole-number ratios, “so the crystal rings inharmonically”, as the generator says. But a stored cycle read round repeats exactly once per cycle, and anything that repeats once per cycle has only whole-number harmonics. So the test: play each system’s recipe as free sines, which is what it asks for, then as the stored cycle, and measure what lands off the harmonics.',
-    do: 'Pick a system; hear what the recipe asks, then what the cycle holds.', watch: 'Triangles mark where the recipe puts each partial; bars are where the looped cycle puts its sound. The two cycles side by side show the seam where the end jumps back to the start (red).', hear: 'From tetragonal up, the asked version beats and rings; the held one is a steady harmonic buzz.' },
+  { t: 'The test: does the detune reach the cycle?', say: 'The recipe stands for broken symmetry with detune: upper partials pushed off whole-number ratios. A stored cycle read round has only whole-number harmonics; that is an identity, not something to measure here (the Wavetable Oscillator page proves it, and any stored cycle, white noise included, puts nothing between them). So the question that can come out either way is whether the detune reaches the stored cycle at all, or vanishes. The rule, before the numbers: switch the detune off in the same recipe and compare the two stored cycles’ harmonics. If they differ by no more than the control does, the detune never arrived. The control is cubic, which has no detune and must read nothing.',
+    do: 'Pick a system; hear its stored cycle with the detune on, then off, matched in level. The free sines are what the recipe asks for, beside them.', watch: 'Triangles mark where the recipe puts each partial; bars are where the stored cycle puts its sound. The two cycles side by side show the seam where the end jumps back to the start (red).', hear: 'From orthorhombic up, detune on is a little buzzier and brighter than off; the free sines beat and ring, which no stored cycle can.' },
 ];
 function rail() { const r = $('rail'); r.innerHTML = ''; STEPS.forEach((s, i) => { const b = document.createElement('button'); b.textContent = `${i + 1} · ${s.t}`; if (i === S.step) b.setAttribute('aria-current', 'step'); b.onclick = () => go(i); r.appendChild(b); }); }
 function sysButtons() { const g = $('g-sys'); g.querySelectorAll('button').forEach((b) => b.remove()); NAMES.forEach((n, j) => { const b = document.createElement('button'); b.className = 'ghost small'; b.textContent = n; b.setAttribute('aria-pressed', j === S.sys); b.onclick = () => { S.sys = j; sysButtons(); if (playing && S.step === 1) voicePlay([K[j]], 0, F0, 0.25); show(); }; g.appendChild(b); }); }
@@ -307,7 +310,7 @@ function show() {
   $('g-sys').classList.toggle('hide', !(S.step === 1 || S.step === 3)); $('g-sweep').classList.toggle('hide', S.step !== 2); $('ctl-pos').classList.toggle('hide', S.step !== 2);
   $('g-ask').classList.toggle('hide', S.step !== 3); $('play').classList.toggle('hide', S.step === 3);
   $('back').disabled = S.step === 0; $('next').disabled = S.step === STEPS.length - 1;
-  $('pic-l').textContent = S.step === 3 ? 'the cycle twice, end to start' : 'the frame playing'; $('pic-r').textContent = S.step === 3 ? 'bars: the looped cycle · triangles: where the recipe puts its partials' : 'its partials, harmonics 1 to 48';
+  $('pic-l').textContent = S.step === 3 ? 'the cycle twice, end to start' : 'the frame playing'; $('pic-r').textContent = S.step === 3 ? 'bars: the stored cycle · triangles: where the recipe puts its partials' : 'its partials, harmonics 1 to 48';
   const j = S.step === 0 ? 0 : S.sys, s = SYSTEMS[j]; let m = '', tab = '', found = '', e1 = '', e2 = '';
   if (S.step <= 1) { m = `system <b>${s[0]}</b> · ${s[1]} partials · roll-off ${s[2]} · detune ${s[3]} cents · even partials ÷ ${s[4]} · brightness (centroid) ${(2 ** frameCentroid(K[j])).toFixed(2)} × the fundamental`;
     e1 = 'a_k = k^(−r) ÷ (b if k even)    m_k = k · 2^( d · (k−1)/(n−1) / 1200 )    frame = Σ a_k · sin(m_k · θ),  θ from 0 to 2π';
@@ -318,12 +321,12 @@ function show() {
     found = `Brightness along the knob, frame by frame. Weighted by power, the centroid climbs from ${(2 ** CENT2[0]).toFixed(2)} to ${(2 ** CENT2[63]).toFixed(2)} times the fundamental and falls back <b>${CF2.n} times in ${CF2.steps} steps</b>. Weighted by amplitude, as the project’s Shepard generator measures it, it falls <b>${CF.n} times</b>, every step from frame 53 to the end, ${(CENT[52] - CENT[63]).toFixed(2)} octave in all: monoclinic’s loop seam sprays more high harmonics than triclinic’s, and amplitude weighting counts that faint spray heavily. Step 4 is about that seam.`;
     e1 = 'frame_i = normalize( (1 − f) · system_j + f · system_(j+1) ),   j + f = 6 · i / 63'; e2 = 'Frame i sits at i/63 along the knob; the systems sit every sixth of the way. A frame is a straight blend of the two systems around it, then scaled back to full peak.'; }
   if (S.step === 3) { const F = FACTS[j];
-    m = `${s[0]}: top partial asked at <b>${F.top.toFixed(3)}</b> × the fundamental · the cycle can only hold whole numbers · seam <b>${F.ratio.toFixed(1)}×</b> the sharpest step inside`;
-    tab = '<tr><th>system</th><th>off ÷ on the harmonics: asked</th><th>held, band-limited</th><th>held, plain reader</th><th>seam ÷ sharpest step</th><th>sound the detune changes</th><th>above partial n</th></tr>' +
-      SYSTEMS.map((q, i) => `<tr class="${i === j ? 'on' : ''}"><td>${i === j ? '<b>' + q[0] + '</b>' : q[0]}</td><td>${OFFGRID.asked[i].toFixed(1)} dB</td><td>${OFFGRID.bandlimited[i].toFixed(1)} dB</td><td>${OFFGRID.plain[i].toFixed(1)} dB</td><td>${FACTS[i].ratio.toFixed(1)}×</td><td>${FACTS[i].change < -200 ? 'none' : FACTS[i].change.toFixed(1) + ' dB'}</td><td>${FACTS[i].above < -200 ? 'none' : FACTS[i].above.toFixed(1) + ' dB'}</td></tr>`).join('');
-    found = '<b>The recipe asks for inharmonic partials and the cycle cannot keep them.</b> Played as free sines, triclinic puts about a quarter of its sound off the 110 Hz harmonics (−4.6 dB against what sits on them). Stored as one cycle and read round by a band-limited reader, as Serum and Ableton read it, the share off them is −109 dB: nothing. The project’s plain reader leaves −31 dB, and that is the seam’s steps folding back past Nyquist, not the detune. What the detune does reach the ear as is the seam: a jump at the loop point up to 12× the cycle’s sharpest step (orthorhombic), and a spray of extra harmonics above the system’s own partials (−18 dB at monoclinic). It changes a few percent of the sound (−16 dB at triclinic), as harmonic buzz. So the knob is a sweep of partial count, roll-off and odd weight, brighter all the way; it is not a phonon spectrum, and it cannot become one in a single cycle. That is the rule the Wavetable Oscillator page states, met here; keeping a crystal’s inharmonic partials is what the Inharmonic Wavetable Synthesis project is for.';
-    e1 = 'a cycle read round at f₀:   x(t + 1/f₀) = x(t)   ⇒   only f₀, 2f₀, 3f₀, … can sound';
-    e2 = 'Anything that repeats once per cycle is built only of whole-number harmonics. A partial asked at 20.3 × f₀ has nowhere to go but the harmonics around it, and the break it leaves at the loop point.'; }
+    m = `${s[0]}${j === 0 ? ' (the control)' : ''}: top partial asked at <b>${F.top.toFixed(3)}</b> × the fundamental · detune on against off, stored: <b>${F.change < -200 ? 'no change' : F.change.toFixed(1) + ' dB'}</b> · seam <b>${F.ratio.toFixed(1)}×</b> the sharpest step inside`;
+    tab = '<tr><th>system</th><th>stored: detune on against off</th><th>seam ÷ sharpest step</th><th>above partial n</th><th>free sines: off ÷ on the harmonics</th></tr>' +
+      SYSTEMS.map((q, i) => `<tr class="${i === j ? 'on' : ''}"><td>${i === j ? '<b>' + q[0] + '</b>' : q[0]}${i === 0 ? ' (control)' : ''}</td><td>${FACTS[i].change < -200 ? 'none' : FACTS[i].change.toFixed(1) + ' dB'}</td><td>${FACTS[i].ratio.toFixed(1)}×</td><td>${FACTS[i].above < -200 ? 'none' : FACTS[i].above.toFixed(1) + ' dB'}</td><td>${OFFGRID.asked[i].toFixed(1)} dB</td></tr>`).join('');
+    found = '<b>The detune reaches the stored cycle, and only as harmonic shape.</b> The control reads nothing, as it must. Every detuned system changes when the detune is switched off: from −43.9 dB of the cycle’s harmonic shape at hexagonal to −16.2 dB at triclinic, about 2 % of it, past −20 dB from orthorhombic up. It arrives as the seam, a jump at the loop point up to 12.3× the cycle’s sharpest step (orthorhombic), and as a spray of harmonics above the system’s own partials (−17.9 dB at monoclinic). What it cannot arrive as is the inharmonic ringing the free sines have (triclinic puts −4.6 dB off ÷ on the harmonics there): a stored cycle has nowhere between the harmonics to put it. So the knob sweeps partial count, roll-off and odd weight in order of falling symmetry, with the detune left as a seam. That is what the project’s own build notes say: “not a physically rigorous lattice/phonon model”. Keeping a crystal’s inharmonic partials is what the Inharmonic Wavetable Synthesis project is for.';
+    e1 = 'change = Σ_k ( |X_k^on|/‖X^on‖ − |X_k^off|/‖X^off‖ )²   in dB      a cycle read round at f₀:  x(t + 1/f₀) = x(t)';
+    e2 = 'The change is how far the stored cycle’s harmonic shape moves when the detune is switched off, each spectrum scaled to unit size first, so level plays no part: −20 dB is a hundredth of the shape. The second line is why the free sines’ ringing can’t be stored: anything that repeats once per cycle is built only of whole-number harmonics.'; }
   $('meter').innerHTML = m; $('tab').innerHTML = tab; $('found').innerHTML = found; $('eq1').textContent = e1; $('eq1w').textContent = e2;
   $('pos-v').textContent = S.pos.toFixed(3);
   draw();
@@ -334,8 +337,8 @@ $('pos').oninput = (e) => { S.pos = +e.target.value; voiceSet({ pos: S.pos, stil
 document.querySelectorAll('[data-sweep]').forEach((b) => b.onclick = async () => { if (!playing) await voicePlay(T, 0, F0, 0.25); voiceSet({ sweep: +b.dataset.sweep }); syncPlay(); });
 onPos = (d) => { if (S.step === 2 && d.pos !== undefined) { S.pos = d.pos; $('pos').value = S.pos; show(); } };
 // step 4: the recipe as free sines against the stored cycle read round; 4 s each, both levelled to the same RMS, 50 ms fades
-async function hear(which) { await ensureAudio(); const sr = ctx.sampleRate, j = S.sys; const x = toRms(which === 'ask' ? renderAsked(j, sr, F0) : renderHeld(K, j, sr, F0), 0.1); await playBuffer(x, 1, () => { playing = false; }); }
-$('ask').onclick = () => hear('ask'); $('held').onclick = () => hear('held');
+async function hear(which) { await ensureAudio(); const sr = ctx.sampleRate, j = S.sys; const x = toRms(which === 'ask' ? renderAsked(j, sr, F0) : which === 'off' ? renderHeld(KOFF, j, sr, F0) : renderHeld(K, j, sr, F0), 0.1); await playBuffer(x, 1, () => { playing = false; }); }
+$('ask').onclick = () => hear('ask'); $('held').onclick = () => hear('held'); $('off').onclick = () => hear('off');
 $('back').onclick = () => go(Math.max(0, S.step - 1)); $('next').onclick = () => go(Math.min(STEPS.length - 1, S.step + 1));
 addEventListener('resize', draw);
 go(0);

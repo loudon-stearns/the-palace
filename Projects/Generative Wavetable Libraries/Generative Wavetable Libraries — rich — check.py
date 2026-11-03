@@ -48,8 +48,8 @@ const put = (name, arr) => { fs.writeFileSync(out + '/' + name + '.f64', Buffer.
   put('shepard', E.shepardTable().flatMap((f) => [...f]));
   const x = E.fades(E.sweep(E.shepardTable(1024), 110, 12, 44100), 44100); put('audition', x);
   R.here = E.countHere(null, 110); const order = E.shuffled(64, 1); R.shuf = E.countHere(order, 110); R.order = order; }
-{ const E = new Function(eng(process.argv[5]) + '; return {keyframes, interpolate, morphDips, sweep, fades, rms, matchLevel, leak, TURNS};')();
-  R.dips = {}; for (const m of ['zero', 'carry', 'turned']) { R.dips[m] = E.morphDips(E.keyframes(m)); put('tab_' + m, E.interpolate(E.keyframes(m)).flatMap((f) => [...f])); }
+{ const E = new Function(eng(process.argv[5]) + '; return {keyframes, interpolate, morphDips, playedDips, sweep, fades, rms, matchLevel, leak, TURNS};')();
+  R.dips = {}; R.played = {}; for (const m of ['zero', 'carry', 'turned']) { R.dips[m] = E.morphDips(E.keyframes(m)); R.played[m] = E.playedDips(E.keyframes(m)); put('tab_' + m, E.interpolate(E.keyframes(m)).flatMap((f) => [...f])); }
   R.turns = E.TURNS; R.abx = {};
   for (const sr of [44100, 48000]) for (const pair of ['carry', 'turned']) for (const lev of ['win', 'whole']) {
     const a = E.fades(E.sweep(E.interpolate(E.keyframes('zero')), 110, 6, sr), sr), b0 = E.fades(E.sweep(E.interpolate(E.keyframes(pair)), 110, 6, sr), sr);
@@ -82,6 +82,14 @@ ok(n == 11 and R["crystalFalls"]["n"] == 11 and fall_idx.min() == 52 and fall_id
 def offgrid(x, f0=110.0, sr=SR, tol=4):
     seg = x[sr // 2: sr // 2 + sr] * np.hanning(sr); S = np.abs(np.fft.rfft(seg)) ** 2; f = np.fft.rfftfreq(sr, 1 / sr)
     d = np.abs(f - np.round(f / f0) * f0); h = (d < tol) & (f > 0); return 10 * np.log10(S[~h].sum() / S[h].sum())
+# the same three numbers in Python, independently
+def frame(s, detune=True):
+    _, n_, ro, dt, ob = s; tt = np.linspace(0, 2 * np.pi, 2048, endpoint=False); f = np.zeros(2048)
+    for k in range(1, n_ + 1):
+        a = 1 / k ** ro; a = a / ob if k % 2 == 0 else a
+        f += a * np.sin(k * G.cents_to_ratio((dt if detune else 0) * ((k - 1) / max(1, n_ - 1))) * tt)
+    return G.normalize(f)
+F = R["facts"]
 t = np.arange(2 * SR) / SR; asked = []; bl = []; plain = []
 for j, (name, n_, ro, dt, ob) in enumerate(G.BRAVAIS_SYSTEMS):
     Tj = np.array([Kz[j], Kz[j]]); add = np.zeros_like(t)
@@ -91,18 +99,16 @@ for j, (name, n_, ro, dt, ob) in enumerate(G.BRAVAIS_SYSTEMS):
     asked.append(round(float(offgrid(add)), 1)); bl.append(round(float(offgrid(clean_sweep(Tj, dur=2.0))), 1)); plain.append(round(float(offgrid(naive_sweep(Tj, dur=2.0))), 1))
 page = PIECE("the crystal knob").read_text()
 ok(all(f"{v:.1f}" in page for v in asked), f"off ÷ on the harmonics, asked as free sines: {asked} dB (the page's table)")
-ok(all(f"{v:.1f}" in page for v in bl + plain), f"held, band-limited reader {bl}; held, plain reader {plain} (the page's table)")
-ok(asked[6] > -6 and bl[6] < -100, f"the test can fail: had the cycle kept the detune, the band-limited share would sit near the asked {asked[6]} dB; it is {bl[6]} dB")
-F = R["facts"]; worst = max(range(7), key=lambda j: F[j]["ratio"])
+ok(all(v < -100 for v in bl), f"the identity, not a test: every stored cycle read band-limited sits at the meter's floor, {bl} dB (any stored cycle would; the page states it as an identity and runs no test on it)")
+ok(F[0]["change"] < -200 and all(F[i]["change"] > -50 for i in range(1, 7)), f"the test, rule first: detune on against off in the stored cycle — control cubic {'none' if F[0]['change'] < -200 else F[0]['change']} (must be none), detuned systems {[round(F[i]['change'], 1) for i in range(1, 7)]} dB (all would read none had the detune vanished from the cycle)")
+offs = []
+for j in (4, 5, 6):
+    a = frame(G.BRAVAIS_SYSTEMS[j]); b = frame(G.BRAVAIS_SYSTEMS[j], False)
+    A = np.abs(np.fft.rfft(a))[1:200]; Bm = np.abs(np.fft.rfft(b))[1:200]; offs.append(10 * np.log10(((A / np.linalg.norm(A) - Bm / np.linalg.norm(Bm)) ** 2).sum()))
+ok(np.allclose(offs, [F[j]["change"] for j in (4, 5, 6)], atol=1e-6) and all(f"{v:.1f}".replace("-", "−") in page for v in (-43.9, -16.2, -17.9, 12.3)), f"detune change recomputed in Python {np.round(offs, 1).tolist()} dB, and the page's figures (−43.9, −16.2, −17.9, 12.3×) are these")
+worst = max(range(7), key=lambda j: F[j]["ratio"])
 ok(G.BRAVAIS_SYSTEMS[worst][0] == "orthorhombic" and abs(F[worst]["ratio"] - 12.3) < 0.05, f"seam up to {F[worst]['ratio']:.1f}× the sharpest step inside, at {G.BRAVAIS_SYSTEMS[worst][0]}")
 ok(abs(F[5]["above"] + 17.9) < 0.05 and abs(F[6]["change"] + 16.2) < 0.05, f"above partial n at monoclinic {F[5]['above']:.1f} dB; detune changes {F[6]['change']:.1f} dB of triclinic")
-# the same three numbers in Python, independently
-def frame(s, detune=True):
-    _, n_, ro, dt, ob = s; tt = np.linspace(0, 2 * np.pi, 2048, endpoint=False); f = np.zeros(2048)
-    for k in range(1, n_ + 1):
-        a = 1 / k ** ro; a = a / ob if k % 2 == 0 else a
-        f += a * np.sin(k * G.cents_to_ratio((dt if detune else 0) * ((k - 1) / max(1, n_ - 1))) * tt)
-    return G.normalize(f)
 for j in (4, 5, 6):
     a = frame(G.BRAVAIS_SYSTEMS[j]); b = frame(G.BRAVAIS_SYSTEMS[j], False)
     ratio = abs(a[0] - a[-1]) / np.abs(np.diff(a)).max(); ok(abs(ratio - F[j]["ratio"]) < 1e-6, f"{G.BRAVAIS_SYSTEMS[j][0]}: seam ratio agrees in Python ({ratio:.2f})")
@@ -158,6 +164,16 @@ for seed in range(40):
     rng = np.random.default_rng(seed); sh = [0] + [int(rng.integers(0, 2048)) for _ in range(6)]
     draws.append((float(su.morph_dips_db(np.array([np.roll(k, s) for k, s in zip(Kz, sh)])).min()), seed, sh))
 srt = sorted(draws); med = srt[len(srt) // 2]
+played = lambda K: np.array([20 * np.log10(np.sqrt((G.normalize(0.5 * (a + b)) ** 2).mean()) / (0.5 * (np.sqrt((a ** 2).mean()) + np.sqrt((b ** 2).mean())))) for a, b in zip(K[:-1], K[1:])])
+for m, K in (("zero", Kz), ("carry", Kc), ("turned", Kt)):
+    ok(np.allclose(played(K), R["played"][m], atol=1e-9), f"{m}: halfway blend as played (re-normalized) {np.round(played(K), 2).tolist()} — the page's engine agrees")
+pw = [float(played(np.array([np.roll(k, s) for k, s in zip(Kz, d[2])])).min()) for d in draws]
+ok(f"{min(pw):.2f}" == "-1.65" and f"{max(pw):.2f}" == "0.04" and "−1.65 to +0.04 dB" in PIECE("line up or not").read_text(), f"as played, the worst halfway blend over the 40 draws runs {min(pw):.2f} to {max(pw):+.2f} dB")
+Tz_ = G.interpolate_table(Kz, 64); lv = {}
+for m, K in (("carry", Kc), ("turned", Kt)):
+    d_ = 20 * np.log10(np.sqrt((G.interpolate_table(K, 64) ** 2).mean(1)) / np.sqrt((Tz_ ** 2).mean(1))); lv[m] = (round(float(d_.min()), 2), round(float(d_.max()), 2))
+ok(f"carry: [{lv['carry'][0]}, {lv['carry'][1]}], turned: [{lv['turned'][0]}, {lv['turned'][1]}]" in PIECE("line up or not").read_text(), f"frame level against shipped: carried {lv['carry']}, turned {lv['turned']} dB (the page's LEVEL line)")
+ok("6.1 dB between systems" not in PIECE("line up or not").read_text(), "the raw 6.1 dB is no longer quoted as what the table plays")
 ok(med[2] == R["turns"] and f"{srt[0][0]:.1f}" == "-7.8" and f"{srt[-1][0]:.1f}" == "-3.2" and "−3.2 to −7.8 dB" in PIECE("line up or not").read_text(), f"the turns are the median of 40 draws (seed {med[1]}, {med[0]:.2f} dB); the 40 run {srt[0][0]:.1f} to {srt[-1][0]:.1f} dB")
 meter = {}
 for m, K in (("zero", Kz), ("carry", Kc), ("turned", Kt)):

@@ -40,7 +40,7 @@
      "place": "band",
      "near": "sweeping a wavetable produces audible artifacts if frame phases are not aligned",
      "title": "line up or not · five steps",
-     "caption": "**The phase warning, put to the crystal table.** Two of its frames crossfaded; one turned, so the middle thins; what carrying phase through does to this recipe (the fundamental is never detuned, so it never carries anything); the whole table swept three ways and read with the project's own meters; and last, a blind test, its rules set before the first trial. The warning holds: cycles turned to different starts, as arbitrary sources arrive, sag up to 6.1 dB between systems and buzz 19 dB more than the shipped table. The page's open question barely matters here: carried phase sits within 0.3 dB of sag and 1.1 dB of buzz of zero-phase, and what it does change is level, up to 2.5 dB frame to frame, through the per-frame peak scaling. The blind test matches level every 46 ms by default for that reason, and offers zero-phase against turned as the control a listener should pass. Measured by an agent; nobody has listened."
+     "caption": "**The phase warning, put to the crystal table.** Two of its frames crossfaded; one turned, so the raw middle thins; what carrying phase through does to this recipe (the fundamental is never detuned, so it never carries anything); the whole table swept three ways and read with the project's own meters; and last, a blind test, its rules set before the first trial, X balanced six and six. The warning holds on buzz: cycles turned to different starts, as arbitrary sources arrive, buzz 19 dB more than the shipped table. Their sag is 6.1 dB only on the raw blend; the table re-normalizes every frame, so as played the worst halfway blend is −1.0 dB and the sag shows instead as a level wobble of about ±3 dB. The page's open question barely matters here: carried phase is within 1.1 dB of buzz of zero-phase and changes only level, up to 2.8 dB frame by frame. The blind test matches level every 46 ms for that reason, and offers zero-phase against turned as the control a listener should pass. Measured by an agent; nobody has listened. Remade after the challenge."
     },
     {
      "file": "loop-smoothing/smoothing.png",
@@ -89,7 +89,7 @@
      "place": "band",
      "near": "Sweeping a wavetable position becomes a traversal through crystallographic symmetry space",
      "title": "the crystal knob · four steps",
-     "caption": "**The crystal table's one knob, walked up to what a cycle keeps.** One cycle read round; the seven systems and the four numbers that make each; the knob through all 64 frames; and the test: each system's recipe played as free sines, which is what it asks for, against the stored cycle. The engine rebuilds crystal_bravais.wav sample for sample. The detune that stands for broken symmetry does not survive the loop: triclinic asks for about a quarter of its sound off the harmonics and the band-limited cycle holds −109 dB there. What reaches the ear is a seam up to 12× the cycle's sharpest step. Brightness climbs all the way weighted by power, and falls through the last stretch weighted by amplitude."
+     "caption": "**The crystal table's one knob, walked up to what the cycle keeps.** One cycle read round; the seven systems and the four numbers that make each; the knob through all 64 frames; and the test, its rule set first: does the detune that stands for broken symmetry reach the stored cycle at all? Detune on against off in the same recipe, with cubic as the control that must read nothing. It does reach it, and only as harmonic shape: −43.9 dB of the cycle's shape at hexagonal to −16.2 dB at triclinic, as a loop seam up to 12.3× the cycle's sharpest step. The inharmonic ringing it stands for can't be stored: a cycle read round has only whole-number harmonics, an identity proved on the Wavetable Oscillator page. The engine rebuilds crystal_bravais.wav sample for sample. Remade after the challenge."
     },
     {
      "file": "Generative Wavetable Libraries — rich — brighter all the way.html",
@@ -108,7 +108,7 @@
      "place": "margin",
      "near": "One note brightens monotonically as the position sweeps",
      "title": "the audition Loudon accepted",
-     "caption": "The steward's audition seed (2026-06-06): A2 held, the Shepard table swept from dark to bright in 12 s by the project's plain reader. Counted above, its brightness never falls. Late in the sweep a faint 15.94 kHz tone is the top octave folded back past Nyquist, which Serum and Ableton would drop."
+     "caption": "The steward's audition seed (2026-06-06): A2 held, the Shepard table swept from dark to bright in 12 s by the project's plain reader. Counted above, its brightness never falls. Late in the sweep there is a 15.94 kHz tone, the top octave folded back past Nyquist: −9.6 dB, about a tenth of the sound's energy, though high enough that many listeners won't hear it. A band-limited reader such as Serum's or Ableton's should drop it; that is expected behaviour, not checked."
     }
    ],
    "challenge": {
@@ -139,19 +139,22 @@
    "section": "Plan",
    "kind": "claim-change",
    "status": "open",
-   "what": "Phase 1 says the table synthesizes 'the combined phonon partial spectrum' and is 'the phonon dispersion parameter space made performable with a single knob' (lines 131, 134). The shipped generator maps each lattice system to four timbre numbers, partial count 3 to 36, roll-off, even-partial divisor and detune, and its BUILD.md says it is 'not a physically rigorous lattice/phonon model'. And the detune cannot survive one stored cycle: played as free sines, triclinic puts −4.6 dB off/on the 110 Hz harmonics; stored and read band-limited, −109 dB. It reaches the ear only as a loop seam, up to 12.3× the cycle's sharpest step (orthorhombic). Suggest the section say the knob sweeps partial count, roll-off and odd weight in order of falling symmetry, a symmetry-to-timbre sketch, and that a single cycle can only be harmonic ([[Wavetable Oscillator]]), with inharmonic crystal partials left to [[Inharmonic Wavetable Synthesis]]. The generator's own comment (crystal-bravais/generate.py:58–60, 'the crystal rings inharmonically') is the steward's to correct."
+   "challenge": "confirmed in substance; the evidence is the project's own notes, not a measurement",
+   "what": "Phase 1 says the table synthesizes 'the combined phonon partial spectrum' and is 'the phonon dispersion parameter space made performable with a single knob' (page lines 131, 134). The project's own notes settle that it isn't: crystal-bravais/BUILD.md:33 says 'not a physically rigorous lattice/phonon model', and generate.py:19–23 calls it a deliberately simplified mapping from symmetry to timbre (partial count 3 to 36, roll-off, even-partial divisor, detune). Suggest the section say the knob sweeps partial count, roll-off and odd weight in order of falling point-group symmetry, a symmetry-to-timbre sketch, and keep 'traversal through crystallographic symmetry space', which holds as built. The piece adds only that the detune reaches the stored cycle as harmonic shape and a loop seam (−16.2 dB of triclinic's shape, seam up to 12.3×), never as inharmonic partials, which one cycle cannot hold ([[Wavetable Oscillator]]); those belong to [[Inharmonic Wavetable Synthesis]]."
   },
   {
    "section": "Open Questions",
    "kind": "claim-change",
    "status": "open",
-   "what": "The answered question (zero-phase reset or carry phase through) could carry why it barely matters on the crystal table: the fundamental is never detuned, so it carries no phase, and only quiet upper partials drift. Carried against zero-phase, worst sag −0.34 against −0.08 dB and buzz −57.2 against −58.3 dB (6 s sweep at A2, the project's own morph_dips_db and offnote_db). What carrying changes is per-frame level, up to 2.5 dB, through the per-frame peak scaling. The artifact the page warns of comes from cycles that start at different points: −6.1 dB sag and −39.1 dB buzz. So for arbitrary source cycles the open policy is alignment of start points, not phase carrying."
+   "challenge": "confirmed",
+   "what": "The answered question (zero-phase reset or carry phase through) could carry why it barely matters on the crystal table: the fundamental is never detuned, so it carries no phase, and only quiet upper partials drift. Carried against zero-phase: buzz −57.2 against −58.3 dB (the project's offnote_db, 6 s sweep at A2); raw sag −0.34 against −0.08 dB, and none as played. What carrying changes is per-frame level, up to 2.8 dB, through the per-frame peak scaling. Cycles that start at different points buzz 19.2 dB more (−39.1 dB). So for arbitrary source cycles the policy that matters is aligning start points, not carrying phase."
   },
   {
    "section": "Capability Assessment",
    "kind": "claim-change",
    "status": "open",
-   "what": "'Phase coherence across frames' holds as measured, and could be sharpened with the numbers: on the crystal table, cycles turned to different starts sag up to 6.1 dB between systems (−3.2 to −7.8 dB over 40 random draws) and buzz 19.2 dB more than aligned ones. Not heard yet: the piece's blind test is waiting on a listener. The steward's proposed second bullet (smoothness along Position, tuning ledger item 2) sits beside this and is not this offer."
+   "challenge": "disputed in part; corrected here",
+   "what": "'Phase coherence across frames' holds as measured on the buzz: on the crystal table, cycles turned to different starts buzz 19.2 dB more than aligned ones. Their sag is about 1 dB as the table plays it (worst halfway blend −1.0 dB; −1.65 to +0.04 dB over 40 random draws), because generate.py re-normalizes every frame, so it shows as a level wobble of about ±3 dB. Crossfaded raw, as a reader crossfading stored cycles directly would play them, the sag is up to 6.1 dB (−3.2 to −7.8 dB over 40 draws). Not heard yet: the piece's blind test is waiting on a listener. The steward's proposed second bullet (smoothness along Position, tuning ledger item 2) sits beside this and is not this offer."
   }
  ]
 }
