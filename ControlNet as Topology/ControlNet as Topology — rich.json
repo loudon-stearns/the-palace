@@ -1,0 +1,194 @@
+{
+ "title": "ControlNet as Topology — rich",
+ "born": "2026-11-03",
+ "links": [
+  {
+   "target": "[[ControlNet as Topology]]",
+   "type": "connects-to",
+   "label": "rich-face-of"
+  },
+  {
+   "target": "[[Enrichment]]",
+   "type": "connects-to",
+   "label": "made-by"
+  },
+  {
+   "target": "[[GenAI Camera]]",
+   "type": "connects-to",
+   "label": "the-renders-gathered"
+  }
+ ],
+ "forward_vector": "I am the manifest of ControlNet as Topology's rich face, its first round at Sketch tier: a terrain you can carve that walks up from one ball to the test of denoise against weight, the noise schedule taken apart by scale beside a control image, and the GenAI Camera's depth sweeps laid beside the pose-versus-depth rule they test, with the fingerprint of the words each was laid against. I grow when the page is rewritten or a piece has something new to test; I never hold the entry's words.",
+ "entry": "ControlNet as Topology",
+ "tier": "sketch",
+ "made": "2026-11-03",
+ "round": 1,
+ "offers": [
+  {
+   "section": "The same truth, made precise: the landscape",
+   "kind": "claim-change",
+   "status": "open",
+   "what": "\"it shrinks the fog hiding the fine terrain until only the deepest basin remains\" and \"letting a ball roll into the deepest valley\" describe an optimiser, not this cooling. The carving ends with the fog gone, not the temperature at zero, so it samples the terrain: each valley ends with about its share of the images, whatever its depth. Measured in the landscape piece, step 2 (checks.mjs, 2000 balls): the deepest valley (portrait, E −2.44) caught 17.3% for an 18% share; the shallowest, widest (mountains, E −0.53) caught 28.1% for a 30% share, the most of any. Proposed: \"…until each ball is held by one basin: which one is chance, weighted by how much of the terrain the basin holds, not by its depth alone\", and \"letting a ball roll into a valley\". CFG at high w is what pulls toward fewer, deeper valleys (lion valleys 24.8% at w 0, 99.2% at w 3). The challenger reran other seeds: within 1.3 points."
+  },
+  {
+   "section": "The same truth, made precise: the landscape",
+   "kind": "claim-change",
+   "status": "open",
+   "what": "\"Denoise strength × ControlNet weight\" (line 66 names both knobs). The high-denoise half holds in the page's own picture, run in two dimensions: from an init in one valley, 100 balls a square (landscape piece, step 5; checks.mjs), at denoise 1.0 the canyon caught 0% at weight 0.5, 78% at 3, 100% at 8, so only a deep enough canyon wins. The low-denoise half holds only within reach: with the canyon 0.26 from the init, denoise 0.5 splits the balls 50 to 62% to the canyon whatever the weight from 3 to 12, the even contest the page describes; with it 0.63 away, denoise 0.5 and below catch 0% at every weight. That zero rests on a choice the piece made, the canyon's flat floor: without it the same far canyon at denoise 0.5 catches 33% at weight 1 and every ball from weight 2 (checks.mjs). So nothing here should change the text yet beyond, at most, naming reach: \"denoise sets how far the armature can reach; weight how hard it holds once it does.\" Hold any rewrite of the low-denoise half until the GenAI Camera tests it on a real ControlNet: a canyon cut away from the init's valley, denoise swept against weight."
+  },
+  {
+   "section": "The sculptor's studio (a door in)",
+   "kind": "no-claim-edit",
+   "status": "open",
+   "what": "An addition, not a correction: the page describes the schedule cooling coarse to fine and does not claim the schedule causes the order. What the rough-to-fine piece adds (checks.mjs; the challenger got slopes −2.63 / −2.40 and σ = 1 at p = 0.542 by a second route): the noise is white, the same power at every scale, and the order comes from the picture, whose power falls with fineness. On Stable Diffusion's σ 14.6 to 0.03 with Karras's curve, the page's hero (slope −2.66) has waves 4 across the frame decided at 10% of the strokes, 9 at 25%, 25 at 50%, 85 at 75%, every scale at 82%; a GenAI Camera render (−2.43) runs the same way; a control with the same spread and a flat spectrum has nothing decided until 54% and everything by 55%. A standard result (diffusion as spectral autoregression). Proposed addition: \"…coarse structure first and fine texture last, because a picture's coarse shapes are far louder than its fine ones.\" The crossing is what the noise alone permits; a real denoiser can guess some detail earlier."
+  },
+  {
+   "section": "Pose vs depth — canyons of different shape (2026-07-09)",
+   "kind": "no-claim-edit",
+   "status": "open",
+   "what": "The rule stands, but the example the section tells ran on a pose plate the GenAI Camera's own record later found too thin to bite: render 011 (13:01, pose-only figures) carries the caveat \"clothing + stance came mostly from the img2img init at high denoise, not the pose\", and render 020 is the diagnosis (the thin plate let the arms drift; the controlnet_aux plate held them). So in 011 what freed the costume was dropping depth, not adding pose. The re-run with the real plate is renders 021 (sorceress) and 022 (barbarian): pose held at 0.9, denoise 0.9, depth swept 0 to 0.8. Robes and fur at pose only and at depth 0.15; thinning by 0.30; at 0.60 and 0.80 both figures are bare, the costume pinned to the mannequin's surface. Proposed: cite renders 021 and 022 for the rule, and add that depth's weight is the dial: \"how tight a canyon you want\" is, for depth, how much weight you give it. Confirmed by the challenger against renders.json entries 11 and 20 and GenAI Camera.md:152–161."
+  }
+ ],
+ "sections": [
+  {
+   "heading": "The sculptor's studio (a door in)",
+   "made_against": "4bbf2339bfb0",
+   "made": "2026-11-03",
+   "status": "proposal",
+   "proposed": {
+    "date": "2026-11-03",
+    "by": "maker · claude-opus-5-5 · proposal round",
+    "round": "proposal-round-2026-11"
+   },
+   "pieces": [
+    {
+     "file": "ControlNet as Topology — rich — rough to fine.html",
+     "origin": "made",
+     "by": "spectrum · Wiener filter · Karras schedule",
+     "height": 1500,
+     "place": "band",
+     "near": "And you work the way every carver works",
+     "title": "rough to fine · four steps",
+     "caption": "**The first strokes commit the pose: tested, and given its reason.** Real pictures and Stable Diffusion's own noise end points, analysed for a linear carver in pixels, not a network in its latent space. Built up from the raw block of noise: one stroke of fog with the best guess under it, the scales the picture is made of against the noise floor, and last the whole schedule beside a control image with no coarse shape. Coarse is decided before fine at every stroke for the page's hero and for a GenAI Camera render; the control gets nothing until halfway, then everything at once. The fog is the same at every scale, so the schedule alone does not order the carving: it sweeps, and the picture's spectrum sets the order."
+    }
+   ],
+   "stamped": "2026-11-03",
+   "challenge": {
+    "date": "2026-11-03",
+    "by": "challenger · claude-opus-5-5",
+    "verdicts": [
+     {
+      "file": "ControlNet as Topology — rich — rough to fine.html",
+      "verdict": "keep",
+      "why": "A real test: the flat-spectrum control could have climbed with the schedule and didn't (nothing until 54%, all by 55%); walks up from the raw block. Note: the verdict headline 'the schedule is not what orders it' overreaches its own last sentence; 'the schedule alone does not order it', and 'for a linear carver' once in the caption."
+     }
+    ]
+   }
+  },
+  {
+   "heading": "The same truth, made precise: the landscape",
+   "made_against": "a2b3e7f42158",
+   "made": "2026-11-03",
+   "status": "proposal",
+   "proposed": {
+    "date": "2026-11-03",
+    "by": "maker · claude-opus-5-5 · proposal round",
+    "round": "proposal-round-2026-11"
+   },
+   "pieces": [
+    {
+     "file": "ControlNet as Topology — rich — the landscape.html",
+     "origin": "made",
+     "by": "exact Gaussian-mixture terrain · reverse diffusion",
+     "height": 1700,
+     "place": "band",
+     "near": "Stacking ControlNets is multi-scale terrain",
+     "title": "the landscape · five steps",
+     "caption": "**An energy landscape you can carve: the page's picture, run exactly in two dimensions, not a network.** One ball rolls down one valley; fog over six valleys cools rough to fine; CFG leans on the commission *a lion* and lands no ball where no valley was; ControlNet carves a canyon there and takes them; last, denoise against weight from one init, a hundred balls a square. High denoise lets a deep enough canyon win, as the page says. At low denoise the canyon competes evenly only within reach of the init, and how far that reach goes rests on a choice made here, the canyon's flat floor. It also checks the fog: balls end in every valley by its size, not by depth alone."
+    }
+   ],
+   "stamped": "2026-11-03",
+   "challenge": {
+    "date": "2026-11-03",
+    "by": "challenger · claude-opus-5-5",
+    "verdicts": [
+     {
+      "file": "ControlNet as Topology — rich — the landscape.html",
+      "verdict": "remake",
+      "why": "Walks up well and every number reproduces, but (1) step 3 tallies against BASE alone (comps('cfg'), line 198/297), so 'where no valley was' reads 0.0% by construction; tally with cnNow()[0] as checks.mjs does. (2) Step 5's verdict says 'not as the page says' for the beside-the-init canyon, where d 0.5 splits 50–62% flat in weight, the page's 'competes evenly'; report that row, and name that the far canyon's zero rests on its flat floor (floorless, d 0.5 catches 26% at λ1, 100% at λ3). (3) One scoping clause in the caption: the page's picture in two dimensions, not a network."
+     }
+    ]
+   }
+  },
+  {
+   "heading": "Pose vs depth — canyons of different shape (2026-07-09)",
+   "made_against": "6836494b8980",
+   "made": "2026-11-03",
+   "status": "proposal",
+   "proposed": {
+    "date": "2026-11-03",
+    "by": "maker · claude-opus-5-5 · proposal round",
+    "round": "proposal-round-2026-11"
+   },
+   "pieces": [
+    {
+     "file": "/GenAI Camera/renders/render_021.png",
+     "origin": "gathered",
+     "title": "depth strength sweep · sorceress · GenAI Camera render 021",
+     "place": "band",
+     "near": "A nude mannequin conditioned on depth",
+     "caption": "**The rule, tested by sweep.** Top row is what was sent in: the mannequin, its pose skeleton (the real controlnet_aux plate), its depth. Below, pose held at 0.9 and denoise at 0.9 while depth's weight rises: pose only and 0.15 grow a full hooded robe; by 0.30 the legs are bare; at 0.60 and 0.80 the figure is the mannequin's surface, inked. The GenAI Camera's record reads the middle, about 0.30 to 0.45, as the sweet spot, real body form with the costume still reading (GenAI Camera § Gotchas & recipes). Depth's weight is how tight the canyon is."
+    },
+    {
+     "file": "/GenAI Camera/renders/render_022.png",
+     "origin": "gathered",
+     "title": "depth strength sweep · barbarian · GenAI Camera render 022",
+     "place": "band",
+     "near": "A nude mannequin conditioned on depth",
+     "caption": "The same sweep for the barbarian: fur mantle, cloak and boots at pose only; the fur thins as depth rises; at 0.60 and 0.80 only a loincloth survives on the mannequin's body. Two prompts, one shape of answer."
+    },
+    {
+     "file": "/GenAI Camera/renders/render_010.png",
+     "origin": "gathered",
+     "title": "depth-only figures · GenAI Camera render 010",
+     "near": "A nude mannequin conditioned on depth",
+     "caption": "The section's first evidence, depth side: both figures conditioned on depth at 0.97 come out as inked mannequins."
+    },
+    {
+     "file": "/GenAI Camera/renders/render_011.png",
+     "origin": "gathered",
+     "title": "pose-only figures · GenAI Camera render 011",
+     "near": "A nude mannequin conditioned on depth",
+     "caption": "The pose side, with the record's own caveat: this ran on the thin pose plate, and the robes and fur came mostly from the image-to-image init with depth gone, not from the pose. The hard edges are the composite mask clipping the cloth. Renders 021 and 022 above are the test that stands."
+    }
+   ],
+   "stamped": "2026-11-03",
+   "challenge": {
+    "date": "2026-11-03",
+    "by": "challenger · claude-opus-5-5",
+    "verdicts": [
+     {
+      "file": "/GenAI Camera/renders/render_021.png",
+      "verdict": "keep",
+      "why": "The thick-plate depth sweep is the test the section's rule passed; caption matches the image. Note: GenAI Camera.md:171 reads 0.30–0.45 as the sweet spot where form and costume both read; one clause would carry the dial's middle, not just its loss."
+     },
+     {
+      "file": "/GenAI Camera/renders/render_022.png",
+      "verdict": "keep",
+      "why": "Same sweep, second garment type; caption matches the image and the record (costume retreats to a loincloth by 0.60)."
+     },
+     {
+      "file": "/GenAI Camera/renders/render_010.png",
+      "verdict": "keep",
+      "why": "The section's original depth-side evidence; caption matches renders.json n 10 (depth-only at 0.97) and the image."
+     },
+     {
+      "file": "/GenAI Camera/renders/render_011.png",
+      "verdict": "keep",
+      "why": "The weak first evidence kept and labelled with the record's own caveat (renders.json n 11, thin plate; init and denoise did the work), pointing to 021/022 as the test that stands. Honest."
+     }
+    ]
+   }
+  }
+ ]
+}
