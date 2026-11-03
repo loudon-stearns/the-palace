@@ -103,8 +103,8 @@ console.log('— distance —');
   for (let u = 0; u <= 60; u++) { const r = 0.05 * Math.pow(1000, u / 60);
     worst = Math.max(worst, Math.abs(CI.range(CI.sylDb(CI.place(v.x, tl, fl, r, false, false), v.syl)) - B.dryRange));
     widest = Math.max(widest, CI.range(CI.sylDb(CI.place(v.x, tl, fl, r, false, true), v.syl)) - B.dryRange); }
-  check('open air, the voice alone: the range is the same at every distance (the null)', worst < 1e-6, `largest change ${worst.toExponential(2)} dB over 61 distances, 5 cm to 50 m; 0.001 or more would fail`);
-  check('open air over the floor: distance never widens the range', widest <= 1e-6, `widest change ${widest.toFixed(4)} dB; anything above 0 would bear the page out`);
+  check('open air, the voice alone: one gain, so the range holds at every distance (arithmetic: a check of the code, not of the world)', worst < 1e-6, `largest change ${worst.toExponential(2)} dB over 61 distances, 5 cm to 50 m`);
+  check('open air over the floor: the floor only narrows the range (the model again, not a test)', widest <= 1e-6, `widest change ${widest.toFixed(4)} dB`);
   for (const r in B.open) { const a = CI.range(CI.sylDb(CI.place(v.x, tl, fl, +r, false, false), v.syl)), b = CI.range(CI.sylDb(CI.place(v.x, tl, fl, +r, false, true), v.syl));
     if (!near(a, B.open[r][0], 0.006) || !near(b, B.open[r][1], 0.006)) check(`baked range at ${r} m matches`, false, `${a.toFixed(3)} / ${b.toFixed(3)} against ${B.open[r]}`); }
   check('every baked distance range matches the engine', true, 'a mismatch would print a FAIL line above');
@@ -115,13 +115,20 @@ console.log('— distance —');
   for (const [name, eff] of [['whisper', 0], ['shout', 1]]) { const p = CI.voice({ effort: eff, wobble: W }), t = CI.roomTail(p.x);
     for (const r of ['0.05', '50']) { const lv = CI.sylDb(CI.place(p.x, t, fl, +r, false, true), p.syl);
       check(`the page’s pair: ${name} at ${r} m`, near(CI.range(lv), B.pair[name][r].range, 0.006) && near(Math.max(...lv), B.pair[name][r].top, 0.051), `range ${CI.range(lv).toFixed(3)}, loudest ${Math.max(...lv).toFixed(2)} dB`); } }
+  // the page's pair with the shout's made range as an input: the rule holds where the shout arrives wider than the whisper
+  const wr = B.pair.whisper['0.05'].range; let ok = true; const seen = [];
+  for (const k of [1, 3, 5]) { const p = CI.voice({ effort: 1, wobble: W.map((x) => x * k) }), t = CI.roomTail(p.x);
+    for (const r of [50, 100]) { const g = CI.range(CI.sylDb(CI.place(p.x, t, fl, r, false, true), p.syl)); seen.push(`${4 * k} dB @ ${r} m: ${g.toFixed(2)}`); if (!near(g, B.grid[4 * k][r], 0.006)) ok = false; } }
+  check('the made-range grid matches its printed numbers', ok, seen.join(' · '));
+  check('the control, made equal, fails at both distances', B.grid[4]['50'] <= wr && B.grid[4]['100'] <= wr, `${B.grid[4]['50']}, ${B.grid[4]['100']} against the whisper’s ${wr}`);
+  check('the pair can fail with a wide shout: 12 dB made, 100 m off', B.grid[12]['100'] < wr && B.grid[12]['50'] > wr, `${B.grid[12]['50']} at 50 m holds, ${B.grid[12]['100']} at 100 m fails, against ${wr}`);
   check('the whisper in your ear arrives louder than the shout across the field', B.pair.whisper['0.05'].top > B.pair.shout['50'].top, `${(B.pair.whisper['0.05'].top - B.pair.shout['50'].top).toFixed(1)} dB louder`); }
 
 console.log('— the four knobs —');
 { const mean = (a, w) => { let s = 0; for (let i = w[0]; i < w[1]; i++) s += a[i]; return s / (w[1] - w[0]); }, n0 = Math.round((1.90 + 0.56 + 0.06) * R);
   const run = (rel) => { const c = CI.compress(v.x, { T: -30, ratio: 4, att: 0.010, rel, look: 0.005 }); let n = n0; while (n < c.gr.length && c.gr[n] - c.want[n] > 1) n++; return { soft: mean(c.gr, v.syl[5].win), want: mean(c.want, v.syl[5].win), whisper: mean(c.gr, v.syl[6].win), hang: (n - n0) / R * 1000 }; };
   const f = run(0.04), s = run(1.0);
-  check('release, the test: a slower release holds the soft line after the shout harder', s.soft > f.soft + 3 && s.whisper > f.whisper + 3, `40 ms: ${f.soft.toFixed(2)} dB (its level asks ${f.want.toFixed(2)}), whisper ${f.whisper.toFixed(2)}, extra hold ${f.hang.toFixed(0)} ms · 1 s: ${s.soft.toFixed(2)} dB, whisper ${s.whisper.toFixed(2)}, extra hold ${s.hang.toFixed(0)} ms; the page’s line would need the 1 s numbers smaller`);
+  check('release: a slower release holds the soft line after the shout harder', s.soft > f.soft + 3 && s.whisper > f.whisper + 3, `40 ms: ${f.soft.toFixed(2)} dB (its level asks ${f.want.toFixed(2)}), whisper ${f.whisper.toFixed(2)}, extra hold ${f.hang.toFixed(0)} ms · 1 s: ${s.soft.toFixed(2)} dB, whisper ${s.whisper.toFixed(2)}, extra hold ${s.hang.toFixed(0)} ms; a one-pole release can’t go the other way; this checks the printed numbers, the test is of the page’s reading`);
   check('release: printed numbers match', near(f.soft, B.release['0.04'].soft, 0.051) && near(s.soft, B.release['1'].soft, 0.051) && near(s.whisper, B.release['1'].whisper, 0.051) && Math.abs(s.hang - B.release['1'].hangMs) <= 1 && Math.abs(f.hang - B.release['0.04'].hangMs) <= 1, 'soft, whisper, hold time');
   const over = (att) => { const c = CI.compress(v.x, { T: -30, ratio: 4, att, rel: 0.12, look: 0.005 }), on = Math.round(1.90 * R); let mx = -1e9; for (let i = on; i < on + Math.round(0.1 * R); i += 48) mx = Math.max(mx, CI.rmsDb(c.y, i, i + 240)); return mx - CI.rmsDb(c.y, v.syl[4].win[0], v.syl[4].win[1]); };
   const a1 = over(0.001), a50 = over(0.05);
