@@ -15,6 +15,7 @@ links:
   - { target: "[[STIGMERGY]]", type: connects-to, label: "display + request door" }
   - { target: "[[Enrichment]]", type: couples-with, label: "uniform-enrichment cousin" }
   - { target: "[[Loudon Live Design System]]", type: connects-to, label: "frame + cascade" }
+  - { target: "[[Drafting Table Design System]]", type: connects-to, label: "faces-as-tab-icon" }
   - target: "[[Retrospective Delay]]"
     type: connects-to
     label: proving-subject
@@ -51,7 +52,7 @@ Hand-drawn / classical / printmaking / abstract — **never** glossy 3D-render, 
 
 ## The convention
 
-`<bundle>/<EntryTitle> — hero.png` and `<bundle>/<EntryTitle> — icon.png`. File existence *is* the record — "this entry has a face." STIGMERGY resolves both by this convention (preferring the title-matched name, else any `* — hero.png` / `* — icon.png`).
+`<bundle>/<EntryTitle> — hero.png` and `<bundle>/<EntryTitle> — icon.png`. File existence *is* the record — "this entry has a face." STIGMERGY resolves both by this convention (preferring the title-matched name, else any `* — hero.png` / `* — icon.png`). Since 2026-11-03 the two faces have two more uses, on Loudon's word ("every page in the palace has an avatar and hero to be used when appropriate"): any HTML page in the entry's bundle wears the avatar as its tab icon (`<link rel="icon">`) and may pin the hero behind its header where that fits; the rule, and the frame's exception (a framed piece carries none; the page that frames it wears the avatar), live in [[Drafting Table Design System]] and [[Loudon Live Design System]], § The browser's furniture in each README.
 
 ## The pipeline (proven 2026-06-23)
 
