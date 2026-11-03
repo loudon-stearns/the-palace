@@ -1,0 +1,26 @@
+{
+ "entry": "The Dichotomy of Control",
+ "path": "The Dichotomy of Control.md",
+ "type": "concept",
+ "stage": "growing",
+ "weight": 6,
+ "claim": "§ The Palace / Technical Face: 'Actuation authority = prohairesis. A controller can only command its actuators; everything else — load, noise, the plant's own dynamics, the future reference — is disturbance. A good controller spends effort only where it has authority and models the rest as disturbance to reject, not to fight.' (Ohm's Law: you set the drive; the impedance is only to meet.) § Open Questions: much sits in a blurred middle — things one can influence but not command.",
+ "pieces": [
+  {
+   "section": "The Palace / Technical Face",
+   "what": "A plant under a disturbance, with a controller whose effort the reader divides between its actuator (authority) and a channel aimed at the disturbance itself (fighting what is not up to it: a channel with zero gain on the plant). Tracking error and total effort measured. Tests that effort outside authority buys no error reduction, and that a controller which models the disturbance (an observer or feedforward that rejects it) beats one that fights it, at equal effort. The test can fail: give the disturbance channel partial authority (gain between 0 and 1) and see whether 'spend only where you have authority' still holds — which is the open question's blurred middle, measured.",
+   "kind": "interactive",
+   "walks_up_from": "a plant with no controller and one step disturbance"
+  },
+  {
+   "section": "The Life Face",
+   "what": "Draw the two columns, as a sorting with a cost: items placed up-to-me or not, where the second column's items carry a partial authority the reader can set. The piece asks whether a third column is needed by measuring: at authority 0.3, does releasing the grip or acting on it minimise the cost? A piece with nothing to test here does not ship — the maker decides after the first piece lands whether this one tests or only illustrates.",
+   "kind": "interactive",
+   "walks_up_from": "one item, two columns"
+  }
+ ],
+ "gathered": [],
+ "tier": "sketch",
+ "note": "The nominators' read: a control-theory claim a piece can simulate. The page's agency profile asks for the control-theory mapping made exact — actuation authority, disturbance rejection, observability — so a piece that finds the mapping loose (e.g. the page lists 'the future reference' as disturbance, which a controller does not reject) records that as an offer for the text. No board notes; no baton on the page.",
+ "slice": "cloud-1"
+}
