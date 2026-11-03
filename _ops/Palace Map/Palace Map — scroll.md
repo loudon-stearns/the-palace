@@ -15,17 +15,17 @@ forward_vector: "I am Palace Map's scroll — the page's front door, opening on 
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-11-03T13:02:17.314Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the page is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-11-03T13:07:31.610Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the page is steered by the **Plan** and **Standing Orders** below, never here._
 
 - **Status:** — · **Stage:** growing · **Steward:** none — this page has no permanent steward yet
-- **Plan:** agreed 2026-10-23 (12 days ago) · 2 made things since
+- **Plan:** agreed 2026-10-23 (12 days ago) · 3 made things since
 - **Waiting on you:** nothing
-- **Last shipped:** 2026-11-03 (today) — Move 2 of the keeper plan landed: the keeper has a profile, a charter and a spawn recipe (eb42b932) — its done-when check is open and running (`palace-map-keeper-move2-landed-2026-11-03`)
-- **Last commit touching this page:** 2026-11-03 `eb42b932` — ops(Palace Map): Move 2 of the keeper plan: the keeper — a palace-map-keeper profile (Read and Bash), its charter and spawn recipe, Palace Map says what it is
+- **Last shipped:** 2026-11-03 (today) — Move 2's done-when met: the keeper, spawned fresh on today's build, answered both proof sets — 63/63 edges real, every count by script (1b3f1324). Move 3 next (`palace-map-keeper-donewhen-met-2026-11-03`)
+- **Last commit touching this page:** 2026-11-03 `1b3f1324` — ops(Palace Map): Move 2's done-when met: the keeper, spawned fresh on today's build, answered both proof sets with 63/63 edges real and every count by script; the run is recorded, the baton moves to Move 3's first use
 
 ### Where this stands
 
-Loudon, 2026-11-03: "Yes, place and test." eb42b932 makes the keeper: a `palace-map-keeper` profile in Agent Toolbox with Read and Bash only, generated into `.claude/agents/palace-map-keeper.md`; the charter at `_ops/palace-map-keeper/charter.md` (Sonnet, the newest TSV whole at boot, an intuition then the script, every edge a triple as the map spells it, `verify-triples.py` on its own answer, nothing written); the spawn recipe in `_ops/palace-map-keeper/README.md`; and Palace Map § Seeing and Counting saying what the keeper now is and is not yet (no postures, no ledger). The baton moves to Move 3, first runs. **Open check, running in this session:** the keeper spawned fresh by the recipe,…
+Loudon, 2026-11-03: "Yes, place and test." The keeper was spawned fresh by the README's recipe at 9480f97d on the 2026-11-03 build (327 nodes, 2450 edges) and given the proof's questions.md and creative.md. It read the TSV whole, used the scripts for every count and route, cited every edge as a triple, kept a log per creative move, ran verify-triples.py on itself (two reversed triples caught and fixed, then 63/63) and wrote nothing; 120,679 tokens. The working Claude checked all ten facts against the script; the Concierge re-ran verify-triples.py on the answer file when placing the record: 63/63. The run sits in `_ops/Palace Map/proofs/2026-11-03-keeper-first-run/` with a line on the proof…
 
 ### Open asks
 
@@ -95,6 +95,20 @@ _Loudon's standing direction for this page — never regenerated. A steward, if 
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="palace-map-keeper-donewhen-met-2026-11-03" -->
+### 2026-11-03 — Move 2's done-when met: the keeper, spawned fresh on today's build, answered both proof sets — 63/63 edges real, every count by script (1b3f1324). Move 3 next
+> checked · Move 2 of the plan agreed 2026-10-23 done · Move 3, first runs, is the baton's move
+
+Loudon, 2026-11-03: "Yes, place and test." The keeper was spawned fresh by the README's recipe at 9480f97d on the 2026-11-03 build (327 nodes, 2450 edges) and given the proof's questions.md and creative.md. It read the TSV whole, used the scripts for every count and route, cited every edge as a triple, kept a log per creative move, ran verify-triples.py on itself (two reversed triples caught and fixed, then 63/63) and wrote nothing; 120,679 tokens. The working Claude checked all ten facts against the script; the Concierge re-ran verify-triples.py on the answer file when placing the record: 63/63. The run sits in `_ops/Palace Map/proofs/2026-11-03-keeper-first-run/` with a line on the proof front page. Two things it disclosed, now open questions on the baton: no verb counts relation types (it used `cut | sort | uniq` and said so — a `types` verb would close it), and pillars are not in the map. The charter stands unchanged. Next: Move 3's first use — a constellation for a Daily Page sit, or the Walk's door.
+
+**Artifacts:**
+- [RESULTS.md — the first run](_ops/Palace Map/proofs/2026-11-03-keeper-first-run/RESULTS.md)
+- [answer.md — 63 triples, all real](_ops/Palace Map/proofs/2026-11-03-keeper-first-run/answer.md)
+
+_Next moves named:_ Move 3's first use: a constellation for a Daily Page sit, or a route for the Walk's door · Open: a types verb on palace-map.py; pillars in the map
+<sub>`palace-map-keeper-donewhen-met-2026-11-03` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="palace-map-keeper-move2-landed-2026-11-03" -->
 ### 2026-11-03 — Move 2 of the keeper plan landed: the keeper has a profile, a charter and a spawn recipe (eb42b932) — its done-when check is open and running
 > shipped · Move 2 of the plan agreed 2026-10-23 · the check runs now, on today's build
