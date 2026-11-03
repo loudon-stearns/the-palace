@@ -316,7 +316,7 @@ const SC = (() => {
     const p = SC.atLeast(right, TRIALS, 0.5);
     const say = right >= 7 ? `You named the note ${right} times in 8. A guesser gets that far ${pct(p)} of the time. For your ear, on this mix, the bass under the kick was masked but not lost: you told the two sounds apart. The page’s “can’t distinguish” is too strong here; “mask” is the word.`
       : right >= 5 ? `${right} of 8. A guesser gets that far ${pct(p)} of the time, so this doesn’t settle it either way. Try it again, or listen with headphones.`
-      : `${right} of 8: no better than a coin. For your ear, on this mix, the page’s word held: under the kick, the note was gone.`;
+      : `${right} of 8: no better than a coin. You couldn’t name the note better than a guess. That is what the page predicts, though it doesn’t prove the note was gone: you may have heard something there without telling which.`;
     return `<table class="marks"><tr><th>trial</th>${S.trials.map((_, i) => `<th>${i + 1}</th>`).join('')}</tr><tr><td>the note</td>${cells}</tr><tr><td>you said</td>${S.answers.map((a) => `<td>${a}</td>`).join('')}</tr></table><p class="say" style="margin-top:12px">${say}</p><p class="hint">Chance, for every score: ${[4, 5, 6, 7, 8].map((k) => `${k} or more · ${pct(SC.atLeast(k, TRIALS, 0.5))}`).join(' · ')}.</p>`;
   }
 

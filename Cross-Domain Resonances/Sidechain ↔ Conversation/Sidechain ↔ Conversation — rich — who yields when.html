@@ -4,7 +4,7 @@
   born: 2026-11-03
   links: [[Sidechain ↔ Conversation]] (connects-to · rich-face-piece) · listed in [[Sidechain ↔ Conversation — rich.json]] · its siblings on this face are "under the kick" and "mud into dialogue", which share its engine byte for byte · its voices' recipe is "Sidechain ↔ Conversation — rich — two voices.py"
   forward_vector: I am the page's conversational parameters, played with two synthetic voices: a speaker alone, a listener whose inner voice never stops, the two talking over each other, then the listener sidechained to the speaker with the page's four knobs under the page's four questions, then the release alone, from leaping into every breath to never answering, and last six blind pairs that ask which one interrupts, with the chance score beside yours. I change only when the section I serve does.
-  sound: nothing plays until Play (or a pair) is clicked; the AudioContext is made on that click. Changing step stops the sound. The voices are Kokoro (open weights): af_heart speaks, am_michael listens. They are carried inline below, 16 kHz, 8-bit mu-law.
+  sound: nothing plays until Play (or a pair) is clicked; the AudioContext is made on that click. Changing step stops the sound. The voices are Kokoro (open weights): af_heart speaks, am_michael listens. They are carried inline below, 16 kHz, 8-bit mu-law. Every version plays at one fixed gain.
   check: "Sidechain ↔ Conversation — rich — check.mjs", beside this file, runs the engine and the voices in Node.
 -->
 <html lang="en" class="skin-graphite">
@@ -246,6 +246,9 @@ const VOICES = {"sr":16000,"n":172139,"mu":255.0,"phrases":[[0.8326,2.9126],[4.5
     $('sigil').innerHTML = `<polyline points="${pts.join(' ')}" fill="none" stroke="#e8b84a" stroke-width="1"/>`; }
   const VR = VOICES.sr, A = SC.unmu(VOICES.a, VOICES.mu), B = SC.unmu(VOICES.b, VOICES.mu), SPANS = VOICES.phrases, LEN = A.length / VR, TRIALS = 6;
   const BASE = { T: -35, R: 8, atk: 0.01, rel: 0.3 };
+  // One fixed gain for every version, never a per-version match: the speaker is the same in X and Y, and only
+  // the listener's return changes. Set from the two voices' peaks, so no mix can pass 0.9.
+  const GAIN = 0.9 / (SC.stats(A).peak + SC.stats(B).peak);
   const DOUBLE = (x) => { const y = new Float64Array(2 * x.length); y.set(x); y.set(x, x.length); return y; };
   const A2 = DOUBLE(A), B2 = DOUBLE(B);
   const cache = new Map();
@@ -258,7 +261,7 @@ const VOICES = {"sr":16000,"n":172139,"mu":255.0,"phrases":[[0.8326,2.9126],[4.5
     // ∞ release: from rest, twice through, once; a loop would start the listener fresh every time round.
     else if (o.rel === Infinity) { const d = SC.duck(A2, VR, { ...o, loop: false }); r = { y: SC.mix(A2, B2, d.gain), a: A2, b: B2, gain: d.gain, loop: false }; }
     else { const d = SC.duck(A, VR, o); r = { y: SC.mix(A, B, d.gain), a: A, b: B, gain: d.gain, loop: true }; }
-    r.buf = SC.matched(r.y, -24);
+    r.buf = Float32Array.from(r.y, (v) => v * GAIN);
     if (r.gain) {
       const spans = r.loop ? SPANS : SPANS.concat(SPANS.map(([s, e]) => [s + LEN, e + LEN]));
       r.dur = SC.during(r.gain, VR, spans);
@@ -285,7 +288,7 @@ const VOICES = {"sr":16000,"n":172139,"mu":255.0,"phrases":[[0.8326,2.9126],[4.5
       say: 'Only the release moves now. At 20 ms the listener leaps into every breath inside the speaker’s line. At 300 ms it waits the breaths out and comes back after the line ends. At 1 s it takes nearly the whole gap to come back, and is barely there before the next line starts. At ∞ it never answers, the page’s bad conversation, “you never respond”; that plays twice through once, from rest. One tension to hold: a compressor only turns a voice down. The listener never stopped talking underneath, and it comes back mid-sentence. The page asks for no inner commentary at all, and no setting of a duck gives silence.',
       hear: 'release, the one knob', eq: ['', ''], eq2: ['', ''] },
     { key: 'test', rail: 'polite or interrupting', title: 'Which one interrupts?',
-      say: 'Six pairs. In each, X and Y are the same two voices with the same threshold, ratio and attack; only the release differs, one quick (20 to 80 ms) and one slow (300 to 800 ms), in an order chosen by chance. Both are matched in level. Say which one interrupts. There is no right answer to this, only the page’s reading: if release is how quickly I formulate my response, the quick one should sound like the interruption. A coin agrees with that reading 3 times in 6 on average.',
+      say: 'Six pairs. In each, X and Y are the same two voices with the same threshold, ratio and attack; only the release differs, one quick (20 to 80 ms) and one slow (300 to 800 ms), in an order chosen by chance. Every version plays at one fixed gain, so the speaker is identical in both and only the listener’s return changes. Say which one interrupts. There is no right answer to this, only the piece’s reading of the page’s release question: if release is how quickly I formulate my response, the quick one should sound like the interruption. A coin agrees with that reading 3 times in 6 on average.',
       hear: 'pick X or Y', eq: ['chance: 1 in 2 per pair · 3 of 6 on average · P(6 of 6 by guessing) = 1 ÷ 64 = 1.6%', 'the same coin as a guess, six times'], eq2: ['', ''] },
   ];
   const S = { step: 0, set: { ...BASE }, rel: 0.3, pairs: null, t: 0, answers: [], pick: null, done: false };
@@ -339,8 +342,8 @@ const VOICES = {"sr":16000,"n":172139,"mu":255.0,"phrases":[[0.8326,2.9126],[4.5
     let agree = 0; S.pairs.forEach((p, i) => { if (S.answers[i] === p.quick) agree++; });
     const p = SC.atLeast(agree, TRIALS, 0.5), pq = SC.atLeast(TRIALS - agree, TRIALS, 0.5);
     const say = agree >= 5 ? `You heard the quick release as the interruption ${agree} times in 6. A coin does that ${pct(p)} of the time. For you, the release time read as manners: coming back fast sounds like cutting in, coming back slow like waiting your turn.`
-      : agree <= 1 ? `You heard the slow release as the interruption ${6 - agree} times in 6 (a coin: ${pct(pq)}). That is the page’s reading turned over, and worth a thought: perhaps the slow return sounds like someone still talking as the next line begins.`
-      : `${agree} of 6 with the page’s reading, which is about what a coin gives (${pct(p)} for that many or more). For your ear, release alone didn’t decide who interrupted.`;
+      : agree <= 1 ? `You heard the slow release as the interruption ${6 - agree} times in 6 (a coin: ${pct(pq)}). That is the piece’s reading turned over, and worth a thought: perhaps the slow return sounds like someone still talking as the next line begins.`
+      : `${agree} of 6 with the piece’s reading, which is about what a coin gives (${pct(p)} for that many or more). For your ear, release alone didn’t decide who interrupted.`;
     const ms = (s) => Math.round(s * 1000) + ' ms';
     return `<table class="marks"><tr><th>pair</th><th>X</th><th>Y</th><th>you said</th><th></th></tr>${S.pairs.map((q, i) => `<tr><td>${i + 1}</td><td>${ms(q.X)}</td><td>${ms(q.Y)}</td><td>${S.answers[i]}</td><td>${S.answers[i] === q.quick ? '<b>the quick one</b>' : 'the slow one'}</td></tr>`).join('')}</table><p class="say" style="margin-top:12px">${say}</p><p class="hint">Chance, for every count: ${[3, 4, 5, 6].map((k) => `${k} or more · ${pct(SC.atLeast(k, TRIALS, 0.5))}`).join(' · ')}.</p>`;
   }

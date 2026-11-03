@@ -124,6 +124,10 @@ console.log('— mud into dialogue (Teaching the Resonance) —');
   check('the blind test\'s versions are matched in level', Math.abs(dB(SC.stats(plain).rms) - dB(SC.stats(duck).rms)) < 0.01, `${dB(SC.stats(plain).rms).toFixed(3)} and ${dB(SC.stats(duck).rms).toFixed(3)} dB RMS`);
   let dsq = 0, psq = 0; for (let i = 0; i < plain.length; i++) { dsq += (plain[i] - duck[i]) ** 2; psq += plain[i] ** 2; }
   info('the subtle duck, as a difference signal', `${(10 * Math.log10(dsq / psq)).toFixed(1)} dB under the loop: present, small`);
+  const mk = dB(Math.pow(10, -18 / 20) / SC.stats(SC.mix(K, B, sub.gain)).rms) - dB(Math.pow(10, -18 / 20) / SC.stats(SC.mix(K, B, null)).rms);
+  check('the step names its matching: whole-bar RMS, 0.47 dB of makeup gain', P.mud.includes('matched in RMS over the whole two-second bar') && Math.abs(mk - 0.47) < 0.01, `the ducked loop gets ${mk.toFixed(2)} dB more gain than the plain one`);
+  { const w = Math.round(0.08 * SR); let dsq = 0, gsq = 0; for (let b0 = 0; b0 < 4; b0++) for (let i = b0 * BEAT; i < b0 * BEAT + w; i++) { dsq += B[i] ** 2; gsq += (B[i] * Math.pow(10, sub.gain[i] / 20)) ** 2; }
+    check('the duck survives the matching: the bass down in the first 80 ms after each kick', Math.abs(10 * Math.log10(gsq / dsq) + mk + 3.5) < 0.1, `${(10 * Math.log10(gsq / dsq)).toFixed(2)} dB before matching, ${(10 * Math.log10(gsq / dsq) + mk).toFixed(2)} dB after`); }
   check('chance figure: 5 or more of 6 at one in three = 13 ÷ 729', Math.abs(SC.atLeast(5, 6, 1 / 3) - 13 / 729) < 1e-12 && P.mud.includes('13 ÷ 729 = 1.8%'), `${(100 * SC.atLeast(5, 6, 1 / 3)).toFixed(2)}%`);
   info('chance, mud into dialogue', [2, 3, 4, 5, 6].map((k) => `${k}+: ${(100 * SC.atLeast(k, 6, 1 / 3)).toFixed(1)}%`).join(' · '));
   // release ∞, four bars once: a bar of the bass alone at 0 dB, then the kick, and the bass never returns
@@ -158,9 +162,14 @@ console.log('— who yields when (The Conversational Side) —');
   let all = true; const rows = [];
   for (const q of [0.02, 0.04, 0.08]) for (const s of [0.3, 0.5, 0.8]) { const Q = R(q), L = R(s); const ok = Q.dur.inside > L.dur.inside && Q.dur.between > L.dur.between; if (!ok) all = false; rows.push(`${q * 1000}/${s * 1000}: ${Q.dur.inside.toFixed(1)} vs ${L.dur.inside.toFixed(1)}`); }
   check('every pair: the quick release leaks more into the lines and is back sooner', all, rows.join(' · '));
-  const target = +P.who.match(/r\.buf = SC\.matched\(r\.y, (-?\d+)\)/)[1];
-  const lv = [0.02, 0.04, 0.08, 0.3, 0.5, 0.8].map((rel) => dB(SC.stats(SC.matched(SC.mix(a, b, R(rel).d.gain), target)).rms));
-  check('every pair is matched in level', Math.max(...lv) - Math.min(...lv) < 0.01, `all six releases at ${lv.map((v) => v.toFixed(2)).join(', ')} dB RMS`);
+  // one fixed gain for every version: the speaker is identical in X and Y, and no version clips
+  check('every version plays at one fixed gain, never a per-version match', /const GAIN = 0\.9 \/ \(SC\.stats\(A\)\.peak \+ SC\.stats\(B\)\.peak\);/.test(P.who) && /r\.buf = Float32Array\.from\(r\.y, \(v\) => v \* GAIN\);/.test(P.who) && !P.who.includes('SC.matched('), 'GAIN = 0.9 ÷ (peak of speaker + peak of listener), applied to every render');
+  const GAIN = 0.9 / (SC.stats(a).peak + SC.stats(b).peak);
+  const spk = [0.02, 0.8].map((rel) => { const g = R(rel).d.gain, y = SC.mix(a, b, g); let s2 = 0, n = 0; for (let i = 0; i < y.length; i++) { const t = i / VR; if (spans.some(([s0, e]) => t >= s0 && t < e)) { s2 += (GAIN * a[i]) ** 2; n++; } } return { spk: dB(Math.sqrt(s2 / n)), mix: dB(SC.stats(y).rms * GAIN), peak: SC.stats(y).peak * GAIN }; });
+  check('the speaker is identical in the quick and slow versions', spk[0].spk === spk[1].spk, `speaker ${spk[0].spk.toFixed(3)} and ${spk[1].spk.toFixed(3)} dB RMS over its lines; whole mixes ${spk[0].mix.toFixed(2)} and ${spk[1].mix.toFixed(2)} dB (the listener's return is the only difference)`);
+  let worst = 0; for (const rel of [0.02, 0.04, 0.08, 0.3, 0.5, 0.8, 1]) worst = Math.max(worst, SC.stats(SC.mix(a, b, R(rel).d.gain)).peak * GAIN); worst = Math.max(worst, SC.stats(SC.mix(a, b, null)).peak * GAIN);
+  check('no version passes 0.9', worst <= 0.9, `loudest peak ${worst.toFixed(3)}`);
+  check('the reading is the piece\'s, not the page\'s', !P.who.includes('page’s reading') && P.who.includes('piece’s reading'), 'step, verdicts');
   check('chance figure: 6 of 6 by a coin = 1 ÷ 64', Math.abs(SC.atLeast(6, 6, 0.5) - 1 / 64) < 1e-12 && P.who.includes('1 ÷ 64 = 1.6%'), `${(100 * SC.atLeast(6, 6, 0.5)).toFixed(2)}%`);
   info('the voices', `speaker ${V.a_voice}: ${V.a_lines.join(' / ')} · listener ${V.b_voice}: ${V.b_lines.length} lines`);
 }

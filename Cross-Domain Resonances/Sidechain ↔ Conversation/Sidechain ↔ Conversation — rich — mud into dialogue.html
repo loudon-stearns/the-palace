@@ -75,7 +75,7 @@
 <main>
   <div class="eyebrow">Sidechain ↔ Conversation · Part 1, production practice · six steps</div>
   <h1>Mud into dialogue</h1>
-  <p class="lead">The page’s first assignment, as it is written: kick and bass with no sidechain, then with it, then exaggerated, then subtle. Then the four knobs the page names, with the bass’s gain drawn under the waveform. The last step is blind: can you hear the subtle duck at all? Every sound is made here from sines, and every version is matched in level, so louder never wins. Nothing plays until you press Play.</p>
+  <p class="lead">The page’s first assignment, as it is written: kick and bass with no sidechain, then with it, then exaggerated, then subtle. Then the four knobs the page names, with the bass’s gain drawn under the waveform. The last step is blind: can you hear the subtle duck at all? Every sound is made here from sines, and every version is matched in RMS over the whole bar, so louder never wins. Nothing plays until you press Play.</p>
 
   <nav class="rail" aria-label="Steps" id="rail"></nav>
 
@@ -284,7 +284,7 @@ const SC = (() => {
       say: 'The page’s four parameters, each with the page’s own question beside it. Drag them and watch the gain lane: the threshold decides whether the kick gets a say at all, the ratio how deep the bass yields, the attack how quickly, the release how soon it comes back. Turn the release to the end, ∞, and the bass never returns, the page’s bad sidechain. That plays four bars once, since a loop would start it fresh every bar: a bar of the bass alone, then the kick comes in, and the bass never comes back.',
       hear: 'your settings', eq: ['L = 10·log₁₀( mean of kick² over 5 ms ) + 3 dB', '(how loud the kick is right now), read the way a sine’s peak is read, in dB'], eq2: ['release = ∞  →  c = 1 on the way up: g never rises again', 'an infinite release leaves the bass wherever the deepest duck put it'] },
     { key: 'test', rail: 'can you hear it', title: 'Can you hear the subtle duck?',
-      say: 'Six trials. In each, three loops, A, B and C: two have no sidechain and one has the subtle duck of step 4, in an order chosen by chance. All three are matched in level. Pick the one that ducks. Guessing is right one time in three, so a guesser scores 2 of 6 on average.',
+      say: 'Six trials. In each, three loops, A, B and C: two have no sidechain and one has the subtle duck of step 4, in an order chosen by chance. All three are matched in RMS over the whole two-second bar, so the ducked loop gets back the 0.47 dB the duck took out, the makeup gain a real compressor adds; the duck itself survives, the bass still 3.5 dB down in the first 80 ms after each kick. Pick the one that ducks. Guessing is right one time in three, so a guesser scores 2 of 6 on average.',
       hear: 'pick A, B or C', eq: ['chance: 1 in 3 per trial · 2 of 6 on average · P(5 or more by guessing) = 13 ÷ 729 = 1.8%', 'one right answer among three, six times'], eq2: ['', ''] },
   ];
   const S = { step: 0, on: 1, set: { ...PRE.mid }, trials: null, t: 0, answers: [], pick: null, done: false };
