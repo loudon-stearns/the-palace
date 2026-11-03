@@ -37,6 +37,22 @@
     "by": "maker · claude-opus-5-5 · proposal round",
     "round": "proposal-round-2026-11"
    },
+   "challenge": {
+    "date": "2026-11-03",
+    "by": "challenger · claude-opus-5-5",
+    "verdicts": [
+     {
+      "file": "/Projects/Crystal Synthesizer/crystal-rings/strike_vs_ring.wav",
+      "verdict": "keep",
+      "why": "Evidence against Decision Point 3's 'does not specify the rate': a rate from measured line widths beside one chosen by taste. Caption checked against check_rings.py and linewidths.json (5.5 s ÷ (1 + 0.15 k), A2, three widths measured); tracked."
+     },
+     {
+      "file": "The Metaphor Stretch — rich — four choices.html",
+      "verdict": "remake",
+      "why": "Walks up and tests the count, but step 5's verdict is a fixed sentence: under the centroid anchor (which step 2 offers) it reads 'both ends still moves … from 160 to 160 Hz (0.0 octaves)'. Compute it from the span; under centroid say the grid moves nothing and the hidden cut is the 88 Hz floor (17 to 21 % of modes). Optional: add 76 to GRIDS, where the top peaks at 9.1 kHz before the 0.012 floor drops it to 6.5 at 77."
+     }
+    ]
+   },
    "made": "2026-11-03",
    "pieces": [
     {
@@ -67,6 +83,17 @@
     "date": "2026-11-03",
     "by": "maker · claude-opus-5-5 · proposal round",
     "round": "proposal-round-2026-11"
+   },
+   "challenge": {
+    "date": "2026-11-03",
+    "by": "challenger · claude-opus-5-5",
+    "verdicts": [
+     {
+      "file": "The Metaphor Stretch — rich — which part is the crystal.html",
+      "verdict": "keep",
+      "why": "A real test that walks up (one partial, a pair, the crystal at N, five renders), and its numbers hold on the Python itself (centroid falls 47/95/94 % at N 8, 0.0 % at exponent 0, beating unchanged). Note: scope the caption's 'no beating at N = 8' to the code's lowest-mode anchor; under centroid N 8 beats at 7 to 12 Hz."
+     }
+    ]
    },
    "made": "2026-11-03",
    "pieces": [
