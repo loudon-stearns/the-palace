@@ -1,0 +1,108 @@
+{
+  "title": "Volterra Kernels and the Torus — rich",
+  "born": "2026-11-03",
+  "links": [
+    {
+      "target": "[[Volterra Kernels and the Torus]]",
+      "type": "connects-to",
+      "label": "rich-face-of"
+    },
+    {
+      "target": "[[Enrichment]]",
+      "type": "connects-to",
+      "label": "made-by"
+    },
+    {
+      "target": "[[2D Torus Wavetable Synthesizer]]",
+      "type": "connects-to",
+      "label": "the-scan-read-is-played-there"
+    }
+  ],
+  "forward_vector": "I am the manifest of Volterra Kernels and the Torus's rich face, its first round at Sketch tier: two made pieces, each walking up to a test of its section's claim — where the synth and the effect are one reader and where they are not, and what the diagonal of a kernel really throws away — with the fingerprint of the words each was laid against, and the findings the text has not yet taken, held as offers. I grow when the generalized slice processor gets built and has something to play; I never hold the entry's words.",
+  "entry": "Volterra Kernels and the Torus",
+  "tier": "sketch",
+  "made": "2026-11-03",
+  "round": 1,
+  "offers": [
+    {
+      "section": "The precedent and the diagonal",
+      "kind": "claim-change",
+      "what": "\"Preserves harmonic generation but discards intermodulation\" does not hold. Two tones (300 and 450 Hz, 0.45 each) through the second-order kernel on its diagonal, x(t)²: both harmonics at −19.89 dB, the sum and the difference products at −13.87 dB, 6.02 dB above them (the piece's worklet, headless, 48 and 44.1 kHz). The diagonal keeps intermodulation at full strength. What it gives up is the freedom to weight a product by the pair that made it: on the diagonal H₂(f₁, f₂) = G(f₁ + f₂), so a product is weighted only by where it lands. Off it, at D = 3.33 ms (x(t)·x(t − D)), the sum product falls below −96 dB and stays there through a 150 Hz glide, harmonics unchanged; a notch after the diagonal, tuned to the sum at 750 Hz, lets it back to −14.7 dB at +75 Hz and takes the 2f₁ harmonic to −97.6 dB instead. Proposed: \"…which preserves harmonic generation and intermodulation alike, but weights every product only by the frequency it lands on: what it discards is memory across lags, the products x(t − τ₁)·x(t − τ₂) with τ₁ ≠ τ₂ that let a kernel shape an intermodulation product apart from the harmonics.\" The same clause recurs in Forward Vectors (\"what intermodulation structure it carries that a Hammerstein diagonal discards\") and is cited as the load-bearing content in Artifact; both would follow.",
+      "status": "open"
+    },
+    {
+      "section": "The precedent and the diagonal",
+      "kind": "no-claim-edit",
+      "what": "A diagonal-only Volterra series gives each order its own filter, g₁, g₂, g₃…; that is a parallel (polynomial) Hammerstein, a bank of power branches each with its filter. A single Hammerstein, one static curve then one filter, is the special case where every order shares one filter. Proposed: \"equivalent to a (parallel) Hammerstein structure\".",
+      "status": "open"
+    },
+    {
+      "section": "What a Volterra kernel is",
+      "kind": "claim-change",
+      "what": "The page names the input-read three ways: the opening paragraph indexes the field \"with products of the input's own past\", the Volterra definition weights products by a field indexed by lags, and the Processing bullet indexes the field by the delayed values themselves, (x(t − τ₁), x(t − τ₂), …). The bullet's reading is a Volterra system, but its kernel is not the field: expand the field as a polynomial in the two amplitudes and its coefficients become kernel weights at the lags 0 and D. Measured on the piece: the Chebyshev field read by a plucked riff matches Σ c_jk·T_j(x(t))·T_k(x(t − D)) within 1.4 × 10⁻⁴ (peak 0.90; the gap is the 256-point table's interpolation). Proposed: in the opening, \"by indexing it with the input's own past values\"; after the bullets, \"Read this way the field is not itself the kernel: written as a polynomial in the amplitudes it indexes, its coefficients are the kernel's weights at those lags. The one grid of coefficients is the synth's partial table and the effect's kernel.\"",
+      "status": "open"
+    },
+    {
+      "section": "Cross-Domain Resonance",
+      "kind": "claim-change",
+      "what": "An addition the toggle earned. The two readers meet exactly in one place: a full-scale sine into the effect is the synth scanning at 1 : 1 with its second phasor lagging f·D of a turn (effect − synth at −267 to −297 dB on the a·b, tanh and Chebyshev fields, at D = 0, 17, 96 and 240 samples, 48 and 44.1 kHz). They part when the field is not the same mirrored across both axes (the (3,2) ridge: +2.2 dB) or the sine is below full scale (input level 0.9: −9.6 dB; 0.7: −3.4 dB). An amplitude names a phase only up to its sign, so the effect reads one quarter of the torus, there and back, and never winds round it: the topology the synth lives on is invisible to the effect. Proposed, after the first bullet: \"They meet at one point: a full-scale sine into the effect is the synth at 1 : 1. Elsewhere the effect reads the field through amplitude, which folds the torus to a quarter and never winds; the fields both readers hear alike are the ones that are polynomials in the two amplitudes.\"",
+      "status": "open"
+    },
+    {
+      "section": "The reframe",
+      "kind": "claim-change",
+      "what": "\"Ring modulation as the simplest input-read special case (the bilinear slice)\": a ring modulator as built, input times a carrier, reads one axis by the input and the other by a phasor, the halfway reading between synth and effect. Measured on the piece's half reader, a·b field, 220 Hz in, 110 Hz carrier: 110 and 330 Hz at 0.4500 each, 220 Hz at 10⁻¹⁶. The pure input-read bilinear slice is the input times its own past, x(t)·x(t − D), which is the off-diagonal kernel of the next section's piece. Proposed: \"ring modulation as the hinge between the two (the bilinear field, one axis read by the input and the other by a phasor); read by the input alone, the bilinear slice is the input times its own past\".",
+      "status": "open"
+    }
+  ],
+  "sections": [
+    {
+      "heading": "The precedent and the diagonal",
+      "made": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "Volterra Kernels and the Torus — rich — the diagonal and off it.html",
+          "origin": "made",
+          "by": "maker · claude-opus-5-5",
+          "title": "the diagonal and off it",
+          "caption": "A static curve, then two signals multiplied, then a sine times its own past, then the test: two tones into the second-order kernel, read on its diagonal and off it, with what each slice keeps predicted and measured. On the diagonal intermodulation comes out 6 dB above the harmonics; one step off, at D = 3.33 ms, the sum product is gone and stays gone through a glide. Checked headless on the piece's own worklet: Rich face checks/check-pieces.mjs.",
+          "near": "The single most clarifying technical result",
+          "place": "band",
+          "height": 1180
+        }
+      ],
+      "made_against": "bad67f0bf99a",
+      "stamped": "2026-11-03"
+    },
+    {
+      "heading": "Cross-Domain Resonance",
+      "made": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "Volterra Kernels and the Torus — rich — one field, two readers.html",
+          "origin": "made",
+          "by": "maker · claude-opus-5-5",
+          "title": "one field, two readers",
+          "caption": "The one-field-two-modes surface: a stored table read by your hand, by two phasors, by a plucked riff and its own past, then one button that flips scan, half and input. Last, the test: a full-scale sine into the effect against the synth at 1 : 1, and the meter on their difference. They are one signal on a field that looks the same mirrored; on the ridge, or below full scale, they come apart. Checked headless on the piece's own worklet: Rich face checks/check-pieces.mjs.",
+          "near": "One control surface, two modes",
+          "place": "band",
+          "height": 1300
+        }
+      ],
+      "made_against": "fd549dc609b8",
+      "stamped": "2026-11-03"
+    }
+  ]
+}
