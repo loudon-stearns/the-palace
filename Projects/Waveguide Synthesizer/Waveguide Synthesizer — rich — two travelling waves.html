@@ -1,0 +1,322 @@
+<!doctype html>
+<!--
+  title: Waveguide Synthesizer — rich — two travelling waves
+  born: 2026-11-03
+  links: [[Waveguide Synthesizer]] (connects-to · rich-face-piece) · listed in [[Waveguide Synthesizer — rich.json]] · serves § Why This Project Exists
+  forward_vector: I am the claim that the drawn string is the delay-line state, taken one idea at a time. A pluck splits into two waves, the ends turn them over, the true state at pitch is too fast for any screen, a strobe makes it watchable without faking it, and last the test: where you pluck decides which harmonics the string can have. I play inside the entry's rich face and stand alone opened directly; I change only when the section I serve does.
+  sound: steps 1 and 2 are silent; from step 3 nothing plays until you click the string or a pluck button, and the AudioContext is made on that click. Changing step stops the sound.
+  check: Waveguide Synthesizer — rich — check.mjs runs this page's engine in Node against the pitch and decay it claims.
+-->
+<html lang="en" class="skin-graphite">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- needs nothing of its host: no device, no storage, no file, no host; sound only on a click -->
+<meta name="piece:needs" content="">
+<title>Two travelling waves</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@300;400;500&display=swap">
+<style>
+  :root{
+    --bg:#0a0a0f; --bg-elev-1:#12121a; --bg-elev-2:#1a1a28; --border:#4a4a5e; --border-soft:rgba(255,255,255,0.06);
+    --fg-1:#e8e8f0; --fg-2:#c8c8d8; --fg-3:#8a8aa0; --fg-4:#4a4a5a;
+    --accent:#e8b84a; --accent-dim:#7a6030; --accent-soft:rgba(232,184,74,0.10); --accent-line:rgba(232,184,74,0.5);
+    --violet:#8b7cf6;
+    --serif:'Cormorant Garamond','Source Serif 4',Georgia,serif; --sans:'Manrope',system-ui,sans-serif;
+    --display:'Anton','Bebas Neue',Impact,sans-serif; --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--fg-1)}
+  body{font-family:var(--serif);font-size:17px;line-height:1.7;padding:28px 16px 36px}
+  main{max-width:960px;margin:0 auto}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--fg-3)}
+  h1{font-family:var(--display);font-weight:400;font-size:42px;line-height:1.05;margin:6px 0 10px}
+  h2{font-family:var(--display);font-weight:400;font-size:27px;line-height:1.1;margin:4px 0 8px;letter-spacing:.01em}
+  p.lead{font-size:19px;color:var(--fg-2);margin:0 0 18px;max-width:66ch}
+  .rail{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 18px}
+  .rail button{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-3);background:transparent;border:1px solid var(--border);border-radius:4px;padding:7px 11px;cursor:pointer;transition:all .22s cubic-bezier(.4,0,.2,1)}
+  .rail button[aria-current="step"]{color:var(--fg-1);border-color:var(--fg-3);background:var(--bg-elev-2)}
+  p.say{color:var(--fg-2);margin:0 0 14px;max-width:68ch}
+  .dwh{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:8px 18px;margin:0 0 14px;font-family:var(--sans);font-size:13.5px;color:var(--fg-2);line-height:1.55}
+  .dwh b{font-family:var(--mono);font-weight:400;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);display:block}
+  .panel{background:var(--bg-elev-1);border:1px solid var(--border-soft);border-radius:4px;padding:16px;margin:0 0 14px}
+  .plabel{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-3);display:flex;justify-content:space-between;gap:10px;margin-bottom:8px}
+  canvas{width:100%;display:block;background:var(--bg-elev-2);border-radius:2px}
+  .rowb{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:12px}
+  button.play{font-family:var(--sans);font-weight:500;font-size:14px;color:#0a0a0f;background:var(--accent);border:0;border-radius:4px;padding:9px 20px;cursor:pointer;transition:box-shadow .22s cubic-bezier(.4,0,.2,1)}
+  button.play:hover{box-shadow:0 0 24px var(--accent-soft)}
+  button.ghost{font-family:var(--sans);font-size:14px;color:var(--fg-2);background:transparent;border:1px solid var(--border);border-radius:4px;padding:8px 14px;cursor:pointer}
+  button.ghost[aria-pressed="true"]{color:var(--fg-1);border-color:var(--accent-line);background:var(--bg-elev-2)}
+  button.ghost:disabled{opacity:.35;cursor:default}
+  .ctl{display:grid;grid-template-columns:150px 1fr auto;gap:6px 14px;align-items:center;margin-top:14px}
+  .ctl label{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-3)}
+  .ctl input[type=range]{width:100%;accent-color:var(--accent)}
+  .ctl .v{font-family:var(--mono);font-size:14px;color:var(--fg-1);text-align:right;white-space:nowrap;min-width:9ch}
+  .meter{font-family:var(--mono);font-size:13px;color:var(--fg-2);margin-top:12px;line-height:1.75}
+  .meter b{color:var(--accent);font-weight:400}
+  .eq{font-family:var(--mono);font-size:13.5px;color:var(--fg-1);margin:14px 0 0;overflow-wrap:anywhere}
+  .eq.words{font-family:var(--sans);color:var(--fg-3);font-size:13px;margin-top:2px}
+  .hint{font-family:var(--sans);font-size:13px;color:var(--fg-3)}
+  table.t{border-collapse:collapse;margin-top:12px;font-family:var(--mono);font-size:13px;color:var(--fg-2)}
+  table.t td,table.t th{border-bottom:1px solid var(--border-soft);padding:5px 16px 5px 0;text-align:right;font-weight:400}
+  table.t th{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-3)}
+  table.t td:first-child,table.t th:first-child{text-align:left}
+  table.t b{color:var(--accent);font-weight:400}
+  .walk{display:flex;justify-content:space-between;gap:10px;margin-top:16px}
+  .hide{display:none!important}
+  footer{margin-top:28px;font-family:var(--sans);font-size:13px;color:var(--fg-4)}
+  footer b{font-family:var(--display);font-weight:400;letter-spacing:.06em;color:var(--fg-3)}
+  @media (max-width:560px){h1{font-size:32px}h2{font-size:23px}.ctl{grid-template-columns:100px 1fr auto}}
+</style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">Waveguide Synthesizer · the string is the delay line · five steps</div>
+  <h1>Two travelling waves</h1>
+  <p class="lead">A digital waveguide is two delay lines, one carrying the wave toward the bridge and one carrying it back. Their sum is the string. Take that one idea at a time, then test what plucking in one place does to the sound.</p>
+
+  <nav class="rail" id="rail" aria-label="steps"></nav>
+  <h2 id="st-title"></h2>
+  <p class="say" id="st-say"></p>
+  <div class="dwh"><div><b>do</b><span id="st-do"></span></div><div><b>watch</b><span id="st-watch"></span></div><div><b>hear</b><span id="st-hear"></span></div></div>
+
+  <div class="panel">
+    <div class="plabel"><span>click the string to pluck it there</span><span id="lane-read"></span></div>
+    <canvas id="lanes" height="320" style="cursor:crosshair"></canvas>
+    <div class="rowb">
+      <button class="play" id="pluck" aria-label="play: pluck the string">▸ pluck</button>
+      <span id="ends-box"><button class="ghost" id="ends-fixed" aria-pressed="true">ends fixed · turn it over</button> <button class="ghost" id="ends-free" aria-pressed="false">ends free · send it back upright</button></span>
+      <span id="view-box"><button class="ghost" id="v-true" aria-pressed="true">every frame · the true now</button> <button class="ghost" id="v-strobe" aria-pressed="false">strobe · one phase per period</button></span>
+      <span id="spots"></span>
+    </div>
+    <div class="meter" id="lane-m"></div>
+  </div>
+
+  <div class="panel" id="p-test">
+    <div class="plabel"><span>the test · harmonic levels of the wave at the bridge, measured · dots: |sin(kπp)| ⁄ k²</span><span>dB re harmonic 1</span></div>
+    <canvas id="bars" height="240"></canvas>
+    <div class="meter" id="test-m"></div>
+  </div>
+
+  <div class="eq" id="eq1"></div>
+  <div class="eq words" id="eq1w"></div>
+
+  <div class="walk"><button class="ghost" id="back">← back</button><button class="ghost" id="next">next →</button></div>
+  <footer><b>LOUD’N LIVE</b> · made for the rich face of Waveguide Synthesizer · the engine runs here, in this page, and in its check</footer>
+</main>
+
+<script id="engine">
+// ---- engine: the two-way waveguide (shared by the page and its headless check) ----
+// N cells. r carries the wave moving toward the bridge (right), l the wave moving toward the nut (left).
+// The string's displacement in cell i is r[i] + l[i]. Cell i sits at x = i + 1/2; the nut is at x = 0, the bridge at x = N.
+// A pluck is a triangle with its peak at the nearest cell edge to p·N, shared equally between the two lines.
+function wgPluck(N, p) {
+  const xp = Math.min(N - 1, Math.max(1, Math.round(p * N))), r = new Float64Array(N), l = new Float64Array(N);
+  for (let i = 0; i < N; i++) { const x = i + 0.5, y = x <= xp ? x / xp : (N - x) / (N - xp); r[i] = 0.4 * y; l[i] = 0.4 * y; }
+  return { N, r, l, xp, p: xp / N, n: 0 };
+}
+// one sample: both waves move one cell; what leaves an end comes back in the other line, times g
+// (g < 0: a fixed end turns the wave over; g > 0: a free end sends it back upright).
+// Returns the wave arriving at the bridge, which is what this page listens to.
+function wgStep(s, gNut, gBridge) {
+  const { r, l, N } = s, atBridge = r[N - 1], atNut = l[0];
+  for (let i = N - 1; i > 0; i--) r[i] = r[i - 1];
+  for (let i = 0; i < N - 1; i++) l[i] = l[i + 1];
+  r[0] = gNut * atNut; l[N - 1] = gBridge * atBridge; s.n++;
+  return atBridge;
+}
+// fixed ends, each reflection keeping g of the wave
+function wgRender(N, p, len, g) {
+  const s = wgPluck(N, p), y = new Float32Array(len);
+  for (let n = 0; n < len; n++) y[n] = wgStep(s, -g, -g);
+  return y;
+}
+// harmonic levels of the wave at the bridge: an exact DFT over whole periods (2N samples each), lossless
+function wgHarmonics(N, p, count) {
+  const per = 2 * N, reps = 4, y = wgRender(N, p, per * reps, 1), out = [];
+  for (let k = 1; k <= count; k++) { let re = 0, im = 0; for (let n = 0; n < per * reps; n++) { const a = 2 * Math.PI * k * n / per; re += y[n] * Math.cos(a); im -= y[n] * Math.sin(a); } out.push(2 * Math.hypot(re, im) / (per * reps)); }
+  return out;
+}
+// the plucked-string prediction: harmonic k of a pluck at p (0..1 from the nut) is in proportion to |sin(k·pi·p)| / k^2
+function wgPredict(p, count) { const out = []; for (let k = 1; k <= count; k++) out.push(Math.abs(Math.sin(k * Math.PI * p)) / (k * k)); return out; }
+// ---- end engine ----
+</script>
+
+<script>
+const N = 120, G = 0.996, SECONDS = 4, HARM = 16, SLOW = 60;   // N = 120 cells: 1/2, 1/3, 1/4, 1/5, 1/6, 1/8 and 1/10 all land on a cell edge
+const $ = (id) => document.getElementById(id);
+const S = { step: 0, p: 0.2, ends: 'fixed', view: 'true' };
+const STEPS = [
+  { name: 'two waves', title: 'One pluck, two waves', audio: false, ends: false, view: false, spots: false, test: false, p: 0.5,
+    say: 'Pull the string into a point and let go. In a waveguide the shape is shared between two delay lines: half goes into the line that moves toward the bridge, half into the line that moves toward the nut. The string you see in the middle is only ever their sum. Slowed right down here, one sample a frame, and silent.',
+    do: 'Click anywhere along the string to pluck it there.', watch: 'The top line slide right, the bottom line slide left, and the middle, their sum, split into two halves running apart.', hear: 'Nothing yet. This step is for the eye.' },
+  { name: 'the ends', title: 'The ends turn it over', audio: false, ends: true, view: false, spots: false, test: false, p: 0.2,
+    say: 'What reaches an end leaves one line and comes back in the other. A fixed end, a nut or a bridge, sends it back upside down: a sign flip. A free end would send it back the right way up. Same slow motion, still silent.',
+    do: 'Pluck near the nut and watch one half arrive there. Then switch the ends to free and pluck again.', watch: 'With fixed ends the half comes back below the line. With free ends it comes back above it.', hear: 'Nothing yet.' },
+  { name: 'too fast', title: 'At pitch, too fast to see', audio: true, ends: false, view: true, spots: false, test: false, p: 0.2,
+    say: 'Now the string runs at full speed, and you hear it. One trip there and back takes 2N = 240 samples, a few hundred trips a second. A screen draws about sixty pictures a second, so between two pictures the wave has been round several times. Drawn at every frame, you are seeing the true state, but too seldom to follow. The strobe draws the same true state, picked once per period and one sample later each time, so the wave seems to crawl at one cell a frame.',
+    do: 'Pluck, then switch between every frame and strobe.', watch: 'Every frame: a shape that flickers or slides with no relation to the travel. Strobe: the two halves crawling and turning over, as in step 2, while the sound plays at full speed.', hear: 'A plucked string at about 200 Hz, dying away evenly.' },
+  { name: 'where you pluck', title: 'Pluck where you click', audio: true, ends: false, view: false, spots: true, test: false, p: 0.1,
+    say: 'Where you pluck sets the starting shape, and the shape sets the sound. Plucked near an end, the string is thin and bright. Plucked in the middle, it is round and hollow. The strobe is on.',
+    do: 'Click near the bridge, then in the middle, then a third of the way along.', watch: 'Where the corner starts, and how the two halves meet again.', hear: 'Near an end, bright and thin. In the middle, hollow: only the odd harmonics are left, the kind of spectrum a clarinet has.' },
+  { name: 'the test', title: 'The test: the missing harmonics', audio: true, ends: false, view: false, spots: true, test: true, p: 1 / 3,
+    say: 'The claim under “you pluck where you click”: a string plucked a fraction p of the way along can have no harmonic k for which k·p is a whole number, because a harmonic with a still point there cannot be started from there. Plucked at a third, harmonics 3, 6, 9 and 12 should be missing; at a half, every even one. The rest should follow |sin(kπp)| ⁄ k². The bars are measured from the wave arriving at the bridge, over whole periods with the loss off, so nothing blurs them.',
+    do: 'Choose ½, ⅓, ¼ and ⅕, then click anywhere you like.', watch: 'Bars missing exactly where the dots fall to nothing, and the other bars sitting on their dots.', hear: 'Each pluck, its harmonics as measured.' },
+];
+
+let ctx = null, master = null, src = null, t0 = 0, sr = 48000, Y = null;
+let zoom = 1, sim = null, shown = null, phase = 0, lastN = 0, lastStepped = 0, lastT = 0, acc = 0, H = null, Pd = null;
+
+function ensureAudio() {
+  if (ctx) return;
+  ctx = new (window.AudioContext || window.webkitAudioContext)(); sr = ctx.sampleRate;
+  const comp = ctx.createDynamicsCompressor(); comp.threshold.value = -12; comp.ratio.value = 4;
+  master = ctx.createGain(); master.gain.value = 0.9; master.connect(comp).connect(ctx.destination);
+}
+function stopSound() { if (src) { try { src.stop(); } catch (e) {} } src = null; Y = null; }
+const gEnd = () => (S.ends === 'fixed' ? -1 : 1);
+
+function pluckAt(p) {
+  const st = STEPS[S.step];
+  S.p = Math.min(0.97, Math.max(0.03, Math.round(p * N) / N));
+  sim = wgPluck(N, S.p); shown = { r: Float64Array.from(sim.r), l: Float64Array.from(sim.l) }; phase = 0; lastN = 0; acc = 0;
+  stopSound();
+  if (st.audio) {
+    ensureAudio(); if (ctx.state !== 'running') ctx.resume();
+    const len = Math.round(SECONDS * sr); Y = wgRender(N, S.p, len, G);
+    for (let i = 0; i < 256; i++) Y[len - 1 - i] *= i / 256;
+    const b = ctx.createBuffer(1, len, sr); b.copyToChannel(Y, 0);
+    src = ctx.createBufferSource(); src.buffer = b; src.connect(master); t0 = ctx.currentTime + 0.03; src.start(t0);
+    if (window.parent !== window) { try { window.parent.postMessage({ type: 'rich:play' }, '*'); } catch (e) {} }   // tell the face a sound started
+  }
+  if (st.test) { H = wgHarmonics(N, S.p, HARM); Pd = wgPredict(S.p, HARM); }
+  meters();
+}
+
+// advance the picture: in the slow steps one sample per 1/60 s, silent; at pitch, in step with the sound
+function advance() {
+  const st = STEPS[S.step], now = performance.now() / 1000, dt = Math.min(0.1, now - (lastT || now)); lastT = now;
+  if (!sim) return;
+  if (!st.audio) {
+    acc += dt * SLOW; let k = Math.floor(acc); acc -= k;
+    while (k-- > 0) wgStep(sim, gEnd(), gEnd());
+    shown = { r: sim.r, l: sim.l }; lastStepped = 0; return;
+  }
+  if (!ctx || !Y) return;
+  const target = Math.min(Y.length, Math.max(0, Math.floor((ctx.currentTime - t0) * sr)));
+  const strobe = st.view ? S.view === 'strobe' : true, per = 2 * N;
+  let captured = false, stepped = 0;
+  while (sim.n < target) {
+    wgStep(sim, -G, -G); stepped++;
+    if (strobe && ((sim.n - phase) % per + per) % per === 0) { shown = { r: Float64Array.from(sim.r), l: Float64Array.from(sim.l) }; captured = true; }
+  }
+  if (strobe && captured) phase = (phase + 1) % per;
+  if (!strobe) shown = { r: sim.r, l: sim.l };
+  if (stepped) lastStepped = stepped;
+}
+
+function fit(c) {
+  const d = devicePixelRatio || 1, w = c.clientWidth, h = +c.getAttribute('height');
+  if (c.width !== Math.round(w * d)) { c.width = Math.round(w * d); c.height = Math.round(h * d); c.style.height = h + 'px'; }
+  const g = c.getContext('2d'); g.setTransform(d, 0, 0, d, 0, 0); return { g, w, h };
+}
+const X0 = 40, X1R = 40;
+function drawLanes() {
+  const { g, w, h } = fit($('lanes')), x0 = X0, x1 = w - X1R, xs = (i) => x0 + (x1 - x0) * (i + 0.5) / N;
+  g.clearRect(0, 0, w, h);
+  const lanes = [{ y: 52, lab: 'toward the bridge ▸   r', sc: 70, col: '#e8b84a', key: 'r' }, { y: 168, lab: 'the string   r + l', sc: 70, col: '#e8e8f0', key: 's' }, { y: 280, lab: '◂ toward the nut   l', sc: 70, col: '#8b7cf6', key: 'l' }];
+  g.font = '10.5px JetBrains Mono, monospace';
+  for (const L of lanes) {
+    g.strokeStyle = '#22222e'; g.lineWidth = 1; g.beginPath(); g.moveTo(x0, L.y); g.lineTo(x1, L.y); g.stroke();
+    g.fillStyle = '#8a8aa0'; g.textAlign = 'left'; g.fillText(L.lab, x0, L.y - (L.key === 's' ? 74 : 40));
+  }
+  // nut (a post) and bridge (a block) on the string lane
+  g.fillStyle = '#4a4a5e'; g.fillRect(x0 - 6, 168 - 26, 4, 52); g.fillRect(x1 + 2, 168 - 22, 10, 44);
+  g.fillStyle = '#8a8aa0'; g.textAlign = 'center'; g.fillText('nut', x0 - 4, 168 + 40); g.fillText('bridge', x1 + 7, 168 + 40);
+  // where it was plucked
+  const xp = x0 + (x1 - x0) * S.p; g.strokeStyle = 'rgba(232,184,74,0.25)'; g.setLineDash([3, 4]); g.beginPath(); g.moveTo(xp, 18); g.lineTo(xp, h - 8); g.stroke(); g.setLineDash([]);
+  if (!shown) { g.fillStyle = '#8a8aa0'; g.textAlign = 'center'; g.fillText(STEPS[S.step].audio ? 'silent until you click the string or pluck' : 'click the string to pluck it', w / 2, 168 - 34); return; }
+  // r and l are drawn cell to cell; the string is pinned at the nut and the bridge only when the ends are fixed
+  const line = (arr, y0, sc, col, lw, pin) => { g.strokeStyle = col; g.lineWidth = lw; g.beginPath(); if (pin) g.moveTo(x0, y0); for (let i = 0; i < N; i++) (pin || i) ? g.lineTo(xs(i), y0 - arr(i) * sc) : g.moveTo(xs(i), y0 - arr(i) * sc); if (pin) g.lineTo(x1, y0); g.stroke(); };
+  // at pitch the string fades as it rings; all three lanes are drawn larger together as it fades, and the label says by how much
+  let pk = 0; for (let i = 0; i < N; i++) pk = Math.max(pk, Math.abs(shown.r[i]) + Math.abs(shown.l[i]));
+  zoom = STEPS[S.step].audio && pk > 0 ? Math.min(16, Math.max(1, 0.8 / pk)) : 1;
+  line((i) => shown.r[i] * zoom, 52, 70, '#e8b84a', 1.6, false);
+  line((i) => shown.l[i] * zoom, 280, 70, '#8b7cf6', 1.6, false);
+  line((i) => (shown.r[i] + shown.l[i]) * zoom, 168, 70, '#e8e8f0', 2, S.ends === 'fixed');
+}
+function drawBars() {
+  const c = $('bars'); if (c.offsetParent === null) return;
+  const { g, w, h } = fit(c), L = 44, R = 10, T = 12, B = 24, top = 0, bot = -60;
+  g.clearRect(0, 0, w, h);
+  const Yp = (db) => T + (h - T - B) * (top - Math.max(bot, db)) / (top - bot), bw = (w - L - R) / HARM;
+  g.font = '10px JetBrains Mono, monospace'; g.strokeStyle = '#22222e'; g.fillStyle = '#8a8aa0';
+  for (let db = 0; db >= bot; db -= 12) { g.beginPath(); g.moveTo(L, Yp(db)); g.lineTo(w - R, Yp(db)); g.stroke(); g.textAlign = 'right'; g.fillText(db + '', L - 6, Yp(db) + 3); }
+  for (let k = 1; k <= HARM; k++) { g.textAlign = 'center'; g.fillText(k + '', L + bw * (k - 0.5), h - 8); }
+  if (!H) { g.textAlign = 'center'; g.fillText('pluck to measure', w / 2, h / 2); return; }
+  for (let k = 1; k <= HARM; k++) {
+    const m = 20 * Math.log10(Math.max(H[k - 1] / H[0], 1e-300)), pr = Pd[k - 1] / Pd[0], x = L + bw * (k - 0.5);
+    if (m > bot) { g.fillStyle = 'rgba(232,184,74,0.85)'; g.fillRect(x - bw * 0.3, Yp(m), bw * 0.6, Yp(bot) - Yp(m)); }
+    else { g.fillStyle = '#8b7cf6'; g.textAlign = 'center'; g.fillText('none', x, Yp(bot) - 6); }
+    if (pr > 1e-9) { g.fillStyle = '#e8e8f0'; g.beginPath(); g.arc(x, Yp(20 * Math.log10(pr)), 3.2, 0, 7); g.fill(); }
+    else { g.strokeStyle = '#e8e8f0'; g.beginPath(); g.arc(x, Yp(bot) - 18, 3.2, 0, 7); g.stroke(); }
+  }
+}
+function meters() {
+  const st = STEPS[S.step], f0 = sr / (2 * N);
+  let s = `pluck at p = <b>${S.p.toFixed(3)}</b> (${Math.round(S.p * N)} of ${N} cells from the nut)`;
+  if (st.audio) s += ` · pitch fs ⁄ 2N = <b>${f0.toFixed(2)} Hz</b>${ctx ? '' : ' at 48 kHz'}`;
+  $('lane-m').innerHTML = s;
+  if (!st.test) return;
+  if (!H) { $('test-m').innerHTML = '<span class="hint">pluck to measure</span>'; return; }
+  const miss = [], seen = []; let worst = 0;
+  for (let k = 1; k <= HARM; k++) {
+    const m = 20 * Math.log10(Math.max(H[k - 1] / H[0], 1e-300)), z = Math.abs(Math.sin(k * Math.PI * S.p)) < 1e-9;
+    if (z) { miss.push(k); seen.push(m); } else worst = Math.max(worst, Math.abs(m - 20 * Math.log10(Pd[k - 1] / Pd[0])));
+  }
+  $('test-m').innerHTML = (miss.length
+    ? `predicted missing: <b>${miss.join(', ')}</b> · measured there: at most <b>${Math.max(...seen).toFixed(0)} dB</b> under harmonic 1, which is nothing`
+    : 'no harmonic up to 16 falls on a still point here: every k·p misses a whole number') +
+    `<br>every other harmonic within <b>${worst.toFixed(2)} dB</b> of |sin(kπp)| ⁄ k² (the small gap is the string being drawn in ${N} cells, not a smooth line)`;
+}
+function laneRead() {
+  const st = STEPS[S.step];
+  if (!st.audio) { $('lane-read').textContent = sim ? `slowed: one sample a frame · sample ${sim.n}` : ''; return; }
+  if (!Y) { $('lane-read').textContent = ''; return; }
+  const strobe = st.view ? S.view === 'strobe' : true;
+  $('lane-read').textContent = (strobe ? `strobe · drawn once every ${2 * N} samples, one later each time` : `every frame · ${(lastStepped / (2 * N)).toFixed(1)} trips since the last picture`) + (zoom > 1.05 ? ` · drawn ×${zoom.toFixed(1)}` : '');
+}
+function loop() { requestAnimationFrame(loop); advance(); drawLanes(); drawBars(); laneRead(); }
+
+function press(id, on) { $(id).setAttribute('aria-pressed', on ? 'true' : 'false'); }
+function setStep(i) {
+  stopSound(); H = null; Pd = null;
+  S.step = Math.max(0, Math.min(STEPS.length - 1, i)); const st = STEPS[S.step];
+  S.ends = 'fixed'; press('ends-fixed', true); press('ends-free', false);
+  S.view = st.view ? 'true' : 'strobe'; press('v-true', S.view === 'true'); press('v-strobe', S.view === 'strobe');
+  $('st-title').textContent = `${S.step + 1} · ${st.title}`; $('st-say').textContent = st.say;
+  $('st-do').textContent = st.do; $('st-watch').textContent = st.watch; $('st-hear').textContent = st.hear;
+  [...$('rail').children].forEach((b, j) => b.setAttribute('aria-current', j === S.step ? 'step' : 'false'));
+  $('ends-box').classList.toggle('hide', !st.ends); $('view-box').classList.toggle('hide', !st.view); $('spots').classList.toggle('hide', !st.spots);
+  $('p-test').classList.toggle('hide', !st.test); $('pluck').classList.toggle('hide', false);
+  $('back').disabled = S.step === 0; $('next').disabled = S.step === STEPS.length - 1;
+  const E = st.test || st.spots
+    ? ['aₖ ∝ |sin(k π p)| ⁄ k²', '(how strong harmonic k is) is in proportion to (the sine of k times pi times where you plucked, as a fraction of the length) ÷ (k squared): zero wherever k·p is a whole number']
+    : ['y(x, t) = r(x − c t) + l(x + c t)', '(the height of the string at a place and a time) = (the wave moving toward the bridge, there and then) + (the wave moving toward the nut, there and then)'];
+  $('eq1').textContent = E[0]; $('eq1w').textContent = E[1];
+  S.p = st.p; sim = null; shown = null;
+  if (!st.audio) pluckAt(S.p);   // the silent steps start already plucked, slowed down
+  meters();
+}
+STEPS.forEach((st, i) => { const b = document.createElement('button'); b.textContent = `${i + 1} · ${st.name}`; b.onclick = () => setStep(i); $('rail').appendChild(b); });
+[['½', 1 / 2], ['⅓', 1 / 3], ['¼', 1 / 4], ['⅕', 1 / 5], ['near the bridge', 0.9]].forEach(([lab, p]) => { const b = document.createElement('button'); b.className = 'ghost'; b.textContent = lab; b.onclick = () => pluckAt(p); $('spots').appendChild(b); $('spots').append(' '); });
+$('back').onclick = () => setStep(S.step - 1); $('next').onclick = () => setStep(S.step + 1);
+$('pluck').onclick = () => pluckAt(S.p);
+$('lanes').addEventListener('click', (e) => { const r = $('lanes').getBoundingClientRect(), x0 = X0, x1 = r.width - X1R; pluckAt((e.clientX - r.left - x0) / (x1 - x0)); });
+$('ends-fixed').onclick = () => { S.ends = 'fixed'; press('ends-fixed', true); press('ends-free', false); pluckAt(S.p); };
+$('ends-free').onclick = () => { S.ends = 'free'; press('ends-fixed', false); press('ends-free', true); pluckAt(S.p); };
+$('v-true').onclick = () => { S.view = 'true'; press('v-true', true); press('v-strobe', false); };
+$('v-strobe').onclick = () => { S.view = 'strobe'; press('v-true', false); press('v-strobe', true); };
+setStep(0); loop();
+</script>
+</body>
+</html>
