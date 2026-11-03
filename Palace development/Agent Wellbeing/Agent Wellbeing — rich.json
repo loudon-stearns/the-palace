@@ -1,0 +1,138 @@
+{
+ "title": "Agent Wellbeing — rich",
+ "born": "2026-11-03",
+ "links": [
+  {
+   "target": "[[Agent Wellbeing]]",
+   "type": "connects-to",
+   "label": "rich-face-of"
+  },
+  {
+   "target": "[[Enrichment]]",
+   "type": "connects-to",
+   "label": "made-by"
+  },
+  {
+   "target": "[[Progressive Staging]]",
+   "type": "connects-to",
+   "label": "the-test-is-the-last-step"
+  },
+  {
+   "target": "[[Palace Orchestrator]]",
+   "type": "connects-to",
+   "label": "the-lamp-is-its-rule"
+  }
+ ],
+ "forward_vector": "I am the manifest of Agent Wellbeing's rich face, its first round, at Study tier, a proposal. Two of the page's own ## sections carry pieces: the Blind Sort walked up and checked for leaks, beside the gathered record; and, for The Measurable Floor, STIGMERGY's real health rule as a lamp with five dials, and the sensor-b proof drawn and checked against the page's figures. The Measurable Floor is one section to the parser, so its two ### claims share one stamp and one approval. Every number a piece shows is baked from its source by rich-checks/build-pieces.mjs and re-checked by rich-checks/check-pieces.mjs. I never hold the entry's words.",
+ "entry": "Agent Wellbeing",
+ "tier": "study",
+ "made": "2026-11-03",
+ "round": 1,
+ "grain": "The page's ## grain. The Measurable Floor holds three ### subsections (one number hides it; instrument capacity, read quality; the one number we can read); the parser opens sections at ## only, so both of its pieces share one stamp and one all-or-nothing approval.",
+ "offers": [
+  {
+   "section": "Practical Implications for Entry Design",
+   "kind": "claim-change",
+   "what": "'Hedged writing produces hedged moves, even in a calm voice' rests on guides that differ in rules as well as register. Only the anxious guide closes the list of changes ('Acceptable changes are limited to'), gates proposing on confidence, says an unnecessary change is worse than none, and asks to minimize speculation. Both anxious workers said the one-word swap him→it was the better fix and cut because it was 'the closest option within the allowed changes'; a warm worker, under the open list, made the swap. Suggested: say the moves differed by guide, that this sketch can't tell register from rules, and that a rerun with word-identical rules would. Also: with four cards, even 4 of 4 by voice is luck 1 time in 6, so the sort can show voice didn't separate them for this reader, not that it can't.",
+   "status": "open"
+  },
+  {
+   "section": "Practical Implications for Entry Design",
+   "kind": "no-claim-edit",
+   "what": "Not the page's text: the gathered proof's lede (proofs/2026-11-02-blind-sort/rough.tpl.html, blind-sort.html) says the anxious guide is 'the same guide, same rules', which the guides don't bear out (above). And the record leaks: one heading sorts all four answers, 'Justification' (both anxious, from their guide's 'justify it') against 'Why it helps' (both warm, from theirs); length (323, 327 vs 393, 279), hedge-word count (9, 6 vs 4, 10), headings and bullets don't. Worth a line in the proof's README or lede.",
+   "status": "open"
+  },
+  {
+   "section": "The Measurable Floor",
+   "kind": "no-claim-edit",
+   "what": "'A freshly spawned agent already reports ~46K tokens' is Haiku's floor (46,241). On the models in use the proof records Fable 61,764, Sonnet 67,169, Opus ~61,000, which the page itself gives later as the ~62–67K floor. Suggested: 'a freshly spawned Haiku agent already reports ~46K tokens (~62–67K on the 1M-window models)'. The other seven figures the section quotes check against the proof (the one number, step 6).",
+   "status": "open"
+  },
+  {
+   "section": "The Measurable Floor",
+   "kind": "claim-change",
+   "what": "'STIGMERGY's dual-path health score named all five and then flattened them … reads none of them (it stamps a permanent green)'. The rule in code, scoreFor (_ops/stigmergy/orchestrator/src/health.js:33–41), reads four inputs: context_pct, max_tokens_hits, posting_discipline_violations, duplicate_flags, which are capacity, distress, integrity and a count the page's table doesn't name; nothing in it reads acuity or drift. A sweep of 161,600 dial states found acuity and drift move the lamp in 0, against a control that moved it in 4,400. The board stub is green always (health.js:57–76), as the page says, but since 2026-09-23 (a556fae3) a steward's own state goes yellow after a barren cycle and red once stalled (process-cycle.js:551). Suggested: 'flattened three of the five, and a count of duplicates, into one scalar; it never had inputs for acuity or drift. On the Agent-tool path the board stamps a permanent green, though a steward's own dot now turns yellow when a cycle makes nothing.'",
+   "status": "open"
+  }
+ ],
+ "sections": [
+  {
+   "heading": "Practical Implications for Entry Design",
+   "status": "proposal",
+   "proposed": {
+    "date": "2026-11-03",
+    "by": "maker · claude-opus-5-5 · proposal round",
+    "round": "proposal-round-2026-11"
+   },
+   "made": "2026-11-03",
+   "pieces": [
+    {
+     "file": "Agent Wellbeing — rich — blind sort walked up.html",
+     "origin": "made",
+     "by": "maker · claude-opus-5-5 · walk",
+     "place": "band",
+     "height": 1700,
+     "title": "Blind sort, walked up · from the two guides to whether register was all they changed",
+     "caption": "**Can you tell which guide a worker read, by its voice or by its move?** Six steps: the two guides alone; one worker's noticing alone; all four noticings sorted blind by voice; the four proposed changes sorted blind by move; both arms scored against a rule shown before you sort (two and two: all four right by luck 1 time in 6; for the moves, whose pairs show themselves, 1 in 2); and last, whether the guides differed only in register. They didn't: the anxious guide also closes the list of changes, and both anxious workers say they cut only because the swap they wanted wasn't on it. The leak check on step 5 finds the gathered record sortable by one heading, so this walk's cards carry no headings and no reasons; its noticings don't sort by length, and the hedge words that split them point the other way from what you'd guess. Card order is shuffled on each visit, separately for each arm.",
+     "near": "Tone as transmitted character"
+    },
+    {
+     "file": "proofs/2026-11-02-blind-sort/blind-sort.html",
+     "origin": "gathered",
+     "contract": {
+      "needs": "storage"
+     },
+     "place": "band",
+     "height": 1900,
+     "title": "The Blind Sort · the 2026-11-02 record",
+     "caption": "The sort as Loudon played it at the Daily Page: the four whole answers, unlabelled. He sorted 2 of 4. Kept as the record. Two things the walk above found in it: its lede says the two guides share 'the same rules', which they don't, and one heading sorts all four answers, 'Justification' against 'Why it helps', so a reader who knew the guides could pass without reading a move.",
+     "near": "Tone as transmitted character"
+    }
+   ],
+   "made_against": "86d01f057b8b",
+   "stamped": "2026-11-03"
+  },
+  {
+   "heading": "The Measurable Floor",
+   "status": "proposal",
+   "proposed": {
+    "date": "2026-11-03",
+    "by": "maker · claude-opus-5-5 · proposal round",
+    "round": "proposal-round-2026-11"
+   },
+   "made": "2026-11-03",
+   "pieces": [
+    {
+     "file": "Agent Wellbeing — rich — five dials one lamp.html",
+     "origin": "made",
+     "by": "maker · claude-opus-5-5 · walk",
+     "place": "band",
+     "height": 1500,
+     "title": "Five dials, one lamp · STIGMERGY's own rule, swept",
+     "caption": "**Does one colour hide an agent's health?** The page gives no composite rule of its own; the lamp here is the one it points at, STIGMERGY's scoreFor (health.js:33–41), copied byte for byte. Five steps: capacity alone into the lamp; the instruments it reads, worst of them wins; acuity and drift, which only a reader can judge, and which have no wire; how many states each colour stands for; and last a sweep of all 161,600 states that pushes acuity and drift to gone (the lamp moves in 0) beside a control that pushes capacity (it moves in 4,400), then the live path, green in all of them. The equation is shown in symbols and in words.",
+     "near": "Health is not one thing"
+    },
+    {
+     "file": "Agent Wellbeing — rich — the one number.html",
+     "origin": "made",
+     "by": "maker · claude-opus-5-5 · walk",
+     "place": "band",
+     "height": 1250,
+     "title": "The one number · the sensor-b proof drawn, then checked",
+     "caption": "**Is subagent_tokens a faithful gauge?** Only the numbers the 2026-07-07 proof records. Six steps: a fresh Haiku agent's floor (46,241, 23% of 200K); the line it climbs as it reads (four reads on the fit to the token, the fifth 4,782 below, the padding's fault); +36 for a 700-token reply; the same file on Haiku, Fable, Sonnet and Opus (the proof has a line on Haiku only, so the others are one reading each); a resident climbing toward the dial's 60% and 80% lines; and last every figure the section quotes, checked against the proof by a rule written into each row: 7 of 8 hold, and the ~46K floor is Haiku's alone.",
+     "near": "The palace runs on the Agent tool"
+    },
+    {
+     "file": "Agent Wellbeing — proof — sensor-b-characterization.md",
+     "origin": "gathered",
+     "place": "margin",
+     "title": "Sensor B characterization · the proof, 2026-07-07",
+     "caption": "The proof the piece beside it draws, as written: five phases, every table.",
+     "near": "This is the floor with teeth"
+    }
+   ],
+   "made_against": "385bc9ded447",
+   "stamped": "2026-11-03"
+  }
+ ]
+}
