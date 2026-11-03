@@ -1,0 +1,631 @@
+<!doctype html>
+<!--
+  title: Playful Interface Design — rich — legible before lovely
+  born: 2026-11-03
+  links: [[Playful Interface Design]] (connects-to · rich-face-piece) · listed in [[Playful Interface Design — rich.json]] · serves § Four moves the direction asks for · its engine is [[Blood Compressor]]'s vessel prototype v3 (Projects/Blood Compressor/stage2-vessel-prototype-v3.html), copied unchanged
+  forward_vector: I am the first move of the section put to the eye. A bare gain-reduction meter; then the same gain drawn as a vessel whose opening is the gain; then a juice slider whose first half adds only reactions that mean gain and whose second half adds the ones that follow the beat; and last a blind test of twenty-four looks at three amounts of juice, where you say how hard the vessel is squeezing. I change only when the section I serve does.
+  sound: nothing plays until Sound on is clicked; the AudioContext is made on that click. The test is silent. Changing step stops the sound.
+  check: Playful Interface Design/Playful Interface Design — rich — check.mjs runs this page's engine and core in Node.
+-->
+<html lang="en" class="skin-graphite">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- needs nothing of its host: no device, no storage, no file, no host; sound only on a click -->
+<meta name="piece:needs" content="">
+<title>Legible before lovely · how much juice before the vessel stops meaning gain?</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@300;400;500&display=swap">
+<style>
+  :root{
+    --bg:#0a0a0f; --bg-elev-1:#12121a; --bg-elev-2:#1a1a28; --border:#4a4a5e; --border-soft:rgba(255,255,255,0.06);
+    --fg-1:#e8e8f0; --fg-2:#c8c8d8; --fg-3:#8a8aa0; --fg-4:#4a4a5a;
+    --accent:#e8b84a; --accent-dim:#7a6030; --accent-soft:rgba(232,184,74,0.10);
+    --warn:#e8651b;
+    --serif:'Cormorant Garamond','Source Serif 4',Georgia,serif; --sans:'Manrope',system-ui,sans-serif;
+    --display:'Anton','Bebas Neue',Impact,sans-serif; --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--fg-1)}
+  body{font-family:var(--serif);font-size:17px;line-height:1.7;padding:28px 16px 36px}
+  main{max-width:960px;margin:0 auto}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--fg-3)}
+  h1{font-family:var(--display);font-weight:400;font-size:44px;line-height:1.05;margin:6px 0 10px}
+  h2{font-family:var(--display);font-weight:400;font-size:28px;line-height:1.1;margin:4px 0 8px;letter-spacing:.01em}
+  p.lead{font-size:19px;color:var(--fg-2);margin:0 0 18px;max-width:66ch}
+  .rail{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 18px}
+  .rail button{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-3);background:transparent;border:1px solid var(--border);border-radius:4px;padding:7px 11px;cursor:pointer;transition:all .22s cubic-bezier(.4,0,.2,1)}
+  .rail button[aria-current="step"]{color:var(--fg-1);border-color:var(--fg-3);background:var(--bg-elev-2)}
+  p.say{color:var(--fg-2);margin:0 0 14px;max-width:68ch}
+  .panel{background:var(--bg-elev-1);border:1px solid var(--border-soft);border-radius:4px;padding:18px;margin:0 0 14px}
+  .tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px;align-items:center}
+  button.play{font-family:var(--sans);font-weight:500;font-size:14px;color:#0a0a0f;background:var(--accent);border:0;border-radius:4px;padding:9px 20px;cursor:pointer;margin-left:auto;transition:box-shadow .22s cubic-bezier(.4,0,.2,1)}
+  button.play:hover{box-shadow:0 0 24px var(--accent-soft)}
+  button.play[hidden]{display:none}
+  canvas.stage{width:100%;height:280px;display:block;border-radius:4px;background:#101018;border:1px solid var(--border-soft)}
+  canvas.stage[hidden]{display:none}
+  .ctl{display:grid;grid-template-columns:auto 1fr auto;gap:6px 14px;align-items:center;margin-top:12px}
+  .ctl[hidden]{display:none}
+  .ctl label{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-3)}
+  .ctl input[type=range]{width:100%;accent-color:var(--accent)}
+  .ctl .v{font-family:var(--mono);font-size:13px;color:var(--fg-1);min-width:7.5em;text-align:right}
+  .rowb{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:10px}
+  .rowb[hidden]{display:none}
+  button.ghost{font-family:var(--sans);font-size:14px;color:var(--fg-2);background:transparent;border:1px solid var(--border);border-radius:4px;padding:8px 14px;cursor:pointer}
+  button.ghost[aria-pressed="true"]{color:var(--fg-1);border-color:var(--fg-3);background:var(--bg-elev-2)}
+  button.ghost:disabled{opacity:.35;cursor:default}
+  .hint{font-family:var(--sans);font-size:13px;color:var(--fg-3)}
+  .meter{font-family:var(--mono);font-size:13px;color:var(--fg-2);margin-top:12px;line-height:1.75}
+  .meter b{color:var(--accent);font-weight:400}
+  .meter i{color:var(--warn);font-style:normal}
+  .eq{font-family:var(--mono);font-size:13px;color:var(--fg-1);margin:14px 0 0;overflow-wrap:anywhere;white-space:pre-wrap}
+  .eq.words{color:var(--fg-3);font-size:12px;margin-top:2px}
+  .rule{font-family:var(--sans);font-size:14px;color:var(--fg-2);line-height:1.6;margin:0 0 12px;padding:12px 16px;border:1px solid var(--border);border-radius:4px;max-width:78ch}
+  .rule b{color:var(--fg-1);font-weight:500}
+  .try{margin:0 0 4px;padding:12px 16px;border-left:2px solid var(--accent-dim);background:var(--bg-elev-1);font-family:var(--sans);font-size:14px;color:var(--fg-2);line-height:1.6}
+  .try .eyebrow{color:var(--accent);display:block;margin-bottom:2px}
+  .thumbs{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:10px}
+  .thumbs canvas{width:100%;height:150px;display:block;border-radius:4px;background:#101018;border:1px solid var(--border-soft)}
+  .thumbs .cap{font-family:var(--mono);font-size:12px;color:var(--fg-2);margin-top:4px;text-align:center}
+  table.marks{border-collapse:collapse;margin-top:12px;font-family:var(--mono);font-size:12.5px;color:var(--fg-2)}
+  table.marks td,table.marks th{border-bottom:1px solid var(--border-soft);padding:5px 14px 5px 0;text-align:left;font-weight:400;vertical-align:top}
+  table.marks th{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-3)}
+  table.marks b{color:var(--accent);font-weight:400}
+  p.note{font-family:var(--sans);font-size:14px;color:var(--fg-2);margin:12px 0 0;max-width:76ch;line-height:1.6}
+  p.note[hidden]{display:none}
+  .walk{display:flex;justify-content:space-between;gap:10px;margin-top:16px}
+  footer{margin-top:28px;font-family:var(--sans);font-size:13px;color:var(--fg-4);display:flex;gap:10px;align-items:center}
+  footer b{font-family:var(--display);font-weight:400;letter-spacing:.06em;color:var(--fg-3)}
+  @media (max-width:560px){h1{font-size:34px}h2{font-size:23px}.thumbs{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">Playful Interface Design · four moves · make it legible before it is lovely</div>
+  <h1>Legible before lovely</h1>
+  <p class="lead">One compressor on a heartbeat, and one question: how hard is it squeezing? First a bare meter answers it. Then the same gain is drawn as a vessel whose opening is the gain. Then a juice slider adds reactions, first ones that mean gain, then ones that only follow the beat. Last, a blind test of whether you can still read the squeeze. Four steps; nothing plays until you press Sound on, and the test is silent.</p>
+
+  <nav class="rail" aria-label="Steps" id="rail"></nav>
+
+  <section aria-live="polite">
+    <div class="eyebrow" id="stepEyebrow"></div>
+    <h2 id="stepTitle"></h2>
+    <p class="say" id="stepSay"></p>
+  </section>
+
+  <div class="panel">
+    <div class="tabs"><span class="eyebrow" id="panelName">Watch</span><span class="hint" id="hint"></span><button class="play" id="play">Sound on</button></div>
+
+    <div id="ruleBox" class="rule" hidden></div>
+    <canvas class="stage" id="stage"></canvas>
+
+    <div class="ctl" id="ctlTh"><label for="th">Threshold</label><input id="th" type="range" min="-40" max="0" step="0.5" value="-16.5"><span class="v" id="thV"></span></div>
+    <div class="ctl" id="ctlJ" hidden><label for="juice">Juice</label><input id="juice" type="range" min="0" max="1" step="0.01" value="0"><span class="v" id="jV"></span></div>
+    <div class="rowb" id="presets" hidden>
+      <span class="eyebrow">squeeze</span>
+      <button class="ghost" data-bin="0">Not squeezing</button>
+      <button class="ghost" data-bin="1">A little · 3 dB</button>
+      <button class="ghost" data-bin="2">A fair amount · 7 dB</button>
+      <button class="ghost" data-bin="3">A lot · 13 dB</button>
+      <span class="eyebrow" style="margin-left:10px">heartbeat</span>
+      <button class="ghost" id="loud" aria-pressed="true">Loud</button>
+      <button class="ghost" id="soft" aria-pressed="false">Soft, 6 dB down</button>
+    </div>
+
+    <div id="testBox" hidden>
+      <div class="rowb"><span class="eyebrow" id="trialLabel">Look 1 of 24</span><button class="ghost" id="startTest">Start the test</button></div>
+      <div class="rowb" id="answers"><span class="eyebrow">at its deepest, the vessel is</span>
+        <button class="ghost" data-ans="0">Not squeezing</button>
+        <button class="ghost" data-ans="1">Squeezing a little</button>
+        <button class="ghost" data-ans="2">A fair amount</button>
+        <button class="ghost" data-ans="3">A lot</button>
+      </div>
+      <div id="prefBox" hidden>
+        <p class="note">All twenty-four answered. Before the answers show: the three looks below run the same compressor at the same squeeze. Which would you rather have on your compressor?</p>
+        <div class="thumbs">
+          <div><canvas id="tA"></canvas><div class="cap"><button class="ghost" data-pref="0">A</button></div></div>
+          <div><canvas id="tB"></canvas><div class="cap"><button class="ghost" data-pref="1">B</button></div></div>
+          <div><canvas id="tC"></canvas><div class="cap"><button class="ghost" data-pref="2">C</button></div></div>
+        </div>
+      </div>
+      <table class="marks" id="reveal" hidden><thead><tr><th>juice</th><th>what it adds</th><th>read right</th><th>off by one</th><th>off by more</th><th>you'd rather have</th></tr></thead><tbody></tbody></table>
+      <p class="note" id="revealNote" hidden></p>
+      <div class="rowb" id="againRow" hidden><button class="ghost" id="again">Run the twenty-four again, reshuffled</button></div>
+    </div>
+
+    <div class="meter" id="meter"></div>
+    <div class="eq" id="eq1"></div><div class="eq words" id="eq1w"></div>
+    <div class="eq" id="eq2"></div><div class="eq words" id="eq2w"></div>
+  </div>
+  <div class="try" id="try"><span class="eyebrow">Try</span><span id="tryText"></span></div>
+
+  <div class="walk"><button class="ghost" id="back">Back</button><button class="ghost" id="next">Next</button></div>
+
+  <footer><svg width="22" height="22" viewBox="-11 -11 22 22" aria-hidden="true"><path id="sigil" fill="none" stroke="#e8b84a" stroke-width="1"/></svg><span><b>LOUD’N LIVE</b> · Playful Interface Design · legible before lovely · Sketch, 2026-11-03 · engine: Blood Compressor’s vessel prototype v3, unchanged</span></footer>
+</main>
+
+<!--
+  THE ENGINE. Copied unchanged from Projects/Blood Compressor/stage2-vessel-prototype-v3.html
+  (its script with the id dsp): a heartbeat source and the compressor the Blood Compressor entry describes.
+  The check (… — rich — check.mjs) compares this block with the prototype's, byte for byte.
+-->
+<script id="dsp">
+"use strict";
+var BC = (function(){
+  const dbToLin = d => Math.pow(10, d/20);
+
+  // A heartbeat test source: lub (loud) then dub (softer), 72 bpm, over a quiet
+  // diastolic hum, on a 110 Hz tone with two overtones. Peaks near -3 dBFS,
+  // dub near -8, hum near -34, so the threshold has a wide range to choose from.
+  class Heartbeat {
+    constructor(sr){ this.sr = sr; this.n = 0; this.ph = 0; }
+    env(t){
+      const T = 60/72, u = t % T;
+      const lub = u < 0.012 ? u/0.012 : Math.exp(-(u-0.012)/0.07);
+      const v = u - 0.30;
+      const dub = v < 0 ? 0 : (v < 0.010 ? v/0.010 : Math.exp(-(v-0.010)/0.05));
+      return Math.min(1, 0.025 + 0.72*lub + 0.40*dub);
+    }
+    next(){
+      const t = this.n++ / this.sr;
+      this.ph += 2*Math.PI*110/this.sr; if (this.ph > 2*Math.PI) this.ph -= 2*Math.PI;
+      const tone = (Math.sin(this.ph) + 0.5*Math.sin(2*this.ph) + 0.25*Math.sin(3*this.ph)) / 1.45;
+      return this.env(t) * tone;
+    }
+  }
+
+  // The compressor, built the way the entry describes:
+  //   sidechain high-pass (80 Hz) -> RMS detector -> soft-knee gain computer (cubic)
+  //   -> nerve-conduction delay (fixed 5 ms) -> attack / release ballistics -> gain.
+  class Compressor {
+    constructor(sr){
+      this.sr = sr;
+      this.p = { th:-20, ra:4, kn:6, at:60, re:300, mk:0, rmsMs:10, nerveMs:5, bypass:false };
+      this.hpX = 0; this.hpY = 0; this.ms = 0; this.g = 0;
+      this.delay = new Float32Array(Math.ceil(sr*0.05)); this.dw = 0;
+      this.m = { detMax:-120, grMin:0, tgMin:0, n:0 };
+      this.last = { det:-120, target:0, gr:0 };
+    }
+    // static curve: input level (dB) -> output level (dB)
+    curve(x){
+      const T = this.p.th, R = Math.max(1, this.p.ra), K = Math.max(0, this.p.kn);
+      const lo = T - K/2, hi = T + K/2;
+      if (K <= 0 || x <= lo) return x > T ? T + (x - T)/R : x;
+      if (x >= hi) return T + (x - T)/R;
+      // cubic Hermite between the two straight lines: matches value and slope at
+      // both ends (slope 1 below the knee, 1/R above). The vessel wall yielding.
+      const s = (x - lo)/K, y0 = lo, y1 = T + (K/2)/R, m0 = K, m1 = K/R;
+      const s2 = s*s, s3 = s2*s;
+      return (2*s3 - 3*s2 + 1)*y0 + (s3 - 2*s2 + s)*m0 + (-2*s3 + 3*s2)*y1 + (s3 - s2)*m1;
+    }
+    processSample(x){
+      const p = this.p, sr = this.sr;
+      // sidechain HPF, one pole at 80 Hz
+      const a = Math.exp(-2*Math.PI*80/sr);
+      const hp = a*(this.hpY + x - this.hpX); this.hpX = x; this.hpY = hp;
+      // RMS: one-pole mean square
+      const ar = Math.exp(-1/(sr*p.rmsMs/1000));
+      this.ms = ar*this.ms + (1-ar)*hp*hp;
+      // +3.01 dB so a sine reads at its peak level (dBFS peak, the usual meter scale)
+      const det = 10*Math.log10(this.ms + 1e-12) + 3.0103;
+      const target = Math.min(0, this.curve(det) - det);
+      // nerve-conduction delay on the control signal
+      const L = this.delay.length, d = Math.max(1, Math.round(sr*p.nerveMs/1000));
+      this.delay[this.dw] = target;
+      const delayed = this.delay[(this.dw - d + L) % L];
+      this.dw = (this.dw + 1) % L;
+      // ballistics in dB: moving toward more reduction = attack, back toward 0 = release
+      const atk = Math.max(5, p.at), rel = Math.max(5, p.re);
+      const c = delayed < this.g ? Math.exp(-1/(sr*atk/1000)) : Math.exp(-1/(sr*rel/1000));
+      this.g = c*this.g + (1-c)*delayed;
+      const m = this.m;
+      if (det > m.detMax) m.detMax = det;
+      if (this.g < m.grMin) m.grMin = this.g;
+      if (target < m.tgMin) m.tgMin = target;
+      m.n++;
+      this.last.det = det; this.last.target = target; this.last.gr = this.g;
+      return p.bypass ? x : x * dbToLin(this.g + p.mk);
+    }
+    // read-and-reset the meters (what happened since the last frame)
+    takeMeters(){
+      const m = this.m, out = { det:m.detMax, gr:m.grMin, target:m.tgMin, n:m.n };
+      m.detMax = -120; m.grMin = 0; m.tgMin = 0; m.n = 0;
+      if (out.n === 0){ out.det = this.last.det; out.gr = this.last.gr; out.target = this.last.target; }
+      return out;
+    }
+  }
+  return { Heartbeat, Compressor, dbToLin };
+})();
+if (typeof module !== 'undefined') module.exports = BC;
+</script>
+
+<!-- The core. Plain functions, shared by the page and the headless check. No DOM. -->
+<script id="pid-core">
+var PID = {
+  SR: 48000, HZ: 60, HIST: 300,                     // history: one entry per 1/60 s, five seconds
+  COMP: { ra: 8, kn: 6, at: 10, re: 200, mk: 0 },   // the compressor every step and the test use
+  INPUTS: [0, -6],                                  // the heartbeat loud, and 6 dB down
+  // four bins of squeeze, by the deepest gain reduction on a beat (dB taken off)
+  BINS: [ { label: 'Not squeezing', lo: -1, hi: 1.5, target: 0 },
+          { label: 'A little',      lo: 1.5, hi: 5,  target: 3 },
+          { label: 'A fair amount', lo: 5,   hi: 10, target: 7 },
+          { label: 'A lot',         lo: 10,  hi: 99, target: 13 } ],
+  // thresholds that put the deepest squeeze on each bin's target, per input (found by bisection in the check)
+  TH: { '0': [0, -11.7, -16.6, -23.6], '-6': [0, -17.7, -22.6, -29.6] },
+  // three amounts of juice. j runs 0 to 1: the first part brings in reactions keyed to gain (m), the last part
+  // reactions keyed to the beat (d). The middle is the most juice at which every reaction still means gain.
+  LEVELS: [ { id: 'none',   j: 0,    name: 'none',   adds: 'the opening only' },
+            { id: 'middle', j: 0.45, name: 'middle', adds: 'wall darkens with the squeeze, baroreceptors light where it squeezed, cells hurry through the narrow part' },
+            { id: 'heavy',  j: 1,    name: 'most',   adds: 'all of the middle, plus the vessel pumps on each beat, the frame shakes, sparks fly, the background flashes, the edge glows' } ],
+  PUMP: 0.3, LOOK_S: 4, PER_LEVEL: 8, CALL: 3, BETTER_THAN_CHANCE: 5
+};
+function pidMeaning(j){ return Math.max(0, Math.min(1, j / 0.4)); }               // m: reactions keyed to gain
+function pidDecor(j){ return Math.max(0, Math.min(1, (j - 0.45) / 0.55)); }        // d: reactions keyed to the beat
+function pidOpen(grDb){ return Math.max(0.06, Math.pow(10, -grDb / 20)); }         // opening = the gain, as a share of fully open
+function pidPump(detDb){ return Math.max(0, Math.min(1, (detDb + 30) / 24)); }     // how loud the beat is, 0 to 1
+// the drawn half-width of the lumen, as a share of fully open
+function pidDrawn(grDb, detDb, j){ return pidOpen(grDb) * (1 + PID.PUMP * pidDecor(j) * pidPump(detDb)); }
+function pidBinOf(grDb){ for (var i = 0; i < PID.BINS.length; i++) if (grDb >= PID.BINS[i].lo && grDb < PID.BINS[i].hi) return i; return PID.BINS.length - 1; }
+
+// a running compressor with its history: gr (dB taken off, positive), det (detector dB), over (past the knee)
+function PidSim(th, inDb, sr){
+  this.sr = sr || PID.SR; this.comp = new BC.Compressor(this.sr); this.beat = new BC.Heartbeat(this.sr);
+  for (var k in PID.COMP) this.comp.p[k] = PID.COMP[k];
+  this.comp.p.th = th; this.inDb = inDb; this.per = Math.round(this.sr / PID.HZ); this.k = 0;
+  this.gr = new Float32Array(PID.HIST); this.det = new Float32Array(PID.HIST).fill(-120); this.over = new Uint8Array(PID.HIST);
+  this.cGr = 0; this.cDet = -120; this.cOver = 0; this.onsets = 0; this.lastDet = -120;
+}
+PidSim.prototype.sample = function(x){
+  var y = this.comp.processSample(x * BC.dbToLin(this.inDb)), L = this.comp.last;
+  if (-this.comp.g > this.cGr) this.cGr = -this.comp.g;
+  if (L.det > this.cDet) this.cDet = L.det;
+  if (L.target < -0.05) this.cOver = 1;
+  if (++this.k >= this.per){ this.push(); }
+  return y;
+};
+PidSim.prototype.push = function(){
+  this.gr.copyWithin(0, 1); this.det.copyWithin(0, 1); this.over.copyWithin(0, 1);
+  var n = PID.HIST - 1; this.gr[n] = this.cGr; this.det[n] = this.cDet; this.over[n] = this.cOver;
+  if (this.cDet > -24 && this.lastDet <= -24) this.onsets++;                   // a beat arriving, by its loudness
+  this.lastDet = this.cDet; this.k = 0; this.cGr = 0; this.cDet = -120; this.cOver = 0;
+};
+PidSim.prototype.run = function(seconds){ var n = Math.round(seconds * this.sr); for (var i = 0; i < n; i++) this.sample(this.beat.next()); };
+PidSim.prototype.render = function(out){ for (var i = 0; i < out.length; i++) out[i] = this.sample(this.beat.next()); };
+// the deepest squeeze in the last s seconds of history
+PidSim.prototype.deepest = function(s){ var m = 0, n0 = PID.HIST - Math.round(s * PID.HZ); for (var i = Math.max(0, n0); i < PID.HIST; i++) if (this.gr[i] > m) m = this.gr[i]; return m; };
+// how much of the drawn width's change over the history the gain alone accounts for: squared correlation
+PidSim.prototype.share = function(j){
+  var n = PID.HIST, a = 0, b = 0, aa = 0, bb = 0, ab = 0;
+  for (var i = 0; i < n; i++){ var x = pidOpen(this.gr[i]), y = pidDrawn(this.gr[i], this.det[i], j); a += x; b += y; aa += x * x; bb += y * y; ab += x * y; }
+  var vx = aa / n - (a / n) * (a / n), vy = bb / n - (b / n) * (b / n), c = ab / n - (a / n) * (b / n);
+  if (vx < 1e-6 || vy < 1e-9) return null;
+  return (c * c) / (vx * vy);
+};
+
+// the twenty-four looks: every amount of juice x every bin x both inputs (input is balanced across bins,
+// so how loud the beat is says nothing about how hard the vessel squeezes)
+function pidTrials(){
+  var t = [];
+  PID.LEVELS.forEach(function(L){ PID.BINS.forEach(function(B, b){ PID.INPUTS.forEach(function(inDb){
+    t.push({ id: L.id + '-' + b + '-' + inDb, level: L.id, j: L.j, bin: b, inDb: inDb, th: PID.TH[String(inDb)][b] });
+  }); }); });
+  return t;
+}
+function pidShuffle(a, rnd){ a = a.slice(); rnd = rnd || Math.random; for (var i = a.length - 1; i > 0; i--){ var j = Math.floor(rnd() * (i + 1)), x = a[i]; a[i] = a[j]; a[j] = x; } return a; }
+// score: per amount of juice, how many read right, off by one bin, off by more
+function pidScore(trials, answers){
+  var s = {}; PID.LEVELS.forEach(function(L){ s[L.id] = { right: 0, one: 0, more: 0, n: 0 }; });
+  trials.forEach(function(T){ var a = answers[T.id]; if (a == null) return; var e = Math.abs(a - T.bin), r = s[T.level]; r.n++; if (e === 0) r.right++; else if (e === 1) r.one++; else r.more++; });
+  return s;
+}
+// the rule, set before the first look: a difference of CALL or more is a call; 2 leans; 1 or 0 reads the same
+function pidCompare(a, b){ var d = a - b; return d >= PID.CALL ? 'call' : d <= -PID.CALL ? 'reverse' : d === 2 ? 'leans' : d === -2 ? 'leans-reverse' : 'same'; }
+function pidVerdict(score){
+  var r = { none: score.none.right, middle: score.middle.right, heavy: score.heavy.right };
+  return { counts: r, legible: r.middle >= PID.BETTER_THAN_CHANCE, past: pidCompare(r.middle, r.heavy), top: pidCompare(r.middle, r.none) };
+}
+if (typeof module !== 'undefined') module.exports = { PID: PID, PidSim: PidSim, pidTrials: pidTrials, pidScore: pidScore, pidVerdict: pidVerdict, pidCompare: pidCompare, pidOpen: pidOpen, pidDrawn: pidDrawn, pidBinOf: pidBinOf, pidMeaning: pidMeaning, pidDecor: pidDecor, pidPump: pidPump, pidShuffle: pidShuffle };
+</script>
+
+<script>
+(function(){
+  'use strict';
+  var $ = function(id){ return document.getElementById(id); };
+  var DPR = function(){ return Math.min(2, window.devicePixelRatio || 1); };
+  var BLOOD = '#C8254C', BLOOD_DK = '#7a1830', WALL = '#8B4A5E', MUSCLE = '#4a1626', BARO = '#F5C16C', INK = '#E8E8F0', ACC = '#e8b84a';
+
+  // ---------- one live compressor for the walk ----------
+  var inDb = 0, sim = new PidSim(+$('th').value, inDb, PID.SR);
+  sim.run(5);
+  function resetSim(sr){ var th = sim.comp.p.th; sim = new PidSim(th, inDb, sr || (ac ? ac.sampleRate : PID.SR)); sim.run(5); }
+
+  // ---------- sound: optional, only after a click; the picture runs without it ----------
+  var ac = null, sp = null, playing = false;
+  function sounding(){ return playing && ac && ac.state === 'running'; }
+  function startSound(){
+    if (!ac){
+      ac = new (window.AudioContext || window.webkitAudioContext)();
+      if (ac.sampleRate !== sim.sr) resetSim(ac.sampleRate);
+      var src = ac.createConstantSource(); src.offset.value = 0; src.start();
+      sp = ac.createScriptProcessor(1024, 1, 1);
+      var out = ac.createGain(); out.gain.value = 0.6;
+      var safety = ac.createDynamicsCompressor(); safety.threshold.value = -6; safety.ratio.value = 20; safety.knee.value = 0; safety.attack.value = 0.003; safety.release.value = 0.1;
+      src.connect(sp); sp.connect(out); out.connect(safety); safety.connect(ac.destination);
+      sp.onaudioprocess = function(e){ var o = e.outputBuffer.getChannelData(0); if (playing && !STEPS[step].test) sim.render(o); else o.fill(0); };
+    }
+    if (ac.state === 'suspended') ac.resume();
+    playing = true; $('play').textContent = 'Sound off';
+  }
+  function stopSound(){ playing = false; $('play').textContent = 'Sound on'; }
+  $('play').addEventListener('click', function(){ if (playing) stopSound(); else startSound(); });
+
+  // ---------- controls ----------
+  function setTh(v){ v = Math.max(-40, Math.min(0, Math.round(v * 2) / 2)); $('th').value = v; sim.comp.p.th = v; $('thV').textContent = v.toFixed(1) + ' dB'; }
+  $('th').addEventListener('input', function(){ setTh(+$('th').value); });
+  var J = 0;
+  function setJ(v){ J = v; $('juice').value = v; $('jV').textContent = v.toFixed(2) + (v === 0 ? ' · none' : Math.abs(v - 0.45) < 0.005 ? ' · middle' : v === 1 ? ' · most' : ''); }
+  $('juice').addEventListener('input', function(){ setJ(+$('juice').value); });
+  Array.prototype.forEach.call(document.querySelectorAll('[data-bin]'), function(b){ b.addEventListener('click', function(){ setTh(PID.TH[String(inDb)][+b.getAttribute('data-bin')]); }); });
+  function setInput(v){
+    var bin = binOfTh(); inDb = v; sim.inDb = v; $('loud').setAttribute('aria-pressed', String(v === 0)); $('soft').setAttribute('aria-pressed', String(v !== 0));
+    if (bin != null) setTh(PID.TH[String(v)][bin]);
+  }
+  function binOfTh(){ var row = PID.TH[String(inDb)], th = sim.comp.p.th; for (var i = 0; i < row.length; i++) if (row[i] === th) return i; return null; }
+  $('loud').addEventListener('click', function(){ setInput(0); });
+  $('soft').addEventListener('click', function(){ setInput(-6); });
+
+  // ---------- drawing ----------
+  function fit(cv){ var r = cv.getBoundingClientRect(), d = DPR(), W = Math.round(r.width * d), H = Math.round(r.height * d); if (W && (cv.width !== W || cv.height !== H)){ cv.width = W; cv.height = H; } return { W: cv.width, H: cv.height, d: d }; }
+  function mix(a, b, t){ var pa = parseInt(a.slice(1), 16), pb = parseInt(b.slice(1), 16); var c = [16, 8, 0].map(function(s){ var x = (pa >> s) & 255, y = (pb >> s) & 255; return Math.round(x + (y - x) * t); }); return 'rgb(' + c.join(',') + ')'; }
+  // what a canvas keeps between frames for its decoration: flash, sparks, cells
+  function Deco(){ this.seen = 0; this.flash = 0; this.sparks = []; this.cells = []; for (var k = 0; k < 36; k++) this.cells.push({ x: Math.random(), y: Math.sin(k * 2.7) }); this.t = 0; }
+
+  function drawMeter(g, x, y, w, h, s, d, numbers){
+    var top = y + 14 * d, bot = y + h - 22 * d, MAX = 24, Y = function(db){ return top + (bot - top) * Math.min(1, db / MAX); };
+    g.fillStyle = '#16161f'; g.fillRect(x + 22 * d, top, w - 34 * d, bot - top);
+    g.font = (10 * d) + 'px JetBrains Mono, monospace'; g.textAlign = 'right';
+    [0, 3, 6, 12, 18, 24].forEach(function(db){ var yy = Y(db); g.fillStyle = '#4a4a5a'; g.fillRect(x + 22 * d, yy, w - 34 * d, 1); g.fillStyle = '#8a8aa0'; g.fillText(String(db), x + 18 * d, yy + 4 * d); });
+    var now = s.gr[PID.HIST - 1], peak = s.deepest(1.2);
+    g.fillStyle = ACC; g.fillRect(x + 26 * d, top, w - 42 * d, Y(now) - top);
+    g.fillStyle = INK; g.fillRect(x + 22 * d, Y(peak) - d, w - 34 * d, 2 * d);
+    g.textAlign = 'left'; g.fillStyle = '#8a8aa0'; g.fillText('dB off', x + 2 * d, y + 9 * d);
+    if (numbers){ g.fillStyle = INK; g.fillText(now.toFixed(1), x + 4 * d, bot + 16 * d); }
+  }
+
+  // the vessel strip: width along x is the gain over the last five seconds; now is the right edge
+  function drawVessel(g, x0, y0, w, h, s, j, deco, d, dt){
+    var m = pidMeaning(j), dd = pidDecor(j), N = PID.HIST, cy = y0 + h / 2, R = h * 0.34, wallT = Math.max(6 * d, h * 0.05);
+    var X = function(i){ return x0 + w * i / (N - 1); };
+    var nowDet = s.det[N - 1], pumpNow = pidPump(nowDet);
+    // a beat arriving: the flash and the sparks follow it, not the squeeze
+    if (s.onsets !== deco.seen){ deco.seen = s.onsets; deco.flash = 1; if (dd > 0) for (var q = 0; q < Math.round(22 * dd); q++){ var i = Math.floor(N * (0.55 + 0.45 * Math.random())); deco.sparks.push({ x: X(i), y: cy + (Math.random() < .5 ? -1 : 1) * R * pidDrawn(s.gr[i], s.det[i], j), vx: (Math.random() - .5) * 120 * d, vy: (Math.random() - .5) * 220 * d, life: 1 }); } }
+    deco.flash = Math.max(0, deco.flash - dt / 0.25);
+    g.save();
+    if (dd > 0){ g.fillStyle = 'rgba(200,37,76,' + (0.22 * dd * deco.flash).toFixed(3) + ')'; g.fillRect(x0 - 8 * d, y0, w + 16 * d, h); var sh = 7 * d * dd * deco.flash; g.translate((Math.random() * 2 - 1) * sh, (Math.random() * 2 - 1) * sh); }
+    var pumpOf = function(i){ return 1 + PID.PUMP * dd * pidPump(s.det[i]); };
+    var rIn = function(i){ return R * pidDrawn(s.gr[i], s.det[i], j); };
+    var rOut = function(i){ return (R + wallT) * pumpOf(i); };
+    // tissue around the vessel
+    g.fillStyle = 'rgba(139,74,94,0.12)'; g.fillRect(x0, cy - R - wallT - 10 * d, w, 2 * (R + wallT + 10 * d));
+    // wall: from the outer edge to the lumen; with meaning on, it darkens as the muscle squeezes
+    var wallFill = '#5a3a46';
+    if (m > 0){ wallFill = g.createLinearGradient(x0, 0, x0 + w, 0); for (var gi = 0; gi < N; gi += 3) wallFill.addColorStop(gi / (N - 1), mix(WALL, MUSCLE, m * Math.min(1, s.gr[gi] / 13))); }
+    [-1, 1].forEach(function(sg){
+      g.fillStyle = wallFill; g.beginPath();
+      for (var i = 0; i < N; i++) g.lineTo(X(i), cy + sg * rOut(i));
+      for (var i3 = N - 1; i3 >= 0; i3--) g.lineTo(X(i3), cy + sg * rIn(i3));
+      g.closePath(); g.fill();
+    });
+    // the lumen: its half-width is the gain (and, with decoration on, the beat's pump)
+    var grad = g.createLinearGradient(0, cy - R, 0, cy + R), mid = dd > 0 ? mix(BLOOD, '#ff4d7a', dd * pumpNow) : BLOOD;
+    grad.addColorStop(0, BLOOD_DK); grad.addColorStop(.5, mid); grad.addColorStop(1, BLOOD_DK);
+    if (dd > 0){ g.shadowBlur = 22 * d * dd * pumpNow; g.shadowColor = '#ff3366'; }
+    g.fillStyle = grad; g.beginPath();
+    for (var i = 0; i < N; i++) g.lineTo(X(i), cy - rIn(i));
+    for (var i2 = N - 1; i2 >= 0; i2--) g.lineTo(X(i2), cy + rIn(i2));
+    g.closePath(); g.fill(); g.shadowBlur = 0;
+    // cells hurry through the narrow part: speed goes as one over the opening (meaning)
+    if (m > 0){
+      g.fillStyle = 'rgba(255,205,215,' + (0.55 * m).toFixed(3) + ')';
+      deco.cells.forEach(function(c){ var i = Math.min(N - 1, Math.floor(c.x * (N - 1))); c.x += dt * 0.08 / pidOpen(s.gr[i]); if (c.x >= 1) c.x -= 1; g.beginPath(); g.arc(X(i), cy + c.y * rIn(i) * 0.7, 2.2 * d, 0, 2 * Math.PI); g.fill(); });
+      // baroreceptors: lit where the body sensed overpressure (meaning)
+      for (var k = 0; k < 10; k++){ var bi = Math.round((k + 0.5) / 10 * (N - 1)), on = s.over[bi]; g.globalAlpha = m * (on ? 0.9 : 0.2); g.fillStyle = BARO; var rr = (on ? 4.5 : 3) * d; g.beginPath(); g.arc(X(bi), cy - rOut(bi) + 2 * d, rr, 0, 2 * Math.PI); g.fill(); g.beginPath(); g.arc(X(bi), cy + rOut(bi) - 2 * d, rr, 0, 2 * Math.PI); g.fill(); }
+      g.globalAlpha = 1;
+    }
+    // sparks fly off the walls on each beat (decoration)
+    if (deco.sparks.length){
+      deco.sparks = deco.sparks.filter(function(p){ p.life -= dt / 0.8; p.x += p.vx * dt; p.y += p.vy * dt; p.vy += 260 * d * dt; return p.life > 0; });
+      deco.sparks.forEach(function(p){ g.globalAlpha = Math.max(0, p.life) * dd; g.fillStyle = p.life > .6 ? '#ffffff' : ACC; var z = 2.4 * d; g.fillRect(p.x - z / 2, p.y - z / 2, z, z); g.fillRect(p.x - z * 1.5, p.y - 0.5, z * 3, 1); });
+      g.globalAlpha = 1;
+    }
+    g.restore();
+  }
+
+  // ---------- the four steps ----------
+  var STEPS = [
+    { title: 'A bare meter', short: 'Meter', view: 'meter',
+      say: 'One compressor on a heartbeat: lub, then a softer dub, 72 beats a minute. The amber bar is its gain reduction, how many decibels it is taking off right now, and the white tick holds the deepest of the last second. Drag the threshold down and each lub pushes the bar further. The dub, softer, is squeezed less. This is the plain version, and it is legible: one thing moves, and it means one thing.',
+      hint: 'the Blood Compressor’s engine: ratio 8, knee 6 dB, attack 10 ms, release 200 ms',
+      eq1: ['GR = x − (T + (x − T) ÷ R)', '(decibels taken off) = (the level coming in) − (where the curve puts it), above the threshold T, with ratio R'],
+      eq2: ['', ''],
+      tryText: 'Move the threshold from 0 down to −25 dB and watch how deep the white tick sits on each beat. Sound on lets you hear the beats flatten.' },
+    { title: 'The same gain, as a vessel', short: 'Vessel', view: 'vessel', meter: true,
+      say: 'The same compressor drawn as the Blood Compressor’s vessel. The opening is the gain: six decibels off and it is half as wide, twelve off and a quarter. Five seconds of history run across the strip, with now at the right edge. In this step nothing on the strip moves for any other reason, so the vessel says exactly what the meter says, in a picture.',
+      hint: 'the meter at left, the vessel beside it, one engine',
+      eq1: ['opening = 10^(−GR ÷ 20)', '(the opening, as a share of fully open) = 10 to the power of (minus the decibels taken off ÷ 20)'],
+      eq2: ['GR = 6 dB → 0.50     GR = 12 dB → 0.25', 'six decibels off halves the opening; twelve off quarters it'],
+      tryText: 'Set the threshold so the white tick sits near 6, and check that the vessel’s narrowest point is half its open width.' },
+    { title: 'Juice', short: 'Juice', view: 'juice', meter: true, juice: true,
+      say: 'Now turn up the juice. Up to the middle, 0.45, every reaction added means gain. The wall darkens as it squeezes, the baroreceptors light where it squeezed, and the cells hurry through the narrow part. Past the middle come the reactions game designers reach for: the vessel pumps wider on each beat, the frame shakes, sparks fly, the background flashes, and the edge glows. Each of those follows how loud the heartbeat is, which is not how hard the compressor is working. The presets show each amount of squeeze, and the loud and soft buttons show what moves with the beat alone.',
+      hint: 'the middle is set as the most juice at which every reaction still means gain, the section’s own rule',
+      eq1: ['r = R × 10^(−GR ÷ 20) × (1 + 0.3 × d × pump)', '(drawn opening) = (full opening) × (the gain) × (1 + 0.3 × (beat-keyed juice, 0 to 1) × (how loud the beat is, 0 to 1))'],
+      eq2: ['share = corr(gain, drawn opening)²', 'of the drawn opening’s change over the five seconds on screen, the part the gain alone accounts for'],
+      tryText: 'Pick A fair amount, then sweep the juice from 0 to 1. Then press Soft and Loud at the most juice: the pump changes and the squeeze does not.' },
+    { title: 'Can you still read it? A blind test', short: 'The test', view: 'test', test: true,
+      say: 'The test. Twenty-four looks at the vessel, shuffled: eight at no juice, eight at the middle, eight at the most, and the amount isn’t named. Each look runs four seconds and then goes dark. Say how hard the vessel is squeezing at its deepest. The heartbeat is loud in half of each bin’s looks and soft in the other half, so the beat’s size tells you nothing. No meter, no numbers, no sound. After the last look you pick the look you’d rather have, and then the answers show.',
+      hint: 'silent; the vessel only',
+      eq1: ['chance = 1 ÷ 4 a look  →  2 of 8 at each amount', 'four answers, so a guess is right one time in four'],
+      eq2: ['call: middle − most ≥ 3 of 8', 'the difference the rule needs before it calls one amount easier to read than another'],
+      tryText: 'Press Start the test. Answer as soon as you can; answering moves to the next look.' }
+  ];
+
+  var rail = $('rail'), step = 0;
+  STEPS.forEach(function(s, i){ var b = document.createElement('button'); b.textContent = (i + 1) + ' · ' + s.short; b.addEventListener('click', function(){ go(i); }); rail.appendChild(b); });
+
+  // ---------- the blind test ----------
+  var test = null, tSim = null, tDeco = null, tLeft = 0, tPhase = 'idle', thumbs = null;
+  function ruleText(){
+    return '<b>The rule, set before the first look.</b> A guess is right one time in four, so 2 of 8 at each amount of juice. ' +
+      'Reading an amount right 5 or more times in 8 is better than guessing; a guesser gets there 2.7% of the time. ' +
+      'If you read the middle at least 3 better than the most, juice past the middle cost you the meaning, as the section says. ' +
+      'If you read the middle at least 3 better than none, the middle helped too: the top of the inverted U. ' +
+      'A difference of 2 leans that way but isn’t called; 1 or 0, those two amounts read the same for you. ' +
+      'Eight looks each is a small sample: an eye that reads two amounts equally well still crosses the line of 3 about one time in ten (7% at 6 of 8 right, 10.5% at 4 of 8). ' +
+      'Separately, after the last look you pick the look you’d rather have, before any answer shows: the juice studies the section cites found players liking the juiciest version and sometimes reading it worse.';
+  }
+  function newTest(){
+    test = { order: pidShuffle(pidTrials()), i: 0, answers: {}, pref: null, letters: pidShuffle([0, 1, 2]) };
+    tPhase = 'idle'; $('reveal').hidden = true; $('revealNote').hidden = true; $('againRow').hidden = true; $('prefBox').hidden = true;
+    $('answers').hidden = false; $('startTest').hidden = false; $('stage').hidden = false; syncTest();
+  }
+  function startLook(){
+    var T = test.order[test.i]; tSim = new PidSim(T.th, T.inDb, PID.SR); tSim.run(5); tDeco = new Deco(); tDeco.seen = tSim.onsets; tLeft = PID.LOOK_S; tPhase = 'look';
+    syncTest();
+  }
+  function syncTest(){
+    if (!test) return;
+    var fin = test.i >= test.order.length;
+    $('trialLabel').textContent = fin ? 'All twenty-four answered' : 'Look ' + (test.i + 1) + ' of ' + test.order.length + (tPhase === 'dark' ? ' · dark now, answer' : '');
+    $('startTest').hidden = tPhase !== 'idle' || fin;
+    Array.prototype.forEach.call(document.querySelectorAll('[data-ans]'), function(b){ b.disabled = fin || tPhase === 'idle'; });
+  }
+  $('startTest').addEventListener('click', function(){ startLook(); });
+  Array.prototype.forEach.call(document.querySelectorAll('[data-ans]'), function(b){
+    b.addEventListener('click', function(){
+      if (!test || tPhase === 'idle' || test.i >= test.order.length) return;
+      test.answers[test.order[test.i].id] = +b.getAttribute('data-ans'); test.i++; meter();
+      if (test.i >= test.order.length){ tPhase = 'idle'; syncTest(); showPrefs(); }
+      else { tPhase = 'gap'; tLeft = 0.35; syncTest(); }
+    });
+  });
+  function showPrefs(){
+    $('answers').hidden = true; $('stage').hidden = true; $('prefBox').hidden = false;
+    var s = new PidSim(PID.TH['0'][2], 0, PID.SR); s.run(5);
+    thumbs = { sim: s, decos: [new Deco(), new Deco(), new Deco()] };
+    thumbs.decos.forEach(function(dc){ dc.seen = s.onsets; });
+    Array.prototype.forEach.call(document.querySelectorAll('[data-pref]'), function(b){ b.setAttribute('aria-pressed', 'false'); });
+  }
+  Array.prototype.forEach.call(document.querySelectorAll('[data-pref]'), function(b){
+    b.addEventListener('click', function(){ if (!test || test.pref != null) return; var slot = +b.getAttribute('data-pref'); test.pref = PID.LEVELS[test.letters[slot]].id; b.setAttribute('aria-pressed', 'true'); reveal(); });
+  });
+  $('again').addEventListener('click', function(){ newTest(); meter(); });
+  function reveal(){
+    var sc = pidScore(test.order, test.answers), v = pidVerdict(sc), tb = $('reveal').querySelector('tbody'); tb.innerHTML = '';
+    PID.LEVELS.forEach(function(L){ var r = sc[L.id], tr = document.createElement('tr');
+      tr.innerHTML = '<td>' + L.name + '</td><td>' + L.adds + '</td><td><b>' + r.right + '</b> of ' + r.n + '</td><td>' + r.one + '</td><td>' + r.more + '</td><td>' + (test.pref === L.id ? '<b>this one</b>' : '') + '</td>'; tb.appendChild(tr); });
+    var c = v.counts, n = [];
+    var past, top;
+    if (!v.legible){
+      n.push('You read the middle ' + c.middle + ' of 8, and the rule needs 5 before it counts as better than a guess. So this run can’t speak to the claim either way: none ' + c.none + ', middle ' + c.middle + ', most ' + c.heavy + '. Step 3’s presets show each squeeze at each amount; try them, then run the test again.');
+      past = null; top = null;
+    } else n.push('You read the middle better than a guess would (' + c.middle + ' of 8).');
+    if (v.legible) past = { call: 'Past the middle, juice cost you the meaning: the middle ' + c.middle + ', the most ' + c.heavy + '. That is the section’s claim, held for your eye.',
+                 leans: 'The middle read 2 better than the most (' + c.middle + ' to ' + c.heavy + '): it leans the section’s way but the rule doesn’t call it.',
+                 same: 'The middle and the most read about the same for you (' + c.middle + ' and ' + c.heavy + '): the extra motion didn’t bury the squeeze. That goes against the section’s claim, for this eye on this vessel.',
+                 'leans-reverse': 'The most read 2 better than the middle (' + c.heavy + ' to ' + c.middle + '): against the section, though the rule doesn’t call it.',
+                 reverse: 'The most read better than the middle (' + c.heavy + ' to ' + c.middle + '): for you the extra juice helped. That goes against the section’s claim.' }[v.past];
+    if (v.legible) top = { call: 'The middle also beat none (' + c.middle + ' to ' + c.none + '): reactions that mean gain helped you read it, the top of the inverted U.',
+                leans: 'The middle read 2 better than none (' + c.middle + ' to ' + c.none + '): a lean toward the top of the U, not called.',
+                same: 'None and the middle read about the same (' + c.none + ' and ' + c.middle + '): here the test can’t tell a peak from a plateau, since the opening alone already carries the gain.',
+                'leans-reverse': 'None read 2 better than the middle (' + c.none + ' to ' + c.middle + '): not called.',
+                reverse: 'None read better than the middle (' + c.none + ' to ' + c.middle + '): for you even the meaningful reactions got in the way.' }[v.top];
+    if (past) n.push(past); if (top) n.push(top);
+    var prefL = PID.LEVELS.filter(function(L){ return L.id === test.pref; })[0];
+    if (prefL){ var pr = sc[prefL.id].right, best = Math.max(c.none, c.middle, c.heavy);
+      n.push('You’d rather have ' + prefL.name + ' juice, which you read ' + pr + ' of 8' + (pr < best ? ', below your best of ' + best + '. Liking a look and reading it well came apart, as in the juice studies.' : ', as well as any. Here liking and reading went together.')); }
+    n.push('The test asks the eye, not the engine. A reader who measured only the narrowest point of the drawn opening would sort all eight looks right at none and at the middle, and seven of eight at the most: the pump widens the narrowest point by 18 to 25%, enough to move one look into the wrong bin. The rest of what the most adds is motion for the eye to sort out.');
+    $('revealNote').textContent = n.join(' ');
+    $('reveal').hidden = false; $('revealNote').hidden = false; $('againRow').hidden = false; $('prefBox').hidden = true;
+  }
+
+  // ---------- readouts ----------
+  function meter(){
+    var s = STEPS[step], h = [];
+    if (s.test){ $('meter').innerHTML = test && test.i < test.order.length ? 'looks answered: <b>' + test.i + '</b> of ' + test.order.length : ''; return; }
+    var deep = sim.deepest(2);
+    h.push('deepest squeeze in the last two seconds: <b>' + deep.toFixed(1) + ' dB</b> (' + PID.BINS[pidBinOf(deep)].label.toLowerCase() + ')' + (s.view !== 'meter' ? ' · narrowest opening <b>' + pidOpen(deep).toFixed(2) + '</b> of full' : ''));
+    if (s.juice){
+      var sh = sim.share(J);
+      h.push('reactions keyed to gain: <b>' + pidMeaning(J).toFixed(2) + '</b> · keyed to the beat: <b>' + pidDecor(J).toFixed(2) + '</b>');
+      h.push('of the drawn opening’s change on screen, the gain accounts for <b>' + (sh == null ? '—' : (sh * 100).toFixed(0) + '%') + '</b>' + (sh == null ? ' (nothing is squeezing, so the opening only moves with the beat, if at all)' : ''));
+    }
+    $('meter').innerHTML = h.join('<br>');
+  }
+
+  function go(i){
+    if (playing) stopSound();
+    step = i; var s = STEPS[i];
+    Array.prototype.forEach.call(rail.children, function(b, j){ if (j === i) b.setAttribute('aria-current', 'step'); else b.removeAttribute('aria-current'); });
+    $('stepEyebrow').textContent = 'Step ' + (i + 1) + ' of ' + STEPS.length + (s.test ? ' · the test' : '');
+    $('stepTitle').textContent = s.title; $('stepSay').textContent = s.say; $('hint').textContent = s.hint;
+    $('eq1').textContent = s.eq1[0]; $('eq1w').textContent = s.eq1[1]; $('eq2').textContent = s.eq2[0]; $('eq2w').textContent = s.eq2[1];
+    $('tryText').textContent = s.tryText;
+    $('ctlTh').hidden = !!s.test; $('ctlJ').hidden = !s.juice; $('presets').hidden = !s.juice;
+    $('play').hidden = !!s.test; $('testBox').hidden = !s.test; $('ruleBox').hidden = !s.test;
+    $('panelName').textContent = s.test ? 'Read' : 'Watch';
+    if (s.test){ $('ruleBox').innerHTML = ruleText(); if (!test) newTest(); else { $('stage').hidden = test.i >= test.order.length; } tPhase = test.i < test.order.length ? 'idle' : tPhase; syncTest(); }
+    else { $('stage').hidden = false; if (!s.juice) setJ(0); else if (J === 0) setJ(0.45); }
+    $('back').disabled = i === 0; $('next').disabled = i === STEPS.length - 1;
+    meter();
+  }
+  $('back').addEventListener('click', function(){ if (step > 0) go(step - 1); });
+  $('next').addEventListener('click', function(){ if (step < STEPS.length - 1) go(step + 1); });
+
+  // ---------- the frame loop ----------
+  var walkDeco = new Deco(), last = null, mTick = 0;
+  walkDeco.seen = sim.onsets;
+  function frame(now){
+    requestAnimationFrame(frame);
+    var dt = last == null ? 0 : Math.min(0.05, (now - last) / 1000); last = now;
+    var s = STEPS[step];
+    if (s.test){
+      if (tPhase === 'look' || tPhase === 'dark' || tPhase === 'gap'){
+        var cv = $('stage'), F = fit(cv), g = cv.getContext('2d');
+        g.fillStyle = '#101018'; g.fillRect(0, 0, F.W, F.H);
+        if (tPhase === 'look'){
+          tSim.run(dt); tLeft -= dt;
+          drawVessel(g, 12 * F.d, 0, F.W - 24 * F.d, F.H, tSim, test.order[test.i].j, tDeco, F.d, dt);
+          if (tLeft <= 0){ tPhase = 'dark'; syncTest(); }
+        } else if (tPhase === 'dark'){
+          g.fillStyle = '#4a4a5a'; g.font = (13 * F.d) + 'px Manrope, sans-serif'; g.textAlign = 'center'; g.fillText('answer: at its deepest, how hard was it squeezing?', F.W / 2, F.H / 2); g.textAlign = 'left';
+        } else { tLeft -= dt; if (tLeft <= 0) startLook(); }
+      }
+      if (thumbs && !$('prefBox').hidden){
+        thumbs.sim.run(dt);
+        ['tA', 'tB', 'tC'].forEach(function(id, k){ var cv = $(id), F = fit(cv), g = cv.getContext('2d'); g.fillStyle = '#101018'; g.fillRect(0, 0, F.W, F.H); drawVessel(g, 8 * F.d, 0, F.W - 16 * F.d, F.H, thumbs.sim, PID.LEVELS[test.letters[k]].j, thumbs.decos[k], F.d, dt); });
+      }
+      return;
+    }
+    if (!sounding()) sim.run(dt);
+    var cv2 = $('stage'), F2 = fit(cv2), g2 = cv2.getContext('2d');
+    if (!F2.W) return;
+    g2.fillStyle = '#101018'; g2.fillRect(0, 0, F2.W, F2.H);
+    if (s.view === 'meter'){
+      drawMeter(g2, 16 * F2.d, 0, 110 * F2.d, F2.H, sim, F2.d, true);
+      // beside the bare meter, the heartbeat itself: the detector level over the same five seconds
+      var x0 = 150 * F2.d, w = F2.W - x0 - 16 * F2.d, top = 14 * F2.d, bot = F2.H - 22 * F2.d, Y = function(db){ return bot - (bot - top) * Math.max(0, Math.min(1, (db + 48) / 48)); };
+      g2.strokeStyle = 'rgba(232,232,240,0.55)'; g2.lineWidth = 1.2 * F2.d; g2.beginPath();
+      for (var i = 0; i < PID.HIST; i++){ var xx = x0 + w * i / (PID.HIST - 1); if (i) g2.lineTo(xx, Y(sim.det[i])); else g2.moveTo(xx, Y(sim.det[i])); } g2.stroke();
+      g2.strokeStyle = ACC; g2.setLineDash([6 * F2.d, 4 * F2.d]); g2.beginPath(); g2.moveTo(x0, Y(sim.comp.p.th)); g2.lineTo(x0 + w, Y(sim.comp.p.th)); g2.stroke(); g2.setLineDash([]);
+      g2.font = (10 * F2.d) + 'px JetBrains Mono, monospace'; g2.fillStyle = '#8a8aa0'; g2.fillText('the heartbeat coming in, last five seconds · amber: the threshold', x0, F2.H - 6 * F2.d);
+    } else {
+      drawMeter(g2, 8 * F2.d, 0, 84 * F2.d, F2.H, sim, F2.d, true);
+      drawVessel(g2, 108 * F2.d, 0, F2.W - 120 * F2.d, F2.H, sim, s.juice ? J : 0, walkDeco, F2.d, dt);
+    }
+    if ((mTick += dt) > 0.2){ mTick = 0; meter(); }
+  }
+  (function(){ var d = ''; for (var i = 0; i <= 200; i++){ var a = i / 200 * 2 * Math.PI; d += (i ? 'L' : 'M') + (9 * Math.sin(3 * a + 0.5)).toFixed(2) + ' ' + (9 * Math.sin(2 * a)).toFixed(2); } $('sigil').setAttribute('d', d); })();
+  setTh(+$('th').value); setJ(0); go(0); requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,113 @@
+{
+  "title": "Playful Interface Design — rich",
+  "born": "2026-11-03",
+  "links": [
+    {
+      "target": "[[Playful Interface Design]]",
+      "type": "connects-to",
+      "label": "rich-face-of"
+    },
+    {
+      "target": "[[Enrichment]]",
+      "type": "connects-to",
+      "label": "made-by"
+    },
+    {
+      "target": "[[Progressive Staging]]",
+      "type": "connects-to",
+      "label": "the-test-is-the-last-step"
+    },
+    {
+      "target": "[[Blood Compressor]]",
+      "type": "connects-to",
+      "label": "the-vessel-and-its-engine"
+    }
+  ],
+  "forward_vector": "I am the manifest of Playful Interface Design's rich face, its first round at Sketch tier, a proposal: one made walk and two gathered records. The walk puts the section's first move, legible before lovely, to a blind test of the reader's eye on the Blood Compressor's own engine; the records are that vessel as the steward built it, and the plugin face it became. I grow toward the catalogue the page wants, one tested instrument for each kind of picture; I never hold the entry's words.",
+  "entry": "Playful Interface Design",
+  "tier": "sketch",
+  "made": "2026-11-03",
+  "round": 1,
+  "offers": [
+    {
+      "section": "Four moves the direction asks for",
+      "kind": "claim-change",
+      "what": "The rule 'Every reaction of the interface should mean something about the sound' passes the juice it is meant to catch. Building the test's heaviest level, the vessel pumps wider on each beat by how loud the heartbeat is: that means something about the sound, and it still buries the gain, because it moves the same width that means gain. Measured on the Blood Compressor's engine (check.mjs): with a little squeeze (3 dB) on the loud heartbeat, the gain accounts for 27% of the drawn opening's change over five seconds (r²), against 100% with no juice or the middle amount; at 7 dB it accounts for 88%, at 13 dB 98%; the pump widens the narrowest point by 18 to 25%. Suggested: 'Every reaction should mean the thing it appears to show, and no two meanings should share one motion: if the vessel narrows, the gain is coming down, and nothing else may move that width.' Whether a reader's eye is fooled is what the piece's blind test asks; no reader has taken it yet.",
+      "status": "open"
+    }
+  ],
+  "sections": [
+    {
+      "heading": "The principle: every interface is understood *as* something",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "made": "2026-11-03",
+      "pieces": [
+        {
+          "file": "/Projects/Blood Compressor/stage2-vessel-prototype-v3.html",
+          "origin": "gathered",
+          "contract": {},
+          "height": 720,
+          "place": "band",
+          "near": "A vessel narrowing under pressure says",
+          "title": "A vessel narrowing under pressure · the Blood Compressor's Stage 2 prototype v3",
+          "caption": "**The section's second picture, built.** One compressor drives the sound and the picture: a heartbeat runs through the vessel, the walls clamp when the pressure crosses the amber systolic line, the baroreceptors light, and the opening follows the gain. Drag the line or the threshold slider; it runs with the sound off, and Sound on starts the heartbeat. Gathered as the steward made it, 2026-10-14, and kept on Blood Compressor's own face. Its opening is 0.18 + 0.82 × the gain, so it never closes; the walk under Four moves draws the opening as the gain itself, on this same engine."
+        }
+      ],
+      "made_against": "72541cc79924",
+      "stamped": "2026-11-03"
+    },
+    {
+      "heading": "Four moves the direction asks for",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "made": "2026-11-03",
+      "pieces": [
+        {
+          "file": "Playful Interface Design — rich — legible before lovely.html",
+          "origin": "made",
+          "by": "maker · claude-opus-5-5 · canvas, Web Audio",
+          "height": 1290,
+          "place": "band",
+          "near": "Game designers call excess feedback",
+          "title": "Legible before lovely · how much juice before the vessel stops meaning gain?",
+          "caption": "**Does juice past a middle amount stop meaning anything?** Four steps on the Blood Compressor's engine, copied unchanged, with a heartbeat through it. First a bare gain-reduction meter. Then the same gain as a vessel whose opening is the gain: six decibels off, half as wide. Then a juice slider. Up to the middle, every reaction added means gain: the wall darkens, the baroreceptors light, the cells hurry through the narrow part. Past it come reactions keyed to the beat: a pump, a shake, sparks, a flash, a glow. The middle is set as the most juice at which every reaction still means gain, which is the section's own rule. Last, a silent blind test of twenty-four looks, eight at each amount, unnamed and shuffled, with loud and soft heartbeats balanced across every squeeze. You say how hard the vessel squeezes at its deepest, then pick the look you'd rather have, before any answer shows. Chance is 2 of 8 at each amount. The rule, stated before the first look, calls a difference of 3 or more. A reader whose eye reads two amounts equally well still crosses that line about one time in ten. On the engine, a reader who measures only the narrowest drawn width sorts 8 of 8 at none and at the middle, and 7 of 8 at the most. The test asks your eye.\n\nr = R × 10^(−GR ÷ 20) × (1 + 0.3 × d × pump)\n\n(drawn opening) = (full opening) × (the gain) × (1 + 0.3 × (beat-keyed juice, 0 to 1) × (how loud the beat is, 0 to 1))"
+        }
+      ],
+      "made_against": "a9b8026e6743",
+      "stamped": "2026-11-03"
+    },
+    {
+      "heading": "Kinds already made: examples from the palace",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "made": "2026-11-03",
+      "pieces": [
+        {
+          "file": "/Projects/Blood Compressor/blood-compressor-face.html",
+          "origin": "gathered",
+          "contract": {},
+          "height": 640,
+          "place": "band",
+          "near": "a compressor that is blood pressure in a narrowing vessel",
+          "title": "The organism, as a plugin face · the Blood Compressor, October 2026",
+          "caption": "**The organism kind, as an instrument face.** You are inside the artery looking down it, and each beat rolls away from the glass as a ring of wall: pink where the wall is pushed past the systolic line, dark bands where the muscle squeezes, a crown of baroreceptors that flares while the reflex fires. The strip on the glass stands in for a host: sound on, then a heartbeat or a drum loop. Gathered as it sits on Blood Compressor's own face; the plugin itself is not yet built, and its one console line outside a host is the editor's placeholder."
+        }
+      ],
+      "made_against": "9c59198deb3a",
+      "stamped": "2026-11-03"
+    }
+  ]
+}
