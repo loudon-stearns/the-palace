@@ -7,7 +7,7 @@ Never edit, commit or run git in the owner's folder. You read and write only in 
 
 ## 1. Read, in this order
 
-- Enrichment.md (the ceremony) and Enrichment/Enrichment — tuning.md (what runs have taught: items 1, 3, 5, 9 matter most here)
+- Enrichment.md (the ceremony, v2.8) and Enrichment/Enrichment — tuning.md (what runs have taught: items 1, 3, 5, 9 and 11 matter most here; 11 is last round's and lists what to look for)
 - Progressive Staging.md (a piece opens on one concept alone and walks up to its test)
 - _ops/rich-face/README.md § The manifest and § Making pieces
 - The page's .md, whole, in the worktree. This is the text every piece must serve.
@@ -43,3 +43,13 @@ Do not land.
 ## 5. Return, compressed (under 250 words)
 
 Commit hash. Per piece: verdict and the one reason. Offers: confirmed, disputed, with numbers. Checks: conform clean or not, console clean or not. Your paragraph on the whole. Nothing else.
+
+## 6. What last round's challengers found (tuning item 11 — look for each)
+
+- Blind tests that leak: pass the test yourself WITHOUT the thing under test — by reading length, by spelling a known word, by level or duration cues. If you can, the test is broken: remake, and say what leaks.
+- Confounds: does the pair differ in anything besides the variable? (One round's "even vs odd harmonics" pairs also differed in register.) Loudness matched, and how?
+- Chance level and verdict rule stated before the first trial; both arms scored. A one-arm score is a remake.
+- A maker's refutation of the page: rebuild the page's situation yourself before you confirm it. Two of last round's refutations were overturned this way (the maker's control was wrong; the maker's cards never overlapped). An overturned refutation is a disputed offer with your numbers.
+- Measurements through the project's own chain: a shortcut (mono fold-down, a different render) misstated a balance by 4 dB last round.
+- Nulls that can't fail: ask what number would have meant failure. If the piece's engine is under test, run the null yourself.
+- Eleven of 87 pages were found wrong by their own pieces last round. Expect to confirm or dispute real findings, with numbers; "plausible" is not a verdict.

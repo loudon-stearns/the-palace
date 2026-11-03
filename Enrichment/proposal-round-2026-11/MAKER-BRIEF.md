@@ -13,13 +13,13 @@ From the owner's folder run:
 
 ## 1. Read first, in this order
 
-- Enrichment.md (the ceremony, v2.7 as committed; v2.8 is being written in parallel and adds what this brief says)
-- Enrichment/Enrichment — tuning.md (the tail read: items 1–9)
+- Enrichment.md (the ceremony, v2.8 — the proposal round is now in the spec)
+- Enrichment/Enrichment — tuning.md (the tail read: items 1–11; item 11 is last round's, read it whole)
 - _ops/rich-face/README.md, whole, especially § The manifest, § Media a face plays, § What the page lets run, § Making pieces
 - Kuramoto Coupling/Kuramoto Coupling — rich.json and two of its made pieces (the model)
 - Loudon Live Design System.md (the house dress for anything the public face shows; equations appear twice, symbols and words)
 - Progressive Staging.md (a piece opens on one concept alone and walks up to its test)
-- Your page, whole, then its bundle folder, then your nomination record (the path is in your task)
+- Your page, whole, then its bundle folder, then your nomination record (the path is in your task). If the page or its bundle has an active baton (a `— baton` file or an "Active Baton" section), read it before making: a baton that renames headings strands the face.
 
 ## 2. Make — Enrichment steps 1 to 5, with these settings
 
@@ -42,8 +42,19 @@ That list is where Enrichment step 6 goes during a proposal round. You never wri
 ## 4. Commit in the worktree, do not land
 
   node _ops/stigmergy/app/scripts/palace-commit.mjs --kind enrich --scope "<Entry>" --summary "<what> — <tier> · proposal" --verify unverified --body "<...>" --path "<every file you made or copied>"
-The body names: the ceremony version you ran under (2.7, with the proposal-round settings), each piece and the claim it tests, conform's table, what was and wasn't verified (an agent can't hear the mix), and every offer. Use --verify verified only if conform is clean and every engine check passed. Commit everything; leave nothing unsaved. Do not run palace-land. Leave the worktree in place.
+The body names: the ceremony version you ran under (2.8), each piece and the claim it tests, conform's table, what was and wasn't verified (an agent can't hear the mix), and every offer. Use --verify verified only if conform is clean and every engine check passed. Commit everything; leave nothing unsaved. Do not run palace-land. Leave the worktree in place.
 
 ## 5. Return, compressed (under 300 words)
 
 Branch, worktree path, commit hash. Tier. Each section made: its pieces, what each tests, and whether it walks up. Conform: clean, or each line and why it stands. Offers, in full. What you could not verify. Nothing else; the mess stays with you.
+
+## 6. Lessons from the first round (tuning item 11 — carry every one)
+
+- A blind test states its chance level and its verdict rule BEFORE the first trial, scores both arms of a comparison, and is checked for leaks and confounds: could a reader who knows the page's inputs pass by length, spelling or level without the thing under test? Does the pair differ in anything besides the variable (register, loudness, duration)? Match loudness; say how you matched it.
+- A piece that refutes the page must first build the situation the page describes. Two maker refutations last round were overturned by the challenger because the maker tested something other than the page's claim.
+- A measurement goes through the project's own chain (a mono fold-down misstated a balance by 4 dB). Use the bundle's own renders and settings where they exist.
+- A test must be able to fail. The null that found a real bug in its own delay line is the model: run the null, print the number, and say what number would have meant failure.
+- The parser opens sections at `##` only: a page with one `##` and many `###` is one section, one stamp, one all-or-nothing approval. Prefer the page's own `##` grain and say so in the manifest when the grain is coarse.
+- Kit: no code comment that names `rich:hush` (the kit then leaves hush to the piece); no detached `new Audio()` (sends no `rich:play`); conform's opaque frame reports sandbox-blocked fetches that work on the live face — keep with a note if the live face loads them. The public sandboxed frame can't read pixels; bake numbers in.
+- Write the run line in your commit body: `run · 2026-11-03 · v2.8 · <Entry> — <tier> · proposal`.
+- Fewer, better. The nomination record is a starting read, not an order: drop a piece that turns out to have nothing to test.

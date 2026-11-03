@@ -122,7 +122,7 @@ step 7 — in a round the `.md` is never written):
               "what": "…", "status": "open|taken|declined" } ]
 ```
 
-`approve.mjs` leaves offers untouched; an offer is taken or declined by hand, by the agent that carries it
+An offer whose home is another page names it in place of the heading, `"section": "→ BLUELINE"`, so the page that found it still carries it and the arrow says where it goes. `approve.mjs` leaves offers untouched; an offer is taken or declined by hand, by the agent that carries it
 home on Loudon's word (a `no-claim-edit` shown to him first; a `claim-change` through the Deposit map).
 `node _ops/rich-face/proposals.mjs [--json]` lists every section still at proposal across the palace, by
 entry, with its age and its challenger's verdict counts, and every open offer. Both scripts have a
