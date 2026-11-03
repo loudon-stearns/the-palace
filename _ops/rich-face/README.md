@@ -85,6 +85,49 @@ or one with nothing laid out. With neither, 800. Kuramoto's were measured in a 1
 `contract` is for a gathered proof nobody should edit: the manifest speaks for it, with the same fields a
 piece declares in its own head (below). A piece that declares for itself is held to its own words.
 
+### A section's status — the proposal round
+
+A section a proposal round makes ([[Enrichment]] § Proposal and approval) carries a `status` and the
+blocks that say who made it, who challenged it and who approved it. Write them exactly so:
+
+```json
+{ "heading": "In Our Instruments", "made_against": "<12 hex>", "made": "…", "stamped": "…",
+  "status": "proposal",
+  "proposed": { "date": "YYYY-MM-DD", "by": "<maker>", "round": "proposal-round-2026-11" },
+  "challenge": { "date": "YYYY-MM-DD", "by": "<challenger>",
+                 "verdicts": [ { "file": "…", "verdict": "keep|remake|retire", "why": "…" } ] },
+  "approved": { "date": "YYYY-MM-DD", "by": "Loudon", "via": "dock|chat" },
+  "pieces": [ … ] }
+```
+
+- `status` is `proposal`, `approved` or `retired`. **A section with no `status` is approved** — the faces made
+  before the round stand as they are. A `retired` section's pieces are not rendered and not counted.
+- `proposed` is written by the maker, with the round's name. `challenge` is written by the challenger, one
+  verdict per piece with its reason; a piece whose verdict is `retire` is removed from `pieces` and from the
+  bundle before landing, and only its verdict line remains. The challenger's full record is workshop,
+  `[Entry] — rich — challenge.md`.
+- `approved` is written only by `approve.mjs`, on Loudon's yes: `node _ops/rich-face/approve.mjs "<Entry>"
+  ["<Section>" …] [--all] [--by Loudon] [--via chat|dock]` flips those sections from `proposal` to
+  `approved`, writes the block, leaves everything else as it was, and prints the `palace-commit` line to run
+  (it never commits). `--via dock` records a yes that came as a `human_eval` from the dock's approve button
+  (`groups[<section>].verdict: "approve"`); `--via chat` records his word in conversation.
+- The page shows a chip, `proposal · <date>`, on every figure of a proposal section, live and in the public
+  build alike (the build copies the manifest whole), and the head counts the sections still waiting.
+
+The manifest may also carry, at the top level, the findings a round held back from the text (Enrichment
+step 7 — in a round the `.md` is never written):
+
+```json
+"offers": [ { "section": "In Our Instruments", "kind": "no-claim-edit|claim-change",
+              "what": "…", "status": "open|taken|declined" } ]
+```
+
+`approve.mjs` leaves offers untouched; an offer is taken or declined by hand, by the agent that carries it
+home on Loudon's word (a `no-claim-edit` shown to him first; a `claim-change` through the Deposit map).
+`node _ops/rich-face/proposals.mjs [--json]` lists every section still at proposal across the palace, by
+entry, with its age and its challenger's verdict counts, and every open offer. Both scripts have a
+`node --test` beside them on a throwaway manifest.
+
 ## Media a face plays: what git tracks is what the public face has
 
 The live page may play a file that is only on this Mac; the public build plays only what git tracks.
