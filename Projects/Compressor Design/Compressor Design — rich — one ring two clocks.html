@@ -232,7 +232,8 @@ const RB = (() => {
       if (!S.markN) h = 'No mark yet.';
       else {
         const m = S.markN, f = m / 500;
-        h = `You marked <b>${m}</b> slots, <b>${ms(m)}</b>. The detector’s ring is 500 slots, 11.3 ms; Retrospective Delay’s, about 44 100, one second.<br>`;
+        h = `You marked <b>${m}</b> slots, <b>${ms(m)}</b>. The detector’s ring is 500 slots, 11.3 ms; the page’s “~20 ms” is 882 slots; Retrospective Delay’s ring is about 44 100, one second. Your mark is an echo threshold, where a delayed copy stops fusing with the original: one reading of the page’s 20 ms, not the whole of it.<br>`;
+        h += m > 882 ? `Your mark sits ${(m / 882).toFixed(1)} times past 20 ms. ` : `Your mark sits at or under 20 ms. `;
         h += m > 500 ? `For your ear on this phrase, the detector’s window sits below the line where a ring turns into time: the line is ${f.toFixed(1)} times longer than the window. The page’s “below perception here” holds for you.`
           : `You heard a repeat at or under the detector’s own length. On this phrase, for your ear, the page’s “below perception here” does not hold; the window is time you can hear as time.`;
         h += m < 44100 ? ` And a second is ${(44100 / m).toFixed(1)} times past your mark: “fully perceptual there” holds.` : '';

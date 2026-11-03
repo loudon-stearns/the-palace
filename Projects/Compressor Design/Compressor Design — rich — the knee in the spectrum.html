@@ -153,9 +153,10 @@ const KN = (() => {
   }
   // The highest odd harmonic still above a floor, -140 dB under the fundamental.
   function reach(b, floor = -140) { let top = 1; for (let k = 3; k <= K; k += 2) if (dB(b[k]) > floor) top = k; return top; }
-  // A tone at 110.25 Hz, 400 samples a cycle, two seconds of it, through the shape; matched in level.
+  // A tone at 110.25 Hz, 400 samples a cycle, about two seconds of whole cycles (220, 88 000 samples) so the loop's seam
+  // has no corner of its own; through the shape; matched in level.
   function tone(o, sec = 2) {
-    const n = Math.round(sec * SR), A = Math.pow(10, o.P / 20), oo = { ...o, A }, y = new Float32Array(n); let a = 0, p = 0;
+    const n = 400 * Math.round(sec * SR / 400), A = Math.pow(10, o.P / 20), oo = { ...o, A }, y = new Float32Array(n); let a = 0, p = 0;
     for (let i = 0; i < n; i++) { const v = shape(A * Math.sin(2 * Math.PI * i / 400), oo); y[i] = v; a += v * v; p = Math.max(p, Math.abs(v)); }
     if (!isFinite(a) || !isFinite(p)) return null;
     let k = Math.pow(10, -20 / 20) / Math.sqrt(a / n); if (p * k > 0.9) k = 0.9 / p; for (let i = 0; i < n; i++) y[i] *= k; return y;
@@ -291,7 +292,7 @@ const KN = (() => {
       else {
         const kn = stats({ T, R: S.R, W: S.W, P: S.P }), co = stats({ T, R: S.R, W: 0, P: S.P });
         const right = S.ans === 'fall';
-        h += `<br><br>${right ? 'You said they keep falling, and the numbers agree.' : 'You said they stop; the numbers say otherwise.'} Measured at W = ${S.W} dB, R = ${fmtR(S.R)}: the knee’s harmonics fall <b>${(-kn.f).toFixed(1)} dB per octave</b> and the highest still above −140 dB is the <b>${nth(kn.top)}</b>, at the top of this chart; the corner’s fall <b>${(-co.f).toFixed(1)}</b>. The knee falls faster than the corner, and it does not stop. Its content is not bounded. Only the cubic stops, at the 3rd, because it is a polynomial in the signal itself; the page’s knee is a polynomial in decibels, and a decibel is a logarithm of the signal.`;
+        h += `<br><br>${right ? 'You said they keep falling, and the numbers agree.' : 'You said they stop; the numbers say otherwise.'} Measured at W = ${S.W} dB, R = ${fmtR(S.R)}: the knee’s harmonics fall <b>${(-kn.f).toFixed(1)} dB per octave</b> and the highest still above −140 dB on this chart is the <b>${nth(kn.top)}</b>, and the chart’s top is not the end: past it they stay above −140 dB to somewhere between the 323rd and the 737th, depending on width and level; the corner’s fall <b>${(-co.f).toFixed(1)}</b>. The knee falls faster than the corner, and it does not stop. Its content is not bounded. Only the cubic stops, at the 3rd, because it is a polynomial in the signal itself; the page’s knee is a polynomial in decibels, and a decibel is a logarithm of the signal.`;
       }
     }
     $('meter').innerHTML = h;

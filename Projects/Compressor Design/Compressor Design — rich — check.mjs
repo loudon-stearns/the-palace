@@ -151,6 +151,10 @@ const T = -18;
   check('the knee’s harmonics do not stop: a harmonic above −140 dB near the 255th, every width', soft.every((r) => r.top >= 237), soft.map((r) => `W ${r.W}: harmonic ${r.top}, the 255th at ${r.h255.toFixed(0)} dB`).join('; '));
   { const b0 = KN.harmonics({ T, R: 4, W: 0, P: -6 }), b1 = KN.harmonics({ T, R: 4, W: 1, P: -6 }), d31 = KN.dB(b1[31]) - KN.dB(b0[31]), d255 = KN.dB(b1[255]) - KN.dB(b0[255]);
     check('a 1 dB knee hardly moves the low harmonics; the steeper fall shows near the top', Math.abs(d31) < 1 && d255 < -10, `against the corner: 31st ${d31.toFixed(1)} dB, 255th ${d255.toFixed(1)} dB`); }
+  { const y = KN.tone({ T, R: 1, W: 0, P: -6 }), n = y.length; let inside = 0;
+    for (let i = 1; i < n - 1; i++) inside = Math.max(inside, Math.abs(y[i + 1] - 2 * y[i] + y[i - 1]));
+    const seam = Math.abs(y[0] - 2 * y[n - 1] + y[n - 2]);
+    check('the looped tone is whole cycles, so its seam has no corner of its own', n % 400 === 0 && seam <= inside * 1.01, `${n} samples = ${n / 400} cycles; second difference at the seam ${seam.toExponential(2)}, largest inside ${inside.toExponential(2)}`); }
   const cub = row({ kind: 'cubic', P: -6 });
   check('a cubic stops: nothing above the 3rd harmonic', cub.top === 3, `highest above −140 dB: ${cub.top}`);
   const below = row({ T, R: 4, W: 6, P: -24 });
