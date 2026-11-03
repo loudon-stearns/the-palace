@@ -67,6 +67,17 @@
         "by": "maker · claude-opus-5-5 · proposal round",
         "round": "proposal-round-2026-11"
       },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Quantization ↔ Precision vs Flow — rich — mistake or feel.html",
+            "verdict": "remake",
+            "why": "Walks up and stays faithful, but stopSound suspends the context 250 ms later without checking play, so next-then-play (or stop-then-play) inside 250 ms goes silent (reproduced headless); fix the race, and make the stumble beat 3 \"and\" in both labels. The knob test is an identity by construction; the real test is whether the plants read as mistake and choice."
+          }
+        ]
+      },
       "pieces": [
         {
           "file": "Quantization ↔ Precision vs Flow — rich — mistake or feel.html",
@@ -89,6 +100,17 @@
         "date": "2026-11-03",
         "by": "maker · claude-opus-5-5 · proposal round",
         "round": "proposal-round-2026-11"
+      },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Quantization ↔ Precision vs Flow — rich — the four tracks.html",
+            "verdict": "remake",
+            "why": "The blind test can be decoded by a landmark: the planted stumble is 37 / 18.5 / 0 ms across the mixes and percussion separates the rest, while the hats the hint points to move only 4.9 ms RMS; play the test on a take without the plants, with hats that can be heard, say which mixes these are (0/50/100 plus the student's, not step 1's four tracks), and fix the same suspend race."
+          }
+        ]
       },
       "pieces": [
         {
@@ -113,6 +135,17 @@
         "by": "maker · claude-opus-5-5 · proposal round",
         "round": "proposal-round-2026-11"
       },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Quantization ↔ Precision vs Flow — rich — swing and template.html",
+            "verdict": "remake",
+            "why": "Matched RMS is the right control for pattern against amount, but at 20.9 ms RMS humanize reaches 68 ms, far past the page's micro-deviations, against a template that is mostly swing (S about 0.59): say the test asks pattern against amount, not whether humanize works, and drop \"the claim held\"; name 66 % as the Linn/MPC label for triplet swing (exactly 2/3 at 96 PPQN); fix the suspend race."
+          }
+        ]
+      },
       "pieces": [
         {
           "file": "Quantization ↔ Precision vs Flow — rich — swing and template.html",
@@ -135,6 +168,17 @@
         "date": "2026-11-03",
         "by": "maker · claude-opus-5-5 · proposal round",
         "round": "proposal-round-2026-11"
+      },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Quantization ↔ Precision vs Flow — rich — to what resolution.html",
+            "verdict": "remake",
+            "why": "A real test with right arithmetic, but the verdict ignores dither: with dither on at 8 bits it says the fade stops at 2.35 s while the readout says it keeps falling (reproduced); and dither, a new idea, first appears on the test step. Unlock dither after both answers, or record it with each answer and word the verdict from it."
+          }
+        ]
       },
       "pieces": [
         {
