@@ -1,0 +1,318 @@
+<!doctype html>
+<!--
+  title: Quadratic Interpolation in DSP — rich — the joints
+  born: 2026-11-03
+  links: [[Quadratic Interpolation in DSP]] (connects-to · rich-face-piece) · listed in [[Quadratic Interpolation in DSP — rich.json]]
+  forward_vector: I am the walk from three points and one parabola to a chain of them, and the test of the sentence "quadratic has changing slope but continuous first derivative". Inside one parabola the slope never jumps; where one span hands over to the next it does, at every sample, smaller than linear's corner and shrinking four times faster. I show which curves really keep the slope whole across a joint: the four-point cubic Hermite, and a chain of the page's own quadratic Béziers that gives up passing through the samples.
+  sound: none. Drawing only.
+  check: Quadratic Interpolation in DSP/Quadratic Interpolation in DSP — rich — check.mjs runs this page's core in Node.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- needs nothing of its host: no device, no storage, no file, no host; makes no sound -->
+<meta name="piece:needs" content="">
+<title>The joints · is the quadratic's slope continuous?</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@300;400;500&display=swap">
+<style>
+  :root{
+    --bg:#0a0a0f; --bg-elev-1:#12121a; --bg-elev-2:#1a1a28; --border:#4a4a5e; --border-soft:rgba(255,255,255,0.06);
+    --fg-1:#e8e8f0; --fg-2:#c8c8d8; --fg-3:#8a8aa0; --fg-4:#4a4a5a;
+    --accent:#e8b84a; --accent-dim:#7a6030; --accent-soft:rgba(232,184,74,0.10); --indigo:#7b7ef5; --warn:#e8651b; --ok:#7fb069;
+    --serif:'Cormorant Garamond',Georgia,serif; --sans:'Manrope',system-ui,sans-serif;
+    --display:'Anton',Impact,sans-serif; --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--fg-1)}
+  body{font-family:var(--serif);font-size:17px;line-height:1.65;padding:26px 16px 30px}
+  main{max-width:960px;margin:0 auto}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--fg-3)}
+  h1{font-family:var(--display);font-weight:400;font-size:40px;line-height:1.05;margin:6px 0 10px}
+  h2{font-family:var(--display);font-weight:400;font-size:26px;line-height:1.1;margin:4px 0 8px;letter-spacing:.01em}
+  p.lead{font-size:18px;color:var(--fg-2);margin:0 0 16px;max-width:68ch}
+  .rail{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 16px}
+  .rail button{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-3);background:transparent;border:1px solid var(--border);border-radius:4px;padding:7px 11px;cursor:pointer;transition:all .22s cubic-bezier(.4,0,.2,1)}
+  .rail button[aria-current="step"]{color:var(--fg-1);border-color:var(--fg-3);background:var(--bg-elev-2)}
+  p.say{color:var(--fg-2);margin:0 0 14px;max-width:70ch}
+  .panel{background:var(--bg-elev-1);border:1px solid var(--border-soft);border-radius:4px;padding:16px;margin:0 0 14px}
+  canvas{width:100%;display:block;background:var(--bg-elev-2);border-radius:4px;touch-action:none}
+  .rowb{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:12px}
+  .rowb[hidden],.ctl[hidden],[hidden]{display:none !important}
+  button.ghost{font-family:var(--sans);font-size:13px;color:var(--fg-2);background:transparent;border:1px solid var(--border);border-radius:4px;padding:7px 12px;cursor:pointer}
+  button.ghost[aria-pressed="true"]{color:var(--fg-1);border-color:var(--accent-dim);background:var(--bg-elev-2)}
+  button.play{font-family:var(--sans);font-weight:500;font-size:14px;color:#0a0a0f;background:var(--accent);border:0;border-radius:4px;padding:8px 18px;cursor:pointer}
+  button.play[aria-pressed="true"]{background:var(--fg-2)}
+  .ctl{display:grid;grid-template-columns:150px 1fr auto;gap:6px 14px;align-items:center;margin-top:12px}
+  .ctl label{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-3)}
+  .ctl input[type=range]{width:100%;accent-color:var(--accent)}
+  .ctl .v{font-family:var(--mono);font-size:13px;color:var(--fg-1);text-align:right;white-space:nowrap;min-width:10ch}
+  .meter{font-family:var(--mono);font-size:13px;color:var(--fg-2);margin-top:12px;line-height:1.75}
+  .meter b{color:var(--accent);font-weight:400} .meter i{color:var(--warn);font-style:normal} .meter u{color:var(--ok);text-decoration:none}
+  .eq{font-family:var(--mono);font-size:13px;color:var(--fg-1);margin:14px 0 0;overflow-wrap:anywhere}
+  .eq.words{color:var(--fg-3);font-size:12px;margin-top:2px}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin-top:10px;font-family:var(--sans);font-size:12.5px;color:var(--fg-3)}
+  .legend span::before{content:"";display:inline-block;width:14px;height:2px;margin-right:6px;vertical-align:middle;background:var(--c)}
+  .hint{font-family:var(--sans);font-size:13px;color:var(--fg-3)}
+  table.marks{border-collapse:collapse;margin-top:12px;font-family:var(--mono);font-size:12.5px;color:var(--fg-2)}
+  table.marks td,table.marks th{border-bottom:1px solid var(--border-soft);padding:5px 16px 5px 0;text-align:left;font-weight:400}
+  table.marks th{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-3)}
+  table.marks b{color:var(--accent);font-weight:400}
+  .verdict{margin:12px 0 0;padding:12px 16px;border-left:2px solid var(--accent-dim);background:var(--bg-elev-1);font-family:var(--sans);font-size:14px;color:var(--fg-2);line-height:1.6}
+  .walk{display:flex;justify-content:space-between;gap:10px;margin-top:14px}
+  footer{margin-top:24px;font-family:var(--sans);font-size:12px;color:var(--fg-4)}
+  footer b{font-family:var(--display);font-weight:400;letter-spacing:.06em;color:var(--fg-3)}
+  @media (max-width:560px){h1{font-size:31px}h2{font-size:22px}.ctl{grid-template-columns:96px 1fr auto}}
+
+</style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">Quadratic Interpolation in DSP · what it is · four steps</div>
+  <h1>The joints</h1>
+  <p class="lead">The page says quadratic interpolation "has changing slope but continuous first derivative": the curve bends, but never has a sharp corner. One parabola can't have a corner. The question is what happens where one parabola hands over to the next. Four steps; the last is the test.</p>
+
+  <nav class="rail" aria-label="Steps" id="rail"></nav>
+  <section aria-live="polite">
+    <div class="eyebrow" id="stepEyebrow"></div>
+    <h2 id="stepTitle"></h2>
+    <p class="say" id="stepSay"></p>
+  </section>
+
+  <div class="panel">
+    <canvas id="curve" height="330"></canvas>
+    <canvas id="slope" height="190" style="margin-top:10px" hidden></canvas>
+    <div class="legend" id="legend"></div>
+
+    <div class="ctl" id="ctlX"><label for="x">read at x</label><input id="x" type="range" min="0" max="1" step="0.001" value="0.35"><span class="v" id="xv"></span></div>
+    <div class="rowb" id="methodRow" hidden><span class="eyebrow">curve</span>
+      <button class="ghost" data-m="linear">Linear</button>
+      <button class="ghost" data-m="quad" aria-pressed="true">The page's quadratic</button>
+      <button class="ghost" data-m="hermite">Cubic Hermite</button>
+      <button class="ghost" data-m="bezier">Chained quadratic Bézier</button>
+    </div>
+    <div class="rowb" id="sizeRow" hidden><span class="eyebrow">samples per cycle</span>
+      <button class="ghost" data-n="8" aria-pressed="true">8</button>
+      <button class="ghost" data-n="16">16</button>
+      <button class="ghost" data-n="32">32</button>
+      <span class="hint">Resets the samples to one cycle of a sine. Drag any sample to make your own.</span>
+    </div>
+    <div class="meter" id="meter"></div>
+    <div id="table"></div>
+    <div class="verdict" id="verdict" hidden></div>
+
+    <div class="eq" id="eq1">y(x) = y₋₁(x² − x) ⁄ 2 − y₀(x² − 1) + y₁(x² + x) ⁄ 2</div>
+    <div class="eq words" id="eq1w">(the value between y₀ and y₁, a fraction x of the way) = each of the three samples, weighted by a parabola that is 1 at its own point and 0 at the other two</div>
+    <div class="eq" id="eq2" hidden>y′(x) = y₋₁(2x − 1) ⁄ 2 − 2x·y₀ + y₁(2x + 1) ⁄ 2</div>
+    <div class="eq words" id="eq2w" hidden>(the slope, how fast the value climbs per sample) = the same three samples, weighted by straight lines in x, so inside one parabola the slope slides and never jumps</div>
+    <div class="eq" id="eq3" hidden>jump at sample n = y′(x = 1, arriving) − y′(x = 0, leaving) = −½ (yₙ₊₁ − 3yₙ + 3yₙ₋₁ − yₙ₋₂)</div>
+    <div class="eq words" id="eq3w" hidden>(the corner at a sample) = (the slope the arriving parabola ends with) − (the slope the leaving parabola starts with) = minus half of the four samples' third difference, which is zero only when all four lie on one parabola</div>
+  </div>
+  <div class="walk"><button class="ghost" id="back">Back</button><button class="ghost" id="next">Next</button></div>
+  <footer><b>LOUD’N LIVE</b></footer>
+</main>
+
+<script id="qi-core">
+// The page's formula and its neighbours, as functions of a fraction x between two samples.
+const QI = {
+  // the page: a parabola through y₋₁, y₀, y₁, read at x in [0, 1]
+  quad: (a, b, c, x) => a * (x * x - x) / 2 - b * (x * x - 1) + c * (x * x + x) / 2,
+  dquad: (a, b, c, x) => a * (2 * x - 1) / 2 - 2 * b * x + c * (2 * x + 1) / 2,
+  // four-point cubic Hermite (Catmull-Rom), the page's "cubic", read between y₀ and y₁
+  herm: (a, b, c, d, x) => { const c1 = .5 * (c - a), c2 = a - 2.5 * b + 2 * c - .5 * d, c3 = .5 * (d - a) + 1.5 * (b - c); return ((c3 * x + c2) * x + c1) * x + b; },
+  dherm: (a, b, c, d, x) => { const c1 = .5 * (c - a), c2 = a - 2.5 * b + 2 * c - .5 * d, c3 = .5 * (d - a) + 1.5 * (b - c); return (3 * c3 * x + 2 * c2) * x + c1; },
+  // the page's quadratic Bézier, B(t) = (1−t)²P₀ + 2(1−t)t·P₁ + t²P₂, chained: P₁ is a sample, P₀ and P₂ the midpoints to its neighbours
+  bez: (p0, p1, p2, t) => (1 - t) * (1 - t) * p0 + 2 * (1 - t) * t * p1 + t * t * p2,
+  dbez: (p0, p1, p2, t) => 2 * (1 - t) * (p1 - p0) + 2 * t * (p2 - p1),
+  // span n of a periodic chain of samples ys, read at local x in [0, 1]: value and slope per sample.
+  // For the Bézier chain, span n is centred on sample n and runs from the midpoint before it to the one after.
+  span(m, ys, n, x) {
+    const N = ys.length, Y = (k) => ys[((k % N) + N) % N];
+    if (m === 'bezier') { const p0 = (Y(n - 1) + Y(n)) / 2, p1 = Y(n), p2 = (Y(n) + Y(n + 1)) / 2; return { y: QI.bez(p0, p1, p2, x), dy: QI.dbez(p0, p1, p2, x) }; }
+    if (m === 'linear') return { y: Y(n) + (Y(n + 1) - Y(n)) * x, dy: Y(n + 1) - Y(n) };
+    if (m === 'quad') return { y: QI.quad(Y(n - 1), Y(n), Y(n + 1), x), dy: QI.dquad(Y(n - 1), Y(n), Y(n + 1), x) };
+    return { y: QI.herm(Y(n - 1), Y(n), Y(n + 1), Y(n + 2), x), dy: QI.dherm(Y(n - 1), Y(n), Y(n + 1), Y(n + 2), x) };
+  },
+  // the chain read at position u (in samples)
+  at(m, ys, u) {
+    const n = m === 'bezier' ? Math.floor(u + 0.5) : Math.floor(u), x = m === 'bezier' ? u - (n - 0.5) : u - n;
+    return QI.span(m, ys, n, x);
+  },
+  // where the spans meet: at the samples, or for the Bézier chain halfway between them
+  joints(m, N) { return Array.from({ length: N }, (_, n) => (m === 'bezier' ? n + 0.5 : n)); },
+  // the slope arriving at a joint (the end of one span) and the slope leaving it (the start of the next)
+  jumps(m, ys) {
+    return QI.joints(m, ys.length).map((u, n) => {
+      const a = m === 'bezier' ? n : n - 1; // the Bézier chain's joint n sits halfway between samples n and n + 1
+      const L = QI.span(m, ys, a, 1).dy, R = QI.span(m, ys, a + 1, 0).dy;
+      return { u, left: L, right: R, jump: Math.abs(L - R) };
+    });
+  },
+  // largest jump, measured against one ruler for every curve: the steepest step between neighbouring samples
+  report(m, ys) {
+    const j = QI.jumps(m, ys), N = ys.length;
+    let peak = 0; for (let n = 0; n < N; n++) peak = Math.max(peak, Math.abs(ys[(n + 1) % N] - ys[n]));
+    let miss = 0; for (let n = 0; n < N; n++) miss = Math.max(miss, Math.abs(QI.at(m, ys, n).y - ys[n]));
+    const big = j.reduce((a, b) => (b.jump > a.jump ? b : a));
+    return { maxJump: big.jump, at: big.u, peak, rel: peak ? big.jump / peak : 0, miss };
+  },
+  sine: (N) => Array.from({ length: N }, (_, k) => Math.sin(2 * Math.PI * k / N)),
+};
+</script>
+
+<script>
+const $ = (id) => document.getElementById(id);
+const C = { amber: '#e8b84a', indigo: '#7b7ef5', fg2: '#c8c8d8', fg3: '#8a8aa0', fg4: '#4a4a5a', warn: '#e8651b', ok: '#7fb069', grid: 'rgba(255,255,255,0.06)' };
+const S = { step: 0, x: 0.35, three: [-0.35, 0.8, 0.55], m: 'quad', N: 8, ys: QI.sine(8) };
+const NAMES = { linear: 'Linear', quad: "The page's quadratic", hermite: 'Cubic Hermite', bezier: 'Chained quadratic Bézier' };
+
+const STEPS = [
+  { t: 'Three points, one parabola', s: "Three samples, one unit apart. There is exactly one parabola through any three points, and the page's formula is that parabola, read at a fraction x between the middle sample and the next. Drag a point up or down; slide x and watch the reading move along the curve." },
+  { t: 'The slope inside it', s: "The short line is the tangent: the slope at x, how fast the value is climbing per sample. Slide x across the whole span. The slope changes, which is the curvature the page names, and it never jumps. Inside one parabola the page's sentence is simply true." },
+  { t: 'A chain of them', s: "A waveform is many samples, so the reader chains parabolas: the span from each sample to the next gets its own, built from that sample, the one before and the one after. Each span is coloured by its parabola; the faint arcs show each parabola running on past its own span. At every sample one parabola stops and a different one takes over." },
+  { t: 'The test: the slope at each joint', s: "Below the curve is its slope. Where the slope line breaks, the curve has a corner. Try each curve, change how many samples make a cycle, drag a sample. The numbers are measured on the samples you see." },
+];
+
+function rail() {
+  $('rail').innerHTML = STEPS.map((st, i) => `<button data-i="${i}" ${i === S.step ? 'aria-current="step"' : ''}>${i + 1} · ${st.t}</button>`).join('');
+  $('rail').querySelectorAll('button').forEach((b) => (b.onclick = () => go(+b.dataset.i)));
+}
+function go(i) {
+  S.step = Math.max(0, Math.min(STEPS.length - 1, i));
+  const st = STEPS[S.step];
+  $('stepEyebrow').textContent = `Step ${S.step + 1} of ${STEPS.length}`;
+  $('stepTitle').textContent = st.t; $('stepSay').textContent = st.s;
+  $('ctlX').hidden = S.step > 1;
+  $('slope').hidden = S.step < 3;
+  $('methodRow').hidden = $('sizeRow').hidden = S.step < 3;
+  $('eq2').hidden = $('eq2w').hidden = S.step < 1;
+  $('eq3').hidden = $('eq3w').hidden = S.step < 2;
+  $('verdict').hidden = S.step < 3;
+  if (S.step < 3) S.m = 'quad';
+  $('back').disabled = S.step === 0; $('next').disabled = S.step === STEPS.length - 1;
+  rail(); draw();
+}
+$('back').onclick = () => go(S.step - 1); $('next').onclick = () => go(S.step + 1);
+$('x').oninput = (e) => { S.x = +e.target.value; draw(); };
+document.querySelectorAll('[data-m]').forEach((b) => (b.onclick = () => { S.m = b.dataset.m; draw(); }));
+document.querySelectorAll('[data-n]').forEach((b) => (b.onclick = () => { S.N = +b.dataset.n; S.ys = QI.sine(S.N); draw(); }));
+
+function fit(cv) {
+  const r = devicePixelRatio || 1, w = cv.clientWidth || 900, h = +cv.getAttribute('height');
+  cv.style.height = h + 'px';
+  if (cv.width !== Math.round(w * r)) cv.width = Math.round(w * r);
+  cv.height = Math.round(h * r);
+  const g = cv.getContext('2d'); g.setTransform(r, 0, 0, r, 0, 0); g.clearRect(0, 0, w, h);
+  return { g, w, h };
+}
+function line(g, pts, col, wid, dash) { g.strokeStyle = col; g.lineWidth = wid; g.setLineDash(dash || []); g.beginPath(); pts.forEach(([x, y], i) => (i ? g.lineTo(x, y) : g.moveTo(x, y))); g.stroke(); g.setLineDash([]); }
+function dot(g, x, y, r, col, ring) { g.beginPath(); g.arc(x, y, r, 0, 7); if (ring) { g.strokeStyle = col; g.lineWidth = 1.5; g.stroke(); } else { g.fillStyle = col; g.fill(); } }
+function label(g, s, x, y, col, align) { g.font = '11px JetBrains Mono, monospace'; g.fillStyle = col; g.textAlign = align || 'left'; g.fillText(s, x, y); }
+
+let geo = null; // what the pointer may drag
+function draw() {
+  const { g, w, h } = fit($('curve'));
+  const pad = 34;
+  if (S.step < 2) {
+    // three points at u = −1, 0, 1, drawn from −1.25 to 1.25
+    const X = (u) => pad + (u + 1.25) / 2.5 * (w - 2 * pad), Yp = (v) => h / 2 - v * (h / 2 - pad);
+    for (let u = -1; u <= 1; u++) line(g, [[X(u), pad / 2], [X(u), h - pad / 2]], C.grid, 1);
+    line(g, [[pad / 2, Yp(0)], [w - pad / 2, Yp(0)]], C.grid, 1);
+    const [a, b, c] = S.three;
+    const arc = (u0, u1) => Array.from({ length: 121 }, (_, i) => { const u = u0 + (u1 - u0) * i / 120; return [X(u), Yp(QI.quad(a, b, c, u))]; });
+    line(g, arc(-1.2, 1.2), C.fg4, 1.5, [4, 4]);
+    line(g, arc(0, 1), C.amber, 2.5);
+    ['y₋₁', 'y₀', 'y₁'].forEach((nm, i) => { dot(g, X(i - 1), Yp(S.three[i]), 7, C.fg2); label(g, nm, X(i - 1) + 11, Yp(S.three[i]) - 9, C.fg2); });
+    const yx = QI.quad(a, b, c, S.x), dy = QI.dquad(a, b, c, S.x);
+    if (S.step === 1) { const d = 0.28; line(g, [[X(S.x - d), Yp(yx - dy * d)], [X(S.x + d), Yp(yx + dy * d)]], C.indigo, 2); }
+    dot(g, X(S.x), Yp(yx), 6, C.amber);
+    label(g, 'x = 0', X(0), h - 6, C.fg3, 'center'); label(g, 'x = 1', X(1), h - 6, C.fg3, 'center');
+    geo = { kind: 'three', X, Yp, xs: [-1, 0, 1] };
+    $('xv').textContent = S.x.toFixed(3);
+    $('legend').innerHTML = `<span style="--c:${C.amber}">the span the formula reads, x from 0 to 1</span><span style="--c:${C.fg4}">the same parabola, beyond its span</span>` + (S.step === 1 ? `<span style="--c:${C.indigo}">the tangent at x</span>` : '');
+    $('meter').innerHTML = `y(${S.x.toFixed(3)}) = <b>${yx.toFixed(4)}</b>` + (S.step === 1 ? ` · slope y′ = <b>${dy.toFixed(4)}</b> per sample` : '');
+    $('table').innerHTML = '';
+    return;
+  }
+  // a chain over one periodic cycle
+  const N = S.ys.length, m = S.m;
+  const X = (u) => pad + u / N * (w - 2 * pad), Yp = (v) => h / 2 - v * (h / 2 - pad) * 0.8;
+  for (let n = 0; n <= N; n++) line(g, [[X(n), pad / 2], [X(n), h - pad / 2]], C.grid, 1);
+  line(g, [[pad / 2, Yp(0)], [w - pad / 2, Yp(0)]], C.grid, 1);
+  const Y = (k) => S.ys[((k % N) + N) % N];
+  if (S.step === 2) {
+    for (let n = 0; n < N; n++) {
+      const col = n % 2 ? C.indigo : C.amber;
+      const ghost = Array.from({ length: 61 }, (_, i) => { const x = -0.6 + 2.2 * i / 60; return [X(n + x), Yp(QI.quad(Y(n - 1), Y(n), Y(n + 1), x))]; });
+      g.globalAlpha = 0.28; line(g, ghost, col, 1.2); g.globalAlpha = 1;
+      const span = Array.from({ length: 41 }, (_, i) => { const x = i / 40; return [X(n + x), Yp(QI.quad(Y(n - 1), Y(n), Y(n + 1), x))]; });
+      line(g, span, col, 2.5);
+    }
+  } else {
+    const pts = Array.from({ length: N * 60 + 1 }, (_, i) => { const u = i / 60; return [X(u), Yp(QI.at(m, S.ys, Math.min(u, N - 1e-9)).y)]; });
+    line(g, pts, C.amber, 2.2);
+  }
+  for (let n = 0; n < N; n++) dot(g, X(n), Yp(S.ys[n]), 6, C.fg2);
+  dot(g, X(N), Yp(S.ys[0]), 5, C.fg3, true);
+  geo = { kind: 'chain', X, Yp };
+  document.querySelectorAll('[data-m]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.m === S.m)));
+  document.querySelectorAll('[data-n]').forEach((b) => b.setAttribute('aria-pressed', String(+b.dataset.n === S.N && sameSine())));
+  if (S.step === 2) {
+    $('legend').innerHTML = `<span style="--c:${C.amber}">even spans' parabolas</span><span style="--c:${C.indigo}">odd spans' parabolas</span><span style="--c:${C.fg3}">faint: each parabola past its own span</span>`;
+    const j = QI.jumps('quad', S.ys)[1];
+    $('meter').innerHTML = `At sample 1 the arriving parabola ends with slope <b>${j.left.toFixed(4)}</b>; the leaving one starts with <b>${j.right.toFixed(4)}</b>.`;
+    $('table').innerHTML = '';
+    return;
+  }
+  // step 4: the slope plot and the numbers
+  const sp = fit($('slope'));
+  const all = Array.from({ length: N * 120 + 1 }, (_, i) => QI.at(m, S.ys, Math.min(i / 120, N - 1e-9)).dy);
+  const lim = Math.max(1e-6, ...all.map(Math.abs)) * 1.15;
+  const SY = (v) => sp.h / 2 - v / lim * (sp.h / 2 - 12);
+  for (let n = 0; n <= N; n++) line(sp.g, [[X(n), 6], [X(n), sp.h - 6]], C.grid, 1);
+  line(sp.g, [[pad / 2, SY(0)], [w - pad / 2, SY(0)]], C.grid, 1);
+  // draw the slope span by span, so a jump shows as a break, not a joined line
+  const J = QI.joints(m, N), edges = [0, ...J.filter((u) => u > 0 && u < N), N];
+  for (let k = 0; k < edges.length - 1; k++) {
+    const u0 = edges[k], u1 = edges[k + 1];
+    line(sp.g, Array.from({ length: 41 }, (_, i) => { const u = u0 + (u1 - u0) * (0.0005 + 0.999 * i / 40); return [X(u), SY(QI.at(m, S.ys, u).dy)]; }), C.indigo, 2);
+  }
+  const jumps = QI.jumps(m, S.ys), rep = QI.report(m, S.ys);
+  jumps.forEach((jp) => { if (jp.jump > 1e-9 * Math.max(1, rep.peak)) { line(sp.g, [[X(jp.u), SY(jp.left)], [X(jp.u), SY(jp.right)]], C.warn, 2); line(g, [[X(jp.u), Yp(QI.at(m, S.ys, jp.u).y) - 10], [X(jp.u), Yp(QI.at(m, S.ys, jp.u).y) + 10]], C.warn, 1.5); } });
+  label(sp.g, 'slope, per sample', 8, 14, C.fg3);
+  $('legend').innerHTML = `<span style="--c:${C.amber}">the curve</span><span style="--c:${C.indigo}">its slope</span><span style="--c:${C.warn}">a slope jump: a corner</span>`;
+  const rows = ['linear', 'quad', 'hermite', 'bezier'].map((mm) => { const r = QI.report(mm, S.ys); return `<tr><td>${mm === S.m ? '<b>' + NAMES[mm] + '</b>' : NAMES[mm]}</td><td>${(r.rel * 100).toFixed(r.rel < 1e-9 ? 0 : 1)}%</td><td>${r.miss < 1e-9 ? 'yes' : 'no, misses by up to ' + r.miss.toFixed(3)}</td></tr>`; }).join('');
+  $('table').innerHTML = `<table class="marks"><tr><th>curve</th><th>largest slope jump ÷ steepest step between samples</th><th>passes through the samples</th></tr>${rows}</table>`;
+  const q = QI.report('quad', S.ys), l = QI.report('linear', S.ys);
+  $('meter').innerHTML = `${NAMES[S.m]}: largest jump <b>${rep.maxJump.toFixed(4)}</b> per sample, at ${S.m === 'bezier' ? 'the midpoint after sample ' + Math.floor(rep.at) : 'sample ' + rep.at}; the steepest step between neighbouring samples is ${rep.peak.toFixed(4)}.`;
+  $('verdict').innerHTML = q.rel > 1e-9
+    ? `<b style="color:#e8b84a;font-weight:500">The page's quadratic has a corner at every sample.</b> Here its largest slope jump is ${(q.rel * 100).toFixed(1)}% of the steepest step between samples, against linear's ${(l.rel * 100).toFixed(1)}%. Smaller, and on a sine it shrinks about four times for each doubling of samples per cycle where linear's halves, but it is never zero. The property the page names, a slope that stays whole across the joints, belongs to the cubic Hermite, which passes through every sample, and to the chained quadratic Bézier from the page's own Bézier section, which gives up passing through them.`
+    : `With these samples the page's quadratic happens to meet with no corner. That is luck in the samples, not a property of the method: drag one sample and the corners come back.`;
+}
+function sameSine() { const s = QI.sine(S.ys.length); return S.ys.every((v, i) => Math.abs(v - s[i]) < 1e-12); }
+
+// drag a sample
+let drag = null;
+$('curve').addEventListener('pointerdown', (e) => {
+  if (!geo) return;
+  const r = e.target.getBoundingClientRect(), px = e.clientX - r.left, py = e.clientY - r.top;
+  const xs = geo.kind === 'three' ? geo.xs : S.ys.map((_, n) => n);
+  const vals = geo.kind === 'three' ? S.three : S.ys;
+  let best = -1, bd = 22;
+  xs.forEach((u, i) => { const d = Math.hypot(geo.X(u) - px, geo.Yp(vals[i]) - py); if (d < bd) { bd = d; best = i; } });
+  if (best >= 0) { drag = best; e.target.setPointerCapture(e.pointerId); }
+});
+$('curve').addEventListener('pointermove', (e) => {
+  if (drag == null) return;
+  const r = e.target.getBoundingClientRect(), py = e.clientY - r.top, h = +e.target.getAttribute('height'), pad = 34;
+  const v = geo.kind === 'three' ? (h / 2 - py) / (h / 2 - pad) : (h / 2 - py) / ((h / 2 - pad) * 0.8);
+  const vv = Math.max(-1.3, Math.min(1.3, v));
+  if (geo.kind === 'three') S.three[drag] = vv; else S.ys[drag] = vv;
+  draw();
+});
+['pointerup', 'pointercancel'].forEach((ev) => $('curve').addEventListener(ev, () => (drag = null)));
+new ResizeObserver(() => draw()).observe(document.querySelector('main'));
+go(0);
+</script>
+</body>
+</html>
