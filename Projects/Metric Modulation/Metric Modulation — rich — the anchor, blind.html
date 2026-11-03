@@ -4,8 +4,8 @@
   born: 2026-11-03
   links: [[Metric Modulation]] connects-to · rich-face-piece-of · [[Progressive Staging]] exemplifies · a walk up to its test
   forward_vector: I am Step 3 of the page's recipe as a walk of four steps: the dotted-quarter kick alone in a 120 groove, the change
-    with it, the same change without it, and last a blind test of six pairs that asks whether the anchor is what makes it
-    smooth for you. After the change the two versions are identical note for note, so the test isolates the anchor.
+    with the new groove aligned to it, the same change with the new groove landing late, and last six blind pairs that are
+    identical up to the change and differ only in whether the new groove aligns with the anchor, the page's own word.
   dress: Loudon Live house style, Graphite skin, tokens inlined. Equations twice, symbols and words.
   engine: the script marked id="mm-engine", the same in all three pieces. MM.P3 builds the grooves and both changes. Every sound is synthesised
     in Web Audio (kick: a falling sine; hat and rim: filtered noise; bell: two sines at 880 and 2429 Hz); no samples.
@@ -77,10 +77,10 @@
 <div class="mm-piece">
   <div class="mm-kicker">made · Web Audio · sketch</div>
   <h3 class="mm-title">The anchor, blind</h3>
-  <p class="mm-sub">Step 3 of the page's recipe says the anchor, a kick on the dotted quarter that carries into the new tempo as its beat, is what makes the change feel natural. Four steps: the anchor alone, the change with it, the change without it, then a blind test. Every sound here is synthesised.</p>
+  <p class="mm-sub">Step 3 of the page's recipe asks that a rhythmic figure in the old tempo <i>aligns</i> with one in the new: a kick on the dotted quarter that carries into the new tempo as its beat. Four steps: the anchor alone, the change with it aligned, the same anchor with the new groove landing off it, then a blind test where nothing differs until the change. Every sound here is synthesised.</p>
   <div class="mm-nav">
     <nav class="mm-rail" aria-label="steps">
-      <button data-go="1">1 · the anchor</button><button data-go="2">2 · with it</button><button data-go="3">3 · without it</button><button data-go="4">4 · blind</button>
+      <button data-go="1">1 · the anchor</button><button data-go="2">2 · with it</button><button data-go="3">3 · off it</button><button data-go="4">4 · blind</button>
     </nav>
     <button id="mm-back">◂ back</button><button id="mm-next">next ▸</button>
   </div>
@@ -105,17 +105,17 @@
   </section>
 
   <section class="mm-step" data-step="3">
-    <h2>Take the anchor away</h2>
-    <p>The same change into the same 80 groove, but the 120 section keeps its kick on the beat, as any 120 groove would. Nothing before the change is 0.75 s long. The slider moves where the 80 groove comes in; at zero it lands on the bar line, where the anchored one did.</p>
-    <div class="mm-row"><button class="mm-go" id="s3-play">▸ play without the anchor</button>
-      <label class="mm-hint" for="s3-late">80 comes in late by <b id="s3-late-v"></b></label><input id="s3-late" type="range" min="0" max="3" step="1" value="0"></div>
+    <h2>Let it miss</h2>
+    <p>The same anchored 120 section, kick on the dotted quarter, but the 80 groove comes in late, so the kick it brings is no longer the one you were following. The slider sets how late. At zero it is step 2, note for note.</p>
+    <div class="mm-row"><button class="mm-go" id="s3-play">▸ play</button>
+      <label class="mm-hint" for="s3-late">80 comes in late by <b id="s3-late-v"></b></label><input id="s3-late" type="range" min="0" max="3" step="1" value="2"></div>
     <canvas class="mm-tl" id="s3-tl"></canvas>
     <div class="mm-read" id="s3-read"></div>
   </section>
 
   <section class="mm-step" data-step="4">
     <h2>Blind</h2>
-    <p>Six pairs. Each pair is the change with the anchor and without it (steps 2 and 3, the slider at zero), in an order drawn by chance. Play both, pick the smoother. From the change on, the two are identical, note for note; the only difference is what the 120 section prepared. Nothing tells you which was which until the end.</p>
+    <p>Six pairs. In each, both versions play the same anchored 120 section, note for note, up to the change. Then one 80 groove lands on the anchor (step 2) and the other an eighth note late (step 3 at its default), in an order drawn by chance. Play both, pick the smoother. Nothing on the screen tells you which was which until the end.</p>
     <div class="mm-row"><button class="mm-go" id="s4-x">▸ first</button><button class="mm-go" id="s4-y">▸ second</button>
       <span class="mm-hint">smoother:</span><button id="s4-px">the first</button><button id="s4-py">the second</button></div>
     <canvas class="mm-tl" id="s4-tl"></canvas>
@@ -169,11 +169,12 @@ const MM = (() => {
         shared: withGroove ? common(grid(0.5, 0, 6), bell) : [], beats: withGroove ? grid(0.5, 0, 6) : bell };
     },
     // 120 for three bars with the bell on every dotted quarter; at 6 s the kick moves onto the bell: 80
-    pivot(after = 12) {
-      const P = 6, end = P + after * 0.75, bell = grid(0.75, 0, end);
+    // quiet = true: the same jump with the bell silent until the change (the grid does not run through it)
+    pivot(after = 12, quiet = false) {
+      const P = 6, end = P + after * 0.75, bell = grid(0.75, quiet ? P : 0, end);
       return { events: sortEv([...groove(120, 0, P), ...ev(bell, 'bell'), ...groove(80, P, end)]), dur: end,
         pivots: [{ t: P, label: '120 → 80' }], shared: uniq([...common(grid(0.5, 0, P), bell), P]),
-        beats: [...grid(0.5, 0, P), ...grid(0.75, P, end)], changeAt: P };
+        beats: [...grid(0.5, 0, P), ...grid(0.75, P, end)], changeAt: P, quiet };
     },
     // a figure `fig` seconds long sounds through 120; at 6 s it becomes the beat
     door(fig) {
@@ -209,10 +210,12 @@ const MM = (() => {
         pivots: [{ t: P, label: '90 → 120' }], shared: uniq([...common(grid(Q90, 0, P), f), P]),
         beats: [...grid(Q90, 0, P), ...grid(Q120, P, end)], changeAt: P };
     },
-    // build at 120 (four plain beats, eight with the bell), drop, stay `stay` beats at 90, snap back for eight
+    // build at 120 (four plain beats, eight with the bell), drop, stay `stay` beats at 90 (four or more), snap back
+    // for eight. The return's bell is always the last 2 s before it, counted back from the return, so every stay
+    // is prepared alike; 2 s back from any 90 beat is again a 90 beat, a place both grids agree.
     trip(stay) {
-      const A = 6, B = r9(A + stay * Q90), end = B + 8 * Q120, prep = Math.min(stay * Q90, 4);
-      const f1 = grid(Q90, 2, A), f2 = grid(Q120, r9(B - prep), B);
+      const A = 6, B = r9(A + stay * Q90), end = B + 8 * Q120;
+      const f1 = grid(Q90, 2, A), f2 = grid(Q120, r9(B - 2), B);
       return { events: sortEv([...groove(120, 0, A), ...ev(f1, 'bell'), ...groove(90, A, B), ...ev(f2, 'bell'), ...groove(120, B, end)]),
         dur: end, stay, pivots: [{ t: A, label: '120 → 90' }, { t: B, label: '90 → 120' }],
         shared: uniq([A, B, ...common(grid(Q120, 0, A), f1), ...common(grid(Q90, A, B), f2)]),
@@ -240,6 +243,13 @@ const MM = (() => {
       return { events: sortEv([...groove(120, 0, P, { kick: false, rim: true }), ...ev(grid(0.75, 0, end), 'kick'),
         ...groove(80, P, end, { kick: false, rim: true })]), dur: end, pivots: [{ t: P, label: '120 → 80' }],
         shared: [P], beats: [...grid(0.5, 0, P), ...grid(0.75, P, end)], changeAt: P };
+    },
+    // the anchor kept, the alignment broken: the anchored 120 section (kick on the dotted quarter) to `6 + late`,
+    // then the 80 groove with its own kick from there. late 0 is anchored() note for note.
+    misaligned(late = 0) {
+      const P = 6, S = r9(P + late), end = r9(15 + late);
+      return { events: sortEv([...groove(120, 0, S, { kick: false, rim: true }), ...ev(grid(0.75, 0, S), 'kick'), ...groove(80, S, end, { rim: true })]),
+        dur: end, late, pivots: [{ t: S, label: '120 → 80' }], shared: late ? [] : [P], beats: [...grid(0.5, 0, S), ...grid(0.75, S, end)], changeAt: S };
     },
     // the same change with no anchor: a 120 groove with its kick on the beat; the 80 groove comes in `late` seconds after 6
     unanchored(late = 0) {
@@ -402,7 +412,7 @@ const fmt = (x, d = 3) => (+x).toFixed(d);
 
 // piece 3: what each step shows and plays
 const LATE = [0, 0.125, 0.25, 0.375], LATE_NAME = ['0 · on the bar line', 'a sixteenth', 'an eighth', 'a dotted eighth'];
-const S = { 1: MM.P3.groove120(true), 2: MM.P3.anchored(), 3: MM.P3.unanchored(0), 4: null };
+const S = { 1: MM.P3.groove120(true), 2: MM.P3.anchored(), 3: MM.P3.misaligned(0.25), 4: null };
 const TRIALS = 6;
 let trial = null, done = [], heardX = false, heardY = false;
 
@@ -413,9 +423,9 @@ playButton($('s2-play'), () => S[2]);
   $('s2-read').innerHTML = `kick: <b>${k.length} intervals</b>, ${k.every((x) => Math.abs(x - 0.75) < 1e-9) ? '<span class="mm-hi">every one 0.750 s</span>, before the change and after' : 'NOT all equal'} · after 6 s the hats and rim run at 80`; }
 
 function setLate() {
-  const i = +$('s3-late').value, sc = MM.P3.unanchored(LATE[i]); S[3] = sc; $('s3-late-v').textContent = LATE_NAME[i];
+  const i = +$('s3-late').value, sc = MM.P3.misaligned(LATE[i]); S[3] = sc; $('s3-late-v').textContent = LATE_NAME[i];
   const k = MM.timesOf(sc, 'kick'), lastOld = k.filter((t) => t < sc.changeAt - 1e-9).pop(), firstNew = k.find((t) => t >= sc.changeAt - 1e-9);
-  $('s3-read').innerHTML = `last 120 kick <b>${fmt(lastOld, 2)} s</b> → first 80 kick <b>${fmt(firstNew, 2)} s</b>: a gap of <b>${fmt(firstNew - lastOld, 3)} s</b>, where the anchored change had 0.750 · before the change, nothing is 0.75 s long`;
+  $('s3-read').innerHTML = `last anchor kick <b>${fmt(lastOld, 2)} s</b> → first 80 kick <b>${fmt(firstNew, 2)} s</b>: <b>${fmt(firstNew - lastOld, 3)} s</b>, where the aligned change has 0.750 · from there on the 80 grid sits <b>${fmt(LATE[i], 3)} s</b> off the anchor's`;
 }
 $('s3-late').oninput = () => { stop(); setLate(); };
 setLate();
@@ -424,15 +434,15 @@ playButton($('s3-play'), () => S[3]);
 // step 4: blind pairs
 function newTrial() {
   const anchoredFirst = Math.random() < 0.5;
-  trial = { anchoredFirst, X: anchoredFirst ? MM.P3.anchored() : MM.P3.unanchored(0), Y: anchoredFirst ? MM.P3.unanchored(0) : MM.P3.anchored() };
+  trial = { anchoredFirst, X: MM.P3.misaligned(anchoredFirst ? 0 : 0.25), Y: MM.P3.misaligned(anchoredFirst ? 0.25 : 0) };
   heardX = heardY = false; S[4] = trial.X; readTrial();
 }
 function readTrial() {
   const n = done.length;
   if (n >= TRIALS) {
     const k = done.filter((d) => d).length, p = MM.binomTail(k, TRIALS);
-    $('s4-read').innerHTML = `you picked the anchored change as smoother <b class="mm-hi">${k} of ${TRIALS}</b> times · guessing gets ${k} or more of ${TRIALS} with chance <b>${p.toFixed(3)}</b> · ` +
-      `pairs: ${done.map((d) => (d ? 'anchored' : 'unanchored')).join(', ')} · <button id="s4-again">again</button>`;
+    $('s4-read').innerHTML = `you picked the aligned change as smoother <b class="mm-hi">${k} of ${TRIALS}</b> times · guessing gets ${k} or more of ${TRIALS} with chance <b>${p.toFixed(3)}</b> · ` +
+      `pairs: ${done.map((d) => (d ? 'aligned' : 'late')).join(', ')} · <button id="s4-again">again</button>`;
     $('s4-again').onclick = () => { done = []; newTrial(); };
     return;
   }
@@ -450,7 +460,7 @@ newTrial();
 
 const R = rail(() => {});
 // in the blind step the lanes would give the answer away, so only the playhead and the change line show
-const blind = (sc) => ({ events: [], dur: sc.dur, pivots: [{ t: 6, label: 'the change' }], shared: [], beats: [] });
+const blind = (sc) => ({ events: [], dur: 15.5, pivots: [{ t: 6, label: 'the change' }], shared: [], beats: [] });
 function frame() {
   requestAnimationFrame(frame);
   const n = R.cur, sc = S[n];

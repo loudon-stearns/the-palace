@@ -53,7 +53,7 @@
           "height": 800,
           "place": "band",
           "title": "the same hits, a new beat",
-          "caption": "**Does the grid keep going?** Five steps: a pulse at 120; a bell on the dotted quarter against it (they meet every 1.5 s); the pivot, where the kick moves onto the bell and the bell's twenty hits stay 0.750 s apart across it; the page's four relationships heard as the two changes they are; and last a test of the opening claim on your own hand. Tap through the pivot and through a glide to the same 80, ramped evenly over four bars, and the piece measures how soon your taps are back on the kick. It also plays the page's *equivalently* line both ways: the triplet becoming the pulse is 180, not 80.",
+          "caption": "**Does the running grid carry you?** Five steps: a pulse at 120; a bell on the dotted quarter against it (they meet every 1.5 s); the pivot, where the kick moves onto the bell and the bell's twenty hits stay 0.750 s apart across it; the page's four relationships heard as the two changes they are, including the *equivalently* line both ways (the triplet becoming the pulse is 180, not 80); and last a test of the opening on your own hand. Tap through the same jump twice, once with the bell running through 120 and once with it silent until the change. From the change on, the two are identical, so any difference in how soon your taps are back on the kick comes from the grid that was already running. Either answer can come out. A glide is there as an unscored listen.",
           "near": "The elegance: the forward transition"
         }
       ],
@@ -88,7 +88,7 @@
           "height": 800,
           "place": "band",
           "title": "there and back",
-          "caption": "**Is the return a mirror, and does it arrive?** The drop from 120 to 90 alone, on a bell every four triplet eighths; the return alone, on a bell every old 120 beat; then the two laid over each other: flip the drop end to end and its twenty beat lengths land on the return's, 20 of 20. One thing doesn't mirror. Every 4/4 bar line at 120 is a place the two grids meet, but at 90 only every third one is, so the drop can leave from any bar and the return can't. Last, the round trip with your choice of stay at 90 (2, 8 or 16 s), and you say whether the return arrived.",
+          "caption": "**Is the return a mirror, and does it arrive?** The drop from 120 to 90 alone, on a bell every four triplet eighths; the return alone, on a bell every old 120 beat; then the two laid over each other as a picture of the mirror (built to match: the flipped drop's twenty beat lengths are the return's). Under it, the one place the mirror can break: if the return must land back on the old 120's bar lines, every 4/4 bar line at 120 is a meeting of the two grids, but only every third at 90 (in 3/4 at 90, all of them). Last, round trips with a stay of one, three or six bars drawn at random and hidden, each return prepared alike; you say whether it arrived, then see the stay.",
           "near": "This creates a complete journey"
         }
       ],
@@ -136,7 +136,7 @@
           "height": 600,
           "place": "band",
           "title": "the anchor, blind",
-          "caption": "**Is the anchor what makes it smooth?** Step 3's claim, walked up: the dotted-quarter kick alone in a kickless 120 groove; the change with it, the kick never moving; the same change without it, the 120 kick on the beat, with a slider for where the 80 groove comes in. Then six blind pairs. From the change on, the two versions are identical note for note, so the only difference is what the 120 section prepared. You pick the smoother, and the piece says at the end how often that was the anchored one, and how often guessing would do as well.",
+          "caption": "**Does the anchor have to align?** Step 3 asks that a figure in the old tempo *aligns* with one in the new. The kick on the dotted quarter alone in a kickless 120 groove; the change with the 80 groove aligned to it, the kick never moving; the same anchor with the 80 groove landing late (a slider, a sixteenth to a dotted eighth). Then six blind pairs that are identical note for note up to the change and differ only after it: aligned, or an eighth late. You pick the smoother; the piece says at the end how often that was the aligned one, and how often guessing would do as well.",
           "near": "Place a kick drum or bass hit on the dotted quarter"
         }
       ],
@@ -165,7 +165,7 @@
     {
       "section": "The 3/4 Symmetry — Mirror-Image Transitions",
       "kind": "claim-change",
-      "what": "'The rise and fall are mirror images' holds in ratio (¾ × 4⁄3 = 1) and in beat lengths: the drop's twenty beat lengths reversed are the return's, 20 of 20. It does not hold for where you can leave from. In 4/4, every bar line at 120 is a meeting of the two grids (12 of 12 in 24 s), but only every third bar line at 90 is (3 of 9). A drop can leave from any bar; a return on a bar line has to wait three bars, or leave mid-bar. Offer: one sentence saying so, perhaps in the choreography's step 3 ('let the audience acclimate': in whole multiples of three bars).",
+      "what": "'The rise and fall are mirror images' holds in ratio (¾ × 4⁄3 = 1) and in beat lengths. Where it can break is narrower: if the return is to land back in step with the old 120's bar lines, then in 4/4 every bar line at 120 is a meeting of the two grids (12 of 12 in 24 s) but only every third at 90 (3 of 9), so such a return leaves every third bar or mid-bar. A return counted from wherever it starts can leave from any 90 beat, and in 3/4 at 90 every bar line meets. Offer: one sentence with that condition, if the page means the return to land on the original phrase.",
       "status": "open"
     },
     {
@@ -177,13 +177,13 @@
     {
       "section": "Implementing Metric Modulation in Ableton Live",
       "kind": "no-claim-edit",
-      "what": "Step 2's 'Ctrl/Cmd+U on the Master track' names Live's Quantize shortcut (Ableton's Live 11 manual, Keyboard Shortcuts: Quantize Ctrl/Cmd+U). Tempo automation is the Song Tempo envelope on the Master track. 'Place a tempo marker' may be another DAW's word: not checked in Live itself. Found reading, not by a piece.",
+      "what": "Step 2 names things Live doesn't have. 'Ctrl/Cmd+U' is Live's Quantize (Quantize Settings is Cmd+Shift+U; Live manual, Keyboard Shortcuts). Live has no tempo marker: a tempo change is a breakpoint on the Master track's Song Tempo automation (Live manual, Automating the Tempo); 'tempo marker' is Logic's, Pro Tools' or Cubase's word. Offer: 'add a breakpoint to the Song Tempo automation on the Master track at that measure', and drop the shortcut. Confirmed by the challenger against the manual.",
       "status": "open"
     },
     {
       "section": "Implementing Metric Modulation in Ableton Live",
       "kind": "claim-change",
-      "what": "A tension to hold or name. The opening says metric modulation is 'not a continuous glide'; Step 2's 'smooth feel' automates the tempo linearly over 4 or 8 measures, which is a glide; and Step 3's anchor only holds for the snap. Measured in the engine: over a 4-bar ramp from 120 to 80 (16 beats, linear in beats, 9.73 s), the beats stretch from 0.505 to 0.739 s, and a 0.75 s anchor drifts as far as 267 ms off the ramping beat. Offer: call the ramp a glide that lands on a related tempo, and say the anchor belongs to the snap. The first piece's step 5 lets a reader tap both.",
+      "what": "A tension to hold or name. The opening says metric modulation is 'not a continuous glide'; Step 2's 'smooth feel' automates the tempo linearly over 4 or 8 measures, which is a glide; and Step 3's anchor belongs to the snap. Measured in the engine: over a 4-bar ramp from 120 to 80 (16 beats, linear in beats, 9.73 s) the beats stretch from 0.505 to 0.739 s, and an anchor held at a fixed 0.75 s drifts as far as 267 ms off the ramping beat (309 ms over 8 bars). In Live a dotted quarter placed in the arrangement follows the ramp instead, lasting about 0.76 s at its start and 1.11 s at its end: it stays on the grid but stops being one length, so there is no fixed figure to carry. Either way the ramp is a glide that lands on a related tempo. Offer: say so, and that the anchor belongs to the snap. The first piece keeps the glide as an unscored listen.",
       "status": "open"
     }
   ]
