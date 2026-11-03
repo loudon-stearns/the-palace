@@ -51,7 +51,23 @@
      "title": "the second frame-to-frame problem",
      "caption": "A second sweep artifact, found from Loudon's October buzz note and not yet in the text: on aligned frames, big jumps between neighbours flutter at the sweep's frame rate. Left, the buzz against a blur across neighbouring frames; right, one harmonic of the FM family chain as shipped and blurred. Measured by the steward (2026-10-28), not yet heard; its bullet for this section waits in the steward's tuning ledger for Loudon's review."
     }
-   ]
+   ],
+   "challenge": {
+    "date": "2026-11-03",
+    "by": "challenger · claude-opus-5-5",
+    "verdicts": [
+     {
+      "file": "Generative Wavetable Libraries — rich — line up or not.html",
+      "verdict": "remake",
+      "why": "The blind test is clean (p = 79/4096 = 0.019, both arms scored, equal lengths, level within 0.3 dB on any grid). But '6.1 dB sag' is morph_dips_db on raw keyframe blends the table never plays: generate.py re-normalizes every frame, so as played the worst halfway blend is −1.0 dB (−1.65 over 40 draws). Relabel or replace it in the caption, step 4's text and table, and the prediction."
+     },
+     {
+      "file": "loop-smoothing/smoothing.png",
+      "verdict": "keep",
+      "why": "Tracked; the caption honestly marks it as the steward's second sweep problem, not yet in the text and waiting on Loudon (tuning.md:31)."
+     }
+    ]
+   }
   },
   {
    "heading": "Plan",
@@ -94,7 +110,28 @@
      "title": "the audition Loudon accepted",
      "caption": "The steward's audition seed (2026-06-06): A2 held, the Shepard table swept from dark to bright in 12 s by the project's plain reader. Counted above, its brightness never falls. Late in the sweep a faint 15.94 kHz tone is the top octave folded back past Nyquist, which Serum and Ableton would drop."
     }
-   ]
+   ],
+   "challenge": {
+    "date": "2026-11-03",
+    "by": "challenger · claude-opus-5-5",
+    "verdicts": [
+     {
+      "file": "Generative Wavetable Libraries — rich — the crystal knob.html",
+      "verdict": "remake",
+      "why": "Step 4's 'held −109 dB' is the meter's floor, which any stored cycle reaches (a white-noise cycle scores the same), so the test can't fail, and the identity is already on Wavetable Oscillator's and Inharmonic Wavetable Synthesis's faces. State it as the identity, make the detune-on vs detune-off stored cycle (−16.2 dB, seam 12.3×) the level-matched test with its rule first, and fix check.py:95."
+     },
+     {
+      "file": "Generative Wavetable Libraries — rich — brighter all the way.html",
+      "verdict": "keep",
+      "why": "A real count with its rule first and a control that fails (34/63, 277/507). My recount of the audition wav gives 0 falls at every window of 46 ms or more, and the 15.94 kHz fold-back and the A5/A6 falls reproduce."
+     },
+     {
+      "file": "rich-face/shepard_centroid_audition_sweep.wav",
+      "verdict": "keep",
+      "why": "Tracked, and the steward's own render. Caption note: 'faint' understates a tone carrying −9.6 dB of the sound's energy, and 'Serum and Ableton would drop' it is expected, not checked."
+     }
+    ]
+   }
   }
  ],
  "offers": [
