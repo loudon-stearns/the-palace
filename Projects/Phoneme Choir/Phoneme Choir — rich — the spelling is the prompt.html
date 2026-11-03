@@ -1,0 +1,310 @@
+<!doctype html>
+<!--
+  title: Phoneme Choir — rich — the spelling is the prompt
+  born: 2026-11-03
+  links: [[Phoneme Choir]] (connects-to · rich-face-piece) · listed in [[Phoneme Choir — rich.json]] · serves § Kokoro syllabifies repeated consonants · plays renders made by "Phoneme Choir — rich — render spellings.py" into rich-face/
+  forward_vector: I am the trill audition the build lost, re-rendered and measured. A trill set out as a ruler first, a fast flutter; then brrrrahhh as Kokoro's front end read it, letter by letter; then the six other spellings in a row; and last, the test, the door around the spelling: phonemes handed straight to the model, trill symbol and all. I play inside the entry's rich face and stand alone opened directly; I change only when the section I serve does.
+  sound: nothing plays until a play button or a row is clicked; the AudioContext is made on that click. Changing step stops the sound. Quieting a hidden page and the one-minute cap are the kit's.
+  renders: Kokoro (kokoro-onnx 0.5.0, kokoro-v1.0.onnx) in am_adam and af_bella, en-us, speed 1.0, its own silence trim on, 2026-11-03; rich-face/renders.json records the phonemes its front end made of each spelling.
+  check: Phoneme Choir — rich — check.mjs runs this page's ruler in Node over every render and holds it to every number the page states.
+-->
+<html lang="en" class="skin-graphite">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- the renders and their record, beside the piece in rich-face/; no device, no storage, no host -->
+<meta name="piece:files" content="rich-face/renders.json rich-face/spelling-brrrrahhh-am_adam.wav rich-face/spelling-brah-am_adam.wav rich-face/spelling-vrrrrah-am_adam.wav rich-face/spelling-rrrrah-am_adam.wav rich-face/spelling-brrah-am_adam.wav rich-face/spelling-rraaaaah-am_adam.wav rich-face/spelling-burrrrrah-am_adam.wav rich-face/spelling-ssssss-am_adam.wav rich-face/spelling-ahhh-am_adam.wav rich-face/door-brrrr-ah-am_adam.wav rich-face/door-burrrrr-ah-am_adam.wav rich-face/door-br-ah-am_adam.wav rich-face/spelling-brrrrahhh-af_bella.wav rich-face/spelling-brah-af_bella.wav rich-face/spelling-vrrrrah-af_bella.wav rich-face/spelling-rrrrah-af_bella.wav rich-face/spelling-brrah-af_bella.wav rich-face/spelling-rraaaaah-af_bella.wav rich-face/spelling-burrrrrah-af_bella.wav rich-face/spelling-ssssss-af_bella.wav rich-face/spelling-ahhh-af_bella.wav rich-face/door-brrrr-ah-af_bella.wav rich-face/door-burrrrr-ah-af_bella.wav rich-face/door-br-ah-af_bella.wav">
+<title>The spelling is the prompt</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@300;400;500&display=swap">
+<style>
+  :root{
+    --bg:#0a0a0f; --bg-elev-1:#12121a; --bg-elev-2:#1a1a28; --border:#4a4a5e; --border-soft:rgba(255,255,255,0.06);
+    --fg-1:#e8e8f0; --fg-2:#c8c8d8; --fg-3:#8a8aa0; --fg-4:#4a4a5a;
+    --accent:#e8b84a; --accent-soft:rgba(232,184,74,0.10); --accent-line:rgba(232,184,74,0.5);
+    --info:#4a8fff; --violet:#8b7cf6;
+    --serif:'Cormorant Garamond','Source Serif 4',Georgia,serif; --sans:'Manrope',system-ui,sans-serif;
+    --display:'Anton','Bebas Neue',Impact,sans-serif; --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--fg-1)}
+  body{font-family:var(--serif);font-size:17px;line-height:1.7;padding:28px 16px 36px}
+  main{max-width:960px;margin:0 auto}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--fg-3)}
+  h1{font-family:var(--display);font-weight:400;font-size:42px;line-height:1.05;margin:6px 0 10px}
+  h2{font-family:var(--display);font-weight:400;font-size:27px;line-height:1.1;margin:4px 0 8px;letter-spacing:.01em}
+  p.lead{font-size:19px;color:var(--fg-2);margin:0 0 18px;max-width:66ch}
+  .rail{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 18px}
+  .rail button{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-3);background:transparent;border:1px solid var(--border);border-radius:4px;padding:7px 11px;cursor:pointer;transition:all .22s cubic-bezier(.4,0,.2,1)}
+  .rail button[aria-current="step"]{color:var(--fg-1);border-color:var(--fg-3);background:var(--bg-elev-2)}
+  p.say{color:var(--fg-2);margin:0 0 14px;max-width:68ch}
+  .dwh{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:8px 18px;margin:0 0 14px;font-family:var(--sans);font-size:13.5px;color:var(--fg-2);line-height:1.55}
+  .dwh b{font-family:var(--mono);font-weight:400;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);display:block}
+  .panel{background:var(--bg-elev-1);border:1px solid var(--border-soft);border-radius:4px;padding:16px;margin:0 0 14px}
+  .plabel{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-3);display:flex;justify-content:space-between;gap:10px;margin-bottom:8px}
+  canvas{width:100%;display:block;background:var(--bg-elev-2);border-radius:2px}
+  .rowb{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:12px}
+  .grp{display:inline-flex;gap:6px;align-items:center;flex-wrap:wrap}
+  .grp .l{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-3);margin-right:2px}
+  button.play{font-family:var(--sans);font-weight:500;font-size:14px;color:#0a0a0f;background:var(--accent);border:0;border-radius:4px;padding:9px 20px;cursor:pointer;transition:box-shadow .22s cubic-bezier(.4,0,.2,1)}
+  button.play:hover{box-shadow:0 0 24px var(--accent-soft)}
+  button.ghost{font-family:var(--sans);font-size:14px;color:var(--fg-2);background:transparent;border:1px solid var(--border);border-radius:4px;padding:8px 14px;cursor:pointer}
+  button.ghost.small{font-size:13px;padding:5px 10px}
+  button.ghost[aria-pressed="true"]{color:var(--fg-1);border-color:var(--accent-line);background:var(--bg-elev-2)}
+  .ctl{display:grid;grid-template-columns:200px 1fr auto;gap:6px 14px;align-items:center;margin-top:14px}
+  .ctl label{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-3)}
+  .ctl input[type=range]{width:100%;accent-color:var(--accent)}
+  .ctl .v{font-family:var(--mono);font-size:14px;color:var(--fg-1);text-align:right;white-space:nowrap;min-width:11ch}
+  .meter{font-family:var(--mono);font-size:13px;color:var(--fg-2);margin-top:12px;line-height:1.75}
+  .meter b{color:var(--accent);font-weight:400}
+  .ipa{font-family:var(--mono);font-size:20px;color:var(--fg-1);margin-top:12px;letter-spacing:.02em}
+  .ipa span{color:var(--fg-4);margin:0 6px}
+  .eq{font-family:var(--mono);font-size:13.5px;color:var(--fg-1);margin:14px 0 0;overflow-wrap:anywhere}
+  .eq.words{font-family:var(--sans);color:var(--fg-3);font-size:13px;margin-top:2px}
+  table.t{border-collapse:collapse;margin-top:12px;font-family:var(--mono);font-size:13px;color:var(--fg-2);width:100%}
+  table.t td,table.t th{border-bottom:1px solid var(--border-soft);padding:6px 14px 6px 0;text-align:right;font-weight:400}
+  table.t th{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-3)}
+  table.t td:first-child,table.t th:first-child,table.t td:nth-child(2),table.t th:nth-child(2){text-align:left}
+  table.t tr.row{cursor:pointer} table.t tr.row:hover td{color:var(--fg-1)} table.t tr.on td{color:var(--accent)}
+  .found{margin-top:12px;font-family:var(--sans);font-size:14px;color:var(--fg-2);max-width:72ch;line-height:1.6}
+  .walk{display:flex;justify-content:space-between;gap:10px;margin-top:16px}
+  .hide{display:none!important}
+  footer{margin-top:28px;font-family:var(--sans);font-size:13px;color:var(--fg-4)}
+  footer b{font-family:var(--display);font-weight:400;letter-spacing:.06em;color:var(--fg-3)}
+  @media (max-width:640px){h1{font-size:32px}h2{font-size:23px}.ctl{grid-template-columns:120px 1fr auto}.ipa{font-size:16px}}
+</style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">Phoneme Choir · the trill that never came · four steps</div>
+  <h1>The spelling is the prompt</h1>
+  <p class="lead">The audition began with a rolled r, <i>brrrrahhh</i>, and Kokoro said something else. The audition files are gone, so these are fresh renders in two of the build’s voices. Set a ruler for what a trill is, read what the model was actually handed, and then try the door the page says isn’t there.</p>
+
+  <nav class="rail" id="rail" aria-label="steps"></nav>
+  <h2 id="st-title"></h2>
+  <p class="say" id="st-say"></p>
+  <div class="dwh"><div><b>do</b><span id="st-do"></span></div><div><b>watch</b><span id="st-watch"></span></div><div><b>hear</b><span id="st-hear"></span></div></div>
+
+  <div class="panel">
+    <div class="plabel"><span id="pic-l"></span><span id="pic-r"></span></div>
+    <canvas id="pic" height="300"></canvas>
+    <div class="rowb">
+      <button class="play" id="play">▸ play</button>
+      <span class="grp" id="g-fl"><span class="l">play</span><button class="ghost small" data-fl="0">brah as spoken</button><button class="ghost small" data-fl="1">with the flutter</button></span>
+      <span class="grp" id="g-voice"><span class="l">voice</span><button class="ghost small" data-voice="am_adam">am_adam</button><button class="ghost small" data-voice="af_bella">af_bella</button></span>
+      <span class="grp" id="g-door"><span class="l">phonemes</span></span>
+    </div>
+    <div class="ctl" id="ctl-rate">
+      <label for="rate">flutter rate</label><input id="rate" type="range" min="4" max="40" step="1" value="28"><span class="v" id="rate-v"></span>
+    </div>
+    <div class="ipa" id="ipa"></div>
+    <table class="t" id="tab"></table>
+    <div class="meter" id="meter"></div>
+    <p class="found" id="found"></p>
+  </div>
+
+  <div class="eq" id="eq1"></div>
+  <div class="eq words" id="eq1w"></div>
+
+  <div class="walk"><button class="ghost" id="back">← back</button><button class="ghost" id="next">next →</button></div>
+  <footer><b>LOUD’N LIVE</b> · made for the rich face of Phoneme Choir · Kokoro renders made for this page, 2026-11-03, with the build’s settings · the ruler runs here and in its check</footer>
+</main>
+
+<script id="engine">
+// ---- engine: read a WAV, draw its level, count its flutter ----
+function parseWav(buf) {
+  const dv = new DataView(buf); let p = 12, sr = 24000, ch = 1, bits = 16, data = null;
+  while (p + 8 <= dv.byteLength) {
+    const id = String.fromCharCode(dv.getUint8(p), dv.getUint8(p + 1), dv.getUint8(p + 2), dv.getUint8(p + 3)), n = dv.getUint32(p + 4, true);
+    if (id === 'fmt ') { ch = dv.getUint16(p + 10, true); sr = dv.getUint32(p + 12, true); bits = dv.getUint16(p + 22, true); }
+    if (id === 'data') { data = [p + 8, Math.min(n, dv.byteLength - p - 8)]; break; }
+    p += 8 + n + (n & 1);
+  }
+  if (!data || bits !== 16) throw new Error('not a 16-bit PCM wav');
+  const len = data[1] / 2 / ch, x = new Float32Array(len);
+  for (let i = 0; i < len; i++) x[i] = dv.getInt16(data[0] + i * 2 * ch, true) / 32768;
+  return { x, sr };
+}
+// level in dB: RMS over 20 ms (two voice periods or more, so the voice's own buzz drops out), one value per millisecond
+function levelDb(x, sr) {
+  const w = Math.round(sr * 0.02), h = Math.round(sr * 0.001), c = new Float64Array(x.length + 1);
+  for (let i = 0; i < x.length; i++) c[i + 1] = c[i] + x[i] * x[i];
+  const out = []; for (let s = 0; s + w <= x.length; s += h) out.push(10 * Math.log10((c[s + w] - c[s]) / w + 1e-12));
+  return Float64Array.from(out);
+}
+// a dip: a low point (lowest within 8 ms either side, within 35 dB of the loudest) that sits 3 dB or more under the highest level within 25 ms on both sides
+function dips(x, sr) {
+  const L = levelDb(x, sr), n = L.length; let top = -Infinity; for (const v of L) if (v > top) top = v; const out = [];
+  for (let i = 8; i < n - 8; i++) {
+    if (L[i] < top - 35) continue;
+    let low = true; for (let j = i - 8; j <= i + 8; j++) if (L[j] < L[i]) { low = false; break; }
+    if (!low) continue;
+    let a = -Infinity, b = -Infinity; for (let j = Math.max(0, i - 25); j < i; j++) a = Math.max(a, L[j]); for (let j = i + 1; j <= Math.min(n - 1, i + 25); j++) b = Math.max(b, L[j]);
+    const depth = Math.min(a, b) - L[i]; if (depth >= 3) out.push({ ms: i + 10, depth });
+  }
+  return out;
+}
+// the ruler: the longest run of dips each 22 to 50 ms after the last (20 to 45 a second), and its rate
+function flutter(x, sr) {
+  const D = dips(x, sr); let best = { taps: D.length ? 1 : 0, rate: 0, from: D.length ? D[0].ms : 0, to: D.length ? D[0].ms : 0 }, run = 1;
+  for (let i = 1; i < D.length; i++) {
+    const gap = D[i].ms - D[i - 1].ms; run = gap >= 22 && gap <= 50 ? run + 1 : 1;
+    if (run > best.taps) best = { taps: run, rate: 1000 * (run - 1) / (D[i].ms - D[i - run + 1].ms), from: D[i - run + 1].ms, to: D[i].ms };
+  }
+  return { ...best, dips: D };
+}
+const TRILL_RUN = 3; // three dips in a row at 20 to 45 a second is what this page calls a flutter
+// step one's model of a trill: the level dipped by depthDb, rate times a second, between t0 and t1 seconds, with 10 ms ramps
+function flutterGain(t, rate, depthDb, t0, t1) {
+  if (t < t0 || t > t1) return 1;
+  const ramp = Math.min(1, (t - t0) / 0.01, (t1 - t) / 0.01), dip = 0.5 - 0.5 * Math.cos(2 * Math.PI * rate * (t - t0));
+  return Math.pow(10, -depthDb * dip * ramp / 20);
+}
+function withFlutter(x, sr, rate, depthDb, t0, t1) { const y = new Float32Array(x.length); for (let i = 0; i < x.length; i++) y[i] = x[i] * flutterGain(i / sr, rate, depthDb, t0, t1); return y; }
+const FLUTTER = { depth: 12, t0: 0.08, t1: 0.33 };
+// the phonemes split where the front end put a stress mark, and the vowels counted
+const VOWEL = /[iɪeɛæaɑɒɔoʊuʌəɜɐ]/;
+function stressParts(ipa) { return ipa.split(/[ˈˌ]/).filter(Boolean); }
+function vowelCount(ipa) { return ipa.split(/[ˈˌ ]/).filter((p) => VOWEL.test(p)).length; }
+// a spectrogram: 512-point frames every 4 ms, Hann window, magnitude in dB, up to 5 kHz
+function fft(re, im) {
+  const n = re.length; for (let i = 1, j = 0; i < n; i++) { let b = n >> 1; for (; j & b; b >>= 1) j ^= b; j ^= b; if (i < j) { [re[i], re[j]] = [re[j], re[i]]; [im[i], im[j]] = [im[j], im[i]]; } }
+  for (let len = 2; len <= n; len <<= 1) { const a = -2 * Math.PI / len, wr = Math.cos(a), wi = Math.sin(a);
+    for (let i = 0; i < n; i += len) { let cr = 1, ci = 0; for (let j = 0; j < len / 2; j++) { const ur = re[i + j], ui = im[i + j], vr = re[i + j + len / 2] * cr - im[i + j + len / 2] * ci, vi = re[i + j + len / 2] * ci + im[i + j + len / 2] * cr;
+      re[i + j] = ur + vr; im[i + j] = ui + vi; re[i + j + len / 2] = ur - vr; im[i + j + len / 2] = ui - vi; const t = cr * wr - ci * wi; ci = cr * wi + ci * wr; cr = t; } } }
+}
+function spectrogram(x, sr) {
+  const N = 512, hop = Math.round(sr * 0.004), bins = Math.floor(5000 / (sr / N)), cols = [], win = new Float64Array(N).map((_, i) => 0.5 - 0.5 * Math.cos(2 * Math.PI * i / (N - 1)));
+  for (let s = 0; s + N <= x.length; s += hop) { const re = new Float64Array(N), im = new Float64Array(N); for (let i = 0; i < N; i++) re[i] = x[s + i] * win[i]; fft(re, im);
+    const col = new Float32Array(bins); for (let k = 0; k < bins; k++) col[k] = 10 * Math.log10(re[k] * re[k] + im[k] * im[k] + 1e-12); cols.push(col); }
+  return { cols, bins, hopS: hop / sr };
+}
+</script>
+
+<script>
+const $ = (id) => document.getElementById(id);
+const S = { step: 0, voice: 'am_adam', fl: 1, rate: 28, row: 'brrrrahhh', door: 'door-brrrr-ah' };
+const ORDER = ['brrrrahhh', 'brah', 'vrrrrah', 'rrrrah', 'brrah', 'rraaaaah', 'burrrrrah', 'ssssss', 'ahhh'];
+const DOORS = ['door-brrrr-ah', 'door-burrrrr-ah', 'door-br-ah'];
+const DIR = 'rich-face/'; // every render sits here, each one named in piece:files
+let REC = null; const cache = new Map();
+async function rec() { if (!REC) REC = await fetch('rich-face/renders.json').then((r) => { if (!r.ok) throw new Error('renders.json: ' + r.status); return r.json(); }); return REC; }
+async function load(name) {
+  if (!cache.has(name)) cache.set(name, fetch(DIR + name).then((r) => { if (!r.ok) throw new Error(name + ': ' + r.status); return r.arrayBuffer(); }).then((b) => { const w = parseWav(b); return { name, ...w, fl: flutter(w.x, w.sr) }; }));
+  return cache.get(name);
+}
+const fileOf = async (key) => { const R = await rec(); return (R.spellings[key] || R.phonemes[key]).files[S.voice]; };
+const ipaOf = async (key) => { const R = await rec(); return (R.spellings[key] || R.phonemes[key]).ipa; };
+const runText = (f) => f.taps >= TRILL_RUN ? `<b>${f.taps} dips</b> in a row, ${f.rate.toFixed(0)} a second` : `${f.taps} dip${f.taps === 1 ? '' : 's'} in a row at most`;
+
+// ---- sound ----
+let ctx = null, out = null, live = [], timers = [], playing = false;
+async function audio() {
+  if (!ctx) { ctx = new (window.AudioContext || window.webkitAudioContext)(); const comp = ctx.createDynamicsCompressor(); comp.threshold.value = -12; comp.ratio.value = 4; out = ctx.createGain(); out.gain.value = 0.9; out.connect(comp); comp.connect(ctx.destination); }
+  if (ctx.state !== 'running') await ctx.resume(); return ctx;
+}
+function playX(x, sr, when) { const b = ctx.createBuffer(1, x.length, sr); b.copyToChannel(x, 0); const s = ctx.createBufferSource(); s.buffer = b; s.connect(out); s.start(when); live.push(s); return x.length / sr; }
+function stopSound() { for (const s of live) { try { s.stop(); } catch {} } live = []; timers.forEach(clearTimeout); timers = []; playing = false; syncPlay(); }
+function done(after) { playing = true; syncPlay(); timers.push(setTimeout(() => { playing = false; syncPlay(); }, after * 1000 + 150)); }
+function syncPlay() { $('play').textContent = playing ? '■ stop' : STEPS[S.step].playLabel || '▸ play'; }
+
+// ---- drawing ----
+function canvasFit(h) { const c = $('pic'), d = window.devicePixelRatio || 1, w = c.clientWidth || 900; c.width = w * d; c.height = h * d; c.style.height = h + 'px'; const g = c.getContext('2d'); g.setTransform(d, 0, 0, d, 0, 0); return { g, w, h }; }
+const COL = { fg2: '#c8c8d8', fg3: '#8a8aa0', fg4: '#4a4a5a', acc: '#e8b84a', info: '#4a8fff', grid: 'rgba(255,255,255,0.06)' };
+function label(g, t, x, y, color, align) { g.fillStyle = color || COL.fg3; g.font = '11px JetBrains Mono, monospace'; g.textAlign = align || 'left'; g.fillText(t, x, y); }
+function levelPlot(g, x, sr, fl, X, y0, h, color, faint) {
+  const L = levelDb(x, sr), Y = (db) => y0 + Math.min(1, Math.max(0, (-db) / 60)) * h;
+  g.strokeStyle = color; g.globalAlpha = faint ? 0.35 : 1; g.beginPath(); L.forEach((v, i) => { const px = X((i + 10) / 1000), py = Y(v); i ? g.lineTo(px, py) : g.moveTo(px, py); }); g.stroke(); g.globalAlpha = 1;
+  if (!fl) return;
+  for (const d of fl.dips) { const inRun = fl.taps >= 2 && d.ms >= fl.from && d.ms <= fl.to; g.fillStyle = inRun ? COL.acc : COL.fg3; g.beginPath(); g.arc(X(d.ms / 1000), Y(L[d.ms - 10]) + 6, inRun ? 3.5 : 2.5, 0, 7); g.fill(); }
+}
+function specPlot(g, x, sr, X, y0, h) {
+  const sp = spectrogram(x, sr); let top = -Infinity; for (const c of sp.cols) for (const v of c) if (v > top) top = v;
+  sp.cols.forEach((col, i) => { const x0 = X(i * sp.hopS), x1 = X((i + 1) * sp.hopS); for (let k = 0; k < sp.bins; k++) { const a = Math.max(0, Math.min(1, (col[k] - top + 70) / 70)); if (a < 0.05) continue;
+    g.fillStyle = `rgba(232,184,74,${(a * a).toFixed(3)})`; g.fillRect(x0, y0 + h - (k + 1) / sp.bins * h, x1 - x0 + 0.6, h / sp.bins + 0.6); } });
+  label(g, '5 kHz', X(0) + 3, y0 + 11, COL.fg4); label(g, '0', X(0) + 3, y0 + h - 3, COL.fg4);
+}
+function timeAxis(g, X, y, t1, every) { g.strokeStyle = COL.grid; for (let t = 0; t <= t1 + 1e-9; t += every) { const x = X(t); g.beginPath(); g.moveTo(x, 8); g.lineTo(x, y); g.stroke(); label(g, `${Math.round(t * 1000)} ms`, x, y + 13, COL.fg4, 'center'); } }
+async function drawOne(key, title) {
+  const m = await load(await fileOf(key)), ipa = await ipaOf(key), { g, w, h } = canvasFit(330), t1 = Math.max(1.3, m.x.length / m.sr), X = (t) => 10 + t / t1 * (w - 20);
+  timeAxis(g, X, h - 24, t1, 0.1); specPlot(g, m.x, m.sr, X, 8, 170); levelPlot(g, m.x, m.sr, m.fl, X, 192, 100, COL.fg2);
+  $('pic-l').textContent = `${title} · spectrogram above, 20 ms level below, dips marked`; $('pic-r').textContent = `${S.voice} · ${(m.x.length / m.sr * 1000).toFixed(0)} ms`;
+  $('ipa').innerHTML = stressParts(ipa).join('<span>·</span>');
+  return { m, ipa };
+}
+
+// ---- the four steps ----
+const STEPS = [
+  { name: 'a flutter', title: 'A trill is a flutter',
+    say: 'A rolled r is the tip of the tongue tapping the ridge behind the teeth on the breath: usually two or three taps, sometimes up to five (Ladefoged and Maddieson, <i>The Sounds of the World’s Languages</i>, 1996, p. 218), and close to 30 a second (26 to 32 across languages, Ladefoged, Cochran and Disner, “Laterals and trills”, 1977). That is not a slow “rah-rah”. To have a ruler for it, this step takes Kokoro’s plain <b>brah</b> and dips its level 12 dB, at the rate you choose, for a quarter second: longer than a real trill, so it is easy to hear. It is a model of a flutter, not a trill; it is here to set the ruler.',
+    do: 'Play brah as spoken, then with the flutter. Drag the rate from 4 to 40.', watch: 'The dots under the level line, amber when two or more come in a row at 20 to 45 a second; three in a row is what this page calls a flutter.', hear: 'Near 30, a buzz on the r; below 15, a wobble instead.',
+    controls: ['g-fl', 'g-voice', 'ctl-rate'], async draw() {
+      const m = await load(await fileOf('brah')), y = withFlutter(m.x, m.sr, S.rate, FLUTTER.depth, FLUTTER.t0, FLUTTER.t1), f = flutter(y, m.sr);
+      const { g, w, h } = canvasFit(250), t1 = 0.7, X = (t) => 10 + t / t1 * (w - 20); timeAxis(g, X, h - 24, t1, 0.05);
+      g.fillStyle = 'rgba(74,143,255,0.08)'; g.fillRect(X(FLUTTER.t0), 8, X(FLUTTER.t1) - X(FLUTTER.t0), h - 40);
+      levelPlot(g, m.x, m.sr, null, X, 14, h - 52, COL.fg3, true); levelPlot(g, y, m.sr, f, X, 14, h - 52, COL.fg2);
+      $('pic-l').textContent = 'brah, 20 ms level · faint = as spoken · bright = with the flutter, in the shaded quarter second'; $('pic-r').textContent = S.voice; $('ipa').innerHTML = ''; $('tab').innerHTML = '';
+      $('meter').innerHTML = `brah as spoken: ${runText(m.fl)} · with a ${S.rate}-a-second flutter: ${runText(f)} → ${f.taps >= TRILL_RUN ? '<b>reads as a flutter</b>' : 'not a flutter by this ruler'}`; },
+    async play() { const m = await load(await fileOf('brah')); await audio(); const x = S.fl ? withFlutter(m.x, m.sr, S.rate, FLUTTER.depth, FLUTTER.t0, FLUTTER.t1) : m.x; done(playX(x, m.sr, ctx.currentTime + 0.05)); },
+    eq: ['dip at n:  L[n] = min L[n−8 … n+8],  min( max L[n−25 … n), max L(n … n+25] ) − L[n] ≥ 3 dB ·  flutter: ≥ 3 dips, each 22 to 50 ms after the last', 'L is the level over 20 ms, read every millisecond. A dip is a low point at least 3 dB under the level on both sides of it. Three or more dips, each a twentieth to a forty-fifth of a second after the one before, is a flutter.'] },
+
+  { name: 'what it read', title: 'What the model was handed',
+    say: 'Kokoro never sees your letters. kokoro-onnx first hands the text to espeak-ng, which turns it into phonemes, and only the phonemes reach the model. Given <b>brrrrahhh</b>, espeak-ng finds no English word and reads letter names: B is /bˈiː/ and R is /ˈɑːɹ/ (its own answer for each letter alone, recorded beside the renders). Under the picture are the phonemes it made, split where it put a stress mark: B, then R, R, R, then “rah”. Nothing in it is a trill.',
+    do: 'Play brrrrahhh. Switch the voice.', watch: 'Five vowels in the phonemes, and in the spectrogram the r bending the sound down and back, again and again, slowly.', hear: 'Whether you hear “be-ah-rah-rah-rah”, as the build did on its first listen.',
+    controls: ['g-voice'], async draw() { const { m, ipa } = await drawOne('brrrrahhh', 'brrrrahhh'); const R = await rec(); $('tab').innerHTML = '';
+      $('meter').innerHTML = `phonemes: <b>${ipa}</b> · ${vowelCount(ipa)} vowels · ${(m.x.length / m.sr * 1000).toFixed(0)} ms long · ruler: ${runText(m.fl)} · the front end on a letter alone: b → ${R.spellings.b.ipa}, r → ${R.spellings.r.ipa}`; },
+    async play() { const m = await load(await fileOf('brrrrahhh')); await audio(); done(playX(m.x, m.sr, ctx.currentTime + 0.05)); } },
+
+  { name: 'six more', title: 'Six more spellings, and two other strings',
+    say: 'The build tried six other spellings and none of them trilled. Here they are in a row, with what espeak-ng made of each. Two it reads as words, brah and burrrrrah; the rest it reads, at least in part, as letter names. burrrrrah is the only one whose phonemes carry <b>r</b>, the trill symbol, once. The last two rows are the page’s inference: <b>ssssss</b> is six letter Ss, and <b>ahhh</b> is not spelled out at all but shrinks to one vowel.',
+    do: 'Play them all in a row, or click a row to hear one.', watch: 'The vowels column and the ruler column.', hear: 'Letters being named, words being said, and no flutter.',
+    controls: ['g-voice'], playLabel: '▸ play them all', async draw() {
+      const R = await rec(), rows = await Promise.all(ORDER.map(async (k) => ({ k, m: await load(R.spellings[k].files[S.voice]), ipa: R.spellings[k].ipa })));
+      $('tab').innerHTML = '<tr><th>spelling</th><th>phonemes espeak-ng made</th><th>vowels</th><th>length</th><th>ruler</th></tr>' + rows.map((r) => `<tr class="row${r.k === S.row ? ' on' : ''}" data-row="${r.k}"><td>${r.k}</td><td>${r.ipa}</td><td>${vowelCount(r.ipa)}</td><td>${(r.m.x.length / r.m.sr * 1000).toFixed(0)} ms</td><td>${r.m.fl.taps} in a row</td></tr>`).join('');
+      $('tab').querySelectorAll('tr.row').forEach((tr) => tr.addEventListener('click', async () => { S.row = tr.dataset.row; stopSound(); await redraw(); const m = await load(R.spellings[S.row].files[S.voice]); await audio(); done(playX(m.x, m.sr, ctx.currentTime + 0.05)); }));
+      await drawOne(S.row, S.row);
+      const most = Math.max(...rows.map((r) => r.m.fl.taps)); $('meter').innerHTML = `longest run of dips in any of the nine, ${S.voice}: <b>${most}</b> · a flutter on this ruler needs ${TRILL_RUN}`; },
+    async play() { const R = await rec(); await audio(); let t = ctx.currentTime + 0.05; for (const k of ORDER) { const m = await load(R.spellings[k].files[S.voice]); const at = t; timers.push(setTimeout(() => { S.row = k; redraw(); }, (at - ctx.currentTime) * 1000)); t += playX(m.x, m.sr, at) + 0.35; } done(t - ctx.currentTime); } },
+
+  { name: 'the test', title: 'The test: around the spelling',
+    say: 'If the spelling is the trouble, skip it. kokoro-onnx will take phonemes straight in (<code>create(…, is_phonemes=True)</code>), and Kokoro’s vocabulary has <b>r</b>, the trill symbol. So here are three phoneme strings no spelling could make: /brrrrˈɑː/, /bˈʌrrrrrɑː/ and /bˈrɑː/, in both voices, measured with the ruler from step one.',
+    do: 'Pick a phoneme string and play it. Switch the voice. Go back to step one and play the modelled flutter beside it.', watch: 'The dots: amber only when three or more come in a row at 20 to 45 a second.', hear: 'Whether any of them rolls.',
+    controls: ['g-voice', 'g-door'], async draw() {
+      const R = await rec(); const { m } = await drawOne(S.door, '/' + R.phonemes[S.door].ipa + '/'); $('tab').innerHTML = '';
+      const all = await Promise.all(DOORS.flatMap((d) => R.voices.map(async (v) => ({ d, v, m: await load(R.phonemes[d].files[v]) }))));
+      const b = await load(R.spellings.brah.files[S.voice]), model = flutter(withFlutter(b.x, b.sr, 28, FLUTTER.depth, FLUTTER.t0, FLUTTER.t1), b.sr);
+      const most = Math.max(...all.map((a) => a.m.fl.taps)), chance = Math.max(...(await Promise.all(R.voices.map((v) => load(R.spellings.ssssss.files[v])))).map((c) => c.fl.taps));
+      $('meter').innerHTML = `this string: ${runText(m.fl)} · longest run in all six phoneme renders: <b>${most}</b> · step one’s modelled flutter at 28 a second, ${S.voice}: <b>${model.taps}</b>`;
+      $('found').innerHTML = most >= TRILL_RUN ? `<b>What the test found.</b> At least one phoneme render flutters on this ruler (${most} dips in a row). The spelling was the wall; the door around it opens.` : `<b>What the test found.</b> No flutter. Handed the trill symbol directly, in two voices and three strings, the model makes at most ${most} dip${most === 1 ? '' : 's'} in a row; the modelled flutter makes ${model.taps}. ${most < 2 ? `Not even two: a real trill can be as short as two taps, and two dips in a row do turn up by chance (ssssss, with no r in it, makes ${chance}), but these renders never reach two.` : `Two in a row also turn up by chance (ssssss, with no r in it, makes ${chance}), so two is no evidence of a trill.`} So the page is right that no spelling makes a trill, and the reason goes one layer below the spelling: the front end reads repeated letters as letter names, and past the front end, these two voices did not roll even when handed the symbol. The ruler can miss a flutter shallower than 3 dB, and only an ear can say what these sound like.`; },
+    async play() { const R = await rec(); const m = await load(R.phonemes[S.door].files[S.voice]); await audio(); done(playX(m.x, m.sr, ctx.currentTime + 0.05)); } },
+];
+
+// ---- controls ----
+function sync() {
+  document.querySelectorAll('[data-fl]').forEach((b) => b.setAttribute('aria-pressed', String(+b.dataset.fl === S.fl)));
+  document.querySelectorAll('[data-voice]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.voice === S.voice)));
+  document.querySelectorAll('[data-door]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.door === S.door)));
+  $('rate-v').textContent = `${S.rate} a second`;
+}
+let drawing = 0;
+async function redraw() { const n = ++drawing; try { await STEPS[S.step].draw(); } catch (e) { if (n === drawing) $('meter').textContent = 'The renders did not load: ' + e.message; } }
+function show() {
+  stopSound(); const st = STEPS[S.step];
+  $('st-title').textContent = `${S.step + 1} · ${st.title}`; $('st-say').innerHTML = st.say; $('st-do').textContent = st.do; $('st-watch').textContent = st.watch; $('st-hear').textContent = st.hear;
+  for (const id of ['g-fl', 'g-voice', 'g-door', 'ctl-rate']) $(id).classList.toggle('hide', !st.controls.includes(id));
+  $('found').innerHTML = ''; $('ipa').innerHTML = ''; $('tab').innerHTML = ''; $('eq1').innerHTML = st.eq ? st.eq[0] : ''; $('eq1w').textContent = st.eq ? st.eq[1] : '';
+  [...$('rail').children].forEach((bt, j) => bt.setAttribute('aria-current', j === S.step ? 'step' : 'false'));
+  $('back').disabled = S.step === 0; $('next').disabled = S.step === STEPS.length - 1; sync(); syncPlay(); redraw();
+}
+STEPS.forEach((st, i) => { const b = document.createElement('button'); b.textContent = `${i + 1} · ${st.name}`; b.addEventListener('click', () => { S.step = i; show(); }); $('rail').appendChild(b); });
+DOORS.forEach((d) => { const b = document.createElement('button'); b.className = 'ghost small'; b.dataset.door = d; b.textContent = { 'door-brrrr-ah': '/brrrrˈɑː/', 'door-burrrrr-ah': '/bˈʌrrrrrɑː/', 'door-br-ah': '/bˈrɑː/' }[d]; b.addEventListener('click', () => { S.door = d; stopSound(); sync(); redraw(); }); $('g-door').appendChild(b); });
+$('back').addEventListener('click', () => { if (S.step > 0) { S.step--; show(); } });
+$('next').addEventListener('click', () => { if (S.step < STEPS.length - 1) { S.step++; show(); } });
+$('play').addEventListener('click', async () => { if (playing) { stopSound(); return; } try { await STEPS[S.step].play(); } catch (e) { $('meter').textContent = 'Could not play: ' + e.message; } });
+document.querySelectorAll('[data-fl]').forEach((b) => b.addEventListener('click', () => { S.fl = +b.dataset.fl; sync(); }));
+document.querySelectorAll('[data-voice]').forEach((b) => b.addEventListener('click', () => { S.voice = b.dataset.voice; stopSound(); sync(); redraw(); }));
+$('rate').addEventListener('input', (e) => { S.rate = +e.target.value; sync(); redraw(); });
+window.addEventListener('resize', () => redraw());
+show();
+</script>
+</body>
+</html>

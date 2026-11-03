@@ -1,0 +1,87 @@
+{
+  "title": "Phoneme Choir — rich",
+  "born": "2026-11-03",
+  "links": [
+    {
+      "target": "[[Phoneme Choir]]",
+      "type": "connects-to",
+      "label": "rich-face-of"
+    },
+    {
+      "target": "[[Enrichment]]",
+      "type": "connects-to",
+      "label": "made-by"
+    }
+  ],
+  "forward_vector": "I am the manifest of Phoneme Choir's rich face: the two lessons the build learned, each made playable and tested — the lag before a word in four voices, trimmed and measured on the build's own samples, and the trill that never came, re-rendered and measured past the spelling. I grow when the entry is enriched again; I never hold the entry's words.",
+  "entry": "Phoneme Choir",
+  "tier": "sketch",
+  "made": "2026-11-03",
+  "round": 1,
+  "sections": [
+    {
+      "heading": "The Two Lessons",
+      "made": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Phoneme Choir — rich — the spelling is the prompt.html",
+            "verdict": "keep",
+            "why": "A real test that could have gone the other way: the trill symbol handed straight to the model reads a longest run of 1 against 6–8 for the modelled flutter, and the ruler reads 5 at 25.8 a second on a real recorded trill (Commons), so its no means something; walks up ruler → one spelling → six → the door. Note: cite 'close to 30 a second' (Ladefoged, Cochran & Disner 1977, 26–32 Hz)."
+          },
+          {
+            "file": "Phoneme Choir — rich — same word, four voices.html",
+            "verdict": "keep",
+            "why": "Runs the build's own onset rule on the build's own files (347/352 exact, recomputed independently) and walks one breath → onset → four voices → trim → twelve keys; its test found the trim aligns where sound starts, not where the word gets loud, and holds that as offer 2 rather than changing the text."
+          }
+        ]
+      },
+      "pieces": [
+        {
+          "file": "Phoneme Choir — rich — the spelling is the prompt.html",
+          "origin": "made",
+          "by": "Kokoro · Web Audio",
+          "height": 1180,
+          "place": "band",
+          "near": "Repeated-letter strings get parsed as character sequences",
+          "title": "the spelling is the prompt · four steps",
+          "caption": "**The trill audition, re-rendered and measured.** A ruler first: Kokoro’s brah with a modelled flutter, read as dips in a row at 20 to 45 a second. Then brrrrahhh as the model was handed it, phonemes from kokoro-onnx’s espeak-ng front end that read the letters by name (B, R, R, R, rah). Then the six other spellings, ssssss and ahhh in a row. Last, the door around the spelling: the trill symbol handed straight to the model, in two voices, and still no flutter. The renders are new (the audition files did not survive), made 2026-11-03 with the build’s settings. The ruler says yes to a real trill: run on a recorded alveolar trill (Wikimedia Commons, Alveolar_trill.ogg) it finds 5 dips in a row at 25.8 a second, so its no on Kokoro means something; real trills run close to 30 a second (26–32 Hz, Ladefoged, Cochran and Disner 1977; two or three taps, Ladefoged and Maddieson 1996, p. 218). Kokoro's three Spanish voices, whose language trills, reached a longest run of 2 (the challenger's check, not in the piece)."
+        },
+        {
+          "file": "Phoneme Choir — rich — same word, four voices.html",
+          "origin": "made",
+          "by": "Web Audio",
+          "height": 1240,
+          "place": "band",
+          "near": "Without per-file detection, the keyboard would feel inconsistently sluggish",
+          "title": "same word, four voices · five steps",
+          "caption": "**The lag before the word, on the build’s own samples.** One knock and its 138 ms of breath; the build’s onset rule, run in the page and agreeing with offsets.json; the four voices of knock that the build’s audition.sfz loaded, untrimmed and then trimmed; and last, twelve keys in all four layers with how soon each gets loud after the key, trim off and on, by a ruler you can move. The trim lines up where every voice starts; where the word gets loud still differs by voice on most keys."
+        }
+      ],
+      "made_against": "04d52f6e8fe6",
+      "stamped": "2026-11-03"
+    }
+  ],
+  "offers": [
+    {
+      "section": "The Two Lessons",
+      "kind": "claim-change",
+      "what": "Kokoro syllabifies repeated consonants: the mechanism is kokoro-onnx’s espeak-ng front end, which reads an unknown string as letter names — brrrrahhh → /bˌiːˌɑːɹɹˌɑːɹɹˈɑːɹɹˈɑː/, B R R R rah; ssssss → six “ess”, as the page guessed. Two refinements: the prompt is not only the spelling, since kokoro-onnx takes phonemes directly (is_phonemes=True), but handed the trill symbol r in three strings, am_adam and af_bella still made no flutter (longest run of dips 1, against 6 and 8 for a modelled 28 Hz flutter, and 5 for a recorded real trill); and held vowels shrink rather than syllabify — ahhh becomes one /ˈɑː/, uuuuh two /ˈuːuː/. The renders are made, not gathered (the audition files did not survive), labelled origin: made, and reproduce byte-identical from the tracked render script.",
+      "status": "open"
+    },
+    {
+      "section": "The Two Lessons",
+      "kind": "claim-change",
+      "what": "Per-file onset detection: the numbers hold (onsets 22.9–217.9 ms, median 54.6; knock 137.75 ms in bf_isabella, 31.25 in am_puck; the page’s rule reproduces offsets.json exactly for 347 of 352 files, the rest within 3 samples; recomputed independently by the challenger). Line 84, “every key fires immediately into the percussive transient regardless of voice”, is true of where sound starts: every file starts 1 ms after its first 5 ms above −30 dBFS. Line 89, “so we land on the transient peak”, is false: the key starts a median 98.5 ms before the file’s loudest 5 ms. Over all 88 keys a key’s four voices reach 20 dB under their loudest 5.7 ms apart with the trim (79.7 without), but 10 dB under 59.9 ms apart (99.8 without); only 5 keys, knock among them, land within 10 ms there. Suggest: every key starts its sound at once, whatever the voice; how soon the word gets loud after that still varies by voice. Which ruler matches the felt beat wants an ear.",
+      "status": "open"
+    }
+  ]
+}
