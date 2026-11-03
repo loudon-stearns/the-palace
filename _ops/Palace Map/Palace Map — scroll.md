@@ -15,25 +15,22 @@ forward_vector: "I am Palace Map's scroll — the page's front door, opening on 
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-11-03T13:07:31.610Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the page is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-11-03T13:12:56.006Z from the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the page is steered by the **Plan** and **Standing Orders** below, never here._
 
 - **Status:** — · **Stage:** growing · **Steward:** none — this page has no permanent steward yet
 - **Plan:** agreed 2026-10-23 (12 days ago) · 3 made things since
-- **Waiting on you:** nothing
-- **Last shipped:** 2026-11-03 (today) — Move 2's done-when met: the keeper, spawned fresh on today's build, answered both proof sets — 63/63 edges real, every count by script (1b3f1324). Move 3 next (`palace-map-keeper-donewhen-met-2026-11-03`)
-- **Last commit touching this page:** 2026-11-03 `1b3f1324` — ops(Palace Map): Move 2's done-when met: the keeper, spawned fresh on today's build, answered both proof sets with 63/63 edges real and every count by script; the run is recorded, the baton moves to Move 3's first use
+- **Runs:** 1 run on 1 day, counted from the ledger's run lines
+- **Last run:** 2026-11-03 — keeper · constellation for the Daily Page sit, Quantization ↔ Precision vs Flow · 7 pages, 13 edges, 4 types, 10/10 · taught: a set that crosses two types reads as one idea; ask for three before the eye settles
+- **Owed in the ledger:** nothing
+- **Latest lesson:** item —, from the first use — 2026-11-03 — [[Palace Map — tuning]]
 
-### Where this stands
+### Runs
 
-Loudon, 2026-11-03: "Yes, place and test." The keeper was spawned fresh by the README's recipe at 9480f97d on the 2026-11-03 build (327 nodes, 2450 edges) and given the proof's questions.md and creative.md. It read the TSV whole, used the scripts for every count and route, cited every edge as a triple, kept a log per creative move, ran verify-triples.py on itself (two reversed triples caught and fixed, then 63/63) and wrote nothing; 120,679 tokens. The working Claude checked all ten facts against the script; the Concierge re-ran verify-triples.py on the answer file when placing the record: 63/63. The run sits in `_ops/Palace Map/proofs/2026-11-03-keeper-first-run/` with a line on the proof…
+- 2026-11-03 — keeper · constellation for the Daily Page sit, Quantization ↔ Precision vs Flow · 7 pages, 13 edges, 4 types, 10/10 · taught: a set that crosses two types reads as one idea; ask for three before the eye settles
 
-### Open asks
+### Owed
 
-_None — nothing is waiting on you._
-
-### Decided
-
-_Nothing decided on the board yet._
+_Nothing owed._
 
 <!-- scroll:now:end -->
 
@@ -95,6 +92,13 @@ _Loudon's standing direction for this page — never regenerated. A steward, if 
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="run-257a370310" -->
+### 2026-11-03 — keeper · constellation for the Daily Page sit, Quantization ↔ Precision vs Flow · 7 pages, 13 edges, 4 types, 10/10
+
+taught: a set that crosses two types reads as one idea; ask for three before the eye settles
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="palace-map-keeper-donewhen-met-2026-11-03" -->
 ### 2026-11-03 — Move 2's done-when met: the keeper, spawned fresh on today's build, answered both proof sets — 63/63 edges real, every count by script (1b3f1324). Move 3 next
 > checked · Move 2 of the plan agreed 2026-10-23 done · Move 3, first runs, is the baton's move
