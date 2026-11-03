@@ -67,7 +67,23 @@
           "near": "The soft, smeary masks we started with"
         }
       ],
-      "stamped": "2026-11-03"
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "The 2.5D Paper Stack — rich — the cut.html",
+            "verdict": "remake",
+            "why": "A real test on the real plate; recomputed independently with scipy, every row matches. One sentence misstates a number: step 5 says the 6 px feather is off on '9.2 % of the edge', but 9.2 % is of the 40-px zone; of the 2299 edge pixels 75.4 % are visibly off (a rim about 6.7 px wide). Fix #t5 and name the denominator in #n5."
+          },
+          {
+            "file": "/Projects/BLUELINE/proofs/track-VI-elemental-motion/report-assets/previews/sky_separate.gif",
+            "verdict": "keep",
+            "why": "Track VI's own Route A run beside the paragraph on soft masks; the caption's band-mask claim is the bench's (report.md:115)."
+          }
+        ]
+      }
     },
     {
       "heading": "The catalogue (separate · manipulate · composite)",
@@ -89,7 +105,18 @@
           "near": "Separate-and-infill"
         }
       ],
-      "stamped": "2026-11-03"
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "/Projects/BLUELINE/proofs/track-VI-elemental-motion/report-assets/infill_compare.png",
+            "verdict": "keep",
+            "why": "The page's 'infill is ground-dependent' in the bench's evidence; the caption matches report.md:153-155."
+          }
+        ]
+      }
     },
     {
       "heading": "The A/B duals — choose by what you hold",
@@ -119,7 +146,23 @@
           "near": "Have the finished frame"
         }
       ],
-      "stamped": "2026-11-03"
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "/Projects/BLUELINE/proofs/track-VI-elemental-motion/report-assets/routes_compare.png",
+            "verdict": "keep",
+            "why": "The duals table in its own evidence; the caption describes the board as it is."
+          },
+          {
+            "file": "/Projects/BLUELINE/proofs/track-VI-elemental-motion/report-assets/routeB_v2_compare.png",
+            "verdict": "keep",
+            "why": "Shared conditioning, shown; 38–39 % against 38.4 % is report.md:178, the shelved sharpening is report.md:7."
+          }
+        ]
+      }
     },
     {
       "heading": "The stacking order means something",
@@ -142,7 +185,18 @@
           "near": "Depth order is not just"
         }
       ],
-      "stamped": "2026-11-03"
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "The 2.5D Paper Stack — rich — the balloon.html",
+            "verdict": "remake",
+            "why": "Drift numbers are right (40·|p − 0.55|: 0 / 10 / 6 / 22), but the cover half doesn't show: behind him the walker covers 6.2 % of the tail's last 30 px, about two CSS pixels. Route the tail so he visibly covers it (or add an inset), and fix step 1's 'doesn't matter on a still frame' and the sticker's 'like the farthest thing'."
+          }
+        ]
+      }
     },
     {
       "heading": "The two contraries — the flat stack and the break",
@@ -165,7 +219,18 @@
           "near": "You hold both"
         }
       ],
-      "stamped": "2026-11-03"
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "The 2.5D Paper Stack — rich — reveal and break.html",
+            "verdict": "remake",
+            "why": "2.05× to 5.40× is right from its own 14° sway and 38° break, but the turning run starts with an uncounted snap (3.8° to 13.7° in one frame, plus air and paper), not a stack 'turning all along'. And the page never says a reveal spends the break: recast step 4 and the caption as the piece's reading (an offer), or break out of a revealed stack that doesn't turn."
+          }
+        ]
+      }
     }
   ]
 }
