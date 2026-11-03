@@ -76,6 +76,14 @@ const near = (a, b, tol) => Math.abs(a - b) <= tol;
     const v = A.makeVoice([F[3], F[4]], sr, 0.5), yh = new Float32Array(len); for (let s = 0; s < len; s++) yh[s] = A.voiceSample(v, 1 / 512);
     const held = A.betweenDb(yh, sr, f0);
     ok(held < -110, `a blend held at 0.5 between vgsqu and saw puts ${held.toFixed(1)} dB between the harmonics: nothing either frame lacks`);
+    // at fs ⁄ 512 every alias of the read lands on a harmonic; at 440 Hz it doesn't, so measure there too
+    const f4 = 440, heldAt = (fr, p) => { const v4 = A.makeVoice(fr, sr, p), y4 = new Float32Array(len); for (let s = 0; s < len; s++) y4[s] = A.voiceSample(v4, f4 / sr); return A.betweenDb(y4, sr, f4); };
+    const hv = heldAt([F[3], F[3]], 0), hs = heldAt([F[4], F[4]], 0), hb = heldAt([F[3], F[4]], 0.5);
+    console.log(`     held at 440 Hz, 48000: vgsqu ${hv.toFixed(1)} · saw ${hs.toFixed(1)} · blend at 0.5 ${hb.toFixed(1)} dB between the harmonics`);
+    ok(hb < Math.max(hv, hs) && hb > Math.min(hv, hs), 'at 440 Hz the held blend lands between its two frames: it adds no aliasing of its own');
+    const p4 = A.betweenDb(A.renderSweep(F, 'switch', 'any', sr, f4, 5), sr, f4), b4 = A.betweenDb(A.renderSweep(F, 'scan', 'any', sr, f4, 5), sr, f4);
+    console.log(`     5 s sweep at 440 Hz, 48000: pick ${p4.toFixed(1)} · blend ${b4.toFixed(1)} dB`);
+    ok(p4 - b4 > 10 && p4 - b4 < 20, `at 440 Hz the blend is still under picking, by ${(p4 - b4).toFixed(1)} dB, less than at fs ⁄ 512`);
     console.log(`     across frames, 5 s sweep at 48000: straight line ${lin.toFixed(1)} dB between the harmonics, Catmull-Rom curve ${cubic.toFixed(1)} dB`);
     ok(true, 'measured: a curve across frames against a line, on the same sweep (for the Lost branches offer)'); }
 }
@@ -101,6 +109,9 @@ const near = (a, b, tol) => Math.abs(a - b) <= tol;
   ok(rc.falls === 2 && rc.bigFall < 0.1, `sorted, brightness falls in only ${rc.falls} short runs, the largest ${rc.bigFall.toFixed(3)} of an octave`);
   ok(near(rc.steepShare, 0.44, 0.005) && rc.seg.indexOf(Math.max(...rc.seg)) === 2, `sorted, ${(100 * rc.steepShare).toFixed(0)}% of the climb in octaves comes in one fifth, birds → vgsqu`);
   ok(near(1 - rw.walked / rc.walked, 0.38, 0.01), `the waveform walk crosses ${(100 * (1 - rw.walked / rc.walked)).toFixed(0)}% less than the sorted order`);
+  const travel = (r) => r.seg.reduce((t, v) => t + Math.abs(v), 0);
+  ok(near(travel(rw), 12.6, 0.05) && near(travel(rc), 4.9, 0.05), `by brightness the waveform walk travels ${travel(rw).toFixed(1)} octaves of centroid, the sorted order ${travel(rc).toFixed(1)}`);
+  ok(rc.seg.indexOf(Math.max(...rc.seg)) === 2, 'birds → vgsqu is the third fifth of the sorted knob');
   ok(mean(rw.dips) > mean(rc.dips) + 1, `the walk’s middles dip ${mean(rw.dips).toFixed(2)} dB on average, the sorted order’s ${mean(rc.dips).toFixed(2)}`);
   ok(rw.bigFall > 4 && rf.bigFall > 4, 'file order and the walk both fall more than four octaves somewhere along the knob');
   const pc = B.axisCurve(H, [0, 4], 400, K); let up = true; for (let j = 1; j < pc.length; j++) if (pc[j] < pc[j - 1]) up = false;
