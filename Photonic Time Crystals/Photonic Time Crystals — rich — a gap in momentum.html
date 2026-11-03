@@ -1,0 +1,572 @@
+<!doctype html>
+<!--
+  title: Photonic Time Crystals — rich — a gap in momentum
+  born: 2026-11-03
+  links: [[Photonic Time Crystals]] connects-to · rich-face-piece-of · [[Floquet Theory]] connects-to · the duality it rests on · [[Mathieu Equation]] connects-to · the equation both sides reduce to · [[Progressive Staging]] exemplifies · a walk up to its test
+  forward_vector: I am "the key reversal" as a walk of five steps: one wave in a plain medium, a crystal in space where a
+    band of frequencies dies with depth, a crystal in time where a band of wave numbers grows and calls up its
+    backward partner, the same gap heard, and then the test: a stack of thin layers and a full Yee grid, sharing no
+    code, giving the same exponent, with the gap on the frequency axis in space and on the wave-number axis in time.
+  dress: Loudon Live house style, Graphite skin, tokens inlined. Equations twice, symbols and words.
+  engine: the script marked id="pt-engine": stackCell() carries a wave through one cell of a stack of 2000 thin uniform
+    layers (exact layer matrices); Ring is a 1-D Yee grid on a ring, uniform in space, with 1/eps breathing in time;
+    gridMultipliers() reads that grid's own one-period map for each wave number; mathieuHalfTrace() is the RK4
+    reference. The sound is the script marked id="pt-core": the same uniform ring held as its own modes.
+  checks: Photonic Time Crystals — proof — rich checks.mjs, beside this file.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:size" content="flow">
+<title>A gap in momentum</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Manrope:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root { --bg:#0a0a0f; --e1:#12121a; --e2:#1a1a28; --border:#4a4a5e; --soft:rgba(255,255,255,.06);
+    --fg1:#e8e8f0; --fg2:#c8c8d8; --fg3:#8a8aa0; --fg4:#4a4a5a; --amber:#e8b84a; --amberline:rgba(232,184,74,.5);
+    --cyan:#6aa8e8; --cyanline:rgba(106,168,232,.55);
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --sans:'Manrope',system-ui,sans-serif; --serif:'Cormorant Garamond',Georgia,serif;
+    --ease:cubic-bezier(.4,0,.2,1); }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); font-weight: 300; }
+  .pt-piece { padding: 22px 22px 16px; max-width: 1100px; }
+  .pt-kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; }
+  .pt-title { font-family: var(--serif); font-size: 28px; font-weight: 300; color: var(--fg1); margin: 0 0 6px; }
+  .pt-sub { font-size: 14px; line-height: 1.6; max-width: 78ch; margin: 0 0 16px; }
+  .pt-rail { display: flex; flex-wrap: wrap; margin-bottom: 14px; border: 1px solid var(--border); width: fit-content; max-width: 100%; border-radius: 2px; }
+  .pt-rail button { border: 0; border-right: 1px solid var(--border); border-radius: 0; }
+  .pt-rail button:last-child { border-right: 0; }
+  button { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--fg2); background: var(--bg);
+    border: 1px solid var(--border); border-radius: 2px; padding: 8px 12px; cursor: pointer; transition: color 220ms var(--ease), border-color 220ms var(--ease); }
+  button:hover { border-color: rgba(232,184,74,.55); color: var(--fg1); }
+  button:disabled { opacity: .4; cursor: default; }
+  button[aria-pressed="true"] { color: var(--amber); border-color: var(--amberline); background: rgba(232,184,74,.08); }
+  .pt-rail button[aria-pressed="true"] { border-right: 1px solid var(--border); }
+  button.pt-go { color: var(--amber); border-color: var(--amberline); min-width: 120px; }
+  button.pt-go.pt-on { box-shadow: 0 0 14px rgba(232,184,74,.22); }
+  button:focus-visible, input:focus-visible { outline: 1px dashed var(--amber); outline-offset: 2px; }
+  .pt-step { display: none; border: 1px solid var(--soft); background: var(--e1); border-radius: 2px; padding: 16px 16px 14px; }
+  .pt-step.pt-shown { display: block; }
+  .pt-step h2 { font-family: var(--serif); font-weight: 400; font-size: 23px; color: var(--fg1); margin: 0 0 4px; }
+  .pt-idea { font-size: 14.5px; line-height: 1.6; color: var(--fg1); max-width: 80ch; margin: 0 0 12px; }
+  .pt-label { font-family: var(--mono); font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--fg3); margin: 10px 0 6px; display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+  canvas { display: block; width: 100%; background: var(--bg); border: 1px solid var(--soft); border-radius: 2px; }
+  .pt-two { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 10px; }
+  .pt-row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 10px 0; }
+  .pt-row label { font-family: var(--mono); font-size: 11px; color: var(--fg3); letter-spacing: .08em; min-width: 13ch; }
+  input[type=range] { accent-color: var(--amber); flex: 1; min-width: 160px; max-width: 420px; }
+  .pt-val { font-family: var(--mono); font-size: 12px; color: var(--fg1); min-width: 12ch; font-variant-numeric: tabular-nums; }
+  .pt-eq { border-left: 2px solid var(--amberline); padding: 6px 12px; margin: 12px 0; }
+  .pt-eq .pt-sym { font-family: var(--mono); font-size: 15px; color: var(--fg1); }
+  .pt-eq .pt-words { font-family: var(--serif); font-style: italic; font-size: 16px; color: var(--fg2); margin-top: 2px; }
+  .pt-test { font-size: 14px; line-height: 1.6; color: var(--fg1); border: 1px solid var(--soft); background: var(--e2); padding: 10px 12px; border-radius: 2px; max-width: 88ch; margin: 12px 0 4px; }
+  .pt-test b { color: var(--amber); font-weight: 500; }
+  .pt-test:empty { display: none; }
+  .pt-note { font-family: var(--mono); font-size: 11px; color: var(--fg3); line-height: 1.6; margin: 6px 0 0; max-width: 100ch; }
+  .pt-scroll { overflow-x: auto; }
+  table.pt-t { border-collapse: collapse; font-family: var(--mono); font-size: 12px; margin: 10px 0; }
+  table.pt-t th, table.pt-t td { border: 1px solid var(--soft); padding: 4px 9px; text-align: right; font-variant-numeric: tabular-nums; vertical-align: top; }
+  table.pt-t th { color: var(--fg3); font-weight: 400; letter-spacing: .06em; }
+  table.pt-t td:first-child, table.pt-t th:first-child { text-align: left; }
+  table.pt-t tr.pt-in td { color: var(--amber); }
+  .pt-nav { display: flex; justify-content: space-between; margin-top: 12px; }
+  .pt-foot { display: flex; align-items: center; gap: 8px; margin-top: 16px; font-family: var(--mono); font-size: 11px; letter-spacing: .14em; color: var(--fg3); }
+  .pt-foot i { color: var(--amber); font-weight: 300; }
+  .pt-legend { font-family: var(--mono); font-size: 11px; color: var(--fg3); }
+  .pt-legend .pt-sw { display: inline-block; width: 18px; height: 3px; vertical-align: middle; margin: 0 4px 0 10px; }
+</style>
+</head>
+<body>
+<main class="pt-piece">
+  <div class="pt-kicker">Photonic time crystals · the key reversal</div>
+  <h1 class="pt-title">A gap in momentum</h1>
+  <p class="pt-sub">The page says a time crystal is a space crystal turned on its side: where a stack of layers makes a band of light die with depth, a medium that breathes in time makes a band grow with time. Five steps: one wave in a plain medium, the crystal in space, the crystal in time, the gap heard, and the test, where the space side and the time side are computed by methods that share no code. The test finds the exponents equal, and finds one more turn than the page names: the gap moves from the frequency axis to the wave-number axis.</p>
+  <nav class="pt-rail" aria-label="steps">
+    <button data-go="1" aria-pressed="true">1 · one wave</button>
+    <button data-go="2" aria-pressed="false">2 · a crystal in space</button>
+    <button data-go="3" aria-pressed="false">3 · a crystal in time</button>
+    <button data-go="4" aria-pressed="false">4 · hear the gap</button>
+    <button data-go="5" aria-pressed="false">5 · the same gap?</button>
+  </nav>
+
+  <section class="pt-step pt-shown" data-step="1">
+    <h2>1 · One wave, one medium</h2>
+    <p class="pt-idea">A plain medium, the same everywhere and always. A wave in it is a ripple with a wave number k, how many crests fit in a length, and a frequency ω, how many pass a point each second. In a plain medium the two are tied: ω is k times the speed. Every k travels, and keeps its size forever.</p>
+    <div class="pt-row"><label for="k1">wave number, k</label><input id="k1" type="range" min="0.3" max="1.7" step="0.01" value="1"><span class="pt-val" id="k1v"></span></div>
+    <div class="pt-two"><div><div class="pt-label"><span>the wave along the medium, moving right</span></div><canvas id="c1"></canvas></div>
+      <div><div class="pt-label"><span>frequency against wave number</span></div><canvas id="c1b"></canvas></div></div>
+    <div class="pt-eq"><div class="pt-sym">ω = c · k / n</div>
+      <div class="pt-words">the frequency is the wave number times the speed of light, slowed by the medium’s index</div></div>
+    <p class="pt-test" id="t1"></p>
+  </section>
+
+  <section class="pt-step" data-step="2">
+    <h2>2 · A crystal in space</h2>
+    <p class="pt-idea">Now stack the medium in layers: its permittivity ε rises and falls along x, one cell after another, and stays still in time. Send in light of one frequency. Most frequencies get through, reshaped cell by cell. Near the frequency whose half-wavelength fits one cell, nothing travels: the wave dies by the same factor every cell. That is the spatial band gap, the dielectric mirror.</p>
+    <div class="pt-row"><label for="f2">frequency, ν</label><input id="f2" type="range" min="0.8" max="1.2" step="0.0025" value="1"><span class="pt-val" id="f2v"></span>
+      <button data-f2="1">in the gap</button><button data-f2="0.9">in a band</button></div>
+    <div class="pt-row"><label for="m2">depth, m</label><input id="m2" type="range" min="0" max="0.2" step="0.005" value="0.1"><span class="pt-val" id="m2v"></span></div>
+    <div class="pt-label"><span>ε(x) shaded · the wave across twelve cells (amber) and its size (blue)</span><span id="h2"></span></div>
+    <canvas id="c2"></canvas>
+    <div class="pt-label"><span>its size at each cell boundary, on a log scale</span></div>
+    <canvas id="c2b"></canvas>
+    <div class="pt-eq"><div class="pt-sym">E''(s) + ν² · (1 + 2m cos 2s) · E(s) = 0</div>
+      <div class="pt-words">the wave’s bend along the stack is set by its frequency squared times the local permittivity; one cell is s from 0 to π, and ν is the frequency in units of the one whose half-wavelength fits a cell</div></div>
+    <p class="pt-test" id="t2"></p>
+  </section>
+
+  <section class="pt-step" data-step="3">
+    <h2>3 · A crystal in time</h2>
+    <p class="pt-idea">Now the other way. The medium is the same everywhere, a ring with no layers at all, but its 1/ε breathes in time, rising and falling at a rate Ω. Since every place is alike, a wave keeps its k forever; only its frequency can be pushed. Send one wave forward and watch. Near the k whose frequency is half the breathing rate, it grows, and a second wave appears running backward, the same k, the time-reflected partner, growing with it.</p>
+    <div class="pt-row"><label for="n3">wave number, ν</label><input id="n3" type="range" min="22" max="42" step="1" value="32"><span class="pt-val" id="n3v"></span>
+      <button data-n3="32">in the gap</button><button data-n3="27">outside it</button></div>
+    <div class="pt-row"><label for="m3">depth, m</label><input id="m3" type="range" min="0" max="0.2" step="0.005" value="0.1"><span class="pt-val" id="m3v"></span>
+      <button class="pt-go" id="go3">send it forward</button></div>
+    <div class="pt-label"><span>a stretch of the ring · its brightness is 1/ε now</span><span id="h3"></span></div>
+    <canvas id="c3"></canvas>
+    <div class="pt-label"><span>forward (amber) and backward (blue) parts, per breathing period, log scale</span></div>
+    <canvas id="c3b"></canvas>
+    <div class="pt-eq"><div class="pt-sym">D''(t) + (ck)² · (1 + 2m cos Ωt) · D(t) = 0 ,   ν = 2ck / Ω</div>
+      <div class="pt-words">each wave number on its own is a spring whose stiffness breathes; ν is the wave number in units of the one whose frequency is half the breathing rate</div></div>
+    <p class="pt-test" id="t3"></p>
+  </section>
+
+  <section class="pt-step" data-step="4">
+    <h2>4 · Hear the gap</h2>
+    <p class="pt-idea">The same ring, made long enough to hold a mode every 2.5 Hz, from 2.5 Hz to 1.2 kHz, with a little loss, and a whisper of noise in every mode, the stand-in for the vacuum. Breathe it at a pump rate and listen. The modes near half the pump swell out of the noise. They have different k, so they ring at different pitches when nothing breathes; inside the gap they all sing at one pitch, half the pump. Put the pump between two modes and the pitch you hear belongs to neither.</p>
+    <div class="pt-row"><button class="pt-go" id="go4">listen</button><button id="pluck4">pluck the ring</button><button id="between4">pump between two modes</button><button id="off4">pump off</button></div>
+    <div class="pt-row"><label for="fp4">pump rate</label><input id="fp4" type="range" min="500" max="1600" step="2.5" value="880"><span class="pt-val" id="fp4v"></span></div>
+    <div class="pt-row"><label for="m4">depth, m</label><input id="m4" type="range" min="0" max="0.04" step="0.0005" value="0.012"><span class="pt-val" id="m4v"></span></div>
+    <div class="pt-label"><span>each mode near half the pump, its size in dB · gap shaded · half the pump marked</span><span id="h4"></span></div>
+    <canvas id="c4"></canvas>
+    <p class="pt-test" id="t4"></p>
+    <p class="pt-note">The sound runs the ring as its modes, which is exact for a medium the same everywhere: step 5 shows on a full grid that no wave number feeds another. Pump depletion caps the swell: the depth the modes feel falls as they take energy. The loss is ζ = 0.002, so nothing grows below m = 0.004.</p>
+  </section>
+
+  <section class="pt-step" data-step="5">
+    <h2>5 · The same gap?</h2>
+    <p class="pt-idea">The test. On the space side, a stack of 2000 thin uniform layers per cell, each carried by its exact matrix, gives the decay per cell at each frequency. On the time side, a full Yee grid of 8192 cells, uniform in space, its 1/ε breathing, gives its own one-period map for each wave number, with no equation for any single wave anywhere in it. If the page’s reversal holds, the decay per cell at ν in space equals the growth per period at ν in time.</p>
+    <div class="pt-row"><span class="pt-legend">depth, m</span><button data-m5="0.05">0.05</button><button data-m5="0.1" aria-pressed="true">0.10</button><button data-m5="0.2">0.20</button></div>
+    <div class="pt-two"><div><div class="pt-label"><span>space · frequency against Bloch phase per cell</span></div><canvas id="c5a"></canvas></div>
+      <div><div class="pt-label"><span>time · frequency against wave number · dots: the Yee grid · grey: the left curve, axes swapped</span></div><canvas id="c5b"></canvas></div></div>
+    <div class="pt-label"><span>the exponent: decay per cell in space, growth per period in time</span><span class="pt-legend"><span class="pt-sw" style="background:#6aa8e8"></span>stack · space<span class="pt-sw" style="background:#e8b84a"></span>Yee grid · time<span class="pt-sw" style="background:#8a8aa0"></span>Mathieu</span></div>
+    <canvas id="c5c"></canvas>
+    <div class="pt-scroll"><table class="pt-t" id="tab5"></table></div>
+    <div class="pt-eq"><div class="pt-sym">space: E(x + a) = e^(−κ) · E(x) at fixed ω   ⇔   time: D(t + T) = e^(+γ) · D(t) at fixed k ,   κ(ν) = γ(ν)</div>
+      <div class="pt-words">one cell deeper the field is smaller by the same factor; one breathing period later it is larger by the same factor; and the factor is the same number when frequency in space and wave number in time sit at the same place in their gap</div></div>
+    <p class="pt-test" id="t5"></p>
+    <p class="pt-note">Why the two equations are word for word the same: in space the stack varies ε, in time the ring varies 1/ε. Each is the stiffness of its own wave equation, ω²ε in space and k²/ε in time. Varying the same one on both sides gives the same equation only to first order in m.</p>
+  </section>
+
+  <div class="pt-nav"><button id="back">back</button><button id="next">next</button></div>
+  <div class="pt-foot">
+    <svg width="22" height="22" viewBox="-11 -11 22 22" aria-hidden="true"><circle r="10" fill="none" stroke="#4a4a5e" stroke-width="1"/><path id="sig" fill="none" stroke="#e8b84a" stroke-width="1"/></svg>
+    <span>Loud’n <i>Live</i></span>
+  </div>
+</main>
+<script id="pt-engine">
+/* SPACE. One cell of a stack, s from 0 to pi, permittivity eps(s) = 1 + 2m cos 2s, frequency nu: E'' + nu^2 eps E = 0.
+   The cell is cut into L thin layers, each uniform, each carried exactly by its own 2x2 matrix acting on (E, E').
+   Returns the cell's matrix [a, b, c, d]. No integrator. */
+function stackCell(nu, m, L) {
+  L = L || 2000; const d = Math.PI / L; let a = 1, b = 0, c = 0, e = 1;
+  for (let j = 0; j < L; j++) {
+    const kk = nu * Math.sqrt(1 + 2 * m * Math.cos(2 * (j + 0.5) * d)), C = Math.cos(kk * d), S = Math.sin(kk * d);
+    const na = C * a + S / kk * c, nb = C * b + S / kk * e, nc = -kk * S * a + C * c, ne = -kk * S * b + C * e;
+    a = na; b = nb; c = nc; e = ne;
+  }
+  return [a, b, c, e];
+}
+/* what one cell does at frequency nu: in a band, the Bloch phase per cell (in units of pi); in the gap, the decay per cell */
+function stackRead(nu, m, L) {
+  const M = stackCell(nu, m, L), h = (M[0] + M[3]) / 2;
+  return Math.abs(h) > 1 ? { gap: true, h, decay: Math.acosh(Math.abs(h)), phase: h < 0 ? 1 : 0 } : { gap: false, h, decay: 0, phase: Math.acos(h) / Math.PI };
+}
+/* the field itself across `cells` cells, started on the cell's own eigenvector: in the gap the decaying one, in a band a
+   travelling Bloch wave (real and imaginary parts carried separately). Returns samples of Re E and |E|. */
+function stackField(nu, m, cells, per) {
+  const M = stackCell(nu, m, per), h = (M[0] + M[3]) / 2, d = Math.PI / per;
+  let v; // [Re E, Re E', Im E, Im E']
+  if (Math.abs(h) > 1) { const lam = h - Math.sign(h) * Math.sqrt(h * h - 1); v = [M[1], lam - M[0], 0, 0]; }
+  else { const s = Math.sqrt(1 - h * h); v = [M[1], h - M[0], 0, s]; } // lambda = h + i s, eigenvector (b, lambda - a)
+  const nrm = Math.hypot(v[0], v[2]) || 1; v = v.map((x) => x / nrm);
+  const re = [v[0]], ab = [Math.hypot(v[0], v[2])];
+  for (let c = 0; c < cells; c++) for (let j = 0; j < per; j++) {
+    const kk = nu * Math.sqrt(1 + 2 * m * Math.cos(2 * (j + 0.5) * d)), C = Math.cos(kk * d), S = Math.sin(kk * d);
+    v = [C * v[0] + S / kk * v[1], -kk * S * v[0] + C * v[1], C * v[2] + S / kk * v[3], -kk * S * v[2] + C * v[3]];
+    re.push(v[0]); ab.push(Math.hypot(v[0], v[2]));
+  }
+  return { re, ab, h };
+}
+/* REFERENCE. The Mathieu form both sides reduce to: y'' + a(1 + 2m cos 2s) y = 0, one period by RK4. Half the trace. */
+function mathieuHalfTrace(a, m, N) {
+  N = N || 2000; const h = Math.PI / N, f = (t, x) => -a * (1 + 2 * m * Math.cos(2 * t)) * x, M = [];
+  for (let c = 0; c < 2; c++) {
+    let x = c ? 0 : 1, v = c ? 1 : 0, t = 0;
+    for (let i = 0; i < N; i++) {
+      const k1x = v, k1v = f(t, x), k2x = v + h / 2 * k1v, k2v = f(t + h / 2, x + h / 2 * k1x), k3x = v + h / 2 * k2v, k3v = f(t + h / 2, x + h / 2 * k2x), k4x = v + h * k3v, k4v = f(t + h, x + h * k3x);
+      x += h / 6 * (k1x + 2 * k2x + 2 * k3x + k4x); v += h / 6 * (k1v + 2 * k2v + 2 * k3v + k4v); t += h;
+    }
+    M.push(x, v);
+  }
+  return (M[0] + M[3]) / 2;
+}
+const mathieuRate = (nu, m) => { const h = mathieuHalfTrace(nu * nu, m); return Math.abs(h) > 1 ? Math.acosh(Math.abs(h)) : 0; };
+/* the gap's edges in nu, by bisection on |half trace| = 1 either side of nu = 1 */
+function gapEdges(m) {
+  if (m <= 0) return [1, 1];
+  const out = (nu) => Math.abs(mathieuHalfTrace(nu * nu, m, 600)) > 1, edge = (inside, outside) => { for (let i = 0; i < 40; i++) { const mid = (inside + outside) / 2; if (out(mid)) inside = mid; else outside = mid; } return (inside + outside) / 2; };
+  return [edge(1, 1 - 1.5 * m - 0.02), edge(1, 1 + 1.5 * m + 0.02)];
+}
+/* TIME. A 1-D Yee grid on a ring of N cells, dx = 1, c = 1, dt = 1/2, uniform in space; 1/eps = eta(t) = 1 + 2m cos(W t).
+   W is set so that one breathing period is `per` steps. The state after a whole step is D at step s and H at s - 1/2.
+   Nothing here is written for one wave number: the grid only knows its neighbours. */
+function Ring(N, per, m) { this.N = N; this.per = per; this.m = m; this.dt = 0.5; this.W = 2 * Math.PI / (per * 0.5); this.D = new Float64Array(N); this.H = new Float64Array(N); this.s = 0; }
+Ring.prototype.eta = function (s) { return 1 + 2 * this.m * Math.cos(this.W * s * this.dt); };
+Ring.prototype.step = function () {
+  const N = this.N, D = this.D, H = this.H, dt = this.dt, e = this.eta(this.s);
+  for (let i = 0; i < N - 1; i++) H[i] -= dt * e * (D[i + 1] - D[i]); H[N - 1] -= dt * e * (D[0] - D[N - 1]);
+  D[0] -= dt * (H[0] - H[N - 1]); for (let i = 1; i < N; i++) D[i] -= dt * (H[i] - H[i - 1]);
+  this.s++;
+};
+/* the grid's content at wave number 2 pi n / N (D on whole sites, H on half sites) */
+Ring.prototype.mode = function (n) {
+  const N = this.N, k = 2 * Math.PI * n / N; let dr = 0, di = 0, hr = 0, hi = 0;
+  for (let i = 0; i < N; i++) { dr += this.D[i] * Math.cos(k * i); di -= this.D[i] * Math.sin(k * i); hr += this.H[i] * Math.cos(k * (i + 0.5)); hi -= this.H[i] * Math.sin(k * (i + 0.5)); }
+  const f = 2 / N; return [dr * f, di * f, hr * f, hi * f];
+};
+/* forward and backward parts at wave number n, with H brought to the same instant as D */
+Ring.prototype.split = function (n) {
+  const N = this.N, k = 2 * Math.PI * n / N, e = this.eta(this.s), dt = this.dt; let dr = 0, di = 0, hr = 0, hi = 0;
+  for (let i = 0; i < N; i++) {
+    const ip = i + 1 === N ? 0 : i + 1, Hs = this.H[i] - 0.5 * dt * e * (this.D[ip] - this.D[i]);
+    dr += this.D[i] * Math.cos(k * i); di -= this.D[i] * Math.sin(k * i); hr += Hs * Math.cos(k * (i + 0.5)); hi -= Hs * Math.sin(k * (i + 0.5));
+  }
+  const se = Math.sqrt(e), f = 1 / N;
+  return { F: Math.hypot(dr + hr / se, di + hi / se) * f, B: Math.hypot(dr - hr / se, di - hi / se) * f };
+};
+/* a forward wave at wave number n, amplitude A, laid on the grid as it would travel in the medium at t = 0 */
+Ring.prototype.seedForward = function (n, A) {
+  const N = this.N, k = 2 * Math.PI * n / N, e = this.eta(0), dt = this.dt, w = 2 / dt * Math.asin(Math.sqrt(e) * dt * Math.sin(k / 2));
+  for (let i = 0; i < N; i++) { this.D[i] = A * Math.cos(k * i); this.H[i] = A * Math.sqrt(e) * Math.cos(k * (i + 0.5) + w * dt / 2); }
+};
+/* the grid's own one-period map for each wave number in ns: two runs of one period on the whole grid, every wave number
+   seeded at once (on a ring they never mix), then read back. Returns, for each, the larger multiplier's size and angle. */
+function gridMultipliers(N, per, m, ns) {
+  const cols = [];
+  for (let c = 0; c < 2; c++) {
+    const r = new Ring(N, per, m);
+    for (const n of ns) { const k = 2 * Math.PI * n / N; for (let i = 0; i < N; i++) { if (c === 0) r.D[i] += Math.cos(k * i); else r.H[i] += Math.cos(k * (i + 0.5)); } }
+    for (let s = 0; s < per; s++) r.step();
+    cols.push(ns.map((n) => r.mode(n)));
+  }
+  const mul = (x, y) => [x[0] * y[0] - x[1] * y[1], x[0] * y[1] + x[1] * y[0]];
+  return ns.map((n, j) => {
+    const a = [cols[0][j][0], cols[0][j][1]], c = [cols[0][j][2], cols[0][j][3]], b = [cols[1][j][0], cols[1][j][1]], d = [cols[1][j][2], cols[1][j][3]];
+    const h = [(a[0] + d[0]) / 2, (a[1] + d[1]) / 2], ad = mul(a, d), bc = mul(b, c), det = [ad[0] - bc[0], ad[1] - bc[1]];
+    const h2 = mul(h, h), disc = [h2[0] - det[0], h2[1] - det[1]], r = Math.hypot(disc[0], disc[1]);
+    const sq = [Math.sqrt(Math.max(0, (r + disc[0]) / 2)), (disc[1] < 0 ? -1 : 1) * Math.sqrt(Math.max(0, (r - disc[0]) / 2))];
+    const r1 = [h[0] + sq[0], h[1] + sq[1]], r2 = [h[0] - sq[0], h[1] - sq[1]], big = Math.hypot(r1[0], r1[1]) >= Math.hypot(r2[0], r2[1]) ? r1 : r2;
+    return { n, h, det: Math.hypot(det[0], det[1]), grow: Math.log(Math.hypot(big[0], big[1])), turn: Math.abs(Math.atan2(big[1], big[0])) / Math.PI };
+  });
+}
+</script>
+<script id="pt-core" type="text/plain">
+/* The ring as its own modes. A medium the same everywhere keeps every wave number apart, so the field heard at x = 0 is
+   the sum of its cosine modes, each a spring with stiffness (c k)^2 eta(t), eta(t) = 1 + 2m cos(2 pi fp t): the breathing
+   1/eps. Mode i rings at (i + 1) f1 when nothing breathes, and loses a little (zeta). A whisper of noise seeds every
+   mode each block, the stand-in for the vacuum. Pump depletion caps the swell: the depth the modes feel is
+   m / (1 + E / Esat), E their stored energy. */
+class PTCRing {
+  constructor(sr, nModes, f1, seed) {
+    this.sr = sr; this.dt = 1 / sr; this.n = nModes; this.f1 = f1;
+    this.w = new Float64Array(nModes); this.x = new Float64Array(nModes); this.v = new Float64Array(nModes);
+    for (let i = 0; i < nModes; i++) this.w[i] = 2 * Math.PI * f1 * (i + 1);
+    this.m = 0; this.fp = 880; this.zeta = 0.002; this.noise = 1e-7; this.esat = 4e-3; this.ph = 0; this.mEff = 0; this.energy = 0;
+    this.s = (seed >>> 0) || 12345;
+  }
+  rnd() { this.s = (this.s * 1664525 + 1013904223) >>> 0; return this.s / 4294967296 - 0.5; }
+  pluck(A) { for (let i = 0; i < this.n; i++) this.v[i] += A * this.w[i] * 0.02; }
+  block(out, len) {
+    const n = this.n, w = this.w, x = this.x, v = this.v, dt = this.dt, z = this.zeta, dph = 2 * Math.PI * this.fp * dt;
+    let E = 0; for (let i = 0; i < n; i++) E += 0.5 * (v[i] * v[i] / (w[i] * w[i]) + x[i] * x[i]);
+    this.energy = E; const mEff = this.m / (1 + E / this.esat); this.mEff = mEff;
+    for (let i = 0; i < n; i++) v[i] += this.noise * w[i] * this.rnd();
+    for (let s = 0; s < len; s++) {
+      const eta = 1 + 2 * mEff * Math.cos(this.ph); this.ph += dph; if (this.ph > 2 * Math.PI) this.ph -= 2 * Math.PI;
+      let y = 0;
+      for (let i = 0; i < n; i++) { const wi = w[i]; v[i] -= dt * (wi * wi * eta * x[i] + 2 * z * wi * v[i]); x[i] += dt * v[i]; y += x[i]; }
+      out[s] = y;
+    }
+  }
+  amp(i) { return Math.sqrt(this.x[i] * this.x[i] + this.v[i] * this.v[i] / (this.w[i] * this.w[i])); }
+}
+</script>
+<script id="pt-proc" type="text/plain">
+/* The worklet around PTCRing: stereo out through a soft clip, a report every 2048 samples with the sizes of the modes
+   near half the pump, the energy, and the pitch heard, from upward zero crossings over the last quarter second. */
+class PTCProc extends AudioWorkletProcessor {
+  constructor() {
+    super(); this.r = new PTCRing(sampleRate, 480, 2.5, 7); this.buf = new Float64Array(128); this.cnt = 0; this.prev = 0; this.t = 0;
+    this.zFirst = -1; this.zLast = -1; this.zN = 0; this.zCnt = 0; this.pitch = null; this.sq = 0; this.gain = 4;
+    this.port.onmessage = (e) => { const d = e.data, r = this.r;
+      if (d.set) for (const k in d.set) r[k] = d.set[k];
+      if (d.pluck) r.pluck(d.pluck);
+      if (d.reset) { r.x.fill(0); r.v.fill(0); } };
+  }
+  process(_in, outs) {
+    const o = outs[0], L = o[0], R = o[1] || o[0], r = this.r, n = L.length;
+    if (this.buf.length !== n) this.buf = new Float64Array(n);
+    r.block(this.buf, n);
+    for (let i = 0; i < n; i++) {
+      const y = this.buf[i];
+      if (this.prev < 0 && y >= 0) { const tc = this.t + i - 1 + this.prev / (this.prev - y); if (this.zFirst < 0) this.zFirst = tc; this.zLast = tc; this.zN++; }
+      this.prev = y; this.sq += y * y;
+      const out = Math.tanh(this.gain * y); L[i] = out; R[i] = out;
+    }
+    this.t += n; this.cnt += n; this.zCnt += n;
+    if (this.zCnt >= 12288) { this.pitch = this.zN > 20 ? (this.zN - 1) / (this.zLast - this.zFirst) * sampleRate : null; this.zCnt = 0; this.zFirst = -1; this.zLast = -1; this.zN = 0; }
+    if (this.cnt >= 2048) {
+      const c = Math.round(r.fp / 2 / r.f1) - 1, lo = Math.max(0, c - 30), hi = Math.min(r.n, c + 31), a = new Float32Array(hi - lo);
+      for (let i = lo; i < hi; i++) a[i - lo] = r.amp(i);
+      this.port.postMessage({ lo, a, E: r.energy, mEff: r.mEff, pitch: this.pitch, rms: Math.sqrt(this.sq / this.cnt) });
+      this.cnt = 0; this.sq = 0;
+    }
+    return true;
+  }
+}
+registerProcessor('ptc-ring', PTCProc);
+</script>
+<script>
+const $ = (id) => document.getElementById(id);
+const COL = { bg: '#0a0a0f', fg1: '#e8e8f0', fg2: '#c8c8d8', fg3: '#8a8aa0', fg4: '#4a4a5a', amber: '#e8b84a', cyan: '#6aa8e8', grid: 'rgba(255,255,255,.07)', band: 'rgba(232,184,74,.10)' };
+function cv(id, ratio, hMin) {
+  const c = $(id), dpr = window.devicePixelRatio || 1, w = c.clientWidth || 500, h = Math.max(hMin || 120, Math.round(w * ratio));
+  if (c.width !== Math.round(w * dpr) || c.height !== Math.round(h * dpr)) { c.width = Math.round(w * dpr); c.height = Math.round(h * dpr); c.style.height = h + 'px'; }
+  const g = c.getContext('2d'); g.setTransform(dpr, 0, 0, dpr, 0, 0); g.clearRect(0, 0, w, h); g.fillStyle = COL.bg; g.fillRect(0, 0, w, h);
+  g.font = '11px JetBrains Mono, monospace'; return { g, w, h };
+}
+function sigil() { let d = ''; for (let i = 0; i <= 200; i++) { const t = i / 200 * 2 * Math.PI; d += (i ? 'L' : 'M') + (8 * Math.sin(3 * t + Math.PI / 4)).toFixed(2) + ' ' + (8 * Math.sin(2 * t)).toFixed(2); } $('sig').setAttribute('d', d); }
+const dot = (g, x, y, r, c) => { g.fillStyle = c; g.strokeStyle = COL.bg; g.lineWidth = 2; g.beginPath(); g.arc(x, y, r, 0, 7); g.fill(); g.stroke(); g.lineWidth = 1; };
+const st = { k1: 1, f2: 1, m2: 0.1, n3: 32, m3: 0.1, fp4: 880, m4: 0.012, m5: 0.1 };
+let step = 1, anim = 0;
+
+/* ── step 1 ── */
+let t1 = 0;
+function draw1() {
+  const k = st.k1; $('k1v').textContent = k.toFixed(2) + ' · ω = ' + k.toFixed(2);
+  const { g, w, h } = cv('c1', 0.42, 170), cy = h / 2, amp = h * 0.34;
+  g.strokeStyle = COL.grid; g.beginPath(); g.moveTo(8, cy); g.lineTo(w - 8, cy); g.stroke();
+  g.strokeStyle = COL.amber; g.lineWidth = 1.5; g.beginPath();
+  for (let i = 0; i <= 400; i++) { const x = i / 400 * 8 * Math.PI, X = 8 + (w - 16) * i / 400, Y = cy - amp * Math.cos(k * x - k * t1); i ? g.lineTo(X, Y) : g.moveTo(X, Y); }
+  g.stroke(); g.lineWidth = 1;
+  // one crest followed
+  const crest = ((k * t1) % (2 * Math.PI)) / k; const X0 = 8 + (w - 16) * crest / (8 * Math.PI); dot(g, X0, cy - amp, 5, COL.cyan);
+  g.fillStyle = COL.fg3; g.fillText('x →', w - 34, h - 8);
+  const D = cv('c1b', 0.42, 170), xk = (q) => 36 + (D.w - 48) * q / 2, yw = (q) => D.h - 22 - (D.h - 36) * q / 2;
+  D.g.strokeStyle = COL.grid; for (let q = 0; q <= 2; q += 0.5) { D.g.beginPath(); D.g.moveTo(xk(q), yw(0)); D.g.lineTo(xk(q), yw(2)); D.g.moveTo(xk(0), yw(q)); D.g.lineTo(xk(2), yw(q)); D.g.stroke(); }
+  D.g.strokeStyle = COL.cyan; D.g.lineWidth = 1.5; D.g.beginPath(); D.g.moveTo(xk(0), yw(0)); D.g.lineTo(xk(2), yw(2)); D.g.stroke(); D.g.lineWidth = 1;
+  dot(D.g, xk(k), yw(k), 6, COL.amber);
+  D.g.fillStyle = COL.fg3; D.g.fillText('k →', xk(1) - 10, yw(0) + 15); D.g.fillText('ω ↑', 6, yw(1) + 4); D.g.fillText('0', xk(0) - 4, yw(0) + 15); D.g.fillText('2', xk(2) - 8, yw(0) + 15); D.g.fillText('2', 20, yw(2) + 10);
+  $('t1').innerHTML = 'Every point on the blue line is a wave that travels and keeps its size. There is no gap anywhere: pick any k and there is a frequency for it, and any frequency has its k.';
+}
+function loop1() { t1 += 0.06; draw1(); if (step === 1) anim = requestAnimationFrame(loop1); }
+
+/* ── step 2 ── */
+const CELLS2 = 12, PER2 = 96;
+function draw2() {
+  const nu = st.f2, m = st.m2; $('f2v').textContent = nu.toFixed(4); $('m2v').textContent = m.toFixed(3);
+  const fld = stackField(nu, m, CELLS2, PER2), rd = stackRead(nu, m), n = fld.re.length;
+  const { g, w, h } = cv('c2', 0.3, 180), x0 = 8, xs = (i) => x0 + (w - 16) * i / (n - 1), cy = h * 0.5, amp = h * 0.4;
+  for (let i = 0; i < n - 1; i++) { const s = i / PER2 * Math.PI, e = (m > 0 ? (Math.cos(2 * s) + 1) / 2 : 0.5); g.fillStyle = 'rgba(138,138,160,' + (0.04 + 0.16 * e * (m > 0 ? 1 : 0)).toFixed(3) + ')'; g.fillRect(xs(i), 0, xs(i + 1) - xs(i) + 0.5, h); }
+  g.strokeStyle = COL.grid; for (let c = 0; c <= CELLS2; c++) { g.beginPath(); g.moveTo(xs(c * PER2), 0); g.lineTo(xs(c * PER2), h); g.stroke(); }
+  let mx = 1e-12; for (const v of fld.ab) mx = Math.max(mx, v);
+  g.strokeStyle = COL.cyan; g.beginPath(); fld.ab.forEach((v, i) => { const Y = cy - v / mx * amp; i ? g.lineTo(xs(i), Y) : g.moveTo(xs(i), Y); }); g.stroke();
+  g.strokeStyle = COL.amber; g.lineWidth = 1.5; g.beginPath(); fld.re.forEach((v, i) => { const Y = cy - v / mx * amp; i ? g.lineTo(xs(i), Y) : g.moveTo(xs(i), Y); }); g.stroke(); g.lineWidth = 1;
+  g.fillStyle = COL.fg3; g.fillText('depth into the stack →', w - 170, h - 8);
+  $('h2').textContent = rd.gap ? 'in the gap' : 'in a band';
+  // log plot of |E| at each cell boundary
+  const L = cv('c2b', 0.2, 130), vals = []; for (let c = 0; c <= CELLS2; c++) vals.push(Math.log10(Math.max(1e-12, fld.ab[c * PER2] / fld.ab[0])));
+  const lo = Math.min(-2, Math.floor(Math.min(...vals))), yv = (v) => 10 + (L.h - 26) * (0 - v) / (0 - lo), xc = (c) => 40 + (L.w - 56) * c / CELLS2;
+  L.g.fillStyle = COL.fg4; for (let v = 0; v >= lo; v--) { L.g.strokeStyle = COL.grid; L.g.beginPath(); L.g.moveTo(40, yv(v)); L.g.lineTo(L.w - 16, yv(v)); L.g.stroke(); L.g.fillText(v === 0 ? '1' : '1e' + v, 4, yv(v) + 4); }
+  L.g.strokeStyle = COL.cyan; L.g.beginPath(); vals.forEach((v, c) => (c ? L.g.lineTo(xc(c), yv(v)) : L.g.moveTo(xc(c), yv(v)))); L.g.stroke();
+  vals.forEach((v, c) => dot(L.g, xc(c), yv(v), 3.5, COL.cyan));
+  L.g.fillStyle = COL.fg3; L.g.fillText('cell 0', 40, L.h - 4); L.g.fillText('cell ' + CELLS2, L.w - 66, L.h - 4);
+  const ed = gapEdges(m);
+  $('t2').innerHTML = rd.gap
+    ? '<b>It dies with depth.</b> Each cell takes the wave down by e^(−' + rd.decay.toFixed(4) + ') = ' + Math.exp(-rd.decay).toFixed(4) + ', a straight line on the log scale: ' + (Math.exp(-rd.decay * CELLS2)).toExponential(1) + ' after twelve cells. Inside the gap the Bloch phase is held at exactly π a cell, the zone edge, and the wave flips sign each cell. At this depth the gap is the band of frequencies ν from ' + ed[0].toFixed(4) + ' to ' + ed[1].toFixed(4) + ': <b>a gap in frequency</b>, every one of them at the same Bloch phase.'
+    : '<b>It travels.</b> The size wobbles with the layers and never runs away: the Bloch phase is ' + rd.phase.toFixed(4) + 'π a cell. ' + (m > 0 ? 'The gap at this depth is ν from ' + ed[0].toFixed(4) + ' to ' + ed[1].toFixed(4) + '.' : 'With m = 0 there are no layers and no gap.');
+}
+
+/* ── step 3 ── */
+const N3 = 1024, PER3 = 32, SPF3 = 4, MAXP3 = 30;
+let ring3 = null, hist3 = [], run3 = false, mult3 = null;
+function start3() {
+  ring3 = new Ring(N3, PER3, st.m3); ring3.seedForward(st.n3, 1); hist3 = [ring3.split(st.n3)]; run3 = true;
+  mult3 = gridMultipliers(N3, PER3, st.m3, [st.n3])[0];
+  $('go3').textContent = 'send it again'; $('go3').classList.add('pt-on');
+}
+function tick3() {
+  if (run3 && ring3) {
+    for (let i = 0; i < SPF3; i++) { ring3.step(); if (ring3.s % PER3 === 0) { hist3.push(ring3.split(st.n3)); if (hist3.length > MAXP3) { run3 = false; $('go3').classList.remove('pt-on'); } } }
+  }
+  draw3();
+  if (step === 3) anim = requestAnimationFrame(tick3);
+}
+function draw3() {
+  const nu = st.n3 / 32, m = st.m3; $('n3v').textContent = nu.toFixed(4); $('m3v').textContent = m.toFixed(3);
+  const { g, w, h } = cv('c3', 0.26, 160), cy = h / 2, amp = h * 0.4, span = 128;
+  const e = ring3 ? ring3.eta(ring3.s) : 1, br = m > 0 ? (e - 1 + 2 * m) / (4 * m) : 0.5;
+  g.fillStyle = 'rgba(138,138,160,' + (0.03 + 0.2 * br).toFixed(3) + ')'; g.fillRect(0, 0, w, h);
+  g.strokeStyle = COL.grid; g.beginPath(); g.moveTo(8, cy); g.lineTo(w - 8, cy); g.stroke();
+  if (ring3) {
+    let mx = 1e-12; for (let i = 0; i < N3; i++) mx = Math.max(mx, Math.abs(ring3.D[i]));
+    g.strokeStyle = COL.amber; g.lineWidth = 1.5; g.beginPath();
+    for (let i = 0; i <= span; i++) { const X = 8 + (w - 16) * i / span, Y = cy - ring3.D[i] / mx * amp; i ? g.lineTo(X, Y) : g.moveTo(X, Y); }
+    g.stroke(); g.lineWidth = 1;
+    g.fillStyle = COL.fg3; g.fillText('period ' + (ring3.s / PER3).toFixed(1) + ' · scaled to its largest value, ×' + mx.toPrecision(3), 12, 14);
+  } else { g.fillStyle = COL.fg3; g.fillText('press “send it forward”', 12, 14); }
+  const ed = gapEdges(m), inGap = m > 0 && nu > ed[0] && nu < ed[1];
+  $('h3').textContent = inGap ? 'in the gap' : 'outside the gap';
+  // log plot of F and B per period
+  const L = cv('c3b', 0.24, 150), lo = -3, hi = 4, xp = (p) => 44 + (L.w - 60) * p / MAXP3, yv = (v) => 10 + (L.h - 26) * (hi - v) / (hi - lo);
+  L.g.fillStyle = COL.fg4; for (let v = lo; v <= hi; v++) { L.g.strokeStyle = COL.grid; L.g.beginPath(); L.g.moveTo(44, yv(v)); L.g.lineTo(L.w - 16, yv(v)); L.g.stroke(); L.g.fillText(v === 0 ? '1' : '1e' + v, 4, yv(v) + 4); }
+  [['F', COL.amber], ['B', COL.cyan]].forEach(([key, col]) => {
+    L.g.strokeStyle = col; L.g.lineWidth = 1.5; L.g.beginPath();
+    hist3.forEach((o, p) => { const v = Math.max(lo, Math.min(hi, Math.log10(Math.max(1e-9, o[key])))); p ? L.g.lineTo(xp(p), yv(v)) : L.g.moveTo(xp(p), yv(v)); }); L.g.stroke(); L.g.lineWidth = 1;
+  });
+  L.g.fillStyle = COL.fg3; L.g.fillText('0', 44, L.h - 4); L.g.fillText(MAXP3 + ' periods', L.w - 80, L.h - 4);
+  if (!ring3 || hist3.length < 2) { $('t3').innerHTML = ''; return; }
+  const P = hist3.length - 1, a = hist3[Math.max(0, P - 10)], b = hist3[P], tot = (o) => Math.hypot(o.F, o.B);
+  const meas = Math.log(tot(b) / tot(a)) / Math.min(10, P), ratio = b.B / b.F;
+  const mul = mult3 ? 'The grid’s own one-period map for this k gives ' + (mult3.grow > 1e-9 ? 'growth ' + mult3.grow.toFixed(4) + ' a period, with its multiplier turned by exactly ' + mult3.turn.toFixed(4) + 'π' : 'both multipliers on the circle, turned by ' + mult3.turn.toFixed(4) + 'π, so nothing grows') + '.' : '';
+  $('t3').innerHTML = inGap
+    ? '<b>It grows with time, and calls up its partner.</b> Over the last ' + Math.min(10, P) + ' periods it grew ' + meas.toFixed(4) + ' a period. The backward wave, which was not there at the start, now stands at ' + ratio.toFixed(3) + ' of the forward one: together a standing wave, growing. ' + mul + ' A turn of π is a frequency of exactly half the breathing rate, whatever k is in the gap: <b>the gap is a band of wave numbers</b>, from ν = ' + ed[0].toFixed(4) + ' to ' + ed[1].toFixed(4) + ', all at one frequency.'
+    : '<b>It travels.</b> The wave wobbles and a small backward part comes and goes (now ' + ratio.toFixed(3) + ' of the forward), but nothing runs away. ' + mul + (m > 0 ? ' The gap at this depth is ν from ' + ed[0].toFixed(4) + ' to ' + ed[1].toFixed(4) + '.' : ' With m = 0 nothing breathes and there is no gap.');
+}
+
+/* ── step 4: sound ── */
+let ctx = null, node = null, master = null, ready = null, playing = false, rep4 = null;
+async function audio() {
+  if (!ready) ready = (async () => {
+    ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const url = URL.createObjectURL(new Blob([$('pt-core').textContent + '\n' + $('pt-proc').textContent], { type: 'application/javascript' }));
+    await ctx.audioWorklet.addModule(url); URL.revokeObjectURL(url);
+    node = new AudioWorkletNode(ctx, 'ptc-ring', { numberOfInputs: 0, numberOfOutputs: 1, outputChannelCount: [2] });
+    const comp = ctx.createDynamicsCompressor(); comp.threshold.value = -8; comp.ratio.value = 4; comp.attack.value = 0.003; comp.release.value = 0.25;
+    master = ctx.createGain(); master.gain.value = 0;
+    node.connect(comp).connect(master).connect(ctx.destination);
+    node.port.onmessage = (e) => { rep4 = e.data; if (step === 4) draw4(); };
+  })();
+  await ready;
+  if (ctx.state !== 'running') await ctx.resume();
+  master.gain.cancelScheduledValues(ctx.currentTime); master.gain.setTargetAtTime(0.7, ctx.currentTime, 0.02);
+  playing = true; $('go4').textContent = 'stop'; $('go4').classList.add('pt-on');
+}
+function stop() {
+  if (!ctx || !playing) return;
+  playing = false; master.gain.setTargetAtTime(0, ctx.currentTime, 0.02); $('go4').textContent = 'listen'; $('go4').classList.remove('pt-on');
+  setTimeout(() => { if (!playing) { node.port.postMessage({ reset: true }); ctx.suspend(); } }, 160);
+}
+const send4 = () => { if (node) node.port.postMessage({ set: { m: st.m4, fp: st.fp4 } }); };
+function draw4() {
+  $('fp4v').textContent = st.fp4.toFixed(1) + ' Hz · half ' + (st.fp4 / 2).toFixed(2); $('m4v').textContent = st.m4.toFixed(4);
+  const { g, w, h } = cv('c4', 0.32, 200), half = st.fp4 / 2, f1 = 2.5, c = Math.round(half / f1) - 1, lo = Math.max(0, c - 30), cnt = 61;
+  const xf = (f) => 40 + (w - 56) * (f - (lo + 1) * f1 + f1 / 2) / (cnt * f1), yv = (db) => 10 + (h - 28) * (0 - db) / 160;
+  const ed = gapEdges(st.m4);
+  g.fillStyle = COL.band; g.fillRect(xf(half * ed[0]), 10, xf(half * ed[1]) - xf(half * ed[0]), h - 28);
+  g.fillStyle = COL.fg4; for (let db = 0; db >= -160; db -= 40) { g.strokeStyle = COL.grid; g.beginPath(); g.moveTo(40, yv(db)); g.lineTo(w - 16, yv(db)); g.stroke(); g.fillText(db + '', 4, yv(db) + 4); }
+  const bw = Math.max(1, (w - 56) / cnt * 0.6);
+  if (rep4 && rep4.a) { for (let j = 0; j < rep4.a.length; j++) { const f = (rep4.lo + j + 1) * f1, db = Math.max(-160, 20 * Math.log10(rep4.a[j] + 1e-12)); g.fillStyle = (f > half * ed[0] && f < half * ed[1]) ? COL.amber : COL.cyan; g.fillRect(xf(f) - bw / 2, yv(db), bw, yv(-160) - yv(db)); } }
+  g.strokeStyle = COL.fg1; g.setLineDash([4, 4]); g.beginPath(); g.moveTo(xf(half), 10); g.lineTo(xf(half), h - 18); g.stroke(); g.setLineDash([]);
+  g.fillStyle = COL.fg3; g.fillText(((lo + 1) * f1).toFixed(1) + ' Hz', 40, h - 4); g.fillText(((lo + cnt) * f1).toFixed(1) + ' Hz', w - 90, h - 4); g.fillText('half the pump', xf(half) + 4, 22);
+  const nearLo = Math.floor(half / f1) * f1, nearHi = nearLo + f1;
+  $('h4').textContent = 'gap ' + (half * ed[0]).toFixed(1) + '–' + (half * ed[1]).toFixed(1) + ' Hz';
+  if (!playing || !rep4) { $('t4').innerHTML = ''; return; }
+  const lvl = 20 * Math.log10(rep4.rms + 1e-12);
+  const grow = []; if (rep4.a) for (let j = 0; j < rep4.a.length; j++) { const f = (rep4.lo + j + 1) * f1; if (20 * Math.log10(rep4.a[j] + 1e-12) > -60) grow.push(f.toFixed(1)); }
+  $('t4').innerHTML = (lvl > -50 && rep4.pitch
+    ? '<b>You hear ' + rep4.pitch.toFixed(2) + ' Hz.</b> Half the pump is ' + half.toFixed(2) + ' Hz. ' + (Math.abs(half - nearLo) > 0.01 && Math.abs(half - nearHi) > 0.01 ? 'No mode of the ring rings there: the nearest are ' + nearLo.toFixed(1) + ' and ' + nearHi.toFixed(1) + ' Hz. ' : '') + (grow.length > 1 ? 'Modes above −60 dB: ' + grow.join(', ') + ' Hz, each pulled to the one pitch. ' : grow.length ? 'The mode above −60 dB is the one at ' + grow[0] + ' Hz, and it sings at half the pump, not at its own pitch. ' : '')
+    : lvl > -50 ? '<b>Sounding;</b> reading its pitch. '
+    : '<b>Quiet.</b> ' + (st.m4 <= 0.004 ? 'The depth is below the loss, m ≤ 2ζ = 0.004: no mode can grow. ' : 'The modes in the gap are growing out of the noise; give it a moment, or pluck the ring. '))
+    + 'Level ' + lvl.toFixed(0) + ' dBFS before the soft clip; the depth the modes feel is ' + rep4.mEff.toFixed(4) + '.';
+}
+
+/* ── step 5: the test ── */
+let res5 = null;
+function compute5(m) {
+  const ns = []; for (let n = 52; n <= 76; n++) ns.push(n);
+  const time = gridMultipliers(64 * 128, 128, m, ns);
+  const rows = ns.map((n, j) => { const nu = n / 64, sp = stackRead(nu, m), th = mathieuRate(nu, m); return { nu, sp, tm: time[j], th }; });
+  const fine = []; for (let i = 0; i <= 160; i++) { const nu = 0.6 + 0.8 * i / 160; fine.push({ nu, sp: stackRead(nu, m, 600) }); }
+  return { m, rows, fine, ed: gapEdges(m) };
+}
+function draw5() {
+  if (!res5 || res5.m !== st.m5) { $('tab5').innerHTML = '<tr><td>computing…</td></tr>'; setTimeout(() => { res5 = compute5(st.m5); draw5(); }, 30); return; }
+  const R = res5, ed = R.ed;
+  // the two band diagrams, mirrored: space (x = Bloch phase, y = nu), time (x = nu, y = quasi-frequency)
+  const unfoldS = (o) => (o.nu > 1 && !o.sp.gap ? 2 - o.sp.phase : o.sp.gap ? 1 : o.sp.phase);
+  const A = cv('c5a', 0.8, 240), B = cv('c5b', 0.8, 240), ax = (P, x) => 40 + (P.w - 52) * (x - 0.6) / 0.8, ay = (P, y) => P.h - 24 - (P.h - 36) * (y - 0.6) / 0.8;
+  [A, B].forEach((P) => { P.g.fillStyle = COL.fg4; P.g.strokeStyle = COL.grid; for (let v = 0.6; v <= 1.401; v += 0.2) { P.g.beginPath(); P.g.moveTo(ax(P, 0.6), ay(P, v)); P.g.lineTo(ax(P, 1.4), ay(P, v)); P.g.moveTo(ax(P, v), ay(P, 0.6)); P.g.lineTo(ax(P, v), ay(P, 1.4)); P.g.stroke(); P.g.fillText(v.toFixed(1), 6, ay(P, v) + 4); P.g.fillText(v.toFixed(1), ax(P, v) - 10, P.h - 8); } });
+  A.g.fillStyle = COL.band; A.g.fillRect(ax(A, 0.6), ay(A, ed[1]), ax(A, 1.4) - ax(A, 0.6), ay(A, ed[0]) - ay(A, ed[1]));
+  B.g.fillStyle = COL.band; B.g.fillRect(ax(B, ed[0]), ay(B, 1.4), ax(B, ed[1]) - ax(B, ed[0]), ay(B, 0.6) - ay(B, 1.4));
+  A.g.strokeStyle = COL.cyan; A.g.lineWidth = 1.5; A.g.beginPath(); R.fine.forEach((o, i) => { const X = ax(A, unfoldS(o)), Y = ay(A, o.nu); i ? A.g.lineTo(X, Y) : A.g.moveTo(X, Y); }); A.g.stroke(); A.g.lineWidth = 1;
+  B.g.strokeStyle = COL.fg3; B.g.beginPath(); R.fine.forEach((o, i) => { const X = ax(B, o.nu), Y = ay(B, unfoldS(o)); i ? B.g.lineTo(X, Y) : B.g.moveTo(X, Y); }); B.g.stroke();
+  R.rows.forEach((r) => { const turn = r.tm.grow > 1e-9 ? 1 : r.nu > 1 ? 2 - r.tm.turn : r.tm.turn; dot(B.g, ax(B, r.nu), ay(B, turn), 4, r.tm.grow > 1e-9 ? COL.amber : COL.cyan); });
+  A.g.fillStyle = COL.fg3; A.g.fillText('Bloch phase per cell, in π →', ax(A, 0.62), 14); A.g.fillText('ν, frequency ↑', ax(A, 1.02), ay(A, 0.64));
+  B.g.fillStyle = COL.fg3; B.g.fillText('frequency, in Ω/2 ↑', ax(B, 0.62), 14); B.g.fillText('ν, wave number →', ax(B, 1.02), ay(B, 0.64));
+  // the exponents, overlaid
+  const C = cv('c5c', 0.26, 170), gm = Math.max(0.05, ...R.fine.map((o) => o.sp.decay)) * 1.15, xc = (nu) => 44 + (C.w - 60) * (nu - 0.6) / 0.8, yc = (v) => C.h - 22 - (C.h - 34) * v / gm;
+  C.g.fillStyle = COL.fg4; C.g.strokeStyle = COL.grid; for (let v = 0; v <= gm; v += gm > 0.2 ? 0.1 : 0.05) { C.g.beginPath(); C.g.moveTo(44, yc(v)); C.g.lineTo(C.w - 16, yc(v)); C.g.stroke(); C.g.fillText(v.toFixed(2), 4, yc(v) + 4); }
+  C.g.strokeStyle = COL.cyan; C.g.lineWidth = 1.5; C.g.beginPath(); R.fine.forEach((o, i) => { const X = xc(o.nu), Y = yc(o.sp.decay); i ? C.g.lineTo(X, Y) : C.g.moveTo(X, Y); }); C.g.stroke(); C.g.lineWidth = 1;
+  R.rows.forEach((r) => { dot(C.g, xc(r.nu), yc(Math.max(0, r.tm.grow)), 4.5, COL.amber); C.g.fillStyle = COL.fg3; C.g.fillRect(xc(r.nu) - 1, yc(r.th) - 1, 2, 2); });
+  C.g.fillStyle = COL.fg3; C.g.fillText('ν: frequency in space, wave number in time', C.w - 330, C.h - 6);
+  // table
+  let html = '<tr><th>ν</th><th>space: decay per cell, stack</th><th>time: growth per period, Yee grid</th><th>Mathieu, RK4</th><th>space: Bloch phase / π</th><th>time: frequency / (Ω/2)</th></tr>';
+  let wST = 0, wAt = 1, cST = 0, wSM = 0, wTM = 0, inGap = [], lockW = 0, phaseW = 0;
+  R.rows.forEach((r) => {
+    const g = r.tm.grow > 1e-9 ? r.tm.grow : 0, inside = r.sp.gap || g > 0, d = Math.abs(r.sp.decay - g);
+    if (d > wST) { wST = d; wAt = r.nu; } if (Math.abs(r.nu - 1) < 1e-9) cST = d; wSM = Math.max(wSM, Math.abs(r.sp.decay - r.th)); wTM = Math.max(wTM, Math.abs(g - r.th));
+    const freq = g > 0 ? r.tm.turn : r.nu > 1 ? 2 - r.tm.turn : r.tm.turn, ph = r.sp.gap ? 1 : r.nu > 1 ? 2 - r.sp.phase : r.sp.phase;
+    if (g > 0) { inGap.push(r.nu); lockW = Math.max(lockW, Math.abs(r.tm.turn - 1)); }
+    if (r.sp.gap) phaseW = Math.max(phaseW, Math.abs(r.sp.phase - 1));
+    html += '<tr' + (inside ? ' class="pt-in"' : '') + '><td>' + r.nu.toFixed(4) + '</td><td>' + r.sp.decay.toFixed(5) + '</td><td>' + g.toFixed(5) + '</td><td>' + r.th.toFixed(5) + '</td><td>' + ph.toFixed(4) + '</td><td>' + freq.toFixed(4) + '</td></tr>';
+  });
+  $('tab5').innerHTML = html;
+  const ok = wSM < 2e-4 && wTM < 5e-3;
+  $('t5').innerHTML = '<b>' + (ok ? 'One exponent, pointed two ways.' : 'They disagree somewhere.') + '</b> At the gap’s centre the stack’s decay per cell and the grid’s growth per period agree within ' + cST.toExponential(1) + '; the worst row, ν = ' + wAt.toFixed(4) + ', is off by ' + wST.toExponential(1) + ', at the gap’s edge, where the exponent climbs steeply and the grid’s small error in its own speed of light moves the edge a hair. The stack sits on the Mathieu reference within ' + wSM.toExponential(1) + '. '
+    + 'And the axis turns. In space the gap is a band of <b>frequencies</b>, ν from ' + ed[0].toFixed(4) + ' to ' + ed[1].toFixed(4) + ', every one held at the zone edge, a Bloch phase of π a cell. In time the gap is a band of <b>wave numbers</b>, ' + inGap.length + ' of the ring’s from ν = ' + (inGap[0] || 0).toFixed(4) + ' to ' + (inGap[inGap.length - 1] || 0).toFixed(4) + ', every one held at one frequency, half the breathing rate (turned π a period within ' + lockW.toExponential(0) + '). The right picture is the left one with its axes swapped. '
+    + 'So the page’s “ranges of frequencies that grow” is, measured, a range of wave numbers that all grow at one frequency: a momentum gap.';
+}
+
+/* ── steps ── */
+function show(n) {
+  step = Math.max(1, Math.min(5, n)); cancelAnimationFrame(anim); if (step !== 4) stop();
+  document.querySelectorAll('.pt-step').forEach((s) => s.classList.toggle('pt-shown', +s.dataset.step === step));
+  document.querySelectorAll('.pt-rail button').forEach((b) => b.setAttribute('aria-pressed', String(+b.dataset.go === step)));
+  $('back').disabled = step === 1; $('next').disabled = step === 5;
+  if (step === 1) loop1(); else if (step === 2) draw2(); else if (step === 3) { if (!ring3) start3(); tick3(); } else if (step === 4) draw4(); else draw5();
+}
+document.querySelectorAll('.pt-rail button').forEach((b) => b.addEventListener('click', () => show(+b.dataset.go)));
+$('back').addEventListener('click', () => show(step - 1)); $('next').addEventListener('click', () => show(step + 1));
+let raf = 0; const later = (f) => { cancelAnimationFrame(raf); raf = requestAnimationFrame(f); };
+$('k1').addEventListener('input', (e) => { st.k1 = +e.target.value; });
+[['f2', 'f2'], ['m2', 'm2']].forEach(([id, k]) => $(id).addEventListener('input', (e) => { st[k] = +e.target.value; later(draw2); }));
+document.querySelectorAll('[data-f2]').forEach((b) => b.addEventListener('click', () => { st.f2 = +b.dataset.f2; $('f2').value = st.f2; draw2(); }));
+$('n3').addEventListener('input', (e) => { st.n3 = +e.target.value; start3(); });
+$('m3').addEventListener('input', (e) => { st.m3 = +e.target.value; start3(); });
+document.querySelectorAll('[data-n3]').forEach((b) => b.addEventListener('click', () => { st.n3 = +b.dataset.n3; $('n3').value = st.n3; start3(); }));
+$('go3').addEventListener('click', start3);
+$('go4').addEventListener('click', async () => { if (playing) { stop(); return; } await audio(); send4(); });
+$('pluck4').addEventListener('click', async () => { if (!playing) { await audio(); send4(); } node.port.postMessage({ pluck: 0.05 }); });
+$('between4').addEventListener('click', async () => { st.fp4 = 882.5; $('fp4').value = 882.5; if (!playing) await audio(); send4(); draw4(); });
+$('off4').addEventListener('click', () => { st.m4 = 0; $('m4').value = 0; send4(); draw4(); });
+$('fp4').addEventListener('input', (e) => { st.fp4 = +e.target.value; send4(); later(draw4); });
+$('m4').addEventListener('input', (e) => { st.m4 = +e.target.value; send4(); later(draw4); });
+document.querySelectorAll('[data-m5]').forEach((b) => b.addEventListener('click', () => { st.m5 = +b.dataset.m5; document.querySelectorAll('[data-m5]').forEach((x) => x.setAttribute('aria-pressed', String(x === b))); draw5(); }));
+window.addEventListener('resize', () => { if (step === 2) draw2(); else if (step === 4) draw4(); else if (step === 5 && res5) draw5(); });
+sigil(); show(1);
+</script>
+</body>
+</html>
