@@ -119,6 +119,8 @@ console.log('the boil, measured — its engine against numpy');
   ok(Math.abs(odd / even - 1) < 0.1, `the clip does not alternate: seed-changing steps ${(100 * odd).toFixed(2)} %, seed-holding steps ${(100 * even).toFixed(2)} %`);
   ok(mean(S.ones_steps) > 3 * mean(S.twos_steps), `the boil on ones is ${(mean(S.ones_steps) / mean(S.twos_steps)).toFixed(1)} × the boil on twos`);
   ok(Math.abs(mean(S.clip_on) - mean(S.clip_off)) < 0.002, `boil on or off, the clip changes about the same per frame: ${(100 * mean(S.clip_on)).toFixed(2)} % vs ${(100 * mean(S.clip_off)).toFixed(2)} %`);
+  const ink = HD.inkShare(f('twos_1')), share = S.twos_steps.map((v) => v / ink);
+  ok(ink < 0.03 && Math.min(...share) > 0.2 && Math.max(...share) < 0.4, `ink is ${(100 * ink).toFixed(1)} % of the frame; a twos step redraws ${share.map((v) => (100 * v).toFixed(0)).join(', ')} % of its area`);
   const fr = meta.boil.full_res;
   ok(fr.on_vs_on2.every((x) => x[1]), 'two fresh twelve-frame runs are byte-identical at full size');
   ok(!fr.single5_vs_seq5[1] && fr.single5_vs_seq5_sn0[1], `full size: frame 5 alone ≠ in the run (${(100 * fr.single5_vs_seq5[0]).toFixed(2)} %); with spatial noise off, identical`);

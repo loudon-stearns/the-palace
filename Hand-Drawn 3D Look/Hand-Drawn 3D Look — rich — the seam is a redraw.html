@@ -157,7 +157,7 @@
     <div class="hd-row"><label for="r4">tolerance r</label><input id="r4" type="range" min="2" max="8" step="1" value="4"><span class="hd-val" id="r4v"></span></div>
     <div class="hd-scroll"><table class="hd-t" id="tab4"></table></div>
     <p class="hd-test" id="t4"></p>
-    <p class="hd-note">Each rung moved more than denoise: Canny went 0.85 → 0.55 → 0.42 and stopped earlier, and the 0.95 rung has its own seed. The proofs never moved denoise alone, so the ladder shows the balance the page names ("the denoise/ControlNet balance decides everything"), not denoise by itself.</p>
+    <p class="hd-note">Each rung moved more than denoise. Canny went 0.85 → 0.55 → 0.42 and stopped earlier (at 85 %, 55 %, 50 % of the schedule). 0.72 comes from 02_stylize.py (cfg 6.5, 24 steps, its own prompt); 0.90 and 0.95 from 02b_stylize_push.py (cfg 7.5, 26 steps, the ink medium front-loaded in the prompt); 0.95 is seed 7, the others seed 2211. Each rung is one seed, and at the 0.95 recipe the seeds alone swing new marks from 13 % to 57 % (step 5), so the ladder can't say exactly where the turn falls. The proofs never moved denoise alone, so the ladder shows the balance the page names ("the denoise/ControlNet balance decides everything"), not denoise by itself.</p>
   </section>
 
   <section class="hd-step" data-step="5">
@@ -350,7 +350,7 @@ function draw3() {
   $('l3').textContent = plate3 ? 'the plate' : 'denoise ' + st.denoise.toFixed(2) + ' · canny ' + st.canny.toFixed(2) + (st.end < 1 ? ' to ' + Math.round(st.end * 100) + ' %' : '') + ' · seed ' + st.seed;
   $('m3c').textContent = pct(s.changed); $('m3h').textContent = pct(s.held); $('m3n').textContent = pct(s.new);
   $('n3').textContent = rung3 === 'd095'
-    ? 'The jump happens here, and late: the street becomes a vanishing-point corridor with speed lines, the far blocks are redrawn with windows, splatter lands on the paper. 0.90 still mostly traced.'
+    ? 'The jump shows here, on this seed: the street becomes a vanishing-point corridor with speed lines, the far blocks are redrawn with windows, splatter lands on the paper. 0.90 still mostly traced.'
     : rung3 === 'd090' ? 'Still a tracing: the toon sky stays grey, the walls stay flat. The ink has begun at the edges (a black wall, a smudge of smoke).' : 'The render, handed back.';
 }
 function draw4() {
@@ -382,9 +382,9 @@ function draw5() {
   const sr = rows.slice(1), lifts = sr.map((x) => x[2]), helds = sr.map((x) => x[1].held);
   const worst = sr.reduce((a, b) => (b[2] < a[2] ? b : a)), best = sr.reduce((a, b) => (b[2] > a[2] ? b : a));
   const weak = sr.filter((x) => x[2] < 0.5).map((x) => items[x[0]].settings.seed);
-  $('t5').innerHTML = '<b>Partly.</b> Every seed keeps the two walls, the ground line and the vanishing point, the corridor the field notes name. But the plate\'s edges held run from ' + pct(Math.min(...helds)) + ' to ' + pct(Math.max(...helds)) +
+  $('t5').innerHTML = '<b>Partly.</b> The corridor keeps its outline in every seed (the field notes\' "corridor and vanishing point"), but in 55555 and 70707 the near walls survive only as faint edges on paper, their grey gone. And the plate\'s edges held run from ' + pct(Math.min(...helds)) + ' to ' + pct(Math.max(...helds)) +
     ', and above chance from ' + Math.min(...lifts).toFixed(2) + ' (seed ' + items[worst[0]].settings.seed + ') to ' + Math.max(...lifts).toFixed(2) + ' (seed ' + items[best[0]].settings.seed + '). ' +
-    weak.length + ' of 8 seeds (' + weak.join(', ') + ') hold less than half the way above chance: there the far blocks dissolve into one mass and the model draws a different skyline. The corridor is locked; the structure inside it is not.';
+    weak.length + ' of 8 seeds (' + weak.join(', ') + ') hold less than half the way above chance: there the far blocks dissolve into one mass and the model draws a different skyline. The corridor\'s outline is locked; the structure inside it is not.';
 }
 
 function show(n) {

@@ -176,7 +176,8 @@
 const HD = (() => {
   function changed(a, b, t = 32) { let n = 0; for (let i = 0; i < a.length; i++) if (Math.abs(a[i] - b[i]) > t) n++; return n / a.length; }
   function series(frames, t = 32) { const out = []; for (let i = 1; i < frames.length; i++) out.push(changed(frames[i - 1], frames[i], t)); return out; }
-  return { changed, series };
+  function inkShare(a) { let n = 0; for (let i = 0; i < a.length; i++) if (a[i] < 128) n++; return n / a.length; }   // dark ink: grey below 128
+  return { changed, series, inkShare };
 })();
 </script>
 <script>
@@ -270,8 +271,9 @@ function draw3() {
   $('l3').textContent = 'the plume held at frame 1 · Perlin seed ' + TWOS_SEQ[f3 - 1];
   $('m3').textContent = f3 > 1 ? pct(S.twos[f3 - 2]) : '·';
   bars($('b3'), S.twos, f3 - 2);
+  const inkShare = HD.inkShare(TWOS[0]);
   const steps = S.twos.filter((v) => v > 0), mean = steps.reduce((x, y) => x + y, 0) / steps.length;
-  $('p3').innerHTML = 'Each still here was rendered in its own fresh Blender, so the seed is the only thing that moves. On twos, and exactly: the frames that share a seed match pixel for pixel (' + S.twos.filter((v) => v === 0).length + ' zero bars), and each new seed moves ' + pct(mean) + ' of the pixels. That is the boil the page names. It is real, and it is small: about 1⁄' + (S.clip_on.reduce((x, y) => x + y, 0) / S.clip_on.length / mean).toFixed(0) + ' of what step 2\'s clip changes per frame, and only on every other frame.';
+  $('p3').innerHTML = 'Each still here was rendered in its own fresh Blender, so the seed is the only thing that moves. On twos, and exactly: the frames that share a seed match pixel for pixel (' + S.twos.filter((v) => v === 0).length + ' zero bars), and each new seed moves ' + pct(mean) + ' of the frame. The ink is only ' + pct(inkShare) + ' of the frame, so that is ' + Math.round(100 * Math.min(...steps) / inkShare) + '–' + Math.round(100 * Math.max(...steps) / inkShare) + ' % of the ink\'s area: about a quarter to a third of the line redrawn, and you can see it. That is the boil the page names, real and exact. In step 2\'s clip it is swamped: the boil on ones in the next step already redraws the line every frame.';
 }
 function draw4() {
   $('d4').setAttribute('aria-pressed', String(diff4)); $('f4').value = f4; $('f4v').textContent = f4 + ' / 5';

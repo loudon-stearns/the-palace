@@ -54,7 +54,7 @@ def edges(a):
 seam_src = [
     ("plate", "blender/city_toon.png", "the Blender plate (EEVEE toon + Freestyle)", None),
     ("lines", "blender/city_ink.png", "the Freestyle line pass, the Canny ControlNet's input", None),
-    ("d072", "stylized/city_from_toon.png", "denoise 0.72 · canny 0.85", dict(denoise=0.72, canny=0.85, end=1.0, seed=2211)),
+    ("d072", "stylized/city_from_toon.png", "denoise 0.72 · canny 0.85", dict(denoise=0.72, canny=0.85, end=0.85, seed=2211)),
     ("d090", "stylized/city_push_d90_cn50.png", "denoise 0.90 · canny 0.55 to 55 %", dict(denoise=0.90, canny=0.55, end=0.55, seed=2211)),
     ("d095", "stylized/city_push_d95_cn40.png", "denoise 0.95 · canny 0.42 to 50 %", dict(denoise=0.95, canny=0.42, end=0.50, seed=7)),
 ]
