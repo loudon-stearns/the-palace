@@ -65,6 +65,17 @@
         "by": "maker · claude-opus-5-5 · proposal round",
         "round": "proposal-round-2026-11"
       },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Volterra Kernels and the Torus — rich — the diagonal and off it.html",
+            "verdict": "keep",
+            "why": "A real test that came out against the text: on the diagonal intermodulation is 6.02 dB over the harmonics (recomputed from the series, H₂ = G(f₁+f₂)), carried as offer 1, not written in. Walks harmonics, intermodulation and memory each alone before the two-tone test; note the glide hint (the difference product nulls again at +150 Hz)."
+          }
+        ]
+      },
       "pieces": [
         {
           "file": "Volterra Kernels and the Torus — rich — the diagonal and off it.html",
@@ -88,6 +99,17 @@
         "date": "2026-11-03",
         "by": "maker · claude-opus-5-5 · proposal round",
         "round": "proposal-round-2026-11"
+      },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Volterra Kernels and the Torus — rich — one field, two readers.html",
+            "verdict": "keep",
+            "why": "Builds the toggle the section asks for, then tests whether the two readers are one; the ridge and the lowered level show it can fail (+2.2, −9.6, −3.4 dB; mirrored fields at machine precision, recomputed). Fix in passing: the input-step hint calls the diagonal section \"the next section\" (it comes before) and reuses \"the two readers\" for u and v."
+          }
+        ]
       },
       "pieces": [
         {
