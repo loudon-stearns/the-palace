@@ -47,6 +47,13 @@ Where this is going: a website generated from the cards, a catalog to choose fro
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="synth-templates-2026-11-03-voice-fixes" -->
+### 2026-11-03 — The two voice fixes: the pattern honoured, chords scaled (Loudon: "Yes, fix both")
+
+Asked whether to fix the voice to honour each card's render pattern and scale chords by voice count, Loudon: "Yes, fix both." `build-site.py` (and so `site/voice.js` and the page) gains `readPattern(c)`, which reads a card's render spec as prose cues, the note unit (sixteenths, eighths, quarters, half, whole), bars, "held N bars / beats / seconds", twice, the last held or left to ring, arpeggio up and down, tied or slide, staccato, rests, four on the floor, with `length_s` bounding the whole (a hold with no stated length fills `length_s` less the release tail; a sequence with no stated bars fills as many as fit), and `playDemo` plays a held chord, a held note, hits, an arpeggiated line or a mono line from that reading; and `polyGain()`, which scales a chord's voices by 1/√n, set while scheduling a chord and from the held count in live playing, applied to the amp level at note on. Checked in the browser: oberheim-pad holds two bars inside its 7 s, rimshot fills its 2 s, minimoog-lead runs 3.75 of 4 s. All 292 re-rendered; the sanity pass fell from 213 flagged to 74: length 157 → 35, clipping 84 → 28, silent 7 and vocab 13 unchanged. What remains under length is prose the cue reader cannot parse ("one bar: a half note, then three eighths with a rest", "three notes a bar each") and long effect tails; under clipping, two full-level sources summing a few dB over 0 dBFS, which the page's compressor holds and the offline render bypasses.
+
+_Left rough:_ `render-features.py`'s "likely cause" text still says "playDemo holds a chord 3.5 beats" on the length rows; stale now, to tidy next pass. The seven silent and thirteen wordless cards stand.
+<!-- /scroll:entry -->
 <!-- scroll:entry id="synth-templates-2026-11-03-cards-to-pdl" -->
 ### 2026-11-03 — A cross-project find: every card emits PDL, and the house bass reaches VCV Rack
 

@@ -137,7 +137,7 @@ function noteOn(c, midi, vel, id, when){
   }
   // amp
   const amp = ac.createGain(); amp.gain.value = 0; node.connect(amp); const pan = ac.createStereoPanner(); amp.connect(pan); pan.connect(fx); v.amp = amp; v.pan = pan; v.nodes.push(amp, pan);
-  const ampLevel = word('level', B.amp?.level || 'full', 0.8) * (0.4 + 0.6 * velScale);
+  const ampLevel = word('level', B.amp?.level || 'full', 0.8) * (0.4 + 0.6 * velScale) * polyGain();
   // envelopes and LFOs by route
   const envOf = slot => envTimes(B[slot]?.shape);
   let ampEnv = null;
@@ -190,22 +190,62 @@ function noteOff(id, when){
 }
 function stopVoices(){ if (!ctx) return; const t = ctx.currentTime; for (const v of new Set(voices.values())) voiceOff(v, t); monoVoice = null; heldMono = []; }
 // playDemo: the card's render pattern on the voice; returns the schedule {t0, lastOff} so an offline render knows where the last key lifts
+// Chords are scaled by voice count so a seven-note pad does not clip where one note sits right (2026-11-03, the sanity pass).
+let polyN = 0;                       // set by playDemo while it schedules a chord; otherwise the live held count stands in
+function polyGain(){ return 1 / Math.sqrt(Math.max(1, polyN || (voices.size + 1))); }
+
+// The render spec read as the card wrote it (2026-11-03, Loudon: "Yes, fix both"). The pattern is prose, so this reads cues, not grammar:
+// the note unit (sixteenths, eighths, quarters, half, whole), bars, "held N bars / N seconds", "twice", "the last held", "left to ring",
+// "arpeggio / up / down", "tied / slide", "staccato / a 16th long", "rest". length_s bounds the whole: a hold with no stated length
+// fills length_s less the release tail; a sequence with no stated bars fills as many bars as length_s allows.
+function readPattern(c){
+  const r = c.render || {}; const bpm = r.tempo || 120; const beat = 60 / bpm; const txt = String(r.pattern || '').toLowerCase();
+  const env = envTimes(c.graph.blocks.aenv?.shape); const tail = Math.max(env.r * 1.5, 0.3);
+  const length = r.length_s || 4; const bar = 4 * beat;
+  const num = w => ({ a: 1, an: 1, one: 1, two: 2, three: 3, four: 4, five: 5, six: 6, seven: 7, eight: 8, ten: 10, sixteen: 16 })[w] ?? parseFloat(w);
+  let unit = null;
+  if (/1\/32|thirty-second/.test(txt)) unit = beat / 8; else if (/sixteenth|16th/.test(txt)) unit = beat / 4; else if (/eighth|8th/.test(txt)) unit = beat / 2;
+  else if (/quarter note|quarter-note|quarters\b|quarter notes/.test(txt)) unit = beat; else if (/half note/.test(txt)) unit = 2 * beat; else if (/whole note/.test(txt)) unit = 4 * beat;
+  let bars = null; const mb = txt.match(/(\w+) bars?\b/); if (mb && !/held (\w+) bars?/.test(txt.slice(Math.max(0, mb.index - 5), mb.index + mb[0].length)) && Number.isFinite(num(mb[1]))) bars = num(mb[1]);
+  let hold = null; const mh = txt.match(/held (?:for )?(\w+) (bars?|beats?|seconds?)/); if (mh && Number.isFinite(num(mh[1]))) hold = num(mh[1]) * ({ bar: bar, bars: bar, beat: beat, beats: beat, second: 1, seconds: 1 })[mh[2]];
+  if (hold === null && /held a bar|held one bar/.test(txt)) hold = bar;
+  if (hold === null && /held/.test(txt) && !unit) hold = Math.max(beat, length - tail);
+  return { bpm, beat, bar, unit, bars, hold, tail, length, txt, env,
+    twice: /twice|two passes|then hard|soft, then/.test(txt), lastHeld: /last (note |one )?(held|left to ring|left ringing|rings)|left to ring|tail to silence/.test(txt),
+    arp: /arpegg|up and down|upward|up then down|run up|strum|one note per/.test(txt), down: /and down|then down/.test(txt),
+    staccato: /staccato|a 16th long|each a 16th|detached|short notes/.test(txt), fullLength: /full length|legato|held most/.test(txt), rests: /rest|off-beat|offbeat/.test(txt), slide: /tied|slide/.test(txt),
+    fourOnFloor: /four on the floor/.test(txt) };
+}
 function playDemo(c){
-  const ac = audio(); const r = c.render || {}; const bpm = r.tempo || 120; const beat = 60 / bpm; const t0 = ac.currentTime + 0.05;
+  const ac = audio(); const r = c.render || {}; const P = readPattern(c); const { beat, bar, tail, length } = P; const t0 = ac.currentTime + 0.05;
   const notes = (Array.isArray(r.note) ? r.note : [r.note || 'C3']).map(nameToMidi);
   const vels = Array.isArray(r.velocity) ? r.velocity : [r.velocity || 100];
-  const mono = /mono/.test(c.mode); const drum = c.family === 'Drums and Percussion'; let lastOff = t0;
-  if (!mono && notes.length > 1){                 // chord: once soft and once hard if two velocity sets, else once
-    const passes = vels.length > notes.length ? 2 : 1;
-    for (let p = 0; p < passes; p++){ const t = t0 + p * 2 * beat * 2; notes.forEach((n, i) => { noteOn(c, n, vels[p * notes.length + i] ?? vels[0], 'd' + p + '-' + i, t); noteOff('d' + p + '-' + i, t + beat * 3.5); lastOff = Math.max(lastOff, t + beat * 3.5); }); }
-  } else if (drum || notes.length === 1){        // one note: four hits on the beat
-    for (let i = 0; i < 4; i++){ const t = t0 + i * beat; noteOn(c, notes[0], vels[i % vels.length], 'd' + i, t); noteOff('d' + i, t + beat * 0.5); lastOff = t + beat * 0.5; }
-  } else {                                        // mono line: sixteenths, a note that repeats its predecessor's pitch is tied (slide)
-    const step = beat / 4; let prev = null;
-    notes.forEach((n, i) => { const t = t0 + i * step; const tied = /tied|slide/.test(r.pattern || '') && i > 0 && (i === 2 || i === 4);
-      if (!tied) { if (prev) noteOff(prev, t - 0.01); noteOn(c, n, vels[i % vels.length], 'd' + i, t); prev = 'd' + i; }
-      else { const v = voices.get(prev); if (v){ const B = c.graph.blocks; const glide = word('glide', (c.taste||[]).find(x=>x.block==='osc1'&&x.param==='glide')?.default || 'short', 0.06); for (const [slot, s] of Object.entries(v.sources)) for (const o of s.freqParams){ const hz = noteToHz(n) * Math.pow(2, B[slot].octave || 0) * (s.ratio || 1); o.frequency.setValueAtTime(o.frequency.value, t); o.frequency.exponentialRampToValueAtTime(hz, t + glide); } } } });
-    if (prev) noteOff(prev, t0 + notes.length * step); lastOff = t0 + notes.length * step;
+  const mono = /mono/.test(c.mode); const drum = c.family === 'Drums and Percussion'; let lastOff = t0; let k = 0;
+  const on = (n, v, t, off) => { const id = 'd' + (k++); noteOn(c, n, v, id, t); noteOff(id, off); lastOff = Math.max(lastOff, off); return id; };
+  const bars = P.bars ?? Math.max(1, Math.round((length - tail) / bar));
+  if (!mono && notes.length > 1 && !P.arp && !P.unit){        // a chord, held
+    const passes = P.twice || vels.length > notes.length ? 2 : 1;
+    const hold = P.hold ?? Math.max(beat, (length - tail) / passes - (passes > 1 ? beat * 0.25 : 0));
+    polyN = notes.length;
+    for (let p = 0; p < passes; p++){ const t = t0 + p * (hold + beat * 0.25); notes.forEach((n, i) => on(n, vels[p * notes.length + i] ?? vels[p] ?? vels[0], t, t + hold)); }
+    polyN = 0;
+  } else if (notes.length === 1 && (P.hold !== null || (!P.unit && !drum && !P.fourOnFloor))){   // one note, held
+    const hold = P.hold ?? Math.max(beat, length - tail); on(notes[0], vels[0], t0, t0 + hold);
+  } else if (notes.length === 1 || drum){                       // one note (or a drum) as hits
+    const unit = P.unit || (P.fourOnFloor ? beat : drum ? beat : beat / 2); const n = Math.round(bars * bar / unit);
+    const gate = P.staccato ? unit * 0.5 : P.fullLength ? unit * 0.95 : Math.min(unit * 0.5, beat * 0.5);
+    for (let i = 0; i < n; i++){ if (P.rests && i % 2 === 0 && !drum) continue; const t = t0 + i * unit; const last = i === n - 1; on(notes[i % notes.length], vels[i % vels.length], t, last && P.lastHeld ? t + Math.max(bar, gate) : t + gate); }
+  } else if (!mono && (P.arp || P.unit)){                       // a chord played as a line: arpeggio, or notes in sequence
+    const unit = P.unit || beat / 4; let seq = notes.slice(); if (P.down) seq = seq.concat(notes.slice(0, -1).reverse()); const n = Math.round(bars * bar / unit);
+    const gate = P.staccato ? unit * 0.5 : unit * 0.9;
+    for (let i = 0; i < n; i++){ const t = t0 + i * unit; const last = i === n - 1; on(seq[i % seq.length], vels[i % vels.length], t, last && P.lastHeld ? t + bar : t + gate); }
+  } else {                                                      // a mono line: the notes in order, one per unit; a tied note slides
+    const unit = P.unit || beat / 2; let prev = null; let prevId = null; const count = notes.length;
+    const gateOf = (t, i) => (i === count - 1 && P.lastHeld) ? t + bar : P.staccato ? t + unit * 0.5 : t + unit * 0.95;
+    notes.forEach((n, i) => { const t = t0 + i * unit; const tied = P.slide && i > 0 && (i === 2 || i === 4);
+      if (!tied) { if (prevId) noteOff(prevId, t - 0.01); prevId = 'd' + (k++); noteOn(c, n, vels[i % vels.length], prevId, t); prev = n; lastOff = Math.max(lastOff, gateOf(t, i)); }
+      else { const v = voices.get(prevId); if (v){ const glide = word('glide', (c.taste||[]).find(x=>x.block==='osc1'&&x.param==='glide')?.default || 'short', 0.06); for (const [slot, s] of Object.entries(v.sources)) for (const o of s.freqParams){ const hz = noteToHz(n) * Math.pow(2, c.graph.blocks[slot].octave || 0) * (s.ratio || 1); o.frequency.cancelScheduledValues(t); o.frequency.setValueAtTime(o.frequency.value, t); o.frequency.exponentialRampToValueAtTime(hz, t + Math.max(glide, 0.005)); } } lastOff = Math.max(lastOff, gateOf(t, i)); } });
+    if (prevId) noteOff(prevId, lastOff);
   }
   return { t0, lastOff };
 }
