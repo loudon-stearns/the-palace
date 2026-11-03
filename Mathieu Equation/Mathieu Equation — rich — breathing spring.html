@@ -379,7 +379,10 @@ function s4table() {
   const found = [1, 2, 3].map(n => peaks.find(p => p.n === n));
   const ok = found.every(Boolean) && stray === 0;
   $('s4v').innerHTML = ok
-    ? 'At depth ε = ' + eps.toFixed(2) + ' the engine grows fastest at Ω/ω₀ = <b>' + found.map(p => p.r.toFixed(3)).join('</b>, <b>') + '</b>, where (2ω₀/Ω)² = ' + found.map(p => p.a.toFixed(2)).join(', ') + ': the integer squares the diagram roots its tongues at, nudged by the depth. Between them, nothing grows. The section’s mapping holds.'
+    ? 'At depth ε = ' + eps.toFixed(2) + ' the growth curve peaks at Ω/ω₀ = <b>' + found.map(p => p.r.toFixed(3)).join('</b>, <b>') + '</b>, where (2ω₀/Ω)² = ' + found.map(p => p.a.toFixed(2)).join(', ') + ': the integer squares the diagram roots its tongues at, nudged by the depth. Between them, nothing grows. The section’s mapping holds. ' +
+      (() => { const up = found.filter(p => p.net > 0), down = found.filter(p => p.net <= 0), list = a => a.map(p => p.r.toFixed(3)).join(' and ');
+        return (up.length ? 'After friction, the whisper grows at ' + list(up) + '.' : 'After friction, nothing grows at this depth.') +
+          (down.length ? ' At ' + list(down) + ' the curve peaks below zero: friction wins, and the whisper only fades most slowly there. Raise ε to hear it grow (the third peak crosses zero near ε = 0.15).' : ''); })()
     : 'Found ' + peaks.length + ' of the three tongues near 2, 1 and 2/3, and growth at ' + stray + ' rates outside them. The claim expects three, and nothing between.';
 }
 $('s4e').oninput = () => { clearTimeout(s3timer); s3timer = setTimeout(s4measure, 80); $('s4ev').textContent = (+$('s4e').value).toFixed(3); };

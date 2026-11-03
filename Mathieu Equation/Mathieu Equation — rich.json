@@ -50,19 +50,25 @@
     {
       "section": "What the equation says",
       "kind": "no-claim-edit",
-      "what": "\"q proportional to the modulation depth\" can be exact for the commonest form: with stiffness ω₀²(1 − 2ε cos Ωt), q = a·ε. The breathing-spring piece runs on that mapping and confirms a = (2ω₀/Ω)²: growth peaks at Ω/ω₀ = 1.999, 0.997, 0.665 at ε = 0.1.",
+      "what": "\"q proportional to the modulation depth\" can be exact for the commonest form: with stiffness ω₀²(1 − 2ε cos Ωt), q = a·ε. The breathing-spring piece runs on that mapping and confirms a = (2ω₀/Ω)²: the growth curve peaks at Ω/ω₀ = 1.999, 0.997, 0.665 at ε = 0.1. The challenger confirmed the substitution exact, so the page's \"a ∼ (2ω₀/Ω)²\" could also become \"=\".",
       "status": "open"
     },
     {
       "section": "Open Questions",
       "kind": "claim-change",
-      "what": "Three of the questions now have measured partial answers. Damping: tongue 1 opens at q ≈ γ, tongue 2 at q ≈ √(8γ) (γ = 0.02 gives 0.020, 0.402, and tongue 3 1.584), so damping silences the upper tongues first, and one physical resonator counts as n times more damped in tongue n. Audibility: from a whisper 100 dB down, to −30 dB within one second, takes q ≈ 0.01, 0.41 and 1.85 for tongues 1, 2, 3. Subharmonic vs harmonic: confirmed, the multiplier is negative in tongue 1 (tone at half the pump) and positive in tongue 2 (tone in unison). Proposed: a clause on each bullet, pointing at the two-tongues piece.",
+      "what": "Three of the questions now have measured partial answers. Damping: tongue 1 opens at q ≈ γ, tongue 2 at q ≈ √(8γ) (γ = 0.02 gives 0.0200, 0.4018 and, for tongue 3, 1.5820; confirmed by the challenger's independent integration), so damping silences the upper tongues first, and one physical resonator counts as n times more damped in tongue n. Audibility, measured on this face's engine: from its whisper (noise 1e−5 per sample) to a −30 dB target within one second takes q ≈ 0.01, 0.41 and 1.85 for tongues 1, 2, 3. These depths depend on that noise floor and that target, not on the equation alone; the bullet should say what they were measured against. Subharmonic vs harmonic: confirmed, the multiplier is negative in tongue 1 (tone at half the pump) and positive in tongue 2 (tone in unison). Proposed: a clause on each bullet, pointing at the two-tongues piece.",
       "status": "open"
     },
     {
       "section": "Philosophical Lens",
       "kind": "claim-change",
-      "what": "\"Parametric pumping crosses into self-oscillation only at the resonant rate\": the breathing-spring piece measures growth at three rates, Ω = 2ω₀, ω₀ and 2ω₀/3, each a band that widens with depth. \"Only at the resonant rates\" would be exact; the line is quoted from a Dialectic, so leaving its compression is also fair.",
+      "what": "\"Parametric pumping crosses into self-oscillation only at the resonant rate\": the breathing-spring piece measures growth at three rates, Ω = 2ω₀, ω₀ and 2ω₀/3, each a band that widens with depth. \"Only at the resonant rates\" would be exact; the line is quoted from a Dialectic, so leaving its compression is also fair. The challenger confirmed the three bands; whether to change a quoted line is Loudon's taste call.",
+      "status": "open"
+    },
+    {
+      "section": "→ Floquet Time-Modulated Loops",
+      "kind": "claim-change",
+      "what": "For the Floquet project, not this page. In static/07_tongue_anatomy.png the green \"outside, bounded\" point (a = 0.85, q = 0.3) is inside tongue 1, whose lower edge there is b₁ = 0.689 (Hill matrix 0.689166); its inset grows to about 2×10⁵ in 30 periods (ρ = −1.537). Its \"on boundary, marginal\" inset (a = 1.28733) is also inside the tongue (a₁ = 1.28832), which is why that trace climbs. Fix: move the outside point below 0.689 (say a = 0.6) and set the boundary sample on a₁, or relabel it slow growth. And audio/20_strutt_sweep.py's docstring puts the crack at q ≈ 0.10; the wav crosses at 2.0–2.25 s, q ≈ 0.05 = 2ζ, the damped threshold.",
       "status": "open"
     }
   ],
@@ -83,7 +89,7 @@
           "by": "the Maker · Web Audio, rendered buffers",
           "height": 740,
           "title": "the breathing spring · a walk in four steps",
-          "caption": "**Does the breathing rate become a?** A mass on a spring at 220 Hz; then its stiffness breathes slowly, and the pitch only wobbles; then faster, from a whisper of noise, until one rate makes the whisper grow by itself. The last step measures where growth peaks against the breathing rate and checks it against a = (2ω₀/Ω)²: the peaks land at Ω/ω₀ = 1.999, 0.997 and 0.665 at depth 0.1, the places where a = 1, 4, 9.",
+          "caption": "**Does the breathing rate become a?** A mass on a spring at 220 Hz; then its stiffness breathes slowly, and the pitch only wobbles; then faster, from a whisper of noise, until one rate makes the whisper grow by itself. The last step measures where the growth curve peaks against the breathing rate and checks it against a = (2ω₀/Ω)²: the peaks land at Ω/ω₀ = 1.999, 0.997 and 0.665 at depth 0.1, the places where a = 1, 4, 9. After friction only the first two grow at that depth; at 0.665 the curve peaks below zero, so friction wins until ε passes about 0.15.",
           "near": "Any physical situation where a parameter oscillates"
         }
       ],
