@@ -39,11 +39,12 @@ const Splice = spliceEngine();
 function run(set, sec = 4, warm = 1) {
   const p = new Splice(); p.port.onmessage({ data: set });
   const out = new Float32Array(Math.round(sec * SR)), L = new Float32Array(128), R = new Float32Array(128);
-  const total = Math.round((sec + warm) * SR) / 128 | 0; let k = 0, jumps0 = 0, sum0 = 0;
-  for (let b = 0; b < total; b++) {
-    if (b === Math.round(warm * SR / 128)) { jumps0 = 0; sum0 = 0; p.acc = { s2: 0, d2: 0, len: 0, jumps: 0, sum: 0, max: 0 }; p.port.posted.length = 0; }
+  // warm up in whole blocks, then record until the buffer is full: a tail left at zero would be a cut, and a cut is top end
+  const warmBlocks = Math.round(warm * SR / 128); let k = 0;
+  for (let b = 0; k < out.length; b++) {
+    if (b === warmBlocks) { p.acc = { s2: 0, d2: 0, len: 0, jumps: 0, sum: 0, max: 0 }; p.port.posted.length = 0; }
     p.process([], [[L, R]]);
-    if (b >= Math.round(warm * SR / 128)) for (let i = 0; i < 128 && k < out.length; i++) out[k++] = L[i];
+    if (b >= warmBlocks) for (let i = 0; i < 128 && k < out.length; i++) out[k++] = L[i];
   }
   const meters = p.port.posted.filter(m => m.kind === "meter");
   const jumps = meters.reduce((a, m) => a + m.jps * 0.25, 0) / (meters.length * 0.25);
@@ -75,7 +76,7 @@ console.log("1. the splice: the page's granular gotcha, on the piece's own workl
     console.log(`     ${at.toFixed(2)}    ${hann(at).toFixed(4)}   ${r.mean.toFixed(5)}     ${at ? (r.mean / hann(at)).toFixed(3) : "  ·  "}       ${r.hb.toFixed(1)} dB`);
   }
   const ratios = rows.filter(r => r.at >= 0.02).map(r => r.mean / r.w), rm = ratios.reduce((a, b) => a + b, 0) / ratios.length;
-  ok(ratios.every(q => Math.abs(q / rm - 1) < 0.05), `the same jumps (one seed), scaled by the window at the jump point: step ÷ w(a) holds at ${rm.toFixed(3)} within 5% from a 0.02 to 0.5`);
+  ok(ratios.every(q => Math.abs(q / rm - 1) < 0.04), `the same jumps (one seed), scaled by the window at the jump point: step ÷ w(a) holds at ${rm.toFixed(3)} within 4% from a 0.02 to 0.5`);
   // for a sine read at two uniform random places, E|sin u − sin v| = 8/π² ≈ 0.811; the grain's level is 0.5.
   // One seed's hundred jumps is a small sample, so the constant is checked on a long run: 750 jumps.
   const long = run({ ...base, at: 0.5 }, 60, 1);
@@ -95,9 +96,9 @@ console.log("1. the splice: the page's granular gotcha, on the piece's own workl
   }
   const sine = RESULTS.cloud.filter(r => r.table === "sine");
   ok(sine.every(r => Math.abs(r.jumps / r.expected - 1) < 0.03), "mid-grain, every grain jumps once a grain: jumps a second = n ÷ grain length, at 4, 16 and 32 grains");
-  ok(sine.every(r => r.rise > 20), `the cloud doesn't hide it, sine: the top end rises ${sine.map(r => r.rise.toFixed(1)).join(", ")} dB at 4, 16, 32 grains`);
+  ok(sine.every(r => r.rise > 30) && Math.max(...sine.map(r => r.rise)) - Math.min(...sine.map(r => r.rise)) < 2, `crowding doesn't dilute it, sine: the top end rises ${sine.map(r => r.rise.toFixed(1)).join(", ")} dB at 4, 16, 32 grains`);
   const bright = RESULTS.cloud.filter(r => r.table === "bright");
-  ok(bright.every(r => r.rise > 3), `a bright waveform hides some of it, not all: the rise is ${bright.map(r => r.rise.toFixed(1)).join(", ")} dB`);
+  ok(bright.every(r => r.rise > 3), `a source with its own top end covers some of it: the bright table's rise is ${bright.map(r => r.rise.toFixed(1)).join(", ")} dB`);
   ok(RESULTS.cloud.every(r => r.nf === 0 && r.peak <= 1), "no non-finite samples and no sample past full scale in any cloud");
 }
 

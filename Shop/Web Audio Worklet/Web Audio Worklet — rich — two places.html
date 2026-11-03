@@ -119,7 +119,7 @@ new AudioWorkletNode(ctx, 'two-places', { <span class="hot">outputChannelCount: 
   <section class="step" data-title="Written, not asked" data-loop="both" data-ask="0" hidden>
     <div class="eyebrow">Step 3 of 4 · asked in the loop only</div>
     <h3>The loop writes two channels, and the node was never asked for two</h3>
-    <p class="say">Now the other way round. The loop is step 1's, writing both channels. But the node was built without asking, and a node with no input and no channel count gets one output channel. So out[1] isn't there, and writing into it throws on the first sample. The node reports a processor error and stops for good: both ears silent, until the page builds a new node.</p>
+    <p class="say">Now the other way round. The loop is step 1's, writing both channels. But the node was built without asking, and a node with no input and no channel count gets one output channel. So out[1] isn't there, and writing into it throws on the first sample. The node reports a processor error and stops for good: both ears silent, until the node is rebuilt. The context survives; only the node is gone.</p>
     <div class="panel">
       <pre class="code">new AudioWorkletNode(ctx, 'two-places', { numberOfInputs: 0 })   <span class="bad">// no outputChannelCount</span>
 <span class="hot">out[0][i] = left;</span>   <span class="bad">out[1][i] = right;</span>   <span class="c">// out[1] is undefined: this line throws</span></pre>

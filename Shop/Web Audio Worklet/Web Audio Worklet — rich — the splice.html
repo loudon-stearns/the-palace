@@ -129,7 +129,7 @@ status: "proposal, Enrichment's proposal round 2026-11; not yet heard by Loudon"
         <div class="state" data-state></div>
       </div>
     </div>
-    <p class="try"><span class="eyebrow">Try</span>Switch the scatter off and on. The tone changes a little, since each grain starts in a different place, but no click arrives. The largest step reads under a millionth of full scale: the window's height at the first sample after it shuts.</p>
+    <p class="try"><span class="eyebrow">Try</span>Switch the scatter off and on. The tone changes a little, since each grain starts in a different place, but no click arrives. At this 80 ms grain the largest step reads under a millionth of full scale: the window's height at the first sample after it shuts. Shorter grains raise it, to about a hundred-thousandth at 20 ms, still far below a click.</p>
   </section>
 
   <section class="step" data-title="Move the jump" data-preset="move" hidden>
@@ -380,7 +380,7 @@ function readout() {
   const v = sec.querySelector('[data-verdict]');
   if (v) { const a = remembered['0'], b = remembered['0.5'];
     v.innerHTML = a && b
-      ? `<b>verdict</b>mid-grain, ${b.jps.toFixed(0)} jumps a second each put in a step of ${fmtStep(b.mean)} on average, and the top end sits ${(b.hb - a.hb).toFixed(1)} dB higher than with the jump at the zero, where each step is ${fmtStep(a.mean)}. ${b.hb - a.hb > 6 ? 'The cloud does not hide it: a click per grain, as the gotcha says.' : 'Little difference in the top end here: listen for yourself.'}`
+      ? `<b>verdict</b>mid-grain, ${b.jps.toFixed(0)} jumps a second each put in a step of ${fmtStep(b.mean)} on average, and the top end sits ${(b.hb - a.hb).toFixed(1)} dB higher than with the jump at the zero, where each step is ${fmtStep(a.mean)}. ${b.hb - a.hb > 6 ? 'Crowding the cloud does not dilute it: a click per grain, as the gotcha says. Whether a source covers it is the ear\'s call.' : 'Little difference in the top end here: listen for yourself.'}`
       : '<b>verdict</b>press sound, then switch between the two.'; }
 }
 

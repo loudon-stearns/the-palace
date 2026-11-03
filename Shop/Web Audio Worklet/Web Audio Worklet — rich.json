@@ -39,13 +39,13 @@
       "section": "Gotchas",
       "kind": "no-claim-edit",
       "status": "open",
-      "what": "Wording. 'A thrown channel-count mismatch' is, measured, a TypeError on the missing out[1] at the first sample: the node gets one channel, processorerror fires, and both ears go silent until the node is rebuilt, not just the right. Offer: 'silent-right, or a thrown error that silences the node in both ears.'"
+      "what": "Wording. 'A thrown channel-count mismatch' is, measured, a TypeError on the missing out[1] at the first sample: the node gets one channel, processorerror fires, and both ears go silent until the node is rebuilt, not just the right (the ErrorEvent reads 'Uncaught TypeError: Cannot set properties of undefined'; the context survives, and a new node in it plays). Offer: 'silent-right, or a thrown error that silences the node in both ears.'"
     },
     {
       "section": "Gotchas",
       "kind": "claim-change",
       "status": "open",
-      "what": "An addition, measured; the gotcha itself holds. On the splice's own worklet in node: at the window's zero the largest step a jump puts in the sound is 6.6e-7 of full scale; slid to a share a of the grain, the average step follows the Hann window w(a) exactly (the same jumps, scaled), and mid-grain the top end rises 35 dB for one grain. A crowd doesn't hide it: with 4, 16 and 32 grains of a sine the top end rises 26.6, 30.2 and 29.1 dB mid-grain; a bright eight-harmonic table hides some, not all (about 16 dB). Offer, if wanted: 'a dense cloud doesn't mask it.'"
+      "what": "An addition, measured; the gotcha itself holds. On the splice's own worklet in node: at the window's zero the largest step a jump puts in the sound is 6.6e-7 of full scale for an 80 ms grain; slid to a share a of the grain, the average step follows the Hann window w(a) within 4% (the same jumps, scaled), and mid-grain the top end rises 35 dB for one grain. Crowding doesn't dilute it: with 4, 16 and 32 grains of a sine the top end rises 37.1, 37.6 and 37.2 dB mid-grain, because each grain is levelled by 0.5/√n, which keeps the sound and the clicks at the same power at any density. What can cover the click is the source's own top end: a bright eight-harmonic table cuts the margin to about 16 dB, and whether that masks it is a listener's call. Offer, if wanted: 'crowding the cloud doesn't dilute it; only a source with its own top end can cover it, and how much is the ear's call.'"
     },
     {
       "section": "Recipes",
@@ -83,7 +83,7 @@
           "by": "the Maker · Web Audio Worklet, one processor, five loops",
           "height": 960,
           "title": "Two places · four steps",
-          "caption": "**Ask in both places, and what the idiom costs.** A low voice for the left ear and a higher one for the right, from one worklet; then the node asked for two channels with only one written (the right ear silent); then two written that were never asked for (a TypeError on the first sample, and both ears silent); then the test: the defensive idiom `out[1] || out[0]` on a node that wasn't asked. Rendered offline in headless Chromium 147 on the piece's own worklet: the idiom stops the throw but keeps one voice, the right one, in both ears; Murmuration's guarded form keeps the left; folding to mono keeps both. Each ear is metered and its voices named, so it reads without headphones. Firefox and Safari unmeasured; heard by no ear.",
+          "caption": "**Ask in both places, and what the idiom costs.** A low voice for the left ear and a higher one for the right, from one worklet; then the node asked for two channels with only one written (the right ear silent); then two written that were never asked for (a TypeError on the first sample, both ears silent until the node is rebuilt); then the test: the defensive idiom `out[1] || out[0]` on a node that wasn't asked. Rendered offline in headless Chromium 147 on the piece's own worklet: on a one-channel node the idiom stops the throw but keeps only one voice, the right one, in both ears; Murmuration's guarded form keeps the left; folding to mono keeps both. Each ear is metered and its voices named, so it reads without headphones. Firefox and Safari unmeasured; heard by no ear.",
           "near": "is mono unless you ask for stereo, in two places"
         },
         {
@@ -92,7 +92,7 @@
           "by": "the Maker · Web Audio Worklet, measuring its own jumps",
           "height": 1140,
           "title": "The splice · four steps",
-          "caption": "**Where a grain may jump.** One Hann-windowed grain; then a jump to a random read position each time the window shuts; then the jump slid toward the middle of the grain; then the test, a cloud of sixteen switched between the two. The worklet measures the step every jump puts in the sound. On its own code in node: at the window's zero the largest is 6.6e-7 of full scale; slid off the zero, the average step follows the window exactly (0.004 of the mid-grain step at a share of 0.02, a half at 0.25), and mid-grain one grain's top end rises 35 dB. The crowd doesn't hide it: 26.6 to 30.2 dB at 4 to 32 grains of a sine, about 16 dB with a bright table. Where the click becomes audible is the ear's call, and no ear has heard it yet.",
+          "caption": "**Where a grain may jump.** One Hann-windowed grain; then a jump to a random read position each time the window shuts; then the jump slid toward the middle of the grain; then the test, a cloud of sixteen switched between the two. The worklet measures the step every jump puts in the sound. On its own code in node: at the window's zero the largest is 6.6e-7 of full scale; slid off the zero, the average step follows the window within 4% (0.004 of the mid-grain step at a share of 0.02, a half at 0.25), and mid-grain one grain's top end rises 35 dB. Crowding doesn't dilute it: 37.1, 37.6 and 37.2 dB at 4, 16 and 32 grains of a sine, since the cloud's levelling keeps sound and clicks at the same power at any density; a bright table, with a top end of its own, cuts the margin to about 16 dB. Where the click becomes audible is the ear's call, and no ear has heard it yet.",
           "near": "Granular phase-scatter must land at the Hann envelope zero"
         }
       ],
@@ -171,7 +171,7 @@
           "origin": "gathered",
           "place": "margin",
           "title": "φ against η · Murmuration's steward, cycle 1",
-          "caption": "The knee from eight starts, with slow sweeps up and down: the whole transition lives in η 0 to 0.15. On the first build's linear slider it sat in the first sixth of the travel; the instrument now squares the slider so the knee sits mid-way, and η 0.80 lies past its end.",
+          "caption": "The knee from eight starts, with slow sweeps up and down: the whole transition lives in η 0 to 0.15. On the first build's linear slider it sat in the first sixth of the travel; the instrument now squares the slider so the knee sits mid-way, and η 0.80 lies past its end. Bottom: a performance where the flock orders and melts; under the first mapping (height is pitch) the sound's pitch focus hardly moves, under the order mapping (heading is pitch) it follows the flock, the evidence behind the Recipe's offer on mappings.",
           "near": "headless model run shows the polarization order parameter"
         }
       ],
