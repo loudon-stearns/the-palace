@@ -127,6 +127,10 @@ function GrainField(SR, seed) {
   const fBirth = new Float64Array(MAX), th0 = new Float64Array(MAX), t0 = new Float64Array(MAX), env = new Float64Array(MAX);
   const mark = new Float64Array(MAX);                    // phase against the partial it is nearest, at 3⁄4 life (pile coherence)
   const cs = new Float64Array(MAX), sn = new Float64Array(MAX), fs = new Float64Array(MAX); // cos, sin, smoothed frequency (Hz)
+  // from half its life on, each grain's phase is fitted with a straight line (least squares): its slope is the
+  // grain's frequency with the wobble its neighbours put on it averaged out, so a grain that is caught but
+  // rocked back and forth still reads as caught. The slip rate against partial k is that slope minus f_k.
+  const sN = new Float64Array(MAX), sT = new Float64Array(MAX), sP = new Float64Array(MAX), sTT = new Float64Array(MAX), sTP = new Float64Array(MAX);
   const PR = new Float64Array(10), PI = new Float64Array(10), MP = new Float64Array(10);
   const ALPHA = 1 - Math.exp(-1 / (0.015 * SR));
   let n = 0, t = 0;                                      // grains alive, samples elapsed
@@ -143,7 +147,7 @@ function GrainField(SR, seed) {
   function spawn(i, stagger) {
     const f = birthHz(i); fBirth[i] = f; om[i] = TWO_PI * f; th[i] = rnd() * TWO_PI;
     life[i] = Math.max(8, P.lifeMs * (1 + P.lifeJit * (2 * rnd() - 1)) * SR / 1000);
-    age[i] = stagger ? Math.floor(rnd() * life[i]) : 0; th0[i] = NaN; t0[i] = 0; mark[i] = NaN; fs[i] = f;
+    age[i] = stagger ? Math.floor(rnd() * life[i]) : 0; th0[i] = NaN; t0[i] = 0; mark[i] = NaN; fs[i] = f; sN[i] = sT[i] = sP[i] = sTT[i] = sTP[i] = 0;
   }
   function fill() { while (n < P.N) spawn(n++, P.stagger); if (n > P.N) n = P.N; }
   function set(d) {
@@ -157,7 +161,9 @@ function GrainField(SR, seed) {
   function die(i) {
     const tt = t - t0[i];
     const fMean = (isFinite(th0[i]) && tt > 0) ? (th[i] - th0[i]) / (TWO_PI * tt / SR) : NaN;
-    deaths.push({ fBirth: fBirth[i], fMean, life: life[i] / SR, phi: mark[i], k: nearest(fMean) });
+    const den = sN[i] * sTT[i] - sT[i] * sT[i];
+    const fFit = sN[i] > 2 && den > 0 ? (sN[i] * sTP[i] - sT[i] * sP[i]) / den / TWO_PI : fMean;
+    deaths.push({ fBirth: fBirth[i], fMean, fFit, life: life[i] / SR, phi: mark[i], k: nearest(fFit) });
     if (deaths.length > DEATHS) deaths.splice(0, deaths.length - DEATHS);
   }
   // G as a polynomial, g[m] u^m, m = 0…9, fitted by least squares on −1…1 (|u| ≤ 1 always)
@@ -236,6 +242,7 @@ function GrainField(SR, seed) {
       age[i] += 1;
       const p = age[i] / life[i];
       if (!isFinite(th0[i]) && p >= 0.5) { th0[i] = th[i]; t0[i] = t; }
+      if (isFinite(th0[i])) { const tau = (t - t0[i]) / SR, ph = th[i] - th0[i]; sN[i]++; sT[i] += tau; sP[i] += ph; sTT[i] += tau * tau; sTP[i] += tau * ph; }
       if (!isFinite(mark[i]) && p >= 0.75 && K) { const f = (th[i] - th0[i]) / (TWO_PI * (t - t0[i] + 1) / SR); const k = nearest(f); mark[i] = k >= 0 ? th[i] - TH[k] : NaN; }
       if (age[i] >= life[i]) { die(i); spawn(i, false); }
     }
@@ -255,16 +262,16 @@ function GrainField(SR, seed) {
     const rel = n && F.length ? th[0] - TH[0] : 0, ph = Array.from(th.subarray(0, n));
     return { grains: g, partials: P.partials.map((q, k) => ({ f: q.f, a: A[k] })), t: t / SR, rel, ph };
   }
-  // the record of finished grains: how many ended locked to a partial (their average frequency within tol Hz
-  // of it), how many of those to the partial nearest where they were born, each partial's share of the
+  // the record of finished grains: how many ended locked to a partial (their phase slipping against it by less
+  // than tol turns a second, fitted over the second half of their life), how many of those to the partial nearest where they were born, each partial's share of the
   // grains born nearest it, and how tightly a pile's phases agree (r of the phases against the partial)
   function stats(tol = 0.6, last = 1200) {
     const ds = deaths.slice(-last), per = F.length ? Array.from(F, () => ({ born: 0, cap: 0 })) : [];
     let tot = 0, cap = 0, near = 0, re = 0, im = 0, m = 0;
     for (const d of ds) {
-      if (!isFinite(d.fMean)) continue; tot++;
+      if (!isFinite(d.fFit)) continue; tot++;
       const kb = nearest(d.fBirth); if (kb >= 0) per[kb].born++;
-      let kc = -1; for (let k = 0; k < F.length; k++) if (Math.abs(d.fMean - F[k]) < tol) kc = k;
+      let kc = -1; for (let k = 0; k < F.length; k++) if (Math.abs(d.fFit - F[k]) < tol) kc = k;
       if (kc >= 0) { cap++; if (kc === kb) { near++; per[kb].cap++; } if (isFinite(d.phi)) { re += Math.cos(d.phi); im += Math.sin(d.phi); m++; } }
     }
     return { tot, cap: tot ? cap / tot : 0, nearest: cap ? near / cap : 1, r: m ? Math.hypot(re, im) / m : 0, per };
@@ -362,9 +369,9 @@ function drawStrip(c, v, o) {
   // histogram of finished grains
   if (o.hist !== false && SIM) {
     const B = Math.max(60, Math.round(w / 2)), cnt = new Float64Array(B); let mx = 0; const ds = SIM.deaths.slice(-(o.histN || 700));
-    for (const d of ds) { if (!isFinite(d.fMean) || d.fMean < lo || d.fMean > hi) continue; const b = Math.min(B - 1, Math.floor(X(d.fMean) / w * B)); cnt[b]++; mx = Math.max(mx, cnt[b]); }
+    for (const d of ds) { if (!isFinite(d.fFit) || d.fFit < lo || d.fFit > hi) continue; const b = Math.min(B - 1, Math.floor(X(d.fFit) / w * B)); cnt[b]++; mx = Math.max(mx, cnt[b]); }
     g.fillStyle = 'rgba(232,184,74,.75)'; for (let b = 0; b < B; b++) if (cnt[b]) { const hh = cnt[b] / mx * (bot - mid - 8); g.fillRect(b / B * w, bot - hh, Math.max(1, w / B - 0.5), hh); }
-    g.fillStyle = '#8a8aa0'; g.fillText('where the last finished grains ended', 4, mid + 8);
+    g.fillStyle = '#8a8aa0'; g.fillText('where the last finished grains ended (frequency fitted over the second half of each life)', 4, mid + 8);
   }
 }
 function wheel(c, angs, cols, labels) {
@@ -397,7 +404,7 @@ const STEPS = [
       slider({ label: 'detuning Δ', min: 0, max: 40, step: 0.5, get: () => S.det, set: v => { S.det = v; config(cfgFor[1]()); }, fmt: fmtHz }),
       slider({ label: 'pull K·a ⁄ 2π', min: 0, max: 30, step: 0.5, get: () => S.pull, set: v => { S.pull = v; setParam({ KA: v }); }, fmt: fmtHz })],
     eqs: [['dθ⁄dt = ω + K · a · sin(Θ − θ)', 'How fast the grain\'s phase turns = its own speed + (the pull) × sin(the partial\'s phase − the grain\'s phase). The page\'s equation with one partial.'],
-          ['caught when |Δ| < K·a ⁄ 2π;  otherwise it beats at √(Δ² − (K·a ⁄ 2π)²)', 'The grain is caught when its detuning in Hz is smaller than the pull in Hz (Adler\'s rule). Otherwise it still slides past, a little slower than its detuning alone would say.']],
+          ['caught when |Δ| < K·a ⁄ 2π;  otherwise it beats at √(Δ² − (K·a ⁄ 2π)²)', 'The grain is caught when its detuning in Hz is smaller than the pull in Hz (Adler\'s rule; checked here to within 0.3 Hz or 6%). Otherwise it still slides past, a little slower than its detuning alone would say.']],
     back: 'The later steps use many grains, each obeying this one rule against every partial at once.' },
   { n: 2, name: 'deep well, shallow well',
     says: '<b>A loud partial and a quiet one.</b> 440 Hz at full strength, 660 Hz at three tenths. A stream of grains is born anywhere between 380 and 740 Hz, each living about 400 ms. The page says a loud partial is a deep well and a quiet one shallow. Watch the dots: around 440 a wide band of them collapses onto the line; around 660, a narrow one. Below, where finished grains ended: two spikes, one wide catchment, one narrow. The quiet one catches a little wider than its own rule, and only on its high side: the loud partial below pulls every grain near 660 down a hertz or two.',
@@ -419,13 +426,13 @@ const STEPS = [
     stage: () => el('div', {},
       el('div', { class: 'gs-grid' },
         el('div', { class: 'gs-panel' }, el('div', { class: 'gs-plabel' }, el('span', {}, 'caught, partial by partial · bars measured, ticks predicted'), el('span', { id: 'fnote' })), el('canvas', { id: 'bars' }), el('div', { class: 'gs-btns', style: 'margin-top:8px' }, el('button', { id: 'runf', on: { click: runFilter } }, 'measure the pile'))),
-        el('div', { class: 'gs-panel' }, el('div', { class: 'gs-plabel' }, el('span', {}, 'caught, against grain length · filter open'), el('span', { id: 'snote' })), el('canvas', { id: 'sweep' }), el('div', { class: 'gs-btns', style: 'margin-top:8px' }, el('button', { id: 'runs', on: { click: runSweep } }, 'sweep grain length')))),
+        el('div', { class: 'gs-panel' }, el('div', { class: 'gs-plabel' }, el('span', {}, 'caught, against grain length · amber all partials, indigo one alone'), el('span', { id: 'snote' })), el('canvas', { id: 'sweep' }), el('div', { class: 'gs-btns', style: 'margin-top:8px' }, el('button', { id: 'runs', on: { click: runSweep } }, 'sweep grain length')))),
       el('div', { class: 'gs-panel', style: 'margin-top:14px' }, el('div', { class: 'gs-plabel' }, el('span', {}, 'the cloud now'), el('span', {}, 'log frequency')), el('canvas', { id: 'strip' }))),
     controls: () => [goButton(),
       slider({ label: 'bandpass centre', min: 200, max: 1400, log: true, get: () => S.bpHz, set: v => { S.bpHz = v; setParam({ bpHz: v }); }, fmt: v => Math.round(v) + ' Hz' }),
       slider({ label: 'grain length (what you hear)', min: 15, max: 1000, log: true, get: () => S.life, set: v => { S.life = v; setParam({ lifeMs: v }); }, fmt: v => Math.round(v) + ' ms' })],
     eqs: [['caught share of partial k ≈ min(1, 2 · A<sub>k</sub> · K ⁄ 2π ⁄ 110 Hz)', 'A grain born nearest partial k lands somewhere in the 110 Hz between its neighbours; it is caught if it lands within A<sub>k</sub>·K ⁄ 2π of the partial on either side.'],
-          ['catching takes about 1 ⁄ (A<sub>k</sub> · K) seconds and more', 'The pull turns the grain\'s phase toward the partial\'s at a rate set by A<sub>k</sub>·K; a grain much shorter than that dies before it is caught.']],
+          ['τ = 1 ⁄ (2π √(P² − Δ²)),  P = A<sub>k</sub> · K ⁄ 2π', 'How long the catch takes (τ, one time constant) is one over 2π times the square root of (the pull squared minus the detuning squared), both in Hz: about 5 ms for a grain born on a 30 Hz well, longer near its edge. A grain lives through its catch only if it lasts several of those.']],
     back: 'The cloud here is step 3\'s. The pull is K ⁄ 2π = 30 Hz at full amplitude.' },
 ];
 
@@ -443,9 +450,12 @@ async function runSweep() {
   const L = [15, 30, 60, 120, 300, 1000], out = [];
   for (const ms of L) {
     $('snote').textContent = 'running ' + ms + ' ms…'; await sleep0();
+    const secs = Math.max(8, ms / 1000 * 40);
+    // the whole spectrum, filter open; and the ceiling: one partial alone, grains born across its 110 Hz
     const g = GrainField(SRV, 33); g.set(Object.assign({ respawn: true }, cfgFor[3](), { bpOn: false, lifeMs: ms }));
-    const secs = Math.max(8, ms / 1000 * 40); for (let t = 0; t < secs; t += 1) { g.run(Math.min(1, secs - t)); await sleep0(); }
-    out.push({ ms, share: g.stats(0.6, 4000).cap });
+    const l = GrainField(SRV, 33); l.set(Object.assign({ respawn: true }, cfgFor[3](), { bpOn: false, lifeMs: ms, partials: [{ f: 660, A: 1 }], fLo: 605, fHi: 715 }));
+    for (let t = 0; t < secs; t += 1) { g.run(Math.min(1, secs - t)); l.run(Math.min(1, secs - t)); await sleep0(); }
+    out.push({ ms, share: g.stats(0.6, 4000).cap, lone: l.stats(0.6, 4000).cap });
   }
   // the same, with 8 grains instead of 48: does the cloud's size matter to the attractor?
   const g8 = GrainField(SRV, 33); g8.set(Object.assign({ respawn: true }, cfgFor[3](), { bpOn: false, lifeMs: 300, N: 8 }));
@@ -466,12 +476,15 @@ function drawSweep() {
   const c = $('sweep'); if (!c) return; const { g, w, h } = fitCanvas(c, 170); g.clearRect(0, 0, w, h);
   g.font = '10px JetBrains Mono, monospace';
   if (!S.sweep) { g.fillStyle = '#8a8aa0'; g.fillText('press "sweep grain length"', 8, h / 2); return; }
-  const top = 10, bot = h - 18, X = ms => 18 + Math.log(ms / 10) / Math.log(1500 / 10) * (w - 30), Y = s => bot - s / 0.5 * (bot - top);
+  const top = 10, bot = h - 18, X = ms => 18 + Math.log(ms / 10) / Math.log(1500 / 10) * (w - 30), Y = s => bot - s / 0.7 * (bot - top);
   g.strokeStyle = '#c8c8d8'; g.setLineDash([4, 4]); g.beginPath(); g.moveTo(X(10), Y(S.sweep.pred)); g.lineTo(X(1500), Y(S.sweep.pred)); g.stroke(); g.setLineDash([]);
   g.fillStyle = '#c8c8d8'; g.fillText('Adler: ' + S.sweep.pred.toFixed(2), X(10) + 2, Y(S.sweep.pred) - 4);
+  g.strokeStyle = '#6366f1'; g.beginPath(); S.sweep.out.forEach((p, k) => { const x = X(p.ms), y = Y(p.lone); k ? g.lineTo(x, y) : g.moveTo(x, y); }); g.stroke();
+  S.sweep.out.forEach(p => { g.fillStyle = '#6366f1'; g.beginPath(); g.arc(X(p.ms), Y(p.lone), 2.5, 0, TAU); g.fill(); });
+  g.fillStyle = '#6366f1'; g.fillText('one partial alone', X(10) + 2, Y(S.sweep.out[0].lone) - 18);
   g.strokeStyle = '#e8b84a'; g.beginPath(); S.sweep.out.forEach((p, k) => { const x = X(p.ms), y = Y(p.share); k ? g.lineTo(x, y) : g.moveTo(x, y); }); g.stroke();
   S.sweep.out.forEach(p => { g.fillStyle = '#e8b84a'; g.beginPath(); g.arc(X(p.ms), Y(p.share), 3.5, 0, TAU); g.fill(); g.fillStyle = '#8a8aa0'; g.fillText(p.ms + ' ms', X(p.ms) - 12, h - 4); });
-  g.fillText('0', 2, bot - 2); g.fillText('0.5', 2, top + 8);
+  g.fillText('0', 2, bot - 2); g.fillText('0.7', 2, top + 8);
 }
 
 // ---- the live picture and its readouts
@@ -504,9 +517,9 @@ function readouts() {
     $('wnote').textContent = caught ? 'sits still: caught' : 'goes round: drifting';
   } else if (S.step === 2) {
     const ds = SIM.deaths.slice(-800), F = [440, 660], A = [1, 0.3], wid = [0, 0], cnt = [0, 0];
-    for (const d of ds) { if (!isFinite(d.fMean)) continue; F.forEach((f, k) => { if (Math.abs(d.fMean - f) < 0.6) { cnt[k]++; wid[k] = Math.max(wid[k], Math.abs(d.fBirth - f)); } }); }
+    for (const d of ds) { if (!isFinite(d.fFit)) continue; F.forEach((f, k) => { if (Math.abs(d.fFit - f) < 0.6) { cnt[k]++; wid[k] = Math.max(wid[k], Math.abs(d.fBirth - f)); } }); }
     F.forEach((f, k) => rd.push(f + ' Hz caught grains born up to <b>' + wid[k].toFixed(1) + ' Hz</b> away (its own rule: ' + (S.KA2 * A[k]).toFixed(1) + ')'));
-    rd.push('finished grains counted <b>' + ds.filter(d => isFinite(d.fMean)).length + '</b>');
+    rd.push('finished grains counted <b>' + ds.filter(d => isFinite(d.fFit)).length + '</b>');
   } else {
     const st = SIM.stats(0.6, 600);
     rd.push('grains caught, lately <b>' + Math.round(st.cap * 100) + '%</b>');
@@ -514,7 +527,7 @@ function readouts() {
       const P = S.filt.per.filter(p => p.born > 10), err = P.reduce((a, p) => a + Math.abs(p.share - p.pred), 0) / Math.max(1, P.length);
       rd.push('pile measured at ' + Math.round(S.filt.bp) + ' Hz: off the rule by <b>' + err.toFixed(3) + '</b> on average, partial by partial');
     }
-    if (S.step === 4 && S.sweep) rd.push('caught at 15 / 30 / 60 / 120 / 300 / 1000 ms: <b>' + S.sweep.out.map(p => p.share.toFixed(2)).join(' / ') + '</b> (rule ' + S.sweep.pred.toFixed(2) + ')');
+    if (S.step === 4 && S.sweep) rd.push('caught at 15 / 30 / 60 / 120 / 300 / 1000 ms: <b>' + S.sweep.out.map(p => p.share.toFixed(2)).join(' / ') + '</b> · one partial alone ' + S.sweep.out.map(p => p.lone.toFixed(2)).join(' / ') + ' (rule ' + S.sweep.pred.toFixed(2) + ')');
     if (S.step === 4 && S.sweep) rd.push('8 grains instead of 48 at 300 ms: <b>' + S.sweep.n8.toFixed(2) + '</b>');
   }
   $('read').innerHTML = rd.map(x => '<span>' + x + '</span>').join('');
@@ -524,8 +537,8 @@ function verdict() {
   const box = $('verdictbox'); if (S.step !== 4) { box.innerHTML = ''; return; }
   if (!S.filt || !S.sweep) { box.innerHTML = '<div class="gs-verdict">Run both: measure the pile with the filter where you left it, and sweep the grain length.</div>'; return; }
   const P = S.filt.per.filter(p => p.born > 10), err = P.reduce((a, p) => a + Math.abs(p.share - p.pred), 0) / Math.max(1, P.length);
-  const o = S.sweep.out, at = ms => o.find(p => p.ms === ms).share;
-  box.innerHTML = '<div class="gs-verdict"><b>The pile follows the filter, by the rule.</b> Partial by partial, the share of grains caught sits within ' + err.toFixed(2) + ' of what Adler\'s rule predicts from the filtered amplitude: loud wells catch, quiet ones let grains through. <b>But only for grains that live long enough.</b> With the filter open the lone-partial rule says ' + S.sweep.pred.toFixed(2) + ' of grains are caught; 1000 ms grains reach ' + at(1000).toFixed(2) + ' (the neighbouring partials pull too, and narrow each well a little), 300 ms grains ' + at(300).toFixed(2) + ', 60 ms grains ' + at(60).toFixed(2) + ', 15 ms grains ' + at(15).toFixed(2) + '. Catching takes time, about 1 ⁄ (A·K) and several times that, and a short grain dies first. The page never names grain length in the hybrid; this is the knob that decides whether the attractor is heard at all. And the size of the cloud does not matter: 8 grains are caught as often as 48 (' + S.sweep.n8.toFixed(2) + '), since each grain feels only the partials.</div>';
+  const o = S.sweep.out, at = ms => o.find(p => p.ms === ms).share, at1 = ms => o.find(p => p.ms === ms).lone;
+  box.innerHTML = '<div class="gs-verdict"><b>The pile follows the filter, by the rule.</b> Partial by partial, the share of grains caught sits within ' + err.toFixed(2) + ' of what Adler\'s rule predicts from the filtered amplitude: loud wells catch, quiet ones let grains through. <b>But only for grains that live long enough.</b> With the filter open the rule says ' + S.sweep.pred.toFixed(2) + ' of grains are caught. One partial alone catches ' + at1(1000).toFixed(2) + ' of grains that live 1000 ms, ' + at1(120).toFixed(2) + ' at 120 ms, ' + at1(60).toFixed(2) + ' at 60 ms, ' + at1(30).toFixed(2) + ' at 30 ms and ' + at1(15).toFixed(2) + ' at 15 ms; the whole spectrum, ' + at(1000).toFixed(2) + ', ' + at(120).toFixed(2) + ', ' + at(60).toFixed(2) + ', ' + at(30).toFixed(2) + ', ' + at(15).toFixed(2) + '. Catching takes a few time constants of 1 ⁄ (2π √(P² − Δ²)), about 5 ms at the centre of a 30 Hz well, so the fall is over by about 120 ms: shorter grains die before they are caught, and the neighbouring partials slow the catch a little more. Below about 30 ms a grain\'s own spread, 2 ⁄ T, is wider than the 60 Hz well itself, so a pile of such grains could not be heard even if it formed: step 1 of the first walk, turning up here. A grain counts as caught when its phase stops slipping against the partial: a line fitted to its phase over the second half of its life slips less than 0.6 turns a second. The page never names grain length in the hybrid; below about 100 ms it decides whether the attractor is heard at all. And the size of the cloud does not matter: 8 grains are caught as often as 48 (' + S.sweep.n8.toFixed(2) + '), since each grain feels only the partials.</div>';
 }
 
 function build() {

@@ -129,6 +129,10 @@ function GrainField(SR, seed) {
   const fBirth = new Float64Array(MAX), th0 = new Float64Array(MAX), t0 = new Float64Array(MAX), env = new Float64Array(MAX);
   const mark = new Float64Array(MAX);                    // phase against the partial it is nearest, at 3⁄4 life (pile coherence)
   const cs = new Float64Array(MAX), sn = new Float64Array(MAX), fs = new Float64Array(MAX); // cos, sin, smoothed frequency (Hz)
+  // from half its life on, each grain's phase is fitted with a straight line (least squares): its slope is the
+  // grain's frequency with the wobble its neighbours put on it averaged out, so a grain that is caught but
+  // rocked back and forth still reads as caught. The slip rate against partial k is that slope minus f_k.
+  const sN = new Float64Array(MAX), sT = new Float64Array(MAX), sP = new Float64Array(MAX), sTT = new Float64Array(MAX), sTP = new Float64Array(MAX);
   const PR = new Float64Array(10), PI = new Float64Array(10), MP = new Float64Array(10);
   const ALPHA = 1 - Math.exp(-1 / (0.015 * SR));
   let n = 0, t = 0;                                      // grains alive, samples elapsed
@@ -145,7 +149,7 @@ function GrainField(SR, seed) {
   function spawn(i, stagger) {
     const f = birthHz(i); fBirth[i] = f; om[i] = TWO_PI * f; th[i] = rnd() * TWO_PI;
     life[i] = Math.max(8, P.lifeMs * (1 + P.lifeJit * (2 * rnd() - 1)) * SR / 1000);
-    age[i] = stagger ? Math.floor(rnd() * life[i]) : 0; th0[i] = NaN; t0[i] = 0; mark[i] = NaN; fs[i] = f;
+    age[i] = stagger ? Math.floor(rnd() * life[i]) : 0; th0[i] = NaN; t0[i] = 0; mark[i] = NaN; fs[i] = f; sN[i] = sT[i] = sP[i] = sTT[i] = sTP[i] = 0;
   }
   function fill() { while (n < P.N) spawn(n++, P.stagger); if (n > P.N) n = P.N; }
   function set(d) {
@@ -159,7 +163,9 @@ function GrainField(SR, seed) {
   function die(i) {
     const tt = t - t0[i];
     const fMean = (isFinite(th0[i]) && tt > 0) ? (th[i] - th0[i]) / (TWO_PI * tt / SR) : NaN;
-    deaths.push({ fBirth: fBirth[i], fMean, life: life[i] / SR, phi: mark[i], k: nearest(fMean) });
+    const den = sN[i] * sTT[i] - sT[i] * sT[i];
+    const fFit = sN[i] > 2 && den > 0 ? (sN[i] * sTP[i] - sT[i] * sP[i]) / den / TWO_PI : fMean;
+    deaths.push({ fBirth: fBirth[i], fMean, fFit, life: life[i] / SR, phi: mark[i], k: nearest(fFit) });
     if (deaths.length > DEATHS) deaths.splice(0, deaths.length - DEATHS);
   }
   // G as a polynomial, g[m] u^m, m = 0…9, fitted by least squares on −1…1 (|u| ≤ 1 always)
@@ -238,6 +244,7 @@ function GrainField(SR, seed) {
       age[i] += 1;
       const p = age[i] / life[i];
       if (!isFinite(th0[i]) && p >= 0.5) { th0[i] = th[i]; t0[i] = t; }
+      if (isFinite(th0[i])) { const tau = (t - t0[i]) / SR, ph = th[i] - th0[i]; sN[i]++; sT[i] += tau; sP[i] += ph; sTT[i] += tau * tau; sTP[i] += tau * ph; }
       if (!isFinite(mark[i]) && p >= 0.75 && K) { const f = (th[i] - th0[i]) / (TWO_PI * (t - t0[i] + 1) / SR); const k = nearest(f); mark[i] = k >= 0 ? th[i] - TH[k] : NaN; }
       if (age[i] >= life[i]) { die(i); spawn(i, false); }
     }
@@ -257,16 +264,16 @@ function GrainField(SR, seed) {
     const rel = n && F.length ? th[0] - TH[0] : 0, ph = Array.from(th.subarray(0, n));
     return { grains: g, partials: P.partials.map((q, k) => ({ f: q.f, a: A[k] })), t: t / SR, rel, ph };
   }
-  // the record of finished grains: how many ended locked to a partial (their average frequency within tol Hz
-  // of it), how many of those to the partial nearest where they were born, each partial's share of the
+  // the record of finished grains: how many ended locked to a partial (their phase slipping against it by less
+  // than tol turns a second, fitted over the second half of their life), how many of those to the partial nearest where they were born, each partial's share of the
   // grains born nearest it, and how tightly a pile's phases agree (r of the phases against the partial)
   function stats(tol = 0.6, last = 1200) {
     const ds = deaths.slice(-last), per = F.length ? Array.from(F, () => ({ born: 0, cap: 0 })) : [];
     let tot = 0, cap = 0, near = 0, re = 0, im = 0, m = 0;
     for (const d of ds) {
-      if (!isFinite(d.fMean)) continue; tot++;
+      if (!isFinite(d.fFit)) continue; tot++;
       const kb = nearest(d.fBirth); if (kb >= 0) per[kb].born++;
-      let kc = -1; for (let k = 0; k < F.length; k++) if (Math.abs(d.fMean - F[k]) < tol) kc = k;
+      let kc = -1; for (let k = 0; k < F.length; k++) if (Math.abs(d.fFit - F[k]) < tol) kc = k;
       if (kc >= 0) { cap++; if (kc === kb) { near++; per[kb].cap++; } if (isFinite(d.phi)) { re += Math.cos(d.phi); im += Math.sin(d.phi); m++; } }
     }
     return { tot, cap: tot ? cap / tot : 0, nearest: cap ? near / cap : 1, r: m ? Math.hypot(re, im) / m : 0, per };
@@ -364,9 +371,9 @@ function drawStrip(c, v, o) {
   // histogram of finished grains
   if (o.hist !== false && SIM) {
     const B = Math.max(60, Math.round(w / 2)), cnt = new Float64Array(B); let mx = 0; const ds = SIM.deaths.slice(-(o.histN || 700));
-    for (const d of ds) { if (!isFinite(d.fMean) || d.fMean < lo || d.fMean > hi) continue; const b = Math.min(B - 1, Math.floor(X(d.fMean) / w * B)); cnt[b]++; mx = Math.max(mx, cnt[b]); }
+    for (const d of ds) { if (!isFinite(d.fFit) || d.fFit < lo || d.fFit > hi) continue; const b = Math.min(B - 1, Math.floor(X(d.fFit) / w * B)); cnt[b]++; mx = Math.max(mx, cnt[b]); }
     g.fillStyle = 'rgba(232,184,74,.75)'; for (let b = 0; b < B; b++) if (cnt[b]) { const hh = cnt[b] / mx * (bot - mid - 8); g.fillRect(b / B * w, bot - hh, Math.max(1, w / B - 0.5), hh); }
-    g.fillStyle = '#8a8aa0'; g.fillText('where the last finished grains ended', 4, mid + 8);
+    g.fillStyle = '#8a8aa0'; g.fillText('where the last finished grains ended (frequency fitted over the second half of each life)', 4, mid + 8);
   }
 }
 function wheel(c, angs, cols, labels) {
@@ -414,7 +421,7 @@ const STEPS = [
     eqs: [['dθ<sub>i</sub>⁄dt = ω<sub>i</sub>', 'Uncoupled: every grain turns at its own speed.']],
     back: 'Each next step adds one pull.' },
   { n: 2, name: 'attractor only',
-    says: '<b>The partials pull.</b> Each grain feels the spectrum, as on the section above. The page says each grain <q>independently finds its nearest attractor partial</q> and the cloud forms neat piles. Raise the pull until the wells overlap and read the meters: how many grains are caught at all, and how many of those by the partial nearest where they were born. A loud partial one place further off can win over a quiet one next door.',
+    says: '<b>The partials pull.</b> Each grain feels the spectrum, as on the section above. The page says each grain <q>independently finds its nearest attractor partial</q> and the cloud forms neat piles. Raise the pull until the loud wells reach past the midpoint to their quiet neighbours and read the meters: how many grains are caught at all, and how many of those by the partial nearest where they were born. A loud partial one place further off can win over a quiet one next door.',
     stage: () => stripPanel('amber = caught · partials\' height = loudness'),
     controls: () => [goButton(), slider({ label: 'pull K ⁄ 2π at full loudness', min: 10, max: 90, step: 1, get: () => S.KA, set: v => { S.KA = v; setParam({ KA: v }); }, fmt: fmtHz })],
     eqs: [['dθ<sub>i</sub>⁄dt = ω<sub>i</sub> + Σ<sub>k</sub> A<sub>k</sub> · K · sin(Θ<sub>k</sub> − θ<sub>i</sub>)', 'The page\'s equation: each partial pulls each grain in proportion to its loudness. A grain is caught by partial k only if it is born within A<sub>k</sub>·K ⁄ 2π Hz of it.'],
@@ -521,7 +528,7 @@ function readouts() {
   if (S.step === 1 || S.step === 2) {
     const st = SIM.stats(0.6, 900);
     rd.push('grains caught <b>' + Math.round(st.cap * 100) + '%</b>');
-    if (S.step === 2) { rd.push('of those, by the nearest partial <b>' + Math.round(st.nearest * 100) + '%</b>'); rd.push('pile coherence r <b>' + st.r.toFixed(2) + '</b>'); rd.push('wells overlap when the loud ones reach past 55 Hz: <b>' + (S.KA > 55 ? 'yes' : 'no') + '</b>'); }
+    if (S.step === 2) { rd.push('of those, by the nearest partial <b>' + Math.round(st.nearest * 100) + '%</b>'); rd.push('pile coherence r <b>' + st.r.toFixed(2) + '</b>'); rd.push('loud wells reach past the midpoint to the quiet ones (55 Hz): <b>' + (S.KA > 55 ? 'yes' : 'no') + '</b>'); }
     rd.push('finished grains counted <b>' + st.tot + '</b>');
   } else if (S.step === 3) {
     const st = SIM.stats(0.6, 500);

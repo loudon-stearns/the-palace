@@ -69,13 +69,18 @@ function check(name, ok, detail) { console.log((ok ? 'pass' : 'FAIL') + '  ' + n
     check(`the test: the pile follows the filter at ${bpHz} Hz, partial by partial`, err < 0.05, `mean |measured − rule| ${err.toFixed(3)} · ` + per.map(p => `${p.f}:${p.share.toFixed(2)}/${p.pred.toFixed(2)}`).join(' '));
     out['pile ' + bpHz] = per;
   }
-  // grain length: the piece's own runSweep
+  // grain length: the piece's own runSweep, with its ceiling, one partial alone; caught = the phase fitted over
+  // the second half of a life slips under 0.6 turns a second against the partial (wobble from neighbours averages out)
   const sweep = [];
-  for (const ms of [15, 30, 60, 120, 300, 1000]) { const g = FieldC(SR, 33); g.set(Object.assign({ respawn: true }, base, { bpOn: false, lifeMs: ms })); g.run(Math.max(8, ms / 1000 * 40)); sweep.push({ ms, share: g.stats(0.6, 4000).cap }); }
-  const pred = 2 * KA3 / 110, at = ms => sweep.find(p => p.ms === ms).share;
-  // the lone-partial rule is the ceiling: neighbours 110 Hz away narrow each well a little, so even 1000 ms grains fall a
-  // few hundredths short; the claim checked is the fall, short grains far under it
-  check('the test: short grains are not caught (15 ms under a tenth of the rule; 1000 ms within 0.06 of it)', at(15) < 0.1 * pred && at(60) < 0.35 * pred && at(1000) > pred - 0.06 && at(300) > at(60) && at(60) > at(15), sweep.map(p => `${p.ms} ms ${p.share.toFixed(3)}`).join(' · ') + ` · rule ${pred.toFixed(3)}`);
+  for (const ms of [15, 30, 60, 120, 300, 1000]) {
+    const secs = Math.max(8, ms / 1000 * 40);
+    const g = FieldC(SR, 33); g.set(Object.assign({ respawn: true }, base, { bpOn: false, lifeMs: ms })); g.run(secs);
+    const l = FieldC(SR, 33); l.set(Object.assign({ respawn: true }, base, { bpOn: false, lifeMs: ms, partials: [{ f: 660, A: 1 }], fLo: 605, fHi: 715 })); l.run(secs);
+    sweep.push({ ms, share: g.stats(0.6, 4000).cap, lone: l.stats(0.6, 4000).cap });
+  }
+  const pred = 2 * KA3 / 110, at = ms => sweep.find(p => p.ms === ms).share, lone = ms => sweep.find(p => p.ms === ms).lone;
+  check('the test: short grains are not caught (15 and 30 ms under a fifth of the rule, alone or among partials); from 120 ms the catch is full', at(15) < 0.1 * pred && lone(15) < 0.1 * pred && at(30) < 0.2 * pred && lone(30) < 0.3 * pred && [120, 300, 1000].every(ms => Math.abs(at(ms) - lone(ms)) < 0.05 && Math.abs(lone(ms) - pred) < 0.03),
+    sweep.map(p => `${p.ms} ms ${p.share.toFixed(3)} (alone ${p.lone.toFixed(3)})`).join(' · ') + ` · rule ${pred.toFixed(3)}`);
   out.sweep = sweep;
   const g8 = FieldC(SR, 33); g8.set(Object.assign({ respawn: true }, base, { bpOn: false, lifeMs: 300, N: 8 })); g8.run(40);
   check('the test: 8 grains are caught as often as 48', Math.abs(g8.stats(0.6, 4000).cap - at(300)) < 0.05, `8: ${g8.stats(0.6, 4000).cap.toFixed(3)} · 48: ${at(300).toFixed(3)}`);
@@ -87,8 +92,8 @@ function check(name, ok, detail) { console.log((ok ? 'pass' : 'FAIL') + '  ' + n
   const ALT = []; for (let h = 2; h <= 12; h++) ALT.push({ f: 110 * h, A: h % 2 ? 0.25 : 1 });
   const res = {};
   for (const KA of [40, 80]) { const g = FieldR(SR, 7); g.set({ N: 48, lifeMs: 400, lifeJit: 0.25, stagger: true, fLo: 165, fHi: 1375, KA, Kg: 0, partials: ALT, respawn: true }); g.run(30); res[KA] = g.stats(0.6, 4000); }
-  check('attractor only: separate wells (40 Hz) catch about half, every one by its nearest partial', res[40].cap > 0.35 && res[40].cap < 0.6 && res[40].nearest > 0.98, `caught ${(res[40].cap * 100).toFixed(1)}% · nearest ${(res[40].nearest * 100).toFixed(1)}%`);
-  check('attractor only: overlapping wells (80 Hz) send some grains past their nearest partial, and many still find none', res[80].nearest < 0.95 && res[80].cap < 0.85, `caught ${(res[80].cap * 100).toFixed(1)}% · nearest ${(res[80].nearest * 100).toFixed(1)}%`);
+  check('attractor only: separate wells (40 Hz) catch about half (rule 0.498), every one by its nearest partial', res[40].cap > 0.42 && res[40].cap < 0.58 && res[40].nearest > 0.98, `caught ${(res[40].cap * 100).toFixed(1)}% · nearest ${(res[40].nearest * 100).toFixed(1)}%`);
+  check('attractor only: loud wells past the midpoint (80 Hz) catch most grains, and send some past their nearest partial', res[80].nearest < 0.95 && res[80].cap > 0.7, `caught ${(res[80].cap * 100).toFixed(1)}% · nearest ${(res[80].nearest * 100).toFixed(1)}%`);
   out.attractor = { 40: res[40], 80: res[80] };
   const pile = [];
   for (const Kg of [0, 10, 20, 40, 80]) { const g = FieldR(SR, 5); g.set({ N: 24, lifeMs: 400, lifeJit: 0.25, stagger: true, fLo: 400, fHi: 484, KA: 30, Kg, clip: 'none', partials: [{ f: 440, A: 1 }], respawn: true }); g.run(20); const st = g.stats(0.6, 4000); pile.push({ Kg, cap: st.cap, r: st.r }); }
