@@ -60,7 +60,23 @@
         }
       ],
       "made_against": "fa59acbcf41f",
-      "stamped": "2026-11-03"
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "/Projects/2D Torus Wavetable Synthesizer/2D Torus Wavetable Synthesizer — rich — the ratio gate.html",
+            "verdict": "keep",
+            "why": "Not re-judged, per the brief; the caption quotes its finding as its maker's and challenger's, says not re-measured, and its source challenge kept it."
+          },
+          {
+            "file": "/Dissolutions/proofs/2026-10-20-the-lattice-read-back/the-lattice-read-back.html",
+            "verdict": "keep",
+            "why": "A real test of the rank paragraph; the caption's rank-1 sentence is the proof's own, and the storage note is honest."
+          }
+        ]
+      }
     },
     {
       "heading": "Three Operational Frames",
@@ -100,7 +116,28 @@
         }
       ],
       "made_against": "bfac25dbdeca",
-      "stamped": "2026-11-03"
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "DSP in Looping Dimensions — rich — two combs.html",
+            "verdict": "keep",
+            "why": "Tests Frame 2 and walks up; numbers re-ran and hold analytically (in a row: axes +26.5 dB, mixed −1.6, random −0.4). Note: the page says coupled, the piece puts them in a row; add a line that the linear argument covers every joining and the snap-or-slide piece tests the cross-coupled case."
+          },
+          {
+            "file": "DSP in Looping Dimensions — rich — snap or slide.html",
+            "verdict": "remake",
+            "why": "Piece is right, caption is not: the lossless mixer lands on the odd harmonics of f_S ⁄ 2 (42.0 Hz), not on 84 Hz's series. Change the caption's last sentence (and offer 4's \"Both land on…\") to name the crossfeed on 84 Hz and the lossless mixer on its odd half-series; say \"about ×0.50, ×0.25\" for the change reading."
+          },
+          {
+            "file": "/Projects/2D Torus Wavetable Synthesizer/Auditions/cycle-7/penrose_kuramoto_ramp.png",
+            "verdict": "keep",
+            "why": "The right contrast; its numbers match the 2D Torus manifest and the steward's codebox (K* = 0.80 Hz, 1.518 pulled to 3 ⁄ 2)."
+          }
+        ]
+      }
     },
     {
       "heading": "The Honest Limit",
@@ -123,7 +160,18 @@
         }
       ],
       "made_against": "2d3720aebd7e",
-      "stamped": "2026-11-03"
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "DSP in Looping Dimensions — rich — listen longer.html",
+            "verdict": "remake",
+            "why": "Tests the limit and walks up, but \"136,862 lines within 60 dB of the loudest\" counts lines above an absolute 10⁻³; the loudest is 0.0638, so that is 36 dB down. Within 60 dB there are about 4.10 million. Relabel or rethreshold in the note, the six-loop verdict, offer 6 and checks.mjs."
+          }
+        ]
+      }
     }
   ],
   "offers": [
