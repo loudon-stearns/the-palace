@@ -29,6 +29,87 @@
         "by": "maker · claude-opus-5-5 · proposal round",
         "round": "proposal-round-2026-11"
       },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "interactives/02_mathieu_simulator.html",
+            "verdict": "keep",
+            "why": "The build's explorer, which the text names as media-02; the caption is honest that each play is scaled to its own peak."
+          },
+          {
+            "file": "Floquet Time-Modulated Loops — rich — threshold.html",
+            "verdict": "keep",
+            "why": "A test that could have failed: my DOP853 monodromy and a Hill determinant both give q_c = 0.050007 = 2ζ, and the build's own recurrence crosses zero growth at 0.05. It walks from push vs pump to the test."
+          },
+          {
+            "file": "audio/04a_below_threshold.wav",
+            "verdict": "keep",
+            "why": "Caption measured and honest: q = 0.05 sits on the threshold. My 50 ms windows run −48.4 to −24.7 dBFS (the caption says −27; the difference is window length)."
+          },
+          {
+            "file": "audio/04b_at_threshold.wav",
+            "verdict": "keep",
+            "why": "Measured: −43.7 to −10 dBFS within 0.20 s, then steady, as the caption says."
+          },
+          {
+            "file": "audio/04c_above_threshold.wav",
+            "verdict": "keep",
+            "why": "Measured: full within 0.10 s, steady at −5.1 dBFS, as the caption says."
+          },
+          {
+            "file": "static/05_strutt_diagram.png",
+            "verdict": "keep",
+            "why": "The caption correctly names where the colour scale misleads; tongue 2 shows green below about q = 0.8 in the image."
+          },
+          {
+            "file": "Floquet Time-Modulated Loops — rich — strutt map.html",
+            "verdict": "remake",
+            "why": "The step-3 note is hard-coded and wrong for both damped settings: tongue 2 opens at q ≈ 0.64 for κ = 0.05 (√(8κ)) and ≈ 1.14 for κ = 0.15, not 0.74, and at κ = 0.15 tongue 3 never appears below q = 2.5. Compute the onsets per κ; the edges (0.4732, 1.4642, 3.8950) and the test are confirmed."
+          },
+          {
+            "file": "audio/20_strutt_sweep.wav",
+            "verdict": "keep",
+            "why": "Measured: the crack is at 2.00 s (q = 0.050), and the per-second levels match the caption."
+          },
+          {
+            "file": "Experiments/mathieu_tongue.wav",
+            "verdict": "keep",
+            "why": "Measured: digital silence until 7.25 s, peak at 8.25–8.5 s, −75 dB by 12 s; the damped tongue spans 392.04–407.96 Hz, which is 3.6–8.4 s. The caption tests capture range against hearing."
+          },
+          {
+            "file": "static/08_multipliers_vs_params.png",
+            "verdict": "keep",
+            "why": "Its green stable point is −0.84+0.55i, |ρ| = 1.004, on the circle as the caption says; the caption sets up the piece after it."
+          },
+          {
+            "file": "Floquet Time-Modulated Loops — rich — multipliers.html",
+            "verdict": "keep",
+            "why": "Tests the unit-circle sentence. Confirmed: undamped |ρ| = 1 to 1.8e-13 at every stable a; with κ = 0.1 the split is at 1.29082 and the edge at 1.27105. Walks up. The scan() comment says left side for the right: comment only."
+          },
+          {
+            "file": "static/10_phase_space_strobe.png",
+            "verdict": "keep",
+            "why": "Measured caption: ρ = −1.594 at (1.0, 0.3), as it says."
+          },
+          {
+            "file": "static/12_sideband_ladder.png",
+            "verdict": "keep",
+            "why": "The build's open-loop figure, framed for the test after it."
+          },
+          {
+            "file": "Floquet Time-Modulated Loops — rich — sideband ladder.html",
+            "verdict": "keep",
+            "why": "Tests the derivation open-loop, then in a loop. Harmonic balance confirms −27.2 dB (cosine) and −22.5 dB (square) at 60 Hz, h = 0.3. Note: its loop is pumped off-tongue at 80 Hz, not Stage 1's 2:1 case."
+          },
+          {
+            "file": "interactives/15_kapitza_pendulum.html",
+            "verdict": "keep",
+            "why": "The build's simulator, which the text names as media-15; (a_pΩ)² > 2gL is the standard Kapitza condition."
+          }
+        ]
+      },
       "pieces": [
         {
           "file": "interactives/02_mathieu_simulator.html",
