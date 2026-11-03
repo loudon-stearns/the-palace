@@ -1,0 +1,471 @@
+<!doctype html>
+<!--
+  title: Compression ↔ Intimacy — rich — where is the singer
+  born: 2026-11-03
+  links: [[Compression ↔ Intimacy]] (connects-to · rich-face-piece) · listed in [[Compression ↔ Intimacy — rich.json]] · shares its engine, byte for byte, with the face's other two pieces
+  forward_vector: I am the walk up to Teaching the Resonance's first assignment, made blind. One synthetic phrase, a whisper and a shout in it; the page's uncompressed, 4:1 and 20:1 versions matched to one loudness, with what the match can and can't hold level; a close microphone's bass as the control that tells dynamic range from spectral tilt; and last the page's question, where is the singer, asked in 24 blind pairs whose chance and verdict rule are set before the first. I change only when the section I serve does.
+  sound: nothing plays until a button is clicked; the AudioContext is made on that click. Changing step stops the sound. Every sound is made in this page by the engine below: a pulse train and noise through formant resonators. No recording, no sample, no file.
+  check: Cross-Domain Resonances/Compression ↔ Intimacy/Compression ↔ Intimacy — rich — check.mjs runs this page's engine in Node and checks every number it prints.
+-->
+<html lang="en" class="skin-graphite">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- needs nothing of its host: no device, no storage, no file, no host; sound only on a click -->
+<meta name="piece:needs" content="">
+<title>Where is the singer? · Compression ↔ Intimacy</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@300;400;500&display=swap">
+<style>
+  :root{
+    --bg:#0a0a0f; --bg-elev-1:#12121a; --bg-elev-2:#1a1a28; --border:#4a4a5e; --border-soft:rgba(255,255,255,0.06);
+    --fg-1:#e8e8f0; --fg-2:#c8c8d8; --fg-3:#8a8aa0; --fg-4:#4a4a5a;
+    --accent:#e8b84a; --accent-soft:rgba(232,184,74,0.10); --info:#4a8fff; --warn:#e8651b; --indigo:#6366F1;
+    --serif:'Cormorant Garamond','Source Serif 4',Georgia,serif; --sans:'Manrope',system-ui,sans-serif;
+    --display:'Anton','Bebas Neue',Impact,sans-serif; --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--fg-1)}
+  body{font-family:var(--serif);font-size:17px;line-height:1.7;padding:28px 16px 36px}
+  main{max-width:960px;margin:0 auto}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--fg-3)}
+  h1{font-family:var(--display);font-weight:400;font-size:44px;line-height:1.05;margin:6px 0 10px}
+  h2{font-family:var(--display);font-weight:400;font-size:28px;line-height:1.1;margin:4px 0 8px;letter-spacing:.01em}
+  p.lead{font-size:19px;color:var(--fg-2);margin:0 0 18px;max-width:66ch}
+  .rail{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 18px}
+  .rail button{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-3);background:transparent;border:1px solid var(--border);border-radius:4px;padding:7px 11px;cursor:pointer;transition:all .22s cubic-bezier(.4,0,.2,1)}
+  .rail button[aria-current="step"]{color:var(--fg-1);border-color:var(--fg-3);background:var(--bg-elev-2)}
+  p.say{color:var(--fg-2);margin:0 0 14px;max-width:68ch}
+  .panel{background:var(--bg-elev-1);border:1px solid var(--border-soft);border-radius:4px;padding:18px;margin:0 0 14px}
+  .tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;align-items:center}
+  button.play{font-family:var(--sans);font-weight:500;font-size:14px;color:#0a0a0f;background:var(--accent);border:0;border-radius:4px;padding:9px 20px;cursor:pointer;margin-left:auto;transition:box-shadow .22s cubic-bezier(.4,0,.2,1)}
+  button.play:hover{box-shadow:0 0 24px var(--accent-soft)}
+  canvas{width:100%;display:block;background:var(--bg-elev-2);border-radius:4px}
+  .legend{display:flex;gap:6px 18px;flex-wrap:wrap;margin-top:10px;font-family:var(--sans);font-size:13px;color:var(--fg-3);line-height:1.5}
+  .legend i{display:inline-block;width:14px;height:2px;margin-right:6px;vertical-align:3px}
+  [hidden]{display:none !important}
+  .meter{font-family:var(--mono);font-size:13px;color:var(--fg-2);margin-top:12px;line-height:1.7}
+  .meter b{color:var(--accent);font-weight:400}
+  .eq{font-family:var(--mono);font-size:13px;color:var(--fg-1);margin:14px 0 0;overflow-wrap:anywhere}
+  .eq.words{color:var(--fg-3);font-size:12px;margin-top:2px}
+  .rowb{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:12px}
+  button.ghost{font-family:var(--sans);font-size:14px;color:var(--fg-2);background:transparent;border:1px solid var(--border);border-radius:4px;padding:8px 14px;cursor:pointer}
+  button.ghost[aria-pressed="true"]{color:var(--fg-1);border-color:var(--fg-3);background:var(--bg-elev-2)}
+  button.ghost:disabled{opacity:.35;cursor:default}
+  button.ab{font-family:var(--display);font-size:22px;letter-spacing:.06em;color:var(--fg-2);background:transparent;border:1px solid var(--border);border-radius:4px;padding:6px 22px;cursor:pointer}
+  button.ab[aria-pressed="true"]{color:#0a0a0f;background:var(--accent);border-color:var(--accent)}
+  .hint{font-family:var(--sans);font-size:13px;color:var(--fg-3)}
+  label.sl{display:block;font-family:var(--mono);font-size:12px;letter-spacing:.06em;color:var(--fg-3);min-width:240px;flex:1}
+  label.sl b{color:var(--fg-1);font-weight:500}
+  input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:3px;background:var(--fg-4);margin:12px 0 4px;outline:none}
+  input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:13px;height:13px;border-radius:50%;background:var(--accent);cursor:pointer}
+  input[type=range]::-moz-range-thumb{width:13px;height:13px;border:0;border-radius:50%;background:var(--accent);cursor:pointer}
+  table.marks{border-collapse:collapse;margin-top:12px;font-family:var(--mono);font-size:12.5px;color:var(--fg-2)}
+  table.marks td,table.marks th{border-bottom:1px solid var(--border-soft);padding:5px 14px 5px 0;text-align:left;font-weight:400;vertical-align:middle}
+  table.marks th{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-3)}
+  table.marks b{color:var(--accent);font-weight:400}
+  .quote{font-family:var(--serif);font-style:italic;color:var(--fg-1);border-left:2px solid var(--accent);padding:2px 0 2px 12px;margin:10px 0}
+  .score{font-family:var(--serif);font-size:19px;color:var(--fg-1);margin-top:14px;max-width:66ch}
+  .walk{display:flex;justify-content:space-between;gap:10px;margin-top:16px}
+  .wrapx{overflow-x:auto}
+  footer{margin-top:28px;font-family:var(--sans);font-size:13px;color:var(--fg-4);display:flex;align-items:center;gap:10px}
+  footer b{font-family:var(--display);font-weight:400;letter-spacing:.06em;color:var(--fg-3)}
+  footer svg{flex:none}
+  @media (max-width:520px){h1{font-size:34px}h2{font-size:23px}}
+</style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">Compression ↔ Intimacy · teaching the resonance, part 1 · four steps</div>
+  <h1>Where is the singer?</h1>
+  <p class="lead">The page’s first assignment: one vocal, uncompressed, at 4:1 and at 20:1, and the feeling that the middle one is right here. Here the vocal is made in this page, there is a fourth version as a control, and the last step asks the page’s question blind. Nothing plays until you press Play.</p>
+  <nav class="rail" aria-label="Steps" id="rail"></nav>
+  <section aria-live="polite">
+    <div class="eyebrow" id="stepEyebrow"></div>
+    <h2 id="stepTitle"></h2>
+    <p class="say" id="stepSay"></p>
+  </section>
+  <div class="panel">
+    <div class="tabs"><span class="eyebrow">Hear</span><span class="hint" id="hearHint"></span><button class="play" id="play">Play</button></div>
+    <canvas id="view" aria-label="the phrase's level over time"></canvas>
+    <div class="legend" id="legend"></div>
+    <div class="rowb" id="verRow" hidden><span class="eyebrow">version</span>
+      <button class="ghost" data-v="none">uncompressed</button><button class="ghost" data-v="r4">4:1</button><button class="ghost" data-v="r20">20:1</button><button class="ghost" data-v="prox">close microphone</button>
+    </div>
+    <div class="meter" id="meter"></div>
+    <div class="wrapx"><table class="marks" id="table"></table></div>
+    <div class="eq" id="eq1"></div><div class="eq words" id="eq1w"></div>
+    <div class="eq" id="eq2"></div><div class="eq words" id="eq2w"></div>
+    <div id="test" hidden>
+      <div class="rowb"><button class="ghost" id="begin">Begin the 24 trials</button><span class="hint" id="tcount"></span></div>
+      <div id="trial" hidden>
+        <div class="rowb"><span class="eyebrow">play</span><button class="ab" id="p1">1</button><button class="ab" id="p2">2</button><span class="hint">each plays the phrase once; play either as often as you like</span></div>
+        <div class="rowb"><span class="eyebrow">which singer is closer to you?</span><button class="ghost" id="a1" disabled>1 is closer</button><button class="ghost" id="a2" disabled>2 is closer</button></div>
+      </div>
+      <div id="result" hidden></div>
+    </div>
+  </div>
+  <div class="walk"><button class="ghost" id="back">Back</button><button class="ghost" id="next">Next</button></div>
+  <footer><svg id="sigil" width="22" height="22" viewBox="-11 -11 22 22" aria-hidden="true"></svg><b>LOUD’N LIVE</b> · Compression ↔ Intimacy · where is the singer · Sketch, 2026-11-03 · the voice is synthetic</footer>
+</main>
+
+<script id="ci-core">
+const CI = (() => {
+  // The engine every piece on this face shares, byte for byte: a synthetic voice (a pulse train and
+  // noise through four formant resonators; no recording of anyone), a feed-forward compressor, a
+  // close-cardioid proximity shelf, BS.1770-4 loudness, a distance model, and the counts the blind
+  // test prints. Deterministic: the same seed makes the same voice in the page and in Node.
+  const RATE = 48000, LEN = 3.9;
+  function rng(seed) { let a = seed >>> 0; return () => { a = (a + 0x6D2B79F5) >>> 0; let t = a; t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
+  const gauss = (r) => { let u = 0; while (u === 0) u = r(); return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * r()); };
+  const VOWELS = { a: [730, 1090, 2440, 3400], i: [270, 2290, 3010, 3700], u: [300, 870, 2240, 3300], e: [530, 1840, 2480, 3500], o: [570, 840, 2410, 3400] };
+  // one phrase, whisper to shout and back. t start, d length (s); e effort, 0 a whisper, 1 a shout; f0 Hz (0 = whispered)
+  const PHRASE = [
+    { t: 0.32, d: 0.34, v: 'a', e: 0.00, f0: 0, c: 'h', name: 'whisper' },
+    { t: 0.74, d: 0.34, v: 'i', e: 0.08, f0: 0, c: 's', name: 'whisper' },
+    { t: 1.14, d: 0.34, v: 'e', e: 0.35, f0: 196, c: 'l', name: 'soft' },
+    { t: 1.52, d: 0.30, v: 'e', e: 0.60, f0: 220, c: 't', name: 'half voice' },
+    { t: 1.90, d: 0.56, v: 'a', e: 1.00, f0: 294, c: 'h', name: 'shout' },
+    { t: 2.58, d: 0.34, v: 'a', e: 0.35, f0: 220, c: 'l', name: 'soft' },
+    { t: 3.02, d: 0.44, v: 'a', e: 0.00, f0: 0, c: 'h', name: 'whisper' },
+  ];
+  const BREATHS = [{ t: 0.03, d: 0.24 }, { t: 3.52, d: 0.30 }];
+  const SHOUT_DB = -12;                              // the shout's body, RMS dBFS, at the microphone
+  const effortDb = (e, voiced) => (voiced ? -24 + 24 * e : -32 + 12 * e);   // each syllable's level re the shout
+  const BREATH_DB = -40;
+  const body = (s) => [Math.round((s.t + 0.08) * RATE), Math.round((s.t + s.d - 0.06) * RATE)];   // where a syllable is measured
+  function resonators(F, B) { return F.map((f, i) => { const r = Math.exp(-Math.PI * B[i] / RATE), b1 = 2 * r * Math.cos(2 * Math.PI * f / RATE), b2 = -r * r; return { A: 1 - b1 - b2, b1, b2, y1: 0, y2: 0 }; }); }
+  const runRes = (rs, x) => { for (const q of rs) { const y = q.A * x + q.b1 * q.y1 + q.b2 * q.y2; q.y2 = q.y1; q.y1 = y; x = y; } return x; };
+  // one syllable, rendered alone: its vowel body normalised to unit RMS, its consonant to a level of its own
+  const CONS = { s: { dur: 0.08, db: -12 }, t: { dur: 0.015, db: -6 }, h: { dur: 0.06, db: -14 }, l: { dur: 0, db: 0 } };
+  function syllable(s, r, effortOverride) {
+    const e = effortOverride == null ? s.e : effortOverride, voiced = effortOverride == null ? s.f0 > 0 : effortOverride > 0.2;
+    const f0b = voiced ? (s.f0 || 196 + 98 * e) : 0;
+    const n = Math.round((s.d + 0.12) * RATE), v = new Float64Array(n), c = new Float64Array(n), F = VOWELS[s.v];
+    const vr = resonators(voiced ? F : F.map((f, i) => (i ? f : f * 1.15)), voiced ? [80, 90, 120, 160] : [200, 220, 260, 300]);
+    const cr = resonators(s.c === 's' ? [5200, 7600] : [F[0] * 1.15, F[1]], s.c === 's' ? [900, 1400] : [300, 400]);
+    const beta = 1.6 - 0.8 * e;                     // source tilt: a shout is brighter than a soft voice
+    const K = voiced ? Math.floor(9000 / (f0b * 1.04)) : 0, amps = new Float64Array(K + 1);
+    for (let k = 1; k <= K; k++) amps[k] = Math.pow(k, -beta);
+    const cd = CONS[s.c].dur, vOn = cd * 0.6;
+    let ph = 0, prev = 0, hp = 0, lastn = 0;
+    for (let i = 0; i < n; i++) {
+      const t = i / RATE;
+      const env = t < vOn ? 0 : t < vOn + 0.025 ? 0.5 - 0.5 * Math.cos(Math.PI * (t - vOn) / 0.025) : t < s.d ? 1 : t < s.d + 0.06 ? 0.5 + 0.5 * Math.cos(Math.PI * (t - s.d) / 0.06) : 0;
+      let src = 0;
+      if (voiced) {
+        const vib = 1 + 0.012 * Math.sin(2 * Math.PI * 5.5 * t) * Math.min(1, Math.max(0, (t - 0.12) / 0.1));
+        const f = f0b * (0.97 + 0.03 * Math.min(1, t / 0.06)) * vib; ph += 2 * Math.PI * f / RATE; if (ph > 2 * Math.PI * 1e3) ph -= 2 * Math.PI * 1e3;
+        for (let k = 1; k <= K; k++) src += amps[k] * Math.sin(k * ph);
+        src += 0.06 * (1.1 - e) * gauss(r);         // breath in the voice, more of it when soft
+      } else src = 0.5 * gauss(r);
+      const rad = src - prev; prev = src;             // lip radiation, +6 dB per octave
+      v[i] = runRes(vr, rad) * env;
+      if (cd && t < cd) {                             // the consonant before the vowel
+        const w = gauss(r); hp = 0.6 * hp + 0.4 * (w - lastn); lastn = w;
+        c[i] = runRes(cr, s.c === 'h' ? w : hp) * Math.sin(Math.PI * t / cd);
+      }
+    }
+    const a = Math.round(0.08 * RATE), b = Math.round((s.d - 0.06) * RATE);
+    let sv = 0; for (let i = a; i < b; i++) sv += v[i] * v[i];
+    const gv = 1 / Math.sqrt(sv / (b - a)), y = new Float64Array(n);
+    let sc = 0; const m = Math.round(cd * RATE); for (let i = 0; i < m; i++) sc += c[i] * c[i];
+    const gc = m ? Math.pow(10, CONS[s.c].db / 20) / Math.sqrt(sc / m * 2) : 0;   // its RMS over its middle, re the vowel
+    for (let i = 0; i < n; i++) y[i] = gv * v[i] + gc * c[i];
+    return y;
+  }
+  function breath(b, r) {
+    const n = Math.round(b.d * RATE), y = new Float64Array(n), rs = resonators([900, 1700, 2600], [500, 600, 800]);
+    let prev = 0, ss = 0;
+    for (let i = 0; i < n; i++) { const w = gauss(r), d = w - prev; prev = w; y[i] = runRes(rs, d) * Math.pow(Math.sin(Math.PI * i / n), 2); ss += y[i] * y[i]; }
+    const g = 1 / Math.sqrt(ss / n * 2.67); for (let i = 0; i < n; i++) y[i] *= g;   // ~unit RMS at its middle
+    return y;
+  }
+  // the dry voice, as it leaves the singer at the microphone. effort: null for the phrase as written, or one effort for every syllable
+  function voice(opts) {
+    const o = opts || {}, r = rng(o.seed == null ? 20261103 : o.seed), N = Math.round(LEN * RATE), x = new Float64Array(N);
+    const sy = PHRASE.map((s) => {
+      const e = o.effort == null ? s.e : o.effort, voiced = o.effort == null ? s.f0 > 0 : o.effort > 0.2;
+      const y = syllable(s, r, o.effort), lev = SHOUT_DB + effortDb(e, voiced) + (o.effort == null ? 0 : (o.wobble || [0, 0, 0, 0, 0, 0, 0])[PHRASE.indexOf(s)]);
+      const g = Math.pow(10, lev / 20), at = Math.round(s.t * RATE);
+      for (let i = 0; i < y.length && at + i < N; i++) x[at + i] += g * y[i];
+      return { name: s.name, e, voiced, designDb: lev, win: body(s) };
+    });
+    if (!o.noBreath) for (const b of BREATHS) { const y = breath(b, r), g = Math.pow(10, (SHOUT_DB + BREATH_DB) / 20), at = Math.round(b.t * RATE); for (let i = 0; i < y.length && at + i < N; i++) x[at + i] += g * y[i]; }
+    return { x, syl: sy };
+  }
+  // ── level ──
+  const dB = (v) => 10 * Math.log10(Math.max(v, 1e-30));
+  const rmsDb = (x, a, b) => { a = a || 0; b = b || x.length; let s = 0; for (let i = a; i < b; i++) s += x[i] * x[i]; return dB(s / (b - a)); };
+  const peakDb = (x) => { let m = 0; for (let i = 0; i < x.length; i++) m = Math.max(m, Math.abs(x[i])); return 20 * Math.log10(Math.max(m, 1e-15)); };
+  const sylDb = (x, syl) => syl.map((s) => rmsDb(x, s.win[0], s.win[1]));
+  const range = (lv) => Math.max(...lv) - Math.min(...lv);
+  function biquad(x, b0, b1, b2, a1, a2) { const y = new Float64Array(x.length); let x1 = 0, x2 = 0, y1 = 0, y2 = 0; for (let i = 0; i < x.length; i++) { const v = b0 * x[i] + b1 * x1 + b2 * x2 - a1 * y1 - a2 * y2; x2 = x1; x1 = x[i]; y2 = y1; y1 = v; y[i] = v; } return y; }
+  // BS.1770-4 K-weighting at 48 kHz, the standard's own coefficients
+  const kweight = (x) => biquad(biquad(x, 1.53512485958697, -2.69169618940638, 1.19839281085285, -1.69065929318241, 0.73248077421585), 1, -2, 1, -1.99004745483398, 0.99007225036621);
+  function loudness(x) {
+    const k = kweight(x), B = Math.round(0.4 * RATE), H = Math.round(0.1 * RATE), z = [];
+    let all = 0; for (let i = 0; i < k.length; i++) all += k[i] * k[i];
+    for (let s = 0; s + B <= k.length; s += H) { let q = 0; for (let i = s; i < s + B; i++) q += k[i] * k[i]; z.push(q / B); }
+    const L = (v) => -0.691 + dB(v), abs = z.filter((v) => L(v) > -70);
+    const rel = L(abs.reduce((a, b) => a + b, 0) / abs.length) - 10, gated = abs.filter((v) => L(v) > rel);
+    return { lufs: L(gated.reduce((a, b) => a + b, 0) / gated.length), ungated: L(all / k.length), momentaryMax: L(Math.max(...z)), blocks: z.length, kept: gated.length };
+  }
+  // A-weighting (IEC 61672 poles, bilinear at 48 kHz), for a second reading of level
+  function aweight(x) {
+    const f1 = 20.598997, f2 = 107.65265, f3 = 737.86223, f4 = 12194.217, w = (f) => 2 * RATE * Math.tan(Math.PI * f / RATE);
+    const hp = (y, f) => { const c = w(f) / (2 * RATE); return biquad(y, 1 / (1 + c), -1 / (1 + c), 0, (c - 1) / (1 + c), 0); };
+    const lp = (y, f) => { const c = w(f) / (2 * RATE); return biquad(y, c / (1 + c), c / (1 + c), 0, (c - 1) / (1 + c), 0); };
+    let y = hp(hp(x, f1), f1); y = hp(y, f2); y = hp(y, f3); y = lp(lp(y, f4), f4);
+    return y;
+  }
+  const scale = (x, g) => { const y = new Float64Array(x.length); for (let i = 0; i < x.length; i++) y[i] = x[i] * g; return y; };
+  // ── the compressor: RMS detector (10 ms), soft knee, gain smoothed with its own attack and release. It looks
+  // ahead by p.look seconds: rendered offline, the gain the detector reaches at n + D lands on sample n, so the
+  // output is not delayed and every version keeps the same length and start ──
+  function compress(x, p) {
+    const N = x.length, y = new Float64Array(N), gr = new Float64Array(N), wt = new Float64Array(N), W = p.knee == null ? 6 : p.knee, T = p.T, iR = p.ratio === Infinity ? 0 : 1 / p.ratio;
+    const am = Math.exp(-1 / ((p.tau || 0.010) * RATE)), aA = Math.exp(-1 / (p.att * RATE)), aR = Math.exp(-1 / (p.rel * RATE)), D = Math.round((p.look || 0) * RATE);
+    const g0 = new Float64Array(N), w0 = new Float64Array(N);
+    let ms = 0, g = 0;
+    for (let n = 0; n < N; n++) {
+      ms = am * ms + (1 - am) * x[n] * x[n];
+      const L = dB(ms), over = L - T;
+      const Lo = 2 * over < -W ? L : 2 * Math.abs(over) <= W ? L + (iR - 1) * (over + W / 2) * (over + W / 2) / (2 * W) : T + over * iR;
+      const want = L - Lo;
+      g = want > g ? aA * g + (1 - aA) * want : aR * g + (1 - aR) * want;
+      g0[n] = g; w0[n] = want;
+    }
+    for (let n = 0; n < N; n++) { const m = Math.min(N - 1, n + D); gr[n] = g0[m]; wt[n] = w0[m]; y[n] = x[n] * Math.pow(10, -gr[n] / 20); }
+    return { y, gr, want: wt };
+  }
+  // the settings the page names: Part 1 of Teaching the Resonance
+  const SETTINGS = {
+    none: null,
+    r4: { T: -30, ratio: 4, att: 0.010, rel: 0.120, look: 0.005 },    // 4:1, medium attack and release
+    r20: { T: -44, ratio: 20, att: 0.001, rel: 0.040, look: 0.005 },  // 20:1, fast attack and release
+  };
+  // the proximity effect of a cardioid at r metres: 1 + c/(2·r·s), held finite below 70 Hz (bilinear)
+  const PROX_R = 0.05;
+  function proxCoef(r) { const a = 343 / (2 * r), b = 2 * Math.PI * 70, k = 2 * RATE; return { b0: (k + a) / (k + b), b1: (a - k) / (k + b), a1: (b - k) / (k + b) }; }
+  function proximity(x, r) { const c = proxCoef(r || PROX_R); return biquad(x, c.b0, c.b1, 0, c.a1, 0); }
+  function proxGainDb(f, r) { const c = proxCoef(r || PROX_R), w = 2 * Math.PI * f / RATE, re = (z) => z; const nr = c.b0 + c.b1 * Math.cos(w), ni = -c.b1 * Math.sin(w), dr = 1 + c.a1 * Math.cos(w), di = -c.a1 * Math.sin(w); return 10 * Math.log10((nr * nr + ni * ni) / (dr * dr + di * di)); }
+  // ── spectrum: three bands of the whole buffer, dB re its total, and the centroid ──
+  function fft(re, im) { const n = re.length; for (let i = 1, j = 0; i < n; i++) { let bit = n >> 1; for (; j & bit; bit >>= 1) j ^= bit; j ^= bit; if (i < j) { [re[i], re[j]] = [re[j], re[i]]; [im[i], im[j]] = [im[j], im[i]]; } }
+    for (let len = 2; len <= n; len <<= 1) { const a = -2 * Math.PI / len, wr = Math.cos(a), wi = Math.sin(a); for (let i = 0; i < n; i += len) { let cr = 1, ci = 0; for (let j = 0; j < len / 2; j++) { const ur = re[i + j], ui = im[i + j], vr = re[i + j + len / 2] * cr - im[i + j + len / 2] * ci, vi = re[i + j + len / 2] * ci + im[i + j + len / 2] * cr; re[i + j] = ur + vr; im[i + j] = ui + vi; re[i + j + len / 2] = ur - vr; im[i + j + len / 2] = ui - vi; const t = cr * wr - ci * wi; ci = cr * wi + ci * wr; cr = t; } } } }
+  function bands(x) {
+    let n = 1; while (n < x.length) n <<= 1; const re = new Float64Array(n), im = new Float64Array(n); re.set(x); fft(re, im);
+    let lo = 0, mid = 0, hi = 0, tot = 0, cen = 0;
+    for (let k = 1; k < n / 2; k++) { const f = k * RATE / n, p = re[k] * re[k] + im[k] * im[k]; tot += p; cen += f * p; if (f < 300) lo += p; else if (f < 3000) mid += p; else hi += p; }
+    return { lo: dB(lo / tot), mid: dB(mid / tot), hi: dB(hi / tot), centroid: cen / tot };
+  }
+  // each syllable's own spectrum: below 300 Hz and above 3 kHz, dB re that syllable's total
+  function sylBands(x, syl) { return syl.map((q) => { const [a, b] = q.win, n = 16384, re = new Float64Array(n), im = new Float64Array(n); for (let i = a; i < b && i - a < n; i++) re[i - a] = x[i] * (0.5 - 0.5 * Math.cos(2 * Math.PI * (i - a) / (b - a))); fft(re, im);
+    let lo = 0, hi = 0, tot = 0; for (let k = 1; k < n / 2; k++) { const f = k * RATE / n, p = re[k] * re[k] + im[k] * im[k]; tot += p; if (f < 300) lo += p; else if (f >= 3000) hi += p; } return { lo: dB(lo / tot), hi: dB(hi / tot) }; }); }
+  // ── the four versions of the blind test, each matched to TARGET LUFS (BS.1770-4, gated) ──
+  const TARGET = -20;
+  function versions(v) {
+    const dry = v.x, out = {};
+    const mk = (key, y, gr) => { const L = loudness(y), g = Math.pow(10, (TARGET - L.lufs) / 20), z = scale(y, g); out[key] = { key, y: z, gr, matchDb: 20 * Math.log10(g), syl: sylDb(z, v.syl) }; };
+    mk('none', dry, null);
+    for (const k of ['r4', 'r20']) { const c = compress(dry, SETTINGS[k]); mk(k, c.y, c.gr); }
+    mk('prox', proximity(dry), null);
+    for (const k in out) { const o = out[k]; o.range = range(o.syl); o.L = loudness(o.y); o.aDb = rmsDb(aweight(o.y)); o.rmsDb = rmsDb(o.y); o.peak = peakDb(o.y); o.bands = bands(o.y); o.sb = sylBands(o.y, v.syl); o.len = o.y.length; }
+    return out;
+  }
+  // how far the gain moves inside a held vowel that a slow gain would not: the part of the output a 20 Hz
+  // smoothed gain would not have made, re the output, over the shout's body
+  function ripple(x, gr, s) {
+    const [a, b] = s.win; let lo = Infinity, hi = -Infinity; for (let i = a + 2400; i < b; i++) { lo = Math.min(lo, gr[i]); hi = Math.max(hi, gr[i]); }
+    const c = Math.exp(-2 * Math.PI * 20 / RATE); let sm = gr[0]; const sg = new Float64Array(gr.length);
+    for (let i = 0; i < gr.length; i++) { sm = c * sm + (1 - c) * gr[i]; sg[i] = sm; }
+    let back = gr[gr.length - 1]; for (let i = gr.length - 1; i >= 0; i--) { back = c * back + (1 - c) * sg[i]; sg[i] = back; }   // zero phase
+    let e = 0, t = 0; for (let i = a; i < b; i++) { const y = x[i] * Math.pow(10, -gr[i] / 20), z = x[i] * Math.pow(10, -sg[i] / 20); e += (y - z) * (y - z); t += y * y; }
+    return { pp: hi - lo, residueDb: dB(e / t) };
+  }
+  // ── distance: direct sound falls as 1/r from the microphone's 5 cm; a room adds a diffuse tail whose level
+  // doesn't depend on r and equals the direct sound at the critical distance; a fixed floor sits under both ──
+  const REF = 0.05, RC = 0.8, RT = 0.6, FLOOR_DB = -80;
+  function convolve(x, h) { let n = 1; while (n < x.length + h.length) n <<= 1; const ar = new Float64Array(n), ai = new Float64Array(n), br = new Float64Array(n), bi = new Float64Array(n); ar.set(x); br.set(h); fft(ar, ai); fft(br, bi);
+    for (let k = 0; k < n; k++) { const r = ar[k] * br[k] - ai[k] * bi[k], i = ar[k] * bi[k] + ai[k] * br[k]; ar[k] = r; ai[k] = -i; } fft(ar, ai); const y = new Float64Array(x.length); for (let i = 0; i < x.length; i++) y[i] = ar[i] / n; return y; }
+  function roomTail(x, seed) { const r = rng(seed || 7), n = Math.round(RT * 1.2 * RATE), h = new Float64Array(n); let e = 0; for (let i = 0; i < n; i++) { h[i] = gauss(r) * Math.exp(-6.9078 * i / (RT * RATE)); e += h[i] * h[i]; } const g = 1 / Math.sqrt(e); for (let i = 0; i < n; i++) h[i] *= g; return convolve(x, h); }
+  function floorNoise(N, seed) { const r = rng(seed || 11), y = new Float64Array(N); let lp = 0, s = 0; for (let i = 0; i < N; i++) { lp = 0.97 * lp + 0.03 * gauss(r); y[i] = lp; s += lp * lp; } const g = Math.pow(10, FLOOR_DB / 20) / Math.sqrt(s / N); for (let i = 0; i < N; i++) y[i] *= g; return y; }
+  function place(x, tail, fl, r, room, withFloor) { const d = REF / r, w = room ? REF / RC : 0, y = new Float64Array(x.length); for (let i = 0; i < x.length; i++) y[i] = d * x[i] + w * tail[i] + (withFloor ? fl[i] : 0); return y; }
+  // ── the counts the blind test prints ──
+  const C = (n, k) => { let c = 1; for (let i = 1; i <= k; i++) c = c * (n - k + i) / i; return c; };
+  const tail = (n, k) => { let p = 0; for (let j = k; j <= n; j++) p += C(n, j); return p / Math.pow(2, n); };
+  const shuffle = (a, r) => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(r() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+  return { RATE, LEN, PHRASE, BREATHS, SHOUT_DB, TARGET, SETTINGS, PROX_R, REF, RC, RT, FLOOR_DB, rng, voice, compress, proximity, proxGainDb, loudness, aweight, kweight, rmsDb, peakDb, sylDb, range, bands, versions, sylBands, ripple, roomTail, floorNoise, place, scale, C, tail, shuffle, dB };
+})();
+</script>
+<script id="ci-baked">
+const BAKED = {"dryRange": 32, "target": -20, "len": 187200, "secs": 3.9, "versions": {"none": {"range": 32, "match": -3.1, "lufs": -20, "ungated": 0, "mmax": 0, "a": 0, "peak": -7.5, "len": 187200, "loMax": 0, "hiMax": 0, "loMin": 0, "loTop": 0, "ltasLo": 0, "ltasHi": 0}, "r4": {"range": 18.6, "match": 8.7, "lufs": -20, "ungated": 0.9, "mmax": -1.7, "a": 0.6, "peak": -4.4, "len": 187200, "loMax": 0, "hiMax": 0, "loMin": 0, "loTop": 0, "ltasLo": 2.8, "ltasHi": 7.2, "ripple": 0.34, "residue": -43, "maxGr": 13.8, "onsetExcess": 4.9}, "r20": {"range": 2.7, "match": 24.4, "lufs": -20, "ungated": 2.9, "mmax": -2.9, "a": 2.5, "peak": -6.6, "len": 187200, "loMax": 0.1, "hiMax": 0, "loMin": 0, "loTop": 0.1, "ltasLo": 2.2, "ltasHi": 18.3, "ripple": 0.62, "residue": -47, "maxGr": 31, "onsetExcess": 2}, "prox": {"range": 32.4, "match": -4.7, "lufs": -20, "ungated": 0, "mmax": -0.1, "a": -0.2, "peak": -7.8, "len": 187200, "loMax": 8.1, "hiMax": 3.3, "loMin": 4.7, "loTop": 8.1, "ltasLo": 5.4, "ltasHi": -1.5}}, "prox200": 7.7, "prox100": 12, "tail7of8": 0.03515625, "tail8": 0.00390625, "open": {"1": [32, 31.58], "2": [32, 30.54], "4": [32, 27.87], "8": [32, 23.36], "16": [32, 17.86], "32": [32, 12.17], "0.05": [32, 32], "0.5": [32, 31.89]}, "rooms": {"mean": 0.5, "lo": -2.5, "hi": 3.6}, "pair": {"whisper": {"50": {"range": 0.98, "top": -79.6}, "0.05": {"range": 4, "top": -44}}, "shout": {"50": {"range": 3.17, "top": -71.4}, "0.05": {"range": 4, "top": -12}}}, "grid": {"4": {"50": 3.17, "100": 1.99}, "12": {"50": 7.21, "100": 3.73}, "20": {"50": 8.42, "100": 4.08}}, "release": {"1": {"soft": 11, "softWant": 1.8, "whisper": 7, "hangMs": 1380}, "0.04": {"soft": 1.9, "softWant": 1.8, "whisper": 0, "hangMs": 79}}, "attack": {"0.001": 2.3, "0.05": 8.2, "dry": 1}, "thresh": {"-10": 0, "-30": 4, "-50": 7}, "ratio": {"1": {"maxGr": 0, "shoutOut": -12}, "4": {"maxGr": 13.8, "shoutOut": -25.6}, "inf": {"maxGr": 18.5, "shoutOut": -30.1}}};
+</script>
+<script id="ci-ui">
+const UI = (() => {
+  // playback, drawing and the walk, shared by this face's pieces. Sound starts only from a click: the
+  // AudioContext is made on the first one. The kit quiets it when the page asks or goes hidden.
+  const $ = (id) => document.getElementById(id);
+  const css = (n) => getComputedStyle(document.documentElement).getPropertyValue(n).trim() || '#888';
+  let ctx = null, out = null, src = null, hook = null;
+  async function ensure() {
+    if (!ctx) { ctx = new AudioContext({ sampleRate: CI.RATE }); out = ctx.createGain(); out.gain.value = 0.9; out.connect(ctx.destination); ctx.onstatechange = () => { if (ctx.state !== 'running') stop(); }; }
+    if (ctx.state !== 'running') await ctx.resume();
+  }
+  const cache = new WeakMap();
+  const buf = (y) => { let b = cache.get(y); if (!b) { b = ctx.createBuffer(1, y.length, CI.RATE); b.copyToChannel(Float32Array.from(y), 0); cache.set(y, b); } return b; };
+  async function play(y, onStop, loop) {
+    await ensure(); stop();
+    const s = ctx.createBufferSource(); s.buffer = buf(y); s.loop = !!loop; s.connect(out); src = s; hook = onStop || null;
+    s.onended = () => { if (src === s) { src = null; const h = hook; hook = null; if (h) h(); } };
+    s.start();
+  }
+  function stop() { const s = src, h = hook; src = null; hook = null; if (s) { try { s.stop(); } catch (e) { /* already stopped */ } } if (h) h(); }
+  const playing = () => !!src;
+  // short-term level, 10 ms windows, dB
+  function env(y, ms) { const W = Math.round((ms || 10) / 1000 * CI.RATE), n = Math.floor(y.length / W), o = new Float64Array(n); for (let k = 0; k < n; k++) { let s = 0; for (let i = k * W; i < (k + 1) * W; i++) s += y[i] * y[i]; o[k] = 10 * Math.log10(s / W + 1e-20); } return o; }
+  function fit(cv, h) { const r = window.devicePixelRatio || 1, w = cv.clientWidth || 640; cv.width = Math.round(w * r); cv.height = Math.round(h * r); cv.style.height = h + 'px'; const g = cv.getContext('2d'); g.setTransform(r, 0, 0, r, 0, 0); return { g, w, h }; }
+  // levels over time: envelopes, each syllable's level as a tick, a threshold line, gain reduction hanging below
+  function levels(cv, o) {
+    const grH = o.gr ? 74 : 0, { g, w, h } = fit(cv, (o.height || 280) + grH), l = 44, r = 12, t = 22, b = 24 + grH, pw = w - l - r, ph = h - t - b;
+    const top = o.top, bot = o.bot, X = (s) => l + s / CI.LEN * pw, Y = (d) => t + (top - Math.max(bot, Math.min(top, d))) / (top - bot) * ph;
+    g.font = '10px ' + css('--mono'); g.lineWidth = 1;
+    for (let d = top; d >= bot; d -= 10) { g.strokeStyle = css('--border-soft'); g.beginPath(); g.moveTo(l, Y(d)); g.lineTo(l + pw, Y(d)); g.stroke(); g.fillStyle = css('--fg-4'); g.fillText(String(d), 6, Y(d) + 3); }
+    for (let s = 0; s <= CI.LEN; s += 0.5) { g.fillStyle = css('--fg-4'); g.fillText(s.toFixed(1) + ' s', X(s) - 10, t + ph + 16); }
+    g.fillStyle = css('--fg-3'); g.fillText(o.label || 'level, dB, 10 ms windows', l + 4, 12);
+    (o.series || []).forEach((sr) => {
+      const e = sr.e, n = e.length; g.strokeStyle = sr.color; g.lineWidth = sr.width || 1.2; g.beginPath();
+      for (let k = 0; k < n; k++) { const x = X((k + 0.5) / n * CI.LEN), y = Y(e[k]); k ? g.lineTo(x, y) : g.moveTo(x, y); } g.stroke();
+      if (sr.fill) { g.lineTo(X(CI.LEN), Y(bot)); g.lineTo(X(0), Y(bot)); g.closePath(); g.fillStyle = sr.fill; g.fill(); }
+    });
+    if (o.thresh != null) { g.strokeStyle = css('--accent'); g.setLineDash([4, 4]); g.beginPath(); g.moveTo(l, Y(o.thresh)); g.lineTo(l + pw, Y(o.thresh)); g.stroke(); g.setLineDash([]); g.fillStyle = css('--accent'); g.fillText('threshold ' + o.thresh.toFixed(0) + ' dB (RMS)', l + pw - 150, Y(o.thresh) - 5); }
+    (o.ticks || []).forEach((tk) => { const x0 = X(tk.win[0] / CI.RATE), x1 = X(tk.win[1] / CI.RATE); g.strokeStyle = tk.color; g.lineWidth = 2.4; g.beginPath(); g.moveTo(x0, Y(tk.db)); g.lineTo(x1, Y(tk.db)); g.stroke(); if (tk.name) { g.fillStyle = css('--fg-3'); g.fillText(tk.name, x0, Math.max(t + 9, Y(tk.db) - 6)); } });
+    if (o.gr) {
+      const y0 = t + ph + 30, gh = grH - 18, mx = o.grMax || 20, n = o.gr.length, step = Math.max(1, Math.floor(n / pw));
+      g.fillStyle = css('--bg-elev-1'); g.fillRect(l, y0, pw, gh); g.fillStyle = css('--fg-3'); g.fillText('gain reduction, 0 to ' + mx + ' dB', l + 4, y0 + 11);
+      g.fillStyle = 'rgba(74,143,255,0.55)'; g.beginPath(); g.moveTo(l, y0);
+      for (let i = 0; i < n; i += step) g.lineTo(X(i / CI.RATE), y0 + Math.min(1, o.gr[i] / mx) * gh);
+      g.lineTo(l + pw, y0); g.closePath(); g.fill();
+    }
+    if (o.playhead != null) { g.strokeStyle = css('--fg-2'); g.lineWidth = 1; g.beginPath(); g.moveTo(X(o.playhead), t); g.lineTo(X(o.playhead), t + ph); g.stroke(); }
+  }
+  function sigil(el) { const pts = []; for (let i = 0; i <= 240; i++) { const tt = i / 240 * 2 * Math.PI; pts.push((9 * Math.sin(3 * tt + Math.PI / 2)).toFixed(2) + ',' + (9 * Math.sin(2 * tt)).toFixed(2)); } el.innerHTML = `<polyline points="${pts.join(' ')}" fill="none" stroke="#e8b84a" stroke-width="1"/>`; }
+  const mark = (sel, attr, val) => document.querySelectorAll(sel).forEach((b) => b.setAttribute('aria-pressed', String(b.dataset[attr] === String(val))));
+  const fmt = (v, n) => (v > 0 ? '+' : v < 0 ? '−' : '') + Math.abs(v).toFixed(n == null ? 1 : n);
+  return { $, css, play, stop, playing, ensure, env, fit, levels, sigil, mark, fmt };
+})();
+</script>
+<script>
+(() => {
+  const { $, css, fmt } = UI, B = BAKED, VB = B.versions;
+  let D = null;   // the render: the dry voice and the four matched versions, made once
+  const need = () => { if (!D) { const v = CI.voice(); const V = CI.versions(v); for (const k in V) V[k].env = UI.env(V[k].y); D = { v, V }; } return D; };
+  const NAME = { none: 'uncompressed', r4: '4:1', r20: '20:1', prox: 'close microphone' };
+  const COL = () => ({ none: css('--fg-3'), r4: css('--accent'), r20: css('--warn'), prox: css('--indigo') });
+  const S = { step: 0, v: 'r4' };
+  const STEPS = [
+    { key: 'phrase', rail: 'a whisper and a shout', title: 'A whisper and a shout',
+      say: `One phrase, made in this page: a pulse and noise sent through four formant filters, the way a speech synthesizer makes its vowels. No one was recorded. Two whispers, a soft line, a half voice, a shout, a soft line, a whisper, and a breath at each end. The shout is brighter as well as louder, as a real one is. From the quietest syllable to the loudest is ${B.dryRange} dB. That gap is the dynamic range the page is talking about.`,
+      hear: 'the phrase, uncompressed',
+      eq: ['range = max(Lᵢ) − min(Lᵢ)', '(dynamic range, dB) = the loudest syllable’s level minus the quietest’s, each measured as RMS over the syllable’s middle'], eq2: ['', ''] },
+    { key: 'versions', rail: '4:1 and 20:1', title: 'Uncompressed, 4:1, 20:1',
+      say: `The page’s Part 1 on this voice. 4:1 with a medium attack and release (10 ms, 120 ms), threshold −30 dB; 20:1 with fast ones (1 ms, 40 ms), threshold −44 dB; both read the level over 10 ms and look 5 ms ahead. The blue strip is the gain reduction. The makeup gain is the loudness match: every version is turned to ${fmt(B.target, 0)} LUFS, integrated and gated by ITU-R BS.1770-4, measured here on the sound itself. The range falls from ${VB.none.range} dB to ${VB.r4.range} at 4:1 and ${VB.r20.range} at 20:1. Matched loudness is not matched everything. By its loudest 400 ms the uncompressed voice is ${-VB.r20.mmax} dB above the 20:1; by plain average energy it is ${VB.r20.ungated} dB below it. That is what narrowing the range means, so no match can take it out; the gated match sits between the two.`,
+      hear: 'one version at a time, matched in loudness',
+      eq: ['L = −0.691 + 10·log₁₀( mean of gated z_j ),  z_j = mean of (K-weighted signal)² over block j', '(loudness, LUFS) = the average power of the sound after a filter shaped like the head’s, in 400 ms blocks, leaving out the blocks more than 10 LU under the rest'],
+      eq2: ['Lout = T + (L − T) ÷ R   above the threshold T', '(level out) = threshold + (how far the level is over it) ÷ ratio; under the threshold the level passes as it is'] },
+    { key: 'control', rail: 'a close microphone', title: 'Bass from a close microphone',
+      say: `Close microphones add bass: a cardioid’s proximity effect. This version is the uncompressed voice through the response of a cardioid at 5 cm, ${fmt(B.prox200)} dB at 200 Hz and ${fmt(B.prox100)} at 100 Hz against 1 kHz, matched like the rest. Its range is still ${VB.prox.range} dB. It is the control. If bass alone moves the singer closer, closeness in a close-miked record can come from the microphone, not the compressor. The table checks the other side too. Inside each syllable’s vowel the compressor leaves the spectrum where it was, within ${Math.max(VB.r4.loMax, VB.r20.loMax, VB.r4.hiMax, VB.r20.hiMax)} dB; the close microphone lifts the part below 300 Hz by ${VB.prox.loMin} to ${VB.prox.loTop} dB. The compressor does move the whole phrase’s average spectrum, because it turns the breathy whispers up: above 3 kHz by ${fmt(VB.r4.ltasHi)} dB at 4:1 and ${fmt(VB.r20.ltasHi)} at 20:1. That is the range at work, not a filter. It isn’t closed here: an ear that hears brighter as nearer could pass the 4:1 set on that alone, and a fifth version, the uncompressed voice brightened to the 4:1 one’s average spectrum, would be the way to close it. The consonants rise too: at 4:1 the ones before the half voice and the shout come up 4.7 and 7.0 dB against their own vowels, the range narrowing inside the syllable.`,
+      hear: 'one version at a time, matched in loudness',
+      eq: ['H(s) = 1 + c ÷ (2·r·s),  r = 0.05 m', '(a cardioid’s response, near a voice) = flat, plus a part that grows as the frequency falls and as the mouth comes closer; held finite below 70 Hz here'], eq2: ['', ''] },
+    { key: 'test', rail: 'blind', title: 'Blind: where is the singer?',
+      say: `Twenty-four trials. Each has two singers, 1 and 2. One is always the uncompressed voice; the other is 4:1, 20:1 or the close microphone, eight trials each, shuffled, and which one is 1 is chosen at random. One question: which singer is closer to you? The rules, before the first trial. Guessing picks either one half the time. In each set of eight, picking the processed one as closer 7 or 8 times reads as closer (guessing does that 9 times in 256, about 1 in 28); 0 or 1 times reads as farther (also 1 in 28); anything between can’t be told from guessing. The page’s claim is read from the 4:1 set alone. The close-microphone set says what it means; the 20:1 set says whether more squeeze brings the singer further in. Whether 20:1 sounds fake is not scored. What could leak: all four are ${B.len.toLocaleString('en')} samples long and start together; loudness is matched as step 2 says; inside the held shout the 20:1 gain moves ${VB.r20.ripple} dB, and what that adds sits ${-VB.r20.residue} dB under the voice; the compressor looks 5 ms ahead, so at 20:1 no syllable’s start stands more than ${VB.r20.onsetExcess} dB further above its middle than it does uncompressed (at 4:1 the shout’s start stands ${VB.r4.onsetExcess} dB further: the medium attack the page asks for, letting it through). One leak can’t be closed for a reader who has just read the page: you can hear which one is compressed, and if you answer by what the page predicts you will pass without hearing closeness. Answer by where the singer is.`,
+      hear: 'press 1 and 2',
+      eq: ['P(7 or more of 8 by guessing) = [C(8,7) + C(8,8)] ÷ 2⁸ = 9/256', 'a coin lands on the page’s side 7 or 8 times in 8 about once in 28 sets'], eq2: ['', ''] },
+  ];
+  // ── the blind test ──
+  const ARMS = ['r4', 'r20', 'prox'];
+  let T = null;   // trials, hidden in this closure
+  function newTest() {
+    const r = CI.rng((Date.now() ^ Math.floor(Math.random() * 4294967296)) >>> 0), list = [];
+    for (const arm of ARMS) for (let i = 0; i < 8; i++) list.push({ arm, first: i < 4 ? arm : 'none', answer: null });   // four with the processed one first, four second
+    T = { list: CI.shuffle(list, r), i: 0, heard: [false, false] };
+  }
+  function showTrial() {
+    const tr = T.list[T.i]; $('tcount').textContent = `trial ${T.i + 1} of ${T.list.length}`; T.heard = [false, false];
+    $('a1').disabled = $('a2').disabled = true; UI.mark('#p1,#p2', 'x', '');
+  }
+  const pair = (tr) => (tr.first === 'none' ? ['none', tr.arm] : [tr.arm, 'none']);
+  async function playSide(k) { const tr = T.list[T.i], key = pair(tr)[k]; T.heard[k] = true; $(k ? 'p2' : 'p1').setAttribute('aria-pressed', 'true'); $(k ? 'p1' : 'p2').setAttribute('aria-pressed', 'false');
+    await UI.play(need().V[key].y, () => { $('p1').setAttribute('aria-pressed', 'false'); $('p2').setAttribute('aria-pressed', 'false'); }); if (T.heard[0] && T.heard[1]) $('a1').disabled = $('a2').disabled = false; }
+  function answer(k) {
+    UI.stop(); const tr = T.list[T.i]; tr.answer = pair(tr)[k] === tr.arm;   // true: the processed one was chosen as closer
+    T.i++; if (T.i < T.list.length) showTrial(); else finish();
+  }
+  function verdict(n) { return n >= 7 ? 'closer' : n <= 1 ? 'farther' : 'can’t tell'; }
+  function finish() {
+    $('trial').hidden = true; $('begin').textContent = 'Begin again'; $('begin').hidden = false; $('tcount').textContent = 'done';
+    const n = {}; for (const a of ARMS) n[a] = T.list.filter((t) => t.arm === a && t.answer).length;
+    const rows = ARMS.map((a) => { const k = n[a], p = k >= 4 ? CI.tail(8, k) : CI.tail(8, 8 - k); return `<tr><td>${NAME[a]}</td><td><b>${k} of 8</b></td><td>${verdict(k)}</td><td>${k === 4 ? 'the middle' : `${Math.round(p * 256)} in 256`}</td></tr>`; }).join('');
+    const v4 = verdict(n.r4), vp = verdict(n.prox), v20 = verdict(n.r20);
+    let read;
+    if (v4 === 'closer' && vp !== 'closer') read = 'Compression alone moved the singer closer for you, and the close microphone’s bass alone did not. On this voice, for your ear, the page’s claim holds.';
+    else if (v4 === 'closer' && vp === 'closer') read = 'Both moved the singer closer: the narrower range and the close microphone’s bass. For your ear the page’s claim holds, and it isn’t the only cue.';
+    else if (v4 === 'farther') read = 'At 4:1 you heard the singer farther away, more often than guessing would. For your ear, on this voice, the page’s claim runs backwards.';
+    else if (vp === 'closer') read = 'The bass moved the singer closer and 4:1 did not, past what guessing does. For your ear the closeness of a close-miked record may be the microphone’s, not the compressor’s.';
+    else if (vp === 'farther') read = 'Neither version came closer past what guessing does, and the bass sent the singer farther. On this voice the page’s claim isn’t shown for your ear.';
+    else read = 'Neither 4:1 nor the bass moved the singer past what guessing does. On this voice the page’s claim isn’t shown for your ear. That is not the same as false: eight trials miss a small effect often.';
+    read += ` At 20:1: ${v20 === 'closer' ? 'closer again' : v20 === 'farther' ? 'farther' : 'no lean past guessing'}.`;
+    const log = T.list.map((t, i) => `${i + 1}·${NAME[t.arm]}${t.answer ? '✓' : '·'}`).join('  ');
+    $('result').innerHTML = `<p class="score">${read}</p><table class="marks"><tr><th>against uncompressed</th><th>chosen as closer</th><th>reads</th><th>guessing lands this far from the middle</th></tr>${rows}</table>
+      <p class="hint">One ear, one sitting, one pair of speakers, a synthetic voice: it says what you heard, not what every ear hears. Three sets of eight read together: a guesser trips at least one of the six edges about 1 time in 5, which is why the claim is read from the 4:1 set alone. The trials in order (✓ = the processed one chosen as closer): ${log}</p>`;
+    $('result').hidden = false; draw();
+  }
+  // ── drawing ──
+  function draw() {
+    if (!D) { const { g, h } = UI.fit($('view'), 120); g.fillStyle = css('--fg-3'); g.font = '12px ' + css('--mono'); g.fillText('making the voice…', 16, h / 2); setTimeout(() => { need(); draw(); }, 30); return; }
+    const k = STEPS[S.step].key, d = need(), V = d.V; let meter = '', table = '', legend = '';
+    const ticks = (key) => d.v.syl.map((s, i) => ({ win: s.win, db: V[key].syl[i], color: COL()[key], name: key === 'none' ? s.name : '' }));
+    const tops = { top: -10, bot: -60 };
+    if (k === 'phrase') { UI.levels($('view'), { ...tops, series: [{ e: V.none.env, color: css('--fg-3'), fill: 'rgba(138,138,160,0.10)' }], ticks: ticks('none') });
+      legend = `<span><i style="background:${css('--fg-3')}"></i>uncompressed, at ${fmt(B.target, 0)} LUFS</span>`;
+      meter = `range <b>${V.none.range.toFixed(1)} dB</b> · the shout <b>${fmt(V.none.syl[4])}</b>, the first whisper <b>${fmt(V.none.syl[0])}</b> dB RMS · ${(d.v.x.length / CI.RATE).toFixed(1)} s`; }
+    if (k === 'versions' || k === 'control') {
+      const key = S.v, list = key === 'none' ? ['none'] : ['none', key];
+      UI.levels($('view'), { ...tops, series: list.map((q) => ({ e: V[q].env, color: COL()[q], width: q === key ? 1.6 : 1 })), ticks: ticks(key).map((t) => ({ ...t, name: '' })).concat(key === 'none' ? [] : ticks('none').map((t) => ({ ...t, name: '' }))), gr: V[key].gr, grMax: 32 });
+      legend = list.map((q) => `<span><i style="background:${COL()[q]}"></i>${NAME[q]}</span>`).join('');
+      meter = `${NAME[key]}: range <b>${V[key].range.toFixed(1)} dB</b> · turned ${V[key].matchDb >= 0 ? 'up' : 'down'} <b>${Math.abs(V[key].matchDb).toFixed(1)} dB</b> to ${fmt(B.target, 0)} LUFS · measured <b>${fmt(V[key].L.lufs, 2)} LUFS</b>`;
+      if (k === 'versions') table = `<tr><th>version</th><th>range</th><th>gated LUFS</th><th>loudest 400 ms</th><th>average, ungated</th><th>A-weighted</th><th>peak</th><th>samples</th></tr>` + ['none', 'r4', 'r20'].map((q) => `<tr><td>${NAME[q]}</td><td><b>${V[q].range.toFixed(1)} dB</b></td><td>${fmt(V[q].L.lufs, 2)}</td><td>${fmt(V[q].L.momentaryMax - V.none.L.momentaryMax)} dB</td><td>${fmt(V[q].L.ungated - V.none.L.ungated)} dB</td><td>${fmt(V[q].aDb - V.none.aDb)} dB</td><td>${fmt(V[q].peak)} dBFS</td><td>${V[q].len.toLocaleString('en')}</td></tr>`).join('') + `<tr><td colspan="8" class="hint">the last four columns re the uncompressed voice; the loudest 400 ms and the average pull opposite ways, and the gated match sits between</td></tr>`;
+      if (k === 'control') table = `<tr><th>inside each vowel</th>${d.v.syl.map((s) => `<th>${s.name}</th>`).join('')}</tr>` + ['r4', 'r20', 'prox'].map((q) => `<tr><td>${NAME[q]}, below 300 Hz</td>${V[q].sb.map((b, i) => `<td>${fmt(b.lo - V.none.sb[i].lo)}</td>`).join('')}</tr><tr><td>${NAME[q]}, above 3 kHz</td>${V[q].sb.map((b, i) => `<td>${fmt(b.hi - V.none.sb[i].hi)}</td>`).join('')}</tr>`).join('') + `<tr><td colspan="8" class="hint">dB, the share of each syllable’s power in that band, against the uncompressed voice</td></tr>`;
+    }
+    if (k === 'test') { const done = T && T.i >= T.list.length; if (done) { UI.levels($('view'), { ...tops, series: ['none', 'r4', 'r20', 'prox'].map((q) => ({ e: V[q].env, color: COL()[q], width: 1 })) }); legend = ['none', 'r4', 'r20', 'prox'].map((q) => `<span><i style="background:${COL()[q]}"></i>${NAME[q]}</span>`).join(''); }
+      else { const { g, h } = UI.fit($('view'), 120); g.fillStyle = css('--fg-3'); g.font = '12px ' + css('--mono'); g.fillText('hidden until the last trial', 16, h / 2); } }
+    $('meter').innerHTML = meter; $('table').innerHTML = table; $('legend').innerHTML = legend;
+  }
+  // ── the walk ──
+  function playLabel() { $('play').textContent = UI.playing() ? 'Stop' : 'Play'; }
+  $('play').onclick = async () => { if (UI.playing()) { UI.stop(); return; } const k = STEPS[S.step].key; if (k === 'test') return; await UI.play(need().V[k === 'phrase' ? 'none' : S.v].y, playLabel); playLabel(); };
+  function go(i) {
+    UI.stop(); S.step = Math.max(0, Math.min(STEPS.length - 1, i)); const s = STEPS[S.step];
+    $('stepEyebrow').textContent = `step ${S.step + 1} of ${STEPS.length}`; $('stepTitle').textContent = s.title; $('stepSay').textContent = s.say; $('hearHint').textContent = s.hear;
+    $('eq1').textContent = s.eq[0]; $('eq1w').textContent = s.eq[1]; $('eq2').textContent = s.eq2[0]; $('eq2w').textContent = s.eq2[1];
+    $('verRow').hidden = !(s.key === 'versions' || s.key === 'control'); $('test').hidden = s.key !== 'test'; $('play').hidden = s.key === 'test';
+    if (s.key === 'control') { S.v = 'prox'; } if (s.key === 'versions' && S.v === 'prox') S.v = 'r4';
+    document.querySelectorAll('[data-v="prox"]').forEach((b) => (b.hidden = s.key !== 'control'));
+    UI.mark('[data-v]', 'v', S.v);
+    document.querySelectorAll('#rail button').forEach((b, j) => (j === S.step ? b.setAttribute('aria-current', 'step') : b.removeAttribute('aria-current')));
+    $('back').disabled = S.step === 0; $('next').disabled = S.step === STEPS.length - 1;
+    draw(); playLabel();
+  }
+  $('rail').innerHTML = STEPS.map((s, i) => `<button>${i + 1} · ${s.rail}</button>`).join('');
+  document.querySelectorAll('#rail button').forEach((b, i) => (b.onclick = () => go(i)));
+  $('back').onclick = () => go(S.step - 1); $('next').onclick = () => go(S.step + 1);
+  document.querySelectorAll('[data-v]').forEach((b) => (b.onclick = async () => { S.v = b.dataset.v; UI.mark('[data-v]', 'v', S.v); draw(); if (UI.playing()) { await UI.play(need().V[S.v].y, playLabel); playLabel(); } }));
+  $('begin').onclick = () => { UI.stop(); newTest(); $('begin').hidden = true; $('result').hidden = true; $('trial').hidden = false; showTrial(); draw(); };
+  $('p1').onclick = () => playSide(0); $('p2').onclick = () => playSide(1);
+  $('a1').onclick = () => answer(0); $('a2').onclick = () => answer(1);
+  window.addEventListener('resize', () => draw());
+  UI.sigil($('sigil'));
+  go(0);
+})();
+</script>
+</body>
+</html>
