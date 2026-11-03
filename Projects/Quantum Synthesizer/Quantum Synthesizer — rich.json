@@ -1,0 +1,241 @@
+{
+ "title": "Quantum Synthesizer — rich",
+ "born": "2026-11-03",
+ "links": [
+  {
+   "target": "[[Quantum Synthesizer]]",
+   "type": "connects-to",
+   "label": "rich-face-of"
+  },
+  {
+   "target": "[[Enrichment]]",
+   "type": "connects-to",
+   "label": "made-by"
+  }
+ ],
+ "forward_vector": "I am the manifest of Quantum Synthesizer's rich face: the steward's twenty cycles of proofs laid beside the claims they test, one made piece that asks which ear hears the harmonic series, and the fingerprint of the words each piece was made against. I grow when the entry is enriched again; I never hold the entry's words.",
+ "entry": "Quantum Synthesizer",
+ "tier": "study",
+ "made": "2026-11-03",
+ "round": 1,
+ "offers": [
+  {
+   "section": "The Isomorphism: Wave Functions as Sound",
+   "kind": "claim-change",
+   "status": "open",
+   "what": "§ Energy Eigenvalues calls Eₙ = ħω(n + ½) \"identical to the harmonic series: f₀, 2f₀, 3f₀\". Read as pitches, the levels are odd multiples. The two-ears piece solves the oscillator on a grid: Eₙ/E₀ = 1.0000 · 3.0000 · 5.0000 · 7.0000 · 8.9999, worst miss from n + ½ 1.8 × 10⁻⁵ over n < 12. An FFT of Re ψ(x₀, t) for a coherent state (α = 2.2) finds 1.000 · 3.000 · 5.000 · 7.000 · 9.000 × 110 Hz. The harmonic series is in the gaps between levels, which is what |ψ|² carries: the same packet's |ψ(x₀, t)|² peaks at 2.000 · 4.000 · 6.000 · 8.000 × 110 Hz, 1 : 2 : 3 : 4 on 220 Hz. Counting up from the lowest level (Eₙ − E₀ = nħω), as well_morph.py and the A/B proof do, gives the same series. ladder-checks.txt check 4 agrees. Offer: say the levels are equally spaced, so their gaps make the harmonic series. Read as pitches themselves, they are the odd harmonics, 1 : 3 : 5. The steward's tuning item 2 says this in its Operators rewrite but leaves this sentence as it is."
+  },
+  {
+   "section": "The Isomorphism: Wave Functions as Sound",
+   "kind": "claim-change",
+   "status": "open",
+   "what": "§ Energy Eigenvalues: \"The zero-point energy ½ħω means there is no silence—even in the ground state, the system oscillates.\" To a detector the ground state alone is silent. In the two-ears piece, |ψ₀(x₀, t)|² moves by 4.7 × 10⁻¹⁵ of itself over a full turn of its phase, which is rounding, and every single level n = 0 to 7 moves by less than 6 × 10⁻¹⁴ (ladder-checks.txt check 2: about 2 × 10⁻¹⁶). What the ½ does that you can hear is make the clock's series odd: 110, 330, 550 Hz rather than 0, 220, 440. Offer: say the ground state's phase still turns but nothing in it moves, and the half quantum is what makes the levels odd harmonics. The next sentence, on vacuum fluctuations, is a separate claim this piece didn't test."
+  },
+  {
+   "section": "One equation, two spacings",
+   "kind": "claim-change",
+   "status": "open",
+   "what": "\"Schrödinger's particle in a box … sounds 1 · 4 · 9 · 16\" holds for the clock, Re ψ, which also moves the way the pinned bar does. It doesn't hold for a detector. The two-ears piece uses the same solver and FFT as for the oscillator, with the box's E₁ = ½ played at 110 Hz. Re ψ(x₀, t) of a packet peaks at 1.000 · 4.000 · 9.000 · 16.000 · 25.000 × 110 Hz. |ψ(x₀, t)|² peaks at 3 · 5 · 7 · 8 · 9 · 12 · 15 · 16 × 110 Hz, the gaps n² − m², which are not squares. The bundle's proofs use both rules. walls.py and wick.py play each level at its own energy. schrodinger_ab_synth.py and well_morph.py play gaps counted up from the lowest level, and double_well.py and timbre_atlas.py play those gaps plus one unit. That is why the parabola proofs sound the harmonic series and the box proofs sound the squares. Offer: name the rule once, where the section says the equation turns shapes into pitches, so that this section and § Energy Eigenvalues agree. The box's squares belong to the clock; the oscillator's harmonic series belongs to the detector."
+  },
+  {
+   "section": "The Isomorphism: Wave Functions as Sound",
+   "kind": "claim-change",
+   "status": "open",
+   "what": "§ Hermite-Gaussian: \"φ₀ = pure fundamental, φ₁ = fundamental plus first harmonic, φₙ = fundamental plus n harmonics\" holds in none of the three readings hermite.py measured (hermite-checks.txt; gathered beside the paragraph, not re-run here). Evolved in time, φₙ sings one frequency, with at least 99.95% of its energy in one peak for n = 0 to 5. As |φₙ|² laid on a comb, it shows n + 1 lumps, but 12 to 20 partials within 40 dB, a count the comb sets. As one wavetable cycle, it has 9 to 15 partials, with the nodes showing up as holes. The rewrite is already drafted as the steward's tuning item 1; this offer only points the proposal list at it."
+  }
+ ],
+ "sections": [
+  {
+   "heading": "Quantum Synthesizer",
+   "status": "proposal",
+   "proposed": {
+    "date": "2026-11-03",
+    "by": "maker · claude-opus-5-5 · proposal round",
+    "round": "proposal-round-2026-11"
+   },
+   "made": "2026-11-03",
+   "pieces": [
+    {
+     "file": "proofs/schrodinger-AB-harmonic-then-anharmonic.wav",
+     "origin": "gathered",
+     "title": "the first audio proof · a parabola, then a quartic",
+     "caption": "Where the proofs began. The Schrödinger equation solved for a parabolic well, then for one bent by a quartic term, with the gaps between levels, counted up from the lowest, played as partials on G3. A clean tone, then a bell. Only the well changes.",
+     "near": "The Schrödinger equation is an audio synthesis system",
+     "place": "margin"
+    }
+   ],
+   "made_against": "d5ca27aa6364",
+   "stamped": "2026-11-03"
+  },
+  {
+   "heading": "The Isomorphism: Wave Functions as Sound",
+   "status": "proposal",
+   "proposed": {
+    "date": "2026-11-03",
+    "by": "maker · claude-opus-5-5 · proposal round",
+    "round": "proposal-round-2026-11"
+   },
+   "made": "2026-11-03",
+   "pieces": [
+    {
+     "file": "proofs/wick.mp4",
+     "origin": "gathered",
+     "title": "turn the i · wick.py",
+     "caption": "**The dial between ringing and fading.** The steward's proof for the paragraph above. The equation is integrated with its time axis turned by an angle θ. At 0° every level rings forever. A small turn gives every partial the same damping ratio, sin θ, so the box rings like a struck bell. At 90° it is the heat equation, a thud. Its checks (wick-checks.txt) find that each level is one lossless pole, not a conjugate pair. A rewrite of these two paragraphs waits as the steward's tuning item 3.",
+     "near": "The imaginary unit"
+    },
+    {
+     "file": "Quantum Synthesizer — rich — two ears.html",
+     "origin": "made",
+     "by": "Web Audio Worklet · finite-difference solver",
+     "height": 1500,
+     "title": "two ears on one ladder",
+     "caption": "**Which ear hears the harmonic series?** Five steps: one rung alone, the ladder, two rungs, a swinging packet, then the test. The equation is solved on a grid, and each ear is measured by an FFT of ψ computed in time. The clock (Re ψ, the phase turning) hears the oscillator's rungs at 1 · 3 · 5 · 7 × 110 Hz, odd multiples only. The detector (|ψ|², what a measurement registers) hears the gaps, 2 · 4 · 6 · 8 × 110 Hz, which is the harmonic series on 220. The box, measured the same way, gives the squares only to the clock (1 · 4 · 9 · 16). Its detector hears 3 · 5 · 7 · 8 · 9 · 12. The checks beside the piece re-run every number on its own code.",
+     "near": "equally spaced in frequency"
+    },
+    {
+     "file": "proofs/hermite.mp4",
+     "origin": "gathered",
+     "title": "three readings of φₙ · hermite.py",
+     "caption": "**Does n nodes mean n + 1 partials?** The steward's proof plays φₙ three ways. Evolved in time, a stationary state sings one frequency (at least 99.95% of its energy in one peak, n = 0 to 5). As |φₙ|² laid across a comb, it shows n + 1 lumps, but the partial count is set by the comb, 12 to 20. As one cycle of a wavetable, its spectrum is φₙ's own shape, 9 to 15 partials within 40 dB, carrying the nodes as holes. The count the paragraph promises holds in none of the three (hermite-checks.txt). A rewrite waits as the steward's tuning item 1.",
+     "near": "When you sonify a quantum eigenstate"
+    }
+   ],
+   "made_against": "f6dd238c8ca7",
+   "stamped": "2026-11-03"
+  },
+  {
+   "heading": "Quantum Operators as Musical Transforms",
+   "status": "proposal",
+   "proposed": {
+    "date": "2026-11-03",
+    "by": "maker · claude-opus-5-5 · proposal round",
+    "round": "proposal-round-2026-11"
+   },
+   "made": "2026-11-03",
+   "pieces": [
+    {
+     "file": "proofs/ladder.mp4",
+     "origin": "gathered",
+     "title": "the ladder, move by move · ladder.py",
+     "caption": "**What a† and a do to the sound, through both ears.** The steward's proof. On one rung, a† moves the pitch up a rung (110 → 330 → 550 Hz on the clock); it does not add an overtone. Removing a quantum from a coherent state leaves it exactly as it was (fidelity 1.000000000000). Adding one re-voices the whole chord. Measuring the energy picks one rung, and the detector goes silent. Its seven checks are in ladder-checks.txt. A rewrite of this section waits as the steward's tuning item 2.",
+     "near": "The creation operator"
+    }
+   ],
+   "made_against": "2d508fd50c83",
+   "stamped": "2026-11-03"
+  },
+  {
+   "heading": "Anharmonicity through Potential Shaping",
+   "status": "proposal",
+   "proposed": {
+    "date": "2026-11-03",
+    "by": "maker · claude-opus-5-5 · proposal round",
+    "round": "proposal-round-2026-11"
+   },
+   "made": "2026-11-03",
+   "pieces": [
+    {
+     "file": "proofs/well-morph-explorer.html",
+     "origin": "gathered",
+     "height": 1300,
+     "title": "bend the well · well-morph explorer",
+     "caption": "**The quartic term, heard while it grows.** One solver, one well bending from x²⁄2 toward x²⁄2 + 0.1·x⁴, solved again at every step, with the gaps between levels played as partials on G3. The first strike sits on the harmonic series; as the walls steepen, every partial above the first rides sharp. Grey ticks mark the harmonic series, and a table gives each partial's cents off.",
+     "near": "Modify the potential",
+     "contract": {
+      "size": "flow"
+     }
+    },
+    {
+     "file": "proofs/timbre-atlas.mp4",
+     "origin": "gathered",
+     "title": "five wells, one ruler · timbre_atlas.py",
+     "caption": "The wells this paragraph names, side by side on one ruler: the parabola, the quartic bend, the double well whose levels pair up and beat, a lopsided double well, and a Morse well whose levels crowd together and then stop. The solver is checked against the Morse well's exact levels.",
+     "near": "create an asymmetric well"
+    },
+    {
+     "file": "proofs/drum.mp4",
+     "origin": "gathered",
+     "title": "seven strikes · drum.py",
+     "caption": "**What breaks the series: the circle, or the second dimension?** A round drum sounds 1 · 1.59 · 2.14 · 2.30 · 2.65, a square drum 1 · 1.58 · 2 · 2.24 · 2.55, and neither repeats. So for a drum the second dimension breaks the series, not the circle. Under Schrödinger a square box squares those roots back into whole numbers and repeats; a round box does not. The steward proposes this paragraph's rewrite from it as tuning item 4.",
+     "near": "Similarly, a struck bell"
+    }
+   ],
+   "made_against": "f68390b677ba",
+   "stamped": "2026-11-03"
+  },
+  {
+   "heading": "One equation, two spacings",
+   "status": "proposal",
+   "proposed": {
+    "date": "2026-11-03",
+    "by": "maker · claude-opus-5-5 · proposal round",
+    "round": "proposal-round-2026-11"
+   },
+   "made": "2026-11-03",
+   "pieces": [
+    {
+     "file": "proofs/walls.mp4",
+     "origin": "gathered",
+     "title": "six strikes on one box · walls.py",
+     "caption": "The same box struck six times; only the walls change. A string with fixed ends sounds 1 · 2 · 3 · 4. Schrödinger's box, with hard walls, free walls or a ring, sounds the squares. One hard wall and one free give the odd squares. Soft walls let every level sag flat and put a ceiling on the partials.",
+     "near": "Six strikes on one box"
+    },
+    {
+     "file": "proofs/stiffness.mp4",
+     "origin": "gathered",
+     "title": "the stiffness road · stiffness.py",
+     "caption": "**Change the equation.** A pinned string stiffened by degrees, its partials climbing as n·√((1 + B·n²)/(1 + B)) from 1 · 2 · 3 to 1 · 4 · 9. At the far end, the bar and Schrödinger's box, integrated separately from the same pluck, agree to one part in fifty million.",
+     "near": "Make a string stiffer"
+    },
+    {
+     "file": "proofs/pendulum-slider.html",
+     "origin": "gathered",
+     "height": 1100,
+     "title": "deepen the bump · pendulum slider",
+     "caption": "**Change the well, by hand.** Schrödinger on a ring with a cosine bump. Drag its depth and strike: the squares fold back toward 1 · 2 · 3 and never land, reading 1 · 1.97 · 2.89 · 3.78 in the deepest well. Its solver matches numpy to 1.1 × 10⁻¹¹ (pendulum-slider-checks.txt). Its review panel keeps notes only in this frame.",
+     "near": "Keep Schrödinger and put a bump on the ring",
+     "contract": {
+      "needs": "storage",
+      "size": "flow"
+     }
+    },
+    {
+     "file": "proofs/round-trip.mp4",
+     "origin": "gathered",
+     "title": "the round trip · round_trip.py",
+     "caption": "**One substance, two knobs, as one held tone.** Up the stiffness road from a string to the squares, then down the bump road to the pendulum. The FFT of the held audio lands within 0.02 Hz of every intended partial at all three ends, and the seam where the roads meet is continuous (round-trip-checks.txt).",
+     "near": "plays both roads as one held tone"
+    }
+   ],
+   "made_against": "b07219e0b344",
+   "stamped": "2026-11-03"
+  },
+  {
+   "heading": "The Interactive Artifact",
+   "status": "proposal",
+   "proposed": {
+    "date": "2026-11-03",
+    "by": "maker · claude-opus-5-5 · proposal round",
+    "round": "proposal-round-2026-11"
+   },
+   "made": "2026-11-03",
+   "pieces": [
+    {
+     "file": "proofs/instrument.html",
+     "origin": "gathered",
+     "height": 1500,
+     "title": "the instrument · the steward's, 2026-10",
+     "caption": "**Not the artifact this section remembers, but the one the proofs built.** The synthesizer this section describes isn't in the bundle. This is the steward's instrument from October: pick the equation (a drum's wave equation or Schrödinger's), the shape (a line, a square, a circle) and the angle of i, then click the surface to strike it. The plan's first step is for Loudon to play it and pin presets; nobody has played it by ear yet. Its review panel keeps notes only in this frame.",
+     "near": "An interactive",
+     "contract": {
+      "needs": "storage",
+      "size": "flow"
+     }
+    }
+   ],
+   "made_against": "c16192a1967b",
+   "stamped": "2026-11-03"
+  }
+ ]
+}
