@@ -64,6 +64,27 @@
         "by": "maker · claude-opus-5-5 · proposal round",
         "round": "proposal-round-2026-11"
       },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Compressor Design — rich — the window you can hear.html",
+            "verdict": "keep",
+            "why": "A real test: a blind, level-matched sort of the page's 100, 500 and 1000 that can come out against the page, reached by a walk from a 16-slot ring; every number rechecks (wobble 11.22/1.37/0.98 dB from the boxcar's 110 Hz response; grab ~0.661·N). Note: the lead's 'this compressor … nothing else' is the piece's model, not necessarily the Gen~ build (the proof's Moment 2 runs attack and release apart); say 'the compressor here'."
+          },
+          {
+            "file": "Compressor Design — rich — one ring two clocks.html",
+            "verdict": "keep",
+            "why": "Tests 'below perception here, fully perceptual there' with a hidden-length mark that can land under 500 and say so, and holds the section's tension (the 500-slot comb is audible as colour). Note: it measures an echo threshold, one reading of the page's ~20 ms; have the reveal set the mark beside 882 samples (20 ms) too, and name what it measures."
+          },
+          {
+            "file": "Compressor Design — proof — pedagogical-retrospective.md",
+            "verdict": "remake",
+            "why": "A fair record for the forward vector, but the caption says 'as remembered' where the proof says students 'reportedly' heard and it came in with the May 2026 proof batch (a5ca537b) with no one's memory on record. Change 'as remembered' to 'as reconstructed' and the sentence to: 'It says it was reconstructed, not recorded; it came in with the May 2026 proofs, and whose memory it draws on is not on record.'"
+          }
+        ]
+      },
       "made": "2026-11-03",
       "pieces": [
         {
@@ -104,6 +125,17 @@
         "date": "2026-11-03",
         "by": "maker · claude-opus-5-5 · proposal round",
         "round": "proposal-round-2026-11"
+      },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Compressor Design — rich — the knee in the spectrum.html",
+            "verdict": "remake",
+            "why": "The strongest test on the face, and its findings recheck independently (corner ~−11 dB/oct, knee −15.6 to −19.3, no stop; cubic stops at the 3rd). But its tone loop is 88 200 samples of a 400-sample cycle, 220.5 cycles, so every 2 s the tone flips polarity with a slope jump (seam 2nd difference 127× anything inside): a corner in the piece about corners. Fix: n = 400 * Math.round(sec * SR / 400) in KN.tone, and a check that the loop is whole cycles."
+          }
+        ]
       },
       "made": "2026-11-03",
       "pieces": [
