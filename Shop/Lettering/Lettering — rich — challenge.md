@@ -12,7 +12,7 @@ forward_vector: "I am the fresh-eyes vetting of Lettering's proposed rich face: 
 
 This is the challenge for the proposal round of Enrichment v2.8, 2026-11-03, on the maker's commit `a51e1c4f` in the worktree `enrich/lettering`. I judged it from the page (`Shop/Lettering.md`), the manifest, the four made pieces and their source, `plates/make-plates.py` and `measures.json`, the BLUELINE bench at `Projects/BLUELINE/proofs/text-layer/` and its git history. My only account of the maker's reasoning was its commit body. I did not make this face.
 
-**Verdicts: 3 keep, 2 remake, 0 retire.**
+**Verdicts: 2 keep, 3 remake, 0 retire.**
 
 ## Charter
 
