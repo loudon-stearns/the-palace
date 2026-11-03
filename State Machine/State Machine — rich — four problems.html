@@ -1,0 +1,654 @@
+<!doctype html>
+<!--
+  title: State Machine — rich — four problems
+  born: 2026-11-03
+  links: [[State Machine]] (connects-to · rich-face-piece) · [[Action Potential Oscillator]] (connects-to · engine-from) · [[Progressive Staging]] (exemplifies · a walk in steps) · listed in [[State Machine — rich.json]]
+  forward_vector: I am the Core Pattern as a walk you can play: one integer that remembers, then the
+    four-state neuron with its diagram lit as it runs, its behaviours, its guards and its actions each
+    taken one at a time. The last step is the test: three bugs, one from each of three of the four
+    problems, switched in one line at a time, so you can hear and see where each failure surfaces. I play
+    inside the entry's rich face and stand alone opened directly; I change only when the section I serve does.
+  engine: MachineEngine with no bug is neuropulse.dsp v0.4's neuron, sample for sample, the same as the
+    Action Potential Oscillator's stage 4; each bug changes one line. The same engine runs in the worklet,
+    the slow view and every readout. Checked headless by "State Machine — rich — checks.mjs", beside this file.
+  dress: Loudon Live house style, Graphite skin; the states keep the Action Potential Oscillator's ion
+    colours (charge yellow, Na+ orange, K+ blue, recovery purple).
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:needs" content="">
+<title>State Machine — four problems, one neuron</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Manrope:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root { --bg:#0a0a0f; --e1:#12121a; --border:#4a4a5e; --soft:rgba(255,255,255,.07); --fg1:#e8e8f0; --fg2:#c8c8d8; --fg3:#8a8aa0; --fg4:#4a4a5a;
+    --amber:#e8b84a; --amberline:rgba(232,184,74,.5); --warn:#ff9b4a; --bad:#ff5a6a;
+    --s0:#ffe44a; --s1:#ff6b4a; --s2:#4aadff; --s3:#a64aff;
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --sans:'Manrope',system-ui,sans-serif; --serif:'Cormorant Garamond',Georgia,serif; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); font-weight: 300; }
+  .sm-piece { padding: 22px 22px 20px; }
+  .sm-kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; display: flex; align-items: center; gap: 10px; }
+  .sm-kicker svg { width: 18px; height: 18px; }
+  .sm-title { font-family: var(--serif); font-size: 27px; font-weight: 300; color: var(--fg1); margin: 0 0 6px; }
+  .sm-sub { font-size: 14px; line-height: 1.6; color: var(--fg2); max-width: 78ch; margin: 0 0 16px; }
+  .sm-rail { display: flex; flex-wrap: wrap; margin: 0 0 14px; }
+  .sm-rail button { border-radius: 0; margin-right: -1px; }
+  .sm-rail button[aria-pressed="true"] { color: var(--amber); border-color: var(--amberline); position: relative; z-index: 1; }
+  button { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--fg2); background: var(--bg); border: 1px solid var(--border); border-radius: 2px; padding: 8px 12px; cursor: pointer; transition: border-color 220ms cubic-bezier(.4,0,.2,1), color 220ms cubic-bezier(.4,0,.2,1); }
+  button:hover { border-color: rgba(232,184,74,.55); color: var(--fg1); }
+  button:disabled { opacity: .35; cursor: default; }
+  button.sm-go { color: var(--amber); border-color: var(--amberline); box-shadow: 0 0 14px rgba(232,184,74,.18); min-width: 104px; }
+  button.sm-on, .sm-seg button[aria-pressed="true"] { color: var(--amber); border-color: var(--amberline); }
+  .sm-seg { display: inline-flex; flex-wrap: wrap; } .sm-seg button { border-radius: 0; margin-right: -1px; } .sm-seg button[aria-pressed="true"] { position: relative; z-index: 1; }
+  .sm-seg.sm-bugs button[aria-pressed="true"] { color: var(--warn); border-color: rgba(255,155,74,.6); }
+  .sm-step { border: 1px solid var(--soft); background: var(--e1); border-radius: 2px; padding: 14px 16px 16px; }
+  .sm-stephead { font-family: var(--mono); font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--fg3); display: flex; justify-content: space-between; gap: 10px; margin-bottom: 6px; }
+  .sm-says { font-size: 14.5px; line-height: 1.62; color: var(--fg2); max-width: 80ch; margin: 0 0 12px; }
+  .sm-says b { color: var(--fg1); font-weight: 500; }
+  .sm-grid { display: grid; grid-template-columns: 11fr 10fr; gap: 14px; }
+  @media (max-width: 820px) { .sm-grid { grid-template-columns: 1fr; } }
+  .sm-panel { border: 1px solid var(--soft); border-radius: 2px; background: var(--bg); padding: 8px 10px; min-width: 0; }
+  .sm-plabel { font-family: var(--mono); font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+  #diagram { display: block; width: 100%; height: auto; }
+  #diagram text { font-family: var(--mono); }
+  .sm-dnote { font-family: var(--mono); font-size: 10.5px; color: var(--fg3); margin-top: 4px; min-height: 14px; }
+  .sm-dnote .sm-badtxt { color: var(--warn); }
+  pre.sm-code { margin: 0; font-family: var(--mono); font-variant-ligatures: none; font-feature-settings: 'liga' 0, 'calt' 0; font-size: 11.5px; line-height: 1.55; color: var(--fg3); white-space: pre; overflow-x: auto; }
+  pre.sm-code span { display: block; padding: 0 6px 0 8px; border-left: 2px solid transparent; }
+  pre.sm-code .sm-c-focus { color: var(--fg2); }
+  pre.sm-code .sm-c-cm { color: var(--fg4); }
+  pre.sm-code .sm-c-focus.sm-c-cm { color: var(--fg3); }
+  pre.sm-code .sm-c-bug { color: var(--warn); background: rgba(255,155,74,.08); }
+  pre.sm-code .sm-c-gone { color: var(--fg4); text-decoration: line-through; }
+  canvas { display: block; width: 100%; }
+  .sm-controls { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 12px 22px; align-items: end; margin-top: 14px; }
+  .sm-btns { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+  label.sm-sl { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: .06em; color: var(--fg3); }
+  label.sm-sl b { color: var(--fg1); font-weight: 500; }
+  input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 3px; background: var(--fg4); margin: 12px 0 4px; outline: none; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 13px; height: 13px; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  input[type=range]::-moz-range-thumb { width: 13px; height: 13px; border: 0; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  .sm-read { display: flex; flex-wrap: wrap; gap: 6px 22px; margin-top: 12px; font-family: var(--mono); font-size: 11.5px; letter-spacing: .04em; color: var(--fg3); }
+  .sm-read b { color: var(--fg1); font-weight: 500; }
+  .sm-read .sm-flag { color: var(--warn); }
+  .sm-eqs { margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--soft); }
+  .sm-eq { font-family: var(--serif); font-size: 19px; color: var(--fg1); }
+  .sm-words { font-size: 13px; line-height: 1.55; color: var(--fg2); margin: 2px 0 10px; max-width: 80ch; }
+  .sm-back { font-family: var(--mono); font-size: 11px; letter-spacing: .04em; color: var(--fg3); margin-top: 10px; }
+  .sm-nav { display: flex; justify-content: space-between; gap: 10px; margin-top: 14px; }
+  .sm-key { display: flex; gap: 14px; flex-wrap: wrap; font-family: var(--mono); font-size: 10.5px; color: var(--fg3); margin-top: 6px; }
+  .sm-key i { display: inline-block; width: 14px; height: 2px; vertical-align: middle; margin-right: 5px; }
+  .sm-verdict { margin-top: 12px; font-size: 14px; line-height: 1.6; color: var(--fg1); max-width: 80ch; border-left: 2px solid var(--amberline); padding-left: 12px; }
+  .sm-verdict p { margin: 0 0 8px; }
+  .sm-verdict .sm-sum { color: var(--fg2); }
+</style>
+</head>
+<body>
+<div class="sm-piece">
+  <div class="sm-kicker"><svg id="sigil" viewBox="0 0 18 18" aria-hidden="true"></svg><span>made · Web Audio Worklet · sketch · a walk in five steps</span></div>
+  <h3 class="sm-title">Four problems, one neuron</h3>
+  <p class="sm-sub">The section's four problems, taken one at a time on the Action Potential Oscillator's four-state neuron: first an integer that remembers, then what each state does, how it leaves, and what happens once on the way out. The diagram and the code light up as the machine runs. Nothing sounds until you press play. The last step breaks the machine three ways, one line each.</p>
+  <div class="sm-rail" id="rail" role="group" aria-label="steps"></div>
+  <div class="sm-step">
+    <div class="sm-stephead"><span id="stepname"></span><span id="stepof"></span></div>
+    <p class="sm-says" id="says"></p>
+    <div class="sm-grid">
+      <div class="sm-panel">
+        <div class="sm-plabel"><span>the machine, lit as it runs</span><span id="speedlabel"></span></div>
+        <svg id="diagram" viewBox="0 0 520 300" role="img" aria-label="the state diagram, lit as it runs"></svg>
+        <div class="sm-dnote" id="dnote"></div>
+      </div>
+      <div class="sm-panel">
+        <div class="sm-plabel"><span>the code, the running state lit</span><span>GenExpr, as in a codebox · abridged</span></div>
+        <pre class="sm-code" id="code"></pre>
+      </div>
+    </div>
+    <div class="sm-panel" style="margin-top:14px">
+      <div class="sm-plabel"><span id="tracelabel">membrane</span><span id="tracenote"></span></div>
+      <canvas id="trace" height="150"></canvas>
+      <div class="sm-key" id="key"></div>
+    </div>
+    <div class="sm-controls" id="controls"></div>
+    <div class="sm-read" id="read"></div>
+    <div class="sm-verdict" id="verdict" style="display:none"></div>
+    <div class="sm-eqs" id="eqs"></div>
+    <div class="sm-back" id="backline"></div>
+    <div class="sm-nav"><button id="prev">← back</button><button id="next">next step →</button></div>
+  </div>
+</div>
+
+<script id="engine">
+/* ENGINE:START — two machines. PulseEngine is step 1: one integer and a counter. MachineEngine is the
+   four-state neuron, written as the four problems: memory, behaviour, transitions, actions. With no bug
+   it is neuropulse.dsp v0.4's neuron, sample for sample (the Action Potential Oscillator's stage 4).
+   Each bug changes one line. Shared by the AudioWorklet, the slow view and the headless check. */
+function PulseEngine(SR) {
+  const P = { freq: 110, duty: 0.5, memory: true };
+  let s = 0, t = 0;                                   // memory: all it knows between samples
+  function reset() { s = 0; t = 0; }
+  function set(o) { for (const k in o) if (k in P) P[k] = o[k]; }
+  function lens() { const N = Math.max(2, Math.round(SR / Math.max(1, P.freq))); const hi = Math.min(N - 1, Math.max(1, Math.round(N * P.duty))); return { N, hi, lo: N - hi }; }
+  function tick(st) {
+    const { hi, lo } = lens();
+    if (!P.memory) { s = 0; t = 0; }                  // no History: every sample starts from nothing
+    const p = s;
+    const out = p ? 1 : -1;                            // behaviour
+    t = t + 1;                                         // transitions
+    const go = (p === 0 && t >= lo) || (p === 1 && t >= hi) ? 1 : 0;
+    const nx = (p + go) % 2;
+    if (nx !== p) t = 0;                               // action
+    s = nx;
+    if (st) { st.from = p; st.ph = s; st.edge = nx !== p; st.t = t; st.V = out; }
+    return out;
+  }
+  return { P, set, reset, tick, lens, state: () => ({ s, t }) };
+}
+function MachineEngine(SR) {
+  const P = { freq: 110, tau_ms: 5, spike_ms: 1, rise_frac: 0.3, peak: 1.5, hyp: -0.2, damp: 0.3, refr_ms: 1.5,
+              bug: 'none' };   // none · ambiguous · noguard · latch-edge · latch-state · latch-off
+  // 1 · memory
+  let V = 0, ph = 0, t = 0, vel = 0, el = 0, v0 = 0;
+  const thr = 1.0;
+  function reset() { V = 0; ph = 0; t = 0; vel = 0; el = 0; v0 = 0; }
+  function set(o) { for (const k in o) if (k in P) P[k] = o[k]; }
+  function lens() {
+    const tauS = P.tau_ms * 0.001 * SR;
+    const leakTau = P.bug === 'noguard' ? tauS : Math.max(2.0, tauS);   // the input guard: at least two samples
+    const spikeS = Math.max(2.0, P.spike_ms * 0.001 * SR);
+    const riseS = Math.max(1.0, spikeS * P.rise_frac), fallS = Math.max(1.0, spikeS - riseS);
+    return { leakTau, riseS, fallS, refrS: Math.max(1.0, P.refr_ms * 0.001 * SR), period: SR / Math.max(1, P.freq) };
+  }
+  function tick(st) {
+    const { leakTau, riseS, fallS, refrS, period } = lens();
+    const leakCoeff = 1.0 - 1.0 / leakTau;
+    const riseRate = (P.peak - thr) / riseS, fallRate = (P.hyp - P.peak) / fallS;
+    const p = ph;
+    // 3 · behaviour: only the active state's math runs
+    let nV;
+    if (p === 0) {
+      if (P.bug === 'latch-state') v0 = V;                                // BUG: the latch as a behaviour, every sample
+      const m = Math.max(1.0, period - (el - t) - 0.5);                    // what is left of the period for the charge
+      const c = Math.pow(leakCoeff, m);
+      nV = V * leakCoeff + (thr - v0 * c) / (leakTau * (1.0 - c));
+    } else if (p === 1) nV = Math.min(P.peak, V + riseRate);
+    else if (p === 2) nV = Math.max(P.hyp, V + fallRate);
+    else {
+      const springK = 1.0 / leakTau;
+      vel = vel + (-springK * V - P.damp * 2.0 * Math.sqrt(springK) * vel);
+      nV = V + vel;
+    }
+    // 2 · transitions: one flag per exit, each gated by its own state; strict progression
+    const fired = p === 0 && nV >= thr;
+    const recCond = (t + 1) >= refrS && V > P.hyp * 0.3;
+    const f30 = (P.bug === 'ambiguous' ? true : p === 3) && recCond;     // BUG: the recovery's exit without (phase == 3)
+    const go = fired + (p === 1 && (t + 1) >= riseS) + (p === 2 && (t + 1) >= fallS) + f30;
+    const nph = (p + go) % 4;
+    // 4 · actions: once, on the edge
+    t = nph !== p ? 0 : t + 1;
+    if (p === 0 && nph === 1) { nV = thr; el = 0; } else el = el + 1;     // latch at threshold; count from the firing
+    if (P.bug === 'latch-edge') { if (p === 2 && nph === 3) v0 = nV; }   // BUG: latched as the fall ends
+    else if (P.bug === 'latch-off') v0 = 0;                              // no latch: the charge assumes rest
+    else if (P.bug !== 'latch-state') { if (p === 3 && nph === 0) v0 = nV; } // the latch, as the recovery hands over
+    if (nph !== 3) vel = 0;
+    V = nV; ph = nph;
+    if (st) { st.from = p; st.ph = ph; st.edge = nph !== p; st.fired = fired; st.stray = p !== 3 && f30; st.V = V; st.t = t; st.v0 = v0; st.el = el; }
+    return (V - P.hyp) / (P.peak - P.hyp) * 2.0 - 1.0;
+  }
+  return { P, set, reset, tick, lens, state: () => ({ V, ph, t, vel, el, v0 }) };
+}
+/* ENGINE:END */
+</script>
+<script id="measure">
+/* MEASURE:START — what the readouts say, from the same engines, run offline from rest. Also run by the headless check. */
+function measureMachine(params, SR, secs) {
+  const e = MachineEngine(SR); e.set(params);
+  const st = {}, n = Math.round(SR * (secs || 1.5)), half = n >> 1;
+  const fires = [], phs = new Uint8Array(n); let nan = false, strays = 0, vHand = null;
+  for (let k = 0; k < n; k++) {
+    const y = e.tick(st); if (y !== y) nan = true; phs[k] = st.ph;
+    if (k >= half) { if (st.from === 0 && st.ph !== 0) fires.push(k); if (st.stray) strays++; if (st.from === 3 && st.ph === 0) vHand = st.V; }
+  }
+  const s = e.state(), occ = [0, 0, 0, 0];
+  let f0 = fires.length >= 3 ? SR * (fires.length - 1) / (fires[fires.length - 1] - fires[0]) : null, alt = false;
+  // two firings a period: gaps that alternate long, short, long, short repeat every two firings, and that is the note
+  const gaps = fires.slice(1).map((k, i) => k - fires[i]);
+  if (gaps.length >= 6 && gaps.every((g, i) => i < 2 || Math.abs(g - gaps[i - 2]) <= 1) && gaps.every((g, i) => i < 1 || Math.abs(g - gaps[i - 1]) > 2)) { alt = true; f0 = f0 / 2; }
+  if (f0) for (let k = fires[0] + 1; k <= fires[fires.length - 1]; k++) occ[phs[k]]++;
+  const cyc = Math.max(1, fires.length - 1);
+  return { f0, cents: f0 ? 1200 * Math.log2(f0 / params.freq) : null, silent: fires.length < 2, nan,
+           perCycle: occ.map(o => o / cyc), strays, alt, firesPerSec: fires.length >= 3 ? SR * (fires.length - 1) / (fires[fires.length - 1] - fires[0]) : 0, gap: 1 - s.V, vHand, lens: e.lens() };
+}
+function measurePulse(params, SR) {
+  const e = PulseEngine(SR); e.set(params); const st = {}; let edges = 0;
+  for (let k = 0; k < SR; k++) { e.tick(st); if (st.edge) edges++; }
+  const L = e.lens();
+  return { f0: edges ? SR / L.N : 0, edgesPerSec: edges, lens: L };
+}
+/* MEASURE:END */
+</script>
+<script>
+'use strict';
+const SR = 48000;                     // the view and the readouts; the sound runs at the device's own rate
+(function sigil() { const s = document.getElementById('sigil'); let d = ''; for (let i = 0; i <= 160; i++) { const t = 2 * Math.PI * i / 160; d += (i ? 'L' : 'M') + (9 + 7.5 * Math.sin(3 * t + Math.PI / 2)).toFixed(2) + ',' + (9 + 7.5 * Math.sin(2 * t)).toFixed(2); } s.innerHTML = '<path d="' + d + '" fill="none" stroke="#e8b84a" stroke-width="1"/>'; })();
+
+const S = { step: 1, freq: 110, duty: 0.5, memory: true, tau: 5, hyp: -0.2, damp: 0.3, refr: 1.5, latch: true, bug: 'none', speed: 120, paused: false, playing: false };
+const COL = ['#ffe44a', '#ff6b4a', '#4aadff', '#a64aff'], PCOL = ['#8a8aa0', '#e8b84a'];
+const NAMES = ['charge', 'rise', 'fall', 'recovery'], PNAMES = ['LOW', 'HIGH'];
+const BUGS = [['none', 'no bug'], ['ambiguous', 'ambiguous transition'], ['noguard', 'missing guard'], ['latch-edge', 'latch on the fall’s end'], ['latch-state', 'latch as a behaviour']];
+const SPEEDS = [[24, '×1/2000'], [120, '×1/400'], [480, '×1/100'], [48000, 'as heard']];
+const $ = id => document.getElementById(id);
+const el = (tag, attrs = {}, ...kids) => { const n = document.createElement(tag); for (const k in attrs) { if (k === 'on') for (const ev in attrs.on) n.addEventListener(ev, attrs.on[ev]); else if (k === 'html') n.innerHTML = attrs[k]; else n.setAttribute(k, attrs[k]); } kids.forEach(c => n.append(c)); return n; };
+const rgba = (hex, a) => { const v = parseInt(hex.slice(1), 16); return 'rgba(' + (v >> 16) + ',' + ((v >> 8) & 255) + ',' + (v & 255) + ',' + a.toFixed(3) + ')'; };
+const isPulse = () => S.step === 1;
+const bugNow = () => S.step === 4 ? (S.latch ? 'none' : 'latch-off') : S.step === 5 ? S.bug : 'none';
+const nParams = () => ({ freq: S.freq, tau_ms: S.tau, hyp: S.hyp, damp: S.damp, refr_ms: S.refr, bug: bugNow() });
+const pParams = () => ({ freq: S.freq, duty: S.duty, memory: S.memory });
+const fmtHz = f => f == null ? '–' : f < 100 ? f.toFixed(1) : f.toFixed(f < 1000 ? 1 : 0);
+const fmtC = c => (c >= 0 ? '+' : '−') + Math.abs(c).toFixed(1) + ' c';
+
+// ───────── sound: one worklet runs the same engines; silent until a click ─────────
+let ctx = null, node = null, master = null, heard = null;
+const WORKLET = () => document.getElementById('engine').textContent + `
+class SmMachine extends AudioWorkletProcessor {
+  constructor() { super(); this.n = MachineEngine(sampleRate); this.p = PulseEngine(sampleRate); this.mode = 'pulse';
+    this.x1 = 0; this.y1 = 0; this.pull = 0; this.tauHeld = 5; this.st = {}; this.k = 0; this.fires = 0;
+    this.port.onmessage = (ev) => { const d = ev.data;
+      if (d.mode) this.mode = d.mode;
+      if (d.setN) { this.n.set(d.setN); this.tauHeld = d.setN.tau_ms; if (this.pull > 0) this.n.P.tau_ms = 0; }
+      if (d.setP) this.p.set(d.setP);
+      if (d.reset) { this.n.reset(); this.p.reset(); }
+      if (d.pull) { this.pull = Math.round(d.pull * sampleRate); this.n.P.tau_ms = 0; } }; }
+  process(_, outs) { const L = outs[0][0], R = outs[0][1] || L, st = this.st;
+    for (let i = 0; i < L.length; i++) {
+      let x;
+      if (this.mode === 'pulse') x = 0.45 * this.p.tick(st);
+      else { x = this.n.tick(st); if (this.pull > 0 && --this.pull === 0) this.n.P.tau_ms = this.tauHeld; }
+      if (st.from === 0 && st.ph !== 0) this.fires++;
+      if (!(x === x) || !isFinite(x)) x = 0;                      // a NaN leaves as silence; the state keeps it
+      const y = x - this.x1 + 0.9987 * this.y1; this.x1 = x; this.y1 = y;   // a DC blocker
+      L[i] = y * 0.42; if (R !== L) R[i] = L[i];
+      if (++this.k >= 4800) { const s = this.n.state(); this.port.postMessage({ mode: this.mode, ph: st.ph, nan: !(s.V === s.V), fires: this.fires * sampleRate / this.k }); this.k = 0; this.fires = 0; }
+    }
+    return true; }
+}
+registerProcessor('sm-machine', SmMachine);`;
+
+async function play() {
+  if (!ctx) {
+    ctx = new AudioContext();
+    const url = URL.createObjectURL(new Blob([WORKLET()], { type: 'application/javascript' }));
+    await ctx.audioWorklet.addModule(url); URL.revokeObjectURL(url);
+    node = new AudioWorkletNode(ctx, 'sm-machine', { numberOfInputs: 0, numberOfOutputs: 1, outputChannelCount: [2] });
+    node.port.onmessage = (ev) => { heard = ev.data; };
+    const comp = ctx.createDynamicsCompressor(); comp.threshold.value = -16; comp.ratio.value = 4;
+    master = ctx.createGain(); master.gain.value = 0;
+    node.connect(comp).connect(master).connect(ctx.destination);
+    ctx.onstatechange = () => { if (ctx.state !== 'running' && S.playing) { S.playing = false; heard = null; paint(); } };
+  }
+  send({ reset: true });
+  await ctx.resume();
+  master.gain.cancelScheduledValues(ctx.currentTime);
+  master.gain.setTargetAtTime(0.8, ctx.currentTime, 0.05);
+  S.playing = true; paint();
+}
+function stopSound() {
+  heard = null;
+  if (!ctx || !S.playing) { S.playing = false; return; }
+  master.gain.setTargetAtTime(0, ctx.currentTime, 0.03);
+  const c = ctx; setTimeout(() => { if (!S.playing) c.suspend(); }, 160);
+  S.playing = false; paint();
+}
+function send(extra) { if (node) node.port.postMessage(Object.assign({ mode: isPulse() ? 'pulse' : 'neuron', setN: nParams(), setP: pParams() }, extra || {})); }
+
+// ───────── the view: the same engine, slowed down ─────────
+const viewN = MachineEngine(SR), viewP = PulseEngine(SR);
+const RING = 8192, rv = new Float32Array(RING), rp = new Uint8Array(RING);
+let head = 0, total = 0, lastFire = -1, pullLeft = 0, lastSt = null, acc = 0, lastT = 0;
+const flash = {}, share = [0, 0, 0, 0];
+function viewReset() { viewN.reset(); viewP.reset(); rv.fill(0); rp.fill(0); head = 0; total = 0; lastFire = -1; pullLeft = 0; viewN.set(nParams()); viewP.set(pParams()); lastSt = null; }
+function viewTick(now) {
+  const st = {};
+  if (isPulse()) viewP.tick(st);
+  else { if (pullLeft > 0) { viewN.P.tau_ms = 0; if (--pullLeft === 0) viewN.P.tau_ms = S.tau; } viewN.tick(st); }
+  rv[head] = st.V; rp[head] = st.ph; head = (head + 1) % RING; total++;
+  if (st.edge) { flash[(st.stray ? 's' : 'e') + st.from] = now; if (st.from === 0) lastFire = total; }
+  share[st.ph]++;
+  lastSt = st;
+}
+
+// ───────── the diagram ─────────
+const NODE = [{ x: 14, y: 116, w: 142, h: 68 }, { x: 189, y: 12, w: 142, h: 62 }, { x: 364, y: 116, w: 142, h: 68 }, { x: 189, y: 226, w: 142, h: 62 }];
+const EDGE = ['M 85 114 Q 95 43 186 43', 'M 334 43 Q 425 43 435 114', 'M 435 186 Q 425 257 334 257', 'M 186 257 Q 95 257 85 186'];
+const STRAY = ['M 146 114 Q 160 80 200 76', 'M 320 76 Q 360 80 374 114'];
+const BEH = ['V ← λ·V + drive', 'V ← V + rise rate', 'V ← V + fall rate', 'damped spring'];
+const tx = (x, y, s, attrs = '') => '<text x="' + x + '" y="' + y + '" ' + attrs + '>' + s + '</text>';
+function edgeLabels(bug) {
+  // [guard, action] per edge; an action in warn colour is a bug's
+  const showG = S.step >= 3, showA = S.step >= 4;
+  const L = [['V ≥ 1', '/ V ← 1 · t ← 0'], ['t ≥ rise', '/ t ← 0'], ['t ≥ fall', '/ t ← 0'], ['t ≥ refr ∧ V > 0.3·depth', '/ V_start ← V · t ← 0']];
+  const warn = [false, false, false, false], gone = [false, false, false, false];
+  if (bug === 'latch-edge') { L[2][1] = '/ V_start ← V · t ← 0'; warn[2] = true; L[3][1] = '/ t ← 0'; }
+  if (bug === 'latch-state') L[3][1] = '/ t ← 0';
+  if (bug === 'latch-off') { L[3][1] = '/ <tspan text-decoration="line-through" fill="#4a4a5a">V_start ← V</tspan> · t ← 0'; }
+  if (bug === 'ambiguous') warn[3] = 'guard';
+  return L.map((l, i) => ({ g: showG ? l[0] : '', a: showA ? l[1] : '', warn: warn[i], gone: gone[i] }));
+}
+function buildDiagram() {
+  const sv = $('diagram');
+  let h = '<defs><marker id="sm-ar" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#8a8aa0"/></marker>' +
+          '<marker id="sm-arw" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#ff9b4a"/></marker></defs>';
+  if (isPulse()) {
+    const P = [{ x: 20, y: 112, w: 120, h: 70 }, { x: 380, y: 112, w: 120, h: 70 }];
+    h += '<path id="e0" d="M 110 110 Q 260 26 410 110" fill="none" stroke="#8a8aa0" stroke-width="1.2" marker-end="url(#sm-ar)"/>';
+    h += '<path id="e1" d="M 410 184 Q 260 268 110 184" fill="none" stroke="#8a8aa0" stroke-width="1.2" marker-end="url(#sm-ar)"/>';
+    h += tx(260, 52, 't ≥ low_samps  / t ← 0', 'text-anchor="middle" font-size="11" fill="#c8c8d8"');
+    h += tx(260, 256, 't ≥ high_samps  / t ← 0', 'text-anchor="middle" font-size="11" fill="#c8c8d8"');
+    P.forEach((n, i) => { h += '<rect id="n' + i + '" x="' + n.x + '" y="' + n.y + '" width="' + n.w + '" height="' + n.h + '" rx="2" fill="#12121a" stroke="#4a4a5e"/>';
+      h += tx(n.x + n.w / 2, n.y + 28, PNAMES[i], 'text-anchor="middle" font-size="13" letter-spacing="2" fill="' + PCOL[i] + '"');
+      h += tx(n.x + n.w / 2, n.y + 48, 'out = ' + (i ? '+1' : '−1'), 'text-anchor="middle" font-size="10.5" fill="#8a8aa0"');
+      h += tx(n.x + n.w / 2, n.y + 62, '', 'id="nt' + i + '" text-anchor="middle" font-size="10" fill="#e8e8f0"'); });
+    h += tx(260, 143, '', 'id="mem0" text-anchor="middle" font-size="11" fill="#e8e8f0"') + tx(260, 160, '', 'id="mem1" text-anchor="middle" font-size="10.5" fill="#8a8aa0"');
+    sv.innerHTML = h; return;
+  }
+  const bug = bugNow(), lab = edgeLabels(bug);
+  EDGE.forEach((d, i) => { h += '<path id="e' + i + '" d="' + d + '" fill="none" stroke="#8a8aa0" stroke-width="1.2" marker-end="url(#sm-ar)"/>'; });
+  if (bug === 'ambiguous') STRAY.forEach((d, i) => { h += '<path id="s' + i + '" d="' + d + '" fill="none" stroke="#ff9b4a" stroke-opacity=".55" stroke-dasharray="4 3" stroke-width="1.2" marker-end="url(#sm-arw)"/>'; });
+  if (bug === 'ambiguous') h += '<path id="s2" d="M 374 186 Q 360 220 320 224" fill="none" stroke="#ff9b4a" stroke-opacity=".55" stroke-dasharray="4 3" stroke-width="1.2" marker-end="url(#sm-arw)"/>';
+  const pos = [[6, 18, 'start'], [514, 18, 'end'], [514, 274, 'end'], [6, 274, 'start']];
+  lab.forEach((l, i) => { const [x, y, a] = pos[i];
+    const gcol = l.warn === 'guard' ? '#ff9b4a' : '#c8c8d8';
+    if (l.g) h += tx(x, y, l.g, 'text-anchor="' + a + '" font-size="11" fill="' + gcol + '"');
+    if (l.a) h += tx(x, y + 15, l.a, 'text-anchor="' + a + '" font-size="10.5" fill="' + (l.warn === true ? '#ff9b4a' : '#8a8aa0') + '"' + (l.gone ? ' text-decoration="line-through"' : '')); });
+  NODE.forEach((n, i) => {
+    h += '<rect id="n' + i + '" x="' + n.x + '" y="' + n.y + '" width="' + n.w + '" height="' + n.h + '" rx="2" fill="#12121a" stroke="#4a4a5e"/>';
+    h += tx(n.x + 10, n.y + 20, NAMES[i].toUpperCase(), 'font-size="12" letter-spacing="1.5" fill="' + COL[i] + '"');
+    let beh = BEH[i], bcol = '#8a8aa0';
+    if (i === 0 && bug === 'latch-state') { beh = 'V_start ← V; V ← λ·V + drive'; bcol = '#ff9b4a'; }
+    if (S.step >= 2) h += tx(n.x + 10, n.y + 38, beh, 'font-size="10" fill="' + bcol + '"');
+    h += tx(n.x + 10, n.y + (n.h - 9), '', 'id="nt' + i + '" font-size="10" fill="#e8e8f0"');
+    if (S.step === 5 && (i === 0 || i === 3)) h += tx(n.x + n.w - 8, n.y + 20, 'reads τ', 'id="tau' + i + '" text-anchor="end" font-size="9.5" fill="#4a4a5a"');
+  });
+  h += tx(260, 134, '', 'id="mem0" text-anchor="middle" font-size="11" fill="#e8e8f0"') + tx(260, 151, '', 'id="mem1" text-anchor="middle" font-size="10.5" fill="#8a8aa0"') + tx(260, 168, '', 'id="mem2" text-anchor="middle" font-size="10.5" fill="#8a8aa0"');
+  sv.innerHTML = h;
+}
+function fmtV(v) { return v === v ? (v >= 0 ? ' ' : '') + v.toFixed(3) : 'NaN'; }
+function updateDiagram(now) {
+  const st = lastSt; if (!st) return;
+  const fast = S.speed >= 48000, n = isPulse() ? 2 : 4, cols = isPulse() ? PCOL : COL;
+  const tot = share.reduce((a, b) => a + b, 0) || 1;
+  for (let i = 0; i < n; i++) {
+    const r = $('n' + i); if (!r) continue;
+    const a = fast ? share[i] / tot : (st.ph === i ? 1 : 0);
+    r.setAttribute('fill', a > 0 ? rgba(cols[i], 0.04 + 0.22 * Math.sqrt(a)) : '#12121a');
+    r.setAttribute('stroke', a > 0 ? cols[i] : '#4a4a5e');
+    r.setAttribute('stroke-width', a > 0 ? (1 + Math.sqrt(a)).toFixed(2) : '1');
+    const t = $('nt' + i); if (t) t.textContent = (!fast && st.ph === i) ? 't = ' + st.t : '';
+  }
+  for (let i = 0; i < n; i++) { const p = $('e' + i); if (!p) continue;
+    const f = flash['e' + i] != null ? Math.exp(-(now - flash['e' + i]) / (fast ? 140 : 450)) : 0;
+    p.setAttribute('stroke', f > 0.04 ? '#e8e8f0' : '#8a8aa0'); p.setAttribute('stroke-width', (1.2 + 1.8 * f).toFixed(2)); }
+  for (let i = 0; i < 3; i++) { const p = $('s' + i); if (!p) continue;
+    const f = flash['s' + i] != null ? Math.exp(-(now - flash['s' + i]) / (fast ? 140 : 450)) : 0;
+    p.setAttribute('stroke-opacity', (0.45 + 0.55 * f).toFixed(2)); p.setAttribute('stroke-width', (1.2 + 1.8 * f).toFixed(2)); }
+  for (const i of [0, 3]) { const t = $('tau' + i); if (t) t.setAttribute('fill', (pullLeft > 0 || (heard && heard.pullOn)) ? '#ff9b4a' : (S.tau === 0 ? '#ff9b4a' : '#4a4a5a')); }
+  if (isPulse()) { const s = viewP.state(); $('mem0').textContent = S.memory ? 'remembered: state ' + PNAMES[s.s] + ' · t ' + s.t : 'remembered: nothing'; $('mem1').textContent = S.memory ? 'History state, t' : 'state = 0; t = 0 every sample'; }
+  else { const s = viewN.state(); $('mem0').textContent = 'phase ' + NAMES[s.ph] + ' · t ' + s.t; $('mem1').textContent = 'V ' + fmtV(s.V) + ' · V_start ' + fmtV(s.v0); $('mem2').textContent = 'remembered between samples'; }
+  share.fill(0);
+}
+
+// ───────── the code ─────────
+// each line: [kind, text, block, state, edge]; kind '' | 'cm' | 'bug' | 'gone'
+function codeLines() {
+  if (isPulse()) return [
+    ['cm', '// 1 · memory: all the machine knows between samples', 'mem'],
+    S.memory ? ['', 'History state(0), t(0);', 'mem'] : ['bug', 'state = 0;  t = 0;     // no History: forgotten', 'mem'],
+    ['cm', '// behaviour', 'beh'],
+    ['', 'out = (state == HIGH) ? 1 : -1;', 'beh'],
+    ['cm', '// transitions', 'tr'],
+    ['', 't = t + 1;', 'tr'],
+    ['', 'go = (state == LOW)  * (t >= low_samps)', 'tr', 0],
+    ['', '   + (state == HIGH) * (t >= high_samps);', 'tr', 1],
+    ['', 'next = (state + go) % 2;', 'tr'],
+    ['cm', '// action, on the edge', 'act'],
+    ['', 'if (next != state) t = 0;', 'act', null, 'e'],
+    ['', 'state = next;', 'act']];
+  const bug = bugNow();
+  return [
+    ['cm', '// 1 · memory: all the machine knows between samples', 'mem'],
+    ['', 'History phase(0), V(0), t(0), vel(0), V_start(0);', 'mem'],
+    ['cm', '// the input, guarded before it reaches the machine', 'in'],
+    bug === 'noguard' ? ['bug', 'leak_tau = tau_ms * 0.001 * samplerate;  // no guard', 'in'] : ['', 'leak_tau = max(tau_ms * 0.001 * samplerate, 2);', 'in'],
+    ['cm', '// 3 · behaviour: only the running state’s math', 'beh'],
+    bug === 'latch-state' ? ['bug', 'if (phase == CHARGE) { V_start = V;', 'beh', 0] : ['', 'if (phase == CHARGE)', 'beh', 0],
+    ['', '    Vn = V * leak + drive(V_start);' + (bug === 'latch-state' ? ' }' : ''), 'beh', 0],
+    ['', 'else if (phase == RISE) Vn = min(peak, V + rise_rate);', 'beh', 1],
+    ['', 'else if (phase == FALL) Vn = max(depth, V + fall_rate);', 'beh', 2],
+    ['', 'else { vel += -k*V - 2*zeta*sqrt(k)*vel; Vn = V + vel; }', 'beh', 3],
+    ['cm', '// 2 · transitions: each exit gated by its own state', 'tr'],
+    ['', 'go = (phase == CHARGE)   * (Vn >= 1)', 'tr', 0],
+    ['', '   + (phase == RISE)     * (t + 1 >= rise_samps)', 'tr', 1],
+    ['', '   + (phase == FALL)     * (t + 1 >= fall_samps)', 'tr', 2],
+    bug === 'ambiguous' ? ['bug', '   +                     (t + 1 >= refr_samps)', 'tr', 3] : ['', '   + (phase == RECOVERY) * (t + 1 >= refr_samps)', 'tr', 3],
+    ['', '                         * (V > depth * 0.3);', 'tr', 3],
+    ['', 'next = (phase + go) % 4;', 'tr'],
+    ['cm', '// 4 · actions: once, on the edge', 'act'],
+    ['', 't = (next != phase) ? 0 : t + 1;', 'act'],
+    ['', 'if (phase == CHARGE && next == RISE) Vn = 1;', 'act', null, 'e0'],
+    bug === 'latch-edge' ? ['bug', 'if (phase == FALL && next == RECOVERY) V_start = Vn;', 'act', null, 'e2']
+      : (bug === 'latch-state' || bug === 'latch-off') ? ['gone', 'if (phase == RECOVERY && next == CHARGE) V_start = Vn;', 'act']
+      : ['', 'if (phase == RECOVERY && next == CHARGE) V_start = Vn;', 'act', null, 'e3'],
+    ['', 'if (next != RECOVERY) vel = 0;', 'act'],
+    ['', 'phase = next;  V = Vn;', 'act']];
+}
+const FOCUS = { 1: null, 2: 'beh', 3: 'tr', 4: 'act', 5: null };
+let codeSpans = [];
+function buildCode() {
+  const pre = $('code'); pre.innerHTML = ''; codeSpans = [];
+  const f = FOCUS[S.step];
+  codeLines().forEach(([kind, txt, blk, s, e]) => {
+    const sp = document.createElement('span'); sp.textContent = txt || ' ';
+    const cls = []; if (!f || blk === f || blk === 'mem') cls.push('sm-c-focus'); if (kind === 'cm') cls.push('sm-c-cm'); if (kind === 'bug') cls.push('sm-c-bug'); if (kind === 'gone') cls.push('sm-c-gone');
+    sp.className = cls.join(' '); pre.append(sp); codeSpans.push({ sp, s, e });
+  });
+}
+function updateCode(now) {
+  const st = lastSt; if (!st) return;
+  const fast = S.speed >= 48000, cols = isPulse() ? PCOL : COL;
+  codeSpans.forEach(({ sp, s, e }) => {
+    let c = 'transparent';
+    if (s != null && !fast && st.ph === s) c = cols[s];
+    if (e) { const k = e === 'e' ? Math.max(flash.e0 || -1e9, flash.e1 || -1e9) : flash[e]; if (k != null && now - k < (fast ? 0 : 600)) c = '#e8e8f0'; }
+    sp.style.borderLeftColor = c;
+  });
+}
+
+// ───────── the trace ─────────
+function fit(cv) { const r = window.devicePixelRatio || 1, w = cv.clientWidth, h = cv.height / (cv._r || 1); cv._r = r; cv.style.height = h + 'px'; cv.width = Math.round(w * r); cv.height = Math.round(h * r); const g = cv.getContext('2d'); g.setTransform(r, 0, 0, r, 0, 0); return { g, w, h }; }
+let traceBox = null;
+function drawTrace() {
+  const cv = $('trace');
+  if (!traceBox || traceBox.w !== cv.clientWidth) traceBox = fit(cv);
+  const { g, w, h } = traceBox; g.clearRect(0, 0, w, h);
+  const pulse = isPulse(), period = SR / Math.max(1, S.freq);
+  const W = Math.min(RING - 1, Math.max(240, Math.round(period * 1.3)));
+  const lo = pulse ? -1.3 : -0.35, hi = pulse ? 1.3 : 1.65, pad = 6;
+  const Y = v => pad + (1 - (v - lo) / (hi - lo)) * (h - 2 * pad);
+  g.font = '10px "JetBrains Mono", monospace';
+  if (!pulse) { g.strokeStyle = 'rgba(232,184,74,.35)'; g.setLineDash([4, 4]); g.beginPath(); g.moveTo(0, Y(1)); g.lineTo(w, Y(1)); g.stroke(); g.setLineDash([]); g.fillStyle = 'rgba(232,184,74,.6)'; g.fillText('threshold 1', 4, Y(1) - 4);
+    g.strokeStyle = 'rgba(255,255,255,.07)'; g.beginPath(); g.moveTo(0, Y(0)); g.lineTo(w, Y(0)); g.stroke(); g.fillStyle = '#4a4a5a'; g.fillText('rest 0', 4, Y(0) + 12); }
+  const fast = S.speed >= 48000;
+  let end = total; if (fast && lastFire > 0 && total - lastFire < RING / 2) end = Math.min(total, lastFire + Math.round(period * 0.12));
+  const n = Math.min(W, end); const cols = pulse ? PCOL : COL;
+  const X = i => i / (W - 1) * w; let nanSeen = false;
+  for (let i = 1; i < n; i++) {
+    const a = ((end - n + i - 1) % RING + RING) % RING, b = ((end - n + i) % RING + RING) % RING;
+    const va = rv[a], vb = rv[b]; if (!(va === va) || !(vb === vb)) { nanSeen = true; continue; }
+    g.strokeStyle = cols[rp[b]] || '#e8e8f0'; g.lineWidth = 1.6; g.beginPath(); g.moveTo(X(W - n + i - 1), Y(Math.max(lo, Math.min(hi, va)))); g.lineTo(X(W - n + i), Y(Math.max(lo, Math.min(hi, vb)))); g.stroke();
+  }
+  if (!fast && n > 0) { g.strokeStyle = 'rgba(232,232,240,.4)'; g.beginPath(); g.moveTo(w - 1, 0); g.lineTo(w - 1, h); g.stroke(); }
+  if (nanSeen) { g.fillStyle = '#ff9b4a'; g.fillText('V = NaN: nothing to draw', w - 170, 14); }
+  $('tracenote').textContent = (fast ? 'the last cycle, held at the firing' : 'scrolling; newest at the right') + ' · ' + (W / SR * 1000).toFixed(1) + ' ms';
+}
+
+// ───────── readouts ─────────
+const cache = {};
+function M(params) { const k = JSON.stringify(params); return cache[k] || (cache[k] = measureMachine(params, SR)); }
+function readout() {
+  const parts = [];
+  if (isPulse()) {
+    const m = measurePulse(pParams(), SR);
+    parts.push('dial <b>' + fmtHz(S.freq) + ' Hz</b>', S.memory ? 'plays <b>' + fmtHz(m.f0) + ' Hz</b>' : '<span class="sm-flag">plays nothing: stuck in LOW</span>',
+               'one cycle <b>' + m.lens.N + '</b> samples: <b>' + m.lens.hi + '</b> HIGH, <b>' + m.lens.lo + '</b> LOW', 'transitions each second <b>' + m.edgesPerSec + '</b>');
+  } else {
+    const p = nParams(), m = M(p);
+    parts.push('dial <b>' + fmtHz(S.freq) + ' Hz</b>');
+    const vs = viewN.state();
+    if (!(vs.V === vs.V)) parts.push('<span class="sm-flag">the view: V is NaN, held in ' + NAMES[vs.ph] + ' for ' + vs.t + ' samples</span>');
+    if (m.nan) parts.push('<span class="sm-flag">V is NaN: silent, stuck in ' + NAMES[(() => { const e = MachineEngine(SR); e.set(p); for (let i = 0; i < SR; i++) e.tick(); return e.state().ph; })()] + '</span>');
+    else if (m.silent) parts.push('<span class="sm-flag">silent: the charge stops ' + m.gap.toExponential(1) + ' short of threshold</span>');
+    else parts.push((S.step === 5 ? 'from rest it plays <b>' : 'plays <b>') + fmtHz(m.f0) + ' Hz</b> · <b>' + fmtC(m.cents) + '</b>');
+    if (!m.silent && S.step <= 4) parts.push('samples each cycle: ' + m.perCycle.map((o, i) => NAMES[i] + ' <b>' + Math.round(o) + '</b>').join(' · '));
+    if (S.step === 3 && !m.silent) { const r = m.lens.refrS, ran = m.perCycle[3]; parts.push('recovery timer asks <b>' + Math.round(r) + '</b>, ran <b>' + Math.round(ran) + '</b>: <b>' + (ran > r + 1.5 ? 'the voltage half opened last' : 'the timer half opened last') + '</b>'); }
+    if (S.step === 4) { const a = M(Object.assign({}, p, { bug: 'none' })), b = M(Object.assign({}, p, { bug: 'latch-off' }));
+      parts.push('with the latch <b>' + fmtC(a.cents) + '</b> · without <b>' + fmtC(b.cents) + '</b>', 'each second: a behaviour <b>48,000</b> times · each action <b>' + Math.round(a.f0) + '</b> times');
+      if (a.vHand != null) parts.push('the charge starts at V_start <b>' + fmtV(a.vHand) + '</b>, not 0'); }
+    if (S.step === 5 && heard && S.playing && heard.mode === 'neuron') parts.push('what you hear: <b>' + (heard.nan ? '<span class="sm-flag">V is NaN, stuck in ' + NAMES[heard.ph] + '</span>' : heard.fires < 1 ? '<span class="sm-flag">silence</span>' : Math.round(heard.fires) + ' firings a second') + '</b>');
+  }
+  $('read').innerHTML = parts.map(x => '<span>' + x + '</span>').join('');
+}
+function verdict() {
+  if (S.step !== 5) return;
+  const base = { freq: S.freq, tau_ms: S.tau, hyp: S.hyp, damp: S.damp, refr_ms: S.refr };
+  const at = (bug, f, extra) => M(Object.assign({}, base, { bug, freq: f }, extra || {}));
+  const m = at(S.bug, S.freq); let v = '';
+  if (S.bug === 'none') v = m.silent ? 'No bug, and yet silence: at τ = ' + S.tau.toFixed(2) + ' ms the charge creeps to within ' + m.gap.toExponential(1) + ' of threshold and stops (see the missing guard).' :
+    'No bug. A dial of ' + fmtHz(S.freq) + ' Hz plays ' + fmtHz(m.f0) + ' Hz (' + fmtC(m.cents) + ': the nearest whole-sample period). Press <i>pull the cable</i>: τ reads 0 for a millisecond, the guard holds leak_tau at two samples, and the machine carries on.';
+  else if (S.bug === 'ambiguous') { const fl = at('ambiguous', 55), a110 = at('ambiguous', 110), a300 = at('ambiguous', 300), L = m.lens;
+    const bk = JSON.stringify(base) + '|band'; if (!cache[bk]) { let lo = null, hi = null; for (let q = Math.round(fl.f0 * 10) - 10; q <= Math.round(fl.f0 * 10) + 15; q++) { const f = q / 10, r = at('ambiguous', f); if (r.alt) { if (lo == null) lo = f; hi = f; } } cache[bk] = { lo, hi }; }
+    const band = cache[bk], bm = band.lo != null ? at('ambiguous', Math.round((band.lo + band.hi) * 5) / 10) : null, inBand = band.lo != null && S.freq >= band.lo - 0.05 && S.freq <= band.hi + 0.05;
+    v = 'Below about <b>' + fmtHz(band.lo != null ? band.lo : fl.f0) + ' Hz</b> every note plays ' + fmtHz(fl.f0) + ' Hz; at ' + fmtHz(S.freq) + ' Hz this one plays ' + (m.f0 ? fmtHz(m.f0) + ' Hz (' + fmtC(m.cents) + ')' : 'nothing') + '. The recovery\u2019s exit has lost its <i>(phase == RECOVERY)</i>, so it fires in every state once that state has run ' + Math.round(L.refrS) + ' samples with the voltage above ' + (0.3 * S.hyp).toFixed(2) + '. The rise and the fall end sooner than that, so only the charge is cut short: watch the dashed edge out of CHARGE. The floor is set by the refractory timer, not by τ: ' + Math.ceil(L.refrS) + ' + ' + Math.ceil(L.riseS) + ' + ' + Math.ceil(L.fallS) + ' + ' + Math.ceil(L.refrS) + ' samples a cycle (a 1 ms timer puts it at 331 Hz, 2.5 ms at 166 Hz).' +
+      (band.lo != null ? ' Just above the floor, from ' + band.lo.toFixed(1) + ' to ' + band.hi.toFixed(1) + ' Hz, the threshold and the stray exit open on the same sample: two exits true at once, so the machine skips the rise and jumps from charge to fall. Every other cycle does it; the firings come about ' + Math.round(bm.firesPerSec) + ' a second, two to a period, and the note drops to about ' + fmtHz(bm.f0) + ' Hz. That breaks the strict progression of step 3, and it is the plainest case of ambiguous.' + (inBand ? ' <b>You are in that band now.</b>' : '') : '') +
+      ' Further up, the charge reaches threshold before the stray timer runs out and the bug can\u2019t be heard: a test at 300 Hz passes (' + fmtC(a300.cents) + '), a test at 110 Hz fails by ' + fmtC(a110.cents) + '. These numbers are at 48 kHz; at 44.1 kHz the floor is 246.4 Hz.'; }
+  else if (S.bug === 'noguard') { const g = at('none', 110, { tau_ms: 0.1 });
+    v = 'Press <i>pull the cable</i>. τ reads 0 for a millisecond, leak_tau is 0, and the next state that reads it (the charge or the recovery; the rise and the fall never read τ) turns the voltage to NaN. Every comparison with NaN is false, so that state’s exit can never open: the History holds the NaN, and the machine sits there lit, silent, after the cable is back. Only <i>reset the History</i> frees it. With the guard (no bug) the same pull is a glitch. But the guard is not the whole of it: with it in, set τ to 0.1 ms and 110 Hz started from rest is silent with no NaN at all (' + (g.silent ? 'measured: the charge stops ' + g.gap.toExponential(1) + ' short of threshold' : 'measured: it plays') + '). From rest the first charge has the whole period to fill, and nothing sounds below about 318 Hz; turn τ down while it is already running and the charge has only what the spike and the recovery leave, so it keeps sounding down to about 177 Hz. The guard keeps the numbers finite; it doesn’t keep the threshold reachable.'; }
+  else if (S.bug === 'latch-edge') { const ok = at('none', S.freq), a55 = at('latch-edge', 55), a300 = at('latch-edge', 300);
+    v = 'Latched as the fall ends, the edge the section names, V_start is the bottom of the undershoot (' + S.hyp.toFixed(2) + '), not where the recovery hands the charge over (' + (ok.vHand != null ? fmtV(ok.vHand).trim() : '–') + '). The drive is worked out for a charge that starts lower than it does, so it arrives early: ' + (m.f0 ? '<b>' + fmtC(m.cents) + '</b> at ' + fmtHz(S.freq) + ' Hz' : 'silent here') + ', ' + fmtC(a55.cents) + ' at 55 Hz, ' + fmtC(a300.cents) + ' at 300 Hz. In the three-state Stage 3 the fall’s end is the charge’s start, and there the sentence is right; in this four-state machine the latch belongs on recovery → charge.'; }
+  else if (S.bug === 'latch-state') {
+    v = 'Run as a behaviour, every sample of the charge, V_start is always the voltage right now, and the drive aims at threshold from wherever the charge stands. The gap to threshold shrinks by the same fraction every sample and never closes: ' + (m.silent ? 'after 1.5 s it is <b>' + m.gap.toExponential(1) + '</b>, and the neuron never fires, at any note.' : 'here it fires at ' + fmtHz(m.f0) + ' Hz.') + ' The same line, run once on its edge, is what keeps the note in tune.'; }
+  $('verdict').innerHTML = '<p>' + v + '</p><p class="sm-sum">Three causes in three places: a transition that lost its state, a memory poisoned by an input with no guard, an action in the wrong place. Every symptom shows at an edge: one fires from the wrong state, one can never fire, one fires at the wrong time or not at all. Which failure is most common, as the section ranks them, a piece can’t test; where they surface, it can.</p>';
+}
+
+// ───────── controls ─────────
+let syncs = [];
+function slider({ label, min, max, get, set, fmt, log, zero }) {
+  const span = el('b'); const input = el('input', { type: 'range', min: 0, max: 1000, step: 1, 'aria-label': label });
+  const z = zero ? 20 : 0;                                     // a zero stop at the far left, then a log scale
+  const toPos = v => (zero && v <= 0) ? 0 : Math.round(z + (log ? Math.log(v / min) / Math.log(max / min) : (v - min) / (max - min)) * (1000 - z));
+  const fromPos = p => (zero && p < z) ? 0 : (q => log ? min * Math.pow(max / min, q) : min + (max - min) * q)((p - z) / (1000 - z));
+  input.value = toPos(get());
+  const show = () => { span.textContent = fmt(get()); };
+  input.addEventListener('input', () => { set(fromPos(+input.value)); show(); changed(); });
+  show();
+  syncs.push(() => { if (document.activeElement !== input) input.value = toPos(get()); show(); });
+  return el('label', { class: 'sm-sl' }, label + ' · ', span, input);
+}
+function seg(items, get, set, cls) {
+  const box = el('div', { class: 'sm-seg' + (cls ? ' ' + cls : ''), role: 'group' });
+  items.forEach(([v, name]) => box.append(el('button', { 'aria-pressed': String(get() === v), on: { click: () => { set(v); } } }, name)));
+  return box;
+}
+const pitchSlider = (max = 400) => slider({ label: 'pitch, the drive', min: 55, max, log: true, get: () => S.freq, set: v => { S.freq = v; }, fmt: v => fmtHz(v) + ' Hz' });
+const tauSlider = (zero) => slider({ label: 'membrane τ', min: zero ? 0.02 : 0.3, max: 20, log: true, zero, get: () => S.tau, set: v => { S.tau = v; }, fmt: v => v <= 0 ? '0 ms · the cable is out' : v.toFixed(v < 1 ? 2 : 1) + ' ms' });
+
+const STEPS = [
+  { n: 1, name: 'one integer that remembers',
+    says: '<b>State memory.</b> The smallest state machine there is: one integer, LOW or HIGH, and a counter. Each state lasts a set number of samples, then hands over to the other, and that is a pulse wave: the duty sets how long the machine stays in each state, and you hear it as colour. The integer and its counter are the whole of what the machine knows from one sample to the next. Take that memory away and listen.',
+    eqs: [['s<sub>n</sub> = s<sub>n−1</sub> + [ t<sub>n</sub> ≥ N<sub>s</sub> ]   (mod 2)', 'This sample’s state is last sample’s state, moved on by one when its counter has run its length. Forget s<sub>n−1</sub> and there is nothing to move on from.']],
+    controls: () => [pitchSlider(), slider({ label: 'duty, the share of HIGH', min: 0.05, max: 0.95, get: () => S.duty, set: v => { S.duty = v; }, fmt: v => Math.round(v * 100) + '%' }),
+                     el('div', { class: 'sm-btns' }, seg([[true, 'History'], [false, 'no memory']], () => S.memory, v => { S.memory = v; viewReset(); send({ reset: true }); build(); }))],
+    key: () => [['LOW', PCOL[0]], ['HIGH', PCOL[1]]],
+    back: 'The neuron in the next step is the same idea: four states instead of two, and a voltage beside the counter.' },
+  { n: 2, name: 'what each state does',
+    says: '<b>State-specific behaviour.</b> The neuron runs four states, each with its own math. The charge fills the membrane through a leak, the rise pushes it to the peak, the fall pulls it down past rest, the recovery springs back. Only one runs per sample. The lit state on the diagram is the one whose line of code is running. The slow view runs the same machine as the sound, slowed so you can follow it; set the speed to “as heard” and each state’s glow is its share of the cycle.',
+    eqs: [['V<sub>n</sub> = λ·V<sub>n−1</sub> + d,   λ = 1 − 1⁄τ', 'The charge: keep all but one τ-th of the voltage, then add the drive.'],
+          ['V<sub>n</sub> = V<sub>n−1</sub> ± r', 'The rise and the fall: straight lines to the peak, then down to the depth, each over a fixed number of samples.'],
+          ['v<sub>n</sub> = v<sub>n−1</sub> − k·V − 2ζ√k·v,   V<sub>n</sub> = V<sub>n−1</sub> + v<sub>n</sub>', 'The recovery: a damped spring, pulled toward rest and braked by the damping ζ.']],
+    controls: () => [pitchSlider(), tauSlider(false)],
+    back: 'Step 1’s pulse was two behaviours, −1 and +1; here each state computes its own voltage.' },
+  { n: 3, name: 'how each state leaves',
+    says: '<b>Transition logic.</b> Each state has one way out, and each exit is a flag gated by its own state: <i>this</i> state <i>and</i> its condition. Three exits are simple, a threshold and two timers. The recovery’s is compound: its timer must have run <b>and</b> the voltage must have climbed back near rest. Shorten the timer, deepen the undershoot, brake the spring, and see which half of the guard opens last.',
+    eqs: [['go = Σ<sub>s</sub> [phase = s] · c<sub>s</sub>,   next = (phase + go) mod 4', 'Add up the exits, each multiplied by whether the machine is in the state it belongs to: at most one can be true. Strict progression: the machine only ever moves one state on.']],
+    controls: () => [slider({ label: 'undershoot depth', min: -0.8, max: -0.02, get: () => S.hyp, set: v => { S.hyp = v; }, fmt: v => v.toFixed(2) }),
+                     slider({ label: 'recovery damping ζ', min: 0.05, max: 2, log: true, get: () => S.damp, set: v => { S.damp = v; }, fmt: v => v.toFixed(2) + (v < 0.95 ? ' · rings' : v > 1.05 ? ' · creeps' : ' · critical') }),
+                     slider({ label: 'refractory timer', min: 0.1, max: 3, log: true, get: () => S.refr, set: v => { S.refr = v; }, fmt: v => v.toFixed(2) + ' ms' }), pitchSlider()],
+    back: 'Depth −0.20, damping 0.30 and a 1.5 ms timer are where step 2 left them.' },
+  { n: 4, name: 'what happens once',
+    says: '<b>Transition actions.</b> Some things happen once, on an edge, not during a state. The timer is zeroed on every edge. Into the rise, the voltage is latched at exactly 1. Out of the recovery, the machine latches V_start, the voltage the charge really starts from, so the drive reaches threshold in exactly what is left of the period. A behaviour runs every sample; an action runs once a cycle. Take the latch away and the drive has to assume the charge starts at rest.',
+    eqs: [['d = (1 − V<sub>start</sub>·λ<sup>m</sup>) ⁄ (τ·(1 − λ<sup>m</sup>))', 'The drive that carries a leaky charge from V_start to threshold in exactly m samples, the samples the period has left after the spike and the recovery.']],
+    controls: () => [el('div', { class: 'sm-btns' }, seg([[true, 'latch V_start'], [false, 'no latch']], () => S.latch, v => { S.latch = v; viewReset(); send({ reset: true }); build(); })), pitchSlider()],
+    back: 'With the latch on, this is step 3’s machine exactly.' },
+  { n: 5, name: 'the test',
+    says: '<b>The claim.</b> The section says transition logic is where bugs live, and that confusing a transition action with a state behaviour is the second most common failure. Here are three bugs, one line each: a transition flag that has lost its state, an input that has lost its guard, and the V_start latch in the wrong place, once on the edge the section names and once inside the charge. Switch one in, then go looking. Each hides somewhere and shows itself at a boundary. Switching recompiles: the History starts fresh.',
+    eqs: [],
+    controls: () => [el('div', { class: 'sm-btns', style: 'grid-column: 1 / -1' }, seg(BUGS, () => S.bug, v => { S.bug = v; viewReset(); send({ reset: true }); build(); }, 'sm-bugs')),
+                     pitchSlider(), tauSlider(true),
+                     el('div', { class: 'sm-btns' }, el('button', { on: { click: pull } }, 'pull the cable'), el('button', { on: { click: () => { viewReset(); send({ reset: true }); changed(); } } }, 'reset the History'))],
+    back: 'Choose “no bug” and every switch is back to step 4’s machine.' },
+];
+const EQ5 = {
+  none: [['d = (1 − V<sub>start</sub>·λ<sup>m</sup>) ⁄ (τ·(1 − λ<sup>m</sup>))', 'The machine as built: the latch on its edge, every exit gated, τ held at two samples or more.']],
+  ambiguous: [['f<sub>floor</sub> = SR ⁄ (2·N<sub>refr</sub> + N<sub>rise</sub> + N<sub>fall</sub>)', 'With the recovery’s exit loose, the charge is cut off once the refractory timer has run, so the slowest the machine can go is one charge-length of refractory plus the spike plus the recovery.']],
+  noguard: [['NaN ≥ 1 = false,   NaN > x = false', 'Every comparison with NaN is false, so no exit’s condition can be met again, and the History keeps the NaN from one sample to the next.']],
+  'latch-edge': [['V<sub>start</sub> = V<sub>end of fall</sub> = depth  ≠  V<sub>end of recovery</sub>', 'The drive is worked out for a charge starting at the bottom of the undershoot, so it pushes too hard and arrives early.']],
+  'latch-state': [['1 − V<sub>n</sub> = (λ − λ<sup>m</sup> ⁄ (τ·(1 − λ<sup>m</sup>))) · (1 − V<sub>n−1</sub>)', 'Recomputed from where it stands every sample, the drive closes the same fraction of the gap each sample. The gap shrinks forever and never reaches zero.']],
+};
+function pull() { if (isPulse()) return; pullLeft = 48; send({ pull: 0.001 }); changed(); }
+
+function build() {
+  const s = STEPS[S.step - 1];
+  const rail = $('rail'); rail.innerHTML = '';
+  STEPS.forEach(t => rail.append(el('button', { 'aria-pressed': String(t.n === S.step), on: { click: () => goTo(t.n) } }, t.n + ' · ' + t.name)));
+  $('stepname').textContent = s.n + ' · ' + s.name; $('stepof').textContent = 'step ' + s.n + ' of ' + STEPS.length;
+  $('says').innerHTML = s.says;
+  const c = $('controls'); c.innerHTML = ''; syncs = [];
+  c.append(el('div', { class: 'sm-btns', style: 'grid-column: 1 / -1' },
+    el('button', { class: 'sm-go', id: 'go', on: { click: () => S.playing ? stopSound() : play() } }, S.playing ? '❚❚ stop' : '▸ play'),
+    seg(SPEEDS, () => S.speed, v => { S.speed = v; build(); }),
+    el('button', { id: 'pause', on: { click: () => { S.paused = !S.paused; paint(); } } }, S.paused ? '▸ run view' : '❚❚ hold view'),
+    el('button', { on: { click: () => { S.paused = true; viewTick(performance.now()); paint(); draw(performance.now()); } } }, '+1 sample')));
+  s.controls().forEach(x => c.append(x));
+  const eqs = S.step === 5 ? EQ5[S.bug] : s.eqs;
+  $('eqs').innerHTML = ''; eqs.forEach(([sym, words]) => { $('eqs').append(el('div', { class: 'sm-eq', html: sym }), el('div', { class: 'sm-words', html: words })); });
+  const key = s.key ? s.key() : NAMES.map((n, i) => [n, COL[i]]);
+  $('key').innerHTML = key.map(([name, col]) => '<span><i style="background:' + col + '"></i>' + name + '</span>').join('') + (isPulse() ? '' : '<span><i style="background:repeating-linear-gradient(90deg,#e8b84a 0 4px,transparent 4px 8px)"></i>threshold</span>');
+  $('tracelabel').textContent = isPulse() ? 'the pulse, ±1' : 'membrane voltage V';
+  $('backline').textContent = s.back;
+  $('verdict').style.display = S.step === 5 ? '' : 'none';
+  $('prev').disabled = S.step === 1; $('next').disabled = S.step === STEPS.length;
+  $('speedlabel').textContent = S.speed >= 48000 ? 'as heard: glow = share of the cycle' : 'slowed ' + SPEEDS.find(x => x[0] === S.speed)[1].replace('×', '') + ' · ' + S.speed + ' samples a second';
+  $('dnote').innerHTML = S.step === 5 && S.bug === 'ambiguous' ? '<span class="sm-badtxt">dashed: the recovery’s exit with its state gate gone; it can now fire out of any state</span>' : S.step === 5 && S.bug === 'noguard' ? 'the charge and the recovery read τ; the rise and the fall don’t' : S.step === 1 ? 'two states, one counter' : 'guard / action on each edge' + (S.step < 3 ? ' (from step 3)' : '');
+  buildDiagram(); buildCode(); changed();
+}
+function goTo(n) { if (n !== S.step) { stopSound(); S.step = n; if (n === 5 && S.freq > 380) S.freq = 110; viewReset(); build(); } }
+function paint() { const g = $('go'); if (g) g.textContent = S.playing ? '❚❚ stop' : '▸ play'; const p = $('pause'); if (p) p.textContent = S.paused ? '▸ run view' : '❚❚ hold view'; }
+function changed() { viewN.set(nParams()); if (pullLeft > 0) viewN.P.tau_ms = 0; viewP.set(pParams()); send(); readout(); verdict(); syncs.forEach(f => f()); paint(); }
+
+// ───────── the loop ─────────
+function draw(now) { updateDiagram(now); updateCode(now); drawTrace(); }
+let lastRead = 0;
+function frame(now) {
+  const dt = lastT ? Math.min(100, now - lastT) : 16; lastT = now;
+  if (!S.paused) { acc += dt / 1000 * S.speed; let k = Math.floor(acc); acc -= k; k = Math.min(k, 4000); for (let i = 0; i < k; i++) viewTick(now); }
+  draw(now);
+  if (S.step === 5 && now - lastRead > 250) { lastRead = now; readout(); }
+  requestAnimationFrame(frame);
+}
+$('prev').addEventListener('click', () => goTo(Math.max(1, S.step - 1)));
+$('next').addEventListener('click', () => goTo(Math.min(STEPS.length, S.step + 1)));
+window.addEventListener('resize', () => { traceBox = null; });
+viewReset(); build(); requestAnimationFrame(frame);
+</script>
+</body>
+</html>
