@@ -379,7 +379,7 @@ The Lens	connects-to	Dialectic
 The Lens	connects-to	Excellent Adventure
 The Lens	mirrors	Weave Ceremony
 The Lens	connects-to	Trickster
-The Lens	connects-to	BBS Design System
+The Lens	connects-to	STIGMERGY
 The Lens	connects-to	Deleuze
 The Lens	connects-to	Merleau-Ponty
 The Lens	connects-to	Simondon
@@ -491,7 +491,7 @@ Harmonicity and Inharmonicity	emerged-from	Piano String Inharmonicity
 Harmonicity and Inharmonicity	connects-to	Portamento and Physical Pitch Modeling
 Synthesis Topologies	connects-to	Generative Audio Devices
 Synthesis Topologies	connects-to	Registry Pattern
-Synthesis Topologies	mirrors	Lossy Compression with Intent Alignment
+Synthesis Topologies	connects-to	Lossy Compression with Intent Alignment
 Synthesis Topologies	connects-to	The Curve Is the Material
 Synthesis Topologies	connects-to	Three Kinds of Warp
 Synthesis Topologies	emerged-from	Generative Preset Development
@@ -500,7 +500,6 @@ Synthesis Topologies	connects-to	Granular Synthesis
 Synthesis Topologies	connects-to	Waveguide Synthesizer
 Synthesis Topologies	connects-to	DSP in Looping Dimensions
 Synthesis Topologies	connects-to	Generative Sample Libraries
-Synthesis Topologies	connects-to	Synth Templates
 Granular Synthesis	emerged-from	Kuramoto Coupling
 Granular Synthesis	connects-to	Action Potential Oscillator
 Granular Synthesis	connects-to	Frequency-Time Duality
@@ -518,6 +517,11 @@ The Aftermath Frame	exemplifies	Steer the Generator
 The Metaphor Stretch	connects-to	Boundary-Crossing Instruments
 The Metaphor Stretch	connects-to	Dispersion
 The Metaphor Stretch	mirrors	Hyperdimensional Prism
+Synthesis Notes (Loudon)	connects-to	Synth Templates
+Synthesis Notes (Loudon)	connects-to	Synthesis Topologies
+Synthesis Notes (Loudon)	connects-to	Resonance and Damping
+Synthesis Notes (Loudon)	connects-to	Frequency-Time Duality
+Synthesis Notes (Loudon)	connects-to	FOUR PILLARS
 The Cooperation Path	connects-to	1 from 2
 The Cooperation Path	connects-to	Cooperation Yields Agency
 The Cooperation Path	connects-to	Endosymbiosis
@@ -915,7 +919,7 @@ Hand-Drawn 3D Look	connects-to	ComfyUI
 Hand-Drawn 3D Look	connects-to	The Flow Field is the Spine
 Hand-Drawn 3D Look	couples-with	Remnants in Depth
 Hand-Drawn 3D Look	connects-to	Frame Designer
-Speak Like a Person, Log Like a Protocol	connects-to	BBS Design System
+Speak Like a Person, Log Like a Protocol	connects-to	STIGMERGY
 Speak Like a Person, Log Like a Protocol	connects-to	STIGMERGY v1.0 — Palace Front-End
 Speak Like a Person, Log Like a Protocol	connects-to	Trickster
 Speak Like a Person, Log Like a Protocol	mirrors	ROSETTA
@@ -936,6 +940,7 @@ Exponential Decay Curvature	mirrors	Compressor Design
 Exponential Decay Curvature	connects-to	Three Kinds of Warp
 Exponential Decay Curvature	member-of	Dissolutions
 Exponential Decay Curvature	connects-to	Loudon Live
+Exponential Decay Curvature	connects-to	Synth Templates
 Confucianism	connects-to	Spinoza Conatus
 Confucianism	couples-with	Deleuze
 Confucianism	mirrors	Hilaritas Generator
@@ -952,7 +957,7 @@ Songlines	exemplifies	Found ↔ Made
 The Reader's Context Window	couples-with	Speak Like a Person, Log Like a Protocol
 The Reader's Context Window	emerged-from	STIGMERGY v2.0 — Consolidation & Primary Interface
 The Reader's Context Window	connects-to	Merleau-Ponty
-The Reader's Context Window	connects-to	BBS Design System
+The Reader's Context Window	connects-to	STIGMERGY
 The Reader's Context Window	spawned	Trickster
 Cooperation Yields Agency	emerged-from	1 from 2
 Cooperation Yields Agency	deepens	Spinoza Conatus
@@ -1125,6 +1130,7 @@ Murmuration	connects-to	Web Audio Worklet
 Murmuration	exemplifies	Review Layer
 Murmuration	connects-to	Diversity of Thought in Many-Agent Systems
 Murmuration	exemplifies	Granular Synthesis
+Murmuration	member-of	Synthesis Topologies
 Piano String Inharmonicity	deepens	Boundary-Crossing Instruments
 Piano String Inharmonicity	mirrors	Frequency-Time Duality
 Piano String Inharmonicity	mirrors	Ohm's Law
@@ -1183,7 +1189,7 @@ Semantic Webcam	emerged-from	Enrichment
 Semantic Webcam	connects-to	Oblique Portrait
 Semantic Webcam	connects-to	Convolution
 Semantic Webcam	connects-to	Synthesis ↔ Emergence
-Semantic Webcam	connects-to	BBS Design System
+Semantic Webcam	connects-to	STIGMERGY
 Semantic Webcam	connects-to	BBS Blackboard
 Semantic Webcam	spawned	Language as a Tonal Medium
 Semantic Webcam	connects-to	Cooperation Yields Agency
@@ -1231,6 +1237,7 @@ Inharmonic Wavetable Synthesis	deepens	Wavetable Synthesis — Deep Research & H
 Inharmonic Wavetable Synthesis	mirrors	Crystal Synthesizer
 Inharmonic Wavetable Synthesis	couples-with	2D Torus Wavetable Synthesizer
 Inharmonic Wavetable Synthesis	deepens	Kuramoto Coupling
+Inharmonic Wavetable Synthesis	member-of	Synthesis Topologies
 Generative Preset Development	couples-with	Generative Audio Devices
 Generative Preset Development	mirrors	Registry Pattern
 Generative Preset Development	connects-to	FOUR PILLARS
@@ -1292,6 +1299,7 @@ Generative Wavetable Libraries	deepens	Shepard Tone Synthesizer
 Generative Wavetable Libraries	couples-with	Generative Audio Devices
 Generative Wavetable Libraries	connects-to	Floquet Theory
 Generative Wavetable Libraries	exemplifies	Drift and Consolidation
+Generative Wavetable Libraries	member-of	Synthesis Topologies
 Symbiotic Skills	connects-to	Self-Describing Knowledge Module
 Symbiotic Skills	emerged-from	FOUR PILLARS
 Symbiotic Skills	spawned	SUBSTRATE
@@ -1345,10 +1353,12 @@ Floquet Time-Modulated Loops	connects-to	Crystal Synthesizer
 Floquet Time-Modulated Loops	exemplifies	Hilaritas Generator
 Floquet Time-Modulated Loops	exemplifies	Progressive Staging
 Floquet Time-Modulated Loops	connects-to	Bessel Functions in Synthesis
+Floquet Time-Modulated Loops	member-of	Synthesis Topologies
 Bayesian Granular Synthesizer	connects-to	Neural Granular Synthesis
 Bayesian Granular Synthesizer	couples-with	Phase Reduction
 Bayesian Granular Synthesizer	connects-to	Frequency-Time Duality
 Bayesian Granular Synthesizer	connects-to	Loudon Live
+Bayesian Granular Synthesizer	member-of	Synthesis Topologies
 Portamento and Physical Pitch Modeling	deepens	Frequency-Time Duality
 Portamento and Physical Pitch Modeling	couples-with	Kuramoto Coupling
 Portamento and Physical Pitch Modeling	connects-to	Biomechanical Synthesis
@@ -1388,7 +1398,7 @@ Semantic Delay	emerged-from	Dub Lineage
 2D Torus Wavetable Synthesizer	spawned	2D Torus Wavetable Synthesizer — catalog — warps
 2D Torus Wavetable Synthesizer	mirrors	Boundary-Crossing Instruments
 2D Torus Wavetable Synthesizer	spawned	The Shop
-2D Torus Wavetable Synthesizer	exemplifies	Synthesis Topologies
+2D Torus Wavetable Synthesizer	member-of	Synthesis Topologies
 2D Torus Wavetable Synthesizer	connects-to	Neural Granular Synthesis — spec — control-vocabulary-math
 1 from 2	spawned	Cooperation Yields Agency
 Compressor Design	exemplifies	Objects to Think With
@@ -1412,6 +1422,7 @@ Synth Templates	connects-to	Hilaritas Generator
 Synth Templates	connects-to	Loudon's Toolkit
 Synth Templates	connects-to	Portamento and Physical Pitch Modeling
 Synth Templates	connects-to	VST Template
+Synth Templates	emerged-from	Synthesis Notes (Loudon)
 VST Template	connects-to	DSP Frameworks
 VST Template	connects-to	Tract Mirror
 VST Template	connects-to	Harmonicity and Inharmonicity
@@ -1497,7 +1508,7 @@ STIGMERGY Philosophical Lenses	deepens	STIGMERGY v1.0 — Palace Front-End
 STIGMERGY Philosophical Lenses	enables	Philosopher Visits the Entry
 STIGMERGY Philosophical Lenses	enables	Dialectic
 STIGMERGY Philosophical Lenses	connects-to	BBS Blackboard
-STIGMERGY Philosophical Lenses	connects-to	BBS Design System
+STIGMERGY Philosophical Lenses	connects-to	STIGMERGY
 STIGMERGY Philosophical Lenses	connects-to	Trickster
 STIGMERGY Philosophical Lenses	mirrors	Mixture of Experts
 STIGMERGY Philosophical Lenses	connects-to	Deleuze
@@ -1776,7 +1787,7 @@ Maker	connects-to	Flocking
 Maker	enables	Blocked, Not Prompted
 Maker	connects-to	Waveguide Synthesizer
 Maker	connects-to	Diversity of Thought in Many-Agent Systems
-Maker	connects-to	BBS Design System
+Maker	connects-to	STIGMERGY
 Maker	connects-to	Modes of Collaboration
 Maker	connects-to	Murmuration
 Maker	spawned	Maker — Context
@@ -1927,6 +1938,7 @@ Palace Ceremonies	connects-to	SCHEMA — Reference
 Image Embedding Standard	deepens	SCHEMA
 Image Embedding Standard	enables	Deposit Ceremony
 Image Embedding Standard	connects-to	README - The Palace Guide
+Image Embedding Standard	connects-to	Hero and Avatar Maker
 Image Embedding Standard	connects-to	SUBSTRATE
 Pages as Agents	connects-to	JEWEL
 Pages as Agents	deepens	SUBSTRATE
@@ -2201,7 +2213,7 @@ Loudon Live Design System	connects-to	Autodidact Polymaths
 Loudon Live Design System	mirrors	Progressive Staging
 Loudon Live Design System	spawned	Loudon Live — asset plan
 Loudon Live Design System	exemplifies	The Multilinear Self
-Loudon Live Design System	mirrors	BBS Design System
+Loudon Live Design System	connects-to	STIGMERGY
 Loudon Live Design System	deepens	Palace Philosophies
 Loudon Live Design System	connects-to	Quality Manifesto
 Loudon Live Design System	connects-to	Playful Interface Design
@@ -2272,12 +2284,11 @@ BBS Blackboard	enables	Swarm Weave
 BBS Blackboard	mirrors	Pheromone Trail
 BBS Blackboard	enables	Enchanted Worker
 BBS Blackboard	enables	Palace Enchantment
-BBS Blackboard	spawned	BBS Design System
 BBS Blackboard	enables	Project Stewardship System
 BBS Blackboard	connects-to	Enrichment
 BBS Blackboard	connects-to	Palace Orchestrator
 Drafting Table Design System	mirrors	Loudon Live Design System
-Drafting Table Design System	mirrors	BBS Design System
+Drafting Table Design System	connects-to	STIGMERGY
 Drafting Table Design System	emerged-from	CAD Drafter
 Drafting Table Design System	enables	VST Template
 Drafting Table Design System	couples-with	Maker

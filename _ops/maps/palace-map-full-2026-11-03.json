@@ -1,15 +1,15 @@
 {
   "meta": {
-    "generated": "2026-10-31",
+    "generated": "2026-11-03",
     "scope": "full",
-    "node_count": 326,
+    "node_count": 327,
     "use": {
-      "head": "4405ed0b",
+      "head": "6bc92fb9",
       "window_days": 90,
-      "window_since": "2026-08-02",
+      "window_since": "2026-08-05",
       "sweep_threshold": 10
     },
-    "edge_count": 2439,
+    "edge_count": 2450,
     "yaml_errors": [],
     "ghost_taxonomy": {
       "error_ghosts": [],
@@ -197,17 +197,17 @@
       "type": "project",
       "stage": "fruiting",
       "has_forward_vector": true,
-      "last_used": "2026-10-24",
+      "last_used": "2026-11-01",
       "use": {
-        "page": 5,
+        "page": 6,
         "bundle": 10,
         "linked": 37,
-        "use": 52,
+        "use": 53,
         "recent": {
-          "page": 2,
+          "page": 3,
           "bundle": 7,
           "linked": 9,
-          "use": 18
+          "use": 19
         }
       },
       "outbound_count": 8,
@@ -358,17 +358,17 @@
       "type": "concept",
       "stage": "growing",
       "has_forward_vector": true,
-      "last_used": "2026-10-21",
+      "last_used": "2026-11-02",
       "use": {
-        "page": 7,
-        "bundle": 5,
+        "page": 8,
+        "bundle": 6,
         "linked": 19,
-        "use": 31,
+        "use": 33,
         "recent": {
-          "page": 0,
-          "bundle": 0,
+          "page": 1,
+          "bundle": 1,
           "linked": 2,
-          "use": 2
+          "use": 4
         }
       },
       "outbound_count": 13,
@@ -555,7 +555,7 @@
           "use": 3
         }
       },
-      "outbound_count": 9,
+      "outbound_count": 8,
       "inbound_count": 17,
       "ops_card": false
     },
@@ -563,7 +563,7 @@
       "id": "BBS Design System",
       "path": "Palace development/BBS Design System.md",
       "type": "source",
-      "stage": "growing",
+      "stage": "composting",
       "has_forward_vector": true,
       "last_used": "2026-10-22",
       "use": {
@@ -579,7 +579,7 @@
         }
       },
       "outbound_count": 5,
-      "inbound_count": 9,
+      "inbound_count": 0,
       "ops_card": false
     },
     {
@@ -634,20 +634,20 @@
       "type": "project",
       "stage": "sprout",
       "has_forward_vector": true,
-      "last_used": "2026-10-25",
+      "last_used": "2026-11-01",
       "use": {
-        "page": 3,
+        "page": 4,
         "bundle": 4,
         "linked": 8,
-        "use": 15,
+        "use": 16,
         "recent": {
-          "page": 0,
+          "page": 1,
           "bundle": 3,
           "linked": 4,
-          "use": 7
+          "use": 8
         }
       },
-      "outbound_count": 4,
+      "outbound_count": 5,
       "inbound_count": 1,
       "ops_card": false
     },
@@ -1485,17 +1485,17 @@
       "type": "hub",
       "stage": "mature",
       "has_forward_vector": true,
-      "last_used": "2026-10-29",
+      "last_used": "2026-11-02",
       "use": {
-        "page": 27,
-        "bundle": 16,
-        "linked": 76,
-        "use": 119,
+        "page": 28,
+        "bundle": 17,
+        "linked": 77,
+        "use": 122,
         "recent": {
-          "page": 14,
-          "bundle": 15,
-          "linked": 25,
-          "use": 54
+          "page": 15,
+          "bundle": 16,
+          "linked": 26,
+          "use": 57
         }
       },
       "outbound_count": 4,
@@ -1692,17 +1692,17 @@
       "type": "question",
       "stage": "seed",
       "has_forward_vector": true,
-      "last_used": "2026-09-24",
+      "last_used": "2026-11-02",
       "use": {
         "page": 0,
         "bundle": 0,
-        "linked": 1,
-        "use": 1,
+        "linked": 2,
+        "use": 2,
         "recent": {
           "page": 0,
           "bundle": 0,
-          "linked": 1,
-          "use": 1
+          "linked": 2,
+          "use": 2
         }
       },
       "outbound_count": 7,
@@ -1784,17 +1784,17 @@
       "type": "source",
       "stage": "sprout",
       "has_forward_vector": true,
-      "last_used": "2026-10-29",
+      "last_used": "2026-11-02",
       "use": {
         "page": 1,
         "bundle": 0,
-        "linked": 14,
-        "use": 15,
+        "linked": 15,
+        "use": 16,
         "recent": {
           "page": 1,
           "bundle": 0,
-          "linked": 14,
-          "use": 15
+          "linked": 15,
+          "use": 16
         }
       },
       "outbound_count": 9,
@@ -1968,17 +1968,17 @@
       "type": "meta",
       "stage": "growing",
       "has_forward_vector": true,
-      "last_used": "2026-10-25",
+      "last_used": "2026-11-02",
       "use": {
         "page": 12,
         "bundle": 14,
-        "linked": 50,
-        "use": 76,
+        "linked": 51,
+        "use": 77,
         "recent": {
           "page": 9,
           "bundle": 7,
-          "linked": 33,
-          "use": 49
+          "linked": 34,
+          "use": 50
         }
       },
       "outbound_count": 12,
@@ -2060,20 +2060,20 @@
       "type": "concept",
       "stage": "growing",
       "has_forward_vector": true,
-      "last_used": "2026-10-29",
+      "last_used": "2026-11-02",
       "use": {
-        "page": 1,
+        "page": 2,
         "bundle": 0,
         "linked": 6,
-        "use": 7,
+        "use": 8,
         "recent": {
-          "page": 0,
+          "page": 1,
           "bundle": 0,
           "linked": 1,
-          "use": 1
+          "use": 2
         }
       },
-      "outbound_count": 6,
+      "outbound_count": 7,
       "inbound_count": 3,
       "ops_card": false
     },
@@ -2129,21 +2129,21 @@
       "type": "hub",
       "stage": "mature",
       "has_forward_vector": true,
-      "last_used": "2026-10-28",
+      "last_used": "2026-11-01",
       "use": {
         "page": 10,
         "bundle": 3,
-        "linked": 215,
-        "use": 228,
+        "linked": 216,
+        "use": 229,
         "recent": {
           "page": 3,
           "bundle": 1,
-          "linked": 14,
-          "use": 18
+          "linked": 15,
+          "use": 19
         }
       },
       "outbound_count": 9,
-      "inbound_count": 76,
+      "inbound_count": 77,
       "ops_card": false
     },
     {
@@ -2221,20 +2221,20 @@
       "type": "project",
       "stage": "growing",
       "has_forward_vector": true,
-      "last_used": "2026-10-25",
+      "last_used": "2026-11-01",
       "use": {
-        "page": 5,
+        "page": 6,
         "bundle": 6,
         "linked": 12,
-        "use": 23,
+        "use": 24,
         "recent": {
-          "page": 2,
+          "page": 3,
           "bundle": 2,
           "linked": 5,
-          "use": 9
+          "use": 10
         }
       },
-      "outbound_count": 19,
+      "outbound_count": 20,
       "inbound_count": 6,
       "ops_card": false
     },
@@ -2336,21 +2336,21 @@
       "type": "hub",
       "stage": "mature",
       "has_forward_vector": true,
-      "last_used": "2026-10-28",
+      "last_used": "2026-11-01",
       "use": {
         "page": 7,
         "bundle": 6,
-        "linked": 47,
-        "use": 60,
+        "linked": 48,
+        "use": 61,
         "recent": {
           "page": 4,
           "bundle": 4,
-          "linked": 9,
-          "use": 17
+          "linked": 10,
+          "use": 18
         }
       },
       "outbound_count": 7,
-      "inbound_count": 28,
+      "inbound_count": 29,
       "ops_card": false
     },
     {
@@ -2451,17 +2451,17 @@
       "type": "project",
       "stage": "growing",
       "has_forward_vector": true,
-      "last_used": "2026-10-29",
+      "last_used": "2026-11-01",
       "use": {
-        "page": 3,
+        "page": 4,
         "bundle": 8,
         "linked": 13,
-        "use": 24,
+        "use": 25,
         "recent": {
-          "page": 2,
+          "page": 3,
           "bundle": 6,
           "linked": 7,
-          "use": 15
+          "use": 16
         }
       },
       "outbound_count": 10,
@@ -2497,20 +2497,20 @@
       "type": "project",
       "stage": "growing",
       "has_forward_vector": true,
-      "last_used": "2026-10-28",
+      "last_used": "2026-11-01",
       "use": {
-        "page": 6,
+        "page": 7,
         "bundle": 8,
         "linked": 8,
-        "use": 22,
+        "use": 23,
         "recent": {
-          "page": 3,
+          "page": 4,
           "bundle": 4,
           "linked": 5,
-          "use": 12
+          "use": 13
         }
       },
-      "outbound_count": 9,
+      "outbound_count": 10,
       "inbound_count": 4,
       "ops_card": false
     },
@@ -2681,21 +2681,21 @@
       "type": "maker",
       "stage": null,
       "has_forward_vector": true,
-      "last_used": "2026-10-15",
+      "last_used": "2026-11-02",
       "use": {
         "page": 7,
         "bundle": 9,
-        "linked": 6,
-        "use": 22,
+        "linked": 7,
+        "use": 23,
         "recent": {
           "page": 3,
           "bundle": 3,
-          "linked": 0,
-          "use": 6
+          "linked": 1,
+          "use": 7
         }
       },
       "outbound_count": 10,
-      "inbound_count": 2,
+      "inbound_count": 3,
       "ops_card": false
     },
     {
@@ -2819,20 +2819,20 @@
       "type": "meta",
       "stage": "mature",
       "has_forward_vector": true,
-      "last_used": "2026-08-25",
+      "last_used": "2026-11-02",
       "use": {
-        "page": 2,
+        "page": 3,
         "bundle": 0,
-        "linked": 6,
-        "use": 8,
+        "linked": 7,
+        "use": 10,
         "recent": {
-          "page": 0,
+          "page": 1,
           "bundle": 0,
-          "linked": 1,
-          "use": 1
+          "linked": 2,
+          "use": 3
         }
       },
-      "outbound_count": 4,
+      "outbound_count": 5,
       "inbound_count": 2,
       "ops_card": true
     },
@@ -2865,20 +2865,20 @@
       "type": "project",
       "stage": "growing",
       "has_forward_vector": true,
-      "last_used": "2026-10-28",
+      "last_used": "2026-11-01",
       "use": {
-        "page": 8,
+        "page": 9,
         "bundle": 7,
         "linked": 14,
-        "use": 29,
+        "use": 30,
         "recent": {
-          "page": 4,
+          "page": 5,
           "bundle": 5,
           "linked": 6,
-          "use": 15
+          "use": 16
         }
       },
-      "outbound_count": 12,
+      "outbound_count": 13,
       "inbound_count": 7,
       "ops_card": false
     },
@@ -3072,17 +3072,17 @@
       "type": "project",
       "stage": "sprout",
       "has_forward_vector": true,
-      "last_used": "2026-10-25",
+      "last_used": "2026-11-02",
       "use": {
         "page": 4,
         "bundle": 2,
-        "linked": 45,
-        "use": 51,
+        "linked": 46,
+        "use": 52,
         "recent": {
           "page": 4,
           "bundle": 2,
-          "linked": 45,
-          "use": 51
+          "linked": 46,
+          "use": 52
         }
       },
       "outbound_count": 6,
@@ -3440,17 +3440,17 @@
       "type": "source",
       "stage": "growing",
       "has_forward_vector": true,
-      "last_used": "2026-10-25",
+      "last_used": "2026-11-02",
       "use": {
         "page": 5,
         "bundle": 2,
-        "linked": 35,
-        "use": 42,
+        "linked": 36,
+        "use": 43,
         "recent": {
           "page": 3,
           "bundle": 2,
-          "linked": 9,
-          "use": 14
+          "linked": 10,
+          "use": 15
         }
       },
       "outbound_count": 17,
@@ -3509,17 +3509,17 @@
       "type": "maker",
       "stage": null,
       "has_forward_vector": true,
-      "last_used": "2026-10-25",
+      "last_used": "2026-11-02",
       "use": {
-        "page": 21,
+        "page": 22,
         "bundle": 9,
-        "linked": 63,
-        "use": 93,
+        "linked": 64,
+        "use": 95,
         "recent": {
-          "page": 5,
+          "page": 6,
           "bundle": 5,
-          "linked": 11,
-          "use": 21
+          "linked": 12,
+          "use": 23
         }
       },
       "outbound_count": 12,
@@ -3831,17 +3831,17 @@
       "type": "meta",
       "stage": "mature",
       "has_forward_vector": false,
-      "last_used": "2026-08-25",
+      "last_used": "2026-11-02",
       "use": {
         "page": 3,
         "bundle": 0,
-        "linked": 4,
-        "use": 7,
+        "linked": 5,
+        "use": 8,
         "recent": {
           "page": 0,
           "bundle": 0,
-          "linked": 1,
-          "use": 1
+          "linked": 2,
+          "use": 2
         }
       },
       "outbound_count": 4,
@@ -3969,20 +3969,20 @@
       "type": "project",
       "stage": "growing",
       "has_forward_vector": true,
-      "last_used": "2026-10-25",
+      "last_used": "2026-11-01",
       "use": {
-        "page": 1,
-        "bundle": 2,
+        "page": 2,
+        "bundle": 3,
         "linked": 4,
-        "use": 7,
+        "use": 9,
         "recent": {
-          "page": 0,
-          "bundle": 1,
+          "page": 1,
+          "bundle": 2,
           "linked": 2,
-          "use": 3
+          "use": 5
         }
       },
-      "outbound_count": 10,
+      "outbound_count": 11,
       "inbound_count": 1,
       "ops_card": false
     },
@@ -4636,17 +4636,17 @@
       "type": "project",
       "stage": "mature",
       "has_forward_vector": true,
-      "last_used": "2026-10-29",
+      "last_used": "2026-11-01",
       "use": {
         "page": 2,
-        "bundle": 5,
+        "bundle": 6,
         "linked": 15,
-        "use": 22,
+        "use": 23,
         "recent": {
           "page": 0,
-          "bundle": 3,
+          "bundle": 4,
           "linked": 8,
-          "use": 11
+          "use": 12
         }
       },
       "outbound_count": 5,
@@ -4797,17 +4797,17 @@
       "type": "project",
       "stage": "growing",
       "has_forward_vector": true,
-      "last_used": "2026-10-25",
+      "last_used": "2026-11-01",
       "use": {
         "page": 4,
-        "bundle": 6,
+        "bundle": 7,
         "linked": 12,
-        "use": 22,
+        "use": 23,
         "recent": {
           "page": 1,
-          "bundle": 4,
+          "bundle": 5,
           "linked": 4,
-          "use": 9
+          "use": 10
         }
       },
       "outbound_count": 5,
@@ -5050,21 +5050,21 @@
       "type": "concept",
       "stage": "growing",
       "has_forward_vector": true,
-      "last_used": "2026-10-29",
+      "last_used": "2026-11-01",
       "use": {
         "page": 2,
         "bundle": 2,
-        "linked": 5,
-        "use": 9,
+        "linked": 6,
+        "use": 10,
         "recent": {
           "page": 2,
           "bundle": 2,
-          "linked": 3,
-          "use": 7
+          "linked": 4,
+          "use": 8
         }
       },
       "outbound_count": 11,
-      "inbound_count": 3,
+      "inbound_count": 4,
       "ops_card": false
     },
     {
@@ -5349,21 +5349,21 @@
       "type": "meta",
       "stage": "fruiting",
       "has_forward_vector": true,
-      "last_used": "2026-10-29",
+      "last_used": "2026-11-02",
       "use": {
-        "page": 18,
-        "bundle": 14,
-        "linked": 144,
-        "use": 176,
+        "page": 19,
+        "bundle": 15,
+        "linked": 147,
+        "use": 181,
         "recent": {
-          "page": 13,
-          "bundle": 12,
-          "linked": 48,
-          "use": 73
+          "page": 14,
+          "bundle": 13,
+          "linked": 51,
+          "use": 78
         }
       },
       "outbound_count": 7,
-      "inbound_count": 26,
+      "inbound_count": 34,
       "ops_card": false
     },
     {
@@ -5372,17 +5372,17 @@
       "type": "project",
       "stage": "growing",
       "has_forward_vector": true,
-      "last_used": "2026-10-25",
+      "last_used": "2026-11-02",
       "use": {
         "page": 4,
         "bundle": 2,
-        "linked": 15,
-        "use": 21,
+        "linked": 16,
+        "use": 22,
         "recent": {
           "page": 2,
           "bundle": 1,
-          "linked": 5,
-          "use": 8
+          "linked": 6,
+          "use": 9
         }
       },
       "outbound_count": 17,
@@ -5533,17 +5533,17 @@
       "type": "project",
       "stage": "growing",
       "has_forward_vector": true,
-      "last_used": "2026-10-25",
+      "last_used": "2026-11-01",
       "use": {
         "page": 5,
-        "bundle": 8,
+        "bundle": 9,
         "linked": 12,
-        "use": 25,
+        "use": 26,
         "recent": {
           "page": 2,
-          "bundle": 5,
+          "bundle": 6,
           "linked": 2,
-          "use": 9
+          "use": 10
         }
       },
       "outbound_count": 4,
@@ -5556,17 +5556,17 @@
       "type": "project",
       "stage": "growing",
       "has_forward_vector": true,
-      "last_used": "2026-10-25",
+      "last_used": "2026-11-02",
       "use": {
         "page": 3,
         "bundle": 5,
-        "linked": 9,
-        "use": 17,
+        "linked": 10,
+        "use": 18,
         "recent": {
           "page": 1,
           "bundle": 3,
-          "linked": 1,
-          "use": 5
+          "linked": 2,
+          "use": 6
         }
       },
       "outbound_count": 7,
@@ -5878,17 +5878,17 @@
       "type": "concept",
       "stage": "seed",
       "has_forward_vector": true,
-      "last_used": "2026-08-25",
+      "last_used": "2026-11-02",
       "use": {
         "page": 1,
         "bundle": 0,
-        "linked": 7,
-        "use": 8,
+        "linked": 8,
+        "use": 9,
         "recent": {
           "page": 0,
           "bundle": 0,
-          "linked": 1,
-          "use": 1
+          "linked": 2,
+          "use": 2
         }
       },
       "outbound_count": 3,
@@ -5970,17 +5970,17 @@
       "type": "practice",
       "stage": "growing",
       "has_forward_vector": false,
-      "last_used": "2026-10-24",
+      "last_used": "2026-11-02",
       "use": {
         "page": 7,
         "bundle": 3,
-        "linked": 19,
-        "use": 29,
+        "linked": 20,
+        "use": 30,
         "recent": {
           "page": 3,
           "bundle": 2,
-          "linked": 11,
-          "use": 16
+          "linked": 12,
+          "use": 17
         }
       },
       "outbound_count": 2,
@@ -6108,17 +6108,17 @@
       "type": "meta",
       "stage": "mature",
       "has_forward_vector": false,
-      "last_used": "2026-10-25",
+      "last_used": "2026-11-02",
       "use": {
         "page": 25,
         "bundle": 1,
-        "linked": 53,
-        "use": 79,
+        "linked": 54,
+        "use": 80,
         "recent": {
           "page": 15,
           "bundle": 0,
-          "linked": 17,
-          "use": 32
+          "linked": 18,
+          "use": 33
         }
       },
       "outbound_count": 5,
@@ -6177,21 +6177,44 @@
       "type": "project",
       "stage": "sprout",
       "has_forward_vector": true,
-      "last_used": "2026-10-29",
+      "last_used": "2026-11-02",
+      "use": {
+        "page": 2,
+        "bundle": 3,
+        "linked": 5,
+        "use": 10,
+        "recent": {
+          "page": 2,
+          "bundle": 3,
+          "linked": 5,
+          "use": 10
+        }
+      },
+      "outbound_count": 16,
+      "inbound_count": 4,
+      "ops_card": false
+    },
+    {
+      "id": "Synthesis Notes (Loudon)",
+      "path": "Synthesis Notes (Loudon).md",
+      "type": "source",
+      "stage": "sprout",
+      "has_forward_vector": true,
+      "last_used": "2026-11-01",
       "use": {
         "page": 1,
         "bundle": 1,
-        "linked": 3,
-        "use": 5,
+        "linked": 1,
+        "use": 3,
         "recent": {
           "page": 1,
           "bundle": 1,
-          "linked": 3,
-          "use": 5
+          "linked": 1,
+          "use": 3
         }
       },
-      "outbound_count": 15,
-      "inbound_count": 3,
+      "outbound_count": 5,
+      "inbound_count": 1,
       "ops_card": false
     },
     {
@@ -6200,21 +6223,21 @@
       "type": "concept",
       "stage": "growing",
       "has_forward_vector": true,
-      "last_used": "2026-10-29",
+      "last_used": "2026-11-01",
       "use": {
-        "page": 4,
+        "page": 5,
         "bundle": 2,
-        "linked": 11,
-        "use": 17,
+        "linked": 17,
+        "use": 24,
         "recent": {
-          "page": 2,
+          "page": 3,
           "bundle": 1,
-          "linked": 6,
-          "use": 9
+          "linked": 12,
+          "use": 16
         }
       },
-      "outbound_count": 12,
-      "inbound_count": 5,
+      "outbound_count": 11,
+      "inbound_count": 11,
       "ops_card": false
     },
     {
@@ -6269,17 +6292,17 @@
       "type": "meta",
       "stage": "sprout",
       "has_forward_vector": true,
-      "last_used": "2026-10-29",
+      "last_used": "2026-11-02",
       "use": {
-        "page": 6,
+        "page": 7,
         "bundle": 1,
-        "linked": 11,
-        "use": 18,
+        "linked": 12,
+        "use": 20,
         "recent": {
-          "page": 3,
+          "page": 4,
           "bundle": 0,
-          "linked": 6,
-          "use": 9
+          "linked": 7,
+          "use": 11
         }
       },
       "outbound_count": 5,
@@ -6453,17 +6476,17 @@
       "type": "practice",
       "stage": "growing",
       "has_forward_vector": true,
-      "last_used": "2026-10-29",
+      "last_used": "2026-11-02",
       "use": {
         "page": 7,
-        "bundle": 10,
-        "linked": 24,
-        "use": 41,
+        "bundle": 11,
+        "linked": 25,
+        "use": 43,
         "recent": {
           "page": 7,
-          "bundle": 10,
-          "linked": 24,
-          "use": 41
+          "bundle": 11,
+          "linked": 25,
+          "use": 43
         }
       },
       "outbound_count": 10,
@@ -6591,17 +6614,17 @@
       "type": "concept",
       "stage": "growing",
       "has_forward_vector": true,
-      "last_used": "2026-10-25",
+      "last_used": "2026-11-02",
       "use": {
         "page": 6,
         "bundle": 5,
-        "linked": 14,
-        "use": 25,
+        "linked": 15,
+        "use": 26,
         "recent": {
           "page": 3,
           "bundle": 3,
-          "linked": 10,
-          "use": 16
+          "linked": 11,
+          "use": 17
         }
       },
       "outbound_count": 20,
@@ -6775,17 +6798,17 @@
       "type": "practice",
       "stage": "sprout",
       "has_forward_vector": true,
-      "last_used": "2026-06-26",
+      "last_used": "2026-11-02",
       "use": {
         "page": 1,
         "bundle": 0,
-        "linked": 1,
-        "use": 2,
+        "linked": 2,
+        "use": 3,
         "recent": {
           "page": 0,
           "bundle": 0,
-          "linked": 0,
-          "use": 0
+          "linked": 1,
+          "use": 1
         }
       },
       "outbound_count": 4,
@@ -6821,17 +6844,17 @@
       "type": "practice",
       "stage": "growing",
       "has_forward_vector": true,
-      "last_used": "2026-10-29",
+      "last_used": "2026-11-02",
       "use": {
         "page": 11,
         "bundle": 1,
-        "linked": 84,
-        "use": 96,
+        "linked": 85,
+        "use": 97,
         "recent": {
           "page": 9,
           "bundle": 1,
-          "linked": 82,
-          "use": 92
+          "linked": 83,
+          "use": 93
         }
       },
       "outbound_count": 5,
@@ -7143,17 +7166,17 @@
       "type": "specialist",
       "stage": null,
       "has_forward_vector": true,
-      "last_used": "2026-10-24",
+      "last_used": "2026-11-01",
       "use": {
         "page": 5,
         "bundle": 4,
-        "linked": 6,
-        "use": 15,
+        "linked": 7,
+        "use": 16,
         "recent": {
           "page": 2,
           "bundle": 2,
-          "linked": 4,
-          "use": 8
+          "linked": 5,
+          "use": 9
         }
       },
       "outbound_count": 7,
@@ -9928,7 +9951,7 @@
     {
       "source": "The Lens",
       "type": "connects-to",
-      "target": "BBS Design System",
+      "target": "STIGMERGY",
       "label": "mockups-in-its-grammar"
     },
     {
@@ -10599,7 +10622,7 @@
     },
     {
       "source": "Synthesis Topologies",
-      "type": "mirrors",
+      "type": "connects-to",
       "target": "Lossy Compression with Intent Alignment",
       "label": "topology-as-prior"
     },
@@ -10607,7 +10630,7 @@
       "source": "Synthesis Topologies",
       "type": "connects-to",
       "target": "The Curve Is the Material",
-      "label": "sub-topology-question"
+      "label": "function-family-as-sub-topology"
     },
     {
       "source": "Synthesis Topologies",
@@ -10619,7 +10642,7 @@
       "source": "Synthesis Topologies",
       "type": "emerged-from",
       "target": "Generative Preset Development",
-      "label": "forward-ghost"
+      "label": "grew-from-its-ghost"
     },
     {
       "source": "Synthesis Topologies",
@@ -10650,12 +10673,6 @@
       "type": "connects-to",
       "target": "Generative Sample Libraries",
       "label": "flesh-for-a-fixed-skeleton"
-    },
-    {
-      "source": "Synthesis Topologies",
-      "type": "connects-to",
-      "target": "Synth Templates",
-      "label": "subtractive-taught"
     },
     {
       "source": "Granular Synthesis",
@@ -10758,6 +10775,36 @@
       "type": "mirrors",
       "target": "Hyperdimensional Prism",
       "label": "geometric-metaphor"
+    },
+    {
+      "source": "Synthesis Notes (Loudon)",
+      "type": "connects-to",
+      "target": "Synth Templates",
+      "label": "seeds-the-catalog"
+    },
+    {
+      "source": "Synthesis Notes (Loudon)",
+      "type": "connects-to",
+      "target": "Synthesis Topologies",
+      "label": "subtractive-in-his-words"
+    },
+    {
+      "source": "Synthesis Notes (Loudon)",
+      "type": "connects-to",
+      "target": "Resonance and Damping",
+      "label": "the-filter-chapter"
+    },
+    {
+      "source": "Synthesis Notes (Loudon)",
+      "type": "connects-to",
+      "target": "Frequency-Time Duality",
+      "label": "lfo-rate-to-pitch"
+    },
+    {
+      "source": "Synthesis Notes (Loudon)",
+      "type": "connects-to",
+      "target": "FOUR PILLARS",
+      "label": "teaching-text-before-the-framework"
     },
     {
       "source": "The Cooperation Path",
@@ -13144,7 +13191,7 @@
     {
       "source": "Speak Like a Person, Log Like a Protocol",
       "type": "connects-to",
-      "target": "BBS Design System",
+      "target": "STIGMERGY",
       "label": "applied-at-the-skin"
     },
     {
@@ -13268,6 +13315,12 @@
       "label": null
     },
     {
+      "source": "Exponential Decay Curvature",
+      "type": "connects-to",
+      "target": "Synth Templates",
+      "label": "where-the-curve-is-heard"
+    },
+    {
       "source": "Confucianism",
       "type": "connects-to",
       "target": "Spinoza Conatus",
@@ -13366,7 +13419,7 @@
     {
       "source": "The Reader's Context Window",
       "type": "connects-to",
-      "target": "BBS Design System",
+      "target": "STIGMERGY",
       "label": "the-surface-it-orders"
     },
     {
@@ -14402,6 +14455,12 @@
       "label": "flock-as-grains"
     },
     {
+      "source": "Murmuration",
+      "type": "member-of",
+      "target": "Synthesis Topologies",
+      "label": "a-loop-walked-by-a-crowd"
+    },
+    {
       "source": "Piano String Inharmonicity",
       "type": "deepens",
       "target": "Boundary-Crossing Instruments",
@@ -14752,7 +14811,7 @@
     {
       "source": "Semantic Webcam",
       "type": "connects-to",
-      "target": "BBS Design System",
+      "target": "STIGMERGY",
       "label": "terminal-aesthetic"
     },
     {
@@ -15036,6 +15095,12 @@
       "type": "deepens",
       "target": "Kuramoto Coupling",
       "label": "coupling-edge"
+    },
+    {
+      "source": "Inharmonic Wavetable Synthesis",
+      "type": "member-of",
+      "target": "Synthesis Topologies",
+      "label": "a-loop-that-drives-a-crowd"
     },
     {
       "source": "Generative Preset Development",
@@ -15404,6 +15469,12 @@
       "label": "stewarded-page"
     },
     {
+      "source": "Generative Wavetable Libraries",
+      "type": "member-of",
+      "target": "Synthesis Topologies",
+      "label": "makes-the-stored-loop"
+    },
+    {
       "source": "Symbiotic Skills",
       "type": "connects-to",
       "target": "Self-Describing Knowledge Module",
@@ -15722,6 +15793,12 @@
       "label": "fm-is-a-floquet-system"
     },
     {
+      "source": "Floquet Time-Modulated Loops",
+      "type": "member-of",
+      "target": "Synthesis Topologies",
+      "label": "a-loop-that-breathes"
+    },
+    {
       "source": "Bayesian Granular Synthesizer",
       "type": "connects-to",
       "target": "Neural Granular Synthesis",
@@ -15744,6 +15821,12 @@
       "type": "connects-to",
       "target": "Loudon Live",
       "label": "candidate-stage"
+    },
+    {
+      "source": "Bayesian Granular Synthesizer",
+      "type": "member-of",
+      "target": "Synthesis Topologies",
+      "label": "the-chord-grows-the-cloud"
     },
     {
       "source": "Portamento and Physical Pitch Modeling",
@@ -15981,7 +16064,7 @@
     },
     {
       "source": "2D Torus Wavetable Synthesizer",
-      "type": "exemplifies",
+      "type": "member-of",
       "target": "Synthesis Topologies",
       "label": null
     },
@@ -16122,6 +16205,12 @@
       "type": "connects-to",
       "target": "VST Template",
       "label": "candidate-reference-voice"
+    },
+    {
+      "source": "Synth Templates",
+      "type": "emerged-from",
+      "target": "Synthesis Notes (Loudon)",
+      "label": "concepts-covered"
     },
     {
       "source": "VST Template",
@@ -16636,7 +16725,7 @@
     {
       "source": "STIGMERGY Philosophical Lenses",
       "type": "connects-to",
-      "target": "BBS Design System",
+      "target": "STIGMERGY",
       "label": "locked-aesthetic"
     },
     {
@@ -18310,8 +18399,8 @@
     {
       "source": "Maker",
       "type": "connects-to",
-      "target": "BBS Design System",
-      "label": "overridden-by"
+      "target": "STIGMERGY",
+      "label": "dress-for-stigmergy-artifacts"
     },
     {
       "source": "Maker",
@@ -19212,6 +19301,12 @@
       "type": "connects-to",
       "target": "README - The Palace Guide",
       "label": "one-of-three-standards"
+    },
+    {
+      "source": "Image Embedding Standard",
+      "type": "connects-to",
+      "target": "Hero and Avatar Maker",
+      "label": "faces-held-to-their-own-test"
     },
     {
       "source": "Image Embedding Standard",
@@ -20859,9 +20954,9 @@
     },
     {
       "source": "Loudon Live Design System",
-      "type": "mirrors",
-      "target": "BBS Design System",
-      "label": "sibling-system-different-register"
+      "type": "connects-to",
+      "target": "STIGMERGY",
+      "label": "sibling-dress-different-register"
     },
     {
       "source": "Loudon Live Design System",
@@ -21285,12 +21380,6 @@
     },
     {
       "source": "BBS Blackboard",
-      "type": "spawned",
-      "target": "BBS Design System",
-      "label": "visual-form"
-    },
-    {
-      "source": "BBS Blackboard",
       "type": "enables",
       "target": "Project Stewardship System",
       "label": "routine-stewardship-substrate"
@@ -21315,9 +21404,9 @@
     },
     {
       "source": "Drafting Table Design System",
-      "type": "mirrors",
-      "target": "BBS Design System",
-      "label": "sibling-system-shares-the-phosphor"
+      "type": "connects-to",
+      "target": "STIGMERGY",
+      "label": "sibling-dress-shares-the-phosphor"
     },
     {
       "source": "Drafting Table Design System",
