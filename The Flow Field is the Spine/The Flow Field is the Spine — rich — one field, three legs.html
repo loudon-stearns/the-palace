@@ -1,0 +1,469 @@
+<!doctype html>
+<!--
+  title: The Flow Field is the Spine — rich — one field, three legs
+  born: 2026-11-03
+  links: [[The Flow Field is the Spine]] (connects-to · rich-face-piece) · [[BLUELINE]] (connects-to · the field is Session 3's, rebuilt) · [[Progressive Staging]] (exemplifies · a walk in six steps) · listed in [[The Flow Field is the Spine — rich.json]]
+  forward_vector: I am the section's bet as a walk you can play. One arrow, then a whirl in the wind,
+    then Session 3's whole field, then one leg reading it, then all three legs reading it at once while
+    you move a vortex, and last the test: can one number serve all three legs, and does each leg put the
+    arrow where the field put it? I play inside the entry's rich face and stand alone opened directly;
+    I change only when the section I serve does.
+  engine: Session 3's field author (Projects/BLUELINE/proofs/session-3-flowfield/field.py), line for line:
+    psi = 0.9 y + four Gaussian bumps, sampled on a 120 x 76 grid, v = (dpsi/dy, -dpsi/dx) by np.gradient's
+    differences; the legs read it through flowlib.sample's bilinear read and nothing else. The drawn leg is
+    drawn_speedlines.py (46 x 30 jittered seeds, 26 RK2 steps along the unit direction, width from speed);
+    the steers leg is steers_motion.py (dense motion as hue, noise backward-warped by t x dt x v); the sim
+    leg is legs/particles.html (x += v x scale per frame, re-seed on exit). Session 3's chosen numbers are
+    in S3_CHOSEN below, with the line each comes from. Checked headless by
+    "The Flow Field is the Spine — rich — checks.mjs", beside this file.
+  dress: Loudon Live house style, Graphite skin. Silent: this piece makes no sound.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:needs" content="">
+<title>The Flow Field is the Spine — one field, three legs</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Manrope:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root { --bg:#0a0a0f; --e1:#12121a; --border:#4a4a5e; --soft:rgba(255,255,255,.07); --fg1:#e8e8f0; --fg2:#c8c8d8; --fg3:#8a8aa0; --fg4:#4a4a5a;
+    --amber:#e8b84a; --amberline:rgba(232,184,74,.5); --indigo:#6366F1; --warn:#ff6b6b;
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --sans:'Manrope',system-ui,sans-serif; --serif:'Cormorant Garamond',Georgia,serif; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); font-weight: 300; }
+  .ffs-piece { padding: 22px 22px 20px; }
+  .ffs-kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; display: flex; align-items: center; gap: 10px; }
+  .ffs-kicker svg { width: 18px; height: 18px; }
+  .ffs-title { font-family: var(--serif); font-size: 27px; font-weight: 300; color: var(--fg1); margin: 0 0 6px; }
+  .ffs-sub { font-size: 14px; line-height: 1.6; color: var(--fg2); max-width: 78ch; margin: 0 0 16px; }
+  .ffs-rail { display: flex; flex-wrap: wrap; margin: 0 0 14px; }
+  .ffs-rail button { border-radius: 0; margin-right: -1px; }
+  .ffs-rail button[aria-pressed="true"] { color: var(--amber); border-color: var(--amberline); position: relative; z-index: 1; }
+  button { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--fg2); background: var(--bg); border: 1px solid var(--border); border-radius: 2px; padding: 8px 12px; cursor: pointer; transition: border-color 220ms cubic-bezier(.4,0,.2,1), color 220ms cubic-bezier(.4,0,.2,1); }
+  button:hover { border-color: rgba(232,184,74,.55); color: var(--fg1); }
+  button:disabled { opacity: .35; cursor: default; }
+  button.ffs-on { color: var(--amber); border-color: var(--amberline); }
+  .ffs-seg { display: inline-flex; } .ffs-seg button { border-radius: 0; } .ffs-seg button + button { border-left: 0; }
+  .ffs-step { border: 1px solid var(--soft); background: var(--e1); border-radius: 2px; padding: 14px 16px 16px; }
+  .ffs-stephead { font-family: var(--mono); font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--fg3); display: flex; justify-content: space-between; gap: 10px; margin-bottom: 6px; }
+  .ffs-says { font-size: 14.5px; line-height: 1.62; color: var(--fg2); max-width: 80ch; margin: 0 0 12px; }
+  .ffs-says b { color: var(--fg1); font-weight: 500; }
+  .ffs-grid { display: grid; gap: 10px; }
+  .ffs-grid.one { grid-template-columns: 1fr; max-width: 860px; }
+  .ffs-grid.two { grid-template-columns: 1fr 1fr; }
+  @media (max-width: 640px) { .ffs-grid.two { grid-template-columns: 1fr; } }
+  .ffs-panel { border: 1px solid var(--soft); border-radius: 2px; background: var(--bg); padding: 8px 10px 10px; }
+  .ffs-plabel { font-family: var(--mono); font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+  .ffs-plabel b { color: var(--fg1); font-weight: 500; }
+  canvas { display: block; width: 100%; touch-action: none; }
+  canvas.ffs-drag { cursor: grab; }
+  label.ffs-sl { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: .05em; color: var(--fg3); margin-top: 8px; }
+  label.ffs-sl b { color: var(--fg1); font-weight: 500; }
+  input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 3px; background: var(--fg4); margin: 10px 0 4px; outline: none; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 13px; height: 13px; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  input[type=range]::-moz-range-thumb { width: 13px; height: 13px; border: 0; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  input[type=range]:disabled::-webkit-slider-thumb { background: var(--fg3); }
+  .ffs-band { position: relative; height: 10px; margin-top: 4px; background: rgba(255,255,255,.04); border-radius: 1px; }
+  .ffs-band i { position: absolute; top: 0; bottom: 0; background: rgba(232,184,74,.16); border-left: 1px solid var(--amberline); border-right: 1px solid var(--amberline); }
+  .ffs-band s { position: absolute; top: -2px; bottom: -2px; width: 2px; margin-left: -1px; background: var(--fg1); text-decoration: none; }
+  .ffs-band u { position: absolute; top: 0; bottom: 0; width: 1px; background: var(--amber); text-decoration: none; }
+  .ffs-fit { font-family: var(--mono); font-size: 10.5px; letter-spacing: .04em; color: var(--fg3); margin-top: 4px; }
+  .ffs-fit .ok { color: var(--amber); } .ffs-fit .no { color: var(--warn); }
+  .ffs-controls { display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: end; margin-top: 12px; }
+  .ffs-controls .ffs-wide { flex: 1 1 320px; }
+  .ffs-read { display: flex; flex-wrap: wrap; gap: 6px 22px; margin-top: 12px; font-family: var(--mono); font-size: 11.5px; letter-spacing: .04em; color: var(--fg3); }
+  .ffs-read b { color: var(--fg1); font-weight: 500; }
+  .ffs-read .no { color: var(--warn); } .ffs-read .ok { color: var(--amber); }
+  .ffs-verdict { margin-top: 12px; font-size: 14px; line-height: 1.6; color: var(--fg1); max-width: 80ch; border-left: 2px solid var(--amberline); padding-left: 12px; }
+  .ffs-verdict b { font-weight: 500; color: var(--amber); }
+  .ffs-eqs { margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--soft); }
+  .ffs-eq { font-family: var(--serif); font-size: 19px; color: var(--fg1); }
+  .ffs-words { font-size: 13px; line-height: 1.55; color: var(--fg2); margin: 2px 0 10px; max-width: 80ch; }
+  .ffs-back { font-family: var(--mono); font-size: 11px; letter-spacing: .04em; color: var(--fg3); margin-top: 10px; }
+  .ffs-nav { display: flex; justify-content: space-between; gap: 10px; margin-top: 14px; }
+  .ffs-foot { font-family: var(--mono); font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--fg4); margin-top: 14px; }
+</style>
+</head>
+<body>
+<div class="ffs-piece">
+  <div class="ffs-kicker"><svg id="sigil" viewBox="0 0 18 18" aria-hidden="true"></svg><span>made · canvas · study · a walk in six steps</span></div>
+  <h3 class="ffs-title">One field, three legs</h3>
+  <p class="ffs-sub">The bet is that one field can feed the comic's speed-lines, the render's motion and the cinema's dust, each leg adding only a small number of its own. This walk starts from a single arrow, rebuilds Session 3's field, hangs the three legs off it, and ends on the test. Drag the vortices in any panel. Nothing here makes a sound.</p>
+
+  <div class="ffs-rail" id="rail" role="group" aria-label="steps"></div>
+  <div class="ffs-step">
+    <div class="ffs-stephead"><span id="stepname"></span><span id="stepof"></span></div>
+    <p class="ffs-says" id="says"></p>
+    <div class="ffs-grid" id="stage"></div>
+    <div class="ffs-controls" id="controls"></div>
+    <div class="ffs-read" id="read"></div>
+    <div class="ffs-verdict" id="verdict" style="display:none"></div>
+    <div class="ffs-eqs" id="eqs"></div>
+    <div class="ffs-back" id="backline"></div>
+    <div class="ffs-nav"><button id="prev">← back</button><button id="next">next step →</button></div>
+  </div>
+  <div class="ffs-foot">Loud’n Live</div>
+</div>
+
+<script id="engine">
+/* ENGINE:START — Session 3's field and its three legs. Shared by the page and the headless check; it
+   touches nothing of the page. Domain: x in [0, ASP], y in [0, 1], y UP (field.py's convention). */
+const S3 = { GW: 120, GH: 76, DRIFT: 0.9,
+  VORTICES: [[0.55, 0.62, 0.22, 0.13], [1.05, 0.38, -0.18, 0.11], [1.45, 0.66, 0.15, 0.10], [0.30, 0.30, -0.12, 0.09]] };  // field.py: cx, cy, amp, sigma
+S3.ASP = S3.GW / S3.GH;
+// What Session 3 chose for each leg, as one number in one unit: how far one tick of the leg carries a
+// point, in domain widths, per unit of field speed. The ticks are each leg's own clock.
+const S3_CHOSEN = {
+  drawn: 0.006,                                   // drawn_speedlines.py: STEP = 0.006, per RK2 step along the unit direction
+  steers: (18.0 / 1.9291342128983953) * (S3.ASP / 380),  // steers_motion.py: DT_PX = 18 / mag_max px per unit t, on a 380 px panel
+  sim: 0.22 * 1.0 * 0.016,                        // legs/particles.html: x += v * SCALE * DT * 0.016 per frame
+};
+const FIT_BAND = 2;                               // "fits" = within a factor of two of Session 3's choice
+function s3Build(vortices, drift) {
+  const { GW, GH, ASP } = S3, N = GW * GH, dx = ASP / (GW - 1), dy = 1 / (GH - 1), D = drift === undefined ? S3.DRIFT : drift;
+  const psi = new Float64Array(N), vx = new Float64Array(N), vy = new Float64Array(N);
+  for (let j = 0; j < GH; j++) for (let i = 0; i < GW; i++) { const x = i * dx, y = j * dy; let p = D * y;
+    for (const [cx, cy, a, s] of vortices) p += a * Math.exp(-(((x - cx) ** 2 + (y - cy) ** 2) / (2 * s * s)));
+    psi[j * GW + i] = p; }
+  let magMax = 0, magSum = 0;
+  for (let j = 0; j < GH; j++) for (let i = 0; i < GW; i++) { const n = j * GW + i;   // np.gradient: central inside, one-sided at the edges
+    const dpy = j === 0 ? (psi[n + GW] - psi[n]) / dy : j === GH - 1 ? (psi[n] - psi[n - GW]) / dy : (psi[n + GW] - psi[n - GW]) / (2 * dy);
+    const dpx = i === 0 ? (psi[n + 1] - psi[n]) / dx : i === GW - 1 ? (psi[n] - psi[n - 1]) / dx : (psi[n + 1] - psi[n - 1]) / (2 * dx);
+    vx[n] = dpy; vy[n] = -dpx; const m = Math.hypot(vx[n], vy[n]); if (m > magMax) magMax = m; magSum += m; }
+  return { GW, GH, ASP, vx, vy, magMax, magMean: magSum / N };
+}
+// The legs' one way in (flowlib.sample): a bilinear read. Nothing in a leg writes F.
+function s3Sample(F, x, y) {
+  const { GW, GH, ASP } = F; const fx = Math.min(Math.max(x / ASP, 0), 1) * (GW - 1), fy = Math.min(Math.max(y, 0), 1) * (GH - 1);
+  const x0 = Math.floor(fx), y0 = Math.floor(fy), x1 = Math.min(x0 + 1, GW - 1), y1 = Math.min(y0 + 1, GH - 1), tx = fx - x0, ty = fy - y0;
+  const a = y0 * GW + x0, b = y0 * GW + x1, c = y1 * GW + x0, d = y1 * GW + x1;
+  return [F.vx[a] * (1 - tx) * (1 - ty) + F.vx[b] * tx * (1 - ty) + F.vx[c] * (1 - tx) * ty + F.vx[d] * tx * ty,
+          F.vy[a] * (1 - tx) * (1 - ty) + F.vy[b] * tx * (1 - ty) + F.vy[c] * (1 - tx) * ty + F.vy[d] * tx * ty];
+}
+function s3Checksum(F) {                          // FNV-1a over the field's bytes: the field as the legs found it
+  let h = 0x811c9dc5; for (const a of [F.vx, F.vy]) { const b = new Uint8Array(a.buffer, a.byteOffset, a.byteLength); for (let k = 0; k < b.length; k++) { h ^= b[k]; h = Math.imul(h, 0x01000193) >>> 0; } }
+  return h.toString(16).padStart(8, '0');
+}
+function s3Rng(seed) { let s = seed >>> 0; return () => { s = (s + 0x6D2B79F5) >>> 0; let t = s; t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
+// LEG 1 · drawn: streamlines walked along the unit direction, RK2, NSTEP steps of `step`; speed sets width.
+const DRAWN = { NX: 46, NY: 30, NSTEP: 26 };
+function drawnSeeds() { const r = s3Rng(7), s = []; for (let iy = 0; iy < DRAWN.NY; iy++) for (let ix = 0; ix < DRAWN.NX; ix++) s.push([(ix + (r() * 0.8 - 0.4)) / DRAWN.NX * S3.ASP, (iy + (r() * 0.8 - 0.4)) / DRAWN.NY]); return s; }
+function drawnStrokes(F, step, seeds) {
+  const out = [];
+  for (const [sx, sy] of seeds) { let x = sx, y = sy; const pts = [x, y];
+    for (let k = 0; k < DRAWN.NSTEP; k++) {
+      const [vx, vy] = s3Sample(F, x, y), m = Math.hypot(vx, vy) + 1e-6;
+      const xm = x + vx / m * step * 0.5, ym = y + vy / m * step * 0.5;
+      const [wx, wy] = s3Sample(F, xm, ym), m2 = Math.hypot(wx, wy) + 1e-6;
+      x += wx / m2 * step; y += wy / m2 * step;
+      if (!(x >= 0 && x <= F.ASP && y >= 0 && y <= 1)) break;
+      pts.push(x, y);
+    }
+    if (pts.length < 12) continue;
+    const h = (pts.length / 2) >> 1, [mx, my] = s3Sample(F, pts[2 * h], pts[2 * h + 1]);
+    out.push({ pts, spd: Math.min(1, Math.hypot(mx, my) / F.magMax) });
+  }
+  return out;
+}
+// LEG 2 · steers: the dense motion map (hue = direction) and noise backward-warped by t x k x v.
+// rowsUp: true reads pixel row 0 as the top of the frame (y = 1), as the other legs draw it;
+// false reads row 0 as y = 0, as steers_motion.py does (it zooms the array without flipping its rows).
+function steersVel(F, NW, NH, rowsUp) {
+  const vx = new Float32Array(NW * NH), vy = new Float32Array(NW * NH);
+  for (let py = 0; py < NH; py++) for (let px = 0; px < NW; px++) { const x = px / (NW - 1) * F.ASP, y = rowsUp ? 1 - py / (NH - 1) : py / (NH - 1);
+    const [a, b] = s3Sample(F, x, y); vx[py * NW + px] = a; vy[py * NW + px] = b; }
+  return { vx, vy, NW, NH };
+}
+function steersNoise(NW, NH, sigma) {
+  const r = s3Rng(7), n = new Float32Array(NW * NH);
+  for (let k = 0; k < n.length; k++) { const u = Math.max(r(), 1e-12), v = r(); n[k] = Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v); }
+  const R = Math.ceil(sigma * 3), w = []; let ws = 0; for (let k = -R; k <= R; k++) { const g = Math.exp(-k * k / (2 * sigma * sigma)); w.push(g); ws += g; }
+  const tmp = new Float32Array(n.length), out = new Float32Array(n.length);
+  for (let y = 0; y < NH; y++) for (let x = 0; x < NW; x++) { let s = 0; for (let k = -R; k <= R; k++) { const xx = Math.min(NW - 1, Math.abs(x + k)); s += n[y * NW + (xx >= NW ? 2 * NW - 2 - xx : xx)] * w[k + R]; } tmp[y * NW + x] = s / ws; }
+  for (let y = 0; y < NH; y++) for (let x = 0; x < NW; x++) { let s = 0; for (let k = -R; k <= R; k++) { const yy = Math.min(NH - 1, Math.abs(y + k)); s += tmp[yy * NW + x] * w[k + R]; } out[y * NW + x] = s / ws; }
+  return normalise(out);
+}
+function normalise(a) { let m = 0; for (const v of a) m += v; m /= a.length; let s = 0; for (const v of a) s += (v - m) ** 2; s = Math.sqrt(s / a.length) + 1e-6; for (let k = 0; k < a.length; k++) a[k] = (a[k] - m) / s; return a; }
+function steersWarp(V, noise, k, t, out) {       // out[y,x] = noise[y + t*k*vy*(NH-1), x - t*k*vx*(NW-1)/ASP], reflected at the edges
+  const { NW, NH } = V, sx = t * k * (NW - 1) / S3.ASP, sy = t * k * (NH - 1);
+  const refl = (v, n) => { v = Math.abs(v); const p = 2 * (n - 1); v %= p; return v > n - 1 ? p - v : v; };
+  for (let py = 0; py < NH; py++) for (let px = 0; px < NW; px++) { const n = py * NW + px;
+    const X = refl(px - sx * V.vx[n], NW), Y = refl(py + sy * V.vy[n], NH);
+    const x0 = Math.floor(X), y0 = Math.floor(Y), x1 = Math.min(x0 + 1, NW - 1), y1 = Math.min(y0 + 1, NH - 1), tx = X - x0, ty = Y - y0;
+    out[n] = noise[y0 * NW + x0] * (1 - tx) * (1 - ty) + noise[y0 * NW + x1] * tx * (1 - ty) + noise[y1 * NW + x0] * (1 - tx) * ty + noise[y1 * NW + x1] * tx * ty; }
+  return normalise(out);
+}
+// LEG 3 · sim: particles advected, x += v * k per frame, re-seeded on exit and now and then (0.4%).
+function simSeed(P, i, r) { P[2 * i] = r() * S3.ASP; P[2 * i + 1] = r(); }
+function simStep(F, P, k, r) {
+  for (let i = 0; i < P.length / 2; i++) { const x = P[2 * i], y = P[2 * i + 1], [vx, vy] = s3Sample(F, x, y);
+    const nx = x + vx * k, ny = y + vy * k;
+    if (nx < 0 || nx > F.ASP || ny < 0 || ny > 1 || r() < 0.004) simSeed(P, i, r); else { P[2 * i] = nx; P[2 * i + 1] = ny; } }
+}
+/* ENGINE:END */
+</script>
+<script id="measure">
+/* MEASURE:START — what the readouts and the verdict say, from the same engine. Also run by the headless check. */
+// How far a leg's number sits from Session 3's choice, as a factor (1 = Session 3's own).
+function fitOf(leg, k) { return k / S3_CHOSEN[leg]; }
+function fits(leg, k) { const f = fitOf(leg, k); return f <= FIT_BAND && f >= 1 / FIT_BAND; }
+// The narrowest band (as a factor either way) inside which one shared number could serve all three legs.
+function sharedBandNeeded() { const v = Object.values(S3_CHOSEN); return Math.sqrt(Math.max(...v) / Math.min(...v)); }
+// The best one number can do: scan k, count the legs it fits, keep the most.
+function bestShared() { let best = { n: 0, k: 0 }; for (let e = -4; e <= 0; e += 0.001) { const k = Math.pow(10, e); const n = ['drawn', 'steers', 'sim'].filter(l => fits(l, k)).length; if (n > best.n) best = { n, k }; } return best; }
+// Same arrow, same place? Mean angle between the steers map's arrow at each pixel and the field's arrow
+// at the place that pixel shows (rows up), weighted by speed. 0 degrees = the leg draws the field where it is.
+function steersRegistration(F, NW, NH, rowsUp) {
+  const V = steersVel(F, NW, NH, rowsUp), T = steersVel(F, NW, NH, true); let s = 0, w = 0;
+  for (let n = 0; n < NW * NH; n++) { const a = Math.atan2(V.vy[n], V.vx[n]) - Math.atan2(T.vy[n], T.vx[n]); const d = Math.abs(Math.atan2(Math.sin(a), Math.cos(a))); const m = Math.hypot(T.vx[n], T.vy[n]); s += d * m; w += m; }
+  return s / w * 180 / Math.PI;
+}
+/* MEASURE:END */
+</script>
+<script>
+'use strict';
+(function sigil() { const s = document.getElementById('sigil'); let d = ''; for (let i = 0; i <= 160; i++) { const t = 2 * Math.PI * i / 160; d += (i ? 'L' : 'M') + (9 + 7.5 * Math.sin(3 * t + Math.PI / 2)).toFixed(2) + ',' + (9 + 7.5 * Math.sin(2 * t)).toFixed(2); } s.innerHTML = '<path d="' + d + '" fill="none" stroke="#e8b84a" stroke-width="1"/>'; })();
+
+const $ = id => document.getElementById(id);
+const el = (tag, attrs = {}, ...kids) => { const n = document.createElement(tag); for (const k in attrs) { if (k === 'on') for (const ev in attrs.on) n.addEventListener(ev, attrs.on[ev]); else if (k === 'html') n.innerHTML = attrs[k]; else n.setAttribute(k, attrs[k]); } kids.forEach(c => n.append(c)); return n; };
+const fmt = (v, d = 3) => (Math.abs(v) < 1e-9 ? 0 : v).toFixed(d);
+
+// ───────── state ─────────
+const St = { step: 1, vort: S3.VORTICES.map(v => v.slice()), probe: [0.42, 0.5], k: { ...S3_CHOSEN }, locked: false, kLock: S3_CHOSEN.drawn, rowsUp: true, last: 0 };
+let regCache = {}, F = null, sum = '', reads = 0, seeds = drawnSeeds(), strokes = null, strokesFor = '';
+const NW = 190, NH = Math.round(190 / S3.ASP);
+const noise = steersNoise(NW, NH, 1.5), warped = new Float32Array(NW * NH);
+let V = null, Vfor = '';
+const NP = 2600, simR = s3Rng(11), P = new Float32Array(NP * 2); for (let i = 0; i < NP; i++) simSeed(P, i, simR);
+function activeVortices() { return St.step === 1 ? [] : St.step === 2 ? [St.vort[0]] : St.vort; }
+function rebuild() { F = s3Build(activeVortices()); sum = s3Checksum(F); strokesFor = ''; Vfor = ''; regCache = {}; }
+const kOf = leg => St.step === 6 && St.locked ? St.kLock : St.k[leg];
+
+// ───────── panels ─────────
+const panels = {};
+function panel(id, title, note) {
+  const c = el('canvas', { class: 'ffs-drag' }), lab = el('div', { class: 'ffs-plabel', html: '<span>' + title + '</span><span id="pn-' + id + '">' + (note || '') + '</span>' });
+  const box = el('div', { class: 'ffs-panel' }, lab, c);
+  panels[id] = { id, c, box, ctx: c.getContext('2d'), w: 0, h: 0 };
+  hookDrag(panels[id]); return panels[id];
+}
+function size(p) { const w = p.c.clientWidth || 400, dpr = Math.min(2, window.devicePixelRatio || 1), h = Math.round(w / S3.ASP);
+  if (p.c.width !== Math.round(w * dpr) || p.c.height !== Math.round(h * dpr)) { p.c.width = Math.round(w * dpr); p.c.height = Math.round(h * dpr); p.c.style.height = h + 'px'; }
+  p.w = p.c.width; p.h = p.c.height; p.dpr = dpr; }
+const toPx = (p, x, y) => [x / S3.ASP * p.w, (1 - y) * p.h];
+const toDom = (p, px, py) => [px / p.w * S3.ASP, 1 - py / p.h];
+
+let drag = null;
+function hookDrag(p) {
+  p.c.addEventListener('pointerdown', e => {
+    const r = p.c.getBoundingClientRect(), px = (e.clientX - r.left) * p.dpr, py = (e.clientY - r.top) * p.dpr, [x, y] = toDom(p, px, py);
+    let best = -1, bd = 1e9; activeVortices().forEach((v, i) => { const [vx, vy] = toPx(p, v[0], v[1]); const d = Math.hypot(vx - px, vy - py); if (d < bd) { bd = d; best = i; } });
+    if (best >= 0 && bd < 26 * p.dpr) drag = { kind: 'v', i: best, p }; else if (St.step <= 2) { drag = { kind: 'probe', p }; St.probe = [x, y]; }
+    else if (best >= 0) drag = { kind: 'v', i: best, p };
+    if (drag) { p.c.setPointerCapture(e.pointerId); move(e); }
+  });
+  p.c.addEventListener('pointermove', e => { if (drag && drag.p === p) move(e); });
+  const up = () => { drag = null; }; p.c.addEventListener('pointerup', up); p.c.addEventListener('pointercancel', up);
+}
+function move(e) {
+  const p = drag.p, r = p.c.getBoundingClientRect(), [x, y] = toDom(p, (e.clientX - r.left) * p.dpr, (e.clientY - r.top) * p.dpr);
+  const cx = Math.min(Math.max(x, 0.02), S3.ASP - 0.02), cy = Math.min(Math.max(y, 0.02), 0.98);
+  if (drag.kind === 'probe') St.probe = [cx, cy]; else { St.vort[drag.i][0] = cx; St.vort[drag.i][1] = cy; St.last = drag.i; rebuild(); }
+  dirty = true;
+}
+
+// ───────── drawing ─────────
+function speedCol(t) { // dark → indigo → amber
+  const a = [10, 10, 15], b = [62, 52, 128], c = [232, 184, 74];
+  const m = t < 0.5 ? t / 0.5 : (t - 0.5) / 0.5, A = t < 0.5 ? a : b, B = t < 0.5 ? b : c;
+  return [A[0] + (B[0] - A[0]) * m, A[1] + (B[1] - A[1]) * m, A[2] + (B[2] - A[2]) * m];
+}
+let fieldImg = null, fieldImgFor = '';
+function drawField(p) {
+  size(p); const g = p.ctx;
+  if (fieldImgFor !== sum) { const { GW, GH } = F, im = new ImageData(GW, GH);
+    for (let j = 0; j < GH; j++) for (let i = 0; i < GW; i++) { const n = j * GW + i, row = GH - 1 - j, o = (row * GW + i) * 4, c = speedCol(Math.min(1, Math.hypot(F.vx[n], F.vy[n]) / 1.95));
+      im.data[o] = c[0]; im.data[o + 1] = c[1]; im.data[o + 2] = c[2]; im.data[o + 3] = 255; }
+    fieldImg = document.createElement('canvas'); fieldImg.width = GW; fieldImg.height = GH; fieldImg.getContext('2d').putImageData(im, 0, 0); fieldImgFor = sum; }
+  g.imageSmoothingEnabled = true; g.drawImage(fieldImg, 0, 0, p.w, p.h);
+  const sp = 30 * p.dpr, L = 13 * p.dpr; g.strokeStyle = 'rgba(232,232,240,.55)'; g.lineWidth = 1 * p.dpr;
+  for (let py = sp / 2; py < p.h; py += sp) for (let px = sp / 2; px < p.w; px += sp) { const [x, y] = toDom(p, px, py), [vx, vy] = s3Sample(F, x, y), m = Math.hypot(vx, vy) + 1e-9, s = L * Math.min(1, m / 1.2);
+    arrow(g, px, py, px + vx / m * s, py - vy / m * s, 3 * p.dpr); }
+  drawVortices(p);
+}
+function arrow(g, x0, y0, x1, y1, hd) { const a = Math.atan2(y1 - y0, x1 - x0); g.beginPath(); g.moveTo(x0, y0); g.lineTo(x1, y1); g.lineTo(x1 - hd * Math.cos(a - 0.5), y1 - hd * Math.sin(a - 0.5)); g.moveTo(x1, y1); g.lineTo(x1 - hd * Math.cos(a + 0.5), y1 - hd * Math.sin(a + 0.5)); g.stroke(); }
+function drawVortices(p, faint) {
+  const g = p.ctx; activeVortices().forEach((v, i) => { const [x, y] = toPx(p, v[0], v[1]), R = v[3] / S3.ASP * p.w * 0.55;
+    g.strokeStyle = i === St.last && St.step >= 5 ? '#e8b84a' : faint ? 'rgba(232,184,74,.45)' : 'rgba(232,184,74,.85)'; g.lineWidth = (i === St.last && St.step >= 5 ? 1.6 : 1.1) * p.dpr;
+    g.beginPath(); g.arc(x, y, R, 0, 2 * Math.PI); g.stroke();
+    const cw = v[2] > 0; const a0 = -Math.PI / 2, ax = x + R * Math.cos(a0), ay = y + R * Math.sin(a0), dir = cw ? 1 : -1;   // amp > 0 turns clockwise (y up)
+    g.beginPath(); g.moveTo(ax, ay); g.lineTo(ax - dir * 5 * p.dpr, ay - 4 * p.dpr); g.moveTo(ax, ay); g.lineTo(ax - dir * 5 * p.dpr, ay + 4 * p.dpr); g.stroke();
+    g.fillStyle = 'rgba(232,184,74,.9)'; g.beginPath(); g.arc(x, y, 2.2 * p.dpr, 0, 2 * Math.PI); g.fill(); });
+}
+function drawProbe(p) {
+  const g = p.ctx, [x, y] = St.probe, [px, py] = toPx(p, x, y), [vx, vy] = s3Sample(F, x, y), s = 46 * p.dpr;
+  g.strokeStyle = '#e8b84a'; g.lineWidth = 2.2 * p.dpr; arrow(g, px, py, px + vx * s, py - vy * s, 8 * p.dpr);
+  g.fillStyle = '#e8e8f0'; g.beginPath(); g.arc(px, py, 4 * p.dpr, 0, 2 * Math.PI); g.fill();
+}
+function drawDrawn(p) {
+  size(p); const g = p.ctx, k = kOf('drawn'), key = sum + '|' + k;
+  if (strokesFor !== key) { strokes = drawnStrokes(F, k, seeds); strokesFor = key; }
+  g.fillStyle = '#0d0e12'; g.fillRect(0, 0, p.w, p.h);
+  const wmax = 5.0 * p.w / 960;                                           // drawn_speedlines.py: WMAX = 5 px on a 960 px frame
+  for (const s of strokes) { const pts = s.pts, n = pts.length / 2, W = wmax * (0.5 + 0.9 * s.spd), v = Math.round(150 + 105 * s.spd);
+    const L = [], R = [];
+    for (let i = 0; i < n; i++) { const [px, py] = toPx(p, pts[2 * i], pts[2 * i + 1]), a = Math.max(0, i - 1), b = Math.min(n - 1, i + 1);
+      const [ax, ay] = toPx(p, pts[2 * a], pts[2 * a + 1]), [bx, by] = toPx(p, pts[2 * b], pts[2 * b + 1]); let dx = bx - ax, dy = by - ay; const l = Math.hypot(dx, dy) + 1e-6; dx /= l; dy /= l;
+      const w = W * Math.pow(i / (n - 1), 0.7) / 2; L.push([px - dy * w, py + dx * w]); R.push([px + dy * w, py - dx * w]); }
+    g.fillStyle = 'rgba(' + v + ',' + v + ',' + Math.min(255, Math.round(v * 0.96 + 12)) + ',' + ((120 + 120 * s.spd) / 255).toFixed(3) + ')';
+    g.beginPath(); g.moveTo(L[0][0], L[0][1]); for (let i = 1; i < n; i++) g.lineTo(L[i][0], L[i][1]); for (let i = n - 1; i >= 0; i--) g.lineTo(R[i][0], R[i][1]); g.closePath(); g.fill(); }
+  reads++; drawVortices(p, true);
+}
+let steersCanvas = null, steersT = 0;
+function drawSteers(p, dt) {
+  size(p); const g = p.ctx, key = sum + '|' + St.rowsUp;
+  if (Vfor !== key) { V = steersVel(F, NW, NH, St.rowsUp); Vfor = key; }
+  steersT = (steersT + dt / 600) % 4;                                    // t runs 0 → 4 in 2.4 s, then starts over from the same noise
+  steersWarp(V, noise, kOf('steers'), steersT, warped);
+  if (!steersCanvas) { steersCanvas = document.createElement('canvas'); steersCanvas.width = NW; steersCanvas.height = NH; }
+  const sg = steersCanvas.getContext('2d'), im = sg.createImageData(NW, NH);
+  for (let n = 0; n < NW * NH; n++) { const vx = V.vx[n], vy = V.vy[n], h = (Math.atan2(-vy, vx) + Math.PI) / (2 * Math.PI), spd = Math.min(1, Math.hypot(vx, vy) / F.magMax);
+    const val = (0.18 + 0.82 * Math.min(1, Math.max(0, 0.5 + 0.22 * warped[n]))) * (0.35 + 0.65 * Math.pow(spd, 0.7)); const [r, gg, b] = hsv(h, 0.72, val);
+    im.data[4 * n] = r; im.data[4 * n + 1] = gg; im.data[4 * n + 2] = b; im.data[4 * n + 3] = 255; }
+  sg.putImageData(im, 0, 0); g.imageSmoothingEnabled = true; g.drawImage(steersCanvas, 0, 0, p.w, p.h);
+  reads++; drawVortices(p, true);
+  const pn = $('pn-steers'); if (pn) pn.textContent = 't ' + steersT.toFixed(1) + ' · ' + (St.rowsUp ? 'rows up' : 'rows as session 3');
+}
+function hsv(h, s, v) { const i = Math.floor(h * 6), f = h * 6 - i, p = v * (1 - s), q = v * (1 - f * s), t = v * (1 - (1 - f) * s); const m = [[v, t, p], [q, v, p], [p, v, t], [p, q, v], [t, p, v], [v, p, q]][((i % 6) + 6) % 6]; return m.map(c => Math.round(c * 255)); }
+function drawSim(p) {
+  size(p); const g = p.ctx; simStep(F, P, kOf('sim'), simR); reads++;
+  g.fillStyle = 'rgba(10,10,15,0.09)'; g.fillRect(0, 0, p.w, p.h);
+  const r = 1.3 * p.dpr;
+  for (let i = 0; i < NP; i++) { const x = P[2 * i], y = P[2 * i + 1], [vx, vy] = s3Sample(F, x, y), t = Math.min(1, Math.hypot(vx, vy) / F.magMax), [px, py] = toPx(p, x, y);
+    g.fillStyle = 'rgba(' + Math.round(140 + 115 * t) + ',' + Math.round(120 + 90 * t) + ',' + Math.round(110 + 90 * (1 - t)) + ',0.85)'; g.fillRect(px - r / 2, py - r / 2, r, r); }
+  const q = p.ctx; q.save(); q.globalAlpha = 0.5; drawVortices(p, true); q.restore();
+}
+
+// ───────── knobs ─────────
+const LOGK = [-3.3, -0.7];                                                // the knobs span 0.0005 … 0.2 domain widths per tick
+const toSlider = k => (Math.log10(k) - LOGK[0]) / (LOGK[1] - LOGK[0]) * 1000, fromSlider = v => Math.pow(10, LOGK[0] + v / 1000 * (LOGK[1] - LOGK[0]));
+const LEGNAME = { drawn: 'step length', steers: 'warp per t', sim: 'move per frame' };
+let syncs = [];
+function bandFor(leg) {
+  const band = el('div', { class: 'ffs-band' }), lo = toSlider(S3_CHOSEN[leg] / FIT_BAND) / 10, hi = toSlider(S3_CHOSEN[leg] * FIT_BAND) / 10;
+  band.append(el('i', { style: 'left:' + lo + '%;width:' + (hi - lo) + '%' }), el('u', { style: 'left:' + toSlider(S3_CHOSEN[leg]) / 10 + '%' }), el('s'));
+  const fit = el('div', { class: 'ffs-fit' });
+  syncs.push(() => { const k = kOf(leg), f = fitOf(leg, k); band.querySelector('s').style.left = toSlider(k) / 10 + '%';
+    fit.innerHTML = 'session 3 chose <b>' + S3_CHOSEN[leg].toFixed(4) + '</b> · this is <b>×' + (f >= 1 ? f.toFixed(2) : '1/' + (1 / f).toFixed(2)) + '</b> · ' + (fits(leg, k) ? '<span class="ok">fits</span>' : '<span class="no">outside ×2</span>'); });
+  return [band, fit];
+}
+function legKnob(leg) {
+  const s = el('input', { type: 'range', min: 0, max: 1000, step: 1 }), b = el('b');
+  s.value = toSlider(St.k[leg]);
+  s.addEventListener('input', () => { St.k[leg] = fromSlider(+s.value); dirty = true; syncAll(); });
+  syncs.push(() => { s.disabled = St.step === 6 && St.locked; if (!s.disabled) s.value = toSlider(St.k[leg]); b.textContent = kOf(leg).toFixed(4); });
+  return el('label', { class: 'ffs-sl' }, document.createTextNode(LEGNAME[leg] + ' · the leg’s one number = '), b, s, ...bandFor(leg));
+}
+function syncAll() { syncs.forEach(f => f()); readout(); }
+
+// ───────── steps ─────────
+const STEPS = [
+  { n: 1, name: 'one arrow', panels: ['field'],
+    says: 'A flow field answers one question at every place: <b>which way, and how fast?</b> Drag the white point. Here the field is only Session 3’s drift, a wind blowing right at 0.9 everywhere, so the arrow never changes. One place in, one arrow out.',
+    eqs: [['v(x, y) = (0.9, 0)', '(the arrow at any place) = (0.9 to the right, nothing up or down): the same everywhere, for now.']],
+    back: 'Nothing yet but the wind.' },
+  { n: 2, name: 'a whirl in the wind', panels: ['field'],
+    says: 'Now one of Session 3’s vortices sits in the wind. Drag the amber ring to move it, or drag anywhere else to move the point. The field is built as the <b>curl of a potential</b>: a smooth hill ψ, with the arrows running along its contour lines. That is why nothing ever piles up or drains away; the divergence at the point stays at zero.',
+    eqs: [['ψ(x, y) = 0.9·y + a·e<sup>−r²⁄2σ²</sup>', '(the potential) = (the wind’s slope) + (one bump of height a and width σ, centred on the vortex; r is the distance from its centre)'],
+          ['v = ( ∂ψ⁄∂y , −∂ψ⁄∂x )', '(the arrow) = (how fast ψ climbs going up, minus how fast it climbs going right): the arrows run along ψ’s contours, so the flow neither gathers nor spreads.']],
+    back: 'Back a step: the same wind, with no bump in it.' },
+  { n: 3, name: 'the one source', panels: ['field'],
+    says: 'All four of Session 3’s vortices, in the drift: this is <b>flow-field.json</b>, the file every leg read, rebuilt here from field.py’s own numbers on its 120 × 76 grid. Drag any ring. The shading is speed, dark to amber; the arrows are direction. This is the expensive thing, the structure, and in the bet it is authored once.',
+    eqs: [['ψ = 0.9·y + Σ<sub>k</sub> a<sub>k</sub>·e<sup>−r<sub>k</sub>²⁄2σ<sub>k</sub>²</sup>', '(the potential) = (the wind) + (the sum of four bumps, two turning one way and two the other)']],
+    back: 'Back a step: one vortex alone.' },
+  { n: 4, name: 'one leg reads it', panels: ['field', 'drawn'],
+    says: 'The first leg, <b>drawn</b>: comic speed-lines, walked through the field 26 steps at a time along the arrows’ direction, wider and brighter where it is fast. The leg reads the field and never writes it. Its one number is how far each step goes. Slide it and the lines lengthen or shrink; move a vortex and they bend, with no change to the leg.',
+    eqs: [['p<sub>k+1</sub> = p<sub>k</sub> + s · v(p)⁄|v(p)|', '(the next point on a line) = (this point) + (the step length) × (the field’s direction here). The direction is the field’s; the step length is the leg’s.']],
+    back: 'Back a step: the field alone.' },
+  { n: 5, name: 'three legs, one field', panels: ['field', 'drawn', 'steers', 'sim'],
+    says: 'All three legs at once: <b>drawn</b> lines, <b>steers</b> (the dense motion map a render is conditioned on, hue for direction, with noise warped along the flow the way Session 3 showed it), and <b>sim</b> (particles carried by the field). Drag a ring in any panel. All four bend together, because there is only one field; the readout shows its checksum staying put while the legs read it.',
+    eqs: [['leg(p) = T<sub>leg</sub>( v(p) )', '(what a leg draws at a place) = (its own small transfer) applied to (the one field’s arrow there). T is a step length, a warp per frame, a move per frame: one number each.']],
+    back: 'Back a step: one leg.' },
+  { n: 6, name: 'the test', panels: ['field', 'drawn', 'steers', 'sim'],
+    says: 'The strong claim says the untouched field is enough: <b>no per-leg number at all</b>. Lock the three numbers together and look for one setting where all three legs read the way Session 3 chose them, within a factor of two. Then the second switch: draw the steers leg the way Session 3’s code drew it, and watch where its whirls land.',
+    eqs: [['k<sub>drawn</sub> = 0.006   k<sub>steers</sub> = 0.0388   k<sub>sim</sub> = 0.0035', 'Session 3’s three numbers, in one unit: how far one tick of the leg carries a point, in widths of the frame, per unit of field speed. Each tick is the leg’s own clock: a step of a line, a frame of video, a frame of animation.']],
+    back: 'Back a step: each leg with its own number.' },
+];
+
+function stage() {
+  const s = STEPS[St.step - 1], g = $('stage'); g.innerHTML = ''; g.className = 'ffs-grid ' + (s.panels.length === 1 ? 'one' : 'two');
+  const titles = { field: ['the field · source', 'shade = speed · arrows = direction'], drawn: ['drawn · comic speed-lines', ''], steers: ['steers · dense motion + warped noise', ''], sim: ['sim · particles', ''] };
+  for (const id of s.panels) { const p = panel(id, ...titles[id]); g.append(p.box); if (St.step >= 4 && id !== 'field') p.box.append(legKnob(id)); }
+}
+function build() {
+  const s = STEPS[St.step - 1];
+  const rail = $('rail'); rail.innerHTML = '';
+  STEPS.forEach(t => rail.append(el('button', { 'aria-pressed': String(t.n === St.step), on: { click: () => goTo(t.n) } }, t.n + ' · ' + t.name)));
+  $('stepname').textContent = s.n + ' · ' + s.name; $('stepof').textContent = 'step ' + s.n + ' of ' + STEPS.length;
+  $('says').innerHTML = s.says; syncs = []; for (const k in panels) delete panels[k];
+  stage();
+  const c = $('controls'); c.innerHTML = '';
+  if (St.step >= 2) c.append(el('button', { on: { click: () => { St.vort = S3.VORTICES.map(v => v.slice()); St.k = { ...S3_CHOSEN }; rebuild(); dirty = true; build(); } } }, 'put everything back'));
+  if (St.step === 6) {
+    const seg = el('div', { class: 'ffs-seg' }), a = el('button', { on: { click: () => { St.locked = false; dirty = true; syncAll(); } } }, 'each leg its own number'), b = el('button', { on: { click: () => { St.locked = true; dirty = true; syncAll(); } } }, 'one number for all three');
+    seg.append(a, b); syncs.push(() => { a.className = St.locked ? '' : 'ffs-on'; b.className = St.locked ? 'ffs-on' : ''; });
+    const s2 = el('input', { type: 'range', min: 0, max: 1000, step: 1 }), bb = el('b');
+    s2.value = toSlider(St.kLock); s2.addEventListener('input', () => { St.kLock = fromSlider(+s2.value); St.locked = true; dirty = true; syncAll(); });
+    syncs.push(() => { bb.textContent = St.kLock.toFixed(4); s2.style.opacity = St.locked ? 1 : 0.45; });
+    const seg2 = el('div', { class: 'ffs-seg' }), r1 = el('button', { on: { click: () => { St.rowsUp = true; dirty = true; syncAll(); } } }, 'steers: rows up'), r2 = el('button', { on: { click: () => { St.rowsUp = false; dirty = true; syncAll(); } } }, 'steers: as session 3 wrote it');
+    seg2.append(r1, r2); syncs.push(() => { r1.className = St.rowsUp ? 'ffs-on' : ''; r2.className = St.rowsUp ? '' : 'ffs-on'; });
+    c.append(seg, el('label', { class: 'ffs-sl ffs-wide' }, document.createTextNode('the one number, shared = '), bb, s2), seg2);
+  } else St.rowsUp = true;
+  $('eqs').innerHTML = ''; s.eqs.forEach(([sym, words]) => { $('eqs').append(el('div', { class: 'ffs-eq', html: sym.replace(/ {2,}/g, '&emsp;&emsp;') }), el('div', { class: 'ffs-words', html: words })); });
+  $('backline').textContent = s.back;
+  $('verdict').style.display = St.step === 6 ? '' : 'none';
+  $('prev').disabled = St.step === 1; $('next').disabled = St.step === STEPS.length;
+  rebuild(); dirty = true; requestAnimationFrame(() => { syncAll(); });
+}
+function goTo(n) { if (n !== St.step) { St.step = n; if (n < 6) St.locked = false; St.last = 0; build(); } }
+
+function readout() {
+  const parts = [];
+  if (St.step <= 2) { const [x, y] = St.probe, [vx, vy] = s3Sample(F, x, y);
+    parts.push('at (<b>' + fmt(x, 2) + '</b>, <b>' + fmt(y, 2) + '</b>)', 'v = (<b>' + fmt(vx) + '</b>, <b>' + fmt(vy) + '</b>)', '|v| <b>' + fmt(Math.hypot(vx, vy)) + '</b>');
+    if (St.step === 2) { const h = 1e-3, [a] = s3Sample(F, x + h, y), [b] = s3Sample(F, x - h, y), c = s3Sample(F, x, y + h)[1], d = s3Sample(F, x, y - h)[1]; parts.push('divergence ≈ <b>' + fmt((a - b) / (2 * h) + (c - d) / (2 * h), 3) + '</b>'); } }
+  else { parts.push('fastest <b>' + F.magMax.toFixed(3) + '</b> · mean <b>' + F.magMean.toFixed(3) + '</b>');
+    if (St.step >= 5) parts.push('field checksum <b>' + sum + '</b> · ' + (s3Checksum(F) === sum ? '<span class="ok">unchanged by the legs</span>' : '<span class="no">changed</span>'), 'reads by the legs <b>' + reads.toLocaleString() + '</b> · writes <b>0</b>'); }
+  if (St.step === 6) {
+    const ok = ['drawn', 'steers', 'sim'].filter(l => fits(l, kOf(l))), key = sum + '|' + St.rowsUp;
+    if (!regCache[key]) regCache[key] = steersRegistration(F, 95, Math.round(95 / S3.ASP), St.rowsUp);
+    parts.push('legs that fit <b class="' + (ok.length === 3 ? 'ok' : 'no') + '">' + ok.length + ' of 3</b>', 'steers arrow vs field arrow, same place <b class="' + (regCache[key] < 1 ? 'ok' : 'no') + '">' + regCache[key].toFixed(1) + '°</b>');
+    const best = bestShared(), need = sharedBandNeeded(), mir = regCache[sum + '|false'] ?? (regCache[sum + '|false'] = steersRegistration(F, 95, Math.round(95 / S3.ASP), false));
+    $('verdict').innerHTML = '<b>One number for all three</b> fits at most <b>' + best.n + ' of 3</b> legs at any setting: Session 3’s choices span <b>×' + (need * need).toFixed(1) + '</b>, from the sim’s ' + S3_CHOSEN.sim.toFixed(4) + ' to the steers’ ' + S3_CHOSEN.steers.toFixed(4) + ', so one shared number serves all three only if “right” is allowed to mean within <b>×' + need.toFixed(1) + '</b> of each. The legs run on different clocks and in different units, and the scalar is what absorbs that. So the strong claim fails here as it failed in Session 3, and the likely-true claim holds: the field’s checksum never moved, and each leg added one number. ' +
+      '<b>The second switch</b> shows a transfer the page doesn’t name. Session 3’s steers code reads the field’s rows from the top of the frame down, while the field (and the other legs) count y from the bottom, so its whirls land mirrored top to bottom: the arrow it draws differs from the field’s arrow at the same place by <b>' + mir.toFixed(0) + '°</b> on average, here. The contact sheet’s steers row was drawn this way. A format choice is part of each leg’s transfer, and it can be wrong while the field stays untouched.';
+  }
+  $('read').innerHTML = parts.map(x => '<span>' + x + '</span>').join('');
+}
+
+// ───────── loop ─────────
+let dirty = true, lastT = performance.now(), lastRead = 0;
+function frame(t) {
+  const dt = Math.min(100, t - lastT); lastT = t;
+  const s = STEPS[St.step - 1];
+  for (const id of s.panels) { const p = panels[id]; if (!p) continue;
+    if (id === 'field' && dirty) { drawField(p); if (St.step <= 2) drawProbe(p); }
+    if (id === 'drawn' && dirty) drawDrawn(p);
+    if (id === 'steers') drawSteers(p, dt);
+    if (id === 'sim') drawSim(p); }
+  if (dirty || t - lastRead > 250) { readout(); lastRead = t; }
+  dirty = false;
+  requestAnimationFrame(frame);
+}
+$('prev').addEventListener('click', () => goTo(Math.max(1, St.step - 1)));
+$('next').addEventListener('click', () => goTo(Math.min(STEPS.length, St.step + 1)));
+window.addEventListener('resize', () => { dirty = true; });
+build();
+requestAnimationFrame(frame);
+</script>
+</body>
+</html>
