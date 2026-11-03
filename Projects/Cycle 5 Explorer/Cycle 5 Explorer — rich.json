@@ -26,14 +26,14 @@
   "offers": [
     {
       "section": "The one idea underneath",
-      "kind": "claim-change",
-      "what": "'Each step darker lowers exactly one note' is true with the tonic held and not with the notes held. Measured on the window piece's engine, which spells as the explorer does: holding the tonic, 90 of 90 darker steps (every tonic C♭ to C♯, six steps each) change exactly one note, each a half step down on the same letter, ♯4, 7, 3, 6, 2, 5 in that order. Holding the notes (the header's same notes, which the review sheet says the page opens on), 84 of 84 steps change no note at all: the tonic moves up a fifth and exactly one degree reads lower, the same six. Proposed: 'Each step darker with the tonic held lowers exactly one note: the one that falls off the window's sharp end comes back on its flat end, the same letter a half step lower. With the notes held, no note moves; home does.'",
+      "kind": "no-claim-edit",
+      "what": "A clarification, not a correction: 'Each step darker lowers exactly one note' picks no reading, and it is true on the explorer in both, read as degrees (as its inspector reads it). Measured on the window piece's engine, which spells as the explorer does: holding the tonic, 90 of 90 darker steps (every tonic C♭ to C♯) change exactly one pitch, a half step down on the same letter, ♯4, 7, 3, 6, 2, 5 in that order. Holding the notes (the header's same notes, which the review sheet says the page opens on), 84 of 84 steps change no pitch: the tonic moves up a fifth and the same one degree reads a half step lower (84, not 90, because the explorer refuses a tonic past C♯). Proposed, to name the reading: 'Each step darker with the tonic held lowers exactly one note: the one that falls off the window's sharp end comes back on its flat end, the same letter a half step lower. With the notes held, no note moves; home does, and the same degree reads a half step lower.'",
       "status": "open"
     },
     {
       "section": "The one idea underneath",
       "kind": "claim-change",
-      "what": "Two things the window shows that the section could say in a line, if Loudon wants them: turning the note ring one key flatward is the same move and also lowers exactly one note (98 of 98, mode held); and past Locrian the next note to leave would be the tonic itself (the window would become C♭ Lydian on C), which is why the walk from bright to dark has seven stops and not eight.",
+      "what": "Two things the window shows that the section could say in a line, if Loudon wants them: turning the note ring one key flatward is the same move and also lowers exactly one note (98 of 98, mode held); and past Locrian the next note to leave would be the tonic itself (the window would become C♭ Lydian; C is no longer in it), which is why the walk from bright to dark has seven stops and not eight.",
       "status": "open"
     }
   ],
@@ -111,7 +111,7 @@
           "by": "the Maker · Web Audio, the explorer's own voice and arithmetic",
           "height": 1300,
           "title": "a seven-note window on the line of fifths · a walk in five steps",
-          "caption": "**Does each step darker lower exactly one note?** Built up from nothing: the line of fifths alone, where seven places apart is the same letter a half step higher; a window of seven on it, every letter once; a tonic moved inside the window, where no note moves; the tonic held while the window slides, where one note falls off the sharp end and comes back seven places flat; and last the count, every darker step on every tonic from C♭ to C♯, both ways the explorer's header switch allows, then a short test of your ear. Checked headless against the piece's own engine and the explorer's own spelling: with the tonic held, 90 of 90 steps change exactly one note, each a half step down on the same letter, ♯4, 7, 3, 6, 2, 5 in order; with the notes held, 84 of 84 change no note, and the same one degree reads lower. Past Locrian the note to leave would be the tonic itself. What a listener hears was not checked.",
+          "caption": "**Does each step darker lower exactly one note?** Built up from nothing: the line of fifths alone, where seven places apart is the same letter a half step higher; a window of seven on it, every letter once; a tonic moved inside the window, where no note moves; the tonic held while the window slides, where one note falls off the sharp end and comes back seven places flat; and last the count, every darker step on every tonic from C♭ to C♯, both ways the explorer's header switch allows, then a short test of your ear. Checked headless against the piece's own engine and the explorer's own spelling: with the tonic held, 90 of 90 steps change exactly one note, each a half step down on the same letter, ♯4, 7, 3, 6, 2, 5 in order; with the notes held, 84 of 84 change no note (84, not 90, because the explorer refuses a tonic past C♯), and the same one degree reads lower. Past Locrian the note to leave would be the tonic itself. What a listener hears was not checked.",
           "near": "Each step darker lowers exactly one note"
         }
       ],
