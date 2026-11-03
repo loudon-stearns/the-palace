@@ -3,7 +3,7 @@
   title: Lettering — rich — the seven voices, blind
   born: 2026-11-03
   links: [[Lettering]] (connects-to · rich-face-piece) · listed in [[Lettering — rich.json]] · plates from [[BLUELINE — Text Layer]]'s proofs
-  forward_vector: I put the charter's promise to a blind test — that the letterform itself means what the word means. I hide the word, show one letter of each of BLUELINE's seven voices, state chance and the verdict rule before the first trial, and let you find out whether the speaker's state survives without its caption; then I run the same test on the bare fonts, so you can see which stage carried it. I change when the charter does, or when the bench re-renders.
+  forward_vector: I put the charter's promise to a blind test — that the letterform itself means what the word means. I hide the word and the letter, show a patch of stroke from each of BLUELINE's seven voices, state chance and the verdict rule before the first trial, then run the same test on one letter, K, in each voice's bare font, and hold every answer until both rounds are done, so you can see which stage carried the state. I change when the charter does, or when the bench re-renders.
 -->
 <html lang="en">
 <head>
@@ -71,44 +71,49 @@
 <div class="piece" id="p">
   <div class="kicker">made · Lettering · study</div>
   <h3 class="title">Can you read who is speaking from the letterform alone?</h3>
-  <p class="sub">The charter promises a letterform whose substance means what the word means. Here is that promise, blind. Seven voices from BLUELINE, the word hidden, one letter each. You name the speaker; the rule for what counts is set before you start.</p>
+  <p class="sub">The charter promises a letterform whose substance means what the word means. Here is that promise, blind. Seven voices from BLUELINE, the word and the letter hidden, a patch of stroke each; then the bare fonts. You name the speaker; the rule for what counts is set before you start.</p>
   <div class="rail"></div>
 
   <section class="step" data-name="one word, captioned">
     <h4>One lettered word, with its caption</h4>
-    <p>A word from an older render of the suite, before the skeletons went hand-drawn. Read it with the card beside it.</p>
-    <div class="two"><div class="panel"><img class="plate" src="plates/intro-toolate-impact-ink.webp" alt="the words too late in pale flowing ink"></div>
+    <p>A word from outside the seven-voice suite: the living-balloon sweep's <i>TOO LATE</i>, set in Nosifer and locked into SDXL (canny 0.5, let go at 40%). Read it with the card beside it.</p>
+    <div class="two"><div class="panel"><img class="plate" src="plates/intro-balloon-toolate.webp" alt="TOO LATE in black dripping capitals inside a balloon, a red splash behind"></div>
       <div class="card"><span class="k">the words</span>“too late”<span class="k">who → to whom</span>the hero, hollowed → himself<span class="k">feeling</span>grief, collapse, letting go</div></div>
   </section>
 
   <section class="step" data-name="the word gives it away">
-    <h4>The word gives it away</h4>
-    <p>With the card hidden you would still know: <i>too late</i> means what it means in any font. So a fair test has to take the word away and leave the form. Cut one letter out, square, and look again.</p>
-    <div class="two"><div class="panel"><img class="frag" src="plates/intro-toolate-impact-frag.webp" alt="one letter cut from the same image"></div>
-      <div class="card"><span class="k">what is left</span>a letter, its stroke, its material, the field around it. If the speaker's state is still there, the letterform is carrying it.</div></div>
+    <h4>The word gives it away, and so does the letter</h4>
+    <p>With the card hidden you would still know: <i>too late</i> means what it means in any font. Cutting out one letter isn't enough either; an E can only come from one of seven words. So the test cuts a patch of stroke and its edge, too small to hold a whole letter, and looks at that.</p>
+    <div class="two"><div class="panel"><img class="frag" src="plates/intro-balloon-toolate-patch.webp" alt="a patch of black stroke with a red drip"></div>
+      <div class="card"><span class="k">what is left</span>a stroke's edge, its weight, its material, the field beside it. If the speaker's state is still there, the form is carrying it.</div></div>
   </section>
 
   <section class="step" data-name="the rule, before the first trial">
     <h4>The rule, set before the first trial</h4>
-    <div class="rule">Seven trials, one letter from each voice, in an order shuffled on every load. For each, pick one of seven speakers. A speaker may be picked more than once, and you hear nothing until the end.<br><br>
+    <div class="rule">Two rounds of seven trials, in an order shuffled on every load. <b>Round 1</b>: a patch of stroke from each voice's finished ink. <b>Round 2</b>: the letter K, which none of the seven words contains, set in each voice's own font with no diffusion. For each trial, pick one of seven speakers. A speaker may be picked more than once, and no answer is shown until both rounds are done.<br><br>
       <b>Chance:</b> 1 in 7 per trial; a guesser expects 1 right of 7.<br>
-      <b>Verdict:</b> <b>4 or more</b> right: the letterform carried the state for you (a guesser gets there about 1 time in 100). <b>3</b>: can't be told from guessing (a guesser gets 3 or more about 7 times in 100). <b>0 to 2</b>: it did not carry.<br><br>
-      One reader, seven trials: a verdict for you, not for everyone.</div>
-    <button class="b go" id="start-ink">begin the seven trials ▸</button>
+      <b>Verdict, per round:</b> <b>4 or more</b> right: the form carried the state for you (a guesser gets there about 1 time in 100). <b>3</b>: can't be told from guessing (a guesser gets 3 or more about 7 times in 100). <b>0 to 2</b>: it did not carry.<br><br>
+      Knowing the seven words doesn't help: no patch holds a whole letter (checked against every letter's box, and an OCR reads nothing in them), and round 2 shows the same letter every time. One reader, seven trials a round: a verdict for you, not for everyone.</div>
+    <button class="b go" id="start-ink">begin round 1 ▸</button>
   </section>
 
-  <section class="step" data-name="the test · the full pipeline" data-test="1">
-    <h4 id="t-head">Trial –</h4>
+  <section class="step" data-name="round 1 · the full pipeline" data-test="1">
+    <h4 id="t-head">Round 1</h4>
     <div class="bar"><i id="t-bar"></i></div>
     <div id="t-body"><p>Set the rule first: the step before this one.</p></div>
   </section>
 
-  <section class="step" data-name="again, on the bare fonts" data-test="1">
-    <h4>Again, on the bare fonts</h4>
-    <p>The page says the font carries the source before any pixel: Nosifer bleeds, Bangers shouts. So run the same seven trials on the same letters, set alone in each voice's named font, with no diffusion at all. Same chance, same rule. If the fonts score as well as the full pipeline, the feeling was in the font; if lower, diffusion added it.</p>
-    <p class="note">The fonts here are the script's per-voice picks (text-prompts.json). The renders in the first round were made on one font, Chalkduster, for every voice, so this round tests the page's claim about fonts, not the fonts behind those renders.</p>
-    <button class="b go" id="start-font">begin the font round ▸</button>
-    <div id="f-body" style="margin-top:14px"></div>
+  <section class="step" data-name="round 2 · the bare fonts" data-test="1">
+    <h4 id="f-head">Round 2: the bare fonts</h4>
+    <p>The page says the font carries the source before any pixel: Nosifer bleeds, Bangers shouts. Here is the same letter, K, in each voice's named font, with no diffusion at all. Same chance, same rule. If the fonts score as well as the finished ink, the feeling was in the font; if lower, diffusion added it.</p>
+    <p class="note">The fonts are the script's per-voice picks (text-prompts.json). Round 1's renders were made on one font, Chalkduster, for every voice, so this round tests the page's claim about fonts, not the fonts behind those renders.</p>
+    <div class="bar"><i id="f-bar"></i></div>
+    <div id="f-body"><p>Round 1 first: its answers stay hidden until this round is done.</p></div>
+  </section>
+
+  <section class="step" data-name="both rounds, revealed" data-test="1">
+    <h4>Both rounds, revealed</h4>
+    <div id="r-body"><p>The answers show here once both rounds are done (or once you skip round 2).</p></div>
   </section>
 
   <div class="nav"><button class="b" data-back>◂ back</button><button class="b go" data-next>next ▸</button><span class="where"></span></div>
@@ -129,7 +134,7 @@ function walk(root, onStep) {
   return go;
 }
 
-const M = {"voices":{"ascension":{"outline_held":{"photoreal":[0.708,0.232],"ink":[0.439,0.203]},"impact_outline_held":{"photoreal":[0.998,0.256],"ink":[1.0,0.262]},"void_field":[0.705,0.733],"fragment":{"n":1,"letter":"E","font":"NewRocker","ink_box":[504,408,169],"components":8}},"shout-no":{"outline_held":{"photoreal":[0.807,0.181],"ink":[0.334,0.16]},"impact_outline_held":{"photoreal":[0.999,0.209],"ink":[0.997,0.227]},"void_field":[0.283,0.177],"fragment":{"n":6,"letter":"O","font":"Bangers","ink_box":[742,406,384],"components":2}},"whisper-stay":{"outline_held":{"photoreal":[0.769,0.165],"ink":[0.31,0.171]},"impact_outline_held":{"photoreal":[1.0,0.164],"ink":[0.999,0.151]},"void_field":[0.567,0.686],"fragment":{"n":2,"letter":"a","font":"ShadowsIntoLight","ink_box":[673,441,290],"components":4}},"sfx-thoom":{"outline_held":{"photoreal":[0.783,0.189],"ink":[0.354,0.163]},"impact_outline_held":{"photoreal":[0.999,0.228],"ink":[0.988,0.22]},"void_field":[0.178,0.191],"fragment":{"n":5,"letter":"O","font":"Frijole","ink_box":[588,408,301],"components":5}},"dying-toolate":{"outline_held":{"photoreal":[0.714,0.178],"ink":[0.3,0.179]},"impact_outline_held":{"photoreal":[0.999,0.218],"ink":[0.971,0.212]},"void_field":[0.233,0.32],"fragment":{"n":3,"letter":"a","font":"Nosifer","ink_box":[812,430,184],"components":7}},"lyric-burning":{"outline_held":{"photoreal":[0.768,0.164],"ink":[0.452,0.164]},"impact_outline_held":{"photoreal":[0.989,0.299],"ink":[0.928,0.301]},"void_field":[0.13,0.097],"fragment":{"n":7,"letter":"R","font":"MetalMania","ink_box":[444,418,216],"components":7}},"thought-real":{"outline_held":{"photoreal":[0.768,0.182],"ink":[0.369,0.177]},"impact_outline_held":{"photoreal":[1.0,0.218],"ink":[0.985,0.256]},"void_field":[0.587,0.737],"fragment":{"n":4,"letter":"a","font":"SpecialElite","ink_box":[684,581,184],"components":9}}}};
+const M = {"voices":{"ascension":{"outline_held":{"photoreal":[0.708,0.232],"ink":[0.439,0.203]},"impact_outline_held":{"photoreal":[0.998,0.256],"ink":[1.0,0.262]},"void_field":[0.705,0.733],"fragment":{"n":1,"font_letter":"K","font":"NewRocker","ink_patch":[500,420,90]}},"shout-no":{"outline_held":{"photoreal":[0.807,0.181],"ink":[0.334,0.16]},"impact_outline_held":{"photoreal":[0.999,0.209],"ink":[0.997,0.227]},"void_field":[0.283,0.177],"fragment":{"n":6,"font_letter":"K","font":"Bangers","ink_patch":[692,442,148]}},"whisper-stay":{"outline_held":{"photoreal":[0.769,0.165],"ink":[0.31,0.171]},"impact_outline_held":{"photoreal":[1.0,0.164],"ink":[0.999,0.151]},"void_field":[0.567,0.686],"fragment":{"n":2,"font_letter":"K","font":"ShadowsIntoLight","ink_patch":[680,404,131]}},"sfx-thoom":{"outline_held":{"photoreal":[0.783,0.189],"ink":[0.354,0.163]},"impact_outline_held":{"photoreal":[0.999,0.228],"ink":[0.988,0.22]},"void_field":[0.178,0.191],"fragment":{"n":5,"font_letter":"K","font":"Frijole","ink_patch":[550,438,118]}},"dying-toolate":{"outline_held":{"photoreal":[0.714,0.178],"ink":[0.3,0.179]},"impact_outline_held":{"photoreal":[0.999,0.218],"ink":[0.971,0.212]},"void_field":[0.233,0.32],"fragment":{"n":3,"font_letter":"K","font":"Nosifer","ink_patch":[816,411,90]}},"lyric-burning":{"outline_held":{"photoreal":[0.768,0.164],"ink":[0.452,0.164]},"impact_outline_held":{"photoreal":[0.989,0.299],"ink":[0.928,0.301]},"void_field":[0.13,0.097],"fragment":{"n":7,"font_letter":"K","font":"MetalMania","ink_patch":[440,421,90]}},"thought-real":{"outline_held":{"photoreal":[0.768,0.182],"ink":[0.369,0.177]},"impact_outline_held":{"photoreal":[1.0,0.218],"ink":[0.985,0.256]},"void_field":[0.587,0.737],"fragment":{"n":4,"font_letter":"K","font":"SpecialElite","ink_patch":[689,562,90]}}}};
 const VOICES = [
   ['ascension', 'ASCENSION', 'the author → the audience', 'awe, dread, ascent (a title)'],
   ['shout-no', 'NO', 'the hero → the recoiling crowd', 'fury, anguish, at full force'],
@@ -140,41 +145,60 @@ const VOICES = [
   ['thought-real', 'was it real', "the hero's mind → himself", 'doubt, dissociation, cold']];
 const tail = k => { let p = 0; const C = (n, r) => { let c = 1; for (let i = 0; i < r; i++) c = c * (n - i) / (i + 1); return c; };
   for (let j = k; j <= 7; j++) p += C(7, j) * Math.pow(1 / 7, j) * Math.pow(6 / 7, 7 - j); return p; };
-const verdict = k => k >= 4 ? 'the letterform carried the state for you' : k === 3 ? "can't be told from guessing" : 'it did not carry';
+const verdict = k => k >= 4 ? 'the form carried the state for you' : k === 3 ? "can't be told from guessing" : 'it did not carry';
 const shuffle = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
-const results = {};
-function run(kind, body, head, bar, done) {
+const done = {};
+function run(kind, body, head, bar, then) {
   const order = shuffle(VOICES), picks = []; let t = 0;
   function trial() {
-    if (head) head.textContent = 'Trial ' + (t + 1) + ' of 7'; if (bar) bar.style.width = (t / 7 * 100) + '%';
+    if (head) head.textContent = (kind === 'ink' ? 'Round 1' : 'Round 2: the bare fonts') + ' · trial ' + (t + 1) + ' of 7'; if (bar) bar.style.width = (t / 7 * 100) + '%';
     const v = order[t], n = M.voices[v[0]].fragment.n;
     body.innerHTML = '';
     const wrap = document.createElement('div'); wrap.className = 'trial';
-    const im = document.createElement('img'); im.className = 'frag'; im.src = 'plates/frag-' + kind + '-' + n + '.webp'; im.alt = 'one letter, word hidden';
+    const im = document.createElement('img'); im.className = 'frag'; im.src = 'plates/frag-' + kind + '-' + n + '.webp'; im.alt = kind === 'ink' ? 'a patch of stroke, word hidden' : 'the letter K in one of the seven fonts';
     const left = document.createElement('div'); left.className = 'panel'; left.appendChild(im);
     const ch = document.createElement('div'); ch.className = 'choices';
     VOICES.forEach(c => { const b = document.createElement('button'); b.textContent = c[2] + ' · ' + c[3];
-      b.onclick = () => { picks.push([v, c]); t++; t < 7 ? trial() : reveal(); }; ch.appendChild(b); });
+      b.onclick = () => { picks.push([v, c]); t++; if (t < 7) trial(); else { if (bar) bar.style.width = '100%'; done[kind] = picks; then(); } }; ch.appendChild(b); });
     wrap.appendChild(left); wrap.appendChild(ch); body.appendChild(wrap); }
-  function reveal() {
-    if (bar) bar.style.width = '100%'; if (head) head.textContent = 'Seven trials, revealed';
-    const k = picks.filter(([v, c]) => v[0] === c[0]).length; results[kind] = k;
-    body.innerHTML = '<div class="verdict">' + k + ' of 7 · ' + verdict(k) + '</div>' +
-      '<p class="hint">' + (k <= 1 ? 'a guesser expects 1 right of 7' : 'a guesser scores ' + k + ' or more ' + (tail(k) < 0.001 ? 'fewer than 1 time in 1,000' : 'about ' + (tail(k) * 100).toFixed(k >= 4 ? 1 : 0) + ' times in 100')) + (kind === 'font' && results.ink != null ? ' · the full pipeline gave you ' + results.ink + ' of 7' : '') + '</p>';
-    const g = document.createElement('div'); g.className = 'reveal';
-    picks.forEach(([v, c]) => { const ok = v[0] === c[0], d = document.createElement('div'); d.className = 'cell';
-      d.innerHTML = '<img src="plates/frag-' + kind + '-' + M.voices[v[0]].fragment.n + '.webp" alt="">' +
-        (kind === 'ink' ? '<img src="plates/' + v[0] + '-ink.webp" alt="" style="margin-top:4px">' : '') +
-        '<div class="wd">“' + v[1] + '”' + (kind === 'font' ? ' · ' + M.voices[v[0]].fragment.font : '') + '</div>' +
-        '<div>' + v[2] + ' · ' + v[3] + '</div><div class="' + (ok ? 'yes' : 'no') + '">' + (ok ? '✓ you named it' : '✗ you picked ' + c[2]) + '</div>';
-      g.appendChild(d); });
-    body.appendChild(g);
-    if (done) done(k); }
   trial();
 }
+function revealRound(kind, picks) {
+  const k = picks.filter(([v, c]) => v[0] === c[0]).length;
+  const box = document.createElement('div');
+  box.innerHTML = '<div class="verdict">' + (kind === 'ink' ? 'Round 1 · the finished ink' : 'Round 2 · the bare fonts') + ': ' + k + ' of 7 · ' + verdict(k) + '</div>' +
+    '<p class="hint">' + (k <= 1 ? 'a guesser expects 1 right of 7' : 'a guesser scores ' + k + ' or more ' + (tail(k) < 0.001 ? 'fewer than 1 time in 1,000' : 'about ' + (tail(k) * 100).toFixed(k >= 4 ? 1 : 0) + ' times in 100')) + '</p>';
+  const g = document.createElement('div'); g.className = 'reveal';
+  picks.forEach(([v, c]) => { const ok = v[0] === c[0], d = document.createElement('div'); d.className = 'cell';
+    d.innerHTML = '<img src="plates/frag-' + kind + '-' + M.voices[v[0]].fragment.n + '.webp" alt="">' +
+      (kind === 'ink' ? '<img src="plates/' + v[0] + '-ink.webp" alt="" style="margin-top:4px">' : '') +
+      '<div class="wd">“' + v[1] + '”' + (kind === 'font' ? ' · ' + M.voices[v[0]].fragment.font : '') + '</div>' +
+      '<div>' + v[2] + ' · ' + v[3] + '</div><div class="' + (ok ? 'yes' : 'no') + '">' + (ok ? '✓ you named it' : '✗ you picked ' + c[2]) + '</div>';
+    g.appendChild(d); });
+  box.appendChild(g); return [box, k];
+}
+function revealAll() {
+  const r = document.getElementById('r-body'); r.innerHTML = ''; const ks = {};
+  ['ink', 'font'].forEach(kind => { if (done[kind]) { const [box, k] = revealRound(kind, done[kind]); ks[kind] = k; r.appendChild(box); } });
+  if (ks.ink != null && ks.font != null) { const p = document.createElement('p'); p.className = 'note';
+    const cat = k => k >= 4 ? 2 : k === 3 ? 1 : 0;
+    p.textContent = cat(ks.ink) === cat(ks.font) ? 'Both rounds land on the same side of the rule, so for you this test can\'t say which stage carried the state. One or two trials apart is within what chance does.' :
+      cat(ks.ink) > cat(ks.font) ? 'By the rule, the finished ink carried more for you than the bare fonts: diffusion added something the font alone did not have.' :
+      'By the rule, the bare fonts carried more for you than the finished ink: the feeling the page credits to the font was there before any pixel, and diffusion did not add to it.'; r.insertBefore(p, r.firstChild); }
+  go(5);
+}
 const go = walk(document.getElementById('p'));
-document.getElementById('start-ink').onclick = () => { go(3); run('ink', document.getElementById('t-body'), document.getElementById('t-head'), document.getElementById('t-bar')); };
-document.getElementById('start-font').onclick = e => { e.target.style.display = 'none'; run('font', document.getElementById('f-body')); };
+document.getElementById('start-ink').onclick = () => { if (done.ink) return; go(3);
+  run('ink', document.getElementById('t-body'), document.getElementById('t-head'), document.getElementById('t-bar'), () => {
+    document.getElementById('t-head').textContent = 'Round 1 is in';
+    const tb = document.getElementById('t-body'); tb.innerHTML = '<p>Your seven answers are held. They stay hidden until round 2 is done, so the font round can\'t be read off them.</p>';
+    const a = document.createElement('button'); a.className = 'b go'; a.textContent = 'begin round 2 ▸'; a.id = 'start-font';
+    const b = document.createElement('button'); b.className = 'b'; b.textContent = 'skip round 2 and reveal'; b.style.marginLeft = '10px';
+    a.onclick = () => { go(4); document.getElementById('f-body').innerHTML = '';
+      run('font', document.getElementById('f-body'), document.getElementById('f-head'), document.getElementById('f-bar'), () => {
+        document.getElementById('f-body').innerHTML = '<p>Both rounds are in.</p>'; revealAll(); }); tb.innerHTML = '<p>Round 1 is in; round 2 is under way.</p>'; };
+    b.onclick = () => { tb.innerHTML = '<p>Round 1 is in. Round 2 was skipped.</p>'; document.getElementById('f-body').innerHTML = '<p>Skipped: round 1 has been revealed, so this round would measure memory now.</p>'; revealAll(); };
+    tb.appendChild(a); tb.appendChild(b); }); };
 </script>
 </body>
 </html>

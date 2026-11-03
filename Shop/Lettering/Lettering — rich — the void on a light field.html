@@ -76,8 +76,8 @@
 
   <section class="step" data-name="the void alone">
     <h4>The void alone</h4>
-    <p>A void is only the absence of ink. On a perfectly lit field it is simply a black word. Here is <i>stay</i>'s knockout mask on white: the font itself, widened by 2 px.</p>
-    <div class="panel big"><img class="plate" src="plates/whisper-stay-skeleton.webp" style="filter: invert(1)" alt="stay as a black word on white"></div>
+    <p>A void is only the absence of ink. On a perfectly lit field it is simply a black word. Here is <i>stay</i>'s knockout mask on white: the font itself, widened by 2 px, exactly as the knockout cuts it.</p>
+    <div class="panel big"><img class="plate" src="plates/whisper-stay-mask.webp" alt="stay as a black word on white"></div>
   </section>
 
   <section class="step" data-name="on a light field">
@@ -106,11 +106,12 @@
     <h4>The test: which words vanish?</h4>
     <p>All seven knockouts, as rendered. Mark each one: does the word read, or does it vanish? Then see where your marks fall against the measure.</p>
     <div class="seven" id="seven"></div>
-    <div class="plabel" style="margin-top:16px"><span>field at the void's edge, per voice · your marks</span><span>amber = reads · grey = vanishes · hollow = unmarked</span></div>
-    <canvas id="plot" height="150"></canvas>
+    <div id="plotwrap" style="display:none"><div class="plabel" style="margin-top:16px"><span>field at the void's edge, per voice · your marks</span><span>amber = reads · grey = vanishes</span></div>
+    <canvas id="plot" height="150"></canvas></div>
+    <p class="hint" id="plotwait">The measure appears once all seven are marked.</p>
     <div class="eq">L<sub>edge</sub> = mean of I over the ring 3–15 px outside the void · lit = share of that ring with I &gt; 0.35</div>
     <div class="words">(field at the void's edge) = (the average brightness, 0 to 1, of the ink just outside the black word) · (edge lit) = (the share of that border band brighter than about a third of white). The void is pure black, so this is its contrast.</div>
-    <div class="mine" id="mine"><p class="note"><b>The reading, after yours.</b> The three light fields (<i>stay</i>, <i>was it real</i>, <i>ASCENSION</i>: 0.57–0.71 at the void's edge, 69–74% of the border lit) read at once. <i>BURNING</i> (0.13) and <i>THOOM</i> (0.18) fade into their fields. The middle is the interesting part: <i>NO</i> sits on a mid-grey field (0.28, only 18% of its border above 0.35) and to my eye reads clearly; <i>too late</i> (0.23) reads in patches. So the gotcha holds, with one adjustment an agent's eye suggests and yours can check: the line falls between about 0.2 and 0.28, so a mid-grey field carries the void too, not only a light one. The knockout could measure its own border before it ships, and lift a dark field the way the gain step did.</p></div>
+    <div class="mine" id="mine"><p class="note"><b>The reading, after yours.</b> The three light fields (<i>stay</i>, <i>was it real</i>, <i>ASCENSION</i>: 0.57–0.71 at the void's edge, 69–74% of the border lit) read at once. <i>BURNING</i> (0.13) fades into its field; <i>THOOM</i> (0.18) all but does (a second agent reads it, dimly). The middle is the interesting part: <i>NO</i> sits on a mid-grey field (0.28, only 18% of its border above 0.35) and to my eye reads clearly; <i>too late</i> (0.23) reads in patches. So the gotcha holds, with one adjustment two agents' eyes suggest and yours can check; it is an eye call, not a measured threshold: the line falls somewhere between about 0.18 and 0.28, so a mid-grey field carries the void too, not only a light one. The knockout could measure its own border before it ships, and lift a dark field the way the gain step did.</p></div>
   </section>
 
   <div class="nav"><button class="b" data-back>◂ back</button><button class="b go" data-next>next ▸</button><span class="where"></span></div>
@@ -131,7 +132,7 @@ function walk(root, onStep) {
   return go;
 }
 
-const M = {"voices":{"ascension":{"outline_held":{"photoreal":[0.708,0.232],"ink":[0.439,0.203]},"impact_outline_held":{"photoreal":[0.998,0.256],"ink":[1.0,0.262]},"void_field":[0.705,0.733],"fragment":{"n":1,"letter":"E","font":"NewRocker","ink_box":[504,408,169],"components":8}},"shout-no":{"outline_held":{"photoreal":[0.807,0.181],"ink":[0.334,0.16]},"impact_outline_held":{"photoreal":[0.999,0.209],"ink":[0.997,0.227]},"void_field":[0.283,0.177],"fragment":{"n":6,"letter":"O","font":"Bangers","ink_box":[742,406,384],"components":2}},"whisper-stay":{"outline_held":{"photoreal":[0.769,0.165],"ink":[0.31,0.171]},"impact_outline_held":{"photoreal":[1.0,0.164],"ink":[0.999,0.151]},"void_field":[0.567,0.686],"fragment":{"n":2,"letter":"a","font":"ShadowsIntoLight","ink_box":[673,441,290],"components":4}},"sfx-thoom":{"outline_held":{"photoreal":[0.783,0.189],"ink":[0.354,0.163]},"impact_outline_held":{"photoreal":[0.999,0.228],"ink":[0.988,0.22]},"void_field":[0.178,0.191],"fragment":{"n":5,"letter":"O","font":"Frijole","ink_box":[588,408,301],"components":5}},"dying-toolate":{"outline_held":{"photoreal":[0.714,0.178],"ink":[0.3,0.179]},"impact_outline_held":{"photoreal":[0.999,0.218],"ink":[0.971,0.212]},"void_field":[0.233,0.32],"fragment":{"n":3,"letter":"a","font":"Nosifer","ink_box":[812,430,184],"components":7}},"lyric-burning":{"outline_held":{"photoreal":[0.768,0.164],"ink":[0.452,0.164]},"impact_outline_held":{"photoreal":[0.989,0.299],"ink":[0.928,0.301]},"void_field":[0.13,0.097],"fragment":{"n":7,"letter":"R","font":"MetalMania","ink_box":[444,418,216],"components":7}},"thought-real":{"outline_held":{"photoreal":[0.768,0.182],"ink":[0.369,0.177]},"impact_outline_held":{"photoreal":[1.0,0.218],"ink":[0.985,0.256]},"void_field":[0.587,0.737],"fragment":{"n":4,"letter":"a","font":"SpecialElite","ink_box":[684,581,184],"components":9}}}};
+const M = {"voices":{"ascension":{"outline_held":{"photoreal":[0.708,0.232],"ink":[0.439,0.203]},"impact_outline_held":{"photoreal":[0.998,0.256],"ink":[1.0,0.262]},"void_field":[0.705,0.733],"fragment":{"n":1,"font_letter":"K","font":"NewRocker","ink_patch":[500,420,90]}},"shout-no":{"outline_held":{"photoreal":[0.807,0.181],"ink":[0.334,0.16]},"impact_outline_held":{"photoreal":[0.999,0.209],"ink":[0.997,0.227]},"void_field":[0.283,0.177],"fragment":{"n":6,"font_letter":"K","font":"Bangers","ink_patch":[692,442,148]}},"whisper-stay":{"outline_held":{"photoreal":[0.769,0.165],"ink":[0.31,0.171]},"impact_outline_held":{"photoreal":[1.0,0.164],"ink":[0.999,0.151]},"void_field":[0.567,0.686],"fragment":{"n":2,"font_letter":"K","font":"ShadowsIntoLight","ink_patch":[680,404,131]}},"sfx-thoom":{"outline_held":{"photoreal":[0.783,0.189],"ink":[0.354,0.163]},"impact_outline_held":{"photoreal":[0.999,0.228],"ink":[0.988,0.22]},"void_field":[0.178,0.191],"fragment":{"n":5,"font_letter":"K","font":"Frijole","ink_patch":[550,438,118]}},"dying-toolate":{"outline_held":{"photoreal":[0.714,0.178],"ink":[0.3,0.179]},"impact_outline_held":{"photoreal":[0.999,0.218],"ink":[0.971,0.212]},"void_field":[0.233,0.32],"fragment":{"n":3,"font_letter":"K","font":"Nosifer","ink_patch":[816,411,90]}},"lyric-burning":{"outline_held":{"photoreal":[0.768,0.164],"ink":[0.452,0.164]},"impact_outline_held":{"photoreal":[0.989,0.299],"ink":[0.928,0.301]},"void_field":[0.13,0.097],"fragment":{"n":7,"font_letter":"K","font":"MetalMania","ink_patch":[440,421,90]}},"thought-real":{"outline_held":{"photoreal":[0.768,0.182],"ink":[0.369,0.177]},"impact_outline_held":{"photoreal":[1.0,0.218],"ink":[0.985,0.256]},"void_field":[0.587,0.737],"fragment":{"n":4,"font_letter":"K","font":"SpecialElite","ink_patch":[689,562,90]}}}};
 const V = [['ascension', 'ASCENSION'], ['thought-real', 'was it real'], ['whisper-stay', 'stay'], ['shout-no', 'NO'], ['dying-toolate', 'too late'], ['sfx-thoom', 'THOOM'], ['lyric-burning', 'BURNING']];
 const pct = x => Math.round(x * 100) + '%', f2 = x => x.toFixed(2), marks = {};
 const F = id => M.voices[id].void_field;
@@ -148,8 +149,8 @@ const seven = document.getElementById('seven');
   [['reads', 'reads'], ['vanishes', 'vanishes']].forEach(([k, t]) => { const b = document.createElement('button'); b.textContent = t;
     b.onclick = () => { marks[id] = k; [...mk.children].forEach(x => x.classList.toggle('on', x === b)); done(); }; mk.appendChild(b); });
   c.appendChild(mk); seven.appendChild(c); });
-function done() { const n = Object.keys(marks).length; draw();
-  if (n === 7) { document.getElementById('mine').classList.add('on');
+function done() { const n = Object.keys(marks).length;
+  if (n === 7) { document.getElementById('plotwrap').style.display = ''; document.getElementById('plotwait').style.display = 'none'; draw(); document.getElementById('mine').classList.add('on');
     seven.querySelectorAll('.cell').forEach((c, i) => { const id = ['sfx-thoom', 'whisper-stay', 'lyric-burning', 'ascension', 'dying-toolate', 'thought-real', 'shout-no'][i];
       c.querySelector('.ms').textContent = 'field ' + f2(F(id)[0]) + ' · lit ' + pct(F(id)[1]); }); } }
 const cv = document.getElementById('plot');
@@ -167,7 +168,7 @@ function draw() {
     x.fillStyle = '#c8c8d8'; x.fillText(word, px, py); });
 }
 window.addEventListener('resize', draw);
-walk(document.getElementById('p'), (i) => { if (i === 4) draw(); });
+walk(document.getElementById('p'), (i) => { if (i === 4 && Object.keys(marks).length === 7) draw(); });
 </script>
 </body>
 </html>

@@ -37,14 +37,13 @@
    ],
    "fragment": {
     "n": 1,
-    "letter": "E",
+    "font_letter": "K",
     "font": "NewRocker",
-    "ink_box": [
-     504,
-     408,
-     169
-    ],
-    "components": 8
+    "ink_patch": [
+     500,
+     420,
+     90
+    ]
    }
   },
   "shout-no": {
@@ -75,14 +74,13 @@
    ],
    "fragment": {
     "n": 6,
-    "letter": "O",
+    "font_letter": "K",
     "font": "Bangers",
-    "ink_box": [
-     742,
-     406,
-     384
-    ],
-    "components": 2
+    "ink_patch": [
+     692,
+     442,
+     148
+    ]
    }
   },
   "whisper-stay": {
@@ -113,14 +111,13 @@
    ],
    "fragment": {
     "n": 2,
-    "letter": "a",
+    "font_letter": "K",
     "font": "ShadowsIntoLight",
-    "ink_box": [
-     673,
-     441,
-     290
-    ],
-    "components": 4
+    "ink_patch": [
+     680,
+     404,
+     131
+    ]
    }
   },
   "sfx-thoom": {
@@ -151,14 +148,13 @@
    ],
    "fragment": {
     "n": 5,
-    "letter": "O",
+    "font_letter": "K",
     "font": "Frijole",
-    "ink_box": [
-     588,
-     408,
-     301
-    ],
-    "components": 5
+    "ink_patch": [
+     550,
+     438,
+     118
+    ]
    }
   },
   "dying-toolate": {
@@ -189,14 +185,13 @@
    ],
    "fragment": {
     "n": 3,
-    "letter": "a",
+    "font_letter": "K",
     "font": "Nosifer",
-    "ink_box": [
-     812,
-     430,
-     184
-    ],
-    "components": 7
+    "ink_patch": [
+     816,
+     411,
+     90
+    ]
    }
   },
   "lyric-burning": {
@@ -227,14 +222,13 @@
    ],
    "fragment": {
     "n": 7,
-    "letter": "R",
+    "font_letter": "K",
     "font": "MetalMania",
-    "ink_box": [
-     444,
-     418,
-     216
-    ],
-    "components": 7
+    "ink_patch": [
+     440,
+     421,
+     90
+    ]
    }
   },
   "thought-real": {
@@ -265,14 +259,13 @@
    ],
    "fragment": {
     "n": 4,
-    "letter": "a",
+    "font_letter": "K",
     "font": "SpecialElite",
-    "ink_box": [
-     684,
-     581,
-     184
-    ],
-    "components": 9
+    "ink_patch": [
+     689,
+     562,
+     90
+    ]
    }
   }
  },

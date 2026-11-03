@@ -71,26 +71,36 @@ def void_field(neg, skel):
     ring = ndi.binary_dilation(m, iterations=15) & ~ndi.binary_dilation(m, iterations=3)
     L = lum(neg); return round(float(L[ring].mean()), 3), round(float((L[ring] > 0.35).mean()), 3)
 
-# ---- fragments: one letter's square, cut from the same place in every stage of one voice
-PICK = {  # (which component, in reading order) — chosen so the fragment holds about one letter
-    "ascension": 3, "shout-no": 1, "whisper-stay": 2, "sfx-thoom": 2, "dying-toolate": 4, "lyric-burning": 2, "thought-real": -2,
-}
-def letter_box(skel_img, idx):
-    a = np.asarray(skel_img.convert("L")) > 128
-    lab, n = ndi.label(ndi.binary_dilation(a, iterations=4))
+# ---- fragments: a patch of stroke and its edge, too small to hold a whole letter, so the letter can't be spelled
+#      out of it (the challenge, 2026-11-03: whole letters let a reader who knows the seven words pass by spelling).
+#      Side = half the word's median letter height (at least 90 px); the point is a stroke edge near the middle of
+#      the chosen letter, where the patch is about 40% stroke. Checked: no letter lies wholly inside any patch.
+PICK = {"ascension": 3, "shout-no": 1, "whisper-stay": 2, "sfx-thoom": 2, "dying-toolate": 4, "lyric-burning": 2, "thought-real": -2}
+def letters(mask):
+    lab, n = ndi.label(ndi.binary_dilation(mask, iterations=4))
     boxes = [s for s in ndi.find_objects(lab) if (s[0].stop - s[0].start) * (s[1].stop - s[1].start) > 1500]
-    boxes.sort(key=lambda s: ((s[0].start + s[0].stop) // 220, s[1].start))   # rows, then left to right
-    s = boxes[idx]; cy = (s[0].start + s[0].stop) / 2; cx = (s[1].start + s[1].stop) / 2
-    side = 1.25 * max(s[0].stop - s[0].start, s[1].stop - s[1].start)
+    boxes.sort(key=lambda s: ((s[0].start + s[0].stop) // 220, s[1].start)); return boxes
+def patch_box(mask, idx, floor=90):
+    boxes = letters(mask); s = boxes[idx]
+    side = max(floor, 0.5 * np.median([b[0].stop - b[0].start for b in boxes]))
+    cov = ndi.uniform_filter(mask.astype(float), size=int(side))
+    edge = mask & ~ndi.binary_erosion(mask)
+    cy0, cx0 = (s[0].start + s[0].stop) / 2, (s[1].start + s[1].stop) / 2
+    ys, xs = np.nonzero(edge[s]); ys = ys + s[0].start; xs = xs + s[1].start
+    cost = np.abs(cov[ys, xs] - 0.4) + 0.002 * np.hypot(ys - cy0, xs - cx0)
+    k = int(np.argmin(cost)); cx, cy = float(xs[k]), float(ys[k]); h = side / 2
+    whole = [b for b in boxes if b[1].start >= cx - h and b[1].stop <= cx + h and b[0].start >= cy - h and b[0].stop <= cy + h]
+    assert not whole, "a whole letter sits inside the patch"
     return (cx, cy, side, len(boxes))
 def cut(img, box):
     cx, cy, side, _ = box; h = side / 2
     return img.crop((int(cx - h), int(cy - h), int(cx + h), int(cy + h))).resize((FRAG, FRAG), Image.LANCZOS)
 
-# the font round: the same letter the ink fragment holds, set alone in the voice's own font (text-prompts.json)
+# the font round: one letter, K (in none of the seven words), set alone in each voice's own font (text-prompts.json),
+#      so the letter is the same in every trial and only the font differs
 FONTS = {"ascension": "NewRocker", "shout-no": "Bangers", "whisper-stay": "ShadowsIntoLight", "sfx-thoom": "Frijole",
          "dying-toolate": "Nosifer", "lyric-burning": "MetalMania", "thought-real": "SpecialElite"}
-LETTER = {"ascension": "E", "shout-no": "O", "whisper-stay": "a", "sfx-thoom": "O", "dying-toolate": "a", "lyric-burning": "R", "thought-real": "a"}
+FONT_LETTER = "K"
 def glyph(font, ch):
     from PIL import ImageDraw, ImageFont
     big = Image.new("L", (900, 900), 0); d = ImageDraw.Draw(big)
@@ -123,15 +133,21 @@ def main():
              "void_field": void_field(neg, sk)}
         # fragments: ink (the full pipeline) and font (the per-voice skeleton the page names)
         n = order[IDS.index(i)] + 1
-        b1 = letter_box(sk, PICK[i])
+        b1 = patch_box(np.asarray(sk.convert("L")) > 128, PICK[i])
         cut(ink, b1).convert("RGB").save(os.path.join(OUT, f"frag-ink-{n}.webp"), "WEBP", quality=82, method=6)
-        glyph(FONTS[i], LETTER[i]).save(os.path.join(OUT, f"frag-font-{n}.webp"), "WEBP", quality=82, method=6)
-        v["fragment"] = {"n": int(n), "letter": LETTER[i], "font": FONTS[i], "ink_box": [round(x) for x in b1[:3]], "components": b1[3]}
+        glyph(FONTS[i], FONT_LETTER).save(os.path.join(OUT, f"frag-font-{n}.webp"), "WEBP", quality=82, method=6)
+        v["fragment"] = {"n": int(n), "font_letter": FONT_LETTER, "font": FONTS[i], "ink_patch": [round(x) for x in b1[:3]]}
         meas["voices"][i] = v
         print(i, json.dumps(v))
-    # the blind test's first steps use the older, Impact-era "too late" — not one of the plates the test shows
-    old = hist("out/dying-toolate_stylize_s1111.png"); save(old, "intro-toolate-impact-ink.webp")
-    oldsk = hist("skel/dying-toolate.png"); cut(old, letter_box(oldsk, 4)).convert("RGB").save(os.path.join(OUT, "intro-toolate-impact-frag.webp"), "WEBP", quality=82, method=6)
+    # the blind test opens on a render outside the seven-voice suite: the living-balloon sweep's Nosifer TOO LATE
+    # (c48868bd, canny 0.5 released at 0.4), so no trial is primed by the opener's field
+    sw = head("balloons-genai/sweep/cn0.5_end0.4.png"); save(sw, "intro-balloon-toolate.webp")
+    gm = np.asarray(head("balloons-genai/sweep/guide.png").convert("L")) > 128
+    lab, nn = ndi.label(gm); sizes = ndi.sum(gm, lab, range(1, nn + 1)); gm[lab == (int(np.argmax(sizes)) + 1)] = False   # drop the balloon's outline
+    cut(sw, patch_box(gm, 2, floor=0)).convert("RGB").save(os.path.join(OUT, "intro-balloon-toolate-patch.webp"), "WEBP", quality=82, method=6)
+    # the void piece's first step: stay's knockout mask itself (skeleton, MaxFilter 5), black on white
+    mk = head("skel/whisper-stay.png").convert("L").filter(ImageFilter.MaxFilter(5))
+    save(Image.eval(mk, lambda x: 255 - x), "whisper-stay-mask.webp")
     th = head("skel/sfx-thoom.png")
     meas["free_thoom"] = {"what": "out/sfx-thoom_s1111.png, --mode free (no skeleton, no lock), same prompt and seed, against the THOOM skeleton",
                           "outline_held": outline_held(lum(head("out/sfx-thoom_s1111.png")), lum(th), canny(lum(th)))}
