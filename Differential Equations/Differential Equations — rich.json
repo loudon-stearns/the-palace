@@ -38,6 +38,22 @@
         "by": "maker · claude-opus-5-5 · proposal round",
         "round": "proposal-round-2026-11"
       },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Differential Equations — rich — three regimes.html",
+            "verdict": "remake",
+            "why": "A real test where it counts: it finds ζ used as a rate (it rings at ωn√(1−ζ²): 209.87 Hz, −81.6 ¢ at ζ 0.3) and the 2% trade (ζ 0.7798, 3.60 vs 5.83/ωn), all recomputed in closed form; it walks up well. Fix: drop the 5 ms fade-in on the pluck (line 322), which eats 75–94% of the strike at ζ ≥ 0.17; say before the table that the regime claims hold by the algebra and state the 2% band there (lines 135, 143); name the cliff below 0.78 (ζ 0.775 settles after 5.35/ωn)."
+          },
+          {
+            "file": "/Resonance and Damping/Resonance and Damping — rich — who keeps time.html",
+            "verdict": "keep",
+            "why": "Its last two steps measure this section’s resonance paragraph (Q×, 90°, peak at √(1−2ζ²), gone above ζ 0.707), already kept by its home page’s challenger. It is a proposal there too: if it is retired on Resonance and Damping, this face shows a box."
+          }
+        ]
+      },
       "made_against": "d242a9da3086",
       "pieces": [
         {
@@ -68,6 +84,17 @@
         "date": "2026-11-03",
         "by": "maker · claude-opus-5-5 · proposal round",
         "round": "proposal-round-2026-11"
+      },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Differential Equations — rich — one step at a time.html",
+            "verdict": "remake",
+            "why": "Every 48 kHz number checks independently (−80.21 ¢, +45.31 ¢, 84.47 ms, 94.02 ms, 15.2 ms), and it walks up cleanly. Fix: Euler’s fade arrives early, not late (line 89); 1,257 steps a cycle stops the growth, it doesn’t hold 2 s (3,700 s there; lines 114, 375, caption); not every digital resonator runs the exact step (line 124); the tanh ceiling bends the exact bell by −19 dB re the bell (line 407); the bold verdict is hard-coded, so state what “matters” means before the trial (line 445)."
+          }
+        ]
       },
       "made_against": "d2ff12a3ad75",
       "pieces": [
