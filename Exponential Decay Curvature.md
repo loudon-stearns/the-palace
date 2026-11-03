@@ -32,7 +32,10 @@ links:
   - target: "[[Synth Templates]]"
     type: connects-to
     label: where-the-curve-is-heard
-forward_vector: "I want to be the small, exact entry that proves a single decay law is both an envelope and an oscillator waveform depending only on how fast you read it — and to be the place the palace keeps its growing catalogue of timescale dissolutions, where one equation flips identity when the clock speeds up. And to hold what the curve does inside a real synthesizer: the Moog contour, and the way its bend changes what a stated time sounds like."
+  - target: "[[Logarithmic Interface Scaling]]"
+    type: deepens
+    label: the-ear-hears-a-rise-in-ratios
+forward_vector: "I want to be the small, exact entry that proves a single decay law is both an envelope and an oscillator waveform depending only on how fast you read it — and to be the place the palace keeps its growing catalogue of timescale dissolutions, where one equation flips identity when the clock speeds up. And to hold what the curve does inside a real synthesizer: the Moog contour, the way its bend changes what a stated time sounds like, and why the ear, which counts a rise in ratios, hears the exponential approach as straight and the straight line as a jump."
 ---
 # Exponential Decay Curvature
 
@@ -81,9 +84,21 @@ An approach never arrives, so a stage time needs a landmark. [[Synth Templates]]
 
 Synth talk says "exponential attack" for a slow start that rushes at the end — the $e^{x}$ shape, concave in this entry's terms; a linear ramp fed to an exponential control input makes it, as in Yamaha's OPL and OPM chips. The Moog attack is the opposite, fast first and flattening, and its decay and release bend the same way. In animation's words every Moog stage is ease-out; ease-in is the slow-start shape, and no Moog stage has it. The phrase that cannot be misread is *exponential approach to the target*.
 
-## Shape is a confound on duration
+## How the ear takes the rise
 
-The curve decides how much of the rise is heard early. A linear amplitude attack puts most of its loudness change in its first few percent of time, so a stated attack time sounds shorter than the number; an exponential approach arrives sooner still; the slow-start $e^{x}$ curve sounds like a steady rise and seems to take longer. The same word earns a different number under each curve: "short attack" is one value on the Moog curve and another on a straight line. [[Synth Templates]] keeps two time tables, one per curve, and defines each time word under its curve; Loudon's first sitting, on a linear attack, put short at 37 ms. The catalog's technique template "Envelope Curves" is the same ADSR with linear against exponential stages, so a learner hears the confound before naming it.
+The curve decides how much of the rise the ear gets, and when. Loudon found this by ear first, matching the linear time table to the Moog one word for word on [[Synth Templates]] (2026-11-02), and said what the matching had felt like before either of us had the reason:
+
+> "Very often the linear one feels smooth but then I feel there is a 'jump' toward the end of the rise. Like even though it is 'linear' the rise is not linear; it feels like almost two different rates, like it is going up and then at some threshold it jumps to a faster rise. Where when I listen to the Moog one the rise feels like it is a 'straight' line."
+
+The jump belonged to the linear rise only. The explanation came afterward, from drawing both curves the way the ear counts them, in decibels.
+
+![[heard-rise-linear-vs-moog.svg]]
+
+The ear hears loudness in ratios, so a rise is heard in decibels, not in amplitude. In decibels a linear amplitude ramp is a logarithm: it starts at minus infinity and climbs through the quiet region fast. In a quiet room the first few percent of the ramp sit under the room's floor, so the note's beginning is not heard. The audible climb, from about 30 dB down to 6 dB down, then takes nearly half the stated time; the last 6 dB barely register as change; and the ramp arrives with a corner, a slope that stops at once. So what is heard is a gentle emergence, then the loud part of the rise in a rush, then a hard arrival. Two rates, the fast one toward the end, with the arrival as the threshold. The Moog approach clears the floor almost at once, closes the same fraction of the remaining distance in each unit of time, which is equal-ratio motion, the ear's own scale, and has no corner because it never arrives. Equal steps and no corner is what the ear calls a straight line.
+
+Put a landmark on each curve and the numbers follow. With a floor 30 dB down and "arrived" at 6 dB down, a linear rise's audible climb runs from 0.03 T to 0.50 T, a Moog rise's from 0.01 T to 0.23 T. The audible part of a linear rise is about twice that of a Moog rise with the same stated time, so for the same heard attack the linear number should be about half. Loudon's matched sitting put it at 0.5 to 0.65 of the Moog number above about a third of a second, and the two tables converge below it, where the ear is hearing an onset quality rather than a duration at all. The same word earns a different number under each curve, which is why [[Synth Templates]] keeps one time table per curve and defines each time word under its curve. The catalog's technique template "Envelope Curves" is the same ADSR with linear against exponential stages, so a learner hears the confound before naming it.
+
+The curves above are amplitude in decibels, a first approximation of loudness. Real loudness growth is a little less steep than decibels, and for a bass note at low level it is steeper than for a treble note, because the equal-loudness contours bunch together at low frequencies. That would make the linear ramp's late jump stronger on a bass voice than on a lead; untested.
 
 ## Cross-Domain Resonance
 
@@ -105,4 +120,4 @@ The teaching artifact (oscilloscope plot, envelope and audio-rate modes) was bui
 >
 > *"The same curve, slowed down, becomes a sound; sped up, a shape. There was never two of them."* — from the source dialogue, 2026-05-28
 
-*Sources for the Moog contour: the Minimoog Model D service manual, § Contour Generator, Board 2 ([synfo.nl](https://www.synfo.nl/servicemanuals/Moog/MINIMOOG-D_SERVICE_MANUAL.pdf)); AJH Synth, MiniMod Dual Contour user guide ([gear4music copy](https://r2.gear4music.com/media/30/303400/download_303400.pdf)) and MiniMod DH-ADSR user manual ([ajhsynth.com](https://ajhsynth.com/pdf/MiniMod%20DH-ADSR%20User%20Manual.pdf)); Richard Atkinson, W3C public-audio list, 5 August 2014 ([lists.w3.org](https://lists.w3.org/Archives/Public/public-audio/2014JulSep/0058.html)). The 95 % landmark, the two time tables and the 37 ms sitting are [[Synth Templates]]'s (`workshop/vocabulary.yaml`, 2026-11-02).*
+*Sources for the Moog contour: the Minimoog Model D service manual, § Contour Generator, Board 2 ([synfo.nl](https://www.synfo.nl/servicemanuals/Moog/MINIMOOG-D_SERVICE_MANUAL.pdf)); AJH Synth, MiniMod Dual Contour user guide ([gear4music copy](https://r2.gear4music.com/media/30/303400/download_303400.pdf)) and MiniMod DH-ADSR user manual ([ajhsynth.com](https://ajhsynth.com/pdf/MiniMod%20DH-ADSR%20User%20Manual.pdf)); Richard Atkinson, W3C public-audio list, 5 August 2014 ([lists.w3.org](https://lists.w3.org/Archives/Public/public-audio/2014JulSep/0058.html)). The 95 % landmark, the two time tables and the 37 ms sitting are [[Synth Templates]]'s (`workshop/vocabulary.yaml`, 2026-11-02). The matched sitting (linear `time_linear` sat by ear to sound the same as the Moog `time` table, 2026-11-02, draft 0.5) and Loudon's words on the two rates are from the same project's session that day; the figure's curves are analytic, drawn in `Exponential Decay Curvature/heard-rise-linear-vs-moog.tex`.*
