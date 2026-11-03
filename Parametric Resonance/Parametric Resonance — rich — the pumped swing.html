@@ -187,15 +187,20 @@ const Swing = {
     const steps = Math.min(2000, Math.round((dtWall * S.speed) / DT));
     for (let i = 0; i < steps; i++) {
       if (opts.d < opts.dFull) opts.d = Math.min(opts.dFull, opts.d + opts.dFull * DT / 1.0);   // the child eases in over a second
-      if (sw.peaks.length && Math.abs(sw.peaks[sw.peaks.length - 1].deg) > 65) opts.dFull = 0, opts.d = Math.max(0, opts.d - D * DT / 0.5); // high enough: hold still
+      // The child stops when the swing is high enough (65°) or is dying (under 4°); from then on the
+      // readouts hold the last swing they pumped, so nothing describes pumping that is no longer happening.
+      const pk = sw.peaks.length ? Math.abs(sw.peaks[sw.peaks.length - 1].deg) : null;
+      if (opts.dFull > 0 && opts.stopAt == null && pk != null && (pk > 65 || pk < 4)) { opts.stopAt = sw.peaks.length; opts.why = pk > 65 ? 'high' : 'low'; opts.dFull = 0; }
+      if (opts.stopAt != null) opts.d = Math.max(0, opts.d - D * DT / 0.5);
       Swing.step(sw, DT, opts);
     }
   }
-  const peaks = () => (sw ? sw.peaks : []);
+  const peaks = () => (sw ? (opts && opts.stopAt != null ? sw.peaks.slice(0, opts.stopAt) : sw.peaks) : []);
+  const held = () => (opts && opts.stopAt != null ? (opts.why === 'high' ? ' <b>High enough:</b> the child holds still now, and these numbers are from the last swing they pumped.' : ' <b>The swing is dying,</b> so the child gives up and holds still; these numbers are from the last swing they pumped.') : '');
   function gainLast() { const p = peaks(); if (p.length < 3) return null; const a = p[p.length - 2].deg, b = p[p.length - 1].deg; return b / a; }
   const fmtG = (g) => (g == null ? '–' : g.toFixed(3));
   const fmtDeg = (d) => (d == null ? '–' : d.toFixed(1) + '°');
-  const lastDeg = () => { const p = peaks(); return p.length ? p[p.length - 1].deg : null; };
+  const lastDeg = () => { const p = sw ? sw.peaks : []; return p.length ? p[p.length - 1].deg : null; };   // the swing itself, pumped or not
 
   function update1() {
     const p = peaks(); $('Tf1').textContent = (2 * Math.PI / Swing.w0()).toFixed(2) + ' s';
@@ -204,11 +209,11 @@ const Swing = {
   }
   function update2() {
     $('g2').textContent = fmtG(gainLast()); $('k2').textContent = fmtDeg(lastDeg());
-    const g = gainLast(); $('say2').innerHTML = g == null ? '' : S.n === 1 ? 'Once per swing: <b>× ' + g.toFixed(3) + '</b> a swing, the same as holding still. What one half of the swing gains, the other half gives back.' : 'Twice per swing: <b>× ' + g.toFixed(3) + '</b> a swing. The same fraction every swing, so the height grows exponentially, and the child never pushes harder.';
+    const g = gainLast(); $('say2').innerHTML = g == null ? '' : S.n === 1 ? 'Once per swing: <b>× ' + g.toFixed(3) + '</b> a swing, the same as holding still. What one half of the swing gains, the other half gives back.' : 'Twice per swing: <b>× ' + g.toFixed(3) + '</b> a swing. The same fraction every swing, so the height grows exponentially, and the child never pushes harder.' + held();
   }
   function update3() {
     $('g3').textContent = fmtG(gainLast()); $('k3').textContent = fmtDeg(lastDeg());
-    const g = gainLast(); $('say3').innerHTML = g == null ? '' : (S.rule === 'page' ? 'The page’s rule, in the page’s equation: <b>× ' + g.toFixed(3) + '</b> a swing. It builds.' : 'The reverse, in the page’s equation: <b>× ' + g.toFixed(3) + '</b> a swing. It brakes.');
+    const g = gainLast(); $('say3').innerHTML = g == null ? '' : (S.rule === 'page' ? 'The page’s rule, in the page’s equation: <b>× ' + g.toFixed(3) + '</b> a swing. It builds.' : 'The reverse, in the page’s equation: <b>× ' + g.toFixed(3) + '</b> a swing. It brakes.') + held();
   }
   function update4() {
     const p = peaks(), g = gainLast(); $('g4').textContent = fmtG(g); $('k4').textContent = fmtDeg(lastDeg());
@@ -218,6 +223,7 @@ const Swing = {
     if (g != null) s = S.rule === 'page'
       ? 'The page’s rule on a real swing: <b>× ' + g.toFixed(3) + '</b> a swing. It brakes. The child climbs at the peaks, where the rope pulls least, and sinks at the bottom, where it pulls most, so the swing does more work on the child than the child does on it: <b>' + (W >= 0 ? '+' : '−') + Math.abs(W).toFixed(1) + ' J</b> that swing. In the page’s model (step 3) the same rule built, at × ' + (curves ? curves.toy[16][1].toFixed(3) : '–') + '.'
       : 'The reverse on a real swing: <b>× ' + g.toFixed(3) + '</b> a swing. The child stands against the hardest pull, at the bottom, and sinks against the softest, at the ends: <b>+' + Math.abs(W).toFixed(1) + ' J</b> of work that swing, and the swing gained ' + (dE >= 0 ? '+' : '−') + Math.abs(dE).toFixed(1) + ' J; the air took the difference.';
+    if (s) s += held();
     $('say4').innerHTML = s;
   }
 

@@ -49,7 +49,7 @@ console.log('the threshold heard');
   }
 }
 { // step 3: the threshold is 4 zeta; a held depth past it grows at the Floquet rate; heavier damping moves it
-  for (const z of [0.0015, 0.006]) { let lo = 0, hi = 0.2; for (let i = 0; i < 50; i++) { const mid = (lo + hi) / 2; floq(mid, z).mu > 0 ? (hi = mid) : (lo = mid); } ok(near(lo, 4 * z, 0.001), `step 3: ζ = ${z}: the multipliers cross 1 at ε = ${lo.toFixed(6)}; 4ζ = ${(4 * z).toFixed(6)}`); }
+  for (const z of [0.0015, 0.006]) { let lo = 0, hi = 0.2; for (let i = 0; i < 50; i++) { const mid = (lo + hi) / 2; floq(mid, z).mu > 0 ? (hi = mid) : (lo = mid); } ok(near(lo, 4 * z, 0.001), `step 3: ζ = ${z}: the multipliers cross 1 at ε = ${lo.toFixed(7)}; 4ζ, the first-order threshold, = ${(4 * z).toFixed(7)} (Mathieu's q = ε/2, so q_c = 2ζ)`); }
   const w = worklet(); w.send({ reset: true, set: { zeta: 0.0015, eps: 0.012, F: 0, ratio: 2, noise: 2e-6 } }); w.send({ clock: true, seq: 1 }); w.run(4);
   const tr = trace(w, 1), m = fit(tr, 0.3, 4, -75, -12), fl = floq(0.012, 0.0015).mu * DB;
   ok(near(m, fl, 0.05), `step 3: held at ε = 0.012 (2 ε_c) it grows from the floor at ${m.toFixed(2)} dB/s; Floquet ${fl.toFixed(2)}; heard at ${firstAbove(tr, -60).toFixed(2)} s`);
@@ -63,6 +63,13 @@ console.log('the threshold heard');
   const d = trace(wd, 1), p = trace(wp, 1), cross = p.find((q) => q.eps >= 0.006).t;
   const dA = firstAbove(d, -60), pA = firstAbove(p, -60);
   ok(dA < 0.5 && pA - cross > 1.5, `step 4: driven audible at ${dA.toFixed(2)} s, 10→90% in ${rise(d).toFixed(2)} s; pumped crosses ε_c at ${cross.toFixed(2)} s, audible at ${pA.toFixed(2)} s, 10→90% in ${rise(p).toFixed(2)} s`);
+}
+
+{ // the numbers the noise decides: 24 noise draws of the same sweep, and of the same strike on the fading line
+  const heard = [], lag = [];
+  for (let k = 1; k <= 24; k++) { const w = worklet(); w.send({ reset: true, set: { zeta: 0.0015, eps: 0, F: 0, ratio: 2, noise: 2e-6, seed: 1000 + 7919 * k } }); w.send({ clock: true, seq: 1, ramp: ['eps', 16 * 0.0015, 6] }); w.run(8);
+    const p = trace(w, 1), cross = p.find((q) => q.eps >= 0.006).t, a = firstAbove(p, -60); heard.push(a); lag.push(a - cross); }
+  ok(Math.min(...lag) > 1, `step 4, 24 noise draws: the pumped sweep is first heard at ${Math.min(...heard).toFixed(2)}–${Math.max(...heard).toFixed(2)} s (median ${heard.sort((a, b) => a - b)[12].toFixed(2)}); every draw lags the crossing by at least ${Math.min(...lag).toFixed(2)} s`);
 }
 
 console.log('with the ring, against it');
@@ -92,6 +99,10 @@ const fl2 = floq(0.018, 0.0015);
   const brake = fit(a, 0.03, 0.3, -90, -10), min = a.reduce((m, p) => (p.dB < m.dB ? p : m)), fullA = firstAbove(a, -9), fullB = firstAbove(b, -9), minC = c.reduce((m, p) => (p.dB < m.dB ? p : m)), fullC = firstAbove(c, -9);
   ok(near(brake, fl2.muDecay * DB, 0.05) && brake < -0.0015 * W0 * DB, `step 4: on the fading line it falls at ${brake.toFixed(1)} dB/s (Floquet ${(fl2.muDecay * DB).toFixed(1)}, no pump ${(-0.0015 * W0 * DB).toFixed(1)})`);
   ok(fullA != null && fullB < 0.3 && fullA > 1, `step 4: floor −80 dB: turns at ${min.t.toFixed(2)} s (${min.dB.toFixed(0)} dB), full at ${fullA.toFixed(2)} s; on the growing line, full at ${fullB.toFixed(2)} s`);
+  const turn = [], full = [];
+  for (let k = 1; k <= 24; k++) { const w = worklet(); const st = { zeta: 0.0015, eps: 0.018, ratio: 2, F: 0, noise: 2e-6, seed: 1000 + 7919 * k }; w.send({ reset: true, set: st }); w.run(0.3); w.send({ reset: true, set: st, strike: { A: 0.25, mode: 'against', seq: 9 } }); w.run(5);
+    const tr = trace(w, 9); turn.push(tr.reduce((m, p) => (p.dB < m.dB ? p : m)).t); full.push(firstAbove(tr, -9)); }
+  ok(Math.min(...full) > 1, `step 4, 24 noise draws: on the fading line it turns at ${Math.min(...turn).toFixed(2)}–${Math.max(...turn).toFixed(2)} s and is full at ${Math.min(...full).toFixed(2)}–${Math.max(...full).toFixed(2)} s`);
   ok(fullC < fullA, `step 4: floor −60 dB: turns at ${minC.t.toFixed(2)} s (${minC.dB.toFixed(0)} dB), full at ${fullC.toFixed(2)} s, sooner`);
 }
 
