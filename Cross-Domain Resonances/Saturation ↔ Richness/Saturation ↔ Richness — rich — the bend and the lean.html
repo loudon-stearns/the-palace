@@ -1,0 +1,444 @@
+<!doctype html>
+<!--
+  title: Saturation ↔ Richness — rich — the bend and the lean
+  born: 2026-11-03
+  links: [[Saturation ↔ Richness]] (connects-to · rich-face-piece) · listed in [[Saturation ↔ Richness — rich.json]] · the test's two curves are [[Chebyshev is Fourier]]'s drawbars, driven at full scale where they hold · the corner and the knee are walked on [[Compressor Design]]'s face, not here
+  forward_vector: I am the walk up to The Technical Side's claim that even harmonics are warmth and odd ones edge. One sine and one line; an EQ boost that adds no line to it, as Common Misunderstandings says; a drive that bends the sine and makes only odd harmonics; a lean that makes the even ones, and the identity that says why; and last a blind test of ten pairs where your ear says which is warmer, half with the even lines below the odd and half above, so evenness is scored apart from brightness, against a coin. I change only when the section I serve does.
+  sound: nothing plays until Play is clicked; the AudioContext is made on that click. Changing step stops the sound. Every tone is made in this page by the core below. From the drive on, every sound is matched in K-weighted loudness, so a richer sound is not simply a louder one.
+  check: Cross-Domain Resonances/Saturation ↔ Richness/Saturation ↔ Richness — rich — check.mjs runs this page's core in Node.
+-->
+<html lang="en" class="skin-graphite">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- needs nothing of its host: no device, no storage, no file, no host; sound only on a click -->
+<meta name="piece:needs" content="">
+<title>The bend and the lean · Saturation ↔ Richness</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@300;400;500&display=swap">
+<style>
+  :root{
+    --bg:#0a0a0f; --bg-elev-1:#12121a; --bg-elev-2:#1a1a28; --border:#4a4a5e; --border-soft:rgba(255,255,255,0.06);
+    --fg-1:#e8e8f0; --fg-2:#c8c8d8; --fg-3:#8a8aa0; --fg-4:#4a4a5a;
+    --accent:#e8b84a; --accent-soft:rgba(232,184,74,0.10); --info:#4a8fff; --warn:#e8651b;
+    --serif:'Cormorant Garamond','Source Serif 4',Georgia,serif; --sans:'Manrope',system-ui,sans-serif;
+    --display:'Anton','Bebas Neue',Impact,sans-serif; --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--fg-1)}
+  body{font-family:var(--serif);font-size:17px;line-height:1.7;padding:28px 16px 36px}
+  main{max-width:960px;margin:0 auto}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--fg-3)}
+  h1{font-family:var(--display);font-weight:400;font-size:44px;line-height:1.05;margin:6px 0 10px}
+  h2{font-family:var(--display);font-weight:400;font-size:28px;line-height:1.1;margin:4px 0 8px;letter-spacing:.01em}
+  p.lead{font-size:19px;color:var(--fg-2);margin:0 0 18px;max-width:66ch}
+  .rail{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 18px}
+  .rail button{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-3);background:transparent;border:1px solid var(--border);border-radius:4px;padding:7px 11px;cursor:pointer;transition:all .22s cubic-bezier(.4,0,.2,1)}
+  .rail button[aria-current="step"]{color:var(--fg-1);border-color:var(--fg-3);background:var(--bg-elev-2)}
+  p.say{color:var(--fg-2);margin:0 0 14px;max-width:68ch}
+  .panel{background:var(--bg-elev-1);border:1px solid var(--border-soft);border-radius:4px;padding:18px;margin:0 0 14px}
+  .tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;align-items:center}
+  button.play{font-family:var(--sans);font-weight:500;font-size:14px;color:#0a0a0f;background:var(--accent);border:0;border-radius:4px;padding:9px 20px;cursor:pointer;margin-left:auto;transition:box-shadow .22s cubic-bezier(.4,0,.2,1)}
+  button.play:hover{box-shadow:0 0 24px var(--accent-soft)}
+  .views{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);gap:12px}
+  @media (max-width:620px){.views{grid-template-columns:1fr}}
+  canvas{width:100%;display:block;background:var(--bg-elev-2);border-radius:4px}
+  .legend{display:flex;gap:6px 18px;flex-wrap:wrap;margin-top:10px;font-family:var(--sans);font-size:13px;color:var(--fg-3);line-height:1.5}
+  .legend i{display:inline-block;width:10px;height:10px;border-radius:1px;margin-right:6px;vertical-align:-1px}
+  .ctl{display:grid;grid-template-columns:130px 1fr auto;gap:6px 14px;align-items:center;margin-top:14px}
+  [hidden]{display:none !important}
+  .ctl label{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-3)}
+  .ctl input[type=range]{width:100%;accent-color:var(--accent)}
+  .ctl .v{font-family:var(--mono);font-size:14px;color:var(--fg-1);text-align:right;white-space:nowrap;min-width:9ch}
+  .meter{font-family:var(--mono);font-size:13px;color:var(--fg-2);margin-top:12px;line-height:1.7}
+  .meter b{color:var(--accent);font-weight:400}
+  .meter u{color:var(--info);text-decoration:none}
+  .eq{font-family:var(--mono);font-size:13px;color:var(--fg-1);margin:14px 0 0;overflow-wrap:anywhere}
+  .eq.words{color:var(--fg-3);font-size:12px;margin-top:2px}
+  .rowb{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:12px}
+  button.ghost{font-family:var(--sans);font-size:14px;color:var(--fg-2);background:transparent;border:1px solid var(--border);border-radius:4px;padding:8px 14px;cursor:pointer}
+  button.ghost[aria-pressed="true"]{color:var(--fg-1);border-color:var(--fg-3);background:var(--bg-elev-2)}
+  button.ghost:disabled{opacity:.35;cursor:default}
+  button.ab{font-family:var(--display);font-size:22px;letter-spacing:.06em;color:var(--fg-2);background:transparent;border:1px solid var(--border);border-radius:4px;padding:6px 26px;cursor:pointer}
+  button.ab[aria-pressed="true"]{color:#0a0a0f;background:var(--accent);border-color:var(--accent)}
+  .hint{font-family:var(--sans);font-size:13px;color:var(--fg-3)}
+  table.marks{border-collapse:collapse;margin-top:12px;font-family:var(--mono);font-size:13px;color:var(--fg-2)}
+  table.marks td,table.marks th{border-bottom:1px solid var(--border-soft);padding:5px 14px 5px 0;text-align:left;font-weight:400;vertical-align:top}
+  table.marks th{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-3)}
+  table.marks b{color:var(--accent);font-weight:400}
+  .score{font-family:var(--serif);font-size:19px;color:var(--fg-1);margin-top:14px;max-width:66ch}
+  .walk{display:flex;justify-content:space-between;gap:10px;margin-top:16px}
+  footer{margin-top:28px;font-family:var(--sans);font-size:13px;color:var(--fg-4);display:flex;align-items:center;gap:10px}
+  footer b{font-family:var(--display);font-weight:400;letter-spacing:.06em;color:var(--fg-3)}
+  footer svg{flex:none}
+  @media (max-width:520px){h1{font-size:34px}h2{font-size:23px}.ctl{grid-template-columns:96px 1fr auto}}
+</style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">Saturation ↔ Richness · the technical side · five steps</div>
+  <h1>The bend and the lean</h1>
+  <p class="lead">The page says saturation creates harmonics an EQ can’t, that even ones are warmth and odd ones are edge. Here one sine goes through an EQ and then through a curve, and you watch which lines appear. The last step is a blind test: ten pairs, and your ear says which of each pair is warmer. Nothing plays until you press Play.</p>
+
+  <nav class="rail" aria-label="Steps" id="rail"></nav>
+
+  <section aria-live="polite">
+    <div class="eyebrow" id="stepEyebrow"></div>
+    <h2 id="stepTitle"></h2>
+    <p class="say" id="stepSay"></p>
+  </section>
+
+  <div class="panel">
+    <div class="tabs"><span class="eyebrow">Hear</span><span class="hint" id="hearHint"></span><button class="play" id="play">Play</button></div>
+    <div class="views">
+      <canvas id="curve" aria-label="the transfer curve: input across, output up"></canvas>
+      <canvas id="spec" aria-label="the spectrum: one bar per harmonic of the note"></canvas>
+    </div>
+    <div class="legend" id="legend"></div>
+
+    <div class="rowb" id="srcRow" hidden><span class="eyebrow">source</span>
+      <button class="ghost" data-src="sine">a sine</button><button class="ghost" data-src="saw">a sawtooth</button>
+    </div>
+    <div class="rowb" id="eqRow" hidden><span class="eyebrow">bell, +12 dB at</span>
+      <button class="ghost" data-fc="0">off</button><button class="ghost" data-fc="400">400 Hz</button><button class="ghost" data-fc="600">600 Hz</button><button class="ghost" data-fc="1000">1000 Hz</button>
+    </div>
+    <div class="ctl" id="ctlD" hidden>
+      <label for="dk">drive d</label><input id="dk" type="range" min="0" max="8" step="0.05" value="2"><span class="v" id="dkv"></span>
+    </div>
+    <div class="ctl" id="ctlB" hidden>
+      <label for="bk">lean b</label><input id="bk" type="range" min="0" max="0.4" step="0.005" value="0.1"><span class="v" id="bkv"></span>
+    </div>
+    <div class="meter" id="meter"></div>
+    <div class="eq" id="eq1"></div><div class="eq words" id="eq1w"></div>
+    <div class="eq" id="eq2"></div><div class="eq words" id="eq2w"></div>
+
+    <div id="test" hidden>
+      <div class="rowb" id="levelRow"><span class="eyebrow">added lines</span>
+        <button class="ghost" data-lv="-30">faint, −30 dB</button><button class="ghost" data-lv="-24">clear, −24 dB</button>
+        <button class="ghost" id="begin">Begin ten pairs</button>
+      </div>
+      <div id="trial" hidden>
+        <div class="rowb"><span class="eyebrow" id="trialN"></span>
+          <button class="ab" data-ab="0" aria-pressed="false">X</button><button class="ab" data-ab="1" aria-pressed="false">Y</button>
+          <span class="hint">press X or Y to hear it; switch as often as you like</span>
+        </div>
+        <div class="rowb"><span class="eyebrow">warmer</span>
+          <button class="ghost" data-pick="0">X is warmer</button><button class="ghost" data-pick="1">Y is warmer</button>
+        </div>
+      </div>
+      <div id="result" hidden></div>
+    </div>
+  </div>
+
+  <div class="walk"><button class="ghost" id="back">Back</button><button class="ghost" id="next">Next</button></div>
+
+  <footer><svg id="sigil" width="22" height="22" viewBox="-11 -11 22 22" aria-hidden="true"></svg><b>LOUD’N LIVE</b> · Saturation ↔ Richness · the bend and the lean · Sketch, 2026-11-03</footer>
+</main>
+
+<script id="sc-core">
+const SC = (() => {
+  const RATE = 48000;
+  // ── the curves ──────────────────────────────────────────────────────────────
+  // The page's saturator: a soft clip (tanh) pushed by a drive d, leaning by b.
+  // Scaled so a full-scale input of +1 comes out at +1; at d → 0 it is the straight line.
+  function curve(x, d, b) {
+    if (d < 1e-4) return x;
+    const t0 = Math.tanh(d * b), top = Math.tanh(d * (1 + b)) - t0;
+    return (Math.tanh(d * (x + b)) - t0) / top;
+  }
+  // Every curve is two halves: the bend (odd, f(−x) = −f(x)) and the lean (even, f(−x) = f(x)).
+  const oddPart = (f, x) => (f(x) - f(-x)) / 2;
+  const evenPart = (f, x) => (f(x) + f(-x)) / 2;
+  // Chebyshev polynomials: Tₙ(cos θ) = cos nθ, so at full scale each term is one harmonic.
+  function cheb(n, x) { let a = 1, c = x; if (n === 0) return 1; for (let k = 1; k < n; k++) { const t = 2 * x * c - a; a = c; c = t; } return c; }
+  // The test's curves: the same three added lines, a step of 6 dB apart. 'even' adds the 2nd, 4th, 6th, which sit
+  // below the odd set; 'evenHigh' adds the 4th, 6th, 8th, which sit above it; 'odd' adds the 3rd, 5th, 7th.
+  // Half the pairs set each even set against the odd one, so evenness and brightness are pulled apart.
+  // Signs alternate so each curve bends over (compresses) rather than flaring.
+  const SETS = { even: [2, 4, 6], evenHigh: [4, 6, 8], odd: [3, 5, 7] };
+  function pairCurve(set, levelDb, x) {
+    const L = Math.pow(10, levelDb / 20), r = Math.pow(10, -6 / 20);
+    let y = x;
+    SETS[set].forEach((n, j) => { y += (j % 2 === 0 ? -1 : 1) * L * Math.pow(r, j) * cheb(n, x); });
+    return y;
+  }
+  // ── signals: one period, then a loop of whole periods ────────────────────────
+  function period(f) { const P = RATE / f; if (Math.abs(P - Math.round(P)) > 1e-9) throw new Error('period must be whole samples'); return Math.round(P); }
+  function sinePeriod(P, amp, phase) { const y = new Float64Array(P); for (let n = 0; n < P; n++) y[n] = amp * Math.cos(2 * Math.PI * n / P + (phase || 0)); return y; }
+  // a band-limited sawtooth's first 40 harmonics, amplitude 1/k, scaled to peak near 1
+  function sawPeriod(P) { const y = new Float64Array(P); for (let n = 0; n < P; n++) { let s = 0; for (let k = 1; k <= 40; k++) s += Math.sin(2 * Math.PI * k * n / P) / k; y[n] = s * 0.55; } return y; }
+  function shape(xs, fn) { const y = new Float64Array(xs.length); for (let i = 0; i < xs.length; i++) y[i] = fn(xs[i]); return y; }
+  function dc(y) { let m = 0; for (const v of y) m += v; m /= y.length; const o = new Float64Array(y.length); for (let i = 0; i < y.length; i++) o[i] = y[i] - m; return o; }
+  // ── the EQ: one peaking bell (RBJ cookbook), run sample by sample ──────────
+  function bell(fc, gainDb, Q) {
+    const A = Math.pow(10, gainDb / 40), w = 2 * Math.PI * fc / RATE, al = Math.sin(w) / (2 * Q), c = Math.cos(w);
+    const a0 = 1 + al / A;
+    return { b0: (1 + al * A) / a0, b1: -2 * c / a0, b2: (1 - al * A) / a0, a1: -2 * c / a0, a2: (1 - al / A) / a0 };
+  }
+  // run the bell over the period repeated until it settles, and return the last period
+  function eqPeriod(per, fc, gainDb, Q) {
+    const k = bell(fc, gainDb, Q), P = per.length, reps = Math.ceil(RATE * 2 / P);
+    let x1 = 0, x2 = 0, y1 = 0, y2 = 0; const out = new Float64Array(P);
+    for (let r = 0; r < reps; r++) for (let n = 0; n < P; n++) {
+      const x = per[n], y = k.b0 * x + k.b1 * x1 + k.b2 * x2 - k.a1 * y1 - k.a2 * y2;
+      x2 = x1; x1 = x; y2 = y1; y1 = y; if (r === reps - 1) out[n] = y;
+    }
+    return out;
+  }
+  // ── the analysis: a period holds only whole multiples of its note ──────────
+  function harmonics(per, K) {
+    const P = per.length, out = new Float64Array(K + 1);
+    for (let k = 1; k <= K; k++) { let re = 0, im = 0; for (let n = 0; n < P; n++) { const a = 2 * Math.PI * k * n / P; re += per[n] * Math.cos(a); im -= per[n] * Math.sin(a); } out[k] = 2 * Math.hypot(re, im) / P; }
+    return out;
+  }
+  const db = (v) => 20 * Math.log10(Math.max(v, 1e-12));
+  function powerSplit(h) { let ev = 0, od = 0; for (let k = 2; k < h.length; k++) (k % 2 ? (od += h[k] * h[k]) : (ev += h[k] * h[k])); const f = h[1] * h[1]; return { evenDb: 10 * Math.log10(Math.max(ev / f, 1e-24)), oddDb: 10 * Math.log10(Math.max(od / f, 1e-24)), addedDb: 10 * Math.log10(Math.max((ev + od) / f, 1e-24)) }; }
+  function lines(h, floorDb) { let c = 0; for (let k = 1; k < h.length; k++) if (db(h[k] / h[1]) > floorDb) c++; return c; }
+  // ── loudness: ITU-R BS.1770 K-weighting at 48 kHz, ungated, over a loop ────
+  const KW = [[1.53512485958697, -2.69169618940638, 1.19839281085285, -1.69065929318241, 0.73248077421585], [1, -2, 1, -1.99004745483398, 0.99007225036621]];
+  function kLoud(per, reps) {
+    reps = reps || Math.ceil(RATE / per.length) * 2; const st = KW.map(() => [0, 0, 0, 0]); let s = 0, n = 0; const half = Math.floor(reps / 2);
+    for (let r = 0; r < reps; r++) for (let i = 0; i < per.length; i++) {
+      let v = per[i];
+      for (let j = 0; j < 2; j++) { const [b0, b1, b2, a1, a2] = KW[j], z = st[j]; const y = b0 * v + b1 * z[0] + b2 * z[1] - a1 * z[2] - a2 * z[3]; z[1] = z[0]; z[0] = v; z[3] = z[2]; z[2] = y; v = y; }
+      if (r >= half) { s += v * v; n++; }
+    }
+    return -0.691 + 10 * Math.log10(s / n);
+  }
+  // scale a period to a target loudness and tile it into a loop of whole periods (~2 s)
+  function loop(per, targetLufs) {
+    const g = Math.pow(10, (targetLufs - kLoud(per)) / 20), P = per.length, reps = Math.round(RATE * 2 / P), y = new Float32Array(P * reps);
+    for (let r = 0; r < reps; r++) for (let n = 0; n < P; n++) y[r * P + n] = per[n] * g;
+    return { y, gainDb: db(g) };
+  }
+  // ── the score: how often a coin would do as well ───────────────────────────
+  function choose(n, k) { let c = 1; for (let i = 1; i <= k; i++) c = c * (n - k + i) / i; return c; }
+  function tailAtLeast(n, s) { let p = 0; for (let k = s; k <= n; k++) p += choose(n, k); return p / Math.pow(2, n); }
+  return { RATE, SETS, curve, oddPart, evenPart, cheb, pairCurve, period, sinePeriod, sawPeriod, shape, dc, bell, eqPeriod, harmonics, db, powerSplit, lines, kLoud, loop, choose, tailAtLeast };
+})();
+</script>
+
+<script>
+(() => {
+  const $ = (id) => document.getElementById(id);
+  const P = SC.period(200), SINE = SC.sinePeriod(P, 1), SAW = SC.sawPeriod(P);
+  const TARGET = -20;              // the loudness every matched loop is set to (K-weighted, ungated)
+  const K = 24;                    // harmonics drawn
+  const FLOOR = -120;              // below this, a bar is drawn as empty
+  const S = { step: 0, src: 'sine', fc: 0, d: 2, b: 0.1, level: -24, trials: null, t: 0, ab: 0, done: false };
+  const fmt = (v, n) => (v <= -200 ? 'none' : (v >= 0 ? '+' : '−') + Math.abs(v).toFixed(n == null ? 1 : n));
+
+  const STEPS = [
+    { key: 'sine', rail: 'one sine', title: 'One sine, one line',
+      say: 'A system that is linear gives back what it got. A sine goes in at 200 Hz and the same sine comes out, so the spectrum has one line. Every other bar is empty: more than 120 dB down, further than any studio meter reads. This is the page’s demonstration, its first two moves: play a clean sine, see one spike.',
+      hear: 'a 200 Hz sine, untouched',
+      eq: ['y = x', '(what comes out) = (what went in), sample by sample'], eq2: ['', ''] },
+    { key: 'eq', rail: 'an EQ boost', title: 'An EQ boost',
+      say: 'Common Misunderstandings says an EQ boosts what is there and can’t make what isn’t. Put a +12 dB bell at 400, 600 or 1000 Hz, on the sine and then on a sawtooth. On the sawtooth the bar under the bell rises 12 dB. On the sine nothing new appears, however hard you boost: the line count stays at one, and only the sine itself moves a little, by the bell’s skirt. This step plays at the level the EQ leaves, so you hear the boost.',
+      hear: 'the source through the bell',
+      eq: ['Y(f) = H(f) · X(f)', '(what comes out at a frequency) = (the EQ’s gain there) × (what went in at that frequency)'],
+      eq2: ['X(f) = 0  →  Y(f) = 0', 'where nothing went in, nothing comes out, whatever the gain'] },
+    { key: 'drive', rail: 'the drive', title: 'Drive the sine into a curve',
+      say: 'Now push the sine into a curve that bends over at the top and at the bottom alike: the soft clip, tanh. The harder the drive, the earlier it bends, so the loud parts are squashed more than the quiet ones. That is the page’s “compresses as input increases”. Lines appear that were never in the input: the 3rd, the 5th, the 7th. Watch the even bars, the 2nd, the 4th: they stay empty at every drive. From here on every sound is matched in loudness, so richer is not simply louder.',
+      hear: 'the sine through the curve; drag the drive',
+      eq: ['y = tanh(d·x) ÷ tanh(d)', '(out) = the soft clip of (drive × in), scaled so a full-scale input still comes out at full scale'],
+      eq2: ['f(−x) = −f(x)  →  odd harmonics only', 'a curve that treats down exactly as it treats up makes only odd harmonics'] },
+    { key: 'lean', rail: 'the lean', title: 'Lean the curve',
+      say: 'Add a lean: move the curve’s middle off centre, so it bends sooner on one side than the other. Now the even bars fill. The dashed line is the curve’s bend, the part that treats up and down alike; the dotted line is its lean, the part that doesn’t. The bend makes only the odd harmonics and the lean makes only the even ones, at any drive. So, on a sine, the page’s “even-order warmth” needs a curve that leans: a symmetric curve makes no even harmonic from a sine, however hard you drive it. Feed it a wave that already has evens, a voice or a guitar, and it makes more of them.',
+      hear: 'the sine through the leaning curve',
+      eq: ['y = [tanh(d·(x + b)) − tanh(d·b)] ÷ [tanh(d·(1 + b)) − tanh(d·b)]', '(out) = the soft clip of (drive × (in + lean)), with the middle put back at zero and full scale kept'],
+      eq2: ['f(x) = ½[f(x) − f(−x)] + ½[f(x) + f(−x)]', '(any curve) = (its bend, which flips sign with the input) + (its lean, which doesn’t); the bend gives the odd lines, the lean the even'] },
+    { key: 'test', rail: 'warm or edge', title: 'Warm or edge, blind',
+      say: 'The page says even harmonics are warmth and odd ones edge. Here is the claim with everything else held still. Each pair is one note made two ways, at the same strength, each added line 6 dB below the last, the pair matched in K-weighted loudness: one gets the 3rd, 5th and 7th harmonics, the other an even set. In five of the ten pairs the even set is the 2nd, 4th and 6th, lower than the odd lines; in the other five it is the 4th, 6th and 8th, higher. So an ear that hears darker as warmer picks the even one in the first five and the odd one in the second, and only an ear that hears evenness picks the even one in both. Which pairs are which, which note, and which comes first are chosen at random. Choose how strong the added lines are, then for each pair say which sounds warmer. Nothing is shown until the end.',
+      hear: 'press X or Y',
+      eq: ['y = x − a·Tₙ₁(x) + (a/2)·Tₙ₂(x) − (a/4)·Tₙ₃(x),   n = 2, 4, 6  or  4, 6, 8  or  3, 5, 7', '(out) = (in) plus three Chebyshev terms: at full scale each one is exactly one harmonic, so the curves differ only in which harmonics they add'],
+      eq2: ['P(at least s of n by guessing) = Σₖ₌ₛⁿ C(n, k) ÷ 2ⁿ', 'what a coin does: the even one called warmer 8 or more times in ten, 1 in 18; all 5 in one half, 1 in 32; 4 or more in both halves, about 1 in 28'] },
+  ];
+
+  // ── what each step sounds like and shows ──
+  function current() {
+    const k = STEPS[S.step].key;
+    if (k === 'sine') return { per: SINE, curve: (x) => x, matched: false };
+    if (k === 'eq') { const src = S.src === 'saw' ? SAW : SINE; return { per: S.fc ? SC.eqPeriod(src, S.fc, 12, 2) : src, curve: null, matched: false, src }; }
+    if (k === 'drive') { const f = (x) => SC.curve(x, S.d, 0); return { per: SC.shape(SINE, f), curve: f, matched: true }; }
+    if (k === 'lean') { const f = (x) => SC.curve(x, S.d, S.b); return { per: SC.dc(SC.shape(SINE, f)), curve: f, halves: true, matched: true }; }
+    return null;
+  }
+  const FIXED = Math.pow(10, (TARGET - SC.kLoud(SINE)) / 20);   // steps 1 and 2 play at the sine's matched level, unmatched after
+
+  // ── sound ──
+  let ctx = null, master = null, voices = [], playing = false;
+  async function ensure() {
+    if (!ctx) { ctx = new AudioContext({ sampleRate: SC.RATE }); master = ctx.createGain(); master.gain.value = 0.8; master.connect(ctx.destination); ctx.onstatechange = () => { if (ctx.state !== 'running' && playing) stopSound(); }; }
+    if (ctx.state !== 'running') await ctx.resume();
+  }
+  function buffer(y) { const b = ctx.createBuffer(1, y.length, SC.RATE); b.copyToChannel(y instanceof Float32Array ? y : Float32Array.from(y), 0); return b; }
+  function loopOf(cur) {
+    if (cur.matched) return SC.loop(cur.per, TARGET).y;
+    const reps = Math.round(SC.RATE * 2 / P), y = new Float32Array(P * reps);
+    for (let r = 0; r < reps; r++) for (let n = 0; n < P; n++) y[r * P + n] = cur.per[n] * FIXED;
+    return y;
+  }
+  // start loops together, each with its own gain, at the same point; old ones fade out
+  function startLoops(ys, which) {
+    const now = ctx.currentTime;
+    for (const v of voices) { v.g.gain.setTargetAtTime(0, now, 0.012); v.s.stop(now + 0.1); }
+    voices = ys.map((y, i) => { const s = ctx.createBufferSource(); s.buffer = buffer(y); s.loop = true; const g = ctx.createGain(); g.gain.value = 0; s.connect(g).connect(master); s.start(now); g.gain.setTargetAtTime(i === which ? 1 : 0, now, 0.015); return { s, g }; });
+  }
+  function select(which) { if (!ctx) return; const now = ctx.currentTime; voices.forEach((v, i) => v.g.gain.setTargetAtTime(i === which ? 1 : 0, now, 0.012)); }
+  function stopSound() { playing = false; if (ctx) { const now = ctx.currentTime; for (const v of voices) { try { v.g.gain.setTargetAtTime(0, now, 0.01); v.s.stop(now + 0.08); } catch (e) { /* stopped */ } } } voices = []; $('play').textContent = 'Play'; }
+  async function play() {
+    await ensure(); playing = true; $('play').textContent = 'Stop';
+    if (STEPS[S.step].key === 'test') return playPair();
+    startLoops([loopOf(current())], 0);
+  }
+  function refreshSound() { if (playing && STEPS[S.step].key !== 'test') startLoops([loopOf(current())], 0); }
+  let pend = 0; function soon() { clearTimeout(pend); pend = setTimeout(() => { draw(); refreshSound(); }, 30); }
+  $('play').onclick = () => (playing ? stopSound() : play());
+
+  // ── the blind test ──
+  const NOTES = [160, 200, 240, 250, 300];   // each a whole number of samples per cycle at 48 kHz
+  function pairLoops(tr) {
+    const Pn = SC.period(tr.f), x = SC.sinePeriod(Pn, 1);
+    return tr.order.map((par) => SC.loop(SC.shape(x, (v) => SC.pairCurve(par, S.level, v)), TARGET).y);
+  }
+  async function playPair() { const tr = S.trials && S.trials[S.t]; if (!tr) { stopSound(); return; } await ensure(); playing = true; $('play').textContent = 'Stop'; startLoops(pairLoops(tr), S.ab); markAB(); }
+  function markAB() { document.querySelectorAll('[data-ab]').forEach((b) => b.setAttribute('aria-pressed', String(playing && +b.dataset.ab === S.ab))); }
+  function newRun() {
+    const kinds = ['even', 'even', 'even', 'even', 'even', 'evenHigh', 'evenHigh', 'evenHigh', 'evenHigh', 'evenHigh'];
+    for (let i = kinds.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [kinds[i], kinds[j]] = [kinds[j], kinds[i]]; }
+    S.trials = kinds.map((ev) => ({ f: NOTES[Math.floor(Math.random() * NOTES.length)], ev, order: Math.random() < 0.5 ? [ev, 'odd'] : ['odd', ev], pick: null }));
+    S.t = 0; S.ab = 0; S.done = false; $('trial').hidden = false; $('result').hidden = true; showTrial();
+  }
+  function showTrial() { $('trialN').textContent = `pair ${S.t + 1} of 10`; if (playing) playPair(); markAB(); }
+  document.querySelectorAll('[data-ab]').forEach((b) => b.onclick = async () => { S.ab = +b.dataset.ab; if (!playing) await playPair(); else select(S.ab); markAB(); });
+  document.querySelectorAll('[data-pick]').forEach((b) => b.onclick = () => {
+    if (!S.trials || S.done) return; S.trials[S.t].pick = +b.dataset.pick; S.t++; S.ab = 0;
+    if (S.t >= 10) { S.done = true; stopSound(); $('trial').hidden = true; showResult(); draw(); } else showTrial();
+  });
+  document.querySelectorAll('[data-lv]').forEach((b) => b.onclick = () => { S.level = +b.dataset.lv; markLevel(); if (S.trials && !S.done) newRun(); });
+  function markLevel() { document.querySelectorAll('[data-lv]').forEach((b) => b.setAttribute('aria-pressed', String(+b.dataset.lv === S.level))); }
+  $('begin').onclick = () => { newRun(); $('begin').textContent = 'Start again'; };
+  function showResult() {
+    const T = S.trials, isEven = (t) => t.order[t.pick] !== 'odd';
+    const lo = T.filter((t) => t.ev === 'even'), hi = T.filter((t) => t.ev === 'evenHigh');
+    const eLo = lo.filter(isEven).length, eHi = hi.filter(isEven).length, warmEven = eLo + eHi, darker = eLo + (hi.length - eHi);
+    const odds = (p) => (p >= 0.5 ? 'more often than not' : `about 1 time in ${Math.round(1 / p)}`), both = Math.pow(SC.tailAtLeast(5, 4), 2);
+    let read;
+    if (eLo >= 4 && eHi >= 4) read = `The even one won both halves, below the odd lines and above them. By guessing, 4 or more in both happens ${odds(both)}. Your ear heard evenness as warmth, as the page says.`;
+    else if (eLo <= 1 && eHi <= 1) read = `The odd one won both halves. By guessing, that happens ${odds(both)}. Your ear heard the odd lines as the warmer: the opposite of the page’s claim, for you, at this strength.`;
+    else if (darker >= 8) read = `You picked the lower set ${darker} times in 10, whichever its parity; by guessing, ${darker} or more happens ${odds(SC.tailAtLeast(10, darker))}. Your “warm” followed register, darker against brighter, not even against odd.`;
+    else if (darker <= 2) read = `You picked the higher set ${10 - darker} times in 10, whichever its parity; by guessing, that often happens ${odds(SC.tailAtLeast(10, 10 - darker))}. Your “warm” followed register, not parity.`;
+    else read = `Neither parity nor register stands out from what a coin does: the even one ${warmEven} of 10, the darker one ${darker} of 10, against 5 by chance. At this strength, this run can’t tell your “warm” from a guess. Try the other strength, or ten more.`;
+    const name = (k) => ({ even: 'even, below', evenHigh: 'even, above', odd: 'odd' })[k];
+    const rows = T.map((t, i) => `<tr><td>${i + 1}</td><td>${t.f} Hz</td><td>${t.ev === 'even' ? '2 4 6' : '4 6 8'}</td><td>${t.order[0] === 'odd' ? 'Y' : 'X'}</td><td>${'XY'[t.pick]}</td><td>${name(t.order[t.pick])}</td></tr>`).join('');
+    $('result').innerHTML = `<p class="score">The even one called warmer: <b>${eLo} of ${lo.length}</b> when it sat below the odd lines, <b>${eHi} of ${hi.length}</b> when it sat above them; <b>${warmEven} of 10</b> in all. Chance is half of each. ${read}</p>
+      <table class="marks"><tr><th>pair</th><th>note</th><th>even set</th><th>the even one</th><th>you said warmer</th><th>which was</th></tr>${rows}</table>
+      <p class="hint">Lines added at −${-S.level} dB, −${6 - S.level} dB and −${12 - S.level} dB re the note; each pair matched in K-weighted loudness. Five pairs set the 2nd, 4th, 6th against the 3rd, 5th, 7th; five set the 4th, 6th, 8th against them. One ear, one sitting: it says what you heard today, not what every ear hears. The spectra of both curves are drawn above.</p>`;
+    $('result').hidden = false;
+  }
+
+  // ── drawing ──
+  const C1 = $('curve'), C2 = $('spec');
+  function fit(c, h) { const r = window.devicePixelRatio || 1, w = c.clientWidth || 300; c.width = Math.round(w * r); c.height = Math.round(h * r); c.style.height = h + 'px'; const g = c.getContext('2d'); g.setTransform(r, 0, 0, r, 0, 0); return { g, w, h }; }
+  const css = (n) => getComputedStyle(document.documentElement).getPropertyValue(n).trim() || '#888';
+  function drawCurve(f, halves) {
+    const { g, w, h } = fit(C1, 260), pad = 18, sz = Math.min(w, h) - 2 * pad, ox = (w - sz) / 2, oy = (h - sz) / 2;
+    let ym = 1; if (f) for (let i = 0; i <= 200; i++) ym = Math.max(ym, Math.abs(f(-1 + i / 100)));   // a leaning curve can reach past full scale on one side
+    const X = (x) => ox + (x + 1) / 2 * sz, Y = (y) => oy + (1 - (y / ym + 1) / 2) * sz;
+    g.strokeStyle = css('--border'); g.lineWidth = 1; g.strokeRect(ox, oy, sz, sz);
+    g.beginPath(); g.moveTo(X(-1), Y(0)); g.lineTo(X(1), Y(0)); g.moveTo(X(0), Y(-1)); g.lineTo(X(0), Y(1)); g.stroke();
+    g.setLineDash([2, 4]); g.strokeStyle = css('--fg-4'); g.beginPath(); g.moveTo(X(-1), Y(-1)); g.lineTo(X(1), Y(1)); g.stroke(); g.setLineDash([]);
+    const path = (fn, col, dash, lw) => { g.setLineDash(dash); g.strokeStyle = col; g.lineWidth = lw; g.beginPath(); for (let i = 0; i <= 200; i++) { const x = -1 + i / 100, y = fn(x); i ? g.lineTo(X(x), Y(y)) : g.moveTo(X(x), Y(y)); } g.stroke(); g.setLineDash([]); };
+    if (!f) { path((x) => x, css('--fg-2'), [], 1.5); g.fillStyle = css('--fg-3'); g.font = '11px ' + css('--mono'); g.fillText('an EQ is no curve:', ox + 6, oy + 16); g.fillText('it acts on frequencies,', ox + 6, oy + 30); g.fillText('not on levels', ox + 6, oy + 44); return; }
+    if (halves) { path((x) => SC.oddPart(f, x), css('--accent'), [6, 4], 1.2); path((x) => SC.evenPart(f, x) - SC.evenPart(f, 0), css('--info'), [1.5, 3], 1.5); }
+    path(f, css('--fg-1'), [], 1.8);
+    g.fillStyle = css('--fg-3'); g.font = '10px ' + css('--mono'); g.fillText('in →', X(1) - 34, Y(0) + 14); g.fillText(ym > 1.001 ? `out ↑ (top: ${ym.toFixed(2)})` : 'out ↑', X(0) + 6, oy + 12);
+  }
+  function drawBars(sets) {   // sets: [{h, label}] up to two, side by side per harmonic
+    const { g, w, h } = fit(C2, 260), l = 40, r = 10, t = 14, b = 26, pw = w - l - r, ph = h - t - b, top = 0, bot = FLOOR;
+    const Yd = (d) => t + (top - Math.max(bot, Math.min(top, d))) / (top - bot) * ph;
+    g.font = '10px ' + css('--mono'); g.fillStyle = css('--fg-3'); g.strokeStyle = css('--border-soft'); g.lineWidth = 1;
+    for (let d = 0; d >= bot; d -= 20) { g.beginPath(); g.moveTo(l, Yd(d)); g.lineTo(l + pw, Yd(d)); g.stroke(); g.fillText(String(d), 4, Yd(d) + 3); }
+    const slot = pw / K;
+    for (let k = 1; k <= K; k++) { if (k === 1 || k % 2 === 0 || k <= 7) { g.fillStyle = css('--fg-3'); g.fillText(String(k), l + (k - 0.5) * slot - 4, h - 8); } }
+    sets.forEach((set, si) => {
+      const n = sets.length, bw = n > 1 ? slot * 0.8 / n : slot * 0.56, off = n > 1 ? -0.42 * slot + si * slot * 0.84 / n : -0.28 * slot;
+      for (let k = 1; k <= K; k++) {
+        const d = SC.db(set.h[k]); const x = l + (k - 0.5) * slot + off;
+        g.fillStyle = k === 1 ? css('--fg-1') : k % 2 ? css('--accent') : css('--info');
+        if (set.dim) g.globalAlpha = 0.45;
+        if (d > bot) g.fillRect(x, Yd(d), bw, Yd(bot) - Yd(d)); else { g.globalAlpha = 0.5; g.fillRect(x, Yd(bot) - 1, bw, 1); }
+        g.globalAlpha = 1;
+      }
+    });
+    g.fillStyle = css('--fg-3'); g.fillText('dB, full scale · harmonic of the note →', l + 4, t - 3);
+  }
+  function legend(extra) {
+    $('legend').innerHTML = `<span><i style="background:${css('--fg-1')}"></i>the note</span><span><i style="background:${css('--accent')}"></i>odd harmonics: 3rd, 5th …</span><span><i style="background:${css('--info')}"></i>even harmonics: 2nd, 4th …</span>${extra || ''}<span>a flat tick: below ${FLOOR} dB</span>`;
+  }
+  function draw() {
+    const k = STEPS[S.step].key; let meter = '';
+    if (k === 'test') {
+      const show = S.done; const f = (x) => SC.pairCurve('even', S.level, x), fh = (x) => SC.pairCurve('evenHigh', S.level, x), o = (x) => SC.pairCurve('odd', S.level, x);
+      if (show) { const { g, w, h } = fit(C1, 260); drawPairCurves(g, w, h, f, o, fh); drawBars([{ h: SC.harmonics(SC.shape(SINE, f), K) }, { h: SC.harmonics(SC.shape(SINE, o), K) }, { h: SC.harmonics(SC.shape(SINE, fh), K) }]); legend('<span>in each group: even below, odd, even above</span>'); }
+      else { const { g, w, h } = fit(C1, 260); g.fillStyle = css('--fg-3'); g.font = '12px ' + css('--mono'); g.fillText('hidden until the tenth answer', 16, h / 2); const c2 = fit(C2, 260); c2.g.fillStyle = css('--fg-3'); c2.g.font = '12px ' + css('--mono'); c2.g.fillText('hidden until the tenth answer', 16, c2.h / 2); legend(''); }
+      $('meter').innerHTML = S.trials && !S.done ? `pair <b>${S.t + 1}</b> of 10 · added lines at <b>−${-S.level} dB</b>` : '';
+      return;
+    }
+    const cur = current(), h = SC.harmonics(cur.per, K);
+    drawCurve(cur.curve, cur.halves);
+    if (k === 'eq') { const hs = SC.harmonics(cur.src, K); drawBars([{ h: hs, dim: true }, { h }]); legend('<span>left of each pair: before the bell; right: after</span>'); }
+    else drawBars([{ h }]), legend('');
+    const lines = SC.lines(h, FLOOR + 0.001 - SC.db(h[1]));
+    if (k === 'sine') meter = `lines above ${FLOOR} dB: <b>${lines}</b>`;
+    if (k === 'eq') {
+      const before = SC.harmonics(cur.src, K), linesB = SC.lines(before, FLOOR + 0.001 - SC.db(before[1]));
+      meter = `lines above ${FLOOR} dB: before <b>${linesB}</b>, after <b>${lines}</b> · the note moved <b>${fmt(SC.db(h[1]) - SC.db(before[1]), 2)} dB</b>`;
+      if (S.src === 'saw' && S.fc) { const kk = Math.round(S.fc / 200); meter += ` · the ${kk}${kk === 2 ? 'nd' : kk === 3 ? 'rd' : 'th'} harmonic, under the bell, moved <b>${fmt(SC.db(h[kk]) - SC.db(before[kk]), 2)} dB</b>`; }
+    }
+    if (k === 'drive' || k === 'lean') {
+      const ps = SC.powerSplit(h), y = cur.per; let pk = 0; for (const v of y) pk = Math.max(pk, Math.abs(v));
+      meter = `lines above ${FLOOR} dB: <b>${lines}</b> · odd harmonics together: <b>${fmt(ps.oddDb)} dB</b> · even: <u>${fmt(ps.evenDb)}${ps.evenDb > -200 ? ' dB' : ''}</u> · both, below the note: <b>${fmt(ps.addedDb)} dB</b>`;
+      const bb = k === 'lean' ? S.b : 0, gq = SC.db(Math.abs(SC.curve(0.1, S.d, bb) - SC.curve(0, S.d, bb)) / 0.1);
+      meter += `<br>the curve’s gain at a tenth of full scale: <b>${fmt(gq)} dB</b>; at full scale: <b>0.0 dB</b>. The loud part is turned down against the quiet: the page’s “compresses as input increases”.`;
+    }
+    $('meter').innerHTML = meter;
+  }
+  function drawPairCurves(g, w, h, f, o, fh) {
+    const pad = 18, sz = Math.min(w, h) - 2 * pad, ox = (w - sz) / 2, oy = (h - sz) / 2, X = (x) => ox + (x + 1) / 2 * sz, Y = (y) => oy + (1 - (y + 1) / 2) * sz;
+    g.clearRect(0, 0, w, h); g.strokeStyle = css('--border'); g.lineWidth = 1; g.strokeRect(ox, oy, sz, sz);
+    const path = (fn, col) => { g.strokeStyle = col; g.lineWidth = 1.6; g.beginPath(); for (let i = 0; i <= 200; i++) { const x = -1 + i / 100, y = Math.max(-1.3, Math.min(1.3, fn(x))); i ? g.lineTo(X(x), Y(y)) : g.moveTo(X(x), Y(y)); } g.stroke(); };
+    path(f, css('--info')); path(o, css('--accent')); if (fh) { g.setLineDash([4, 3]); path(fh, css('--info')); g.setLineDash([]); }
+    g.fillStyle = css('--fg-3'); g.font = '10px ' + css('--mono'); g.fillText('blue: even below', ox + 6, oy + 14); g.fillText('dashed: even above', ox + 6, oy + 28); g.fillText('amber: odd', ox + 6, oy + 42);
+  }
+
+  // ── the walk ──
+  function go(i) {
+    stopSound(); S.step = Math.max(0, Math.min(STEPS.length - 1, i)); const s = STEPS[S.step];
+    $('stepEyebrow').textContent = `step ${S.step + 1} of ${STEPS.length}`; $('stepTitle').textContent = s.title; $('stepSay').textContent = s.say; $('hearHint').textContent = s.hear;
+    $('eq1').textContent = s.eq[0]; $('eq1w').textContent = s.eq[1]; $('eq2').textContent = s.eq2[0]; $('eq2w').textContent = s.eq2[1];
+    $('srcRow').hidden = $('eqRow').hidden = s.key !== 'eq'; $('ctlD').hidden = !(s.key === 'drive' || s.key === 'lean'); $('ctlB').hidden = s.key !== 'lean'; $('test').hidden = s.key !== 'test';
+    $('play').hidden = s.key === 'test';
+    document.querySelectorAll('#rail button').forEach((b, j) => (j === S.step ? b.setAttribute('aria-current', 'step') : b.removeAttribute('aria-current')));
+    $('back').disabled = S.step === 0; $('next').disabled = S.step === STEPS.length - 1;
+    draw();
+  }
+  $('rail').innerHTML = STEPS.map((s, i) => `<button>${i + 1} · ${s.rail}</button>`).join('');
+  document.querySelectorAll('#rail button').forEach((b, i) => b.onclick = () => go(i));
+  $('back').onclick = () => go(S.step - 1); $('next').onclick = () => go(S.step + 1);
+  const mark = (sel, attr, val) => document.querySelectorAll(sel).forEach((b) => b.setAttribute('aria-pressed', String(b.dataset[attr] === String(val))));
+  document.querySelectorAll('[data-src]').forEach((b) => b.onclick = () => { S.src = b.dataset.src; mark('[data-src]', 'src', S.src); soon(); });
+  document.querySelectorAll('[data-fc]').forEach((b) => b.onclick = () => { S.fc = +b.dataset.fc; mark('[data-fc]', 'fc', S.fc); soon(); });
+  const dk = $('dk'), bk = $('bk');
+  const showV = () => { $('dkv').textContent = S.d.toFixed(2); $('bkv').textContent = S.b.toFixed(3); };
+  dk.oninput = () => { S.d = +dk.value; showV(); soon(); }; bk.oninput = () => { S.b = +bk.value; showV(); soon(); };
+  mark('[data-src]', 'src', S.src); mark('[data-fc]', 'fc', S.fc); markLevel(); showV();
+  window.addEventListener('resize', () => draw());
+  go(0);
+
+  // the sigil: the Lissajous trace, 3 : 2
+  { const pts = []; for (let i = 0; i <= 240; i++) { const t = i / 240 * 2 * Math.PI; pts.push((9 * Math.sin(3 * t + Math.PI / 2)).toFixed(2) + ',' + (9 * Math.sin(2 * t)).toFixed(2)); } $('sigil').innerHTML = `<polyline points="${pts.join(' ')}" fill="none" stroke="#e8b84a" stroke-width="1"/>`; }
+})();
+</script>
+</body>
+</html>
