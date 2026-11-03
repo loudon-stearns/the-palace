@@ -1,0 +1,500 @@
+<!doctype html>
+<!--
+  title: Haptic Handwheel — rich — a stiff spring down a wire
+  born: 2026-11-03
+  links: [[Haptic Handwheel]] (connects-to · rich-face-piece) · [[Signal-Rate CV Architecture]] (connects-to · torque as a jack, and its delay) · [[Progressive Staging]] (exemplifies · a walk in five steps) · listed in [[Haptic Handwheel — rich.json]]
+  forward_vector: I am the section's split as a walk you can tune. One spring computed on the motor, then the
+    same spring sent down a wire, then a hand on it, then damping kept on the device, and last the test: a
+    map of stiffness against delay, drawn by the engine, with every feel on the page placed on it. I play
+    inside the entry's rich face and stand alone opened directly; I change only when the section I serve does.
+  engine: the steward's feel engine (Projects/Haptic Handwheel/proofs/feel-lab/feel_engine.js), inlined
+    unchanged between ENGINE:START and ENGINE:END. The test is render_feel_lab.mjs's own: a pure virtual
+    spring let go from 0.05 rad, no dry friction, no torque cap, and "grows" when its last fifth swings wider
+    than its first. The lanes, the grip and the rescue's 0.002 N·m·s/rad are the steward's; the motor's
+    brake guess is the engine's BRAKES. Checked headless by "Haptic Handwheel — rich — checks.mjs".
+  dress: Loudon Live house style, Graphite skin. Silent: this piece makes no sound.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:needs" content="">
+<title>Haptic Handwheel — a stiff spring down a wire</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Manrope:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root { --bg:#0a0a0f; --e1:#12121a; --border:#4a4a5e; --soft:rgba(255,255,255,.07); --fg1:#e8e8f0; --fg2:#c8c8d8; --fg3:#8a8aa0; --fg4:#4a4a5a;
+    --amber:#e8b84a; --amberline:rgba(232,184,74,.5); --warn:#ff6b6b;
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --sans:'Manrope',system-ui,sans-serif; --serif:'Cormorant Garamond',Georgia,serif; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); font-weight: 300; }
+  .hhw-piece { padding: 22px 22px 20px; }
+  .hhw-kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; display: flex; align-items: center; gap: 10px; }
+  .hhw-kicker svg { width: 18px; height: 18px; }
+  .hhw-title { font-family: var(--serif); font-size: 27px; font-weight: 300; color: var(--fg1); margin: 0 0 6px; }
+  .hhw-sub { font-size: 14px; line-height: 1.6; color: var(--fg2); max-width: 80ch; margin: 0 0 16px; }
+  .hhw-rail { display: flex; flex-wrap: wrap; margin: 0 0 14px; }
+  .hhw-rail button { border-radius: 0; margin-right: -1px; }
+  .hhw-rail button[aria-pressed="true"] { color: var(--amber); border-color: var(--amberline); position: relative; z-index: 1; }
+  button { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--fg2); background: var(--bg); border: 1px solid var(--border); border-radius: 2px; padding: 8px 12px; cursor: pointer; transition: border-color 220ms cubic-bezier(.4,0,.2,1), color 220ms cubic-bezier(.4,0,.2,1); }
+  button:hover { border-color: rgba(232,184,74,.55); color: var(--fg1); }
+  button:disabled { opacity: .35; cursor: default; }
+  button.hhw-on { color: var(--amber); border-color: var(--amberline); }
+  .hhw-seg { display: inline-flex; flex-wrap: wrap; } .hhw-seg button { border-radius: 0; margin-right: -1px; }
+  .hhw-step { border: 1px solid var(--soft); background: var(--e1); border-radius: 2px; padding: 14px 16px 16px; }
+  .hhw-stephead { font-family: var(--mono); font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--fg3); display: flex; justify-content: space-between; gap: 10px; margin-bottom: 6px; }
+  .hhw-says { font-size: 14.5px; line-height: 1.62; color: var(--fg2); max-width: 80ch; margin: 0 0 12px; }
+  .hhw-says b { color: var(--fg1); font-weight: 500; }
+  .hhw-panel { border: 1px solid var(--soft); border-radius: 2px; background: var(--bg); padding: 8px 10px 10px; }
+  .hhw-plabel { font-family: var(--mono); font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+  .hhw-plabel b { color: var(--fg1); font-weight: 500; }
+  canvas { display: block; width: 100%; }
+  label.hhw-sl { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: .05em; color: var(--fg3); min-width: 280px; }
+  label.hhw-sl b { color: var(--fg1); font-weight: 500; }
+  input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 3px; background: var(--fg4); margin: 10px 0 4px; outline: none; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 13px; height: 13px; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  input[type=range]::-moz-range-thumb { width: 13px; height: 13px; border: 0; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  .hhw-controls { display: flex; flex-wrap: wrap; gap: 12px 16px; align-items: end; margin-top: 12px; }
+  .hhw-read { display: flex; flex-wrap: wrap; gap: 6px 22px; margin-top: 12px; font-family: var(--mono); font-size: 11.5px; letter-spacing: .04em; color: var(--fg3); }
+  .hhw-read b { color: var(--fg1); font-weight: 500; }
+  .hhw-read .no { color: var(--warn); } .hhw-read .ok { color: var(--amber); }
+  table { border-collapse: collapse; font-family: var(--mono); font-size: 11.5px; width: 100%; margin-top: 10px; }
+  td, th { padding: 4px 6px; border-bottom: 1px solid var(--soft); text-align: left; }
+  th { color: var(--fg3); font-weight: 400; }
+  td.fine { color: var(--fg1); } td.held { color: var(--amber); } td.buzz { color: var(--warn); }
+  .hhw-verdict { margin-top: 12px; font-size: 14px; line-height: 1.6; color: var(--fg1); max-width: 80ch; border-left: 2px solid var(--amberline); padding-left: 12px; }
+  .hhw-verdict b { font-weight: 500; color: var(--amber); }
+  .hhw-eqs { margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--soft); }
+  .hhw-eq { font-family: var(--serif); font-size: 19px; color: var(--fg1); }
+  .hhw-words { font-size: 13px; line-height: 1.55; color: var(--fg2); margin: 2px 0 10px; max-width: 80ch; }
+  .hhw-honest { font-size: 13px; line-height: 1.55; color: var(--fg3); margin-top: 12px; max-width: 80ch; }
+  .hhw-honest b { color: var(--fg2); font-weight: 500; }
+  .hhw-nav { display: flex; justify-content: space-between; gap: 10px; margin-top: 14px; }
+  .hhw-foot { font-family: var(--mono); font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--fg4); margin-top: 14px; }
+</style>
+</head>
+<body>
+<div class="hhw-piece">
+  <div class="hhw-kicker"><svg id="sigil" viewBox="0 0 18 18" aria-hidden="true"></svg><span>made · canvas · sketch · a walk in five steps</span></div>
+  <h3 class="hhw-title">A stiff spring down a wire</h3>
+  <p class="hhw-sub">A feel that answers the hand is a loop: sense the angle, compute a push, push. The page says the stiffer the feel, the closer to the motor that loop has to run, because delay makes a stiff spring unstable, and that soft feels can cross a cable. This walk puts one spring on the motor, sends it down a wire, adds a hand, keeps some damping on the device, and ends on a map the engine draws of where every feel on the page sits. It runs the steward's feel engine and the steward's own stability test. Nothing here makes a sound.</p>
+
+  <div class="hhw-rail" id="rail" role="group" aria-label="steps"></div>
+  <div class="hhw-step">
+    <div class="hhw-stephead"><span id="stepname"></span><span id="stepof"></span></div>
+    <p class="hhw-says" id="says"></p>
+    <div class="hhw-panel"><div class="hhw-plabel"><span id="plabel">the knob after a small nudge</span><span id="pstate"></span></div><canvas id="plot" height="230"></canvas></div>
+    <div class="hhw-controls" id="controls"></div>
+    <div class="hhw-read" id="read"></div>
+    <div id="table"></div>
+    <div class="hhw-verdict" id="verdict" style="display:none"></div>
+    <div class="hhw-eqs" id="eqs"></div>
+    <div class="hhw-honest" id="honest"></div>
+    <div class="hhw-nav"><button id="prev">← back</button><button id="next">next step →</button></div>
+  </div>
+  <div class="hhw-foot">Loud’n Live</div>
+</div>
+
+<script>
+/* ENGINE:START — the steward's feel engine, inlined unchanged from proofs/feel-lab/feel_engine.js */
+// Haptic Handwheel — feel engine.
+// One knob: a motor that senses and pushes, a cap, a hand. Plain script, no
+// imports, so the same text runs inlined in feel-lab.html and in node
+// (render_feel_lab.mjs loads it with new Function). Nothing here has met
+// hardware. Every number marked ASSUMED is a guess waiting for a bench.
+
+function makeEngine(opts) {
+  const P = Object.assign({
+    fs: 48000,          // physics steps per second
+    loopHz: 10000,      // how often the feel is computed (device loop)
+    delayMs: 0,         // extra transport delay between sensing and pushing
+    capMass: 0.040,     // kg; light 80 mm printed cap (Loudon leans light)
+    capR: 0.040,        // m; cap radius
+    Jrotor: 3e-5,       // kg·m²; ASSUMED rotor inertia, GM5208 figure not found
+    bMotor: 1e-4,       // N·m·s/rad; ASSUMED viscous loss of motor + bearings
+    tauC: 0.003,        // N·m; ASSUMED dry friction + cogging floor
+    tauMax: 0.2,        // N·m; firmware clamp (motor rated 0.18–0.25)
+    handK: 0.48,        // N·m/rad; ASSUMED fingertip grip (~300 N/m at the rim)
+    handB: 0.0032,      // N·m·s/rad; ASSUMED fingertip damping (~2 N·s/m at the rim)
+    quantize: true,     // 14-bit encoder, AS5048A
+    semisPerTurn: 24,   // pitch range of one full turn
+    basePitch: 45,      // MIDI note at angle 0 (A2)
+    // sketch 2: the motor's own bumps. 12 slots, 14 magnets → 84 a turn. Same
+    // pretend shape the bench analyzer is checked against (bench_analyze.py
+    // fake_cog). cog = 0 off, 1 on; cogLeft = what is left after the firmware
+    // cancels them (1 = raw, 0.08 ≈ the analyzer's selftest residue).
+    cog: 0, cogLeft: 1,
+    stick: false,       // true Coulomb stick at rest instead of the smooth tanh
+  }, opts || {});
+
+  const J = P.Jrotor + 0.5 * P.capMass * P.capR * P.capR;
+  const dt = 1 / P.fs;
+  const q = (2 * Math.PI) / 16384;
+  const s = {
+    th: 0, om: 0, t: 0,
+    hand: false, handTarget: 0, brake: 0, // brake = finger friction, N·m·s/rad
+    extTorque: 0,                         // scripted extra push (a flick)
+    tauHeld: 0, tauFeel: 0, tauHand: 0,
+    sensedTh: 0, sensedOm: 0, lastSensedTh: 0,
+    nextTick: 0, queue: [],
+  };
+  const eng = { P, J, s, feel: null };
+
+  eng.setFeel = (f) => { eng.feel = f; if (f && f.reset) f.reset(eng); };
+  eng.pitch = () => P.basePitch + (s.th / (2 * Math.PI)) * P.semisPerTurn;
+
+  eng.step = () => {
+    // the device loop: sense, compute the feel, send it down the (maybe slow) wire
+    if (s.t >= s.nextTick) {
+      const Tl = 1 / P.loopHz;
+      const th = P.quantize ? Math.round(s.th / q) * q : s.th;
+      const omRaw = (th - s.lastSensedTh) / Tl;
+      s.sensedOm += 0.25 * (omRaw - s.sensedOm); // light smoothing of a noisy difference
+      s.lastSensedTh = th; s.sensedTh = th;
+      let tau = eng.feel ? eng.feel.torque(eng, Tl) : 0;
+      tau = Math.max(-P.tauMax, Math.min(P.tauMax, tau));
+      s.tauFeel = tau;
+      s.queue.push([s.t + P.delayMs / 1000, tau]);
+      s.nextTick += Tl;
+    }
+    while (s.queue.length && s.queue[0][0] <= s.t) s.tauHeld = s.queue.shift()[1];
+
+    s.tauHand = (s.hand ? P.handK * (s.handTarget - s.th) - P.handB * s.om : 0) - s.brake * s.om;
+    const tauCog = P.cog ? P.cog * P.cogLeft * cogTorque(s.th) : 0;
+    let drive = s.tauHeld + s.tauHand + s.extTorque + tauCog - P.bMotor * s.om;
+    if (P.stick && Math.abs(s.om) < 2e-3 && Math.abs(drive) <= P.tauC) { s.om = 0; s.t += dt; return; }
+    const tauLoss = P.stick ? -P.tauC * Math.sign(s.om || drive) : -P.tauC * Math.tanh(s.om / 0.05);
+    s.om += ((drive + tauLoss) / J) * dt;
+    s.th += s.om * dt;
+    s.t += dt;
+  };
+  return eng;
+}
+
+// The motor's bumps (N·m) at angle th: 84 a turn, their second harmonic, and a
+// once-a-turn wobble from a rotor slightly off centre. ASSUMED shape and size.
+function cogTorque(th) {
+  return 0.006 * Math.sin(84 * th) + 0.002 * Math.sin(168 * th + 0.7) + 0.0015 * Math.sin(th + 1.1);
+}
+
+// The motor's own brake, from proofs/motor-numbers: driven by voltage, the
+// back-EMF damps the knob for free. The firmware can cancel it (cancelBrake 1).
+const BRAKES = [
+  { id: 'cancelled', label: 'brake cancelled', b: 1e-4 },
+  { id: 'low',  label: 'brake on · low guess',  b: 0.00223 },
+  { id: 'mid',  label: 'brake on · middle guess', b: 0.00711 },
+  { id: 'high', label: 'brake on · high guess', b: 0.0232 },
+];
+
+// ── The feels. Each returns torque from what the device senses; some keep
+// their own state (a melody, a platter, an LFO). Sound comes from voice().
+
+const TAU = 2 * Math.PI;
+
+const FEELS = {
+  // Pitch you can lean on: a pull toward the nearest in-tune semitone.
+  frets: (o) => Object.assign({
+    name: 'frets', peak: 0.03, damp: 0.0,
+    // kick (sketch 2): a push off the ridge between two notes, so friction can't
+    // leave the knob balanced there. Zero at each note, full on the ridge.
+    kick: 0,
+    torque(e) {
+      const sp = e.P.semisPerTurn / TAU; // semitones per radian
+      const a = TAU * sp * e.s.sensedTh, sn = Math.sin(a);
+      return -this.peak * sn - this.kick * Math.sign(sn) * 0.5 * (1 - Math.cos(a)) - this.damp * e.s.sensedOm;
+    },
+    voice: (e) => ({ midi: e.pitch(), amp: 0.5 }),
+  }, o),
+
+  // A string that stiffens as it bends; pitch rises with tension.
+  string: (o) => Object.assign({
+    name: 'string', k1: 0.04, k3: 0.25,
+    torque(e) { const x = e.s.sensedTh; return -(this.k1 * x + this.k3 * x * x * x); },
+    // tension ~ k1 x + k3 x³; pitch ~ √tension: two semitones at a full ~1 rad bend
+    voice(e) {
+      const x = Math.abs(e.s.th);
+      const tens = 1 + (this.k1 * x + this.k3 * x * x * x) / 0.12;
+      return { midi: 52 + 6 * Math.log2(tens), amp: 0.5 };
+    },
+  }, o),
+
+  // The modulation, played into the hand: an LFO pushes, a soft spring centres.
+  lfo: (o) => Object.assign({
+    name: 'lfo', rate: 3, amp: 0.02, k: 0.08,
+    torque(e) { return this.amp * Math.sin(TAU * this.rate * e.s.t) - this.k * e.s.sensedTh; },
+    voice(e) { return { midi: 57 + 0.5 * Math.sin(TAU * this.rate * e.s.t), amp: 0.5 }; },
+  }, o),
+
+  // The pitch itself: the note the synth plays, pushed into the cap as torque.
+  pitch: (o) => Object.assign({
+    name: 'pitch', midi: 55, amp: 0.005, k: 0.03,
+    hz() { return 440 * Math.pow(2, (this.midi - 69) / 12); },
+    torque(e) { return this.amp * Math.sin(TAU * this.hz() * e.s.t) - this.k * e.s.sensedTh; },
+    voice(e) { return { midi: this.midi, amp: 0.5 }; },
+  }, o),
+
+  // The lock: the knob sets an LFO's rate; beat clicks are pushed into the hand.
+  // Near a synced rate the rate is pulled in (a magnet in log-rate) and the LFO's
+  // phase is pulled toward the beat (Kuramoto, one oscillator pulled by a clock).
+  lock: (o) => Object.assign({
+    name: 'lock', bpm: 100, lfoAmp: 0.015, clickAmp: 0.05, clickMs: 6,
+    magnet: 0.02, couple: 1.5, phi: 0, clicks: [],
+    reset() { this.phi = 0; this.clicks = []; this.lastBeat = -1; },
+    beatHz() { return this.bpm / 60; },
+    // 1 turn = 4 octaves of rate, centred on the beat rate
+    rate(th) { return this.beatHz() * Math.pow(2, (th / TAU) * 4); },
+    torque(e, Tl) {
+      const th = e.s.sensedTh, oct = (th / TAU) * 4;
+      // magnet toward whole octaves of the beat rate (×¼ … ×4)
+      const magnet = -this.magnet * Math.sin(TAU * oct);
+      let r = this.rate(th);
+      const beatPh = e.s.t * this.beatHz();
+      const ratio = Math.round(r / this.beatHz() * 4) / 4 || 0.25; // nearest synced multiple
+      const target = beatPh * ratio;
+      this.phi += Tl * (r + this.couple * Math.sin(TAU * (target - this.phi)));
+      let tau = this.lfoAmp * Math.sin(TAU * this.phi) + magnet;
+      const b = Math.floor(beatPh);
+      if (b !== this.lastBeat) { this.lastBeat = b; this.clicks.push(this.phi % 1); if (this.clicks.length > 24) this.clicks.shift(); }
+      if (beatPh - b < (this.clickMs / 1000) * this.beatHz()) tau += this.clickAmp * Math.sin(Math.PI * (beatPh - b) / ((this.clickMs / 1000) * this.beatHz()));
+      return tau;
+    },
+    voice(e) {
+      const beatPh = e.s.t * this.beatHz(), fr = beatPh - Math.floor(beatPh);
+      return { midi: 57, amp: 0.35 * (0.55 + 0.45 * Math.sin(TAU * this.phi)), click: fr < 0.02 ? 1 - fr / 0.02 : 0 };
+    },
+  }, o),
+
+  // Haptic filtering: the knob turns itself to each note of a melody; the hand
+  // can brake it (slower glide) or wiggle it (vibrato). Sound follows the knob.
+  follow: (o) => Object.assign({
+    name: 'follow', k: 0.25, damp: 0.004, notes: [0, 3, 7, 5, 3, 10, 7, 12], secPerNote: 0.6,
+    target(e) {
+      const i = Math.floor(e.s.t / this.secPerNote) % this.notes.length;
+      return (this.notes[i] / e.P.semisPerTurn) * TAU;
+    },
+    torque(e) { return this.k * (this.target(e) - e.s.sensedTh) - this.damp * e.s.sensedOm; },
+    voice: (e) => ({ midi: e.pitch(), amp: 0.5 }),
+  }, o),
+
+  // The struck spring: strike it, let it wobble down into pitch, damp with a finger.
+  // 'spring' rings at one rate all the way down; 'pendulum' (sin law) starts slow
+  // at a big swing and quickens as it settles.
+  // The pitch-wheel return (sketch 4, box day): a soft spring to centre plus a
+  // small push toward it. Alone, k = 0.03 stops up to 18° short against the
+  // motor's raw bumps and friction (6° with no bumps at all). The push, faded in
+  // over kickW rad, lands it within about 1° raw and 0.3° with bumps cancelled.
+  centre: (o) => Object.assign({
+    name: 'centre', k: 0.03, kick: 0.01, kickW: 0.02, rest: 0,
+    torque(e) { const x = e.s.sensedTh - this.rest; return -this.k * x - this.kick * Math.tanh(x / this.kickW); },
+    voice: (e) => ({ midi: e.pitch(), amp: 0.5 }),
+  }, o),
+  struck: (o) => Object.assign({
+    name: 'struck', law: 'spring', k: 0.085, damp: 0, rest: 0,
+    torque(e) {
+      const x = e.s.sensedTh - this.rest;
+      const f = this.law === 'pendulum' ? Math.sin(x) : x;
+      return -this.k * f - this.damp * e.s.sensedOm;
+    },
+    voice: (e) => ({ midi: e.pitch(), amp: 0.5 }),
+  }, o),
+
+  // The turntable: the motor holds 33⅓ rpm with a capped torque; the hand brakes.
+  // sketch 3: a push-only speed loop always idles short (friction ÷ gain).
+  // Two fixes, used together. `ffB`/`ffC` push the known cost of spinning
+  // (the brake and the friction `bench coast` measures) before any error
+  // appears; null means use the engine's own motor numbers. Then a small slow
+  // correction (ki, at most `trim`) mops up what the bench got wrong. It
+  // learns only within `gate` of speed, so a hand holding the platter back
+  // can't teach it to shove, and it doesn't surge when let go.
+  // At 33 rpm the 14-bit encoder moves less than one count per 10 kHz tick,
+  // so the loop steers by its own speed reading smoothed over `speedTf`
+  // seconds (SimpleFOC smooths over 5 ms by default).
+  turntable: (o) => Object.assign({
+    name: 'turntable', rpm: 100 / 3, kv: 0.01, cap: 0.06,
+    ffB: null, ffC: null, ki: 0.1, gate: 0.2, trim: 0.02, speedTf: 0.005, integ: 0, om: 0,
+    reset() { this.integ = 0; this.om = 0; },
+    omega() { return (this.rpm / 60) * TAU; },
+    torque(e, Tl) {
+      const dt = Tl || 0, a = this.speedTf > 0 ? dt / (this.speedTf + dt) : 1;
+      this.om += a * (e.s.sensedOm - this.om);
+      const w = this.omega(), err = w - this.om;
+      const fb = this.ffB === null ? e.P.bMotor : this.ffB, fc = this.ffC === null ? e.P.tauC : this.ffC;
+      if (Math.abs(err) < this.gate * w) this.integ = Math.max(-this.trim, Math.min(this.trim, this.integ + this.ki * err * dt));
+      return Math.max(-this.cap, Math.min(this.cap, this.kv * err + fb * w + fc * Math.sign(w) + this.integ));
+    },
+    voice(e) { return { rate: e.s.om / this.omega(), amp: 0.5 }; },
+  }, o),
+};
+/* ENGINE:END */
+
+/* SETUP:START — the steward's stability test (render_feel_lab.mjs), at 48 kHz. Shared with the headless check. */
+const LANES = [
+  { id: 'device-10k', label: 'on the motor, 10 kHz loop', loopHz: 10000, delayMs: 0 },
+  { id: 'device-1k', label: 'on the motor, 1 kHz loop', loopHz: 1000, delayMs: 0 },
+  { id: 'usb-max', label: 'over USB to Max and back (4 ms, assumed)', loopHz: 1000, delayMs: 4 },
+  { id: 'audio-line', label: 'as an audio line (2 × 128 samples, assumed)', loopHz: 48000, delayMs: 5.33 },
+];
+const RESCUE_B = 0.002;                                  // the steward's rescue: damping the device adds on its own
+const BRAKE_LOW = BRAKES.find(b => b.id === 'low').b;    // the motor's own brake, lowest guess (motor-numbers)
+const NEEDS = [                                          // how stiff each feel needs to be, N·m/rad (render_feel_lab.mjs)
+  { feel: 'soft centring spring (pitch-wheel return)', K: 0.03 },
+  { feel: 'struck spring, light cap', K: 0.085 },
+  { feel: 'haptic filtering (follows a melody)', K: 0.25 },
+  { feel: 'string bend, near full bend', K: 0.04 + 3 * 0.25 },
+  { feel: 'frets, 24 a turn', K: 0.03 * 24 },
+  { feel: 'an end stop', K: 3 },
+];
+// run one nudge: returns the trace and how much wider the last fifth swings than the first
+function nudge(K, loopHz, delayMs, hand, extraB, keepTrace, cycles) {
+  const e = makeEngine({ fs: 48000, loopHz, delayMs, tauC: 0, quantize: false, bMotor: 1e-4 + (extraB || 0), tauMax: 1e6 });
+  e.setFeel(FEELS.struck({ k: K, damp: 0 }));
+  e.s.th = 0.05; e.s.hand = !!hand; e.s.handTarget = 0;
+  const wn = Math.sqrt((K + (hand ? e.P.handK : 0)) / e.J);
+  const dur = Math.max(0.6, (cycles || 30) / (wn / (2 * Math.PI)));   // the steward's 30 cycles; the map's cells run 12
+  const n = Math.round(dur * e.P.fs), w = Math.round(n / 5), every = Math.max(1, Math.round(n / 1400));
+  let a0 = 0, a1 = 0; const trace = [];
+  for (let i = 0; i < n; i++) {
+    e.step(); const v = Math.abs(e.s.th);
+    if (keepTrace && i % every === 0) trace.push(e.s.th);
+    if (!isFinite(v) || v > 10) return { grows: true, ratio: Infinity, trace, dur, runaway: true };
+    if (i < w) a0 = Math.max(a0, v); else if (i >= n - w) a1 = Math.max(a1, v);
+  }
+  return { grows: a1 > a0, ratio: a1 / a0, trace, dur };
+}
+// the closed form the steward checks against: delay acts as negative damping K·(T/2 + d)
+const lateBy = (loopHz, delayMs) => 0.5 / loopHz + delayMs / 1000;           // seconds
+const kEdge = (loopHz, delayMs, hand, extraB) => (1e-4 + (extraB || 0) + (hand ? 0.0032 : 0)) / lateBy(loopHz, delayMs);
+function verdictFor(K, lane, extraB) {
+  if (!nudge(K, lane.loopHz, lane.delayMs, false, extraB).grows) return 'fine';
+  if (!nudge(K, lane.loopHz, lane.delayMs, true, extraB).grows) return 'only while held';
+  return 'buzzes';
+}
+// the map's grid and one cell: a 48 kHz loop with the rest of the lateness as delay, 12 cycles a cell
+const KX = { lo: 0.01, hi: 10, cols: 24 }, TY = { lo: 0.02, hi: 10, rows: 14 };  // K in N·m/rad, lateness in ms (both log)
+function mapCell(K, ms, hand, extraB) { const loopHz = 48000, delayMs = Math.max(0, ms - 0.5 / loopHz * 1000); return nudge(K, loopHz, delayMs, hand, extraB, false, 12).grows; }
+/* SETUP:END */
+
+const $ = (id) => document.getElementById(id);
+(function sigil() { const s = $('sigil'); let d = ''; for (let i = 0; i <= 160; i++) { const t = 2 * Math.PI * i / 160; d += (i ? 'L' : 'M') + (9 + 7.5 * Math.sin(3 * t + Math.PI / 2)).toFixed(2) + ',' + (9 + 7.5 * Math.sin(2 * t)).toFixed(2); } s.innerHTML = '<path d="' + d + '" fill="none" stroke="#e8b84a" stroke-width="1"/>'; })();
+function el(tag, attrs, ...kids) { const n = document.createElement(tag); for (const [k, v] of Object.entries(attrs || {})) { if (k === 'on') for (const [ev, fn] of Object.entries(v)) n.addEventListener(ev, fn); else if (k === 'class') n.className = v; else if (k === 'html') n.innerHTML = v; else n.setAttribute(k, v); } for (const c of kids) n.append(c); return n; }
+function seg(options, current, onPick) { const g = el('div', { class: 'hhw-seg' }); options.forEach(([val, name]) => g.append(el('button', { class: val === current ? 'hhw-on' : '', on: { click: (ev) => { [...g.children].forEach(x => x.classList.toggle('hhw-on', x === ev.currentTarget)); onPick(val); } } }, name))); return g; }
+
+const St = { step: 1, K: 0.085, lane: 'device-10k', hand: false, damp: 'none', map: null };
+const dampB = () => St.damp === 'rescue' ? RESCUE_B : St.damp === 'brake' ? BRAKE_LOW - 1e-4 : 0;  // the brake replaces the motor's 0.0001, it doesn't add to it
+const laneOf = (id) => LANES.find(l => l.id === id);
+
+// ── the trace view (steps 1 to 4) ──
+const cv = $('plot');
+function ctx() { const r = cv.getBoundingClientRect(), d = window.devicePixelRatio || 1, w = Math.max(280, r.width || 600), h = 230; if (cv.width !== Math.round(w * d)) { cv.width = Math.round(w * d); cv.height = Math.round(h * d); cv.style.height = h + 'px'; } const g = cv.getContext('2d'); g.setTransform(d, 0, 0, d, 0, 0); return { g, w, h }; }
+function drawTrace(res) {
+  const { g, w, h } = ctx(); g.clearRect(0, 0, w, h);
+  const tr = res.trace, peak = 0.05, mid = h / 2 - 8;
+  g.strokeStyle = '#22222e'; g.beginPath(); g.moveTo(0, mid); g.lineTo(w, mid); g.stroke();
+  g.fillStyle = 'rgba(232,184,74,.07)'; g.fillRect(0, 0, w * 0.2, h - 18); g.fillRect(w * 0.8, 0, w * 0.2, h - 18);
+  g.font = '10px JetBrains Mono, monospace'; g.fillStyle = '#4a4a5a'; g.fillText('first fifth', 6, h - 4); g.fillText('last fifth', w * 0.8 + 6, h - 4); g.fillText(res.dur.toFixed(2) + ' s', w - 46, 12);
+  g.strokeStyle = res.grows ? '#ff6b6b' : '#e8b84a'; g.lineWidth = 1.1; g.beginPath();
+  tr.forEach((v, i) => { const x = w * i / Math.max(1, tr.length - 1), y = mid - (mid - 6) * Math.max(-1.4, Math.min(1.4, v / peak)) / 1.4; i ? g.lineTo(x, y) : g.moveTo(x, y); });
+  g.stroke();
+}
+let pending = 0;
+function rerun() { clearTimeout(pending); pending = setTimeout(() => {
+  const L = laneOf(St.lane), r = nudge(St.K, L.loopHz, L.delayMs, St.hand, dampB(), true); drawTrace(r);
+  $('pstate').innerHTML = r.grows ? '<span style="color:#ff6b6b">grows: it buzzes</span>' : '<span style="color:#e8b84a">dies away</span>';
+  const edge = kEdge(L.loopHz, L.delayMs, St.hand, dampB());
+  $('read').innerHTML = `<span>spring <b>${St.K.toFixed(3)} N·m/rad</b></span><span>push arrives late by <b>${(lateBy(L.loopHz, L.delayMs) * 1000).toFixed(3)} ms</b></span><span>last fifth ÷ first <b class="${r.grows ? 'no' : 'ok'}">${isFinite(r.ratio) ? '×' + r.ratio.toFixed(2) : 'runs away'}</b></span><span>the closed form’s edge <b>${edge.toFixed(3)} N·m/rad</b></span>`;
+}, 40); }
+
+// ── the map (step 5) ── (its grid and its cell rule live in SETUP, so the check runs the same cells)
+function startMap() {
+  const cells = []; for (let j = 0; j < TY.rows; j++) for (let i = 0; i < KX.cols; i++) cells.push({ i, j, K: KX.lo * Math.pow(KX.hi / KX.lo, (i + 0.5) / KX.cols), ms: TY.lo * Math.pow(TY.hi / TY.lo, (j + 0.5) / TY.rows), grows: null });
+  St.map = { cells, next: 0, hand: St.hand, damp: St.damp, verdicts: null };
+  $('table').innerHTML = ''; $('verdict').style.display = 'none';
+  pump();
+}
+function pump() {
+  const M = St.map; if (!M || St.step !== 5) return; const t0 = performance.now();
+  while (M.next < M.cells.length && performance.now() - t0 < 24) { const c = M.cells[M.next++];
+    c.grows = mapCell(c.K, c.ms, M.hand, dampB()); }
+  drawMap();
+  $('pstate').textContent = M.next < M.cells.length ? `the engine is drawing: ${M.next} of ${M.cells.length}` : 'drawn by the engine';
+  if (M.next < M.cells.length) requestAnimationFrame(pump); else finishMap();
+}
+function drawMap() {
+  const { g, w, h } = ctx(); const M = St.map; g.clearRect(0, 0, w, h);
+  const x0 = 46, x1 = w - 8, y0 = 8, y1 = h - 26;
+  const lx = (K) => x0 + (x1 - x0) * Math.log(K / KX.lo) / Math.log(KX.hi / KX.lo);
+  const ly = (ms) => y1 - (y1 - y0) * Math.log(ms / TY.lo) / Math.log(TY.hi / TY.lo);
+  const cw = (x1 - x0) / KX.cols, ch = (y1 - y0) / TY.rows;
+  for (const c of M.cells) { if (c.grows === null) continue; g.fillStyle = c.grows ? 'rgba(255,107,107,.28)' : 'rgba(232,184,74,.05)'; g.fillRect(x0 + c.i * cw, y1 - (c.j + 1) * ch, cw - 1, ch - 1); }
+  // the closed form's edge
+  g.strokeStyle = 'rgba(232,232,240,.7)'; g.setLineDash([5, 4]); g.lineWidth = 1.2; g.beginPath(); let first = true;
+  for (let k = 0; k <= 80; k++) { const ms = TY.lo * Math.pow(TY.hi / TY.lo, k / 80), K = (1e-4 + dampB() + (M.hand ? 0.0032 : 0)) / (ms / 1000); if (K < KX.lo || K > KX.hi) { first = true; continue; } first ? g.moveTo(lx(K), ly(ms)) : g.lineTo(lx(K), ly(ms)); first = false; }
+  g.stroke(); g.setLineDash([]);
+  // the lanes
+  g.font = '10px JetBrains Mono, monospace';
+  for (const L of LANES) { const ms = lateBy(L.loopHz, L.delayMs) * 1000; if (ms < TY.lo) continue; g.strokeStyle = 'rgba(138,138,160,.45)'; g.beginPath(); g.moveTo(x0, ly(ms)); g.lineTo(x1, ly(ms)); g.stroke(); g.fillStyle = '#8a8aa0'; g.fillText(L.id, x1 - 70, ly(ms) + (L.id === 'usb-max' ? 11 : -3)); }
+  // the feels
+  NEEDS.forEach((n, i) => { const x = lx(n.K); g.strokeStyle = '#e8e8f0'; g.lineWidth = 1; g.setLineDash([2, 3]); g.beginPath(); g.moveTo(x, y0); g.lineTo(x, y1); g.stroke(); g.setLineDash([]); g.fillStyle = '#e8e8f0'; g.fillText(String(i + 1), x + (i === 3 ? -9 : 3), y0 + (i === 4 ? 22 : 10)); });
+  // axes
+  g.fillStyle = '#8a8aa0';
+  for (const K of [0.01, 0.1, 1, 10]) g.fillText(String(K), lx(K) - 8, h - 12);
+  g.fillText('stiffness, N·m/rad →', x0, h - 1);
+  for (const ms of [0.1, 1, 10]) g.fillText(ms + ' ms', 2, ly(ms) + 3);
+}
+function finishMap() {
+  const rows = NEEDS.map((n, i) => { const v = LANES.map(L => verdictFor(n.K, L, dampB())); return { n, i, v }; });
+  St.map.verdicts = rows;
+  const cls = { 'fine': 'fine', 'only while held': 'held', 'buzzes': 'buzz' };
+  $('table').innerHTML = '<table><tr><th>feel (N·m/rad)</th>' + LANES.map(L => `<th>${L.id}</th>`).join('') + '</tr>' +
+    rows.map(r => `<tr><td>${r.i + 1} · ${r.n.feel} · ${r.n.K}</td>` + r.v.map(x => `<td class="${cls[x]}">${x}</td>`).join('') + '</tr>').join('') +
+    '<tr><td>LFO, a pitch, beat clicks · played into the hand</td>' + LANES.map(() => '<td class="fine">fine</td>').join('') + '</tr></table>';
+  const soft = rows[0].v, usb = soft[2], audio = soft[3], v = $('verdict');
+  let say = '<b>Stiff feels need the motor.</b> With no hand on the knob, the frets, the string bend and the end stop sit far right of the edge on every lane that crosses a wire, and the bend and the end stop buzz there even when held. ';
+  if (St.damp === 'none') say += (usb === 'fine' && audio === 'fine') ? 'And the soft feels cross the cable, as the page says.' :
+    `<b>But the softest feel on the page doesn’t cross a cable on its own.</b> The pitch-wheel return, at 0.03 N·m/rad, is “${usb}” over USB and “${audio}” as an audio line: with no hand on the knob, the motor’s own damping (0.0001 N·m·s/rad) can’t soak up even 4 ms of lateness. Choose <b>damping kept on the device</b> and it crosses.`;
+  else say += `With ${St.damp === 'rescue' ? 'the device adding 0.002 N·m·s/rad of its own' : 'the motor’s own brake on (its lowest guess)'}, the soft feels cross: the pitch-wheel return is “${usb}” over USB and “${audio}” as an audio line. Soft feels can cross a cable when the damping stays local.`;
+  v.innerHTML = say; v.style.display = '';
+}
+
+// ── the steps ──
+const STEPS = [
+  { n: 1, name: 'a spring on the motor', says: 'One virtual spring, computed on the motor ten thousand times a second. The plot nudges the knob 0.05 radians and lets go, with nothing touching it. The first and last fifths are shaded: if the last swings wider than the first, the spring is feeding itself. Make it stiffer. <b>On the motor, even a stiff spring dies away.</b>' },
+  { n: 2, name: 'put a wire in it', says: 'Same spring, now computed somewhere else: on a slower loop, over USB to Max and back, or sent as an audio line. Each puts time between sensing the angle and pushing. The push lands a little late, after the knob has moved on, and a late push adds energy instead of taking it away. <b>Choose a lane and watch the same spring start to grow.</b>' },
+  { n: 3, name: 'a hand on it', says: 'Now a fingertip holds the knob. Skin has give and damping of its own (the steward assumes 0.0032 N·m·s/rad), thirty times what the motor has. <b>Held, a spring that buzzed alone can be calm.</b> That is the “only while held” in the steward’s tables: fine in the hand, buzzing the moment you let go.' },
+  { n: 4, name: 'damping kept on the device', says: 'The fix the steward found: let the device add damping itself, on its fast loop, and send only the stiffness down the wire. Or leave the motor’s own brake on: driven by voltage, its back-EMF damps the knob for free. <b>Try the softest feel on the page, the pitch-wheel return at 0.03, over USB, hands off, with and without it.</b>' },
+  { n: 5, name: 'the test: the map', says: 'Every cell is one nudge run by the engine: stiffness across, how late the push arrives up the side (both on log scales). Red cells grew. The dashed curve is the closed form below. The grey lines are the four lanes, and the numbered lines are how stiff each feel on the page needs to be. Then the engine runs every feel on every lane, hands off and held. <b>Are the stiff feels only safe near the motor? Do the soft ones cross a cable?</b>' },
+];
+function build() {
+  const s = STEPS[St.step - 1];
+  const rail = $('rail'); rail.innerHTML = '';
+  STEPS.forEach(t => rail.append(el('button', { 'aria-pressed': String(t.n === St.step), on: { click: () => goTo(t.n) } }, t.n + ' · ' + t.name)));
+  $('stepname').textContent = s.n + ' · ' + s.name; $('stepof').textContent = 'step ' + s.n + ' of ' + STEPS.length; $('says').innerHTML = s.says;
+  $('table').innerHTML = ''; $('verdict').style.display = 'none'; $('read').innerHTML = ''; St.map = null;
+  if (St.step === 1) { St.lane = 'device-10k'; St.hand = false; St.damp = 'none'; }
+  if (St.step === 2) { St.hand = false; St.damp = 'none'; if (St.lane === 'device-10k') St.lane = 'usb-max'; }
+  if (St.step === 3) { St.damp = 'none'; }
+  if (St.step === 4) { St.K = 0.03; St.lane = 'usb-max'; St.hand = false; }
+  if (St.step === 5) { St.hand = false; }
+  const c = $('controls'); c.innerHTML = '';
+  if (St.step < 5) {
+    const lab = el('label', { class: 'hhw-sl' }), val = el('b'); val.textContent = St.K.toFixed(3) + ' N·m/rad';
+    const r = el('input', { type: 'range', min: '0', max: '1', step: '0.001', value: String(Math.log(St.K / 0.01) / Math.log(300)) });
+    r.addEventListener('input', () => { St.K = 0.01 * Math.pow(300, +r.value); val.textContent = St.K.toFixed(3) + ' N·m/rad'; rerun(); });
+    lab.append('spring stiffness · ', val, r); c.append(lab);
+  }
+  if (St.step >= 2 && St.step < 5) c.append(seg(LANES.map(L => [L.id, L.label]), St.lane, (v) => { St.lane = v; rerun(); }));
+  if (St.step >= 3) c.append(seg([[false, 'hands off'], [true, 'gripped']], St.hand, (v) => { St.hand = v; St.step === 5 ? startMap() : rerun(); }));
+  if (St.step >= 4) c.append(seg([['none', 'no extra damping'], ['rescue', 'damping kept on the device'], ['brake', 'the motor’s own brake']], St.damp, (v) => { St.damp = v; St.step === 5 ? startMap() : rerun(); }));
+  $('plabel').textContent = St.step === 5 ? 'where a spring stays calm · across: stiffness · up: how late the push arrives' : 'the knob after a small nudge';
+  $('eqs').innerHTML = St.step >= 2 ? '<div class="hhw-eq">K · (T⁄2 + d) &lt; b</div><div class="hhw-words">In symbols: a spring of stiffness K, computed every T seconds and pushed d seconds late, stays calm while K times its lateness is less than the damping b there to soak it up (the motor’s own, a hand’s, or the device’s).</div><div class="hhw-words">In words: a late push acts like negative damping, in proportion to how stiff the spring is and how late it is. Double the delay and only half the stiffness stays calm.</div>' : '';
+  $('honest').innerHTML = St.step === 5 ? '<b>What this can test, and what it can’t.</b> It tests the engine’s knob against its own closed form, with the steward’s assumed numbers: a 40 g cap, a rotor inertia not yet measured, a 4 ms USB round trip and a 2 × 128-sample audio line that are guesses. It can’t test the real motor’s damping, inductance or delay, which the bench will measure, and it uses the ideal knob (no dry friction), which makes every edge a little harsher than a real knob’s.' : '';
+  $('prev').disabled = St.step === 1; $('next').disabled = St.step === STEPS.length;
+  if (St.step === 5) startMap(); else rerun();
+}
+function goTo(n) { if (n !== St.step) { St.step = n; build(); } }
+$('prev').addEventListener('click', () => goTo(Math.max(1, St.step - 1)));
+$('next').addEventListener('click', () => goTo(Math.min(STEPS.length, St.step + 1)));
+window.addEventListener('resize', () => { if (St.step === 5 && St.map) drawMap(); else rerun(); });
+build();
+</script>
+</body>
+</html>
