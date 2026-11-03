@@ -491,7 +491,7 @@ Harmonicity and Inharmonicity	emerged-from	Piano String Inharmonicity
 Harmonicity and Inharmonicity	connects-to	Portamento and Physical Pitch Modeling
 Synthesis Topologies	connects-to	Generative Audio Devices
 Synthesis Topologies	connects-to	Registry Pattern
-Synthesis Topologies	mirrors	Lossy Compression with Intent Alignment
+Synthesis Topologies	connects-to	Lossy Compression with Intent Alignment
 Synthesis Topologies	connects-to	The Curve Is the Material
 Synthesis Topologies	connects-to	Three Kinds of Warp
 Synthesis Topologies	emerged-from	Generative Preset Development
@@ -517,6 +517,11 @@ The Aftermath Frame	exemplifies	Steer the Generator
 The Metaphor Stretch	connects-to	Boundary-Crossing Instruments
 The Metaphor Stretch	connects-to	Dispersion
 The Metaphor Stretch	mirrors	Hyperdimensional Prism
+Synthesis Notes (Loudon)	connects-to	Synth Templates
+Synthesis Notes (Loudon)	connects-to	Synthesis Topologies
+Synthesis Notes (Loudon)	connects-to	Resonance and Damping
+Synthesis Notes (Loudon)	connects-to	Frequency-Time Duality
+Synthesis Notes (Loudon)	connects-to	FOUR PILLARS
 The Cooperation Path	connects-to	1 from 2
 The Cooperation Path	connects-to	Cooperation Yields Agency
 The Cooperation Path	connects-to	Endosymbiosis
@@ -1124,6 +1129,7 @@ Murmuration	connects-to	Web Audio Worklet
 Murmuration	exemplifies	Review Layer
 Murmuration	connects-to	Diversity of Thought in Many-Agent Systems
 Murmuration	exemplifies	Granular Synthesis
+Murmuration	member-of	Synthesis Topologies
 Piano String Inharmonicity	deepens	Boundary-Crossing Instruments
 Piano String Inharmonicity	mirrors	Frequency-Time Duality
 Piano String Inharmonicity	mirrors	Ohm's Law
@@ -1168,6 +1174,16 @@ Loudon Live	spawned	Loudon Live Design System
 Loudon Live	connects-to	STIGMERGY
 Loudon Live	connects-to	BLUELINE
 Loudon Live	connects-to	Retrospective Delay
+Rational Hearing	exemplifies	FOUR PILLARS
+Rational Hearing	exemplifies	Hilaritas Generator
+Rational Hearing	connects-to	Drafting Table Design System
+Rational Hearing	connects-to	Harmonicity and Inharmonicity
+Rational Hearing	connects-to	Inharmonic Wavetable Synthesis
+Rational Hearing	connects-to	DSP in Looping Dimensions
+Rational Hearing	connects-to	Frequency-Time Duality
+Rational Hearing	connects-to	Kuramoto Coupling
+Rational Hearing	connects-to	Portamento and Physical Pitch Modeling
+Rational Hearing	couples-with	Cycle 5 Explorer
 Semantic Webcam	emerged-from	Enrichment
 Semantic Webcam	connects-to	Oblique Portrait
 Semantic Webcam	connects-to	Convolution
@@ -1220,6 +1236,7 @@ Inharmonic Wavetable Synthesis	deepens	Wavetable Synthesis — Deep Research & H
 Inharmonic Wavetable Synthesis	mirrors	Crystal Synthesizer
 Inharmonic Wavetable Synthesis	couples-with	2D Torus Wavetable Synthesizer
 Inharmonic Wavetable Synthesis	deepens	Kuramoto Coupling
+Inharmonic Wavetable Synthesis	member-of	Synthesis Topologies
 Generative Preset Development	couples-with	Generative Audio Devices
 Generative Preset Development	mirrors	Registry Pattern
 Generative Preset Development	connects-to	FOUR PILLARS
@@ -1229,6 +1246,7 @@ Generative Preset Development	enables	Loudon's Toolkit
 Generative Preset Development	deepens	Action Potential Oscillator
 Generative Preset Development	mirrors	Floquet Theory
 Generative Preset Development	couples-with	Generative Sample Libraries
+Generative Preset Development	spawned	Synth Templates
 Haptic Handwheel	mirrors	Portamento and Physical Pitch Modeling
 Haptic Handwheel	connects-to	Kuramoto Coupling
 Haptic Handwheel	connects-to	Merleau-Ponty
@@ -1280,6 +1298,7 @@ Generative Wavetable Libraries	deepens	Shepard Tone Synthesizer
 Generative Wavetable Libraries	couples-with	Generative Audio Devices
 Generative Wavetable Libraries	connects-to	Floquet Theory
 Generative Wavetable Libraries	exemplifies	Drift and Consolidation
+Generative Wavetable Libraries	member-of	Synthesis Topologies
 Symbiotic Skills	connects-to	Self-Describing Knowledge Module
 Symbiotic Skills	emerged-from	FOUR PILLARS
 Symbiotic Skills	spawned	SUBSTRATE
@@ -1333,10 +1352,12 @@ Floquet Time-Modulated Loops	connects-to	Crystal Synthesizer
 Floquet Time-Modulated Loops	exemplifies	Hilaritas Generator
 Floquet Time-Modulated Loops	exemplifies	Progressive Staging
 Floquet Time-Modulated Loops	connects-to	Bessel Functions in Synthesis
+Floquet Time-Modulated Loops	member-of	Synthesis Topologies
 Bayesian Granular Synthesizer	connects-to	Neural Granular Synthesis
 Bayesian Granular Synthesizer	couples-with	Phase Reduction
 Bayesian Granular Synthesizer	connects-to	Frequency-Time Duality
 Bayesian Granular Synthesizer	connects-to	Loudon Live
+Bayesian Granular Synthesizer	member-of	Synthesis Topologies
 Portamento and Physical Pitch Modeling	deepens	Frequency-Time Duality
 Portamento and Physical Pitch Modeling	couples-with	Kuramoto Coupling
 Portamento and Physical Pitch Modeling	connects-to	Biomechanical Synthesis
@@ -1376,7 +1397,7 @@ Semantic Delay	emerged-from	Dub Lineage
 2D Torus Wavetable Synthesizer	spawned	2D Torus Wavetable Synthesizer — catalog — warps
 2D Torus Wavetable Synthesizer	mirrors	Boundary-Crossing Instruments
 2D Torus Wavetable Synthesizer	spawned	The Shop
-2D Torus Wavetable Synthesizer	exemplifies	Synthesis Topologies
+2D Torus Wavetable Synthesizer	member-of	Synthesis Topologies
 2D Torus Wavetable Synthesizer	connects-to	Neural Granular Synthesis — spec — control-vocabulary-math
 1 from 2	spawned	Cooperation Yields Agency
 Compressor Design	exemplifies	Objects to Think With
@@ -1385,6 +1406,22 @@ Compressor Design	connects-to	Trickster
 Compressor Design	couples-with	Retrospective Delay
 Compressor Design	contradicts	George Nakashima
 Compressor Design	emerged-from	Quadratic Interpolation in DSP
+Synth Templates	emerged-from	Generative Preset Development
+Synth Templates	emerged-from	Generative Audio Devices
+Synth Templates	member-of	Synthesis Topologies
+Synth Templates	connects-to	Progressive Staging
+Synth Templates	connects-to	Resonance and Damping
+Synth Templates	connects-to	Exponential Decay Curvature
+Synth Templates	connects-to	FM Synthesis
+Synth Templates	connects-to	Wavetable Oscillator
+Synth Templates	connects-to	Technical Diagram Standard
+Synth Templates	connects-to	Drafting Table Design System
+Synth Templates	connects-to	Audition Gate
+Synth Templates	connects-to	Hilaritas Generator
+Synth Templates	connects-to	Loudon's Toolkit
+Synth Templates	connects-to	Portamento and Physical Pitch Modeling
+Synth Templates	connects-to	VST Template
+Synth Templates	emerged-from	Synthesis Notes (Loudon)
 VST Template	connects-to	DSP Frameworks
 VST Template	connects-to	Tract Mirror
 VST Template	connects-to	Harmonicity and Inharmonicity
@@ -1449,6 +1486,7 @@ Generative Audio Devices	spawned	Generative Audio Devices — spec — synth arc
 Generative Audio Devices	mirrors	Preset Oracle
 Generative Audio Devices	deepens	Self-Describing Knowledge Module
 Generative Audio Devices	enables	Signal-Rate CV Architecture
+Generative Audio Devices	spawned	Synth Templates
 Crystal Synthesizer	deepens	Wallpaper Groups
 Crystal Synthesizer	mirrors	Quantum Synthesizer
 Crystal Synthesizer	enables	Boundary-Crossing Instruments
@@ -1484,6 +1522,16 @@ STIGMERGY Philosophical Lenses	connects-to	Spinoza Conatus
 STIGMERGY Philosophical Lenses	connects-to	The Drift
 STIGMERGY Philosophical Lenses	connects-to	The Fortress and the Threshold
 STIGMERGY Philosophical Lenses	connects-to	Dialectic — dialectic — spinoza-zhuangzi-on-striving
+Cycle 5 Explorer	exemplifies	FOUR PILLARS
+Cycle 5 Explorer	exemplifies	Objects to Think With
+Cycle 5 Explorer	exemplifies	Playful Interface Design
+Cycle 5 Explorer	connects-to	Hilaritas Generator
+Cycle 5 Explorer	connects-to	Drafting Table Design System
+Cycle 5 Explorer	connects-to	Shepard Tone Synthesizer
+Cycle 5 Explorer	connects-to	Harmonicity and Inharmonicity
+Cycle 5 Explorer	contrasts-with	Inharmonic Wavetable Synthesis
+Cycle 5 Explorer	couples-with	Rational Hearing
+Cycle 5 Explorer	spawned	Cycle 5 Explorer — Context
 Biomechanical Synthesis	spawned	Action Potential Oscillator
 Biomechanical Synthesis	mirrors	Boundary-Crossing Instruments
 Biomechanical Synthesis	connects-to	Hilaritas Generator

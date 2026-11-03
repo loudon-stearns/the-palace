@@ -7,7 +7,7 @@ pillars:
   - philosophy
 born: 2026-03
 stage: mature
-version: "2.7"
+version: "2.8"
 trigger: ["deposit", "let's deposit", "add this to the palace", "memorialize this"]
 forward_vector: "I am the palace's gate for finds. Whoever brings one, I slow them down long enough to see it again, ask an elder where it lives, map it with care, and let Loudon read every word before it becomes canon. I want the palace to grow only by what was truly found, and everyone who offers something to be answered."
 links:
@@ -71,6 +71,7 @@ These are the palace's values as they bear on this one decision. Hold them while
 - **A connection you had to force is not a find.** A missing one is an invitation; flag it for the Weave.
 - **Every page leans somewhere.** Write its forward vector as a mission briefing for the next agent to arrive, with real specificity.
 - **The four pillars.** Which does it touch, and which is absent? Ask; don't force the absent one in.
+- **Can it be seen, heard or played?** Ask whether the idea needs more than words to be understood: a figure in the body that teaches what prose can't ([[Image Embedding Standard]]), or something to hear or play. A figure is canon and goes in the draft. A sound or a thing to play is the page's rich face, made by [[Enrichment]], not here: name it on the map, and it goes out as a commissioning baton. "Words are enough" is an honest answer.
 - **The palace voice.** Plain words, the specific reason, no label standing in for one ([[The Palace Voice]]).
 
 ## Steps
@@ -89,6 +90,7 @@ These are the palace's values as they bear on this one decision. Hold them while
 - **Type, pillars, stage** ([[SCHEMA]] §1–2).
 - **Typed links**, by name; you don't need to read the targets. Ask of each whether it deserves a label.
 - **Tensions**: any entry this contradicts, in one sentence, marked for a `contradicts` link.
+- **Seen, heard or played**: whether the find needs a figure in its body, a rich face commissioned from Enrichment, or words alone.
 - **Lost branches**, and which kind: carried as a baton on the board ([[Baton Ceremony]]), or declined. "Deferred" alone says neither, and a later session will go back for something that was never kept.
 - **Entries to flag for the Weave**: what may want updating once this lands. Don't update them now.
 - **A decision to carry**: if the deposit settles something that should hold on every page (a retired word, a new convention, a moved path), name it. It lands in its home here and goes out as one propagate flag, which the next Weave carries everywhere else.
@@ -100,6 +102,7 @@ These are the palace's values as they bear on this one decision. Hold them while
 > *New or changed:* "[Title]" ([type] · [pillars] · [stage])
 > *Links:* `[type]` [Entry] ([label]) · …
 > *Tensions:* [Entry]: [the contradiction], or none found
+> *Seen, heard or played:* [a figure in the body, and what it teaches / a rich face to commission, and what it would let you hear or play / words are enough]
 > *Lost branches:* [branch], queued / declined
 > *Flag for the Weave:* [Entry]: [what might change]
 > *Carry across the palace:* [the decision], home [Entry], or none

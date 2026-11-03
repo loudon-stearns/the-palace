@@ -221,3 +221,18 @@ What each morning taught the practice. Each item names what the morning showed a
 76. **The piece tested the page, and his correction moved the page to its real subject.** The Color Hold tested the page's claim for one held color. He redirected: the page is about storytelling, and color is one tool, unproven as the strongest. The second rough then tested color as the only variable, and its arcs beat its moods. Nothing forced; a case for the bias toward making a piece that tests the page (§ What Loudon decided).
 77. **The prep ran at night, and the hello met the hour.** The prep finished about 23:36 and the greeting said "good evening". He came the next morning, and the clock was read again before meeting him. Prep step 6 held as written. Nothing forced.
 - run · 2026-10-28 · v1.2 · Graphic Storytelling, tune · taught items 74–77
+
+## From the fourteenth morning — Image Embedding Standard, 2026-10-31 (sat 11-02)
+
+78. **The woken page found the morning's crack unprompted.** It saw that its own hero fails its own test, and that "become the ceremony" in its vector was false. Both shaped the trim. The waking could not see its own picture: an agent meets a hero only as a filename. Nothing forced in this card; a wake tool that hands the page its face file's `idiom` line is an idea, not yet ordered.
+79. **The piece tested the page, and his answers moved the rule rather than the pictures.** He matched 7 of 8 heroes blind, and he rated most of them as carrying knowledge. So the standard was right and the faces mostly pass; the page lacked a word for them. On his ear: a matching game wants every title as a choice, not four. Nothing forced; a case for the bias toward making a piece that tests the page.
+80. **A morning's find changed a ceremony and a sibling, on his word.** The Deposit Ceremony went to v2.8 (`afb7e199`), and the stale Deposit line in [[Technical Diagram Standard]] was fixed (`0bfdbcf4`). This is the reach-past-the-page question again (items 50, 70, 73). Nothing forced: item 70 already holds that it goes on his explicit word.
+81. **A late sit passed `--date` again** (items 61, 75). The page was dealt on 10-31 and sat on 11-02. The card's change is still owed under item 61.
+82. **The prep kept the pane clean.** The rough was made with a heredoc and checked in headless Chrome, so the pane stayed clean (items 19, 27). The scheduled task's rename went through (item 64). Nothing forced.
+- run · 2026-10-31 · v1.2 · Image Embedding Standard, trim · taught items 78–82
+
+## From the fifteenth morning — BBS Design System, 2026-11-01 (sat 11-02)
+
+83. **A game's shuffle put the tested dress in the learning rounds.** Find the Ask timed nine rounds in three dresses, and its shuffle dealt two of the three reserved-colour rounds first, while the game was still being learned. Those rounds carried the misses, from instructions that were not yet clear, and the one reserved round played after learning took 1.7 s. The result held anyway (rainbow never beat mono), but the condition under test paid for the learning. **Change owed, open:** a line in prep step 5, that a timed rough opens with a practice round outside the count, or shuffles so that no condition takes the first rounds.
+- Also: a late sit passed `--date` a third time (items 61, 75, 81); the card's change is still owed under item 61. The rough was copied into the receiving page's `proofs` folder and named by its baton, as sit step 6 says; STIGMERGY has no scroll, and the card makes one only for a rough on a kept page, so none was made.
+- run · 2026-11-01 · v1.2 · BBS Design System, fold into STIGMERGY · taught item 83
