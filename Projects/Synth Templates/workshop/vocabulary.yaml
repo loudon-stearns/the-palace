@@ -1,4 +1,4 @@
-# Synth Templates — range vocabulary, draft 0.3. A table marked HEARD was sat by Loudon by ear on the site's vocabulary page; the rest are ASSUMED (numbers set by reasoning). Move 1 of the plan earns them table by table.
+# Synth Templates — range vocabulary, draft 0.6. A table marked HEARD was sat by Loudon by ear on the site's vocabulary page; the rest are ASSUMED (numbers set by reasoning). Move 1 of the plan earns them table by table.
 # The cards speak in these words. This file says what each word means to the reference voice. One word, one meaning, everywhere.
 # Sources for the word list: the archetype registry's perceptual regions (Generative Audio Devices) and Loudon's synthesis notes.
 #
@@ -10,26 +10,26 @@
 #   Sources: the Minimoog Model D service manual (contour generator, Board 2: RC envelope with variable attack, decay, sustain);
 #   AJH MiniMod DH-ADSR manual (circuit identical to the Model D contour generator): the attack "rises in an exponential manner,
 #   i.e. more quickly at first and then more slowly as it gets towards maximum level … the DECAY … again follows an exponential curve".
-time:            # envelope stages, seconds, on the MOOG curve (the standard) — ASSUMED: reset 2026-11-02 when the curve changed; Loudon's linear-attack sitting lives in time_linear
-  instant: 0.002
+time:            # envelope stages, seconds, on the MOOG curve (the standard) — HEARD 2026-11-02 as attack and 2026-11-03 as decay (Loudon; time = the 95% point). The decay sitting moved three rungs up from the attack sitting (instant 0.001 → 0.00488, short 0.0499 → 0.0986, medium 0.336 → 0.575) and the table holds one number per word, so these are the words' meanings for every stage. Release not sat separately: "I feel that decay and release are the same" (Loudon, 2026-11-03).
+  instant: 0.00488
+  fast: 0.0154
+  short: 0.0986
+  medium: 0.575
+  slow: 1.41
+  long: 3.16
+  very slow: 4.18
+  very long: 5
+  gated: 0.05           # not moved
+  same as decay: null   # resolved to the decay value
+time_linear:     # the same words on a LINEAR curve, the second test — HEARD as attack 2026-11-02 (Loudon): sat to sound perceptually the same as the Moog table above, word for word ("I now made linear sound perceptually the same"); decay and release roles not yet sat
+  instant: 0.00112
   fast: 0.01
-  short: 0.12
+  short: 0.0661
   medium: 0.35
   slow: 0.9
   long: 1.6
   very slow: 2.5
-  very long: 3.5
-  gated: 0.05
-  same as decay: null   # resolved to the decay value
-time_linear:     # the same words on a LINEAR curve, the second test — HEARD as attack 2026-11-02 (Loudon; sat when the voice's attack was linear); decay and release roles not yet sat
-  instant: 0.00167
-  fast: 0.0108
-  short: 0.037
-  medium: 0.11
-  slow: 0.256
-  long: 0.974
-  very slow: 2.3
-  very long: 3.5        # not moved
+  very long: 4.4
   gated: 0.05           # not moved
   same as decay: null
 level:           # 0–1 linear gain, also sustain levels

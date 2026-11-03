@@ -43,7 +43,7 @@ links:
   - target: "[[Trickster]]"
     type: connects-to
     label: the-glass-intercepts-and-transforms
-  - target: "[[BBS Design System]]"
+  - target: "[[STIGMERGY]]"
     type: connects-to
     label: mockups-in-its-grammar
   - target: "[[Deleuze]]"
@@ -167,7 +167,7 @@ The Lens is the general primitive behind [[STIGMERGY Philosophical Lenses]] — 
 
 ## Bundle — Sketches
 
-Two interactive mockups live in this entry's bundle (`The Lens/`), in the [[BBS Design System]] grammar:
+Two interactive mockups live in this entry's bundle (`The Lens/`), in [[STIGMERGY#The look|STIGMERGY's]] grammar:
 
 - [The Lens — any-page-through-any-page mockup](<The Lens/The Lens — any-page-through-any-page mockup.html>) — the general operation: load any page (Kuramoto, Endosymbiosis, Stoicism, Deleuze, Ohm's Law) as the glass over a Granular Synthesis entry. Carries the **spark meter** (Ohm's Law deliberately reads LOW — the honest signal problem) and the **propose-link** affordance (a spark becomes a committable typed edge).
 - [The Lens — philosopher refraction+confrontation mockup](<The Lens/The Lens — philosopher refraction+confrontation mockup.html>) — the philosopher special case, demonstrating the two optics: **THROUGH** (the passage refracted into the philosopher's register) vs **CONFRONT** (the philosopher's objection addressed to the text), plus the focal/magnification control.

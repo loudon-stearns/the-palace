@@ -24,7 +24,7 @@ The page is a hub that hands its depth elsewhere:
 
 - **The wire.** The envelope, the message types, the boards: [[SCHEMA]] §9. The page names the types and stops.
 - **The executor.** Permissions and options, health scoring, the manifest, git detection: [[Palace Orchestrator]].
-- **The look.** [[BBS Design System]]. Its link was folded on 2026-10-24 (`0dba352d`), the same day as the link to SCHEMA. Both are still named in the body.
+- **The look.** In the page itself, § The look, folded in from BBS Design System on 2026-11-02, when that page composted.
 - **The words in other traditions.** [[ROSETTA]] §4b. The catcher's checklist is [[Baton Ceremony — on-pickup]], kept as one copy and linted.
 - **The thesis behind "you cannot fake completion".** The time-deck argument, the commit specification and the reconciliation engine are in [[STIGMERGY v1.0 — Palace Front-End]], now in the Archive. Its Revision 3 says it "remains the canonical statement" of all three. The page's strongest sentence rests on a file in `Archive/`.
 - **The Companion.** The entry-agent window (discussion, honest in-place edits, graffiti, undo) was planned (the [[STIGMERGY Entry-Agent Window — Integration Plan v0.1]] in the Archive). Its Maker-dispatch tier was parked by choice, with revival conditions. The page never names it, and whether the branch merged is not recorded.
@@ -32,7 +32,7 @@ The page is a hub that hands its depth elsewhere:
 
 ## What was tried and dropped
 
-- **A curses terminal.** The first host was Python `curses` (`Archive/stigmergy_intro.py`). That path was put aside for a browser that keeps the character-cell look ([[BBS Blackboard]] § BBS Design System).
+- **A curses terminal.** The first host was Python `curses` (`Archive/stigmergy_intro.py`). That path was put aside for a browser that keeps the character-cell look ([[STIGMERGY#The look|§ The look]]).
 - **Boards as the navigation.** v1.0 turned the six boards into lanes under three time decks. The build then re-promoted TRICKSTER and STEWARDS and stacked the old board viewer under the new inbox, so the same decisions showed up in three places. A v1.0 phrase, "Cormorant-register prominence", leaked Loudon Live's serif into a monospace terminal. The v2.0 consolidation of 2026-06-16 healed both ([[STIGMERGY v2.0 — Consolidation & Primary Interface]] § The assessment).
 - **The STEWARDS roster.** The PROJECTS deck replaced it on 2026-09-23 (`4c4e721b`). In the same edit "primary" became "only" way of operating the palace.
 - **Inferred done.** The board once retired a handoff when git or the filesystem seemed to show the work finished. Since 2026-07-07 (`4e8a65df`), only an explicit close retires it.

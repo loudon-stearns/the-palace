@@ -20,6 +20,9 @@ links:
   - target: "[[SCHEMA — Reference]]"
     type: connects-to
     label: bundle-vocabulary
+  - target: "[[Substrate Skill — Context]]"
+    type: spawned
+    label: rationale-archive
 ---
 # Substrate Skill (Palace Edition)
 
@@ -249,7 +252,7 @@ Before anything visual, read the design manifest for the dress it wears ([[CHILD
 
 - **The work itself** — a plugin or AU face, an instrument panel, a part drawing, a tool's UI, a page about a build — wears the **[[Drafting Table Design System]]**. Manifest: `_ops/drafting-table/design-system/SKILL.md`.
 - **What the public channel shows** — a stream card, a session artifact, a slide deck, a learning poster, Loud'n Live's pages — wears the **[[Loudon Live Design System]]**: a small non-negotiable floor (the studio voice, the Lissajous sigil, the nevers — no emoji / no hype) and a house style over six per-stream skins, the home of the **Loud'n Live** projection of Loudon's [[The Multilinear Self|multilinear self]]. Manifest: `_ops/loudon-live/design-system/SKILL.md`. Its footer reads `Loud'n Live` — the wordmark alone (audience named situationally in prose, never stamped on every artifact); no emoji, no CDN icon libraries, no outcome promises in titles. The wordmark grammar and audience-phrasing bank are on its page.
-- **STIGMERGY**, the board and its app, wears the **[[BBS Design System]]**.
+- **STIGMERGY**, the board and its app, wears **its own look** ([[STIGMERGY#The look|STIGMERGY § The look]]).
 
 Each is a floor, not a cage: the reliable default a thing reaches for, departed from deliberately with a reason written down. Invoke the manifest before generating the artifact — the fonts, tokens and full rule set live there. A new context with a dress of its own requires a deliberate decision documented in the artifact's parent entry.
 

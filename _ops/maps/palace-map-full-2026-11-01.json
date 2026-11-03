@@ -1,12 +1,12 @@
 {
   "meta": {
-    "generated": "2026-10-29",
+    "generated": "2026-11-01",
     "scope": "full",
     "node_count": 326,
     "use": {
-      "head": "8630f675",
+      "head": "4405ed0b",
       "window_days": 90,
-      "window_since": "2026-07-31",
+      "window_since": "2026-08-03",
       "sweep_threshold": 10
     },
     "edge_count": 2439,
@@ -611,17 +611,17 @@
       "type": "practice",
       "stage": "mature",
       "has_forward_vector": true,
-      "last_used": "2026-10-26",
+      "last_used": "2026-10-29",
       "use": {
         "page": 14,
-        "bundle": 13,
+        "bundle": 14,
         "linked": 34,
-        "use": 61,
+        "use": 62,
         "recent": {
           "page": 6,
-          "bundle": 10,
+          "bundle": 11,
           "linked": 13,
-          "use": 29
+          "use": 30
         }
       },
       "outbound_count": 5,
@@ -1370,17 +1370,17 @@
       "type": "project",
       "stage": "sprout",
       "has_forward_vector": true,
-      "last_used": "2026-10-28",
+      "last_used": "2026-10-30",
       "use": {
         "page": 1,
-        "bundle": 1,
+        "bundle": 2,
         "linked": 1,
-        "use": 3,
+        "use": 4,
         "recent": {
           "page": 1,
-          "bundle": 1,
+          "bundle": 2,
           "linked": 1,
-          "use": 3
+          "use": 4
         }
       },
       "outbound_count": 9,
@@ -1485,17 +1485,17 @@
       "type": "hub",
       "stage": "mature",
       "has_forward_vector": true,
-      "last_used": "2026-10-26",
+      "last_used": "2026-10-29",
       "use": {
         "page": 27,
         "bundle": 16,
-        "linked": 75,
-        "use": 118,
+        "linked": 76,
+        "use": 119,
         "recent": {
           "page": 14,
           "bundle": 15,
-          "linked": 24,
-          "use": 53
+          "linked": 25,
+          "use": 54
         }
       },
       "outbound_count": 4,
@@ -2566,17 +2566,17 @@
       "type": "concept",
       "stage": "growing",
       "has_forward_vector": true,
-      "last_used": "2026-08-25",
+      "last_used": "2026-10-29",
       "use": {
-        "page": 3,
-        "bundle": 1,
+        "page": 4,
+        "bundle": 2,
         "linked": 7,
-        "use": 11,
+        "use": 13,
         "recent": {
-          "page": 1,
-          "bundle": 0,
+          "page": 2,
+          "bundle": 1,
           "linked": 0,
-          "use": 1
+          "use": 3
         }
       },
       "outbound_count": 3,
@@ -3739,17 +3739,17 @@
       "type": "project",
       "stage": "sprout",
       "has_forward_vector": true,
-      "last_used": "2026-10-25",
+      "last_used": "2026-10-31",
       "use": {
         "page": 2,
-        "bundle": 5,
+        "bundle": 7,
         "linked": 3,
-        "use": 10,
+        "use": 12,
         "recent": {
           "page": 1,
-          "bundle": 3,
+          "bundle": 5,
           "linked": 2,
-          "use": 6
+          "use": 8
         }
       },
       "outbound_count": 3,
@@ -4686,13 +4686,13 @@
       "use": {
         "page": 3,
         "bundle": 1,
-        "linked": 36,
-        "use": 40,
+        "linked": 37,
+        "use": 41,
         "recent": {
           "page": 1,
           "bundle": 0,
-          "linked": 15,
-          "use": 16
+          "linked": 16,
+          "use": 17
         }
       },
       "outbound_count": 7,
@@ -4935,17 +4935,17 @@
       "type": "project",
       "stage": "sprout",
       "has_forward_vector": true,
-      "last_used": "2026-10-29",
+      "last_used": "2026-10-30",
       "use": {
         "page": 2,
-        "bundle": 2,
+        "bundle": 3,
         "linked": 1,
-        "use": 5,
+        "use": 6,
         "recent": {
           "page": 2,
-          "bundle": 2,
+          "bundle": 3,
           "linked": 1,
-          "use": 5
+          "use": 6
         }
       },
       "outbound_count": 10,
@@ -5303,17 +5303,17 @@
       "type": "meta",
       "stage": "foundational",
       "has_forward_vector": true,
-      "last_used": "2026-10-26",
+      "last_used": "2026-10-29",
       "use": {
         "page": 12,
         "bundle": 1,
-        "linked": 87,
-        "use": 100,
+        "linked": 88,
+        "use": 101,
         "recent": {
           "page": 12,
           "bundle": 1,
-          "linked": 87,
-          "use": 100
+          "linked": 88,
+          "use": 101
         }
       },
       "outbound_count": 5,
@@ -6338,17 +6338,17 @@
       "type": "concept",
       "stage": "growing",
       "has_forward_vector": true,
-      "last_used": "2026-10-15",
+      "last_used": "2026-10-29",
       "use": {
         "page": 1,
         "bundle": 0,
-        "linked": 7,
-        "use": 8,
+        "linked": 8,
+        "use": 9,
         "recent": {
           "page": 0,
           "bundle": 0,
-          "linked": 4,
-          "use": 4
+          "linked": 5,
+          "use": 5
         }
       },
       "outbound_count": 6,
@@ -6453,17 +6453,17 @@
       "type": "practice",
       "stage": "growing",
       "has_forward_vector": true,
-      "last_used": "2026-10-25",
+      "last_used": "2026-10-29",
       "use": {
         "page": 7,
-        "bundle": 9,
+        "bundle": 10,
         "linked": 24,
-        "use": 40,
+        "use": 41,
         "recent": {
           "page": 7,
-          "bundle": 9,
+          "bundle": 10,
           "linked": 24,
-          "use": 40
+          "use": 41
         }
       },
       "outbound_count": 10,
@@ -6825,13 +6825,13 @@
       "use": {
         "page": 11,
         "bundle": 1,
-        "linked": 83,
-        "use": 95,
+        "linked": 84,
+        "use": 96,
         "recent": {
           "page": 9,
           "bundle": 1,
-          "linked": 81,
-          "use": 91
+          "linked": 82,
+          "use": 92
         }
       },
       "outbound_count": 5,

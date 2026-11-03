@@ -73,7 +73,7 @@ on the present. Four zones, delimited by HTML-comment markers so machinery can t
   one self-contained file; the palace sizes it and quiets it for you.
 
 The source is **markdown** — a steward's output lands as one appended section, git diffs it
-cleanly, and STIGMERGY renders it natively in the phosphor register (the [[BBS Design System]]
+cleanly, and STIGMERGY renders it natively in the phosphor register (the [[STIGMERGY#The look|STIGMERGY look]]
 carve-out). A standalone HTML export in the [[Loudon Live Design System|Loud'n Live]] style is
 the reading surface for anyone outside the terminal; the live-polling HTML variant below remains
 the right tool for media made in a loop. The file carries the minimal bundle frontmatter of

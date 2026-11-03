@@ -47,6 +47,32 @@ Where this is going: a website generated from the cards, a catalog to choose fro
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="synth-templates-2026-11-03-moog-decay-heard" -->
+### 2026-11-03 — The Moog time table heard as decay; release taken as the same (Loudon)
+
+Loudon sat the Moog `time` table as decay on the site and exported it. Three rungs moved up from the attack sitting: instant 0.001 → 0.00488 s, short 0.0499 → 0.0986, medium 0.336 → 0.575; fast, slow, long, very slow and very long stayed where the attack sitting put them. He did not sit release; his words: "I feel that decay and release are the same." The table keeps one number per word, so these numbers now stand for each word on every stage, attack included, which means the attack rungs he sat yesterday at the fast end are now a little longer than he heard them. `workshop/vocabulary.yaml` is draft 0.6, the table's comment carrying both dates and his quote; the linear table is unchanged; site rebuilt.
+
+_Left rough:_ the question the 2026-11-02 entry raised is now answered in the direction it feared: a short decay wants more time than a short attack, and with one number per word the decay sitting wins. Whether the words split by stage (`time_attack`, `time_decay`) or the attack learns to live with the decay's numbers is Loudon's call; the linear table has only its attack sitting and no decay.
+<!-- /scroll:entry -->
+<!-- scroll:entry id="synth-templates-2026-11-02-linear-matched" -->
+### 2026-11-02 — Second sitting: the linear table matched by ear to the Moog table (Loudon)
+
+Loudon exported again. His words: "So I now made linear sound perceptually the same," and, asked to what, "to moog." `workshop/vocabulary.yaml` is draft 0.5. The Moog `time` table, re-sat as attack in the same export: instant 0.001 s, fast 0.0154, short 0.0499, medium 0.336, slow 1.41, long 3.16, very slow 4.18, very long 5; gated not moved. The linear `time_linear` table, sat as attack to sound the same word for word as the Moog table: instant 0.00112, fast 0.01, short 0.0661, medium 0.35, slow 0.9, long 1.6, very slow 2.5, very long 4.4; gated not moved. Worth keeping: at the long end the linear number sits well under the Moog number for the same perceived attack (long 1.6 against 3.16), because the Moog curve spends its last stretch creeping toward full while the ear has already heard the note arrive; at the fast end the two nearly meet. That gap is the first measured difference between the two curves the Standing Order set up as tests. Site rebuilt.
+
+_Left rough:_ decay and release are still unsat on both curves; every other table is still ASSUMED.
+<!-- /scroll:entry -->
+<!-- scroll:entry id="synth-templates-2026-11-02-moog-attack-heard" -->
+### 2026-11-02 — The Moog time table heard, as attack (Loudon)
+
+Loudon sat the Moog-curve `time` table on the site and exported it; his word for the sitting: "for attack." `workshop/vocabulary.yaml` is draft 0.4: `time`, on the Moog curve, the standard, is HEARD as attack 2026-11-02 with instant 0.001 s, fast 0.00531, short 0.0236, medium 0.127, slow 0.717, long 1.23, very slow 2.28; very long 3.5 and gated 0.05 not moved. `time_linear` keeps his earlier linear-attack sitting unchanged. Both tables now carry a heard attack column and the two differ word for word, the Moog numbers shorter at the fast end and longer at the slow end, which is the comparison the two tests were set up to show. Site rebuilt with the numbers.
+
+_Left rough:_ the decay and release roles of the time words are not yet sat on either curve; every other table is still ASSUMED.
+<!-- /scroll:entry -->
+<!-- scroll:entry id="synth-templates-2026-11-02-moog-deposit" -->
+### 2026-11-02 — The envelope-curve findings deposited (Loudon)
+
+What this project learned about the Moog contour, the ease-in naming clash and curve shape as a confound on heard time was folded into [[Exponential Decay Curvature]] on Loudon's word ("Id like to fold into Exponential decay curvature"): D-2026-11-02-MOOGCURVE, landed on main as `f5e8769e`, with a reciprocal link back to this project. The earlier entry's left-rough line, that the DH-ADSR manual could not be reached and is not cited, is settled: it was reached today, its sentences verified by three readers from the PDF's text, and the deposit cites it.
+<!-- /scroll:entry -->
 <!-- scroll:entry id="synth-templates-2026-11-02-moog-curve" -->
 ### 2026-11-02 — The Moog curve: research, a mismatch found, the standard set, the time table reset (Loudon)
 

@@ -29,6 +29,9 @@ links:
     label: access-through-shell
   - target: "[[Creative Coach]]"
     type: connects-to
+  - target: "[[Lateral Access — Context]]"
+    type: spawned
+    label: rationale-archive
 forward_vector: "I want to practice and develop productive oblique methods in the vigorous furtherance of science — helping all palace citizens work together toward their common joyful future."
 ---
 

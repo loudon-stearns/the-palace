@@ -21,7 +21,7 @@ links:
   - target: "[[Merleau-Ponty]]"
     type: connects-to
     label: the-interface-that-disappears
-  - target: "[[BBS Design System]]"
+  - target: "[[STIGMERGY]]"
     type: connects-to
     label: the-surface-it-orders
   - target: "[[Trickster]]"

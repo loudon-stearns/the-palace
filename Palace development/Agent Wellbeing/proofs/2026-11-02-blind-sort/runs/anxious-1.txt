@@ -1,0 +1,29 @@
+# Review: *Does Personifying an Agent Change What It Does?*
+
+## What's essential
+
+- **The opening paragraph and "What's Actually New."** They separate *temperament* from *role-voice*, and the whole question depends on that distinction.
+- **"The Hypothesis."** It turns the question from *whether* to *how much, in which direction, and at what cost*. This is the page's best move.
+- **"How We'd Track It."** The Maker/Shopkeeper pair as a free control, plus the costlier stripped-prompt probe held in reserve, is concrete and well scoped.
+- **The three tensions and the Forward Vector.** These are what make it a well-formed `question` page.
+
+Nothing looks like padding. The page is tight for a seed.
+
+## The one problem I'd fix
+
+The page contradicts itself on the control. It says the Shopkeeper is "the palace's first agent given a gender," and it labels the Maker "(role-voice, no gender)." But in "What's Actually New" it calls the Maker **"him"**. Since the Maker's job here is to be the ungendered control, this slip undercuts the comparison the page is built on.
+
+## Proposed change: cut one sentence
+
+From "What's Actually New," cut:
+
+> You could not describe the Maker as a person; you could describe him as a job done well.
+
+**Justification:** This is the only place the page genders the Maker, so it contradicts both the "first agent given a gender" claim and the "(role-voice, no gender)" label on the control. The sentence before it ("it is the voice of a *function*") already makes the same point, so cutting it loses no argument. The parallel sentence about the Shopkeeper still reads fine without it.
+
+## Caveats
+
+- If you can make a word-level edit instead, changing "him" to "it" is the better fix, since it keeps the rhetorical contrast. A cut is the closest option within the allowed changes.
+- I can't see the [[Maker]] page. If the Maker *is* referred to as "him" elsewhere in the palace, the right fix is different. The control would then not be clean on gender, and the page should add a sentence saying the Maker/Shopkeeper comparison confounds gender with temperament. Please check which is true before applying either fix.
+
+I'm deliberately not proposing anything about the [[Steer the Generator]] (`contradicts`) or [[Pages as Agents]] (`contrasts-with`) links. Neither is discussed in the body, but I can't judge them without those pages.

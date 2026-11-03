@@ -26,7 +26,7 @@ Eno's retained memory. Loaded when he is re-cast (a Dialectic, an Excellent Adve
 
 **The rule is perspective** *(Loudon, 2026-07-02)*: *"I remember what I said and what I thought about, and I remember what they said — but I don't remember what they thought."* So this file carries Eno's own STANDING / INNER / OUTER and the other party's OUTER only. The god's-eye transcript, with both sides' private thoughts, lives at the palace root (that is the coordinator's record, not Eno's memory).
 
-Self-edits are **earned across several retained encounters, not applied after one** — so the "what I proposed changing" below is preserved here as intent, held until the drift is consistent. See [[Making a Palace Citizen — context]].
+Self-edits are **earned across several retained encounters, not applied after one** — so the "what I proposed changing" below is preserved here as intent, held until the drift is consistent. See [[Making a Palace Citizen — tuning]].
 
 ---
 

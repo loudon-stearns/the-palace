@@ -230,3 +230,24 @@ What each morning taught the practice. Each item names what the morning showed a
 81. **Item 59 seen again.** The dealer listed BLUELINE's own bundle pages and `Shop/Blender` as forward ghosts; all exist. Still owed in `deal.py`.
 - Also: the woken page asked for a cut with sound and one finish over its six boards. The prep made two blind cuts over the real song with the boards as they were; the finish went to the page's baton.
 - run · 2026-10-29 · v1.2 · BLUELINE, tune · taught items 78–81
+## From the fourteenth morning — Image Embedding Standard, 2026-10-31 (sat 11-02)
+
+78. **The woken page found the morning's crack unprompted.** It saw that its own hero fails its own test, and that "become the ceremony" in its vector was false. Both shaped the trim. The waking could not see its own picture: an agent meets a hero only as a filename. Nothing forced in this card; a wake tool that hands the page its face file's `idiom` line is an idea, not yet ordered.
+79. **The piece tested the page, and his answers moved the rule rather than the pictures.** He matched 7 of 8 heroes blind, and he rated most of them as carrying knowledge. So the standard was right and the faces mostly pass; the page lacked a word for them. On his ear: a matching game wants every title as a choice, not four. Nothing forced; a case for the bias toward making a piece that tests the page.
+80. **A morning's find changed a ceremony and a sibling, on his word.** The Deposit Ceremony went to v2.8 (`afb7e199`), and the stale Deposit line in [[Technical Diagram Standard]] was fixed (`0bfdbcf4`). This is the reach-past-the-page question again (items 50, 70, 73). Nothing forced: item 70 already holds that it goes on his explicit word.
+81. **A late sit passed `--date` again** (items 61, 75). The page was dealt on 10-31 and sat on 11-02. The card's change is still owed under item 61.
+82. **The prep kept the pane clean.** The rough was made with a heredoc and checked in headless Chrome, so the pane stayed clean (items 19, 27). The scheduled task's rename went through (item 64). Nothing forced.
+- run · 2026-10-31 · v1.2 · Image Embedding Standard, trim · taught items 78–82
+
+## From the fifteenth morning — BBS Design System, 2026-11-01 (sat 11-02)
+
+83. **A game's shuffle put the tested dress in the learning rounds.** Find the Ask timed nine rounds in three dresses, and its shuffle dealt two of the three reserved-colour rounds first, while the game was still being learned. Those rounds carried the misses, from instructions that were not yet clear, and the one reserved round played after learning took 1.7 s. The result held anyway (rainbow never beat mono), but the condition under test paid for the learning. **Change owed, open:** a line in prep step 5, that a timed rough opens with a practice round outside the count, or shuffles so that no condition takes the first rounds.
+- Also: a late sit passed `--date` a third time (items 61, 75, 81); the card's change is still owed under item 61. The rough was copied into the receiving page's `proofs` folder and named by its baton, as sit step 6 says; STIGMERGY has no scroll, and the card makes one only for a rough on a kept page, so none was made.
+- run · 2026-11-01 · v1.2 · BBS Design System, fold into STIGMERGY · taught item 83
+
+## From the sixteenth morning — Agent Wellbeing, 2026-11-02
+
+84. **The copy button carried the answers, and item 74's fragility did not bite.** The Blind Sort copied his sort out as one block, and he pasted it, so nothing depended on the pane keeping the page's state. Nothing forced; a case for item 74's "copy them out" option, still owed there.
+85. **An approved line claimed an origin the page's history contradicts.** The new section opened "The page began with a science-fiction worry", but the page's first text (`acd58027`, 2026-03-20) was already the design argument, and already disclaimed that worry. The Concierge read the page's git history before committing, and caught it after the words were approved and written but before landing. The fix, "The idea behind this page began with…", was approved and committed on the branch (`bd8feb78`). Nothing forced; a case for item 31: a reader who checks a claim against the record, without having made it, is worth keeping, and a claim about where a page came from is checkable in git.
+- Also: the woken page proposed, unprompted, the test the prep had already built, as in items 58 and 78. Nothing forced.
+- run · 2026-11-02 · v1.2 · Agent Wellbeing, tune · taught items 84–85

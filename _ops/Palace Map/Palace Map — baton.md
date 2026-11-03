@@ -11,7 +11,7 @@ forward_vector: "I carry the in-progress move on [[Palace Map]] across a boundar
 # Baton: Palace Map
 
 ## Move
-Build the map's keeper, starting with its tools: the triple checker and three new verbs in `palace-map.py`. That is the first of three moves in the Plan agreed 2026-10-23 on this page's scroll (trail entry `plan-2026-10-23`); the keeper itself and its first runs follow.
+Build the map's keeper itself: a new [[Agent Toolbox]] profile with Read and Bash and nothing else, generated with `node _ops/agent-toolbox/generate.mjs`; a charter at `_ops/palace-map-keeper/charter.md` — Sonnet, spawned once and re-addressed, the whole edge list read at boot, an intuition formed and then tested with the scripts, every edge answered as a checked triple and every count from a script, with a log of what it believed and what the test said, and `verify-triples.py` run on its own answer before it hands back. That is the second of three moves in the Plan agreed 2026-10-23 on this page's scroll (trail entry `plan-2026-10-23`); the tools came first and landed, the first runs follow.
 
 ## Why this move matters
 The test showed an LLM holding the whole map makes the best finds and the worst counts. The keeper is only trustworthy if counting and checking are in scripts it cannot skip, so the tools come before the agent.
@@ -23,12 +23,13 @@ The test showed an LLM holding the whole map makes the best finds and the worst 
 - **Raw shared-neighbour counts for rhymes:** swamped by hubs (FOUR PILLARS, Kuramoto Coupling, Hilaritas Generator). The hybrid set aside pages with 40+ neighbours before ranking. The script-only run rejected Manim CE ~ Stable Audio Open: 8 shared neighbours, mostly Shop and toolbox pages, so not a rhyme.
 
 ## Current state
-- Proof and raw files: `_ops/Palace Map/proofs/` (front page `Palace Map — proof — map-agent-test.md`; files in `2026-10-23-map-agent-test/`). `verify.py` and `grade_creative.py` there are the seeds of Move 1; the hybrid's `hybrid/chk.py` and `chk2.py` are its own typed-path and shared-neighbour scripts.
-- Ground truth to test against: mirrors-only Kuramoto Coupling → Haptic Handwheel is 4 hops; mirrors-only Kuramoto Coupling → Stoicism has no route (Stoicism has no `mirrors` edges).
-- `palace-map.py` errors if `--json` comes after the verb.
+- **Move 1 landed, 2026-11-03, `1c6da6a0`.** `_ops/swarm/verify-triples.py` checks every `[Source | relation | Target]` in a text against a build (exit 1 on a fake). `palace-map.py` gained `path --only <t1,t2>`, `rhymes "<Entry>" [--n] [--hub-cutoff 40] [--min-common 3]` and `connected <A> <B> …`; `--json` and `--map` work before or after the verb. `test-palace-map.py`'s KeeperTools class holds the ground truth below against the 2026-10-23 build taken from git (`4ad369c2`); 13 tests pass.
+- Proof and raw files: `_ops/Palace Map/proofs/` (front page `Palace Map — proof — map-agent-test.md`; files in `2026-10-23-map-agent-test/`). The hybrid's `hybrid/chk.py` and `chk2.py` are the typed-path and shared-neighbour rules the verbs now carry.
+- Ground truth, pinned to the 2026-10-23 build: mirrors-only Kuramoto Coupling → Haptic Handwheel is 4 hops; mirrors-only Kuramoto Coupling → Stoicism has no route (Stoicism has no `mirrors` edges). On today's build the mirrors route is 5 hops, since the 10-24 Weave re-cut the graph.
+- Not yet made: the toolbox profile, `_ops/palace-map-keeper/`, and the keeper's declared job on [[Palace Map]] (what to ask it, what comes back).
 
 ## Next move
-Write `_ops/swarm/verify-triples.py` from the proof's `verify.py` (taking the build as an argument, defaulting to the newest), then add `path --only`, `rhymes` and `connected` to `palace-map.py` with tests in `test-palace-map.py`. Run each against the ground truth above.
+Move 2's first step: read `_ops/agent-toolbox/generate.mjs` and the existing profiles (`.claude/agents/palace-reader.md`, `palace-writer.md`, `palace-orchestrator.md`) to see how a profile is declared, then draft the keeper's profile (Read and Bash only) and the charter at `_ops/palace-map-keeper/charter.md` as words for Loudon to read — Move 2 changes [[Agent Toolbox]] and [[Palace Map]], so it comes to him before it is written. The open question on the scroll's Plan goes with it: the edge list alone at boot, or the JSON's per-node fields beside it.
 
 ## Calibrations from this session
 - Loudon wants the keeper creative first: "how can the power of an LLM with a map in context go beyond simple answers and into creative explorations?" Its value is constellations, typed paths, walks and rhymes, not lookups.

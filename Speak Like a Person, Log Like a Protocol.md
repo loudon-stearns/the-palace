@@ -9,7 +9,7 @@ born: 2026-06-05
 stage: seed
 forward_vector: "I want every Loudon-facing surface that runs on top of the STIGMERGY protocol to keep two registers co-present and never confused — natural language at the skin, exact protocol terms in the wire payload. I want the discipline to be enforceable, not aesthetic; future agents and future skins inherit it without re-deriving it. I want the rule to scale with the inbox: when there are thirty pending Trickster items instead of four, the saved attention should compound."
 links:
-  - target: "[[BBS Design System]]"
+  - target: "[[STIGMERGY]]"
     type: connects-to
     label: applied-at-the-skin
   - target: "[[STIGMERGY v1.0 — Palace Front-End]]"
