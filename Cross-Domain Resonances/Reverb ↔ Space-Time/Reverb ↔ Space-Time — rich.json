@@ -65,6 +65,17 @@
         "by": "maker · claude-opus-5-5 · proposal round",
         "round": "proposal-round-2026-11"
       },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Reverb ↔ Space-Time — rich — one clap, one room.html",
+            "verdict": "remake",
+            "why": "A real test that caught the 29 ms slip; numbers reproduce independently. But 'Sabine barely sees it' misreads its own figures (Sabine moves 0.99→0.74 s; the box's first 15 dB barely moves, its late decay lengthens), the two-slope decay is the bare specular box's and only the fine print says so, and the floor is 7.3 ms in the low room, not 9: fix the heading, add a 'how far a box stands for a real room' paragraph (the second half of Loudon's comment), say 7–9 ms."
+          }
+        ]
+      },
       "pieces": [
         {
           "file": "Reverb ↔ Space-Time — rich — one clap, one room.html",
@@ -88,6 +99,17 @@
         "date": "2026-11-03",
         "by": "maker · claude-opus-5-5 · proposal round",
         "round": "proposal-round-2026-11"
+      },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Reverb ↔ Space-Time — rich — a delay becomes a place.html",
+            "verdict": "keep",
+            "why": "Walks up from ITD to Haas to a split the reader finds, which can fall outside the page's 10–30 ms; comb numbers right (25 ms: 20, 60, 100 Hz…, 500 notches). Note: the page's sentence is about loudspeakers and the piece is on headphones, disclosed; cite the thresholds to Wallach 1949 and Blauert, not Litovsky 1999 unread."
+          }
+        ]
       },
       "pieces": [
         {
@@ -113,6 +135,17 @@
         "by": "maker · claude-opus-5-5 · proposal round",
         "round": "proposal-round-2026-11"
       },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Reverb ↔ Space-Time — rich — sitting in a box.html",
+            "verdict": "remake",
+            "why": "A real test the page passes; 0.21 Hz reproduces. Words overstate it: overlap is 0.9 at 141 Hz and 2.75 at 244, so 'one each' holds only below ~140 Hz; a local random baseline gives 0.71 Hz, not 1.06; both peak sets drop ~7 dB when the mic moves (6 dB over chance below, 2 above), so 'hold' against 'sink' overstates; 28.6 Hz is mic-here only and under the 30 Hz high-pass. Reword caption and verdict; engine stays."
+          }
+        ]
+      },
       "pieces": [
         {
           "file": "Reverb ↔ Space-Time — rich — sitting in a box.html",
@@ -136,6 +169,17 @@
         "date": "2026-11-03",
         "by": "maker · claude-opus-5-5 · proposal round",
         "round": "proposal-round-2026-11"
+      },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Reverb ↔ Space-Time — rich — where are you.html",
+            "verdict": "remake",
+            "why": "The blind round offers only the page's own place-names, then tells the reader 'notice what you named: a place, not an amount of reverb', which it couldn't fail. Add a free-words box (or non-place choices) and let the verdict read what was written; fix '3 m in every room' (2.48 m in the small room)."
+          }
+        ]
       },
       "pieces": [
         {
