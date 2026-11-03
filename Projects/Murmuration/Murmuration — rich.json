@@ -88,7 +88,18 @@
         }
       ],
       "made_against": "306f40bdfcca",
-      "stamped": "2026-11-03"
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "3d-plate.png",
+            "verdict": "keep",
+            "why": "Shows 'one plane' at a glance; φ 0.17 and 0.70 match three-d/3d-report.json (0.165, 0.699)."
+          }
+        ]
+      }
     },
     {
       "heading": "The Architecture — one plane, three readings",
@@ -154,7 +165,43 @@
         }
       ],
       "made_against": "8606791e6471",
-      "stamped": "2026-11-03"
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Murmuration — rich — one plane.html",
+            "verdict": "keep",
+            "why": "A real test that pushes back: cohesion is flat to 1.25 and gathers only at 1.5–3, and my sweep at η 0, 0.03 and 0.06 shows that holds off the knee too. Note: at η 0 and 0.03 the tightest setting is 2.5, not 3, so 'one tone near 3' is true at the default η only."
+          },
+          {
+            "file": "murmuration-3d.html",
+            "verdict": "keep",
+            "why": "All three readings from one engine, playable; the caption is honest that nobody has heard it in the face."
+          },
+          {
+            "file": "readings.png",
+            "verdict": "keep",
+            "why": "2.02 against 2.67 bits matches engine/distribution_analysis.json (ordered stretch)."
+          },
+          {
+            "file": "reading-distribution.wav",
+            "verdict": "keep",
+            "why": "Gives the pad's sentence a sound; the caption points the ear at the right seconds."
+          },
+          {
+            "file": "gesture.png",
+            "verdict": "keep",
+            "why": "The nearest thing on the page to a test of 'an organic swell no envelope produces'; 0.94→0.54 in 4.17 s, 0.13, 5 birds all match engine/gesture_analysis.json."
+          },
+          {
+            "file": "gesture-place.wav",
+            "verdict": "keep",
+            "why": "+3.3 and +5.6 dB over a 1.9 dB floor match the place strikes A and B."
+          }
+        ]
+      }
     },
     {
       "heading": "The phase transition as the signature macro",
@@ -193,7 +240,28 @@
         }
       ],
       "made_against": "f90d73d74512",
-      "stamped": "2026-11-03"
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Murmuration — rich — the knee.html",
+            "verdict": "remake",
+            "why": "Wording only, in check.mjs summarise() then --build: the 240-bird memory does not hold (new seeds 0.088 at 2.5 se; 60 s settling gives −0.004; a −2.56 se gap of the other sign sits at η 0.11), so say no memory is established; and Grégoire–Chaté was 'disputed for this angular noise, and answered' (Chaté et al. 2008), not just 'disputed'."
+          },
+          {
+            "file": "transition.png",
+            "verdict": "keep",
+            "why": "Evidence, honestly captioned; 'first sixth' of the old linear slider matches Murmuration.html:464-466."
+          },
+          {
+            "file": "page-as-built.wav",
+            "verdict": "keep",
+            "why": "Makes offer 3 heard: the flock orders and the sound doesn't follow (3.38–3.46 bits, engine/takes_analysis.json)."
+          }
+        ]
+      }
     },
     {
       "heading": "Status",
@@ -218,7 +286,18 @@
         }
       ],
       "made_against": "286d710874ec",
-      "stamped": "2026-11-03"
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Murmuration.html",
+            "verdict": "keep",
+            "why": "The instrument, proven equal to the engine (check_page_mapping.js: 0). Note: 'knee at mid-slider' is true at 60 birds; at 120 in the same field the middle moves to about η 0.085, x 0.58."
+          }
+        ]
+      }
     },
     {
       "heading": "Open Decisions",
@@ -240,7 +319,18 @@
         }
       ],
       "made_against": "d8e56f0ee429",
-      "stamped": "2026-11-03"
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "ceiling/ceiling-done.png",
+            "verdict": "keep",
+            "why": "Matches ceiling-headless-chrome.json; the report reads 420 as clean (cleanUpTo 420), so 'right on the line' is the stricter reading, which is fine."
+          }
+        ]
+      }
     },
     {
       "heading": "Forward Vectors",
@@ -263,7 +353,18 @@
         }
       ],
       "made_against": "e4c69197599b",
-      "stamped": "2026-11-03"
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Murmuration — rich — blind pair.html",
+            "verdict": "remake",
+            "why": "The walk-up unblinds it: step 2, 'the other take … the hard version of a hand-dialed cloud', plays take Y, and Y is the copy (blind-key.json). Play one take and the other with neither named, explain the copy away from any take, or shuffle A/B per visit and let the key name both."
+          }
+        ]
+      }
     }
   ]
 }
