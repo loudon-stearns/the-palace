@@ -35,13 +35,13 @@
       "section": "The Second-Order Physical Model",
       "kind": "no-claim-edit",
       "status": "open",
-      "what": "'For ζ = 0.3, overshoot is ~36%.' e^(−πζ/√(1−ζ²)) at ζ = 0.3 is 0.3723, and the integrated glide measures 37.23%. Suggested: '~37%'. The ζ = 0.7 figure (~5%; measured 4.6%) stands."
+      "what": "'For ζ = 0.3, overshoot is ~36%.' A rounding, not a wrong claim: e^(−πζ/√(1−ζ²)) at ζ = 0.3 is 0.3723, and the integrated glide measures 37.23%. Suggested: '~37%'. The ζ = 0.7 figure (~5%; measured 4.6%) stands."
     },
     {
       "section": "The Physical Reality of Portamento",
       "kind": "claim-change",
       "status": "open",
-      "what": "'Vocalists typically overshoot slightly when landing on a note from above—they arrive sharp and then settle. This is underdamped behavior.' On the page's own model the two halves disagree: an underdamped landing from above swings past the note downward and arrives flat (the overshoot piece's last step, turned down: 330 → 220 Hz at ζ = 0.3 swings to 179.0 Hz, 357 cents flat); a landing from above that arrives sharp and settles has not overshot at all. The bundle's own singer render goes the other way (curated-ear-set #10, its spectrogram titled 'untrained singer overshooting from below'). Suggested: 'when landing on a note from below — they arrive sharp and then settle', or keep 'from above' and say 'they arrive flat'. Which singers actually do is not something this piece can say."
+      "what": "'Vocalists typically overshoot slightly when landing on a note from above—they arrive sharp and then settle. This is underdamped behavior.' On the page's own model the two halves disagree: an underdamped landing from above swings past the note downward and arrives flat (the overshoot piece's last step, turned down: 330 → 220 Hz at ζ = 0.3 swings to 179.0 Hz, 357 cents flat); a landing from above that arrives sharp and settles has not overshot at all. The bundle's own singer render goes the other way (curated-ear-set #10, its spectrogram titled 'untrained singer overshooting from below'). Suggested: 'when landing on a note from below — they arrive sharp and then settle', or keep 'from above' and say 'they arrive flat'. Both suggested edits are consistent with the model; which is true is a question about voices, not the equation, and what real singers do is still open (the challenger's line)."
     },
     {
       "section": "Artifacts and Interactive Exploration",
@@ -51,9 +51,9 @@
     },
     {
       "section": "Coupled Modes and Real Instrument Complexity",
-      "kind": "claim-change",
+      "kind": "no-claim-edit",
       "status": "open",
-      "what": "'A slider that begins with a bell-like inharmonic character can end with a nearly harmonic character as the modes compress together.' The bundle's multi-mode study rendered both ways to change pitch (multi-mode/manifest.json): sliding up the neck spreads the partials, 27.6 → 105.5 cents of inharmonicity, toward a bell; raising tension compresses them, 27.6 → 7.0 cents, toward a pure string. Stiffness at fixed tension grows as the string shortens, so the sentence holds for a tension bend or a slide down the neck, and runs backward for a finger sliding up, the paragraph's own example. These are the study's numbers, not this round's measurement. Suggested: 'A bend that raises the tension can begin bell-like and end nearly harmonic as the modes compress; a slide up the neck does the opposite.'"
+      "what": "'A slider that begins with a bell-like inharmonic character can end with a nearly harmonic character as the modes compress together.' The sentence is incomplete, not backward: line 179 names a length change without a direction. The bundle's multi-mode study (multi-mode/manifest.json) rendered both ways to change pitch: sliding up the neck spreads the partials, 27.6 → 105.5 cents of inharmonicity, toward a bell; raising tension compresses them, 27.6 → 7.0 cents, toward a pure string. At fixed tension stiffness grows as the string shortens, so a slide down the neck compresses them too. These are the study's numbers, not this round's measurement; the challenger confirmed the physics. Suggested (the challenger's wording): 'A slide down the neck, or a bend that raises the tension, can begin bell-like and end nearly harmonic as the modes compress; a slide up the neck does the opposite.'"
     }
   ],
   "sections": [
@@ -177,7 +177,7 @@
           "height": 1180,
           "place": "band",
           "title": "the critically damped glide, walked up · four steps",
-          "caption": "**The time-scale sentence, tested.** An easing glide with no mass; the inertia that makes the critical glide start gently; the one clock 1⁄ωₙ that sets its pace; and last the test. Measured on the page's own equation: at 2⁄ωₙ the glide has covered **59.4%** of the way, not ~95%, at every ωₙ. It comes within 5% at **4.74⁄ωₙ**. Cut a fifth short at 2⁄ωₙ and the last leap is 252 cents; cut at the true 95% point, 29. \"Three time constants to 95%\" belongs to step 1's glide, not this one.",
+          "caption": "**The time-scale sentence, tested.** An easing glide with no mass; the inertia that makes the critical glide start gently; the one clock 1⁄ωₙ that sets its pace; and last the test. Measured on the page's own equation: at 2⁄ωₙ the glide has covered **59.4%** of the way, not ~95%, at every ωₙ. It comes within 5% at **4.74⁄ωₙ**. Cut a fifth short at 2⁄ωₙ and the last leap is 252 cents; cut at the true 95% point, 29. The first-order rule, 3τ to 95%, belongs to step 1's glide, not this one; the page never states it, but it may be where the sentence came from.",
           "near": "Two settling times"
         },
         {
@@ -208,7 +208,7 @@
             "files": "manifest.json audio/ spectrograms/"
           },
           "title": "paired exercises · A against B",
-          "caption": "The forward vector's *pairs*: eight curated A-versus-B glides. Tell two near neighbours apart, write one sentence on why, then read the model answer."
+          "caption": "The forward vector's *pairs*: eight curated A-versus-B glides. Tell two near neighbours apart, write one sentence on why, then read the model answer. One thing to know: it plays through an audio element the piece kit doesn't hear, so starting it doesn't quiet another piece on this face (hiding the page does). That is a gap in the kit, not in this page."
         }
       ],
       "stamped": "2026-11-03"
@@ -255,7 +255,7 @@
             "files": "manifest.json audio/ spectrograms/"
           },
           "title": "the ear-set quiz · hear, name, then see",
-          "caption": "**The pedagogical use, as a drill.** A glide plays with its regime hidden; name it, guess the physical system, then the spectrogram reveals whether the ridge rang. Twelve glides, four per regime.",
+          "caption": "**The pedagogical use, as a drill.** A glide plays with its regime hidden; name it, guess the physical system, then the spectrogram reveals whether the ridge rang. Twelve glides, four per regime. One thing to know: it plays through an audio element the piece kit doesn't hear, so starting it doesn't quiet another piece on this face (hiding the page does). That is a gap in the kit, not in this page.",
           "near": "Wavelet spectrograms make the distinction"
         }
       ],
@@ -331,7 +331,7 @@
           "file": "multi-mode/audio/03-bend-into-tune.wav",
           "origin": "gathered",
           "title": "the same octave by tension",
-          "caption": "Raised by tension instead of length: the partials compress (27.6 → 7.0 cents) and the tone walks toward a pure string. This is the bell-to-harmonic glide the paragraph describes; the slide above goes the other way.",
+          "caption": "Raised by tension instead of length: the partials compress (27.6 → 7.0 cents) and the tone walks toward a pure string. This is the bell-to-harmonic glide the paragraph describes, and a slide down the neck, the string getting longer, compresses them the same way; the slide up, above, goes the other way.",
           "near": "A slider that begins with a bell-like"
         },
         {
