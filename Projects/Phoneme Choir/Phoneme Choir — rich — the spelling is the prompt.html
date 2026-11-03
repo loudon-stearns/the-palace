@@ -77,7 +77,7 @@
 <main>
   <div class="eyebrow">Phoneme Choir · the trill that never came · four steps</div>
   <h1>The spelling is the prompt</h1>
-  <p class="lead">The bank was meant to open with a rolled r, <i>brrrrahhh</i>, and Kokoro said something else. The audition files are gone, so these are fresh renders in two of the build’s voices. Set a ruler for what a trill is, read what the model was actually handed, and then try the door the page says isn’t there.</p>
+  <p class="lead">The audition began with a rolled r, <i>brrrrahhh</i>, and Kokoro said something else. The audition files are gone, so these are fresh renders in two of the build’s voices. Set a ruler for what a trill is, read what the model was actually handed, and then try the door the page says isn’t there.</p>
 
   <nav class="rail" id="rail" aria-label="steps"></nav>
   <h2 id="st-title"></h2>
@@ -235,7 +235,7 @@ async function drawOne(key, title) {
 // ---- the four steps ----
 const STEPS = [
   { name: 'a flutter', title: 'A trill is a flutter',
-    say: 'A rolled r is the tip of the tongue tapping the ridge behind the teeth on the breath: usually two or three taps, sometimes up to five (Ladefoged and Maddieson, <i>The Sounds of the World’s Languages</i>, 1996, p. 218), and in measured speech close to 30 a second. That is not a slow “rah-rah”. To have a ruler for it, this step takes Kokoro’s plain <b>brah</b> and dips its level 12 dB, at the rate you choose, for a quarter second: longer than a real trill, so it is easy to hear. It is a model of a flutter, not a trill; it is here to set the ruler.',
+    say: 'A rolled r is the tip of the tongue tapping the ridge behind the teeth on the breath: usually two or three taps, sometimes up to five (Ladefoged and Maddieson, <i>The Sounds of the World’s Languages</i>, 1996, p. 218), and close to 30 a second (26 to 32 across languages, Ladefoged, Cochran and Disner, “Laterals and trills”, 1977). That is not a slow “rah-rah”. To have a ruler for it, this step takes Kokoro’s plain <b>brah</b> and dips its level 12 dB, at the rate you choose, for a quarter second: longer than a real trill, so it is easy to hear. It is a model of a flutter, not a trill; it is here to set the ruler.',
     do: 'Play brah as spoken, then with the flutter. Drag the rate from 4 to 40.', watch: 'The dots under the level line, amber when two or more come in a row at 20 to 45 a second; three in a row is what this page calls a flutter.', hear: 'Near 30, a buzz on the r; below 15, a wobble instead.',
     controls: ['g-fl', 'g-voice', 'ctl-rate'], async draw() {
       const m = await load(await fileOf('brah')), y = withFlutter(m.x, m.sr, S.rate, FLUTTER.depth, FLUTTER.t0, FLUTTER.t1), f = flutter(y, m.sr);
