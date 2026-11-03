@@ -6,8 +6,8 @@ born: 2026-05-04
 stage: growing
 confidence: working
 energy: very high
-version: "2.7"
-trigger: ["enrich [page]", "enrich this page", "let's enrich [page]"]
+version: "2.8"
+trigger: ["enrich [page]", "enrich this page", "let's enrich [page]", "enrich the palace", "proposal round", "enrich these pages"]
 forward_vector: "I am the ceremony that makes one page as rich as the Shop can make it — sound, image and interaction laid beside the entry's own words, which I read live and never copy. I want every enriched page to be something you can play, and every piece I make to test the text rather than decorate it; when a piece teaches the text something, I carry it home — shown to Loudon first, and through the Deposit Ceremony's map when it changes what the page says."
 links:
   - target: "[[Palace Ceremonies]]"
@@ -58,7 +58,9 @@ The plain page stays plain. The `.md` is the considered truth and keeps its beau
 
 ## Trigger
 
-*"Enrich [page]"*, *"enrich this page"*, *"let's enrich [page]"*. One page at a time — depth, not coverage.
+*"Enrich [page]"*, *"enrich this page"*, *"let's enrich [page]"*. One page per agent — depth, not coverage.
+
+**The proposal round.** *"Enrich the palace"*, *"proposal round"*, *"enrich these pages"* runs the ceremony on many pages at once: one agent per page, each in its own worktree, each page still at depth. The round changes three things and nothing else. The plain `.md` is never written during the round — what making teaches the text waits as an offer (step 7). A second agent challenges every piece before it lands (step 6). And every section a round makes carries `status: proposal` until Loudon approves it (§ Proposal and approval). Loudon, 2026-11-03: "all the enrichments are vetted and challenged by other agents before added."
 
 ## The rich face
 
@@ -79,8 +81,15 @@ The renderer, its server and the fingerprint tool are `_ops/rich-face/` (README 
 3. **Make it with the Shop**, at one tier for the whole page — a Sketch tonight, a Study, a Piece over days. The tier is how finished the face is, not where a piece starts: a Sketch still walks up to its test. The [[Maker]] picks the Specialists. Equations appear twice, symbols and words ([[Loudon Live Design System]]). **Each piece declares what it needs from its host** in its own `<head>`; a gathered proof is a record, so its manifest entry carries a `contract` block instead. The rules, and the shelf a CDN library loads from: `_ops/rich-face/README.md` § What the page lets run.
 4. **Verify what can be verified.** Run each piece's engine against the claim it makes; load the page and read the console. Then `node _ops/rich-face/conform.mjs "<Entry>"`, which reads every piece against its declaration and its code and loads each in headless Chromium; put its table in the commit. A file it lists as *only on this Mac* shows a box on the public face: track the ones the face needs, by the step it prints. Name what you couldn't check — an agent can't hear the mix.
 5. **Stamp** each section the run made or checked, by name: `node _ops/rich-face/fingerprint.mjs "<Entry>" --stamp "<Section>"`. A bare `--stamp` covers every drifted section, one held drifted on purpose too (Kuramoto's "Asymmetric Coupling: The Stubbornness Parameter"), so keep it for a page with no section held.
-6. **Carry findings home, split by what they change.** When making a piece teaches the text something: an edit that changes no claim — a unit fixed, a symbol renamed to match the piece — is shown to Loudon before it's written, then re-stamp that section. A finding that changes what the page *says* goes home through the [[Deposit Ceremony]]'s map, which Loudon approves, before it's written.
-7. **Commit** `enrich(<Entry>): <what> — <tier>`. The body names the version the run ran under, what was and wasn't verified, and what this run taught the ceremony ("nothing" is a legal answer); the run marks the tuning file with its run line, and a lesson that changed the spec also goes there as a numbered item.
+6. **The challenge.** A second agent that did not make the face loads the entry, the manifest and every piece, runs `conform.mjs`, and gives each piece a verdict with a reason — **keep**, **remake** or **retire** — against three questions: does it test the claim or decorate it; is it faithful to what the text says; does it walk up ([[Progressive Staging]]). Remake gets one round, then a second verdict. Retire is dropped before landing: the file goes, and the manifest with it. The record stays in the bundle as workshop, `[Entry] — rich — challenge.md`, and the manifest's section carries the verdicts in its `challenge` block. In a single-page run the maker may ask for a challenge; in a proposal round it is not optional.
+7. **Carry findings home, split by what they change.** When making a piece teaches the text something: an edit that changes no claim — a unit fixed, a symbol renamed to match the piece — is shown to Loudon before it's written, then re-stamp that section. A finding that changes what the page *says* goes home through the [[Deposit Ceremony]]'s map, which Loudon approves, before it's written. **In a proposal round nothing is written to the text:** each finding goes into the manifest's `offers` list, named by section and kind (`no-claim-edit` or `claim-change`), and waits there for Loudon; `proposals.mjs` lists the open ones.
+8. **Commit** `enrich(<Entry>): <what> — <tier>`, and in a proposal round `enrich(<Entry>): <what> — <tier> · proposal`. The body names the version the run ran under, what was and wasn't verified, the challenger's verdicts (how many kept, remade, retired, and why each retire), and what this run taught the ceremony ("nothing" is a legal answer); the run marks the tuning file with its run line, and a lesson that changed the spec also goes there as a numbered item.
+
+## Proposal and approval
+
+Every section a proposal round makes carries `status: proposal` in the manifest, with a `proposed` block naming the date, the maker and the round. The face shows a chip on each of that section's figures — *proposal · date* — on the live page and the public one alike, and the page head counts the sections still waiting. Loudon, 2026-11-03: "keep the enrichments as pending or proposal until I approve them. They should still live in the page's rich face, but clearly noted as proposal until I approve or revise them."
+
+Approval is per section and Loudon's alone, at his own pace: a note on the section from the review dock, or his word in chat. `node _ops/rich-face/approve.mjs "<Entry>" "<Section>"` flips the section to `approved` and writes who and how; `--all` takes every proposal section on the page. A revision note is the next round's brief — step 1 already reads every note he left. A section with no `status` is approved: the faces made before this round stand as they are. `node _ops/rich-face/proposals.mjs` lists every section still at proposal across the palace, with its age and its challenger's counts, and every open offer. The field shapes are in `_ops/rich-face/README.md` § The manifest.
 
 ## Drift — how the two faces stay honest
 
@@ -92,7 +101,7 @@ Drift is disclosed, not prevented ([[Drift and Consolidation]]); when the faces 
 
 ## Postcondition
 
-The manifest's sections all read *in step* under `fingerprint.mjs`; every made piece is in the bundle, named and self-describing; the manifest sits in the bundle, so the entry list marks the page enriched; the page renders at `/rich/` with a clean console and its review dock; `conform.mjs` names no error on the face's pieces, or the commit names each one and why it stands; the commit body says what was verified and what wasn't.
+The manifest's sections all read *in step* under `fingerprint.mjs`; every made piece is in the bundle, named and self-describing; the manifest sits in the bundle, so the entry list marks the page enriched; the page renders at `/rich/` with a clean console and its review dock; `conform.mjs` names no error on the face's pieces, or the commit names each one and why it stands; the commit body says what was verified and what wasn't. In a proposal round, also: the `.md` is byte-for-byte what it was; every made section carries `status: proposal`; every piece has a challenger's verdict and no retired piece landed; the challenge record is in the bundle.
 
 ---
 
