@@ -70,7 +70,7 @@ invest in flow-warped noise there. The spine is **not** disproven — it lost on
 leg. It stays the **compositional/FX spine**: the drawn speed-lines, the character-aware dust, the
 comic-register scroll, and — via [[Move the Ink, Don't Redraw It]] — the geometry that *warps the ink*
 (where deterministic displacement beats per-frame AI, boil 0.15 vs 1.50). Full accounting and the next
-coupling (pose → field → clock): [[BLUELINE — Motion and Flow]]. Evidence: `proofs/m3-warped-noise/`.
+coupling (pose → field → clock): [[BLUELINE — Motion and Flow]]. Evidence: `Projects/BLUELINE/proofs/m3-warped-noise/`.
 
 ## Why it's a spine and not a feature
 
