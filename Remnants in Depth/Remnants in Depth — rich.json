@@ -46,7 +46,18 @@
         }
       ],
       "made_against": "ac5cf769573f",
-      "stamped": "2026-11-03"
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Remnants in Depth — rich — flat and in depth.html",
+            "verdict": "keep",
+            "why": "A real test that walks up: the metaball falls to 0.839 at 30° and 0.631 at 90° and its 6 ink pieces become 1 by 70°, all re-derived by the checks; the facing card's 1.000 is a geometric identity at the orbit centre (a control, and the piece says why). Note: step 1's 'drawn mark' is the 147-ball fit seen from the front (IoU 0.944 with synth_001 itself, 6 pieces to its 7); the subtitle should say so."
+          }
+        ]
+      }
     },
     {
       "heading": "The three steps",
@@ -68,7 +79,18 @@
         }
       ],
       "made_against": "06f0fade72e5",
-      "stamped": "2026-11-03"
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "/Hand-Drawn 3D Look/rich-face/blobspace.mp4",
+            "verdict": "keep",
+            "why": "A gathered record, decoration by nature; caption checks out (1120×880, 15 fps, 30 frames) and claims nothing it can't show. The section's testable claim rides on offer 2, which I confirmed."
+          }
+        ]
+      }
     },
     {
       "heading": "The clean composite (the hard-won part)",
@@ -92,7 +114,18 @@
         }
       ],
       "made_against": "8d704d104805",
-      "stamped": "2026-11-03"
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Remnants in Depth — rich — the white square.html",
+            "verdict": "remake",
+            "why": "Its two cards never overlap, so the test can't fail the way June did: with a near card's empty square over a mark a building hides, two layers + BLENDED leak 3,459 ink px through the building, cut off at the card's edge (DITHERED 29). Add that case (placement in the challenge record), rewrite step 5's verdict, note and caption, and drop the June-material sentence: the June session had CLIP and the 0.45 cut in place when it saw the BLENDED rectangle."
+          }
+        ]
+      }
     },
     {
       "heading": "Forward Vectors",
@@ -115,7 +148,18 @@
         }
       ],
       "made_against": "81a68bb6034c",
-      "stamped": "2026-11-03"
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "/Projects/BLUELINE/proofs/blender-handdrawn/followups/flowfield-spatter/montage_comparison.png",
+            "verdict": "keep",
+            "why": "A gathered record with an honest caption: ink 0.080 to 0.164 of the frame, stretch 1 + ELONG_K 2.6 = 3.6, size boost with field strength all check out, and it names the density/size/direction confound the page doesn't."
+          }
+        ]
+      }
     }
   ],
   "offers": [
