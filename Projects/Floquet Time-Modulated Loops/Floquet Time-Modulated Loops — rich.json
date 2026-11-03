@@ -1,0 +1,201 @@
+{
+  "title": "Floquet Time-Modulated Loops — rich",
+  "born": "2026-11-03",
+  "links": [
+    {
+      "target": "[[Floquet Time-Modulated Loops]]",
+      "type": "connects-to",
+      "label": "rich-face-of"
+    },
+    {
+      "target": "[[Enrichment]]",
+      "type": "connects-to",
+      "label": "made-by"
+    }
+  ],
+  "forward_vector": "I am the manifest of Floquet Time-Modulated Loops's rich face: four walks up to the theory's hardest claims — the threshold, the Strutt diagram heard, the unit circle, the sideband ladder — with the build's own media laid beside the paragraphs that describe them, measured, and the fingerprint of the words each piece was made against. I grow when the entry is enriched again; I never hold the entry's words.",
+  "entry": "Floquet Time-Modulated Loops",
+  "tier": "study",
+  "made": "2026-11-03",
+  "round": 1,
+  "sections": [
+    {
+      "heading": "The Theory",
+      "made_against": "466050bbbafb",
+      "made": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "interactives/02_mathieu_simulator.html",
+          "origin": "gathered",
+          "height": 1100,
+          "title": "the Mathieu simulator · media-02, as built",
+          "caption": "**The build's simulator**, unchanged: sliders for a and q, the time series, the phase plane, and a small Strutt inset that colours the current point. Each play is scaled to its own peak, so loudness does not tell a settling point from a growing one; the plots do.",
+          "near": "the Mathieu equation simulator",
+          "contract": {
+            "size": "flow"
+          }
+        },
+        {
+          "file": "Floquet Time-Modulated Loops — rich — threshold.html",
+          "origin": "made",
+          "by": "Web Audio Worklet · monodromy",
+          "height": 1150,
+          "title": "push or pump, and where the threshold sits",
+          "caption": "**The threshold, walked up and then measured.** From perfect rest a pump does nothing at all while a push rings at once; given any nudge, the pump grows the ring by the same factor every period, a straight line of about 900 dB per second at q = 0.2. Then the threshold under your hand, and the test: for the build's damping (ζ = 0.025) one pump period of the equation crosses zero growth at q = 0.0500, which is 2ζ; the textbook rate agrees within 2 % at every depth tried; and with no damping even q = 0.005 grows. The page's “minimum depth” is the damping's doing, as it says.",
+          "near": "The remarkable thing about parametric resonance is that it has a threshold"
+        },
+        {
+          "file": "audio/04a_below_threshold.wav",
+          "origin": "gathered",
+          "title": "media-04a · q = 0.05, labelled below threshold",
+          "place": "margin",
+          "caption": "With the build's own damping the threshold is q = 2ζ = 0.05, so this file sits on it rather than below: a quiet hiss that wanders between about −48 and −27 dBFS and never settles into a ring.",
+          "near": "three short WAV examples"
+        },
+        {
+          "file": "audio/04b_at_threshold.wav",
+          "origin": "gathered",
+          "title": "media-04b · q = 0.10, labelled at threshold",
+          "place": "margin",
+          "caption": "Twice the threshold, not at it. Measured: up from −44 to −10 dBFS within 0.2 s, then a steady ring for the rest of the five seconds. There is no slow build to hear.",
+          "near": "three short WAV examples"
+        },
+        {
+          "file": "audio/04c_above_threshold.wav",
+          "origin": "gathered",
+          "title": "media-04c · q = 0.30, well above",
+          "place": "margin",
+          "caption": "Full within 0.1 s, then steady at −5 dBFS. The three files share one gain, so their levels compare.",
+          "near": "three short WAV examples"
+        },
+        {
+          "file": "static/05_strutt_diagram.png",
+          "origin": "gathered",
+          "title": "the Strutt diagram · media-05, as built",
+          "caption": "**The build's Strutt diagram**, from 30 periods of direct integration at each point. Its colour scale reads slow growth as green, so near the axis the tongues look as though they start above it (tongue 2 near q = 0.8). In the undamped equation every tongue reaches the axis; the piece below traces those edges exactly.",
+          "near": "the Strutt diagram, drawn carefully"
+        },
+        {
+          "file": "Floquet Time-Modulated Loops — rich — strutt map.html",
+          "origin": "made",
+          "by": "Web Audio Worklet · monodromy",
+          "height": 1200,
+          "title": "from one ring to the map of tongues",
+          "caption": "**The Strutt diagram, heard.** A plain ring whose pitch is √a × 220 Hz; the 440 Hz pump on along one line, where a tongue's width is a capture range and the ring locks to half the pump (220.00 Hz anywhere across tongue 1 at q = 0.3, 440.00 Hz across tongue 2); the whole damped map with the undamped edges traced over it; and the test, two points 0.03 either side of a computed edge, run for three seconds through the same resonator from the same noise. On all three edges offered, outside stays hiss (−35 to −44 dB) and inside rings 20 to 25 dB louder.",
+          "near": "the Strutt diagram explorer"
+        },
+        {
+          "file": "audio/20_strutt_sweep.wav",
+          "origin": "gathered",
+          "title": "media-20 · a 30 s sweep of q, 0 → 0.30 → 0",
+          "place": "margin",
+          "caption": "The crack comes about 2 s in, where q passes 0.05, the threshold 2ζ for the build's damping (the build summary says 0.10). The ring fades on the way down at the same depth. Level by the second: −45, −39, −17 … −15, −29, −45 dBFS.",
+          "near": "the Strutt diagram explorer"
+        },
+        {
+          "file": "Experiments/mathieu_tongue.wav",
+          "origin": "gathered",
+          "title": "the tongue crossed sideways · an earlier experiment",
+          "place": "band",
+          "caption": "A 200 Hz resonator pumped at depth h = 0.08 (damping γ = 0.002 ω₀) while the pump's rate sweeps 380 → 420 Hz over 12 s. By the equation the tongue spans pump rates 392 to 408 Hz, 3.6 to 8.4 s in. You hear nothing until about 7.5 s, because the ring is growing from a 10⁻⁶ seed all that time; it peaks just as the pump leaves the tongue and fades over the last three seconds. The capture range is where growth starts; what you hear is where it has added up. The file carries its own soft compression.",
+          "near": "the range of natural frequencies that the pump can lock onto"
+        },
+        {
+          "file": "static/08_multipliers_vs_params.png",
+          "origin": "gathered",
+          "title": "multipliers and parameters · media-08, as built",
+          "caption": "**The build's two views of one fact.** Look where its green “stable” point sits: on the unit circle, not inside it. With no damping that is where every stable multiplier sits, which is what the piece below takes apart.",
+          "near": "the complex plane of characteristic multipliers"
+        },
+        {
+          "file": "Floquet Time-Modulated Loops — rich — multipliers.html",
+          "origin": "made",
+          "by": "monodromy · Web Audio Worklet",
+          "height": 1250,
+          "title": "one period, two multipliers",
+          "caption": "**One period, two multipliers, and the unit circle tested.** One pump period carries a circle of starting states onto an ellipse of the same area (det M = 1). The two multipliers ride the unit circle until they meet at −1 (tongue 1) or +1 (tongue 2) and split. The test: with no damping both sit on |ρ| = 1 at every stable a, so the edge is where they meet (a = 1.2883 at q = 0.3; split and edge agree to four decimals). With κ = 0.1 the stable pair sits at |ρ| = 0.855 and the edge is where the larger crosses 1 (a = 1.2710), which now comes after the split (1.2908).",
+          "near": "the multiplier visualizer"
+        },
+        {
+          "file": "static/10_phase_space_strobe.png",
+          "origin": "gathered",
+          "title": "stroboscope · media-10, as built",
+          "caption": "One dot per pump period. Outside a tongue, at (0.5, 0.1), the dots ride a closed curve; inside, at (1.0, 0.3), they jump from side to side as they spiral out, because the growing multiplier there is negative (−1.59).",
+          "near": "a phase-space portrait of the Mathieu equation"
+        },
+        {
+          "file": "static/12_sideband_ladder.png",
+          "origin": "gathered",
+          "title": "the sideband ladder · media-12, as built",
+          "caption": "**The build's ladder figure**: four shapes, their coefficients, and the open-loop spectrum, where the coefficients are the rungs. The piece below checks that, then puts the same shapes inside a loop.",
+          "near": "the sideband ladder. Top row"
+        },
+        {
+          "file": "Floquet Time-Modulated Loops — rich — sideband ladder.html",
+          "origin": "made",
+          "by": "DFT · RK4",
+          "height": 1150,
+          "title": "where the ladder comes from, and where the derivation stops",
+          "caption": "**The derivation, checked, then put inside a loop.** Ring modulation; four modulators each laid against its own c_n, where every rung from 20 to 700 Hz stands at |c_n| to within 2 × 10⁻⁴; then the test, the same modulators pumping a 220 Hz resonator driven at 220 Hz. There each rung is c_n weighed by the resonator's answer at that frequency (within 1.1 dB at h = 0.05), and deeper pumping adds rungs the modulator does not have: a pure cosine at h = 0.3 puts −27 dB at 60 Hz, where c₋₂ = 0.",
+          "near": "four short WAV examples, one per modulation shape"
+        },
+        {
+          "file": "interactives/15_kapitza_pendulum.html",
+          "origin": "gathered",
+          "height": 950,
+          "title": "the Kapitza pendulum · media-15, as built",
+          "caption": "**The build's Kapitza pendulum**, unchanged: shake the pivot fast and hard enough and the pendulum stands upside down. Its threshold, (a_p Ω)² > 2gL, is the standard Kapitza condition; the 10 % per second damping it adds is cosmetic, as the build notes say.",
+          "near": "the Kapitza pendulum simulator",
+          "contract": {
+            "size": "flow"
+          }
+        }
+      ],
+      "stamped": "2026-11-03"
+    }
+  ],
+  "offers": [
+    {
+      "section": "The Theory",
+      "kind": "no-claim-edit",
+      "what": "media-07 (static/07_tongue_anatomy.png) is wrong and was left off the face: its “outside, bounded” point at a = 0.85, q = 0.3 lies inside tongue 1, whose edges at q = 0.3 are a = 0.689 and 1.288 (|ρ| = 1.537 there; its own inset trace grows to 3 × 10⁵ in 30 periods), and its “boundary” point at a₊ − 0.001 is inside too (|ρ| = 1.036, trace grows 1.0 → 1.5). Re-render with the outside point at a ≈ 0.55 or 1.5 and the boundary trace from the exact edge; its title and region labels also overlap.",
+      "status": "open"
+    },
+    {
+      "section": "The Theory",
+      "kind": "no-claim-edit",
+      "what": "media-04's description (well below / just at, slow build / well above) does not match the files. With the build's damping ζ = 0.025 the threshold is q = 2ζ = 0.0500 (measured from the monodromy), so 04a (q = 0.05) sits on it, 04b (q = 0.10) is twice it and is full within 0.2 s, and 04c within 0.1 s. NOTES.md and audio/04_generate.py say q_c ≈ 4ζ ≈ 0.10, a factor of two high, and BUILD_SUMMARY's media-20 crack “near q ≈ 0.10” is heard at q ≈ 0.05. Re-render media-04 at q = 0.03 / 0.05 / 0.10, or relabel it.",
+      "status": "open"
+    },
+    {
+      "section": "Stage 1 — The Mathieu Resonator",
+      "kind": "claim-change",
+      "what": "Testing protocol step 2 calls q = 0.05 at ratio 2.0 “below the tongue threshold”. With the build's damping (ζ = 0.025) the threshold is exactly q = 0.05, so the step lands on it; with no damping, which step 1 calls ideal, every q > 0 at ratio 2.0 is inside tongue 1 and there is no below. Suggest q = 0.03 and naming the damping the threshold comes from (q_c = 2ζ).",
+      "status": "open"
+    },
+    {
+      "section": "The Theory",
+      "kind": "claim-change",
+      "what": "Floquet exponents: “|ρ| < 1: decays, stable” and “the tongue boundary is precisely the locus where a multiplier sits on the unit circle” describe the damped equation. For ẍ + (a − 2q cos 2t)x = 0 as written, det M = 1 and both multipliers sit on |ρ| = 1 across the whole stable region (100 % of stable a on q = 0.3, to 10⁻⁶), so the edge is where the pair meets at ρ = ±1 and splits, as the page's own question about two multipliers says. With damping κ the stable pair sits at e^(−κπ/2) and the sentence holds (edge 1.2710 at q = 0.3, κ = 0.1, after the split at 1.2908). Suggest naming both cases in the list.",
+      "status": "open"
+    },
+    {
+      "section": "The Theory",
+      "kind": "claim-change",
+      "what": "Sidebands: the derivation multiplies the carrier once and holds exactly there (every rung = |c_n| within 2 × 10⁻⁴). Inside a pumped resonator, Stage 1's case, the c_n are only first order: each rung is c_n weighed by the resonator's response at that frequency (within 1.1 dB at h = 0.05), and deeper pumping adds rungs where c_n = 0 (a pure cosine at h = 0.3 gives −27 dB re carrier at 60 Hz; a square −22.5 dB). So “the modulation's Fourier series is the spectral envelope” and the closing “exactly the two-tone sideband signature of ring modulation” hold to first order in q; suggest saying so.",
+      "status": "open"
+    },
+    {
+      "section": "The Theory",
+      "kind": "no-claim-edit",
+      "what": "Media left off the face because they do not do what the text says or have rendering faults: media-06 scales each click's sound to its own peak (stable and growing points play equally loud, and a = 1 plays near 33 Hz); media-13 pumps at 80 Hz, between tongues for a 220 Hz ring, with noise and no carrier, so its files are pumped hiss whose first sidebands stand about 8 dB above the noise; media-03 has emoji on its buttons; media-01's subtitle lines overprint; media-11 draws bands as straight lines; media-18 shades noise spikes below 4 GHz as tongues. The made pieces stand in for 06, 09 and 13.",
+      "status": "open"
+    }
+  ]
+}
