@@ -1,0 +1,327 @@
+<!doctype html>
+<!--
+  title: The 2.5D Paper Stack — rich — reveal and break
+  born: 2026-11-03
+  links: [[The 2.5D Paper Stack]] connects-to · rich-face-piece-of · [[BLUELINE]] gathers-from · track VI's sky plate, cut into three sheets · [[Multiplane Animation]] connects-to · the flat move in step 3 · [[Hand-Drawn 3D Look]] connects-to · where a real break goes · [[Progressive Staging]] exemplifies · a walk up to its test
+  forward_vector: I am "the two contraries" as a walk of four steps on three real sheets: two sheets with air between
+    them, the stack revealed with its paper showing, the stack flat again under a moving camera, and last the break,
+    tried twice: once out of a flat stack and once out of a stack that has already been showing its depth. I want
+    both contraries to be felt, and I say plainly that a flat sheet turning is as far as a sheet can go.
+  dress: Loudon Live house style, Graphite skin, tokens inlined.
+  engine: the script marked id="rb-engine": the stack's state at a time (turn, air, camera, the figure's break) and
+    the projection of a sheet's anchor through the same perspective the page's CSS uses. The rotation a reader sees
+    before and during the break is read from it.
+  checks: The 2.5D Paper Stack — proof — rich checks.mjs, beside this file.
+  files: four of sheets/ (made by "The 2.5D Paper Stack — rich — make sheets.py") and track VI's plate sky.png.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:files" content="sheets/sheets.json sheets/sky-behind.png sheets/ridge-ink.png sheets/figure-ink.png /Projects/BLUELINE/proofs/track-VI-elemental-motion/plates/sky.png">
+<title>Reveal the stack, then break it</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Manrope:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root { --bg:#0a0a0f; --e1:#12121a; --e2:#1a1a28; --border:#4a4a5e; --soft:rgba(255,255,255,.06);
+    --fg1:#e8e8f0; --fg2:#c8c8d8; --fg3:#8a8aa0; --fg4:#4a4a5a; --amber:#e8b84a; --amberline:rgba(232,184,74,.5);
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --sans:'Manrope',system-ui,sans-serif; --serif:'Cormorant Garamond',Georgia,serif;
+    --ease:cubic-bezier(.4,0,.2,1); }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); font-weight: 300; }
+  .rb-piece { padding: 22px 22px 16px; max-width: 1100px; }
+  .rb-kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; }
+  .rb-title { font-family: var(--serif); font-size: 28px; font-weight: 300; color: var(--fg1); margin: 0 0 6px; }
+  .rb-sub { font-size: 14px; line-height: 1.6; max-width: 76ch; margin: 0 0 16px; }
+  .rb-rail { display: flex; flex-wrap: wrap; margin-bottom: 14px; border: 1px solid var(--border); width: fit-content; max-width: 100%; border-radius: 2px; }
+  .rb-rail button { border: 0; border-right: 1px solid var(--border); border-radius: 0; }
+  .rb-rail button:last-child { border-right: 0; }
+  button { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--fg2); background: var(--bg);
+    border: 1px solid var(--border); border-radius: 2px; padding: 8px 12px; cursor: pointer; transition: color 220ms var(--ease), border-color 220ms var(--ease); }
+  button:hover { border-color: rgba(232,184,74,.55); color: var(--fg1); }
+  button:disabled { opacity: .4; cursor: default; }
+  button[aria-pressed="true"] { color: var(--amber); border-color: var(--amberline); background: rgba(232,184,74,.08); }
+  .rb-rail button[aria-pressed="true"] { border-right: 1px solid var(--border); }
+  button.rb-go { color: var(--amber); border-color: var(--amberline); }
+  button:focus-visible, input:focus-visible { outline: 1px dashed var(--amber); outline-offset: 2px; }
+  .rb-step { display: none; }
+  .rb-step.rb-shown { display: block; }
+  .rb-card { border: 1px solid var(--soft); background: var(--e1); border-radius: 2px; padding: 16px 16px 14px; }
+  .rb-card h2 { font-family: var(--serif); font-weight: 400; font-size: 23px; color: var(--fg1); margin: 0 0 4px; }
+  .rb-idea { font-size: 14.5px; line-height: 1.6; color: var(--fg1); max-width: 78ch; margin: 0 0 12px; }
+  .rb-p { font-size: 13.5px; line-height: 1.6; max-width: 78ch; margin: 8px 0; }
+  .rb-layout { display: grid; grid-template-columns: minmax(240px, 400px) 1fr; gap: 18px; align-items: start; }
+  @media (max-width: 720px) { .rb-layout { grid-template-columns: 1fr; } }
+  .rb-stagewrap { background: #07070b; border: 1px solid var(--soft); border-radius: 2px; padding: 34px 28px; overflow: visible; touch-action: none; cursor: grab; position: relative; z-index: 1; }
+  .rb-stage { position: relative; width: 100%; perspective: 1600px; perspective-origin: 50% 50%; }
+  .rb-world { position: relative; width: 100%; transform-style: preserve-3d; }
+  .rb-clip { position: absolute; inset: 0; transform-style: preserve-3d; }
+  .rb-clip.rb-clipped { overflow: hidden; transform-style: flat; }
+  .rb-sheet { position: absolute; left: 0; top: 0; width: 100%; height: 100%; transform-origin: 50% 50%; pointer-events: none; }
+  .rb-paper .rb-sheet.rb-lift { filter: drop-shadow(0 5px 7px rgba(0,0,0,.55)); }
+  .rb-panel { position: absolute; inset: 0; border: 5px solid #0b0b0b; outline: 1px solid rgba(255,255,255,.18); pointer-events: none; display: none; }
+  .rb-flat .rb-panel { display: block; }
+  .rb-row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 10px 0; }
+  .rb-row label { font-family: var(--mono); font-size: 11px; color: var(--fg3); letter-spacing: .08em; min-width: 9ch; }
+  input[type=range] { accent-color: var(--amber); flex: 1; min-width: 140px; max-width: 320px; }
+  .rb-val { font-family: var(--mono); font-size: 12px; color: var(--fg1); min-width: 7ch; font-variant-numeric: tabular-nums; }
+  .rb-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 8px; margin: 10px 0; }
+  .rb-cell { border: 1px solid var(--soft); background: var(--bg); border-radius: 2px; padding: 8px 10px; }
+  .rb-cell .rb-k { font-family: var(--mono); font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--fg3); }
+  .rb-cell .rb-v { font-family: var(--mono); font-size: 15px; color: var(--fg1); font-variant-numeric: tabular-nums; margin-top: 2px; }
+  .rb-test { font-size: 14px; line-height: 1.6; color: var(--fg1); border: 1px solid var(--soft); background: var(--e2); padding: 10px 12px; border-radius: 2px; max-width: 86ch; margin: 12px 0 4px; }
+  .rb-test b { color: var(--amber); font-weight: 500; }
+  .rb-note { font-family: var(--mono); font-size: 11px; color: var(--fg3); line-height: 1.6; margin: 6px 0 0; }
+  .rb-nav { display: flex; justify-content: space-between; margin-top: 12px; }
+  .rb-foot { display: flex; align-items: center; gap: 8px; margin-top: 16px; font-family: var(--mono); font-size: 11px; letter-spacing: .14em; color: var(--fg3); }
+  .rb-foot i { color: var(--amber); font-weight: 300; }
+  .rb-wait { font-family: var(--mono); font-size: 12px; color: var(--fg3); padding: 18px 0; }
+</style>
+</head>
+<body>
+<main class="rb-piece">
+  <div class="rb-kicker">The 2.5D paper stack · the two contraries</div>
+  <h1 class="rb-title">Reveal the stack, then break it</h1>
+  <p class="rb-sub">The same plate as three sheets of paper: the sky, the ridge, and the walker on it, each cut along its own ink. Four steps: two sheets with air between, the stack revealed, the stack flat again under a moving camera, and last the break, tried two ways.</p>
+  <nav class="rb-rail" aria-label="steps">
+    <button data-go="1" aria-pressed="true">1 · two sheets, air between</button>
+    <button data-go="2" aria-pressed="false">2 · reveal the stack</button>
+    <button data-go="3" aria-pressed="false">3 · flat again</button>
+    <button data-go="4" aria-pressed="false">4 · break the stack</button>
+  </nav>
+  <p class="rb-wait" id="wait">loading the sheets…</p>
+
+  <div class="rb-card" id="card" hidden>
+    <div class="rb-layout">
+      <div class="rb-stagewrap" id="wrap">
+        <div class="rb-stage" id="stage">
+          <div class="rb-world" id="world">
+            <div class="rb-clip" id="clip">
+              <canvas class="rb-sheet" id="sky"></canvas>
+              <canvas class="rb-sheet rb-lift" id="ridge"></canvas>
+            </div>
+            <canvas class="rb-sheet rb-lift" id="fig"></canvas>
+            <div class="rb-panel"></div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <section class="rb-step rb-shown" data-step="1">
+          <h2>1 · Two sheets, air between</h2>
+          <p class="rb-idea">The sky and the ridge (the walker rides on it, for now), cut apart and laid one over the other. With no air and no turn they are one picture. Give them air, then turn them, or drag across the stack.</p>
+          <div class="rb-row"><label for="air1">air</label><input id="air1" type="range" min="0" max="80" step="1" value="0"><span class="rb-val" id="air1v"></span></div>
+          <div class="rb-row"><label for="turn1">turn</label><input id="turn1" type="range" min="-30" max="30" step="1" value="0"><span class="rb-val" id="turn1v"></span></div>
+          <p class="rb-p">At zero air the turn moves the picture as one piece of paper; with air, the ridge slides across the sky and the gap shows. That sliding is all the depth a stack has.</p>
+        </section>
+        <section class="rb-step" data-step="2">
+          <h2>2 · Reveal the stack</h2>
+          <p class="rb-idea">Now the walker is a third sheet, and the paper shows: each sheet throws a shadow on the one behind, and the stack sways a little on its own. The device is part of the look.</p>
+          <div class="rb-row"><button id="paper2" aria-pressed="true">paper shows</button><button id="sway2" aria-pressed="true">sway</button></div>
+          <div class="rb-row"><label for="air2">air</label><input id="air2" type="range" min="0" max="80" step="1" value="40"><span class="rb-val" id="air2v"></span></div>
+          <p class="rb-p">Behind the walker and the ridge is the fill from the sheet maker, a smooth guess at the sky. Turn far enough and you see it; a stack that shows itself has to be cut with that in mind.</p>
+        </section>
+        <section class="rb-step" data-step="3">
+          <h2>3 · Flat again</h2>
+          <p class="rb-idea">The same three sheets, turned square to us inside a panel. The camera drifts sideways and each sheet slides by its own depth: the multiplane move. It still reads as a flat drawing.</p>
+          <div class="rb-row"><button id="drift3" aria-pressed="true">camera drifts</button></div>
+          <div class="rb-row"><label for="cam3">camera</label><input id="cam3" type="range" min="-30" max="30" step="1" value="0"><span class="rb-val" id="cam3v"></span></div>
+          <p class="rb-p">Each sheet moves by the camera's step times its depth: the sky 0.3, the ridge 0.5, the walker 0.55. Nothing turns. The walker's feet are cut inside the ridge's black, so the small slide between them doesn't show.</p>
+        </section>
+        <section class="rb-step" data-step="4">
+          <h2>4 · Break the stack</h2>
+          <p class="rb-idea">The walker tears loose: he leaves his plane, turns, and comes out past the panel. Try it twice. Once out of the flat stack of step 3, once out of the stack of step 2 that has been turning all along. The page says the break only lands because the stack was flat.</p>
+          <div class="rb-row"><button class="rb-go" id="bflat">break from flat</button><button class="rb-go" id="bturn">break from a turning stack</button><button id="reset4">put him back</button></div>
+          <div class="rb-grid">
+            <div class="rb-cell"><div class="rb-k">turn before the break</div><div class="rb-v" id="m4b">–</div></div>
+            <div class="rb-cell"><div class="rb-k">turn in the break</div><div class="rb-v" id="m4d">–</div></div>
+            <div class="rb-cell"><div class="rb-k">contrast</div><div class="rb-v" id="m4c">–</div></div>
+          </div>
+          <p class="rb-note">Turn is the cue that says “3D” here, so the measure is how many degrees of it the eye has already seen in the second and a half before the break, against the degrees in the break itself.</p>
+          <p class="rb-test" id="t4">Break it both ways, then read this.</p>
+        </section>
+      </div>
+    </div>
+  </div>
+
+  <div class="rb-nav"><button id="back">back</button><button id="next">next</button></div>
+  <div class="rb-foot">
+    <svg width="22" height="22" viewBox="-11 -11 22 22" aria-hidden="true"><circle r="10" fill="none" stroke="#4a4a5e" stroke-width="1"/><path id="sig" fill="none" stroke="#e8b84a" stroke-width="1"/></svg>
+    <span>Loud’n <i>Live</i></span>
+  </div>
+</main>
+
+<script id="rb-engine">
+/* The stack's state, as numbers. No DOM. Angles in degrees, lengths in CSS px of the stage. */
+const RB = (() => {
+  const DEPTH = { sky: 0.3, ridge: 0.5, fig: 0.55 };         // multiplane factors for the flat move
+  const BREAK = { dur: 1.6, z: 760, turn: 38, lift: 0.06, out: 0.27 };   // the figure's leave, over dur seconds
+  const ease = (u) => (u <= 0 ? 0 : u >= 1 ? 1 : u < 0.5 ? 4 * u * u * u : 1 - Math.pow(-2 * u + 2, 3) / 2);
+  /* the sway a revealed stack makes on its own */
+  const swayTurn = (t, amp) => amp * Math.sin(2 * Math.PI * t / 6.5);
+  /* how far the figure has broken loose at time u seconds into the break */
+  function breakAt(u) {
+    const k = ease(u / BREAK.dur);
+    return { z: BREAK.z * k, turn: BREAK.turn * k, lift: BREAK.lift * k, out: BREAK.out * k };
+  }
+  /* degrees of turn the eye sees on any sheet across a stretch of time, sampled at 60 per second */
+  function turnSpent(turnOf, t0, t1) {
+    let sum = 0, prev = turnOf(t0);
+    for (let t = t0 + 1 / 60; t <= t1 + 1e-9; t += 1 / 60) { const v = turnOf(t); sum += Math.abs(v - prev); prev = v; }
+    return sum;
+  }
+  /* the two runs of step 4: the stack's own turn before the break, and the figure's turn relative to the stack in it */
+  function runs(swayAmp) {
+    const before = 1.5;
+    const flat = { before: turnSpent(() => 0, 0, before), during: turnSpent((u) => breakAt(u).turn, 0, BREAK.dur) };
+    const turning = { before: turnSpent((t) => swayTurn(t, swayAmp), 0, before), during: turnSpent((u) => breakAt(u).turn, 0, BREAK.dur) };
+    return { flat, turning };
+  }
+  /* screen x of a point at (x, z) in the world after a turn, under the CSS perspective p */
+  function project(x, z, turnDeg, p) {
+    const th = turnDeg * Math.PI / 180, xr = x * Math.cos(th) + z * Math.sin(th), zr = -x * Math.sin(th) + z * Math.cos(th);
+    return xr * p / (p - zr);
+  }
+  return { DEPTH, BREAK, ease, swayTurn, breakAt, turnSpent, runs, project };
+})();
+</script>
+
+<script>
+const $ = (id) => document.getElementById(id);
+const BASE = 'sheets/', PLATE = '../Projects/BLUELINE/proofs/track-VI-elemental-motion/plates/sky.png';
+let W = 0, H = 0, meta = null, step = 1, raf = 0, visible = true;
+const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const st = { air1: 0, turn1: 0, air2: 40, paper: true, sway: !reduce, cam3: 0, drift: !reduce, drag: 0 };
+let brk = null;    // { kind, t0 } while the figure is breaking or broken
+
+function loadImg(src) { return new Promise((res, rej) => { const im = new Image(); im.crossOrigin = 'anonymous'; im.onload = () => res(im); im.onerror = () => rej(new Error('could not load ' + src)); im.src = src; }); }
+function maskedSheet(canvas, src, mask) {
+  canvas.width = W; canvas.height = H;
+  const g = canvas.getContext('2d', { willReadFrequently: true }); g.drawImage(src, 0, 0);
+  const d = g.getImageData(0, 0, W, H);
+  if (mask) {
+    const m = document.createElement('canvas'); m.width = W; m.height = H;
+    const mg = m.getContext('2d', { willReadFrequently: true }); mg.drawImage(mask, 0, 0);
+    const md = mg.getImageData(0, 0, W, H).data;
+    for (let i = 0; i < W * H; i++) d.data[4 * i + 3] = md[4 * i];
+  }
+  g.putImageData(d, 0, 0);
+  return d;
+}
+async function boot() {
+  meta = await (await fetch(BASE + 'sheets.json')).json();
+  const [pi, fi, ri, gi] = await Promise.all([loadImg(PLATE), loadImg(BASE + 'sky-behind.png'), loadImg(BASE + 'ridge-ink.png'), loadImg(BASE + 'figure-ink.png')]);
+  W = pi.naturalWidth; H = pi.naturalHeight;
+  /* the sky sheet: the fill inside the ridge and the figure, the plate everywhere else */
+  const sky = $('sky'); sky.width = W; sky.height = H;
+  const sg = sky.getContext('2d', { willReadFrequently: true });
+  const tmp = document.createElement('canvas'); tmp.width = W; tmp.height = H; const tg = tmp.getContext('2d', { willReadFrequently: true });
+  const read = (im) => { tg.clearRect(0, 0, W, H); tg.drawImage(im, 0, 0); return tg.getImageData(0, 0, W, H).data; };
+  const p = read(pi), f = read(fi), r = read(ri), g = read(gi), out = sg.createImageData(W, H);
+  for (let i = 0; i < W * H; i++) {
+    const hole = r[4 * i] > 127 || g[4 * i] > 127, s = hole ? f : p;
+    out.data[4 * i] = s[4 * i]; out.data[4 * i + 1] = s[4 * i + 1]; out.data[4 * i + 2] = s[4 * i + 2]; out.data[4 * i + 3] = 255;
+  }
+  sg.putImageData(out, 0, 0);
+  maskedSheet($('ridge'), pi, ri);
+  maskedSheet($('fig'), pi, gi);
+  $('wait').remove(); $('card').hidden = false;
+  sizeStage(); show(1);
+}
+function sizeStage() { const w = $('stage').clientWidth; $('world').style.height = (w * H / W) + 'px'; }
+window.addEventListener('resize', () => { sizeStage(); paint(); });
+
+const now = () => performance.now() / 1000;
+const T0 = now();
+/* lay the sheets for the current step and time */
+function paint() {
+  raf = 0;
+  const t = now() - T0, scale = $('stage').clientWidth / W;
+  let air = 0, turn = 0, tilt = 0, cam = 0, flat = false, paper = false, figOn = true;
+  let figZ = null;
+  if (step === 1) { air = st.air1; turn = st.turn1 + st.drag; figZ = air; paper = st.air1 > 0; }
+  if (step === 2) { air = st.air2; turn = (st.sway ? RB.swayTurn(t, 14) : 0) + st.drag; tilt = st.sway ? 3 * Math.sin(2 * Math.PI * t / 9) : 0; paper = st.paper; }
+  if (step === 3) { flat = true; cam = st.drift ? 30 * Math.sin(2 * Math.PI * t / 7) : st.cam3; }
+  if (step === 4) {
+    if (brk && brk.kind === 'turning') { air = 40; turn = RB.swayTurn(t, 14); tilt = 3 * Math.sin(2 * Math.PI * t / 9); paper = true; }
+    else { flat = true; cam = 0; }
+  }
+  $('wrap').classList.toggle('rb-paper', paper);
+  $('stage').classList.toggle('rb-flat', flat);
+  $('clip').classList.toggle('rb-clipped', flat);
+  $('world').style.transform = 'rotateX(' + tilt.toFixed(2) + 'deg) rotateY(' + turn.toFixed(2) + 'deg)';
+  const D = RB.DEPTH, grow = flat ? ' scale(1.04)' : '';
+  $('sky').style.transform = 'translateX(' + (-cam * D.sky * scale).toFixed(2) + 'px) translateZ(0px)' + grow;
+  $('ridge').style.transform = 'translateX(' + (-cam * D.ridge * scale).toFixed(2) + 'px) translateZ(' + air + 'px)' + grow;
+  let figT = 'translateX(' + (-cam * D.fig * scale).toFixed(2) + 'px) translateZ(' + (figZ === null ? 2 * air : figZ) + 'px)' + grow;
+  if (step === 4 && brk) {
+    const u = Math.min(now() - brk.t0, RB.BREAK.dur), b = RB.breakAt(u), w = $('stage').clientWidth;
+    /* he turns and comes forward about his own middle, not the sheet's */
+    const fb = meta.figure_box, ox = ((fb[0] + fb[2]) / 2 - W / 2) * scale, oy = ((fb[1] + fb[3]) / 2 - H / 2) * scale;
+    figT += ' translate(' + (b.out * w).toFixed(1) + 'px,' + (b.lift * w).toFixed(1) + 'px) translate(' + ox.toFixed(1) + 'px,' + oy.toFixed(1) + 'px) translateZ(' + b.z.toFixed(1) + 'px) rotateY(' + (-b.turn).toFixed(2) + 'deg) translate(' + (-ox).toFixed(1) + 'px,' + (-oy).toFixed(1) + 'px)';
+    $('fig').classList.add('rb-lift'); $('wrap').classList.add('rb-paper');
+  }
+  $('fig').style.transform = figT;
+  $('fig').style.display = figOn ? '' : 'none';
+  /* while the figure is broken out of a flat panel, the panel no longer clips him: he is a sibling of the clip */
+  const moving = (step === 1 && st.drag) || (step === 2 && st.sway) || (step === 3 && st.drift) || (step === 4 && brk);
+  if (moving && visible && !document.hidden) raf = requestAnimationFrame(paint);
+}
+const kick = () => { if (!raf) raf = requestAnimationFrame(paint); };
+new IntersectionObserver((es) => { visible = es[0].isIntersecting; if (visible) kick(); }).observe(document.querySelector('.rb-piece'));
+document.addEventListener('visibilitychange', () => { if (!document.hidden) kick(); });
+
+/* drag to turn, in steps 1 and 2 */
+let dragX = null;
+$('wrap').addEventListener('pointerdown', (e) => { if (step > 2) return; dragX = e.clientX - st.drag * 6; $('wrap').setPointerCapture(e.pointerId); });
+$('wrap').addEventListener('pointermove', (e) => { if (dragX === null) return; st.drag = Math.max(-30, Math.min(30, (e.clientX - dragX) / 6)); kick(); });
+$('wrap').addEventListener('pointerup', () => { dragX = null; st.drag = 0; kick(); });
+
+function label() {
+  $('air1v').textContent = st.air1 + ' px'; $('turn1v').textContent = st.turn1 + '°'; $('air2v').textContent = st.air2 + ' px';
+  $('cam3v').textContent = st.drift ? 'drifting' : st.cam3 + ' px';
+  $('paper2').setAttribute('aria-pressed', String(st.paper)); $('sway2').setAttribute('aria-pressed', String(st.sway)); $('drift3').setAttribute('aria-pressed', String(st.drift));
+}
+function show(n) {
+  step = Math.max(1, Math.min(4, n)); brk = null; st.drag = 0;
+  document.querySelectorAll('.rb-step').forEach((s) => s.classList.toggle('rb-shown', +s.dataset.step === step));
+  document.querySelectorAll('.rb-rail button').forEach((b) => b.setAttribute('aria-pressed', String(+b.dataset.go === step)));
+  $('back').disabled = step === 1; $('next').disabled = step === 4;
+  label(); cancelAnimationFrame(raf); raf = 0; paint();
+}
+const runs = RB.runs(14);
+function breakNow(kind) {
+  brk = { kind, t0: now() + (kind === 'turning' ? 1.5 : 0.6) };
+  const tc = now() - T0;
+  if (kind === 'turning') runs.turning.before = RB.turnSpent((t) => RB.swayTurn(t, 14), tc, tc + 1.5);
+  const r = runs[kind];
+  $('m4b').textContent = r.before.toFixed(0) + '°';
+  $('m4d').textContent = r.during.toFixed(0) + '°';
+  $('m4c').textContent = r.before < 0.5 ? 'all of it new' : (r.during / r.before).toFixed(1) + '× what came before';
+  const seen = (brk.seen = brk.seen || {}); seen[kind] = true;
+  window.__rbSeen = Object.assign(window.__rbSeen || {}, { [kind]: true });
+  if (window.__rbSeen.flat && window.__rbSeen.turning) {
+    $('t4').innerHTML = '<b>Out of the flat stack, every degree of the break is new:</b> the eye has seen ' + runs.flat.before.toFixed(0) + '° of turn before it, and then ' + runs.flat.during.toFixed(0)
+      + '°. <b>Out of the turning stack</b> it has already seen ' + runs.turning.before.toFixed(0) + '° in a second and a half, so the break is only ' + (runs.turning.during / runs.turning.before).toFixed(1)
+      + '× what came before (between 2× and 5× over the sway, by where in it you break): the eye already has a turn to measure this one against. That is the page’s contrary held as a number: flatness is what the break breaks. What the number can’t say is whether it landed for you; that part is yours. '
+      + 'And a sheet turning is as far as a sheet can go: past this, the walker needs a body, which is the 3D model’s job, not the stack’s.';
+  }
+  kick();
+}
+document.querySelectorAll('.rb-rail button').forEach((b) => b.addEventListener('click', () => show(+b.dataset.go)));
+$('back').addEventListener('click', () => show(step - 1)); $('next').addEventListener('click', () => show(step + 1));
+$('air1').addEventListener('input', (e) => { st.air1 = +e.target.value; label(); paint(); });
+$('turn1').addEventListener('input', (e) => { st.turn1 = +e.target.value; label(); paint(); });
+$('air2').addEventListener('input', (e) => { st.air2 = +e.target.value; label(); paint(); });
+$('paper2').addEventListener('click', () => { st.paper = !st.paper; label(); paint(); });
+$('sway2').addEventListener('click', () => { st.sway = !st.sway; label(); paint(); });
+$('drift3').addEventListener('click', () => { st.drift = !st.drift; label(); paint(); });
+$('cam3').addEventListener('input', (e) => { st.cam3 = +e.target.value; st.drift = false; label(); paint(); });
+$('bflat').addEventListener('click', () => breakNow('flat'));
+$('bturn').addEventListener('click', () => breakNow('turning'));
+$('reset4').addEventListener('click', () => { brk = null; paint(); });
+function sigil() { let d = ''; for (let i = 0; i <= 200; i++) { const t = i / 200 * 2 * Math.PI; d += (i ? 'L' : 'M') + (8 * Math.sin(3 * t + Math.PI / 4)).toFixed(2) + ' ' + (8 * Math.sin(2 * t)).toFixed(2); } $('sig').setAttribute('d', d); }
+sigil();
+boot().catch((err) => { $('wait').textContent = 'The sheets did not load: ' + err.message; throw err; });
+</script>
+</body>
+</html>

@@ -1,0 +1,125 @@
+{
+ "title": "The 2.5D Paper Stack \u2014 rich \u2014 sheets",
+ "born": "2026-11-03",
+ "links": [
+  {
+   "target": "[[The 2.5D Paper Stack]]",
+   "type": "connects-to",
+   "label": "sheets-for-its-rich-face"
+  },
+  {
+   "target": "[[BLUELINE]]",
+   "type": "emerged-from",
+   "label": "track-VI-sky-plate"
+  }
+ ],
+ "forward_vector": "I am BLUELINE track VI's sky plate cut into sheets with track VI's own cutter, and the record of where the ridge's ink actually ends, so the rich face's pieces test a cut against the drawing. I change only when the plate or the cutter does.",
+ "made_by": "The 2.5D Paper Stack \u2014 rich \u2014 make sheets.py",
+ "plate": "/Projects/BLUELINE/proofs/track-VI-elemental-motion/plates/sky.png",
+ "size": [
+  832,
+  1216
+ ],
+ "figure_box": [
+  348,
+  432,
+  416,
+  540
+ ],
+ "figure_feet_row": 528,
+ "mouth": [
+  381,
+  458
+ ],
+ "ridge_cover": 0.38199606212044535,
+ "density_cover": 0.3773494828567814,
+ "edge_zone": "pixels within 40 px of the ridge-ink edge, leaving out the figure's box (+40 px) and 44 px at the image border",
+ "boundary_px": 2299,
+ "luminance_across_the_ink_edge": {
+  "-3": 0.30998924374580383,
+  "-2": 0.34420740604400635,
+  "-1": 0.4145882725715637,
+  "1": 0.6923086047172546,
+  "2": 0.7569657564163208,
+  "3": 0.7672438621520996
+ },
+ "reference": {
+  "edge": {
+   "name": "hard, at the ink's edge",
+   "carried": 0.0,
+   "left": 0.0,
+   "rest_mean": 0.0,
+   "rest_visible": 0.0
+  },
+  "in2": {
+   "name": "hard, 2 px inside the ink",
+   "carried": 0.0,
+   "left": 1.9317094087600708,
+   "rest_mean": 0.0,
+   "rest_visible": 0.0
+  },
+  "in4": {
+   "name": "hard, 4 px inside the ink",
+   "carried": 0.0,
+   "left": 3.9064810276031494,
+   "rest_mean": 0.0,
+   "rest_visible": 0.0
+  },
+  "out2": {
+   "name": "hard, 2 px outside the ink",
+   "carried": 1.9447585344314575,
+   "left": 0.0,
+   "rest_mean": 0.0,
+   "rest_visible": 0.0
+  },
+  "out4": {
+   "name": "hard, 4 px outside the ink",
+   "carried": 3.892561912536621,
+   "left": 0.0,
+   "rest_mean": 0.0,
+   "rest_visible": 0.0
+  },
+  "f2": {
+   "name": "feather 2 px, centred on the edge",
+   "carried": 0.8973441123962402,
+   "left": 0.8967998623847961,
+   "rest_mean": 1.4794777631759644,
+   "rest_visible": 3.077841808246992
+  },
+  "f6": {
+   "name": "feather 6 px, centred on the edge",
+   "carried": 2.4625093936920166,
+   "left": 2.5551376342773438,
+   "rest_mean": 4.744630813598633,
+   "rest_visible": 9.244274581230778
+  },
+  "f12": {
+   "name": "feather 12 px, centred on the edge",
+   "carried": 4.51223611831665,
+   "left": 5.0411906242370605,
+   "rest_mean": 9.90139389038086,
+   "rest_visible": 18.754889373264458
+  },
+  "o6": {
+   "name": "feather 6 px, pushed outside the ink",
+   "carried": 4.925018787384033,
+   "left": 0.0,
+   "rest_mean": 0.46940404176712036,
+   "rest_visible": 0.785882774476725
+  },
+  "density": {
+   "name": "track VI's density contour, undilated",
+   "carried": 0.0,
+   "left": 1.9443236589431763,
+   "rest_mean": 0.0,
+   "rest_visible": 0.0
+  },
+  "trackvi": {
+   "name": "track VI's own cut: density contour, 2 px dilation, 0.8 px soften",
+   "carried": 0.7956617474555969,
+   "left": 1.1298425197601318,
+   "rest_mean": 0.347952276468277,
+   "rest_visible": 0.6616702994834434
+  }
+ }
+}
