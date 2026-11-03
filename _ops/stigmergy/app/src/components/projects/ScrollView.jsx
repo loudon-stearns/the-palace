@@ -15,6 +15,8 @@ import HeroBackdrop, { heroFileOf } from '../HeroBackdrop.jsx';
 import { RunningTag, QueuedTag } from './status.jsx';
 import MakingCard from './MakingCard.jsx';
 import WatchPane from './WatchPane.jsx';
+import RunCount, { defaultRunCount } from './RunCount.jsx';
+import { runEndedFeedback } from './steward-feedback.js';
 
 // ScrollView — any page's scroll (a project's, a ceremony's, a page's),
 // rendered live in the terminal.
@@ -148,6 +150,13 @@ export default function ScrollView({ home, row, worker, messages = [], onConfirm
     return () => window.removeEventListener('keydown', onKey);
   });
   const running = !!(worker && worker.running && worker.current === home);
+  // The cycle count for the next advance (RunCount): starts at the manifest's
+  // cap once the row is known, and holds whatever Loudon set after that.
+  const [runCount, setRunCount] = useState(null);
+  const count = runCount ?? defaultRunCount(row);
+  // The steward's last run, from the lane's last_cycle record: how far it got
+  // and why it stopped, shown while it is not the live cycle.
+  const lastRun = !running && row && row.stewarded ? runEndedFeedback(home, worker && worker.last_cycle) : null;
 
   const hasLedger = !!(scroll && scroll.tuning);
   const once = hasLedger && orderKind === 'once';
@@ -198,12 +207,14 @@ export default function ScrollView({ home, row, worker, messages = [], onConfirm
         {isLedgerRow ? <span data-testid="scroll-ceremony-meta" style={{ color: 'var(--phosphor-dim)', textShadow: 'none', fontSize: 11 }}>{isCeremony ? 'ceremony' : 'page'} · {row.version ? `v${row.version}` : 'unversioned'} · {row.version ? (row.runs_since ? `${row.runs_since} run${row.runs_since === 1 ? '' : 's'} since it changed` : 'not yet run since it changed') : `${row.runs_since || 0} run${row.runs_since === 1 ? '' : 's'}`}{row.owed && row.owed.length ? ` · ${row.owed.length} owed` : ''}</span>
           : row ? <span style={{ color: 'var(--phosphor-dim)', textShadow: 'none', fontSize: 11 }}>{row.status || '—'} · {row.stage || '—'}{row.stewarded ? ` · cycle ${row.iteration ?? 0}` : ' · no steward'}</span> : null}
         {running ? <RunningTag name={home} /> : row && row.queued ? <QueuedTag name={home} position={row.queued} /> : null}
+        {running && row && row.run ? <span data-testid="scroll-run-position" style={{ color: 'var(--ansi-bright-yellow)', textShadow: 'var(--glow)', fontSize: 11 }}>cycle {row.run.cycle_n} · {row.run.position}/{row.run.cap} of the run</span> : null}
         <span style={{ flex: 1 }} />
         {row && row.stewarded ? (
           <>
             {running || watching ? <span data-testid="scroll-watch"><Button tone={watching ? 'primary' : 'default'} onClick={() => setWatching((w) => !w)}>{watching ? 'watching' : 'watch'}</Button></span> : null}
             <span data-testid={`steward-launch-${String(home).toLowerCase().replace(/[^a-z0-9]+/g, '-')}`}><Button tone="default" disabled={running} onClick={() => setLaunch(true)}>launch interactive</Button></span>
-            <span data-testid="scroll-advance"><Button tone="primary" disabled={!canAdvance} onClick={onAdvance}>{row.queued ? `queued #${row.queued}` : `advance (run up to ${row.run_cap || 1})`}</Button></span>
+            {row.queued || running ? null : <RunCount value={count} onChange={setRunCount} disabled={!canAdvance} />}
+            <span data-testid="scroll-advance"><Button tone="primary" disabled={!canAdvance} onClick={() => onAdvance && onAdvance(count)}>{row.queued ? `queued #${row.queued}` : `advance · ${count} cycle${count === 1 ? '' : 's'}`}</Button></span>
           </>
         ) : row && onEnchant ? (confirmEnchant ? (
           <>
@@ -219,6 +230,7 @@ export default function ScrollView({ home, row, worker, messages = [], onConfirm
       </div>
       {watching ? <WatchPane home={home} running={running} onClose={() => setWatching(false)} /> : null}
       {feedback ? <div style={{ color: fbColor[feedback.tone], textShadow: feedback.tone === 'dim' ? 'none' : 'var(--glow)', fontSize: 12, marginBottom: 8 }}>{feedback.text}</div> : null}
+      {lastRun ? <div data-testid="scroll-last-run" style={{ color: fbColor[lastRun.tone], textShadow: lastRun.tone === 'dim' ? 'none' : 'var(--glow)', fontSize: 11, marginBottom: 8 }}>{lastRun.text}</div> : null}
       {error ? <div data-testid="scroll-error" style={{ color: 'var(--error)', textShadow: 'var(--glow)', border: '1px solid var(--error)', padding: 8 }}>{error}</div> : null}
       {!scroll && !error ? <div style={{ color: 'var(--phosphor-dim)', textShadow: 'none' }}>loading the scroll…</div> : null}
 

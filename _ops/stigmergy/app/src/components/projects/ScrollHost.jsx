@@ -35,9 +35,11 @@ export default function ScrollHost({ home, messages = [], onConfirmed, onBack, b
   const row = byHome(data?.projects) || byHome(data?.services) || ledgerRow;
   const worker = data?.worker ?? {};
 
-  async function doAdvance() {
+  // `count` is the scroll's cycle count (RunCount): the run's cap for this
+  // advance, sent as max_cycles; the manifest on disk is never touched.
+  async function doAdvance(count) {
     setBusy(true); setFeedback(null);
-    setFeedback(advanceFeedback(home, await advanceSteward(home)));
+    setFeedback(advanceFeedback(home, await advanceSteward(home, { maxCycles: count })));
     setBusy(false); refresh();
   }
 
