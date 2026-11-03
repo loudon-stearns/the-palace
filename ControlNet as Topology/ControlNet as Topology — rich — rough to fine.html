@@ -217,7 +217,7 @@ function verdict() {
   const first = PS.find((p) => at(C, p) > 0), full = PS.find((p) => at(A, p) >= N / 2);
   const climbs = PS.every((p, i) => i === 0 || at(A, p) >= at(A, PS[i - 1]));
   V.innerHTML = `<p><b>Rough to fine holds, for a picture.</b> In ${SOURCES.find((s) => s.key === fig).name}, a tenth of the way through the strokes only waves ${at(A, 0.1)} across the frame are decided, the big masses; a quarter through, ${at(A, 0.25)}; halfway, ${at(A, 0.5)}; three quarters, ${at(A, 0.75)}; every scale only at ${Math.round(100 * full)}%. ${climbs ? 'Across all 101 strokes checked the line never falls: coarse is committed before fine.' : '<b>The line falls somewhere: the order is not clean.</b>'}</p>` +
-    `<p><b>But the schedule is not what orders it.</b> The control image has the same spread and the same fog, and nothing about it is decided until ${Math.round(100 * first)}% of the way, when every scale arrives at once. The fog is the same at every scale; the order comes from the picture, whose power falls with fineness at a slope of ${A.slope.toFixed(2)} (the control’s: ${C.slope.toFixed(2)}). It is the schedule cooling, against a figure whose coarse shape is far louder than its detail.</p>`;
+    `<p><b>But the schedule alone does not order it.</b> The control image has the same spread and the same fog, and nothing about it is decided until ${Math.round(100 * first)}% of the way, when every scale arrives at once. The fog is the same at every scale; the order comes from the picture, whose power falls with fineness at a slope of ${A.slope.toFixed(2)} (the control’s: ${C.slope.toFixed(2)}). It is the schedule cooling, against a figure whose coarse shape is far louder than its detail.</p>`;
   V.classList.remove('hidden');
 }
 const STEPS = [

@@ -121,7 +121,7 @@
     <div class="eq">σ_start = σ at (1 − d) of the way through the strokes</div>
     <div class="words">denoise strength d: image to image starts from the init, lifts it d of the way back up into the fog, and carves only the rest. d = 1 forgets the init; d = 0.2 keeps most of it.</div>
   </div>
-  <div class="note">A model of the page's picture, not of a network. The terrain is six Gaussian valleys in two dimensions, not a million; the probabilities are exact, so the fog is exact too. The ControlNet weight here multiplies the canyon's pull; in a real network it scales the ControlNet's residuals inside the U-Net, which the page's picture reads as carving deeper. The schedule is geometric, where Stable Diffusion's is not, so a denoise value here is the same idea at a different place on the dial. The canyon is drawn into the terrain at every fog level, the way CFG and compositional diffusion add scores; that is approximate even in the model. A ball counts as in a valley within three of that valley's spreads; otherwise it is between. Every run is seeded, so the same knobs give the same balls.</div>
+  <div class="note">A model of the page's picture, not of a network. The terrain is six Gaussian valleys in two dimensions, not a million; the probabilities are exact, so the fog is exact too. The ControlNet weight here multiplies the canyon's pull; in a real network it scales the ControlNet's residuals inside the U-Net, which the page's picture reads as carving deeper. The schedule is geometric, where Stable Diffusion's is not, so a denoise value here is the same idea at a different place on the dial. The canyon is drawn into the terrain at every fog level, the way CFG and compositional diffusion add scores; that is approximate even in the model. The canyon is a narrow well over a nearly flat floor (weight 0.02 against 0.98, spread 3), so its pull fades a few widths away: the denoise × weight map's low-denoise zeros depend on that choice. A ball counts as in a valley within three of that valley's spreads; otherwise it is between. Every run is seeded, so the same knobs give the same balls.</div>
   <div class="footer">Loud’n Live</div>
 </div>
 <script id="engine">
@@ -195,7 +195,8 @@ function params(step = S.step) {
   if (step === 'cfg') return { base: BASE, cond: COND, cfg: S.w };
   return { base: BASE, cn: cnNow(), lam: S.lam };
 }
-const comps = (step = S.step) => (step === 'one' ? ONE : step === 'cfg' || step === 'fog' ? BASE : [...BASE, ...cnNow()]);
+// the counting map: from step 3 on the canyon's place is counted too, so 'where no valley was' is measured, not assumed
+const comps = (step = S.step) => (step === 'one' ? ONE : step === 'fog' ? BASE : [...BASE, cnNow()[0]]);
 
 // ---- canvas plumbing ----
 function fit(cv) { const r = cv.getBoundingClientRect(), dpr = Math.min(2, window.devicePixelRatio || 1), w = Math.max(200, Math.round(r.width)); if (cv.width !== Math.round(w * dpr)) { cv.width = Math.round(w * dpr); cv.height = Math.round(w * dpr); } const g = cv.getContext('2d'); g.setTransform(dpr, 0, 0, dpr, 0, 0); return { g, w, h: w }; }
@@ -318,8 +319,12 @@ function testVerdict() {
   const j2 = LGRID.indexOf(2), best = DGRID.reduce((b, d, i) => (G[i][j2] > G[b][j2] ? i : b), 0);
   let p = `<p><b>High denoise, as the page says.</b> At denoise 1.0 the canyon caught ${Math.round(100 * top[0])}% at weight 0.5 and ${Math.round(100 * top[top.length - 1])}% at 12; half the balls need weight ${l50(top) ?? 'more than 12'}. Only a canyon deep enough wins, and once it is, it wins nearly every ball.</p>`;
   const most = below.length ? Math.max(...below.map((d) => Math.max(...G[DGRID.indexOf(d)]))) : 0;
-  if (below.length) p += `<p><b>Low denoise, not as the page says.</b> At denoise ${below[below.length - 1].toFixed(1)} and below, the canyon caught ${most === 0 ? 'nothing' : `at most ${Math.round(100 * most)}%`} at any weight up to 12. That is not an even contest with the valley: lifted only to fog σ ${s0(below[below.length - 1]).toFixed(3)}, the ball barely feels a canyon ${R0.toFixed(2)} away. Denoise sets how far the armature can reach; weight sets how hard it holds once it does.</p>`;
-  else p += `<p><b>Low denoise:</b> the canyon lies within reach of the init even at the lowest denoise here, so it shares the balls with the valley, as the page says.</p>`;
+  const ri = G.findIndex((c) => Math.max(...c) >= 0.2), inReach = ri < 0 ? undefined : DGRID[ri], row = ri < 0 ? [] : G[ri].slice(LGRID.indexOf(3)), lo = Math.min(...row), hi = Math.max(...row);
+  p += `<p><b>Low denoise, in this picture.</b> `;
+  if (below.length) p += `At denoise ${below[below.length - 1].toFixed(1)} and below, the canyon caught ${most === 0 ? 'nothing' : `at most ${Math.round(100 * most)}%`} at any weight up to 12: lifted only to fog σ ${s0(below[below.length - 1]).toFixed(3)}, the ball never reaches a canyon ${R0.toFixed(2)} away. `;
+  if (ri >= 0 && lo >= 0.2 && hi <= 0.8 && hi - lo <= 0.2) p += `At denoise ${inReach.toFixed(1)} the canyon and the init’s valley split the balls, ${Math.round(100 * lo)} to ${Math.round(100 * hi)}% to the canyon whatever the weight from 3 to 12: the even contest the page describes. `;
+  else if (ri >= 0) p += `At denoise ${inReach.toFixed(1)}, the first where it catches a fifth, the canyon caught ${Math.round(100 * lo)} to ${Math.round(100 * hi)}% across weights 3 to 12. `;
+  p += `So denoise sets how far the armature can reach, and weight how hard it holds once it does; within reach, the two compete.</p><p>That reach rests on a choice made here, not on the page: the canyon is a narrow well over a nearly flat floor, so its pull fades a few widths away. A canyon whose pull reached across the whole terrain would be felt from lower denoise (checks.mjs: without the floor, the far canyon at denoise 0.5 catches 33% at weight 1 and every ball from weight 2).</p>`;
   if (best !== DGRID.length - 1 && G[best][j2] - top[j2] >= 0.1) p += `<p><b>And more fog is not always more armature.</b> With the canyon ${R0.toFixed(2)} from the init, a weight-2 canyon caught the most at denoise ${DGRID[best].toFixed(1)} (${Math.round(100 * G[best][j2])}%), against ${Math.round(100 * top[j2])}% at 1.0: full denoise forgets an init that lay near the canyon, and every valley competes for the ball again.</p>`;
   return p;
 }

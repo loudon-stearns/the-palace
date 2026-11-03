@@ -20,7 +20,7 @@ const pct = (v) => (100 * (v || 0)).toFixed(1) + '%';
   for (const k of E.BASE) console.log(`  ${k.name.padEnd(10)} depth E ${(-E.mix(E.BASE, k.m[0], k.m[1], 0).logp).toFixed(2).padStart(6)} · share of images ${pct(k.w).padStart(6)} · balls ${pct(t[k.name]).padStart(6)}`);
   console.log(`  between ${pct(t.between)}`);
   // step 3: CFG never lands a ball where no valley was
-  const all = [...E.BASE, ...far];
+  const all = [...E.BASE, far[0]];
   console.log(`  base energy at the canyon's place ${(-E.mix(E.BASE, far[0].m[0], far[0].m[1], 0).logp).toFixed(2)} (valleys ${E.BASE.map((k) => (-E.mix(E.BASE, k.m[0], k.m[1], 0).logp).toFixed(2)).join(', ')})`);
   for (const w of [0, 1, 3, 7, 12]) { const B = E.carve({ base: E.BASE, cond: COND, cfg: w }, from0(N), 0, E.rng(2)), tt = E.tally(all, B); console.log(`  CFG w ${String(w).padStart(2)}: lion valleys ${pct((tt.lion || 0) + (tt.lioness || 0))}, where no valley was ${pct(tt.canyon)}`); }
   // step 4: the canyon's weight
@@ -29,6 +29,9 @@ const pct = (v) => (100 * (v || 0)).toFixed(1) + '%';
   for (const [name, cn] of [['far', far], ['beside', near]]) {
     console.log(`  canyon ${name} the init (${Math.hypot(cn[0].m[0] - INIT[0], cn[0].m[1] - INIT[1]).toFixed(2)} away): rows denoise, columns λ ${E.LGRID.join(' ')}`);
     E.DGRID.forEach((d, i) => console.log(`    d ${d.toFixed(1)} σ0 ${E.sigmaAt(E.startStep(d)).toFixed(3).padStart(5)}  ${E.LGRID.map((l, j) => String(Math.round(100 * E.captureAt(E.BASE, cn, INIT, d, l, 100, 1000 + 37 * i + j))).padStart(4)).join('')}`)); }
+  // the floor is a choice: the same far canyon with no floor, its pull reaching across the whole terrain
+  { const bare = [{ ...far[0], w: 1 }]; console.log('  far canyon with no floor, 100 balls a square: rows denoise, columns λ ' + E.LGRID.join(' '));
+    for (const d of [0.3, 0.4, 0.5, 0.6]) { const i = E.DGRID.indexOf(d); console.log(`    d ${d.toFixed(1)}  ${E.LGRID.map((l, j) => String(Math.round(100 * E.captureAt(E.BASE, bare, INIT, d, l, 100, 1000 + 37 * i + j))).padStart(4)).join('')}`); } }
 }
 
 // ── rough to fine ──
