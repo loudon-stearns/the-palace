@@ -1,0 +1,148 @@
+{
+  "title": "Tract Mirror — rich",
+  "born": "2026-11-03",
+  "links": [
+    {
+      "target": "[[Tract Mirror]]",
+      "type": "connects-to",
+      "label": "rich-face-of"
+    },
+    {
+      "target": "[[Enrichment]]",
+      "type": "connects-to",
+      "label": "made-by"
+    }
+  ],
+  "forward_vector": "I am the manifest of Tract Mirror's rich face: the walk from one joint up to the mirror run backward, the proofs the build already made laid beside the claims they back, and the fingerprint of the words each piece was made against. I grow when the entry is enriched again; I never hold the entry's words.",
+  "entry": "Tract Mirror",
+  "tier": "study",
+  "made": "2026-11-03",
+  "round": 1,
+  "sections": [
+    {
+      "heading": "Tract Mirror",
+      "made": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "plugin/test-renders/harness_melody.wav",
+          "origin": "gathered",
+          "title": "a short melody · the C++ engine, offline",
+          "caption": "The plugin's own engine singing a legato line with glide and vibrato, rendered by its offline harness (TractMirrorRender, 48 kHz), not recorded in Live. One voice at a time: each new note takes the tube from the last.",
+          "near": "shipped as a VST3/AU plugin",
+          "place": "margin"
+        },
+        {
+          "file": "Tract Mirror — rich — junction to mirror.html",
+          "origin": "made",
+          "by": "Web Audio Worklet · Levinson-Durbin",
+          "height": 1150,
+          "title": "one joint, then the whole mirror",
+          "caption": "**The claim, walked up and then run backward.** One joint between two tubes and the power it splits; a straight tube that rings at its quarter-wave notes; a shaped tube that says a vowel; a morph; and last, linear prediction reading the tube back out of its own sound. With the glottis closed and no loss the ladder comes back joint for joint (largest gap under 10⁻¹¹ on all six vowels). With the plugin's leaky glottis (+0.97) and lossy walls (0.996 per joint) it comes back as a different tube, up to 0.25 off on /a/ and 0.61 on /o/, that makes the same sound, sample for sample, within 2 × 10⁻¹³ of its peak. Every tube is read from vowels.json; the checks beside it re-run each step's numbers against the Python reference.",
+          "near": "The tubes on screen are not a visualization of the filter"
+        },
+        {
+          "file": "artifacts/the-mirror/index.html",
+          "origin": "gathered",
+          "height": 1600,
+          "title": "The Mirror · the full instrument, 2026-06-09",
+          "caption": "The build's own interactive study, unchanged: the six vowels on a pad, the tube and the lattice drawn side by side with the same k printed at each joint, and both directions of the ladder explained. It carries its first-version review panel; notes left there stay in this frame.",
+          "near": "The tubes on screen are not a visualization of the filter",
+          "contract": {
+            "needs": "storage",
+            "size": "flow"
+          }
+        },
+        {
+          "file": "renders/clips/clip_tube_morph.mp4",
+          "origin": "gathered",
+          "title": "tube morph · /a/ → /i/ → /u/",
+          "caption": "Ten seconds of the tract silhouette reshaping between three vowels, the synth's own sound under it, F1 and F2 printed as they move.",
+          "near": "Morphing a vowel reshapes the tract",
+          "place": "margin"
+        }
+      ],
+      "made_against": "d610b763fa4a",
+      "stamped": "2026-11-03"
+    },
+    {
+      "heading": "Architecture (decided 2026-06-09)",
+      "made": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "reference/renders/tube_profiles.png",
+          "origin": "gathered",
+          "title": "the six area functions",
+          "caption": "The six fitted tubes as silhouettes, glottis left, lips right, radius √(A/π). These 64-point curves are the whole of what the optimizer chose; everything else is derived from them.",
+          "near": "morphed via XY pad",
+          "place": "margin"
+        },
+        {
+          "file": "renders/clips/clip_glottal_source.mp4",
+          "origin": "gathered",
+          "title": "the glottal source",
+          "caption": "One period of the Rosenberg pulse as tension changes, and its spectrum tilting; breath lifts the noise floor. This is what excites the tube before any vowel exists.",
+          "near": "glottal pulse + aspiration noise excitation",
+          "place": "margin"
+        },
+        {
+          "file": "reference/renders/vowel_a.wav",
+          "origin": "gathered",
+          "title": "/a/ · the Python reference, 44.1 kHz",
+          "caption": "/a/ at 110 Hz from kl_reference.py: 22 sections, with a little vibrato. Play it, then the one below.",
+          "near": "all derive their reflection coefficients",
+          "place": "margin"
+        },
+        {
+          "file": "plugin/test-renders/render_a.wav",
+          "origin": "gathered",
+          "title": "/a/ · the C++ engine, 48 kHz",
+          "caption": "/a/ at 110 Hz from the plugin's engine: 24 sections, vibrato and breath off. Different code, a different rate and section count, the same tube. Checked for this face: the plugin embeds reference/vowels.json at build time (CMakeLists.txt), and both web artifacts carry the six area curves and the five tube constants identical to it.",
+          "near": "all derive their reflection coefficients",
+          "place": "margin"
+        },
+        {
+          "file": "renders/ableton-proof.png",
+          "origin": "gathered",
+          "title": "loaded in Live 12 · 2026-06-10",
+          "caption": "The VST3 on a MIDI track in Ableton Live 12, its interface in plugin mode: the tube at /i/, the lattice beside it reading r_g +0.97 and r_l −0.90. The build log records that Live listed both formats and that this VST3 is the one loaded and played; the AU passed auval.",
+          "near": "VST3 + AU",
+          "place": "margin"
+        }
+      ],
+      "made_against": "bed9ca62e72c",
+      "stamped": "2026-11-03"
+    }
+  ],
+  "offers": [
+    {
+      "section": "Tract Mirror",
+      "kind": "claim-change",
+      "status": "open",
+      "what": "The identity holds exactly only in the ideal tube. The walk's last step runs LPC (Levinson-Durbin, order 44) on the tube's own click: with the glottis closed (+1) and no loss, the reflection coefficients come back equal to the area-ratio k at every joint (largest gap under 10⁻¹¹, six vowels, lip rung −0.900). With the shipped glottis +0.97 and loss 0.996, they come back as a different tube that makes the identical sound (within 2 × 10⁻¹³ of its peak): the largest gaps are 0.254 /a/, 0.124 /e/, 0.117 /i/, 0.612 /o/, 0.158 /u/, 0 schwa, and the lip rung reads −0.738. Offer: name that condition where the opening says the LPC coefficients are the impedance mismatches. It also bears on the v2 analysis engine: reading a singer's tract from their sound will draw losses as shape unless the losses are modelled."
+    },
+    {
+      "section": "Architecture (decided 2026-06-09)",
+      "kind": "claim-change",
+      "status": "open",
+      "what": "\"Verified in Ableton Live 12, VST3 + AU\" says a little more than the build log does. Phase 4 records that Live listed both formats and that the VST3 was loaded and played (renders/ableton-proof.png); the AU passed auval and was never loaded in Live. Offer: \"Verified in Ableton Live 12 (VST3; the AU passes auval)\", or load the AU once and keep the words."
+    },
+    {
+      "section": "Tract Mirror",
+      "kind": "no-claim-edit",
+      "status": "open",
+      "what": "A fix in the bundle, not the page. renders/clips/clip_scattering_junction.mp4 labels its arrows \"transmitted (1+k)/2\" and \"reflected |k|\" (renders/make_clips.py:519-520), so at k = −0.051 it reads 47 % on and 5 % back, and the caption calls that energy. The walk's first step shows the right sums: pressure on 1+k, back k; power on 1−k², back k², adding to 1. The clip is left out of this face until it is re-rendered with those labels."
+    }
+  ]
+}
