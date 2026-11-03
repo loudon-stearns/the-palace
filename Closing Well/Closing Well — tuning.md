@@ -323,3 +323,9 @@ Item 51 again: seven of the room's outgoing messages are cut in the arc. The co-
 66. **The cold read caught a public-surface hazard the room had not raised.** The close's checklist would have copied a rough's two cuts and their script into a bundle's proofs: the cuts carry about 35 seconds of an unreleased song, and the script carried a private cloud-drive path with an address in it. The repo is public. The cold read raised it; at the panel Loudon kept the music and the address out, and a tracked dealer line that had already promised the files was corrected before its commit. Data for item 60's witness question; no spec change. The version stays v1.13.
 
 - run · 2026-11-03 · v1.13 · close-2026-10-29-daily-page-blueline · taught item 66
+
+## From the Palace Map keeper close — 2026-11-03
+
+67. **A Path A close begun without the arc: the resident refused to read warm and asked for it, and the cold read corrected four points.** The close opened with no arc in hand. The resident would not read the day warm and asked for the arc; the cold read then fixed four things: a two-day session had been read as one; an enrichment had been attributed to this session; the reading in Loudon's pane had been missed; and the vector's yes had been inferred from "great close well", which he confirmed at the panel in his own words ("Yes, it's mine"). Data, not a spec change: `dispatch.md`'s rule held because the moderator held it. The version stays v1.13. Nothing owed.
+
+- run · 2026-11-03 · v1.13 · close-2026-11-03-palace-map-keeper · taught item 67
