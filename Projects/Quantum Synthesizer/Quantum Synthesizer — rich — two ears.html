@@ -197,15 +197,15 @@
     <h2>5 · The test</h2>
     <p class="qs-idea">The page, on the oscillator:</p>
     <p class="qs-quote">“These are quantized energy levels, equally spaced in frequency. They are identical to the harmonic series: fundamental frequency f₀, second harmonic 2f₀, third harmonic 3f₀, and so on.”</p>
-    <p class="qs-idea">And the next section, on the box: <span class="qs-quote" style="display:inline;border:0;padding:0">“Schrödinger's particle in a box … sounds 1 · 4 · 9 · 16.”</span> Measure both, with both ears. Each row computes ψ(x₀, t) in time from the solver's levels and shapes, 65,536 samples at 44.1 kHz, and reads its partials off an FFT: every peak within 40 dB of the tallest.</p>
-    <div class="qs-row"><button class="qs-go" id="measure">measure all four</button><span class="qs-val" id="mnote"></span></div>
+    <p class="qs-idea">And the next section, on the box: <span class="qs-quote" style="display:inline;border:0;padding:0">“Schrödinger's particle in a box … sounds 1 · 4 · 9 · 16.”</span> Measure both, with both ears, and with the rule the page's own proofs use: each level played at its gap from the lowest. Each row computes ψ(x₀, t) in time from the solver's levels and shapes, 65,536 samples at 44.1 kHz, and reads its partials off an FFT: every peak within 40 dB of the tallest.</p>
+    <div class="qs-row"><button class="qs-go" id="measure">measure all six</button><span class="qs-val" id="mnote"></span></div>
     <div class="qs-wrap"><table class="qs-t" id="tab">
       <thead><tr><th>well · ear</th><th>partials · × 110 Hz</th><th>over the lowest</th><th>1 : 2 : 3 : 4 ?</th><th></th></tr></thead>
       <tbody></tbody>
     </table></div>
     <div class="qs-slot"></div>
     <p class="qs-test" id="t5">Press measure.</p>
-    <p class="qs-note">The packet is the one from step 4 at its starting place: in the oscillator a coherent state, α = 2.2, the ladder proof's; in the box a bump of width 0.35 let go at x = 0.72. The probe is x₀ = 1.0 in the oscillator and 1.1 in the box. The window is Blackman-Harris, so a peak's own sidelobes sit 92 dB down and can't pass for partials. The clock is not something a microphone can hear: a phase shared by the whole state is not physical. It is the reading the page uses for the box, and in a stiff bar it is real, since Re ψ there moves the way a bar moves (One equation, two spacings). The steward's ladder proof, a frame further down this page, plays the same two ears move by move.</p>
+    <p class="qs-note">The packet is the one from step 4 at its starting place: in the oscillator a coherent state, α = 2.2, the ladder proof's; in the box a bump of width 0.35 let go at x = 0.72. The probe is x₀ = 1.0 in the oscillator and 1.1 in the box. The window is Blackman-Harris, so a peak's own sidelobes sit 92 dB down and can't pass for partials. The clock is not something a microphone can hear: a phase shared by the whole state is not physical. Its pitches assume energy counted from the well's floor. Raise the floor and every clock pitch moves, while the detector's stay put: raised by half a quantum, the oscillator's clock reads 0 · 2 · 4 · 6 × 110 Hz, its lowest level silent and the rest 1 · 2 · 3 on 220 Hz. It is the reading the page uses for the box, and in a stiff bar it is real, since Re ψ there moves the way a bar moves (One equation, two spacings). The steward's ladder proof, a frame further down this page, plays the same two ears move by move.</p>
   </section>
 
   <div class="qs-nav"><button id="back">back</button><button id="next">next</button></div>
@@ -315,23 +315,31 @@
     return out.filter((q) => Math.abs(q.a) > 1e-9);
   };
 
+  /* the page's own proofs' rule: each level above the lowest played at its gap from the lowest, E_n - E_0
+     (schrodinger_ab_synth.py, well_morph.py, pendulum.py). The lowest level itself sits at 0 Hz and is not played. */
+  QS.lowestPartials = (W, c) => {
+    const p = QS.probe(W), out = [];
+    for (let n = 1; n < c.length; n++) { const a = c[n] * p[n]; if (Math.abs(a) > 1e-9) out.push({ f: QS.S * (W.E[n] - W.E[0]), a, n }); }
+    return out;
+  };
   /* what the audio plays: the strongest partials of one ear, at most 48, none quieter than 60 dB under the loudest */
   QS.bank = (W, c, ear) => {
-    const all = ear === 'clock' ? QS.clockPartials(W, c) : QS.detectorPartials(W, c);
+    const all = ear === 'clock' ? QS.clockPartials(W, c) : ear === 'lowest' ? QS.lowestPartials(W, c) : QS.detectorPartials(W, c);
     const mx = all.reduce((m, q) => Math.max(m, Math.abs(q.a)), 0);
     return all.filter((q) => Math.abs(q.a) > 1e-3 * mx).sort((u, v) => Math.abs(v.a) - Math.abs(u.a)).slice(0, 48).sort((u, v) => u.f - v.f);
   };
 
   /* ── the measurement: the ear's signal computed in time from psi itself, then an FFT ── */
   QS.signal = (W, c, ear, fs, N) => {
-    const p = QS.probe(W), idx = []; for (let n = 0; n < c.length; n++) if (Math.abs(c[n] * p[n]) > 1e-12) idx.push(n);
+    const p = QS.probe(W), idx = [], e0 = ear === 'lowest' ? W.E[0] : 0;
+    for (let n = ear === 'lowest' ? 1 : 0; n < c.length; n++) if (Math.abs(c[n] * p[n]) > 1e-12) idx.push(n);
     const out = new Float64Array(N);
     for (let i = 0; i < N; i++) {
       const t = i / fs; let re = 0, im = 0;
-      for (const n of idx) { const th = 2 * Math.PI * QS.S * W.E[n] * t, a = c[n] * p[n]; re += a * Math.cos(th); im -= a * Math.sin(th); }
-      out[i] = ear === 'clock' ? re : re * re + im * im;
+      for (const n of idx) { const th = 2 * Math.PI * QS.S * (W.E[n] - e0) * t, a = c[n] * p[n]; re += a * Math.cos(th); im -= a * Math.sin(th); }
+      out[i] = ear === 'clock' || ear === 'lowest' ? re : re * re + im * im;
     }
-    if (ear !== 'clock') { let m = 0; for (let i = 0; i < N; i++) m += out[i]; m /= N; for (let i = 0; i < N; i++) out[i] -= m; }
+    if (ear !== 'clock' && ear !== 'lowest') { let m = 0; for (let i = 0; i < N; i++) m += out[i]; m /= N; for (let i = 0; i < N; i++) out[i] -= m; }
     return out;
   };
   QS.fft = (re, im) => {
@@ -407,7 +415,8 @@ registerProcessor('qs-bank', QsBank);`;
   const COL = { amber: '#e8b84a', cyan: '#6aa8e8', fg1: '#e8e8f0', fg2: '#c8c8d8', fg3: '#8a8aa0', fg4: '#4a4a5a', soft: 'rgba(255,255,255,.08)', cyanFill: 'rgba(106,168,232,.22)', amberDim: 'rgba(232,184,74,.35)' };
   const MONO = '10px "JetBrains Mono", ui-monospace, monospace';
   const ST = { step: 1, ear: 'clock', rung: 0, m: 0, n: 1, well: 'osc', pull: QS.PULL0, cell: 0 };
-  const CELLS = [ { well: 'osc', ear: 'clock' }, { well: 'osc', ear: 'detector' }, { well: 'box', ear: 'clock' }, { well: 'box', ear: 'detector' } ];
+  const CELLS = [ { well: 'osc', ear: 'clock' }, { well: 'osc', ear: 'detector' }, { well: 'osc', ear: 'lowest' }, { well: 'box', ear: 'clock' }, { well: 'box', ear: 'detector' }, { well: 'box', ear: 'lowest' } ];
+  const EARNAME = { clock: 'clock', detector: 'detector', lowest: 'from the lowest' };
   const PULL0 = QS.PULL0;
   let measured = null;
   const sup = { '-': '⁻', '0': '⁰', '1': '¹', '2': '²', '3': '³', '4': '⁴', '5': '⁵', '6': '⁶', '7': '⁷', '8': '⁸', '9': '⁹' };
@@ -529,11 +538,13 @@ registerProcessor('qs-bank', QsBank);`;
   }
   function drawEars() {
     const { g, w, h } = cv('ce'), st = current();
-    const cl = QS.bank(st.W, st.c, 'clock'), de = QS.bank(st.W, st.c, 'detector');
-    let fmax = 0; for (const q of cl.concat(de)) fmax = Math.max(fmax, q.f / 110);
+    const cl = QS.bank(st.W, st.c, 'clock'), de = QS.bank(st.W, st.c, 'detector'), lw = ST.step === 5 ? QS.bank(st.W, st.c, 'lowest') : [];
+    let fmax = 0; for (const q of cl.concat(de, lw)) fmax = Math.max(fmax, q.f / 110);
     const U = Math.max(8, Math.min(52, Math.ceil(fmax + 1)));
     const L = 92, X = (u) => L + u / U * (w - L - 12);
-    const rows = [ { name: 'clock', b: cl, col: COL.amber, y0: 10, y1: h / 2 - 8 }, { name: 'detector', b: de, col: COL.cyan, y0: h / 2 + 6, y1: h - 18 } ];
+    const rows = ST.step === 5
+      ? [ { name: 'clock', b: cl, col: COL.amber, y0: 8, y1: 48 }, { name: 'detector', b: de, col: COL.cyan, y0: 58, y1: 98 }, { name: 'lowest', label: 'from lowest', b: lw, col: COL.fg1, y0: 108, y1: h - 18 } ]
+      : [ { name: 'clock', b: cl, col: COL.amber, y0: 10, y1: h / 2 - 8 }, { name: 'detector', b: de, col: COL.cyan, y0: h / 2 + 6, y1: h - 18 } ];
     g.font = MONO;
     for (let u = 1; u <= U; u++) { g.strokeStyle = u % 5 === 0 ? 'rgba(255,255,255,.12)' : COL.soft; g.beginPath(); g.moveTo(X(u), 6); g.lineTo(X(u), h - 16); g.stroke(); }
     g.fillStyle = COL.fg4; g.textAlign = 'center';
@@ -541,7 +552,7 @@ registerProcessor('qs-bank', QsBank);`;
     for (let u = lstep; u <= U; u += lstep) g.fillText(String(u), X(u), h - 4);
     for (const r of rows) {
       const sel = st.ear === r.name;
-      g.textAlign = 'left'; g.fillStyle = sel ? r.col : COL.fg3; g.fillText(r.name, 8, (r.y0 + r.y1) / 2 + 3);
+      g.textAlign = 'left'; g.fillStyle = sel ? r.col : COL.fg3; g.fillText(r.label || r.name, 8, (r.y0 + r.y1) / 2 + 3);
       g.strokeStyle = COL.fg4; g.beginPath(); g.moveTo(L, r.y1); g.lineTo(w - 12, r.y1); g.stroke();
       if (!r.b.length) { g.fillStyle = COL.fg3; g.fillText('silent · nothing at the probe moves', L + 8, (r.y0 + r.y1) / 2 + 3); continue; }
       const mx = r.b.reduce((m, q) => Math.max(m, Math.abs(q.a)), 0);
@@ -595,18 +606,19 @@ registerProcessor('qs-bank', QsBank);`;
     const harm = (i) => r(i).slice(0, 4).every((v, k) => Math.abs(v - (k + 1)) < 0.005);
     const tx = (i, n) => M[i].slice(0, n || 5).map((p) => x110(p.f, 2)).join(' · ');
     const O = QS.well('osc');
-    return 'Read as pitches, the clock\'s way, the oscillator\'s rungs come out at <b>' + tx(0) + '</b> × 110 Hz: over the lowest, ' + list(r(0), 3, 4) + ', odd multiples only, the series of a pipe closed at one end. That is ' + (harm(0) ? '' : 'not ') + 'f₀, 2f₀, 3f₀. '
+    return 'Read as pitches, the clock\'s way, with energy counted from the well\'s floor, the oscillator\'s rungs come out at <b>' + tx(0) + '</b> × 110 Hz: over the lowest, ' + list(r(0), 3, 4) + ', odd multiples only, the series of a pipe closed at one end. That is ' + (harm(0) ? '' : 'not ') + 'f₀, 2f₀, 3f₀. '
       + 'The harmonic series is here, but in the other ear: the detector hears <i class="qs-cyt">' + tx(1) + ' × 110 Hz</i>, which over its lowest is ' + list(r(1), 3, 4) + ' on 220 Hz: ' + (harm(1) ? 'the harmonic series, made of the gaps between rungs.' : 'not the harmonic series either.') + ' '
-      + 'The box, same solver, same ears: the clock hears <b>' + tx(2) + '</b> × 110 Hz, the squares the next section names, and the detector hears ' + tx(3, 6) + ' × 110 Hz, the gaps between squares, which are not squares. '
-      + 'So each of the page\'s two sentences holds for one ear only: the box\'s squares for the clock, the oscillator\'s harmonic series for the detector. Under one rule they can\'t both stand. '
-      + 'And the half quantum of zero-point energy: on the clock it is what makes the series odd; to the detector the lowest rung alone moves by ' + sci(QS.wobble(O, 0)) + ' of itself, so it is silent, not full of sound.';
+      + 'The box, same solver, same ears: the clock hears <b>' + tx(3) + '</b> × 110 Hz, the squares the next section names, and the detector hears ' + tx(4, 6) + ' × 110 Hz, the gaps between squares, which are not squares. '
+      + 'The page\'s own proofs use a third rule: each level played at its gap from the lowest (the A/B proof, well-morph, the pendulum). There the oscillator gives <i class="qs-cyt">' + tx(2) + ' × 110 Hz</i>, ' + list(r(2), 3, 4) + ' on 220 Hz, the harmonic series, and the box gives ' + tx(5, 4) + ' × 110 Hz, not squares. '
+      + 'So the oscillator\'s harmonic series holds for the detector and for gaps from the lowest, and the box\'s squares hold for the clock alone. Under any one of the three rules, the two sentences can\'t both stand. Under the gap rules, the page\'s sentence is right in substance and wrong in its subject: the gaps between the levels are the harmonic series, not the levels themselves. '
+      + 'And the half quantum of zero-point energy: on the clock, counted from the floor, it is what makes the series odd; to the detector the lowest rung alone moves by ' + sci(QS.wobble(O, 0)) + ' of itself, so it is silent, not full of sound.';
   }
   function measureAll() {
     $('mnote').textContent = 'measuring…';
     setTimeout(() => {
       const t0 = performance.now();
       measured = CELLS.map((cl) => { const W = QS.well(cl.well); return QS.measure(W, QS.packet(W, PULL0), cl.ear).peaks; });
-      $('mnote').textContent = (performance.now() - t0).toFixed(0) + ' ms · 4 × 65,536 samples';
+      $('mnote').textContent = (performance.now() - t0).toFixed(0) + ' ms · 6 × 65,536 samples';
       renderTable(); $('t5').innerHTML = verdict(measured);
     }, 20);
   }
@@ -615,7 +627,7 @@ registerProcessor('qs-bank', QsBank);`;
     CELLS.forEach((cl, i) => {
       const tr = document.createElement('tr'), M = measured ? measured[i] : null;
       const rr = M ? QS.ratios(M.map((p) => p.f)) : null, ok = rr && rr.slice(0, 4).every((v, k) => Math.abs(v - (k + 1)) < 0.005);
-      tr.innerHTML = '<td>' + (cl.well === 'osc' ? 'oscillator' : 'box') + ' · ' + cl.ear + '</td>'
+      tr.innerHTML = '<td>' + (cl.well === 'osc' ? 'oscillator' : 'box') + ' · ' + EARNAME[cl.ear] + '</td>'
         + '<td>' + (M ? M.slice(0, 8).map((p) => x110(p.f, 2)).join(' · ') + (M.length > 8 ? ' …' : '') : '—') + '</td>'
         + '<td>' + (rr ? list(rr, 3, 5) : '—') + '</td>'
         + '<td class="' + (rr ? (ok ? 'qs-yes' : 'qs-no') : '') + '">' + (rr ? (ok ? 'yes' : 'no') : '—') + '</td>'
@@ -634,6 +646,7 @@ registerProcessor('qs-bank', QsBank);`;
     const slot = document.querySelector('.qs-step[data-step="' + n + '"] .qs-slot'); slot.appendChild($('stage'));
     $('earRow').style.display = n === 5 ? 'none' : '';
     $('back').disabled = n === 1; $('next').disabled = n === 5;
+    $('ce').setAttribute('height', n === 5 ? 170 : 150);
     UPD[n](); drawEars(); drawWell();
   }
   function seg(id, get, set, max) {
