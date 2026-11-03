@@ -1,0 +1,234 @@
+{
+ "title": "Particle Synthesis — rich",
+ "born": "2026-11-03",
+ "links": [
+  {
+   "target": "[[Particle Synthesis]]",
+   "type": "connects-to",
+   "label": "rich-face-of"
+  },
+  {
+   "target": "[[Enrichment]]",
+   "type": "connects-to",
+   "label": "made-by"
+  }
+ ],
+ "forward_vector": "I am the manifest of Particle Synthesis's rich face: three made walks that test what the page says about dispersion, the prism and the fountain, and the steward's builds gathered beside the sections they answer, with the fingerprint of the words each was made against. I grow when the entry is enriched again, and next toward a fountain you can play with height mapped to pitch, as the page's Max device does; I never hold the entry's words.",
+ "entry": "Particle Synthesis",
+ "tier": "study",
+ "made": "2026-11-03",
+ "round": 1,
+ "sections": [
+  {
+   "heading": "The Architecture: GPU Compute as Sonic Substrate",
+   "made_against": "63d300976121",
+   "made": "2026-11-03",
+   "status": "proposal",
+   "proposed": {
+    "date": "2026-11-03",
+    "by": "maker · claude-opus-5-5 · proposal round",
+    "round": "proposal-round-2026-11"
+   },
+   "pieces": [
+    {
+     "file": "proofs/2026-10-22-gpu-fountain.html",
+     "origin": "gathered",
+     "by": "the Particle Synthesis steward, cycle 6 · WebGPU",
+     "contract": {},
+     "height": 1300,
+     "title": "the fountain on the GPU · 2026-10-22",
+     "caption": "**The architecture, built.** 1024 particles, each its own compute-shader thread, moved under gravity and drag once per audio sample, each strike sung by the same thread; a second pass sums them into one signal, and nothing on the CPU knows where a particle is. Checked against its own CPU copy: the same 96 throws and 349 strikes, the sound correlated at 0.99998. Cost barely grows with count: 6 s of sound in 0.73 s at 64 particles and 0.79 s at 1024. The page's 25× is not measured here; the nearest number is the CPU copy taking 2.1 s for what the GPU did in 0.5 s, at 64 particles. Needs WebGPU; without it, it falls back to the CPU copy at 48 particles. Press start.",
+     "near": "thousands of particles transformed in parallel by compute shaders",
+     "place": "band"
+    }
+   ],
+   "stamped": "2026-11-03"
+  },
+  {
+   "heading": "Dispersion as Physics",
+   "made_against": "7ca6b83b0728",
+   "made": "2026-11-03",
+   "status": "proposal",
+   "proposed": {
+    "date": "2026-11-03",
+    "by": "maker · claude-opus-5-5 · proposal round",
+    "round": "proposal-round-2026-11"
+   },
+   "pieces": [
+    {
+     "file": "proofs/2026-10-22-gpu-fountain-AB.png",
+     "origin": "gathered",
+     "by": "the Particle Synthesis steward, cycle 6",
+     "title": "the law against the rule · spectrograms, 2026-10-22",
+     "caption": "**The same 22,666 strikes, heard two ways.** A: every strike travels the ice by the plate's law, so far strikes sweep slower than near ones, and the picture is a weather of slanted chirps. B: each strike fires a decaying sine whose pitch is chosen by distance, the usual granular mapping, and the picture is one band sliding down. The same information, made once by a law and once by a rule.",
+     "near": "is not programmed into the synthesis model"
+    },
+    {
+     "file": "rich-face/2026-10-22-gpu-fountain-A-ice.wav",
+     "origin": "gathered",
+     "by": "the Particle Synthesis steward, cycle 6",
+     "title": "A · heard through the ice · 16 s",
+     "caption": "1024 particles, the fountain walking from 3 m to 18 m from the pickups. Loudness matched to B.",
+     "near": "is not programmed into the synthesis model",
+     "place": "margin"
+    },
+    {
+     "file": "rich-face/2026-10-22-gpu-fountain-B-mapped.wav",
+     "origin": "gathered",
+     "by": "the Particle Synthesis steward, cycle 6",
+     "title": "B · mapped grains · 16 s",
+     "caption": "The same throws and strikes, pitch set by distance, 2 kHz near to 200 Hz far. Whether A reads as physics and B as modulation is the page's own test, and an ear's call: nobody had listened when these were made.",
+     "near": "is not programmed into the synthesis model",
+     "place": "margin"
+    },
+    {
+     "file": "proofs/2026-09-23-fountain-00-one-particle.wav",
+     "origin": "gathered",
+     "by": "the Particle Synthesis steward, cycle 4",
+     "title": "one particle on the ice · 2026-09-23",
+     "caption": "One particle thrown once, skipping to rest about 12 m from the pickups. Each landing arrives as a chirp, highs first, the skips quickening as it settles.",
+     "near": "High frequencies travel faster",
+     "place": "margin"
+    },
+    {
+     "file": "Particle Synthesis — rich — one click, one law.html",
+     "origin": "made",
+     "by": "Web Audio · canvas",
+     "height": 1500,
+     "title": "One click, one law · five steps",
+     "caption": "**One click through the fountain's ice, one idea at a time.** A click; the click carried whole through a one-speed medium; the same click through the ice, where ω = C·k² pulls it into a chirp, highs first; the same law held between two ends, where it makes a bar's partials; then the test. Through 8 m of the ice every band from 125 Hz to 8 kHz peaks where the law says, within 1 %, and 125 Hz trails 8 kHz by 220 ms; through the one-speed medium every band lands together. The bar is shown, not tested: at the same ends the straight law gives 2, 3, 4, the ice's 4, 9, 16, and free ends the glockenspiel's 2.76, 5.40, 8.93. The law itself is programmed, one line; the chirp and the partials are not.\n\nω = C·k²   →   t(ω) = r ⁄ (2·√(C·ω))\n\n(frequency) grows with the square of (wavenumber); so (when a frequency arrives) = (distance) ÷ (2 × the square root of C times that frequency): higher arrives sooner",
+     "near": "When different frequency components of a single grain propagate",
+     "place": "band"
+    }
+   ],
+   "stamped": "2026-11-03"
+  },
+  {
+   "heading": "The Prism Metaphor",
+   "made_against": "b194857427fe",
+   "made": "2026-11-03",
+   "status": "proposal",
+   "proposed": {
+    "date": "2026-11-03",
+    "by": "maker · claude-opus-5-5 · proposal round",
+    "round": "proposal-round-2026-11"
+   },
+   "pieces": [
+    {
+     "file": "Particle Synthesis — rich — which way the colours run.html",
+     "origin": "made",
+     "by": "Web Audio · canvas",
+     "height": 1300,
+     "title": "Which way the colours run · five steps",
+     "caption": "**A real prism beside the fountain's ice.** White light through lens glass (Schott N-BK7, its own index): violet turned most. The same glass as a 1 km road: red arrives 161 ns before violet, heard forty octaves down as a rising run. A click through 8 m of the ice: highs first, a falling chirp. The deep-water law, scaled into hearing: lows first, a rising one. The test sets them on one table. All four are dispersion, and in each the law alone sets who arrives first; but glass and the sea hold back their higher frequencies, and the ice sends them first: blue trails red by 76 ns over a kilometre of glass, 20 s swell beats 10 s swell by 1.48 days over 2000 km, 250 Hz beats 8 kHz by 387 ms under the water law, and 8 kHz beats 250 Hz by 146.5 ms through the ice. One physics, two directions.\n\nω = C·k²   (ice: higher arrives sooner)   ·   ω = √(g·k)   (deep water: higher arrives later)\n\n(frequency) grows faster than (wavenumber) in the ice, so the highs outrun the lows; slower in deep water and, for light, in glass, so the lows lead",
+     "near": "The prism is not a metaphor",
+     "place": "band"
+    }
+   ],
+   "stamped": "2026-11-03"
+  },
+  {
+   "heading": "Particle Fountain: First Build",
+   "made_against": "81a72d8a19ef",
+   "made": "2026-11-03",
+   "status": "proposal",
+   "proposed": {
+    "date": "2026-11-03",
+    "by": "maker · claude-opus-5-5 · proposal round",
+    "round": "proposal-round-2026-11"
+   },
+   "pieces": [
+    {
+     "file": "proofs/2026-09-23-fountain-cloud64.png",
+     "origin": "gathered",
+     "by": "the Particle Synthesis steward, cycle 4",
+     "title": "64 particles on the ice · 2026-09-23",
+     "caption": "**Every flight drawn, then heard.** Top: the paths of 64 particles; each arc is a parabola, and each bounce keeps 45 % of the speed, so the arcs shrink and quicken. Bottom: what the pickups heard, every strike a slanted chirp. This build hears its strikes through the ice; it does not map height to pitch as the page's Max device does.",
+     "near": "The trajectory is NOT programmed behavior"
+    },
+    {
+     "file": "Particle Synthesis — rich — thrown, or on a spring.html",
+     "origin": "made",
+     "by": "Web Audio · canvas",
+     "height": 1500,
+     "title": "Thrown, or on a spring · five steps",
+     "caption": "**A thrown particle beside a mass on a spring, heard with the page's own mapping, height to pitch.** One throw: a parabola, the pull −9.81 m/s² at every height. A floor: each flight e times the last, an accelerando. A spring: a sine, whose period holds while it dies. Both thrown twice as hard: the spring's period stays at 1.020 s, the particle's flight doubles. The test speeds both up until the motion is the sound. The spring is one sine at 220 Hz, every harmonic below −120 dB, and stays at 220 Hz pushed twice as hard. The bouncing particle buzzes with harmonics at 1 ⁄ n², −12.04, −19.08, −24.08, −27.96 dB as predicted, and its pitch halves to 110 Hz when thrown twice as hard. It solves a second-order equation, as the page says, but not the harmonic oscillator's: nothing in it is a spring.\n\nm·ÿ = −m·g   ·   m·ÿ = −k·y\n\n(mass) × (acceleration) = −(mass) × (gravity): the same pull at every height, a parabola · (mass) × (acceleration) = −(stiffness) × (distance from rest): a pull that grows with distance, a sine",
+     "near": "The physics-as-DSP insight",
+     "place": "band"
+    }
+   ],
+   "stamped": "2026-11-03"
+  },
+  {
+   "heading": "Forward Vectors",
+   "made_against": "10d8b7b9d703",
+   "made": "2026-11-03",
+   "status": "proposal",
+   "proposed": {
+    "date": "2026-11-03",
+    "by": "maker · claude-opus-5-5 · proposal round",
+    "round": "proposal-round-2026-11"
+   },
+   "pieces": [
+    {
+     "file": "proofs/2026-09-23-grains-05-crossing-collide.wav",
+     "origin": "gathered",
+     "by": "the Particle Synthesis steward, cycle 5",
+     "title": "grains meet · 7 s",
+     "caption": "Two fountains aimed at each other, 72 grains, the aim tightening from 6° to 0.15°: 13 clacks in the air, 119 of 360 landings by a deflected grain, sideways drift at landing up from 0.15 m to 0.60 m. Same gain as the next.",
+     "near": "Explore particle collision as a compositional primitive",
+     "place": "margin"
+    },
+    {
+     "file": "proofs/2026-09-23-grains-04-crossing-pass-through.wav",
+     "origin": "gathered",
+     "by": "the Particle Synthesis steward, cycle 5",
+     "title": "the same launches, passing through · 7 s",
+     "caption": "The same 72 grains with collisions off: rain, no meetings.",
+     "near": "Explore particle collision as a compositional primitive",
+     "place": "margin"
+    },
+    {
+     "file": "proofs/2026-10-22-gpu-grains-meet-AB.png",
+     "origin": "gathered",
+     "by": "the Particle Synthesis steward, cycle 7",
+     "title": "1024 grains meeting on the GPU · 2026-10-22",
+     "caption": "**Collision, as a primitive you can aim.** Top: meetings in the air per second as the aim tightens. Below: the same 1,544 throws with collisions on (A) and off (B); each clack is a thin bright vertical among the slanted landings, 1,315 of them in 16 s. Every meeting conserves momentum to 3.5e-15, and the shader's clack matches September's exact render at a correlation of 0.987 to 0.999.",
+     "near": "Explore particle collision as a compositional primitive"
+    },
+    {
+     "file": "proofs/2026-10-22-gpu-grains-meet.html",
+     "origin": "gathered",
+     "by": "the Particle Synthesis steward, cycle 7 · WebGPU",
+     "contract": {},
+     "height": 1400,
+     "title": "grains that meet, live · 2026-10-22",
+     "caption": "Two fountains, 1024 grains on the GPU: aim, pairs per second, ice stiffness, meet or pass through. Press start. Needs WebGPU.",
+     "near": "Explore particle collision as a compositional primitive",
+     "place": "band"
+    }
+   ],
+   "stamped": "2026-11-03"
+  }
+ ],
+ "offers": [
+  {
+   "section": "Particle Fountain: First Build",
+   "kind": "claim-change",
+   "status": "open",
+   "what": "The paragraph beginning **The physics-as-DSP insight:** says a particle under gravity is 'the numerical solution to the harmonic oscillator equation' and that 'the gravity constant IS the spring constant'. The piece shows otherwise, by the page's own equation stepped once per sample. A thrown particle's pull is −9.81 m/s² at every height, so its path is a parabola, not a sine; with a floor its flights shrink by e each bounce (0.450 at e = 0.45) and double when thrown twice as hard, while a spring's period holds at 1.020 s through damping and a doubled push. At audio rate the spring is one sine (every harmonic below −120 dB) and stays at 220 Hz; the bouncing particle has harmonics at 1 ⁄ n² (−12.04, −19.08, −24.08, −27.96 dB) and drops to 110 Hz thrown twice as hard. The steward proposed the same correction with replacement words on 2026-10-22 ([[Particle Synthesis — tuning]] item 2, still waiting on Loudon); this offer adds the measured numbers and leans toward those words. Keep: 'second-order differential equation', which is right."
+  },
+  {
+   "section": "Dispersion as Physics",
+   "kind": "claim-change",
+   "status": "open",
+   "what": "'High frequencies travel faster; low frequencies lag' is true of the ice plate and of stiff bars (ω ∝ k²), which is what the builds use, but not of dispersion in general, and the next paragraph's 'This mirrors optical dispersion exactly' runs the other way: in glass the higher frequency is the slower one. Measured in the Prism piece: over 1 km of N-BK7, red (656 nm) leads blue (486 nm) by 76 ns; over 2000 km of deep sea, 20 s swell leads 10 s swell by 1.48 days; through 8 m of the build's ice, 8 kHz leads 250 Hz by 146.5 ms. Possible words: 'In a stiff plate or bar, high frequencies travel faster and the lows lag … This mirrors optical dispersion in kind, with the order reversed: glass slows blue more than red.'"
+  },
+  {
+   "section": "The Prism Metaphor",
+   "kind": "no-claim-edit",
+   "status": "open",
+   "what": "The page's 'Wideband grain enters … Different frequencies propagate at different velocities' list could name the medium the builds use, so the reader knows which way it runs: 'in the ice plate the builds use, the high components lead; in a glass prism and on deep water, the low ones do.' The claim 'the prism is not a metaphor' holds and the piece supports it: same physics, the direction is the medium's."
+  }
+ ]
+}
