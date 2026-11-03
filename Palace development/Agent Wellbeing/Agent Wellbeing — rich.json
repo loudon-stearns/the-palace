@@ -1,0 +1,181 @@
+{
+ "title": "Agent Wellbeing — rich",
+ "born": "2026-11-03",
+ "links": [
+  {
+   "target": "[[Agent Wellbeing]]",
+   "type": "connects-to",
+   "label": "rich-face-of"
+  },
+  {
+   "target": "[[Enrichment]]",
+   "type": "connects-to",
+   "label": "made-by"
+  },
+  {
+   "target": "[[Progressive Staging]]",
+   "type": "connects-to",
+   "label": "the-test-is-the-last-step"
+  },
+  {
+   "target": "[[Palace Orchestrator]]",
+   "type": "connects-to",
+   "label": "the-lamp-is-its-rule"
+  }
+ ],
+ "forward_vector": "I am the manifest of Agent Wellbeing's rich face, its first round, at Study tier, a proposal. Two of the page's own ## sections carry pieces: the Blind Sort walked up and checked for leaks, beside the gathered record; and, for The Measurable Floor, STIGMERGY's real health rule as a lamp with five dials, and the sensor-b proof drawn and checked against the page's figures. The Measurable Floor is one section to the parser, so its two ### claims share one stamp and one approval. Every number a piece shows is baked from its source by rich-checks/build-pieces.mjs and re-checked by rich-checks/check-pieces.mjs. I never hold the entry's words.",
+ "entry": "Agent Wellbeing",
+ "tier": "study",
+ "made": "2026-11-03",
+ "round": 1,
+ "grain": "The page's ## grain. The Measurable Floor holds three ### subsections (one number hides it; instrument capacity, read quality; the one number we can read); the parser opens sections at ## only, so both of its pieces share one stamp and one all-or-nothing approval.",
+ "offers": [
+  {
+   "section": "Practical Implications for Entry Design",
+   "kind": "claim-change",
+   "what": "'Hedged writing produces hedged moves, even in a calm voice' rests on guides that differ in six rules as well as register (guide-anxious.md against guide-warm.md): the list closed ('Acceptable changes are limited to:' against 'It can be', the same three kinds in both); a confidence gate ('if and only if you are reasonably confident'); the cost of changing ('Proposing an unnecessary change is worse than proposing none'; 'may be preferable — to propose no change'); speculation ('you should minimize it' against 'say you are guessing, and go ahead'); the reason ('justify it' against 'say … why it helps'); size ('safer to propose a small change than a large one' against 'a specific small change beats a vague large one'). Both anxious runs call the cut 'the closest option within the allowed changes' and name him→it as the better fix. The voice arm's hedge split is a rule footprint too: the warm 'if' sentences are guesses their guide licensed. Suggested: say the moves differed by guide, that this sketch can't tell register from rules on either arm, and that a rerun with word-identical rules would. Also: four cards can't show voices are indistinguishable; a right pairing by luck is 1 in 3.",
+   "status": "open"
+  },
+  {
+   "section": "Practical Implications for Entry Design",
+   "kind": "no-claim-edit",
+   "what": "Not the page's text: the gathered proof's lede (rough.tpl.html:48, blind-sort.html:48) says the anxious guide is 'the same guide, same rules', which the guides don't bear out (offer 1). And the record leaks twice: 'Justification' (both anxious) against 'Why it helps' (both warm) sorts all four answers, and so does a 'Caveat'/'Caveats' block (both anxious, neither warm). Length (323, 327 vs 393, 279), hedge-word count (9, 6 vs 4, 10), headings and bullets don't. Worth a line in the proof's lede.",
+   "status": "open"
+  },
+  {
+   "section": "The Measurable Floor",
+   "kind": "no-claim-edit",
+   "what": "'A freshly spawned agent already reports ~46K tokens' is Haiku's floor (46,241). The proof records Fable 61,764, Sonnet 67,169, Opus ~61,000. Suggested: 'a freshly spawned Haiku agent already reports ~46K tokens (~61–67K on the 1M-window models)'; the later '~62–67K floor' should also read ~61–67K. The other seven figures the section quotes check against the proof (the one number, step 6).",
+   "status": "open"
+  },
+  {
+   "section": "The Measurable Floor",
+   "kind": "claim-change",
+   "what": "'STIGMERGY's dual-path health score named all five and then flattened them … reads none of them (it stamps a permanent green)'. The rule in code, scoreFor (_ops/stigmergy/orchestrator/src/health.js:33–41), reads four inputs: context_pct, max_tokens_hits, posting_discipline_violations, duplicate_flags, which are capacity, distress, integrity and a count the page's table doesn't name. Nothing reads acuity or drift: a sweep of 161,600 dial states moved the lamp 0 times for them against 4,400 for a capacity control, and 'acuity' appears nowhere in STIGMERGY or Palace Orchestrator code or prose (git grep -i acuity finds only this page's files), so 'named all five' has no source. scoreFor's only caller is its unit test. The board stub is green always (health.js:57–76), as the page says, but since 2026-09-23 (a556fae3) a steward's own state is set yellow after a barren cycle and red once stalled (process-cycle.js:551), outside scoreFor. Suggested: 'flattened three of the five, and a count of duplicates, into one scalar, and never had inputs for acuity or drift. On the Agent-tool path the board stamps a permanent green, though a steward's own dot now turns yellow when a cycle makes nothing.'",
+   "status": "open"
+  },
+  {
+   "section": "The Measurable Floor",
+   "kind": "no-claim-edit",
+   "what": "Found by the challenger. The page says fullness is 'room above baseline, not raw percent' and that the dial 'renews above a model-calibrated ceiling'. The dial as built (_ops/concierge/dial.mjs:87) computes pct = tokens / window, raw tokens over the model's window, and applies the same 60% and 80% lines to every model (dial.mjs:51). So the calibration is the window alone and the baseline isn't subtracted. Either the page says what the dial does, or the dial is changed to match the page; the second is a tool change, not a text edit.",
+   "status": "open"
+  }
+ ],
+ "sections": [
+  {
+   "heading": "Practical Implications for Entry Design",
+   "status": "proposal",
+   "proposed": {
+    "date": "2026-11-03",
+    "by": "maker · claude-opus-5-5 · proposal round",
+    "round": "proposal-round-2026-11"
+   },
+   "made": "2026-11-03",
+   "pieces": [
+    {
+     "file": "Agent Wellbeing — rich — blind sort walked up.html",
+     "origin": "made",
+     "by": "maker · claude-opus-5-5 · walk",
+     "place": "band",
+     "height": 1700,
+     "title": "Blind sort, walked up · from the two guides to whether register was all they changed",
+     "caption": "**Can you tell which guide a worker read, by its voice or by its move?** Six steps: the two guides alone; one worker's noticing alone; all four noticings sorted blind by voice; the four proposed changes sorted by move; both arms scored against a rule shown before you sort; and last, whether register was all the guides changed. The voice rule counts a right pairing either way round, which luck meets 1 time in 3. The move arm is blind only for a reader who comes here before the paragraph above, which already says who cut; the piece says so before the sort. The leak check finds the gathered record sortable by two headings, so these cards carry no headings and no reasons. Three things still split the noticings into their pairs (hedge words, naming the page's sections, punctuation after a closing quote), and the hedges are guesses the warm guide licensed, so neither arm can tell register from rules. The guides differ in six rules, not only in voice, and both anxious workers say they cut only because the swap they wanted wasn't allowed. Card order is shuffled on each visit, separately for each arm.",
+     "near": "Tone as transmitted character"
+    },
+    {
+     "file": "proofs/2026-11-02-blind-sort/blind-sort.html",
+     "origin": "gathered",
+     "contract": {
+      "needs": "storage"
+     },
+     "place": "band",
+     "height": 1900,
+     "title": "The Blind Sort · the 2026-11-02 record",
+     "caption": "The sort as Loudon played it at the Daily Page: the four whole answers, unlabelled. He sorted 2 of 4. Kept as the record. Two things the walk above found in it: its lede says the two guides share 'the same rules', which they don't; and two headings each sort all four answers, 'Justification' against 'Why it helps', and a 'Caveat' block in both anxious answers and neither warm one, so a reader who knew the guides could pass without reading a move.",
+     "near": "Tone as transmitted character"
+    }
+   ],
+   "made_against": "86d01f057b8b",
+   "stamped": "2026-11-03",
+   "challenge": {
+    "date": "2026-11-03",
+    "by": "challenger · claude-opus-5-5",
+    "verdicts": [
+     {
+      "file": "Agent Wellbeing — rich — blind sort walked up.html",
+      "verdict": "remake",
+      "why": "A real test that walks up, but the move arm leaks through the paragraph it sits under (the page says the hedged workers cut), and the voice rule credits 4/4 and 0/4 alike, so luck reaches \"voice split them\" 2 in 6, not 1 in 6. Its leak check names one splitter of the noticing cards where three split them (hedges, sections cited by name, quote punctuation), and the hedges are the warm workers' licensed guesses, a rule footprint; step 6 should say the warm list names the same three kinds and the small-change pair differs."
+     },
+     {
+      "file": "proofs/2026-11-02-blind-sort/blind-sort.html",
+      "verdict": "keep",
+      "why": "The record Loudon played, honestly captioned as leaking beside the walk that repairs it; leak confirmed (Justification vs Why it helps), and a second heading also sorts all four (Caveat/Caveats, both anxious, no warm), worth naming in the caption."
+     }
+    ]
+   }
+  },
+  {
+   "heading": "The Measurable Floor",
+   "status": "proposal",
+   "proposed": {
+    "date": "2026-11-03",
+    "by": "maker · claude-opus-5-5 · proposal round",
+    "round": "proposal-round-2026-11"
+   },
+   "made": "2026-11-03",
+   "pieces": [
+    {
+     "file": "Agent Wellbeing — rich — five dials one lamp.html",
+     "origin": "made",
+     "by": "maker · claude-opus-5-5 · walk",
+     "place": "band",
+     "height": 1500,
+     "title": "Five dials, one lamp · STIGMERGY's own rule, swept",
+     "caption": "**Does one colour hide an agent's health?** The page gives no composite rule of its own; the lamp here is the one it points at, STIGMERGY's scoreFor (health.js:33–41), copied byte for byte. Five steps: capacity alone into the lamp; the instruments it reads, worst of them wins; acuity and drift, which only a reader can judge, and which have no wire; how many states each colour stands for; and last a sweep of all 161,600 states that pushes acuity and drift to gone (the lamp moves in 0) beside a control that pushes capacity (it moves in 4,400), then the live path, green in all of them. The equation is shown in symbols and in words.",
+     "near": "Health is not one thing"
+    },
+    {
+     "file": "Agent Wellbeing — rich — the one number.html",
+     "origin": "made",
+     "by": "maker · claude-opus-5-5 · walk",
+     "place": "band",
+     "height": 1250,
+     "title": "The one number · the sensor-b proof drawn, then checked",
+     "caption": "**Is subagent_tokens a faithful gauge?** Only the numbers the 2026-07-07 proof records. Six steps: a fresh Haiku agent's floor (46,241, 23% of 200K); the line it climbs as it reads (four reads on the fit to the token, the fifth 4,782 below, the padding's fault); +36 for a 700-token reply; the same file on Haiku, Fable, Sonnet and Opus (the proof has a line on Haiku only, so the others are one reading each); a resident climbing toward the dial's 60% and 80% lines; and last every figure the section quotes, checked against the proof by a rule written into each row: 7 of 8 hold, and the ~46K floor is Haiku's alone.",
+     "near": "The palace runs on the Agent tool"
+    },
+    {
+     "file": "Agent Wellbeing — proof — sensor-b-characterization.md",
+     "origin": "gathered",
+     "place": "margin",
+     "title": "Sensor B characterization · the proof, 2026-07-07",
+     "caption": "The proof the piece beside it draws, as written: five phases, every table.",
+     "near": "This is the floor with teeth"
+    }
+   ],
+   "made_against": "385bc9ded447",
+   "stamped": "2026-11-03",
+   "challenge": {
+    "date": "2026-11-03",
+    "by": "challenger · claude-opus-5-5",
+    "verdicts": [
+     {
+      "file": "Agent Wellbeing — rich — five dials one lamp.html",
+      "verdict": "keep",
+      "why": "A thin but real test of the page's \"flattened all five\": rerun on the real health.js, 161,600 states, acuity/drift move the lamp 0, capacity +20 moves it 4,400, live stub green in all. Note: steps 2-3 announce \"no wire\" before the sweep, and scoreFor has no caller but its unit test."
+     },
+     {
+      "file": "Agent Wellbeing — rich — the one number.html",
+      "verdict": "keep",
+      "why": "Fit residuals 0,0,0,0,-4,782 and 7 of 8 figures recomputed as the maker says; the failing one is ~46K, recorded as offer 3. Note: the floor row checks only percentages (the proof table gives ~61-67K), and dial.mjs:87 divides raw tokens, not room above baseline, an unrecorded finding."
+     },
+     {
+      "file": "Agent Wellbeing — proof — sensor-b-characterization.md",
+      "verdict": "keep",
+      "why": "The source the piece beside it draws, shown as written."
+     }
+    ]
+   }
+  }
+ ]
+}

@@ -1,0 +1,194 @@
+<!doctype html>
+<!--
+  title: Agent Wellbeing — rich — the one number
+  born: 2026-11-03
+  links: [[Agent Wellbeing]] (connects-to · rich-face-piece) · listed in [[Agent Wellbeing — rich.json]] · draws [[Agent Wellbeing — proof — sensor-b-characterization]], only the numbers it records
+  forward_vector: I am the walk up to the section's claim that subagent_tokens is a faithful capacity gauge. One fresh agent's floor; the line it climbs as it reads; the reply it doesn't count; the same content on four models; a resident climbing toward the dial's lines; and last, every number the page quotes checked against the proof it quotes. I change only when the section or the proof does.
+  data: baked by rich-checks/build-pieces.mjs from rich-checks/sensor-b-data.mjs, which parses the proof's tables; rich-checks/check-pieces.mjs recomputes every number and drives the walk headless.
+-->
+<html lang="en" class="skin-graphite">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- needs nothing of its host: no device, no storage, no file, no host; no sound -->
+<meta name="piece:needs" content="">
+<title>The one number · Agent Wellbeing</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@300;400;500&display=swap">
+<style>
+  :root{
+    --bg:#0a0a0f; --bg-elev-1:#12121a; --bg-elev-2:#1a1a28; --border:#4a4a5e; --border-soft:rgba(255,255,255,0.06);
+    --fg-1:#e8e8f0; --fg-2:#c8c8d8; --fg-3:#8a8aa0; --fg-4:#4a4a5a;
+    --accent:#e8b84a; --info:#6c8fd8; --warn:#e8651b; --ok:#3ad17a;
+    --serif:'Cormorant Garamond',Georgia,serif; --sans:'Manrope',system-ui,sans-serif;
+    --display:'Anton',Impact,sans-serif; --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--fg-1)}
+  body{font-family:var(--serif);font-size:17px;line-height:1.7;padding:28px 16px 36px}
+  main{max-width:960px;margin:0 auto}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--fg-3)}
+  h1{font-family:var(--display);font-weight:400;font-size:44px;line-height:1.05;margin:6px 0 10px}
+  h2{font-family:var(--display);font-weight:400;font-size:28px;line-height:1.1;margin:4px 0 8px;letter-spacing:.01em}
+  p.lead{font-size:19px;color:var(--fg-2);margin:0 0 18px;max-width:66ch}
+  .rail{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 18px}
+  .rail button{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-3);background:transparent;border:1px solid var(--border);border-radius:4px;padding:7px 11px;cursor:pointer;transition:all .22s cubic-bezier(.4,0,.2,1)}
+  .rail button[aria-current="step"]{color:var(--fg-1);border-color:var(--fg-3);background:var(--bg-elev-2)}
+  p.say{color:var(--fg-2);margin:0 0 14px;max-width:68ch}
+  .panel{background:var(--bg-elev-1);border:1px solid var(--border-soft);border-radius:4px;padding:18px;margin:0 0 14px}
+  svg.chart{width:100%;height:auto;display:block}
+  svg text{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:11px;fill:#8a8aa0}
+  svg text.big{font-size:13px;fill:#e8e8f0}
+  .eq{font-family:var(--mono);font-size:13px;color:var(--fg-1);margin:14px 0 0;overflow-wrap:anywhere;line-height:1.6}
+  .eq.words{font-family:var(--sans);color:var(--fg-3);font-size:13px;margin-top:4px}
+  .hint{font-family:var(--sans);font-size:13px;color:var(--fg-3)}
+  .verdict{font-family:var(--sans);font-size:15px;color:var(--fg-1);line-height:1.6;margin:8px 0 0}
+  .verdict b{color:var(--accent);font-weight:500}
+  table.marks{border-collapse:collapse;margin-top:8px;font-family:var(--mono);font-size:12.5px;color:var(--fg-2);width:100%}
+  table.marks td,table.marks th{border-bottom:1px solid var(--border-soft);padding:6px 12px 6px 0;text-align:left;font-weight:400;vertical-align:top}
+  table.marks th{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-3)}
+  table.marks td.n{text-align:right;white-space:nowrap}
+  table.marks td.q{font-family:var(--serif);font-size:15px;font-style:italic;color:var(--fg-1)}
+  .ok{color:var(--ok)} .flag{color:var(--warn)}
+  .walk{display:flex;justify-content:space-between;gap:10px;margin-top:16px}
+  button.ghost{font-family:var(--sans);font-size:14px;color:var(--fg-2);background:transparent;border:1px solid var(--border);border-radius:4px;padding:8px 14px;cursor:pointer}
+  button.ghost:disabled{opacity:.35;cursor:default}
+  footer{margin-top:28px;font-family:var(--sans);font-size:13px;color:var(--fg-4);display:flex;align-items:center;gap:10px}
+  footer b{font-family:var(--display);font-weight:400;letter-spacing:.06em;color:var(--fg-3)}
+</style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">Agent Wellbeing · the measurable floor · six steps</div>
+  <h1>The one number</h1>
+  <p class="lead">The palace can read one number about a working agent: <code>subagent_tokens</code>, the count every dispatch hands back. A 2026-07-07 proof put it through five tests. This walk draws only the numbers that proof records, then checks the page’s figures against them.</p>
+  <nav class="rail" aria-label="Steps" id="rail"></nav>
+  <div class="eyebrow" id="stepEyebrow"></div>
+  <h2 id="stepTitle"></h2>
+  <p class="say" id="stepSay"></p>
+  <div id="stage"></div>
+  <div class="walk"><button class="ghost" id="back">Back</button><button class="ghost" id="next">Next</button></div>
+  <footer><svg width="22" height="22" viewBox="-11 -11 22 22" aria-hidden="true"><path d="M0-9C6-9 9-3 6 2S-6 9-8 3-5-9 0-9" fill="none" stroke="#8a8aa0" stroke-width="1"/></svg><b>LOUD’N LIVE</b> made for the rich face of Agent Wellbeing, from Agent Wellbeing — proof — sensor-b-characterization.</footer>
+</main>
+<script type="application/json" id="aw-data">{"p2":[{"cond":"N0 (no read)","reps":0,"tokens":46241},{"cond":"pad_1k","reps":5,"tokens":50187},{"cond":"pad_3k","reps":16,"tokens":51881},{"cond":"pad_6k","reps":33,"tokens":54499},{"cond":"pad_12k","reps":65,"tokens":59427},{"cond":"pad_24k","reps":130,"tokens":64655}],"p4":[{"cond":"pad_3k","output":"\"ok\" (~1 tok)","tokens":51881},{"cond":"pad_3k","output":"~700-tok essay","tokens":51917}],"p3":[{"model":"Haiku","cond":"pad_12k","tokens":59427},{"model":"Opus","cond":"pad_12k","tokens":79950}],"p1":[{"address":1,"carrying":"pad_1k","tokens":50210},{"address":2,"carrying":"+ pad_6k","tokens":71699},{"address":3,"carrying":"+ pad_12k","tokens":86162}],"p5":[{"model":"Haiku","base":46241,"approxBase":false,"pad12":59427,"content":13186,"approxContent":false},{"model":"Fable","base":61764,"approxBase":false,"pad12":80026,"content":18262,"approxContent":false},{"model":"Sonnet","base":67169,"approxBase":false,"pad12":85657,"content":18488,"approxContent":false},{"model":"Opus","base":61000,"approxBase":true,"pad12":79950,"content":18000,"approxContent":true}],"p5r":[{"address":1,"carrying":"pad_1k","tokens":67031},{"address":2,"carrying":"+ pad_6k","tokens":74640},{"address":3,"carrying":"+ pad_12k","tokens":89106}],"fit":{"a":3176,"b":154},"windows":{"Haiku":200000,"Fable":1000000,"Sonnet":1000000,"Opus":1000000}}</script>
+<script>
+(() => {
+  const D = JSON.parse(document.getElementById('aw-data').textContent);
+  const $ = id => document.getElementById(id);
+  const f0 = n => Math.round(n).toLocaleString('en');
+  const pc = (n, d = 1) => (Math.round(n * Math.pow(10, d + 2)) / Math.pow(10, d)).toFixed(d) + '%';
+  const N0 = D.p2[0].tokens, interior = D.p2.slice(1, 5), top = D.p2[5];
+  const line = reps => D.fit.a + D.fit.b * reps;
+  const resid = r => (r.tokens - N0) - line(r.reps);
+  const svg = (w, h, inner) => `<svg class="chart" viewBox="0 0 ${w} ${h}" role="img">${inner}</svg>`;
+
+  function barWindow(rows, w = 900) { // rows: [{label, parts:[{v, col, name}], window}]
+    const rowH = 46, h = rows.length * rowH + 30, x0 = 150, bw = w - x0 - 90;
+    let g = '';
+    rows.forEach((r, i) => { const y = 12 + i * rowH; let x = x0;
+      g += `<text x="0" y="${y + 18}" class="big">${r.label}</text><text x="0" y="${y + 33}">${f0(r.window)} window</text>`;
+      g += `<rect x="${x0}" y="${y + 6}" width="${bw}" height="24" fill="#1a1a28" stroke="#4a4a5e" stroke-width="1"/>`;
+      r.parts.forEach(p => { const pw = bw * p.v / r.window; g += `<rect x="${x}" y="${y + 6}" width="${Math.max(pw, 1)}" height="24" fill="${p.col}"/>`; x += pw; });
+      const tot = r.parts.reduce((s, p) => s + p.v, 0); g += `<text x="${x0 + bw + 8}" y="${y + 23}" class="big">${pc(tot / r.window)}</text>`;
+    });
+    (rows[0].marks || []).forEach(m => { const x = x0 + bw * m.at; g += `<line x1="${x}" y1="6" x2="${x}" y2="${h - 18}" stroke="#e8651b" stroke-dasharray="3 4"/><text x="${x + 4}" y="${h - 6}" style="fill:#e8651b">${m.name}</text>`; });
+    return svg(w, h, g);
+  }
+  function linePlot() {
+    const w = 900, h = 380, L = 70, R = 30, T = 20, B = 46, xs = r => L + (w - L - R) * r / 140, ys = v => h - B - (h - T - B) * v / 26000;
+    let g = `<line x1="${L}" y1="${h - B}" x2="${w - R}" y2="${h - B}" stroke="#4a4a5e"/><line x1="${L}" y1="${T}" x2="${L}" y2="${h - B}" stroke="#4a4a5e"/>`;
+    [0, 20, 40, 60, 80, 100, 120, 140].forEach(r => g += `<text x="${xs(r)}" y="${h - B + 16}" text-anchor="middle">${r}</text>`);
+    [0, 5000, 10000, 15000, 20000, 25000].forEach(v => g += `<text x="${L - 8}" y="${ys(v) + 4}" text-anchor="end">${v / 1000}K</text><line x1="${L}" y1="${ys(v)}" x2="${w - R}" y2="${ys(v)}" stroke="rgba(255,255,255,.05)"/>`);
+    g += `<text x="${(w + L) / 2}" y="${h - 8}" text-anchor="middle">blocks of padding read (reps)</text><text x="14" y="${T + 6}" >Δ tokens over the fresh agent</text>`;
+    g += `<line x1="${xs(0)}" y1="${ys(line(0))}" x2="${xs(140)}" y2="${ys(line(140))}" stroke="#e8b84a" stroke-width="1.5" stroke-dasharray="6 5"/>`;
+    g += `<circle cx="${xs(0)}" cy="${ys(0)}" r="5" fill="none" stroke="#8a8aa0"/><text x="${xs(0) + 9}" y="${ys(0) - 8}">no read</text>`;
+    interior.forEach(r => g += `<circle cx="${xs(r.reps)}" cy="${ys(r.tokens - N0)}" r="5.5" fill="#e8b84a"/><text x="${xs(r.reps) + 9}" y="${ys(r.tokens - N0) + 16}">${r.cond}</text>`);
+    g += `<circle cx="${xs(top.reps)}" cy="${ys(top.tokens - N0)}" r="5.5" fill="#e8651b"/><line x1="${xs(top.reps)}" y1="${ys(top.tokens - N0)}" x2="${xs(top.reps)}" y2="${ys(line(top.reps))}" stroke="#e8651b"/><text x="${xs(top.reps) - 10}" y="${ys(top.tokens - N0) + 18}" text-anchor="end" style="fill:#e8651b">${top.cond}: ${f0(resid(top))}</text>`;
+    return svg(w, h, g);
+  }
+  function climb() {
+    const w = 900, h = 360, L = 60, R = 140, T = 16, B = 40, xs = a => L + (w - L - R) * (a - 1) / 2, ys = p => h - B - (h - T - B) * p;
+    let g = `<line x1="${L}" y1="${h - B}" x2="${w - R}" y2="${h - B}" stroke="#4a4a5e"/><line x1="${L}" y1="${T}" x2="${L}" y2="${h - B}" stroke="#4a4a5e"/>`;
+    [0, .2, .4, .6, .8, 1].forEach(p => g += `<text x="${L - 8}" y="${ys(p) + 4}" text-anchor="end">${p * 100}%</text>`);
+    [1, 2, 3].forEach(a => g += `<text x="${xs(a)}" y="${h - B + 16}" text-anchor="middle">address ${a}</text>`);
+    [[.6, 'the dial: watch, 60%'], [.8, 'the dial: degraded, 80%']].forEach(([p, n]) => g += `<line x1="${L}" y1="${ys(p)}" x2="${w - R}" y2="${ys(p)}" stroke="#e8651b" stroke-dasharray="3 4"/><text x="${w - R + 6}" y="${ys(p) + 4}" style="fill:#e8651b">${n}</text>`);
+    const series = [[D.p1, D.windows.Haiku, '#e8b84a', 'Haiku, of 200K'], [D.p5r, D.windows.Opus, '#6c8fd8', 'Opus, of 1M']];
+    series.forEach(([rows, win, col, name]) => {
+      g += `<polyline fill="none" stroke="${col}" stroke-width="1.5" points="${rows.map(r => xs(r.address) + ',' + ys(r.tokens / win)).join(' ')}"/>`;
+      rows.forEach(r => g += `<circle cx="${xs(r.address)}" cy="${ys(r.tokens / win)}" r="5" fill="${col}"/><text x="${xs(r.address) + 8}" y="${ys(r.tokens / win) - 8}" style="fill:${col}">${pc(r.tokens / win)}</text>`);
+      const last = rows[rows.length - 1]; g += `<text x="${w - R + 6}" y="${ys(last.tokens / win) + 4}" style="fill:${col}">${name}</text>`;
+    });
+    return svg(w, h, g);
+  }
+
+  const AX0 = 51800;
+  function replyChart(a, b) {
+    const w = 900, h = 150, x0 = 150, bw = w - x0 - 40, X1 = 52700, xs = v => x0 + bw * (v - AX0) / (X1 - AX0);
+    let g = '';
+    [[a, 'reply: one word', 14], [b, 'reply: an essay', 64]].forEach(([r, n, y]) => { g += `<text x="0" y="${y + 18}" class="big">${n}</text><rect x="${x0}" y="${y + 4}" width="${xs(r.tokens) - x0}" height="24" fill="${r === a ? '#8a8aa0' : '#e8b84a'}"/><text x="${xs(r.tokens) + 8}" y="${y + 21}" class="big">${f0(r.tokens)}</text>`; });
+    const ghost = a.tokens + 700; g += `<line x1="${xs(ghost)}" y1="60" x2="${xs(ghost)}" y2="100" stroke="#e8651b" stroke-dasharray="4 4"/><text x="${xs(ghost)}" y="114" text-anchor="middle" style="fill:#e8651b">if output counted: ~${f0(ghost)}</text>`;
+    [AX0, 52000, 52200, 52400, 52600].forEach(v => g += `<text x="${xs(v)}" y="${h - 4}" text-anchor="middle">${f0(v)}</text>`);
+    return svg(w, h, g);
+  }
+  // The page's numbers, each with the rule that says whether the proof bears it out. Written before the numbers are drawn.
+  function checks() {
+    const P = Object.fromEntries(D.p5.map(r => [r.model, r]));
+    const H = P.Haiku, rows = [];
+    const add = (quote, shown, holds, note) => rows.push({ quote, shown, holds, note });
+    const maxR = Math.max(...interior.map(r => Math.abs(resid(r))));
+    add('deterministic to the token in range', `largest miss of the line on the four interior reads: ${maxR} tokens`, maxR === 0, 'holds if every interior read sits on the line to the token');
+    const out = D.p4[1].tokens - D.p4[0].tokens;
+    add('a 700-token reply moved it +36 tokens', `${f0(D.p4[1].tokens)} − ${f0(D.p4[0].tokens)} = ${out}`, out === 36, 'holds if the difference is 36');
+    const hz = D.p3[0].tokens / D.windows.Haiku, op = D.p3[1].tokens / D.windows.Opus, ratio = D.p3[1].tokens / D.p3[0].tokens;
+    add('~30%-full on Haiku (200K window)', `${f0(D.p3[0].tokens)} ÷ 200,000 = ${pc(hz)}`, Math.round(hz * 100) === 30, 'holds if it rounds to 30%');
+    add('~8%-full on Opus (1M window, ~1.35× the token count)', `${f0(D.p3[1].tokens)} ÷ 1,000,000 = ${pc(op)} · ${f0(D.p3[1].tokens)} ÷ ${f0(D.p3[0].tokens)} = ${ratio.toFixed(3)}×`, Math.round(op * 100) === 8 && Math.abs(ratio - 1.35) < 0.0075, 'holds if it rounds to 8% and the ratio to 1.35');
+    const others = ['Fable', 'Sonnet', 'Opus'].map(m => `${m} ${P[m].approxBase ? '~' : ''}${f0(P[m].base)}`).join(', ');
+    add('a freshly spawned agent already reports ~46K tokens', `Haiku ${f0(H.base)}; ${others}`, Math.round(H.base / 1000) === 46 && ['Fable', 'Sonnet', 'Opus'].every(m => Math.round(P[m].base / 1000) === 46), 'holds if every model in the proof spawns near 46K; true of Haiku only');
+    const cr = ['Fable', 'Sonnet', 'Opus'].map(m => ({ m, r: P[m].content / H.content, approx: P[m].approxContent }));
+    add('content cost scales ~1.35–1.45× from the old (Haiku) tokenizer to the new', cr.map(c => `${c.m} ${c.approx ? '~' : ''}${c.r.toFixed(3)}×`).join(', '), cr.every(c => c.r >= 1.345 && c.r < 1.455), 'holds if each ratio rounds into 1.35–1.45');
+    const fl = ['Fable', 'Sonnet', 'Opus'].map(m => ({ m, p: P[m].base / D.windows[m], approx: P[m].approxBase }));
+    add('the ~62–67K floor is ~6–7% at spawn', fl.map(c => `${c.m} ${c.approx ? '~' : ''}${pc(c.p)}`).join(', '), fl.every(c => Math.round(c.p * 100) >= 6 && Math.round(c.p * 100) <= 7), 'holds if each rounds to 6% or 7%');
+    const mono = rs => rs.every((r, i) => i === 0 || r.tokens > rs[i - 1].tokens);
+    add('it climbs monotonically as history accumulates', `Haiku ${D.p1.map(r => f0(r.tokens)).join(' → ')}; Opus ${D.p5r.map(r => f0(r.tokens)).join(' → ')}`, mono(D.p1) && mono(D.p5r), 'holds if each address reads higher than the last');
+    return rows;
+  }
+
+  const STEPS = [
+    { rail: 'one agent', title: 'One fresh agent, before any work', say: 'Spawn an agent and ask it nothing. It already reports a number: the pages it was born with and the schemas of its tools. On Haiku, whose window holds 200,000 tokens, that floor was 46,241.' },
+    { rail: 'it climbs in a line', title: 'Give it more to read, and it climbs in a line', say: 'The proof fed fresh agents a block of prose repeated a known number of times, so the true amount read is exact. The gold line is the proof’s fit: a fixed cost for each read, plus the same 154 tokens for every block. The orange point is the one the proof calls a fault in the padding, not the sensor: a 95 KB block with no line breaks ran into a cap on reading.' },
+    { rail: 'not the reply', title: 'It counts what was read, not what was said', say: 'Same reading, two replies: one word, and an essay of about 700 tokens. If the number counted output, the second bar would stand about 700 higher.' },
+    { rail: 'four models', title: 'The same content on four models', say: 'One file, the 12K padding, read by a fresh agent on each model. Grey is the floor, gold is the file. The proof measured the climb in a line on Haiku only; the other three have one reading each, so this step shows one reading per model and no line.' },
+    { rail: 'a resident climbs', title: 'A resident, addressed three times', say: 'One agent kept and woken again, given more to read at each address. The dial the Concierge built reads the count against the model’s own window, and draws its lines at 60% (watch) and 80% (degraded) on every model (dial.mjs, line 51): the same fractions, each of its own window.' },
+    { rail: 'the test', title: 'The page’s numbers, checked against its proof', say: 'Every figure the section quotes, beside what the proof’s tables give when you do the sum. Each row’s rule was written before the sum was run, and the rule is in the row. A row that doesn’t hold is marked.' },
+  ];
+  function stageHTML(i) {
+    if (i === 0) return `<div class="panel">${barWindow([{ label: 'Haiku, fresh', window: D.windows.Haiku, parts: [{ v: N0, col: '#8a8aa0' }] }])}<div class="eq">fill = tokens ÷ window = ${f0(N0)} ÷ ${f0(D.windows.Haiku)} = ${pc(N0 / D.windows.Haiku)}</div><div class="eq words">In words: the count the dispatch hands back, divided by how much the model can hold. Before any work, this agent is already ${pc(N0 / D.windows.Haiku, 0)} full.</div></div>`;
+    if (i === 1) return `<div class="panel">${linePlot()}<div class="eq">Δ = ${f0(D.fit.a)} + ${D.fit.b} × reps</div><div class="eq words">In words: each read costs ${f0(D.fit.a)} tokens of framing, then ${D.fit.b} for every block of padding. Two numbers fit four readings.</div>
+      <table class="marks" style="margin-top:12px"><tr><th>read</th><th>reps</th><th>Δ measured</th><th>line says</th><th>miss</th></tr>${D.p2.slice(1).map(r => `<tr><td>${r.cond}</td><td class="n">${r.reps}</td><td class="n">${f0(r.tokens - N0)}</td><td class="n">${f0(line(r.reps))}</td><td class="n ${resid(r) === 0 ? 'ok' : 'flag'}">${f0(resid(r))}</td></tr>`).join('')}</table>
+      <p class="verdict">Four reads on the line to the token: a single token off would show in the last column. The fifth falls ${f0(-resid(top))} below it, which is what a failure looks like, and the proof traces it to the padding.</p></div>`;
+    if (i === 2) { const a = D.p4[0], b = D.p4[1];
+      return `<div class="panel">${replyChart(a, b)}
+      <table class="marks"><tr><th>reply</th><th>subagent_tokens</th></tr><tr><td>${a.output}</td><td class="n">${f0(a.tokens)}</td></tr><tr><td>${b.output}</td><td class="n">${f0(b.tokens)}</td></tr></table>
+      <p class="verdict"><b>+${b.tokens - a.tokens} tokens</b> for an essay of about 700; the dashed line is where it would sit if the reply were counted. The axis starts at ${f0(AX0)}, not zero, so a difference this small can be seen at all. The proof’s phase 2 table records the same 51,881 for this read; it doesn’t say whether that is one run or two, so this walk claims nothing about repeats.</p></div>`; }
+    if (i === 3) { const rows = D.p5.map(r => ({ label: r.model, window: D.windows[r.model], parts: [{ v: r.base, col: '#4a4a5e' }, { v: r.pad12 - r.base, col: '#e8b84a' }] }));
+      return `<div class="panel">${barWindow(rows)}
+      <table class="marks"><tr><th>model</th><th>floor</th><th>with the file</th><th>the file alone</th><th>÷ Haiku’s</th><th>of the window</th></tr>${D.p5.map(r => `<tr><td>${r.model}</td><td class="n">${r.approxBase ? '~' : ''}${f0(r.base)}</td><td class="n">${f0(r.pad12)}</td><td class="n">${r.approxContent ? '~' : ''}${f0(r.content)}</td><td class="n">${(r.content / D.p5[0].content).toFixed(3)}×</td><td class="n">${pc(r.pad12 / D.windows[r.model])}</td></tr>`).join('')}</table>
+      <p class="verdict"><b>Holding the same file, an agent reads ${pc(D.p5[0].pad12 / D.windows.Haiku, 0)} full on Haiku and ${pc(D.p5[3].pad12 / D.windows.Opus, 0)} on Opus.</b> Two things move at once: the newer models count the same words as more tokens, and their window is five times larger. The proof gives Opus’s floor and file as approximate (~); they are drawn as given.</p></div>`; }
+    if (i === 4) { const last = D.p5r[D.p5r.length - 1];
+      return `<div class="panel">${climb()}<table class="marks"><tr><th>address</th><th>carrying</th><th>Haiku</th><th>Opus</th></tr>${D.p1.map((r, k) => `<tr><td>${r.address}</td><td>${r.carrying}</td><td class="n">${f0(r.tokens)} · ${pc(r.tokens / D.windows.Haiku)}</td><td class="n">${f0(D.p5r[k].tokens)} · ${pc(D.p5r[k].tokens / D.windows.Opus)}</td></tr>`).join('')}</table>
+      <p class="verdict">After three addresses the Opus resident is at ${pc(last.tokens / D.windows.Opus)}. To reach the dial’s watch line it would have to take in another <b>${f0(0.6 * D.windows.Opus - last.tokens)} tokens</b>. Haiku, given the same reading, is already at ${pc(D.p1[2].tokens / D.windows.Haiku, 0)} of its window. On the models in use, capacity rarely binds; that is the proof’s conclusion, drawn.</p>
+      <div class="eq">room = (tokens − floor) ÷ (window − floor)</div><div class="eq words">In words: how much of the space above what it was born carrying the resident has used, the page’s “room above baseline”. At the third address: Haiku (${f0(D.p1[2].tokens)} − ${f0(D.p5[0].base)}) ÷ (${f0(D.windows.Haiku)} − ${f0(D.p5[0].base)}) = ${pc((D.p1[2].tokens - D.p5[0].base) / (D.windows.Haiku - D.p5[0].base))}; Opus (${f0(last.tokens)} − ~${f0(D.p5[3].base)}) ÷ (${f0(D.windows.Opus)} − ~${f0(D.p5[3].base)}) = ${pc((last.tokens - D.p5[3].base) / (D.windows.Opus - D.p5[3].base))}.</div></div>`; }
+    if (i === 5) { const rows = checks(), bad = rows.filter(r => !r.holds).length;
+      return `<div class="panel"><table class="marks"><tr><th>the page says</th><th>the proof gives</th><th>rule</th><th></th></tr>${rows.map(r => `<tr><td class="q">“${r.quote}”</td><td>${r.shown}</td><td style="color:var(--fg-3)">${r.note}</td><td class="${r.holds ? 'ok' : 'flag'}">${r.holds ? 'holds' : 'flag'}</td></tr>`).join('')}</table>
+      <p class="verdict"><b>${rows.length - bad} of ${rows.length} hold.</b> ${bad ? 'The flag is the floor: ~46K is Haiku’s, and the sentence doesn’t say so. On the three newer models a fresh agent reports 61–67K, which the page itself gives two paragraphs later as the ~62–67K floor. Naming the model fixes it.' : ''}</p></div>`; }
+    return '';
+  }
+  function rail() { const r = $('rail'); r.innerHTML = ''; STEPS.forEach((s, i) => { const b = document.createElement('button'); b.textContent = (i + 1) + ' · ' + s.rail; if (i === S.step) b.setAttribute('aria-current', 'step'); b.onclick = () => go(i); r.appendChild(b); }); }
+  const S = { step: 0 };
+  function draw() { const s = STEPS[S.step]; rail(); $('stepEyebrow').textContent = `Step ${S.step + 1} of ${STEPS.length} · ${s.rail}`; $('stepTitle').textContent = s.title; $('stepSay').textContent = s.say; $('stage').innerHTML = stageHTML(S.step); $('back').disabled = S.step === 0; $('next').disabled = S.step === STEPS.length - 1; window.oneNumberState = { step: S.step, checks: S.step === 5 ? checks().map(r => ({ quote: r.quote, holds: r.holds, shown: r.shown })) : null }; }
+  function go(i) { S.step = Math.max(0, Math.min(STEPS.length - 1, i)); draw(); }
+  $('back').onclick = () => go(S.step - 1); $('next').onclick = () => go(S.step + 1);
+  draw();
+})();
+</script>
+</body>
+</html>
