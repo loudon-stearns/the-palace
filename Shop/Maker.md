@@ -29,7 +29,7 @@ links:
     label: tested-by
   - target: "[[STIGMERGY]]"
     type: connects-to
-    label: overridden-by
+    label: dress-for-stigmergy-artifacts
   - target: "[[Modes of Collaboration]]"
     type: connects-to
     label: names-mode

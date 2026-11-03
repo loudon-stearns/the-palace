@@ -32,7 +32,7 @@ The page is a hub that hands its depth elsewhere:
 
 ## What was tried and dropped
 
-- **A curses terminal.** The first host was Python `curses` (`Archive/stigmergy_intro.py`). That path was put aside for a browser that keeps the character-cell look ([[BBS Blackboard]] § BBS Design System).
+- **A curses terminal.** The first host was Python `curses` (`Archive/stigmergy_intro.py`). That path was put aside for a browser that keeps the character-cell look ([[STIGMERGY#The look|§ The look]]).
 - **Boards as the navigation.** v1.0 turned the six boards into lanes under three time decks. The build then re-promoted TRICKSTER and STEWARDS and stacked the old board viewer under the new inbox, so the same decisions showed up in three places. A v1.0 phrase, "Cormorant-register prominence", leaked Loudon Live's serif into a monospace terminal. The v2.0 consolidation of 2026-06-16 healed both ([[STIGMERGY v2.0 — Consolidation & Primary Interface]] § The assessment).
 - **The STEWARDS roster.** The PROJECTS deck replaced it on 2026-09-23 (`4c4e721b`). In the same edit "primary" became "only" way of operating the palace.
 - **Inferred done.** The board once retired a handoff when git or the filesystem seemed to show the work finished. Since 2026-07-07 (`4e8a65df`), only an explicit close retires it.
