@@ -1,0 +1,295 @@
+{
+  "title": "Neural Granular Synthesis — rich",
+  "born": "2026-11-03",
+  "links": [
+    {
+      "target": "[[Neural Granular Synthesis]]",
+      "type": "connects-to",
+      "label": "rich-face-of"
+    },
+    {
+      "target": "[[Enrichment]]",
+      "type": "connects-to",
+      "label": "made-by"
+    },
+    {
+      "target": "[[Progressive Staging]]",
+      "type": "connects-to",
+      "label": "walks-built-by-the-method"
+    }
+  ],
+  "forward_vector": "I am the manifest of Neural Granular Synthesis's rich face: two walks the Shop made, the crowd-size ladder ending on whether a big crowd is always steady and the lock's attack ending on what sets how hard the lock hits, laid beside the steward's renders, recordings and playable crowds from June to October, with the fingerprint of the words each was made against. I grow when the entry is enriched again; I never hold the entry's words.",
+  "entry": "Neural Granular Synthesis",
+  "tier": "study",
+  "made": "2026-11-03",
+  "round": 1,
+  "offers": [
+    {
+      "section": "The Core Insight",
+      "kind": "claim-change",
+      "status": "open",
+      "what": "Two parts of the paragraph measured on the crowd-size ladder (cycle 7's model, re-run headless here: three crowds per rung, 5.5 s each). (1) 'a single grain is a snippet of sound with no discernible pitch': true only for a grain a few cycles long. The ladder's 90 ms grain holds about 30 cycles of its 330 Hz pitch and is clearly a note; at 3 ms it is one cycle, a click. What the crowd adds is steadiness, not pitch. (2) 'Stack thousands of grains … and suddenly you have color': uncoupled, the crowd's gappiness (10 ms loudness frames, std ÷ mean) comes within about a fifth of the steady-noise floor at 16–32 neurons (1.24× and 1.19×, about 100–190 grains a second) and within a tenth from 64 (1.08×, about 380 a second); locked (K 1.6), it stays 5.4–6.1× the floor at every size from 4 to 512. So stability lives in the population only while its members keep their own time. Proposed: 'In granular synthesis, a single grain is a snippet: a short one has no discernible pitch, and even a long one is a single event. Stack a few dozen independent grains a second, and more, with careful control over their distribution, density and envelope, and the events fuse into color, texture and intentional timbre. The magic is in the population, not the grain, as long as the population keeps its own time: a crowd that fires together is one big grain, at any size.'"
+    },
+    {
+      "section": "Population-Level Parameters",
+      "kind": "claim-change",
+      "status": "open",
+      "what": "The Lumpiness line: 'An evenly spread crowd locks like a switch; a lumpy one starts agreeing early and arrives softly. This, not the pacemaker share, sets how hard the lock hits.' Measured on crowd_engine.js (512 neurons; the steward's lumpiness.json reproduced to the third decimal), then each crowd read on its own on a finer grid (1.25% steps of tightness). Holds: an even crowd snaps at any pacemaker share (agreement jumps 0.46 in one 1.25% turn with no pacemakers, 0.34 with half); half pacemakers lift its agreement below the lock (0.07 → 0.19), which widens the 0.3 → 0.7 reading (0.014 → 0.041) without softening the jump. Lumpy crowds do agree early (0.12–0.27 below the lock). Needs a condition: with no pacemakers, lumpy crowds still jump 0.46, 0.15 and 0.29 (one of three snaps like an even crowd), each at its own place (0.92–1.04× the edge), so the steward's averaged width of 0.111 partly measures that scatter between crowds; with half pacemakers, lumpy crowds arrive softly (jumps 0.07–0.15, widths 0.10–0.12). Proposed: 'An evenly spread crowd locks like a switch, whatever its pacemakers; a lumpy one starts agreeing early, and with pacemakers in it arrives softly. Lumpiness opens the way to a soft lock; the pacemaker share then sets how soft.'"
+    },
+    {
+      "section": "Population-Level Parameters",
+      "kind": "claim-change",
+      "status": "open",
+      "what": "The threshold variance line: 'low variance = synchronized firing'. Not re-run in this round; from the steward's cycle 8 timbre map (timbre-map.json, 136 crowds): spread does not synchronize a crowd by itself; it moves the lock, which sits at K = 4σ/π, and every spread collapses onto one curve against K ÷ σ. A narrow crowd with no coupling still drifts. Proposed: 'High variance = heterogeneous neurons that need more coupling to lock; low variance = a crowd that locks at weaker coupling (the lock sits at K = 4σ/π)'."
+    },
+    {
+      "section": "Statistical Mechanics: The Mathematics of Emergence",
+      "kind": "claim-change",
+      "status": "open",
+      "what": "The synchrony index line says r 'measures phase coherence', 0 incoherent to 1 synchronized. A global r cannot see a traveling wave: re-run here on kernel_lib's traveling-wave regime (128 neurons, narrow kernel, q = 3, 30 s settle), global r is 0.00 while each neuron's neighborhood is locked (local r 0.92–0.95 in a 0.02-ring window; 0.98–0.99 at 0.01). The raster explorer carries a second meter for this reason. Proposed, added to the line: 'a global r near 0 can also mean a traveling wave, where neighbors are locked but the crowd as a whole cancels; local coherence tells them apart'."
+    },
+    {
+      "section": "Open Questions",
+      "kind": "claim-change",
+      "status": "open",
+      "what": "'What is the minimum population size for perceptually stable timbres?' has a measured answer the page doesn't carry (cycle 7, 2026-09-24, re-run here): it depends on r. At 6 neurons' worth of firing a second each and 90 ms grains, an uncoupled crowd comes within a fifth of steady noise at 16–32 neurons and within a tenth from 64; a locked crowd has no minimum, staying 5–6× grainier than the floor from 4 to 512. Brightness settles sooner, by about 16. Untested: other firing rates and grain lengths (the knee should scale with grains sounding at once), and the ear. Proposed, under the question: '— measured (2026-09-24, re-run 2026-11-03): it depends on r. Uncoupled, a few dozen neurons (about 100–400 grains a second at 90 ms) reach a steady texture; locked, no number does, because a crowd that fires together is one grain. Coupling is a density control as well as a pitch control.'"
+    },
+    {
+      "section": "Open Questions",
+      "kind": "claim-change",
+      "status": "open",
+      "what": "Two more questions have the steward's measured answers (cycle 8, 2026-09-24, timbre-map.json; not re-run in this round). 'Can we tune threshold variance to target specific regions of timbre space?': no, not on its own; it moves the lock, and every spread lies on one curve against coupling ÷ spread, so an instrument needs one knob, coupling per unit of disorder. 'Does coupling strength correlate with a dimension of timbre space?': yes, brightness, on the locked side only: at the lock the tone goes dark (centroid about 760 → 330 Hz), then brightens toward 700 Hz as coupling rises. Proposed: a short measured note under each, as the pacemaker question already has."
+    }
+  ],
+  "sections": [
+    {
+      "heading": "Neural Granular Synthesis",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "made": "2026-11-03",
+      "pieces": [
+        {
+          "origin": "gathered",
+          "file": "crowd-gesture.wav",
+          "title": "the crowd in one take · 13 October",
+          "caption": "51 seconds of the playable crowd, 128 neurons: hiss, then the snap into a tone near 8.5 s, a dead-still tone, pacemakers fading in until it breathes, a wide vibrato, the core coming apart under the edge, and a short phrase, A C D E D A, on the living tone. Noisy whispers to a stable timbre and back, played on the population's knobs.",
+          "near": "The connection is not metaphorical"
+        },
+        {
+          "origin": "gathered",
+          "file": "crowd-gesture.png",
+          "title": "the meters under the take",
+          "caption": "Tightness, life, agreement and pitch wobble under the one-take above, so you can follow what the knobs did while you listen.",
+          "near": "The connection is not metaphorical"
+        }
+      ],
+      "made_against": "c2d5cdd2f9a4",
+      "stamped": "2026-11-03"
+    },
+    {
+      "heading": "The Core Insight",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "made": "2026-11-03",
+      "pieces": [
+        {
+          "origin": "made",
+          "file": "Neural Granular Synthesis — rich — crowd-size ladder.html",
+          "by": "Web Audio Worklet",
+          "height": 1320,
+          "place": "band",
+          "title": "how many grains make a color? · a walk in four steps",
+          "caption": "**Is a big enough crowd always steady?** One neuron firing 90 ms grains, then four, then the crowd grown rung by rung to 512, with a meter reading how grainy the sound is against steady noise of the same color. The last step locks the crowd and climbs again. The engine is the steward's cycle 7 ladder, ported; the headless re-run beside it matches the steward's numbers within the scatter between crowds.",
+          "near": "Stack thousands of grains"
+        },
+        {
+          "origin": "gathered",
+          "file": "crowd-size-stability.png",
+          "place": "band",
+          "title": "brightness and gappiness by crowd size · 24 September",
+          "caption": "The steward's measurement behind the walk. Left, brightness wobble: it reaches the noise floor by about 16 neurons, so brightness is not what sets the minimum. Right, gappiness: the uncoupled crowd falls to the floor, the locked one never leaves 1.4. Bottom, rasters at 8, 32, 128 and 512, uncoupled above and locked below.",
+          "near": "Stack thousands of grains"
+        }
+      ],
+      "made_against": "63c722287038",
+      "stamped": "2026-11-03"
+    },
+    {
+      "heading": "Architecture: Shader-Parallel Neuron Population",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "made": "2026-11-03",
+      "pieces": [
+        {
+          "origin": "gathered",
+          "file": "crowd-instrument.html",
+          "height": 1150,
+          "title": "the crowd, playable · 13 October",
+          "caption": "**The persistent population you can play.** A pad sets tightness across and life (the pacemaker share) up, with the theory's edge, 1/(1 − life), drawn on it; keys A to K play notes. Below it, a live raster and phase wheel. The neurons are never created or destroyed: the same crowd carries its phases across every audio buffer. It has no lumpiness knob yet; the walk under Population-Level Parameters runs the same engine with one.",
+          "near": "Create a persistent population"
+        }
+      ],
+      "made_against": "9edbed14d264",
+      "stamped": "2026-11-03"
+    },
+    {
+      "heading": "Population-Level Parameters",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "made": "2026-11-03",
+      "pieces": [
+        {
+          "origin": "made",
+          "file": "Neural Granular Synthesis — rich — lock attack.html",
+          "by": "Web Audio Worklet",
+          "height": 1450,
+          "place": "band",
+          "title": "how hard does the lock hit? · a walk in four steps",
+          "caption": "**Does lumpiness, and not the pacemaker share, set how hard the lock hits?** Tightness alone throws a switch; pacemakers move it to 1/(1 − life); lumpiness lets it soften. The last step measures four crowds on this page, each lumpy one three times, and reads both the steward's width and the biggest single jump. The engine is crowd_engine.js, byte for byte; the headless check reproduces the steward's sweep to the third decimal.",
+          "near": "how unevenly the crowd samples its own spread"
+        },
+        {
+          "origin": "gathered",
+          "file": "rich-face/lumpiness-attack.wav",
+          "title": "three ramps through the lock · 18 October",
+          "caption": "Half pacemakers, 512 neurons, tightness ramping from 0.8 to 1.15 of the edge over 7 s and held 2 s, three times: even (0 to 9 s), half lumpy (9.6 s), fully lumpy (19.2 s). The ramp crosses the edge at 4 s into each pass. Listen for the even crowd's snap and the lumpy ones swimming in.",
+          "near": "how unevenly the crowd samples its own spread"
+        },
+        {
+          "origin": "gathered",
+          "file": "lumpiness.png",
+          "place": "band",
+          "title": "lock curves by lumpiness · 18 October",
+          "caption": "Left, settled agreement across tightness at no pacemakers and at half, for four lumpiness settings, each a mean of three crowds; right, the three ramps above, traced. The walk above re-measures the four corners crowd by crowd and finds part of the averaged softness is the crowds locking at different places.",
+          "near": "how unevenly the crowd samples its own spread"
+        }
+      ],
+      "made_against": "883aaa6af141",
+      "stamped": "2026-11-03"
+    },
+    {
+      "heading": "Statistical Mechanics: The Mathematics of Emergence",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "made": "2026-11-03",
+      "pieces": [
+        {
+          "origin": "gathered",
+          "file": "timbre-map.png",
+          "place": "band",
+          "title": "the timbre map · 24 September",
+          "caption": "136 crowds of 128 neurons at audio rate. Agreement, harmonicity, pitch clarity and brightness over coupling and spread, with the theory's lock K = 4σ/π dashed: below it a buzzy smear, past it a clean tone that goes dark at the lock and brightens as coupling rises. Panel F: every spread collapses onto one curve against coupling ÷ spread, so the aggregate is the control surface, and a single number.",
+          "near": "Synchrony index"
+        },
+        {
+          "origin": "gathered",
+          "file": "timbre-walk.wav",
+          "title": "three walks across the map · 24 September",
+          "caption": "36 s at matched loudness. Coupling rises (the smear snaps into a dark tone at about 4.7 s, then brightens); held while the spread widens (the tone dissolves near 19 s); coupling falls (it releases near 32 s).",
+          "near": "Synchrony index"
+        }
+      ],
+      "made_against": "eb27d33a23d4",
+      "stamped": "2026-11-03"
+    },
+    {
+      "heading": "The Raster Plot as Pedagogical Tool",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "made": "2026-11-03",
+      "pieces": [
+        {
+          "origin": "gathered",
+          "file": "raster-plot-explorer.html",
+          "height": 1000,
+          "title": "raster explorer · 24 September",
+          "caption": "**Make stripes, scatter and diagonal bands yourself.** One row per neuron on a ring, presets for drift, lock, traveling wave and chimera, and a strip down the right edge showing each neuron's local agreement. The wave is why the strip is there: its global r reads 0.00 while every neighborhood is locked. It draws; it doesn't sound. The recording beside it is the sound.",
+          "near": "Diagonal bands"
+        },
+        {
+          "origin": "gathered",
+          "file": "raster-four-regimes.png",
+          "place": "band",
+          "title": "four regimes on one ring",
+          "caption": "Drift, lock, traveling wave and chimera, 128 neurons each after a 30 s settle, each with its local-agreement profile. The chimera, half locked and half drifting from one population, is the regime the section's three readings don't name.",
+          "near": "Diagonal bands"
+        },
+        {
+          "origin": "gathered",
+          "file": "four-regimes.wav",
+          "title": "the four regimes, heard · stereo",
+          "caption": "31 s, about 7 s each: drift, lock, wave, chimera. The ring is the stereo field, so the wave's spikes sweep across the speakers and the chimera puts its locked half on the left. Headphones help.",
+          "near": "Diagonal bands"
+        }
+      ],
+      "made_against": "22a58bb56b8e",
+      "stamped": "2026-11-03"
+    },
+    {
+      "heading": "Open Questions",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "made": "2026-11-03",
+      "pieces": [
+        {
+          "origin": "gathered",
+          "file": "pacemaker-ladder.wav",
+          "title": "six pacemaker shares on a locked tone · 24 September",
+          "caption": "25 s at coupling 0.4: pacemaker share 0 (dead still), 0.1, 0.2, 0.35, 0.5 and 0.65 (on the edge), 3.6 s each, levelled. Measured: 10 cents of pitch wobble at 5%, 21 at 20%, the pitch still clear to half.",
+          "near": "How does pacemaker cell proportion"
+        },
+        {
+          "origin": "gathered",
+          "file": "rich-face/surge-before-lock.wav",
+          "title": "the surge before the lock · 18 October",
+          "caption": "13 s: an even crowd of 512 held at 0.9 of its edge, 6 s with no pacemakers, then 6 s with half. In the second half it lunges toward agreement and falls back a few times a second.",
+          "near": "How does pacemaker cell proportion"
+        },
+        {
+          "origin": "gathered",
+          "file": "surge-before-lock.png",
+          "title": "how much the agreement swings",
+          "caption": "Left, agreement over time just under the lock at 0, 20 and 50% pacemakers; right, the swing grows with the share (0.05, 0.08, 0.16).",
+          "near": "How does pacemaker cell proportion"
+        },
+        {
+          "origin": "gathered",
+          "file": "crowd-size-ladder.wav",
+          "title": "the crowd-size ladder · 24 September",
+          "caption": "56 s: eight rungs uncoupled, 4 to 512 neurons, then the same eight locked, 3 s each at matched loudness. The uncoupled crowd's grains fuse by the middle rungs; the locked crowd pulses six times a second at every size. The walk under The Core Insight lets you climb it yourself.",
+          "near": "minimum population size"
+        }
+      ],
+      "made_against": "8b4b234db7d7",
+      "stamped": "2026-11-03"
+    }
+  ]
+}
