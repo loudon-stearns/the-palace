@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Preset Oracle — encounter journal</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  :root {
+    --ink: #e9e0cf; --dim: #9a8f7c; --ground: #14110e; --card: #1d1914;
+    --edge: #3a3128; --glow: #d9a85b; --rose: #c97a7a;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: radial-gradient(ellipse at 50% 0%, #241d16 0%, var(--ground) 70%);
+    color: var(--ink); font: 17px/1.5 "Iowan Old Style", "Palatino", Georgia, serif;
+    min-height: 100vh; padding: 28px 16px 60px;
+  }
+  main { max-width: 680px; margin: 0 auto; }
+  h1 { font-weight: normal; letter-spacing: .08em; font-size: 15px; text-transform: uppercase; color: var(--dim); margin: 0 0 4px; }
+  .sub { color: var(--dim); font-size: 14px; margin: 0 0 22px; font-style: italic; }
+  .step { color: var(--glow); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; margin: 30px 0 8px; }
+  .card {
+    background: var(--card); border: 1px solid var(--edge); border-radius: 3px;
+    padding: 22px 24px; position: relative; box-shadow: 0 0 40px rgba(217,168,91,.05);
+  }
+  .card .name { font-size: 26px; line-height: 1.2; margin: 0 0 14px; }
+  .card dl { margin: 0; display: grid; grid-template-columns: 9em 1fr; gap: 6px 14px; font-size: 15px; }
+  .card dt { color: var(--dim); font-size: 12px; letter-spacing: .1em; text-transform: uppercase; padding-top: 3px; }
+  .card dd { margin: 0; }
+  .glitch { animation: flick 7s infinite steps(1); }
+  @keyframes flick { 0%,96%,100% { opacity: 1; transform: none; } 97% { opacity: .55; transform: translateX(1px); } 98% { opacity: .9; transform: translateX(-2px); } }
+  button {
+    font: inherit; font-size: 14px; letter-spacing: .06em; color: var(--ink);
+    background: transparent; border: 1px solid var(--edge); border-radius: 2px;
+    padding: 8px 14px; cursor: pointer; margin: 10px 8px 0 0;
+  }
+  button:hover { border-color: var(--glow); box-shadow: 0 0 14px rgba(217,168,91,.25); }
+  button.primary { border-color: var(--glow); color: var(--glow); }
+  label { display: block; font-size: 14px; color: var(--dim); margin: 16px 0 5px; }
+  label b { color: var(--ink); font-weight: normal; }
+  input, textarea, select {
+    width: 100%; font: inherit; font-size: 15px; color: var(--ink); background: #110e0b;
+    border: 1px solid var(--edge); border-radius: 2px; padding: 8px 10px;
+  }
+  textarea { min-height: 84px; resize: vertical; }
+  .row { display: grid; grid-template-columns: 1fr 1fr; gap: 0 14px; }
+  .hint { font-size: 13px; color: var(--dim); font-style: italic; margin-top: 4px; }
+  .timer { font-variant-numeric: tabular-nums; font-size: 34px; color: var(--glow); margin: 6px 0 0; }
+  .timer.cold { color: var(--rose); }
+  #own { display: none; }
+  pre {
+    white-space: pre-wrap; background: #110e0b; border: 1px solid var(--edge); padding: 14px;
+    font: 13px/1.5 ui-monospace, Menlo, monospace; color: #d8cfbd; max-height: 380px; overflow: auto;
+  }
+  .note { font-size: 13px; color: var(--dim); }
+  .warn { color: var(--rose); font-size: 13px; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Preset Oracle · encounter journal</h1>
+  <p class="sub">The oracle asks. You answer with a synthesizer. Then you say what happened — so the encounter is kept.</p>
+
+  <div class="step">i · draw</div>
+  <div class="card glitch" id="card">
+    <p class="name" id="c-name">—</p>
+    <dl>
+      <dt>anchor</dt><dd id="c-anchor">—</dd>
+      <dt>constraint</dt><dd id="c-constraint">—</dd>
+      <dt>direction</dt><dd id="c-direction">—</dd>
+    </dl>
+  </div>
+  <button class="primary" id="draw">draw a card</button>
+  <button id="ownToggle">I drew from the oracle itself</button>
+  <div id="own">
+    <label><b>Preset name</b> as the oracle gave it</label><input id="o-name">
+    <label><b>Philosophical anchor</b></label><input id="o-anchor">
+    <label><b>Technical constraint</b></label><input id="o-constraint">
+    <label><b>Stylistic direction</b></label><input id="o-direction">
+    <button id="useOwn">use this card</button>
+  </div>
+  <p class="note">This journal carries a small seed deck built from the challenges named on the Preset Oracle page. The full oracle holds 140; if you drew there, type your card in.</p>
+
+  <div class="step">ii · make</div>
+  <div class="card">
+    <div>Thirty to forty-five minutes. Commit to a choice. Stop adjusting.</div>
+    <div class="timer" id="timer">45:00</div>
+    <button id="start">start the clock</button>
+    <button id="commit">I committed — stop here</button>
+    <div class="hint" id="commitNote"></div>
+  </div>
+
+  <div class="step">iii · say what happened</div>
+  <div class="card">
+    <div class="row">
+      <div><label><b>Maker</b> — a name, initials, or leave blank</label><input id="maker"></div>
+      <div><label><b>Setting</b> — class, workshop, alone</label><input id="setting"></div>
+    </div>
+    <label><b>The instrument</b> — what synth, what preset or init patch you started from</label>
+    <input id="instrument">
+    <label><b>The moves</b> — what you did to the signal, in the order you did it</label>
+    <textarea id="moves"></textarea>
+    <label><b>The recording</b> — a file name or link to the phrase you played</label>
+    <input id="recording">
+    <label><b>Your reading</b> — what the anchor meant to you, and how that became a sound</label>
+    <textarea id="reading"></textarea>
+    <div class="hint">Not the textbook meaning. Yours. If the anchor is conatus: what is the striving, and where is it in your patch?</div>
+    <label><b>The surprise</b> — where what you meant and what you heard came apart</label>
+    <textarea id="surprise"></textarea>
+    <label><b>The miss</b> — anything you tried and threw away (optional; the good failures teach)</label>
+    <textarea id="miss"></textarea>
+    <label><b>May this be kept and quoted?</b></label>
+    <select id="consent">
+      <option value="">— choose —</option>
+      <option value="quote-named">yes, with my name</option>
+      <option value="quote-anonymous">yes, but anonymously</option>
+      <option value="keep-private">keep it, but don't quote me</option>
+      <option value="do-not-keep">don't keep this</option>
+    </select>
+    <label><b>Teacher's note</b> (optional)</label>
+    <textarea id="teacher"></textarea>
+  </div>
+
+  <div class="step">iv · keep</div>
+  <button class="primary" id="make">write the record</button>
+  <button id="copy">copy</button>
+  <p class="warn" id="warn"></p>
+  <pre id="out">The record appears here. Save it into the Preset Oracle's encounters folder as one file per encounter.</pre>
+</main>
+
+<script>
+// Seed deck: assembled from the challenges named on the Preset Oracle page and its glassblower proof.
+// The original 140-card queue is not in the palace; this is a stand-in, labelled as such on the page.
+const DECK = [
+  { name: "Parmenides Dying Alone in a Warehouse", anchor: "Parmenides — being does not change; becoming is illusion",
+    constraint: "Use feedback routing only, no filter envelopes", direction: "Industrial machinery becoming sentient" },
+  { name: "The Pleasure Boat Upside Down", anchor: "Barthes — the pleasure of the text, the obtuse meaning",
+    constraint: "All oscillators must frequency-modulate each other", direction: "Broken music box in an infinite stairwell" },
+  { name: "Bioluminescence in Broken Glass", anchor: "Merleau-Ponty — perception is the body's grip on the world",
+    constraint: "Modulate everything via chaos", direction: "The sound of light bending around a black hole" },
+  { name: "Conatus in a Locked Room", anchor: "Spinoza — each thing strives to persevere in its being",
+    constraint: "Use feedback routing only, no filter envelopes", direction: "Something alive that will not stop pushing at the walls" },
+  { name: "The Dwelling Under the Bridge", anchor: "Heidegger — dwelling, and what a made thing reveals",
+    constraint: "Modulate everything via chaos", direction: "Industrial machinery becoming sentient" },
+  { name: "Difference Without a Copy", anchor: "Deleuze — repetition that never repeats the same",
+    constraint: "All oscillators must frequency-modulate each other", direction: "Broken music box in an infinite stairwell" },
+  { name: "A Glassblower Remembering an Argument with Their Teacher", anchor: "Whether glass remembers being a liquid — two answers, both true",
+    constraint: "One timbre heavy enough to be molten; you have until the gather cools", direction: "Present labour and an absent voice, twenty years gone" },
+];
+
+let order = [], pos = 0, card = null;
+function shuffle() { // Fisher–Yates, no repeats until the deck is spent
+  order = DECK.map((_, i) => i);
+  for (let i = order.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [order[i], order[j]] = [order[j], order[i]]; }
+  pos = 0;
+}
+function show(c) {
+  card = c;
+  for (const k of ["name", "anchor", "constraint", "direction"]) document.getElementById("c-" + k).textContent = c[k];
+}
+let reluctant = true; // the oracle sometimes wants asking twice
+document.getElementById("draw").onclick = (e) => {
+  if (reluctant && Math.random() < 0.3) { reluctant = false; e.target.textContent = "ask again"; return; }
+  reluctant = true; e.target.textContent = "draw a card";
+  if (pos >= order.length) shuffle();
+  show({ ...DECK[order[pos++]], source: "seed deck" });
+};
+document.getElementById("ownToggle").onclick = () => {
+  const o = document.getElementById("own"); o.style.display = o.style.display === "block" ? "none" : "block";
+};
+document.getElementById("useOwn").onclick = () => {
+  const g = (k) => document.getElementById("o-" + k).value.trim();
+  if (!g("name")) return;
+  show({ name: g("name"), anchor: g("anchor"), constraint: g("constraint"), direction: g("direction"), source: "the oracle" });
+};
+
+let t0 = null, tick = null, spent = null;
+const LIMIT = 45 * 60;
+function fmt(s) { const a = Math.abs(s); return (s < 0 ? "+" : "") + String(Math.floor(a / 60)).padStart(2, "0") + ":" + String(a % 60).padStart(2, "0"); }
+document.getElementById("start").onclick = () => {
+  t0 = Date.now(); spent = null; clearInterval(tick);
+  document.getElementById("commitNote").textContent = "";
+  tick = setInterval(() => {
+    const el = Math.floor((Date.now() - t0) / 1000), left = LIMIT - el, tm = document.getElementById("timer");
+    tm.textContent = fmt(left); tm.classList.toggle("cold", left < 0);
+  }, 500);
+};
+document.getElementById("commit").onclick = () => {
+  if (!t0) return;
+  clearInterval(tick); spent = Math.round((Date.now() - t0) / 60000);
+  document.getElementById("commitNote").textContent = "Committed at minute " + spent + ". Now say what happened.";
+};
+
+const v = (id) => document.getElementById(id).value.trim();
+function block(h, s) { return "## " + h + "\n\n" + (s || "_(left blank)_") + "\n"; }
+document.getElementById("make").onclick = () => {
+  const warn = document.getElementById("warn"); warn.textContent = "";
+  if (!card) { warn.textContent = "Draw or enter a card first."; return; }
+  if (!v("consent")) { warn.textContent = "Ask the maker whether this may be kept before writing it."; return; }
+  if (v("consent") === "do-not-keep") { document.getElementById("out").textContent = "Not kept, as the maker asked. Nothing to save."; return; }
+  const today = new Date().toISOString().slice(0, 10);
+  const named = v("consent") === "quote-named";
+  const maker = named ? (v("maker") || "unnamed") : "anonymous";
+  const md = [
+    "---",
+    'title: "Preset Oracle — encounter — ' + today + " — " + card.name.replace(/"/g, "'") + '"',
+    "date: " + today,
+    "challenge: \"" + card.name.replace(/"/g, "'") + "\"",
+    "card_source: " + card.source,
+    "maker: " + maker,
+    "setting: \"" + v("setting").replace(/"/g, "'") + "\"",
+    "minutes_to_commit: " + (spent == null ? "not timed" : spent),
+    "consent: " + v("consent"),
+    "---",
+    "",
+    "# " + card.name,
+    "",
+    "> **Anchor** · " + card.anchor + "  ",
+    "> **Constraint** · " + card.constraint + "  ",
+    "> **Direction** · " + card.direction,
+    "",
+    block("The instrument", v("instrument")),
+    block("The moves", v("moves")),
+    block("The recording", v("recording")),
+    block("Their reading", v("reading")),
+    block("The surprise", v("surprise")),
+    block("The miss", v("miss")),
+    v("teacher") ? block("Teacher's note", v("teacher")) : "",
+  ].join("\n");
+  document.getElementById("out").textContent = md;
+};
+document.getElementById("copy").onclick = async () => {
+  const txt = document.getElementById("out").textContent;
+  try { await navigator.clipboard.writeText(txt); document.getElementById("warn").textContent = "Copied."; }
+  catch { const r = document.createRange(); r.selectNodeContents(document.getElementById("out"));
+    const s = getSelection(); s.removeAllRanges(); s.addRange(r);
+    document.getElementById("warn").textContent = "Selected — press ⌘C."; }
+};
+shuffle();
+</script>
+</body>
+</html>
