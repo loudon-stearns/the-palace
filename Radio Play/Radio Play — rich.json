@@ -28,6 +28,17 @@
         "by": "maker · claude-opus-5-5 · proposal round",
         "round": "proposal-round-2026-11"
       },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "rich-face/The Unsung Path — audio.m4a",
+            "verdict": "keep",
+            "why": "The soundtrack with no picture is the direct test of 'carry the full meaning through sound alone', and it can fail; its packets are the film's own (stream-copy MD5 equal) and −15.9 LUFS measures −15.92 on an independent BS.1770."
+          }
+        ]
+      },
       "pieces": [
         {
           "file": "rich-face/The Unsung Path — audio.m4a",
@@ -49,6 +60,17 @@
         "date": "2026-11-03",
         "by": "maker · claude-opus-5-5 · proposal round",
         "round": "proposal-round-2026-11"
+      },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Radio Play — rich — timing is the performance.html",
+            "verdict": "keep",
+            "why": "Walks up to an honest preference A/B: renders identical outside a 0.855 s window where the takes' own quiet overlaps (residue −63 dBFS peak), order not decodable from the DOM, no verdict claimed, 'can't tell' is its failure. Notes: the caption's 7.2 dB is not what step 4 shows (−6.3 to −6.9); the mono-folded laugh sits ~3.4 dB under the Shop's stereo mix (line ~10.5 dB under, not 7); name the Shop's cut only at the reveal; print the reveal's 'no difference' from the check."
+          }
+        ]
       },
       "pieces": [
         {
@@ -73,6 +95,17 @@
         "by": "maker · claude-opus-5-5 · proposal round",
         "round": "proposal-round-2026-11"
       },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Radio Play — rich — audio first, picture last.html",
+            "verdict": "remake",
+            "why": "Its 'the Shop's bed sits 9.7 LU under the voices' is the mono fold-down: build_audio.py's own stereo chain (mono voice at −3 dB per side, stereo bed) measures 5.7 LU, so the fader's 0 dB is ~4 dB under the Shop's balance. Keep bed and laugh stereo (or say plainly it is a mono fold-down), measure through the Shop's chain in checks.py, and correct the caption and offer 2; the walk and the per-scene sync test are good as they are."
+          }
+        ]
+      },
       "pieces": [
         {
           "file": "Radio Play — rich — audio first, picture last.html",
@@ -95,6 +128,22 @@
         "date": "2026-11-03",
         "by": "maker · claude-opus-5-5 · proposal round",
         "round": "proposal-round-2026-11"
+      },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "rich-face/The Unsung Path.mp4",
+            "verdict": "keep",
+            "why": "The artifact the page names, byte-identical to the scratch film; 4564 frames, segment pictures within 25 ms of their sound; the audio-first piece is what tests it."
+          },
+          {
+            "file": "radio-play-deck.html",
+            "verdict": "keep",
+            "why": "Gathered as made, already tracked; sound only after Begin, viewport-sized so fill 16/9 fits, conform clean; it is the deck the page lists."
+          }
+        ]
       },
       "pieces": [
         {
