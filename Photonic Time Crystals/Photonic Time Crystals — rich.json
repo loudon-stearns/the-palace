@@ -44,6 +44,17 @@
         "by": "maker · claude-opus-5-5 · proposal round",
         "round": "proposal-round-2026-11"
       },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "/Floquet Theory/Floquet Theory — rich — same equation twice.html",
+            "verdict": "keep",
+            "why": "A real test of \"Bloch in space, Floquet in time\" by two methods sharing no code; the caption matches its home manifest, and the file is byte-identical to the landed version on main (72f72181, merged d7c627d8, kept by its own challenger)."
+          }
+        ]
+      },
       "pieces": [
         {
           "file": "/Floquet Theory/Floquet Theory — rich — same equation twice.html",
@@ -65,6 +76,17 @@
         "date": "2026-11-03",
         "by": "maker · claude-opus-5-5 · proposal round",
         "round": "proposal-round-2026-11"
+      },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Photonic Time Crystals — rich — a gap in momentum.html",
+            "verdict": "keep",
+            "why": "Tests the key reversal and finds what the text lacks (a momentum gap), filed as an offer; recomputed 0.156896 (DOP853 and Hill matrix, sinusoidal, as the piece uses); the heard 441.25 Hz can fail (an unlocked 440 + 442.5 pair reads 442.25 Hz on the same check) and sound reaches on step 4. Notes: state step 5's pass rule on the page; play-silent is conform's click not reaching step 4."
+          }
+        ]
       },
       "pieces": [
         {
@@ -89,6 +111,17 @@
         "by": "maker · claude-opus-5-5 · proposal round",
         "round": "proposal-round-2026-11"
       },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "/Parametric Resonance/Parametric Resonance — rich — the threshold heard.html",
+            "verdict": "keep",
+            "why": "Makes the crack felt before the hook names it, and measures its threshold; byte-identical to the landed version on main (2155231d, merged 04b5fe25). Note: its 4ζ is in that page's ε, which is 2m in the gap piece above (m = 2ζ); a clause in the caption would say so."
+          }
+        ]
+      },
       "pieces": [
         {
           "file": "/Parametric Resonance/Parametric Resonance — rich — the threshold heard.html",
@@ -110,6 +143,17 @@
         "date": "2026-11-03",
         "by": "maker · claude-opus-5-5 · proposal round",
         "round": "proposal-round-2026-11"
+      },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Photonic Time Crystals — rich — a mirror in time.html",
+            "verdict": "remake",
+            "why": "Its test is against a plain reverse buffer only; a reverse buffer varispeeded by n₁/n₂ at gain r_E matches the single jump to −86 dB, and one through a two-tap comb matches the there-and-back to −318 dB. Add those two nulls to step 4, state the verdict rule before the trial and make the bold headlines depend on it, re-word the answer (distinct from a plain reverse, reproducible by varispeed or comb in the ideal line), and update the Open Questions offer to match."
+          }
+        ]
       },
       "pieces": [
         {
