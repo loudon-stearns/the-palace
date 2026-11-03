@@ -37,6 +37,22 @@
         "by": "maker · claude-opus-5-5 · proposal round",
         "round": "proposal-round-2026-11"
       },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Lossy Compression with Intent Alignment — rich — same bits, two decoders.html",
+            "verdict": "keep",
+            "why": "A real test on one bitstream decoded two ways: 31.97 kbps counted from the stream, ratio 1.995–2.012 across rates, loudness matched within 0.01 LU by an independent BS.1770 meter, no non-audio leak, rule first and both arms scored. Notes: step 3 should cite the bound as 2019 (Theorem 2), not 2018; the caption should say “for a named decoder” (either side by guessing is 1 in 14)."
+          },
+          {
+            "file": "Lossy Compression with Intent Alignment — rich — same bits, two pictures.html",
+            "verdict": "keep",
+            "why": "The same test for the eye, which can fail. MSE is computed live from the pictures’ own arrays, not from canvas pixels, so the public frame needs no baked numbers; pairs share block means within 2.7 grey, and contrast is the only difference. Note: step 1 packs the coder into one step and leans on the sound piece for the slow walk."
+          }
+        ]
+      },
       "made": "2026-11-03",
       "pieces": [
         {
@@ -70,6 +86,17 @@
         "date": "2026-11-03",
         "by": "maker · claude-opus-5-5 · proposal round",
         "round": "proposal-round-2026-11"
+      },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Lossy Compression with Intent Alignment — rich — the type and the label.html",
+            "verdict": "remake",
+            "why": "Every count recounts exactly and all 48 links and 144 decoys are real, but the rule’s promise that no label spells its target fails: “drawn-not-damped” → Resonance and Damping shares “damp”, which the five-letter stem test misses. Widen the stem test to four letters or drop that link, and re-run check.mjs. Also set step 3’s “28 of 1,600” against the 83 labels used more than once (34 %), not only 1,600, and drop “how rarely”."
+          }
+        ]
       },
       "made": "2026-11-03",
       "pieces": [
