@@ -1,0 +1,301 @@
+<!doctype html>
+<!--
+title: Web Audio Worklet — rich — two places
+born: 2026-11-03
+links:
+  - target: "[[Web Audio Worklet]]"
+    type: connects-to
+    label: rich-face-piece
+  - target: "[[Progressive Staging]]"
+    type: connects-to
+    label: walks-up-to-its-test
+  - target: "[[Murmuration]]"
+    type: connects-to
+    label: carries-the-idiom-tested-here
+forward_vector: "I am the stereo gotcha put to two ears: a left voice and a right voice from one worklet, then the node asked for two channels with only one written, then one written that was never asked for, then the defensive idiom tried on a host that gave it one channel. I meter each ear and name which voice reached it, so the claim can be checked by eye on any speakers and by ear on headphones. I change only when the Gotchas section I serve does."
+status: "proposal, Enrichment's proposal round 2026-11; not yet heard by Loudon"
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:needs" content="">
+<title>Two places</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Manrope:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root { --bg:#000000; --e1:#071009; --border:#1f5a35; --soft:rgba(0,255,102,.10); --fg1:#e6ffe9; --fg2:#bfe8c8; --fg3:#7fa98a; --fg4:#3b5a44;
+    --acc:#00ff66; --accline:rgba(0,255,102,.45); --warn:#ff9b4a; --ok:#7fd49a;
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --sans:'Manrope',system-ui,sans-serif; --serif:'Cormorant Garamond',Georgia,serif;
+    --ease:cubic-bezier(.4,0,.2,1); }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); font-weight: 300; }
+  .piece { padding: 22px 22px 18px; max-width: 1180px; }
+  .kicker, .eyebrow { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg3); }
+  .kicker { margin-bottom: 6px; }
+  .title { font-family: var(--serif); font-size: 28px; font-weight: 300; color: var(--fg1); margin: 0 0 6px; }
+  .sub { font-size: 14px; line-height: 1.6; color: var(--fg2); max-width: 76ch; margin: 0 0 14px; }
+  .rail { display: flex; flex-wrap: wrap; margin: 4px 0 16px; border-bottom: 1px solid var(--soft); }
+  .rail button { font-family: var(--mono); font-size: 11px; letter-spacing: .1em; text-transform: none; color: var(--fg3); background: none; border: 0; border-bottom: 2px solid transparent; border-radius: 0; padding: 8px 12px 7px; cursor: pointer; transition: color 220ms var(--ease); }
+  .rail button:hover { color: var(--fg1); }
+  .rail button[aria-current=step] { color: var(--acc); border-bottom-color: var(--acc); }
+  .rail button .n { color: var(--fg4); margin-right: 6px; }
+  .rail button[aria-current=step] .n { color: var(--acc); }
+  .step h3 { font-family: var(--serif); font-size: 23px; font-weight: 300; color: var(--fg1); margin: 4px 0 8px; }
+  .say { font-size: 14px; line-height: 1.65; color: var(--fg2); max-width: 78ch; margin: 0 0 14px; }
+  .panel { border: 1px solid var(--soft); border-radius: 2px; background: var(--e1); padding: 12px 14px; }
+  .bar { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 10px; }
+  .bar .hint { flex: 1 1 260px; }
+  button { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--fg2); background: var(--bg); border: 1px solid var(--border); border-radius: 2px; padding: 8px 13px; cursor: pointer; transition: border-color 220ms var(--ease), color 220ms var(--ease); }
+  button:hover { border-color: var(--accline); color: var(--fg1); }
+  button.go { color: var(--acc); border-color: var(--accline); box-shadow: 0 0 14px rgba(0,255,102,.14); }
+  button[aria-pressed=true] { color: var(--acc); border-color: var(--accline); }
+  button:disabled { opacity: .4; cursor: default; }
+  pre.code { font-family: var(--mono); font-size: 12px; line-height: 1.6; color: var(--fg1); background: #000; border: 1px solid var(--soft); border-radius: 2px; padding: 10px 12px; margin: 0 0 12px; overflow-x: auto; white-space: pre; }
+  pre.code .c { color: var(--fg3); }
+  pre.code .hot { color: var(--acc); }
+  pre.code .bad { color: var(--warn); }
+  .ears { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .ear { border: 1px solid var(--soft); border-radius: 2px; padding: 10px 12px; }
+  .ear .name { font-family: var(--mono); font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: var(--fg3); }
+  .ear .lvl { height: 6px; background: var(--fg4); margin: 10px 0 8px; position: relative; overflow: hidden; }
+  .ear .lvl i { position: absolute; left: 0; top: 0; bottom: 0; width: 0; background: var(--acc); transition: width 120ms linear; }
+  .ear .db { font-family: var(--mono); font-size: 12px; color: var(--fg1); }
+  .ear .voices { font-family: var(--mono); font-size: 11.5px; color: var(--fg3); margin-top: 6px; line-height: 1.6; }
+  .ear .voices b { font-weight: 500; }
+  .ear .voices .on { color: var(--acc); } .ear .voices .off { color: var(--fg4); }
+  .read { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 8px 22px; margin-top: 14px; padding-top: 10px; border-top: 1px solid var(--soft); font-family: var(--mono); font-size: 11.5px; letter-spacing: .03em; color: var(--fg3); line-height: 1.5; }
+  .read b { color: var(--fg1); font-weight: 500; }
+  .read .bad { color: var(--warn); }
+  .hint { font-family: var(--mono); font-size: 11px; letter-spacing: .05em; color: var(--fg3); }
+  .state { color: var(--acc); }
+  .try { font-size: 13.5px; line-height: 1.6; color: var(--fg2); margin: 14px 0 0; max-width: 80ch; }
+  .try .eyebrow { margin-right: 10px; color: var(--acc); }
+  .verdict { margin-top: 12px; font-size: 13.5px; line-height: 1.6; color: var(--fg2); }
+  .verdict b { font-family: var(--mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; font-weight: 500; color: var(--acc); margin-right: 8px; }
+  .walk { display: flex; justify-content: space-between; margin-top: 18px; }
+  .foot { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: 20px; padding-top: 10px; border-top: 1px solid var(--soft); font-family: var(--mono); font-size: 10.5px; letter-spacing: .18em; text-transform: uppercase; color: var(--fg4); }
+  .foot .mark { display: inline-flex; align-items: center; gap: 8px; color: var(--fg3); letter-spacing: .12em; text-transform: none; }
+  .foot .mark i { font-family: var(--serif); color: var(--acc); font-weight: 300; }
+  @media (max-width: 640px) { .ears { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="piece">
+  <div class="kicker">made · sketch · four steps · headphones, or watch the two meters</div>
+  <h1 class="title">Two places</h1>
+  <p class="sub">The gotcha says an AudioWorkletNode is mono unless you ask for stereo in two places: the constructor and the loop. Ask in one and not the other and you get a silent right ear or a thrown error. This walks up from one stereo tone to that claim, and then tries the defensive idiom the gotcha recommends on a node that wasn't asked. Nothing plays until you press sound. The meters say what each ear gets, so it reads without headphones too.</p>
+  <nav class="rail" aria-label="Steps"></nav>
+
+  <section class="step" data-title="A voice in each ear" data-loop="both" data-ask="1">
+    <div class="eyebrow">Step 1 of 4 · asked in both places</div>
+    <h3>One worklet, two voices: a low one on the left, a higher one on the right</h3>
+    <p class="say">A stereo test tone. The worklet makes two voices, 330 Hz for the left ear and 495 Hz, a fifth above, for the right, and writes each into its own channel. The node was built with two output channels, and the loop writes both. This is the gotcha done right, so you know what right sounds like before anything goes wrong. Switch a voice off and its ear goes quiet.</p>
+    <div class="panel">
+      <pre class="code"><span class="c">// main thread</span>
+new AudioWorkletNode(ctx, 'two-places', { <span class="hot">outputChannelCount: [2]</span> })
+<span class="c">// in process(), every sample</span>
+<span class="hot">out[0][i] = left;   out[1][i] = right;</span></pre>
+      <div class="bar"><span class="hint">two meters, one an ear</span><button class="go" data-sound>▶ sound</button><button data-stop>stop</button><button data-voice="left" aria-pressed="true">left voice</button><button data-voice="right" aria-pressed="true">right voice</button></div>
+      <div class="ears"><div class="ear" data-ear="0"></div><div class="ear" data-ear="1"></div></div>
+      <div class="read"><div>channels process() was given<br><b data-chans>·</b></div><div>the processor<br><b data-err>·</b></div><div class="state" data-state></div></div>
+    </div>
+    <p class="try"><span class="eyebrow">Try</span>On headphones, switch the left voice off and on, then the right. Each ear has its own voice and only its own.</p>
+  </section>
+
+  <section class="step" data-title="Asked, not written" data-loop="leftOnly" data-ask="1" hidden>
+    <div class="eyebrow">Step 2 of 4 · asked in the constructor only</div>
+    <h3>The node has two channels, and the loop only fills one</h3>
+    <p class="say">Same node, built with two output channels. But the loop writes only the first. The second channel is there, and nothing goes in it, so the right ear gets silence: not the left voice copied over, not a fallback, nothing. The voice meant for the right ear isn't anywhere.</p>
+    <div class="panel">
+      <pre class="code">new AudioWorkletNode(ctx, 'two-places', { <span class="hot">outputChannelCount: [2]</span> })
+<span class="hot">out[0][i] = left;</span>   <span class="bad">// out[1] is never written</span></pre>
+      <div class="bar"><span class="hint">watch the right meter</span><button class="go" data-sound>▶ sound</button><button data-stop>stop</button></div>
+      <div class="ears"><div class="ear" data-ear="0"></div><div class="ear" data-ear="1"></div></div>
+      <div class="read"><div>channels process() was given<br><b data-chans>·</b></div><div>the processor<br><b data-err>·</b></div><div class="state" data-state></div></div>
+    </div>
+    <p class="try"><span class="eyebrow">Try</span>Headphones on: the left ear has its voice and the right has nothing. On speakers you would hear the low voice from one side only and might not notice anything was missing.</p>
+  </section>
+
+  <section class="step" data-title="Written, not asked" data-loop="both" data-ask="0" hidden>
+    <div class="eyebrow">Step 3 of 4 · asked in the loop only</div>
+    <h3>The loop writes two channels, and the node was never asked for two</h3>
+    <p class="say">Now the other way round. The loop is step 1's, writing both channels. But the node was built without asking, and a node with no input and no channel count gets one output channel. So out[1] isn't there, and writing into it throws on the first sample. The node reports a processor error and stops for good: both ears silent, until the page builds a new node.</p>
+    <div class="panel">
+      <pre class="code">new AudioWorkletNode(ctx, 'two-places', { numberOfInputs: 0 })   <span class="bad">// no outputChannelCount</span>
+<span class="hot">out[0][i] = left;</span>   <span class="bad">out[1][i] = right;</span>   <span class="c">// out[1] is undefined: this line throws</span></pre>
+      <div class="bar"><span class="hint">both meters, and the processor's state</span><button class="go" data-sound>▶ sound</button><button data-stop>stop</button></div>
+      <div class="ears"><div class="ear" data-ear="0"></div><div class="ear" data-ear="1"></div></div>
+      <div class="read"><div>channels process() was given<br><b data-chans>·</b></div><div>the processor<br><b data-err>·</b></div><div class="state" data-state></div></div>
+    </div>
+    <p class="try"><span class="eyebrow">Try</span>Press sound. Nothing, in either ear, and the processor line says why. This is the "thrown" half of the gotcha: the throw is a TypeError on the missing channel, and what it costs is all the sound, not half.</p>
+  </section>
+
+  <section class="step" data-title="The idiom: the test" data-loop="idiom" data-ask="0" hidden>
+    <div class="eyebrow">Step 4 of 4 · the test</div>
+    <h3>The defensive idiom keeps the loop from throwing. Does it keep the sound?</h3>
+    <p class="say">The gotcha's cure for a host that gave one channel is the line <code>const outR = out[1] || out[0]</code>: when there is no second channel, write the right voice into the first. It stops the throw. But a loop that writes left and then right into the same channel leaves only the second write, so one voice is lost. Murmuration's instrument guards the second write instead, which loses the other voice. The third loop folds both voices into the one channel when it's alone. Try each on a node that wasn't asked, then ask.</p>
+    <div class="panel">
+      <pre class="code" data-code></pre>
+      <div class="bar"><span class="hint">which loop</span>
+        <button data-pick="idiom">the idiom, left then right</button><button data-pick="guard">Murmuration's guard</button><button data-pick="fold">fold to mono</button>
+        <button data-asktoggle aria-pressed="false">not asked for two</button>
+      </div>
+      <div class="bar"><button class="go" data-sound>▶ sound</button><button data-stop>stop</button></div>
+      <div class="ears"><div class="ear" data-ear="0"></div><div class="ear" data-ear="1"></div></div>
+      <div class="read"><div>channels process() was given<br><b data-chans>·</b></div><div>the processor<br><b data-err>·</b></div><div class="state" data-state></div></div>
+      <div class="verdict" data-verdict><b>verdict</b>press sound.</div>
+    </div>
+    <p class="try"><span class="eyebrow">Try</span>Not asked: the idiom plays only the high voice, in both ears; the guard plays only the low one; the fold plays both, each at half, in the middle. Then ask for two, and all three give a voice in each ear. On a node asked in both places the idiom never fires, which is when it is safe.</p>
+  </section>
+
+  <div class="walk"><button id="back">◂ back</button><button id="next">next ▸</button></div>
+  <div class="foot"><span>Web Audio Worklet · rich · two places · sketch · 2026-11-03</span><span class="mark"><svg width="22" height="22" viewBox="-11 -11 22 22" aria-hidden="true"><path id="sigil" fill="none" stroke="#00ff66" stroke-width="1"/></svg>Loud’n <i>Live</i></span></div>
+</div>
+
+<script>
+// ---- the engine: one processor, the loop chosen by name. The check beside this piece renders this exact string
+// in headless Chromium, every loop, asked and not, and reads which voice reached which ear. ----
+const WORKLET = `
+class TwoPlaces extends AudioWorkletProcessor {
+  constructor(o) {
+    super();
+    this.loop = (o && o.processorOptions && o.processorOptions.loop) || 'both';
+    this.pl = 0; this.pr = 0; this.gl = 1; this.gr = 1; this.tl = 1; this.tr = 1; this.told = false;
+    this.port.onmessage = e => { if ('left' in e.data) this.tl = e.data.left ? 1 : 0; if ('right' in e.data) this.tr = e.data.right ? 1 : 0; };
+  }
+  process(_, outputs) {
+    const out = outputs[0], n = out[0].length;
+    if (!this.told) { this.port.postMessage({ chans: out.length }); this.told = true; }
+    const oL = out[0], oR = out[1] || out[0], mono = !out[1];
+    for (let i = 0; i < n; i++) {
+      this.gl += (this.tl - this.gl) * 0.002; this.gr += (this.tr - this.gr) * 0.002;
+      const left = 0.2 * this.gl * Math.sin(2 * Math.PI * this.pl), right = 0.2 * this.gr * Math.sin(2 * Math.PI * this.pr);
+      this.pl += 330 / sampleRate; if (this.pl >= 1) this.pl -= 1;
+      this.pr += 495 / sampleRate; if (this.pr >= 1) this.pr -= 1;
+      switch (this.loop) {
+        case 'both':     out[0][i] = left; out[1][i] = right; break;                 // throws when out[1] isn't there
+        case 'leftOnly': out[0][i] = left; break;                                    // out[1] never written
+        case 'idiom':    oL[i] = left; oR[i] = right; break;                         // oR is oL on a one-channel host
+        case 'guard':    oL[i] = left; if (oR !== oL) oR[i] = right; break;          // Murmuration.html's form
+        case 'fold':     if (mono) oL[i] = 0.5 * (left + right); else { oL[i] = left; oR[i] = right; } break;
+      }
+    }
+    return true;
+  }
+}
+registerProcessor('two-places', TwoPlaces);`;
+
+const CODE = {
+  idiom: `const oL = out[0], <span class="hot">oR = out[1] || out[0]</span>;
+oL[i] = left;   <span class="hot">oR[i] = right;</span>   <span class="c">// one channel: the second write replaces the first</span>`,
+  guard: `const oL = out[0], <span class="hot">oR = out[1] || out[0]</span>;   <span class="c">// Murmuration.html:337</span>
+oL[i] = left;   <span class="hot">if (oR !== oL) oR[i] = right;</span>   <span class="c">// :366, one channel: the right is never written</span>`,
+  fold:  `const oL = out[0], oR = out[1] || out[0], <span class="hot">mono = !out[1]</span>;
+<span class="hot">if (mono) oL[i] = 0.5 * (left + right);</span>   else { oL[i] = left; oR[i] = right; }`,
+};
+
+// ---- the walk ----
+const STEPS = [...document.querySelectorAll('.step')];
+const rail = document.querySelector('.rail');
+let cur = 0, pick = 'idiom', ask4 = false;
+STEPS.forEach((s, i) => { const b = document.createElement('button'); b.innerHTML = `<span class="n">${i + 1}</span>${s.dataset.title}`; b.addEventListener('click', () => show(i)); rail.appendChild(b); });
+function config() { const s = STEPS[cur]; return s.dataset.loop === 'idiom' ? { loop: pick, ask: ask4 } : { loop: s.dataset.loop, ask: s.dataset.ask === '1' }; }
+function show(i) {
+  stopSound();
+  cur = Math.max(0, Math.min(STEPS.length - 1, i));
+  STEPS.forEach((s, k) => { s.hidden = k !== cur; });
+  [...rail.children].forEach((b, k) => { if (k === cur) b.setAttribute('aria-current', 'step'); else b.removeAttribute('aria-current'); });
+  document.getElementById('back').disabled = cur === 0;
+  document.getElementById('next').disabled = cur === STEPS.length - 1;
+  proc = { chans: null, err: false }; syncPick(); paint(null);
+}
+document.getElementById('back').addEventListener('click', () => show(cur - 1));
+document.getElementById('next').addEventListener('click', () => show(cur + 1));
+
+// ---- sound: nothing exists before a click. The kit quiets the context itself (a hush from the page around it,
+// a hidden tab, a minute untouched); the piece only keeps its words in step. ----
+let actx = null, ready = null, node = null, meterIn = null, an = [], sounding = false, proc = { chans: null, err: false }, voices = { left: true, right: true };
+async function startSound() {
+  if (!actx) {
+    actx = new (window.AudioContext || window.webkitAudioContext)();
+    const url = URL.createObjectURL(new Blob([WORKLET], { type: 'application/javascript' }));
+    ready = actx.audioWorklet.addModule(url).then(() => URL.revokeObjectURL(url));
+    // what each ear gets: a stereo point that upmixes one channel the way the speakers do, split into two analysers
+    meterIn = actx.createGain(); meterIn.channelCount = 2; meterIn.channelCountMode = 'explicit'; meterIn.channelInterpretation = 'speakers';
+    const split = actx.createChannelSplitter(2); meterIn.connect(split);
+    an = [0, 1].map(c => { const a = actx.createAnalyser(); a.fftSize = 8192; a.smoothingTimeConstant = 0.5; split.connect(a, c); return a; });
+    actx.onstatechange = () => { if (actx.state !== 'running') setSounding(false); else if (node) setSounding(true); };
+  }
+  await ready;
+  build();
+  await actx.resume(); setSounding(true); loop();
+}
+function build() {
+  if (node) { node.port.onmessage = null; node.onprocessorerror = null; node.disconnect(); node = null; }
+  const c = config(), opts = { numberOfInputs: 0, processorOptions: { loop: c.loop } };
+  if (c.ask) opts.outputChannelCount = [2];
+  proc = { chans: null, err: false };
+  node = new AudioWorkletNode(actx, 'two-places', opts);
+  node.port.onmessage = e => { if (e.data.chans) { proc.chans = e.data.chans; } };
+  node.onprocessorerror = () => { proc.err = true; };
+  node.port.postMessage(voices);
+  const g = actx.createGain(); g.gain.value = 0.8;
+  node.connect(g).connect(actx.destination); node.connect(meterIn);
+}
+function stopSound() { if (actx && actx.state === 'running') actx.suspend(); setSounding(false); }
+function setSounding(on) { sounding = on; document.querySelectorAll('[data-state]').forEach(s => { s.textContent = on ? 'sounding' : ''; }); }
+document.querySelectorAll('[data-sound]').forEach(b => b.addEventListener('click', startSound));
+document.querySelectorAll('[data-stop]').forEach(b => b.addEventListener('click', stopSound));
+document.querySelectorAll('[data-voice]').forEach(b => b.addEventListener('click', () => {
+  voices[b.dataset.voice] = !voices[b.dataset.voice]; b.setAttribute('aria-pressed', voices[b.dataset.voice]);
+  if (node) node.port.postMessage(voices);
+}));
+function syncPick() {
+  document.querySelectorAll('[data-pick]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.pick === pick)));
+  document.querySelectorAll('[data-asktoggle]').forEach(b => { b.setAttribute('aria-pressed', String(ask4)); b.textContent = ask4 ? 'asked for two' : 'not asked for two'; });
+  const code = document.querySelector('[data-code]');
+  if (code) code.innerHTML = `new AudioWorkletNode(ctx, 'two-places', { numberOfInputs: 0${ask4 ? ', <span class="hot">outputChannelCount: [2]</span>' : ''} })   <span class="c">// ${ask4 ? 'asked' : 'not asked'}</span>\n` + CODE[pick];
+}
+function rebuildIfSounding() { syncPick(); if (sounding) build(); else { proc = { chans: null, err: false }; paint(null); } }
+document.querySelectorAll('[data-pick]').forEach(b => b.addEventListener('click', () => { pick = b.dataset.pick; rebuildIfSounding(); }));
+document.querySelectorAll('[data-asktoggle]').forEach(b => b.addEventListener('click', () => { ask4 = !ask4; rebuildIfSounding(); }));
+
+// ---- meters: level and which voice is in each ear ----
+const fbuf = new Float32Array(4096), tbuf = new Float32Array(8192);
+function measure() {
+  return an.map(a => {
+    a.getFloatTimeDomainData(tbuf); let s = 0; for (const v of tbuf) s += v * v; const rms = Math.sqrt(s / tbuf.length);
+    a.getFloatFrequencyData(fbuf); const bin = f => { const k = Math.round(f * a.fftSize / actx.sampleRate); return Math.max(fbuf[k - 1], fbuf[k], fbuf[k + 1]); };
+    return { db: rms > 1e-6 ? 20 * Math.log10(rms) : -Infinity, low: bin(330), high: bin(495) };
+  });
+}
+function loop() { if (!sounding) return; paint(measure()); requestAnimationFrame(loop); }
+function paint(m) {
+  const sec = STEPS[cur];
+  sec.querySelectorAll('[data-ear]').forEach(el => {
+    const c = +el.dataset.ear, e = m && m[c], here = v => e && v > -60;
+    const w = e && Number.isFinite(e.db) ? Math.max(0, Math.min(100, (e.db + 60) / 60 * 100)) : 0;
+    el.innerHTML = `<div class="name">${c ? 'right' : 'left'} ear</div><div class="lvl"><i style="width:${w}%"></i></div>
+      <div class="db">${e ? (Number.isFinite(e.db) ? e.db.toFixed(1) + ' dB' : 'silent') : '·'}</div>
+      <div class="voices">low voice, 330 Hz, meant for the left · <b class="${here(e && e.low) ? 'on' : 'off'}">${e ? (here(e.low) ? 'here' : 'absent') : '·'}</b><br>
+      high voice, 495 Hz, meant for the right · <b class="${here(e && e.high) ? 'on' : 'off'}">${e ? (here(e.high) ? 'here' : 'absent') : '·'}</b></div>`;
+  });
+  sec.querySelectorAll('[data-chans]').forEach(b => { b.textContent = proc.chans == null ? (sounding && proc.err ? 'threw before it could say' : '·') : `${proc.chans} channel${proc.chans > 1 ? 's' : ''}`; });
+  sec.querySelectorAll('[data-err]').forEach(b => { b.className = proc.err ? 'bad' : ''; b.textContent = proc.err ? 'processorerror fired: silent until rebuilt' : (sounding ? 'running' : '·'); });
+  const v = sec.querySelector('[data-verdict]');
+  if (v) {
+    if (!m) { v.innerHTML = '<b>verdict</b>press sound.'; return; }
+    const lowAny = m.some(e => e.low > -60), highAny = m.some(e => e.high > -60), c = config();
+    const lost = !lowAny && highAny ? 'the low voice is lost' : lowAny && !highAny ? 'the high voice is lost' : lowAny && highAny ? 'both voices reach you' : 'nothing reaches you';
+    const where = m[0].low > -60 && m[1].low < -60 && m[1].high > -60 && m[0].high < -60 ? ', each in its own ear' : lowAny || highAny ? ', in both ears alike' : '';
+    v.innerHTML = `<b>verdict</b>${c.ask ? 'Asked for two' : 'Not asked'}, ${c.loop === 'idiom' ? 'the idiom' : c.loop === 'guard' ? "Murmuration's guard" : 'the fold'}: process() got ${proc.chans || '?'} channel${proc.chans > 1 ? 's' : ''}, ${proc.err ? 'and it threw' : 'no throw'}, and ${lost}${where}.`;
+  }
+}
+
+// ---- the sigil ----
+(() => { let d = ''; for (let i = 0; i <= 240; i++) { const t = i / 240 * 2 * Math.PI, x = 9 * Math.sin(3 * t + Math.PI / 2), y = 9 * Math.sin(2 * t); d += (i ? 'L' : 'M') + x.toFixed(2) + ' ' + y.toFixed(2); } document.getElementById('sigil').setAttribute('d', d); })();
+
+show(0);
+</script>
+</body>
+</html>
