@@ -29,7 +29,7 @@ ROOT = HERE.parent.parent
 TODAY = '2026-11-03'
 LL = '_ops/loudon-live/design-system/'
 DT = '_ops/drafting-table/design-system/'
-FAVICON = LL + 'assets/favicon.svg'
+FAVICON = DT + 'favicon.svg'  # the tab mark of a page with no entry (Drafting Table § The browser's furniture, 2026-11-03)
 
 # ── which pages are left, and why ──────────────────────────────────────────
 LEAVE = [
@@ -37,6 +37,7 @@ LEAVE = [
     (lambda r: r['path'].startswith('_ops/stigmergy/app/'), "STIGMERGY's app: built and served by Vite, never an artifact"),
     (lambda r: r['template'], 'a template a script fills in; the page it makes is the artifact'),
     (lambda r: r['fragment'], 'a fragment with no <html> or <head>: included in another page, which carries the head'),
+    (lambda r: r['path'].startswith(('_ops/swarm/sessions/', '_ops/Harvest Ceremony/Archive/')), 'a record of a past run: it stays as it was made (Loudon, 2026-11-03)'),
     (lambda r: r['path'] in ('_ops/rich-face/rich.html', '_ops/loudon-eval/rate.html'), 'machinery, not an artifact: the rich-face renderer or the eval server\'s page; a change there is its owner\'s code change'),
 ]
 # rich-face pieces get no tab icon (decided 2026-11-03): a framed piece never owns a tab, the page that frames it wears
@@ -312,7 +313,7 @@ def plan_page(r):
         if r['rich'] and not RICH_ICON: pl['icon_left'] = 'rich-face piece: a framed piece never owns a tab; the avatar belongs on the page that frames it'
         elif r['avatar']: pl['icon'] = href(rel(p, r['avatar'])); pl['adds'].append('icon (avatar)')
         elif r['entry']: pl['icon_left'] = f"its entry, {r['entry']}, has no avatar yet"
-        else: pl['icon_left'] = 'no entry, and not a public-channel page: Loudon Live gives favicon.svg only to the public channel, and Drafting Table gives no mark'
+        else: pl['icon'] = href(rel(p, FAVICON)); pl['adds'].append('icon (Drafting Table mark)')
     if not r['theme_color']:
         pl['theme_color'] = ground_color(css, ptok, system, ground); pl['adds'].append('theme-color')
     if not r['lang']: pl['lang'] = True; pl['adds'].append('lang')
