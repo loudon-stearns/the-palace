@@ -44,10 +44,10 @@ const FS = 48000;
 // ── the Honest Limit's density offer: the nearest m·220 + n·220φ to 300 Hz ──
 { const P = (1 + Math.sqrt(5)) / 2; const out = [20, 100, 1000].map((K) => { let best = Infinity; for (let m = -K; m <= K; m++) { const n = Math.round((300 - m * 220) / (220 * P)); if (Math.abs(n) <= K) best = Math.min(best, Math.abs(m * 220 + n * 220 * P - 300)); } return `whole numbers up to ${K}: ${best.toFixed(3)} Hz`; });
   console.log('density — nearest lattice frequency to 300 Hz,', out.join(' · ')); }
-// ── the Honest Limit's listening offer: lines in the six-loop tone, 100–4000 Hz, within 60 dB of the loudest, against the bins of a 5.5 s window ──
+// ── the Honest Limit's listening offer: lines in the six-loop tone, 100–4000 Hz, above an absolute amplitude of 10⁻³ (36 dB below the loudest line), against the bins of a 5.5 s window ──
 { const P = (1 + Math.sqrt(5)) / 2, R = [1, P, 1.324717957244746, (1 + Math.SQRT2) / 2, Math.sqrt(3), Math.PI / 2].map((r) => 220 * r), B = 2;
   const J = (m, x) => { let s = 0; const n = 400; for (let i = 0; i < n; i++) { const t = ((i + 0.5) / n) * Math.PI; s += Math.cos(m * t - x * Math.sin(t)); } return s / n; };
-  let strong = 0; for (let k = 1; k <= 5; k++) { const x = k * B, M = Math.ceil(x + 6), Jt = []; for (let m = -M; m <= M; m++) Jt.push(J(m, x)); let lines = [{ f: k * R[0], a: 1 / Math.sqrt(k) }];
+  let strong = 0, loud = 0; for (let k = 1; k <= 5; k++) { const x = k * B, M = Math.ceil(x + 6), Jt = []; for (let m = -M; m <= M; m++) Jt.push(J(m, x)); let lines = [{ f: k * R[0], a: 1 / Math.sqrt(k) }];
     for (let i = 1; i < 6; i++) { const nx = []; for (const l of lines) for (let m = -M; m <= M; m++) { const a = l.a * Jt[m + M]; if (Math.abs(a) >= 1e-4) nx.push({ f: l.f + m * R[i], a }); } lines = nx; }
-    for (const l of lines) { const f = Math.abs(l.f); if (f >= 100 && f <= 4000 && Math.abs(l.a) > 1e-3) strong++; } }
-  console.log(`lines — six loops, β = 2: ${strong} lines within 60 dB of the loudest between 100 and 4000 Hz, against ${Math.round((3900 * 262144) / FS)} bins in a 5.5 s window`); }
+    for (const l of lines) { const f = Math.abs(l.f); if (f >= 100 && f <= 4000) { loud = Math.max(loud, Math.abs(l.a)); if (Math.abs(l.a) > 1e-3) strong++; } } }
+  console.log(`lines — six loops, β = 2: ${strong} lines above 10⁻³, ${(20 * Math.log10(loud / 1e-3)).toFixed(1)} dB below the loudest (${loud.toFixed(4)}), between 100 and 4000 Hz, against ${Math.round((3900 * 262144) / FS)} bins in a 5.5 s window`); }
