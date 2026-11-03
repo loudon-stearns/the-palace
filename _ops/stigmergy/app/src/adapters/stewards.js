@@ -14,12 +14,18 @@ export async function fetchStewards() {
   }
 }
 
-export async function advanceSteward(name) {
+// `maxCycles` (optional) is the run's cap for THIS advance: the server runs up
+// to that many cycles in sequence, still ending early on a blocking ask, a
+// stall, a session request or a usage limit (steward-lane.js nextRunStep).
+// Omitted, the manifest's max_iterations applies, as before 2026-11-03.
+export async function advanceSteward(name, { maxCycles } = {}) {
   try {
+    const body = { name };
+    if (Number.isInteger(maxCycles) && maxCycles > 0) body.max_cycles = maxCycles;
     const res = await fetch('/api/steward/advance', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-      body: JSON.stringify({ name }),
+      body: JSON.stringify(body),
     });
     const data = await res.json().catch(() => ({}));
     return { ok: res.ok, status: res.status, ...data };
