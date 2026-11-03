@@ -27,19 +27,25 @@
     {
       "section": "The Four Stages",
       "kind": "claim-change",
-      "what": "Stage 4 says underdamped recovery is a 'ringing oscillation that adds subharmonic growl' (also § The Refractory Period as Threshold Conatus, 'the underdamped ringing that adds subharmonic growl'). Measured on the v0.4 neuron and on the dev plan's Gen~ pseudocode, it can't: every cycle starts from the same latched state, so each cycle repeats sample for sample (ζ 0.05 to 2, 55 to 220 Hz) and nothing stands at half the note (loudest half-note bin below −280 dB on v0.4, about −100 dB, the window's floor, on the Gen~ plan). Damping moves harmonics 1–8 by about ±1.7 dB at 110 Hz. Proposed: 'underdamped (the voltage rings past rest before the next charge, reshaping each cycle; the period never changes, so it colours the harmonics and adds no subharmonics)'. Progressive Staging and the artifact say the same and would follow.",
+      "what": "Stage 4 says underdamped recovery is a 'ringing oscillation that adds subharmonic growl' (also § The Refractory Period as Threshold Conatus). In the engine the face ships, neuropulse.dsp v0.4, it can't: every spike latches the full state at threshold, so each cycle repeats sample for sample (the challenger's Faust build down to damping 0.01, 4,032 engine settings, none aperiodic) and nothing stands at half the note. The dev plan's literal Gen~ pseudocode has no latch at threshold, and at raw damping 0.012–0.03 about 1 setting in 1,000 alternates the period by one sample, putting a line at half the note 43–49 dB down: faint, not a growl. Damping otherwise moves harmonics 1–8 by about ±1.7 dB at 110 Hz. Proposed: 'underdamped (the voltage rings past rest before the next charge, reshaping each cycle; in an engine that latches the spike at threshold the period never changes, so it colours the harmonics and adds no subharmonics)'. The March Gen~ Stage 4 codebox was not found to check (see the Implementation Status offer). Progressive Staging and the artifact say the same and would follow.",
       "status": "open"
     },
     {
       "section": "The Four Stages",
       "kind": "no-claim-edit",
-      "what": "Stage 3's 'a natural spectral darkening with pitch' holds against the note, not in hertz. With the 1 ms spike, harmonics within 20 dB of the loudest fall 14 → 9 → 5 → 2 from 55 to 440 Hz (the stage 1 sawtooth keeps 10), while the amplitude-weighted centroid rises 481 → 1206 Hz. Proposed: 'a natural darkening relative to the note: the spike's fixed length fixes where its energy sits, so a rising note keeps fewer harmonics, the way a voice climbs into its own formants.' Measured too: the ceiling is 960 Hz for stage 3 and 393 Hz for stage 4 (1 ms spike + 1.5 ms recovery), and right at the ceiling the tone brightens again.",
+      "what": "Stage 3's 'a natural spectral darkening with pitch' holds against the note, not in hertz. With the 1 ms spike, harmonics within 20 dB of the loudest fall 14 → 9 → 5 → 2 from 55 to 440 Hz (the stage 1 sawtooth keeps 10). Over the whole band the centroid rises 764 → 1206 Hz, as any harmonic tone's does: the sawtooth's rises 4054 → 5765 Hz, and the spike's stays near a fifth of it (0.19–0.21). Proposed: 'a natural darkening relative to the note: the spike's fixed length fixes where its energy sits, so a rising note keeps fewer harmonics, the way a voice climbs into its own formants.' Measured too: the ceiling is 960 Hz for stage 3 and 393 Hz for stage 4 (1 ms spike + 1.5 ms recovery), and right at the ceiling the tone brightens again.",
       "status": "open"
     },
     {
       "section": "Implementation Status",
       "kind": "no-claim-edit",
       "what": "'a crowd of 32 slightly different neurons runs in Faust (neuropulse.dsp)': neuropulse.dsp sets N = 16. Every measured crowd of 32 comes from a render harness that sets its own N (faust-render/neuropulse_render.dsp, spike-shape/shape_render.dsp, pitch-anchor/anchor_render.dsp). Proposed: 'a crowd of slightly different neurons runs in Faust (neuropulse.dsp builds 16; every measurement so far used 32)'.",
+      "status": "open"
+    },
+    {
+      "section": "Implementation Status",
+      "kind": "no-claim-edit",
+      "what": "'The Stage 4 codebox and its interface text are in this page's folder': neither maker nor challenger found a March Gen~ Stage 4 codebox in the bundle or anywhere tracked; the folder holds only the crowd's codeboxes (rnbo/neuropulse.codebox, Faust-generated, and rnbo/neuropulse-crowd.codebox, hand-written). Either the file is restored to the folder or the line says where it lives; until then whether the built Gen~ neuron latches at threshold can't be checked.",
       "status": "open"
     },
     {
@@ -72,7 +78,7 @@
           "by": "Web Audio Worklet",
           "height": 1180,
           "title": "four stages, one neuron · a walk in five steps",
-          "caption": "**Build the neuron one mechanism at a time, then test the spike against the pitch.** The capacitor, the leak, the spike, the recovery: each step a whole oscillator, each able to turn back into the one before. The last step sweeps the note from 55 Hz into the ceiling and counts the harmonics as it goes. The engine is the Faust crowd's own neuron, so step 4 is one member of the crowd below.",
+          "caption": "**Build the neuron one mechanism at a time, then test the spike against the pitch.** The capacitor, the leak, the spike, the recovery: each step a whole oscillator, each able to turn back into the one before. The last step sweeps the note from 55 Hz into the ceiling and counts the harmonics as it goes, with the centroid over the whole band beside the sawtooth's. The engine is the Faust crowd's own neuron, so step 4 is one member of the crowd below.",
           "near": "Hyperpolarization and refractory period"
         }
       ],
@@ -198,7 +204,7 @@
           "file": "spike-shape-findings.png",
           "origin": "gathered",
           "title": "lock curves and spectra · the steward, 14 October",
-          "caption": "Left, how much coupling each shape needs to lock; middle, the same against the charge each spike hands its neighbours; right, each shape's spectrum scattered (dashed) and locked (solid). Measured on the October engine (v0.2.1); the walk above re-measures it on v0.4 and the numbers move a little, the finding doesn't.",
+          "caption": "Left, how much coupling each shape needs to lock; middle, the same against the charge each spike hands its neighbours; right, each shape's spectrum scattered (dashed) and locked (solid). Measured on the October engine (v0.2.1); the walk above re-measures it on v0.4 and the numbers move a little and the tail's small effect on the lock even changes sign (0.0039 against 0.0033 on v0.2.1, 0.0034 against 0.0037 on v0.4), but the finding doesn't: the tail barely matters.",
           "near": "Hodgkin-Huxley vs. simplified models",
           "place": "band"
         }

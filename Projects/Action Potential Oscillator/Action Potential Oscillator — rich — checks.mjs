@@ -64,11 +64,17 @@ console.log('\nfour stages — one neuron');
   ok(ms[0].within20 > ms[2].within20 && ms[0].centroidH > ms[2].centroidH, `at the same pitch a short τ is brighter, not warmer: ${out.stage2_tau.map(x => x.within20).join(' → ')} harmonics within 20 dB for τ 0.5 ms, 5 ms, ∞ (110 Hz)`);
 }
 { // the test: a fixed spike against a rising pitch
-  const rows = [55, 110, 220, 330, 440, 660, 880].map(f => { const m = measureNeuron({ stage: 3, freq: f }, SR); const s = measureNeuron({ stage: 1, freq: f, tau_ms: Infinity }, SR); return { f, plays: +m.f0.toFixed(1), within20: m.within20, centroidHz: Math.round(m.centroidHz), centroidH: +m.centroidH.toFixed(2), saw_within20: s.within20 }; });
+  const rows = [55, 110, 220, 330, 440, 660, 880].map(f => { const m = measureNeuron({ stage: 3, freq: f }, SR); const s = measureNeuron({ stage: 1, freq: f, tau_ms: Infinity }, SR); return { f, plays: +m.f0.toFixed(1), within20: m.within20, centroidHz: Math.round(m.centroidHz), centroidH: +m.centroidH.toFixed(2), saw_within20: s.within20, saw_centroidHz: Math.round(s.centroidHz) }; });
   out.stage3_sweep = rows; console.table(rows);
   const r = f => rows.find(x => x.f === f);
   ok(r(55).within20 > r(110).within20 && r(110).within20 > r(220).within20 && r(220).within20 > r(440).within20, `stage 3 loses harmonics as the note rises: ${[55, 110, 220, 440].map(f => r(f).within20).join(' → ')} within 20 dB (the sawtooth keeps ${r(55).saw_within20})`);
-  ok(r(440).centroidHz > r(55).centroidHz, `…while its centroid in hertz rises: ${r(55).centroidHz} → ${r(440).centroidHz} Hz (darker against the note, not in hertz)`);
+  ok(r(440).centroidHz > r(55).centroidHz && r(440).saw_centroidHz > r(55).saw_centroidHz, `…while its centroid in hertz rises, over the whole band, as the sawtooth's does: ${r(55).centroidHz} → ${r(440).centroidHz} Hz against ${r(55).saw_centroidHz} → ${r(440).saw_centroidHz} Hz`);
+  const fifth = [55, 110, 220, 440].map(f => r(f).centroidHz / r(f).saw_centroidHz);
+  ok(fifth.every(q => q > 0.15 && q < 0.26), `the spike's centroid stays near a fifth of the sawtooth's (${fifth.map(q => q.toFixed(2)).join(', ')})`);
+  const silent = [];
+  for (const stage of [2, 3, 4]) for (let i = 0; i <= 40; i++) { const f = 55 * Math.pow(1000 / 55, i / 40); for (const tau of [0.6, 0.63, 0.7, 1, 5, 50]) for (const damp of stage === 4 ? [0.05, 0.3, 2] : [0.3]) for (const hyp of stage === 4 ? [-0.01, -0.2, -0.8] : [-0.2]) {
+    const e = NeuronEngine(SR); e.set({ stage, freq: f, tau_ms: tau, damp, hyp }); const st = {}; let n = 0; for (let k = 0; k < SR * 0.3; k++) { e.tick(st); if (st.fired) n++; } if (n < 3) silent.push([stage, Math.round(f), tau, damp, hyp]); } }
+  ok(silent.length === 0, `no silent corner anywhere on the sliders (τ from 0.6 ms, 55 to 1000 Hz, every stage): ${silent.length} silent settings`);
   const ceil = (stage) => { let lastP = 0; for (let f = 300; f <= 1400; f += 5) { const m = measureNeuron({ stage, freq: f }, SR); if (m.f0 < f * 0.97) return m.f0; lastP = m.f0; } return lastP; };
   const c3 = ceil(3), c4 = ceil(4); out.ceiling = { stage3: +c3.toFixed(1), stage4: +c4.toFixed(1) };
   ok(c3 > 900 && c3 < 1000, `stage 3's ceiling with a 1 ms spike: ${c3.toFixed(0)} Hz (1 ⁄ spike ≈ 1000)`);

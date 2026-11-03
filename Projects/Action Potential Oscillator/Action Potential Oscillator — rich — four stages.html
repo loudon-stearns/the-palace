@@ -95,7 +95,7 @@
     <div class="apo-panel" id="sweepPanel" style="margin-top:14px;display:none">
       <div class="apo-plabel"><span>as the note rises · stage <span id="sweepStage">3</span></span><span>dial 55 Hz → 1000 Hz</span></div>
       <canvas id="sweep" height="230"></canvas>
-      <div class="apo-key"><span><i style="background:#e8b84a"></i>harmonics within 20 dB of the loudest</span><span><i style="background:#8a8aa0"></i>the same count for the stage 1 sawtooth</span><span><i style="background:#4aadff"></i>brightness in hertz (spectral centroid)</span><span><i style="background:rgba(166,74,255,.6)"></i>past the ceiling</span></div>
+      <div class="apo-key"><span><i style="background:#e8b84a"></i>harmonics within 20 dB of the loudest</span><span><i style="background:#8a8aa0"></i>the same count for the stage 1 sawtooth</span><span><i style="background:#4aadff"></i>brightness in hertz (spectral centroid, the whole band)</span><span><i style="background:repeating-linear-gradient(90deg,#4aadff 0 4px,transparent 4px 7px)"></i>the sawtooth's centroid</span><span><i style="background:rgba(166,74,255,.6)"></i>past the ceiling</span></div>
     </div>
     <div class="apo-controls" id="controls"></div>
     <div class="apo-read" id="read"></div>
@@ -175,12 +175,14 @@ function measureNeuron(params, SR) {
   // does the cycle repeat sample for sample?
   let repeat = 0; for (let k = 0; k < P; k++) repeat = Math.max(repeat, Math.abs(x[b + k] - x[a + k]));
   if (b - a !== P) repeat = Infinity;
-  // exact DFT over two cycles: even bins are the harmonics, odd bins sit at half the note and between harmonics
+  // exact DFT over two cycles, every bin up to the top of the band: even bins are the harmonics,
+  // odd bins sit at half the note and between harmonics. One fixed band (0 to SR/2) at every pitch.
   const seg = x.slice(a, c), L = seg.length, mean = seg.reduce((s, v) => s + v, 0) / L;
+  const cs = new Float64Array(L), sn = new Float64Array(L);
+  for (let k = 0; k < L; k++) { cs[k] = Math.cos(2 * Math.PI * k / L); sn[k] = -Math.sin(2 * Math.PI * k / L); }
   const H = [], half = [];
-  const maxBin = Math.min(Math.floor(L / 2), 2 * 64);
-  for (let bin = 1; bin <= maxBin; bin++) {
-    let re = 0, im = 0; for (let k = 0; k < L; k++) { const w = -2 * Math.PI * bin * k / L; re += (seg[k] - mean) * Math.cos(w); im += (seg[k] - mean) * Math.sin(w); }
+  for (let bin = 1; bin <= Math.floor(L / 2); bin++) {
+    let re = 0, im = 0, j = 0; for (let k = 0; k < L; k++) { const v = seg[k] - mean; re += v * cs[j]; im += v * sn[j]; j += bin; if (j >= L) j -= L; }
     const mag = 2 * Math.hypot(re, im) / L;
     if (bin % 2 === 0) H.push(mag); else half.push(mag);
   }
@@ -294,7 +296,7 @@ function sweepCurve() {
     const f = 55 * Math.pow(1000 / 55, i / 64);
     const m = measureNeuron(Object.assign(params(), { freq: f, stage: S.testStage }), SR);
     const s1 = measureNeuron({ stage: 1, freq: f, tau_ms: Infinity }, SR);
-    pts.push({ f, played: m.f0, n20: m.within20, hz: m.centroidHz, n20saw: s1.within20 });
+    pts.push({ f, played: m.f0, n20: m.within20, hz: m.centroidHz, n20saw: s1.within20, hzsaw: s1.centroidHz });
   }
   curveKey = key; curve = pts; return pts;
 }
@@ -303,16 +305,17 @@ function drawSweep() {
   g.clearRect(0, 0, w, h);
   const pts = sweepCurve(), L = 34, R = w - 44, T = 8, B = h - 22;
   const X = f => L + Math.log(f / 55) / Math.log(1000 / 55) * (R - L);
-  const Yn = n => B - n / 16 * (B - T), Yh = hz => B - Math.min(hz, 3000) / 3000 * (B - T);
+  const Yn = n => B - n / 16 * (B - T), Yh = hz => B - Math.min(hz, 8000) / 8000 * (B - T);
   // past the ceiling: where the played pitch stops following the dial
   const ceil = pts.find(p => p.played < p.f * 0.97);
   if (ceil) { g.fillStyle = 'rgba(166,74,255,.12)'; g.fillRect(X(ceil.f), T, R - X(ceil.f), B - T); }
   g.font = '10px "JetBrains Mono", monospace'; g.fillStyle = '#4a4a5a';
   for (const f of [55, 110, 220, 440, 880]) { g.fillRect(X(f), T, 1, B - T); g.fillText(f + '', X(f) - 8, h - 6); }
   for (const n of [0, 4, 8, 12, 16]) { g.fillText(n + '', 6, Yn(n) + 3); }
-  for (const hz of [0, 1000, 2000, 3000]) { g.fillText(hz ? hz / 1000 + 'k' : '0', R + 6, Yh(hz) + 3); }
+  for (const hz of [0, 2000, 4000, 6000, 8000]) { g.fillText(hz ? hz / 1000 + 'k' : '0', R + 6, Yh(hz) + 3); }
   const line = (fx, fy, col, dash) => { g.strokeStyle = col; g.lineWidth = 1.6; g.setLineDash(dash || []); g.beginPath(); pts.forEach((p, i) => { const x = X(p.f), y = fy(p); i ? g.lineTo(x, y) : g.moveTo(x, y); }); g.stroke(); g.setLineDash([]); };
   line(null, p => Yn(p.n20saw), '#8a8aa0', [4, 4]);
+  line(null, p => Yh(p.hzsaw), '#4aadff', [4, 4]);
   line(null, p => Yh(p.hz), '#4aadff');
   line(null, p => Yn(p.n20), '#e8b84a');
   // where you are
@@ -345,7 +348,7 @@ const STEPS = [
   { n: 2, name: 'the leak', key: [['charge', 0]],
     says: '<b>Stage 2.</b> Real membranes leak. Each sample a little of the charge drains away, so the ramp bends: fast at first, slower as it nears the threshold. The pitch is held where you set it (the drive is worked out from what is left of the period), so the only thing τ changes is the shape, and with it the colour.',
     eqs: [['V[n] = V[n−1] · (1 − 1⁄τ) + I', 'Each sample keeps all but one τ-th of the voltage, then adds the drive. Written this way it is a one-pole lowpass: the same update a compressor uses to smooth its attack and release.']],
-    controls: () => [slider({ label: 'membrane time constant τ', min: 0.5, max: 50, log: true, inf: true, get: () => S.tauInf ? Infinity : S.tau, set: v => { if (isFinite(v)) { S.tau = v; S.tauInf = false; } else S.tauInf = true; }, fmt: v => isFinite(v) ? v.toFixed(1) + ' ms' : '∞ · stage 1' }), pitchSlider()],
+    controls: () => [slider({ label: 'membrane time constant τ', min: 0.6, max: 50, log: true, inf: true, get: () => S.tauInf ? Infinity : S.tau, set: v => { if (isFinite(v)) { S.tau = v; S.tauInf = false; } else S.tauInf = true; }, fmt: v => isFinite(v) ? v.toFixed(1) + ' ms' : '∞ · stage 1' }), pitchSlider()],
     back: 'Slide τ all the way right, to ∞, and the leak is gone: you are back at step 1, sample for sample.' },
   { n: 3, name: 'the spike', key: [['charge', 0], ['rise · Na⁺', 1], ['fall · K⁺', 2]],
     says: '<b>Stage 3.</b> Instead of a bare reset, the neuron fires a spike: a fast rise as the sodium channels open, a slower fall as potassium carries the charge back out. The spike takes 1 ms whatever the note. At 110 Hz that is a sliver of each cycle; play higher and watch it take more of the window.',
@@ -414,7 +417,7 @@ function update() {
     drawSweep();
     const pts = sweepCurve(), at = f => pts.reduce((a, b) => Math.abs(Math.log(b.f / f)) < Math.abs(Math.log(a.f / f)) ? b : a);
     const lo = at(55), mid = at(S.testStage === 4 ? 330 : 440);
-    $('verdict').innerHTML = 'Measured on this engine, stage ' + S.testStage + ': from 55 Hz to ' + Math.round(mid.f) + ' Hz the harmonics within 20 dB fall from <b>' + lo.n20 + '</b> to <b>' + mid.n20 + '</b>, while the sawtooth keeps <b>' + lo.n20saw + '</b>. Relative to the note, the tone darkens, as the section says. In hertz it does not: the centroid climbs from <b>' + Math.round(lo.hz) + '</b> to <b>' + Math.round(mid.hz) + ' Hz</b>. The spike’s fixed length fixes where its energy sits, and the rising note climbs up into that fixed envelope, the way a voice climbs into its own formants. At the ceiling itself the charge is squeezed to a sample or two and the tone brightens again.';
+    $('verdict').innerHTML = 'Measured on this engine, stage ' + S.testStage + ': from 55 Hz to ' + Math.round(mid.f) + ' Hz the harmonics within 20 dB fall from <b>' + lo.n20 + '</b> to <b>' + mid.n20 + '</b>, while the sawtooth keeps <b>' + lo.n20saw + '</b>. Relative to the note, the tone darkens, as the section says. In hertz the centroid still climbs, from <b>' + Math.round(lo.hz) + '</b> to <b>' + Math.round(mid.hz) + ' Hz</b>, as any harmonic tone\u2019s does: the sawtooth\u2019s climbs too, from <b>' + Math.round(lo.hzsaw) + '</b> to <b>' + Math.round(mid.hzsaw) + ' Hz</b>. What belongs to the spike is that its centroid stays near a fifth of the sawtooth\u2019s, and the count against the note falls: its fixed length fixes where its energy sits, and the rising note climbs up into that fixed envelope, the way a voice climbs into its own formants. At the ceiling itself the charge is squeezed to a sample or two and the tone brightens again.';
   }
   paint();
 }
