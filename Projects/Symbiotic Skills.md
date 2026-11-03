@@ -8,7 +8,7 @@ pillars:
   - philosophy
   - practice
 born: 2026-03
-stage: growing
+stage: composting
 confidence: hypothesis
 energy: very high
 hook_quality: 10
