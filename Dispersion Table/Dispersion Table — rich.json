@@ -69,7 +69,23 @@
           "place": "band"
         }
       ],
-      "stamped": "2026-11-03"
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Dispersion Table — rich — the table and the loop.html",
+            "verdict": "keep",
+            "why": "Tests the identity (difference 0 exactly, live at P + 1) and that a fractional length fills the slot either way; walks up on Loudon's own outline. Note: 'flat' is this split's sign (delay ½, coefficient +⅓); the Oscillator's 99 + 1.5 split bends sharp (+0.955 ¢ at h10, reproduced), so the caption should name the split."
+          },
+          {
+            "file": "/Dissolutions/proofs/2026-10-20-the-table-that-travels/the-table-that-travels.html",
+            "verdict": "keep",
+            "why": "The proof the walk climbs to, placed as its last step and gathered as it was; tracked, storage contract in the manifest, conform clean."
+          }
+        ]
+      }
     },
     {
       "heading": "The round-trip phase condition",
@@ -93,7 +109,18 @@
           "place": "band"
         }
       ],
-      "stamped": "2026-11-03"
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Dispersion Table — rich — where the partials land.html",
+            "verdict": "keep",
+            "why": "Renders three loops and measures partials against the crossings (within 0.01 Hz), and tests what the section implies: a straight lag retunes by fs/(N+½), only a bent one leaves the grid (+39 ¢ at partial 12, the default). Walks bare, straight, bent, measured."
+          }
+        ]
+      }
     },
     {
       "heading": "From one curve to a table",
@@ -117,7 +144,18 @@
           "place": "band"
         }
       ],
-      "stamped": "2026-11-03"
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Dispersion Table — rich — two knobs, one loop.html",
+            "verdict": "keep",
+            "why": "A real test of the two axes, and its findings recompute (6.90/6.26 ¢ pitch, 2.7–3.2 ¢ bend, partial 4 38→90 and 32→73 dB/s). Note: the pitch move is with the bare delay held, which a retune removes; say in the caption that the bend is what survives."
+          }
+        ]
+      }
     },
     {
       "heading": "Cross-Domain Resonance",
@@ -150,7 +188,23 @@
           "place": "margin"
         }
       ],
-      "stamped": "2026-11-03"
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Dispersion Table — rich — the warp knob.html",
+            "verdict": "keep",
+            "why": "Tests the one-knob claim with stated band rules and a first-order contrast; walks one, eight, string, sweep. Note: 'the page's bell end' over-maps; the irregular end is a new shape, not a wider spread (about 141 ¢ at 0.97 against 106 ¢ at the piano band's top), so say that."
+          },
+          {
+            "file": "/Projects/Waveguide Synthesizer/offline-v1.10/stiffness-tour.wav",
+            "verdict": "keep",
+            "why": "A witness rather than a test: the stretch-only recipe heard in a built instrument; caption matches stiffness-tour.json and the study's 800× note, and the ladder is monotone at every take the tour plays. Tracked, the palace's own render."
+          }
+        ]
+      }
     }
   ],
   "offers": [
