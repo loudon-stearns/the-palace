@@ -1,0 +1,57 @@
+# Synth Templates — card 0.2 — Clave
+# The shortest sine there is: a high note that is over almost before it starts. Nothing to it but the pitch and the decay.
+schema: synth-template-card/0.2
+id: clave
+name: Clave
+family: Drums and Percussion
+tier: 1
+mode: mono
+classics: ""
+status: drafted
+concepts:
+  - "Sine: no response to filtering; FM/additive building block"
+  - "Pluck / strike: release = decay; gong vs marimba"
+  - "Phase, free-running vs retrigger, the click"
+  - "Envelope trigger / one-shot mode"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: sine, octave: 0, retrigger: true, note: "about 2.5 kHz"}
+    amp:     {kind: amplifier, level: full}
+    aenv:    {kind: envelope, role: amp, shape: {a: instant, d: fast, s: zero, r: same as decay}, category: percussive, one_shot: true}
+  audio:
+    - [osc1, amp]
+    - [amp, out]
+  modulation:
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: false}
+    - {from: key,  to: aenv.gate, essential: true}
+    - {from: vel,  to: amp.level, amount: some, essential: false}
+
+essentials:
+  - {block: osc1,    param: wave,      value: sine,          why: "a filter would do nothing to it; the whole design is the pitch and the length"}
+  - {block: osc1,    param: pitch,     value: Eb7,           why: "high: wood on wood has no low end"}
+  - {block: osc1,    param: retrigger, value: "on",          why: "the wave restarts each hit; at this length a random phase is a different click every time"}
+  - {block: aenv,    param: attack,    value: instant}
+  - {block: aenv,    param: decay,     value: fast,          why: "the marimba end of the gong-to-marimba line: twenty milliseconds, and it is over"}
+  - {block: aenv,    param: sustain,   value: zero,          why: "struck, then left to decay"}
+  - {block: aenv,    param: release,   value: same as decay, why: "the note is gone before any key-up"}
+  - {block: aenv,    param: mode,      value: one-shot}
+
+taste:
+  - {block: aenv,    param: decay,   range: "instant – short",  default: fast, why: "shorter is a tick; longer is a woodblock"}
+  - {block: osc1,    param: pitch,   range: "C7 – G7",          default: Eb7}
+  - {block: amp,     param: level,   range: "half – full",      default: full}
+
+listening:
+  cue: "A bright tick with a note in it. You hear the pitch only because it is so clean; there is no body and no tail."
+  ab: "Set the decay to medium: the tick becomes a sine beep, and the clave is gone. Back to fast and it is a stick again."
+
+render:
+  tempo: 120
+  note: Eb7
+  velocity: 100
+  pattern: "son clave, one bar: 1, the and of 2, 4, then 2 and 3 of the second bar"
+  length_s: 2.0
+
+mappings: {}

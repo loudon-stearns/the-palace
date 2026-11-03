@@ -1,0 +1,72 @@
+# Synth Templates — card 0.2 — Steel Drum
+# A pitch envelope that rises instead of falling, on an FM pair whose overtone is not a harmonic.
+schema: synth-template-card/0.2
+id: steel-drum
+name: Steel Drum
+family: Keys and Mallets
+tier: 3
+mode: poly
+classics: ""
+status: drafted
+concepts:
+  - "FM: audio-rate modulation, algorithms"
+  - "Envelope → pitch (attack blip)"
+  - "Pluck / strike: release = decay; gong vs marimba"
+  - "Sine: no response to filtering; FM/additive building block"
+
+graph:
+  blocks:
+    osc1: {kind: oscillator, wave: sine, octave: 0, note: "carrier: the pan's note"}
+    osc2: {kind: oscillator, wave: sine, ratio: "3.2:1", level: little, note: "modulator; near the third harmonic but not on it, so the overtone is a little sour"}
+    amp:  {kind: amplifier, level: under unity}
+    fx:   {kind: fx, chain: [reverb]}
+    menv: {kind: envelope, role: pitch, shape: {a: instant, d: short, s: zero, r: short}, category: percussive, note: "inverted: the note starts below and rises into pitch; the voice's pitch envelope only falls, so it will play this upside down"}
+    aenv: {kind: envelope, role: amp,   shape: {a: instant, d: medium, s: zero, r: same as decay}, category: struck}
+  audio:
+    - [osc2, osc1, fm]
+    - [osc1, amp]
+    - [amp, fx]
+    - [fx, out]
+  modulation:
+    - {from: menv, to: osc1.pitch, amount: a fifth, essential: true}
+    - {from: menv, to: osc2.pitch, amount: a fifth, essential: true}
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: vel,  to: amp.level, amount: some, essential: false}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: osc2.pitch, essential: true}
+    - {from: key,  to: menv.gate, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: osc1, param: wave,      value: sine,          why: "a dished steel note: round, with the overtone added by FM rather than by a filter"}
+  - {block: osc2, param: ratio,     value: "3.2:1",       why: "a pan's overtones are tuned by hammer, never exactly harmonic; just off the third gives the sour metal"}
+  - {block: osc2, param: level,     value: little,        why: "a low index: a few sidebands, not a bell's clang"}
+  - {block: menv, param: target,    value: oscillator pitch, why: "a struck pan dips and scoops up into its note"}
+  - {block: menv, param: direction, value: rising,        why: "the envelope is inverted: it starts a fifth below and settles up; most pitch envelopes fall, this one does not"}
+  - {block: menv, param: decay,     value: short,         why: "the scoop is over in the first instant"}
+  - {block: menv, param: routing,   value: both oscillators, why: "the modulator must scoop with the carrier or the ratio changes mid-note"}
+  - {block: aenv, param: attack,    value: instant,       why: "struck with a rubber mallet"}
+  - {block: aenv, param: decay,     value: medium,        why: "a pan rings less than a bell, more than a marimba"}
+  - {block: aenv, param: sustain,   value: zero}
+  - {block: aenv, param: release,   value: same as decay, why: "rings out regardless of the note length"}
+  - {block: mode, param: voices,    value: poly,          why: "two mallets, rolls, chords"}
+
+taste:
+  - {block: menv, param: amount,  range: "none – about an octave", default: a fifth, why: "none is a plain metal note; an octave is a cartoon"}
+  - {block: menv, param: decay,   range: "fast – medium",          default: short}
+  - {block: osc2, param: level,   range: "little – half",          default: little}
+  - {block: aenv, param: decay,   range: "short – long",           default: medium}
+  - {block: fx,   param: reverb,  range: "small – large",          default: small}
+
+listening:
+  cue: "Each note scoops up into its pitch, a quick 'bwoip' rather than a strike, and rings with a slightly sour metal overtone. Soft and hollow, nothing like a bell's clang."
+  ab: "Set the pitch envelope amount to none: the scoop is gone and it is a dull FM mallet. Put it back. Then turn the envelope the usual way round, falling instead of rising: the same amount now sounds like a synth tom, not a pan."
+
+render:
+  tempo: 120
+  note: [C4, E4, G4, C5, G4, E4, C4, G3]
+  velocity: [105, 90, 90, 105, 90, 90, 105, 90]
+  pattern: "eighths, one bar, a calypso arpeggio, each a 16th long"
+  length_s: 3.0
+
+mappings: {}

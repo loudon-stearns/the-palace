@@ -1,0 +1,53 @@
+# Synth Templates — card — Waveshaping
+# Technique demonstration: a sine, which no filter can change, changed by a nonlinearity.
+schema: synth-template-card/0.2
+id: waveshaping
+name: Waveshaping
+family: Technique Demonstrations
+tier: 2
+mode: mono
+classics: ""
+status: drafted
+concepts:
+  - "Distortion: nonlinear, harmonic, compresses dynamics, tames resonance"
+  - "Sine: no response to filtering; FM/additive building block"
+
+graph:
+  blocks:
+    osc1: {kind: oscillator, wave: sine, octave: 0}
+    amp:  {kind: amplifier, level: full}
+    fx:   {kind: fx, chain: [saturation], note: "a tanh shaper; a folder is the other classic, drawn here by name only"}
+    aenv: {kind: envelope, role: amp, shape: {a: fast, d: short, s: held, r: short}, category: sustaining}
+  audio:
+    - [osc1, amp]
+    - [amp, fx]
+    - [fx, out]
+  modulation:
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: vel,  to: amp.level, amount: full, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: osc1, param: wave,  value: sine, why: "one partial in; every partial that comes out was made by the shaper"}
+  - {block: fx,   param: chain, value: saturation, why: "nonlinear: the output depends on how loud the input is, and what it adds is harmonics of the input"}
+  - {block: amp,  param: level, value: full, why: "the shaper works on level; a quiet sine passes through nearly clean"}
+  - {block: vel,  param: target, value: amp level, why: "hard notes drive harder and come out brighter: distortion turns loudness into timbre"}
+
+taste:
+  - {block: fx,   param: drive, range: "none – heavy", default: light, why: "the sweep: none is the sine; heavy is nearly a square, and the loud and soft notes come out at almost the same level"}
+  - {block: fx,   param: shape, range: "tanh – fold",   default: tanh, why: "tanh squashes the peaks and adds odd harmonics; a folder turns them back and adds a brighter, stranger set"}
+  - {block: aenv, param: release, range: "short – medium", default: short}
+
+listening:
+  cue: "A pure tone that grows an edge as the drive comes up, all harmonics of the note you played. Soft and hard notes become the same loudness but not the same colour: the hard ones are brighter."
+  ab: "Set drive to none: the sine, which has nothing a filter could remove. Bring it to heavy: the same sine now has a full set of harmonics, made rather than revealed."
+
+render:
+  tempo: 100
+  note: [C3, C3, C3]
+  velocity: [50, 90, 127]
+  pattern: "three notes, two seconds each, soft to hard, with drive at light; then the last held while drive sweeps to heavy"
+  length_s: 8.0
+
+mappings: {}

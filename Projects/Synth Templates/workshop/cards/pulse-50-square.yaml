@@ -1,0 +1,56 @@
+# Synth Templates — card 0.2 — Pulse 50% (Square)
+# Chiptune: the square, the end of the duty-cycle line. Odd harmonics only; the Game Boy's and NES's roundest pulse.
+schema: synth-template-card/0.2
+id: pulse-50-square
+name: Pulse 50% (Square)
+family: Chiptune
+tier: 1
+mode: mono
+classics: NES / Game Boy
+status: drafted
+concepts:
+  - "Pulse width, static and modulated"
+  - "Waveforms: saw, square, triangle, sine, noise"
+  - "Switch envelope (organ); percussive organ"
+  - "Octave / semitone / fine tuning"
+
+graph:
+  blocks:
+    osc1: {kind: oscillator, wave: square, pw: 0.5, octave: 0, note: "up half the cycle, down half: odd harmonics only"}
+    amp:  {kind: amplifier, level: full, note: "the Game Boy's 16 volume steps"}
+    aenv: {kind: envelope, role: amp, shape: {a: instant, d: fast, s: held, r: instant}, category: gate, note: "a switch with a tiny step down: the hardware envelope ticking once"}
+  audio:
+    - [osc1, amp]
+    - [amp, out]
+  modulation:
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: osc1, param: wave,    value: square,     why: "equal time up and down: only the odd harmonics, so it is hollow and round, a clarinet"}
+  - {block: osc1, param: pw,      value: "0.5",      why: "the widest a pulse gets; past half it mirrors back toward narrow"}
+  - {block: amp,  param: input,   value: osc1 direct, why: "no filter on either chip"}
+  - {block: aenv, param: attack,  value: instant,    why: "a switch"}
+  - {block: aenv, param: sustain, value: held,       why: "a held note stays; the one tick down at the start is a little bite"}
+  - {block: aenv, param: release, value: instant,    why: "off at once"}
+  - {block: mode, param: voices,  value: mono,       why: "one channel"}
+
+taste:
+  - {block: osc1, param: pw,      range: "0.25 – 0.5",      default: "0.5", why: "narrower goes back down the duty line"}
+  - {block: osc1, param: octave,  range: "-1 – 1",          default: 0, why: "the square is the chip's bass and its lead alike"}
+  - {block: aenv, param: decay,   range: "instant – short", default: fast, why: "the bite; instant is a pure switch"}
+  - {block: amp,  param: level,   range: "half – full",     default: full}
+
+listening:
+  cue: "Round and hollow, a wooden clarinet; no edge, no reed. Compare it with the eighth and quarter pulses: the same note gets thinner and more nasal as the width narrows."
+  ab: "Narrow the pulse to an eighth: the roundness goes and it turns reedy. Back to half and the hollow body returns. Then slow the attack to short: it stops being a chip at all."
+
+render:
+  tempo: 150
+  note: [C4, G4, C5, G4, E4, G4, C4, C4]
+  velocity: 100
+  pattern: "eighths, one bar; the last note tied, held a beat"
+  length_s: 2.0
+
+mappings: {}

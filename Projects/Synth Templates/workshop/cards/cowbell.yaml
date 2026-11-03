@@ -1,0 +1,66 @@
+# Synth Templates — card 0.2 — Cowbell
+# Two squares that are not in tune with each other, a bandpass to pick the clang out, and a fast decay. The 808 cowbell is this exactly.
+schema: synth-template-card/0.2
+id: cowbell
+name: Cowbell
+family: Drums and Percussion
+tier: 1
+mode: mono
+classics: 808 cowbell
+status: drafted
+concepts:
+  - "Waveforms: saw, square, triangle, sine, noise"
+  - "Combining waveforms: square + saw octave up (zipper)"
+  - "Low-pass, high-pass, band-pass, notch"
+  - "Envelope trigger / one-shot mode"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: square, octave: 0, retrigger: true, note: "about 540 Hz on the 808"}
+    osc2:    {kind: oscillator, wave: square, ratio: "1.48:1", level: equal, retrigger: true, note: "about 800 Hz: not a harmonic of the first, a hair under a fifth"}
+    mix:     {kind: mixer}
+    filter1: {kind: filter, type: bandpass, slope: 12, resonance: little}
+    amp:     {kind: amplifier, level: full}
+    aenv:    {kind: envelope, role: amp, shape: {a: instant, d: short, s: zero, r: same as decay}, category: percussive, one_shot: true}
+  audio:
+    - [osc1, mix]
+    - [osc2, mix]
+    - [mix, filter1]
+    - [filter1, amp]
+    - [amp, out]
+  modulation:
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: false}
+    - {from: key,  to: osc2.pitch, essential: false}
+    - {from: key,  to: aenv.gate, essential: true}
+    - {from: vel,  to: amp.level, amount: some, essential: false}
+
+essentials:
+  - {block: osc1,    param: wave,      value: square,        why: "odd harmonics: hollow and hard, like struck metal"}
+  - {block: osc2,    param: wave,      value: square}
+  - {block: osc2,    param: ratio,     value: "1.48:1",      why: "not a harmonic ratio: the two sets of partials never line up, and that clash is the bell"}
+  - {block: osc2,    param: level,     value: equal,         why: "neither square wins; the beat between them is the sound"}
+  - {block: filter1, param: type,      value: bandpass 12 dB, why: "picks the clang out of the middle and drops the square buzz above and below"}
+  - {block: filter1, param: cutoff,    value: mid,           why: "sat on the two fundamentals"}
+  - {block: aenv,    param: decay,     value: short,         why: "metal struck and damped by the hand"}
+  - {block: aenv,    param: sustain,   value: zero,          why: "struck, then left to decay"}
+  - {block: aenv,    param: mode,      value: one-shot,      why: "plays out whatever the note length"}
+
+taste:
+  - {block: aenv,    param: decay,     range: "fast – medium",   default: short}
+  - {block: filter1, param: resonance, range: "none – moderate", default: little, why: "more rings the bell"}
+  - {block: filter1, param: cutoff,    range: "mid – bright",    default: mid}
+  - {block: osc1,    param: pitch,     range: "G4 – G5",         default: C5}
+
+listening:
+  cue: "A clank with two notes in it that do not agree. It is pitched enough to tune to a track, and rough enough to never be a note."
+  ab: "Set the second oscillator's ratio to 2:1: the clank becomes a square-wave bleep, clean and dull. Put it back to 1.48:1 and the bell is back."
+
+render:
+  tempo: 120
+  note: C5
+  velocity: 100
+  pattern: "the clave rhythm, one bar: hits on 1, the and of 2, 4; last left to ring"
+  length_s: 2.0
+
+mappings: {}

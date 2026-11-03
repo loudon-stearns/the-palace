@@ -1,0 +1,63 @@
+# Synth Templates — card 0.2 — Rain
+# Sound Effects, tier 2. Thin noise chopped by a random LFO run as fast as it goes: the drops are the modulation, not the source.
+schema: synth-template-card/0.2
+id: rain
+name: Rain
+family: Sound Effects
+tier: 2
+mode: mono
+classics: ""
+status: drafted
+concepts:
+  - "Low-pass, high-pass, band-pass, notch"
+  - "LFO → pitch / amplitude / pan / filter"
+  - "LFO rate range vs oscillator; LFO into audio rate"
+  - "Noise colors: white vs pink"
+
+graph:
+  blocks:
+    noise:   {kind: oscillator, wave: noise, color: white}
+    filter1: {kind: filter, type: highpass, slope: 12, resonance: none}
+    amp:     {kind: amplifier, level: under unity}
+    fx:      {kind: fx, chain: [reverb]}
+    aenv:    {kind: envelope, role: amp, shape: {a: medium, d: medium, s: held, r: long}, category: pad}
+    lfo1:    {kind: lfo, wave: s&h, rate: very fast, sync: false, note: "the drops want faster still, tens of steps a second; very fast is the table's top"}
+  audio:
+    - [noise, filter1]
+    - [filter1, amp]
+    - [amp, fx]
+    - [fx, out]
+  modulation:
+    - {from: lfo1, to: amp.level, amount: full, essential: true}
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: noise,   param: color,   value: white,         why: "rain is bright; the high end is the drops"}
+  - {block: filter1, param: type,    value: highpass 12 dB, why: "take the body out: what is left is the patter, not a rumble"}
+  - {block: filter1, param: cutoff,  value: bright,        why: "high enough that only the hiss survives"}
+  - {block: lfo1,    param: wave,    value: s&h,           why: "a new random level every step, held: each step is a drop, or the space between two"}
+  - {block: lfo1,    param: rate,    value: very fast,     why: "as fast as the LFO goes; this is where an LFO stops being motion and starts being grain"}
+  - {block: lfo1,    param: amount,  value: full,          why: "the level must go all the way to silence between drops, or it is a hiss with a flutter"}
+  - {block: lfo1,    param: target,  value: amp level,     why: "it is loudness that patters"}
+  - {block: aenv,    param: sustain, value: held,          why: "it rains while the key is down"}
+
+taste:
+  - {block: lfo1,    param: rate,    range: "fast – very fast",    default: very fast, why: "slower is a drip"}
+  - {block: lfo1,    param: depth,   range: "moderate – full",     default: full}
+  - {block: filter1, param: cutoff,  range: "mid – open",          default: bright, why: "lower is rain on a roof, higher is rain on leaves"}
+  - {block: aenv,    param: attack,  range: "short – slow",        default: medium}
+  - {block: fx,      param: reverb,  range: "small – large",       default: small}
+
+listening:
+  cue: "A patter: not a hiss but many tiny bursts, too fast to count, none of them the same size. The randomness is in the level, the pitch never moves."
+  ab: "Set the LFO rate to slow: the same patch becomes a dripping tap, one drop at a time. Back to very fast and it rains."
+
+render:
+  tempo: 100
+  note: C3
+  velocity: 90
+  pattern: "one note held four bars, then released"
+  length_s: 10.0
+
+mappings: {}

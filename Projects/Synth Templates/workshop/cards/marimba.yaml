@@ -1,0 +1,67 @@
+# Synth Templates — card 0.2 — Marimba
+# A mallet: two sines, one fast decay, almost no pitch movement. The decay time is the material.
+schema: synth-template-card/0.2
+id: marimba
+name: Marimba
+family: Keys and Mallets
+tier: 1
+mode: poly
+classics: ""
+status: drafted
+concepts:
+  - "Pluck / strike: release = decay; gong vs marimba"
+  - "Additive: sines in a harmonic series"
+  - "Sine: no response to filtering; FM/additive building block"
+  - "Envelope → pitch (attack blip)"
+
+graph:
+  blocks:
+    osc1: {kind: oscillator, wave: sine, octave: 0, note: "the fundamental; the bar's tone"}
+    osc2: {kind: oscillator, wave: sine, octave: 2, level: little, note: "the fourth partial: the one a marimba bar is tuned to ring"}
+    mix:  {kind: mixer}
+    amp:  {kind: amplifier, level: under unity}
+    menv: {kind: envelope, role: pitch, shape: {a: instant, d: fast, s: zero, r: fast}, category: percussive, note: "tiny: the mallet's thump; the voice reads 'little' as the depth, there is no pitch word smaller than a fifth"}
+    aenv: {kind: envelope, role: amp,   shape: {a: instant, d: medium, s: zero, r: same as decay}, category: struck}
+  audio:
+    - [osc1, mix]
+    - [osc2, mix]
+    - [mix, amp]
+    - [amp, out]
+  modulation:
+    - {from: menv, to: osc1.pitch, amount: little, essential: false}
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: vel,  to: amp.level, amount: some, essential: false}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: osc2.pitch, essential: true}
+    - {from: key,  to: menv.gate, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: osc1, param: wave,    value: sine,          why: "a wooden bar rings almost pure; there is nothing to filter"}
+  - {block: osc2, param: wave,    value: sine}
+  - {block: osc2, param: octave,  value: +2,            why: "two octaves up is the fourth harmonic, the partial a marimba bar is cut to ring"}
+  - {block: osc2, param: level,   value: little,        why: "a hint of partial; more and it is a bell"}
+  - {block: aenv, param: attack,  value: instant,       why: "struck: full volume at once"}
+  - {block: aenv, param: decay,   value: medium,        why: "the material: a marimba is short, a gong is very long; everything between is this one knob"}
+  - {block: aenv, param: sustain, value: zero,          why: "nothing adds energy after the strike"}
+  - {block: aenv, param: release, value: same as decay, why: "a short MIDI note still rings out naturally"}
+  - {block: mode, param: voices,  value: poly,          why: "rolls and chords; notes overlap"}
+
+taste:
+  - {block: aenv, param: decay,  range: "short – long",       default: medium, why: "marimba to vibes to gong"}
+  - {block: osc2, param: level,  range: "off – half",         default: little}
+  - {block: menv, param: amount, range: "none – a fifth",     default: little, why: "the thump of the mallet; none is a soft mallet"}
+  - {block: amp,  param: level,  range: "half – full",        default: under unity}
+
+listening:
+  cue: "A round wooden note that is simply there and then gone. No brightness fades, because there is almost none to begin with; only the level falls."
+  ab: "Set the amp decay to very long: the same two sines become a gong. Bring it back to medium and the wood returns. Then set the release to instant and play short notes: every note is chopped off before it rings."
+
+render:
+  tempo: 110
+  note: [C4, E4, G4, A4, G4, E4, C4, E4]
+  velocity: [100, 80, 80, 100, 80, 80, 100, 80]
+  pattern: "eighths, one bar, each a 16th long"
+  length_s: 3.0
+
+mappings: {}

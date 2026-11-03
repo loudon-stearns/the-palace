@@ -1,0 +1,81 @@
+# Synth Templates — card 0.2 — Orchestral Strings
+# The string machine grown up: a high-pass to clear the mud, a vibrato LFO per voice, and a slower bow. A section, not a machine.
+schema: synth-template-card/0.2
+id: orchestral-strings
+name: Orchestral Strings
+family: Pads
+tier: 2
+mode: poly
+classics: ""
+status: drafted
+concepts:
+  - "Standard sustaining envelope; strings and horns variants"
+  - "Vibrato: ~5 Hz, under a semitone; dedicated vibrato LFO"
+  - "Retrigger vs free; chords with staggered attacks"
+  - "Serial: flexible band-pass (HP + LP) with horns"
+  - "Chorus: multiple delays, own LFOs, no feedback"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: saw, octave: 0, unison: 2, detune: slight}
+    osc2:    {kind: oscillator, wave: saw, octave: -1, note: "cellos and basses; the violins are osc1"}
+    mix:     {kind: mixer}
+    filter1: {kind: filter, type: highpass, slope: 12, resonance: none, note: "a little, low: clears the mud under a chord"}
+    filter2: {kind: filter, type: lowpass, slope: 12, resonance: none}
+    amp:     {kind: amplifier, level: under unity}
+    fx:      {kind: fx, chain: [ensemble, reverb]}
+    aenv:    {kind: envelope, role: amp, shape: {a: medium, d: slow, s: held, r: long}, category: string}
+    lfo1:    {kind: lfo, wave: sine, rate: medium, sync: false, retrigger: true, note: "vibrato: restarts per note, so a chord with staggered attacks has staggered vibrato, like players"}
+  audio:
+    - [osc1, mix]
+    - [osc2, mix]
+    - [mix, filter1]
+    - [filter1, filter2]
+    - [filter2, amp]
+    - [amp, fx]
+    - [fx, out]
+  modulation:
+    - {from: lfo1, to: osc1.pitch, amount: little, essential: true}
+    - {from: lfo1, to: osc2.pitch, amount: little, essential: true}
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: osc2.pitch, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+    - {from: wheel, to: lfo1.depth, amount: some, essential: false}
+    - {from: key,  to: lfo1.rate, amount: little, essential: false, note: "keytracking to rate: every note vibrates at a slightly different speed and the voices never lock"}
+
+essentials:
+  - {block: osc1,    param: wave,      value: saw,             why: "a bowed string is a saw"}
+  - {block: filter1, param: type,      value: highpass 12 dB,  why: "a little high-pass low down: the machine never had one, and this is the first thing that makes it a section instead"}
+  - {block: filter2, param: cutoff,    value: bright,          why: "mostly open; the low-pass is only taking the synth edge off the top"}
+  - {block: lfo1,    param: target,    value: pitch,           why: "vibrato: a steady variation in pitch, the one thing string players always do that the machine never did"}
+  - {block: lfo1,    param: rate,      value: medium,          why: "around five hertz: the natural human rate"}
+  - {block: lfo1,    param: amount,    value: little,          why: "under a semitone; vibrato is width, not a trill"}
+  - {block: lfo1,    param: retrigger, value: "on",            why: "each voice gets its own vibrato clock, so a chord does not wobble as one"}
+  - {block: aenv,    param: attack,    value: medium,          why: "about two hundred milliseconds: the bow catches the string, then it speaks"}
+  - {block: aenv,    param: sustain,   value: held,            why: "sustaining: bowed as long as the key is held"}
+  - {block: aenv,    param: release,   value: long,            why: "the section lets go gradually; the longer release smooths the voice leading"}
+  - {block: fx,      param: chain,     value: ensemble then reverb, why: "the ensemble is still the body of the sound, but here it sits on top of vibrato and a high-pass rather than doing all the work"}
+  - {block: mode,    param: voices,    value: poly,            why: "a section"}
+
+taste:
+  - {block: osc2,    param: level,     range: "quarter – equal",        default: half}
+  - {block: filter1, param: cutoff,    range: "dark – mid",             default: dark}
+  - {block: filter2, param: cutoff,    range: "mid – open",             default: bright}
+  - {block: lfo1,    param: depth,     range: "none – some",            default: little}
+  - {block: aenv,    param: attack,    range: "short – slow",           default: medium}
+  - {block: aenv,    param: release,   range: "medium – very long",     default: long}
+  - {block: fx,      param: reverb,    range: "small – huge",           default: large}
+
+listening:
+  cue: "A chord that speaks a beat after the key, with a slow, uneven shimmer of vibrato in it: each voice wobbles at its own pace. Clearer in the bass than the string machine, less glassy on top."
+  ab: "Set the vibrato depth to none: the section goes stiff and becomes a string machine again, polite and flat. Put it back. Then set the LFO to free-run instead of retrigger: the vibrato locks across the chord and it sounds like one big player, not a section."
+
+render:
+  tempo: 76
+  note: [G2, D3, B3, G4]
+  velocity: 90
+  pattern: "the chord's notes landing a half-beat apart, held three bars, released, tail to silence"
+  length_s: 12.0
+
+mappings: {}

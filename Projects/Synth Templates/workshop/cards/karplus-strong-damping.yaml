@@ -1,0 +1,59 @@
+# Synth Templates — card — Karplus-Strong Damping
+# Technique demonstration: a plucked string from a noise burst and a tuned delay. The one knob that matters is how fast the loop loses its top.
+schema: synth-template-card/0.2
+id: karplus-strong-damping
+name: Karplus-Strong Damping
+family: Technique Demonstrations
+tier: 2
+mode: poly
+classics: ""
+status: drafted
+concepts:
+  - "Comb filter: a short delay is a filter"
+  - "Comb filter: delay time and frequency are reciprocals"
+  - "Filter thunk (resonance = delay feedback)"
+  - "Noise at the attack; noise oscillator with its own envelope"
+  - "Pluck / strike: release = decay; gong vs marimba"
+
+graph:
+  blocks:
+    noise:   {kind: oscillator, wave: noise, note: "the pluck: a burst of noise a few milliseconds long is all the excitation a string needs"}
+    filter1: {kind: filter, type: comb, resonance: self-oscillating, note: "the string: a delay tuned to the note, fed back almost entirely. The comb's teeth are the string's harmonics. Drawn only; the voice has no comb"}
+    filter2: {kind: filter, type: lowpass, slope: 12, resonance: none, note: "the damping, inside the loop: every pass loses a little top, so the string darkens as it rings"}
+    amp:     {kind: amplifier, level: under unity}
+    aenv:    {kind: envelope, role: amp, shape: {a: instant, d: long, s: zero, r: same as decay}, category: plucked, note: "the noise burst is the attack; the amp envelope only lets the string ring and die"}
+  audio:
+    - [noise, filter1]
+    - [filter1, filter2]
+    - [filter2, amp]
+    - [amp, out]
+  modulation:
+    - {from: key,  to: filter1.cutoff, amount: full, essential: true}
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: noise,   param: wave,      value: noise, why: "energy at every frequency for an instant; the loop keeps only the frequencies that fit"}
+  - {block: filter1, param: type,      value: comb,  why: "a delay with feedback is a string: the delay time is the period of the note"}
+  - {block: filter1, param: resonance, value: self-oscillating, why: "feedback near total: the burst goes round and round, and the ringing is the note"}
+  - {block: key,     param: target,    value: comb delay time, why: "keytracking at full: the delay is the reciprocal of the pitch, so the key tunes the string"}
+  - {block: filter2, param: type,      value: lowpass in the loop, why: "the damping: a real string loses its high partials first, and this filter does that on every pass"}
+  - {block: aenv,    param: sustain,   value: zero,  why: "plucked: struck once and left to decay; release same as decay so a short key still rings out"}
+
+taste:
+  - {block: filter2, param: cutoff,    range: "dark – open",  default: bright, why: "the damping sweep: open is a bright steel string ringing long; dark is a muted, thuddy nylon that dies fast"}
+  - {block: filter1, param: resonance, range: "high – self-oscillating", default: self-oscillating, why: "feedback is the string's sustain"}
+  - {block: aenv,    param: decay,     range: "medium – very long", default: long}
+
+listening:
+  cue: "A pluck: a click, then a note that rings and darkens as it goes, the high partials dying first. Less damping and it is a long bright steel string; more and it is a palm-muted thump."
+  ab: "Open the damping filter fully: the string rings almost forever and stays bright, more a bell than a string. Close it to dark: the pluck is a dull thud, gone in a moment. In between is every guitar."
+
+render:
+  tempo: 100
+  note: [E2, A2, D3, G3]
+  velocity: 90
+  pattern: "four plucks, quarter notes, the last left to ring; played twice: damping open, then dark"
+  length_s: 8.0
+
+mappings: {}

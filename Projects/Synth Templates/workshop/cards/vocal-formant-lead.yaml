@@ -1,0 +1,66 @@
+# Synth Templates — card — Vocal / Formant Lead
+# A narrow pulse, which already has a vowel in it, through two band-passes sitting where a voice puts its formants. The wheel moves the vowel.
+schema: synth-template-card/0.2
+id: vocal-formant-lead
+name: Vocal / Formant Lead
+family: Leads
+tier: 3
+mode: mono
+classics: ""
+status: drafted
+concepts:
+  - "Narrow pulse → nasal / vocal, with formant filter"
+  - "Resonance as width (Q) on band-pass and notch"
+  - "Parallel: twin peaks, keytracking amount, vocal formants"
+  - "Low-pass, high-pass, band-pass, notch"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: pulse, pw: 0.2, octave: 0}
+    filter1: {kind: filter, type: bandpass, slope: 12, resonance: moderate, note: "the first formant, low-mid; not keytracked: a vowel stays where it is whatever the note"}
+    filter2: {kind: filter, type: bandpass, slope: 12, resonance: moderate, note: "the second formant, higher; on a real synth the two run in parallel, two peaks side by side. The slots draw them in series"}
+    amp:     {kind: amplifier, level: under unity}
+    aenv:    {kind: envelope, role: amp, shape: {a: short, d: short, s: held, r: short}, category: sustaining}
+  audio:
+    - [osc1, filter1]
+    - [filter1, filter2]
+    - [filter2, amp]
+    - [amp, out]
+  modulation:
+    - {from: wheel, to: filter1.cutoff, amount: some, essential: true}
+    - {from: wheel, to: filter2.cutoff, amount: some, essential: true}
+    - {from: aenv,  to: amp.level, essential: true}
+    - {from: key,   to: osc1.pitch, essential: true}
+    - {from: key,   to: aenv.gate, essential: true}
+
+essentials:
+  - {block: osc1,    param: wave,       value: pulse,      why: "the vocal cords: a buzz with every harmonic, which is what formants need to carve"}
+  - {block: osc1,    param: pw,         value: 0.2,        why: "a narrow pulse is already nasal; the formant filter makes it a vowel"}
+  - {block: filter1, param: type,       value: bandpass,   why: "a formant is a peak, not a ceiling: pass a band, cut both sides"}
+  - {block: filter1, param: cutoff,     value: dark,       why: "the first formant sits low in the midrange; 'oo' and 'ah' differ mostly here"}
+  - {block: filter2, param: cutoff,     value: bright,     why: "the second formant sits higher; 'ee' lives here"}
+  - {block: filter1, param: resonance,  value: moderate,   why: "on a band-pass, resonance is width: a formant is a broad peak, not a whistle"}
+  - {block: filter1, param: keytrack,   value: none,       why: "the vowel does not move with the note; the throat is the same shape on every pitch"}
+  - {block: wheel,   param: target,     value: both formant cutoffs, why: "one hand moves the mouth: raise the wheel and the vowel goes from 'oo' toward 'ee'"}
+  - {block: mode,    param: voices,     value: mono,       why: "one voice"}
+
+taste:
+  - {block: filter1, param: cutoff,     range: "dark – mid",        default: dark, why: "the first formant: lower is rounder"}
+  - {block: filter2, param: cutoff,     range: "mid – bright",      default: bright, why: "the second formant: higher is brighter"}
+  - {block: filter1, param: resonance,  range: "little – high",     default: moderate, why: "narrower peaks are a clearer vowel, until they whistle"}
+  - {block: osc1,    param: pw,         range: "0.1 – 0.5",         default: 0.2}
+  - {block: osc1,    param: wave,       range: "pulse – saw",       default: pulse}
+  - {block: aenv,    param: release,    range: "short – medium",    default: short}
+
+listening:
+  cue: "A buzz that sounds like a mouth: a vowel sitting on the note. Move the wheel and the vowel changes while the pitch holds, 'oo' opening toward 'ee'."
+  ab: "Set both band-passes to lowpass: a dull filtered pulse, no vowel. Put them back. Then keytrack the formants fully: the vowel now moves with the note and the mouth stops sounding like one."
+
+render:
+  tempo: 90
+  note: [C4, D4, E4, D4]
+  velocity: 100
+  pattern: "quarter notes, legato, one bar; the last held two bars while the wheel rises from bottom to top"
+  length_s: 6.0
+
+mappings: {}

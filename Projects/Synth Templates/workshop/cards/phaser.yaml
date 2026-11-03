@@ -1,0 +1,68 @@
+# Synth Templates — card 0.2 — Phaser
+# Delay-family card 5: the flanger's cousin. A complex filter in motion, but its notches are not in a harmonic series,
+# so the sweep has no pitch of its own and sits on tonal material without arguing with the note.
+schema: synth-template-card/0.2
+id: phaser
+name: Phaser
+family: Delay-Family Effects
+tier: 1
+mode: mono
+classics: ""
+status: drafted
+concepts:
+  - "Phaser: notches not in a harmonic series"
+  - "Delay time LFO modulation"
+  - "Flanger: comb in motion with feedback"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: saw, octave: 0, level: full}
+    noise:   {kind: oscillator, wave: noise, level: little, note: "a little noise so the notches have something to pass through between the harmonics"}
+    mix:     {kind: mixer}
+    filter1: {kind: filter, type: lowpass, slope: 12, resonance: none}
+    amp:     {kind: amplifier, level: under unity}
+    fx:      {kind: fx, chain: [phaser], note: "a chain of all-pass stages, each a notch when mixed with the dry; the stages are not evenly spaced in frequency, so the notches are not a harmonic series"}
+    aenv:    {kind: envelope, role: amp, shape: {a: fast, d: medium, s: held, r: medium}, category: sustaining}
+    lfo1:    {kind: lfo, wave: sine, rate: slow, sync: false}
+  audio:
+    - [osc1, mix]
+    - [noise, mix]
+    - [mix, filter1]
+    - [filter1, amp]
+    - [amp, fx]
+    - [fx, out]
+  modulation:
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: lfo1, to: fx.time, amount: generous, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: osc1,    param: wave,     value: saw,           why: "the notches need harmonics to land on; on a dull patch the phaser is heard only when a notch happens to cross one"}
+  - {block: filter1, param: cutoff,   value: open,          why: "keep the top: there must be sound where the cuts are"}
+  - {block: fx,      param: chain,    value: phaser}
+  - {block: fx,      param: stages,   value: a few all-pass stages, why: "each stage is one notch; their spacing is the maker's choice, never a harmonic series, which is the whole difference from a flanger"}
+  - {block: fx,      param: feedback, value: little,        why: "a touch deepens the notches without giving the sweep a pitch"}
+  - {block: lfo1,    param: target,   value: sweep position, why: "the LFO slides the notches up and down the spectrum; without it the phaser is a fixed set of cuts"}
+  - {block: lfo1,    param: rate,     value: slow,          why: "slow and deep is the useful setting; fast and shallow is the other"}
+  - {block: mode,    param: voices,   value: mono}
+
+taste:
+  - {block: lfo1,    param: rate,     range: "very slow – fast",     default: slow}
+  - {block: lfo1,    param: depth,    range: "little – full",        default: generous}
+  - {block: fx,      param: feedback, range: "none – high",          default: little}
+  - {block: fx,      param: mix,      range: "a whisper – equal",    default: half}
+  - {block: noise,   param: level,    range: "off – half",           default: little}
+
+listening:
+  cue: "A slow swirl moving through the tone, hollow places gliding up and down, but no whistle and no second note: the sweep has no pitch of its own, so the note you played stays the only note."
+  ab: "Swap the phaser for a flanger at the same rate: the same motion, now with a metallic pitch sliding inside it. Swap back and the pitch is gone. Then set the LFO depth to none: the notches freeze and the tone is simply a little hollow."
+
+render:
+  tempo: 100
+  note: [C3, G3]
+  velocity: 100
+  pattern: "a fifth held four bars; the LFO makes two full trips"
+  length_s: 9.0
+
+mappings: {}

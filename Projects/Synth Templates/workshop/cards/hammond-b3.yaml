@@ -1,0 +1,77 @@
+# Synth Templates — Genre Classics — Hammond B3
+# Drawbars are additive: sines in a harmonic series. The percussion is one harmonic with a decay; the Leslie is the room moving.
+schema: synth-template-card/0.2
+id: hammond-b3
+name: Hammond B3
+family: Genre Classics
+tier: 2
+mode: poly
+classics: Hammond
+status: drafted
+concepts:
+  - "Additive: sines in a harmonic series"
+  - "Harmonic-series tuning table"
+  - "Switch envelope (organ); percussive organ"
+  - "Sine: no response to filtering; FM/additive building block"
+  - "LFO → pitch / amplitude / pan / filter"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: sine, octave: 0, level: full, note: "the 8' drawbar: the fundamental"}
+    sub:     {kind: oscillator, wave: sine, octave: -1, level: full, note: "the 16' drawbar: an octave under"}
+    osc2:    {kind: oscillator, wave: sine, octave: 1, level: half, note: "the 4' drawbar, and the percussion harmonic: its level is struck by the envelope"}
+    mix:     {kind: mixer, note: "drawbars 888000000 as three sines; the real organ has nine"}
+    amp:     {kind: amplifier, level: under unity}
+    fx:      {kind: fx, chain: [drive, rotary], note: "rotary: the Leslie, a horn and a drum spinning; the voice cannot play it yet, the pan LFO below stands in"}
+    menv:    {kind: envelope, role: percussion, shape: {a: instant, d: short, s: zero, r: short}, category: percussive, note: "targets osc2's level as a plain level, not an FM index"}
+    aenv:    {kind: envelope, role: amp, shape: {a: instant, d: short, s: full, r: instant}, category: organ}
+    lfo1:    {kind: lfo, wave: sine, rate: fast, sync: false, note: "the Leslie's fast speed; slow is the chorale"}
+  audio:
+    - [osc1, mix]
+    - [sub, mix]
+    - [osc2, mix]
+    - [mix, amp]
+    - [amp, fx]
+    - [fx, out]
+  modulation:
+    - {from: menv, to: osc2.level, amount: full, essential: true}
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: lfo1, to: amp.pan, amount: moderate, essential: false}
+    - {from: lfo1, to: amp.level, amount: little, essential: false}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: sub.pitch,  essential: true}
+    - {from: key,  to: osc2.pitch, essential: true}
+    - {from: key,  to: menv.gate, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: mode,    param: voices,    value: poly,           why: "an organ: every key you hold sounds"}
+  - {block: osc1,    param: wave,      value: sine,           why: "a tonewheel is a sine; every drawbar adds one partial"}
+  - {block: osc2,    param: octave,    value: 1,              why: "the 4' bar: the second harmonic above; the brightness is drawbars, not a filter"}
+  - {block: menv,    param: target,    value: osc2 level,     why: "percussion: one upper harmonic struck loud and left to fall, so each note has a click of brightness"}
+  - {block: menv,    param: decay,     value: short,          why: "the B3's fast percussion"}
+  - {block: aenv,    param: attack,    value: instant,        why: "a switch: the key closes a contact"}
+  - {block: aenv,    param: sustain,   value: full,           why: "a switch: no decay, nothing to decay to"}
+  - {block: aenv,    param: release,   value: instant,        why: "a switch: the key opens and it stops"}
+  - {block: fx,      param: chain,     value: drive then rotary, why: "the tube amp's growl, then the spinning speaker: the sound is in the room, not the organ"}
+
+taste:
+  - {block: sub,     param: level,     range: "off – full",         default: full, why: "the 16' bar"}
+  - {block: osc2,    param: level,     range: "off – full",         default: half, why: "the 4' bar"}
+  - {block: menv,    param: decay,     range: "fast – medium",      default: short, why: "percussion fast or slow"}
+  - {block: lfo1,    param: rate,      range: "slow – fast",        default: fast, why: "chorale or tremolo; the switch between them is the move"}
+  - {block: lfo1,    param: depth,     range: "little – generous",  default: moderate}
+  - {block: fx,      param: drive,     range: "none – heavy",       default: light}
+
+listening:
+  cue: "Three sines that read as one organ: pull the 4' bar and the tone brightens without any filter. Each note starts with a short bright tick that falls away, and the whole thing wheels round the room."
+  ab: "Set the percussion envelope amount to none: the tick is gone and every note is a flat switch. Put it back. Then stop the rotary: the same chord, stood still, sounds like a toy."
+
+render:
+  tempo: 100
+  note: [C3, E3, G3, Bb3]
+  velocity: 100
+  pattern: "the chord as four staccato quarter notes, then held a bar"
+  length_s: 5.0
+
+mappings: {}

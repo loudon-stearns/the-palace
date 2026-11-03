@@ -1,0 +1,72 @@
+# Synth Templates — card 0.2 — Envelope-Follower Delay
+# Delay-family card 11: the delay time listens to the input. An envelope follower reads the loudness and pushes the
+# phaser's sweep with every hit. The slots have no follower, so menv stands in for it, gated by the key.
+schema: synth-template-card/0.2
+id: envelope-follower-delay
+name: Envelope-Follower Delay
+family: Delay-Family Effects
+tier: 3
+mode: mono
+classics: ""
+status: drafted
+concepts:
+  - "Envelope follower → delay time"
+  - "Phaser: notches not in a harmonic series"
+  - "Delay time LFO modulation"
+  - "Noise at the attack; noise oscillator with its own envelope"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: square, pw: 0.3, octave: 0, level: full}
+    noise:   {kind: oscillator, wave: noise, level: half, note: "hats and noise are where the follower shows most"}
+    mix:     {kind: mixer}
+    filter1: {kind: filter, type: highpass, slope: 12, resonance: none}
+    amp:     {kind: amplifier, level: under unity}
+    fx:      {kind: fx, chain: [phaser], note: "the sweep position is driven by the follower, not an LFO; a flanger here works the same way with a pitch in the sweep"}
+    menv:    {kind: envelope, role: follower, shape: {a: fast, d: medium, s: zero, r: medium}, category: percussive, note: "stands for the envelope follower: in truth it is the input's own loudness, averaged, not a key-gated envelope; the voice cannot yet listen to itself"}
+    aenv:    {kind: envelope, role: amp, shape: {a: instant, d: medium, s: zero, r: short}, category: percussive}
+  audio:
+    - [osc1, mix]
+    - [noise, mix]
+    - [mix, filter1]
+    - [filter1, amp]
+    - [amp, fx]
+    - [fx, out]
+  modulation:
+    - {from: menv, to: fx.time, amount: generous, essential: true}
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: vel,  to: menv.amount, amount: generous, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: menv.gate, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: noise,   param: level,    value: half,          why: "broadband content, so the sweep is heard on every hit"}
+  - {block: filter1, param: type,     value: highpass 12 dB, why: "a hat-like source: take the low end out and the sweep has only bright material to move through"}
+  - {block: aenv,    param: sustain,  value: zero,          why: "hits, not holds; a follower lives on transients"}
+  - {block: fx,      param: chain,    value: phaser}
+  - {block: menv,    param: target,   value: delay time,    why: "the follower turns loudness into a control signal and the control signal moves the sweep: a loud hit pushes the notches up, and they fall back as the hit decays"}
+  - {block: menv,    param: source,   value: the input's loudness, why: "an envelope follower, not a keyed envelope: it needs no gate, it hears the hit"}
+  - {block: menv,    param: decay,    value: medium,        why: "the follower's rate: how fast the sweep falls back after a hit; too fast flickers, too slow smears the hits together"}
+  - {block: vel,     param: target,   value: follower depth, why: "a harder hit is a louder input, so a bigger sweep: that is the auto-wah"}
+  - {block: mode,    param: voices,   value: mono}
+
+taste:
+  - {block: menv,    param: amount,   range: "some – full",         default: generous, why: "the follower's depth and its direction: up on a hit, or down"}
+  - {block: menv,    param: decay,    range: "short – long",        default: medium}
+  - {block: fx,      param: time,     range: "a few ms – tens of ms", default: a few milliseconds, why: "where the sweep rests between hits"}
+  - {block: fx,      param: mix,      range: "half – equal",        default: equal}
+  - {block: noise,   param: level,    range: "little – full",       default: half}
+
+listening:
+  cue: "Each hit says 'wow': the sweep jumps up on the attack and slides back down as the hit dies, a different distance for every velocity. Quiet hits barely move it; loud ones throw it. Nothing cycles; the pattern of the playing is the pattern of the sweep."
+  ab: "Set the follower depth to none: the phaser sits still at its resting time and every hit sounds the same. Put it back. Then play the same pattern with every note at the same velocity: the wow is still there, but it is the same wow every time, and the life goes out of it."
+
+render:
+  tempo: 120
+  note: [C4, C4, C4, C4, C4, C4, C4, C4]
+  velocity: [120, 60, 90, 60, 120, 60, 100, 70]
+  pattern: "eighths, one bar, each a 16th long, the velocities uneven on purpose"
+  length_s: 3.0
+
+mappings: {}

@@ -1,0 +1,73 @@
+# Synth Templates — Genre Classics — Oberheim Pad
+# Two saws through a 12 dB filter. The SEM's gentle slope is the lesson: the top stays, so the pad is creamy, not closed.
+schema: synth-template-card/0.2
+id: oberheim-pad
+name: Oberheim Pad
+family: Genre Classics
+tier: 1
+mode: poly
+classics: OB-X
+status: drafted
+concepts:
+  - "Filter slope: 12 vs 24 dB/oct, poles"
+  - "Small detune (≤7 cents) = chorus"
+  - "Unison / unisono"
+  - "Standard sustaining envelope; strings and horns variants"
+  - "LFO → pitch / amplitude / pan / filter"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: saw, octave: 0, unison: 2, detune: narrow}
+    osc2:    {kind: oscillator, wave: saw, octave: 0, detune: slight}
+    mix:     {kind: mixer}
+    filter1: {kind: filter, type: lowpass, slope: 12, resonance: little, note: "the SEM: two poles, state-variable"}
+    amp:     {kind: amplifier, level: under unity}
+    aenv:    {kind: envelope, role: amp, shape: {a: slow, d: medium, s: held, r: long}, category: pad}
+    lfo1:    {kind: lfo, wave: sine, rate: medium, sync: false}
+  audio:
+    - [osc1, mix]
+    - [osc2, mix]
+    - [mix, filter1]
+    - [filter1, amp]
+    - [amp, out]
+  modulation:
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: lfo1, to: osc1.pitch, amount: little, essential: false}
+    - {from: lfo1, to: osc2.pitch, amount: little, essential: false}
+    - {from: wheel, to: lfo1.depth, amount: full, essential: false}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: osc2.pitch, essential: true}
+    - {from: key,  to: aenv.gate,  essential: true}
+
+essentials:
+  - {block: mode,    param: voices,    value: poly,           why: "eight voices of chords; the Oberheim is a chord machine"}
+  - {block: osc1,    param: wave,      value: saw}
+  - {block: osc2,    param: wave,      value: saw,            why: "two saws, both bright, so the gentle filter has a full top to leave in"}
+  - {block: osc2,    param: detune,    value: slight,         why: "a few cents between the two: the slow chorus of a pair"}
+  - {block: filter1, param: type,      value: lowpass 12 dB,  why: "two poles: the roll-off is gentle and the upper harmonics stay, softened, not cut; a 24 dB filter here is a different, darker pad"}
+  - {block: filter1, param: cutoff,    value: mid,            why: "halfway, where the 12 dB slope is heard as creaminess rather than dullness"}
+  - {block: aenv,    param: attack,    value: slow,           why: "the pad arrives"}
+  - {block: aenv,    param: sustain,   value: held,           why: "sustaining"}
+  - {block: aenv,    param: release,   value: long,           why: "chords overlap on the way out"}
+
+taste:
+  - {block: osc1,    param: unison,    range: "1 – 2",               default: 2, why: "the OB-X unison doubles each voice"}
+  - {block: osc1,    param: detune,    range: "slight – wide",       default: narrow}
+  - {block: filter1, param: cutoff,    range: "dark – bright",       default: mid}
+  - {block: filter1, param: resonance, range: "none – moderate",     default: little}
+  - {block: aenv,    param: attack,    range: "medium – very slow",  default: slow}
+  - {block: lfo1,    param: depth,     range: "none – some",         default: little, why: "vibrato on the wheel"}
+  - {block: lfo1,    param: rate,      range: "slow – fast",         default: medium}
+
+listening:
+  cue: "A warm pad whose top is still there, softened, not shut off. Open the filter and nothing jumps; close it and it fades evenly. Two saws drift against each other without wobbling."
+  ab: "Switch the filter to 24 dB at the same cutoff: the pad goes darker and rounder and the air leaves. Switch it back and the cream returns. Then set the second oscillator's detune to none: the chord goes still and flat."
+
+render:
+  tempo: 92
+  note: [D3, F3, A3, C4]
+  velocity: 90
+  pattern: "one minor-seventh chord held two bars, released, tail to silence"
+  length_s: 7.0
+
+mappings: {}

@@ -1,0 +1,75 @@
+# Synth Templates — card 0.2 — Synth Piano
+# A piano approximated by subtraction: two waves, a lowpass that velocity opens, a two-second decay and a damper on release.
+schema: synth-template-card/0.2
+id: synth-piano
+name: Synth Piano
+family: Keys and Mallets
+tier: 2
+mode: poly
+classics: ""
+status: drafted
+concepts:
+  - "Subtractive: rich wave then filter"
+  - "Piano envelope: release 0 as damper"
+  - "Velocity → amplitude; velocity → filter cutoff"
+  - "Velocity → filter envelope amount; → pitch envelope amount"
+  - "Combining waveforms: square + saw octave up (zipper)"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: saw, octave: 0}
+    osc2:    {kind: oscillator, wave: pulse, pw: 0.3, octave: 0, level: half, note: "a pulse beside the saw: the hammer's edge"}
+    mix:     {kind: mixer}
+    filter1: {kind: filter, type: lowpass, slope: 24, resonance: little}
+    amp:     {kind: amplifier, level: under unity}
+    fenv:    {kind: envelope, role: filter, shape: {a: instant, d: long, s: low,  r: fast}, category: piano}
+    aenv:    {kind: envelope, role: amp,    shape: {a: instant, d: long, s: zero, r: fast}, category: piano}
+  audio:
+    - [osc1, mix]
+    - [osc2, mix]
+    - [mix, filter1]
+    - [filter1, amp]
+    - [amp, out]
+  modulation:
+    - {from: fenv, to: filter1.cutoff, amount: moderate, essential: true}
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: vel,  to: fenv.amount, amount: generous, essential: true}
+    - {from: vel,  to: amp.level, amount: full, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: osc2.pitch, essential: true}
+    - {from: key,  to: fenv.gate, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: osc1,    param: wave,    value: saw,           why: "a string has every harmonic; start with all of them and let the filter be the hammer felt"}
+  - {block: osc2,    param: wave,    value: pulse,         why: "a second wave at the same pitch thickens the attack; the piano's three strings per note"}
+  - {block: filter1, param: type,    value: lowpass 24 dB}
+  - {block: filter1, param: cutoff,  value: mid,           why: "a soft note is dark; the envelope and velocity open it"}
+  - {block: fenv,    param: decay,   value: long,          why: "the brightness fades over the whole note, with the level"}
+  - {block: vel,     param: target,  value: filter envelope amount, why: "a piano hit harder is brighter, not just louder: this route is most of what reads as 'piano'"}
+  - {block: vel,     param: target,  value: amp level,     why: "and louder"}
+  - {block: aenv,    param: attack,  value: instant,       why: "a hammer"}
+  - {block: aenv,    param: decay,   value: long,          why: "about two seconds: a string on a soundboard"}
+  - {block: aenv,    param: sustain, value: zero,          why: "the note decays while held"}
+  - {block: aenv,    param: release, value: fast,          why: "the damper: release near zero stops the string; a long release would be a sustain pedal"}
+  - {block: mode,    param: voices,  value: poly}
+
+taste:
+  - {block: osc2,    param: level,   range: "off – equal to osc1",   default: half}
+  - {block: filter1, param: cutoff,  range: "dark – bright",         default: mid}
+  - {block: fenv,    param: amount,  range: "little – generous",     default: moderate}
+  - {block: aenv,    param: decay,   range: "medium – very long",    default: long}
+  - {block: aenv,    param: release, range: "instant – medium",      default: fast, why: "medium is the pedal half down"}
+
+listening:
+  cue: "Not a piano, but it plays like one: soft notes dark and quiet, hard notes bright and loud, every note fading as it is held and stopped when the key lifts. Chords sit still; nothing wobbles."
+  ab: "Set velocity → filter envelope amount to none: hard notes are louder but no brighter, and it stops behaving like a piano at once. Put it back. Then set the amp release to long: the damper is gone and everything rings into everything."
+
+render:
+  tempo: 84
+  note: [C3, G3, E4, G4]
+  velocity: [50, 50, 50, 50, 118, 118, 118, 118]
+  pattern: "the chord twice: soft, then hard; each held a bar and released"
+  length_s: 6.0
+
+mappings: {}

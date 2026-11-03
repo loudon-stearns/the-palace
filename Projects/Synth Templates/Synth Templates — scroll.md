@@ -47,6 +47,13 @@ Where this is going: a website generated from the cards, a catalog to choose fro
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="synth-templates-2026-11-03-swarm-drafts" -->
+### 2026-11-03 — Every catalog id has a card: the swarm's drafts (Loudon: "proceed")
+
+Loudon asked whether a swarm of subagents should draft the bulk of the presets now, while his credits are high, and said "proceed." The working session wrote the gate first, `workshop/validate-card.py` (schema, vocabulary words, slot grammar, catalog agreement, stray keys from unquoted commas, and `--render` through the sheet pipeline), then a brief and one catalog slice per family in `workshop/_swarm/`, and ran nineteen family agents at once. Every one of the 292 catalog ids now has a card in `workshop/cards/`, 287 of them new, all `status: drafted`, each with its sheet and preview; the validator passes 292 of 292 with no FAIL (twenty warnings), checked again by the Concierge before this commit. Ten cards had the unquoted-comma bug and were quoted. The site no longer inlines sheets; `site/sheets` links to the cards and the card page loads each as an image; the site is 292 cards and 1.2 MB, and juno-pad and snare were opened in the browser with their sheets and sound. This lands on the branch `swarm/synth-templates-cards`, not on main, for Loudon's review.
+
+_Left rough, the gaps the agents reported, consolidated and not acted on:_ no parallel filter routing or per-source envelope and filter (drums, formants, a layered sub); only one modulation envelope per card; no route polarity drawn (`polarity: negative` is accepted as a row key and nothing draws it); no pitch-amount word under a fifth or over two octaves; no tempo-synced rate words; `time` tops at 5 s and `rate` at 12 Hz; no CC or bend performance input (the wheel stands in); no taste rows on performance inputs; no semitone offset, noise colour, wavetable, granular, phase distortion, ring modulation, arpeggiator or sequencer in the slots; no word tables for delay time, feedback or effect mix; no cutoff word under 300 Hz. _Questions for Loudon:_ the hoover's pitch sweep, up or the catalog's "down"; the sync edge's direction, `[osc1, osc2, sync]` in sync-lead against `[osc2, osc1, sync]` elsewhere; several catalog `mono` cards drafted as `mono legato` (acid-sequence, tb-303-line). And all 287 are drafted, not heard: none has passed the [[Audition Gate]].
+<!-- /scroll:entry -->
 <!-- scroll:entry id="synth-templates-2026-11-03-moog-decay-heard" -->
 ### 2026-11-03 — The Moog time table heard as decay; release taken as the same (Loudon)
 

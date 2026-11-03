@@ -1,0 +1,56 @@
+# Synth Templates — card 0.2 — Percussive Organ
+# Envelope Shapes family. The switch with a little bite: sustain dropped a step below the top and a very short decay,
+# so each note starts with a small click of extra level and settles.
+schema: synth-template-card/0.2
+id: percussive-organ
+name: Percussive Organ
+family: Envelope Shapes
+tier: 1
+mode: poly
+classics: ""
+status: drafted
+concepts:
+  - "Switch envelope (organ); percussive organ"
+  - "Envelope → amplitude"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: saw, octave: 0}
+    filter1: {kind: filter, type: lowpass, slope: 12, resonance: none, note: "open; the family's fixed chain"}
+    amp:     {kind: amplifier, level: under unity}
+    aenv:    {kind: envelope, role: amp, shape: {a: instant, d: fast, s: under unity, r: instant}, category: organ}
+  audio:
+    - [osc1, filter1]
+    - [filter1, amp]
+    - [amp, out]
+  modulation:
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: aenv, param: attack,  value: instant,     why: "still a switch on the way in"}
+  - {block: aenv, param: sustain, value: under unity, why: "a step below the top: that step is the room the bite falls through"}
+  - {block: aenv, param: decay,   value: fast,        why: "very short, so the drop from full to sustain reads as a tick, not a fade"}
+  - {block: aenv, param: release, value: instant,     why: "still a switch on the way out"}
+  - {block: filter1, param: cutoff, value: open,      why: "the filter stays out of the way"}
+  - {block: mode, param: voices,  value: poly,        why: "chords, and each note gets its own bite"}
+
+taste:
+  - {block: aenv,    param: decay,   range: "instant – short",      default: fast, why: "longer and the bite becomes a bump"}
+  - {block: aenv,    param: sustain, range: "half – under unity",   default: under unity, why: "lower sustain is a bigger bite"}
+  - {block: osc1,    param: wave,    range: "saw – square",         default: saw}
+  - {block: filter1, param: cutoff,  range: "mid – open",           default: open}
+
+listening:
+  cue: "An organ with a tick at the front of every note: a little louder for an instant, then flat. Repeated notes have a percussive edge the plain switch does not."
+  ab: "Raise the sustain to full: the tick is gone and it is the plain switch again. Back to under unity and the bite returns. Then stretch the decay to medium: the bite turns into a slow dip and the organ character is lost."
+
+render:
+  tempo: 110
+  note: [C3, E3, G3]
+  velocity: 100
+  pattern: "the chord as repeated eighths, one bar, then held a bar"
+  length_s: 4.0
+
+mappings: {}

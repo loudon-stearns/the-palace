@@ -1,0 +1,51 @@
+# Synth Templates — card — Oscillator Mix (Saw/Square/Tri/Sine)
+# Technique demonstration: one oscillator, four waveforms, nothing else moves.
+schema: synth-template-card/0.2
+id: oscillator-mix-saw-square-tri-sine
+name: Oscillator Mix (Saw/Square/Tri/Sine)
+family: Technique Demonstrations
+tier: 1
+mode: mono
+classics: ""
+status: drafted
+concepts:
+  - "Waveforms: saw, square, triangle, sine, noise"
+  - "Triangle as a filtered square"
+  - "Sine: no response to filtering; FM/additive building block"
+
+graph:
+  blocks:
+    osc1: {kind: oscillator, wave: saw, octave: 0}
+    amp:  {kind: amplifier, level: under unity}
+    aenv: {kind: envelope, role: amp, shape: {a: fast, d: short, s: held, r: short}, category: sustaining}
+  audio:
+    - [osc1, amp]
+    - [amp, out]
+  modulation:
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: osc1, param: wave,  value: saw, why: "the standard starting point: every harmonic, buzzy, and it takes filtering well"}
+  - {block: amp,  param: level, value: under unity, why: "the same level for all four, so loudness is not what you compare"}
+  - {block: aenv, param: shape, value: the same for all four, why: "one envelope, one note; only the wave differs"}
+  - {block: mode, param: filter, value: none, why: "no filter at all, so each wave is heard raw"}
+
+taste:
+  - {block: osc1, param: wave,   range: "saw – square – triangle – sine", default: saw, why: "saw: all harmonics. Square: odd ones only, hollow. Triangle: odd ones, much quieter, like a filtered square. Sine: one partial, nothing to filter"}
+  - {block: osc1, param: octave, range: "-1 – +1",  default: 0}
+  - {block: aenv, param: release, range: "short – medium", default: short}
+
+listening:
+  cue: "Four notes at one pitch. The saw is the brightest and buzzes; the square is hollow, like a clarinet; the triangle is the square with the top taken off, soft; the sine is a bare tone with no edge at all."
+  ab: "Go from square to triangle: the same hollowness, with the harshness gone, because the upper odd harmonics are quieter. Then sine: even the hollowness goes, because there are no harmonics left to make it."
+
+render:
+  tempo: 100
+  note: C3
+  velocity: 90
+  pattern: "the same note four times, two seconds each: saw, square, triangle, sine"
+  length_s: 8.0
+
+mappings: {}

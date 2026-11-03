@@ -1,0 +1,62 @@
+# Synth Templates — card — Sine Lead
+# No timbre to shape: one partial, so everything expressive is pitch and loudness. Glide, vibrato, and the hand.
+schema: synth-template-card/0.2
+id: sine-lead
+name: Sine Lead
+family: Leads
+tier: 1
+mode: mono legato
+classics: theremin / 'Flim'
+status: drafted
+concepts:
+  - "Sine: no response to filtering; FM/additive building block"
+  - "Glide / portamento time; legato mode as default"
+  - "CC1 → pitch LFO depth"
+  - "Vibrato: ~5 Hz, under a semitone; dedicated vibrato LFO"
+
+graph:
+  blocks:
+    osc1: {kind: oscillator, wave: sine, octave: 0, glide: legato, note: "no filter: a sine has nothing to remove"}
+    amp:  {kind: amplifier, level: under unity}
+    aenv: {kind: envelope, role: amp, shape: {a: short, d: short, s: held, r: medium}, category: sustaining}
+    lfo1: {kind: lfo, wave: sine, rate: medium, sync: false}
+  audio:
+    - [osc1, amp]
+    - [amp, out]
+  modulation:
+    - {from: aenv,  to: amp.level, essential: true}
+    - {from: lfo1,  to: osc1.pitch, amount: little, essential: true}
+    - {from: wheel, to: lfo1.depth, amount: full, essential: true}
+    - {from: at,    to: amp.level, amount: some, essential: false}
+    - {from: key,   to: osc1.pitch, essential: true}
+    - {from: key,   to: aenv.gate, essential: true}
+
+essentials:
+  - {block: osc1,  param: wave,     value: sine,           why: "one partial; a filter would do nothing, so there is none"}
+  - {block: osc1,  param: glide,    value: medium,         why: "the pitch slides between tied notes, the theremin's hand moving"}
+  - {block: lfo1,  param: rate,     value: medium,         why: "about 5 Hz, a human vibrato"}
+  - {block: wheel, param: target,   value: vibrato depth,  why: "the vibrato is played, not set"}
+  - {block: aenv,  param: attack,   value: short,          why: "soft, not a click: a sine attack with no harmonics to hide it"}
+  - {block: aenv,  param: release,  value: medium,         why: "the note fades rather than stops"}
+  - {block: mode,  param: voices,   value: mono legato,    why: "tied notes glide and do not retrigger; the line is continuous"}
+
+taste:
+  - {block: osc1,  param: glide,    range: "short – long",      default: medium}
+  - {block: lfo1,  param: depth,    range: "little – moderate", default: little}
+  - {block: lfo1,  param: rate,     range: "medium – fast",     default: medium}
+  - {block: aenv,  param: attack,   range: "fast – slow",       default: short}
+  - {block: aenv,  param: release,  range: "short – long",      default: medium}
+  - {block: amp,   param: level,    range: "half – full",       default: under unity, why: "a sine is quieter than it looks on a meter; let it have the headroom"}
+
+listening:
+  cue: "A pure tone with no edge at all. What you hear is only where the pitch is and how loud it is: the slide between notes and the vibrato the wheel brings in."
+  ab: "Set glide to none: the slides become steps and it turns into a test tone. Put it back. Then add a lowpass filter and sweep it: nothing changes, because there is nothing to filter."
+
+render:
+  tempo: 72
+  note: [E4, G4, B4, A4]
+  velocity: 90
+  pattern: "quarter notes, every note tied to the next so each slides in; the last held a bar with the wheel pushed up"
+  length_s: 5.0
+
+mappings: {}

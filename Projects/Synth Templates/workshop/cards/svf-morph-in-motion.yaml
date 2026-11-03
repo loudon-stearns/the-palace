@@ -1,0 +1,65 @@
+# Synth Templates — card 0.2 — SVF Morph in Motion
+# Filter Routings, tier 2. A state-variable filter's morph knob, low-pass to band-pass to high-pass, moved by an LFO by a small amount.
+# The slot grammar has no morph jack and the voice has no morph; the type is pinned at lowpass and the morph is said on the block.
+schema: synth-template-card/0.2
+id: svf-morph-in-motion
+name: SVF Morph in Motion
+family: Filter Routings
+tier: 2
+mode: poly
+classics: ""
+status: drafted
+concepts:
+  - "SVF morph, modulated in small amounts"
+  - "Low-pass, high-pass, band-pass, notch"
+  - "LFO → pitch / amplitude / pan / filter"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: saw, octave: 0, unison: 3, detune: narrow}
+    filter1: {kind: filter, type: lowpass, slope: 12, resonance: moderate, note: "a state-variable filter with a morph control, LP to BP to HP, resting a little past LP. The slot grammar has no morph jack and the voice cannot morph; it plays a fixed low-pass"}
+    amp:     {kind: amplifier, level: under unity}
+    fx:      {kind: fx, chain: [reverb]}
+    aenv:    {kind: envelope, role: amp, shape: {a: medium, d: medium, s: held, r: long}, category: pad}
+    lfo1:    {kind: lfo, wave: triangle, rate: very slow, sync: false, note: "into the morph, not the cutoff"}
+  audio:
+    - [osc1, filter1]
+    - [filter1, amp]
+    - [amp, fx]
+    - [fx, out]
+  modulation:
+    - {from: lfo1, to: filter1.morph, amount: little, essential: true}
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: osc1,    param: wave,      value: saw,            why: "lows and highs both present, so the morph has something to trade between"}
+  - {block: filter1, param: model,     value: state variable, why: "the one filter type that offers every response at once and a knob between them"}
+  - {block: filter1, param: type,      value: lowpass,        why: "where the morph rests: mostly LP, leaning toward BP"}
+  - {block: filter1, param: cutoff,    value: mid}
+  - {block: filter1, param: resonance, value: moderate,       why: "the peak is what you hear change shape as the response morphs"}
+  - {block: lfo1,    param: target,    value: filter morph,   why: "the response itself moves, not the cutoff: the filter's shape breathes"}
+  - {block: lfo1,    param: depth,     value: little,         why: "small: LP to HP is a drastic change, and a little movement brings a lot of life. Big movement is a different, wilder sound"}
+  - {block: mode,    param: voices,    value: poly}
+
+taste:
+  - {block: lfo1,    param: depth,     range: "none – some",         default: little, why: "the lesson: past some, it stops being subtle"}
+  - {block: lfo1,    param: rate,      range: "very slow – slow",    default: very slow}
+  - {block: filter1, param: resonance, range: "little – high",       default: moderate, why: "more resonance, more visible morph"}
+  - {block: filter1, param: cutoff,    range: "dark – bright",       default: mid}
+  - {block: filter1, param: morph,     range: "LP – BP",             default: just past LP, why: "the resting point the LFO moves around"}
+  - {block: fx,      param: reverb,    range: "small – large",       default: large}
+
+listening:
+  cue: "The chord's weight shifts slowly: a little bottom goes, a little mid comes, and back. The cutoff never moves; the kind of filter does."
+  ab: "Turn the LFO depth to full: the sound lurches from bass to thin whistle and back, a different patch. Back to little and the breathing returns. Then route the same LFO to cutoff instead of morph: the familiar wah, a sweep rather than a change of shape."
+
+render:
+  tempo: 70
+  note: [A2, E3, A3, C4]
+  velocity: 85
+  pattern: "one chord held eight seconds, released, tail to silence"
+  length_s: 10.0
+
+mappings: {}

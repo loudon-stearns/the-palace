@@ -1,0 +1,64 @@
+# Synth Templates — card — Square + Saw Octave Up (Zipper)
+# Voices, Tuning and Retrigger family. A square at the root supplies the odd partials; a saw an octave up supplies the even ones. They never share a harmonic.
+schema: synth-template-card/0.2
+id: square-saw-octave-up-zipper
+name: Square + Saw Octave Up (Zipper)
+family: Voices, Tuning and Retrigger
+tier: 2
+mode: mono
+classics:
+status: drafted
+concepts:
+  - "Combining waveforms: square + saw octave up (zipper)"
+  - "Waveforms: saw, square, triangle, sine, noise"
+  - "Octave / semitone / fine tuning"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: square, pw: 0.5, octave: 0, note: "odd harmonics of the root: 1, 3, 5, 7"}
+    osc2:    {kind: oscillator, wave: saw, octave: 1, level: half, note: "all harmonics of the octave, which are the root's even ones: 2, 4, 6, 8"}
+    mix:     {kind: mixer}
+    filter1: {kind: filter, type: lowpass, slope: 24, resonance: little, note: "one filter for both; a synth with a filter per oscillator can shape the odd and even partials apart"}
+    amp:     {kind: amplifier, level: under unity}
+    fenv:    {kind: envelope, role: filter, shape: {a: instant, d: medium, s: low, r: medium}, category: percussive}
+    aenv:    {kind: envelope, role: amp, shape: {a: fast, d: medium, s: held, r: short}, category: sustaining}
+  audio:
+    - [osc1, mix]
+    - [osc2, mix]
+    - [mix, filter1]
+    - [filter1, amp]
+    - [amp, out]
+  modulation:
+    - {from: fenv, to: filter1.cutoff, amount: moderate, essential: false}
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: osc2.pitch, essential: true}
+    - {from: key,  to: fenv.gate,  essential: true}
+    - {from: key,  to: aenv.gate,  essential: true}
+
+essentials:
+  - {block: osc1, param: wave,   value: square, why: "only the odd harmonics: the hollow half of the series"}
+  - {block: osc1, param: pw,     value: "50%",   why: "a true square; move the pulse width and even harmonics creep in, and the teeth start to overlap"}
+  - {block: osc2, param: wave,   value: saw,    why: "every harmonic of its own pitch"}
+  - {block: osc2, param: octave, value: "+1",   why: "its every harmonic is an even harmonic of the root: the two interlock and never share a partial"}
+  - {block: osc2, param: level,  value: half,   why: "the even partials under the odd: the square carries the note, the saw fills its gaps"}
+  - {block: mode, param: voices, value: mono}
+
+taste:
+  - {block: osc2,    param: level,  range: "off – equal to osc1", default: half, why: "off is a hollow square; up is a full saw-like tone built from two waves"}
+  - {block: filter1, param: cutoff, range: "mid – open",          default: bright}
+  - {block: fenv,    param: amount, range: "none – generous",     default: moderate}
+  - {block: aenv,    param: release, range: "short – medium",     default: short}
+
+listening:
+  cue: "A hollow square that fills in as the saw comes up, until it sounds like one complete, buzzy tone: fuller than the square, rounder than a saw. Nothing beats, because no harmonic is doubled."
+  ab: "Switch osc2 to a square an octave up: it now doubles the root's harmonics 2, 6, 10 and leaves 4, 8 empty; the fill is patchy. Back to saw and the series is complete. Then set the saw's octave to 0: the two share every odd harmonic and the sound thickens without filling in."
+
+render:
+  tempo: 100
+  note: C3
+  velocity: 100
+  pattern: "one note held three bars; osc2 swept from off to half over the hold"
+  length_s: 7.0
+
+mappings: {}

@@ -1,0 +1,58 @@
+# Synth Templates — card 0.2 — Gong (Long Decay)
+# Envelope Shapes family. The strike shape with the decay and release pushed very long: a large metal body rings a
+# long time. Same shape as the pluck; only the length says what the thing is made of.
+schema: synth-template-card/0.2
+id: gong-long-decay
+name: Gong (Long Decay)
+family: Envelope Shapes
+tier: 1
+mode: poly
+classics: ""
+status: drafted
+concepts:
+  - "Pluck / strike: release = decay; gong vs marimba"
+  - "Sustaining vs non-sustaining sounds"
+  - "Envelope → amplitude"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: saw, octave: 0}
+    filter1: {kind: filter, type: lowpass, slope: 12, resonance: none, note: "open; the family's fixed chain"}
+    amp:     {kind: amplifier, level: under unity}
+    aenv:    {kind: envelope, role: amp, shape: {a: instant, d: very long, s: zero, r: same as decay}, category: struck}
+  audio:
+    - [osc1, filter1]
+    - [filter1, amp]
+    - [amp, out]
+  modulation:
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: aenv, param: attack,  value: instant,       why: "the mallet lands once"}
+  - {block: aenv, param: sustain, value: zero,          why: "struck: nothing feeds the sound after the hit"}
+  - {block: aenv, param: decay,   value: very long,     why: "a big metal body loses its energy slowly; this length is what says gong rather than marimba"}
+  - {block: aenv, param: release, value: same as decay, why: "letting go of the key must not stop the ring"}
+  - {block: filter1, param: cutoff, value: open,        why: "the filter stays out of the way"}
+  - {block: mode, param: voices,  value: poly,          why: "one gong is still ringing when the next is struck"}
+
+taste:
+  - {block: aenv,    param: decay,   range: "long – very long",  default: very long, why: "the size of the gong"}
+  - {block: aenv,    param: release, range: "long – very long",  default: same as decay}
+  - {block: osc1,    param: wave,    range: "saw – triangle",    default: saw}
+  - {block: filter1, param: cutoff,  range: "mid – open",        default: open}
+  - {block: amp,     param: level,   range: "half – under unity", default: under unity}
+
+listening:
+  cue: "A hit, then a ring that goes on well past where you expect it to end. Tap the key and let go at once: the sound carries on anyway, for seconds."
+  ab: "Shorten the decay to short with release following: the same shape is now a marimba, a dry knock that is over at once. Back to very long and the gong returns. Nothing changed but the time."
+
+render:
+  tempo: 60
+  note: C2
+  velocity: 110
+  pattern: "one note, tapped as a 16th, left to ring; a second one two bars later"
+  length_s: 10.0
+
+mappings: {}

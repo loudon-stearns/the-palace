@@ -1,0 +1,86 @@
+# Synth Templates — Genre Classics — CS-80 Brass
+# Saw and pulse through a highpass then a lowpass, and the hand on the key after it is down: aftertouch brings the vibrato and opens the filter.
+schema: synth-template-card/0.2
+id: cs-80-brass
+name: CS-80 Brass
+family: Genre Classics
+tier: 3
+mode: poly
+classics: CS-80
+status: drafted
+concepts:
+  - "Serial: flexible band-pass (HP + LP) with horns"
+  - "Aftertouch → filter cutoff"
+  - "Vibrato: ~5 Hz, under a semitone; dedicated vibrato LFO"
+  - "Standard sustaining envelope; strings and horns variants"
+  - "Pulse width, static and modulated"
+  - "Low-pass, high-pass, band-pass, notch"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: saw, octave: 0, detune: slight, note: "the ribbon bends every oscillator's pitch by hand; not drawn, the voice has no ribbon"}
+    osc2:    {kind: oscillator, wave: pulse, pw: 0.35, octave: 0, level: half}
+    mix:     {kind: mixer}
+    filter1: {kind: filter, type: highpass, slope: 12, resonance: little, note: "the CS-80's first filter: a highpass with its own resonance"}
+    filter2: {kind: filter, type: lowpass, slope: 12, resonance: little}
+    amp:     {kind: amplifier, level: under unity}
+    fx:      {kind: fx, chain: [chorus]}
+    fenv:    {kind: envelope, role: filter, shape: {a: short, d: medium, s: low, r: short}, category: sustaining}
+    aenv:    {kind: envelope, role: amp,    shape: {a: fast, d: short, s: held, r: medium}, category: sustaining}
+    lfo1:    {kind: lfo, wave: sine, rate: medium, sync: false, note: "the vibrato LFO; depth is zero until the key is pressed harder"}
+  audio:
+    - [osc1, mix]
+    - [osc2, mix]
+    - [mix, filter1]
+    - [filter1, filter2]
+    - [filter2, amp]
+    - [amp, fx]
+    - [fx, out]
+  modulation:
+    - {from: fenv, to: filter2.cutoff, amount: moderate, essential: true}
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: lfo1, to: osc1.pitch, amount: little, essential: true}
+    - {from: lfo1, to: osc2.pitch, amount: little, essential: true}
+    - {from: at,   to: lfo1.depth, amount: full, essential: true}
+    - {from: at,   to: filter2.cutoff, amount: some, essential: true}
+    - {from: at,   to: amp.level, amount: little, essential: false}
+    - {from: vel,  to: fenv.amount, amount: some, essential: false}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: osc2.pitch, essential: true}
+    - {from: key,  to: fenv.gate, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: mode,    param: voices,    value: poly,            why: "a section"}
+  - {block: osc1,    param: wave,      value: saw,             why: "the brass body"}
+  - {block: osc2,    param: wave,      value: pulse,           why: "a pulse against the saw: the two spectra interlock, the CS-80's two ranks"}
+  - {block: filter1, param: type,      value: highpass 12 dB,  why: "then a lowpass: the pair is a band-pass whose edges each have their own resonance, the horns"}
+  - {block: filter1, param: cutoff,    value: dark,            why: "low, so the band is wide at rest; raise it and the brass thins to a reed"}
+  - {block: filter2, param: type,      value: lowpass 12 dB}
+  - {block: fenv,    param: attack,    value: short,           why: "the brass blat on the lowpass"}
+  - {block: at,      param: target,    value: vibrato depth and lowpass cutoff, why: "press harder after the note and it sings and opens: the CS-80 is played after the key goes down, not only when"}
+  - {block: lfo1,    param: rate,      value: medium,          why: "a singer's vibrato, around five a second"}
+  - {block: aenv,    param: sustain,   value: held,            why: "sustaining"}
+
+taste:
+  - {block: osc2,    param: pw,        range: "0.25 – 0.5",         default: 0.35}
+  - {block: filter1, param: cutoff,    range: "dark – mid",         default: dark}
+  - {block: filter1, param: resonance, range: "none – moderate",    default: little, why: "the lower horn"}
+  - {block: filter2, param: cutoff,    range: "mid – bright",       default: mid}
+  - {block: filter2, param: resonance, range: "none – moderate",    default: little, why: "the upper horn"}
+  - {block: fenv,    param: attack,    range: "fast – medium",      default: short}
+  - {block: lfo1,    param: depth,     range: "little – some",      default: little, why: "the vibrato at full aftertouch"}
+  - {block: aenv,    param: release,   range: "short – long",       default: medium}
+
+listening:
+  cue: "A brass chord that starts plain and comes alive under the hand: press into the keys after the note and the vibrato wells up and the tone opens, then relax and it settles. Two resonant edges put a faint vowel on it."
+  ab: "Remove the aftertouch routes: the same chord is a good brass patch and completely still; nothing you do after the note changes it. Put them back. Then set the highpass to its lowest: the lower horn goes and the vowel flattens."
+
+render:
+  tempo: 76
+  note: [Bb2, D3, F3, Bb3]
+  velocity: 95
+  pattern: "the chord held three bars: plain for one, pressed into for the second, released into the third"
+  length_s: 10.0
+
+mappings: {}

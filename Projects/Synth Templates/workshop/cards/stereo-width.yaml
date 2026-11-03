@@ -1,0 +1,53 @@
+# Synth Templates — card — Stereo Width
+# Technique demonstration: a unison stack opened across the stereo field. Mono has no width: left and right are the same.
+schema: synth-template-card/0.2
+id: stereo-width
+name: Stereo Width
+family: Technique Demonstrations
+tier: 1
+mode: poly
+classics: ""
+status: drafted
+concepts:
+  - "Stereo width by L/R delay difference; detune and filter per side"
+  - "Unison / unisono"
+  - "Small detune (≤7 cents) = chorus"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: saw, octave: 0, unison: 4, detune: narrow, spread: none, note: "spread: how far the unison voices are panned apart"}
+    filter1: {kind: filter, type: lowpass, slope: 12, resonance: none}
+    amp:     {kind: amplifier, level: under unity}
+    aenv:    {kind: envelope, role: amp, shape: {a: fast, d: short, s: held, r: medium}, category: sustaining}
+  audio:
+    - [osc1, filter1]
+    - [filter1, amp]
+    - [amp, out]
+  modulation:
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: osc1, param: unison, value: 4 voices, why: "width needs more than one thing to put in different places"}
+  - {block: osc1, param: detune, value: narrow,   why: "the voices must differ a little, or left and right are identical and the width collapses to mono"}
+  - {block: osc1, param: spread, value: none,     why: "the starting point: all voices in the centre, so the opening-out can be heard"}
+  - {block: mode, param: voices, value: poly,     why: "chords show width best"}
+
+taste:
+  - {block: osc1, param: spread, range: "none – full",     default: full, why: "the sweep: from one point in the middle to voices at the walls"}
+  - {block: osc1, param: detune, range: "slight – wide",   default: narrow}
+  - {block: osc1, param: unison, range: "2 – 8 voices",    default: 4}
+
+listening:
+  cue: "A chord that starts as a single point between the speakers and widens until it fills the room, left to right, while the pitch and tone stay the same. On headphones the change is unmistakable."
+  ab: "Set spread to none: the same chord folds back to the centre. Then set detune to none with the spread full: left and right become the same signal and the width is gone, even with the voices panned apart."
+
+render:
+  tempo: 100
+  note: [C3, G3, E4]
+  velocity: 90
+  pattern: "one chord held six seconds while spread opens from none to full"
+  length_s: 7.0
+
+mappings: {}

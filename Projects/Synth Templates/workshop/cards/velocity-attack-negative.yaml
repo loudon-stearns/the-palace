@@ -1,0 +1,59 @@
+# Synth Templates — card 0.2 — Velocity → Attack (Negative)
+# Envelope Shapes family. A sustaining shape whose attack time is set by how hard you play, negatively: hard notes
+# bite at once, soft notes swell in. One envelope that is both legato and staccato, decided by the hand.
+schema: synth-template-card/0.2
+id: velocity-attack-negative
+name: Velocity → Attack (Negative)
+family: Envelope Shapes
+tier: 2
+mode: poly
+classics: ""
+status: drafted
+concepts:
+  - "Velocity → attack (negative)"
+  - "Standard sustaining envelope; strings and horns variants"
+  - "Envelope → amplitude"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: saw, octave: 0}
+    filter1: {kind: filter, type: lowpass, slope: 12, resonance: none, note: "open; the family's fixed chain"}
+    amp:     {kind: amplifier, level: under unity}
+    aenv:    {kind: envelope, role: amp, shape: {a: medium, d: short, s: held, r: short}, category: sustaining, note: "vel → attack is negative: the voice does not yet play envelope-time modulation; the diagram draws it"}
+  audio:
+    - [osc1, filter1]
+    - [filter1, amp]
+    - [amp, out]
+  modulation:
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: vel,  to: aenv.attack, amount: generous, polarity: negative, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: aenv, param: attack,  value: medium, why: "the attack of the softest note; velocity only ever shortens it from here"}
+  - {block: vel,  param: target,  value: "envelope attack, negative", why: "higher velocity, shorter attack. Negative because a hard hit must make a small time; positive would make hard notes swell, which no hand expects"}
+  - {block: aenv, param: sustain, value: held,   why: "a sustaining shape, so the attack is the only thing velocity changes"}
+  - {block: aenv, param: decay,   value: short}
+  - {block: aenv, param: release, value: short}
+  - {block: mode, param: voices,  value: poly,   why: "a chord with one voice leaned on comes forward"}
+
+taste:
+  - {block: aenv,    param: attack,  range: "short – slow",       default: medium, why: "the soft end of the range"}
+  - {block: aenv,    param: amount,  range: "moderate – full",    default: generous, why: "how close to instant a hard note gets"}
+  - {block: aenv,    param: release, range: "fast – medium",      default: short}
+  - {block: osc1,    param: wave,    range: "saw – square",       default: saw}
+  - {block: filter1, param: cutoff,  range: "mid – open",         default: open}
+
+listening:
+  cue: "Soft notes fade in; hard notes start at once. Play a line that crescendos and the notes sharpen their front edge as it builds, the same sound going from legato to staccato with no knob touched."
+  ab: "Set the velocity to attack amount to none: every note now swells in at the same medium attack whatever you do with your hand, and the hard notes feel late. Put it back and the hard notes land on time again."
+
+render:
+  tempo: 90
+  note: [C3, C3, C3, C3]
+  velocity: [40, 70, 100, 127]
+  pattern: "the same note four times, each a quarter note, softer to harder"
+  length_s: 4.0
+
+mappings: {}

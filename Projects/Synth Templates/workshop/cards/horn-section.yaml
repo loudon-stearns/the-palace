@@ -1,0 +1,78 @@
+# Synth Templates — card — Horn Section
+# Synth brass, doubled: more voices, wider detune, an octave under. The lesson is doubling.
+schema: synth-template-card/0.2
+id: horn-section
+name: Horn Section
+family: Brass and Winds
+tier: 1
+mode: poly
+classics: ""
+status: drafted
+concepts:
+  - "Unison / unisono"
+  - "Octave / semitone / fine tuning"
+  - "Standard sustaining envelope; strings and horns variants"
+  - "Envelope → filter cutoff (bite; auto-wah with long attack)"
+  - "Chorus: multiple delays, own LFOs, no feedback"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: saw, octave: 0, unison: 3, detune: wide}
+    osc2:    {kind: oscillator, wave: saw, octave: -1, unison: 2, detune: narrow, level: half, note: "the same part an octave down: the low brass"}
+    mix:     {kind: mixer}
+    filter1: {kind: filter, type: lowpass, slope: 24, resonance: little}
+    amp:     {kind: amplifier, level: under unity}
+    fx:      {kind: fx, chain: [chorus]}
+    fenv:    {kind: envelope, role: filter, shape: {a: short, d: medium, s: low, r: short}, category: sustaining}
+    aenv:    {kind: envelope, role: amp,    shape: {a: fast, d: medium, s: held, r: medium}, category: sustaining}
+    lfo1:    {kind: lfo, wave: triangle, rate: medium, sync: false}
+  audio:
+    - [osc1, mix]
+    - [osc2, mix]
+    - [mix, filter1]
+    - [filter1, amp]
+    - [amp, fx]
+    - [fx, out]
+  modulation:
+    - {from: fenv,  to: filter1.cutoff, amount: moderate, essential: true}
+    - {from: aenv,  to: amp.level, essential: true}
+    - {from: lfo1,  to: osc1.pitch, amount: little, essential: false}
+    - {from: wheel, to: lfo1.depth, amount: full, essential: false}
+    - {from: key,   to: osc1.pitch, essential: true}
+    - {from: key,   to: osc2.pitch, essential: true}
+    - {from: key,   to: fenv.gate, essential: true}
+    - {from: key,   to: aenv.gate, essential: true}
+
+essentials:
+  - {block: osc1,    param: unison,  value: 3 voices,       why: "a section is several players; the stack is the players"}
+  - {block: osc1,    param: detune,  value: wide,           why: "wider than synth brass: players never sit on exactly the same pitch"}
+  - {block: osc2,    param: octave,  value: -1,             why: "octave doubling: the same line an octave down fills the bottom of the section"}
+  - {block: osc2,    param: level,   value: half,           why: "under the top line, not equal to it; the octave supports, it does not lead"}
+  - {block: filter1, param: type,    value: lowpass 24 dB}
+  - {block: fenv,    param: attack,  value: short,          why: "the brass blat, as on Synth Brass"}
+  - {block: fenv,    param: sustain, value: low,            why: "horns: the burst is louder than the hold"}
+  - {block: aenv,    param: sustain, value: held}
+  - {block: fx,      param: chain,   value: chorus,         why: "more doubling after the stack: the room full of players"}
+  - {block: mode,    param: voices,  value: poly,           why: "chords; each chord note is itself a section"}
+
+taste:
+  - {block: osc1,    param: detune,  range: "narrow – very wide", default: wide,   why: "narrower is one tight band, wider is a loose one"}
+  - {block: osc2,    param: level,   range: "quarter – equal",    default: half}
+  - {block: filter1, param: cutoff,  range: "dark – mid",         default: dark}
+  - {block: fenv,    param: amount,  range: "some – generous",    default: moderate}
+  - {block: aenv,    param: attack,  range: "fast – short",       default: fast,   why: "a section is slower off the mark than one player"}
+  - {block: aenv,    param: release, range: "short – medium",     default: medium}
+  - {block: fx,      param: chorus,  range: "off – lush",         default: light}
+
+listening:
+  cue: "Thicker and lower than synth brass: the same blat, but the chord sounds like a room of players rather than one synth, with a low octave underneath the top line."
+  ab: "Turn the octave oscillator off and set unison to 1 voice: the section shrinks back to a single synth brass. Put both back and the room fills again."
+
+render:
+  tempo: 100
+  note: [F3, A3, C4]
+  velocity: 105
+  pattern: "two stabs a beat apart, each a quarter long, then the chord held two bars"
+  length_s: 6.0
+
+mappings: {}

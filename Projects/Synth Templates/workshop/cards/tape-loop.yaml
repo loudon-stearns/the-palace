@@ -1,0 +1,73 @@
+# Synth Templates — card 0.2 — Tape Loop
+# Textures and Ambient, tier 2: a pad made unstable on purpose. The wobble is the lesson: a free-running random LFO on pitch, so nothing holds still.
+schema: synth-template-card/0.2
+id: tape-loop
+name: Tape Loop
+family: Textures and Ambient
+tier: 2
+mode: poly
+classics: ""
+status: drafted
+concepts:
+  - "LFO → pitch / amplitude / pan / filter"
+  - "Retrigger vs free; chords with staggered attacks"
+  - "Noise for softness and high end"
+  - "Cutoff frequency"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: saw, octave: 0, unison: 3, detune: slight}
+    noise:   {kind: oscillator, wave: noise, level: little, note: "tape hiss: the bed under the pad"}
+    mix:     {kind: mixer}
+    filter1: {kind: filter, type: lowpass, slope: 12, resonance: none}
+    amp:     {kind: amplifier, level: under unity}
+    fx:      {kind: fx, chain: [saturation, reverb]}
+    aenv:    {kind: envelope, role: amp, shape: {a: slow, d: medium, s: held, r: very long}, category: pad}
+    lfo1:    {kind: lfo, wave: random, rate: slow, sync: false, note: "free-running: wow and flutter do not restart with the key"}
+  audio:
+    - [osc1, mix]
+    - [noise, mix]
+    - [mix, filter1]
+    - [filter1, amp]
+    - [amp, fx]
+    - [fx, out]
+  modulation:
+    - {from: lfo1, to: osc1.pitch, amount: little, essential: true}
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+    - {from: wheel, to: filter1.cutoff, amount: some, essential: false}
+
+essentials:
+  - {block: lfo1,    param: target,    value: pitch,          why: "the wobble is the instability: a tape that does not hold speed"}
+  - {block: lfo1,    param: wave,      value: random,         why: "flutter is not a sine; it lurches a little, then drifts"}
+  - {block: lfo1,    param: retrigger, value: free,           why: "the wobble is the machine's, not the note's; notes land at different points of it"}
+  - {block: lfo1,    param: depth,     value: little,         why: "under a semitone: you feel it as seasick, not as vibrato"}
+  - {block: filter1, param: type,      value: lowpass 12 dB,  why: "gentle; tape rolls off the top, it does not cut it"}
+  - {block: filter1, param: cutoff,    value: dark,           why: "a worn copy: the highs went first"}
+  - {block: noise,   param: level,     value: little,         why: "hiss under everything; more and it is a noise bed with a pad in it"}
+  - {block: aenv,    param: release,   value: very long,      why: "chords smear into each other; the loop never quite stops"}
+  - {block: fx,      param: chain,     value: saturation then reverb, why: "tape compresses and warms before the room"}
+  - {block: mode,    param: voices,    value: poly,           why: "chords; each voice wobbles from where the LFO happens to be"}
+
+taste:
+  - {block: lfo1,    param: depth,     range: "none – moderate",      default: little, why: "none is a clean pad; moderate is a broken deck"}
+  - {block: lfo1,    param: rate,      range: "very slow – medium",   default: slow,   why: "very slow is wow, medium is flutter"}
+  - {block: filter1, param: cutoff,    range: "dark – mid",           default: dark}
+  - {block: noise,   param: level,     range: "off – quarter",        default: little}
+  - {block: osc1,    param: detune,    range: "none – narrow",        default: slight}
+  - {block: aenv,    param: attack,    range: "medium – very slow",   default: slow}
+  - {block: fx,      param: drive,     range: "none – light",         default: light}
+
+listening:
+  cue: "A chord that will not stay in tune. It sags and lifts under its own hiss, dull on top, and when you let go it hangs for a long while. Two notes played at different times wobble at different times."
+  ab: "Set the pitch LFO depth to none: a clean, slightly dark pad, in tune and a little dull. Bring the depth back: seasick again. Then set the LFO to retrigger: every note now starts its wobble at the same place, and the chord wobbles as one block instead of a tired machine."
+
+render:
+  tempo: 70
+  note: [A2, E3, G3, B3]
+  velocity: 75
+  pattern: "one chord held two bars, released, tail to silence"
+  length_s: 12.0
+
+mappings: {}

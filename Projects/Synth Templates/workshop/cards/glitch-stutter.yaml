@@ -1,0 +1,64 @@
+# Synth Templates — card 0.2 — Glitch / Stutter
+# Sound Effects, tier 2. Any tone, chopped by a fast square LFO on the amp and thrown around by a sample-and-hold on pitch.
+schema: synth-template-card/0.2
+id: glitch-stutter
+name: Glitch / Stutter
+family: Sound Effects
+tier: 2
+mode: mono
+classics: ""
+status: drafted
+concepts:
+  - "LFO → pitch / amplitude / pan / filter"
+  - "Tempo sync; triplets"
+  - "Retrigger vs free; chords with staggered attacks"
+  - "Switch envelope (organ); percussive organ"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: saw, octave: 0, note: "any tone will do; the sound is in the modulators"}
+    filter1: {kind: filter, type: lowpass, slope: 12, resonance: none}
+    amp:     {kind: amplifier, level: under unity}
+    aenv:    {kind: envelope, role: amp, shape: {a: instant, d: short, s: full, r: fast}, category: gate}
+    lfo1:    {kind: lfo, wave: square, rate: very fast, sync: true, note: "the chop: on, off, on, off; a stand-in for retriggering the envelope, which the voice cannot do"}
+    lfo2:    {kind: lfo, wave: s&h, rate: very fast, sync: true, note: "sample and hold: a new random pitch held for one step; the voice does not lock the two LFOs together yet"}
+  audio:
+    - [osc1, filter1]
+    - [filter1, amp]
+    - [amp, out]
+  modulation:
+    - {from: lfo1, to: amp.level, amount: full, essential: true}
+    - {from: lfo2, to: osc1.pitch, amount: about an octave, essential: true}
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: lfo1,    param: wave,    value: square,          why: "full on or full off; a sine would be tremolo, this is a gate"}
+  - {block: lfo1,    param: rate,    value: very fast,       why: "a stutter, not a pulse: sixteenths or faster"}
+  - {block: lfo1,    param: amount,  value: full,            why: "the off steps must be silent, or it is just a wobble"}
+  - {block: lfo1,    param: sync,    value: "on",            why: "the chops land on the grid; a glitch out of time is a fault"}
+  - {block: lfo2,    param: wave,    value: s&h,             why: "a random value, held for a step, then a new one: pitch jumps, no slides"}
+  - {block: lfo2,    param: rate,    value: very fast,       why: "the same rate as the chop, so each stutter is a new pitch"}
+  - {block: lfo2,    param: target,  value: oscillator pitch, why: "the jumps are in pitch"}
+  - {block: aenv,    param: sustain, value: full,            why: "a gate: the LFOs do all the shaping inside it"}
+
+taste:
+  - {block: lfo1,    param: rate,    range: "fast – very fast",         default: very fast}
+  - {block: lfo2,    param: amount,  range: "a fifth – two octaves",    default: about an octave, why: "how wild the jumps"}
+  - {block: lfo2,    param: rate,    range: "medium – very fast",       default: very fast, why: "slower than the chop and pitches repeat across stutters"}
+  - {block: osc1,    param: wave,    range: "saw – square",             default: saw}
+  - {block: filter1, param: cutoff,  range: "mid – open",               default: bright}
+
+listening:
+  cue: "A tone cut into tiny equal pieces, each piece at a different pitch, none of them chosen. It sounds broken on purpose."
+  ab: "Set the sample-and-hold amount to none: the stutter is still there but every piece is the same note, and it is a tremolo on the grid. Put the octave back and it glitches."
+
+render:
+  tempo: 120
+  note: C3
+  velocity: 100
+  pattern: "one note held two bars"
+  length_s: 4.0
+
+mappings: {}

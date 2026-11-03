@@ -1,0 +1,65 @@
+# Synth Templates — card — Synthwave Bass
+# A square through a half-closed filter, no sustain, sixteenths all the way. The rhythm is the patch.
+schema: synth-template-card/0.2
+id: synthwave-bass
+name: Synthwave Bass
+family: Bass
+tier: 1
+mode: mono
+classics: outrun
+status: drafted
+concepts:
+  - "Waveforms: saw, square, triangle, sine, noise"
+  - "Sustaining vs non-sustaining sounds"
+  - "Chorus: multiple delays, own LFOs, no feedback"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: square, pw: 0.5, octave: 0}
+    filter1: {kind: filter, type: lowpass, slope: 24, resonance: little}
+    amp:     {kind: amplifier, level: under unity}
+    fx:      {kind: fx, chain: [chorus]}
+    fenv:    {kind: envelope, role: filter, shape: {a: instant, d: short, s: zero, r: short}, category: percussive}
+    aenv:    {kind: envelope, role: amp,    shape: {a: instant, d: short, s: zero, r: fast}, category: gate}
+  audio:
+    - [osc1, filter1]
+    - [filter1, amp]
+    - [amp, fx]
+    - [fx, out]
+  modulation:
+    - {from: fenv, to: filter1.cutoff, amount: some, essential: false}
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: fenv.gate, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: osc1,    param: wave,    value: square,       why: "odd harmonics only: the hollow, wooden body of the style"}
+  - {block: filter1, param: type,    value: lowpass 24 dB}
+  - {block: filter1, param: cutoff,  value: dark,         why: "mostly closed; the square stays a thud, not a buzz"}
+  - {block: aenv,    param: attack,  value: instant}
+  - {block: aenv,    param: decay,   value: short,        why: "each sixteenth is a separate hit; the decay is the whole note"}
+  - {block: aenv,    param: sustain, value: zero,         why: "no sustain: the gate between notes is where the rhythm lives"}
+  - {block: aenv,    param: release, value: fast,         why: "the note must be gone before the next sixteenth"}
+  - {block: fx,      param: chain,   value: chorus,       why: "a light chorus widens the mono square just enough; the 80s smear"}
+  - {block: mode,    param: voices,  value: mono,         why: "sixteenths cannot overlap"}
+
+taste:
+  - {block: filter1, param: cutoff,  range: "dark – mid",       default: dark}
+  - {block: aenv,    param: decay,   range: "short – medium",   default: short, why: "longer fills the gaps and the drive turns to a walk"}
+  - {block: fenv,    param: amount,  range: "none – moderate",  default: some, why: "a touch of bite at the front of each hit"}
+  - {block: osc1,    param: pw,      range: "0.5 – 0.3",        default: 0.5, why: "narrower is nasal"}
+  - {block: fx,      param: chorus,  range: "off – light",      default: light}
+
+listening:
+  cue: "A row of identical knocks, sixteen to the bar, each one a dull square thud with air between them. The pulse is in the silences as much as the notes."
+  ab: "Raise the amp sustain to held: the gaps close, the notes run together and the drive is gone. Back to zero and the engine starts again."
+
+render:
+  tempo: 118
+  note: [C2, C2, C2, C2, C2, C2, C2, C2, C2, C2, C2, C2, C2, C2, Bb1, Bb1]
+  velocity: 100
+  pattern: "sixteenths, one bar; each a 32nd long"
+  length_s: 2.5
+
+mappings: {}

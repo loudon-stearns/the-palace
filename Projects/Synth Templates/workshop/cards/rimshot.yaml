@@ -1,0 +1,67 @@
+# Synth Templates — card 0.2 — Rimshot
+# Click design: the shortest sound on the kit. A narrow pulse restarted on every hit for the edge, a burst of bandpassed noise for the shell, thirty milliseconds.
+schema: synth-template-card/0.2
+id: rimshot
+name: Rimshot
+family: Drums and Percussion
+tier: 2
+mode: mono
+classics: ""
+status: drafted
+concepts:
+  - "Phase, free-running vs retrigger, the click"
+  - "Pulse width, static and modulated"
+  - "Noise at the attack; noise oscillator with its own envelope"
+  - "Resonance as width (Q) on band-pass and notch"
+  - "Envelope trigger / one-shot mode"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: pulse, pw: 0.1, octave: 0, retrigger: true, note: "a narrow pulse: nearly all harmonics, so the click has edge"}
+    noise:   {kind: oscillator, wave: noise, level: half}
+    mix:     {kind: mixer}
+    filter1: {kind: filter, type: bandpass, slope: 12, resonance: moderate, note: "the shell: a narrow band rung by the click"}
+    amp:     {kind: amplifier, level: full}
+    aenv:    {kind: envelope, role: amp, shape: {a: instant, d: fast, s: zero, r: same as decay}, category: percussive, one_shot: true}
+  audio:
+    - [osc1, mix]
+    - [noise, mix]
+    - [mix, filter1]
+    - [filter1, amp]
+    - [amp, out]
+  modulation:
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: false}
+    - {from: key,  to: aenv.gate, essential: true}
+    - {from: vel,  to: amp.level, amount: some, essential: false}
+
+essentials:
+  - {block: osc1,    param: wave,      value: pulse,         why: "a narrow pulse is almost a click already: a spike with every harmonic in it"}
+  - {block: osc1,    param: pw,        value: 10%,           why: "narrow: wider and it is a square note, not an edge"}
+  - {block: osc1,    param: retrigger, value: "on",          why: "the pulse restarts at its edge every hit; free-running, half the hits would miss the click"}
+  - {block: noise,   param: level,     value: half,          why: "the shell's rattle, under the click"}
+  - {block: filter1, param: type,      value: bandpass 12 dB, why: "the drum shell: one band, rung"}
+  - {block: filter1, param: resonance, value: moderate,      why: "the ring of the rim: enough to give the click a pitch, not enough to whistle"}
+  - {block: aenv,    param: decay,     value: fast,          why: "thirty milliseconds: a rimshot is over before a snare has started"}
+  - {block: aenv,    param: sustain,   value: zero}
+  - {block: aenv,    param: mode,      value: one-shot}
+
+taste:
+  - {block: aenv,    param: decay,     range: "instant – short",      default: fast}
+  - {block: filter1, param: cutoff,    range: "mid – open",           default: bright, why: "the pitch of the click"}
+  - {block: filter1, param: resonance, range: "little – high",        default: moderate}
+  - {block: noise,   param: level,     range: "off – full",           default: half}
+  - {block: osc1,    param: pitch,     range: "C4 – C5",              default: G4}
+
+listening:
+  cue: "A hard 'tk' with a short ring behind it. The click has a pitch you can almost name; the noise gives it a shell."
+  ab: "Turn retrigger off: every other hit is a dull 'bp' with no edge. Back on and they all crack. Then set the filter resonance to none: the click is still there but the shell's ring is gone, a dry tick."
+
+render:
+  tempo: 120
+  note: G4
+  velocity: 110
+  pattern: "sixteenths on the off-beats of 2 and 4, a bar"
+  length_s: 2.0
+
+mappings: {}

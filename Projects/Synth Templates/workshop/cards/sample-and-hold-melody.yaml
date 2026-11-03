@@ -1,0 +1,67 @@
+# Synth Templates — card 0.1 — Sample-and-Hold Melody
+# Rhythmic and Sequenced, tier 2: a random LFO on pitch, synced and quantized to a scale, so chance writes a tune that stays in key.
+schema: synth-template-card/0.2
+id: sample-and-hold-melody
+name: Sample-and-Hold Melody
+family: Rhythmic and Sequenced
+tier: 2
+mode: mono
+classics: ""
+status: drafted
+concepts:
+  - "LFO → pitch / amplitude / pan / filter"
+  - "Tempo sync; triplets"
+  - "Pulse width, static and modulated"
+  - "Retrigger vs free; chords with staggered attacks"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: pulse, pw: 0.3, octave: 0}
+    filter1: {kind: filter, type: lowpass, slope: 24, resonance: little}
+    amp:     {kind: amplifier, level: under unity}
+    fx:      {kind: fx, chain: [delay], note: "synced to a dotted eighth, low mix: the melody answers itself"}
+    aenv:    {kind: envelope, role: amp, shape: {a: fast, d: medium, s: held, r: short}, category: sustaining}
+    lfo1:    {kind: lfo, wave: s&h, rate: medium, sync: true, retrigger: true, note: "a new random value every 1/16; its output is quantized to the minor pentatonic before it reaches the pitch. The voice has no quantizer and no s&h yet: it plays the pitch unquantized"}
+    lfo2:    {kind: lfo, wave: square, rate: medium, sync: true, retrigger: true, note: "1/16, in step with lfo1: re-strikes the level so each new pitch has its own attack"}
+  audio:
+    - [osc1, filter1]
+    - [filter1, amp]
+    - [amp, fx]
+    - [fx, out]
+  modulation:
+    - {from: lfo1, to: osc1.pitch, amount: about an octave, essential: true}
+    - {from: lfo2, to: amp.level, amount: moderate, essential: false}
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: lfo1,    param: wave,      value: sample and hold, why: "a random level, held until the next step: a staircase, not a glide; a smooth random wave would make a siren"}
+  - {block: lfo1,    param: sync,      value: "on",            why: "steps on sixteenths: the randomness is in the pitches, never in the time"}
+  - {block: lfo1,    param: target,    value: "osc pitch, quantized to a scale", why: "unquantized, random pitch is noise with a rhythm; quantized, it is a melody nobody wrote"}
+  - {block: lfo1,    param: amount,    value: about an octave, why: "enough room for the scale to show; two octaves and the line leaps too much to follow"}
+  - {block: lfo1,    param: retrigger, value: "on",            why: "the first step lands on the note, so the line starts on the key you pressed"}
+  - {block: osc1,    param: wave,      value: "pulse, narrow", why: "nasal and clear, so each new pitch is easy to place"}
+  - {block: aenv,    param: sustain,   value: held,            why: "hold one key; the LFO plays the notes"}
+  - {block: mode,    param: voices,    value: mono,            why: "one line; the point is a single random voice"}
+
+taste:
+  - {block: lfo1,    param: rate,      range: "1/8 – 1/16",          default: medium}
+  - {block: lfo1,    param: amount,    range: "a fifth – two octaves", default: about an octave}
+  - {block: mode,    param: scale,     range: "pentatonic – chromatic", default: minor pentatonic, why: "the fewer the notes, the more it sounds composed"}
+  - {block: filter1, param: cutoff,    range: "mid – bright",        default: mid}
+  - {block: osc1,    param: pw,        range: "0.15 – 0.5",          default: 0.3}
+  - {block: fx,      param: mix,       range: "off – half",          default: quarter}
+
+listening:
+  cue: "Hold one key and hear a run of sixteenths you did not choose, every note in key, never the same twice. It sounds like a sequence until you notice it will not repeat."
+  ab: "Turn the quantizer off: the same staircase, but the steps land between the notes and it is a computer, not a melody. Put it back. Then switch the LFO wave to triangle: the steps melt into a siren."
+
+render:
+  tempo: 120
+  note: A2
+  velocity: 100
+  pattern: "A2 held two bars; the LFO steps the pitch every sixteenth, quantized to A minor pentatonic"
+  length_s: 4.0
+
+mappings: {}

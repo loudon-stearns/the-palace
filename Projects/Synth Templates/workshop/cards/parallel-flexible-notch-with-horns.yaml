@@ -1,0 +1,74 @@
+# Synth Templates — card 0.2 — Parallel: Flexible Notch with Horns
+# Filter Routings, tier 2. High-pass and low-pass side by side with a gap between them: the gap is the notch, the resonances are the horns, and the
+# mix balance keeps the high-pass from getting harsh. The slot grammar draws the filters in series; the parallel split is said in the notes.
+schema: synth-template-card/0.2
+id: parallel-flexible-notch-with-horns
+name: "Parallel: Flexible Notch with Horns"
+family: Filter Routings
+tier: 2
+mode: mono
+classics: ""
+status: drafted
+concepts:
+  - "Parallel: flexible notch with horns, inverted HP envelope, mix balance"
+  - "Parallel routing"
+  - "Noise at the attack; noise oscillator with its own envelope"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: saw, octave: 0}
+    noise:   {kind: oscillator, wave: noise, level: little, note: "on the real synth the noise goes to the high-pass only; the slot grammar can only send it to the mix"}
+    mix:     {kind: mixer}
+    filter1: {kind: filter, type: lowpass,  slope: 24, resonance: moderate, note: "PARALLEL with filter 2: the mix splits to both and the outputs sum. Gets 90 percent of the signal"}
+    filter2: {kind: filter, type: highpass, slope: 24, resonance: moderate, note: "PARALLEL on the real synth, cutoff well above the low-pass: the gap between them is the notch. Gets 10 percent. The voice runs it in series after filter 1"}
+    amp:     {kind: amplifier, level: under unity}
+    fenv:    {kind: envelope, role: filter, shape: {a: instant, d: medium, s: zero, r: short}, category: percussive, note: "inverted: it shoots the high-pass down, then it climbs back during the decay"}
+    aenv:    {kind: envelope, role: amp,    shape: {a: fast, d: medium, s: held, r: short}, category: sustaining}
+  audio:
+    - [osc1, mix]
+    - [noise, mix]
+    - [mix, filter1]
+    - [filter1, filter2]
+    - [filter2, amp]
+    - [amp, out]
+  modulation:
+    - {from: fenv, to: filter2.cutoff, amount: generous, invert: true, essential: true}
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: fenv.gate, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: osc1,    param: wave,      value: saw,            why: "strong lows for the low-pass, strong highs for the high-pass"}
+  - {block: filter1, param: type,      value: lowpass 24 dB,  why: "the low side of the notch; 24 dB makes the hole deep, 12 dB a gentle dip"}
+  - {block: filter1, param: cutoff,    value: dark,           why: "the bottom wall of the hole"}
+  - {block: filter2, param: type,      value: highpass 24 dB}
+  - {block: filter2, param: cutoff,    value: bright,         why: "set well above the low-pass: everything between the two is gone, and that gap is the notch"}
+  - {block: filter2, param: routing,   value: parallel,       why: "side by side, outputs summed; in series a high-pass above a low-pass would pass nothing at all"}
+  - {block: filter1, param: level,     value: full,           why: "90 percent to the low-pass"}
+  - {block: filter2, param: level,     value: little,         why: "10 percent to the high-pass: the mix balance is what keeps the top from being harsh"}
+  - {block: fenv,    param: polarity,  value: inverted,       why: "the note starts with the high-pass pulled down, mids strong, then the hole widens as the note holds"}
+  - {block: fenv,    param: sustain,   value: zero,           why: "it climbs all the way back during the decay"}
+  - {block: noise,   param: level,     value: little,         why: "into the high-pass only: warmth on top, and it makes the filter movement obvious without harmonics jumping"}
+  - {block: mode,    param: voices,    value: mono}
+
+taste:
+  - {block: filter1, param: cutoff,    range: "dark – mid",          default: dark,     why: "lower it to widen the hole from below"}
+  - {block: filter2, param: cutoff,    range: "mid – open",          default: bright,   why: "raise it to widen the hole from above"}
+  - {block: filter1, param: resonance, range: "none – high",         default: moderate, why: "the horn on the low wall"}
+  - {block: filter2, param: resonance, range: "none – high",         default: moderate, why: "the horn on the high wall"}
+  - {block: filter2, param: level,     range: "off – half",          default: little,   why: "how much top; more than half and it is harsh"}
+  - {block: fenv,    param: decay,     range: "short – long",        default: medium,   why: "how long the mids take to drain out of the attack"}
+
+listening:
+  cue: "Deep bottom, sizzling top, and a hole between them with a ring at each edge. Every note starts fuller in the middle and hollows out as it holds."
+  ab: "Set the high-pass level equal to the low-pass: the top turns harsh and the bass loses its weight. Back to little and the balance returns. Then make the envelope positive: the attack is thin and the hole closes as the note holds, the inverse motion."
+
+render:
+  tempo: 100
+  note: [C2, C2, G2, C2]
+  velocity: 100
+  pattern: "quarter notes, one bar, each held most of its beat"
+  length_s: 3.0
+
+mappings: {}

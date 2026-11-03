@@ -1,0 +1,58 @@
+# Synth Templates — card — Voice Priority: Last / Top / Bottom
+# Voices, Tuning and Retrigger family. A mono bass set to Bottom priority: play chords and it takes the lowest note. Set to Top and it takes the melody.
+schema: synth-template-card/0.2
+id: voice-priority-last-top-bottom
+name: "Voice Priority: Last / Top / Bottom"
+family: Voices, Tuning and Retrigger
+tier: 2
+mode: mono
+classics:
+status: drafted
+concepts:
+  - "Voice priority: last / top / bottom; voice stealing"
+  - "Poly vs mono; max voices"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: saw, octave: -1, note: "the mono bass, an octave down so the chosen note is the floor of the chord; in the arrangement it is layered under a poly pad playing the same chords, which this card cannot draw"}
+    sub:     {kind: oscillator, wave: sine, octave: -2, level: half}
+    mix:     {kind: mixer}
+    filter1: {kind: filter, type: lowpass, slope: 24, resonance: little}
+    amp:     {kind: amplifier, level: under unity}
+    aenv:    {kind: envelope, role: amp, shape: {a: fast, d: medium, s: held, r: short}, category: sustaining, note: "the voice does not yet model priority; it is heard on a synth with a priority switch"}
+  audio:
+    - [osc1, mix]
+    - [sub, mix]
+    - [mix, filter1]
+    - [filter1, amp]
+    - [amp, out]
+  modulation:
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: sub.pitch,  essential: true}
+    - {from: key,  to: aenv.gate,  essential: true}
+
+essentials:
+  - {block: mode, param: voices,   value: mono,   why: "one note at a time, so the synth has to choose which one from a chord"}
+  - {block: mode, param: priority, value: bottom, why: "it keeps the lowest held note: play chords and the bass line writes itself from the roots"}
+  - {block: filter1, param: cutoff, value: dark,  why: "a bass under a pad, not a lead over it"}
+  - {block: aenv, param: release,  value: short,  why: "when the chord changes the old root must get out of the way"}
+
+taste:
+  - {block: mode,    param: priority, range: "bottom – top",       default: bottom, why: "top picks the melody out of the same chords: the same hands, a different line"}
+  - {block: filter1, param: cutoff,   range: "dark – mid",         default: dark}
+  - {block: sub,     param: level,    range: "off – equal to osc1", default: half}
+  - {block: aenv,    param: release,  range: "short – medium",     default: short}
+
+listening:
+  cue: "Chords are played, but a single bass note comes out of this synth: always the lowest key in the chord, and when the chord moves the bass moves with its root. Set to Top and the same chords yield the melody on the top key."
+  ab: "Set priority to Last: the bass now follows whichever finger landed last, and the line jumps around the chord by accident. Back to Bottom and the roots return. Then play the same chords with priority Top: the line moves to the top of the voicing, a different part from the same hands."
+
+render:
+  tempo: 100
+  note: [C2, E3, G3, F2, A3, C4]
+  velocity: 100
+  pattern: "two triads a bar each, C major then F major, all keys struck together; only the lowest note of each sounds"
+  length_s: 5.0
+
+mappings: {}

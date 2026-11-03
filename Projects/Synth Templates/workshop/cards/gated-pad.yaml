@@ -1,0 +1,67 @@
+# Synth Templates — card 0.1 — Gated Pad
+# Rhythmic and Sequenced, tier 1: a pad chopped by a square LFO on the amplifier. The trance gate.
+schema: synth-template-card/0.2
+id: gated-pad
+name: Gated Pad
+family: Rhythmic and Sequenced
+tier: 1
+mode: poly
+classics: ""
+status: drafted
+concepts:
+  - "LFO → pitch / amplitude / pan / filter"
+  - "Tempo sync; triplets"
+  - "Retrigger vs free; chords with staggered attacks"
+  - "Standard sustaining envelope; strings and horns variants"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: saw, octave: 0, unison: 3, detune: narrow}
+    filter1: {kind: filter, type: lowpass, slope: 12, resonance: none}
+    amp:     {kind: amplifier, level: under unity}
+    fx:      {kind: fx, chain: [reverb]}
+    aenv:    {kind: envelope, role: amp, shape: {a: slow, d: medium, s: held, r: medium}, category: pad}
+    lfo1:    {kind: lfo, wave: square, rate: medium, sync: true, retrigger: false, note: "synced to 1/8 (1/16 for the busier gate); free-running so every voice chops on the same beat"}
+  audio:
+    - [osc1, filter1]
+    - [filter1, amp]
+    - [amp, fx]
+    - [fx, out]
+  modulation:
+    - {from: lfo1, to: amp.level, amount: full, essential: true}
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+    - {from: wheel, to: lfo1.depth, amount: full, essential: false}
+
+essentials:
+  - {block: mode,    param: voices,   value: poly,           why: "a chord instrument"}
+  - {block: lfo1,    param: wave,     value: square,         why: "on or off, nothing between: a gate, not a tremolo"}
+  - {block: lfo1,    param: sync,     value: "on",           why: "the chops sit on the grid; unsynced it is a wobble"}
+  - {block: lfo1,    param: division, value: "1/8 note",     why: "eighths read as rhythm; sixteenths read as a buzz at fast tempos"}
+  - {block: lfo1,    param: retrigger, value: free,          why: "one LFO for all voices, so the whole chord opens and shuts together"}
+  - {block: lfo1,    param: target,   value: "amp level, full depth", why: "the gate must close all the way, or it is only a pulse"}
+  - {block: aenv,    param: attack,   value: slow,           why: "still a pad underneath: the chord swells in, then the gate chops it"}
+  - {block: aenv,    param: sustain,  value: held,           why: "sustaining; the LFO supplies all the movement in the sustain"}
+  - {block: fx,      param: chain,    value: reverb,         why: "the tail bleeds through the closed gate and ties the chops together"}
+
+taste:
+  - {block: lfo1,    param: rate,      range: "1/8 – 1/16",         default: medium}
+  - {block: lfo1,    param: depth,     range: "moderate – full",    default: full, why: "less than full leaves a floor under the gate"}
+  - {block: filter1, param: cutoff,    range: "mid – bright",       default: mid}
+  - {block: osc1,    param: detune,    range: "slight – wide",      default: narrow}
+  - {block: aenv,    param: attack,    range: "medium – slow",      default: slow}
+  - {block: fx,      param: reverb,    range: "small – large",      default: large}
+
+listening:
+  cue: "A chord that stutters in strict time, like a hand on a mute. Between the chops the reverb keeps the chord alive, so it reads as one long note with holes in it."
+  ab: "Set the LFO depth to none: a plain held pad, no rhythm at all. Put it back to full. Then switch the LFO wave to triangle: the chops soften into a throb and the grid disappears."
+
+render:
+  tempo: 138
+  note: [A3, C4, E4, G4]
+  velocity: 95
+  pattern: "one minor-seventh chord held two bars; the gate chops it in eighths"
+  length_s: 5.0
+
+mappings: {}

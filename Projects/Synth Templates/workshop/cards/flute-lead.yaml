@@ -1,0 +1,70 @@
+# Synth Templates — card — Flute Lead
+# A near-sine tone, and a puff of noise at the start of every note that the tone does not have: the breath is a separate oscillator with its own envelope.
+schema: synth-template-card/0.2
+id: flute-lead
+name: Flute Lead
+family: Leads
+tier: 2
+mode: mono
+classics: ""
+status: drafted
+concepts:
+  - "Noise at the attack; noise oscillator with its own envelope"
+  - "Triangle as a filtered square"
+  - "Vibrato: ~5 Hz, under a semitone; dedicated vibrato LFO"
+  - "Standard sustaining envelope; strings and horns variants"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: triangle, octave: 0}
+    noise:   {kind: oscillator, wave: noise, level: little, note: "the breath; menv shapes its level (not yet in the voice)"}
+    mix:     {kind: mixer}
+    filter1: {kind: filter, type: lowpass, slope: 12, resonance: none}
+    amp:     {kind: amplifier, level: under unity}
+    menv:    {kind: envelope, role: breath, shape: {a: instant, d: short, s: zero, r: short}, category: percussive}
+    aenv:    {kind: envelope, role: amp, shape: {a: short, d: short, s: held, r: short}, category: sustaining}
+    lfo1:    {kind: lfo, wave: sine, rate: medium, sync: false}
+  audio:
+    - [osc1, mix]
+    - [noise, mix]
+    - [mix, filter1]
+    - [filter1, amp]
+    - [amp, out]
+  modulation:
+    - {from: menv, to: noise.level, amount: full, essential: true}
+    - {from: lfo1, to: osc1.pitch, amount: little, essential: true}
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: menv.gate, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: osc1,  param: wave,     value: triangle,     why: "nearly a sine, with a little odd-harmonic air; a sine is the other choice"}
+  - {block: noise, param: target,   value: the attack only, why: "a real note starts with inharmonic noise before it settles; the breath lives there and nowhere else"}
+  - {block: menv,  param: target,   value: noise level,  why: "the noise gets its own envelope, separate from the tone's"}
+  - {block: menv,  param: decay,    value: short,        why: "a puff, gone as the tone arrives"}
+  - {block: menv,  param: sustain,  value: zero,         why: "no noise in the held note; it would be hiss, not breath"}
+  - {block: aenv,  param: attack,   value: short,        why: "soft: blown, not struck. Around 30 ms"}
+  - {block: lfo1,  param: rate,     value: medium,       why: "a gentle vibrato; the depth is small"}
+  - {block: mode,  param: voices,   value: mono,         why: "one flute"}
+
+taste:
+  - {block: noise,   param: level,    range: "little – low",      default: little, why: "how much breath"}
+  - {block: menv,    param: decay,    range: "fast – short",      default: short}
+  - {block: aenv,    param: attack,   range: "fast – medium",     default: short}
+  - {block: lfo1,    param: depth,    range: "none – little",     default: little}
+  - {block: filter1, param: cutoff,   range: "mid – bright",      default: bright, why: "mostly to round the noise"}
+  - {block: osc1,    param: wave,     range: "triangle – sine",   default: triangle}
+
+listening:
+  cue: "A soft, round tone with a small puff of air at the front of every note, like a breath across a bottle. The puff is gone by the time the note settles."
+  ab: "Set the noise level to off: the same notes start clean and sound like a sine organ. Put it back. Then raise the breath envelope's sustain to half: the puff becomes a steady hiss and the flute becomes a leaky pipe."
+
+render:
+  tempo: 90
+  note: [G4, A4, B4, D5, B4]
+  velocity: 90
+  pattern: "quarter notes, detached so each attack is heard; the last held"
+  length_s: 4.0
+
+mappings: {}

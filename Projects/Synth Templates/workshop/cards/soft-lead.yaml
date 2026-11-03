@@ -1,0 +1,66 @@
+# Synth Templates — card — Soft Lead
+# Triangle and sine: a lead with the harshness already filtered out by the choice of wave, then eased in and widened.
+schema: synth-template-card/0.2
+id: soft-lead
+name: Soft Lead
+family: Leads
+tier: 1
+mode: poly
+classics: ""
+status: drafted
+concepts:
+  - "Triangle as a filtered square"
+  - "Waveforms: saw, square, triangle, sine, noise"
+  - "Chorus: multiple delays, own LFOs, no feedback"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: triangle, octave: 0}
+    osc2:    {kind: oscillator, wave: sine, octave: -1, note: "weight under the triangle"}
+    mix:     {kind: mixer}
+    filter1: {kind: filter, type: lowpass, slope: 12, resonance: none}
+    amp:     {kind: amplifier, level: under unity}
+    fx:      {kind: fx, chain: [chorus]}
+    aenv:    {kind: envelope, role: amp, shape: {a: medium, d: short, s: held, r: medium}, category: sustaining}
+  audio:
+    - [osc1, mix]
+    - [osc2, mix]
+    - [mix, filter1]
+    - [filter1, amp]
+    - [amp, fx]
+    - [fx, out]
+  modulation:
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: osc2.pitch, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: osc1,    param: wave,     value: triangle,   why: "a square with its upper harmonics already quiet: a soft tone before any filter touches it"}
+  - {block: osc2,    param: wave,     value: sine,       why: "the fundamental an octave down; body without any edge"}
+  - {block: filter1, param: cutoff,   value: mid,        why: "gentle: there is little left to remove, so the filter only rounds the top"}
+  - {block: aenv,    param: attack,   value: medium,     why: "it eases in; a fast attack on a soft wave sounds like a click"}
+  - {block: aenv,    param: release,  value: medium,     why: "notes blend into each other"}
+  - {block: fx,      param: chain,    value: chorus,     why: "width for a tone with no detune and no unison"}
+  - {block: mode,    param: voices,   value: poly,       why: "lines in thirds and sixths; the releases overlap"}
+
+taste:
+  - {block: aenv,    param: attack,   range: "short – slow",     default: medium}
+  - {block: osc2,    param: level,    range: "little – half",    default: quarter}
+  - {block: filter1, param: cutoff,   range: "dark – bright",    default: mid}
+  - {block: aenv,    param: release,  range: "short – long",     default: medium}
+  - {block: fx,      param: chorus,   range: "light – lush",     default: light}
+  - {block: osc1,    param: glide,    range: "none – short",     default: none}
+
+listening:
+  cue: "A round, mellow line with no buzz in it, arriving a little late on every note and overlapping the one before. It is a square's shape with the sting taken out."
+  ab: "Switch the triangle to a square: the same settings turn hollow and hard. Back to triangle. Then set attack to instant: the softness is gone and each note clicks on."
+
+render:
+  tempo: 84
+  note: [E4, G4, A4, G4]
+  velocity: 80
+  pattern: "quarter notes, legato, one bar; the last held into a bar of release"
+  length_s: 5.0
+
+mappings: {}

@@ -1,0 +1,61 @@
+# Synth Templates — card 0.2 — Zap / Laser
+# The pitch envelope turned all the way up: a saw dropping octaves in an instant. Nothing else on the card matters half as much.
+schema: synth-template-card/0.2
+id: zap-laser
+name: Zap / Laser
+family: Drums and Percussion
+tier: 1
+mode: mono
+classics: ""
+status: drafted
+concepts:
+  - "Envelope → pitch (attack blip)"
+  - "Waveforms: saw, square, triangle, sine, noise"
+  - "Velocity → filter envelope amount; → pitch envelope amount"
+  - "Envelope trigger / one-shot mode"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: saw, octave: 0, retrigger: true}
+    amp:     {kind: amplifier, level: full}
+    menv:    {kind: envelope, role: pitch, shape: {a: instant, d: short, s: zero, r: short}, category: percussive, one_shot: true, note: "the catalog's zap drops three octaves; two octaves is the widest word the vocabulary has"}
+    aenv:    {kind: envelope, role: amp,   shape: {a: instant, d: short, s: zero, r: same as decay}, category: percussive, one_shot: true}
+  audio:
+    - [osc1, amp]
+    - [amp, out]
+  modulation:
+    - {from: menv, to: osc1.pitch, amount: two octaves, essential: true}
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: vel,  to: menv.amount, amount: some, essential: false}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: menv.gate, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: osc1,    param: wave,      value: saw,           why: "every harmonic, so the drop is heard in all of them at once; a sine zap is a soft bloop"}
+  - {block: menv,    param: amount,    value: two octaves,   why: "extreme: the pitch starts far above the note and dives; the dive is the whole sound"}
+  - {block: menv,    param: decay,     value: short,         why: "fast enough to be a zap, slow enough that you hear it move"}
+  - {block: menv,    param: sustain,   value: zero,          why: "it lands on the key's note"}
+  - {block: aenv,    param: decay,     value: short,         why: "cut while the pitch is still landing, or it turns into a bass note"}
+  - {block: aenv,    param: sustain,   value: zero}
+  - {block: menv,    param: mode,      value: one-shot,      why: "the dive plays out whatever the note length"}
+
+taste:
+  - {block: menv,    param: amount,  range: "about an octave – two octaves", default: two octaves}
+  - {block: menv,    param: decay,   range: "fast – medium",  default: short, why: "shorter is a click, longer is a siren"}
+  - {block: aenv,    param: decay,   range: "fast – medium",  default: short}
+  - {block: osc1,    param: wave,    range: "saw – square",   default: saw}
+  - {block: osc1,    param: pitch,   range: "C2 – C4",        default: C3}
+
+listening:
+  cue: "A pitch falling so fast it is almost a shape, not a note. The buzz of the saw makes the fall audible in every harmonic at once."
+  ab: "Set the pitch envelope amount to none: a short saw blip at one pitch, a buzzer. Put it back and it is a laser. Then set the amp decay to long: a siren that lands on a bass note."
+
+render:
+  tempo: 120
+  note: [C3, C3, G2]
+  velocity: [100, 80, 120]
+  pattern: "three zaps on the first three beats, each a 16th long"
+  length_s: 2.0
+
+mappings: {}

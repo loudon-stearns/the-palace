@@ -1,0 +1,49 @@
+# Synth Templates — card — Noise Colors
+# Technique demonstration: three noises, no pitch. The only knob is the colour.
+schema: synth-template-card/0.2
+id: noise-colors
+name: Noise Colors
+family: Technique Demonstrations
+tier: 1
+mode: mono
+classics: ""
+status: drafted
+concepts:
+  - "Waveforms: saw, square, triangle, sine, noise"
+  - "Noise colors: white vs pink"
+  - "Noise for softness and high end"
+
+graph:
+  blocks:
+    noise: {kind: oscillator, wave: noise, color: white, note: "colour: white, pink, brown. The voice plays white only."}
+    amp:   {kind: amplifier, level: under unity}
+    aenv:  {kind: envelope, role: amp, shape: {a: fast, d: short, s: held, r: short}, category: sustaining}
+  audio:
+    - [noise, amp]
+    - [amp, out]
+  modulation:
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: noise, param: wave,  value: noise, why: "energy at every frequency at once; there is no pitch for the keyboard to play"}
+  - {block: noise, param: color, value: white, why: "equal energy at every frequency: the scientific reference, and harsh to the ear, which hears the top as louder"}
+  - {block: amp,   param: level, value: under unity, why: "noise is dense; it reads louder than its meter"}
+
+taste:
+  - {block: noise, param: color,   range: "white – pink – brown", default: white, why: "pink is white filtered to how the ear hears, smoother; brown is darker again, a rumble"}
+  - {block: aenv,  param: attack,  range: "instant – slow",       default: fast}
+  - {block: aenv,  param: release, range: "short – long",         default: short}
+
+listening:
+  cue: "Three hisses. White is bright, almost a whistle of static; pink is the same hiss with the top eased off, a waterfall; brown is a low rumble with hardly any top at all. None of them has a note."
+  ab: "Go from pink back to white: the top end jumps forward and it is harsh again. That jump is what pink's filtering removes; a patch wants pink for softness and white for high end."
+
+render:
+  tempo: 100
+  note: C3
+  velocity: 90
+  pattern: "three two-second bursts: white, pink, brown"
+  length_s: 7.0
+
+mappings: {}

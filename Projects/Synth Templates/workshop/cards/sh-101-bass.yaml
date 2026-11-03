@@ -1,0 +1,71 @@
+# Synth Templates — Genre Classics — SH-101 Bass
+# One saw, one sub, a fast filter envelope and a sequencer. The bass is the envelope, played by the sequencer.
+schema: synth-template-card/0.2
+id: sh-101-bass
+name: SH-101 Bass
+family: Genre Classics
+tier: 1
+mode: mono
+classics: SH-101
+status: drafted
+concepts:
+  - "Subtractive: rich wave then filter"
+  - "Envelope → filter cutoff (bite; auto-wah with long attack)"
+  - "Octave / semitone / fine tuning"
+  - "Phase, free-running vs retrigger, the click"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: saw, octave: 0, retrigger: false, note: "free-running: the 101's oscillator never resets"}
+    sub:     {kind: oscillator, wave: square, octave: -1, note: "the 101 sub: a square one or two octaves under"}
+    mix:     {kind: mixer}
+    filter1: {kind: filter, type: lowpass, slope: 24, resonance: little}
+    amp:     {kind: amplifier, level: under unity}
+    fenv:    {kind: envelope, role: filter, shape: {a: instant, d: short, s: zero, r: short}, category: percussive}
+    aenv:    {kind: envelope, role: amp,    shape: {a: instant, d: medium, s: held, r: short}, category: sustaining}
+  audio:
+    - [osc1, mix]
+    - [sub, mix]
+    - [mix, filter1]
+    - [filter1, amp]
+    - [amp, out]
+  modulation:
+    - {from: fenv, to: filter1.cutoff, amount: moderate, essential: true}
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: sub.pitch,  essential: true}
+    - {from: key,  to: fenv.gate,  essential: true}
+    - {from: key,  to: aenv.gate,  essential: true}
+
+essentials:
+  - {block: mode,    param: voices,    value: mono,          why: "one sequenced line"}
+  - {block: osc1,    param: wave,      value: saw,           why: "all harmonics for the filter to bite into"}
+  - {block: sub,     param: wave,      value: square,        why: "the 101's sub switch: hollow weight under the saw"}
+  - {block: filter1, param: type,      value: lowpass 24 dB, why: "steep, so the short envelope reads as a bite, not a wash"}
+  - {block: filter1, param: cutoff,    value: dark,          why: "closed at rest; every note is the envelope opening it"}
+  - {block: fenv,    param: attack,    value: instant}
+  - {block: fenv,    param: decay,     value: short,         why: "the bite: open and shut in the first part of a sixteenth"}
+  - {block: fenv,    param: sustain,   value: zero,          why: "the filter closes fully; the sequencer supplies the next bite"}
+  - {block: aenv,    param: sustain,   value: held,          why: "the body holds under the closed filter until the step ends"}
+
+taste:
+  - {block: sub,     param: level,     range: "off – equal to osc1", default: half}
+  - {block: sub,     param: octave,    range: "-1 – -2",             default: -1}
+  - {block: filter1, param: cutoff,    range: "dark – mid",          default: dark}
+  - {block: filter1, param: resonance, range: "none – high",         default: little}
+  - {block: fenv,    param: amount,    range: "some – generous",     default: moderate}
+  - {block: fenv,    param: decay,     range: "fast – medium",       default: short}
+  - {block: aenv,    param: release,   range: "instant – short",     default: short, why: "the sequencer's gaps must stay gaps"}
+
+listening:
+  cue: "A tight, punchy bass that bites on every step and goes dull before the next. Nothing smears: each sixteenth is its own event, and the sub keeps the floor steady."
+  ab: "Lengthen the filter decay to long: the bites run into each other and it becomes a slow wah. Put it back. Then set the oscillator to retrigger: every note starts on the same phase and the tiny step-to-step variation goes flat."
+
+render:
+  tempo: 126
+  note: [C2, C2, C3, C2, Eb2, C2, G2, F2]
+  velocity: 100
+  pattern: "sixteenths, one bar, a sequencer line: each step a short gate with a gap before the next"
+  length_s: 2.0
+
+mappings: {}

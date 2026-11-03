@@ -1,0 +1,68 @@
+# Synth Templates — card 0.2 — Metallic Hit
+# Sound Effects, tier 2. Two sines in a ratio that is not a whole number: FM makes partials that are not in a series, and that is what metal sounds like.
+schema: synth-template-card/0.2
+id: metallic-hit
+name: Metallic Hit
+family: Sound Effects
+tier: 2
+mode: mono
+classics: ""
+status: drafted
+concepts:
+  - "FM: audio-rate modulation, algorithms"
+  - "Sine: no response to filtering; FM/additive building block"
+  - "Pluck / strike: release = decay; gong vs marimba"
+  - "Envelope trigger / one-shot mode"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: sine, octave: 0, retrigger: true, note: "carrier"}
+    osc2:    {kind: oscillator, wave: sine, ratio: "3.5:1", level: full, retrigger: true, note: "modulator at a non-integer ratio; ring mod is the other road to the same place"}
+    amp:     {kind: amplifier, level: under unity}
+    fx:      {kind: fx, chain: [reverb]}
+    menv:    {kind: envelope, role: index, shape: {a: instant, d: short, s: zero, r: same as decay}, category: percussive, one_shot: true}
+    aenv:    {kind: envelope, role: amp,   shape: {a: instant, d: medium, s: zero, r: same as decay}, category: struck, one_shot: true}
+  audio:
+    - [osc2, osc1, fm]
+    - [osc1, amp]
+    - [amp, fx]
+    - [fx, out]
+  modulation:
+    - {from: menv, to: osc2.level, amount: full, essential: true}
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: osc2.pitch, essential: true}
+    - {from: key,  to: menv.gate, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+    - {from: vel,  to: menv.amount, amount: generous, essential: false}
+
+essentials:
+  - {block: osc1,    param: wave,    value: sine,           why: "the carrier starts empty; every partial you hear is made by the modulation"}
+  - {block: osc2,    param: wave,    value: sine,           why: "a sine modulator makes clean sidebands, so the ratio alone decides the timbre"}
+  - {block: osc2,    param: ratio,   value: "3.5:1",        why: "not a whole number: the sidebands fall between the harmonics, and that is metal; 2:1 would be a tone"}
+  - {block: osc2,    param: routing, value: into osc1 fm,   why: "frequency modulation, not a mix: mixing two sines is a chord, modulating one with the other is a bell"}
+  - {block: osc2,    param: level,   value: full,           why: "a high index: many sidebands, a dense clang"}
+  - {block: menv,    param: decay,   value: short,          why: "the clang falls faster than the ring: bright at the strike, a purer tone as it dies"}
+  - {block: aenv,    param: sustain, value: zero,           why: "struck: no energy after the hit"}
+  - {block: aenv,    param: release, value: same as decay,  why: "a tap plays the whole ring"}
+  - {block: fx,      param: chain,   value: reverb,         why: "metal hit in a room, not in a box"}
+
+taste:
+  - {block: osc2,    param: ratio,   range: "1.41:1 – 7.3:1",   default: "3.5:1", why: "any non-integer; each one is a different piece of metal"}
+  - {block: menv,    param: amount,  range: "moderate – full",  default: full}
+  - {block: menv,    param: decay,   range: "fast – medium",    default: short, why: "how long the clang stays on the ring"}
+  - {block: aenv,    param: decay,   range: "short – long",     default: medium, why: "a hit on a pipe or on a gong"}
+  - {block: fx,      param: reverb,  range: "small – huge",     default: large}
+
+listening:
+  cue: "A clang with no clear note in it, dense and glassy at the strike, thinning to a ring. The partials do not agree on a pitch, which is what makes it metal rather than a bell."
+  ab: "Set the ratio to 2:1: the same hit is now a clean tone with a bright attack, an electric piano note. Back to 3.5:1 and it is a struck pipe again."
+
+render:
+  tempo: 120
+  note: C4
+  velocity: 110
+  pattern: "one hit on the downbeat, a second softer on beat three"
+  length_s: 4.0
+
+mappings: {}

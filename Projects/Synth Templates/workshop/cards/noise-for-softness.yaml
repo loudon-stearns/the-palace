@@ -1,0 +1,62 @@
+# Synth Templates — card — Noise for Softness
+# Voices, Tuning and Retrigger family. A little pink noise under a low-passed pad: softness and air, not hiss.
+schema: synth-template-card/0.2
+id: noise-for-softness
+name: Noise for Softness
+family: Voices, Tuning and Retrigger
+tier: 1
+mode: poly
+classics:
+status: drafted
+concepts:
+  - "Noise for softness and high end"
+  - "Noise colors: white vs pink"
+  - "Standard sustaining envelope; strings and horns variants"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: saw, octave: 0, unison: 2, detune: slight}
+    noise:   {kind: oscillator, wave: noise, color: pink, level: little, note: "pink: white noise tilted to the ear's own curve, so it is smooth rather than harsh"}
+    mix:     {kind: mixer}
+    filter1: {kind: filter, type: lowpass, slope: 12, resonance: none}
+    amp:     {kind: amplifier, level: under unity}
+    aenv:    {kind: envelope, role: amp, shape: {a: slow, d: medium, s: held, r: long}, category: pad}
+  audio:
+    - [osc1, mix]
+    - [noise, mix]
+    - [mix, filter1]
+    - [filter1, amp]
+    - [amp, out]
+  modulation:
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: aenv.gate,  essential: true}
+
+essentials:
+  - {block: noise,   param: wave,    value: pink noise,  why: "pink is already shaped to the ear; white in the same spot is hiss"}
+  - {block: noise,   param: level,   value: little,      why: "felt, not heard: enough to soften the saw's edge and put air above the filter"}
+  - {block: noise,   param: envelope, value: shares the amp envelope, why: "the noise is texture for the whole note, not an attack event; it rises and falls with the pad"}
+  - {block: filter1, param: type,    value: lowpass 12 dB, why: "gentle: the noise keeps a little high end above where the saw's partials are tamed"}
+  - {block: filter1, param: cutoff,  value: mid,         why: "the pad is dark; the noise supplies the shimmer the filter took away"}
+  - {block: aenv,    param: attack,  value: slow,        why: "a pad: it arrives"}
+  - {block: mode,    param: voices,  value: poly}
+
+taste:
+  - {block: noise,   param: level,   range: "off – low",        default: little, why: "it builds with every voice in a chord; keep it under what one voice wants"}
+  - {block: filter1, param: cutoff,  range: "dark – bright",    default: mid}
+  - {block: aenv,    param: attack,  range: "medium – very slow", default: slow}
+  - {block: aenv,    param: release, range: "medium – very long", default: long}
+  - {block: osc1,    param: detune,  range: "none – narrow",    default: slight}
+
+listening:
+  cue: "A dark pad with a faint breath of air on top, like a string section heard through a wall. The edge of the saw is rounded off; the high end is there, but it is air, not buzz."
+  ab: "Turn the noise off: the pad is the same shape but harder and more electronic, and the top is gone. Put it back at little and the softness returns. Then switch pink to white at the same level: the breath becomes a hiss and the pad sounds cheap."
+
+render:
+  tempo: 80
+  note: [C3, G3, D4]
+  velocity: 80
+  pattern: "one open chord held two bars, released, tail to silence"
+  length_s: 8.0
+
+mappings: {}

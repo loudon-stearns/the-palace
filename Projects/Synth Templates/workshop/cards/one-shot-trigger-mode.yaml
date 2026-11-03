@@ -1,0 +1,57 @@
+# Synth Templates — card 0.2 — One-Shot / Trigger Mode
+# Envelope Shapes family. A percussive shape with the envelope's mode set to trigger: once started it plays through
+# every stage and ignores the note-off. The shape is the same as the pluck; the mode is the lesson.
+schema: synth-template-card/0.2
+id: one-shot-trigger-mode
+name: One-Shot / Trigger Mode
+family: Envelope Shapes
+tier: 1
+mode: mono
+classics: ""
+status: drafted
+concepts:
+  - "Envelope trigger / one-shot mode"
+  - "Pluck / strike: release = decay; gong vs marimba"
+  - "Envelope → amplitude"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: saw, octave: 0}
+    filter1: {kind: filter, type: lowpass, slope: 12, resonance: none, note: "open; the family's fixed chain"}
+    amp:     {kind: amplifier, level: under unity}
+    aenv:    {kind: envelope, role: amp, shape: {a: instant, d: medium, s: zero, r: same as decay}, category: percussive, one_shot: true}
+  audio:
+    - [osc1, filter1]
+    - [filter1, amp]
+    - [amp, out]
+  modulation:
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: aenv, param: mode,    value: one-shot,      why: "the envelope runs attack, decay and release to the end on its own and never looks at the note-off; made for percussion"}
+  - {block: aenv, param: attack,  value: instant,       why: "a hit"}
+  - {block: aenv, param: sustain, value: zero,          why: "a sustain stage would wait for the note-off; in trigger mode there is nothing to wait for, so zero is the honest setting"}
+  - {block: aenv, param: decay,   value: medium,        why: "the length of the hit; in one-shot mode this is the whole note length"}
+  - {block: aenv, param: release, value: same as decay, why: "in trigger mode the release is simply the stage after decay; keeping it with decay makes one smooth fall"}
+  - {block: mode, param: voices,  value: mono,          why: "a drum voice: each hit replaces the last"}
+
+taste:
+  - {block: aenv,    param: decay,   range: "short – long",       default: medium, why: "the only length control there is"}
+  - {block: osc1,    param: wave,    range: "saw – noise",        default: saw, why: "noise turns it into a snare-like hit"}
+  - {block: filter1, param: cutoff,  range: "mid – open",         default: open}
+  - {block: amp,     param: level,   range: "half – under unity", default: under unity}
+
+listening:
+  cue: "Every hit is the same length however you play it: tap, hold, or let go halfway, and the sound plays through exactly the same fall. A sequencer sending very short notes still gets full hits."
+  ab: "Switch the envelope to normal (gated) mode and play very short notes: each one is now cut to the note length and the hits turn into ticks. Back to one-shot and they fill out again, though you changed nothing on the shape."
+
+render:
+  tempo: 120
+  note: C3
+  velocity: 110
+  pattern: "eighth notes, one bar, every note only a 32nd long"
+  length_s: 3.0
+
+mappings: {}

@@ -1,0 +1,69 @@
+# Synth Templates — card 0.2 — Glass / Bell Pad
+# FM with a modulator at an inharmonic ratio, so the sidebands do not sit in the harmonic series: a bell's partials under a pad's envelope.
+schema: synth-template-card/0.2
+id: glass-bell-pad
+name: Glass / Bell Pad
+family: Pads
+tier: 2
+mode: poly
+classics: ""
+status: drafted
+concepts:
+  - "FM: audio-rate modulation, algorithms"
+  - "Sine: no response to filtering; FM/additive building block"
+  - "Harmonic-series tuning table"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: sine, octave: 0, note: "carrier"}
+    osc2:    {kind: oscillator, wave: sine, ratio: "3.5:1", level: little, note: "modulator at 3.5: between the third and fourth harmonic, so no sideband lands on one"}
+    amp:     {kind: amplifier, level: under unity}
+    fx:      {kind: fx, chain: [chorus, reverb]}
+    menv:    {kind: envelope, role: index, shape: {a: slow, d: long, s: low, r: very long}, category: pad}
+    aenv:    {kind: envelope, role: amp,   shape: {a: slow, d: medium, s: held, r: very long}, category: pad}
+  audio:
+    - [osc2, osc1, fm]
+    - [osc1, amp]
+    - [amp, fx]
+    - [fx, out]
+  modulation:
+    - {from: menv, to: osc2.level, amount: moderate, essential: true}
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: osc2.pitch, essential: true}
+    - {from: key,  to: menv.gate, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+    - {from: vel,  to: menv.amount, amount: some, essential: false}
+
+essentials:
+  - {block: osc1,    param: wave,      value: sine,           why: "one partial; there is no filter here, FM is the whole spectrum"}
+  - {block: osc2,    param: wave,      value: sine,           why: "a sine modulator gives clean sidebands, each at carrier plus or minus a multiple of the modulator"}
+  - {block: osc2,    param: ratio,     value: "3.5:1",        why: "a whole-number ratio makes a pitched tone; a half-step off whole makes the sidebands inharmonic, the glassy, bell-like clang that has a centre but not quite a note"}
+  - {block: osc2,    param: routing,   value: into osc1 fm,   why: "modulator to carrier frequency: FM, not a mix"}
+  - {block: osc2,    param: level,     value: little,         why: "a low resting index: a few sidebands, glass rather than metal"}
+  - {block: menv,    param: attack,    value: slow,           why: "the clang arrives after the note: a bell played backwards into a pad"}
+  - {block: menv,    param: sustain,   value: low,            why: "the brightness falls back; the partials stay, quieter"}
+  - {block: aenv,    param: attack,    value: slow,           why: "soft: no strike"}
+  - {block: aenv,    param: release,   value: very long,      why: "a bell rings; let it"}
+  - {block: mode,    param: voices,    value: poly,           why: "inharmonic partials across a chord make a bed, not a clash, when the index stays low"}
+
+taste:
+  - {block: osc2,    param: ratio,     range: "2.5:1 – 7.5:1",           default: "3.5:1", why: "any ratio ending in .5 stays inharmonic; higher is glassier"}
+  - {block: osc2,    param: level,     range: "little – half",           default: little}
+  - {block: menv,    param: amount,    range: "some – generous",         default: moderate}
+  - {block: menv,    param: attack,    range: "medium – very slow",      default: slow}
+  - {block: aenv,    param: release,   range: "long – very long",        default: very long}
+  - {block: fx,      param: reverb,    range: "large – huge",            default: huge}
+
+listening:
+  cue: "A chord that shimmers like struck glass without the strike: overtones that do not belong to the note swell in behind it and hang there. Hard to say what key it is in, easy to feel it."
+  ab: "Set the ratio to 3:1 exactly: every sideband snaps onto a harmonic and it becomes a plain, slightly nasal organ. Back to 3.5 and the glass returns. Then raise the modulator level to full: the glass becomes a gong."
+
+render:
+  tempo: 72
+  note: [C4, G4, D5]
+  velocity: 90
+  pattern: "an open chord held three bars, released, tail to silence"
+  length_s: 14.0
+
+mappings: {}

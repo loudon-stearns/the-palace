@@ -1,0 +1,70 @@
+# Synth Templates — card 0.2 — Explosion
+# Sound Effects, tier 1. Noise and a sub, distorted; the filter closes faster than the amp fades, so the filter is the decay you hear.
+schema: synth-template-card/0.2
+id: explosion
+name: Explosion
+family: Sound Effects
+tier: 1
+mode: mono
+classics: ""
+status: drafted
+concepts:
+  - "Envelope → filter cutoff (bite; auto-wah with long attack)"
+  - "Distortion: nonlinear, harmonic, compresses dynamics, tames resonance"
+  - "Noise at the attack; noise oscillator with its own envelope"
+  - "Envelope trigger / one-shot mode"
+
+graph:
+  blocks:
+    sub:     {kind: oscillator, wave: sine, octave: -1, retrigger: true}
+    noise:   {kind: oscillator, wave: noise, color: white}
+    mix:     {kind: mixer}
+    filter1: {kind: filter, type: lowpass, slope: 24, resonance: little}
+    amp:     {kind: amplifier, level: full}
+    fx:      {kind: fx, chain: [distortion, reverb]}
+    fenv:    {kind: envelope, role: filter, shape: {a: instant, d: slow, s: zero, r: same as decay}, category: percussive, one_shot: true}
+    aenv:    {kind: envelope, role: amp,    shape: {a: instant, d: long, s: zero, r: same as decay}, category: percussive, one_shot: true}
+  audio:
+    - [sub, mix]
+    - [noise, mix]
+    - [mix, filter1]
+    - [filter1, amp]
+    - [amp, fx]
+    - [fx, out]
+  modulation:
+    - {from: fenv, to: filter1.cutoff, amount: full, essential: true}
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: sub.pitch, essential: false}
+    - {from: key,  to: fenv.gate, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: noise,   param: wave,    value: noise,          why: "the blast is noise; the filter has every frequency to take away"}
+  - {block: sub,     param: wave,    value: sine,           why: "the weight under it, which the closing filter leaves alone"}
+  - {block: filter1, param: cutoff,  value: dark,           why: "where the filter closes to: only the sub survives there"}
+  - {block: fenv,    param: attack,  value: instant,        why: "fully open at the blast"}
+  - {block: fenv,    param: decay,   value: slow,           why: "it closes over about a second, and that closing is the decay you hear"}
+  - {block: aenv,    param: decay,   value: long,           why: "longer than the filter's: the amp is still open when the filter has shut, so the end is a darkening, not a fade"}
+  - {block: aenv,    param: sustain, value: zero,           why: "one blast, then nothing added"}
+  - {block: fx,      param: chain,   value: distortion then reverb, why: "distortion flattens the loud start and adds grit to the sub; the reverb is the distance"}
+
+taste:
+  - {block: fenv,    param: decay,   range: "medium – long",      default: slow}
+  - {block: aenv,    param: decay,   range: "slow – very long",   default: long, why: "keep it longer than the filter's"}
+  - {block: fx,      param: drive,   range: "light – heavy",      default: heavy}
+  - {block: noise,   param: level,   range: "half – equal",       default: equal}
+  - {block: sub,     param: level,   range: "half – equal",       default: equal}
+  - {block: fx,      param: reverb,  range: "large – huge",       default: huge}
+
+listening:
+  cue: "A bright blast that goes dark before it goes quiet: the hiss turns to a rumble in about a second, and the rumble hangs on. The decay you hear is the filter closing."
+  ab: "Set the filter envelope decay to very long, longer than the amp's: now the blast fades out while still bright, and it sounds like a burst of static, not an explosion. Put it back under the amp decay and the darkening returns."
+
+render:
+  tempo: 120
+  note: C2
+  velocity: 120
+  pattern: "one hit on the downbeat, left to ring"
+  length_s: 6.0
+
+mappings: {}

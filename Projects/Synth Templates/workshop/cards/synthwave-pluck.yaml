@@ -1,0 +1,70 @@
+# Synth Templates — Genre Classics — Synthwave Pluck
+# A filter pluck through chorus and a synced delay. The pluck is the envelope; the eighties is the effects.
+schema: synth-template-card/0.2
+id: synthwave-pluck
+name: Synthwave Pluck
+family: Genre Classics
+tier: 1
+mode: poly
+classics: ""
+status: drafted
+concepts:
+  - "Envelope → filter cutoff (bite; auto-wah with long attack)"
+  - "Pluck / strike: release = decay; gong vs marimba"
+  - "Delay: time, feedback, mix"
+  - "Chorus: multiple delays, own LFOs, no feedback"
+  - "Tempo sync; triplets"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: saw, octave: 0, unison: 2, detune: slight}
+    filter1: {kind: filter, type: lowpass, slope: 24, resonance: little}
+    amp:     {kind: amplifier, level: under unity}
+    fx:      {kind: fx, chain: [chorus, delay], note: "delay synced to a dotted eighth, a few repeats"}
+    fenv:    {kind: envelope, role: filter, shape: {a: instant, d: short, s: zero, r: short}, category: plucked}
+    aenv:    {kind: envelope, role: amp,    shape: {a: instant, d: medium, s: zero, r: same as decay}, category: plucked}
+  audio:
+    - [osc1, filter1]
+    - [filter1, amp]
+    - [amp, fx]
+    - [fx, out]
+  modulation:
+    - {from: fenv, to: filter1.cutoff, amount: generous, essential: true}
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: vel,  to: fenv.amount, amount: some, essential: false}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: fenv.gate, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: mode,    param: voices,    value: poly,           why: "arpeggios and chords; notes overlap in the release"}
+  - {block: osc1,    param: wave,      value: saw,            why: "all harmonics, so the filter has a full sweep to pluck through"}
+  - {block: filter1, param: type,      value: lowpass 24 dB,  why: "steep: the close is a clear 'tk', not a fade"}
+  - {block: filter1, param: cutoff,    value: dark,           why: "closed at rest; the envelope is the whole brightness"}
+  - {block: fenv,    param: decay,     value: short,          why: "the pluck: open and shut faster than the note dies"}
+  - {block: fenv,    param: sustain,   value: zero,           why: "the filter must close completely, or it is a lead"}
+  - {block: aenv,    param: sustain,   value: zero,           why: "plucked: the note decays however long the key is held"}
+  - {block: aenv,    param: release,   value: same as decay,  why: "a short key still rings its full length"}
+  - {block: fx,      param: chain,     value: chorus then delay, why: "the chorus widens each pluck; the synced delay turns one note into a rhythm"}
+
+taste:
+  - {block: osc1,    param: detune,    range: "none – narrow",      default: slight}
+  - {block: filter1, param: resonance, range: "none – moderate",    default: little}
+  - {block: fenv,    param: amount,    range: "moderate – full",    default: generous}
+  - {block: fenv,    param: decay,     range: "fast – medium",      default: short}
+  - {block: aenv,    param: decay,     range: "short – long",       default: medium}
+  - {block: fx,      param: delay,     range: "dry – half",         default: quarter, why: "the delay's mix; feedback a few repeats"}
+  - {block: fx,      param: chorus,    range: "off – lush",         default: light}
+
+listening:
+  cue: "A bright 'tk' that goes dull at once, then echoes in dotted-eighths against the beat so one note becomes a pattern. Each repeat is a little duller and wider than the last."
+  ab: "Raise the filter envelope sustain to full: no pluck, a plain saw. Put it back. Then unsync the delay: the repeats fall between the beats and the pattern stops being a pattern."
+
+render:
+  tempo: 100
+  note: [A3, C4, E4, A4, E4, C4, A3, C4]
+  velocity: 100
+  pattern: "eighth notes, one bar, an arpeggio up and down; the delay runs on after"
+  length_s: 5.0
+
+mappings: {}

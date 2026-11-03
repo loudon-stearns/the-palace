@@ -1,0 +1,77 @@
+# Synth Templates — card — Hoover Bass
+# A detuned saw stack with a pitch sweep settling into the note, a pulse underneath, chorus on top. The hoover, low.
+schema: synth-template-card/0.2
+id: hoover-bass
+name: Hoover Bass
+family: Bass
+tier: 2
+mode: mono
+classics: Mentasm / Alpha Juno
+status: drafted
+concepts:
+  - "Envelope → pitch (attack blip)"
+  - "Unison / unisono"
+  - "Pulse width, static and modulated"
+  - "Chorus: multiple delays, own LFOs, no feedback"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: saw, octave: 0, unison: 3, detune: wide, note: "the stack"}
+    osc2:    {kind: oscillator, wave: pulse, pw: 0.3, octave: -1, note: "the Juno's PWM pulse under the saws; the voice does not play width modulation yet"}
+    mix:     {kind: mixer}
+    filter1: {kind: filter, type: lowpass, slope: 12, resonance: none}
+    amp:     {kind: amplifier, level: under unity}
+    fx:      {kind: fx, chain: [chorus]}
+    lfo1:    {kind: lfo, wave: triangle, rate: slow, sync: false}
+    menv:    {kind: envelope, role: pitch, shape: {a: instant, d: medium, s: zero, r: short}, category: percussive}
+    aenv:    {kind: envelope, role: amp,   shape: {a: fast, d: medium, s: held, r: medium}, category: sustaining}
+  audio:
+    - [osc1, mix]
+    - [osc2, mix]
+    - [mix, filter1]
+    - [filter1, amp]
+    - [amp, fx]
+    - [fx, out]
+  modulation:
+    - {from: menv, to: osc1.pitch, amount: about an octave, essential: true}
+    - {from: menv, to: osc2.pitch, amount: about an octave, essential: true}
+    - {from: lfo1, to: osc2.pw, amount: moderate, essential: false}
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: osc2.pitch, essential: true}
+    - {from: key,  to: menv.gate, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: osc1,    param: wave,    value: saw,              why: "every harmonic, so the detune beats everywhere"}
+  - {block: osc1,    param: unison,  value: 3 voices,         why: "the stack: the hoover is a crowd, not a voice"}
+  - {block: osc1,    param: detune,  value: wide,             why: "past chorus: a thick, seasick beating"}
+  - {block: osc2,    param: wave,    value: pulse,            why: "the Alpha Juno's pulse under the saws, an octave down: the weight"}
+  - {block: menv,    param: target,  value: pitch of both oscillators, why: "the whole stack sweeps together into the note"}
+  - {block: menv,    param: amount,  value: about an octave,  why: "a wide sweep settling down into pitch: the vacuum-cleaner wind-up"}
+  - {block: menv,    param: decay,   value: medium,           why: "slow enough to be a swoop, not a blip"}
+  - {block: filter1, param: cutoff,  value: bright,           why: "nearly open: the hoover is bright; the chorus does the smoothing"}
+  - {block: fx,      param: chain,   value: chorus,           why: "smears the stack wider still; without it the sweep is too clean"}
+  - {block: mode,    param: voices,  value: mono,             why: "the bass version: one note at a time"}
+
+taste:
+  - {block: menv,    param: amount,  range: "a fifth – two octaves",  default: about an octave}
+  - {block: menv,    param: decay,   range: "short – slow",           default: medium}
+  - {block: osc1,    param: detune,  range: "narrow – very wide",     default: wide}
+  - {block: osc2,    param: level,   range: "half – equal to osc1",   default: half}
+  - {block: lfo1,    param: depth,   range: "none – moderate",        default: moderate}
+  - {block: filter1, param: cutoff,  range: "mid – open",             default: bright}
+  - {block: fx,      param: chorus,  range: "light – lush",           default: lush}
+
+listening:
+  cue: "Every note swoops into pitch like a vacuum cleaner winding up, then sits as a thick, beating, chorused wall with a hollow pulse under it. Rave in one note."
+  ab: "Set the pitch envelope amount to none: the swoop is gone and it is a wide saw bass. Put it back, then set unison to 1 and chorus off: the same swoop on one thin saw, a siren rather than a hoover."
+
+render:
+  tempo: 135
+  note: [E1, E1, G1, A1]
+  velocity: 110
+  pattern: "one bar: a half note, a quarter, a quarter; each held full length"
+  length_s: 3.0
+
+mappings: {}

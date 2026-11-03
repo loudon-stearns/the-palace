@@ -1,0 +1,55 @@
+# Synth Templates — card — FM Two-Operator
+# Technique demonstration: the smallest FM there is. One sine wobbles the frequency of another, and the index is the only knob.
+schema: synth-template-card/0.2
+id: fm-two-operator
+name: FM Two-Operator
+family: Technique Demonstrations
+tier: 2
+mode: mono
+classics: ""
+status: drafted
+concepts:
+  - "FM: audio-rate modulation, algorithms"
+  - "Sine: no response to filtering; FM/additive building block"
+  - "Harmonic-series tuning table"
+
+graph:
+  blocks:
+    osc1: {kind: oscillator, wave: sine, octave: 0, note: "carrier: the one you hear"}
+    osc2: {kind: oscillator, wave: sine, ratio: "1:1", level: half, note: "modulator: its level is the index, how far it pushes the carrier's frequency"}
+    amp:  {kind: amplifier, level: under unity}
+    aenv: {kind: envelope, role: amp, shape: {a: fast, d: short, s: held, r: short}, category: sustaining}
+  audio:
+    - [osc2, osc1, fm]
+    - [osc1, amp]
+    - [amp, out]
+  modulation:
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: osc2.pitch, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: osc1, param: wave,    value: sine, why: "a sine does not respond to filtering, but it is the building block of FM: two of them make a whole spectrum"}
+  - {block: osc2, param: wave,    value: sine, why: "a sine modulator gives clean, predictable sidebands"}
+  - {block: osc2, param: routing, value: into osc1 fm, why: "modulator into the carrier's frequency, both at audio rate: the result is partials, not vibrato"}
+  - {block: osc2, param: ratio,   value: "1:1", why: "modulator at the carrier's frequency: sidebands fall on the harmonic series and the tone stays a note"}
+  - {block: osc2, param: level,   value: half, why: "the index: zero is a plain sine, more is more sidebands, more brightness"}
+
+taste:
+  - {block: osc2, param: level, range: "little – full", default: half, why: "the index sweep: from a sine to a buzz with no filter in the path"}
+  - {block: osc2, param: ratio, range: "1:1 – 1:3.5",   default: "1:1", why: "2:1 keeps it harmonic, hollower; 1:3.5 is inharmonic, a bell"}
+  - {block: aenv, param: release, range: "short – long", default: short}
+
+listening:
+  cue: "A sine that grows teeth as the index rises, with no filter anywhere. At 1:1 it brightens into something like a saw; at 2:1 it hollows; at a non-whole ratio it stops being a note and becomes a bell."
+  ab: "Set the modulator level to zero: a bare sine, the carrier alone. Bring it to full: the same two sines are now a complex, bright timbre. That whole spectrum came from the index."
+
+render:
+  tempo: 100
+  note: C3
+  velocity: 90
+  pattern: "three held notes, two seconds each, index swept from little to full in each: ratio 1:1, 2:1, 1:3.5"
+  length_s: 7.0
+
+mappings: {}

@@ -1,0 +1,67 @@
+# Synth Templates — card 0.2 — FM Percussion
+# Two sines in a ratio that is not a whole number: the sidebands land between the harmonics and the tone is metal, not a note. A very short decay keeps it a hit.
+schema: synth-template-card/0.2
+id: fm-percussion
+name: FM Percussion
+family: Drums and Percussion
+tier: 2
+mode: mono
+classics: ""
+status: drafted
+concepts:
+  - "FM: audio-rate modulation, algorithms"
+  - "Sine: no response to filtering; FM/additive building block"
+  - "Harmonic-series tuning table"
+  - "Pluck / strike: release = decay; gong vs marimba"
+  - "Envelope trigger / one-shot mode"
+
+graph:
+  blocks:
+    osc1: {kind: oscillator, wave: sine, octave: 0, retrigger: true, note: "carrier"}
+    osc2: {kind: oscillator, wave: sine, ratio: "1.4:1", level: full, retrigger: true, note: "modulator; its level is the index"}
+    amp:  {kind: amplifier, level: full}
+    menv: {kind: envelope, role: index, shape: {a: instant, d: fast, s: zero, r: fast}, category: percussive, one_shot: true}
+    aenv: {kind: envelope, role: amp,   shape: {a: instant, d: short, s: zero, r: same as decay}, category: percussive, one_shot: true}
+  audio:
+    - [osc2, osc1, fm]
+    - [osc1, amp]
+    - [amp, out]
+  modulation:
+    - {from: menv, to: osc2.level, amount: full, essential: true}
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: vel,  to: menv.amount, amount: generous, essential: false}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: osc2.pitch, essential: true}
+    - {from: key,  to: menv.gate, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: osc1, param: wave,    value: sine,          why: "one partial to start; FM makes the rest"}
+  - {block: osc2, param: wave,    value: sine}
+  - {block: osc2, param: ratio,   value: "1.4:1",       why: "not a whole number: the sidebands fall between the harmonics and no pitch wins, which is what metal sounds like"}
+  - {block: osc2, param: routing, value: into osc1 fm,  why: "modulator into the carrier's frequency: FM, not a mix"}
+  - {block: osc2, param: level,   value: full,          why: "a deep index: many sidebands, a dense clang"}
+  - {block: menv, param: decay,   value: fast,          why: "the clang collapses to the carrier sine in a few milliseconds: the hit is bright, the tail is not"}
+  - {block: aenv, param: decay,   value: short,         why: "very short: a hit, not a bell"}
+  - {block: aenv, param: sustain, value: zero}
+  - {block: aenv, param: mode,    value: one-shot}
+
+taste:
+  - {block: osc2, param: ratio,   range: "1.4:1 – 3.7:1",       default: "1.4:1", why: "any ratio that is not a whole number; each is a different metal"}
+  - {block: menv, param: decay,   range: "instant – short",     default: fast,  why: "longer is a bell"}
+  - {block: aenv, param: decay,   range: "fast – medium",       default: short}
+  - {block: menv, param: amount,  range: "moderate – full",     default: full}
+  - {block: osc1, param: pitch,   range: "C3 – C5",             default: C4}
+
+listening:
+  cue: "A metallic tick that cannot decide what note it is. The first instant is a clang; by the end it is nearly a sine."
+  ab: "Set the ratio to 2:1: the same hit becomes a clean pitched blip, a marimba. Back to 1.4:1 and it is metal. Then set the index envelope decay to medium: a bell."
+
+render:
+  tempo: 120
+  note: [C4, C4, G4, C4]
+  velocity: [100, 70, 120, 70]
+  pattern: "four hits, quarters, one bar; the third accented"
+  length_s: 2.0
+
+mappings: {}

@@ -1,0 +1,58 @@
+# Synth Templates — card — Comb Filter
+# Technique demonstration: a signal mixed with a delayed copy of itself. A short delay is a filter; move the delay and it flanges.
+schema: synth-template-card/0.2
+id: comb-filter
+name: Comb Filter
+family: Technique Demonstrations
+tier: 2
+mode: mono
+classics: ""
+status: drafted
+concepts:
+  - "Comb filter: a short delay is a filter"
+  - "Comb filter: delay time and frequency are reciprocals"
+  - "Flanger: comb in motion with feedback"
+  - "Comb filtering for thinning a rich source"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: saw, octave: 0}
+    filter1: {kind: filter, type: comb, resonance: moderate, note: "a short delay mixed with the dry signal. Its cutoff is the delay time read as a frequency: 1 ms is 1 kHz. Resonance is the delay's feedback. The voice draws a comb but does not play one"}
+    amp:     {kind: amplifier, level: under unity}
+    lfo1:    {kind: lfo, wave: triangle, rate: very slow, sync: false, note: "the sweep of the delay time; with feedback, this is a flanger"}
+    aenv:    {kind: envelope, role: amp, shape: {a: fast, d: short, s: held, r: short}, category: sustaining}
+  audio:
+    - [osc1, filter1]
+    - [filter1, amp]
+    - [amp, out]
+  modulation:
+    - {from: lfo1, to: filter1.cutoff, amount: moderate, essential: true}
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: osc1,    param: wave,      value: saw,  why: "a rich source: the comb's notches need harmonics to fall on, and it is most obvious on bright or noisy material"}
+  - {block: filter1, param: type,      value: comb, why: "evenly spaced notches in a harmonic series: the shape of a signal added to its own echo"}
+  - {block: filter1, param: cutoff,    value: mid,  why: "the delay time, said as a pitch: shorter delay, higher comb"}
+  - {block: filter1, param: resonance, value: moderate, why: "feedback: more repeats, deeper and narrower teeth, and the comb starts to ring at its own note"}
+  - {block: lfo1,    param: target,    value: delay time, why: "a comb in motion is a flanger: the teeth slide up and down the spectrum"}
+
+taste:
+  - {block: filter1, param: cutoff,    range: "dark – bright", default: mid, why: "the hand sweep of the delay time"}
+  - {block: filter1, param: resonance, range: "none – high",   default: moderate, why: "none is a single echo, a gentle thinning; high is metallic and sings a note set by the delay"}
+  - {block: lfo1,    param: depth,     range: "none – full",   default: moderate}
+  - {block: lfo1,    param: rate,      range: "very slow – slow", default: very slow}
+
+listening:
+  cue: "A saw with a hollow, phasey colour, thinner than the raw wave but with its top end intact. Sweep the delay and the colour swooshes up and down: the sound of walking toward a wall while hissing."
+  ab: "Set the LFO depth to none and the feedback to none: one short echo, a fixed thinning you might not notice until it is removed. Take the comb out entirely: the raw saw, fuller and duller than you remembered."
+
+render:
+  tempo: 100
+  note: C3
+  velocity: 90
+  pattern: "one note held six seconds: three with the delay swept by hand, three by the LFO"
+  length_s: 7.0
+
+mappings: {}

@@ -1,0 +1,71 @@
+# Synth Templates — card 0.2 — Chord Stab
+# The chord as one sound: two waves, a lowpass, and an amp envelope short enough that the chord is a hit, not a hold.
+schema: synth-template-card/0.2
+id: chord-stab
+name: Chord Stab
+family: Keys and Mallets
+tier: 1
+mode: poly
+classics: house / garage
+status: drafted
+concepts:
+  - "Subtractive: rich wave then filter"
+  - "Unison / unisono"
+  - "Combining waveforms: square + saw octave up (zipper)"
+  - "Envelope → filter cutoff (bite; auto-wah with long attack)"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: saw, octave: 0, unison: 2, detune: narrow}
+    osc2:    {kind: oscillator, wave: square, octave: -1, level: half, note: "the hollow weight under the saw"}
+    mix:     {kind: mixer}
+    filter1: {kind: filter, type: lowpass, slope: 24, resonance: little}
+    amp:     {kind: amplifier, level: under unity}
+    fenv:    {kind: envelope, role: filter, shape: {a: instant, d: short, s: low,  r: short}, category: percussive}
+    aenv:    {kind: envelope, role: amp,    shape: {a: instant, d: short, s: zero, r: short}, category: percussive}
+  audio:
+    - [osc1, mix]
+    - [osc2, mix]
+    - [mix, filter1]
+    - [filter1, amp]
+    - [amp, out]
+  modulation:
+    - {from: fenv, to: filter1.cutoff, amount: moderate, essential: true}
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: vel,  to: amp.level, amount: some, essential: false}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: osc2.pitch, essential: true}
+    - {from: key,  to: fenv.gate, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: mode,    param: voices,  value: poly,          why: "a stab is a chord played as one sound; every note needs its own voice"}
+  - {block: osc1,    param: wave,    value: saw,           why: "the bright top of the chord"}
+  - {block: osc1,    param: unison,  value: 2 voices,      why: "a little width so the chord is not a thin line"}
+  - {block: osc2,    param: wave,    value: square,        why: "the octave-down square fills the hollow under the saws"}
+  - {block: filter1, param: type,    value: lowpass 24 dB}
+  - {block: filter1, param: cutoff,  value: mid,           why: "half open; the envelope opens the rest on the hit"}
+  - {block: aenv,    param: attack,  value: instant,       why: "a stab lands; it does not arrive"}
+  - {block: aenv,    param: decay,   value: short,         why: "the chord is gone before the next hit; the gap is the groove"}
+  - {block: aenv,    param: sustain, value: zero,          why: "holding the key changes nothing"}
+
+taste:
+  - {block: osc1,    param: detune,  range: "slight – wide",         default: narrow}
+  - {block: osc2,    param: level,   range: "off – equal to osc1",   default: half}
+  - {block: filter1, param: cutoff,  range: "mid – bright",          default: mid}
+  - {block: fenv,    param: amount,  range: "little – generous",     default: moderate}
+  - {block: aenv,    param: decay,   range: "short – medium",        default: short, why: "longer and it is a chord, not a stab"}
+  - {block: aenv,    param: release, range: "fast – short",          default: short}
+
+listening:
+  cue: "One hit with four notes in it. The chord opens bright and is gone before you can hear the separate notes; the rests between hits are part of the sound."
+  ab: "Raise the amp sustain to held: the stabs smear into one sustained chord and the groove is gone. Put it back to zero and the hits return."
+
+render:
+  tempo: 124
+  note: [C3, Eb3, G3, Bb3]
+  velocity: 110
+  pattern: "the chord on the offbeat eighths, one bar: rest hit rest hit rest hit rest hit, each a 16th long"
+  length_s: 2.5
+
+mappings: {}

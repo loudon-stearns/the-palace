@@ -1,0 +1,76 @@
+# Synth Templates — Genre Classics — Mellotron Choir
+# A tape instrument imitated: a vowel from a fixed bandpass, flutter from a random LFO, a tape-head swell at the attack. Every key is its own tape.
+schema: synth-template-card/0.2
+id: mellotron-choir
+name: Mellotron Choir
+family: Genre Classics
+tier: 2
+mode: poly
+classics: Mellotron
+status: drafted
+concepts:
+  - "Unison / unisono"
+  - "LFO → pitch / amplitude / pan / filter"
+  - "Retrigger vs free; chords with staggered attacks"
+  - "Serial: source and resonator (keytracked vs fixed)"
+  - "Low-pass, high-pass, band-pass, notch"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: saw, octave: 0, unison: 3, detune: narrow, note: "three voices a little apart: a section, not a soloist"}
+    osc2:    {kind: oscillator, wave: pulse, pw: 0.3, octave: 0, level: half, note: "a narrow pulse for the vocal nasal edge"}
+    mix:     {kind: mixer}
+    filter1: {kind: filter, type: lowpass, slope: 12, resonance: none, note: "keytracked: the basic darkness of a voice"}
+    filter2: {kind: filter, type: bandpass, slope: 12, resonance: moderate, note: "fixed, not keytracked: the vowel, the same on every key, like a throat"}
+    amp:     {kind: amplifier, level: under unity}
+    aenv:    {kind: envelope, role: amp, shape: {a: short, d: medium, s: held, r: short}, category: sustaining, note: "each tape is eight seconds long; the voice cannot stop the note at 8 s"}
+    lfo1:    {kind: lfo, wave: random, rate: fast, sync: false, note: "flutter: the voice cannot play a random LFO yet; a triangle is the stand-in"}
+  audio:
+    - [osc1, mix]
+    - [osc2, mix]
+    - [mix, filter1]
+    - [filter1, filter2]
+    - [filter2, amp]
+    - [amp, out]
+  modulation:
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: lfo1, to: osc1.pitch, amount: little, essential: true}
+    - {from: lfo1, to: osc2.pitch, amount: little, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: osc2.pitch, essential: true}
+    - {from: key,  to: filter1.cutoff, amount: some, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: mode,    param: voices,    value: poly,           why: "a choir: chords, each key starting its own tape when it is pressed"}
+  - {block: osc1,    param: unison,    value: 3 voices,       why: "a section of singers, not one"}
+  - {block: filter2, param: type,      value: bandpass 12 dB, why: "a fixed resonant band is a vowel; it does not move with the key, as a throat does not"}
+  - {block: filter2, param: cutoff,    value: mid,            why: "the 'ah' region"}
+  - {block: filter2, param: resonance, value: moderate,       why: "narrow enough to be a vowel, wide enough to let the chord through"}
+  - {block: filter1, param: keytrack,  value: "on",           why: "the lowpass follows the key, the bandpass does not: source and resonator"}
+  - {block: lfo1,    param: wave,      value: random,         why: "tape flutter is not periodic; a sine here is a vibrato and wrong"}
+  - {block: lfo1,    param: depth,     value: little,         why: "a tape, not a drunk"}
+  - {block: aenv,    param: attack,    value: short,          why: "the tape reaches the head: a small swell, not a hit"}
+  - {block: aenv,    param: release,   value: short,          why: "the key up pulls the tape away; the note stops fast"}
+
+taste:
+  - {block: osc1,    param: detune,    range: "slight – wide",       default: narrow}
+  - {block: osc2,    param: level,     range: "off – half",          default: half}
+  - {block: filter2, param: cutoff,    range: "dark – bright",       default: mid, why: "the vowel: dark is 'oo', bright is 'ee'"}
+  - {block: filter2, param: resonance, range: "little – high",       default: moderate}
+  - {block: lfo1,    param: depth,     range: "none – some",         default: little}
+  - {block: lfo1,    param: rate,      range: "medium – very fast",  default: fast}
+  - {block: aenv,    param: attack,    range: "fast – medium",       default: short}
+
+listening:
+  cue: "A choir on worn tape: an 'ah' that stays the same vowel on every note, wavering slightly and never quite still. Each key swells in on its own, so a staggered chord blooms one voice at a time."
+  ab: "Set the bandpass filter to keytrack with the key: the vowel changes on every note and the chord stops sounding like one choir. Put it back. Then set the LFO depth to none: the tape stops wavering and it becomes a clean string synth."
+
+render:
+  tempo: 72
+  note: [G3, B3, D4, G4]
+  velocity: 85
+  pattern: "the chord held three bars, its notes entering one after another a sixteenth apart"
+  length_s: 8.0
+
+mappings: {}

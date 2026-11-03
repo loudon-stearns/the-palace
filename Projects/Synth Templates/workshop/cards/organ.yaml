@@ -1,0 +1,74 @@
+# Synth Templates — card 0.2 — Organ
+# Additive by drawbars: three sines in a harmonic series, switch envelopes, no filter. Bring a bar in and a harmonic appears.
+schema: synth-template-card/0.2
+id: organ
+name: Organ
+family: Keys and Mallets
+tier: 2
+mode: poly
+classics: Hammond
+status: drafted
+concepts:
+  - "Additive: sines in a harmonic series"
+  - "Switch envelope (organ); percussive organ"
+  - "Sine: no response to filtering; FM/additive building block"
+  - "Vibrato: ~5 Hz, under a semitone; dedicated vibrato LFO"
+
+graph:
+  blocks:
+    osc1: {kind: oscillator, wave: sine, octave: 0, note: "the 8' bar: the pitch you play"}
+    osc2: {kind: oscillator, wave: sine, octave: 1, level: half, note: "the 4' bar; the 2 2/3' bar (a twelfth up) has no slot on this sheet"}
+    sub:  {kind: oscillator, wave: sine, octave: -1, level: half, note: "the 16' bar"}
+    mix:  {kind: mixer}
+    amp:  {kind: amplifier, level: under unity}
+    fx:   {kind: fx, chain: [chorus], note: "the rotary speaker, approximated as chorus"}
+    aenv: {kind: envelope, role: amp, shape: {a: instant, d: instant, s: full, r: instant}, category: organ}
+    lfo1: {kind: lfo, wave: sine, rate: medium, sync: false, note: "the vibrato scanner"}
+  audio:
+    - [osc1, mix]
+    - [osc2, mix]
+    - [sub, mix]
+    - [mix, amp]
+    - [amp, fx]
+    - [fx, out]
+  modulation:
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: lfo1, to: osc1.pitch, amount: little, essential: false}
+    - {from: lfo1, to: osc2.pitch, amount: little, essential: false}
+    - {from: lfo1, to: sub.pitch,  amount: little, essential: false}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: osc2.pitch, essential: true}
+    - {from: key,  to: sub.pitch,  essential: true}
+    - {from: key,  to: aenv.gate,  essential: true}
+
+essentials:
+  - {block: osc1, param: wave,    value: sine,    why: "a drawbar is one sine; the organ's timbre is only which bars are out and how far"}
+  - {block: osc2, param: wave,    value: sine}
+  - {block: sub,  param: wave,    value: sine}
+  - {block: sub,  param: octave,  value: -1,      why: "the 16' bar: the harmonic series extends down as well as up"}
+  - {block: osc2, param: octave,  value: +1,      why: "the 4' bar: the second harmonic, pulled in as its own sine, not filtered out of a richer wave"}
+  - {block: aenv, param: attack,  value: instant, why: "a switch: the tonewheel is already spinning, the key only connects it"}
+  - {block: aenv, param: sustain, value: full,    why: "nothing decays; the note is the same at the end as at the start"}
+  - {block: aenv, param: release, value: instant, why: "the key off is the switch off"}
+  - {block: mode, param: voices,  value: poly,    why: "every key is its own switch; chords are the instrument"}
+
+taste:
+  - {block: sub,  param: level,  range: "off – equal to osc1",  default: half, why: "the 16' bar out or in"}
+  - {block: osc2, param: level,  range: "off – equal to osc1",  default: half, why: "the 4' bar out or in"}
+  - {block: lfo1, param: depth,  range: "none – little",        default: little, why: "none is the vibrato off"}
+  - {block: lfo1, param: rate,   range: "medium – fast",        default: medium}
+  - {block: fx,   param: chorus, range: "off – lush",           default: light, why: "the rotary's slow and fast"}
+  - {block: aenv, param: sustain, range: "under unity – full",  default: full, why: "under unity with a short decay is the percussive organ: a little bite on the front"}
+
+listening:
+  cue: "Flat and instant: the note is at full volume the moment the key goes down and gone the moment it comes up, with no attack and no tail. Pull a bar in and a new harmonic simply appears; nothing is filtered."
+  ab: "Mute the 4' and 16' bars: a lone sine, a flute with no character. Bring them back and the organ returns. Then set the amp attack to slow: it stops being a switch and becomes a pad."
+
+render:
+  tempo: 100
+  note: [C3, E3, G3, Bb3]
+  velocity: 100
+  pattern: "the chord as four staccato quarter notes, then held a bar and cut off"
+  length_s: 5.0
+
+mappings: {}

@@ -1,0 +1,58 @@
+# Synth Templates — card — Velocity → Amplitude and Filter
+# The two default velocity routings on a plain saw: hit harder and the note is louder and brighter, both at once.
+schema: synth-template-card/0.2
+id: velocity-amplitude-and-filter
+name: Velocity → Amplitude and Filter
+family: Performance Controls
+tier: 1
+mode: poly
+classics: ""
+status: drafted
+concepts:
+  - "Velocity → amplitude; velocity → filter cutoff"
+  - "Subtractive: rich wave then filter"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: saw, octave: 0}
+    filter1: {kind: filter, type: lowpass, slope: 24, resonance: little}
+    amp:     {kind: amplifier, level: under unity}
+    aenv:    {kind: envelope, role: amp, shape: {a: fast, d: medium, s: held, r: short}, category: sustaining}
+  audio:
+    - [osc1, filter1]
+    - [filter1, amp]
+    - [amp, out]
+  modulation:
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: vel,  to: amp.level, amount: moderate, essential: true}
+    - {from: vel,  to: filter1.cutoff, amount: moderate, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: osc1,    param: wave,   value: saw,          why: "every harmonic there, so the filter has something to open onto"}
+  - {block: filter1, param: cutoff, value: dark,         why: "closed at rest; a soft note stays dull, and velocity is what opens it"}
+  - {block: vel,     param: target, value: amp level,    why: "the first default: an accented note is louder"}
+  - {block: vel,     param: target, value: filter cutoff, why: "the second default: an accented note is brighter; loudness alone does not sound like effort"}
+  - {block: aenv,    param: sustain, value: held,        why: "a plain sustaining shape, so nothing but velocity changes between notes"}
+  - {block: mode,    param: voices, value: poly}
+
+taste:
+  - {block: amp,     param: vel amount, range: "little – full",     default: moderate, why: "to the amplifier: how much louder a hard note is"}
+  - {block: filter1, param: vel amount, range: "little – generous", default: moderate, why: "to the cutoff: how much brighter a hard note is"}
+  - {block: filter1, param: cutoff, range: "dark – mid",         default: dark}
+  - {block: filter1, param: resonance, range: "none – moderate", default: little}
+  - {block: aenv,    param: release, range: "short – medium",    default: short}
+
+listening:
+  cue: "The same note played soft, then hard. The soft one is quiet and muffled; the hard one is louder and opens up, with more top. Loud and bright arrive together, like a struck instrument."
+  ab: "Take velocity off the cutoff: hard notes are still louder but stay just as dull, and the playing goes flat. Put it back and the accents light up again."
+
+render:
+  tempo: 100
+  note: [C3, C3, C3, C3]
+  velocity: [40, 70, 100, 127]
+  pattern: "four quarter notes, each harder than the last"
+  length_s: 3.0
+
+mappings: {}

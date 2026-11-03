@@ -1,0 +1,59 @@
+# Synth Templates — card 0.2 — Tempo-Synced Filter LFO
+# The LFO in sync mode: its rate is a note value, not a frequency. Eighths lock to the grid; triplets stay in time and loosen it.
+schema: synth-template-card/0.2
+id: tempo-synced-filter-lfo
+name: Tempo-Synced Filter LFO
+family: LFO Behaviours
+tier: 1
+mode: mono
+classics: ""
+status: drafted
+concepts:
+  - "Tempo sync; triplets"
+  - "LFO → pitch / amplitude / pan / filter"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: saw, octave: 0}
+    filter1: {kind: filter, type: lowpass, slope: 24, resonance: moderate}
+    amp:     {kind: amplifier, level: under unity}
+    aenv:    {kind: envelope, role: amp, shape: {a: fast, d: medium, s: held, r: short}, category: sustaining}
+    lfo1:    {kind: lfo, wave: triangle, rate: medium, sync: true, retrigger: true, note: "rate is a note value when synced: 1/8, then 1/8 triplet. The vocabulary has no subdivision words; 'medium' stands in at this tempo"}
+  audio:
+    - [osc1, filter1]
+    - [filter1, amp]
+    - [amp, out]
+  modulation:
+    - {from: lfo1, to: filter1.cutoff, amount: moderate, essential: true}
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: lfo1,    param: sync,      value: "on",      why: "the rate becomes a note value and follows the song tempo; change the tempo and the pulse follows"}
+  - {block: lfo1,    param: rate,      value: 1/8,       why: "one filter pulse per eighth note; then 1/8 triplet, which keeps time but loses the rigid grid"}
+  - {block: lfo1,    param: retrigger, value: "on",      why: "the LFO starts at note-on so the pulse lines up with the note; hit the note off the beat and the pulse is off the beat too"}
+  - {block: lfo1,    param: target,    value: filter cutoff, why: "a filter pulse is the usual rhythmic use; on pitch it would be a trill"}
+  - {block: filter1, param: resonance, value: moderate,  why: "a peak the sweep can carry, so the rhythm is audible as a wah"}
+  - {block: filter1, param: cutoff,    value: dark,      why: "closed at rest; the LFO opens it on its way up"}
+  - {block: mode,    param: voices,    value: mono}
+
+taste:
+  - {block: lfo1,    param: depth,     range: "some – generous",  default: moderate, why: "how wide the wah opens"}
+  - {block: lfo1,    param: wave,      range: "triangle – square", default: triangle, why: "triangle sweeps, square gates"}
+  - {block: filter1, param: cutoff,    range: "dark – mid",       default: dark}
+  - {block: filter1, param: resonance, range: "little – high",    default: moderate}
+  - {block: aenv,    param: release,   range: "short – medium",   default: short}
+
+listening:
+  cue: "A held note whose brightness pulses in time with the song, once per eighth, like a hand on a wah pedal that has learned the tempo. In triplets it still fits the bar but rolls against the straight eighths."
+  ab: "Turn sync off and leave the rate where it is: the pulse keeps a steady speed but drifts against the beat within a bar. Turn sync on and it locks again. Then switch 1/8 to 1/8 triplet: same lock, looser feel."
+
+render:
+  tempo: 120
+  note: C2
+  velocity: 100
+  pattern: "one note held two bars at 1/8, then two bars at 1/8 triplet, over a straight-eighth count"
+  length_s: 8.0
+
+mappings: {}

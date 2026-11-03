@@ -1,0 +1,55 @@
+# Synth Templates — card 0.2 — Fast LFO into Audio Range
+# One sine, one LFO on its pitch. Turn the rate up: vibrato, then a flutter, then a buzz, then a new timbre. The LFO was an oscillator all along.
+schema: synth-template-card/0.2
+id: fast-lfo-into-audio-range
+name: Fast LFO into Audio Range
+family: LFO Behaviours
+tier: 2
+mode: mono
+classics: ""
+status: drafted
+concepts:
+  - "LFO rate range vs oscillator; LFO into audio rate"
+  - "Vibrato: ~5 Hz, under a semitone; dedicated vibrato LFO"
+  - "FM: audio-rate modulation, algorithms"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: sine, octave: 0, note: "a sine, so what the fast LFO adds is heard as sidebands, not lost in harmonics"}
+    amp:     {kind: amplifier, level: under unity}
+    aenv:    {kind: envelope, role: amp, shape: {a: fast, d: medium, s: held, r: short}, category: sustaining}
+    lfo1:    {kind: lfo, wave: sine, rate: medium, sync: false, retrigger: true, note: "the lesson sweeps the rate from 5 Hz up past 20 Hz; the rate table stops at very fast (12 Hz), so the top of the sweep is beyond the vocabulary"}
+  audio:
+    - [osc1, amp]
+    - [amp, out]
+  modulation:
+    - {from: lfo1, to: osc1.pitch, amount: moderate, essential: true}
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: lfo1, param: target, value: oscillator pitch, why: "pitch, so the change from motion to tone is plain: at audio rate this is FM"}
+  - {block: lfo1, param: rate,   value: "swept, medium to past very fast", why: "an LFO runs under about 20 Hz and an oscillator above; the sweep crosses that line and the ear stops hearing movement and starts hearing a sound"}
+  - {block: lfo1, param: wave,   value: sine,   why: "a sine LFO at audio rate gives clean sidebands; a square would give a noisy trill"}
+  - {block: lfo1, param: depth,  value: moderate, why: "deeper than vibrato, so the sidebands have something to be made of"}
+  - {block: osc1, param: wave,   value: sine,   why: "one partial, so every new partial you hear came from the LFO"}
+  - {block: mode, param: voices, value: mono}
+
+taste:
+  - {block: lfo1, param: rate,    range: "medium – very fast", default: medium, why: "the sweep; the card wants it to continue past the top word"}
+  - {block: lfo1, param: depth,   range: "little – generous",  default: moderate, why: "at audio rate this is the FM index"}
+  - {block: aenv, param: release, range: "short – medium",    default: short}
+
+listening:
+  cue: "At five a second it is vibrato. Past ten it is a flutter you can no longer count. Past twenty the flutter closes into a buzz and the note has a new colour, with extra tones above and below it."
+  ab: "Pin the rate at medium: it is plain vibrato and nothing else, however deep. Sweep it up again and the vibrato turns into timbre; the knob did not change what it does, only how fast."
+
+render:
+  tempo: 100
+  note: A3
+  velocity: 100
+  pattern: "one note held four bars while the LFO rate rises steadily from 5 Hz to above 20 Hz"
+  length_s: 10.0
+
+mappings: {}

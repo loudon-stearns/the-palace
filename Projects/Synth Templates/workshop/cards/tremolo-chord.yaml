@@ -1,0 +1,71 @@
+# Synth Templates — card 0.1 — Tremolo Chord
+# Rhythmic and Sequenced, tier 1: a held chord with a fast triangle LFO on the amplifier. Level in motion, not pitch.
+schema: synth-template-card/0.2
+id: tremolo-chord
+name: Tremolo Chord
+family: Rhythmic and Sequenced
+tier: 1
+mode: poly
+classics: ""
+status: drafted
+concepts:
+  - "LFO → pitch / amplitude / pan / filter"
+  - "Vibrato: ~5 Hz, under a semitone; dedicated vibrato LFO"
+  - "Retrigger vs free; chords with staggered attacks"
+  - "Standard sustaining envelope; strings and horns variants"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: triangle, octave: 0}
+    osc2:    {kind: oscillator, wave: sine, octave: 1, level: low, note: "a little shine over the triangle"}
+    mix:     {kind: mixer}
+    filter1: {kind: filter, type: lowpass, slope: 12, resonance: none}
+    amp:     {kind: amplifier, level: under unity}
+    fx:      {kind: fx, chain: [reverb]}
+    aenv:    {kind: envelope, role: amp, shape: {a: short, d: medium, s: held, r: medium}, category: sustaining}
+    lfo1:    {kind: lfo, wave: triangle, rate: fast, sync: false, retrigger: false}
+  audio:
+    - [osc1, mix]
+    - [osc2, mix]
+    - [mix, filter1]
+    - [filter1, amp]
+    - [amp, fx]
+    - [fx, out]
+  modulation:
+    - {from: lfo1, to: amp.level, amount: moderate, essential: true}
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: osc2.pitch, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+    - {from: wheel, to: lfo1.depth, amount: full, essential: false}
+
+essentials:
+  - {block: mode,    param: voices,    value: poly,            why: "a chord; one voice is a tremolo lead"}
+  - {block: lfo1,    param: target,    value: amp level,       why: "tremolo is level in motion; pitch in motion is vibrato, a different sound"}
+  - {block: lfo1,    param: wave,      value: triangle,        why: "a smooth rise and fall; square is a gate, sine is close but softer at the turns"}
+  - {block: lfo1,    param: rate,      value: fast,            why: "around the speed of a natural vibrato, so it shimmers rather than pulses"}
+  - {block: lfo1,    param: depth,     value: moderate,        why: "the level dips, it never reaches silence; full depth is a gate"}
+  - {block: lfo1,    param: retrigger, value: free,            why: "one LFO for the whole chord, so the voices rise and fall together"}
+  - {block: osc1,    param: wave,      value: triangle,        why: "a soft, mostly-fundamental tone; the motion is the interest, not the harmonics"}
+  - {block: aenv,    param: sustain,   value: held,            why: "sustaining: the tremolo lives in the held part of the note"}
+
+taste:
+  - {block: lfo1,    param: rate,      range: "medium – very fast",  default: fast}
+  - {block: lfo1,    param: depth,     range: "little – generous",   default: moderate, why: "less is a shimmer, more is a stutter"}
+  - {block: filter1, param: cutoff,    range: "mid – bright",        default: bright}
+  - {block: osc2,    param: level,     range: "off – half",          default: low}
+  - {block: aenv,    param: attack,    range: "fast – medium",       default: short}
+  - {block: fx,      param: reverb,    range: "small – large",       default: small}
+
+listening:
+  cue: "A chord that wavers in loudness, several times a second, like a vibraphone's motor or an amp on tremolo. The pitch never moves; only the level does."
+  ab: "Move the LFO from amp level to oscillator pitch: the same rate becomes a vibrato, and the chord wobbles in tune instead of in loudness. Put it back on the amp. Then set depth to none: a plain, still chord."
+
+render:
+  tempo: 100
+  note: [D3, F#3, A3, C#4]
+  velocity: 85
+  pattern: "one major-seventh chord held two bars, then released"
+  length_s: 6.0
+
+mappings: {}

@@ -1,0 +1,68 @@
+# Synth Templates — card — Oboe
+# The nasal lesson: a narrow pulse already leans toward the nose; a fixed band-pass peak puts it there.
+schema: synth-template-card/0.2
+id: oboe
+name: Oboe
+family: Brass and Winds
+tier: 2
+mode: mono
+classics: ""
+status: drafted
+concepts:
+  - "Narrow pulse → nasal / vocal, with formant filter"
+  - "Pulse width, static and modulated"
+  - "Serial: source and resonator (keytracked vs fixed)"
+  - "Low-pass, high-pass, band-pass, notch"
+  - "Vibrato: ~5 Hz, under a semitone; dedicated vibrato LFO"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: pulse, pw: 0.15, octave: 0}
+    filter1: {kind: filter, type: lowpass, slope: 24, resonance: little}
+    filter2: {kind: filter, type: bandpass, slope: 12, resonance: moderate, note: "the formant: a fixed peak in the upper mids, around 1.5 kHz, not keytracked"}
+    amp:     {kind: amplifier, level: under unity}
+    aenv:    {kind: envelope, role: amp, shape: {a: short, d: medium, s: held, r: short}, category: sustaining}
+    lfo1:    {kind: lfo, wave: sine, rate: medium, sync: false}
+  audio:
+    - [osc1, filter1]
+    - [filter1, filter2]
+    - [filter2, amp]
+    - [amp, out]
+  modulation:
+    - {from: aenv,  to: amp.level, essential: true}
+    - {from: lfo1,  to: osc1.pitch, amount: little, essential: false}
+    - {from: wheel, to: lfo1.depth, amount: full, essential: false}
+    - {from: key,   to: osc1.pitch, essential: true}
+    - {from: key,   to: aenv.gate, essential: true}
+
+essentials:
+  - {block: osc1,    param: wave,      value: pulse,           why: "a square with the switch mostly down"}
+  - {block: osc1,    param: pw,        value: 0.15,            why: "narrow: the best start for nasal and vocal sounds; at half it is a clarinet"}
+  - {block: filter1, param: type,      value: lowpass 24 dB,   why: "keytracked, shaping the basic timbre; takes the buzz off the narrow pulse"}
+  - {block: filter2, param: type,      value: bandpass,        why: "the nose: a fixed boost in the upper mids whatever note is played, the way a reed's body has one shape"}
+  - {block: filter2, param: cutoff,    value: mid,             why: "the peak sits around 1.5 kHz and stays there; the pitch moves under it"}
+  - {block: filter2, param: resonance, value: moderate,        why: "narrow enough to be a peak, wide enough to pass the note"}
+  - {block: aenv,    param: attack,    value: short,           why: "a reed, not a hammer"}
+  - {block: aenv,    param: sustain,   value: held}
+  - {block: mode,    param: voices,    value: mono}
+
+taste:
+  - {block: osc1,    param: pw,        range: "0.1 – 0.3",        default: 0.15, why: "narrower is thinner and more nasal"}
+  - {block: filter2, param: cutoff,    range: "mid – bright",     default: mid,  why: "where the nose sits"}
+  - {block: filter2, param: resonance, range: "little – high",    default: moderate, why: "how much nose"}
+  - {block: filter1, param: cutoff,    range: "mid – bright",     default: bright}
+  - {block: lfo1,    param: depth,     range: "none – some",      default: little}
+  - {block: aenv,    param: release,   range: "short – medium",   default: short}
+
+listening:
+  cue: "Thin, reedy, and pinched in the nose: a tone that seems to come from the same spot in the mids whatever note is played. Low notes are buzzier, high notes thinner."
+  ab: "Turn the band-pass filter off: still reedy, but the nose is gone and it is a generic narrow pulse. Put it back and the oboe is in the room. Then open the pulse width to half: a clarinet."
+
+render:
+  tempo: 84
+  note: [A4, B4, C5, B4, A4]
+  velocity: 90
+  pattern: "a slow turn, one note per beat, the last held a bar with the wheel up"
+  length_s: 5.0
+
+mappings: {}

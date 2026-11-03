@@ -1,0 +1,57 @@
+# Synth Templates — card 0.2 — Pluck / Strike (Release = Decay)
+# Envelope Shapes family. The non-sustaining shape: energy arrives once, then the sound is left to die away. Sustain is
+# zero and release matches decay, so the note plays out the same whether the key is held or let go.
+schema: synth-template-card/0.2
+id: pluck-strike-release-decay
+name: Pluck / Strike (Release = Decay)
+family: Envelope Shapes
+tier: 1
+mode: poly
+classics: ""
+status: drafted
+concepts:
+  - "Sustaining vs non-sustaining sounds"
+  - "Pluck / strike: release = decay; gong vs marimba"
+  - "Envelope → amplitude"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: saw, octave: 0}
+    filter1: {kind: filter, type: lowpass, slope: 12, resonance: none, note: "open; the family's fixed chain"}
+    amp:     {kind: amplifier, level: under unity}
+    aenv:    {kind: envelope, role: amp, shape: {a: instant, d: medium, s: zero, r: same as decay}, category: plucked}
+  audio:
+    - [osc1, filter1]
+    - [filter1, amp]
+    - [amp, out]
+  modulation:
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: aenv, param: attack,  value: instant,       why: "a pluck or a strike puts the energy in all at once"}
+  - {block: aenv, param: sustain, value: zero,          why: "no energy is added after the strike, so there is no level to hold at. This is what makes it a non-sustaining sound"}
+  - {block: aenv, param: decay,   value: medium,        why: "how long the body rings; this one setting is the instrument's material"}
+  - {block: aenv, param: release, value: same as decay, why: "if the key comes up mid-decay the fall continues at the same rate, so letting go changes nothing"}
+  - {block: filter1, param: cutoff, value: open,        why: "the filter stays out of the way"}
+  - {block: mode, param: voices,  value: poly,          why: "struck notes ring over one another"}
+
+taste:
+  - {block: aenv,    param: decay,   range: "short – very long", default: medium, why: "marimba at one end, gong at the other"}
+  - {block: aenv,    param: release, range: "short – very long", default: same as decay, why: "keep it with the decay; move it only on purpose"}
+  - {block: osc1,    param: wave,    range: "saw – triangle",    default: saw}
+  - {block: filter1, param: cutoff,  range: "mid – open",        default: open}
+
+listening:
+  cue: "Each note starts at full and falls away on its own. Hold a key down and nothing is held: the note dies in the same time as a note you tapped. The length of the fall is the whole character."
+  ab: "Set the release to instant and tap a short note: it is cut off dead instead of ringing out, and the pluck is gone. Back to same as decay and tapped notes ring again. Then raise the sustain to half: the note stops dying and becomes a sustaining sound."
+
+render:
+  tempo: 100
+  note: [C3, E3, G3, C4]
+  velocity: 100
+  pattern: "four notes up the chord, each a 16th long, then the top note held a bar"
+  length_s: 4.0
+
+mappings: {}

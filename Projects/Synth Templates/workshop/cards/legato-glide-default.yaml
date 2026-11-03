@@ -1,0 +1,55 @@
+# Synth Templates — card — Legato Glide Default
+# Voices, Tuning and Retrigger family. Glide on, legato mode: tied notes slide, separated notes jump. The way to play a mono synth.
+schema: synth-template-card/0.2
+id: legato-glide-default
+name: Legato Glide Default
+family: Voices, Tuning and Retrigger
+tier: 1
+mode: mono legato
+classics:
+status: drafted
+concepts:
+  - "Glide / portamento time; legato mode as default"
+  - "Poly vs mono; max voices"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: saw, octave: 0, glide: legato, note: "glide on, legato mode, glide time medium"}
+    filter1: {kind: filter, type: lowpass, slope: 24, resonance: little}
+    amp:     {kind: amplifier, level: under unity}
+    aenv:    {kind: envelope, role: amp, shape: {a: fast, d: medium, s: held, r: short}, category: sustaining}
+  audio:
+    - [osc1, filter1]
+    - [filter1, amp]
+    - [amp, out]
+  modulation:
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: aenv.gate,  essential: true}
+
+essentials:
+  - {block: mode, param: voices, value: mono legato, why: "one note at a time; an overlapping note takes the pitch over without restarting the envelope"}
+  - {block: osc1, param: glide,  value: legato only, why: "only overlapping notes glide: the player chooses which notes slide and which jump, by how they play"}
+  - {block: osc1, param: glide time, value: medium,  why: "long enough to hear the slide, short enough to arrive before the next note"}
+  - {block: osc1, param: wave,   value: saw}
+  - {block: filter1, param: cutoff, value: mid,      why: "a plain lead, so the pitch is the thing heard"}
+  - {block: aenv, param: sustain, value: held,       why: "a tied note must still be sounding when the next arrives, or there is nothing to tie"}
+
+taste:
+  - {block: osc1,    param: glide,   range: "short – long",   default: medium, why: "the trombone's arm"}
+  - {block: filter1, param: cutoff,  range: "dark – bright",  default: mid}
+  - {block: aenv,    param: release, range: "short – medium", default: short, why: "a long release makes separated notes overlap, and then they glide too"}
+  - {block: aenv,    param: attack,  range: "instant – short", default: fast}
+
+listening:
+  cue: "A line where some notes slide into place and some land square. Nothing on the synth changed between them: the sliding notes were played before the last key was let go, the square ones after."
+  ab: "Switch glide from legato to always: every note slides, the line goes seasick and the player loses the choice. Back to legato and the mixture returns. Then turn glide off: everything jumps, and the line is a plain mono lead."
+
+render:
+  tempo: 110
+  note: [C3, G3, Eb3, C4, Bb3, G3]
+  velocity: 100
+  pattern: "eighth notes: note 2 tied to 1 (slide), note 3 separate (jump), 4 tied to 3, 5 separate, 6 tied to 5"
+  length_s: 4.0
+
+mappings: {}

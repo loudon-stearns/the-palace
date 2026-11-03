@@ -1,0 +1,68 @@
+# Synth Templates — card 0.2 — Flanger
+# Delay-family card 4: the comb filter put in motion. Short delay, feedback that sharpens the teeth, an LFO on the time.
+schema: synth-template-card/0.2
+id: flanger
+name: Flanger
+family: Delay-Family Effects
+tier: 1
+mode: mono
+classics: ""
+status: drafted
+concepts:
+  - "Delay time LFO modulation"
+  - "Flanger: comb in motion with feedback"
+  - "Comb filter: a short delay is a filter"
+  - "Noise for softness and high end"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: saw, octave: 0, level: full}
+    noise:   {kind: oscillator, wave: noise, level: half, note: "the noise is what makes the sweep obvious"}
+    mix:     {kind: mixer}
+    filter1: {kind: filter, type: lowpass, slope: 12, resonance: none}
+    amp:     {kind: amplifier, level: under unity}
+    fx:      {kind: fx, chain: [flanger], note: "a short delay with feedback, its time swept by lfo1; a stereo flanger runs the two sides apart"}
+    aenv:    {kind: envelope, role: amp, shape: {a: fast, d: medium, s: held, r: medium}, category: sustaining}
+    lfo1:    {kind: lfo, wave: triangle, rate: slow, sync: false}
+  audio:
+    - [osc1, mix]
+    - [noise, mix]
+    - [mix, filter1]
+    - [filter1, amp]
+    - [amp, fx]
+    - [fx, out]
+  modulation:
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: lfo1, to: fx.time, amount: moderate, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: osc1,    param: wave,     value: saw,           why: "bright and full; there must be sound up high for the comb to cut"}
+  - {block: filter1, param: cutoff,   value: open,          why: "a dark source hides the sweep; leave the top in"}
+  - {block: fx,      param: chain,    value: flanger}
+  - {block: fx,      param: time,     value: a few milliseconds, why: "short enough that the delay is a comb, not an echo"}
+  - {block: fx,      param: feedback, value: high,          why: "feedback narrows the peaks into a harmonic series with a pitch of its own: the metal in the flange"}
+  - {block: lfo1,    param: target,   value: delay time,    why: "the LFO raising and lowering the time is what moves the comb; without it this is the comb-filter card"}
+  - {block: lfo1,    param: rate,     value: slow,          why: "slow enough to hear the sweep go down and come back up"}
+  - {block: mode,    param: voices,   value: mono}
+
+taste:
+  - {block: lfo1,    param: rate,     range: "very slow – medium",   default: slow, why: "slow and deep sweeps; fast and shallow roughens"}
+  - {block: lfo1,    param: depth,    range: "little – full",        default: moderate}
+  - {block: fx,      param: feedback, range: "none – nearly full",   default: high}
+  - {block: fx,      param: mix,      range: "a whisper – equal",    default: equal}
+  - {block: noise,   param: level,    range: "off – full",           default: half}
+
+listening:
+  cue: "A jet passing over: the tone sweeps up through the sound and back down, and inside the sweep there is a pitch that is not the note you played. On the noise the sweep is plain; on the saw it is a whistle riding the harmonics."
+  ab: "Set the LFO depth to none: the comb stands still and the sweep is gone, a fixed hollow tone. Put it back. Then drop feedback to none: the sweep is still there but soft and wide, the metal gone with the harmonic series."
+
+render:
+  tempo: 100
+  note: C3
+  velocity: 100
+  pattern: "one note held four bars, enough for the LFO to make a full round trip twice"
+  length_s: 9.0
+
+mappings: {}

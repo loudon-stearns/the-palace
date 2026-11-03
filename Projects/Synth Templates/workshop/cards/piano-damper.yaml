@@ -1,0 +1,57 @@
+# Synth Templates — card 0.2 — Piano (Damper)
+# Envelope Shapes family. The strike shape with release at zero: the hammer starts the note, the string rings as it
+# decays, and letting go of the key drops a damper on it. Also the shape for electric guitar and bass.
+schema: synth-template-card/0.2
+id: piano-damper
+name: Piano (Damper)
+family: Envelope Shapes
+tier: 1
+mode: poly
+classics: ""
+status: drafted
+concepts:
+  - "Piano envelope: release 0 as damper"
+  - "Pluck / strike: release = decay; gong vs marimba"
+  - "Envelope → amplitude"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: saw, octave: 0}
+    filter1: {kind: filter, type: lowpass, slope: 12, resonance: none, note: "open; the family's fixed chain"}
+    amp:     {kind: amplifier, level: under unity}
+    aenv:    {kind: envelope, role: amp, shape: {a: instant, d: long, s: zero, r: instant}, category: piano}
+  audio:
+    - [osc1, filter1]
+    - [filter1, amp]
+    - [amp, out]
+  modulation:
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: aenv, param: attack,  value: instant, why: "the hammer strikes"}
+  - {block: aenv, param: sustain, value: zero,    why: "struck: the string only loses energy after the hit"}
+  - {block: aenv, param: decay,   value: long,    why: "a held key lets the string ring down on its own"}
+  - {block: aenv, param: release, value: instant, why: "the damper: the key comes up and the felt stops the string. The one difference from the pluck shape"}
+  - {block: filter1, param: cutoff, value: open,  why: "the filter stays out of the way"}
+  - {block: mode, param: voices,  value: poly,    why: "chords, each key with its own damper"}
+
+taste:
+  - {block: aenv,    param: decay,   range: "medium – very long", default: long, why: "how long a held note rings"}
+  - {block: aenv,    param: release, range: "instant – fast",     default: instant, why: "a touch above instant softens the damper's click"}
+  - {block: osc1,    param: wave,    range: "saw – triangle",     default: saw}
+  - {block: filter1, param: cutoff,  range: "mid – open",         default: open}
+
+listening:
+  cue: "Hold a key and the note rings down slowly. Let go and it stops at once, wherever it was in the fall. Short notes are short and long notes are long: the key length is the note length, as on a piano."
+  ab: "Set the release to same as decay: now a tapped note rings out on its own and the key no longer stops anything; it is the pluck shape. Back to instant and the damper returns."
+
+render:
+  tempo: 100
+  note: [C3, E3, G3]
+  velocity: 100
+  pattern: "the chord held a bar and released, then the chord as staccato eighths for a bar"
+  length_s: 5.0
+
+mappings: {}

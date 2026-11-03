@@ -1,0 +1,63 @@
+# Synth Templates — card 0.2 — Ocean Waves
+# Sound Effects, tier 1. Pink noise and two very slow LFOs: one swells the level, one opens the filter, so each wave is louder and brighter as it breaks.
+schema: synth-template-card/0.2
+id: ocean-waves
+name: Ocean Waves
+family: Sound Effects
+tier: 1
+mode: mono
+classics: ""
+status: drafted
+concepts:
+  - "Noise colors: white vs pink"
+  - "LFO → pitch / amplitude / pan / filter"
+  - "LFO rate range vs oscillator; LFO into audio rate"
+  - "Serial: dual notch pad with two unsynced LFOs"
+
+graph:
+  blocks:
+    noise:   {kind: oscillator, wave: noise, color: pink}
+    filter1: {kind: filter, type: lowpass, slope: 12, resonance: none}
+    amp:     {kind: amplifier, level: under unity}
+    aenv:    {kind: envelope, role: amp, shape: {a: slow, d: medium, s: held, r: very long}, category: pad}
+    lfo1:    {kind: lfo, wave: sine, rate: very slow, sync: false, note: "the wave: one swell every several seconds"}
+    lfo2:    {kind: lfo, wave: sine, rate: very slow, sync: false, note: "the same rate word, but free-running from a different phase, so the two drift apart"}
+  audio:
+    - [noise, filter1]
+    - [filter1, amp]
+    - [amp, out]
+  modulation:
+    - {from: lfo1, to: amp.level, amount: generous, essential: true}
+    - {from: lfo2, to: filter1.cutoff, amount: moderate, essential: true}
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: noise,   param: color,   value: pink,          why: "water is pink noise; white is steam"}
+  - {block: filter1, param: type,    value: lowpass 12 dB, why: "gentle: the breaking wave gets a little brighter, it does not get a new sound"}
+  - {block: lfo1,    param: wave,    value: sine,          why: "a wave swells and withdraws without a corner anywhere"}
+  - {block: lfo1,    param: rate,    value: very slow,     why: "as slow as the table goes: an LFO at the bottom of its range, seconds per cycle"}
+  - {block: lfo1,    param: target,  value: amp level,     why: "the swell"}
+  - {block: lfo2,    param: target,  value: filter cutoff, why: "the hiss opens as the wave breaks and closes as it draws back"}
+  - {block: aenv,    param: sustain, value: held,          why: "the sea does not stop while the key is down"}
+  - {block: aenv,    param: release, value: very long,     why: "it recedes, it does not end"}
+
+taste:
+  - {block: lfo1,    param: rate,    range: "very slow – slow",   default: very slow, why: "the gap between waves"}
+  - {block: lfo1,    param: depth,   range: "moderate – full",    default: generous, why: "how far it draws back between waves"}
+  - {block: lfo2,    param: depth,   range: "some – generous",    default: moderate}
+  - {block: filter1, param: cutoff,  range: "dark – bright",      default: mid}
+  - {block: aenv,    param: attack,  range: "slow – very long",   default: slow}
+
+listening:
+  cue: "A hush that swells over several seconds, brightens as it peaks and sinks back, then again. Because the two motions are not quite in step, no two waves are the same size."
+  ab: "Set the LFO rate to medium: the same motion becomes a flutter, and it is a helicopter, not the sea. Back to very slow and the waves return."
+
+render:
+  tempo: 60
+  note: C3
+  velocity: 90
+  pattern: "one note held, three or four waves, then released"
+  length_s: 20.0
+
+mappings: {}

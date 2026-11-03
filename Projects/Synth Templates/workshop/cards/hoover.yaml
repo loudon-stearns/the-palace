@@ -1,0 +1,76 @@
+# Synth Templates — card — Hoover
+# Detuned saws beside a pulse whose width moves, and a pitch envelope that drops into every note from above.
+schema: synth-template-card/0.2
+id: hoover
+name: Hoover
+family: Leads
+tier: 2
+mode: poly or mono
+classics: Alpha Juno 'What the'
+status: drafted
+concepts:
+  - "Envelope → pitch (attack blip)"
+  - "Unison / unisono"
+  - "Pulse width, static and modulated"
+  - "Chorus: multiple delays, own LFOs, no feedback"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: saw, octave: 0, unison: 3, detune: wide}
+    osc2:    {kind: oscillator, wave: pulse, pw: 0.5, octave: -1, note: "the pulse an octave down; its width is swept by the LFO (not yet in the voice)"}
+    mix:     {kind: mixer}
+    filter1: {kind: filter, type: lowpass, slope: 12, resonance: none}
+    amp:     {kind: amplifier, level: under unity}
+    fx:      {kind: fx, chain: [chorus]}
+    menv:    {kind: envelope, role: pitch, shape: {a: instant, d: medium, s: zero, r: short}, category: percussive}
+    aenv:    {kind: envelope, role: amp, shape: {a: fast, d: short, s: held, r: medium}, category: sustaining}
+    lfo1:    {kind: lfo, wave: triangle, rate: slow, sync: false}
+  audio:
+    - [osc1, mix]
+    - [osc2, mix]
+    - [mix, filter1]
+    - [filter1, amp]
+    - [amp, fx]
+    - [fx, out]
+  modulation:
+    - {from: menv, to: osc1.pitch, amount: about an octave, essential: true}
+    - {from: menv, to: osc2.pitch, amount: about an octave, essential: true}
+    - {from: lfo1, to: osc2.pw, amount: moderate, essential: true}
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: osc2.pitch, essential: true}
+    - {from: key,  to: menv.gate, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: osc1,  param: wave,     value: saw,              why: "the buzz; every harmonic present for the detune to beat in"}
+  - {block: osc1,  param: detune,   value: wide,             why: "the voices beat, not chorus; the smear is the hoover"}
+  - {block: osc2,  param: wave,     value: pulse,            why: "the hollow lower half, and a width to move"}
+  - {block: lfo1,  param: target,   value: osc2 pulse width, why: "a second kind of motion under the detune, so nothing in the tone holds still"}
+  - {block: menv,  param: target,   value: "pitch of both oscillators", why: "the whole stack drops into the note, not one voice of it"}
+  - {block: menv,  param: amount,   value: about an octave,  why: "starts an octave high and falls; the fall is the 'what the'"}
+  - {block: menv,  param: decay,    value: medium,           why: "slow enough to hear the fall as a swoop, not a blip"}
+  - {block: menv,  param: sustain,  value: zero,             why: "it lands on the note and stays there"}
+  - {block: fx,    param: chain,    value: chorus,           why: "the Juno chorus is the last layer of smear"}
+
+taste:
+  - {block: menv,    param: amount,   range: "a fifth – two octaves",  default: about an octave}
+  - {block: menv,    param: decay,    range: "short – long",           default: medium}
+  - {block: osc1,    param: detune,   range: "narrow – very wide",     default: wide}
+  - {block: osc2,    param: level,    range: "quarter – equal",        default: half}
+  - {block: filter1, param: cutoff,   range: "mid – open",             default: bright}
+  - {block: fx,      param: chorus,   range: "light – lush",           default: lush}
+  - {block: mode,    param: voices,   range: "mono – poly",            default: poly, why: "poly for the stabs, mono for the line"}
+
+listening:
+  cue: "Every note swoops down into itself from above, then sits there smeared and buzzing, with a slow churn underneath. Nothing about it holds still."
+  ab: "Set the pitch envelope amount to none: a detuned saw stack, thick but without the swoop, and it stops being a hoover. Put it back. Then set detune to none: the swoop is there but the body is clean and thin."
+
+render:
+  tempo: 140
+  note: [A3, C4, E4]
+  velocity: 110
+  pattern: "the chord stabbed twice as eighths, then held a bar"
+  length_s: 4.0
+
+mappings: {}

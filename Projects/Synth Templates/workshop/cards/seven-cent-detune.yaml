@@ -1,0 +1,62 @@
+# Synth Templates — card — Seven-Cent Detune
+# Voices, Tuning and Retrigger family. Two saws, one a few cents off the other: the slow beat that reads as chorus.
+schema: synth-template-card/0.2
+id: seven-cent-detune
+name: Seven-Cent Detune
+family: Voices, Tuning and Retrigger
+tier: 1
+mode: poly
+classics:
+status: drafted
+concepts:
+  - "Small detune (≤7 cents) = chorus"
+  - "Octave / semitone / fine tuning"
+  - "Waveforms: saw, square, triangle, sine, noise"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: saw, octave: 0}
+    osc2:    {kind: oscillator, wave: saw, octave: 0, detune: slight, note: "the same saw, seven cents sharp of osc1 on the fine-tune knob"}
+    mix:     {kind: mixer}
+    filter1: {kind: filter, type: lowpass, slope: 12, resonance: none}
+    amp:     {kind: amplifier, level: under unity}
+    aenv:    {kind: envelope, role: amp, shape: {a: short, d: medium, s: held, r: medium}, category: sustaining}
+  audio:
+    - [osc1, mix]
+    - [osc2, mix]
+    - [mix, filter1]
+    - [filter1, amp]
+    - [amp, out]
+  modulation:
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: osc2.pitch, essential: true}
+    - {from: key,  to: aenv.gate,  essential: true}
+
+essentials:
+  - {block: osc1, param: wave,   value: saw,   why: "every harmonic present, so the beating shows in every partial"}
+  - {block: osc2, param: wave,   value: saw,   why: "the same wave: only the tuning differs, so only the tuning is heard"}
+  - {block: osc2, param: detune, value: slight, why: "seven cents or less: the two drift in and out of phase slowly enough to read as swirl, not as a wrong note"}
+  - {block: osc2, param: level,  value: equal to osc1, why: "equal levels give the deepest swirl; the beat is a cancellation, and it needs both sides"}
+  - {block: filter1, param: cutoff, value: bright, why: "open enough that the upper partials, which beat fastest, are heard"}
+  - {block: mode, param: voices, value: poly}
+
+taste:
+  - {block: osc2,    param: detune,  range: "none – narrow",    default: slight, why: "past about seven cents it stops being chorus and starts being out of tune"}
+  - {block: osc2,    param: level,   range: "half – equal",     default: equal}
+  - {block: filter1, param: cutoff,  range: "mid – open",       default: bright}
+  - {block: aenv,    param: attack,  range: "fast – slow",      default: short}
+  - {block: aenv,    param: release, range: "short – long",     default: medium}
+
+listening:
+  cue: "One saw that slowly breathes: a soft swirl rolling through the tone about once a second, faster in the high partials than in the low. Nothing is moving the knobs; the movement is the two tunings drifting past each other."
+  ab: "Set osc2's detune to none: the swirl stops and the two saws collapse into one louder saw. Put it back to slight and the breathing returns. Then push it to wide: the swirl becomes a wobble and the pitch goes sour."
+
+render:
+  tempo: 100
+  note: C3
+  velocity: 100
+  pattern: "one note held three bars so the slow beat is heard going round"
+  length_s: 7.0
+
+mappings: {}

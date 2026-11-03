@@ -1,0 +1,61 @@
+# Synth Templates — card 0.2 — Envelope → Pitch (Attack Blip)
+# Envelope Shapes family. An envelope aimed at pitch instead of the amp: it starts the oscillator high and settles it
+# quickly down into the note. The amp envelope underneath is a plain sustaining shape so the blip is all you hear move.
+schema: synth-template-card/0.2
+id: envelope-pitch-attack-blip
+name: Envelope → Pitch (Attack Blip)
+family: Envelope Shapes
+tier: 1
+mode: mono
+classics: ""
+status: drafted
+concepts:
+  - "Envelope → pitch (attack blip)"
+  - "Envelope → amplitude"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: saw, octave: 0}
+    filter1: {kind: filter, type: lowpass, slope: 12, resonance: none, note: "open; the family's fixed chain"}
+    amp:     {kind: amplifier, level: under unity}
+    menv:    {kind: envelope, role: pitch, shape: {a: instant, d: short, s: zero, r: short}, category: percussive}
+    aenv:    {kind: envelope, role: amp,   shape: {a: fast, d: short, s: held, r: short}, category: sustaining}
+  audio:
+    - [osc1, filter1]
+    - [filter1, amp]
+    - [amp, out]
+  modulation:
+    - {from: menv, to: osc1.pitch, amount: a fifth, essential: true}
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: menv.gate, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: menv, param: target,  value: oscillator pitch, why: "the same four stages, pointed at pitch: an envelope is a general modulator, and the amp is only its most common job"}
+  - {block: menv, param: attack,  value: instant, why: "the note starts at the top of the blip"}
+  - {block: menv, param: decay,   value: short,   why: "settles quickly into the pitch; longer and it is a slide, not a blip"}
+  - {block: menv, param: sustain, value: zero,    why: "the pitch must land exactly on the note; any sustain leaves it sharp"}
+  - {block: menv, param: amount,  value: a fifth, why: "starts high; big enough to hear as a chirp, small enough not to read as a separate note"}
+  - {block: aenv, param: sustain, value: held,    why: "a sustaining amp shape, so the only thing that moves is the pitch"}
+  - {block: mode, param: voices,  value: mono,    why: "a lead; one blip at a time"}
+
+taste:
+  - {block: menv,    param: amount,  range: "a fifth – two octaves", default: a fifth, why: "higher is more of a chirp"}
+  - {block: menv,    param: decay,   range: "instant – medium",      default: short, why: "instant is a click, medium is a slide"}
+  - {block: aenv,    param: attack,  range: "instant – short",       default: fast}
+  - {block: osc1,    param: wave,    range: "saw – square",          default: saw}
+  - {block: filter1, param: cutoff,  range: "mid – open",            default: open}
+
+listening:
+  cue: "Each note begins a little above itself and drops into tune in the first instant: a chirp on the front of a plain held tone. Once it has landed nothing moves."
+  ab: "Set the pitch envelope amount to none: the chirp is gone and every note starts flat on pitch. Put it back, then raise the pitch envelope's sustain to half: the note never lands and the whole line is sharp."
+
+render:
+  tempo: 110
+  note: [C3, E3, G3, C4]
+  velocity: 100
+  pattern: "four quarter notes up the chord, each held full length"
+  length_s: 3.0
+
+mappings: {}

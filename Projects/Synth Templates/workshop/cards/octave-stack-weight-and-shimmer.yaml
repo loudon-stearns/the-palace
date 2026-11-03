@@ -1,0 +1,60 @@
+# Synth Templates — card — Octave Stack (Weight and Shimmer)
+# Voices, Tuning and Retrigger family. Two oscillators an octave apart; the mix knob decides whether the octave is weight or shimmer.
+schema: synth-template-card/0.2
+id: octave-stack-weight-and-shimmer
+name: Octave Stack (Weight and Shimmer)
+family: Voices, Tuning and Retrigger
+tier: 1
+mode: mono
+classics:
+status: drafted
+concepts:
+  - "Octave / semitone / fine tuning"
+  - "Waveforms: saw, square, triangle, sine, noise"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: saw, octave: 0, note: "the note you play"}
+    osc2:    {kind: oscillator, wave: saw, octave: 1, note: "the same saw one octave up: shimmer; set it to -1 and it is weight"}
+    mix:     {kind: mixer}
+    filter1: {kind: filter, type: lowpass, slope: 12, resonance: none}
+    amp:     {kind: amplifier, level: under unity}
+    aenv:    {kind: envelope, role: amp, shape: {a: fast, d: medium, s: held, r: short}, category: sustaining}
+  audio:
+    - [osc1, mix]
+    - [osc2, mix]
+    - [mix, filter1]
+    - [filter1, amp]
+    - [amp, out]
+  modulation:
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: osc2.pitch, essential: true}
+    - {from: key,  to: aenv.gate,  essential: true}
+
+essentials:
+  - {block: osc1, param: wave,   value: saw}
+  - {block: osc2, param: wave,   value: saw,    why: "the same wave: the octave is the only difference, so the octave is what you hear"}
+  - {block: osc2, param: octave, value: "+1",   why: "an octave sits on the root's own harmonics, so it thickens without making a chord"}
+  - {block: osc2, param: detune, value: none,   why: "exactly an octave; any cents here beat against the root's second harmonic"}
+  - {block: osc2, param: level,  value: half,   why: "under the root: an orchestra doubling at the octave, not a new lead an octave up"}
+  - {block: mode, param: voices, value: mono}
+
+taste:
+  - {block: osc2,    param: level,  range: "off – equal to osc1", default: half, why: "the sweep that is the lesson"}
+  - {block: osc2,    param: octave, range: "-1 – +1",             default: "+1", why: "down is weight, up is shimmer"}
+  - {block: filter1, param: cutoff, range: "mid – open",          default: bright}
+  - {block: aenv,    param: attack, range: "instant – short",     default: fast}
+
+listening:
+  cue: "One saw, then a glint on top of it as osc2 comes up: not a second note, a brighter version of the same note. Flip osc2 an octave down and the same move adds floor instead of ceiling."
+  ab: "Turn osc2 off: a single plain saw. Bring it back to half: the note gets taller without getting wider. Then set osc2 to +7 semitones instead of +12: now it is a chord, and the single note is gone."
+
+render:
+  tempo: 100
+  note: C3
+  velocity: 100
+  pattern: "one note held three bars; osc2 swept from off to equal and back over the hold"
+  length_s: 7.0
+
+mappings: {}

@@ -1,0 +1,66 @@
+# Synth Templates — card — Reese Bass
+# Two saws a few cents apart. The sound is the beating between them; the filter mostly stays still.
+schema: synth-template-card/0.2
+id: reese-bass
+name: Reese Bass
+family: Bass
+tier: 1
+mode: mono
+classics: Reese Project / jungle, DnB
+status: drafted
+concepts:
+  - "Small detune (≤7 cents) = chorus"
+  - "Octave / semitone / fine tuning"
+  - "Chorus: multiple delays, own LFOs, no feedback"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: saw, octave: 0}
+    osc2:    {kind: oscillator, wave: saw, octave: 0, detune: narrow, note: "tuned a little sharp of osc1, not a unison stack; the beat between them is the sound"}
+    mix:     {kind: mixer}
+    filter1: {kind: filter, type: lowpass, slope: 24, resonance: none}
+    amp:     {kind: amplifier, level: under unity}
+    fx:      {kind: fx, chain: [chorus]}
+    aenv:    {kind: envelope, role: amp, shape: {a: fast, d: medium, s: held, r: medium}, category: sustaining}
+  audio:
+    - [osc1, mix]
+    - [osc2, mix]
+    - [mix, filter1]
+    - [filter1, amp]
+    - [amp, fx]
+    - [fx, out]
+  modulation:
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: osc2.pitch, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: osc1,    param: wave,    value: saw,        why: "every harmonic there, so the two waves beat in every partial at once"}
+  - {block: osc2,    param: wave,    value: saw,        why: "the same wave; the difference is only the tuning"}
+  - {block: osc2,    param: detune,  value: narrow,     why: "past the chorus range: the beat slows to a growl you can count"}
+  - {block: filter1, param: type,    value: lowpass 24 dB, why: "takes the buzz off; it does not move"}
+  - {block: filter1, param: cutoff,  value: mid,        why: "half open and still; the motion comes from the beating, not from the filter"}
+  - {block: aenv,    param: sustain, value: held,       why: "a long held note is where the beat shows"}
+  - {block: mode,    param: voices,  value: mono,       why: "one line; two notes would beat against each other as well"}
+
+taste:
+  - {block: osc2,    param: detune,  range: "slight – wide",     default: narrow, why: "slight is a chorus; wide is a growl; the beat rate is the tuning gap"}
+  - {block: filter1, param: cutoff,  range: "dark – mid",        default: mid}
+  - {block: osc2,    param: level,   range: "half – equal to osc1", default: equal to osc1, why: "equal levels make the deepest beat"}
+  - {block: aenv,    param: attack,  range: "fast – short",      default: fast}
+  - {block: aenv,    param: release, range: "short – medium",    default: medium}
+  - {block: fx,      param: chorus,  range: "off – light",       default: "off", why: "a chorus or phaser later is the classic treatment; it smears the beat wider"}
+
+listening:
+  cue: "A held note that is never still: a slow pulse, a few times a second, in the body of the tone. Nothing is modulating it; the pulse is two pitches not quite agreeing."
+  ab: "Set osc2 detune to none: the pulse stops and it is a plain loud saw. Set it to slight: the pulse becomes a fast shimmer, a chorus. Back to narrow and the growl returns."
+
+render:
+  tempo: 170
+  note: [E1, G1]
+  velocity: 100
+  pattern: "two bars: a whole note, then a whole note; the beat shows in the hold"
+  length_s: 4.0
+
+mappings: {}

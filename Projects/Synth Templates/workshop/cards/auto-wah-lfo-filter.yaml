@@ -1,0 +1,57 @@
+# Synth Templates — card — Auto-Wah (LFO → Filter)
+# Technique demonstration: the LFO on cutoff. A saw gives the filter harmonics to sweep through.
+schema: synth-template-card/0.2
+id: auto-wah-lfo-filter
+name: Auto-Wah (LFO → Filter)
+family: Technique Demonstrations
+tier: 1
+mode: mono
+classics: ""
+status: drafted
+concepts:
+  - "LFO → pitch / amplitude / pan / filter"
+  - "Resonance: boost at cutoff; self-oscillation"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: saw, octave: 0}
+    filter1: {kind: filter, type: lowpass, slope: 24, resonance: moderate}
+    amp:     {kind: amplifier, level: under unity}
+    lfo1:    {kind: lfo, wave: triangle, rate: slow, sync: false}
+    aenv:    {kind: envelope, role: amp, shape: {a: fast, d: short, s: held, r: short}, category: sustaining}
+  audio:
+    - [osc1, filter1]
+    - [filter1, amp]
+    - [amp, out]
+  modulation:
+    - {from: lfo1, to: filter1.cutoff, amount: generous, essential: true}
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: osc1,    param: wave,      value: saw,       why: "every harmonic present; a sine would give the sweep nothing to find"}
+  - {block: filter1, param: type,      value: lowpass 24 dB, why: "the cut moves; a band-pass here is the other classic wah voice"}
+  - {block: filter1, param: cutoff,    value: dark,      why: "the LFO sweeps up from here; start low so the sweep has room"}
+  - {block: filter1, param: resonance, value: moderate,  why: "the boost at the cutoff is the vowel; without it the sweep is only a brightness change"}
+  - {block: lfo1,    param: target,    value: filter cutoff, why: "motion in the timbre of a held note, not in its pitch or loudness"}
+  - {block: lfo1,    param: amount,    value: generous,  why: "a few octaves of sweep, so the harmonics file past one at a time"}
+
+taste:
+  - {block: lfo1,    param: rate,      range: "very slow – medium", default: slow}
+  - {block: lfo1,    param: depth,     range: "some – full",        default: generous}
+  - {block: filter1, param: resonance, range: "little – high",      default: moderate}
+  - {block: filter1, param: type,      range: "lowpass – bandpass", default: lowpass}
+
+listening:
+  cue: "A held saw that says 'wah-wah' on its own: the brightness rises and falls on a slow cycle while pitch and loudness hold still."
+  ab: "Set the LFO depth to none: the same note sits at one dull colour forever. Bring the depth back and the mouth opens and closes again."
+
+render:
+  tempo: 100
+  note: C3
+  velocity: 90
+  pattern: "one note held four seconds: about one full LFO cycle"
+  length_s: 5.0
+
+mappings: {}

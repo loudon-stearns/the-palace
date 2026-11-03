@@ -1,0 +1,60 @@
+# Synth Templates — card 0.2 — Wavetable Chip
+# Chiptune, tier 2: the Game Boy's third channel plays a 32-step, 4-bit table the game draws itself. A tiny wavetable:
+# the shape is the timbre, there is no filter, and the volume has four settings.
+# The drawn shape is not a wave the voice has; this card writes a staircase saw and names the others in taste.
+schema: synth-template-card/0.2
+id: wavetable-chip
+name: Wavetable Chip
+family: Chiptune
+tier: 2
+mode: mono
+classics: Game Boy
+status: drafted
+concepts:
+  - "Waveforms: saw, square, triangle, sine, noise"
+  - "Additive: sines in a harmonic series"
+  - "Triangle as a filtered square"
+  - "Switch envelope (organ); percussive organ"
+
+graph:
+  blocks:
+    osc1: {kind: oscillator, wave: saw, octave: -1, note: "a 32-sample, 4-bit table, drawn by hand: here a staircase saw. Any shape fits in 32 steps of 16 levels; the voice plays a smooth saw and misses the steps"}
+    amp:  {kind: amplifier, level: full, note: "four volume settings only: full, half, quarter, off"}
+    fx:   {kind: fx, chain: [bitcrusher], note: "stands for the table's 4-bit steps: a faint fizz on every wave, strongest on low notes; drawn, not heard"}
+    aenv: {kind: envelope, role: amp, shape: {a: instant, d: instant, s: full, r: instant}, category: gate, note: "channel 3 has no envelope; only note length and the four volume steps"}
+  audio:
+    - [osc1, amp]
+    - [amp, fx]
+    - [fx, out]
+  modulation:
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: osc1, param: wave,    value: drawn table (saw), why: "the shape is the whole timbre: every harmonic the sound has is in those 32 numbers, and there is no filter to take any away"}
+  - {block: fx,   param: chain,   value: 4-bit steps, why: "sixteen levels: a wave that is not a pure shape but a stair, which puts a quiet grit over everything"}
+  - {block: amp,  param: input,   value: osc1 direct, why: "no filter on the chip"}
+  - {block: aenv, param: attack,  value: instant,    why: "on"}
+  - {block: aenv, param: sustain, value: full,       why: "no envelope: the note is full until it stops"}
+  - {block: aenv, param: release, value: instant,    why: "off"}
+  - {block: mode, param: voices,  value: mono,       why: "one channel"}
+
+taste:
+  - {block: osc1, param: wave,    range: "triangle – saw",   default: saw, why: "the drawn shape: triangle is soft, saw is full; a sine, a staircase or anything else is the same table redrawn"}
+  - {block: amp,  param: level,   range: "quarter – full",   default: full, why: "the four steps; half is the common bass setting under a loud pulse lead"}
+  - {block: osc1, param: octave,  range: "-2 – 0",           default: -1}
+  - {block: fx,   param: drive,   range: "none – light",     default: light, why: "how much of the 4-bit fizz; none is the clean, modern idea of the wave"}
+
+listening:
+  cue: "A full, buzzy bass with all its harmonics present and a faint fizz on top, like a saw that was drawn with a ruler. It starts and stops like a switch and never changes while it holds."
+  ab: "Redraw the table as a triangle: the same line goes soft and round, the fizz quieter. Back to the saw and the buzz returns. Then add a lowpass filter: it becomes an ordinary synth bass and stops being a chip."
+
+render:
+  tempo: 150
+  note: [C2, C2, Eb2, C2, F2, C2, G2, Bb2]
+  velocity: 100
+  pattern: "eighths, one bar; notes 1, 4 and 6 a 16th long, the rest full eighths"
+  length_s: 2.0
+
+mappings: {}

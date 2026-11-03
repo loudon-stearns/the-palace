@@ -1,0 +1,75 @@
+# Synth Templates — card 0.2 — Impact
+# Sound Effects, tier 1. Two layers in one voice: a sub boom and a noise burst, the filter envelope telling them apart in time.
+schema: synth-template-card/0.2
+id: impact
+name: Impact
+family: Sound Effects
+tier: 1
+mode: mono
+classics: ""
+status: drafted
+concepts:
+  - "Noise at the attack; noise oscillator with its own envelope"
+  - "Envelope → pitch (attack blip)"
+  - "Pluck / strike: release = decay; gong vs marimba"
+  - "Envelope trigger / one-shot mode"
+
+graph:
+  blocks:
+    sub:     {kind: oscillator, wave: sine, octave: -1, retrigger: true, note: "the boom"}
+    noise:   {kind: oscillator, wave: noise, color: white, note: "the burst; it has no envelope of its own here, the filter plays that part"}
+    mix:     {kind: mixer}
+    filter1: {kind: filter, type: lowpass, slope: 24, resonance: none}
+    amp:     {kind: amplifier, level: full}
+    fx:      {kind: fx, chain: [saturation, reverb]}
+    fenv:    {kind: envelope, role: filter, shape: {a: instant, d: short, s: zero, r: same as decay}, category: percussive, one_shot: true}
+    menv:    {kind: envelope, role: pitch,  shape: {a: instant, d: short, s: zero, r: same as decay}, category: percussive, one_shot: true}
+    aenv:    {kind: envelope, role: amp,    shape: {a: instant, d: very long, s: zero, r: same as decay}, category: percussive, one_shot: true}
+  audio:
+    - [sub, mix]
+    - [noise, mix]
+    - [mix, filter1]
+    - [filter1, amp]
+    - [amp, fx]
+    - [fx, out]
+  modulation:
+    - {from: fenv, to: filter1.cutoff, amount: full, essential: true}
+    - {from: menv, to: sub.pitch, amount: about an octave, essential: true}
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: sub.pitch, essential: false}
+    - {from: key,  to: fenv.gate, essential: true}
+    - {from: key,  to: menv.gate, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+    - {from: vel,  to: amp.level, amount: some, essential: false}
+
+essentials:
+  - {block: sub,     param: wave,    value: sine,          why: "the boom is one low partial; the filter leaves it alone"}
+  - {block: noise,   param: wave,    value: noise,         why: "the burst: the inharmonic splash at the attack that every real impact has"}
+  - {block: filter1, param: cutoff,  value: dark,          why: "at rest only the sub gets through; the noise is only heard while the envelope opens it"}
+  - {block: fenv,    param: decay,   value: short,         why: "the burst lasts as long as the filter stays open: the noise's envelope, played by the filter"}
+  - {block: fenv,    param: sustain, value: zero,          why: "the filter closes fully, so the noise vanishes and the boom is left alone"}
+  - {block: menv,    param: decay,   value: short,         why: "the sub drops an octave as it lands: the punch"}
+  - {block: aenv,    param: decay,   value: very long,     why: "the boom outlives the burst by seconds; that gap is the layering"}
+  - {block: aenv,    param: release, value: same as decay, why: "one-shot: the hit plays out whatever the note length"}
+  - {block: fx,      param: chain,   value: saturation then reverb, why: "saturation gives the sine something to be heard by; reverb is the tail"}
+
+taste:
+  - {block: aenv,    param: decay,   range: "long – very long",      default: very long}
+  - {block: fenv,    param: decay,   range: "fast – medium",         default: short, why: "the burst's length"}
+  - {block: noise,   param: level,   range: "half – equal",          default: equal}
+  - {block: menv,    param: amount,  range: "a fifth – two octaves", default: about an octave}
+  - {block: fx,      param: drive,   range: "light – heavy",         default: light}
+  - {block: fx,      param: reverb,  range: "large – huge",          default: huge}
+
+listening:
+  cue: "A splash of noise and a low thump in the same instant; the splash is gone almost at once and the thump keeps humming under the reverb for seconds."
+  ab: "Raise the filter envelope sustain to full: the noise never leaves and the boom is a hiss with a hum in it. Back to zero and the two layers separate again."
+
+render:
+  tempo: 120
+  note: C2
+  velocity: 120
+  pattern: "one hit on the downbeat, left to ring"
+  length_s: 6.0
+
+mappings: {}

@@ -1,0 +1,73 @@
+# Synth Templates — Genre Classics — Detuned Dubstep Growl
+# A wide stack with FM on top, an LFO moving the wave itself in time, then distortion and a multiband compressor. The growl is the movement, not the wave.
+schema: synth-template-card/0.2
+id: detuned-dubstep-growl
+name: Detuned Dubstep Growl
+family: Genre Classics
+tier: 3
+mode: mono
+classics: ""
+status: drafted
+concepts:
+  - "FM: audio-rate modulation, algorithms"
+  - "Tempo sync; triplets"
+  - "LFO → pitch / amplitude / pan / filter"
+  - "Distortion: nonlinear, harmonic, compresses dynamics, tames resonance"
+  - "Unison / unisono"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: saw, octave: 0, unison: 4, detune: wide, note: "a wavetable in the original; its position is the 'shape' jack here. The voice plays a saw and cannot move the shape yet."}
+    osc2:    {kind: oscillator, wave: sine, ratio: "2:1", level: half, note: "the FM bite on top of the stack"}
+    filter1: {kind: filter, type: lowpass, slope: 12, resonance: moderate}
+    amp:     {kind: amplifier, level: under unity}
+    fx:      {kind: fx, chain: [distortion, compressor], note: "compressor: OTT, a multiband upward-and-downward compressor; the voice has a plain one"}
+    aenv:    {kind: envelope, role: amp, shape: {a: instant, d: short, s: full, r: short}, category: gate}
+    lfo1:    {kind: lfo, wave: triangle, rate: medium, sync: true, note: "synced to the beat: an eighth, then a sixteenth, then triplets"}
+  audio:
+    - [osc2, osc1, fm]
+    - [osc1, filter1]
+    - [filter1, amp]
+    - [amp, fx]
+    - [fx, out]
+  modulation:
+    - {from: lfo1, to: osc1.shape, amount: generous, essential: true}
+    - {from: lfo1, to: osc2.level, amount: moderate, essential: true}
+    - {from: lfo1, to: filter1.cutoff, amount: moderate, essential: true}
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: wheel, to: lfo1.rate, amount: full, essential: false}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: osc2.pitch, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: mode,    param: voices,    value: mono,            why: "one growl; two would turn to mud in the distortion"}
+  - {block: osc1,    param: unison,    value: 4 voices,        why: "the width; the detune makes the distortion chew on beating partials"}
+  - {block: osc1,    param: detune,    value: wide,            why: "wide enough to beat, so the stack is already moving before the LFO touches it"}
+  - {block: osc2,    param: routing,   value: into osc1 fm,    why: "the FM adds the bite above the stack; its level moving with the LFO is the 'yoi' in the growl"}
+  - {block: lfo1,    param: target,    value: "wave position, FM level and cutoff", why: "one LFO, three destinations: the timbre itself moves, not only a filter over it"}
+  - {block: lfo1,    param: sync,      value: "on",            why: "the growl is a rhythm; it must land on the beat and change with it"}
+  - {block: filter1, param: resonance, value: moderate,        why: "a formant edge for the LFO to drag; the vowel in the growl"}
+  - {block: fx,      param: chain,     value: distortion then OTT, why: "the distortion flattens the stack into one grinding thing; OTT pulls every band up to loud, so the quiet parts of the movement are as loud as the peaks"}
+  - {block: aenv,    param: sustain,   value: full,            why: "a gate: the LFO does all the shaping"}
+
+taste:
+  - {block: osc1,    param: detune,    range: "narrow – very wide",  default: wide}
+  - {block: osc2,    param: level,     range: "little – full",       default: half}
+  - {block: lfo1,    param: rate,      range: "slow – fast",         default: medium, why: "in beats: a quarter down to a sixteenth, with triplets between"}
+  - {block: lfo1,    param: depth,     range: "moderate – full",     default: generous}
+  - {block: filter1, param: cutoff,    range: "dark – bright",       default: mid}
+  - {block: fx,      param: drive,     range: "light – heavy",       default: heavy}
+
+listening:
+  cue: "A wide bass that talks in time: 'yoi-yoi-yoi' on the beat, the vowel changing with every cycle of the LFO. Nothing stands still; the distortion makes every change a loud change."
+  ab: "Set the LFO depth to none: a thick, static, distorted saw, and everything that made it a growl is gone. Put it back. Then unsync the LFO: the same movement, drifting against the beat, and the groove is lost."
+
+render:
+  tempo: 140
+  note: F1
+  velocity: 110
+  pattern: "one note held two bars; the LFO at an eighth for the first bar, a sixteenth for the second"
+  length_s: 4.0
+
+mappings: {}

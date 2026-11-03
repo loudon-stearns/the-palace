@@ -1,0 +1,67 @@
+# Synth Templates — card 0.2 — Noise Wash
+# No pitch at all: pink noise through a band-pass whose centre an LFO carries slowly up and down. The keyboard only opens the gate.
+schema: synth-template-card/0.2
+id: noise-wash
+name: Noise Wash
+family: Pads
+tier: 1
+mode: poly
+classics: ""
+status: drafted
+concepts:
+  - "Noise colors: white vs pink"
+  - "Low-pass, high-pass, band-pass, notch"
+  - "Resonance as width (Q) on band-pass and notch"
+  - "LFO → pitch / amplitude / pan / filter"
+
+graph:
+  blocks:
+    noise:   {kind: oscillator, wave: noise, color: pink, note: "pink: white tilted down to the ear's own curve, so it washes instead of hissing"}
+    filter1: {kind: filter, type: bandpass, slope: 12, resonance: moderate}
+    amp:     {kind: amplifier, level: under unity}
+    fx:      {kind: fx, chain: [reverb]}
+    aenv:    {kind: envelope, role: amp, shape: {a: very slow, d: medium, s: held, r: very long}, category: pad}
+    lfo1:    {kind: lfo, wave: triangle, rate: very slow, sync: false, retrigger: false, note: "free-running: each key lands somewhere different in the sweep"}
+  audio:
+    - [noise, filter1]
+    - [filter1, amp]
+    - [amp, fx]
+    - [fx, out]
+  modulation:
+    - {from: lfo1, to: filter1.cutoff, amount: moderate, essential: true}
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+    - {from: key,  to: filter1.cutoff, amount: little, essential: false, note: "a little keytracking so a high key is a higher wash"}
+
+essentials:
+  - {block: noise,   param: wave,      value: noise,          why: "energy at every frequency; the filter carves a band out of it, which is the only thing you hear"}
+  - {block: noise,   param: color,     value: pink,           why: "white is equal power everywhere and sounds harsh; pink is white filtered to the ear and sits soft"}
+  - {block: filter1, param: type,      value: bandpass,       why: "a window, not a ceiling: the wash is one band of the noise, moving"}
+  - {block: filter1, param: resonance, value: moderate,       why: "on a band-pass this is width: narrow enough to hear the centre move, wide enough to stay a wash and not a whistle"}
+  - {block: lfo1,    param: rate,      value: very slow,      why: "a tide, not a tremolo; a full sweep takes seconds"}
+  - {block: lfo1,    param: amount,    value: moderate,       why: "the centre travels a couple of octaves: wind rising and falling"}
+  - {block: aenv,    param: attack,    value: very slow,      why: "noise that starts fast is a hit; this one is weather arriving"}
+  - {block: aenv,    param: release,   value: very long,      why: "weather leaving"}
+  - {block: mode,    param: voices,    value: poly,           why: "each key is another layer of wash, landed at its own point in the sweep"}
+
+taste:
+  - {block: noise,   param: color,     range: "pink – white",            default: pink}
+  - {block: filter1, param: cutoff,    range: "dark – bright",           default: mid}
+  - {block: filter1, param: resonance, range: "little – high",           default: moderate}
+  - {block: lfo1,    param: rate,      range: "very slow – slow",        default: very slow}
+  - {block: lfo1,    param: depth,     range: "some – full",             default: moderate}
+  - {block: aenv,    param: attack,    range: "slow – very long",        default: very slow}
+  - {block: fx,      param: reverb,    range: "large – huge",            default: huge}
+
+listening:
+  cue: "Wind in a doorway: a hiss with no note in it, that rises in pitch and falls again over several seconds and never quite repeats. It fades in and out so slowly you cannot say when it began."
+  ab: "Set the LFO depth to none: the wind stops moving and becomes a steady hiss, like a tape left running. Put it back. Then swap pink for white: the same sweep, now sharp and tiring in the top."
+
+render:
+  tempo: 60
+  note: [C3, G3]
+  velocity: 80
+  pattern: "two keys held four bars, the second landing a bar after the first, released together, tail to silence"
+  length_s: 18.0
+
+mappings: {}

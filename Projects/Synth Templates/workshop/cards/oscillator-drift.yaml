@@ -1,0 +1,58 @@
+# Synth Templates — card — Oscillator Drift
+# Technique demonstration: the tiny, unrepeating pitch wander of an analog oscillator, added on purpose, then taken away.
+schema: synth-template-card/0.2
+id: oscillator-drift
+name: Oscillator Drift
+family: Technique Demonstrations
+tier: 2
+mode: poly
+classics: ""
+status: drafted
+concepts:
+  - "Small detune (≤7 cents) = chorus"
+  - "Retrigger vs free; chords with staggered attacks"
+  - "Keytracking or velocity → LFO rate"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: saw, octave: 0}
+    filter1: {kind: filter, type: lowpass, slope: 12, resonance: none}
+    amp:     {kind: amplifier, level: under unity}
+    lfo1:    {kind: lfo, wave: random, rate: very slow, sync: false, note: "a smooth random wander, free-running, one per voice: each note drifts its own way. The voice's LFO is shared across voices, so the drift it plays moves every note together"}
+    aenv:    {kind: envelope, role: amp, shape: {a: fast, d: short, s: held, r: medium}, category: sustaining}
+  audio:
+    - [osc1, filter1]
+    - [filter1, amp]
+    - [amp, out]
+  modulation:
+    - {from: lfo1, to: osc1.pitch, amount: little, essential: true}
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: lfo1.rate, amount: little, essential: false}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: osc1, param: wave,      value: saw,   why: "harmonics all the way up, where a few cents of wander is easiest to hear"}
+  - {block: lfo1, param: wave,      value: random, why: "a wander, not a wave: nothing repeats, which is what makes it sound like a circuit and not a vibrato"}
+  - {block: lfo1, param: rate,      value: very slow, why: "a drift takes seconds; any faster and it is a wobble"}
+  - {block: lfo1, param: depth,     value: little, why: "a few cents at most: felt as life in the chord, never heard as being out of tune"}
+  - {block: lfo1, param: retrigger, value: free, why: "free-running and per voice, so the notes of a chord never drift together"}
+  - {block: mode, param: voices,    value: poly, why: "the effect lives between voices: one drifting note alone is just slightly out of tune"}
+
+taste:
+  - {block: lfo1, param: depth, range: "none – some",     default: little, why: "none: a digital chord, perfectly still; some: an old synth left on all afternoon"}
+  - {block: lfo1, param: rate,  range: "very slow – slow", default: very slow}
+  - {block: lfo1, param: key to rate, range: "none – little", default: little, why: "each key a slightly different drift speed, so no two voices can ever line up"}
+
+listening:
+  cue: "A chord that is very slightly alive: the voices lean against each other and the beating between them slowly changes, never settling and never repeating. Then the same chord with the drift off: clean, still, and a little dead."
+  ab: "Set the drift depth to none: the chord freezes into a perfectly steady, slightly sterile sound. Put it back: the slow life returns. Push it to some: now it is simply out of tune."
+
+render:
+  tempo: 100
+  note: [C3, E3, G3, C4]
+  velocity: 90
+  pattern: "one chord held four seconds with drift, then the same chord four seconds without"
+  length_s: 9.0
+
+mappings: {}

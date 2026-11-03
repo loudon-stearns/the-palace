@@ -1,0 +1,71 @@
+# Synth Templates — card — Karplus-Strong String
+# Plucked Strings, tier 2. Physical modeling 101: there is no oscillator. A burst of noise goes into a short delay that feeds back
+# on itself; the delay time is the pitch, the feedback is the decay, a lowpass in the loop is the damping.
+# The grammar has no delay-with-feedback block in the chain, so the string is drawn as a comb filter (which is what a short feedback
+# delay is) with a lowpass after it standing in for the damping inside the loop. The voice draws comb only; it does not yet play this card.
+schema: synth-template-card/0.2
+id: karplus-strong-string
+name: Karplus-Strong String
+family: Plucked Strings
+tier: 2
+mode: poly
+classics: ""
+status: drafted
+concepts:
+  - "Comb filter: a short delay is a filter"
+  - "Comb filter: delay time and frequency are reciprocals"
+  - "Filter thunk (resonance = delay feedback)"
+  - "Noise at the attack; noise oscillator with its own envelope"
+  - "Pluck / strike: release = decay; gong vs marimba"
+
+graph:
+  blocks:
+    noise:   {kind: oscillator, wave: noise, note: "the pluck: a burst of white noise, nothing else; the string makes the pitch"}
+    filter1: {kind: filter, type: comb, resonance: high, note: "the string: a delay one period long, fed back on itself. Delay time = 1 / pitch, so this is what key tracks. Resonance here means feedback. Voice: drawn only"}
+    filter2: {kind: filter, type: lowpass, slope: 12, resonance: none, note: "damping: in the real model this lowpass sits inside the feedback loop, so every pass loses a little top and the note darkens as it dies"}
+    amp:     {kind: amplifier, level: under unity}
+    menv:    {kind: envelope, role: burst, shape: {a: instant, d: fast, s: zero, r: fast}, category: percussive, note: "the excitation: how long the noise is let in"}
+    aenv:    {kind: envelope, role: amp,   shape: {a: instant, d: long, s: zero, r: same as decay}, category: plucked, note: "open long enough for the string to ring; the string, not this envelope, sets the decay"}
+  audio:
+    - [noise, filter1]
+    - [filter1, filter2]
+    - [filter2, amp]
+    - [amp, out]
+  modulation:
+    - {from: menv, to: noise.level, amount: full, essential: true}
+    - {from: key,  to: filter1.cutoff, amount: full, essential: true, note: "the delay time follows the key: this is the pitch"}
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: menv.gate, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+    - {from: vel,  to: noise.level, amount: some, essential: false}
+
+essentials:
+  - {block: noise,   param: wave,      value: noise,            why: "the pluck is a burst with every frequency in it; the string keeps only the ones that fit its length"}
+  - {block: menv,    param: decay,     value: fast,             why: "the burst must be about one period long; longer and you hear noise, not a pluck"}
+  - {block: menv,    param: sustain,   value: zero,             why: "the noise is let in once, then the loop is on its own"}
+  - {block: filter1, param: type,      value: comb,             why: "a short delay fed back is a comb whose peaks sit on a harmonic series: a string"}
+  - {block: filter1, param: cutoff,    value: keytracked,       why: "delay time and pitch are reciprocals: one period of delay, one note. Nothing else sets the pitch"}
+  - {block: filter1, param: resonance, value: high,             why: "feedback near one: each pass loses only a little, and that loss is the decay"}
+  - {block: filter2, param: type,      value: lowpass 12 dB,    why: "the damping: a gentle loss of top on every pass, so the note dies darker than it began, like a real string"}
+  - {block: aenv,    param: sustain,   value: zero,             why: "non-sustaining; the string decays by itself whatever the key does"}
+  - {block: aenv,    param: release,   value: same as decay,    why: "the key must not cut a ringing string"}
+
+taste:
+  - {block: filter1, param: resonance, range: "moderate – self-oscillating", default: high, why: "feedback is the decay: moderate is a pizz, self-oscillating never stops"}
+  - {block: filter2, param: cutoff,    range: "mid – open",              default: bright, why: "damping: lower is a muted string, open is steel"}
+  - {block: menv,    param: decay,     range: "instant – short",          default: fast, why: "a longer burst is a harder, noisier pluck"}
+  - {block: noise,   param: level,     range: "half – full",              default: full}
+  - {block: aenv,    param: decay,     range: "slow – very long",         default: long}
+
+listening:
+  cue: "A string with no oscillator behind it: a short scratch of noise that is instantly a pitch, bright at the front and darker as it fades. High notes die sooner than low ones on their own."
+  ab: "Drop the comb's resonance to none: the feedback is gone and all that is left is the noise burst, a tick with no pitch. Put it back to high and the string returns. Then close the damping lowpass to dark: the same string sounds muted under the palm."
+
+render:
+  tempo: 96
+  note: [A2, E3, A3, C#4, E4, A4]
+  velocity: 100
+  pattern: "an arpeggio up, one note per eighth, every key released at once after the last; the strings ring on"
+  length_s: 5.0
+
+mappings: {}

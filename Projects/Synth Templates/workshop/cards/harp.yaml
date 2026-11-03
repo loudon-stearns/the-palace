@@ -1,0 +1,71 @@
+# Synth Templates — card — Harp
+# Plucked Strings, tier 1. The lesson is the release: a glissando is many short notes, and each must ring after its key is gone.
+schema: synth-template-card/0.2
+id: harp
+name: Harp
+family: Plucked Strings
+tier: 1
+mode: poly
+classics: ""
+status: drafted
+concepts:
+  - "Pluck / strike: release = decay; gong vs marimba"
+  - "The funny envelope: long notes short, short notes long"
+  - "Triangle as a filtered square"
+  - "Envelope → filter cutoff (bite; auto-wah with long attack)"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: triangle, octave: 0}
+    osc2:    {kind: oscillator, wave: sine, octave: 1, level: low, note: "an octave up: the ping at the top of a thin string"}
+    mix:     {kind: mixer}
+    filter1: {kind: filter, type: lowpass, slope: 12, resonance: none}
+    amp:     {kind: amplifier, level: under unity}
+    fenv:    {kind: envelope, role: filter, shape: {a: instant, d: fast, s: zero, r: fast}, category: percussive}
+    aenv:    {kind: envelope, role: amp,    shape: {a: instant, d: medium, s: zero, r: long}, category: plucked}
+  audio:
+    - [osc1, mix]
+    - [osc2, mix]
+    - [mix, filter1]
+    - [filter1, amp]
+    - [amp, out]
+  modulation:
+    - {from: fenv, to: filter1.cutoff, amount: generous, essential: true}
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: osc2.pitch, essential: true}
+    - {from: key,  to: fenv.gate,  essential: true}
+    - {from: key,  to: aenv.gate,  essential: true}
+    - {from: vel,  to: amp.level, amount: some, essential: false}
+
+essentials:
+  - {block: osc1,    param: wave,      value: triangle,        why: "a soft odd-harmonic tone: a square already filtered; the string is thin and the body is small"}
+  - {block: osc2,    param: wave,      value: sine,            why: "one partial an octave up, so the attack has a ping without any buzz"}
+  - {block: filter1, param: cutoff,    value: mid,             why: "a triangle is already dark; the filter only shapes the first instant"}
+  - {block: fenv,    param: decay,     value: fast,            why: "the bright attack: the fingertip leaving the string, over in an instant"}
+  - {block: fenv,    param: sustain,   value: zero}
+  - {block: aenv,    param: attack,    value: instant,         why: "plucked"}
+  - {block: aenv,    param: decay,     value: medium,          why: "a held note dies fairly quickly on its own"}
+  - {block: aenv,    param: sustain,   value: zero,            why: "non-sustaining"}
+  - {block: aenv,    param: release,   value: long,            why: "longer than the decay: a note whose key is gone in a 32nd still rings out. That is what lets a glissando ring"}
+  - {block: mode,    param: voices,    value: poly,            why: "a run leaves every note ringing over the next"}
+
+taste:
+  - {block: aenv,    param: release,   range: "medium – very long",  default: long, why: "how long the run hangs in the air"}
+  - {block: aenv,    param: decay,     range: "short – slow",        default: medium}
+  - {block: osc2,    param: level,     range: "off – half",          default: low}
+  - {block: filter1, param: cutoff,    range: "mid – open",          default: mid}
+  - {block: fenv,    param: amount,    range: "moderate – full",     default: generous}
+
+listening:
+  cue: "Each note is a small bright tick and then a soft round tone. Play a fast run and the notes pile up into a wash; nothing cuts off when a finger lifts."
+  ab: "Set the release to fast: the same run turns into a row of clipped blips, each stopped the instant its key lifts. Put it back to long and the wash returns."
+
+render:
+  tempo: 110
+  note: [C4, D4, E4, G4, A4, C5, D5, E5, G5, A5, C6]
+  velocity: 85
+  pattern: "a pentatonic run up, one note per 32nd, each key held only its own 32nd; then the tail"
+  length_s: 5.0
+
+mappings: {}

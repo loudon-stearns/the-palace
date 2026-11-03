@@ -1,0 +1,65 @@
+# Synth Templates — card — Distorted Lead
+# A filtered saw into a distortion, then a feedback delay. The distortion adds harmonics the filter took away and flattens the dynamics.
+schema: synth-template-card/0.2
+id: distorted-lead
+name: Distorted Lead
+family: Leads
+tier: 2
+mode: mono
+classics: ""
+status: drafted
+concepts:
+  - "Distortion: nonlinear, harmonic, compresses dynamics, tames resonance"
+  - "Drive: by velocity, by envelope; serial filter after"
+  - "Delay: time, feedback, mix"
+  - "Subtractive: rich wave then filter"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: saw, octave: 0}
+    filter1: {kind: filter, type: lowpass, slope: 24, resonance: little}
+    amp:     {kind: amplifier, level: under unity}
+    fx:      {kind: fx, chain: [distortion, delay], note: "distortion first, then a feedback delay; the echoes are of the distorted note, not distortion of the echoes"}
+    fenv:    {kind: envelope, role: filter, shape: {a: instant, d: medium, s: low, r: short}, category: sustaining}
+    aenv:    {kind: envelope, role: amp, shape: {a: fast, d: short, s: held, r: short}, category: sustaining}
+  audio:
+    - [osc1, filter1]
+    - [filter1, amp]
+    - [amp, fx]
+    - [fx, out]
+  modulation:
+    - {from: fenv, to: filter1.cutoff, amount: some, essential: false}
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: fenv.gate, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: osc1,    param: wave,     value: saw,                  why: "rich going in; square is the other voice, hollower after the distortion"}
+  - {block: filter1, param: cutoff,   value: mid,                  why: "the filter before the distortion decides what gets distorted: close it and the distortion makes a warm growl, open it and a fizz"}
+  - {block: fx,      param: chain,    value: distortion then delay, why: "the order matters: delay after distortion keeps the echoes clean copies of a dirty note"}
+  - {block: fx,      param: drive,    value: heavy,                why: "nonlinear: the louder the note, the more harmonics; the quiet tail of each note stays cleaner than its front"}
+  - {block: amp,     param: level,    value: under unity,          why: "what hits the distortion sets how much it distorts; this is a tone control, not a volume"}
+  - {block: aenv,    param: sustain,  value: held,                 why: "sustaining, so the distortion has a steady level to work on"}
+  - {block: mode,    param: voices,   value: mono,                 why: "two notes into one distortion make intermodulation, not a chord"}
+
+taste:
+  - {block: fx,      param: drive,     range: "light – heavy",     default: heavy}
+  - {block: filter1, param: cutoff,    range: "dark – bright",     default: mid, why: "the real tone control, because it is before the distortion"}
+  - {block: filter1, param: resonance, range: "none – moderate",   default: little, why: "the distortion compresses the resonant peak, so more is safe here than it would be clean"}
+  - {block: fx,      param: feedback,  range: "little – generous", default: some}
+  - {block: fenv,    param: amount,    range: "none – moderate",   default: some}
+  - {block: osc1,    param: glide,     range: "none – short",      default: none}
+
+listening:
+  cue: "A line with grit all over it, and no difference in loudness between a hard note and a soft one, only a difference in edge. The echoes repeat the grit without adding more."
+  ab: "Set drive to none: the same line is a plain filtered saw, suddenly quieter on the soft notes and louder on the hard ones. Put it back. Then open the filter to bright: the growl turns into fizz, though the drive did not change."
+
+render:
+  tempo: 110
+  note: [E4, G4, A4, E4]
+  velocity: [120, 70, 120, 70]
+  pattern: "quarter notes, one bar, alternating hard and soft; the last held a bar into the delay"
+  length_s: 5.0
+
+mappings: {}

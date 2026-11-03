@@ -1,0 +1,66 @@
+# Synth Templates — card 0.1 — Sidechained Pad
+# Rhythmic and Sequenced, tier 1: a pad that ducks on every beat. The LFO is shaped like a kick's envelope and stands in for the compressor.
+schema: synth-template-card/0.2
+id: sidechained-pad
+name: Sidechained Pad
+family: Rhythmic and Sequenced
+tier: 1
+mode: poly
+classics: ""
+status: drafted
+concepts:
+  - "LFO → pitch / amplitude / pan / filter"
+  - "Tempo sync; triplets"
+  - "Retrigger vs free; chords with staggered attacks"
+  - "Standard sustaining envelope; strings and horns variants"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: saw, octave: 0, unison: 5, detune: wide}
+    filter1: {kind: filter, type: lowpass, slope: 12, resonance: none}
+    amp:     {kind: amplifier, level: under unity}
+    fx:      {kind: fx, chain: [reverb], note: "in a mix the duck is a compressor keyed from the kick; here an LFO stands in for it"}
+    aenv:    {kind: envelope, role: amp, shape: {a: slow, d: medium, s: held, r: long}, category: pad}
+    lfo1:    {kind: lfo, wave: saw, rate: slow, sync: true, retrigger: false, note: "one cycle per quarter note: drops to nothing on the beat and ramps back up before the next; the ramp is the pump"}
+  audio:
+    - [osc1, filter1]
+    - [filter1, amp]
+    - [amp, fx]
+    - [fx, out]
+  modulation:
+    - {from: lfo1, to: amp.level, amount: generous, essential: true}
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: mode,    param: voices,    value: poly,            why: "chords; the duck must hit all the voices at once"}
+  - {block: lfo1,    param: wave,      value: saw (ramp up),   why: "a kick's shape upside down: instant drop, slow recovery"}
+  - {block: lfo1,    param: sync,      value: "on",            why: "one duck per beat, exactly where the kick would be"}
+  - {block: lfo1,    param: division,  value: "1/4 note",      why: "four on the floor"}
+  - {block: lfo1,    param: retrigger, value: free,            why: "the pump follows the song, not the key; a new chord must not restart it"}
+  - {block: lfo1,    param: target,    value: "amp level, deep", why: "nearly silent on the beat, full by the next: that swell is the whole effect"}
+  - {block: aenv,    param: attack,    value: slow,            why: "a pad: it arrives, it does not strike"}
+  - {block: aenv,    param: sustain,   value: held,            why: "sustaining; the LFO does the shaping"}
+  - {block: osc1,    param: unison,    value: "5 voices, wide", why: "a wide bed, so the ducking has something big to push out of the way"}
+
+taste:
+  - {block: lfo1,    param: depth,     range: "moderate – full",     default: generous, why: "full is a hard mute; moderate is a breath"}
+  - {block: lfo1,    param: rate,      range: "1/4 – 1/8",           default: slow}
+  - {block: filter1, param: cutoff,    range: "dark – bright",       default: mid}
+  - {block: aenv,    param: attack,    range: "medium – very slow",  default: slow}
+  - {block: aenv,    param: release,   range: "long – very long",    default: long}
+  - {block: fx,      param: reverb,    range: "small – huge",        default: large}
+
+listening:
+  cue: "The chord breathes once a beat: it drops out where the kick would land and swells back before the next one. There is no kick in the render; you hear its shape anyway."
+  ab: "Set the LFO depth to none: a flat held pad, and the beat vanishes. Put it back to generous. Then switch the LFO wave to triangle: the drop becomes gradual and it stops sounding like a kick is there."
+
+render:
+  tempo: 126
+  note: [F3, A3, C4, E4]
+  velocity: 90
+  pattern: "one major-seventh chord held two bars; the LFO ducks it on every quarter"
+  length_s: 5.0
+
+mappings: {}
