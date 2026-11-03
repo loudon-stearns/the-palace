@@ -1,0 +1,452 @@
+<!doctype html>
+<!--
+  title: Wavetable Oscillator — rich — one cycle, two ways
+  born: 2026-11-03
+  links: [[Wavetable Oscillator]] (connects-to · rich-face-piece) · listed in [[Wavetable Oscillator — rich.json]] · serves § The same object as a loop · leans on [[Dispersion Table]] and [[Waveguide Synthesizer]]
+  forward_vector: I am the identity the page argues, made to be heard. A stored cycle read by a counter, then the same cycle going round a delay loop, then the two subtracted at a whole-sample period, where the difference is zero at every sample; and last the test, the period half a sample longer, where the loop has to land between its own samples on every trip and no filter brings the silence back. I play inside the entry's rich face and stand alone opened directly; I change only when the section I serve does.
+  sound: nothing plays until Play is clicked; the AudioContext is made on that click. Changing step, shape or length stops the sound.
+  check: Wavetable Oscillator — rich — check.mjs runs this page's engine in Node against every number the page shows.
+-->
+<html lang="en" class="skin-graphite">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- needs nothing of its host: no device, no storage, no file, no host; sound only on a click -->
+<meta name="piece:needs" content="">
+<title>One cycle, two ways</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@300;400;500&display=swap">
+<style>
+  :root{
+    --bg:#0a0a0f; --bg-elev-1:#12121a; --bg-elev-2:#1a1a28; --border:#4a4a5e; --border-soft:rgba(255,255,255,0.06);
+    --fg-1:#e8e8f0; --fg-2:#c8c8d8; --fg-3:#8a8aa0; --fg-4:#4a4a5a;
+    --accent:#e8b84a; --accent-dim:#7a6030; --accent-soft:rgba(232,184,74,0.10); --accent-line:rgba(232,184,74,0.5);
+    --info:#4a8fff; --violet:#8b7cf6;
+    --serif:'Cormorant Garamond','Source Serif 4',Georgia,serif; --sans:'Manrope',system-ui,sans-serif;
+    --display:'Anton','Bebas Neue',Impact,sans-serif; --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--fg-1)}
+  body{font-family:var(--serif);font-size:17px;line-height:1.7;padding:28px 16px 36px}
+  main{max-width:960px;margin:0 auto}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--fg-3)}
+  h1{font-family:var(--display);font-weight:400;font-size:42px;line-height:1.05;margin:6px 0 10px}
+  h2{font-family:var(--display);font-weight:400;font-size:27px;line-height:1.1;margin:4px 0 8px;letter-spacing:.01em}
+  p.lead{font-size:19px;color:var(--fg-2);margin:0 0 18px;max-width:66ch}
+  .rail{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 18px}
+  .rail button{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-3);background:transparent;border:1px solid var(--border);border-radius:4px;padding:7px 11px;cursor:pointer;transition:all .22s cubic-bezier(.4,0,.2,1)}
+  .rail button[aria-current="step"]{color:var(--fg-1);border-color:var(--fg-3);background:var(--bg-elev-2)}
+  p.say{color:var(--fg-2);margin:0 0 14px;max-width:68ch}
+  .dwh{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:8px 18px;margin:0 0 14px;font-family:var(--sans);font-size:13.5px;color:var(--fg-2);line-height:1.55}
+  .dwh b{font-family:var(--mono);font-weight:400;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);display:block}
+  .panel{background:var(--bg-elev-1);border:1px solid var(--border-soft);border-radius:4px;padding:16px;margin:0 0 14px}
+  .plabel{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-3);display:flex;justify-content:space-between;gap:10px;margin-bottom:8px}
+  canvas{width:100%;display:block;background:var(--bg-elev-2);border-radius:2px}
+  .rowb{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:12px}
+  button.play{font-family:var(--sans);font-weight:500;font-size:14px;color:#0a0a0f;background:var(--accent);border:0;border-radius:4px;padding:9px 20px;cursor:pointer;transition:box-shadow .22s cubic-bezier(.4,0,.2,1)}
+  button.play:hover{box-shadow:0 0 24px var(--accent-soft)}
+  button.ghost{font-family:var(--sans);font-size:14px;color:var(--fg-2);background:transparent;border:1px solid var(--border);border-radius:4px;padding:8px 14px;cursor:pointer}
+  button.ghost.small{font-size:13px;padding:5px 10px}
+  button.ghost[aria-pressed="true"]{color:var(--fg-1);border-color:var(--accent-line);background:var(--bg-elev-2)}
+  button.ghost:disabled{opacity:.35;cursor:default}
+  .ctl{display:grid;grid-template-columns:170px 1fr auto;gap:6px 14px;align-items:center;margin-top:14px}
+  .ctl label{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-3)}
+  .ctl input[type=range]{width:100%;accent-color:var(--accent)}
+  .ctl .v{font-family:var(--mono);font-size:14px;color:var(--fg-1);text-align:right;white-space:nowrap;min-width:11ch}
+  .meter{font-family:var(--mono);font-size:13px;color:var(--fg-2);margin-top:12px;line-height:1.75}
+  .meter b{color:var(--accent);font-weight:400}
+  .eq{font-family:var(--mono);font-size:13.5px;color:var(--fg-1);margin:14px 0 0;overflow-wrap:anywhere}
+  .eq.words{font-family:var(--sans);color:var(--fg-3);font-size:13px;margin-top:2px}
+  .hint{font-family:var(--sans);font-size:13px;color:var(--fg-3)}
+  table.t{border-collapse:collapse;margin-top:12px;font-family:var(--mono);font-size:13px;color:var(--fg-2)}
+  table.t td,table.t th{border-bottom:1px solid var(--border-soft);padding:5px 16px 5px 0;text-align:right;font-weight:400}
+  table.t th{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-3)}
+  table.t td:first-child,table.t th:first-child{text-align:left}
+  table.t b{color:var(--accent);font-weight:400}
+  .found{margin-top:12px;font-family:var(--sans);font-size:14px;color:var(--fg-2);max-width:72ch;line-height:1.6}
+  .walk{display:flex;justify-content:space-between;gap:10px;margin-top:16px}
+  .hide{display:none!important}
+  footer{margin-top:28px;font-family:var(--sans);font-size:13px;color:var(--fg-4)}
+  footer b{font-family:var(--display);font-weight:400;letter-spacing:.06em;color:var(--fg-3)}
+  @media (max-width:560px){h1{font-size:32px}h2{font-size:23px}.ctl{grid-template-columns:110px 1fr auto}}
+</style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">Wavetable Oscillator · the same object as a loop · four steps</div>
+  <h1>One cycle, two ways</h1>
+  <p class="lead">A wavetable holds one cycle still and moves a counter across it. A delay loop moves the cycle past a tap that holds still. Take each alone, subtract them, then make the period a fraction of a sample longer and see what the loop has to do.</p>
+
+  <nav class="rail" id="rail" aria-label="steps"></nav>
+  <h2 id="st-title"></h2>
+  <p class="say" id="st-say"></p>
+  <div class="dwh"><div><b>do</b><span id="st-do"></span></div><div><b>watch</b><span id="st-watch"></span></div><div><b>hear</b><span id="st-hear"></span></div></div>
+
+  <div class="panel">
+    <div class="plabel"><span id="pic-l"></span><span id="pic-r"></span></div>
+    <canvas id="pic" height="250"></canvas>
+    <div class="rowb">
+      <button class="play" id="play" aria-label="play">▸ play</button>
+      <span class="hint" id="hear-l">hear</span>
+      <span id="hears"></span>
+    </div>
+    <div class="rowb"><span class="hint">the stored cycle</span>
+      <button class="ghost small" data-shape="saw" aria-pressed="true">saw</button>
+      <button class="ghost small" data-shape="soft" aria-pressed="false">soft</button>
+      <button class="ghost small" data-shape="hollow" aria-pressed="false">hollow</button>
+    </div>
+    <div class="ctl">
+      <label for="p">period, whole samples</label><input id="p" type="range" min="40" max="400" step="1" value="100"><span class="v" id="p-v"></span>
+    </div>
+    <div class="ctl" id="ctl-d">
+      <label for="d">and a fraction d</label><input id="d" type="range" min="0" max="0.95" step="0.05" value="0.5"><span class="v" id="d-v"></span>
+    </div>
+    <div class="rowb" id="row-nudge"><button class="ghost small" id="nudge" aria-pressed="false">the loop one sample longer</button><span class="hint">to hear that the difference is live, not muted</span></div>
+    <div class="rowb" id="row-mode"><span class="hint">the loop lands between samples by</span>
+      <button class="ghost small" data-mode="round" aria-pressed="false">rounding</button>
+      <button class="ghost small" data-mode="linear" aria-pressed="true">a linear step</button>
+      <button class="ghost small" data-mode="allpass" aria-pressed="false">an allpass</button>
+    </div>
+    <div class="meter" id="meter"></div>
+    <table class="t" id="tab"></table>
+    <p class="found" id="found"></p>
+  </div>
+
+  <div class="eq" id="eq1"></div>
+  <div class="eq words" id="eq1w"></div>
+  <div class="eq" id="eq2"></div>
+  <div class="eq words" id="eq2w"></div>
+
+  <div class="walk"><button class="ghost" id="back">← back</button><button class="ghost" id="next">next →</button></div>
+  <footer><b>LOUD’N LIVE</b> · made for the rich face of Wavetable Oscillator · the engine runs here, in this page, and in its check</footer>
+</main>
+
+<script id="engine">
+// ---- engine: one stored cycle, read two ways ----
+// a cycle as a short Fourier series: amplitude of harmonic k, all sines
+function cycleCoefs(shape, K) {
+  const a = new Float64Array(K + 1);
+  for (let k = 1; k <= K; k++) {
+    if (shape === 'saw') a[k] = (k % 2 ? 1 : -1) / k;
+    else if (shape === 'hollow') a[k] = k % 2 ? 1 / k : 0;
+    else a[k] = (k % 2 ? 1 : -1) / (k * k);
+  }
+  let pk = 0; for (let i = 0; i < 512; i++) pk = Math.max(pk, Math.abs(evalCycle(a, i / 512)));
+  for (let k = 1; k <= K; k++) a[k] *= 0.8 / pk;
+  return a;
+}
+// the cycle's exact value at phase ph (0..1): what an ideal reader lands on
+function evalCycle(a, ph) { let s = 0; for (let k = 1; k < a.length; k++) s += a[k] * Math.sin(2 * Math.PI * k * ph); return s; }
+// the stored table: P samples of the cycle
+function storeCycle(a, P) { const t = new Float64Array(P); for (let i = 0; i < P; i++) t[i] = evalCycle(a, i / P); return t; }
+// the oscillator: a counter steps one sample at a time and wraps at P; the value it lands on is the output
+function readTable(table, n) { const P = table.length, y = new Float64Array(n); for (let i = 0; i < n; i++) y[i] = table[i % P]; return y; }
+// the loop: a delay line of P samples, filled once with the cycle, its output fed straight back in
+function runLoop(table, n) {
+  const P = table.length, line = Float64Array.from(table), y = new Float64Array(n); let w = 0;
+  for (let i = 0; i < n; i++) { const v = line[w]; y[i] = v; line[w] = v; w = (w + 1) % P; }
+  return y;
+}
+// the ideal read at a period of T samples, T any real number: the series itself, evaluated fresh each sample
+// At a whole-number T it is the stored table, tiled. Otherwise each harmonic is a phasor turned one
+// sample at a time and re-set from sin and cos every 1024 samples, so it stays within about 1e-12.
+function exactRead(a, T, n) {
+  const y = new Float64Array(n);
+  if (T === Math.round(T)) { const t = storeCycle(a, T); for (let i = 0; i < n; i++) y[i] = t[i % T]; return y; }
+  for (let k = 1; k < a.length; k++) {
+    if (!a[k]) continue;
+    const w = 2 * Math.PI * k / T, cw = Math.cos(w), sw = Math.sin(w); let s = 0, c = 1;
+    for (let i = 0; i < n; i++) {
+      if ((i & 1023) === 0) { const ph = 2 * Math.PI * k * ((i % T) / T); s = Math.sin(ph); c = Math.cos(ph); }
+      y[i] += a[k] * s; const s2 = s * cw + c * sw; c = c * cw - s * sw; s = s2;
+    }
+  }
+  return y;
+}
+// the loop at a period of T samples, T = L + d. Its first trip is the exact cycle; after that each sample
+// is the loop's own output one trip ago, landed between samples one of three ways:
+//   'round'   : no filter, the line rounded to a whole number of samples
+//   'linear'  : y[n] = (1 − d)·y[n − L] + d·y[n − L − 1]
+//   'allpass' : a first-order allpass with delay 1 + d after a line of L − 1, coefficient c = −d ⁄ (2 + d)
+function loopAt(a, T, mode, n) {
+  const y = new Float64Array(n), Lf = Math.floor(T), d = T - Lf;
+  const first = Math.ceil(T) + 2;
+  for (let i = 0; i < Math.min(n, first); i++) y[i] = evalCycle(a, (i % T) / T);
+  if (mode === 'round') { const L = Math.round(T); for (let i = first; i < n; i++) y[i] = y[i - L]; return y; }
+  if (mode === 'linear') { for (let i = first; i < n; i++) y[i] = (1 - d) * y[i - Lf] + d * y[i - Lf - 1]; return y; }
+  const L = Lf - 1, c = -d / (2 + d);
+  for (let i = first; i < n; i++) y[i] = c * y[i - L] + y[i - L - 1] - c * y[i - 1];
+  return y;
+}
+// what one trip does to harmonic k, predicted: [gain per trip, the loop's real period for that harmonic in samples]
+function tripFor(mode, T, k) {
+  const Lf = Math.floor(T), d = T - Lf;
+  if (mode === 'round') return { gain: 1, period: Math.round(T) };
+  // solve w·(delay at w) = 2πk for w by bisection on the phase of one trip
+  const phase = (w) => {
+    if (mode === 'linear') { const re = (1 - d) + d * Math.cos(w), im = -d * Math.sin(w); return w * Lf - Math.atan2(im, re); }
+    const c = -d / (2 + d), L = Lf - 1; // H = (c + z^-1)/(1 + c z^-1)
+    const nr = c + Math.cos(w), ni = -Math.sin(w), dr = 1 + c * Math.cos(w), di = -c * Math.sin(w);
+    return w * L - (Math.atan2(ni, nr) - Math.atan2(di, dr));
+  };
+  let lo = 0, hi = Math.PI; const tgt = 2 * Math.PI * k;
+  if (phase(hi) < tgt) return { gain: NaN, period: NaN };
+  for (let it = 0; it < 80; it++) { const m = (lo + hi) / 2; if (phase(m) < tgt) lo = m; else hi = m; }
+  const w = (lo + hi) / 2;
+  const gain = mode === 'linear' ? Math.hypot((1 - d) + d * Math.cos(w), d * Math.sin(w)) : 1;
+  return { gain, period: 2 * Math.PI * k / w };
+}
+function maxDiff(x, y, s, e) { let m = 0; for (let i = s; i < e; i++) m = Math.max(m, Math.abs(x[i] - y[i])); return m; }
+// the difference from the exact read over [s, e), in dB under the exact read's own level
+function residueDb(x, ref, s, e) { let a = 0, b = 0; for (let i = s; i < e; i++) { const v = x[i] - ref[i]; a += v * v; b += ref[i] * ref[i]; } return a === 0 ? -Infinity : 10 * Math.log10(a / b); }
+// harmonic k's amplitude and phase in y[s .. s+w), a Hann-windowed DTFT at frequency k/T cycles a sample
+function partial(y, s, w, f) {
+  let re = 0, im = 0, hs = 0; const om = 2 * Math.PI * f;
+  for (let i = 0; i < w; i++) { const h = 0.5 - 0.5 * Math.cos(2 * Math.PI * i / (w - 1)); hs += h; re += y[s + i] * h * Math.cos(om * i); im -= y[s + i] * h * Math.sin(om * i); }
+  return 2 * Math.hypot(re, im) / hs;
+}
+function peakFreq(y, s, w, guess) {
+  const g = (Math.sqrt(5) - 1) / 2; let a = guess * 0.995, b = guess * 1.005, c = b - g * (b - a), d = a + g * (b - a);
+  for (let it = 0; it < 60; it++) { if (partial(y, s, w, c) > partial(y, s, w, d)) b = d; else a = c; c = b - g * (b - a); d = a + g * (b - a); }
+  return (a + b) / 2;
+}
+// ---- end engine ----
+</script>
+
+<script>
+const $ = (id) => document.getElementById(id);
+const S = { step: 0, P: 100, d: 0.5, shape: 'saw', mode: 'linear', hear: 'table', nudge: false };
+const TRIPS = [1, 10, 100, 1000];
+const STEPS = [
+  { name: 'the table', title: 'A cycle that holds still',
+    say: 'One cycle of a wave, stored as P numbers. A counter steps through them, one a sample, and jumps back to the start at the end. The number it lands on is the output. The table never changes; only the counter moves.',
+    do: 'Play. Move the period, then change the cycle’s shape.', watch: 'The counter sweeping the still table, slowed right down for the eye; on the right, what comes out.', hear: 'A steady tone. A shorter table is a higher pitch; the shape is the colour.',
+    hears: ['table'] },
+  { name: 'the loop', title: 'A cycle that goes round',
+    say: 'Now a delay line P samples long. It plays back whatever went in P samples ago. Fill it once with the same cycle and feed its output straight back to its input, losing nothing. Nothing sweeps it: the samples travel round and pass a tap that holds still, once a trip.',
+    do: 'Play, and hold it in your ear against step 1.', watch: 'The line’s contents sliding past the tap at its left end, and going back in at the right.', hear: 'The same tone as the table.',
+    hears: ['loop'] },
+  { name: 'their difference', title: 'Subtract them',
+    say: 'Play both at once, one turned upside down. When one trip is a whole number of samples, the loop hands back the table’s own numbers, not nearly but exactly, so the two cancel at every sample.',
+    do: 'Play their difference. Then make the loop one sample longer and play it again.', watch: 'The two outputs drawn on top of each other, and their difference beneath: a flat line.', hear: 'Silence, for as long as you like. One sample longer, a beating tone: the path was live all along.',
+    hears: ['table', 'loop', 'diff'] },
+  { name: 'the test', title: 'The test: a fraction of a sample longer',
+    say: 'Make one trip P + d samples. A table copes: its counter reads between two stored samples, fresh on every trip, and here it reads the cycle exactly, the best any table can do. A loop can’t be P + d samples long. Rounded, its pitch is wrong. Given a small filter, it can land between samples, but the filter sits in the loop and acts again on every trip. Does any of the three bring the silence back?',
+    do: 'Play their difference with each of the three. Set d to 0 and play again.', watch: 'Left, one trip of the exact read and of the loop, a hundred trips in. Right, how loud the difference is, trip by trip, for all three.', hear: 'Rounded: a wrong pitch, so the difference beats. The linear step: the highs fade trip by trip, as in a plucked string. The allpass: the level holds, but the high harmonics slide out of line.',
+    hears: ['exact', 'loop', 'diff'] },
+];
+const HEAR_LABEL = { table: 'the table', loop: 'the loop', diff: 'their difference', exact: 'the exact read' };
+const MODE_LABEL = { round: 'rounding', linear: 'a linear step', allpass: 'an allpass' };
+
+let ctx = null, master = null, src = null, sr = 48000, playing = false, t0 = 0, playLen = 0;
+let coefs = null, table = null, R = null, pend = 0;
+const K = () => Math.min(40, Math.floor((S.P) / 2) - 1);
+const T = () => (S.step === 3 ? S.P + S.d : S.P);
+
+function ensureAudio() {
+  if (ctx) return;
+  ctx = new (window.AudioContext || window.webkitAudioContext)();
+  sr = ctx.sampleRate;
+  const comp = ctx.createDynamicsCompressor(); comp.threshold.value = -10; comp.ratio.value = 6;
+  master = ctx.createGain(); master.gain.value = 0.5; master.connect(comp).connect(ctx.destination);
+}
+
+// everything the step shows, measured from the engine
+function rebuild() {
+  coefs = cycleCoefs(S.shape, K()); table = storeCycle(coefs, S.P);
+  R = { T: T() };
+  if (S.step === 3) {
+    const n = Math.ceil(R.T * 1004), ex = exactRead(coefs, R.T, n);
+    R.ex = ex; R.loops = {}; R.curve = {}; R.at = {};
+    for (const m of ['round', 'linear', 'allpass']) {
+      const y = loopAt(coefs, R.T, m, n); R.loops[m] = y;
+      const pts = [];
+      for (let j = 0; j <= 30; j++) { const tr = Math.pow(1000, j / 30), s = Math.floor(tr * R.T); pts.push([tr, residueDb(y, ex, s, Math.min(n, s + Math.ceil(3 * R.T)))]); }
+      R.curve[m] = pts;
+      R.at[m] = TRIPS.map((tr) => { const s = Math.floor(tr * R.T); return residueDb(y, ex, s, Math.min(n, s + Math.ceil(3 * R.T))); });
+    }
+  }
+}
+
+function render(kind) {
+  const len = Math.round(4 * sr), out = new Float32Array(len);
+  if (S.step < 3) {
+    const unit = S.nudge && S.step === 2 ? S.P * (S.P + 1) : S.P, reps = Math.max(1, Math.round(3 * sr / unit)), n = unit * reps;
+    const tab = readTable(table, n);
+    let lp;
+    if (S.nudge && S.step === 2) { const longer = new Float64Array(S.P + 1); longer.set(table); longer[S.P] = table[0]; lp = runLoop(longer, n); } else lp = runLoop(table, n);
+    const o = new Float32Array(n);
+    for (let i = 0; i < n; i++) o[i] = kind === 'table' ? tab[i] : kind === 'loop' ? lp[i] : tab[i] - lp[i];
+    return { data: o, loop: true };
+  }
+  const ex = exactRead(coefs, R.T, len), y = loopAt(coefs, R.T, S.mode, len);
+  for (let i = 0; i < len; i++) out[i] = (kind === 'exact' ? ex[i] : kind === 'loop' ? y[i] : ex[i] - y[i]) * Math.min(1, (len - i) / 512);
+  return { data: out, loop: false };
+}
+function start() {
+  ensureAudio(); stopSound(true);
+  if (ctx.state !== 'running') ctx.resume();
+  const r = render(S.hear), b = ctx.createBuffer(1, r.data.length, sr); b.copyToChannel(r.data, 0);
+  src = ctx.createBufferSource(); src.buffer = b; src.loop = r.loop; src.connect(master);
+  src.onended = () => { if (!r.loop && src && src.buffer === b) { playing = false; syncPlay(); } };
+  t0 = ctx.currentTime + 0.02; playLen = r.data.length; src.start(t0); playing = true; syncPlay();
+  // tell the face a sound started (a buffer source's start is not one the kit hears on its own)
+  if (window.parent !== window) { try { window.parent.postMessage({ type: 'rich:play' }, '*'); } catch (e) {} }
+}
+function stopSound(keep) { if (src) { try { src.stop(); } catch (e) {} src.disconnect(); src = null; } if (!keep) { playing = false; syncPlay(); } }
+function syncPlay() { $('play').textContent = playing ? '■ stop' : '▸ play'; }
+function changed() { const was = playing; stopSound(); clearTimeout(pend); pend = setTimeout(() => { rebuild(); show(); if (was) start(); }, 60); }
+
+// ---- the picture ----
+function fit(c) {
+  const d = devicePixelRatio || 1, w = c.clientWidth, h = +c.getAttribute('height');
+  if (c.width !== Math.round(w * d)) { c.width = Math.round(w * d); c.height = Math.round(h * d); c.style.height = h + 'px'; }
+  const g = c.getContext('2d'); g.setTransform(d, 0, 0, d, 0, 0); return { g, w, h };
+}
+function trace(g, x0, y0, w, h, n, get, col, lw, dash) {
+  g.strokeStyle = col; g.lineWidth = lw; g.setLineDash(dash || []); g.beginPath();
+  for (let i = 0; i < n; i++) { const x = x0 + w * i / (n - 1), y = y0 + h / 2 - get(i) * h * 0.5; i ? g.lineTo(x, y) : g.moveTo(x, y); }
+  g.stroke(); g.setLineDash([]);
+}
+function box(g, x, y, w, h, label) { g.strokeStyle = '#22222e'; g.lineWidth = 1; g.strokeRect(x, y, w, h); g.fillStyle = '#8a8aa0'; g.font = '10px JetBrains Mono, monospace'; g.textAlign = 'left'; g.fillText(label, x + 6, y + 13); }
+let ph = 0, lastT = performance.now();
+function draw(now) {
+  const dt = Math.min(0.1, (now - lastT) / 1000); lastT = now; ph = (ph + 0.35 * dt) % 1;
+  const { g, w, h } = fit($('pic')); g.clearRect(0, 0, w, h);
+  if (!table) return;
+  const P = S.P, gap = 12, lw = Math.floor((w - gap) * 0.5), rx = lw + gap, rw = w - rx, top = 20, ih = h - top - 14;
+  const st = STEPS[S.step].name;
+  const ACC = '#e8b84a', BLU = '#4a8fff', DIM = '#4a4a5a';
+  if (st === 'the table' || st === 'the loop' || st === 'their difference') {
+    box(g, 0, 0, lw, h, st === 'the loop' ? 'the delay line · its contents now' : st === 'the table' ? 'the table · still' : 'the table, and the loop’s contents');
+    const i0 = Math.floor(ph * P);
+    if (st !== 'the loop') trace(g, 8, top, lw - 16, ih, P, (i) => table[i], ACC, 2);
+    if (st === 'the loop' || st === 'their difference') {
+      const sh = st === 'the loop' ? i0 : 0;
+      trace(g, 8, top, lw - 16, ih, P, (i) => table[(i + sh) % P], BLU, st === 'their difference' ? 1.2 : 2, st === 'their difference' ? [5, 4] : []);
+    }
+    g.fillStyle = BLU;
+    if (st === 'the table') { const x = 8 + (lw - 16) * i0 / (P - 1); g.strokeStyle = '#8a8aa0'; g.lineWidth = 1; g.beginPath(); g.moveTo(x, top); g.lineTo(x, top + ih); g.stroke(); g.beginPath(); g.arc(x, top + ih / 2 - table[i0] * ih * 0.5, 4.5, 0, 7); g.fill(); g.fillStyle = '#8a8aa0'; g.fillText('counter at ' + i0, Math.min(x + 6, lw - 90), top + ih - 4); }
+    if (st === 'the loop') { g.strokeStyle = '#8a8aa0'; g.lineWidth = 1; g.beginPath(); g.moveTo(8, top); g.lineTo(8, top + ih); g.stroke(); g.beginPath(); g.arc(8, top + ih / 2 - table[i0] * ih * 0.5, 4.5, 0, 7); g.fill(); g.fillStyle = '#8a8aa0'; g.fillText('◂ tap · back in at the right ▸', 14, top + ih - 4); }
+    // what comes out: three periods, the newest at the right
+    box(g, rx, 0, rw, h, 'what comes out · three trips');
+    const n = 3 * P, s = i0;
+    if (st !== 'the loop') trace(g, rx + 8, top, rw - 16, ih * (st === 'their difference' ? 0.62 : 1), n, (i) => table[(s + i) % P], ACC, 1.8);
+    if (st === 'the loop') trace(g, rx + 8, top, rw - 16, ih, n, (i) => table[(s + i) % P], BLU, 1.8);
+    if (st === 'their difference') {
+      trace(g, rx + 8, top, rw - 16, ih * 0.62, n, (i) => table[(s + i) % P], BLU, 1.2, [5, 4]);
+      const y0 = top + ih * 0.62 + 4, hh = ih * 0.38 - 4;
+      g.fillStyle = '#8a8aa0'; g.fillText(S.nudge ? 'difference · the loop one sample longer' : 'difference', rx + 8, y0 + 10);
+      if (S.nudge) { const L = P + 1; trace(g, rx + 8, y0 + 6, rw - 16, hh, n, (i) => { const k = (s + i) + 40 * P; return table[k % P] - (k % L === P ? table[0] : table[(k % L)]); }, '#e8e8f0', 1.2); }
+      else trace(g, rx + 8, y0 + 6, rw - 16, hh, n, () => 0, '#e8e8f0', 1.4);
+    }
+    return;
+  }
+  // the test
+  box(g, 0, 0, lw, h, 'one trip, ' + 100 + ' trips in · gold exact · blue the loop');
+  const TT = R.T, s0 = Math.floor(100 * TT), m = Math.ceil(TT);
+  trace(g, 8, top, lw - 16, ih, m, (i) => R.ex[s0 + i], ACC, 2);
+  trace(g, 8, top, lw - 16, ih, m, (i) => R.loops[S.mode][s0 + i], BLU, 1.4);
+  box(g, rx, 0, rw, h, 'the difference from the exact read, dB · by trip');
+  const L = rx + 34, Rr = rx + rw - 8, Tp = top + 4, B = h - 20, lo = -60, hi = 6;
+  const X = (tr) => L + (Rr - L) * Math.log10(tr) / 3, Y = (db) => Tp + (B - Tp) * (hi - Math.max(lo, Math.min(hi, db))) / (hi - lo);
+  g.font = '10px JetBrains Mono, monospace'; g.fillStyle = '#8a8aa0'; g.strokeStyle = '#22222e';
+  for (let db = 0; db >= lo; db -= 20) { g.beginPath(); g.moveTo(L, Y(db)); g.lineTo(Rr, Y(db)); g.stroke(); g.textAlign = 'right'; g.fillText(db + '', L - 4, Y(db) + 3); }
+  for (const tr of TRIPS) { g.textAlign = tr === 1000 ? 'right' : 'center'; g.fillText(String(tr), tr === 1000 ? X(tr) + 2 : X(tr), h - 6); }
+  for (const md of ['round', 'linear', 'allpass']) {
+    const col = md === 'round' ? '#8a8aa0' : md === 'linear' ? ACC : '#8b7cf6', pts = R.curve[md];
+    g.strokeStyle = col; g.lineWidth = md === S.mode ? 2.2 : 1; g.setLineDash(md === 'round' ? [4, 4] : []); g.beginPath();
+    pts.forEach(([tr, db], j) => { const v = isFinite(db) ? db : lo; j ? g.lineTo(X(tr), Y(v)) : g.moveTo(X(tr), Y(v)); }); g.stroke(); g.setLineDash([]);
+  }
+  // the legend, along the foot of the chart, clear of the lines
+  let lx = L + 6; g.textAlign = 'left';
+  for (const md of ['round', 'linear', 'allpass']) {
+    const col = md === 'round' ? '#8a8aa0' : md === 'linear' ? ACC : '#8b7cf6', lab = MODE_LABEL[md];
+    g.strokeStyle = col; g.lineWidth = md === S.mode ? 2.2 : 1; g.setLineDash(md === 'round' ? [4, 4] : []); g.beginPath(); g.moveTo(lx, B - 10); g.lineTo(lx + 16, B - 10); g.stroke(); g.setLineDash([]);
+    g.fillStyle = col; g.fillText(lab, lx + 20, B - 7); lx += 30 + g.measureText(lab).width;
+  }
+  if (S.d === 0) { g.fillStyle = '#e8e8f0'; g.textAlign = 'center'; g.fillText('d = 0 · all three are exactly zero: below the chart', (L + Rr) / 2, B - 26); }
+}
+function loop(now) { requestAnimationFrame(loop); draw(now); }
+
+// ---- the readout ----
+const fmtDb = (v) => (v === -Infinity ? '0, exactly' : (v > 0 ? '+' : '') + v.toFixed(1) + ' dB');
+function show() {
+  const st = STEPS[S.step], P = S.P;
+  $('pic-l').textContent = ''; $('pic-r').textContent = `fs ${sr} Hz${ctx ? '' : ' (assumed until you play)'}`;
+  $('p-v').textContent = `${P} · ${(sr / P).toFixed(1)} Hz`;
+  $('d-v').textContent = `d = ${S.d.toFixed(2)} · ${(sr / (P + S.d)).toFixed(2)} Hz`;
+  let m = '', t = '', f = '';
+  if (st.name === 'the table') m = `y[n] = table[n mod ${P}] · one trip, ${P} samples · pitch fs ⁄ P = <b>${(sr / P).toFixed(2)} Hz</b>`;
+  if (st.name === 'the loop') m = `y[n] = y[n − ${P}] · one trip, ${P} samples · pitch fs ⁄ P = <b>${(sr / P).toFixed(2)} Hz</b>`;
+  if (st.name === 'their difference') {
+    const n = Math.round(10 * 48000), tab = readTable(table, n);
+    let lp; if (S.nudge) { const longer = new Float64Array(P + 1); longer.set(table); longer[P] = table[0]; lp = runLoop(longer, n); } else lp = runLoop(table, n);
+    const dmax = maxDiff(tab, lp, 0, n);
+    m = `table against loop, every sample of 10 s at 48 kHz (${Math.floor(n / P)} trips): largest difference <b>${dmax === 0 ? '0, exactly' : dmax.toFixed(3)}</b>`;
+    if (S.nudge) m += `<br>the loop is ${P + 1} samples: its pitch is ${(sr / (P + 1)).toFixed(2)} Hz against ${(sr / P).toFixed(2)}, so the two drift apart and beat ${(sr / P - sr / (P + 1)).toFixed(2)} times a second`;
+  }
+  if (st.name === 'the test') {
+    const TT = R.T;
+    m = `one trip = ${TT.toFixed(2)} samples · the exact read’s pitch fs ⁄ (P + d) = <b>${(sr / TT).toFixed(2)} Hz</b>`;
+    t = `<tr><th>the loop lands by</th><th>its pitch</th><th>harmonic 10, each trip</th>${TRIPS.map((x) => `<th>difference at trip ${x}</th>`).join('')}</tr>`;
+    for (const md of ['round', 'linear', 'allpass']) {
+      const p1 = tripFor(md, TT, 1), p10 = tripFor(md, TT, 10);
+      const c1 = 1200 * Math.log2(TT / p1.period), c10 = 1200 * Math.log2(TT / p10.period);
+      const h10 = md === 'round' ? 'kept, but out of tune' : md === 'linear' ? `${(20 * Math.log10(p10.gain)).toFixed(3)} dB${Math.abs(c10 - c1) > 0.01 ? `, ${(c10 - c1).toFixed(2)} ¢` : ''}` : `0 dB, ${c10 - c1 >= 0 ? '+' : ''}${(c10 - c1).toFixed(2)} ¢ against harmonic 1`;
+      t += `<tr><td>${md === S.mode ? '<b>' + MODE_LABEL[md] + '</b>' : MODE_LABEL[md]}</td><td>${Math.abs(c1) < 0.005 ? 'in tune' : (c1 >= 0 ? '+' : '') + c1.toFixed(2) + ' ¢'}</td><td>${h10}</td>${R.at[md].map((v) => `<td>${md === S.mode ? '<b>' + fmtDb(v) + '</b>' : fmtDb(v)}</td>`).join('')}</tr>`;
+    }
+    const allZero = ['round', 'linear', 'allpass'].every((md) => R.at[md].every((v) => v === -Infinity));
+    f = allZero
+      ? 'At d = 0 the loop is a bare delay again, whichever way it was told to land, and all three difference columns read zero: the silence of step 3.'
+      : 'None of the three is silent. The filters get the pitch right, so the loop stays in tune with the table, but each one is in the loop and acts again on every trip, and that is where the two part. The linear step loses the highs, a little more every trip: the start of a plucked string, which the page sends you to Waveguide Synthesizer for. The allpass keeps every level and bends the high harmonics out of line instead: the start of a dispersion curve, which is Dispersion Table’s ground (Dissolutions’ proof “The table that travels” turns that curve up). Only a whole-sample trip gives the table back.';
+  }
+  $('meter').innerHTML = m; $('tab').innerHTML = t; $('found').textContent = f;
+  eqs();
+}
+function eqs() {
+  const st = STEPS[S.step].name;
+  const E = {
+    'the table': ['y[n] = table[n mod P]      f = fs ⁄ P', '(the output now) = (the stored number the counter lands on, the counter wrapping every P samples); (the pitch) = (the sample rate) ÷ (the samples in one cycle)'],
+    'the loop': ['y[n] = y[n − P]', '(the output now) = (the output exactly one trip ago): what went in P samples back comes out again, unchanged'],
+    'their difference': ['table[n mod P] − y[n] = 0, for every n', '(the table’s output) minus (the loop’s output) is zero at every sample, as long as one trip is a whole number of samples'],
+    'the test': [S.mode === 'linear' ? 'y[n] = (1 − d) · y[n − P] + d · y[n − P − 1]' : S.mode === 'allpass' ? 'y[n] = c · y[n − P + 1] + y[n − P] − c · y[n − 1],   c = −d ⁄ (2 + d)' : 'y[n] = y[n − round(P + d)]',
+      S.mode === 'linear' ? '(the output now) = (a blend of the two samples one trip back that straddle P + d, weighted by how close each is)' : S.mode === 'allpass' ? '(the output now) = (a filter that passes every frequency at full level and delays the low ones by about 1 + d samples, after a line one sample shorter than P)' : '(the output now) = (the output a whole number of samples back, the nearest one to P + d)'],
+  }[st];
+  $('eq1').textContent = E[0]; $('eq1w').textContent = E[1];
+  const two = st === 'the test';
+  $('eq2').textContent = two ? 'exact:  y[n] = cycle((n mod (P + d)) ⁄ (P + d))' : '';
+  $('eq2w').textContent = two ? '(the exact read) = (the cycle itself at the phase the counter has reached, between stored samples or not): the best any table can do' : '';
+}
+
+// ---- the walk ----
+function hearButtons() {
+  const st = STEPS[S.step], el = $('hears'); el.innerHTML = '';
+  if (!st.hears.includes(S.hear)) S.hear = st.name === 'the table' ? 'table' : st.name === 'the loop' ? 'loop' : 'diff';
+  for (const k of st.hears) { const b = document.createElement('button'); b.className = 'ghost small'; b.textContent = HEAR_LABEL[k]; b.setAttribute('aria-pressed', String(k === S.hear)); b.onclick = () => { S.hear = k; hearButtons(); if (playing) start(); }; el.appendChild(b); }
+  $('hear-l').classList.toggle('hide', st.hears.length < 2);
+}
+function setStep(i) {
+  stopSound();
+  S.step = Math.max(0, Math.min(STEPS.length - 1, i)); const st = STEPS[S.step];
+  S.hear = st.name === 'the table' ? 'table' : st.name === 'the loop' ? 'loop' : 'diff';
+  if (st.name !== 'their difference') S.nudge = false;
+  $('st-title').textContent = `${S.step + 1} · ${st.title}`; $('st-say').textContent = st.say;
+  $('st-do').textContent = st.do; $('st-watch').textContent = st.watch; $('st-hear').textContent = st.hear;
+  [...$('rail').children].forEach((b, j) => b.setAttribute('aria-current', j === S.step ? 'step' : 'false'));
+  $('ctl-d').classList.toggle('hide', st.name !== 'the test'); $('row-mode').classList.toggle('hide', st.name !== 'the test'); $('row-nudge').classList.toggle('hide', st.name !== 'their difference');
+  $('nudge').setAttribute('aria-pressed', String(S.nudge));
+  $('back').disabled = S.step === 0; $('next').disabled = S.step === STEPS.length - 1;
+  hearButtons(); rebuild(); show();
+}
+STEPS.forEach((st, i) => { const b = document.createElement('button'); b.textContent = `${i + 1} · ${st.name}`; b.onclick = () => setStep(i); $('rail').appendChild(b); });
+$('back').onclick = () => setStep(S.step - 1); $('next').onclick = () => setStep(S.step + 1);
+$('play').onclick = () => { if (playing) stopSound(); else start(); };
+$('p').oninput = () => { S.P = +$('p').value; show(); changed(); };
+$('d').oninput = () => { S.d = +$('d').value; show(); changed(); };
+$('nudge').onclick = () => { S.nudge = !S.nudge; $('nudge').setAttribute('aria-pressed', String(S.nudge)); show(); changed(); };
+document.querySelectorAll('[data-shape]').forEach((b) => b.onclick = () => { S.shape = b.dataset.shape; document.querySelectorAll('[data-shape]').forEach((x) => x.setAttribute('aria-pressed', String(x === b))); changed(); });
+document.querySelectorAll('[data-mode]').forEach((b) => b.onclick = () => { S.mode = b.dataset.mode; document.querySelectorAll('[data-mode]').forEach((x) => x.setAttribute('aria-pressed', String(x === b))); show(); if (playing) start(); });
+setStep(0); requestAnimationFrame(loop);
+</script>
+</body>
+</html>

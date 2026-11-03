@@ -1,0 +1,361 @@
+<!doctype html>
+<!--
+  title: Wavetable Oscillator — rich — a bell on the grid
+  born: 2026-11-03
+  links: [[Wavetable Oscillator]] (connects-to · rich-face-piece) · listed in [[Wavetable Oscillator — rich.json]] · serves § Why it can only be harmonic · leans on [[Three Kinds of Warp]] and [[DSP in Looping Dimensions]]
+  forward_vector: I am the harmonic limit, heard. A struck bell whose partials sit off any one series; one cycle of it cut out and looped, which lands every partial on the loop's grid; the read bent, which moves energy among the harmonics and puts none between them; and last the test, a fold that keeps only what lands between, measured for the bell, the loop, the bent loop, and a bend that moves while every trip still takes the same time. I play inside the entry's rich face and stand alone opened directly; I change only when the section I serve does.
+  sound: nothing plays until Play is clicked; the AudioContext is made on that click. Changing step stops the sound.
+  check: Wavetable Oscillator — rich — check.mjs runs this page's engine in Node against every number the page shows.
+-->
+<html lang="en" class="skin-graphite">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- needs nothing of its host: no device, no storage, no file, no host; sound only on a click -->
+<meta name="piece:needs" content="">
+<title>A bell on the grid</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@300;400;500&display=swap">
+<style>
+  :root{
+    --bg:#0a0a0f; --bg-elev-1:#12121a; --bg-elev-2:#1a1a28; --border:#4a4a5e; --border-soft:rgba(255,255,255,0.06);
+    --fg-1:#e8e8f0; --fg-2:#c8c8d8; --fg-3:#8a8aa0; --fg-4:#4a4a5a;
+    --accent:#e8b84a; --accent-dim:#7a6030; --accent-soft:rgba(232,184,74,0.10); --accent-line:rgba(232,184,74,0.5);
+    --info:#4a8fff; --violet:#8b7cf6;
+    --serif:'Cormorant Garamond','Source Serif 4',Georgia,serif; --sans:'Manrope',system-ui,sans-serif;
+    --display:'Anton','Bebas Neue',Impact,sans-serif; --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--fg-1)}
+  body{font-family:var(--serif);font-size:17px;line-height:1.7;padding:28px 16px 36px}
+  main{max-width:960px;margin:0 auto}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--fg-3)}
+  h1{font-family:var(--display);font-weight:400;font-size:42px;line-height:1.05;margin:6px 0 10px}
+  h2{font-family:var(--display);font-weight:400;font-size:27px;line-height:1.1;margin:4px 0 8px;letter-spacing:.01em}
+  p.lead{font-size:19px;color:var(--fg-2);margin:0 0 18px;max-width:66ch}
+  .rail{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 18px}
+  .rail button{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-3);background:transparent;border:1px solid var(--border);border-radius:4px;padding:7px 11px;cursor:pointer;transition:all .22s cubic-bezier(.4,0,.2,1)}
+  .rail button[aria-current="step"]{color:var(--fg-1);border-color:var(--fg-3);background:var(--bg-elev-2)}
+  p.say{color:var(--fg-2);margin:0 0 14px;max-width:68ch}
+  .dwh{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:8px 18px;margin:0 0 14px;font-family:var(--sans);font-size:13.5px;color:var(--fg-2);line-height:1.55}
+  .dwh b{font-family:var(--mono);font-weight:400;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);display:block}
+  .panel{background:var(--bg-elev-1);border:1px solid var(--border-soft);border-radius:4px;padding:16px;margin:0 0 14px}
+  .plabel{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-3);display:flex;justify-content:space-between;gap:10px;margin-bottom:8px}
+  canvas{width:100%;display:block;background:var(--bg-elev-2);border-radius:2px}
+  .rowb{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:12px}
+  button.play{font-family:var(--sans);font-weight:500;font-size:14px;color:#0a0a0f;background:var(--accent);border:0;border-radius:4px;padding:9px 20px;cursor:pointer;transition:box-shadow .22s cubic-bezier(.4,0,.2,1)}
+  button.play:hover{box-shadow:0 0 24px var(--accent-soft)}
+  button.ghost{font-family:var(--sans);font-size:14px;color:var(--fg-2);background:transparent;border:1px solid var(--border);border-radius:4px;padding:8px 14px;cursor:pointer}
+  button.ghost.small{font-size:13px;padding:5px 10px}
+  button.ghost[aria-pressed="true"]{color:var(--fg-1);border-color:var(--accent-line);background:var(--bg-elev-2)}
+  button.ghost:disabled{opacity:.35;cursor:default}
+  .ctl{display:grid;grid-template-columns:170px 1fr auto;gap:6px 14px;align-items:center;margin-top:14px}
+  .ctl label{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-3)}
+  .ctl input[type=range]{width:100%;accent-color:var(--accent)}
+  .ctl .v{font-family:var(--mono);font-size:14px;color:var(--fg-1);text-align:right;white-space:nowrap;min-width:11ch}
+  .meter{font-family:var(--mono);font-size:13px;color:var(--fg-2);margin-top:12px;line-height:1.75}
+  .meter b{color:var(--accent);font-weight:400}
+  .eq{font-family:var(--mono);font-size:13.5px;color:var(--fg-1);margin:14px 0 0;overflow-wrap:anywhere}
+  .eq.words{font-family:var(--sans);color:var(--fg-3);font-size:13px;margin-top:2px}
+  .hint{font-family:var(--sans);font-size:13px;color:var(--fg-3)}
+  table.t{border-collapse:collapse;margin-top:12px;font-family:var(--mono);font-size:13px;color:var(--fg-2)}
+  table.t td,table.t th{border-bottom:1px solid var(--border-soft);padding:5px 16px 5px 0;text-align:right;font-weight:400}
+  table.t th{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-3)}
+  table.t td:first-child,table.t th:first-child{text-align:left}
+  table.t b{color:var(--accent);font-weight:400}
+  .found{margin-top:12px;font-family:var(--sans);font-size:14px;color:var(--fg-2);max-width:72ch;line-height:1.6}
+  .walk{display:flex;justify-content:space-between;gap:10px;margin-top:16px}
+  .hide{display:none!important}
+  footer{margin-top:28px;font-family:var(--sans);font-size:13px;color:var(--fg-4)}
+  footer b{font-family:var(--display);font-weight:400;letter-spacing:.06em;color:var(--fg-3)}
+  @media (max-width:560px){h1{font-size:32px}h2{font-size:23px}.ctl{grid-template-columns:110px 1fr auto}}
+</style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">Wavetable Oscillator · why it can only be harmonic · four steps</div>
+  <h1>A bell on the grid</h1>
+  <p class="lead">A bell’s partials don’t line up on one harmonic series. Cut one cycle out of it and read that cycle round and round, and they have to. Hear the bell, loop it, bend the read, then test what lands between the harmonics.</p>
+
+  <nav class="rail" id="rail" aria-label="steps"></nav>
+  <h2 id="st-title"></h2>
+  <p class="say" id="st-say"></p>
+  <div class="dwh"><div><b>do</b><span id="st-do"></span></div><div><b>watch</b><span id="st-watch"></span></div><div><b>hear</b><span id="st-hear"></span></div></div>
+
+  <div class="panel">
+    <div class="plabel"><span id="pic-l"></span><span id="pic-r"></span></div>
+    <canvas id="pic" height="270"></canvas>
+    <div class="rowb">
+      <button class="play" id="play" aria-label="play">▸ play</button>
+      <span class="hint" id="hear-l">hear</span>
+      <span id="hears"></span>
+    </div>
+    <div class="ctl" id="ctl-p">
+      <label for="p">one cycle, samples</label><input id="p" type="range" min="60" max="600" step="1" value="137"><span class="v" id="p-v"></span>
+    </div>
+    <div class="ctl" id="ctl-s">
+      <label for="s">cut it at</label><input id="s" type="range" min="5" max="400" step="5" value="20"><span class="v" id="s-v"></span>
+    </div>
+    <div class="ctl" id="ctl-b">
+      <label for="b">bend the read</label><input id="b" type="range" min="-0.9" max="0.9" step="0.05" value="0.6"><span class="v" id="b-v"></span>
+    </div>
+    <div class="meter" id="meter"></div>
+    <table class="t" id="tab"></table>
+    <p class="found" id="found"></p>
+  </div>
+
+  <div class="eq" id="eq1"></div>
+  <div class="eq words" id="eq1w"></div>
+
+  <div class="walk"><button class="ghost" id="back">← back</button><button class="ghost" id="next">next →</button></div>
+  <footer><b>LOUD’N LIVE</b> · made for the rich face of Wavetable Oscillator · the engine runs here, in this page, and in its check · the bell is Risset’s, after Dodge and Jerse</footer>
+</main>
+
+<script id="engine">
+// ---- engine: a bell, one cycle of it looped, and the grid it lands on ----
+// Risset's bell (after Dodge & Jerse): ratio to the base, extra Hz, relative level, relative length
+const BELL = [[0.56, 0, 1, 1], [0.56, 1, 0.67, 0.9], [0.92, 0, 1, 0.65], [0.92, 1.7, 1.8, 0.55], [1.19, 0, 2.67, 0.325], [1.7, 0, 1.67, 0.35],
+  [2, 0, 1.46, 0.25], [2.74, 0, 1.33, 0.2], [3, 0, 1.33, 0.15], [3.76, 0, 1, 0.1], [4.07, 0, 1.33, 0.075]];
+function bellFreqs(fb) { return BELL.map(([r, x]) => r * fb + x); }
+// the strike: each partial a sine dying exponentially, 60 dB down at its share of DUR seconds
+function bellStrike(fs, fb, n, DUR) {
+  const y = new Float64Array(n), f = bellFreqs(fb);
+  BELL.forEach(([, , amp, len], k) => {
+    const w = 2 * Math.PI * f[k] / fs, dec = Math.pow(10, -3 / (len * DUR * fs)), ph0 = 0.7 * k;
+    let g = amp;
+    for (let i = 0; i < n; i++) { y[i] += g * Math.sin(w * i + ph0); g *= dec; }
+  });
+  let pk = 0; for (let i = 0; i < n; i++) pk = Math.max(pk, Math.abs(y[i]));
+  for (let i = 0; i < n; i++) y[i] *= 0.8 / pk;
+  for (let i = 0; i < Math.min(n, 96); i++) y[i] *= i / 96;   // a soft strike, no click
+  return y;
+}
+// one cycle: P samples of the strike, starting at sample s0
+function cutCycle(strike, s0, P) { return strike.slice(s0, s0 + P); }
+// read the cycle round and round. The counter's phase is (n mod P) ⁄ P; the read can be bent,
+// phase' = phase + (b ⁄ 2π)·sin(2π·phase), which keeps one trip per period while |b| < 1.
+// wob > 0 makes the bend itself move, c·(1 + 0.9·sin(2π·wob·n ⁄ fs)), at a rate unrelated to the pitch,
+// with c = b held to ±0.5 so the moving bend peaks at 0.95 and the read stays one-to-one.
+function readCycle(cyc, n, b, wob, fs) {
+  const P = cyc.length, y = new Float64Array(n), c = Math.max(-0.5, Math.min(0.5, b));
+  for (let i = 0; i < n; i++) {
+    const ph = (i % P) / P, bb = wob ? c * (1 + 0.9 * Math.sin(2 * Math.PI * wob * i / fs)) : b;
+    let q = ph + bb / (2 * Math.PI) * Math.sin(2 * Math.PI * ph); q = (q - Math.floor(q)) * P;
+    const i0 = Math.floor(q) % P, fr = q - Math.floor(q);
+    y[i] = cyc[i0] + fr * (cyc[(i0 + 1) % P] - cyc[i0]);
+  }
+  return y;
+}
+// the test: fold M trips of y (from s) onto one trip and average them. A sound on the loop's grid,
+// every partial a whole-number multiple of fs ⁄ P, folds onto itself; what does not fold is off the grid.
+// Returns that part's energy under the whole, in dB (−Infinity when nothing is left over).
+function offGridDb(y, P, s, M) {
+  const avg = new Float64Array(P);
+  for (let m = 0; m < M; m++) for (let j = 0; j < P; j++) avg[j] += y[s + m * P + j] / M;
+  let off = 0, all = 0;
+  for (let m = 0; m < M; m++) for (let j = 0; j < P; j++) { const v = y[s + m * P + j], r = v - avg[j]; off += r * r; all += v * v; }
+  return off === 0 ? -Infinity : 10 * Math.log10(off / all);
+}
+// is every trip bit-for-bit the first? (the stronger form of the same test)
+function tripsIdentical(y, P, s, M) { for (let m = 1; m < M; m++) for (let j = 0; j < P; j++) if (y[s + m * P + j] !== y[s + j]) return false; return true; }
+// radix-2 FFT, in place, and a Hann-windowed magnitude spectrum in dB
+function fft(re, im) {
+  const n = re.length;
+  for (let i = 1, j = 0; i < n; i++) { let bit = n >> 1; for (; j & bit; bit >>= 1) j ^= bit; j ^= bit; if (i < j) { [re[i], re[j]] = [re[j], re[i]]; [im[i], im[j]] = [im[j], im[i]]; } }
+  for (let len = 2; len <= n; len <<= 1) {
+    const ang = -2 * Math.PI / len;
+    for (let i = 0; i < n; i += len) for (let k = 0; k < len / 2; k++) {
+      const wr = Math.cos(ang * k), wi = Math.sin(ang * k), a = i + k, b = a + len / 2;
+      const xr = re[b] * wr - im[b] * wi, xi = re[b] * wi + im[b] * wr;
+      re[b] = re[a] - xr; im[b] = im[a] - xi; re[a] += xr; im[a] += xi;
+    }
+  }
+}
+function spectrumDb(y, s, N) {
+  const re = new Float64Array(N), im = new Float64Array(N);
+  for (let i = 0; i < N; i++) re[i] = (y[s + i] || 0) * (0.5 - 0.5 * Math.cos(2 * Math.PI * i / N));
+  fft(re, im);
+  const out = new Float64Array(N / 2); for (let i = 0; i < N / 2; i++) out[i] = 10 * Math.log10((re[i] * re[i] + im[i] * im[i]) / (N * N / 16) + 1e-20);
+  return out;
+}
+// where each bell partial lands on the loop's grid: the nearest harmonic and how far it moved, in cents
+function snapToGrid(fb, fs, P) { const f0 = fs / P; return bellFreqs(fb).map((f) => { const k = Math.max(1, Math.round(f / f0)); return { f, k, fk: k * f0, cents: 1200 * Math.log2(k * f0 / f) }; }); }
+// ---- end engine ----
+</script>
+
+<script>
+const $ = (id) => document.getElementById(id);
+const FB = 600, DUR = 4, WOB = 37.7, NFFT = 8192;
+const S = { step: 0, P: 137, cutMs: 20, bend: 0.6, hear: 'bell' };
+const STEPS = [
+  { name: 'the bell', title: 'A bell, struck',
+    say: 'Eleven partials, each a sine dying away at its own rate: Risset’s bell. Their frequencies are 0.56, 0.92, 1.19, 1.7, 2, 2.74, 3, 3.76 and 4.07 times 600 Hz, two of them doubled a hair apart, which makes the slow beat. No one fundamental has all of them as whole-number multiples.',
+    do: 'Play the strike.', watch: 'Left, the strike over its first second. Right, its spectrum: each dashed line is one of the bell’s partials, and the peaks sit on them.', hear: 'A bell: a clang, a slow beat, a long hum.',
+    hears: ['bell'], ctl: [] },
+  { name: 'one cycle, looped', title: 'Cut one cycle and loop it',
+    say: 'Take P samples of the strike, any P, and read them round and round, as a wavetable reads its one stored cycle. Now the sound repeats exactly every P samples, so every partial has to be a whole-number multiple of fs ⁄ P. The faint ticks are that grid.',
+    do: 'Play. Change the cycle’s length, and where it is cut from the strike.', watch: 'Right: the peaks now stand on the ticks, not on the dashed lines. The table below says where each of the bell’s partials went.', hear: 'A buzzy, steady tone at the loop’s pitch, coloured by the bell but not a bell.',
+    hears: ['loop'], ctl: ['p', 's'] },
+  { name: 'bend the read', title: 'Bend the read',
+    say: 'Reshape how the counter moves through the cycle: it hurries through one half and lingers in the other, and comes back to the start on time, every trip. This is the oldest trick for changing a table’s timbre without changing the table.',
+    do: 'Play, and move the bend.', watch: 'Right: the peaks grow and shrink, and none of them leaves its tick.', hear: 'The colour changes. The pitch, and the buzz’s harmonic sound, do not.',
+    hears: ['bent'], ctl: ['p', 's', 'b'] },
+  { name: 'the test', title: 'The test: what lands between?',
+    say: 'Fold the sound onto one trip: lay its trips on top of each other and average them. Everything on the loop’s grid folds onto itself. What does not fold is energy between the harmonics. Four sounds: the bell, the looped cycle, the bent read, and the bent read with the bend itself moving 37.7 times a second (held under 1 at its peak, so the read never runs backward), while every trip still takes exactly P samples.',
+    do: 'Play each of the four. Change the cycle’s length and the bend, and read the table again.', watch: 'The last column. The looped cycle and the still bend have nothing between the harmonics, every trip the first, bit for bit, and that is by construction: their read depends on n mod P alone, so no trip can differ. The real tests are the bell and the moving bend.', hear: 'The moving bend: the same buzz, with something moving in it that the still bend did not have. That movement is the energy between.',
+    hears: ['bell', 'loop', 'bent', 'wob'], ctl: ['p', 's', 'b'] },
+];
+const HEAR_LABEL = { bell: 'the bell', loop: 'the looped cycle', bent: 'the bent read', wob: 'the bend moving' };
+
+let ctx = null, master = null, src = null, sr = 48000, playing = false, pend = 0;
+let strike = null, strikeSr = 0, cyc = null, R = null;
+function ensureAudio() {
+  if (ctx) return;
+  ctx = new (window.AudioContext || window.webkitAudioContext)();
+  sr = ctx.sampleRate;
+  const comp = ctx.createDynamicsCompressor(); comp.threshold.value = -10; comp.ratio.value = 6;
+  master = ctx.createGain(); master.gain.value = 0.5; master.connect(comp).connect(ctx.destination);
+}
+function s0() { return Math.round(S.cutMs / 1000 * sr); }
+function sound(kind, n) {
+  if (kind === 'bell') return strike.subarray(0, n);
+  return readCycle(cyc, n, kind === 'loop' ? 0 : S.bend, kind === 'wob' ? WOB : 0, sr);
+}
+function rebuild() {
+  if (!strike || strikeSr !== sr) { strike = bellStrike(sr, FB, Math.round(DUR * sr), DUR); strikeSr = sr; }
+  cyc = cutCycle(strike, s0(), S.P);
+  const st = STEPS[S.step].name, kind = st === 'the bell' ? 'bell' : st === 'one cycle, looped' ? 'loop' : st === 'bend the read' ? 'bent' : S.hear;
+  const y = kind === 'bell' ? strike : sound(kind, NFFT + 2 * S.P);
+  R = { kind, spec: spectrumDb(y, kind === 'bell' ? s0() : 0, NFFT), snap: snapToGrid(FB, sr, S.P) };
+  if (st === 'the test') {
+    const M = 16, Mw = Math.floor(sr / S.P), rows = {};
+    rows.bell = { db: offGridDb(strike, S.P, s0(), M), same: tripsIdentical(strike, S.P, s0(), M), trips: M };
+    for (const k of ['loop', 'bent', 'wob']) { const MM = k === 'wob' ? Mw : M, yy = sound(k, MM * S.P); rows[k] = { db: offGridDb(yy, S.P, 0, MM), same: tripsIdentical(yy, S.P, 0, MM), trips: MM }; }
+    R.rows = rows;
+  }
+}
+function start() {
+  ensureAudio(); stopSound(true);
+  if (ctx.state !== 'running') ctx.resume();
+  rebuild();
+  const kind = R.kind === 'bell' || STEPS[S.step].name === 'the test' ? S.hear : R.kind;
+  let data, loop = false;
+  if (kind === 'bell') data = Float32Array.from(strike);
+  else if (kind === 'wob') { const n = Math.round(4 * sr); data = Float32Array.from(sound('wob', n)); for (let i = 0; i < 512; i++) data[n - 1 - i] *= i / 512; }
+  else { const n = S.P * Math.max(1, Math.round(3 * sr / S.P)); data = Float32Array.from(sound(kind, n)); loop = true; }
+  const b = ctx.createBuffer(1, data.length, sr); b.copyToChannel(data, 0);
+  src = ctx.createBufferSource(); src.buffer = b; src.loop = loop; src.connect(master);
+  src.onended = () => { if (!loop && src && src.buffer === b) { playing = false; syncPlay(); } };
+  src.start(ctx.currentTime + 0.02); playing = true; syncPlay();
+  // tell the face a sound started (a buffer source's start is not one the kit hears on its own)
+  if (window.parent !== window) { try { window.parent.postMessage({ type: 'rich:play' }, '*'); } catch (e) {} }
+  show();
+}
+function stopSound(keep) { if (src) { try { src.stop(); } catch (e) {} src.disconnect(); src = null; } if (!keep) { playing = false; syncPlay(); } }
+function syncPlay() { $('play').textContent = playing ? '■ stop' : '▸ play'; }
+function changed() { const was = playing; stopSound(); clearTimeout(pend); pend = setTimeout(() => { rebuild(); show(); if (was) start(); }, 80); }
+
+// ---- the picture ----
+function fit(c) {
+  const d = devicePixelRatio || 1, w = c.clientWidth, h = +c.getAttribute('height');
+  if (c.width !== Math.round(w * d)) { c.width = Math.round(w * d); c.height = Math.round(h * d); c.style.height = h + 'px'; }
+  const g = c.getContext('2d'); g.setTransform(d, 0, 0, d, 0, 0); return { g, w, h };
+}
+function box(g, x, y, w, h, label) { g.strokeStyle = '#22222e'; g.lineWidth = 1; g.strokeRect(x, y, w, h); g.fillStyle = '#8a8aa0'; g.font = '10px JetBrains Mono, monospace'; g.textAlign = 'left'; g.fillText(label, x + 6, y + 13); }
+function draw() {
+  const { g, w, h } = fit($('pic')); g.clearRect(0, 0, w, h);
+  if (!R) return;
+  const gap = 12, lw = Math.max(200, Math.floor((w - gap) * 0.36)), rx = lw + gap, rw = w - rx, top = 22, ih = h - top - 22;
+  const st = STEPS[S.step].name, ACC = '#e8b84a', BLU = '#4a8fff';
+  if (st === 'the bell') {
+    box(g, 0, 0, lw, h, 'the strike · first second');
+    const n = Math.round(sr), step = Math.max(1, Math.floor(n / (lw - 16)));
+    g.strokeStyle = ACC; g.lineWidth = 1; g.beginPath();
+    for (let x = 0; x < lw - 16; x++) { let mn = 0, mx = 0; for (let i = x * step; i < (x + 1) * step && i < n; i++) { mn = Math.min(mn, strike[i]); mx = Math.max(mx, strike[i]); } g.moveTo(8 + x, top + ih / 2 - mx * ih * 0.5); g.lineTo(8 + x, top + ih / 2 - mn * ih * 0.5); }
+    g.stroke();
+  } else {
+    box(g, 0, 0, lw, h, st === 'one cycle, looped' ? 'the cut, ' + S.P + ' samples' : 'the cycle as the bent read gives it');
+    const P = S.P, y = st === 'one cycle, looped' ? cyc : readCycle(cyc, P, S.bend, 0, sr);
+    if (st !== 'one cycle, looped') { g.strokeStyle = 'rgba(232,184,74,0.35)'; g.lineWidth = 1; g.beginPath(); for (let i = 0; i < P; i++) { const x = 8 + (lw - 16) * i / (P - 1), v = top + ih / 2 - cyc[i] * ih * 0.5; i ? g.lineTo(x, v) : g.moveTo(x, v); } g.stroke(); }
+    g.strokeStyle = BLU; g.lineWidth = 1.8; g.beginPath(); for (let i = 0; i < P; i++) { const x = 8 + (lw - 16) * i / (P - 1), v = top + ih / 2 - y[i] * ih * 0.5; i ? g.lineTo(x, v) : g.moveTo(x, v); } g.stroke();
+  }
+  box(g, rx, 0, rw, h, 'spectrum, 0 to 3 kHz · dashed: the bell’s partials' + (st === 'the bell' ? '' : ' · ticks: k · fs ⁄ P'));
+  const fMax = 3000, L = rx + 30, Rr = rx + rw - 8, Tp = top, B = h - 20, lo = -80;
+  const X = (f) => L + (Rr - L) * f / fMax, Y = (db) => Tp + (B - Tp) * Math.min(1, Math.max(0, -db / -lo));
+  g.font = '10px JetBrains Mono, monospace';
+  for (let db = 0; db >= lo; db -= 20) { g.strokeStyle = '#1e1e2a'; g.beginPath(); g.moveTo(L, Y(db)); g.lineTo(Rr, Y(db)); g.stroke(); g.fillStyle = '#8a8aa0'; g.textAlign = 'right'; g.fillText(db + '', L - 4, Y(db) + 3); }
+  for (let f = 0; f <= fMax; f += 1000) { g.textAlign = 'center'; g.fillText(f ? f / 1000 + ' kHz' : '0', X(f), h - 6); }
+  if (st !== 'the bell') { const f0 = sr / S.P; g.strokeStyle = 'rgba(200,200,216,0.35)'; for (let k = 1; k * f0 <= fMax; k++) { g.beginPath(); g.moveTo(X(k * f0), B); g.lineTo(X(k * f0), B - 8); g.stroke(); } }
+  g.setLineDash([3, 4]); g.strokeStyle = 'rgba(232,184,74,0.55)';
+  for (const f of bellFreqs(FB)) if (f < fMax) { g.beginPath(); g.moveTo(X(f), Tp); g.lineTo(X(f), B); g.stroke(); }
+  g.setLineDash([]);
+  const spec = R.spec, bin = sr / NFFT; let pk = -Infinity; for (let i = 1; i < spec.length; i++) pk = Math.max(pk, spec[i]);
+  g.strokeStyle = R.kind === 'bell' ? ACC : BLU; g.lineWidth = 1.3; g.beginPath();
+  for (let i = 1; i * bin <= fMax; i++) { const x = X(i * bin), v = Y(spec[i] - pk); i > 1 ? g.lineTo(x, v) : g.moveTo(x, v); }
+  g.stroke();
+}
+function loop() { requestAnimationFrame(loop); draw(); }
+
+// ---- the readout ----
+function show() {
+  const st = STEPS[S.step].name, f0 = sr / S.P;
+  $('pic-r').textContent = `fs ${sr} Hz${ctx ? '' : ' (assumed until you play)'}`;
+  $('p-v').textContent = `${S.P} · ${f0.toFixed(1)} Hz`;
+  $('s-v').textContent = `${S.cutMs} ms in`;
+  $('b-v').textContent = S.bend.toFixed(2);
+  let m = '', t = '', f = '';
+  if (st === 'the bell') m = `partials at <b>${bellFreqs(FB).map((x) => x.toFixed(1)).join(' · ')}</b> Hz`;
+  if (st !== 'the bell') {
+    m = `the loop’s pitch fs ⁄ P = <b>${f0.toFixed(2)} Hz</b>; every partial of the loop is a whole-number multiple of it`;
+    if (st !== 'the test') {
+      t = '<tr><th>the bell’s partial</th><th>nearest harmonic of the loop</th><th>at</th><th>moved by</th></tr>';
+      const seen = new Set();
+      for (const r of R.snap) { const key = r.k; if (seen.has(key)) continue; seen.add(key); t += `<tr><td>${r.f.toFixed(1)} Hz</td><td>k = ${r.k}</td><td>${r.fk.toFixed(1)} Hz</td><td><b>${r.cents >= 0 ? '+' : ''}${r.cents.toFixed(0)} ¢</b></td></tr>`; }
+      f = 'Each of the bell’s partials leaks onto the harmonics around it; the table names the nearest one and how far the partial had to move to reach it. The doubled pairs share a harmonic, and their slow beat is gone: a sound that repeats exactly cannot beat.';
+    }
+  }
+  if (st === 'the test') {
+    t = '<tr><th>the sound</th><th>trips folded</th><th>every trip the first, bit for bit?</th><th>energy between the harmonics</th></tr>';
+    for (const k of ['bell', 'loop', 'bent', 'wob']) {
+      const r = R.rows[k], db = r.same ? 'none' : r.db === -Infinity ? 'none' : `${r.db.toFixed(1)} dB under the whole`;
+      t += `<tr><td>${HEAR_LABEL[k]}</td><td>${r.trips}</td><td>${r.same ? 'yes' : 'no'}</td><td><b>${db}</b></td></tr>`;
+    }
+    f = `Measured at ${sr} Hz. The looped cycle and the bent read put nothing between the harmonics, by construction: the bend moved energy among them and that is all, as the page says. The bell, folded the same way, keeps almost all its energy between. The fourth row is the edge of the claim. Every trip of the moving bend still takes exactly ${S.P} samples, yet it puts ${R.rows.wob.db.toFixed(1)} dB under the whole between the harmonics, because no two trips are read the same way. Keeping the trip’s length is not enough; the read has to hold still too, which is what Three Kinds of Warp’s theorem asks: φ(t + T) − φ(t) = 2π at every t, not only at the end of each trip. A bend that moves at a rate of its own is a second clock.`;
+  }
+  $('meter').innerHTML = m; $('tab').innerHTML = t; $('found').textContent = f;
+  const E = {
+    'the bell': ['y(t) = Σ aₖ · e^(−t ⁄ τₖ) · sin(2π fₖ t)', '(the strike) = (the sum of eleven sines, each at one of the bell’s frequencies, each dying at its own rate)'],
+    'one cycle, looped': ['y[n] = cut[n mod P]      f = k · fs ⁄ P, k = 1, 2, 3 …', '(the output) = (the cut, read round and round); (every frequency in it) = (a whole number) × (the sample rate ÷ the cut’s length)'],
+    'bend the read': ['y[n] = cut( P · (φ + (b ⁄ 2π) · sin 2πφ) ),   φ = (n mod P) ⁄ P', '(the output) = (the cut, read at a bent position: the counter’s phase pushed forward or back by an amount that is zero at the start and end of every trip)'],
+    'the test': ['between = Σ (y − fold(y))² ⁄ Σ y²,   fold(y)[j] = average over trips of y[j + mP]', '(the energy between the harmonics) = (what is left when each trip is replaced by the average trip), as a share of the whole'],
+  }[st];
+  $('eq1').textContent = E[0]; $('eq1w').textContent = E[1];
+}
+
+// ---- the walk ----
+function hearButtons() {
+  const st = STEPS[S.step], el = $('hears'); el.innerHTML = '';
+  if (!st.hears.includes(S.hear)) S.hear = st.hears[0];
+  for (const k of st.hears) { const b = document.createElement('button'); b.className = 'ghost small'; b.textContent = HEAR_LABEL[k]; b.setAttribute('aria-pressed', String(k === S.hear)); b.onclick = () => { S.hear = k; hearButtons(); rebuild(); show(); if (playing) start(); }; el.appendChild(b); }
+  $('hear-l').classList.toggle('hide', st.hears.length < 2);
+}
+function setStep(i) {
+  stopSound();
+  S.step = Math.max(0, Math.min(STEPS.length - 1, i)); const st = STEPS[S.step];
+  S.hear = st.name === 'the test' ? 'wob' : st.hears[0];
+  $('st-title').textContent = `${S.step + 1} · ${st.title}`; $('st-say').textContent = st.say;
+  $('st-do').textContent = st.do; $('st-watch').textContent = st.watch; $('st-hear').textContent = st.hear;
+  [...$('rail').children].forEach((b, j) => b.setAttribute('aria-current', j === S.step ? 'step' : 'false'));
+  for (const c of ['p', 's', 'b']) $('ctl-' + c).classList.toggle('hide', !st.ctl.includes(c));
+  $('back').disabled = S.step === 0; $('next').disabled = S.step === STEPS.length - 1;
+  hearButtons(); rebuild(); show();
+}
+STEPS.forEach((st, i) => { const b = document.createElement('button'); b.textContent = `${i + 1} · ${st.name}`; b.onclick = () => setStep(i); $('rail').appendChild(b); });
+$('back').onclick = () => setStep(S.step - 1); $('next').onclick = () => setStep(S.step + 1);
+$('play').onclick = () => { if (playing) stopSound(); else start(); };
+$('p').oninput = () => { S.P = +$('p').value; show(); changed(); };
+$('s').oninput = () => { S.cutMs = +$('s').value; show(); changed(); };
+$('b').oninput = () => { S.bend = +$('b').value; show(); changed(); };
+setStep(0); requestAnimationFrame(loop);
+</script>
+</body>
+</html>
