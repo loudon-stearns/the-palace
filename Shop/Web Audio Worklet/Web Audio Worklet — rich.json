@@ -97,7 +97,23 @@
         }
       ],
       "made_against": "50f7ea440e2c",
-      "stamped": "2026-11-03"
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Web Audio Worklet — rich — two places.html",
+            "verdict": "keep",
+            "why": "A real test that found something: on a one-channel node the idiom stops the throw but keeps one voice. All four cases re-run on my own worklet in Chromium 147 (an ErrorEvent carrying the TypeError, silent until a new node, which the same context can build). It walks up from stereo done right, and the caption is honest."
+          },
+          {
+            "file": "Web Audio Worklet — rich — the splice.html",
+            "verdict": "remake",
+            "why": "The piece holds and its live readout is right (36.7 dB). The caption's 26.6/30.2/29.1 dB is a check.mjs bug: with warm 1.5 s, 128 samples of out stay zero and inflate the zero-case top end. With the tail filled the rise is 37.1/37.6/37.2 dB. Fix run() to fill out, re-run, and correct the caption and offer 3. Say 'within 4%' for 'exactly', and 'at 80 ms' for step 2's 'under a millionth'."
+          }
+        ]
+      }
     },
     {
       "heading": "Resource Footprint",
@@ -119,7 +135,18 @@
         }
       ],
       "made_against": "c38cc55e5ee4",
-      "stamped": "2026-11-03"
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "/Projects/Murmuration/ceiling/ceiling-done.png",
+            "verdict": "keep",
+            "why": "The measurement the sentence 'comfortable headroom' asks for. The caption matches ceiling-headless-chrome.json (24/59/66/101%, 858 underruns) and names what is unmeasured."
+          }
+        ]
+      }
     },
     {
       "heading": "Recipes",
@@ -149,7 +176,23 @@
         }
       ],
       "made_against": "512c21ab55c9",
-      "stamped": "2026-11-03"
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "/Projects/Murmuration/Murmuration — rich — the knee.html",
+            "verdict": "keep",
+            "why": "Tests the Recipe's transition on its own flock. This is the landed version, after Murmuration's remake. The caption's numbers re-run today (0.099, 5.7 s, 0.964, 0.114) and agree with Murmuration's face."
+          },
+          {
+            "file": "/Projects/Murmuration/transition.png",
+            "verdict": "keep",
+            "why": "Honest about the top panel ('first sixth' against the image's ~15%). Note: the caption skips the bottom panel, the pitch focus under each mapping, which is the evidence for offer 5. Name it in a clause."
+          }
+        ]
+      }
     }
   ]
 }
