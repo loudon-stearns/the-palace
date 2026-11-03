@@ -1,0 +1,370 @@
+<!doctype html>
+<!--
+title: Generative Preset Development — rich — where the fences sit
+born: 2026-11-03
+links:
+  - target: "[[Generative Preset Development]]"
+    type: connects-to
+    label: rich-face-piece
+  - target: "[[Progressive Staging]]"
+    type: connects-to
+    label: walks-up-to-its-test
+forward_vector: "I am the Profile Concept's claim put to the ear: the project's own Vital ladders, one knob at a time, and the fences the project drew before anyone listened, kept shut until you have placed your own. I walk up from one numbered knob, through taking the loudness out, to the blind placement and its reveal, then the same test on a second knob. I change when the project's fences do, or when Loudon's ear sets them."
+status: "proposal, Enrichment's proposal round 2026-11; not yet heard by Loudon"
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:files" content="rich-face/ladder-cutoff-mono.wav rich-face/ladder-attack-mono.wav">
+<title>Where the fences sit</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Manrope:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root { --bg:#0a0a0f; --e1:#12121a; --e2:#1a1a28; --border:#4a4a5e; --soft:rgba(255,255,255,.07); --fg1:#e8e8f0; --fg2:#c8c8d8; --fg3:#8a8aa0; --fg4:#4a4a5a;
+    --amber:#e8b84a; --amberline:rgba(232,184,74,.5); --teal:#3fd6c0; --indigo:#7b7ff5; --warn:#ff9b4a; --ok:#7fd49a;
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --sans:'Manrope',system-ui,sans-serif; --serif:'Cormorant Garamond',Georgia,serif;
+    --ease:cubic-bezier(.4,0,.2,1); }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); font-weight: 300; }
+  .piece { padding: 22px 22px 18px; max-width: 1180px; }
+  .kicker, .eyebrow { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg3); }
+  .kicker { margin-bottom: 6px; }
+  .title { font-family: var(--serif); font-size: 28px; font-weight: 300; color: var(--fg1); margin: 0 0 6px; }
+  .sub { font-size: 14px; line-height: 1.6; color: var(--fg2); max-width: 78ch; margin: 0 0 14px; }
+  .rail { display: flex; flex-wrap: wrap; margin: 4px 0 16px; border-bottom: 1px solid var(--soft); }
+  .rail button { font-family: var(--mono); font-size: 11px; letter-spacing: .1em; text-transform: none; color: var(--fg3); background: none; border: 0; border-bottom: 2px solid transparent; border-radius: 0; padding: 8px 12px 7px; cursor: pointer; transition: color 220ms var(--ease); }
+  .rail button:hover { color: var(--fg1); }
+  .rail button[aria-current=step] { color: var(--amber); border-bottom-color: var(--amber); }
+  .rail button .n { color: var(--fg4); margin-right: 6px; }
+  .rail button[aria-current=step] .n { color: var(--amber); }
+  .step h3 { font-family: var(--serif); font-size: 23px; font-weight: 300; color: var(--fg1); margin: 4px 0 8px; }
+  .say { font-size: 14px; line-height: 1.65; color: var(--fg2); max-width: 80ch; margin: 0 0 14px; }
+  .panel { border: 1px solid var(--soft); border-radius: 2px; background: var(--e1); padding: 12px 14px; }
+  .bar { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 10px; }
+  button { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--fg2); background: var(--bg); border: 1px solid var(--border); border-radius: 2px; padding: 8px 13px; cursor: pointer; transition: border-color 220ms var(--ease), color 220ms var(--ease); }
+  button:hover { border-color: rgba(232,184,74,.55); color: var(--fg1); }
+  button.go { color: var(--amber); border-color: var(--amberline); box-shadow: 0 0 14px rgba(232,184,74,.16); }
+  button[aria-pressed=true] { color: var(--amber); border-color: var(--amberline); }
+  button:disabled { opacity: .4; cursor: default; }
+  .hint { font-family: var(--mono); font-size: 11px; letter-spacing: .05em; color: var(--fg3); }
+  .state { color: var(--amber); font-family: var(--mono); font-size: 11px; }
+  .strip { display: grid; gap: 4px; margin: 4px 0 6px; }
+  .strip button { padding: 10px 2px; text-transform: none; letter-spacing: .02em; font-size: 10.5px; line-height: 1.35; min-width: 0; }
+  .strip button .v { display: block; color: var(--fg1); font-size: 11.5px; }
+  .strip button .u { display: block; color: var(--fg3); font-size: 10px; }
+  .strip button.playing { border-color: var(--amber); color: var(--amber); box-shadow: 0 0 12px rgba(232,184,74,.22); }
+  .read { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 8px 22px; margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--soft); font-family: var(--mono); font-size: 11.5px; letter-spacing: .03em; color: var(--fg3); line-height: 1.5; }
+  .read b { color: var(--fg1); font-weight: 500; }
+  .eqs { margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--soft); }
+  .eq { font-family: var(--serif); font-size: 19px; color: var(--fg1); }
+  .words { font-size: 13px; line-height: 1.55; color: var(--fg2); margin: 2px 0 8px; max-width: 80ch; }
+  .try { font-size: 13.5px; line-height: 1.6; color: var(--fg2); margin: 14px 0 0; max-width: 80ch; }
+  .try .eyebrow { margin-right: 10px; color: var(--amber); }
+  .rule { border-left: 2px solid var(--amberline); padding: 4px 0 4px 14px; margin: 0 0 14px; font-size: 13.5px; line-height: 1.6; max-width: 82ch; }
+  .rule b { color: var(--fg1); font-weight: 500; }
+  .place { display: grid; grid-template-columns: 150px 1fr; gap: 6px 12px; align-items: center; margin-top: 10px; }
+  .place .lab { font-family: var(--mono); font-size: 11px; color: var(--fg2); letter-spacing: .04em; }
+  .place .opts { display: grid; gap: 3px; }
+  .place .opts button { padding: 5px 0; font-size: 10.5px; letter-spacing: 0; }
+  .place .opts button[aria-pressed=true] { background: rgba(232,184,74,.12); }
+  .warnline { color: var(--warn); font-family: var(--mono); font-size: 11px; min-height: 16px; margin-top: 8px; }
+  .reveal[hidden] { display: none; }
+  .verdict { font-family: var(--serif); font-size: 21px; color: var(--fg1); margin: 14px 0 8px; }
+  svg text { font-family: 'JetBrains Mono', ui-monospace, monospace; }
+  table.meas { border-collapse: collapse; font-family: var(--mono); font-size: 11px; margin-top: 12px; width: 100%; }
+  table.meas th, table.meas td { text-align: right; padding: 4px 8px; border-bottom: 1px solid var(--soft); }
+  table.meas th:first-child, table.meas td:first-child { text-align: left; }
+  table.meas th { color: var(--fg3); font-weight: 400; letter-spacing: .05em; }
+  table.meas td { color: var(--fg1); }
+  .note { font-size: 12.5px; line-height: 1.6; color: var(--fg3); max-width: 82ch; margin: 10px 0 0; }
+  .walk { display: flex; justify-content: space-between; margin-top: 18px; }
+  .foot { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: 20px; padding-top: 10px; border-top: 1px solid var(--soft); font-family: var(--mono); font-size: 10.5px; letter-spacing: .18em; text-transform: uppercase; color: var(--fg4); }
+  .foot .mark { display: inline-flex; align-items: center; gap: 8px; color: var(--fg3); letter-spacing: .12em; text-transform: none; }
+  .foot .mark i { font-family: var(--serif); color: var(--amber); font-weight: 300; }
+</style>
+</head>
+<body>
+<div class="piece">
+  <div class="kicker">made · sketch · four steps · the project's fences, put to your ear</div>
+  <h1 class="title">Where the fences sit</h1>
+  <p class="sub">The page says a knob's numbers hide what it sounds like, and that named regions (closed, dark, warm, open, bright) are what keep a generated preset from wearing the same blank face. For Vital the project has already drawn those regions, before anyone listened: it split how 480 presets set the knob into fifths. These are the project's own renders, one knob changed at a time on Vital's init saw, and a blind test of whether those fences sit where your ear hears the sound change. Nothing plays until you press a rung.</p>
+  <nav class="rail" aria-label="Steps"></nav>
+
+  <section class="step" data-title="One knob">
+    <div class="eyebrow">Step 1 of 4 · one knob, numbered</div>
+    <h3>Filter cutoff, fourteen settings, nothing else changed</h3>
+    <p class="say">This is the project's cutoff ladder, rendered by <code>vital_measure.py</code>: Vital's init saw holding C3 through its analog 12 dB low-pass, with the cutoff set to fourteen values. The knob counts in semitones on the MIDI note scale, so an equal step on the knob is an equal step in pitch, and the cutoff in hertz doubles every twelve. Press a rung. These play as rendered.</p>
+    <div class="panel">
+      <div class="bar"><span class="hint">each rung is 2.6 s · press another to switch</span><button data-stop>stop</button><span class="state" data-state></span></div>
+      <div class="strip" data-strip="s1"></div>
+      <svg data-line="s1" width="100%" height="64" viewBox="0 0 1000 64" preserveAspectRatio="none" aria-label="the knob's range, 8 to 136 semitones, with the fourteen rungs marked"></svg>
+      <div class="read"><div>rung<br><b data-r="i">·</b></div><div>knob<br><b data-r="v">·</b></div><div>cutoff<br><b data-r="hz">·</b></div><div>loudness as rendered<br><b data-r="l">·</b></div></div>
+      <div class="eqs">
+        <div class="eq">f = 440 · 2<sup>(st − 69) / 12</sup></div>
+        <div class="words">(the cutoff in hertz) = 440, doubled once for every twelve semitones the knob sits above 69, the A above middle C. Vital's knob runs from 8 to 136, about 13 Hz to 21 kHz.</div>
+      </div>
+    </div>
+    <p class="try"><span class="eyebrow">Try</span>Start at 136 and walk down. By the bottom rung the sound is 30.8 dB quieter than at the top: closing a low-pass also turns the sound down.</p>
+  </section>
+
+  <section class="step" data-title="Take the loudness out" hidden>
+    <div class="eyebrow">Step 2 of 4 · one switch</div>
+    <h3>Match the rungs for loudness, so only the colour moves</h3>
+    <p class="say">Asked where the sound changes, an ear will put a fence at the fade, and the fade is not what a region names: a preset sets its level somewhere else. So each rung was measured for loudness (the K-weighting of ITU-R BS.1770, over the same one second of sustain, 0.6 to 1.6 s into the note, where the project measures brightness) and turned to meet the loudest. The bottom rung comes up 29.1 dB. Switch between the two.</p>
+    <div class="panel">
+      <div class="bar"><button data-match="0" aria-pressed="false">as rendered</button><button data-match="1" aria-pressed="true">loudness matched</button><button data-stop>stop</button><span class="state" data-state></span></div>
+      <div class="strip" data-strip="s2"></div>
+      <svg data-gain width="100%" height="120" viewBox="0 0 1000 120" preserveAspectRatio="none" aria-label="the gain each rung gets when matched"></svg>
+      <div class="read"><div>rung<br><b data-r="i">·</b></div><div>knob<br><b data-r="v">·</b></div><div>loudness as rendered<br><b data-r="l">·</b></div><div>gain when matched<br><b data-r="g">·</b></div></div>
+      <div class="eqs">
+        <div class="eq">g<sub>k</sub> = L<sub>loudest</sub> − L<sub>k</sub> − 1.68 dB</div>
+        <div class="words">(the gain on rung k) = how much quieter it measured than the loudest rung, less 1.68 dB taken off every rung so the loudest-peaking one tops out at 0.8.</div>
+      </div>
+    </div>
+    <p class="try"><span class="eyebrow">Try</span>Matched, play rungs 1 to 4 and listen for what is left. At the bottom the cutoff sits below the note's own fundamental (C3, 131 Hz), so mostly that one partial survives. All of this is one note with key tracking off; on another note the same knob numbers fall in a different place against its partials.</p>
+  </section>
+
+  <section class="step" data-title="Place the fences, blind" hidden>
+    <div class="eyebrow">Step 3 of 4 · the test</div>
+    <h3>Where does the sound stop being closed, dark, warm, open?</h3>
+    <div class="rule"><b>The rule, before the first rung.</b> Mark four fences: the first rung that sounds dark rather than closed, then the first warm, the first open, the first bright. Two fences may share a rung. A fence agrees with the project's when it lands within one rung of it. <b>All four agree:</b> the project's fences sit where you hear the change. <b>Two or three:</b> partly. <b>None or one:</b> they miss. <b>Chance:</b> of the <span data-c="cutoff-n"></span> ways to place four fences in order on these fourteen rungs, a random one has all four agree <span data-c="cutoff-4"></span> of the time and three or more <span data-c="cutoff-3"></span>. The rungs play loudness-matched and unnumbered; the numbers come back when you ask for the project's fences.</div>
+    <div class="panel">
+      <div class="bar"><span class="hint">loudness matched · in ladder order, low to high</span><button data-stop>stop</button><span class="state" data-state></span></div>
+      <div class="strip" data-strip="s3"></div>
+      <div class="place" data-place="cutoff"></div>
+      <div class="warnline" data-warn="cutoff"></div>
+      <div class="bar" style="margin-top:10px"><button class="go" data-reveal="cutoff" disabled>show the project's fences</button></div>
+      <div class="reveal" data-revealed="cutoff" hidden></div>
+    </div>
+  </section>
+
+  <section class="step" data-title="A second knob: attack" hidden>
+    <div class="eyebrow">Step 4 of 4 · the same test, another knob</div>
+    <h3>Amp attack: where does the start stop being a click?</h3>
+    <p class="say">The same test on envelope 1's attack, which the page calls punchy, soft and pad and the project names clicky, punchy, natural, soft and swell. This knob is not in seconds: the time is its number to the fourth power, so 0.5 on the knob is 62 ms and 1.0 is a whole second. Each rung holds the note five seconds. Every rung's sustain already measures the same loudness to within 0.01 dB, so nothing is turned.</p>
+    <div class="rule"><b>The rule, the same.</b> Mark the first rung that sounds punchy rather than clicky, then the first natural, the first soft, the first swell. Two fences may share a rung. Within one rung agrees; all four agree, they sit where you hear; two or three, partly; none or one, they miss. <b>Chance:</b> of the <span data-c="attack-n"></span> ways to place four fences in order on these twelve rungs, a random one has all four agree <span data-c="attack-4"></span> of the time and three or more <span data-c="attack-3"></span>.</div>
+    <div class="panel">
+      <div class="bar"><span class="hint">in ladder order, short to long · each rung 5.6 s</span><button data-stop>stop</button><span class="state" data-state></span></div>
+      <div class="strip" data-strip="s4"></div>
+      <div class="place" data-place="attack"></div>
+      <div class="warnline" data-warn="attack"></div>
+      <div class="bar" style="margin-top:10px"><button class="go" data-reveal="attack" disabled>show the project's fences</button></div>
+      <div class="reveal" data-revealed="attack" hidden></div>
+    </div>
+  </section>
+
+  <div class="walk"><button id="back">◂ back</button><button id="next">next ▸</button></div>
+  <div class="foot"><span>Generative Preset Development · rich · where the fences sit · sketch · 2026-11-03</span><span class="mark"><svg width="22" height="22" viewBox="-11 -11 22 22" aria-hidden="true"><path id="sigil" fill="none" stroke="#e8b84a" stroke-width="1"/></svg>Loud’n <i>Live</i></span></div>
+</div>
+
+<script>
+// ---- baked from the project's own renders (vital/renders/ladder-*.wav, vital_measure.py) ----
+// value: the knob; feature: the project's own measure, recomputed from the render with its own code
+// (cutoff: spectral centroid of 0.6–1.6 s, Hz; attack: 10–90 % rise time, s), equal to vital_measured_v0.1.json
+// to 9e-6 relative; lufs: K-weighted loudness of the measured second (attack: 4.0–5.0 s); gain_db: the match.
+// splits: the corpus fifths (p20, p40, p60, p80) of vital_corpus_stats_v0.1.json, the fences the project uses;
+// proposal: the first rung (0-based) at or above each split. even_number / even_measure: the same four fences
+// spread evenly across the ladder in knob number, and in the measure on a log scale.
+const L = {
+  cutoff: {"N":14,"stride_s":2.8999773,"rung_s":2.6,"names":["closed","dark","warm","open","bright"],"splits":[35.560208,60.0,62.611436,80.66481],"proposal":[2,4,5,8],"even_number":[3,6,9,12],"even_measure":[6,9,10,12],"chance4":0.0396,"chance3":0.183,"placements":1820,"value":[20,30,40,50,60,66,72,78,84,90,100,110,120,136],"feature":[178.4217,181.0773,189.5576,212.0694,260.6627,307.0994,369.7704,452.398,559.7858,697.7561,1013.7585,1462.4774,2053.1418,3120.6467],"lufs":[-41.45,-32.09,-23.91,-17.95,-14.53,-13.36,-12.58,-12.05,-11.68,-11.41,-11.11,-10.9,-10.76,-10.64],"gain_db":[29.13,19.77,11.59,5.63,2.21,1.04,0.26,-0.27,-0.64,-0.91,-1.21,-1.42,-1.56,-1.68],
+    file: "rich-face/ladder-cutoff-mono.wav", mb: 7.2,
+    widthsKnob: [15.56, 24.44, 2.61, 18.05, 55.34], widthsOct: [0.06, 0.49, 0.10, 0.83, 2.65] },
+  attack: {"N":12,"stride_s":5.9,"rung_s":5.6,"names":["clicky","punchy","natural","soft","swell"],"splits":[0.1495,0.1495,0.181099,0.519175],"proposal":[1,1,2,5],"even_number":[3,5,8,10],"even_measure":[2,5,7,9],"chance4":0.021,"chance3":0.0919,"placements":1001,"value":[0,0.15,0.25,0.35,0.45,0.55,0.65,0.75,0.85,1.0,1.15,1.3],"feature":[0.002,0.002,0.0096,0.0111,0.025,0.0555,0.1146,0.1995,0.3295,0.6345,1.1084,1.8044],"lufs":[-10.63,-10.63,-10.63,-10.63,-10.63,-10.63,-10.63,-10.63,-10.63,-10.63,-10.63,-10.63],"gain_db":[0,0,0,0,0,0,0,0,0,0,0,0],
+    file: "rich-face/ladder-attack-mono.wav", mb: 12.5,
+    widthsKnob: [0.1495, 0, 0.0316, 0.3381, 0.7808], widthsOct: [0, 0, 0.70, 3.74, 5.38] },
+};
+const hz = st => 440 * Math.pow(2, (st - 69) / 12);
+const fmtHz = f => f >= 1000 ? (f / 1000).toFixed(f >= 10000 ? 1 : 2) + ' kHz' : Math.round(f) + ' Hz';
+const fmtS = s => s >= 1 ? s.toFixed(2) + ' s' : s >= 0.01 ? Math.round(s * 1000) + ' ms' : (s * 1000).toFixed(1) + ' ms';
+const pct = x => (x * 100).toFixed(1) + '%';
+const COL = ['#4a4a7a', '#7b7ff5', '#e8b84a', '#3fd6c0', '#e8e8f0'];
+
+// ---- sound: one context, made on the first press; one rung at a time ----
+let ctx = null, cur = null;
+const buffers = {};
+function setState(t) { document.querySelectorAll('[data-state]').forEach(e => { e.textContent = t; }); }
+function loadLadder(fam) {
+  if (!buffers[fam]) {
+    setState('loading the ladder, ' + L[fam].mb + ' MB…');
+    buffers[fam] = fetch(L[fam].file).then(r => { if (!r.ok) throw new Error(L[fam].file + ': ' + r.status); return r.arrayBuffer(); })
+      .then(b => ctx.decodeAudioData(b)).then(buf => { setState(''); return buf; })
+      .catch(e => { delete buffers[fam]; setState('could not load the ladder: ' + e.message); throw e; });
+  }
+  return buffers[fam];
+}
+function stop() {
+  if (cur) { const c = cur; cur = null; const t = ctx.currentTime; c.g.gain.setTargetAtTime(0, t, 0.012); try { c.src.stop(t + 0.08); } catch (e) {} }
+  document.querySelectorAll('.strip button.playing').forEach(b => b.classList.remove('playing'));
+}
+async function play(fam, i, matched, btn) {
+  if (!ctx) ctx = new (window.AudioContext || window.webkitAudioContext)();
+  if (ctx.state === 'suspended') await ctx.resume();
+  stop();
+  let buf; try { buf = await loadLadder(fam); } catch (e) { return; }
+  const src = ctx.createBufferSource(), g = ctx.createGain();
+  src.buffer = buf; g.gain.value = matched ? Math.pow(10, L[fam].gain_db[i] / 20) : 1;
+  src.connect(g).connect(ctx.destination);
+  const me = { src, g }; cur = me;
+  src.onended = () => { if (cur === me) { cur = null; btn && btn.classList.remove('playing'); } };
+  src.start(0, i * L[fam].stride_s, L[fam].rung_s);
+  btn && btn.classList.add('playing');
+}
+document.querySelectorAll('[data-stop]').forEach(b => b.addEventListener('click', () => { if (ctx) stop(); }));
+
+// ---- the strips ----
+let matchedS2 = true;
+function readout(stepEl, fam, i) {
+  const d = L[fam], set = (k, v) => { const e = stepEl.querySelector('[data-r="' + k + '"]'); if (e) e.textContent = v; };
+  set('i', (i + 1) + ' of ' + d.N); set('v', d.value[i] + ' st'); set('hz', fmtHz(hz(d.value[i])));
+  set('l', d.lufs[i].toFixed(1) + ' LUFS'); set('g', (d.gain_db[i] >= 0 ? '+' : '') + d.gain_db[i].toFixed(2) + ' dB');
+}
+function buildStrip(key, fam, labelled, matchedFn) {
+  const el = document.querySelector('[data-strip="' + key + '"]'), d = L[fam];
+  el.style.gridTemplateColumns = 'repeat(' + d.N + ', minmax(0, 1fr))';
+  el.innerHTML = '';
+  for (let i = 0; i < d.N; i++) {
+    const b = document.createElement('button');
+    b.innerHTML = labelled ? '<span class="v">' + d.value[i] + '</span><span class="u">' + fmtHz(hz(d.value[i])) + '</span>' : '<span class="v">' + (i + 1) + '</span><span class="u">rung</span>';
+    b.addEventListener('click', () => { play(fam, i, matchedFn(), b); if (labelled) { readout(el.closest('.step'), fam, i); drawLine(i); } });
+    el.appendChild(b);
+  }
+}
+function relabel(key, fam) {
+  const el = document.querySelector('[data-strip="' + key + '"]'), d = L[fam];
+  el.querySelectorAll('button').forEach((b, i) => {
+    const u = fam === 'cutoff' ? d.value[i] + ' st' : d.value[i] + ' raw';
+    const w = fam === 'cutoff' ? fmtHz(hz(d.value[i])) : fmtS(Math.pow(d.value[i], 4));
+    b.innerHTML = '<span class="v">' + (i + 1) + '</span><span class="u">' + u + '</span><span class="u">' + w + '</span>';
+  });
+}
+function drawLine(sel) {
+  const svg = document.querySelector('[data-line="s1"]'), d = L.cutoff, x = v => 20 + (v - 8) / 128 * 960;
+  let s = '<line x1="20" y1="30" x2="980" y2="30" stroke="#4a4a5e" stroke-width="1"/>';
+  [8, 36, 69, 100, 136].forEach(v => { s += '<line x1="' + x(v) + '" y1="24" x2="' + x(v) + '" y2="36" stroke="#4a4a5a"/><text x="' + x(v) + '" y="56" fill="#8a8aa0" font-size="11" text-anchor="middle">' + v + ' st · ' + fmtHz(hz(v)) + '</text>'; });
+  d.value.forEach((v, i) => { s += '<circle cx="' + x(v) + '" cy="30" r="' + (i === sel ? 6 : 3.5) + '" fill="' + (i === sel ? '#e8b84a' : '#c8c8d8') + '"/>'; });
+  s += '<text x="' + x(48) + '" y="14" fill="#3fd6c0" font-size="10" text-anchor="middle">the note, C3</text><line x1="' + x(48) + '" y1="17" x2="' + x(48) + '" y2="26" stroke="#3fd6c0"/>';
+  svg.innerHTML = s;
+}
+function drawGain() {
+  const svg = document.querySelector('[data-gain]'), d = L.cutoff, w = 960 / d.N, y0 = 92, k = 2.6;
+  let s = '<line x1="20" y1="' + y0 + '" x2="980" y2="' + y0 + '" stroke="#4a4a5e"/>';
+  d.gain_db.forEach((g, i) => {
+    const x = 20 + i * w + 6, h = g * k;
+    s += '<rect x="' + x + '" y="' + (h >= 0 ? y0 - h : y0) + '" width="' + (w - 12) + '" height="' + Math.max(1, Math.abs(h)) + '" fill="' + (g >= 0 ? '#e8b84a' : '#7b7ff5') + '" opacity=".75"/>';
+    s += '<text x="' + (x + (w - 12) / 2) + '" y="' + (h >= 0 ? y0 - h - 4 : y0 + 14) + '" fill="#c8c8d8" font-size="10" text-anchor="middle">' + (g >= 0 ? '+' : '') + g.toFixed(1) + '</text>';
+    s += '<text x="' + (x + (w - 12) / 2) + '" y="116" fill="#8a8aa0" font-size="10" text-anchor="middle">' + d.value[i] + '</text>';
+  });
+  svg.innerHTML = s;
+}
+
+// ---- placing the fences ----
+const placed = { cutoff: [null, null, null, null], attack: [null, null, null, null] };
+function buildPlace(fam) {
+  const host = document.querySelector('[data-place="' + fam + '"]'), d = L[fam];
+  host.innerHTML = '';
+  for (let k = 0; k < 4; k++) {
+    const lab = document.createElement('div'); lab.className = 'lab'; lab.textContent = d.names[k + 1] + ' begins at rung';
+    const opts = document.createElement('div'); opts.className = 'opts'; opts.style.gridTemplateColumns = 'repeat(' + (d.N - 1) + ', minmax(0, 1fr))';
+    for (let r = 1; r < d.N; r++) {
+      const b = document.createElement('button'); b.textContent = r + 1; b.setAttribute('aria-pressed', 'false');
+      b.addEventListener('click', () => { placed[fam][k] = r; opts.querySelectorAll('button').forEach(o => o.setAttribute('aria-pressed', String(o === b))); checkPlace(fam); });
+      opts.appendChild(b);
+    }
+    host.appendChild(lab); host.appendChild(opts);
+  }
+}
+function checkPlace(fam) {
+  const p = placed[fam], btn = document.querySelector('[data-reveal="' + fam + '"]'), warn = document.querySelector('[data-warn="' + fam + '"]');
+  const all = p.every(x => x !== null), ordered = all && p.every((x, k) => k === 0 || x >= p[k - 1]);
+  warn.textContent = all && !ordered ? 'A fence sits below the one before it. Fences go up the ladder in order; two may share a rung.' : '';
+  btn.disabled = !(all && ordered) || btn.dataset.done === '1';
+}
+const agree = (a, b) => a.reduce((n, x, k) => n + (Math.abs(x - b[k]) <= 1 ? 1 : 0), 0);
+const verdictOf = n => n === 4 ? 'the project’s fences sit where you hear the change' : n >= 2 ? 'partly' : 'they miss';
+function bandsRow(fences, N) { const edges = [0, ...fences, N]; return edges.slice(0, 5).map((e, k) => [e, edges[k + 1]]); }
+function chart(fam) {
+  const d = L[fam], N = d.N, w = 820 / N, x0 = 160, rows = [['your ear', placed[fam]], ['the project’s fences', d.proposal], ['even in knob number', d.even_number], ['even in ' + (fam === 'cutoff' ? 'brightness' : 'rise time'), d.even_measure]];
+  let s = '';
+  rows.forEach(([name, f], r) => {
+    const y = 8 + r * 34;
+    s += '<text x="0" y="' + (y + 17) + '" fill="' + (r === 0 ? '#e8b84a' : '#c8c8d8') + '" font-size="11">' + name + '</text>';
+    bandsRow(f, N).forEach(([a, b], k) => {
+      if (b > a) {
+        s += '<rect x="' + (x0 + a * w) + '" y="' + y + '" width="' + ((b - a) * w - 2) + '" height="24" fill="' + COL[k] + '" opacity="' + (k === 4 ? .35 : .55) + '"/>';
+        s += '<text x="' + (x0 + a * w + 4) + '" y="' + (y + 16) + '" fill="#0a0a0f" font-size="10">' + ((b - a) * w > 44 ? d.names[k] : '') + '</text>';
+      }
+    });
+  });
+  for (let i = 0; i < N; i++) s += '<text x="' + (x0 + i * w + w / 2) + '" y="150" fill="#8a8aa0" font-size="10" text-anchor="middle">' + (i + 1) + '</text>';
+  s += '<text x="' + x0 + '" y="166" fill="#4a4a5a" font-size="10">rung, low to high · each row’s five bands, ' + d.names.join(' · ') + '</text>';
+  return '<svg width="100%" viewBox="0 0 990 172" preserveAspectRatio="xMinYMin meet">' + s + '</svg>';
+}
+function reveal(fam) {
+  const d = L[fam], p = placed[fam], el = document.querySelector('[data-revealed="' + fam + '"]');
+  const nP = agree(p, d.proposal), nN = agree(p, d.even_number), nM = agree(p, d.even_measure);
+  const r1 = x => x + 1;
+  let h = '<div class="verdict">You and the project’s fences agree on ' + nP + ' of 4: ' + verdictOf(nP) + '.</div>';
+  h += chart(fam);
+  if (fam === 'cutoff') {
+    h += '<p class="say">The project’s fences, before any ear: dark from 35.6 st (64 Hz), warm from 60 (262 Hz), open from 62.6 (304 Hz), bright from 80.7 (863 Hz). On these rungs, dark begins at rung ' + r1(d.proposal[0]) + ', warm at ' + r1(d.proposal[1]) + ', open at ' + r1(d.proposal[2]) + ' and bright at ' + r1(d.proposal[3]) + '. Your fences: ' + p.map(r1).join(', ') + '.</p>';
+    h += '<p class="say">Scored by the same rule, your ear agrees with fences spread evenly in knob number on ' + nN + ' of 4, and with fences spread evenly in brightness on ' + nM + ' of 4.</p>';
+    h += '<p class="say"><b>Even in number, even in brightness, or neither?</b> Neither. Across the ladder the project’s five bands are ' + d.widthsKnob.map(x => x.toFixed(1)).join(', ') + ' semitones wide (closed counted from the bottom rung). Measured as brightness, the centroid below, they span ' + d.widthsOct.map(x => x.toFixed(2)).join(', ') + ' octaves. Warm is one rung wide: 82 of the 480 presets with filter 1 on sit exactly on 60, Vital’s own init cutoff, so the fifths fold onto the blank face itself. Bright covers everything above 863 Hz.</p>';
+  } else {
+    h += '<p class="say">The project’s fences, before any ear: punchy and natural both from 0.1495 on the knob (0.5 ms), soft from 0.181 (1.1 ms), swell from 0.519 (73 ms). On these rungs, punchy and natural both begin at rung ' + r1(d.proposal[0]) + ', soft at ' + r1(d.proposal[2]) + ', swell at ' + r1(d.proposal[3]) + '. Your fences: ' + p.map(r1).join(', ') + '.</p>';
+    h += '<p class="say">Scored by the same rule, your ear agrees with fences spread evenly in knob number on ' + nN + ' of 4, and with fences spread evenly in rise time on ' + nM + ' of 4.</p>';
+    h += '<p class="say"><b>The punchy band is empty.</b> 242 of the 520 presets sit exactly on Vital’s init attack, 0.1495, so the corpus\u2019s 20th and 40th percentiles are the same number and the band between them has no width. Swell, the pad word, begins at a 73 ms attack, a measured rise of 55 ms on its first rung; everything from rung 6 to rung 12, 55 ms to 1.8 s of rise, is one band. In rise time the five bands span ' + d.widthsOct.map(x => x.toFixed(2)).join(', ') + ' octaves.</p>';
+  }
+  h += '<p class="note">Could a reader pass without listening? Fences spread evenly in knob number agree with the project’s on ' + agree(d.even_number, d.proposal) + ' of 4; spread evenly in ' + (fam === 'cutoff' ? 'brightness' : 'rise time') + ', on ' + agree(d.even_measure, d.proposal) + ' of 4. Knowing the numbers alone does not pass.</p>';
+  h += '<table class="meas"><tr><th>rung</th><th>knob</th><th>' + (fam === 'cutoff' ? 'cutoff' : 'attack time') + '</th><th>' + (fam === 'cutoff' ? 'centroid' : '10–90% rise') + '</th><th>loudness as rendered</th><th>gain matched</th><th>project band</th><th>your band</th></tr>';
+  const bandAt = (f, i) => d.names[f.filter(x => x <= i).length];
+  for (let i = 0; i < d.N; i++) {
+    h += '<tr><td>' + (i + 1) + '</td><td>' + d.value[i] + (fam === 'cutoff' ? ' st' : '') + '</td><td>' + (fam === 'cutoff' ? fmtHz(hz(d.value[i])) : fmtS(Math.pow(d.value[i], 4))) + '</td><td>' + (fam === 'cutoff' ? Math.round(d.feature[i]) + ' Hz' : fmtS(d.feature[i])) + '</td><td>' + d.lufs[i].toFixed(1) + ' LUFS</td><td>' + (d.gain_db[i] >= 0 ? '+' : '') + d.gain_db[i].toFixed(2) + ' dB</td><td>' + bandAt(d.proposal, i) + '</td><td>' + bandAt(p, i) + '</td></tr>';
+  }
+  h += '</table>';
+  h += '<div class="eqs">' + (fam === 'cutoff'
+    ? '<div class="eq">c = Σ f · |X(f)| ÷ Σ |X(f)|</div><div class="words">(brightness, the spectral centroid) = the average frequency of the sound, each frequency weighted by how strong it is, over one second of the held note. The project’s own measure, recomputed here from its render with its own code.</div>'
+    : '<div class="eq">t = k<sup>4</sup></div><div class="words">(the attack time in seconds) = the knob’s number to the fourth power. The rise is measured, not set: the time the sound takes from 10% to 90% of its peak, which the project’s code reads off the render.</div>') + '</div>';
+  h += '<p class="note">Measured is not heard. Nobody has listened to these renders yet, Loudon included; the project’s own README says so. One note, C3, key tracking off. The project’s fences are its usage bands, how designers set the knob, which its own code calls a stand-in until an ear sets them; the page asks for exactly that ear.</p>';
+  el.innerHTML = h; el.hidden = false;
+  const btn = document.querySelector('[data-reveal="' + fam + '"]'); btn.dataset.done = '1'; btn.disabled = true;
+  document.querySelectorAll('[data-place="' + fam + '"] button').forEach(b => { b.disabled = true; });
+  relabel(fam === 'cutoff' ? 's3' : 's4', fam);
+}
+document.querySelectorAll('[data-reveal]').forEach(b => b.addEventListener('click', () => reveal(b.dataset.reveal)));
+
+// ---- the walk ----
+const steps = [...document.querySelectorAll('.step')], rail = document.querySelector('.rail');
+let at = 0;
+steps.forEach((s, i) => { const b = document.createElement('button'); b.innerHTML = '<span class="n">' + (i + 1) + '</span>' + s.dataset.title; b.addEventListener('click', () => show(i)); rail.appendChild(b); });
+function show(i) {
+  if (ctx) stop();
+  at = Math.max(0, Math.min(steps.length - 1, i));
+  steps.forEach((s, k) => { s.hidden = k !== at; });
+  rail.querySelectorAll('button').forEach((b, k) => b.setAttribute('aria-current', k === at ? 'step' : 'false'));
+  document.getElementById('back').disabled = at === 0; document.getElementById('next').disabled = at === steps.length - 1;
+}
+document.getElementById('back').addEventListener('click', () => show(at - 1));
+document.getElementById('next').addEventListener('click', () => show(at + 1));
+document.querySelectorAll('[data-match]').forEach(b => b.addEventListener('click', () => {
+  matchedS2 = b.dataset.match === '1';
+  document.querySelectorAll('[data-match]').forEach(o => o.setAttribute('aria-pressed', String(o === b)));
+  const playing = document.querySelector('[data-strip="s2"] button.playing');
+  if (playing && cur) cur.g.gain.setTargetAtTime(matchedS2 ? Math.pow(10, L.cutoff.gain_db[[...playing.parentNode.children].indexOf(playing)] / 20) : 1, ctx.currentTime, 0.02);
+}));
+['cutoff', 'attack'].forEach(f => {
+  const d = L[f];
+  document.querySelector('[data-c="' + f + '-n"]').textContent = d.placements.toLocaleString('en');
+  document.querySelector('[data-c="' + f + '-4"]').textContent = pct(d.chance4);
+  document.querySelector('[data-c="' + f + '-3"]').textContent = pct(d.chance3);
+});
+buildStrip('s1', 'cutoff', true, () => false);
+buildStrip('s2', 'cutoff', true, () => matchedS2);
+buildStrip('s3', 'cutoff', false, () => true);
+buildStrip('s4', 'attack', false, () => true);
+buildPlace('cutoff'); buildPlace('attack');
+drawLine(-1); drawGain();
+(() => { let d = ''; for (let i = 0; i <= 240; i++) { const t = i / 240 * 2 * Math.PI, x = 9 * Math.sin(3 * t + Math.PI / 2), y = 9 * Math.sin(2 * t); d += (i ? 'L' : 'M') + x.toFixed(2) + ' ' + y.toFixed(2); } document.getElementById('sigil').setAttribute('d', d); })();
+show(0);
+</script>
+</body>
+</html>
