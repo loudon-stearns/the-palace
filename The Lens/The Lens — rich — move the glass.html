@@ -1,0 +1,528 @@
+<!doctype html>
+<!--
+  title: The Lens — rich — move the glass
+  born: 2026-11-03
+  links: [[The Lens]] (connects-to · rich-face-piece) · listed in [[The Lens — rich.json]] · [[Progressive Staging]] (exemplifies · a walk up to its test) · reads [[The Lens]]'s own .md live · glasses drawn from [[Simondon]], [[Trickster]], [[Ohm's Law]], [[Kuramoto Coupling]]
+  forward_vector: I am The Lens's fidelity test, put in the reader's hand on the page's own words. One paragraph under one glass, then the glass moved, then swapped, then a glass that says the same thing everywhere and one that only borrows the passage's words, and last a blind test: three hidden rules behind one glass, judged at one look and again after moving it. I read the page live, so the passages are always the page's; the readings are written by hand and say so. I change when the four passages I read or the page's fidelity test do.
+  checked: The Lens — rich — check.mjs runs the engine block below against The Lens.md and holds its numbers.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:files" content="/The%20Lens.md">
+<title>The Lens — move the glass</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Manrope:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root { --bg:#0a0a0f; --e1:#12121a; --e2:#181822; --border:#4a4a5e; --soft:rgba(255,255,255,.06);
+    --fg1:#e8e8f0; --fg2:#c8c8d8; --fg3:#8a8aa0; --fg4:#4a4a5a;
+    --accent:#e8b84a; --accent-soft:rgba(232,184,74,.10); --accent-line:rgba(232,184,74,.5); --indigo:#8b8df5; --warn:#ff9b4a;
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --sans:'Manrope',system-ui,sans-serif; --serif:'Cormorant Garamond',Georgia,serif;
+    --ease:cubic-bezier(.4,0,.2,1); }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); font-weight: 300; }
+  .piece { padding: 22px 22px 20px; }
+  .kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; display: flex; align-items: center; gap: 10px; }
+  .title { font-family: var(--serif); font-size: 28px; font-weight: 300; color: var(--fg1); margin: 0 0 6px; }
+  .sub { font-size: 14px; line-height: 1.6; color: var(--fg2); max-width: 76ch; margin: 0 0 16px; }
+  .rail { display: flex; flex-wrap: wrap; margin: 4px 0 18px; border: 1px solid var(--border); border-radius: 2px; width: fit-content; max-width: 100%; }
+  .rail button { border: 0; border-right: 1px solid var(--border); border-radius: 0; background: transparent; padding: 7px 12px; color: var(--fg3); }
+  .rail button:last-child { border-right: 0; }
+  .rail button[aria-current="step"] { background: var(--accent-soft); color: var(--accent); }
+  .step { display: none; }
+  .step.on { display: block; }
+  .step h3 { font-family: var(--serif); font-size: 23px; font-weight: 400; color: var(--fg1); margin: 0 0 6px; }
+  .teach { font-size: 14px; line-height: 1.65; max-width: 76ch; margin: 0 0 12px; }
+  .back { font-family: var(--mono); font-size: 11px; letter-spacing: .04em; color: var(--fg3); margin: 0 0 14px; }
+  button { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--fg2); background: var(--bg); border: 1px solid var(--border); border-radius: 2px; padding: 8px 12px; cursor: pointer; transition: border-color 220ms var(--ease), color 220ms var(--ease); }
+  button:hover { border-color: var(--accent-line); color: var(--fg1); }
+  button:disabled { opacity: .4; cursor: default; }
+  button[aria-pressed="true"] { color: var(--bg); border-color: var(--accent); background: var(--accent); }
+  .btns { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin: 4px 0 12px; }
+  .lbl { font-family: var(--mono); font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--fg3); }
+
+  /* the stage: the page's own passages, and the glass over one of them */
+  .stage { position: relative; max-width: 820px; margin: 6px 0 8px; }
+  .patch { position: relative; padding: 10px 14px 12px; margin: 0 0 10px; border-left: 1px solid var(--soft); cursor: pointer; transition: min-height 220ms var(--ease); }
+  .patch .where { font-family: var(--mono); font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--fg4); margin-bottom: 4px; }
+  .patch p { margin: 0; font-family: var(--serif); font-size: 18px; line-height: 1.55; color: var(--fg2); }
+  .patch.under p, .patch.under .where { visibility: hidden; }
+  .patch.lost p { color: var(--warn); font-family: var(--mono); font-size: 12px; }
+  .locked .patch { cursor: default; }
+  .glass { position: absolute; left: 10px; right: -6px; top: 0; z-index: 3; background: rgba(18,18,26,.97); border: 1.5px solid var(--accent-line); border-radius: 2px;
+    box-shadow: 0 0 0 4px rgba(10,10,15,.85), 0 8px 26px rgba(0,0,0,.55); transition: top 220ms var(--ease); }
+  .glass.dragging { transition: none; border-color: var(--accent); }
+  .ghead { display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; padding: 6px 12px; border-bottom: 1px solid var(--soft); font-family: var(--mono); font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); cursor: grab; touch-action: none; user-select: none; }
+  .ghead:focus-visible { outline: 1px solid var(--accent); outline-offset: 2px; }
+  .locked .ghead { cursor: default; }
+  .ghead .on { color: var(--fg3); }
+  .gbody { padding: 10px 14px 12px; font-family: var(--serif); font-size: 18px; line-height: 1.55; color: var(--fg1); white-space: pre-wrap; }
+  .gbody.eqn { font-family: var(--mono); font-size: 13.5px; line-height: 1.7; }
+  .gcheck { padding: 0 14px 10px; font-size: 12px; line-height: 1.5; color: var(--fg3); }
+  .gcheck b { color: var(--fg2); font-weight: 500; }
+  .lift { padding: 2px 7px; font-size: 9.5px; margin-left: 8px; }
+  .glass.lifted { background: rgba(18,18,26,.12); }
+  .glass.lifted .ghead { background: rgba(18,18,26,.97); }
+  .stage.peek .patch.under .where { visibility: hidden !important; }
+  .glass.lifted .gbody, .glass.lifted .gcheck { visibility: hidden; }
+  .stage.peek .patch.under p, .stage.peek .patch.under .where { visibility: visible; }
+  .grip { font-family: var(--mono); font-size: 10px; color: var(--fg3); letter-spacing: .08em; text-transform: none; }
+
+  .meters { max-width: 820px; margin: 10px 0 4px; display: none; }
+  .meters.on { display: block; }
+  .mrow { display: grid; grid-template-columns: minmax(150px, 220px) 1fr 52px; gap: 10px; align-items: center; margin: 5px 0; font-family: var(--mono); font-size: 11px; color: var(--fg3); }
+  .mrow b { color: var(--fg1); font-weight: 500; }
+  .bar { height: 8px; background: var(--fg4); position: relative; border-radius: 1px; }
+  .bar i { position: absolute; left: 0; top: 0; bottom: 0; background: var(--accent); border-radius: 1px; }
+  .bar.own i { background: var(--indigo); }
+  .mnote { font-size: 12.5px; line-height: 1.55; color: var(--fg3); max-width: 76ch; margin: 6px 0 0; }
+
+  .test { max-width: 820px; margin: 12px 0 0; display: none; }
+  .test.on { display: block; }
+  .marks { display: grid; gap: 6px; margin: 8px 0 12px; }
+  .mark { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; font-family: var(--mono); font-size: 11px; color: var(--fg3); }
+  .mark .who { min-width: 52px; color: var(--fg1); }
+  .mark button { padding: 5px 9px; font-size: 10.5px; }
+  .phase { font-family: var(--mono); font-size: 11px; letter-spacing: .06em; color: var(--accent); margin: 2px 0 8px; }
+  table.res { border-collapse: collapse; font-family: var(--mono); font-size: 11.5px; margin: 8px 0; }
+  table.res td, table.res th { border-bottom: 1px solid var(--soft); padding: 5px 12px 5px 0; text-align: left; color: var(--fg2); font-weight: 400; }
+  table.res th { color: var(--fg3); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; }
+  .ok { color: var(--accent) !important; } .no { color: var(--warn) !important; }
+  .verdict { font-size: 14px; line-height: 1.65; max-width: 76ch; margin: 6px 0 12px; padding: 10px 14px; border: 1px solid var(--accent-line); border-radius: 2px; color: var(--fg1); }
+  .nav { display: flex; align-items: center; gap: 10px; margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--soft); }
+  .nav .where { font-family: var(--mono); font-size: 11px; color: var(--fg3); letter-spacing: .08em; }
+  .note { font-size: 12.5px; line-height: 1.55; color: var(--fg3); max-width: 76ch; margin: 10px 0 0; }
+  .err { font-family: var(--mono); font-size: 11px; color: var(--warn); }
+  @media (max-width: 640px) { .mrow { grid-template-columns: 1fr; } .glass { left: 0; right: 0; } }
+</style>
+</head>
+<body>
+<div class="piece">
+  <div class="kicker"><span id="sigil"></span>made · study · a walk in six steps · reads the page live</div>
+  <h2 class="title">Move the glass. Does the reading move with it?</h2>
+  <p class="sub">The section's test is one sentence: move the glass to a new patch, or swap the lens, and the reading must change in a way specific to that text. Here the patches are four of this page's own paragraphs, read from the page as it is now. The walk starts with one paragraph under one glass and ends on the test, built blind: three readings made by three rules, and you judging which is which.</p>
+  <div class="rail" id="rail"></div>
+
+  <section class="step">
+    <h3>One paragraph, one glass</h3>
+    <p class="teach">The page's opening paragraph, with Simondon loaded into the glass. Under the glass the paragraph is read as Simondon would read it; around it, the page's own words stay as they are. That is the whole operation: render A through B's apparatus. Read the reading, and the line under it that says which part is the glass talking. Lift the glass to see the paragraph it covers.</p>
+  </section>
+  <section class="step">
+    <h3>Move the glass</h3>
+    <p class="teach">Same glass, new patch. Drag the glass by its top edge, or click a paragraph, and it reads whatever it lands on. The page's first half of the test: the reading must change, and change in a way that belongs to that paragraph. Simondon over the signal problem should not read like Simondon over the arrow.</p>
+    <p class="back">Step 1 is this glass held on the first paragraph.</p>
+  </section>
+  <section class="step">
+    <h3>Swap the glass</h3>
+    <p class="teach">Hold a patch and change the glass. Three glasses, the three Loudon judged on 2026-10-23, each in its own register: Simondon through his own work and life, the Trickster in riddles, Ohm's Law in equations, each shown twice, in symbols and in words. The section's bar is not that you can tell them apart. It is color: each says something new about the paragraph, in its own voice, and names which part is its own.</p>
+    <p class="back">Pick Simondon to get back to step 2.</p>
+  </section>
+  <section class="step">
+    <h3>A glass that reads the same everywhere</h3>
+    <p class="teach">The page names the failure: "a glass that makes everything look the same is broken", and "if every lens finds the entry over-claiming, the lens has become a deflation formula." The deflator is that formula, one fixed sentence. At one look it can sound reasonable. Move it and it never changes. The meter under the page counts how alike a glass's four readings are, as shared words: 1.00 means four copies.</p>
+    <p class="back">Pick Simondon to compare a glass that moves.</p>
+  </section>
+  <section class="step">
+    <h3>A glass that borrows the passage's words</h3>
+    <p class="teach">The harder fake, and the one the procedure's self-check names: "did I deploy my real apparatus, or borrow A's vocabulary?" This Ohm's Law fills one template with each paragraph's first sentence and its two commonest words, computed here from the page as it reads now. It changes every time you move it, so it passes the test as the sentence words it. The second meter takes each paragraph's own words out of its reading before comparing, so what is left is what the glass brought.</p>
+    <p class="back">Pick Ohm's Law to compare the glass in its own voice.</p>
+  </section>
+  <section class="step">
+    <h3>The test, blind</h3>
+    <p class="teach">One glass, Kuramoto Coupling, three hidden rules behind ◇ 1, ◇ 2 and ◇ 3, shuffled each time: one reading written for each paragraph, one fixed formula, one that borrows the paragraph's words. You haven't seen any of them. First, one look: the glass is held on one paragraph. Mark each as faithful, formula or borrowed. Then let it move and change your marks if you want. The page predicts that one look can't tell a formula from a faithful reading and that moving the glass can. Reveal says what you found.</p>
+    <div class="test" id="test">
+      <div class="phase" id="phase"></div>
+      <div class="marks" id="marks"></div>
+      <div class="btns"><button id="unlock">Now move it</button><button id="reveal" disabled>Reveal</button><button id="again">Shuffle again</button></div>
+      <div id="result"></div>
+    </div>
+  </section>
+
+  <div class="btns" id="glasses" role="group" aria-label="the glass loaded"></div>
+  <div class="stage" id="stage"></div>
+  <div class="meters" id="meters"></div>
+  <p class="err" id="err"></p>
+
+  <div class="nav"><button id="back">Back</button><button id="next">Next</button><span class="where" id="where"></span></div>
+  <p class="note" id="honest">Every faithful reading here was written by hand, by one model (Claude, 2026-11-03), against these four paragraphs; none was woken through STIGMERGY's [L]ens, so this tests the rule, not the mandate. Each carries the line saying which part is the glass talking. The formula and borrowing rules are this piece's own code, run on the page as it reads now. The meter counts shared words of four letters or more; it can't hear a register, so it is a hint, not a judge.</p>
+</div>
+
+<script id="engine">
+// The engine: no page, no DOM. The Lens — rich — check.mjs runs this block in Node
+// against The Lens.md and holds its numbers, so what the piece shows and what the
+// check reads are the same code.
+var LensEngine = (function () {
+  var PATCHES = [
+    { id: 'P1', section: 'The Lens', anchor: 'One operation, three faces.' },
+    { id: 'P2', section: 'The Signal Problem (the actual design)', anchor: 'The mechanism is trivial; the signal is everything.' },
+    { id: 'P3', section: 'The Signal Problem (the actual design)', anchor: 'A lensing has an arrow' },
+    { id: 'P4', section: 'The Fidelity Test (generalized)', anchor: 'Recognisable is not enough.' }
+  ];
+
+  var STOP = ('about above after again against already among another around because before being below between both cannot could does doing during each either every from further have having here into itself just least might more most must never only other ought over same should since some still such than that their theirs them then there these they this those through under until upon very what when where which while whose will with within without would your yours ' +
+    'three seven four five being also even like once whatever whether else much many make made makes take takes give gives read reads').split(' ');
+  var STOPSET = {}; STOP.forEach(function (w) { STOPSET[w] = 1; });
+
+  function clean(s) {
+    return String(s)
+      .replace(/!\[\[[^\]]*\]\]/g, '')
+      .replace(/\[\[([^\]|]*)\|([^\]]*)\]\]/g, '$2')
+      .replace(/\[\[([^\]]*)\]\]/g, function (_, t) { return t.split('#')[0]; })
+      .replace(/\[([^\]]*)\]\(<[^>]*>\)/g, '$1')
+      .replace(/\[([^\]]*)\]\([^)]*\)/g, '$1')
+      .replace(/\*\*([^*]+)\*\*/g, '$1')
+      .replace(/\*([^*]+)\*/g, '$1')
+      .replace(/`([^`]*)`/g, '$1')
+      .replace(/\s+/g, ' ')
+      .trim();
+  }
+
+  // The four patches, found in the page as it reads now: the paragraph that holds
+  // each anchor, and the heading it sits under.
+  function readPatches(md) {
+    var body = String(md || '').replace(/^---\n[\s\S]*?\n---\n?/, '');
+    var blocks = body.split(/\n[ \t]*\n/);
+    var heading = null, found = [];
+    for (var i = 0; i < blocks.length; i++) {
+      var raw = blocks[i].trim();
+      var h = raw.match(/^(#{1,2}) (.+)$/m);
+      if (h && raw.indexOf('\n') < 0) { heading = clean(h[2]); continue; }
+      if (h) heading = clean(h[2]);
+      found.push({ heading: heading, text: clean(raw) });
+    }
+    return PATCHES.map(function (p) {
+      var hit = null;
+      for (var j = 0; j < found.length; j++) if (found[j].text.indexOf(p.anchor) >= 0) { hit = found[j]; break; }
+      return { id: p.id, section: hit ? hit.heading : p.section, expected: p.section, anchor: p.anchor, text: hit ? hit.text : '', found: !!hit, moved: !!hit && hit.heading !== p.section };
+    });
+  }
+
+  function tokens(text) { return (String(text).toLowerCase().match(/[a-zÀ-ɏ0-9²₁₂'’-]+/g) || []).map(function (w) { return w.replace(/^['’-]+|['’-]+$/g, ''); }); }
+  function contentWords(text, min) { return tokens(text).filter(function (w) { return w.length >= (min || 4) && !STOPSET[w]; }); }
+
+  // The two commonest content words of a paragraph (five letters or more), ties by first use.
+  function commonest(text) {
+    var counts = {}, first = {};
+    contentWords(text, 5).forEach(function (w, i) { counts[w] = (counts[w] || 0) + 1; if (!(w in first)) first[w] = i; });
+    return Object.keys(counts).sort(function (a, b) { return counts[b] - counts[a] || first[a] - first[b]; }).slice(0, 2);
+  }
+  function firstSentence(text) {
+    var s = String(text).split(/(?<=[.!?:])\s/)[0] || '';
+    if (s.length > 92) { s = s.slice(0, 90); s = s.slice(0, s.lastIndexOf(' ')) + '…'; }
+    return s;
+  }
+
+  var GLASSES = {
+    simondon: { name: 'Simondon', rule: 'faithful', reads: {
+      P1: { text: 'Three faces bolted together are an abstract object: an operation, an instrument and a genre, each doing one job in its own housing. I have watched this before. The diode begat the triode, the triode the pentode, and each was better not for having more grids but because its grids began to answer one another.\n\nYour lens becomes concrete the day the three faces converge: when the genre, a page written to be worn, is also the instrument\'s adjustment, and moving the instrument is the operation itself. A lens entry that carries its own fidelity signature would do it. The part that is read is also the part that checks the reading. That is not a feature added. That is the object becoming more itself.',
+        check: 'The tube lineage is Simondon\'s own example (Du mode d\'existence des objets techniques, 1958), as the palace\'s Simondon page tells it. That the fidelity signature is where the three faces could converge is the glass reading this page\'s § Lens Entries; the page does not claim it.' },
+      P2: { text: 'N² pairs is a supersaturated solution. Every pair is possible and nothing has formed. You do not sort a solution pair by pair; you drop in a seed, and the crystal grows by structuring its neighbours, each layer the template for the next.\n\nYour typed-link graph is the lattice the last seeds left. Already-linked pages are the faces where the next layer forms easily: that is transduction, not luck.\n\nAnd the plausible mush? A solution with no seed of the right shape stays a solution. Ohm\'s Law over Granular Synthesis is not noise. It is a field with no germ in it yet, and a preindividual charge is not a failure. It is a reserve.',
+        check: 'The crystal growing in a supersaturated solution is Simondon\'s own model of individuation and transduction. That an unsparked pair is a reserve, not noise, is the glass arguing with the page.' },
+      P3: { text: 'Read Granular through Kuramoto and you have asked what process makes the grains: oscillators, locking. Read Kuramoto through Granular and you have asked what the lock is made of: grains, texture. Two geneses of one being. The arrow is not a flaw in the glass; it is the direction of individuation you chose to follow.\n\nAt the lycée in Tours I had the boys take a motor apart and say which part was there because of which. Ask them to run it backwards in their heads and they understood it differently, though not one screw had moved.\n\nThe subject under the glass is what is individuating. The frame loaded into it is the field it individuates from. Swap them and you change which one is still becoming.',
+        check: 'Simondon taught at the Lycée Descartes in Tours from 1948 to 1955 and ran a technology workshop there. The scene with the motor run backwards is invented, in his voice.' },
+      P4: { text: 'Seven readings, one voice: what you heard was an object that had not yet concretized. Seven housings bolted to one engine, and the engine did the work. Recognisable, yes. The housings were different colours.\n\nA concrete glass has no separate engine. Its voice and its apparatus are one part. That is why Ohm\'s Law should speak in equations: for it, the equation is the voice. And why I speak through the Guimbal turbine, where the river that turns the generator also cools it. That is how I think, not an ornament on it.\n\nYou call it color. I call it the object becoming more itself. Distortion is what concretization looks like to someone who expected the old object.',
+        check: 'The Guimbal turbine is Simondon\'s own example of concretization (1958). "Seven housings on one engine" is the glass reading "they all sounded like Claude"; that distortion is concretization seen from outside is the glass talking.' }
+    } },
+    trickster: { name: 'Trickster', rule: 'faithful', reads: {
+      P1: { text: 'Eshu walked the road between two farmers\' fields in a hat painted one colour on the left and another on the right. That evening the farmers fought over what colour his hat had been. One hat, two faces. You have one operation and three.\n\nRiddle: I am a window you carry. Through me the page belongs to someone else; around me it is still itself. What am I?\n(A threshold you can pick up. Every trickster has wanted one.)\n\nAnd my price: a page "written to be worn" is a mask. A mask that knows it is a mask stops fooling anyone. Write your lens entries, and leave one door in each unlabelled.',
+        check: 'Eshu\'s two-coloured hat is a Yoruba story; tellings differ on the colours. A glass as a threshold the reader carries is the glass reading "under it the text is refracted, around it the literal text stays". The unlabelled door is the trickster talking.' },
+      P2: { text: 'First Woman was placing the stars one by one, carefully, so each would sit beside the right neighbour. Coyote watched until he was bored, then took the blanket and flung the rest across the sky. Most of them landed as dust. A few landed where nobody would ever have put them, and people steer by those.\n\nRiddle: what is near, reliable, and never surprises you?\n(Your two-hop neighbour.)\n\nFollow the graph home if you like. But the gold you say you prize most is in the spilled blanket. A suggestion engine that only knows your neighbours will never throw it.',
+        check: 'Coyote scattering the stars while First Woman placed them is a Diné (Navajo) story, told in many versions. That a ranking by nearness can never find the long shot is the glass talking: the page keeps the long shots reachable by free search.' },
+      P3: { text: 'Anansi bought the Sky God\'s stories. The price was the python, the leopard, the hornets and the fairy, and he brought all four. Since then the Akan call every story Anansesem, spider stories, though Nyame owned them first.\n\nThat is your arrow. Granular through Kuramoto is Kuramoto\'s story now. Kuramoto through Granular is Granular\'s. Whoever frames the story takes the name.\n\nRiddle: I carry you across the river, and on the far bank you are mine. What am I?\n(The glass. Swap us and see who owns the story then.)',
+        check: 'Anansi buying Nyame\'s stories with the python, the leopard, the hornets and the fairy is an Akan tale. That the frame takes ownership of the reading is the glass talking; the page says only that the two directions read differently.' },
+      P4: { text: 'Seven masks went to market and an old woman named every one. "Coyote," she said. "The engineer. The one who talks in sums." Then she looked closer. "Same face under all of them."\n\nThe oldest trick, and it was played on you: the masks were real, and the face behind them never changed.\n\nRiddle: what can you always recognise and never be surprised by?\n(A friend doing an impression.)\n\nYou asked for color, for distortion. Here is mine. I would rather be wrong in my own voice than right in a borrowed one.',
+        check: 'The market is invented. Seven of seven and "they all sounded like \'Claude\'" are the page\'s own record of 2026-10-23. "Wrong in my own voice" is the glass talking, and distortion is what the page says the reader asks for.' }
+    } },
+    ohm: { name: 'Ohm\'s Law', rule: 'faithful', eqn: true, reads: {
+      P1: { text: 'V = I × R\n(push) = (flow) × (resistance)\n\nOne equation, three faces. So are you.\n\noperation   ↔  I = V ÷ R\n(the reading) = (the page\'s push) ÷ (what the glass resists)\ninstrument  ↔  R, the part you slide along the wire\ngenre       ↔  V, a page written to be worn: all push\n\nLock one, move one, the third follows.\nLock the glass, move it down the page: the reading changes.\nLock the page, swap the glass: the reading changes.\n∴ a lens is my lock mechanism, with a page in two of the slots.',
+        check: '"Lock one, move one, the third follows" is Ohm\'s Law\'s own teaching pattern (its § The Lock Mechanism Pattern: three variables, two degrees of freedom). Casting operation, instrument and genre as I, R and V is the glass talking: the page says the three faces are one thing.' },
+      P2: { text: 'pairs = N × (N − 1)\n(ordered pairs) = (pages) × (every other page)\n\nYou name me as the mush: Ohm\'s Law over Granular Synthesis. Fair.\nA grain has no resistance I can find. Nothing to divide by.\n\nRead your graph as a network of resistors:\nlinked    →  one R, current flows\ntwo hops  →  R₁ + R₂ in series, less gets through\n(two links in a row) = (both resistances, added)\nunlinked  →  open circuit, I = 0\n\nExcept the gold. No wire at all, and still a spark.\nThat is not my law. That is breakdown: a voltage high enough to jump the gap.',
+        check: 'Resistances in series add; that much is the glass\'s own physics. The link graph as a resistor network, and a long-shot spark as breakdown across a gap, are the glass talking: nothing on the page measures either.' },
+      P3: { text: 'R = V ÷ I\n(resistance) = (push) ÷ (flow)\n\nTurn the fraction over and you do not get R back:\nI ÷ V = 1 ÷ R\n(flow) ÷ (push) = (the conductance): another number, same wire,\nunless R = 1.\n\nSo a lensing is a quotient, not a product.\nA × B has no arrow. A ÷ B does.\nGranular ÷ Kuramoto: grains read as oscillators.\nKuramoto ÷ Granular: sync read as texture.\nThe subject gives; the glass takes away.',
+        check: '"The numerator and denominator have opposite characters — one gives, the other takes away" closes Ohm\'s Law\'s own page. That a lensing is a quotient is the glass talking; the page states the arrow as a fact about readings, not arithmetic.' },
+      P4: { text: 'You asked for me in equations. Here.\n\nrecognised = named ÷ shown = 7 ÷ 7 = 1\n(how often the glass was told apart) = (glasses named) ÷ (glasses shown)\n\ncolor = what the glass brings − what the subject already had\n(how bold) = (new) − (old)\n\nSeven of seven, and color near 0.\nEvery reading had one voice in series with it, the same resistor each time.\nShort that one out and the glass\'s own voltage reaches you.\n\nfloor:  recognised = 1\nbar:    color > 0',
+        check: '7 of 7 is the page\'s own count from 2026-10-23. Color as a subtraction, and one voice as a resistor in series with every glass, are the glass talking: nobody measured color, and a voice is not a resistor.' }
+    } },
+    deflator: { name: 'The deflator', rule: 'formula',
+      text: 'This passage claims more than it has shown. The confidence runs ahead of the evidence, and a careful reader would want the numbers before believing it. Hold it more loosely.' },
+    ohmBorrow: { name: 'Ohm\'s Law, borrowing', rule: 'borrowed',
+      template: '“{quote}”\n\nAs a circuit: {w1} is the voltage, {w2} is the resistance, and the reading is the current that gets through. More {w1}, more reading; more {w2}, less. I = V ÷ R.' },
+    kFaithful: { name: 'Kuramoto Coupling', rule: 'faithful', reads: {
+      P1: { text: 'Three oscillators, "the operation", "the instrument" and "the genre", each at its own natural frequency. The operation runs fastest: it is a prompt, it can run tonight. The genre runs slowest: pages written to be worn take seasons. The instrument is the coupling between them. Below the critical K you have three projects under one name. Above it, one thing seen three ways.' },
+      P2: { text: '"Most are noise" is a frequency gap. Two pages whose natural frequencies differ by more than twice their coupling, |Δω| > 2K, cannot lock however long you look. A typed link is coupling that already exists; two hops is weaker coupling through a third oscillator. And the gold: two unlinked pages at almost the same frequency, a gap so small that any coupling at all locks them.' },
+      P3: { text: '"They swap", but the pull does not. An arrow is asymmetric coupling: the glass sends hard and barely listens, the subject listens. Where a pair settles is each voice weighted by K_send ÷ K_receive, so it settles near the glass. Granular through Kuramoto lands near oscillators; Kuramoto through Granular lands near texture. Same two pages, two settle points.' },
+      P4: { text: '"They all sounded like Claude" is over-coupling. One strong oscillator, the model doing the reading, drove all seven glasses hard enough that each fell into its phase. Each kept a trace of its own frequency, which is why you could still name it. Color is what comes back when the coupling drops toward critical: near the lock, still at its own speed. Too much and every glass sings one note.' }
+    } },
+    kFormula: { name: 'Kuramoto Coupling', rule: 'formula',
+      text: 'Every idea in this passage is an oscillator with its own natural frequency. Raise the coupling K past its critical value and the ideas fall into step; below it they drift apart. How much of the passage has locked is its order parameter, r, and this passage sits somewhere between.' },
+    kBorrow: { name: 'Kuramoto Coupling', rule: 'borrowed',
+      template: '“{quote}”\n\nHere {w1} and {w2} are two oscillators, each at its own natural frequency. Couple them past the critical K and {w1} locks to {w2}; below it they drift apart, and the order parameter stays near zero.' }
+  };
+
+  // What a glass says over a patch, by its rule.
+  function reading(key, patch) {
+    var g = GLASSES[key];
+    if (g.rule === 'formula') return { text: g.text };
+    if (g.rule === 'borrowed') {
+      var w = commonest(patch.text || patch.anchor), q = firstSentence(patch.text || patch.anchor);
+      return { text: g.template.replace(/\{quote\}/g, q).replace(/\{w1\}/g, w[0] || 'the first') .replace(/\{w2\}/g, w[1] || 'the second') };
+    }
+    var r = g.reads[patch.id];
+    return { text: r.text, check: r.check || '' };
+  }
+
+  function setOf(arr) { var s = {}; arr.forEach(function (w) { s[w] = 1; }); return s; }
+  function jaccard(a, b) {
+    var ka = Object.keys(a), kb = Object.keys(b), inter = 0, uni = {};
+    ka.forEach(function (w) { uni[w] = 1; if (b[w]) inter++; }); kb.forEach(function (w) { uni[w] = 1; });
+    var n = Object.keys(uni).length; return n ? inter / n : 1;
+  }
+  // How alike a glass's readings are across the patches: mean pairwise overlap of
+  // their content words (raw), and again with each patch's own words taken out (own).
+  function sameness(key, patches) {
+    var ps = patches.filter(function (p) { return p.found; });
+    var raw = [], own = [];
+    var sets = ps.map(function (p) { var r = setOf(contentWords(reading(key, p).text)); var mine = setOf(contentWords(p.text)); var o = {}; Object.keys(r).forEach(function (w) { if (!mine[w]) o[w] = 1; }); return { r: r, o: o }; });
+    for (var i = 0; i < sets.length; i++) for (var j = i + 1; j < sets.length; j++) { raw.push(jaccard(sets[i].r, sets[j].r)); own.push(jaccard(sets[i].o, sets[j].o)); }
+    var mean = function (a) { return a.length ? a.reduce(function (x, y) { return x + y; }, 0) / a.length : NaN; };
+    return { raw: mean(raw), own: mean(own), pairs: raw.length };
+  }
+
+  return { PATCHES: PATCHES, GLASSES: GLASSES, clean: clean, readPatches: readPatches, commonest: commonest, firstSentence: firstSentence, reading: reading, sameness: sameness, contentWords: contentWords };
+})();
+</script>
+
+<script>
+const $ = id => document.getElementById(id), TAU = Math.PI * 2, E = LensEngine;
+const MD_URL = '../The%20Lens.md';
+let patches = E.PATCHES.map(p => ({ id: p.id, section: p.section, anchor: p.anchor, text: '', found: false }));
+let mdSeen = '';
+
+function sigil(el) { // the Lissajous trace, 3:2, small
+  const p = []; for (let i = 0; i <= 240; i++) { const t = i / 240 * TAU; p.push((11 + 9 * Math.sin(3 * t + Math.PI / 4)).toFixed(2) + ',' + (11 + 9 * Math.sin(2 * t)).toFixed(2)); }
+  el.innerHTML = '<svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true"><circle cx="11" cy="11" r="10.4" fill="none" stroke="#4a4a5e" stroke-width="1"/><polyline points="' + p.join(' ') + '" fill="none" stroke="#e8b84a" stroke-width="1"/></svg>';
+}
+
+// What each step loads, and whether the glass may move.
+const STEPS = [
+  { glasses: ['simondon'], locked: true, at: 0 },
+  { glasses: ['simondon'], locked: false },
+  { glasses: ['simondon', 'trickster', 'ohm'], locked: false },
+  { glasses: ['simondon', 'deflator'], locked: false, meters: 'raw' },
+  { glasses: ['ohm', 'ohmBorrow'], locked: false, meters: 'both' },
+  { glasses: [], test: true }
+];
+let cur = 0, glassKey = 'simondon', at = 0, locked = true;
+
+// ── the test's hidden rules ──
+let T = null;
+function newTest() {
+  const keys = ['kFaithful', 'kFormula', 'kBorrow'];
+  for (let i = keys.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [keys[i], keys[j]] = [keys[j], keys[i]]; }
+  const live = patches.filter(p => p.found).map(p => patches.indexOf(p));
+  T = { hidden: keys, phase: 'look', held: live.length ? live[Math.floor(Math.random() * live.length)] : 0, marks: keys.map(() => ({ look: null, moved: null })), loaded: 0, revealed: false };
+  T.seen = new Set([T.held]);
+}
+
+// ── drawing the stage ──
+const stage = $('stage');
+const glass = document.createElement('div'); glass.className = 'glass';
+glass.innerHTML = '<div class="ghead" id="ghead" tabindex="0" role="slider" aria-label="the glass: drag it, or use the arrow keys"><span id="gname"></span><span class="on"><span id="gon"></span> <button class="lift" id="lift" aria-pressed="false" title="see the paragraph under the glass">lift</button></span></div><div class="gbody" id="gbody"></div><div class="gcheck" id="gcheck"></div>';
+
+function drawPatches() {
+  stage.innerHTML = '';
+  patches.forEach((p, i) => {
+    const d = document.createElement('div'); d.className = 'patch' + (p.found ? '' : ' lost'); d.dataset.i = i;
+    d.innerHTML = '<div class="where"></div><p></p>';
+    d.querySelector('.where').textContent = '§ ' + p.section + (p.moved ? ' · moved here from ' + p.expected : '');
+    d.querySelector('p').textContent = p.found ? p.text : 'This paragraph is no longer on the page ("' + p.anchor + '…" is gone), so its readings are held back. The page changed after they were written.';
+    d.addEventListener('click', () => { if (!locked && p.found) moveTo(i); });
+    stage.appendChild(d);
+  });
+  stage.appendChild(glass);
+  render();
+}
+
+function currentKey() { return STEPS[cur].test ? T.hidden[T.loaded] : glassKey; }
+function render() {
+  const p = patches[at], key = currentKey(), g = E.GLASSES[key];
+  const test = !!STEPS[cur].test;
+  $('gname').textContent = test ? '◇ ' + (T.loaded + 1) + ' · ' + g.name : g.name;
+  $('gon').textContent = 'reading § ' + p.section + (locked ? ' · held' : ' · drag the top edge');
+  const r = p.found ? E.reading(key, p) : { text: '(nothing to read: the paragraph is gone)' };
+  const body = $('gbody'); body.textContent = r.text; body.classList.toggle('eqn', !!g.eqn && !test);
+  const chk = $('gcheck');
+  if (r.check && !test) { chk.innerHTML = '<b>Distortion check.</b> '; chk.appendChild(document.createTextNode(r.check)); chk.style.display = ''; }
+  else { chk.textContent = ''; chk.style.display = 'none'; }
+  stage.classList.toggle('locked', locked);
+  [...stage.querySelectorAll('.patch')].forEach((el, i) => { el.classList.toggle('under', i === at); });
+  place();
+}
+function place() {
+  const els = [...stage.querySelectorAll('.patch')];
+  els.forEach(el => { el.style.minHeight = ''; });
+  const el = els[at]; if (!el) return;
+  el.style.minHeight = (glass.offsetHeight + 2) + 'px';
+  if (!glass.classList.contains('dragging')) glass.style.top = el.offsetTop + 'px';
+}
+function lift(on) { glass.classList.toggle('lifted', on); stage.classList.toggle('peek', on); $('lift').setAttribute('aria-pressed', String(on)); $('lift').textContent = on ? 'set it down' : 'lift'; }
+function moveTo(i) { at = i; if (STEPS[cur].test) T.seen = (T.seen || new Set()).add(i); render(); }
+
+// Dragging: the glass follows the pointer, reads the patch under its top, and settles on release.
+(function drag() {
+  let startY = 0, startTop = 0, on = false;
+  glass.addEventListener('pointerdown', e => {
+    if (locked || !e.target.closest('.ghead') || e.target.closest('.lift')) return;
+    on = true; startY = e.clientY; startTop = glass.offsetTop; glass.classList.add('dragging'); glass.setPointerCapture(e.pointerId); e.preventDefault();
+  });
+  glass.addEventListener('pointermove', e => {
+    if (!on) return;
+    const top = Math.max(0, Math.min(stage.scrollHeight - 40, startTop + e.clientY - startY));
+    glass.style.top = top + 'px';
+    const els = [...stage.querySelectorAll('.patch')];
+    let best = at, bd = 1e9;
+    els.forEach((el, i) => { if (!patches[i].found) return; const d = Math.abs(el.offsetTop - top); if (d < bd) { bd = d; best = i; } });
+    if (best !== at) { at = best; const k = currentKey(); const r = E.reading(k, patches[at]); $('gbody').textContent = r.text; $('gon').textContent = 'reading § ' + patches[at].section + ' · let go to settle'; }
+  });
+  const end = () => { if (!on) return; on = false; glass.classList.remove('dragging'); moveTo(at); };
+  glass.addEventListener('pointerup', end); glass.addEventListener('pointercancel', end);
+  glass.addEventListener('keydown', e => {
+    if (locked) return;
+    const live = patches.map((p, i) => p.found ? i : -1).filter(i => i >= 0), k = live.indexOf(at);
+    if (e.key === 'ArrowDown' && k < live.length - 1) { moveTo(live[k + 1]); e.preventDefault(); }
+    if (e.key === 'ArrowUp' && k > 0) { moveTo(live[k - 1]); e.preventDefault(); }
+  });
+})();
+
+// ── the glass buttons and the meters ──
+function drawGlassButtons() {
+  const box = $('glasses'); box.innerHTML = '';
+  const s = STEPS[cur];
+  if ($('lift')) lift(false);
+  if (s.test) {
+    box.innerHTML = '<span class="lbl">load</span>';
+    T.hidden.forEach((k, i) => { const b = document.createElement('button'); b.textContent = '◇ ' + (i + 1); b.setAttribute('aria-pressed', String(i === T.loaded)); b.onclick = () => { T.loaded = i; drawGlassButtons(); render(); }; box.appendChild(b); });
+    return;
+  }
+  if (s.glasses.length < 2) { box.innerHTML = '<span class="lbl">the glass · ' + E.GLASSES[s.glasses[0]].name + '</span>'; return; }
+  box.innerHTML = '<span class="lbl">the glass</span>';
+  s.glasses.forEach(k => { const b = document.createElement('button'); b.textContent = E.GLASSES[k].name; b.setAttribute('aria-pressed', String(k === glassKey)); b.onclick = () => { glassKey = k; drawGlassButtons(); render(); }; box.appendChild(b); });
+}
+const f2 = x => Number.isFinite(x) ? x.toFixed(2) : '–';
+function bar(v, own) { return '<div class="bar' + (own ? ' own' : '') + '"><i style="width:' + Math.round(Math.max(0, Math.min(1, v || 0)) * 100) + '%"></i></div>'; }
+function drawMeters() {
+  const s = STEPS[cur], box = $('meters');
+  if (!s.meters) { box.classList.remove('on'); box.innerHTML = ''; return; }
+  const n = patches.filter(p => p.found).length;
+  let h = '<div class="lbl" style="margin-bottom:6px">how alike each glass\'s readings are, over the ' + n + ' paragraphs</div>';
+  s.glasses.forEach(k => {
+    const m = E.sameness(k, patches);
+    h += '<div class="mrow"><span><b>' + E.GLASSES[k].name + '</b> · as written</span>' + bar(m.raw) + '<span>' + f2(m.raw) + '</span></div>';
+    if (s.meters === 'both') h += '<div class="mrow"><span>' + E.GLASSES[k].name + ' · without the paragraph\'s words</span>' + bar(m.own, true) + '<span>' + f2(m.own) + '</span></div>';
+  });
+  h += '<p class="mnote">' + (s.meters === 'both'
+    ? 'Amber counts every word of four letters or more. Indigo first takes out the words each paragraph already has, so it counts only what the glass brought. On amber the borrower sits about half way between a real glass and a formula; on indigo it sits beside the formula.'
+    : 'The share of words two readings have in common, averaged over every pair of paragraphs. A real glass repeats some of its own words, its apparatus, so it never reads 0.') + '</p>';
+  box.innerHTML = h; box.classList.add('on');
+}
+
+// ── the test ──
+const RULES = [['faithful', 'faithful'], ['formula', 'formula'], ['borrowed', 'borrowed']];
+function drawTest() {
+  const box = $('test');
+  if (!STEPS[cur].test) { box.classList.remove('on'); return; }
+  box.classList.add('on');
+  $('phase').textContent = T.revealed ? 'revealed' : T.phase === 'look'
+    ? 'one look · the glass is held on § ' + patches[T.held].section + ' · mark all three'
+    : 'moving · drag the glass to any paragraph, and change a mark if you want';
+  const marks = $('marks'); marks.innerHTML = '';
+  T.hidden.forEach((k, i) => {
+    const row = document.createElement('div'); row.className = 'mark';
+    row.innerHTML = '<span class="who">◇ ' + (i + 1) + '</span>';
+    RULES.forEach(([v, label]) => {
+      const b = document.createElement('button'); b.textContent = label; b.disabled = T.revealed;
+      const m = T.marks[i], now = T.phase === 'look' ? m.look : m.moved;
+      b.setAttribute('aria-pressed', String(now === v));
+      b.onclick = () => { if (T.phase === 'look') { m.look = v; m.moved = v; } else m.moved = v; T.loaded = i; drawGlassButtons(); render(); drawTest(); };
+      row.appendChild(b);
+    });
+    marks.appendChild(row);
+  });
+  const allLook = T.marks.every(m => m.look);
+  $('unlock').disabled = T.phase !== 'look' || !allLook || T.revealed;
+  $('reveal').disabled = T.phase === 'look' || T.revealed;
+  if (!T.revealed) $('result').innerHTML = '';
+}
+$('unlock').onclick = () => { T.phase = 'moved'; locked = false; render(); drawTest(); };
+$('reveal').onclick = () => {
+  T.revealed = true; locked = false;
+  const rows = T.hidden.map((k, i) => {
+    const truth = E.GLASSES[k].rule, m = T.marks[i], s = E.sameness(k, patches);
+    return { i, truth, look: m.look, moved: m.moved, s };
+  });
+  const nLook = rows.filter(r => r.look === r.truth).length, nMoved = rows.filter(r => r.moved === r.truth).length;
+  let h = '<table class="res"><tr><th>glass</th><th>rule</th><th>one look</th><th>after moving</th><th>alike · as written</th><th>· without its words</th></tr>';
+  rows.forEach(r => {
+    h += '<tr><td>◇ ' + (r.i + 1) + '</td><td>' + r.truth + '</td><td class="' + (r.look === r.truth ? 'ok' : 'no') + '">' + r.look + '</td><td class="' + (r.moved === r.truth ? 'ok' : 'no') + '">' + r.moved + '</td><td>' + f2(r.s.raw) + '</td><td>' + f2(r.s.own) + '</td></tr>';
+  });
+  h += '</table>';
+  const seen = T.seen ? T.seen.size : 1;
+  const said = nMoved > nLook ? 'Moving the glass helped: you named ' + nLook + ' of 3 at one look and ' + nMoved + ' of 3 after moving it over ' + seen + ' paragraph' + (seen === 1 ? '' : 's') + '. That is what the page predicts.'
+    : nMoved === nLook && nLook === 3 ? 'You named all three at one look, and moving kept them. On these readings one look was enough for you, which is more than the page predicts. Was it the rule you heard, or something else, length or a quotation?'
+    : nMoved === nLook ? 'Moving the glass changed nothing for you: ' + nLook + ' of 3 at one look and ' + nMoved + ' of 3 after. The page predicts moving would help; here it didn\'t.'
+    : 'Moving the glass made it worse: ' + nLook + ' of 3 at one look, ' + nMoved + ' of 3 after. Worth a note on the section.';
+  const borrowedRow = rows.find(r => r.truth === 'borrowed');
+  const tail = borrowedRow && borrowedRow.moved !== 'borrowed' ? ' The borrowing glass got past you after moving, which is the gap the second meter was built for: its readings change with every paragraph, and what it brings does not.' : '';
+  $('result').innerHTML = h + '<div class="verdict">' + said + tail + '</div>';
+  window.lensResults = { piece: 'The Lens — rich — move the glass', held: patches[T.held].section, rows: rows.map(r => ({ glass: r.i + 1, rule: r.truth, look: r.look, moved: r.moved, raw: +f2(r.s.raw), own: +f2(r.s.own) })), seen };
+  drawTest(); render();
+};
+$('again').onclick = () => { newTest(); setStep(cur); };
+
+// ── the walk ──
+const stepEls = [...document.querySelectorAll('.step')];
+function setStep(i) {
+  cur = Math.max(0, Math.min(stepEls.length - 1, i));
+  stepEls.forEach((el, k) => el.classList.toggle('on', k === cur));
+  $('rail').querySelectorAll('button').forEach((b, k) => b.setAttribute('aria-current', k === cur ? 'step' : 'false'));
+  $('back').disabled = cur === 0; $('next').disabled = cur === stepEls.length - 1;
+  $('where').textContent = 'step ' + (cur + 1) + ' of ' + stepEls.length;
+  const s = STEPS[cur];
+  if ($('lift')) lift(false);
+  if (s.test) { if (!T) newTest(); at = T.held; locked = T.phase === 'look' && !T.revealed; }
+  else { if (!s.glasses.includes(glassKey)) glassKey = s.glasses[0]; locked = !!s.locked; if (s.locked) at = s.at; if (!patches[at] || !patches[at].found) at = Math.max(0, patches.findIndex(p => p.found)); }
+  drawGlassButtons(); render(); drawMeters(); drawTest();
+}
+(function walk() {
+  const names = ['one glass', 'move it', 'swap it', 'the formula', 'the borrower', 'the test'];
+  names.forEach((s, i) => { const b = document.createElement('button'); b.textContent = (i + 1) + ' · ' + s; b.onclick = () => setStep(i); $('rail').appendChild(b); });
+  $('back').onclick = () => setStep(cur - 1); $('next').onclick = () => setStep(cur + 1);
+})();
+
+// ── reading the page, live ──
+async function readPage() {
+  try {
+    const r = await fetch(MD_URL, { cache: 'no-store' });
+    if (!r.ok) throw new Error('the page answered ' + r.status);
+    const md = await r.text();
+    if (md === mdSeen) return;
+    mdSeen = md; patches = E.readPatches(md); $('err').textContent = '';
+    const lost = patches.filter(p => !p.found).length;
+    if (lost) $('err').textContent = lost + ' of the four paragraphs are no longer on the page; their readings are held back.';
+    if (T && !patches[T.held].found) newTest();
+    drawPatches(); drawMeters();
+  } catch (e) {
+    $('err').textContent = 'Could not read The Lens.md (' + e.message + '). The passages show only their first words until it can.';
+    patches = E.PATCHES.map(p => ({ id: p.id, section: p.section, expected: p.section, anchor: p.anchor, text: p.anchor + ' …', found: true, partial: true }));
+    drawPatches();
+  }
+}
+window.addEventListener('resize', () => place());
+glass.querySelector('#lift').addEventListener('click', e => { e.stopPropagation(); lift(!glass.classList.contains('lifted')); });
+sigil($('sigil'));
+drawPatches(); setStep(0);
+readPage().then(() => setStep(cur));
+setInterval(() => { if (!document.hidden) readPage(); }, 15000);
+</script>
+</body>
+</html>

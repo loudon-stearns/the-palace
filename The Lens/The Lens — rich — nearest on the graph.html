@@ -1,0 +1,298 @@
+<!doctype html>
+<!--
+  title: The Lens — rich — nearest on the graph
+  born: 2026-11-03
+  links: [[The Lens]] (connects-to · rich-face-piece) · listed in [[The Lens — rich.json]] · [[Progressive Staging]] (exemplifies · a walk up to its test) · runs STIGMERGY's own rule, _ops/stigmergy/app/src/lib/lens-suggest.js (rankLensCandidates), on a dated snapshot of the typed-link graph
+  forward_vector: I am The Lens's signal problem laid on the real graph. One entry and its links, then two hops, then the eight chips the [L]ens picker shows, and last the claim's test: is "already-linked or two-hop-apart" a short list, and is anything really far away? I read a snapshot because a face cannot reach the live graph, and I say its date. I change when the section's claim, the picker's rule, or the graph does.
+  checked: The Lens — rich — check.mjs holds this engine's ranking to rankLensCandidates over the live graph, for every entry.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:files" content="The%20Lens%20—%20rich%20—%20link%20graph.json">
+<title>The Lens — nearest on the graph</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Manrope:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root { --bg:#0a0a0f; --e1:#12121a; --border:#4a4a5e; --soft:rgba(255,255,255,.06);
+    --fg1:#e8e8f0; --fg2:#c8c8d8; --fg3:#8a8aa0; --fg4:#4a4a5a;
+    --accent:#e8b84a; --accent-soft:rgba(232,184,74,.10); --accent-line:rgba(232,184,74,.5); --indigo:#8b8df5; --warn:#ff9b4a;
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --sans:'Manrope',system-ui,sans-serif; --serif:'Cormorant Garamond',Georgia,serif;
+    --ease:cubic-bezier(.4,0,.2,1); }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); font-weight: 300; }
+  .piece { padding: 22px 22px 20px; }
+  .kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; display: flex; align-items: center; gap: 10px; }
+  .title { font-family: var(--serif); font-size: 28px; font-weight: 300; color: var(--fg1); margin: 0 0 6px; }
+  .sub { font-size: 14px; line-height: 1.6; color: var(--fg2); max-width: 76ch; margin: 0 0 16px; }
+  .rail { display: flex; flex-wrap: wrap; margin: 4px 0 18px; border: 1px solid var(--border); border-radius: 2px; width: fit-content; max-width: 100%; }
+  .rail button { border: 0; border-right: 1px solid var(--border); border-radius: 0; background: transparent; padding: 7px 12px; color: var(--fg3); }
+  .rail button:last-child { border-right: 0; }
+  .rail button[aria-current="step"] { background: var(--accent-soft); color: var(--accent); }
+  .step { display: none; }
+  .step.on { display: block; }
+  .step h3 { font-family: var(--serif); font-size: 23px; font-weight: 400; color: var(--fg1); margin: 0 0 6px; }
+  .teach { font-size: 14px; line-height: 1.65; max-width: 76ch; margin: 0 0 12px; }
+  .back { font-family: var(--mono); font-size: 11px; letter-spacing: .04em; color: var(--fg3); margin: 0 0 14px; }
+  button, select { font-family: var(--mono); font-size: 11px; letter-spacing: .1em; color: var(--fg2); background: var(--bg); border: 1px solid var(--border); border-radius: 2px; padding: 7px 10px; cursor: pointer; transition: border-color 220ms var(--ease), color 220ms var(--ease); }
+  button { text-transform: uppercase; }
+  button:hover, select:hover { border-color: var(--accent-line); color: var(--fg1); }
+  button:disabled { opacity: .4; cursor: default; }
+  .pick { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin: 4px 0 14px; }
+  .lbl { font-family: var(--mono); font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--fg3); }
+  .read { display: flex; flex-wrap: wrap; gap: 6px 22px; margin: 8px 0 10px; font-family: var(--mono); font-size: 11.5px; letter-spacing: .04em; color: var(--fg3); }
+  .read b { color: var(--fg1); font-weight: 500; }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 6px 0 12px; max-width: 900px; }
+  .chip { font-family: var(--mono); font-size: 11px; color: var(--fg2); border: 1px solid var(--soft); border-radius: 2px; padding: 3px 8px; background: var(--e1); cursor: pointer; }
+  .chip i { font-style: normal; color: var(--fg3); }
+  .chip.top { border-color: var(--accent-line); color: var(--accent); }
+  .layout { display: grid; grid-template-columns: minmax(280px, 520px) 1fr; gap: 20px; align-items: start; }
+  .panel { border: 1px solid var(--soft); border-radius: 2px; background: var(--e1); padding: 10px 12px; }
+  .plabel { font-family: var(--mono); font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--fg3); margin-bottom: 8px; display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+  svg { display: block; width: 100%; height: auto; }
+  .hover { font-family: var(--mono); font-size: 11.5px; color: var(--fg1); min-height: 1.5em; margin-top: 6px; }
+  .rings { font-family: var(--mono); font-size: 11.5px; color: var(--fg3); }
+  .rings div { display: grid; grid-template-columns: 70px 1fr 90px; gap: 10px; align-items: center; margin: 4px 0; }
+  .bar { height: 8px; background: var(--fg4); position: relative; border-radius: 1px; }
+  .bar i { position: absolute; left: 0; top: 0; bottom: 0; background: var(--accent); border-radius: 1px; }
+  .bar.two i { background: var(--indigo); }
+  .bar.far i { background: var(--fg3); }
+  .eqs { margin: 4px 0 14px; padding: 10px 14px; border-left: 1px solid var(--accent-line); background: var(--e1); max-width: 76ch; }
+  .eq { font-family: var(--serif); font-size: 20px; color: var(--fg1); }
+  .words { font-size: 13px; line-height: 1.55; color: var(--fg2); margin: 2px 0 6px; }
+  table.sp { border-collapse: collapse; font-family: var(--mono); font-size: 11.5px; margin: 6px 0 10px; }
+  table.sp td, table.sp th { border-bottom: 1px solid var(--soft); padding: 5px 14px 5px 0; text-align: left; color: var(--fg2); font-weight: 400; vertical-align: top; }
+  table.sp th { color: var(--fg3); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; }
+  table.sp .from { color: var(--fg3); font-size: 10.5px; max-width: 46ch; }
+  .verdict { font-size: 14px; line-height: 1.65; max-width: 76ch; margin: 6px 0 12px; padding: 10px 14px; border: 1px solid var(--accent-line); border-radius: 2px; color: var(--fg1); }
+  .nav { display: flex; align-items: center; gap: 10px; margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--soft); }
+  .nav .where { font-family: var(--mono); font-size: 11px; color: var(--fg3); letter-spacing: .08em; }
+  .note { font-size: 12.5px; line-height: 1.55; color: var(--fg3); max-width: 76ch; margin: 10px 0 0; }
+  .err { font-family: var(--mono); font-size: 11px; color: var(--warn); }
+  @media (max-width: 760px) { .layout { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="piece">
+  <div class="kicker"><span id="sigil"></span>made · study · a walk in four steps · the picker's own rule</div>
+  <h2 class="title">How near is near, on this graph?</h2>
+  <p class="sub">The section says the palace already holds the signal for which pairs spark: the typed-link graph. "Already-linked or two-hop-apart pages are reliable sparks; distant unlinked pages are mostly noise." STIGMERGY's [L]ens picker ranks every glass by hops from the subject. Here is that ranking on the real graph, walked out from one entry until the claim can be tested: how much of the palace sits two hops away, and how much is really far.</p>
+  <div class="rail" id="rail"></div>
+
+  <div class="pick"><span class="lbl">the subject</span><select id="subject" aria-label="the subject entry"></select><span class="lbl" id="snapline"></span></div>
+
+  <section class="step">
+    <h3>One entry and its links</h3>
+    <p class="teach">Start with one page and the pages it links to, or that link to it. The picker counts a link either way, whatever its type, as one hop. These are the glasses the section calls "already-linked". Click one to make it the subject.</p>
+    <div class="read" id="r1"></div>
+    <div class="chips" id="c1"></div>
+  </section>
+  <section class="step">
+    <h3>Two hops</h3>
+    <p class="teach">Now the pages one more link out: linked to something the subject links to. Each dot is an entry, on the ring of its distance; hover to name it. Watch how the second ring compares with the first.</p>
+    <p class="back">The inner ring is step 1.</p>
+  </section>
+  <section class="step">
+    <h3>The picker's eight</h3>
+    <p class="teach">The [L]ens picker shows eight chips, "nearest on the graph". The ranking is by hop count alone, so every one-hop page ties, and the code breaks a tie by the alphabet (lens-suggest.js: <i>a.distance − b.distance || a.title.localeCompare(b.title)</i>). The amber dots are the eight it shows for this subject.</p>
+    <div class="read" id="r3"></div>
+    <div class="chips" id="c3"></div>
+  </section>
+  <section class="step">
+    <h3>Is two hops a filter?</h3>
+    <p class="teach">The test, over every entry as the subject. A filter worth the name keeps a short list. For each entry, the share of the rest of the palace within one hop and within two, and the share that can't be reached at all, which is where "distant unlinked" would live. Then the sparks on record, beside the distance of each pair.</p>
+    <div class="eqs">
+      <div class="eq">pairs = N × (N − 1)</div>
+      <div class="words">(ordered lens-pairs) = (entries) × (every other entry). A glass and a subject swap, so each pair counts twice.</div>
+      <div class="eq">share<sub>≤2</sub>(s) = |{ e ≠ s : d(s, e) ≤ 2 }| ⁄ (N − 1)</div>
+      <div class="words">(how much of the palace two hops reaches from subject s) = (entries at most two links from s, counting a link either way) ÷ (every other entry)</div>
+    </div>
+    <div id="test"></div>
+  </section>
+
+  <div class="layout" id="layout">
+    <div class="panel"><div class="plabel"><span>by hops from the subject</span><span id="ringtag"></span></div><svg id="ring" viewBox="0 0 400 400" role="img" aria-label="entries on rings by hop distance"></svg><div class="hover" id="hover">&nbsp;</div></div>
+    <div class="rings" id="rings"></div>
+  </div>
+  <p class="err" id="err"></p>
+
+  <div class="nav"><button id="back">Back</button><button id="next">Next</button><span class="where" id="where"></span></div>
+  <p class="note">The graph is a snapshot, taken by this page's check from the same reader the picker uses (topology-live.js), on the date shown above; a face can't reach the live graph. The ranking is the picker's rule, restated here and held to the real function for every entry by The Lens — rich — check.mjs. Hops run through link targets that aren't entries too, as the picker's walk does.</p>
+</div>
+
+<script id="engine">
+// The engine: no page, no DOM. The check runs this block in Node and holds rank()
+// to rankLensCandidates over the live graph for every entry.
+var GraphEngine = (function () {
+  function load(snap) {
+    var n = snap.nodes.length, names = snap.nodes.map(function (x) { return x[0]; }).concat(snap.ghosts || []);
+    var adj = names.map(function () { return []; }), etype = names.map(function () { return {}; });
+    var idx = {}; names.forEach(function (nm, i) { if (!(nm in idx)) idx[nm] = i; });
+    snap.edges.forEach(function (e) {
+      var a = e[0], b = e[1], t = snap.types[e[2]] || '';
+      if (adj[a].indexOf(b) < 0) adj[a].push(b);
+      if (adj[b].indexOf(a) < 0) adj[b].push(a);
+      if (b < n && !(b in etype[a])) etype[a][b] = t;
+      if (a < n && !(a in etype[b])) etype[b][a] = t + ' ←';
+    });
+    return { n: n, names: names, adj: adj, idx: idx, etype: etype, nodeType: snap.nodes.map(function (x) { return x[1]; }), taken: snap.taken || {} };
+  }
+  function bfs(G, s) {
+    var d = new Int32Array(G.names.length).fill(-1); if (s == null) return d;
+    d[s] = 0; var q = [s], h = 0;
+    while (h < q.length) { var c = q[h++], nb = G.adj[c]; for (var k = 0; k < nb.length; k++) if (d[nb[k]] < 0) { d[nb[k]] = d[c] + 1; q.push(nb[k]); } }
+    return d;
+  }
+  // rankLensCandidates, restated: every other entry, nearest first, ties by title, unreachable last.
+  function rank(G, subject) {
+    var s = G.idx[subject], d = bfs(G, s), out = [];
+    for (var i = 0; i < G.n; i++) { var t = G.names[i]; if (t === subject) continue; out.push({ title: t, distance: d[i] >= 0 ? d[i] : Infinity }); }
+    out.sort(function (a, b) { return (a.distance - b.distance) || a.title.localeCompare(b.title); });
+    return out;
+  }
+  function rings(G, subject) {
+    var d = bfs(G, G.idx[subject]), c = [];
+    for (var i = 0; i < G.n; i++) { if (G.names[i] === subject) continue; var x = d[i]; if (x > 0) c[x - 1] = (c[x - 1] || 0) + 1; }
+    for (var k = 0; k < c.length; k++) c[k] = c[k] || 0;
+    return c;
+  }
+  function stats(G) {
+    var s1 = [], s2 = [], unr = 0, maxHop = 0;
+    for (var s = 0; s < G.n; s++) {
+      var d = bfs(G, s), a = 0, b = 0;
+      for (var i = 0; i < G.n; i++) { if (i === s) continue; var x = d[i]; if (x < 0) unr++; else { if (x === 1) a++; if (x <= 2) b++; if (x > maxHop) maxHop = x; } }
+      s1.push(a / (G.n - 1)); s2.push(b / (G.n - 1));
+    }
+    var mean = function (v) { return v.reduce(function (x, y) { return x + y; }, 0) / v.length; };
+    var sorted = s2.slice().sort(function (x, y) { return x - y; });
+    return { n: G.n, mean1: mean(s1), mean2: mean(s2), median2: sorted[Math.floor(sorted.length / 2)], min2: sorted[0], max2: sorted[sorted.length - 1], share2: s2, unreachable: unr, maxHop: maxHop };
+  }
+  // Every spark on record, and where it came from. Hand-written ones are not lensings.
+  var SPARKS = [
+    { glass: 'Cooperation Yields Agency', subject: 'Kuramoto Coupling', spark: 5, from: '2026-07-02 hand-run prototype; the score as lens-suggest.js:9-11 records it ("the one already-linked pair scored 5/5")' },
+    { glass: 'Granular Synthesis', subject: 'Ohm\'s Law', spark: 1.5, from: '2026-07-02 prototype; lens-suggest.js gives the two unlinked pairs 1.5 and 3.5 without naming which, and the page calls this one plausible mush, so 1.5 is inferred' },
+    { glass: 'Granular Synthesis', subject: 'The Four Virtues', spark: 3.5, from: '2026-07-02 prototype; 3.5 inferred, as above' },
+    { glass: 'Sam Maloof', subject: 'BLUELINE', spark: 4, from: 'a woken lensing, on the WEAVE board 2026-07-05' },
+    { glass: 'Palace Quotes', subject: 'Frequency-Time Duality', spark: 4, from: 'a woken lensing, on the WEAVE board 2026-10-14' },
+    { glass: 'Simondon', subject: 'Kuramoto Coupling', spark: 4, from: 'Name the Glass, 2026-10-23: written by hand, not a lensing' },
+    { glass: 'The Dichotomy of Control', subject: 'Kuramoto Coupling', spark: 3.5, from: 'Name the Glass, 2026-10-23: by hand' },
+    { glass: 'Trickster', subject: 'Kuramoto Coupling', spark: 3, from: 'Name the Glass, 2026-10-23: by hand' },
+    { glass: 'Ohm\'s Law', subject: 'Kuramoto Coupling', spark: 1.5, from: 'Name the Glass, 2026-10-23: by hand' }
+  ];
+  return { load: load, bfs: bfs, rank: rank, rings: rings, stats: stats, SPARKS: SPARKS };
+})();
+</script>
+
+<script>
+const $ = id => document.getElementById(id), TAU = Math.PI * 2, GE = GraphEngine;
+const SNAP = encodeURIComponent('The Lens — rich — link graph.json');
+let G = null, ST = null, subject = 'The Lens', cur = 0;
+const pct = x => (x * 100).toFixed(0) + '%';
+
+function sigil(el) {
+  const p = []; for (let i = 0; i <= 240; i++) { const t = i / 240 * TAU; p.push((11 + 9 * Math.sin(3 * t + Math.PI / 4)).toFixed(2) + ',' + (11 + 9 * Math.sin(2 * t)).toFixed(2)); }
+  el.innerHTML = '<svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true"><circle cx="11" cy="11" r="10.4" fill="none" stroke="#4a4a5e" stroke-width="1"/><polyline points="' + p.join(' ') + '" fill="none" stroke="#e8b84a" stroke-width="1"/></svg>';
+}
+function hash(s) { let h = 2166136261; for (let i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 16777619); } return (h >>> 0) / 4294967296; }
+function chip(title, d, top, extra) {
+  const c = document.createElement('span'); c.className = 'chip' + (top ? ' top' : ''); c.textContent = title + ' ';
+  const i = document.createElement('i'); i.textContent = extra != null ? extra : '· ' + d; c.appendChild(i);
+  c.onclick = () => setSubject(title); return c;
+}
+function setSubject(t) { if (!(t in G.idx) || G.idx[t] >= G.n) return; subject = t; $('subject').value = t; draw(); }
+
+function draw() {
+  if (!G) return;
+  const s = G.idx[subject], d = GE.bfs(G, s), ranked = GE.rank(G, subject), rings = GE.rings(G, subject);
+  const others = G.n - 1, maxShow = cur === 0 ? 1 : 4;
+  const top8 = new Set(ranked.slice(0, 8).map(r => r.title));
+  // step 1: the links
+  const one = ranked.filter(r => r.distance === 1);
+  $('r1').innerHTML = '<span><b>' + one.length + '</b> of ' + others + ' other entries are one link away (' + pct(one.length / others) + ')</span>';
+  const c1 = $('c1'); c1.innerHTML = '';
+  one.forEach(r => c1.appendChild(chip(r.title, 1, false, '· ' + (G.etype[s][G.idx[r.title]] || 'linked'))));
+  // step 3: the eight
+  $('r3').innerHTML = '<span><b>' + one.length + '</b> tied at one hop</span><span>the picker shows <b>8</b>: ' + (one.length > 8 ? 'the first eight of them A to Z' : 'all ' + one.length + ', then the next ring A to Z') + '</span>';
+  const c3 = $('c3'); c3.innerHTML = '';
+  ranked.slice(0, 8).forEach(r => c3.appendChild(chip(r.title, r.distance, true)));
+  // the rings
+  const svg = $('ring'); const R = [0, 60, 112, 152, 180, 196];
+  let h = '';
+  for (let k = 1; k <= Math.min(4, Math.max(rings.length, 1)); k++) h += '<circle cx="200" cy="200" r="' + R[k] + '" fill="none" stroke="' + (k <= maxShow ? '#4a4a5e' : '#22222e') + '" stroke-width="1"/>';
+  h += '<circle cx="200" cy="200" r="6" fill="#e8b84a"/>';
+  for (let i = 0; i < G.n; i++) {
+    if (i === s || d[i] < 1) continue;
+    const k = Math.min(d[i], 5), a = hash(G.names[i]) * TAU, jitter = (hash(G.names[i] + '·') - .5) * (k === 1 ? 20 : 26);
+    const r = R[k] + jitter, x = 200 + r * Math.cos(a), y = 200 + r * Math.sin(a);
+    const shown = d[i] <= maxShow, isTop = cur >= 2 && top8.has(G.names[i]);
+    const fill = isTop ? '#e8b84a' : d[i] === 1 ? '#c8c8d8' : d[i] === 2 ? '#8b8df5' : '#4a4a5a';
+    h += '<circle cx="' + x.toFixed(1) + '" cy="' + y.toFixed(1) + '" r="' + (isTop ? 4.2 : 2.6) + '" fill="' + fill + '" opacity="' + (shown ? 1 : 0.12) + '" data-t="' + i + '"><title></title></circle>';
+  }
+  svg.innerHTML = h;
+  svg.querySelectorAll('circle[data-t]').forEach(c => { const i = +c.dataset.t; c.querySelector('title').textContent = G.names[i] + ' · ' + d[i] + ' hop' + (d[i] === 1 ? '' : 's'); });
+  $('ringtag').textContent = subject;
+  let rh = '';
+  rings.forEach((c, k) => { if (k + 1 > maxShow) return; rh += '<div><span>' + (k + 1) + ' hop' + (k ? 's' : '') + '</span><span class="bar' + (k === 1 ? ' two' : k > 1 ? ' far' : '') + '"><i style="width:' + (c / others * 100).toFixed(1) + '%"></i></span><span><b style="color:#e8e8f0;font-weight:500">' + c + '</b> · ' + pct(c / others) + '</span></div>'; });
+  if (maxShow >= 2) { const w2 = (rings[0] || 0) + (rings[1] || 0); rh += '<div><span>≤ 2</span><span></span><span><b style="color:#e8e8f0;font-weight:500">' + w2 + '</b> · ' + pct(w2 / others) + '</span></div>'; }
+  const unr = ranked.filter(r => r.distance === Infinity).length;
+  if (maxShow >= 2) rh += '<div><span>unreached</span><span></span><span><b style="color:#e8e8f0;font-weight:500">' + unr + '</b></span></div>';
+  $('rings').innerHTML = rh;
+  $('layout').style.display = cur === 3 ? 'none' : '';
+  if (cur === 3) drawTest();
+}
+
+function drawTest() {
+  if (!ST) ST = GE.stats(G);
+  const n = ST.n, bins = new Array(10).fill(0);
+  ST.share2.forEach(v => { bins[Math.min(9, Math.floor(v * 10))]++; });
+  const mx = Math.max(...bins);
+  let h = '<div class="plabel" style="margin-top:6px"><span>every entry as the subject · share of the palace within two hops</span><span>' + n + ' subjects</span></div><div class="rings">';
+  bins.forEach((b, i) => { h += '<div><span>' + (i * 10) + '–' + (i * 10 + 10) + '%</span><span class="bar two"><i style="width:' + (b / mx * 100).toFixed(1) + '%"></i></span><span>' + b + '</span></div>'; });
+  h += '</div>';
+  h += '<div class="read"><span>within one hop, on average <b>' + pct(ST.mean1) + '</b></span><span>within two <b>' + pct(ST.mean2) + '</b> (median ' + pct(ST.median2) + ', ' + pct(ST.min2) + ' to ' + pct(ST.max2) + ')</span><span>pairs no path joins <b>' + ST.unreachable + '</b> of ' + (n * (n - 1)) + '</span><span>farthest apart <b>' + ST.maxHop + '</b> hops</span></div>';
+  const rows = GE.SPARKS.map(sp => {
+    let d = null;
+    if (sp.subject in G.idx && G.idx[sp.subject] < G.n && sp.glass in G.idx && G.idx[sp.glass] < G.n) { const x = GE.bfs(G, G.idx[sp.subject])[G.idx[sp.glass]]; d = x < 0 ? Infinity : x; }
+    return Object.assign({ d }, sp);
+  });
+  h += '<table class="sp"><tr><th>spark</th><th>glass · subject</th><th>hops</th><th>where the score comes from</th></tr>';
+  rows.forEach(sp => { h += '<tr><td>' + sp.spark + '</td><td>' + sp.glass + ' · ' + sp.subject + '</td><td>' + (sp.d == null ? 'not on the graph' : sp.d === Infinity ? 'unreached' : sp.d) + '</td><td class="from">' + sp.from + '</td></tr>'; });
+  h += '</table>';
+  const woken = rows.filter(r => /woken/.test(r.from)).length, byHand = rows.filter(r => /by hand/.test(r.from)).length, proto = rows.length - woken - byHand, off = rows.filter(r => r.d == null).length;
+  const byHop = {}; rows.forEach(r => { if (r.d != null) (byHop[r.d] = byHop[r.d] || []).push(r.spark); });
+  const hopLine = Object.keys(byHop).sort((a, b) => a - b).map(k => k + ' hop' + (k === '1' ? '' : 's') + ': ' + byHop[k].join(', ')).join('; ');
+  h += '<div class="verdict"><b>Already-linked is a short list; two hops is not.</b> One hop keeps ' + pct(ST.mean1) + ' of the palace for the average entry. Two hops keeps ' + pct(ST.mean2) + ', and for some entries ' + pct(ST.max2) + '. And nothing here is unlinked in the graph\'s sense: ' + (ST.unreachable ? ST.unreachable + ' ordered pairs have no path, and every other pair is' : 'every pair of the ' + n + ' entries is') + ' joined by a path at most ' + ST.maxHop + ' hops long. So the section\'s "distant unlinked" pages are, on this graph, the ones three or more hops out. Whether nearness predicts a spark, the record can\'t say: ' + rows.length + ' scores, ' + woken + ' from woken lensings, ' + proto + ' from the July prototype, ' + byHand + ' written by hand by one model, ' + off + ' not on the graph. By distance, ' + hopLine + '. That is the page\'s own forward vector: evidence before any spark score is trusted.</div>';
+  $('test').innerHTML = h;
+}
+
+(function walk() {
+  const names = ['its links', 'two hops', 'the eight', 'the test'];
+  const steps = [...document.querySelectorAll('.step')];
+  names.forEach((s, i) => { const b = document.createElement('button'); b.textContent = (i + 1) + ' · ' + s; b.onclick = () => go(i); $('rail').appendChild(b); });
+  function go(i) {
+    cur = Math.max(0, Math.min(steps.length - 1, i));
+    steps.forEach((el, k) => el.classList.toggle('on', k === cur));
+    $('rail').querySelectorAll('button').forEach((b, k) => b.setAttribute('aria-current', k === cur ? 'step' : 'false'));
+    $('back').disabled = cur === 0; $('next').disabled = cur === steps.length - 1;
+    $('where').textContent = 'step ' + (cur + 1) + ' of ' + steps.length;
+    draw();
+  }
+  $('back').onclick = () => go(cur - 1); $('next').onclick = () => go(cur + 1);
+  $('subject').onchange = e => setSubject(e.target.value);
+  $('ring').addEventListener('mousemove', e => { const t = e.target.closest && e.target.closest('circle[data-t]'); $('hover').textContent = t ? t.querySelector('title').textContent : ' '; });
+  go(0);
+})();
+
+fetch(SNAP).then(r => { if (!r.ok) throw new Error('the snapshot answered ' + r.status); return r.json(); }).then(snap => {
+  G = GE.load(snap);
+  const sel = $('subject');
+  G.names.slice(0, G.n).slice().sort((a, b) => a.localeCompare(b)).forEach(t => { const o = document.createElement('option'); o.value = t; o.textContent = t; sel.appendChild(o); });
+  if (!(subject in G.idx)) subject = G.names[0];
+  sel.value = subject;
+  $('snapline').textContent = 'graph of ' + (G.taken.date || '?') + ' · ' + G.n + ' entries' + (G.taken.head ? ' · at ' + G.taken.head : '');
+  draw();
+}).catch(e => { $('err').textContent = 'Could not read the graph snapshot: ' + e.message; });
+sigil($('sigil'));
+</script>
+</body>
+</html>
