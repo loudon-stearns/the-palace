@@ -1,0 +1,207 @@
+{
+ "title": "Retrospective Delay — rich",
+ "born": "2026-11-03",
+ "links": [
+  {
+   "target": "[[Retrospective Delay]]",
+   "type": "connects-to",
+   "label": "rich-face-of"
+  },
+  {
+   "target": "[[Enrichment]]",
+   "type": "connects-to",
+   "label": "made-by"
+  }
+ ],
+ "forward_vector": "I am the manifest of Retrospective Delay's rich face: two pieces that put the page's knob and its phrase-not-tap claim to the ear and to a number, on an engine that reproduces the steward's models sample for sample, and the steward's own renders, film and portal laid beside the sections they answer, with the fingerprint of the words each was made against so the page can say when a piece may lag the text. I grow when the entry is enriched again; I never hold the entry's words.",
+ "entry": "Retrospective Delay",
+ "tier": "study",
+ "made": "2026-11-03",
+ "round": 1,
+ "offers": [
+  {
+   "section": "The Core Architecture",
+   "kind": "claim-change",
+   "status": "open",
+   "what": "The gain knob \"multiplies the write amplitude\", as the April spec had it, but every build since the séance puts it on the read side (stage-2-the-seance.md: \"the knob sits on the way out of the buffer, not the way in\"; the plugin's Summon does the same). The tape piece ran three gestures twelve ways on an engine that reproduces the steward's renders sample for sample. Knob still: all four versions return 1.00. Knob raised mid-phrase: the read-side knob brings back 0.97 of what was played while it was down, the write-side knob 0.00. Knob raised a measure after you stop: only the read-side knob with silence keeping brings the phrase back (0.94); every other version 0.00. So \"Gain 0 = silence (the past is gone)\" is true on the write side; on the read side gain 0 hides the past and keeps it. A possible line: the knob scales what the read head plays; at 0 the past is hidden, not erased."
+  },
+  {
+   "section": "The Core Architecture",
+   "kind": "claim-change",
+   "status": "open",
+   "what": "\"Always recording ... the buffer always contains exactly the last measure\" describes the witness, which writes your silence over the phrase a measure after you stop. The page's opening line (\"When you play silence, the last phrase repeats\") needs the séance's rule: the tape writes while you play and keeps what it holds while you're silent (tape[w] ← tape[w] + listen·(x − tape[w]), with a 5 ms crossfade). The tape piece's fourth step plays both. A possible line: always listening; it writes while you play and holds the last measure while you're silent."
+  },
+  {
+   "section": "How It Differs From Standard Delay",
+   "kind": "claim-change",
+   "status": "open",
+   "what": "As the core architecture describes it (always recording, read half a measure back), the device is exactly a single-tap half-note echo with no feedback: the phrase-or-taps piece measures max |difference| = 0 over 384,000 samples, as the witness model found first (stage-1-the-witness.md). The clarity claim holds for the séance: with phrase one, two silent measures, then phrase two, the séance keeps 0.94 of phrase one and leaves 0.00 under phrase two. An echo with a one-measure tap keeps f and leaves 0.42 at f = 0.8 and 0.82 at f = 0.95; across 51 feedback settings none does both. There is also no feedback path to call \"natural\": the held loop is the tape keeping what it holds. A possible change: name silence-keeps as what makes it more than an echo, and say the clarity comes from new playing writing over the held measure."
+  },
+  {
+   "section": "Open Questions",
+   "kind": "claim-change",
+   "status": "open",
+   "what": "Item 2 still asks about a discontinuity \"at the boundary\" when the buffer loops. The séance found the seam isn't there: the read head never jumps, so the measure line is seamless; the click comes where you stop playing and where you come back in. Measured in the séance model and reproduced by this face's engine: largest step 0.178 switched hard against 0.011 with the 5 ms crossfade (a held chord's own is 0.013); coming back in, 0.237 against 0.033 (the pluck's own attack). A possible addition to the answer line: the seam turned out to be where you stop and start, not the measure line."
+  }
+ ],
+ "sections": [
+  {
+   "heading": "The Core Architecture",
+   "made_against": "941ae3656376",
+   "made": "2026-11-03",
+   "stamped": "2026-11-03",
+   "status": "proposal",
+   "proposed": {
+    "date": "2026-11-03",
+    "by": "maker · claude-opus-5-5 · proposal round",
+    "round": "proposal-round-2026-11"
+   },
+   "pieces": [
+    {
+     "file": "Retrospective Delay — rich — the tape.html",
+     "origin": "made",
+     "by": "the Maker · Web Audio Worklet, the bundle's models ported",
+     "place": "band",
+     "height": 760,
+     "near": "The gain knob",
+     "title": "Where does the knob sit?",
+     "caption": "**The page's knob, put in both places.** It walks up from the write head alone, adds the read head, then the knob, on the way in as this section says or on the way out as the séance built it, then a tape that keeps the past in silence. The last step runs three gestures twelve ways on the same engine. With the knob still, all four versions give the same ghost. Raise it a measure after you stop, and only the knob on the way out, with silence keeping, brings the phrase back (0.94 of it); on the way in it brings back nothing, because the tape wrote silence while the knob was down."
+    }
+   ]
+  },
+  {
+   "heading": "How It Differs From Standard Delay",
+   "made_against": "6ecda98128fb",
+   "made": "2026-11-03",
+   "stamped": "2026-11-03",
+   "status": "proposal",
+   "proposed": {
+    "date": "2026-11-03",
+    "by": "maker · claude-opus-5-5 · proposal round",
+    "round": "proposal-round-2026-11"
+   },
+   "pieces": [
+    {
+     "file": "Retrospective Delay — rich — phrase or taps.html",
+     "origin": "made",
+     "by": "the Maker · Web Audio, offline renders",
+     "place": "band",
+     "height": 620,
+     "near": "Retrospective Delay thinks in",
+     "title": "Echo, echo, echo — or the phrase?",
+     "caption": "**Phrases or taps, tested.** One phrase into silence; a half-note echo repeating it tap by tap; then the always-recording tape the core architecture describes, which cancels against an echo with no feedback to the last sample. The test plays phrase one, two measures of silence, then phrase two, and sweeps an echo's feedback from 0 to 1. No setting both keeps phrase one and clears it under phrase two. The séance does both: it keeps 0.94 and leaves 0.00."
+    }
+   ]
+  },
+  {
+   "heading": "The Ghost Metaphor",
+   "made_against": "f94d53f5acca",
+   "made": "2026-11-03",
+   "stamped": "2026-11-03",
+   "status": "proposal",
+   "proposed": {
+    "date": "2026-11-03",
+    "by": "maker · claude-opus-5-5 · proposal round",
+    "round": "proposal-round-2026-11"
+   },
+   "pieces": [
+    {
+     "file": "stage-2-seance/seance-performance.wav",
+     "origin": "gathered",
+     "place": "margin",
+     "near": "When the gain knob rises",
+     "title": "the séance performance · the steward's model, 30 s",
+     "caption": "Fifteen measures from the séance's model: a phrase played with the knob down, then summoned; re-lagged to a quarter; a new phrase played over the ghost; dismissed; a measure of real silence; summoned again, and the ghost was still there. Rendered from `seance_model.py`, not yet played in Max."
+    }
+   ]
+  },
+  {
+   "heading": "Interface Design Philosophy",
+   "made_against": "29dcd2f4ff16",
+   "made": "2026-11-03",
+   "stamped": "2026-11-03",
+   "status": "proposal",
+   "proposed": {
+    "date": "2026-11-03",
+    "by": "maker · claude-opus-5-5 · proposal round",
+    "round": "proposal-round-2026-11"
+   },
+   "pieces": [
+    {
+     "file": "proofs/2026-05-04-seance-cat-poses-v2-7frames.svg",
+     "origin": "gathered",
+     "place": "band",
+     "near": "Character concept",
+     "title": "the séance cat at seven knob positions · 2026-05-04",
+     "caption": "The character concept as first drawn: dormant at 0, stirring, sensing, reaching, possessed, channeling, and ascended at 100%. Each pose is set by the knob alone."
+    },
+    {
+     "file": "stage-4-character/face/face-moments.png",
+     "origin": "gathered",
+     "place": "band",
+     "near": "The interface is not subtle",
+     "title": "six moments of the face · the face model",
+     "caption": "The cat after the face session rewired it to read the device, not the knob: its pose follows the knob as heard, the ectoplasm follows what the tape holds, and the candle shows when the tape is holding. Bottom left, *dismissed*: the cat asleep, the past still kept. Bottom right, *the empty room*: arms up, knob up, nothing on the tape. The knob alone can't tell those two apart."
+    },
+    {
+     "file": "stage-4-character/face/face-film.mp4",
+     "origin": "gathered",
+     "place": "band",
+     "near": "The interface is not subtle",
+     "title": "the face film · 30 s, with sound",
+     "caption": "The séance's fifteen-measure performance played through the face model: play, stop, summon, re-lag, play over it, dismiss, summon again. Drawn from the model's own output; nothing here has run in Max's JSUI."
+    }
+   ]
+  },
+  {
+   "heading": "Open Questions",
+   "made_against": "c83d1eb14f6d",
+   "made": "2026-11-03",
+   "stamped": "2026-11-03",
+   "status": "proposal",
+   "proposed": {
+    "date": "2026-11-03",
+    "by": "maker · claude-opus-5-5 · proposal round",
+    "round": "proposal-round-2026-11"
+   },
+   "pieces": [
+    {
+     "file": "stage-3-grammar/shrinking-measure.wav",
+     "origin": "gathered",
+     "place": "margin",
+     "near": "Feedback architecture",
+     "title": "one phrase, four tape lengths · the grammar model",
+     "caption": "The buffer-length question, crossed the other way: one phrase frozen into a 2 s tape, then 250 ms, 50 ms and 500 samples. The loop goes from a phrase to a stutter to a flutter to a tone. How long the tape is decides what it is. See [[Frequency-Time Duality]]."
+    },
+    {
+     "file": "stage-2-seance/seam-hard.wav",
+     "origin": "gathered",
+     "place": "margin",
+     "near": "Cross-fade between measures",
+     "title": "the seam, switched hard",
+     "caption": "A held chord that stops mid-measure; the tape switches from listening to holding at once. The tick comes once a pass, where you stopped, not at the measure line: the largest step between samples is 0.178, against 0.013 in the chord itself."
+    },
+    {
+     "file": "stage-2-seance/seam-smoothed.wav",
+     "origin": "gathered",
+     "place": "margin",
+     "near": "Cross-fade between measures",
+     "title": "the seam, with the 5 ms crossfade",
+     "caption": "The same chord with the 5 ms crossfade Loudon asked for: the largest step falls to 0.011, below the chord's own."
+    },
+    {
+     "file": "stage-5-portal/portal-web.html",
+     "origin": "gathered",
+     "place": "band",
+     "height": 760,
+     "near": "Hardware target",
+     "title": "the portal in a browser · the steward's sketch",
+     "caption": "The fifth move's RNBO codebox, run line for line in the browser by a hand transpiler, not by RNBO's own web export. Press *Start audio*, play its phrase, stop, and raise the knob: the last measure comes back and holds. The mic button needs a grant this face doesn't have.",
+     "contract": {
+      "needs": "microphone storage"
+     }
+    }
+   ]
+  }
+ ]
+}

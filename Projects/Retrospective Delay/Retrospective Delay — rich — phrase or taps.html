@@ -1,0 +1,387 @@
+<!doctype html>
+<!--
+  title: Retrospective Delay — rich — phrase or taps
+  born: 2026-11-03
+  links: [[Retrospective Delay]] (connects-to · rich-face-piece) · listed in [[Retrospective Delay — rich.json]]
+  forward_vector: I am the page's claim that this delay thinks in phrases, not taps, put to the ear and to a number. I open on one phrase into silence, play it through an echo that repeats it tap by tap, then through the tape as the core architecture describes it, and show that the two cancel to the last sample. Then the test: keep a phrase, play a new one over it, and ask whether any echo's feedback can keep the first and clear it when the second arrives, as the séance does. I play inside the entry's rich face and stand alone opened directly; I change only when the section I serve does.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:needs" content="">
+<title>Retrospective Delay — phrase or taps</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Manrope:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root { --bg:#0a0a0f; --e1:#12121a; --e2:#1a1a28; --border:#4a4a5e; --soft:rgba(255,255,255,.06); --fg1:#e8e8f0; --fg2:#c8c8d8; --fg3:#8a8aa0; --fg4:#4a4a5a;
+    --amber:#e8b84a; --amberline:rgba(232,184,74,.5); --violet:#9d8cf0; --bone:#e9e2cf;
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --sans:'Manrope',system-ui,sans-serif; --serif:'Cormorant Garamond',Georgia,serif; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); font-weight: 300; }
+  .piece { padding: 22px 22px 18px; }
+  .kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; }
+  .title { font-family: var(--serif); font-size: 27px; font-weight: 300; color: var(--fg1); margin: 0 0 6px; }
+  .sub { font-size: 14px; line-height: 1.6; color: var(--fg2); max-width: 78ch; margin: 0 0 14px; }
+  .rail { display: flex; flex-wrap: wrap; margin: 4px 0 16px; border: 1px solid var(--soft); border-radius: 2px; }
+  .rail button { flex: 1 1 120px; text-align: left; border: 0; border-right: 1px solid var(--soft); border-radius: 0; background: transparent; padding: 9px 12px; color: var(--fg3); font-family: var(--mono); font-size: 10.5px; letter-spacing: .12em; text-transform: uppercase; cursor: pointer; }
+  .rail button:last-child { border-right: 0; }
+  .rail button b { display: block; font-weight: 500; color: var(--fg4); margin-bottom: 2px; }
+  .rail button.on { color: var(--amber); background: rgba(232,184,74,.05); }
+  .rail button.on b { color: var(--amber); }
+  .stage { display: grid; grid-template-columns: minmax(240px, 380px) 1fr; gap: 24px; align-items: start; }
+  .ringwrap { border: 1px solid var(--soft); border-radius: 2px; background: var(--e1); padding: 8px; }
+  canvas { display: block; width: 100%; }
+  .step h4 { font-family: var(--serif); font-size: 22px; font-weight: 300; color: var(--fg1); margin: 0 0 8px; }
+  .step p { font-size: 14px; line-height: 1.65; margin: 0 0 12px; max-width: 70ch; }
+  .step p i { color: var(--fg1); }
+  .controls { display: flex; flex-wrap: wrap; gap: 10px 14px; align-items: center; margin: 10px 0 12px; }
+  button { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--fg2); background: var(--bg); border: 1px solid var(--border); border-radius: 2px; padding: 8px 12px; cursor: pointer; transition: border-color .22s cubic-bezier(.4,0,.2,1), color .22s cubic-bezier(.4,0,.2,1); }
+  button:hover { border-color: var(--amberline); color: var(--fg1); }
+  button.go { color: var(--amber); border-color: var(--amberline); box-shadow: 0 0 14px rgba(232,184,74,.16); }
+  button.on { color: var(--amber); border-color: var(--amberline); }
+  .seg { display: inline-flex; } .seg button + button { border-left: 0; }
+  label.sl { display: block; min-width: 220px; flex: 1 1 220px; font-family: var(--mono); font-size: 11px; letter-spacing: .08em; color: var(--fg3); }
+  label.sl b { color: var(--fg1); font-weight: 500; }
+  input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 3px; background: var(--fg4); margin: 12px 0 4px; outline: none; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 14px; height: 14px; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  input[type=range]::-moz-range-thumb { width: 14px; height: 14px; border: 0; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  .read { display: flex; flex-wrap: wrap; gap: 6px 20px; margin-top: 8px; font-family: var(--mono); font-size: 11.5px; letter-spacing: .05em; color: var(--fg3); }
+  .read b { color: var(--fg1); font-weight: 500; }
+  .hint { font-family: var(--mono); font-size: 11px; letter-spacing: .05em; color: var(--fg3); line-height: 1.6; }
+  .eqs { margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--soft); }
+  .eq { font-family: var(--serif); font-size: 19px; color: var(--fg1); }
+  .words { font-size: 13px; line-height: 1.55; color: var(--fg2); margin: 2px 0 10px; }
+  .nav { display: flex; justify-content: space-between; align-items: center; margin-top: 16px; }
+  .test { margin-top: 18px; }
+  .verdict { margin-top: 14px; font-family: var(--serif); font-size: 19px; color: var(--fg1); line-height: 1.5; max-width: 78ch; }
+  .grid { display: grid; grid-template-columns: minmax(150px, 210px) repeat(3, 1fr); border: 1px solid var(--soft); border-radius: 2px; }
+  .grid > div { padding: 9px 10px; border-right: 1px solid var(--soft); border-bottom: 1px solid var(--soft); }
+  .grid > div:nth-child(4n) { border-right: 0; }
+  .grid .h { font-family: var(--mono); font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--fg3); line-height: 1.5; }
+  .grid .h b { color: var(--fg1); font-weight: 500; display: block; }
+  .cell { display: flex; flex-direction: column; gap: 6px; }
+  .cell canvas { height: 40px; }
+  .cell .v { display: flex; justify-content: space-between; align-items: center; font-family: var(--mono); font-size: 13px; color: var(--fg1); }
+  .cell .v.zero { color: var(--fg3); }
+  .cell button { padding: 4px 8px; font-size: 10px; }
+  .verdict b { color: var(--amber); font-weight: 400; }
+  footer { margin-top: 22px; font-family: var(--mono); font-size: 10.5px; letter-spacing: .2em; text-transform: uppercase; color: var(--fg4); }
+  [hidden] { display: none !important; }
+  @media (max-width: 720px) { .stage { grid-template-columns: 1fr; } .grid { grid-template-columns: 1fr 1fr; } .grid > div:nth-child(4n) { border-right: 1px solid var(--soft); } }
+  .strips { display: flex; flex-direction: column; gap: 8px; }
+  .strip { border: 1px solid var(--soft); border-radius: 2px; background: var(--e1); padding: 6px 8px 8px; }
+  .strip .lab { display: flex; justify-content: space-between; font-family: var(--mono); font-size: 10.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--fg3); margin-bottom: 4px; gap: 10px; }
+  .strip .lab b { color: var(--fg1); font-weight: 500; }
+  .strip canvas { height: 64px; }
+  .key { display: inline-flex; gap: 14px; font-family: var(--mono); font-size: 10.5px; letter-spacing: .08em; color: var(--fg3); }
+  .key i { display: inline-block; width: 10px; height: 10px; margin-right: 5px; vertical-align: -1px; }
+  .scatter { border: 1px solid var(--soft); border-radius: 2px; background: var(--e1); padding: 8px; }
+  .scatter canvas { height: auto; aspect-ratio: 1 / 1; }
+  .two { display: grid; grid-template-columns: 1fr minmax(240px, 340px); gap: 20px; align-items: start; }
+  @media (max-width: 720px) { .two { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="piece">
+  <div class="kicker">made · Web Audio · study</div>
+  <h3 class="title">Echo, echo, echo — or the phrase?</h3>
+  <p class="sub">The page says this delay thinks in phrases: not "echo, echo, echo" but "here's what you just did, replayed", and that it stays clear because each new measure overwrites the oldest. Walk up to that claim, then test it against every feedback setting an echo has. Synthesized plucks at 120 BPM: one measure is two seconds. Silent until you press something.</p>
+  <div class="rail" id="rail"></div>
+
+  <section class="step" data-step="0">
+    <h4>One phrase, into silence</h4>
+    <p>One measure of eighth-note plucks, then three measures of nothing. This is what goes into every delay that follows. The thin lines mark the measures.</p>
+  </section>
+  <section class="step" data-step="1" hidden>
+    <h4>Echo, echo, echo</h4>
+    <p>A tapped delay hears the phrase and plays it back a half note later, then feeds that copy back in, so it comes again, quieter by the feedback each time. Each tap is a copy of the whole phrase laid over the one before. Turn the feedback up and the copies pile.</p>
+    <div class="controls"><label class="sl">feedback · f = <b id="f1v">0.50</b><input id="f1" type="range" min="0" max="0.95" step="0.01" value="0.5"></label></div>
+    <div class="eqs"><div class="eq">e[n] = x[n − L] + f · e[n − L], &nbsp; y = x + 0.8 · e</div>
+    <div class="words">(the echo now) = (what you played one tap ago) + (feedback) × (the echo one tap ago); (what you hear) = (what you play) + 0.8 × (the echo)</div></div>
+  </section>
+  <section class="step" data-step="2" hidden>
+    <h4>The tape, as the core architecture describes it</h4>
+    <p>Now the page's device: one measure of tape, always recording, a read head half a measure behind the write head, the ghost at 0.8. The phrase comes back as one block, once. Nothing feeds it back, so it doesn't come again.</p>
+    <div class="eqs"><div class="eq">tape[w] ← x, &nbsp; y = x + 0.8 · tape[(w − L) mod M]</div>
+    <div class="words">(the slot under the write head) takes (what you play); (what you hear) = (what you play) + 0.8 × (what the tape holds half a measure back)</div></div>
+  </section>
+  <section class="step" data-step="3" hidden>
+    <h4>Is it different?</h4>
+    <p>Subtract an echo with its feedback at zero from the tape, sample by sample. The read head reaches each slot half a measure after it was written, and the write head doesn't come back to overwrite it for a whole measure, so the tape never runs out and its length never shows. The steward found this first, in the witness's model; this piece runs it again.</p>
+    <p class="hint" id="nullread">–</p>
+  </section>
+  <section class="step" data-step="4" hidden>
+    <h4>The test: keep it, then play over it</h4>
+    <p>The séance, built later, lets silence keep the past: while you play the tape writes, and while you're silent it keeps what it holds. Play phrase one, stop for two measures, play phrase two, stop. A delay that thinks in phrases should do two things: <i>keep</i> phrase one while you're silent, and <i>clear</i> it when phrase two writes over it.</p>
+    <p>Give the echo its best chance at keeping: a tap one whole measure long, so a phrase lines up with itself. Then sweep its feedback. Amber is phrase one's share of what you hear, violet is phrase two's.</p>
+    <div class="controls">
+      <label class="sl">echo feedback · f = <b id="f4v">0.80</b><input id="f4" type="range" min="0" max="1" step="0.01" value="0.8"></label>
+      <span class="seg"><button data-two="1" class="on">phrase two · a whole measure</button><button data-two="0.5">half a measure</button></span>
+    </div>
+  </section>
+
+  <div class="two">
+    <div class="strips" id="strips"></div>
+    <div class="scatter" id="scatterwrap" hidden><canvas id="scatter" width="640" height="640" aria-label="kept against left over, every feedback setting"></canvas></div>
+  </div>
+  <div class="verdict" id="verdict" hidden></div>
+
+  <div class="nav">
+    <button id="back">◂ back</button>
+    <span class="hint" id="where"></span>
+    <button id="next">next ▸</button>
+  </div>
+  <footer>Loud’n Live</footer>
+</div>
+<script type="text/plain" id="engine">
+// The engine: one measure of tape, a write head, two read heads, one knob.
+// A line-for-line port of the bundle's models (stage-1/witness/witness_model.py,
+// stage-2-seance/seance_model.py), plus one switch they don't have: where the knob sits.
+function makeTape(sr, o) {
+  o = o || {};
+  const BPM = o.bpm || 120;
+  const M = Math.round(sr * 60 / BPM * 4);          // one 4/4 measure, in samples
+  const tape = new Float64Array(M);
+  const THRESH = 0.003;                              // is anyone playing?
+  const rel = Math.exp(-1 / (sr * 0.1));             // slide~ release, 100 ms
+  const gstep = 1 / Math.round(sr * 0.005);          // rampsmooth~: 5 ms each way
+  const xstep = 1 / (sr * 0.03);                     // two read heads, 30 ms between them
+  let side = o.side || 'out';                        // 'out' = the knob on the read side (the seance)
+                                                     // 'in'  = the knob on the write side (the page's words)
+  let keeps = !!o.keeps;                             // false: the tape always writes the input (the witness)
+  let smooth = o.smoothGate !== false;
+  let w = 0, env = 0, g = 0;
+  const lagOf = (f) => (f >= 1 ? M : Math.floor(M * f));
+  let lagA = lagOf(o.lag || 0.5), lagB = lagA, mix = 0, target = 0, active = 0;
+  let k = o.knob == null ? 0 : o.knob, kTo = k, kInc = 0, kLeft = 0;
+  function setKnob(v, ms) {                          // line~: reach v in ms (20 by default)
+    const n = Math.max(1, Math.round(sr * (ms == null ? 20 : ms) / 1000));
+    kTo = v; kInc = (v - k) / n; kLeft = n;
+  }
+  function setLag(f) {                               // the idle head jumps, then a 30 ms handover
+    const L = lagOf(f);
+    if (active === 0) { lagB = L; target = 1; active = 1; } else { lagA = L; target = 0; active = 0; }
+  }
+  function step(x) {
+    if (kLeft > 0) { k += kInc; if (--kLeft === 0) k = kTo; }
+    if (mix < target) mix = Math.min(target, mix + xstep);
+    else if (mix > target) mix = Math.max(target, mix - xstep);
+    const ga = tape[((w - lagA) % M + M) % M];       // read before write
+    const gb = tape[((w - lagB) % M + M) % M];
+    const ghost = mix === 0 ? ga : mix === 1 ? gb : ga * (1 - mix) + gb * mix;
+    const put = side === 'in' ? k * x : x;           // what reaches the write head
+    if (keeps) {
+      const a = Math.abs(x);                         // the gate listens to the player, wherever the knob sits
+      env = a > env ? a : env * rel;
+      const hard = env > THRESH ? 1 : 0;
+      g = smooth ? g + Math.min(Math.max(hard - g, -gstep), gstep) : hard;
+      tape[w] = tape[w] + g * (put - tape[w]);       // old + listen * (in - old)
+    } else {
+      tape[w] = put;                                 // always recording
+    }
+    w = w + 1 === M ? 0 : w + 1;
+    return side === 'out' ? k * ghost : ghost;       // the ghost as you hear it
+  }
+  function reset() { tape.fill(0); w = 0; env = 0; g = 0; mix = 0; target = 0; active = 0; lagB = lagA; }
+  return {
+    M, tape, step, setKnob, setLag, reset,
+    setSide(s) { side = s; }, setKeeps(b) { keeps = !!b; },
+    get w() { return w; }, get knob() { return k; }, get listening() { return keeps ? g : 1; },
+    get lag() { return mix < 0.5 ? lagA : lagB; },
+  };
+}
+
+// The test phrases, as the models make them.
+function pluck(sr, freq, dur) {
+  const n = Math.floor(sr * dur), y = new Float64Array(n);
+  for (let i = 0; i < n; i++) {
+    const t = i / sr, env = Math.exp(-t * 7) * Math.min(1, t * 400);
+    y[i] = 0.3 * env * (Math.sin(2 * Math.PI * freq * t) + 0.35 * Math.sin(2 * Math.PI * 2 * freq * t) + 0.15 * Math.sin(2 * Math.PI * 3 * freq * t));
+  }
+  return y;
+}
+function phrase(sr, notes, bpm) {
+  const eighth = 60 / (bpm || 120) / 2;
+  const out = new Float64Array(Math.floor(sr * eighth * notes.length) + sr);
+  notes.forEach((m, i) => {
+    if (m == null) return;
+    const p = pluck(sr, 440 * Math.pow(2, (m - 69) / 12), eighth * 2.5), s = Math.floor(i * sr * eighth);
+    for (let j = 0; j < p.length && s + j < out.length; j++) out[s + j] += p[j];
+  });
+  return out;
+}
+function chord(sr, dur, freqs) {
+  freqs = freqs || [220.0, 277.18, 329.63];
+  const n = Math.floor(sr * dur), y = new Float64Array(n);
+  for (let i = 0; i < n; i++) {
+    const t = i / sr, att = Math.min(1, t / 0.02) * Math.min(1, (dur - t) / 0.02);
+    let s = 0; for (const f of freqs) s += Math.sin(2 * Math.PI * f * t);
+    y[i] = 0.12 * att * s;
+  }
+  return y;
+}
+const PHRASE_ONE = [62, 65, 69, 72, 70, 69, 65, null];   // the models' first measure
+const PHRASE_TWO = [74, null, 72, 69, null, 67, 65, null];
+</script>
+<script>
+'use strict';
+const ENGINE = document.getElementById('engine').textContent;
+const E = new Function(ENGINE + '; return { makeTape, phrase, PHRASE_ONE, PHRASE_TWO };')();
+const BPM = 120, SR0 = 48000;
+const NAMES = ['one phrase', 'echo, echo, echo', 'the tape', 'is it different?', 'the test'];
+let step = 0, ctx = null, out = null, src = null, playing = null;
+const meas = (sr) => Math.round(sr * 60 / BPM * 4);
+const rms = (y, a, b) => { let s = 0; a = Math.floor(a); b = Math.floor(b); for (let i = a; i < b; i++) s += y[i] * y[i]; return Math.sqrt(s / (b - a)); };
+
+// ---------- the inputs ----------
+function oneIntoSilence(sr) { const M = meas(sr), P = E.phrase(sr, E.PHRASE_ONE, BPM), x = new Float64Array(4 * M); for (let i = 0; i < M; i++) x[i] = P[i]; return x; }
+function twoPhrases(sr, withOne, twoLen) {
+  const M = meas(sr), x = new Float64Array(7 * M);
+  if (withOne) { const P = E.phrase(sr, E.PHRASE_ONE, BPM); for (let i = 0; i < M; i++) x[i] = P[i]; }
+  const Q = E.phrase(sr, E.PHRASE_TWO, BPM), n = Math.floor(M * twoLen);
+  for (let i = 0; i < n; i++) x[3 * M + i] += Q[i];
+  return x;
+}
+// ---------- the delays ----------
+function echo(x, L, f, wet) { const e = new Float64Array(x.length); for (let n = L; n < x.length; n++) e[n] = x[n - L] + f * e[n - L]; for (let n = 0; n < e.length; n++) e[n] *= wet; return e; }
+function tape(x, sr, keeps, knob) { const t = E.makeTape(sr, { side: 'out', keeps, knob, lag: 0.5, bpm: BPM }); const g = new Float64Array(x.length); for (let n = 0; n < x.length; n++) g[n] = t.step(x[n]); return g; }
+
+// ---------- the test's two numbers ----------
+// kept: phrase one's ghost in the second silent measure, over the ghost's own level (phrase RMS × wet).
+// left: what phrase one still adds after phrase two (measures 5–7), on the same scale.
+function score(sr, sys, f, twoLen) {
+  const M = meas(sr), a = twoPhrases(sr, true, twoLen), b = twoPhrases(sr, false, twoLen);
+  const wet = sys === 'echo' ? 0.8 : 0.85;
+  const ga = sys === 'echo' ? echo(a, M, f, wet) : tape(a, sr, true, wet);
+  const gb = sys === 'echo' ? echo(b, M, f, wet) : tape(b, sr, true, wet);
+  const one = ga.map((v, i) => v - gb[i]), ref = rms(a, 0, M) * wet;
+  return { x: a, ga, gb, one, M, kept: rms(ga, 2 * M, 3 * M) / ref, left: rms(one, 4 * M, 7 * M) / ref };
+}
+
+// ---------- drawing ----------
+function stripCanvas(label, right) {
+  const d = document.createElement('div'); d.className = 'strip';
+  d.innerHTML = '<div class="lab"><span>' + label + '</span><span>' + (right || '') + '</span></div>';
+  const c = document.createElement('canvas'); c.width = 1100; c.height = 128; d.appendChild(c);
+  document.getElementById('strips').appendChild(d); return { d, c };
+}
+function draw(c, layers, M, N) {
+  const g = c.getContext('2d'), W = c.width, H = c.height;
+  g.clearRect(0, 0, W, H);
+  for (let m = 1; m * M < N; m++) { g.fillStyle = '#2a2a38'; g.fillRect(Math.round(m * M / N * W), 0, 2, H); g.fillStyle = '#4a4a5a'; g.font = '18px JetBrains Mono, monospace'; g.fillText('m' + (m + 1), Math.round(m * M / N * W) + 6, 18); }
+  g.fillStyle = '#4a4a5a'; g.font = '18px JetBrains Mono, monospace'; g.fillText('m1', 6, 18);
+  let base = new Float64Array(W);
+  for (const L of layers) {
+    g.fillStyle = L.color;
+    for (let i = 0; i < W; i++) {
+      const a = Math.floor(i * N / W), z = Math.floor((i + 1) * N / W); let pk = 0;
+      for (let j = a; j < z; j += 4) pk = Math.max(pk, Math.abs(L.y[j]));
+      const h = Math.min(1, pk * 1.6) * (H / 2 - 6);
+      if (L.stack) { g.fillRect(i, H / 2 - base[i] - h, 1, h); g.fillRect(i, H / 2 + base[i], 1, h); base[i] += h; }
+      else g.fillRect(i, H / 2 - h, 1, 2 * h);
+    }
+  }
+}
+function playBtn(d, make) {
+  const b = document.createElement('button'); b.textContent = '▸ play it'; b.style.cssText = 'margin-top:6px;padding:4px 9px;font-size:10px';
+  b.onclick = async () => { await ensureAudio(); stop(); const y = make(ctx.sampleRate); const buf = ctx.createBuffer(1, y.length, ctx.sampleRate), ch = buf.getChannelData(0); for (let i = 0; i < y.length; i++) ch[i] = y[i]; src = ctx.createBufferSource(); src.buffer = buf; src.connect(out); src.start(); };
+  d.appendChild(b);
+}
+async function ensureAudio() {
+  if (!ctx) { ctx = new (window.AudioContext || window.webkitAudioContext)(); out = ctx.createDynamicsCompressor(); out.threshold.value = -6; out.ratio.value = 4; out.connect(ctx.destination); }
+  if (ctx.state !== 'running') await ctx.resume();
+}
+function stop() { if (src) { try { src.stop(); } catch (e) {} src = null; } }
+const sum = (x, y) => x.map((v, i) => v + y[i]);
+
+// ---------- the steps ----------
+function render() {
+  const st = document.getElementById('strips'); st.innerHTML = '';
+  document.getElementById('scatterwrap').hidden = step !== 4;
+  document.querySelector('.two').style.gridTemplateColumns = step === 4 ? '' : '1fr';
+  document.getElementById('verdict').hidden = step !== 4;
+  const sr = SR0, M = meas(sr);
+  if (step <= 3) {
+    const x = oneIntoSilence(sr), N = x.length;
+    const s0 = stripCanvas('you play'); draw(s0.c, [{ y: x, color: 'rgba(200,200,216,.55)' }], M, N);
+    playBtn(s0.d, (r) => oneIntoSilence(r));
+    if (step === 1) {
+      const f = +document.getElementById('f1').value, e = echo(x, M / 2, f, 0.8);
+      const s = stripCanvas('the echo · a half-note tap', 'feedback ' + f.toFixed(2)); draw(s.c, [{ y: e, color: '#e8b84a' }], M, N);
+      playBtn(s.d, (r) => { const xr = oneIntoSilence(r); return sum(xr, echo(xr, meas(r) / 2, f, 0.8)); });
+    }
+    if (step >= 2) {
+      const g = tape(x, sr, false, 0.8);
+      const s = stripCanvas('the tape · always recording, read half a measure back'); draw(s.c, [{ y: g, color: '#e8b84a' }], M, N);
+      playBtn(s.d, (r) => { const xr = oneIntoSilence(r); return sum(xr, tape(xr, r, false, 0.8)); });
+    }
+    if (step === 3) {
+      const g = tape(x, sr, false, 0.8), e = echo(x, M / 2, 0, 0.8);
+      let mx = 0; const d = g.map((v, i) => { const q = (x[i] + v) - (x[i] + e[i]); mx = Math.max(mx, Math.abs(q)); return q; });
+      const s = stripCanvas('the tape minus a half-note echo, feedback 0', 'max |difference| = ' + (mx === 0 ? '0, exactly' : mx.toExponential(2)));
+      draw(s.c, [{ y: d.map((v) => v * 1000), color: '#9d8cf0' }], M, N);
+      document.getElementById('nullread').innerHTML = mx === 0
+        ? 'Over ' + N.toLocaleString() + ' samples the largest difference is <b>0, exactly</b> (drawn a thousand times larger, still flat). As the core architecture describes it, the tape <i>is</i> a half-note echo with no feedback. The phrase comes back as one block because an echo’s single tap also brings it back as one block. What makes it something an echo can’t do is the next step.'
+        : 'The largest difference is ' + mx.toExponential(2) + ', not zero. This piece expected an exact null; read the strip.';
+    }
+    return;
+  }
+  // step 4: the test
+  const f = +document.getElementById('f4').value, two = currentTwo;
+  const es = score(sr, 'echo', f, two), ss = score(sr, 'seance', 0, two), N = es.x.length;
+  const s0 = stripCanvas('you play · phrase one, two measures of silence, phrase two'); draw(s0.c, [{ y: es.x, color: 'rgba(200,200,216,.55)' }], M, N);
+  const s1 = stripCanvas('echo · one-measure tap · feedback ' + f.toFixed(2), 'kept ' + es.kept.toFixed(2) + ' · left ' + es.left.toFixed(2));
+  draw(s1.c, [{ y: es.one, color: '#e8b84a', stack: true }, { y: es.gb, color: '#9d8cf0', stack: true }], M, N);
+  playBtn(s1.d, (r) => { const q = score(r, 'echo', f, two); return sum(q.x, q.ga); });
+  const s2 = stripCanvas('the séance · silence keeps, read half a measure back', 'kept ' + ss.kept.toFixed(2) + ' · left ' + ss.left.toFixed(2));
+  draw(s2.c, [{ y: ss.one, color: '#e8b84a', stack: true }, { y: ss.gb, color: '#9d8cf0', stack: true }], M, N);
+  playBtn(s2.d, (r) => { const q = score(r, 'seance', 0, two); return sum(q.x, q.ga); });
+  if (!curves[two]) { const cv = []; for (let k = 0; k <= 50; k++) { const ff = k / 50, q = score(sr, 'echo', ff, two); cv.push({ f: ff, kept: q.kept, left: q.left }); } curves[two] = cv; }
+  const curve = curves[two];
+  scatter(curve, es, ss, f);
+  const both = curve.filter((p) => p.kept >= ss.kept - 0.05 && p.left <= Math.max(0.05, ss.left + 0.05));
+  const v = document.getElementById('verdict');
+  if (two === 1) v.innerHTML = both.length === 0
+    ? 'No feedback setting does both. An echo that keeps phrase one (f near 1) still carries it under phrase two; one that clears it (f near 0) never kept it. The séance keeps <b>' + ss.kept.toFixed(2) + '</b> and leaves <b>' + ss.left.toFixed(2) + '</b>: phrase two writes over phrase one instead of piling on it. The page’s clarity claim holds, but for the séance, the tape that keeps in silence, not the always-recording tape the core architecture describes, which is the echo at f = 0.'
+    : 'Some feedback settings do both here (' + both.map((p) => p.f.toFixed(2)).join(', ') + '). This piece expected none; read the plot.';
+  else v.innerHTML = 'With a phrase two half a measure long, the séance keeps the half of phrase one it didn’t write over: left <b>' + ss.left.toFixed(2) + '</b>. The present erases only what it overwrites, which is the page’s own line: the past phrase is played back while being gradually erased by the present.';
+}
+function scatter(curve, es, ss, f) {
+  const c = document.getElementById('scatter'), g = c.getContext('2d'), W = c.width, H = c.height, P = 92, S = W - P - 24;
+  const X = (v) => P + Math.min(1.1, v) / 1.1 * S, Y = (v) => H - P - Math.min(1.1, v) / 1.1 * S;
+  g.clearRect(0, 0, W, H);
+  g.strokeStyle = '#4a4a5a'; g.lineWidth = 2; g.beginPath(); g.moveTo(X(0), Y(1.1)); g.lineTo(X(0), Y(0)); g.lineTo(X(1.1), Y(0)); g.stroke();
+  g.fillStyle = '#8a8aa0'; g.font = '20px JetBrains Mono, monospace'; g.textAlign = 'center';
+  g.fillText('kept, a measure after you stop →', X(0.55), H - 22);
+  for (const t of [0, 0.5, 1]) { g.fillText(t.toFixed(1), X(t), Y(0) + 26); g.textAlign = 'right'; g.fillText(t.toFixed(1), X(0) - 8, Y(t) + 6); g.textAlign = 'center'; }
+  g.save(); g.translate(24, Y(0.55)); g.rotate(-Math.PI / 2); g.fillText('phrase one left under phrase two →', 0, 0); g.restore();
+  g.fillStyle = 'rgba(232,184,74,.07)'; g.fillRect(X(0.8), Y(0.1), X(1.1) - X(0.8), Y(0) - Y(0.1));
+  g.fillStyle = '#8a8aa0'; g.textAlign = 'right'; g.fillText('keeps and clears', X(1.1) - 4, Y(0.1) - 10);
+  g.strokeStyle = 'rgba(200,200,216,.6)'; g.lineWidth = 2; g.beginPath(); curve.forEach((p, i) => (i ? g.lineTo(X(p.kept), Y(p.left)) : g.moveTo(X(p.kept), Y(p.left)))); g.stroke();
+  g.fillStyle = '#c8c8d8'; g.textAlign = 'right'; g.fillText('echo, f 0 → 1', X(curve[48].kept) - 16, Y(curve[48].left) + 6);
+  g.strokeStyle = '#e8b84a'; g.lineWidth = 3; g.beginPath(); g.arc(X(es.kept), Y(es.left), 11, 0, 2 * Math.PI); g.stroke();
+  g.fillStyle = '#e8b84a'; g.textAlign = 'right'; g.fillText('f = ' + f.toFixed(2), X(es.kept) - 18, Y(es.left) - 12);
+  g.fillStyle = '#9d8cf0'; g.beginPath(); g.arc(X(ss.kept), Y(ss.left), 11, 0, 2 * Math.PI); g.fill();
+  g.textAlign = 'right'; g.fillText('séance', X(ss.kept) - 18, Y(ss.left) - 4);
+}
+
+let currentTwo = 1; const curves = {};
+document.querySelectorAll('[data-two]').forEach((b) => b.onclick = () => { currentTwo = +b.dataset.two; document.querySelectorAll('[data-two]').forEach((c) => c.classList.toggle('on', c === b)); stop(); render(); });
+for (const id of ['f1', 'f4']) { const el = document.getElementById(id); el.addEventListener('input', () => { document.getElementById(id + 'v').textContent = (+el.value).toFixed(2); }); el.addEventListener('change', () => { stop(); render(); }); }
+const rail = document.getElementById('rail');
+NAMES.forEach((nm, i) => { const b = document.createElement('button'); b.innerHTML = '<b>' + (i + 1) + '</b>' + nm; b.onclick = () => go(i); rail.appendChild(b); });
+function go(i) {
+  step = Math.max(0, Math.min(NAMES.length - 1, i)); stop();
+  document.querySelectorAll('.step').forEach((s) => { s.hidden = +s.dataset.step !== step; });
+  [...rail.children].forEach((b, j) => b.classList.toggle('on', j === step));
+  document.getElementById('back').disabled = step === 0;
+  document.getElementById('next').disabled = step === NAMES.length - 1;
+  document.getElementById('where').textContent = 'step ' + (step + 1) + ' of ' + NAMES.length;
+  render();
+}
+document.getElementById('back').onclick = () => go(step - 1);
+document.getElementById('next').onclick = () => go(step + 1);
+go(0);
+</script>
+</body>
+</html>
