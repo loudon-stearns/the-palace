@@ -1,0 +1,302 @@
+<!doctype html>
+<!--
+  title: Crystal Sonification Reference — rich — crystal to glass
+  born: 2026-11-03
+  links: [[Crystal Sonification Reference]] connects-to · rich-face-piece · listed in [[Crystal Sonification Reference — rich.json]] · [[Crystal Synthesizer]] belongs-to · [[Progressive Staging]] exemplifies · a walk in four steps
+  forward_vector: I am obsidian, the page's boundary case, made from its own two audio prompts: quartz's nine partials dissolving into the glass's shaped noise. Four steps: quartz, the glass alone, the crossfade as the page writes it, and a test of whether the glass sits where the crystal was, the page's "smeared version of the quartz spectrum". I change when the obsidian prompts or the quartz table do.
+  engine: quartz over A3, ratios 1.00 1.62 2.07 2.77 3.13 3.63 5.45 6.21 8.32, each partial at 85% of the one below (the page's amethyst prompt). The glass: seeded white noise through two RBJ band-pass filters (0 dB at centre), Q 1.5 and 2.0, weighted 0.87 and 0.65 as the bundle's VDOS chart draws the two peaks; centres either as the page's prompt places them (400 and 1000 Hz × f/440) or in quartz's own frame (400 and 1000 cm⁻¹ × f_root/128 cm⁻¹). The glass is scaled to the RMS of the quartz render, so the crossfade holds level; the crossfade is equal-power over 3 s.
+  checks: rich-checks/check-rich-pieces.mjs, in this bundle, runs the CHECK block headless: the band centres read off the rendered noise, the level match, the offsets this piece prints.
+  dress: Loudon Live, Graphite skin.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:size" content="flow">
+<title>Crystal to glass</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Manrope:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root { --bg:#0a0a0f; --e1:#12121a; --e2:#181822; --soft:rgba(255,255,255,.07); --border:#4a4a5e; --fg1:#e8e8f0; --fg2:#c8c8d8; --fg3:#8a8aa0; --fg4:#4a4a5a;
+    --amber:#e8b84a; --amberline:rgba(232,184,74,.5); --violet:#a99cf0; --red:#e0604a; --cyan:#6cc4dc;
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --sans:'Manrope',system-ui,sans-serif; --serif:'Cormorant Garamond',Georgia,serif; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); font-weight: 300; }
+  .sr-piece { padding: 22px 22px 18px; }
+  .sr-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; }
+  .sr-kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; }
+  .sr-title { font-family: var(--serif); font-size: 28px; font-weight: 300; color: var(--fg1); margin: 0 0 6px; }
+  .sr-sub { font-size: 14px; line-height: 1.6; color: var(--fg2); max-width: 76ch; margin: 0 0 14px; }
+  .sr-tabs { display: flex; flex-wrap: wrap; margin: 4px 0 14px; border: 1px solid var(--border); width: fit-content; max-width: 100%; border-radius: 2px; }
+  .sr-tabs button { border: 0; border-right: 1px solid var(--border); border-radius: 0; background: var(--bg); color: var(--fg3); padding: 7px 11px; }
+  .sr-tabs button:last-child { border-right: 0; }
+  .sr-tabs button[aria-pressed="true"] { color: var(--amber); background: var(--e1); }
+  .sr-step { border: 1px solid var(--soft); background: var(--e1); border-radius: 2px; padding: 14px 16px 16px; }
+  .sr-stephead { font-family: var(--mono); font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--fg3); display: flex; justify-content: space-between; margin-bottom: 8px; }
+  .sr-teach { font-size: 14px; line-height: 1.62; color: var(--fg2); max-width: 78ch; margin: 0 0 10px; }
+  .sr-eq { margin: 10px 0 12px; padding: 8px 0 2px; border-top: 1px solid var(--soft); }
+  .sr-sym { font-family: var(--serif); font-size: 20px; color: var(--fg1); }
+  .sr-words { font-size: 13px; line-height: 1.5; color: var(--fg3); margin: 1px 0 8px; }
+  canvas { display: block; width: 100%; background: var(--bg); border: 1px solid var(--soft); border-radius: 2px; }
+  .sr-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin: 12px 0 4px; }
+  button { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--fg2); background: var(--bg); border: 1px solid var(--border); border-radius: 2px; padding: 7px 12px; cursor: pointer; }
+  button:hover { border-color: var(--amberline); color: var(--fg1); }
+  button:disabled { opacity: .4; cursor: default; }
+  button.sr-go { color: var(--amber); border-color: var(--amberline); box-shadow: 0 0 14px rgba(232,184,74,.16); }
+  button[aria-pressed="true"].sr-pick { color: var(--amber); border-color: var(--amberline); }
+  label.sr-sl { display: block; min-width: 240px; flex: 1; font-family: var(--mono); font-size: 11px; letter-spacing: .06em; color: var(--fg3); }
+  label.sr-sl b { color: var(--fg1); font-weight: 500; }
+  input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 3px; background: var(--fg4); margin: 12px 0 4px; outline: none; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 13px; height: 13px; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  input[type=range]::-moz-range-thumb { width: 13px; height: 13px; border: 0; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  .sr-read { display: flex; flex-wrap: wrap; gap: 6px 22px; margin-top: 10px; font-family: var(--mono); font-size: 11.5px; letter-spacing: .04em; color: var(--fg3); }
+  .sr-read b { color: var(--fg1); font-weight: 500; }
+  .sr-back { font-family: var(--mono); font-size: 11px; color: var(--fg3); margin: 10px 0 0; }
+  .sr-nav { display: flex; justify-content: space-between; gap: 10px; margin-top: 14px; }
+  .sr-quote { font-family: var(--serif); font-style: italic; font-size: 17px; color: var(--fg1); border-left: 2px solid var(--amberline); padding: 2px 0 2px 12px; margin: 12px 0; max-width: 72ch; }
+  .sr-answer { font-size: 14px; line-height: 1.6; color: var(--fg2); max-width: 78ch; margin: 10px 0 0; padding-top: 10px; border-top: 1px solid var(--soft); }
+  .sr-answer b { color: var(--fg1); font-weight: 500; }
+  .sr-note { font-size: 12.5px; line-height: 1.55; color: var(--fg3); max-width: 80ch; margin: 10px 0 0; }
+  .sr-foot { display: flex; justify-content: space-between; margin-top: 16px; font-family: var(--mono); font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--fg4); }
+  table.sr-t { border-collapse: collapse; font-family: var(--mono); font-size: 11.5px; margin: 8px 0 4px; width: 100%; max-width: 860px; }
+  table.sr-t th { text-align: right; font-weight: 400; color: var(--fg3); padding: 4px 8px; border-bottom: 1px solid var(--border); letter-spacing: .04em; }
+  table.sr-t td { text-align: right; padding: 3px 8px; border-bottom: 1px solid var(--soft); color: var(--fg2); }
+  table.sr-t th:first-child, table.sr-t td:first-child { text-align: left; }
+  table.sr-t td b { color: var(--fg1); font-weight: 500; }
+  .sr-ok { color: #8fd18a; } .sr-bad { color: var(--red); }
+  .sr-wrap { overflow-x: auto; }
+</style>
+</head>
+<body>
+<div class="sr-piece">
+  <div class="sr-head">
+    <div>
+      <div class="sr-kicker">made · study · a walk in four steps</div>
+      <h3 class="sr-title">Crystal to glass</h3>
+    </div>
+    <svg width="30" height="30" viewBox="-1.2 -1.2 2.4 2.4" aria-label="Lissajous sigil"><circle r="1.12" fill="none" stroke="#4a4a5e" stroke-width=".04"/><path id="sigil" fill="none" stroke="#e8b84a" stroke-width=".06"/></svg>
+  </div>
+  <p class="sr-sub">Obsidian is quartz’s chemistry frozen before it could crystallize. The page gives two audio prompts for it: the glass as shaped noise, and quartz dissolving into it. Four steps build both and then ask whether the glass lands where the crystal was. Nothing sounds until you press play.</p>
+  <div class="sr-tabs" id="tabs" role="group" aria-label="steps"></div>
+  <div id="stage"></div>
+  <div class="sr-nav"><button id="back">← back</button><button id="next">next step →</button></div>
+  <div class="sr-foot"><span>Crystal Sonification Reference · obsidian</span><span>Loud’n Live</span></div>
+</div>
+<script>
+/*CHECK-START*/
+const ENG = (() => {
+  const SR = 44100;
+  const cents = (r) => 1200 * Math.log2(r);
+  const midiHz = (m) => 440 * 2 ** ((m - 69) / 12);
+  function fft(re, im, inv = false) {
+    const n = re.length;
+    for (let i = 1, j = 0; i < n; i++) { let b = n >> 1; for (; j & b; b >>= 1) j ^= b; j ^= b; if (i < j) { [re[i], re[j]] = [re[j], re[i]]; [im[i], im[j]] = [im[j], im[i]]; } }
+    for (let len = 2; len <= n; len <<= 1) {
+      const a = (inv ? 2 : -2) * Math.PI / len, wr = Math.cos(a), wi = Math.sin(a);
+      for (let i = 0; i < n; i += len) { let cr = 1, ci = 0;
+        for (let k = 0; k < len / 2; k++) { const p = i + k, q = p + len / 2, tr = re[q] * cr - im[q] * ci, ti = re[q] * ci + im[q] * cr;
+          re[q] = re[p] - tr; im[q] = im[p] - ti; re[p] += tr; im[p] += ti; const nr = cr * wr - ci * wi; ci = cr * wi + ci * wr; cr = nr; } }
+    }
+    if (inv) for (let i = 0; i < n; i++) { re[i] /= n; im[i] /= n; }
+  }
+  // A sum of sines, each at its own frequency and amplitude, with a 20 ms rise and a 150 ms fall. Phases fixed, so a render is the same every time.
+  function render(freqs, amps, dur) {
+    const n = Math.round(dur * SR), x = new Float32Array(n), up = Math.round(0.02 * SR), down = Math.round(0.15 * SR);
+    freqs.forEach((f, k) => { if (!(f > 0) || f >= 0.45 * SR) return; const a = amps[k], w = 2 * Math.PI * f / SR, ph = 0.7 * k;
+      for (let i = 0; i < n; i++) x[i] += a * Math.sin(w * i + ph); });
+    for (let i = 0; i < n; i++) { const e = Math.min(1, i / up, (n - 1 - i) / down); x[i] *= Math.max(0, e); }
+    return x;
+  }
+  // The magnitude spectrum of a render: Hann window, zero-padded to 2^18 points.
+  function spectrum(x, N = 1 << 18) {
+    const re = new Float64Array(N), im = new Float64Array(N), L = Math.min(x.length, N);
+    for (let i = 0; i < L; i++) re[i] = x[i] * (0.5 - 0.5 * Math.cos(2 * Math.PI * i / (L - 1)));
+    fft(re, im); const m = new Float64Array(N / 2); for (let i = 0; i < N / 2; i++) m[i] = Math.hypot(re[i], im[i]);
+    return { m, df: SR / N };
+  }
+  // The measured frequency of the peak nearest f (within ±w Hz), parabolic on log magnitude.
+  function peakNear(sp, f, w = 3) {
+    const { m, df } = sp; let best = -1, at = 0;
+    for (let k = Math.max(1, Math.floor((f - w) / df)); k <= Math.ceil((f + w) / df) && k < m.length - 1; k++) if (m[k] > best) { best = m[k]; at = k; }
+    const a = Math.log(m[at - 1] + 1e-30), b = Math.log(m[at] + 1e-30), c = Math.log(m[at + 1] + 1e-30);
+    const d = 0.5 * (a - c) / (a - 2 * b + c || 1e-30);
+    return { f: (at + d) * df, mag: best };
+  }
+  const ROOT = 220;
+  const Q = { r: [1.00, 1.62, 2.07, 2.77, 3.13, 3.63, 5.45, 6.21, 8.32], cm: [128, 207, 265, 355, 401, 464, 697, 795, 1065],
+    fam: ['cage', 'soft', 'cage', 'ring', 'ring', 'ring', 'stretch', 'stretch', 'stretch'] };
+  const AMPS = Q.r.map((_, k) => 0.85 ** k);
+  const BANDS = [{ cm: 400, Q: 1.5, w: 0.87 }, { cm: 1000, Q: 2.0, w: 0.65 }];
+  // Two ways to place the glass: the page's prompt (400 and 1000 Hz × f/440), or quartz's own frame (cm⁻¹ × f_root / 128 cm⁻¹).
+  const centres = (frame, f = ROOT) => BANDS.map((b) => (frame === 'page' ? b.cm * f / 440 : b.cm * f / Q.cm[0]));
+  const famSpan = (name) => { const fs = Q.r.filter((_, i) => Q.fam[i] === name).map((r) => ROOT * r); return [Math.min(...fs), Math.max(...fs)]; };
+  const famCentre = (name) => { const fs = Q.r.filter((_, i) => Q.fam[i] === name).map((r) => ROOT * r); return Math.exp(fs.reduce((s, f) => s + Math.log(f), 0) / fs.length); };
+  // Does each band sit inside the family it smears? 400 cm⁻¹ → the ring modes, 1000 cm⁻¹ → the Si-O stretches.
+  function test(frame) { const [lo, hi] = centres(frame), ring = famSpan('ring'), st = famSpan('stretch');
+    return { lo, hi, ring, st, offRing: Math.log2(famCentre('ring') / lo), offStretch: Math.log2(famCentre('stretch') / hi),
+      holds: lo >= ring[0] && lo <= ring[1] && hi >= st[0] && hi <= st[1] }; }
+  // An RBJ band-pass, 0 dB at its centre.
+  function bp(f0, q) { const w = 2 * Math.PI * f0 / SR, al = Math.sin(w) / (2 * q), a0 = 1 + al;
+    return { b0: al / a0, b2: -al / a0, a1: -2 * Math.cos(w) / a0, a2: (1 - al) / a0 }; }
+  const power = (frame, f) => centres(frame).reduce((s, f0, k) => s + (BANDS[k].w * mag(bp(f0, BANDS[k].Q), f)) ** 2, 0);
+  const mag = (c, f) => { const w = 2 * Math.PI * f / SR, cr = Math.cos(w), ci = -Math.sin(w), c2r = Math.cos(2 * w), c2i = -Math.sin(2 * w);
+    const nr = c.b0 + c.b2 * c2r, ni = c.b2 * c2i, dr = 1 + c.a1 * cr + c.a2 * c2r, di = c.a1 * ci + c.a2 * c2i; return Math.hypot(nr, ni) / Math.hypot(dr, di); };
+  function noise(n, seed = 7) { let a = seed >>> 0; const x = new Float32Array(n);
+    for (let i = 0; i < n; i++) { a = (a + 0x6D2B79F5) >>> 0; let t = Math.imul(a ^ (a >>> 15), 1 | a); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; x[i] = (((t ^ (t >>> 14)) >>> 0) / 4294967296) * 2 - 1; } return x; }
+  const rms = (x, a = 0, b = x.length) => { let s = 0; for (let i = a; i < b; i++) s += x[i] * x[i]; return Math.sqrt(s / (b - a)); };
+  // Each band gets its own noise, so their powers add, as two peaks of a density of states do.
+  function glassRaw(n, frame) { const y = new Float32Array(n);
+    centres(frame).forEach((f0, k) => { const w = noise(n, 7 + 31 * k), c = bp(f0, BANDS[k].Q); let x1 = 0, x2 = 0, y1 = 0, y2 = 0;
+      for (let i = 0; i < n; i++) { const v = c.b0 * w[i] + c.b2 * x2 - c.a1 * y1 - c.a2 * y2; x2 = x1; x1 = w[i]; y2 = y1; y1 = v; y[i] += BANDS[k].w * v; } });
+    return y; }
+  const quartz = (dur) => render(Q.r.map((r) => ROOT * r), AMPS, dur);
+  // The glass at the quartz render's level, RMS over the sustained part.
+  function glass(dur, frame) { const q = quartz(1.5), qr = rms(q, Math.round(0.2 * SR), Math.round(1.3 * SR));
+    const n = Math.round(dur * SR), g = glassRaw(n, frame), gr = rms(g, Math.round(0.2 * SR)), k = qr / gr, up = Math.round(0.02 * SR), down = Math.round(0.15 * SR);
+    for (let i = 0; i < n; i++) g[i] *= k * Math.max(0, Math.min(1, i / up, (n - 1 - i) / down)); return g; }
+  // The page's crossfade: 5 s of quartz, 3 s crossing, then 2 s of glass.
+  function crossfade(frame) { const n = Math.round(10 * SR), q = quartz(10), g = glass(10, frame), x = new Float32Array(n), a = 5 * SR, b = 8 * SR;
+    for (let i = 0; i < n; i++) { const t = Math.min(1, Math.max(0, (i - a) / (b - a))); x[i] = q[i] * Math.cos(t * Math.PI / 2) + g[i] * Math.sin(t * Math.PI / 2); } return x; }
+  // Where the glass's power actually peaks: the noise's spectrum, smoothed over a third of an octave, its maximum in each half of the range.
+  function measuredPeaks(frame) { const x = glass(3, frame), sp = spectrum(x, 1 << 17), m = sp.m;
+    const smooth = (f) => { let s = 0, c = 0; for (let k = Math.floor(f * 0.891 / sp.df); k <= Math.ceil(f * 1.122 / sp.df); k++) { s += m[k] * m[k]; c++; } return s / c; };
+    const best = (lo, hi) => { let bf = lo, bv = -1; for (let f = lo; f <= hi; f *= 1.01) { const v = smooth(f); if (v > bv) { bv = v; bf = f; } } return bf; };
+    const [c0, c1] = centres(frame), split = Math.sqrt(c0 * c1);
+    return [best(c0 / 2.5, split), best(split, c1 * 2.5)]; }
+  return { SR, ROOT, Q, AMPS, BANDS, power, centres, famSpan, famCentre, test, bp, mag, glass, quartz, crossfade, measuredPeaks, rms, render, spectrum, cents };
+})();
+/*CHECK-END*/
+// ───────────────────────── sound: silent until a click ─────────────────────────
+let actx = null, out = null, sources = [], oscs = [];
+function ctx() {
+  if (!actx) {
+    actx = new (window.AudioContext || window.webkitAudioContext)();
+    const comp = actx.createDynamicsCompressor(); comp.threshold.value = -6; comp.ratio.value = 4;
+    out = actx.createGain(); out.gain.value = 0.9; out.connect(comp); comp.connect(actx.destination);
+  }
+  if (actx.state === 'suspended') actx.resume();
+  return actx;
+}
+function stopSound() {
+  for (const s of sources) { try { s.stop(); } catch (e) {} } sources = [];
+  if (oscs.length && actx) { const t = actx.currentTime; for (const o of oscs) { try { o.g.gain.setTargetAtTime(0, t, 0.02); o.o.stop(t + 0.15); } catch (e) {} } }
+  oscs = [];
+  document.querySelectorAll('[data-live]').forEach((b) => { b.textContent = b.dataset.live; b.classList.add('sr-go'); });
+}
+function playBuf(x, peak = 0.7) {
+  const a = ctx(); let p = 1e-9; for (const v of x) p = Math.max(p, Math.abs(v));
+  const b = a.createBuffer(1, x.length, ENG.SR), ch = b.getChannelData(0); const k = peak / p; for (let i = 0; i < x.length; i++) ch[i] = x[i] * k;
+  const s = a.createBufferSource(); s.buffer = b; s.connect(out); s.start(a.currentTime + 0.03); sources.push(s); return s;
+}
+// A playBuf whose level is fixed, not normalised: two buffers made at one level stay at one level.
+function playBufAt(x, gain) {
+  const a = ctx(); const b = a.createBuffer(1, x.length, ENG.SR), ch = b.getChannelData(0); for (let i = 0; i < x.length; i++) ch[i] = x[i] * gain;
+  const s = a.createBufferSource(); s.buffer = b; s.connect(out); s.start(a.currentTime + 0.03); sources.push(s); return s;
+}
+
+// ───────────────────────── helpers ─────────────────────────
+const $ = (s, r = document) => r.querySelector(s);
+function el(tag, attrs = {}, ...kids) {
+  const e = document.createElement(tag);
+  for (const [k, v] of Object.entries(attrs)) { if (k === 'class') e.className = v; else if (k.startsWith('on')) e.addEventListener(k.slice(2), v); else e.setAttribute(k, v); }
+  for (const k of kids.flat()) if (k != null) e.append(k.nodeType ? k : document.createTextNode(String(k)));
+  return e;
+}
+const eq = (sym, words) => el('div', {}, el('div', { class: 'sr-sym' }, sym), el('div', { class: 'sr-words' }, words));
+function canvas(h) { const c = el('canvas'); c.style.height = h + 'px'; return c; }
+function fit(c) { const dpr = window.devicePixelRatio || 1, w = c.clientWidth || 600, h = parseInt(c.style.height, 10); c.width = Math.round(w * dpr); c.height = Math.round(h * dpr); const g = c.getContext('2d'); g.setTransform(dpr, 0, 0, dpr, 0, 0); return { g, w, h }; }
+function playButton(label, fn) { return el('button', { class: 'sr-go', onclick: () => { stopSound(); fn(); } }, label); }
+const fmt = (x, d = 2) => Number(x).toFixed(d);
+// ───────────────────────── the steps ─────────────────────────
+const S = { step: 1, frame: 'page' };
+const STEPS = [];
+const FC = { cage: '#e8b84a', soft: '#f0d080', ring: '#a99cf0', stretch: '#6cc4dc' };
+function drawSpec(c, { partials = true, frame = null, label = '' } = {}) {
+  const { g, w, h } = fit(c), L = 46, Rr = 14, T = 18, B = 24, lo = 80, hi = 3200, X = (f) => L + (w - L - Rr) * Math.log(f / lo) / Math.log(hi / lo), Y = (v) => h - B - (h - T - B - 14) * v;
+  g.clearRect(0, 0, w, h); g.font = '10px JetBrains Mono, monospace'; g.strokeStyle = 'rgba(255,255,255,.07)'; g.fillStyle = '#4a4a5a';
+  for (const f of [100, 200, 500, 1000, 2000]) { g.beginPath(); g.moveTo(X(f), T); g.lineTo(X(f), h - B); g.stroke(); g.fillText(f >= 1000 ? f / 1000 + ' kHz' : f + ' Hz', X(f) - 12, h - 8); }
+  if (frame) { const cs = ENG.centres(frame);
+    g.beginPath(); for (let i = 0; i <= 400; i++) { const f = lo * (hi / lo) ** (i / 400); const v = Math.sqrt(ENG.power(frame, f)); i ? g.lineTo(X(f), Y(v)) : g.moveTo(X(f), Y(v)); }
+    g.lineTo(X(hi), Y(0)); g.lineTo(X(lo), Y(0)); g.closePath(); g.fillStyle = 'rgba(200,200,216,.16)'; g.fill(); g.strokeStyle = 'rgba(200,200,216,.7)'; g.stroke();
+    g.fillStyle = '#c8c8d8'; cs.forEach((f) => g.fillText('glass · ' + f.toFixed(0) + ' Hz', Math.min(X(f) - 30, w - Rr - 90), T + 6)); }
+  if (partials) { g.lineWidth = 2; ENG.Q.r.forEach((r, i) => { const f = ENG.ROOT * r; g.strokeStyle = FC[ENG.Q.fam[i]]; g.beginPath(); g.moveTo(X(f), Y(0)); g.lineTo(X(f), Y(ENG.AMPS[i])); g.stroke(); }); g.lineWidth = 1;
+    let y = T + 22; for (const [k, v] of Object.entries(FC)) { g.fillStyle = v; g.fillText(k, w - Rr - 60, y); y += 12; } }
+  g.fillStyle = '#8a8aa0'; g.fillText(label, L, T - 6);
+}
+
+STEPS.push({ name: 'quartz', build() {
+  const cv = canvas(170);
+  const node = [
+    el('p', { class: 'sr-teach' }, 'Quartz over A3, as the page’s crossfade prompt starts: nine discrete partials in three families, the cage modes low, the ring modes in the middle, the silicon-oxygen stretches high, and the soft mode on its own. Each partial is a line: one exact frequency, held.'),
+    cv, el('div', { class: 'sr-row' }, playButton('▸ play quartz, 5 seconds', () => playBuf(ENG.quartz(5), 0.6))),
+    el('p', { class: 'sr-note' }, 'Each partial at 85% of the one below, as the page’s amethyst prompt sets the levels.'),
+  ];
+  node._after = () => drawSpec(cv, { label: 'quartz over A3 · log frequency' }); node._redraw = node._after;
+  return node;
+} });
+
+STEPS.push({ name: 'glass', build() {
+  const cv = canvas(170);
+  const node = [
+    el('p', { class: 'sr-teach' }, 'Now the glass alone, as the page’s obsidian prompt builds it: no lattice, so no discrete modes, only a density of them. Noise through two broad band-pass filters, one for each peak in the glass’s vibrational density of states, at 400 and 1000 Hz for A4, moved by the note. At A3 they sit at 200 and 500 Hz. Nothing here has a pitch.'),
+    el('div', { class: 'sr-eq' }, eq('centre = 400 Hz × f ⁄ 440,   1000 Hz × f ⁄ 440   (Q 1.5, 2.0)', '(where each band sits) = (its place for A4) × (how far the played note is from A4)')),
+    cv, el('div', { class: 'sr-row' }, playButton('▸ play the glass, 5 seconds', () => playBuf(ENG.glass(5, 'page'), 0.6))),
+    el('p', { class: 'sr-note' }, 'The two bands are weighted 0.87 and 0.65, the heights the bundle’s VDOS chart draws; the prompt gives no weights. The glass plays at the level of the quartz render, matched by RMS.'),
+  ];
+  node._after = () => drawSpec(cv, { partials: false, frame: 'page', label: 'the glass over A3, as the prompt places it · log frequency' }); node._redraw = node._after;
+  return node;
+} });
+
+STEPS.push({ name: 'crystal to glass', build() {
+  const cv = canvas(170), T = ENG.test('page');
+  const node = [
+    el('p', { class: 'sr-teach' }, 'The page’s crossfade: five seconds of quartz, then three seconds in which the partials give way to the glass, the crystal’s order dissolving as a melt does when it cools too fast to crystallize. Here both are drawn on one axis. Listen to where the sound goes as the lines become a haze.'),
+    cv,
+    el('div', { class: 'sr-read' }, el('span', {}, 'glass bands at ', el('b', {}, T.lo.toFixed(0) + ' and ' + T.hi.toFixed(0) + ' Hz')), el('span', {}, 'quartz’s ring modes ', el('b', {}, T.ring.map((f) => f.toFixed(0)).join('–') + ' Hz')), el('span', {}, 'its stretches ', el('b', {}, T.st.map((f) => f.toFixed(0)).join('–') + ' Hz'))),
+    el('div', { class: 'sr-row' }, playButton('▸ play the crossfade, 10 seconds', () => playBuf(ENG.crossfade('page'), 0.6))),
+    el('p', { class: 'sr-back' }, 'The quartz is step 1’s and the glass step 2’s; only the crossing is new.'),
+  ];
+  node._after = () => drawSpec(cv, { frame: 'page', label: 'quartz and the glass over A3, as the prompts place them' }); node._redraw = node._after;
+  return node;
+} });
+
+STEPS.push({ name: 'where the glass lands', build() {
+  const cv = canvas(170), read = el('div', { class: 'sr-read' }), answer = el('div'), row = el('div', { class: 'sr-row' });
+  const draw = () => { const T = ENG.test(S.frame);
+    drawSpec(cv, { frame: S.frame, label: S.frame === 'page' ? 'the glass as the obsidian prompt places it' : 'the glass in quartz’s own frame, 400 and 1000 cm⁻¹ mapped as quartz’s modes are' });
+    read.innerHTML = `<span>400 cm⁻¹ band at <b>${T.lo.toFixed(0)} Hz</b>, ${Math.abs(T.offRing).toFixed(2)} octaves ${T.offRing > 0 ? 'below' : 'above'} the ring modes’ centre</span><span>1000 cm⁻¹ band at <b>${T.hi.toFixed(0)} Hz</b>, ${Math.abs(T.offStretch).toFixed(2)} octaves ${T.offStretch > 0 ? 'below' : 'above'} the stretches’ centre</span><span class="${T.holds ? 'sr-ok' : 'sr-bad'}">${T.holds ? 'each band inside its family' : 'the bands miss their families'}</span>`;
+    [...row.children].forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.f === S.frame))); };
+  row.append(el('button', { class: 'sr-pick', 'data-f': 'page', onclick: () => { S.frame = 'page'; draw(); } }, 'as the prompt places it'), el('button', { class: 'sr-pick', 'data-f': 'quartz', onclick: () => { S.frame = 'quartz'; draw(); } }, 'in quartz’s own frame'));
+  const reveal = () => { const a = ENG.test('page'), b = ENG.test('quartz');
+    answer.innerHTML = `<p class="sr-answer">As the prompt places it, the glass lands <b>${a.offRing.toFixed(2)} octaves</b> below the crystal it is meant to smear: its 400 cm⁻¹ band at ${a.lo.toFixed(0)} Hz sits under quartz’s lowest partial, not among its ring modes, and its 1000 cm⁻¹ band at ${a.hi.toFixed(0)} Hz sits below even the ring modes, far from the stretches. The prompt maps wavenumber to hertz one for one at A4, while every crystal section maps the lowest mode to the root, so the two frames differ by 440 ⁄ 128 = 3.44 at every note. In quartz’s own frame the bands land at ${b.lo.toFixed(0)} and ${b.hi.toFixed(0)} Hz, inside the ring modes and the stretches, and the crossfade dissolves the crystal into its own glass. The bundle’s VDOS chart already draws the glass this way, in quartz’s ratios.</p>`; };
+  const node = [
+    el('p', { class: 'sr-teach' }, 'The page calls the glass “a smeared version of the quartz spectrum”, and asks the chart for its bumps “at similar frequency regions”. The test: does the glass land where the crystal was? The rule, set before the result: it does if the 400 cm⁻¹ band sits inside quartz’s ring modes and the 1000 cm⁻¹ band inside its stretches, at the same note. Switch between the prompt’s placement and quartz’s own, and play both crossfades.'),
+    el('div', { class: 'sr-quote' }, '“g(ω) has broad peaks around ~400 cm⁻¹ and ~1000 cm⁻¹ with no discrete lines — a smeared version of the quartz spectrum” — Obsidian, as printed when this piece was made'),
+    row, cv, read,
+    el('div', { class: 'sr-row' }, playButton('▸ crossfade, as the prompt places it', () => { S.frame = 'page'; draw(); playBuf(ENG.crossfade('page'), 0.6); }), playButton('▸ crossfade, in quartz’s frame', () => { S.frame = 'quartz'; draw(); playBuf(ENG.crossfade('quartz'), 0.6); })),
+    el('div', { class: 'sr-row' }, el('button', { onclick: reveal }, 'show the answer')), answer,
+    el('p', { class: 'sr-note' }, 'Both crossfades hold the glass at the quartz render’s level. A test that could have passed: had the prompt placed its bands in quartz’s frame, the first switch would read 0.00 octaves.'),
+  ];
+  node._after = draw; node._redraw = draw;
+  return node;
+} });
+// ───────────────────────── the walk ─────────────────────────
+const tabs = $('#tabs'), stage = $('#stage');
+STEPS.forEach((s, i) => tabs.append(el('button', { 'aria-pressed': 'false', onclick: () => go(i + 1) }, (i + 1) + ' · ' + s.name)));
+function go(n) {
+  if (n !== S.step) stopSound();                 // changing step stops the sound
+  S.step = Math.max(1, Math.min(STEPS.length, n));
+  [...tabs.children].forEach((b, i) => b.setAttribute('aria-pressed', String(i + 1 === S.step)));
+  stage.innerHTML = '';
+  const s = STEPS[S.step - 1], nodes = s.build(); stage._after = nodes._after; stage._redraw = nodes._redraw;
+  stage.append(el('section', { class: 'sr-step', 'aria-label': 'step ' + S.step }, el('div', { class: 'sr-stephead' }, el('span', {}, S.step + ' · ' + s.name), el('span', {}, 'step ' + S.step + ' of ' + STEPS.length)), ...nodes));
+  requestAnimationFrame(() => stage._after?.());
+  $('#back').disabled = S.step === 1; $('#next').disabled = S.step === STEPS.length;
+}
+$('#back').onclick = () => go(S.step - 1);
+$('#next').onclick = () => go(S.step + 1);
+let rz = 0; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(() => stage._redraw?.(), 150); });
+(() => { let d = ''; for (let i = 0; i <= 400; i++) { const t = i / 400 * 2 * Math.PI; d += (i ? 'L' : 'M') + Math.sin(3 * t + Math.PI / 2).toFixed(3) + ' ' + Math.sin(2 * t).toFixed(3); } $('#sigil').setAttribute('d', d); })();
+go(1);
+</script>
+</body>
+</html>

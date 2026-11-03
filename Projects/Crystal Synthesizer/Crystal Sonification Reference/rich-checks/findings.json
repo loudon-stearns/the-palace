@@ -1,0 +1,197 @@
+{
+ "checked": "2026-11-03",
+ "pass": 38,
+ "of": 38,
+ "results": [
+  {
+   "name": "R1 ω/ω₁ against the printed r_n",
+   "ok": true,
+   "detail": "largest gap 0.0048 (mode 4)"
+  },
+  {
+   "name": "R2 the null: two scalings agree, every note 33–96",
+   "ok": true,
+   "detail": "worst 2.2e-16 against the rule 1e-12"
+  },
+  {
+   "name": "R3 the control fails, every note 33–96",
+   "ok": true,
+   "detail": "smallest control deviation 0.0253"
+  },
+  {
+   "name": "R4 A3 puts mode 1 on 220 Hz",
+   "ok": true,
+   "detail": "220"
+  },
+  {
+   "name": "R5 the section’s 10⁻⁹ puts the root at 11.3 kHz",
+   "ok": true,
+   "detail": "11332.15 · top 22424.48 Hz"
+  },
+  {
+   "name": "R6 the prompts’ factors",
+   "ok": true,
+   "detail": "ruby A3 1.94e-11 · diamond G3 8.12e-12 · labradorite A2 6.12e-11"
+  },
+  {
+   "name": "R7 through the sound: peaks within the page’s 0.5 Hz",
+   "ok": true,
+   "detail": "largest 0.0006 Hz"
+  },
+  {
+   "name": "R8 through the sound: measured ratios agree",
+   "ok": true,
+   "detail": "6.3e-6"
+  },
+  {
+   "name": "P1 the piece’s map is the page’s formula",
+   "ok": true,
+   "detail": "largest difference 0.0e+0"
+  },
+  {
+   "name": "P2 table against chart",
+   "ok": true,
+   "detail": "0.0010"
+  },
+  {
+   "name": "P3 table against the synthesized sound",
+   "ok": true,
+   "detail": "2.5e-6"
+  },
+  {
+   "name": "P4 α 1 at ruby’s own span is the physics",
+   "ok": true,
+   "detail": "0.0e+0 Hz · span 0.9855 oct"
+  },
+  {
+   "name": "P5 α 1 at two octaves is not",
+   "ok": true,
+   "detail": "444.40 Hz · 1217.4 cents"
+  },
+  {
+   "name": "P6 no α at two octaves is the physics",
+   "ok": true,
+   "detail": "closest 444.40 Hz"
+  },
+  {
+   "name": "P7 α 1 keeps the spacing at every span",
+   "ok": true,
+   "detail": "1.1e-16"
+  },
+  {
+   "name": "P8 the doublet",
+   "ok": true,
+   "detail": "physics 8.80 Hz 61.8 c · span 1 8.98 Hz · span 2 26.94 Hz 155.1 c · span 4 134.69 Hz 375.1 c"
+  },
+  {
+   "name": "P9 the sweep passes α 1 at 4.18 s",
+   "ok": true,
+   "detail": "α(4.18) 0.9991"
+  },
+  {
+   "name": "P10 each crystal’s own span",
+   "ok": true,
+   "detail": "{\"Diamond\":\"0.72\",\"Ruby\":\"0.99\",\"Fluorite\":\"1.31\",\"Emerald\":\"1.74\",\"Topaz\":\"2.60\",\"Amethyst\":\"3.06\",\"Labradorite\":\"4.13\"}"
+  },
+  {
+   "name": "I1 the soft mode is near a minor sixth",
+   "ok": true,
+   "detail": "835.2 c, 35.2 off"
+  },
+  {
+   "name": "I2 ruby 1.10 is nearer a major second",
+   "ok": true,
+   "detail": "165.0 c"
+  },
+  {
+   "name": "I3 emerald 1.68 is a major sixth",
+   "ok": true,
+   "detail": "898.2 c, -1.8 from a major sixth"
+  },
+  {
+   "name": "I4 amethyst 8.32 is just over three octaves",
+   "ok": true,
+   "detail": "3667.9 c = 3 octaves + 67.9 c"
+  },
+  {
+   "name": "I5 each dyad sounds at its two frequencies",
+   "ok": true,
+   "detail": "largest 0.0004 Hz"
+  },
+  {
+   "name": "G1 the prompt’s bands at A3",
+   "ok": true,
+   "detail": "200 · 500 Hz"
+  },
+  {
+   "name": "G2 the prompt’s glass misses quartz’s families",
+   "ok": true,
+   "detail": "1.796 · 1.528 octaves"
+  },
+  {
+   "name": "G3 quartz’s own frame lands inside them",
+   "ok": true,
+   "detail": "687.5 · 1718.75 Hz in 609–799 and 1199–1830"
+  },
+  {
+   "name": "G4 the frames differ by 440/128 at every note",
+   "ok": true,
+   "detail": "3.4375"
+  },
+  {
+   "name": "G5 the rendered glass peaks where it says (page)",
+   "ok": true,
+   "detail": "measured 194 · 476 against 200 · 500 Hz"
+  },
+  {
+   "name": "G5 the rendered glass peaks where it says (quartz)",
+   "ok": true,
+   "detail": "measured 667 · 1753 against 688 · 1719 Hz"
+  },
+  {
+   "name": "G6 the glass at the quartz’s level",
+   "ok": true,
+   "detail": "0.06 dB"
+  },
+  {
+   "name": "G7 the crossfade holds level",
+   "ok": true,
+   "detail": "segments within 0.18 dB"
+  },
+  {
+   "name": "S diamond: every table mode in the file",
+   "ok": true,
+   "detail": "largest error 0.000 Hz · weakest mode 106 dB over the empty 126 Hz"
+  },
+  {
+   "name": "S ruby: every table mode in the file",
+   "ok": true,
+   "detail": "largest error 0.000 Hz · weakest mode 113 dB over the empty 148 Hz"
+  },
+  {
+   "name": "S amethyst: every table mode in the file",
+   "ok": true,
+   "detail": "largest error 0.000 Hz · weakest mode 97 dB over the empty 140 Hz"
+  },
+  {
+   "name": "S fluorite: every table mode in the file",
+   "ok": true,
+   "detail": "largest error 0.002 Hz · weakest mode 117 dB over the empty 225 Hz"
+  },
+  {
+   "name": "S emerald: every table mode in the file",
+   "ok": true,
+   "detail": "largest error 0.000 Hz · weakest mode 104 dB over the empty 304 Hz"
+  },
+  {
+   "name": "S topaz: every table mode in the file",
+   "ok": true,
+   "detail": "largest error 0.000 Hz · weakest mode 97 dB over the empty 132 Hz"
+  },
+  {
+   "name": "S labradorite: every table mode in the file",
+   "ok": true,
+   "detail": "largest error 0.000 Hz · weakest mode 109 dB over the empty 149 Hz"
+  }
+ ]
+}
