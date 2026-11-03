@@ -65,7 +65,18 @@
           "height": 800
         }
       ],
-      "stamped": "2026-11-03"
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Typography as Meaning — rich — the grammar, blind.html",
+            "verdict": "keep",
+            "why": "A test: the reader can fall to chance and the verdict says so; chance levels exact (n(n−1)/4 pairs, 1 in n!; 1 of 7 named), key locked until every answer is given, shuffles leak no order. Note: start-over after the key lets a reader retry unmarked."
+          }
+        ]
+      }
     },
     {
       "heading": "The three axes",
@@ -101,7 +112,23 @@
           }
         }
       ],
-      "stamped": "2026-11-03"
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Typography as Meaning — rich — the function, counted.html",
+            "verdict": "keep",
+            "why": "Runs whos-talking.html's own letter() (diffed identical) and its counts recompute from draw()'s geometry: 95 / 80 / 58, in/out 120, to whom 80. Notes: say 'for a radio' where the verdict says the feeling moves into size and case (a mind takes the case), and name the eye's threshold (2 px merged, type steps kept; 73 if 21/24 px merge too)."
+          },
+          {
+            "file": "proofs/2026-10-22-daily-page/whos-talking.html",
+            "verdict": "keep",
+            "why": "The proof the section cites, gathered as it was; caption accurate."
+          }
+        ]
+      }
     },
     {
       "heading": "The conversation",
@@ -127,7 +154,18 @@
           }
         }
       ],
-      "stamped": "2026-11-03"
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "proofs/2026-10-22-daily-page/conversation-ladder.html",
+            "verdict": "keep",
+            "why": "The page's own proof; the caption keeps the one exception the page holds, the pause a checker cannot see."
+          }
+        ]
+      }
     },
     {
       "heading": "The letterform as material",
@@ -181,7 +219,38 @@
           "place": "margin"
         }
       ],
-      "stamped": "2026-11-03"
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "rich-face/lyric-burning_skeleton_s1111.png",
+            "verdict": "remake",
+            "why": "The skeleton is Chalkduster, not Metal Mania (skel/lyric-burning.png; commit 28e9adaa 'Chalkduster skeletons'), and the original is tracked at /Projects/BLUELINE/proofs/text-layer/out/ (same md5): drop the copy, name the original in place, fix the font and drop 'copied here so the public face can show it'."
+          },
+          {
+            "file": "/Projects/BLUELINE/proofs/text-layer/balloons-genai/sweep/guide.png",
+            "verdict": "keep",
+            "why": "The authored structure the sweep was run against; caption true."
+          },
+          {
+            "file": "/Projects/BLUELINE/proofs/text-layer/balloons-genai/sweep/cn0.35_end0.4.png",
+            "verdict": "keep",
+            "why": "Matches BLUELINE's own Finding 1: the word reads, the balloon dissolves."
+          },
+          {
+            "file": "/Projects/BLUELINE/proofs/text-layer/balloons-genai/sweep/cn0.5_end0.4.png",
+            "verdict": "keep",
+            "why": "True by eye; note that end 0.4 and 0.7 are near-identical at each strength (2–4% of pixels differ), so say 'at both strengths tried' rather than 'all four renders'."
+          },
+          {
+            "file": "rich-face/lyric-burning_negspace_s1111.png",
+            "verdict": "remake",
+            "why": "Caption true, but the original is tracked at /Projects/BLUELINE/proofs/text-layer/out/ (same md5): drop the 1.16 MB copy and name it in place. Optional: the void is knocked out by mask after the render (render_text.py:94–99), on the dark field Lettering warns about."
+          }
+        ]
+      }
     },
     {
       "heading": "Where it's used",
@@ -211,7 +280,23 @@
           "place": "band"
         }
       ],
-      "stamped": "2026-11-03"
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "/Projects/BLUELINE/proofs/blender-handdrawn/followups/rig-openpose/renders/text-anchor/balloons/catalog_grid.png",
+            "verdict": "keep",
+            "why": "The grammar as BLUELINE draws it; caption note: the 12 are the page's 7 plus five (it names three, missing the serrated radio and the title burst)."
+          },
+          {
+            "file": "/Projects/BLUELINE/proofs/text-layer/balloons-genai/montage.png",
+            "verdict": "keep",
+            "why": "The two voices the section names, four ways; its tails are drawn by balloon_lib after the render, which is the better evidence for offer 2's direction."
+          }
+        ]
+      }
     }
   ]
 }
