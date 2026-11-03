@@ -1,0 +1,672 @@
+<!doctype html>
+<!--
+  title: Boundary-Crossing Instruments — rich — ratio and slope
+  born: 2026-11-03
+  links: [[Boundary-Crossing Instruments]] (connects-to · rich-face-piece) · listed in [[Boundary-Crossing Instruments — rich.json]] · the knee formula is [[Compressor Design]]'s, written with s = 1/R
+  forward_vector: I am the walk up to the wall at infinite ratio and through it. One compressor and one drum loop, made here from nothing but noise and sine; first the curve that maps level in to level out, then a ratio knob that spends its travel in the wrong place and can never reach the end, then a slope knob that runs 1 to 0 with the same curve, then a morph between two settings, and last a blind test of whether your ear measures distance in ratio or in slope. I change only when the section I serve does.
+  sound: nothing plays until Play is clicked; the AudioContext is made on that click. Changing step stops the sound.
+  check: Boundary-Crossing Instruments/Boundary-Crossing Instruments — rich — ratio and slope — check.mjs runs this page's core and worklet in Node.
+-->
+<html lang="en" class="skin-graphite">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- needs nothing of its host: no device, no storage, no file, no host; sound only on a click -->
+<meta name="piece:needs" content="">
+<title>Ratio and slope · one compressor, two knobs</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@300;400;500&display=swap">
+<style>
+  :root{
+    --bg:#0a0a0f; --bg-elev-1:#12121a; --bg-elev-2:#1a1a28; --border:#4a4a5e; --border-soft:rgba(255,255,255,0.06);
+    --fg-1:#e8e8f0; --fg-2:#c8c8d8; --fg-3:#8a8aa0; --fg-4:#4a4a5a;
+    --accent:#e8b84a; --accent-dim:#7a6030; --accent-soft:rgba(232,184,74,0.10); --accent-line:rgba(232,184,74,0.5);
+    --info:#4a8fff; --warn:#e8651b;
+    --serif:'Cormorant Garamond','Source Serif 4',Georgia,serif; --sans:'Manrope',system-ui,sans-serif;
+    --display:'Anton','Bebas Neue',Impact,sans-serif; --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--fg-1)}
+  body{font-family:var(--serif);font-size:17px;line-height:1.7;padding:28px 16px 36px}
+  main{max-width:960px;margin:0 auto}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--fg-3)}
+  h1{font-family:var(--display);font-weight:400;font-size:44px;line-height:1.05;margin:6px 0 10px}
+  h2{font-family:var(--display);font-weight:400;font-size:28px;line-height:1.1;margin:4px 0 8px;letter-spacing:.01em}
+  p.lead{font-size:19px;color:var(--fg-2);margin:0 0 18px;max-width:66ch}
+  .rail{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 18px}
+  .rail button{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-3);background:transparent;border:1px solid var(--border);border-radius:4px;padding:7px 11px;cursor:pointer;transition:all .22s cubic-bezier(.4,0,.2,1)}
+  .rail button[aria-current="step"]{color:var(--fg-1);border-color:var(--fg-3);background:var(--bg-elev-2)}
+  p.say{color:var(--fg-2);margin:0 0 14px;max-width:68ch}
+  .panel{background:var(--bg-elev-1);border:1px solid var(--border-soft);border-radius:4px;padding:18px;margin:0 0 14px}
+  .tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;align-items:center}
+  button.play{font-family:var(--sans);font-weight:500;font-size:14px;color:#0a0a0f;background:var(--accent);border:0;border-radius:4px;padding:9px 20px;cursor:pointer;margin-left:auto;transition:box-shadow .22s cubic-bezier(.4,0,.2,1)}
+  button.play:hover{box-shadow:0 0 24px var(--accent-soft)}
+  canvas#stage{width:100%;display:block;background:var(--bg-elev-2);border-radius:4px}
+  .legend{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px 18px;margin-top:12px;font-family:var(--sans);font-size:13px;color:var(--fg-3);line-height:1.5}
+  .legend b{font-family:var(--mono);font-weight:400;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-2);display:block}
+  .ctl{display:grid;grid-template-columns:130px 1fr auto;gap:6px 14px;align-items:center;margin-top:14px}
+  .ctl[hidden]{display:none}
+  .ctl label{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-3)}
+  .ctl input[type=range]{width:100%;accent-color:var(--accent)}
+  .ctl .v{font-family:var(--mono);font-size:14px;color:var(--fg-1);text-align:right;white-space:nowrap;min-width:11ch}
+  .meter{font-family:var(--mono);font-size:13px;color:var(--fg-2);margin-top:12px;line-height:1.7}
+  .meter b{color:var(--accent);font-weight:400}
+  .meter i{color:var(--warn);font-style:normal}
+  .eq{font-family:var(--mono);font-size:13px;color:var(--fg-1);margin:14px 0 0;overflow-wrap:anywhere}
+  .eq.words{color:var(--fg-3);font-size:12px;margin-top:2px}
+  .try{margin:0 0 4px;padding:12px 16px;border-left:2px solid var(--accent-dim);background:var(--bg-elev-1);font-family:var(--sans);font-size:14px;color:var(--fg-2);line-height:1.6}
+  .try .eyebrow{color:var(--accent);display:block;margin-bottom:2px}
+  .rowb{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:12px}
+  .rowb[hidden]{display:none}
+  button.ghost{font-family:var(--sans);font-size:14px;color:var(--fg-2);background:transparent;border:1px solid var(--border);border-radius:4px;padding:8px 14px;cursor:pointer}
+  button.ghost[aria-pressed="true"]{color:var(--fg-1);border-color:var(--fg-3);background:var(--bg-elev-2)}
+  button.ghost:disabled{opacity:.35;cursor:default}
+  button.ab{font-family:var(--display);font-size:22px;letter-spacing:.06em;color:var(--fg-2);background:transparent;border:1px solid var(--border);border-radius:4px;padding:6px 26px;cursor:pointer}
+  button.ab[aria-pressed="true"]{color:#0a0a0f;background:var(--accent);border-color:var(--accent)}
+  button.ab:disabled{opacity:.35;cursor:default}
+  .hint{font-family:var(--sans);font-size:13px;color:var(--fg-3)}
+  table.marks{border-collapse:collapse;margin-top:12px;font-family:var(--mono);font-size:13px;color:var(--fg-2)}
+  table.marks td,table.marks th{border-bottom:1px solid var(--border-soft);padding:5px 14px 5px 0;text-align:left;font-weight:400}
+  table.marks th{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-3)}
+  table.marks b{color:var(--accent);font-weight:400}
+  .walk{display:flex;justify-content:space-between;gap:10px;margin-top:16px}
+  footer{margin-top:28px;font-family:var(--sans);font-size:13px;color:var(--fg-4)}
+  footer b{font-family:var(--display);font-weight:400;letter-spacing:.06em;color:var(--fg-3)}
+  @media (max-width:520px){h1{font-size:34px}h2{font-size:23px}.ctl{grid-template-columns:96px 1fr auto}}
+</style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">Boundary-Crossing Instruments · the wall at infinite ratio · six steps</div>
+  <h1>One compressor, two knobs</h1>
+  <p class="lead">A drum loop, made here from noise and sine, goes through one compressor. The compressor is a single curve that maps how loud a sound comes in to how loud it goes out. Two knobs can set that curve: the ratio everyone labels it with, and the slope underneath. They set the same curve, but they are not the same knob. Six steps, one thing to notice in each, and the last is a blind test. Nothing plays until you press Play.</p>
+
+  <nav class="rail" aria-label="Steps" id="rail"></nav>
+
+  <section aria-live="polite">
+    <div class="eyebrow" id="stepEyebrow"></div>
+    <h2 id="stepTitle"></h2>
+    <p class="say" id="stepSay"></p>
+  </section>
+
+  <div class="panel">
+    <div class="tabs"><span class="eyebrow">Hear</span><span class="hint" id="hearHint"></span><button class="play" id="play">Play</button></div>
+    <canvas id="stage"></canvas>
+    <div class="legend" id="legend"></div>
+
+    <div class="ctl" id="ctlRatio20" hidden>
+      <label for="r20">ratio</label><input id="r20" type="range" min="1" max="20" step="0.1" value="4"><span class="v" id="r20v"></span>
+    </div>
+    <div class="ctl" id="ctlRatio" hidden>
+      <label for="rk">ratio knob</label><input id="rk" type="range" min="0" max="1" step="0.001" value="0.2"><span class="v" id="rkv"></span>
+    </div>
+    <div class="rowb" id="taperRow" hidden><span class="eyebrow">ratio knob taper</span>
+      <button class="ghost" data-taper="linear" aria-pressed="true">Linear, 1 to 100</button>
+      <button class="ghost" data-taper="log" aria-pressed="false">Log, 1 to 100</button>
+      <span class="hint">Either way, the last 3% of the knob is the ∞ notch.</span>
+    </div>
+    <div class="ctl" id="ctlSlope" hidden>
+      <label for="sk">slope knob</label><input id="sk" type="range" min="0" max="1" step="0.001" value="0.75"><span class="v" id="skv"></span>
+    </div>
+    <div class="rowb" id="axesRow" hidden><span class="eyebrow">draw the curve on</span>
+      <button class="ghost" data-axes="db" aria-pressed="true">Decibel axes</button>
+      <button class="ghost" data-axes="lin" aria-pressed="false">Linear amplitude axes</button>
+    </div>
+    <div id="morphBox" hidden>
+      <div class="rowb"><span class="eyebrow">morph from 2:1 with a 12 dB knee to</span>
+        <button class="ghost" data-mb="inf" aria-pressed="true">∞:1, hard knee</button>
+        <button class="ghost" data-mb="20" aria-pressed="false">20:1, hard knee</button>
+      </div>
+      <div class="rowb"><span class="eyebrow">walk the morph in</span>
+        <button class="ghost" data-coord="slope" aria-pressed="true">Slope</button>
+        <button class="ghost" data-coord="ratio" aria-pressed="false">Ratio</button>
+      </div>
+      <div class="ctl"><label for="mk">morph</label><input id="mk" type="range" min="0" max="1" step="0.001" value="0"><span class="v" id="mkv"></span></div>
+    </div>
+    <div class="rowb" id="matchRow" hidden><span class="eyebrow">loudness</span>
+      <button class="ghost" data-match="on" aria-pressed="true">Matched</button>
+      <button class="ghost" data-match="off" aria-pressed="false">Off: hear the level drop too</button>
+    </div>
+
+    <div id="testBox" hidden>
+      <div class="rowb"><span class="eyebrow" id="pairLabel">Pair 1 of 5</span>
+        <button class="ab" id="abA" aria-pressed="true">A</button>
+        <button class="ab" id="abB" aria-pressed="false">B</button>
+        <span class="hint" id="abHint">Press Play, then flip between A and B as often as you like.</span>
+      </div>
+      <div class="rowb"><span class="eyebrow">how different are they</span>
+        <button class="ghost" data-rate="0">The same</button>
+        <button class="ghost" data-rate="1">Barely</button>
+        <button class="ghost" data-rate="2">Clearly</button>
+        <button class="ghost" data-rate="3">Very</button>
+      </div>
+      <p class="hint" id="revealNote" hidden></p>
+      <table class="marks" id="reveal" hidden><thead><tr><th>pair</th><th>ratio distance</th><th>slope distance</th><th>loop’s crest moved</th><th>you heard</th></tr></thead><tbody></tbody></table>
+      <div class="rowb" id="againRow" hidden><button class="ghost" id="again">Run the five pairs again, reshuffled</button></div>
+    </div>
+
+    <div class="meter" id="meter"></div>
+    <div class="eq" id="eq1"></div><div class="eq words" id="eq1w"></div>
+    <div class="eq" id="eq2"></div><div class="eq words" id="eq2w"></div>
+  </div>
+  <div class="try" id="try"><span class="eyebrow">Try</span><span id="tryText"></span></div>
+
+  <div class="walk"><button class="ghost" id="back">Back</button><button class="ghost" id="next">Next</button></div>
+
+  <footer><b>LOUD’N LIVE</b> · Boundary-Crossing Instruments · ratio and slope · Sketch, 2026-11-03</footer>
+</main>
+
+<!-- The engine's core. Plain functions, shared by the picture, the worklet and the headless check. -->
+<script id="bci-core">
+// T: threshold (dBFS). OVER: how far the loop's loudest hit goes over it (dB), for the knob-travel charts.
+var BCI = { T: -30, REL: 0.12, BPM: 96, PEAK: -6, OVER: 24, DETENT: 0.97 };
+// the gain computer, in decibels: level in → level out. s is the slope above the knee, W the knee width.
+// With s = 1 ÷ R this is the soft-knee formula on Compressor Design. s = 0 needs no special case.
+function curveDb(x, T, s, W){
+  var d = x - T;
+  if (W > 0 && 2 * Math.abs(d) <= W) return x + (s - 1) * (d + W / 2) * (d + W / 2) / (2 * W);
+  if (d > (W > 0 ? W / 2 : 0)) return T + s * d;
+  return x;
+}
+function slopeOf(R){ return 1 / R; }               // R = Infinity gives 0
+function ratioOf(s){ return s > 0 ? 1 / s : Infinity; }
+// a ratio knob: travel p (0..1) to ratio. The last 3% is the ∞ notch, since no finite turn reaches ∞.
+function ratioKnob(p, taper){
+  if (p >= BCI.DETENT) return Infinity;
+  var q = p / BCI.DETENT;
+  return taper === 'log' ? Math.pow(100, q) : 1 + 99 * q;
+}
+function knobOfRatio(R, taper){
+  if (!isFinite(R)) return 1;
+  var q = taper === 'log' ? Math.log(Math.max(1, R)) / Math.log(100) : (R - 1) / 99;
+  return Math.min(BCI.DETENT - 1e-6, Math.max(0, q) * BCI.DETENT);
+}
+// the slope knob: travel p (0..1) to slope, 1 at the left (a wire), 0 at the right (a wall)
+function slopeKnob(p){ return 1 - p; }
+// how far over the threshold the loudest hit comes out, at slope s (hard knee)
+function overOut(s){ return curveDb(BCI.T + BCI.OVER, BCI.T, s, 0) - BCI.T; }
+// a morph between settings A and B, walked in slope or in ratio. Each is { R, W }.
+function morph(A, B, m, coord){
+  var W = A.W + (B.W - A.W) * m;
+  if (coord === 'slope'){ var sA = 1 / A.R, sB = 1 / B.R; return { s: sA + (sB - sA) * m, W: W }; }
+  var R = m <= 0 ? A.R : m >= 1 ? B.R : A.R + (B.R - A.R) * m;   // Infinity for any m > 0 when B is ∞
+  return { s: 1 / R, W: W };
+}
+// the slope of the same curve drawn on linear amplitude axes, at input level x dB: d(out)/d(in) = s_dB × out ÷ in
+function linearSlopeAt(x, T, s, W){
+  var h = 1e-4, y = curveDb(x, T, s, W), dy = (curveDb(x + h, T, s, W) - curveDb(x - h, T, s, W)) / (2 * h);
+  return dy * Math.pow(10, (y - x) / 20);
+}
+
+// the blind test's verdict, from the five ratings (0 the same … 3 very), indexed as the pairs:
+// [1/2, 2/4, 10/20, 20/∞, 4/4]. A ruler is named only when the answers can carry one.
+function rulerOf(a){
+  if (a[4] !== 0) return 'check-failed';            // heard a difference in one setting played twice
+  if (a[0] === 0) return 'flat';                    // did not hear even 1:1 to 2:1, the loop's biggest change
+  if (a[2] === 0 && a[3] === 0) return 'neither';   // heard neither 10:1 to 20:1 nor 20:1 to ∞:1
+  if (a[0] > a[3] && Math.abs(a[3] - a[2]) <= 1) return 'slope';
+  return 'none';
+}
+// ---------- the drum loop: one bar at 96 BPM, made from a seeded noise and sines, seamless ----------
+function mulberry32(a){ return function(){ a |= 0; a = a + 0x6D2B79F5 | 0; var t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+function makeLoop(sr){
+  var stepS = 60 / BCI.BPM / 4, N = Math.round(16 * stepS * sr), y = new Float32Array(N), rnd = mulberry32(7);
+  // [step, kind, level dB]: accented kick and snare, ghost notes far below, hats between
+  var hits = [[0,'k',0],[3,'k',-16],[6,'k',-11],[8,'k',-2],[10,'k',-15],[4,'s',-1],[12,'s',0],[7,'s',-24],[14,'s',-20],[15,'s',-17]];
+  for (var h = 0; h < 16; h += 2) hits.push([h, 'h', h % 4 === 0 ? -15 : -23]);
+  hits.forEach(function(hit){
+    var n0 = Math.round(hit[0] * stepS * sr), g = Math.pow(10, hit[2] / 20), k = hit[1], len = Math.round((k === 'k' ? 0.5 : k === 's' ? 0.35 : 0.12) * sr), ph = 0, prev = 0;
+    for (var i = 0; i < len; i++){
+      var t = i / sr, v;
+      if (k === 'k'){ ph += 2 * Math.PI * (48 + 110 * Math.exp(-t / 0.035)) / sr; v = Math.sin(ph) * Math.exp(-t / 0.26) * Math.min(1, i / 24); }
+      else if (k === 's'){ var nz = rnd() * 2 - 1; v = 0.55 * Math.sin(2 * Math.PI * 190 * t) * Math.exp(-t / 0.05) + 0.75 * nz * Math.exp(-t / 0.10); v *= Math.min(1, i / 24); }
+      else { var w = rnd() * 2 - 1; v = (w - prev) * 0.5 * Math.exp(-t / 0.028); prev = w; }
+      y[(n0 + i) % N] += g * v;
+    }
+  });
+  var pk = 0; for (var j = 0; j < N; j++) pk = Math.max(pk, Math.abs(y[j]));
+  var norm = Math.pow(10, BCI.PEAK / 20) / pk; for (j = 0; j < N; j++) y[j] *= norm;
+  return y;
+}
+
+// ---------- the compressor, sample by sample: a peak envelope (instant attack, 120 ms release), then the curve ----------
+// Instant attack, so no hit's onset slips past the curve: what comes out is what the drawing says.
+// st carries the envelope between calls. Returns the gain in dB the sample got (before makeup).
+function compStep(xs, T, s, W, st, aR){
+  var a = Math.abs(xs);
+  st.env = a > st.env ? a : aR * st.env + (1 - aR) * a;
+  var xd = 20 * Math.log10(st.env + 1e-12);
+  st.gs = curveDb(xd, T, s, W) - xd;
+  return st.gs;
+}
+// run the loop through the compressor twice (the first pass settles it) and measure the second pass.
+function measure(loop, sr, T, s, W){
+  var aR = Math.exp(-1 / (BCI.REL * sr)), st = { env: 0, gs: 0 }, N = loop.length, out = new Float32Array(N), sq = 0, pk = 0, i;
+  for (i = 0; i < N; i++) compStep(loop[i], T, s, W, st, aR);
+  for (i = 0; i < N; i++){ var g = compStep(loop[i], T, s, W, st, aR), v = loop[i] * Math.pow(10, g / 20); out[i] = v; sq += v * v; pk = Math.max(pk, Math.abs(v)); }
+  var rms = 10 * Math.log10(sq / N + 1e-20), peak = 20 * Math.log10(pk + 1e-12);
+  return { rms: rms, peak: peak, crest: peak - rms, out: out };
+}
+</script>
+
+<!-- The worklet, read as text and loaded from a Blob with the core above it. -->
+<script type="text/plain" id="bci-worklet">
+class BciProcessor extends AudioWorkletProcessor {
+  constructor(){
+    super();
+    this.loop = makeLoop(sampleRate); this.n = 0;
+    this.T = BCI.T; this.s = 1; this.W = 0; this.mk = 0; this.mkCur = 0;
+    this.st = { env: 0, gs: 0 }; this.aR = Math.exp(-1 / (BCI.REL * sampleRate));
+    this.aMk = Math.exp(-1 / (0.02 * sampleRate)); this.inPk = 0; this.aPk = Math.exp(-1 / (0.08 * sampleRate)); this.tick = 0;
+    this.port.onmessage = (e) => {
+      const m = e.data || {};
+      if (typeof m.s === 'number') this.s = m.s;
+      if (typeof m.W === 'number') this.W = m.W;
+      if (typeof m.T === 'number') this.T = m.T;
+      if (typeof m.mk === 'number') this.mk = m.mk;
+    };
+  }
+  process(inputs, outputs){
+    const out = outputs[0], L = out[0], R = out[1] || out[0], N = this.loop.length;
+    for (let i = 0; i < L.length; i++){
+      const x = this.loop[this.n]; this.n = (this.n + 1) % N;
+      const g = compStep(x, this.T, this.s, this.W, this.st, this.aR);
+      this.mkCur = this.aMk * this.mkCur + (1 - this.aMk) * this.mk;
+      const y = x * Math.pow(10, (g + this.mkCur) / 20);
+      const a = Math.abs(x); this.inPk = a > this.inPk ? a : this.aPk * this.inPk;
+      L[i] = y; if (R !== L) R[i] = y;
+    }
+    if (++this.tick % 6 === 0) this.port.postMessage({ inDb: 20 * Math.log10(this.inPk + 1e-9), gs: this.st.gs });
+    return true;
+  }
+}
+registerProcessor('bci', BciProcessor);
+</script>
+
+<script>
+(function(){
+  'use strict';
+  var $ = function(id){ return document.getElementById(id); };
+  var T = BCI.T;
+
+  // ---------- the six steps ----------
+  var STEPS = [
+    { title: 'A wire', short: 'A wire', view: 'wire',
+      say: 'Start with nothing in the way. The drawing on the left is a transfer curve: across the bottom, how loud a sound comes in; up the side, how loud it goes out, both in decibels. A plain wire is the diagonal, out equals in, a slope of 1. The dot rides the curve at the loop’s level as it plays. The loud kick and snare reach the top right, the ghost notes and hats sit lower down.',
+      hint: 'the loop, straight through',
+      eq1: ['out = in', '(level out, in dB) = (level in, in dB)'],
+      eq2: ['slope = 1', '(how many dB come out) ÷ (how many dB go in) = 1, everywhere'],
+      tryText: 'Watch the dot jump up the diagonal on each kick and snare and fall back between them. The right-hand picture is the loop itself, one bar, drawn twice the same: what goes in and what comes out.' },
+    { title: 'A threshold and a ratio', short: 'A ratio',
+      view: 'ratio20',
+      say: 'Now a compressor. Above a threshold at −30 dB, the curve bends: a ratio of 4:1 means every 4 dB that go in over the threshold come out as 1. Below the threshold, still a wire. Drag the ratio and watch the loud hits on the right get pulled down while the quiet ones stay. Loudness is matched, so what changes is the shape of the dynamics, not the volume.',
+      hint: 'the loop, through one compressor',
+      eq1: ['out = T + (in − T) ÷ R    above T', '(level out) = (threshold) + ((level in) − (threshold)) ÷ (ratio)'],
+      eq2: ['T = −30 dB', '(threshold) = −30 dB; below it, (level out) = (level in)'],
+      tryText: 'Slide the ratio up to its end, 20:1. That end is not this page’s choice: once you press Play, the meter reads your own browser’s built-in compressor, whose ratio stops at a number too.' },
+    { title: 'The last stretch of a ratio knob', short: 'The wall',
+      view: 'ratioKnob',
+      say: 'A ratio knob that tries to go all the way, from 1:1 to ∞:1. No finite turn of a ratio scale reaches ∞, so this knob is given a notch at the end. Some hardware took the other road: the dbx 160X’s ratio control runs on through ∞:1 to negative ratios, a slope knob under ratio’s labels. The chart on the right shows where the knob spends its travel: how far the loudest hit, 24 dB over the threshold, still comes out over it. Almost everything happens in the first sliver. Then the numbers climb and climb while the curve barely moves, and the notch is a jump.',
+      hint: 'the loop, through the same compressor',
+      eq1: ['over_out = (in − T) ÷ R', '(how far the loudest hit comes out over the threshold) = (how far it goes in over) ÷ (ratio)'],
+      eq2: ['R → ∞:   over_out → 0,  but no knob position gives R = ∞', 'as (ratio) grows without end, the hit’s overshoot shrinks to nothing, and the knob has to jump to get there'],
+      tryText: 'Drag from 20:1 to the last notch. Read the meter: how many dB the hit moves, against how far the ratio’s number moved. Then switch the taper to log: the bottom spreads out, and the end still needs its notch.' },
+    { title: 'The slope knob', short: 'The slope',
+      view: 'slopeKnob',
+      say: 'Now set the same curve by its slope: 1 is a wire, 0 is a wall, and the ratio is 1 ÷ slope. The two knobs are linked, so either one moves the curve and the other follows. On the travel chart the slope is a straight line: equal turns, equal decibels, and the right end is just the right end. Nothing in the curve was discontinuous. The wall was in the number we used to name it.',
+      hint: 'the loop, through the same compressor',
+      eq1: ['out = T + s × (in − T)    above T,    s = 1 ÷ R', '(level out) = (threshold) + (slope) × ((level in) − (threshold)); (slope) = 1 ÷ (ratio)'],
+      eq2: ['s: 1 → 0   gives   R: 1 → ∞', '(slope) running from 1 to 0, evenly, is (ratio) running from 1 to ∞, unevenly'],
+      tryText: 'Drag the slope from 0.10 to 0, then the ratio knob over the same ground. Then switch the drawing to linear amplitude axes: the straight lines bend, and the slope stops being one number. The slope is constant only in decibels. The right coordinate system here is two choices, not one.' },
+    { title: 'Halfway between two settings', short: 'The morph',
+      view: 'morph',
+      say: 'The page says soft-knee curves interpolate between any two points. Test it. Setting A is a gentle 2:1 with a 12 dB knee; setting B is a limiter, ∞:1, hard knee. The morph slider walks from A to B. Walk it in slope and every point on the way is a working compressor, the knee narrowing as the slope falls. Walk it in ratio and the first hair of travel is already ∞:1. There is no halfway to infinity.',
+      hint: 'the loop, through the morphing compressor',
+      eq1: ['out = in + (s − 1) × (in − T + W/2)² ÷ (2W)    inside the knee', '(level out) = (level in) + ((slope) − 1) × ((level in) − (threshold) + (knee width) ÷ 2)² ÷ (2 × (knee width))'],
+      eq2: ['s(m) = (1 − m) × s_A + m × s_B        R(m) = (1 − m) × R_A + m × R_B', '(slope on the way) = a straight mix of the two slopes; (ratio on the way) = a straight mix of the two ratios'],
+      tryText: 'Walk it in ratio and nudge the morph off zero. Then choose 20:1 for B, a finite end: the ratio walk is no longer broken, but its halfway point, 11:1, leaves the hit 2.2 dB over, most of the way to 20:1’s 1.2, while the slope walk’s halfway, 3.6:1, leaves it 6.6 dB over, halfway in decibels between the ends.' },
+    { title: 'Which is the bigger step?', short: 'The test',
+      view: 'test', test: true,
+      say: 'The test. Five pairs of settings, each played as A and B, in a shuffled order and unnamed. Flip between them while the loop plays and say how different they sound. Loudness is matched, so you are judging the dynamics. Only after the fifth pair does the piece say which ratios they were, how far apart they are in ratio and in slope, and how much the loop’s crest, its peak over its average, actually moved.',
+      hint: 'the loop, A or B, unnamed',
+      eq1: ['ratio distance = |R_A − R_B|        slope distance = |1 ÷ R_A − 1 ÷ R_B|', '(how far apart, in ratio) and (how far apart, in slope): two rulers for the same pair'],
+      eq2: ['crest = peak − rms   (dB)', '(how far the loudest moment stands above the average), measured on the loop as it comes out'],
+      tryText: 'Flip as often as you like and rate by ear alone; the names come after. One of the five pairs is a check on the test itself. When all five are in, the reveal says what each ruler predicted, and you can run them again, reshuffled.' }
+  ];
+
+  var step = 0, playing = false;
+  var st = { s: 0.25, W: 0, taper: 'linear', axes: 'db', match: true, mB: 'inf', coord: 'slope', m: 0 };
+  var engine = { inDb: -90, gs: 0 };
+  var ctx = null, node = null, comp = null, master = null, loading = null, browserRatio = null;
+  var loopSR = 48000, loop = makeLoop(loopSR), dry = measure(loop, loopSR, T, 1, 0);
+
+  // ---------- the curve the controls name, for this step ----------
+  var A_SET = { R: 2, W: 12 };
+  function bSet(){ return st.mB === 'inf' ? { R: Infinity, W: 0 } : { R: 20, W: 0 }; }
+  function current(){
+    var v = STEPS[step].view;
+    if (v === 'wire') return { s: 1, W: 0 };
+    if (v === 'morph') return morph(A_SET, bSet(), st.m, st.coord);
+    if (v === 'test') return test.cur();
+    return { s: st.s, W: st.W };
+  }
+
+  // ---------- loudness matching, from the same engine run offline ----------
+  var mCache = {};
+  function meas(s, W){ var k = s.toFixed(5) + '|' + W.toFixed(3); return mCache[k] || (mCache[k] = measure(loop, loopSR, T, s, W)); }
+  function makeupFor(s, W){ return (st.match || STEPS[step].test) && STEPS[step].view !== 'wire' ? dry.rms - meas(s, W).rms : 0; }
+
+  // ---------- audio ----------
+  function workletURL(){
+    var src = $('bci-core').textContent + '\n' + $('bci-worklet').textContent;
+    return URL.createObjectURL(new Blob([src], { type: 'application/javascript' }));
+  }
+  function ensure(){
+    if (ctx) return loading;
+    ctx = new (window.AudioContext || window.webkitAudioContext)();
+    master = ctx.createGain(); master.gain.value = 0.9;
+    // a safety compressor that never engages here: the loop peaks at −6 dBFS, and matched loudness keeps every setting at or under that (the check runs it)
+    comp = ctx.createDynamicsCompressor(); comp.threshold.value = -1; comp.knee.value = 0; comp.ratio.value = 20; comp.attack.value = 0.002; comp.release.value = 0.1;
+    browserRatio = { min: comp.ratio.minValue, max: comp.ratio.maxValue };
+    // measure at the rate the worklet plays at, so matched loudness is the engine's own
+    if (ctx.sampleRate !== loopSR){ loopSR = ctx.sampleRate; loop = makeLoop(loopSR); dry = measure(loop, loopSR, T, 1, 0); mCache = {}; waveKey = ''; }
+    master.connect(comp); comp.connect(ctx.destination);
+    loading = ctx.audioWorklet.addModule(workletURL());
+    return loading;
+  }
+  var sendTimer = 0;
+  function send(){
+    if (!node) return;
+    var c = current(), mk = makeupFor(c.s, c.W);
+    node.port.postMessage({ s: c.s, W: c.W, T: T, mk: mk });
+  }
+  function sendSoon(){ if (sendTimer) return; sendTimer = setTimeout(function(){ sendTimer = 0; send(); }, 30); }
+  function start(){
+    ensure().then(function(){
+      if (!playing) return;
+      stopNode();
+      node = new AudioWorkletNode(ctx, 'bci', { numberOfInputs: 0, numberOfOutputs: 1, outputChannelCount: [2] });
+      node.port.onmessage = function(e){ var m = e.data || {}; if (typeof m.inDb === 'number'){ engine.inDb = m.inDb; engine.gs = m.gs; } };
+      send(); node.connect(master); meter(); syncTest();
+    });
+  }
+  function stopNode(){ if (node){ try { node.disconnect(); } catch(e){} node.port.onmessage = null; node = null; } engine.inDb = -90; }
+  function stop(){ playing = false; stopNode(); $('play').textContent = 'Play'; syncTest(); }
+  $('play').addEventListener('click', function(){
+    ensure(); if (ctx.state === 'suspended') ctx.resume();
+    if (playing){ stop(); return; }
+    playing = true; $('play').textContent = 'Stop'; start(); syncTest(); meter();
+  });
+
+  // ---------- formatting ----------
+  function fmtR(R){ return !isFinite(R) ? '∞:1' : (Math.abs(R - Math.round(R)) < 1e-9 ? String(Math.round(R)) : R < 10 ? R.toFixed(2) : R < 100 ? R.toFixed(1) : Math.round(R)) + ':1'; }
+  function fmtS(s){ return s.toFixed(s < 0.1 && s > 0 ? 3 : 2); }
+  function fmtDb(d){ return (d >= 0 ? '' : '−') + Math.abs(d).toFixed(Math.abs(d) < 10 ? 2 : 1) + ' dB'; }
+
+  // ---------- controls ----------
+  function syncKnobs(){
+    var R = ratioOf(st.s);
+    $('r20').value = String(Math.min(20, R)); $('r20v').textContent = fmtR(R);
+    var past = isFinite(R) && R > 100;
+    $('rk').value = String(knobOfRatio(R, st.taper)); $('rkv').textContent = past ? fmtR(R) + ', past its end' : fmtR(R);
+    $('sk').value = String(1 - st.s); $('skv').textContent = 's = ' + fmtS(st.s);
+  }
+  $('r20').addEventListener('input', function(){ st.s = slopeOf(parseFloat($('r20').value)); syncKnobs(); sendSoon(); meter(); });
+  $('rk').addEventListener('input', function(){ st.s = slopeOf(ratioKnob(parseFloat($('rk').value), st.taper)); syncKnobs(); sendSoon(); meter(); });
+  $('sk').addEventListener('input', function(){ st.s = slopeKnob(parseFloat($('sk').value)); syncKnobs(); sendSoon(); meter(); });
+  $('mk').addEventListener('input', function(){ st.m = parseFloat($('mk').value); sendSoon(); meter(); });
+  function group(attr, key, after){
+    Array.prototype.forEach.call(document.querySelectorAll('[' + attr + ']'), function(b){
+      b.addEventListener('click', function(){
+        st[key] = b.getAttribute(attr);
+        Array.prototype.forEach.call(document.querySelectorAll('[' + attr + ']'), function(o){ o.setAttribute('aria-pressed', String(o === b)); });
+        if (after) after(); sendSoon(); meter();
+      });
+    });
+  }
+  group('data-taper', 'taper', syncKnobs);
+  group('data-axes', 'axes');
+  group('data-mb', 'mB');
+  group('data-coord', 'coord');
+  group('data-match', 'match', function(){ st.match = st.match === 'on' || st.match === true; });
+
+  // ---------- the blind test ----------
+  var PAIRS = [ { a: 1, b: 2 }, { a: 2, b: 4 }, { a: 10, b: 20 }, { a: 20, b: Infinity }, { a: 4, b: 4 } ];
+  var ANSWERS = ['the same', 'barely', 'clearly', 'very'];
+  var test = {
+    order: [], i: 0, side: 'A', flip: [], answers: [],
+    reset: function(){
+      this.order = PAIRS.map(function(p, i){ return i; });
+      for (var k = this.order.length - 1; k > 0; k--){ var j = Math.floor(Math.random() * (k + 1)), t = this.order[k]; this.order[k] = this.order[j]; this.order[j] = t; }
+      this.flip = PAIRS.map(function(){ return Math.random() < 0.5; });
+      this.i = 0; this.side = 'A'; this.answers = [];
+    },
+    pair: function(){ return PAIRS[this.order[Math.min(this.i, PAIRS.length - 1)]]; },
+    cur: function(){
+      var p = this.pair(), f = this.flip[this.order[Math.min(this.i, PAIRS.length - 1)]];
+      var R = (this.side === 'A') !== f ? p.a : p.b;
+      return { s: slopeOf(R), W: 0 };
+    },
+    done: function(){ return this.i >= PAIRS.length; }
+  };
+  test.reset();
+  function syncTest(){
+    if (!STEPS[step].test) return;
+    var d = test.done();
+    $('pairLabel').textContent = d ? 'All five pairs heard' : 'Pair ' + (test.i + 1) + ' of ' + PAIRS.length;
+    $('abA').disabled = !playing || d; $('abB').disabled = !playing || d;
+    $('abA').setAttribute('aria-pressed', String(test.side === 'A')); $('abB').setAttribute('aria-pressed', String(test.side === 'B'));
+    $('abHint').textContent = d ? 'The answers are below.' : playing ? 'Flip between A and B as often as you like, then say how different they are.' : 'Press Play, then flip between A and B as often as you like.';
+    Array.prototype.forEach.call(document.querySelectorAll('[data-rate]'), function(b){ b.disabled = !playing || d; });
+  }
+  $('abA').addEventListener('click', function(){ test.side = 'A'; syncTest(); send(); });
+  $('abB').addEventListener('click', function(){ test.side = 'B'; syncTest(); send(); });
+  Array.prototype.forEach.call(document.querySelectorAll('[data-rate]'), function(b){
+    b.addEventListener('click', function(){
+      if (test.done()) return;
+      test.answers[test.order[test.i]] = parseInt(b.getAttribute('data-rate'), 10);
+      test.i++; test.side = 'A';
+      if (test.done()) reveal();
+      syncTest(); send(); meter();
+    });
+  });
+  $('again').addEventListener('click', function(){ test.reset(); $('reveal').hidden = true; $('revealNote').hidden = true; $('againRow').hidden = true; setLegend('test'); syncTest(); send(); meter(); });
+  function pairCrest(p){ return Math.abs(meas(slopeOf(p.a), 0).crest - meas(slopeOf(p.b), 0).crest); }
+  function reveal(){
+    var tb = $('reveal').querySelector('tbody'); tb.innerHTML = '';
+    PAIRS.forEach(function(p, i){
+      var rd = Math.abs(p.a - p.b), sd = Math.abs(slopeOf(p.a) - slopeOf(p.b));
+      var tr = document.createElement('tr');
+      tr.innerHTML = '<td>' + fmtR(p.a) + ' and ' + fmtR(p.b) + '</td><td>' + (isFinite(rd) ? rd.toFixed(0) : '<b>∞</b>') + '</td><td>' + sd.toFixed(sd < 0.1 ? 3 : 2) + '</td><td>' + pairCrest(p).toFixed(2) + ' dB</td><td><b>' + ANSWERS[test.answers[i]] + '</b></td>';
+      tb.appendChild(tr);
+    });
+    var a = test.answers, c1020 = pairCrest(PAIRS[2]).toFixed(2), c20i = pairCrest(PAIRS[3]).toFixed(2);
+    var said = 'You called 1:1 and 2:1 “' + ANSWERS[a[0]] + '”, 10:1 and 20:1 “' + ANSWERS[a[2]] + '”, 20:1 and ∞:1 “' + ANSWERS[a[3]] + '”, and 4:1 and 4:1 “' + ANSWERS[a[4]] + '”. ';
+    var again = ' Run them again, reshuffled, if you want another reading.';
+    var r = rulerOf(a), read = {
+      'check-failed': 'These answers pick no ruler: you heard a difference between 4:1 and 4:1, which is one setting played twice, so the other ratings can’t be told from guesses.' + again,
+      'flat': 'These answers pick no ruler: you heard 1:1 to 2:1, the biggest change the loop makes (' + pairCrest(PAIRS[0]).toFixed(2) + ' dB of crest), as no difference at all.' + again,
+      'neither': 'You heard 1:1 to 2:1 but neither 10:1 to 20:1 nor 20:1 to ∞:1. There was no wall at ∞ for your ear to find: a step ratio calls infinite sounded like nothing, as did one ratio calls 10. That is the page’s claim about the phenomenon. On its own it doesn’t pick slope over ratio as a ruler.',
+      'slope': 'Your answers follow the slope’s ruler. The check pair was the same, 1:1 to 2:1 sounded bigger than the step to ∞, and the step to ∞ sat within one notch of 10:1 to 20:1. By ratio those two are 10 and infinitely far apart; by slope both are 0.05, and on this loop they move the crest by ' + c1020 + ' and ' + c20i + ' dB.',
+      'none': 'These answers pick no ruler. ' + (a[0] <= a[3] ? 'You heard the step to ∞ as at least as big as 1:1 to 2:1, which slope puts ten times farther apart and the loop measures at ' + pairCrest(PAIRS[0]).toFixed(2) + ' dB against ' + c20i + '.' : 'You put the step to ∞ more than one notch from 10:1 to 20:1, which slope calls the same distance and the loop measures at ' + c20i + ' against ' + c1020 + ' dB.') + again
+    }[r];
+    var first = '', check = '';
+    $('revealNote').textContent = said + read + first + check;
+    $('reveal').hidden = false; $('revealNote').hidden = false; $('againRow').hidden = false;
+    setLegend('revealed');
+  }
+
+  // ---------- the meter: the three layers, read off the one curve ----------
+  function meter(){
+    var v = STEPS[step].view, c = current(), R = ratioOf(c.s), html = [];
+    if (v === 'test'){
+      $('meter').innerHTML = test.done() ? '' : 'the settings stay unnamed until all five pairs are heard · loudness matched';
+      return;
+    }
+    var mk = makeupFor(c.s, c.W);
+    if (v === 'wire'){ html.push('slope <b>1</b> · ratio <b>1:1</b> · nothing changes'); }
+    else {
+      html.push('slope <b>' + fmtS(c.s) + '</b> · ratio <b>' + fmtR(R) + '</b> · knee <b>' + c.W.toFixed(1) + ' dB</b> · threshold <b>−30 dB</b>' + ((st.match || STEPS[step].test) ? ' · loudness matched, +' + mk.toFixed(1) + ' dB' : ' · loudness not matched'));
+      html.push('the loudest hit, 24 dB over the threshold, comes out <b>' + overOut(c.s).toFixed(2) + ' dB</b> over it');
+    }
+    if (v === 'ratio20'){
+      html.push(browserRatio ? 'your browser’s own compressor (DynamicsCompressorNode): ratio from <b>' + browserRatio.min + '</b> to <b>' + browserRatio.max + '</b>, and no further' : 'press Play and this line reads your browser’s own compressor’s ratio range');
+    }
+    if (v === 'ratioKnob' || v === 'slopeKnob'){
+      var p = knobOfRatio(R, st.taper), q20 = knobOfRatio(20, st.taper);
+      html.push('ratio knob: 20:1 to its last number, 100:1, is <b>' + ((BCI.DETENT - q20) * 100).toFixed(0) + '%</b> of its travel and moves the hit <b>' + (overOut(1 / 20) - overOut(1 / 100)).toFixed(2) + ' dB</b>; the notch from 100:1 to ∞ moves it <b>' + overOut(1 / 100).toFixed(2) + ' dB</b> in one jump');
+      html.push('slope knob: every 1% of travel moves the hit <b>' + (BCI.OVER / 100).toFixed(2) + ' dB</b>, from end to end');
+    }
+    if (v === 'slopeKnob'){
+      var xin = T + BCI.OVER;
+      html.push('slope where the loudest hit sits, on decibel axes: <b>' + fmtS(c.s) + '</b> · on linear axes: <b>' + linearSlopeAt(xin, T, c.s, c.W).toFixed(3) + '</b>, and at 6 dB over: <b>' + linearSlopeAt(T + 6, T, c.s, c.W).toFixed(3) + '</b>');
+    }
+    if (v === 'morph'){
+      var half = morph(A_SET, bSet(), 0.5, st.coord), b = bSet();
+      html.push('morph <b>' + (st.m * 100).toFixed(0) + '%</b> walked in ' + st.coord + ' · halfway this walk gives <b>' + fmtR(ratioOf(half.s)) + '</b> (slope ' + fmtS(half.s) + '), the hit <b>' + overOut(half.s).toFixed(2) + ' dB</b> over; the ends give ' + overOut(1 / A_SET.R).toFixed(2) + ' and ' + overOut(1 / b.R).toFixed(2) + ' dB');
+      if (st.coord === 'ratio' && !isFinite(b.R) && st.m > 0 && st.m < 1) html.push('<i>R = (1 − m) × 2 + m × ∞ = ∞ for every m above 0: the walk is at the wall the moment it leaves A</i>');
+    }
+    if (playing && node && v !== 'test') html.push('the loop, now: in <b>' + fmtDb(engine.inDb) + '</b> · gain <b>' + fmtDb(engine.gs) + '</b>');
+    $('meter').innerHTML = html.join('<br>');
+  }
+  setInterval(function(){ if (playing && STEPS[step].view !== 'test') meter(); }, 250);
+
+  // ---------- step walking ----------
+  var rail = $('rail');
+  STEPS.forEach(function(s, i){
+    var b = document.createElement('button'); b.textContent = (i + 1) + ' · ' + s.short;
+    b.addEventListener('click', function(){ go(i); }); rail.appendChild(b);
+  });
+  var LEGEND = {
+    wire: ['Left · the transfer curve', 'Level in across, level out up, −60 to 0 dB. Dashed: the wire, out = in. The dot is the loop’s level now.', 'Right · one bar of the loop', 'Grey: what goes in. Gold: what comes out. Here they are the same.'],
+    ratio20: ['Left · the transfer curve', 'The dashed line is the threshold. Above it the gold curve bends to the ratio’s slope.', 'Right · one bar of the loop', 'Grey: what goes in. Gold: what comes out, loudness matched. The loud hits come down toward the rest.'],
+    ratioKnob: ['Left · the transfer curve', 'The same curve, set by the ratio knob below.', 'Right · where each knob spends its travel', 'Across: the knob, end to end. Up: how far the loudest hit still comes out over the threshold, 24 dB at the top, 0 at the bottom. Gold: the ratio knob. The dot is where it sits.'],
+    slopeKnob: ['Left · the transfer curve', 'The same curve, set by either knob. Switch to linear axes to see what the slope needs.', 'Right · where each knob spends its travel', 'Gold: the ratio knob, with its jump at the notch. Blue: the slope knob, a straight line.'],
+    morph: ['Left · the curves on the way', 'Faint: the curve at every quarter of the walk. Bright: the curve now.', 'Right · the walk, end to end', 'Across: the morph. Up: the loudest hit’s overshoot. Blue: walked in slope. Gold: walked in ratio.'],
+    test: ['Left · hidden', 'The curve would give the pair away, so it is hidden until all five are heard.', 'Right · hidden', 'So is the loop’s shape.'],
+    revealed: ['Left · the curve now', 'The setting last played. Run the pairs again, reshuffled, to hear them anew.', 'Right · the five pairs, measured', 'How far each pair moves the crest of the loop as it comes out, loudness matched. The same engine you heard, run offline.']
+  };
+  function setLegend(k){ var L = LEGEND[k]; $('legend').innerHTML = '<div><b>' + L[0] + '</b>' + L[1] + '</div><div><b>' + L[2] + '</b>' + L[3] + '</div>'; }
+  function go(i){
+    if (playing) stop();
+    step = i; var s = STEPS[i], v = s.view;
+    Array.prototype.forEach.call(rail.children, function(b, j){ if (j === i) b.setAttribute('aria-current', 'step'); else b.removeAttribute('aria-current'); });
+    $('stepEyebrow').textContent = 'Step ' + (i + 1) + ' of ' + STEPS.length + (s.test ? ' · the test' : '');
+    $('stepTitle').textContent = s.title; $('stepSay').textContent = s.say; $('hearHint').textContent = s.hint;
+    $('eq1').textContent = s.eq1[0]; $('eq1w').textContent = s.eq1[1];
+    $('eq2').textContent = s.eq2[0]; $('eq2w').textContent = s.eq2[1];
+    $('tryText').textContent = s.tryText;
+    setLegend(v === 'test' && test.done() ? 'revealed' : v);
+    $('ctlRatio20').hidden = v !== 'ratio20';
+    $('ctlRatio').hidden = !(v === 'ratioKnob' || v === 'slopeKnob'); $('taperRow').hidden = $('ctlRatio').hidden;
+    $('ctlSlope').hidden = v !== 'slopeKnob'; $('axesRow').hidden = v !== 'slopeKnob';
+    $('morphBox').hidden = v !== 'morph';
+    $('matchRow').hidden = v === 'wire' || v === 'test';
+    $('testBox').hidden = v !== 'test';
+    if (v !== 'slopeKnob') st.axes = 'db';
+    Array.prototype.forEach.call(document.querySelectorAll('[data-axes]'), function(o){ o.setAttribute('aria-pressed', String(o.getAttribute('data-axes') === st.axes)); });
+    if (v === 'ratio20' && ratioOf(st.s) > 20) st.s = 0.25;
+    if (v === 'test' && test.done()) { /* keep the reveal on screen when coming back */ }
+    syncKnobs();
+    $('back').disabled = i === 0; $('next').disabled = i === STEPS.length - 1;
+    syncTest(); meter();
+  }
+  $('back').addEventListener('click', function(){ if (step > 0) go(step - 1); });
+  $('next').addEventListener('click', function(){ if (step < STEPS.length - 1) go(step + 1); });
+
+  // ---------- the picture ----------
+  var cv = $('stage'), css = getComputedStyle(document.documentElement);
+  var ACC = css.getPropertyValue('--accent').trim() || '#e8b84a', FG3 = css.getPropertyValue('--fg-3').trim() || '#8a8aa0', FG4 = css.getPropertyValue('--fg-4').trim() || '#4a4a5a', INFO = css.getPropertyValue('--info').trim() || '#4a8fff';
+  var waveKey = '', waveOut = null;
+  function draw(){
+    var r = cv.getBoundingClientRect(), d = window.devicePixelRatio || 1;
+    var cssH = Math.round(Math.max(240, Math.min(380, r.width * 0.42)));
+    if (cv.style.height !== cssH + 'px') cv.style.height = cssH + 'px';
+    var W = Math.round(r.width * d), H = Math.round(cssH * d);
+    if (cv.width !== W || cv.height !== H){ cv.width = W; cv.height = H; }
+    var g = cv.getContext('2d'), p = 14 * d, gap = 14 * d, S = Math.min(H - 2 * p, W * 0.40);
+    var sx = p, sy = (H - S) / 2, ox = sx + S + gap, ow = W - p - ox, oy = sy, oh = S;
+    g.clearRect(0, 0, W, H);
+    g.strokeStyle = 'rgba(255,255,255,0.06)'; g.lineWidth = d; g.strokeRect(sx, sy, S, S); g.strokeRect(ox, oy, ow, oh);
+    g.font = (10 * d) + 'px JetBrains Mono, monospace'; g.fillStyle = FG4;
+    var v = STEPS[step].view, c = current();
+    if (v === 'test' && !test.done()){
+      g.fillText('HIDDEN UNTIL ALL FIVE PAIRS ARE HEARD', sx + 6 * d, sy + 14 * d);
+      requestAnimationFrame(draw); return;
+    }
+    // ----- left: the transfer curve -----
+    var lin = st.axes === 'lin';
+    // on linear axes the output is scaled to the curve's own top, so its shape shows (−30 dB is 3% of full scale)
+    var yTop = lin ? Math.pow(10, curveDb(0, T, c.s, c.W) / 20) : 1;
+    g.fillText(lin ? 'LINEAR AMPLITUDE · IN 0 TO 1 · OUT 0 TO ' + yTop.toFixed(3) : 'TRANSFER CURVE · dB, −60 TO 0', sx + 6 * d, sy + 14 * d);
+    var pad = 22 * d, ax0 = sx + pad, ay0 = sy + S - pad / 1.4, aw = S - pad * 1.5, ah = S - pad * 1.6;
+    function px(xdb){ return lin ? ax0 + Math.pow(10, xdb / 20) * aw : ax0 + (xdb + 60) / 60 * aw; }
+    function py(ydb){ return lin ? ay0 - Math.pow(10, ydb / 20) / yTop * ah : ay0 - (ydb + 60) / 60 * ah; }
+    g.strokeStyle = FG4; g.lineWidth = d; g.setLineDash([4 * d, 4 * d]);
+    if (!lin){ g.beginPath(); g.moveTo(px(-60), py(-60)); g.lineTo(px(0), py(0)); g.stroke(); }
+    if (v !== 'wire'){ g.beginPath(); g.moveTo(px(T), ay0); g.lineTo(px(T), ay0 - ah); g.stroke(); }
+    g.setLineDash([]);
+    function curvePath(s, Wk){ g.beginPath(); for (var i = 0; i <= 240; i++){ var x = lin ? 20 * Math.log10(Math.max(1e-3, i / 240)) : -60 + 60 * i / 240, y = curveDb(x, T, s, Wk); if (i) g.lineTo(px(x), py(y)); else g.moveTo(px(x), py(y)); } g.stroke(); }
+    if (v === 'morph'){
+      g.strokeStyle = ACC; g.globalAlpha = 0.22; g.lineWidth = 1.5 * d;
+      for (var q = 0; q <= 4; q++){ var mq = morph(A_SET, bSet(), q / 4, st.coord); curvePath(mq.s, mq.W); }
+      g.globalAlpha = 1;
+    }
+    g.strokeStyle = ACC; g.lineWidth = 2.5 * d; curvePath(c.s, c.W);
+    if (playing && node && engine.inDb > -60){
+      var xi = Math.min(0, engine.inDb), yi = curveDb(xi, T, c.s, c.W);
+      g.fillStyle = INFO; g.beginPath(); g.arc(px(xi), py(yi), 5 * d, 0, 7); g.fill();
+    }
+    // ----- right -----
+    if (v === 'wire' || v === 'ratio20'){
+      g.fillStyle = FG4; g.fillText('ONE BAR OF THE LOOP · IN (GREY) AND OUT (GOLD)', ox + 6 * d, oy + 14 * d);
+      var key = c.s.toFixed(4) + '|' + c.W + '|' + st.match;
+      if (key !== waveKey){ waveKey = key; var mm = meas(c.s, c.W), mk = Math.pow(10, makeupFor(c.s, c.W) / 20); waveOut = mm.out.map(function(x){ return x * mk; }); }
+      var cols = Math.max(10, Math.floor(ow - 12 * d)), N = loop.length, mid = oy + oh / 2 + 6 * d, amp = (oh - 34 * d) / 2 / Math.pow(10, BCI.PEAK / 20);
+      [[loop, 'rgba(255,255,255,0.18)'], [waveOut, ACC]].forEach(function(pair){
+        var buf = pair[0]; g.fillStyle = pair[1]; g.beginPath();
+        for (var col = 0; col < cols; col++){ var a = Math.floor(col / cols * N), b = Math.floor((col + 1) / cols * N), hi = 0; for (var k = a; k < b; k++) hi = Math.max(hi, Math.abs(buf[k])); g.rect(ox + 6 * d + col, mid - hi * amp, 1, Math.max(d, 2 * hi * amp)); }
+        g.fill();
+      });
+    } else if (v === 'ratioKnob' || v === 'slopeKnob' || v === 'morph'){
+      var bx = ox + 30 * d, by = oy + oh - 20 * d, bw = ow - 44 * d, bh = oh - 46 * d;
+      g.fillStyle = FG4; g.fillText(v === 'morph' ? 'THE WALK, A TO B · OVERSHOOT OF THE LOUDEST HIT' : 'KNOB TRAVEL · OVERSHOOT OF THE LOUDEST HIT', ox + 6 * d, oy + 14 * d);
+      g.fillText('24', ox + 6 * d, by - bh + 4 * d); g.fillText('0 dB', ox + 6 * d, by + 4 * d);
+      g.strokeStyle = 'rgba(255,255,255,0.08)'; g.beginPath(); g.moveTo(bx, by); g.lineTo(bx + bw, by); g.moveTo(bx, by - bh); g.lineTo(bx + bw, by - bh); g.stroke();
+      var X = function(t){ return bx + t * bw; }, Y = function(o){ return by - o / BCI.OVER * bh; };
+      // draw fn over 0..1; with a notch, the line stops at it and a dashed drop shows the jump
+      function plot(fn, col, wdt, notch){
+        g.strokeStyle = col; g.lineWidth = wdt * d; g.beginPath();
+        var end = notch ? BCI.DETENT - 1e-6 : 1;
+        for (var i = 0; i <= 600; i++){ var t = Math.min(end, i / 600 * end), o = fn(t); if (i) g.lineTo(X(t), Y(o)); else g.moveTo(X(t), Y(o)); }
+        g.stroke();
+        if (notch){
+          var o0 = fn(end), o1 = fn(1);
+          g.setLineDash([2 * d, 3 * d]); g.beginPath(); g.moveTo(X(end), Y(o0)); g.lineTo(X(BCI.DETENT), Y(o1)); g.lineTo(X(1), Y(o1)); g.stroke(); g.setLineDash([]);
+        }
+      }
+      function ratioTravel(t){ return overOut(slopeOf(ratioKnob(t, st.taper))); }
+      if (v === 'morph'){
+        plot(function(t){ return overOut(morph(A_SET, bSet(), t, 'slope').s); }, INFO, 2);
+        plot(function(t){ return overOut(morph(A_SET, bSet(), t, 'ratio').s); }, ACC, 2);
+        var om = overOut(c.s); g.fillStyle = st.coord === 'slope' ? INFO : ACC; g.beginPath(); g.arc(X(st.m), Y(om), 5 * d, 0, 7); g.fill();
+      } else {
+        if (v === 'slopeKnob') plot(function(t){ return overOut(slopeKnob(t)); }, INFO, 2);
+        plot(ratioTravel, ACC, 2, true);
+        g.strokeStyle = 'rgba(232,101,27,0.5)'; g.setLineDash([3 * d, 3 * d]); g.beginPath(); g.moveTo(X(BCI.DETENT), by); g.lineTo(X(BCI.DETENT), by - bh); g.stroke(); g.setLineDash([]);
+        g.fillStyle = FG3; g.fillText('∞ notch', X(BCI.DETENT) - 52 * d, by - bh + 14 * d);
+        var R = ratioOf(c.s); g.fillStyle = ACC; g.beginPath(); g.arc(X(knobOfRatio(R, st.taper)), Y(overOut(c.s)), 5 * d, 0, 7); g.fill();
+        if (v === 'slopeKnob'){ g.fillStyle = INFO; g.beginPath(); g.arc(X(1 - c.s), Y(overOut(c.s)), 4 * d, 0, 7); g.fill(); }
+      }
+    } else if (v === 'test'){
+      g.fillStyle = FG4; g.fillText('THE FIVE PAIRS · CREST OF THE LOOP AS IT COMES OUT', ox + 6 * d, oy + 14 * d);
+      var rows = PAIRS.map(function(pp){ return [fmtR(pp.a) + ' / ' + fmtR(pp.b), pairCrest(pp)]; }), mx = Math.max.apply(null, rows.map(function(rw){ return rw[1]; })) || 1;
+      rows.forEach(function(rw, i){ var yy = oy + 40 * d + i * 26 * d; g.fillStyle = FG3; g.fillText(rw[0], ox + 10 * d, yy + 9 * d); g.fillStyle = ACC; g.fillRect(ox + 120 * d, yy, (ow - 190 * d) * rw[1] / mx, 12 * d); g.fillStyle = FG3; g.fillText(rw[1].toFixed(2) + ' dB', ox + 126 * d + (ow - 190 * d) * rw[1] / mx, yy + 9 * d); });
+    }
+    requestAnimationFrame(draw);
+  }
+
+  go(0); requestAnimationFrame(draw);
+})();
+</script>
+</body>
+</html>
