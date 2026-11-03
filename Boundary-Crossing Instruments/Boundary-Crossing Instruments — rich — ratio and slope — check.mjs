@@ -157,5 +157,20 @@ for (const taper of ['linear', 'log']) {
   check('loudness matched, every slope and knee peaks at or under −6 dBFS', worst <= B.PEAK + 1e-6, `highest peak ${worst.toFixed(2)} dBFS at ${at}`);
 }
 
+// 13 · the reveal names a ruler only when the answers carry one (the challenger's case first: all five "barely")
+{
+  const cases = [
+    [[1, 1, 1, 1, 1], 'check-failed', 'all barely, the check failed'],
+    [[0, 0, 0, 0, 0], 'flat', 'all the same: not even 1:1 to 2:1 heard'],
+    [[3, 2, 0, 0, 0], 'neither', 'neither small step heard'],
+    [[3, 2, 1, 1, 0], 'slope', 'the two 0.05 steps tied, 1/2 above'],
+    [[3, 2, 2, 1, 0], 'slope', 'within one notch'],
+    [[3, 2, 0, 2, 0], 'none', 'the step to ∞ two notches above 10/20'],
+    [[1, 1, 1, 2, 0], 'none', 'the step to ∞ above 1:1 to 2:1'],
+  ];
+  const bad = cases.filter(([a, want]) => E.rulerOf(a) !== want).map(([a, want, why]) => `${why}: got ${E.rulerOf(a)}, want ${want}`);
+  check('the reveal names the slope’s ruler only when the check held, 1/2 beat 20/∞, and 20/∞ sat within one notch of 10/20', bad.length === 0, bad.length ? bad.join('; ') : `${cases.length} cases, the all-“barely” one included`);
+}
+
 console.log(fails ? `\n${fails} FAIL` : '\nall PASS');
 process.exit(fails ? 1 : 0);

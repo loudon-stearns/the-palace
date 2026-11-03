@@ -197,6 +197,15 @@ function linearSlopeAt(x, T, s, W){
   return dy * Math.pow(10, (y - x) / 20);
 }
 
+// the blind test's verdict, from the five ratings (0 the same … 3 very), indexed as the pairs:
+// [1/2, 2/4, 10/20, 20/∞, 4/4]. A ruler is named only when the answers can carry one.
+function rulerOf(a){
+  if (a[4] !== 0) return 'check-failed';            // heard a difference in one setting played twice
+  if (a[0] === 0) return 'flat';                    // did not hear even 1:1 to 2:1, the loop's biggest change
+  if (a[2] === 0 && a[3] === 0) return 'neither';   // heard neither 10:1 to 20:1 nor 20:1 to ∞:1
+  if (a[0] > a[3] && Math.abs(a[3] - a[2]) <= 1) return 'slope';
+  return 'none';
+}
 // ---------- the drum loop: one bar at 96 BPM, made from a seeded noise and sines, seamless ----------
 function mulberry32(a){ return function(){ a |= 0; a = a + 0x6D2B79F5 | 0; var t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
 function makeLoop(sr){
@@ -296,11 +305,11 @@ registerProcessor('bci', BciProcessor);
       tryText: 'Slide the ratio up to its end, 20:1. That end is not this page’s choice: once you press Play, the meter reads your own browser’s built-in compressor, whose ratio stops at a number too.' },
     { title: 'The last stretch of a ratio knob', short: 'The wall',
       view: 'ratioKnob',
-      say: 'A ratio knob that tries to go all the way, from 1:1 to ∞:1. No finite turn reaches ∞, so like most hardware it gets a notch at the end. The chart on the right shows where the knob spends its travel: how far the loudest hit, 24 dB over the threshold, still comes out over it. Almost everything happens in the first sliver. Then the numbers climb and climb while the curve barely moves, and the notch is a jump.',
+      say: 'A ratio knob that tries to go all the way, from 1:1 to ∞:1. No finite turn of a ratio scale reaches ∞, so this knob is given a notch at the end. Some hardware took the other road: the dbx 160X’s ratio control runs on through ∞:1 to negative ratios, a slope knob under ratio’s labels. The chart on the right shows where the knob spends its travel: how far the loudest hit, 24 dB over the threshold, still comes out over it. Almost everything happens in the first sliver. Then the numbers climb and climb while the curve barely moves, and the notch is a jump.',
       hint: 'the loop, through the same compressor',
       eq1: ['over_out = (in − T) ÷ R', '(how far the loudest hit comes out over the threshold) = (how far it goes in over) ÷ (ratio)'],
       eq2: ['R → ∞:   over_out → 0,  but no knob position gives R = ∞', 'as (ratio) grows without end, the hit’s overshoot shrinks to nothing, and the knob has to jump to get there'],
-      tryText: 'Drag from 20:1 to the last notch. Read the meter: how many dB the hit moves, against how far the ratio’s number moved. Then switch the taper to log, as most hardware has it: the bottom spreads out, the end still needs its notch.' },
+      tryText: 'Drag from 20:1 to the last notch. Read the meter: how many dB the hit moves, against how far the ratio’s number moved. Then switch the taper to log: the bottom spreads out, and the end still needs its notch.' },
     { title: 'The slope knob', short: 'The slope',
       view: 'slopeKnob',
       say: 'Now set the same curve by its slope: 1 is a wire, 0 is a wall, and the ratio is 1 ÷ slope. The two knobs are linked, so either one moves the curve and the other follows. On the travel chart the slope is a straight line: equal turns, equal decibels, and the right end is just the right end. Nothing in the curve was discontinuous. The wall was in the number we used to name it.',
@@ -471,12 +480,16 @@ registerProcessor('bci', BciProcessor);
       tb.appendChild(tr);
     });
     var a = test.answers, c1020 = pairCrest(PAIRS[2]).toFixed(2), c20i = pairCrest(PAIRS[3]).toFixed(2);
-    var said = 'You called 20:1 and ∞:1 “' + ANSWERS[a[3]] + '”, 10:1 and 20:1 “' + ANSWERS[a[2]] + '”, and 1:1 and 2:1 “' + ANSWERS[a[0]] + '”. ';
-    var read = a[3] === a[2] ? 'You heard the step to ∞ and the step from 10:1 to 20:1 as the same size. By ratio one is 10 apart and the other infinitely far; by slope both are 0.05, and on this loop they move the crest by ' + c20i + ' and ' + c1020 + ' dB. Your ear used the slope’s ruler.' :
-               a[3] < a[2] ? 'You heard the step to ∞ as the smaller of the two. Ratio calls it infinitely bigger; slope calls them equal, 0.05 each, and the loop measures ' + c20i + ' against ' + c1020 + ' dB. The ruler your ear disagreed with is the ratio.' :
-               'You heard the step to ∞ as the bigger of the two. Slope calls them equal, 0.05 each, and the loop measures ' + c20i + ' against ' + c1020 + ' dB, so on this loop the slope’s answer is a tie. The pairs reshuffle if you run it again.';
-    var first = a[0] > a[3] ? ' And 1:1 to 2:1, one apart in ratio, sounded bigger than the pair infinitely far apart: the slope puts it ten times farther.' : '';
-    var check = a[4] > 0 ? ' You heard a difference between 4:1 and 4:1, one setting played twice; weigh your other answers with that.' : ' You called 4:1 and 4:1 the same, and they are: one setting played twice.';
+    var said = 'You called 1:1 and 2:1 “' + ANSWERS[a[0]] + '”, 10:1 and 20:1 “' + ANSWERS[a[2]] + '”, 20:1 and ∞:1 “' + ANSWERS[a[3]] + '”, and 4:1 and 4:1 “' + ANSWERS[a[4]] + '”. ';
+    var again = ' Run them again, reshuffled, if you want another reading.';
+    var r = rulerOf(a), read = {
+      'check-failed': 'These answers pick no ruler: you heard a difference between 4:1 and 4:1, which is one setting played twice, so the other ratings can’t be told from guesses.' + again,
+      'flat': 'These answers pick no ruler: you heard 1:1 to 2:1, the biggest change the loop makes (' + pairCrest(PAIRS[0]).toFixed(2) + ' dB of crest), as no difference at all.' + again,
+      'neither': 'You heard 1:1 to 2:1 but neither 10:1 to 20:1 nor 20:1 to ∞:1. There was no wall at ∞ for your ear to find: a step ratio calls infinite sounded like nothing, as did one ratio calls 10. That is the page’s claim about the phenomenon. On its own it doesn’t pick slope over ratio as a ruler.',
+      'slope': 'Your answers follow the slope’s ruler. The check pair was the same, 1:1 to 2:1 sounded bigger than the step to ∞, and the step to ∞ sat within one notch of 10:1 to 20:1. By ratio those two are 10 and infinitely far apart; by slope both are 0.05, and on this loop they move the crest by ' + c1020 + ' and ' + c20i + ' dB.',
+      'none': 'These answers pick no ruler. ' + (a[0] <= a[3] ? 'You heard the step to ∞ as at least as big as 1:1 to 2:1, which slope puts ten times farther apart and the loop measures at ' + pairCrest(PAIRS[0]).toFixed(2) + ' dB against ' + c20i + '.' : 'You put the step to ∞ more than one notch from 10:1 to 20:1, which slope calls the same distance and the loop measures at ' + c20i + ' against ' + c1020 + ' dB.') + again
+    }[r];
+    var first = '', check = '';
     $('revealNote').textContent = said + read + first + check;
     $('reveal').hidden = false; $('revealNote').hidden = false; $('againRow').hidden = false;
     setLegend('revealed');

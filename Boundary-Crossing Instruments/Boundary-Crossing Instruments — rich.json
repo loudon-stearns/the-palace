@@ -27,7 +27,13 @@
     {
       "section": "Origin",
       "kind": "no-claim-edit",
-      "what": "List the repeat-rate worlds in the order they sit on the axis: 'pitch, slapback, echo, rhythm, and sub-rhythmic pulse' (the text has echo before slapback). The gathered delay proof puts slapback at 80 to 150 ms and distinct echo at 150 to 800 ms, so a reader sweeping its dial meets them in that order.",
+      "what": "List the repeat-rate worlds in the order they sit on the axis, short delay to long: 'pitch, slapback, echo, rhythm, and sub-rhythmic pulse' (the text has echo before slapback). The order is copied from Frequency-Time Duality's own continuum list, which says it runs short to long and also puts distinct echo before slapback; its Echo Walk puts slapback at 100 ms below rhythmic echo at 200 to 500 ms. Change both pages together (see the offer for Frequency-Time Duality) or they will disagree. On a reading of 'echo' as flutter echo (30 to 80 ms) the page's order holds, so the edit also makes that reading impossible.",
+      "status": "open"
+    },
+    {
+      "section": "→ Frequency-Time Duality",
+      "kind": "no-claim-edit",
+      "what": "In Projects/Frequency-Time Duality.md, the continuum list under 'traveling from high to low frequency / short to long delay' puts Distinct echo before Slapback, against its own short-to-long heading and its Echo Walk (slapback 100 ms, rhythmic echo 200 to 500 ms). Swap the two so the list runs short to long; this is where Boundary-Crossing Instruments' order came from. Separately, its slapback edge (~30 to 120 ms) differs from the gathered proof's 80 to 150 ms; that is a question for that page, not settled here.",
       "status": "open"
     },
     {
@@ -70,7 +76,7 @@
           "contract": {},
           "height": 777,
           "title": "One delay, six worlds · Frequency-Time Duality's May sketch",
-          "caption": "**One dial, several worlds: the 2024 boundary this page says came first.** Press play and drag the delay from 5 seconds down to half a millisecond. Noise pulses go into one delay line with feedback, and the only thing that changes is how often the repeats come. Somewhere along the way they stop being repeats and become a pitch. This is Frequency-Time Duality's May sketch, gathered as it was. Its zone names are drawn in by the code at fixed edges, so listen before you read the label. For a test that leaves the crossing to your ear, Dissolutions' face has a blind glide from 4 to 64 Hz where you mark where loudness becomes a sound.",
+          "caption": "**One dial, several worlds: the 2024 boundary this page says came first.** Press play and drag the delay from 5 seconds down to half a millisecond. Noise pulses go into one delay line with feedback, and the only thing that changes is how often the repeats come. Somewhere along the way they stop being repeats and become a pitch. This is Frequency-Time Duality's May sketch, gathered as it was. Its zone names are drawn in by the code at fixed edges, so listen before you read the label. They are the sketch's six, not the page's five, and the page's last world, sub-rhythmic pulse, lies past the dial's 5 second end. For a test that leaves the crossing to your ear, Dissolutions' face has a blind glide from 4 to 64 Hz where you mark where loudness becomes a sound.",
           "near": "The concept has an earlier instantiation"
         },
         {
@@ -81,7 +87,7 @@
           "caption": "**Is the wall at infinite ratio in the compressor, or in the number?** A drum loop made from noise and sine goes through one compressor whose curve you can set two ways, by ratio and by slope. Six steps: the curve as a plain wire; a threshold and a ratio; a ratio knob's last stretch, where 20:1 to 100:1 takes 78% of a linear knob's travel to move the loudest hit 0.96 dB and ∞ needs a notch; the slope knob, which sets the same curve in equal decibels per turn, 1 to 0; a morph between two settings, which walked in ratio hits ∞:1 the moment it leaves 2:1; and last a blind test of five unnamed pairs, rated by ear and then revealed. 20:1 to ∞:1 is infinitely far apart in ratio and 0.05 in slope, the same as 10:1 to 20:1. On this loop each moves the crest, its peak over its average, by about half a decibel (0.55 and 0.54 dB at 48 kHz). Loudness is matched in the test.\n\nout = T + s × (in − T),  s = 1 ÷ R\n\n(level out, dB) = (threshold) + (slope) × ((level in) − (threshold)), with (slope) = 1 ÷ (ratio)",
           "near": "During work on soft knee compression mathematics",
           "place": "band",
-          "height": 1700
+          "height": 1517
         }
       ],
       "made_against": "843a40e80fc5",
