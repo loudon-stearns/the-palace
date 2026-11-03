@@ -68,7 +68,33 @@
         }
       ],
       "made_against": "d610b763fa4a",
-      "stamped": "2026-11-03"
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "plugin/test-renders/harness_melody.wav",
+            "verdict": "keep",
+            "why": "Evidence, not a test: the plugin's C++ engine singing, captioned honestly as the offline harness (RenderHarness.cpp:7,163), not Live. Makes 'voice synthesizer' heard."
+          },
+          {
+            "file": "Tract Mirror — rich — junction to mirror.html",
+            "verdict": "remake",
+            "why": "A real test that walks up cleanly and runs clean; fix two wordings only. 'Same sound, sample for sample' hides a fitted gain (0.250 /a/, 0.153 /o/ as shipped, read-back ~12-16 dB louder): say 'once one overall level is matched' and print the gain (html line 650, the #r5same label at line 208, and the manifest caption); and line 650's 'what you assume about the ends' should be 'the ends and the walls' (loss 0.996 alone gives /o/ a 0.628 gap). Optional: lip −0.738 = 0.97 × 0.9 × 0.996^42."
+          },
+          {
+            "file": "artifacts/the-mirror/index.html",
+            "verdict": "keep",
+            "why": "The build's full instrument, reached after the walk that is its way up; clean, silent until a click. Note: 1600 px under the same paragraph as the 1150 px walk, with its stale first-version review panel; collapsing it is Loudon's taste."
+          },
+          {
+            "file": "renders/clips/clip_tube_morph.mp4",
+            "verdict": "retire",
+            "why": "Decoration beside step 4 of the walk, which plays the same a-i-u morph live, draws every k and tests the recompute. Its 'the synth's own sound' is also loose: make_clips.py builds on kl_reference, not the plugin."
+          }
+        ]
+      }
     },
     {
       "heading": "Architecture (decided 2026-06-09)",
@@ -122,7 +148,38 @@
         }
       ],
       "made_against": "bed9ca62e72c",
-      "stamped": "2026-11-03"
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "reference/renders/tube_profiles.png",
+            "verdict": "keep",
+            "why": "Shows the single source of truth the section names. Caption note: the optimizer chose 19 cosine coefficients (fit_vowels.py:6,38) clipped at 12 cm² (:37); the 64 points are what they draw, and the flat tops are the clip."
+          },
+          {
+            "file": "renders/clips/clip_glottal_source.mp4",
+            "verdict": "keep",
+            "why": "The only piece that isolates the excitation the text names in one phrase, with its spectrum; the frame matches the caption."
+          },
+          {
+            "file": "reference/renders/vowel_a.wav",
+            "verdict": "keep",
+            "why": "Half of a real ear test of the single-source claim (Python, 44.1 kHz, 22 sections); caption matches make_renders.py:90,95."
+          },
+          {
+            "file": "plugin/test-renders/render_a.wav",
+            "verdict": "keep",
+            "why": "The other half (C++, 48 kHz, 24 sections, vibrato and breath zeroed per RenderHarness.cpp:89-92); CMakeLists.txt:18-25 embeds vowels.json, and both web artifacts carry all six curves and five constants, re-checked."
+          },
+          {
+            "file": "renders/ableton-proof.png",
+            "verdict": "keep",
+            "why": "Backs 'Verified in Live 12'; the caption says exactly what the build log does (VST3 loaded, AU through auval), and the image shows plugin mode, /i/, r_g +0.97, r_l −0.90."
+          }
+        ]
+      }
     }
   ],
   "offers": [
