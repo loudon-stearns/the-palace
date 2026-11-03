@@ -50,7 +50,17 @@ console.log('\nstep 5 — the bugs');
   const lows = [55, 110, 165, 220].map(f => M({ bug: 'ambiguous', freq: f }).f0), highs = [260, 300, 380].map(f => M({ bug: 'ambiguous', freq: f }).cents - M({ freq: f }).cents);
   ok(Math.abs(fl - exp) < 0.05 && lows.every(f => Math.abs(f - fl) < 0.05), `ambiguous: every note below the floor plays ${fl.toFixed(2)} Hz (SR / (2·refr + rise + fall) = ${exp.toFixed(2)})`);
   ok(highs.every(x => Math.abs(x) < 0.05), `ambiguous: above the floor it is inaudible (260, 300, 380 Hz unchanged)`);
-  console.log(`         110 Hz plays ${c(M({ bug: 'ambiguous' }).cents)} cents`); }
+  console.log(`         110 Hz plays ${c(M({ bug: 'ambiguous' }).cents)} cents`);
+  const band = M({ bug: 'ambiguous', freq: 248.5 });
+  const sk = (() => { const e = MachineEngine(SR); e.set({ bug: 'ambiguous', freq: 248.5 }); const st = {}, x = []; let skip = 0, rise = 0;
+    for (let k = 0; k < SR; k++) { x.push(e.tick(st)); if (k > SR / 2) { if (st.from === 0 && st.ph === 2) skip++; if (st.from === 0 && st.ph === 1) rise++; } }
+    let P = null; for (let p = 50; p < 2000 && P == null; p++) { let same = true; for (let k = SR - 4000; k < SR; k++) if (Math.abs(x[k] - x[k - p]) > 1e-9) { same = false; break; } if (same) P = p; }
+    return { skip, rise, P }; })();
+  ok(band.alt && sk.skip > 50 && Math.abs(sk.skip - sk.rise) <= 1 && sk.P === 300, `ambiguous, just above the floor: at 248.5 Hz the threshold and the stray exit open on the same sample every other cycle (${sk.skip} charge → fall jumps, ${sk.rise} rises in 0.5 s); the wave repeats every ${sk.P} samples, ${(SR / sk.P).toFixed(1)} Hz, firing ${band.firesPerSec.toFixed(1)} times a second`);
+  let blo = null, bhi = null; for (let q = 2475; q <= 2505; q++) if (M({ bug: 'ambiguous', freq: q / 10 }).alt) { if (blo == null) blo = q / 10; bhi = q / 10; }
+  ok(blo === 248.1 && bhi === 249.3, `the band runs ${blo}–${bhi} Hz (0.1 Hz steps)`);
+  const floors = [1.0, 1.5, 2.5].map(r => M({ bug: 'ambiguous', freq: 55, refr_ms: r }).f0), tauSame = M({ bug: 'ambiguous', freq: 55, tau_ms: 20 }).f0;
+  ok(Math.abs(floors[0] - 331.0) < 0.1 && Math.abs(floors[1] - 248.7) < 0.1 && Math.abs(floors[2] - 166.1) < 0.1 && Math.abs(tauSame - floors[1]) < 0.01, `ambiguous: the floor is set by the refractory timer (1.0 / 1.5 / 2.5 ms → ${floors.map(f => f.toFixed(1)).join(' / ')} Hz), not by τ (τ = 20 ms → ${tauSame.toFixed(1)} Hz)`); }
 { const run = (bug) => { const e = MachineEngine(SR); e.set({ bug, freq: 110 }); const st = {}; let after = 0, nan = false;
     for (let k = 0; k < SR * 2; k++) { e.P.tau_ms = (k >= SR / 2 && k < SR / 2 + 48) ? 0 : 5; const y = e.tick(st); if (y !== y) nan = true; if (k > SR * 0.6 && st.from === 0 && st.ph === 1) after++; }
     return { after, nan, s: e.state() }; };
@@ -59,7 +69,10 @@ console.log('\nstep 5 — the bugs');
   ok(!b.nan && b.after > 150, `with the guard the same pull is a glitch (${b.after} firings in the next 1.4 s)`);
   const g = M({ tau_ms: 0.1 }); ok(g.silent && !g.nan && g.gap > 0 && g.gap < 1e-12, `with the guard, τ = 0.1 ms at 110 Hz is silent with no NaN: the charge stops ${g.gap.toExponential(1)} short of threshold`);
   let edge = null; for (let f = 55; f <= 400; f++) { const m = M({ tau_ms: 0.1, freq: f }); if (!m.silent) { edge = f; break; } }
-  console.log(`         at τ = 0.1 ms the first note that sounds (1 Hz steps) is ${edge} Hz`); }
+  console.log(`         at τ = 0.1 ms the first note that sounds from rest (1 Hz steps) is ${edge} Hz`);
+  const running = f => { const e = MachineEngine(SR); e.set({ freq: f }); const st = {}; let n = 0; for (let k = 0; k < SR * 1.5; k++) { if (k === SR / 2) e.P.tau_ms = 0.1; e.tick(st); if (k > SR && st.from === 0 && st.ph === 1) n++; } return n; };
+  let low = null; for (let f = 150; f <= 320; f++) if (running(f) > f * 0.25) { low = f; break; }
+  ok(low != null && low < edge, `turned down to τ = 0.1 ms while running, it keeps sounding from ${low} Hz (1 Hz steps), below the from-rest edge of ${edge} Hz`); }
 { const r = [55, 110, 165, 220, 300].map(f => M({ bug: 'latch-edge', freq: f }).cents);
   ok(r.every(x => x > 70), `latch on the fall's end (the section's words) plays sharp: ${r.map(c).join(', ')} cents at 55, 110, 165, 220, 300 Hz`);
   // in the three-state Stage 3, latching as the fall ends is the right edge: the APO engine does it and plays in tune
