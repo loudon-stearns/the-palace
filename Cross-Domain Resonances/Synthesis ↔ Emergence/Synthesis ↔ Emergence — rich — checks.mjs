@@ -10,7 +10,7 @@ import { fileURLToPath } from 'node:url';
 const here = dirname(fileURLToPath(import.meta.url));
 const src = f => readFileSync(join(here, `Synthesis ↔ Emergence — rich — ${f}.html`), 'utf8').match(/const ENGINE_SRC = String\.raw`([\s\S]*?)`;/)[1];
 const A = new Function(src('two sines') + '; return { TwoSines, measure };')();
-const B = new Function(src('predicted beside measured') + '; return { Voice, predictPair, measurePair, predictLoop, measureLoop, repeatsLoop, gap, twins, twinAverages };')();
+const B = new Function(src('predicted beside measured') + '; return { Voice, predictPair, measurePair, predictLoop, measureLoop, repeatsLoop, gap, twins, twinAverages, exponent };')();
 let fails = 0;
 const ok = (cond, line) => { console.log((cond ? 'ok   ' : 'FAIL ') + line); if (!cond) fails++; };
 const within = (parts, db = -40) => { const top = Math.max(...parts.map(p => p.a)); return parts.filter(p => 20 * Math.log10(p.a / top) > db); };
@@ -61,14 +61,24 @@ console.log('— predicted beside measured');
   console.log('     largest sample-to-sample step at 192 kHz: β 0.8 ' + jump(0.8).toFixed(3) + ', β 1.0 ' + jump(1).toFixed(3) + ', β 1.5 ' + jump(1.5).toFixed(3) + ', β 2 ' + jump(2).toFixed(3) + ', β π ' + jump(Math.PI).toFixed(3));
   let shrink = true, bad = []; for (let b = 0.05; b <= 3.851; b += 0.05) { const t = B.twins('loop', b); if (t.part !== null || t.tail > 1e-12) { shrink = false; bad.push(b.toFixed(2)); } }
   ok(shrink, 'twins, β 0.05 to 3.85: the billionth shrinks under 1e-12 and stays there, over 1 s' + (bad.length ? ' — not at ' + bad.join(' ') : ''));
-  const band = []; let firstPart = null, firstApart = null, over = 0, overApart = [], overNot = [];
-  for (let i = 0; i <= 160; i++) { const b = 3.8 + i * 0.00625, t = B.twins('loop', b); if (t.part !== null && firstPart === null) firstPart = b; if (t.apart && firstApart === null) firstApart = b; if (b >= 4.4) { over++; (t.apart ? overApart : overNot).push(b.toFixed(4) + (t.part === null ? ' never parts' : ' back by ' + Math.ceil(t.lastApart) + 'ms')); } if (i % 8 === 0) band.push(b.toFixed(3) + ':' + (t.apart ? 'apart ' + t.part.toFixed(1) + 'ms' : t.part !== null ? 'back in step by ' + Math.ceil(t.lastApart) + 'ms' : 'never part')); }
-  console.log('     3.8 to 4.8: ' + band.join(' · '));
-  ok(firstPart > 3.85 && firstPart < 4.05, 'first β where the twins part: ' + firstPart.toFixed(3) + ' (the DX7\'s feedback ' + (7 + Math.log2(firstPart / Math.PI)).toFixed(2) + ')');
-  ok(firstApart !== null && firstApart < 4.45, 'first β where they part and are still apart after 1 s: ' + (firstApart && firstApart.toFixed(3)));
-  ok(overApart.length >= 0.9 * over, 'from β 4.4 to 4.8, by 1/160: ' + overApart.length + ' of ' + over + ' part and stay apart' + (overNot.length ? '; not: ' + overNot.join(', ') : ''));
+  // The edge, by the Lyapunov exponent (the piece's exponent()), not by twins: twins can re-merge below the last
+  // bit of a double while the loop is still chaotic.
+  let maxNeg = -Infinity; for (let i = 5; i <= 390; i++) maxNeg = Math.max(maxNeg, B.exponent(i / 100));
+  ok(maxNeg < 0, 'the DX7 loop, β 0.05 to 3.90 by 0.01: exponent negative everywhere (largest ' + maxNeg.toFixed(3) + ' per sample)');
+  let firstPos = null; for (let i = 390; i <= 420; i++) if (B.exponent(i / 100) > 0) { firstPos = i / 100; break; }
+  ok(firstPos !== null && firstPos >= 3.91 && firstPos <= 3.95, 'first positive exponent at β ' + firstPos + ' (the DX7\'s feedback ' + (7 + Math.log2(firstPos / Math.PI)).toFixed(2) + ')');
+  const mixed = []; for (let i = 390; i <= 410; i++) mixed.push((i / 100).toFixed(2) + ':' + B.exponent(i / 100).toFixed(3)); console.log('     the band: ' + mixed.join(' '));
+  let notPos = []; for (let i = 410; i <= 480; i++) if (B.exponent(i / 100) <= 0) notPos.push(i / 100);
+  ok(!notPos.length, 'β 4.10 to 4.80 by 0.01: exponent positive everywhere (the DX7\'s feedback 7.38 up)' + (notPos.length ? ' — not at ' + notPos.join(' ') : ''));
+  for (const b of [3.95, 4.05, 4.25]) { const t = B.twins('loop', b); console.log('     β ' + b + ': exponent ' + B.exponent(b).toFixed(3) + ', repeats ' + (100 * B.repeatsLoop(b)).toFixed(1) + ' %, twins ' + (t.apart ? 'apart' : t.part !== null ? 'part then merge by ' + Math.ceil(t.lastApart) + ' ms' : 'never part')); }
+  let pFirst = null; for (let i = 200; i <= 300; i++) if (B.exponent(i / 100, false) > 0) { pFirst = i / 100; break; }
+  ok(pFirst !== null && pFirst >= 2.3 && pFirst <= 2.6, 'the plain one-sample loop: first positive exponent at β ' + pFirst + ' (the DX7\'s feedback ' + (7 + Math.log2(pFirst / Math.PI)).toFixed(2) + ')');
+  let pNot = []; for (let i = 260; i <= 480; i += 2) if (B.exponent(i / 100, false) <= 0) pNot.push(i / 100);
+  ok(!pNot.length, 'the plain loop, β 2.6 to 4.8: exponent positive everywhere' + (pNot.length ? ' — not at ' + pNot.join(' ') : ''));
+  const pr7 = B.repeatsLoop(Math.PI, false);
+  ok(pr7 > 0.7 && pr7 < 0.85, 'the plain loop at β π (feedback 7): ' + (100 * pr7).toFixed(1) + ' % repeats, exponent +' + B.exponent(Math.PI, false).toFixed(3));
   const t44 = B.twins('loop', 4.4), pr = B.twins('pair', 5);
-  ok(t44.apart && t44.part < 10, 'β 4.4: twins part after ' + (t44.part && t44.part.toFixed(2)) + ' ms and are apart (' + t44.tail.toFixed(2) + ') a second later');
+  ok(t44.apart && t44.part < 10 && B.exponent(4.4) > 0, 'β 4.4: exponent +' + B.exponent(4.4).toFixed(3) + ', twins part after ' + (t44.part && t44.part.toFixed(2)) + ' ms and are apart (' + t44.tail.toFixed(2) + ') a second later');
   for (const b of [4.2, 4.4, 4.6]) { const av = B.twinAverages(b); const dr = Math.abs(av.a.rms / av.b.rms - 1), db = Math.abs(av.a.bright / av.b.bright - 1); ok(dr < 0.02 && db < 0.03, 'β ' + b + ': 4-second averages agree, loudness ' + av.a.rms.toFixed(3) + ' / ' + av.b.rms.toFixed(3) + ', brightness ' + Math.round(av.a.bright) + ' / ' + Math.round(av.b.bright) + ' Hz'); }
 }
 console.log(fails ? fails + ' failed' : 'all passed');

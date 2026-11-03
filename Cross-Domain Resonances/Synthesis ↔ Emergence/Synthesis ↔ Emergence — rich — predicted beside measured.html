@@ -5,10 +5,11 @@
   links: [[Synthesis ↔ Emergence]] connects-to · rich-face-piece · listed in [[Synthesis ↔ Emergence — rich.json]] under "Unpredictability ≠ Randomness"
   forward_vector: I am the section's claim, "deterministic, but you can't predict the sound from parameters alone",
     put to the sound. I set a formula's prediction beside a measurement of the sound itself and show where it
-    holds and where it fails: the two-sine pair is predicted exactly by Bessel functions at every depth; one
-    sine feeding back on itself is predicted by Bessel's series for Kepler's equation while the push stays at or
-    under 1; past that only running it tells you; and past an edge near 3.9, two copies started a billionth apart
-    part within milliseconds, the weather the section names. I change only when the section does.
+    holds and where it fails: the two-sine pair is predicted exactly by Bessel functions at every depth; the
+    DX7's feedback loop is predicted by Bessel's series for Kepler's equation while the push stays at or under 1;
+    past that only running it tells you; and past an edge near 3.9 its Lyapunov exponent turns positive, the
+    weather the section names. A plain one-sample loop reaches that edge sooner, near 2.45, and I say so.
+    I change only when the section does.
   engine: the pair, sin(2π·fc·t + I·sin(2π·fm·t)), and the DX7-style feedback loop, y = sin(2π·f·t + β·(y₋₁ + y₋₂)/2),
     the same loop FM Synthesis's feedback piece runs. Synthesis ↔ Emergence — rich — checks.mjs runs ENGINE_SRC
     in Node against every claim the steps make.
@@ -75,7 +76,7 @@
 <div class="piece">
   <div class="kicker"><svg viewBox="-1.1 -1.1 2.2 2.2" aria-hidden="true"><path id="sigil" fill="none" stroke="#e8b84a" stroke-width="0.06"/></svg>made · Web Audio Worklet · sketch</div>
   <h3 class="title">Predicted beside measured — where the formula stops</h3>
-  <p class="sub">The section says FM is deterministic but you can't predict the sound from its parameters alone. This piece puts a prediction made from the parameters beside a measurement of the sound, first for the page's two-sine pair, then for one sine feeding back on itself, and looks for the place where prediction really fails. The last step is the test.</p>
+  <p class="sub">The section says FM is deterministic but you can't predict the sound from its parameters alone. This piece puts a prediction made from the parameters beside a measurement of the sound, first for the page's two-sine pair, then for the DX7's feedback loop, one sine feeding back on itself, and looks for the place where prediction really fails. The last step is the test.</p>
 
   <div class="tabs" id="tabs" role="group" aria-label="steps"></div>
   <div class="step" id="step" aria-live="polite">
@@ -97,13 +98,15 @@
     <canvas id="spec"></canvas>
   </div>
   <div class="panel" id="twinpanel" hidden>
-    <div class="plabel"><span>two copies started a billionth apart · the gap between them, log scale · 20 ms</span><span class="key"><i style="background:#e8b84a"></i>the loop at this β<i style="background:#8a8aa0"></i>the pair, depth 5</span></div>
+    <div class="plabel"><span>two copies started a billionth apart · the gap between them, log scale · 20 ms</span><span class="key"><i style="background:#e8b84a"></i>the DX7's loop at this β<i style="background:#8a8aa0"></i>the pair, depth 5</span></div>
     <canvas id="twins"></canvas>
   </div>
   <div class="read">
     <span id="r-what"></span>
     <span id="w-gap">predicted vs measured <b id="r-gap"></b></span>
     <span id="w-rep" hidden>repeats every cycle <b id="r-rep"></b></span>
+    <span id="w-lam" hidden>exponent <b id="r-lam"></b></span>
+    <span id="w-plain" hidden>a plain one-sample loop here <b id="r-plain"></b></span>
     <span id="w-tw" hidden>twins <b id="r-tw"></b></span>
     <span id="w-avg" hidden>4-second averages, copy A / copy B <b id="r-avg"></b></span>
   </div>
@@ -115,7 +118,7 @@
     <div class="eq">y = sin( ωt + β · y ) &nbsp;⇒&nbsp; y = Σ<sub>n≥1</sub> ( 2 / nβ ) · J<sub>n</sub>(nβ) · sin nωt, &nbsp; while β ≤ 1</div>
     <div class="words">(a sine whose own output pushes its phase, as hard as β) = a sum of harmonics, the n-th as loud as 2·Jₙ(nβ)/(nβ). It is Kepler's equation for where a planet is on its orbit, with β in the place of the orbit's eccentricity, and this is the series Bessel wrote for it. Past β = 1 the equation has three answers at some instants, and the series no longer describes the sound.</div>
   </div>
-  <div class="hint">The pair is measured at 48 kHz on its 200 Hz grid, the loop at 192 kHz on its 200 Hz note, each partial by an exact sum over whole cycles; at 192 kHz the loop's one-step delay sits close enough to the equation for the series to be a fair test. What repeats, and the twins, are read at 48 kHz, where the edge is a ragged band from about β 3.9 to 4.4, with windows of order inside it; it moves a little with the sample rate. Past the edge the exact figures differ from one JavaScript engine to the next (the same code in Node and in Chromium, on one Mac, disagrees), since the last bit of the arithmetic decides them; that is the point. The loop averages its last two outputs, as the DX7 does; β = π is the DX7's feedback 7, and FM Synthesis's feedback piece walks that loop to its edge.</div>
+  <div class="hint">The pair is measured at 48 kHz on its 200 Hz grid, the loop at 192 kHz on its 200 Hz note, each partial by an exact sum over whole cycles; at 192 kHz the loop's one-step delay sits close enough to the equation for the series to be a fair test. What repeats, the exponent and the twins are read at 48 kHz on a 200 Hz note. For the DX7's loop the exponent is negative to β 3.90, mixed in a narrow band, and positive at every β tested from 4.1; for a plain loop that feeds back only its last output it is positive from about 2.45. Both edges move a little with the sample rate and the pitch. Past the edge the exact figures differ from one JavaScript engine to the next (the same code in Node and in Chromium, on one Mac, disagrees), since the last bit of the arithmetic decides them; that is the point. The loop averages its last two outputs, as the DX7 does; β = π is the DX7's feedback 7, and FM Synthesis's feedback piece walks that loop to its edge.</div>
   <div class="foot">Loud'n Live</div>
 </div>
 
@@ -128,12 +131,12 @@ class Voice {
   constructor(sr) {
     this.sr = sr; this.kind = 'pair'; this.gate = 0; this.g = 0;
     this.fc = 400; this.fm = 200; this.index = 0; this.I = 0; this.pc = 0; this.pm = 0;
-    this.f = 200; this.beta = 0; this.b = 0; this.ph = 0; this.y1 = 0; this.y2 = 0;
+    this.f = 200; this.beta = 0; this.b = 0; this.ph = 0; this.y1 = 0; this.y2 = 0; this.avg = true;
     this.sm = 1 - Math.exp(-1 / (0.015 * sr)); this.gm = 1 - Math.exp(-1 / (0.006 * sr));
   }
   set(d) {
     const was = this.kind;
-    for (const k of ['kind', 'fc', 'fm', 'index', 'f', 'beta', 'gate']) if (d[k] !== undefined) this[k] = d[k];
+    for (const k of ['kind', 'fc', 'fm', 'index', 'f', 'beta', 'gate', 'avg']) if (d[k] !== undefined) this[k] = d[k];
     if (d.snap || was !== this.kind) { this.I = this.index; this.b = this.beta; this.y1 = this.y2 = 0; }
   }
   step() {
@@ -146,7 +149,7 @@ class Voice {
       return y;
     }
     this.b += (this.beta - this.b) * this.sm;
-    const y = Math.sin(TP * this.ph + this.b * 0.5 * (this.y1 + this.y2));
+    const y = Math.sin(TP * this.ph + (this.avg ? this.b * 0.5 * (this.y1 + this.y2) : this.b * this.y1));
     this.y2 = this.y1; this.y1 = y;
     this.ph += this.f / this.sr; this.ph -= Math.floor(this.ph);
     return y;
@@ -185,8 +188,8 @@ function measureLoop(beta, K = 16) {
   const x = new Float64Array(P * C); for (let i = 0; i < x.length; i++) x[i] = e.step();
   return { amp: harmonics(x, P, K), repeats: repeatsLoop(beta) };
 }
-function repeatsLoop(beta) {
-  const SR = 48000, P = 240, C = 80, e = new Voice(SR); e.set({ kind: 'loop', f: 200, beta, snap: true });
+function repeatsLoop(beta, avg = true) {
+  const SR = 48000, P = 240, C = 80, e = new Voice(SR); e.set({ kind: 'loop', f: 200, beta, avg, snap: true });
   for (let i = 0; i < P * 40; i++) e.step();
   const x = new Float64Array(P * C); for (let i = 0; i < x.length; i++) x[i] = e.step();
   const mean = new Float64Array(P); for (let c = 0; c < C; c++) for (let i = 0; i < P; i++) mean[i] += x[c * P + i] / C;
@@ -224,6 +227,22 @@ function twins(kind, value, ms = 20, total = 1000, nudge = 1e-9) {
   }
   return { gap: gapOf, part, lastApart, tail, apart: part !== null && tail > 0.1 };
 }
+// The largest Lyapunov exponent, per sample: how fast a small difference grows (positive) or shrinks (negative).
+// The loop at 48 kHz on 200 Hz, from rest, settled 0.25 s, averaged over 1 s, carrying a tangent vector through
+// the same equation and renormalising each sample. avg: the DX7's loop (the average of the last two outputs);
+// otherwise the plain loop, y = sin(θ + β·y₋₁).
+function exponent(beta, avg = true, seconds = 1) {
+  const SR = 48000, F = 200, N0 = SR / 4, N1 = Math.round(SR * seconds), TP = 2 * Math.PI;
+  let ph = 0, y1 = 0, y2 = 0, d1 = 1, d2 = 0, sum = 0;
+  for (let i = 0; i < N0 + N1; i++) {
+    const arg = TP * ph + (avg ? beta * 0.5 * (y1 + y2) : beta * y1), y = Math.sin(arg), c = Math.cos(arg);
+    const d = avg ? c * beta * 0.5 * (d1 + d2) : c * beta * d1;
+    d2 = d1; d1 = d; y2 = y1; y1 = y;
+    const n = Math.hypot(d1, d2) || 1e-300; if (i >= N0) sum += Math.log(n); d1 /= n; d2 /= n;
+    ph += F / SR; ph -= Math.floor(ph);
+  }
+  return sum / N1;
+}
 // What the twins still share: loudness (rms) and a brightness (the rms of the slope over the rms, as a frequency),
 // each over the seconds after the nudge.
 function twinAverages(beta, seconds = 4) {
@@ -243,8 +262,8 @@ class Proc extends AudioWorkletProcessor {
   process(_, outs) { const o = outs[0]; this.e.render(o[0], o[1] || o[0], o[0].length); return true; }
 }
 registerProcessor('se-predicted', Proc);`;
-const { Voice, predictPair, measurePair, predictLoop, measureLoop, repeatsLoop, gap, twins, twinAverages } =
-  new Function(ENGINE_SRC + '; return { Voice, predictPair, measurePair, predictLoop, measureLoop, repeatsLoop, gap, twins, twinAverages };')();
+const { Voice, predictPair, measurePair, predictLoop, measureLoop, repeatsLoop, gap, twins, twinAverages, exponent } =
+  new Function(ENGINE_SRC + '; return { Voice, predictPair, measurePair, predictLoop, measureLoop, repeatsLoop, gap, twins, twinAverages, exponent };')();
 
 // ───────────── the walk ─────────────
 const S = { step: 0, reached: 0, kind: 'pair', index: 2, beta: 0.6, playing: false, sweep: null, sweepWorst: null, showMeas: true, twins: false, max: 5 };
@@ -258,13 +277,13 @@ const STEPS = [
     teach: 'Sweep the depth across the whole range the page names, 0 to 5, and keep the worst gap. If the parameters alone could not predict the sound, this is where it would show.',
     back: 'Stop the sweep anywhere and it is step 2.' },
   { name: 'one operator · listening to itself', kind: 'loop', beta: 0.6, max: 1, meas: true, ctl: ['beta'],
-    teach: 'A different rule: one sine whose own output pushes its own phase, the feedback FM of Advanced Applications. Surely this is past prediction? Not yet. While the push β stays at or under 1 there is a formula for it too, and it is Bessel again: the series he wrote for Kepler\'s equation of an orbit. The rings are that series, the lines the loop, measured.',
+    teach: 'A different rule: one sine whose own output pushes its own phase. This is the DX7\'s loop, which feeds back the average of its last two outputs; Advanced Applications names feedback FM without saying which loop, and step 6 sets a plainer one beside it. Surely this is past prediction? Not yet. While the push β stays at or under 1 there is a formula for it too, and it is Bessel again: the series he wrote for Kepler\'s equation of an orbit. The rings are that series, the lines the loop, measured.',
     back: 'At β = 0 it is one sine, as in step 1 at depth 0.' },
   { name: 'past β = 1 · the formula stops', kind: 'loop', beta: 2, max: 3.6, meas: true, ctl: ['beta'],
     teach: 'Push past 1. The equation the loop stands for now has three answers at some instants, so the loop must jump from one to another, and a sawtooth\'s jump grows in the wave. The series still gives numbers, but they are no longer this sound: watch the gap open. And yet the loop is steady, every cycle the same. Nothing predicts it from the parameters but running it. This is the section\'s sentence exactly: deterministic, and known only by calculating.',
     back: 'Bring β under 1 and it is step 4.' },
   { name: 'twins · the test', kind: 'loop', beta: 2, max: 4.8, meas: true, twins: true, ctl: ['beta', 'presets'],
-    teach: 'The test of "cannot predict". Run two copies of the same sound, nudge one by a billionth, and watch the gap between them for 20 ms on a log scale. The pair, in grey, keeps its tiny difference, no larger and no smaller. The loop, below its edge, shrinks the difference away. Push β on. Near 4 the edge is ragged: the twins may part and then fall back into step. From about 4.4, nearly everywhere you set it, they part within milliseconds and are still apart a second later, and only their averages agree. That is the weather the section names, and of everything on this page, only this does it.' },
+    teach: 'The test of "cannot predict". Run two copies of the same sound, nudge one by a billionth, and watch the gap between them for 20 ms on a log scale. The pair, in grey, keeps its tiny difference, no larger and no smaller. The DX7\'s loop, below its edge, shrinks the difference away. Push β on. The readout that decides is the exponent: how fast a small difference grows, per sample. For this loop it stays negative to about 3.9 (the DX7\'s feedback 7.31), changes sign back and forth in a narrow band, and is positive at every β tested from about 4.1 (feedback 7.38). There, deterministic as it is, running it tells you one copy\'s wave and not the next one\'s. The twins can miss it: once a cycle the loop squeezes their gap below the last bit a double holds, and they meet again while the loop still does not repeat. A plain loop that feeds back only its last output gets there sooner, from about 2.45, inside the DX7\'s range.' },
 ];
 
 const $ = id => document.getElementById(id);
@@ -389,25 +408,35 @@ function update() {
   $('r-gap').textContent = dbs(gp.rms) + ' dB rms · worst ' + dbs(gp.worst) + ' dB' + (gp.worst > 0.05 ? ', harmonic ' + gp.at : '');
   $('w-rep').hidden = pair || S.step < 4;
   $('r-rep').textContent = (100 * m.repeats).toFixed(1) + ' %';
-  let tw = null, ref = null;
+  let tw = null, ref = null, lam = null, plain = null;
   if (S.twins) {
     tw = twins('loop', S.beta); ref = twins('pair', 5);
+    lam = exponent(S.beta, true);
+    plain = { lam: exponent(S.beta, false), rep: repeatsLoop(S.beta, false) };
     D.tw = tw; D.ref = ref;
+    $('w-lam').hidden = false; $('w-plain').hidden = false;
+    $('r-lam').textContent = lamWords(lam);
+    $('r-plain').textContent = 'exponent ' + (plain.lam >= 0 ? '+' : '−') + Math.abs(plain.lam).toFixed(3) + ' · repeats ' + (100 * plain.rep).toFixed(1) + ' %';
     $('w-tw').hidden = false;
     $('r-tw').textContent = tw.apart ? 'part after ' + tw.part.toFixed(2) + ' ms, still apart a second later'
-      : tw.part !== null ? 'part after ' + tw.part.toFixed(2) + ' ms, back in step by ' + Math.ceil(tw.lastApart) + ' ms'
-      : tw.tail < 1e-12 ? 'the difference shrinks away' : 'stay within ' + tw.tail.toExponential(0);
+      : tw.part !== null ? 'part after ' + tw.part.toFixed(2) + ' ms, the same numbers again by ' + Math.ceil(tw.lastApart) + ' ms'
+      : tw.tail < 1e-12 ? (lam > 0 ? 'never part: their gap fell below the last bit a double holds' : 'the difference shrinks away') : 'stay within ' + tw.tail.toExponential(0);
     clearTimeout(avgTimer); $('w-avg').hidden = true;
     if (tw.apart) avgTimer = setTimeout(() => {
       const av = twinAverages(S.beta);
       $('w-avg').hidden = false;
       $('r-avg').textContent = 'loudness ' + av.a.rms.toFixed(3) + ' / ' + av.b.rms.toFixed(3) + ' · brightness ' + Math.round(av.a.bright) + ' / ' + Math.round(av.b.bright) + ' Hz';
     }, 160);
-  } else { $('w-tw').hidden = true; $('w-avg').hidden = true; }
-  verdict(gp, m, tw);
+  } else { $('w-tw').hidden = true; $('w-avg').hidden = true; $('w-lam').hidden = true; $('w-plain').hidden = true; }
+  verdict(gp, m, tw, lam, plain);
   drawAll();
 }
-function verdict(gp, m, tw) {
+function lamWords(l) {
+  const sgn = (l >= 0 ? '+' : '−') + Math.abs(l).toFixed(3) + ' per sample';
+  if (Math.abs(l) < 0.002) return sgn + ' · on the edge';
+  return sgn + (l > 0 ? ' · a difference grows e-fold every ' + Math.max(1, Math.round(1 / l)) + ' samples' : ' · a difference shrinks');
+}
+function verdict(gp, m, tw, lam, plain) {
   const v = $('verdict'); v.textContent = '';
   const fam = t => el('span', { class: 'fam' }, t);
   if (!S.showMeas) { v.append(fam('predicted'), 'Rings only: a prediction, from the depth and the ratio. Play the next step to put the sound beside it.'); return; }
@@ -420,17 +449,17 @@ function verdict(gp, m, tw) {
     return;
   }
   const b = S.beta;
-  if (tw && tw.part !== null && !tw.apart) {
-    v.append(fam('the edge'), 'Ragged ground. The twins part after ' + tw.part.toFixed(2) + ' ms, wander, and fall back into step by ' + Math.ceil(tw.lastApart) + ' ms: disorder for a while, then order again. Near β 4 the loop moves in and out of this; push on.');
+  const plainNote = plain && plain.lam > 0 && (lam === null || lam < 0) ? ' A plain loop that feeds back only its last output is already chaotic at this push (exponent +' + plain.lam.toFixed(3) + ', ' + (100 * plain.rep).toFixed(0) + ' % repeats): which loop you build decides.' : '';
+  if (lam !== null && lam > 0) {
+    const twinLine = tw.apart ? ' The twins part after ' + tw.part.toFixed(2) + ' ms and are still apart a second later; only their averages agree.'
+      : tw.part !== null ? ' The twins parted after ' + tw.part.toFixed(2) + ' ms and met again by ' + Math.ceil(tw.lastApart) + ' ms. Not order: once a cycle the loop squeezes their gap below the last bit a double holds, and from then on they are the same numbers.'
+      : ' Here the twins never even part: once a cycle the loop squeezes their billionth below the last bit a double holds, before it can grow. The exponent is the measure, not the twins.';
+    v.append(fam('chaos'), 'Past the edge, for the DX7\'s loop. The exponent is positive, ' + lamWords(lam) + ', and only ' + (100 * m.repeats).toFixed(0) + ' % of the loop repeats each cycle.' + twinLine + ' Deterministic, and past a horizon of milliseconds, unpredictable: the weather the section names.');
     return;
   }
-  if (tw && tw.apart) {
-    v.append(fam('neither'), 'Past the edge. The twins part after ' + tw.part.toFixed(2) + ' ms and are still apart a second later: running the loop tells you this copy\'s wave and not the next one\'s, and a nudge smaller than any knob decides which. Only ' + (m.repeats < 0.5 ? 'a little' : 'part') + ' of it repeats each cycle (' + (100 * m.repeats).toFixed(0) + ' %). Deterministic, and past a horizon of milliseconds, unpredictable: the section\'s weather, and the only place on this page it is true.');
-    return;
-  }
-  if (b <= 1 && gp.rms <= 1.5) { v.append(fam('formula'), 'The series and the loop agree to ' + dbs(gp.rms) + ' dB rms over the first 16 harmonics. One sine feeding back on itself, and still predicted from β alone.' + (tw ? ' The twins: the difference shrinks away.' : '')); return; }
+  if (b <= 1 && gp.rms <= 1.5) { v.append(fam('formula'), 'The series and the loop agree to ' + dbs(gp.rms) + ' dB rms over the first 16 harmonics. The DX7\'s loop, feeding back on itself, and still predicted from β alone.' + (tw ? ' Its exponent is negative: a difference shrinks away.' : '') + plainNote); return; }
   if (gp.rms <= 1.5) { v.append(fam('formula, barely'), 'Past 1 the equation has more than one answer at some instants, yet the series still lands within ' + gp.rms.toFixed(2) + ' dB rms here. Push on and watch it come apart.'); return; }
-  v.append(fam('calculation'), 'The series is ' + gp.rms.toFixed(1) + ' dB rms off the sound' + (gp.worst > 3 ? ', ' + gp.worst.toFixed(0) + ' dB at harmonic ' + gp.at : '') + ': its numbers are no longer this loop. Yet ' + (100 * m.repeats).toFixed(1) + ' % of the loop repeats every cycle' + (tw ? ', and its twins forget their billionth' : '') + '. Deterministic, known only by running it.');
+  v.append(fam('calculation'), 'The series is ' + gp.rms.toFixed(1) + ' dB rms off the sound' + (gp.worst > 3 ? ', ' + gp.worst.toFixed(0) + ' dB at harmonic ' + gp.at : '') + ': its numbers are no longer this loop. Yet ' + (100 * m.repeats).toFixed(1) + ' % of the loop repeats every cycle' + (lam !== null ? ', and its exponent is negative: a difference shrinks' : '') + '. Deterministic, known only by running it.' + plainNote);
 }
 function sized(cv) {
   const d = devicePixelRatio || 1, w = cv.clientWidth, h = cv.clientHeight;
