@@ -1,0 +1,287 @@
+<!doctype html>
+<!--
+title: Murmuration — rich — blind pair
+born: 2026-11-03
+links:
+  - target: "[[Murmuration]]"
+    type: connects-to
+    label: rich-face-piece
+  - target: "[[Progressive Staging]]"
+    type: connects-to
+    label: walks-up-to-its-test
+forward_vector: "I am the project's own wager put to whoever is reading: two takes of one performance, one grown by a flock and one copied from it by hand, with the key kept shut until you answer. I walk up from the score the takes follow, through what a hand can copy, to the two side by side, and only then ask. I change only when the section I serve does, or when someone renders a sharper pair."
+status: "proposal, Enrichment's proposal round 2026-11; not yet heard by Loudon"
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:files" content="blind-X.wav blind-Y.wav">
+<title>The blind pair</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Manrope:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root { --bg:#0a0a0f; --e1:#12121a; --border:#4a4a5e; --soft:rgba(255,255,255,.07); --fg1:#e8e8f0; --fg2:#c8c8d8; --fg3:#8a8aa0; --fg4:#4a4a5a;
+    --amber:#e8b84a; --amberline:rgba(232,184,74,.5); --teal:#3fd6c0; --indigo:#7b7ff5; --warn:#ff9b4a; --ok:#7fd49a;
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --sans:'Manrope',system-ui,sans-serif; --serif:'Cormorant Garamond',Georgia,serif;
+    --ease:cubic-bezier(.4,0,.2,1); }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); font-weight: 300; }
+  .piece { padding: 22px 22px 18px; max-width: 1180px; }
+  .kicker, .eyebrow { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg3); }
+  .kicker { margin-bottom: 6px; }
+  .title { font-family: var(--serif); font-size: 28px; font-weight: 300; color: var(--fg1); margin: 0 0 6px; }
+  .sub { font-size: 14px; line-height: 1.6; color: var(--fg2); max-width: 76ch; margin: 0 0 14px; }
+  .rail { display: flex; flex-wrap: wrap; margin: 4px 0 16px; border-bottom: 1px solid var(--soft); }
+  .rail button { font-family: var(--mono); font-size: 11px; letter-spacing: .1em; text-transform: none; color: var(--fg3); background: none; border: 0; border-bottom: 2px solid transparent; border-radius: 0; padding: 8px 12px 7px; cursor: pointer; transition: color 220ms var(--ease); }
+  .rail button:hover { color: var(--fg1); }
+  .rail button[aria-current=step] { color: var(--amber); border-bottom-color: var(--amber); }
+  .rail button .n { color: var(--fg4); margin-right: 6px; }
+  .rail button[aria-current=step] .n { color: var(--amber); }
+  .step h3 { font-family: var(--serif); font-size: 23px; font-weight: 300; color: var(--fg1); margin: 4px 0 8px; }
+  .say { font-size: 14px; line-height: 1.65; color: var(--fg2); max-width: 78ch; margin: 0 0 14px; }
+  .panel { border: 1px solid var(--soft); border-radius: 2px; background: var(--e1); padding: 12px 14px; }
+  .bar { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 10px; }
+  .bar .hint { flex: 1 1 260px; }
+  canvas { display: block; width: 100%; cursor: pointer; }
+  button { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--fg2); background: var(--bg); border: 1px solid var(--border); border-radius: 2px; padding: 8px 13px; cursor: pointer; transition: border-color 220ms var(--ease), color 220ms var(--ease); }
+  button:hover { border-color: rgba(232,184,74,.55); color: var(--fg1); }
+  button.go { color: var(--amber); border-color: var(--amberline); box-shadow: 0 0 14px rgba(232,184,74,.16); }
+  button[aria-pressed=true] { color: var(--amber); border-color: var(--amberline); }
+  button:disabled { opacity: .4; cursor: default; }
+  .hint { font-family: var(--mono); font-size: 11px; letter-spacing: .05em; color: var(--fg3); }
+  .state { color: var(--amber); }
+  .read { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 8px 22px; margin-top: 14px; padding-top: 10px; border-top: 1px solid var(--soft); font-family: var(--mono); font-size: 11.5px; letter-spacing: .03em; color: var(--fg3); line-height: 1.5; }
+  .read b { color: var(--fg1); font-weight: 500; }
+  .eqs { margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--soft); }
+  .eq { font-family: var(--serif); font-size: 19px; color: var(--fg1); }
+  .words { font-size: 13px; line-height: 1.55; color: var(--fg2); margin: 2px 0 8px; }
+  .try { font-size: 13.5px; line-height: 1.6; color: var(--fg2); margin: 14px 0 0; max-width: 80ch; }
+  .try .eyebrow { margin-right: 10px; color: var(--amber); }
+  .copied { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 6px 22px; margin: 6px 0 4px; font-size: 13.5px; line-height: 1.55; }
+  .copied div::before { content: "· "; color: var(--amber); }
+  .copied div.gone::before { content: "× "; color: var(--warn); }
+  .answers { display: flex; flex-wrap: wrap; gap: 10px; margin: 6px 0 4px; }
+  .key { margin-top: 14px; }
+  .key[hidden] { display: none; }
+  .verdict { font-family: var(--serif); font-size: 21px; color: var(--fg1); margin: 4px 0 10px; }
+  table.meas { border-collapse: collapse; font-family: var(--mono); font-size: 11.5px; margin-top: 12px; width: 100%; }
+  table.meas th, table.meas td { text-align: right; padding: 5px 10px; border-bottom: 1px solid var(--soft); }
+  table.meas th:first-child, table.meas td:first-child { text-align: left; }
+  table.meas th { color: var(--fg3); font-weight: 400; letter-spacing: .06em; }
+  table.meas td { color: var(--fg1); }
+  table.meas td.diff { color: var(--amber); }
+  .walk { display: flex; justify-content: space-between; margin-top: 18px; }
+  .foot { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: 20px; padding-top: 10px; border-top: 1px solid var(--soft); font-family: var(--mono); font-size: 10.5px; letter-spacing: .18em; text-transform: uppercase; color: var(--fg4); }
+  .foot .mark { display: inline-flex; align-items: center; gap: 8px; color: var(--fg3); letter-spacing: .12em; text-transform: none; }
+  .foot .mark i { font-family: var(--serif); color: var(--amber); font-weight: 300; }
+</style>
+</head>
+<body>
+<div class="piece">
+  <div class="kicker">made · study · four steps · the wager, put to your ear</div>
+  <h1 class="title">The blind pair</h1>
+  <p class="sub">The project bets that a grain cloud grown by a flock sounds more alive than one dialed in by hand, and says the honest test is blind. Here are the two takes its steward rendered for that test: one performance, the same 60 grains, the same mapping. One take is the flock. The other copies from the flock everything a hand could copy. The key stays shut until you answer. Nothing plays until you press play.</p>
+  <nav class="rail" aria-label="Steps"></nav>
+
+  <section class="step" data-title="The score">
+    <div class="eyebrow">Step 1 of 4 · one take, and what it follows</div>
+    <h3>Forty seconds: melted, gathering, ordered, a scare, melting again</h3>
+    <p class="say">Start with one take alone, and the score both takes follow. The grey line is the Disorder slider. The bright line is φ, how much the flock agrees on a heading: near 0.1 when every bird goes its own way, near 1 when they all fly together. In this mapping a bird's heading is its pitch, one octave around, and a bird held steady by its neighbours sings long grains while a tumbling one clicks. So as φ climbs, listen for the cloud to gather toward one pitch.</p>
+    <div class="panel">
+      <div class="bar"><span class="hint">take X · dashed: the Disorder slider · bright: flock order φ · click the timeline to move the playhead</span><button class="go" data-play="X">▶ play take X</button><button data-stop>stop</button></div>
+      <canvas id="c1"></canvas>
+      <div class="read"><div>time<br><b data-t></b></div><div>section<br><b data-sec></b></div><div>flock order φ here<br><b data-phi></b></div><div class="state" data-state></div></div>
+      <div class="eqs">
+        <div class="eq">φ = | v̂₁ + v̂₂ + … + v̂ₙ | ÷ N</div>
+        <div class="words">(how much the flock agrees) = the length of all the birds' headings added together, each as an arrow of length one, divided by how many birds there are.</div>
+      </div>
+    </div>
+    <p class="try"><span class="eyebrow">Try</span>Play it through once. Then jump to 14 s, where the flock has crossed into order, and to 21 s, where the scare lands.</p>
+  </section>
+
+  <section class="step" data-title="What a hand can copy" hidden>
+    <div class="eyebrow">Step 2 of 4 · the other take</div>
+    <h3>Copy everything you can measure, and leave out who listens to whom</h3>
+    <p class="say">The other take is the hard version of a hand-dialed cloud. Frame by frame, sixty times a second, it is handed the flock's numbers and told to match them, each grain wandering on its own smooth random path. What it copies, and what it can't:</p>
+    <div class="copied">
+      <div>where the cloud's centre is</div>
+      <div>how far it spreads, and in which direction</div>
+      <div>how fast the birds go, and how much that varies</div>
+      <div>how much they agree on a heading, φ</div>
+      <div>the mix of long singing grains and short clicks</div>
+      <div class="gone">which bird steers by which neighbour</div>
+    </div>
+    <div class="panel" style="margin-top:12px">
+      <div class="bar"><span class="hint">take Y · the same score: dashed, the Disorder slider · bright, flock order φ</span><button class="go" data-play="Y">▶ play take Y</button><button data-stop>stop</button></div>
+      <canvas id="c2"></canvas>
+      <div class="read"><div>time<br><b data-t></b></div><div>section<br><b data-sec></b></div><div>flock order φ here<br><b data-phi></b></div><div class="state" data-state></div></div>
+      <div class="eqs">
+        <div class="eq">σ = √(−2 · ln φ)</div>
+        <div class="words">(how widely the copied grains' headings scatter) is chosen each frame so that their agreement comes out equal to the flock's φ: tight when the flock is ordered, wide when it is melted.</div>
+      </div>
+    </div>
+    <p class="try"><span class="eyebrow">Try</span>Listen to the same two moments, 14 s and 21 s. Don't decide yet.</p>
+  </section>
+
+  <section class="step" data-title="Side by side" hidden>
+    <div class="eyebrow">Step 3 of 4 · one switch</div>
+    <h3>The same moment, either take, at the press of a key</h3>
+    <p class="say">Both takes now run together and the switch chooses which you hear, so you compare the same second of the performance, not your memory of it. They were matched in loudness before they were written: one take was turned down by 0.36 dB to meet the other.</p>
+    <div class="panel">
+      <div class="bar"><span class="hint">press X or Y on your keyboard, or the buttons</span><button class="go" data-play="AB">▶ play both</button><button data-ab="X" aria-pressed="true">hear X</button><button data-ab="Y" aria-pressed="false">hear Y</button><button data-stop>stop</button></div>
+      <canvas id="c3"></canvas>
+      <div class="read"><div>time<br><b data-t></b></div><div>section<br><b data-sec></b></div><div>you are hearing<br><b data-which>X</b></div><div class="state" data-state></div></div>
+    </div>
+    <p class="try"><span class="eyebrow">Try</span>Loop the ordered stretch, 14 to 21 s, and switch every few seconds. Then the scare at 21 s.</p>
+  </section>
+
+  <section class="step" data-title="Your answer, then the key" hidden>
+    <div class="eyebrow">Step 4 of 4 · the test</div>
+    <h3>Which one is alive?</h3>
+    <p class="say">Answer from the listening you just did. "Can't tell" is a real answer. Once you choose, the key opens: which take was the flock, what Loudon answered when the steward asked him the same question, and what a measurement of the two takes shows.</p>
+    <div class="panel">
+      <div class="answers"><button data-ans="X">X is more alive</button><button data-ans="Y">Y is more alive</button><button data-ans="none">I can't tell</button></div>
+      <div class="key" id="key" hidden>
+        <div class="verdict" id="verdict"></div>
+        <p class="say" id="keytext"></p>
+        <table class="meas" id="meas"></table>
+        <p class="say" style="margin-top:12px" id="after"></p>
+      </div>
+    </div>
+  </section>
+
+  <div class="walk"><button id="back">◂ back</button><button id="next">next ▸</button></div>
+  <div class="foot"><span>Murmuration · rich · blind pair · study · 2026-11-03</span><span class="mark"><svg width="22" height="22" viewBox="-11 -11 22 22" aria-hidden="true"><path id="sigil" fill="none" stroke="#e8b84a" stroke-width="1"/></svg>Loud’n <i>Live</i></span></div>
+</div>
+
+<script>
+// ---- the score: the steward's scripted performance (engine/render_wager.js) and the flock's order φ through it,
+// read from engine/wager_trace-order.json every quarter second. Both takes follow this one score. ----
+const DUR = 40;
+const PHI = [0.11,0.11,0.15,0.09,0.15,0.11,0.2,0.13,0.04,0.17,0.14,0.05,0.09,0.17,0.17,0.28,0.08,0.13,0.04,0.05,0.12,0.25,0.35,0.3,0.21,0.18,0.05,0.15,0.3,0.06,0.16,0.2,0.33,0.23,0.29,0.34,0.26,0.23,0.22,0.19,0.19,0.12,0.16,0.2,0.17,0.13,0.17,0.18,0.24,0.32,0.39,0.43,0.42,0.48,0.49,0.49,0.47,0.47,0.46,0.43,0.49,0.5,0.51,0.52,0.57,0.61,0.65,0.73,0.8,0.83,0.86,0.87,0.85,0.83,0.84,0.85,0.85,0.87,0.88,0.9,0.91,0.92,0.92,0.93,0.79,0.57,0.57,0.61,0.67,0.72,0.73,0.72,0.75,0.76,0.74,0.77,0.79,0.8,0.81,0.86,0.89,0.92,0.93,0.93,0.94,0.95,0.94,0.94,0.95,0.95,0.95,0.95,0.95,0.95,0.95,0.94,0.95,0.95,0.96,0.96,0.97,0.98,0.97,0.96,0.96,0.96,0.92,0.88,0.81,0.79,0.71,0.63,0.51,0.5,0.36,0.32,0.19,0.07,0.01,0.16,0.1,0.09,0.06,0.05,0.12,0.11,0.06,0.23,0.11,0.21,0.18,0.05,0.13,0.03,0.14,0.07,0.04,0.09,0.14,0.16];
+const xAt = t => t < 5 ? 1 : t < 14 ? 1 - (t - 5) / 9 : t < 28 ? 0 : t < 36 ? (t - 28) / 8 : 1;   // the Disorder slider
+const SECTIONS = [[0, 5, 'melted'], [5, 14, 'gathering'], [14, 21, 'ordered'], [21, 28, 'the scare, then regathering'], [28, 36, 'melting'], [36, 40, 'melted again']];
+const secAt = t => (SECTIONS.find(s => t >= s[0] && t < s[1]) || SECTIONS[5])[2];
+const phiAt = t => PHI[Math.max(0, Math.min(PHI.length - 1, Math.round(t * 4)))];
+// pitch-class entropy of each take per section, in bits (engine/takes_analysis.json, order mapping; 3.58 = all twelve equal)
+const ENTROPY = [['melted, 1–5 s', 0.12, 3.38, 3.42], ['gathering, 8–11 s', 0.22, 3.35, 3.39], ['ordered, 17–21 s', 0.87, 2.45, 2.88], ['the scare, 21–24 s', 0.69, 2.96, 3.24], ['regathered, 25–28 s', 0.94, 2.50, 2.48], ['melted again, 36–39 s', 0.11, 3.37, 3.41]];
+// the key, from engine/blind-key.json, kept unreadable at a glance so the source doesn't answer for you
+const KEY = atob('RkxPQ0s=');                      // which take is the flock
+const flockTake = KEY === 'FLOCK' ? 'X' : 'Y', handTake = flockTake === 'X' ? 'Y' : 'X';
+
+// ---- the walk: one step showing, Next and Back, the rail always open; changing step stops the sound ----
+const STEPS = [...document.querySelectorAll('.step')];
+const rail = document.querySelector('.rail');
+let cur = 0;
+STEPS.forEach((s, i) => { const b = document.createElement('button'); b.innerHTML = `<span class="n">${i + 1}</span>${s.dataset.title}`; b.addEventListener('click', () => show(i)); rail.appendChild(b); });
+function show(i) {
+  stopSound();
+  cur = Math.max(0, Math.min(STEPS.length - 1, i));
+  STEPS.forEach((s, k) => { s.hidden = k !== cur; });
+  [...rail.children].forEach((b, k) => { if (k === cur) b.setAttribute('aria-current', 'step'); else b.removeAttribute('aria-current'); });
+  document.getElementById('back').disabled = cur === 0;
+  document.getElementById('next').disabled = cur === STEPS.length - 1;
+  draw();
+}
+document.getElementById('back').addEventListener('click', () => show(cur - 1));
+document.getElementById('next').addEventListener('click', () => show(cur + 1));
+
+// ---- sound: two <audio> elements, made only on a click. The kit quiets them itself (a hush from the page
+// around it, a hidden tab, a minute untouched); the piece only keeps its words in step. Never name the
+// page's hush message in this script: the kit reads a script that names it as one that answers it. ----
+let el = null, mode = null, hearing = 'X', playhead = 0;
+function media() {
+  if (!el) {
+    // in the document, so the kit hears them start and the page can quiet every other piece
+    el = { X: new Audio('blind-X.wav'), Y: new Audio('blind-Y.wav') };
+    for (const k of ['X', 'Y']) { el[k].hidden = true; document.body.appendChild(el[k]); }
+    // a pause from anywhere (the stop button, the kit, the end of the take) clears the words once both are quiet
+    for (const k of ['X', 'Y']) { el[k].preload = 'auto'; el[k].addEventListener('pause', () => { if (el.X.paused && el.Y.paused) setMode(null); }); }
+  }
+  return el;
+}
+function setMode(m) {
+  mode = m;
+  document.querySelectorAll('[data-state]').forEach(s => { s.textContent = m ? (m === 'AB' ? 'playing both · hearing ' + hearing : 'playing take ' + m) : ''; });
+}
+function stopSound() { if (el) { el.X.pause(); el.Y.pause(); } setMode(null); }
+function play(which) {
+  const e = media();
+  stopSound();
+  const t = playhead >= DUR - 0.2 ? 0 : playhead;
+  if (which === 'AB') {
+    e.X.currentTime = t; e.Y.currentTime = t;
+    e.X.muted = hearing !== 'X'; e.Y.muted = hearing !== 'Y';
+    e.X.play().catch(() => {}); e.Y.play().catch(() => {});   // a pause before the start lands (stop, a hush) is not an error
+  } else { e[which].muted = false; e[which].currentTime = t; e[which].play().catch(() => {}); }
+  setMode(which);
+}
+function hear(k) {
+  hearing = k;
+  document.querySelectorAll('[data-ab]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.ab === k)));
+  document.querySelectorAll('[data-which]').forEach(b => { b.textContent = k; });
+  if (el && mode === 'AB') {
+    const a = el[k], o = el[k === 'X' ? 'Y' : 'X'];
+    if (Math.abs(a.currentTime - o.currentTime) > 0.04) a.currentTime = o.currentTime;   // keep the pair on the same second
+    a.muted = false; o.muted = true;
+  }
+  setMode(mode);
+}
+document.querySelectorAll('[data-play]').forEach(b => b.addEventListener('click', () => play(b.dataset.play)));
+document.querySelectorAll('[data-stop]').forEach(b => b.addEventListener('click', stopSound));
+document.querySelectorAll('[data-ab]').forEach(b => b.addEventListener('click', () => hear(b.dataset.ab)));
+document.addEventListener('keydown', e => { if (cur !== 2) return; if (e.key === 'x' || e.key === 'X') hear('X'); if (e.key === 'y' || e.key === 'Y') hear('Y'); });
+
+// ---- the timeline: the slider, φ, the sections, the playhead; a click moves the playhead ----
+const CANVASES = ['c1', 'c2', 'c3'].map(id => document.getElementById(id));
+CANVASES.forEach(c => c.addEventListener('click', ev => {
+  const r = c.getBoundingClientRect(), L = 46, R = r.width - 14;
+  playhead = Math.max(0, Math.min(DUR, (ev.clientX - r.left - L) / (R - L) * DUR));
+  if (el && mode) { const t = playhead; if (mode === 'AB') { el.X.currentTime = t; el.Y.currentTime = t; } else el[mode].currentTime = t; }
+  draw();
+}));
+function draw() {
+  const c = CANVASES[cur]; if (!c) return;
+  const dpr = window.devicePixelRatio || 1, w = c.clientWidth || 900, h = 240;
+  if (c.width !== Math.round(w * dpr) || c.height !== Math.round(h * dpr)) { c.width = Math.round(w * dpr); c.height = Math.round(h * dpr); c.style.height = h + 'px'; }
+  const g = c.getContext('2d'); g.setTransform(dpr, 0, 0, dpr, 0, 0); g.clearRect(0, 0, w, h);
+  const L = 46, R = w - 14, T = 22, B = h - 30, X = t => L + (R - L) * t / DUR, Y = v => B - (B - T) * v;
+  g.font = '10px JetBrains Mono, monospace'; g.textBaseline = 'middle';
+  SECTIONS.forEach(([a, b, name], i) => { g.fillStyle = i % 2 ? 'rgba(255,255,255,.025)' : 'rgba(255,255,255,0)'; g.fillRect(X(a), T, X(b) - X(a), B - T); g.fillStyle = '#8a8aa0'; g.textAlign = 'left'; g.fillText(name.split(',')[0], X(a) + 4, T - 10); });
+  g.strokeStyle = 'rgba(255,255,255,.08)'; g.lineWidth = 1;
+  for (const v of [0, 0.5, 1]) { g.beginPath(); g.moveTo(L, Y(v)); g.lineTo(R, Y(v)); g.stroke(); g.fillStyle = '#4a4a5a'; g.textAlign = 'right'; g.fillText(v.toFixed(1), L - 6, Y(v)); }
+  for (let s = 0; s <= DUR; s += 5) { g.fillStyle = '#4a4a5a'; g.textAlign = 'center'; g.fillText(s + ' s', X(s), B + 14); }
+  g.strokeStyle = 'rgba(200,200,216,.45)'; g.setLineDash([4, 4]); g.beginPath();
+  for (let i = 0; i <= 400; i++) { const t = i / 10; const y = Y(xAt(t)); i ? g.lineTo(X(t), y) : g.moveTo(X(t), y); } g.stroke(); g.setLineDash([]);
+  g.strokeStyle = '#3fd6c0'; g.lineWidth = 1.8; g.beginPath(); PHI.forEach((p, i) => { const t = i / 4; i ? g.lineTo(X(t), Y(p)) : g.moveTo(X(t), Y(p)); }); g.stroke();
+  g.strokeStyle = 'rgba(255,155,74,.6)'; g.lineWidth = 1; g.beginPath(); g.moveTo(X(21), T); g.lineTo(X(21), B); g.stroke();
+  g.strokeStyle = '#e8b84a'; g.lineWidth = 1.5; g.beginPath(); g.moveTo(X(playhead), T - 2); g.lineTo(X(playhead), B + 2); g.stroke();
+  const st = STEPS[cur];
+  const set = (sel, v) => st.querySelectorAll(sel).forEach(n => { n.textContent = v; });
+  set('[data-t]', playhead.toFixed(1) + ' s'); set('[data-sec]', secAt(playhead)); set('[data-phi]', phiAt(playhead).toFixed(2));
+}
+function tick() {
+  if (el && mode) { const a = mode === 'AB' ? el[hearing] : el[mode]; playhead = a.currentTime; draw(); }
+  requestAnimationFrame(tick);
+}
+window.addEventListener('resize', draw);
+
+// ---- the test: the answer first, then the key ----
+document.querySelectorAll('[data-ans]').forEach(b => b.addEventListener('click', () => {
+  document.querySelectorAll('[data-ans]').forEach(o => o.setAttribute('aria-pressed', String(o === b)));
+  const a = b.dataset.ans;
+  const said = a === 'none' ? 'You couldn’t tell them apart.' : a === flockTake ? `You heard ${a} as more alive, and ${a} was the flock.` : `You heard ${a} as more alive, and ${a} was the hand-copied cloud.`;
+  document.getElementById('verdict').textContent = `${flockTake} was the flock. ${handTake} was the copy.`;
+  document.getElementById('keytext').textContent = said + ' Loudon heard the same pair on 2026-10-15 and answered that he couldn’t tell. The steward’s reading of that: coordination alone, with everything else copied, is not audible at this mapping. What the flock gives is upstream: it is a good source of those numbers, not a better arrangement of grains.';
+  const rows = ENTROPY.map(([s, phi, f, h]) => { const d = h - f; return `<tr><td>${s}</td><td>${phi.toFixed(2)}</td><td>${f.toFixed(2)}</td><td>${h.toFixed(2)}</td><td class="${Math.abs(d) >= 0.2 ? 'diff' : ''}">${(d >= 0 ? '+' : '') + d.toFixed(2)}</td></tr>`; }).join('');
+  document.getElementById('meas').innerHTML = `<tr><th>section</th><th>flock φ</th><th>the flock (${flockTake}), bits</th><th>the copy (${handTake}), bits</th><th>copy − flock</th></tr>` + rows;
+  document.getElementById('after').textContent = 'How focused each take’s pitch is, as pitch-class entropy: lower is closer to one pitch, 3.58 bits is all twelve equally loud. Where the flock is melted, or fully regathered, the two takes measure the same. In the ordered stretch and in the scare the flock is more focused, by 0.43 and 0.28 bits, so a meter can tell them apart where an ear did not call one more alive. Part of that gap may be the copy\u2019s own making: its headings scatter in a bell curve matched to φ, which is not the shape of the flock\u2019s own scatter, as the steward warned when he rendered them. Focus is not aliveness, and nothing here measures aliveness. The sharper test the steward proposes next is a played one: the flock against a cloud dialed by hand with real knobs, both answering the same strike.';
+  document.getElementById('key').hidden = false;
+}));
+
+(() => { let d = ''; for (let i = 0; i <= 240; i++) { const t = i / 240 * 2 * Math.PI, x = 9 * Math.sin(3 * t + Math.PI / 2), y = 9 * Math.sin(2 * t); d += (i ? 'L' : 'M') + x.toFixed(2) + ' ' + y.toFixed(2); } document.getElementById('sigil').setAttribute('d', d); })();
+show(0);
+requestAnimationFrame(tick);
+</script>
+</body>
+</html>

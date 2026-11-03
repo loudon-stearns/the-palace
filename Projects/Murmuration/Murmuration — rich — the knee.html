@@ -1,0 +1,486 @@
+<!doctype html>
+<!--
+title: Murmuration — rich — the knee
+born: 2026-11-03
+links:
+  - target: "[[Murmuration]]"
+    type: connects-to
+    label: rich-face-piece
+  - target: "[[Progressive Staging]]"
+    type: connects-to
+    label: walks-up-to-its-test
+  - target: "[[Kuramoto Coupling]]"
+    type: connects-to
+    label: the-same-kind-of-threshold
+forward_vector: "I am the Disorder macro put on trial: the page's own flock, run live and heard through its own grains, walked up from one bird matching its neighbours to the question of whether the order-to-disorder turn is a real phase transition or only a curved knob. I keep the measurements that answer it beside the flock that makes them, so anyone can re-run a point. I change only when the section I serve does."
+status: "proposal, Enrichment's proposal round 2026-11; not yet heard by Loudon"
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:needs" content="">
+<title>The knee</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Manrope:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root { --bg:#0a0a0f; --e1:#12121a; --border:#4a4a5e; --soft:rgba(255,255,255,.07); --fg1:#e8e8f0; --fg2:#c8c8d8; --fg3:#8a8aa0; --fg4:#4a4a5a;
+    --amber:#e8b84a; --amberline:rgba(232,184,74,.5); --teal:#3fd6c0; --warn:#ff9b4a; --ok:#7fd49a;
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --sans:'Manrope',system-ui,sans-serif; --serif:'Cormorant Garamond',Georgia,serif;
+    --ease:cubic-bezier(.4,0,.2,1); }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); font-weight: 300; }
+  .piece { padding: 22px 22px 18px; max-width: 1180px; }
+  .kicker, .eyebrow { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg3); }
+  .kicker { margin-bottom: 6px; }
+  .title { font-family: var(--serif); font-size: 28px; font-weight: 300; color: var(--fg1); margin: 0 0 6px; }
+  .sub { font-size: 14px; line-height: 1.6; color: var(--fg2); max-width: 76ch; margin: 0 0 14px; }
+  .rail { display: flex; flex-wrap: wrap; margin: 4px 0 16px; border-bottom: 1px solid var(--soft); }
+  .rail button { font-family: var(--mono); font-size: 11px; letter-spacing: .1em; text-transform: none; color: var(--fg3); background: none; border: 0; border-bottom: 2px solid transparent; border-radius: 0; padding: 8px 12px 7px; cursor: pointer; transition: color 220ms var(--ease); }
+  .rail button:hover { color: var(--fg1); }
+  .rail button[aria-current=step] { color: var(--amber); border-bottom-color: var(--amber); }
+  .rail button .n { color: var(--fg4); margin-right: 6px; }
+  .rail button[aria-current=step] .n { color: var(--amber); }
+  .step h3 { font-family: var(--serif); font-size: 23px; font-weight: 300; color: var(--fg1); margin: 4px 0 8px; }
+  .say { font-size: 14px; line-height: 1.65; color: var(--fg2); max-width: 78ch; margin: 0 0 14px; }
+  .panel { border: 1px solid var(--soft); border-radius: 2px; background: var(--e1); padding: 12px 14px; }
+  .bar { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 10px; }
+  .bar .hint { flex: 1 1 260px; }
+  canvas { display: block; width: 100%; }
+  button { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--fg2); background: var(--bg); border: 1px solid var(--border); border-radius: 2px; padding: 8px 13px; cursor: pointer; transition: border-color 220ms var(--ease), color 220ms var(--ease); }
+  button:hover { border-color: rgba(232,184,74,.55); color: var(--fg1); }
+  button.go { color: var(--amber); border-color: var(--amberline); box-shadow: 0 0 14px rgba(232,184,74,.16); }
+  button[aria-pressed=true] { color: var(--amber); border-color: var(--amberline); }
+  button:disabled { opacity: .4; cursor: default; }
+  select { font-family: var(--mono); font-size: 11px; color: var(--fg1); background: var(--bg); border: 1px solid var(--border); border-radius: 2px; padding: 7px 8px; }
+  .ctls { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 10px 26px; margin-top: 12px; }
+  label.sl { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: .08em; color: var(--fg3); }
+  label.sl b { color: var(--fg1); font-weight: 500; }
+  input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 3px; background: var(--fg4); margin: 12px 0 4px; outline: none; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 13px; height: 13px; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  input[type=range]::-moz-range-thumb { width: 13px; height: 13px; border: 0; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  .read { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 8px 22px; margin-top: 14px; padding-top: 10px; border-top: 1px solid var(--soft); font-family: var(--mono); font-size: 11.5px; letter-spacing: .03em; color: var(--fg3); line-height: 1.5; }
+  .read b { color: var(--fg1); font-weight: 500; }
+  .read .yes { color: var(--ok); } .read .no { color: var(--warn); }
+  .hint { font-family: var(--mono); font-size: 11px; letter-spacing: .05em; color: var(--fg3); }
+  .state { color: var(--amber); }
+  .eqs { margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--soft); }
+  .eq { font-family: var(--serif); font-size: 19px; color: var(--fg1); }
+  .words { font-size: 13px; line-height: 1.55; color: var(--fg2); margin: 2px 0 8px; }
+  .try { font-size: 13.5px; line-height: 1.6; color: var(--fg2); margin: 14px 0 0; max-width: 80ch; }
+  .try .eyebrow { margin-right: 10px; color: var(--amber); }
+  .two { display: grid; grid-template-columns: 1.35fr 1fr; gap: 14px; }
+  @media (max-width: 760px) { .two { grid-template-columns: 1fr; } }
+  table.meas { border-collapse: collapse; font-family: var(--mono); font-size: 11.5px; margin-top: 12px; width: 100%; }
+  table.meas th, table.meas td { text-align: right; padding: 5px 10px; border-bottom: 1px solid var(--soft); }
+  table.meas th:first-child, table.meas td:first-child { text-align: left; }
+  table.meas th { color: var(--fg3); font-weight: 400; letter-spacing: .06em; }
+  table.meas td { color: var(--fg1); }
+  .marks { margin-top: 12px; display: grid; gap: 8px; }
+  .marks div { font-size: 13.5px; line-height: 1.6; }
+  .marks b { font-family: var(--mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; font-weight: 500; margin-right: 8px; }
+  .walk { display: flex; justify-content: space-between; margin-top: 18px; }
+  .foot { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: 20px; padding-top: 10px; border-top: 1px solid var(--soft); font-family: var(--mono); font-size: 10.5px; letter-spacing: .18em; text-transform: uppercase; color: var(--fg4); }
+  .foot .mark { display: inline-flex; align-items: center; gap: 8px; color: var(--fg3); letter-spacing: .12em; text-transform: none; }
+  .foot .mark i { font-family: var(--serif); color: var(--amber); font-weight: 300; }
+</style>
+</head>
+<body>
+<div class="piece">
+  <div class="kicker">made · study · four steps · the page's own flock, live, through its own grains</div>
+  <h1 class="title">The knee</h1>
+  <p class="sub">The section says the Disorder macro drives a real phase transition, not a crossfade: the flock snaps from noise into a tone. This is the page's own flock, line for line, run here and heard through its own grain voice, walked up from one bird to that claim. Nothing plays until you press sound.</p>
+  <nav class="rail" aria-label="Steps"></nav>
+
+  <section class="step" data-title="One bird">
+    <div class="eyebrow">Step 1 of 4 · one bird and its neighbours</div>
+    <h3>A bird turns toward the way its neighbours fly, and noise knocks it off</h3>
+    <p class="say">Start with one bird and one rule. Its neighbours, the grey darts, fly one way. Every frame the bird steers a little toward their average heading, never more than a small fixed nudge, and every frame the Disorder knob twists its heading by a random angle. Here a heading is a pitch, one octave around the circle, so you hear it: the low steady tone is the neighbours, the other is the bird. With no disorder the bird settles onto their note. Turn disorder up and it can't hold it.</p>
+    <div class="panel">
+      <div class="bar"><span class="hint">left: the bird (amber) and its neighbours · right: both headings over the last 6 s</span><button class="go" data-sound>▶ sound</button><button data-stop>stop</button><button id="turn">turn the neighbours</button></div>
+      <canvas id="c1"></canvas>
+      <div class="ctls"><label class="sl">Disorder (the instrument's slider) <b data-xval></b><input data-x type="range" min="0" max="1000"></label></div>
+      <div class="read">
+        <div>bird off its neighbours, now<br><b id="r1a"></b></div>
+        <div>typical miss, last 2 s<br><b id="r1b"></b></div>
+        <div>the same miss, as pitch<br><b id="r1c"></b></div>
+        <div class="state" data-state></div>
+      </div>
+      <div class="eqs">
+        <div class="eq">v ← v + limit(S·m̂ − v, F),   then turn v by a random angle in ±η·π</div>
+        <div class="words">(the bird's velocity) moves toward (top speed along its neighbours' average heading), by at most a small fixed force F, and then the disorder η twists it by up to η half-turns either way.</div>
+        <div class="eq">η = 0.25 · x²</div>
+        <div class="words">(the disorder) is a quarter of the slider position squared, as on the instrument.</div>
+      </div>
+    </div>
+    <p class="try"><span class="eyebrow">Try</span>Slider at 0: press turn, and hear the bird glide onto the new note. Then set the slider to the middle and listen to it wobble round the note without ever landing.</p>
+  </section>
+
+  <section class="step" data-title="The flock's one number" hidden>
+    <div class="eyebrow">Step 2 of 4 · sixty birds, one order parameter</div>
+    <h3>Every bird does the same, and the flock gets one number: φ</h3>
+    <p class="say">Now sixty birds, each one the bird from step 1, each the others' neighbour, with separation and cohesion as on the instrument. Nobody holds the whole flock's heading, yet one can appear. φ measures it: add every bird's heading as an arrow of length one and see how long the sum is, per bird. All one way, φ is 1. Every bird its own way, φ sits near a floor set only by how many birds there are, about 0.11 for sixty. The arrow at the left of the plot is that sum. The cloud you hear is the instrument's own: heading is pitch, and a bird held on course plays long tonal grains.</p>
+    <div class="panel">
+      <div class="bar"><span class="hint">left: the flock, coloured by heading · right: φ over the last 20 s, with the floor for sixty random birds</span><button class="go" data-sound>▶ sound</button><button data-stop>stop</button><button id="seed7">restart from the page's seed 7</button></div>
+      <canvas id="c2"></canvas>
+      <div class="ctls"><label class="sl">Disorder (the instrument's slider) <b data-xval></b><input data-x type="range" min="0" max="1000"></label></div>
+      <div class="read">
+        <div>order φ<br><b data-phi></b></div>
+        <div>floor for N random birds, √(π ÷ 4N)<br><b id="r2b"></b></div>
+        <div>state<br><b data-st></b></div>
+        <div class="state" data-state></div>
+      </div>
+      <div class="eqs">
+        <div class="eq">φ = | v̂₁ + v̂₂ + … + v̂ₙ | ÷ N</div>
+        <div class="words">(how much the flock agrees) = the length of all the headings added as arrows of length one, divided by the number of birds.</div>
+      </div>
+    </div>
+    <p class="try"><span class="eyebrow">Try</span>Restart from seed 7 with the slider at 0, the section's own check: φ starts near 0.10 and climbs past 0.9 in about six seconds. Then push the slider to the right end and watch φ fall to the floor.</p>
+  </section>
+
+  <section class="step" data-title="The slider swept" hidden>
+    <div class="eyebrow">Step 3 of 4 · φ against the slider</div>
+    <h3>Sweep the knob and draw what the flock does</h3>
+    <p class="say">A crossfade does what the knob says: halfway along, halfway between. The dashed line is that, from the ordered flock at one end to the floor at the other. The bright curve is what this flock does, each point settled for forty seconds and averaged over eight starts (the steward's sweep). The flock holds its order, then gives it up over a short stretch, then stays melted: a knee. Sweep the live flock and its dots land near the curve, trailing behind it, because a moving flock has no time to settle.</p>
+    <div class="panel">
+      <div class="bar"><span class="hint">curve: settled, 8 starts · band: how much φ wobbles there · dots: the live flock</span><button class="go" data-sound>▶ sound</button><button data-stop>stop</button><button id="sweepDown">sweep: order to melt, 40 s</button><button id="sweepUp">sweep: melt to order, 40 s</button></div>
+      <canvas id="c3"></canvas>
+      <div class="ctls"><label class="sl">Disorder (the instrument's slider) <b data-xval></b><input data-x type="range" min="0" max="1000"></label></div>
+      <div class="read">
+        <div>live φ<br><b data-phi></b></div>
+        <div>settled φ at this position<br><b id="r3b"></b></div>
+        <div>a crossfade would give<br><b id="r3c"></b></div>
+        <div class="state" data-state></div>
+      </div>
+    </div>
+    <p class="try"><span class="eyebrow">Try</span>Sweep from order to melt and listen around the middle of the travel: that is where the pitch lets go. Then drag the slider by hand across the knee, slowly.</p>
+  </section>
+
+  <section class="step" data-title="Snap, or a curved knob?" hidden>
+    <div class="eyebrow">Step 4 of 4 · the test</div>
+    <h3>A knee alone proves nothing. A phase transition leaves three more marks.</h3>
+    <p class="say">Any knob can be bent into a knee: square its travel and it bends. What only a real transition does is this. Its wobble peaks at the knee, because there the flock can't decide. Its knee gets sharper as the flock gets bigger, at the same crowding, heading for a true corner in a flock without end. And a continuous ("second-order") transition comes back the same way it went, with no memory of which side it came from. Each curve below is this page's flock run at a size, every point settled thirty seconds, then measured twenty, over six starts; the field grows with the flock so each bird has the same room. Click a curve to hear sixty birds at that disorder, or measure a point yourself.</p>
+    <div class="panel">
+      <div class="bar"><span class="hint">top: φ against η for four flock sizes · bottom: the wobble, N times the variance of φ</span><button class="go" data-sound>▶ sound</button><button data-stop>stop</button></div>
+      <canvas id="c4"></canvas>
+      <div class="bar" style="margin-top:12px"><span class="hint">measure one point: flock size</span><select id="mN"><option>30</option><option selected>60</option><option>120</option><option>240</option></select><span class="hint">at the disorder on the slider, 30 s to settle and 20 s measured, one start</span><button id="measure">measure</button><span class="hint state" id="mOut"></span></div>
+      <div class="ctls"><label class="sl">Disorder (the instrument's slider) <b data-xval></b><input data-x type="range" min="0" max="1000"></label></div>
+      <table class="meas" id="fssTable"></table>
+      <div class="marks" id="marks"></div>
+    </div>
+  </section>
+
+  <div class="walk"><button id="back">◂ back</button><button id="next">next ▸</button></div>
+  <div class="foot"><span>Murmuration · rich · the knee · study · 2026-11-03</span><span class="mark"><svg width="22" height="22" viewBox="-11 -11 22 22" aria-hidden="true"><path id="sigil" fill="none" stroke="#e8b84a" stroke-width="1"/></svg>Loud’n <i>Live</i></span></div>
+</div>
+
+<script>
+// ---- math (pure: the check runs this block in node) ----
+// The page's own flock, copied from engine/murmur_engine.js (Flock.step with the startle, the attractor and the
+// predator left out), with the field's width and height as arguments so the flock can be grown at fixed density.
+// At 920 × 520 it is the engine's flock exactly: same seed, same random draws, same numbers.
+const MAX_SPEED = 3, MAX_FORCE = 0.05, NEIGHBOR_R = 56, NEIGHBOR_R2 = NEIGHBOR_R * NEIGHBOR_R;
+function mulberry32(a) { return function () { a |= 0; a = (a + 0x6D2B79F5) | 0; let t = Math.imul(a ^ (a >>> 15), 1 | a); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
+function setMag(x, y, m) { const n = Math.hypot(x, y); return n > 0 ? [x / n * m, y / n * m] : [0, 0]; }
+function limit(x, y, mx) { const n = Math.hypot(x, y); return (n > mx && n > 0) ? [x / n * mx, y / n * mx] : [x, y]; }
+function makeFlock(n, seed, W, H) {
+  const rng = mulberry32(seed), b = [];
+  for (let i = 0; i < n; i++) { const x = rng() * W, y = rng() * H, a = rng() * Math.PI * 2, sp = 0.5 * MAX_SPEED + rng() * 0.5 * MAX_SPEED; b.push({ x, y, vx: Math.cos(a) * sp, vy: Math.sin(a) * sp, nb: 0 }); }
+  return { boids: b, rng, W, H, vx: new Float64Array(n), vy: new Float64Array(n), nbN: new Int32Array(n) };
+}
+function stepFlock(fl, w) {
+  const boids = fl.boids, rng = fl.rng, N = boids.length, W = fl.W, H = fl.H, hW = W * 0.5, hH = H * 0.5;
+  const nvx = fl.vx, nvy = fl.vy, nbN = fl.nbN;
+  for (let i = 0; i < N; i++) {
+    const b = boids[i];
+    let sepX = 0, sepY = 0, sepN = 0, aliX = 0, aliY = 0, aliN = 0, cohX = 0, cohY = 0, cohN = 0;
+    for (let j = 0; j < N; j++) {
+      if (i === j) continue;
+      const o = boids[j];
+      let dx = o.x - b.x, dy = o.y - b.y;
+      if (dx > hW) dx -= W; else if (dx < -hW) dx += W;
+      if (dy > hH) dy -= H; else if (dy < -hH) dy += H;
+      const d2 = dx * dx + dy * dy;
+      if (d2 > 0 && d2 < NEIGHBOR_R2) { sepX -= dx / d2; sepY -= dy / d2; sepN++; aliX += o.vx; aliY += o.vy; aliN++; cohX += dx; cohY += dy; cohN++; }
+    }
+    let fx = 0, fy = 0;
+    if (sepN > 0) { const [dx, dy] = setMag(sepX, sepY, MAX_SPEED); const [sx, sy] = limit(dx - b.vx, dy - b.vy, MAX_FORCE); fx += w.sep * sx; fy += w.sep * sy; }
+    if (aliN > 0) { const [dx, dy] = setMag(aliX / aliN, aliY / aliN, MAX_SPEED); const [sx, sy] = limit(dx - b.vx, dy - b.vy, MAX_FORCE); fx += w.ali * sx; fy += w.ali * sy; }
+    if (cohN > 0) { const [dx, dy] = setMag(cohX / cohN, cohY / cohN, MAX_SPEED); const [sx, sy] = limit(dx - b.vx, dy - b.vy, MAX_FORCE); fx += w.coh * sx; fy += w.coh * sy; }
+    let vx = b.vx + fx, vy = b.vy + fy;
+    if (w.eta > 0) { const ang = (rng() * 2 - 1) * w.eta * Math.PI; const c = Math.cos(ang), s = Math.sin(ang); const rx = vx * c - vy * s, ry = vx * s + vy * c; vx = rx; vy = ry; }
+    [vx, vy] = limit(vx, vy, MAX_SPEED);
+    nvx[i] = vx; nvy[i] = vy; nbN[i] = cohN;
+  }
+  for (let i = 0; i < N; i++) { const b = boids[i]; b.vx = nvx[i]; b.vy = nvy[i]; b.nb = nbN[i]; b.x = (b.x + b.vx + W) % W; b.y = (b.y + b.vy + H) % H; }
+}
+function phiOf(fl) { let sx = 0, sy = 0; for (const b of fl.boids) { const m = Math.hypot(b.vx, b.vy); if (m > 0) { sx += b.vx / m; sy += b.vy / m; } } return Math.hypot(sx, sy) / fl.boids.length; }
+function fieldFor(n) { const k = Math.sqrt(n / 60); return [920 * k, 520 * k]; }   // fixed density: the page's 60 birds on 920 × 520
+const etaOfX = x => 0.25 * x * x;                                                    // the instrument's Disorder slider
+// = the engine's mapBoids, "order" mapping (the instrument's default): heading is pitch, one octave around;
+// grain length follows how steady a bird's course has been over the last quarter second.
+function mapOrder(boids, mem, W, H, base) {
+  const N = boids.length, f = new Float32Array(N * 6), cx = W * 0.5, cy = H * 0.5;
+  if (!mem.hx || mem.hx.length !== N) { mem.hx = new Float64Array(N); mem.hy = new Float64Array(N); for (let i = 0; i < N; i++) { const b = boids[i], m = Math.hypot(b.vx, b.vy) || 1; mem.hx[i] = b.vx / m; mem.hy[i] = b.vy / m; } }
+  for (let i = 0; i < N; i++) {
+    const b = boids[i], u = b.x / W, v = b.y / H;
+    const semis = 12 * Math.atan2(b.vy, b.vx) / (2 * Math.PI);
+    const rdx = b.x - cx, rdy = b.y - cy, rd = Math.hypot(rdx, rdy) + 1e-6, vrad = (b.vx * rdx + b.vy * rdy) / rd, dopp = 1 - 0.012 * vrad;
+    const m = Math.hypot(b.vx, b.vy) || 1, a = 0.93;
+    mem.hx[i] = a * mem.hx[i] + (1 - a) * b.vx / m; mem.hy[i] = a * mem.hy[i] + (1 - a) * b.vy / m;
+    const q = Math.pow(Math.min(1, Math.hypot(mem.hx[i], mem.hy[i])), 6);
+    const k = i * 6; f[k] = u; f[k + 1] = v; f[k + 2] = base * Math.pow(2, semis / 12) * dopp; f[k + 3] = 0.55 + 0.45 * Math.min(1, b.nb / 6); f[k + 4] = 4 + (1 - q) * 100; f[k + 5] = u;
+  }
+  return f;
+}
+// the measurements on the page (made by the check that sits beside this piece, with this block's own flock)
+const DATA = /*DATA*/{"ref60":[{"eta":0,"phi":0.957,"fluct":0.014},{"eta":0.01,"phi":0.947,"fluct":0.012},{"eta":0.02,"phi":0.921,"fluct":0.02},{"eta":0.03,"phi":0.87,"fluct":0.037},{"eta":0.04,"phi":0.822,"fluct":0.041},{"eta":0.05,"phi":0.709,"fluct":0.08},{"eta":0.06,"phi":0.538,"fluct":0.115},{"eta":0.07,"phi":0.41,"fluct":0.154},{"eta":0.08,"phi":0.382,"fluct":0.137},{"eta":0.09,"phi":0.278,"fluct":0.115},{"eta":0.1,"phi":0.249,"fluct":0.108},{"eta":0.11,"phi":0.246,"fluct":0.11},{"eta":0.12,"phi":0.21,"fluct":0.093},{"eta":0.13,"phi":0.182,"fluct":0.095},{"eta":0.14,"phi":0.164,"fluct":0.081},{"eta":0.15,"phi":0.166,"fluct":0.083},{"eta":0.16,"phi":0.164,"fluct":0.079},{"eta":0.17,"phi":0.151,"fluct":0.075},{"eta":0.18,"phi":0.139,"fluct":0.072},{"eta":0.19,"phi":0.142,"fluct":0.073},{"eta":0.2,"phi":0.138,"fluct":0.071},{"eta":0.25,"phi":0.128,"fluct":0.065},{"eta":0.3,"phi":0.124,"fluct":0.065},{"eta":0.35,"phi":0.122,"fluct":0.063},{"eta":0.4,"phi":0.119,"fluct":0.061},{"eta":0.45,"phi":0.118,"fluct":0.061},{"eta":0.5,"phi":0.117,"fluct":0.061},{"eta":0.55,"phi":0.116,"fluct":0.06},{"eta":0.6,"phi":0.116,"fluct":0.061},{"eta":0.65,"phi":0.116,"fluct":0.061},{"eta":0.7,"phi":0.117,"fluct":0.06},{"eta":0.75,"phi":0.115,"fluct":0.059},{"eta":0.8,"phi":0.115,"fluct":0.06},{"eta":0.85,"phi":0.116,"fluct":0.06},{"eta":0.9,"phi":0.114,"fluct":0.059},{"eta":0.95,"phi":0.115,"fluct":0.059},{"eta":1,"phi":0.115,"fluct":0.058}],"fss":{"30":[{"eta":0,"phi":0.956,"chi":0.014},{"eta":0.01,"phi":0.9519,"chi":0.009},{"eta":0.02,"phi":0.9288,"chi":0.022},{"eta":0.03,"phi":0.8875,"chi":0.047},{"eta":0.04,"phi":0.8335,"chi":0.098},{"eta":0.05,"phi":0.7604,"chi":0.172},{"eta":0.06,"phi":0.5838,"chi":1.013},{"eta":0.07,"phi":0.5883,"chi":0.615},{"eta":0.08,"phi":0.4209,"chi":0.691},{"eta":0.09,"phi":0.3504,"chi":0.804},{"eta":0.1,"phi":0.3587,"chi":0.579},{"eta":0.11,"phi":0.3077,"chi":0.584},{"eta":0.12,"phi":0.2927,"chi":0.536},{"eta":0.13,"phi":0.2412,"chi":0.482},{"eta":0.14,"phi":0.2446,"chi":0.38},{"eta":0.15,"phi":0.2304,"chi":0.43},{"eta":0.16,"phi":0.2097,"chi":0.343},{"eta":0.17,"phi":0.215,"chi":0.328},{"eta":0.18,"phi":0.2093,"chi":0.312},{"eta":0.19,"phi":0.211,"chi":0.327},{"eta":0.2,"phi":0.195,"chi":0.319},{"eta":0.25,"phi":0.1771,"chi":0.248},{"eta":0.3,"phi":0.173,"chi":0.24},{"eta":0.4,"phi":0.168,"chi":0.228}],"60":[{"eta":0,"phi":0.9539,"chi":0.017},{"eta":0.01,"phi":0.9474,"chi":0.01},{"eta":0.02,"phi":0.9139,"chi":0.035},{"eta":0.03,"phi":0.8741,"chi":0.056},{"eta":0.04,"phi":0.8241,"chi":0.141},{"eta":0.05,"phi":0.7242,"chi":0.285},{"eta":0.06,"phi":0.5172,"chi":1.335},{"eta":0.07,"phi":0.4801,"chi":1.445},{"eta":0.08,"phi":0.4161,"chi":1.161},{"eta":0.09,"phi":0.3329,"chi":0.927},{"eta":0.1,"phi":0.2647,"chi":0.778},{"eta":0.11,"phi":0.2509,"chi":0.721},{"eta":0.12,"phi":0.2089,"chi":0.586},{"eta":0.13,"phi":0.195,"chi":0.544},{"eta":0.14,"phi":0.1671,"chi":0.426},{"eta":0.15,"phi":0.1648,"chi":0.405},{"eta":0.16,"phi":0.1615,"chi":0.349},{"eta":0.17,"phi":0.1519,"chi":0.342},{"eta":0.18,"phi":0.1454,"chi":0.34},{"eta":0.19,"phi":0.1412,"chi":0.325},{"eta":0.2,"phi":0.1427,"chi":0.314},{"eta":0.25,"phi":0.1291,"chi":0.255},{"eta":0.3,"phi":0.1234,"chi":0.255},{"eta":0.4,"phi":0.1187,"chi":0.225}],"120":[{"eta":0,"phi":0.9457,"chi":0.02},{"eta":0.01,"phi":0.9347,"chi":0.022},{"eta":0.02,"phi":0.9084,"chi":0.039},{"eta":0.03,"phi":0.8645,"chi":0.104},{"eta":0.04,"phi":0.7636,"chi":0.437},{"eta":0.05,"phi":0.7071,"chi":0.387},{"eta":0.06,"phi":0.416,"chi":1.118},{"eta":0.07,"phi":0.3096,"chi":1.76},{"eta":0.08,"phi":0.3093,"chi":1.403},{"eta":0.09,"phi":0.2091,"chi":1.14},{"eta":0.1,"phi":0.1793,"chi":0.882},{"eta":0.11,"phi":0.1545,"chi":0.883},{"eta":0.12,"phi":0.1375,"chi":0.542},{"eta":0.13,"phi":0.1281,"chi":0.531},{"eta":0.14,"phi":0.1266,"chi":0.482},{"eta":0.15,"phi":0.1178,"chi":0.407},{"eta":0.16,"phi":0.1123,"chi":0.378},{"eta":0.17,"phi":0.1077,"chi":0.364},{"eta":0.18,"phi":0.1003,"chi":0.292},{"eta":0.19,"phi":0.1018,"chi":0.333},{"eta":0.2,"phi":0.0993,"chi":0.324},{"eta":0.25,"phi":0.0937,"chi":0.282},{"eta":0.3,"phi":0.0873,"chi":0.258},{"eta":0.4,"phi":0.0827,"chi":0.232}],"240":[{"eta":0,"phi":0.9458,"chi":0.017},{"eta":0.01,"phi":0.9249,"chi":0.064},{"eta":0.02,"phi":0.8745,"chi":0.481},{"eta":0.03,"phi":0.8258,"chi":0.282},{"eta":0.04,"phi":0.7116,"chi":1.029},{"eta":0.05,"phi":0.5404,"chi":1.725},{"eta":0.06,"phi":0.4431,"chi":1.283},{"eta":0.07,"phi":0.2823,"chi":2.649},{"eta":0.08,"phi":0.1887,"chi":1.778},{"eta":0.09,"phi":0.1474,"chi":1.406},{"eta":0.1,"phi":0.1234,"chi":0.862},{"eta":0.11,"phi":0.1026,"chi":0.578},{"eta":0.12,"phi":0.0961,"chi":0.612},{"eta":0.13,"phi":0.0975,"chi":0.529},{"eta":0.14,"phi":0.088,"chi":0.497},{"eta":0.15,"phi":0.0826,"chi":0.38},{"eta":0.16,"phi":0.0793,"chi":0.406},{"eta":0.17,"phi":0.0763,"chi":0.39},{"eta":0.18,"phi":0.0743,"chi":0.337},{"eta":0.19,"phi":0.0735,"chi":0.336},{"eta":0.2,"phi":0.0667,"chi":0.301},{"eta":0.25,"phi":0.0649,"chi":0.284},{"eta":0.3,"phi":0.0613,"chi":0.239},{"eta":0.4,"phi":0.0596,"chi":0.235}]},"hyst":{"60":[{"eta":0.03,"up":0.863,"down":0.868,"diff":-0.006,"se":0.013},{"eta":0.04,"up":0.825,"down":0.829,"diff":-0.004,"se":0.011},{"eta":0.05,"up":0.682,"down":0.717,"diff":-0.035,"se":0.038},{"eta":0.06,"up":0.605,"down":0.536,"diff":0.069,"se":0.036},{"eta":0.07,"up":0.398,"down":0.423,"diff":-0.025,"se":0.034},{"eta":0.08,"up":0.293,"down":0.371,"diff":-0.078,"se":0.044},{"eta":0.09,"up":0.279,"down":0.33,"diff":-0.051,"se":0.042},{"eta":0.1,"up":0.244,"down":0.249,"diff":-0.005,"se":0.027},{"eta":0.11,"up":0.236,"down":0.221,"diff":0.014,"se":0.01},{"eta":0.12,"up":0.21,"down":0.2,"diff":0.01,"se":0.019}],"120":[{"eta":0.03,"up":0.867,"down":0.865,"diff":0.002,"se":0.005},{"eta":0.04,"up":0.79,"down":0.794,"diff":-0.004,"se":0.019},{"eta":0.05,"up":0.655,"down":0.685,"diff":-0.03,"se":0.02},{"eta":0.06,"up":0.51,"down":0.539,"diff":-0.03,"se":0.046},{"eta":0.07,"up":0.35,"down":0.358,"diff":-0.007,"se":0.046},{"eta":0.08,"up":0.309,"down":0.286,"diff":0.023,"se":0.038},{"eta":0.09,"up":0.224,"down":0.193,"diff":0.031,"se":0.016},{"eta":0.1,"up":0.196,"down":0.162,"diff":0.034,"se":0.018},{"eta":0.11,"up":0.156,"down":0.157,"diff":-0.001,"se":0.011},{"eta":0.12,"up":0.144,"down":0.142,"diff":0.002,"se":0.005}],"240":[{"eta":0.03,"up":0.858,"down":0.857,"diff":0,"se":0.006},{"eta":0.04,"up":0.78,"down":0.775,"diff":0.005,"se":0.017},{"eta":0.05,"up":0.61,"down":0.605,"diff":0.004,"se":0.051},{"eta":0.06,"up":0.511,"down":0.388,"diff":0.124,"se":0.031},{"eta":0.07,"up":0.235,"down":0.277,"diff":-0.042,"se":0.035},{"eta":0.08,"up":0.202,"down":0.203,"diff":-0.001,"se":0.028},{"eta":0.09,"up":0.144,"down":0.149,"diff":-0.006,"se":0.017},{"eta":0.1,"up":0.123,"down":0.125,"diff":-0.002,"se":0.017},{"eta":0.11,"up":0.099,"down":0.122,"diff":-0.023,"se":0.009},{"eta":0.12,"up":0.103,"down":0.103,"diff":0.001,"se":0.007}]},"summary":{"sizes":[{"N":30,"field":"651 × 368","half":0.07157108721624851,"width":0.0970052139518159,"chiAt":0.06,"chiMax":1.013,"floor":0.168},{"N":60,"field":"920 × 520","half":0.059077294685990336,"width":0.09406175539568346,"chiAt":0.07,"chiMax":1.445,"floor":0.1187},{"N":120,"field":"1301 × 735","half":0.056626588801099276,"width":0.07364777486492535,"chiAt":0.07,"chiMax":1.76,"floor":0.0827},{"N":240,"field":"1840 × 1040","half":0.053874614594039055,"width":0.06624498461201903,"chiAt":0.07,"chiMax":2.649,"floor":0.0596}],"slider":{"x90":0.3427684292323775,"x10":0.7002040518918141,"share":0.3574356226594366,"linearShare":0.09319887955182073},"hysteresis":[{"N":60,"worstEta":0.08,"worstDiff":-0.078,"z":1.92},{"N":120,"worstEta":0.1,"worstDiff":0.034,"z":1.94},{"N":240,"worstEta":0.06,"worstDiff":0.124,"z":4}],"marks":[{"label":"a knee","holds":true,"text":"Measure the drop from 90% of the way between melted and ordered down to 10%. On the instrument's slider (η = 0.25·x²) the flock makes it over 36% of the travel, from x 0.34 to 0.70; a crossfade would take 80%. On the first build's linear knob, η 0 to 1, the same drop took 9% of the travel: the remap that put the knee at mid-slider also made it about 4 times gentler under the hand."},{"label":"the wobble peaks at the knee","holds":true,"text":"At every size the wobble, N times the variance of φ, peaks at η 0.06, 0.07, 0.07, 0.07, within 0.02 of where φ is halfway down (η 0.072, 0.059, 0.057, 0.054). A knob has no wobble at all; a flock at its critical point can't settle."},{"label":"it sharpens as the flock grows","holds":true,"text":"From 30 birds to 240, at the same crowding, the peak wobble grows 1.01 → 1.45 → 1.76 → 2.65, and the drop from 90% to 10% narrows from η 0.097 to 0.066. The melted floor sinks with size as random headings should (0.168, 0.119, 0.083, 0.060), so in a flock without end the melted side would read 0. That is what a phase transition does and a curved knob does not."},{"label":"memory, in the bigger flock","holds":null,"text":"Raised step by step from order and lowered step by step from melt, eight starts each way, 20 s to settle and 20 s measured at every step: at 60 birds the worst gap is -0.078 at η 0.08, 1.92 standard errors; at 120 birds the worst gap is 0.034 at η 0.10, 1.94 standard errors; at 240 birds the worst gap is 0.124 at η 0.06, 4.00 standard errors. At 60 and 120 birds nothing is beyond chance: the flock comes back the way it went, as \"second-order\" says. At 240 the way up stays more ordered than the way down at the knee, more than chance allows: the bigger flock remembers which side it came from, for twenty seconds at least. This sweep can't tell slow settling near the knee from the start of a jump. (The steward's one-start sweep had the way up above the way down by as much as 0.170 at η 0.06.)"},{"label":"what this can't show","holds":null,"text":"The word \"snap\" is the steep knee, not a jump: a continuous transition has no jump. And a flock of 240 is small: at 480 birds the flock had not finished ordering after 30 s even with no disorder (φ 0.88, still wobbling), so that size is left out rather than shown unsettled. Grégoire and Chaté (2004) found that the Vicsek transition turns discontinuous, first-order, in large enough flocks, and that finding was disputed. What \"second-order\" can mean here is what this flock does at the sizes the instrument plays, 8 to 120 birds."}]},"textClaims":{"phiStart":0.099,"firstAbove09s":5.7,"phiAfter60s":0.964,"phiAt080":0.114}}/*END*/;
+// ---- end math ----
+
+// ---- the walk: one step showing, Next and Back, the rail always open; changing step stops the sound ----
+const STEPS = [...document.querySelectorAll('.step')];
+const rail = document.querySelector('.rail');
+let cur = 0;
+STEPS.forEach((s, i) => { const b = document.createElement('button'); b.innerHTML = `<span class="n">${i + 1}</span>${s.dataset.title}`; b.addEventListener('click', () => show(i)); rail.appendChild(b); });
+function show(i) {
+  stopSound(); sweep = null;
+  cur = Math.max(0, Math.min(STEPS.length - 1, i));
+  STEPS.forEach((s, k) => { s.hidden = k !== cur; });
+  [...rail.children].forEach((b, k) => { if (k === cur) b.setAttribute('aria-current', 'step'); else b.removeAttribute('aria-current'); });
+  document.getElementById('back').disabled = cur === 0;
+  document.getElementById('next').disabled = cur === STEPS.length - 1;
+  syncX();
+}
+document.getElementById('back').addEventListener('click', () => show(cur - 1));
+document.getElementById('next').addEventListener('click', () => show(cur + 1));
+
+// ---- sound: nothing exists before a click. The grain voice is the engine's, in a worklet from a Blob URL.
+// The kit quiets the context itself (a hush from the page around it, a hidden tab, a minute untouched); the piece
+// only keeps its words in step. Never name the page's hush message in this script: the kit reads a script that
+// names it as one that answers it. ----
+const WORKLET = `
+const L = 2048, LM = L - 1;
+class Grains extends AudioWorkletProcessor {
+  constructor() { super(); this.v = []; this.n = 0;
+    const TL = new Float32Array(L), TR = new Float32Array(L), BL = new Float32Array(L), BR = new Float32Array(L);
+    for (let i = 0; i < L; i++) { const ph = i / L, t = ph * 2 * Math.PI; TL[i] = Math.sin(t); TR[i] = 2 * ph - 1; BL[i] = ph < 0.5 ? 1 : -1; BR[i] = 0.6 * Math.sin(t) + 0.4 * Math.sin(2.76 * t) + 0.28 * Math.sin(5.4 * t) + 0.18 * Math.sin(8.93 * t); }
+    let mx = 0; for (let i = 0; i < L; i++) mx = Math.max(mx, Math.abs(BR[i])); for (let i = 0; i < L; i++) BR[i] /= mx;
+    Object.assign(this, { TL, TR, BL, BR });
+    this.port.onmessage = e => { const f = e.data.f, n = e.data.n; while (this.v.length < n) this.v.push({ phase: Math.random(), gp: Math.random() }); this.n = n;
+      for (let i = 0; i < n; i++) { const o = this.v[i], k = i * 6; o.u = f[k]; o.vv = f[k + 1]; o.freq = f[k + 2]; o.gain = f[k + 3]; o.gh = f[k + 4]; o.pan = f[k + 5]; } };
+  }
+  process(_, outs) {
+    const oL = outs[0][0], oR = outs[0][1] || outs[0][0], n = oL.length, sr = sampleRate, { TL, TR, BL, BR } = this, norm = 0.7 / Math.sqrt(Math.max(1, this.n));
+    for (let s = 0; s < n; s++) {
+      let aL = 0, aR = 0;
+      for (let vi = 0; vi < this.n; vi++) { const o = this.v[vi]; if (!(o.gain > 0)) continue;
+        const env = 0.5 - 0.5 * Math.cos(2 * Math.PI * o.gp), idx = o.phase * L, i0 = idx | 0, fr = idx - i0, i1 = (i0 + 1) & LM;
+        const stl = TL[i0] + fr * (TL[i1] - TL[i0]), str = TR[i0] + fr * (TR[i1] - TR[i0]), sbl = BL[i0] + fr * (BL[i1] - BL[i0]), sbr = BR[i0] + fr * (BR[i1] - BR[i0]);
+        const top = stl + o.u * (str - stl), bot = sbl + o.u * (sbr - sbl), smp = (top + o.vv * (bot - top)) * env * o.gain;
+        aL += smp * Math.cos(o.pan * Math.PI * 0.5); aR += smp * Math.sin(o.pan * Math.PI * 0.5);
+        o.phase += o.freq / sr; if (o.phase >= 1) o.phase -= 1;
+        o.gp += o.gh / sr; if (o.gp >= 1) { o.gp -= 1; o.phase = 0.45 * o.phase + 0.55 * Math.random(); } }
+      oL[s] = aL * norm; oR[s] = aR * norm; }
+    return true;
+  }
+}
+registerProcessor('murmur-grains', Grains);`;
+let actx = null, node = null, ready = null, sounding = false;
+async function startSound() {
+  if (!actx) {
+    actx = new (window.AudioContext || window.webkitAudioContext)();
+    ready = actx.audioWorklet.addModule(URL.createObjectURL(new Blob([WORKLET], { type: 'application/javascript' }))).then(() => {
+      node = new AudioWorkletNode(actx, 'murmur-grains', { numberOfInputs: 0, outputChannelCount: [2] });
+      const comp = actx.createDynamicsCompressor(); comp.threshold.value = -14; comp.ratio.value = 6;
+      const g = actx.createGain(); g.gain.value = 0.55;
+      node.connect(comp).connect(g).connect(actx.destination);
+    });
+    actx.onstatechange = () => { if (actx.state !== 'running') setSounding(false); };
+  }
+  await ready; await actx.resume(); setSounding(true);
+}
+function stopSound() { if (node) node.port.postMessage({ f: new Float32Array(0), n: 0 }); if (actx && actx.state === 'running') actx.suspend(); setSounding(false); }
+function setSounding(on) { sounding = on; document.querySelectorAll('[data-state]').forEach(s => { s.textContent = on ? 'sounding' : ''; }); }
+document.querySelectorAll('[data-sound]').forEach(b => b.addEventListener('click', startSound));
+document.querySelectorAll('[data-stop]').forEach(b => b.addEventListener('click', stopSound));
+function voice(f, n) { if (sounding && node) node.port.postMessage({ f, n }); }
+
+// ---- the Disorder slider, shared by every step ----
+let X = 0.49;                                                         // the instrument's default: η 0.060
+const xInputs = [...document.querySelectorAll('[data-x]')];
+function syncX() { xInputs.forEach(i => { i.value = Math.round(X * 1000); }); document.querySelectorAll('[data-xval]').forEach(b => { b.textContent = `${X.toFixed(2)} · η ${etaOfX(X).toFixed(3)}`; }); }
+xInputs.forEach(i => i.addEventListener('input', () => { X = i.value / 1000; sweep = null; syncX(); }));
+
+// ---- step 1: one bird, aligning only ----
+const bird = { vx: 2.4, vy: 0, mem: {} }, nb = { th: 0, target: 0 }, birdRng = mulberry32(11), birdHist = [];
+document.getElementById('turn').addEventListener('click', () => { nb.target += Math.PI / 2; });
+function stepBird() {
+  nb.th += Math.max(-0.05, Math.min(0.05, nb.target - nb.th));      // the neighbours wheel, a quarter turn in about half a second
+  const mx = Math.cos(nb.th) * MAX_SPEED * 0.85, my = Math.sin(nb.th) * MAX_SPEED * 0.85;
+  const [dx, dy] = setMag(mx, my, MAX_SPEED); const [sx, sy] = limit(dx - bird.vx, dy - bird.vy, MAX_FORCE);
+  let vx = bird.vx + sx, vy = bird.vy + sy; const eta = etaOfX(X);
+  if (eta > 0) { const ang = (birdRng() * 2 - 1) * eta * Math.PI, c = Math.cos(ang), s = Math.sin(ang); [vx, vy] = [vx * c - vy * s, vx * s + vy * c]; }
+  [bird.vx, bird.vy] = limit(vx, vy, MAX_SPEED);
+  let err = Math.atan2(bird.vy, bird.vx) - nb.th; err = Math.atan2(Math.sin(err), Math.cos(err));
+  birdHist.push({ b: Math.atan2(bird.vy, bird.vx), n: nb.th, e: err }); if (birdHist.length > 360) birdHist.shift();
+  // two voices: the neighbours as one long steady tone, the bird with the instrument's own grain-length rule
+  // (the bird sits at the field's centre, so the engine's Doppler term is zero for it)
+  const one = mapOrder([{ x: 460, y: 260, vx: bird.vx, vy: bird.vy, nb: 6 }], bird.mem, 920, 520, 110);
+  const semN = 12 * Math.atan2(Math.sin(nb.th), Math.cos(nb.th)) / (2 * Math.PI), f = new Float32Array(12);
+  f.set([0.15, 0.2, 110 * Math.pow(2, semN / 12), 0.55, 4, 0.35], 0);
+  f.set([0.15, 0.2, one[2], 0.9, one[4], 0.65], 6);
+  voice(f, 2);
+}
+function drawBird() {
+  const c = document.getElementById('c1'), { g, w, h } = fit(c, 300);
+  const L = w * 0.42, cx = L / 2, cy = h / 2;
+  g.save(); g.translate(cx, cy);
+  for (let k = 0; k < 6; k++) { const a = k / 6 * 2 * Math.PI + 0.3; dart(g, Math.cos(a) * 92, Math.sin(a) * 70, nb.th, 'rgba(200,200,216,.55)', 9); }
+  g.strokeStyle = 'rgba(255,255,255,.08)'; g.beginPath(); g.ellipse(0, 0, 110, 86, 0, 0, 2 * Math.PI); g.stroke();
+  dart(g, 0, 0, Math.atan2(bird.vy, bird.vx), '#e8b84a', 15);
+  g.strokeStyle = 'rgba(200,200,216,.4)'; g.setLineDash([3, 4]); g.beginPath(); g.moveTo(0, 0); g.lineTo(Math.cos(nb.th) * 60, Math.sin(nb.th) * 60); g.stroke(); g.setLineDash([]);
+  g.restore();
+  // the right: both headings over 6 s, unwrapped against the neighbours
+  const x0 = L + 30, x1 = w - 10, T = 16, B = h - 26, Y = d => (T + B) / 2 - d / 180 * (B - T) / 2;
+  axes(g, x0, x1, T, B); g.font = '10px JetBrains Mono, monospace'; g.fillStyle = '#4a4a5a'; g.textAlign = 'right'; g.textBaseline = 'middle';
+  for (const d of [-180, -90, 0, 90, 180]) g.fillText((d > 0 ? '+' : '') + d + '°', x0 - 4, Y(d));
+  g.textAlign = 'left'; g.fillText('bird minus neighbours, degrees · 6 s', x0 + 4, B + 14);
+  g.strokeStyle = '#e8b84a'; g.lineWidth = 1.4; g.beginPath(); birdHist.forEach((p, i) => { const x = x0 + (x1 - x0) * i / 359, y = Y(p.e * 180 / Math.PI); i ? g.lineTo(x, y) : g.moveTo(x, y); }); g.stroke();
+  const recent = birdHist.slice(-120), rms = Math.sqrt(recent.reduce((a, p) => a + p.e * p.e, 0) / Math.max(1, recent.length)) * 180 / Math.PI, now = (birdHist.length ? birdHist[birdHist.length - 1].e : 0) * 180 / Math.PI;
+  txt('r1a', `${now >= 0 ? '+' : ''}${now.toFixed(1)}°`); txt('r1b', `${rms.toFixed(1)}° (root mean square)`); txt('r1c', `${Math.round(rms * 1200 / 360)} cents`);
+}
+
+// ---- steps 2 to 4: the flock, sixty birds on the page's own field ----
+const W60 = { sep: 1.5, ali: 1.0, coh: 1.0 };
+let flock = makeFlock(60, 7, 920, 520), fmem = {}, phiHist = [], trail = [], sweep = null;
+document.getElementById('seed7').addEventListener('click', () => { flock = makeFlock(60, 7, 920, 520); fmem = {}; phiHist = []; });
+function sweepGo(from, to) { sweep = { from, to, t0: performance.now() }; trail = []; }
+document.getElementById('sweepDown').addEventListener('click', () => sweepGo(0, 1));
+document.getElementById('sweepUp').addEventListener('click', () => sweepGo(1, 0));
+function stepFlock60() {
+  if (sweep) { const k = Math.min(1, (performance.now() - sweep.t0) / 40000); X = sweep.from + (sweep.to - sweep.from) * k; syncX(); if (k >= 1) sweep = null; }
+  stepFlock(flock, { ...W60, eta: etaOfX(X) });
+  const p = phiOf(flock); phiHist.push(p); if (phiHist.length > 1200) phiHist.shift();
+  if (cur === 2) { trail.push([X, p]); if (trail.length > 2400) trail.shift(); }
+  voice(mapOrder(flock.boids, fmem, 920, 520, 110), 60);
+  return p;
+}
+function drawFlockInto(g, x0, y0, w, h) {
+  g.fillStyle = '#07070b'; g.fillRect(x0, y0, w, h);
+  const s = Math.min(w / 920, h / 520);
+  for (const b of flock.boids) dart(g, x0 + b.x * s, y0 + b.y * s, Math.atan2(b.vy, b.vx), `hsl(${(Math.atan2(b.vy, b.vx) + Math.PI) / (2 * Math.PI) * 360},70%,64%)`, 6);
+}
+const stateOf = p => p > 0.8 ? 'ordered · one pitch' : p > 0.3 ? 'at the knee' : 'melted · a cloud';
+function drawStep2(p) {
+  const c = document.getElementById('c2'), { g, w, h } = fit(c, 300);
+  const fw = Math.min(w * 0.55, (h - 4) * 920 / 520), fh = fw * 520 / 920;
+  drawFlockInto(g, 0, (h - fh) / 2, fw, fh);
+  const x0 = fw + 70, x1 = w - 10, T = 16, B = h - 26, Y = v => B - (B - T) * v, fl = Math.sqrt(Math.PI / (4 * 60));
+  axes(g, x0, x1, T, B); g.font = '10px JetBrains Mono, monospace'; g.textBaseline = 'middle';
+  for (const v of [0, 0.5, 1]) { g.fillStyle = '#4a4a5a'; g.textAlign = 'right'; g.fillText(v.toFixed(1), x0 - 4, Y(v)); }
+  g.strokeStyle = 'rgba(255,155,74,.6)'; g.setLineDash([4, 4]); g.beginPath(); g.moveTo(x0, Y(fl)); g.lineTo(x1, Y(fl)); g.stroke(); g.setLineDash([]);
+  g.fillStyle = '#ff9b4a'; g.textAlign = 'right'; g.fillText('floor for 60 random birds', x1 - 4, Y(fl) - 9);
+  g.strokeStyle = '#3fd6c0'; g.lineWidth = 1.6; g.beginPath(); phiHist.forEach((q, i) => { const x = x1 - (x1 - x0) * (phiHist.length - 1 - i) / 1199; i ? g.lineTo(x, Y(q)) : g.moveTo(x, Y(q)); }); g.stroke();
+  g.fillStyle = '#4a4a5a'; g.textAlign = 'left'; g.fillText('φ · last 20 s', x0 + 4, B + 14);
+  // the summed arrow, length φ
+  let sx = 0, sy = 0; for (const b of flock.boids) { const m = Math.hypot(b.vx, b.vy) || 1; sx += b.vx / m; sy += b.vy / m; } sx /= 60; sy /= 60;
+  const ax = fw + 34, ay = h / 2, R = 28; g.strokeStyle = 'rgba(255,255,255,.12)'; g.beginPath(); g.arc(ax, ay, R, 0, 2 * Math.PI); g.stroke();
+  g.strokeStyle = '#3fd6c0'; g.lineWidth = 2; g.beginPath(); g.moveTo(ax, ay); g.lineTo(ax + sx * R, ay + sy * R); g.stroke(); g.lineWidth = 1;
+  allTxt('[data-phi]', p.toFixed(2)); allTxt('[data-st]', stateOf(p)); txt('r2b', fl.toFixed(3));
+}
+function interp(rows, eta, key) { if (eta <= rows[0].eta) return rows[0][key]; for (let i = 1; i < rows.length; i++) if (rows[i].eta >= eta) { const a = rows[i - 1], b = rows[i], k = (eta - a.eta) / (b.eta - a.eta); return a[key] + k * (b[key] - a[key]); } return rows[rows.length - 1][key]; }
+function drawStep3(p) {
+  const c = document.getElementById('c3'), { g, w, h } = fit(c, 320);
+  const fw = Math.min(w * 0.36, (h - 4) * 920 / 520), fh = fw * 520 / 920;
+  drawFlockInto(g, 0, (h - fh) / 2, fw, fh);
+  const x0 = fw + 44, x1 = w - 12, T = 14, B = h - 30, XX = x => x0 + (x1 - x0) * x, Y = v => B - (B - T) * v;
+  axes(g, x0, x1, T, B); g.font = '10px JetBrains Mono, monospace'; g.textBaseline = 'middle';
+  for (const v of [0, 0.5, 1]) { g.fillStyle = '#4a4a5a'; g.textAlign = 'right'; g.fillText(v.toFixed(1), x0 - 4, Y(v)); }
+  for (const x of [0, 0.25, 0.5, 0.75, 1]) { g.textAlign = 'center'; g.fillText(x.toFixed(2), XX(x), B + 12); }
+  g.textAlign = 'left'; g.fillText('slider position x  (η = 0.25·x²)', x0, B + 24);
+  const ref = DATA.ref60, top = ref[0].phi, bot = interp(ref, 0.25, 'phi');
+  g.fillStyle = 'rgba(63,214,192,.12)'; g.beginPath();
+  for (let i = 0; i <= 200; i++) { const x = i / 200, e = etaOfX(x), v = interp(ref, e, 'phi') + interp(ref, e, 'fluct'); i ? g.lineTo(XX(x), Y(v)) : g.moveTo(XX(x), Y(v)); }
+  for (let i = 200; i >= 0; i--) { const x = i / 200, e = etaOfX(x), v = Math.max(0, interp(ref, e, 'phi') - interp(ref, e, 'fluct')); g.lineTo(XX(x), Y(v)); } g.fill();
+  g.strokeStyle = 'rgba(200,200,216,.5)'; g.setLineDash([5, 4]); g.beginPath(); g.moveTo(XX(0), Y(top)); g.lineTo(XX(1), Y(bot)); g.stroke(); g.setLineDash([]);
+  g.fillStyle = 'rgba(232,184,74,.35)'; for (const [x, q] of trail) g.fillRect(XX(x) - 1, Y(q) - 1, 2, 2);
+  g.strokeStyle = '#3fd6c0'; g.lineWidth = 2; g.beginPath(); for (let i = 0; i <= 200; i++) { const x = i / 200, v = interp(ref, etaOfX(x), 'phi'); i ? g.lineTo(XX(x), Y(v)) : g.moveTo(XX(x), Y(v)); } g.stroke(); g.lineWidth = 1;
+  g.fillStyle = '#e8b84a'; g.beginPath(); g.arc(XX(X), Y(p), 4, 0, 2 * Math.PI); g.fill();
+  g.fillStyle = '#c8c8d8'; g.textAlign = 'right'; g.fillText('— — a crossfade', x1 - 4, T + 8); g.fillStyle = '#3fd6c0'; g.fillText('—— the flock, settled', x1 - 4, T + 22);
+  allTxt('[data-phi]', p.toFixed(2)); txt('r3b', interp(ref, etaOfX(X), 'phi').toFixed(2)); txt('r3c', (top + (bot - top) * X).toFixed(2));
+}
+// step 4: five sizes, the wobble, and a point the reader measures
+const COLORS = { 30: '#7b7ff5', 60: '#3fd6c0', 120: '#7fd49a', 240: '#e8b84a', 480: '#ff9b4a' };
+let mine = [], job = null;
+function drawStep4() {
+  const c = document.getElementById('c4'), { g, w, h } = fit(c, 470);
+  const x0 = 46, x1 = w - 150, T = 14, B1 = 270, T2 = 300, B2 = h - 28, EMAX = 0.3, XX = e => x0 + (x1 - x0) * e / EMAX, Y = v => B1 - (B1 - T) * v;
+  axes(g, x0, x1, T, B1); axes(g, x0, x1, T2, B2); g.font = '10px JetBrains Mono, monospace'; g.textBaseline = 'middle';
+  for (const v of [0, 0.5, 1]) { g.fillStyle = '#4a4a5a'; g.textAlign = 'right'; g.fillText(v.toFixed(1), x0 - 4, Y(v)); }
+  for (let e = 0; e <= EMAX + 1e-9; e += 0.05) { g.textAlign = 'center'; g.fillText(e.toFixed(2), XX(e), B2 + 12); }
+  g.textAlign = 'left'; g.fillText('φ', x0 + 4, T + 6); g.fillText('wobble  N·var(φ)', x0 + 4, T2 + 6); g.fillText('η, the disorder itself', x1 - 120, B2 + 24);
+  let cmax = 0; for (const N in DATA.fss) for (const r of DATA.fss[N]) if (r.eta <= EMAX) cmax = Math.max(cmax, r.chi);
+  const Y2 = v => B2 - (B2 - T2 - 14) * v / cmax;
+  g.strokeStyle = 'rgba(200,200,216,.4)'; g.setLineDash([5, 4]); g.beginPath(); g.moveTo(XX(0), Y(DATA.fss[60][0].phi)); g.lineTo(XX(0.25), Y(interp(DATA.fss[60], 0.25, 'phi'))); g.stroke(); g.setLineDash([]);
+  const Ns = Object.keys(DATA.fss).map(Number);
+  Ns.forEach((N, k) => {
+    const rows = DATA.fss[N].filter(r => r.eta <= EMAX);
+    g.strokeStyle = COLORS[N]; g.lineWidth = 1.6; g.beginPath(); rows.forEach((r, i) => i ? g.lineTo(XX(r.eta), Y(r.phi)) : g.moveTo(XX(r.eta), Y(r.phi))); g.stroke();
+    g.beginPath(); rows.forEach((r, i) => i ? g.lineTo(XX(r.eta), Y2(r.chi)) : g.moveTo(XX(r.eta), Y2(r.chi))); g.stroke(); g.lineWidth = 1;
+    g.fillStyle = COLORS[N]; g.textAlign = 'left'; g.fillText(`${N} birds`, x1 + 18, T + 14 + k * 16);
+  });
+  g.fillStyle = '#c8c8d8'; g.fillText('— — a crossfade', x1 + 18, T + 14 + Ns.length * 16 + 6);
+  for (const m of mine) { g.strokeStyle = COLORS[m.N]; g.fillStyle = '#0a0a0f'; g.lineWidth = 2; g.beginPath(); g.arc(XX(m.eta), Y(m.phi), 5, 0, 2 * Math.PI); g.fill(); g.stroke(); g.lineWidth = 1; }
+  g.strokeStyle = 'rgba(232,184,74,.6)'; g.beginPath(); g.moveTo(XX(etaOfX(X)), T); g.lineTo(XX(etaOfX(X)), B2); g.stroke();
+  geo4 = { x0, x1, EMAX };
+}
+// a click on the chart sets the live flock's disorder there and sounds it (the instrument's slider reaches η 0.25)
+let geo4 = null;
+document.getElementById('c4').addEventListener('click', ev => { if (!geo4) return; const r = ev.currentTarget.getBoundingClientRect(), e = (ev.clientX - r.left - geo4.x0) / (geo4.x1 - geo4.x0) * geo4.EMAX; if (e >= 0 && e <= 0.25) { X = Math.sqrt(e / 0.25); sweep = null; syncX(); if (!sounding) startSound(); } });
+document.getElementById('measure').addEventListener('click', () => {
+  if (job) return;
+  const N = +document.getElementById('mN').value, eta = etaOfX(X), [Wd, Ht] = fieldFor(N);
+  job = { N, eta, fl: makeFlock(N, 1000 + mine.length, Wd, Ht), f: 0, s: 0, s2: 0 };
+  document.getElementById('measure').disabled = true;
+});
+function runJob() {
+  if (!job) return;
+  const t0 = performance.now();
+  while (performance.now() - t0 < 9 && job.f < 3000) { stepFlock(job.fl, { ...W60, eta: job.eta }); if (job.f >= 1800) { const p = phiOf(job.fl); job.s += p; job.s2 += p * p; } job.f++; }
+  document.getElementById('mOut').textContent = job.f < 3000 ? `running · ${Math.round(job.f / 30)}%` : '';
+  if (job.f >= 3000) {
+    const m = job.s / 1200, chi = job.N * (job.s2 / 1200 - m * m), settled = interp(DATA.fss[job.N], job.eta, 'phi');
+    mine.push({ N: job.N, eta: job.eta, phi: m });
+    document.getElementById('mOut').textContent = `${job.N} birds at η ${job.eta.toFixed(3)}: φ ${m.toFixed(2)} (the curve: ${settled.toFixed(2)}), wobble ${chi.toFixed(2)}`;
+    job = null; document.getElementById('measure').disabled = false;
+  }
+}
+function fssTable() {
+  const S = DATA.summary;
+  document.getElementById('fssTable').innerHTML = '<tr><th>flock</th><th>field</th><th>φ halfway at η</th><th>the drop, 90% → 10%, spans η</th><th>wobble peaks at η</th><th>peak wobble</th></tr>' +
+    S.sizes.map(r => `<tr><td style="color:${COLORS[r.N]}">${r.N} birds</td><td>${r.field}</td><td>${r.half.toFixed(3)}</td><td>${r.width.toFixed(3)}</td><td>${r.chiAt.toFixed(2)}</td><td>${r.chiMax.toFixed(2)}</td></tr>`).join('');
+  document.getElementById('marks').innerHTML = S.marks.map(m => `<div><b style="color:${m.holds === true ? '#7fd49a' : m.holds === false ? '#ff9b4a' : '#e8b84a'}">${m.label}</b>${m.text}</div>`).join('');
+}
+
+// ---- drawing helpers ----
+function fit(c, h) { const dpr = window.devicePixelRatio || 1, w = c.clientWidth || 900; if (c.width !== Math.round(w * dpr) || c.height !== Math.round(h * dpr)) { c.width = Math.round(w * dpr); c.height = Math.round(h * dpr); c.style.height = h + 'px'; } const g = c.getContext('2d'); g.setTransform(dpr, 0, 0, dpr, 0, 0); g.clearRect(0, 0, w, h); return { g, w, h }; }
+function axes(g, x0, x1, T, B) { g.strokeStyle = 'rgba(255,255,255,.08)'; g.lineWidth = 1; g.strokeRect(x0, T, x1 - x0, B - T); }
+function dart(g, x, y, a, col, s) { g.save(); g.translate(x, y); g.rotate(a); g.fillStyle = col; g.beginPath(); g.moveTo(s, 0); g.lineTo(-s * 0.8, s * 0.5); g.lineTo(-s * 0.4, 0); g.lineTo(-s * 0.8, -s * 0.5); g.closePath(); g.fill(); g.restore(); }
+function txt(id, v) { const n = document.getElementById(id); if (n) n.textContent = v; }
+function allTxt(sel, v) { STEPS[cur].querySelectorAll(sel).forEach(n => { n.textContent = v; }); }
+
+// ---- one loop: only the showing step runs ----
+let last = 0, acc = 0;
+function frame(now) {
+  acc += Math.min(100, now - (last || now)); last = now;
+  let steps = 0;
+  while (acc >= 1000 / 60 && steps < 4) { acc -= 1000 / 60; steps++; if (cur === 0) stepBird(); else stepFlock60(); }
+  if (cur === 0) drawBird(); else if (cur === 1) drawStep2(phiOf(flock)); else if (cur === 2) drawStep3(phiOf(flock)); else { runJob(); drawStep4(); }
+  requestAnimationFrame(frame);
+}
+(() => { let d = ''; for (let i = 0; i <= 240; i++) { const t = i / 240 * 2 * Math.PI, x = 9 * Math.sin(3 * t + Math.PI / 2), y = 9 * Math.sin(2 * t); d += (i ? 'L' : 'M') + x.toFixed(2) + ' ' + y.toFixed(2); } document.getElementById('sigil').setAttribute('d', d); })();
+fssTable();
+show(0);
+requestAnimationFrame(frame);
+</script>
+</body>
+</html>
