@@ -1,0 +1,380 @@
+<!doctype html>
+<!--
+  title: The 2.5D Paper Stack — rich — the balloon
+  born: 2026-11-03
+  links: [[The 2.5D Paper Stack]] connects-to · rich-face-piece-of · [[BLUELINE — Text Layer]] connects-to · the full case, every text type at a depth · [[Move the Ink, Don't Redraw It]] connects-to · the tail's flex · [[Progressive Staging]] exemplifies · a walk up to its test
+  forward_vector: I am "the stacking order means something" as a walk of five steps: one balloon on the plate, a depth
+    for it, the camera moving, the balloon breathing while its letters hold, and last the test of every placement on
+    the same camera move, with the narration standing outside the panel. I want "a citizen of the stack, not a
+    sticker" to be something you watch fail and hold.
+  dress: Loudon Live house style, Graphite skin, tokens inlined. Equations twice, symbols and words.
+  engine: the script marked id="bl-engine": parallax by depth (a sheet at depth p moves by −c·p when the camera trucks
+    by c), the tail tip's drift off the speaker's mouth over a camera sweep, how much of the balloon the walker covers
+    when it sits behind him, and the warp the balloon breathes by.
+  checks: The 2.5D Paper Stack — proof — rich checks.mjs, beside this file.
+  files: four of sheets/ (made by "The 2.5D Paper Stack — rich — make sheets.py") and track VI's plate sky.png.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:files" content="sheets/sheets.json sheets/sky-behind.png sheets/ridge-ink.png sheets/figure-ink.png /Projects/BLUELINE/proofs/track-VI-elemental-motion/plates/sky.png">
+<title>A balloon has a place in the stack</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Manrope:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root { --bg:#0a0a0f; --e1:#12121a; --e2:#1a1a28; --border:#4a4a5e; --soft:rgba(255,255,255,.06);
+    --fg1:#e8e8f0; --fg2:#c8c8d8; --fg3:#8a8aa0; --fg4:#4a4a5a; --amber:#e8b84a; --amberline:rgba(232,184,74,.5);
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --sans:'Manrope',system-ui,sans-serif; --serif:'Cormorant Garamond',Georgia,serif;
+    --ease:cubic-bezier(.4,0,.2,1); }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); font-weight: 300; }
+  .bl-piece { padding: 22px 22px 16px; max-width: 1100px; }
+  .bl-kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; }
+  .bl-title { font-family: var(--serif); font-size: 28px; font-weight: 300; color: var(--fg1); margin: 0 0 6px; }
+  .bl-sub { font-size: 14px; line-height: 1.6; max-width: 76ch; margin: 0 0 16px; }
+  .bl-rail { display: flex; flex-wrap: wrap; margin-bottom: 14px; border: 1px solid var(--border); width: fit-content; max-width: 100%; border-radius: 2px; }
+  .bl-rail button { border: 0; border-right: 1px solid var(--border); border-radius: 0; }
+  .bl-rail button:last-child { border-right: 0; }
+  button { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--fg2); background: var(--bg);
+    border: 1px solid var(--border); border-radius: 2px; padding: 8px 12px; cursor: pointer; transition: color 220ms var(--ease), border-color 220ms var(--ease); }
+  button:hover { border-color: rgba(232,184,74,.55); color: var(--fg1); }
+  button:disabled { opacity: .4; cursor: default; }
+  button[aria-pressed="true"] { color: var(--amber); border-color: var(--amberline); background: rgba(232,184,74,.08); }
+  .bl-rail button[aria-pressed="true"] { border-right: 1px solid var(--border); }
+  button:focus-visible, input:focus-visible { outline: 1px dashed var(--amber); outline-offset: 2px; }
+  .bl-card { border: 1px solid var(--soft); background: var(--e1); border-radius: 2px; padding: 16px 16px 14px; }
+  .bl-step { display: none; }
+  .bl-step.bl-shown { display: block; }
+  .bl-step h2 { font-family: var(--serif); font-weight: 400; font-size: 23px; color: var(--fg1); margin: 0 0 4px; }
+  .bl-idea { font-size: 14.5px; line-height: 1.6; color: var(--fg1); max-width: 78ch; margin: 0 0 12px; }
+  .bl-p { font-size: 13.5px; line-height: 1.6; max-width: 78ch; margin: 8px 0; }
+  .bl-layout { display: grid; grid-template-columns: minmax(240px, 380px) minmax(120px, 170px) 1fr; gap: 16px; align-items: start; }
+  @media (max-width: 860px) { .bl-layout { grid-template-columns: minmax(240px, 380px) 1fr; } .bl-margin { grid-column: 1; } }
+  canvas { display: block; width: 100%; height: auto; background: #07070b; border-radius: 2px; }
+  .bl-margin { font-family: var(--serif); font-style: italic; font-size: 16px; line-height: 1.5; color: var(--fg1); border-left: 1px solid var(--border); padding: 6px 0 6px 12px; visibility: hidden; }
+  .bl-margin.bl-on { visibility: visible; }
+  .bl-margin small { display: block; font-family: var(--mono); font-style: normal; font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--fg3); margin-top: 8px; }
+  .bl-row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 10px 0; }
+  .bl-row label { font-family: var(--mono); font-size: 11px; color: var(--fg3); letter-spacing: .08em; min-width: 9ch; }
+  input[type=range] { accent-color: var(--amber); flex: 1; min-width: 140px; max-width: 320px; }
+  .bl-val { font-family: var(--mono); font-size: 12px; color: var(--fg1); min-width: 8ch; font-variant-numeric: tabular-nums; }
+  .bl-seg { display: inline-flex; flex-wrap: wrap; } .bl-seg button + button { border-left: 0; }
+  .bl-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 8px; margin: 10px 0; }
+  .bl-cell { border: 1px solid var(--soft); background: var(--bg); border-radius: 2px; padding: 8px 10px; }
+  .bl-cell .bl-k { font-family: var(--mono); font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--fg3); }
+  .bl-cell .bl-v { font-family: var(--mono); font-size: 15px; color: var(--fg1); font-variant-numeric: tabular-nums; margin-top: 2px; }
+  .bl-eq { border-left: 2px solid var(--amberline); padding: 6px 12px; margin: 12px 0; }
+  .bl-eq .bl-sym { font-family: var(--mono); font-size: 15px; color: var(--fg1); }
+  .bl-eq .bl-words { font-family: var(--serif); font-style: italic; font-size: 16px; color: var(--fg2); margin-top: 2px; }
+  .bl-test { font-size: 14px; line-height: 1.6; color: var(--fg1); border: 1px solid var(--soft); background: var(--e2); padding: 10px 12px; border-radius: 2px; max-width: 86ch; margin: 12px 0 4px; }
+  .bl-test b { color: var(--amber); font-weight: 500; }
+  .bl-note { font-family: var(--mono); font-size: 11px; color: var(--fg3); line-height: 1.6; margin: 6px 0 0; }
+  .bl-scroll { overflow-x: auto; }
+  table.bl-t { border-collapse: collapse; font-family: var(--mono); font-size: 12px; margin: 10px 0; }
+  table.bl-t th, table.bl-t td { border: 1px solid var(--soft); padding: 4px 10px; text-align: right; font-variant-numeric: tabular-nums; vertical-align: top; }
+  table.bl-t th { color: var(--fg3); font-weight: 400; letter-spacing: .06em; }
+  table.bl-t td:first-child, table.bl-t th:first-child, table.bl-t td.bl-l { text-align: left; }
+  table.bl-t tr.bl-hi td { color: var(--amber); }
+  .bl-nav { display: flex; justify-content: space-between; margin-top: 12px; }
+  .bl-foot { display: flex; align-items: center; gap: 8px; margin-top: 16px; font-family: var(--mono); font-size: 11px; letter-spacing: .14em; color: var(--fg3); }
+  .bl-foot i { color: var(--amber); font-weight: 300; }
+  .bl-wait { font-family: var(--mono); font-size: 12px; color: var(--fg3); padding: 18px 0; }
+</style>
+</head>
+<body>
+<main class="bl-piece">
+  <div class="bl-kicker">The 2.5D paper stack · the stacking order means something</div>
+  <h1 class="bl-title">A balloon has a place in the stack</h1>
+  <p class="bl-sub">The walker on the ridge says one line. Five steps: the balloon on the plate, a depth for it, the camera moving, the balloon breathing while its letters hold, and last every placement on the same camera move, measured. The panel border is ruled here; the sheets are track VI's plate, cut.</p>
+  <nav class="bl-rail" aria-label="steps">
+    <button data-go="1" aria-pressed="true">1 · one balloon</button>
+    <button data-go="2" aria-pressed="false">2 · a depth for it</button>
+    <button data-go="3" aria-pressed="false">3 · the camera moves</button>
+    <button data-go="4" aria-pressed="false">4 · it breathes</button>
+    <button data-go="5" aria-pressed="false">5 · every placement</button>
+  </nav>
+  <p class="bl-wait" id="wait">loading the sheets…</p>
+
+  <div class="bl-card" id="card" hidden>
+    <div class="bl-layout">
+      <div><canvas id="cv"></canvas></div>
+      <div class="bl-margin" id="margin">The wind had turned by the time he reached the top.<small>narration · beside the panel, outside the stack</small></div>
+      <div>
+        <section class="bl-step bl-shown" data-step="1">
+          <h2>1 · One balloon</h2>
+          <p class="bl-idea">A balloon, its tail reaching down onto the speaker. On a still frame, only what covers what tells you where in the stack it lives; here it lies over him, and nothing yet says how deep it is.</p>
+        </section>
+        <section class="bl-step" data-step="2">
+          <h2>2 · A depth for it</h2>
+          <p class="bl-idea">Give the balloon a depth, and the stack decides what covers what. Behind the walker, he covers its tail; in front of him and behind the panel border is where the page puts it.</p>
+          <div class="bl-row"><span class="bl-seg" id="pre2"></span></div>
+          <div class="bl-row"><label for="p2">depth</label><input id="p2" type="range" min="0.3" max="0.7" step="0.01" value="0.56"><span class="bl-val" id="p2v"></span></div>
+          <p class="bl-p" id="o2"></p>
+        </section>
+        <section class="bl-step" data-step="3">
+          <h2>3 · The camera moves</h2>
+          <p class="bl-idea">Now the camera trucks sideways and every sheet slides by its depth. Watch the tail's tip against the walker's mouth.</p>
+          <div class="bl-row"><span class="bl-seg" id="pre3"></span></div>
+          <div class="bl-row"><label for="p3">depth</label><input id="p3" type="range" min="0.3" max="0.7" step="0.01" value="0.56"><span class="bl-val" id="p3v"></span></div>
+          <div class="bl-grid"><div class="bl-cell"><div class="bl-k">camera</div><div class="bl-v" id="c3"></div></div><div class="bl-cell"><div class="bl-k">tail tip off the mouth</div><div class="bl-v" id="d3"></div></div></div>
+          <div class="bl-eq"><div class="bl-sym">x′ = x − c·p &nbsp;·&nbsp; drift = |c|·|p<sub>balloon</sub> − p<sub>speaker</sub>|</div><div class="bl-words">When the camera steps c sideways, a sheet at depth p slides c·p the other way; the tail leaves the mouth by the camera's step times the difference in their depths.</div></div>
+        </section>
+        <section class="bl-step" data-step="4">
+          <h2>4 · It breathes; the letters hold</h2>
+          <p class="bl-idea">The balloon's outline and its tail are drawn lines, so they may move with the same kind of warp that moves any other sheet. The letters are meaning to be read, so they stay locked.</p>
+          <div class="bl-row"><button id="wl4" aria-pressed="false">warp the letters too</button></div>
+          <div class="bl-grid"><div class="bl-cell"><div class="bl-k">outline moves up to</div><div class="bl-v" id="w4o"></div></div><div class="bl-cell"><div class="bl-k">letters move up to</div><div class="bl-v" id="w4l"></div></div></div>
+          <p class="bl-p">Turn the letters' warp on and read the line while it moves: the same few pixels that make the outline feel drawn make the words swim.</p>
+        </section>
+        <section class="bl-step" data-step="5">
+          <h2>5 · Every placement, one camera move</h2>
+          <p class="bl-idea">The test. The camera sweeps 40 pixels each way; each placement is measured on the same sweep. The page says a balloon has a place in the stack, in front of its speaker and behind the panel border, and that there it drifts with him. The narration sits outside, in the margin.</p>
+          <div class="bl-row"><span class="bl-seg" id="pre5"></span></div>
+          <div class="bl-scroll"><table class="bl-t" id="tab5"></table></div>
+          <p class="bl-test" id="t5"></p>
+        </section>
+      </div>
+    </div>
+  </div>
+
+  <div class="bl-nav"><button id="back">back</button><button id="next">next</button></div>
+  <div class="bl-foot">
+    <svg width="22" height="22" viewBox="-11 -11 22 22" aria-hidden="true"><circle r="10" fill="none" stroke="#4a4a5e" stroke-width="1"/><path id="sig" fill="none" stroke="#e8b84a" stroke-width="1"/></svg>
+    <span>Loud’n <i>Live</i></span>
+  </div>
+</main>
+
+<script id="bl-engine">
+/* The balloon, as numbers. Plate pixels; no DOM. */
+const BL = (() => {
+  const DEPTH = { sky: 0.3, ridge: 0.5, fig: 0.55 };
+  const PANEL = { inset: 24, line: 8 };
+  const BALLOON = { cx: 590, cy: 318, rx: 128, ry: 62, tip: [374, 470], base: [[492, 352], [530, 368]], lines: ["THE WIND'S", 'TURNING.'], size: 27 };
+  const PLACES = [
+    { key: 'sky', name: 'with the sky', p: 0.3 },
+    { key: 'behind', name: 'at his depth, behind him', p: 0.55, behind: true },
+    { key: 'speaker', name: 'at his depth, in front of him', p: 0.55 },
+    { key: 'near', name: 'well in front of him', p: 0.7 },
+    { key: 'sticker', name: 'a sticker on the page', p: 0, sticker: true },
+  ];
+  const CAM = 40;
+  const shift = (c, p) => -c * p;
+  /* the sheet order: a balloon at depth p sits in front of every sheet whose depth is less; a sticker is above everything, panel included */
+  function order(p, sticker, behind) {
+    if (sticker) return ['sky', 'ridge', 'fig', 'panel', 'balloon'];
+    const sheets = [['sky', DEPTH.sky], ['ridge', DEPTH.ridge], ['fig', DEPTH.fig], ['balloon', p]];
+    /* at equal depth the balloon goes in front, unless it is placed behind */
+    sheets.sort((a, b) => a[1] - b[1] || ((a[0] === 'balloon') !== !!behind ? 1 : -1));
+    return sheets.map((s) => s[0]).concat('panel');
+  }
+  /* the tail tip's distance from the mouth on screen, sampled over the sweep */
+  function drift(p, sticker, mouth, n = 161) {
+    let mx = 0;
+    for (let i = 0; i < n; i++) {
+      const c = -CAM + 2 * CAM * i / (n - 1);
+      const tip = BALLOON.tip[0] + shift(c, sticker ? 0 : p), m = mouth[0] + shift(c, DEPTH.fig);
+      mx = Math.max(mx, Math.abs((tip - m) - (BALLOON.tip[0] - mouth[0])));
+    }
+    return mx;
+  }
+  /* the balloon's shape at time t: the outline breathes by a few px; the tail bends */
+  const breathe = (th, t, a) => a * Math.sin(3 * th + 2 * Math.PI * t / 2.8) + 0.6 * a * Math.sin(5 * th - 2 * Math.PI * t / 4.1);
+  function outline(t, a) {
+    const pts = [];
+    for (let i = 0; i < 96; i++) {
+      const th = 2 * Math.PI * i / 96, b = breathe(th, t, a);
+      pts.push([BALLOON.cx + (BALLOON.rx + b) * Math.cos(th), BALLOON.cy + (BALLOON.ry + b) * Math.sin(th)]);
+    }
+    return pts;
+  }
+  function tail(t, a) {
+    const [b0, b1] = BALLOON.base, tip = BALLOON.tip, bend = a * 2.2 * Math.sin(2 * Math.PI * t / 3.3);
+    const mid = (u, v) => [(u[0] + v[0]) / 2, (u[1] + v[1]) / 2];
+    const m0 = mid(b0, tip), m1 = mid(b1, tip);
+    return { b0, b1, tip, c0: [m0[0] + bend, m0[1] - bend * 0.4], c1: [m1[0] + bend + 6, m1[1] - bend * 0.4 + 4] };
+  }
+  /* the most any outline point moves from the still ellipse over a cycle */
+  function outlineMotion(a) {
+    let mx = 0; const still = outline(0, 0);
+    for (let s = 0; s < 120; s++) { const o = outline(s * 0.1, a); for (let i = 0; i < o.length; i++) mx = Math.max(mx, Math.hypot(o[i][0] - still[i][0], o[i][1] - still[i][1])); }
+    return mx;
+  }
+  /* how much of the tail's last 30 px (the part that reaches him) the walker's sheet covers when the balloon sits behind him */
+  function covered(fig, W) {
+    const inEll = (x, y) => ((x - BALLOON.cx) / BALLOON.rx) ** 2 + ((y - BALLOON.cy) / BALLOON.ry) ** 2 <= 1;
+    const [a, b] = BALLOON.base, c = BALLOON.tip;
+    const sgn = (p, q, r) => (p[0] - r[0]) * (q[1] - r[1]) - (q[0] - r[0]) * (p[1] - r[1]);
+    const inTri = (x, y) => { const p = [x, y], d1 = sgn(p, a, b), d2 = sgn(p, b, c), d3 = sgn(p, c, a); return !((d1 < 0 || d2 < 0 || d3 < 0) && (d1 > 0 || d2 > 0 || d3 > 0)); };
+    let area = 0, cov = 0, tailArea = 0, tailCov = 0;
+    for (let y = 230; y < 470; y++) for (let x = 360; x < 740; x++) {
+      const e = inEll(x, y), tr = inTri(x, y);
+      if (!e && !tr) continue;
+      area++; const f = fig[y * W + x] ? 1 : 0; cov += f;
+      if (tr && !e && Math.hypot(x - c[0], y - c[1]) <= 30) { tailArea++; tailCov += f; }
+    }
+    return { all: 100 * cov / area, tail: 100 * tailCov / Math.max(1, tailArea) };
+  }
+  return { DEPTH, PANEL, BALLOON, PLACES, CAM, shift, order, drift, breathe, outline, tail, outlineMotion, covered };
+})();
+</script>
+
+<script>
+const $ = (id) => document.getElementById(id);
+const BASE = 'sheets/', PLATE = '../Projects/BLUELINE/proofs/track-VI-elemental-motion/plates/sky.png';
+let W = 0, H = 0, meta = null, step = 1, raf = 0, visible = true, sheets = {}, FIG = null, cover = null;
+const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const st = { p: 0.55, sticker: false, behind: false, warpLetters: false };
+const T0 = performance.now() / 1000, now = () => performance.now() / 1000 - T0;
+
+function loadImg(src) { return new Promise((res, rej) => { const im = new Image(); im.crossOrigin = 'anonymous'; im.onload = () => res(im); im.onerror = () => rej(new Error('could not load ' + src)); im.src = src; }); }
+function sheetFrom(src, alphaOf) {
+  const c = document.createElement('canvas'); c.width = W; c.height = H;
+  const g = c.getContext('2d', { willReadFrequently: true }); g.drawImage(src, 0, 0);
+  if (alphaOf) { const d = g.getImageData(0, 0, W, H); for (let i = 0; i < W * H; i++) d.data[4 * i + 3] = alphaOf(i); g.putImageData(d, 0, 0); }
+  return c;
+}
+async function boot() {
+  meta = await (await fetch(BASE + 'sheets.json')).json();
+  const [pi, fi, ri, gi] = await Promise.all([loadImg(PLATE), loadImg(BASE + 'sky-behind.png'), loadImg(BASE + 'ridge-ink.png'), loadImg(BASE + 'figure-ink.png')]);
+  W = pi.naturalWidth; H = pi.naturalHeight;
+  const tmp = document.createElement('canvas'); tmp.width = W; tmp.height = H; const tg = tmp.getContext('2d', { willReadFrequently: true });
+  const read = (im) => { tg.clearRect(0, 0, W, H); tg.drawImage(im, 0, 0); return tg.getImageData(0, 0, W, H).data; };
+  const r = read(ri), g = read(gi);
+  FIG = new Uint8Array(W * H); for (let i = 0; i < W * H; i++) FIG[i] = g[4 * i] > 127 ? 1 : 0;
+  /* the sky sheet: the fill inside the ridge and the walker, the plate elsewhere */
+  const skyP = sheetFrom(pi), skyF = sheetFrom(fi), sg = skyP.getContext('2d', { willReadFrequently: true });
+  const sp = sg.getImageData(0, 0, W, H), sf = skyF.getContext('2d', { willReadFrequently: true }).getImageData(0, 0, W, H).data;
+  for (let i = 0; i < W * H; i++) if (r[4 * i] > 127 || g[4 * i] > 127) { sp.data[4 * i] = sf[4 * i]; sp.data[4 * i + 1] = sf[4 * i + 1]; sp.data[4 * i + 2] = sf[4 * i + 2]; }
+  sg.putImageData(sp, 0, 0);
+  sheets = { sky: skyP, ridge: sheetFrom(pi, (i) => r[4 * i]), fig: sheetFrom(pi, (i) => g[4 * i]) };
+  cover = BL.covered(FIG, W);
+  buildPresets();
+  $('wait').remove(); $('card').hidden = false;
+  show(1);
+}
+
+function drawBalloon(g, t, breathing) {
+  const a = breathing ? 3 : 0, o = BL.outline(t, a), tl = BL.tail(t, a);
+  const path = () => { g.beginPath(); o.forEach((p, i) => (i ? g.lineTo(p[0], p[1]) : g.moveTo(p[0], p[1]))); g.closePath(); };
+  const tailPath = () => { g.beginPath(); g.moveTo(tl.b0[0], tl.b0[1]); g.quadraticCurveTo(tl.c0[0], tl.c0[1], tl.tip[0], tl.tip[1]); g.quadraticCurveTo(tl.c1[0], tl.c1[1], tl.b1[0], tl.b1[1]); g.closePath(); };
+  g.lineJoin = 'round'; g.strokeStyle = '#0b0b0b'; g.lineWidth = 7;
+  tailPath(); g.stroke(); path(); g.stroke();
+  g.fillStyle = '#fbfaf6'; tailPath(); g.fill(); path(); g.fill();
+  g.fillStyle = '#0b0b0b'; g.font = '600 ' + BL.BALLOON.size + 'px Manrope, system-ui, sans-serif'; g.textAlign = 'center'; g.textBaseline = 'middle';
+  const B = BL.BALLOON, lh = B.size * 1.18;
+  B.lines.forEach((line, li) => {
+    const y = B.cy + (li - (B.lines.length - 1) / 2) * lh;
+    if (!(breathing && st.warpLetters)) { g.fillText(line, B.cx, y); return; }
+    /* warped: each letter rides the same field as the outline */
+    const w = g.measureText(line).width; let x = B.cx - w / 2;
+    g.textAlign = 'left';
+    for (const ch of line) {
+      const cw = g.measureText(ch).width, th = Math.atan2((y - B.cy) / B.ry, (x + cw / 2 - B.cx) / B.rx);
+      const dx = 3 * Math.sin(3 * th + 2 * Math.PI * t / 2.8 + x * 0.05), dy = 3 * Math.sin(5 * th - 2 * Math.PI * t / 4.1 + x * 0.04);
+      g.save(); g.translate(x + dx, y + dy); g.rotate(0.06 * Math.sin(2 * Math.PI * t / 2.1 + x * 0.03)); g.fillText(ch, 0, 0); g.restore();
+      x += cw;
+    }
+    g.textAlign = 'center';
+  });
+}
+function paint() {
+  raf = 0;
+  if (!sheets.sky) return;   /* nothing to lay until the sheets are cut */
+  const cv = $('cv'), cssW = cv.clientWidth || 380, dpr = Math.min(2, window.devicePixelRatio || 1);
+  const pxW = Math.round(cssW * dpr), pxH = Math.round(pxW * H / W);
+  if (cv.width !== pxW || cv.height !== pxH) { cv.width = pxW; cv.height = pxH; }
+  const g = cv.getContext('2d'), s = pxW / W, t = now();
+  const moving = step === 3 || step === 5, cam = moving && !reduce ? BL.CAM * Math.sin(2 * Math.PI * t / 6) : 0;
+  const breathing = step >= 4 && !reduce;
+  const p = step === 1 ? BL.DEPTH.fig : st.p, sticker = step === 1 ? false : st.sticker, behind = step === 1 ? false : st.behind;
+  g.setTransform(1, 0, 0, 1, 0, 0); g.clearRect(0, 0, pxW, pxH);
+  g.setTransform(s, 0, 0, s, 0, 0);
+  const P = BL.PANEL, inner = [P.inset + P.line / 2, P.inset + P.line / 2, W - 2 * P.inset - P.line, H - 2 * P.inset - P.line];
+  const ord = BL.order(p, sticker, behind);
+  let clipped = false;
+  for (const name of ord) {
+    if (!clipped && name !== 'panel' && !(name === 'balloon' && sticker)) { g.save(); g.beginPath(); g.rect(...inner); g.clip(); clipped = true; }
+    if (name === 'panel') {
+      if (clipped) { g.restore(); clipped = false; }
+      g.strokeStyle = '#0b0b0b'; g.lineWidth = P.line; g.strokeRect(P.inset, P.inset, W - 2 * P.inset, H - 2 * P.inset);
+      continue;
+    }
+    /* a sheet slides at most 40 × 0.55 = 22 px, inside the 28 px the panel's margin hides */
+    const depth = name === 'balloon' ? (sticker ? 0 : p) : BL.DEPTH[name];
+    g.save(); g.translate(BL.shift(cam, depth), 0);
+    if (name === 'balloon') drawBalloon(g, t, breathing); else g.drawImage(sheets[name], 0, 0);
+    g.restore();
+  }
+  if (clipped) g.restore();
+  /* readouts */
+  const mouth = meta.mouth;
+  if (step === 3) {
+    $('c3').textContent = cam.toFixed(1) + ' px';
+    const tip = BL.BALLOON.tip[0] + BL.shift(cam, sticker ? 0 : p), m = mouth[0] + BL.shift(cam, BL.DEPTH.fig);
+    $('d3').textContent = Math.abs((tip - m) - (BL.BALLOON.tip[0] - mouth[0])).toFixed(1) + ' px';
+  }
+  if ((moving || breathing) && visible && !document.hidden) raf = requestAnimationFrame(paint);
+}
+const kick = () => { if (!raf) raf = requestAnimationFrame(paint); };
+new IntersectionObserver((es) => { visible = es[0].isIntersecting; if (visible) kick(); }).observe(document.querySelector('.bl-piece'));
+document.addEventListener('visibilitychange', () => { if (!document.hidden) kick(); });
+window.addEventListener('resize', () => kick());
+
+function buildPresets() {
+  for (const id of ['pre2', 'pre3', 'pre5']) {
+    $(id).innerHTML = BL.PLACES.map((pl) => '<button data-place="' + pl.key + '">' + pl.name + '</button>').join('');
+    $(id).querySelectorAll('button').forEach((b) => b.addEventListener('click', () => { const pl = BL.PLACES.find((x) => x.key === b.dataset.place); st.sticker = !!pl.sticker; st.behind = !!pl.behind; if (!pl.sticker) st.p = pl.p; label(); kick(); }));
+  }
+}
+function placeName() {
+  if (st.sticker) return 'a sticker on the page';
+  if (st.p < BL.DEPTH.ridge) return 'behind the ridge';
+  if (st.p < BL.DEPTH.fig || (st.p === BL.DEPTH.fig && st.behind)) return 'behind the walker';
+  return 'in front of the walker, behind the panel border';
+}
+function label() {
+  for (const id of ['p2', 'p3']) { $(id).value = st.p; $(id + 'v').textContent = st.sticker ? 'on the page' : st.p.toFixed(2); $(id).disabled = st.sticker; }
+  for (const id of ['pre2', 'pre3', 'pre5']) $(id).querySelectorAll('button').forEach((b) => { const pl = BL.PLACES.find((x) => x.key === b.dataset.place); b.setAttribute('aria-pressed', String(pl.sticker ? st.sticker : (!st.sticker && Math.abs(pl.p - st.p) < 0.001 && !!pl.behind === st.behind))); });
+  $('o2').textContent = 'Now: ' + placeName() + '. ' + (st.sticker ? 'A sticker sits over everything, the panel border included.'
+    : (st.p < BL.DEPTH.fig || st.behind) ? 'The walker’s sheet covers ' + cover.tail.toFixed(0) + ' % of the tail’s last 30 pixels, where it reaches him.' : 'Nothing in the scene covers it; the panel border still does, at the edge.');
+  $('wl4').setAttribute('aria-pressed', String(st.warpLetters));
+  $('w4o').textContent = BL.outlineMotion(3).toFixed(1) + ' px';
+  $('w4l').textContent = st.warpLetters ? Math.hypot(3, 3).toFixed(1) + ' px, and turning' : '0 px';
+}
+function runTable() {
+  const rows = BL.PLACES.map((pl) => ({ pl, drift: BL.drift(pl.p, !!pl.sticker, meta.mouth) }));
+  let html = '<tr><th>placement</th><th>depth</th><th>tail off the mouth</th><th>the walker covers the tail’s tip</th><th>over the panel border</th></tr>';
+  rows.forEach(({ pl, drift }) => {
+    const behind = !pl.sticker && (pl.p < BL.DEPTH.fig || pl.behind);
+    html += '<tr' + (pl.key === 'speaker' ? ' class="bl-hi"' : '') + '><td>' + pl.name + '</td><td>' + (pl.sticker ? 'the page' : pl.p.toFixed(2)) + '</td><td>' + drift.toFixed(1) + ' px</td><td>'
+      + (behind ? cover.tail.toFixed(0) + ' %' : '0 %') + '</td><td class="bl-l">' + (pl.sticker ? 'yes' : 'no') + '</td></tr>';
+  });
+  $('tab5').innerHTML = html;
+  const R = Object.fromEntries(rows.map((r) => [r.pl.key, r.drift]));
+  $('t5').innerHTML = '<b>Only a balloon at its speaker’s depth stays on his mouth.</b> At his depth its tail leaves his mouth by ' + R.speaker.toFixed(1) + ' px over the whole sweep; with the sky, by '
+    + R.sky.toFixed(1) + '; well in front of him, by ' + R.near.toFixed(1) + '. <b>The sticker is the worst of both:</b> it moves like nothing in the frame (not at all, while even the sky moves 12 px) and covers like the nearest, so its tail slides '
+    + R.sticker.toFixed(1) + ' px off his mouth and it sits over the panel border. At his depth but behind him, it drifts ' + R.behind.toFixed(1) + ' px, and his sheet covers ' + cover.tail.toFixed(0)
+    + ' % of its tail’s last 30 pixels: the right depth and the wrong order. Depth decides the drift and order decides the cover, and the page’s rule names both: a place in the stack, in front of its speaker, behind the border. '
+    + 'The narration in the margin is not in the stack at all, so the camera never touches it. One more thing the sweep shows: the depth has to be close. The drift grows by ' + (BL.CAM * 0.01).toFixed(1) + ' px for every 0.01 of depth between balloon and speaker on a ' + BL.CAM + '-pixel move.';
+  window.__blTable = R;
+}
+function show(n) {
+  step = Math.max(1, Math.min(5, n));
+  document.querySelectorAll('.bl-step').forEach((s) => s.classList.toggle('bl-shown', +s.dataset.step === step));
+  document.querySelectorAll('.bl-rail button').forEach((b) => b.setAttribute('aria-pressed', String(+b.dataset.go === step)));
+  $('back').disabled = step === 1; $('next').disabled = step === 5;
+  $('margin').classList.toggle('bl-on', step === 5);
+  if (step === 5) runTable();
+  label(); cancelAnimationFrame(raf); raf = 0; paint();
+}
+document.querySelectorAll('.bl-rail button').forEach((b) => b.addEventListener('click', () => show(+b.dataset.go)));
+$('back').addEventListener('click', () => show(step - 1)); $('next').addEventListener('click', () => show(step + 1));
+for (const id of ['p2', 'p3']) $(id).addEventListener('input', (e) => { st.p = +e.target.value; st.sticker = false; st.behind = false; label(); kick(); });
+$('wl4').addEventListener('click', () => { st.warpLetters = !st.warpLetters; label(); kick(); });
+function sigil() { let d = ''; for (let i = 0; i <= 200; i++) { const t = i / 200 * 2 * Math.PI; d += (i ? 'L' : 'M') + (8 * Math.sin(3 * t + Math.PI / 4)).toFixed(2) + ' ' + (8 * Math.sin(2 * t)).toFixed(2); } $('sig').setAttribute('d', d); }
+sigil();
+boot().catch((err) => { $('wait').textContent = 'The sheets did not load: ' + err.message; throw err; });
+</script>
+</body>
+</html>
