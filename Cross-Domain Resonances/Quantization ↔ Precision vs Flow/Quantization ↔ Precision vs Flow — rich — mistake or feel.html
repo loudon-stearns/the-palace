@@ -1,0 +1,294 @@
+<!doctype html>
+<!--
+  title: Quantization ↔ Precision vs Flow — rich — mistake or feel
+  born: 2026-11-03
+  links: [[Quantization ↔ Precision vs Flow]] (connects-to · rich-face-piece) · listed in [[Quantization ↔ Precision vs Flow — rich.json]]
+  forward_vector: I am The Technical Side put to its own question: one note 37 ms late, then the strength knob on that note, then a two-bar groove played freely with a stumble planted in bar 1 and a lean planted in bar 2, the same 37 ms each, and last the strength knob on the whole groove, asked to fix the one and keep the other. It can't; only a hand that says which is which can. I play inside the entry's rich face and stand alone opened directly; I change only when the section I serve does.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:needs" content="">
+<title>Quantization ↔ Precision vs Flow — mistake or feel</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Manrope:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root { --bg:#0a0a0f; --e1:#12121a; --ring:#22222e; --border:#4a4a5e; --soft:rgba(255,255,255,.06); --fg1:#e8e8f0; --fg2:#c8c8d8; --fg3:#8a8aa0; --fg4:#4a4a5a;
+    --amber:#e8b84a; --amberline:rgba(232,184,74,.5); --warn:#ff9b4a; --blue:#4a8fff;
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --sans:'Manrope',system-ui,sans-serif; --serif:'Cormorant Garamond',Georgia,serif; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); font-weight: 300; }
+  .piece { padding: 22px 22px 20px; }
+  .kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
+  .title { font-family: var(--serif); font-size: 27px; font-weight: 300; color: var(--fg1); margin: 0 0 6px; }
+  .sub { font-size: 14px; line-height: 1.6; color: var(--fg2); max-width: 78ch; margin: 0 0 14px; }
+  .rail { display: flex; flex-wrap: wrap; margin: 4px 0 14px; border: 1px solid var(--soft); border-radius: 2px; }
+  .rail button { flex: 1 1 130px; text-align: left; border: 0; border-right: 1px solid var(--soft); border-radius: 0; background: transparent; padding: 9px 12px; color: var(--fg3); }
+  .rail button:last-child { border-right: 0; }
+  .rail button b { display: block; font-weight: 500; color: var(--fg2); letter-spacing: .04em; text-transform: none; font-size: 12px; margin-top: 2px; }
+  .rail button.on { background: var(--e1); color: var(--amber); }
+  .rail button.on b { color: var(--fg1); }
+  .say { font-family: var(--serif); font-size: 18px; line-height: 1.55; color: var(--fg1); max-width: 80ch; margin: 0 0 14px; min-height: 3.1em; }
+  .say i { color: var(--amber); font-style: italic; }
+  .panel { border: 1px solid var(--soft); border-radius: 2px; background: var(--e1); padding: 10px 12px; margin-bottom: 12px; }
+  .plabel { font-family: var(--mono); font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--fg3); margin-bottom: 8px; display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+  .insets { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  canvas { display: block; width: 100%; }
+  canvas.click { cursor: pointer; }
+  .hidden { display: none !important; }
+  .controls { display: flex; flex-wrap: wrap; gap: 14px 22px; align-items: flex-end; margin-top: 4px; }
+  button { font-family: var(--mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--fg2); background: var(--bg); border: 1px solid var(--border); border-radius: 2px; padding: 8px 13px; cursor: pointer; }
+  button:hover { border-color: rgba(232,184,74,.55); color: var(--fg1); }
+  button:disabled { opacity: .35; cursor: default; }
+  button.on { color: var(--amber); border-color: var(--amberline); }
+  button.go { color: var(--amber); border-color: var(--amberline); box-shadow: 0 0 14px rgba(232,184,74,.18); min-width: 110px; }
+  .seg { display: inline-flex; flex-wrap: wrap; } .seg button + button { border-left: 0; }
+  .seg button { letter-spacing: .04em; text-transform: none; font-size: 12px; padding: 7px 10px; }
+  label.sl { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: .06em; color: var(--fg3); min-width: 240px; flex: 1 1 240px; }
+  label.sl b { color: var(--fg1); font-weight: 500; }
+  input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 3px; background: var(--fg4); margin: 12px 0 4px; outline: none; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 13px; height: 13px; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  input[type=range]::-moz-range-thumb { width: 13px; height: 13px; border: 0; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  .read { display: flex; flex-wrap: wrap; gap: 6px 22px; margin-top: 14px; font-family: var(--mono); font-size: 11.5px; letter-spacing: .04em; color: var(--fg3); }
+  .read b { color: var(--fg1); font-weight: 500; }
+  .read .mis { color: var(--warn); } .read .lean { color: var(--amber); }
+  .verdict { margin-top: 14px; padding: 12px 14px; border-left: 2px solid var(--amber); background: var(--e1); font-family: var(--serif); font-size: 17px; line-height: 1.55; color: var(--fg1); max-width: 92ch; }
+  .verdict b { color: var(--amber); font-weight: 400; }
+  .nav { display: flex; gap: 10px; margin-top: 16px; }
+  .hint { font-family: var(--mono); font-size: 11px; letter-spacing: .03em; line-height: 1.6; color: var(--fg3); margin-top: 10px; max-width: 104ch; }
+  .eqs { margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--soft); }
+  .eq { font-family: var(--serif); font-size: 19px; color: var(--fg1); }
+  .words { font-size: 13px; line-height: 1.55; color: var(--fg2); margin: 2px 0 12px; max-width: 92ch; }
+  .note { font-family: var(--mono); font-size: 10.5px; line-height: 1.6; color: var(--fg4); margin-top: 8px; max-width: 110ch; }
+  .footer { font-family: var(--mono); font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--fg4); margin-top: 18px; }
+  @media (max-width: 760px) { .insets { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="piece">
+  <div class="kicker"><svg width="18" height="18" viewBox="-10 -10 20 20" aria-hidden="true"><path id="sigil" fill="none" stroke="#e8b84a" stroke-width="1.1"/></svg><span>made · Web Audio drum synth · sketch</span></div>
+  <h3 class="title">Mistake or feel?</h3>
+  <p class="sub">The section asks one question of every deviation from the grid: was it a mistake to correct, or expression to keep? And it says quantization assumes mistake. Four steps, one idea each, at 120 BPM, where a 16th note lasts 0.125 s. The last step asks the quantizer to answer the question for you.</p>
+
+  <div class="rail" id="rail"></div>
+  <p class="say" id="say"></p>
+
+  <div class="panel" id="onePanel">
+    <div class="plabel"><span>one beat, close up · grid lines every 16th note (0.125 s)</span><span id="oneLabel"></span></div>
+    <canvas id="one"></canvas>
+  </div>
+  <div class="panel hidden" id="barsPanel">
+    <div class="plabel"><span>two bars, played freely · each mark where the hit lands now · hollow ring = its grid line</span><span id="barsLabel"></span></div>
+    <canvas id="bars"></canvas>
+  </div>
+  <div class="insets hidden" id="insets">
+    <div class="panel"><div class="plabel"><span style="color:#ff9b4a">the stumble · bar 1, beat 3</span><span>kick against the hi-hat</span></div><canvas id="inA"></canvas></div>
+    <div class="panel"><div class="plabel"><span style="color:#e8b84a">the lean · bar 2, beat 4</span><span>snare fill into the downbeat</span></div><canvas id="inB"></canvas></div>
+  </div>
+
+  <div class="controls">
+    <button class="go" id="go">▸ play</button>
+    <span class="seg hidden" id="snapSeg"><button data-snap="0" class="on">as played</button><button data-snap="1">snapped</button></span>
+    <button class="hidden" id="mark">mark what we planted</button>
+    <label class="sl hidden" id="sCtl">quantize strength s = <b id="sVal"></b><input id="s" type="range" min="0" max="100" step="1" value="0"></label>
+    <button class="hidden" id="clear">let every note go</button>
+  </div>
+  <div class="read" id="read"></div>
+  <div class="verdict hidden" id="verdict"></div>
+  <div class="nav"><button id="back">◂ back</button><button id="next">next ▸</button></div>
+  <div class="hint" id="hint"></div>
+
+  <div class="eqs">
+    <div class="eq">g = 0.125 s · round( t ⁄ 0.125 s )</div>
+    <div class="words">(the grid line a note belongs to) = the nearest multiple of one 16th note, which at 120 BPM is 0.125 s.</div>
+    <div class="eq">t′ = g + (1 − s) · (t − g)</div>
+    <div class="words">(where the note ends up) = (its grid line) + (what the strength leaves, 1 − s) × (how far it was played from that line). At s = 0 nothing moves; at s = 1 every note sits on its line. The same (1 − s) is applied to every note: the rule has no input for why a note was off.</div>
+  </div>
+  <div class="note">The groove is made here, from a sine kick, a noise snare and a noise hi-hat; nothing is sampled. Its timing is written, not recorded: small seeded wobbles on every hit, plus two plants, a kick 37 ms late in bar 1 and a snare fill leaning up to 37 ms early in bar 2. Checked offline on this page's own engine (the script marked engine): every deviation keeps the same share (1 − s) at every strength; the stumble falls under 5 ms only above s = 87 %, where the lean keeps 13 % of itself. Not heard by an agent.</div>
+  <div class="footer">Loud’n Live</div>
+</div>
+
+<script id="engine">
+// ---- engine: the grid, the strength rule, the planted groove. Pure functions, no page. ----
+const BPM = 120, SIX = 60 / BPM / 4, BAR = 16 * SIX, LOOP = 2 * BAR; // 0.125 s, 2 s, 4 s
+function rng(seed) { let a = seed >>> 0; return () => { a = (a + 0x6D2B79F5) | 0; let t = Math.imul(a ^ (a >>> 15), 1 | a); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
+function gauss(r) { let u = 0; while (!u) u = r(); return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * r()); }
+const clamp = (x, a, b) => Math.max(a, Math.min(b, x));
+// the grid line a time belongs to, and the strength rule
+function gridOf(t, grid = SIX) { return Math.round(t / grid) * grid; }
+function quantize(t, s, grid = SIX) { const g = gridOf(t, grid); return g + (1 - s) * (t - g); }
+// the groove: two bars at 120 BPM, played freely. tag 'stumble' = the planted mistake, 'lean' = the planted push
+function groove() {
+  const r = rng(37), hits = [], add = (part, step, v, off, tag = '') => hits.push({ id: hits.length, part, step, v, t: step * SIX + off, tag });
+  for (let s = 0; s < 32; s += 2) add('hat', s, s % 4 === 0 ? 0.5 : 0.3, s === 10 ? 0.001 : clamp(gauss(r) * 0.005, -0.011, 0.011));
+  for (const s of [0, 10, 16, 26]) add('kick', s, 0.95, s === 10 ? 0.037 : clamp(gauss(r) * 0.003, -0.006, 0.006), s === 10 ? 'stumble' : '');
+  for (const s of [4, 12, 20, 28]) add('snare', s, 0.75, clamp(gauss(r) * 0.003, -0.006, 0.006));
+  add('snare', 29, 0.34, -0.016, 'lean'); add('snare', 30, 0.46, -0.026, 'lean'); add('snare', 31, 0.6, -0.037, 'lean');
+  return hits;
+}
+// every hit's time now: quantized at strength s, except the ones a hand holds where they were played
+function placed(hits, s, held = new Set()) { return hits.map((h) => ({ ...h, at: held.has(h.id) ? h.t : quantize(h.t, s) })); }
+// what is left of the stumble and of the lean (the lean's last, biggest note), in ms, and the rest's spread
+function report(hits, s, held = new Set()) {
+  const p = placed(hits, s, held), dev = (h) => 1000 * (h.at - gridOf(h.t));
+  const st = p.find((h) => h.tag === 'stumble'), le = p.filter((h) => h.tag === 'lean'), last = le[le.length - 1], rest = p.filter((h) => !h.tag);
+  const leanOrig = 1000 * (last.t - gridOf(last.t));
+  return { stumble: dev(st), lean: dev(last), leanShare: dev(last) / leanOrig, stumbleShare: dev(st) / (1000 * (st.t - gridOf(st.t))), restRms: Math.sqrt(rest.reduce((a, h) => a + dev(h) ** 2, 0) / rest.length) };
+}
+const ONE = { played: 0.537 }; // the page's own example: played at 0.537 s, nearest 16th 0.500 s
+</script>
+
+<script>
+// ---- the page: sound, canvases, the walk ----
+const $ = (id) => document.getElementById(id);
+const HITS = groove();
+const S = { step: 'one', snap: 0, s: 0, marked: false, held: new Set() };
+let ctx = null, bus = null, noise = null, timer = null, playing = false, t0 = 0, cursor = 0;
+
+function ensure() {
+  if (ctx) return;
+  ctx = new AudioContext();
+  const comp = ctx.createDynamicsCompressor(); comp.threshold.value = -12; comp.ratio.value = 4;
+  bus = ctx.createGain(); bus.gain.value = 0.7; bus.connect(comp).connect(ctx.destination);
+  noise = ctx.createBuffer(1, ctx.sampleRate, ctx.sampleRate); const d = noise.getChannelData(0), r = rng(5); for (let i = 0; i < d.length; i++) d[i] = 2 * r() - 1;
+  ctx.onstatechange = () => { if (ctx.state !== 'running' && playing) halt(); };
+}
+function env(g, at, peak, dec) { g.gain.setValueAtTime(0.0001, at); g.gain.exponentialRampToValueAtTime(peak, at + 0.002); g.gain.exponentialRampToValueAtTime(0.0001, at + dec); }
+function noiseSrc(at, dur) { const n = ctx.createBufferSource(); n.buffer = noise; n.start(at, Math.random() * 0.5); n.stop(at + dur); return n; }
+function voice(part, at, v) {
+  const g = ctx.createGain(); g.connect(bus);
+  if (part === 'kick') { const o = ctx.createOscillator(); o.frequency.setValueAtTime(140, at); o.frequency.exponentialRampToValueAtTime(48, at + 0.11); env(g, at, v, 0.36); o.connect(g); o.start(at); o.stop(at + 0.4); }
+  else if (part === 'snare') { const f = ctx.createBiquadFilter(); f.type = 'bandpass'; f.frequency.value = 1900; f.Q.value = 0.7; noiseSrc(at, 0.22).connect(f).connect(g); env(g, at, v * 0.9, 0.2);
+    const o = ctx.createOscillator(), g2 = ctx.createGain(); o.type = 'triangle'; o.frequency.value = 190; o.connect(g2).connect(bus); env(g2, at, v * 0.5, 0.09); o.start(at); o.stop(at + 0.12); }
+  else if (part === 'hat') { const f = ctx.createBiquadFilter(); f.type = 'highpass'; f.frequency.value = 7500; noiseSrc(at, 0.06).connect(f).connect(g); env(g, at, v * 0.55, 0.045); }
+  else if (part === 'block') { const o = ctx.createOscillator(); o.frequency.value = 880; o.connect(g); env(g, at, v * 0.55, 0.08); o.start(at); o.stop(at + 0.1); }
+  else if (part === 'click') { const o = ctx.createOscillator(); o.frequency.value = v > 0.5 ? 1760 : 1320; o.connect(g); env(g, at, 0.16, 0.025); o.start(at); o.stop(at + 0.04); }
+}
+// what plays now, for the current step: [{part, t (within the loop), v}] and the loop's length
+function now() {
+  if (S.step === 'one' || S.step === 'strength') {
+    const s = S.step === 'one' ? S.snap : S.s;
+    const ev = [0, 1, 2, 3].map((b) => ({ part: 'click', t: b * 0.5, v: b === 0 ? 1 : 0.3 }));
+    ev.push({ part: 'block', t: quantize(ONE.played, s), v: 0.9 });
+    return { len: BAR, ev };
+  }
+  const s = S.step === 'groove' ? 0 : S.s, held = S.step === 'groove' ? new Set() : S.held;
+  return { len: LOOP, ev: placed(HITS, s, held).map((h) => ({ part: h.part, t: ((h.at % LOOP) + LOOP) % LOOP, v: h.v })) };
+}
+function tick() {
+  const until = ctx.currentTime + 0.12, { len, ev } = now();
+  for (let k = Math.floor((cursor - t0) / len); t0 + k * len < until; k++) for (const e of ev) { const a = t0 + k * len + e.t; if (a >= cursor && a < until) voice(e.part, a, e.v); }
+  cursor = until;
+}
+async function play() { ensure(); await ctx.resume(); t0 = cursor = ctx.currentTime + 0.06; playing = true; tick(); timer = setInterval(tick, 25); $('go').textContent = '❚❚ stop'; }
+function halt() { clearInterval(timer); timer = null; playing = false; $('go').textContent = '▸ play'; }
+function stopSound() { if (!playing) return; halt(); bus.gain.setTargetAtTime(0, ctx.currentTime, 0.02); setTimeout(() => { bus.gain.value = 0.7; ctx.suspend(); }, 250); }
+$('go').onclick = () => (playing ? stopSound() : play());
+function loopPos() { if (!playing || !ctx) return null; const { len } = now(); return ((ctx.currentTime - t0) % len + len) % len; }
+
+// ---- canvases ----
+function fit(c, h) { const r = devicePixelRatio || 1, w = c.clientWidth || 600; if (c.width !== Math.round(w * r) || c.height !== Math.round(h * r)) { c.width = Math.round(w * r); c.height = Math.round(h * r); c.style.height = h + 'px'; } const g = c.getContext('2d'); g.setTransform(r, 0, 0, r, 0, 0); g.clearRect(0, 0, w, h); return [g, w, h]; }
+const COL = { line: '#22222e', beat: '#4a4a5e', bar: '#8a8aa0', fg: '#c8c8d8', dim: '#4a4a5a', amber: '#e8b84a', warn: '#ff9b4a', blue: '#4a8fff' };
+function colorOf(h) { if (S.held.has(h.id) && S.step === 'test') return COL.blue; if (!S.marked && S.step === 'groove') return COL.fg; return h.tag === 'stumble' ? COL.warn : h.tag === 'lean' ? COL.amber : COL.fg; }
+
+function drawOne() {
+  const [g, w, h] = fit($('one'), 150), lo = 0.25, hi = 0.75, X = (t) => 20 + (t - lo) / (hi - lo) * (w - 40);
+  g.font = '10.5px JetBrains Mono, monospace'; g.textAlign = 'center';
+  for (let t = lo; t <= hi + 1e-9; t += SIX) { const beat = Math.abs(t / 0.5 - Math.round(t / 0.5)) < 1e-9; g.strokeStyle = beat ? COL.bar : COL.beat; g.lineWidth = beat ? 1.4 : 1; g.beginPath(); g.moveTo(X(t), 18); g.lineTo(X(t), h - 26); g.stroke(); g.fillStyle = beat ? COL.fg : COL.dim; g.fillText(t.toFixed(3) + ' s', X(t), h - 10); }
+  g.fillStyle = COL.dim; g.fillText('beat 2', X(0.5), 12);
+  const s = S.step === 'one' ? S.snap : S.s, at = quantize(ONE.played, s);
+  g.strokeStyle = COL.dim; g.setLineDash([3, 3]); g.beginPath(); g.moveTo(X(ONE.played), 30); g.lineTo(X(ONE.played), h - 30); g.stroke(); g.setLineDash([]);
+  g.fillStyle = COL.dim; g.fillText('played 0.537', X(ONE.played) + 2, 28);
+  g.strokeStyle = COL.amber; g.lineWidth = 2; g.beginPath(); g.moveTo(X(0.5), h / 2 + 8); g.lineTo(X(at), h / 2 + 8); g.stroke();
+  g.fillStyle = COL.amber; g.beginPath(); g.arc(X(at), h / 2 + 8, 7, 0, 2 * Math.PI); g.fill();
+  const p = loopPos(); if (p != null && p >= lo && p <= hi) { g.strokeStyle = 'rgba(232,184,74,.35)'; g.lineWidth = 1; g.beginPath(); g.moveTo(X(p), 18); g.lineTo(X(p), h - 26); g.stroke(); }
+}
+const ROWS = ['hat', 'snare', 'kick'];
+function lanes(cv, h, lo, hi, opts = {}) {
+  const [g, w] = fit(cv, h), L = 52, X = (t) => L + (t - lo) / (hi - lo) * (w - L - 10), rowH = (h - 22) / 3, Y = (i) => 4 + rowH * i + rowH / 2;
+  g.font = '10px JetBrains Mono, monospace';
+  for (let k = Math.ceil(lo / SIX - 1e-9); k * SIX <= hi + 1e-9; k++) { const t = k * SIX, bar = k % 16 === 0, beat = k % 4 === 0; g.strokeStyle = bar ? COL.bar : beat ? COL.beat : COL.line; g.lineWidth = bar ? 1.3 : 1; g.beginPath(); g.moveTo(X(t), 2); g.lineTo(X(t), h - 18); g.stroke();
+    if (beat && opts.labels !== false) { g.fillStyle = COL.dim; g.textAlign = 'center'; g.fillText(`${Math.floor(k / 16) % 2 + 1}.${(k % 16) / 4 + 1}`, X(t), h - 5); }
+    if (opts.labels === false) { g.fillStyle = COL.dim; g.textAlign = 'center'; g.fillText(t.toFixed(3), X(t), h - 5); } }
+  ROWS.forEach((r, i) => { g.fillStyle = COL.fg; g.textAlign = 'left'; g.fillText(r, 4, Y(i) + 3); });
+  const s = S.step === 'groove' ? 0 : S.s, held = S.step === 'test' ? S.held : new Set(), pts = [];
+  for (const hh of placed(HITS, s, held)) {
+    const i = ROWS.indexOf(hh.part), gr = gridOf(hh.t), c = colorOf(hh), y = Y(i), hgt = rowH * (0.35 + 0.5 * hh.v);
+    if (hh.at < lo - 0.02 || hh.at > hi + 0.02) continue;
+    g.strokeStyle = COL.dim; g.lineWidth = 1; g.beginPath(); g.arc(X(gr), y, 4, 0, 2 * Math.PI); g.stroke();
+    if (Math.abs(hh.at - gr) > 1e-5) { g.strokeStyle = c; g.globalAlpha = 0.6; g.beginPath(); g.moveTo(X(gr), y); g.lineTo(X(hh.at), y); g.stroke(); g.globalAlpha = 1; }
+    g.fillStyle = c; g.fillRect(X(hh.at) - 1.5, y - hgt / 2, 3, hgt);
+    if (held.has(hh.id)) { g.strokeStyle = COL.blue; g.beginPath(); g.arc(X(hh.at), y, 8, 0, 2 * Math.PI); g.stroke(); }
+    if (opts.ms && (hh.tag || held.has(hh.id))) { const d = 1000 * (hh.at - gr); g.fillStyle = c; g.textAlign = 'center'; g.fillText((d >= 0 ? '+' : '') + d.toFixed(0) + ' ms', X(hh.at), y - hgt / 2 - 4); }
+    pts.push({ id: hh.id, x: X(hh.at), y });
+  }
+  const p = loopPos(); if (p != null) { const q = p >= lo - 0.1 ? p : p + LOOP; if (q >= lo && q <= hi) { g.strokeStyle = 'rgba(232,184,74,.35)'; g.beginPath(); g.moveTo(X(q), 2); g.lineTo(X(q), h - 18); g.stroke(); } }
+  return pts;
+}
+let barPts = [];
+function draw() {
+  if (S.step === 'one' || S.step === 'strength') drawOne();
+  else { barPts = lanes($('bars'), 170, -0.02, LOOP, {}); if (S.marked || S.step === 'test') { lanes($('inA'), 150, 1.0 - 0.02, 1.5, { labels: false, ms: true }); lanes($('inB'), 150, 3.5 - 0.06, 4.0 + 0.01, { labels: false, ms: true }); } }
+  requestAnimationFrame(draw);
+}
+$('bars').addEventListener('click', (e) => {
+  if (S.step !== 'test') return;
+  const r = $('bars').getBoundingClientRect(), x = e.clientX - r.left, y = e.clientY - r.top;
+  let best = null, bd = 18; for (const p of barPts) { const d = Math.hypot(p.x - x, (p.y - y) * 0.6); if (d < bd) { bd = d; best = p; } }
+  if (!best) return; S.held.has(best.id) ? S.held.delete(best.id) : S.held.add(best.id); readout();
+});
+
+// ---- readouts and the verdict ----
+const pct = (x) => Math.round(100 * x) + ' %';
+function readout() {
+  $('sVal').textContent = Math.round(S.s * 100) + ' %';
+  const R = $('read'), V = $('verdict');
+  if (S.step === 'one') {
+    const at = quantize(ONE.played, S.snap); R.innerHTML = `<span>played <b>0.537 s</b></span><span>nearest 16th <b>0.500 s</b></span><span>it sounds at <b>${at.toFixed(3)} s</b></span><span>off the grid by <b>${(1000 * (at - 0.5)).toFixed(0)} ms</b></span>`;
+    return;
+  }
+  if (S.step === 'strength') { const at = quantize(ONE.played, S.s); R.innerHTML = `<span>s <b>${pct(S.s)}</b></span><span>it sounds at <b>${at.toFixed(4)} s</b></span><span>left of the 37 ms <b>${(1000 * (at - 0.5)).toFixed(1)} ms</b> = (1 − s) × 37</span>`; return; }
+  if (S.step === 'groove') { R.innerHTML = S.marked ? `<span class="mis">the stumble · the kick on bar 1, beat 3 “and” · <b>+37 ms</b> late, a flam against the hi-hat</span><span class="lean">the lean · the snare fill into bar 1 · <b>−16, −26, −37 ms</b>, rushing harder each note</span>` : '<span>everything else wobbles by a few ms, as hands do</span>'; return; }
+  const r = report(HITS, S.s, S.held), ok = Math.abs(r.stumble) < 5 && r.leanShare >= 0.75;
+  R.innerHTML = `<span class="mis">the stumble <b>${r.stumble >= 0 ? '+' : ''}${r.stumble.toFixed(1)} ms</b> · keeps ${pct(r.stumbleShare)}</span><span class="lean">the lean <b>${r.lean.toFixed(1)} ms</b> · keeps ${pct(r.leanShare)}</span><span>the rest <b>${r.restRms.toFixed(1)} ms</b> spread</span><span>notes you hold <b>${S.held.size}</b></span>`;
+  V.classList.remove('hidden');
+  const need = Math.ceil(100 * (1 - 5 / 37)) / 100; // the first whole percent that brings 37 ms under 5
+  if (ok && S.held.size) V.innerHTML = `<b>Done, and not by the quantizer.</b> The stumble is under 5 ms and the lean keeps ${pct(r.leanShare)} of itself, because you told the rule which notes to leave alone. It never knew which was which. <i>Quantization can't tell the difference. Only you can.</i>`;
+  else if (!S.held.size) V.innerHTML = `<b>Strength alone, at ${pct(S.s)}:</b> the stumble keeps ${pct(r.stumbleShare)} of itself and the lean keeps ${pct(r.leanShare)}, the same share, because every note gets the same (1 − s). To bring the stumble under 5 ms takes ${pct(need)}, and there the lean keeps ${pct(1 - need)}. No setting does both. Now click a note in the two bars to hold it where it was played.`;
+  else V.innerHTML = `You hold ${S.held.size} note${S.held.size > 1 ? 's' : ''}. The stumble is at ${r.stumble.toFixed(1)} ms and the lean keeps ${pct(r.leanShare)}. The target: stumble under 5 ms, lean at three quarters of itself or more.`;
+}
+
+// ---- the walk ----
+const STEPS = [
+  { key: 'one', name: 'one note, 37 ms late', say: 'The section\'s own example. At 120 BPM a note played at <i>0.537 s</i> belongs to the 16th at 0.500 s, beat 2. Play it against the click, then snap it. The 37 ms is gone, and nothing remembers it was there.' },
+  { key: 'strength', name: 'how hard to snap', say: 'Most quantizers have a <i>strength</i>. At 0 % the note stays where it was played; at 100 % it sits on the line; in between it moves that share of the way. Drag it and listen to the flam close.' },
+  { key: 'groove', name: 'a groove, played freely', say: 'Two bars, every hit a little off, the way hands are. We planted two things in it, the <i>same 37 ms</i> each. One is a mistake, one is a choice. Listen first, then mark them.' },
+  { key: 'test', name: 'the test', say: 'Fix the stumble and keep the lean, with the strength knob alone: get the stumble under 5 ms while the lean keeps three quarters of itself. Then try it with your hand: click notes in the two bars to hold them off the grid.' },
+];
+let at = 0;
+function go(i) {
+  stopSound(); at = Math.max(0, Math.min(STEPS.length - 1, i)); const st = STEPS[at]; S.step = st.key;
+  [...$('rail').children].forEach((b, j) => b.classList.toggle('on', j === at)); $('say').innerHTML = st.say; $('back').disabled = at === 0; $('next').disabled = at === STEPS.length - 1;
+  const one = st.key === 'one' || st.key === 'strength';
+  $('onePanel').classList.toggle('hidden', !one); $('barsPanel').classList.toggle('hidden', one);
+  $('snapSeg').classList.toggle('hidden', st.key !== 'one'); $('mark').classList.toggle('hidden', st.key !== 'groove');
+  $('sCtl').classList.toggle('hidden', !(st.key === 'strength' || st.key === 'test')); $('clear').classList.toggle('hidden', st.key !== 'test');
+  $('insets').classList.toggle('hidden', !(st.key === 'test' || (st.key === 'groove' && S.marked)));
+  $('bars').classList.toggle('click', st.key === 'test'); $('verdict').classList.add('hidden');
+  $('barsLabel').textContent = st.key === 'test' ? 'click a note to hold it' : 'bar 1 · bar 2, looping';
+  $('hint').textContent = { one: 'The click marks each beat; the rounder, lower note is the one played late.', strength: 'Try 50 %: the note lands at 0.5185 s, half its deviation left.', groove: 'Listen to bar 1, beat 3: the kick lands after the hi-hat. Then the end of bar 2: the snare fill hurries into the downbeat.', test: 'Every note gets the same (1 − s). The knob has no way to be told which note was meant. What does?' }[st.key];
+  readout();
+}
+STEPS.forEach((s, i) => { const b = document.createElement('button'); b.innerHTML = `${i + 1}<b>${s.name}</b>`; b.onclick = () => go(i); $('rail').appendChild(b); });
+$('back').onclick = () => go(at - 1); $('next').onclick = () => go(at + 1);
+$('snapSeg').querySelectorAll('button').forEach((b) => (b.onclick = () => { S.snap = +b.dataset.snap; $('snapSeg').querySelectorAll('button').forEach((x) => x.classList.toggle('on', x === b)); readout(); }));
+$('s').oninput = () => { S.s = $('s').value / 100; readout(); };
+$('mark').onclick = () => { S.marked = !S.marked; $('mark').classList.toggle('on', S.marked); $('insets').classList.toggle('hidden', !S.marked); readout(); };
+$('clear').onclick = () => { S.held.clear(); readout(); };
+function sigil(a, b) { let d = ''; for (let i = 0; i <= 240; i++) { const t = (i / 240) * 2 * Math.PI; d += (i ? 'L' : 'M') + (8 * Math.sin(a * t + Math.PI / 2)).toFixed(2) + ' ' + (8 * Math.sin(b * t)).toFixed(2); } $('sigil').setAttribute('d', d); }
+sigil(3, 2);
+go(0);
+requestAnimationFrame(draw);
+</script>
+</body>
+</html>

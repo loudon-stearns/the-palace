@@ -1,0 +1,233 @@
+<!doctype html>
+<!--
+  title: Quantization ↔ Precision vs Flow — rich — to what resolution
+  born: 2026-11-03
+  links: [[Quantization ↔ Precision vs Flow]] (connects-to · rich-face-piece) · listed in [[Quantization ↔ Precision vs Flow — rich.json]]
+  forward_vector: I am The Final Insight put to its question, to what resolution: a sine at 24 bits, then fewer levels down to two, then the rounding error heard alone, and last a fading note where the reader finds the fewest bits the loud attack needs and the fewest the quiet tail needs. When the two answers differ, the resolution was set by what you wanted to keep. I play inside the entry's rich face and stand alone opened directly; I change only when the section I serve does.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:needs" content="">
+<title>Quantization ↔ Precision vs Flow — to what resolution</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Manrope:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root { --bg:#0a0a0f; --e1:#12121a; --ring:#22222e; --border:#4a4a5e; --soft:rgba(255,255,255,.06); --fg1:#e8e8f0; --fg2:#c8c8d8; --fg3:#8a8aa0; --fg4:#4a4a5a;
+    --amber:#e8b84a; --amberline:rgba(232,184,74,.5); --warn:#ff9b4a; --blue:#4a8fff;
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --sans:'Manrope',system-ui,sans-serif; --serif:'Cormorant Garamond',Georgia,serif; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); font-weight: 300; }
+  .piece { padding: 22px 22px 20px; }
+  .kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
+  .title { font-family: var(--serif); font-size: 27px; font-weight: 300; color: var(--fg1); margin: 0 0 6px; }
+  .sub { font-size: 14px; line-height: 1.6; color: var(--fg2); max-width: 78ch; margin: 0 0 14px; }
+  .rail { display: flex; flex-wrap: wrap; margin: 4px 0 14px; border: 1px solid var(--soft); border-radius: 2px; }
+  .rail button { flex: 1 1 130px; text-align: left; border: 0; border-right: 1px solid var(--soft); border-radius: 0; background: transparent; padding: 9px 12px; color: var(--fg3); }
+  .rail button:last-child { border-right: 0; }
+  .rail button b { display: block; font-weight: 500; color: var(--fg2); letter-spacing: .04em; text-transform: none; font-size: 12px; margin-top: 2px; }
+  .rail button.on { background: var(--e1); color: var(--amber); }
+  .rail button.on b { color: var(--fg1); }
+  .say { font-family: var(--serif); font-size: 18px; line-height: 1.55; color: var(--fg1); max-width: 80ch; margin: 0 0 14px; min-height: 3.1em; }
+  .say i { color: var(--amber); font-style: italic; }
+  .panel { border: 1px solid var(--soft); border-radius: 2px; background: var(--e1); padding: 10px 12px; }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
+  .plabel { font-family: var(--mono); font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--fg3); margin-bottom: 8px; display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+  canvas { display: block; width: 100%; }
+  .hidden { display: none !important; }
+  .controls { display: flex; flex-wrap: wrap; gap: 14px 22px; align-items: flex-end; margin-top: 4px; }
+  button { font-family: var(--mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--fg2); background: var(--bg); border: 1px solid var(--border); border-radius: 2px; padding: 8px 13px; cursor: pointer; }
+  button:hover { border-color: rgba(232,184,74,.55); color: var(--fg1); }
+  button:disabled { opacity: .35; cursor: default; }
+  button.on { color: var(--amber); border-color: var(--amberline); }
+  button.go { color: var(--amber); border-color: var(--amberline); box-shadow: 0 0 14px rgba(232,184,74,.18); min-width: 110px; }
+  .seg { display: inline-flex; flex-wrap: wrap; } .seg button + button { border-left: 0; }
+  .seg button { letter-spacing: .04em; text-transform: none; font-size: 12px; padding: 7px 10px; }
+  label.sl { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: .06em; color: var(--fg3); min-width: 260px; flex: 1 1 260px; }
+  label.sl b { color: var(--fg1); font-weight: 500; }
+  input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 3px; background: var(--fg4); margin: 12px 0 4px; outline: none; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 13px; height: 13px; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  input[type=range]::-moz-range-thumb { width: 13px; height: 13px; border: 0; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  .read { display: flex; flex-wrap: wrap; gap: 6px 22px; margin-top: 14px; font-family: var(--mono); font-size: 11.5px; letter-spacing: .04em; color: var(--fg3); }
+  .read b { color: var(--fg1); font-weight: 500; }
+  .verdict { margin-top: 14px; padding: 12px 14px; border-left: 2px solid var(--amber); background: var(--e1); font-family: var(--serif); font-size: 17px; line-height: 1.55; color: var(--fg1); max-width: 92ch; }
+  .verdict b { color: var(--amber); font-weight: 400; }
+  .nav { display: flex; gap: 10px; margin-top: 16px; }
+  .hint { font-family: var(--mono); font-size: 11px; letter-spacing: .03em; line-height: 1.6; color: var(--fg3); margin-top: 10px; max-width: 104ch; }
+  .eqs { margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--soft); }
+  .eq { font-family: var(--serif); font-size: 19px; color: var(--fg1); }
+  .words { font-size: 13px; line-height: 1.55; color: var(--fg2); margin: 2px 0 12px; max-width: 92ch; }
+  .note { font-family: var(--mono); font-size: 10.5px; line-height: 1.6; color: var(--fg4); margin-top: 8px; max-width: 110ch; }
+  .footer { font-family: var(--mono); font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--fg4); margin-top: 18px; }
+  @media (max-width: 760px) { .grid2 { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="piece">
+  <div class="kicker"><svg width="18" height="18" viewBox="-10 -10 20 20" aria-hidden="true"><path id="sigil" fill="none" stroke="#e8b84a" stroke-width="1.1"/></svg><span>made · Web Audio, rendered buffer · sketch</span></div>
+  <h3 class="title">To what resolution?</h3>
+  <p class="sub">The section ends on a question: not whether to quantize, but to what resolution, and it says the answer depends on what you are trying to keep. Four steps on one note, a 330 Hz sine that fades from loud to 60 dB down over 3.5 s. The last step asks you two questions about it and compares your answers.</p>
+
+  <div class="rail" id="rail"></div>
+  <p class="say" id="say"></p>
+
+  <div class="grid2">
+    <div class="panel"><div class="plabel"><span>the attack, close up · 3 cycles</span><span id="zaLabel"></span></div><canvas id="za"></canvas></div>
+    <div class="panel"><div class="plabel"><span>the tail at 3.0 s, close up · zoomed to its size</span><span id="ztLabel"></span></div><canvas id="zt"></canvas></div>
+  </div>
+  <div class="panel" style="margin-bottom:12px">
+    <div class="plabel"><span>the whole note · its level in dB below full scale · dashed = one step of the grid</span><span id="envLabel"></span></div>
+    <canvas id="env"></canvas>
+  </div>
+
+  <div class="controls">
+    <button class="go" id="go">▸ play</button>
+    <label class="sl hidden" id="nCtl">bits N = <b id="nVal"></b><input id="n" type="range" min="1" max="24" step="1" value="24"></label>
+    <span class="seg hidden" id="errSeg"><button data-e="0" class="on">the note</button><button data-e="1">the error alone</button></span>
+    <span class="seg hidden" id="ditherSeg"><button data-d="0" class="on">no dither</button><button data-d="1">dither</button></span>
+  </div>
+  <div class="controls hidden" id="askRow" style="margin-top:12px">
+    <button id="askA">the attack sounds clean to me here</button>
+    <button id="askT">the whole fade still fades here</button>
+    <button id="askClear">start over</button>
+  </div>
+  <div class="read" id="read"></div>
+  <div class="verdict hidden" id="verdict"></div>
+  <div class="nav"><button id="back">◂ back</button><button id="next">next ▸</button></div>
+  <div class="hint" id="hint"></div>
+
+  <div class="eqs">
+    <div class="eq">levels = 2<sup>N</sup>,   Δ = 2 ⁄ 2<sup>N</sup></div>
+    <div class="words">(how many values a sample can take) = 2 to the power of (the number of bits); (one step of the grid) = (the full range, −1 to +1) ÷ (the number of levels). 24 bits is 16,777,216 levels; 1 bit is 2.</div>
+    <div class="eq">q = Δ · ( ⌊ x ⁄ Δ ⌋ + ½ )</div>
+    <div class="words">(the value kept) = the middle of the step the true value x falls in. The error, q − x, is never bigger than half a step, and it is what you hear in step 3.</div>
+    <div class="eq">a fade stops fading when A(t) &lt; Δ</div>
+    <div class="words">once the note's own size A is smaller than one step, every sample rounds to plus or minus half a step: the note becomes a buzz of fixed size, however quiet it was meant to be. For this note that happens at t = τ · ln(0.8 ⁄ Δ), with τ = 3.5 s ⁄ ln 1000 = 0.507 s.</div>
+  </div>
+  <div class="note">The grid here is symmetric, with no level at zero (mid-rise), so that 1 bit is exactly two levels, up and down; common PCM puts a level at zero, and its tail drops to silence where this one buzzes. Dither is triangular, two steps wide, added before rounding. Checked offline on this page's own engine (the script marked engine): the level counts, the time each bit depth's fade stops, that 12 bits is the fewest that carries this fade to −60 dB undithered, and that at 8 bits with dither the 330 Hz component in the tail still falls with the true fade while without dither it stays fixed. Not heard by an agent.</div>
+  <div class="footer">Loud’n Live</div>
+</div>
+
+<script id="engine">
+// ---- engine: one fading sine, rounded to N bits. Pure functions, no page. ----
+const F = 330, PEAK = 0.8, FADE = 3.5, DUR = 4, TAU = FADE / Math.log(1000); // −60 dB at 3.5 s
+function rng(seed) { let a = seed >>> 0; return () => { a = (a + 0x6D2B79F5) | 0; let t = Math.imul(a ^ (a >>> 15), 1 | a); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
+const step = (N) => 2 / 2 ** N;
+const levels = (N) => 2 ** N;
+const amp = (t) => PEAK * Math.exp(-t / TAU) * Math.min(1, t / 0.005);
+// mid-rise rounding: 2^N levels, symmetric, none at zero
+function q(x, N) { const d = step(N), lim = 1 - d / 2; return Math.max(-lim, Math.min(lim, d * (Math.floor(x / d) + 0.5))); }
+// when the fade stops: the note's size falls below one step (seconds; Infinity if not within the note)
+function fadeStops(N) { const t = TAU * Math.log(PEAK / step(N)); return t < 0 ? 0 : t > DUR ? Infinity : t; }
+// render the note at N bits: 'note' or 'error' (q − x), with or without triangular dither two steps wide
+function render(N, o = {}) {
+  const fs = o.fs || 48000, n = Math.round(DUR * fs), out = new Float32Array(n), d = step(N), r = rng(o.seed || 3);
+  for (let i = 0; i < n; i++) { const t = i / fs, x = amp(t) * Math.sin(2 * Math.PI * F * t), dith = o.dither ? (r() - r()) * d : 0, y = N >= 24 && !o.dither ? x : q(x + dith, N); out[i] = o.error ? y - x : y; }
+  return out;
+}
+// the 330 Hz component's amplitude in a window (a lock-in: correlate with sine and cosine)
+function toneAt(buf, fs, t, win = 0.1) { const a = Math.round(t * fs), n = Math.round(win * fs); let s = 0, c = 0; for (let i = a; i < a + n; i++) { const p = 2 * Math.PI * F * i / fs; s += buf[i] * Math.sin(p); c += buf[i] * Math.cos(p); } return 2 * Math.hypot(s, c) / n; }
+</script>
+
+<script>
+// ---- the page: sound, canvases, the walk ----
+const $ = (id) => document.getElementById(id);
+const S = { step: 'sine', N: 24, err: 0, dither: 0, askA: null, askT: null };
+let ctx = null, out = null, src = null, startedAt = 0, playing = false, buf = null, view = null, viewKey = '';
+function ensure() {
+  if (ctx) return;
+  ctx = new AudioContext();
+  const comp = ctx.createDynamicsCompressor(); comp.threshold.value = -12; comp.ratio.value = 4;
+  out = ctx.createGain(); out.gain.value = 0.5; out.connect(comp).connect(ctx.destination);
+  ctx.onstatechange = () => { if (ctx.state !== 'running' && playing) halt(); };
+}
+const N = () => (S.step === 'sine' ? 24 : S.N);
+const opts = () => ({ error: S.step === 'error' && S.err === 1, dither: S.step === 'test' && S.dither === 1 });
+// the drawn view is rendered at 48 kHz once per setting; the sound at the device's rate
+function current() { const k = `${N()}|${JSON.stringify(opts())}`; if (k !== viewKey) { view = render(N(), { fs: 48000, ...opts() }); viewKey = k; } return view; }
+function startSrc(offset) {
+  const data = render(N(), { fs: ctx.sampleRate, ...opts() }); buf = ctx.createBuffer(1, data.length, ctx.sampleRate); buf.getChannelData(0).set(data);
+  const s = ctx.createBufferSource(); s.buffer = buf; s.loop = true; s.connect(out); s.start(ctx.currentTime + 0.01, offset); startedAt = ctx.currentTime + 0.01 - offset;
+  if (src) { try { src.stop(ctx.currentTime + 0.01); } catch (e) {} } src = s;
+}
+async function play() { ensure(); await ctx.resume(); startSrc(0); playing = true; $('go').textContent = '❚❚ stop'; }
+function halt() { if (src) { try { src.stop(); } catch (e) {} src = null; } playing = false; $('go').textContent = '▸ play'; }
+function stopSound() { if (!playing) return; halt(); setTimeout(() => ctx && ctx.state === 'running' && !playing && ctx.suspend(), 200); }
+function changed() { if (playing) startSrc(((ctx.currentTime - startedAt) % DUR + DUR) % DUR); readout(); }
+$('go').onclick = () => (playing ? stopSound() : play());
+
+// ---- canvases ----
+function fit(c, h) { const r = devicePixelRatio || 1, w = c.clientWidth || 600; if (c.width !== Math.round(w * r) || c.height !== Math.round(h * r)) { c.width = Math.round(w * r); c.height = Math.round(h * r); c.style.height = h + 'px'; } const g = c.getContext('2d'); g.setTransform(r, 0, 0, r, 0, 0); g.clearRect(0, 0, w, h); return [g, w, h]; }
+const COL = { line: '#22222e', grid: '#4a4a5e', fg: '#c8c8d8', dim: '#4a4a5a', amber: '#e8b84a', warn: '#ff9b4a', blue: '#4a8fff' };
+function zoom(cv, t0, scale) {
+  const [g, w, h] = fit(cv, 150), v = current(), fs = 48000, a = Math.round(t0 * fs), n = Math.round(3 / F * fs), Y = (y) => h / 2 - y / scale * (h / 2 - 8), X = (i) => i / n * w;
+  const d = step(N()); if (d / scale > 0.04) { g.strokeStyle = COL.line; g.lineWidth = 1; for (let k = -Math.ceil(scale / d) - 1; k <= Math.ceil(scale / d) + 1; k++) { const yv = (k + 0.5) * d; if (Math.abs(yv) <= scale) { g.beginPath(); g.moveTo(0, Y(yv)); g.lineTo(w, Y(yv)); g.stroke(); } } }
+  if (!(S.step === 'error' && S.err)) { g.strokeStyle = COL.dim; g.lineWidth = 1; g.beginPath(); for (let i = 0; i <= n; i++) { const t = (a + i) / fs, x = amp(t) * Math.sin(2 * Math.PI * F * t); i ? g.lineTo(X(i), Y(x)) : g.moveTo(X(i), Y(x)); } g.stroke(); }
+  g.strokeStyle = S.step === 'error' && S.err ? COL.warn : COL.amber; g.lineWidth = 1.5; g.beginPath(); for (let i = 0; i <= n; i++) { const y = Math.max(-scale * 1.05, Math.min(scale * 1.05, v[a + i])); i ? g.lineTo(X(i), Y(y)) : g.moveTo(X(i), Y(y)); } g.stroke();
+}
+function envelope() {
+  const [g, w, h] = fit($('env'), 150), L = 40, X = (t) => L + t / DUR * (w - L - 8), lo = -100, Y = (db) => 8 + (0 - db) / (0 - lo) * (h - 30);
+  g.font = '10px JetBrains Mono, monospace'; g.fillStyle = COL.dim; g.textAlign = 'right';
+  for (let db = 0; db >= lo; db -= 20) { g.strokeStyle = COL.line; g.beginPath(); g.moveTo(L, Y(db)); g.lineTo(w - 8, Y(db)); g.stroke(); g.fillText(db + ' dB', L - 4, Y(db) + 3); }
+  g.textAlign = 'center'; for (let t = 0; t <= DUR; t++) g.fillText(t + ' s', X(t), h - 6);
+  g.strokeStyle = COL.fg; g.lineWidth = 1.5; g.beginPath(); for (let i = 0; i <= 400; i++) { const t = i / 400 * DUR, db = 20 * Math.log10(Math.max(1e-6, amp(t))); i ? g.lineTo(X(t), Y(Math.max(lo, db))) : g.moveTo(X(t), Y(Math.max(lo, db))); } g.stroke();
+  const sd = 20 * Math.log10(step(N()));
+  if (sd >= lo) { g.strokeStyle = COL.amber; g.setLineDash([5, 4]); g.beginPath(); g.moveTo(L, Y(sd)); g.lineTo(w - 8, Y(sd)); g.stroke(); g.setLineDash([]); }
+  const ts = fadeStops(N()); if (!(S.step === 'test' && S.dither) && isFinite(ts) && N() < 24) { g.fillStyle = COL.warn; g.beginPath(); g.arc(X(ts), Y(Math.max(lo, sd)), 4, 0, 2 * Math.PI); g.fill(); g.textAlign = ts > 3 ? 'right' : 'left'; g.fillText(ts === 0 ? 'never fades' : `the fade stops · ${ts.toFixed(2)} s`, X(ts) + (ts > 3 ? -8 : 8), Y(Math.max(lo, sd)) - 6); }
+  if (playing) { const p = ((ctx.currentTime - startedAt) % DUR + DUR) % DUR; g.strokeStyle = 'rgba(232,184,74,.35)'; g.beginPath(); g.moveTo(X(p), 4); g.lineTo(X(p), h - 20); g.stroke(); }
+}
+function draw() {
+  const e = S.step === 'error' && S.err, d = step(N());
+  zoom($('za'), 0.05, e ? d * 0.7 : PEAK * 1.05); zoom($('zt'), 3.0, e ? d * 0.7 : Math.max(amp(3.0) * 1.6, d * 0.65));
+  $('zaLabel').textContent = e ? 'the error · zoomed to one step' : ''; $('ztLabel').textContent = e ? 'the error · zoomed to one step' : '';
+  envelope(); requestAnimationFrame(draw);
+}
+
+// ---- readouts and the verdict ----
+const fmt = (x) => x.toLocaleString('en-US');
+function stopsText(n) { const t = fadeStops(n); return t === 0 ? 'never fades' : isFinite(t) ? `stops at ${t.toFixed(2)} s, ${(-20 * Math.log10(step(n) / PEAK)).toFixed(0)} dB down` : 'fades all the way'; }
+function readout() {
+  $('nVal').textContent = S.N;
+  const n = N(), R = $('read'), V = $('verdict');
+  R.innerHTML = `<span>bits <b>${n}</b></span><span>levels <b>${fmt(levels(n))}</b></span><span>one step <b>${(-20 * Math.log10(step(n))).toFixed(1)} dB</b> below full scale</span><span>the fade <b>${S.step === 'test' && S.dither ? 'keeps falling, under hiss' : stopsText(n)}</b></span>`;
+  if (S.step !== 'test') return;
+  if (S.askA == null || S.askT == null) { V.classList.add('hidden'); return; }
+  V.classList.remove('hidden');
+  const a = S.askA, t = S.askT;
+  const tail = `Measured: undithered, the fade reaches −60 dB only at 12 bits or more; at your ${t} it ${stopsText(t)}.`;
+  if (a < t) V.innerHTML = `<b>The attack was clean to you at ${a} bits. The fade needed ${t}.</b> Same note, two answers, ${t - a} bits apart: the loud part could live on a coarse grid, the quiet part could not. The resolution was set by what you were trying to keep. ${tail}`;
+  else if (a === t) V.innerHTML = `<b>You chose ${a} bits for both.</b> For your ear the attack and the fade asked for the same grid. ${tail} Try listening for the very end of the tail at a few bits fewer.`;
+  else V.innerHTML = `<b>The attack needed ${a} bits, the fade only ${t}.</b> That is the other way round from the arithmetic, which says the quiet part needs the finer grid. ${tail} Worth listening again with the dither off.`;
+}
+
+// ---- the walk ----
+const STEPS = [
+  { key: 'sine', name: 'a sine at 24 bits', say: 'One note, a 330 Hz sine, fading from loud to <i>60 dB down</i> in 3.5 s. At 24 bits each sample can take one of 16,777,216 values: the grid is so fine the rounding is under any ear.' },
+  { key: 'bits', name: 'fewer levels', say: 'Now take bits away, down to <i>1</i>: two levels, up and down. Watch the steps appear in the close-ups, and listen to where the note goes rough first: the loud start, or the quiet end.' },
+  { key: 'error', name: 'what was taken', say: 'Rounding throws away the difference between the true value and the step it lands on. Switch to <i>the error alone</i> and you hear exactly what was taken: the noise floor, the audio cousin of the 37 ms.' },
+  { key: 'test', name: 'the test', say: 'Two questions about one note. Find the fewest bits at which <i>the attack</i> still sounds clean to you, and press the first button. Then the fewest at which <i>the whole fade</i> still fades, and press the second.' },
+];
+let at = 0;
+function go(i) {
+  stopSound(); at = Math.max(0, Math.min(STEPS.length - 1, i)); const st = STEPS[at]; S.step = st.key;
+  [...$('rail').children].forEach((b, j) => b.classList.toggle('on', j === at)); $('say').innerHTML = st.say; $('back').disabled = at === 0; $('next').disabled = at === STEPS.length - 1;
+  $('nCtl').classList.toggle('hidden', st.key === 'sine'); $('errSeg').classList.toggle('hidden', st.key !== 'error');
+  $('ditherSeg').classList.toggle('hidden', st.key !== 'test'); $('askRow').classList.toggle('hidden', st.key !== 'test'); $('verdict').classList.add('hidden');
+  $('hint').textContent = { sine: 'The grey line is the true sine; amber is what is stored. At 24 bits they are one line.', bits: 'Try 8, then 4, then 1. On the right, the tail turns into a square long before the attack does.', error: 'At 16 bits the error is far below the note. At 6 it is a gritty layer of its own. It is not random: on a pure tone it follows the tone.', test: 'Dither adds a little noise before rounding. Turn it on at 8 bits and listen to the tail: it keeps fading, under a hiss. Noise buys back what the grid took, the same paradox as humanize.' }[st.key];
+  readout();
+}
+STEPS.forEach((s, i) => { const b = document.createElement('button'); b.innerHTML = `${i + 1}<b>${s.name}</b>`; b.onclick = () => go(i); $('rail').appendChild(b); });
+$('back').onclick = () => go(at - 1); $('next').onclick = () => go(at + 1);
+$('n').oninput = () => { S.N = +$('n').value; changed(); };
+$('errSeg').querySelectorAll('button').forEach((b) => (b.onclick = () => { S.err = +b.dataset.e; $('errSeg').querySelectorAll('button').forEach((x) => x.classList.toggle('on', x === b)); changed(); }));
+$('ditherSeg').querySelectorAll('button').forEach((b) => (b.onclick = () => { S.dither = +b.dataset.d; $('ditherSeg').querySelectorAll('button').forEach((x) => x.classList.toggle('on', x === b)); changed(); }));
+$('askA').onclick = () => { S.askA = S.N; $('askA').classList.add('on'); $('askA').textContent = `the attack: ${S.N} bits`; readout(); };
+$('askT').onclick = () => { S.askT = S.N; $('askT').classList.add('on'); $('askT').textContent = `the fade: ${S.N} bits`; readout(); };
+$('askClear').onclick = () => { S.askA = S.askT = null; $('askA').classList.remove('on'); $('askT').classList.remove('on'); $('askA').textContent = 'the attack sounds clean to me here'; $('askT').textContent = 'the whole fade still fades here'; readout(); };
+function sigil(a, b) { let d = ''; for (let i = 0; i <= 240; i++) { const t = (i / 240) * 2 * Math.PI; d += (i ? 'L' : 'M') + (8 * Math.sin(a * t + Math.PI / 2)).toFixed(2) + ' ' + (8 * Math.sin(b * t)).toFixed(2); } $('sigil').setAttribute('d', d); }
+sigil(3, 2);
+go(0);
+requestAnimationFrame(draw);
+</script>
+</body>
+</html>

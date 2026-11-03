@@ -1,0 +1,251 @@
+<!doctype html>
+<!--
+  title: Quantization ↔ Precision vs Flow — rich — swing and template
+  born: 2026-11-03
+  links: [[Quantization ↔ Precision vs Flow]] (connects-to · rich-face-piece) · listed in [[Quantization ↔ Precision vs Flow — rich.json]]
+  forward_vector: I am Advanced Applications put to its claim that systematic deviation from the grid makes groove: straight 16ths, then swing as one number, then a groove template captured from a played reference and laid over a straight part, and last that template against humanize at exactly the same amount off the grid, heard blind. If the random one grooves as well, the claim is weaker than the page says. I play inside the entry's rich face and stand alone opened directly; I change only when the section I serve does.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:needs" content="">
+<title>Quantization ↔ Precision vs Flow — swing and template</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Manrope:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root { --bg:#0a0a0f; --e1:#12121a; --ring:#22222e; --border:#4a4a5e; --soft:rgba(255,255,255,.06); --fg1:#e8e8f0; --fg2:#c8c8d8; --fg3:#8a8aa0; --fg4:#4a4a5a;
+    --amber:#e8b84a; --amberline:rgba(232,184,74,.5); --warn:#ff9b4a; --blue:#4a8fff;
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --sans:'Manrope',system-ui,sans-serif; --serif:'Cormorant Garamond',Georgia,serif; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); font-weight: 300; }
+  .piece { padding: 22px 22px 20px; }
+  .kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
+  .title { font-family: var(--serif); font-size: 27px; font-weight: 300; color: var(--fg1); margin: 0 0 6px; }
+  .sub { font-size: 14px; line-height: 1.6; color: var(--fg2); max-width: 78ch; margin: 0 0 14px; }
+  .rail { display: flex; flex-wrap: wrap; margin: 4px 0 14px; border: 1px solid var(--soft); border-radius: 2px; }
+  .rail button { flex: 1 1 130px; text-align: left; border: 0; border-right: 1px solid var(--soft); border-radius: 0; background: transparent; padding: 9px 12px; color: var(--fg3); }
+  .rail button:last-child { border-right: 0; }
+  .rail button b { display: block; font-weight: 500; color: var(--fg2); letter-spacing: .04em; text-transform: none; font-size: 12px; margin-top: 2px; }
+  .rail button.on { background: var(--e1); color: var(--amber); }
+  .rail button.on b { color: var(--fg1); }
+  .say { font-family: var(--serif); font-size: 18px; line-height: 1.55; color: var(--fg1); max-width: 80ch; margin: 0 0 14px; min-height: 3.1em; }
+  .say i { color: var(--amber); font-style: italic; }
+  .panel { border: 1px solid var(--soft); border-radius: 2px; background: var(--e1); padding: 10px 12px; margin-bottom: 12px; }
+  .plabel { font-family: var(--mono); font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--fg3); margin-bottom: 8px; display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+  canvas { display: block; width: 100%; }
+  .hidden { display: none !important; }
+  .controls { display: flex; flex-wrap: wrap; gap: 14px 22px; align-items: flex-end; margin-top: 4px; }
+  button { font-family: var(--mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--fg2); background: var(--bg); border: 1px solid var(--border); border-radius: 2px; padding: 8px 13px; cursor: pointer; }
+  button:hover { border-color: rgba(232,184,74,.55); color: var(--fg1); }
+  button:disabled { opacity: .35; cursor: default; }
+  button.on { color: var(--amber); border-color: var(--amberline); }
+  button.go { color: var(--amber); border-color: var(--amberline); box-shadow: 0 0 14px rgba(232,184,74,.18); min-width: 110px; }
+  .seg { display: inline-flex; flex-wrap: wrap; } .seg button + button { border-left: 0; }
+  .seg button { letter-spacing: .04em; text-transform: none; font-size: 12px; padding: 7px 10px; }
+  label.sl { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: .06em; color: var(--fg3); min-width: 240px; flex: 1 1 240px; }
+  label.sl b { color: var(--fg1); font-weight: 500; }
+  input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 3px; background: var(--fg4); margin: 12px 0 4px; outline: none; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 13px; height: 13px; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  input[type=range]::-moz-range-thumb { width: 13px; height: 13px; border: 0; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  .read { display: flex; flex-wrap: wrap; gap: 6px 22px; margin-top: 14px; font-family: var(--mono); font-size: 11.5px; letter-spacing: .04em; color: var(--fg3); }
+  .read b { color: var(--fg1); font-weight: 500; }
+  .verdict { margin-top: 14px; padding: 12px 14px; border-left: 2px solid var(--amber); background: var(--e1); font-family: var(--serif); font-size: 17px; line-height: 1.55; color: var(--fg1); max-width: 92ch; }
+  .verdict b { color: var(--amber); font-weight: 400; }
+  .nav { display: flex; gap: 10px; margin-top: 16px; }
+  .hint { font-family: var(--mono); font-size: 11px; letter-spacing: .03em; line-height: 1.6; color: var(--fg3); margin-top: 10px; max-width: 104ch; }
+  .eqs { margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--soft); }
+  .eq { font-family: var(--serif); font-size: 19px; color: var(--fg1); }
+  .words { font-size: 13px; line-height: 1.55; color: var(--fg2); margin: 2px 0 12px; max-width: 92ch; }
+  .note { font-family: var(--mono); font-size: 10.5px; line-height: 1.6; color: var(--fg4); margin-top: 8px; max-width: 110ch; }
+  .footer { font-family: var(--mono); font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--fg4); margin-top: 18px; }
+</style>
+</head>
+<body>
+<div class="piece">
+  <div class="kicker"><svg width="18" height="18" viewBox="-10 -10 20 20" aria-hidden="true"><path id="sigil" fill="none" stroke="#e8b84a" stroke-width="1.1"/></svg><span>made · Web Audio drum synth · sketch</span></div>
+  <h3 class="title">Same amount, different pattern</h3>
+  <p class="sub">The section says quantization means conforming to any pattern, and that systematic deviation from the grid makes groove while humanize adds random deviation to sound real. Four steps at 120 BPM. The last one sets a groove template against humanize at exactly the same distance from the grid, and asks your ear, blind, which one grooves.</p>
+
+  <div class="rail" id="rail"></div>
+  <p class="say" id="say"></p>
+
+  <div class="panel">
+    <div class="plabel"><span>one bar · each mark where the hit lands · hollow ring = its grid line</span><span id="barLabel"></span></div>
+    <canvas id="bar"></canvas>
+  </div>
+
+  <div class="controls">
+    <button class="go" id="go">▸ play</button>
+    <label class="sl hidden" id="swCtl">swing S = <b id="swVal"></b><input id="sw" type="range" min="50" max="75" step="0.1" value="50"></label>
+    <span class="seg hidden" id="swSeg"><button data-s="50">50 % straight</button><button data-s="66">66 %</button><button data-s="66.6667">2 ⁄ 3, triplet</button><button data-s="75">75 %</button></span>
+    <span class="seg hidden" id="tmplSeg"><button data-v="ref" class="on">the reference</button><button data-v="grid">your part, on the grid</button><button data-v="tmpl">your part, on the template</button></span>
+    <span class="seg hidden" id="xySeg"><button data-v="X" class="on">play X</button><button data-v="Y">play Y</button></span>
+    <span class="seg hidden" id="pickSeg"><button data-p="X">X grooves</button><button data-p="Y">Y grooves</button><button data-p="same">I can't choose</button></span>
+    <button class="hidden" id="again">shuffle and hear again</button>
+  </div>
+  <div class="read" id="read"></div>
+  <div class="verdict hidden" id="verdict"></div>
+  <div class="nav"><button id="back">◂ back</button><button id="next">next ▸</button></div>
+  <div class="hint" id="hint"></div>
+
+  <div class="eqs">
+    <div class="eq">t(odd 16th) = t(its pair's start) + S × 0.250 s</div>
+    <div class="words">(when every second 16th sounds) = (when the 8th note it belongs to starts) + (the swing amount) × (one 8th note, 0.250 s at 120 BPM). S = 50 % is straight; S = 2 ⁄ 3 puts it on the last third of a triplet.</div>
+    <div class="eq">template:  t′ = g + d[step]          humanize:  t′ = g + r,  r random each pass</div>
+    <div class="words">(template) = (the grid line) + (the offset the reference player gave that 16th, the same every bar). (humanize) = (the grid line) + (a fresh random offset for every note on every pass). Here r is scaled so that its root-mean-square size matches d's exactly: the same amount off the grid, a different pattern.</div>
+  </div>
+  <div class="note">The reference is made for this piece, not taken from a record: a player with every offbeat 16th and the snare late, each by its own amount, the feel people sometimes call drunk or Dilla-like. Its template is captured by averaging four played bars, step by step. Swing here follows the convention where S is the offbeat 16th's place inside its 8th note (50 % straight); some machines count it differently. Checked offline on this page's own engine (the script marked engine): the swing positions, the captured template, and humanize matched to the template's RMS on every pass. Not heard by an agent.</div>
+  <div class="footer">Loud’n Live</div>
+</div>
+
+<script id="engine">
+// ---- engine: swing, a captured groove template, humanize matched to it. Pure functions, no page. ----
+const BPM = 120, SIX = 60 / BPM / 4, BAR = 16 * SIX; // 0.125 s, 2 s
+function rng(seed) { let a = seed >>> 0; return () => { a = (a + 0x6D2B79F5) | 0; let t = Math.imul(a ^ (a >>> 15), 1 | a); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
+function gauss(r) { let u = 0; while (!u) u = r(); return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * r()); }
+// swing: every odd 16th moves to S of the way through its 8th note
+function swung(step, S) { return step % 2 ? (step - 1) * SIX + S * 2 * SIX : step * SIX; }
+// the reference player's feel, ms per 16th of the bar: every offbeat 16th late (unevenly), the snare late, the kick a hair early
+const FEEL = [-4, 26, 4, 33, 17, 24, 2, 30, -3, 28, 6, 34, 21, 22, 0, 29];
+const REF = { kick: [0, 8, 11], snare: [4, 12], hat: [...Array(16).keys()] };
+const PART = { kick: [0, 3, 8, 10], snare: [4, 12], ghost: [7, 15], hat: [...Array(16).keys()] };
+// four bars the reference player played: the feel plus a hand's wobble (sd 4 ms)
+function referenceBars(n = 4) { const r = rng(11), bars = []; for (let b = 0; b < n; b++) { const off = FEEL.map((f) => f + 4 * gauss(r)); bars.push(off); } return bars; }
+// capture: the average offset at each 16th over the bars, rounded to 0.1 ms
+function capture(bars) { return FEEL.map((_, i) => Math.round(10 * bars.reduce((a, b) => a + b[i], 0) / bars.length) / 10); }
+const TEMPLATE = capture(referenceBars());
+const rms = (a) => Math.sqrt(a.reduce((s, x) => s + x * x, 0) / a.length);
+// humanize for one pass of the bar: a random offset per 16th, scaled so its RMS equals the template's
+function humanize(pass, target = rms(TEMPLATE)) { const r = rng(1000 + pass), v = FEEL.map(() => gauss(r)), k = target / rms(v); return v.map((x) => x * k); }
+// the notes of a part, one bar: [{part, step, v, t}] with t in seconds; offsets in ms per 16th, or null for the grid
+function notes(part, offs, vel = true) {
+  const out = []; for (const [p, steps] of Object.entries(part)) for (const s of steps) {
+    const v = p === 'kick' ? 0.95 : p === 'snare' ? 0.75 : p === 'ghost' ? 0.22 : (vel ? (s % 4 === 0 ? 0.5 : s % 2 === 0 ? 0.36 : 0.24) : 0.36);
+    out.push({ part: p === 'ghost' ? 'snare' : p, step: s, v, t: s * SIX + (offs ? offs[s] / 1000 : 0) });
+  } return out;
+}
+</script>
+
+<script>
+// ---- the page: sound, canvas, the walk ----
+const $ = (id) => document.getElementById(id);
+const REFBARS = referenceBars();
+const S = { step: 'straight', sw: 0.5, view: 'ref', xy: 'X', tmplIs: 'X', picked: null };
+let ctx = null, bus = null, noise = null, timer = null, playing = false, t0 = 0, cursor = 0;
+function ensure() {
+  if (ctx) return;
+  ctx = new AudioContext();
+  const comp = ctx.createDynamicsCompressor(); comp.threshold.value = -12; comp.ratio.value = 4;
+  bus = ctx.createGain(); bus.gain.value = 0.7; bus.connect(comp).connect(ctx.destination);
+  noise = ctx.createBuffer(1, ctx.sampleRate, ctx.sampleRate); const d = noise.getChannelData(0), r = rng(5); for (let i = 0; i < d.length; i++) d[i] = 2 * r() - 1;
+  ctx.onstatechange = () => { if (ctx.state !== 'running' && playing) halt(); };
+}
+function env(g, at, peak, dec) { g.gain.setValueAtTime(0.0001, at); g.gain.exponentialRampToValueAtTime(peak, at + 0.002); g.gain.exponentialRampToValueAtTime(0.0001, at + dec); }
+function noiseSrc(at, dur) { const n = ctx.createBufferSource(); n.buffer = noise; n.start(at, Math.random() * 0.5); n.stop(at + dur); return n; }
+function voice(part, at, v) {
+  const g = ctx.createGain(); g.connect(bus);
+  if (part === 'kick') { const o = ctx.createOscillator(); o.frequency.setValueAtTime(140, at); o.frequency.exponentialRampToValueAtTime(48, at + 0.11); env(g, at, v, 0.36); o.connect(g); o.start(at); o.stop(at + 0.4); }
+  else if (part === 'snare') { const f = ctx.createBiquadFilter(); f.type = 'bandpass'; f.frequency.value = 1900; f.Q.value = 0.7; noiseSrc(at, 0.22).connect(f).connect(g); env(g, at, v * 0.9, 0.2);
+    const o = ctx.createOscillator(), g2 = ctx.createGain(); o.type = 'triangle'; o.frequency.value = 190; o.connect(g2).connect(bus); env(g2, at, v * 0.5, 0.09); o.start(at); o.stop(at + 0.12); }
+  else if (part === 'hat') { const f = ctx.createBiquadFilter(); f.type = 'highpass'; f.frequency.value = 7500; noiseSrc(at, 0.06).connect(f).connect(g); env(g, at, v * 0.55, 0.045); }
+}
+// what one pass of the bar plays, for the current step
+function pass(k) {
+  if (S.step === 'straight') return notes({ kick: [0, 8], snare: [4, 12], hat: REF.hat }, null);
+  if (S.step === 'swing') return notes({ kick: [0, 8], snare: [4, 12], hat: REF.hat }, null).map((n) => ({ ...n, t: swung(n.step, S.sw) }));
+  if (S.step === 'template') {
+    if (S.view === 'ref') return notes(REF, REFBARS[((k % 4) + 4) % 4]);
+    return notes(PART, S.view === 'tmpl' ? TEMPLATE : null);
+  }
+  const isT = S.xy === S.tmplIs; return notes(PART, isT ? TEMPLATE : humanize(k));
+}
+function tick() {
+  const until = ctx.currentTime + 0.12;
+  for (let k = Math.floor((cursor - t0) / BAR) - 1; t0 + k * BAR - 0.1 < until; k++) for (const e of pass(k)) { const a = t0 + k * BAR + e.t; if (a >= cursor && a < until) voice(e.part, a, e.v); }
+  cursor = until;
+}
+async function play() { ensure(); await ctx.resume(); t0 = cursor = ctx.currentTime + 0.08; playing = true; tick(); timer = setInterval(tick, 25); $('go').textContent = '❚❚ stop'; }
+function halt() { clearInterval(timer); timer = null; playing = false; $('go').textContent = '▸ play'; }
+function stopSound() { if (!playing) return; halt(); bus.gain.setTargetAtTime(0, ctx.currentTime, 0.02); setTimeout(() => { bus.gain.value = 0.7; ctx.suspend(); }, 250); }
+$('go').onclick = () => (playing ? stopSound() : play());
+
+// ---- canvas ----
+function fit(c, h) { const r = devicePixelRatio || 1, w = c.clientWidth || 600; if (c.width !== Math.round(w * r) || c.height !== Math.round(h * r)) { c.width = Math.round(w * r); c.height = Math.round(h * r); c.style.height = h + 'px'; } const g = c.getContext('2d'); g.setTransform(r, 0, 0, r, 0, 0); g.clearRect(0, 0, w, h); return [g, w, h]; }
+const COL = { line: '#22222e', beat: '#4a4a5e', bar: '#8a8aa0', fg: '#c8c8d8', dim: '#4a4a5a', amber: '#e8b84a', blue: '#4a8fff' };
+const ROWS = ['hat', 'snare', 'kick'];
+function draw() {
+  const blind = S.step === 'test' && !S.picked, h = 190, [g, w] = fit($('bar'), h), L = 52, X = (t) => L + (t + 0.04) / (BAR + 0.06) * (w - L - 10), rowH = (h - 40) / 3, Y = (i) => 4 + rowH * i + rowH / 2;
+  g.font = '10px JetBrains Mono, monospace';
+  for (let k = 0; k <= 16; k++) { const t = k * SIX, beat = k % 4 === 0; g.strokeStyle = k % 16 === 0 ? COL.bar : beat ? COL.beat : COL.line; g.beginPath(); g.moveTo(X(t), 2); g.lineTo(X(t), h - 36); g.stroke();
+    if (k < 16 && (S.step === 'straight' || S.step === 'swing') && k < 4) { g.fillStyle = COL.fg; g.textAlign = 'center'; g.fillText(t.toFixed(3), X(t), h - 22); } else if (beat) { g.fillStyle = COL.dim; g.textAlign = 'center'; g.fillText(`beat ${k / 4 + 1}`, X(t), h - 22); } }
+  ROWS.forEach((r, i) => { g.fillStyle = COL.fg; g.textAlign = 'left'; g.fillText(r, 4, Y(i) + 3); });
+  const k = playing ? Math.floor((ctx.currentTime - t0) / BAR) : 0, ns = pass(k);
+  if (blind) { g.fillStyle = COL.fg; g.textAlign = 'center'; g.fillText('hidden until you choose: the picture would give it away', w / 2, h - 6); }
+  for (const n of ns) { const i = ROWS.indexOf(n.part), y = Y(i), gr = n.step * SIX, hgt = rowH * (0.3 + 0.55 * n.v), c = S.step === 'swing' && n.step % 2 ? COL.amber : S.step === 'template' && S.view !== 'grid' ? COL.amber : S.step === 'test' && !blind ? COL.amber : COL.fg;
+    g.strokeStyle = COL.dim; g.beginPath(); g.arc(X(gr), y, 4, 0, 2 * Math.PI); g.stroke();
+    if (blind) continue;
+    if (Math.abs(n.t - gr) > 1e-5) { g.strokeStyle = c; g.globalAlpha = 0.6; g.beginPath(); g.moveTo(X(gr), y); g.lineTo(X(n.t), y); g.stroke(); g.globalAlpha = 1; }
+    g.fillStyle = c; g.fillRect(X(n.t) - 1.5, y - hgt / 2, 3, hgt); }
+  if (S.step === 'swing') { g.fillStyle = COL.amber; g.textAlign = 'center'; for (let s = 1; s < 4; s += 2) g.fillText(swung(s, S.sw).toFixed(3), X(swung(s, S.sw)), h - 8); }
+  if (playing) { const p = ((ctx.currentTime - t0) % BAR + BAR) % BAR; g.strokeStyle = 'rgba(232,184,74,.35)'; g.beginPath(); g.moveTo(X(p), 2); g.lineTo(X(p), h - 36); g.stroke(); }
+  requestAnimationFrame(draw);
+}
+
+// ---- readouts ----
+const ms = (x) => x.toFixed(1);
+function readout() {
+  const R = $('read'), V = $('verdict');
+  $('swVal').textContent = (100 * S.sw).toFixed(1) + ' %';
+  if (S.step === 'straight') { R.innerHTML = '<span>16ths at <b>0, 0.125, 0.250, 0.375 s</b> …</span><span>every one on its line</span>'; return; }
+  if (S.step === 'swing') {
+    const f = [0, 1, 2, 3].map((s) => swung(s, S.sw).toFixed(3)).join(', ');
+    R.innerHTML = `<span>the first four 16ths <b>${f} s</b></span><span>each offbeat 16th late by <b>${(1000 * (swung(1, S.sw) - SIX)).toFixed(1)} ms</b></span><span>the page's “66 %” row: <b>0, 0.167, 0.25, 0.417</b></span>`; return;
+  }
+  if (S.step === 'template') { R.innerHTML = `<span>template, ms per 16th <b>${TEMPLATE.map((x) => x.toFixed(0)).join(' ')}</b></span><span>captured from <b>4</b> played bars</span><span>its size off the grid <b>${ms(rms(TEMPLATE))} ms</b> RMS</span>`; return; }
+  const h = humanize(0);
+  R.innerHTML = `<span>both are off the grid by <b>${ms(rms(TEMPLATE))} ms</b> RMS</span><span>one repeats its offsets every bar · one draws new ones every pass</span>`;
+  if (!S.picked) { V.classList.add('hidden'); return; }
+  V.classList.remove('hidden');
+  const t = S.tmplIs, hu = t === 'X' ? 'Y' : 'X';
+  const line = `<b>${t} was the template</b>, the same ${ms(rms(TEMPLATE))} ms RMS laid the same way every bar. <b>${hu} was humanize</b>, ${ms(rms(h))} ms RMS too, drawn fresh on every pass.`;
+  if (S.picked === t) V.innerHTML = `${line} You picked the template. Same amount off the grid; what differed was the pattern, and the pattern is what you heard as groove. The section's claim held for your ear.`;
+  else if (S.picked === hu) V.innerHTML = `${line} You picked humanize. For your ear the random one grooved, so <i>systematic</i> was not what made the difference this time. Worth a second listen, or worth telling the page.`;
+  else V.innerHTML = `${line} You couldn't choose. Equal amounts off the grid sounded equal to you, so the pattern didn't carry the groove here. That is an honest answer, and it pushes against the section's claim.`;
+}
+
+// ---- the walk ----
+const STEPS = [
+  { key: 'straight', name: 'straight 16ths', say: 'One bar at 120 BPM, a hi-hat on every 16th: <i>0, 0.125, 0.250, 0.375 s</i> and on, the section\'s grid. Every note on its line.' },
+  { key: 'swing', name: 'swing, one number', say: 'Swing moves every second 16th later, all by the same rule. One number, <i>S</i>, says how far through its 8th note it lands. Find the page\'s 66 %, then 2 ⁄ 3.' },
+  { key: 'template', name: 'a groove template', say: 'A player we made, with a feel that is not one number: each 16th of the bar late or early by its own amount. Average four of their bars and you have a <i>template</i>. Then lay it over a different, straight part.' },
+  { key: 'test', name: 'the test', say: 'Your part twice, X and Y, unlabelled. One is on the template. One is humanize, at <i>exactly the same amount</i> off the grid, drawn at random every pass. Listen to both, then say which grooves.' },
+];
+let at = 0;
+function shuffle() { S.tmplIs = Math.random() < 0.5 ? 'X' : 'Y'; S.picked = null; S.xy = 'X'; $('xySeg').querySelectorAll('button').forEach((b) => b.classList.toggle('on', b.dataset.v === 'X')); $('pickSeg').querySelectorAll('button').forEach((b) => (b.disabled = false, b.classList.remove('on'))); }
+function go(i) {
+  stopSound(); at = Math.max(0, Math.min(STEPS.length - 1, i)); const st = STEPS[at]; S.step = st.key;
+  [...$('rail').children].forEach((b, j) => b.classList.toggle('on', j === at)); $('say').innerHTML = st.say; $('back').disabled = at === 0; $('next').disabled = at === STEPS.length - 1;
+  $('swCtl').classList.toggle('hidden', st.key !== 'swing'); $('swSeg').classList.toggle('hidden', st.key !== 'swing');
+  $('tmplSeg').classList.toggle('hidden', st.key !== 'template');
+  for (const id of ['xySeg', 'pickSeg', 'again']) $(id).classList.toggle('hidden', st.key !== 'test');
+  $('verdict').classList.add('hidden');
+  if (st.key === 'test') shuffle();
+  $('barLabel').textContent = { straight: 'seconds', swing: 'seconds', template: 'amber = moved by the template', test: 'X and Y' }[st.key];
+  $('hint').textContent = { straight: 'Listen to the hi-hat: even, machine-even.', swing: 'At 66 % the offbeat lands at 0.165 s; the page\'s 0.167 is 2 ⁄ 3. At 75 % it is a dotted feel.', template: 'The template moves the kick, snare and hats of your part to wherever the reference put that 16th. Same notes, the player\'s timing.', test: 'Switch X and Y while it plays; the bar keeps going. The picture stays hidden until you choose.' }[st.key];
+  readout();
+}
+STEPS.forEach((s, i) => { const b = document.createElement('button'); b.innerHTML = `${i + 1}<b>${s.name}</b>`; b.onclick = () => go(i); $('rail').appendChild(b); });
+$('back').onclick = () => go(at - 1); $('next').onclick = () => go(at + 1);
+$('sw').oninput = () => { S.sw = $('sw').value / 100; readout(); };
+$('swSeg').querySelectorAll('button').forEach((b) => (b.onclick = () => { S.sw = +b.dataset.s / 100; $('sw').value = b.dataset.s; readout(); }));
+$('tmplSeg').querySelectorAll('button').forEach((b) => (b.onclick = () => { S.view = b.dataset.v; $('tmplSeg').querySelectorAll('button').forEach((x) => x.classList.toggle('on', x === b)); }));
+$('xySeg').querySelectorAll('button').forEach((b) => (b.onclick = () => { S.xy = b.dataset.v; $('xySeg').querySelectorAll('button').forEach((x) => x.classList.toggle('on', x === b)); if (!playing) play(); }));
+$('pickSeg').querySelectorAll('button').forEach((b) => (b.onclick = () => { S.picked = b.dataset.p; $('pickSeg').querySelectorAll('button').forEach((x) => (x.disabled = true, x.classList.toggle('on', x === b))); readout(); }));
+$('again').onclick = () => { stopSound(); shuffle(); readout(); };
+function sigil(a, b) { let d = ''; for (let i = 0; i <= 240; i++) { const t = (i / 240) * 2 * Math.PI; d += (i ? 'L' : 'M') + (8 * Math.sin(a * t + Math.PI / 2)).toFixed(2) + ' ' + (8 * Math.sin(b * t)).toFixed(2); } $('sigil').setAttribute('d', d); }
+sigil(3, 2);
+go(0);
+requestAnimationFrame(draw);
+</script>
+</body>
+</html>
